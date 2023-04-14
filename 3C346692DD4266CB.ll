@@ -121,1860 +121,1853 @@ target triple = "x86_64-unknown-linux-gnu"
 @NCBP = internal unnamed_addr constant <{ <{ [16 x [2 x i8]], [32 x [2 x i8]] }>, [48 x [2 x i8]] }> <{ <{ [16 x [2 x i8]], [32 x [2 x i8]] }> <{ [16 x [2 x i8]] [[2 x i8] c"\01\00", [2 x i8] c"\0A\01", [2 x i8] c"\0B\02", [2 x i8] c"\06\05", [2 x i8] c"\0C\03", [2 x i8] c"\07\06", [2 x i8] c"\0E\0E", [2 x i8] c"\02\0A", [2 x i8] c"\0D\04", [2 x i8] c"\0F\0F", [2 x i8] c"\08\07", [2 x i8] c"\03\0B", [2 x i8] c"\09\08", [2 x i8] c"\04\0C", [2 x i8] c"\05\0D", [2 x i8] c"\00\09"], [32 x [2 x i8]] zeroinitializer }>, [48 x [2 x i8]] [[2 x i8] c"\03\00", [2 x i8] c"\1D\02", [2 x i8] c"\1E\03", [2 x i8] c"\11\07", [2 x i8] c"\1F\04", [2 x i8] c"\12\08", [2 x i8] c"%\11", [2 x i8] c"\08\0D", [2 x i8] c" \05", [2 x i8] c"&\12", [2 x i8] c"\13\09", [2 x i8] c"\09\0E", [2 x i8] c"\14\0A", [2 x i8] c"\0A\0F", [2 x i8] c"\0B\10", [2 x i8] c"\02\0B", [2 x i8] c"\10\01", [2 x i8] c"! ", [2 x i8] c"\22!", [2 x i8] c"\15$", [2 x i8] c"#\22", [2 x i8] c"\16%", [2 x i8] c"',", [2 x i8] c"\04(", [2 x i8] c"$#", [2 x i8] c"(-", [2 x i8] c"\17&", [2 x i8] c"\05)", [2 x i8] c"\18'", [2 x i8] c"\06*", [2 x i8] c"\07+", [2 x i8] c"\01\13", [2 x i8] c")\06", [2 x i8] c"*\18", [2 x i8] c"+\19", [2 x i8] c"\19\14", [2 x i8] c",\1A", [2 x i8] c"\1A\15", [2 x i8] c"..", [2 x i8] c"\0C\1C", [2 x i8] c"-\1B", [2 x i8] c"//", [2 x i8] c"\1B\16", [2 x i8] c"\0D\1D", [2 x i8] c"\1C\17", [2 x i8] c"\0E\1E", [2 x i8] c"\0F\1F", [2 x i8] c"\00\0C"] }>, align 16
 
 ; Function Attrs: nofree norecurse nosync nounwind memory(write, argmem: readwrite, inaccessiblemem: none) uwtable
-define dso_local i32 @ue_v(ptr nocapture noundef readnone %0, i32 noundef %1, ptr nocapture noundef %2) local_unnamed_addr #0 {
-  %4 = add nsw i32 %1, 1
-  %5 = add i32 %1, -1
-  %6 = icmp ult i32 %5, -3
-  br i1 %6, label %7, label %16
+define dso_local i32 @ue_v(ptr nocapture noundef readnone %tracestring, i32 noundef %value, ptr nocapture noundef %bitstream) local_unnamed_addr #0 {
+entry:
+  %add.i = add nsw i32 %value, 1
+  %0 = add i32 %value, -1
+  %cmp110.i = icmp ult i32 %0, -3
+  br i1 %cmp110.i, label %for.body.i, label %ue_linfo.exit
 
-7:                                                ; preds = %3, %7
-  %8 = phi i32 [ %10, %7 ], [ %4, %3 ]
-  %9 = phi i32 [ %11, %7 ], [ 0, %3 ]
-  %10 = sdiv i32 %8, 2
-  %11 = add nuw nsw i32 %9, 1
-  %12 = icmp ult i32 %9, 15
-  %13 = add nsw i32 %10, -2
-  %14 = icmp ult i32 %13, -3
-  %15 = select i1 %12, i1 %14, i1 false
-  br i1 %15, label %7, label %16, !llvm.loop !5
+for.body.i:                                       ; preds = %entry, %for.body.i
+  %nn.0.in12.i = phi i32 [ %nn.0.i, %for.body.i ], [ %add.i, %entry ]
+  %i.011.i = phi i32 [ %inc.i, %for.body.i ], [ 0, %entry ]
+  %nn.0.i = sdiv i32 %nn.0.in12.i, 2
+  %inc.i = add nuw nsw i32 %i.011.i, 1
+  %cmp.i = icmp ult i32 %i.011.i, 15
+  %1 = add nsw i32 %nn.0.i, -2
+  %cmp1.i = icmp ult i32 %1, -3
+  %2 = select i1 %cmp.i, i1 %cmp1.i, i1 false
+  br i1 %2, label %for.body.i, label %ue_linfo.exit, !llvm.loop !5
 
-16:                                               ; preds = %7, %3
-  %17 = phi i32 [ 0, %3 ], [ %11, %7 ]
-  %18 = shl nuw nsw i32 %17, 1
-  %19 = or i32 %18, 1
-  %20 = shl nsw i32 -1, %17
-  %21 = add i32 %20, %4
-  %22 = shl nuw nsw i32 1, %17
-  %23 = add nsw i32 %22, -1
-  %24 = and i32 %23, %21
-  %25 = or i32 %24, %22
-  %26 = shl nuw i32 1, %18
-  %27 = getelementptr inbounds %struct.Bitstream, ptr %2, i64 0, i32 2
-  %28 = getelementptr inbounds %struct.Bitstream, ptr %2, i64 0, i32 1
-  %29 = getelementptr inbounds %struct.Bitstream, ptr %2, i64 0, i32 9
-  %30 = load i8, ptr %27, align 8, !tbaa !7
-  br label %31
+ue_linfo.exit:                                    ; preds = %for.body.i, %entry
+  %i.0.lcssa.i = phi i32 [ 0, %entry ], [ %inc.i, %for.body.i ]
+  %mul.i = shl nuw nsw i32 %i.0.lcssa.i, 1
+  %add3.i = or i32 %mul.i, 1
+  %shl.neg.i = shl nsw i32 -1, %i.0.lcssa.i
+  %sub.i = add i32 %shl.neg.i, %add.i
+  %shl.i = shl nuw nsw i32 1, %i.0.lcssa.i
+  %sub.i12 = add nsw i32 %shl.i, -1
+  %and.i = and i32 %sub.i12, %sub.i
+  %or.i = or i32 %and.i, %shl.i
+  %shl.i15 = shl nuw i32 1, %mul.i
+  %byte_buf.i = getelementptr inbounds %struct.Bitstream, ptr %bitstream, i64 0, i32 2
+  %bits_to_go.i = getelementptr inbounds %struct.Bitstream, ptr %bitstream, i64 0, i32 1
+  %streamBuffer.i = getelementptr inbounds %struct.Bitstream, ptr %bitstream, i64 0, i32 9
+  %.pre.i = load i8, ptr %byte_buf.i, align 8, !tbaa !7
+  br label %for.body.i18
 
-31:                                               ; preds = %50, %16
-  %32 = phi i8 [ %30, %16 ], [ %51, %50 ]
-  %33 = phi i32 [ %26, %16 ], [ %42, %50 ]
-  %34 = phi i32 [ 0, %16 ], [ %52, %50 ]
-  %35 = shl i8 %32, 1
-  %36 = and i32 %33, %25
-  %37 = icmp ne i32 %36, 0
-  %38 = zext i1 %37 to i8
-  %39 = or i8 %35, %38
-  store i8 %39, ptr %27, align 8, !tbaa !7
-  %40 = load i32, ptr %28, align 4, !tbaa !13
-  %41 = add nsw i32 %40, -1
-  store i32 %41, ptr %28, align 4, !tbaa !13
-  %42 = lshr i32 %33, 1
-  %43 = icmp eq i32 %41, 0
-  br i1 %43, label %44, label %50
+for.body.i18:                                     ; preds = %for.inc.i, %ue_linfo.exit
+  %3 = phi i8 [ %.pre.i, %ue_linfo.exit ], [ %8, %for.inc.i ]
+  %mask.030.i = phi i32 [ %shl.i15, %ue_linfo.exit ], [ %shr.i, %for.inc.i ]
+  %i.029.i = phi i32 [ 0, %ue_linfo.exit ], [ %inc15.i, %for.inc.i ]
+  %shl2.i = shl i8 %3, 1
+  %and.i17 = and i32 %mask.030.i, %or.i
+  %tobool.not.i = icmp ne i32 %and.i17, 0
+  %4 = zext i1 %tobool.not.i to i8
+  %spec.select = or i8 %shl2.i, %4
+  store i8 %spec.select, ptr %byte_buf.i, align 8, !tbaa !7
+  %5 = load i32, ptr %bits_to_go.i, align 4, !tbaa !13
+  %dec.i = add nsw i32 %5, -1
+  store i32 %dec.i, ptr %bits_to_go.i, align 4, !tbaa !13
+  %shr.i = lshr i32 %mask.030.i, 1
+  %cmp8.i = icmp eq i32 %dec.i, 0
+  br i1 %cmp8.i, label %if.then10.i, label %for.inc.i
 
-44:                                               ; preds = %31
-  store i32 8, ptr %28, align 4, !tbaa !13
-  %45 = load ptr, ptr %29, align 8, !tbaa !14
-  %46 = load i32, ptr %2, align 8, !tbaa !15
-  %47 = add nsw i32 %46, 1
-  store i32 %47, ptr %2, align 8, !tbaa !15
-  %48 = sext i32 %46 to i64
-  %49 = getelementptr inbounds i8, ptr %45, i64 %48
-  store i8 %39, ptr %49, align 1, !tbaa !16
-  store i8 0, ptr %27, align 8, !tbaa !7
-  br label %50
+if.then10.i:                                      ; preds = %for.body.i18
+  store i32 8, ptr %bits_to_go.i, align 4, !tbaa !13
+  %6 = load ptr, ptr %streamBuffer.i, align 8, !tbaa !14
+  %7 = load i32, ptr %bitstream, align 8, !tbaa !15
+  %inc.i19 = add nsw i32 %7, 1
+  store i32 %inc.i19, ptr %bitstream, align 8, !tbaa !15
+  %idxprom.i = sext i32 %7 to i64
+  %arrayidx.i = getelementptr inbounds i8, ptr %6, i64 %idxprom.i
+  store i8 %spec.select, ptr %arrayidx.i, align 1, !tbaa !16
+  store i8 0, ptr %byte_buf.i, align 8, !tbaa !7
+  br label %for.inc.i
 
-50:                                               ; preds = %44, %31
-  %51 = phi i8 [ %39, %31 ], [ 0, %44 ]
-  %52 = add nuw nsw i32 %34, 1
-  %53 = icmp eq i32 %52, %19
-  br i1 %53, label %54, label %31, !llvm.loop !17
+for.inc.i:                                        ; preds = %if.then10.i, %for.body.i18
+  %8 = phi i8 [ %spec.select, %for.body.i18 ], [ 0, %if.then10.i ]
+  %inc15.i = add nuw nsw i32 %i.029.i, 1
+  %exitcond.not = icmp eq i32 %inc15.i, %add3.i
+  br i1 %exitcond.not, label %writeUVLC2buffer.exit, label %for.body.i18, !llvm.loop !17
 
-54:                                               ; preds = %50
-  ret i32 %19
+writeUVLC2buffer.exit:                            ; preds = %for.inc.i
+  ret i32 %add3.i
 }
 
 ; Function Attrs: nofree norecurse nosync nounwind memory(argmem: write) uwtable
-define dso_local void @ue_linfo(i32 noundef %0, i32 noundef %1, ptr nocapture noundef writeonly %2, ptr nocapture noundef writeonly %3) local_unnamed_addr #1 {
-  %5 = add nsw i32 %0, 1
-  %6 = add i32 %0, -1
-  %7 = icmp ult i32 %6, -3
-  br i1 %7, label %8, label %17
+define dso_local void @ue_linfo(i32 noundef %ue, i32 noundef %dummy, ptr nocapture noundef writeonly %len, ptr nocapture noundef writeonly %info) local_unnamed_addr #1 {
+entry:
+  %add = add nsw i32 %ue, 1
+  %0 = add i32 %ue, -1
+  %cmp110 = icmp ult i32 %0, -3
+  br i1 %cmp110, label %for.body, label %for.end
 
-8:                                                ; preds = %4, %8
-  %9 = phi i32 [ %11, %8 ], [ %5, %4 ]
-  %10 = phi i32 [ %12, %8 ], [ 0, %4 ]
-  %11 = sdiv i32 %9, 2
-  %12 = add nuw nsw i32 %10, 1
-  %13 = icmp ult i32 %10, 15
-  %14 = add nsw i32 %11, -2
-  %15 = icmp ult i32 %14, -3
-  %16 = select i1 %13, i1 %15, i1 false
-  br i1 %16, label %8, label %17, !llvm.loop !5
+for.body:                                         ; preds = %entry, %for.body
+  %nn.0.in12 = phi i32 [ %nn.0, %for.body ], [ %add, %entry ]
+  %i.011 = phi i32 [ %inc, %for.body ], [ 0, %entry ]
+  %nn.0 = sdiv i32 %nn.0.in12, 2
+  %inc = add nuw nsw i32 %i.011, 1
+  %cmp = icmp ult i32 %i.011, 15
+  %1 = add nsw i32 %nn.0, -2
+  %cmp1 = icmp ult i32 %1, -3
+  %2 = select i1 %cmp, i1 %cmp1, i1 false
+  br i1 %2, label %for.body, label %for.end, !llvm.loop !5
 
-17:                                               ; preds = %8, %4
-  %18 = phi i32 [ 0, %4 ], [ %12, %8 ]
-  %19 = shl nuw nsw i32 %18, 1
-  %20 = or i32 %19, 1
-  store i32 %20, ptr %2, align 4, !tbaa !18
-  %21 = shl nsw i32 -1, %18
-  %22 = add i32 %21, %5
-  store i32 %22, ptr %3, align 4, !tbaa !18
+for.end:                                          ; preds = %for.body, %entry
+  %i.0.lcssa = phi i32 [ 0, %entry ], [ %inc, %for.body ]
+  %mul = shl nuw nsw i32 %i.0.lcssa, 1
+  %add3 = or i32 %mul, 1
+  store i32 %add3, ptr %len, align 4, !tbaa !18
+  %shl.neg = shl nsw i32 -1, %i.0.lcssa
+  %sub = add i32 %shl.neg, %add
+  store i32 %sub, ptr %info, align 4, !tbaa !18
   ret void
 }
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(argmem: readwrite) uwtable
-define dso_local i32 @symbol2uvlc(ptr nocapture noundef %0) local_unnamed_addr #2 {
-  %2 = getelementptr inbounds %struct.syntaxelement, ptr %0, i64 0, i32 3
-  %3 = load i32, ptr %2, align 4, !tbaa !19
-  %4 = sdiv i32 %3, 2
-  %5 = shl nuw i32 1, %4
-  %6 = getelementptr inbounds %struct.syntaxelement, ptr %0, i64 0, i32 4
-  %7 = load i32, ptr %6, align 8, !tbaa !21
-  %8 = add nsw i32 %5, -1
-  %9 = and i32 %8, %7
-  %10 = or i32 %9, %5
-  %11 = getelementptr inbounds %struct.syntaxelement, ptr %0, i64 0, i32 5
-  store i32 %10, ptr %11, align 4, !tbaa !22
+define dso_local i32 @symbol2uvlc(ptr nocapture noundef %sym) local_unnamed_addr #2 {
+entry:
+  %len = getelementptr inbounds %struct.syntaxelement, ptr %sym, i64 0, i32 3
+  %0 = load i32, ptr %len, align 4, !tbaa !19
+  %div = sdiv i32 %0, 2
+  %shl = shl nuw i32 1, %div
+  %inf = getelementptr inbounds %struct.syntaxelement, ptr %sym, i64 0, i32 4
+  %1 = load i32, ptr %inf, align 8, !tbaa !21
+  %sub = add nsw i32 %shl, -1
+  %and = and i32 %sub, %1
+  %or = or i32 %and, %shl
+  %bitpattern = getelementptr inbounds %struct.syntaxelement, ptr %sym, i64 0, i32 5
+  store i32 %or, ptr %bitpattern, align 4, !tbaa !22
   ret i32 0
 }
 
 ; Function Attrs: nofree norecurse nosync nounwind memory(write, argmem: readwrite, inaccessiblemem: none) uwtable
-define dso_local void @writeUVLC2buffer(ptr nocapture noundef readonly %0, ptr nocapture noundef %1) local_unnamed_addr #0 {
-  %3 = getelementptr inbounds %struct.syntaxelement, ptr %0, i64 0, i32 3
-  %4 = load i32, ptr %3, align 4, !tbaa !19
-  %5 = icmp sgt i32 %4, 0
-  br i1 %5, label %6, label %43
+define dso_local void @writeUVLC2buffer(ptr nocapture noundef readonly %se, ptr nocapture noundef %currStream) local_unnamed_addr #0 {
+entry:
+  %len = getelementptr inbounds %struct.syntaxelement, ptr %se, i64 0, i32 3
+  %0 = load i32, ptr %len, align 4, !tbaa !19
+  %cmp28 = icmp sgt i32 %0, 0
+  br i1 %cmp28, label %for.body.lr.ph, label %for.end
 
-6:                                                ; preds = %2
-  %7 = add nsw i32 %4, -1
-  %8 = shl nuw i32 1, %7
-  %9 = getelementptr inbounds %struct.Bitstream, ptr %1, i64 0, i32 2
-  %10 = getelementptr inbounds %struct.syntaxelement, ptr %0, i64 0, i32 5
-  %11 = getelementptr inbounds %struct.Bitstream, ptr %1, i64 0, i32 1
-  %12 = getelementptr inbounds %struct.Bitstream, ptr %1, i64 0, i32 9
-  %13 = load i8, ptr %9, align 8, !tbaa !7
-  br label %14
+for.body.lr.ph:                                   ; preds = %entry
+  %sub = add nsw i32 %0, -1
+  %shl = shl nuw i32 1, %sub
+  %byte_buf = getelementptr inbounds %struct.Bitstream, ptr %currStream, i64 0, i32 2
+  %bitpattern = getelementptr inbounds %struct.syntaxelement, ptr %se, i64 0, i32 5
+  %bits_to_go = getelementptr inbounds %struct.Bitstream, ptr %currStream, i64 0, i32 1
+  %streamBuffer = getelementptr inbounds %struct.Bitstream, ptr %currStream, i64 0, i32 9
+  %.pre = load i8, ptr %byte_buf, align 8, !tbaa !7
+  br label %for.body
 
-14:                                               ; preds = %6, %38
-  %15 = phi i32 [ %4, %6 ], [ %39, %38 ]
-  %16 = phi i8 [ %13, %6 ], [ %40, %38 ]
-  %17 = phi i32 [ %8, %6 ], [ %29, %38 ]
-  %18 = phi i32 [ 0, %6 ], [ %41, %38 ]
-  %19 = shl i8 %16, 1
-  store i8 %19, ptr %9, align 8, !tbaa !7
-  %20 = load i32, ptr %10, align 4, !tbaa !22
-  %21 = and i32 %20, %17
-  %22 = icmp eq i32 %21, 0
-  br i1 %22, label %25, label %23
+for.body:                                         ; preds = %for.body.lr.ph, %for.inc
+  %1 = phi i32 [ %0, %for.body.lr.ph ], [ %9, %for.inc ]
+  %2 = phi i8 [ %.pre, %for.body.lr.ph ], [ %10, %for.inc ]
+  %mask.030 = phi i32 [ %shl, %for.body.lr.ph ], [ %shr, %for.inc ]
+  %i.029 = phi i32 [ 0, %for.body.lr.ph ], [ %inc15, %for.inc ]
+  %shl2 = shl i8 %2, 1
+  store i8 %shl2, ptr %byte_buf, align 8, !tbaa !7
+  %3 = load i32, ptr %bitpattern, align 4, !tbaa !22
+  %and = and i32 %3, %mask.030
+  %tobool.not = icmp eq i32 %and, 0
+  br i1 %tobool.not, label %if.end, label %if.then
 
-23:                                               ; preds = %14
-  %24 = or i8 %19, 1
-  store i8 %24, ptr %9, align 8, !tbaa !7
-  br label %25
+if.then:                                          ; preds = %for.body
+  %4 = or i8 %shl2, 1
+  store i8 %4, ptr %byte_buf, align 8, !tbaa !7
+  br label %if.end
 
-25:                                               ; preds = %23, %14
-  %26 = phi i8 [ %24, %23 ], [ %19, %14 ]
-  %27 = load i32, ptr %11, align 4, !tbaa !13
-  %28 = add nsw i32 %27, -1
-  store i32 %28, ptr %11, align 4, !tbaa !13
-  %29 = lshr i32 %17, 1
-  %30 = icmp eq i32 %28, 0
-  br i1 %30, label %31, label %38
+if.end:                                           ; preds = %if.then, %for.body
+  %5 = phi i8 [ %4, %if.then ], [ %shl2, %for.body ]
+  %6 = load i32, ptr %bits_to_go, align 4, !tbaa !13
+  %dec = add nsw i32 %6, -1
+  store i32 %dec, ptr %bits_to_go, align 4, !tbaa !13
+  %shr = lshr i32 %mask.030, 1
+  %cmp8 = icmp eq i32 %dec, 0
+  br i1 %cmp8, label %if.then10, label %for.inc
 
-31:                                               ; preds = %25
-  store i32 8, ptr %11, align 4, !tbaa !13
-  %32 = load ptr, ptr %12, align 8, !tbaa !14
-  %33 = load i32, ptr %1, align 8, !tbaa !15
-  %34 = add nsw i32 %33, 1
-  store i32 %34, ptr %1, align 8, !tbaa !15
-  %35 = sext i32 %33 to i64
-  %36 = getelementptr inbounds i8, ptr %32, i64 %35
-  store i8 %26, ptr %36, align 1, !tbaa !16
-  store i8 0, ptr %9, align 8, !tbaa !7
-  %37 = load i32, ptr %3, align 4, !tbaa !19
-  br label %38
+if.then10:                                        ; preds = %if.end
+  store i32 8, ptr %bits_to_go, align 4, !tbaa !13
+  %7 = load ptr, ptr %streamBuffer, align 8, !tbaa !14
+  %8 = load i32, ptr %currStream, align 8, !tbaa !15
+  %inc = add nsw i32 %8, 1
+  store i32 %inc, ptr %currStream, align 8, !tbaa !15
+  %idxprom = sext i32 %8 to i64
+  %arrayidx = getelementptr inbounds i8, ptr %7, i64 %idxprom
+  store i8 %5, ptr %arrayidx, align 1, !tbaa !16
+  store i8 0, ptr %byte_buf, align 8, !tbaa !7
+  %.pre31 = load i32, ptr %len, align 4, !tbaa !19
+  br label %for.inc
 
-38:                                               ; preds = %25, %31
-  %39 = phi i32 [ %15, %25 ], [ %37, %31 ]
-  %40 = phi i8 [ %26, %25 ], [ 0, %31 ]
-  %41 = add nuw nsw i32 %18, 1
-  %42 = icmp slt i32 %41, %39
-  br i1 %42, label %14, label %43, !llvm.loop !17
+for.inc:                                          ; preds = %if.end, %if.then10
+  %9 = phi i32 [ %1, %if.end ], [ %.pre31, %if.then10 ]
+  %10 = phi i8 [ %5, %if.end ], [ 0, %if.then10 ]
+  %inc15 = add nuw nsw i32 %i.029, 1
+  %cmp = icmp slt i32 %inc15, %9
+  br i1 %cmp, label %for.body, label %for.end, !llvm.loop !17
 
-43:                                               ; preds = %38, %2
+for.end:                                          ; preds = %for.inc, %entry
   ret void
 }
 
 ; Function Attrs: nofree nosync nounwind memory(write, argmem: readwrite, inaccessiblemem: none) uwtable
-define dso_local i32 @se_v(ptr nocapture noundef readnone %0, i32 noundef %1, ptr nocapture noundef %2) local_unnamed_addr #3 {
-  %4 = tail call i32 @llvm.abs.i32(i32 %1, i1 true)
-  %5 = shl nuw i32 %4, 1
-  %6 = icmp eq i32 %1, 0
-  br i1 %6, label %18, label %7
+define dso_local i32 @se_v(ptr nocapture noundef readnone %tracestring, i32 noundef %value, ptr nocapture noundef %bitstream) local_unnamed_addr #3 {
+entry:
+  %cond.i.i = tail call i32 @llvm.abs.i32(i32 %value, i1 true)
+  %shl.i = shl nuw i32 %cond.i.i, 1
+  %cmp212.not.i = icmp eq i32 %value, 0
+  br i1 %cmp212.not.i, label %se_linfo.exit, label %for.body.preheader.i
 
-7:                                                ; preds = %3
-  %8 = ashr exact i32 %5, 1
-  br label %9
+for.body.preheader.i:                             ; preds = %entry
+  %div.i = ashr exact i32 %shl.i, 1
+  br label %for.body.i
 
-9:                                                ; preds = %9, %7
-  %10 = phi i32 [ %12, %9 ], [ %8, %7 ]
-  %11 = phi i32 [ %13, %9 ], [ 0, %7 ]
-  %12 = sdiv i32 %10, 2
-  %13 = add nuw nsw i32 %11, 1
-  %14 = icmp ult i32 %11, 15
-  %15 = add nsw i32 %10, -2
-  %16 = icmp ult i32 %15, -3
-  %17 = select i1 %14, i1 %16, i1 false
-  br i1 %17, label %9, label %18, !llvm.loop !23
+for.body.i:                                       ; preds = %for.body.i, %for.body.preheader.i
+  %nn.014.i = phi i32 [ %div3.i, %for.body.i ], [ %div.i, %for.body.preheader.i ]
+  %i.013.i = phi i32 [ %inc.i, %for.body.i ], [ 0, %for.body.preheader.i ]
+  %div3.i = sdiv i32 %nn.014.i, 2
+  %inc.i = add nuw nsw i32 %i.013.i, 1
+  %cmp1.i = icmp ult i32 %i.013.i, 15
+  %0 = add nsw i32 %nn.014.i, -2
+  %cmp2.i = icmp ult i32 %0, -3
+  %1 = select i1 %cmp1.i, i1 %cmp2.i, i1 false
+  br i1 %1, label %for.body.i, label %se_linfo.exit, !llvm.loop !23
 
-18:                                               ; preds = %9, %3
-  %19 = phi i32 [ 0, %3 ], [ %13, %9 ]
-  %20 = icmp slt i32 %1, 1
-  %21 = zext i1 %20 to i32
-  %22 = shl nuw nsw i32 %19, 1
-  %23 = or i32 %22, 1
-  %24 = shl nsw i32 -1, %19
-  %25 = or i32 %5, %21
-  %26 = add i32 %25, %24
-  %27 = shl nuw nsw i32 1, %19
-  %28 = add nsw i32 %27, -1
-  %29 = and i32 %28, %26
-  %30 = or i32 %29, %27
-  %31 = shl nuw i32 1, %22
-  %32 = getelementptr inbounds %struct.Bitstream, ptr %2, i64 0, i32 2
-  %33 = getelementptr inbounds %struct.Bitstream, ptr %2, i64 0, i32 1
-  %34 = getelementptr inbounds %struct.Bitstream, ptr %2, i64 0, i32 9
-  %35 = load i8, ptr %32, align 8, !tbaa !7
-  br label %36
+se_linfo.exit:                                    ; preds = %for.body.i, %entry
+  %i.0.lcssa.i = phi i32 [ 0, %entry ], [ %inc.i, %for.body.i ]
+  %cmp.i = icmp slt i32 %value, 1
+  %spec.store.select.i = zext i1 %cmp.i to i32
+  %mul.i = shl nuw nsw i32 %i.0.lcssa.i, 1
+  %add.i = or i32 %mul.i, 1
+  %shl4.neg.i = shl nsw i32 -1, %i.0.lcssa.i
+  %sub.i = or i32 %shl.i, %spec.store.select.i
+  %add5.i = add i32 %sub.i, %shl4.neg.i
+  %shl.i13 = shl nuw nsw i32 1, %i.0.lcssa.i
+  %sub.i14 = add nsw i32 %shl.i13, -1
+  %and.i = and i32 %sub.i14, %add5.i
+  %or.i = or i32 %and.i, %shl.i13
+  %shl.i17 = shl nuw i32 1, %mul.i
+  %byte_buf.i = getelementptr inbounds %struct.Bitstream, ptr %bitstream, i64 0, i32 2
+  %bits_to_go.i = getelementptr inbounds %struct.Bitstream, ptr %bitstream, i64 0, i32 1
+  %streamBuffer.i = getelementptr inbounds %struct.Bitstream, ptr %bitstream, i64 0, i32 9
+  %.pre.i = load i8, ptr %byte_buf.i, align 8, !tbaa !7
+  br label %for.body.i20
 
-36:                                               ; preds = %55, %18
-  %37 = phi i8 [ %35, %18 ], [ %56, %55 ]
-  %38 = phi i32 [ %31, %18 ], [ %47, %55 ]
-  %39 = phi i32 [ 0, %18 ], [ %57, %55 ]
-  %40 = shl i8 %37, 1
-  %41 = and i32 %38, %30
-  %42 = icmp ne i32 %41, 0
-  %43 = zext i1 %42 to i8
-  %44 = or i8 %40, %43
-  store i8 %44, ptr %32, align 8, !tbaa !7
-  %45 = load i32, ptr %33, align 4, !tbaa !13
-  %46 = add nsw i32 %45, -1
-  store i32 %46, ptr %33, align 4, !tbaa !13
-  %47 = lshr i32 %38, 1
-  %48 = icmp eq i32 %46, 0
-  br i1 %48, label %49, label %55
+for.body.i20:                                     ; preds = %for.inc.i, %se_linfo.exit
+  %2 = phi i8 [ %.pre.i, %se_linfo.exit ], [ %7, %for.inc.i ]
+  %mask.030.i = phi i32 [ %shl.i17, %se_linfo.exit ], [ %shr.i, %for.inc.i ]
+  %i.029.i = phi i32 [ 0, %se_linfo.exit ], [ %inc15.i, %for.inc.i ]
+  %shl2.i = shl i8 %2, 1
+  %and.i19 = and i32 %mask.030.i, %or.i
+  %tobool.not.i = icmp ne i32 %and.i19, 0
+  %3 = zext i1 %tobool.not.i to i8
+  %spec.select = or i8 %shl2.i, %3
+  store i8 %spec.select, ptr %byte_buf.i, align 8, !tbaa !7
+  %4 = load i32, ptr %bits_to_go.i, align 4, !tbaa !13
+  %dec.i = add nsw i32 %4, -1
+  store i32 %dec.i, ptr %bits_to_go.i, align 4, !tbaa !13
+  %shr.i = lshr i32 %mask.030.i, 1
+  %cmp8.i = icmp eq i32 %dec.i, 0
+  br i1 %cmp8.i, label %if.then10.i, label %for.inc.i
 
-49:                                               ; preds = %36
-  store i32 8, ptr %33, align 4, !tbaa !13
-  %50 = load ptr, ptr %34, align 8, !tbaa !14
-  %51 = load i32, ptr %2, align 8, !tbaa !15
-  %52 = add nsw i32 %51, 1
-  store i32 %52, ptr %2, align 8, !tbaa !15
-  %53 = sext i32 %51 to i64
-  %54 = getelementptr inbounds i8, ptr %50, i64 %53
-  store i8 %44, ptr %54, align 1, !tbaa !16
-  store i8 0, ptr %32, align 8, !tbaa !7
-  br label %55
+if.then10.i:                                      ; preds = %for.body.i20
+  store i32 8, ptr %bits_to_go.i, align 4, !tbaa !13
+  %5 = load ptr, ptr %streamBuffer.i, align 8, !tbaa !14
+  %6 = load i32, ptr %bitstream, align 8, !tbaa !15
+  %inc.i21 = add nsw i32 %6, 1
+  store i32 %inc.i21, ptr %bitstream, align 8, !tbaa !15
+  %idxprom.i = sext i32 %6 to i64
+  %arrayidx.i = getelementptr inbounds i8, ptr %5, i64 %idxprom.i
+  store i8 %spec.select, ptr %arrayidx.i, align 1, !tbaa !16
+  store i8 0, ptr %byte_buf.i, align 8, !tbaa !7
+  br label %for.inc.i
 
-55:                                               ; preds = %49, %36
-  %56 = phi i8 [ %44, %36 ], [ 0, %49 ]
-  %57 = add nuw nsw i32 %39, 1
-  %58 = icmp eq i32 %57, %23
-  br i1 %58, label %59, label %36, !llvm.loop !17
+for.inc.i:                                        ; preds = %if.then10.i, %for.body.i20
+  %7 = phi i8 [ %spec.select, %for.body.i20 ], [ 0, %if.then10.i ]
+  %inc15.i = add nuw nsw i32 %i.029.i, 1
+  %exitcond.not = icmp eq i32 %inc15.i, %add.i
+  br i1 %exitcond.not, label %writeUVLC2buffer.exit, label %for.body.i20, !llvm.loop !17
 
-59:                                               ; preds = %55
-  ret i32 %23
+writeUVLC2buffer.exit:                            ; preds = %for.inc.i
+  ret i32 %add.i
 }
 
 ; Function Attrs: nofree nosync nounwind memory(argmem: write) uwtable
-define dso_local void @se_linfo(i32 noundef %0, i32 noundef %1, ptr nocapture noundef writeonly %2, ptr nocapture noundef writeonly %3) local_unnamed_addr #4 {
-  %5 = tail call i32 @llvm.abs.i32(i32 %0, i1 true)
-  %6 = shl nuw i32 %5, 1
-  %7 = icmp eq i32 %0, 0
-  br i1 %7, label %19, label %8
+define dso_local void @se_linfo(i32 noundef %se, i32 noundef %dummy, ptr nocapture noundef writeonly %len, ptr nocapture noundef writeonly %info) local_unnamed_addr #4 {
+entry:
+  %cond.i = tail call i32 @llvm.abs.i32(i32 %se, i1 true)
+  %shl = shl nuw i32 %cond.i, 1
+  %cmp212.not = icmp eq i32 %se, 0
+  br i1 %cmp212.not, label %for.end, label %for.body.preheader
 
-8:                                                ; preds = %4
-  %9 = ashr exact i32 %6, 1
-  br label %10
+for.body.preheader:                               ; preds = %entry
+  %div = ashr exact i32 %shl, 1
+  br label %for.body
 
-10:                                               ; preds = %8, %10
-  %11 = phi i32 [ %13, %10 ], [ %9, %8 ]
-  %12 = phi i32 [ %14, %10 ], [ 0, %8 ]
-  %13 = sdiv i32 %11, 2
-  %14 = add nuw nsw i32 %12, 1
-  %15 = icmp ult i32 %12, 15
-  %16 = add nsw i32 %11, -2
-  %17 = icmp ult i32 %16, -3
-  %18 = select i1 %15, i1 %17, i1 false
-  br i1 %18, label %10, label %19, !llvm.loop !23
+for.body:                                         ; preds = %for.body.preheader, %for.body
+  %nn.014 = phi i32 [ %div3, %for.body ], [ %div, %for.body.preheader ]
+  %i.013 = phi i32 [ %inc, %for.body ], [ 0, %for.body.preheader ]
+  %div3 = sdiv i32 %nn.014, 2
+  %inc = add nuw nsw i32 %i.013, 1
+  %cmp1 = icmp ult i32 %i.013, 15
+  %0 = add nsw i32 %nn.014, -2
+  %cmp2 = icmp ult i32 %0, -3
+  %1 = select i1 %cmp1, i1 %cmp2, i1 false
+  br i1 %1, label %for.body, label %for.end, !llvm.loop !23
 
-19:                                               ; preds = %10, %4
-  %20 = phi i32 [ 0, %4 ], [ %14, %10 ]
-  %21 = icmp slt i32 %0, 1
-  %22 = zext i1 %21 to i32
-  %23 = shl nuw nsw i32 %20, 1
-  %24 = or i32 %23, 1
-  store i32 %24, ptr %2, align 4, !tbaa !18
-  %25 = shl nsw i32 -1, %20
-  %26 = or i32 %6, %22
-  %27 = add i32 %26, %25
-  store i32 %27, ptr %3, align 4, !tbaa !18
+for.end:                                          ; preds = %for.body, %entry
+  %i.0.lcssa = phi i32 [ 0, %entry ], [ %inc, %for.body ]
+  %cmp = icmp slt i32 %se, 1
+  %spec.store.select = zext i1 %cmp to i32
+  %mul = shl nuw nsw i32 %i.0.lcssa, 1
+  %add = or i32 %mul, 1
+  store i32 %add, ptr %len, align 4, !tbaa !18
+  %shl4.neg = shl nsw i32 -1, %i.0.lcssa
+  %sub = or i32 %shl, %spec.store.select
+  %add5 = add i32 %sub, %shl4.neg
+  store i32 %add5, ptr %info, align 4, !tbaa !18
   ret void
 }
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(write, argmem: readwrite, inaccessiblemem: none) uwtable
-define dso_local i32 @u_1(ptr nocapture noundef readnone %0, i32 noundef %1, ptr nocapture noundef %2) local_unnamed_addr #5 {
-  %4 = getelementptr inbounds %struct.Bitstream, ptr %2, i64 0, i32 2
-  %5 = getelementptr inbounds %struct.Bitstream, ptr %2, i64 0, i32 1
-  %6 = load i8, ptr %4, align 8, !tbaa !7
-  %7 = shl i8 %6, 1
-  %8 = trunc i32 %1 to i8
-  %9 = and i8 %8, 1
-  %10 = or i8 %9, %7
-  store i8 %10, ptr %4, align 8, !tbaa !7
-  %11 = load i32, ptr %5, align 4, !tbaa !13
-  %12 = add nsw i32 %11, -1
-  store i32 %12, ptr %5, align 4, !tbaa !13
-  %13 = icmp eq i32 %12, 0
-  br i1 %13, label %14, label %21, !llvm.loop !17
+define dso_local i32 @u_1(ptr nocapture noundef readnone %tracestring, i32 noundef %value, ptr nocapture noundef %bitstream) local_unnamed_addr #5 {
+for.body.lr.ph.i:
+  %byte_buf.i = getelementptr inbounds %struct.Bitstream, ptr %bitstream, i64 0, i32 2
+  %bits_to_go.i = getelementptr inbounds %struct.Bitstream, ptr %bitstream, i64 0, i32 1
+  %.pre.i = load i8, ptr %byte_buf.i, align 8, !tbaa !7
+  %shl2.i = shl i8 %.pre.i, 1
+  %0 = trunc i32 %value to i8
+  %1 = and i8 %0, 1
+  %2 = or i8 %1, %shl2.i
+  store i8 %2, ptr %byte_buf.i, align 8, !tbaa !7
+  %3 = load i32, ptr %bits_to_go.i, align 4, !tbaa !13
+  %dec.i = add nsw i32 %3, -1
+  store i32 %dec.i, ptr %bits_to_go.i, align 4, !tbaa !13
+  %cmp8.i = icmp eq i32 %dec.i, 0
+  br i1 %cmp8.i, label %for.inc.i.thread, label %writeUVLC2buffer.exit, !llvm.loop !17
 
-14:                                               ; preds = %3
-  %15 = getelementptr inbounds %struct.Bitstream, ptr %2, i64 0, i32 9
-  store i32 8, ptr %5, align 4, !tbaa !13
-  %16 = load ptr, ptr %15, align 8, !tbaa !14
-  %17 = load i32, ptr %2, align 8, !tbaa !15
-  %18 = add nsw i32 %17, 1
-  store i32 %18, ptr %2, align 8, !tbaa !15
-  %19 = sext i32 %17 to i64
-  %20 = getelementptr inbounds i8, ptr %16, i64 %19
-  store i8 %10, ptr %20, align 1, !tbaa !16
-  store i8 0, ptr %4, align 8, !tbaa !7
-  br label %21
+for.inc.i.thread:                                 ; preds = %for.body.lr.ph.i
+  %streamBuffer.i = getelementptr inbounds %struct.Bitstream, ptr %bitstream, i64 0, i32 9
+  store i32 8, ptr %bits_to_go.i, align 4, !tbaa !13
+  %4 = load ptr, ptr %streamBuffer.i, align 8, !tbaa !14
+  %5 = load i32, ptr %bitstream, align 8, !tbaa !15
+  %inc.i = add nsw i32 %5, 1
+  store i32 %inc.i, ptr %bitstream, align 8, !tbaa !15
+  %idxprom.i = sext i32 %5 to i64
+  %arrayidx.i = getelementptr inbounds i8, ptr %4, i64 %idxprom.i
+  store i8 %2, ptr %arrayidx.i, align 1, !tbaa !16
+  store i8 0, ptr %byte_buf.i, align 8, !tbaa !7
+  br label %writeUVLC2buffer.exit
 
-21:                                               ; preds = %3, %14
+writeUVLC2buffer.exit:                            ; preds = %for.body.lr.ph.i, %for.inc.i.thread
   ret i32 1
 }
 
 ; Function Attrs: nofree norecurse nosync nounwind memory(write, argmem: readwrite, inaccessiblemem: none) uwtable
-define dso_local i32 @u_v(i32 noundef returned %0, ptr nocapture noundef readnone %1, i32 noundef %2, ptr nocapture noundef %3) local_unnamed_addr #0 {
-  %5 = icmp sgt i32 %0, 0
-  br i1 %5, label %6, label %36
+define dso_local i32 @u_v(i32 noundef returned %n, ptr nocapture noundef readnone %tracestring, i32 noundef %value, ptr nocapture noundef %bitstream) local_unnamed_addr #0 {
+entry:
+  %cmp28.i = icmp sgt i32 %n, 0
+  br i1 %cmp28.i, label %for.body.lr.ph.i, label %writeUVLC2buffer.exit
 
-6:                                                ; preds = %4
-  %7 = add nsw i32 %0, -1
-  %8 = shl nuw i32 1, %7
-  %9 = getelementptr inbounds %struct.Bitstream, ptr %3, i64 0, i32 2
-  %10 = getelementptr inbounds %struct.Bitstream, ptr %3, i64 0, i32 1
-  %11 = getelementptr inbounds %struct.Bitstream, ptr %3, i64 0, i32 9
-  %12 = load i8, ptr %9, align 8, !tbaa !7
-  br label %13
+for.body.lr.ph.i:                                 ; preds = %entry
+  %sub.i = add nsw i32 %n, -1
+  %shl.i = shl nuw i32 1, %sub.i
+  %byte_buf.i = getelementptr inbounds %struct.Bitstream, ptr %bitstream, i64 0, i32 2
+  %bits_to_go.i = getelementptr inbounds %struct.Bitstream, ptr %bitstream, i64 0, i32 1
+  %streamBuffer.i = getelementptr inbounds %struct.Bitstream, ptr %bitstream, i64 0, i32 9
+  %.pre.i = load i8, ptr %byte_buf.i, align 8, !tbaa !7
+  br label %for.body.i
 
-13:                                               ; preds = %32, %6
-  %14 = phi i8 [ %12, %6 ], [ %33, %32 ]
-  %15 = phi i32 [ %8, %6 ], [ %24, %32 ]
-  %16 = phi i32 [ 0, %6 ], [ %34, %32 ]
-  %17 = shl i8 %14, 1
-  %18 = and i32 %15, %2
-  %19 = icmp ne i32 %18, 0
-  %20 = zext i1 %19 to i8
-  %21 = or i8 %17, %20
-  store i8 %21, ptr %9, align 8, !tbaa !7
-  %22 = load i32, ptr %10, align 4, !tbaa !13
-  %23 = add nsw i32 %22, -1
-  store i32 %23, ptr %10, align 4, !tbaa !13
-  %24 = lshr i32 %15, 1
-  %25 = icmp eq i32 %23, 0
-  br i1 %25, label %26, label %32
+for.body.i:                                       ; preds = %for.inc.i, %for.body.lr.ph.i
+  %0 = phi i8 [ %.pre.i, %for.body.lr.ph.i ], [ %5, %for.inc.i ]
+  %mask.030.i = phi i32 [ %shl.i, %for.body.lr.ph.i ], [ %shr.i, %for.inc.i ]
+  %i.029.i = phi i32 [ 0, %for.body.lr.ph.i ], [ %inc15.i, %for.inc.i ]
+  %shl2.i = shl i8 %0, 1
+  %and.i = and i32 %mask.030.i, %value
+  %tobool.not.i = icmp ne i32 %and.i, 0
+  %1 = zext i1 %tobool.not.i to i8
+  %spec.select = or i8 %shl2.i, %1
+  store i8 %spec.select, ptr %byte_buf.i, align 8, !tbaa !7
+  %2 = load i32, ptr %bits_to_go.i, align 4, !tbaa !13
+  %dec.i = add nsw i32 %2, -1
+  store i32 %dec.i, ptr %bits_to_go.i, align 4, !tbaa !13
+  %shr.i = lshr i32 %mask.030.i, 1
+  %cmp8.i = icmp eq i32 %dec.i, 0
+  br i1 %cmp8.i, label %if.then10.i, label %for.inc.i
 
-26:                                               ; preds = %13
-  store i32 8, ptr %10, align 4, !tbaa !13
-  %27 = load ptr, ptr %11, align 8, !tbaa !14
-  %28 = load i32, ptr %3, align 8, !tbaa !15
-  %29 = add nsw i32 %28, 1
-  store i32 %29, ptr %3, align 8, !tbaa !15
-  %30 = sext i32 %28 to i64
-  %31 = getelementptr inbounds i8, ptr %27, i64 %30
-  store i8 %21, ptr %31, align 1, !tbaa !16
-  store i8 0, ptr %9, align 8, !tbaa !7
-  br label %32
+if.then10.i:                                      ; preds = %for.body.i
+  store i32 8, ptr %bits_to_go.i, align 4, !tbaa !13
+  %3 = load ptr, ptr %streamBuffer.i, align 8, !tbaa !14
+  %4 = load i32, ptr %bitstream, align 8, !tbaa !15
+  %inc.i = add nsw i32 %4, 1
+  store i32 %inc.i, ptr %bitstream, align 8, !tbaa !15
+  %idxprom.i = sext i32 %4 to i64
+  %arrayidx.i = getelementptr inbounds i8, ptr %3, i64 %idxprom.i
+  store i8 %spec.select, ptr %arrayidx.i, align 1, !tbaa !16
+  store i8 0, ptr %byte_buf.i, align 8, !tbaa !7
+  br label %for.inc.i
 
-32:                                               ; preds = %26, %13
-  %33 = phi i8 [ %21, %13 ], [ 0, %26 ]
-  %34 = add nuw nsw i32 %16, 1
-  %35 = icmp eq i32 %34, %0
-  br i1 %35, label %36, label %13, !llvm.loop !17
+for.inc.i:                                        ; preds = %if.then10.i, %for.body.i
+  %5 = phi i8 [ %spec.select, %for.body.i ], [ 0, %if.then10.i ]
+  %inc15.i = add nuw nsw i32 %i.029.i, 1
+  %exitcond.not = icmp eq i32 %inc15.i, %n
+  br i1 %exitcond.not, label %writeUVLC2buffer.exit, label %for.body.i, !llvm.loop !17
 
-36:                                               ; preds = %32, %4
-  ret i32 %0
+writeUVLC2buffer.exit:                            ; preds = %for.inc.i, %entry
+  ret i32 %n
 }
 
 ; Function Attrs: nofree norecurse nosync nounwind memory(read, argmem: readwrite, inaccessiblemem: none) uwtable
-define dso_local void @cbp_linfo_intra(i32 noundef %0, i32 noundef %1, ptr nocapture noundef writeonly %2, ptr nocapture noundef writeonly %3) local_unnamed_addr #6 {
-  %5 = load ptr, ptr @img, align 8, !tbaa !24
-  %6 = getelementptr inbounds %struct.ImageParameters, ptr %5, i64 0, i32 160
-  %7 = load i32, ptr %6, align 8, !tbaa !25
-  %8 = icmp ne i32 %7, 0
-  %9 = zext i1 %8 to i64
-  %10 = sext i32 %0 to i64
-  %11 = getelementptr inbounds [2 x [48 x [2 x i8]]], ptr @NCBP, i64 0, i64 %9, i64 %10
-  %12 = load i8, ptr %11, align 2, !tbaa !16
-  %13 = zext i8 %12 to i32
-  %14 = add nuw nsw i32 %13, 1
-  %15 = add nsw i32 %13, -1
-  %16 = icmp ult i32 %15, -3
-  br i1 %16, label %17, label %26
+define dso_local void @cbp_linfo_intra(i32 noundef %cbp, i32 noundef %dummy, ptr nocapture noundef writeonly %len, ptr nocapture noundef writeonly %info) local_unnamed_addr #6 {
+entry:
+  %0 = load ptr, ptr @img, align 8, !tbaa !24
+  %yuv_format = getelementptr inbounds %struct.ImageParameters, ptr %0, i64 0, i32 160
+  %1 = load i32, ptr %yuv_format, align 8, !tbaa !25
+  %tobool.not = icmp ne i32 %1, 0
+  %idxprom = zext i1 %tobool.not to i64
+  %idxprom1 = sext i32 %cbp to i64
+  %arrayidx2 = getelementptr inbounds [2 x [48 x [2 x i8]]], ptr @NCBP, i64 0, i64 %idxprom, i64 %idxprom1
+  %2 = load i8, ptr %arrayidx2, align 2, !tbaa !16
+  %conv = zext i8 %2 to i32
+  %add.i = add nuw nsw i32 %conv, 1
+  %3 = add nsw i32 %conv, -1
+  %cmp110.i = icmp ult i32 %3, -3
+  br i1 %cmp110.i, label %for.body.i, label %ue_linfo.exit
 
-17:                                               ; preds = %4, %17
-  %18 = phi i32 [ %20, %17 ], [ %14, %4 ]
-  %19 = phi i32 [ %21, %17 ], [ 0, %4 ]
-  %20 = lshr i32 %18, 1
-  %21 = add nuw nsw i32 %19, 1
-  %22 = icmp ult i32 %19, 15
-  %23 = add nsw i32 %20, -2
-  %24 = icmp ult i32 %23, -3
-  %25 = select i1 %22, i1 %24, i1 false
-  br i1 %25, label %17, label %26, !llvm.loop !5
+for.body.i:                                       ; preds = %entry, %for.body.i
+  %nn.0.in12.i = phi i32 [ %nn.0.i4, %for.body.i ], [ %add.i, %entry ]
+  %i.011.i = phi i32 [ %inc.i, %for.body.i ], [ 0, %entry ]
+  %nn.0.i4 = lshr i32 %nn.0.in12.i, 1
+  %inc.i = add nuw nsw i32 %i.011.i, 1
+  %cmp.i = icmp ult i32 %i.011.i, 15
+  %4 = add nsw i32 %nn.0.i4, -2
+  %cmp1.i = icmp ult i32 %4, -3
+  %5 = select i1 %cmp.i, i1 %cmp1.i, i1 false
+  br i1 %5, label %for.body.i, label %ue_linfo.exit, !llvm.loop !5
 
-26:                                               ; preds = %17, %4
-  %27 = phi i32 [ 0, %4 ], [ %21, %17 ]
-  %28 = shl nuw nsw i32 %27, 1
-  %29 = or i32 %28, 1
-  store i32 %29, ptr %2, align 4, !tbaa !18
-  %30 = shl nsw i32 -1, %27
-  %31 = add nsw i32 %30, %14
-  store i32 %31, ptr %3, align 4, !tbaa !18
+ue_linfo.exit:                                    ; preds = %for.body.i, %entry
+  %i.0.lcssa.i = phi i32 [ 0, %entry ], [ %inc.i, %for.body.i ]
+  %mul.i = shl nuw nsw i32 %i.0.lcssa.i, 1
+  %add3.i = or i32 %mul.i, 1
+  store i32 %add3.i, ptr %len, align 4, !tbaa !18
+  %shl.neg.i = shl nsw i32 -1, %i.0.lcssa.i
+  %sub.i = add nsw i32 %shl.neg.i, %add.i
+  store i32 %sub.i, ptr %info, align 4, !tbaa !18
   ret void
 }
 
 ; Function Attrs: nofree norecurse nosync nounwind memory(read, argmem: readwrite, inaccessiblemem: none) uwtable
-define dso_local void @cbp_linfo_inter(i32 noundef %0, i32 noundef %1, ptr nocapture noundef writeonly %2, ptr nocapture noundef writeonly %3) local_unnamed_addr #6 {
-  %5 = load ptr, ptr @img, align 8, !tbaa !24
-  %6 = getelementptr inbounds %struct.ImageParameters, ptr %5, i64 0, i32 160
-  %7 = load i32, ptr %6, align 8, !tbaa !25
-  %8 = icmp ne i32 %7, 0
-  %9 = zext i1 %8 to i64
-  %10 = sext i32 %0 to i64
-  %11 = getelementptr inbounds [2 x [48 x [2 x i8]]], ptr @NCBP, i64 0, i64 %9, i64 %10, i64 1
-  %12 = load i8, ptr %11, align 1, !tbaa !16
-  %13 = zext i8 %12 to i32
-  %14 = add nuw nsw i32 %13, 1
-  %15 = add nsw i32 %13, -1
-  %16 = icmp ult i32 %15, -3
-  br i1 %16, label %17, label %26
+define dso_local void @cbp_linfo_inter(i32 noundef %cbp, i32 noundef %dummy, ptr nocapture noundef writeonly %len, ptr nocapture noundef writeonly %info) local_unnamed_addr #6 {
+entry:
+  %0 = load ptr, ptr @img, align 8, !tbaa !24
+  %yuv_format = getelementptr inbounds %struct.ImageParameters, ptr %0, i64 0, i32 160
+  %1 = load i32, ptr %yuv_format, align 8, !tbaa !25
+  %tobool.not = icmp ne i32 %1, 0
+  %idxprom = zext i1 %tobool.not to i64
+  %idxprom1 = sext i32 %cbp to i64
+  %arrayidx3 = getelementptr inbounds [2 x [48 x [2 x i8]]], ptr @NCBP, i64 0, i64 %idxprom, i64 %idxprom1, i64 1
+  %2 = load i8, ptr %arrayidx3, align 1, !tbaa !16
+  %conv = zext i8 %2 to i32
+  %add.i = add nuw nsw i32 %conv, 1
+  %3 = add nsw i32 %conv, -1
+  %cmp110.i = icmp ult i32 %3, -3
+  br i1 %cmp110.i, label %for.body.i, label %ue_linfo.exit
 
-17:                                               ; preds = %4, %17
-  %18 = phi i32 [ %20, %17 ], [ %14, %4 ]
-  %19 = phi i32 [ %21, %17 ], [ 0, %4 ]
-  %20 = lshr i32 %18, 1
-  %21 = add nuw nsw i32 %19, 1
-  %22 = icmp ult i32 %19, 15
-  %23 = add nsw i32 %20, -2
-  %24 = icmp ult i32 %23, -3
-  %25 = select i1 %22, i1 %24, i1 false
-  br i1 %25, label %17, label %26, !llvm.loop !5
+for.body.i:                                       ; preds = %entry, %for.body.i
+  %nn.0.in12.i = phi i32 [ %nn.0.i4, %for.body.i ], [ %add.i, %entry ]
+  %i.011.i = phi i32 [ %inc.i, %for.body.i ], [ 0, %entry ]
+  %nn.0.i4 = lshr i32 %nn.0.in12.i, 1
+  %inc.i = add nuw nsw i32 %i.011.i, 1
+  %cmp.i = icmp ult i32 %i.011.i, 15
+  %4 = add nsw i32 %nn.0.i4, -2
+  %cmp1.i = icmp ult i32 %4, -3
+  %5 = select i1 %cmp.i, i1 %cmp1.i, i1 false
+  br i1 %5, label %for.body.i, label %ue_linfo.exit, !llvm.loop !5
 
-26:                                               ; preds = %17, %4
-  %27 = phi i32 [ 0, %4 ], [ %21, %17 ]
-  %28 = shl nuw nsw i32 %27, 1
-  %29 = or i32 %28, 1
-  store i32 %29, ptr %2, align 4, !tbaa !18
-  %30 = shl nsw i32 -1, %27
-  %31 = add nsw i32 %30, %14
-  store i32 %31, ptr %3, align 4, !tbaa !18
+ue_linfo.exit:                                    ; preds = %for.body.i, %entry
+  %i.0.lcssa.i = phi i32 [ 0, %entry ], [ %inc.i, %for.body.i ]
+  %mul.i = shl nuw nsw i32 %i.0.lcssa.i, 1
+  %add3.i = or i32 %mul.i, 1
+  store i32 %add3.i, ptr %len, align 4, !tbaa !18
+  %shl.neg.i = shl nsw i32 -1, %i.0.lcssa.i
+  %sub.i = add nsw i32 %shl.neg.i, %add.i
+  store i32 %sub.i, ptr %info, align 4, !tbaa !18
   ret void
 }
 
 ; Function Attrs: nofree nosync nounwind memory(argmem: write) uwtable
-define dso_local void @levrun_linfo_c2x2(i32 noundef %0, i32 noundef %1, ptr nocapture noundef writeonly %2, ptr nocapture noundef writeonly %3) local_unnamed_addr #4 {
-  %5 = icmp eq i32 %0, 0
-  br i1 %5, label %6, label %7
+define dso_local void @levrun_linfo_c2x2(i32 noundef %level, i32 noundef %run, ptr nocapture noundef writeonly %len, ptr nocapture noundef writeonly %info) local_unnamed_addr #4 {
+entry:
+  %cmp = icmp eq i32 %level, 0
+  br i1 %cmp, label %if.then, label %if.end
 
-6:                                                ; preds = %4
-  store i32 1, ptr %2, align 4, !tbaa !18
-  br label %46
+if.then:                                          ; preds = %entry
+  store i32 1, ptr %len, align 4, !tbaa !18
+  br label %cleanup
 
-7:                                                ; preds = %4
-  %8 = icmp slt i32 %0, 1
-  %9 = zext i1 %8 to i32
-  %10 = tail call i32 @llvm.abs.i32(i32 %0, i1 true)
-  %11 = sext i32 %1 to i64
-  %12 = getelementptr inbounds [4 x i32], ptr @__const.levrun_linfo_c2x2.LEVRUN, i64 0, i64 %11
-  %13 = load i32, ptr %12, align 4, !tbaa !18
-  %14 = icmp sgt i32 %10, %13
-  br i1 %14, label %21, label %15
+if.end:                                           ; preds = %entry
+  %cmp1 = icmp slt i32 %level, 1
+  %spec.store.select = zext i1 %cmp1 to i32
+  %cond.i = tail call i32 @llvm.abs.i32(i32 %level, i1 true)
+  %idxprom = sext i32 %run to i64
+  %arrayidx = getelementptr inbounds [4 x i32], ptr @__const.levrun_linfo_c2x2.LEVRUN, i64 0, i64 %idxprom
+  %0 = load i32, ptr %arrayidx, align 4, !tbaa !18
+  %cmp4.not = icmp sgt i32 %cond.i, %0
+  br i1 %cmp4.not, label %if.else, label %if.then5
 
-15:                                               ; preds = %7
-  %16 = add nsw i32 %10, -1
-  %17 = zext i32 %16 to i64
-  %18 = getelementptr inbounds [2 x [2 x i32]], ptr @__const.levrun_linfo_c2x2.NTAB, i64 0, i64 %17, i64 %11
-  %19 = load i32, ptr %18, align 4, !tbaa !18
-  %20 = add nsw i32 %19, 1
-  br label %26
+if.then5:                                         ; preds = %if.end
+  %sub = add nsw i32 %cond.i, -1
+  %idxprom6 = zext i32 %sub to i64
+  %arrayidx9 = getelementptr inbounds [2 x [2 x i32]], ptr @__const.levrun_linfo_c2x2.NTAB, i64 0, i64 %idxprom6, i64 %idxprom
+  %1 = load i32, ptr %arrayidx9, align 4, !tbaa !18
+  %add = add nsw i32 %1, 1
+  br label %if.end15
 
-21:                                               ; preds = %7
-  %22 = sub nsw i32 %10, %13
-  %23 = shl nsw i32 %22, 3
-  %24 = shl nsw i32 %1, 1
-  %25 = add nsw i32 %23, %24
-  br label %26
+if.else:                                          ; preds = %if.end
+  %sub12 = sub nsw i32 %cond.i, %0
+  %mul = shl nsw i32 %sub12, 3
+  %mul13 = shl nsw i32 %run, 1
+  %add14 = add nsw i32 %mul, %mul13
+  br label %if.end15
 
-26:                                               ; preds = %21, %15
-  %27 = phi i32 [ %20, %15 ], [ %25, %21 ]
-  %28 = add i32 %27, -2
-  %29 = icmp ult i32 %28, -3
-  br i1 %29, label %30, label %39
+if.end15:                                         ; preds = %if.else, %if.then5
+  %n.0 = phi i32 [ %add, %if.then5 ], [ %add14, %if.else ]
+  %2 = add i32 %n.0, -2
+  %cmp1742 = icmp ult i32 %2, -3
+  br i1 %cmp1742, label %for.body, label %for.end
 
-30:                                               ; preds = %26, %30
-  %31 = phi i32 [ %33, %30 ], [ %27, %26 ]
-  %32 = phi i32 [ %34, %30 ], [ 0, %26 ]
-  %33 = sdiv i32 %31, 2
-  %34 = add nuw nsw i32 %32, 1
-  %35 = icmp ult i32 %32, 15
-  %36 = add nsw i32 %33, -2
-  %37 = icmp ult i32 %36, -3
-  %38 = select i1 %35, i1 %37, i1 false
-  br i1 %38, label %30, label %39, !llvm.loop !30
+for.body:                                         ; preds = %if.end15, %for.body
+  %nn.0.in44 = phi i32 [ %nn.0, %for.body ], [ %n.0, %if.end15 ]
+  %i.043 = phi i32 [ %inc, %for.body ], [ 0, %if.end15 ]
+  %nn.0 = sdiv i32 %nn.0.in44, 2
+  %inc = add nuw nsw i32 %i.043, 1
+  %cmp16 = icmp ult i32 %i.043, 15
+  %3 = add nsw i32 %nn.0, -2
+  %cmp17 = icmp ult i32 %3, -3
+  %4 = select i1 %cmp16, i1 %cmp17, i1 false
+  br i1 %4, label %for.body, label %for.end, !llvm.loop !30
 
-39:                                               ; preds = %30, %26
-  %40 = phi i32 [ 0, %26 ], [ %34, %30 ]
-  %41 = shl nuw nsw i32 %40, 1
-  %42 = or i32 %41, 1
-  store i32 %42, ptr %2, align 4, !tbaa !18
-  %43 = shl nsw i32 -1, %40
-  %44 = add i32 %27, %9
-  %45 = add i32 %44, %43
-  store i32 %45, ptr %3, align 4, !tbaa !18
-  br label %46
+for.end:                                          ; preds = %for.body, %if.end15
+  %i.0.lcssa = phi i32 [ 0, %if.end15 ], [ %inc, %for.body ]
+  %mul19 = shl nuw nsw i32 %i.0.lcssa, 1
+  %add20 = or i32 %mul19, 1
+  store i32 %add20, ptr %len, align 4, !tbaa !18
+  %shl.neg = shl nsw i32 -1, %i.0.lcssa
+  %sub21 = add i32 %n.0, %spec.store.select
+  %add22 = add i32 %sub21, %shl.neg
+  store i32 %add22, ptr %info, align 4, !tbaa !18
+  br label %cleanup
 
-46:                                               ; preds = %39, %6
+cleanup:                                          ; preds = %for.end, %if.then
   ret void
 }
 
 ; Function Attrs: nofree nosync nounwind memory(argmem: write) uwtable
-define dso_local void @levrun_linfo_inter(i32 noundef %0, i32 noundef %1, ptr nocapture noundef writeonly %2, ptr nocapture noundef writeonly %3) local_unnamed_addr #4 {
-  %5 = icmp eq i32 %0, 0
-  br i1 %5, label %6, label %7
+define dso_local void @levrun_linfo_inter(i32 noundef %level, i32 noundef %run, ptr nocapture noundef writeonly %len, ptr nocapture noundef writeonly %info) local_unnamed_addr #4 {
+entry:
+  %cmp = icmp eq i32 %level, 0
+  br i1 %cmp, label %if.then, label %if.end
 
-6:                                                ; preds = %4
-  store i32 1, ptr %2, align 4, !tbaa !18
-  br label %48
+if.then:                                          ; preds = %entry
+  store i32 1, ptr %len, align 4, !tbaa !18
+  br label %cleanup
 
-7:                                                ; preds = %4
-  %8 = icmp slt i32 %0, 1
-  %9 = zext i1 %8 to i32
-  %10 = tail call i32 @llvm.abs.i32(i32 %0, i1 true)
-  %11 = sext i32 %1 to i64
-  %12 = getelementptr inbounds [16 x i8], ptr @__const.levrun_linfo_inter.LEVRUN, i64 0, i64 %11
-  %13 = load i8, ptr %12, align 1, !tbaa !16
-  %14 = zext i8 %13 to i32
-  %15 = icmp ugt i32 %10, %14
-  br i1 %15, label %23, label %16
+if.end:                                           ; preds = %entry
+  %cmp1 = icmp slt i32 %level, 1
+  %. = zext i1 %cmp1 to i32
+  %cond.i = tail call i32 @llvm.abs.i32(i32 %level, i1 true)
+  %idxprom = sext i32 %run to i64
+  %arrayidx = getelementptr inbounds [16 x i8], ptr @__const.levrun_linfo_inter.LEVRUN, i64 0, i64 %idxprom
+  %0 = load i8, ptr %arrayidx, align 1, !tbaa !16
+  %conv = zext i8 %0 to i32
+  %cmp4.not = icmp ugt i32 %cond.i, %conv
+  br i1 %cmp4.not, label %if.else12, label %if.then6
 
-16:                                               ; preds = %7
-  %17 = add nsw i32 %10, -1
-  %18 = zext i32 %17 to i64
-  %19 = getelementptr inbounds [4 x [10 x i8]], ptr @__const.levrun_linfo_inter.NTAB, i64 0, i64 %18, i64 %11
-  %20 = load i8, ptr %19, align 1, !tbaa !16
-  %21 = zext i8 %20 to i32
-  %22 = add nuw nsw i32 %21, 1
-  br label %28
+if.then6:                                         ; preds = %if.end
+  %sub = add nsw i32 %cond.i, -1
+  %idxprom7 = zext i32 %sub to i64
+  %arrayidx10 = getelementptr inbounds [4 x [10 x i8]], ptr @__const.levrun_linfo_inter.NTAB, i64 0, i64 %idxprom7, i64 %idxprom
+  %1 = load i8, ptr %arrayidx10, align 1, !tbaa !16
+  %conv11 = zext i8 %1 to i32
+  %add = add nuw nsw i32 %conv11, 1
+  br label %if.end19
 
-23:                                               ; preds = %7
-  %24 = sub nsw i32 %10, %14
-  %25 = shl nsw i32 %24, 5
-  %26 = shl nsw i32 %1, 1
-  %27 = add nsw i32 %25, %26
-  br label %28
+if.else12:                                        ; preds = %if.end
+  %sub16 = sub nsw i32 %cond.i, %conv
+  %mul = shl nsw i32 %sub16, 5
+  %mul17 = shl nsw i32 %run, 1
+  %add18 = add nsw i32 %mul, %mul17
+  br label %if.end19
 
-28:                                               ; preds = %23, %16
-  %29 = phi i32 [ %22, %16 ], [ %27, %23 ]
-  %30 = add i32 %29, -2
-  %31 = icmp ult i32 %30, -3
-  br i1 %31, label %32, label %41
+if.end19:                                         ; preds = %if.else12, %if.then6
+  %n.0 = phi i32 [ %add, %if.then6 ], [ %add18, %if.else12 ]
+  %2 = add i32 %n.0, -2
+  %cmp2248 = icmp ult i32 %2, -3
+  br i1 %cmp2248, label %for.body, label %for.end
 
-32:                                               ; preds = %28, %32
-  %33 = phi i32 [ %35, %32 ], [ %29, %28 ]
-  %34 = phi i32 [ %36, %32 ], [ 0, %28 ]
-  %35 = sdiv i32 %33, 2
-  %36 = add nuw nsw i32 %34, 1
-  %37 = icmp ult i32 %34, 15
-  %38 = add nsw i32 %35, -2
-  %39 = icmp ult i32 %38, -3
-  %40 = select i1 %37, i1 %39, i1 false
-  br i1 %40, label %32, label %41, !llvm.loop !31
+for.body:                                         ; preds = %if.end19, %for.body
+  %nn.0.in50 = phi i32 [ %nn.0, %for.body ], [ %n.0, %if.end19 ]
+  %i.049 = phi i32 [ %inc, %for.body ], [ 0, %if.end19 ]
+  %nn.0 = sdiv i32 %nn.0.in50, 2
+  %inc = add nuw nsw i32 %i.049, 1
+  %cmp20 = icmp ult i32 %i.049, 15
+  %3 = add nsw i32 %nn.0, -2
+  %cmp22 = icmp ult i32 %3, -3
+  %4 = select i1 %cmp20, i1 %cmp22, i1 false
+  br i1 %4, label %for.body, label %for.end, !llvm.loop !31
 
-41:                                               ; preds = %32, %28
-  %42 = phi i32 [ 0, %28 ], [ %36, %32 ]
-  %43 = shl nuw nsw i32 %42, 1
-  %44 = or i32 %43, 1
-  store i32 %44, ptr %2, align 4, !tbaa !18
-  %45 = shl nsw i32 -1, %42
-  %46 = add i32 %29, %9
-  %47 = add i32 %46, %45
-  store i32 %47, ptr %3, align 4, !tbaa !18
-  br label %48
+for.end:                                          ; preds = %for.body, %if.end19
+  %i.0.lcssa = phi i32 [ 0, %if.end19 ], [ %inc, %for.body ]
+  %mul25 = shl nuw nsw i32 %i.0.lcssa, 1
+  %add26 = or i32 %mul25, 1
+  store i32 %add26, ptr %len, align 4, !tbaa !18
+  %shl.neg = shl nsw i32 -1, %i.0.lcssa
+  %sub27 = add i32 %n.0, %.
+  %add28 = add i32 %sub27, %shl.neg
+  store i32 %add28, ptr %info, align 4, !tbaa !18
+  br label %cleanup
 
-48:                                               ; preds = %41, %6
+cleanup:                                          ; preds = %for.end, %if.then
   ret void
 }
 
 ; Function Attrs: nofree norecurse nosync nounwind memory(readwrite, inaccessiblemem: none) uwtable
-define dso_local void @writeSE_UVLC(ptr nocapture noundef %0, ptr nocapture noundef readonly %1) local_unnamed_addr #7 {
-  %3 = getelementptr inbounds %struct.syntaxelement, ptr %0, i64 0, i32 1
-  %4 = load i32, ptr %3, align 4, !tbaa !32
-  %5 = getelementptr inbounds %struct.syntaxelement, ptr %0, i64 0, i32 3
-  %6 = getelementptr inbounds %struct.syntaxelement, ptr %0, i64 0, i32 4
-  %7 = add nsw i32 %4, 1
-  %8 = add i32 %4, -1
-  %9 = icmp ult i32 %8, -3
-  br i1 %9, label %10, label %19
+define dso_local void @writeSE_UVLC(ptr nocapture noundef %se, ptr nocapture noundef readonly %dp) local_unnamed_addr #7 {
+entry:
+  %value1 = getelementptr inbounds %struct.syntaxelement, ptr %se, i64 0, i32 1
+  %0 = load i32, ptr %value1, align 4, !tbaa !32
+  %len = getelementptr inbounds %struct.syntaxelement, ptr %se, i64 0, i32 3
+  %inf = getelementptr inbounds %struct.syntaxelement, ptr %se, i64 0, i32 4
+  %add.i = add nsw i32 %0, 1
+  %1 = add i32 %0, -1
+  %cmp110.i = icmp ult i32 %1, -3
+  br i1 %cmp110.i, label %for.body.i, label %ue_linfo.exit
 
-10:                                               ; preds = %2, %10
-  %11 = phi i32 [ %13, %10 ], [ %7, %2 ]
-  %12 = phi i32 [ %14, %10 ], [ 0, %2 ]
-  %13 = sdiv i32 %11, 2
-  %14 = add nuw nsw i32 %12, 1
-  %15 = icmp ult i32 %12, 15
-  %16 = add nsw i32 %13, -2
-  %17 = icmp ult i32 %16, -3
-  %18 = select i1 %15, i1 %17, i1 false
-  br i1 %18, label %10, label %19, !llvm.loop !5
+for.body.i:                                       ; preds = %entry, %for.body.i
+  %nn.0.in12.i = phi i32 [ %nn.0.i, %for.body.i ], [ %add.i, %entry ]
+  %i.011.i = phi i32 [ %inc.i, %for.body.i ], [ 0, %entry ]
+  %nn.0.i = sdiv i32 %nn.0.in12.i, 2
+  %inc.i = add nuw nsw i32 %i.011.i, 1
+  %cmp.i = icmp ult i32 %i.011.i, 15
+  %2 = add nsw i32 %nn.0.i, -2
+  %cmp1.i = icmp ult i32 %2, -3
+  %3 = select i1 %cmp.i, i1 %cmp1.i, i1 false
+  br i1 %3, label %for.body.i, label %ue_linfo.exit, !llvm.loop !5
 
-19:                                               ; preds = %10, %2
-  %20 = phi i32 [ 0, %2 ], [ %14, %10 ]
-  %21 = shl nuw nsw i32 %20, 1
-  %22 = or i32 %21, 1
-  store i32 %22, ptr %5, align 4, !tbaa !18
-  %23 = shl nsw i32 -1, %20
-  %24 = add i32 %23, %7
-  store i32 %24, ptr %6, align 4, !tbaa !18
-  %25 = and i32 %20, 127
-  %26 = shl nuw i32 1, %25
-  %27 = add nsw i32 %26, -1
-  %28 = and i32 %27, %24
-  %29 = or i32 %28, %26
-  %30 = getelementptr inbounds %struct.syntaxelement, ptr %0, i64 0, i32 5
-  store i32 %29, ptr %30, align 4, !tbaa !22
-  %31 = load ptr, ptr %1, align 8, !tbaa !33
-  %32 = shl nuw i32 1, %21
-  %33 = getelementptr inbounds %struct.Bitstream, ptr %31, i64 0, i32 2
-  %34 = getelementptr inbounds %struct.Bitstream, ptr %31, i64 0, i32 1
-  %35 = getelementptr inbounds %struct.Bitstream, ptr %31, i64 0, i32 9
-  %36 = load i8, ptr %33, align 8, !tbaa !7
-  br label %37
+ue_linfo.exit:                                    ; preds = %for.body.i, %entry
+  %i.0.lcssa.i = phi i32 [ 0, %entry ], [ %inc.i, %for.body.i ]
+  %mul.i = shl nuw nsw i32 %i.0.lcssa.i, 1
+  %add3.i = or i32 %mul.i, 1
+  store i32 %add3.i, ptr %len, align 4, !tbaa !18
+  %shl.neg.i = shl nsw i32 -1, %i.0.lcssa.i
+  %sub.i = add i32 %shl.neg.i, %add.i
+  store i32 %sub.i, ptr %inf, align 4, !tbaa !18
+  %shl.i = shl nuw nsw i32 1, %i.0.lcssa.i
+  %sub.i9 = add nsw i32 %shl.i, -1
+  %and.i = and i32 %sub.i9, %sub.i
+  %or.i = or i32 %and.i, %shl.i
+  %bitpattern.i = getelementptr inbounds %struct.syntaxelement, ptr %se, i64 0, i32 5
+  store i32 %or.i, ptr %bitpattern.i, align 4, !tbaa !22
+  %4 = load ptr, ptr %dp, align 8, !tbaa !33
+  %shl.i12 = shl nuw i32 1, %mul.i
+  %byte_buf.i = getelementptr inbounds %struct.Bitstream, ptr %4, i64 0, i32 2
+  %bits_to_go.i = getelementptr inbounds %struct.Bitstream, ptr %4, i64 0, i32 1
+  %streamBuffer.i = getelementptr inbounds %struct.Bitstream, ptr %4, i64 0, i32 9
+  %.pre.i = load i8, ptr %byte_buf.i, align 8, !tbaa !7
+  br label %for.body.i15
 
-37:                                               ; preds = %61, %19
-  %38 = phi i32 [ %22, %19 ], [ %62, %61 ]
-  %39 = phi i8 [ %36, %19 ], [ %63, %61 ]
-  %40 = phi i32 [ %32, %19 ], [ %52, %61 ]
-  %41 = phi i32 [ 0, %19 ], [ %64, %61 ]
-  %42 = shl i8 %39, 1
-  store i8 %42, ptr %33, align 8, !tbaa !7
-  %43 = load i32, ptr %30, align 4, !tbaa !22
-  %44 = and i32 %43, %40
-  %45 = icmp eq i32 %44, 0
-  br i1 %45, label %48, label %46
+for.body.i15:                                     ; preds = %for.inc.i, %ue_linfo.exit
+  %5 = phi i32 [ %add3.i, %ue_linfo.exit ], [ %13, %for.inc.i ]
+  %6 = phi i8 [ %.pre.i, %ue_linfo.exit ], [ %14, %for.inc.i ]
+  %mask.030.i = phi i32 [ %shl.i12, %ue_linfo.exit ], [ %shr.i, %for.inc.i ]
+  %i.029.i = phi i32 [ 0, %ue_linfo.exit ], [ %inc15.i, %for.inc.i ]
+  %shl2.i = shl i8 %6, 1
+  store i8 %shl2.i, ptr %byte_buf.i, align 8, !tbaa !7
+  %7 = load i32, ptr %bitpattern.i, align 4, !tbaa !22
+  %and.i14 = and i32 %7, %mask.030.i
+  %tobool.not.i = icmp eq i32 %and.i14, 0
+  br i1 %tobool.not.i, label %if.end.i, label %if.then.i
 
-46:                                               ; preds = %37
-  %47 = or i8 %42, 1
-  store i8 %47, ptr %33, align 8, !tbaa !7
-  br label %48
+if.then.i:                                        ; preds = %for.body.i15
+  %8 = or i8 %shl2.i, 1
+  store i8 %8, ptr %byte_buf.i, align 8, !tbaa !7
+  br label %if.end.i
 
-48:                                               ; preds = %46, %37
-  %49 = phi i8 [ %47, %46 ], [ %42, %37 ]
-  %50 = load i32, ptr %34, align 4, !tbaa !13
-  %51 = add nsw i32 %50, -1
-  store i32 %51, ptr %34, align 4, !tbaa !13
-  %52 = lshr i32 %40, 1
-  %53 = icmp eq i32 %51, 0
-  br i1 %53, label %54, label %61
+if.end.i:                                         ; preds = %if.then.i, %for.body.i15
+  %9 = phi i8 [ %8, %if.then.i ], [ %shl2.i, %for.body.i15 ]
+  %10 = load i32, ptr %bits_to_go.i, align 4, !tbaa !13
+  %dec.i = add nsw i32 %10, -1
+  store i32 %dec.i, ptr %bits_to_go.i, align 4, !tbaa !13
+  %shr.i = lshr i32 %mask.030.i, 1
+  %cmp8.i = icmp eq i32 %dec.i, 0
+  br i1 %cmp8.i, label %if.then10.i, label %for.inc.i
 
-54:                                               ; preds = %48
-  store i32 8, ptr %34, align 4, !tbaa !13
-  %55 = load ptr, ptr %35, align 8, !tbaa !14
-  %56 = load i32, ptr %31, align 8, !tbaa !15
-  %57 = add nsw i32 %56, 1
-  store i32 %57, ptr %31, align 8, !tbaa !15
-  %58 = sext i32 %56 to i64
-  %59 = getelementptr inbounds i8, ptr %55, i64 %58
-  store i8 %49, ptr %59, align 1, !tbaa !16
-  store i8 0, ptr %33, align 8, !tbaa !7
-  %60 = load i32, ptr %5, align 4, !tbaa !19
-  br label %61
+if.then10.i:                                      ; preds = %if.end.i
+  store i32 8, ptr %bits_to_go.i, align 4, !tbaa !13
+  %11 = load ptr, ptr %streamBuffer.i, align 8, !tbaa !14
+  %12 = load i32, ptr %4, align 8, !tbaa !15
+  %inc.i16 = add nsw i32 %12, 1
+  store i32 %inc.i16, ptr %4, align 8, !tbaa !15
+  %idxprom.i = sext i32 %12 to i64
+  %arrayidx.i = getelementptr inbounds i8, ptr %11, i64 %idxprom.i
+  store i8 %9, ptr %arrayidx.i, align 1, !tbaa !16
+  store i8 0, ptr %byte_buf.i, align 8, !tbaa !7
+  %.pre31.i = load i32, ptr %len, align 4, !tbaa !19
+  br label %for.inc.i
 
-61:                                               ; preds = %54, %48
-  %62 = phi i32 [ %38, %48 ], [ %60, %54 ]
-  %63 = phi i8 [ %49, %48 ], [ 0, %54 ]
-  %64 = add nuw nsw i32 %41, 1
-  %65 = icmp slt i32 %64, %62
-  br i1 %65, label %37, label %66, !llvm.loop !17
+for.inc.i:                                        ; preds = %if.then10.i, %if.end.i
+  %13 = phi i32 [ %5, %if.end.i ], [ %.pre31.i, %if.then10.i ]
+  %14 = phi i8 [ %9, %if.end.i ], [ 0, %if.then10.i ]
+  %inc15.i = add nuw nsw i32 %i.029.i, 1
+  %cmp.i17 = icmp slt i32 %inc15.i, %13
+  br i1 %cmp.i17, label %for.body.i15, label %writeUVLC2buffer.exit, !llvm.loop !17
 
-66:                                               ; preds = %61
-  %67 = load i32, ptr %0, align 8, !tbaa !36
-  %68 = icmp eq i32 %67, 0
-  br i1 %68, label %72, label %69
+writeUVLC2buffer.exit:                            ; preds = %for.inc.i
+  %15 = load i32, ptr %se, align 8, !tbaa !36
+  %cmp.not = icmp eq i32 %15, 0
+  br i1 %cmp.not, label %if.end, label %if.then
 
-69:                                               ; preds = %66
-  %70 = load ptr, ptr %1, align 8, !tbaa !33
-  %71 = getelementptr inbounds %struct.Bitstream, ptr %70, i64 0, i32 10
-  store i32 1, ptr %71, align 8, !tbaa !37
-  br label %72
+if.then:                                          ; preds = %writeUVLC2buffer.exit
+  %16 = load ptr, ptr %dp, align 8, !tbaa !33
+  %write_flag = getelementptr inbounds %struct.Bitstream, ptr %16, i64 0, i32 10
+  store i32 1, ptr %write_flag, align 8, !tbaa !37
+  br label %if.end
 
-72:                                               ; preds = %69, %66
+if.end:                                           ; preds = %if.then, %writeUVLC2buffer.exit
   ret void
 }
 
 ; Function Attrs: nofree nosync nounwind memory(readwrite, inaccessiblemem: none) uwtable
-define dso_local void @writeSE_SVLC(ptr nocapture noundef %0, ptr nocapture noundef readonly %1) local_unnamed_addr #8 {
-  %3 = getelementptr inbounds %struct.syntaxelement, ptr %0, i64 0, i32 1
-  %4 = load i32, ptr %3, align 4, !tbaa !32
-  %5 = getelementptr inbounds %struct.syntaxelement, ptr %0, i64 0, i32 3
-  %6 = getelementptr inbounds %struct.syntaxelement, ptr %0, i64 0, i32 4
-  %7 = tail call i32 @llvm.abs.i32(i32 %4, i1 true)
-  %8 = shl nuw i32 %7, 1
-  %9 = icmp eq i32 %4, 0
-  br i1 %9, label %21, label %10
+define dso_local void @writeSE_SVLC(ptr nocapture noundef %se, ptr nocapture noundef readonly %dp) local_unnamed_addr #8 {
+entry:
+  %value1 = getelementptr inbounds %struct.syntaxelement, ptr %se, i64 0, i32 1
+  %0 = load i32, ptr %value1, align 4, !tbaa !32
+  %len = getelementptr inbounds %struct.syntaxelement, ptr %se, i64 0, i32 3
+  %inf = getelementptr inbounds %struct.syntaxelement, ptr %se, i64 0, i32 4
+  %cond.i.i = tail call i32 @llvm.abs.i32(i32 %0, i1 true)
+  %shl.i = shl nuw i32 %cond.i.i, 1
+  %cmp212.not.i = icmp eq i32 %0, 0
+  br i1 %cmp212.not.i, label %se_linfo.exit, label %for.body.preheader.i
 
-10:                                               ; preds = %2
-  %11 = ashr exact i32 %8, 1
-  br label %12
+for.body.preheader.i:                             ; preds = %entry
+  %div.i = ashr exact i32 %shl.i, 1
+  br label %for.body.i
 
-12:                                               ; preds = %12, %10
-  %13 = phi i32 [ %15, %12 ], [ %11, %10 ]
-  %14 = phi i32 [ %16, %12 ], [ 0, %10 ]
-  %15 = sdiv i32 %13, 2
-  %16 = add nuw nsw i32 %14, 1
-  %17 = icmp ult i32 %14, 15
-  %18 = add nsw i32 %13, -2
-  %19 = icmp ult i32 %18, -3
-  %20 = select i1 %17, i1 %19, i1 false
-  br i1 %20, label %12, label %21, !llvm.loop !23
+for.body.i:                                       ; preds = %for.body.i, %for.body.preheader.i
+  %nn.014.i = phi i32 [ %div3.i, %for.body.i ], [ %div.i, %for.body.preheader.i ]
+  %i.013.i = phi i32 [ %inc.i, %for.body.i ], [ 0, %for.body.preheader.i ]
+  %div3.i = sdiv i32 %nn.014.i, 2
+  %inc.i = add nuw nsw i32 %i.013.i, 1
+  %cmp1.i = icmp ult i32 %i.013.i, 15
+  %1 = add nsw i32 %nn.014.i, -2
+  %cmp2.i = icmp ult i32 %1, -3
+  %2 = select i1 %cmp1.i, i1 %cmp2.i, i1 false
+  br i1 %2, label %for.body.i, label %se_linfo.exit, !llvm.loop !23
 
-21:                                               ; preds = %12, %2
-  %22 = phi i32 [ 0, %2 ], [ %16, %12 ]
-  %23 = icmp slt i32 %4, 1
-  %24 = zext i1 %23 to i32
-  %25 = shl nuw nsw i32 %22, 1
-  %26 = or i32 %25, 1
-  store i32 %26, ptr %5, align 4, !tbaa !18
-  %27 = shl nsw i32 -1, %22
-  %28 = or i32 %8, %24
-  %29 = add i32 %27, %28
-  store i32 %29, ptr %6, align 4, !tbaa !18
-  %30 = and i32 %22, 127
-  %31 = shl nuw i32 1, %30
-  %32 = add nsw i32 %31, -1
-  %33 = and i32 %32, %29
-  %34 = or i32 %33, %31
-  %35 = getelementptr inbounds %struct.syntaxelement, ptr %0, i64 0, i32 5
-  store i32 %34, ptr %35, align 4, !tbaa !22
-  %36 = load ptr, ptr %1, align 8, !tbaa !33
-  %37 = shl nuw i32 1, %25
-  %38 = getelementptr inbounds %struct.Bitstream, ptr %36, i64 0, i32 2
-  %39 = getelementptr inbounds %struct.Bitstream, ptr %36, i64 0, i32 1
-  %40 = getelementptr inbounds %struct.Bitstream, ptr %36, i64 0, i32 9
-  %41 = load i8, ptr %38, align 8, !tbaa !7
-  br label %42
+se_linfo.exit:                                    ; preds = %for.body.i, %entry
+  %i.0.lcssa.i = phi i32 [ 0, %entry ], [ %inc.i, %for.body.i ]
+  %cmp.i = icmp slt i32 %0, 1
+  %spec.store.select.i = zext i1 %cmp.i to i32
+  %mul.i = shl nuw nsw i32 %i.0.lcssa.i, 1
+  %add.i = or i32 %mul.i, 1
+  store i32 %add.i, ptr %len, align 4, !tbaa !18
+  %shl4.neg.i = shl nsw i32 -1, %i.0.lcssa.i
+  %sub.i = or i32 %shl.i, %spec.store.select.i
+  %add5.i = add i32 %shl4.neg.i, %sub.i
+  store i32 %add5.i, ptr %inf, align 4, !tbaa !18
+  %shl.i10 = shl nuw nsw i32 1, %i.0.lcssa.i
+  %sub.i11 = add nsw i32 %shl.i10, -1
+  %and.i = and i32 %sub.i11, %add5.i
+  %or.i = or i32 %and.i, %shl.i10
+  %bitpattern.i = getelementptr inbounds %struct.syntaxelement, ptr %se, i64 0, i32 5
+  store i32 %or.i, ptr %bitpattern.i, align 4, !tbaa !22
+  %3 = load ptr, ptr %dp, align 8, !tbaa !33
+  %shl.i14 = shl nuw i32 1, %mul.i
+  %byte_buf.i = getelementptr inbounds %struct.Bitstream, ptr %3, i64 0, i32 2
+  %bits_to_go.i = getelementptr inbounds %struct.Bitstream, ptr %3, i64 0, i32 1
+  %streamBuffer.i = getelementptr inbounds %struct.Bitstream, ptr %3, i64 0, i32 9
+  %.pre.i = load i8, ptr %byte_buf.i, align 8, !tbaa !7
+  br label %for.body.i17
 
-42:                                               ; preds = %66, %21
-  %43 = phi i32 [ %26, %21 ], [ %67, %66 ]
-  %44 = phi i8 [ %41, %21 ], [ %68, %66 ]
-  %45 = phi i32 [ %37, %21 ], [ %57, %66 ]
-  %46 = phi i32 [ 0, %21 ], [ %69, %66 ]
-  %47 = shl i8 %44, 1
-  store i8 %47, ptr %38, align 8, !tbaa !7
-  %48 = load i32, ptr %35, align 4, !tbaa !22
-  %49 = and i32 %48, %45
-  %50 = icmp eq i32 %49, 0
-  br i1 %50, label %53, label %51
+for.body.i17:                                     ; preds = %for.inc.i, %se_linfo.exit
+  %4 = phi i32 [ %add.i, %se_linfo.exit ], [ %12, %for.inc.i ]
+  %5 = phi i8 [ %.pre.i, %se_linfo.exit ], [ %13, %for.inc.i ]
+  %mask.030.i = phi i32 [ %shl.i14, %se_linfo.exit ], [ %shr.i, %for.inc.i ]
+  %i.029.i = phi i32 [ 0, %se_linfo.exit ], [ %inc15.i, %for.inc.i ]
+  %shl2.i = shl i8 %5, 1
+  store i8 %shl2.i, ptr %byte_buf.i, align 8, !tbaa !7
+  %6 = load i32, ptr %bitpattern.i, align 4, !tbaa !22
+  %and.i16 = and i32 %6, %mask.030.i
+  %tobool.not.i = icmp eq i32 %and.i16, 0
+  br i1 %tobool.not.i, label %if.end.i, label %if.then.i
 
-51:                                               ; preds = %42
-  %52 = or i8 %47, 1
-  store i8 %52, ptr %38, align 8, !tbaa !7
-  br label %53
+if.then.i:                                        ; preds = %for.body.i17
+  %7 = or i8 %shl2.i, 1
+  store i8 %7, ptr %byte_buf.i, align 8, !tbaa !7
+  br label %if.end.i
 
-53:                                               ; preds = %51, %42
-  %54 = phi i8 [ %52, %51 ], [ %47, %42 ]
-  %55 = load i32, ptr %39, align 4, !tbaa !13
-  %56 = add nsw i32 %55, -1
-  store i32 %56, ptr %39, align 4, !tbaa !13
-  %57 = lshr i32 %45, 1
-  %58 = icmp eq i32 %56, 0
-  br i1 %58, label %59, label %66
+if.end.i:                                         ; preds = %if.then.i, %for.body.i17
+  %8 = phi i8 [ %7, %if.then.i ], [ %shl2.i, %for.body.i17 ]
+  %9 = load i32, ptr %bits_to_go.i, align 4, !tbaa !13
+  %dec.i = add nsw i32 %9, -1
+  store i32 %dec.i, ptr %bits_to_go.i, align 4, !tbaa !13
+  %shr.i = lshr i32 %mask.030.i, 1
+  %cmp8.i = icmp eq i32 %dec.i, 0
+  br i1 %cmp8.i, label %if.then10.i, label %for.inc.i
 
-59:                                               ; preds = %53
-  store i32 8, ptr %39, align 4, !tbaa !13
-  %60 = load ptr, ptr %40, align 8, !tbaa !14
-  %61 = load i32, ptr %36, align 8, !tbaa !15
-  %62 = add nsw i32 %61, 1
-  store i32 %62, ptr %36, align 8, !tbaa !15
-  %63 = sext i32 %61 to i64
-  %64 = getelementptr inbounds i8, ptr %60, i64 %63
-  store i8 %54, ptr %64, align 1, !tbaa !16
-  store i8 0, ptr %38, align 8, !tbaa !7
-  %65 = load i32, ptr %5, align 4, !tbaa !19
-  br label %66
+if.then10.i:                                      ; preds = %if.end.i
+  store i32 8, ptr %bits_to_go.i, align 4, !tbaa !13
+  %10 = load ptr, ptr %streamBuffer.i, align 8, !tbaa !14
+  %11 = load i32, ptr %3, align 8, !tbaa !15
+  %inc.i18 = add nsw i32 %11, 1
+  store i32 %inc.i18, ptr %3, align 8, !tbaa !15
+  %idxprom.i = sext i32 %11 to i64
+  %arrayidx.i = getelementptr inbounds i8, ptr %10, i64 %idxprom.i
+  store i8 %8, ptr %arrayidx.i, align 1, !tbaa !16
+  store i8 0, ptr %byte_buf.i, align 8, !tbaa !7
+  %.pre31.i = load i32, ptr %len, align 4, !tbaa !19
+  br label %for.inc.i
 
-66:                                               ; preds = %59, %53
-  %67 = phi i32 [ %43, %53 ], [ %65, %59 ]
-  %68 = phi i8 [ %54, %53 ], [ 0, %59 ]
-  %69 = add nuw nsw i32 %46, 1
-  %70 = icmp slt i32 %69, %67
-  br i1 %70, label %42, label %71, !llvm.loop !17
+for.inc.i:                                        ; preds = %if.then10.i, %if.end.i
+  %12 = phi i32 [ %4, %if.end.i ], [ %.pre31.i, %if.then10.i ]
+  %13 = phi i8 [ %8, %if.end.i ], [ 0, %if.then10.i ]
+  %inc15.i = add nuw nsw i32 %i.029.i, 1
+  %cmp.i19 = icmp slt i32 %inc15.i, %12
+  br i1 %cmp.i19, label %for.body.i17, label %writeUVLC2buffer.exit, !llvm.loop !17
 
-71:                                               ; preds = %66
-  %72 = load i32, ptr %0, align 8, !tbaa !36
-  %73 = icmp eq i32 %72, 0
-  br i1 %73, label %77, label %74
+writeUVLC2buffer.exit:                            ; preds = %for.inc.i
+  %14 = load i32, ptr %se, align 8, !tbaa !36
+  %cmp.not = icmp eq i32 %14, 0
+  br i1 %cmp.not, label %if.end, label %if.then
 
-74:                                               ; preds = %71
-  %75 = load ptr, ptr %1, align 8, !tbaa !33
-  %76 = getelementptr inbounds %struct.Bitstream, ptr %75, i64 0, i32 10
-  store i32 1, ptr %76, align 8, !tbaa !37
-  br label %77
+if.then:                                          ; preds = %writeUVLC2buffer.exit
+  %15 = load ptr, ptr %dp, align 8, !tbaa !33
+  %write_flag = getelementptr inbounds %struct.Bitstream, ptr %15, i64 0, i32 10
+  store i32 1, ptr %write_flag, align 8, !tbaa !37
+  br label %if.end
 
-77:                                               ; preds = %74, %71
+if.end:                                           ; preds = %if.then, %writeUVLC2buffer.exit
   ret void
 }
 
 ; Function Attrs: nofree norecurse nosync nounwind memory(readwrite, inaccessiblemem: none) uwtable
-define dso_local void @writeCBP_VLC(ptr nocapture noundef %0, ptr nocapture noundef readonly %1) local_unnamed_addr #7 {
-  %3 = load ptr, ptr @img, align 8, !tbaa !24
-  %4 = getelementptr inbounds %struct.ImageParameters, ptr %3, i64 0, i32 61
-  %5 = load ptr, ptr %4, align 8, !tbaa !38
-  %6 = getelementptr inbounds %struct.ImageParameters, ptr %3, i64 0, i32 3
-  %7 = load i32, ptr %6, align 4, !tbaa !39
-  %8 = sext i32 %7 to i64
-  %9 = getelementptr inbounds %struct.macroblock, ptr %5, i64 %8, i32 8
-  %10 = load i32, ptr %9, align 8, !tbaa !40
-  switch i32 %10, label %42 [
-    i32 9, label %11
-    i32 12, label %11
-    i32 13, label %11
+define dso_local void @writeCBP_VLC(ptr nocapture noundef %se, ptr nocapture noundef readonly %dp) local_unnamed_addr #7 {
+entry:
+  %0 = load ptr, ptr @img, align 8, !tbaa !24
+  %mb_data = getelementptr inbounds %struct.ImageParameters, ptr %0, i64 0, i32 61
+  %1 = load ptr, ptr %mb_data, align 8, !tbaa !38
+  %current_mb_nr = getelementptr inbounds %struct.ImageParameters, ptr %0, i64 0, i32 3
+  %2 = load i32, ptr %current_mb_nr, align 4, !tbaa !39
+  %idxprom = sext i32 %2 to i64
+  %mb_type = getelementptr inbounds %struct.macroblock, ptr %1, i64 %idxprom, i32 8
+  %3 = load i32, ptr %mb_type, align 8, !tbaa !40
+  switch i32 %3, label %if.else [
+    i32 9, label %if.then
+    i32 12, label %if.then
+    i32 13, label %if.then
   ]
 
-11:                                               ; preds = %2, %2, %2
-  %12 = getelementptr inbounds %struct.syntaxelement, ptr %0, i64 0, i32 1
-  %13 = load i32, ptr %12, align 4, !tbaa !32
-  %14 = getelementptr inbounds %struct.syntaxelement, ptr %0, i64 0, i32 3
-  %15 = getelementptr inbounds %struct.syntaxelement, ptr %0, i64 0, i32 4
-  %16 = getelementptr inbounds %struct.ImageParameters, ptr %3, i64 0, i32 160
-  %17 = load i32, ptr %16, align 8, !tbaa !25
-  %18 = icmp ne i32 %17, 0
-  %19 = zext i1 %18 to i64
-  %20 = sext i32 %13 to i64
-  %21 = getelementptr inbounds [2 x [48 x [2 x i8]]], ptr @NCBP, i64 0, i64 %19, i64 %20
-  %22 = load i8, ptr %21, align 2, !tbaa !16
-  %23 = zext i8 %22 to i32
-  %24 = add nuw nsw i32 %23, 1
-  %25 = add nsw i32 %23, -1
-  %26 = icmp ult i32 %25, -3
-  br i1 %26, label %27, label %36
+if.then:                                          ; preds = %entry, %entry, %entry
+  %value1 = getelementptr inbounds %struct.syntaxelement, ptr %se, i64 0, i32 1
+  %4 = load i32, ptr %value1, align 4, !tbaa !32
+  %len = getelementptr inbounds %struct.syntaxelement, ptr %se, i64 0, i32 3
+  %inf = getelementptr inbounds %struct.syntaxelement, ptr %se, i64 0, i32 4
+  %yuv_format.i = getelementptr inbounds %struct.ImageParameters, ptr %0, i64 0, i32 160
+  %5 = load i32, ptr %yuv_format.i, align 8, !tbaa !25
+  %tobool.not.i = icmp ne i32 %5, 0
+  %idxprom.i = zext i1 %tobool.not.i to i64
+  %idxprom1.i = sext i32 %4 to i64
+  %arrayidx2.i = getelementptr inbounds [2 x [48 x [2 x i8]]], ptr @NCBP, i64 0, i64 %idxprom.i, i64 %idxprom1.i
+  %6 = load i8, ptr %arrayidx2.i, align 2, !tbaa !16
+  %conv.i = zext i8 %6 to i32
+  %add.i.i = add nuw nsw i32 %conv.i, 1
+  %7 = add nsw i32 %conv.i, -1
+  %cmp110.i.i = icmp ult i32 %7, -3
+  br i1 %cmp110.i.i, label %for.body.i.i, label %cbp_linfo_intra.exit
 
-27:                                               ; preds = %11, %27
-  %28 = phi i32 [ %30, %27 ], [ %24, %11 ]
-  %29 = phi i32 [ %31, %27 ], [ 0, %11 ]
-  %30 = lshr i32 %28, 1
-  %31 = add nuw nsw i32 %29, 1
-  %32 = icmp ult i32 %29, 15
-  %33 = add nsw i32 %30, -2
-  %34 = icmp ult i32 %33, -3
-  %35 = select i1 %32, i1 %34, i1 false
-  br i1 %35, label %27, label %36, !llvm.loop !5
+for.body.i.i:                                     ; preds = %if.then, %for.body.i.i
+  %nn.0.in12.i.i = phi i32 [ %nn.0.i4.i, %for.body.i.i ], [ %add.i.i, %if.then ]
+  %i.011.i.i = phi i32 [ %inc.i.i, %for.body.i.i ], [ 0, %if.then ]
+  %nn.0.i4.i = lshr i32 %nn.0.in12.i.i, 1
+  %inc.i.i = add nuw nsw i32 %i.011.i.i, 1
+  %cmp.i.i = icmp ult i32 %i.011.i.i, 15
+  %8 = add nsw i32 %nn.0.i4.i, -2
+  %cmp1.i.i = icmp ult i32 %8, -3
+  %9 = select i1 %cmp.i.i, i1 %cmp1.i.i, i1 false
+  br i1 %9, label %for.body.i.i, label %cbp_linfo_intra.exit, !llvm.loop !5
 
-36:                                               ; preds = %27, %11
-  %37 = phi i32 [ 0, %11 ], [ %31, %27 ]
-  %38 = shl nuw nsw i32 %37, 1
-  %39 = or i32 %38, 1
-  store i32 %39, ptr %14, align 4, !tbaa !18
-  %40 = shl nsw i32 -1, %37
-  %41 = add nsw i32 %40, %24
-  store i32 %41, ptr %15, align 4, !tbaa !18
-  br label %73
+cbp_linfo_intra.exit:                             ; preds = %for.body.i.i, %if.then
+  %i.0.lcssa.i.i = phi i32 [ 0, %if.then ], [ %inc.i.i, %for.body.i.i ]
+  %mul.i.i = shl nuw nsw i32 %i.0.lcssa.i.i, 1
+  %add3.i.i = or i32 %mul.i.i, 1
+  store i32 %add3.i.i, ptr %len, align 4, !tbaa !18
+  %shl.neg.i.i = shl nsw i32 -1, %i.0.lcssa.i.i
+  %sub.i.i = add nsw i32 %shl.neg.i.i, %add.i.i
+  store i32 %sub.i.i, ptr %inf, align 4, !tbaa !18
+  br label %for.body.lr.ph.i
 
-42:                                               ; preds = %2
-  %43 = getelementptr inbounds %struct.syntaxelement, ptr %0, i64 0, i32 1
-  %44 = load i32, ptr %43, align 4, !tbaa !32
-  %45 = getelementptr inbounds %struct.syntaxelement, ptr %0, i64 0, i32 3
-  %46 = getelementptr inbounds %struct.syntaxelement, ptr %0, i64 0, i32 4
-  %47 = getelementptr inbounds %struct.ImageParameters, ptr %3, i64 0, i32 160
-  %48 = load i32, ptr %47, align 8, !tbaa !25
-  %49 = icmp ne i32 %48, 0
-  %50 = zext i1 %49 to i64
-  %51 = sext i32 %44 to i64
-  %52 = getelementptr inbounds [2 x [48 x [2 x i8]]], ptr @NCBP, i64 0, i64 %50, i64 %51, i64 1
-  %53 = load i8, ptr %52, align 1, !tbaa !16
-  %54 = zext i8 %53 to i32
-  %55 = add nuw nsw i32 %54, 1
-  %56 = add nsw i32 %54, -1
-  %57 = icmp ult i32 %56, -3
-  br i1 %57, label %58, label %67
+if.else:                                          ; preds = %entry
+  %value16 = getelementptr inbounds %struct.syntaxelement, ptr %se, i64 0, i32 1
+  %10 = load i32, ptr %value16, align 4, !tbaa !32
+  %len8 = getelementptr inbounds %struct.syntaxelement, ptr %se, i64 0, i32 3
+  %inf9 = getelementptr inbounds %struct.syntaxelement, ptr %se, i64 0, i32 4
+  %yuv_format.i27 = getelementptr inbounds %struct.ImageParameters, ptr %0, i64 0, i32 160
+  %11 = load i32, ptr %yuv_format.i27, align 8, !tbaa !25
+  %tobool.not.i28 = icmp ne i32 %11, 0
+  %idxprom.i29 = zext i1 %tobool.not.i28 to i64
+  %idxprom1.i30 = sext i32 %10 to i64
+  %arrayidx3.i = getelementptr inbounds [2 x [48 x [2 x i8]]], ptr @NCBP, i64 0, i64 %idxprom.i29, i64 %idxprom1.i30, i64 1
+  %12 = load i8, ptr %arrayidx3.i, align 1, !tbaa !16
+  %conv.i31 = zext i8 %12 to i32
+  %add.i.i32 = add nuw nsw i32 %conv.i31, 1
+  %13 = add nsw i32 %conv.i31, -1
+  %cmp110.i.i33 = icmp ult i32 %13, -3
+  br i1 %cmp110.i.i33, label %for.body.i.i40, label %cbp_linfo_inter.exit
 
-58:                                               ; preds = %42, %58
-  %59 = phi i32 [ %61, %58 ], [ %55, %42 ]
-  %60 = phi i32 [ %62, %58 ], [ 0, %42 ]
-  %61 = lshr i32 %59, 1
-  %62 = add nuw nsw i32 %60, 1
-  %63 = icmp ult i32 %60, 15
-  %64 = add nsw i32 %61, -2
-  %65 = icmp ult i32 %64, -3
-  %66 = select i1 %63, i1 %65, i1 false
-  br i1 %66, label %58, label %67, !llvm.loop !5
+for.body.i.i40:                                   ; preds = %if.else, %for.body.i.i40
+  %nn.0.in12.i.i34 = phi i32 [ %nn.0.i4.i36, %for.body.i.i40 ], [ %add.i.i32, %if.else ]
+  %i.011.i.i35 = phi i32 [ %inc.i.i37, %for.body.i.i40 ], [ 0, %if.else ]
+  %nn.0.i4.i36 = lshr i32 %nn.0.in12.i.i34, 1
+  %inc.i.i37 = add nuw nsw i32 %i.011.i.i35, 1
+  %cmp.i.i38 = icmp ult i32 %i.011.i.i35, 15
+  %14 = add nsw i32 %nn.0.i4.i36, -2
+  %cmp1.i.i39 = icmp ult i32 %14, -3
+  %15 = select i1 %cmp.i.i38, i1 %cmp1.i.i39, i1 false
+  br i1 %15, label %for.body.i.i40, label %cbp_linfo_inter.exit, !llvm.loop !5
 
-67:                                               ; preds = %58, %42
-  %68 = phi i32 [ 0, %42 ], [ %62, %58 ]
-  %69 = shl nuw nsw i32 %68, 1
-  %70 = or i32 %69, 1
-  store i32 %70, ptr %45, align 4, !tbaa !18
-  %71 = shl nsw i32 -1, %68
-  %72 = add nsw i32 %71, %55
-  store i32 %72, ptr %46, align 4, !tbaa !18
-  br label %73
+cbp_linfo_inter.exit:                             ; preds = %for.body.i.i40, %if.else
+  %i.0.lcssa.i.i41 = phi i32 [ 0, %if.else ], [ %inc.i.i37, %for.body.i.i40 ]
+  %mul.i.i42 = shl nuw nsw i32 %i.0.lcssa.i.i41, 1
+  %add3.i.i43 = or i32 %mul.i.i42, 1
+  store i32 %add3.i.i43, ptr %len8, align 4, !tbaa !18
+  %shl.neg.i.i44 = shl nsw i32 -1, %i.0.lcssa.i.i41
+  %sub.i.i45 = add nsw i32 %shl.neg.i.i44, %add.i.i32
+  store i32 %sub.i.i45, ptr %inf9, align 4, !tbaa !18
+  br label %for.body.lr.ph.i
 
-73:                                               ; preds = %36, %67
-  %74 = phi i32 [ %72, %67 ], [ %41, %36 ]
-  %75 = phi i32 [ %70, %67 ], [ %39, %36 ]
-  %76 = getelementptr inbounds %struct.syntaxelement, ptr %0, i64 0, i32 3
-  %77 = lshr i32 %75, 1
-  %78 = and i32 %77, 127
-  %79 = shl nuw i32 1, %78
-  %80 = add nsw i32 %79, -1
-  %81 = and i32 %80, %74
-  %82 = or i32 %81, %79
-  %83 = getelementptr inbounds %struct.syntaxelement, ptr %0, i64 0, i32 5
-  store i32 %82, ptr %83, align 4, !tbaa !22
-  %84 = load ptr, ptr %1, align 8, !tbaa !33
-  %85 = add nsw i32 %75, -1
-  %86 = shl nuw i32 1, %85
-  %87 = getelementptr inbounds %struct.Bitstream, ptr %84, i64 0, i32 2
-  %88 = getelementptr inbounds %struct.Bitstream, ptr %84, i64 0, i32 1
-  %89 = getelementptr inbounds %struct.Bitstream, ptr %84, i64 0, i32 9
-  %90 = load i8, ptr %87, align 8, !tbaa !7
-  br label %91
+for.body.lr.ph.i:                                 ; preds = %cbp_linfo_intra.exit, %cbp_linfo_inter.exit
+  %16 = phi i32 [ %sub.i.i45, %cbp_linfo_inter.exit ], [ %sub.i.i, %cbp_linfo_intra.exit ]
+  %17 = phi i32 [ %add3.i.i43, %cbp_linfo_inter.exit ], [ %add3.i.i, %cbp_linfo_intra.exit ]
+  %len.i = getelementptr inbounds %struct.syntaxelement, ptr %se, i64 0, i32 3
+  %div.i535455 = lshr i32 %17, 1
+  %div.i53.zext = and i32 %div.i535455, 127
+  %shl.i = shl nuw i32 1, %div.i53.zext
+  %sub.i = add nsw i32 %shl.i, -1
+  %and.i = and i32 %sub.i, %16
+  %or.i = or i32 %and.i, %shl.i
+  %bitpattern.i = getelementptr inbounds %struct.syntaxelement, ptr %se, i64 0, i32 5
+  store i32 %or.i, ptr %bitpattern.i, align 4, !tbaa !22
+  %18 = load ptr, ptr %dp, align 8, !tbaa !33
+  %sub.i47 = add nsw i32 %17, -1
+  %shl.i48 = shl nuw i32 1, %sub.i47
+  %byte_buf.i = getelementptr inbounds %struct.Bitstream, ptr %18, i64 0, i32 2
+  %bits_to_go.i = getelementptr inbounds %struct.Bitstream, ptr %18, i64 0, i32 1
+  %streamBuffer.i = getelementptr inbounds %struct.Bitstream, ptr %18, i64 0, i32 9
+  %.pre.i = load i8, ptr %byte_buf.i, align 8, !tbaa !7
+  br label %for.body.i
 
-91:                                               ; preds = %115, %73
-  %92 = phi i32 [ %75, %73 ], [ %116, %115 ]
-  %93 = phi i8 [ %90, %73 ], [ %117, %115 ]
-  %94 = phi i32 [ %86, %73 ], [ %106, %115 ]
-  %95 = phi i32 [ 0, %73 ], [ %118, %115 ]
-  %96 = shl i8 %93, 1
-  store i8 %96, ptr %87, align 8, !tbaa !7
-  %97 = load i32, ptr %83, align 4, !tbaa !22
-  %98 = and i32 %97, %94
-  %99 = icmp eq i32 %98, 0
-  br i1 %99, label %102, label %100
+for.body.i:                                       ; preds = %for.inc.i, %for.body.lr.ph.i
+  %19 = phi i32 [ %17, %for.body.lr.ph.i ], [ %27, %for.inc.i ]
+  %20 = phi i8 [ %.pre.i, %for.body.lr.ph.i ], [ %28, %for.inc.i ]
+  %mask.030.i = phi i32 [ %shl.i48, %for.body.lr.ph.i ], [ %shr.i, %for.inc.i ]
+  %i.029.i = phi i32 [ 0, %for.body.lr.ph.i ], [ %inc15.i, %for.inc.i ]
+  %shl2.i = shl i8 %20, 1
+  store i8 %shl2.i, ptr %byte_buf.i, align 8, !tbaa !7
+  %21 = load i32, ptr %bitpattern.i, align 4, !tbaa !22
+  %and.i50 = and i32 %21, %mask.030.i
+  %tobool.not.i51 = icmp eq i32 %and.i50, 0
+  br i1 %tobool.not.i51, label %if.end.i, label %if.then.i
 
-100:                                              ; preds = %91
-  %101 = or i8 %96, 1
-  store i8 %101, ptr %87, align 8, !tbaa !7
-  br label %102
+if.then.i:                                        ; preds = %for.body.i
+  %22 = or i8 %shl2.i, 1
+  store i8 %22, ptr %byte_buf.i, align 8, !tbaa !7
+  br label %if.end.i
 
-102:                                              ; preds = %100, %91
-  %103 = phi i8 [ %101, %100 ], [ %96, %91 ]
-  %104 = load i32, ptr %88, align 4, !tbaa !13
-  %105 = add nsw i32 %104, -1
-  store i32 %105, ptr %88, align 4, !tbaa !13
-  %106 = lshr i32 %94, 1
-  %107 = icmp eq i32 %105, 0
-  br i1 %107, label %108, label %115
+if.end.i:                                         ; preds = %if.then.i, %for.body.i
+  %23 = phi i8 [ %22, %if.then.i ], [ %shl2.i, %for.body.i ]
+  %24 = load i32, ptr %bits_to_go.i, align 4, !tbaa !13
+  %dec.i = add nsw i32 %24, -1
+  store i32 %dec.i, ptr %bits_to_go.i, align 4, !tbaa !13
+  %shr.i = lshr i32 %mask.030.i, 1
+  %cmp8.i = icmp eq i32 %dec.i, 0
+  br i1 %cmp8.i, label %if.then10.i, label %for.inc.i
 
-108:                                              ; preds = %102
-  store i32 8, ptr %88, align 4, !tbaa !13
-  %109 = load ptr, ptr %89, align 8, !tbaa !14
-  %110 = load i32, ptr %84, align 8, !tbaa !15
-  %111 = add nsw i32 %110, 1
-  store i32 %111, ptr %84, align 8, !tbaa !15
-  %112 = sext i32 %110 to i64
-  %113 = getelementptr inbounds i8, ptr %109, i64 %112
-  store i8 %103, ptr %113, align 1, !tbaa !16
-  store i8 0, ptr %87, align 8, !tbaa !7
-  %114 = load i32, ptr %76, align 4, !tbaa !19
-  br label %115
+if.then10.i:                                      ; preds = %if.end.i
+  store i32 8, ptr %bits_to_go.i, align 4, !tbaa !13
+  %25 = load ptr, ptr %streamBuffer.i, align 8, !tbaa !14
+  %26 = load i32, ptr %18, align 8, !tbaa !15
+  %inc.i = add nsw i32 %26, 1
+  store i32 %inc.i, ptr %18, align 8, !tbaa !15
+  %idxprom.i52 = sext i32 %26 to i64
+  %arrayidx.i = getelementptr inbounds i8, ptr %25, i64 %idxprom.i52
+  store i8 %23, ptr %arrayidx.i, align 1, !tbaa !16
+  store i8 0, ptr %byte_buf.i, align 8, !tbaa !7
+  %.pre31.i = load i32, ptr %len.i, align 4, !tbaa !19
+  br label %for.inc.i
 
-115:                                              ; preds = %108, %102
-  %116 = phi i32 [ %92, %102 ], [ %114, %108 ]
-  %117 = phi i8 [ %103, %102 ], [ 0, %108 ]
-  %118 = add nuw nsw i32 %95, 1
-  %119 = icmp slt i32 %118, %116
-  br i1 %119, label %91, label %120, !llvm.loop !17
+for.inc.i:                                        ; preds = %if.then10.i, %if.end.i
+  %27 = phi i32 [ %19, %if.end.i ], [ %.pre31.i, %if.then10.i ]
+  %28 = phi i8 [ %23, %if.end.i ], [ 0, %if.then10.i ]
+  %inc15.i = add nuw nsw i32 %i.029.i, 1
+  %cmp.i = icmp slt i32 %inc15.i, %27
+  br i1 %cmp.i, label %for.body.i, label %writeUVLC2buffer.exit, !llvm.loop !17
 
-120:                                              ; preds = %115
-  %121 = load i32, ptr %0, align 8, !tbaa !36
-  %122 = icmp eq i32 %121, 0
-  br i1 %122, label %126, label %123
+writeUVLC2buffer.exit:                            ; preds = %for.inc.i
+  %29 = load i32, ptr %se, align 8, !tbaa !36
+  %cmp10.not = icmp eq i32 %29, 0
+  br i1 %cmp10.not, label %if.end13, label %if.then11
 
-123:                                              ; preds = %120
-  %124 = load ptr, ptr %1, align 8, !tbaa !33
-  %125 = getelementptr inbounds %struct.Bitstream, ptr %124, i64 0, i32 10
-  store i32 1, ptr %125, align 8, !tbaa !37
-  br label %126
+if.then11:                                        ; preds = %writeUVLC2buffer.exit
+  %30 = load ptr, ptr %dp, align 8, !tbaa !33
+  %write_flag = getelementptr inbounds %struct.Bitstream, ptr %30, i64 0, i32 10
+  store i32 1, ptr %write_flag, align 8, !tbaa !37
+  br label %if.end13
 
-126:                                              ; preds = %123, %120
+if.end13:                                         ; preds = %if.then11, %writeUVLC2buffer.exit
   ret void
 }
 
 ; Function Attrs: nofree norecurse nosync nounwind memory(readwrite, inaccessiblemem: none) uwtable
-define dso_local void @writeIntraPredMode_CAVLC(ptr nocapture noundef %0, ptr nocapture noundef readonly %1) local_unnamed_addr #7 {
-  %3 = getelementptr inbounds %struct.syntaxelement, ptr %0, i64 0, i32 1
-  %4 = load i32, ptr %3, align 4, !tbaa !32
-  %5 = icmp eq i32 %4, -1
-  %6 = select i1 %5, i32 1, i32 4
-  %7 = select i1 %5, i32 1, i32 %4
-  %8 = getelementptr inbounds %struct.syntaxelement, ptr %0, i64 0, i32 3
-  store i32 %6, ptr %8, align 4
-  %9 = getelementptr inbounds %struct.syntaxelement, ptr %0, i64 0, i32 4
-  store i32 %7, ptr %9, align 8
-  %10 = getelementptr inbounds %struct.syntaxelement, ptr %0, i64 0, i32 5
-  store i32 %7, ptr %10, align 4, !tbaa !22
-  %11 = load ptr, ptr %1, align 8, !tbaa !33
-  %12 = add nsw i32 %6, -1
-  %13 = shl nuw nsw i32 1, %12
-  %14 = getelementptr inbounds %struct.Bitstream, ptr %11, i64 0, i32 2
-  %15 = getelementptr inbounds %struct.Bitstream, ptr %11, i64 0, i32 1
-  %16 = getelementptr inbounds %struct.Bitstream, ptr %11, i64 0, i32 9
-  %17 = load i8, ptr %14, align 8, !tbaa !7
-  br label %18
+define dso_local void @writeIntraPredMode_CAVLC(ptr nocapture noundef %se, ptr nocapture noundef readonly %dp) local_unnamed_addr #7 {
+entry:
+  %value1 = getelementptr inbounds %struct.syntaxelement, ptr %se, i64 0, i32 1
+  %0 = load i32, ptr %value1, align 4, !tbaa !32
+  %cmp = icmp eq i32 %0, -1
+  %spec.select = select i1 %cmp, i32 1, i32 4
+  %spec.select20 = select i1 %cmp, i32 1, i32 %0
+  %1 = getelementptr inbounds %struct.syntaxelement, ptr %se, i64 0, i32 3
+  store i32 %spec.select, ptr %1, align 4
+  %2 = getelementptr inbounds %struct.syntaxelement, ptr %se, i64 0, i32 4
+  store i32 %spec.select20, ptr %2, align 8
+  %bitpattern = getelementptr inbounds %struct.syntaxelement, ptr %se, i64 0, i32 5
+  store i32 %spec.select20, ptr %bitpattern, align 4, !tbaa !22
+  %3 = load ptr, ptr %dp, align 8, !tbaa !33
+  %sub.i = add nsw i32 %spec.select, -1
+  %shl.i = shl nuw nsw i32 1, %sub.i
+  %byte_buf.i = getelementptr inbounds %struct.Bitstream, ptr %3, i64 0, i32 2
+  %bits_to_go.i = getelementptr inbounds %struct.Bitstream, ptr %3, i64 0, i32 1
+  %streamBuffer.i = getelementptr inbounds %struct.Bitstream, ptr %3, i64 0, i32 9
+  %.pre.i = load i8, ptr %byte_buf.i, align 8, !tbaa !7
+  br label %for.body.i
 
-18:                                               ; preds = %42, %2
-  %19 = phi i32 [ %6, %2 ], [ %43, %42 ]
-  %20 = phi i8 [ %17, %2 ], [ %44, %42 ]
-  %21 = phi i32 [ %13, %2 ], [ %33, %42 ]
-  %22 = phi i32 [ 0, %2 ], [ %45, %42 ]
-  %23 = shl i8 %20, 1
-  store i8 %23, ptr %14, align 8, !tbaa !7
-  %24 = load i32, ptr %10, align 4, !tbaa !22
-  %25 = and i32 %24, %21
-  %26 = icmp eq i32 %25, 0
-  br i1 %26, label %29, label %27
+for.body.i:                                       ; preds = %for.inc.i, %entry
+  %4 = phi i32 [ %spec.select, %entry ], [ %12, %for.inc.i ]
+  %5 = phi i8 [ %.pre.i, %entry ], [ %13, %for.inc.i ]
+  %mask.030.i = phi i32 [ %shl.i, %entry ], [ %shr.i, %for.inc.i ]
+  %i.029.i = phi i32 [ 0, %entry ], [ %inc15.i, %for.inc.i ]
+  %shl2.i = shl i8 %5, 1
+  store i8 %shl2.i, ptr %byte_buf.i, align 8, !tbaa !7
+  %6 = load i32, ptr %bitpattern, align 4, !tbaa !22
+  %and.i = and i32 %6, %mask.030.i
+  %tobool.not.i = icmp eq i32 %and.i, 0
+  br i1 %tobool.not.i, label %if.end.i, label %if.then.i
 
-27:                                               ; preds = %18
-  %28 = or i8 %23, 1
-  store i8 %28, ptr %14, align 8, !tbaa !7
-  br label %29
+if.then.i:                                        ; preds = %for.body.i
+  %7 = or i8 %shl2.i, 1
+  store i8 %7, ptr %byte_buf.i, align 8, !tbaa !7
+  br label %if.end.i
 
-29:                                               ; preds = %27, %18
-  %30 = phi i8 [ %28, %27 ], [ %23, %18 ]
-  %31 = load i32, ptr %15, align 4, !tbaa !13
-  %32 = add nsw i32 %31, -1
-  store i32 %32, ptr %15, align 4, !tbaa !13
-  %33 = lshr i32 %21, 1
-  %34 = icmp eq i32 %32, 0
-  br i1 %34, label %35, label %42
+if.end.i:                                         ; preds = %if.then.i, %for.body.i
+  %8 = phi i8 [ %7, %if.then.i ], [ %shl2.i, %for.body.i ]
+  %9 = load i32, ptr %bits_to_go.i, align 4, !tbaa !13
+  %dec.i = add nsw i32 %9, -1
+  store i32 %dec.i, ptr %bits_to_go.i, align 4, !tbaa !13
+  %shr.i = lshr i32 %mask.030.i, 1
+  %cmp8.i = icmp eq i32 %dec.i, 0
+  br i1 %cmp8.i, label %if.then10.i, label %for.inc.i
 
-35:                                               ; preds = %29
-  store i32 8, ptr %15, align 4, !tbaa !13
-  %36 = load ptr, ptr %16, align 8, !tbaa !14
-  %37 = load i32, ptr %11, align 8, !tbaa !15
-  %38 = add nsw i32 %37, 1
-  store i32 %38, ptr %11, align 8, !tbaa !15
-  %39 = sext i32 %37 to i64
-  %40 = getelementptr inbounds i8, ptr %36, i64 %39
-  store i8 %30, ptr %40, align 1, !tbaa !16
-  store i8 0, ptr %14, align 8, !tbaa !7
-  %41 = load i32, ptr %8, align 4, !tbaa !19
-  br label %42
+if.then10.i:                                      ; preds = %if.end.i
+  store i32 8, ptr %bits_to_go.i, align 4, !tbaa !13
+  %10 = load ptr, ptr %streamBuffer.i, align 8, !tbaa !14
+  %11 = load i32, ptr %3, align 8, !tbaa !15
+  %inc.i = add nsw i32 %11, 1
+  store i32 %inc.i, ptr %3, align 8, !tbaa !15
+  %idxprom.i = sext i32 %11 to i64
+  %arrayidx.i = getelementptr inbounds i8, ptr %10, i64 %idxprom.i
+  store i8 %8, ptr %arrayidx.i, align 1, !tbaa !16
+  store i8 0, ptr %byte_buf.i, align 8, !tbaa !7
+  %.pre31.i = load i32, ptr %1, align 4, !tbaa !19
+  br label %for.inc.i
 
-42:                                               ; preds = %35, %29
-  %43 = phi i32 [ %19, %29 ], [ %41, %35 ]
-  %44 = phi i8 [ %30, %29 ], [ 0, %35 ]
-  %45 = add nuw nsw i32 %22, 1
-  %46 = icmp slt i32 %45, %43
-  br i1 %46, label %18, label %47, !llvm.loop !17
+for.inc.i:                                        ; preds = %if.then10.i, %if.end.i
+  %12 = phi i32 [ %4, %if.end.i ], [ %.pre31.i, %if.then10.i ]
+  %13 = phi i8 [ %8, %if.end.i ], [ 0, %if.then10.i ]
+  %inc15.i = add nuw nsw i32 %i.029.i, 1
+  %cmp.i = icmp slt i32 %inc15.i, %12
+  br i1 %cmp.i, label %for.body.i, label %writeUVLC2buffer.exit, !llvm.loop !17
 
-47:                                               ; preds = %42
-  %48 = load i32, ptr %0, align 8, !tbaa !36
-  %49 = icmp eq i32 %48, 0
-  br i1 %49, label %53, label %50
+writeUVLC2buffer.exit:                            ; preds = %for.inc.i
+  %14 = load i32, ptr %se, align 8, !tbaa !36
+  %cmp5.not = icmp eq i32 %14, 0
+  br i1 %cmp5.not, label %if.end8, label %if.then6
 
-50:                                               ; preds = %47
-  %51 = load ptr, ptr %1, align 8, !tbaa !33
-  %52 = getelementptr inbounds %struct.Bitstream, ptr %51, i64 0, i32 10
-  store i32 1, ptr %52, align 8, !tbaa !37
-  br label %53
+if.then6:                                         ; preds = %writeUVLC2buffer.exit
+  %15 = load ptr, ptr %dp, align 8, !tbaa !33
+  %write_flag = getelementptr inbounds %struct.Bitstream, ptr %15, i64 0, i32 10
+  store i32 1, ptr %write_flag, align 8, !tbaa !37
+  br label %if.end8
 
-53:                                               ; preds = %50, %47
+if.end8:                                          ; preds = %if.then6, %writeUVLC2buffer.exit
   ret void
 }
 
 ; Function Attrs: nounwind uwtable
-define dso_local i32 @writeSyntaxElement2Buf_UVLC(ptr noundef %0, ptr nocapture noundef %1) local_unnamed_addr #9 {
-  %3 = getelementptr inbounds %struct.syntaxelement, ptr %0, i64 0, i32 7
-  %4 = load ptr, ptr %3, align 8, !tbaa !43
-  %5 = getelementptr inbounds %struct.syntaxelement, ptr %0, i64 0, i32 1
-  %6 = load i32, ptr %5, align 4, !tbaa !32
-  %7 = getelementptr inbounds %struct.syntaxelement, ptr %0, i64 0, i32 2
-  %8 = load i32, ptr %7, align 8, !tbaa !44
-  %9 = getelementptr inbounds %struct.syntaxelement, ptr %0, i64 0, i32 3
-  %10 = getelementptr inbounds %struct.syntaxelement, ptr %0, i64 0, i32 4
-  tail call void %4(i32 noundef %6, i32 noundef %8, ptr noundef nonnull %9, ptr noundef nonnull %10) #16
-  %11 = load i32, ptr %9, align 4, !tbaa !19
-  %12 = sdiv i32 %11, 2
-  %13 = shl nuw i32 1, %12
-  %14 = load i32, ptr %10, align 8, !tbaa !21
-  %15 = add nsw i32 %13, -1
-  %16 = and i32 %15, %14
-  %17 = or i32 %16, %13
-  %18 = getelementptr inbounds %struct.syntaxelement, ptr %0, i64 0, i32 5
-  store i32 %17, ptr %18, align 4, !tbaa !22
-  %19 = icmp sgt i32 %11, 0
-  br i1 %19, label %20, label %56
+define dso_local i32 @writeSyntaxElement2Buf_UVLC(ptr noundef %se, ptr nocapture noundef %this_streamBuffer) local_unnamed_addr #9 {
+entry:
+  %mapping = getelementptr inbounds %struct.syntaxelement, ptr %se, i64 0, i32 7
+  %0 = load ptr, ptr %mapping, align 8, !tbaa !43
+  %value1 = getelementptr inbounds %struct.syntaxelement, ptr %se, i64 0, i32 1
+  %1 = load i32, ptr %value1, align 4, !tbaa !32
+  %value2 = getelementptr inbounds %struct.syntaxelement, ptr %se, i64 0, i32 2
+  %2 = load i32, ptr %value2, align 8, !tbaa !44
+  %len = getelementptr inbounds %struct.syntaxelement, ptr %se, i64 0, i32 3
+  %inf = getelementptr inbounds %struct.syntaxelement, ptr %se, i64 0, i32 4
+  tail call void %0(i32 noundef %1, i32 noundef %2, ptr noundef nonnull %len, ptr noundef nonnull %inf) #16
+  %3 = load i32, ptr %len, align 4, !tbaa !19
+  %div.i = sdiv i32 %3, 2
+  %shl.i = shl nuw i32 1, %div.i
+  %4 = load i32, ptr %inf, align 8, !tbaa !21
+  %sub.i = add nsw i32 %shl.i, -1
+  %and.i = and i32 %sub.i, %4
+  %or.i = or i32 %and.i, %shl.i
+  %bitpattern.i = getelementptr inbounds %struct.syntaxelement, ptr %se, i64 0, i32 5
+  store i32 %or.i, ptr %bitpattern.i, align 4, !tbaa !22
+  %cmp28.i = icmp sgt i32 %3, 0
+  br i1 %cmp28.i, label %for.body.lr.ph.i, label %writeUVLC2buffer.exit
 
-20:                                               ; preds = %2
-  %21 = add nsw i32 %11, -1
-  %22 = shl nuw i32 1, %21
-  %23 = getelementptr inbounds %struct.Bitstream, ptr %1, i64 0, i32 2
-  %24 = getelementptr inbounds %struct.Bitstream, ptr %1, i64 0, i32 1
-  %25 = getelementptr inbounds %struct.Bitstream, ptr %1, i64 0, i32 9
-  %26 = load i8, ptr %23, align 8, !tbaa !7
-  br label %27
+for.body.lr.ph.i:                                 ; preds = %entry
+  %sub.i10 = add nsw i32 %3, -1
+  %shl.i11 = shl nuw i32 1, %sub.i10
+  %byte_buf.i = getelementptr inbounds %struct.Bitstream, ptr %this_streamBuffer, i64 0, i32 2
+  %bits_to_go.i = getelementptr inbounds %struct.Bitstream, ptr %this_streamBuffer, i64 0, i32 1
+  %streamBuffer.i = getelementptr inbounds %struct.Bitstream, ptr %this_streamBuffer, i64 0, i32 9
+  %.pre.i = load i8, ptr %byte_buf.i, align 8, !tbaa !7
+  br label %for.body.i
 
-27:                                               ; preds = %51, %20
-  %28 = phi i32 [ %11, %20 ], [ %52, %51 ]
-  %29 = phi i8 [ %26, %20 ], [ %53, %51 ]
-  %30 = phi i32 [ %22, %20 ], [ %42, %51 ]
-  %31 = phi i32 [ 0, %20 ], [ %54, %51 ]
-  %32 = shl i8 %29, 1
-  store i8 %32, ptr %23, align 8, !tbaa !7
-  %33 = load i32, ptr %18, align 4, !tbaa !22
-  %34 = and i32 %33, %30
-  %35 = icmp eq i32 %34, 0
-  br i1 %35, label %38, label %36
+for.body.i:                                       ; preds = %for.inc.i, %for.body.lr.ph.i
+  %5 = phi i32 [ %3, %for.body.lr.ph.i ], [ %13, %for.inc.i ]
+  %6 = phi i8 [ %.pre.i, %for.body.lr.ph.i ], [ %14, %for.inc.i ]
+  %mask.030.i = phi i32 [ %shl.i11, %for.body.lr.ph.i ], [ %shr.i, %for.inc.i ]
+  %i.029.i = phi i32 [ 0, %for.body.lr.ph.i ], [ %inc15.i, %for.inc.i ]
+  %shl2.i = shl i8 %6, 1
+  store i8 %shl2.i, ptr %byte_buf.i, align 8, !tbaa !7
+  %7 = load i32, ptr %bitpattern.i, align 4, !tbaa !22
+  %and.i13 = and i32 %7, %mask.030.i
+  %tobool.not.i = icmp eq i32 %and.i13, 0
+  br i1 %tobool.not.i, label %if.end.i, label %if.then.i
 
-36:                                               ; preds = %27
-  %37 = or i8 %32, 1
-  store i8 %37, ptr %23, align 8, !tbaa !7
-  br label %38
+if.then.i:                                        ; preds = %for.body.i
+  %8 = or i8 %shl2.i, 1
+  store i8 %8, ptr %byte_buf.i, align 8, !tbaa !7
+  br label %if.end.i
 
-38:                                               ; preds = %36, %27
-  %39 = phi i8 [ %37, %36 ], [ %32, %27 ]
-  %40 = load i32, ptr %24, align 4, !tbaa !13
-  %41 = add nsw i32 %40, -1
-  store i32 %41, ptr %24, align 4, !tbaa !13
-  %42 = lshr i32 %30, 1
-  %43 = icmp eq i32 %41, 0
-  br i1 %43, label %44, label %51
+if.end.i:                                         ; preds = %if.then.i, %for.body.i
+  %9 = phi i8 [ %8, %if.then.i ], [ %shl2.i, %for.body.i ]
+  %10 = load i32, ptr %bits_to_go.i, align 4, !tbaa !13
+  %dec.i = add nsw i32 %10, -1
+  store i32 %dec.i, ptr %bits_to_go.i, align 4, !tbaa !13
+  %shr.i = lshr i32 %mask.030.i, 1
+  %cmp8.i = icmp eq i32 %dec.i, 0
+  br i1 %cmp8.i, label %if.then10.i, label %for.inc.i
 
-44:                                               ; preds = %38
-  store i32 8, ptr %24, align 4, !tbaa !13
-  %45 = load ptr, ptr %25, align 8, !tbaa !14
-  %46 = load i32, ptr %1, align 8, !tbaa !15
-  %47 = add nsw i32 %46, 1
-  store i32 %47, ptr %1, align 8, !tbaa !15
-  %48 = sext i32 %46 to i64
-  %49 = getelementptr inbounds i8, ptr %45, i64 %48
-  store i8 %39, ptr %49, align 1, !tbaa !16
-  store i8 0, ptr %23, align 8, !tbaa !7
-  %50 = load i32, ptr %9, align 4, !tbaa !19
-  br label %51
+if.then10.i:                                      ; preds = %if.end.i
+  store i32 8, ptr %bits_to_go.i, align 4, !tbaa !13
+  %11 = load ptr, ptr %streamBuffer.i, align 8, !tbaa !14
+  %12 = load i32, ptr %this_streamBuffer, align 8, !tbaa !15
+  %inc.i = add nsw i32 %12, 1
+  store i32 %inc.i, ptr %this_streamBuffer, align 8, !tbaa !15
+  %idxprom.i = sext i32 %12 to i64
+  %arrayidx.i = getelementptr inbounds i8, ptr %11, i64 %idxprom.i
+  store i8 %9, ptr %arrayidx.i, align 1, !tbaa !16
+  store i8 0, ptr %byte_buf.i, align 8, !tbaa !7
+  %.pre31.i = load i32, ptr %len, align 4, !tbaa !19
+  br label %for.inc.i
 
-51:                                               ; preds = %44, %38
-  %52 = phi i32 [ %28, %38 ], [ %50, %44 ]
-  %53 = phi i8 [ %39, %38 ], [ 0, %44 ]
-  %54 = add nuw nsw i32 %31, 1
-  %55 = icmp slt i32 %54, %52
-  br i1 %55, label %27, label %56, !llvm.loop !17
+for.inc.i:                                        ; preds = %if.then10.i, %if.end.i
+  %13 = phi i32 [ %5, %if.end.i ], [ %.pre31.i, %if.then10.i ]
+  %14 = phi i8 [ %9, %if.end.i ], [ 0, %if.then10.i ]
+  %inc15.i = add nuw nsw i32 %i.029.i, 1
+  %cmp.i = icmp slt i32 %inc15.i, %13
+  br i1 %cmp.i, label %for.body.i, label %writeUVLC2buffer.exit, !llvm.loop !17
 
-56:                                               ; preds = %51, %2
-  %57 = phi i32 [ %11, %2 ], [ %52, %51 ]
-  ret i32 %57
+writeUVLC2buffer.exit:                            ; preds = %for.inc.i, %entry
+  %15 = phi i32 [ %3, %entry ], [ %13, %for.inc.i ]
+  ret i32 %15
 }
 
 ; Function Attrs: nofree norecurse nosync nounwind memory(write, argmem: readwrite, inaccessiblemem: none) uwtable
-define dso_local i32 @writeSyntaxElement2Buf_Fixed(ptr nocapture noundef readonly %0, ptr nocapture noundef %1) local_unnamed_addr #0 {
-  %3 = getelementptr inbounds %struct.syntaxelement, ptr %0, i64 0, i32 3
-  %4 = load i32, ptr %3, align 4, !tbaa !19
-  %5 = icmp sgt i32 %4, 0
-  br i1 %5, label %6, label %43
+define dso_local i32 @writeSyntaxElement2Buf_Fixed(ptr nocapture noundef readonly %se, ptr nocapture noundef %this_streamBuffer) local_unnamed_addr #0 {
+entry:
+  %len.i = getelementptr inbounds %struct.syntaxelement, ptr %se, i64 0, i32 3
+  %0 = load i32, ptr %len.i, align 4, !tbaa !19
+  %cmp28.i = icmp sgt i32 %0, 0
+  br i1 %cmp28.i, label %for.body.lr.ph.i, label %writeUVLC2buffer.exit
 
-6:                                                ; preds = %2
-  %7 = add nsw i32 %4, -1
-  %8 = shl nuw i32 1, %7
-  %9 = getelementptr inbounds %struct.Bitstream, ptr %1, i64 0, i32 2
-  %10 = getelementptr inbounds %struct.syntaxelement, ptr %0, i64 0, i32 5
-  %11 = getelementptr inbounds %struct.Bitstream, ptr %1, i64 0, i32 1
-  %12 = getelementptr inbounds %struct.Bitstream, ptr %1, i64 0, i32 9
-  %13 = load i8, ptr %9, align 8, !tbaa !7
-  br label %14
+for.body.lr.ph.i:                                 ; preds = %entry
+  %sub.i = add nsw i32 %0, -1
+  %shl.i = shl nuw i32 1, %sub.i
+  %byte_buf.i = getelementptr inbounds %struct.Bitstream, ptr %this_streamBuffer, i64 0, i32 2
+  %bitpattern.i = getelementptr inbounds %struct.syntaxelement, ptr %se, i64 0, i32 5
+  %bits_to_go.i = getelementptr inbounds %struct.Bitstream, ptr %this_streamBuffer, i64 0, i32 1
+  %streamBuffer.i = getelementptr inbounds %struct.Bitstream, ptr %this_streamBuffer, i64 0, i32 9
+  %.pre.i = load i8, ptr %byte_buf.i, align 8, !tbaa !7
+  br label %for.body.i
 
-14:                                               ; preds = %38, %6
-  %15 = phi i32 [ %4, %6 ], [ %39, %38 ]
-  %16 = phi i8 [ %13, %6 ], [ %40, %38 ]
-  %17 = phi i32 [ %8, %6 ], [ %29, %38 ]
-  %18 = phi i32 [ 0, %6 ], [ %41, %38 ]
-  %19 = shl i8 %16, 1
-  store i8 %19, ptr %9, align 8, !tbaa !7
-  %20 = load i32, ptr %10, align 4, !tbaa !22
-  %21 = and i32 %20, %17
-  %22 = icmp eq i32 %21, 0
-  br i1 %22, label %25, label %23
+for.body.i:                                       ; preds = %for.inc.i, %for.body.lr.ph.i
+  %1 = phi i32 [ %0, %for.body.lr.ph.i ], [ %9, %for.inc.i ]
+  %2 = phi i8 [ %.pre.i, %for.body.lr.ph.i ], [ %10, %for.inc.i ]
+  %mask.030.i = phi i32 [ %shl.i, %for.body.lr.ph.i ], [ %shr.i, %for.inc.i ]
+  %i.029.i = phi i32 [ 0, %for.body.lr.ph.i ], [ %inc15.i, %for.inc.i ]
+  %shl2.i = shl i8 %2, 1
+  store i8 %shl2.i, ptr %byte_buf.i, align 8, !tbaa !7
+  %3 = load i32, ptr %bitpattern.i, align 4, !tbaa !22
+  %and.i = and i32 %3, %mask.030.i
+  %tobool.not.i = icmp eq i32 %and.i, 0
+  br i1 %tobool.not.i, label %if.end.i, label %if.then.i
 
-23:                                               ; preds = %14
-  %24 = or i8 %19, 1
-  store i8 %24, ptr %9, align 8, !tbaa !7
-  br label %25
+if.then.i:                                        ; preds = %for.body.i
+  %4 = or i8 %shl2.i, 1
+  store i8 %4, ptr %byte_buf.i, align 8, !tbaa !7
+  br label %if.end.i
 
-25:                                               ; preds = %23, %14
-  %26 = phi i8 [ %24, %23 ], [ %19, %14 ]
-  %27 = load i32, ptr %11, align 4, !tbaa !13
-  %28 = add nsw i32 %27, -1
-  store i32 %28, ptr %11, align 4, !tbaa !13
-  %29 = lshr i32 %17, 1
-  %30 = icmp eq i32 %28, 0
-  br i1 %30, label %31, label %38
+if.end.i:                                         ; preds = %if.then.i, %for.body.i
+  %5 = phi i8 [ %4, %if.then.i ], [ %shl2.i, %for.body.i ]
+  %6 = load i32, ptr %bits_to_go.i, align 4, !tbaa !13
+  %dec.i = add nsw i32 %6, -1
+  store i32 %dec.i, ptr %bits_to_go.i, align 4, !tbaa !13
+  %shr.i = lshr i32 %mask.030.i, 1
+  %cmp8.i = icmp eq i32 %dec.i, 0
+  br i1 %cmp8.i, label %if.then10.i, label %for.inc.i
 
-31:                                               ; preds = %25
-  store i32 8, ptr %11, align 4, !tbaa !13
-  %32 = load ptr, ptr %12, align 8, !tbaa !14
-  %33 = load i32, ptr %1, align 8, !tbaa !15
-  %34 = add nsw i32 %33, 1
-  store i32 %34, ptr %1, align 8, !tbaa !15
-  %35 = sext i32 %33 to i64
-  %36 = getelementptr inbounds i8, ptr %32, i64 %35
-  store i8 %26, ptr %36, align 1, !tbaa !16
-  store i8 0, ptr %9, align 8, !tbaa !7
-  %37 = load i32, ptr %3, align 4, !tbaa !19
-  br label %38
+if.then10.i:                                      ; preds = %if.end.i
+  store i32 8, ptr %bits_to_go.i, align 4, !tbaa !13
+  %7 = load ptr, ptr %streamBuffer.i, align 8, !tbaa !14
+  %8 = load i32, ptr %this_streamBuffer, align 8, !tbaa !15
+  %inc.i = add nsw i32 %8, 1
+  store i32 %inc.i, ptr %this_streamBuffer, align 8, !tbaa !15
+  %idxprom.i = sext i32 %8 to i64
+  %arrayidx.i = getelementptr inbounds i8, ptr %7, i64 %idxprom.i
+  store i8 %5, ptr %arrayidx.i, align 1, !tbaa !16
+  store i8 0, ptr %byte_buf.i, align 8, !tbaa !7
+  %.pre31.i = load i32, ptr %len.i, align 4, !tbaa !19
+  br label %for.inc.i
 
-38:                                               ; preds = %31, %25
-  %39 = phi i32 [ %15, %25 ], [ %37, %31 ]
-  %40 = phi i8 [ %26, %25 ], [ 0, %31 ]
-  %41 = add nuw nsw i32 %18, 1
-  %42 = icmp slt i32 %41, %39
-  br i1 %42, label %14, label %43, !llvm.loop !17
+for.inc.i:                                        ; preds = %if.then10.i, %if.end.i
+  %9 = phi i32 [ %1, %if.end.i ], [ %.pre31.i, %if.then10.i ]
+  %10 = phi i8 [ %5, %if.end.i ], [ 0, %if.then10.i ]
+  %inc15.i = add nuw nsw i32 %i.029.i, 1
+  %cmp.i = icmp slt i32 %inc15.i, %9
+  br i1 %cmp.i, label %for.body.i, label %writeUVLC2buffer.exit, !llvm.loop !17
 
-43:                                               ; preds = %38, %2
-  %44 = phi i32 [ %4, %2 ], [ %39, %38 ]
-  ret i32 %44
+writeUVLC2buffer.exit:                            ; preds = %for.inc.i, %entry
+  %11 = phi i32 [ %0, %entry ], [ %9, %for.inc.i ]
+  ret i32 %11
 }
 
 ; Function Attrs: nofree norecurse nosync nounwind memory(readwrite, inaccessiblemem: none) uwtable
-define dso_local void @writeSE_Flag(ptr nocapture noundef %0, ptr nocapture noundef readonly %1) local_unnamed_addr #7 {
-  %3 = getelementptr inbounds %struct.syntaxelement, ptr %0, i64 0, i32 3
-  store i32 1, ptr %3, align 4, !tbaa !19
-  %4 = getelementptr inbounds %struct.syntaxelement, ptr %0, i64 0, i32 1
-  %5 = load i32, ptr %4, align 4, !tbaa !32
-  %6 = and i32 %5, 1
-  %7 = getelementptr inbounds %struct.syntaxelement, ptr %0, i64 0, i32 5
-  store i32 %6, ptr %7, align 4, !tbaa !22
-  %8 = load ptr, ptr %1, align 8, !tbaa !33
-  %9 = getelementptr inbounds %struct.Bitstream, ptr %8, i64 0, i32 2
-  %10 = getelementptr inbounds %struct.Bitstream, ptr %8, i64 0, i32 1
-  %11 = getelementptr inbounds %struct.Bitstream, ptr %8, i64 0, i32 9
-  %12 = load i8, ptr %9, align 8, !tbaa !7
-  %13 = shl i8 %12, 1
-  store i8 %13, ptr %9, align 8, !tbaa !7
-  %14 = load i32, ptr %7, align 4, !tbaa !22
-  %15 = and i32 %14, 1
-  %16 = icmp eq i32 %15, 0
-  br i1 %16, label %19, label %17
+define dso_local void @writeSE_Flag(ptr nocapture noundef %se, ptr nocapture noundef readonly %dp) local_unnamed_addr #7 {
+for.body.lr.ph.i:
+  %len = getelementptr inbounds %struct.syntaxelement, ptr %se, i64 0, i32 3
+  store i32 1, ptr %len, align 4, !tbaa !19
+  %value1 = getelementptr inbounds %struct.syntaxelement, ptr %se, i64 0, i32 1
+  %0 = load i32, ptr %value1, align 4, !tbaa !32
+  %and = and i32 %0, 1
+  %bitpattern = getelementptr inbounds %struct.syntaxelement, ptr %se, i64 0, i32 5
+  store i32 %and, ptr %bitpattern, align 4, !tbaa !22
+  %1 = load ptr, ptr %dp, align 8, !tbaa !33
+  %byte_buf.i = getelementptr inbounds %struct.Bitstream, ptr %1, i64 0, i32 2
+  %bits_to_go.i = getelementptr inbounds %struct.Bitstream, ptr %1, i64 0, i32 1
+  %streamBuffer.i = getelementptr inbounds %struct.Bitstream, ptr %1, i64 0, i32 9
+  %.pre.i = load i8, ptr %byte_buf.i, align 8, !tbaa !7
+  %shl2.i.peel = shl i8 %.pre.i, 1
+  %2 = trunc i32 %and to i8
+  %spec.select = or i8 %shl2.i.peel, %2
+  store i8 %spec.select, ptr %byte_buf.i, align 8, !tbaa !7
+  %3 = load i32, ptr %bits_to_go.i, align 4, !tbaa !13
+  %dec.i.peel = add nsw i32 %3, -1
+  store i32 %dec.i.peel, ptr %bits_to_go.i, align 4, !tbaa !13
+  %cmp8.i.peel = icmp eq i32 %dec.i.peel, 0
+  br i1 %cmp8.i.peel, label %for.inc.i.peel, label %writeUVLC2buffer.exit
 
-17:                                               ; preds = %2
-  %18 = or i8 %13, 1
-  store i8 %18, ptr %9, align 8, !tbaa !7
-  br label %19
+for.inc.i.peel:                                   ; preds = %for.body.lr.ph.i
+  store i32 8, ptr %bits_to_go.i, align 4, !tbaa !13
+  %4 = load ptr, ptr %streamBuffer.i, align 8, !tbaa !14
+  %5 = load i32, ptr %1, align 8, !tbaa !15
+  %inc.i.peel = add nsw i32 %5, 1
+  store i32 %inc.i.peel, ptr %1, align 8, !tbaa !15
+  %idxprom.i.peel = sext i32 %5 to i64
+  %arrayidx.i.peel = getelementptr inbounds i8, ptr %4, i64 %idxprom.i.peel
+  store i8 %spec.select, ptr %arrayidx.i.peel, align 1, !tbaa !16
+  store i8 0, ptr %byte_buf.i, align 8, !tbaa !7
+  %.pre31.i.peel = load i32, ptr %len, align 4, !tbaa !19
+  %cmp.i.peel = icmp sgt i32 %.pre31.i.peel, 1
+  br i1 %cmp.i.peel, label %if.end.i, label %writeUVLC2buffer.exit
 
-19:                                               ; preds = %17, %2
-  %20 = phi i8 [ %18, %17 ], [ %13, %2 ]
-  %21 = load i32, ptr %10, align 4, !tbaa !13
-  %22 = add nsw i32 %21, -1
-  store i32 %22, ptr %10, align 4, !tbaa !13
-  %23 = icmp eq i32 %22, 0
-  br i1 %23, label %24, label %31
+if.end.i:                                         ; preds = %for.inc.i.peel, %for.inc.i
+  %6 = phi i32 [ %11, %for.inc.i ], [ %.pre31.i.peel, %for.inc.i.peel ]
+  %7 = phi i8 [ %12, %for.inc.i ], [ 0, %for.inc.i.peel ]
+  %i.029.i = phi i32 [ %inc15.i, %for.inc.i ], [ 1, %for.inc.i.peel ]
+  %shl2.i = shl i8 %7, 1
+  store i8 %shl2.i, ptr %byte_buf.i, align 8, !tbaa !7
+  %8 = load i32, ptr %bits_to_go.i, align 4, !tbaa !13
+  %dec.i = add nsw i32 %8, -1
+  store i32 %dec.i, ptr %bits_to_go.i, align 4, !tbaa !13
+  %cmp8.i = icmp eq i32 %dec.i, 0
+  br i1 %cmp8.i, label %if.then10.i, label %for.inc.i
 
-24:                                               ; preds = %19
-  store i32 8, ptr %10, align 4, !tbaa !13
-  %25 = load ptr, ptr %11, align 8, !tbaa !14
-  %26 = load i32, ptr %8, align 8, !tbaa !15
-  %27 = add nsw i32 %26, 1
-  store i32 %27, ptr %8, align 8, !tbaa !15
-  %28 = sext i32 %26 to i64
-  %29 = getelementptr inbounds i8, ptr %25, i64 %28
-  store i8 %20, ptr %29, align 1, !tbaa !16
-  store i8 0, ptr %9, align 8, !tbaa !7
-  %30 = load i32, ptr %3, align 4, !tbaa !19
-  br label %31
+if.then10.i:                                      ; preds = %if.end.i
+  store i32 8, ptr %bits_to_go.i, align 4, !tbaa !13
+  %9 = load ptr, ptr %streamBuffer.i, align 8, !tbaa !14
+  %10 = load i32, ptr %1, align 8, !tbaa !15
+  %inc.i = add nsw i32 %10, 1
+  store i32 %inc.i, ptr %1, align 8, !tbaa !15
+  %idxprom.i = sext i32 %10 to i64
+  %arrayidx.i = getelementptr inbounds i8, ptr %9, i64 %idxprom.i
+  store i8 %shl2.i, ptr %arrayidx.i, align 1, !tbaa !16
+  store i8 0, ptr %byte_buf.i, align 8, !tbaa !7
+  %.pre31.i = load i32, ptr %len, align 4, !tbaa !19
+  br label %for.inc.i
 
-31:                                               ; preds = %24, %19
-  %32 = phi i32 [ 1, %19 ], [ %30, %24 ]
-  %33 = phi i8 [ %20, %19 ], [ 0, %24 ]
-  %34 = icmp sgt i32 %32, 1
-  br i1 %34, label %35, label %55
+for.inc.i:                                        ; preds = %if.then10.i, %if.end.i
+  %11 = phi i32 [ %6, %if.end.i ], [ %.pre31.i, %if.then10.i ]
+  %12 = phi i8 [ %shl2.i, %if.end.i ], [ 0, %if.then10.i ]
+  %inc15.i = add nuw nsw i32 %i.029.i, 1
+  %cmp.i = icmp slt i32 %inc15.i, %11
+  br i1 %cmp.i, label %if.end.i, label %writeUVLC2buffer.exit, !llvm.loop !45
 
-35:                                               ; preds = %31, %50
-  %36 = phi i32 [ %51, %50 ], [ %32, %31 ]
-  %37 = phi i8 [ %52, %50 ], [ %33, %31 ]
-  %38 = phi i32 [ %53, %50 ], [ 1, %31 ]
-  %39 = shl i8 %37, 1
-  store i8 %39, ptr %9, align 8, !tbaa !7
-  %40 = load i32, ptr %10, align 4, !tbaa !13
-  %41 = add nsw i32 %40, -1
-  store i32 %41, ptr %10, align 4, !tbaa !13
-  %42 = icmp eq i32 %41, 0
-  br i1 %42, label %43, label %50
-
-43:                                               ; preds = %35
-  store i32 8, ptr %10, align 4, !tbaa !13
-  %44 = load ptr, ptr %11, align 8, !tbaa !14
-  %45 = load i32, ptr %8, align 8, !tbaa !15
-  %46 = add nsw i32 %45, 1
-  store i32 %46, ptr %8, align 8, !tbaa !15
-  %47 = sext i32 %45 to i64
-  %48 = getelementptr inbounds i8, ptr %44, i64 %47
-  store i8 %39, ptr %48, align 1, !tbaa !16
-  store i8 0, ptr %9, align 8, !tbaa !7
-  %49 = load i32, ptr %3, align 4, !tbaa !19
-  br label %50
-
-50:                                               ; preds = %43, %35
-  %51 = phi i32 [ %36, %35 ], [ %49, %43 ]
-  %52 = phi i8 [ %39, %35 ], [ 0, %43 ]
-  %53 = add nuw nsw i32 %38, 1
-  %54 = icmp slt i32 %53, %51
-  br i1 %54, label %35, label %55, !llvm.loop !45
-
-55:                                               ; preds = %50, %31
+writeUVLC2buffer.exit:                            ; preds = %for.inc.i, %for.body.lr.ph.i, %for.inc.i.peel
   ret void
 }
 
 ; Function Attrs: nofree norecurse nosync nounwind memory(readwrite, inaccessiblemem: none) uwtable
-define dso_local void @writeSE_invFlag(ptr nocapture noundef %0, ptr nocapture noundef readonly %1) local_unnamed_addr #7 {
-  %3 = getelementptr inbounds %struct.syntaxelement, ptr %0, i64 0, i32 3
-  store i32 1, ptr %3, align 4, !tbaa !19
-  %4 = getelementptr inbounds %struct.syntaxelement, ptr %0, i64 0, i32 1
-  %5 = load i32, ptr %4, align 4, !tbaa !32
-  %6 = and i32 %5, 1
-  %7 = xor i32 %6, 1
-  %8 = getelementptr inbounds %struct.syntaxelement, ptr %0, i64 0, i32 5
-  store i32 %7, ptr %8, align 4, !tbaa !22
-  %9 = load ptr, ptr %1, align 8, !tbaa !33
-  %10 = getelementptr inbounds %struct.Bitstream, ptr %9, i64 0, i32 2
-  %11 = getelementptr inbounds %struct.Bitstream, ptr %9, i64 0, i32 1
-  %12 = getelementptr inbounds %struct.Bitstream, ptr %9, i64 0, i32 9
-  %13 = load i8, ptr %10, align 8, !tbaa !7
-  %14 = shl i8 %13, 1
-  store i8 %14, ptr %10, align 8, !tbaa !7
-  %15 = load i32, ptr %8, align 4, !tbaa !22
-  %16 = and i32 %15, 1
-  %17 = icmp eq i32 %16, 0
-  br i1 %17, label %20, label %18
+define dso_local void @writeSE_invFlag(ptr nocapture noundef %se, ptr nocapture noundef readonly %dp) local_unnamed_addr #7 {
+for.body.lr.ph.i:
+  %len = getelementptr inbounds %struct.syntaxelement, ptr %se, i64 0, i32 3
+  store i32 1, ptr %len, align 4, !tbaa !19
+  %value1 = getelementptr inbounds %struct.syntaxelement, ptr %se, i64 0, i32 1
+  %0 = load i32, ptr %value1, align 4, !tbaa !32
+  %and = and i32 %0, 1
+  %sub = xor i32 %and, 1
+  %bitpattern = getelementptr inbounds %struct.syntaxelement, ptr %se, i64 0, i32 5
+  store i32 %sub, ptr %bitpattern, align 4, !tbaa !22
+  %1 = load ptr, ptr %dp, align 8, !tbaa !33
+  %byte_buf.i = getelementptr inbounds %struct.Bitstream, ptr %1, i64 0, i32 2
+  %bits_to_go.i = getelementptr inbounds %struct.Bitstream, ptr %1, i64 0, i32 1
+  %streamBuffer.i = getelementptr inbounds %struct.Bitstream, ptr %1, i64 0, i32 9
+  %.pre.i = load i8, ptr %byte_buf.i, align 8, !tbaa !7
+  %shl2.i.peel = shl i8 %.pre.i, 1
+  %2 = trunc i32 %sub to i8
+  %spec.select = or i8 %shl2.i.peel, %2
+  store i8 %spec.select, ptr %byte_buf.i, align 8, !tbaa !7
+  %3 = load i32, ptr %bits_to_go.i, align 4, !tbaa !13
+  %dec.i.peel = add nsw i32 %3, -1
+  store i32 %dec.i.peel, ptr %bits_to_go.i, align 4, !tbaa !13
+  %cmp8.i.peel = icmp eq i32 %dec.i.peel, 0
+  br i1 %cmp8.i.peel, label %for.inc.i.peel, label %writeUVLC2buffer.exit
 
-18:                                               ; preds = %2
-  %19 = or i8 %14, 1
-  store i8 %19, ptr %10, align 8, !tbaa !7
-  br label %20
+for.inc.i.peel:                                   ; preds = %for.body.lr.ph.i
+  store i32 8, ptr %bits_to_go.i, align 4, !tbaa !13
+  %4 = load ptr, ptr %streamBuffer.i, align 8, !tbaa !14
+  %5 = load i32, ptr %1, align 8, !tbaa !15
+  %inc.i.peel = add nsw i32 %5, 1
+  store i32 %inc.i.peel, ptr %1, align 8, !tbaa !15
+  %idxprom.i.peel = sext i32 %5 to i64
+  %arrayidx.i.peel = getelementptr inbounds i8, ptr %4, i64 %idxprom.i.peel
+  store i8 %spec.select, ptr %arrayidx.i.peel, align 1, !tbaa !16
+  store i8 0, ptr %byte_buf.i, align 8, !tbaa !7
+  %.pre31.i.peel = load i32, ptr %len, align 4, !tbaa !19
+  %cmp.i.peel = icmp sgt i32 %.pre31.i.peel, 1
+  br i1 %cmp.i.peel, label %if.end.i, label %writeUVLC2buffer.exit
 
-20:                                               ; preds = %18, %2
-  %21 = phi i8 [ %19, %18 ], [ %14, %2 ]
-  %22 = load i32, ptr %11, align 4, !tbaa !13
-  %23 = add nsw i32 %22, -1
-  store i32 %23, ptr %11, align 4, !tbaa !13
-  %24 = icmp eq i32 %23, 0
-  br i1 %24, label %25, label %32
+if.end.i:                                         ; preds = %for.inc.i.peel, %for.inc.i
+  %6 = phi i32 [ %11, %for.inc.i ], [ %.pre31.i.peel, %for.inc.i.peel ]
+  %7 = phi i8 [ %12, %for.inc.i ], [ 0, %for.inc.i.peel ]
+  %i.029.i = phi i32 [ %inc15.i, %for.inc.i ], [ 1, %for.inc.i.peel ]
+  %shl2.i = shl i8 %7, 1
+  store i8 %shl2.i, ptr %byte_buf.i, align 8, !tbaa !7
+  %8 = load i32, ptr %bits_to_go.i, align 4, !tbaa !13
+  %dec.i = add nsw i32 %8, -1
+  store i32 %dec.i, ptr %bits_to_go.i, align 4, !tbaa !13
+  %cmp8.i = icmp eq i32 %dec.i, 0
+  br i1 %cmp8.i, label %if.then10.i, label %for.inc.i
 
-25:                                               ; preds = %20
-  store i32 8, ptr %11, align 4, !tbaa !13
-  %26 = load ptr, ptr %12, align 8, !tbaa !14
-  %27 = load i32, ptr %9, align 8, !tbaa !15
-  %28 = add nsw i32 %27, 1
-  store i32 %28, ptr %9, align 8, !tbaa !15
-  %29 = sext i32 %27 to i64
-  %30 = getelementptr inbounds i8, ptr %26, i64 %29
-  store i8 %21, ptr %30, align 1, !tbaa !16
-  store i8 0, ptr %10, align 8, !tbaa !7
-  %31 = load i32, ptr %3, align 4, !tbaa !19
-  br label %32
+if.then10.i:                                      ; preds = %if.end.i
+  store i32 8, ptr %bits_to_go.i, align 4, !tbaa !13
+  %9 = load ptr, ptr %streamBuffer.i, align 8, !tbaa !14
+  %10 = load i32, ptr %1, align 8, !tbaa !15
+  %inc.i = add nsw i32 %10, 1
+  store i32 %inc.i, ptr %1, align 8, !tbaa !15
+  %idxprom.i = sext i32 %10 to i64
+  %arrayidx.i = getelementptr inbounds i8, ptr %9, i64 %idxprom.i
+  store i8 %shl2.i, ptr %arrayidx.i, align 1, !tbaa !16
+  store i8 0, ptr %byte_buf.i, align 8, !tbaa !7
+  %.pre31.i = load i32, ptr %len, align 4, !tbaa !19
+  br label %for.inc.i
 
-32:                                               ; preds = %25, %20
-  %33 = phi i32 [ 1, %20 ], [ %31, %25 ]
-  %34 = phi i8 [ %21, %20 ], [ 0, %25 ]
-  %35 = icmp sgt i32 %33, 1
-  br i1 %35, label %36, label %56
+for.inc.i:                                        ; preds = %if.then10.i, %if.end.i
+  %11 = phi i32 [ %6, %if.end.i ], [ %.pre31.i, %if.then10.i ]
+  %12 = phi i8 [ %shl2.i, %if.end.i ], [ 0, %if.then10.i ]
+  %inc15.i = add nuw nsw i32 %i.029.i, 1
+  %cmp.i = icmp slt i32 %inc15.i, %11
+  br i1 %cmp.i, label %if.end.i, label %writeUVLC2buffer.exit, !llvm.loop !47
 
-36:                                               ; preds = %32, %51
-  %37 = phi i32 [ %52, %51 ], [ %33, %32 ]
-  %38 = phi i8 [ %53, %51 ], [ %34, %32 ]
-  %39 = phi i32 [ %54, %51 ], [ 1, %32 ]
-  %40 = shl i8 %38, 1
-  store i8 %40, ptr %10, align 8, !tbaa !7
-  %41 = load i32, ptr %11, align 4, !tbaa !13
-  %42 = add nsw i32 %41, -1
-  store i32 %42, ptr %11, align 4, !tbaa !13
-  %43 = icmp eq i32 %42, 0
-  br i1 %43, label %44, label %51
-
-44:                                               ; preds = %36
-  store i32 8, ptr %11, align 4, !tbaa !13
-  %45 = load ptr, ptr %12, align 8, !tbaa !14
-  %46 = load i32, ptr %9, align 8, !tbaa !15
-  %47 = add nsw i32 %46, 1
-  store i32 %47, ptr %9, align 8, !tbaa !15
-  %48 = sext i32 %46 to i64
-  %49 = getelementptr inbounds i8, ptr %45, i64 %48
-  store i8 %40, ptr %49, align 1, !tbaa !16
-  store i8 0, ptr %10, align 8, !tbaa !7
-  %50 = load i32, ptr %3, align 4, !tbaa !19
-  br label %51
-
-51:                                               ; preds = %44, %36
-  %52 = phi i32 [ %37, %36 ], [ %50, %44 ]
-  %53 = phi i8 [ %40, %36 ], [ 0, %44 ]
-  %54 = add nuw nsw i32 %39, 1
-  %55 = icmp slt i32 %54, %52
-  br i1 %55, label %36, label %56, !llvm.loop !47
-
-56:                                               ; preds = %51, %32
+writeUVLC2buffer.exit:                            ; preds = %for.inc.i, %for.body.lr.ph.i, %for.inc.i.peel
   ret void
 }
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(argmem: write) uwtable
-define dso_local void @writeSE_Dummy(ptr nocapture noundef writeonly %0, ptr nocapture noundef readnone %1) local_unnamed_addr #10 {
-  %3 = getelementptr inbounds %struct.syntaxelement, ptr %0, i64 0, i32 3
-  store i32 0, ptr %3, align 4, !tbaa !19
+define dso_local void @writeSE_Dummy(ptr nocapture noundef writeonly %se, ptr nocapture noundef readnone %dp) local_unnamed_addr #10 {
+entry:
+  %len = getelementptr inbounds %struct.syntaxelement, ptr %se, i64 0, i32 3
+  store i32 0, ptr %len, align 4, !tbaa !19
   ret void
 }
 
 ; Function Attrs: nofree norecurse nosync nounwind memory(readwrite, inaccessiblemem: none) uwtable
-define dso_local void @writeSE_Fix(ptr nocapture noundef readonly %0, ptr nocapture noundef readonly %1) local_unnamed_addr #7 {
-  %3 = load ptr, ptr %1, align 8, !tbaa !33
-  %4 = getelementptr inbounds %struct.syntaxelement, ptr %0, i64 0, i32 3
-  %5 = load i32, ptr %4, align 4, !tbaa !19
-  %6 = icmp sgt i32 %5, 0
-  br i1 %6, label %7, label %44
+define dso_local void @writeSE_Fix(ptr nocapture noundef readonly %se, ptr nocapture noundef readonly %dp) local_unnamed_addr #7 {
+entry:
+  %0 = load ptr, ptr %dp, align 8, !tbaa !33
+  %len.i = getelementptr inbounds %struct.syntaxelement, ptr %se, i64 0, i32 3
+  %1 = load i32, ptr %len.i, align 4, !tbaa !19
+  %cmp28.i = icmp sgt i32 %1, 0
+  br i1 %cmp28.i, label %for.body.lr.ph.i, label %writeUVLC2buffer.exit
 
-7:                                                ; preds = %2
-  %8 = add nsw i32 %5, -1
-  %9 = shl nuw i32 1, %8
-  %10 = getelementptr inbounds %struct.Bitstream, ptr %3, i64 0, i32 2
-  %11 = getelementptr inbounds %struct.syntaxelement, ptr %0, i64 0, i32 5
-  %12 = getelementptr inbounds %struct.Bitstream, ptr %3, i64 0, i32 1
-  %13 = getelementptr inbounds %struct.Bitstream, ptr %3, i64 0, i32 9
-  %14 = load i8, ptr %10, align 8, !tbaa !7
-  br label %15
+for.body.lr.ph.i:                                 ; preds = %entry
+  %sub.i = add nsw i32 %1, -1
+  %shl.i = shl nuw i32 1, %sub.i
+  %byte_buf.i = getelementptr inbounds %struct.Bitstream, ptr %0, i64 0, i32 2
+  %bitpattern.i = getelementptr inbounds %struct.syntaxelement, ptr %se, i64 0, i32 5
+  %bits_to_go.i = getelementptr inbounds %struct.Bitstream, ptr %0, i64 0, i32 1
+  %streamBuffer.i = getelementptr inbounds %struct.Bitstream, ptr %0, i64 0, i32 9
+  %.pre.i = load i8, ptr %byte_buf.i, align 8, !tbaa !7
+  br label %for.body.i
 
-15:                                               ; preds = %39, %7
-  %16 = phi i32 [ %5, %7 ], [ %40, %39 ]
-  %17 = phi i8 [ %14, %7 ], [ %41, %39 ]
-  %18 = phi i32 [ %9, %7 ], [ %30, %39 ]
-  %19 = phi i32 [ 0, %7 ], [ %42, %39 ]
-  %20 = shl i8 %17, 1
-  store i8 %20, ptr %10, align 8, !tbaa !7
-  %21 = load i32, ptr %11, align 4, !tbaa !22
-  %22 = and i32 %21, %18
-  %23 = icmp eq i32 %22, 0
-  br i1 %23, label %26, label %24
+for.body.i:                                       ; preds = %for.inc.i, %for.body.lr.ph.i
+  %2 = phi i32 [ %1, %for.body.lr.ph.i ], [ %10, %for.inc.i ]
+  %3 = phi i8 [ %.pre.i, %for.body.lr.ph.i ], [ %11, %for.inc.i ]
+  %mask.030.i = phi i32 [ %shl.i, %for.body.lr.ph.i ], [ %shr.i, %for.inc.i ]
+  %i.029.i = phi i32 [ 0, %for.body.lr.ph.i ], [ %inc15.i, %for.inc.i ]
+  %shl2.i = shl i8 %3, 1
+  store i8 %shl2.i, ptr %byte_buf.i, align 8, !tbaa !7
+  %4 = load i32, ptr %bitpattern.i, align 4, !tbaa !22
+  %and.i = and i32 %4, %mask.030.i
+  %tobool.not.i = icmp eq i32 %and.i, 0
+  br i1 %tobool.not.i, label %if.end.i, label %if.then.i
 
-24:                                               ; preds = %15
-  %25 = or i8 %20, 1
-  store i8 %25, ptr %10, align 8, !tbaa !7
-  br label %26
+if.then.i:                                        ; preds = %for.body.i
+  %5 = or i8 %shl2.i, 1
+  store i8 %5, ptr %byte_buf.i, align 8, !tbaa !7
+  br label %if.end.i
 
-26:                                               ; preds = %24, %15
-  %27 = phi i8 [ %25, %24 ], [ %20, %15 ]
-  %28 = load i32, ptr %12, align 4, !tbaa !13
-  %29 = add nsw i32 %28, -1
-  store i32 %29, ptr %12, align 4, !tbaa !13
-  %30 = lshr i32 %18, 1
-  %31 = icmp eq i32 %29, 0
-  br i1 %31, label %32, label %39
+if.end.i:                                         ; preds = %if.then.i, %for.body.i
+  %6 = phi i8 [ %5, %if.then.i ], [ %shl2.i, %for.body.i ]
+  %7 = load i32, ptr %bits_to_go.i, align 4, !tbaa !13
+  %dec.i = add nsw i32 %7, -1
+  store i32 %dec.i, ptr %bits_to_go.i, align 4, !tbaa !13
+  %shr.i = lshr i32 %mask.030.i, 1
+  %cmp8.i = icmp eq i32 %dec.i, 0
+  br i1 %cmp8.i, label %if.then10.i, label %for.inc.i
 
-32:                                               ; preds = %26
-  store i32 8, ptr %12, align 4, !tbaa !13
-  %33 = load ptr, ptr %13, align 8, !tbaa !14
-  %34 = load i32, ptr %3, align 8, !tbaa !15
-  %35 = add nsw i32 %34, 1
-  store i32 %35, ptr %3, align 8, !tbaa !15
-  %36 = sext i32 %34 to i64
-  %37 = getelementptr inbounds i8, ptr %33, i64 %36
-  store i8 %27, ptr %37, align 1, !tbaa !16
-  store i8 0, ptr %10, align 8, !tbaa !7
-  %38 = load i32, ptr %4, align 4, !tbaa !19
-  br label %39
+if.then10.i:                                      ; preds = %if.end.i
+  store i32 8, ptr %bits_to_go.i, align 4, !tbaa !13
+  %8 = load ptr, ptr %streamBuffer.i, align 8, !tbaa !14
+  %9 = load i32, ptr %0, align 8, !tbaa !15
+  %inc.i = add nsw i32 %9, 1
+  store i32 %inc.i, ptr %0, align 8, !tbaa !15
+  %idxprom.i = sext i32 %9 to i64
+  %arrayidx.i = getelementptr inbounds i8, ptr %8, i64 %idxprom.i
+  store i8 %6, ptr %arrayidx.i, align 1, !tbaa !16
+  store i8 0, ptr %byte_buf.i, align 8, !tbaa !7
+  %.pre31.i = load i32, ptr %len.i, align 4, !tbaa !19
+  br label %for.inc.i
 
-39:                                               ; preds = %32, %26
-  %40 = phi i32 [ %16, %26 ], [ %38, %32 ]
-  %41 = phi i8 [ %27, %26 ], [ 0, %32 ]
-  %42 = add nuw nsw i32 %19, 1
-  %43 = icmp slt i32 %42, %40
-  br i1 %43, label %15, label %44, !llvm.loop !17
+for.inc.i:                                        ; preds = %if.then10.i, %if.end.i
+  %10 = phi i32 [ %2, %if.end.i ], [ %.pre31.i, %if.then10.i ]
+  %11 = phi i8 [ %6, %if.end.i ], [ 0, %if.then10.i ]
+  %inc15.i = add nuw nsw i32 %i.029.i, 1
+  %cmp.i = icmp slt i32 %inc15.i, %10
+  br i1 %cmp.i, label %for.body.i, label %writeUVLC2buffer.exit, !llvm.loop !17
 
-44:                                               ; preds = %39, %2
+writeUVLC2buffer.exit:                            ; preds = %for.inc.i, %entry
   ret void
 }
 
 ; Function Attrs: nofree norecurse nosync nounwind memory(argmem: readwrite) uwtable
-define dso_local i32 @symbol2vlc(ptr nocapture noundef %0) local_unnamed_addr #11 {
-  %2 = getelementptr inbounds %struct.syntaxelement, ptr %0, i64 0, i32 3
-  %3 = load i32, ptr %2, align 4, !tbaa !19
-  %4 = icmp sgt i32 %3, 0
-  br i1 %4, label %5, label %54
+define dso_local i32 @symbol2vlc(ptr nocapture noundef %sym) local_unnamed_addr #11 {
+entry:
+  %len = getelementptr inbounds %struct.syntaxelement, ptr %sym, i64 0, i32 3
+  %0 = load i32, ptr %len, align 4, !tbaa !19
+  %cmp9 = icmp sgt i32 %0, 0
+  br i1 %cmp9, label %while.body.lr.ph, label %while.end
 
-5:                                                ; preds = %1
-  %6 = getelementptr inbounds %struct.syntaxelement, ptr %0, i64 0, i32 4
-  %7 = load i32, ptr %6, align 8, !tbaa !21
-  %8 = and i32 %3, 3
-  %9 = icmp ult i32 %3, 4
-  br i1 %9, label %38, label %10
+while.body.lr.ph:                                 ; preds = %entry
+  %inf = getelementptr inbounds %struct.syntaxelement, ptr %sym, i64 0, i32 4
+  %1 = load i32, ptr %inf, align 8, !tbaa !21
+  %xtraiter = and i32 %0, 3
+  %2 = icmp ult i32 %0, 4
+  br i1 %2, label %while.end.loopexit.unr-lcssa, label %while.body.lr.ph.new
 
-10:                                               ; preds = %5
-  %11 = and i32 %3, -4
-  br label %12
+while.body.lr.ph.new:                             ; preds = %while.body.lr.ph
+  %unroll_iter = and i32 %0, -4
+  br label %while.body
 
-12:                                               ; preds = %12, %10
-  %13 = phi i32 [ %3, %10 ], [ %28, %12 ]
-  %14 = phi i32 [ 0, %10 ], [ %35, %12 ]
-  %15 = phi i32 [ 0, %10 ], [ %36, %12 ]
-  %16 = add nsw i32 %13, -1
-  %17 = lshr i32 %7, %16
-  %18 = add nsw i32 %13, -2
-  %19 = shl i32 %14, 2
-  %20 = shl i32 %17, 1
-  %21 = and i32 %20, 2
-  %22 = or i32 %19, %21
-  %23 = lshr i32 %7, %18
-  %24 = and i32 %23, 1
-  %25 = or i32 %24, %22
-  %26 = add nsw i32 %13, -3
-  %27 = lshr i32 %7, %26
-  %28 = add nsw i32 %13, -4
-  %29 = shl i32 %25, 2
-  %30 = shl i32 %27, 1
-  %31 = and i32 %30, 2
-  %32 = or i32 %29, %31
-  %33 = lshr i32 %7, %28
-  %34 = and i32 %33, 1
-  %35 = or i32 %34, %32
-  %36 = add i32 %15, 4
-  %37 = icmp eq i32 %36, %11
-  br i1 %37, label %38, label %12, !llvm.loop !48
+while.body:                                       ; preds = %while.body, %while.body.lr.ph.new
+  %info_len.011 = phi i32 [ %0, %while.body.lr.ph.new ], [ %dec.3, %while.body ]
+  %storemerge10 = phi i32 [ 0, %while.body.lr.ph.new ], [ %or.3, %while.body ]
+  %niter = phi i32 [ 0, %while.body.lr.ph.new ], [ %niter.next.3, %while.body ]
+  %dec = add nsw i32 %info_len.011, -1
+  %shr8 = lshr i32 %1, %dec
+  %dec.1 = add nsw i32 %info_len.011, -2
+  %3 = shl i32 %storemerge10, 2
+  %and = shl i32 %shr8, 1
+  %4 = and i32 %and, 2
+  %shl.1 = or i32 %3, %4
+  %shr8.1 = lshr i32 %1, %dec.1
+  %and.1 = and i32 %shr8.1, 1
+  %or.1 = or i32 %and.1, %shl.1
+  %dec.2 = add nsw i32 %info_len.011, -3
+  %shr8.2 = lshr i32 %1, %dec.2
+  %dec.3 = add nsw i32 %info_len.011, -4
+  %5 = shl i32 %or.1, 2
+  %and.2 = shl i32 %shr8.2, 1
+  %6 = and i32 %and.2, 2
+  %shl.3 = or i32 %5, %6
+  %shr8.3 = lshr i32 %1, %dec.3
+  %and.3 = and i32 %shr8.3, 1
+  %or.3 = or i32 %and.3, %shl.3
+  %niter.next.3 = add i32 %niter, 4
+  %niter.ncmp.3.not = icmp eq i32 %niter.next.3, %unroll_iter
+  br i1 %niter.ncmp.3.not, label %while.end.loopexit.unr-lcssa, label %while.body, !llvm.loop !48
 
-38:                                               ; preds = %12, %5
-  %39 = phi i32 [ undef, %5 ], [ %35, %12 ]
-  %40 = phi i32 [ %3, %5 ], [ %28, %12 ]
-  %41 = phi i32 [ 0, %5 ], [ %35, %12 ]
-  %42 = icmp eq i32 %8, 0
-  br i1 %42, label %54, label %43
+while.end.loopexit.unr-lcssa:                     ; preds = %while.body, %while.body.lr.ph
+  %or.lcssa.ph = phi i32 [ undef, %while.body.lr.ph ], [ %or.3, %while.body ]
+  %info_len.011.unr = phi i32 [ %0, %while.body.lr.ph ], [ %dec.3, %while.body ]
+  %storemerge10.unr = phi i32 [ 0, %while.body.lr.ph ], [ %or.3, %while.body ]
+  %lcmp.mod.not = icmp eq i32 %xtraiter, 0
+  br i1 %lcmp.mod.not, label %while.end, label %while.body.epil
 
-43:                                               ; preds = %38, %43
-  %44 = phi i32 [ %47, %43 ], [ %40, %38 ]
-  %45 = phi i32 [ %51, %43 ], [ %41, %38 ]
-  %46 = phi i32 [ %52, %43 ], [ 0, %38 ]
-  %47 = add nsw i32 %44, -1
-  %48 = shl i32 %45, 1
-  %49 = lshr i32 %7, %47
-  %50 = and i32 %49, 1
-  %51 = or i32 %50, %48
-  %52 = add i32 %46, 1
-  %53 = icmp eq i32 %52, %8
-  br i1 %53, label %54, label %43, !llvm.loop !49
+while.body.epil:                                  ; preds = %while.end.loopexit.unr-lcssa, %while.body.epil
+  %info_len.011.epil = phi i32 [ %dec.epil, %while.body.epil ], [ %info_len.011.unr, %while.end.loopexit.unr-lcssa ]
+  %storemerge10.epil = phi i32 [ %or.epil, %while.body.epil ], [ %storemerge10.unr, %while.end.loopexit.unr-lcssa ]
+  %epil.iter = phi i32 [ %epil.iter.next, %while.body.epil ], [ 0, %while.end.loopexit.unr-lcssa ]
+  %dec.epil = add nsw i32 %info_len.011.epil, -1
+  %shl.epil = shl i32 %storemerge10.epil, 1
+  %shr8.epil = lshr i32 %1, %dec.epil
+  %and.epil = and i32 %shr8.epil, 1
+  %or.epil = or i32 %and.epil, %shl.epil
+  %epil.iter.next = add i32 %epil.iter, 1
+  %epil.iter.cmp.not = icmp eq i32 %epil.iter.next, %xtraiter
+  br i1 %epil.iter.cmp.not, label %while.end, label %while.body.epil, !llvm.loop !49
 
-54:                                               ; preds = %38, %43, %1
-  %55 = phi i32 [ 0, %1 ], [ %39, %38 ], [ %51, %43 ]
-  %56 = getelementptr inbounds %struct.syntaxelement, ptr %0, i64 0, i32 5
-  store i32 %55, ptr %56, align 4, !tbaa !22
+while.end:                                        ; preds = %while.end.loopexit.unr-lcssa, %while.body.epil, %entry
+  %storemerge.lcssa = phi i32 [ 0, %entry ], [ %or.lcssa.ph, %while.end.loopexit.unr-lcssa ], [ %or.epil, %while.body.epil ]
+  %bitpattern = getelementptr inbounds %struct.syntaxelement, ptr %sym, i64 0, i32 5
+  store i32 %storemerge.lcssa, ptr %bitpattern, align 4, !tbaa !22
   ret i32 0
 }
 
 ; Function Attrs: nofree norecurse nosync nounwind memory(readwrite, inaccessiblemem: none) uwtable
-define dso_local i32 @writeSyntaxElement_VLC(ptr nocapture noundef %0, ptr nocapture noundef readonly %1) local_unnamed_addr #7 {
-  %3 = getelementptr inbounds %struct.syntaxelement, ptr %0, i64 0, i32 1
-  %4 = load i32, ptr %3, align 4, !tbaa !32
-  %5 = getelementptr inbounds %struct.syntaxelement, ptr %0, i64 0, i32 4
-  store i32 %4, ptr %5, align 8, !tbaa !21
-  %6 = getelementptr inbounds %struct.syntaxelement, ptr %0, i64 0, i32 2
-  %7 = load i32, ptr %6, align 8, !tbaa !44
-  %8 = getelementptr inbounds %struct.syntaxelement, ptr %0, i64 0, i32 3
-  store i32 %7, ptr %8, align 4, !tbaa !19
-  %9 = icmp sgt i32 %7, 0
-  br i1 %9, label %10, label %15
+define dso_local i32 @writeSyntaxElement_VLC(ptr nocapture noundef %se, ptr nocapture noundef readonly %dp) local_unnamed_addr #7 {
+entry:
+  %value1 = getelementptr inbounds %struct.syntaxelement, ptr %se, i64 0, i32 1
+  %0 = load i32, ptr %value1, align 4, !tbaa !18
+  %inf = getelementptr inbounds %struct.syntaxelement, ptr %se, i64 0, i32 4
+  store i32 %0, ptr %inf, align 8, !tbaa !21
+  %value2 = getelementptr inbounds %struct.syntaxelement, ptr %se, i64 0, i32 2
+  %1 = load i32, ptr %value2, align 8, !tbaa !18
+  %len = getelementptr inbounds %struct.syntaxelement, ptr %se, i64 0, i32 3
+  store i32 %1, ptr %len, align 4, !tbaa !19
+  %cmp9.i = icmp sgt i32 %1, 0
+  br i1 %cmp9.i, label %while.body.i.preheader, label %symbol2vlc.exit.thread
 
-10:                                               ; preds = %2
-  %11 = and i32 %7, 3
-  %12 = icmp ult i32 %7, 4
-  br i1 %12, label %43, label %13
+while.body.i.preheader:                           ; preds = %entry
+  %xtraiter = and i32 %1, 3
+  %2 = icmp ult i32 %1, 4
+  br i1 %2, label %for.body.lr.ph.i.unr-lcssa, label %while.body.i.preheader.new
 
-13:                                               ; preds = %10
-  %14 = and i32 %7, -4
-  br label %17
+while.body.i.preheader.new:                       ; preds = %while.body.i.preheader
+  %unroll_iter = and i32 %1, -4
+  br label %while.body.i
 
-15:                                               ; preds = %2
-  %16 = getelementptr inbounds %struct.syntaxelement, ptr %0, i64 0, i32 5
-  store i32 0, ptr %16, align 4, !tbaa !22
-  br label %98
+symbol2vlc.exit.thread:                           ; preds = %entry
+  %bitpattern.i18 = getelementptr inbounds %struct.syntaxelement, ptr %se, i64 0, i32 5
+  store i32 0, ptr %bitpattern.i18, align 4, !tbaa !22
+  br label %writeUVLC2buffer.exit
 
-17:                                               ; preds = %17, %13
-  %18 = phi i32 [ %7, %13 ], [ %33, %17 ]
-  %19 = phi i32 [ 0, %13 ], [ %40, %17 ]
-  %20 = phi i32 [ 0, %13 ], [ %41, %17 ]
-  %21 = add nsw i32 %18, -1
-  %22 = lshr i32 %4, %21
-  %23 = add nsw i32 %18, -2
-  %24 = shl i32 %19, 2
-  %25 = shl i32 %22, 1
-  %26 = and i32 %25, 2
-  %27 = or i32 %24, %26
-  %28 = lshr i32 %4, %23
-  %29 = and i32 %28, 1
-  %30 = or i32 %29, %27
-  %31 = add nsw i32 %18, -3
-  %32 = lshr i32 %4, %31
-  %33 = add nsw i32 %18, -4
-  %34 = shl i32 %30, 2
-  %35 = shl i32 %32, 1
-  %36 = and i32 %35, 2
-  %37 = or i32 %34, %36
-  %38 = lshr i32 %4, %33
-  %39 = and i32 %38, 1
-  %40 = or i32 %39, %37
-  %41 = add i32 %20, 4
-  %42 = icmp eq i32 %41, %14
-  br i1 %42, label %43, label %17, !llvm.loop !48
+while.body.i:                                     ; preds = %while.body.i, %while.body.i.preheader.new
+  %info_len.011.i = phi i32 [ %1, %while.body.i.preheader.new ], [ %dec.i.3, %while.body.i ]
+  %storemerge10.i = phi i32 [ 0, %while.body.i.preheader.new ], [ %or.i.3, %while.body.i ]
+  %niter = phi i32 [ 0, %while.body.i.preheader.new ], [ %niter.next.3, %while.body.i ]
+  %dec.i = add nsw i32 %info_len.011.i, -1
+  %shr8.i = lshr i32 %0, %dec.i
+  %dec.i.1 = add nsw i32 %info_len.011.i, -2
+  %3 = shl i32 %storemerge10.i, 2
+  %and.i = shl i32 %shr8.i, 1
+  %4 = and i32 %and.i, 2
+  %shl.i.1 = or i32 %3, %4
+  %shr8.i.1 = lshr i32 %0, %dec.i.1
+  %and.i.1 = and i32 %shr8.i.1, 1
+  %or.i.1 = or i32 %and.i.1, %shl.i.1
+  %dec.i.2 = add nsw i32 %info_len.011.i, -3
+  %shr8.i.2 = lshr i32 %0, %dec.i.2
+  %dec.i.3 = add nsw i32 %info_len.011.i, -4
+  %5 = shl i32 %or.i.1, 2
+  %and.i.2 = shl i32 %shr8.i.2, 1
+  %6 = and i32 %and.i.2, 2
+  %shl.i.3 = or i32 %5, %6
+  %shr8.i.3 = lshr i32 %0, %dec.i.3
+  %and.i.3 = and i32 %shr8.i.3, 1
+  %or.i.3 = or i32 %and.i.3, %shl.i.3
+  %niter.next.3 = add i32 %niter, 4
+  %niter.ncmp.3.not = icmp eq i32 %niter.next.3, %unroll_iter
+  br i1 %niter.ncmp.3.not, label %for.body.lr.ph.i.unr-lcssa, label %while.body.i, !llvm.loop !48
 
-43:                                               ; preds = %17, %10
-  %44 = phi i32 [ undef, %10 ], [ %40, %17 ]
-  %45 = phi i32 [ %7, %10 ], [ %33, %17 ]
-  %46 = phi i32 [ 0, %10 ], [ %40, %17 ]
-  %47 = icmp eq i32 %11, 0
-  br i1 %47, label %59, label %48
+for.body.lr.ph.i.unr-lcssa:                       ; preds = %while.body.i, %while.body.i.preheader
+  %or.i.lcssa.ph = phi i32 [ undef, %while.body.i.preheader ], [ %or.i.3, %while.body.i ]
+  %info_len.011.i.unr = phi i32 [ %1, %while.body.i.preheader ], [ %dec.i.3, %while.body.i ]
+  %storemerge10.i.unr = phi i32 [ 0, %while.body.i.preheader ], [ %or.i.3, %while.body.i ]
+  %lcmp.mod.not = icmp eq i32 %xtraiter, 0
+  br i1 %lcmp.mod.not, label %for.body.lr.ph.i, label %while.body.i.epil
 
-48:                                               ; preds = %43, %48
-  %49 = phi i32 [ %52, %48 ], [ %45, %43 ]
-  %50 = phi i32 [ %56, %48 ], [ %46, %43 ]
-  %51 = phi i32 [ %57, %48 ], [ 0, %43 ]
-  %52 = add nsw i32 %49, -1
-  %53 = shl i32 %50, 1
-  %54 = lshr i32 %4, %52
-  %55 = and i32 %54, 1
-  %56 = or i32 %55, %53
-  %57 = add i32 %51, 1
-  %58 = icmp eq i32 %57, %11
-  br i1 %58, label %59, label %48, !llvm.loop !51
+while.body.i.epil:                                ; preds = %for.body.lr.ph.i.unr-lcssa, %while.body.i.epil
+  %info_len.011.i.epil = phi i32 [ %dec.i.epil, %while.body.i.epil ], [ %info_len.011.i.unr, %for.body.lr.ph.i.unr-lcssa ]
+  %storemerge10.i.epil = phi i32 [ %or.i.epil, %while.body.i.epil ], [ %storemerge10.i.unr, %for.body.lr.ph.i.unr-lcssa ]
+  %epil.iter = phi i32 [ %epil.iter.next, %while.body.i.epil ], [ 0, %for.body.lr.ph.i.unr-lcssa ]
+  %dec.i.epil = add nsw i32 %info_len.011.i.epil, -1
+  %shl.i.epil = shl i32 %storemerge10.i.epil, 1
+  %shr8.i.epil = lshr i32 %0, %dec.i.epil
+  %and.i.epil = and i32 %shr8.i.epil, 1
+  %or.i.epil = or i32 %and.i.epil, %shl.i.epil
+  %epil.iter.next = add i32 %epil.iter, 1
+  %epil.iter.cmp.not = icmp eq i32 %epil.iter.next, %xtraiter
+  br i1 %epil.iter.cmp.not, label %for.body.lr.ph.i, label %while.body.i.epil, !llvm.loop !51
 
-59:                                               ; preds = %48, %43
-  %60 = phi i32 [ %44, %43 ], [ %56, %48 ]
-  %61 = getelementptr inbounds %struct.syntaxelement, ptr %0, i64 0, i32 5
-  store i32 %60, ptr %61, align 4, !tbaa !22
-  %62 = load ptr, ptr %1, align 8, !tbaa !33
-  %63 = add nsw i32 %7, -1
-  %64 = shl nuw i32 1, %63
-  %65 = getelementptr inbounds %struct.Bitstream, ptr %62, i64 0, i32 2
-  %66 = getelementptr inbounds %struct.Bitstream, ptr %62, i64 0, i32 1
-  %67 = getelementptr inbounds %struct.Bitstream, ptr %62, i64 0, i32 9
-  %68 = load i8, ptr %65, align 8, !tbaa !7
-  br label %69
+for.body.lr.ph.i:                                 ; preds = %while.body.i.epil, %for.body.lr.ph.i.unr-lcssa
+  %or.i.lcssa = phi i32 [ %or.i.lcssa.ph, %for.body.lr.ph.i.unr-lcssa ], [ %or.i.epil, %while.body.i.epil ]
+  %bitpattern.i = getelementptr inbounds %struct.syntaxelement, ptr %se, i64 0, i32 5
+  store i32 %or.i.lcssa, ptr %bitpattern.i, align 4, !tbaa !22
+  %7 = load ptr, ptr %dp, align 8, !tbaa !33
+  %sub.i = add nsw i32 %1, -1
+  %shl.i12 = shl nuw i32 1, %sub.i
+  %byte_buf.i = getelementptr inbounds %struct.Bitstream, ptr %7, i64 0, i32 2
+  %bits_to_go.i = getelementptr inbounds %struct.Bitstream, ptr %7, i64 0, i32 1
+  %streamBuffer.i = getelementptr inbounds %struct.Bitstream, ptr %7, i64 0, i32 9
+  %.pre.i = load i8, ptr %byte_buf.i, align 8, !tbaa !7
+  br label %for.body.i
 
-69:                                               ; preds = %93, %59
-  %70 = phi i32 [ %7, %59 ], [ %94, %93 ]
-  %71 = phi i8 [ %68, %59 ], [ %95, %93 ]
-  %72 = phi i32 [ %64, %59 ], [ %84, %93 ]
-  %73 = phi i32 [ 0, %59 ], [ %96, %93 ]
-  %74 = shl i8 %71, 1
-  store i8 %74, ptr %65, align 8, !tbaa !7
-  %75 = load i32, ptr %61, align 4, !tbaa !22
-  %76 = and i32 %75, %72
-  %77 = icmp eq i32 %76, 0
-  br i1 %77, label %80, label %78
+for.body.i:                                       ; preds = %for.inc.i, %for.body.lr.ph.i
+  %8 = phi i32 [ %1, %for.body.lr.ph.i ], [ %16, %for.inc.i ]
+  %9 = phi i8 [ %.pre.i, %for.body.lr.ph.i ], [ %17, %for.inc.i ]
+  %mask.030.i = phi i32 [ %shl.i12, %for.body.lr.ph.i ], [ %shr.i, %for.inc.i ]
+  %i.029.i = phi i32 [ 0, %for.body.lr.ph.i ], [ %inc15.i, %for.inc.i ]
+  %shl2.i = shl i8 %9, 1
+  store i8 %shl2.i, ptr %byte_buf.i, align 8, !tbaa !7
+  %10 = load i32, ptr %bitpattern.i, align 4, !tbaa !22
+  %and.i14 = and i32 %10, %mask.030.i
+  %tobool.not.i = icmp eq i32 %and.i14, 0
+  br i1 %tobool.not.i, label %if.end.i, label %if.then.i
 
-78:                                               ; preds = %69
-  %79 = or i8 %74, 1
-  store i8 %79, ptr %65, align 8, !tbaa !7
-  br label %80
+if.then.i:                                        ; preds = %for.body.i
+  %11 = or i8 %shl2.i, 1
+  store i8 %11, ptr %byte_buf.i, align 8, !tbaa !7
+  br label %if.end.i
 
-80:                                               ; preds = %78, %69
-  %81 = phi i8 [ %79, %78 ], [ %74, %69 ]
-  %82 = load i32, ptr %66, align 4, !tbaa !13
-  %83 = add nsw i32 %82, -1
-  store i32 %83, ptr %66, align 4, !tbaa !13
-  %84 = lshr i32 %72, 1
-  %85 = icmp eq i32 %83, 0
-  br i1 %85, label %86, label %93
+if.end.i:                                         ; preds = %if.then.i, %for.body.i
+  %12 = phi i8 [ %11, %if.then.i ], [ %shl2.i, %for.body.i ]
+  %13 = load i32, ptr %bits_to_go.i, align 4, !tbaa !13
+  %dec.i15 = add nsw i32 %13, -1
+  store i32 %dec.i15, ptr %bits_to_go.i, align 4, !tbaa !13
+  %shr.i = lshr i32 %mask.030.i, 1
+  %cmp8.i = icmp eq i32 %dec.i15, 0
+  br i1 %cmp8.i, label %if.then10.i, label %for.inc.i
 
-86:                                               ; preds = %80
-  store i32 8, ptr %66, align 4, !tbaa !13
-  %87 = load ptr, ptr %67, align 8, !tbaa !14
-  %88 = load i32, ptr %62, align 8, !tbaa !15
-  %89 = add nsw i32 %88, 1
-  store i32 %89, ptr %62, align 8, !tbaa !15
-  %90 = sext i32 %88 to i64
-  %91 = getelementptr inbounds i8, ptr %87, i64 %90
-  store i8 %81, ptr %91, align 1, !tbaa !16
-  store i8 0, ptr %65, align 8, !tbaa !7
-  %92 = load i32, ptr %8, align 4, !tbaa !19
-  br label %93
+if.then10.i:                                      ; preds = %if.end.i
+  store i32 8, ptr %bits_to_go.i, align 4, !tbaa !13
+  %14 = load ptr, ptr %streamBuffer.i, align 8, !tbaa !14
+  %15 = load i32, ptr %7, align 8, !tbaa !15
+  %inc.i = add nsw i32 %15, 1
+  store i32 %inc.i, ptr %7, align 8, !tbaa !15
+  %idxprom.i = sext i32 %15 to i64
+  %arrayidx.i = getelementptr inbounds i8, ptr %14, i64 %idxprom.i
+  store i8 %12, ptr %arrayidx.i, align 1, !tbaa !16
+  store i8 0, ptr %byte_buf.i, align 8, !tbaa !7
+  %.pre31.i = load i32, ptr %len, align 4, !tbaa !19
+  br label %for.inc.i
 
-93:                                               ; preds = %86, %80
-  %94 = phi i32 [ %70, %80 ], [ %92, %86 ]
-  %95 = phi i8 [ %81, %80 ], [ 0, %86 ]
-  %96 = add nuw nsw i32 %73, 1
-  %97 = icmp slt i32 %96, %94
-  br i1 %97, label %69, label %98, !llvm.loop !17
+for.inc.i:                                        ; preds = %if.then10.i, %if.end.i
+  %16 = phi i32 [ %8, %if.end.i ], [ %.pre31.i, %if.then10.i ]
+  %17 = phi i8 [ %12, %if.end.i ], [ 0, %if.then10.i ]
+  %inc15.i = add nuw nsw i32 %i.029.i, 1
+  %cmp.i16 = icmp slt i32 %inc15.i, %16
+  br i1 %cmp.i16, label %for.body.i, label %writeUVLC2buffer.exit, !llvm.loop !17
 
-98:                                               ; preds = %93, %15
-  %99 = phi i32 [ %7, %15 ], [ %94, %93 ]
-  %100 = load i32, ptr %0, align 8, !tbaa !36
-  %101 = icmp eq i32 %100, 0
-  br i1 %101, label %105, label %102
+writeUVLC2buffer.exit:                            ; preds = %for.inc.i, %symbol2vlc.exit.thread
+  %18 = phi i32 [ %1, %symbol2vlc.exit.thread ], [ %16, %for.inc.i ]
+  %19 = load i32, ptr %se, align 8, !tbaa !36
+  %cmp.not = icmp eq i32 %19, 0
+  br i1 %cmp.not, label %if.end, label %if.then
 
-102:                                              ; preds = %98
-  %103 = load ptr, ptr %1, align 8, !tbaa !33
-  %104 = getelementptr inbounds %struct.Bitstream, ptr %103, i64 0, i32 10
-  store i32 1, ptr %104, align 8, !tbaa !37
-  br label %105
+if.then:                                          ; preds = %writeUVLC2buffer.exit
+  %20 = load ptr, ptr %dp, align 8, !tbaa !33
+  %write_flag = getelementptr inbounds %struct.Bitstream, ptr %20, i64 0, i32 10
+  store i32 1, ptr %write_flag, align 8, !tbaa !37
+  br label %if.end
 
-105:                                              ; preds = %102, %98
-  ret i32 %99
+if.end:                                           ; preds = %if.then, %writeUVLC2buffer.exit
+  ret i32 %18
 }
 
 ; Function Attrs: nounwind uwtable
-define dso_local i32 @writeSyntaxElement_NumCoeffTrailingOnes(ptr nocapture noundef %0, ptr nocapture noundef readonly %1) local_unnamed_addr #9 {
-  %3 = getelementptr inbounds %struct.syntaxelement, ptr %0, i64 0, i32 3
-  %4 = load i32, ptr %3, align 4, !tbaa !19
-  %5 = icmp eq i32 %4, 3
-  br i1 %5, label %6, label %16
+define dso_local i32 @writeSyntaxElement_NumCoeffTrailingOnes(ptr nocapture noundef %se, ptr nocapture noundef readonly %dp) local_unnamed_addr #9 {
+entry:
+  %len = getelementptr inbounds %struct.syntaxelement, ptr %se, i64 0, i32 3
+  %0 = load i32, ptr %len, align 4, !tbaa !19
+  %cmp = icmp eq i32 %0, 3
+  br i1 %cmp, label %if.then, label %if.end23
 
-6:                                                ; preds = %2
-  store i32 6, ptr %3, align 4, !tbaa !19
-  %7 = getelementptr inbounds %struct.syntaxelement, ptr %0, i64 0, i32 1
-  %8 = load i32, ptr %7, align 4, !tbaa !32
-  %9 = icmp sgt i32 %8, 0
-  br i1 %9, label %10, label %38
+if.then:                                          ; preds = %entry
+  store i32 6, ptr %len, align 4, !tbaa !19
+  %value1 = getelementptr inbounds %struct.syntaxelement, ptr %se, i64 0, i32 1
+  %1 = load i32, ptr %value1, align 4, !tbaa !32
+  %cmp2 = icmp sgt i32 %1, 0
+  br i1 %cmp2, label %if.then3, label %if.end29.thread
 
-10:                                               ; preds = %6
-  %11 = shl i32 %8, 2
-  %12 = add i32 %11, -4
-  %13 = getelementptr inbounds %struct.syntaxelement, ptr %0, i64 0, i32 2
-  %14 = load i32, ptr %13, align 8, !tbaa !44
-  %15 = or i32 %14, %12
-  br label %38
+if.then3:                                         ; preds = %if.then
+  %sub = shl i32 %1, 2
+  %shl = add i32 %sub, -4
+  %value2 = getelementptr inbounds %struct.syntaxelement, ptr %se, i64 0, i32 2
+  %2 = load i32, ptr %value2, align 8, !tbaa !44
+  %or = or i32 %2, %shl
+  br label %if.end29.thread
 
-16:                                               ; preds = %2
-  %17 = sext i32 %4 to i64
-  %18 = getelementptr inbounds %struct.syntaxelement, ptr %0, i64 0, i32 2
-  %19 = load i32, ptr %18, align 8, !tbaa !44
-  %20 = sext i32 %19 to i64
-  %21 = getelementptr inbounds %struct.syntaxelement, ptr %0, i64 0, i32 1
-  %22 = load i32, ptr %21, align 4, !tbaa !32
-  %23 = sext i32 %22 to i64
-  %24 = getelementptr inbounds [3 x [4 x [17 x i32]]], ptr @writeSyntaxElement_NumCoeffTrailingOnes.lentab, i64 0, i64 %17, i64 %20, i64 %23
-  %25 = load i32, ptr %24, align 4, !tbaa !18
-  store i32 %25, ptr %3, align 4, !tbaa !19
-  %26 = getelementptr inbounds [3 x [4 x [17 x i32]]], ptr @writeSyntaxElement_NumCoeffTrailingOnes.codtab, i64 0, i64 %17, i64 %20, i64 %23
-  %27 = load i32, ptr %26, align 4, !tbaa !18
-  %28 = getelementptr inbounds %struct.syntaxelement, ptr %0, i64 0, i32 4
-  store i32 %27, ptr %28, align 8, !tbaa !21
-  %29 = icmp eq i32 %25, 0
-  br i1 %29, label %30, label %34
+if.end29.thread:                                  ; preds = %if.then, %if.then3
+  %.sink = phi i32 [ %or, %if.then3 ], [ 3, %if.then ]
+  %3 = getelementptr inbounds %struct.syntaxelement, ptr %se, i64 0, i32 4
+  store i32 %.sink, ptr %3, align 8
+  br label %while.body.lr.ph.i
 
-30:                                               ; preds = %16
-  %31 = getelementptr inbounds %struct.syntaxelement, ptr %0, i64 0, i32 2
-  %32 = load i32, ptr %31, align 8, !tbaa !44
-  %33 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str, i32 noundef %4, i32 noundef %22, i32 noundef %32)
+if.end23:                                         ; preds = %entry
+  %idxprom = sext i32 %0 to i64
+  %value27 = getelementptr inbounds %struct.syntaxelement, ptr %se, i64 0, i32 2
+  %4 = load i32, ptr %value27, align 8, !tbaa !44
+  %idxprom8 = sext i32 %4 to i64
+  %value110 = getelementptr inbounds %struct.syntaxelement, ptr %se, i64 0, i32 1
+  %5 = load i32, ptr %value110, align 4, !tbaa !32
+  %idxprom11 = sext i32 %5 to i64
+  %arrayidx12 = getelementptr inbounds [3 x [4 x [17 x i32]]], ptr @writeSyntaxElement_NumCoeffTrailingOnes.lentab, i64 0, i64 %idxprom, i64 %idxprom8, i64 %idxprom11
+  %6 = load i32, ptr %arrayidx12, align 4, !tbaa !18
+  store i32 %6, ptr %len, align 4, !tbaa !19
+  %arrayidx21 = getelementptr inbounds [3 x [4 x [17 x i32]]], ptr @writeSyntaxElement_NumCoeffTrailingOnes.codtab, i64 0, i64 %idxprom, i64 %idxprom8, i64 %idxprom11
+  %7 = load i32, ptr %arrayidx21, align 4, !tbaa !18
+  %inf22 = getelementptr inbounds %struct.syntaxelement, ptr %se, i64 0, i32 4
+  store i32 %7, ptr %inf22, align 8, !tbaa !21
+  %cmp25 = icmp eq i32 %6, 0
+  br i1 %cmp25, label %if.then26, label %if.end29
+
+if.then26:                                        ; preds = %if.end23
+  %value228 = getelementptr inbounds %struct.syntaxelement, ptr %se, i64 0, i32 2
+  %8 = load i32, ptr %value228, align 8, !tbaa !44
+  %call = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str, i32 noundef %0, i32 noundef %5, i32 noundef %8)
   tail call void @exit(i32 noundef -1) #17
   unreachable
 
-34:                                               ; preds = %16
-  %35 = icmp sgt i32 %25, 0
-  br i1 %35, label %41, label %36
+if.end29:                                         ; preds = %if.end23
+  %cmp9.i = icmp sgt i32 %6, 0
+  br i1 %cmp9.i, label %while.body.lr.ph.i, label %symbol2vlc.exit.thread
 
-36:                                               ; preds = %34
-  %37 = getelementptr inbounds %struct.syntaxelement, ptr %0, i64 0, i32 5
-  store i32 0, ptr %37, align 4, !tbaa !22
-  br label %91
+symbol2vlc.exit.thread:                           ; preds = %if.end29
+  %bitpattern.i67 = getelementptr inbounds %struct.syntaxelement, ptr %se, i64 0, i32 5
+  store i32 0, ptr %bitpattern.i67, align 4, !tbaa !22
+  br label %writeUVLC2buffer.exit
 
-38:                                               ; preds = %6, %10
-  %39 = phi i32 [ %15, %10 ], [ 3, %6 ]
-  %40 = getelementptr inbounds %struct.syntaxelement, ptr %0, i64 0, i32 4
-  store i32 %39, ptr %40, align 8, !tbaa !21
-  br label %41
+while.body.lr.ph.i:                               ; preds = %if.end29.thread, %if.end29
+  %9 = phi i32 [ %.sink, %if.end29.thread ], [ %7, %if.end29 ]
+  %10 = phi i32 [ 6, %if.end29.thread ], [ %6, %if.end29 ]
+  br label %while.body.i
 
-41:                                               ; preds = %38, %34
-  %42 = phi i32 [ %27, %34 ], [ %39, %38 ]
-  %43 = phi i32 [ %25, %34 ], [ 6, %38 ]
-  br label %44
+while.body.i:                                     ; preds = %while.body.i, %while.body.lr.ph.i
+  %info_len.011.i = phi i32 [ %10, %while.body.lr.ph.i ], [ %dec.i, %while.body.i ]
+  %storemerge10.i = phi i32 [ 0, %while.body.lr.ph.i ], [ %or.i, %while.body.i ]
+  %dec.i = add nsw i32 %info_len.011.i, -1
+  %shl.i = shl i32 %storemerge10.i, 1
+  %shr8.i = lshr i32 %9, %dec.i
+  %and.i = and i32 %shr8.i, 1
+  %or.i = or i32 %and.i, %shl.i
+  %cmp.i = icmp ugt i32 %info_len.011.i, 1
+  br i1 %cmp.i, label %while.body.i, label %for.body.lr.ph.i, !llvm.loop !48
 
-44:                                               ; preds = %44, %41
-  %45 = phi i32 [ %43, %41 ], [ %47, %44 ]
-  %46 = phi i32 [ 0, %41 ], [ %51, %44 ]
-  %47 = add nsw i32 %45, -1
-  %48 = shl i32 %46, 1
-  %49 = lshr i32 %42, %47
-  %50 = and i32 %49, 1
-  %51 = or i32 %50, %48
-  %52 = icmp ugt i32 %45, 1
-  br i1 %52, label %44, label %53, !llvm.loop !48
+for.body.lr.ph.i:                                 ; preds = %while.body.i
+  %bitpattern.i = getelementptr inbounds %struct.syntaxelement, ptr %se, i64 0, i32 5
+  store i32 %or.i, ptr %bitpattern.i, align 4, !tbaa !22
+  %11 = load ptr, ptr %dp, align 8, !tbaa !33
+  %sub.i = add nsw i32 %10, -1
+  %shl.i61 = shl nuw i32 1, %sub.i
+  %byte_buf.i = getelementptr inbounds %struct.Bitstream, ptr %11, i64 0, i32 2
+  %bits_to_go.i = getelementptr inbounds %struct.Bitstream, ptr %11, i64 0, i32 1
+  %streamBuffer.i = getelementptr inbounds %struct.Bitstream, ptr %11, i64 0, i32 9
+  %.pre.i = load i8, ptr %byte_buf.i, align 8, !tbaa !7
+  br label %for.body.i
 
-53:                                               ; preds = %44
-  %54 = getelementptr inbounds %struct.syntaxelement, ptr %0, i64 0, i32 5
-  store i32 %51, ptr %54, align 4, !tbaa !22
-  %55 = load ptr, ptr %1, align 8, !tbaa !33
-  %56 = add nsw i32 %43, -1
-  %57 = shl nuw i32 1, %56
-  %58 = getelementptr inbounds %struct.Bitstream, ptr %55, i64 0, i32 2
-  %59 = getelementptr inbounds %struct.Bitstream, ptr %55, i64 0, i32 1
-  %60 = getelementptr inbounds %struct.Bitstream, ptr %55, i64 0, i32 9
-  %61 = load i8, ptr %58, align 8, !tbaa !7
-  br label %62
+for.body.i:                                       ; preds = %for.inc.i, %for.body.lr.ph.i
+  %12 = phi i32 [ %10, %for.body.lr.ph.i ], [ %20, %for.inc.i ]
+  %13 = phi i8 [ %.pre.i, %for.body.lr.ph.i ], [ %21, %for.inc.i ]
+  %mask.030.i = phi i32 [ %shl.i61, %for.body.lr.ph.i ], [ %shr.i, %for.inc.i ]
+  %i.029.i = phi i32 [ 0, %for.body.lr.ph.i ], [ %inc15.i, %for.inc.i ]
+  %shl2.i = shl i8 %13, 1
+  store i8 %shl2.i, ptr %byte_buf.i, align 8, !tbaa !7
+  %14 = load i32, ptr %bitpattern.i, align 4, !tbaa !22
+  %and.i63 = and i32 %14, %mask.030.i
+  %tobool.not.i = icmp eq i32 %and.i63, 0
+  br i1 %tobool.not.i, label %if.end.i, label %if.then.i
 
-62:                                               ; preds = %86, %53
-  %63 = phi i32 [ %43, %53 ], [ %87, %86 ]
-  %64 = phi i8 [ %61, %53 ], [ %88, %86 ]
-  %65 = phi i32 [ %57, %53 ], [ %77, %86 ]
-  %66 = phi i32 [ 0, %53 ], [ %89, %86 ]
-  %67 = shl i8 %64, 1
-  store i8 %67, ptr %58, align 8, !tbaa !7
-  %68 = load i32, ptr %54, align 4, !tbaa !22
-  %69 = and i32 %68, %65
-  %70 = icmp eq i32 %69, 0
-  br i1 %70, label %73, label %71
+if.then.i:                                        ; preds = %for.body.i
+  %15 = or i8 %shl2.i, 1
+  store i8 %15, ptr %byte_buf.i, align 8, !tbaa !7
+  br label %if.end.i
 
-71:                                               ; preds = %62
-  %72 = or i8 %67, 1
-  store i8 %72, ptr %58, align 8, !tbaa !7
-  br label %73
+if.end.i:                                         ; preds = %if.then.i, %for.body.i
+  %16 = phi i8 [ %15, %if.then.i ], [ %shl2.i, %for.body.i ]
+  %17 = load i32, ptr %bits_to_go.i, align 4, !tbaa !13
+  %dec.i64 = add nsw i32 %17, -1
+  store i32 %dec.i64, ptr %bits_to_go.i, align 4, !tbaa !13
+  %shr.i = lshr i32 %mask.030.i, 1
+  %cmp8.i = icmp eq i32 %dec.i64, 0
+  br i1 %cmp8.i, label %if.then10.i, label %for.inc.i
 
-73:                                               ; preds = %71, %62
-  %74 = phi i8 [ %72, %71 ], [ %67, %62 ]
-  %75 = load i32, ptr %59, align 4, !tbaa !13
-  %76 = add nsw i32 %75, -1
-  store i32 %76, ptr %59, align 4, !tbaa !13
-  %77 = lshr i32 %65, 1
-  %78 = icmp eq i32 %76, 0
-  br i1 %78, label %79, label %86
+if.then10.i:                                      ; preds = %if.end.i
+  store i32 8, ptr %bits_to_go.i, align 4, !tbaa !13
+  %18 = load ptr, ptr %streamBuffer.i, align 8, !tbaa !14
+  %19 = load i32, ptr %11, align 8, !tbaa !15
+  %inc.i = add nsw i32 %19, 1
+  store i32 %inc.i, ptr %11, align 8, !tbaa !15
+  %idxprom.i = sext i32 %19 to i64
+  %arrayidx.i = getelementptr inbounds i8, ptr %18, i64 %idxprom.i
+  store i8 %16, ptr %arrayidx.i, align 1, !tbaa !16
+  store i8 0, ptr %byte_buf.i, align 8, !tbaa !7
+  %.pre31.i = load i32, ptr %len, align 4, !tbaa !19
+  br label %for.inc.i
 
-79:                                               ; preds = %73
-  store i32 8, ptr %59, align 4, !tbaa !13
-  %80 = load ptr, ptr %60, align 8, !tbaa !14
-  %81 = load i32, ptr %55, align 8, !tbaa !15
-  %82 = add nsw i32 %81, 1
-  store i32 %82, ptr %55, align 8, !tbaa !15
-  %83 = sext i32 %81 to i64
-  %84 = getelementptr inbounds i8, ptr %80, i64 %83
-  store i8 %74, ptr %84, align 1, !tbaa !16
-  store i8 0, ptr %58, align 8, !tbaa !7
-  %85 = load i32, ptr %3, align 4, !tbaa !19
-  br label %86
+for.inc.i:                                        ; preds = %if.then10.i, %if.end.i
+  %20 = phi i32 [ %12, %if.end.i ], [ %.pre31.i, %if.then10.i ]
+  %21 = phi i8 [ %16, %if.end.i ], [ 0, %if.then10.i ]
+  %inc15.i = add nuw nsw i32 %i.029.i, 1
+  %cmp.i65 = icmp slt i32 %inc15.i, %20
+  br i1 %cmp.i65, label %for.body.i, label %writeUVLC2buffer.exit, !llvm.loop !17
 
-86:                                               ; preds = %79, %73
-  %87 = phi i32 [ %63, %73 ], [ %85, %79 ]
-  %88 = phi i8 [ %74, %73 ], [ 0, %79 ]
-  %89 = add nuw nsw i32 %66, 1
-  %90 = icmp slt i32 %89, %87
-  br i1 %90, label %62, label %91, !llvm.loop !17
+writeUVLC2buffer.exit:                            ; preds = %for.inc.i, %symbol2vlc.exit.thread
+  %22 = phi i32 [ %6, %symbol2vlc.exit.thread ], [ %20, %for.inc.i ]
+  %23 = load i32, ptr %se, align 8, !tbaa !36
+  %cmp31.not = icmp eq i32 %23, 0
+  br i1 %cmp31.not, label %if.end34, label %if.then32
 
-91:                                               ; preds = %86, %36
-  %92 = phi i32 [ %25, %36 ], [ %87, %86 ]
-  %93 = load i32, ptr %0, align 8, !tbaa !36
-  %94 = icmp eq i32 %93, 0
-  br i1 %94, label %98, label %95
+if.then32:                                        ; preds = %writeUVLC2buffer.exit
+  %24 = load ptr, ptr %dp, align 8, !tbaa !33
+  %write_flag = getelementptr inbounds %struct.Bitstream, ptr %24, i64 0, i32 10
+  store i32 1, ptr %write_flag, align 8, !tbaa !37
+  br label %if.end34
 
-95:                                               ; preds = %91
-  %96 = load ptr, ptr %1, align 8, !tbaa !33
-  %97 = getelementptr inbounds %struct.Bitstream, ptr %96, i64 0, i32 10
-  store i32 1, ptr %97, align 8, !tbaa !37
-  br label %98
-
-98:                                               ; preds = %95, %91
-  ret i32 %92
+if.end34:                                         ; preds = %if.then32, %writeUVLC2buffer.exit
+  ret i32 %22
 }
 
 ; Function Attrs: nofree nounwind
@@ -1984,1099 +1977,1106 @@ declare noundef i32 @printf(ptr nocapture noundef readonly, ...) local_unnamed_a
 declare void @exit(i32 noundef) local_unnamed_addr #13
 
 ; Function Attrs: nounwind uwtable
-define dso_local i32 @writeSyntaxElement_NumCoeffTrailingOnesChromaDC(ptr nocapture noundef %0, ptr nocapture noundef readonly %1) local_unnamed_addr #9 {
-  %3 = load ptr, ptr @img, align 8, !tbaa !24
-  %4 = getelementptr inbounds %struct.ImageParameters, ptr %3, i64 0, i32 160
-  %5 = load i32, ptr %4, align 8, !tbaa !25
-  %6 = add nsw i32 %5, -1
-  %7 = sext i32 %6 to i64
-  %8 = getelementptr inbounds %struct.syntaxelement, ptr %0, i64 0, i32 2
-  %9 = load i32, ptr %8, align 8, !tbaa !44
-  %10 = sext i32 %9 to i64
-  %11 = getelementptr inbounds %struct.syntaxelement, ptr %0, i64 0, i32 1
-  %12 = load i32, ptr %11, align 4, !tbaa !32
-  %13 = sext i32 %12 to i64
-  %14 = getelementptr inbounds [3 x [4 x [17 x i32]]], ptr @writeSyntaxElement_NumCoeffTrailingOnesChromaDC.lentab, i64 0, i64 %7, i64 %10, i64 %13
-  %15 = load i32, ptr %14, align 4, !tbaa !18
-  %16 = getelementptr inbounds %struct.syntaxelement, ptr %0, i64 0, i32 3
-  store i32 %15, ptr %16, align 4, !tbaa !19
-  %17 = getelementptr inbounds [3 x [4 x [17 x i32]]], ptr @writeSyntaxElement_NumCoeffTrailingOnesChromaDC.codtab, i64 0, i64 %7, i64 %10, i64 %13
-  %18 = load i32, ptr %17, align 4, !tbaa !18
-  %19 = getelementptr inbounds %struct.syntaxelement, ptr %0, i64 0, i32 4
-  store i32 %18, ptr %19, align 8, !tbaa !21
-  %20 = icmp eq i32 %15, 0
-  br i1 %20, label %21, label %23
+define dso_local i32 @writeSyntaxElement_NumCoeffTrailingOnesChromaDC(ptr nocapture noundef %se, ptr nocapture noundef readonly %dp) local_unnamed_addr #9 {
+entry:
+  %0 = load ptr, ptr @img, align 8, !tbaa !24
+  %yuv_format = getelementptr inbounds %struct.ImageParameters, ptr %0, i64 0, i32 160
+  %1 = load i32, ptr %yuv_format, align 8, !tbaa !25
+  %sub = add nsw i32 %1, -1
+  %idxprom = sext i32 %sub to i64
+  %value2 = getelementptr inbounds %struct.syntaxelement, ptr %se, i64 0, i32 2
+  %2 = load i32, ptr %value2, align 8, !tbaa !44
+  %idxprom1 = sext i32 %2 to i64
+  %value1 = getelementptr inbounds %struct.syntaxelement, ptr %se, i64 0, i32 1
+  %3 = load i32, ptr %value1, align 4, !tbaa !32
+  %idxprom3 = sext i32 %3 to i64
+  %arrayidx4 = getelementptr inbounds [3 x [4 x [17 x i32]]], ptr @writeSyntaxElement_NumCoeffTrailingOnesChromaDC.lentab, i64 0, i64 %idxprom, i64 %idxprom1, i64 %idxprom3
+  %4 = load i32, ptr %arrayidx4, align 4, !tbaa !18
+  %len = getelementptr inbounds %struct.syntaxelement, ptr %se, i64 0, i32 3
+  store i32 %4, ptr %len, align 4, !tbaa !19
+  %arrayidx12 = getelementptr inbounds [3 x [4 x [17 x i32]]], ptr @writeSyntaxElement_NumCoeffTrailingOnesChromaDC.codtab, i64 0, i64 %idxprom, i64 %idxprom1, i64 %idxprom3
+  %5 = load i32, ptr %arrayidx12, align 4, !tbaa !18
+  %inf = getelementptr inbounds %struct.syntaxelement, ptr %se, i64 0, i32 4
+  store i32 %5, ptr %inf, align 8, !tbaa !21
+  %cmp = icmp eq i32 %4, 0
+  br i1 %cmp, label %if.then, label %if.end
 
-21:                                               ; preds = %2
-  %22 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.1, i32 noundef %12, i32 noundef %9)
+if.then:                                          ; preds = %entry
+  %call = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.1, i32 noundef %3, i32 noundef %2)
   tail call void @exit(i32 noundef -1) #17
   unreachable
 
-23:                                               ; preds = %2
-  %24 = icmp sgt i32 %15, 0
-  br i1 %24, label %25, label %30
+if.end:                                           ; preds = %entry
+  %cmp9.i = icmp sgt i32 %4, 0
+  br i1 %cmp9.i, label %while.body.i.preheader, label %symbol2vlc.exit.thread
 
-25:                                               ; preds = %23
-  %26 = and i32 %15, 3
-  %27 = icmp ult i32 %15, 4
-  br i1 %27, label %58, label %28
+while.body.i.preheader:                           ; preds = %if.end
+  %xtraiter = and i32 %4, 3
+  %6 = icmp ult i32 %4, 4
+  br i1 %6, label %for.body.lr.ph.i.unr-lcssa, label %while.body.i.preheader.new
 
-28:                                               ; preds = %25
-  %29 = and i32 %15, -4
-  br label %32
+while.body.i.preheader.new:                       ; preds = %while.body.i.preheader
+  %unroll_iter = and i32 %4, -4
+  br label %while.body.i
 
-30:                                               ; preds = %23
-  %31 = getelementptr inbounds %struct.syntaxelement, ptr %0, i64 0, i32 5
-  store i32 0, ptr %31, align 4, !tbaa !22
-  br label %113
+symbol2vlc.exit.thread:                           ; preds = %if.end
+  %bitpattern.i43 = getelementptr inbounds %struct.syntaxelement, ptr %se, i64 0, i32 5
+  store i32 0, ptr %bitpattern.i43, align 4, !tbaa !22
+  br label %writeUVLC2buffer.exit
 
-32:                                               ; preds = %32, %28
-  %33 = phi i32 [ %15, %28 ], [ %48, %32 ]
-  %34 = phi i32 [ 0, %28 ], [ %55, %32 ]
-  %35 = phi i32 [ 0, %28 ], [ %56, %32 ]
-  %36 = add nsw i32 %33, -1
-  %37 = lshr i32 %18, %36
-  %38 = add nsw i32 %33, -2
-  %39 = shl i32 %34, 2
-  %40 = shl i32 %37, 1
-  %41 = and i32 %40, 2
-  %42 = or i32 %39, %41
-  %43 = lshr i32 %18, %38
-  %44 = and i32 %43, 1
-  %45 = or i32 %44, %42
-  %46 = add nsw i32 %33, -3
-  %47 = lshr i32 %18, %46
-  %48 = add nsw i32 %33, -4
-  %49 = shl i32 %45, 2
-  %50 = shl i32 %47, 1
-  %51 = and i32 %50, 2
-  %52 = or i32 %49, %51
-  %53 = lshr i32 %18, %48
-  %54 = and i32 %53, 1
-  %55 = or i32 %54, %52
-  %56 = add i32 %35, 4
-  %57 = icmp eq i32 %56, %29
-  br i1 %57, label %58, label %32, !llvm.loop !48
+while.body.i:                                     ; preds = %while.body.i, %while.body.i.preheader.new
+  %info_len.011.i = phi i32 [ %4, %while.body.i.preheader.new ], [ %dec.i.3, %while.body.i ]
+  %storemerge10.i = phi i32 [ 0, %while.body.i.preheader.new ], [ %or.i.3, %while.body.i ]
+  %niter = phi i32 [ 0, %while.body.i.preheader.new ], [ %niter.next.3, %while.body.i ]
+  %dec.i = add nsw i32 %info_len.011.i, -1
+  %shr8.i = lshr i32 %5, %dec.i
+  %dec.i.1 = add nsw i32 %info_len.011.i, -2
+  %7 = shl i32 %storemerge10.i, 2
+  %and.i = shl i32 %shr8.i, 1
+  %8 = and i32 %and.i, 2
+  %shl.i.1 = or i32 %7, %8
+  %shr8.i.1 = lshr i32 %5, %dec.i.1
+  %and.i.1 = and i32 %shr8.i.1, 1
+  %or.i.1 = or i32 %and.i.1, %shl.i.1
+  %dec.i.2 = add nsw i32 %info_len.011.i, -3
+  %shr8.i.2 = lshr i32 %5, %dec.i.2
+  %dec.i.3 = add nsw i32 %info_len.011.i, -4
+  %9 = shl i32 %or.i.1, 2
+  %and.i.2 = shl i32 %shr8.i.2, 1
+  %10 = and i32 %and.i.2, 2
+  %shl.i.3 = or i32 %9, %10
+  %shr8.i.3 = lshr i32 %5, %dec.i.3
+  %and.i.3 = and i32 %shr8.i.3, 1
+  %or.i.3 = or i32 %and.i.3, %shl.i.3
+  %niter.next.3 = add i32 %niter, 4
+  %niter.ncmp.3.not = icmp eq i32 %niter.next.3, %unroll_iter
+  br i1 %niter.ncmp.3.not, label %for.body.lr.ph.i.unr-lcssa, label %while.body.i, !llvm.loop !48
 
-58:                                               ; preds = %32, %25
-  %59 = phi i32 [ undef, %25 ], [ %55, %32 ]
-  %60 = phi i32 [ %15, %25 ], [ %48, %32 ]
-  %61 = phi i32 [ 0, %25 ], [ %55, %32 ]
-  %62 = icmp eq i32 %26, 0
-  br i1 %62, label %74, label %63
+for.body.lr.ph.i.unr-lcssa:                       ; preds = %while.body.i, %while.body.i.preheader
+  %or.i.lcssa.ph = phi i32 [ undef, %while.body.i.preheader ], [ %or.i.3, %while.body.i ]
+  %info_len.011.i.unr = phi i32 [ %4, %while.body.i.preheader ], [ %dec.i.3, %while.body.i ]
+  %storemerge10.i.unr = phi i32 [ 0, %while.body.i.preheader ], [ %or.i.3, %while.body.i ]
+  %lcmp.mod.not = icmp eq i32 %xtraiter, 0
+  br i1 %lcmp.mod.not, label %for.body.lr.ph.i, label %while.body.i.epil
 
-63:                                               ; preds = %58, %63
-  %64 = phi i32 [ %67, %63 ], [ %60, %58 ]
-  %65 = phi i32 [ %71, %63 ], [ %61, %58 ]
-  %66 = phi i32 [ %72, %63 ], [ 0, %58 ]
-  %67 = add nsw i32 %64, -1
-  %68 = shl i32 %65, 1
-  %69 = lshr i32 %18, %67
-  %70 = and i32 %69, 1
-  %71 = or i32 %70, %68
-  %72 = add i32 %66, 1
-  %73 = icmp eq i32 %72, %26
-  br i1 %73, label %74, label %63, !llvm.loop !52
+while.body.i.epil:                                ; preds = %for.body.lr.ph.i.unr-lcssa, %while.body.i.epil
+  %info_len.011.i.epil = phi i32 [ %dec.i.epil, %while.body.i.epil ], [ %info_len.011.i.unr, %for.body.lr.ph.i.unr-lcssa ]
+  %storemerge10.i.epil = phi i32 [ %or.i.epil, %while.body.i.epil ], [ %storemerge10.i.unr, %for.body.lr.ph.i.unr-lcssa ]
+  %epil.iter = phi i32 [ %epil.iter.next, %while.body.i.epil ], [ 0, %for.body.lr.ph.i.unr-lcssa ]
+  %dec.i.epil = add nsw i32 %info_len.011.i.epil, -1
+  %shl.i.epil = shl i32 %storemerge10.i.epil, 1
+  %shr8.i.epil = lshr i32 %5, %dec.i.epil
+  %and.i.epil = and i32 %shr8.i.epil, 1
+  %or.i.epil = or i32 %and.i.epil, %shl.i.epil
+  %epil.iter.next = add i32 %epil.iter, 1
+  %epil.iter.cmp.not = icmp eq i32 %epil.iter.next, %xtraiter
+  br i1 %epil.iter.cmp.not, label %for.body.lr.ph.i, label %while.body.i.epil, !llvm.loop !52
 
-74:                                               ; preds = %63, %58
-  %75 = phi i32 [ %59, %58 ], [ %71, %63 ]
-  %76 = getelementptr inbounds %struct.syntaxelement, ptr %0, i64 0, i32 5
-  store i32 %75, ptr %76, align 4, !tbaa !22
-  %77 = load ptr, ptr %1, align 8, !tbaa !33
-  %78 = add nsw i32 %15, -1
-  %79 = shl nuw i32 1, %78
-  %80 = getelementptr inbounds %struct.Bitstream, ptr %77, i64 0, i32 2
-  %81 = getelementptr inbounds %struct.Bitstream, ptr %77, i64 0, i32 1
-  %82 = getelementptr inbounds %struct.Bitstream, ptr %77, i64 0, i32 9
-  %83 = load i8, ptr %80, align 8, !tbaa !7
-  br label %84
+for.body.lr.ph.i:                                 ; preds = %while.body.i.epil, %for.body.lr.ph.i.unr-lcssa
+  %or.i.lcssa = phi i32 [ %or.i.lcssa.ph, %for.body.lr.ph.i.unr-lcssa ], [ %or.i.epil, %while.body.i.epil ]
+  %bitpattern.i = getelementptr inbounds %struct.syntaxelement, ptr %se, i64 0, i32 5
+  store i32 %or.i.lcssa, ptr %bitpattern.i, align 4, !tbaa !22
+  %11 = load ptr, ptr %dp, align 8, !tbaa !33
+  %sub.i = add nsw i32 %4, -1
+  %shl.i37 = shl nuw i32 1, %sub.i
+  %byte_buf.i = getelementptr inbounds %struct.Bitstream, ptr %11, i64 0, i32 2
+  %bits_to_go.i = getelementptr inbounds %struct.Bitstream, ptr %11, i64 0, i32 1
+  %streamBuffer.i = getelementptr inbounds %struct.Bitstream, ptr %11, i64 0, i32 9
+  %.pre.i = load i8, ptr %byte_buf.i, align 8, !tbaa !7
+  br label %for.body.i
 
-84:                                               ; preds = %108, %74
-  %85 = phi i32 [ %15, %74 ], [ %109, %108 ]
-  %86 = phi i8 [ %83, %74 ], [ %110, %108 ]
-  %87 = phi i32 [ %79, %74 ], [ %99, %108 ]
-  %88 = phi i32 [ 0, %74 ], [ %111, %108 ]
-  %89 = shl i8 %86, 1
-  store i8 %89, ptr %80, align 8, !tbaa !7
-  %90 = load i32, ptr %76, align 4, !tbaa !22
-  %91 = and i32 %90, %87
-  %92 = icmp eq i32 %91, 0
-  br i1 %92, label %95, label %93
+for.body.i:                                       ; preds = %for.inc.i, %for.body.lr.ph.i
+  %12 = phi i32 [ %4, %for.body.lr.ph.i ], [ %20, %for.inc.i ]
+  %13 = phi i8 [ %.pre.i, %for.body.lr.ph.i ], [ %21, %for.inc.i ]
+  %mask.030.i = phi i32 [ %shl.i37, %for.body.lr.ph.i ], [ %shr.i, %for.inc.i ]
+  %i.029.i = phi i32 [ 0, %for.body.lr.ph.i ], [ %inc15.i, %for.inc.i ]
+  %shl2.i = shl i8 %13, 1
+  store i8 %shl2.i, ptr %byte_buf.i, align 8, !tbaa !7
+  %14 = load i32, ptr %bitpattern.i, align 4, !tbaa !22
+  %and.i39 = and i32 %14, %mask.030.i
+  %tobool.not.i = icmp eq i32 %and.i39, 0
+  br i1 %tobool.not.i, label %if.end.i, label %if.then.i
 
-93:                                               ; preds = %84
-  %94 = or i8 %89, 1
-  store i8 %94, ptr %80, align 8, !tbaa !7
-  br label %95
+if.then.i:                                        ; preds = %for.body.i
+  %15 = or i8 %shl2.i, 1
+  store i8 %15, ptr %byte_buf.i, align 8, !tbaa !7
+  br label %if.end.i
 
-95:                                               ; preds = %93, %84
-  %96 = phi i8 [ %94, %93 ], [ %89, %84 ]
-  %97 = load i32, ptr %81, align 4, !tbaa !13
-  %98 = add nsw i32 %97, -1
-  store i32 %98, ptr %81, align 4, !tbaa !13
-  %99 = lshr i32 %87, 1
-  %100 = icmp eq i32 %98, 0
-  br i1 %100, label %101, label %108
+if.end.i:                                         ; preds = %if.then.i, %for.body.i
+  %16 = phi i8 [ %15, %if.then.i ], [ %shl2.i, %for.body.i ]
+  %17 = load i32, ptr %bits_to_go.i, align 4, !tbaa !13
+  %dec.i40 = add nsw i32 %17, -1
+  store i32 %dec.i40, ptr %bits_to_go.i, align 4, !tbaa !13
+  %shr.i = lshr i32 %mask.030.i, 1
+  %cmp8.i = icmp eq i32 %dec.i40, 0
+  br i1 %cmp8.i, label %if.then10.i, label %for.inc.i
 
-101:                                              ; preds = %95
-  store i32 8, ptr %81, align 4, !tbaa !13
-  %102 = load ptr, ptr %82, align 8, !tbaa !14
-  %103 = load i32, ptr %77, align 8, !tbaa !15
-  %104 = add nsw i32 %103, 1
-  store i32 %104, ptr %77, align 8, !tbaa !15
-  %105 = sext i32 %103 to i64
-  %106 = getelementptr inbounds i8, ptr %102, i64 %105
-  store i8 %96, ptr %106, align 1, !tbaa !16
-  store i8 0, ptr %80, align 8, !tbaa !7
-  %107 = load i32, ptr %16, align 4, !tbaa !19
-  br label %108
+if.then10.i:                                      ; preds = %if.end.i
+  store i32 8, ptr %bits_to_go.i, align 4, !tbaa !13
+  %18 = load ptr, ptr %streamBuffer.i, align 8, !tbaa !14
+  %19 = load i32, ptr %11, align 8, !tbaa !15
+  %inc.i = add nsw i32 %19, 1
+  store i32 %inc.i, ptr %11, align 8, !tbaa !15
+  %idxprom.i = sext i32 %19 to i64
+  %arrayidx.i = getelementptr inbounds i8, ptr %18, i64 %idxprom.i
+  store i8 %16, ptr %arrayidx.i, align 1, !tbaa !16
+  store i8 0, ptr %byte_buf.i, align 8, !tbaa !7
+  %.pre31.i = load i32, ptr %len, align 4, !tbaa !19
+  br label %for.inc.i
 
-108:                                              ; preds = %101, %95
-  %109 = phi i32 [ %85, %95 ], [ %107, %101 ]
-  %110 = phi i8 [ %96, %95 ], [ 0, %101 ]
-  %111 = add nuw nsw i32 %88, 1
-  %112 = icmp slt i32 %111, %109
-  br i1 %112, label %84, label %113, !llvm.loop !17
+for.inc.i:                                        ; preds = %if.then10.i, %if.end.i
+  %20 = phi i32 [ %12, %if.end.i ], [ %.pre31.i, %if.then10.i ]
+  %21 = phi i8 [ %16, %if.end.i ], [ 0, %if.then10.i ]
+  %inc15.i = add nuw nsw i32 %i.029.i, 1
+  %cmp.i41 = icmp slt i32 %inc15.i, %20
+  br i1 %cmp.i41, label %for.body.i, label %writeUVLC2buffer.exit, !llvm.loop !17
 
-113:                                              ; preds = %108, %30
-  %114 = phi i32 [ %15, %30 ], [ %109, %108 ]
-  %115 = load i32, ptr %0, align 8, !tbaa !36
-  %116 = icmp eq i32 %115, 0
-  br i1 %116, label %120, label %117
+writeUVLC2buffer.exit:                            ; preds = %for.inc.i, %symbol2vlc.exit.thread
+  %22 = phi i32 [ %4, %symbol2vlc.exit.thread ], [ %20, %for.inc.i ]
+  %23 = load i32, ptr %se, align 8, !tbaa !36
+  %cmp17.not = icmp eq i32 %23, 0
+  br i1 %cmp17.not, label %if.end20, label %if.then18
 
-117:                                              ; preds = %113
-  %118 = load ptr, ptr %1, align 8, !tbaa !33
-  %119 = getelementptr inbounds %struct.Bitstream, ptr %118, i64 0, i32 10
-  store i32 1, ptr %119, align 8, !tbaa !37
-  br label %120
+if.then18:                                        ; preds = %writeUVLC2buffer.exit
+  %24 = load ptr, ptr %dp, align 8, !tbaa !33
+  %write_flag = getelementptr inbounds %struct.Bitstream, ptr %24, i64 0, i32 10
+  store i32 1, ptr %write_flag, align 8, !tbaa !37
+  br label %if.end20
 
-120:                                              ; preds = %117, %113
-  ret i32 %114
+if.end20:                                         ; preds = %if.then18, %writeUVLC2buffer.exit
+  ret i32 %22
 }
 
 ; Function Attrs: nounwind uwtable
-define dso_local i32 @writeSyntaxElement_TotalZeros(ptr nocapture noundef %0, ptr nocapture noundef readonly %1) local_unnamed_addr #9 {
-  %3 = getelementptr inbounds %struct.syntaxelement, ptr %0, i64 0, i32 3
-  %4 = load i32, ptr %3, align 4, !tbaa !19
-  %5 = sext i32 %4 to i64
-  %6 = getelementptr inbounds %struct.syntaxelement, ptr %0, i64 0, i32 1
-  %7 = load i32, ptr %6, align 4, !tbaa !32
-  %8 = sext i32 %7 to i64
-  %9 = getelementptr inbounds [15 x [16 x i32]], ptr @writeSyntaxElement_TotalZeros.lentab, i64 0, i64 %5, i64 %8
-  %10 = load i32, ptr %9, align 4, !tbaa !18
-  store i32 %10, ptr %3, align 4, !tbaa !19
-  %11 = getelementptr inbounds [15 x [16 x i32]], ptr @writeSyntaxElement_TotalZeros.codtab, i64 0, i64 %5, i64 %8
-  %12 = load i32, ptr %11, align 4, !tbaa !18
-  %13 = getelementptr inbounds %struct.syntaxelement, ptr %0, i64 0, i32 4
-  store i32 %12, ptr %13, align 8, !tbaa !21
-  %14 = icmp eq i32 %10, 0
-  br i1 %14, label %15, label %17
+define dso_local i32 @writeSyntaxElement_TotalZeros(ptr nocapture noundef %se, ptr nocapture noundef readonly %dp) local_unnamed_addr #9 {
+entry:
+  %len = getelementptr inbounds %struct.syntaxelement, ptr %se, i64 0, i32 3
+  %0 = load i32, ptr %len, align 4, !tbaa !19
+  %idxprom = sext i32 %0 to i64
+  %value1 = getelementptr inbounds %struct.syntaxelement, ptr %se, i64 0, i32 1
+  %1 = load i32, ptr %value1, align 4, !tbaa !32
+  %idxprom1 = sext i32 %1 to i64
+  %arrayidx2 = getelementptr inbounds [15 x [16 x i32]], ptr @writeSyntaxElement_TotalZeros.lentab, i64 0, i64 %idxprom, i64 %idxprom1
+  %2 = load i32, ptr %arrayidx2, align 4, !tbaa !18
+  store i32 %2, ptr %len, align 4, !tbaa !19
+  %arrayidx8 = getelementptr inbounds [15 x [16 x i32]], ptr @writeSyntaxElement_TotalZeros.codtab, i64 0, i64 %idxprom, i64 %idxprom1
+  %3 = load i32, ptr %arrayidx8, align 4, !tbaa !18
+  %inf = getelementptr inbounds %struct.syntaxelement, ptr %se, i64 0, i32 4
+  store i32 %3, ptr %inf, align 8, !tbaa !21
+  %cmp = icmp eq i32 %2, 0
+  br i1 %cmp, label %if.then, label %if.end
 
-15:                                               ; preds = %2
-  %16 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.2, i32 noundef %7)
+if.then:                                          ; preds = %entry
+  %call = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.2, i32 noundef %1)
   tail call void @exit(i32 noundef -1) #17
   unreachable
 
-17:                                               ; preds = %2
-  %18 = icmp sgt i32 %10, 0
-  br i1 %18, label %19, label %24
+if.end:                                           ; preds = %entry
+  %cmp9.i = icmp sgt i32 %2, 0
+  br i1 %cmp9.i, label %while.body.i.preheader, label %symbol2vlc.exit.thread
 
-19:                                               ; preds = %17
-  %20 = and i32 %10, 3
-  %21 = icmp ult i32 %10, 4
-  br i1 %21, label %52, label %22
+while.body.i.preheader:                           ; preds = %if.end
+  %xtraiter = and i32 %2, 3
+  %4 = icmp ult i32 %2, 4
+  br i1 %4, label %for.body.lr.ph.i.unr-lcssa, label %while.body.i.preheader.new
 
-22:                                               ; preds = %19
-  %23 = and i32 %10, -4
-  br label %26
+while.body.i.preheader.new:                       ; preds = %while.body.i.preheader
+  %unroll_iter = and i32 %2, -4
+  br label %while.body.i
 
-24:                                               ; preds = %17
-  %25 = getelementptr inbounds %struct.syntaxelement, ptr %0, i64 0, i32 5
-  store i32 0, ptr %25, align 4, !tbaa !22
-  br label %107
+symbol2vlc.exit.thread:                           ; preds = %if.end
+  %bitpattern.i36 = getelementptr inbounds %struct.syntaxelement, ptr %se, i64 0, i32 5
+  store i32 0, ptr %bitpattern.i36, align 4, !tbaa !22
+  br label %writeUVLC2buffer.exit
 
-26:                                               ; preds = %26, %22
-  %27 = phi i32 [ %10, %22 ], [ %42, %26 ]
-  %28 = phi i32 [ 0, %22 ], [ %49, %26 ]
-  %29 = phi i32 [ 0, %22 ], [ %50, %26 ]
-  %30 = add nsw i32 %27, -1
-  %31 = lshr i32 %12, %30
-  %32 = add nsw i32 %27, -2
-  %33 = shl i32 %28, 2
-  %34 = shl i32 %31, 1
-  %35 = and i32 %34, 2
-  %36 = or i32 %33, %35
-  %37 = lshr i32 %12, %32
-  %38 = and i32 %37, 1
-  %39 = or i32 %38, %36
-  %40 = add nsw i32 %27, -3
-  %41 = lshr i32 %12, %40
-  %42 = add nsw i32 %27, -4
-  %43 = shl i32 %39, 2
-  %44 = shl i32 %41, 1
-  %45 = and i32 %44, 2
-  %46 = or i32 %43, %45
-  %47 = lshr i32 %12, %42
-  %48 = and i32 %47, 1
-  %49 = or i32 %48, %46
-  %50 = add i32 %29, 4
-  %51 = icmp eq i32 %50, %23
-  br i1 %51, label %52, label %26, !llvm.loop !48
+while.body.i:                                     ; preds = %while.body.i, %while.body.i.preheader.new
+  %info_len.011.i = phi i32 [ %2, %while.body.i.preheader.new ], [ %dec.i.3, %while.body.i ]
+  %storemerge10.i = phi i32 [ 0, %while.body.i.preheader.new ], [ %or.i.3, %while.body.i ]
+  %niter = phi i32 [ 0, %while.body.i.preheader.new ], [ %niter.next.3, %while.body.i ]
+  %dec.i = add nsw i32 %info_len.011.i, -1
+  %shr8.i = lshr i32 %3, %dec.i
+  %dec.i.1 = add nsw i32 %info_len.011.i, -2
+  %5 = shl i32 %storemerge10.i, 2
+  %and.i = shl i32 %shr8.i, 1
+  %6 = and i32 %and.i, 2
+  %shl.i.1 = or i32 %5, %6
+  %shr8.i.1 = lshr i32 %3, %dec.i.1
+  %and.i.1 = and i32 %shr8.i.1, 1
+  %or.i.1 = or i32 %and.i.1, %shl.i.1
+  %dec.i.2 = add nsw i32 %info_len.011.i, -3
+  %shr8.i.2 = lshr i32 %3, %dec.i.2
+  %dec.i.3 = add nsw i32 %info_len.011.i, -4
+  %7 = shl i32 %or.i.1, 2
+  %and.i.2 = shl i32 %shr8.i.2, 1
+  %8 = and i32 %and.i.2, 2
+  %shl.i.3 = or i32 %7, %8
+  %shr8.i.3 = lshr i32 %3, %dec.i.3
+  %and.i.3 = and i32 %shr8.i.3, 1
+  %or.i.3 = or i32 %and.i.3, %shl.i.3
+  %niter.next.3 = add i32 %niter, 4
+  %niter.ncmp.3.not = icmp eq i32 %niter.next.3, %unroll_iter
+  br i1 %niter.ncmp.3.not, label %for.body.lr.ph.i.unr-lcssa, label %while.body.i, !llvm.loop !48
 
-52:                                               ; preds = %26, %19
-  %53 = phi i32 [ undef, %19 ], [ %49, %26 ]
-  %54 = phi i32 [ %10, %19 ], [ %42, %26 ]
-  %55 = phi i32 [ 0, %19 ], [ %49, %26 ]
-  %56 = icmp eq i32 %20, 0
-  br i1 %56, label %68, label %57
+for.body.lr.ph.i.unr-lcssa:                       ; preds = %while.body.i, %while.body.i.preheader
+  %or.i.lcssa.ph = phi i32 [ undef, %while.body.i.preheader ], [ %or.i.3, %while.body.i ]
+  %info_len.011.i.unr = phi i32 [ %2, %while.body.i.preheader ], [ %dec.i.3, %while.body.i ]
+  %storemerge10.i.unr = phi i32 [ 0, %while.body.i.preheader ], [ %or.i.3, %while.body.i ]
+  %lcmp.mod.not = icmp eq i32 %xtraiter, 0
+  br i1 %lcmp.mod.not, label %for.body.lr.ph.i, label %while.body.i.epil
 
-57:                                               ; preds = %52, %57
-  %58 = phi i32 [ %61, %57 ], [ %54, %52 ]
-  %59 = phi i32 [ %65, %57 ], [ %55, %52 ]
-  %60 = phi i32 [ %66, %57 ], [ 0, %52 ]
-  %61 = add nsw i32 %58, -1
-  %62 = shl i32 %59, 1
-  %63 = lshr i32 %12, %61
-  %64 = and i32 %63, 1
-  %65 = or i32 %64, %62
-  %66 = add i32 %60, 1
-  %67 = icmp eq i32 %66, %20
-  br i1 %67, label %68, label %57, !llvm.loop !53
+while.body.i.epil:                                ; preds = %for.body.lr.ph.i.unr-lcssa, %while.body.i.epil
+  %info_len.011.i.epil = phi i32 [ %dec.i.epil, %while.body.i.epil ], [ %info_len.011.i.unr, %for.body.lr.ph.i.unr-lcssa ]
+  %storemerge10.i.epil = phi i32 [ %or.i.epil, %while.body.i.epil ], [ %storemerge10.i.unr, %for.body.lr.ph.i.unr-lcssa ]
+  %epil.iter = phi i32 [ %epil.iter.next, %while.body.i.epil ], [ 0, %for.body.lr.ph.i.unr-lcssa ]
+  %dec.i.epil = add nsw i32 %info_len.011.i.epil, -1
+  %shl.i.epil = shl i32 %storemerge10.i.epil, 1
+  %shr8.i.epil = lshr i32 %3, %dec.i.epil
+  %and.i.epil = and i32 %shr8.i.epil, 1
+  %or.i.epil = or i32 %and.i.epil, %shl.i.epil
+  %epil.iter.next = add i32 %epil.iter, 1
+  %epil.iter.cmp.not = icmp eq i32 %epil.iter.next, %xtraiter
+  br i1 %epil.iter.cmp.not, label %for.body.lr.ph.i, label %while.body.i.epil, !llvm.loop !53
 
-68:                                               ; preds = %57, %52
-  %69 = phi i32 [ %53, %52 ], [ %65, %57 ]
-  %70 = getelementptr inbounds %struct.syntaxelement, ptr %0, i64 0, i32 5
-  store i32 %69, ptr %70, align 4, !tbaa !22
-  %71 = load ptr, ptr %1, align 8, !tbaa !33
-  %72 = add nsw i32 %10, -1
-  %73 = shl nuw i32 1, %72
-  %74 = getelementptr inbounds %struct.Bitstream, ptr %71, i64 0, i32 2
-  %75 = getelementptr inbounds %struct.Bitstream, ptr %71, i64 0, i32 1
-  %76 = getelementptr inbounds %struct.Bitstream, ptr %71, i64 0, i32 9
-  %77 = load i8, ptr %74, align 8, !tbaa !7
-  br label %78
+for.body.lr.ph.i:                                 ; preds = %while.body.i.epil, %for.body.lr.ph.i.unr-lcssa
+  %or.i.lcssa = phi i32 [ %or.i.lcssa.ph, %for.body.lr.ph.i.unr-lcssa ], [ %or.i.epil, %while.body.i.epil ]
+  %bitpattern.i = getelementptr inbounds %struct.syntaxelement, ptr %se, i64 0, i32 5
+  store i32 %or.i.lcssa, ptr %bitpattern.i, align 4, !tbaa !22
+  %9 = load ptr, ptr %dp, align 8, !tbaa !33
+  %sub.i = add nsw i32 %2, -1
+  %shl.i30 = shl nuw i32 1, %sub.i
+  %byte_buf.i = getelementptr inbounds %struct.Bitstream, ptr %9, i64 0, i32 2
+  %bits_to_go.i = getelementptr inbounds %struct.Bitstream, ptr %9, i64 0, i32 1
+  %streamBuffer.i = getelementptr inbounds %struct.Bitstream, ptr %9, i64 0, i32 9
+  %.pre.i = load i8, ptr %byte_buf.i, align 8, !tbaa !7
+  br label %for.body.i
 
-78:                                               ; preds = %102, %68
-  %79 = phi i32 [ %10, %68 ], [ %103, %102 ]
-  %80 = phi i8 [ %77, %68 ], [ %104, %102 ]
-  %81 = phi i32 [ %73, %68 ], [ %93, %102 ]
-  %82 = phi i32 [ 0, %68 ], [ %105, %102 ]
-  %83 = shl i8 %80, 1
-  store i8 %83, ptr %74, align 8, !tbaa !7
-  %84 = load i32, ptr %70, align 4, !tbaa !22
-  %85 = and i32 %84, %81
-  %86 = icmp eq i32 %85, 0
-  br i1 %86, label %89, label %87
+for.body.i:                                       ; preds = %for.inc.i, %for.body.lr.ph.i
+  %10 = phi i32 [ %2, %for.body.lr.ph.i ], [ %18, %for.inc.i ]
+  %11 = phi i8 [ %.pre.i, %for.body.lr.ph.i ], [ %19, %for.inc.i ]
+  %mask.030.i = phi i32 [ %shl.i30, %for.body.lr.ph.i ], [ %shr.i, %for.inc.i ]
+  %i.029.i = phi i32 [ 0, %for.body.lr.ph.i ], [ %inc15.i, %for.inc.i ]
+  %shl2.i = shl i8 %11, 1
+  store i8 %shl2.i, ptr %byte_buf.i, align 8, !tbaa !7
+  %12 = load i32, ptr %bitpattern.i, align 4, !tbaa !22
+  %and.i32 = and i32 %12, %mask.030.i
+  %tobool.not.i = icmp eq i32 %and.i32, 0
+  br i1 %tobool.not.i, label %if.end.i, label %if.then.i
 
-87:                                               ; preds = %78
-  %88 = or i8 %83, 1
-  store i8 %88, ptr %74, align 8, !tbaa !7
-  br label %89
+if.then.i:                                        ; preds = %for.body.i
+  %13 = or i8 %shl2.i, 1
+  store i8 %13, ptr %byte_buf.i, align 8, !tbaa !7
+  br label %if.end.i
 
-89:                                               ; preds = %87, %78
-  %90 = phi i8 [ %88, %87 ], [ %83, %78 ]
-  %91 = load i32, ptr %75, align 4, !tbaa !13
-  %92 = add nsw i32 %91, -1
-  store i32 %92, ptr %75, align 4, !tbaa !13
-  %93 = lshr i32 %81, 1
-  %94 = icmp eq i32 %92, 0
-  br i1 %94, label %95, label %102
+if.end.i:                                         ; preds = %if.then.i, %for.body.i
+  %14 = phi i8 [ %13, %if.then.i ], [ %shl2.i, %for.body.i ]
+  %15 = load i32, ptr %bits_to_go.i, align 4, !tbaa !13
+  %dec.i33 = add nsw i32 %15, -1
+  store i32 %dec.i33, ptr %bits_to_go.i, align 4, !tbaa !13
+  %shr.i = lshr i32 %mask.030.i, 1
+  %cmp8.i = icmp eq i32 %dec.i33, 0
+  br i1 %cmp8.i, label %if.then10.i, label %for.inc.i
 
-95:                                               ; preds = %89
-  store i32 8, ptr %75, align 4, !tbaa !13
-  %96 = load ptr, ptr %76, align 8, !tbaa !14
-  %97 = load i32, ptr %71, align 8, !tbaa !15
-  %98 = add nsw i32 %97, 1
-  store i32 %98, ptr %71, align 8, !tbaa !15
-  %99 = sext i32 %97 to i64
-  %100 = getelementptr inbounds i8, ptr %96, i64 %99
-  store i8 %90, ptr %100, align 1, !tbaa !16
-  store i8 0, ptr %74, align 8, !tbaa !7
-  %101 = load i32, ptr %3, align 4, !tbaa !19
-  br label %102
+if.then10.i:                                      ; preds = %if.end.i
+  store i32 8, ptr %bits_to_go.i, align 4, !tbaa !13
+  %16 = load ptr, ptr %streamBuffer.i, align 8, !tbaa !14
+  %17 = load i32, ptr %9, align 8, !tbaa !15
+  %inc.i = add nsw i32 %17, 1
+  store i32 %inc.i, ptr %9, align 8, !tbaa !15
+  %idxprom.i = sext i32 %17 to i64
+  %arrayidx.i = getelementptr inbounds i8, ptr %16, i64 %idxprom.i
+  store i8 %14, ptr %arrayidx.i, align 1, !tbaa !16
+  store i8 0, ptr %byte_buf.i, align 8, !tbaa !7
+  %.pre31.i = load i32, ptr %len, align 4, !tbaa !19
+  br label %for.inc.i
 
-102:                                              ; preds = %95, %89
-  %103 = phi i32 [ %79, %89 ], [ %101, %95 ]
-  %104 = phi i8 [ %90, %89 ], [ 0, %95 ]
-  %105 = add nuw nsw i32 %82, 1
-  %106 = icmp slt i32 %105, %103
-  br i1 %106, label %78, label %107, !llvm.loop !17
+for.inc.i:                                        ; preds = %if.then10.i, %if.end.i
+  %18 = phi i32 [ %10, %if.end.i ], [ %.pre31.i, %if.then10.i ]
+  %19 = phi i8 [ %14, %if.end.i ], [ 0, %if.then10.i ]
+  %inc15.i = add nuw nsw i32 %i.029.i, 1
+  %cmp.i34 = icmp slt i32 %inc15.i, %18
+  br i1 %cmp.i34, label %for.body.i, label %writeUVLC2buffer.exit, !llvm.loop !17
 
-107:                                              ; preds = %102, %24
-  %108 = phi i32 [ %10, %24 ], [ %103, %102 ]
-  %109 = load i32, ptr %0, align 8, !tbaa !36
-  %110 = icmp eq i32 %109, 0
-  br i1 %110, label %114, label %111
+writeUVLC2buffer.exit:                            ; preds = %for.inc.i, %symbol2vlc.exit.thread
+  %20 = phi i32 [ %2, %symbol2vlc.exit.thread ], [ %18, %for.inc.i ]
+  %21 = load i32, ptr %se, align 8, !tbaa !36
+  %cmp12.not = icmp eq i32 %21, 0
+  br i1 %cmp12.not, label %if.end15, label %if.then13
 
-111:                                              ; preds = %107
-  %112 = load ptr, ptr %1, align 8, !tbaa !33
-  %113 = getelementptr inbounds %struct.Bitstream, ptr %112, i64 0, i32 10
-  store i32 1, ptr %113, align 8, !tbaa !37
-  br label %114
+if.then13:                                        ; preds = %writeUVLC2buffer.exit
+  %22 = load ptr, ptr %dp, align 8, !tbaa !33
+  %write_flag = getelementptr inbounds %struct.Bitstream, ptr %22, i64 0, i32 10
+  store i32 1, ptr %write_flag, align 8, !tbaa !37
+  br label %if.end15
 
-114:                                              ; preds = %111, %107
-  ret i32 %108
+if.end15:                                         ; preds = %if.then13, %writeUVLC2buffer.exit
+  ret i32 %20
 }
 
 ; Function Attrs: nounwind uwtable
-define dso_local i32 @writeSyntaxElement_TotalZerosChromaDC(ptr nocapture noundef %0, ptr nocapture noundef readonly %1) local_unnamed_addr #9 {
-  %3 = load ptr, ptr @img, align 8, !tbaa !24
-  %4 = getelementptr inbounds %struct.ImageParameters, ptr %3, i64 0, i32 160
-  %5 = load i32, ptr %4, align 8, !tbaa !25
-  %6 = add nsw i32 %5, -1
-  %7 = getelementptr inbounds %struct.syntaxelement, ptr %0, i64 0, i32 3
-  %8 = load i32, ptr %7, align 4, !tbaa !19
-  %9 = sext i32 %6 to i64
-  %10 = sext i32 %8 to i64
-  %11 = getelementptr inbounds %struct.syntaxelement, ptr %0, i64 0, i32 1
-  %12 = load i32, ptr %11, align 4, !tbaa !32
-  %13 = sext i32 %12 to i64
-  %14 = getelementptr inbounds [3 x [15 x [16 x i32]]], ptr @writeSyntaxElement_TotalZerosChromaDC.lentab, i64 0, i64 %9, i64 %10, i64 %13
-  %15 = load i32, ptr %14, align 4, !tbaa !18
-  store i32 %15, ptr %7, align 4, !tbaa !19
-  %16 = getelementptr inbounds [3 x [15 x [16 x i32]]], ptr @writeSyntaxElement_TotalZerosChromaDC.codtab, i64 0, i64 %9, i64 %10, i64 %13
-  %17 = load i32, ptr %16, align 4, !tbaa !18
-  %18 = getelementptr inbounds %struct.syntaxelement, ptr %0, i64 0, i32 4
-  store i32 %17, ptr %18, align 8, !tbaa !21
-  %19 = icmp eq i32 %15, 0
-  br i1 %19, label %20, label %22
+define dso_local i32 @writeSyntaxElement_TotalZerosChromaDC(ptr nocapture noundef %se, ptr nocapture noundef readonly %dp) local_unnamed_addr #9 {
+entry:
+  %0 = load ptr, ptr @img, align 8, !tbaa !24
+  %yuv_format = getelementptr inbounds %struct.ImageParameters, ptr %0, i64 0, i32 160
+  %1 = load i32, ptr %yuv_format, align 8, !tbaa !25
+  %sub = add nsw i32 %1, -1
+  %len = getelementptr inbounds %struct.syntaxelement, ptr %se, i64 0, i32 3
+  %2 = load i32, ptr %len, align 4, !tbaa !19
+  %idxprom = sext i32 %sub to i64
+  %idxprom1 = sext i32 %2 to i64
+  %value1 = getelementptr inbounds %struct.syntaxelement, ptr %se, i64 0, i32 1
+  %3 = load i32, ptr %value1, align 4, !tbaa !32
+  %idxprom3 = sext i32 %3 to i64
+  %arrayidx4 = getelementptr inbounds [3 x [15 x [16 x i32]]], ptr @writeSyntaxElement_TotalZerosChromaDC.lentab, i64 0, i64 %idxprom, i64 %idxprom1, i64 %idxprom3
+  %4 = load i32, ptr %arrayidx4, align 4, !tbaa !18
+  store i32 %4, ptr %len, align 4, !tbaa !19
+  %arrayidx12 = getelementptr inbounds [3 x [15 x [16 x i32]]], ptr @writeSyntaxElement_TotalZerosChromaDC.codtab, i64 0, i64 %idxprom, i64 %idxprom1, i64 %idxprom3
+  %5 = load i32, ptr %arrayidx12, align 4, !tbaa !18
+  %inf = getelementptr inbounds %struct.syntaxelement, ptr %se, i64 0, i32 4
+  store i32 %5, ptr %inf, align 8, !tbaa !21
+  %cmp = icmp eq i32 %4, 0
+  br i1 %cmp, label %if.then, label %if.end
 
-20:                                               ; preds = %2
-  %21 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.2, i32 noundef %12)
+if.then:                                          ; preds = %entry
+  %call = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.2, i32 noundef %3)
   tail call void @exit(i32 noundef -1) #17
   unreachable
 
-22:                                               ; preds = %2
-  %23 = icmp sgt i32 %15, 0
-  br i1 %23, label %24, label %29
+if.end:                                           ; preds = %entry
+  %cmp9.i = icmp sgt i32 %4, 0
+  br i1 %cmp9.i, label %while.body.i.preheader, label %symbol2vlc.exit.thread
 
-24:                                               ; preds = %22
-  %25 = and i32 %15, 3
-  %26 = icmp ult i32 %15, 4
-  br i1 %26, label %57, label %27
+while.body.i.preheader:                           ; preds = %if.end
+  %xtraiter = and i32 %4, 3
+  %6 = icmp ult i32 %4, 4
+  br i1 %6, label %for.body.lr.ph.i.unr-lcssa, label %while.body.i.preheader.new
 
-27:                                               ; preds = %24
-  %28 = and i32 %15, -4
-  br label %31
+while.body.i.preheader.new:                       ; preds = %while.body.i.preheader
+  %unroll_iter = and i32 %4, -4
+  br label %while.body.i
 
-29:                                               ; preds = %22
-  %30 = getelementptr inbounds %struct.syntaxelement, ptr %0, i64 0, i32 5
-  store i32 0, ptr %30, align 4, !tbaa !22
-  br label %112
+symbol2vlc.exit.thread:                           ; preds = %if.end
+  %bitpattern.i41 = getelementptr inbounds %struct.syntaxelement, ptr %se, i64 0, i32 5
+  store i32 0, ptr %bitpattern.i41, align 4, !tbaa !22
+  br label %writeUVLC2buffer.exit
 
-31:                                               ; preds = %31, %27
-  %32 = phi i32 [ %15, %27 ], [ %47, %31 ]
-  %33 = phi i32 [ 0, %27 ], [ %54, %31 ]
-  %34 = phi i32 [ 0, %27 ], [ %55, %31 ]
-  %35 = add nsw i32 %32, -1
-  %36 = lshr i32 %17, %35
-  %37 = add nsw i32 %32, -2
-  %38 = shl i32 %33, 2
-  %39 = shl i32 %36, 1
-  %40 = and i32 %39, 2
-  %41 = or i32 %38, %40
-  %42 = lshr i32 %17, %37
-  %43 = and i32 %42, 1
-  %44 = or i32 %43, %41
-  %45 = add nsw i32 %32, -3
-  %46 = lshr i32 %17, %45
-  %47 = add nsw i32 %32, -4
-  %48 = shl i32 %44, 2
-  %49 = shl i32 %46, 1
-  %50 = and i32 %49, 2
-  %51 = or i32 %48, %50
-  %52 = lshr i32 %17, %47
-  %53 = and i32 %52, 1
-  %54 = or i32 %53, %51
-  %55 = add i32 %34, 4
-  %56 = icmp eq i32 %55, %28
-  br i1 %56, label %57, label %31, !llvm.loop !48
+while.body.i:                                     ; preds = %while.body.i, %while.body.i.preheader.new
+  %info_len.011.i = phi i32 [ %4, %while.body.i.preheader.new ], [ %dec.i.3, %while.body.i ]
+  %storemerge10.i = phi i32 [ 0, %while.body.i.preheader.new ], [ %or.i.3, %while.body.i ]
+  %niter = phi i32 [ 0, %while.body.i.preheader.new ], [ %niter.next.3, %while.body.i ]
+  %dec.i = add nsw i32 %info_len.011.i, -1
+  %shr8.i = lshr i32 %5, %dec.i
+  %dec.i.1 = add nsw i32 %info_len.011.i, -2
+  %7 = shl i32 %storemerge10.i, 2
+  %and.i = shl i32 %shr8.i, 1
+  %8 = and i32 %and.i, 2
+  %shl.i.1 = or i32 %7, %8
+  %shr8.i.1 = lshr i32 %5, %dec.i.1
+  %and.i.1 = and i32 %shr8.i.1, 1
+  %or.i.1 = or i32 %and.i.1, %shl.i.1
+  %dec.i.2 = add nsw i32 %info_len.011.i, -3
+  %shr8.i.2 = lshr i32 %5, %dec.i.2
+  %dec.i.3 = add nsw i32 %info_len.011.i, -4
+  %9 = shl i32 %or.i.1, 2
+  %and.i.2 = shl i32 %shr8.i.2, 1
+  %10 = and i32 %and.i.2, 2
+  %shl.i.3 = or i32 %9, %10
+  %shr8.i.3 = lshr i32 %5, %dec.i.3
+  %and.i.3 = and i32 %shr8.i.3, 1
+  %or.i.3 = or i32 %and.i.3, %shl.i.3
+  %niter.next.3 = add i32 %niter, 4
+  %niter.ncmp.3.not = icmp eq i32 %niter.next.3, %unroll_iter
+  br i1 %niter.ncmp.3.not, label %for.body.lr.ph.i.unr-lcssa, label %while.body.i, !llvm.loop !48
 
-57:                                               ; preds = %31, %24
-  %58 = phi i32 [ undef, %24 ], [ %54, %31 ]
-  %59 = phi i32 [ %15, %24 ], [ %47, %31 ]
-  %60 = phi i32 [ 0, %24 ], [ %54, %31 ]
-  %61 = icmp eq i32 %25, 0
-  br i1 %61, label %73, label %62
+for.body.lr.ph.i.unr-lcssa:                       ; preds = %while.body.i, %while.body.i.preheader
+  %or.i.lcssa.ph = phi i32 [ undef, %while.body.i.preheader ], [ %or.i.3, %while.body.i ]
+  %info_len.011.i.unr = phi i32 [ %4, %while.body.i.preheader ], [ %dec.i.3, %while.body.i ]
+  %storemerge10.i.unr = phi i32 [ 0, %while.body.i.preheader ], [ %or.i.3, %while.body.i ]
+  %lcmp.mod.not = icmp eq i32 %xtraiter, 0
+  br i1 %lcmp.mod.not, label %for.body.lr.ph.i, label %while.body.i.epil
 
-62:                                               ; preds = %57, %62
-  %63 = phi i32 [ %66, %62 ], [ %59, %57 ]
-  %64 = phi i32 [ %70, %62 ], [ %60, %57 ]
-  %65 = phi i32 [ %71, %62 ], [ 0, %57 ]
-  %66 = add nsw i32 %63, -1
-  %67 = shl i32 %64, 1
-  %68 = lshr i32 %17, %66
-  %69 = and i32 %68, 1
-  %70 = or i32 %69, %67
-  %71 = add i32 %65, 1
-  %72 = icmp eq i32 %71, %25
-  br i1 %72, label %73, label %62, !llvm.loop !54
+while.body.i.epil:                                ; preds = %for.body.lr.ph.i.unr-lcssa, %while.body.i.epil
+  %info_len.011.i.epil = phi i32 [ %dec.i.epil, %while.body.i.epil ], [ %info_len.011.i.unr, %for.body.lr.ph.i.unr-lcssa ]
+  %storemerge10.i.epil = phi i32 [ %or.i.epil, %while.body.i.epil ], [ %storemerge10.i.unr, %for.body.lr.ph.i.unr-lcssa ]
+  %epil.iter = phi i32 [ %epil.iter.next, %while.body.i.epil ], [ 0, %for.body.lr.ph.i.unr-lcssa ]
+  %dec.i.epil = add nsw i32 %info_len.011.i.epil, -1
+  %shl.i.epil = shl i32 %storemerge10.i.epil, 1
+  %shr8.i.epil = lshr i32 %5, %dec.i.epil
+  %and.i.epil = and i32 %shr8.i.epil, 1
+  %or.i.epil = or i32 %and.i.epil, %shl.i.epil
+  %epil.iter.next = add i32 %epil.iter, 1
+  %epil.iter.cmp.not = icmp eq i32 %epil.iter.next, %xtraiter
+  br i1 %epil.iter.cmp.not, label %for.body.lr.ph.i, label %while.body.i.epil, !llvm.loop !54
 
-73:                                               ; preds = %62, %57
-  %74 = phi i32 [ %58, %57 ], [ %70, %62 ]
-  %75 = getelementptr inbounds %struct.syntaxelement, ptr %0, i64 0, i32 5
-  store i32 %74, ptr %75, align 4, !tbaa !22
-  %76 = load ptr, ptr %1, align 8, !tbaa !33
-  %77 = add nsw i32 %15, -1
-  %78 = shl nuw i32 1, %77
-  %79 = getelementptr inbounds %struct.Bitstream, ptr %76, i64 0, i32 2
-  %80 = getelementptr inbounds %struct.Bitstream, ptr %76, i64 0, i32 1
-  %81 = getelementptr inbounds %struct.Bitstream, ptr %76, i64 0, i32 9
-  %82 = load i8, ptr %79, align 8, !tbaa !7
-  br label %83
+for.body.lr.ph.i:                                 ; preds = %while.body.i.epil, %for.body.lr.ph.i.unr-lcssa
+  %or.i.lcssa = phi i32 [ %or.i.lcssa.ph, %for.body.lr.ph.i.unr-lcssa ], [ %or.i.epil, %while.body.i.epil ]
+  %bitpattern.i = getelementptr inbounds %struct.syntaxelement, ptr %se, i64 0, i32 5
+  store i32 %or.i.lcssa, ptr %bitpattern.i, align 4, !tbaa !22
+  %11 = load ptr, ptr %dp, align 8, !tbaa !33
+  %sub.i = add nsw i32 %4, -1
+  %shl.i35 = shl nuw i32 1, %sub.i
+  %byte_buf.i = getelementptr inbounds %struct.Bitstream, ptr %11, i64 0, i32 2
+  %bits_to_go.i = getelementptr inbounds %struct.Bitstream, ptr %11, i64 0, i32 1
+  %streamBuffer.i = getelementptr inbounds %struct.Bitstream, ptr %11, i64 0, i32 9
+  %.pre.i = load i8, ptr %byte_buf.i, align 8, !tbaa !7
+  br label %for.body.i
 
-83:                                               ; preds = %107, %73
-  %84 = phi i32 [ %15, %73 ], [ %108, %107 ]
-  %85 = phi i8 [ %82, %73 ], [ %109, %107 ]
-  %86 = phi i32 [ %78, %73 ], [ %98, %107 ]
-  %87 = phi i32 [ 0, %73 ], [ %110, %107 ]
-  %88 = shl i8 %85, 1
-  store i8 %88, ptr %79, align 8, !tbaa !7
-  %89 = load i32, ptr %75, align 4, !tbaa !22
-  %90 = and i32 %89, %86
-  %91 = icmp eq i32 %90, 0
-  br i1 %91, label %94, label %92
+for.body.i:                                       ; preds = %for.inc.i, %for.body.lr.ph.i
+  %12 = phi i32 [ %4, %for.body.lr.ph.i ], [ %20, %for.inc.i ]
+  %13 = phi i8 [ %.pre.i, %for.body.lr.ph.i ], [ %21, %for.inc.i ]
+  %mask.030.i = phi i32 [ %shl.i35, %for.body.lr.ph.i ], [ %shr.i, %for.inc.i ]
+  %i.029.i = phi i32 [ 0, %for.body.lr.ph.i ], [ %inc15.i, %for.inc.i ]
+  %shl2.i = shl i8 %13, 1
+  store i8 %shl2.i, ptr %byte_buf.i, align 8, !tbaa !7
+  %14 = load i32, ptr %bitpattern.i, align 4, !tbaa !22
+  %and.i37 = and i32 %14, %mask.030.i
+  %tobool.not.i = icmp eq i32 %and.i37, 0
+  br i1 %tobool.not.i, label %if.end.i, label %if.then.i
 
-92:                                               ; preds = %83
-  %93 = or i8 %88, 1
-  store i8 %93, ptr %79, align 8, !tbaa !7
-  br label %94
+if.then.i:                                        ; preds = %for.body.i
+  %15 = or i8 %shl2.i, 1
+  store i8 %15, ptr %byte_buf.i, align 8, !tbaa !7
+  br label %if.end.i
 
-94:                                               ; preds = %92, %83
-  %95 = phi i8 [ %93, %92 ], [ %88, %83 ]
-  %96 = load i32, ptr %80, align 4, !tbaa !13
-  %97 = add nsw i32 %96, -1
-  store i32 %97, ptr %80, align 4, !tbaa !13
-  %98 = lshr i32 %86, 1
-  %99 = icmp eq i32 %97, 0
-  br i1 %99, label %100, label %107
+if.end.i:                                         ; preds = %if.then.i, %for.body.i
+  %16 = phi i8 [ %15, %if.then.i ], [ %shl2.i, %for.body.i ]
+  %17 = load i32, ptr %bits_to_go.i, align 4, !tbaa !13
+  %dec.i38 = add nsw i32 %17, -1
+  store i32 %dec.i38, ptr %bits_to_go.i, align 4, !tbaa !13
+  %shr.i = lshr i32 %mask.030.i, 1
+  %cmp8.i = icmp eq i32 %dec.i38, 0
+  br i1 %cmp8.i, label %if.then10.i, label %for.inc.i
 
-100:                                              ; preds = %94
-  store i32 8, ptr %80, align 4, !tbaa !13
-  %101 = load ptr, ptr %81, align 8, !tbaa !14
-  %102 = load i32, ptr %76, align 8, !tbaa !15
-  %103 = add nsw i32 %102, 1
-  store i32 %103, ptr %76, align 8, !tbaa !15
-  %104 = sext i32 %102 to i64
-  %105 = getelementptr inbounds i8, ptr %101, i64 %104
-  store i8 %95, ptr %105, align 1, !tbaa !16
-  store i8 0, ptr %79, align 8, !tbaa !7
-  %106 = load i32, ptr %7, align 4, !tbaa !19
-  br label %107
+if.then10.i:                                      ; preds = %if.end.i
+  store i32 8, ptr %bits_to_go.i, align 4, !tbaa !13
+  %18 = load ptr, ptr %streamBuffer.i, align 8, !tbaa !14
+  %19 = load i32, ptr %11, align 8, !tbaa !15
+  %inc.i = add nsw i32 %19, 1
+  store i32 %inc.i, ptr %11, align 8, !tbaa !15
+  %idxprom.i = sext i32 %19 to i64
+  %arrayidx.i = getelementptr inbounds i8, ptr %18, i64 %idxprom.i
+  store i8 %16, ptr %arrayidx.i, align 1, !tbaa !16
+  store i8 0, ptr %byte_buf.i, align 8, !tbaa !7
+  %.pre31.i = load i32, ptr %len, align 4, !tbaa !19
+  br label %for.inc.i
 
-107:                                              ; preds = %100, %94
-  %108 = phi i32 [ %84, %94 ], [ %106, %100 ]
-  %109 = phi i8 [ %95, %94 ], [ 0, %100 ]
-  %110 = add nuw nsw i32 %87, 1
-  %111 = icmp slt i32 %110, %108
-  br i1 %111, label %83, label %112, !llvm.loop !17
+for.inc.i:                                        ; preds = %if.then10.i, %if.end.i
+  %20 = phi i32 [ %12, %if.end.i ], [ %.pre31.i, %if.then10.i ]
+  %21 = phi i8 [ %16, %if.end.i ], [ 0, %if.then10.i ]
+  %inc15.i = add nuw nsw i32 %i.029.i, 1
+  %cmp.i39 = icmp slt i32 %inc15.i, %20
+  br i1 %cmp.i39, label %for.body.i, label %writeUVLC2buffer.exit, !llvm.loop !17
 
-112:                                              ; preds = %107, %29
-  %113 = phi i32 [ %15, %29 ], [ %108, %107 ]
-  %114 = load i32, ptr %0, align 8, !tbaa !36
-  %115 = icmp eq i32 %114, 0
-  br i1 %115, label %119, label %116
+writeUVLC2buffer.exit:                            ; preds = %for.inc.i, %symbol2vlc.exit.thread
+  %22 = phi i32 [ %4, %symbol2vlc.exit.thread ], [ %20, %for.inc.i ]
+  %23 = load i32, ptr %se, align 8, !tbaa !36
+  %cmp16.not = icmp eq i32 %23, 0
+  br i1 %cmp16.not, label %if.end19, label %if.then17
 
-116:                                              ; preds = %112
-  %117 = load ptr, ptr %1, align 8, !tbaa !33
-  %118 = getelementptr inbounds %struct.Bitstream, ptr %117, i64 0, i32 10
-  store i32 1, ptr %118, align 8, !tbaa !37
-  br label %119
+if.then17:                                        ; preds = %writeUVLC2buffer.exit
+  %24 = load ptr, ptr %dp, align 8, !tbaa !33
+  %write_flag = getelementptr inbounds %struct.Bitstream, ptr %24, i64 0, i32 10
+  store i32 1, ptr %write_flag, align 8, !tbaa !37
+  br label %if.end19
 
-119:                                              ; preds = %116, %112
-  ret i32 %113
+if.end19:                                         ; preds = %if.then17, %writeUVLC2buffer.exit
+  ret i32 %22
 }
 
 ; Function Attrs: nounwind uwtable
-define dso_local i32 @writeSyntaxElement_Run(ptr nocapture noundef %0, ptr nocapture noundef readonly %1) local_unnamed_addr #9 {
-  %3 = getelementptr inbounds %struct.syntaxelement, ptr %0, i64 0, i32 3
-  %4 = load i32, ptr %3, align 4, !tbaa !19
-  %5 = sext i32 %4 to i64
-  %6 = getelementptr inbounds %struct.syntaxelement, ptr %0, i64 0, i32 1
-  %7 = load i32, ptr %6, align 4, !tbaa !32
-  %8 = sext i32 %7 to i64
-  %9 = getelementptr inbounds [15 x [16 x i32]], ptr @writeSyntaxElement_Run.lentab, i64 0, i64 %5, i64 %8
-  %10 = load i32, ptr %9, align 4, !tbaa !18
-  store i32 %10, ptr %3, align 4, !tbaa !19
-  %11 = getelementptr inbounds [15 x [16 x i32]], ptr @writeSyntaxElement_Run.codtab, i64 0, i64 %5, i64 %8
-  %12 = load i32, ptr %11, align 4, !tbaa !18
-  %13 = getelementptr inbounds %struct.syntaxelement, ptr %0, i64 0, i32 4
-  store i32 %12, ptr %13, align 8, !tbaa !21
-  %14 = icmp eq i32 %10, 0
-  br i1 %14, label %15, label %17
+define dso_local i32 @writeSyntaxElement_Run(ptr nocapture noundef %se, ptr nocapture noundef readonly %dp) local_unnamed_addr #9 {
+entry:
+  %len = getelementptr inbounds %struct.syntaxelement, ptr %se, i64 0, i32 3
+  %0 = load i32, ptr %len, align 4, !tbaa !19
+  %idxprom = sext i32 %0 to i64
+  %value1 = getelementptr inbounds %struct.syntaxelement, ptr %se, i64 0, i32 1
+  %1 = load i32, ptr %value1, align 4, !tbaa !32
+  %idxprom1 = sext i32 %1 to i64
+  %arrayidx2 = getelementptr inbounds [15 x [16 x i32]], ptr @writeSyntaxElement_Run.lentab, i64 0, i64 %idxprom, i64 %idxprom1
+  %2 = load i32, ptr %arrayidx2, align 4, !tbaa !18
+  store i32 %2, ptr %len, align 4, !tbaa !19
+  %arrayidx8 = getelementptr inbounds [15 x [16 x i32]], ptr @writeSyntaxElement_Run.codtab, i64 0, i64 %idxprom, i64 %idxprom1
+  %3 = load i32, ptr %arrayidx8, align 4, !tbaa !18
+  %inf = getelementptr inbounds %struct.syntaxelement, ptr %se, i64 0, i32 4
+  store i32 %3, ptr %inf, align 8, !tbaa !21
+  %cmp = icmp eq i32 %2, 0
+  br i1 %cmp, label %if.then, label %if.end
 
-15:                                               ; preds = %2
-  %16 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.3, i32 noundef %7)
+if.then:                                          ; preds = %entry
+  %call = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.3, i32 noundef %1)
   tail call void @exit(i32 noundef -1) #17
   unreachable
 
-17:                                               ; preds = %2
-  %18 = icmp sgt i32 %10, 0
-  br i1 %18, label %19, label %24
+if.end:                                           ; preds = %entry
+  %cmp9.i = icmp sgt i32 %2, 0
+  br i1 %cmp9.i, label %while.body.i.preheader, label %symbol2vlc.exit.thread
 
-19:                                               ; preds = %17
-  %20 = and i32 %10, 3
-  %21 = icmp ult i32 %10, 4
-  br i1 %21, label %52, label %22
+while.body.i.preheader:                           ; preds = %if.end
+  %xtraiter = and i32 %2, 3
+  %4 = icmp ult i32 %2, 4
+  br i1 %4, label %for.body.lr.ph.i.unr-lcssa, label %while.body.i.preheader.new
 
-22:                                               ; preds = %19
-  %23 = and i32 %10, -4
-  br label %26
+while.body.i.preheader.new:                       ; preds = %while.body.i.preheader
+  %unroll_iter = and i32 %2, -4
+  br label %while.body.i
 
-24:                                               ; preds = %17
-  %25 = getelementptr inbounds %struct.syntaxelement, ptr %0, i64 0, i32 5
-  store i32 0, ptr %25, align 4, !tbaa !22
-  br label %107
+symbol2vlc.exit.thread:                           ; preds = %if.end
+  %bitpattern.i36 = getelementptr inbounds %struct.syntaxelement, ptr %se, i64 0, i32 5
+  store i32 0, ptr %bitpattern.i36, align 4, !tbaa !22
+  br label %writeUVLC2buffer.exit
 
-26:                                               ; preds = %26, %22
-  %27 = phi i32 [ %10, %22 ], [ %42, %26 ]
-  %28 = phi i32 [ 0, %22 ], [ %49, %26 ]
-  %29 = phi i32 [ 0, %22 ], [ %50, %26 ]
-  %30 = add nsw i32 %27, -1
-  %31 = lshr i32 %12, %30
-  %32 = add nsw i32 %27, -2
-  %33 = shl i32 %28, 2
-  %34 = shl i32 %31, 1
-  %35 = and i32 %34, 2
-  %36 = or i32 %33, %35
-  %37 = lshr i32 %12, %32
-  %38 = and i32 %37, 1
-  %39 = or i32 %38, %36
-  %40 = add nsw i32 %27, -3
-  %41 = lshr i32 %12, %40
-  %42 = add nsw i32 %27, -4
-  %43 = shl i32 %39, 2
-  %44 = shl i32 %41, 1
-  %45 = and i32 %44, 2
-  %46 = or i32 %43, %45
-  %47 = lshr i32 %12, %42
-  %48 = and i32 %47, 1
-  %49 = or i32 %48, %46
-  %50 = add i32 %29, 4
-  %51 = icmp eq i32 %50, %23
-  br i1 %51, label %52, label %26, !llvm.loop !48
+while.body.i:                                     ; preds = %while.body.i, %while.body.i.preheader.new
+  %info_len.011.i = phi i32 [ %2, %while.body.i.preheader.new ], [ %dec.i.3, %while.body.i ]
+  %storemerge10.i = phi i32 [ 0, %while.body.i.preheader.new ], [ %or.i.3, %while.body.i ]
+  %niter = phi i32 [ 0, %while.body.i.preheader.new ], [ %niter.next.3, %while.body.i ]
+  %dec.i = add nsw i32 %info_len.011.i, -1
+  %shr8.i = lshr i32 %3, %dec.i
+  %dec.i.1 = add nsw i32 %info_len.011.i, -2
+  %5 = shl i32 %storemerge10.i, 2
+  %and.i = shl i32 %shr8.i, 1
+  %6 = and i32 %and.i, 2
+  %shl.i.1 = or i32 %5, %6
+  %shr8.i.1 = lshr i32 %3, %dec.i.1
+  %and.i.1 = and i32 %shr8.i.1, 1
+  %or.i.1 = or i32 %and.i.1, %shl.i.1
+  %dec.i.2 = add nsw i32 %info_len.011.i, -3
+  %shr8.i.2 = lshr i32 %3, %dec.i.2
+  %dec.i.3 = add nsw i32 %info_len.011.i, -4
+  %7 = shl i32 %or.i.1, 2
+  %and.i.2 = shl i32 %shr8.i.2, 1
+  %8 = and i32 %and.i.2, 2
+  %shl.i.3 = or i32 %7, %8
+  %shr8.i.3 = lshr i32 %3, %dec.i.3
+  %and.i.3 = and i32 %shr8.i.3, 1
+  %or.i.3 = or i32 %and.i.3, %shl.i.3
+  %niter.next.3 = add i32 %niter, 4
+  %niter.ncmp.3.not = icmp eq i32 %niter.next.3, %unroll_iter
+  br i1 %niter.ncmp.3.not, label %for.body.lr.ph.i.unr-lcssa, label %while.body.i, !llvm.loop !48
 
-52:                                               ; preds = %26, %19
-  %53 = phi i32 [ undef, %19 ], [ %49, %26 ]
-  %54 = phi i32 [ %10, %19 ], [ %42, %26 ]
-  %55 = phi i32 [ 0, %19 ], [ %49, %26 ]
-  %56 = icmp eq i32 %20, 0
-  br i1 %56, label %68, label %57
+for.body.lr.ph.i.unr-lcssa:                       ; preds = %while.body.i, %while.body.i.preheader
+  %or.i.lcssa.ph = phi i32 [ undef, %while.body.i.preheader ], [ %or.i.3, %while.body.i ]
+  %info_len.011.i.unr = phi i32 [ %2, %while.body.i.preheader ], [ %dec.i.3, %while.body.i ]
+  %storemerge10.i.unr = phi i32 [ 0, %while.body.i.preheader ], [ %or.i.3, %while.body.i ]
+  %lcmp.mod.not = icmp eq i32 %xtraiter, 0
+  br i1 %lcmp.mod.not, label %for.body.lr.ph.i, label %while.body.i.epil
 
-57:                                               ; preds = %52, %57
-  %58 = phi i32 [ %61, %57 ], [ %54, %52 ]
-  %59 = phi i32 [ %65, %57 ], [ %55, %52 ]
-  %60 = phi i32 [ %66, %57 ], [ 0, %52 ]
-  %61 = add nsw i32 %58, -1
-  %62 = shl i32 %59, 1
-  %63 = lshr i32 %12, %61
-  %64 = and i32 %63, 1
-  %65 = or i32 %64, %62
-  %66 = add i32 %60, 1
-  %67 = icmp eq i32 %66, %20
-  br i1 %67, label %68, label %57, !llvm.loop !55
+while.body.i.epil:                                ; preds = %for.body.lr.ph.i.unr-lcssa, %while.body.i.epil
+  %info_len.011.i.epil = phi i32 [ %dec.i.epil, %while.body.i.epil ], [ %info_len.011.i.unr, %for.body.lr.ph.i.unr-lcssa ]
+  %storemerge10.i.epil = phi i32 [ %or.i.epil, %while.body.i.epil ], [ %storemerge10.i.unr, %for.body.lr.ph.i.unr-lcssa ]
+  %epil.iter = phi i32 [ %epil.iter.next, %while.body.i.epil ], [ 0, %for.body.lr.ph.i.unr-lcssa ]
+  %dec.i.epil = add nsw i32 %info_len.011.i.epil, -1
+  %shl.i.epil = shl i32 %storemerge10.i.epil, 1
+  %shr8.i.epil = lshr i32 %3, %dec.i.epil
+  %and.i.epil = and i32 %shr8.i.epil, 1
+  %or.i.epil = or i32 %and.i.epil, %shl.i.epil
+  %epil.iter.next = add i32 %epil.iter, 1
+  %epil.iter.cmp.not = icmp eq i32 %epil.iter.next, %xtraiter
+  br i1 %epil.iter.cmp.not, label %for.body.lr.ph.i, label %while.body.i.epil, !llvm.loop !55
 
-68:                                               ; preds = %57, %52
-  %69 = phi i32 [ %53, %52 ], [ %65, %57 ]
-  %70 = getelementptr inbounds %struct.syntaxelement, ptr %0, i64 0, i32 5
-  store i32 %69, ptr %70, align 4, !tbaa !22
-  %71 = load ptr, ptr %1, align 8, !tbaa !33
-  %72 = add nsw i32 %10, -1
-  %73 = shl nuw i32 1, %72
-  %74 = getelementptr inbounds %struct.Bitstream, ptr %71, i64 0, i32 2
-  %75 = getelementptr inbounds %struct.Bitstream, ptr %71, i64 0, i32 1
-  %76 = getelementptr inbounds %struct.Bitstream, ptr %71, i64 0, i32 9
-  %77 = load i8, ptr %74, align 8, !tbaa !7
-  br label %78
+for.body.lr.ph.i:                                 ; preds = %while.body.i.epil, %for.body.lr.ph.i.unr-lcssa
+  %or.i.lcssa = phi i32 [ %or.i.lcssa.ph, %for.body.lr.ph.i.unr-lcssa ], [ %or.i.epil, %while.body.i.epil ]
+  %bitpattern.i = getelementptr inbounds %struct.syntaxelement, ptr %se, i64 0, i32 5
+  store i32 %or.i.lcssa, ptr %bitpattern.i, align 4, !tbaa !22
+  %9 = load ptr, ptr %dp, align 8, !tbaa !33
+  %sub.i = add nsw i32 %2, -1
+  %shl.i30 = shl nuw i32 1, %sub.i
+  %byte_buf.i = getelementptr inbounds %struct.Bitstream, ptr %9, i64 0, i32 2
+  %bits_to_go.i = getelementptr inbounds %struct.Bitstream, ptr %9, i64 0, i32 1
+  %streamBuffer.i = getelementptr inbounds %struct.Bitstream, ptr %9, i64 0, i32 9
+  %.pre.i = load i8, ptr %byte_buf.i, align 8, !tbaa !7
+  br label %for.body.i
 
-78:                                               ; preds = %102, %68
-  %79 = phi i32 [ %10, %68 ], [ %103, %102 ]
-  %80 = phi i8 [ %77, %68 ], [ %104, %102 ]
-  %81 = phi i32 [ %73, %68 ], [ %93, %102 ]
-  %82 = phi i32 [ 0, %68 ], [ %105, %102 ]
-  %83 = shl i8 %80, 1
-  store i8 %83, ptr %74, align 8, !tbaa !7
-  %84 = load i32, ptr %70, align 4, !tbaa !22
-  %85 = and i32 %84, %81
-  %86 = icmp eq i32 %85, 0
-  br i1 %86, label %89, label %87
+for.body.i:                                       ; preds = %for.inc.i, %for.body.lr.ph.i
+  %10 = phi i32 [ %2, %for.body.lr.ph.i ], [ %18, %for.inc.i ]
+  %11 = phi i8 [ %.pre.i, %for.body.lr.ph.i ], [ %19, %for.inc.i ]
+  %mask.030.i = phi i32 [ %shl.i30, %for.body.lr.ph.i ], [ %shr.i, %for.inc.i ]
+  %i.029.i = phi i32 [ 0, %for.body.lr.ph.i ], [ %inc15.i, %for.inc.i ]
+  %shl2.i = shl i8 %11, 1
+  store i8 %shl2.i, ptr %byte_buf.i, align 8, !tbaa !7
+  %12 = load i32, ptr %bitpattern.i, align 4, !tbaa !22
+  %and.i32 = and i32 %12, %mask.030.i
+  %tobool.not.i = icmp eq i32 %and.i32, 0
+  br i1 %tobool.not.i, label %if.end.i, label %if.then.i
 
-87:                                               ; preds = %78
-  %88 = or i8 %83, 1
-  store i8 %88, ptr %74, align 8, !tbaa !7
-  br label %89
+if.then.i:                                        ; preds = %for.body.i
+  %13 = or i8 %shl2.i, 1
+  store i8 %13, ptr %byte_buf.i, align 8, !tbaa !7
+  br label %if.end.i
 
-89:                                               ; preds = %87, %78
-  %90 = phi i8 [ %88, %87 ], [ %83, %78 ]
-  %91 = load i32, ptr %75, align 4, !tbaa !13
-  %92 = add nsw i32 %91, -1
-  store i32 %92, ptr %75, align 4, !tbaa !13
-  %93 = lshr i32 %81, 1
-  %94 = icmp eq i32 %92, 0
-  br i1 %94, label %95, label %102
+if.end.i:                                         ; preds = %if.then.i, %for.body.i
+  %14 = phi i8 [ %13, %if.then.i ], [ %shl2.i, %for.body.i ]
+  %15 = load i32, ptr %bits_to_go.i, align 4, !tbaa !13
+  %dec.i33 = add nsw i32 %15, -1
+  store i32 %dec.i33, ptr %bits_to_go.i, align 4, !tbaa !13
+  %shr.i = lshr i32 %mask.030.i, 1
+  %cmp8.i = icmp eq i32 %dec.i33, 0
+  br i1 %cmp8.i, label %if.then10.i, label %for.inc.i
 
-95:                                               ; preds = %89
-  store i32 8, ptr %75, align 4, !tbaa !13
-  %96 = load ptr, ptr %76, align 8, !tbaa !14
-  %97 = load i32, ptr %71, align 8, !tbaa !15
-  %98 = add nsw i32 %97, 1
-  store i32 %98, ptr %71, align 8, !tbaa !15
-  %99 = sext i32 %97 to i64
-  %100 = getelementptr inbounds i8, ptr %96, i64 %99
-  store i8 %90, ptr %100, align 1, !tbaa !16
-  store i8 0, ptr %74, align 8, !tbaa !7
-  %101 = load i32, ptr %3, align 4, !tbaa !19
-  br label %102
+if.then10.i:                                      ; preds = %if.end.i
+  store i32 8, ptr %bits_to_go.i, align 4, !tbaa !13
+  %16 = load ptr, ptr %streamBuffer.i, align 8, !tbaa !14
+  %17 = load i32, ptr %9, align 8, !tbaa !15
+  %inc.i = add nsw i32 %17, 1
+  store i32 %inc.i, ptr %9, align 8, !tbaa !15
+  %idxprom.i = sext i32 %17 to i64
+  %arrayidx.i = getelementptr inbounds i8, ptr %16, i64 %idxprom.i
+  store i8 %14, ptr %arrayidx.i, align 1, !tbaa !16
+  store i8 0, ptr %byte_buf.i, align 8, !tbaa !7
+  %.pre31.i = load i32, ptr %len, align 4, !tbaa !19
+  br label %for.inc.i
 
-102:                                              ; preds = %95, %89
-  %103 = phi i32 [ %79, %89 ], [ %101, %95 ]
-  %104 = phi i8 [ %90, %89 ], [ 0, %95 ]
-  %105 = add nuw nsw i32 %82, 1
-  %106 = icmp slt i32 %105, %103
-  br i1 %106, label %78, label %107, !llvm.loop !17
+for.inc.i:                                        ; preds = %if.then10.i, %if.end.i
+  %18 = phi i32 [ %10, %if.end.i ], [ %.pre31.i, %if.then10.i ]
+  %19 = phi i8 [ %14, %if.end.i ], [ 0, %if.then10.i ]
+  %inc15.i = add nuw nsw i32 %i.029.i, 1
+  %cmp.i34 = icmp slt i32 %inc15.i, %18
+  br i1 %cmp.i34, label %for.body.i, label %writeUVLC2buffer.exit, !llvm.loop !17
 
-107:                                              ; preds = %102, %24
-  %108 = phi i32 [ %10, %24 ], [ %103, %102 ]
-  %109 = load i32, ptr %0, align 8, !tbaa !36
-  %110 = icmp eq i32 %109, 0
-  br i1 %110, label %114, label %111
+writeUVLC2buffer.exit:                            ; preds = %for.inc.i, %symbol2vlc.exit.thread
+  %20 = phi i32 [ %2, %symbol2vlc.exit.thread ], [ %18, %for.inc.i ]
+  %21 = load i32, ptr %se, align 8, !tbaa !36
+  %cmp12.not = icmp eq i32 %21, 0
+  br i1 %cmp12.not, label %if.end15, label %if.then13
 
-111:                                              ; preds = %107
-  %112 = load ptr, ptr %1, align 8, !tbaa !33
-  %113 = getelementptr inbounds %struct.Bitstream, ptr %112, i64 0, i32 10
-  store i32 1, ptr %113, align 8, !tbaa !37
-  br label %114
+if.then13:                                        ; preds = %writeUVLC2buffer.exit
+  %22 = load ptr, ptr %dp, align 8, !tbaa !33
+  %write_flag = getelementptr inbounds %struct.Bitstream, ptr %22, i64 0, i32 10
+  store i32 1, ptr %write_flag, align 8, !tbaa !37
+  br label %if.end15
 
-114:                                              ; preds = %111, %107
-  ret i32 %108
+if.end15:                                         ; preds = %if.then13, %writeUVLC2buffer.exit
+  ret i32 %20
 }
 
 ; Function Attrs: nofree nosync nounwind memory(readwrite, inaccessiblemem: none) uwtable
-define dso_local i32 @writeSyntaxElement_Level_VLC1(ptr nocapture noundef %0, ptr nocapture noundef readonly %1, i32 noundef %2) local_unnamed_addr #8 {
-  %4 = getelementptr inbounds %struct.syntaxelement, ptr %0, i64 0, i32 1
-  %5 = load i32, ptr %4, align 4, !tbaa !32
-  %6 = tail call i32 @llvm.abs.i32(i32 %5, i1 true)
-  %7 = lshr i32 %5, 31
-  %8 = icmp ult i32 %6, 8
-  br i1 %8, label %9, label %13
+define dso_local i32 @writeSyntaxElement_Level_VLC1(ptr nocapture noundef %se, ptr nocapture noundef readonly %dp, i32 noundef %profile_idc) local_unnamed_addr #8 {
+entry:
+  %value1 = getelementptr inbounds %struct.syntaxelement, ptr %se, i64 0, i32 1
+  %0 = load i32, ptr %value1, align 4, !tbaa !32
+  %cond.i = tail call i32 @llvm.abs.i32(i32 %0, i1 true)
+  %.lobit = lshr i32 %0, 31
+  %cmp1 = icmp ult i32 %cond.i, 8
+  br i1 %cmp1, label %if.then, label %if.else
 
-9:                                                ; preds = %3
-  %10 = shl nuw nsw i32 %6, 1
-  %11 = add nsw i32 %7, -1
-  %12 = add nsw i32 %11, %10
-  br label %48
+if.then:                                          ; preds = %entry
+  %mul = shl nuw nsw i32 %cond.i, 1
+  %add = add nsw i32 %.lobit, -1
+  %sub = add nsw i32 %add, %mul
+  br label %if.end42
 
-13:                                               ; preds = %3
-  %14 = icmp ult i32 %6, 16
-  br i1 %14, label %15, label %22
+if.else:                                          ; preds = %entry
+  %cmp2 = icmp ult i32 %cond.i, 16
+  br i1 %cmp2, label %if.end42.thread, label %if.else8
 
-15:                                               ; preds = %13
-  %16 = getelementptr inbounds %struct.syntaxelement, ptr %0, i64 0, i32 3
-  store i32 19, ptr %16, align 4, !tbaa !19
-  %17 = shl nuw nsw i32 %6, 1
-  %18 = add nsw i32 %17, -16
-  %19 = or i32 %18, %7
-  %20 = or i32 %19, 16
-  %21 = getelementptr inbounds %struct.syntaxelement, ptr %0, i64 0, i32 4
-  store i32 %20, ptr %21, align 8, !tbaa !21
-  br label %56
+if.end42.thread:                                  ; preds = %if.else
+  %len4 = getelementptr inbounds %struct.syntaxelement, ptr %se, i64 0, i32 3
+  store i32 19, ptr %len4, align 4, !tbaa !19
+  %sub5 = shl nuw nsw i32 %cond.i, 1
+  %shl = add nsw i32 %sub5, -16
+  %or = or i32 %shl, %.lobit
+  %or6 = or i32 %or, 16
+  %inf7 = getelementptr inbounds %struct.syntaxelement, ptr %se, i64 0, i32 4
+  store i32 %or6, ptr %inf7, align 8, !tbaa !21
+  br label %while.body.lr.ph.i
 
-22:                                               ; preds = %13
-  %23 = add nsw i32 %6, -16
-  %24 = icmp ugt i32 %23, 2048
-  br i1 %24, label %25, label %32
+if.else8:                                         ; preds = %if.else
+  %cmp10 = icmp ugt i32 %cond.i, 2064
+  br i1 %cmp10, label %while.cond, label %if.end
 
-25:                                               ; preds = %22, %25
-  %26 = phi i32 [ %31, %25 ], [ 16, %22 ]
-  %27 = add nsw i32 %26, -3
-  %28 = shl nuw i32 1, %27
-  %29 = add nsw i32 %28, -4080
-  %30 = icmp sgt i32 %6, %29
-  %31 = add nuw nsw i32 %26, 1
-  br i1 %30, label %25, label %32, !llvm.loop !56
+while.cond:                                       ; preds = %if.else8, %while.cond
+  %numPrefix.0 = phi i32 [ %inc16, %while.cond ], [ 16, %if.else8 ]
+  %sub12 = add nsw i32 %numPrefix.0, -3
+  %shl13 = shl nuw i32 1, %sub12
+  %1 = add nsw i32 %shl13, -4080
+  %cmp15 = icmp sgt i32 %cond.i, %1
+  %inc16 = add nuw nsw i32 %numPrefix.0, 1
+  br i1 %cmp15, label %while.cond, label %if.end, !llvm.loop !56
 
-32:                                               ; preds = %25, %22
-  %33 = phi i32 [ 15, %22 ], [ %26, %25 ]
-  %34 = add nsw i32 %33, -3
-  %35 = shl nuw i32 1, %34
-  %36 = shl nuw i32 %23, 1
-  %37 = or i32 %36, %35
-  %38 = or i32 %37, %7
-  %39 = icmp ugt i32 %33, 15
-  %40 = icmp slt i32 %2, 100
-  %41 = and i1 %40, %39
-  br i1 %41, label %45, label %42
+if.end:                                           ; preds = %while.cond, %if.else8
+  %numPrefix.1 = phi i32 [ 15, %if.else8 ], [ %numPrefix.0, %while.cond ]
+  %add22 = add nsw i32 %numPrefix.1, -3
+  %shl23 = shl nuw i32 1, %add22
+  %sub9 = shl nuw i32 %cond.i, 1
+  %shl24 = add i32 %sub9, -32
+  %2 = or i32 %shl24, %shl23
+  %or26 = or i32 %2, %.lobit
+  %cmp27 = icmp ult i32 %numPrefix.1, 16
+  %cmp28 = icmp sgt i32 %profile_idc, 99
+  %or.cond.not = or i1 %cmp28, %cmp27
+  br i1 %or.cond.not, label %cleanup.thread, label %cleanup
 
-42:                                               ; preds = %32
-  %43 = shl nuw i32 %33, 1
-  %44 = add i32 %43, -2
-  br label %48
+cleanup.thread:                                   ; preds = %if.end
+  %sub17 = shl nuw i32 %numPrefix.1, 1
+  %add19 = add i32 %sub17, -2
+  br label %if.end42
 
-45:                                               ; preds = %32
-  %46 = getelementptr inbounds %struct.syntaxelement, ptr %0, i64 0, i32 3
-  store i32 65535, ptr %46, align 4, !tbaa !19
-  %47 = getelementptr inbounds %struct.syntaxelement, ptr %0, i64 0, i32 4
-  store i32 %38, ptr %47, align 8, !tbaa !21
-  br label %114
+cleanup:                                          ; preds = %if.end
+  %len30 = getelementptr inbounds %struct.syntaxelement, ptr %se, i64 0, i32 3
+  store i32 65535, ptr %len30, align 4, !tbaa !19
+  %inf31 = getelementptr inbounds %struct.syntaxelement, ptr %se, i64 0, i32 4
+  store i32 %or26, ptr %inf31, align 8, !tbaa !21
+  br label %cleanup49
 
-48:                                               ; preds = %42, %9
-  %49 = phi i32 [ %44, %42 ], [ %12, %9 ]
-  %50 = phi i32 [ %38, %42 ], [ 1, %9 ]
-  %51 = getelementptr inbounds %struct.syntaxelement, ptr %0, i64 0, i32 3
-  store i32 %49, ptr %51, align 4, !tbaa !19
-  %52 = getelementptr inbounds %struct.syntaxelement, ptr %0, i64 0, i32 4
-  store i32 %50, ptr %52, align 8, !tbaa !21
-  %53 = icmp sgt i32 %49, 0
-  br i1 %53, label %56, label %54
+if.end42:                                         ; preds = %cleanup.thread, %if.then
+  %add19.sink = phi i32 [ %add19, %cleanup.thread ], [ %sub, %if.then ]
+  %or26.sink = phi i32 [ %or26, %cleanup.thread ], [ 1, %if.then ]
+  %len34 = getelementptr inbounds %struct.syntaxelement, ptr %se, i64 0, i32 3
+  store i32 %add19.sink, ptr %len34, align 4, !tbaa !19
+  %inf35 = getelementptr inbounds %struct.syntaxelement, ptr %se, i64 0, i32 4
+  store i32 %or26.sink, ptr %inf35, align 8, !tbaa !21
+  %cmp9.i = icmp sgt i32 %add19.sink, 0
+  br i1 %cmp9.i, label %while.body.lr.ph.i, label %symbol2vlc.exit.thread
 
-54:                                               ; preds = %48
-  %55 = getelementptr inbounds %struct.syntaxelement, ptr %0, i64 0, i32 5
-  store i32 0, ptr %55, align 4, !tbaa !22
-  br label %107
+symbol2vlc.exit.thread:                           ; preds = %if.end42
+  %bitpattern.i91 = getelementptr inbounds %struct.syntaxelement, ptr %se, i64 0, i32 5
+  store i32 0, ptr %bitpattern.i91, align 4, !tbaa !22
+  br label %writeUVLC2buffer.exit
 
-56:                                               ; preds = %15, %48
-  %57 = phi i32 [ 19, %15 ], [ %49, %48 ]
-  %58 = phi i32 [ %20, %15 ], [ %50, %48 ]
-  %59 = getelementptr inbounds %struct.syntaxelement, ptr %0, i64 0, i32 3
-  br label %60
+while.body.lr.ph.i:                               ; preds = %if.end42.thread, %if.end42
+  %3 = phi i32 [ 19, %if.end42.thread ], [ %add19.sink, %if.end42 ]
+  %4 = phi i32 [ %or6, %if.end42.thread ], [ %or26.sink, %if.end42 ]
+  %len.i94 = getelementptr inbounds %struct.syntaxelement, ptr %se, i64 0, i32 3
+  br label %while.body.i
 
-60:                                               ; preds = %60, %56
-  %61 = phi i32 [ %57, %56 ], [ %63, %60 ]
-  %62 = phi i32 [ 0, %56 ], [ %67, %60 ]
-  %63 = add nsw i32 %61, -1
-  %64 = shl i32 %62, 1
-  %65 = lshr i32 %58, %63
-  %66 = and i32 %65, 1
-  %67 = or i32 %66, %64
-  %68 = icmp ugt i32 %61, 1
-  br i1 %68, label %60, label %69, !llvm.loop !48
+while.body.i:                                     ; preds = %while.body.i, %while.body.lr.ph.i
+  %info_len.011.i = phi i32 [ %3, %while.body.lr.ph.i ], [ %dec.i, %while.body.i ]
+  %storemerge10.i = phi i32 [ 0, %while.body.lr.ph.i ], [ %or.i, %while.body.i ]
+  %dec.i = add nsw i32 %info_len.011.i, -1
+  %shl.i = shl i32 %storemerge10.i, 1
+  %shr8.i = lshr i32 %4, %dec.i
+  %and.i = and i32 %shr8.i, 1
+  %or.i = or i32 %and.i, %shl.i
+  %cmp.i = icmp ugt i32 %info_len.011.i, 1
+  br i1 %cmp.i, label %while.body.i, label %for.body.lr.ph.i, !llvm.loop !48
 
-69:                                               ; preds = %60
-  %70 = getelementptr inbounds %struct.syntaxelement, ptr %0, i64 0, i32 5
-  store i32 %67, ptr %70, align 4, !tbaa !22
-  %71 = load ptr, ptr %1, align 8, !tbaa !33
-  %72 = add nsw i32 %57, -1
-  %73 = shl nuw i32 1, %72
-  %74 = getelementptr inbounds %struct.Bitstream, ptr %71, i64 0, i32 2
-  %75 = getelementptr inbounds %struct.Bitstream, ptr %71, i64 0, i32 1
-  %76 = getelementptr inbounds %struct.Bitstream, ptr %71, i64 0, i32 9
-  %77 = load i8, ptr %74, align 8, !tbaa !7
-  br label %78
+for.body.lr.ph.i:                                 ; preds = %while.body.i
+  %bitpattern.i = getelementptr inbounds %struct.syntaxelement, ptr %se, i64 0, i32 5
+  store i32 %or.i, ptr %bitpattern.i, align 4, !tbaa !22
+  %5 = load ptr, ptr %dp, align 8, !tbaa !33
+  %sub.i = add nsw i32 %3, -1
+  %shl.i85 = shl nuw i32 1, %sub.i
+  %byte_buf.i = getelementptr inbounds %struct.Bitstream, ptr %5, i64 0, i32 2
+  %bits_to_go.i = getelementptr inbounds %struct.Bitstream, ptr %5, i64 0, i32 1
+  %streamBuffer.i = getelementptr inbounds %struct.Bitstream, ptr %5, i64 0, i32 9
+  %.pre.i = load i8, ptr %byte_buf.i, align 8, !tbaa !7
+  br label %for.body.i
 
-78:                                               ; preds = %102, %69
-  %79 = phi i32 [ %57, %69 ], [ %103, %102 ]
-  %80 = phi i8 [ %77, %69 ], [ %104, %102 ]
-  %81 = phi i32 [ %73, %69 ], [ %93, %102 ]
-  %82 = phi i32 [ 0, %69 ], [ %105, %102 ]
-  %83 = shl i8 %80, 1
-  store i8 %83, ptr %74, align 8, !tbaa !7
-  %84 = load i32, ptr %70, align 4, !tbaa !22
-  %85 = and i32 %84, %81
-  %86 = icmp eq i32 %85, 0
-  br i1 %86, label %89, label %87
+for.body.i:                                       ; preds = %for.inc.i, %for.body.lr.ph.i
+  %6 = phi i32 [ %3, %for.body.lr.ph.i ], [ %14, %for.inc.i ]
+  %7 = phi i8 [ %.pre.i, %for.body.lr.ph.i ], [ %15, %for.inc.i ]
+  %mask.030.i = phi i32 [ %shl.i85, %for.body.lr.ph.i ], [ %shr.i, %for.inc.i ]
+  %i.029.i = phi i32 [ 0, %for.body.lr.ph.i ], [ %inc15.i, %for.inc.i ]
+  %shl2.i = shl i8 %7, 1
+  store i8 %shl2.i, ptr %byte_buf.i, align 8, !tbaa !7
+  %8 = load i32, ptr %bitpattern.i, align 4, !tbaa !22
+  %and.i87 = and i32 %8, %mask.030.i
+  %tobool.not.i = icmp eq i32 %and.i87, 0
+  br i1 %tobool.not.i, label %if.end.i, label %if.then.i
 
-87:                                               ; preds = %78
-  %88 = or i8 %83, 1
-  store i8 %88, ptr %74, align 8, !tbaa !7
-  br label %89
+if.then.i:                                        ; preds = %for.body.i
+  %9 = or i8 %shl2.i, 1
+  store i8 %9, ptr %byte_buf.i, align 8, !tbaa !7
+  br label %if.end.i
 
-89:                                               ; preds = %87, %78
-  %90 = phi i8 [ %88, %87 ], [ %83, %78 ]
-  %91 = load i32, ptr %75, align 4, !tbaa !13
-  %92 = add nsw i32 %91, -1
-  store i32 %92, ptr %75, align 4, !tbaa !13
-  %93 = lshr i32 %81, 1
-  %94 = icmp eq i32 %92, 0
-  br i1 %94, label %95, label %102
+if.end.i:                                         ; preds = %if.then.i, %for.body.i
+  %10 = phi i8 [ %9, %if.then.i ], [ %shl2.i, %for.body.i ]
+  %11 = load i32, ptr %bits_to_go.i, align 4, !tbaa !13
+  %dec.i88 = add nsw i32 %11, -1
+  store i32 %dec.i88, ptr %bits_to_go.i, align 4, !tbaa !13
+  %shr.i = lshr i32 %mask.030.i, 1
+  %cmp8.i = icmp eq i32 %dec.i88, 0
+  br i1 %cmp8.i, label %if.then10.i, label %for.inc.i
 
-95:                                               ; preds = %89
-  store i32 8, ptr %75, align 4, !tbaa !13
-  %96 = load ptr, ptr %76, align 8, !tbaa !14
-  %97 = load i32, ptr %71, align 8, !tbaa !15
-  %98 = add nsw i32 %97, 1
-  store i32 %98, ptr %71, align 8, !tbaa !15
-  %99 = sext i32 %97 to i64
-  %100 = getelementptr inbounds i8, ptr %96, i64 %99
-  store i8 %90, ptr %100, align 1, !tbaa !16
-  store i8 0, ptr %74, align 8, !tbaa !7
-  %101 = load i32, ptr %59, align 4, !tbaa !19
-  br label %102
+if.then10.i:                                      ; preds = %if.end.i
+  store i32 8, ptr %bits_to_go.i, align 4, !tbaa !13
+  %12 = load ptr, ptr %streamBuffer.i, align 8, !tbaa !14
+  %13 = load i32, ptr %5, align 8, !tbaa !15
+  %inc.i = add nsw i32 %13, 1
+  store i32 %inc.i, ptr %5, align 8, !tbaa !15
+  %idxprom.i = sext i32 %13 to i64
+  %arrayidx.i = getelementptr inbounds i8, ptr %12, i64 %idxprom.i
+  store i8 %10, ptr %arrayidx.i, align 1, !tbaa !16
+  store i8 0, ptr %byte_buf.i, align 8, !tbaa !7
+  %.pre31.i = load i32, ptr %len.i94, align 4, !tbaa !19
+  br label %for.inc.i
 
-102:                                              ; preds = %95, %89
-  %103 = phi i32 [ %79, %89 ], [ %101, %95 ]
-  %104 = phi i8 [ %90, %89 ], [ 0, %95 ]
-  %105 = add nuw nsw i32 %82, 1
-  %106 = icmp slt i32 %105, %103
-  br i1 %106, label %78, label %107, !llvm.loop !17
+for.inc.i:                                        ; preds = %if.then10.i, %if.end.i
+  %14 = phi i32 [ %6, %if.end.i ], [ %.pre31.i, %if.then10.i ]
+  %15 = phi i8 [ %10, %if.end.i ], [ 0, %if.then10.i ]
+  %inc15.i = add nuw nsw i32 %i.029.i, 1
+  %cmp.i89 = icmp slt i32 %inc15.i, %14
+  br i1 %cmp.i89, label %for.body.i, label %writeUVLC2buffer.exit, !llvm.loop !17
 
-107:                                              ; preds = %102, %54
-  %108 = phi i32 [ %49, %54 ], [ %103, %102 ]
-  %109 = load i32, ptr %0, align 8, !tbaa !36
-  %110 = icmp eq i32 %109, 0
-  br i1 %110, label %114, label %111
+writeUVLC2buffer.exit:                            ; preds = %for.inc.i, %symbol2vlc.exit.thread
+  %16 = phi i32 [ %add19.sink, %symbol2vlc.exit.thread ], [ %14, %for.inc.i ]
+  %17 = load i32, ptr %se, align 8, !tbaa !36
+  %cmp44.not = icmp eq i32 %17, 0
+  br i1 %cmp44.not, label %cleanup49, label %if.then45
 
-111:                                              ; preds = %107
-  %112 = load ptr, ptr %1, align 8, !tbaa !33
-  %113 = getelementptr inbounds %struct.Bitstream, ptr %112, i64 0, i32 10
-  store i32 1, ptr %113, align 8, !tbaa !37
-  br label %114
+if.then45:                                        ; preds = %writeUVLC2buffer.exit
+  %18 = load ptr, ptr %dp, align 8, !tbaa !33
+  %write_flag = getelementptr inbounds %struct.Bitstream, ptr %18, i64 0, i32 10
+  store i32 1, ptr %write_flag, align 8, !tbaa !37
+  br label %cleanup49
 
-114:                                              ; preds = %107, %111, %45
-  %115 = phi i32 [ 65535, %45 ], [ %108, %111 ], [ %108, %107 ]
-  ret i32 %115
+cleanup49:                                        ; preds = %writeUVLC2buffer.exit, %if.then45, %cleanup
+  %retval.1 = phi i32 [ 65535, %cleanup ], [ %16, %if.then45 ], [ %16, %writeUVLC2buffer.exit ]
+  ret i32 %retval.1
 }
 
 ; Function Attrs: nofree nosync nounwind memory(readwrite, inaccessiblemem: none) uwtable
-define dso_local i32 @writeSyntaxElement_Level_VLCN(ptr nocapture noundef %0, i32 noundef %1, ptr nocapture noundef readonly %2, i32 noundef %3) local_unnamed_addr #8 {
-  %5 = getelementptr inbounds %struct.syntaxelement, ptr %0, i64 0, i32 1
-  %6 = load i32, ptr %5, align 4, !tbaa !32
-  %7 = tail call i32 @llvm.abs.i32(i32 %6, i1 true)
-  %8 = lshr i32 %6, 31
-  %9 = add nsw i32 %1, -1
-  %10 = shl i32 15, %9
-  %11 = icmp sgt i32 %7, %10
-  br i1 %11, label %24, label %12
+define dso_local i32 @writeSyntaxElement_Level_VLCN(ptr nocapture noundef %se, i32 noundef %vlc, ptr nocapture noundef readonly %dp, i32 noundef %profile_idc) local_unnamed_addr #8 {
+entry:
+  %value1 = getelementptr inbounds %struct.syntaxelement, ptr %se, i64 0, i32 1
+  %0 = load i32, ptr %value1, align 4, !tbaa !32
+  %cond.i = tail call i32 @llvm.abs.i32(i32 %0, i1 true)
+  %.lobit = lshr i32 %0, 31
+  %sub = add nsw i32 %vlc, -1
+  %shl = shl i32 15, %sub
+  %cmp4.not = icmp sgt i32 %cond.i, %shl
+  br i1 %cmp4.not, label %if.else, label %if.then
 
-12:                                               ; preds = %4
-  %13 = add nsw i32 %7, -1
-  %14 = shl nsw i32 -1, %9
-  %15 = xor i32 %14, -1
-  %16 = and i32 %13, %15
-  %17 = ashr i32 %13, %9
-  %18 = add i32 %1, 1
-  %19 = add i32 %18, %17
-  %20 = shl nuw i32 1, %1
-  %21 = shl i32 %16, 1
-  %22 = or i32 %20, %21
-  %23 = or i32 %22, %8
-  br label %54
+if.then:                                          ; preds = %entry
+  %sub1 = add nsw i32 %cond.i, -1
+  %shl2 = shl nsw i32 -1, %sub
+  %not = xor i32 %shl2, -1
+  %and = and i32 %sub1, %not
+  %shr = ashr i32 %sub1, %sub
+  %add5 = add i32 %vlc, 1
+  %add6 = add i32 %add5, %shr
+  %shl8 = shl nuw i32 1, %vlc
+  %shl9 = shl i32 %and, 1
+  %1 = or i32 %shl8, %shl9
+  %or10 = or i32 %1, %.lobit
+  br label %if.end35
 
-24:                                               ; preds = %4
-  %25 = xor i32 %10, -1
-  %26 = add i32 %7, %25
-  %27 = icmp sgt i32 %26, 2048
-  br i1 %27, label %28, label %35
+if.else:                                          ; preds = %entry
+  %add.neg = xor i32 %shl, -1
+  %sub11 = add i32 %cond.i, %add.neg
+  %cmp12 = icmp sgt i32 %sub11, 2048
+  br i1 %cmp12, label %while.cond, label %if.end
 
-28:                                               ; preds = %24, %28
-  %29 = phi i32 [ %34, %28 ], [ 16, %24 ]
-  %30 = add nsw i32 %29, -3
-  %31 = shl nuw i32 1, %30
-  %32 = add nsw i32 %31, -4096
-  %33 = icmp sgt i32 %26, %32
-  %34 = add nuw nsw i32 %29, 1
-  br i1 %33, label %28, label %35, !llvm.loop !57
+while.cond:                                       ; preds = %if.else, %while.cond
+  %numPrefix.0 = phi i32 [ %inc18, %while.cond ], [ 16, %if.else ]
+  %sub14 = add nsw i32 %numPrefix.0, -3
+  %shl15 = shl nuw i32 1, %sub14
+  %sub16 = add nsw i32 %shl15, -4096
+  %cmp17 = icmp sgt i32 %sub11, %sub16
+  %inc18 = add nuw nsw i32 %numPrefix.0, 1
+  br i1 %cmp17, label %while.cond, label %if.end, !llvm.loop !57
 
-35:                                               ; preds = %28, %24
-  %36 = phi i32 [ 15, %24 ], [ %29, %28 ]
-  %37 = add nsw i32 %36, -15
-  %38 = shl i32 %37, 1
-  %39 = add nsw i32 %38, 28
-  %40 = shl i32 -2048, %37
-  %41 = add nsw i32 %36, -3
-  %42 = shl nuw i32 1, %41
-  %43 = add i32 %26, 2048
-  %44 = add i32 %43, %40
-  %45 = shl i32 %44, 1
-  %46 = or i32 %42, %45
-  %47 = or i32 %46, %8
-  %48 = icmp ugt i32 %36, 15
-  %49 = icmp slt i32 %3, 100
-  %50 = and i1 %49, %48
-  br i1 %50, label %51, label %54
+if.end:                                           ; preds = %while.cond, %if.else
+  %numPrefix.1 = phi i32 [ 15, %if.else ], [ %numPrefix.0, %while.cond ]
+  %sub19 = add nsw i32 %numPrefix.1, -15
+  %shl20 = shl i32 %sub19, 1
+  %add21 = add nsw i32 %shl20, 28
+  %shl22.neg = shl i32 -2048, %sub19
+  %add24 = add nsw i32 %numPrefix.1, -3
+  %shl25 = shl nuw i32 1, %add24
+  %sub23.neg = add i32 %sub11, 2048
+  %sub26 = add i32 %sub23.neg, %shl22.neg
+  %shl27 = shl i32 %sub26, 1
+  %2 = or i32 %shl25, %shl27
+  %or29 = or i32 %2, %.lobit
+  %cmp30 = icmp ult i32 %numPrefix.1, 16
+  %cmp31 = icmp sgt i32 %profile_idc, 99
+  %or.cond.not = or i1 %cmp31, %cmp30
+  br i1 %or.cond.not, label %if.end35, label %if.then32
 
-51:                                               ; preds = %35
-  %52 = getelementptr inbounds %struct.syntaxelement, ptr %0, i64 0, i32 3
-  store i32 65535, ptr %52, align 4, !tbaa !19
-  %53 = getelementptr inbounds %struct.syntaxelement, ptr %0, i64 0, i32 4
-  store i32 %47, ptr %53, align 8, !tbaa !21
-  br label %155
+if.then32:                                        ; preds = %if.end
+  %len = getelementptr inbounds %struct.syntaxelement, ptr %se, i64 0, i32 3
+  store i32 65535, ptr %len, align 4, !tbaa !19
+  %inf = getelementptr inbounds %struct.syntaxelement, ptr %se, i64 0, i32 4
+  store i32 %or29, ptr %inf, align 8, !tbaa !21
+  br label %cleanup44
 
-54:                                               ; preds = %35, %12
-  %55 = phi i32 [ %19, %12 ], [ %39, %35 ]
-  %56 = phi i32 [ %23, %12 ], [ %47, %35 ]
-  %57 = getelementptr inbounds %struct.syntaxelement, ptr %0, i64 0, i32 3
-  store i32 %55, ptr %57, align 4, !tbaa !19
-  %58 = getelementptr inbounds %struct.syntaxelement, ptr %0, i64 0, i32 4
-  store i32 %56, ptr %58, align 8, !tbaa !21
-  %59 = icmp sgt i32 %55, 0
-  br i1 %59, label %60, label %65
+if.end35:                                         ; preds = %if.end, %if.then
+  %iLength.0 = phi i32 [ %add6, %if.then ], [ %add21, %if.end ]
+  %iCodeword.0 = phi i32 [ %or10, %if.then ], [ %or29, %if.end ]
+  %len36 = getelementptr inbounds %struct.syntaxelement, ptr %se, i64 0, i32 3
+  store i32 %iLength.0, ptr %len36, align 4, !tbaa !19
+  %inf37 = getelementptr inbounds %struct.syntaxelement, ptr %se, i64 0, i32 4
+  store i32 %iCodeword.0, ptr %inf37, align 8, !tbaa !21
+  %cmp9.i = icmp sgt i32 %iLength.0, 0
+  br i1 %cmp9.i, label %while.body.i.preheader, label %symbol2vlc.exit.thread
 
-60:                                               ; preds = %54
-  %61 = and i32 %55, 3
-  %62 = icmp ult i32 %55, 4
-  br i1 %62, label %93, label %63
+while.body.i.preheader:                           ; preds = %if.end35
+  %xtraiter = and i32 %iLength.0, 3
+  %3 = icmp ult i32 %iLength.0, 4
+  br i1 %3, label %for.body.lr.ph.i.unr-lcssa, label %while.body.i.preheader.new
 
-63:                                               ; preds = %60
-  %64 = and i32 %55, -4
-  br label %67
+while.body.i.preheader.new:                       ; preds = %while.body.i.preheader
+  %unroll_iter = and i32 %iLength.0, -4
+  br label %while.body.i
 
-65:                                               ; preds = %54
-  %66 = getelementptr inbounds %struct.syntaxelement, ptr %0, i64 0, i32 5
-  store i32 0, ptr %66, align 4, !tbaa !22
-  br label %148
+symbol2vlc.exit.thread:                           ; preds = %if.end35
+  %bitpattern.i95 = getelementptr inbounds %struct.syntaxelement, ptr %se, i64 0, i32 5
+  store i32 0, ptr %bitpattern.i95, align 4, !tbaa !22
+  br label %writeUVLC2buffer.exit
 
-67:                                               ; preds = %67, %63
-  %68 = phi i32 [ %55, %63 ], [ %83, %67 ]
-  %69 = phi i32 [ 0, %63 ], [ %90, %67 ]
-  %70 = phi i32 [ 0, %63 ], [ %91, %67 ]
-  %71 = add nsw i32 %68, -1
-  %72 = lshr i32 %56, %71
-  %73 = add nsw i32 %68, -2
-  %74 = shl i32 %69, 2
-  %75 = shl i32 %72, 1
-  %76 = and i32 %75, 2
-  %77 = or i32 %74, %76
-  %78 = lshr i32 %56, %73
-  %79 = and i32 %78, 1
-  %80 = or i32 %79, %77
-  %81 = add nsw i32 %68, -3
-  %82 = lshr i32 %56, %81
-  %83 = add nsw i32 %68, -4
-  %84 = shl i32 %80, 2
-  %85 = shl i32 %82, 1
-  %86 = and i32 %85, 2
-  %87 = or i32 %84, %86
-  %88 = lshr i32 %56, %83
-  %89 = and i32 %88, 1
-  %90 = or i32 %89, %87
-  %91 = add i32 %70, 4
-  %92 = icmp eq i32 %91, %64
-  br i1 %92, label %93, label %67, !llvm.loop !48
+while.body.i:                                     ; preds = %while.body.i, %while.body.i.preheader.new
+  %info_len.011.i = phi i32 [ %iLength.0, %while.body.i.preheader.new ], [ %dec.i.3, %while.body.i ]
+  %storemerge10.i = phi i32 [ 0, %while.body.i.preheader.new ], [ %or.i.3, %while.body.i ]
+  %niter = phi i32 [ 0, %while.body.i.preheader.new ], [ %niter.next.3, %while.body.i ]
+  %dec.i = add nsw i32 %info_len.011.i, -1
+  %shr8.i = lshr i32 %iCodeword.0, %dec.i
+  %dec.i.1 = add nsw i32 %info_len.011.i, -2
+  %4 = shl i32 %storemerge10.i, 2
+  %and.i = shl i32 %shr8.i, 1
+  %5 = and i32 %and.i, 2
+  %shl.i.1 = or i32 %4, %5
+  %shr8.i.1 = lshr i32 %iCodeword.0, %dec.i.1
+  %and.i.1 = and i32 %shr8.i.1, 1
+  %or.i.1 = or i32 %and.i.1, %shl.i.1
+  %dec.i.2 = add nsw i32 %info_len.011.i, -3
+  %shr8.i.2 = lshr i32 %iCodeword.0, %dec.i.2
+  %dec.i.3 = add nsw i32 %info_len.011.i, -4
+  %6 = shl i32 %or.i.1, 2
+  %and.i.2 = shl i32 %shr8.i.2, 1
+  %7 = and i32 %and.i.2, 2
+  %shl.i.3 = or i32 %6, %7
+  %shr8.i.3 = lshr i32 %iCodeword.0, %dec.i.3
+  %and.i.3 = and i32 %shr8.i.3, 1
+  %or.i.3 = or i32 %and.i.3, %shl.i.3
+  %niter.next.3 = add i32 %niter, 4
+  %niter.ncmp.3.not = icmp eq i32 %niter.next.3, %unroll_iter
+  br i1 %niter.ncmp.3.not, label %for.body.lr.ph.i.unr-lcssa, label %while.body.i, !llvm.loop !48
 
-93:                                               ; preds = %67, %60
-  %94 = phi i32 [ undef, %60 ], [ %90, %67 ]
-  %95 = phi i32 [ %55, %60 ], [ %83, %67 ]
-  %96 = phi i32 [ 0, %60 ], [ %90, %67 ]
-  %97 = icmp eq i32 %61, 0
-  br i1 %97, label %109, label %98
+for.body.lr.ph.i.unr-lcssa:                       ; preds = %while.body.i, %while.body.i.preheader
+  %or.i.lcssa.ph = phi i32 [ undef, %while.body.i.preheader ], [ %or.i.3, %while.body.i ]
+  %info_len.011.i.unr = phi i32 [ %iLength.0, %while.body.i.preheader ], [ %dec.i.3, %while.body.i ]
+  %storemerge10.i.unr = phi i32 [ 0, %while.body.i.preheader ], [ %or.i.3, %while.body.i ]
+  %lcmp.mod.not = icmp eq i32 %xtraiter, 0
+  br i1 %lcmp.mod.not, label %for.body.lr.ph.i, label %while.body.i.epil
 
-98:                                               ; preds = %93, %98
-  %99 = phi i32 [ %102, %98 ], [ %95, %93 ]
-  %100 = phi i32 [ %106, %98 ], [ %96, %93 ]
-  %101 = phi i32 [ %107, %98 ], [ 0, %93 ]
-  %102 = add nsw i32 %99, -1
-  %103 = shl i32 %100, 1
-  %104 = lshr i32 %56, %102
-  %105 = and i32 %104, 1
-  %106 = or i32 %105, %103
-  %107 = add i32 %101, 1
-  %108 = icmp eq i32 %107, %61
-  br i1 %108, label %109, label %98, !llvm.loop !58
+while.body.i.epil:                                ; preds = %for.body.lr.ph.i.unr-lcssa, %while.body.i.epil
+  %info_len.011.i.epil = phi i32 [ %dec.i.epil, %while.body.i.epil ], [ %info_len.011.i.unr, %for.body.lr.ph.i.unr-lcssa ]
+  %storemerge10.i.epil = phi i32 [ %or.i.epil, %while.body.i.epil ], [ %storemerge10.i.unr, %for.body.lr.ph.i.unr-lcssa ]
+  %epil.iter = phi i32 [ %epil.iter.next, %while.body.i.epil ], [ 0, %for.body.lr.ph.i.unr-lcssa ]
+  %dec.i.epil = add nsw i32 %info_len.011.i.epil, -1
+  %shl.i.epil = shl i32 %storemerge10.i.epil, 1
+  %shr8.i.epil = lshr i32 %iCodeword.0, %dec.i.epil
+  %and.i.epil = and i32 %shr8.i.epil, 1
+  %or.i.epil = or i32 %and.i.epil, %shl.i.epil
+  %epil.iter.next = add i32 %epil.iter, 1
+  %epil.iter.cmp.not = icmp eq i32 %epil.iter.next, %xtraiter
+  br i1 %epil.iter.cmp.not, label %for.body.lr.ph.i, label %while.body.i.epil, !llvm.loop !58
 
-109:                                              ; preds = %98, %93
-  %110 = phi i32 [ %94, %93 ], [ %106, %98 ]
-  %111 = getelementptr inbounds %struct.syntaxelement, ptr %0, i64 0, i32 5
-  store i32 %110, ptr %111, align 4, !tbaa !22
-  %112 = load ptr, ptr %2, align 8, !tbaa !33
-  %113 = add nsw i32 %55, -1
-  %114 = shl nuw i32 1, %113
-  %115 = getelementptr inbounds %struct.Bitstream, ptr %112, i64 0, i32 2
-  %116 = getelementptr inbounds %struct.Bitstream, ptr %112, i64 0, i32 1
-  %117 = getelementptr inbounds %struct.Bitstream, ptr %112, i64 0, i32 9
-  %118 = load i8, ptr %115, align 8, !tbaa !7
-  br label %119
+for.body.lr.ph.i:                                 ; preds = %while.body.i.epil, %for.body.lr.ph.i.unr-lcssa
+  %or.i.lcssa = phi i32 [ %or.i.lcssa.ph, %for.body.lr.ph.i.unr-lcssa ], [ %or.i.epil, %while.body.i.epil ]
+  %bitpattern.i = getelementptr inbounds %struct.syntaxelement, ptr %se, i64 0, i32 5
+  store i32 %or.i.lcssa, ptr %bitpattern.i, align 4, !tbaa !22
+  %8 = load ptr, ptr %dp, align 8, !tbaa !33
+  %sub.i = add nsw i32 %iLength.0, -1
+  %shl.i89 = shl nuw i32 1, %sub.i
+  %byte_buf.i = getelementptr inbounds %struct.Bitstream, ptr %8, i64 0, i32 2
+  %bits_to_go.i = getelementptr inbounds %struct.Bitstream, ptr %8, i64 0, i32 1
+  %streamBuffer.i = getelementptr inbounds %struct.Bitstream, ptr %8, i64 0, i32 9
+  %.pre.i = load i8, ptr %byte_buf.i, align 8, !tbaa !7
+  br label %for.body.i
 
-119:                                              ; preds = %143, %109
-  %120 = phi i32 [ %55, %109 ], [ %144, %143 ]
-  %121 = phi i8 [ %118, %109 ], [ %145, %143 ]
-  %122 = phi i32 [ %114, %109 ], [ %134, %143 ]
-  %123 = phi i32 [ 0, %109 ], [ %146, %143 ]
-  %124 = shl i8 %121, 1
-  store i8 %124, ptr %115, align 8, !tbaa !7
-  %125 = load i32, ptr %111, align 4, !tbaa !22
-  %126 = and i32 %125, %122
-  %127 = icmp eq i32 %126, 0
-  br i1 %127, label %130, label %128
+for.body.i:                                       ; preds = %for.inc.i, %for.body.lr.ph.i
+  %9 = phi i32 [ %iLength.0, %for.body.lr.ph.i ], [ %17, %for.inc.i ]
+  %10 = phi i8 [ %.pre.i, %for.body.lr.ph.i ], [ %18, %for.inc.i ]
+  %mask.030.i = phi i32 [ %shl.i89, %for.body.lr.ph.i ], [ %shr.i, %for.inc.i ]
+  %i.029.i = phi i32 [ 0, %for.body.lr.ph.i ], [ %inc15.i, %for.inc.i ]
+  %shl2.i = shl i8 %10, 1
+  store i8 %shl2.i, ptr %byte_buf.i, align 8, !tbaa !7
+  %11 = load i32, ptr %bitpattern.i, align 4, !tbaa !22
+  %and.i91 = and i32 %11, %mask.030.i
+  %tobool.not.i = icmp eq i32 %and.i91, 0
+  br i1 %tobool.not.i, label %if.end.i, label %if.then.i
 
-128:                                              ; preds = %119
-  %129 = or i8 %124, 1
-  store i8 %129, ptr %115, align 8, !tbaa !7
-  br label %130
+if.then.i:                                        ; preds = %for.body.i
+  %12 = or i8 %shl2.i, 1
+  store i8 %12, ptr %byte_buf.i, align 8, !tbaa !7
+  br label %if.end.i
 
-130:                                              ; preds = %128, %119
-  %131 = phi i8 [ %129, %128 ], [ %124, %119 ]
-  %132 = load i32, ptr %116, align 4, !tbaa !13
-  %133 = add nsw i32 %132, -1
-  store i32 %133, ptr %116, align 4, !tbaa !13
-  %134 = lshr i32 %122, 1
-  %135 = icmp eq i32 %133, 0
-  br i1 %135, label %136, label %143
+if.end.i:                                         ; preds = %if.then.i, %for.body.i
+  %13 = phi i8 [ %12, %if.then.i ], [ %shl2.i, %for.body.i ]
+  %14 = load i32, ptr %bits_to_go.i, align 4, !tbaa !13
+  %dec.i92 = add nsw i32 %14, -1
+  store i32 %dec.i92, ptr %bits_to_go.i, align 4, !tbaa !13
+  %shr.i = lshr i32 %mask.030.i, 1
+  %cmp8.i = icmp eq i32 %dec.i92, 0
+  br i1 %cmp8.i, label %if.then10.i, label %for.inc.i
 
-136:                                              ; preds = %130
-  store i32 8, ptr %116, align 4, !tbaa !13
-  %137 = load ptr, ptr %117, align 8, !tbaa !14
-  %138 = load i32, ptr %112, align 8, !tbaa !15
-  %139 = add nsw i32 %138, 1
-  store i32 %139, ptr %112, align 8, !tbaa !15
-  %140 = sext i32 %138 to i64
-  %141 = getelementptr inbounds i8, ptr %137, i64 %140
-  store i8 %131, ptr %141, align 1, !tbaa !16
-  store i8 0, ptr %115, align 8, !tbaa !7
-  %142 = load i32, ptr %57, align 4, !tbaa !19
-  br label %143
+if.then10.i:                                      ; preds = %if.end.i
+  store i32 8, ptr %bits_to_go.i, align 4, !tbaa !13
+  %15 = load ptr, ptr %streamBuffer.i, align 8, !tbaa !14
+  %16 = load i32, ptr %8, align 8, !tbaa !15
+  %inc.i = add nsw i32 %16, 1
+  store i32 %inc.i, ptr %8, align 8, !tbaa !15
+  %idxprom.i = sext i32 %16 to i64
+  %arrayidx.i = getelementptr inbounds i8, ptr %15, i64 %idxprom.i
+  store i8 %13, ptr %arrayidx.i, align 1, !tbaa !16
+  store i8 0, ptr %byte_buf.i, align 8, !tbaa !7
+  %.pre31.i = load i32, ptr %len36, align 4, !tbaa !19
+  br label %for.inc.i
 
-143:                                              ; preds = %136, %130
-  %144 = phi i32 [ %120, %130 ], [ %142, %136 ]
-  %145 = phi i8 [ %131, %130 ], [ 0, %136 ]
-  %146 = add nuw nsw i32 %123, 1
-  %147 = icmp slt i32 %146, %144
-  br i1 %147, label %119, label %148, !llvm.loop !17
+for.inc.i:                                        ; preds = %if.then10.i, %if.end.i
+  %17 = phi i32 [ %9, %if.end.i ], [ %.pre31.i, %if.then10.i ]
+  %18 = phi i8 [ %13, %if.end.i ], [ 0, %if.then10.i ]
+  %inc15.i = add nuw nsw i32 %i.029.i, 1
+  %cmp.i93 = icmp slt i32 %inc15.i, %17
+  br i1 %cmp.i93, label %for.body.i, label %writeUVLC2buffer.exit, !llvm.loop !17
 
-148:                                              ; preds = %143, %65
-  %149 = phi i32 [ %55, %65 ], [ %144, %143 ]
-  %150 = load i32, ptr %0, align 8, !tbaa !36
-  %151 = icmp eq i32 %150, 0
-  br i1 %151, label %155, label %152
+writeUVLC2buffer.exit:                            ; preds = %for.inc.i, %symbol2vlc.exit.thread
+  %19 = phi i32 [ %iLength.0, %symbol2vlc.exit.thread ], [ %17, %for.inc.i ]
+  %20 = load i32, ptr %se, align 8, !tbaa !36
+  %cmp39.not = icmp eq i32 %20, 0
+  br i1 %cmp39.not, label %cleanup44, label %if.then40
 
-152:                                              ; preds = %148
-  %153 = load ptr, ptr %2, align 8, !tbaa !33
-  %154 = getelementptr inbounds %struct.Bitstream, ptr %153, i64 0, i32 10
-  store i32 1, ptr %154, align 8, !tbaa !37
-  br label %155
+if.then40:                                        ; preds = %writeUVLC2buffer.exit
+  %21 = load ptr, ptr %dp, align 8, !tbaa !33
+  %write_flag = getelementptr inbounds %struct.Bitstream, ptr %21, i64 0, i32 10
+  store i32 1, ptr %write_flag, align 8, !tbaa !37
+  br label %cleanup44
 
-155:                                              ; preds = %148, %152, %51
-  %156 = phi i32 [ 65535, %51 ], [ %149, %152 ], [ %149, %148 ]
-  ret i32 %156
+cleanup44:                                        ; preds = %writeUVLC2buffer.exit, %if.then40, %if.then32
+  %retval.1 = phi i32 [ 65535, %if.then32 ], [ %19, %if.then40 ], [ %19, %writeUVLC2buffer.exit ]
+  ret i32 %retval.1
 }
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(readwrite, inaccessiblemem: none) uwtable
-define dso_local void @writeVlcByteAlign(ptr nocapture noundef %0) local_unnamed_addr #14 {
-  %2 = getelementptr inbounds %struct.Bitstream, ptr %0, i64 0, i32 1
-  %3 = load i32, ptr %2, align 4, !tbaa !13
-  %4 = icmp slt i32 %3, 8
-  br i1 %4, label %5, label %29
+define dso_local void @writeVlcByteAlign(ptr nocapture noundef %currStream) local_unnamed_addr #14 {
+entry:
+  %bits_to_go = getelementptr inbounds %struct.Bitstream, ptr %currStream, i64 0, i32 1
+  %0 = load i32, ptr %bits_to_go, align 4, !tbaa !13
+  %cmp = icmp slt i32 %0, 8
+  br i1 %cmp, label %if.then, label %if.end
 
-5:                                                ; preds = %1
-  %6 = getelementptr inbounds %struct.Bitstream, ptr %0, i64 0, i32 2
-  %7 = load i8, ptr %6, align 8, !tbaa !7
-  %8 = zext i8 %7 to i32
-  %9 = shl nuw nsw i32 %8, %3
-  %10 = sub nsw i32 8, %3
-  %11 = lshr i32 255, %10
-  %12 = or i32 %9, %11
-  %13 = trunc i32 %12 to i8
-  store i8 %13, ptr %6, align 8, !tbaa !7
-  %14 = sext i32 %3 to i64
-  %15 = load ptr, ptr @stats, align 8, !tbaa !24
-  %16 = load ptr, ptr @img, align 8, !tbaa !24
-  %17 = getelementptr inbounds %struct.ImageParameters, ptr %16, i64 0, i32 5
-  %18 = load i32, ptr %17, align 4, !tbaa !59
-  %19 = sext i32 %18 to i64
-  %20 = getelementptr inbounds %struct.StatParameters, ptr %15, i64 0, i32 24, i64 %19
-  %21 = load i64, ptr %20, align 8, !tbaa !60
-  %22 = add nsw i64 %21, %14
-  store i64 %22, ptr %20, align 8, !tbaa !60
-  %23 = getelementptr inbounds %struct.Bitstream, ptr %0, i64 0, i32 9
-  %24 = load ptr, ptr %23, align 8, !tbaa !14
-  %25 = load i32, ptr %0, align 8, !tbaa !15
-  %26 = add nsw i32 %25, 1
-  store i32 %26, ptr %0, align 8, !tbaa !15
-  %27 = sext i32 %25 to i64
-  %28 = getelementptr inbounds i8, ptr %24, i64 %27
-  store i8 %13, ptr %28, align 1, !tbaa !16
-  store i32 8, ptr %2, align 4, !tbaa !13
-  br label %29
+if.then:                                          ; preds = %entry
+  %byte_buf = getelementptr inbounds %struct.Bitstream, ptr %currStream, i64 0, i32 2
+  %1 = load i8, ptr %byte_buf, align 8, !tbaa !7
+  %conv = zext i8 %1 to i32
+  %shl = shl nuw nsw i32 %conv, %0
+  %sub = sub nsw i32 8, %0
+  %shr = lshr i32 255, %sub
+  %or = or i32 %shl, %shr
+  %conv3 = trunc i32 %or to i8
+  store i8 %conv3, ptr %byte_buf, align 8, !tbaa !7
+  %conv6 = sext i32 %0 to i64
+  %2 = load ptr, ptr @stats, align 8, !tbaa !24
+  %3 = load ptr, ptr @img, align 8, !tbaa !24
+  %type = getelementptr inbounds %struct.ImageParameters, ptr %3, i64 0, i32 5
+  %4 = load i32, ptr %type, align 4, !tbaa !59
+  %idxprom = sext i32 %4 to i64
+  %arrayidx = getelementptr inbounds %struct.StatParameters, ptr %2, i64 0, i32 24, i64 %idxprom
+  %5 = load i64, ptr %arrayidx, align 8, !tbaa !60
+  %add = add nsw i64 %5, %conv6
+  store i64 %add, ptr %arrayidx, align 8, !tbaa !60
+  %streamBuffer = getelementptr inbounds %struct.Bitstream, ptr %currStream, i64 0, i32 9
+  %6 = load ptr, ptr %streamBuffer, align 8, !tbaa !14
+  %7 = load i32, ptr %currStream, align 8, !tbaa !15
+  %inc = add nsw i32 %7, 1
+  store i32 %inc, ptr %currStream, align 8, !tbaa !15
+  %idxprom8 = sext i32 %7 to i64
+  %arrayidx9 = getelementptr inbounds i8, ptr %6, i64 %idxprom8
+  store i8 %conv3, ptr %arrayidx9, align 1, !tbaa !16
+  store i32 8, ptr %bits_to_go, align 4, !tbaa !13
+  br label %if.end
 
-29:                                               ; preds = %5, %1
+if.end:                                           ; preds = %if.then, %entry
   ret void
 }
 

@@ -11,181 +11,186 @@ target triple = "x86_64-unknown-linux-gnu"
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(none) uwtable
 define dso_local void @calcSetup() local_unnamed_addr #0 {
+entry:
   ret void
 }
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(readwrite, argmem: none, inaccessiblemem: none) uwtable
-define dso_local i32 @calc(i32 noundef %0, i32 noundef %1) local_unnamed_addr #1 {
-  %3 = lshr i32 %0, 3
-  %4 = and i32 %3, 31
-  %5 = shl i32 %1, 5
-  %6 = or i32 %4, %5
-  %7 = and i32 %0, 7
-  %8 = shl i32 %1, 3
-  %9 = or i32 %8, %7
-  %10 = zext i32 %6 to i64
-  %11 = getelementptr inbounds [64 x i32], ptr @lookupTable5B, i64 0, i64 %10
-  %12 = load i32, ptr %11, align 4, !tbaa !5
-  %13 = zext i32 %9 to i64
-  %14 = getelementptr inbounds [16 x i32], ptr @lookupTable3B, i64 0, i64 %13
-  %15 = load i32, ptr %14, align 4, !tbaa !5
-  %16 = and i32 %12, 65536
-  %17 = icmp eq i32 %16, 0
-  br i1 %17, label %21, label %18
+define dso_local i32 @calc(i32 noundef %theWord, i32 noundef %k) local_unnamed_addr #1 {
+entry:
+  %shr = lshr i32 %theWord, 3
+  %and = and i32 %shr, 31
+  %shl = shl i32 %k, 5
+  %or = or i32 %and, %shl
+  %and1 = and i32 %theWord, 7
+  %shl2 = shl i32 %k, 3
+  %or3 = or i32 %shl2, %and1
+  %idxprom = zext i32 %or to i64
+  %arrayidx = getelementptr inbounds [64 x i32], ptr @lookupTable5B, i64 0, i64 %idxprom
+  %0 = load i32, ptr %arrayidx, align 4, !tbaa !5
+  %idxprom4 = zext i32 %or3 to i64
+  %arrayidx5 = getelementptr inbounds [16 x i32], ptr @lookupTable3B, i64 0, i64 %idxprom4
+  %1 = load i32, ptr %arrayidx5, align 4, !tbaa !5
+  %2 = and i32 %0, 65536
+  %tobool.not = icmp eq i32 %2, 0
+  br i1 %tobool.not, label %if.else, label %if.then
 
-18:                                               ; preds = %2
-  %19 = and i32 %12, 994
-  %20 = load i32, ptr @disparity0, align 4, !tbaa !5
-  br label %34
+if.then:                                          ; preds = %entry
+  %and8 = and i32 %0, 994
+  %3 = load i32, ptr @disparity0, align 4, !tbaa !5
+  br label %if.end22
 
-21:                                               ; preds = %2
-  %22 = load i32, ptr @disparity0, align 4, !tbaa !5
-  %23 = lshr i32 %12, 18
-  %24 = and i32 %23, 1
-  %25 = icmp eq i32 %22, %24
-  %26 = and i32 %12, 994
-  %27 = xor i32 %26, 994
-  %28 = select i1 %25, i32 %26, i32 %27
-  %29 = and i32 %12, 524288
-  %30 = icmp eq i32 %29, 0
-  %31 = xor i32 %22, 1
-  %32 = select i1 %30, i32 %22, i32 %31
-  %33 = select i1 %30, i32 %22, i32 %31
-  br label %34
+if.else:                                          ; preds = %entry
+  %4 = load i32, ptr @disparity0, align 4, !tbaa !5
+  %shr9 = lshr i32 %0, 18
+  %and10 = and i32 %shr9, 1
+  %cmp = icmp eq i32 %4, %and10
+  %and12 = and i32 %0, 994
+  %xor = xor i32 %and12, 994
+  %result.0 = select i1 %cmp, i32 %and12, i32 %xor
+  %5 = and i32 %0, 524288
+  %tobool17.not = icmp eq i32 %5, 0
+  %xor19 = xor i32 %4, 1
+  %spec.select = select i1 %tobool17.not, i32 %4, i32 %xor19
+  %spec.select64 = select i1 %tobool17.not, i32 %4, i32 %xor19
+  br label %if.end22
 
-34:                                               ; preds = %21, %18
-  %35 = phi i32 [ %20, %18 ], [ %32, %21 ]
-  %36 = phi i32 [ %20, %18 ], [ %33, %21 ]
-  %37 = phi i32 [ %19, %18 ], [ %28, %21 ]
-  store i32 %35, ptr @disparity1, align 4, !tbaa !5
-  %38 = and i32 %15, 65536
-  %39 = icmp eq i32 %38, 0
-  br i1 %39, label %42, label %40
+if.end22:                                         ; preds = %if.else, %if.then
+  %xor19.sink = phi i32 [ %3, %if.then ], [ %spec.select, %if.else ]
+  %6 = phi i32 [ %3, %if.then ], [ %spec.select64, %if.else ]
+  %result.1 = phi i32 [ %and8, %if.then ], [ %result.0, %if.else ]
+  store i32 %xor19.sink, ptr @disparity1, align 4, !tbaa !5
+  %7 = and i32 %1, 65536
+  %tobool25.not = icmp eq i32 %7, 0
+  br i1 %tobool25.not, label %if.else29, label %if.then26
 
-40:                                               ; preds = %34
-  %41 = and i32 %15, 29
-  br label %52
+if.then26:                                        ; preds = %if.end22
+  %and27 = and i32 %1, 29
+  br label %if.end48
 
-42:                                               ; preds = %34
-  %43 = lshr i32 %15, 18
-  %44 = and i32 %43, 1
-  %45 = icmp eq i32 %36, %44
-  %46 = and i32 %15, 29
-  %47 = xor i32 %46, 29
-  %48 = select i1 %45, i32 %46, i32 %47
-  %49 = lshr i32 %15, 19
-  %50 = and i32 %49, 1
-  %51 = xor i32 %36, %50
-  br label %52
+if.else29:                                        ; preds = %if.end22
+  %shr30 = lshr i32 %1, 18
+  %and31 = and i32 %shr30, 1
+  %cmp32 = icmp eq i32 %6, %and31
+  %and34 = and i32 %1, 29
+  %xor38 = xor i32 %and34, 29
+  %and34.pn = select i1 %cmp32, i32 %and34, i32 %xor38
+  %8 = lshr i32 %1, 19
+  %.lobit = and i32 %8, 1
+  %spec.select65 = xor i32 %6, %.lobit
+  br label %if.end48
 
-52:                                               ; preds = %42, %40
-  %53 = phi i32 [ %36, %40 ], [ %51, %42 ]
-  %54 = phi i32 [ %41, %40 ], [ %48, %42 ]
-  store i32 %53, ptr @disparity0, align 4, !tbaa !5
-  %55 = or i32 %54, %37
-  ret i32 %55
+if.end48:                                         ; preds = %if.else29, %if.then26
+  %xor45.sink = phi i32 [ %6, %if.then26 ], [ %spec.select65, %if.else29 ]
+  %and27.pn = phi i32 [ %and27, %if.then26 ], [ %and34.pn, %if.else29 ]
+  store i32 %xor45.sink, ptr @disparity0, align 4, !tbaa !5
+  %result.3 = or i32 %and27.pn, %result.1
+  ret i32 %result.3
 }
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(readwrite, argmem: none, inaccessiblemem: none) uwtable
-define dso_local i32 @bigTableCalc(i32 noundef %0) local_unnamed_addr #1 {
-  %2 = load i32, ptr @disparity0, align 4, !tbaa !5
-  %3 = shl i32 %2, 9
-  %4 = or i32 %3, %0
-  %5 = zext i32 %4 to i64
-  %6 = getelementptr inbounds [1024 x i32], ptr @bigTable, i64 0, i64 %5
-  %7 = load i32, ptr %6, align 4, !tbaa !5
-  %8 = lshr i32 %7, 16
-  store i32 %8, ptr @disparity0, align 4, !tbaa !5
-  %9 = and i32 %7, 1023
-  ret i32 %9
+define dso_local i32 @bigTableCalc(i32 noundef %theWord) local_unnamed_addr #1 {
+entry:
+  %0 = load i32, ptr @disparity0, align 4, !tbaa !5
+  %shl = shl i32 %0, 9
+  %or = or i32 %shl, %theWord
+  %idxprom = zext i32 %or to i64
+  %arrayidx = getelementptr inbounds [1024 x i32], ptr @bigTable, i64 0, i64 %idxprom
+  %1 = load i32, ptr %arrayidx, align 4, !tbaa !5
+  %shr = lshr i32 %1, 16
+  store i32 %shr, ptr @disparity0, align 4, !tbaa !5
+  %and = and i32 %1, 1023
+  ret i32 %and
 }
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(write, argmem: none, inaccessiblemem: none) uwtable
 define dso_local void @resetDisparity() local_unnamed_addr #2 {
+entry:
   store i32 0, ptr @disparity0, align 4, !tbaa !5
   ret void
 }
 
 ; Function Attrs: nofree norecurse nosync nounwind memory(readwrite, argmem: none, inaccessiblemem: none) uwtable
 define dso_local void @bigTableSetup() local_unnamed_addr #3 {
-  br label %1
+entry:
+  br label %for.body
 
-1:                                                ; preds = %0, %51
-  %2 = phi i64 [ 0, %0 ], [ %58, %51 ]
-  %3 = trunc i64 %2 to i32
-  %4 = lshr i32 %3, 9
-  %5 = lshr i32 %3, 8
-  %6 = and i32 %5, 1
-  %7 = lshr i32 %3, 3
-  %8 = and i32 %7, 31
-  %9 = shl nuw nsw i32 %6, 5
-  %10 = or i32 %9, %8
-  %11 = and i32 %3, 7
-  %12 = shl nuw nsw i32 %6, 3
-  %13 = or i32 %12, %11
-  %14 = zext i32 %10 to i64
-  %15 = getelementptr inbounds [64 x i32], ptr @lookupTable5B, i64 0, i64 %14
-  %16 = load i32, ptr %15, align 4, !tbaa !5
-  %17 = zext i32 %13 to i64
-  %18 = getelementptr inbounds [16 x i32], ptr @lookupTable3B, i64 0, i64 %17
-  %19 = load i32, ptr %18, align 4, !tbaa !5
-  %20 = and i32 %16, 65536
-  %21 = icmp eq i32 %20, 0
-  br i1 %21, label %24, label %22
+for.body:                                         ; preds = %entry, %calc.exit
+  %indvars.iv = phi i64 [ 0, %entry ], [ %indvars.iv.next, %calc.exit ]
+  %0 = trunc i64 %indvars.iv to i32
+  %shr = lshr i32 %0, 9
+  %shr1 = lshr i32 %0, 8
+  %and2 = and i32 %shr1, 1
+  %and = lshr i32 %0, 3
+  %shr.i = and i32 %and, 31
+  %shl.i = shl nuw nsw i32 %and2, 5
+  %or.i = or i32 %shl.i, %shr.i
+  %and1.i = and i32 %0, 7
+  %shl2.i = shl nuw nsw i32 %and2, 3
+  %or3.i = or i32 %shl2.i, %and1.i
+  %idxprom.i = zext i32 %or.i to i64
+  %arrayidx.i = getelementptr inbounds [64 x i32], ptr @lookupTable5B, i64 0, i64 %idxprom.i
+  %1 = load i32, ptr %arrayidx.i, align 4, !tbaa !5
+  %idxprom4.i = zext i32 %or3.i to i64
+  %arrayidx5.i = getelementptr inbounds [16 x i32], ptr @lookupTable3B, i64 0, i64 %idxprom4.i
+  %2 = load i32, ptr %arrayidx5.i, align 4, !tbaa !5
+  %3 = and i32 %1, 65536
+  %tobool.not.i = icmp eq i32 %3, 0
+  br i1 %tobool.not.i, label %if.else.i, label %if.then.i
 
-22:                                               ; preds = %1
-  %23 = and i32 %16, 994
-  br label %34
+if.then.i:                                        ; preds = %for.body
+  %and8.i = and i32 %1, 994
+  br label %if.end22.i
 
-24:                                               ; preds = %1
-  %25 = lshr i32 %16, 18
-  %26 = and i32 %25, 1
-  %27 = icmp eq i32 %4, %26
-  %28 = and i32 %16, 994
-  %29 = xor i32 %28, 994
-  %30 = select i1 %27, i32 %28, i32 %29
-  %31 = lshr i32 %16, 19
-  %32 = and i32 %31, 1
-  %33 = xor i32 %32, %4
-  br label %34
+if.else.i:                                        ; preds = %for.body
+  %shr9.i = lshr i32 %1, 18
+  %and10.i = and i32 %shr9.i, 1
+  %cmp.i = icmp eq i32 %shr, %and10.i
+  %and12.i = and i32 %1, 994
+  %xor.i = xor i32 %and12.i, 994
+  %result.0.i = select i1 %cmp.i, i32 %and12.i, i32 %xor.i
+  %4 = lshr i32 %1, 19
+  %.lobit = and i32 %4, 1
+  %spec.select.i = xor i32 %.lobit, %shr
+  br label %if.end22.i
 
-34:                                               ; preds = %24, %22
-  %35 = phi i32 [ %4, %22 ], [ %33, %24 ]
-  %36 = phi i32 [ %23, %22 ], [ %30, %24 ]
-  %37 = and i32 %19, 65536
-  %38 = icmp eq i32 %37, 0
-  br i1 %38, label %41, label %39
+if.end22.i:                                       ; preds = %if.else.i, %if.then.i
+  %xor19.sink.i = phi i32 [ %shr, %if.then.i ], [ %spec.select.i, %if.else.i ]
+  %result.1.i = phi i32 [ %and8.i, %if.then.i ], [ %result.0.i, %if.else.i ]
+  %5 = and i32 %2, 65536
+  %tobool25.not.i = icmp eq i32 %5, 0
+  br i1 %tobool25.not.i, label %if.else29.i, label %if.then26.i
 
-39:                                               ; preds = %34
-  %40 = and i32 %19, 29
-  br label %51
+if.then26.i:                                      ; preds = %if.end22.i
+  %and27.i = and i32 %2, 29
+  br label %calc.exit
 
-41:                                               ; preds = %34
-  %42 = lshr i32 %19, 18
-  %43 = and i32 %42, 1
-  %44 = icmp eq i32 %35, %43
-  %45 = and i32 %19, 29
-  %46 = xor i32 %45, 29
-  %47 = select i1 %44, i32 %45, i32 %46
-  %48 = lshr i32 %19, 19
-  %49 = and i32 %48, 1
-  %50 = xor i32 %35, %49
-  br label %51
+if.else29.i:                                      ; preds = %if.end22.i
+  %shr30.i = lshr i32 %2, 18
+  %and31.i = and i32 %shr30.i, 1
+  %cmp32.i = icmp eq i32 %xor19.sink.i, %and31.i
+  %and34.i = and i32 %2, 29
+  %xor38.i = xor i32 %and34.i, 29
+  %and34.pn.i = select i1 %cmp32.i, i32 %and34.i, i32 %xor38.i
+  %6 = lshr i32 %2, 19
+  %.lobit.i = and i32 %6, 1
+  %spec.select65.i = xor i32 %xor19.sink.i, %.lobit.i
+  br label %calc.exit
 
-51:                                               ; preds = %39, %41
-  %52 = phi i32 [ %35, %39 ], [ %50, %41 ]
-  %53 = phi i32 [ %40, %39 ], [ %47, %41 ]
-  %54 = or i32 %53, %36
-  %55 = shl i32 %52, 16
-  %56 = or i32 %54, %55
-  %57 = getelementptr inbounds [1024 x i32], ptr @bigTable, i64 0, i64 %2
-  store i32 %56, ptr %57, align 4, !tbaa !5
-  %58 = add nuw nsw i64 %2, 1
-  %59 = icmp eq i64 %58, 1024
-  br i1 %59, label %60, label %1, !llvm.loop !9
+calc.exit:                                        ; preds = %if.then26.i, %if.else29.i
+  %xor45.sink.i = phi i32 [ %xor19.sink.i, %if.then26.i ], [ %spec.select65.i, %if.else29.i ]
+  %and27.pn.i = phi i32 [ %and27.i, %if.then26.i ], [ %and34.pn.i, %if.else29.i ]
+  %result.3.i = or i32 %and27.pn.i, %result.1.i
+  %shl = shl nuw nsw i32 %xor45.sink.i, 16
+  %or = or i32 %result.3.i, %shl
+  %arrayidx = getelementptr inbounds [1024 x i32], ptr @bigTable, i64 0, i64 %indvars.iv
+  store i32 %or, ptr %arrayidx, align 4, !tbaa !5
+  %indvars.iv.next = add nuw nsw i64 %indvars.iv, 1
+  %exitcond.not = icmp eq i64 %indvars.iv.next, 1024
+  br i1 %exitcond.not, label %for.end, label %for.body, !llvm.loop !9
 
-60:                                               ; preds = %51
-  store i32 %35, ptr @disparity1, align 4, !tbaa !5
+for.end:                                          ; preds = %calc.exit
+  store i32 %xor19.sink.i, ptr @disparity1, align 4, !tbaa !5
   store i32 0, ptr @disparity0, align 4, !tbaa !5
   ret void
 }

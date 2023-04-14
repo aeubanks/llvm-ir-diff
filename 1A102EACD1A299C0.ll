@@ -15,48 +15,49 @@ target triple = "x86_64-unknown-linux-gnu"
 
 ; Function Attrs: nofree nosync nounwind memory(readwrite, argmem: none, inaccessiblemem: none) uwtable
 define dso_local i32 @fn1() local_unnamed_addr #0 {
-  %1 = alloca [2 x i32], align 4
+entry:
+  %j = alloca [2 x i32], align 4
   store i16 0, ptr @b, align 2, !tbaa !5
-  %2 = load i32, ptr @h, align 4, !tbaa !9
-  %3 = icmp eq i32 %2, 0
-  %4 = load i32, ptr @f, align 4, !tbaa !9
-  br i1 %3, label %5, label %16
+  %0 = load i32, ptr @h, align 4, !tbaa !9
+  %tobool.not = icmp eq i32 %0, 0
+  %f.promoted = load i32, ptr @f, align 4, !tbaa !9
+  br i1 %tobool.not, label %entry.split.us, label %entry.split
 
-5:                                                ; preds = %0
-  %6 = load i32, ptr @c, align 4
-  %7 = icmp eq i32 %6, 0
-  br i1 %7, label %8, label %15
+entry.split.us:                                   ; preds = %entry
+  %1 = load i32, ptr @c, align 4
+  %tobool12.not = icmp eq i32 %1, 0
+  br i1 %tobool12.not, label %for.cond.us.us, label %for.cond.us
 
-8:                                                ; preds = %5
-  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %1) #2
-  %9 = sext i32 %4 to i64
-  %10 = getelementptr inbounds [2 x i32], ptr %1, i64 0, i64 %9
-  store i32 0, ptr %10, align 4, !tbaa !9
-  %11 = icmp eq i32 %4, 0
-  br i1 %11, label %13, label %12
+for.cond.us.us:                                   ; preds = %entry.split.us
+  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %j) #2
+  %idxprom.us.us = sext i32 %f.promoted to i64
+  %arrayidx.us.us = getelementptr inbounds [2 x i32], ptr %j, i64 0, i64 %idxprom.us.us
+  store i32 0, ptr %arrayidx.us.us, align 4, !tbaa !9
+  %tobool2.not21.us.us = icmp eq i32 %f.promoted, 0
+  br i1 %tobool2.not21.us.us, label %for.cond3.preheader.us.us, label %for.inc.us.us.preheader
 
-12:                                               ; preds = %8
+for.inc.us.us.preheader:                          ; preds = %for.cond.us.us
   store i32 0, ptr @f, align 4, !tbaa !9
-  br label %13
+  br label %for.cond3.preheader.us.us
 
-13:                                               ; preds = %12, %8
-  %14 = load i32, ptr %1, align 4, !tbaa !9
-  store i32 0, ptr @a, align 4, !tbaa !9
+for.cond3.preheader.us.us:                        ; preds = %for.inc.us.us.preheader, %for.cond.us.us
+  %2 = load i32, ptr %j, align 4, !tbaa !9
   store i32 -1, ptr @i, align 4, !tbaa !9
   store i32 -1, ptr @g, align 4, !tbaa !9
-  store i32 %14, ptr @e, align 4, !tbaa !9
-  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %1) #2
+  store i32 %2, ptr @e, align 4, !tbaa !9
+  store i32 0, ptr @a, align 4, !tbaa !9
+  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %j) #2
   ret i32 0
 
-15:                                               ; preds = %5, %15
-  br label %15
+for.cond.us:                                      ; preds = %entry.split.us, %for.cond.us
+  br label %for.cond.us
 
-16:                                               ; preds = %0
+entry.split:                                      ; preds = %entry
   store i32 0, ptr @d, align 4, !tbaa !9
-  br label %17
+  br label %for.cond
 
-17:                                               ; preds = %17, %16
-  br label %17
+for.cond:                                         ; preds = %for.cond, %entry.split
+  br label %for.cond
 }
 
 ; Function Attrs: mustprogress nocallback nofree nosync nounwind willreturn memory(argmem: readwrite)
@@ -67,47 +68,48 @@ declare void @llvm.lifetime.end.p0(i64 immarg, ptr nocapture) #1
 
 ; Function Attrs: nofree nosync nounwind memory(readwrite, argmem: none, inaccessiblemem: none) uwtable
 define dso_local i32 @main() local_unnamed_addr #0 {
-  %1 = alloca [2 x i32], align 4
+entry:
+  %j.i = alloca [2 x i32], align 4
   store i16 0, ptr @b, align 2, !tbaa !5
-  %2 = load i32, ptr @h, align 4, !tbaa !9
-  %3 = icmp eq i32 %2, 0
-  %4 = load i32, ptr @f, align 4, !tbaa !9
-  br i1 %3, label %5, label %14
+  %0 = load i32, ptr @h, align 4, !tbaa !9
+  %tobool.not.i = icmp eq i32 %0, 0
+  %f.promoted.i = load i32, ptr @f, align 4, !tbaa !9
+  br i1 %tobool.not.i, label %entry.split.us.i, label %entry.split.i
 
-5:                                                ; preds = %0
-  %6 = load i32, ptr @c, align 4
-  %7 = icmp eq i32 %6, 0
-  br i1 %7, label %8, label %13
+entry.split.us.i:                                 ; preds = %entry
+  %1 = load i32, ptr @c, align 4
+  %tobool12.not.i = icmp eq i32 %1, 0
+  br i1 %tobool12.not.i, label %for.cond.us.us.i, label %for.cond.us.i
 
-8:                                                ; preds = %5
-  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %1) #2
-  %9 = sext i32 %4 to i64
-  %10 = getelementptr inbounds [2 x i32], ptr %1, i64 0, i64 %9
-  store i32 0, ptr %10, align 4, !tbaa !9
-  %11 = icmp eq i32 %4, 0
-  br i1 %11, label %16, label %12
+for.cond.us.us.i:                                 ; preds = %entry.split.us.i
+  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %j.i) #2
+  %idxprom.us.us.i = sext i32 %f.promoted.i to i64
+  %arrayidx.us.us.i = getelementptr inbounds [2 x i32], ptr %j.i, i64 0, i64 %idxprom.us.us.i
+  store i32 0, ptr %arrayidx.us.us.i, align 4, !tbaa !9
+  %tobool2.not21.us.us.i = icmp eq i32 %f.promoted.i, 0
+  br i1 %tobool2.not21.us.us.i, label %if.end, label %for.inc.us.us.preheader.i
 
-12:                                               ; preds = %8
+for.inc.us.us.preheader.i:                        ; preds = %for.cond.us.us.i
   store i32 0, ptr @f, align 4, !tbaa !9
-  br label %16
+  br label %if.end
 
-13:                                               ; preds = %5, %13
-  br label %13
+for.cond.us.i:                                    ; preds = %entry.split.us.i, %for.cond.us.i
+  br label %for.cond.us.i
 
-14:                                               ; preds = %0
+entry.split.i:                                    ; preds = %entry
   store i32 0, ptr @d, align 4, !tbaa !9
-  br label %15
+  br label %for.cond.i
 
-15:                                               ; preds = %15, %14
-  br label %15
+for.cond.i:                                       ; preds = %for.cond.i, %entry.split.i
+  br label %for.cond.i
 
-16:                                               ; preds = %12, %8
-  %17 = load i32, ptr %1, align 4, !tbaa !9
-  store i32 0, ptr @a, align 4, !tbaa !9
+if.end:                                           ; preds = %for.inc.us.us.preheader.i, %for.cond.us.us.i
+  %2 = load i32, ptr %j.i, align 4, !tbaa !9
   store i32 -1, ptr @i, align 4, !tbaa !9
   store i32 -1, ptr @g, align 4, !tbaa !9
-  store i32 %17, ptr @e, align 4, !tbaa !9
-  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %1) #2
+  store i32 %2, ptr @e, align 4, !tbaa !9
+  store i32 0, ptr @a, align 4, !tbaa !9
+  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %j.i) #2
   ret i32 0
 }
 

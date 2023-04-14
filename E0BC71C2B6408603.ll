@@ -19,21 +19,22 @@ target triple = "x86_64-unknown-linux-gnu"
 
 ; Function Attrs: mustprogress nofree nounwind willreturn memory(write, argmem: none, inaccessiblemem: readwrite) uwtable
 define dso_local noalias ptr @sm_alloc() local_unnamed_addr #0 {
-  %1 = tail call noalias dereferenceable_or_null(88) ptr @malloc(i64 noundef 88) #15
-  store ptr null, ptr %1, align 8, !tbaa !5
-  %2 = getelementptr inbounds %struct.sm_matrix_struct, ptr %1, i64 0, i32 2
-  store ptr null, ptr %2, align 8, !tbaa !11
-  %3 = getelementptr inbounds %struct.sm_matrix_struct, ptr %1, i64 0, i32 3
-  store i32 0, ptr %3, align 8, !tbaa !12
-  %4 = getelementptr inbounds %struct.sm_matrix_struct, ptr %1, i64 0, i32 1
-  store i32 0, ptr %4, align 8, !tbaa !13
-  %5 = getelementptr inbounds %struct.sm_matrix_struct, ptr %1, i64 0, i32 4
-  %6 = getelementptr inbounds %struct.sm_matrix_struct, ptr %1, i64 0, i32 7
-  %7 = getelementptr inbounds %struct.sm_matrix_struct, ptr %1, i64 0, i32 10
-  store ptr null, ptr %7, align 8, !tbaa !14
-  tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(20) %5, i8 0, i64 20, i1 false)
-  tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(20) %6, i8 0, i64 20, i1 false)
-  ret ptr %1
+entry:
+  %call = tail call noalias dereferenceable_or_null(88) ptr @malloc(i64 noundef 88) #15
+  store ptr null, ptr %call, align 8, !tbaa !5
+  %cols = getelementptr inbounds %struct.sm_matrix_struct, ptr %call, i64 0, i32 2
+  store ptr null, ptr %cols, align 8, !tbaa !11
+  %cols_size = getelementptr inbounds %struct.sm_matrix_struct, ptr %call, i64 0, i32 3
+  store i32 0, ptr %cols_size, align 8, !tbaa !12
+  %rows_size = getelementptr inbounds %struct.sm_matrix_struct, ptr %call, i64 0, i32 1
+  store i32 0, ptr %rows_size, align 8, !tbaa !13
+  %first_row = getelementptr inbounds %struct.sm_matrix_struct, ptr %call, i64 0, i32 4
+  %first_col = getelementptr inbounds %struct.sm_matrix_struct, ptr %call, i64 0, i32 7
+  %user_word = getelementptr inbounds %struct.sm_matrix_struct, ptr %call, i64 0, i32 10
+  store ptr null, ptr %user_word, align 8, !tbaa !14
+  tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(20) %first_row, i8 0, i64 20, i1 false)
+  tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(20) %first_col, i8 0, i64 20, i1 false)
+  ret ptr %call
 }
 
 ; Function Attrs: mustprogress nocallback nofree nosync nounwind willreturn memory(argmem: readwrite)
@@ -46,78 +47,80 @@ declare noalias noundef ptr @malloc(i64 noundef) local_unnamed_addr #2
 declare void @llvm.lifetime.end.p0(i64 immarg, ptr nocapture) #1
 
 ; Function Attrs: nounwind uwtable
-define dso_local noalias ptr @sm_alloc_size(i32 noundef %0, i32 noundef %1) local_unnamed_addr #3 {
-  %3 = tail call noalias dereferenceable_or_null(88) ptr @malloc(i64 noundef 88) #15
-  store ptr null, ptr %3, align 8, !tbaa !5
-  %4 = getelementptr inbounds %struct.sm_matrix_struct, ptr %3, i64 0, i32 2
-  store ptr null, ptr %4, align 8, !tbaa !11
-  %5 = getelementptr inbounds %struct.sm_matrix_struct, ptr %3, i64 0, i32 3
-  store i32 0, ptr %5, align 8, !tbaa !12
-  %6 = getelementptr inbounds %struct.sm_matrix_struct, ptr %3, i64 0, i32 1
-  store i32 0, ptr %6, align 8, !tbaa !13
-  %7 = getelementptr inbounds %struct.sm_matrix_struct, ptr %3, i64 0, i32 4
-  %8 = getelementptr inbounds %struct.sm_matrix_struct, ptr %3, i64 0, i32 7
-  %9 = getelementptr inbounds %struct.sm_matrix_struct, ptr %3, i64 0, i32 10
-  store ptr null, ptr %9, align 8, !tbaa !14
-  tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(20) %7, i8 0, i64 20, i1 false)
-  tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(20) %8, i8 0, i64 20, i1 false)
-  tail call void @sm_resize(ptr noundef nonnull %3, i32 noundef %0, i32 noundef %1)
-  ret ptr %3
+define dso_local noalias ptr @sm_alloc_size(i32 noundef %row, i32 noundef %col) local_unnamed_addr #3 {
+entry:
+  %call.i = tail call noalias dereferenceable_or_null(88) ptr @malloc(i64 noundef 88) #15
+  store ptr null, ptr %call.i, align 8, !tbaa !5
+  %cols.i = getelementptr inbounds %struct.sm_matrix_struct, ptr %call.i, i64 0, i32 2
+  store ptr null, ptr %cols.i, align 8, !tbaa !11
+  %cols_size.i = getelementptr inbounds %struct.sm_matrix_struct, ptr %call.i, i64 0, i32 3
+  store i32 0, ptr %cols_size.i, align 8, !tbaa !12
+  %rows_size.i = getelementptr inbounds %struct.sm_matrix_struct, ptr %call.i, i64 0, i32 1
+  store i32 0, ptr %rows_size.i, align 8, !tbaa !13
+  %first_row.i = getelementptr inbounds %struct.sm_matrix_struct, ptr %call.i, i64 0, i32 4
+  %first_col.i = getelementptr inbounds %struct.sm_matrix_struct, ptr %call.i, i64 0, i32 7
+  %user_word.i = getelementptr inbounds %struct.sm_matrix_struct, ptr %call.i, i64 0, i32 10
+  store ptr null, ptr %user_word.i, align 8, !tbaa !14
+  tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(20) %first_row.i, i8 0, i64 20, i1 false)
+  tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(20) %first_col.i, i8 0, i64 20, i1 false)
+  tail call void @sm_resize(ptr noundef nonnull %call.i, i32 noundef %row, i32 noundef %col)
+  ret ptr %call.i
 }
 
 ; Function Attrs: nounwind uwtable
-define dso_local void @sm_free(ptr nocapture noundef %0) local_unnamed_addr #3 {
-  %2 = getelementptr inbounds %struct.sm_matrix_struct, ptr %0, i64 0, i32 4
-  %3 = load ptr, ptr %2, align 8, !tbaa !15
-  %4 = icmp eq ptr %3, null
-  br i1 %4, label %10, label %5
+define dso_local void @sm_free(ptr nocapture noundef %A) local_unnamed_addr #3 {
+entry:
+  %first_row = getelementptr inbounds %struct.sm_matrix_struct, ptr %A, i64 0, i32 4
+  %0 = load ptr, ptr %first_row, align 8, !tbaa !15
+  %cmp.not33 = icmp eq ptr %0, null
+  br i1 %cmp.not33, label %for.end, label %for.body
 
-5:                                                ; preds = %1, %5
-  %6 = phi ptr [ %8, %5 ], [ %3, %1 ]
-  %7 = getelementptr inbounds %struct.sm_row_struct, ptr %6, i64 0, i32 5
-  %8 = load ptr, ptr %7, align 8, !tbaa !16
-  tail call void (ptr, ...) @sm_row_free(ptr noundef nonnull %6) #16
-  %9 = icmp eq ptr %8, null
-  br i1 %9, label %10, label %5
+for.body:                                         ; preds = %entry, %for.body
+  %prow.034 = phi ptr [ %1, %for.body ], [ %0, %entry ]
+  %next_row = getelementptr inbounds %struct.sm_row_struct, ptr %prow.034, i64 0, i32 5
+  %1 = load ptr, ptr %next_row, align 8, !tbaa !16
+  tail call void (ptr, ...) @sm_row_free(ptr noundef nonnull %prow.034) #16
+  %cmp.not = icmp eq ptr %1, null
+  br i1 %cmp.not, label %for.end, label %for.body
 
-10:                                               ; preds = %5, %1
-  %11 = getelementptr inbounds %struct.sm_matrix_struct, ptr %0, i64 0, i32 7
-  %12 = load ptr, ptr %11, align 8, !tbaa !18
-  %13 = icmp eq ptr %12, null
-  br i1 %13, label %20, label %14
+for.end:                                          ; preds = %for.body, %entry
+  %first_col = getelementptr inbounds %struct.sm_matrix_struct, ptr %A, i64 0, i32 7
+  %2 = load ptr, ptr %first_col, align 8, !tbaa !18
+  %cmp2.not35 = icmp eq ptr %2, null
+  br i1 %cmp2.not35, label %for.end6, label %for.body3
 
-14:                                               ; preds = %10, %14
-  %15 = phi ptr [ %17, %14 ], [ %12, %10 ]
-  %16 = getelementptr inbounds %struct.sm_col_struct, ptr %15, i64 0, i32 5
-  %17 = load ptr, ptr %16, align 8, !tbaa !19
-  %18 = getelementptr inbounds %struct.sm_col_struct, ptr %15, i64 0, i32 3
-  tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %18, i8 0, i64 16, i1 false)
-  tail call void (ptr, ...) @sm_col_free(ptr noundef nonnull %15) #16
-  %19 = icmp eq ptr %17, null
-  br i1 %19, label %20, label %14
+for.body3:                                        ; preds = %for.end, %for.body3
+  %pcol.036 = phi ptr [ %3, %for.body3 ], [ %2, %for.end ]
+  %next_col = getelementptr inbounds %struct.sm_col_struct, ptr %pcol.036, i64 0, i32 5
+  %3 = load ptr, ptr %next_col, align 8, !tbaa !19
+  %first_row4 = getelementptr inbounds %struct.sm_col_struct, ptr %pcol.036, i64 0, i32 3
+  tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %first_row4, i8 0, i64 16, i1 false)
+  tail call void (ptr, ...) @sm_col_free(ptr noundef nonnull %pcol.036) #16
+  %cmp2.not = icmp eq ptr %3, null
+  br i1 %cmp2.not, label %for.end6, label %for.body3
 
-20:                                               ; preds = %14, %10
-  %21 = load ptr, ptr %0, align 8, !tbaa !5
-  %22 = icmp eq ptr %21, null
-  br i1 %22, label %24, label %23
+for.end6:                                         ; preds = %for.body3, %for.end
+  %4 = load ptr, ptr %A, align 8, !tbaa !5
+  %tobool.not = icmp eq ptr %4, null
+  br i1 %tobool.not, label %if.end, label %if.then
 
-23:                                               ; preds = %20
-  tail call void @free(ptr noundef nonnull %21) #16
-  store ptr null, ptr %0, align 8, !tbaa !5
-  br label %24
+if.then:                                          ; preds = %for.end6
+  tail call void @free(ptr noundef nonnull %4) #16
+  store ptr null, ptr %A, align 8, !tbaa !5
+  br label %if.end
 
-24:                                               ; preds = %23, %20
-  %25 = getelementptr inbounds %struct.sm_matrix_struct, ptr %0, i64 0, i32 2
-  %26 = load ptr, ptr %25, align 8, !tbaa !11
-  %27 = icmp eq ptr %26, null
-  br i1 %27, label %29, label %28
+if.end:                                           ; preds = %if.then, %for.end6
+  %cols = getelementptr inbounds %struct.sm_matrix_struct, ptr %A, i64 0, i32 2
+  %5 = load ptr, ptr %cols, align 8, !tbaa !11
+  %tobool9.not = icmp eq ptr %5, null
+  br i1 %tobool9.not, label %if.then15, label %if.then10
 
-28:                                               ; preds = %24
-  tail call void @free(ptr noundef nonnull %26) #16
-  br label %29
+if.then10:                                        ; preds = %if.end
+  tail call void @free(ptr noundef nonnull %5) #16
+  br label %if.then15
 
-29:                                               ; preds = %28, %24
-  tail call void @free(ptr noundef nonnull %0) #16
+if.then15:                                        ; preds = %if.end, %if.then10
+  tail call void @free(ptr noundef nonnull %A) #16
   ret void
 }
 
@@ -129,234 +132,236 @@ declare void @sm_col_free(...) local_unnamed_addr #4
 declare void @free(ptr allocptr nocapture noundef) local_unnamed_addr #5
 
 ; Function Attrs: nounwind uwtable
-define dso_local noalias ptr @sm_dup(ptr nocapture noundef readonly %0) local_unnamed_addr #3 {
-  %2 = tail call noalias dereferenceable_or_null(88) ptr @malloc(i64 noundef 88) #15
-  store ptr null, ptr %2, align 8, !tbaa !5
-  %3 = getelementptr inbounds %struct.sm_matrix_struct, ptr %2, i64 0, i32 2
-  store ptr null, ptr %3, align 8, !tbaa !11
-  %4 = getelementptr inbounds %struct.sm_matrix_struct, ptr %2, i64 0, i32 3
-  store i32 0, ptr %4, align 8, !tbaa !12
-  %5 = getelementptr inbounds %struct.sm_matrix_struct, ptr %2, i64 0, i32 1
-  store i32 0, ptr %5, align 8, !tbaa !13
-  %6 = getelementptr inbounds %struct.sm_matrix_struct, ptr %2, i64 0, i32 4
-  %7 = getelementptr inbounds %struct.sm_matrix_struct, ptr %2, i64 0, i32 7
-  %8 = getelementptr inbounds %struct.sm_matrix_struct, ptr %2, i64 0, i32 10
-  store ptr null, ptr %8, align 8, !tbaa !14
-  tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(20) %6, i8 0, i64 20, i1 false)
-  tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(20) %7, i8 0, i64 20, i1 false)
-  %9 = getelementptr inbounds %struct.sm_matrix_struct, ptr %0, i64 0, i32 5
-  %10 = load ptr, ptr %9, align 8, !tbaa !21
-  %11 = icmp eq ptr %10, null
-  br i1 %11, label %38, label %12
+define dso_local noalias ptr @sm_dup(ptr nocapture noundef readonly %A) local_unnamed_addr #3 {
+entry:
+  %call.i = tail call noalias dereferenceable_or_null(88) ptr @malloc(i64 noundef 88) #15
+  store ptr null, ptr %call.i, align 8, !tbaa !5
+  %cols.i = getelementptr inbounds %struct.sm_matrix_struct, ptr %call.i, i64 0, i32 2
+  store ptr null, ptr %cols.i, align 8, !tbaa !11
+  %cols_size.i = getelementptr inbounds %struct.sm_matrix_struct, ptr %call.i, i64 0, i32 3
+  store i32 0, ptr %cols_size.i, align 8, !tbaa !12
+  %rows_size.i = getelementptr inbounds %struct.sm_matrix_struct, ptr %call.i, i64 0, i32 1
+  store i32 0, ptr %rows_size.i, align 8, !tbaa !13
+  %first_row.i = getelementptr inbounds %struct.sm_matrix_struct, ptr %call.i, i64 0, i32 4
+  %first_col.i = getelementptr inbounds %struct.sm_matrix_struct, ptr %call.i, i64 0, i32 7
+  %user_word.i = getelementptr inbounds %struct.sm_matrix_struct, ptr %call.i, i64 0, i32 10
+  store ptr null, ptr %user_word.i, align 8, !tbaa !14
+  tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(20) %first_row.i, i8 0, i64 20, i1 false)
+  tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(20) %first_col.i, i8 0, i64 20, i1 false)
+  %last_row = getelementptr inbounds %struct.sm_matrix_struct, ptr %A, i64 0, i32 5
+  %0 = load ptr, ptr %last_row, align 8, !tbaa !21
+  %cmp.not = icmp eq ptr %0, null
+  br i1 %cmp.not, label %if.end, label %if.then
 
-12:                                               ; preds = %1
-  %13 = load i32, ptr %10, align 8, !tbaa !22
-  %14 = getelementptr inbounds %struct.sm_matrix_struct, ptr %0, i64 0, i32 8
-  %15 = load ptr, ptr %14, align 8, !tbaa !23
-  %16 = load i32, ptr %15, align 8, !tbaa !24
-  tail call void @sm_resize(ptr noundef nonnull %2, i32 noundef %13, i32 noundef %16)
-  %17 = getelementptr inbounds %struct.sm_matrix_struct, ptr %0, i64 0, i32 4
-  %18 = load ptr, ptr %17, align 8, !tbaa !25
-  %19 = icmp eq ptr %18, null
-  br i1 %19, label %38, label %20
+if.then:                                          ; preds = %entry
+  %1 = load i32, ptr %0, align 8, !tbaa !22
+  %last_col = getelementptr inbounds %struct.sm_matrix_struct, ptr %A, i64 0, i32 8
+  %2 = load ptr, ptr %last_col, align 8, !tbaa !23
+  %3 = load i32, ptr %2, align 8, !tbaa !24
+  tail call void @sm_resize(ptr noundef nonnull %call.i, i32 noundef %1, i32 noundef %3)
+  %first_row = getelementptr inbounds %struct.sm_matrix_struct, ptr %A, i64 0, i32 4
+  %prow.024 = load ptr, ptr %first_row, align 8, !tbaa !25
+  %cmp2.not25 = icmp eq ptr %prow.024, null
+  br i1 %cmp2.not25, label %if.end, label %for.body
 
-20:                                               ; preds = %12, %34
-  %21 = phi ptr [ %36, %34 ], [ %18, %12 ]
-  %22 = getelementptr inbounds %struct.sm_row_struct, ptr %21, i64 0, i32 3
-  %23 = load ptr, ptr %22, align 8, !tbaa !25
-  %24 = icmp eq ptr %23, null
-  br i1 %24, label %34, label %25
+for.body:                                         ; preds = %if.then, %for.inc9
+  %prow.026 = phi ptr [ %prow.0, %for.inc9 ], [ %prow.024, %if.then ]
+  %first_col = getelementptr inbounds %struct.sm_row_struct, ptr %prow.026, i64 0, i32 3
+  %p.021 = load ptr, ptr %first_col, align 8, !tbaa !25
+  %cmp4.not22 = icmp eq ptr %p.021, null
+  br i1 %cmp4.not22, label %for.inc9, label %for.body5
 
-25:                                               ; preds = %20, %25
-  %26 = phi ptr [ %32, %25 ], [ %23, %20 ]
-  %27 = load i32, ptr %26, align 8, !tbaa !26
-  %28 = getelementptr inbounds %struct.sm_element_struct, ptr %26, i64 0, i32 1
-  %29 = load i32, ptr %28, align 4, !tbaa !28
-  %30 = tail call ptr @sm_insert(ptr noundef nonnull %2, i32 noundef %27, i32 noundef %29)
-  %31 = getelementptr inbounds %struct.sm_element_struct, ptr %26, i64 0, i32 4
-  %32 = load ptr, ptr %31, align 8, !tbaa !25
-  %33 = icmp eq ptr %32, null
-  br i1 %33, label %34, label %25
+for.body5:                                        ; preds = %for.body, %for.body5
+  %p.023 = phi ptr [ %p.0, %for.body5 ], [ %p.021, %for.body ]
+  %4 = load i32, ptr %p.023, align 8, !tbaa !26
+  %col_num7 = getelementptr inbounds %struct.sm_element_struct, ptr %p.023, i64 0, i32 1
+  %5 = load i32, ptr %col_num7, align 4, !tbaa !28
+  %call8 = tail call ptr @sm_insert(ptr noundef nonnull %call.i, i32 noundef %4, i32 noundef %5)
+  %next_col = getelementptr inbounds %struct.sm_element_struct, ptr %p.023, i64 0, i32 4
+  %p.0 = load ptr, ptr %next_col, align 8, !tbaa !25
+  %cmp4.not = icmp eq ptr %p.0, null
+  br i1 %cmp4.not, label %for.inc9, label %for.body5
 
-34:                                               ; preds = %25, %20
-  %35 = getelementptr inbounds %struct.sm_row_struct, ptr %21, i64 0, i32 5
-  %36 = load ptr, ptr %35, align 8, !tbaa !25
-  %37 = icmp eq ptr %36, null
-  br i1 %37, label %38, label %20
+for.inc9:                                         ; preds = %for.body5, %for.body
+  %next_row = getelementptr inbounds %struct.sm_row_struct, ptr %prow.026, i64 0, i32 5
+  %prow.0 = load ptr, ptr %next_row, align 8, !tbaa !25
+  %cmp2.not = icmp eq ptr %prow.0, null
+  br i1 %cmp2.not, label %if.end, label %for.body
 
-38:                                               ; preds = %34, %12, %1
-  ret ptr %2
+if.end:                                           ; preds = %for.inc9, %if.then, %entry
+  ret ptr %call.i
 }
 
 ; Function Attrs: nounwind uwtable
-define dso_local void @sm_resize(ptr nocapture noundef %0, i32 noundef %1, i32 noundef %2) local_unnamed_addr #3 {
-  %4 = getelementptr inbounds %struct.sm_matrix_struct, ptr %0, i64 0, i32 1
-  %5 = load i32, ptr %4, align 8, !tbaa !13
-  %6 = icmp sgt i32 %5, %1
-  br i1 %6, label %59, label %7
+define dso_local void @sm_resize(ptr nocapture noundef %A, i32 noundef %row, i32 noundef %col) local_unnamed_addr #3 {
+entry:
+  %rows_size = getelementptr inbounds %struct.sm_matrix_struct, ptr %A, i64 0, i32 1
+  %0 = load i32, ptr %rows_size, align 8, !tbaa !13
+  %cmp.not = icmp sgt i32 %0, %row
+  br i1 %cmp.not, label %if.end, label %if.then
 
-7:                                                ; preds = %3
-  %8 = shl nsw i32 %5, 1
-  %9 = add nsw i32 %1, 1
-  %10 = tail call i32 @llvm.smax.i32(i32 %8, i32 %9)
-  %11 = load ptr, ptr %0, align 8, !tbaa !5
-  %12 = icmp eq ptr %11, null
-  %13 = sext i32 %10 to i64
-  %14 = shl nsw i64 %13, 3
-  br i1 %12, label %18, label %15
+if.then:                                          ; preds = %entry
+  %mul = shl nsw i32 %0, 1
+  %add = add nsw i32 %row, 1
+  %mul.add = tail call i32 @llvm.smax.i32(i32 %mul, i32 %add)
+  %1 = load ptr, ptr %A, align 8, !tbaa !5
+  %tobool.not = icmp eq ptr %1, null
+  %conv10 = sext i32 %mul.add to i64
+  %mul11 = shl nsw i64 %conv10, 3
+  br i1 %tobool.not, label %cond.false9, label %cond.true6
 
-15:                                               ; preds = %7
-  %16 = tail call ptr @realloc(ptr noundef nonnull %11, i64 noundef %14) #17
-  %17 = load i32, ptr %4, align 8, !tbaa !13
-  br label %20
+cond.true6:                                       ; preds = %if.then
+  %call = tail call ptr @realloc(ptr noundef nonnull %1, i64 noundef %mul11) #17
+  %.pre = load i32, ptr %rows_size, align 8, !tbaa !13
+  br label %cond.end13
 
-18:                                               ; preds = %7
-  %19 = tail call noalias ptr @malloc(i64 noundef %14) #15
-  br label %20
+cond.false9:                                      ; preds = %if.then
+  %call12 = tail call noalias ptr @malloc(i64 noundef %mul11) #15
+  br label %cond.end13
 
-20:                                               ; preds = %18, %15
-  %21 = phi i32 [ %17, %15 ], [ %5, %18 ]
-  %22 = phi ptr [ %16, %15 ], [ %19, %18 ]
-  store ptr %22, ptr %0, align 8, !tbaa !5
-  %23 = icmp slt i32 %21, %10
-  br i1 %23, label %24, label %58
+cond.end13:                                       ; preds = %cond.false9, %cond.true6
+  %2 = phi i32 [ %.pre, %cond.true6 ], [ %0, %cond.false9 ]
+  %cond14 = phi ptr [ %call, %cond.true6 ], [ %call12, %cond.false9 ]
+  store ptr %cond14, ptr %A, align 8, !tbaa !5
+  %cmp1798 = icmp slt i32 %2, %mul.add
+  br i1 %cmp1798, label %for.body.preheader, label %for.end
 
-24:                                               ; preds = %20
-  %25 = sext i32 %21 to i64
-  %26 = sext i32 %10 to i64
-  %27 = sub nsw i64 %26, %25
-  %28 = xor i64 %25, -1
-  %29 = add nsw i64 %28, %26
-  %30 = and i64 %27, 3
-  %31 = icmp eq i64 %30, 0
-  br i1 %31, label %40, label %32
+for.body.preheader:                               ; preds = %cond.end13
+  %3 = sext i32 %2 to i64
+  %wide.trip.count = sext i32 %mul.add to i64
+  %4 = sub nsw i64 %wide.trip.count, %3
+  %5 = xor i64 %3, -1
+  %6 = add nsw i64 %5, %wide.trip.count
+  %xtraiter = and i64 %4, 3
+  %lcmp.mod.not = icmp eq i64 %xtraiter, 0
+  br i1 %lcmp.mod.not, label %for.body.prol.loopexit, label %for.body.prol
 
-32:                                               ; preds = %24, %32
-  %33 = phi i64 [ %37, %32 ], [ %25, %24 ]
-  %34 = phi i64 [ %38, %32 ], [ 0, %24 ]
-  %35 = load ptr, ptr %0, align 8, !tbaa !5
-  %36 = getelementptr inbounds ptr, ptr %35, i64 %33
-  store ptr null, ptr %36, align 8, !tbaa !25
-  %37 = add nsw i64 %33, 1
-  %38 = add i64 %34, 1
-  %39 = icmp eq i64 %38, %30
-  br i1 %39, label %40, label %32, !llvm.loop !29
+for.body.prol:                                    ; preds = %for.body.preheader, %for.body.prol
+  %indvars.iv.prol = phi i64 [ %indvars.iv.next.prol, %for.body.prol ], [ %3, %for.body.preheader ]
+  %prol.iter = phi i64 [ %prol.iter.next, %for.body.prol ], [ 0, %for.body.preheader ]
+  %7 = load ptr, ptr %A, align 8, !tbaa !5
+  %arrayidx.prol = getelementptr inbounds ptr, ptr %7, i64 %indvars.iv.prol
+  store ptr null, ptr %arrayidx.prol, align 8, !tbaa !25
+  %indvars.iv.next.prol = add nsw i64 %indvars.iv.prol, 1
+  %prol.iter.next = add i64 %prol.iter, 1
+  %prol.iter.cmp.not = icmp eq i64 %prol.iter.next, %xtraiter
+  br i1 %prol.iter.cmp.not, label %for.body.prol.loopexit, label %for.body.prol, !llvm.loop !29
 
-40:                                               ; preds = %32, %24
-  %41 = phi i64 [ %25, %24 ], [ %37, %32 ]
-  %42 = icmp ult i64 %29, 3
-  br i1 %42, label %58, label %43
+for.body.prol.loopexit:                           ; preds = %for.body.prol, %for.body.preheader
+  %indvars.iv.unr = phi i64 [ %3, %for.body.preheader ], [ %indvars.iv.next.prol, %for.body.prol ]
+  %8 = icmp ult i64 %6, 3
+  br i1 %8, label %for.end, label %for.body
 
-43:                                               ; preds = %40, %43
-  %44 = phi i64 [ %56, %43 ], [ %41, %40 ]
-  %45 = load ptr, ptr %0, align 8, !tbaa !5
-  %46 = getelementptr inbounds ptr, ptr %45, i64 %44
-  store ptr null, ptr %46, align 8, !tbaa !25
-  %47 = add nsw i64 %44, 1
-  %48 = load ptr, ptr %0, align 8, !tbaa !5
-  %49 = getelementptr inbounds ptr, ptr %48, i64 %47
-  store ptr null, ptr %49, align 8, !tbaa !25
-  %50 = add nsw i64 %44, 2
-  %51 = load ptr, ptr %0, align 8, !tbaa !5
-  %52 = getelementptr inbounds ptr, ptr %51, i64 %50
-  store ptr null, ptr %52, align 8, !tbaa !25
-  %53 = add nsw i64 %44, 3
-  %54 = load ptr, ptr %0, align 8, !tbaa !5
-  %55 = getelementptr inbounds ptr, ptr %54, i64 %53
-  store ptr null, ptr %55, align 8, !tbaa !25
-  %56 = add nsw i64 %44, 4
-  %57 = icmp eq i64 %56, %26
-  br i1 %57, label %58, label %43
+for.body:                                         ; preds = %for.body.prol.loopexit, %for.body
+  %indvars.iv = phi i64 [ %indvars.iv.next.3, %for.body ], [ %indvars.iv.unr, %for.body.prol.loopexit ]
+  %9 = load ptr, ptr %A, align 8, !tbaa !5
+  %arrayidx = getelementptr inbounds ptr, ptr %9, i64 %indvars.iv
+  store ptr null, ptr %arrayidx, align 8, !tbaa !25
+  %indvars.iv.next = add nsw i64 %indvars.iv, 1
+  %10 = load ptr, ptr %A, align 8, !tbaa !5
+  %arrayidx.1 = getelementptr inbounds ptr, ptr %10, i64 %indvars.iv.next
+  store ptr null, ptr %arrayidx.1, align 8, !tbaa !25
+  %indvars.iv.next.1 = add nsw i64 %indvars.iv, 2
+  %11 = load ptr, ptr %A, align 8, !tbaa !5
+  %arrayidx.2 = getelementptr inbounds ptr, ptr %11, i64 %indvars.iv.next.1
+  store ptr null, ptr %arrayidx.2, align 8, !tbaa !25
+  %indvars.iv.next.2 = add nsw i64 %indvars.iv, 3
+  %12 = load ptr, ptr %A, align 8, !tbaa !5
+  %arrayidx.3 = getelementptr inbounds ptr, ptr %12, i64 %indvars.iv.next.2
+  store ptr null, ptr %arrayidx.3, align 8, !tbaa !25
+  %indvars.iv.next.3 = add nsw i64 %indvars.iv, 4
+  %exitcond.not.3 = icmp eq i64 %indvars.iv.next.3, %wide.trip.count
+  br i1 %exitcond.not.3, label %for.end, label %for.body
 
-58:                                               ; preds = %40, %43, %20
-  store i32 %10, ptr %4, align 8, !tbaa !13
-  br label %59
+for.end:                                          ; preds = %for.body.prol.loopexit, %for.body, %cond.end13
+  store i32 %mul.add, ptr %rows_size, align 8, !tbaa !13
+  br label %if.end
 
-59:                                               ; preds = %58, %3
-  %60 = getelementptr inbounds %struct.sm_matrix_struct, ptr %0, i64 0, i32 3
-  %61 = load i32, ptr %60, align 8, !tbaa !12
-  %62 = icmp sgt i32 %61, %2
-  br i1 %62, label %116, label %63
+if.end:                                           ; preds = %for.end, %entry
+  %cols_size = getelementptr inbounds %struct.sm_matrix_struct, ptr %A, i64 0, i32 3
+  %13 = load i32, ptr %cols_size, align 8, !tbaa !12
+  %cmp21.not = icmp sgt i32 %13, %col
+  br i1 %cmp21.not, label %if.end61, label %if.then23
 
-63:                                               ; preds = %59
-  %64 = shl nsw i32 %61, 1
-  %65 = add nsw i32 %2, 1
-  %66 = tail call i32 @llvm.smax.i32(i32 %64, i32 %65)
-  %67 = getelementptr inbounds %struct.sm_matrix_struct, ptr %0, i64 0, i32 2
-  %68 = load ptr, ptr %67, align 8, !tbaa !11
-  %69 = icmp eq ptr %68, null
-  %70 = sext i32 %66 to i64
-  %71 = shl nsw i64 %70, 3
-  br i1 %69, label %75, label %72
+if.then23:                                        ; preds = %if.end
+  %mul25 = shl nsw i32 %13, 1
+  %add26 = add nsw i32 %col, 1
+  %mul25.add26 = tail call i32 @llvm.smax.i32(i32 %mul25, i32 %add26)
+  %cols = getelementptr inbounds %struct.sm_matrix_struct, ptr %A, i64 0, i32 2
+  %14 = load ptr, ptr %cols, align 8, !tbaa !11
+  %tobool36.not = icmp eq ptr %14, null
+  %conv43 = sext i32 %mul25.add26 to i64
+  %mul44 = shl nsw i64 %conv43, 3
+  br i1 %tobool36.not, label %cond.false42, label %cond.true37
 
-72:                                               ; preds = %63
-  %73 = tail call ptr @realloc(ptr noundef nonnull %68, i64 noundef %71) #17
-  %74 = load i32, ptr %60, align 8, !tbaa !12
-  br label %77
+cond.true37:                                      ; preds = %if.then23
+  %call41 = tail call ptr @realloc(ptr noundef nonnull %14, i64 noundef %mul44) #17
+  %.pre108 = load i32, ptr %cols_size, align 8, !tbaa !12
+  br label %cond.end46
 
-75:                                               ; preds = %63
-  %76 = tail call noalias ptr @malloc(i64 noundef %71) #15
-  br label %77
+cond.false42:                                     ; preds = %if.then23
+  %call45 = tail call noalias ptr @malloc(i64 noundef %mul44) #15
+  br label %cond.end46
 
-77:                                               ; preds = %75, %72
-  %78 = phi i32 [ %74, %72 ], [ %61, %75 ]
-  %79 = phi ptr [ %73, %72 ], [ %76, %75 ]
-  store ptr %79, ptr %67, align 8, !tbaa !11
-  %80 = icmp slt i32 %78, %66
-  br i1 %80, label %81, label %115
+cond.end46:                                       ; preds = %cond.false42, %cond.true37
+  %15 = phi i32 [ %.pre108, %cond.true37 ], [ %13, %cond.false42 ]
+  %cond47 = phi ptr [ %call41, %cond.true37 ], [ %call45, %cond.false42 ]
+  store ptr %cond47, ptr %cols, align 8, !tbaa !11
+  %cmp51100 = icmp slt i32 %15, %mul25.add26
+  br i1 %cmp51100, label %for.body53.preheader, label %for.end59
 
-81:                                               ; preds = %77
-  %82 = sext i32 %78 to i64
-  %83 = sext i32 %66 to i64
-  %84 = sub nsw i64 %83, %82
-  %85 = xor i64 %82, -1
-  %86 = add nsw i64 %85, %83
-  %87 = and i64 %84, 3
-  %88 = icmp eq i64 %87, 0
-  br i1 %88, label %97, label %89
+for.body53.preheader:                             ; preds = %cond.end46
+  %16 = sext i32 %15 to i64
+  %wide.trip.count106 = sext i32 %mul25.add26 to i64
+  %17 = sub nsw i64 %wide.trip.count106, %16
+  %18 = xor i64 %16, -1
+  %19 = add nsw i64 %18, %wide.trip.count106
+  %xtraiter109 = and i64 %17, 3
+  %lcmp.mod110.not = icmp eq i64 %xtraiter109, 0
+  br i1 %lcmp.mod110.not, label %for.body53.prol.loopexit, label %for.body53.prol
 
-89:                                               ; preds = %81, %89
-  %90 = phi i64 [ %94, %89 ], [ %82, %81 ]
-  %91 = phi i64 [ %95, %89 ], [ 0, %81 ]
-  %92 = load ptr, ptr %67, align 8, !tbaa !11
-  %93 = getelementptr inbounds ptr, ptr %92, i64 %90
-  store ptr null, ptr %93, align 8, !tbaa !25
-  %94 = add nsw i64 %90, 1
-  %95 = add i64 %91, 1
-  %96 = icmp eq i64 %95, %87
-  br i1 %96, label %97, label %89, !llvm.loop !31
+for.body53.prol:                                  ; preds = %for.body53.preheader, %for.body53.prol
+  %indvars.iv103.prol = phi i64 [ %indvars.iv.next104.prol, %for.body53.prol ], [ %16, %for.body53.preheader ]
+  %prol.iter111 = phi i64 [ %prol.iter111.next, %for.body53.prol ], [ 0, %for.body53.preheader ]
+  %20 = load ptr, ptr %cols, align 8, !tbaa !11
+  %arrayidx56.prol = getelementptr inbounds ptr, ptr %20, i64 %indvars.iv103.prol
+  store ptr null, ptr %arrayidx56.prol, align 8, !tbaa !25
+  %indvars.iv.next104.prol = add nsw i64 %indvars.iv103.prol, 1
+  %prol.iter111.next = add i64 %prol.iter111, 1
+  %prol.iter111.cmp.not = icmp eq i64 %prol.iter111.next, %xtraiter109
+  br i1 %prol.iter111.cmp.not, label %for.body53.prol.loopexit, label %for.body53.prol, !llvm.loop !31
 
-97:                                               ; preds = %89, %81
-  %98 = phi i64 [ %82, %81 ], [ %94, %89 ]
-  %99 = icmp ult i64 %86, 3
-  br i1 %99, label %115, label %100
+for.body53.prol.loopexit:                         ; preds = %for.body53.prol, %for.body53.preheader
+  %indvars.iv103.unr = phi i64 [ %16, %for.body53.preheader ], [ %indvars.iv.next104.prol, %for.body53.prol ]
+  %21 = icmp ult i64 %19, 3
+  br i1 %21, label %for.end59, label %for.body53
 
-100:                                              ; preds = %97, %100
-  %101 = phi i64 [ %113, %100 ], [ %98, %97 ]
-  %102 = load ptr, ptr %67, align 8, !tbaa !11
-  %103 = getelementptr inbounds ptr, ptr %102, i64 %101
-  store ptr null, ptr %103, align 8, !tbaa !25
-  %104 = add nsw i64 %101, 1
-  %105 = load ptr, ptr %67, align 8, !tbaa !11
-  %106 = getelementptr inbounds ptr, ptr %105, i64 %104
-  store ptr null, ptr %106, align 8, !tbaa !25
-  %107 = add nsw i64 %101, 2
-  %108 = load ptr, ptr %67, align 8, !tbaa !11
-  %109 = getelementptr inbounds ptr, ptr %108, i64 %107
-  store ptr null, ptr %109, align 8, !tbaa !25
-  %110 = add nsw i64 %101, 3
-  %111 = load ptr, ptr %67, align 8, !tbaa !11
-  %112 = getelementptr inbounds ptr, ptr %111, i64 %110
-  store ptr null, ptr %112, align 8, !tbaa !25
-  %113 = add nsw i64 %101, 4
-  %114 = icmp eq i64 %113, %83
-  br i1 %114, label %115, label %100
+for.body53:                                       ; preds = %for.body53.prol.loopexit, %for.body53
+  %indvars.iv103 = phi i64 [ %indvars.iv.next104.3, %for.body53 ], [ %indvars.iv103.unr, %for.body53.prol.loopexit ]
+  %22 = load ptr, ptr %cols, align 8, !tbaa !11
+  %arrayidx56 = getelementptr inbounds ptr, ptr %22, i64 %indvars.iv103
+  store ptr null, ptr %arrayidx56, align 8, !tbaa !25
+  %indvars.iv.next104 = add nsw i64 %indvars.iv103, 1
+  %23 = load ptr, ptr %cols, align 8, !tbaa !11
+  %arrayidx56.1 = getelementptr inbounds ptr, ptr %23, i64 %indvars.iv.next104
+  store ptr null, ptr %arrayidx56.1, align 8, !tbaa !25
+  %indvars.iv.next104.1 = add nsw i64 %indvars.iv103, 2
+  %24 = load ptr, ptr %cols, align 8, !tbaa !11
+  %arrayidx56.2 = getelementptr inbounds ptr, ptr %24, i64 %indvars.iv.next104.1
+  store ptr null, ptr %arrayidx56.2, align 8, !tbaa !25
+  %indvars.iv.next104.2 = add nsw i64 %indvars.iv103, 3
+  %25 = load ptr, ptr %cols, align 8, !tbaa !11
+  %arrayidx56.3 = getelementptr inbounds ptr, ptr %25, i64 %indvars.iv.next104.2
+  store ptr null, ptr %arrayidx56.3, align 8, !tbaa !25
+  %indvars.iv.next104.3 = add nsw i64 %indvars.iv103, 4
+  %exitcond107.not.3 = icmp eq i64 %indvars.iv.next104.3, %wide.trip.count106
+  br i1 %exitcond107.not.3, label %for.end59, label %for.body53
 
-115:                                              ; preds = %97, %100, %77
-  store i32 %66, ptr %60, align 8, !tbaa !12
-  br label %116
+for.end59:                                        ; preds = %for.body53.prol.loopexit, %for.body53, %cond.end46
+  store i32 %mul25.add26, ptr %cols_size, align 8, !tbaa !12
+  br label %if.end61
 
-116:                                              ; preds = %115, %59
+if.end61:                                         ; preds = %for.end59, %if.end
   ret void
 }
 
@@ -364,433 +369,434 @@ define dso_local void @sm_resize(ptr nocapture noundef %0, i32 noundef %1, i32 n
 declare noalias noundef ptr @realloc(ptr allocptr nocapture noundef, i64 noundef) local_unnamed_addr #6
 
 ; Function Attrs: nounwind uwtable
-define dso_local ptr @sm_insert(ptr nocapture noundef %0, i32 noundef %1, i32 noundef %2) local_unnamed_addr #3 {
-  %4 = getelementptr inbounds %struct.sm_matrix_struct, ptr %0, i64 0, i32 1
-  %5 = load i32, ptr %4, align 8, !tbaa !13
-  %6 = icmp sgt i32 %5, %1
-  br i1 %6, label %7, label %11
+define dso_local ptr @sm_insert(ptr nocapture noundef %A, i32 noundef %row, i32 noundef %col) local_unnamed_addr #3 {
+entry:
+  %rows_size = getelementptr inbounds %struct.sm_matrix_struct, ptr %A, i64 0, i32 1
+  %0 = load i32, ptr %rows_size, align 8, !tbaa !13
+  %cmp.not = icmp sgt i32 %0, %row
+  br i1 %cmp.not, label %lor.lhs.false, label %if.then
 
-7:                                                ; preds = %3
-  %8 = getelementptr inbounds %struct.sm_matrix_struct, ptr %0, i64 0, i32 3
-  %9 = load i32, ptr %8, align 8, !tbaa !12
-  %10 = icmp sgt i32 %9, %2
-  br i1 %10, label %12, label %11
+lor.lhs.false:                                    ; preds = %entry
+  %cols_size = getelementptr inbounds %struct.sm_matrix_struct, ptr %A, i64 0, i32 3
+  %1 = load i32, ptr %cols_size, align 8, !tbaa !12
+  %cmp1.not = icmp sgt i32 %1, %col
+  br i1 %cmp1.not, label %if.end, label %if.then
 
-11:                                               ; preds = %7, %3
-  tail call void @sm_resize(ptr noundef nonnull %0, i32 noundef %1, i32 noundef %2)
-  br label %12
+if.then:                                          ; preds = %lor.lhs.false, %entry
+  tail call void @sm_resize(ptr noundef nonnull %A, i32 noundef %row, i32 noundef %col)
+  br label %if.end
 
-12:                                               ; preds = %11, %7
-  %13 = load ptr, ptr %0, align 8, !tbaa !5
-  %14 = sext i32 %1 to i64
-  %15 = getelementptr inbounds ptr, ptr %13, i64 %14
-  %16 = load ptr, ptr %15, align 8, !tbaa !25
-  %17 = icmp eq ptr %16, null
-  br i1 %17, label %18, label %68
+if.end:                                           ; preds = %if.then, %lor.lhs.false
+  %2 = load ptr, ptr %A, align 8, !tbaa !5
+  %idxprom = sext i32 %row to i64
+  %arrayidx = getelementptr inbounds ptr, ptr %2, i64 %idxprom
+  %3 = load ptr, ptr %arrayidx, align 8, !tbaa !25
+  %cmp2 = icmp eq ptr %3, null
+  br i1 %cmp2, label %if.then3, label %if.end61
 
-18:                                               ; preds = %12
-  %19 = tail call ptr (...) @sm_row_alloc() #16
-  %20 = load ptr, ptr %0, align 8, !tbaa !5
-  %21 = getelementptr inbounds ptr, ptr %20, i64 %14
-  store ptr %19, ptr %21, align 8, !tbaa !25
-  store i32 %1, ptr %19, align 8, !tbaa !22
-  %22 = getelementptr inbounds %struct.sm_matrix_struct, ptr %0, i64 0, i32 5
-  %23 = load ptr, ptr %22, align 8, !tbaa !21
-  %24 = icmp eq ptr %23, null
-  br i1 %24, label %25, label %28
+if.then3:                                         ; preds = %if.end
+  %call = tail call ptr (...) @sm_row_alloc() #16
+  %4 = load ptr, ptr %A, align 8, !tbaa !5
+  %arrayidx6 = getelementptr inbounds ptr, ptr %4, i64 %idxprom
+  store ptr %call, ptr %arrayidx6, align 8, !tbaa !25
+  store i32 %row, ptr %call, align 8, !tbaa !22
+  %last_row = getelementptr inbounds %struct.sm_matrix_struct, ptr %A, i64 0, i32 5
+  %5 = load ptr, ptr %last_row, align 8, !tbaa !21
+  %cmp7 = icmp eq ptr %5, null
+  br i1 %cmp7, label %if.then8, label %if.else
 
-25:                                               ; preds = %18
-  %26 = getelementptr inbounds %struct.sm_matrix_struct, ptr %0, i64 0, i32 4
-  store ptr %19, ptr %26, align 8, !tbaa !15
-  store ptr %19, ptr %22, align 8, !tbaa !21
-  %27 = getelementptr inbounds %struct.sm_row_struct, ptr %19, i64 0, i32 5
-  tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %27, i8 0, i64 16, i1 false)
-  br label %64
+if.then8:                                         ; preds = %if.then3
+  %first_row = getelementptr inbounds %struct.sm_matrix_struct, ptr %A, i64 0, i32 4
+  store ptr %call, ptr %first_row, align 8, !tbaa !15
+  store ptr %call, ptr %last_row, align 8, !tbaa !21
+  %next_row = getelementptr inbounds %struct.sm_row_struct, ptr %call, i64 0, i32 5
+  tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %next_row, i8 0, i64 16, i1 false)
+  br label %if.end61.sink.split
 
-28:                                               ; preds = %18
-  %29 = load i32, ptr %23, align 8, !tbaa !22
-  %30 = icmp slt i32 %29, %1
-  br i1 %30, label %31, label %35
+if.else:                                          ; preds = %if.then3
+  %6 = load i32, ptr %5, align 8, !tbaa !22
+  %cmp13 = icmp slt i32 %6, %row
+  br i1 %cmp13, label %if.then14, label %if.else24
 
-31:                                               ; preds = %28
-  %32 = getelementptr inbounds %struct.sm_row_struct, ptr %23, i64 0, i32 5
-  store ptr %19, ptr %32, align 8, !tbaa !16
-  %33 = getelementptr inbounds %struct.sm_row_struct, ptr %19, i64 0, i32 6
-  store ptr %23, ptr %33, align 8, !tbaa !32
-  store ptr %19, ptr %22, align 8, !tbaa !21
-  %34 = getelementptr inbounds %struct.sm_row_struct, ptr %19, i64 0, i32 5
-  store ptr null, ptr %34, align 8, !tbaa !16
-  br label %64
+if.then14:                                        ; preds = %if.else
+  %next_row17 = getelementptr inbounds %struct.sm_row_struct, ptr %5, i64 0, i32 5
+  store ptr %call, ptr %next_row17, align 8, !tbaa !16
+  %prev_row19 = getelementptr inbounds %struct.sm_row_struct, ptr %call, i64 0, i32 6
+  store ptr %5, ptr %prev_row19, align 8, !tbaa !32
+  store ptr %call, ptr %last_row, align 8, !tbaa !21
+  %next_row21 = getelementptr inbounds %struct.sm_row_struct, ptr %call, i64 0, i32 5
+  store ptr null, ptr %next_row21, align 8, !tbaa !16
+  br label %if.end61.sink.split
 
-35:                                               ; preds = %28
-  %36 = getelementptr inbounds %struct.sm_matrix_struct, ptr %0, i64 0, i32 4
-  %37 = load ptr, ptr %36, align 8, !tbaa !15
-  %38 = load i32, ptr %37, align 8, !tbaa !22
-  %39 = icmp sgt i32 %38, %1
-  br i1 %39, label %42, label %40
+if.else24:                                        ; preds = %if.else
+  %first_row25 = getelementptr inbounds %struct.sm_matrix_struct, ptr %A, i64 0, i32 4
+  %7 = load ptr, ptr %first_row25, align 8, !tbaa !15
+  %8 = load i32, ptr %7, align 8, !tbaa !22
+  %cmp27 = icmp sgt i32 %8, %row
+  br i1 %cmp27, label %if.then28, label %for.cond.preheader
 
-40:                                               ; preds = %35
-  %41 = icmp slt i32 %38, %1
-  br i1 %41, label %46, label %52
+for.cond.preheader:                               ; preds = %if.else24
+  %cmp41514 = icmp slt i32 %8, %row
+  br i1 %cmp41514, label %for.inc, label %for.end
 
-42:                                               ; preds = %35
-  %43 = getelementptr inbounds %struct.sm_row_struct, ptr %37, i64 0, i32 6
-  store ptr %19, ptr %43, align 8, !tbaa !32
-  %44 = getelementptr inbounds %struct.sm_row_struct, ptr %19, i64 0, i32 5
-  store ptr %37, ptr %44, align 8, !tbaa !16
-  store ptr %19, ptr %36, align 8, !tbaa !15
-  %45 = getelementptr inbounds %struct.sm_row_struct, ptr %19, i64 0, i32 6
-  store ptr null, ptr %45, align 8, !tbaa !32
-  br label %64
+if.then28:                                        ; preds = %if.else24
+  %prev_row31 = getelementptr inbounds %struct.sm_row_struct, ptr %7, i64 0, i32 6
+  store ptr %call, ptr %prev_row31, align 8, !tbaa !32
+  %next_row33 = getelementptr inbounds %struct.sm_row_struct, ptr %call, i64 0, i32 5
+  store ptr %7, ptr %next_row33, align 8, !tbaa !16
+  store ptr %call, ptr %first_row25, align 8, !tbaa !15
+  %prev_row35 = getelementptr inbounds %struct.sm_row_struct, ptr %call, i64 0, i32 6
+  store ptr null, ptr %prev_row35, align 8, !tbaa !32
+  br label %if.end61.sink.split
 
-46:                                               ; preds = %40, %46
-  %47 = phi ptr [ %49, %46 ], [ %37, %40 ]
-  %48 = getelementptr inbounds %struct.sm_row_struct, ptr %47, i64 0, i32 5
-  %49 = load ptr, ptr %48, align 8, !tbaa !16
-  %50 = load i32, ptr %49, align 8, !tbaa !22
-  %51 = icmp slt i32 %50, %1
-  br i1 %51, label %46, label %52
+for.inc:                                          ; preds = %for.cond.preheader, %for.inc
+  %p.0515 = phi ptr [ %9, %for.inc ], [ %7, %for.cond.preheader ]
+  %next_row42 = getelementptr inbounds %struct.sm_row_struct, ptr %p.0515, i64 0, i32 5
+  %9 = load ptr, ptr %next_row42, align 8, !tbaa !16
+  %10 = load i32, ptr %9, align 8, !tbaa !22
+  %cmp41 = icmp slt i32 %10, %row
+  br i1 %cmp41, label %for.inc, label %for.end
 
-52:                                               ; preds = %46, %40
-  %53 = phi ptr [ %37, %40 ], [ %49, %46 ]
-  %54 = phi i32 [ %38, %40 ], [ %50, %46 ]
-  %55 = icmp sgt i32 %54, %1
-  br i1 %55, label %56, label %68
+for.end:                                          ; preds = %for.inc, %for.cond.preheader
+  %p.0.lcssa = phi ptr [ %7, %for.cond.preheader ], [ %9, %for.inc ]
+  %.lcssa513 = phi i32 [ %8, %for.cond.preheader ], [ %10, %for.inc ]
+  %cmp44 = icmp sgt i32 %.lcssa513, %row
+  br i1 %cmp44, label %if.then45, label %if.end61
 
-56:                                               ; preds = %52
-  %57 = getelementptr inbounds %struct.sm_row_struct, ptr %53, i64 0, i32 6
-  %58 = load ptr, ptr %57, align 8, !tbaa !32
-  %59 = getelementptr inbounds %struct.sm_row_struct, ptr %58, i64 0, i32 5
-  %60 = load ptr, ptr %59, align 8, !tbaa !16
-  %61 = getelementptr inbounds %struct.sm_row_struct, ptr %60, i64 0, i32 6
-  store ptr %19, ptr %61, align 8, !tbaa !32
-  %62 = getelementptr inbounds %struct.sm_row_struct, ptr %19, i64 0, i32 5
-  store ptr %60, ptr %62, align 8, !tbaa !16
-  store ptr %19, ptr %59, align 8, !tbaa !16
-  %63 = getelementptr inbounds %struct.sm_row_struct, ptr %19, i64 0, i32 6
-  store ptr %58, ptr %63, align 8, !tbaa !32
-  br label %64
+if.then45:                                        ; preds = %for.end
+  %prev_row47 = getelementptr inbounds %struct.sm_row_struct, ptr %p.0.lcssa, i64 0, i32 6
+  %11 = load ptr, ptr %prev_row47, align 8, !tbaa !32
+  %next_row48 = getelementptr inbounds %struct.sm_row_struct, ptr %11, i64 0, i32 5
+  %12 = load ptr, ptr %next_row48, align 8, !tbaa !16
+  %prev_row49 = getelementptr inbounds %struct.sm_row_struct, ptr %12, i64 0, i32 6
+  store ptr %call, ptr %prev_row49, align 8, !tbaa !32
+  %next_row51 = getelementptr inbounds %struct.sm_row_struct, ptr %call, i64 0, i32 5
+  store ptr %12, ptr %next_row51, align 8, !tbaa !16
+  store ptr %call, ptr %next_row48, align 8, !tbaa !16
+  %prev_row53 = getelementptr inbounds %struct.sm_row_struct, ptr %call, i64 0, i32 6
+  store ptr %11, ptr %prev_row53, align 8, !tbaa !32
+  br label %if.end61.sink.split
 
-64:                                               ; preds = %31, %42, %25, %56
-  %65 = getelementptr inbounds %struct.sm_matrix_struct, ptr %0, i64 0, i32 6
-  %66 = load i32, ptr %65, align 8, !tbaa !33
-  %67 = add nsw i32 %66, 1
-  store i32 %67, ptr %65, align 8, !tbaa !33
-  br label %68
+if.end61.sink.split:                              ; preds = %if.then14, %if.then28, %if.then8, %if.then45
+  %nrows54.sink546 = getelementptr inbounds %struct.sm_matrix_struct, ptr %A, i64 0, i32 6
+  %13 = load i32, ptr %nrows54.sink546, align 8, !tbaa !33
+  %inc55 = add nsw i32 %13, 1
+  store i32 %inc55, ptr %nrows54.sink546, align 8, !tbaa !33
+  br label %if.end61
 
-68:                                               ; preds = %64, %52, %12
-  %69 = phi ptr [ %16, %12 ], [ %53, %52 ], [ %19, %64 ]
-  %70 = getelementptr inbounds %struct.sm_matrix_struct, ptr %0, i64 0, i32 2
-  %71 = load ptr, ptr %70, align 8, !tbaa !11
-  %72 = sext i32 %2 to i64
-  %73 = getelementptr inbounds ptr, ptr %71, i64 %72
-  %74 = load ptr, ptr %73, align 8, !tbaa !25
-  %75 = icmp eq ptr %74, null
-  br i1 %75, label %76, label %126
+if.end61:                                         ; preds = %if.end61.sink.split, %for.end, %if.end
+  %prow.1 = phi ptr [ %3, %if.end ], [ %p.0.lcssa, %for.end ], [ %call, %if.end61.sink.split ]
+  %cols = getelementptr inbounds %struct.sm_matrix_struct, ptr %A, i64 0, i32 2
+  %14 = load ptr, ptr %cols, align 8, !tbaa !11
+  %idxprom62 = sext i32 %col to i64
+  %arrayidx63 = getelementptr inbounds ptr, ptr %14, i64 %idxprom62
+  %15 = load ptr, ptr %arrayidx63, align 8, !tbaa !25
+  %cmp64 = icmp eq ptr %15, null
+  br i1 %cmp64, label %if.then65, label %if.end131
 
-76:                                               ; preds = %68
-  %77 = tail call ptr (...) @sm_col_alloc() #16
-  %78 = load ptr, ptr %70, align 8, !tbaa !11
-  %79 = getelementptr inbounds ptr, ptr %78, i64 %72
-  store ptr %77, ptr %79, align 8, !tbaa !25
-  store i32 %2, ptr %77, align 8, !tbaa !24
-  %80 = getelementptr inbounds %struct.sm_matrix_struct, ptr %0, i64 0, i32 8
-  %81 = load ptr, ptr %80, align 8, !tbaa !23
-  %82 = icmp eq ptr %81, null
-  br i1 %82, label %83, label %86
+if.then65:                                        ; preds = %if.end61
+  %call66 = tail call ptr (...) @sm_col_alloc() #16
+  %16 = load ptr, ptr %cols, align 8, !tbaa !11
+  %arrayidx69 = getelementptr inbounds ptr, ptr %16, i64 %idxprom62
+  store ptr %call66, ptr %arrayidx69, align 8, !tbaa !25
+  store i32 %col, ptr %call66, align 8, !tbaa !24
+  %last_col = getelementptr inbounds %struct.sm_matrix_struct, ptr %A, i64 0, i32 8
+  %17 = load ptr, ptr %last_col, align 8, !tbaa !23
+  %cmp70 = icmp eq ptr %17, null
+  br i1 %cmp70, label %if.then71, label %if.else75
 
-83:                                               ; preds = %76
-  %84 = getelementptr inbounds %struct.sm_matrix_struct, ptr %0, i64 0, i32 7
-  store ptr %77, ptr %84, align 8, !tbaa !18
-  store ptr %77, ptr %80, align 8, !tbaa !23
-  %85 = getelementptr inbounds %struct.sm_col_struct, ptr %77, i64 0, i32 5
-  tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %85, i8 0, i64 16, i1 false)
-  br label %122
+if.then71:                                        ; preds = %if.then65
+  %first_col = getelementptr inbounds %struct.sm_matrix_struct, ptr %A, i64 0, i32 7
+  store ptr %call66, ptr %first_col, align 8, !tbaa !18
+  store ptr %call66, ptr %last_col, align 8, !tbaa !23
+  %next_col = getelementptr inbounds %struct.sm_col_struct, ptr %call66, i64 0, i32 5
+  tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %next_col, i8 0, i64 16, i1 false)
+  br label %if.end131.sink.split
 
-86:                                               ; preds = %76
-  %87 = load i32, ptr %81, align 8, !tbaa !24
-  %88 = icmp slt i32 %87, %2
-  br i1 %88, label %89, label %93
+if.else75:                                        ; preds = %if.then65
+  %18 = load i32, ptr %17, align 8, !tbaa !24
+  %cmp78 = icmp slt i32 %18, %col
+  br i1 %cmp78, label %if.then79, label %if.else89
 
-89:                                               ; preds = %86
-  %90 = getelementptr inbounds %struct.sm_col_struct, ptr %81, i64 0, i32 5
-  store ptr %77, ptr %90, align 8, !tbaa !19
-  %91 = getelementptr inbounds %struct.sm_col_struct, ptr %77, i64 0, i32 6
-  store ptr %81, ptr %91, align 8, !tbaa !34
-  store ptr %77, ptr %80, align 8, !tbaa !23
-  %92 = getelementptr inbounds %struct.sm_col_struct, ptr %77, i64 0, i32 5
-  store ptr null, ptr %92, align 8, !tbaa !19
-  br label %122
+if.then79:                                        ; preds = %if.else75
+  %next_col82 = getelementptr inbounds %struct.sm_col_struct, ptr %17, i64 0, i32 5
+  store ptr %call66, ptr %next_col82, align 8, !tbaa !19
+  %prev_col84 = getelementptr inbounds %struct.sm_col_struct, ptr %call66, i64 0, i32 6
+  store ptr %17, ptr %prev_col84, align 8, !tbaa !34
+  store ptr %call66, ptr %last_col, align 8, !tbaa !23
+  %next_col86 = getelementptr inbounds %struct.sm_col_struct, ptr %call66, i64 0, i32 5
+  store ptr null, ptr %next_col86, align 8, !tbaa !19
+  br label %if.end131.sink.split
 
-93:                                               ; preds = %86
-  %94 = getelementptr inbounds %struct.sm_matrix_struct, ptr %0, i64 0, i32 7
-  %95 = load ptr, ptr %94, align 8, !tbaa !18
-  %96 = load i32, ptr %95, align 8, !tbaa !24
-  %97 = icmp sgt i32 %96, %2
-  br i1 %97, label %100, label %98
+if.else89:                                        ; preds = %if.else75
+  %first_col90 = getelementptr inbounds %struct.sm_matrix_struct, ptr %A, i64 0, i32 7
+  %19 = load ptr, ptr %first_col90, align 8, !tbaa !18
+  %20 = load i32, ptr %19, align 8, !tbaa !24
+  %cmp92 = icmp sgt i32 %20, %col
+  br i1 %cmp92, label %if.then93, label %for.cond106.preheader
 
-98:                                               ; preds = %93
-  %99 = icmp slt i32 %96, %2
-  br i1 %99, label %104, label %110
+for.cond106.preheader:                            ; preds = %if.else89
+  %cmp108517 = icmp slt i32 %20, %col
+  br i1 %cmp108517, label %for.inc110, label %for.end112
 
-100:                                              ; preds = %93
-  %101 = getelementptr inbounds %struct.sm_col_struct, ptr %95, i64 0, i32 6
-  store ptr %77, ptr %101, align 8, !tbaa !34
-  %102 = getelementptr inbounds %struct.sm_col_struct, ptr %77, i64 0, i32 5
-  store ptr %95, ptr %102, align 8, !tbaa !19
-  store ptr %77, ptr %94, align 8, !tbaa !18
-  %103 = getelementptr inbounds %struct.sm_col_struct, ptr %77, i64 0, i32 6
-  store ptr null, ptr %103, align 8, !tbaa !34
-  br label %122
+if.then93:                                        ; preds = %if.else89
+  %prev_col96 = getelementptr inbounds %struct.sm_col_struct, ptr %19, i64 0, i32 6
+  store ptr %call66, ptr %prev_col96, align 8, !tbaa !34
+  %next_col98 = getelementptr inbounds %struct.sm_col_struct, ptr %call66, i64 0, i32 5
+  store ptr %19, ptr %next_col98, align 8, !tbaa !19
+  store ptr %call66, ptr %first_col90, align 8, !tbaa !18
+  %prev_col100 = getelementptr inbounds %struct.sm_col_struct, ptr %call66, i64 0, i32 6
+  store ptr null, ptr %prev_col100, align 8, !tbaa !34
+  br label %if.end131.sink.split
 
-104:                                              ; preds = %98, %104
-  %105 = phi ptr [ %107, %104 ], [ %95, %98 ]
-  %106 = getelementptr inbounds %struct.sm_col_struct, ptr %105, i64 0, i32 5
-  %107 = load ptr, ptr %106, align 8, !tbaa !19
-  %108 = load i32, ptr %107, align 8, !tbaa !24
-  %109 = icmp slt i32 %108, %2
-  br i1 %109, label %104, label %110
+for.inc110:                                       ; preds = %for.cond106.preheader, %for.inc110
+  %p104.0518 = phi ptr [ %21, %for.inc110 ], [ %19, %for.cond106.preheader ]
+  %next_col111 = getelementptr inbounds %struct.sm_col_struct, ptr %p104.0518, i64 0, i32 5
+  %21 = load ptr, ptr %next_col111, align 8, !tbaa !19
+  %22 = load i32, ptr %21, align 8, !tbaa !24
+  %cmp108 = icmp slt i32 %22, %col
+  br i1 %cmp108, label %for.inc110, label %for.end112
 
-110:                                              ; preds = %104, %98
-  %111 = phi ptr [ %95, %98 ], [ %107, %104 ]
-  %112 = phi i32 [ %96, %98 ], [ %108, %104 ]
-  %113 = icmp sgt i32 %112, %2
-  br i1 %113, label %114, label %126
+for.end112:                                       ; preds = %for.inc110, %for.cond106.preheader
+  %p104.0.lcssa = phi ptr [ %19, %for.cond106.preheader ], [ %21, %for.inc110 ]
+  %.lcssa512 = phi i32 [ %20, %for.cond106.preheader ], [ %22, %for.inc110 ]
+  %cmp114 = icmp sgt i32 %.lcssa512, %col
+  br i1 %cmp114, label %if.then115, label %if.end131
 
-114:                                              ; preds = %110
-  %115 = getelementptr inbounds %struct.sm_col_struct, ptr %111, i64 0, i32 6
-  %116 = load ptr, ptr %115, align 8, !tbaa !34
-  %117 = getelementptr inbounds %struct.sm_col_struct, ptr %116, i64 0, i32 5
-  %118 = load ptr, ptr %117, align 8, !tbaa !19
-  %119 = getelementptr inbounds %struct.sm_col_struct, ptr %118, i64 0, i32 6
-  store ptr %77, ptr %119, align 8, !tbaa !34
-  %120 = getelementptr inbounds %struct.sm_col_struct, ptr %77, i64 0, i32 5
-  store ptr %118, ptr %120, align 8, !tbaa !19
-  store ptr %77, ptr %117, align 8, !tbaa !19
-  %121 = getelementptr inbounds %struct.sm_col_struct, ptr %77, i64 0, i32 6
-  store ptr %116, ptr %121, align 8, !tbaa !34
-  br label %122
+if.then115:                                       ; preds = %for.end112
+  %prev_col117 = getelementptr inbounds %struct.sm_col_struct, ptr %p104.0.lcssa, i64 0, i32 6
+  %23 = load ptr, ptr %prev_col117, align 8, !tbaa !34
+  %next_col118 = getelementptr inbounds %struct.sm_col_struct, ptr %23, i64 0, i32 5
+  %24 = load ptr, ptr %next_col118, align 8, !tbaa !19
+  %prev_col119 = getelementptr inbounds %struct.sm_col_struct, ptr %24, i64 0, i32 6
+  store ptr %call66, ptr %prev_col119, align 8, !tbaa !34
+  %next_col121 = getelementptr inbounds %struct.sm_col_struct, ptr %call66, i64 0, i32 5
+  store ptr %24, ptr %next_col121, align 8, !tbaa !19
+  store ptr %call66, ptr %next_col118, align 8, !tbaa !19
+  %prev_col123 = getelementptr inbounds %struct.sm_col_struct, ptr %call66, i64 0, i32 6
+  store ptr %23, ptr %prev_col123, align 8, !tbaa !34
+  br label %if.end131.sink.split
 
-122:                                              ; preds = %89, %100, %83, %114
-  %123 = getelementptr inbounds %struct.sm_matrix_struct, ptr %0, i64 0, i32 9
-  %124 = load i32, ptr %123, align 8, !tbaa !35
-  %125 = add nsw i32 %124, 1
-  store i32 %125, ptr %123, align 8, !tbaa !35
-  br label %126
+if.end131.sink.split:                             ; preds = %if.then79, %if.then93, %if.then71, %if.then115
+  %ncols124.sink547 = getelementptr inbounds %struct.sm_matrix_struct, ptr %A, i64 0, i32 9
+  %25 = load i32, ptr %ncols124.sink547, align 8, !tbaa !35
+  %inc125 = add nsw i32 %25, 1
+  store i32 %inc125, ptr %ncols124.sink547, align 8, !tbaa !35
+  br label %if.end131
 
-126:                                              ; preds = %122, %110, %68
-  %127 = phi ptr [ %74, %68 ], [ %111, %110 ], [ %77, %122 ]
-  %128 = tail call noalias dereferenceable_or_null(48) ptr @malloc(i64 noundef 48) #15
-  %129 = getelementptr inbounds %struct.sm_element_struct, ptr %128, i64 0, i32 6
-  store ptr null, ptr %129, align 8, !tbaa !36
-  %130 = getelementptr inbounds %struct.sm_row_struct, ptr %69, i64 0, i32 4
-  %131 = load ptr, ptr %130, align 8, !tbaa !37
-  %132 = icmp eq ptr %131, null
-  br i1 %132, label %133, label %137
+if.end131:                                        ; preds = %if.end131.sink.split, %for.end112, %if.end61
+  %pcol.1 = phi ptr [ %15, %if.end61 ], [ %p104.0.lcssa, %for.end112 ], [ %call66, %if.end131.sink.split ]
+  %call132 = tail call noalias dereferenceable_or_null(48) ptr @malloc(i64 noundef 48) #15
+  %user_word = getelementptr inbounds %struct.sm_element_struct, ptr %call132, i64 0, i32 6
+  store ptr null, ptr %user_word, align 8, !tbaa !36
+  %last_col133 = getelementptr inbounds %struct.sm_row_struct, ptr %prow.1, i64 0, i32 4
+  %26 = load ptr, ptr %last_col133, align 8, !tbaa !37
+  %cmp134 = icmp eq ptr %26, null
+  br i1 %cmp134, label %if.then135, label %if.else142
 
-133:                                              ; preds = %126
-  %134 = getelementptr inbounds %struct.sm_element_struct, ptr %128, i64 0, i32 1
-  store i32 %2, ptr %134, align 4, !tbaa !28
-  %135 = getelementptr inbounds %struct.sm_row_struct, ptr %69, i64 0, i32 3
-  store ptr %128, ptr %135, align 8, !tbaa !38
-  store ptr %128, ptr %130, align 8, !tbaa !37
-  %136 = getelementptr inbounds %struct.sm_element_struct, ptr %128, i64 0, i32 4
-  tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %136, i8 0, i64 16, i1 false)
-  br label %181
+if.then135:                                       ; preds = %if.end131
+  %col_num136 = getelementptr inbounds %struct.sm_element_struct, ptr %call132, i64 0, i32 1
+  store i32 %col, ptr %col_num136, align 4, !tbaa !28
+  %first_col137 = getelementptr inbounds %struct.sm_row_struct, ptr %prow.1, i64 0, i32 3
+  store ptr %call132, ptr %first_col137, align 8, !tbaa !38
+  store ptr %call132, ptr %last_col133, align 8, !tbaa !37
+  %next_col139 = getelementptr inbounds %struct.sm_element_struct, ptr %call132, i64 0, i32 4
+  tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %next_col139, i8 0, i64 16, i1 false)
+  br label %if.then199.sink.split
 
-137:                                              ; preds = %126
-  %138 = getelementptr inbounds %struct.sm_element_struct, ptr %131, i64 0, i32 1
-  %139 = load i32, ptr %138, align 4, !tbaa !28
-  %140 = icmp slt i32 %139, %2
-  br i1 %140, label %141, label %146
+if.else142:                                       ; preds = %if.end131
+  %col_num144 = getelementptr inbounds %struct.sm_element_struct, ptr %26, i64 0, i32 1
+  %27 = load i32, ptr %col_num144, align 4, !tbaa !28
+  %cmp145 = icmp slt i32 %27, %col
+  br i1 %cmp145, label %if.then146, label %if.else156
 
-141:                                              ; preds = %137
-  %142 = getelementptr inbounds %struct.sm_element_struct, ptr %128, i64 0, i32 1
-  store i32 %2, ptr %142, align 4, !tbaa !28
-  %143 = getelementptr inbounds %struct.sm_element_struct, ptr %131, i64 0, i32 4
-  store ptr %128, ptr %143, align 8, !tbaa !39
-  %144 = getelementptr inbounds %struct.sm_element_struct, ptr %128, i64 0, i32 5
-  store ptr %131, ptr %144, align 8, !tbaa !40
-  store ptr %128, ptr %130, align 8, !tbaa !37
-  %145 = getelementptr inbounds %struct.sm_element_struct, ptr %128, i64 0, i32 4
-  store ptr null, ptr %145, align 8, !tbaa !39
-  br label %181
+if.then146:                                       ; preds = %if.else142
+  %col_num147 = getelementptr inbounds %struct.sm_element_struct, ptr %call132, i64 0, i32 1
+  store i32 %col, ptr %col_num147, align 4, !tbaa !28
+  %next_col149 = getelementptr inbounds %struct.sm_element_struct, ptr %26, i64 0, i32 4
+  store ptr %call132, ptr %next_col149, align 8, !tbaa !39
+  %prev_col151 = getelementptr inbounds %struct.sm_element_struct, ptr %call132, i64 0, i32 5
+  store ptr %26, ptr %prev_col151, align 8, !tbaa !40
+  store ptr %call132, ptr %last_col133, align 8, !tbaa !37
+  %next_col153 = getelementptr inbounds %struct.sm_element_struct, ptr %call132, i64 0, i32 4
+  store ptr null, ptr %next_col153, align 8, !tbaa !39
+  br label %if.then199.sink.split
 
-146:                                              ; preds = %137
-  %147 = getelementptr inbounds %struct.sm_row_struct, ptr %69, i64 0, i32 3
-  %148 = load ptr, ptr %147, align 8, !tbaa !38
-  %149 = getelementptr inbounds %struct.sm_element_struct, ptr %148, i64 0, i32 1
-  %150 = load i32, ptr %149, align 4, !tbaa !28
-  %151 = icmp sgt i32 %150, %2
-  br i1 %151, label %154, label %152
+if.else156:                                       ; preds = %if.else142
+  %first_col157 = getelementptr inbounds %struct.sm_row_struct, ptr %prow.1, i64 0, i32 3
+  %28 = load ptr, ptr %first_col157, align 8, !tbaa !38
+  %col_num158 = getelementptr inbounds %struct.sm_element_struct, ptr %28, i64 0, i32 1
+  %29 = load i32, ptr %col_num158, align 4, !tbaa !28
+  %cmp159 = icmp sgt i32 %29, %col
+  br i1 %cmp159, label %if.then160, label %for.cond173.preheader
 
-152:                                              ; preds = %146
-  %153 = icmp slt i32 %150, %2
-  br i1 %153, label %159, label %166
+for.cond173.preheader:                            ; preds = %if.else156
+  %cmp175522 = icmp slt i32 %29, %col
+  br i1 %cmp175522, label %for.inc177, label %for.end179
 
-154:                                              ; preds = %146
-  %155 = getelementptr inbounds %struct.sm_element_struct, ptr %128, i64 0, i32 1
-  store i32 %2, ptr %155, align 4, !tbaa !28
-  %156 = getelementptr inbounds %struct.sm_element_struct, ptr %148, i64 0, i32 5
-  store ptr %128, ptr %156, align 8, !tbaa !40
-  %157 = getelementptr inbounds %struct.sm_element_struct, ptr %128, i64 0, i32 4
-  store ptr %148, ptr %157, align 8, !tbaa !39
-  store ptr %128, ptr %147, align 8, !tbaa !38
-  %158 = getelementptr inbounds %struct.sm_element_struct, ptr %128, i64 0, i32 5
-  store ptr null, ptr %158, align 8, !tbaa !40
-  br label %181
+if.then160:                                       ; preds = %if.else156
+  %col_num161 = getelementptr inbounds %struct.sm_element_struct, ptr %call132, i64 0, i32 1
+  store i32 %col, ptr %col_num161, align 4, !tbaa !28
+  %prev_col163 = getelementptr inbounds %struct.sm_element_struct, ptr %28, i64 0, i32 5
+  store ptr %call132, ptr %prev_col163, align 8, !tbaa !40
+  %next_col165 = getelementptr inbounds %struct.sm_element_struct, ptr %call132, i64 0, i32 4
+  store ptr %28, ptr %next_col165, align 8, !tbaa !39
+  store ptr %call132, ptr %first_col157, align 8, !tbaa !38
+  %prev_col167 = getelementptr inbounds %struct.sm_element_struct, ptr %call132, i64 0, i32 5
+  store ptr null, ptr %prev_col167, align 8, !tbaa !40
+  br label %if.then199.sink.split
 
-159:                                              ; preds = %152, %159
-  %160 = phi ptr [ %162, %159 ], [ %148, %152 ]
-  %161 = getelementptr inbounds %struct.sm_element_struct, ptr %160, i64 0, i32 4
-  %162 = load ptr, ptr %161, align 8, !tbaa !39
-  %163 = getelementptr inbounds %struct.sm_element_struct, ptr %162, i64 0, i32 1
-  %164 = load i32, ptr %163, align 4, !tbaa !28
-  %165 = icmp slt i32 %164, %2
-  br i1 %165, label %159, label %166
+for.inc177:                                       ; preds = %for.cond173.preheader, %for.inc177
+  %p171.0523 = phi ptr [ %30, %for.inc177 ], [ %28, %for.cond173.preheader ]
+  %next_col178 = getelementptr inbounds %struct.sm_element_struct, ptr %p171.0523, i64 0, i32 4
+  %30 = load ptr, ptr %next_col178, align 8, !tbaa !39
+  %col_num174 = getelementptr inbounds %struct.sm_element_struct, ptr %30, i64 0, i32 1
+  %31 = load i32, ptr %col_num174, align 4, !tbaa !28
+  %cmp175 = icmp slt i32 %31, %col
+  br i1 %cmp175, label %for.inc177, label %for.end179
 
-166:                                              ; preds = %159, %152
-  %167 = phi ptr [ %148, %152 ], [ %162, %159 ]
-  %168 = phi i32 [ %150, %152 ], [ %164, %159 ]
-  %169 = icmp sgt i32 %168, %2
-  br i1 %169, label %170, label %179
+for.end179:                                       ; preds = %for.inc177, %for.cond173.preheader
+  %p171.0.lcssa = phi ptr [ %28, %for.cond173.preheader ], [ %30, %for.inc177 ]
+  %.lcssa511 = phi i32 [ %29, %for.cond173.preheader ], [ %31, %for.inc177 ]
+  %cmp181 = icmp sgt i32 %.lcssa511, %col
+  br i1 %cmp181, label %if.then182, label %if.end197
 
-170:                                              ; preds = %166
-  %171 = getelementptr inbounds %struct.sm_element_struct, ptr %128, i64 0, i32 1
-  store i32 %2, ptr %171, align 4, !tbaa !28
-  %172 = getelementptr inbounds %struct.sm_element_struct, ptr %167, i64 0, i32 5
-  %173 = load ptr, ptr %172, align 8, !tbaa !40
-  %174 = getelementptr inbounds %struct.sm_element_struct, ptr %173, i64 0, i32 4
-  %175 = load ptr, ptr %174, align 8, !tbaa !39
-  %176 = getelementptr inbounds %struct.sm_element_struct, ptr %175, i64 0, i32 5
-  store ptr %128, ptr %176, align 8, !tbaa !40
-  %177 = getelementptr inbounds %struct.sm_element_struct, ptr %128, i64 0, i32 4
-  store ptr %175, ptr %177, align 8, !tbaa !39
-  store ptr %128, ptr %174, align 8, !tbaa !39
-  %178 = getelementptr inbounds %struct.sm_element_struct, ptr %128, i64 0, i32 5
-  store ptr %173, ptr %178, align 8, !tbaa !40
-  br label %181
+if.then182:                                       ; preds = %for.end179
+  %col_num183 = getelementptr inbounds %struct.sm_element_struct, ptr %call132, i64 0, i32 1
+  store i32 %col, ptr %col_num183, align 4, !tbaa !28
+  %prev_col184 = getelementptr inbounds %struct.sm_element_struct, ptr %p171.0.lcssa, i64 0, i32 5
+  %32 = load ptr, ptr %prev_col184, align 8, !tbaa !40
+  %next_col185 = getelementptr inbounds %struct.sm_element_struct, ptr %32, i64 0, i32 4
+  %33 = load ptr, ptr %next_col185, align 8, !tbaa !39
+  %prev_col186 = getelementptr inbounds %struct.sm_element_struct, ptr %33, i64 0, i32 5
+  store ptr %call132, ptr %prev_col186, align 8, !tbaa !40
+  %next_col188 = getelementptr inbounds %struct.sm_element_struct, ptr %call132, i64 0, i32 4
+  store ptr %33, ptr %next_col188, align 8, !tbaa !39
+  store ptr %call132, ptr %next_col185, align 8, !tbaa !39
+  %prev_col190 = getelementptr inbounds %struct.sm_element_struct, ptr %call132, i64 0, i32 5
+  store ptr %32, ptr %prev_col190, align 8, !tbaa !40
+  br label %if.then199.sink.split
 
-179:                                              ; preds = %166
-  %180 = icmp eq ptr %167, %128
-  br i1 %180, label %185, label %240
+if.end197:                                        ; preds = %for.end179
+  %cmp198 = icmp eq ptr %p171.0.lcssa, %call132
+  br i1 %cmp198, label %if.then199, label %if.else266
 
-181:                                              ; preds = %133, %141, %154, %170
-  %182 = getelementptr inbounds %struct.sm_row_struct, ptr %69, i64 0, i32 1
-  %183 = load i32, ptr %182, align 4, !tbaa !41
-  %184 = add nsw i32 %183, 1
-  store i32 %184, ptr %182, align 4, !tbaa !41
-  br label %185
+if.then199.sink.split:                            ; preds = %if.then135, %if.then146, %if.then160, %if.then182
+  %length191.sink548 = getelementptr inbounds %struct.sm_row_struct, ptr %prow.1, i64 0, i32 1
+  %34 = load i32, ptr %length191.sink548, align 4, !tbaa !41
+  %inc192 = add nsw i32 %34, 1
+  store i32 %inc192, ptr %length191.sink548, align 4, !tbaa !41
+  br label %if.then199
 
-185:                                              ; preds = %181, %179
-  %186 = getelementptr inbounds %struct.sm_col_struct, ptr %127, i64 0, i32 4
-  %187 = load ptr, ptr %186, align 8, !tbaa !42
-  %188 = icmp eq ptr %187, null
-  br i1 %188, label %189, label %195
+if.then199:                                       ; preds = %if.then199.sink.split, %if.end197
+  %last_row200 = getelementptr inbounds %struct.sm_col_struct, ptr %pcol.1, i64 0, i32 4
+  %35 = load ptr, ptr %last_row200, align 8, !tbaa !42
+  %cmp201 = icmp eq ptr %35, null
+  br i1 %cmp201, label %if.then202, label %if.else210
 
-189:                                              ; preds = %185
-  store i32 %1, ptr %128, align 8, !tbaa !26
-  %190 = getelementptr inbounds %struct.sm_col_struct, ptr %127, i64 0, i32 3
-  store ptr %128, ptr %190, align 8, !tbaa !43
-  store ptr %128, ptr %186, align 8, !tbaa !42
-  %191 = getelementptr inbounds %struct.sm_element_struct, ptr %128, i64 0, i32 2
-  %192 = getelementptr inbounds %struct.sm_col_struct, ptr %127, i64 0, i32 1
-  tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %191, i8 0, i64 16, i1 false)
-  %193 = load i32, ptr %192, align 4, !tbaa !44
-  %194 = add nsw i32 %193, 1
-  store i32 %194, ptr %192, align 4, !tbaa !44
-  br label %243
+if.then202:                                       ; preds = %if.then199
+  store i32 %row, ptr %call132, align 8, !tbaa !26
+  %first_row204 = getelementptr inbounds %struct.sm_col_struct, ptr %pcol.1, i64 0, i32 3
+  store ptr %call132, ptr %first_row204, align 8, !tbaa !43
+  store ptr %call132, ptr %last_row200, align 8, !tbaa !42
+  %next_row206 = getelementptr inbounds %struct.sm_element_struct, ptr %call132, i64 0, i32 2
+  %length208 = getelementptr inbounds %struct.sm_col_struct, ptr %pcol.1, i64 0, i32 1
+  tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %next_row206, i8 0, i64 16, i1 false)
+  %36 = load i32, ptr %length208, align 4, !tbaa !44
+  %inc209 = add nsw i32 %36, 1
+  store i32 %inc209, ptr %length208, align 4, !tbaa !44
+  br label %if.end269
 
-195:                                              ; preds = %185
-  %196 = load i32, ptr %187, align 8, !tbaa !26
-  %197 = icmp slt i32 %196, %1
-  br i1 %197, label %198, label %205
+if.else210:                                       ; preds = %if.then199
+  %37 = load i32, ptr %35, align 8, !tbaa !26
+  %cmp213 = icmp slt i32 %37, %row
+  br i1 %cmp213, label %if.then214, label %if.else224
 
-198:                                              ; preds = %195
-  store i32 %1, ptr %128, align 8, !tbaa !26
-  %199 = getelementptr inbounds %struct.sm_element_struct, ptr %187, i64 0, i32 2
-  store ptr %128, ptr %199, align 8, !tbaa !45
-  %200 = getelementptr inbounds %struct.sm_element_struct, ptr %128, i64 0, i32 3
-  store ptr %187, ptr %200, align 8, !tbaa !46
-  store ptr %128, ptr %186, align 8, !tbaa !42
-  %201 = getelementptr inbounds %struct.sm_element_struct, ptr %128, i64 0, i32 2
-  store ptr null, ptr %201, align 8, !tbaa !45
-  %202 = getelementptr inbounds %struct.sm_col_struct, ptr %127, i64 0, i32 1
-  %203 = load i32, ptr %202, align 4, !tbaa !44
-  %204 = add nsw i32 %203, 1
-  store i32 %204, ptr %202, align 4, !tbaa !44
-  br label %243
+if.then214:                                       ; preds = %if.else210
+  store i32 %row, ptr %call132, align 8, !tbaa !26
+  %next_row217 = getelementptr inbounds %struct.sm_element_struct, ptr %35, i64 0, i32 2
+  store ptr %call132, ptr %next_row217, align 8, !tbaa !45
+  %prev_row219 = getelementptr inbounds %struct.sm_element_struct, ptr %call132, i64 0, i32 3
+  store ptr %35, ptr %prev_row219, align 8, !tbaa !46
+  store ptr %call132, ptr %last_row200, align 8, !tbaa !42
+  %next_row221 = getelementptr inbounds %struct.sm_element_struct, ptr %call132, i64 0, i32 2
+  store ptr null, ptr %next_row221, align 8, !tbaa !45
+  %length222 = getelementptr inbounds %struct.sm_col_struct, ptr %pcol.1, i64 0, i32 1
+  %38 = load i32, ptr %length222, align 4, !tbaa !44
+  %inc223 = add nsw i32 %38, 1
+  store i32 %inc223, ptr %length222, align 4, !tbaa !44
+  br label %if.end269
 
-205:                                              ; preds = %195
-  %206 = getelementptr inbounds %struct.sm_col_struct, ptr %127, i64 0, i32 3
-  %207 = load ptr, ptr %206, align 8, !tbaa !43
-  %208 = load i32, ptr %207, align 8, !tbaa !26
-  %209 = icmp sgt i32 %208, %1
-  br i1 %209, label %212, label %210
+if.else224:                                       ; preds = %if.else210
+  %first_row225 = getelementptr inbounds %struct.sm_col_struct, ptr %pcol.1, i64 0, i32 3
+  %39 = load ptr, ptr %first_row225, align 8, !tbaa !43
+  %40 = load i32, ptr %39, align 8, !tbaa !26
+  %cmp227 = icmp sgt i32 %40, %row
+  br i1 %cmp227, label %if.then228, label %for.cond241.preheader
 
-210:                                              ; preds = %205
-  %211 = icmp slt i32 %208, %1
-  br i1 %211, label %219, label %225
+for.cond241.preheader:                            ; preds = %if.else224
+  %cmp243526 = icmp slt i32 %40, %row
+  br i1 %cmp243526, label %for.inc245, label %for.end247
 
-212:                                              ; preds = %205
-  store i32 %1, ptr %128, align 8, !tbaa !26
-  %213 = getelementptr inbounds %struct.sm_element_struct, ptr %207, i64 0, i32 3
-  store ptr %128, ptr %213, align 8, !tbaa !46
-  %214 = getelementptr inbounds %struct.sm_element_struct, ptr %128, i64 0, i32 2
-  store ptr %207, ptr %214, align 8, !tbaa !45
-  store ptr %128, ptr %206, align 8, !tbaa !43
-  %215 = getelementptr inbounds %struct.sm_element_struct, ptr %128, i64 0, i32 3
-  store ptr null, ptr %215, align 8, !tbaa !46
-  %216 = getelementptr inbounds %struct.sm_col_struct, ptr %127, i64 0, i32 1
-  %217 = load i32, ptr %216, align 4, !tbaa !44
-  %218 = add nsw i32 %217, 1
-  store i32 %218, ptr %216, align 4, !tbaa !44
-  br label %243
+if.then228:                                       ; preds = %if.else224
+  store i32 %row, ptr %call132, align 8, !tbaa !26
+  %prev_row231 = getelementptr inbounds %struct.sm_element_struct, ptr %39, i64 0, i32 3
+  store ptr %call132, ptr %prev_row231, align 8, !tbaa !46
+  %next_row233 = getelementptr inbounds %struct.sm_element_struct, ptr %call132, i64 0, i32 2
+  store ptr %39, ptr %next_row233, align 8, !tbaa !45
+  store ptr %call132, ptr %first_row225, align 8, !tbaa !43
+  %prev_row235 = getelementptr inbounds %struct.sm_element_struct, ptr %call132, i64 0, i32 3
+  store ptr null, ptr %prev_row235, align 8, !tbaa !46
+  %length236 = getelementptr inbounds %struct.sm_col_struct, ptr %pcol.1, i64 0, i32 1
+  %41 = load i32, ptr %length236, align 4, !tbaa !44
+  %inc237 = add nsw i32 %41, 1
+  store i32 %inc237, ptr %length236, align 4, !tbaa !44
+  br label %if.end269
 
-219:                                              ; preds = %210, %219
-  %220 = phi ptr [ %222, %219 ], [ %207, %210 ]
-  %221 = getelementptr inbounds %struct.sm_element_struct, ptr %220, i64 0, i32 2
-  %222 = load ptr, ptr %221, align 8, !tbaa !45
-  %223 = load i32, ptr %222, align 8, !tbaa !26
-  %224 = icmp slt i32 %223, %1
-  br i1 %224, label %219, label %225
+for.inc245:                                       ; preds = %for.cond241.preheader, %for.inc245
+  %p239.0527 = phi ptr [ %42, %for.inc245 ], [ %39, %for.cond241.preheader ]
+  %next_row246 = getelementptr inbounds %struct.sm_element_struct, ptr %p239.0527, i64 0, i32 2
+  %42 = load ptr, ptr %next_row246, align 8, !tbaa !45
+  %43 = load i32, ptr %42, align 8, !tbaa !26
+  %cmp243 = icmp slt i32 %43, %row
+  br i1 %cmp243, label %for.inc245, label %for.end247
 
-225:                                              ; preds = %219, %210
-  %226 = phi ptr [ %207, %210 ], [ %222, %219 ]
-  %227 = phi i32 [ %208, %210 ], [ %223, %219 ]
-  %228 = icmp sgt i32 %227, %1
-  br i1 %228, label %229, label %243
+for.end247:                                       ; preds = %for.inc245, %for.cond241.preheader
+  %p239.0.lcssa = phi ptr [ %39, %for.cond241.preheader ], [ %42, %for.inc245 ]
+  %.lcssa = phi i32 [ %40, %for.cond241.preheader ], [ %43, %for.inc245 ]
+  %cmp249 = icmp sgt i32 %.lcssa, %row
+  br i1 %cmp249, label %if.then250, label %if.end269
 
-229:                                              ; preds = %225
-  store i32 %1, ptr %128, align 8, !tbaa !26
-  %230 = getelementptr inbounds %struct.sm_element_struct, ptr %226, i64 0, i32 3
-  %231 = load ptr, ptr %230, align 8, !tbaa !46
-  %232 = getelementptr inbounds %struct.sm_element_struct, ptr %231, i64 0, i32 2
-  %233 = load ptr, ptr %232, align 8, !tbaa !45
-  %234 = getelementptr inbounds %struct.sm_element_struct, ptr %233, i64 0, i32 3
-  store ptr %128, ptr %234, align 8, !tbaa !46
-  %235 = getelementptr inbounds %struct.sm_element_struct, ptr %128, i64 0, i32 2
-  store ptr %233, ptr %235, align 8, !tbaa !45
-  store ptr %128, ptr %232, align 8, !tbaa !45
-  %236 = getelementptr inbounds %struct.sm_element_struct, ptr %128, i64 0, i32 3
-  store ptr %231, ptr %236, align 8, !tbaa !46
-  %237 = getelementptr inbounds %struct.sm_col_struct, ptr %127, i64 0, i32 1
-  %238 = load i32, ptr %237, align 4, !tbaa !44
-  %239 = add nsw i32 %238, 1
-  store i32 %239, ptr %237, align 4, !tbaa !44
-  br label %243
+if.then250:                                       ; preds = %for.end247
+  store i32 %row, ptr %call132, align 8, !tbaa !26
+  %prev_row252 = getelementptr inbounds %struct.sm_element_struct, ptr %p239.0.lcssa, i64 0, i32 3
+  %44 = load ptr, ptr %prev_row252, align 8, !tbaa !46
+  %next_row253 = getelementptr inbounds %struct.sm_element_struct, ptr %44, i64 0, i32 2
+  %45 = load ptr, ptr %next_row253, align 8, !tbaa !45
+  %prev_row254 = getelementptr inbounds %struct.sm_element_struct, ptr %45, i64 0, i32 3
+  store ptr %call132, ptr %prev_row254, align 8, !tbaa !46
+  %next_row256 = getelementptr inbounds %struct.sm_element_struct, ptr %call132, i64 0, i32 2
+  store ptr %45, ptr %next_row256, align 8, !tbaa !45
+  store ptr %call132, ptr %next_row253, align 8, !tbaa !45
+  %prev_row258 = getelementptr inbounds %struct.sm_element_struct, ptr %call132, i64 0, i32 3
+  store ptr %44, ptr %prev_row258, align 8, !tbaa !46
+  %length259 = getelementptr inbounds %struct.sm_col_struct, ptr %pcol.1, i64 0, i32 1
+  %46 = load i32, ptr %length259, align 4, !tbaa !44
+  %inc260 = add nsw i32 %46, 1
+  store i32 %inc260, ptr %length259, align 4, !tbaa !44
+  br label %if.end269
 
-240:                                              ; preds = %179
-  %241 = icmp eq ptr %128, null
-  br i1 %241, label %243, label %242
+if.else266:                                       ; preds = %if.end197
+  %tobool.not = icmp eq ptr %call132, null
+  br i1 %tobool.not, label %if.end269, label %if.then267
 
-242:                                              ; preds = %240
-  tail call void @free(ptr noundef nonnull %128) #16
-  br label %243
+if.then267:                                       ; preds = %if.else266
+  tail call void @free(ptr noundef nonnull %call132) #16
+  br label %if.end269
 
-243:                                              ; preds = %229, %225, %240, %242, %189, %212, %198
-  %244 = phi ptr [ %128, %189 ], [ %128, %198 ], [ %128, %212 ], [ %167, %242 ], [ %167, %240 ], [ %128, %229 ], [ %226, %225 ]
-  ret ptr %244
+if.end269:                                        ; preds = %if.then250, %for.end247, %if.else266, %if.then267, %if.then202, %if.then228, %if.then214
+  %element.3 = phi ptr [ %call132, %if.then202 ], [ %call132, %if.then214 ], [ %call132, %if.then228 ], [ %p171.0.lcssa, %if.then267 ], [ %p171.0.lcssa, %if.else266 ], [ %call132, %if.then250 ], [ %p239.0.lcssa, %for.end247 ]
+  ret ptr %element.3
 }
 
 declare ptr @sm_row_alloc(...) local_unnamed_addr #4
@@ -798,60 +804,61 @@ declare ptr @sm_row_alloc(...) local_unnamed_addr #4
 declare ptr @sm_col_alloc(...) local_unnamed_addr #4
 
 ; Function Attrs: nounwind uwtable
-define dso_local ptr @sm_find(ptr nocapture noundef readonly %0, i32 noundef %1, i32 noundef %2) local_unnamed_addr #3 {
-  %4 = icmp sgt i32 %1, -1
-  br i1 %4, label %5, label %38
+define dso_local ptr @sm_find(ptr nocapture noundef readonly %A, i32 noundef %rownum, i32 noundef %colnum) local_unnamed_addr #3 {
+entry:
+  %cmp = icmp sgt i32 %rownum, -1
+  br i1 %cmp, label %land.lhs.true, label %cleanup
 
-5:                                                ; preds = %3
-  %6 = getelementptr inbounds %struct.sm_matrix_struct, ptr %0, i64 0, i32 1
-  %7 = load i32, ptr %6, align 8, !tbaa !13
-  %8 = icmp sgt i32 %7, %1
-  br i1 %8, label %9, label %38
+land.lhs.true:                                    ; preds = %entry
+  %rows_size = getelementptr inbounds %struct.sm_matrix_struct, ptr %A, i64 0, i32 1
+  %0 = load i32, ptr %rows_size, align 8, !tbaa !13
+  %cmp1 = icmp sgt i32 %0, %rownum
+  br i1 %cmp1, label %cond.end, label %cleanup
 
-9:                                                ; preds = %5
-  %10 = load ptr, ptr %0, align 8, !tbaa !5
-  %11 = zext i32 %1 to i64
-  %12 = getelementptr inbounds ptr, ptr %10, i64 %11
-  %13 = load ptr, ptr %12, align 8, !tbaa !25
-  %14 = icmp ne ptr %13, null
-  %15 = icmp sgt i32 %2, -1
-  %16 = and i1 %15, %14
-  br i1 %16, label %17, label %38
+cond.end:                                         ; preds = %land.lhs.true
+  %1 = load ptr, ptr %A, align 8, !tbaa !5
+  %idxprom = zext i32 %rownum to i64
+  %arrayidx = getelementptr inbounds ptr, ptr %1, i64 %idxprom
+  %2 = load ptr, ptr %arrayidx, align 8, !tbaa !25
+  %cmp2 = icmp ne ptr %2, null
+  %cmp3 = icmp sgt i32 %colnum, -1
+  %or.cond = and i1 %cmp3, %cmp2
+  br i1 %or.cond, label %land.lhs.true4, label %cleanup
 
-17:                                               ; preds = %9
-  %18 = getelementptr inbounds %struct.sm_matrix_struct, ptr %0, i64 0, i32 3
-  %19 = load i32, ptr %18, align 8, !tbaa !12
-  %20 = icmp sgt i32 %19, %2
-  br i1 %20, label %21, label %38
+land.lhs.true4:                                   ; preds = %cond.end
+  %cols_size = getelementptr inbounds %struct.sm_matrix_struct, ptr %A, i64 0, i32 3
+  %3 = load i32, ptr %cols_size, align 8, !tbaa !12
+  %cmp5 = icmp sgt i32 %3, %colnum
+  br i1 %cmp5, label %cond.end10, label %cleanup
 
-21:                                               ; preds = %17
-  %22 = getelementptr inbounds %struct.sm_matrix_struct, ptr %0, i64 0, i32 2
-  %23 = load ptr, ptr %22, align 8, !tbaa !11
-  %24 = zext i32 %2 to i64
-  %25 = getelementptr inbounds ptr, ptr %23, i64 %24
-  %26 = load ptr, ptr %25, align 8, !tbaa !25
-  %27 = icmp eq ptr %26, null
-  br i1 %27, label %38, label %28
+cond.end10:                                       ; preds = %land.lhs.true4
+  %cols = getelementptr inbounds %struct.sm_matrix_struct, ptr %A, i64 0, i32 2
+  %4 = load ptr, ptr %cols, align 8, !tbaa !11
+  %idxprom7 = zext i32 %colnum to i64
+  %arrayidx8 = getelementptr inbounds ptr, ptr %4, i64 %idxprom7
+  %5 = load ptr, ptr %arrayidx8, align 8, !tbaa !25
+  %cmp12 = icmp eq ptr %5, null
+  br i1 %cmp12, label %cleanup, label %if.end
 
-28:                                               ; preds = %21
-  %29 = getelementptr inbounds %struct.sm_row_struct, ptr %13, i64 0, i32 1
-  %30 = load i32, ptr %29, align 4, !tbaa !41
-  %31 = getelementptr inbounds %struct.sm_col_struct, ptr %26, i64 0, i32 1
-  %32 = load i32, ptr %31, align 4, !tbaa !44
-  %33 = icmp slt i32 %30, %32
-  br i1 %33, label %34, label %36
+if.end:                                           ; preds = %cond.end10
+  %length = getelementptr inbounds %struct.sm_row_struct, ptr %2, i64 0, i32 1
+  %6 = load i32, ptr %length, align 4, !tbaa !41
+  %length14 = getelementptr inbounds %struct.sm_col_struct, ptr %5, i64 0, i32 1
+  %7 = load i32, ptr %length14, align 4, !tbaa !44
+  %cmp15 = icmp slt i32 %6, %7
+  br i1 %cmp15, label %if.then16, label %if.else17
 
-34:                                               ; preds = %28
-  %35 = tail call ptr (ptr, i32, ...) @sm_row_find(ptr noundef nonnull %13, i32 noundef %2) #16
-  br label %38
+if.then16:                                        ; preds = %if.end
+  %call = tail call ptr (ptr, i32, ...) @sm_row_find(ptr noundef nonnull %2, i32 noundef %colnum) #16
+  br label %cleanup
 
-36:                                               ; preds = %28
-  %37 = tail call ptr (ptr, i32, ...) @sm_col_find(ptr noundef nonnull %26, i32 noundef %1) #16
-  br label %38
+if.else17:                                        ; preds = %if.end
+  %call18 = tail call ptr (ptr, i32, ...) @sm_col_find(ptr noundef nonnull %5, i32 noundef %rownum) #16
+  br label %cleanup
 
-38:                                               ; preds = %17, %3, %5, %21, %9, %36, %34
-  %39 = phi ptr [ %35, %34 ], [ %37, %36 ], [ null, %9 ], [ null, %21 ], [ null, %5 ], [ null, %3 ], [ null, %17 ]
-  ret ptr %39
+cleanup:                                          ; preds = %land.lhs.true4, %entry, %land.lhs.true, %cond.end10, %cond.end, %if.else17, %if.then16
+  %retval.0 = phi ptr [ %call, %if.then16 ], [ %call18, %if.else17 ], [ null, %cond.end ], [ null, %cond.end10 ], [ null, %land.lhs.true ], [ null, %entry ], [ null, %land.lhs.true4 ]
+  ret ptr %retval.0
 }
 
 declare ptr @sm_row_find(...) local_unnamed_addr #4
@@ -859,793 +866,803 @@ declare ptr @sm_row_find(...) local_unnamed_addr #4
 declare ptr @sm_col_find(...) local_unnamed_addr #4
 
 ; Function Attrs: nounwind uwtable
-define dso_local void @sm_remove(ptr nocapture noundef %0, i32 noundef %1, i32 noundef %2) local_unnamed_addr #3 {
-  %4 = icmp sgt i32 %1, -1
-  br i1 %4, label %5, label %38
+define dso_local void @sm_remove(ptr nocapture noundef %A, i32 noundef %rownum, i32 noundef %colnum) local_unnamed_addr #3 {
+entry:
+  %cmp.i = icmp sgt i32 %rownum, -1
+  br i1 %cmp.i, label %land.lhs.true.i, label %sm_find.exit
 
-5:                                                ; preds = %3
-  %6 = getelementptr inbounds %struct.sm_matrix_struct, ptr %0, i64 0, i32 1
-  %7 = load i32, ptr %6, align 8, !tbaa !13
-  %8 = icmp sgt i32 %7, %1
-  br i1 %8, label %9, label %38
+land.lhs.true.i:                                  ; preds = %entry
+  %rows_size.i = getelementptr inbounds %struct.sm_matrix_struct, ptr %A, i64 0, i32 1
+  %0 = load i32, ptr %rows_size.i, align 8, !tbaa !13
+  %cmp1.i = icmp sgt i32 %0, %rownum
+  br i1 %cmp1.i, label %cond.end.i, label %sm_find.exit
 
-9:                                                ; preds = %5
-  %10 = load ptr, ptr %0, align 8, !tbaa !5
-  %11 = zext i32 %1 to i64
-  %12 = getelementptr inbounds ptr, ptr %10, i64 %11
-  %13 = load ptr, ptr %12, align 8, !tbaa !25
-  %14 = icmp ne ptr %13, null
-  %15 = icmp sgt i32 %2, -1
-  %16 = and i1 %15, %14
-  br i1 %16, label %17, label %38
+cond.end.i:                                       ; preds = %land.lhs.true.i
+  %1 = load ptr, ptr %A, align 8, !tbaa !5
+  %idxprom.i = zext i32 %rownum to i64
+  %arrayidx.i = getelementptr inbounds ptr, ptr %1, i64 %idxprom.i
+  %2 = load ptr, ptr %arrayidx.i, align 8, !tbaa !25
+  %cmp2.i = icmp ne ptr %2, null
+  %cmp3.i = icmp sgt i32 %colnum, -1
+  %or.cond.i = and i1 %cmp3.i, %cmp2.i
+  br i1 %or.cond.i, label %land.lhs.true4.i, label %sm_find.exit
 
-17:                                               ; preds = %9
-  %18 = getelementptr inbounds %struct.sm_matrix_struct, ptr %0, i64 0, i32 3
-  %19 = load i32, ptr %18, align 8, !tbaa !12
-  %20 = icmp sgt i32 %19, %2
-  br i1 %20, label %21, label %38
+land.lhs.true4.i:                                 ; preds = %cond.end.i
+  %cols_size.i = getelementptr inbounds %struct.sm_matrix_struct, ptr %A, i64 0, i32 3
+  %3 = load i32, ptr %cols_size.i, align 8, !tbaa !12
+  %cmp5.i = icmp sgt i32 %3, %colnum
+  br i1 %cmp5.i, label %cond.end10.i, label %sm_find.exit
 
-21:                                               ; preds = %17
-  %22 = getelementptr inbounds %struct.sm_matrix_struct, ptr %0, i64 0, i32 2
-  %23 = load ptr, ptr %22, align 8, !tbaa !11
-  %24 = zext i32 %2 to i64
-  %25 = getelementptr inbounds ptr, ptr %23, i64 %24
-  %26 = load ptr, ptr %25, align 8, !tbaa !25
-  %27 = icmp eq ptr %26, null
-  br i1 %27, label %38, label %28
+cond.end10.i:                                     ; preds = %land.lhs.true4.i
+  %cols.i = getelementptr inbounds %struct.sm_matrix_struct, ptr %A, i64 0, i32 2
+  %4 = load ptr, ptr %cols.i, align 8, !tbaa !11
+  %idxprom7.i = zext i32 %colnum to i64
+  %arrayidx8.i = getelementptr inbounds ptr, ptr %4, i64 %idxprom7.i
+  %5 = load ptr, ptr %arrayidx8.i, align 8, !tbaa !25
+  %cmp12.i = icmp eq ptr %5, null
+  br i1 %cmp12.i, label %sm_find.exit, label %if.end.i
 
-28:                                               ; preds = %21
-  %29 = getelementptr inbounds %struct.sm_row_struct, ptr %13, i64 0, i32 1
-  %30 = load i32, ptr %29, align 4, !tbaa !41
-  %31 = getelementptr inbounds %struct.sm_col_struct, ptr %26, i64 0, i32 1
-  %32 = load i32, ptr %31, align 4, !tbaa !44
-  %33 = icmp slt i32 %30, %32
-  br i1 %33, label %34, label %36
+if.end.i:                                         ; preds = %cond.end10.i
+  %length.i = getelementptr inbounds %struct.sm_row_struct, ptr %2, i64 0, i32 1
+  %6 = load i32, ptr %length.i, align 4, !tbaa !41
+  %length14.i = getelementptr inbounds %struct.sm_col_struct, ptr %5, i64 0, i32 1
+  %7 = load i32, ptr %length14.i, align 4, !tbaa !44
+  %cmp15.i = icmp slt i32 %6, %7
+  br i1 %cmp15.i, label %if.then16.i, label %if.else17.i
 
-34:                                               ; preds = %28
-  %35 = tail call ptr (ptr, i32, ...) @sm_row_find(ptr noundef nonnull %13, i32 noundef %2) #16
-  br label %38
+if.then16.i:                                      ; preds = %if.end.i
+  %call.i = tail call ptr (ptr, i32, ...) @sm_row_find(ptr noundef nonnull %2, i32 noundef %colnum) #16
+  br label %sm_find.exit
 
-36:                                               ; preds = %28
-  %37 = tail call ptr (ptr, i32, ...) @sm_col_find(ptr noundef nonnull %26, i32 noundef %1) #16
-  br label %38
+if.else17.i:                                      ; preds = %if.end.i
+  %call18.i = tail call ptr (ptr, i32, ...) @sm_col_find(ptr noundef nonnull %5, i32 noundef %rownum) #16
+  br label %sm_find.exit
 
-38:                                               ; preds = %3, %5, %9, %17, %21, %34, %36
-  %39 = phi ptr [ %35, %34 ], [ %37, %36 ], [ null, %9 ], [ null, %21 ], [ null, %5 ], [ null, %3 ], [ null, %17 ]
-  tail call void @sm_remove_element(ptr noundef %0, ptr noundef %39)
+sm_find.exit:                                     ; preds = %entry, %land.lhs.true.i, %cond.end.i, %land.lhs.true4.i, %cond.end10.i, %if.then16.i, %if.else17.i
+  %retval.0.i = phi ptr [ %call.i, %if.then16.i ], [ %call18.i, %if.else17.i ], [ null, %cond.end.i ], [ null, %cond.end10.i ], [ null, %land.lhs.true.i ], [ null, %entry ], [ null, %land.lhs.true4.i ]
+  tail call void @sm_remove_element(ptr noundef %A, ptr noundef %retval.0.i)
   ret void
 }
 
 ; Function Attrs: nounwind uwtable
-define dso_local void @sm_remove_element(ptr nocapture noundef %0, ptr noundef %1) local_unnamed_addr #3 {
-  %3 = icmp eq ptr %1, null
-  br i1 %3, label %212, label %4
+define dso_local void @sm_remove_element(ptr nocapture noundef %A, ptr noundef %p) local_unnamed_addr #3 {
+entry:
+  %cmp = icmp eq ptr %p, null
+  br i1 %cmp, label %cleanup, label %if.end
 
-4:                                                ; preds = %2
-  %5 = load i32, ptr %1, align 8, !tbaa !26
-  %6 = icmp sgt i32 %5, -1
-  br i1 %6, label %7, label %16
+if.end:                                           ; preds = %entry
+  %0 = load i32, ptr %p, align 8, !tbaa !26
+  %cmp1 = icmp slt i32 %0, 0
+  br i1 %cmp1, label %cond.end, label %land.lhs.true
 
-7:                                                ; preds = %4
-  %8 = getelementptr inbounds %struct.sm_matrix_struct, ptr %0, i64 0, i32 1
-  %9 = load i32, ptr %8, align 8, !tbaa !13
-  %10 = icmp slt i32 %5, %9
-  br i1 %10, label %11, label %16
+land.lhs.true:                                    ; preds = %if.end
+  %rows_size = getelementptr inbounds %struct.sm_matrix_struct, ptr %A, i64 0, i32 1
+  %1 = load i32, ptr %rows_size, align 8, !tbaa !13
+  %cmp3 = icmp slt i32 %0, %1
+  br i1 %cmp3, label %cond.true, label %cond.end
 
-11:                                               ; preds = %7
-  %12 = load ptr, ptr %0, align 8, !tbaa !5
-  %13 = zext i32 %5 to i64
-  %14 = getelementptr inbounds ptr, ptr %12, i64 %13
-  %15 = load ptr, ptr %14, align 8, !tbaa !25
-  br label %16
+cond.true:                                        ; preds = %land.lhs.true
+  %2 = load ptr, ptr %A, align 8, !tbaa !5
+  %idxprom = zext i32 %0 to i64
+  %arrayidx = getelementptr inbounds ptr, ptr %2, i64 %idxprom
+  %3 = load ptr, ptr %arrayidx, align 8, !tbaa !25
+  br label %cond.end
 
-16:                                               ; preds = %4, %7, %11
-  %17 = phi ptr [ %15, %11 ], [ null, %7 ], [ null, %4 ]
-  %18 = getelementptr inbounds %struct.sm_element_struct, ptr %1, i64 0, i32 5
-  %19 = load ptr, ptr %18, align 8, !tbaa !40
-  %20 = icmp eq ptr %19, null
-  %21 = getelementptr inbounds %struct.sm_element_struct, ptr %1, i64 0, i32 4
-  %22 = load ptr, ptr %21, align 8, !tbaa !39
-  br i1 %20, label %23, label %25
+cond.end:                                         ; preds = %if.end, %land.lhs.true, %cond.true
+  %cond = phi ptr [ %3, %cond.true ], [ null, %land.lhs.true ], [ null, %if.end ]
+  %prev_col = getelementptr inbounds %struct.sm_element_struct, ptr %p, i64 0, i32 5
+  %4 = load ptr, ptr %prev_col, align 8, !tbaa !40
+  %cmp5 = icmp eq ptr %4, null
+  %next_col = getelementptr inbounds %struct.sm_element_struct, ptr %p, i64 0, i32 4
+  %5 = load ptr, ptr %next_col, align 8, !tbaa !39
+  br i1 %cmp5, label %if.then6, label %if.else
 
-23:                                               ; preds = %16
-  %24 = getelementptr inbounds %struct.sm_row_struct, ptr %17, i64 0, i32 3
-  store ptr %22, ptr %24, align 8, !tbaa !38
-  br label %28
+if.then6:                                         ; preds = %cond.end
+  %first_col = getelementptr inbounds %struct.sm_row_struct, ptr %cond, i64 0, i32 3
+  store ptr %5, ptr %first_col, align 8, !tbaa !38
+  br label %if.end10
 
-25:                                               ; preds = %16
-  %26 = getelementptr inbounds %struct.sm_element_struct, ptr %19, i64 0, i32 4
-  store ptr %22, ptr %26, align 8, !tbaa !39
-  %27 = load ptr, ptr %21, align 8, !tbaa !39
-  br label %28
+if.else:                                          ; preds = %cond.end
+  %next_col9 = getelementptr inbounds %struct.sm_element_struct, ptr %4, i64 0, i32 4
+  store ptr %5, ptr %next_col9, align 8, !tbaa !39
+  %.pre = load ptr, ptr %next_col, align 8, !tbaa !39
+  br label %if.end10
 
-28:                                               ; preds = %25, %23
-  %29 = phi ptr [ %27, %25 ], [ %22, %23 ]
-  %30 = icmp eq ptr %29, null
-  %31 = getelementptr inbounds %struct.sm_element_struct, ptr %29, i64 0, i32 5
-  %32 = getelementptr inbounds %struct.sm_row_struct, ptr %17, i64 0, i32 4
-  %33 = select i1 %30, ptr %32, ptr %31
-  store ptr %19, ptr %33, align 8, !tbaa !25
-  %34 = getelementptr inbounds %struct.sm_row_struct, ptr %17, i64 0, i32 1
-  %35 = load i32, ptr %34, align 4, !tbaa !41
-  %36 = add nsw i32 %35, -1
-  store i32 %36, ptr %34, align 4, !tbaa !41
-  %37 = getelementptr inbounds %struct.sm_row_struct, ptr %17, i64 0, i32 3
-  %38 = load ptr, ptr %37, align 8, !tbaa !38
-  %39 = icmp eq ptr %38, null
-  %40 = and i1 %39, %6
-  br i1 %40, label %41, label %107
+if.end10:                                         ; preds = %if.else, %if.then6
+  %6 = phi ptr [ %.pre, %if.else ], [ %5, %if.then6 ]
+  %cmp12 = icmp eq ptr %6, null
+  %prev_col18 = getelementptr inbounds %struct.sm_element_struct, ptr %6, i64 0, i32 5
+  %last_col = getelementptr inbounds %struct.sm_row_struct, ptr %cond, i64 0, i32 4
+  %prev_col18.sink = select i1 %cmp12, ptr %last_col, ptr %prev_col18
+  store ptr %4, ptr %prev_col18.sink, align 8, !tbaa !25
+  %length = getelementptr inbounds %struct.sm_row_struct, ptr %cond, i64 0, i32 1
+  %7 = load i32, ptr %length, align 4, !tbaa !41
+  %dec = add nsw i32 %7, -1
+  store i32 %dec, ptr %length, align 4, !tbaa !41
+  %first_col20 = getelementptr inbounds %struct.sm_row_struct, ptr %cond, i64 0, i32 3
+  %8 = load ptr, ptr %first_col20, align 8, !tbaa !38
+  %cmp21 = icmp ne ptr %8, null
+  %brmerge = or i1 %cmp1, %cmp21
+  br i1 %brmerge, label %if.end24, label %land.lhs.true.i
 
-41:                                               ; preds = %28
-  %42 = getelementptr inbounds %struct.sm_matrix_struct, ptr %0, i64 0, i32 1
-  %43 = load i32, ptr %42, align 8, !tbaa !13
-  %44 = icmp sgt i32 %43, %5
-  br i1 %44, label %45, label %107
+land.lhs.true.i:                                  ; preds = %if.end10
+  %rows_size.i = getelementptr inbounds %struct.sm_matrix_struct, ptr %A, i64 0, i32 1
+  %9 = load i32, ptr %rows_size.i, align 8, !tbaa !13
+  %cmp1.i = icmp sgt i32 %9, %0
+  br i1 %cmp1.i, label %cond.end.i, label %if.end24
 
-45:                                               ; preds = %41
-  %46 = load ptr, ptr %0, align 8, !tbaa !5
-  %47 = zext i32 %5 to i64
-  %48 = getelementptr inbounds ptr, ptr %46, i64 %47
-  %49 = load ptr, ptr %48, align 8, !tbaa !25
-  %50 = icmp eq ptr %49, null
-  br i1 %50, label %107, label %51
+cond.end.i:                                       ; preds = %land.lhs.true.i
+  %10 = load ptr, ptr %A, align 8, !tbaa !5
+  %idxprom.i = zext i32 %0 to i64
+  %arrayidx.i = getelementptr inbounds ptr, ptr %10, i64 %idxprom.i
+  %11 = load ptr, ptr %arrayidx.i, align 8, !tbaa !25
+  %cmp2.not.i = icmp eq ptr %11, null
+  br i1 %cmp2.not.i, label %if.end24, label %if.then.i
 
-51:                                               ; preds = %45
-  %52 = getelementptr inbounds %struct.sm_row_struct, ptr %49, i64 0, i32 3
-  %53 = load ptr, ptr %52, align 8, !tbaa !38
-  %54 = icmp eq ptr %53, null
-  br i1 %54, label %84, label %55
+if.then.i:                                        ; preds = %cond.end.i
+  %first_col.i = getelementptr inbounds %struct.sm_row_struct, ptr %11, i64 0, i32 3
+  %12 = load ptr, ptr %first_col.i, align 8, !tbaa !38
+  %cmp3.not73.i = icmp eq ptr %12, null
+  br i1 %cmp3.not73.i, label %for.end.i, label %for.body.lr.ph.i
 
-55:                                               ; preds = %51
-  %56 = getelementptr inbounds %struct.sm_matrix_struct, ptr %0, i64 0, i32 3
-  %57 = getelementptr inbounds %struct.sm_matrix_struct, ptr %0, i64 0, i32 2
-  br label %58
+for.body.lr.ph.i:                                 ; preds = %if.then.i
+  %cols_size.i = getelementptr inbounds %struct.sm_matrix_struct, ptr %A, i64 0, i32 3
+  %cols.i = getelementptr inbounds %struct.sm_matrix_struct, ptr %A, i64 0, i32 2
+  br label %for.body.i
 
-58:                                               ; preds = %80, %55
-  %59 = phi ptr [ %53, %55 ], [ %61, %80 ]
-  %60 = getelementptr inbounds %struct.sm_element_struct, ptr %59, i64 0, i32 4
-  %61 = load ptr, ptr %60, align 8, !tbaa !39
-  %62 = getelementptr inbounds %struct.sm_element_struct, ptr %59, i64 0, i32 1
-  %63 = load i32, ptr %62, align 4, !tbaa !28
-  %64 = icmp sgt i32 %63, -1
-  br i1 %64, label %65, label %73
+for.body.i:                                       ; preds = %for.inc.i, %for.body.lr.ph.i
+  %p.074.i = phi ptr [ %12, %for.body.lr.ph.i ], [ %13, %for.inc.i ]
+  %next_col.i = getelementptr inbounds %struct.sm_element_struct, ptr %p.074.i, i64 0, i32 4
+  %13 = load ptr, ptr %next_col.i, align 8, !tbaa !39
+  %col_num.i = getelementptr inbounds %struct.sm_element_struct, ptr %p.074.i, i64 0, i32 1
+  %14 = load i32, ptr %col_num.i, align 4, !tbaa !28
+  %cmp4.i = icmp sgt i32 %14, -1
+  br i1 %cmp4.i, label %land.lhs.true5.i, label %cond.end13.i
 
-65:                                               ; preds = %58
-  %66 = load i32, ptr %56, align 8, !tbaa !12
-  %67 = icmp slt i32 %63, %66
-  br i1 %67, label %68, label %73
+land.lhs.true5.i:                                 ; preds = %for.body.i
+  %15 = load i32, ptr %cols_size.i, align 8, !tbaa !12
+  %cmp7.i = icmp slt i32 %14, %15
+  br i1 %cmp7.i, label %cond.true8.i, label %cond.end13.i
 
-68:                                               ; preds = %65
-  %69 = load ptr, ptr %57, align 8, !tbaa !11
-  %70 = zext i32 %63 to i64
-  %71 = getelementptr inbounds ptr, ptr %69, i64 %70
-  %72 = load ptr, ptr %71, align 8, !tbaa !25
-  br label %73
+cond.true8.i:                                     ; preds = %land.lhs.true5.i
+  %16 = load ptr, ptr %cols.i, align 8, !tbaa !11
+  %idxprom10.i = zext i32 %14 to i64
+  %arrayidx11.i = getelementptr inbounds ptr, ptr %16, i64 %idxprom10.i
+  %17 = load ptr, ptr %arrayidx11.i, align 8, !tbaa !25
+  br label %cond.end13.i
 
-73:                                               ; preds = %68, %65, %58
-  %74 = phi ptr [ %72, %68 ], [ null, %65 ], [ null, %58 ]
-  tail call void (ptr, ptr, ...) @sm_col_remove_element(ptr noundef %74, ptr noundef nonnull %59) #16
-  %75 = getelementptr inbounds %struct.sm_col_struct, ptr %74, i64 0, i32 3
-  %76 = load ptr, ptr %75, align 8, !tbaa !43
-  %77 = icmp eq ptr %76, null
-  br i1 %77, label %78, label %80
+cond.end13.i:                                     ; preds = %cond.true8.i, %land.lhs.true5.i, %for.body.i
+  %cond14.i = phi ptr [ %17, %cond.true8.i ], [ null, %land.lhs.true5.i ], [ null, %for.body.i ]
+  tail call void (ptr, ptr, ...) @sm_col_remove_element(ptr noundef %cond14.i, ptr noundef nonnull %p.074.i) #16
+  %first_row.i = getelementptr inbounds %struct.sm_col_struct, ptr %cond14.i, i64 0, i32 3
+  %18 = load ptr, ptr %first_row.i, align 8, !tbaa !43
+  %cmp15.i = icmp eq ptr %18, null
+  br i1 %cmp15.i, label %if.then16.i, label %for.inc.i
 
-78:                                               ; preds = %73
-  %79 = load i32, ptr %74, align 8, !tbaa !24
-  tail call void @sm_delcol(ptr noundef nonnull %0, i32 noundef %79) #18
-  br label %80
+if.then16.i:                                      ; preds = %cond.end13.i
+  %19 = load i32, ptr %cond14.i, align 8, !tbaa !24
+  tail call void @sm_delcol(ptr noundef nonnull %A, i32 noundef %19) #18
+  br label %for.inc.i
 
-80:                                               ; preds = %78, %73
-  %81 = icmp eq ptr %61, null
-  br i1 %81, label %82, label %58
+for.inc.i:                                        ; preds = %if.then16.i, %cond.end13.i
+  %cmp3.not.i = icmp eq ptr %13, null
+  br i1 %cmp3.not.i, label %for.end.loopexit.i, label %for.body.i
 
-82:                                               ; preds = %80
-  %83 = load ptr, ptr %0, align 8, !tbaa !5
-  br label %84
+for.end.loopexit.i:                               ; preds = %for.inc.i
+  %.pre.i = load ptr, ptr %A, align 8, !tbaa !5
+  br label %for.end.i
 
-84:                                               ; preds = %82, %51
-  %85 = phi ptr [ %83, %82 ], [ %46, %51 ]
-  %86 = sext i32 %5 to i64
-  %87 = getelementptr inbounds ptr, ptr %85, i64 %86
-  store ptr null, ptr %87, align 8, !tbaa !25
-  %88 = getelementptr inbounds %struct.sm_row_struct, ptr %49, i64 0, i32 6
-  %89 = load ptr, ptr %88, align 8, !tbaa !32
-  %90 = icmp eq ptr %89, null
-  %91 = getelementptr inbounds %struct.sm_row_struct, ptr %49, i64 0, i32 5
-  %92 = load ptr, ptr %91, align 8, !tbaa !16
-  br i1 %90, label %93, label %95
+for.end.i:                                        ; preds = %for.end.loopexit.i, %if.then.i
+  %20 = phi ptr [ %.pre.i, %for.end.loopexit.i ], [ %10, %if.then.i ]
+  %idxprom19.i = sext i32 %0 to i64
+  %arrayidx20.i = getelementptr inbounds ptr, ptr %20, i64 %idxprom19.i
+  store ptr null, ptr %arrayidx20.i, align 8, !tbaa !25
+  %prev_row.i = getelementptr inbounds %struct.sm_row_struct, ptr %11, i64 0, i32 6
+  %21 = load ptr, ptr %prev_row.i, align 8, !tbaa !32
+  %cmp21.i = icmp eq ptr %21, null
+  %next_row.i = getelementptr inbounds %struct.sm_row_struct, ptr %11, i64 0, i32 5
+  %22 = load ptr, ptr %next_row.i, align 8, !tbaa !16
+  br i1 %cmp21.i, label %if.then22.i, label %if.else.i
 
-93:                                               ; preds = %84
-  %94 = getelementptr inbounds %struct.sm_matrix_struct, ptr %0, i64 0, i32 4
-  store ptr %92, ptr %94, align 8, !tbaa !15
-  br label %98
+if.then22.i:                                      ; preds = %for.end.i
+  %first_row23.i = getelementptr inbounds %struct.sm_matrix_struct, ptr %A, i64 0, i32 4
+  store ptr %22, ptr %first_row23.i, align 8, !tbaa !15
+  br label %if.end27.i
 
-95:                                               ; preds = %84
-  %96 = getelementptr inbounds %struct.sm_row_struct, ptr %89, i64 0, i32 5
-  store ptr %92, ptr %96, align 8, !tbaa !16
-  %97 = load ptr, ptr %91, align 8, !tbaa !16
-  br label %98
+if.else.i:                                        ; preds = %for.end.i
+  %next_row26.i = getelementptr inbounds %struct.sm_row_struct, ptr %21, i64 0, i32 5
+  store ptr %22, ptr %next_row26.i, align 8, !tbaa !16
+  %.pre75.i = load ptr, ptr %next_row.i, align 8, !tbaa !16
+  br label %if.end27.i
 
-98:                                               ; preds = %95, %93
-  %99 = phi ptr [ %97, %95 ], [ %92, %93 ]
-  %100 = icmp eq ptr %99, null
-  %101 = getelementptr inbounds %struct.sm_row_struct, ptr %99, i64 0, i32 6
-  %102 = getelementptr inbounds %struct.sm_matrix_struct, ptr %0, i64 0, i32 5
-  %103 = select i1 %100, ptr %102, ptr %101
-  store ptr %89, ptr %103, align 8, !tbaa !25
-  %104 = getelementptr inbounds %struct.sm_matrix_struct, ptr %0, i64 0, i32 6
-  %105 = load i32, ptr %104, align 8, !tbaa !33
-  %106 = add nsw i32 %105, -1
-  store i32 %106, ptr %104, align 8, !tbaa !33
-  tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %52, i8 0, i64 16, i1 false)
-  tail call void (ptr, ...) @sm_row_free(ptr noundef nonnull %49) #16
-  br label %107
+if.end27.i:                                       ; preds = %if.else.i, %if.then22.i
+  %23 = phi ptr [ %.pre75.i, %if.else.i ], [ %22, %if.then22.i ]
+  %cmp29.i = icmp eq ptr %23, null
+  %prev_row35.i = getelementptr inbounds %struct.sm_row_struct, ptr %23, i64 0, i32 6
+  %last_row.i = getelementptr inbounds %struct.sm_matrix_struct, ptr %A, i64 0, i32 5
+  %prev_row35.sink.i = select i1 %cmp29.i, ptr %last_row.i, ptr %prev_row35.i
+  store ptr %21, ptr %prev_row35.sink.i, align 8, !tbaa !25
+  %nrows.i = getelementptr inbounds %struct.sm_matrix_struct, ptr %A, i64 0, i32 6
+  %24 = load i32, ptr %nrows.i, align 8, !tbaa !33
+  %dec.i = add nsw i32 %24, -1
+  store i32 %dec.i, ptr %nrows.i, align 8, !tbaa !33
+  tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %first_col.i, i8 0, i64 16, i1 false)
+  tail call void (ptr, ...) @sm_row_free(ptr noundef nonnull %11) #16
+  br label %if.end24
 
-107:                                              ; preds = %98, %45, %41, %28
-  %108 = getelementptr inbounds %struct.sm_element_struct, ptr %1, i64 0, i32 1
-  %109 = load i32, ptr %108, align 4, !tbaa !28
-  %110 = icmp sgt i32 %109, -1
-  br i1 %110, label %111, label %121
+if.end24:                                         ; preds = %if.end10, %if.end27.i, %cond.end.i, %land.lhs.true.i
+  %col_num = getelementptr inbounds %struct.sm_element_struct, ptr %p, i64 0, i32 1
+  %25 = load i32, ptr %col_num, align 4, !tbaa !28
+  %cmp25 = icmp slt i32 %25, 0
+  br i1 %cmp25, label %cond.end34, label %land.lhs.true26
 
-111:                                              ; preds = %107
-  %112 = getelementptr inbounds %struct.sm_matrix_struct, ptr %0, i64 0, i32 3
-  %113 = load i32, ptr %112, align 8, !tbaa !12
-  %114 = icmp slt i32 %109, %113
-  br i1 %114, label %115, label %121
+land.lhs.true26:                                  ; preds = %if.end24
+  %cols_size = getelementptr inbounds %struct.sm_matrix_struct, ptr %A, i64 0, i32 3
+  %26 = load i32, ptr %cols_size, align 8, !tbaa !12
+  %cmp28 = icmp slt i32 %25, %26
+  br i1 %cmp28, label %cond.true29, label %cond.end34
 
-115:                                              ; preds = %111
-  %116 = getelementptr inbounds %struct.sm_matrix_struct, ptr %0, i64 0, i32 2
-  %117 = load ptr, ptr %116, align 8, !tbaa !11
-  %118 = zext i32 %109 to i64
-  %119 = getelementptr inbounds ptr, ptr %117, i64 %118
-  %120 = load ptr, ptr %119, align 8, !tbaa !25
-  br label %121
+cond.true29:                                      ; preds = %land.lhs.true26
+  %cols = getelementptr inbounds %struct.sm_matrix_struct, ptr %A, i64 0, i32 2
+  %27 = load ptr, ptr %cols, align 8, !tbaa !11
+  %idxprom31 = zext i32 %25 to i64
+  %arrayidx32 = getelementptr inbounds ptr, ptr %27, i64 %idxprom31
+  %28 = load ptr, ptr %arrayidx32, align 8, !tbaa !25
+  br label %cond.end34
 
-121:                                              ; preds = %107, %111, %115
-  %122 = phi ptr [ %120, %115 ], [ null, %111 ], [ null, %107 ]
-  %123 = getelementptr inbounds %struct.sm_element_struct, ptr %1, i64 0, i32 3
-  %124 = load ptr, ptr %123, align 8, !tbaa !46
-  %125 = icmp eq ptr %124, null
-  %126 = getelementptr inbounds %struct.sm_element_struct, ptr %1, i64 0, i32 2
-  %127 = load ptr, ptr %126, align 8, !tbaa !45
-  br i1 %125, label %128, label %130
+cond.end34:                                       ; preds = %if.end24, %land.lhs.true26, %cond.true29
+  %cond35 = phi ptr [ %28, %cond.true29 ], [ null, %land.lhs.true26 ], [ null, %if.end24 ]
+  %prev_row = getelementptr inbounds %struct.sm_element_struct, ptr %p, i64 0, i32 3
+  %29 = load ptr, ptr %prev_row, align 8, !tbaa !46
+  %cmp36 = icmp eq ptr %29, null
+  %next_row = getelementptr inbounds %struct.sm_element_struct, ptr %p, i64 0, i32 2
+  %30 = load ptr, ptr %next_row, align 8, !tbaa !45
+  br i1 %cmp36, label %if.then37, label %if.else38
 
-128:                                              ; preds = %121
-  %129 = getelementptr inbounds %struct.sm_col_struct, ptr %122, i64 0, i32 3
-  store ptr %127, ptr %129, align 8, !tbaa !43
-  br label %133
+if.then37:                                        ; preds = %cond.end34
+  %first_row = getelementptr inbounds %struct.sm_col_struct, ptr %cond35, i64 0, i32 3
+  store ptr %30, ptr %first_row, align 8, !tbaa !43
+  br label %if.end42
 
-130:                                              ; preds = %121
-  %131 = getelementptr inbounds %struct.sm_element_struct, ptr %124, i64 0, i32 2
-  store ptr %127, ptr %131, align 8, !tbaa !45
-  %132 = load ptr, ptr %126, align 8, !tbaa !45
-  br label %133
+if.else38:                                        ; preds = %cond.end34
+  %next_row41 = getelementptr inbounds %struct.sm_element_struct, ptr %29, i64 0, i32 2
+  store ptr %30, ptr %next_row41, align 8, !tbaa !45
+  %.pre148 = load ptr, ptr %next_row, align 8, !tbaa !45
+  br label %if.end42
 
-133:                                              ; preds = %130, %128
-  %134 = phi ptr [ %132, %130 ], [ %127, %128 ]
-  %135 = icmp eq ptr %134, null
-  %136 = getelementptr inbounds %struct.sm_element_struct, ptr %134, i64 0, i32 3
-  %137 = getelementptr inbounds %struct.sm_col_struct, ptr %122, i64 0, i32 4
-  %138 = select i1 %135, ptr %137, ptr %136
-  store ptr %124, ptr %138, align 8, !tbaa !25
-  %139 = getelementptr inbounds %struct.sm_col_struct, ptr %122, i64 0, i32 1
-  %140 = load i32, ptr %139, align 4, !tbaa !44
-  %141 = add nsw i32 %140, -1
-  store i32 %141, ptr %139, align 4, !tbaa !44
-  %142 = getelementptr inbounds %struct.sm_col_struct, ptr %122, i64 0, i32 3
-  %143 = load ptr, ptr %142, align 8, !tbaa !43
-  %144 = icmp eq ptr %143, null
-  %145 = and i1 %144, %110
-  br i1 %145, label %146, label %211
+if.end42:                                         ; preds = %if.else38, %if.then37
+  %31 = phi ptr [ %.pre148, %if.else38 ], [ %30, %if.then37 ]
+  %cmp44 = icmp eq ptr %31, null
+  %prev_row50 = getelementptr inbounds %struct.sm_element_struct, ptr %31, i64 0, i32 3
+  %last_row = getelementptr inbounds %struct.sm_col_struct, ptr %cond35, i64 0, i32 4
+  %prev_row50.sink = select i1 %cmp44, ptr %last_row, ptr %prev_row50
+  store ptr %29, ptr %prev_row50.sink, align 8, !tbaa !25
+  %length52 = getelementptr inbounds %struct.sm_col_struct, ptr %cond35, i64 0, i32 1
+  %32 = load i32, ptr %length52, align 4, !tbaa !44
+  %dec53 = add nsw i32 %32, -1
+  store i32 %dec53, ptr %length52, align 4, !tbaa !44
+  %first_row54 = getelementptr inbounds %struct.sm_col_struct, ptr %cond35, i64 0, i32 3
+  %33 = load ptr, ptr %first_row54, align 8, !tbaa !43
+  %cmp55 = icmp ne ptr %33, null
+  %brmerge147 = or i1 %cmp25, %cmp55
+  br i1 %brmerge147, label %if.then59, label %land.lhs.true.i107
 
-146:                                              ; preds = %133
-  %147 = getelementptr inbounds %struct.sm_matrix_struct, ptr %0, i64 0, i32 3
-  %148 = load i32, ptr %147, align 8, !tbaa !12
-  %149 = icmp sgt i32 %148, %109
-  br i1 %149, label %150, label %211
+land.lhs.true.i107:                               ; preds = %if.end42
+  %cols_size.i105 = getelementptr inbounds %struct.sm_matrix_struct, ptr %A, i64 0, i32 3
+  %34 = load i32, ptr %cols_size.i105, align 8, !tbaa !12
+  %cmp1.i106 = icmp sgt i32 %34, %25
+  br i1 %cmp1.i106, label %cond.end.i112, label %if.then59
 
-150:                                              ; preds = %146
-  %151 = getelementptr inbounds %struct.sm_matrix_struct, ptr %0, i64 0, i32 2
-  %152 = load ptr, ptr %151, align 8, !tbaa !11
-  %153 = zext i32 %109 to i64
-  %154 = getelementptr inbounds ptr, ptr %152, i64 %153
-  %155 = load ptr, ptr %154, align 8, !tbaa !25
-  %156 = icmp eq ptr %155, null
-  br i1 %156, label %211, label %157
+cond.end.i112:                                    ; preds = %land.lhs.true.i107
+  %cols.i108 = getelementptr inbounds %struct.sm_matrix_struct, ptr %A, i64 0, i32 2
+  %35 = load ptr, ptr %cols.i108, align 8, !tbaa !11
+  %idxprom.i109 = zext i32 %25 to i64
+  %arrayidx.i110 = getelementptr inbounds ptr, ptr %35, i64 %idxprom.i109
+  %36 = load ptr, ptr %arrayidx.i110, align 8, !tbaa !25
+  %cmp2.not.i111 = icmp eq ptr %36, null
+  br i1 %cmp2.not.i111, label %if.then59, label %if.then.i115
 
-157:                                              ; preds = %150
-  %158 = getelementptr inbounds %struct.sm_col_struct, ptr %155, i64 0, i32 3
-  %159 = load ptr, ptr %158, align 8, !tbaa !43
-  %160 = icmp eq ptr %159, null
-  br i1 %160, label %188, label %161
+if.then.i115:                                     ; preds = %cond.end.i112
+  %first_row.i113 = getelementptr inbounds %struct.sm_col_struct, ptr %36, i64 0, i32 3
+  %37 = load ptr, ptr %first_row.i113, align 8, !tbaa !43
+  %cmp3.not73.i114 = icmp eq ptr %37, null
+  br i1 %cmp3.not73.i114, label %for.end.i140, label %for.body.lr.ph.i117
 
-161:                                              ; preds = %157
-  %162 = getelementptr inbounds %struct.sm_matrix_struct, ptr %0, i64 0, i32 1
-  br label %163
+for.body.lr.ph.i117:                              ; preds = %if.then.i115
+  %rows_size.i116 = getelementptr inbounds %struct.sm_matrix_struct, ptr %A, i64 0, i32 1
+  br label %for.body.i121
 
-163:                                              ; preds = %184, %161
-  %164 = phi ptr [ %159, %161 ], [ %166, %184 ]
-  %165 = getelementptr inbounds %struct.sm_element_struct, ptr %164, i64 0, i32 2
-  %166 = load ptr, ptr %165, align 8, !tbaa !45
-  %167 = load i32, ptr %164, align 8, !tbaa !26
-  %168 = icmp sgt i32 %167, -1
-  br i1 %168, label %169, label %177
+for.body.i121:                                    ; preds = %for.inc.i133, %for.body.lr.ph.i117
+  %p.074.i118 = phi ptr [ %37, %for.body.lr.ph.i117 ], [ %38, %for.inc.i133 ]
+  %next_row.i119 = getelementptr inbounds %struct.sm_element_struct, ptr %p.074.i118, i64 0, i32 2
+  %38 = load ptr, ptr %next_row.i119, align 8, !tbaa !45
+  %39 = load i32, ptr %p.074.i118, align 8, !tbaa !26
+  %cmp4.i120 = icmp sgt i32 %39, -1
+  br i1 %cmp4.i120, label %land.lhs.true5.i123, label %cond.end13.i130
 
-169:                                              ; preds = %163
-  %170 = load i32, ptr %162, align 8, !tbaa !13
-  %171 = icmp slt i32 %167, %170
-  br i1 %171, label %172, label %177
+land.lhs.true5.i123:                              ; preds = %for.body.i121
+  %40 = load i32, ptr %rows_size.i116, align 8, !tbaa !13
+  %cmp7.i122 = icmp slt i32 %39, %40
+  br i1 %cmp7.i122, label %cond.true8.i126, label %cond.end13.i130
 
-172:                                              ; preds = %169
-  %173 = load ptr, ptr %0, align 8, !tbaa !5
-  %174 = zext i32 %167 to i64
-  %175 = getelementptr inbounds ptr, ptr %173, i64 %174
-  %176 = load ptr, ptr %175, align 8, !tbaa !25
-  br label %177
+cond.true8.i126:                                  ; preds = %land.lhs.true5.i123
+  %41 = load ptr, ptr %A, align 8, !tbaa !5
+  %idxprom10.i124 = zext i32 %39 to i64
+  %arrayidx11.i125 = getelementptr inbounds ptr, ptr %41, i64 %idxprom10.i124
+  %42 = load ptr, ptr %arrayidx11.i125, align 8, !tbaa !25
+  br label %cond.end13.i130
 
-177:                                              ; preds = %172, %169, %163
-  %178 = phi ptr [ %176, %172 ], [ null, %169 ], [ null, %163 ]
-  tail call void (ptr, ptr, ...) @sm_row_remove_element(ptr noundef %178, ptr noundef nonnull %164) #16
-  %179 = getelementptr inbounds %struct.sm_row_struct, ptr %178, i64 0, i32 3
-  %180 = load ptr, ptr %179, align 8, !tbaa !38
-  %181 = icmp eq ptr %180, null
-  br i1 %181, label %182, label %184
+cond.end13.i130:                                  ; preds = %cond.true8.i126, %land.lhs.true5.i123, %for.body.i121
+  %cond14.i127 = phi ptr [ %42, %cond.true8.i126 ], [ null, %land.lhs.true5.i123 ], [ null, %for.body.i121 ]
+  tail call void (ptr, ptr, ...) @sm_row_remove_element(ptr noundef %cond14.i127, ptr noundef nonnull %p.074.i118) #16
+  %first_col.i128 = getelementptr inbounds %struct.sm_row_struct, ptr %cond14.i127, i64 0, i32 3
+  %43 = load ptr, ptr %first_col.i128, align 8, !tbaa !38
+  %cmp15.i129 = icmp eq ptr %43, null
+  br i1 %cmp15.i129, label %if.then16.i131, label %for.inc.i133
 
-182:                                              ; preds = %177
-  %183 = load i32, ptr %178, align 8, !tbaa !22
-  tail call void @sm_delrow(ptr noundef %0, i32 noundef %183) #18
-  br label %184
+if.then16.i131:                                   ; preds = %cond.end13.i130
+  %44 = load i32, ptr %cond14.i127, align 8, !tbaa !22
+  tail call void @sm_delrow(ptr noundef %A, i32 noundef %44) #18
+  br label %for.inc.i133
 
-184:                                              ; preds = %182, %177
-  %185 = icmp eq ptr %166, null
-  br i1 %185, label %186, label %163
+for.inc.i133:                                     ; preds = %if.then16.i131, %cond.end13.i130
+  %cmp3.not.i132 = icmp eq ptr %38, null
+  br i1 %cmp3.not.i132, label %for.end.loopexit.i135, label %for.body.i121
 
-186:                                              ; preds = %184
-  %187 = load ptr, ptr %151, align 8, !tbaa !11
-  br label %188
+for.end.loopexit.i135:                            ; preds = %for.inc.i133
+  %.pre.i134 = load ptr, ptr %cols.i108, align 8, !tbaa !11
+  br label %for.end.i140
 
-188:                                              ; preds = %186, %157
-  %189 = phi ptr [ %187, %186 ], [ %152, %157 ]
-  %190 = sext i32 %109 to i64
-  %191 = getelementptr inbounds ptr, ptr %189, i64 %190
-  store ptr null, ptr %191, align 8, !tbaa !25
-  %192 = getelementptr inbounds %struct.sm_col_struct, ptr %155, i64 0, i32 6
-  %193 = load ptr, ptr %192, align 8, !tbaa !34
-  %194 = icmp eq ptr %193, null
-  %195 = getelementptr inbounds %struct.sm_col_struct, ptr %155, i64 0, i32 5
-  %196 = load ptr, ptr %195, align 8, !tbaa !19
-  br i1 %194, label %197, label %199
+for.end.i140:                                     ; preds = %for.end.loopexit.i135, %if.then.i115
+  %45 = phi ptr [ %.pre.i134, %for.end.loopexit.i135 ], [ %35, %if.then.i115 ]
+  %idxprom19.i136 = sext i32 %25 to i64
+  %arrayidx20.i137 = getelementptr inbounds ptr, ptr %45, i64 %idxprom19.i136
+  store ptr null, ptr %arrayidx20.i137, align 8, !tbaa !25
+  %prev_col.i = getelementptr inbounds %struct.sm_col_struct, ptr %36, i64 0, i32 6
+  %46 = load ptr, ptr %prev_col.i, align 8, !tbaa !34
+  %cmp21.i138 = icmp eq ptr %46, null
+  %next_col.i139 = getelementptr inbounds %struct.sm_col_struct, ptr %36, i64 0, i32 5
+  %47 = load ptr, ptr %next_col.i139, align 8, !tbaa !19
+  br i1 %cmp21.i138, label %if.then22.i141, label %if.else.i143
 
-197:                                              ; preds = %188
-  %198 = getelementptr inbounds %struct.sm_matrix_struct, ptr %0, i64 0, i32 7
-  store ptr %196, ptr %198, align 8, !tbaa !18
-  br label %202
+if.then22.i141:                                   ; preds = %for.end.i140
+  %first_col23.i = getelementptr inbounds %struct.sm_matrix_struct, ptr %A, i64 0, i32 7
+  store ptr %47, ptr %first_col23.i, align 8, !tbaa !18
+  br label %if.end27.i146
 
-199:                                              ; preds = %188
-  %200 = getelementptr inbounds %struct.sm_col_struct, ptr %193, i64 0, i32 5
-  store ptr %196, ptr %200, align 8, !tbaa !19
-  %201 = load ptr, ptr %195, align 8, !tbaa !19
-  br label %202
+if.else.i143:                                     ; preds = %for.end.i140
+  %next_col26.i = getelementptr inbounds %struct.sm_col_struct, ptr %46, i64 0, i32 5
+  store ptr %47, ptr %next_col26.i, align 8, !tbaa !19
+  %.pre75.i142 = load ptr, ptr %next_col.i139, align 8, !tbaa !19
+  br label %if.end27.i146
 
-202:                                              ; preds = %199, %197
-  %203 = phi ptr [ %201, %199 ], [ %196, %197 ]
-  %204 = icmp eq ptr %203, null
-  %205 = getelementptr inbounds %struct.sm_col_struct, ptr %203, i64 0, i32 6
-  %206 = getelementptr inbounds %struct.sm_matrix_struct, ptr %0, i64 0, i32 8
-  %207 = select i1 %204, ptr %206, ptr %205
-  store ptr %193, ptr %207, align 8, !tbaa !25
-  %208 = getelementptr inbounds %struct.sm_matrix_struct, ptr %0, i64 0, i32 9
-  %209 = load i32, ptr %208, align 8, !tbaa !35
-  %210 = add nsw i32 %209, -1
-  store i32 %210, ptr %208, align 8, !tbaa !35
-  tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %158, i8 0, i64 16, i1 false)
-  tail call void (ptr, ...) @sm_col_free(ptr noundef nonnull %155) #16
-  br label %211
+if.end27.i146:                                    ; preds = %if.else.i143, %if.then22.i141
+  %48 = phi ptr [ %.pre75.i142, %if.else.i143 ], [ %47, %if.then22.i141 ]
+  %cmp29.i144 = icmp eq ptr %48, null
+  %prev_col35.i = getelementptr inbounds %struct.sm_col_struct, ptr %48, i64 0, i32 6
+  %last_col.i = getelementptr inbounds %struct.sm_matrix_struct, ptr %A, i64 0, i32 8
+  %prev_col35.sink.i = select i1 %cmp29.i144, ptr %last_col.i, ptr %prev_col35.i
+  store ptr %46, ptr %prev_col35.sink.i, align 8, !tbaa !25
+  %ncols.i = getelementptr inbounds %struct.sm_matrix_struct, ptr %A, i64 0, i32 9
+  %49 = load i32, ptr %ncols.i, align 8, !tbaa !35
+  %dec.i145 = add nsw i32 %49, -1
+  store i32 %dec.i145, ptr %ncols.i, align 8, !tbaa !35
+  tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %first_row.i113, i8 0, i64 16, i1 false)
+  tail call void (ptr, ...) @sm_col_free(ptr noundef nonnull %36) #16
+  br label %if.then59
 
-211:                                              ; preds = %202, %150, %146, %133
-  tail call void @free(ptr noundef %1) #16
-  br label %212
+if.then59:                                        ; preds = %if.end42, %if.end27.i146, %cond.end.i112, %land.lhs.true.i107
+  tail call void @free(ptr noundef %p) #16
+  br label %cleanup
 
-212:                                              ; preds = %2, %211
+cleanup:                                          ; preds = %entry, %if.then59
   ret void
 }
 
 ; Function Attrs: nounwind uwtable
-define dso_local void @sm_delrow(ptr nocapture noundef %0, i32 noundef %1) local_unnamed_addr #3 {
-  %3 = icmp sgt i32 %1, -1
-  br i1 %3, label %4, label %70
+define dso_local void @sm_delrow(ptr nocapture noundef %A, i32 noundef %i) local_unnamed_addr #3 {
+entry:
+  %cmp = icmp sgt i32 %i, -1
+  br i1 %cmp, label %land.lhs.true, label %if.end38
 
-4:                                                ; preds = %2
-  %5 = getelementptr inbounds %struct.sm_matrix_struct, ptr %0, i64 0, i32 1
-  %6 = load i32, ptr %5, align 8, !tbaa !13
-  %7 = icmp sgt i32 %6, %1
-  br i1 %7, label %8, label %70
+land.lhs.true:                                    ; preds = %entry
+  %rows_size = getelementptr inbounds %struct.sm_matrix_struct, ptr %A, i64 0, i32 1
+  %0 = load i32, ptr %rows_size, align 8, !tbaa !13
+  %cmp1 = icmp sgt i32 %0, %i
+  br i1 %cmp1, label %cond.end, label %if.end38
 
-8:                                                ; preds = %4
-  %9 = load ptr, ptr %0, align 8, !tbaa !5
-  %10 = zext i32 %1 to i64
-  %11 = getelementptr inbounds ptr, ptr %9, i64 %10
-  %12 = load ptr, ptr %11, align 8, !tbaa !25
-  %13 = icmp eq ptr %12, null
-  br i1 %13, label %70, label %14
+cond.end:                                         ; preds = %land.lhs.true
+  %1 = load ptr, ptr %A, align 8, !tbaa !5
+  %idxprom = zext i32 %i to i64
+  %arrayidx = getelementptr inbounds ptr, ptr %1, i64 %idxprom
+  %2 = load ptr, ptr %arrayidx, align 8, !tbaa !25
+  %cmp2.not = icmp eq ptr %2, null
+  br i1 %cmp2.not, label %if.end38, label %if.then
 
-14:                                               ; preds = %8
-  %15 = getelementptr inbounds %struct.sm_row_struct, ptr %12, i64 0, i32 3
-  %16 = load ptr, ptr %15, align 8, !tbaa !38
-  %17 = icmp eq ptr %16, null
-  br i1 %17, label %47, label %18
+if.then:                                          ; preds = %cond.end
+  %first_col = getelementptr inbounds %struct.sm_row_struct, ptr %2, i64 0, i32 3
+  %3 = load ptr, ptr %first_col, align 8, !tbaa !38
+  %cmp3.not73 = icmp eq ptr %3, null
+  br i1 %cmp3.not73, label %for.end, label %for.body.lr.ph
 
-18:                                               ; preds = %14
-  %19 = getelementptr inbounds %struct.sm_matrix_struct, ptr %0, i64 0, i32 3
-  %20 = getelementptr inbounds %struct.sm_matrix_struct, ptr %0, i64 0, i32 2
-  br label %21
+for.body.lr.ph:                                   ; preds = %if.then
+  %cols_size = getelementptr inbounds %struct.sm_matrix_struct, ptr %A, i64 0, i32 3
+  %cols = getelementptr inbounds %struct.sm_matrix_struct, ptr %A, i64 0, i32 2
+  br label %for.body
 
-21:                                               ; preds = %18, %43
-  %22 = phi ptr [ %16, %18 ], [ %24, %43 ]
-  %23 = getelementptr inbounds %struct.sm_element_struct, ptr %22, i64 0, i32 4
-  %24 = load ptr, ptr %23, align 8, !tbaa !39
-  %25 = getelementptr inbounds %struct.sm_element_struct, ptr %22, i64 0, i32 1
-  %26 = load i32, ptr %25, align 4, !tbaa !28
-  %27 = icmp sgt i32 %26, -1
-  br i1 %27, label %28, label %36
+for.body:                                         ; preds = %for.body.lr.ph, %for.inc
+  %p.074 = phi ptr [ %3, %for.body.lr.ph ], [ %4, %for.inc ]
+  %next_col = getelementptr inbounds %struct.sm_element_struct, ptr %p.074, i64 0, i32 4
+  %4 = load ptr, ptr %next_col, align 8, !tbaa !39
+  %col_num = getelementptr inbounds %struct.sm_element_struct, ptr %p.074, i64 0, i32 1
+  %5 = load i32, ptr %col_num, align 4, !tbaa !28
+  %cmp4 = icmp sgt i32 %5, -1
+  br i1 %cmp4, label %land.lhs.true5, label %cond.end13
 
-28:                                               ; preds = %21
-  %29 = load i32, ptr %19, align 8, !tbaa !12
-  %30 = icmp slt i32 %26, %29
-  br i1 %30, label %31, label %36
+land.lhs.true5:                                   ; preds = %for.body
+  %6 = load i32, ptr %cols_size, align 8, !tbaa !12
+  %cmp7 = icmp slt i32 %5, %6
+  br i1 %cmp7, label %cond.true8, label %cond.end13
 
-31:                                               ; preds = %28
-  %32 = load ptr, ptr %20, align 8, !tbaa !11
-  %33 = zext i32 %26 to i64
-  %34 = getelementptr inbounds ptr, ptr %32, i64 %33
-  %35 = load ptr, ptr %34, align 8, !tbaa !25
-  br label %36
+cond.true8:                                       ; preds = %land.lhs.true5
+  %7 = load ptr, ptr %cols, align 8, !tbaa !11
+  %idxprom10 = zext i32 %5 to i64
+  %arrayidx11 = getelementptr inbounds ptr, ptr %7, i64 %idxprom10
+  %8 = load ptr, ptr %arrayidx11, align 8, !tbaa !25
+  br label %cond.end13
 
-36:                                               ; preds = %21, %28, %31
-  %37 = phi ptr [ %35, %31 ], [ null, %28 ], [ null, %21 ]
-  tail call void (ptr, ptr, ...) @sm_col_remove_element(ptr noundef %37, ptr noundef nonnull %22) #16
-  %38 = getelementptr inbounds %struct.sm_col_struct, ptr %37, i64 0, i32 3
-  %39 = load ptr, ptr %38, align 8, !tbaa !43
-  %40 = icmp eq ptr %39, null
-  br i1 %40, label %41, label %43
+cond.end13:                                       ; preds = %for.body, %land.lhs.true5, %cond.true8
+  %cond14 = phi ptr [ %8, %cond.true8 ], [ null, %land.lhs.true5 ], [ null, %for.body ]
+  tail call void (ptr, ptr, ...) @sm_col_remove_element(ptr noundef %cond14, ptr noundef nonnull %p.074) #16
+  %first_row = getelementptr inbounds %struct.sm_col_struct, ptr %cond14, i64 0, i32 3
+  %9 = load ptr, ptr %first_row, align 8, !tbaa !43
+  %cmp15 = icmp eq ptr %9, null
+  br i1 %cmp15, label %if.then16, label %for.inc
 
-41:                                               ; preds = %36
-  %42 = load i32, ptr %37, align 8, !tbaa !24
-  tail call void @sm_delcol(ptr noundef nonnull %0, i32 noundef %42)
-  br label %43
+if.then16:                                        ; preds = %cond.end13
+  %10 = load i32, ptr %cond14, align 8, !tbaa !24
+  tail call void @sm_delcol(ptr noundef nonnull %A, i32 noundef %10)
+  br label %for.inc
 
-43:                                               ; preds = %36, %41
-  %44 = icmp eq ptr %24, null
-  br i1 %44, label %45, label %21
+for.inc:                                          ; preds = %cond.end13, %if.then16
+  %cmp3.not = icmp eq ptr %4, null
+  br i1 %cmp3.not, label %for.end.loopexit, label %for.body
 
-45:                                               ; preds = %43
-  %46 = load ptr, ptr %0, align 8, !tbaa !5
-  br label %47
+for.end.loopexit:                                 ; preds = %for.inc
+  %.pre = load ptr, ptr %A, align 8, !tbaa !5
+  br label %for.end
 
-47:                                               ; preds = %45, %14
-  %48 = phi ptr [ %46, %45 ], [ %9, %14 ]
-  %49 = sext i32 %1 to i64
-  %50 = getelementptr inbounds ptr, ptr %48, i64 %49
-  store ptr null, ptr %50, align 8, !tbaa !25
-  %51 = getelementptr inbounds %struct.sm_row_struct, ptr %12, i64 0, i32 6
-  %52 = load ptr, ptr %51, align 8, !tbaa !32
-  %53 = icmp eq ptr %52, null
-  %54 = getelementptr inbounds %struct.sm_row_struct, ptr %12, i64 0, i32 5
-  %55 = load ptr, ptr %54, align 8, !tbaa !16
-  br i1 %53, label %56, label %58
+for.end:                                          ; preds = %for.end.loopexit, %if.then
+  %11 = phi ptr [ %.pre, %for.end.loopexit ], [ %1, %if.then ]
+  %idxprom19 = sext i32 %i to i64
+  %arrayidx20 = getelementptr inbounds ptr, ptr %11, i64 %idxprom19
+  store ptr null, ptr %arrayidx20, align 8, !tbaa !25
+  %prev_row = getelementptr inbounds %struct.sm_row_struct, ptr %2, i64 0, i32 6
+  %12 = load ptr, ptr %prev_row, align 8, !tbaa !32
+  %cmp21 = icmp eq ptr %12, null
+  %next_row = getelementptr inbounds %struct.sm_row_struct, ptr %2, i64 0, i32 5
+  %13 = load ptr, ptr %next_row, align 8, !tbaa !16
+  br i1 %cmp21, label %if.then22, label %if.else
 
-56:                                               ; preds = %47
-  %57 = getelementptr inbounds %struct.sm_matrix_struct, ptr %0, i64 0, i32 4
-  store ptr %55, ptr %57, align 8, !tbaa !15
-  br label %61
+if.then22:                                        ; preds = %for.end
+  %first_row23 = getelementptr inbounds %struct.sm_matrix_struct, ptr %A, i64 0, i32 4
+  store ptr %13, ptr %first_row23, align 8, !tbaa !15
+  br label %if.end27
 
-58:                                               ; preds = %47
-  %59 = getelementptr inbounds %struct.sm_row_struct, ptr %52, i64 0, i32 5
-  store ptr %55, ptr %59, align 8, !tbaa !16
-  %60 = load ptr, ptr %54, align 8, !tbaa !16
-  br label %61
+if.else:                                          ; preds = %for.end
+  %next_row26 = getelementptr inbounds %struct.sm_row_struct, ptr %12, i64 0, i32 5
+  store ptr %13, ptr %next_row26, align 8, !tbaa !16
+  %.pre75 = load ptr, ptr %next_row, align 8, !tbaa !16
+  br label %if.end27
 
-61:                                               ; preds = %58, %56
-  %62 = phi ptr [ %60, %58 ], [ %55, %56 ]
-  %63 = icmp eq ptr %62, null
-  %64 = getelementptr inbounds %struct.sm_row_struct, ptr %62, i64 0, i32 6
-  %65 = getelementptr inbounds %struct.sm_matrix_struct, ptr %0, i64 0, i32 5
-  %66 = select i1 %63, ptr %65, ptr %64
-  store ptr %52, ptr %66, align 8, !tbaa !25
-  %67 = getelementptr inbounds %struct.sm_matrix_struct, ptr %0, i64 0, i32 6
-  %68 = load i32, ptr %67, align 8, !tbaa !33
-  %69 = add nsw i32 %68, -1
-  store i32 %69, ptr %67, align 8, !tbaa !33
-  tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %15, i8 0, i64 16, i1 false)
-  tail call void (ptr, ...) @sm_row_free(ptr noundef nonnull %12) #16
-  br label %70
+if.end27:                                         ; preds = %if.else, %if.then22
+  %14 = phi ptr [ %.pre75, %if.else ], [ %13, %if.then22 ]
+  %cmp29 = icmp eq ptr %14, null
+  %prev_row35 = getelementptr inbounds %struct.sm_row_struct, ptr %14, i64 0, i32 6
+  %last_row = getelementptr inbounds %struct.sm_matrix_struct, ptr %A, i64 0, i32 5
+  %prev_row35.sink = select i1 %cmp29, ptr %last_row, ptr %prev_row35
+  store ptr %12, ptr %prev_row35.sink, align 8, !tbaa !25
+  %nrows = getelementptr inbounds %struct.sm_matrix_struct, ptr %A, i64 0, i32 6
+  %15 = load i32, ptr %nrows, align 8, !tbaa !33
+  %dec = add nsw i32 %15, -1
+  store i32 %dec, ptr %nrows, align 8, !tbaa !33
+  tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %first_col, i8 0, i64 16, i1 false)
+  tail call void (ptr, ...) @sm_row_free(ptr noundef nonnull %2) #16
+  br label %if.end38
 
-70:                                               ; preds = %2, %4, %61, %8
+if.end38:                                         ; preds = %entry, %land.lhs.true, %if.end27, %cond.end
   ret void
 }
 
 declare void @sm_col_remove_element(...) local_unnamed_addr #4
 
 ; Function Attrs: nounwind uwtable
-define dso_local void @sm_delcol(ptr nocapture noundef %0, i32 noundef %1) local_unnamed_addr #3 {
-  %3 = icmp sgt i32 %1, -1
-  br i1 %3, label %4, label %69
+define dso_local void @sm_delcol(ptr nocapture noundef %A, i32 noundef %i) local_unnamed_addr #3 {
+entry:
+  %cmp = icmp sgt i32 %i, -1
+  br i1 %cmp, label %land.lhs.true, label %if.end38
 
-4:                                                ; preds = %2
-  %5 = getelementptr inbounds %struct.sm_matrix_struct, ptr %0, i64 0, i32 3
-  %6 = load i32, ptr %5, align 8, !tbaa !12
-  %7 = icmp sgt i32 %6, %1
-  br i1 %7, label %8, label %69
+land.lhs.true:                                    ; preds = %entry
+  %cols_size = getelementptr inbounds %struct.sm_matrix_struct, ptr %A, i64 0, i32 3
+  %0 = load i32, ptr %cols_size, align 8, !tbaa !12
+  %cmp1 = icmp sgt i32 %0, %i
+  br i1 %cmp1, label %cond.end, label %if.end38
 
-8:                                                ; preds = %4
-  %9 = getelementptr inbounds %struct.sm_matrix_struct, ptr %0, i64 0, i32 2
-  %10 = load ptr, ptr %9, align 8, !tbaa !11
-  %11 = zext i32 %1 to i64
-  %12 = getelementptr inbounds ptr, ptr %10, i64 %11
-  %13 = load ptr, ptr %12, align 8, !tbaa !25
-  %14 = icmp eq ptr %13, null
-  br i1 %14, label %69, label %15
+cond.end:                                         ; preds = %land.lhs.true
+  %cols = getelementptr inbounds %struct.sm_matrix_struct, ptr %A, i64 0, i32 2
+  %1 = load ptr, ptr %cols, align 8, !tbaa !11
+  %idxprom = zext i32 %i to i64
+  %arrayidx = getelementptr inbounds ptr, ptr %1, i64 %idxprom
+  %2 = load ptr, ptr %arrayidx, align 8, !tbaa !25
+  %cmp2.not = icmp eq ptr %2, null
+  br i1 %cmp2.not, label %if.end38, label %if.then
 
-15:                                               ; preds = %8
-  %16 = getelementptr inbounds %struct.sm_col_struct, ptr %13, i64 0, i32 3
-  %17 = load ptr, ptr %16, align 8, !tbaa !43
-  %18 = icmp eq ptr %17, null
-  br i1 %18, label %46, label %19
+if.then:                                          ; preds = %cond.end
+  %first_row = getelementptr inbounds %struct.sm_col_struct, ptr %2, i64 0, i32 3
+  %3 = load ptr, ptr %first_row, align 8, !tbaa !43
+  %cmp3.not73 = icmp eq ptr %3, null
+  br i1 %cmp3.not73, label %for.end, label %for.body.lr.ph
 
-19:                                               ; preds = %15
-  %20 = getelementptr inbounds %struct.sm_matrix_struct, ptr %0, i64 0, i32 1
-  br label %21
+for.body.lr.ph:                                   ; preds = %if.then
+  %rows_size = getelementptr inbounds %struct.sm_matrix_struct, ptr %A, i64 0, i32 1
+  br label %for.body
 
-21:                                               ; preds = %19, %42
-  %22 = phi ptr [ %17, %19 ], [ %24, %42 ]
-  %23 = getelementptr inbounds %struct.sm_element_struct, ptr %22, i64 0, i32 2
-  %24 = load ptr, ptr %23, align 8, !tbaa !45
-  %25 = load i32, ptr %22, align 8, !tbaa !26
-  %26 = icmp sgt i32 %25, -1
-  br i1 %26, label %27, label %35
+for.body:                                         ; preds = %for.body.lr.ph, %for.inc
+  %p.074 = phi ptr [ %3, %for.body.lr.ph ], [ %4, %for.inc ]
+  %next_row = getelementptr inbounds %struct.sm_element_struct, ptr %p.074, i64 0, i32 2
+  %4 = load ptr, ptr %next_row, align 8, !tbaa !45
+  %5 = load i32, ptr %p.074, align 8, !tbaa !26
+  %cmp4 = icmp sgt i32 %5, -1
+  br i1 %cmp4, label %land.lhs.true5, label %cond.end13
 
-27:                                               ; preds = %21
-  %28 = load i32, ptr %20, align 8, !tbaa !13
-  %29 = icmp slt i32 %25, %28
-  br i1 %29, label %30, label %35
+land.lhs.true5:                                   ; preds = %for.body
+  %6 = load i32, ptr %rows_size, align 8, !tbaa !13
+  %cmp7 = icmp slt i32 %5, %6
+  br i1 %cmp7, label %cond.true8, label %cond.end13
 
-30:                                               ; preds = %27
-  %31 = load ptr, ptr %0, align 8, !tbaa !5
-  %32 = zext i32 %25 to i64
-  %33 = getelementptr inbounds ptr, ptr %31, i64 %32
-  %34 = load ptr, ptr %33, align 8, !tbaa !25
-  br label %35
+cond.true8:                                       ; preds = %land.lhs.true5
+  %7 = load ptr, ptr %A, align 8, !tbaa !5
+  %idxprom10 = zext i32 %5 to i64
+  %arrayidx11 = getelementptr inbounds ptr, ptr %7, i64 %idxprom10
+  %8 = load ptr, ptr %arrayidx11, align 8, !tbaa !25
+  br label %cond.end13
 
-35:                                               ; preds = %21, %27, %30
-  %36 = phi ptr [ %34, %30 ], [ null, %27 ], [ null, %21 ]
-  tail call void (ptr, ptr, ...) @sm_row_remove_element(ptr noundef %36, ptr noundef nonnull %22) #16
-  %37 = getelementptr inbounds %struct.sm_row_struct, ptr %36, i64 0, i32 3
-  %38 = load ptr, ptr %37, align 8, !tbaa !38
-  %39 = icmp eq ptr %38, null
-  br i1 %39, label %40, label %42
+cond.end13:                                       ; preds = %for.body, %land.lhs.true5, %cond.true8
+  %cond14 = phi ptr [ %8, %cond.true8 ], [ null, %land.lhs.true5 ], [ null, %for.body ]
+  tail call void (ptr, ptr, ...) @sm_row_remove_element(ptr noundef %cond14, ptr noundef nonnull %p.074) #16
+  %first_col = getelementptr inbounds %struct.sm_row_struct, ptr %cond14, i64 0, i32 3
+  %9 = load ptr, ptr %first_col, align 8, !tbaa !38
+  %cmp15 = icmp eq ptr %9, null
+  br i1 %cmp15, label %if.then16, label %for.inc
 
-40:                                               ; preds = %35
-  %41 = load i32, ptr %36, align 8, !tbaa !22
-  tail call void @sm_delrow(ptr noundef %0, i32 noundef %41)
-  br label %42
+if.then16:                                        ; preds = %cond.end13
+  %10 = load i32, ptr %cond14, align 8, !tbaa !22
+  tail call void @sm_delrow(ptr noundef %A, i32 noundef %10)
+  br label %for.inc
 
-42:                                               ; preds = %35, %40
-  %43 = icmp eq ptr %24, null
-  br i1 %43, label %44, label %21
+for.inc:                                          ; preds = %cond.end13, %if.then16
+  %cmp3.not = icmp eq ptr %4, null
+  br i1 %cmp3.not, label %for.end.loopexit, label %for.body
 
-44:                                               ; preds = %42
-  %45 = load ptr, ptr %9, align 8, !tbaa !11
-  br label %46
+for.end.loopexit:                                 ; preds = %for.inc
+  %.pre = load ptr, ptr %cols, align 8, !tbaa !11
+  br label %for.end
 
-46:                                               ; preds = %44, %15
-  %47 = phi ptr [ %45, %44 ], [ %10, %15 ]
-  %48 = sext i32 %1 to i64
-  %49 = getelementptr inbounds ptr, ptr %47, i64 %48
-  store ptr null, ptr %49, align 8, !tbaa !25
-  %50 = getelementptr inbounds %struct.sm_col_struct, ptr %13, i64 0, i32 6
-  %51 = load ptr, ptr %50, align 8, !tbaa !34
-  %52 = icmp eq ptr %51, null
-  %53 = getelementptr inbounds %struct.sm_col_struct, ptr %13, i64 0, i32 5
-  %54 = load ptr, ptr %53, align 8, !tbaa !19
-  br i1 %52, label %55, label %57
+for.end:                                          ; preds = %for.end.loopexit, %if.then
+  %11 = phi ptr [ %.pre, %for.end.loopexit ], [ %1, %if.then ]
+  %idxprom19 = sext i32 %i to i64
+  %arrayidx20 = getelementptr inbounds ptr, ptr %11, i64 %idxprom19
+  store ptr null, ptr %arrayidx20, align 8, !tbaa !25
+  %prev_col = getelementptr inbounds %struct.sm_col_struct, ptr %2, i64 0, i32 6
+  %12 = load ptr, ptr %prev_col, align 8, !tbaa !34
+  %cmp21 = icmp eq ptr %12, null
+  %next_col = getelementptr inbounds %struct.sm_col_struct, ptr %2, i64 0, i32 5
+  %13 = load ptr, ptr %next_col, align 8, !tbaa !19
+  br i1 %cmp21, label %if.then22, label %if.else
 
-55:                                               ; preds = %46
-  %56 = getelementptr inbounds %struct.sm_matrix_struct, ptr %0, i64 0, i32 7
-  store ptr %54, ptr %56, align 8, !tbaa !18
-  br label %60
+if.then22:                                        ; preds = %for.end
+  %first_col23 = getelementptr inbounds %struct.sm_matrix_struct, ptr %A, i64 0, i32 7
+  store ptr %13, ptr %first_col23, align 8, !tbaa !18
+  br label %if.end27
 
-57:                                               ; preds = %46
-  %58 = getelementptr inbounds %struct.sm_col_struct, ptr %51, i64 0, i32 5
-  store ptr %54, ptr %58, align 8, !tbaa !19
-  %59 = load ptr, ptr %53, align 8, !tbaa !19
-  br label %60
+if.else:                                          ; preds = %for.end
+  %next_col26 = getelementptr inbounds %struct.sm_col_struct, ptr %12, i64 0, i32 5
+  store ptr %13, ptr %next_col26, align 8, !tbaa !19
+  %.pre75 = load ptr, ptr %next_col, align 8, !tbaa !19
+  br label %if.end27
 
-60:                                               ; preds = %57, %55
-  %61 = phi ptr [ %59, %57 ], [ %54, %55 ]
-  %62 = icmp eq ptr %61, null
-  %63 = getelementptr inbounds %struct.sm_col_struct, ptr %61, i64 0, i32 6
-  %64 = getelementptr inbounds %struct.sm_matrix_struct, ptr %0, i64 0, i32 8
-  %65 = select i1 %62, ptr %64, ptr %63
-  store ptr %51, ptr %65, align 8, !tbaa !25
-  %66 = getelementptr inbounds %struct.sm_matrix_struct, ptr %0, i64 0, i32 9
-  %67 = load i32, ptr %66, align 8, !tbaa !35
-  %68 = add nsw i32 %67, -1
-  store i32 %68, ptr %66, align 8, !tbaa !35
-  tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %16, i8 0, i64 16, i1 false)
-  tail call void (ptr, ...) @sm_col_free(ptr noundef nonnull %13) #16
-  br label %69
+if.end27:                                         ; preds = %if.else, %if.then22
+  %14 = phi ptr [ %.pre75, %if.else ], [ %13, %if.then22 ]
+  %cmp29 = icmp eq ptr %14, null
+  %prev_col35 = getelementptr inbounds %struct.sm_col_struct, ptr %14, i64 0, i32 6
+  %last_col = getelementptr inbounds %struct.sm_matrix_struct, ptr %A, i64 0, i32 8
+  %prev_col35.sink = select i1 %cmp29, ptr %last_col, ptr %prev_col35
+  store ptr %12, ptr %prev_col35.sink, align 8, !tbaa !25
+  %ncols = getelementptr inbounds %struct.sm_matrix_struct, ptr %A, i64 0, i32 9
+  %15 = load i32, ptr %ncols, align 8, !tbaa !35
+  %dec = add nsw i32 %15, -1
+  store i32 %dec, ptr %ncols, align 8, !tbaa !35
+  tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %first_row, i8 0, i64 16, i1 false)
+  tail call void (ptr, ...) @sm_col_free(ptr noundef nonnull %2) #16
+  br label %if.end38
 
-69:                                               ; preds = %2, %4, %60, %8
+if.end38:                                         ; preds = %entry, %land.lhs.true, %if.end27, %cond.end
   ret void
 }
 
 declare void @sm_row_remove_element(...) local_unnamed_addr #4
 
 ; Function Attrs: nounwind uwtable
-define dso_local void @sm_copy_row(ptr nocapture noundef %0, i32 noundef %1, ptr nocapture noundef readonly %2) local_unnamed_addr #3 {
-  %4 = getelementptr inbounds %struct.sm_row_struct, ptr %2, i64 0, i32 3
-  %5 = load ptr, ptr %4, align 8, !tbaa !25
-  %6 = icmp eq ptr %5, null
-  br i1 %6, label %15, label %7
+define dso_local void @sm_copy_row(ptr nocapture noundef %dest, i32 noundef %dest_row, ptr nocapture noundef readonly %prow) local_unnamed_addr #3 {
+entry:
+  %first_col = getelementptr inbounds %struct.sm_row_struct, ptr %prow, i64 0, i32 3
+  %p.03 = load ptr, ptr %first_col, align 8, !tbaa !25
+  %cmp.not4 = icmp eq ptr %p.03, null
+  br i1 %cmp.not4, label %for.end, label %for.body
 
-7:                                                ; preds = %3, %7
-  %8 = phi ptr [ %13, %7 ], [ %5, %3 ]
-  %9 = getelementptr inbounds %struct.sm_element_struct, ptr %8, i64 0, i32 1
-  %10 = load i32, ptr %9, align 4, !tbaa !28
-  %11 = tail call ptr @sm_insert(ptr noundef %0, i32 noundef %1, i32 noundef %10)
-  %12 = getelementptr inbounds %struct.sm_element_struct, ptr %8, i64 0, i32 4
-  %13 = load ptr, ptr %12, align 8, !tbaa !25
-  %14 = icmp eq ptr %13, null
-  br i1 %14, label %15, label %7
+for.body:                                         ; preds = %entry, %for.body
+  %p.05 = phi ptr [ %p.0, %for.body ], [ %p.03, %entry ]
+  %col_num = getelementptr inbounds %struct.sm_element_struct, ptr %p.05, i64 0, i32 1
+  %0 = load i32, ptr %col_num, align 4, !tbaa !28
+  %call = tail call ptr @sm_insert(ptr noundef %dest, i32 noundef %dest_row, i32 noundef %0)
+  %next_col = getelementptr inbounds %struct.sm_element_struct, ptr %p.05, i64 0, i32 4
+  %p.0 = load ptr, ptr %next_col, align 8, !tbaa !25
+  %cmp.not = icmp eq ptr %p.0, null
+  br i1 %cmp.not, label %for.end, label %for.body
 
-15:                                               ; preds = %7, %3
+for.end:                                          ; preds = %for.body, %entry
   ret void
 }
 
 ; Function Attrs: nounwind uwtable
-define dso_local void @sm_copy_col(ptr nocapture noundef %0, i32 noundef %1, ptr nocapture noundef readonly %2) local_unnamed_addr #3 {
-  %4 = getelementptr inbounds %struct.sm_col_struct, ptr %2, i64 0, i32 3
-  %5 = load ptr, ptr %4, align 8, !tbaa !25
-  %6 = icmp eq ptr %5, null
-  br i1 %6, label %14, label %7
+define dso_local void @sm_copy_col(ptr nocapture noundef %dest, i32 noundef %dest_col, ptr nocapture noundef readonly %pcol) local_unnamed_addr #3 {
+entry:
+  %first_row = getelementptr inbounds %struct.sm_col_struct, ptr %pcol, i64 0, i32 3
+  %p.03 = load ptr, ptr %first_row, align 8, !tbaa !25
+  %cmp.not4 = icmp eq ptr %p.03, null
+  br i1 %cmp.not4, label %for.end, label %for.body
 
-7:                                                ; preds = %3, %7
-  %8 = phi ptr [ %12, %7 ], [ %5, %3 ]
-  %9 = load i32, ptr %8, align 8, !tbaa !26
-  %10 = tail call ptr @sm_insert(ptr noundef %0, i32 noundef %1, i32 noundef %9)
-  %11 = getelementptr inbounds %struct.sm_element_struct, ptr %8, i64 0, i32 2
-  %12 = load ptr, ptr %11, align 8, !tbaa !25
-  %13 = icmp eq ptr %12, null
-  br i1 %13, label %14, label %7
+for.body:                                         ; preds = %entry, %for.body
+  %p.05 = phi ptr [ %p.0, %for.body ], [ %p.03, %entry ]
+  %0 = load i32, ptr %p.05, align 8, !tbaa !26
+  %call = tail call ptr @sm_insert(ptr noundef %dest, i32 noundef %dest_col, i32 noundef %0)
+  %next_row = getelementptr inbounds %struct.sm_element_struct, ptr %p.05, i64 0, i32 2
+  %p.0 = load ptr, ptr %next_row, align 8, !tbaa !25
+  %cmp.not = icmp eq ptr %p.0, null
+  br i1 %cmp.not, label %for.end, label %for.body
 
-14:                                               ; preds = %7, %3
+for.end:                                          ; preds = %for.body, %entry
   ret void
 }
 
 ; Function Attrs: nofree nosync nounwind memory(read, inaccessiblemem: none) uwtable
-define dso_local ptr @sm_longest_row(ptr nocapture noundef readonly %0) local_unnamed_addr #7 {
-  %2 = getelementptr inbounds %struct.sm_matrix_struct, ptr %0, i64 0, i32 4
-  %3 = load ptr, ptr %2, align 8, !tbaa !25
-  %4 = icmp eq ptr %3, null
-  br i1 %4, label %17, label %5
+define dso_local ptr @sm_longest_row(ptr nocapture noundef readonly %A) local_unnamed_addr #7 {
+entry:
+  %first_row = getelementptr inbounds %struct.sm_matrix_struct, ptr %A, i64 0, i32 4
+  %prow.08 = load ptr, ptr %first_row, align 8, !tbaa !25
+  %cmp.not9 = icmp eq ptr %prow.08, null
+  br i1 %cmp.not9, label %for.end, label %for.body
 
-5:                                                ; preds = %1, %5
-  %6 = phi ptr [ %15, %5 ], [ %3, %1 ]
-  %7 = phi i32 [ %13, %5 ], [ 0, %1 ]
-  %8 = phi ptr [ %12, %5 ], [ null, %1 ]
-  %9 = getelementptr inbounds %struct.sm_row_struct, ptr %6, i64 0, i32 1
-  %10 = load i32, ptr %9, align 4, !tbaa !41
-  %11 = icmp sgt i32 %10, %7
-  %12 = select i1 %11, ptr %6, ptr %8
-  %13 = tail call i32 @llvm.smax.i32(i32 %10, i32 %7)
-  %14 = getelementptr inbounds %struct.sm_row_struct, ptr %6, i64 0, i32 5
-  %15 = load ptr, ptr %14, align 8, !tbaa !25
-  %16 = icmp eq ptr %15, null
-  br i1 %16, label %17, label %5
+for.body:                                         ; preds = %entry, %for.body
+  %prow.012 = phi ptr [ %prow.0, %for.body ], [ %prow.08, %entry ]
+  %max_length.011 = phi i32 [ %spec.select7, %for.body ], [ 0, %entry ]
+  %large_row.010 = phi ptr [ %spec.select, %for.body ], [ null, %entry ]
+  %length = getelementptr inbounds %struct.sm_row_struct, ptr %prow.012, i64 0, i32 1
+  %0 = load i32, ptr %length, align 4, !tbaa !41
+  %cmp1 = icmp sgt i32 %0, %max_length.011
+  %spec.select = select i1 %cmp1, ptr %prow.012, ptr %large_row.010
+  %spec.select7 = tail call i32 @llvm.smax.i32(i32 %0, i32 %max_length.011)
+  %next_row = getelementptr inbounds %struct.sm_row_struct, ptr %prow.012, i64 0, i32 5
+  %prow.0 = load ptr, ptr %next_row, align 8, !tbaa !25
+  %cmp.not = icmp eq ptr %prow.0, null
+  br i1 %cmp.not, label %for.end, label %for.body
 
-17:                                               ; preds = %5, %1
-  %18 = phi ptr [ null, %1 ], [ %12, %5 ]
-  ret ptr %18
+for.end:                                          ; preds = %for.body, %entry
+  %large_row.0.lcssa = phi ptr [ null, %entry ], [ %spec.select, %for.body ]
+  ret ptr %large_row.0.lcssa
 }
 
 ; Function Attrs: nofree nosync nounwind memory(read, inaccessiblemem: none) uwtable
-define dso_local ptr @sm_longest_col(ptr nocapture noundef readonly %0) local_unnamed_addr #7 {
-  %2 = getelementptr inbounds %struct.sm_matrix_struct, ptr %0, i64 0, i32 7
-  %3 = load ptr, ptr %2, align 8, !tbaa !25
-  %4 = icmp eq ptr %3, null
-  br i1 %4, label %17, label %5
+define dso_local ptr @sm_longest_col(ptr nocapture noundef readonly %A) local_unnamed_addr #7 {
+entry:
+  %first_col = getelementptr inbounds %struct.sm_matrix_struct, ptr %A, i64 0, i32 7
+  %pcol.08 = load ptr, ptr %first_col, align 8, !tbaa !25
+  %cmp.not9 = icmp eq ptr %pcol.08, null
+  br i1 %cmp.not9, label %for.end, label %for.body
 
-5:                                                ; preds = %1, %5
-  %6 = phi ptr [ %15, %5 ], [ %3, %1 ]
-  %7 = phi i32 [ %13, %5 ], [ 0, %1 ]
-  %8 = phi ptr [ %12, %5 ], [ null, %1 ]
-  %9 = getelementptr inbounds %struct.sm_col_struct, ptr %6, i64 0, i32 1
-  %10 = load i32, ptr %9, align 4, !tbaa !44
-  %11 = icmp sgt i32 %10, %7
-  %12 = select i1 %11, ptr %6, ptr %8
-  %13 = tail call i32 @llvm.smax.i32(i32 %10, i32 %7)
-  %14 = getelementptr inbounds %struct.sm_col_struct, ptr %6, i64 0, i32 5
-  %15 = load ptr, ptr %14, align 8, !tbaa !25
-  %16 = icmp eq ptr %15, null
-  br i1 %16, label %17, label %5
+for.body:                                         ; preds = %entry, %for.body
+  %pcol.012 = phi ptr [ %pcol.0, %for.body ], [ %pcol.08, %entry ]
+  %max_length.011 = phi i32 [ %spec.select7, %for.body ], [ 0, %entry ]
+  %large_col.010 = phi ptr [ %spec.select, %for.body ], [ null, %entry ]
+  %length = getelementptr inbounds %struct.sm_col_struct, ptr %pcol.012, i64 0, i32 1
+  %0 = load i32, ptr %length, align 4, !tbaa !44
+  %cmp1 = icmp sgt i32 %0, %max_length.011
+  %spec.select = select i1 %cmp1, ptr %pcol.012, ptr %large_col.010
+  %spec.select7 = tail call i32 @llvm.smax.i32(i32 %0, i32 %max_length.011)
+  %next_col = getelementptr inbounds %struct.sm_col_struct, ptr %pcol.012, i64 0, i32 5
+  %pcol.0 = load ptr, ptr %next_col, align 8, !tbaa !25
+  %cmp.not = icmp eq ptr %pcol.0, null
+  br i1 %cmp.not, label %for.end, label %for.body
 
-17:                                               ; preds = %5, %1
-  %18 = phi ptr [ null, %1 ], [ %12, %5 ]
-  ret ptr %18
+for.end:                                          ; preds = %for.body, %entry
+  %large_col.0.lcssa = phi ptr [ null, %entry ], [ %spec.select, %for.body ]
+  ret ptr %large_col.0.lcssa
 }
 
 ; Function Attrs: nofree norecurse nosync nounwind memory(read, inaccessiblemem: none) uwtable
-define dso_local i32 @sm_num_elements(ptr nocapture noundef readonly %0) local_unnamed_addr #8 {
-  %2 = getelementptr inbounds %struct.sm_matrix_struct, ptr %0, i64 0, i32 4
-  %3 = load ptr, ptr %2, align 8, !tbaa !25
-  %4 = icmp eq ptr %3, null
-  br i1 %4, label %14, label %5
+define dso_local i32 @sm_num_elements(ptr nocapture noundef readonly %A) local_unnamed_addr #8 {
+entry:
+  %first_row = getelementptr inbounds %struct.sm_matrix_struct, ptr %A, i64 0, i32 4
+  %prow.04 = load ptr, ptr %first_row, align 8, !tbaa !25
+  %cmp.not5 = icmp eq ptr %prow.04, null
+  br i1 %cmp.not5, label %for.end, label %for.body
 
-5:                                                ; preds = %1, %5
-  %6 = phi ptr [ %12, %5 ], [ %3, %1 ]
-  %7 = phi i32 [ %10, %5 ], [ 0, %1 ]
-  %8 = getelementptr inbounds %struct.sm_row_struct, ptr %6, i64 0, i32 1
-  %9 = load i32, ptr %8, align 4, !tbaa !41
-  %10 = add nsw i32 %9, %7
-  %11 = getelementptr inbounds %struct.sm_row_struct, ptr %6, i64 0, i32 5
-  %12 = load ptr, ptr %11, align 8, !tbaa !25
-  %13 = icmp eq ptr %12, null
-  br i1 %13, label %14, label %5
+for.body:                                         ; preds = %entry, %for.body
+  %prow.07 = phi ptr [ %prow.0, %for.body ], [ %prow.04, %entry ]
+  %num.06 = phi i32 [ %add, %for.body ], [ 0, %entry ]
+  %length = getelementptr inbounds %struct.sm_row_struct, ptr %prow.07, i64 0, i32 1
+  %0 = load i32, ptr %length, align 4, !tbaa !41
+  %add = add nsw i32 %0, %num.06
+  %next_row = getelementptr inbounds %struct.sm_row_struct, ptr %prow.07, i64 0, i32 5
+  %prow.0 = load ptr, ptr %next_row, align 8, !tbaa !25
+  %cmp.not = icmp eq ptr %prow.0, null
+  br i1 %cmp.not, label %for.end, label %for.body
 
-14:                                               ; preds = %5, %1
-  %15 = phi i32 [ 0, %1 ], [ %10, %5 ]
-  ret i32 %15
+for.end:                                          ; preds = %for.body, %entry
+  %num.0.lcssa = phi i32 [ 0, %entry ], [ %add, %for.body ]
+  ret i32 %num.0.lcssa
 }
 
 ; Function Attrs: nounwind uwtable
-define dso_local i32 @sm_read(ptr noundef %0, ptr nocapture noundef %1) local_unnamed_addr #3 {
-  %3 = alloca i32, align 4
-  %4 = alloca i32, align 4
-  call void @llvm.lifetime.start.p0(i64 4, ptr nonnull %3) #16
-  call void @llvm.lifetime.start.p0(i64 4, ptr nonnull %4) #16
-  %5 = tail call noalias dereferenceable_or_null(88) ptr @malloc(i64 noundef 88) #15
-  store ptr null, ptr %5, align 8, !tbaa !5
-  %6 = getelementptr inbounds %struct.sm_matrix_struct, ptr %5, i64 0, i32 2
-  store ptr null, ptr %6, align 8, !tbaa !11
-  %7 = getelementptr inbounds %struct.sm_matrix_struct, ptr %5, i64 0, i32 3
-  store i32 0, ptr %7, align 8, !tbaa !12
-  %8 = getelementptr inbounds %struct.sm_matrix_struct, ptr %5, i64 0, i32 1
-  store i32 0, ptr %8, align 8, !tbaa !13
-  %9 = getelementptr inbounds %struct.sm_matrix_struct, ptr %5, i64 0, i32 4
-  %10 = getelementptr inbounds %struct.sm_matrix_struct, ptr %5, i64 0, i32 7
-  %11 = getelementptr inbounds %struct.sm_matrix_struct, ptr %5, i64 0, i32 10
-  store ptr null, ptr %11, align 8, !tbaa !14
-  tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(20) %9, i8 0, i64 20, i1 false)
-  tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(20) %10, i8 0, i64 20, i1 false)
-  store ptr %5, ptr %1, align 8, !tbaa !25
-  %12 = tail call i32 @feof(ptr noundef %0) #16
-  %13 = icmp eq i32 %12, 0
-  br i1 %13, label %14, label %24
+define dso_local i32 @sm_read(ptr noundef %fp, ptr nocapture noundef %A) local_unnamed_addr #3 {
+entry:
+  %i = alloca i32, align 4
+  %j = alloca i32, align 4
+  call void @llvm.lifetime.start.p0(i64 4, ptr nonnull %i) #16
+  call void @llvm.lifetime.start.p0(i64 4, ptr nonnull %j) #16
+  %call.i = tail call noalias dereferenceable_or_null(88) ptr @malloc(i64 noundef 88) #15
+  store ptr null, ptr %call.i, align 8, !tbaa !5
+  %cols.i = getelementptr inbounds %struct.sm_matrix_struct, ptr %call.i, i64 0, i32 2
+  store ptr null, ptr %cols.i, align 8, !tbaa !11
+  %cols_size.i = getelementptr inbounds %struct.sm_matrix_struct, ptr %call.i, i64 0, i32 3
+  store i32 0, ptr %cols_size.i, align 8, !tbaa !12
+  %rows_size.i = getelementptr inbounds %struct.sm_matrix_struct, ptr %call.i, i64 0, i32 1
+  store i32 0, ptr %rows_size.i, align 8, !tbaa !13
+  %first_row.i = getelementptr inbounds %struct.sm_matrix_struct, ptr %call.i, i64 0, i32 4
+  %first_col.i = getelementptr inbounds %struct.sm_matrix_struct, ptr %call.i, i64 0, i32 7
+  %user_word.i = getelementptr inbounds %struct.sm_matrix_struct, ptr %call.i, i64 0, i32 10
+  store ptr null, ptr %user_word.i, align 8, !tbaa !14
+  tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(20) %first_row.i, i8 0, i64 20, i1 false)
+  tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(20) %first_col.i, i8 0, i64 20, i1 false)
+  store ptr %call.i, ptr %A, align 8, !tbaa !25
+  %call112 = tail call i32 @feof(ptr noundef %fp) #16
+  %tobool.not13 = icmp eq i32 %call112, 0
+  br i1 %tobool.not13, label %while.body, label %cleanup
 
-14:                                               ; preds = %2, %16
-  %15 = call i32 (ptr, ptr, ...) @__isoc99_fscanf(ptr noundef %0, ptr noundef nonnull @.str, ptr noundef nonnull %3, ptr noundef nonnull %4) #16
-  switch i32 %15, label %24 [
-    i32 -1, label %23
-    i32 2, label %16
+while.body:                                       ; preds = %entry, %if.end5
+  %call2 = call i32 (ptr, ptr, ...) @__isoc99_fscanf(ptr noundef %fp, ptr noundef nonnull @.str, ptr noundef nonnull %i, ptr noundef nonnull %j) #16
+  switch i32 %call2, label %cleanup [
+    i32 -1, label %cleanup.loopexit
+    i32 2, label %if.end5
   ]
 
-16:                                               ; preds = %14
-  %17 = load ptr, ptr %1, align 8, !tbaa !25
-  %18 = load i32, ptr %3, align 4, !tbaa !47
-  %19 = load i32, ptr %4, align 4, !tbaa !47
-  %20 = call ptr @sm_insert(ptr noundef %17, i32 noundef %18, i32 noundef %19)
-  %21 = call i32 @feof(ptr noundef %0) #16
-  %22 = icmp eq i32 %21, 0
-  br i1 %22, label %14, label %23
+if.end5:                                          ; preds = %while.body
+  %0 = load ptr, ptr %A, align 8, !tbaa !25
+  %1 = load i32, ptr %i, align 4, !tbaa !47
+  %2 = load i32, ptr %j, align 4, !tbaa !47
+  %call6 = call ptr @sm_insert(ptr noundef %0, i32 noundef %1, i32 noundef %2)
+  %call1 = call i32 @feof(ptr noundef %fp) #16
+  %tobool.not = icmp eq i32 %call1, 0
+  br i1 %tobool.not, label %while.body, label %cleanup.loopexit
 
-23:                                               ; preds = %14, %16
-  br label %24
+cleanup.loopexit:                                 ; preds = %if.end5, %while.body
+  br label %cleanup
 
-24:                                               ; preds = %14, %23, %2
-  %25 = phi i32 [ 1, %2 ], [ 1, %23 ], [ 0, %14 ]
-  call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %4) #16
-  call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %3) #16
-  ret i32 %25
+cleanup:                                          ; preds = %while.body, %cleanup.loopexit, %entry
+  %retval.0 = phi i32 [ 1, %entry ], [ 1, %cleanup.loopexit ], [ 0, %while.body ]
+  call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %j) #16
+  call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %i) #16
+  ret i32 %retval.0
 }
 
 ; Function Attrs: nofree nounwind
@@ -1654,136 +1671,138 @@ declare noundef i32 @feof(ptr nocapture noundef) local_unnamed_addr #9
 declare i32 @__isoc99_fscanf(ptr noundef, ptr noundef, ...) local_unnamed_addr #4
 
 ; Function Attrs: nounwind uwtable
-define dso_local i32 @sm_read_compressed(ptr noundef %0, ptr nocapture noundef %1) local_unnamed_addr #3 {
-  %3 = alloca i32, align 4
-  %4 = alloca i32, align 4
-  %5 = alloca i64, align 8
-  call void @llvm.lifetime.start.p0(i64 4, ptr nonnull %3) #16
-  call void @llvm.lifetime.start.p0(i64 4, ptr nonnull %4) #16
-  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %5) #16
-  %6 = tail call noalias dereferenceable_or_null(88) ptr @malloc(i64 noundef 88) #15
-  store ptr null, ptr %6, align 8, !tbaa !5
-  %7 = getelementptr inbounds %struct.sm_matrix_struct, ptr %6, i64 0, i32 2
-  store ptr null, ptr %7, align 8, !tbaa !11
-  %8 = getelementptr inbounds %struct.sm_matrix_struct, ptr %6, i64 0, i32 3
-  store i32 0, ptr %8, align 8, !tbaa !12
-  %9 = getelementptr inbounds %struct.sm_matrix_struct, ptr %6, i64 0, i32 1
-  store i32 0, ptr %9, align 8, !tbaa !13
-  %10 = getelementptr inbounds %struct.sm_matrix_struct, ptr %6, i64 0, i32 4
-  %11 = getelementptr inbounds %struct.sm_matrix_struct, ptr %6, i64 0, i32 7
-  %12 = getelementptr inbounds %struct.sm_matrix_struct, ptr %6, i64 0, i32 10
-  store ptr null, ptr %12, align 8, !tbaa !14
-  tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(20) %10, i8 0, i64 20, i1 false)
-  tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(20) %11, i8 0, i64 20, i1 false)
-  store ptr %6, ptr %1, align 8, !tbaa !25
-  %13 = call i32 (ptr, ptr, ...) @__isoc99_fscanf(ptr noundef %0, ptr noundef nonnull @.str, ptr noundef nonnull %3, ptr noundef nonnull %4) #16
-  %14 = icmp eq i32 %13, 2
-  br i1 %14, label %15, label %57
+define dso_local i32 @sm_read_compressed(ptr noundef %fp, ptr nocapture noundef %A) local_unnamed_addr #3 {
+entry:
+  %nrows = alloca i32, align 4
+  %ncols = alloca i32, align 4
+  %x = alloca i64, align 8
+  call void @llvm.lifetime.start.p0(i64 4, ptr nonnull %nrows) #16
+  call void @llvm.lifetime.start.p0(i64 4, ptr nonnull %ncols) #16
+  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %x) #16
+  %call.i = tail call noalias dereferenceable_or_null(88) ptr @malloc(i64 noundef 88) #15
+  store ptr null, ptr %call.i, align 8, !tbaa !5
+  %cols.i = getelementptr inbounds %struct.sm_matrix_struct, ptr %call.i, i64 0, i32 2
+  store ptr null, ptr %cols.i, align 8, !tbaa !11
+  %cols_size.i = getelementptr inbounds %struct.sm_matrix_struct, ptr %call.i, i64 0, i32 3
+  store i32 0, ptr %cols_size.i, align 8, !tbaa !12
+  %rows_size.i = getelementptr inbounds %struct.sm_matrix_struct, ptr %call.i, i64 0, i32 1
+  store i32 0, ptr %rows_size.i, align 8, !tbaa !13
+  %first_row.i = getelementptr inbounds %struct.sm_matrix_struct, ptr %call.i, i64 0, i32 4
+  %first_col.i = getelementptr inbounds %struct.sm_matrix_struct, ptr %call.i, i64 0, i32 7
+  %user_word.i = getelementptr inbounds %struct.sm_matrix_struct, ptr %call.i, i64 0, i32 10
+  store ptr null, ptr %user_word.i, align 8, !tbaa !14
+  tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(20) %first_row.i, i8 0, i64 20, i1 false)
+  tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(20) %first_col.i, i8 0, i64 20, i1 false)
+  store ptr %call.i, ptr %A, align 8, !tbaa !25
+  %call1 = call i32 (ptr, ptr, ...) @__isoc99_fscanf(ptr noundef %fp, ptr noundef nonnull @.str, ptr noundef nonnull %nrows, ptr noundef nonnull %ncols) #16
+  %cmp.not = icmp eq i32 %call1, 2
+  br i1 %cmp.not, label %if.end, label %cleanup
 
-15:                                               ; preds = %2
-  %16 = load ptr, ptr %1, align 8, !tbaa !25
-  %17 = load i32, ptr %3, align 4, !tbaa !47
-  %18 = load i32, ptr %4, align 4, !tbaa !47
-  call void @sm_resize(ptr noundef %16, i32 noundef %17, i32 noundef %18)
-  %19 = load i32, ptr %3, align 4, !tbaa !47
-  %20 = icmp sgt i32 %19, 0
-  br i1 %20, label %21, label %57
+if.end:                                           ; preds = %entry
+  %0 = load ptr, ptr %A, align 8, !tbaa !25
+  %1 = load i32, ptr %nrows, align 4, !tbaa !47
+  %2 = load i32, ptr %ncols, align 4, !tbaa !47
+  call void @sm_resize(ptr noundef %0, i32 noundef %1, i32 noundef %2)
+  %3 = load i32, ptr %nrows, align 4, !tbaa !47
+  %cmp244 = icmp sgt i32 %3, 0
+  br i1 %cmp244, label %for.body, label %cleanup
 
-21:                                               ; preds = %15, %53
-  %22 = phi i32 [ %54, %53 ], [ 0, %15 ]
-  %23 = call i32 (ptr, ptr, ...) @__isoc99_fscanf(ptr noundef %0, ptr noundef nonnull @.str.1, ptr noundef nonnull %5) #16
-  %24 = icmp eq i32 %23, 1
-  br i1 %24, label %25, label %57
+for.body:                                         ; preds = %if.end, %for.inc22
+  %i.045 = phi i32 [ %inc23, %for.inc22 ], [ 0, %if.end ]
+  %call3 = call i32 (ptr, ptr, ...) @__isoc99_fscanf(ptr noundef %fp, ptr noundef nonnull @.str.1, ptr noundef nonnull %x) #16
+  %cmp4.not = icmp eq i32 %call3, 1
+  br i1 %cmp4.not, label %for.cond7.preheader, label %cleanup
 
-25:                                               ; preds = %21
-  %26 = load i32, ptr %4, align 4, !tbaa !47
-  %27 = icmp sgt i32 %26, 0
-  br i1 %27, label %28, label %53
+for.cond7.preheader:                              ; preds = %for.body
+  %4 = load i32, ptr %ncols, align 4, !tbaa !47
+  %cmp842 = icmp sgt i32 %4, 0
+  br i1 %cmp842, label %for.body9, label %for.inc22
 
-28:                                               ; preds = %25, %49
-  %29 = phi i32 [ %50, %49 ], [ 0, %25 ]
-  %30 = call i32 (ptr, ptr, ...) @__isoc99_fscanf(ptr noundef %0, ptr noundef nonnull @.str.1, ptr noundef nonnull %5) #16
-  %31 = icmp eq i32 %30, 1
-  br i1 %31, label %32, label %57
+for.body9:                                        ; preds = %for.cond7.preheader, %for.inc20
+  %j.043 = phi i32 [ %add, %for.inc20 ], [ 0, %for.cond7.preheader ]
+  %call10 = call i32 (ptr, ptr, ...) @__isoc99_fscanf(ptr noundef %fp, ptr noundef nonnull @.str.1, ptr noundef nonnull %x) #16
+  %cmp11.not = icmp eq i32 %call10, 1
+  br i1 %cmp11.not, label %for.cond14thread-pre-split, label %cleanup
 
-32:                                               ; preds = %28
-  %33 = load i64, ptr %5, align 8, !tbaa !48
-  %34 = icmp eq i64 %33, 0
-  br i1 %34, label %49, label %35
+for.cond14thread-pre-split:                       ; preds = %for.body9
+  %.pr = load i64, ptr %x, align 8, !tbaa !48
+  %cmp15.not40 = icmp eq i64 %.pr, 0
+  br i1 %cmp15.not40, label %for.inc20, label %for.body16
 
-35:                                               ; preds = %32, %44
-  %36 = phi i32 [ %47, %44 ], [ %29, %32 ]
-  %37 = phi i64 [ %46, %44 ], [ %33, %32 ]
-  %38 = and i64 %37, 1
-  %39 = icmp eq i64 %38, 0
-  br i1 %39, label %44, label %40
+for.body16:                                       ; preds = %for.cond14thread-pre-split, %for.inc
+  %k.041 = phi i32 [ %inc, %for.inc ], [ %j.043, %for.cond14thread-pre-split ]
+  %5 = phi i64 [ %shr, %for.inc ], [ %.pr, %for.cond14thread-pre-split ]
+  %and = and i64 %5, 1
+  %tobool.not = icmp eq i64 %and, 0
+  br i1 %tobool.not, label %for.inc, label %if.then17
 
-40:                                               ; preds = %35
-  %41 = load ptr, ptr %1, align 8, !tbaa !25
-  %42 = call ptr @sm_insert(ptr noundef %41, i32 noundef %22, i32 noundef %36)
-  %43 = load i64, ptr %5, align 8, !tbaa !48
-  br label %44
+if.then17:                                        ; preds = %for.body16
+  %6 = load ptr, ptr %A, align 8, !tbaa !25
+  %call18 = call ptr @sm_insert(ptr noundef %6, i32 noundef %i.045, i32 noundef %k.041)
+  %.pre = load i64, ptr %x, align 8, !tbaa !48
+  br label %for.inc
 
-44:                                               ; preds = %35, %40
-  %45 = phi i64 [ %37, %35 ], [ %43, %40 ]
-  %46 = lshr i64 %45, 1
-  store i64 %46, ptr %5, align 8, !tbaa !48
-  %47 = add nuw nsw i32 %36, 1
-  %48 = icmp ult i64 %45, 2
-  br i1 %48, label %49, label %35
+for.inc:                                          ; preds = %for.body16, %if.then17
+  %7 = phi i64 [ %5, %for.body16 ], [ %.pre, %if.then17 ]
+  %shr = lshr i64 %7, 1
+  store i64 %shr, ptr %x, align 8, !tbaa !48
+  %inc = add nuw nsw i32 %k.041, 1
+  %cmp15.not = icmp ult i64 %7, 2
+  br i1 %cmp15.not, label %for.inc20, label %for.body16
 
-49:                                               ; preds = %44, %32
-  %50 = add nuw nsw i32 %29, 32
-  %51 = load i32, ptr %4, align 4, !tbaa !47
-  %52 = icmp slt i32 %50, %51
-  br i1 %52, label %28, label %53
+for.inc20:                                        ; preds = %for.inc, %for.cond14thread-pre-split
+  %add = add nuw nsw i32 %j.043, 32
+  %8 = load i32, ptr %ncols, align 4, !tbaa !47
+  %cmp8 = icmp slt i32 %add, %8
+  br i1 %cmp8, label %for.body9, label %for.inc22
 
-53:                                               ; preds = %49, %25
-  %54 = add nuw nsw i32 %22, 1
-  %55 = load i32, ptr %3, align 4, !tbaa !47
-  %56 = icmp slt i32 %54, %55
-  br i1 %56, label %21, label %57
+for.inc22:                                        ; preds = %for.inc20, %for.cond7.preheader
+  %inc23 = add nuw nsw i32 %i.045, 1
+  %9 = load i32, ptr %nrows, align 4, !tbaa !47
+  %cmp2 = icmp slt i32 %inc23, %9
+  br i1 %cmp2, label %for.body, label %cleanup
 
-57:                                               ; preds = %21, %53, %28, %15, %2
-  %58 = phi i32 [ 0, %2 ], [ 1, %15 ], [ 0, %28 ], [ 0, %21 ], [ 1, %53 ]
-  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %5) #16
-  call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %4) #16
-  call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %3) #16
-  ret i32 %58
+cleanup:                                          ; preds = %for.body, %for.inc22, %for.body9, %if.end, %entry
+  %retval.0 = phi i32 [ 0, %entry ], [ 1, %if.end ], [ 0, %for.body9 ], [ 0, %for.body ], [ 1, %for.inc22 ]
+  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %x) #16
+  call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %ncols) #16
+  call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %nrows) #16
+  ret i32 %retval.0
 }
 
 ; Function Attrs: nofree nounwind uwtable
-define dso_local void @sm_write(ptr nocapture noundef %0, ptr nocapture noundef readonly %1) local_unnamed_addr #10 {
-  %3 = getelementptr inbounds %struct.sm_matrix_struct, ptr %1, i64 0, i32 4
-  %4 = load ptr, ptr %3, align 8, !tbaa !25
-  %5 = icmp eq ptr %4, null
-  br i1 %5, label %24, label %6
+define dso_local void @sm_write(ptr nocapture noundef %fp, ptr nocapture noundef readonly %A) local_unnamed_addr #10 {
+entry:
+  %first_row = getelementptr inbounds %struct.sm_matrix_struct, ptr %A, i64 0, i32 4
+  %prow.014 = load ptr, ptr %first_row, align 8, !tbaa !25
+  %cmp.not15 = icmp eq ptr %prow.014, null
+  br i1 %cmp.not15, label %for.end5, label %for.body
 
-6:                                                ; preds = %2, %20
-  %7 = phi ptr [ %22, %20 ], [ %4, %2 ]
-  %8 = getelementptr inbounds %struct.sm_row_struct, ptr %7, i64 0, i32 3
-  %9 = load ptr, ptr %8, align 8, !tbaa !25
-  %10 = icmp eq ptr %9, null
-  br i1 %10, label %20, label %11
+for.body:                                         ; preds = %entry, %for.inc4
+  %prow.016 = phi ptr [ %prow.0, %for.inc4 ], [ %prow.014, %entry ]
+  %first_col = getelementptr inbounds %struct.sm_row_struct, ptr %prow.016, i64 0, i32 3
+  %p.011 = load ptr, ptr %first_col, align 8, !tbaa !25
+  %cmp2.not12 = icmp eq ptr %p.011, null
+  br i1 %cmp2.not12, label %for.inc4, label %for.body3
 
-11:                                               ; preds = %6, %11
-  %12 = phi ptr [ %18, %11 ], [ %9, %6 ]
-  %13 = load i32, ptr %12, align 8, !tbaa !26
-  %14 = getelementptr inbounds %struct.sm_element_struct, ptr %12, i64 0, i32 1
-  %15 = load i32, ptr %14, align 4, !tbaa !28
-  %16 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %0, ptr noundef nonnull @.str.2, i32 noundef %13, i32 noundef %15)
-  %17 = getelementptr inbounds %struct.sm_element_struct, ptr %12, i64 0, i32 4
-  %18 = load ptr, ptr %17, align 8, !tbaa !25
-  %19 = icmp eq ptr %18, null
-  br i1 %19, label %20, label %11
+for.body3:                                        ; preds = %for.body, %for.body3
+  %p.013 = phi ptr [ %p.0, %for.body3 ], [ %p.011, %for.body ]
+  %0 = load i32, ptr %p.013, align 8, !tbaa !26
+  %col_num = getelementptr inbounds %struct.sm_element_struct, ptr %p.013, i64 0, i32 1
+  %1 = load i32, ptr %col_num, align 4, !tbaa !28
+  %call = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %fp, ptr noundef nonnull @.str.2, i32 noundef %0, i32 noundef %1)
+  %next_col = getelementptr inbounds %struct.sm_element_struct, ptr %p.013, i64 0, i32 4
+  %p.0 = load ptr, ptr %next_col, align 8, !tbaa !25
+  %cmp2.not = icmp eq ptr %p.0, null
+  br i1 %cmp2.not, label %for.inc4, label %for.body3
 
-20:                                               ; preds = %11, %6
-  %21 = getelementptr inbounds %struct.sm_row_struct, ptr %7, i64 0, i32 5
-  %22 = load ptr, ptr %21, align 8, !tbaa !25
-  %23 = icmp eq ptr %22, null
-  br i1 %23, label %24, label %6
+for.inc4:                                         ; preds = %for.body3, %for.body
+  %next_row = getelementptr inbounds %struct.sm_row_struct, ptr %prow.016, i64 0, i32 5
+  %prow.0 = load ptr, ptr %next_row, align 8, !tbaa !25
+  %cmp.not = icmp eq ptr %prow.0, null
+  br i1 %cmp.not, label %for.end5, label %for.body
 
-24:                                               ; preds = %20, %2
+for.end5:                                         ; preds = %for.inc4, %entry
   ret void
 }
 
@@ -1791,131 +1810,132 @@ define dso_local void @sm_write(ptr nocapture noundef %0, ptr nocapture noundef 
 declare noundef i32 @fprintf(ptr nocapture noundef, ptr nocapture noundef readonly, ...) local_unnamed_addr #9
 
 ; Function Attrs: nounwind uwtable
-define dso_local void @sm_print(ptr nocapture noundef %0, ptr nocapture noundef readonly %1) local_unnamed_addr #3 {
-  %3 = getelementptr inbounds %struct.sm_matrix_struct, ptr %1, i64 0, i32 8
-  %4 = load ptr, ptr %3, align 8, !tbaa !23
-  %5 = load i32, ptr %4, align 8, !tbaa !24
-  %6 = icmp sgt i32 %5, 99
-  br i1 %6, label %7, label %25
+define dso_local void @sm_print(ptr nocapture noundef %fp, ptr nocapture noundef readonly %A) local_unnamed_addr #3 {
+entry:
+  %last_col = getelementptr inbounds %struct.sm_matrix_struct, ptr %A, i64 0, i32 8
+  %0 = load ptr, ptr %last_col, align 8, !tbaa !23
+  %1 = load i32, ptr %0, align 8, !tbaa !24
+  %cmp = icmp sgt i32 %1, 99
+  br i1 %cmp, label %if.then, label %if.end
 
-7:                                                ; preds = %2
-  %8 = tail call i64 @fwrite(ptr nonnull @.str.3, i64 4, i64 1, ptr %0)
-  %9 = getelementptr inbounds %struct.sm_matrix_struct, ptr %1, i64 0, i32 7
-  %10 = load ptr, ptr %9, align 8, !tbaa !25
-  %11 = icmp eq ptr %10, null
-  br i1 %11, label %21, label %12
+if.then:                                          ; preds = %entry
+  %2 = tail call i64 @fwrite(ptr nonnull @.str.3, i64 4, i64 1, ptr %fp)
+  %first_col = getelementptr inbounds %struct.sm_matrix_struct, ptr %A, i64 0, i32 7
+  %pcol.099 = load ptr, ptr %first_col, align 8, !tbaa !25
+  %cmp1.not100 = icmp eq ptr %pcol.099, null
+  br i1 %cmp1.not100, label %for.end, label %for.body
 
-12:                                               ; preds = %7, %12
-  %13 = phi ptr [ %19, %12 ], [ %10, %7 ]
-  %14 = load i32, ptr %13, align 8, !tbaa !24
-  %15 = sdiv i32 %14, 100
-  %16 = srem i32 %15, 10
-  %17 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %0, ptr noundef nonnull @.str.4, i32 noundef %16)
-  %18 = getelementptr inbounds %struct.sm_col_struct, ptr %13, i64 0, i32 5
-  %19 = load ptr, ptr %18, align 8, !tbaa !25
-  %20 = icmp eq ptr %19, null
-  br i1 %20, label %21, label %12
+for.body:                                         ; preds = %if.then, %for.body
+  %pcol.0101 = phi ptr [ %pcol.0, %for.body ], [ %pcol.099, %if.then ]
+  %3 = load i32, ptr %pcol.0101, align 8, !tbaa !24
+  %div = sdiv i32 %3, 100
+  %rem = srem i32 %div, 10
+  %call3 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %fp, ptr noundef nonnull @.str.4, i32 noundef %rem)
+  %next_col = getelementptr inbounds %struct.sm_col_struct, ptr %pcol.0101, i64 0, i32 5
+  %pcol.0 = load ptr, ptr %next_col, align 8, !tbaa !25
+  %cmp1.not = icmp eq ptr %pcol.0, null
+  br i1 %cmp1.not, label %for.end, label %for.body
 
-21:                                               ; preds = %12, %7
-  %22 = tail call i32 @putc(i32 noundef 10, ptr noundef %0)
-  %23 = load ptr, ptr %3, align 8, !tbaa !23
-  %24 = load i32, ptr %23, align 8, !tbaa !24
-  br label %25
+for.end:                                          ; preds = %for.body, %if.then
+  %call4 = tail call i32 @putc(i32 noundef 10, ptr noundef %fp)
+  %.pre = load ptr, ptr %last_col, align 8, !tbaa !23
+  %.pre117 = load i32, ptr %.pre, align 8, !tbaa !24
+  br label %if.end
 
-25:                                               ; preds = %21, %2
-  %26 = phi i32 [ %24, %21 ], [ %5, %2 ]
-  %27 = icmp sgt i32 %26, 9
-  br i1 %27, label %28, label %44
+if.end:                                           ; preds = %for.end, %entry
+  %4 = phi i32 [ %.pre117, %for.end ], [ %1, %entry ]
+  %cmp7 = icmp sgt i32 %4, 9
+  br i1 %cmp7, label %if.then8, label %if.end22
 
-28:                                               ; preds = %25
-  %29 = tail call i64 @fwrite(ptr nonnull @.str.3, i64 4, i64 1, ptr %0)
-  %30 = getelementptr inbounds %struct.sm_matrix_struct, ptr %1, i64 0, i32 7
-  %31 = load ptr, ptr %30, align 8, !tbaa !25
-  %32 = icmp eq ptr %31, null
-  br i1 %32, label %42, label %33
+if.then8:                                         ; preds = %if.end
+  %5 = tail call i64 @fwrite(ptr nonnull @.str.3, i64 4, i64 1, ptr %fp)
+  %first_col10 = getelementptr inbounds %struct.sm_matrix_struct, ptr %A, i64 0, i32 7
+  %pcol.1102 = load ptr, ptr %first_col10, align 8, !tbaa !25
+  %cmp12.not103 = icmp eq ptr %pcol.1102, null
+  br i1 %cmp12.not103, label %for.end20, label %for.body13
 
-33:                                               ; preds = %28, %33
-  %34 = phi ptr [ %40, %33 ], [ %31, %28 ]
-  %35 = load i32, ptr %34, align 8, !tbaa !24
-  %36 = sdiv i32 %35, 10
-  %37 = srem i32 %36, 10
-  %38 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %0, ptr noundef nonnull @.str.4, i32 noundef %37)
-  %39 = getelementptr inbounds %struct.sm_col_struct, ptr %34, i64 0, i32 5
-  %40 = load ptr, ptr %39, align 8, !tbaa !25
-  %41 = icmp eq ptr %40, null
-  br i1 %41, label %42, label %33
+for.body13:                                       ; preds = %if.then8, %for.body13
+  %pcol.1104 = phi ptr [ %pcol.1, %for.body13 ], [ %pcol.1102, %if.then8 ]
+  %6 = load i32, ptr %pcol.1104, align 8, !tbaa !24
+  %div15 = sdiv i32 %6, 10
+  %rem16 = srem i32 %div15, 10
+  %call17 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %fp, ptr noundef nonnull @.str.4, i32 noundef %rem16)
+  %next_col19 = getelementptr inbounds %struct.sm_col_struct, ptr %pcol.1104, i64 0, i32 5
+  %pcol.1 = load ptr, ptr %next_col19, align 8, !tbaa !25
+  %cmp12.not = icmp eq ptr %pcol.1, null
+  br i1 %cmp12.not, label %for.end20, label %for.body13
 
-42:                                               ; preds = %33, %28
-  %43 = tail call i32 @putc(i32 noundef 10, ptr noundef %0)
-  br label %44
+for.end20:                                        ; preds = %for.body13, %if.then8
+  %call21 = tail call i32 @putc(i32 noundef 10, ptr noundef %fp)
+  br label %if.end22
 
-44:                                               ; preds = %42, %25
-  %45 = tail call i64 @fwrite(ptr nonnull @.str.3, i64 4, i64 1, ptr %0)
-  %46 = getelementptr inbounds %struct.sm_matrix_struct, ptr %1, i64 0, i32 7
-  %47 = load ptr, ptr %46, align 8, !tbaa !25
-  %48 = icmp eq ptr %47, null
-  br i1 %48, label %57, label %49
+if.end22:                                         ; preds = %for.end20, %if.end
+  %7 = tail call i64 @fwrite(ptr nonnull @.str.3, i64 4, i64 1, ptr %fp)
+  %first_col24 = getelementptr inbounds %struct.sm_matrix_struct, ptr %A, i64 0, i32 7
+  %pcol.2105 = load ptr, ptr %first_col24, align 8, !tbaa !25
+  %cmp26.not106 = icmp eq ptr %pcol.2105, null
+  br i1 %cmp26.not106, label %for.end33, label %for.body27
 
-49:                                               ; preds = %44, %49
-  %50 = phi ptr [ %55, %49 ], [ %47, %44 ]
-  %51 = load i32, ptr %50, align 8, !tbaa !24
-  %52 = srem i32 %51, 10
-  %53 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %0, ptr noundef nonnull @.str.4, i32 noundef %52)
-  %54 = getelementptr inbounds %struct.sm_col_struct, ptr %50, i64 0, i32 5
-  %55 = load ptr, ptr %54, align 8, !tbaa !25
-  %56 = icmp eq ptr %55, null
-  br i1 %56, label %57, label %49
+for.body27:                                       ; preds = %if.end22, %for.body27
+  %pcol.2107 = phi ptr [ %pcol.2, %for.body27 ], [ %pcol.2105, %if.end22 ]
+  %8 = load i32, ptr %pcol.2107, align 8, !tbaa !24
+  %rem29 = srem i32 %8, 10
+  %call30 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %fp, ptr noundef nonnull @.str.4, i32 noundef %rem29)
+  %next_col32 = getelementptr inbounds %struct.sm_col_struct, ptr %pcol.2107, i64 0, i32 5
+  %pcol.2 = load ptr, ptr %next_col32, align 8, !tbaa !25
+  %cmp26.not = icmp eq ptr %pcol.2, null
+  br i1 %cmp26.not, label %for.end33, label %for.body27
 
-57:                                               ; preds = %49, %44
-  %58 = tail call i32 @putc(i32 noundef 10, ptr noundef %0)
-  %59 = tail call i64 @fwrite(ptr nonnull @.str.3, i64 4, i64 1, ptr %0)
-  %60 = load ptr, ptr %46, align 8, !tbaa !25
-  %61 = icmp eq ptr %60, null
-  br i1 %61, label %68, label %62
+for.end33:                                        ; preds = %for.body27, %if.end22
+  %call34 = tail call i32 @putc(i32 noundef 10, ptr noundef %fp)
+  %9 = tail call i64 @fwrite(ptr nonnull @.str.3, i64 4, i64 1, ptr %fp)
+  %pcol.3108 = load ptr, ptr %first_col24, align 8, !tbaa !25
+  %cmp38.not109 = icmp eq ptr %pcol.3108, null
+  br i1 %cmp38.not109, label %for.end43, label %for.body39
 
-62:                                               ; preds = %57, %62
-  %63 = phi ptr [ %66, %62 ], [ %60, %57 ]
-  %64 = tail call i32 @fputc(i32 45, ptr %0)
-  %65 = getelementptr inbounds %struct.sm_col_struct, ptr %63, i64 0, i32 5
-  %66 = load ptr, ptr %65, align 8, !tbaa !25
-  %67 = icmp eq ptr %66, null
-  br i1 %67, label %68, label %62
+for.body39:                                       ; preds = %for.end33, %for.body39
+  %pcol.3110 = phi ptr [ %pcol.3, %for.body39 ], [ %pcol.3108, %for.end33 ]
+  %fputc = tail call i32 @fputc(i32 45, ptr %fp)
+  %next_col42 = getelementptr inbounds %struct.sm_col_struct, ptr %pcol.3110, i64 0, i32 5
+  %pcol.3 = load ptr, ptr %next_col42, align 8, !tbaa !25
+  %cmp38.not = icmp eq ptr %pcol.3, null
+  br i1 %cmp38.not, label %for.end43, label %for.body39
 
-68:                                               ; preds = %62, %57
-  %69 = tail call i32 @putc(i32 noundef 10, ptr noundef %0)
-  %70 = getelementptr inbounds %struct.sm_matrix_struct, ptr %1, i64 0, i32 4
-  %71 = load ptr, ptr %70, align 8, !tbaa !25
-  %72 = icmp eq ptr %71, null
-  br i1 %72, label %94, label %73
+for.end43:                                        ; preds = %for.body39, %for.end33
+  %call44 = tail call i32 @putc(i32 noundef 10, ptr noundef %fp)
+  %first_row = getelementptr inbounds %struct.sm_matrix_struct, ptr %A, i64 0, i32 4
+  %prow.0114 = load ptr, ptr %first_row, align 8, !tbaa !25
+  %cmp46.not115 = icmp eq ptr %prow.0114, null
+  br i1 %cmp46.not115, label %for.end61, label %for.body47
 
-73:                                               ; preds = %68, %89
-  %74 = phi ptr [ %92, %89 ], [ %71, %68 ]
-  %75 = load i32, ptr %74, align 8, !tbaa !22
-  %76 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %0, ptr noundef nonnull @.str.6, i32 noundef %75)
-  %77 = load ptr, ptr %46, align 8, !tbaa !25
-  %78 = icmp eq ptr %77, null
-  br i1 %78, label %89, label %79
+for.body47:                                       ; preds = %for.end43, %for.end58
+  %prow.0116 = phi ptr [ %prow.0, %for.end58 ], [ %prow.0114, %for.end43 ]
+  %10 = load i32, ptr %prow.0116, align 8, !tbaa !22
+  %call48 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %fp, ptr noundef nonnull @.str.6, i32 noundef %10)
+  %pcol.4111 = load ptr, ptr %first_col24, align 8, !tbaa !25
+  %cmp51.not112 = icmp eq ptr %pcol.4111, null
+  br i1 %cmp51.not112, label %for.end58, label %for.body52
 
-79:                                               ; preds = %73, %79
-  %80 = phi ptr [ %87, %79 ], [ %77, %73 ]
-  %81 = load i32, ptr %80, align 8, !tbaa !24
-  %82 = tail call ptr (ptr, i32, ...) @sm_row_find(ptr noundef nonnull %74, i32 noundef %81) #16
-  %83 = icmp eq ptr %82, null
-  %84 = select i1 %83, i32 46, i32 49
-  %85 = tail call i32 @putc(i32 noundef %84, ptr noundef %0)
-  %86 = getelementptr inbounds %struct.sm_col_struct, ptr %80, i64 0, i32 5
-  %87 = load ptr, ptr %86, align 8, !tbaa !25
-  %88 = icmp eq ptr %87, null
-  br i1 %88, label %89, label %79
+for.body52:                                       ; preds = %for.body47, %for.body52
+  %pcol.4113 = phi ptr [ %pcol.4, %for.body52 ], [ %pcol.4111, %for.body47 ]
+  %11 = load i32, ptr %pcol.4113, align 8, !tbaa !24
+  %call54 = tail call ptr (ptr, i32, ...) @sm_row_find(ptr noundef nonnull %prow.0116, i32 noundef %11) #16
+  %tobool.not = icmp eq ptr %call54, null
+  %cond = select i1 %tobool.not, i32 46, i32 49
+  %call55 = tail call i32 @putc(i32 noundef %cond, ptr noundef %fp)
+  %next_col57 = getelementptr inbounds %struct.sm_col_struct, ptr %pcol.4113, i64 0, i32 5
+  %pcol.4 = load ptr, ptr %next_col57, align 8, !tbaa !25
+  %cmp51.not = icmp eq ptr %pcol.4, null
+  br i1 %cmp51.not, label %for.end58, label %for.body52
 
-89:                                               ; preds = %79, %73
-  %90 = tail call i32 @putc(i32 noundef 10, ptr noundef %0)
-  %91 = getelementptr inbounds %struct.sm_row_struct, ptr %74, i64 0, i32 5
-  %92 = load ptr, ptr %91, align 8, !tbaa !25
-  %93 = icmp eq ptr %92, null
-  br i1 %93, label %94, label %73
+for.end58:                                        ; preds = %for.body52, %for.body47
+  %call59 = tail call i32 @putc(i32 noundef 10, ptr noundef %fp)
+  %next_row = getelementptr inbounds %struct.sm_row_struct, ptr %prow.0116, i64 0, i32 5
+  %prow.0 = load ptr, ptr %next_row, align 8, !tbaa !25
+  %cmp46.not = icmp eq ptr %prow.0, null
+  br i1 %cmp46.not, label %for.end61, label %for.body47
 
-94:                                               ; preds = %89, %68
+for.end61:                                        ; preds = %for.end58, %for.end43
   ret void
 }
 
@@ -1923,41 +1943,43 @@ define dso_local void @sm_print(ptr nocapture noundef %0, ptr nocapture noundef 
 declare noundef i32 @putc(i32 noundef, ptr nocapture noundef) local_unnamed_addr #9
 
 ; Function Attrs: nounwind uwtable
-define dso_local void @sm_dump(ptr nocapture noundef readonly %0, ptr noundef %1, i32 noundef %2) local_unnamed_addr #3 {
-  %4 = load ptr, ptr @stdout, align 8, !tbaa !25
-  %5 = getelementptr inbounds %struct.sm_matrix_struct, ptr %0, i64 0, i32 6
-  %6 = load i32, ptr %5, align 8, !tbaa !33
-  %7 = getelementptr inbounds %struct.sm_matrix_struct, ptr %0, i64 0, i32 9
-  %8 = load i32, ptr %7, align 8, !tbaa !35
-  %9 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %4, ptr noundef nonnull @.str.7, ptr noundef %1, i32 noundef %6, i32 noundef %8)
-  %10 = load i32, ptr %5, align 8, !tbaa !33
-  %11 = icmp slt i32 %10, %2
-  br i1 %11, label %12, label %13
+define dso_local void @sm_dump(ptr nocapture noundef readonly %A, ptr noundef %s, i32 noundef %max) local_unnamed_addr #3 {
+entry:
+  %0 = load ptr, ptr @stdout, align 8, !tbaa !25
+  %nrows = getelementptr inbounds %struct.sm_matrix_struct, ptr %A, i64 0, i32 6
+  %1 = load i32, ptr %nrows, align 8, !tbaa !33
+  %ncols = getelementptr inbounds %struct.sm_matrix_struct, ptr %A, i64 0, i32 9
+  %2 = load i32, ptr %ncols, align 8, !tbaa !35
+  %call = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %0, ptr noundef nonnull @.str.7, ptr noundef %s, i32 noundef %1, i32 noundef %2)
+  %3 = load i32, ptr %nrows, align 8, !tbaa !33
+  %cmp = icmp slt i32 %3, %max
+  br i1 %cmp, label %if.then, label %if.end
 
-12:                                               ; preds = %3
-  tail call void @sm_print(ptr noundef %4, ptr noundef nonnull %0)
-  br label %13
+if.then:                                          ; preds = %entry
+  tail call void @sm_print(ptr noundef %0, ptr noundef nonnull %A)
+  br label %if.end
 
-13:                                               ; preds = %12, %3
+if.end:                                           ; preds = %if.then, %entry
   ret void
 }
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(none) uwtable
 define dso_local void @sm_cleanup() local_unnamed_addr #11 {
+entry:
   ret void
 }
 
+; Function Attrs: nofree nounwind
+declare noundef i64 @fwrite(ptr nocapture noundef, i64 noundef, i64 noundef, ptr nocapture noundef) local_unnamed_addr #12
+
+; Function Attrs: nofree nounwind
+declare noundef i32 @fputc(i32 noundef, ptr nocapture noundef) local_unnamed_addr #12
+
 ; Function Attrs: nocallback nofree nounwind willreturn memory(argmem: write)
-declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #12
+declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #13
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i32 @llvm.smax.i32(i32, i32) #13
-
-; Function Attrs: nofree nounwind
-declare noundef i64 @fwrite(ptr nocapture noundef, i64 noundef, i64 noundef, ptr nocapture noundef) local_unnamed_addr #14
-
-; Function Attrs: nofree nounwind
-declare noundef i32 @fputc(i32 noundef, ptr nocapture noundef) local_unnamed_addr #14
+declare i32 @llvm.smax.i32(i32, i32) #14
 
 attributes #0 = { mustprogress nofree nounwind willreturn memory(write, argmem: none, inaccessiblemem: readwrite) uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #1 = { mustprogress nocallback nofree nosync nounwind willreturn memory(argmem: readwrite) }
@@ -1971,9 +1993,9 @@ attributes #8 = { nofree norecurse nosync nounwind memory(read, inaccessiblemem:
 attributes #9 = { nofree nounwind "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #10 = { nofree nounwind uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #11 = { mustprogress nofree norecurse nosync nounwind willreturn memory(none) uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
-attributes #12 = { nocallback nofree nounwind willreturn memory(argmem: write) }
-attributes #13 = { nocallback nofree nosync nounwind speculatable willreturn memory(none) }
-attributes #14 = { nofree nounwind }
+attributes #12 = { nofree nounwind }
+attributes #13 = { nocallback nofree nounwind willreturn memory(argmem: write) }
+attributes #14 = { nocallback nofree nosync nounwind speculatable willreturn memory(none) }
 attributes #15 = { nounwind allocsize(0) }
 attributes #16 = { nounwind }
 attributes #17 = { nounwind allocsize(1) }

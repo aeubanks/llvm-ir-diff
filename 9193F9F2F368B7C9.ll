@@ -4,14 +4,15 @@ target datalayout = "e-m:e-p270:32:32-p271:32:32-p272:64:64-i64:64-f80:128-n8:16
 target triple = "x86_64-unknown-linux-gnu"
 
 ; Function Attrs: nofree nounwind uwtable
-define dso_local i32 @ReadByte(ptr nocapture noundef %0) local_unnamed_addr #0 {
-  %2 = tail call i32 @getc(ptr noundef %0)
-  %3 = and i32 %2, 255
-  %4 = and i32 %2, 128
-  %5 = icmp eq i32 %4, 0
-  %6 = select i1 %5, i32 0, i32 -256
-  %7 = or i32 %6, %3
-  ret i32 %7
+define dso_local i32 @ReadByte(ptr nocapture noundef %fp) local_unnamed_addr #0 {
+entry:
+  %call = tail call i32 @getc(ptr noundef %fp)
+  %and = and i32 %call, 255
+  %and1 = and i32 %call, 128
+  %tobool.not = icmp eq i32 %and1, 0
+  %masksel = select i1 %tobool.not, i32 0, i32 -256
+  %spec.select = or i32 %masksel, %and
+  ret i32 %spec.select
 }
 
 ; Function Attrs: mustprogress nocallback nofree nosync nounwind willreturn memory(argmem: readwrite)
@@ -24,39 +25,42 @@ declare noundef i32 @getc(ptr nocapture noundef) local_unnamed_addr #2
 declare void @llvm.lifetime.end.p0(i64 immarg, ptr nocapture) #1
 
 ; Function Attrs: nofree nounwind uwtable
-define dso_local i32 @Read16BitsLowHigh(ptr nocapture noundef %0) local_unnamed_addr #0 {
-  %2 = tail call i32 @getc(ptr noundef %0)
-  %3 = and i32 %2, 255
-  %4 = tail call i32 @getc(ptr noundef %0)
-  %5 = shl i32 %4, 8
-  %6 = and i32 %5, 65280
-  %7 = or i32 %6, %3
-  %8 = and i32 %4, 128
-  %9 = icmp eq i32 %8, 0
-  %10 = or i32 %7, -65536
-  %11 = select i1 %9, i32 %7, i32 %10
-  ret i32 %11
+define dso_local i32 @Read16BitsLowHigh(ptr nocapture noundef %fp) local_unnamed_addr #0 {
+entry:
+  %call = tail call i32 @getc(ptr noundef %fp)
+  %and = and i32 %call, 255
+  %call1 = tail call i32 @getc(ptr noundef %fp)
+  %and2 = shl i32 %call1, 8
+  %shl = and i32 %and2, 65280
+  %add = or i32 %shl, %and
+  %0 = and i32 %call1, 128
+  %tobool.not = icmp eq i32 %0, 0
+  %sub = or i32 %add, -65536
+  %spec.select = select i1 %tobool.not, i32 %add, i32 %sub
+  ret i32 %spec.select
 }
 
 ; Function Attrs: nofree nounwind uwtable
-define dso_local i32 @Read16BitsHighLow(ptr nocapture noundef %0) local_unnamed_addr #0 {
-  %2 = tail call i32 @getc(ptr noundef %0)
-  %3 = tail call i32 @getc(ptr noundef %0)
-  %4 = and i32 %3, 255
-  %5 = shl i32 %2, 8
-  %6 = and i32 %5, 65280
-  %7 = or i32 %6, %4
-  %8 = and i32 %2, 128
-  %9 = icmp eq i32 %8, 0
-  %10 = or i32 %7, -65536
-  %11 = select i1 %9, i32 %7, i32 %10
-  ret i32 %11
+define dso_local i32 @Read16BitsHighLow(ptr nocapture noundef %fp) local_unnamed_addr #0 {
+entry:
+  %call = tail call i32 @getc(ptr noundef %fp)
+  %call1 = tail call i32 @getc(ptr noundef %fp)
+  %and2 = and i32 %call1, 255
+  %and = shl i32 %call, 8
+  %shl = and i32 %and, 65280
+  %add = or i32 %shl, %and2
+  %0 = and i32 %call, 128
+  %tobool.not = icmp eq i32 %0, 0
+  %sub = or i32 %add, -65536
+  %spec.select = select i1 %tobool.not, i32 %add, i32 %sub
+  ret i32 %spec.select
 }
 
 ; Function Attrs: nofree nounwind uwtable
-define dso_local void @Write8Bits(ptr nocapture noundef %0, i32 noundef %1) local_unnamed_addr #0 {
-  %3 = and i32 %1, 255
-  %4 = tail call i32 @putc(i32 noundef %3, ptr noundef %0)
+define dso_local void @Write8Bits(ptr nocapture noundef %fp, i32 noundef %i) local_unnamed_addr #0 {
+entry:
+  %and = and i32 %i, 255
+  %call = tail call i32 @putc(i32 noundef %and, ptr noundef %fp)
   ret void
 }
 
@@ -64,150 +68,157 @@ define dso_local void @Write8Bits(ptr nocapture noundef %0, i32 noundef %1) loca
 declare noundef i32 @putc(i32 noundef, ptr nocapture noundef) local_unnamed_addr #2
 
 ; Function Attrs: nofree nounwind uwtable
-define dso_local void @Write16BitsLowHigh(ptr nocapture noundef %0, i32 noundef %1) local_unnamed_addr #0 {
-  %3 = and i32 %1, 255
-  %4 = tail call i32 @putc(i32 noundef %3, ptr noundef %0)
-  %5 = lshr i32 %1, 8
-  %6 = and i32 %5, 255
-  %7 = tail call i32 @putc(i32 noundef %6, ptr noundef %0)
+define dso_local void @Write16BitsLowHigh(ptr nocapture noundef %fp, i32 noundef %i) local_unnamed_addr #0 {
+entry:
+  %and = and i32 %i, 255
+  %call = tail call i32 @putc(i32 noundef %and, ptr noundef %fp)
+  %0 = lshr i32 %i, 8
+  %and1 = and i32 %0, 255
+  %call2 = tail call i32 @putc(i32 noundef %and1, ptr noundef %fp)
   ret void
 }
 
 ; Function Attrs: nofree nounwind uwtable
-define dso_local void @Write16BitsHighLow(ptr nocapture noundef %0, i32 noundef %1) local_unnamed_addr #0 {
-  %3 = lshr i32 %1, 8
-  %4 = and i32 %3, 255
-  %5 = tail call i32 @putc(i32 noundef %4, ptr noundef %0)
-  %6 = and i32 %1, 255
-  %7 = tail call i32 @putc(i32 noundef %6, ptr noundef %0)
+define dso_local void @Write16BitsHighLow(ptr nocapture noundef %fp, i32 noundef %i) local_unnamed_addr #0 {
+entry:
+  %0 = lshr i32 %i, 8
+  %and = and i32 %0, 255
+  %call = tail call i32 @putc(i32 noundef %and, ptr noundef %fp)
+  %and1 = and i32 %i, 255
+  %call2 = tail call i32 @putc(i32 noundef %and1, ptr noundef %fp)
   ret void
 }
 
 ; Function Attrs: nofree nounwind uwtable
-define dso_local i32 @Read24BitsHighLow(ptr nocapture noundef %0) local_unnamed_addr #0 {
-  %2 = tail call i32 @getc(ptr noundef %0)
-  %3 = tail call i32 @getc(ptr noundef %0)
-  %4 = tail call i32 @getc(ptr noundef %0)
-  %5 = and i32 %4, 255
-  %6 = shl i32 %2, 16
-  %7 = and i32 %6, 16711680
-  %8 = shl i32 %3, 8
-  %9 = and i32 %8, 65280
-  %10 = or i32 %9, %7
-  %11 = or i32 %10, %5
-  %12 = and i32 %2, 128
-  %13 = icmp eq i32 %12, 0
-  %14 = or i32 %11, -16777216
-  %15 = select i1 %13, i32 %11, i32 %14
-  ret i32 %15
+define dso_local i32 @Read24BitsHighLow(ptr nocapture noundef %fp) local_unnamed_addr #0 {
+entry:
+  %call = tail call i32 @getc(ptr noundef %fp)
+  %call1 = tail call i32 @getc(ptr noundef %fp)
+  %call3 = tail call i32 @getc(ptr noundef %fp)
+  %and4 = and i32 %call3, 255
+  %and = shl i32 %call, 16
+  %shl = and i32 %and, 16711680
+  %and2 = shl i32 %call1, 8
+  %shl5 = and i32 %and2, 65280
+  %add = or i32 %shl5, %shl
+  %add6 = or i32 %add, %and4
+  %0 = and i32 %call, 128
+  %tobool.not = icmp eq i32 %0, 0
+  %sub = or i32 %add6, -16777216
+  %spec.select = select i1 %tobool.not, i32 %add6, i32 %sub
+  ret i32 %spec.select
 }
 
 ; Function Attrs: nofree nounwind uwtable
-define dso_local i32 @Read32Bits(ptr nocapture noundef %0) local_unnamed_addr #0 {
-  %2 = tail call i32 @getc(ptr noundef %0)
+define dso_local i32 @Read32Bits(ptr nocapture noundef %fp) local_unnamed_addr #0 {
+entry:
+  %call.i = tail call i32 @getc(ptr noundef %fp)
+  %and.i = and i32 %call.i, 255
+  %call1.i = tail call i32 @getc(ptr noundef %fp)
+  %and2.i = shl i32 %call1.i, 8
+  %shl.i = and i32 %and2.i, 65280
+  %add.i = or i32 %and.i, %shl.i
+  %call.i4 = tail call i32 @getc(ptr noundef %fp)
+  %call1.i6 = tail call i32 @getc(ptr noundef %fp)
+  %0 = shl i32 %call1.i6, 24
+  %and.i5 = shl i32 %call.i4, 16
+  %1 = and i32 %and.i5, 16711680
+  %and2 = or i32 %0, %1
+  %add = or i32 %and2, %add.i
+  ret i32 %add
+}
+
+; Function Attrs: nofree nounwind uwtable
+define dso_local i32 @Read32BitsHighLow(ptr nocapture noundef %fp) local_unnamed_addr #0 {
+entry:
+  %call.i = tail call i32 @getc(ptr noundef %fp)
+  %call1.i = tail call i32 @getc(ptr noundef %fp)
+  %call.i4 = tail call i32 @getc(ptr noundef %fp)
+  %call1.i5 = tail call i32 @getc(ptr noundef %fp)
+  %and2.i6 = and i32 %call1.i5, 255
+  %and.i7 = shl i32 %call.i4, 8
+  %shl.i8 = and i32 %and.i7, 65280
+  %add.i9 = or i32 %shl.i8, %and2.i6
+  %0 = shl i32 %call.i, 24
+  %and2.i = shl i32 %call1.i, 16
+  %1 = and i32 %and2.i, 16711680
+  %and = or i32 %1, %0
+  %add = or i32 %add.i9, %and
+  ret i32 %add
+}
+
+; Function Attrs: nofree nounwind uwtable
+define dso_local void @Write32Bits(ptr nocapture noundef %fp, i32 noundef %i) local_unnamed_addr #0 {
+entry:
+  %and.i = and i32 %i, 255
+  %call.i = tail call i32 @putc(i32 noundef %and.i, ptr noundef %fp)
+  %0 = lshr i32 %i, 8
+  %1 = and i32 %0, 255
+  %call2.i = tail call i32 @putc(i32 noundef %1, ptr noundef %fp)
+  %2 = lshr i32 %i, 16
+  %and.i8 = and i32 %2, 255
+  %call.i9 = tail call i32 @putc(i32 noundef %and.i8, ptr noundef %fp)
+  %3 = lshr i32 %i, 24
+  %call2.i11 = tail call i32 @putc(i32 noundef %3, ptr noundef %fp)
+  ret void
+}
+
+; Function Attrs: nofree nounwind uwtable
+define dso_local void @Write32BitsLowHigh(ptr nocapture noundef %fp, i32 noundef %i) local_unnamed_addr #0 {
+entry:
+  %and.i = and i32 %i, 255
+  %call.i = tail call i32 @putc(i32 noundef %and.i, ptr noundef %fp)
+  %0 = lshr i32 %i, 8
+  %1 = and i32 %0, 255
+  %call2.i = tail call i32 @putc(i32 noundef %1, ptr noundef %fp)
+  %2 = lshr i32 %i, 16
+  %and.i8 = and i32 %2, 255
+  %call.i9 = tail call i32 @putc(i32 noundef %and.i8, ptr noundef %fp)
+  %3 = lshr i32 %i, 24
+  %call2.i11 = tail call i32 @putc(i32 noundef %3, ptr noundef %fp)
+  ret void
+}
+
+; Function Attrs: nofree nounwind uwtable
+define dso_local void @Write32BitsHighLow(ptr nocapture noundef %fp, i32 noundef %i) local_unnamed_addr #0 {
+entry:
+  %0 = lshr i32 %i, 16
+  %1 = lshr i32 %i, 24
+  %call.i = tail call i32 @putc(i32 noundef %1, ptr noundef %fp)
+  %and1.i = and i32 %0, 255
+  %call2.i = tail call i32 @putc(i32 noundef %and1.i, ptr noundef %fp)
+  %2 = lshr i32 %i, 8
   %3 = and i32 %2, 255
-  %4 = tail call i32 @getc(ptr noundef %0)
-  %5 = shl i32 %4, 8
-  %6 = and i32 %5, 65280
-  %7 = or i32 %3, %6
-  %8 = tail call i32 @getc(ptr noundef %0)
-  %9 = and i32 %8, 255
-  %10 = tail call i32 @getc(ptr noundef %0)
-  %11 = shl i32 %10, 8
-  %12 = and i32 %11, 65280
-  %13 = or i32 %12, %9
-  %14 = shl nuw i32 %13, 16
-  %15 = or i32 %14, %7
-  ret i32 %15
-}
-
-; Function Attrs: nofree nounwind uwtable
-define dso_local i32 @Read32BitsHighLow(ptr nocapture noundef %0) local_unnamed_addr #0 {
-  %2 = tail call i32 @getc(ptr noundef %0)
-  %3 = tail call i32 @getc(ptr noundef %0)
-  %4 = and i32 %3, 255
-  %5 = shl i32 %2, 8
-  %6 = and i32 %5, 65280
-  %7 = or i32 %6, %4
-  %8 = tail call i32 @getc(ptr noundef %0)
-  %9 = tail call i32 @getc(ptr noundef %0)
-  %10 = and i32 %9, 255
-  %11 = shl i32 %8, 8
-  %12 = and i32 %11, 65280
-  %13 = or i32 %12, %10
-  %14 = shl nuw i32 %7, 16
-  %15 = or i32 %13, %14
-  ret i32 %15
-}
-
-; Function Attrs: nofree nounwind uwtable
-define dso_local void @Write32Bits(ptr nocapture noundef %0, i32 noundef %1) local_unnamed_addr #0 {
-  %3 = and i32 %1, 255
-  %4 = tail call i32 @putc(i32 noundef %3, ptr noundef %0)
-  %5 = lshr i32 %1, 8
-  %6 = and i32 %5, 255
-  %7 = tail call i32 @putc(i32 noundef %6, ptr noundef %0)
-  %8 = lshr i32 %1, 16
-  %9 = and i32 %8, 255
-  %10 = tail call i32 @putc(i32 noundef %9, ptr noundef %0)
-  %11 = lshr i32 %1, 24
-  %12 = tail call i32 @putc(i32 noundef %11, ptr noundef %0)
+  %call.i9 = tail call i32 @putc(i32 noundef %3, ptr noundef %fp)
+  %and1.i10 = and i32 %i, 255
+  %call2.i11 = tail call i32 @putc(i32 noundef %and1.i10, ptr noundef %fp)
   ret void
 }
 
 ; Function Attrs: nofree nounwind uwtable
-define dso_local void @Write32BitsLowHigh(ptr nocapture noundef %0, i32 noundef %1) local_unnamed_addr #0 {
-  %3 = and i32 %1, 255
-  %4 = tail call i32 @putc(i32 noundef %3, ptr noundef %0)
-  %5 = lshr i32 %1, 8
-  %6 = and i32 %5, 255
-  %7 = tail call i32 @putc(i32 noundef %6, ptr noundef %0)
-  %8 = lshr i32 %1, 16
-  %9 = and i32 %8, 255
-  %10 = tail call i32 @putc(i32 noundef %9, ptr noundef %0)
-  %11 = lshr i32 %1, 24
-  %12 = tail call i32 @putc(i32 noundef %11, ptr noundef %0)
-  ret void
-}
+define dso_local void @ReadBytes(ptr nocapture noundef %fp, ptr nocapture noundef writeonly %p, i32 noundef %n) local_unnamed_addr #0 {
+entry:
+  %call6 = tail call i32 @feof(ptr noundef %fp) #5
+  %tobool.not7 = icmp eq i32 %call6, 0
+  %cmp8 = icmp sgt i32 %n, 0
+  %and59 = and i1 %cmp8, %tobool.not7
+  br i1 %and59, label %while.body, label %while.end
 
-; Function Attrs: nofree nounwind uwtable
-define dso_local void @Write32BitsHighLow(ptr nocapture noundef %0, i32 noundef %1) local_unnamed_addr #0 {
-  %3 = lshr i32 %1, 16
-  %4 = lshr i32 %1, 24
-  %5 = tail call i32 @putc(i32 noundef %4, ptr noundef %0)
-  %6 = and i32 %3, 255
-  %7 = tail call i32 @putc(i32 noundef %6, ptr noundef %0)
-  %8 = lshr i32 %1, 8
-  %9 = and i32 %8, 255
-  %10 = tail call i32 @putc(i32 noundef %9, ptr noundef %0)
-  %11 = and i32 %1, 255
-  %12 = tail call i32 @putc(i32 noundef %11, ptr noundef %0)
-  ret void
-}
+while.body:                                       ; preds = %entry, %while.body
+  %n.addr.011 = phi i32 [ %dec, %while.body ], [ %n, %entry ]
+  %p.addr.010 = phi ptr [ %incdec.ptr, %while.body ], [ %p, %entry ]
+  %dec = add nsw i32 %n.addr.011, -1
+  %call2 = tail call i32 @getc(ptr noundef %fp)
+  %conv3 = trunc i32 %call2 to i8
+  %incdec.ptr = getelementptr inbounds i8, ptr %p.addr.010, i64 1
+  store i8 %conv3, ptr %p.addr.010, align 1, !tbaa !5
+  %call = tail call i32 @feof(ptr noundef %fp) #5
+  %tobool.not = icmp eq i32 %call, 0
+  %cmp = icmp ugt i32 %n.addr.011, 1
+  %and5 = and i1 %cmp, %tobool.not
+  br i1 %and5, label %while.body, label %while.end, !llvm.loop !8
 
-; Function Attrs: nofree nounwind uwtable
-define dso_local void @ReadBytes(ptr nocapture noundef %0, ptr nocapture noundef writeonly %1, i32 noundef %2) local_unnamed_addr #0 {
-  %4 = tail call i32 @feof(ptr noundef %0) #5
-  %5 = icmp eq i32 %4, 0
-  %6 = icmp sgt i32 %2, 0
-  %7 = and i1 %6, %5
-  br i1 %7, label %8, label %19
-
-8:                                                ; preds = %3, %8
-  %9 = phi i32 [ %11, %8 ], [ %2, %3 ]
-  %10 = phi ptr [ %14, %8 ], [ %1, %3 ]
-  %11 = add nsw i32 %9, -1
-  %12 = tail call i32 @getc(ptr noundef %0)
-  %13 = trunc i32 %12 to i8
-  %14 = getelementptr inbounds i8, ptr %10, i64 1
-  store i8 %13, ptr %10, align 1, !tbaa !5
-  %15 = tail call i32 @feof(ptr noundef %0) #5
-  %16 = icmp eq i32 %15, 0
-  %17 = icmp ugt i32 %9, 1
-  %18 = and i1 %17, %16
-  br i1 %18, label %8, label %19, !llvm.loop !8
-
-19:                                               ; preds = %8, %3
+while.end:                                        ; preds = %while.body, %entry
   ret void
 }
 
@@ -215,550 +226,565 @@ define dso_local void @ReadBytes(ptr nocapture noundef %0, ptr nocapture noundef
 declare noundef i32 @feof(ptr nocapture noundef) local_unnamed_addr #2
 
 ; Function Attrs: nofree nounwind uwtable
-define dso_local void @ReadBytesSwapped(ptr nocapture noundef %0, ptr noundef %1, i32 noundef %2) local_unnamed_addr #0 {
-  %4 = tail call i32 @feof(ptr noundef %0) #5
-  %5 = icmp eq i32 %4, 0
-  %6 = icmp sgt i32 %2, 0
-  %7 = and i1 %6, %5
-  br i1 %7, label %12, label %8
+define dso_local void @ReadBytesSwapped(ptr nocapture noundef %fp, ptr noundef %p, i32 noundef %n) local_unnamed_addr #0 {
+entry:
+  %call23 = tail call i32 @feof(ptr noundef %fp) #5
+  %tobool.not24 = icmp eq i32 %call23, 0
+  %cmp25 = icmp sgt i32 %n, 0
+  %and2226 = and i1 %cmp25, %tobool.not24
+  br i1 %and2226, label %while.body, label %for.cond.preheader
 
-8:                                                ; preds = %12, %3
-  %9 = phi ptr [ %1, %3 ], [ %18, %12 ]
-  %10 = getelementptr inbounds i8, ptr %9, i64 -1
-  %11 = icmp ugt ptr %10, %1
-  br i1 %11, label %23, label %31
+for.cond.preheader:                               ; preds = %while.body, %entry
+  %q.0.lcssa = phi ptr [ %p, %entry ], [ %incdec.ptr, %while.body ]
+  %q.129 = getelementptr inbounds i8, ptr %q.0.lcssa, i64 -1
+  %cmp530 = icmp ugt ptr %q.129, %p
+  br i1 %cmp530, label %for.body, label %for.end
 
-12:                                               ; preds = %3, %12
-  %13 = phi ptr [ %18, %12 ], [ %1, %3 ]
-  %14 = phi i32 [ %15, %12 ], [ %2, %3 ]
-  %15 = add nsw i32 %14, -1
-  %16 = tail call i32 @getc(ptr noundef %0)
-  %17 = trunc i32 %16 to i8
-  %18 = getelementptr inbounds i8, ptr %13, i64 1
-  store i8 %17, ptr %13, align 1, !tbaa !5
-  %19 = tail call i32 @feof(ptr noundef %0) #5
-  %20 = icmp eq i32 %19, 0
-  %21 = icmp ugt i32 %14, 1
-  %22 = and i1 %21, %20
-  br i1 %22, label %12, label %8, !llvm.loop !10
+while.body:                                       ; preds = %entry, %while.body
+  %q.028 = phi ptr [ %incdec.ptr, %while.body ], [ %p, %entry ]
+  %n.addr.027 = phi i32 [ %dec, %while.body ], [ %n, %entry ]
+  %dec = add nsw i32 %n.addr.027, -1
+  %call2 = tail call i32 @getc(ptr noundef %fp)
+  %conv3 = trunc i32 %call2 to i8
+  %incdec.ptr = getelementptr inbounds i8, ptr %q.028, i64 1
+  store i8 %conv3, ptr %q.028, align 1, !tbaa !5
+  %call = tail call i32 @feof(ptr noundef %fp) #5
+  %tobool.not = icmp eq i32 %call, 0
+  %cmp = icmp ugt i32 %n.addr.027, 1
+  %and22 = and i1 %cmp, %tobool.not
+  br i1 %and22, label %while.body, label %for.cond.preheader, !llvm.loop !10
 
-23:                                               ; preds = %8, %23
-  %24 = phi ptr [ %29, %23 ], [ %10, %8 ]
-  %25 = phi ptr [ %28, %23 ], [ %1, %8 ]
-  %26 = load i8, ptr %25, align 1, !tbaa !5
-  %27 = load i8, ptr %24, align 1, !tbaa !5
-  store i8 %27, ptr %25, align 1, !tbaa !5
-  store i8 %26, ptr %24, align 1, !tbaa !5
-  %28 = getelementptr inbounds i8, ptr %25, i64 1
-  %29 = getelementptr inbounds i8, ptr %24, i64 -1
-  %30 = icmp ult ptr %28, %29
-  br i1 %30, label %23, label %31, !llvm.loop !11
+for.body:                                         ; preds = %for.cond.preheader, %for.body
+  %q.132 = phi ptr [ %q.1, %for.body ], [ %q.129, %for.cond.preheader ]
+  %p.addr.031 = phi ptr [ %incdec.ptr9, %for.body ], [ %p, %for.cond.preheader ]
+  %0 = load i8, ptr %p.addr.031, align 1, !tbaa !5
+  %1 = load i8, ptr %q.132, align 1, !tbaa !5
+  store i8 %1, ptr %p.addr.031, align 1, !tbaa !5
+  store i8 %0, ptr %q.132, align 1, !tbaa !5
+  %incdec.ptr9 = getelementptr inbounds i8, ptr %p.addr.031, i64 1
+  %q.1 = getelementptr inbounds i8, ptr %q.132, i64 -1
+  %cmp5 = icmp ult ptr %incdec.ptr9, %q.1
+  br i1 %cmp5, label %for.body, label %for.end, !llvm.loop !11
 
-31:                                               ; preds = %23, %8
+for.end:                                          ; preds = %for.body, %for.cond.preheader
   ret void
 }
 
 ; Function Attrs: nofree nounwind uwtable
-define dso_local void @WriteBytes(ptr nocapture noundef %0, ptr nocapture noundef readonly %1, i32 noundef %2) local_unnamed_addr #0 {
-  %4 = icmp sgt i32 %2, 0
-  br i1 %4, label %5, label %14
+define dso_local void @WriteBytes(ptr nocapture noundef %fp, ptr nocapture noundef readonly %p, i32 noundef %n) local_unnamed_addr #0 {
+entry:
+  %cmp1 = icmp sgt i32 %n, 0
+  br i1 %cmp1, label %while.body, label %while.end
 
-5:                                                ; preds = %3, %5
-  %6 = phi i32 [ %8, %5 ], [ %2, %3 ]
-  %7 = phi ptr [ %9, %5 ], [ %1, %3 ]
-  %8 = add nsw i32 %6, -1
-  %9 = getelementptr inbounds i8, ptr %7, i64 1
-  %10 = load i8, ptr %7, align 1, !tbaa !5
-  %11 = sext i8 %10 to i32
-  %12 = tail call i32 @putc(i32 noundef %11, ptr noundef %0)
-  %13 = icmp ugt i32 %6, 1
-  br i1 %13, label %5, label %14, !llvm.loop !12
+while.body:                                       ; preds = %entry, %while.body
+  %n.addr.03 = phi i32 [ %dec, %while.body ], [ %n, %entry ]
+  %p.addr.02 = phi ptr [ %incdec.ptr, %while.body ], [ %p, %entry ]
+  %dec = add nsw i32 %n.addr.03, -1
+  %incdec.ptr = getelementptr inbounds i8, ptr %p.addr.02, i64 1
+  %0 = load i8, ptr %p.addr.02, align 1, !tbaa !5
+  %conv = sext i8 %0 to i32
+  %call = tail call i32 @putc(i32 noundef %conv, ptr noundef %fp)
+  %cmp = icmp ugt i32 %n.addr.03, 1
+  br i1 %cmp, label %while.body, label %while.end, !llvm.loop !12
 
-14:                                               ; preds = %5, %3
+while.end:                                        ; preds = %while.body, %entry
   ret void
 }
 
 ; Function Attrs: nofree nounwind uwtable
-define dso_local void @WriteBytesSwapped(ptr nocapture noundef %0, ptr nocapture noundef readonly %1, i32 noundef %2) local_unnamed_addr #0 {
-  %4 = icmp sgt i32 %2, 0
-  br i1 %4, label %5, label %18
+define dso_local void @WriteBytesSwapped(ptr nocapture noundef %fp, ptr nocapture noundef readonly %p, i32 noundef %n) local_unnamed_addr #0 {
+entry:
+  %cmp3 = icmp sgt i32 %n, 0
+  br i1 %cmp3, label %while.body.preheader, label %while.end
 
-5:                                                ; preds = %3
-  %6 = add nsw i32 %2, -1
-  %7 = zext i32 %6 to i64
-  %8 = getelementptr inbounds i8, ptr %1, i64 %7
-  br label %9
+while.body.preheader:                             ; preds = %entry
+  %sub = add nsw i32 %n, -1
+  %idx.ext = zext i32 %sub to i64
+  %add.ptr = getelementptr inbounds i8, ptr %p, i64 %idx.ext
+  br label %while.body
 
-9:                                                ; preds = %5, %9
-  %10 = phi i32 [ %12, %9 ], [ %2, %5 ]
-  %11 = phi ptr [ %13, %9 ], [ %8, %5 ]
-  %12 = add nsw i32 %10, -1
-  %13 = getelementptr inbounds i8, ptr %11, i64 -1
-  %14 = load i8, ptr %11, align 1, !tbaa !5
-  %15 = sext i8 %14 to i32
-  %16 = tail call i32 @putc(i32 noundef %15, ptr noundef %0)
-  %17 = icmp ugt i32 %10, 1
-  br i1 %17, label %9, label %18, !llvm.loop !13
+while.body:                                       ; preds = %while.body.preheader, %while.body
+  %n.addr.05 = phi i32 [ %dec, %while.body ], [ %n, %while.body.preheader ]
+  %p.addr.04 = phi ptr [ %incdec.ptr, %while.body ], [ %add.ptr, %while.body.preheader ]
+  %dec = add nsw i32 %n.addr.05, -1
+  %incdec.ptr = getelementptr inbounds i8, ptr %p.addr.04, i64 -1
+  %0 = load i8, ptr %p.addr.04, align 1, !tbaa !5
+  %conv = sext i8 %0 to i32
+  %call = tail call i32 @putc(i32 noundef %conv, ptr noundef %fp)
+  %cmp = icmp ugt i32 %n.addr.05, 1
+  br i1 %cmp, label %while.body, label %while.end, !llvm.loop !13
 
-18:                                               ; preds = %9, %3
+while.end:                                        ; preds = %while.body, %entry
   ret void
 }
 
 ; Function Attrs: nounwind uwtable
-define dso_local double @ReadIeeeFloatHighLow(ptr nocapture noundef %0) local_unnamed_addr #3 {
-  %2 = alloca [4 x i8], align 1
-  call void @llvm.lifetime.start.p0(i64 4, ptr nonnull %2) #5
-  %3 = tail call i32 @feof(ptr noundef %0) #5
-  %4 = icmp eq i32 %3, 0
-  br i1 %4, label %5, label %16
+define dso_local double @ReadIeeeFloatHighLow(ptr nocapture noundef %fp) local_unnamed_addr #3 {
+entry:
+  %bits = alloca [4 x i8], align 1
+  call void @llvm.lifetime.start.p0(i64 4, ptr nonnull %bits) #5
+  %call6.i = tail call i32 @feof(ptr noundef %fp) #5
+  %tobool.not7.i = icmp eq i32 %call6.i, 0
+  br i1 %tobool.not7.i, label %while.body.i, label %ReadBytes.exit
 
-5:                                                ; preds = %1, %5
-  %6 = phi i32 [ %8, %5 ], [ 4, %1 ]
-  %7 = phi ptr [ %11, %5 ], [ %2, %1 ]
-  %8 = add nsw i32 %6, -1
-  %9 = tail call i32 @getc(ptr noundef %0)
-  %10 = trunc i32 %9 to i8
-  %11 = getelementptr inbounds i8, ptr %7, i64 1
-  store i8 %10, ptr %7, align 1, !tbaa !5
-  %12 = tail call i32 @feof(ptr noundef %0) #5
-  %13 = icmp eq i32 %12, 0
-  %14 = icmp ugt i32 %6, 1
-  %15 = and i1 %14, %13
-  br i1 %15, label %5, label %16, !llvm.loop !8
+while.body.i:                                     ; preds = %entry, %while.body.i
+  %n.addr.011.i = phi i32 [ %dec.i, %while.body.i ], [ 4, %entry ]
+  %p.addr.010.i = phi ptr [ %incdec.ptr.i, %while.body.i ], [ %bits, %entry ]
+  %dec.i = add nsw i32 %n.addr.011.i, -1
+  %call2.i = tail call i32 @getc(ptr noundef %fp)
+  %conv3.i = trunc i32 %call2.i to i8
+  %incdec.ptr.i = getelementptr inbounds i8, ptr %p.addr.010.i, i64 1
+  store i8 %conv3.i, ptr %p.addr.010.i, align 1, !tbaa !5
+  %call.i = tail call i32 @feof(ptr noundef %fp) #5
+  %tobool.not.i = icmp eq i32 %call.i, 0
+  %cmp.i = icmp ugt i32 %n.addr.011.i, 1
+  %and5.i = and i1 %cmp.i, %tobool.not.i
+  br i1 %and5.i, label %while.body.i, label %ReadBytes.exit, !llvm.loop !8
 
-16:                                               ; preds = %5, %1
-  %17 = call double @ConvertFromIeeeSingle(ptr noundef nonnull %2) #5
-  call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %2) #5
-  ret double %17
+ReadBytes.exit:                                   ; preds = %while.body.i, %entry
+  %call = call double @ConvertFromIeeeSingle(ptr noundef nonnull %bits) #5
+  call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %bits) #5
+  ret double %call
 }
 
 declare double @ConvertFromIeeeSingle(ptr noundef) local_unnamed_addr #4
 
 ; Function Attrs: nounwind uwtable
-define dso_local double @ReadIeeeFloatLowHigh(ptr nocapture noundef %0) local_unnamed_addr #3 {
-  %2 = alloca [4 x i8], align 1
-  call void @llvm.lifetime.start.p0(i64 4, ptr nonnull %2) #5
-  %3 = tail call i32 @feof(ptr noundef %0) #5
-  %4 = icmp eq i32 %3, 0
-  br i1 %4, label %9, label %5
+define dso_local double @ReadIeeeFloatLowHigh(ptr nocapture noundef %fp) local_unnamed_addr #3 {
+entry:
+  %bits = alloca [4 x i8], align 1
+  call void @llvm.lifetime.start.p0(i64 4, ptr nonnull %bits) #5
+  %call23.i = tail call i32 @feof(ptr noundef %fp) #5
+  %tobool.not24.i = icmp eq i32 %call23.i, 0
+  br i1 %tobool.not24.i, label %while.body.i, label %for.cond.preheader.i
 
-5:                                                ; preds = %9, %1
-  %6 = phi ptr [ %2, %1 ], [ %15, %9 ]
-  %7 = getelementptr inbounds i8, ptr %6, i64 -1
-  %8 = icmp ugt ptr %7, %2
-  br i1 %8, label %20, label %28
+for.cond.preheader.i:                             ; preds = %while.body.i, %entry
+  %q.0.lcssa.i = phi ptr [ %bits, %entry ], [ %incdec.ptr.i, %while.body.i ]
+  %q.129.i = getelementptr inbounds i8, ptr %q.0.lcssa.i, i64 -1
+  %cmp530.i = icmp ugt ptr %q.129.i, %bits
+  br i1 %cmp530.i, label %for.body.i, label %ReadBytesSwapped.exit
 
-9:                                                ; preds = %1, %9
-  %10 = phi ptr [ %15, %9 ], [ %2, %1 ]
-  %11 = phi i32 [ %12, %9 ], [ 4, %1 ]
-  %12 = add nsw i32 %11, -1
-  %13 = tail call i32 @getc(ptr noundef %0)
-  %14 = trunc i32 %13 to i8
-  %15 = getelementptr inbounds i8, ptr %10, i64 1
-  store i8 %14, ptr %10, align 1, !tbaa !5
-  %16 = tail call i32 @feof(ptr noundef %0) #5
-  %17 = icmp eq i32 %16, 0
-  %18 = icmp ugt i32 %11, 1
-  %19 = and i1 %18, %17
-  br i1 %19, label %9, label %5, !llvm.loop !10
+while.body.i:                                     ; preds = %entry, %while.body.i
+  %q.028.i = phi ptr [ %incdec.ptr.i, %while.body.i ], [ %bits, %entry ]
+  %n.addr.027.i = phi i32 [ %dec.i, %while.body.i ], [ 4, %entry ]
+  %dec.i = add nsw i32 %n.addr.027.i, -1
+  %call2.i = tail call i32 @getc(ptr noundef %fp)
+  %conv3.i = trunc i32 %call2.i to i8
+  %incdec.ptr.i = getelementptr inbounds i8, ptr %q.028.i, i64 1
+  store i8 %conv3.i, ptr %q.028.i, align 1, !tbaa !5
+  %call.i = tail call i32 @feof(ptr noundef %fp) #5
+  %tobool.not.i = icmp eq i32 %call.i, 0
+  %cmp.i = icmp ugt i32 %n.addr.027.i, 1
+  %and22.i = and i1 %cmp.i, %tobool.not.i
+  br i1 %and22.i, label %while.body.i, label %for.cond.preheader.i, !llvm.loop !10
 
-20:                                               ; preds = %5, %20
-  %21 = phi ptr [ %26, %20 ], [ %7, %5 ]
-  %22 = phi ptr [ %25, %20 ], [ %2, %5 ]
-  %23 = load i8, ptr %22, align 1, !tbaa !5
-  %24 = load i8, ptr %21, align 1, !tbaa !5
-  store i8 %24, ptr %22, align 1, !tbaa !5
-  store i8 %23, ptr %21, align 1, !tbaa !5
-  %25 = getelementptr inbounds i8, ptr %22, i64 1
-  %26 = getelementptr inbounds i8, ptr %21, i64 -1
-  %27 = icmp ult ptr %25, %26
-  br i1 %27, label %20, label %28, !llvm.loop !11
+for.body.i:                                       ; preds = %for.cond.preheader.i, %for.body.i
+  %q.132.i = phi ptr [ %q.1.i, %for.body.i ], [ %q.129.i, %for.cond.preheader.i ]
+  %p.addr.031.i = phi ptr [ %incdec.ptr9.i, %for.body.i ], [ %bits, %for.cond.preheader.i ]
+  %0 = load i8, ptr %p.addr.031.i, align 1, !tbaa !5
+  %1 = load i8, ptr %q.132.i, align 1, !tbaa !5
+  store i8 %1, ptr %p.addr.031.i, align 1, !tbaa !5
+  store i8 %0, ptr %q.132.i, align 1, !tbaa !5
+  %incdec.ptr9.i = getelementptr inbounds i8, ptr %p.addr.031.i, i64 1
+  %q.1.i = getelementptr inbounds i8, ptr %q.132.i, i64 -1
+  %cmp5.i = icmp ult ptr %incdec.ptr9.i, %q.1.i
+  br i1 %cmp5.i, label %for.body.i, label %ReadBytesSwapped.exit, !llvm.loop !11
 
-28:                                               ; preds = %20, %5
-  %29 = call double @ConvertFromIeeeSingle(ptr noundef nonnull %2) #5
-  call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %2) #5
-  ret double %29
+ReadBytesSwapped.exit:                            ; preds = %for.body.i, %for.cond.preheader.i
+  %call = call double @ConvertFromIeeeSingle(ptr noundef nonnull %bits) #5
+  call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %bits) #5
+  ret double %call
 }
 
 ; Function Attrs: nounwind uwtable
-define dso_local double @ReadIeeeDoubleHighLow(ptr nocapture noundef %0) local_unnamed_addr #3 {
-  %2 = alloca [8 x i8], align 1
-  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %2) #5
-  %3 = tail call i32 @feof(ptr noundef %0) #5
-  %4 = icmp eq i32 %3, 0
-  br i1 %4, label %5, label %16
+define dso_local double @ReadIeeeDoubleHighLow(ptr nocapture noundef %fp) local_unnamed_addr #3 {
+entry:
+  %bits = alloca [8 x i8], align 1
+  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %bits) #5
+  %call6.i = tail call i32 @feof(ptr noundef %fp) #5
+  %tobool.not7.i = icmp eq i32 %call6.i, 0
+  br i1 %tobool.not7.i, label %while.body.i, label %ReadBytes.exit
 
-5:                                                ; preds = %1, %5
-  %6 = phi i32 [ %8, %5 ], [ 8, %1 ]
-  %7 = phi ptr [ %11, %5 ], [ %2, %1 ]
-  %8 = add nsw i32 %6, -1
-  %9 = tail call i32 @getc(ptr noundef %0)
-  %10 = trunc i32 %9 to i8
-  %11 = getelementptr inbounds i8, ptr %7, i64 1
-  store i8 %10, ptr %7, align 1, !tbaa !5
-  %12 = tail call i32 @feof(ptr noundef %0) #5
-  %13 = icmp eq i32 %12, 0
-  %14 = icmp ugt i32 %6, 1
-  %15 = and i1 %14, %13
-  br i1 %15, label %5, label %16, !llvm.loop !8
+while.body.i:                                     ; preds = %entry, %while.body.i
+  %n.addr.011.i = phi i32 [ %dec.i, %while.body.i ], [ 8, %entry ]
+  %p.addr.010.i = phi ptr [ %incdec.ptr.i, %while.body.i ], [ %bits, %entry ]
+  %dec.i = add nsw i32 %n.addr.011.i, -1
+  %call2.i = tail call i32 @getc(ptr noundef %fp)
+  %conv3.i = trunc i32 %call2.i to i8
+  %incdec.ptr.i = getelementptr inbounds i8, ptr %p.addr.010.i, i64 1
+  store i8 %conv3.i, ptr %p.addr.010.i, align 1, !tbaa !5
+  %call.i = tail call i32 @feof(ptr noundef %fp) #5
+  %tobool.not.i = icmp eq i32 %call.i, 0
+  %cmp.i = icmp ugt i32 %n.addr.011.i, 1
+  %and5.i = and i1 %cmp.i, %tobool.not.i
+  br i1 %and5.i, label %while.body.i, label %ReadBytes.exit, !llvm.loop !8
 
-16:                                               ; preds = %5, %1
-  %17 = call double @ConvertFromIeeeDouble(ptr noundef nonnull %2) #5
-  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %2) #5
-  ret double %17
+ReadBytes.exit:                                   ; preds = %while.body.i, %entry
+  %call = call double @ConvertFromIeeeDouble(ptr noundef nonnull %bits) #5
+  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %bits) #5
+  ret double %call
 }
 
 declare double @ConvertFromIeeeDouble(ptr noundef) local_unnamed_addr #4
 
 ; Function Attrs: nounwind uwtable
-define dso_local double @ReadIeeeDoubleLowHigh(ptr nocapture noundef %0) local_unnamed_addr #3 {
-  %2 = alloca [8 x i8], align 1
-  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %2) #5
-  %3 = tail call i32 @feof(ptr noundef %0) #5
-  %4 = icmp eq i32 %3, 0
-  br i1 %4, label %9, label %5
+define dso_local double @ReadIeeeDoubleLowHigh(ptr nocapture noundef %fp) local_unnamed_addr #3 {
+entry:
+  %bits = alloca [8 x i8], align 1
+  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %bits) #5
+  %call23.i = tail call i32 @feof(ptr noundef %fp) #5
+  %tobool.not24.i = icmp eq i32 %call23.i, 0
+  br i1 %tobool.not24.i, label %while.body.i, label %for.cond.preheader.i
 
-5:                                                ; preds = %9, %1
-  %6 = phi ptr [ %2, %1 ], [ %15, %9 ]
-  %7 = getelementptr inbounds i8, ptr %6, i64 -1
-  %8 = icmp ugt ptr %7, %2
-  br i1 %8, label %20, label %28
+for.cond.preheader.i:                             ; preds = %while.body.i, %entry
+  %q.0.lcssa.i = phi ptr [ %bits, %entry ], [ %incdec.ptr.i, %while.body.i ]
+  %q.129.i = getelementptr inbounds i8, ptr %q.0.lcssa.i, i64 -1
+  %cmp530.i = icmp ugt ptr %q.129.i, %bits
+  br i1 %cmp530.i, label %for.body.i, label %ReadBytesSwapped.exit
 
-9:                                                ; preds = %1, %9
-  %10 = phi ptr [ %15, %9 ], [ %2, %1 ]
-  %11 = phi i32 [ %12, %9 ], [ 8, %1 ]
-  %12 = add nsw i32 %11, -1
-  %13 = tail call i32 @getc(ptr noundef %0)
-  %14 = trunc i32 %13 to i8
-  %15 = getelementptr inbounds i8, ptr %10, i64 1
-  store i8 %14, ptr %10, align 1, !tbaa !5
-  %16 = tail call i32 @feof(ptr noundef %0) #5
-  %17 = icmp eq i32 %16, 0
-  %18 = icmp ugt i32 %11, 1
-  %19 = and i1 %18, %17
-  br i1 %19, label %9, label %5, !llvm.loop !10
+while.body.i:                                     ; preds = %entry, %while.body.i
+  %q.028.i = phi ptr [ %incdec.ptr.i, %while.body.i ], [ %bits, %entry ]
+  %n.addr.027.i = phi i32 [ %dec.i, %while.body.i ], [ 8, %entry ]
+  %dec.i = add nsw i32 %n.addr.027.i, -1
+  %call2.i = tail call i32 @getc(ptr noundef %fp)
+  %conv3.i = trunc i32 %call2.i to i8
+  %incdec.ptr.i = getelementptr inbounds i8, ptr %q.028.i, i64 1
+  store i8 %conv3.i, ptr %q.028.i, align 1, !tbaa !5
+  %call.i = tail call i32 @feof(ptr noundef %fp) #5
+  %tobool.not.i = icmp eq i32 %call.i, 0
+  %cmp.i = icmp ugt i32 %n.addr.027.i, 1
+  %and22.i = and i1 %cmp.i, %tobool.not.i
+  br i1 %and22.i, label %while.body.i, label %for.cond.preheader.i, !llvm.loop !10
 
-20:                                               ; preds = %5, %20
-  %21 = phi ptr [ %26, %20 ], [ %7, %5 ]
-  %22 = phi ptr [ %25, %20 ], [ %2, %5 ]
-  %23 = load i8, ptr %22, align 1, !tbaa !5
-  %24 = load i8, ptr %21, align 1, !tbaa !5
-  store i8 %24, ptr %22, align 1, !tbaa !5
-  store i8 %23, ptr %21, align 1, !tbaa !5
-  %25 = getelementptr inbounds i8, ptr %22, i64 1
-  %26 = getelementptr inbounds i8, ptr %21, i64 -1
-  %27 = icmp ult ptr %25, %26
-  br i1 %27, label %20, label %28, !llvm.loop !11
+for.body.i:                                       ; preds = %for.cond.preheader.i, %for.body.i
+  %q.132.i = phi ptr [ %q.1.i, %for.body.i ], [ %q.129.i, %for.cond.preheader.i ]
+  %p.addr.031.i = phi ptr [ %incdec.ptr9.i, %for.body.i ], [ %bits, %for.cond.preheader.i ]
+  %0 = load i8, ptr %p.addr.031.i, align 1, !tbaa !5
+  %1 = load i8, ptr %q.132.i, align 1, !tbaa !5
+  store i8 %1, ptr %p.addr.031.i, align 1, !tbaa !5
+  store i8 %0, ptr %q.132.i, align 1, !tbaa !5
+  %incdec.ptr9.i = getelementptr inbounds i8, ptr %p.addr.031.i, i64 1
+  %q.1.i = getelementptr inbounds i8, ptr %q.132.i, i64 -1
+  %cmp5.i = icmp ult ptr %incdec.ptr9.i, %q.1.i
+  br i1 %cmp5.i, label %for.body.i, label %ReadBytesSwapped.exit, !llvm.loop !11
 
-28:                                               ; preds = %20, %5
-  %29 = call double @ConvertFromIeeeDouble(ptr noundef nonnull %2) #5
-  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %2) #5
-  ret double %29
+ReadBytesSwapped.exit:                            ; preds = %for.body.i, %for.cond.preheader.i
+  %call = call double @ConvertFromIeeeDouble(ptr noundef nonnull %bits) #5
+  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %bits) #5
+  ret double %call
 }
 
 ; Function Attrs: nounwind uwtable
-define dso_local double @ReadIeeeExtendedHighLow(ptr nocapture noundef %0) local_unnamed_addr #3 {
-  %2 = alloca [10 x i8], align 1
-  call void @llvm.lifetime.start.p0(i64 10, ptr nonnull %2) #5
-  %3 = tail call i32 @feof(ptr noundef %0) #5
-  %4 = icmp eq i32 %3, 0
-  br i1 %4, label %5, label %16
+define dso_local double @ReadIeeeExtendedHighLow(ptr nocapture noundef %fp) local_unnamed_addr #3 {
+entry:
+  %bits = alloca [10 x i8], align 1
+  call void @llvm.lifetime.start.p0(i64 10, ptr nonnull %bits) #5
+  %call6.i = tail call i32 @feof(ptr noundef %fp) #5
+  %tobool.not7.i = icmp eq i32 %call6.i, 0
+  br i1 %tobool.not7.i, label %while.body.i, label %ReadBytes.exit
 
-5:                                                ; preds = %1, %5
-  %6 = phi i32 [ %8, %5 ], [ 10, %1 ]
-  %7 = phi ptr [ %11, %5 ], [ %2, %1 ]
-  %8 = add nsw i32 %6, -1
-  %9 = tail call i32 @getc(ptr noundef %0)
-  %10 = trunc i32 %9 to i8
-  %11 = getelementptr inbounds i8, ptr %7, i64 1
-  store i8 %10, ptr %7, align 1, !tbaa !5
-  %12 = tail call i32 @feof(ptr noundef %0) #5
-  %13 = icmp eq i32 %12, 0
-  %14 = icmp ugt i32 %6, 1
-  %15 = and i1 %14, %13
-  br i1 %15, label %5, label %16, !llvm.loop !8
+while.body.i:                                     ; preds = %entry, %while.body.i
+  %n.addr.011.i = phi i32 [ %dec.i, %while.body.i ], [ 10, %entry ]
+  %p.addr.010.i = phi ptr [ %incdec.ptr.i, %while.body.i ], [ %bits, %entry ]
+  %dec.i = add nsw i32 %n.addr.011.i, -1
+  %call2.i = tail call i32 @getc(ptr noundef %fp)
+  %conv3.i = trunc i32 %call2.i to i8
+  %incdec.ptr.i = getelementptr inbounds i8, ptr %p.addr.010.i, i64 1
+  store i8 %conv3.i, ptr %p.addr.010.i, align 1, !tbaa !5
+  %call.i = tail call i32 @feof(ptr noundef %fp) #5
+  %tobool.not.i = icmp eq i32 %call.i, 0
+  %cmp.i = icmp ugt i32 %n.addr.011.i, 1
+  %and5.i = and i1 %cmp.i, %tobool.not.i
+  br i1 %and5.i, label %while.body.i, label %ReadBytes.exit, !llvm.loop !8
 
-16:                                               ; preds = %5, %1
-  %17 = call double @ConvertFromIeeeExtended(ptr noundef nonnull %2) #5
-  call void @llvm.lifetime.end.p0(i64 10, ptr nonnull %2) #5
-  ret double %17
+ReadBytes.exit:                                   ; preds = %while.body.i, %entry
+  %call = call double @ConvertFromIeeeExtended(ptr noundef nonnull %bits) #5
+  call void @llvm.lifetime.end.p0(i64 10, ptr nonnull %bits) #5
+  ret double %call
 }
 
 declare double @ConvertFromIeeeExtended(ptr noundef) local_unnamed_addr #4
 
 ; Function Attrs: nounwind uwtable
-define dso_local double @ReadIeeeExtendedLowHigh(ptr nocapture noundef %0) local_unnamed_addr #3 {
-  %2 = alloca [10 x i8], align 1
-  call void @llvm.lifetime.start.p0(i64 10, ptr nonnull %2) #5
-  %3 = tail call i32 @feof(ptr noundef %0) #5
-  %4 = icmp eq i32 %3, 0
-  br i1 %4, label %9, label %5
+define dso_local double @ReadIeeeExtendedLowHigh(ptr nocapture noundef %fp) local_unnamed_addr #3 {
+entry:
+  %bits = alloca [10 x i8], align 1
+  call void @llvm.lifetime.start.p0(i64 10, ptr nonnull %bits) #5
+  %call23.i = tail call i32 @feof(ptr noundef %fp) #5
+  %tobool.not24.i = icmp eq i32 %call23.i, 0
+  br i1 %tobool.not24.i, label %while.body.i, label %for.cond.preheader.i
 
-5:                                                ; preds = %9, %1
-  %6 = phi ptr [ %2, %1 ], [ %15, %9 ]
-  %7 = getelementptr inbounds i8, ptr %6, i64 -1
-  %8 = icmp ugt ptr %7, %2
-  br i1 %8, label %20, label %28
+for.cond.preheader.i:                             ; preds = %while.body.i, %entry
+  %q.0.lcssa.i = phi ptr [ %bits, %entry ], [ %incdec.ptr.i, %while.body.i ]
+  %q.129.i = getelementptr inbounds i8, ptr %q.0.lcssa.i, i64 -1
+  %cmp530.i = icmp ugt ptr %q.129.i, %bits
+  br i1 %cmp530.i, label %for.body.i, label %ReadBytesSwapped.exit
 
-9:                                                ; preds = %1, %9
-  %10 = phi ptr [ %15, %9 ], [ %2, %1 ]
-  %11 = phi i32 [ %12, %9 ], [ 10, %1 ]
-  %12 = add nsw i32 %11, -1
-  %13 = tail call i32 @getc(ptr noundef %0)
-  %14 = trunc i32 %13 to i8
-  %15 = getelementptr inbounds i8, ptr %10, i64 1
-  store i8 %14, ptr %10, align 1, !tbaa !5
-  %16 = tail call i32 @feof(ptr noundef %0) #5
-  %17 = icmp eq i32 %16, 0
-  %18 = icmp ugt i32 %11, 1
-  %19 = and i1 %18, %17
-  br i1 %19, label %9, label %5, !llvm.loop !10
+while.body.i:                                     ; preds = %entry, %while.body.i
+  %q.028.i = phi ptr [ %incdec.ptr.i, %while.body.i ], [ %bits, %entry ]
+  %n.addr.027.i = phi i32 [ %dec.i, %while.body.i ], [ 10, %entry ]
+  %dec.i = add nsw i32 %n.addr.027.i, -1
+  %call2.i = tail call i32 @getc(ptr noundef %fp)
+  %conv3.i = trunc i32 %call2.i to i8
+  %incdec.ptr.i = getelementptr inbounds i8, ptr %q.028.i, i64 1
+  store i8 %conv3.i, ptr %q.028.i, align 1, !tbaa !5
+  %call.i = tail call i32 @feof(ptr noundef %fp) #5
+  %tobool.not.i = icmp eq i32 %call.i, 0
+  %cmp.i = icmp ugt i32 %n.addr.027.i, 1
+  %and22.i = and i1 %cmp.i, %tobool.not.i
+  br i1 %and22.i, label %while.body.i, label %for.cond.preheader.i, !llvm.loop !10
 
-20:                                               ; preds = %5, %20
-  %21 = phi ptr [ %26, %20 ], [ %7, %5 ]
-  %22 = phi ptr [ %25, %20 ], [ %2, %5 ]
-  %23 = load i8, ptr %22, align 1, !tbaa !5
-  %24 = load i8, ptr %21, align 1, !tbaa !5
-  store i8 %24, ptr %22, align 1, !tbaa !5
-  store i8 %23, ptr %21, align 1, !tbaa !5
-  %25 = getelementptr inbounds i8, ptr %22, i64 1
-  %26 = getelementptr inbounds i8, ptr %21, i64 -1
-  %27 = icmp ult ptr %25, %26
-  br i1 %27, label %20, label %28, !llvm.loop !11
+for.body.i:                                       ; preds = %for.cond.preheader.i, %for.body.i
+  %q.132.i = phi ptr [ %q.1.i, %for.body.i ], [ %q.129.i, %for.cond.preheader.i ]
+  %p.addr.031.i = phi ptr [ %incdec.ptr9.i, %for.body.i ], [ %bits, %for.cond.preheader.i ]
+  %0 = load i8, ptr %p.addr.031.i, align 1, !tbaa !5
+  %1 = load i8, ptr %q.132.i, align 1, !tbaa !5
+  store i8 %1, ptr %p.addr.031.i, align 1, !tbaa !5
+  store i8 %0, ptr %q.132.i, align 1, !tbaa !5
+  %incdec.ptr9.i = getelementptr inbounds i8, ptr %p.addr.031.i, i64 1
+  %q.1.i = getelementptr inbounds i8, ptr %q.132.i, i64 -1
+  %cmp5.i = icmp ult ptr %incdec.ptr9.i, %q.1.i
+  br i1 %cmp5.i, label %for.body.i, label %ReadBytesSwapped.exit, !llvm.loop !11
 
-28:                                               ; preds = %20, %5
-  %29 = call double @ConvertFromIeeeExtended(ptr noundef nonnull %2) #5
-  call void @llvm.lifetime.end.p0(i64 10, ptr nonnull %2) #5
-  ret double %29
+ReadBytesSwapped.exit:                            ; preds = %for.body.i, %for.cond.preheader.i
+  %call = call double @ConvertFromIeeeExtended(ptr noundef nonnull %bits) #5
+  call void @llvm.lifetime.end.p0(i64 10, ptr nonnull %bits) #5
+  ret double %call
 }
 
 ; Function Attrs: nounwind uwtable
-define dso_local void @WriteIeeeFloatLowHigh(ptr nocapture noundef %0, double noundef %1) local_unnamed_addr #3 {
-  %3 = alloca [4 x i8], align 1
-  call void @llvm.lifetime.start.p0(i64 4, ptr nonnull %3) #5
-  call void @ConvertToIeeeSingle(double noundef %1, ptr noundef nonnull %3) #5
-  %4 = getelementptr inbounds i8, ptr %3, i64 3
-  %5 = getelementptr inbounds i8, ptr %3, i64 2
-  %6 = load i8, ptr %4, align 1, !tbaa !5
-  %7 = sext i8 %6 to i32
-  %8 = call i32 @putc(i32 noundef %7, ptr noundef %0)
-  %9 = getelementptr inbounds i8, ptr %3, i64 1
-  %10 = load i8, ptr %5, align 1, !tbaa !5
-  %11 = sext i8 %10 to i32
-  %12 = call i32 @putc(i32 noundef %11, ptr noundef %0)
-  %13 = load i8, ptr %9, align 1, !tbaa !5
-  %14 = sext i8 %13 to i32
-  %15 = call i32 @putc(i32 noundef %14, ptr noundef %0)
-  %16 = load i8, ptr %3, align 1, !tbaa !5
-  %17 = sext i8 %16 to i32
-  %18 = call i32 @putc(i32 noundef %17, ptr noundef %0)
-  call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %3) #5
+define dso_local void @WriteIeeeFloatLowHigh(ptr nocapture noundef %fp, double noundef %num) local_unnamed_addr #3 {
+entry:
+  %bits = alloca [4 x i8], align 1
+  call void @llvm.lifetime.start.p0(i64 4, ptr nonnull %bits) #5
+  call void @ConvertToIeeeSingle(double noundef %num, ptr noundef nonnull %bits) #5
+  %add.ptr.i = getelementptr inbounds i8, ptr %bits, i64 3
+  %incdec.ptr.i = getelementptr inbounds i8, ptr %bits, i64 2
+  %0 = load i8, ptr %add.ptr.i, align 1, !tbaa !5
+  %conv.i = sext i8 %0 to i32
+  %call.i = call i32 @putc(i32 noundef %conv.i, ptr noundef %fp)
+  %incdec.ptr.i.1 = getelementptr inbounds i8, ptr %bits, i64 1
+  %1 = load i8, ptr %incdec.ptr.i, align 1, !tbaa !5
+  %conv.i.1 = sext i8 %1 to i32
+  %call.i.1 = call i32 @putc(i32 noundef %conv.i.1, ptr noundef %fp)
+  %2 = load i8, ptr %incdec.ptr.i.1, align 1, !tbaa !5
+  %conv.i.2 = sext i8 %2 to i32
+  %call.i.2 = call i32 @putc(i32 noundef %conv.i.2, ptr noundef %fp)
+  %3 = load i8, ptr %bits, align 1, !tbaa !5
+  %conv.i.3 = sext i8 %3 to i32
+  %call.i.3 = call i32 @putc(i32 noundef %conv.i.3, ptr noundef %fp)
+  call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %bits) #5
   ret void
 }
 
 declare void @ConvertToIeeeSingle(double noundef, ptr noundef) local_unnamed_addr #4
 
 ; Function Attrs: nounwind uwtable
-define dso_local void @WriteIeeeFloatHighLow(ptr nocapture noundef %0, double noundef %1) local_unnamed_addr #3 {
-  %3 = alloca [4 x i8], align 1
-  call void @llvm.lifetime.start.p0(i64 4, ptr nonnull %3) #5
-  call void @ConvertToIeeeSingle(double noundef %1, ptr noundef nonnull %3) #5
-  %4 = getelementptr inbounds i8, ptr %3, i64 1
-  %5 = load i8, ptr %3, align 1, !tbaa !5
-  %6 = sext i8 %5 to i32
-  %7 = call i32 @putc(i32 noundef %6, ptr noundef %0)
-  %8 = getelementptr inbounds i8, ptr %3, i64 2
-  %9 = load i8, ptr %4, align 1, !tbaa !5
-  %10 = sext i8 %9 to i32
-  %11 = call i32 @putc(i32 noundef %10, ptr noundef %0)
-  %12 = getelementptr inbounds i8, ptr %3, i64 3
-  %13 = load i8, ptr %8, align 1, !tbaa !5
-  %14 = sext i8 %13 to i32
-  %15 = call i32 @putc(i32 noundef %14, ptr noundef %0)
-  %16 = load i8, ptr %12, align 1, !tbaa !5
-  %17 = sext i8 %16 to i32
-  %18 = call i32 @putc(i32 noundef %17, ptr noundef %0)
-  call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %3) #5
+define dso_local void @WriteIeeeFloatHighLow(ptr nocapture noundef %fp, double noundef %num) local_unnamed_addr #3 {
+entry:
+  %bits = alloca [4 x i8], align 1
+  call void @llvm.lifetime.start.p0(i64 4, ptr nonnull %bits) #5
+  call void @ConvertToIeeeSingle(double noundef %num, ptr noundef nonnull %bits) #5
+  %incdec.ptr.i = getelementptr inbounds i8, ptr %bits, i64 1
+  %0 = load i8, ptr %bits, align 1, !tbaa !5
+  %conv.i = sext i8 %0 to i32
+  %call.i = call i32 @putc(i32 noundef %conv.i, ptr noundef %fp)
+  %incdec.ptr.i.1 = getelementptr inbounds i8, ptr %bits, i64 2
+  %1 = load i8, ptr %incdec.ptr.i, align 1, !tbaa !5
+  %conv.i.1 = sext i8 %1 to i32
+  %call.i.1 = call i32 @putc(i32 noundef %conv.i.1, ptr noundef %fp)
+  %incdec.ptr.i.2 = getelementptr inbounds i8, ptr %bits, i64 3
+  %2 = load i8, ptr %incdec.ptr.i.1, align 1, !tbaa !5
+  %conv.i.2 = sext i8 %2 to i32
+  %call.i.2 = call i32 @putc(i32 noundef %conv.i.2, ptr noundef %fp)
+  %3 = load i8, ptr %incdec.ptr.i.2, align 1, !tbaa !5
+  %conv.i.3 = sext i8 %3 to i32
+  %call.i.3 = call i32 @putc(i32 noundef %conv.i.3, ptr noundef %fp)
+  call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %bits) #5
   ret void
 }
 
 ; Function Attrs: nounwind uwtable
-define dso_local void @WriteIeeeDoubleLowHigh(ptr nocapture noundef %0, double noundef %1) local_unnamed_addr #3 {
-  %3 = alloca [8 x i8], align 1
-  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %3) #5
-  call void @ConvertToIeeeDouble(double noundef %1, ptr noundef nonnull %3) #5
-  %4 = getelementptr inbounds i8, ptr %3, i64 7
-  %5 = getelementptr inbounds i8, ptr %3, i64 6
-  %6 = load i8, ptr %4, align 1, !tbaa !5
-  %7 = sext i8 %6 to i32
-  %8 = call i32 @putc(i32 noundef %7, ptr noundef %0)
-  %9 = getelementptr inbounds i8, ptr %3, i64 5
-  %10 = load i8, ptr %5, align 1, !tbaa !5
-  %11 = sext i8 %10 to i32
-  %12 = call i32 @putc(i32 noundef %11, ptr noundef %0)
-  %13 = getelementptr inbounds i8, ptr %3, i64 4
-  %14 = load i8, ptr %9, align 1, !tbaa !5
-  %15 = sext i8 %14 to i32
-  %16 = call i32 @putc(i32 noundef %15, ptr noundef %0)
-  %17 = getelementptr inbounds i8, ptr %3, i64 3
-  %18 = load i8, ptr %13, align 1, !tbaa !5
-  %19 = sext i8 %18 to i32
-  %20 = call i32 @putc(i32 noundef %19, ptr noundef %0)
-  %21 = getelementptr inbounds i8, ptr %3, i64 2
-  %22 = load i8, ptr %17, align 1, !tbaa !5
-  %23 = sext i8 %22 to i32
-  %24 = call i32 @putc(i32 noundef %23, ptr noundef %0)
-  %25 = getelementptr inbounds i8, ptr %3, i64 1
-  %26 = load i8, ptr %21, align 1, !tbaa !5
-  %27 = sext i8 %26 to i32
-  %28 = call i32 @putc(i32 noundef %27, ptr noundef %0)
-  %29 = load i8, ptr %25, align 1, !tbaa !5
-  %30 = sext i8 %29 to i32
-  %31 = call i32 @putc(i32 noundef %30, ptr noundef %0)
-  %32 = load i8, ptr %3, align 1, !tbaa !5
-  %33 = sext i8 %32 to i32
-  %34 = call i32 @putc(i32 noundef %33, ptr noundef %0)
-  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %3) #5
+define dso_local void @WriteIeeeDoubleLowHigh(ptr nocapture noundef %fp, double noundef %num) local_unnamed_addr #3 {
+entry:
+  %bits = alloca [8 x i8], align 1
+  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %bits) #5
+  call void @ConvertToIeeeDouble(double noundef %num, ptr noundef nonnull %bits) #5
+  %add.ptr.i = getelementptr inbounds i8, ptr %bits, i64 7
+  %incdec.ptr.i = getelementptr inbounds i8, ptr %bits, i64 6
+  %0 = load i8, ptr %add.ptr.i, align 1, !tbaa !5
+  %conv.i = sext i8 %0 to i32
+  %call.i = call i32 @putc(i32 noundef %conv.i, ptr noundef %fp)
+  %incdec.ptr.i.1 = getelementptr inbounds i8, ptr %bits, i64 5
+  %1 = load i8, ptr %incdec.ptr.i, align 1, !tbaa !5
+  %conv.i.1 = sext i8 %1 to i32
+  %call.i.1 = call i32 @putc(i32 noundef %conv.i.1, ptr noundef %fp)
+  %incdec.ptr.i.2 = getelementptr inbounds i8, ptr %bits, i64 4
+  %2 = load i8, ptr %incdec.ptr.i.1, align 1, !tbaa !5
+  %conv.i.2 = sext i8 %2 to i32
+  %call.i.2 = call i32 @putc(i32 noundef %conv.i.2, ptr noundef %fp)
+  %incdec.ptr.i.3 = getelementptr inbounds i8, ptr %bits, i64 3
+  %3 = load i8, ptr %incdec.ptr.i.2, align 1, !tbaa !5
+  %conv.i.3 = sext i8 %3 to i32
+  %call.i.3 = call i32 @putc(i32 noundef %conv.i.3, ptr noundef %fp)
+  %incdec.ptr.i.4 = getelementptr inbounds i8, ptr %bits, i64 2
+  %4 = load i8, ptr %incdec.ptr.i.3, align 1, !tbaa !5
+  %conv.i.4 = sext i8 %4 to i32
+  %call.i.4 = call i32 @putc(i32 noundef %conv.i.4, ptr noundef %fp)
+  %incdec.ptr.i.5 = getelementptr inbounds i8, ptr %bits, i64 1
+  %5 = load i8, ptr %incdec.ptr.i.4, align 1, !tbaa !5
+  %conv.i.5 = sext i8 %5 to i32
+  %call.i.5 = call i32 @putc(i32 noundef %conv.i.5, ptr noundef %fp)
+  %6 = load i8, ptr %incdec.ptr.i.5, align 1, !tbaa !5
+  %conv.i.6 = sext i8 %6 to i32
+  %call.i.6 = call i32 @putc(i32 noundef %conv.i.6, ptr noundef %fp)
+  %7 = load i8, ptr %bits, align 1, !tbaa !5
+  %conv.i.7 = sext i8 %7 to i32
+  %call.i.7 = call i32 @putc(i32 noundef %conv.i.7, ptr noundef %fp)
+  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %bits) #5
   ret void
 }
 
 declare void @ConvertToIeeeDouble(double noundef, ptr noundef) local_unnamed_addr #4
 
 ; Function Attrs: nounwind uwtable
-define dso_local void @WriteIeeeDoubleHighLow(ptr nocapture noundef %0, double noundef %1) local_unnamed_addr #3 {
-  %3 = alloca [8 x i8], align 1
-  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %3) #5
-  call void @ConvertToIeeeDouble(double noundef %1, ptr noundef nonnull %3) #5
-  %4 = getelementptr inbounds i8, ptr %3, i64 1
-  %5 = load i8, ptr %3, align 1, !tbaa !5
-  %6 = sext i8 %5 to i32
-  %7 = call i32 @putc(i32 noundef %6, ptr noundef %0)
-  %8 = getelementptr inbounds i8, ptr %3, i64 2
-  %9 = load i8, ptr %4, align 1, !tbaa !5
-  %10 = sext i8 %9 to i32
-  %11 = call i32 @putc(i32 noundef %10, ptr noundef %0)
-  %12 = getelementptr inbounds i8, ptr %3, i64 3
-  %13 = load i8, ptr %8, align 1, !tbaa !5
-  %14 = sext i8 %13 to i32
-  %15 = call i32 @putc(i32 noundef %14, ptr noundef %0)
-  %16 = getelementptr inbounds i8, ptr %3, i64 4
-  %17 = load i8, ptr %12, align 1, !tbaa !5
-  %18 = sext i8 %17 to i32
-  %19 = call i32 @putc(i32 noundef %18, ptr noundef %0)
-  %20 = getelementptr inbounds i8, ptr %3, i64 5
-  %21 = load i8, ptr %16, align 1, !tbaa !5
-  %22 = sext i8 %21 to i32
-  %23 = call i32 @putc(i32 noundef %22, ptr noundef %0)
-  %24 = getelementptr inbounds i8, ptr %3, i64 6
-  %25 = load i8, ptr %20, align 1, !tbaa !5
-  %26 = sext i8 %25 to i32
-  %27 = call i32 @putc(i32 noundef %26, ptr noundef %0)
-  %28 = getelementptr inbounds i8, ptr %3, i64 7
-  %29 = load i8, ptr %24, align 1, !tbaa !5
-  %30 = sext i8 %29 to i32
-  %31 = call i32 @putc(i32 noundef %30, ptr noundef %0)
-  %32 = load i8, ptr %28, align 1, !tbaa !5
-  %33 = sext i8 %32 to i32
-  %34 = call i32 @putc(i32 noundef %33, ptr noundef %0)
-  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %3) #5
+define dso_local void @WriteIeeeDoubleHighLow(ptr nocapture noundef %fp, double noundef %num) local_unnamed_addr #3 {
+entry:
+  %bits = alloca [8 x i8], align 1
+  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %bits) #5
+  call void @ConvertToIeeeDouble(double noundef %num, ptr noundef nonnull %bits) #5
+  %incdec.ptr.i = getelementptr inbounds i8, ptr %bits, i64 1
+  %0 = load i8, ptr %bits, align 1, !tbaa !5
+  %conv.i = sext i8 %0 to i32
+  %call.i = call i32 @putc(i32 noundef %conv.i, ptr noundef %fp)
+  %incdec.ptr.i.1 = getelementptr inbounds i8, ptr %bits, i64 2
+  %1 = load i8, ptr %incdec.ptr.i, align 1, !tbaa !5
+  %conv.i.1 = sext i8 %1 to i32
+  %call.i.1 = call i32 @putc(i32 noundef %conv.i.1, ptr noundef %fp)
+  %incdec.ptr.i.2 = getelementptr inbounds i8, ptr %bits, i64 3
+  %2 = load i8, ptr %incdec.ptr.i.1, align 1, !tbaa !5
+  %conv.i.2 = sext i8 %2 to i32
+  %call.i.2 = call i32 @putc(i32 noundef %conv.i.2, ptr noundef %fp)
+  %incdec.ptr.i.3 = getelementptr inbounds i8, ptr %bits, i64 4
+  %3 = load i8, ptr %incdec.ptr.i.2, align 1, !tbaa !5
+  %conv.i.3 = sext i8 %3 to i32
+  %call.i.3 = call i32 @putc(i32 noundef %conv.i.3, ptr noundef %fp)
+  %incdec.ptr.i.4 = getelementptr inbounds i8, ptr %bits, i64 5
+  %4 = load i8, ptr %incdec.ptr.i.3, align 1, !tbaa !5
+  %conv.i.4 = sext i8 %4 to i32
+  %call.i.4 = call i32 @putc(i32 noundef %conv.i.4, ptr noundef %fp)
+  %incdec.ptr.i.5 = getelementptr inbounds i8, ptr %bits, i64 6
+  %5 = load i8, ptr %incdec.ptr.i.4, align 1, !tbaa !5
+  %conv.i.5 = sext i8 %5 to i32
+  %call.i.5 = call i32 @putc(i32 noundef %conv.i.5, ptr noundef %fp)
+  %incdec.ptr.i.6 = getelementptr inbounds i8, ptr %bits, i64 7
+  %6 = load i8, ptr %incdec.ptr.i.5, align 1, !tbaa !5
+  %conv.i.6 = sext i8 %6 to i32
+  %call.i.6 = call i32 @putc(i32 noundef %conv.i.6, ptr noundef %fp)
+  %7 = load i8, ptr %incdec.ptr.i.6, align 1, !tbaa !5
+  %conv.i.7 = sext i8 %7 to i32
+  %call.i.7 = call i32 @putc(i32 noundef %conv.i.7, ptr noundef %fp)
+  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %bits) #5
   ret void
 }
 
 ; Function Attrs: nounwind uwtable
-define dso_local void @WriteIeeeExtendedLowHigh(ptr nocapture noundef %0, double noundef %1) local_unnamed_addr #3 {
-  %3 = alloca [10 x i8], align 1
-  call void @llvm.lifetime.start.p0(i64 10, ptr nonnull %3) #5
-  call void @ConvertToIeeeExtended(double noundef %1, ptr noundef nonnull %3) #5
-  %4 = getelementptr inbounds i8, ptr %3, i64 9
-  %5 = getelementptr inbounds i8, ptr %3, i64 8
-  %6 = load i8, ptr %4, align 1, !tbaa !5
-  %7 = sext i8 %6 to i32
-  %8 = call i32 @putc(i32 noundef %7, ptr noundef %0)
-  %9 = getelementptr inbounds i8, ptr %3, i64 7
-  %10 = load i8, ptr %5, align 1, !tbaa !5
-  %11 = sext i8 %10 to i32
-  %12 = call i32 @putc(i32 noundef %11, ptr noundef %0)
-  %13 = getelementptr inbounds i8, ptr %3, i64 6
-  %14 = load i8, ptr %9, align 1, !tbaa !5
-  %15 = sext i8 %14 to i32
-  %16 = call i32 @putc(i32 noundef %15, ptr noundef %0)
-  %17 = getelementptr inbounds i8, ptr %3, i64 5
-  %18 = load i8, ptr %13, align 1, !tbaa !5
-  %19 = sext i8 %18 to i32
-  %20 = call i32 @putc(i32 noundef %19, ptr noundef %0)
-  %21 = getelementptr inbounds i8, ptr %3, i64 4
-  %22 = load i8, ptr %17, align 1, !tbaa !5
-  %23 = sext i8 %22 to i32
-  %24 = call i32 @putc(i32 noundef %23, ptr noundef %0)
-  %25 = getelementptr inbounds i8, ptr %3, i64 3
-  %26 = load i8, ptr %21, align 1, !tbaa !5
-  %27 = sext i8 %26 to i32
-  %28 = call i32 @putc(i32 noundef %27, ptr noundef %0)
-  %29 = getelementptr inbounds i8, ptr %3, i64 2
-  %30 = load i8, ptr %25, align 1, !tbaa !5
-  %31 = sext i8 %30 to i32
-  %32 = call i32 @putc(i32 noundef %31, ptr noundef %0)
-  %33 = getelementptr inbounds i8, ptr %3, i64 1
-  %34 = load i8, ptr %29, align 1, !tbaa !5
-  %35 = sext i8 %34 to i32
-  %36 = call i32 @putc(i32 noundef %35, ptr noundef %0)
-  %37 = load i8, ptr %33, align 1, !tbaa !5
-  %38 = sext i8 %37 to i32
-  %39 = call i32 @putc(i32 noundef %38, ptr noundef %0)
-  %40 = load i8, ptr %3, align 1, !tbaa !5
-  %41 = sext i8 %40 to i32
-  %42 = call i32 @putc(i32 noundef %41, ptr noundef %0)
-  call void @llvm.lifetime.end.p0(i64 10, ptr nonnull %3) #5
+define dso_local void @WriteIeeeExtendedLowHigh(ptr nocapture noundef %fp, double noundef %num) local_unnamed_addr #3 {
+entry:
+  %bits = alloca [10 x i8], align 1
+  call void @llvm.lifetime.start.p0(i64 10, ptr nonnull %bits) #5
+  call void @ConvertToIeeeExtended(double noundef %num, ptr noundef nonnull %bits) #5
+  %add.ptr.i = getelementptr inbounds i8, ptr %bits, i64 9
+  %incdec.ptr.i = getelementptr inbounds i8, ptr %bits, i64 8
+  %0 = load i8, ptr %add.ptr.i, align 1, !tbaa !5
+  %conv.i = sext i8 %0 to i32
+  %call.i = call i32 @putc(i32 noundef %conv.i, ptr noundef %fp)
+  %incdec.ptr.i.1 = getelementptr inbounds i8, ptr %bits, i64 7
+  %1 = load i8, ptr %incdec.ptr.i, align 1, !tbaa !5
+  %conv.i.1 = sext i8 %1 to i32
+  %call.i.1 = call i32 @putc(i32 noundef %conv.i.1, ptr noundef %fp)
+  %incdec.ptr.i.2 = getelementptr inbounds i8, ptr %bits, i64 6
+  %2 = load i8, ptr %incdec.ptr.i.1, align 1, !tbaa !5
+  %conv.i.2 = sext i8 %2 to i32
+  %call.i.2 = call i32 @putc(i32 noundef %conv.i.2, ptr noundef %fp)
+  %incdec.ptr.i.3 = getelementptr inbounds i8, ptr %bits, i64 5
+  %3 = load i8, ptr %incdec.ptr.i.2, align 1, !tbaa !5
+  %conv.i.3 = sext i8 %3 to i32
+  %call.i.3 = call i32 @putc(i32 noundef %conv.i.3, ptr noundef %fp)
+  %incdec.ptr.i.4 = getelementptr inbounds i8, ptr %bits, i64 4
+  %4 = load i8, ptr %incdec.ptr.i.3, align 1, !tbaa !5
+  %conv.i.4 = sext i8 %4 to i32
+  %call.i.4 = call i32 @putc(i32 noundef %conv.i.4, ptr noundef %fp)
+  %incdec.ptr.i.5 = getelementptr inbounds i8, ptr %bits, i64 3
+  %5 = load i8, ptr %incdec.ptr.i.4, align 1, !tbaa !5
+  %conv.i.5 = sext i8 %5 to i32
+  %call.i.5 = call i32 @putc(i32 noundef %conv.i.5, ptr noundef %fp)
+  %incdec.ptr.i.6 = getelementptr inbounds i8, ptr %bits, i64 2
+  %6 = load i8, ptr %incdec.ptr.i.5, align 1, !tbaa !5
+  %conv.i.6 = sext i8 %6 to i32
+  %call.i.6 = call i32 @putc(i32 noundef %conv.i.6, ptr noundef %fp)
+  %incdec.ptr.i.7 = getelementptr inbounds i8, ptr %bits, i64 1
+  %7 = load i8, ptr %incdec.ptr.i.6, align 1, !tbaa !5
+  %conv.i.7 = sext i8 %7 to i32
+  %call.i.7 = call i32 @putc(i32 noundef %conv.i.7, ptr noundef %fp)
+  %8 = load i8, ptr %incdec.ptr.i.7, align 1, !tbaa !5
+  %conv.i.8 = sext i8 %8 to i32
+  %call.i.8 = call i32 @putc(i32 noundef %conv.i.8, ptr noundef %fp)
+  %9 = load i8, ptr %bits, align 1, !tbaa !5
+  %conv.i.9 = sext i8 %9 to i32
+  %call.i.9 = call i32 @putc(i32 noundef %conv.i.9, ptr noundef %fp)
+  call void @llvm.lifetime.end.p0(i64 10, ptr nonnull %bits) #5
   ret void
 }
 
 declare void @ConvertToIeeeExtended(double noundef, ptr noundef) local_unnamed_addr #4
 
 ; Function Attrs: nounwind uwtable
-define dso_local void @WriteIeeeExtendedHighLow(ptr nocapture noundef %0, double noundef %1) local_unnamed_addr #3 {
-  %3 = alloca [10 x i8], align 1
-  call void @llvm.lifetime.start.p0(i64 10, ptr nonnull %3) #5
-  call void @ConvertToIeeeExtended(double noundef %1, ptr noundef nonnull %3) #5
-  %4 = getelementptr inbounds i8, ptr %3, i64 1
-  %5 = load i8, ptr %3, align 1, !tbaa !5
-  %6 = sext i8 %5 to i32
-  %7 = call i32 @putc(i32 noundef %6, ptr noundef %0)
-  %8 = getelementptr inbounds i8, ptr %3, i64 2
-  %9 = load i8, ptr %4, align 1, !tbaa !5
-  %10 = sext i8 %9 to i32
-  %11 = call i32 @putc(i32 noundef %10, ptr noundef %0)
-  %12 = getelementptr inbounds i8, ptr %3, i64 3
-  %13 = load i8, ptr %8, align 1, !tbaa !5
-  %14 = sext i8 %13 to i32
-  %15 = call i32 @putc(i32 noundef %14, ptr noundef %0)
-  %16 = getelementptr inbounds i8, ptr %3, i64 4
-  %17 = load i8, ptr %12, align 1, !tbaa !5
-  %18 = sext i8 %17 to i32
-  %19 = call i32 @putc(i32 noundef %18, ptr noundef %0)
-  %20 = getelementptr inbounds i8, ptr %3, i64 5
-  %21 = load i8, ptr %16, align 1, !tbaa !5
-  %22 = sext i8 %21 to i32
-  %23 = call i32 @putc(i32 noundef %22, ptr noundef %0)
-  %24 = getelementptr inbounds i8, ptr %3, i64 6
-  %25 = load i8, ptr %20, align 1, !tbaa !5
-  %26 = sext i8 %25 to i32
-  %27 = call i32 @putc(i32 noundef %26, ptr noundef %0)
-  %28 = getelementptr inbounds i8, ptr %3, i64 7
-  %29 = load i8, ptr %24, align 1, !tbaa !5
-  %30 = sext i8 %29 to i32
-  %31 = call i32 @putc(i32 noundef %30, ptr noundef %0)
-  %32 = getelementptr inbounds i8, ptr %3, i64 8
-  %33 = load i8, ptr %28, align 1, !tbaa !5
-  %34 = sext i8 %33 to i32
-  %35 = call i32 @putc(i32 noundef %34, ptr noundef %0)
-  %36 = getelementptr inbounds i8, ptr %3, i64 9
-  %37 = load i8, ptr %32, align 1, !tbaa !5
-  %38 = sext i8 %37 to i32
-  %39 = call i32 @putc(i32 noundef %38, ptr noundef %0)
-  %40 = load i8, ptr %36, align 1, !tbaa !5
-  %41 = sext i8 %40 to i32
-  %42 = call i32 @putc(i32 noundef %41, ptr noundef %0)
-  call void @llvm.lifetime.end.p0(i64 10, ptr nonnull %3) #5
+define dso_local void @WriteIeeeExtendedHighLow(ptr nocapture noundef %fp, double noundef %num) local_unnamed_addr #3 {
+entry:
+  %bits = alloca [10 x i8], align 1
+  call void @llvm.lifetime.start.p0(i64 10, ptr nonnull %bits) #5
+  call void @ConvertToIeeeExtended(double noundef %num, ptr noundef nonnull %bits) #5
+  %incdec.ptr.i = getelementptr inbounds i8, ptr %bits, i64 1
+  %0 = load i8, ptr %bits, align 1, !tbaa !5
+  %conv.i = sext i8 %0 to i32
+  %call.i = call i32 @putc(i32 noundef %conv.i, ptr noundef %fp)
+  %incdec.ptr.i.1 = getelementptr inbounds i8, ptr %bits, i64 2
+  %1 = load i8, ptr %incdec.ptr.i, align 1, !tbaa !5
+  %conv.i.1 = sext i8 %1 to i32
+  %call.i.1 = call i32 @putc(i32 noundef %conv.i.1, ptr noundef %fp)
+  %incdec.ptr.i.2 = getelementptr inbounds i8, ptr %bits, i64 3
+  %2 = load i8, ptr %incdec.ptr.i.1, align 1, !tbaa !5
+  %conv.i.2 = sext i8 %2 to i32
+  %call.i.2 = call i32 @putc(i32 noundef %conv.i.2, ptr noundef %fp)
+  %incdec.ptr.i.3 = getelementptr inbounds i8, ptr %bits, i64 4
+  %3 = load i8, ptr %incdec.ptr.i.2, align 1, !tbaa !5
+  %conv.i.3 = sext i8 %3 to i32
+  %call.i.3 = call i32 @putc(i32 noundef %conv.i.3, ptr noundef %fp)
+  %incdec.ptr.i.4 = getelementptr inbounds i8, ptr %bits, i64 5
+  %4 = load i8, ptr %incdec.ptr.i.3, align 1, !tbaa !5
+  %conv.i.4 = sext i8 %4 to i32
+  %call.i.4 = call i32 @putc(i32 noundef %conv.i.4, ptr noundef %fp)
+  %incdec.ptr.i.5 = getelementptr inbounds i8, ptr %bits, i64 6
+  %5 = load i8, ptr %incdec.ptr.i.4, align 1, !tbaa !5
+  %conv.i.5 = sext i8 %5 to i32
+  %call.i.5 = call i32 @putc(i32 noundef %conv.i.5, ptr noundef %fp)
+  %incdec.ptr.i.6 = getelementptr inbounds i8, ptr %bits, i64 7
+  %6 = load i8, ptr %incdec.ptr.i.5, align 1, !tbaa !5
+  %conv.i.6 = sext i8 %6 to i32
+  %call.i.6 = call i32 @putc(i32 noundef %conv.i.6, ptr noundef %fp)
+  %incdec.ptr.i.7 = getelementptr inbounds i8, ptr %bits, i64 8
+  %7 = load i8, ptr %incdec.ptr.i.6, align 1, !tbaa !5
+  %conv.i.7 = sext i8 %7 to i32
+  %call.i.7 = call i32 @putc(i32 noundef %conv.i.7, ptr noundef %fp)
+  %incdec.ptr.i.8 = getelementptr inbounds i8, ptr %bits, i64 9
+  %8 = load i8, ptr %incdec.ptr.i.7, align 1, !tbaa !5
+  %conv.i.8 = sext i8 %8 to i32
+  %call.i.8 = call i32 @putc(i32 noundef %conv.i.8, ptr noundef %fp)
+  %9 = load i8, ptr %incdec.ptr.i.8, align 1, !tbaa !5
+  %conv.i.9 = sext i8 %9 to i32
+  %call.i.9 = call i32 @putc(i32 noundef %conv.i.9, ptr noundef %fp)
+  call void @llvm.lifetime.end.p0(i64 10, ptr nonnull %bits) #5
   ret void
 }
 

@@ -6,93 +6,94 @@ target triple = "x86_64-unknown-linux-gnu"
 %struct.gsm_state = type { [280 x i16], i16, i64, i32, [8 x i16], [2 x [8 x i16]], i16, i16, [9 x i16], i16, i8, i8 }
 
 ; Function Attrs: nounwind uwtable
-define dso_local void @Gsm_Decoder(ptr noundef %0, ptr noundef %1, ptr nocapture noundef readonly %2, ptr nocapture noundef readonly %3, ptr nocapture noundef readonly %4, ptr nocapture noundef readonly %5, ptr noundef %6, ptr noundef %7) local_unnamed_addr #0 {
-  %9 = alloca [40 x i16], align 16
-  %10 = alloca [160 x i16], align 16
-  call void @llvm.lifetime.start.p0(i64 80, ptr nonnull %9) #5
-  call void @llvm.lifetime.start.p0(i64 320, ptr nonnull %10) #5
-  %11 = getelementptr i16, ptr %0, i64 120
-  %12 = load i16, ptr %5, align 2, !tbaa !5
-  %13 = load i16, ptr %4, align 2, !tbaa !5
-  call void @Gsm_RPE_Decoding(ptr noundef %0, i16 noundef signext %12, i16 noundef signext %13, ptr noundef %6, ptr noundef nonnull %9) #5
-  %14 = load i16, ptr %2, align 2, !tbaa !5
-  %15 = load i16, ptr %3, align 2, !tbaa !5
-  call void @Gsm_Long_Term_Synthesis_Filtering(ptr noundef %0, i16 noundef signext %14, i16 noundef signext %15, ptr noundef nonnull %9, ptr noundef nonnull %11) #5
-  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 16 dereferenceable(80) %10, ptr noundef nonnull align 2 dereferenceable(80) %11, i64 80, i1 false), !tbaa !5
-  %16 = getelementptr inbounds i16, ptr %5, i64 1
-  %17 = getelementptr inbounds i16, ptr %3, i64 1
-  %18 = getelementptr inbounds i16, ptr %2, i64 1
-  %19 = getelementptr inbounds i16, ptr %4, i64 1
-  %20 = getelementptr inbounds i16, ptr %6, i64 13
-  %21 = getelementptr inbounds i8, ptr %10, i64 80
-  %22 = load i16, ptr %16, align 2, !tbaa !5
-  %23 = load i16, ptr %19, align 2, !tbaa !5
-  call void @Gsm_RPE_Decoding(ptr noundef %0, i16 noundef signext %22, i16 noundef signext %23, ptr noundef nonnull %20, ptr noundef nonnull %9) #5
-  %24 = load i16, ptr %18, align 2, !tbaa !5
-  %25 = load i16, ptr %17, align 2, !tbaa !5
-  call void @Gsm_Long_Term_Synthesis_Filtering(ptr noundef %0, i16 noundef signext %24, i16 noundef signext %25, ptr noundef nonnull %9, ptr noundef nonnull %11) #5
-  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 16 dereferenceable(80) %21, ptr noundef nonnull align 2 dereferenceable(80) %11, i64 80, i1 false), !tbaa !5
-  %26 = getelementptr inbounds i16, ptr %5, i64 2
-  %27 = getelementptr inbounds i16, ptr %3, i64 2
-  %28 = getelementptr inbounds i16, ptr %2, i64 2
-  %29 = getelementptr inbounds i16, ptr %4, i64 2
-  %30 = getelementptr inbounds i16, ptr %6, i64 26
-  %31 = getelementptr inbounds i8, ptr %10, i64 160
-  %32 = load i16, ptr %26, align 2, !tbaa !5
-  %33 = load i16, ptr %29, align 2, !tbaa !5
-  call void @Gsm_RPE_Decoding(ptr noundef %0, i16 noundef signext %32, i16 noundef signext %33, ptr noundef nonnull %30, ptr noundef nonnull %9) #5
-  %34 = load i16, ptr %28, align 2, !tbaa !5
-  %35 = load i16, ptr %27, align 2, !tbaa !5
-  call void @Gsm_Long_Term_Synthesis_Filtering(ptr noundef %0, i16 noundef signext %34, i16 noundef signext %35, ptr noundef nonnull %9, ptr noundef nonnull %11) #5
-  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 16 dereferenceable(80) %31, ptr noundef nonnull align 2 dereferenceable(80) %11, i64 80, i1 false), !tbaa !5
-  %36 = getelementptr inbounds i16, ptr %5, i64 3
-  %37 = getelementptr inbounds i16, ptr %3, i64 3
-  %38 = getelementptr inbounds i16, ptr %2, i64 3
-  %39 = getelementptr inbounds i16, ptr %4, i64 3
-  %40 = getelementptr inbounds i16, ptr %6, i64 39
-  %41 = getelementptr inbounds i8, ptr %10, i64 240
-  %42 = load i16, ptr %36, align 2, !tbaa !5
-  %43 = load i16, ptr %39, align 2, !tbaa !5
-  call void @Gsm_RPE_Decoding(ptr noundef %0, i16 noundef signext %42, i16 noundef signext %43, ptr noundef nonnull %40, ptr noundef nonnull %9) #5
-  %44 = load i16, ptr %38, align 2, !tbaa !5
-  %45 = load i16, ptr %37, align 2, !tbaa !5
-  call void @Gsm_Long_Term_Synthesis_Filtering(ptr noundef %0, i16 noundef signext %44, i16 noundef signext %45, ptr noundef nonnull %9, ptr noundef nonnull %11) #5
-  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 16 dereferenceable(80) %41, ptr noundef nonnull align 2 dereferenceable(80) %11, i64 80, i1 false), !tbaa !5
-  call void @Gsm_Short_Term_Synthesis_Filter(ptr noundef %0, ptr noundef %1, ptr noundef nonnull %10, ptr noundef %7) #5
-  %46 = getelementptr inbounds %struct.gsm_state, ptr %0, i64 0, i32 9
-  %47 = load i16, ptr %46, align 2, !tbaa !9
-  br label %48
+define dso_local void @Gsm_Decoder(ptr noundef %S, ptr noundef %LARcr, ptr nocapture noundef readonly %Ncr, ptr nocapture noundef readonly %bcr, ptr nocapture noundef readonly %Mcr, ptr nocapture noundef readonly %xmaxcr, ptr noundef %xMcr, ptr noundef %s) local_unnamed_addr #0 {
+entry:
+  %erp = alloca [40 x i16], align 16
+  %wt = alloca [160 x i16], align 16
+  call void @llvm.lifetime.start.p0(i64 80, ptr nonnull %erp) #5
+  call void @llvm.lifetime.start.p0(i64 320, ptr nonnull %wt) #5
+  %add.ptr = getelementptr i16, ptr %S, i64 120
+  %0 = load i16, ptr %xmaxcr, align 2, !tbaa !5
+  %1 = load i16, ptr %Mcr, align 2, !tbaa !5
+  call void @Gsm_RPE_Decoding(ptr noundef %S, i16 noundef signext %0, i16 noundef signext %1, ptr noundef %xMcr, ptr noundef nonnull %erp) #5
+  %2 = load i16, ptr %Ncr, align 2, !tbaa !5
+  %3 = load i16, ptr %bcr, align 2, !tbaa !5
+  call void @Gsm_Long_Term_Synthesis_Filtering(ptr noundef %S, i16 noundef signext %2, i16 noundef signext %3, ptr noundef nonnull %erp, ptr noundef nonnull %add.ptr) #5
+  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 16 dereferenceable(80) %wt, ptr noundef nonnull align 2 dereferenceable(80) %add.ptr, i64 80, i1 false), !tbaa !5
+  %incdec.ptr = getelementptr inbounds i16, ptr %xmaxcr, i64 1
+  %incdec.ptr10 = getelementptr inbounds i16, ptr %bcr, i64 1
+  %incdec.ptr11 = getelementptr inbounds i16, ptr %Ncr, i64 1
+  %incdec.ptr12 = getelementptr inbounds i16, ptr %Mcr, i64 1
+  %add.ptr13 = getelementptr inbounds i16, ptr %xMcr, i64 13
+  %scevgep.1 = getelementptr inbounds i8, ptr %wt, i64 80
+  %4 = load i16, ptr %incdec.ptr, align 2, !tbaa !5
+  %5 = load i16, ptr %incdec.ptr12, align 2, !tbaa !5
+  call void @Gsm_RPE_Decoding(ptr noundef %S, i16 noundef signext %4, i16 noundef signext %5, ptr noundef nonnull %add.ptr13, ptr noundef nonnull %erp) #5
+  %6 = load i16, ptr %incdec.ptr11, align 2, !tbaa !5
+  %7 = load i16, ptr %incdec.ptr10, align 2, !tbaa !5
+  call void @Gsm_Long_Term_Synthesis_Filtering(ptr noundef %S, i16 noundef signext %6, i16 noundef signext %7, ptr noundef nonnull %erp, ptr noundef nonnull %add.ptr) #5
+  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 16 dereferenceable(80) %scevgep.1, ptr noundef nonnull align 2 dereferenceable(80) %add.ptr, i64 80, i1 false), !tbaa !5
+  %incdec.ptr.1 = getelementptr inbounds i16, ptr %xmaxcr, i64 2
+  %incdec.ptr10.1 = getelementptr inbounds i16, ptr %bcr, i64 2
+  %incdec.ptr11.1 = getelementptr inbounds i16, ptr %Ncr, i64 2
+  %incdec.ptr12.1 = getelementptr inbounds i16, ptr %Mcr, i64 2
+  %add.ptr13.1 = getelementptr inbounds i16, ptr %xMcr, i64 26
+  %scevgep.2 = getelementptr inbounds i8, ptr %wt, i64 160
+  %8 = load i16, ptr %incdec.ptr.1, align 2, !tbaa !5
+  %9 = load i16, ptr %incdec.ptr12.1, align 2, !tbaa !5
+  call void @Gsm_RPE_Decoding(ptr noundef %S, i16 noundef signext %8, i16 noundef signext %9, ptr noundef nonnull %add.ptr13.1, ptr noundef nonnull %erp) #5
+  %10 = load i16, ptr %incdec.ptr11.1, align 2, !tbaa !5
+  %11 = load i16, ptr %incdec.ptr10.1, align 2, !tbaa !5
+  call void @Gsm_Long_Term_Synthesis_Filtering(ptr noundef %S, i16 noundef signext %10, i16 noundef signext %11, ptr noundef nonnull %erp, ptr noundef nonnull %add.ptr) #5
+  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 16 dereferenceable(80) %scevgep.2, ptr noundef nonnull align 2 dereferenceable(80) %add.ptr, i64 80, i1 false), !tbaa !5
+  %incdec.ptr.2 = getelementptr inbounds i16, ptr %xmaxcr, i64 3
+  %incdec.ptr10.2 = getelementptr inbounds i16, ptr %bcr, i64 3
+  %incdec.ptr11.2 = getelementptr inbounds i16, ptr %Ncr, i64 3
+  %incdec.ptr12.2 = getelementptr inbounds i16, ptr %Mcr, i64 3
+  %add.ptr13.2 = getelementptr inbounds i16, ptr %xMcr, i64 39
+  %scevgep.3 = getelementptr inbounds i8, ptr %wt, i64 240
+  %12 = load i16, ptr %incdec.ptr.2, align 2, !tbaa !5
+  %13 = load i16, ptr %incdec.ptr12.2, align 2, !tbaa !5
+  call void @Gsm_RPE_Decoding(ptr noundef %S, i16 noundef signext %12, i16 noundef signext %13, ptr noundef nonnull %add.ptr13.2, ptr noundef nonnull %erp) #5
+  %14 = load i16, ptr %incdec.ptr11.2, align 2, !tbaa !5
+  %15 = load i16, ptr %incdec.ptr10.2, align 2, !tbaa !5
+  call void @Gsm_Long_Term_Synthesis_Filtering(ptr noundef %S, i16 noundef signext %14, i16 noundef signext %15, ptr noundef nonnull %erp, ptr noundef nonnull %add.ptr) #5
+  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 16 dereferenceable(80) %scevgep.3, ptr noundef nonnull align 2 dereferenceable(80) %add.ptr, i64 80, i1 false), !tbaa !5
+  call void @Gsm_Short_Term_Synthesis_Filter(ptr noundef %S, ptr noundef %LARcr, ptr noundef nonnull %wt, ptr noundef %s) #5
+  %msr1.i = getelementptr inbounds %struct.gsm_state, ptr %S, i64 0, i32 9
+  %16 = load i16, ptr %msr1.i, align 2, !tbaa !9
+  br label %for.body.i
 
-48:                                               ; preds = %48, %8
-  %49 = phi ptr [ %7, %8 ], [ %69, %48 ]
-  %50 = phi i16 [ %47, %8 ], [ %59, %48 ]
-  %51 = phi i32 [ 160, %8 ], [ %52, %48 ]
-  %52 = add nsw i32 %51, -1
-  %53 = sext i16 %50 to i64
-  %54 = load i16, ptr %49, align 2, !tbaa !5
-  %55 = mul nsw i64 %53, 242064356802560
-  %56 = add nsw i64 %55, 140737488355328
-  %57 = lshr i64 %56, 48
-  %58 = trunc i64 %57 to i16
-  %59 = call i16 @llvm.sadd.sat.i16(i16 %58, i16 %54)
-  %60 = sext i16 %59 to i64
-  %61 = shl nsw i64 %60, 1
-  %62 = add nsw i64 %61, -32768
-  %63 = icmp ult i64 %62, -65536
-  %64 = icmp sgt i16 %59, 0
-  %65 = select i1 %64, i64 32760, i64 32768
-  %66 = select i1 %63, i64 %65, i64 %61
-  %67 = trunc i64 %66 to i16
-  %68 = and i16 %67, -8
-  store i16 %68, ptr %49, align 2, !tbaa !5
-  %69 = getelementptr inbounds i16, ptr %49, i64 1
-  %70 = icmp eq i32 %52, 0
-  br i1 %70, label %71, label %48, !llvm.loop !13
+for.body.i:                                       ; preds = %for.body.i, %entry
+  %s.addr.039.i = phi ptr [ %s, %entry ], [ %incdec.ptr.i, %for.body.i ]
+  %msr.038.i = phi i16 [ %16, %entry ], [ %21, %for.body.i ]
+  %k.037.i = phi i32 [ 160, %entry ], [ %dec.i, %for.body.i ]
+  %dec.i = add nsw i32 %k.037.i, -1
+  %conv.i = sext i16 %msr.038.i to i64
+  %17 = load i16, ptr %s.addr.039.i, align 2, !tbaa !5
+  %add.i = mul nsw i64 %conv.i, 242064356802560
+  %18 = add nsw i64 %add.i, 140737488355328
+  %19 = lshr i64 %18, 48
+  %20 = trunc i64 %19 to i16
+  %21 = call i16 @llvm.sadd.sat.i16(i16 %20, i16 %17)
+  %cond10.i = sext i16 %21 to i64
+  %add14.i = shl nsw i64 %cond10.i, 1
+  %22 = add nsw i64 %add14.i, -32768
+  %cmp16.i = icmp ult i64 %22, -65536
+  %cmp19.i = icmp sgt i16 %21, 0
+  %conv22.i = select i1 %cmp19.i, i64 32760, i64 32768
+  %cond25.i = select i1 %cmp16.i, i64 %conv22.i, i64 %add14.i
+  %23 = trunc i64 %cond25.i to i16
+  %conv26.i = and i16 %23, -8
+  store i16 %conv26.i, ptr %s.addr.039.i, align 2, !tbaa !5
+  %incdec.ptr.i = getelementptr inbounds i16, ptr %s.addr.039.i, i64 1
+  %tobool.not.i = icmp eq i32 %dec.i, 0
+  br i1 %tobool.not.i, label %Postprocessing.exit, label %for.body.i, !llvm.loop !13
 
-71:                                               ; preds = %48
-  store i16 %59, ptr %46, align 2, !tbaa !9
-  call void @llvm.lifetime.end.p0(i64 320, ptr nonnull %10) #5
-  call void @llvm.lifetime.end.p0(i64 80, ptr nonnull %9) #5
+Postprocessing.exit:                              ; preds = %for.body.i
+  store i16 %21, ptr %msr1.i, align 2, !tbaa !9
+  call void @llvm.lifetime.end.p0(i64 320, ptr nonnull %wt) #5
+  call void @llvm.lifetime.end.p0(i64 80, ptr nonnull %erp) #5
   ret void
 }
 

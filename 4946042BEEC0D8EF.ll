@@ -71,49 +71,51 @@ $_ZTIN2kc21printer_functor_classE = comdat any
 @_ZN14kc_filePrinterC1EP8_IO_FILE = dso_local unnamed_addr alias void (ptr, ptr), ptr @_ZN14kc_filePrinterC2EP8_IO_FILE
 
 ; Function Attrs: mustprogress nofree nosync nounwind willreturn memory(argmem: write) uwtable
-define dso_local void @_ZN14kc_filePrinterC2EP8_IO_FILE(ptr noundef nonnull align 8 dereferenceable(90) %0, ptr noundef %1) unnamed_addr #0 align 2 personality ptr @__gxx_personality_v0 {
-  store ptr getelementptr inbounds ({ [5 x ptr] }, ptr @_ZTV14kc_filePrinter, i64 0, inrange i32 0, i64 2), ptr %0, align 8, !tbaa !5
-  %3 = getelementptr inbounds %class.kc_filePrinter, ptr %0, i64 0, i32 1
-  store ptr %1, ptr %3, align 8, !tbaa !8
-  %4 = getelementptr inbounds %class.kc_filePrinter, ptr %0, i64 0, i32 4
-  %5 = getelementptr inbounds %class.kc_filePrinter, ptr %0, i64 0, i32 4, i32 2
-  store ptr %5, ptr %4, align 8, !tbaa !18
-  %6 = getelementptr inbounds %class.kc_filePrinter, ptr %0, i64 0, i32 4, i32 1
-  store i64 0, ptr %6, align 8, !tbaa !19
-  store i8 0, ptr %5, align 8, !tbaa !20
-  %7 = getelementptr inbounds %class.kc_filePrinter, ptr %0, i64 0, i32 2
-  store i32 0, ptr %7, align 8, !tbaa !21
-  %8 = getelementptr inbounds %class.kc_filePrinter, ptr %0, i64 0, i32 5
-  store i32 0, ptr %8, align 8, !tbaa !22
-  %9 = getelementptr inbounds %class.kc_filePrinter, ptr %0, i64 0, i32 6
-  store i8 0, ptr %9, align 4, !tbaa !23
-  %10 = getelementptr inbounds %class.kc_filePrinter, ptr %0, i64 0, i32 7
-  store i8 10, ptr %10, align 1, !tbaa !24
-  %11 = getelementptr inbounds %class.kc_filePrinter, ptr %0, i64 0, i32 9
-  %12 = getelementptr inbounds %class.kc_filePrinter, ptr %0, i64 0, i32 18
-  store ptr null, ptr %12, align 8, !tbaa !25
-  %13 = getelementptr inbounds %class.kc_filePrinter, ptr %0, i64 0, i32 19
-  store i8 0, ptr %13, align 8, !tbaa !26
-  %14 = getelementptr inbounds %class.kc_filePrinter, ptr %0, i64 0, i32 20
-  store i8 0, ptr %14, align 1, !tbaa !27
-  tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(14) %11, i8 0, i64 14, i1 false)
+define dso_local void @_ZN14kc_filePrinterC2EP8_IO_FILE(ptr noundef nonnull align 8 dereferenceable(90) %this, ptr noundef %f) unnamed_addr #0 align 2 personality ptr @__gxx_personality_v0 {
+entry:
+  store ptr getelementptr inbounds ({ [5 x ptr] }, ptr @_ZTV14kc_filePrinter, i64 0, inrange i32 0, i64 2), ptr %this, align 8, !tbaa !5
+  %file = getelementptr inbounds %class.kc_filePrinter, ptr %this, i64 0, i32 1
+  store ptr %f, ptr %file, align 8, !tbaa !8
+  %filename = getelementptr inbounds %class.kc_filePrinter, ptr %this, i64 0, i32 4
+  %0 = getelementptr inbounds %class.kc_filePrinter, ptr %this, i64 0, i32 4, i32 2
+  store ptr %0, ptr %filename, align 8, !tbaa !18
+  %_M_string_length.i.i.i = getelementptr inbounds %class.kc_filePrinter, ptr %this, i64 0, i32 4, i32 1
+  store i64 0, ptr %_M_string_length.i.i.i, align 8, !tbaa !19
+  store i8 0, ptr %0, align 8, !tbaa !20
+  %lineno = getelementptr inbounds %class.kc_filePrinter, ptr %this, i64 0, i32 2
+  store i32 0, ptr %lineno, align 8, !tbaa !21
+  %no_of_printed_string_chars = getelementptr inbounds %class.kc_filePrinter, ptr %this, i64 0, i32 5
+  store i32 0, ptr %no_of_printed_string_chars, align 8, !tbaa !22
+  %doit = getelementptr inbounds %class.kc_filePrinter, ptr %this, i64 0, i32 6
+  store i8 0, ptr %doit, align 4, !tbaa !23
+  %lastChar = getelementptr inbounds %class.kc_filePrinter, ptr %this, i64 0, i32 7
+  store i8 10, ptr %lastChar, align 1, !tbaa !24
+  %indent = getelementptr inbounds %class.kc_filePrinter, ptr %this, i64 0, i32 9
+  %keyword = getelementptr inbounds %class.kc_filePrinter, ptr %this, i64 0, i32 18
+  store ptr null, ptr %keyword, align 8, !tbaa !25
+  %indentKeyword = getelementptr inbounds %class.kc_filePrinter, ptr %this, i64 0, i32 19
+  store i8 0, ptr %indentKeyword, align 8, !tbaa !26
+  %inPreProStmt = getelementptr inbounds %class.kc_filePrinter, ptr %this, i64 0, i32 20
+  store i8 0, ptr %inPreProStmt, align 1, !tbaa !27
+  tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(14) %indent, i8 0, i64 14, i1 false)
   ret void
 }
 
 ; Function Attrs: inlinehint nounwind uwtable
-define linkonce_odr dso_local void @_ZN14kc_filePrinterD2Ev(ptr noundef nonnull align 8 dereferenceable(90) %0) unnamed_addr #1 comdat align 2 personality ptr @__gxx_personality_v0 {
-  store ptr getelementptr inbounds ({ [5 x ptr] }, ptr @_ZTV14kc_filePrinter, i64 0, inrange i32 0, i64 2), ptr %0, align 8, !tbaa !5
-  %2 = getelementptr inbounds %class.kc_filePrinter, ptr %0, i64 0, i32 4
-  %3 = load ptr, ptr %2, align 8, !tbaa !28
-  %4 = getelementptr inbounds %class.kc_filePrinter, ptr %0, i64 0, i32 4, i32 2
-  %5 = icmp eq ptr %3, %4
-  br i1 %5, label %7, label %6
+define linkonce_odr dso_local void @_ZN14kc_filePrinterD2Ev(ptr noundef nonnull align 8 dereferenceable(90) %this) unnamed_addr #1 comdat align 2 personality ptr @__gxx_personality_v0 {
+entry:
+  store ptr getelementptr inbounds ({ [5 x ptr] }, ptr @_ZTV14kc_filePrinter, i64 0, inrange i32 0, i64 2), ptr %this, align 8, !tbaa !5
+  %filename = getelementptr inbounds %class.kc_filePrinter, ptr %this, i64 0, i32 4
+  %0 = load ptr, ptr %filename, align 8, !tbaa !28
+  %1 = getelementptr inbounds %class.kc_filePrinter, ptr %this, i64 0, i32 4, i32 2
+  %cmp.i.i.i = icmp eq ptr %0, %1
+  br i1 %cmp.i.i.i, label %_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEED2Ev.exit, label %if.then.i.i
 
-6:                                                ; preds = %1
-  tail call void @_ZdlPv(ptr noundef %3) #18
-  br label %7
+if.then.i.i:                                      ; preds = %entry
+  tail call void @_ZdlPv(ptr noundef %0) #18
+  br label %_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEED2Ev.exit
 
-7:                                                ; preds = %1, %6
+_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEED2Ev.exit: ; preds = %entry, %if.then.i.i
   ret void
 }
 
@@ -121,101 +123,103 @@ define linkonce_odr dso_local void @_ZN14kc_filePrinterD2Ev(ptr noundef nonnull 
 declare i32 @__cxa_atexit(ptr, ptr, ptr) local_unnamed_addr #2
 
 ; Function Attrs: nounwind uwtable
-define linkonce_odr dso_local void @_ZN2kc21printer_functor_classD2Ev(ptr noundef nonnull align 8 dereferenceable(8) %0) unnamed_addr #3 comdat align 2 {
+define linkonce_odr dso_local void @_ZN2kc21printer_functor_classD2Ev(ptr noundef nonnull align 8 dereferenceable(8) %this) unnamed_addr #3 comdat align 2 {
+entry:
   ret void
 }
 
 ; Function Attrs: mustprogress nofree nounwind willreturn memory(read, argmem: readwrite) uwtable
-define dso_local noundef zeroext i1 @_ZN14kc_filePrinter13check_keywordEPKc(ptr nocapture noundef nonnull align 8 dereferenceable(90) %0, ptr noundef %1) local_unnamed_addr #4 align 2 {
-  %3 = getelementptr inbounds %class.kc_filePrinter, ptr %0, i64 0, i32 20
-  %4 = load i8, ptr %3, align 1, !tbaa !27, !range !29, !noundef !30
-  %5 = icmp eq i8 %4, 0
-  br i1 %5, label %12, label %6
+define dso_local noundef zeroext i1 @_ZN14kc_filePrinter13check_keywordEPKc(ptr nocapture noundef nonnull align 8 dereferenceable(90) %this, ptr noundef %s) local_unnamed_addr #4 align 2 {
+entry:
+  %inPreProStmt = getelementptr inbounds %class.kc_filePrinter, ptr %this, i64 0, i32 20
+  %0 = load i8, ptr %inPreProStmt, align 1, !tbaa !27, !range !29, !noundef !30
+  %tobool.not = icmp eq i8 %0, 0
+  br i1 %tobool.not, label %if.else, label %if.then
 
-6:                                                ; preds = %2
-  %7 = load i8, ptr %1, align 1, !tbaa !20
-  %8 = sext i8 %7 to i32
-  %9 = tail call i32 @isspace(i32 noundef %8) #19
-  %10 = icmp eq i32 %9, 0
-  br i1 %10, label %11, label %45
+if.then:                                          ; preds = %entry
+  %1 = load i8, ptr %s, align 1, !tbaa !20
+  %conv = sext i8 %1 to i32
+  %call = tail call i32 @isspace(i32 noundef %conv) #19
+  %tobool2.not = icmp eq i32 %call, 0
+  br i1 %tobool2.not, label %if.then3, label %if.end61
 
-11:                                               ; preds = %6
-  store i8 0, ptr %3, align 1, !tbaa !27
-  br label %45
+if.then3:                                         ; preds = %if.then
+  store i8 0, ptr %inPreProStmt, align 1, !tbaa !27
+  br label %if.end61
 
-12:                                               ; preds = %2
-  %13 = getelementptr inbounds %class.kc_filePrinter, ptr %0, i64 0, i32 18
-  %14 = load ptr, ptr %13, align 8, !tbaa !25
-  %15 = icmp eq ptr %14, null
-  %16 = load i8, ptr %1, align 1, !tbaa !20
-  %17 = sext i8 %16 to i32
-  br i1 %15, label %18, label %21
+if.else:                                          ; preds = %entry
+  %keyword = getelementptr inbounds %class.kc_filePrinter, ptr %this, i64 0, i32 18
+  %2 = load ptr, ptr %keyword, align 8, !tbaa !25
+  %tobool5.not = icmp eq ptr %2, null
+  %3 = load i8, ptr %s, align 1, !tbaa !20
+  br i1 %tobool5.not, label %if.then6, label %if.else25
 
-18:                                               ; preds = %12
-  switch i32 %17, label %45 [
-    i32 35, label %19
-    i32 105, label %20
-    i32 101, label %20
-    i32 100, label %20
-    i32 119, label %20
+if.then6:                                         ; preds = %if.else
+  switch i8 %3, label %if.end61 [
+    i8 35, label %if.then8
+    i8 105, label %if.then21
+    i8 101, label %if.then21
+    i8 100, label %if.then21
+    i8 119, label %if.then21
   ]
 
-19:                                               ; preds = %18
-  store i8 1, ptr %3, align 1, !tbaa !27
-  br label %45
+if.then8:                                         ; preds = %if.then6
+  store i8 1, ptr %inPreProStmt, align 1, !tbaa !27
+  br label %if.end61
 
-20:                                               ; preds = %18, %18, %18, %18
-  store ptr %1, ptr %13, align 8, !tbaa !25
-  br label %45
+if.then21:                                        ; preds = %if.then6, %if.then6, %if.then6, %if.then6
+  store ptr %s, ptr %keyword, align 8, !tbaa !25
+  br label %if.end61
 
-21:                                               ; preds = %12
-  %22 = tail call i32 @isalnum(i32 noundef %17) #19
-  %23 = icmp eq i32 %22, 0
-  %24 = icmp ne i8 %16, 95
-  %25 = and i1 %24, %23
-  br i1 %25, label %26, label %45
+if.else25:                                        ; preds = %if.else
+  %conv26 = sext i8 %3 to i32
+  %call27 = tail call i32 @isalnum(i32 noundef %conv26) #19
+  %tobool28.not = icmp ne i32 %call27, 0
+  %cmp30.not = icmp eq i8 %3, 95
+  %or.cond = select i1 %tobool28.not, i1 true, i1 %cmp30.not
+  br i1 %or.cond, label %if.end61, label %if.then31
 
-26:                                               ; preds = %21
-  %27 = ptrtoint ptr %1 to i64
-  %28 = ptrtoint ptr %14 to i64
-  %29 = sub i64 %27, %28
-  switch i64 %29, label %43 [
-    i64 2, label %30
-    i64 4, label %33
-    i64 5, label %39
+if.then31:                                        ; preds = %if.else25
+  %sub.ptr.lhs.cast = ptrtoint ptr %s to i64
+  %sub.ptr.rhs.cast = ptrtoint ptr %2 to i64
+  %sub.ptr.sub = sub i64 %sub.ptr.lhs.cast, %sub.ptr.rhs.cast
+  switch i64 %sub.ptr.sub, label %if.end57 [
+    i64 2, label %land.lhs.true34
+    i64 4, label %land.lhs.true40
+    i64 5, label %land.lhs.true52
   ]
 
-30:                                               ; preds = %26
-  %31 = tail call i32 @strncmp(ptr noundef nonnull dereferenceable(1) %14, ptr noundef nonnull dereferenceable(3) @.str, i64 noundef 2) #19
-  %32 = icmp eq i32 %31, 0
-  br i1 %32, label %42, label %36
+land.lhs.true34:                                  ; preds = %if.then31
+  %call36 = tail call i32 @strncmp(ptr noundef nonnull dereferenceable(1) %2, ptr noundef nonnull dereferenceable(3) @.str, i64 noundef 2) #19
+  %cmp37 = icmp eq i32 %call36, 0
+  br i1 %cmp37, label %if.then56, label %land.lhs.true46
 
-33:                                               ; preds = %26
-  %34 = tail call i32 @strncmp(ptr noundef nonnull dereferenceable(1) %14, ptr noundef nonnull dereferenceable(5) @.str.4, i64 noundef 4) #19
-  %35 = icmp eq i32 %34, 0
-  br i1 %35, label %42, label %43
+land.lhs.true40:                                  ; preds = %if.then31
+  %call42 = tail call i32 @strncmp(ptr noundef nonnull dereferenceable(1) %2, ptr noundef nonnull dereferenceable(5) @.str.4, i64 noundef 4) #19
+  %cmp43 = icmp eq i32 %call42, 0
+  br i1 %cmp43, label %if.then56, label %if.end57
 
-36:                                               ; preds = %30
-  %37 = tail call i32 @strncmp(ptr noundef nonnull dereferenceable(1) %14, ptr noundef nonnull dereferenceable(3) @.str.5, i64 noundef 2) #19
-  %38 = icmp eq i32 %37, 0
-  br i1 %38, label %42, label %43
+land.lhs.true46:                                  ; preds = %land.lhs.true34
+  %call48 = tail call i32 @strncmp(ptr noundef nonnull dereferenceable(1) %2, ptr noundef nonnull dereferenceable(3) @.str.5, i64 noundef 2) #19
+  %cmp49 = icmp eq i32 %call48, 0
+  br i1 %cmp49, label %if.then56, label %if.end57
 
-39:                                               ; preds = %26
-  %40 = tail call i32 @strncmp(ptr noundef nonnull dereferenceable(1) %14, ptr noundef nonnull dereferenceable(6) @.str.6, i64 noundef 5) #19
-  %41 = icmp eq i32 %40, 0
-  br i1 %41, label %42, label %43
+land.lhs.true52:                                  ; preds = %if.then31
+  %call54 = tail call i32 @strncmp(ptr noundef nonnull dereferenceable(1) %2, ptr noundef nonnull dereferenceable(6) @.str.6, i64 noundef 5) #19
+  %cmp55 = icmp eq i32 %call54, 0
+  br i1 %cmp55, label %if.then56, label %if.end57
 
-42:                                               ; preds = %39, %36, %33, %30
-  br label %43
+if.then56:                                        ; preds = %land.lhs.true52, %land.lhs.true46, %land.lhs.true40, %land.lhs.true34
+  br label %if.end57
 
-43:                                               ; preds = %26, %36, %33, %42, %39
-  %44 = phi i1 [ true, %42 ], [ false, %39 ], [ false, %33 ], [ false, %36 ], [ false, %26 ]
-  store ptr null, ptr %13, align 8, !tbaa !25
-  br label %45
+if.end57:                                         ; preds = %if.then31, %land.lhs.true46, %land.lhs.true40, %if.then56, %land.lhs.true52
+  %res.0 = phi i1 [ true, %if.then56 ], [ false, %land.lhs.true52 ], [ false, %land.lhs.true40 ], [ false, %land.lhs.true46 ], [ false, %if.then31 ]
+  store ptr null, ptr %keyword, align 8, !tbaa !25
+  br label %if.end61
 
-45:                                               ; preds = %18, %20, %19, %43, %21, %6, %11
-  %46 = phi i1 [ false, %6 ], [ false, %11 ], [ false, %21 ], [ %44, %43 ], [ false, %19 ], [ false, %20 ], [ false, %18 ]
-  ret i1 %46
+if.end61:                                         ; preds = %if.then6, %if.then21, %if.then8, %if.end57, %if.else25, %if.then, %if.then3
+  %res.1 = phi i1 [ false, %if.then ], [ false, %if.then3 ], [ false, %if.else25 ], [ %res.0, %if.end57 ], [ false, %if.then8 ], [ false, %if.then21 ], [ false, %if.then6 ]
+  ret i1 %res.1
 }
 
 ; Function Attrs: mustprogress nocallback nofree nosync nounwind willreturn memory(argmem: readwrite)
@@ -234,551 +238,546 @@ declare i32 @strncmp(ptr nocapture noundef, ptr nocapture noundef, i64 noundef) 
 declare void @llvm.lifetime.end.p0(i64 immarg, ptr nocapture) #5
 
 ; Function Attrs: mustprogress uwtable
-define dso_local void @_ZN14kc_filePrinterclEPKcRN2kc11uview_classE(ptr noundef nonnull align 8 dereferenceable(90) %0, ptr noundef %1, ptr nocapture noundef nonnull readonly align 4 dereferenceable(4) %2) unnamed_addr #8 align 2 {
-  %4 = load i32, ptr %2, align 4, !tbaa !31
-  switch i32 %4, label %5 [
-    i32 21, label %23
-    i32 19, label %25
+define dso_local void @_ZN14kc_filePrinterclEPKcRN2kc11uview_classE(ptr noundef nonnull align 8 dereferenceable(90) %this, ptr noundef %s, ptr nocapture noundef nonnull readonly align 4 dereferenceable(4) %v) unnamed_addr #8 align 2 {
+entry:
+  %0 = load i32, ptr %v, align 4, !tbaa !31
+  switch i32 %0, label %while.cond.preheader [
+    i32 21, label %sw.bb
+    i32 19, label %sw.bb2
   ]
 
-5:                                                ; preds = %3
-  %6 = load i8, ptr %1, align 1, !tbaa !20
-  %7 = icmp eq i8 %6, 0
-  br i1 %7, label %280, label %8
+while.cond.preheader:                             ; preds = %entry
+  %1 = load i8, ptr %s, align 1, !tbaa !20
+  %tobool14.not426 = icmp eq i8 %1, 0
+  br i1 %tobool14.not426, label %while.end, label %while.body.lr.ph
 
-8:                                                ; preds = %5
-  %9 = getelementptr inbounds %class.kc_filePrinter, ptr %0, i64 0, i32 2
-  %10 = getelementptr inbounds %class.kc_filePrinter, ptr %0, i64 0, i32 16
-  %11 = getelementptr inbounds %class.kc_filePrinter, ptr %0, i64 0, i32 1
-  %12 = getelementptr inbounds %class.kc_filePrinter, ptr %0, i64 0, i32 11
-  %13 = getelementptr inbounds %class.kc_filePrinter, ptr %0, i64 0, i32 12
-  %14 = getelementptr inbounds %class.kc_filePrinter, ptr %0, i64 0, i32 13
-  %15 = getelementptr inbounds %class.kc_filePrinter, ptr %0, i64 0, i32 14
-  %16 = getelementptr inbounds %class.kc_filePrinter, ptr %0, i64 0, i32 5
-  %17 = getelementptr inbounds %class.kc_filePrinter, ptr %0, i64 0, i32 6
-  %18 = getelementptr inbounds %class.kc_filePrinter, ptr %0, i64 0, i32 10
-  %19 = getelementptr inbounds %class.kc_filePrinter, ptr %0, i64 0, i32 7
-  %20 = getelementptr inbounds %class.kc_filePrinter, ptr %0, i64 0, i32 19
-  %21 = getelementptr inbounds %class.kc_filePrinter, ptr %0, i64 0, i32 9
-  %22 = getelementptr inbounds %class.kc_filePrinter, ptr %0, i64 0, i32 15
-  br label %47
+while.body.lr.ph:                                 ; preds = %while.cond.preheader
+  %lineno17 = getelementptr inbounds %class.kc_filePrinter, ptr %this, i64 0, i32 2
+  %beginOfLine = getelementptr inbounds %class.kc_filePrinter, ptr %this, i64 0, i32 16
+  %file52 = getelementptr inbounds %class.kc_filePrinter, ptr %this, i64 0, i32 1
+  %inString407 = getelementptr inbounds %class.kc_filePrinter, ptr %this, i64 0, i32 11
+  %inChar414 = getelementptr inbounds %class.kc_filePrinter, ptr %this, i64 0, i32 12
+  %no_of_printed_string_chars23 = getelementptr inbounds %class.kc_filePrinter, ptr %this, i64 0, i32 5
+  %doit = getelementptr inbounds %class.kc_filePrinter, ptr %this, i64 0, i32 6
+  %bs_cnt = getelementptr inbounds %class.kc_filePrinter, ptr %this, i64 0, i32 10
+  %lastChar68 = getelementptr inbounds %class.kc_filePrinter, ptr %this, i64 0, i32 7
+  %inComment = getelementptr inbounds %class.kc_filePrinter, ptr %this, i64 0, i32 13
+  %inCppComment = getelementptr inbounds %class.kc_filePrinter, ptr %this, i64 0, i32 14
+  %indentKeyword = getelementptr inbounds %class.kc_filePrinter, ptr %this, i64 0, i32 19
+  %indent = getelementptr inbounds %class.kc_filePrinter, ptr %this, i64 0, i32 9
+  %spacePending = getelementptr inbounds %class.kc_filePrinter, ptr %this, i64 0, i32 15
+  br label %while.body
 
-23:                                               ; preds = %3
-  %24 = getelementptr inbounds %class.kc_filePrinter, ptr %0, i64 0, i32 5
-  store i32 0, ptr %24, align 8, !tbaa !22
-  br label %282
+sw.bb:                                            ; preds = %entry
+  %no_of_printed_string_chars = getelementptr inbounds %class.kc_filePrinter, ptr %this, i64 0, i32 5
+  store i32 0, ptr %no_of_printed_string_chars, align 8, !tbaa !22
+  br label %cleanup
 
-25:                                               ; preds = %3
-  %26 = getelementptr inbounds %class.kc_filePrinter, ptr %0, i64 0, i32 1
-  %27 = load ptr, ptr %26, align 8, !tbaa !8
-  %28 = tail call i32 @fputc(i32 10, ptr %27)
-  %29 = getelementptr inbounds %class.kc_filePrinter, ptr %0, i64 0, i32 2
-  %30 = load i32, ptr %29, align 8, !tbaa !21
-  %31 = add nsw i32 %30, 1
-  store i32 %31, ptr %29, align 8, !tbaa !21
-  %32 = load i8, ptr getelementptr inbounds (%struct.cmdline_options, ptr @g_options, i64 0, i32 17), align 2, !tbaa !34, !range !29, !noundef !30
-  %33 = icmp eq i8 %32, 0
-  br i1 %33, label %43, label %34
+sw.bb2:                                           ; preds = %entry
+  %file = getelementptr inbounds %class.kc_filePrinter, ptr %this, i64 0, i32 1
+  %2 = load ptr, ptr %file, align 8, !tbaa !8
+  %fputc = tail call i32 @fputc(i32 10, ptr %2)
+  %lineno = getelementptr inbounds %class.kc_filePrinter, ptr %this, i64 0, i32 2
+  %3 = load i32, ptr %lineno, align 8, !tbaa !21
+  %add = add nsw i32 %3, 1
+  store i32 %add, ptr %lineno, align 8, !tbaa !21
+  %4 = load i8, ptr getelementptr inbounds (%struct.cmdline_options, ptr @g_options, i64 0, i32 17), align 2, !tbaa !34, !range !29, !noundef !30
+  %tobool.not = icmp eq i8 %4, 0
+  br i1 %tobool.not, label %if.end, label %if.then
 
-34:                                               ; preds = %25
-  %35 = load ptr, ptr %26, align 8, !tbaa !8
-  %36 = load ptr, ptr @pg_line, align 8, !tbaa !36
-  %37 = add nsw i32 %30, 2
-  %38 = load ptr, ptr getelementptr inbounds (%struct.cmdline_options, ptr @g_options, i64 0, i32 26), align 8, !tbaa !28
-  %39 = getelementptr inbounds %class.kc_filePrinter, ptr %0, i64 0, i32 4
-  %40 = load ptr, ptr %39, align 8, !tbaa !28
-  %41 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %35, ptr noundef nonnull @.str.8, ptr noundef %36, i32 noundef %37, ptr noundef %38, ptr noundef %40)
-  %42 = load i32, ptr %29, align 8, !tbaa !21
-  br label %43
+if.then:                                          ; preds = %sw.bb2
+  %5 = load ptr, ptr %file, align 8, !tbaa !8
+  %6 = load ptr, ptr @pg_line, align 8, !tbaa !36
+  %add7 = add nsw i32 %3, 2
+  %7 = load ptr, ptr getelementptr inbounds (%struct.cmdline_options, ptr @g_options, i64 0, i32 26), align 8, !tbaa !28
+  %filename = getelementptr inbounds %class.kc_filePrinter, ptr %this, i64 0, i32 4
+  %8 = load ptr, ptr %filename, align 8, !tbaa !28
+  %call10 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %5, ptr noundef nonnull @.str.8, ptr noundef %6, i32 noundef %add7, ptr noundef %7, ptr noundef %8)
+  %.pre = load i32, ptr %lineno, align 8, !tbaa !21
+  br label %if.end
 
-43:                                               ; preds = %34, %25
-  %44 = phi i32 [ %42, %34 ], [ %31, %25 ]
-  %45 = add nsw i32 %44, 1
-  store i32 %45, ptr %29, align 8, !tbaa !21
-  %46 = getelementptr inbounds %class.kc_filePrinter, ptr %0, i64 0, i32 7
-  store i8 10, ptr %46, align 1, !tbaa !24
-  br label %282
+if.end:                                           ; preds = %if.then, %sw.bb2
+  %9 = phi i32 [ %.pre, %if.then ], [ %add, %sw.bb2 ]
+  %add12 = add nsw i32 %9, 1
+  store i32 %add12, ptr %lineno, align 8, !tbaa !21
+  %lastChar = getelementptr inbounds %class.kc_filePrinter, ptr %this, i64 0, i32 7
+  store i8 10, ptr %lastChar, align 1, !tbaa !24
+  br label %cleanup
 
-47:                                               ; preds = %8, %272
-  %48 = phi i8 [ %6, %8 ], [ %278, %272 ]
-  %49 = phi ptr [ %1, %8 ], [ %50, %272 ]
-  %50 = getelementptr inbounds i8, ptr %49, i64 1
-  %51 = sext i8 %48 to i32
-  switch i32 %51, label %55 [
-    i32 0, label %282
-    i32 10, label %52
+while.body:                                       ; preds = %while.body.lr.ph, %if.end329
+  %10 = phi i8 [ %1, %while.body.lr.ph ], [ %65, %if.end329 ]
+  %s.addr.0427 = phi ptr [ %s, %while.body.lr.ph ], [ %incdec.ptr428, %if.end329 ]
+  %incdec.ptr428 = getelementptr inbounds i8, ptr %s.addr.0427, i64 1
+  %conv = sext i8 %10 to i32
+  switch i32 %conv, label %sw.default20 [
+    i32 0, label %cleanup
+    i32 10, label %sw.bb16
   ]
 
-52:                                               ; preds = %47
-  %53 = load i32, ptr %9, align 8, !tbaa !21
-  %54 = add nsw i32 %53, 1
-  store i32 %54, ptr %9, align 8, !tbaa !21
-  store i8 1, ptr %10, align 1, !tbaa !37
-  br label %55
+sw.bb16:                                          ; preds = %while.body
+  %11 = load i32, ptr %lineno17, align 8, !tbaa !21
+  %add18 = add nsw i32 %11, 1
+  store i32 %add18, ptr %lineno17, align 8, !tbaa !21
+  store i8 1, ptr %beginOfLine, align 1, !tbaa !37
+  br label %sw.default20
 
-55:                                               ; preds = %47, %52
-  %56 = load i32, ptr %2, align 4, !tbaa !31
-  %57 = load i32, ptr @_ZN2kc17view_gen_unpstr_cE, align 4, !tbaa !31
-  %58 = icmp eq i32 %56, %57
-  br i1 %58, label %59, label %83
+sw.default20:                                     ; preds = %while.body, %sw.bb16
+  %12 = load i32, ptr %v, align 4, !tbaa !31
+  %13 = load i32, ptr @_ZN2kc17view_gen_unpstr_cE, align 4, !tbaa !31
+  %cmp.i = icmp eq i32 %12, %13
+  br i1 %cmp.i, label %if.then22, label %if.else45
 
-59:                                               ; preds = %55
-  %60 = load i32, ptr %16, align 8, !tbaa !22
-  %61 = icmp sgt i32 %60, 199
-  br i1 %61, label %62, label %80
+if.then22:                                        ; preds = %sw.default20
+  %14 = load i32, ptr %no_of_printed_string_chars23, align 8, !tbaa !22
+  %cmp = icmp sgt i32 %14, 199
+  br i1 %cmp, label %if.then24, label %if.end41
 
-62:                                               ; preds = %59
-  %63 = load i8, ptr %17, align 4, !tbaa !23, !range !29, !noundef !30
-  %64 = icmp eq i8 %63, 0
-  br i1 %64, label %76, label %65
+if.then24:                                        ; preds = %if.then22
+  %15 = load i8, ptr %doit, align 4, !tbaa !23, !range !29, !noundef !30
+  %tobool25.not = icmp eq i8 %15, 0
+  br i1 %tobool25.not, label %if.else, label %if.then26
 
-65:                                               ; preds = %62
-  %66 = load ptr, ptr %11, align 8, !tbaa !8
-  %67 = tail call i64 @fwrite(ptr nonnull @.str.9, i64 4, i64 1, ptr %66)
-  %68 = load ptr, ptr @ug_viewnameopt, align 8, !tbaa !36
-  %69 = load ptr, ptr %68, align 8, !tbaa !5
-  %70 = getelementptr inbounds ptr, ptr %69, i64 9
-  %71 = load ptr, ptr %70, align 8
-  tail call void %71(ptr noundef nonnull align 8 dereferenceable(8) %68, ptr noundef nonnull align 8 dereferenceable(8) %0, ptr noundef nonnull align 4 dereferenceable(4) @_ZN2kc28view_gen_unparsedefs_other_cE)
-  %72 = load ptr, ptr %11, align 8, !tbaa !8
-  %73 = tail call i64 @fwrite(ptr nonnull @.str.10, i64 25, i64 1, ptr %72)
-  %74 = load i32, ptr %9, align 8, !tbaa !21
-  %75 = add nsw i32 %74, 1
-  store i32 %75, ptr %9, align 8, !tbaa !21
-  br label %77
+if.then26:                                        ; preds = %if.then24
+  %16 = load ptr, ptr %file52, align 8, !tbaa !8
+  %17 = tail call i64 @fwrite(ptr nonnull @.str.9, i64 4, i64 1, ptr %16)
+  %18 = load ptr, ptr @ug_viewnameopt, align 8, !tbaa !36
+  %vtable.i = load ptr, ptr %18, align 8, !tbaa !5
+  %vfn.i = getelementptr inbounds ptr, ptr %vtable.i, i64 9
+  %19 = load ptr, ptr %vfn.i, align 8
+  tail call void %19(ptr noundef nonnull align 8 dereferenceable(8) %18, ptr noundef nonnull align 8 dereferenceable(8) %this, ptr noundef nonnull align 4 dereferenceable(4) @_ZN2kc28view_gen_unparsedefs_other_cE)
+  %20 = load ptr, ptr %file52, align 8, !tbaa !8
+  %21 = tail call i64 @fwrite(ptr nonnull @.str.10, i64 25, i64 1, ptr %20)
+  %22 = load i32, ptr %lineno17, align 8, !tbaa !21
+  %add32 = add nsw i32 %22, 1
+  store i32 %add32, ptr %lineno17, align 8, !tbaa !21
+  br label %if.end41.sink.split
 
-76:                                               ; preds = %62
-  switch i32 %51, label %77 [
-    i32 92, label %80
-    i32 10, label %80
+if.else:                                          ; preds = %if.then24
+  switch i32 %conv, label %if.end41.sink.split [
+    i32 92, label %if.end41
+    i32 10, label %if.end41
   ]
 
-77:                                               ; preds = %76, %65
-  %78 = phi i8 [ 0, %65 ], [ 1, %76 ]
-  %79 = phi i32 [ 0, %65 ], [ %60, %76 ]
-  store i8 %78, ptr %17, align 4, !tbaa !23
-  br label %80
+if.end41.sink.split:                              ; preds = %if.else, %if.then26
+  %.sink = phi i8 [ 0, %if.then26 ], [ 1, %if.else ]
+  %.ph = phi i32 [ 0, %if.then26 ], [ %14, %if.else ]
+  store i8 %.sink, ptr %doit, align 4, !tbaa !23
+  br label %if.end41
 
-80:                                               ; preds = %77, %76, %76, %59
-  %81 = phi i32 [ %60, %76 ], [ %60, %76 ], [ %60, %59 ], [ %79, %77 ]
-  %82 = add nsw i32 %81, 1
-  store i32 %82, ptr %16, align 8, !tbaa !22
-  br label %88
+if.end41:                                         ; preds = %if.end41.sink.split, %if.else, %if.else, %if.then22
+  %23 = phi i32 [ %14, %if.else ], [ %14, %if.else ], [ %14, %if.then22 ], [ %.ph, %if.end41.sink.split ]
+  %add43 = add nsw i32 %23, 1
+  store i32 %add43, ptr %no_of_printed_string_chars23, align 8, !tbaa !22
+  br label %if.end56
 
-83:                                               ; preds = %55
-  %84 = load i32, ptr @_ZN2kc13view_filenameE, align 4, !tbaa !31
-  %85 = icmp eq i32 %56, %84
-  %86 = icmp eq i8 %48, 92
-  %87 = select i1 %85, i1 %86, i1 false
-  br i1 %87, label %91, label %88
+if.else45:                                        ; preds = %sw.default20
+  %24 = load i32, ptr @_ZN2kc13view_filenameE, align 4, !tbaa !31
+  %cmp.i406 = icmp eq i32 %12, %24
+  %cmp49 = icmp eq i8 %10, 92
+  %or.cond344 = select i1 %cmp.i406, i1 %cmp49, i1 false
+  br i1 %or.cond344, label %if.end56.thread, label %if.end56
 
-88:                                               ; preds = %83, %80
-  %89 = load i8, ptr %12, align 8, !tbaa !38, !range !29, !noundef !30
-  %90 = icmp eq i8 %89, 0
-  br i1 %90, label %106, label %96
+if.end56:                                         ; preds = %if.else45, %if.end41
+  %25 = load i8, ptr %inString407, align 8, !tbaa !38, !range !29, !noundef !30
+  %tobool57.not = icmp eq i8 %25, 0
+  br i1 %tobool57.not, label %if.else69, label %if.then58
 
-91:                                               ; preds = %83
-  %92 = load ptr, ptr %11, align 8, !tbaa !8
-  %93 = tail call i32 @putc(i32 noundef 92, ptr noundef %92)
-  %94 = load i8, ptr %12, align 8, !tbaa !38, !range !29, !noundef !30
-  %95 = icmp eq i8 %94, 0
-  br i1 %95, label %109, label %103
+if.end56.thread:                                  ; preds = %if.else45
+  %26 = load ptr, ptr %file52, align 8, !tbaa !8
+  %call53 = tail call i32 @putc(i32 noundef 92, ptr noundef %26)
+  %27 = load i8, ptr %inString407, align 8, !tbaa !38, !range !29, !noundef !30
+  %tobool57.not408 = icmp eq i8 %27, 0
+  br i1 %tobool57.not408, label %if.else69.thread, label %if.end64
 
-96:                                               ; preds = %88
-  %97 = icmp eq i8 %48, 34
-  br i1 %97, label %98, label %103
+if.then58:                                        ; preds = %if.end56
+  %cmp60 = icmp eq i8 %10, 34
+  br i1 %cmp60, label %land.lhs.true, label %if.end64
 
-98:                                               ; preds = %96
-  %99 = load i32, ptr %18, align 4, !tbaa !39
-  %100 = and i32 %99, 1
-  %101 = icmp eq i32 %100, 0
-  br i1 %101, label %102, label %103
+land.lhs.true:                                    ; preds = %if.then58
+  %28 = load i32, ptr %bs_cnt, align 4, !tbaa !39
+  %29 = and i32 %28, 1
+  %cmp61 = icmp eq i32 %29, 0
+  br i1 %cmp61, label %if.then62, label %if.end64
 
-102:                                              ; preds = %98
-  store i8 0, ptr %12, align 8, !tbaa !38
-  br label %103
+if.then62:                                        ; preds = %land.lhs.true
+  store i8 0, ptr %inString407, align 8, !tbaa !38
+  br label %if.end64
 
-103:                                              ; preds = %91, %102, %98, %96
-  %104 = load ptr, ptr %11, align 8, !tbaa !8
-  %105 = tail call i32 @putc(i32 noundef %51, ptr noundef %104)
-  store i8 %48, ptr %19, align 1, !tbaa !24
-  br label %272
+if.end64:                                         ; preds = %if.end56.thread, %if.then62, %land.lhs.true, %if.then58
+  %30 = load ptr, ptr %file52, align 8, !tbaa !8
+  %call67 = tail call i32 @putc(i32 noundef %conv, ptr noundef %30)
+  store i8 %10, ptr %lastChar68, align 1, !tbaa !24
+  br label %if.end329
 
-106:                                              ; preds = %88
-  %107 = load i8, ptr %13, align 1, !tbaa !40, !range !29, !noundef !30
-  %108 = icmp eq i8 %107, 0
-  br i1 %108, label %122, label %112
+if.else69:                                        ; preds = %if.end56
+  %31 = load i8, ptr %inChar414, align 1, !tbaa !40, !range !29, !noundef !30
+  %tobool70.not = icmp eq i8 %31, 0
+  br i1 %tobool70.not, label %if.else85, label %if.then71
 
-109:                                              ; preds = %91
-  %110 = load i8, ptr %13, align 1, !tbaa !40, !range !29, !noundef !30
-  %111 = icmp eq i8 %110, 0
-  br i1 %111, label %125, label %119
+if.else69.thread:                                 ; preds = %if.end56.thread
+  %32 = load i8, ptr %inChar414, align 1, !tbaa !40, !range !29, !noundef !30
+  %tobool70.not415 = icmp eq i8 %32, 0
+  br i1 %tobool70.not415, label %if.else85, label %if.end80
 
-112:                                              ; preds = %106
-  %113 = icmp eq i8 %48, 39
-  br i1 %113, label %114, label %119
+if.then71:                                        ; preds = %if.else69
+  %cmp73 = icmp eq i8 %10, 39
+  br i1 %cmp73, label %land.lhs.true74, label %if.end80
 
-114:                                              ; preds = %112
-  %115 = load i32, ptr %18, align 4, !tbaa !39
-  %116 = and i32 %115, 1
-  %117 = icmp eq i32 %116, 0
-  br i1 %117, label %118, label %119
+land.lhs.true74:                                  ; preds = %if.then71
+  %33 = load i32, ptr %bs_cnt, align 4, !tbaa !39
+  %34 = and i32 %33, 1
+  %cmp77 = icmp eq i32 %34, 0
+  br i1 %cmp77, label %if.then78, label %if.end80
 
-118:                                              ; preds = %114
-  store i8 0, ptr %13, align 1, !tbaa !40
-  br label %119
+if.then78:                                        ; preds = %land.lhs.true74
+  store i8 0, ptr %inChar414, align 1, !tbaa !40
+  br label %if.end80
 
-119:                                              ; preds = %109, %118, %114, %112
-  %120 = load ptr, ptr %11, align 8, !tbaa !8
-  %121 = tail call i32 @putc(i32 noundef %51, ptr noundef %120)
-  store i8 %48, ptr %19, align 1, !tbaa !24
-  br label %272
+if.end80:                                         ; preds = %if.else69.thread, %if.then78, %land.lhs.true74, %if.then71
+  %35 = load ptr, ptr %file52, align 8, !tbaa !8
+  %call83 = tail call i32 @putc(i32 noundef %conv, ptr noundef %35)
+  store i8 %10, ptr %lastChar68, align 1, !tbaa !24
+  br label %if.end329
 
-122:                                              ; preds = %106
-  %123 = load i8, ptr %14, align 2, !tbaa !41, !range !29, !noundef !30
-  %124 = icmp eq i8 %123, 0
-  br i1 %124, label %136, label %128
+if.else85:                                        ; preds = %if.else69.thread, %if.else69
+  %36 = load i8, ptr %inComment, align 2, !tbaa !41, !range !29, !noundef !30
+  %tobool86.not = icmp eq i8 %36, 0
+  br i1 %tobool86.not, label %if.else105, label %if.then87
 
-125:                                              ; preds = %109
-  %126 = load i8, ptr %14, align 2, !tbaa !41, !range !29, !noundef !30
-  %127 = icmp eq i8 %126, 0
-  br i1 %127, label %139, label %133
+if.then87:                                        ; preds = %if.else85
+  %cmp89 = icmp eq i8 %10, 47
+  %37 = load i8, ptr %lastChar68, align 1
+  %cmp93 = icmp eq i8 %37, 42
+  %or.cond391 = select i1 %cmp89, i1 %cmp93, i1 false
+  br i1 %or.cond391, label %if.end96.thread, label %if.end96
 
-128:                                              ; preds = %122
-  switch i32 %51, label %133 [
-    i32 47, label %129
-    i32 11, label %272
-    i32 13, label %272
-    i32 8, label %272
+if.end96.thread:                                  ; preds = %if.then87
+  store i8 0, ptr %inComment, align 2, !tbaa !41
+  br label %sw.default99
+
+if.end96:                                         ; preds = %if.then87
+  switch i32 %conv, label %sw.default99 [
+    i32 11, label %if.end329
+    i32 13, label %if.end329
+    i32 8, label %if.end329
   ]
 
-129:                                              ; preds = %128
-  %130 = load i8, ptr %19, align 1, !tbaa !24
-  %131 = icmp eq i8 %130, 42
-  br i1 %131, label %132, label %133
+sw.default99:                                     ; preds = %if.end96.thread, %if.end96
+  %38 = load ptr, ptr %file52, align 8, !tbaa !8
+  %call102 = tail call i32 @putc(i32 noundef %conv, ptr noundef %38)
+  store i8 %10, ptr %lastChar68, align 1, !tbaa !24
+  br label %if.end329
 
-132:                                              ; preds = %129
-  store i8 0, ptr %14, align 2, !tbaa !41
-  br label %133
+if.else105:                                       ; preds = %if.else85
+  %39 = load i8, ptr %inCppComment, align 1, !tbaa !42, !range !29, !noundef !30
+  %tobool106.not = icmp eq i8 %39, 0
+  br i1 %tobool106.not, label %if.else121, label %if.then107
 
-133:                                              ; preds = %128, %125, %129, %132
-  %134 = load ptr, ptr %11, align 8, !tbaa !8
-  %135 = tail call i32 @putc(i32 noundef %51, ptr noundef %134)
-  store i8 %48, ptr %19, align 1, !tbaa !24
-  br label %272
+if.then107:                                       ; preds = %if.else105
+  %cmp109 = icmp eq i8 %10, 10
+  br i1 %cmp109, label %if.end112.thread, label %if.end112
 
-136:                                              ; preds = %122
-  %137 = load i8, ptr %15, align 1, !tbaa !42, !range !29, !noundef !30
-  %138 = icmp eq i8 %137, 0
-  br i1 %138, label %147, label %142
+if.end112.thread:                                 ; preds = %if.then107
+  store i8 0, ptr %inCppComment, align 1, !tbaa !42
+  br label %sw.default115
 
-139:                                              ; preds = %125
-  %140 = load i8, ptr %15, align 1, !tbaa !42, !range !29, !noundef !30
-  %141 = icmp eq i8 %140, 0
-  br i1 %141, label %147, label %144
-
-142:                                              ; preds = %136
-  switch i32 %51, label %144 [
-    i32 10, label %143
-    i32 11, label %272
-    i32 13, label %272
-    i32 8, label %272
+if.end112:                                        ; preds = %if.then107
+  switch i32 %conv, label %sw.default115 [
+    i32 11, label %if.end329
+    i32 13, label %if.end329
+    i32 8, label %if.end329
   ]
 
-143:                                              ; preds = %142
-  store i8 0, ptr %15, align 1, !tbaa !42
-  br label %144
+sw.default115:                                    ; preds = %if.end112.thread, %if.end112
+  %40 = load ptr, ptr %file52, align 8, !tbaa !8
+  %call118 = tail call i32 @putc(i32 noundef %conv, ptr noundef %40)
+  store i8 %10, ptr %lastChar68, align 1, !tbaa !24
+  br label %if.end329
 
-144:                                              ; preds = %142, %139, %143
-  %145 = load ptr, ptr %11, align 8, !tbaa !8
-  %146 = tail call i32 @putc(i32 noundef %51, ptr noundef %145)
-  store i8 %48, ptr %19, align 1, !tbaa !24
-  br label %272
+if.else121:                                       ; preds = %if.else105
+  %41 = load i8, ptr %indentKeyword, align 8, !tbaa !26, !range !29, !noundef !30
+  %tobool122.not = icmp eq i8 %41, 0
+  br i1 %tobool122.not, label %if.then123, label %if.end130
 
-147:                                              ; preds = %139, %136
-  %148 = load i8, ptr %20, align 8, !tbaa !26, !range !29, !noundef !30
-  %149 = icmp eq i8 %148, 0
-  br i1 %149, label %150, label %156
+if.then123:                                       ; preds = %if.else121
+  %call124 = tail call noundef zeroext i1 @_ZN14kc_filePrinter13check_keywordEPKc(ptr noundef nonnull align 8 dereferenceable(90) %this, ptr noundef nonnull %s.addr.0427)
+  %frombool = zext i1 %call124 to i8
+  store i8 %frombool, ptr %indentKeyword, align 8, !tbaa !26
+  br i1 %call124, label %if.then128, label %if.end130
 
-150:                                              ; preds = %147
-  %151 = tail call noundef zeroext i1 @_ZN14kc_filePrinter13check_keywordEPKc(ptr noundef nonnull align 8 dereferenceable(90) %0, ptr noundef nonnull %49)
-  %152 = zext i1 %151 to i8
-  store i8 %152, ptr %20, align 8, !tbaa !26
-  br i1 %151, label %153, label %156
+if.then128:                                       ; preds = %if.then123
+  %42 = load i32, ptr %indent, align 8, !tbaa !43
+  %inc = add nsw i32 %42, 1
+  store i32 %inc, ptr %indent, align 8, !tbaa !43
+  br label %if.end130
 
-153:                                              ; preds = %150
-  %154 = load i32, ptr %21, align 8, !tbaa !43
-  %155 = add nsw i32 %154, 1
-  store i32 %155, ptr %21, align 8, !tbaa !43
-  br label %156
-
-156:                                              ; preds = %150, %153, %147
-  %157 = phi i1 [ true, %150 ], [ false, %153 ], [ false, %147 ]
-  switch i32 %51, label %205 [
-    i32 59, label %158
-    i32 123, label %162
-    i32 40, label %166
-    i32 11, label %167
-    i32 125, label %170
-    i32 41, label %170
-    i32 13, label %175
-    i32 8, label %180
-    i32 32, label %181
-    i32 9, label %181
+if.end130:                                        ; preds = %if.then123, %if.then128, %if.else121
+  %tobool141.not = phi i1 [ true, %if.then123 ], [ false, %if.then128 ], [ false, %if.else121 ]
+  switch i32 %conv, label %default_case [
+    i32 59, label %sw.bb132
+    i32 123, label %sw.bb139
+    i32 40, label %sw.bb147
+    i32 11, label %sw.bb148
+    i32 125, label %sw.bb151
+    i32 41, label %sw.bb151
+    i32 13, label %sw.bb158
+    i32 8, label %sw.bb165
+    i32 32, label %sw.bb167
+    i32 9, label %sw.bb167
   ]
 
-158:                                              ; preds = %156
-  br i1 %157, label %205, label %159
+sw.bb132:                                         ; preds = %if.end130
+  br i1 %tobool141.not, label %default_case, label %if.then135
 
-159:                                              ; preds = %158
-  %160 = load i32, ptr %21, align 8, !tbaa !43
-  %161 = add nsw i32 %160, -1
-  store i32 %161, ptr %21, align 8, !tbaa !43
-  store i8 0, ptr %20, align 8, !tbaa !26
-  br label %205
+if.then135:                                       ; preds = %sw.bb132
+  %43 = load i32, ptr %indent, align 8, !tbaa !43
+  %dec = add nsw i32 %43, -1
+  store i32 %dec, ptr %indent, align 8, !tbaa !43
+  store i8 0, ptr %indentKeyword, align 8, !tbaa !26
+  br label %default_case
 
-162:                                              ; preds = %156
-  br i1 %157, label %166, label %163
+sw.bb139:                                         ; preds = %if.end130
+  br i1 %tobool141.not, label %sw.bb147, label %if.then142
 
-163:                                              ; preds = %162
-  %164 = load i32, ptr %21, align 8, !tbaa !43
-  %165 = add nsw i32 %164, -1
-  store i32 %165, ptr %21, align 8, !tbaa !43
-  store i8 0, ptr %20, align 8, !tbaa !26
-  br label %166
+if.then142:                                       ; preds = %sw.bb139
+  %44 = load i32, ptr %indent, align 8, !tbaa !43
+  %dec144 = add nsw i32 %44, -1
+  store i32 %dec144, ptr %indent, align 8, !tbaa !43
+  store i8 0, ptr %indentKeyword, align 8, !tbaa !26
+  br label %sw.bb147
 
-166:                                              ; preds = %162, %163, %156
-  br label %205
+sw.bb147:                                         ; preds = %sw.bb139, %if.then142, %if.end130
+  br label %default_case
 
-167:                                              ; preds = %156
-  %168 = load i32, ptr %21, align 8, !tbaa !43
-  %169 = add nsw i32 %168, 1
-  store i32 %169, ptr %21, align 8, !tbaa !43
-  br label %272
+sw.bb148:                                         ; preds = %if.end130
+  %45 = load i32, ptr %indent, align 8, !tbaa !43
+  %inc150 = add nsw i32 %45, 1
+  store i32 %inc150, ptr %indent, align 8, !tbaa !43
+  br label %if.end329
 
-170:                                              ; preds = %156, %156
-  %171 = load i32, ptr %21, align 8, !tbaa !43
-  %172 = icmp eq i32 %171, 0
-  br i1 %172, label %205, label %173
+sw.bb151:                                         ; preds = %if.end130, %if.end130
+  %46 = load i32, ptr %indent, align 8, !tbaa !43
+  %tobool153.not = icmp eq i32 %46, 0
+  br i1 %tobool153.not, label %default_case, label %if.then154
 
-173:                                              ; preds = %170
-  %174 = add nsw i32 %171, -1
-  store i32 %174, ptr %21, align 8, !tbaa !43
-  br label %205
+if.then154:                                       ; preds = %sw.bb151
+  %dec156 = add nsw i32 %46, -1
+  store i32 %dec156, ptr %indent, align 8, !tbaa !43
+  br label %default_case
 
-175:                                              ; preds = %156
-  %176 = load i32, ptr %21, align 8, !tbaa !43
-  %177 = icmp eq i32 %176, 0
-  br i1 %177, label %272, label %178
+sw.bb158:                                         ; preds = %if.end130
+  %47 = load i32, ptr %indent, align 8, !tbaa !43
+  %tobool160.not = icmp eq i32 %47, 0
+  br i1 %tobool160.not, label %if.end329, label %if.then161
 
-178:                                              ; preds = %175
-  %179 = add nsw i32 %176, -1
-  store i32 %179, ptr %21, align 8, !tbaa !43
-  br label %272
+if.then161:                                       ; preds = %sw.bb158
+  %dec163 = add nsw i32 %47, -1
+  store i32 %dec163, ptr %indent, align 8, !tbaa !43
+  br label %if.end329
 
-180:                                              ; preds = %156
-  store i8 %48, ptr %19, align 1, !tbaa !24
-  br label %272
+sw.bb165:                                         ; preds = %if.end130
+  store i8 %10, ptr %lastChar68, align 1, !tbaa !24
+  br label %if.end329
 
-181:                                              ; preds = %156, %156
-  %182 = load i8, ptr %19, align 1, !tbaa !24
-  %183 = sext i8 %182 to i32
-  %184 = icmp eq i8 %182, 8
-  %185 = load i8, ptr %10, align 1
-  %186 = icmp eq i8 %185, 0
-  %187 = select i1 %184, i1 true, i1 %186
-  br i1 %187, label %205, label %188
+sw.bb167:                                         ; preds = %if.end130, %if.end130
+  %48 = load i8, ptr %lastChar68, align 1, !tbaa !24
+  %conv169 = sext i8 %48 to i32
+  %cmp170 = icmp eq i8 %48, 8
+  %49 = load i8, ptr %beginOfLine, align 1
+  %tobool172.not = icmp eq i8 %49, 0
+  %or.cond392 = select i1 %cmp170, i1 true, i1 %tobool172.not
+  br i1 %or.cond392, label %default_case, label %if.end174
 
-188:                                              ; preds = %181
-  %189 = tail call i32 @isspace(i32 noundef %183) #19
-  %190 = icmp eq i32 %189, 0
-  br i1 %190, label %191, label %272
+if.end174:                                        ; preds = %sw.bb167
+  %call177 = tail call i32 @isspace(i32 noundef %conv169) #19
+  %tobool178.not = icmp eq i32 %call177, 0
+  br i1 %tobool178.not, label %if.end180, label %if.end329
 
-191:                                              ; preds = %188
-  %192 = tail call i32 @isalnum(i32 noundef %183) #19
-  %193 = freeze i32 %192
-  %194 = icmp eq i32 %193, 0
-  br i1 %194, label %195, label %196
+if.end180:                                        ; preds = %if.end174
+  %call183 = tail call i32 @isalnum(i32 noundef %conv169) #19
+  %call183.fr = freeze i32 %call183
+  %tobool184.not.not = icmp eq i32 %call183.fr, 0
+  br i1 %tobool184.not.not, label %switch.early.test404, label %if.then205
 
-195:                                              ; preds = %191
-  switch i32 %183, label %272 [
-    i32 125, label %196
-    i32 95, label %196
-    i32 41, label %196
-    i32 39, label %196
-    i32 34, label %196
+switch.early.test404:                             ; preds = %if.end180
+  switch i8 %48, label %if.end329 [
+    i8 125, label %if.then205
+    i8 95, label %if.then205
+    i8 41, label %if.then205
+    i8 39, label %if.then205
+    i8 34, label %if.then205
   ]
 
-196:                                              ; preds = %195, %195, %195, %195, %195, %191
-  %197 = getelementptr inbounds i8, ptr %49, i64 2
-  %198 = load i8, ptr %197, align 1, !tbaa !20
-  %199 = sext i8 %198 to i32
-  %200 = tail call i32 @isalnum(i32 noundef %199) #19
-  %201 = freeze i32 %200
-  %202 = icmp eq i32 %201, 0
-  br i1 %202, label %203, label %205
+if.then205:                                       ; preds = %switch.early.test404, %switch.early.test404, %switch.early.test404, %switch.early.test404, %switch.early.test404, %if.end180
+  %add.ptr206 = getelementptr inbounds i8, ptr %s.addr.0427, i64 2
+  %50 = load i8, ptr %add.ptr206, align 1, !tbaa !20
+  %conv207 = sext i8 %50 to i32
+  %call208 = tail call i32 @isalnum(i32 noundef %conv207) #19
+  %call208.fr = freeze i32 %call208
+  %tobool209.not.not = icmp eq i32 %call208.fr, 0
+  br i1 %tobool209.not.not, label %switch.early.test405, label %default_case
 
-203:                                              ; preds = %196
-  switch i32 %199, label %204 [
-    i32 95, label %205
-    i32 39, label %205
-    i32 34, label %205
+switch.early.test405:                             ; preds = %if.then205
+  switch i8 %50, label %if.end223 [
+    i8 95, label %default_case
+    i8 39, label %default_case
+    i8 34, label %default_case
   ]
 
-204:                                              ; preds = %203
-  store i8 1, ptr %22, align 4, !tbaa !44
-  br label %272
+if.end223:                                        ; preds = %switch.early.test405
+  store i8 1, ptr %spacePending, align 4, !tbaa !44
+  br label %if.end329
 
-205:                                              ; preds = %203, %203, %203, %196, %156, %181, %170, %173, %158, %159, %166
-  %206 = phi i8 [ %48, %156 ], [ %48, %181 ], [ %48, %173 ], [ %48, %170 ], [ %48, %166 ], [ %48, %159 ], [ %48, %158 ], [ 32, %203 ], [ 32, %196 ], [ 32, %203 ], [ 32, %203 ]
-  %207 = phi i32 [ 0, %156 ], [ 0, %181 ], [ 0, %173 ], [ 0, %170 ], [ 1, %166 ], [ 0, %159 ], [ 0, %158 ], [ 0, %203 ], [ 0, %196 ], [ 0, %203 ], [ 0, %203 ]
-  %208 = load i8, ptr %19, align 1, !tbaa !24
-  %209 = freeze i8 %208
-  %210 = icmp eq i8 %209, 10
-  %211 = sext i8 %206 to i32
-  br i1 %210, label %212, label %232
+default_case:                                     ; preds = %switch.early.test405, %switch.early.test405, %switch.early.test405, %if.then205, %if.end130, %sw.bb167, %sw.bb151, %if.then154, %sw.bb132, %if.then135, %sw.bb147
+  %c.0 = phi i8 [ %10, %if.end130 ], [ %10, %sw.bb167 ], [ %10, %if.then154 ], [ %10, %sw.bb151 ], [ %10, %sw.bb147 ], [ %10, %if.then135 ], [ %10, %sw.bb132 ], [ 32, %switch.early.test405 ], [ 32, %if.then205 ], [ 32, %switch.early.test405 ], [ 32, %switch.early.test405 ]
+  %indent_offset.0 = phi i32 [ 0, %if.end130 ], [ 0, %sw.bb167 ], [ 0, %if.then154 ], [ 0, %sw.bb151 ], [ 1, %sw.bb147 ], [ 0, %if.then135 ], [ 0, %sw.bb132 ], [ 0, %switch.early.test405 ], [ 0, %if.then205 ], [ 0, %switch.early.test405 ], [ 0, %switch.early.test405 ]
+  %51 = load i8, ptr %lastChar68, align 1, !tbaa !24
+  %.fr = freeze i8 %51
+  %cmp228 = icmp eq i8 %.fr, 10
+  %conv230 = sext i8 %c.0 to i32
+  br i1 %cmp228, label %switch.early.test, label %if.end252
 
-212:                                              ; preds = %205
-  switch i32 %211, label %213 [
-    i32 35, label %232
-    i32 10, label %232
+switch.early.test:                                ; preds = %default_case
+  switch i8 %c.0, label %if.then235 [
+    i8 35, label %if.end252
+    i8 10, label %if.end252
   ]
 
-213:                                              ; preds = %212
-  %214 = load i32, ptr %21, align 8, !tbaa !43
-  %215 = load i32, ptr @_ZN14kc_filePrinter12indent_levelE, align 4, !tbaa !45
-  %216 = mul nsw i32 %215, %214
-  %217 = icmp sgt i32 %216, 0
-  br i1 %217, label %218, label %232
+if.then235:                                       ; preds = %switch.early.test
+  %52 = load i32, ptr %indent, align 8, !tbaa !43
+  %53 = load i32, ptr @_ZN14kc_filePrinter12indent_levelE, align 4, !tbaa !45
+  %mul = mul nsw i32 %53, %52
+  %cmp237423 = icmp sgt i32 %mul, 0
+  br i1 %cmp237423, label %for.body, label %if.end252
 
-218:                                              ; preds = %213, %227
-  %219 = phi i32 [ %230, %227 ], [ %216, %213 ]
-  %220 = icmp ugt i32 %219, 7
-  br i1 %220, label %227, label %221
+for.body:                                         ; preds = %if.then235, %if.end250
+  %i.0424 = phi i32 [ %sub, %if.end250 ], [ %mul, %if.then235 ]
+  %cmp238 = icmp ugt i32 %i.0424, 7
+  br i1 %cmp238, label %if.end250, label %for.body246
 
-221:                                              ; preds = %218, %221
-  %222 = phi i32 [ %225, %221 ], [ 0, %218 ]
-  %223 = load ptr, ptr %11, align 8, !tbaa !8
-  %224 = tail call i32 @putc(i32 noundef 32, ptr noundef %223)
-  %225 = add nuw nsw i32 %222, 1
-  %226 = icmp eq i32 %225, %219
-  br i1 %226, label %232, label %221, !llvm.loop !46
+for.body246:                                      ; preds = %for.body, %for.body246
+  %k.0422 = phi i32 [ %inc249, %for.body246 ], [ 0, %for.body ]
+  %54 = load ptr, ptr %file52, align 8, !tbaa !8
+  %call248 = tail call i32 @putc(i32 noundef 32, ptr noundef %54)
+  %inc249 = add nuw nsw i32 %k.0422, 1
+  %exitcond.not = icmp eq i32 %inc249, %i.0424
+  br i1 %exitcond.not, label %if.end252, label %for.body246, !llvm.loop !46
 
-227:                                              ; preds = %218
-  %228 = load ptr, ptr %11, align 8, !tbaa !8
-  %229 = tail call i32 @putc(i32 noundef 9, ptr noundef %228)
-  %230 = add nsw i32 %219, -8
-  %231 = icmp eq i32 %230, 0
-  br i1 %231, label %232, label %218, !llvm.loop !48
+if.end250:                                        ; preds = %for.body
+  %55 = load ptr, ptr %file52, align 8, !tbaa !8
+  %call241 = tail call i32 @putc(i32 noundef 9, ptr noundef %55)
+  %sub = add nsw i32 %i.0424, -8
+  %cmp237.not = icmp eq i32 %sub, 0
+  br i1 %cmp237.not, label %if.end252, label %for.body, !llvm.loop !48
 
-232:                                              ; preds = %227, %221, %213, %212, %212, %205
-  %233 = tail call i32 @isspace(i32 noundef %211) #19
-  %234 = icmp eq i32 %233, 0
-  br i1 %234, label %235, label %236
+if.end252:                                        ; preds = %if.end250, %for.body246, %if.then235, %switch.early.test, %switch.early.test, %default_case
+  %call254 = tail call i32 @isspace(i32 noundef %conv230) #19
+  %tobool255.not = icmp eq i32 %call254, 0
+  br i1 %tobool255.not, label %if.then256, label %if.end258
 
-235:                                              ; preds = %232
-  store i8 0, ptr %10, align 1, !tbaa !37
-  br label %236
+if.then256:                                       ; preds = %if.end252
+  store i8 0, ptr %beginOfLine, align 1, !tbaa !37
+  br label %if.end258
 
-236:                                              ; preds = %235, %232
-  switch i32 %211, label %255 [
-    i32 34, label %237
-    i32 39, label %242
-    i32 47, label %247
-    i32 42, label %251
+if.end258:                                        ; preds = %if.then256, %if.end252
+  switch i8 %c.0, label %if.end297 [
+    i8 34, label %land.lhs.true261
+    i8 39, label %land.lhs.true270
+    i8 47, label %land.lhs.true279
+    i8 42, label %land.lhs.true288
   ]
 
-237:                                              ; preds = %236
-  %238 = load i32, ptr %18, align 4, !tbaa !39
-  %239 = and i32 %238, 1
-  %240 = icmp eq i32 %239, 0
-  br i1 %240, label %241, label %255
+land.lhs.true261:                                 ; preds = %if.end258
+  %56 = load i32, ptr %bs_cnt, align 4, !tbaa !39
+  %57 = and i32 %56, 1
+  %cmp264 = icmp eq i32 %57, 0
+  br i1 %cmp264, label %if.then265, label %if.end297
 
-241:                                              ; preds = %237
-  store i8 1, ptr %12, align 8, !tbaa !38
-  br label %255
+if.then265:                                       ; preds = %land.lhs.true261
+  store i8 1, ptr %inString407, align 8, !tbaa !38
+  br label %if.end297
 
-242:                                              ; preds = %236
-  %243 = load i32, ptr %18, align 4, !tbaa !39
-  %244 = and i32 %243, 1
-  %245 = icmp eq i32 %244, 0
-  br i1 %245, label %246, label %255
+land.lhs.true270:                                 ; preds = %if.end258
+  %58 = load i32, ptr %bs_cnt, align 4, !tbaa !39
+  %59 = and i32 %58, 1
+  %cmp273 = icmp eq i32 %59, 0
+  br i1 %cmp273, label %if.then274, label %if.end297
 
-246:                                              ; preds = %242
-  store i8 1, ptr %13, align 1, !tbaa !40
-  br label %255
+if.then274:                                       ; preds = %land.lhs.true270
+  store i8 1, ptr %inChar414, align 1, !tbaa !40
+  br label %if.end297
 
-247:                                              ; preds = %236
-  %248 = load i8, ptr %19, align 1, !tbaa !24
-  %249 = icmp eq i8 %248, 47
-  br i1 %249, label %250, label %255
+land.lhs.true279:                                 ; preds = %if.end258
+  %.old = load i8, ptr %lastChar68, align 1, !tbaa !24
+  %cmp282.old = icmp eq i8 %.old, 47
+  br i1 %cmp282.old, label %if.then283, label %if.end297
 
-250:                                              ; preds = %247
-  store i8 1, ptr %15, align 1, !tbaa !42
-  br label %255
+if.then283:                                       ; preds = %land.lhs.true279
+  store i8 1, ptr %inCppComment, align 1, !tbaa !42
+  br label %if.end297
 
-251:                                              ; preds = %236
-  %252 = load i8, ptr %19, align 1, !tbaa !24
-  %253 = icmp eq i8 %252, 47
-  br i1 %253, label %254, label %255
+land.lhs.true288:                                 ; preds = %if.end258
+  %.old401 = load i8, ptr %lastChar68, align 1, !tbaa !24
+  %cmp291.old = icmp eq i8 %.old401, 47
+  br i1 %cmp291.old, label %if.then292, label %if.end297
 
-254:                                              ; preds = %251
-  store i8 1, ptr %14, align 2, !tbaa !41
-  br label %255
+if.then292:                                       ; preds = %land.lhs.true288
+  store i8 1, ptr %inComment, align 2, !tbaa !41
+  br label %if.end297
 
-255:                                              ; preds = %236, %237, %242, %247, %246, %251, %254, %250, %241
-  %256 = load i8, ptr %22, align 4, !tbaa !44, !range !29, !noundef !30
-  %257 = icmp eq i8 %256, 0
-  br i1 %257, label %267, label %258
+if.end297:                                        ; preds = %land.lhs.true279, %land.lhs.true270, %land.lhs.true261, %if.end258, %if.then274, %land.lhs.true288, %if.then292, %if.then283, %if.then265
+  %60 = load i8, ptr %spacePending, align 4, !tbaa !44, !range !29, !noundef !30
+  %tobool299.not = icmp eq i8 %60, 0
+  br i1 %tobool299.not, label %if.end318, label %if.then300
 
-258:                                              ; preds = %255
-  %259 = tail call i32 @isalnum(i32 noundef %211) #19
-  %260 = freeze i32 %259
-  %261 = icmp eq i32 %260, 0
-  br i1 %261, label %262, label %263
+if.then300:                                       ; preds = %if.end297
+  %call302 = tail call i32 @isalnum(i32 noundef %conv230) #19
+  %call302.fr = freeze i32 %call302
+  %tobool303.not = icmp eq i32 %call302.fr, 0
+  br i1 %tobool303.not, label %switch.early.test403, label %if.then313
 
-262:                                              ; preds = %258
-  switch i32 %211, label %266 [
-    i32 95, label %263
-    i32 39, label %263
-    i32 34, label %263
+switch.early.test403:                             ; preds = %if.then300
+  switch i8 %c.0, label %if.end316 [
+    i8 95, label %if.then313
+    i8 39, label %if.then313
+    i8 34, label %if.then313
   ]
 
-263:                                              ; preds = %262, %262, %262, %258
-  %264 = load ptr, ptr %11, align 8, !tbaa !8
-  %265 = tail call i32 @putc(i32 noundef 32, ptr noundef %264)
-  br label %266
+if.then313:                                       ; preds = %switch.early.test403, %switch.early.test403, %switch.early.test403, %if.then300
+  %61 = load ptr, ptr %file52, align 8, !tbaa !8
+  %call315 = tail call i32 @putc(i32 noundef 32, ptr noundef %61)
+  br label %if.end316
 
-266:                                              ; preds = %262, %263
-  store i8 0, ptr %22, align 4, !tbaa !44
-  br label %267
+if.end316:                                        ; preds = %switch.early.test403, %if.then313
+  store i8 0, ptr %spacePending, align 4, !tbaa !44
+  br label %if.end318
 
-267:                                              ; preds = %266, %255
-  %268 = load ptr, ptr %11, align 8, !tbaa !8
-  %269 = tail call i32 @putc(i32 noundef %211, ptr noundef %268)
-  store i8 %206, ptr %19, align 1, !tbaa !24
-  %270 = load i32, ptr %21, align 8, !tbaa !43
-  %271 = add nsw i32 %270, %207
-  store i32 %271, ptr %21, align 8, !tbaa !43
-  br label %272
+if.end318:                                        ; preds = %if.end316, %if.end297
+  %62 = load ptr, ptr %file52, align 8, !tbaa !8
+  %call321 = tail call i32 @putc(i32 noundef %conv230, ptr noundef %62)
+  store i8 %c.0, ptr %lastChar68, align 1, !tbaa !24
+  %63 = load i32, ptr %indent, align 8, !tbaa !43
+  %add324 = add nsw i32 %63, %indent_offset.0
+  store i32 %add324, ptr %indent, align 8, !tbaa !43
+  br label %if.end329
 
-272:                                              ; preds = %195, %142, %142, %142, %128, %128, %128, %167, %180, %267, %178, %175, %188, %204, %119, %144, %133, %103
-  %273 = phi i8 [ %48, %103 ], [ %48, %119 ], [ %48, %133 ], [ %48, %144 ], [ %206, %267 ], [ %48, %188 ], [ %48, %204 ], [ %48, %180 ], [ %48, %178 ], [ %48, %175 ], [ %48, %167 ], [ %48, %128 ], [ %48, %128 ], [ %48, %128 ], [ %48, %142 ], [ %48, %142 ], [ %48, %142 ], [ %48, %195 ]
-  %274 = icmp eq i8 %273, 92
-  %275 = load i32, ptr %18, align 4
-  %276 = add nsw i32 %275, 1
-  %277 = select i1 %274, i32 %276, i32 0
-  store i32 %277, ptr %18, align 4, !tbaa !39
-  %278 = load i8, ptr %50, align 1, !tbaa !20
-  %279 = icmp eq i8 %278, 0
-  br i1 %279, label %280, label %47, !llvm.loop !49
+if.end329:                                        ; preds = %switch.early.test404, %sw.bb148, %sw.bb165, %if.end318, %if.then161, %sw.bb158, %if.end174, %if.end223, %if.end80, %if.end112, %if.end112, %if.end112, %sw.default115, %sw.default99, %if.end96, %if.end96, %if.end96, %if.end64
+  %c.2 = phi i8 [ %10, %if.end64 ], [ %10, %if.end80 ], [ %10, %sw.default99 ], [ %10, %if.end96 ], [ %10, %if.end96 ], [ %10, %if.end96 ], [ %10, %sw.default115 ], [ %10, %if.end112 ], [ %10, %if.end112 ], [ %10, %if.end112 ], [ %c.0, %if.end318 ], [ %10, %if.end174 ], [ %10, %if.end223 ], [ %10, %sw.bb165 ], [ %10, %if.then161 ], [ %10, %sw.bb158 ], [ %10, %sw.bb148 ], [ %10, %switch.early.test404 ]
+  %cmp331 = icmp eq i8 %c.2, 92
+  %64 = load i32, ptr %bs_cnt, align 4
+  %inc334 = add nsw i32 %64, 1
+  %storemerge = select i1 %cmp331, i32 %inc334, i32 0
+  store i32 %storemerge, ptr %bs_cnt, align 4, !tbaa !39
+  %65 = load i8, ptr %incdec.ptr428, align 1, !tbaa !20
+  %tobool14.not = icmp eq i8 %65, 0
+  br i1 %tobool14.not, label %while.end, label %while.body, !llvm.loop !49
 
-280:                                              ; preds = %272, %5
-  %281 = getelementptr inbounds %class.kc_filePrinter, ptr %0, i64 0, i32 18
-  store ptr null, ptr %281, align 8, !tbaa !25
-  br label %282
+while.end:                                        ; preds = %if.end329, %while.cond.preheader
+  %keyword = getelementptr inbounds %class.kc_filePrinter, ptr %this, i64 0, i32 18
+  store ptr null, ptr %keyword, align 8, !tbaa !25
+  br label %cleanup
 
-282:                                              ; preds = %47, %23, %43, %280
+cleanup:                                          ; preds = %while.body, %sw.bb, %if.end, %while.end
   ret void
 }
 
@@ -789,38 +788,39 @@ declare noundef i32 @fprintf(ptr nocapture noundef, ptr nocapture noundef readon
 declare noundef i32 @putc(i32 noundef, ptr nocapture noundef) local_unnamed_addr #9
 
 ; Function Attrs: mustprogress uwtable
-define dso_local void @_ZN14kc_filePrinter4initEPKcS1_RKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEE(ptr noundef nonnull align 8 dereferenceable(90) %0, ptr noundef %1, ptr nocapture noundef readonly %2, ptr noundef nonnull align 8 dereferenceable(32) %3) local_unnamed_addr #8 align 2 {
-  %5 = tail call noalias ptr @fopen(ptr noundef %1, ptr noundef %2)
-  %6 = getelementptr inbounds %class.kc_filePrinter, ptr %0, i64 0, i32 1
-  store ptr %5, ptr %6, align 8, !tbaa !8
-  %7 = icmp eq ptr %5, null
-  br i1 %7, label %8, label %17
+define dso_local void @_ZN14kc_filePrinter4initEPKcS1_RKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEE(ptr noundef nonnull align 8 dereferenceable(90) %this, ptr noundef %name, ptr nocapture noundef readonly %mode, ptr noundef nonnull align 8 dereferenceable(32) %_filename) local_unnamed_addr #8 align 2 {
+entry:
+  %call = tail call noalias ptr @fopen(ptr noundef %name, ptr noundef %mode)
+  %file = getelementptr inbounds %class.kc_filePrinter, ptr %this, i64 0, i32 1
+  store ptr %call, ptr %file, align 8, !tbaa !8
+  %cmp = icmp eq ptr %call, null
+  br i1 %cmp, label %if.then, label %if.end
 
-8:                                                ; preds = %4
-  %9 = tail call noundef ptr @_ZN2kc10NoFileLineEv()
-  %10 = load ptr, ptr %3, align 8, !tbaa !28
-  %11 = tail call noundef ptr @_ZN2kc12mkcasestringEPKci(ptr noundef nonnull @.str.11, i32 noundef -1)
-  %12 = tail call noundef ptr @_ZN2kc12mkcasestringEPKci(ptr noundef %10, i32 noundef -1)
-  %13 = tail call noundef ptr @_ZN2kc12mkcasestringEPKci(ptr noundef nonnull @.str.12, i32 noundef -1)
-  %14 = tail call noundef ptr @_ZN2kc12mkcasestringEPKci(ptr noundef %1, i32 noundef -1)
-  %15 = tail call noundef ptr @_ZN2kc8Problem4EPNS_20impl_casestring__StrES1_S1_S1_(ptr noundef %11, ptr noundef %12, ptr noundef %13, ptr noundef %14)
-  %16 = tail call noundef ptr @_ZN2kc5FatalEPNS_13impl_filelineEPNS_12impl_problemE(ptr noundef %9, ptr noundef %15)
-  tail call void @_ZN2kc8v_reportEPNS_10impl_errorE(ptr noundef %16)
-  br label %17
+if.then:                                          ; preds = %entry
+  %call3 = tail call noundef ptr @_ZN2kc10NoFileLineEv()
+  %0 = load ptr, ptr %_filename, align 8, !tbaa !28
+  %call.i = tail call noundef ptr @_ZN2kc12mkcasestringEPKci(ptr noundef nonnull @.str.11, i32 noundef -1)
+  %call1.i = tail call noundef ptr @_ZN2kc12mkcasestringEPKci(ptr noundef %0, i32 noundef -1)
+  %call2.i = tail call noundef ptr @_ZN2kc12mkcasestringEPKci(ptr noundef nonnull @.str.12, i32 noundef -1)
+  %call3.i = tail call noundef ptr @_ZN2kc12mkcasestringEPKci(ptr noundef %name, i32 noundef -1)
+  %call4.i = tail call noundef ptr @_ZN2kc8Problem4EPNS_20impl_casestring__StrES1_S1_S1_(ptr noundef %call.i, ptr noundef %call1.i, ptr noundef %call2.i, ptr noundef %call3.i)
+  %call6 = tail call noundef ptr @_ZN2kc5FatalEPNS_13impl_filelineEPNS_12impl_problemE(ptr noundef %call3, ptr noundef %call4.i)
+  tail call void @_ZN2kc8v_reportEPNS_10impl_errorE(ptr noundef %call6)
+  br label %if.end
 
-17:                                               ; preds = %8, %4
-  %18 = getelementptr inbounds %class.kc_filePrinter, ptr %0, i64 0, i32 2
-  store i32 1, ptr %18, align 8, !tbaa !21
-  %19 = getelementptr inbounds %class.kc_filePrinter, ptr %0, i64 0, i32 4
-  tail call void @_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE9_M_assignERKS4_(ptr noundef nonnull align 8 dereferenceable(32) %19, ptr noundef nonnull align 8 dereferenceable(32) %3)
-  %20 = getelementptr inbounds %class.kc_filePrinter, ptr %0, i64 0, i32 7
-  store i8 10, ptr %20, align 1, !tbaa !24
-  %21 = getelementptr inbounds %class.kc_filePrinter, ptr %0, i64 0, i32 9
-  store i32 0, ptr %21, align 8, !tbaa !43
-  %22 = getelementptr inbounds %class.kc_filePrinter, ptr %0, i64 0, i32 11
-  store i8 0, ptr %22, align 8, !tbaa !38
-  %23 = getelementptr inbounds %class.kc_filePrinter, ptr %0, i64 0, i32 13
-  store i32 0, ptr %23, align 2
+if.end:                                           ; preds = %if.then, %entry
+  %lineno = getelementptr inbounds %class.kc_filePrinter, ptr %this, i64 0, i32 2
+  store i32 1, ptr %lineno, align 8, !tbaa !21
+  %filename = getelementptr inbounds %class.kc_filePrinter, ptr %this, i64 0, i32 4
+  tail call void @_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE9_M_assignERKS4_(ptr noundef nonnull align 8 dereferenceable(32) %filename, ptr noundef nonnull align 8 dereferenceable(32) %_filename)
+  %lastChar = getelementptr inbounds %class.kc_filePrinter, ptr %this, i64 0, i32 7
+  store i8 10, ptr %lastChar, align 1, !tbaa !24
+  %indent = getelementptr inbounds %class.kc_filePrinter, ptr %this, i64 0, i32 9
+  store i32 0, ptr %indent, align 8, !tbaa !43
+  %inString = getelementptr inbounds %class.kc_filePrinter, ptr %this, i64 0, i32 11
+  store i8 0, ptr %inString, align 8, !tbaa !38
+  %inComment = getelementptr inbounds %class.kc_filePrinter, ptr %this, i64 0, i32 13
+  store i32 0, ptr %inComment, align 2
   ret void
 }
 
@@ -828,90 +828,91 @@ define dso_local void @_ZN14kc_filePrinter4initEPKcS1_RKNSt7__cxx1112basic_strin
 declare noalias noundef ptr @fopen(ptr nocapture noundef readonly, ptr nocapture noundef readonly) local_unnamed_addr #9
 
 ; Function Attrs: uwtable
-define dso_local void @_ZN2kc8v_reportEPNS_10impl_errorE(ptr noundef %0) local_unnamed_addr #10 personality ptr @__gxx_personality_v0 {
-  %2 = alloca i64, align 8
-  %3 = alloca %"class.kc::view_error_format_class", align 8
-  %4 = load i64, ptr getelementptr inbounds (%struct.cmdline_options, ptr @g_options, i64 0, i32 25, i32 1), align 8, !tbaa !19
-  %5 = icmp eq i64 %4, 0
-  br i1 %5, label %36, label %6
+define dso_local void @_ZN2kc8v_reportEPNS_10impl_errorE(ptr noundef %e) local_unnamed_addr #10 personality ptr @__gxx_personality_v0 {
+entry:
+  %__dnew.i.i.i = alloca i64, align 8
+  %v = alloca %"class.kc::view_error_format_class", align 8
+  %0 = load i64, ptr getelementptr inbounds (%struct.cmdline_options, ptr @g_options, i64 0, i32 25, i32 1), align 8, !tbaa !19
+  %tobool.not = icmp eq i64 %0, 0
+  br i1 %tobool.not, label %if.else, label %if.then
 
-6:                                                ; preds = %1
-  call void @llvm.lifetime.start.p0(i64 40, ptr nonnull %3) #20
-  store i32 1, ptr %3, align 8, !tbaa !31
-  %7 = getelementptr inbounds %"class.kc::view_error_format_class", ptr %3, i64 0, i32 1
-  %8 = getelementptr inbounds %"class.kc::view_error_format_class", ptr %3, i64 0, i32 1, i32 2
-  store ptr %8, ptr %7, align 8, !tbaa !18
-  %9 = load ptr, ptr getelementptr inbounds (%struct.cmdline_options, ptr @g_options, i64 0, i32 25), align 8, !tbaa !28
-  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %2) #20
-  store i64 %4, ptr %2, align 8, !tbaa !50
-  %10 = icmp ugt i64 %4, 15
-  br i1 %10, label %11, label %14
+if.then:                                          ; preds = %entry
+  call void @llvm.lifetime.start.p0(i64 40, ptr nonnull %v) #20
+  store i32 1, ptr %v, align 8, !tbaa !31
+  %msg.i = getelementptr inbounds %"class.kc::view_error_format_class", ptr %v, i64 0, i32 1
+  %1 = getelementptr inbounds %"class.kc::view_error_format_class", ptr %v, i64 0, i32 1, i32 2
+  store ptr %1, ptr %msg.i, align 8, !tbaa !18
+  %2 = load ptr, ptr getelementptr inbounds (%struct.cmdline_options, ptr @g_options, i64 0, i32 25), align 8, !tbaa !28
+  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %__dnew.i.i.i) #20
+  store i64 %0, ptr %__dnew.i.i.i, align 8, !tbaa !50
+  %cmp.i.i.i = icmp ugt i64 %0, 15
+  br i1 %cmp.i.i.i, label %if.end.i.i.i.thread, label %if.end.i.i.i
 
-11:                                               ; preds = %6
-  %12 = call noundef ptr @_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE9_M_createERmm(ptr noundef nonnull align 8 dereferenceable(32) %7, ptr noundef nonnull align 8 dereferenceable(8) %2, i64 noundef 0)
-  store ptr %12, ptr %7, align 8, !tbaa !28
-  %13 = load i64, ptr %2, align 8, !tbaa !50
-  store i64 %13, ptr %8, align 8, !tbaa !20
-  br label %18
+if.end.i.i.i.thread:                              ; preds = %if.then
+  %call2.i12.i.i = call noundef ptr @_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE9_M_createERmm(ptr noundef nonnull align 8 dereferenceable(32) %msg.i, ptr noundef nonnull align 8 dereferenceable(8) %__dnew.i.i.i, i64 noundef 0)
+  store ptr %call2.i12.i.i, ptr %msg.i, align 8, !tbaa !28
+  %3 = load i64, ptr %__dnew.i.i.i, align 8, !tbaa !50
+  store i64 %3, ptr %1, align 8, !tbaa !20
+  br label %if.end.i.i.i.i.i.i
 
-14:                                               ; preds = %6
-  %15 = icmp eq i64 %4, 1
-  br i1 %15, label %16, label %18
+if.end.i.i.i:                                     ; preds = %if.then
+  %cond = icmp eq i64 %0, 1
+  br i1 %cond, label %if.then.i.i.i.i.i, label %if.end.i.i.i.i.i.i
 
-16:                                               ; preds = %14
-  %17 = load i8, ptr %9, align 1, !tbaa !20
-  store i8 %17, ptr %8, align 8, !tbaa !20
-  br label %20
+if.then.i.i.i.i.i:                                ; preds = %if.end.i.i.i
+  %4 = load i8, ptr %2, align 1, !tbaa !20
+  store i8 %4, ptr %1, align 8, !tbaa !20
+  br label %_ZN2kc23view_error_format_classC2ERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEE.exit
 
-18:                                               ; preds = %11, %14
-  %19 = phi ptr [ %12, %11 ], [ %8, %14 ]
-  call void @llvm.memcpy.p0.p0.i64(ptr align 1 %19, ptr align 1 %9, i64 %4, i1 false)
-  br label %20
+if.end.i.i.i.i.i.i:                               ; preds = %if.end.i.i.i.thread, %if.end.i.i.i
+  %5 = phi ptr [ %call2.i12.i.i, %if.end.i.i.i.thread ], [ %1, %if.end.i.i.i ]
+  call void @llvm.memcpy.p0.p0.i64(ptr align 1 %5, ptr align 1 %2, i64 %0, i1 false)
+  br label %_ZN2kc23view_error_format_classC2ERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEE.exit
 
-20:                                               ; preds = %16, %18
-  %21 = load i64, ptr %2, align 8, !tbaa !50
-  %22 = getelementptr inbounds %"class.kc::view_error_format_class", ptr %3, i64 0, i32 1, i32 1
-  store i64 %21, ptr %22, align 8, !tbaa !19
-  %23 = load ptr, ptr %7, align 8, !tbaa !28
-  %24 = getelementptr inbounds i8, ptr %23, i64 %21
-  store i8 0, ptr %24, align 1, !tbaa !20
-  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %2) #20
-  invoke void @_ZN2kc20impl_abstract_phylum7unparseEPFvPKcRNS_11uview_classEES4_(ptr noundef nonnull align 8 dereferenceable(8) %0, ptr noundef nonnull @_ZN2kcL16v_stderr_printerEPKcRNS_11uview_classE, ptr noundef nonnull align 4 dereferenceable(4) %3)
-          to label %25 unwind label %30
+_ZN2kc23view_error_format_classC2ERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEE.exit: ; preds = %if.then.i.i.i.i.i, %if.end.i.i.i.i.i.i
+  %6 = load i64, ptr %__dnew.i.i.i, align 8, !tbaa !50
+  %_M_string_length.i.i.i.i.i = getelementptr inbounds %"class.kc::view_error_format_class", ptr %v, i64 0, i32 1, i32 1
+  store i64 %6, ptr %_M_string_length.i.i.i.i.i, align 8, !tbaa !19
+  %7 = load ptr, ptr %msg.i, align 8, !tbaa !28
+  %arrayidx.i.i.i.i = getelementptr inbounds i8, ptr %7, i64 %6
+  store i8 0, ptr %arrayidx.i.i.i.i, align 1, !tbaa !20
+  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %__dnew.i.i.i) #20
+  invoke void @_ZN2kc20impl_abstract_phylum7unparseEPFvPKcRNS_11uview_classEES4_(ptr noundef nonnull align 8 dereferenceable(8) %e, ptr noundef nonnull @_ZN2kcL16v_stderr_printerEPKcRNS_11uview_classE, ptr noundef nonnull align 4 dereferenceable(4) %v)
+          to label %invoke.cont unwind label %lpad
 
-25:                                               ; preds = %20
-  %26 = load ptr, ptr %7, align 8, !tbaa !28
-  %27 = icmp eq ptr %26, %8
-  br i1 %27, label %29, label %28
+invoke.cont:                                      ; preds = %_ZN2kc23view_error_format_classC2ERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEE.exit
+  %8 = load ptr, ptr %msg.i, align 8, !tbaa !28
+  %cmp.i.i.i.i = icmp eq ptr %8, %1
+  br i1 %cmp.i.i.i.i, label %_ZN2kc23view_error_format_classD2Ev.exit, label %if.then.i.i.i4
 
-28:                                               ; preds = %25
-  call void @_ZdlPv(ptr noundef %26) #18
-  br label %29
+if.then.i.i.i4:                                   ; preds = %invoke.cont
+  call void @_ZdlPv(ptr noundef %8) #18
+  br label %_ZN2kc23view_error_format_classD2Ev.exit
 
-29:                                               ; preds = %25, %28
-  call void @llvm.lifetime.end.p0(i64 40, ptr nonnull %3) #20
-  br label %37
+_ZN2kc23view_error_format_classD2Ev.exit:         ; preds = %invoke.cont, %if.then.i.i.i4
+  call void @llvm.lifetime.end.p0(i64 40, ptr nonnull %v) #20
+  br label %if.end
 
-30:                                               ; preds = %20
-  %31 = landingpad { ptr, i32 }
+lpad:                                             ; preds = %_ZN2kc23view_error_format_classC2ERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEE.exit
+  %9 = landingpad { ptr, i32 }
           cleanup
-  %32 = load ptr, ptr %7, align 8, !tbaa !28
-  %33 = icmp eq ptr %32, %8
-  br i1 %33, label %35, label %34
+  %10 = load ptr, ptr %msg.i, align 8, !tbaa !28
+  %cmp.i.i.i.i6 = icmp eq ptr %10, %1
+  br i1 %cmp.i.i.i.i6, label %_ZN2kc23view_error_format_classD2Ev.exit8, label %if.then.i.i.i7
 
-34:                                               ; preds = %30
-  call void @_ZdlPv(ptr noundef %32) #18
-  br label %35
+if.then.i.i.i7:                                   ; preds = %lpad
+  call void @_ZdlPv(ptr noundef %10) #18
+  br label %_ZN2kc23view_error_format_classD2Ev.exit8
 
-35:                                               ; preds = %30, %34
-  call void @llvm.lifetime.end.p0(i64 40, ptr nonnull %3) #20
-  resume { ptr, i32 } %31
+_ZN2kc23view_error_format_classD2Ev.exit8:        ; preds = %lpad, %if.then.i.i.i7
+  call void @llvm.lifetime.end.p0(i64 40, ptr nonnull %v) #20
+  resume { ptr, i32 } %9
 
-36:                                               ; preds = %1
-  tail call void @_ZN2kc20impl_abstract_phylum7unparseEPFvPKcRNS_11uview_classEES4_(ptr noundef nonnull align 8 dereferenceable(8) %0, ptr noundef nonnull @_ZN2kcL16v_stderr_printerEPKcRNS_11uview_classE, ptr noundef nonnull align 4 dereferenceable(4) @_ZN2kc10view_errorE)
-  br label %37
+if.else:                                          ; preds = %entry
+  tail call void @_ZN2kc20impl_abstract_phylum7unparseEPFvPKcRNS_11uview_classEES4_(ptr noundef nonnull align 8 dereferenceable(8) %e, ptr noundef nonnull @_ZN2kcL16v_stderr_printerEPKcRNS_11uview_classE, ptr noundef nonnull align 4 dereferenceable(4) @_ZN2kc10view_errorE)
+  br label %if.end
 
-37:                                               ; preds = %36, %29
+if.end:                                           ; preds = %if.else, %_ZN2kc23view_error_format_classD2Ev.exit
   ret void
 }
 
@@ -920,20 +921,22 @@ declare noundef ptr @_ZN2kc5FatalEPNS_13impl_filelineEPNS_12impl_problemE(ptr no
 declare noundef ptr @_ZN2kc10NoFileLineEv() local_unnamed_addr #11
 
 ; Function Attrs: mustprogress uwtable
-define dso_local noundef ptr @_ZN2kc9Problem4SEPKcS1_S1_S1_(ptr noundef %0, ptr noundef %1, ptr noundef %2, ptr noundef %3) local_unnamed_addr #8 {
-  %5 = tail call noundef ptr @_ZN2kc12mkcasestringEPKci(ptr noundef %0, i32 noundef -1)
-  %6 = tail call noundef ptr @_ZN2kc12mkcasestringEPKci(ptr noundef %1, i32 noundef -1)
-  %7 = tail call noundef ptr @_ZN2kc12mkcasestringEPKci(ptr noundef %2, i32 noundef -1)
-  %8 = tail call noundef ptr @_ZN2kc12mkcasestringEPKci(ptr noundef %3, i32 noundef -1)
-  %9 = tail call noundef ptr @_ZN2kc8Problem4EPNS_20impl_casestring__StrES1_S1_S1_(ptr noundef %5, ptr noundef %6, ptr noundef %7, ptr noundef %8)
-  ret ptr %9
+define dso_local noundef ptr @_ZN2kc9Problem4SEPKcS1_S1_S1_(ptr noundef %s1, ptr noundef %s2, ptr noundef %s3, ptr noundef %s4) local_unnamed_addr #8 {
+entry:
+  %call = tail call noundef ptr @_ZN2kc12mkcasestringEPKci(ptr noundef %s1, i32 noundef -1)
+  %call1 = tail call noundef ptr @_ZN2kc12mkcasestringEPKci(ptr noundef %s2, i32 noundef -1)
+  %call2 = tail call noundef ptr @_ZN2kc12mkcasestringEPKci(ptr noundef %s3, i32 noundef -1)
+  %call3 = tail call noundef ptr @_ZN2kc12mkcasestringEPKci(ptr noundef %s4, i32 noundef -1)
+  %call4 = tail call noundef ptr @_ZN2kc8Problem4EPNS_20impl_casestring__StrES1_S1_S1_(ptr noundef %call, ptr noundef %call1, ptr noundef %call2, ptr noundef %call3)
+  ret ptr %call4
 }
 
 ; Function Attrs: mustprogress uwtable
-define dso_local noundef ptr @_ZN2kc9Problem1SEPKc(ptr noundef %0) local_unnamed_addr #8 {
-  %2 = tail call noundef ptr @_ZN2kc12mkcasestringEPKci(ptr noundef %0, i32 noundef -1)
-  %3 = tail call noundef ptr @_ZN2kc8Problem1EPNS_20impl_casestring__StrE(ptr noundef %2)
-  ret ptr %3
+define dso_local noundef ptr @_ZN2kc9Problem1SEPKc(ptr noundef %s1) local_unnamed_addr #8 {
+entry:
+  %call = tail call noundef ptr @_ZN2kc12mkcasestringEPKci(ptr noundef %s1, i32 noundef -1)
+  %call1 = tail call noundef ptr @_ZN2kc8Problem1EPNS_20impl_casestring__StrE(ptr noundef %call)
+  ret ptr %call1
 }
 
 declare noundef ptr @_ZN2kc8Problem1EPNS_20impl_casestring__StrE(ptr noundef) local_unnamed_addr #11
@@ -941,68 +944,75 @@ declare noundef ptr @_ZN2kc8Problem1EPNS_20impl_casestring__StrE(ptr noundef) lo
 declare noundef ptr @_ZN2kc12mkcasestringEPKci(ptr noundef, i32 noundef) local_unnamed_addr #11
 
 ; Function Attrs: mustprogress uwtable
-define dso_local noundef ptr @_ZN2kc12Problem1S1weEPKcPNS_19impl_withexpressionE(ptr noundef %0, ptr noundef %1) local_unnamed_addr #8 {
-  %3 = tail call noundef ptr @_ZN2kc12mkcasestringEPKci(ptr noundef %0, i32 noundef -1)
-  %4 = tail call noundef ptr @_ZN2kc10Problem1weEPNS_20impl_casestring__StrEPNS_19impl_withexpressionE(ptr noundef %3, ptr noundef %1)
-  ret ptr %4
+define dso_local noundef ptr @_ZN2kc12Problem1S1weEPKcPNS_19impl_withexpressionE(ptr noundef %s1, ptr noundef %we) local_unnamed_addr #8 {
+entry:
+  %call = tail call noundef ptr @_ZN2kc12mkcasestringEPKci(ptr noundef %s1, i32 noundef -1)
+  %call1 = tail call noundef ptr @_ZN2kc10Problem1weEPNS_20impl_casestring__StrEPNS_19impl_withexpressionE(ptr noundef %call, ptr noundef %we)
+  ret ptr %call1
 }
 
 declare noundef ptr @_ZN2kc10Problem1weEPNS_20impl_casestring__StrEPNS_19impl_withexpressionE(ptr noundef, ptr noundef) local_unnamed_addr #11
 
 ; Function Attrs: mustprogress uwtable
-define dso_local noundef ptr @_ZN2kc12Problem1S1IDEPKcPNS_7impl_IDE(ptr noundef %0, ptr noundef %1) local_unnamed_addr #8 {
-  %3 = tail call noundef ptr @_ZN2kc12mkcasestringEPKci(ptr noundef %0, i32 noundef -1)
-  %4 = tail call noundef ptr @_ZN2kc10Problem1IDEPNS_20impl_casestring__StrEPNS_7impl_IDE(ptr noundef %3, ptr noundef %1)
-  ret ptr %4
+define dso_local noundef ptr @_ZN2kc12Problem1S1IDEPKcPNS_7impl_IDE(ptr noundef %s1, ptr noundef %id) local_unnamed_addr #8 {
+entry:
+  %call = tail call noundef ptr @_ZN2kc12mkcasestringEPKci(ptr noundef %s1, i32 noundef -1)
+  %call1 = tail call noundef ptr @_ZN2kc10Problem1IDEPNS_20impl_casestring__StrEPNS_7impl_IDE(ptr noundef %call, ptr noundef %id)
+  ret ptr %call1
 }
 
 declare noundef ptr @_ZN2kc10Problem1IDEPNS_20impl_casestring__StrEPNS_7impl_IDE(ptr noundef, ptr noundef) local_unnamed_addr #11
 
 ; Function Attrs: mustprogress uwtable
-define dso_local noundef ptr @_ZN2kc13Problem1S1tIDEPKcPNS_7impl_IDE(ptr noundef %0, ptr noundef %1) local_unnamed_addr #8 {
-  %3 = tail call noundef ptr @_ZN2kc12mkcasestringEPKci(ptr noundef %0, i32 noundef -1)
-  %4 = tail call noundef ptr @_ZN2kc11Problem1tIDEPNS_20impl_casestring__StrEPNS_7impl_IDE(ptr noundef %3, ptr noundef %1)
-  ret ptr %4
+define dso_local noundef ptr @_ZN2kc13Problem1S1tIDEPKcPNS_7impl_IDE(ptr noundef %s1, ptr noundef %id) local_unnamed_addr #8 {
+entry:
+  %call = tail call noundef ptr @_ZN2kc12mkcasestringEPKci(ptr noundef %s1, i32 noundef -1)
+  %call1 = tail call noundef ptr @_ZN2kc11Problem1tIDEPNS_20impl_casestring__StrEPNS_7impl_IDE(ptr noundef %call, ptr noundef %id)
+  ret ptr %call1
 }
 
 declare noundef ptr @_ZN2kc11Problem1tIDEPNS_20impl_casestring__StrEPNS_7impl_IDE(ptr noundef, ptr noundef) local_unnamed_addr #11
 
 ; Function Attrs: mustprogress uwtable
-define dso_local noundef ptr @_ZN2kc17Problem1S1ID1S1IDEPKcPNS_7impl_IDES1_S3_(ptr noundef %0, ptr noundef %1, ptr noundef %2, ptr noundef %3) local_unnamed_addr #8 {
-  %5 = tail call noundef ptr @_ZN2kc12mkcasestringEPKci(ptr noundef %0, i32 noundef -1)
-  %6 = tail call noundef ptr @_ZN2kc12mkcasestringEPKci(ptr noundef %2, i32 noundef -1)
-  %7 = tail call noundef ptr @_ZN2kc13Problem1ID1IDEPNS_20impl_casestring__StrEPNS_7impl_IDES1_S3_(ptr noundef %5, ptr noundef %1, ptr noundef %6, ptr noundef %3)
-  ret ptr %7
+define dso_local noundef ptr @_ZN2kc17Problem1S1ID1S1IDEPKcPNS_7impl_IDES1_S3_(ptr noundef %s1, ptr noundef %id1, ptr noundef %s2, ptr noundef %id2) local_unnamed_addr #8 {
+entry:
+  %call = tail call noundef ptr @_ZN2kc12mkcasestringEPKci(ptr noundef %s1, i32 noundef -1)
+  %call1 = tail call noundef ptr @_ZN2kc12mkcasestringEPKci(ptr noundef %s2, i32 noundef -1)
+  %call2 = tail call noundef ptr @_ZN2kc13Problem1ID1IDEPNS_20impl_casestring__StrEPNS_7impl_IDES1_S3_(ptr noundef %call, ptr noundef %id1, ptr noundef %call1, ptr noundef %id2)
+  ret ptr %call2
 }
 
 declare noundef ptr @_ZN2kc13Problem1ID1IDEPNS_20impl_casestring__StrEPNS_7impl_IDES1_S3_(ptr noundef, ptr noundef, ptr noundef, ptr noundef) local_unnamed_addr #11
 
 ; Function Attrs: mustprogress uwtable
-define dso_local noundef ptr @_ZN2kc16Problem1S1t1S1IDEPKcPNS_11impl_IDtypeES1_PNS_7impl_IDE(ptr noundef %0, ptr noundef %1, ptr noundef %2, ptr noundef %3) local_unnamed_addr #8 {
-  %5 = tail call noundef ptr @_ZN2kc12mkcasestringEPKci(ptr noundef %0, i32 noundef -1)
-  %6 = tail call noundef ptr @_ZN2kc12mkcasestringEPKci(ptr noundef %2, i32 noundef -1)
-  %7 = tail call noundef ptr @_ZN2kc12Problem1t1IDEPNS_20impl_casestring__StrEPNS_11impl_IDtypeES1_PNS_7impl_IDE(ptr noundef %5, ptr noundef %1, ptr noundef %6, ptr noundef %3)
-  ret ptr %7
+define dso_local noundef ptr @_ZN2kc16Problem1S1t1S1IDEPKcPNS_11impl_IDtypeES1_PNS_7impl_IDE(ptr noundef %s1, ptr noundef %id1, ptr noundef %s2, ptr noundef %id2) local_unnamed_addr #8 {
+entry:
+  %call = tail call noundef ptr @_ZN2kc12mkcasestringEPKci(ptr noundef %s1, i32 noundef -1)
+  %call1 = tail call noundef ptr @_ZN2kc12mkcasestringEPKci(ptr noundef %s2, i32 noundef -1)
+  %call2 = tail call noundef ptr @_ZN2kc12Problem1t1IDEPNS_20impl_casestring__StrEPNS_11impl_IDtypeES1_PNS_7impl_IDE(ptr noundef %call, ptr noundef %id1, ptr noundef %call1, ptr noundef %id2)
+  ret ptr %call2
 }
 
 declare noundef ptr @_ZN2kc12Problem1t1IDEPNS_20impl_casestring__StrEPNS_11impl_IDtypeES1_PNS_7impl_IDE(ptr noundef, ptr noundef, ptr noundef, ptr noundef) local_unnamed_addr #11
 
 ; Function Attrs: mustprogress uwtable
-define dso_local noundef ptr @_ZN2kc13Problem1S1INTEPKcPNS_8impl_INTE(ptr noundef %0, ptr noundef %1) local_unnamed_addr #8 {
-  %3 = tail call noundef ptr @_ZN2kc12mkcasestringEPKci(ptr noundef %0, i32 noundef -1)
-  %4 = tail call noundef ptr @_ZN2kc11Problem1INTEPNS_20impl_casestring__StrEPNS_8impl_INTE(ptr noundef %3, ptr noundef %1)
-  ret ptr %4
+define dso_local noundef ptr @_ZN2kc13Problem1S1INTEPKcPNS_8impl_INTE(ptr noundef %s1, ptr noundef %i1) local_unnamed_addr #8 {
+entry:
+  %call = tail call noundef ptr @_ZN2kc12mkcasestringEPKci(ptr noundef %s1, i32 noundef -1)
+  %call1 = tail call noundef ptr @_ZN2kc11Problem1INTEPNS_20impl_casestring__StrEPNS_8impl_INTE(ptr noundef %call, ptr noundef %i1)
+  ret ptr %call1
 }
 
 declare noundef ptr @_ZN2kc11Problem1INTEPNS_20impl_casestring__StrEPNS_8impl_INTE(ptr noundef, ptr noundef) local_unnamed_addr #11
 
 ; Function Attrs: mustprogress uwtable
-define dso_local noundef ptr @_ZN2kc15Problem1S1int1SEPKciS1_(ptr noundef %0, i32 noundef %1, ptr noundef %2) local_unnamed_addr #8 {
-  %4 = tail call noundef ptr @_ZN2kc12mkcasestringEPKci(ptr noundef %0, i32 noundef -1)
-  %5 = tail call noundef ptr @_ZN2kc9mkintegerEi(i32 noundef %1)
-  %6 = tail call noundef ptr @_ZN2kc12mkcasestringEPKci(ptr noundef %2, i32 noundef -1)
-  %7 = tail call noundef ptr @_ZN2kc12Problem1int1EPNS_20impl_casestring__StrEPNS_17impl_integer__IntES1_(ptr noundef %4, ptr noundef %5, ptr noundef %6)
-  ret ptr %7
+define dso_local noundef ptr @_ZN2kc15Problem1S1int1SEPKciS1_(ptr noundef %s1, i32 noundef %i1, ptr noundef %s2) local_unnamed_addr #8 {
+entry:
+  %call = tail call noundef ptr @_ZN2kc12mkcasestringEPKci(ptr noundef %s1, i32 noundef -1)
+  %call1 = tail call noundef ptr @_ZN2kc9mkintegerEi(i32 noundef %i1)
+  %call2 = tail call noundef ptr @_ZN2kc12mkcasestringEPKci(ptr noundef %s2, i32 noundef -1)
+  %call3 = tail call noundef ptr @_ZN2kc12Problem1int1EPNS_20impl_casestring__StrEPNS_17impl_integer__IntES1_(ptr noundef %call, ptr noundef %call1, ptr noundef %call2)
+  ret ptr %call3
 }
 
 declare noundef ptr @_ZN2kc12Problem1int1EPNS_20impl_casestring__StrEPNS_17impl_integer__IntES1_(ptr noundef, ptr noundef, ptr noundef) local_unnamed_addr #11
@@ -1010,71 +1020,78 @@ declare noundef ptr @_ZN2kc12Problem1int1EPNS_20impl_casestring__StrEPNS_17impl_
 declare noundef ptr @_ZN2kc9mkintegerEi(i32 noundef) local_unnamed_addr #11
 
 ; Function Attrs: mustprogress uwtable
-define dso_local noundef ptr @_ZN2kc18Problem1S1INT1S1IDEPKcPNS_8impl_INTES1_PNS_7impl_IDE(ptr noundef %0, ptr noundef %1, ptr noundef %2, ptr noundef %3) local_unnamed_addr #8 {
-  %5 = tail call noundef ptr @_ZN2kc12mkcasestringEPKci(ptr noundef %0, i32 noundef -1)
-  %6 = tail call noundef ptr @_ZN2kc12mkcasestringEPKci(ptr noundef %2, i32 noundef -1)
-  %7 = tail call noundef ptr @_ZN2kc14Problem1INT1IDEPNS_20impl_casestring__StrEPNS_8impl_INTES1_PNS_7impl_IDE(ptr noundef %5, ptr noundef %1, ptr noundef %6, ptr noundef %3)
-  ret ptr %7
+define dso_local noundef ptr @_ZN2kc18Problem1S1INT1S1IDEPKcPNS_8impl_INTES1_PNS_7impl_IDE(ptr noundef %s1, ptr noundef %i1, ptr noundef %s2, ptr noundef %id2) local_unnamed_addr #8 {
+entry:
+  %call = tail call noundef ptr @_ZN2kc12mkcasestringEPKci(ptr noundef %s1, i32 noundef -1)
+  %call1 = tail call noundef ptr @_ZN2kc12mkcasestringEPKci(ptr noundef %s2, i32 noundef -1)
+  %call2 = tail call noundef ptr @_ZN2kc14Problem1INT1IDEPNS_20impl_casestring__StrEPNS_8impl_INTES1_PNS_7impl_IDE(ptr noundef %call, ptr noundef %i1, ptr noundef %call1, ptr noundef %id2)
+  ret ptr %call2
 }
 
 declare noundef ptr @_ZN2kc14Problem1INT1IDEPNS_20impl_casestring__StrEPNS_8impl_INTES1_PNS_7impl_IDE(ptr noundef, ptr noundef, ptr noundef, ptr noundef) local_unnamed_addr #11
 
 ; Function Attrs: mustprogress uwtable
-define dso_local noundef ptr @_ZN2kc22Problem1S1ID1S1ID1S1IDEPKcPNS_7impl_IDES1_S3_S1_S3_(ptr noundef %0, ptr noundef %1, ptr noundef %2, ptr noundef %3, ptr noundef %4, ptr noundef %5) local_unnamed_addr #8 {
-  %7 = tail call noundef ptr @_ZN2kc12mkcasestringEPKci(ptr noundef %0, i32 noundef -1)
-  %8 = tail call noundef ptr @_ZN2kc12mkcasestringEPKci(ptr noundef %2, i32 noundef -1)
-  %9 = tail call noundef ptr @_ZN2kc12mkcasestringEPKci(ptr noundef %4, i32 noundef -1)
-  %10 = tail call noundef ptr @_ZN2kc16Problem1ID1ID1IDEPNS_20impl_casestring__StrEPNS_7impl_IDES1_S3_S1_S3_(ptr noundef %7, ptr noundef %1, ptr noundef %8, ptr noundef %3, ptr noundef %9, ptr noundef %5)
-  ret ptr %10
+define dso_local noundef ptr @_ZN2kc22Problem1S1ID1S1ID1S1IDEPKcPNS_7impl_IDES1_S3_S1_S3_(ptr noundef %s1, ptr noundef %id1, ptr noundef %s2, ptr noundef %id2, ptr noundef %s3, ptr noundef %id3) local_unnamed_addr #8 {
+entry:
+  %call = tail call noundef ptr @_ZN2kc12mkcasestringEPKci(ptr noundef %s1, i32 noundef -1)
+  %call1 = tail call noundef ptr @_ZN2kc12mkcasestringEPKci(ptr noundef %s2, i32 noundef -1)
+  %call2 = tail call noundef ptr @_ZN2kc12mkcasestringEPKci(ptr noundef %s3, i32 noundef -1)
+  %call3 = tail call noundef ptr @_ZN2kc16Problem1ID1ID1IDEPNS_20impl_casestring__StrEPNS_7impl_IDES1_S3_S1_S3_(ptr noundef %call, ptr noundef %id1, ptr noundef %call1, ptr noundef %id2, ptr noundef %call2, ptr noundef %id3)
+  ret ptr %call3
 }
 
 declare noundef ptr @_ZN2kc16Problem1ID1ID1IDEPNS_20impl_casestring__StrEPNS_7impl_IDES1_S3_S1_S3_(ptr noundef, ptr noundef, ptr noundef, ptr noundef, ptr noundef, ptr noundef) local_unnamed_addr #11
 
 ; Function Attrs: mustprogress uwtable
-define dso_local noundef ptr @_ZN2kc23Problem1S1INT1S1ID1S1IDEPKcPNS_8impl_INTES1_PNS_7impl_IDES1_S5_(ptr noundef %0, ptr noundef %1, ptr noundef %2, ptr noundef %3, ptr noundef %4, ptr noundef %5) local_unnamed_addr #8 {
-  %7 = tail call noundef ptr @_ZN2kc12mkcasestringEPKci(ptr noundef %0, i32 noundef -1)
-  %8 = tail call noundef ptr @_ZN2kc12mkcasestringEPKci(ptr noundef %2, i32 noundef -1)
-  %9 = tail call noundef ptr @_ZN2kc12mkcasestringEPKci(ptr noundef %4, i32 noundef -1)
-  %10 = tail call noundef ptr @_ZN2kc17Problem1INT1ID1IDEPNS_20impl_casestring__StrEPNS_8impl_INTES1_PNS_7impl_IDES1_S5_(ptr noundef %7, ptr noundef %1, ptr noundef %8, ptr noundef %3, ptr noundef %9, ptr noundef %5)
-  ret ptr %10
+define dso_local noundef ptr @_ZN2kc23Problem1S1INT1S1ID1S1IDEPKcPNS_8impl_INTES1_PNS_7impl_IDES1_S5_(ptr noundef %s1, ptr noundef %i1, ptr noundef %s2, ptr noundef %id2, ptr noundef %s3, ptr noundef %id3) local_unnamed_addr #8 {
+entry:
+  %call = tail call noundef ptr @_ZN2kc12mkcasestringEPKci(ptr noundef %s1, i32 noundef -1)
+  %call1 = tail call noundef ptr @_ZN2kc12mkcasestringEPKci(ptr noundef %s2, i32 noundef -1)
+  %call2 = tail call noundef ptr @_ZN2kc12mkcasestringEPKci(ptr noundef %s3, i32 noundef -1)
+  %call3 = tail call noundef ptr @_ZN2kc17Problem1INT1ID1IDEPNS_20impl_casestring__StrEPNS_8impl_INTES1_PNS_7impl_IDES1_S5_(ptr noundef %call, ptr noundef %i1, ptr noundef %call1, ptr noundef %id2, ptr noundef %call2, ptr noundef %id3)
+  ret ptr %call3
 }
 
 declare noundef ptr @_ZN2kc17Problem1INT1ID1IDEPNS_20impl_casestring__StrEPNS_8impl_INTES1_PNS_7impl_IDES1_S5_(ptr noundef, ptr noundef, ptr noundef, ptr noundef, ptr noundef, ptr noundef) local_unnamed_addr #11
 
 ; Function Attrs: mustprogress uwtable
-define dso_local noundef ptr @_ZN2kc28Problem1S1storageoption1S1IDEPKcPNS_18impl_storageoptionES1_PNS_7impl_IDE(ptr noundef %0, ptr noundef %1, ptr noundef %2, ptr noundef %3) local_unnamed_addr #8 {
-  %5 = tail call noundef ptr @_ZN2kc12mkcasestringEPKci(ptr noundef %0, i32 noundef -1)
-  %6 = tail call noundef ptr @_ZN2kc12mkcasestringEPKci(ptr noundef %2, i32 noundef -1)
-  %7 = tail call noundef ptr @_ZN2kc24Problem1storageoption1IDEPNS_20impl_casestring__StrEPNS_18impl_storageoptionES1_PNS_7impl_IDE(ptr noundef %5, ptr noundef %1, ptr noundef %6, ptr noundef %3)
-  ret ptr %7
+define dso_local noundef ptr @_ZN2kc28Problem1S1storageoption1S1IDEPKcPNS_18impl_storageoptionES1_PNS_7impl_IDE(ptr noundef %s1, ptr noundef %so, ptr noundef %s2, ptr noundef %id) local_unnamed_addr #8 {
+entry:
+  %call = tail call noundef ptr @_ZN2kc12mkcasestringEPKci(ptr noundef %s1, i32 noundef -1)
+  %call1 = tail call noundef ptr @_ZN2kc12mkcasestringEPKci(ptr noundef %s2, i32 noundef -1)
+  %call2 = tail call noundef ptr @_ZN2kc24Problem1storageoption1IDEPNS_20impl_casestring__StrEPNS_18impl_storageoptionES1_PNS_7impl_IDE(ptr noundef %call, ptr noundef %so, ptr noundef %call1, ptr noundef %id)
+  ret ptr %call2
 }
 
 declare noundef ptr @_ZN2kc24Problem1storageoption1IDEPNS_20impl_casestring__StrEPNS_18impl_storageoptionES1_PNS_7impl_IDE(ptr noundef, ptr noundef, ptr noundef, ptr noundef) local_unnamed_addr #11
 
 ; Function Attrs: mustprogress uwtable
-define dso_local noundef ptr @_ZN2kc9Problem2SEPKcS1_(ptr noundef %0, ptr noundef %1) local_unnamed_addr #8 {
-  %3 = tail call noundef ptr @_ZN2kc12mkcasestringEPKci(ptr noundef %0, i32 noundef -1)
-  %4 = tail call noundef ptr @_ZN2kc12mkcasestringEPKci(ptr noundef %1, i32 noundef -1)
-  %5 = tail call noundef ptr @_ZN2kc8Problem2EPNS_20impl_casestring__StrES1_(ptr noundef %3, ptr noundef %4)
-  ret ptr %5
+define dso_local noundef ptr @_ZN2kc9Problem2SEPKcS1_(ptr noundef %s1, ptr noundef %s2) local_unnamed_addr #8 {
+entry:
+  %call = tail call noundef ptr @_ZN2kc12mkcasestringEPKci(ptr noundef %s1, i32 noundef -1)
+  %call1 = tail call noundef ptr @_ZN2kc12mkcasestringEPKci(ptr noundef %s2, i32 noundef -1)
+  %call2 = tail call noundef ptr @_ZN2kc8Problem2EPNS_20impl_casestring__StrES1_(ptr noundef %call, ptr noundef %call1)
+  ret ptr %call2
 }
 
 declare noundef ptr @_ZN2kc8Problem2EPNS_20impl_casestring__StrES1_(ptr noundef, ptr noundef) local_unnamed_addr #11
 
 ; Function Attrs: mustprogress uwtable
-define dso_local noundef ptr @_ZN2kc9ProblemSCEPKcPNS_20impl_casestring__StrE(ptr noundef %0, ptr noundef %1) local_unnamed_addr #8 {
-  %3 = tail call noundef ptr @_ZN2kc12mkcasestringEPKci(ptr noundef %0, i32 noundef -1)
-  %4 = tail call noundef ptr @_ZN2kc8Problem2EPNS_20impl_casestring__StrES1_(ptr noundef %3, ptr noundef %1)
-  ret ptr %4
+define dso_local noundef ptr @_ZN2kc9ProblemSCEPKcPNS_20impl_casestring__StrE(ptr noundef %s1, ptr noundef %s2) local_unnamed_addr #8 {
+entry:
+  %call = tail call noundef ptr @_ZN2kc12mkcasestringEPKci(ptr noundef %s1, i32 noundef -1)
+  %call1 = tail call noundef ptr @_ZN2kc8Problem2EPNS_20impl_casestring__StrES1_(ptr noundef %call, ptr noundef %s2)
+  ret ptr %call1
 }
 
 ; Function Attrs: mustprogress uwtable
-define dso_local noundef ptr @_ZN2kc9Problem3SEPKcS1_S1_(ptr noundef %0, ptr noundef %1, ptr noundef %2) local_unnamed_addr #8 {
-  %4 = tail call noundef ptr @_ZN2kc12mkcasestringEPKci(ptr noundef %0, i32 noundef -1)
-  %5 = tail call noundef ptr @_ZN2kc12mkcasestringEPKci(ptr noundef %1, i32 noundef -1)
-  %6 = tail call noundef ptr @_ZN2kc12mkcasestringEPKci(ptr noundef %2, i32 noundef -1)
-  %7 = tail call noundef ptr @_ZN2kc8Problem3EPNS_20impl_casestring__StrES1_S1_(ptr noundef %4, ptr noundef %5, ptr noundef %6)
-  ret ptr %7
+define dso_local noundef ptr @_ZN2kc9Problem3SEPKcS1_S1_(ptr noundef %s1, ptr noundef %s2, ptr noundef %s3) local_unnamed_addr #8 {
+entry:
+  %call = tail call noundef ptr @_ZN2kc12mkcasestringEPKci(ptr noundef %s1, i32 noundef -1)
+  %call1 = tail call noundef ptr @_ZN2kc12mkcasestringEPKci(ptr noundef %s2, i32 noundef -1)
+  %call2 = tail call noundef ptr @_ZN2kc12mkcasestringEPKci(ptr noundef %s3, i32 noundef -1)
+  %call3 = tail call noundef ptr @_ZN2kc8Problem3EPNS_20impl_casestring__StrES1_S1_(ptr noundef %call, ptr noundef %call1, ptr noundef %call2)
+  ret ptr %call3
 }
 
 declare noundef ptr @_ZN2kc8Problem3EPNS_20impl_casestring__StrES1_S1_(ptr noundef, ptr noundef, ptr noundef) local_unnamed_addr #11
@@ -1082,14 +1099,15 @@ declare noundef ptr @_ZN2kc8Problem3EPNS_20impl_casestring__StrES1_S1_(ptr nound
 declare noundef ptr @_ZN2kc8Problem4EPNS_20impl_casestring__StrES1_S1_S1_(ptr noundef, ptr noundef, ptr noundef, ptr noundef) local_unnamed_addr #11
 
 ; Function Attrs: mustprogress uwtable
-define dso_local noundef ptr @_ZN2kc15Problem3S1int1SEPKcS1_S1_iS1_(ptr noundef %0, ptr noundef %1, ptr noundef %2, i32 noundef %3, ptr noundef %4) local_unnamed_addr #8 {
-  %6 = tail call noundef ptr @_ZN2kc12mkcasestringEPKci(ptr noundef %0, i32 noundef -1)
-  %7 = tail call noundef ptr @_ZN2kc12mkcasestringEPKci(ptr noundef %1, i32 noundef -1)
-  %8 = tail call noundef ptr @_ZN2kc12mkcasestringEPKci(ptr noundef %2, i32 noundef -1)
-  %9 = tail call noundef ptr @_ZN2kc9mkintegerEi(i32 noundef %3)
-  %10 = tail call noundef ptr @_ZN2kc12mkcasestringEPKci(ptr noundef %4, i32 noundef -1)
-  %11 = tail call noundef ptr @_ZN2kc12Problem3int1EPNS_20impl_casestring__StrES1_S1_PNS_17impl_integer__IntES1_(ptr noundef %6, ptr noundef %7, ptr noundef %8, ptr noundef %9, ptr noundef %10)
-  ret ptr %11
+define dso_local noundef ptr @_ZN2kc15Problem3S1int1SEPKcS1_S1_iS1_(ptr noundef %s1, ptr noundef %s2, ptr noundef %s3, i32 noundef %i1, ptr noundef %s4) local_unnamed_addr #8 {
+entry:
+  %call = tail call noundef ptr @_ZN2kc12mkcasestringEPKci(ptr noundef %s1, i32 noundef -1)
+  %call1 = tail call noundef ptr @_ZN2kc12mkcasestringEPKci(ptr noundef %s2, i32 noundef -1)
+  %call2 = tail call noundef ptr @_ZN2kc12mkcasestringEPKci(ptr noundef %s3, i32 noundef -1)
+  %call3 = tail call noundef ptr @_ZN2kc9mkintegerEi(i32 noundef %i1)
+  %call4 = tail call noundef ptr @_ZN2kc12mkcasestringEPKci(ptr noundef %s4, i32 noundef -1)
+  %call5 = tail call noundef ptr @_ZN2kc12Problem3int1EPNS_20impl_casestring__StrES1_S1_PNS_17impl_integer__IntES1_(ptr noundef %call, ptr noundef %call1, ptr noundef %call2, ptr noundef %call3, ptr noundef %call4)
+  ret ptr %call5
 }
 
 declare noundef ptr @_ZN2kc12Problem3int1EPNS_20impl_casestring__StrES1_S1_PNS_17impl_integer__IntES1_(ptr noundef, ptr noundef, ptr noundef, ptr noundef, ptr noundef) local_unnamed_addr #11
@@ -1097,44 +1115,48 @@ declare noundef ptr @_ZN2kc12Problem3int1EPNS_20impl_casestring__StrES1_S1_PNS_1
 declare void @_ZN2kc20impl_abstract_phylum7unparseEPFvPKcRNS_11uview_classEES4_(ptr noundef nonnull align 8 dereferenceable(8), ptr noundef, ptr noundef nonnull align 4 dereferenceable(4)) local_unnamed_addr #11
 
 ; Function Attrs: mustprogress nofree nounwind uwtable
-define internal void @_ZN2kcL16v_stderr_printerEPKcRNS_11uview_classE(ptr nocapture noundef readonly %0, ptr nocapture nonnull readnone align 4 %1) #12 {
-  %3 = load ptr, ptr @stdout, align 8, !tbaa !36
-  %4 = tail call i32 @fflush(ptr noundef %3)
-  %5 = load ptr, ptr @stderr, align 8, !tbaa !36
-  %6 = tail call i32 @fputs(ptr %0, ptr %5) #21
-  %7 = load ptr, ptr @stderr, align 8, !tbaa !36
-  %8 = tail call i32 @fflush(ptr noundef %7)
+define internal void @_ZN2kcL16v_stderr_printerEPKcRNS_11uview_classE(ptr nocapture noundef readonly %s, ptr nocapture nonnull readnone align 4 %v) #12 {
+entry:
+  %0 = load ptr, ptr @stdout, align 8, !tbaa !36
+  %call = tail call i32 @fflush(ptr noundef %0)
+  %1 = load ptr, ptr @stderr, align 8, !tbaa !36
+  %fputs = tail call i32 @fputs(ptr %s, ptr %1) #21
+  %2 = load ptr, ptr @stderr, align 8, !tbaa !36
+  %call2 = tail call i32 @fflush(ptr noundef %2)
   ret void
 }
 
 declare i32 @__gxx_personality_v0(...)
 
 ; Function Attrs: inlinehint nounwind uwtable
-define linkonce_odr dso_local void @_ZN14kc_filePrinterD0Ev(ptr noundef nonnull align 8 dereferenceable(90) %0) unnamed_addr #1 comdat align 2 personality ptr @__gxx_personality_v0 {
-  store ptr getelementptr inbounds ({ [5 x ptr] }, ptr @_ZTV14kc_filePrinter, i64 0, inrange i32 0, i64 2), ptr %0, align 8, !tbaa !5
-  %2 = getelementptr inbounds %class.kc_filePrinter, ptr %0, i64 0, i32 4
-  %3 = load ptr, ptr %2, align 8, !tbaa !28
-  %4 = getelementptr inbounds %class.kc_filePrinter, ptr %0, i64 0, i32 4, i32 2
-  %5 = icmp eq ptr %3, %4
-  br i1 %5, label %7, label %6
+define linkonce_odr dso_local void @_ZN14kc_filePrinterD0Ev(ptr noundef nonnull align 8 dereferenceable(90) %this) unnamed_addr #1 comdat align 2 personality ptr @__gxx_personality_v0 {
+entry:
+  store ptr getelementptr inbounds ({ [5 x ptr] }, ptr @_ZTV14kc_filePrinter, i64 0, inrange i32 0, i64 2), ptr %this, align 8, !tbaa !5
+  %filename.i = getelementptr inbounds %class.kc_filePrinter, ptr %this, i64 0, i32 4
+  %0 = load ptr, ptr %filename.i, align 8, !tbaa !28
+  %1 = getelementptr inbounds %class.kc_filePrinter, ptr %this, i64 0, i32 4, i32 2
+  %cmp.i.i.i.i = icmp eq ptr %0, %1
+  br i1 %cmp.i.i.i.i, label %_ZN14kc_filePrinterD2Ev.exit, label %if.then.i.i.i
 
-6:                                                ; preds = %1
-  tail call void @_ZdlPv(ptr noundef %3) #18
-  br label %7
+if.then.i.i.i:                                    ; preds = %entry
+  tail call void @_ZdlPv(ptr noundef %0) #18
+  br label %_ZN14kc_filePrinterD2Ev.exit
 
-7:                                                ; preds = %1, %6
-  tail call void @_ZdlPv(ptr noundef nonnull %0) #18
+_ZN14kc_filePrinterD2Ev.exit:                     ; preds = %entry, %if.then.i.i.i
+  tail call void @_ZdlPv(ptr noundef nonnull %this) #18
   ret void
 }
 
 ; Function Attrs: mustprogress nounwind uwtable
-define linkonce_odr dso_local void @_ZN2kc21printer_functor_classclEPKcRNS_11uview_classE(ptr noundef nonnull align 8 dereferenceable(8) %0, ptr noundef %1, ptr noundef nonnull align 4 dereferenceable(4) %2) unnamed_addr #13 comdat align 2 {
+define linkonce_odr dso_local void @_ZN2kc21printer_functor_classclEPKcRNS_11uview_classE(ptr noundef nonnull align 8 dereferenceable(8) %this, ptr noundef %0, ptr noundef nonnull align 4 dereferenceable(4) %1) unnamed_addr #13 comdat align 2 {
+entry:
   ret void
 }
 
 ; Function Attrs: nounwind uwtable
-define linkonce_odr dso_local void @_ZN2kc21printer_functor_classD0Ev(ptr noundef nonnull align 8 dereferenceable(8) %0) unnamed_addr #3 comdat align 2 {
-  tail call void @_ZdlPv(ptr noundef nonnull %0) #18
+define linkonce_odr dso_local void @_ZN2kc21printer_functor_classD0Ev(ptr noundef nonnull align 8 dereferenceable(8) %this) unnamed_addr #3 comdat align 2 {
+entry:
+  tail call void @_ZdlPv(ptr noundef nonnull %this) #18
   ret void
 }
 
@@ -1153,9 +1175,10 @@ declare void @_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE9_M_assignERK
 
 ; Function Attrs: nofree nounwind uwtable
 define internal void @_GLOBAL__sub_I_error.cc() #16 section ".text.startup" personality ptr @__gxx_personality_v0 {
-  %1 = load ptr, ptr @stdout, align 8, !tbaa !36
+entry:
+  %0 = load ptr, ptr @stdout, align 8, !tbaa !36
   store ptr getelementptr inbounds ({ [5 x ptr] }, ptr @_ZTV14kc_filePrinter, i64 0, inrange i32 0, i64 2), ptr @v_stdout_printer, align 8, !tbaa !5
-  store ptr %1, ptr getelementptr inbounds (%class.kc_filePrinter, ptr @v_stdout_printer, i64 0, i32 1), align 8, !tbaa !8
+  store ptr %0, ptr getelementptr inbounds (%class.kc_filePrinter, ptr @v_stdout_printer, i64 0, i32 1), align 8, !tbaa !8
   store ptr getelementptr inbounds (%class.kc_filePrinter, ptr @v_stdout_printer, i64 0, i32 4, i32 2), ptr getelementptr inbounds (%class.kc_filePrinter, ptr @v_stdout_printer, i64 0, i32 4), align 8, !tbaa !18
   store i64 0, ptr getelementptr inbounds (%class.kc_filePrinter, ptr @v_stdout_printer, i64 0, i32 4, i32 1), align 8, !tbaa !19
   store i8 0, ptr getelementptr inbounds (%class.kc_filePrinter, ptr @v_stdout_printer, i64 0, i32 4, i32 2), align 8, !tbaa !20
@@ -1167,7 +1190,7 @@ define internal void @_GLOBAL__sub_I_error.cc() #16 section ".text.startup" pers
   store i8 0, ptr getelementptr inbounds (%class.kc_filePrinter, ptr @v_stdout_printer, i64 0, i32 19), align 8, !tbaa !26
   store i8 0, ptr getelementptr inbounds (%class.kc_filePrinter, ptr @v_stdout_printer, i64 0, i32 20), align 1, !tbaa !27
   tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(14) getelementptr inbounds (%class.kc_filePrinter, ptr @v_stdout_printer, i64 0, i32 9), i8 0, i64 14, i1 false)
-  %2 = tail call i32 @__cxa_atexit(ptr nonnull @_ZN14kc_filePrinterD2Ev, ptr nonnull @v_stdout_printer, ptr nonnull @__dso_handle) #20
+  %1 = tail call i32 @__cxa_atexit(ptr nonnull @_ZN14kc_filePrinterD2Ev, ptr nonnull @v_stdout_printer, ptr nonnull @__dso_handle) #20
   store ptr getelementptr inbounds ({ [5 x ptr] }, ptr @_ZTV14kc_filePrinter, i64 0, inrange i32 0, i64 2), ptr @v_hfile_printer, align 8, !tbaa !5
   store ptr null, ptr getelementptr inbounds (%class.kc_filePrinter, ptr @v_hfile_printer, i64 0, i32 1), align 8, !tbaa !8
   store ptr getelementptr inbounds (%class.kc_filePrinter, ptr @v_hfile_printer, i64 0, i32 4, i32 2), ptr getelementptr inbounds (%class.kc_filePrinter, ptr @v_hfile_printer, i64 0, i32 4), align 8, !tbaa !18
@@ -1181,7 +1204,7 @@ define internal void @_GLOBAL__sub_I_error.cc() #16 section ".text.startup" pers
   store i8 0, ptr getelementptr inbounds (%class.kc_filePrinter, ptr @v_hfile_printer, i64 0, i32 19), align 8, !tbaa !26
   store i8 0, ptr getelementptr inbounds (%class.kc_filePrinter, ptr @v_hfile_printer, i64 0, i32 20), align 1, !tbaa !27
   tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(14) getelementptr inbounds (%class.kc_filePrinter, ptr @v_hfile_printer, i64 0, i32 9), i8 0, i64 14, i1 false)
-  %3 = tail call i32 @__cxa_atexit(ptr nonnull @_ZN14kc_filePrinterD2Ev, ptr nonnull @v_hfile_printer, ptr nonnull @__dso_handle) #20
+  %2 = tail call i32 @__cxa_atexit(ptr nonnull @_ZN14kc_filePrinterD2Ev, ptr nonnull @v_hfile_printer, ptr nonnull @__dso_handle) #20
   store ptr getelementptr inbounds ({ [5 x ptr] }, ptr @_ZTV14kc_filePrinter, i64 0, inrange i32 0, i64 2), ptr @v_ccfile_printer, align 8, !tbaa !5
   store ptr null, ptr getelementptr inbounds (%class.kc_filePrinter, ptr @v_ccfile_printer, i64 0, i32 1), align 8, !tbaa !8
   store ptr getelementptr inbounds (%class.kc_filePrinter, ptr @v_ccfile_printer, i64 0, i32 4, i32 2), ptr getelementptr inbounds (%class.kc_filePrinter, ptr @v_ccfile_printer, i64 0, i32 4), align 8, !tbaa !18
@@ -1195,7 +1218,7 @@ define internal void @_GLOBAL__sub_I_error.cc() #16 section ".text.startup" pers
   store i8 0, ptr getelementptr inbounds (%class.kc_filePrinter, ptr @v_ccfile_printer, i64 0, i32 19), align 8, !tbaa !26
   store i8 0, ptr getelementptr inbounds (%class.kc_filePrinter, ptr @v_ccfile_printer, i64 0, i32 20), align 1, !tbaa !27
   tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(14) getelementptr inbounds (%class.kc_filePrinter, ptr @v_ccfile_printer, i64 0, i32 9), i8 0, i64 14, i1 false)
-  %4 = tail call i32 @__cxa_atexit(ptr nonnull @_ZN14kc_filePrinterD2Ev, ptr nonnull @v_ccfile_printer, ptr nonnull @__dso_handle) #20
+  %3 = tail call i32 @__cxa_atexit(ptr nonnull @_ZN14kc_filePrinterD2Ev, ptr nonnull @v_ccfile_printer, ptr nonnull @__dso_handle) #20
   ret void
 }
 
@@ -1205,11 +1228,11 @@ declare noundef i64 @fwrite(ptr nocapture noundef, i64 noundef, i64 noundef, ptr
 ; Function Attrs: nofree nounwind
 declare noundef i32 @fputc(i32 noundef, ptr nocapture noundef) local_unnamed_addr #2
 
-; Function Attrs: nocallback nofree nounwind willreturn memory(argmem: write)
-declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #17
-
 ; Function Attrs: nofree nounwind
 declare noundef i32 @fputs(ptr nocapture noundef readonly, ptr nocapture noundef) local_unnamed_addr #2
+
+; Function Attrs: nocallback nofree nounwind willreturn memory(argmem: write)
+declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #17
 
 attributes #0 = { mustprogress nofree nosync nounwind willreturn memory(argmem: write) uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #1 = { inlinehint nounwind uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }

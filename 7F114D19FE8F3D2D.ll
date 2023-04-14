@@ -7,25 +7,27 @@ target triple = "x86_64-unknown-linux-gnu"
 @y = dso_local local_unnamed_addr global i32 0, align 4
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(none) uwtable
-define dso_local i32 @foo(i32 noundef %0) local_unnamed_addr #0 {
+define dso_local i32 @foo(i32 noundef %x) local_unnamed_addr #0 {
+entry:
   ret i32 3
 }
 
 ; Function Attrs: nounwind uwtable
 define dso_local i32 @main() local_unnamed_addr #1 {
-  %1 = load i32, ptr @y, align 4, !tbaa !5
-  %2 = icmp ne i32 %1, 0
-  %3 = load i32, ptr @z, align 4
-  %4 = icmp ne i32 %3, 3
-  %5 = select i1 %2, i1 true, i1 %4
-  br i1 %5, label %6, label %7
+entry:
+  %0 = load i32, ptr @y, align 4, !tbaa !5
+  %tobool = icmp ne i32 %0, 0
+  %1 = load i32, ptr @z, align 4
+  %cmp = icmp ne i32 %1, 3
+  %or.cond = select i1 %tobool, i1 true, i1 %cmp
+  br i1 %or.cond, label %if.then, label %lor.lhs.false1
 
-6:                                                ; preds = %0
+lor.lhs.false1:                                   ; preds = %entry
+  ret i32 0
+
+if.then:                                          ; preds = %entry
   tail call void @abort() #3
   unreachable
-
-7:                                                ; preds = %0
-  ret i32 0
 }
 
 ; Function Attrs: noreturn

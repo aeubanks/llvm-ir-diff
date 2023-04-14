@@ -8,51 +8,51 @@ target triple = "x86_64-unknown-linux-gnu"
 %struct._CLzmaProps = type { i32, i32, i32, i32 }
 
 ; Function Attrs: nounwind uwtable
-define dso_local i32 @Lzma2Dec_AllocateProbs(ptr noundef %0, i8 noundef zeroext %1, ptr noundef %2) local_unnamed_addr #0 {
-  %4 = alloca [5 x i8], align 1
-  call void @llvm.lifetime.start.p0(i64 5, ptr nonnull %4) #5
-  %5 = icmp ugt i8 %1, 40
-  br i1 %5, label %30, label %6
+define dso_local i32 @Lzma2Dec_AllocateProbs(ptr noundef %p, i8 noundef zeroext %prop, ptr noundef %alloc) local_unnamed_addr #0 {
+entry:
+  %props = alloca [5 x i8], align 1
+  call void @llvm.lifetime.start.p0(i64 5, ptr nonnull %props) #5
+  %conv.i = zext i8 %prop to i32
+  %cmp.i = icmp ugt i8 %prop, 40
+  br i1 %cmp.i, label %cleanup3, label %if.end.i
 
-6:                                                ; preds = %3
-  %7 = icmp eq i8 %1, 40
-  br i1 %7, label %16, label %8
+if.end.i:                                         ; preds = %entry
+  %cmp3.i = icmp eq i8 %prop, 40
+  br i1 %cmp3.i, label %cleanup.cont, label %cond.false.i
 
-8:                                                ; preds = %6
-  %9 = and i8 %1, 1
-  %10 = or i8 %9, 2
-  %11 = zext i8 %10 to i32
-  %12 = lshr i8 %1, 1
-  %13 = add nuw nsw i8 %12, 11
-  %14 = zext i8 %13 to i32
-  %15 = shl nuw i32 %11, %14
-  br label %16
+cond.false.i:                                     ; preds = %if.end.i
+  %and.i = and i32 %conv.i, 1
+  %or.i = or i32 %and.i, 2
+  %div27.i = lshr i32 %conv.i, 1
+  %add.i = add nuw nsw i32 %div27.i, 11
+  %shl.i = shl nuw i32 %or.i, %add.i
+  br label %cleanup.cont
 
-16:                                               ; preds = %6, %8
-  %17 = phi i32 [ %15, %8 ], [ -1, %6 ]
-  store i8 4, ptr %4, align 1, !tbaa !5
-  %18 = trunc i32 %17 to i8
-  %19 = getelementptr inbounds i8, ptr %4, i64 1
-  store i8 %18, ptr %19, align 1, !tbaa !5
-  %20 = lshr i32 %17, 8
-  %21 = trunc i32 %20 to i8
-  %22 = getelementptr inbounds i8, ptr %4, i64 2
-  store i8 %21, ptr %22, align 1, !tbaa !5
-  %23 = lshr i32 %17, 16
-  %24 = trunc i32 %23 to i8
-  %25 = getelementptr inbounds i8, ptr %4, i64 3
-  store i8 %24, ptr %25, align 1, !tbaa !5
-  %26 = lshr i32 %17, 24
-  %27 = trunc i32 %26 to i8
-  %28 = getelementptr inbounds i8, ptr %4, i64 4
-  store i8 %27, ptr %28, align 1, !tbaa !5
-  %29 = call i32 @LzmaDec_AllocateProbs(ptr noundef %0, ptr noundef nonnull %4, i32 noundef 5, ptr noundef %2) #5
-  br label %30
+cleanup.cont:                                     ; preds = %if.end.i, %cond.false.i
+  %cond.i = phi i32 [ %shl.i, %cond.false.i ], [ -1, %if.end.i ]
+  store i8 4, ptr %props, align 1, !tbaa !5
+  %conv7.i = trunc i32 %cond.i to i8
+  %arrayidx8.i = getelementptr inbounds i8, ptr %props, i64 1
+  store i8 %conv7.i, ptr %arrayidx8.i, align 1, !tbaa !5
+  %shr.i = lshr i32 %cond.i, 8
+  %conv9.i = trunc i32 %shr.i to i8
+  %arrayidx10.i = getelementptr inbounds i8, ptr %props, i64 2
+  store i8 %conv9.i, ptr %arrayidx10.i, align 1, !tbaa !5
+  %shr11.i = lshr i32 %cond.i, 16
+  %conv12.i = trunc i32 %shr11.i to i8
+  %arrayidx13.i = getelementptr inbounds i8, ptr %props, i64 3
+  store i8 %conv12.i, ptr %arrayidx13.i, align 1, !tbaa !5
+  %shr14.i = lshr i32 %cond.i, 24
+  %conv15.i = trunc i32 %shr14.i to i8
+  %arrayidx16.i = getelementptr inbounds i8, ptr %props, i64 4
+  store i8 %conv15.i, ptr %arrayidx16.i, align 1, !tbaa !5
+  %call2 = call i32 @LzmaDec_AllocateProbs(ptr noundef %p, ptr noundef nonnull %props, i32 noundef 5, ptr noundef %alloc) #5
+  br label %cleanup3
 
-30:                                               ; preds = %3, %16
-  %31 = phi i32 [ %29, %16 ], [ 4, %3 ]
-  call void @llvm.lifetime.end.p0(i64 5, ptr nonnull %4) #5
-  ret i32 %31
+cleanup3:                                         ; preds = %entry, %cleanup.cont
+  %retval.1 = phi i32 [ %call2, %cleanup.cont ], [ 4, %entry ]
+  call void @llvm.lifetime.end.p0(i64 5, ptr nonnull %props) #5
+  ret i32 %retval.1
 }
 
 ; Function Attrs: mustprogress nocallback nofree nosync nounwind willreturn memory(argmem: readwrite)
@@ -64,469 +64,471 @@ declare void @llvm.lifetime.end.p0(i64 immarg, ptr nocapture) #1
 declare i32 @LzmaDec_AllocateProbs(ptr noundef, ptr noundef, i32 noundef, ptr noundef) local_unnamed_addr #2
 
 ; Function Attrs: nounwind uwtable
-define dso_local i32 @Lzma2Dec_Allocate(ptr noundef %0, i8 noundef zeroext %1, ptr noundef %2) local_unnamed_addr #0 {
-  %4 = alloca [5 x i8], align 1
-  call void @llvm.lifetime.start.p0(i64 5, ptr nonnull %4) #5
-  %5 = icmp ugt i8 %1, 40
-  br i1 %5, label %30, label %6
+define dso_local i32 @Lzma2Dec_Allocate(ptr noundef %p, i8 noundef zeroext %prop, ptr noundef %alloc) local_unnamed_addr #0 {
+entry:
+  %props = alloca [5 x i8], align 1
+  call void @llvm.lifetime.start.p0(i64 5, ptr nonnull %props) #5
+  %conv.i = zext i8 %prop to i32
+  %cmp.i = icmp ugt i8 %prop, 40
+  br i1 %cmp.i, label %cleanup3, label %if.end.i
 
-6:                                                ; preds = %3
-  %7 = icmp eq i8 %1, 40
-  br i1 %7, label %16, label %8
+if.end.i:                                         ; preds = %entry
+  %cmp3.i = icmp eq i8 %prop, 40
+  br i1 %cmp3.i, label %cleanup.cont, label %cond.false.i
 
-8:                                                ; preds = %6
-  %9 = and i8 %1, 1
-  %10 = or i8 %9, 2
-  %11 = zext i8 %10 to i32
-  %12 = lshr i8 %1, 1
-  %13 = add nuw nsw i8 %12, 11
-  %14 = zext i8 %13 to i32
-  %15 = shl nuw i32 %11, %14
-  br label %16
+cond.false.i:                                     ; preds = %if.end.i
+  %and.i = and i32 %conv.i, 1
+  %or.i = or i32 %and.i, 2
+  %div27.i = lshr i32 %conv.i, 1
+  %add.i = add nuw nsw i32 %div27.i, 11
+  %shl.i = shl nuw i32 %or.i, %add.i
+  br label %cleanup.cont
 
-16:                                               ; preds = %6, %8
-  %17 = phi i32 [ %15, %8 ], [ -1, %6 ]
-  store i8 4, ptr %4, align 1, !tbaa !5
-  %18 = trunc i32 %17 to i8
-  %19 = getelementptr inbounds i8, ptr %4, i64 1
-  store i8 %18, ptr %19, align 1, !tbaa !5
-  %20 = lshr i32 %17, 8
-  %21 = trunc i32 %20 to i8
-  %22 = getelementptr inbounds i8, ptr %4, i64 2
-  store i8 %21, ptr %22, align 1, !tbaa !5
-  %23 = lshr i32 %17, 16
-  %24 = trunc i32 %23 to i8
-  %25 = getelementptr inbounds i8, ptr %4, i64 3
-  store i8 %24, ptr %25, align 1, !tbaa !5
-  %26 = lshr i32 %17, 24
-  %27 = trunc i32 %26 to i8
-  %28 = getelementptr inbounds i8, ptr %4, i64 4
-  store i8 %27, ptr %28, align 1, !tbaa !5
-  %29 = call i32 @LzmaDec_Allocate(ptr noundef %0, ptr noundef nonnull %4, i32 noundef 5, ptr noundef %2) #5
-  br label %30
+cleanup.cont:                                     ; preds = %if.end.i, %cond.false.i
+  %cond.i = phi i32 [ %shl.i, %cond.false.i ], [ -1, %if.end.i ]
+  store i8 4, ptr %props, align 1, !tbaa !5
+  %conv7.i = trunc i32 %cond.i to i8
+  %arrayidx8.i = getelementptr inbounds i8, ptr %props, i64 1
+  store i8 %conv7.i, ptr %arrayidx8.i, align 1, !tbaa !5
+  %shr.i = lshr i32 %cond.i, 8
+  %conv9.i = trunc i32 %shr.i to i8
+  %arrayidx10.i = getelementptr inbounds i8, ptr %props, i64 2
+  store i8 %conv9.i, ptr %arrayidx10.i, align 1, !tbaa !5
+  %shr11.i = lshr i32 %cond.i, 16
+  %conv12.i = trunc i32 %shr11.i to i8
+  %arrayidx13.i = getelementptr inbounds i8, ptr %props, i64 3
+  store i8 %conv12.i, ptr %arrayidx13.i, align 1, !tbaa !5
+  %shr14.i = lshr i32 %cond.i, 24
+  %conv15.i = trunc i32 %shr14.i to i8
+  %arrayidx16.i = getelementptr inbounds i8, ptr %props, i64 4
+  store i8 %conv15.i, ptr %arrayidx16.i, align 1, !tbaa !5
+  %call2 = call i32 @LzmaDec_Allocate(ptr noundef %p, ptr noundef nonnull %props, i32 noundef 5, ptr noundef %alloc) #5
+  br label %cleanup3
 
-30:                                               ; preds = %3, %16
-  %31 = phi i32 [ %29, %16 ], [ 4, %3 ]
-  call void @llvm.lifetime.end.p0(i64 5, ptr nonnull %4) #5
-  ret i32 %31
+cleanup3:                                         ; preds = %entry, %cleanup.cont
+  %retval.1 = phi i32 [ %call2, %cleanup.cont ], [ 4, %entry ]
+  call void @llvm.lifetime.end.p0(i64 5, ptr nonnull %props) #5
+  ret i32 %retval.1
 }
 
 declare i32 @LzmaDec_Allocate(ptr noundef, ptr noundef, i32 noundef, ptr noundef) local_unnamed_addr #2
 
 ; Function Attrs: nounwind uwtable
-define dso_local void @Lzma2Dec_Init(ptr noundef %0) local_unnamed_addr #0 {
-  %2 = getelementptr inbounds %struct.CLzma2Dec, ptr %0, i64 0, i32 3
-  store i32 0, ptr %2, align 8, !tbaa !8
-  %3 = getelementptr inbounds %struct.CLzma2Dec, ptr %0, i64 0, i32 5
-  store i32 1, ptr %3, align 8, !tbaa !15
-  %4 = getelementptr inbounds %struct.CLzma2Dec, ptr %0, i64 0, i32 6
-  store i32 1, ptr %4, align 4, !tbaa !16
-  %5 = getelementptr inbounds %struct.CLzma2Dec, ptr %0, i64 0, i32 7
-  store i32 1, ptr %5, align 8, !tbaa !17
-  tail call void @LzmaDec_Init(ptr noundef %0) #5
+define dso_local void @Lzma2Dec_Init(ptr noundef %p) local_unnamed_addr #0 {
+entry:
+  %state = getelementptr inbounds %struct.CLzma2Dec, ptr %p, i64 0, i32 3
+  store i32 0, ptr %state, align 8, !tbaa !8
+  %needInitDic = getelementptr inbounds %struct.CLzma2Dec, ptr %p, i64 0, i32 5
+  store i32 1, ptr %needInitDic, align 8, !tbaa !15
+  %needInitState = getelementptr inbounds %struct.CLzma2Dec, ptr %p, i64 0, i32 6
+  store i32 1, ptr %needInitState, align 4, !tbaa !16
+  %needInitProp = getelementptr inbounds %struct.CLzma2Dec, ptr %p, i64 0, i32 7
+  store i32 1, ptr %needInitProp, align 8, !tbaa !17
+  tail call void @LzmaDec_Init(ptr noundef %p) #5
   ret void
 }
 
 declare void @LzmaDec_Init(ptr noundef) local_unnamed_addr #2
 
 ; Function Attrs: nounwind uwtable
-define dso_local i32 @Lzma2Dec_DecodeToDic(ptr noundef %0, i64 noundef %1, ptr noundef %2, ptr nocapture noundef %3, i32 noundef %4, ptr noundef %5) local_unnamed_addr #0 {
-  %7 = alloca i64, align 8
-  %8 = load i64, ptr %3, align 8, !tbaa !18
-  store i64 0, ptr %3, align 8, !tbaa !18
-  store i32 0, ptr %5, align 4, !tbaa !5
-  %9 = getelementptr inbounds %struct.CLzma2Dec, ptr %0, i64 0, i32 3
-  %10 = load i32, ptr %9, align 8, !tbaa !8
-  %11 = icmp eq i32 %10, 8
-  br i1 %11, label %231, label %12
+define dso_local i32 @Lzma2Dec_DecodeToDic(ptr noundef %p, i64 noundef %dicLimit, ptr noundef %src, ptr nocapture noundef %srcLen, i32 noundef %finishMode, ptr noundef %status) local_unnamed_addr #0 {
+entry:
+  %srcSizeCur = alloca i64, align 8
+  %0 = load i64, ptr %srcLen, align 8, !tbaa !18
+  store i64 0, ptr %srcLen, align 8, !tbaa !18
+  store i32 0, ptr %status, align 4, !tbaa !5
+  %state = getelementptr inbounds %struct.CLzma2Dec, ptr %p, i64 0, i32 3
+  %1 = load i32, ptr %state, align 8, !tbaa !8
+  %cmp.not273 = icmp eq i32 %1, 8
+  br i1 %cmp.not273, label %while.end, label %while.body.lr.ph
 
-12:                                               ; preds = %6
-  %13 = getelementptr inbounds %struct.CLzmaDec, ptr %0, i64 0, i32 6
-  %14 = icmp eq i32 %4, 0
-  %15 = getelementptr inbounds %struct._CLzmaProps, ptr %0, i64 0, i32 2
-  %16 = getelementptr inbounds %struct._CLzmaProps, ptr %0, i64 0, i32 1
-  %17 = getelementptr inbounds %struct.CLzma2Dec, ptr %0, i64 0, i32 7
-  %18 = getelementptr inbounds %struct.CLzma2Dec, ptr %0, i64 0, i32 1
-  %19 = getelementptr inbounds %struct.CLzma2Dec, ptr %0, i64 0, i32 4
-  %20 = getelementptr inbounds %struct.CLzma2Dec, ptr %0, i64 0, i32 2
-  %21 = getelementptr inbounds %struct.CLzma2Dec, ptr %0, i64 0, i32 5
-  %22 = getelementptr inbounds %struct.CLzma2Dec, ptr %0, i64 0, i32 6
-  %23 = getelementptr inbounds %struct.CLzmaDec, ptr %0, i64 0, i32 2
-  %24 = getelementptr inbounds %struct.CLzmaDec, ptr %0, i64 0, i32 9
-  %25 = getelementptr inbounds %struct.CLzmaDec, ptr %0, i64 0, i32 8
-  %26 = getelementptr inbounds %struct._CLzmaProps, ptr %0, i64 0, i32 3
-  br label %27
+while.body.lr.ph:                                 ; preds = %entry
+  %dicPos1 = getelementptr inbounds %struct.CLzmaDec, ptr %p, i64 0, i32 6
+  %cmp5 = icmp eq i32 %finishMode, 0
+  %pb.i = getelementptr inbounds %struct._CLzmaProps, ptr %p, i64 0, i32 2
+  %lp72.i = getelementptr inbounds %struct._CLzmaProps, ptr %p, i64 0, i32 1
+  %needInitProp73.i = getelementptr inbounds %struct.CLzma2Dec, ptr %p, i64 0, i32 7
+  %packSize39.i = getelementptr inbounds %struct.CLzma2Dec, ptr %p, i64 0, i32 1
+  %control43.i = getelementptr inbounds %struct.CLzma2Dec, ptr %p, i64 0, i32 4
+  %unpackSize26.i = getelementptr inbounds %struct.CLzma2Dec, ptr %p, i64 0, i32 2
+  %needInitDic81 = getelementptr inbounds %struct.CLzma2Dec, ptr %p, i64 0, i32 5
+  %needInitState85 = getelementptr inbounds %struct.CLzma2Dec, ptr %p, i64 0, i32 6
+  %dic.i = getelementptr inbounds %struct.CLzmaDec, ptr %p, i64 0, i32 2
+  %checkDicSize.i = getelementptr inbounds %struct.CLzmaDec, ptr %p, i64 0, i32 9
+  %processedPos8.phi.trans.insert.i = getelementptr inbounds %struct.CLzmaDec, ptr %p, i64 0, i32 8
+  %dicSize.i = getelementptr inbounds %struct._CLzmaProps, ptr %p, i64 0, i32 3
+  br label %while.body
 
-27:                                               ; preds = %12, %227
-  %28 = phi i32 [ %10, %12 ], [ %228, %227 ]
-  %29 = phi ptr [ %2, %12 ], [ %229, %227 ]
-  %30 = load i64, ptr %13, align 8, !tbaa !19
-  %31 = icmp eq i32 %28, 9
-  br i1 %31, label %232, label %32
+while.body:                                       ; preds = %while.body.lr.ph, %while.cond.backedge
+  %2 = phi i32 [ %1, %while.body.lr.ph ], [ %44, %while.cond.backedge ]
+  %src.addr.0274 = phi ptr [ %src, %while.body.lr.ph ], [ %src.addr.4283, %while.cond.backedge ]
+  %3 = load i64, ptr %dicPos1, align 8, !tbaa !19
+  %cmp3 = icmp eq i32 %2, 9
+  br i1 %cmp3, label %cleanup168, label %if.end
 
-32:                                               ; preds = %27
-  %33 = icmp eq i64 %30, %1
-  %34 = and i1 %14, %33
-  br i1 %34, label %35, label %36
+if.end:                                           ; preds = %while.body
+  %cmp4 = icmp eq i64 %3, %dicLimit
+  %or.cond = and i1 %cmp5, %cmp4
+  br i1 %or.cond, label %if.then6, label %if.end7
 
-35:                                               ; preds = %32
-  store i32 2, ptr %5, align 4, !tbaa !5
-  br label %232
+if.then6:                                         ; preds = %if.end
+  store i32 2, ptr %status, align 4, !tbaa !5
+  br label %cleanup168
 
-36:                                               ; preds = %32
-  %37 = and i32 %28, -2
-  %38 = icmp eq i32 %37, 6
-  br i1 %38, label %102, label %39
+if.end7:                                          ; preds = %if.end
+  %4 = and i32 %2, -2
+  %switch = icmp eq i32 %4, 6
+  br i1 %switch, label %if.end18, label %if.then13
 
-39:                                               ; preds = %36
-  %40 = load i64, ptr %3, align 8, !tbaa !18
-  %41 = icmp eq i64 %40, %8
-  br i1 %41, label %42, label %43
+if.then13:                                        ; preds = %if.end7
+  %5 = load i64, ptr %srcLen, align 8, !tbaa !18
+  %cmp14 = icmp eq i64 %5, %0
+  br i1 %cmp14, label %if.then15, label %if.end16
 
-42:                                               ; preds = %39
-  store i32 3, ptr %5, align 4, !tbaa !5
-  br label %232
+if.then15:                                        ; preds = %if.then13
+  store i32 3, ptr %status, align 4, !tbaa !5
+  br label %cleanup168
 
-43:                                               ; preds = %39
-  %44 = add i64 %40, 1
-  store i64 %44, ptr %3, align 8, !tbaa !18
-  %45 = getelementptr inbounds i8, ptr %29, i64 1
-  %46 = load i8, ptr %29, align 1, !tbaa !5
-  switch i32 %28, label %100 [
-    i32 0, label %47
-    i32 1, label %59
-    i32 2, label %64
-    i32 3, label %72
-    i32 4, label %75
-    i32 5, label %87
+if.end16:                                         ; preds = %if.then13
+  %inc = add i64 %5, 1
+  store i64 %inc, ptr %srcLen, align 8, !tbaa !18
+  %incdec.ptr = getelementptr inbounds i8, ptr %src.addr.0274, i64 1
+  %6 = load i8, ptr %src.addr.0274, align 1, !tbaa !5
+  switch i32 %2, label %cleanup165.thread [
+    i32 0, label %sw.bb.i
+    i32 1, label %sw.bb20.i
+    i32 2, label %sw.bb24.i
+    i32 3, label %sw.bb34.i
+    i32 4, label %sw.bb37.i
+    i32 5, label %sw.bb50.i
   ]
 
-47:                                               ; preds = %43
-  store i8 %46, ptr %19, align 4, !tbaa !20
-  %48 = zext i8 %46 to i32
-  %49 = icmp eq i8 %46, 0
-  br i1 %49, label %100, label %50
+sw.bb.i:                                          ; preds = %if.end16
+  store i8 %6, ptr %control43.i, align 4, !tbaa !20
+  %conv.i = zext i8 %6 to i32
+  %cmp.i = icmp eq i8 %6, 0
+  br i1 %cmp.i, label %cleanup165.thread, label %if.end.i
 
-50:                                               ; preds = %47
-  %51 = icmp sgt i8 %46, -1
-  br i1 %51, label %52, label %56
+if.end.i:                                         ; preds = %sw.bb.i
+  %cmp5.i = icmp sgt i8 %6, -1
+  br i1 %cmp5.i, label %if.then7.i, label %if.else.i
 
-52:                                               ; preds = %50
-  %53 = and i32 %48, 127
-  %54 = icmp ugt i32 %53, 2
-  br i1 %54, label %100, label %55
+if.then7.i:                                       ; preds = %if.end.i
+  %and10.i = and i32 %conv.i, 127
+  %cmp11.i = icmp ugt i32 %and10.i, 2
+  br i1 %cmp11.i, label %cleanup165.thread, label %if.end14.i
 
-55:                                               ; preds = %52
-  store i32 0, ptr %20, align 4, !tbaa !21
-  br label %100
+if.end14.i:                                       ; preds = %if.then7.i
+  store i32 0, ptr %unpackSize26.i, align 4, !tbaa !21
+  br label %cleanup165.thread
 
-56:                                               ; preds = %50
-  %57 = shl nuw nsw i32 %48, 16
-  %58 = and i32 %57, 2031616
-  store i32 %58, ptr %20, align 4, !tbaa !21
-  br label %100
+if.else.i:                                        ; preds = %if.end.i
+  %and17.i = shl nuw nsw i32 %conv.i, 16
+  %shl.i = and i32 %and17.i, 2031616
+  store i32 %shl.i, ptr %unpackSize26.i, align 4, !tbaa !21
+  br label %cleanup165.thread
 
-59:                                               ; preds = %43
-  %60 = zext i8 %46 to i32
-  %61 = shl nuw nsw i32 %60, 8
-  %62 = load i32, ptr %20, align 4, !tbaa !21
-  %63 = or i32 %62, %61
-  store i32 %63, ptr %20, align 4, !tbaa !21
-  br label %100
+sw.bb20.i:                                        ; preds = %if.end16
+  %conv21.i = zext i8 %6 to i32
+  %shl22.i = shl nuw nsw i32 %conv21.i, 8
+  %7 = load i32, ptr %unpackSize26.i, align 4, !tbaa !21
+  %or.i = or i32 %7, %shl22.i
+  store i32 %or.i, ptr %unpackSize26.i, align 4, !tbaa !21
+  br label %cleanup165.thread
 
-64:                                               ; preds = %43
-  %65 = zext i8 %46 to i32
-  %66 = load i32, ptr %20, align 4, !tbaa !21
-  %67 = or i32 %66, %65
-  %68 = add i32 %67, 1
-  store i32 %68, ptr %20, align 4, !tbaa !21
-  %69 = load i8, ptr %19, align 4, !tbaa !20
-  %70 = icmp sgt i8 %69, -1
-  %71 = select i1 %70, i32 6, i32 3
-  br label %100
+sw.bb24.i:                                        ; preds = %if.end16
+  %conv25.i = zext i8 %6 to i32
+  %8 = load i32, ptr %unpackSize26.i, align 4, !tbaa !21
+  %or27.i = or i32 %8, %conv25.i
+  %inc.i = add i32 %or27.i, 1
+  store i32 %inc.i, ptr %unpackSize26.i, align 4, !tbaa !21
+  %9 = load i8, ptr %control43.i, align 4, !tbaa !20
+  %cmp32.i = icmp sgt i8 %9, -1
+  %cond.i = select i1 %cmp32.i, i32 6, i32 3
+  br label %cleanup165.thread
 
-72:                                               ; preds = %43
-  %73 = zext i8 %46 to i32
-  %74 = shl nuw nsw i32 %73, 8
-  store i32 %74, ptr %18, align 8, !tbaa !22
-  br label %100
+sw.bb34.i:                                        ; preds = %if.end16
+  %conv35.i = zext i8 %6 to i32
+  %shl36.i = shl nuw nsw i32 %conv35.i, 8
+  store i32 %shl36.i, ptr %packSize39.i, align 8, !tbaa !22
+  br label %cleanup165.thread
 
-75:                                               ; preds = %43
-  %76 = zext i8 %46 to i32
-  %77 = load i32, ptr %18, align 8, !tbaa !22
-  %78 = or i32 %77, %76
-  %79 = add i32 %78, 1
-  store i32 %79, ptr %18, align 8, !tbaa !22
-  %80 = load i8, ptr %19, align 4, !tbaa !20
-  %81 = and i8 %80, 64
-  %82 = icmp eq i8 %81, 0
-  br i1 %82, label %83, label %100
+sw.bb37.i:                                        ; preds = %if.end16
+  %conv38.i = zext i8 %6 to i32
+  %10 = load i32, ptr %packSize39.i, align 8, !tbaa !22
+  %or40.i = or i32 %10, %conv38.i
+  %inc42.i = add i32 %or40.i, 1
+  store i32 %inc42.i, ptr %packSize39.i, align 8, !tbaa !22
+  %11 = load i8, ptr %control43.i, align 4, !tbaa !20
+  %12 = and i8 %11, 64
+  %cmp46.not.i = icmp eq i8 %12, 0
+  br i1 %cmp46.not.i, label %cond.false.i, label %cleanup165.thread
 
-83:                                               ; preds = %75
-  %84 = load i32, ptr %17, align 8, !tbaa !17
-  %85 = icmp eq i32 %84, 0
-  %86 = select i1 %85, i32 6, i32 9
-  br label %100
+cond.false.i:                                     ; preds = %sw.bb37.i
+  %13 = load i32, ptr %needInitProp73.i, align 8, !tbaa !17
+  %tobool.not.i = icmp eq i32 %13, 0
+  %cond48.i = select i1 %tobool.not.i, i32 6, i32 9
+  br label %cleanup165.thread
 
-87:                                               ; preds = %43
-  %88 = icmp ugt i8 %46, -32
-  br i1 %88, label %100, label %89
+sw.bb50.i:                                        ; preds = %if.end16
+  %cmp52.i = icmp ugt i8 %6, -32
+  br i1 %cmp52.i, label %cleanup165.thread, label %if.end55.i
 
-89:                                               ; preds = %87
-  %90 = urem i8 %46, 9
-  %91 = zext i8 %90 to i32
-  %92 = udiv i8 %46, 9
-  %93 = udiv i8 %46, 45
-  %94 = zext i8 %93 to i32
-  store i32 %94, ptr %15, align 8, !tbaa !23
-  %95 = urem i8 %92, 5
-  %96 = zext i8 %95 to i32
-  %97 = add nuw nsw i32 %96, %91
-  %98 = icmp ugt i32 %97, 4
-  br i1 %98, label %100, label %99
+if.end55.i:                                       ; preds = %sw.bb50.i
+  %14 = urem i8 %6, 9
+  %rem.i = zext i8 %14 to i32
+  %div.i = udiv i8 %6, 9
+  %div60106.i = udiv i8 %6, 45
+  %div60.zext.i = zext i8 %div60106.i to i32
+  store i32 %div60.zext.i, ptr %pb.i, align 8, !tbaa !23
+  %rem62107.i = urem i8 %div.i, 5
+  %rem62.zext.i = zext i8 %rem62107.i to i32
+  %add.i = add nuw nsw i32 %rem62.zext.i, %rem.i
+  %cmp63.i = icmp ugt i32 %add.i, 4
+  br i1 %cmp63.i, label %cleanup165.thread, label %if.end66.i
 
-99:                                               ; preds = %89
-  store i32 %91, ptr %0, align 8, !tbaa !24
-  store i32 %96, ptr %16, align 4, !tbaa !25
-  store i32 0, ptr %17, align 8, !tbaa !17
-  br label %100
+if.end66.i:                                       ; preds = %if.end55.i
+  store i32 %rem.i, ptr %p, align 8, !tbaa !24
+  store i32 %rem62.zext.i, ptr %lp72.i, align 4, !tbaa !25
+  store i32 0, ptr %needInitProp73.i, align 8, !tbaa !17
+  br label %cleanup165.thread
 
-100:                                              ; preds = %99, %89, %87, %83, %75, %72, %64, %59, %56, %55, %52, %47, %43
-  %101 = phi i32 [ 4, %72 ], [ %71, %64 ], [ 2, %59 ], [ 8, %47 ], [ 9, %52 ], [ 1, %56 ], [ 1, %55 ], [ %86, %83 ], [ 5, %75 ], [ 6, %99 ], [ 9, %87 ], [ 9, %89 ], [ 9, %43 ]
-  store i32 %101, ptr %9, align 8, !tbaa !8
-  br label %227
+cleanup165.thread:                                ; preds = %if.end66.i, %if.end55.i, %sw.bb50.i, %cond.false.i, %sw.bb37.i, %sw.bb34.i, %sw.bb24.i, %sw.bb20.i, %if.else.i, %if.end14.i, %if.then7.i, %sw.bb.i, %if.end16
+  %retval.1.i = phi i32 [ 4, %sw.bb34.i ], [ %cond.i, %sw.bb24.i ], [ 2, %sw.bb20.i ], [ 8, %sw.bb.i ], [ 9, %if.then7.i ], [ 1, %if.else.i ], [ 1, %if.end14.i ], [ %cond48.i, %cond.false.i ], [ 5, %sw.bb37.i ], [ 6, %if.end66.i ], [ 9, %sw.bb50.i ], [ 9, %if.end55.i ], [ 9, %if.end16 ]
+  store i32 %retval.1.i, ptr %state, align 8, !tbaa !8
+  br label %while.cond.backedge
 
-102:                                              ; preds = %36
-  %103 = sub i64 %1, %30
-  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %7) #5
-  %104 = load i64, ptr %3, align 8, !tbaa !18
-  %105 = sub i64 %8, %104
-  store i64 %105, ptr %7, align 8, !tbaa !18
-  %106 = load i32, ptr %20, align 4, !tbaa !21
-  %107 = zext i32 %106 to i64
-  %108 = icmp uge i64 %103, %107
-  %109 = zext i1 %108 to i32
-  %110 = call i64 @llvm.umin.i64(i64 %103, i64 %107)
-  %111 = load i8, ptr %19, align 4, !tbaa !20
-  %112 = icmp sgt i8 %111, -1
-  br i1 %112, label %113, label %163
+if.end18:                                         ; preds = %if.end7
+  %sub = sub i64 %dicLimit, %3
+  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %srcSizeCur) #5
+  %15 = load i64, ptr %srcLen, align 8, !tbaa !18
+  %sub19 = sub i64 %0, %15
+  store i64 %sub19, ptr %srcSizeCur, align 8, !tbaa !18
+  %16 = load i32, ptr %unpackSize26.i, align 4, !tbaa !21
+  %conv = zext i32 %16 to i64
+  %cmp20.not = icmp uge i64 %sub, %conv
+  %spec.select = zext i1 %cmp20.not to i32
+  %spec.select256 = call i64 @llvm.umin.i64(i64 %sub, i64 %conv)
+  %17 = load i8, ptr %control43.i, align 4, !tbaa !20
+  %cmp27 = icmp sgt i8 %17, -1
+  br i1 %cmp27, label %if.then29, label %if.else66
 
-113:                                              ; preds = %102
-  %114 = icmp eq i64 %8, %104
-  br i1 %114, label %115, label %116
+if.then29:                                        ; preds = %if.end18
+  %cmp30 = icmp eq i64 %0, %15
+  br i1 %cmp30, label %if.then32, label %if.end33
 
-115:                                              ; preds = %113
-  store i32 3, ptr %5, align 4, !tbaa !5
-  br label %221
+if.then32:                                        ; preds = %if.then29
+  store i32 3, ptr %status, align 4, !tbaa !5
+  br label %cleanup165.thread285
 
-116:                                              ; preds = %113
-  %117 = icmp eq i32 %28, 6
-  br i1 %117, label %118, label %127
+if.end33:                                         ; preds = %if.then29
+  %cmp35 = icmp eq i32 %2, 6
+  br i1 %cmp35, label %if.then37, label %if.end49
 
-118:                                              ; preds = %116
-  %119 = icmp eq i8 %111, 1
-  %120 = zext i1 %119 to i32
-  br i1 %119, label %121, label %122
+if.then37:                                        ; preds = %if.end33
+  %cmp40 = icmp eq i8 %17, 1
+  %conv41 = zext i1 %cmp40 to i32
+  br i1 %cmp40, label %if.then42, label %if.else
 
-121:                                              ; preds = %118
-  store i32 1, ptr %22, align 4, !tbaa !16
-  store i32 1, ptr %17, align 8, !tbaa !17
-  br label %125
+if.then42:                                        ; preds = %if.then37
+  store i32 1, ptr %needInitState85, align 4, !tbaa !16
+  store i32 1, ptr %needInitProp73.i, align 8, !tbaa !17
+  br label %cleanup.thread
 
-122:                                              ; preds = %118
-  %123 = load i32, ptr %21, align 8, !tbaa !15
-  %124 = icmp eq i32 %123, 0
-  br i1 %124, label %125, label %221
+if.else:                                          ; preds = %if.then37
+  %18 = load i32, ptr %needInitDic81, align 8, !tbaa !15
+  %tobool43.not = icmp eq i32 %18, 0
+  br i1 %tobool43.not, label %cleanup.thread, label %cleanup165.thread285
 
-125:                                              ; preds = %121, %122
-  store i32 0, ptr %21, align 8, !tbaa !15
-  call void @LzmaDec_InitDicAndState(ptr noundef nonnull %0, i32 noundef %120, i32 noundef 0) #5
-  %126 = load i64, ptr %7, align 8, !tbaa !18
-  br label %127
+cleanup.thread:                                   ; preds = %if.then42, %if.else
+  store i32 0, ptr %needInitDic81, align 8, !tbaa !15
+  call void @LzmaDec_InitDicAndState(ptr noundef nonnull %p, i32 noundef %conv41, i32 noundef 0) #5
+  %.pre279 = load i64, ptr %srcSizeCur, align 8, !tbaa !18
+  br label %if.end49
 
-127:                                              ; preds = %125, %116
-  %128 = phi i64 [ %126, %125 ], [ %105, %116 ]
-  %129 = icmp ugt i64 %128, %110
-  br i1 %129, label %130, label %131
+if.end49:                                         ; preds = %cleanup.thread, %if.end33
+  %19 = phi i64 [ %.pre279, %cleanup.thread ], [ %sub19, %if.end33 ]
+  %cmp50 = icmp ugt i64 %19, %spec.select256
+  br i1 %cmp50, label %if.then52, label %if.end53
 
-130:                                              ; preds = %127
-  store i64 %110, ptr %7, align 8, !tbaa !18
-  br label %131
+if.then52:                                        ; preds = %if.end49
+  store i64 %spec.select256, ptr %srcSizeCur, align 8, !tbaa !18
+  br label %if.end53
 
-131:                                              ; preds = %130, %127
-  %132 = phi i64 [ %110, %130 ], [ %128, %127 ]
-  %133 = icmp eq i64 %132, 0
-  br i1 %133, label %221, label %134
+if.end53:                                         ; preds = %if.then52, %if.end49
+  %20 = phi i64 [ %spec.select256, %if.then52 ], [ %19, %if.end49 ]
+  %cmp54 = icmp eq i64 %20, 0
+  br i1 %cmp54, label %cleanup165.thread285, label %if.end57
 
-134:                                              ; preds = %131
-  %135 = load ptr, ptr %23, align 8, !tbaa !26
-  %136 = load i64, ptr %13, align 8, !tbaa !27
-  %137 = getelementptr inbounds i8, ptr %135, i64 %136
-  call void @llvm.memcpy.p0.p0.i64(ptr align 1 %137, ptr align 1 %29, i64 %132, i1 false)
-  %138 = load i64, ptr %13, align 8, !tbaa !27
-  %139 = add i64 %138, %132
-  store i64 %139, ptr %13, align 8, !tbaa !27
-  %140 = load i32, ptr %24, align 4, !tbaa !28
-  %141 = icmp eq i32 %140, 0
-  br i1 %141, label %144, label %142
+if.end57:                                         ; preds = %if.end53
+  %21 = load ptr, ptr %dic.i, align 8, !tbaa !26
+  %22 = load i64, ptr %dicPos1, align 8, !tbaa !27
+  %add.ptr.i = getelementptr inbounds i8, ptr %21, i64 %22
+  call void @llvm.memcpy.p0.p0.i64(ptr align 1 %add.ptr.i, ptr align 1 %src.addr.0274, i64 %20, i1 false)
+  %23 = load i64, ptr %dicPos1, align 8, !tbaa !27
+  %add.i257 = add i64 %23, %20
+  store i64 %add.i257, ptr %dicPos1, align 8, !tbaa !27
+  %24 = load i32, ptr %checkDicSize.i, align 4, !tbaa !28
+  %cmp.i258 = icmp eq i32 %24, 0
+  br i1 %cmp.i258, label %land.lhs.true.i, label %entry.if.end_crit_edge.i
 
-142:                                              ; preds = %134
-  %143 = load i32, ptr %25, align 8, !tbaa !29
-  br label %151
+entry.if.end_crit_edge.i:                         ; preds = %if.end57
+  %.pre.i = load i32, ptr %processedPos8.phi.trans.insert.i, align 8, !tbaa !29
+  br label %LzmaDec_UpdateWithUncompressed.exit
 
-144:                                              ; preds = %134
-  %145 = load i32, ptr %26, align 4, !tbaa !30
-  %146 = load i32, ptr %25, align 8, !tbaa !29
-  %147 = sub i32 %145, %146
-  %148 = zext i32 %147 to i64
-  %149 = icmp ult i64 %132, %148
-  br i1 %149, label %151, label %150
+land.lhs.true.i:                                  ; preds = %if.end57
+  %25 = load i32, ptr %dicSize.i, align 4, !tbaa !30
+  %26 = load i32, ptr %processedPos8.phi.trans.insert.i, align 8, !tbaa !29
+  %sub.i = sub i32 %25, %26
+  %conv.i259 = zext i32 %sub.i to i64
+  %cmp2.not.i = icmp ult i64 %20, %conv.i259
+  br i1 %cmp2.not.i, label %LzmaDec_UpdateWithUncompressed.exit, label %if.then.i
 
-150:                                              ; preds = %144
-  store i32 %145, ptr %24, align 4, !tbaa !28
-  br label %151
+if.then.i:                                        ; preds = %land.lhs.true.i
+  store i32 %25, ptr %checkDicSize.i, align 4, !tbaa !28
+  br label %LzmaDec_UpdateWithUncompressed.exit
 
-151:                                              ; preds = %142, %144, %150
-  %152 = phi i32 [ %143, %142 ], [ %146, %150 ], [ %146, %144 ]
-  %153 = trunc i64 %132 to i32
-  %154 = add i32 %152, %153
-  store i32 %154, ptr %25, align 8, !tbaa !29
-  %155 = load i64, ptr %7, align 8, !tbaa !18
-  %156 = load i64, ptr %3, align 8, !tbaa !18
-  %157 = add i64 %156, %155
-  store i64 %157, ptr %3, align 8, !tbaa !18
-  %158 = trunc i64 %155 to i32
-  %159 = load i32, ptr %20, align 4, !tbaa !21
-  %160 = sub i32 %159, %158
-  store i32 %160, ptr %20, align 4, !tbaa !21
-  %161 = icmp eq i32 %159, %158
-  %162 = select i1 %161, i32 0, i32 7
-  store i32 %162, ptr %9, align 8, !tbaa !8
-  br label %223
+LzmaDec_UpdateWithUncompressed.exit:              ; preds = %entry.if.end_crit_edge.i, %land.lhs.true.i, %if.then.i
+  %27 = phi i32 [ %.pre.i, %entry.if.end_crit_edge.i ], [ %26, %if.then.i ], [ %26, %land.lhs.true.i ]
+  %conv7.i = trunc i64 %20 to i32
+  %add9.i = add i32 %27, %conv7.i
+  store i32 %add9.i, ptr %processedPos8.phi.trans.insert.i, align 8, !tbaa !29
+  %28 = load i64, ptr %srcSizeCur, align 8, !tbaa !18
+  %29 = load i64, ptr %srcLen, align 8, !tbaa !18
+  %add = add i64 %29, %28
+  store i64 %add, ptr %srcLen, align 8, !tbaa !18
+  %conv59 = trunc i64 %28 to i32
+  %30 = load i32, ptr %unpackSize26.i, align 4, !tbaa !21
+  %sub61 = sub i32 %30, %conv59
+  store i32 %sub61, ptr %unpackSize26.i, align 4, !tbaa !21
+  %cmp63 = icmp eq i32 %30, %conv59
+  %cond = select i1 %cmp63, i32 0, i32 7
+  store i32 %cond, ptr %state, align 8, !tbaa !8
+  br label %cleanup165
 
-163:                                              ; preds = %102
-  %164 = icmp eq i32 %28, 6
-  br i1 %164, label %165, label %181
+if.else66:                                        ; preds = %if.end18
+  %cmp68 = icmp eq i32 %2, 6
+  br i1 %cmp68, label %if.then70, label %if.end98
 
-165:                                              ; preds = %163
-  %166 = lshr i8 %111, 5
-  %167 = and i8 %166, 3
-  %168 = icmp eq i8 %167, 3
-  %169 = zext i1 %168 to i32
-  %170 = icmp ne i8 %167, 0
-  %171 = zext i1 %170 to i32
-  br i1 %168, label %179, label %172
+if.then70:                                        ; preds = %if.else66
+  %31 = lshr i8 %17, 5
+  %32 = and i8 %31, 3
+  %cmp75 = icmp eq i8 %32, 3
+  %conv76 = zext i1 %cmp75 to i32
+  %cmp77 = icmp ne i8 %32, 0
+  %conv78 = zext i1 %cmp77 to i32
+  br i1 %cmp75, label %cleanup93, label %land.lhs.true80
 
-172:                                              ; preds = %165
-  %173 = load i32, ptr %21, align 8, !tbaa !15
-  %174 = icmp eq i32 %173, 0
-  br i1 %174, label %175, label %221
+land.lhs.true80:                                  ; preds = %if.then70
+  %33 = load i32, ptr %needInitDic81, align 8, !tbaa !15
+  %tobool82.not = icmp eq i32 %33, 0
+  br i1 %tobool82.not, label %lor.lhs.false, label %cleanup165.thread285
 
-175:                                              ; preds = %172
-  br i1 %170, label %179, label %176
+lor.lhs.false:                                    ; preds = %land.lhs.true80
+  br i1 %cmp77, label %cleanup93, label %land.lhs.true84
 
-176:                                              ; preds = %175
-  %177 = load i32, ptr %22, align 4, !tbaa !16
-  %178 = icmp eq i32 %177, 0
-  br i1 %178, label %179, label %221
+land.lhs.true84:                                  ; preds = %lor.lhs.false
+  %34 = load i32, ptr %needInitState85, align 4, !tbaa !16
+  %tobool86.not = icmp eq i32 %34, 0
+  br i1 %tobool86.not, label %cleanup93, label %cleanup165.thread285
 
-179:                                              ; preds = %165, %175, %176
-  call void @LzmaDec_InitDicAndState(ptr noundef nonnull %0, i32 noundef %169, i32 noundef %171) #5
-  store i32 0, ptr %21, align 8, !tbaa !15
-  store i32 0, ptr %22, align 4, !tbaa !16
-  store i32 7, ptr %9, align 8, !tbaa !8
-  %180 = load i64, ptr %7, align 8, !tbaa !18
-  br label %181
+cleanup93:                                        ; preds = %if.then70, %lor.lhs.false, %land.lhs.true84
+  call void @LzmaDec_InitDicAndState(ptr noundef nonnull %p, i32 noundef %conv76, i32 noundef %conv78) #5
+  store i32 0, ptr %needInitDic81, align 8, !tbaa !15
+  store i32 0, ptr %needInitState85, align 4, !tbaa !16
+  store i32 7, ptr %state, align 8, !tbaa !8
+  %.pre = load i64, ptr %srcSizeCur, align 8, !tbaa !18
+  br label %if.end98
 
-181:                                              ; preds = %179, %163
-  %182 = phi i64 [ %180, %179 ], [ %105, %163 ]
-  %183 = load i32, ptr %18, align 8, !tbaa !22
-  %184 = zext i32 %183 to i64
-  %185 = icmp ugt i64 %182, %184
-  br i1 %185, label %186, label %187
+if.end98:                                         ; preds = %cleanup93, %if.else66
+  %35 = phi i64 [ %.pre, %cleanup93 ], [ %sub19, %if.else66 ]
+  %36 = load i32, ptr %packSize39.i, align 8, !tbaa !22
+  %conv99 = zext i32 %36 to i64
+  %cmp100 = icmp ugt i64 %35, %conv99
+  br i1 %cmp100, label %if.then102, label %if.end105
 
-186:                                              ; preds = %181
-  store i64 %184, ptr %7, align 8, !tbaa !18
-  br label %187
+if.then102:                                       ; preds = %if.end98
+  store i64 %conv99, ptr %srcSizeCur, align 8, !tbaa !18
+  br label %if.end105
 
-187:                                              ; preds = %186, %181
-  %188 = add i64 %110, %30
-  %189 = call i32 @LzmaDec_DecodeToDic(ptr noundef nonnull %0, i64 noundef %188, ptr noundef %29, ptr noundef nonnull %7, i32 noundef %109, ptr noundef nonnull %5) #5
-  %190 = load i64, ptr %7, align 8, !tbaa !18
-  %191 = load i64, ptr %3, align 8, !tbaa !18
-  %192 = add i64 %191, %190
-  store i64 %192, ptr %3, align 8, !tbaa !18
-  %193 = trunc i64 %190 to i32
-  %194 = load i32, ptr %18, align 8, !tbaa !22
-  %195 = sub i32 %194, %193
-  store i32 %195, ptr %18, align 8, !tbaa !22
-  %196 = load i64, ptr %13, align 8, !tbaa !19
-  %197 = sub i64 %196, %30
-  %198 = trunc i64 %197 to i32
-  %199 = load i32, ptr %20, align 4, !tbaa !21
-  %200 = sub i32 %199, %198
-  store i32 %200, ptr %20, align 4, !tbaa !21
-  %201 = icmp eq i32 %189, 0
-  br i1 %201, label %202, label %221
+if.end105:                                        ; preds = %if.then102, %if.end98
+  %add107 = add i64 %spec.select256, %3
+  %call108 = call i32 @LzmaDec_DecodeToDic(ptr noundef nonnull %p, i64 noundef %add107, ptr noundef %src.addr.0274, ptr noundef nonnull %srcSizeCur, i32 noundef %spec.select, ptr noundef nonnull %status) #5
+  %37 = load i64, ptr %srcSizeCur, align 8, !tbaa !18
+  %38 = load i64, ptr %srcLen, align 8, !tbaa !18
+  %add110 = add i64 %38, %37
+  store i64 %add110, ptr %srcLen, align 8, !tbaa !18
+  %conv111 = trunc i64 %37 to i32
+  %39 = load i32, ptr %packSize39.i, align 8, !tbaa !22
+  %sub113 = sub i32 %39, %conv111
+  store i32 %sub113, ptr %packSize39.i, align 8, !tbaa !22
+  %40 = load i64, ptr %dicPos1, align 8, !tbaa !19
+  %sub116.neg = sub i64 %3, %40
+  %conv117.neg = trunc i64 %sub116.neg to i32
+  %41 = load i32, ptr %unpackSize26.i, align 4, !tbaa !21
+  %sub119 = add i32 %41, %conv117.neg
+  store i32 %sub119, ptr %unpackSize26.i, align 4, !tbaa !21
+  %cmp120.not = icmp eq i32 %call108, 0
+  br i1 %cmp120.not, label %cleanup.cont126, label %cleanup165.thread285
 
-202:                                              ; preds = %187
-  %203 = load i32, ptr %5, align 4, !tbaa !5
-  %204 = icmp eq i32 %203, 3
-  br i1 %204, label %221, label %205
+cleanup.cont126:                                  ; preds = %if.end105
+  %42 = load i32, ptr %status, align 4, !tbaa !5
+  %cmp127 = icmp eq i32 %42, 3
+  br i1 %cmp127, label %cleanup165.thread285, label %if.end130
 
-205:                                              ; preds = %202
-  %206 = icmp eq i64 %190, 0
-  %207 = icmp eq i64 %196, %30
-  %208 = select i1 %206, i1 %207, i1 false
-  br i1 %208, label %209, label %217
+if.end130:                                        ; preds = %cleanup.cont126
+  %cmp131 = icmp eq i64 %37, 0
+  %cmp134 = icmp eq i64 %3, %40
+  %or.cond174 = select i1 %cmp131, i1 %cmp134, i1 false
+  br i1 %or.cond174, label %if.then136, label %if.end150
 
-209:                                              ; preds = %205
-  %210 = icmp ne i32 %203, 4
-  %211 = icmp ne i32 %199, %198
-  %212 = select i1 %210, i1 true, i1 %211
-  %213 = icmp ne i32 %194, %193
-  %214 = select i1 %212, i1 true, i1 %213
-  br i1 %214, label %221, label %215
+if.then136:                                       ; preds = %if.end130
+  %cmp137.not = icmp eq i32 %42, 4
+  %cmp141.not = icmp eq i32 %sub119, 0
+  %or.cond271 = select i1 %cmp137.not, i1 %cmp141.not, i1 false
+  %cmp145.not = icmp eq i32 %39, %conv111
+  %or.cond272 = select i1 %or.cond271, i1 %cmp145.not, i1 false
+  br i1 %or.cond272, label %if.end148, label %cleanup165.thread285
 
-215:                                              ; preds = %209
-  store i32 0, ptr %9, align 8, !tbaa !8
-  %216 = load i32, ptr %5, align 4, !tbaa !5
-  br label %217
+if.end148:                                        ; preds = %if.then136
+  store i32 0, ptr %state, align 8, !tbaa !8
+  %.pre278 = load i32, ptr %status, align 4, !tbaa !5
+  br label %if.end150
 
-217:                                              ; preds = %215, %205
-  %218 = phi i32 [ %216, %215 ], [ %203, %205 ]
-  %219 = icmp eq i32 %218, 4
-  br i1 %219, label %220, label %223
+if.end150:                                        ; preds = %if.end148, %if.end130
+  %43 = phi i32 [ %.pre278, %if.end148 ], [ %42, %if.end130 ]
+  %cmp151 = icmp eq i32 %43, 4
+  br i1 %cmp151, label %if.then153, label %cleanup165
 
-220:                                              ; preds = %217
-  store i32 2, ptr %5, align 4, !tbaa !5
-  br label %223
+if.then153:                                       ; preds = %if.end150
+  store i32 2, ptr %status, align 4, !tbaa !5
+  br label %cleanup165
 
-221:                                              ; preds = %122, %131, %187, %202, %209, %176, %172, %115
-  %222 = phi i32 [ 0, %115 ], [ 1, %122 ], [ 1, %131 ], [ %189, %187 ], [ 0, %202 ], [ 1, %209 ], [ 1, %176 ], [ 1, %172 ]
-  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %7) #5
-  br label %232
+cleanup165.thread285:                             ; preds = %if.end53, %if.else, %if.end105, %cleanup.cont126, %if.then136, %land.lhs.true84, %land.lhs.true80, %if.then32
+  %retval.8.ph = phi i32 [ 0, %if.then32 ], [ 1, %if.end53 ], [ 1, %if.else ], [ %call108, %if.end105 ], [ 0, %cleanup.cont126 ], [ 1, %if.then136 ], [ 1, %land.lhs.true84 ], [ 1, %land.lhs.true80 ]
+  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %srcSizeCur) #5
+  br label %cleanup168
 
-223:                                              ; preds = %220, %217, %151
-  %224 = phi i64 [ %190, %220 ], [ %190, %217 ], [ %155, %151 ]
-  %225 = getelementptr inbounds i8, ptr %29, i64 %224
-  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %7) #5
-  %226 = load i32, ptr %9, align 8, !tbaa !8
-  br label %227
+cleanup165:                                       ; preds = %if.then153, %if.end150, %LzmaDec_UpdateWithUncompressed.exit
+  %.pn = phi i64 [ %37, %if.then153 ], [ %37, %if.end150 ], [ %28, %LzmaDec_UpdateWithUncompressed.exit ]
+  %src.addr.3 = getelementptr inbounds i8, ptr %src.addr.0274, i64 %.pn
+  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %srcSizeCur) #5
+  %.pr = load i32, ptr %state, align 8, !tbaa !8
+  br label %while.cond.backedge
 
-227:                                              ; preds = %223, %100
-  %228 = phi i32 [ %226, %223 ], [ %101, %100 ]
-  %229 = phi ptr [ %225, %223 ], [ %45, %100 ]
-  %230 = icmp eq i32 %228, 8
-  br i1 %230, label %231, label %27, !llvm.loop !31
+while.cond.backedge:                              ; preds = %cleanup165, %cleanup165.thread
+  %44 = phi i32 [ %.pr, %cleanup165 ], [ %retval.1.i, %cleanup165.thread ]
+  %src.addr.4283 = phi ptr [ %src.addr.3, %cleanup165 ], [ %incdec.ptr, %cleanup165.thread ]
+  %cmp.not = icmp eq i32 %44, 8
+  br i1 %cmp.not, label %while.end, label %while.body, !llvm.loop !31
 
-231:                                              ; preds = %227, %6
-  store i32 1, ptr %5, align 4, !tbaa !5
-  br label %232
+while.end:                                        ; preds = %while.cond.backedge, %entry
+  store i32 1, ptr %status, align 4, !tbaa !5
+  br label %cleanup168
 
-232:                                              ; preds = %27, %221, %42, %35, %231
-  %233 = phi i32 [ 0, %231 ], [ 0, %42 ], [ 0, %35 ], [ %222, %221 ], [ 1, %27 ]
-  ret i32 %233
+cleanup168:                                       ; preds = %while.body, %cleanup165.thread285, %if.then15, %if.then6, %while.end
+  %retval.10 = phi i32 [ 0, %while.end ], [ 0, %if.then15 ], [ 0, %if.then6 ], [ %retval.8.ph, %cleanup165.thread285 ], [ 1, %while.body ]
+  ret i32 %retval.10
 }
 
 declare void @LzmaDec_InitDicAndState(ptr noundef, i32 noundef, i32 noundef) local_unnamed_addr #2
@@ -534,159 +536,160 @@ declare void @LzmaDec_InitDicAndState(ptr noundef, i32 noundef, i32 noundef) loc
 declare i32 @LzmaDec_DecodeToDic(ptr noundef, i64 noundef, ptr noundef, ptr noundef, i32 noundef, ptr noundef) local_unnamed_addr #2
 
 ; Function Attrs: nounwind uwtable
-define dso_local i32 @Lzma2Dec_DecodeToBuf(ptr noundef %0, ptr nocapture noundef writeonly %1, ptr nocapture noundef %2, ptr noundef %3, ptr nocapture noundef %4, i32 noundef %5, ptr noundef %6) local_unnamed_addr #0 {
-  %8 = alloca i64, align 8
-  %9 = load i64, ptr %2, align 8, !tbaa !18
-  %10 = load i64, ptr %4, align 8, !tbaa !18
-  store i64 0, ptr %2, align 8, !tbaa !18
-  store i64 0, ptr %4, align 8, !tbaa !18
-  %11 = getelementptr inbounds %struct.CLzmaDec, ptr %0, i64 0, i32 6
-  %12 = getelementptr inbounds %struct.CLzmaDec, ptr %0, i64 0, i32 7
-  %13 = getelementptr inbounds %struct.CLzmaDec, ptr %0, i64 0, i32 2
-  br label %14
+define dso_local i32 @Lzma2Dec_DecodeToBuf(ptr noundef %p, ptr nocapture noundef writeonly %dest, ptr nocapture noundef %destLen, ptr noundef %src, ptr nocapture noundef %srcLen, i32 noundef %finishMode, ptr noundef %status) local_unnamed_addr #0 {
+entry:
+  %srcSizeCur = alloca i64, align 8
+  %0 = load i64, ptr %destLen, align 8, !tbaa !18
+  %1 = load i64, ptr %srcLen, align 8, !tbaa !18
+  store i64 0, ptr %destLen, align 8, !tbaa !18
+  store i64 0, ptr %srcLen, align 8, !tbaa !18
+  %dicPos1 = getelementptr inbounds %struct.CLzmaDec, ptr %p, i64 0, i32 6
+  %dicBufSize = getelementptr inbounds %struct.CLzmaDec, ptr %p, i64 0, i32 7
+  %dic = getelementptr inbounds %struct.CLzmaDec, ptr %p, i64 0, i32 2
+  br label %for.cond
 
-14:                                               ; preds = %49, %7
-  %15 = phi ptr [ %3, %7 ], [ %32, %49 ]
-  %16 = phi i64 [ %9, %7 ], [ %41, %49 ]
-  %17 = phi i64 [ %10, %7 ], [ %33, %49 ]
-  %18 = phi ptr [ %1, %7 ], [ %40, %49 ]
-  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %8) #5
-  store i64 %17, ptr %8, align 8, !tbaa !18
-  %19 = load i64, ptr %11, align 8, !tbaa !19
-  %20 = load i64, ptr %12, align 8, !tbaa !33
-  %21 = icmp eq i64 %19, %20
-  br i1 %21, label %22, label %23
+for.cond:                                         ; preds = %cleanup, %entry
+  %src.addr.0 = phi ptr [ %src, %entry ], [ %add.ptr, %cleanup ]
+  %outSize.0 = phi i64 [ %0, %entry ], [ %sub22, %cleanup ]
+  %inSize.0 = phi i64 [ %1, %entry ], [ %sub14, %cleanup ]
+  %dest.addr.0 = phi ptr [ %dest, %entry ], [ %add.ptr21, %cleanup ]
+  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %srcSizeCur) #5
+  store i64 %inSize.0, ptr %srcSizeCur, align 8, !tbaa !18
+  %2 = load i64, ptr %dicPos1, align 8, !tbaa !19
+  %3 = load i64, ptr %dicBufSize, align 8, !tbaa !33
+  %cmp = icmp eq i64 %2, %3
+  br i1 %cmp, label %if.then, label %if.end
 
-22:                                               ; preds = %14
-  store i64 0, ptr %11, align 8, !tbaa !19
-  br label %23
+if.then:                                          ; preds = %for.cond
+  store i64 0, ptr %dicPos1, align 8, !tbaa !19
+  br label %if.end
 
-23:                                               ; preds = %22, %14
-  %24 = phi i64 [ 0, %22 ], [ %19, %14 ]
-  %25 = sub i64 %20, %24
-  %26 = icmp ugt i64 %16, %25
-  %27 = add i64 %24, %16
-  %28 = select i1 %26, i64 %20, i64 %27
-  %29 = select i1 %26, i32 0, i32 %5
-  %30 = call i32 @Lzma2Dec_DecodeToDic(ptr noundef nonnull %0, i64 noundef %28, ptr noundef %15, ptr noundef nonnull %8, i32 noundef %29, ptr noundef %6)
-  %31 = load i64, ptr %8, align 8, !tbaa !18
-  %32 = getelementptr inbounds i8, ptr %15, i64 %31
-  %33 = sub i64 %17, %31
-  %34 = load i64, ptr %4, align 8, !tbaa !18
-  %35 = add i64 %34, %31
-  store i64 %35, ptr %4, align 8, !tbaa !18
-  %36 = load i64, ptr %11, align 8, !tbaa !19
-  %37 = sub i64 %36, %24
-  %38 = load ptr, ptr %13, align 8, !tbaa !34
-  %39 = getelementptr inbounds i8, ptr %38, i64 %24
-  tail call void @llvm.memcpy.p0.p0.i64(ptr align 1 %18, ptr align 1 %39, i64 %37, i1 false)
-  %40 = getelementptr inbounds i8, ptr %18, i64 %37
-  %41 = sub i64 %16, %37
-  %42 = load i64, ptr %2, align 8, !tbaa !18
-  %43 = add i64 %42, %37
-  store i64 %43, ptr %2, align 8, !tbaa !18
-  %44 = icmp eq i32 %30, 0
-  br i1 %44, label %45, label %50
+if.end:                                           ; preds = %if.then, %for.cond
+  %4 = phi i64 [ 0, %if.then ], [ %2, %for.cond ]
+  %sub = sub i64 %3, %4
+  %cmp9 = icmp ugt i64 %outSize.0, %sub
+  %add = add i64 %4, %outSize.0
+  %outSizeCur.0 = select i1 %cmp9, i64 %3, i64 %add
+  %curFinishMode.0 = select i1 %cmp9, i32 0, i32 %finishMode
+  %call = call i32 @Lzma2Dec_DecodeToDic(ptr noundef nonnull %p, i64 noundef %outSizeCur.0, ptr noundef %src.addr.0, ptr noundef nonnull %srcSizeCur, i32 noundef %curFinishMode.0, ptr noundef %status)
+  %5 = load i64, ptr %srcSizeCur, align 8, !tbaa !18
+  %6 = load i64, ptr %srcLen, align 8, !tbaa !18
+  %add15 = add i64 %6, %5
+  store i64 %add15, ptr %srcLen, align 8, !tbaa !18
+  %7 = load i64, ptr %dicPos1, align 8, !tbaa !19
+  %sub18 = sub i64 %7, %4
+  %8 = load ptr, ptr %dic, align 8, !tbaa !34
+  %add.ptr20 = getelementptr inbounds i8, ptr %8, i64 %4
+  tail call void @llvm.memcpy.p0.p0.i64(ptr align 1 %dest.addr.0, ptr align 1 %add.ptr20, i64 %sub18, i1 false)
+  %9 = load i64, ptr %destLen, align 8, !tbaa !18
+  %add23 = add i64 %9, %sub18
+  store i64 %add23, ptr %destLen, align 8, !tbaa !18
+  %cmp24.not = icmp eq i32 %call, 0
+  br i1 %cmp24.not, label %cleanup, label %cleanup.thread
 
-45:                                               ; preds = %23
-  %46 = icmp eq i64 %36, %24
-  %47 = icmp eq i64 %41, 0
-  %48 = select i1 %46, i1 true, i1 %47
-  br i1 %48, label %50, label %49
+cleanup.thread:                                   ; preds = %if.end
+  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %srcSizeCur) #5
+  br label %cleanup35
 
-49:                                               ; preds = %45
-  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %8) #5
-  br label %14
+cleanup:                                          ; preds = %if.end
+  %sub22 = sub i64 %outSize.0, %sub18
+  %add.ptr21 = getelementptr inbounds i8, ptr %dest.addr.0, i64 %sub18
+  %sub14 = sub i64 %inSize.0, %5
+  %add.ptr = getelementptr inbounds i8, ptr %src.addr.0, i64 %5
+  %cmp27 = icmp ne i64 %7, %4
+  %cmp28 = icmp ne i64 %sub22, 0
+  %or.cond.not = select i1 %cmp27, i1 %cmp28, i1 false
+  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %srcSizeCur) #5
+  br i1 %or.cond.not, label %for.cond, label %cleanup35
 
-50:                                               ; preds = %23, %45
-  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %8) #5
-  ret i32 %30
+cleanup35:                                        ; preds = %cleanup, %cleanup.thread
+  ret i32 %call
 }
 
 ; Function Attrs: mustprogress nocallback nofree nounwind willreturn memory(argmem: readwrite)
 declare void @llvm.memcpy.p0.p0.i64(ptr noalias nocapture writeonly, ptr noalias nocapture readonly, i64, i1 immarg) #3
 
 ; Function Attrs: nounwind uwtable
-define dso_local i32 @Lzma2Decode(ptr noundef %0, ptr nocapture noundef %1, ptr noundef %2, ptr nocapture noundef %3, i8 noundef zeroext %4, i32 noundef %5, ptr noundef %6, ptr noundef %7) local_unnamed_addr #0 {
-  %9 = alloca %struct.CLzma2Dec, align 8
-  %10 = alloca [5 x i8], align 1
-  call void @llvm.lifetime.start.p0(i64 168, ptr nonnull %9) #5
-  %11 = load i64, ptr %1, align 8, !tbaa !18
-  %12 = load i64, ptr %3, align 8, !tbaa !18
-  call void @llvm.lifetime.start.p0(i64 5, ptr nonnull %10) #5
-  %13 = getelementptr inbounds %struct.CLzmaDec, ptr %9, i64 0, i32 2
-  %14 = getelementptr inbounds %struct.CLzmaDec, ptr %9, i64 0, i32 1
-  store i64 0, ptr %14, align 8
-  store i64 0, ptr %3, align 8, !tbaa !18
-  store i64 0, ptr %1, align 8, !tbaa !18
-  store i32 0, ptr %6, align 4, !tbaa !5
-  store ptr %0, ptr %13, align 8, !tbaa !34
-  %15 = getelementptr inbounds %struct.CLzmaDec, ptr %9, i64 0, i32 7
-  store i64 %11, ptr %15, align 8, !tbaa !33
-  %16 = icmp ugt i8 %4, 40
-  br i1 %16, label %53, label %17
+define dso_local i32 @Lzma2Decode(ptr noundef %dest, ptr nocapture noundef %destLen, ptr noundef %src, ptr nocapture noundef %srcLen, i8 noundef zeroext %prop, i32 noundef %finishMode, ptr noundef %status, ptr noundef %alloc) local_unnamed_addr #0 {
+entry:
+  %decoder = alloca %struct.CLzma2Dec, align 8
+  %props = alloca [5 x i8], align 1
+  call void @llvm.lifetime.start.p0(i64 168, ptr nonnull %decoder) #5
+  %0 = load i64, ptr %destLen, align 8, !tbaa !18
+  %1 = load i64, ptr %srcLen, align 8, !tbaa !18
+  call void @llvm.lifetime.start.p0(i64 5, ptr nonnull %props) #5
+  %dic = getelementptr inbounds %struct.CLzmaDec, ptr %decoder, i64 0, i32 2
+  %probs = getelementptr inbounds %struct.CLzmaDec, ptr %decoder, i64 0, i32 1
+  store i64 0, ptr %probs, align 8
+  store i64 0, ptr %srcLen, align 8, !tbaa !18
+  store i64 0, ptr %destLen, align 8, !tbaa !18
+  store i32 0, ptr %status, align 4, !tbaa !5
+  store ptr %dest, ptr %dic, align 8, !tbaa !34
+  %dicBufSize = getelementptr inbounds %struct.CLzmaDec, ptr %decoder, i64 0, i32 7
+  store i64 %0, ptr %dicBufSize, align 8, !tbaa !33
+  %conv.i = zext i8 %prop to i32
+  %cmp.i = icmp ugt i8 %prop, 40
+  br i1 %cmp.i, label %cleanup23, label %if.end.i
 
-17:                                               ; preds = %8
-  %18 = icmp eq i8 %4, 40
-  br i1 %18, label %27, label %19
+if.end.i:                                         ; preds = %entry
+  %cmp3.i = icmp eq i8 %prop, 40
+  br i1 %cmp3.i, label %cleanup.cont, label %cond.false.i
 
-19:                                               ; preds = %17
-  %20 = and i8 %4, 1
-  %21 = or i8 %20, 2
-  %22 = zext i8 %21 to i32
-  %23 = lshr i8 %4, 1
-  %24 = add nuw nsw i8 %23, 11
-  %25 = zext i8 %24 to i32
-  %26 = shl nuw i32 %22, %25
-  br label %27
+cond.false.i:                                     ; preds = %if.end.i
+  %and.i = and i32 %conv.i, 1
+  %or.i = or i32 %and.i, 2
+  %div27.i = lshr i32 %conv.i, 1
+  %add.i = add nuw nsw i32 %div27.i, 11
+  %shl.i = shl nuw i32 %or.i, %add.i
+  br label %cleanup.cont
 
-27:                                               ; preds = %17, %19
-  %28 = phi i32 [ %26, %19 ], [ -1, %17 ]
-  store i8 4, ptr %10, align 1, !tbaa !5
-  %29 = trunc i32 %28 to i8
-  %30 = getelementptr inbounds i8, ptr %10, i64 1
-  store i8 %29, ptr %30, align 1, !tbaa !5
-  %31 = lshr i32 %28, 8
-  %32 = trunc i32 %31 to i8
-  %33 = getelementptr inbounds i8, ptr %10, i64 2
-  store i8 %32, ptr %33, align 1, !tbaa !5
-  %34 = lshr i32 %28, 16
-  %35 = trunc i32 %34 to i8
-  %36 = getelementptr inbounds i8, ptr %10, i64 3
-  store i8 %35, ptr %36, align 1, !tbaa !5
-  %37 = lshr i32 %28, 24
-  %38 = trunc i32 %37 to i8
-  %39 = getelementptr inbounds i8, ptr %10, i64 4
-  store i8 %38, ptr %39, align 1, !tbaa !5
-  %40 = call i32 @LzmaDec_AllocateProbs(ptr noundef nonnull %9, ptr noundef nonnull %10, i32 noundef 5, ptr noundef %7) #5
-  %41 = icmp eq i32 %40, 0
-  br i1 %41, label %42, label %53
+cleanup.cont:                                     ; preds = %if.end.i, %cond.false.i
+  %cond.i = phi i32 [ %shl.i, %cond.false.i ], [ -1, %if.end.i ]
+  store i8 4, ptr %props, align 1, !tbaa !5
+  %conv7.i = trunc i32 %cond.i to i8
+  %arrayidx8.i = getelementptr inbounds i8, ptr %props, i64 1
+  store i8 %conv7.i, ptr %arrayidx8.i, align 1, !tbaa !5
+  %shr.i = lshr i32 %cond.i, 8
+  %conv9.i = trunc i32 %shr.i to i8
+  %arrayidx10.i = getelementptr inbounds i8, ptr %props, i64 2
+  store i8 %conv9.i, ptr %arrayidx10.i, align 1, !tbaa !5
+  %shr11.i = lshr i32 %cond.i, 16
+  %conv12.i = trunc i32 %shr11.i to i8
+  %arrayidx13.i = getelementptr inbounds i8, ptr %props, i64 3
+  store i8 %conv12.i, ptr %arrayidx13.i, align 1, !tbaa !5
+  %shr14.i = lshr i32 %cond.i, 24
+  %conv15.i = trunc i32 %shr14.i to i8
+  %arrayidx16.i = getelementptr inbounds i8, ptr %props, i64 4
+  store i8 %conv15.i, ptr %arrayidx16.i, align 1, !tbaa !5
+  %call9 = call i32 @LzmaDec_AllocateProbs(ptr noundef nonnull %decoder, ptr noundef nonnull %props, i32 noundef 5, ptr noundef %alloc) #5
+  %cmp10.not = icmp eq i32 %call9, 0
+  br i1 %cmp10.not, label %cleanup.cont15, label %cleanup23
 
-42:                                               ; preds = %27
-  store i64 %12, ptr %3, align 8, !tbaa !18
-  %43 = call i32 @Lzma2Dec_DecodeToDic(ptr noundef nonnull %9, i64 noundef %11, ptr noundef %2, ptr noundef nonnull %3, i32 noundef %5, ptr noundef nonnull %6)
-  %44 = getelementptr inbounds %struct.CLzmaDec, ptr %9, i64 0, i32 6
-  %45 = load i64, ptr %44, align 8, !tbaa !19
-  store i64 %45, ptr %1, align 8, !tbaa !18
-  %46 = icmp eq i32 %43, 0
-  br i1 %46, label %47, label %51
+cleanup.cont15:                                   ; preds = %cleanup.cont
+  store i64 %1, ptr %srcLen, align 8, !tbaa !18
+  %call16 = call i32 @Lzma2Dec_DecodeToDic(ptr noundef nonnull %decoder, i64 noundef %0, ptr noundef %src, ptr noundef nonnull %srcLen, i32 noundef %finishMode, ptr noundef nonnull %status)
+  %dicPos = getelementptr inbounds %struct.CLzmaDec, ptr %decoder, i64 0, i32 6
+  %2 = load i64, ptr %dicPos, align 8, !tbaa !19
+  store i64 %2, ptr %destLen, align 8, !tbaa !18
+  %cmp18 = icmp eq i32 %call16, 0
+  br i1 %cmp18, label %land.lhs.true, label %if.end21
 
-47:                                               ; preds = %42
-  %48 = load i32, ptr %6, align 4, !tbaa !5
-  %49 = icmp eq i32 %48, 3
-  %50 = select i1 %49, i32 6, i32 0
-  br label %51
+land.lhs.true:                                    ; preds = %cleanup.cont15
+  %3 = load i32, ptr %status, align 4, !tbaa !5
+  %cmp19 = icmp eq i32 %3, 3
+  %spec.select = select i1 %cmp19, i32 6, i32 0
+  br label %if.end21
 
-51:                                               ; preds = %47, %42
-  %52 = phi i32 [ %43, %42 ], [ %50, %47 ]
-  call void @LzmaDec_FreeProbs(ptr noundef nonnull %9, ptr noundef %7) #5
-  br label %53
+if.end21:                                         ; preds = %land.lhs.true, %cleanup.cont15
+  %res.0 = phi i32 [ %call16, %cleanup.cont15 ], [ %spec.select, %land.lhs.true ]
+  call void @LzmaDec_FreeProbs(ptr noundef nonnull %decoder, ptr noundef %alloc) #5
+  br label %cleanup23
 
-53:                                               ; preds = %27, %8, %51
-  %54 = phi i32 [ %52, %51 ], [ 4, %8 ], [ %40, %27 ]
-  call void @llvm.lifetime.end.p0(i64 5, ptr nonnull %10) #5
-  call void @llvm.lifetime.end.p0(i64 168, ptr nonnull %9) #5
-  ret i32 %54
+cleanup23:                                        ; preds = %entry, %cleanup.cont, %if.end21
+  %retval.2 = phi i32 [ %res.0, %if.end21 ], [ %call9, %cleanup.cont ], [ 4, %entry ]
+  call void @llvm.lifetime.end.p0(i64 5, ptr nonnull %props) #5
+  call void @llvm.lifetime.end.p0(i64 168, ptr nonnull %decoder) #5
+  ret i32 %retval.2
 }
 
 declare void @LzmaDec_FreeProbs(ptr noundef, ptr noundef) local_unnamed_addr #2

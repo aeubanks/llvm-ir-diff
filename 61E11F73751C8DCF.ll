@@ -57,232 +57,238 @@ $_ZTI13CMyUnknownImp = comdat any
 @IID_IUnknown = external local_unnamed_addr global %struct.GUID, align 4
 
 ; Function Attrs: mustprogress uwtable
-define dso_local noundef i32 @_ZN20CCrossThreadProgress12SetRatioInfoEPKyS1_(ptr noundef nonnull align 8 dereferenceable(248) %0, ptr noundef %1, ptr noundef %2) unnamed_addr #0 align 2 {
-  %4 = getelementptr inbounds %class.CCrossThreadProgress, ptr %0, i64 0, i32 2
-  store ptr %1, ptr %4, align 8, !tbaa !5
-  %5 = getelementptr inbounds %class.CCrossThreadProgress, ptr %0, i64 0, i32 3
-  store ptr %2, ptr %5, align 8, !tbaa !17
-  %6 = getelementptr inbounds %class.CCrossThreadProgress, ptr %0, i64 0, i32 5
-  %7 = tail call i32 @Event_Set(ptr noundef nonnull %6)
-  %8 = getelementptr inbounds %class.CCrossThreadProgress, ptr %0, i64 0, i32 6
-  %9 = tail call i32 @Event_Wait(ptr noundef nonnull %8)
-  %10 = getelementptr inbounds %class.CCrossThreadProgress, ptr %0, i64 0, i32 4
-  %11 = load i32, ptr %10, align 8, !tbaa !18
-  ret i32 %11
+define dso_local noundef i32 @_ZN20CCrossThreadProgress12SetRatioInfoEPKyS1_(ptr noundef nonnull align 8 dereferenceable(248) %this, ptr noundef %inSize, ptr noundef %outSize) unnamed_addr #0 align 2 {
+entry:
+  %InSize = getelementptr inbounds %class.CCrossThreadProgress, ptr %this, i64 0, i32 2
+  store ptr %inSize, ptr %InSize, align 8, !tbaa !5
+  %OutSize = getelementptr inbounds %class.CCrossThreadProgress, ptr %this, i64 0, i32 3
+  store ptr %outSize, ptr %OutSize, align 8, !tbaa !17
+  %ProgressEvent = getelementptr inbounds %class.CCrossThreadProgress, ptr %this, i64 0, i32 5
+  %call.i = tail call i32 @Event_Set(ptr noundef nonnull %ProgressEvent)
+  %WaitEvent = getelementptr inbounds %class.CCrossThreadProgress, ptr %this, i64 0, i32 6
+  %call.i3 = tail call i32 @Event_Wait(ptr noundef nonnull %WaitEvent)
+  %Result = getelementptr inbounds %class.CCrossThreadProgress, ptr %this, i64 0, i32 4
+  %0 = load i32, ptr %Result, align 8, !tbaa !18
+  ret i32 %0
 }
 
 ; Function Attrs: mustprogress uwtable
-define linkonce_odr dso_local noundef i32 @_ZN20CCrossThreadProgress14QueryInterfaceERK4GUIDPPv(ptr noundef nonnull align 8 dereferenceable(248) %0, ptr noundef nonnull align 4 dereferenceable(16) %1, ptr noundef %2) unnamed_addr #0 comdat align 2 {
-  %4 = load i8, ptr %1, align 4, !tbaa !19
-  %5 = load i8, ptr @IID_IUnknown, align 4, !tbaa !19
-  %6 = icmp eq i8 %4, %5
-  br i1 %6, label %7, label %87
+define linkonce_odr dso_local noundef i32 @_ZN20CCrossThreadProgress14QueryInterfaceERK4GUIDPPv(ptr noundef nonnull align 8 dereferenceable(248) %this, ptr noundef nonnull align 4 dereferenceable(16) %iid, ptr noundef %outObject) unnamed_addr #0 comdat align 2 {
+entry:
+  %0 = load i8, ptr %iid, align 4, !tbaa !19
+  %1 = load i8, ptr @IID_IUnknown, align 4, !tbaa !19
+  %cmp4.not.i = icmp eq i8 %0, %1
+  br i1 %cmp4.not.i, label %for.cond.i, label %return
 
-7:                                                ; preds = %3
-  %8 = getelementptr inbounds i8, ptr %1, i64 1
-  %9 = load i8, ptr %8, align 1, !tbaa !19
-  %10 = load i8, ptr getelementptr inbounds (i8, ptr @IID_IUnknown, i64 1), align 1, !tbaa !19
-  %11 = icmp eq i8 %9, %10
-  br i1 %11, label %12, label %87
+for.cond.i:                                       ; preds = %entry
+  %arrayidx.1.i = getelementptr inbounds i8, ptr %iid, i64 1
+  %2 = load i8, ptr %arrayidx.1.i, align 1, !tbaa !19
+  %3 = load i8, ptr getelementptr inbounds (i8, ptr @IID_IUnknown, i64 1), align 1, !tbaa !19
+  %cmp4.not.1.i = icmp eq i8 %2, %3
+  br i1 %cmp4.not.1.i, label %for.cond.1.i, label %return
 
-12:                                               ; preds = %7
-  %13 = getelementptr inbounds i8, ptr %1, i64 2
-  %14 = load i8, ptr %13, align 2, !tbaa !19
-  %15 = load i8, ptr getelementptr inbounds (i8, ptr @IID_IUnknown, i64 2), align 2, !tbaa !19
-  %16 = icmp eq i8 %14, %15
-  br i1 %16, label %17, label %87
+for.cond.1.i:                                     ; preds = %for.cond.i
+  %arrayidx.2.i = getelementptr inbounds i8, ptr %iid, i64 2
+  %4 = load i8, ptr %arrayidx.2.i, align 2, !tbaa !19
+  %5 = load i8, ptr getelementptr inbounds (i8, ptr @IID_IUnknown, i64 2), align 2, !tbaa !19
+  %cmp4.not.2.i = icmp eq i8 %4, %5
+  br i1 %cmp4.not.2.i, label %for.cond.2.i, label %return
 
-17:                                               ; preds = %12
-  %18 = getelementptr inbounds i8, ptr %1, i64 3
-  %19 = load i8, ptr %18, align 1, !tbaa !19
-  %20 = load i8, ptr getelementptr inbounds (i8, ptr @IID_IUnknown, i64 3), align 1, !tbaa !19
-  %21 = icmp eq i8 %19, %20
-  br i1 %21, label %22, label %87
+for.cond.2.i:                                     ; preds = %for.cond.1.i
+  %arrayidx.3.i = getelementptr inbounds i8, ptr %iid, i64 3
+  %6 = load i8, ptr %arrayidx.3.i, align 1, !tbaa !19
+  %7 = load i8, ptr getelementptr inbounds (i8, ptr @IID_IUnknown, i64 3), align 1, !tbaa !19
+  %cmp4.not.3.i = icmp eq i8 %6, %7
+  br i1 %cmp4.not.3.i, label %for.cond.3.i, label %return
 
-22:                                               ; preds = %17
-  %23 = getelementptr inbounds i8, ptr %1, i64 4
-  %24 = load i8, ptr %23, align 4, !tbaa !19
-  %25 = load i8, ptr getelementptr inbounds (%struct.GUID, ptr @IID_IUnknown, i64 0, i32 1), align 4, !tbaa !19
-  %26 = icmp eq i8 %24, %25
-  br i1 %26, label %27, label %87
+for.cond.3.i:                                     ; preds = %for.cond.2.i
+  %arrayidx.4.i = getelementptr inbounds i8, ptr %iid, i64 4
+  %8 = load i8, ptr %arrayidx.4.i, align 4, !tbaa !19
+  %9 = load i8, ptr getelementptr inbounds (%struct.GUID, ptr @IID_IUnknown, i64 0, i32 1), align 4, !tbaa !19
+  %cmp4.not.4.i = icmp eq i8 %8, %9
+  br i1 %cmp4.not.4.i, label %for.cond.4.i, label %return
 
-27:                                               ; preds = %22
-  %28 = getelementptr inbounds i8, ptr %1, i64 5
-  %29 = load i8, ptr %28, align 1, !tbaa !19
-  %30 = load i8, ptr getelementptr inbounds (i8, ptr @IID_IUnknown, i64 5), align 1, !tbaa !19
-  %31 = icmp eq i8 %29, %30
-  br i1 %31, label %32, label %87
+for.cond.4.i:                                     ; preds = %for.cond.3.i
+  %arrayidx.5.i = getelementptr inbounds i8, ptr %iid, i64 5
+  %10 = load i8, ptr %arrayidx.5.i, align 1, !tbaa !19
+  %11 = load i8, ptr getelementptr inbounds (i8, ptr @IID_IUnknown, i64 5), align 1, !tbaa !19
+  %cmp4.not.5.i = icmp eq i8 %10, %11
+  br i1 %cmp4.not.5.i, label %for.cond.5.i, label %return
 
-32:                                               ; preds = %27
-  %33 = getelementptr inbounds i8, ptr %1, i64 6
-  %34 = load i8, ptr %33, align 2, !tbaa !19
-  %35 = load i8, ptr getelementptr inbounds (%struct.GUID, ptr @IID_IUnknown, i64 0, i32 2), align 2, !tbaa !19
-  %36 = icmp eq i8 %34, %35
-  br i1 %36, label %37, label %87
+for.cond.5.i:                                     ; preds = %for.cond.4.i
+  %arrayidx.6.i = getelementptr inbounds i8, ptr %iid, i64 6
+  %12 = load i8, ptr %arrayidx.6.i, align 2, !tbaa !19
+  %13 = load i8, ptr getelementptr inbounds (%struct.GUID, ptr @IID_IUnknown, i64 0, i32 2), align 2, !tbaa !19
+  %cmp4.not.6.i = icmp eq i8 %12, %13
+  br i1 %cmp4.not.6.i, label %for.cond.6.i, label %return
 
-37:                                               ; preds = %32
-  %38 = getelementptr inbounds i8, ptr %1, i64 7
-  %39 = load i8, ptr %38, align 1, !tbaa !19
-  %40 = load i8, ptr getelementptr inbounds (i8, ptr @IID_IUnknown, i64 7), align 1, !tbaa !19
-  %41 = icmp eq i8 %39, %40
-  br i1 %41, label %42, label %87
+for.cond.6.i:                                     ; preds = %for.cond.5.i
+  %arrayidx.7.i = getelementptr inbounds i8, ptr %iid, i64 7
+  %14 = load i8, ptr %arrayidx.7.i, align 1, !tbaa !19
+  %15 = load i8, ptr getelementptr inbounds (i8, ptr @IID_IUnknown, i64 7), align 1, !tbaa !19
+  %cmp4.not.7.i = icmp eq i8 %14, %15
+  br i1 %cmp4.not.7.i, label %for.cond.7.i, label %return
 
-42:                                               ; preds = %37
-  %43 = getelementptr inbounds i8, ptr %1, i64 8
-  %44 = load i8, ptr %43, align 4, !tbaa !19
-  %45 = load i8, ptr getelementptr inbounds (%struct.GUID, ptr @IID_IUnknown, i64 0, i32 3, i64 0), align 4, !tbaa !19
-  %46 = icmp eq i8 %44, %45
-  br i1 %46, label %47, label %87
+for.cond.7.i:                                     ; preds = %for.cond.6.i
+  %arrayidx.8.i = getelementptr inbounds i8, ptr %iid, i64 8
+  %16 = load i8, ptr %arrayidx.8.i, align 4, !tbaa !19
+  %17 = load i8, ptr getelementptr inbounds (%struct.GUID, ptr @IID_IUnknown, i64 0, i32 3, i64 0), align 4, !tbaa !19
+  %cmp4.not.8.i = icmp eq i8 %16, %17
+  br i1 %cmp4.not.8.i, label %for.cond.8.i, label %return
 
-47:                                               ; preds = %42
-  %48 = getelementptr inbounds i8, ptr %1, i64 9
-  %49 = load i8, ptr %48, align 1, !tbaa !19
-  %50 = load i8, ptr getelementptr inbounds (%struct.GUID, ptr @IID_IUnknown, i64 0, i32 3, i64 1), align 1, !tbaa !19
-  %51 = icmp eq i8 %49, %50
-  br i1 %51, label %52, label %87
+for.cond.8.i:                                     ; preds = %for.cond.7.i
+  %arrayidx.9.i = getelementptr inbounds i8, ptr %iid, i64 9
+  %18 = load i8, ptr %arrayidx.9.i, align 1, !tbaa !19
+  %19 = load i8, ptr getelementptr inbounds (%struct.GUID, ptr @IID_IUnknown, i64 0, i32 3, i64 1), align 1, !tbaa !19
+  %cmp4.not.9.i = icmp eq i8 %18, %19
+  br i1 %cmp4.not.9.i, label %for.cond.9.i, label %return
 
-52:                                               ; preds = %47
-  %53 = getelementptr inbounds i8, ptr %1, i64 10
-  %54 = load i8, ptr %53, align 2, !tbaa !19
-  %55 = load i8, ptr getelementptr inbounds (%struct.GUID, ptr @IID_IUnknown, i64 0, i32 3, i64 2), align 2, !tbaa !19
-  %56 = icmp eq i8 %54, %55
-  br i1 %56, label %57, label %87
+for.cond.9.i:                                     ; preds = %for.cond.8.i
+  %arrayidx.10.i = getelementptr inbounds i8, ptr %iid, i64 10
+  %20 = load i8, ptr %arrayidx.10.i, align 2, !tbaa !19
+  %21 = load i8, ptr getelementptr inbounds (%struct.GUID, ptr @IID_IUnknown, i64 0, i32 3, i64 2), align 2, !tbaa !19
+  %cmp4.not.10.i = icmp eq i8 %20, %21
+  br i1 %cmp4.not.10.i, label %for.cond.10.i, label %return
 
-57:                                               ; preds = %52
-  %58 = getelementptr inbounds i8, ptr %1, i64 11
-  %59 = load i8, ptr %58, align 1, !tbaa !19
-  %60 = load i8, ptr getelementptr inbounds (%struct.GUID, ptr @IID_IUnknown, i64 0, i32 3, i64 3), align 1, !tbaa !19
-  %61 = icmp eq i8 %59, %60
-  br i1 %61, label %62, label %87
+for.cond.10.i:                                    ; preds = %for.cond.9.i
+  %arrayidx.11.i = getelementptr inbounds i8, ptr %iid, i64 11
+  %22 = load i8, ptr %arrayidx.11.i, align 1, !tbaa !19
+  %23 = load i8, ptr getelementptr inbounds (%struct.GUID, ptr @IID_IUnknown, i64 0, i32 3, i64 3), align 1, !tbaa !19
+  %cmp4.not.11.i = icmp eq i8 %22, %23
+  br i1 %cmp4.not.11.i, label %for.cond.11.i, label %return
 
-62:                                               ; preds = %57
-  %63 = getelementptr inbounds i8, ptr %1, i64 12
-  %64 = load i8, ptr %63, align 4, !tbaa !19
-  %65 = load i8, ptr getelementptr inbounds (%struct.GUID, ptr @IID_IUnknown, i64 0, i32 3, i64 4), align 4, !tbaa !19
-  %66 = icmp eq i8 %64, %65
-  br i1 %66, label %67, label %87
+for.cond.11.i:                                    ; preds = %for.cond.10.i
+  %arrayidx.12.i = getelementptr inbounds i8, ptr %iid, i64 12
+  %24 = load i8, ptr %arrayidx.12.i, align 4, !tbaa !19
+  %25 = load i8, ptr getelementptr inbounds (%struct.GUID, ptr @IID_IUnknown, i64 0, i32 3, i64 4), align 4, !tbaa !19
+  %cmp4.not.12.i = icmp eq i8 %24, %25
+  br i1 %cmp4.not.12.i, label %for.cond.12.i, label %return
 
-67:                                               ; preds = %62
-  %68 = getelementptr inbounds i8, ptr %1, i64 13
-  %69 = load i8, ptr %68, align 1, !tbaa !19
-  %70 = load i8, ptr getelementptr inbounds (%struct.GUID, ptr @IID_IUnknown, i64 0, i32 3, i64 5), align 1, !tbaa !19
-  %71 = icmp eq i8 %69, %70
-  br i1 %71, label %72, label %87
+for.cond.12.i:                                    ; preds = %for.cond.11.i
+  %arrayidx.13.i = getelementptr inbounds i8, ptr %iid, i64 13
+  %26 = load i8, ptr %arrayidx.13.i, align 1, !tbaa !19
+  %27 = load i8, ptr getelementptr inbounds (%struct.GUID, ptr @IID_IUnknown, i64 0, i32 3, i64 5), align 1, !tbaa !19
+  %cmp4.not.13.i = icmp eq i8 %26, %27
+  br i1 %cmp4.not.13.i, label %for.cond.13.i, label %return
 
-72:                                               ; preds = %67
-  %73 = getelementptr inbounds i8, ptr %1, i64 14
-  %74 = load i8, ptr %73, align 2, !tbaa !19
-  %75 = load i8, ptr getelementptr inbounds (%struct.GUID, ptr @IID_IUnknown, i64 0, i32 3, i64 6), align 2, !tbaa !19
-  %76 = icmp eq i8 %74, %75
-  br i1 %76, label %77, label %87
+for.cond.13.i:                                    ; preds = %for.cond.12.i
+  %arrayidx.14.i = getelementptr inbounds i8, ptr %iid, i64 14
+  %28 = load i8, ptr %arrayidx.14.i, align 2, !tbaa !19
+  %29 = load i8, ptr getelementptr inbounds (%struct.GUID, ptr @IID_IUnknown, i64 0, i32 3, i64 6), align 2, !tbaa !19
+  %cmp4.not.14.i = icmp eq i8 %28, %29
+  br i1 %cmp4.not.14.i, label %_ZeqRK4GUIDS1_.exit, label %return
 
-77:                                               ; preds = %72
-  %78 = getelementptr inbounds i8, ptr %1, i64 15
-  %79 = load i8, ptr %78, align 1, !tbaa !19
-  %80 = load i8, ptr getelementptr inbounds (%struct.GUID, ptr @IID_IUnknown, i64 0, i32 3, i64 7), align 1, !tbaa !19
-  %81 = icmp eq i8 %79, %80
-  br i1 %81, label %82, label %87
+_ZeqRK4GUIDS1_.exit:                              ; preds = %for.cond.13.i
+  %arrayidx.15.i = getelementptr inbounds i8, ptr %iid, i64 15
+  %30 = load i8, ptr %arrayidx.15.i, align 1, !tbaa !19
+  %31 = load i8, ptr getelementptr inbounds (%struct.GUID, ptr @IID_IUnknown, i64 0, i32 3, i64 7), align 1, !tbaa !19
+  %cmp4.not.15.i.not = icmp eq i8 %30, %31
+  br i1 %cmp4.not.15.i.not, label %if.then, label %return
 
-82:                                               ; preds = %77
-  store ptr %0, ptr %2, align 8, !tbaa !20
-  %83 = load ptr, ptr %0, align 8, !tbaa !21
-  %84 = getelementptr inbounds ptr, ptr %83, i64 1
-  %85 = load ptr, ptr %84, align 8
-  %86 = tail call noundef i32 %85(ptr noundef nonnull align 8 dereferenceable(248) %0)
-  br label %87
+if.then:                                          ; preds = %_ZeqRK4GUIDS1_.exit
+  store ptr %this, ptr %outObject, align 8, !tbaa !20
+  %vtable = load ptr, ptr %this, align 8, !tbaa !21
+  %vfn = getelementptr inbounds ptr, ptr %vtable, i64 1
+  %32 = load ptr, ptr %vfn, align 8
+  %call2 = tail call noundef i32 %32(ptr noundef nonnull align 8 dereferenceable(248) %this)
+  br label %return
 
-87:                                               ; preds = %72, %67, %62, %57, %52, %47, %42, %37, %32, %27, %22, %17, %12, %7, %3, %77, %82
-  %88 = phi i32 [ 0, %82 ], [ -2147467262, %77 ], [ -2147467262, %3 ], [ -2147467262, %7 ], [ -2147467262, %12 ], [ -2147467262, %17 ], [ -2147467262, %22 ], [ -2147467262, %27 ], [ -2147467262, %32 ], [ -2147467262, %37 ], [ -2147467262, %42 ], [ -2147467262, %47 ], [ -2147467262, %52 ], [ -2147467262, %57 ], [ -2147467262, %62 ], [ -2147467262, %67 ], [ -2147467262, %72 ]
-  ret i32 %88
+return:                                           ; preds = %for.cond.13.i, %for.cond.12.i, %for.cond.11.i, %for.cond.10.i, %for.cond.9.i, %for.cond.8.i, %for.cond.7.i, %for.cond.6.i, %for.cond.5.i, %for.cond.4.i, %for.cond.3.i, %for.cond.2.i, %for.cond.1.i, %for.cond.i, %entry, %_ZeqRK4GUIDS1_.exit, %if.then
+  %retval.0 = phi i32 [ 0, %if.then ], [ -2147467262, %_ZeqRK4GUIDS1_.exit ], [ -2147467262, %entry ], [ -2147467262, %for.cond.i ], [ -2147467262, %for.cond.1.i ], [ -2147467262, %for.cond.2.i ], [ -2147467262, %for.cond.3.i ], [ -2147467262, %for.cond.4.i ], [ -2147467262, %for.cond.5.i ], [ -2147467262, %for.cond.6.i ], [ -2147467262, %for.cond.7.i ], [ -2147467262, %for.cond.8.i ], [ -2147467262, %for.cond.9.i ], [ -2147467262, %for.cond.10.i ], [ -2147467262, %for.cond.11.i ], [ -2147467262, %for.cond.12.i ], [ -2147467262, %for.cond.13.i ]
+  ret i32 %retval.0
 }
 
 ; Function Attrs: mustprogress nounwind uwtable
-define linkonce_odr dso_local noundef i32 @_ZN20CCrossThreadProgress6AddRefEv(ptr noundef nonnull align 8 dereferenceable(248) %0) unnamed_addr #1 comdat align 2 {
-  %2 = getelementptr inbounds i8, ptr %0, i64 8
-  %3 = load i32, ptr %2, align 8, !tbaa !23
-  %4 = add i32 %3, 1
-  store i32 %4, ptr %2, align 8, !tbaa !23
-  ret i32 %4
+define linkonce_odr dso_local noundef i32 @_ZN20CCrossThreadProgress6AddRefEv(ptr noundef nonnull align 8 dereferenceable(248) %this) unnamed_addr #1 comdat align 2 {
+entry:
+  %add.ptr = getelementptr inbounds i8, ptr %this, i64 8
+  %0 = load i32, ptr %add.ptr, align 8, !tbaa !23
+  %inc = add i32 %0, 1
+  store i32 %inc, ptr %add.ptr, align 8, !tbaa !23
+  ret i32 %inc
 }
 
 ; Function Attrs: mustprogress nounwind uwtable
-define linkonce_odr dso_local noundef i32 @_ZN20CCrossThreadProgress7ReleaseEv(ptr noundef nonnull align 8 dereferenceable(248) %0) unnamed_addr #1 comdat align 2 {
-  %2 = getelementptr inbounds i8, ptr %0, i64 8
-  %3 = load i32, ptr %2, align 8, !tbaa !23
-  %4 = add i32 %3, -1
-  store i32 %4, ptr %2, align 8, !tbaa !23
-  %5 = icmp eq i32 %4, 0
-  br i1 %5, label %6, label %10
+define linkonce_odr dso_local noundef i32 @_ZN20CCrossThreadProgress7ReleaseEv(ptr noundef nonnull align 8 dereferenceable(248) %this) unnamed_addr #1 comdat align 2 {
+entry:
+  %add.ptr = getelementptr inbounds i8, ptr %this, i64 8
+  %0 = load i32, ptr %add.ptr, align 8, !tbaa !23
+  %dec = add i32 %0, -1
+  store i32 %dec, ptr %add.ptr, align 8, !tbaa !23
+  %cmp.not = icmp eq i32 %dec, 0
+  br i1 %cmp.not, label %delete.notnull, label %return
 
-6:                                                ; preds = %1
-  %7 = load ptr, ptr %0, align 8, !tbaa !21
-  %8 = getelementptr inbounds ptr, ptr %7, i64 4
-  %9 = load ptr, ptr %8, align 8
-  tail call void %9(ptr noundef nonnull align 8 dereferenceable(248) %0) #6
-  br label %10
+delete.notnull:                                   ; preds = %entry
+  %vtable = load ptr, ptr %this, align 8, !tbaa !21
+  %vfn = getelementptr inbounds ptr, ptr %vtable, i64 4
+  %1 = load ptr, ptr %vfn, align 8
+  tail call void %1(ptr noundef nonnull align 8 dereferenceable(248) %this) #6
+  br label %return
 
-10:                                               ; preds = %1, %6
-  ret i32 %4
+return:                                           ; preds = %entry, %delete.notnull
+  ret i32 %dec
 }
 
 ; Function Attrs: inlinehint nounwind uwtable
-define linkonce_odr dso_local void @_ZN20CCrossThreadProgressD2Ev(ptr noundef nonnull align 8 dereferenceable(248) %0) unnamed_addr #2 comdat align 2 personality ptr @__gxx_personality_v0 {
-  store ptr getelementptr inbounds ({ [8 x ptr] }, ptr @_ZTV20CCrossThreadProgress, i64 0, inrange i32 0, i64 2), ptr %0, align 8, !tbaa !21
-  %2 = getelementptr inbounds %class.CCrossThreadProgress, ptr %0, i64 0, i32 6
-  %3 = invoke i32 @Event_Close(ptr noundef nonnull %2)
-          to label %7 unwind label %4
+define linkonce_odr dso_local void @_ZN20CCrossThreadProgressD2Ev(ptr noundef nonnull align 8 dereferenceable(248) %this) unnamed_addr #2 comdat align 2 personality ptr @__gxx_personality_v0 {
+entry:
+  store ptr getelementptr inbounds ({ [8 x ptr] }, ptr @_ZTV20CCrossThreadProgress, i64 0, inrange i32 0, i64 2), ptr %this, align 8, !tbaa !21
+  %WaitEvent = getelementptr inbounds %class.CCrossThreadProgress, ptr %this, i64 0, i32 6
+  %call.i2.i = invoke i32 @Event_Close(ptr noundef nonnull %WaitEvent)
+          to label %_ZN8NWindows16NSynchronization10CBaseEventD2Ev.exit unwind label %terminate.lpad.i
 
-4:                                                ; preds = %1
-  %5 = landingpad { ptr, i32 }
+terminate.lpad.i:                                 ; preds = %entry
+  %0 = landingpad { ptr, i32 }
           catch ptr null
-  %6 = extractvalue { ptr, i32 } %5, 0
-  tail call void @__clang_call_terminate(ptr %6) #7
+  %1 = extractvalue { ptr, i32 } %0, 0
+  tail call void @__clang_call_terminate(ptr %1) #7
   unreachable
 
-7:                                                ; preds = %1
-  %8 = getelementptr inbounds %class.CCrossThreadProgress, ptr %0, i64 0, i32 5
-  %9 = invoke i32 @Event_Close(ptr noundef nonnull %8)
-          to label %13 unwind label %10
+_ZN8NWindows16NSynchronization10CBaseEventD2Ev.exit: ; preds = %entry
+  %ProgressEvent = getelementptr inbounds %class.CCrossThreadProgress, ptr %this, i64 0, i32 5
+  %call.i2.i2 = invoke i32 @Event_Close(ptr noundef nonnull %ProgressEvent)
+          to label %_ZN8NWindows16NSynchronization10CBaseEventD2Ev.exit4 unwind label %terminate.lpad.i3
 
-10:                                               ; preds = %7
-  %11 = landingpad { ptr, i32 }
+terminate.lpad.i3:                                ; preds = %_ZN8NWindows16NSynchronization10CBaseEventD2Ev.exit
+  %2 = landingpad { ptr, i32 }
           catch ptr null
-  %12 = extractvalue { ptr, i32 } %11, 0
-  tail call void @__clang_call_terminate(ptr %12) #7
+  %3 = extractvalue { ptr, i32 } %2, 0
+  tail call void @__clang_call_terminate(ptr %3) #7
   unreachable
 
-13:                                               ; preds = %7
+_ZN8NWindows16NSynchronization10CBaseEventD2Ev.exit4: ; preds = %_ZN8NWindows16NSynchronization10CBaseEventD2Ev.exit
   ret void
 }
 
 ; Function Attrs: inlinehint nounwind uwtable
-define linkonce_odr dso_local void @_ZN20CCrossThreadProgressD0Ev(ptr noundef nonnull align 8 dereferenceable(248) %0) unnamed_addr #2 comdat align 2 personality ptr @__gxx_personality_v0 {
-  store ptr getelementptr inbounds ({ [8 x ptr] }, ptr @_ZTV20CCrossThreadProgress, i64 0, inrange i32 0, i64 2), ptr %0, align 8, !tbaa !21
-  %2 = getelementptr inbounds %class.CCrossThreadProgress, ptr %0, i64 0, i32 6
-  %3 = invoke i32 @Event_Close(ptr noundef nonnull %2)
-          to label %7 unwind label %4
+define linkonce_odr dso_local void @_ZN20CCrossThreadProgressD0Ev(ptr noundef nonnull align 8 dereferenceable(248) %this) unnamed_addr #2 comdat align 2 personality ptr @__gxx_personality_v0 {
+entry:
+  store ptr getelementptr inbounds ({ [8 x ptr] }, ptr @_ZTV20CCrossThreadProgress, i64 0, inrange i32 0, i64 2), ptr %this, align 8, !tbaa !21
+  %WaitEvent.i = getelementptr inbounds %class.CCrossThreadProgress, ptr %this, i64 0, i32 6
+  %call.i2.i.i = invoke i32 @Event_Close(ptr noundef nonnull %WaitEvent.i)
+          to label %_ZN8NWindows16NSynchronization10CBaseEventD2Ev.exit.i unwind label %terminate.lpad.i.i
 
-4:                                                ; preds = %1
-  %5 = landingpad { ptr, i32 }
+terminate.lpad.i.i:                               ; preds = %entry
+  %0 = landingpad { ptr, i32 }
           catch ptr null
-  %6 = extractvalue { ptr, i32 } %5, 0
-  tail call void @__clang_call_terminate(ptr %6) #7
+  %1 = extractvalue { ptr, i32 } %0, 0
+  tail call void @__clang_call_terminate(ptr %1) #7
   unreachable
 
-7:                                                ; preds = %1
-  %8 = getelementptr inbounds %class.CCrossThreadProgress, ptr %0, i64 0, i32 5
-  %9 = invoke i32 @Event_Close(ptr noundef nonnull %8)
-          to label %13 unwind label %10
+_ZN8NWindows16NSynchronization10CBaseEventD2Ev.exit.i: ; preds = %entry
+  %ProgressEvent.i = getelementptr inbounds %class.CCrossThreadProgress, ptr %this, i64 0, i32 5
+  %call.i2.i2.i = invoke i32 @Event_Close(ptr noundef nonnull %ProgressEvent.i)
+          to label %_ZN20CCrossThreadProgressD2Ev.exit unwind label %terminate.lpad.i3.i
 
-10:                                               ; preds = %7
-  %11 = landingpad { ptr, i32 }
+terminate.lpad.i3.i:                              ; preds = %_ZN8NWindows16NSynchronization10CBaseEventD2Ev.exit.i
+  %2 = landingpad { ptr, i32 }
           catch ptr null
-  %12 = extractvalue { ptr, i32 } %11, 0
-  tail call void @__clang_call_terminate(ptr %12) #7
+  %3 = extractvalue { ptr, i32 } %2, 0
+  tail call void @__clang_call_terminate(ptr %3) #7
   unreachable
 
-13:                                               ; preds = %7
-  tail call void @_ZdlPv(ptr noundef nonnull %0) #8
+_ZN20CCrossThreadProgressD2Ev.exit:               ; preds = %_ZN8NWindows16NSynchronization10CBaseEventD2Ev.exit.i
+  tail call void @_ZdlPv(ptr noundef nonnull %this) #8
   ret void
 }
 

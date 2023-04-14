@@ -15,25 +15,26 @@ target triple = "x86_64-unknown-linux-gnu"
 @.str.3 = private unnamed_addr constant [60 x i8] c"setsockopt IP_MULTICAST_LOOP failed.  multicast in kernel?\0A\00", align 1
 
 ; Function Attrs: nounwind uwtable
-define dso_local void @initrtp(ptr nocapture noundef %0) local_unnamed_addr #0 {
-  %2 = load i32, ptr %0, align 4
-  %3 = and i32 %2, 65535
-  %4 = or i32 %3, -2146566144
-  store i32 %4, ptr %0, align 4
-  %5 = tail call i32 @rand() #8
-  %6 = and i32 %5, 65535
-  %7 = load i32, ptr %0, align 4
-  %8 = and i32 %7, -65536
-  %9 = or i32 %8, %6
-  store i32 %9, ptr %0, align 4
-  %10 = tail call i32 @rand() #8
-  %11 = getelementptr inbounds %struct.rtpheader, ptr %0, i64 0, i32 1
-  store i32 %10, ptr %11, align 4, !tbaa !5
-  %12 = tail call i32 @rand() #8
-  %13 = getelementptr inbounds %struct.rtpheader, ptr %0, i64 0, i32 2
-  store i32 %12, ptr %13, align 4, !tbaa !11
-  %14 = getelementptr inbounds %struct.rtpheader, ptr %0, i64 0, i32 3
-  store i32 0, ptr %14, align 4, !tbaa !12
+define dso_local void @initrtp(ptr nocapture noundef %foo) local_unnamed_addr #0 {
+entry:
+  %bf.load = load i32, ptr %foo, align 4
+  %bf.clear = and i32 %bf.load, 65535
+  %bf.set20 = or i32 %bf.clear, -2146566144
+  store i32 %bf.set20, ptr %foo, align 4
+  %call = tail call i32 @rand() #8
+  %and = and i32 %call, 65535
+  %bf.load22 = load i32, ptr %foo, align 4
+  %bf.clear23 = and i32 %bf.load22, -65536
+  %bf.set24 = or i32 %bf.clear23, %and
+  store i32 %bf.set24, ptr %foo, align 4
+  %call25 = tail call i32 @rand() #8
+  %timestamp = getelementptr inbounds %struct.rtpheader, ptr %foo, i64 0, i32 1
+  store i32 %call25, ptr %timestamp, align 4, !tbaa !5
+  %call26 = tail call i32 @rand() #8
+  %ssrc = getelementptr inbounds %struct.rtpheader, ptr %foo, i64 0, i32 2
+  store i32 %call26, ptr %ssrc, align 4, !tbaa !11
+  %iAudioHeader = getelementptr inbounds %struct.rtpheader, ptr %foo, i64 0, i32 3
+  store i32 0, ptr %iAudioHeader, align 4, !tbaa !12
   ret void
 }
 
@@ -41,18 +42,19 @@ define dso_local void @initrtp(ptr nocapture noundef %0) local_unnamed_addr #0 {
 declare i32 @rand() local_unnamed_addr #1
 
 ; Function Attrs: nounwind uwtable
-define dso_local i32 @sendrtp(i32 noundef %0, ptr noundef %1, ptr nocapture noundef readonly %2, ptr nocapture noundef readonly %3, i32 noundef %4) local_unnamed_addr #0 {
-  %6 = sext i32 %4 to i64
-  %7 = add nsw i64 %6, 16
-  %8 = alloca i8, i64 %7, align 16
-  %9 = load <4 x i32>, ptr %2, align 4, !tbaa !13
-  %10 = tail call <4 x i32> @llvm.bswap.v4i32(<4 x i32> %9)
-  store <4 x i32> %10, ptr %8, align 16, !tbaa !13
-  %11 = getelementptr inbounds i8, ptr %8, i64 16
-  call void @llvm.memcpy.p0.p0.i64(ptr nonnull align 16 %11, ptr align 1 %3, i64 %6, i1 false)
-  %12 = call i64 @sendto(i32 noundef %0, ptr noundef nonnull %8, i64 noundef %7, i32 noundef 0, ptr noundef %1, i32 noundef 16) #8
-  %13 = trunc i64 %12 to i32
-  ret i32 %13
+define dso_local i32 @sendrtp(i32 noundef %fd, ptr noundef %sSockAddr, ptr nocapture noundef readonly %foo, ptr nocapture noundef readonly %data, i32 noundef %len) local_unnamed_addr #0 {
+entry:
+  %conv = sext i32 %len to i64
+  %add = add nsw i64 %conv, 16
+  %0 = alloca i8, i64 %add, align 16
+  %1 = load <4 x i32>, ptr %foo, align 4, !tbaa !13
+  %2 = tail call <4 x i32> @llvm.bswap.v4i32(<4 x i32> %1)
+  store <4 x i32> %2, ptr %0, align 16, !tbaa !13
+  %add.ptr = getelementptr inbounds i8, ptr %0, i64 16
+  call void @llvm.memcpy.p0.p0.i64(ptr nonnull align 16 %add.ptr, ptr align 1 %data, i64 %conv, i1 false)
+  %call14 = call i64 @sendto(i32 noundef %fd, ptr noundef nonnull %0, i64 noundef %add, i32 noundef 0, ptr noundef %sSockAddr, i32 noundef 16) #8
+  %conv15 = trunc i64 %call14 to i32
+  ret i32 %conv15
 }
 
 ; Function Attrs: mustprogress nocallback nofree nosync nounwind willreturn memory(argmem: readwrite)
@@ -64,77 +66,78 @@ declare i64 @sendto(i32 noundef, ptr noundef, i64 noundef, i32 noundef, ptr noun
 declare void @llvm.lifetime.end.p0(i64 immarg, ptr nocapture) #2
 
 ; Function Attrs: nounwind uwtable
-define dso_local i32 @makesocket(ptr noundef %0, i16 noundef zeroext %1, i32 noundef %2, ptr nocapture noundef writeonly %3) local_unnamed_addr #0 {
-  %5 = alloca i32, align 4
-  %6 = alloca i8, align 1
-  %7 = alloca i8, align 1
-  call void @llvm.lifetime.start.p0(i64 4, ptr nonnull %5) #8
-  store i32 1, ptr %5, align 4, !tbaa !13
-  call void @llvm.lifetime.start.p0(i64 1, ptr nonnull %6) #8
-  %8 = trunc i32 %2 to i8
-  store i8 %8, ptr %6, align 1, !tbaa !14
-  call void @llvm.lifetime.start.p0(i64 1, ptr nonnull %7) #8
-  %9 = tail call i32 @socket(i32 noundef 2, i32 noundef 2, i32 noundef 0) #8
-  %10 = icmp slt i32 %9, 0
-  br i1 %10, label %11, label %14
+define dso_local i32 @makesocket(ptr noundef %szAddr, i16 noundef zeroext %port, i32 noundef %TTL, ptr nocapture noundef writeonly %sSockAddr) local_unnamed_addr #0 {
+entry:
+  %iLoop = alloca i32, align 4
+  %cTtl = alloca i8, align 1
+  %cLoop = alloca i8, align 1
+  call void @llvm.lifetime.start.p0(i64 4, ptr nonnull %iLoop) #8
+  store i32 1, ptr %iLoop, align 4, !tbaa !13
+  call void @llvm.lifetime.start.p0(i64 1, ptr nonnull %cTtl) #8
+  %conv = trunc i32 %TTL to i8
+  store i8 %conv, ptr %cTtl, align 1, !tbaa !14
+  call void @llvm.lifetime.start.p0(i64 1, ptr nonnull %cLoop) #8
+  %call = tail call i32 @socket(i32 noundef 2, i32 noundef 2, i32 noundef 0) #8
+  %cmp = icmp slt i32 %call, 0
+  br i1 %cmp, label %if.then, label %if.end
 
-11:                                               ; preds = %4
-  %12 = load ptr, ptr @stderr, align 8, !tbaa !15
-  %13 = tail call i64 @fwrite(ptr nonnull @.str, i64 17, i64 1, ptr %12) #9
+if.then:                                          ; preds = %entry
+  %0 = load ptr, ptr @stderr, align 8, !tbaa !15
+  %1 = tail call i64 @fwrite(ptr nonnull @.str, i64 17, i64 1, ptr %0) #9
   tail call void @exit(i32 noundef 1) #10
   unreachable
 
-14:                                               ; preds = %4
-  %15 = tail call i32 @inet_addr(ptr noundef %0) #8
-  store i16 2, ptr %3, align 4, !tbaa !17
-  %16 = tail call i16 @llvm.bswap.i16(i16 %1)
-  %17 = getelementptr inbounds %struct.sockaddr_in, ptr %3, i64 0, i32 1
-  store i16 %16, ptr %17, align 2, !tbaa !21
-  %18 = getelementptr inbounds %struct.sockaddr_in, ptr %3, i64 0, i32 2
-  store i32 %15, ptr %18, align 4, !tbaa !22
-  %19 = call i32 @setsockopt(i32 noundef %9, i32 noundef 1, i32 noundef 2, ptr noundef nonnull %5, i32 noundef 4) #8
-  %20 = icmp slt i32 %19, 0
-  br i1 %20, label %21, label %24
+if.end:                                           ; preds = %entry
+  %call3 = tail call i32 @inet_addr(ptr noundef %szAddr) #8
+  store i16 2, ptr %sSockAddr, align 4, !tbaa !17
+  %rev.i = tail call i16 @llvm.bswap.i16(i16 %port)
+  %sin_port6 = getelementptr inbounds %struct.sockaddr_in, ptr %sSockAddr, i64 0, i32 1
+  store i16 %rev.i, ptr %sin_port6, align 2, !tbaa !21
+  %sin_addr = getelementptr inbounds %struct.sockaddr_in, ptr %sSockAddr, i64 0, i32 2
+  store i32 %call3, ptr %sin_addr, align 4, !tbaa !22
+  %call7 = call i32 @setsockopt(i32 noundef %call, i32 noundef 1, i32 noundef 2, ptr noundef nonnull %iLoop, i32 noundef 4) #8
+  %cmp8 = icmp slt i32 %call7, 0
+  br i1 %cmp8, label %if.then10, label %if.end12
 
-21:                                               ; preds = %14
-  %22 = load ptr, ptr @stderr, align 8, !tbaa !15
-  %23 = call i64 @fwrite(ptr nonnull @.str.1, i64 31, i64 1, ptr %22) #9
+if.then10:                                        ; preds = %if.end
+  %2 = load ptr, ptr @stderr, align 8, !tbaa !15
+  %3 = call i64 @fwrite(ptr nonnull @.str.1, i64 31, i64 1, ptr %2) #9
   call void @exit(i32 noundef 1) #10
   unreachable
 
-24:                                               ; preds = %14
-  %25 = and i32 %15, 240
-  %26 = icmp eq i32 %25, 224
-  br i1 %26, label %27, label %39
+if.end12:                                         ; preds = %if.end
+  %4 = and i32 %call3, 240
+  %cmp14 = icmp eq i32 %4, 224
+  br i1 %cmp14, label %if.then16, label %if.end29
 
-27:                                               ; preds = %24
-  %28 = call i32 @setsockopt(i32 noundef %9, i32 noundef 0, i32 noundef 33, ptr noundef nonnull %6, i32 noundef 1) #8
-  %29 = icmp slt i32 %28, 0
-  br i1 %29, label %30, label %33
+if.then16:                                        ; preds = %if.end12
+  %call17 = call i32 @setsockopt(i32 noundef %call, i32 noundef 0, i32 noundef 33, ptr noundef nonnull %cTtl, i32 noundef 1) #8
+  %cmp18 = icmp slt i32 %call17, 0
+  br i1 %cmp18, label %if.then20, label %if.end22
 
-30:                                               ; preds = %27
-  %31 = load ptr, ptr @stderr, align 8, !tbaa !15
-  %32 = call i64 @fwrite(ptr nonnull @.str.2, i64 58, i64 1, ptr %31) #9
+if.then20:                                        ; preds = %if.then16
+  %5 = load ptr, ptr @stderr, align 8, !tbaa !15
+  %6 = call i64 @fwrite(ptr nonnull @.str.2, i64 58, i64 1, ptr %5) #9
   call void @exit(i32 noundef 1) #10
   unreachable
 
-33:                                               ; preds = %27
-  store i8 1, ptr %7, align 1, !tbaa !14
-  %34 = call i32 @setsockopt(i32 noundef %9, i32 noundef 0, i32 noundef 34, ptr noundef nonnull %7, i32 noundef 1) #8
-  %35 = icmp slt i32 %34, 0
-  br i1 %35, label %36, label %39
+if.end22:                                         ; preds = %if.then16
+  store i8 1, ptr %cLoop, align 1, !tbaa !14
+  %call23 = call i32 @setsockopt(i32 noundef %call, i32 noundef 0, i32 noundef 34, ptr noundef nonnull %cLoop, i32 noundef 1) #8
+  %cmp24 = icmp slt i32 %call23, 0
+  br i1 %cmp24, label %if.then26, label %if.end29
 
-36:                                               ; preds = %33
-  %37 = load ptr, ptr @stderr, align 8, !tbaa !15
-  %38 = call i64 @fwrite(ptr nonnull @.str.3, i64 59, i64 1, ptr %37) #9
+if.then26:                                        ; preds = %if.end22
+  %7 = load ptr, ptr @stderr, align 8, !tbaa !15
+  %8 = call i64 @fwrite(ptr nonnull @.str.3, i64 59, i64 1, ptr %7) #9
   call void @exit(i32 noundef 1) #10
   unreachable
 
-39:                                               ; preds = %33, %24
-  call void @llvm.lifetime.end.p0(i64 1, ptr nonnull %7) #8
-  call void @llvm.lifetime.end.p0(i64 1, ptr nonnull %6) #8
-  call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %5) #8
-  ret i32 %9
+if.end29:                                         ; preds = %if.end22, %if.end12
+  call void @llvm.lifetime.end.p0(i64 1, ptr nonnull %cLoop) #8
+  call void @llvm.lifetime.end.p0(i64 1, ptr nonnull %cTtl) #8
+  call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %iLoop) #8
+  ret i32 %call
 }
 
 ; Function Attrs: nounwind
@@ -149,14 +152,14 @@ declare i32 @inet_addr(ptr noundef) local_unnamed_addr #1
 ; Function Attrs: nounwind
 declare i32 @setsockopt(i32 noundef, i32 noundef, i32 noundef, ptr noundef, i32 noundef) local_unnamed_addr #1
 
-; Function Attrs: nocallback nofree nounwind willreturn memory(argmem: readwrite)
-declare void @llvm.memcpy.p0.p0.i64(ptr noalias nocapture writeonly, ptr noalias nocapture readonly, i64, i1 immarg) #5
+; Function Attrs: nofree nounwind
+declare noundef i64 @fwrite(ptr nocapture noundef, i64 noundef, i64 noundef, ptr nocapture noundef) local_unnamed_addr #5
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
 declare i16 @llvm.bswap.i16(i16) #6
 
-; Function Attrs: nofree nounwind
-declare noundef i64 @fwrite(ptr nocapture noundef, i64 noundef, i64 noundef, ptr nocapture noundef) local_unnamed_addr #7
+; Function Attrs: nocallback nofree nounwind willreturn memory(argmem: readwrite)
+declare void @llvm.memcpy.p0.p0.i64(ptr noalias nocapture writeonly, ptr noalias nocapture readonly, i64, i1 immarg) #7
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
 declare <4 x i32> @llvm.bswap.v4i32(<4 x i32>) #6
@@ -166,9 +169,9 @@ attributes #1 = { nounwind "no-trapping-math"="true" "stack-protector-buffer-siz
 attributes #2 = { mustprogress nocallback nofree nosync nounwind willreturn memory(argmem: readwrite) }
 attributes #3 = { "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #4 = { noreturn nounwind "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
-attributes #5 = { nocallback nofree nounwind willreturn memory(argmem: readwrite) }
+attributes #5 = { nofree nounwind }
 attributes #6 = { nocallback nofree nosync nounwind speculatable willreturn memory(none) }
-attributes #7 = { nofree nounwind }
+attributes #7 = { nocallback nofree nounwind willreturn memory(argmem: readwrite) }
 attributes #8 = { nounwind }
 attributes #9 = { cold }
 attributes #10 = { noreturn nounwind }

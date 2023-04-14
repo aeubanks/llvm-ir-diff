@@ -15,47 +15,49 @@ target triple = "x86_64-unknown-linux-gnu"
 
 ; Function Attrs: nounwind uwtable
 define dso_local ptr @newStrTable() local_unnamed_addr #0 {
-  %1 = tail call ptr @zalloc(i32 noundef 8) #7
-  ret ptr %1
+entry:
+  %call = tail call ptr @zalloc(i32 noundef 8) #7
+  ret ptr %call
 }
 
 declare ptr @zalloc(i32 noundef) local_unnamed_addr #1
 
 ; Function Attrs: nofree nounwind uwtable
-define dso_local void @dumpStrTable(ptr nocapture noundef readonly %0) local_unnamed_addr #2 {
-  %2 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str)
-  %3 = load ptr, ptr %0, align 8, !tbaa !5
-  %4 = icmp eq ptr %3, null
-  br i1 %4, label %25, label %5
+define dso_local void @dumpStrTable(ptr nocapture noundef readonly %t) local_unnamed_addr #2 {
+entry:
+  %puts = tail call i32 @puts(ptr nonnull dereferenceable(1) @str)
+  %e.021 = load ptr, ptr %t, align 8, !tbaa !5
+  %tobool.not22 = icmp eq ptr %e.021, null
+  br i1 %tobool.not22, label %for.end10, label %for.body
 
-5:                                                ; preds = %1, %20
-  %6 = phi ptr [ %23, %20 ], [ %3, %1 ]
-  %7 = load ptr, ptr %6, align 8, !tbaa !9
-  %8 = load ptr, ptr %7, align 8, !tbaa !11
-  %9 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.1, ptr noundef %8)
-  %10 = getelementptr inbounds %struct.strTableElement, ptr %7, i64 0, i32 1
-  %11 = load ptr, ptr %10, align 8, !tbaa !5
-  %12 = icmp eq ptr %11, null
-  br i1 %12, label %20, label %13
+for.body:                                         ; preds = %entry, %for.end
+  %e.023 = phi ptr [ %e.0, %for.end ], [ %e.021, %entry ]
+  %0 = load ptr, ptr %e.023, align 8, !tbaa !9
+  %1 = load ptr, ptr %0, align 8, !tbaa !11
+  %call1 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.1, ptr noundef %1)
+  %erulenos = getelementptr inbounds %struct.strTableElement, ptr %0, i64 0, i32 1
+  %r.018 = load ptr, ptr %erulenos, align 8, !tbaa !5
+  %tobool3.not19 = icmp eq ptr %r.018, null
+  br i1 %tobool3.not19, label %for.end, label %for.body4
 
-13:                                               ; preds = %5, %13
-  %14 = phi ptr [ %18, %13 ], [ %11, %5 ]
-  %15 = load i32, ptr %14, align 8, !tbaa !13
-  %16 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.2, i32 noundef %15)
-  %17 = getelementptr inbounds %struct.intlist, ptr %14, i64 0, i32 1
-  %18 = load ptr, ptr %17, align 8, !tbaa !5
-  %19 = icmp eq ptr %18, null
-  br i1 %19, label %20, label %13
+for.body4:                                        ; preds = %for.body, %for.body4
+  %r.020 = phi ptr [ %r.0, %for.body4 ], [ %r.018, %for.body ]
+  %2 = load i32, ptr %r.020, align 8, !tbaa !13
+  %call6 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.2, i32 noundef %2)
+  %next = getelementptr inbounds %struct.intlist, ptr %r.020, i64 0, i32 1
+  %r.0 = load ptr, ptr %next, align 8, !tbaa !5
+  %tobool3.not = icmp eq ptr %r.0, null
+  br i1 %tobool3.not, label %for.end, label %for.body4
 
-20:                                               ; preds = %13, %5
-  %21 = tail call i32 @putchar(i32 10)
-  %22 = getelementptr inbounds %struct.list, ptr %6, i64 0, i32 1
-  %23 = load ptr, ptr %22, align 8, !tbaa !5
-  %24 = icmp eq ptr %23, null
-  br i1 %24, label %25, label %5
+for.end:                                          ; preds = %for.body4, %for.body
+  %putchar = tail call i32 @putchar(i32 10)
+  %next9 = getelementptr inbounds %struct.list, ptr %e.023, i64 0, i32 1
+  %e.0 = load ptr, ptr %next9, align 8, !tbaa !5
+  %tobool.not = icmp eq ptr %e.0, null
+  br i1 %tobool.not, label %for.end10, label %for.body
 
-25:                                               ; preds = %20, %1
-  %26 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.5)
+for.end10:                                        ; preds = %for.end, %entry
+  %puts17 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.5)
   ret void
 }
 
@@ -63,53 +65,54 @@ define dso_local void @dumpStrTable(ptr nocapture noundef readonly %0) local_unn
 declare noundef i32 @printf(ptr nocapture noundef readonly, ...) local_unnamed_addr #3
 
 ; Function Attrs: nounwind uwtable
-define dso_local ptr @addString(ptr nocapture noundef %0, ptr nocapture noundef readonly %1, i32 noundef %2, ptr nocapture noundef writeonly %3) local_unnamed_addr #0 {
-  %5 = load ptr, ptr %0, align 8, !tbaa !5
-  %6 = icmp eq ptr %5, null
-  br i1 %6, label %21, label %11
+define dso_local ptr @addString(ptr nocapture noundef %t, ptr nocapture noundef readonly %s, i32 noundef %eruleno, ptr nocapture noundef writeonly %new) local_unnamed_addr #0 {
+entry:
+  %l.033 = load ptr, ptr %t, align 8, !tbaa !5
+  %tobool.not34 = icmp eq ptr %l.033, null
+  br i1 %tobool.not34, label %for.end, label %for.body
 
-7:                                                ; preds = %11
-  %8 = getelementptr inbounds %struct.list, ptr %12, i64 0, i32 1
-  %9 = load ptr, ptr %8, align 8, !tbaa !5
-  %10 = icmp eq ptr %9, null
-  br i1 %10, label %21, label %11
+for.cond:                                         ; preds = %for.body
+  %next = getelementptr inbounds %struct.list, ptr %l.035, i64 0, i32 1
+  %l.0 = load ptr, ptr %next, align 8, !tbaa !5
+  %tobool.not = icmp eq ptr %l.0, null
+  br i1 %tobool.not, label %for.end, label %for.body
 
-11:                                               ; preds = %4, %7
-  %12 = phi ptr [ %9, %7 ], [ %5, %4 ]
-  %13 = load ptr, ptr %12, align 8, !tbaa !9
-  %14 = load ptr, ptr %13, align 8, !tbaa !11
-  %15 = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %1, ptr noundef nonnull dereferenceable(1) %14) #8
-  %16 = icmp eq i32 %15, 0
-  br i1 %16, label %17, label %7
+for.body:                                         ; preds = %entry, %for.cond
+  %l.035 = phi ptr [ %l.0, %for.cond ], [ %l.033, %entry ]
+  %0 = load ptr, ptr %l.035, align 8, !tbaa !9
+  %1 = load ptr, ptr %0, align 8, !tbaa !11
+  %call = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %s, ptr noundef nonnull dereferenceable(1) %1) #8
+  %tobool1.not.not = icmp eq i32 %call, 0
+  br i1 %tobool1.not.not, label %cleanup.thread, label %for.cond
 
-17:                                               ; preds = %11
-  %18 = getelementptr inbounds %struct.strTableElement, ptr %13, i64 0, i32 1
-  %19 = load ptr, ptr %18, align 8, !tbaa !16
-  %20 = tail call ptr @newIntList(i32 noundef %2, ptr noundef %19) #7
-  store ptr %20, ptr %18, align 8, !tbaa !16
-  br label %32
+cleanup.thread:                                   ; preds = %for.body
+  %erulenos = getelementptr inbounds %struct.strTableElement, ptr %0, i64 0, i32 1
+  %2 = load ptr, ptr %erulenos, align 8, !tbaa !16
+  %call2 = tail call ptr @newIntList(i32 noundef %eruleno, ptr noundef %2) #7
+  store ptr %call2, ptr %erulenos, align 8, !tbaa !16
+  br label %cleanup15
 
-21:                                               ; preds = %7, %4
-  %22 = tail call ptr @zalloc(i32 noundef 24) #7
-  %23 = tail call ptr @newIntList(i32 noundef %2, ptr noundef null) #7
-  %24 = getelementptr inbounds %struct.strTableElement, ptr %22, i64 0, i32 1
-  store ptr %23, ptr %24, align 8, !tbaa !16
-  %25 = tail call i64 @strlen(ptr noundef nonnull dereferenceable(1) %1) #8
-  %26 = trunc i64 %25 to i32
-  %27 = add i32 %26, 1
-  %28 = tail call ptr @zalloc(i32 noundef %27) #7
-  store ptr %28, ptr %22, align 8, !tbaa !11
-  %29 = tail call ptr @strcpy(ptr noundef nonnull dereferenceable(1) %28, ptr noundef nonnull dereferenceable(1) %1) #7
-  %30 = load ptr, ptr %0, align 8, !tbaa !17
-  %31 = tail call ptr @newList(ptr noundef nonnull %22, ptr noundef %30) #7
-  store ptr %31, ptr %0, align 8, !tbaa !17
-  br label %32
+for.end:                                          ; preds = %for.cond, %entry
+  %call.i = tail call ptr @zalloc(i32 noundef 24) #7
+  %call5 = tail call ptr @newIntList(i32 noundef %eruleno, ptr noundef null) #7
+  %erulenos6 = getelementptr inbounds %struct.strTableElement, ptr %call.i, i64 0, i32 1
+  store ptr %call5, ptr %erulenos6, align 8, !tbaa !16
+  %call7 = tail call i64 @strlen(ptr noundef nonnull dereferenceable(1) %s) #8
+  %3 = trunc i64 %call7 to i32
+  %conv = add i32 %3, 1
+  %call8 = tail call ptr @zalloc(i32 noundef %conv) #7
+  store ptr %call8, ptr %call.i, align 8, !tbaa !11
+  %call11 = tail call ptr @strcpy(ptr noundef nonnull dereferenceable(1) %call8, ptr noundef nonnull dereferenceable(1) %s) #7
+  %4 = load ptr, ptr %t, align 8, !tbaa !17
+  %call13 = tail call ptr @newList(ptr noundef nonnull %call.i, ptr noundef %4) #7
+  store ptr %call13, ptr %t, align 8, !tbaa !17
+  br label %cleanup15
 
-32:                                               ; preds = %17, %21
-  %33 = phi i32 [ 1, %21 ], [ 0, %17 ]
-  %34 = phi ptr [ %22, %21 ], [ %13, %17 ]
-  store i32 %33, ptr %3, align 4, !tbaa !19
-  ret ptr %34
+cleanup15:                                        ; preds = %cleanup.thread, %for.end
+  %storemerge = phi i32 [ 0, %cleanup.thread ], [ 1, %for.end ]
+  %retval.2 = phi ptr [ %0, %cleanup.thread ], [ %call.i, %for.end ]
+  store i32 %storemerge, ptr %new, align 4, !tbaa !19
+  ret ptr %retval.2
 }
 
 ; Function Attrs: mustprogress nofree nounwind willreturn memory(argmem: read)

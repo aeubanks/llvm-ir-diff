@@ -34,158 +34,161 @@ $__clang_call_terminate = comdat any
 @.str = private unnamed_addr constant [7 x i8] c"SPHERE\00", align 1
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(none) uwtable
-define dso_local { <2 x float>, <2 x float> } @_ZNK13btSphereShape37localGetSupportingVertexWithoutMarginERK9btVector3(ptr nocapture nonnull readnone align 8 %0, ptr nocapture nonnull readnone align 4 %1) unnamed_addr #0 align 2 {
+define dso_local { <2 x float>, <2 x float> } @_ZNK13btSphereShape37localGetSupportingVertexWithoutMarginERK9btVector3(ptr nocapture nonnull readnone align 8 %this, ptr nocapture nonnull readnone align 4 %vec) unnamed_addr #0 align 2 {
+entry:
   ret { <2 x float>, <2 x float> } zeroinitializer
 }
 
 ; Function Attrs: mustprogress nofree nosync nounwind willreturn memory(argmem: write) uwtable
-define dso_local void @_ZNK13btSphereShape49batchedUnitVectorGetSupportingVertexWithoutMarginEPK9btVector3PS0_i(ptr nocapture nonnull readnone align 8 %0, ptr nocapture readnone %1, ptr nocapture noundef writeonly %2, i32 noundef %3) unnamed_addr #1 align 2 {
-  %5 = icmp sgt i32 %3, 0
-  br i1 %5, label %6, label %9
+define dso_local void @_ZNK13btSphereShape49batchedUnitVectorGetSupportingVertexWithoutMarginEPK9btVector3PS0_i(ptr nocapture nonnull readnone align 8 %this, ptr nocapture readnone %vectors, ptr nocapture noundef writeonly %supportVerticesOut, i32 noundef %numVectors) unnamed_addr #1 align 2 {
+entry:
+  %cmp6 = icmp sgt i32 %numVectors, 0
+  br i1 %cmp6, label %for.body.preheader, label %for.cond.cleanup
 
-6:                                                ; preds = %4
-  %7 = zext i32 %3 to i64
-  %8 = shl nuw nsw i64 %7, 4
-  tail call void @llvm.memset.p0.i64(ptr align 4 %2, i8 0, i64 %8, i1 false), !tbaa !5
-  br label %9
+for.body.preheader:                               ; preds = %entry
+  %0 = zext i32 %numVectors to i64
+  %1 = shl nuw nsw i64 %0, 4
+  tail call void @llvm.memset.p0.i64(ptr align 4 %supportVerticesOut, i8 0, i64 %1, i1 false), !tbaa !5
+  br label %for.cond.cleanup
 
-9:                                                ; preds = %6, %4
+for.cond.cleanup:                                 ; preds = %for.body.preheader, %entry
   ret void
 }
 
 ; Function Attrs: uwtable
-define dso_local { <2 x float>, <2 x float> } @_ZNK13btSphereShape24localGetSupportingVertexERK9btVector3(ptr noundef nonnull align 8 dereferenceable(64) %0, ptr noundef nonnull align 4 dereferenceable(16) %1) unnamed_addr #2 align 2 {
-  %3 = load ptr, ptr %0, align 8, !tbaa !9
-  %4 = getelementptr inbounds ptr, ptr %3, i64 13
-  %5 = load ptr, ptr %4, align 8
-  %6 = tail call { <2 x float>, <2 x float> } %5(ptr noundef nonnull align 8 dereferenceable(64) %0, ptr noundef nonnull align 4 dereferenceable(16) %1)
-  %7 = extractvalue { <2 x float>, <2 x float> } %6, 0
-  %8 = extractvalue { <2 x float>, <2 x float> } %6, 1
-  %9 = load float, ptr %1, align 4, !tbaa.struct !11
-  %10 = getelementptr inbounds i8, ptr %1, i64 4
-  %11 = load ptr, ptr %0, align 8, !tbaa !9
-  %12 = getelementptr inbounds ptr, ptr %11, i64 11
-  %13 = load ptr, ptr %12, align 8
-  %14 = extractelement <2 x float> %7, i64 0
-  %15 = load <2 x float>, ptr %10, align 4
-  %16 = fmul <2 x float> %15, %15
-  %17 = extractelement <2 x float> %16, i64 0
-  %18 = tail call float @llvm.fmuladd.f32(float %9, float %9, float %17)
-  %19 = extractelement <2 x float> %15, i64 1
-  %20 = tail call float @llvm.fmuladd.f32(float %19, float %19, float %18)
-  %21 = fcmp olt float %20, 0x3D10000000000000
-  %22 = select i1 %21, float -1.000000e+00, float %9
-  %23 = insertelement <2 x i1> poison, i1 %21, i64 0
-  %24 = shufflevector <2 x i1> %23, <2 x i1> poison, <2 x i32> zeroinitializer
-  %25 = select <2 x i1> %24, <2 x float> <float -1.000000e+00, float -1.000000e+00>, <2 x float> %15
-  %26 = fmul <2 x float> %25, %25
-  %27 = extractelement <2 x float> %26, i64 0
-  %28 = tail call float @llvm.fmuladd.f32(float %22, float %22, float %27)
-  %29 = extractelement <2 x float> %25, i64 1
-  %30 = tail call float @llvm.fmuladd.f32(float %29, float %29, float %28)
-  %31 = tail call float @llvm.sqrt.f32(float %30)
-  %32 = fdiv float 1.000000e+00, %31
-  %33 = fmul float %22, %32
-  %34 = insertelement <2 x float> poison, float %32, i64 0
-  %35 = shufflevector <2 x float> %34, <2 x float> poison, <2 x i32> zeroinitializer
-  %36 = fmul <2 x float> %25, %35
-  %37 = tail call noundef float %13(ptr noundef nonnull align 8 dereferenceable(64) %0)
-  %38 = fmul float %37, %33
-  %39 = insertelement <2 x float> poison, float %37, i64 0
-  %40 = shufflevector <2 x float> %39, <2 x float> poison, <2 x i32> zeroinitializer
-  %41 = fmul <2 x float> %40, %36
-  %42 = fadd float %14, %38
-  %43 = insertelement <2 x float> poison, float %42, i64 0
-  %44 = shufflevector <2 x float> %7, <2 x float> %8, <2 x i32> <i32 1, i32 2>
-  %45 = fadd <2 x float> %44, %41
-  %46 = shufflevector <2 x float> %43, <2 x float> %45, <2 x i32> <i32 0, i32 2>
-  %47 = shufflevector <2 x float> %8, <2 x float> %45, <2 x i32> <i32 3, i32 1>
-  %48 = insertvalue { <2 x float>, <2 x float> } poison, <2 x float> %46, 0
-  %49 = insertvalue { <2 x float>, <2 x float> } %48, <2 x float> %47, 1
-  ret { <2 x float>, <2 x float> } %49
+define dso_local { <2 x float>, <2 x float> } @_ZNK13btSphereShape24localGetSupportingVertexERK9btVector3(ptr noundef nonnull align 8 dereferenceable(64) %this, ptr noundef nonnull align 4 dereferenceable(16) %vec) unnamed_addr #2 align 2 {
+entry:
+  %vtable = load ptr, ptr %this, align 8, !tbaa !9
+  %vfn = getelementptr inbounds ptr, ptr %vtable, i64 13
+  %0 = load ptr, ptr %vfn, align 8
+  %call = tail call { <2 x float>, <2 x float> } %0(ptr noundef nonnull align 8 dereferenceable(64) %this, ptr noundef nonnull align 4 dereferenceable(16) %vec)
+  %1 = extractvalue { <2 x float>, <2 x float> } %call, 0
+  %2 = extractvalue { <2 x float>, <2 x float> } %call, 1
+  %vecnorm.sroa.13.0.vec.sroa_idx = getelementptr inbounds i8, ptr %vec, i64 8
+  %vecnorm.sroa.13.0.copyload = load float, ptr %vecnorm.sroa.13.0.vec.sroa_idx, align 4, !tbaa.struct !11
+  %vtable9 = load ptr, ptr %this, align 8, !tbaa !9
+  %vfn10 = getelementptr inbounds ptr, ptr %vtable9, i64 11
+  %3 = load ptr, ptr %vfn10, align 8
+  %4 = load <2 x float>, ptr %vec, align 4
+  %5 = fmul <2 x float> %4, %4
+  %mul8.i.i = extractelement <2 x float> %5, i64 1
+  %6 = extractelement <2 x float> %4, i64 0
+  %7 = tail call float @llvm.fmuladd.f32(float %6, float %6, float %mul8.i.i)
+  %8 = tail call float @llvm.fmuladd.f32(float %vecnorm.sroa.13.0.copyload, float %vecnorm.sroa.13.0.copyload, float %7)
+  %cmp = fcmp olt float %8, 0x3D10000000000000
+  %9 = insertelement <2 x i1> poison, i1 %cmp, i64 0
+  %10 = shufflevector <2 x i1> %9, <2 x i1> poison, <2 x i32> zeroinitializer
+  %11 = select <2 x i1> %10, <2 x float> <float -1.000000e+00, float -1.000000e+00>, <2 x float> %4
+  %vecnorm.sroa.13.0 = select i1 %cmp, float -1.000000e+00, float %vecnorm.sroa.13.0.copyload
+  %12 = fmul <2 x float> %11, %11
+  %mul8.i.i.i.i = extractelement <2 x float> %12, i64 1
+  %13 = extractelement <2 x float> %11, i64 0
+  %14 = tail call float @llvm.fmuladd.f32(float %13, float %13, float %mul8.i.i.i.i)
+  %15 = tail call float @llvm.fmuladd.f32(float %vecnorm.sroa.13.0, float %vecnorm.sroa.13.0, float %14)
+  %sqrt.i.i = tail call float @llvm.sqrt.f32(float %15)
+  %div.i.i = fdiv float 1.000000e+00, %sqrt.i.i
+  %16 = insertelement <2 x float> poison, float %div.i.i, i64 0
+  %17 = shufflevector <2 x float> %16, <2 x float> poison, <2 x i32> zeroinitializer
+  %18 = fmul <2 x float> %11, %17
+  %mul7.i.i.i = fmul float %vecnorm.sroa.13.0, %div.i.i
+  %call11 = tail call noundef float %3(ptr noundef nonnull align 8 dereferenceable(64) %this)
+  %19 = insertelement <2 x float> poison, float %call11, i64 0
+  %20 = shufflevector <2 x float> %19, <2 x float> poison, <2 x i32> zeroinitializer
+  %21 = fmul <2 x float> %20, %18
+  %mul8.i.i17 = fmul float %call11, %mul7.i.i.i
+  %22 = fadd <2 x float> %1, %21
+  %retval.sroa.6.8.vec.extract = extractelement <2 x float> %2, i64 0
+  %add13.i = fadd float %retval.sroa.6.8.vec.extract, %mul8.i.i17
+  %retval.sroa.6.8.vec.insert = insertelement <2 x float> %2, float %add13.i, i64 0
+  %.fca.0.insert = insertvalue { <2 x float>, <2 x float> } poison, <2 x float> %22, 0
+  %.fca.1.insert = insertvalue { <2 x float>, <2 x float> } %.fca.0.insert, <2 x float> %retval.sroa.6.8.vec.insert, 1
+  ret { <2 x float>, <2 x float> } %.fca.1.insert
 }
 
 ; Function Attrs: uwtable
-define dso_local void @_ZNK13btSphereShape7getAabbERK11btTransformR9btVector3S4_(ptr noundef nonnull align 8 dereferenceable(64) %0, ptr nocapture noundef nonnull readonly align 4 dereferenceable(64) %1, ptr nocapture noundef nonnull writeonly align 4 dereferenceable(16) %2, ptr nocapture noundef nonnull writeonly align 4 dereferenceable(16) %3) unnamed_addr #2 align 2 {
-  %5 = getelementptr inbounds %class.btTransform, ptr %1, i64 0, i32 1
-  %6 = load ptr, ptr %0, align 8, !tbaa !9
-  %7 = getelementptr inbounds ptr, ptr %6, i64 11
-  %8 = load ptr, ptr %7, align 8
-  %9 = tail call noundef float %8(ptr noundef nonnull align 8 dereferenceable(64) %0)
-  %10 = load ptr, ptr %0, align 8, !tbaa !9
-  %11 = getelementptr inbounds ptr, ptr %10, i64 11
-  %12 = load ptr, ptr %11, align 8
-  %13 = tail call noundef float %12(ptr noundef nonnull align 8 dereferenceable(64) %0)
-  %14 = load ptr, ptr %0, align 8, !tbaa !9
-  %15 = getelementptr inbounds ptr, ptr %14, i64 11
-  %16 = load ptr, ptr %15, align 8
-  %17 = tail call noundef float %16(ptr noundef nonnull align 8 dereferenceable(64) %0)
-  %18 = load <2 x float>, ptr %5, align 4, !tbaa !5
-  %19 = insertelement <2 x float> poison, float %9, i64 0
-  %20 = insertelement <2 x float> %19, float %13, i64 1
-  %21 = fsub <2 x float> %18, %20
-  %22 = getelementptr inbounds %class.btTransform, ptr %1, i64 0, i32 1, i32 0, i64 2
-  %23 = load float, ptr %22, align 4, !tbaa !5
-  %24 = fsub float %23, %17
-  %25 = insertelement <2 x float> <float poison, float 0.000000e+00>, float %24, i64 0
-  store <2 x float> %21, ptr %2, align 4, !tbaa.struct !11
-  %26 = getelementptr inbounds i8, ptr %2, i64 8
-  store <2 x float> %25, ptr %26, align 4, !tbaa.struct !13
-  %27 = load <2 x float>, ptr %5, align 4, !tbaa !5
-  %28 = fadd <2 x float> %20, %27
-  %29 = load float, ptr %22, align 4, !tbaa !5
-  %30 = fadd float %17, %29
-  %31 = insertelement <2 x float> <float poison, float 0.000000e+00>, float %30, i64 0
-  store <2 x float> %28, ptr %3, align 4, !tbaa.struct !11
-  %32 = getelementptr inbounds i8, ptr %3, i64 8
-  store <2 x float> %31, ptr %32, align 4, !tbaa.struct !13
+define dso_local void @_ZNK13btSphereShape7getAabbERK11btTransformR9btVector3S4_(ptr noundef nonnull align 8 dereferenceable(64) %this, ptr nocapture noundef nonnull readonly align 4 dereferenceable(64) %t, ptr nocapture noundef nonnull writeonly align 4 dereferenceable(16) %aabbMin, ptr nocapture noundef nonnull writeonly align 4 dereferenceable(16) %aabbMax) unnamed_addr #2 align 2 {
+entry:
+  %m_origin.i = getelementptr inbounds %class.btTransform, ptr %t, i64 0, i32 1
+  %vtable = load ptr, ptr %this, align 8, !tbaa !9
+  %vfn = getelementptr inbounds ptr, ptr %vtable, i64 11
+  %0 = load ptr, ptr %vfn, align 8
+  %call2 = tail call noundef float %0(ptr noundef nonnull align 8 dereferenceable(64) %this)
+  %vtable4 = load ptr, ptr %this, align 8, !tbaa !9
+  %vfn5 = getelementptr inbounds ptr, ptr %vtable4, i64 11
+  %1 = load ptr, ptr %vfn5, align 8
+  %call6 = tail call noundef float %1(ptr noundef nonnull align 8 dereferenceable(64) %this)
+  %vtable8 = load ptr, ptr %this, align 8, !tbaa !9
+  %vfn9 = getelementptr inbounds ptr, ptr %vtable8, i64 11
+  %2 = load ptr, ptr %vfn9, align 8
+  %call10 = tail call noundef float %2(ptr noundef nonnull align 8 dereferenceable(64) %this)
+  %3 = load <2 x float>, ptr %m_origin.i, align 4, !tbaa !5
+  %4 = insertelement <2 x float> poison, float %call2, i64 0
+  %5 = insertelement <2 x float> %4, float %call6, i64 1
+  %6 = fsub <2 x float> %3, %5
+  %arrayidx11.i = getelementptr inbounds %class.btTransform, ptr %t, i64 0, i32 1, i32 0, i64 2
+  %7 = load float, ptr %arrayidx11.i, align 4, !tbaa !5
+  %sub14.i = fsub float %7, %call10
+  %retval.sroa.3.12.vec.insert.i = insertelement <2 x float> <float poison, float 0.000000e+00>, float %sub14.i, i64 0
+  store <2 x float> %6, ptr %aabbMin, align 4, !tbaa.struct !13
+  %ref.tmp11.sroa.4.0..sroa_idx = getelementptr inbounds i8, ptr %aabbMin, i64 8
+  store <2 x float> %retval.sroa.3.12.vec.insert.i, ptr %ref.tmp11.sroa.4.0..sroa_idx, align 4, !tbaa.struct !11
+  %8 = load <2 x float>, ptr %m_origin.i, align 4, !tbaa !5
+  %9 = fadd <2 x float> %5, %8
+  %10 = load float, ptr %arrayidx11.i, align 4, !tbaa !5
+  %add14.i = fadd float %call10, %10
+  %retval.sroa.3.12.vec.insert.i25 = insertelement <2 x float> <float poison, float 0.000000e+00>, float %add14.i, i64 0
+  store <2 x float> %9, ptr %aabbMax, align 4, !tbaa.struct !13
+  %ref.tmp13.sroa.4.0..sroa_idx = getelementptr inbounds i8, ptr %aabbMax, i64 8
+  store <2 x float> %retval.sroa.3.12.vec.insert.i25, ptr %ref.tmp13.sroa.4.0..sroa_idx, align 4, !tbaa.struct !11
   ret void
 }
 
 ; Function Attrs: uwtable
-define dso_local void @_ZNK13btSphereShape21calculateLocalInertiaEfR9btVector3(ptr noundef nonnull align 8 dereferenceable(64) %0, float noundef %1, ptr nocapture noundef nonnull writeonly align 4 dereferenceable(16) %2) unnamed_addr #3 align 2 {
-  %4 = fmul float %1, 0x3FD99999A0000000
-  %5 = load ptr, ptr %0, align 8, !tbaa !9
-  %6 = getelementptr inbounds ptr, ptr %5, i64 11
-  %7 = load ptr, ptr %6, align 8
-  %8 = tail call noundef float %7(ptr noundef nonnull align 8 dereferenceable(64) %0)
-  %9 = fmul float %4, %8
-  %10 = load ptr, ptr %0, align 8, !tbaa !9
-  %11 = getelementptr inbounds ptr, ptr %10, i64 11
-  %12 = load ptr, ptr %11, align 8
-  %13 = tail call noundef float %12(ptr noundef nonnull align 8 dereferenceable(64) %0)
-  %14 = fmul float %9, %13
-  %15 = insertelement <4 x float> <float poison, float 0.000000e+00, float poison, float poison>, float %14, i64 0
-  %16 = shufflevector <4 x float> %15, <4 x float> poison, <4 x i32> <i32 0, i32 0, i32 0, i32 1>
-  store <4 x float> %16, ptr %2, align 4, !tbaa !5
+define dso_local void @_ZNK13btSphereShape21calculateLocalInertiaEfR9btVector3(ptr noundef nonnull align 8 dereferenceable(64) %this, float noundef %mass, ptr nocapture noundef nonnull writeonly align 4 dereferenceable(16) %inertia) unnamed_addr #3 align 2 {
+entry:
+  %mul = fmul float %mass, 0x3FD99999A0000000
+  %vtable = load ptr, ptr %this, align 8, !tbaa !9
+  %vfn = getelementptr inbounds ptr, ptr %vtable, i64 11
+  %0 = load ptr, ptr %vfn, align 8
+  %call = tail call noundef float %0(ptr noundef nonnull align 8 dereferenceable(64) %this)
+  %mul2 = fmul float %mul, %call
+  %vtable3 = load ptr, ptr %this, align 8, !tbaa !9
+  %vfn4 = getelementptr inbounds ptr, ptr %vtable3, i64 11
+  %1 = load ptr, ptr %vfn4, align 8
+  %call5 = tail call noundef float %1(ptr noundef nonnull align 8 dereferenceable(64) %this)
+  %mul6 = fmul float %mul2, %call5
+  %2 = insertelement <4 x float> <float poison, float 0.000000e+00, float poison, float poison>, float %mul6, i64 0
+  %3 = shufflevector <4 x float> %2, <4 x float> poison, <4 x i32> <i32 0, i32 0, i32 0, i32 1>
+  store <4 x float> %3, ptr %inertia, align 4, !tbaa !5
   ret void
 }
 
 declare void @_ZN13btConvexShapeD2Ev(ptr noundef nonnull align 8 dereferenceable(24)) unnamed_addr #4
 
 ; Function Attrs: inlinehint uwtable
-define linkonce_odr dso_local void @_ZN13btSphereShapeD0Ev(ptr noundef nonnull align 8 dereferenceable(64) %0) unnamed_addr #5 comdat align 2 personality ptr @__gxx_personality_v0 {
-  invoke void @_ZN13btConvexShapeD2Ev(ptr noundef nonnull align 8 dereferenceable(64) %0)
-          to label %2 unwind label %3
+define linkonce_odr dso_local void @_ZN13btSphereShapeD0Ev(ptr noundef nonnull align 8 dereferenceable(64) %this) unnamed_addr #5 comdat align 2 personality ptr @__gxx_personality_v0 {
+entry:
+  invoke void @_ZN13btConvexShapeD2Ev(ptr noundef nonnull align 8 dereferenceable(64) %this)
+          to label %invoke.cont unwind label %lpad
 
-2:                                                ; preds = %1
-  tail call void @_Z21btAlignedFreeInternalPv(ptr noundef nonnull %0)
+invoke.cont:                                      ; preds = %entry
+  tail call void @_Z21btAlignedFreeInternalPv(ptr noundef nonnull %this)
   ret void
 
-3:                                                ; preds = %1
-  %4 = landingpad { ptr, i32 }
+lpad:                                             ; preds = %entry
+  %0 = landingpad { ptr, i32 }
           cleanup
-  invoke void @_Z21btAlignedFreeInternalPv(ptr noundef nonnull %0)
-          to label %5 unwind label %6
+  invoke void @_Z21btAlignedFreeInternalPv(ptr noundef nonnull %this)
+          to label %eh.resume unwind label %terminate.lpad
 
-5:                                                ; preds = %3
-  resume { ptr, i32 } %4
+eh.resume:                                        ; preds = %lpad
+  resume { ptr, i32 } %0
 
-6:                                                ; preds = %3
-  %7 = landingpad { ptr, i32 }
+terminate.lpad:                                   ; preds = %lpad
+  %1 = landingpad { ptr, i32 }
           catch ptr null
-  %8 = extractvalue { ptr, i32 } %7, 0
-  tail call void @__clang_call_terminate(ptr %8) #11
+  %2 = extractvalue { ptr, i32 } %1, 0
+  tail call void @__clang_call_terminate(ptr %2) #11
   unreachable
 }
 
@@ -198,42 +201,48 @@ declare noundef float @_ZNK16btCollisionShape27getContactBreakingThresholdEv(ptr
 declare void @_ZN21btConvexInternalShape15setLocalScalingERK9btVector3(ptr noundef nonnull align 8 dereferenceable(64), ptr noundef nonnull align 4 dereferenceable(16)) unnamed_addr #4
 
 ; Function Attrs: nounwind uwtable
-define linkonce_odr dso_local noundef nonnull align 4 dereferenceable(16) ptr @_ZNK21btConvexInternalShape15getLocalScalingEv(ptr noundef nonnull align 8 dereferenceable(64) %0) unnamed_addr #6 comdat align 2 {
-  %2 = getelementptr inbounds %class.btConvexInternalShape, ptr %0, i64 0, i32 1
-  ret ptr %2
+define linkonce_odr dso_local noundef nonnull align 4 dereferenceable(16) ptr @_ZNK21btConvexInternalShape15getLocalScalingEv(ptr noundef nonnull align 8 dereferenceable(64) %this) unnamed_addr #6 comdat align 2 {
+entry:
+  %m_localScaling = getelementptr inbounds %class.btConvexInternalShape, ptr %this, i64 0, i32 1
+  ret ptr %m_localScaling
 }
 
 ; Function Attrs: nounwind uwtable
-define linkonce_odr dso_local noundef ptr @_ZNK13btSphereShape7getNameEv(ptr noundef nonnull align 8 dereferenceable(64) %0) unnamed_addr #6 comdat align 2 {
+define linkonce_odr dso_local noundef ptr @_ZNK13btSphereShape7getNameEv(ptr noundef nonnull align 8 dereferenceable(64) %this) unnamed_addr #6 comdat align 2 {
+entry:
   ret ptr @.str
 }
 
 ; Function Attrs: uwtable
-define linkonce_odr dso_local void @_ZN13btSphereShape9setMarginEf(ptr noundef nonnull align 8 dereferenceable(64) %0, float noundef %1) unnamed_addr #3 comdat align 2 {
-  %3 = getelementptr inbounds %class.btConvexInternalShape, ptr %0, i64 0, i32 3
-  store float %1, ptr %3, align 8, !tbaa !14
+define linkonce_odr dso_local void @_ZN13btSphereShape9setMarginEf(ptr noundef nonnull align 8 dereferenceable(64) %this, float noundef %margin) unnamed_addr #3 comdat align 2 {
+entry:
+  %m_collisionMargin.i = getelementptr inbounds %class.btConvexInternalShape, ptr %this, i64 0, i32 3
+  store float %margin, ptr %m_collisionMargin.i, align 8, !tbaa !14
   ret void
 }
 
 ; Function Attrs: uwtable
-define linkonce_odr dso_local noundef float @_ZNK13btSphereShape9getMarginEv(ptr noundef nonnull align 8 dereferenceable(64) %0) unnamed_addr #3 comdat align 2 {
-  %2 = getelementptr inbounds %class.btConvexInternalShape, ptr %0, i64 0, i32 2
-  %3 = load float, ptr %2, align 8, !tbaa !5
-  %4 = getelementptr inbounds %class.btConvexInternalShape, ptr %0, i64 0, i32 1
-  %5 = load float, ptr %4, align 8, !tbaa !5
-  %6 = fmul float %3, %5
-  ret float %6
+define linkonce_odr dso_local noundef float @_ZNK13btSphereShape9getMarginEv(ptr noundef nonnull align 8 dereferenceable(64) %this) unnamed_addr #3 comdat align 2 {
+entry:
+  %m_implicitShapeDimensions.i = getelementptr inbounds %class.btConvexInternalShape, ptr %this, i64 0, i32 2
+  %0 = load float, ptr %m_implicitShapeDimensions.i, align 8, !tbaa !5
+  %m_localScaling.i = getelementptr inbounds %class.btConvexInternalShape, ptr %this, i64 0, i32 1
+  %1 = load float, ptr %m_localScaling.i, align 8, !tbaa !5
+  %mul.i = fmul float %0, %1
+  ret float %mul.i
 }
 
 declare void @_ZNK21btConvexInternalShape11getAabbSlowERK11btTransformR9btVector3S4_(ptr noundef nonnull align 8 dereferenceable(64), ptr noundef nonnull align 4 dereferenceable(64), ptr noundef nonnull align 4 dereferenceable(16), ptr noundef nonnull align 4 dereferenceable(16)) unnamed_addr #4
 
 ; Function Attrs: nounwind uwtable
-define linkonce_odr dso_local noundef i32 @_ZNK21btConvexInternalShape36getNumPreferredPenetrationDirectionsEv(ptr noundef nonnull align 8 dereferenceable(64) %0) unnamed_addr #6 comdat align 2 {
+define linkonce_odr dso_local noundef i32 @_ZNK21btConvexInternalShape36getNumPreferredPenetrationDirectionsEv(ptr noundef nonnull align 8 dereferenceable(64) %this) unnamed_addr #6 comdat align 2 {
+entry:
   ret i32 0
 }
 
 ; Function Attrs: nounwind uwtable
-define linkonce_odr dso_local void @_ZNK21btConvexInternalShape32getPreferredPenetrationDirectionEiR9btVector3(ptr noundef nonnull align 8 dereferenceable(64) %0, i32 noundef %1, ptr noundef nonnull align 4 dereferenceable(16) %2) unnamed_addr #6 comdat align 2 {
+define linkonce_odr dso_local void @_ZNK21btConvexInternalShape32getPreferredPenetrationDirectionEiR9btVector3(ptr noundef nonnull align 8 dereferenceable(64) %this, i32 noundef %index, ptr noundef nonnull align 4 dereferenceable(16) %penetrationVector) unnamed_addr #6 comdat align 2 {
+entry:
   ret void
 }
 
@@ -289,9 +298,9 @@ attributes #12 = { nounwind }
 !8 = !{!"Simple C++ TBAA"}
 !9 = !{!10, !10, i64 0}
 !10 = !{!"vtable pointer", !8, i64 0}
-!11 = !{i64 0, i64 16, !12}
+!11 = !{i64 0, i64 8, !12}
 !12 = !{!7, !7, i64 0}
-!13 = !{i64 0, i64 8, !12}
+!13 = !{i64 0, i64 16, !12}
 !14 = !{!15, !6, i64 56}
 !15 = !{!"_ZTS21btConvexInternalShape", !16, i64 0, !20, i64 24, !20, i64 40, !6, i64 56, !6, i64 60}
 !16 = !{!"_ZTS13btConvexShape", !17, i64 0}

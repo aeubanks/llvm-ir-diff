@@ -4,87 +4,88 @@ target datalayout = "e-m:e-p270:32:32-p271:32:32-p272:64:64-i64:64-f80:128-n8:16
 target triple = "x86_64-unknown-linux-gnu"
 
 ; Function Attrs: mustprogress nofree nosync nounwind willreturn memory(none) uwtable
-define dso_local double @cbrtl(double noundef %0) local_unnamed_addr #0 {
-  %2 = bitcast double %0 to i64
-  %3 = lshr i64 %2, 32
-  %4 = trunc i64 %3 to i32
-  %5 = and i32 %4, 2147483647
-  %6 = icmp ugt i32 %5, 2146435071
-  br i1 %6, label %7, label %9
+define dso_local double @cbrtl(double noundef %x) local_unnamed_addr #0 {
+entry:
+  %0 = bitcast double %x to i64
+  %ux.sroa.0.4.extract.shift = lshr i64 %0, 32
+  %ux.sroa.0.4.extract.trunc = trunc i64 %ux.sroa.0.4.extract.shift to i32
+  %xor101 = and i32 %ux.sroa.0.4.extract.trunc, 2147483647
+  %cmp5 = icmp ugt i32 %xor101, 2146435071
+  br i1 %cmp5, label %if.then, label %if.end
 
-7:                                                ; preds = %1
-  %8 = fadd double %0, %0
-  br label %65
+if.then:                                          ; preds = %entry
+  %add = fadd double %x, %x
+  br label %cleanup
 
-9:                                                ; preds = %1
-  %10 = trunc i64 %2 to i32
-  %11 = or i32 %5, %10
-  %12 = icmp eq i32 %11, 0
-  br i1 %12, label %65, label %13
+if.end:                                           ; preds = %entry
+  %ux.sroa.0.0.extract.trunc = trunc i64 %0 to i32
+  %or102 = or i32 %xor101, %ux.sroa.0.0.extract.trunc
+  %cmp10 = icmp eq i32 %or102, 0
+  br i1 %cmp10, label %cleanup, label %if.end13
 
-13:                                               ; preds = %9
-  %14 = and i64 %2, 9223372036854775807
-  %15 = bitcast i64 %14 to double
-  %16 = icmp ult i32 %5, 1048576
-  br i1 %16, label %17, label %28
+if.end13:                                         ; preds = %if.end
+  %ux.sroa.0.4.insert.insert = and i64 %0, 9223372036854775807
+  %1 = bitcast i64 %ux.sroa.0.4.insert.insert to double
+  %cmp17 = icmp ult i32 %xor101, 1048576
+  br i1 %cmp17, label %if.then19, label %if.else
 
-17:                                               ; preds = %13
-  %18 = fmul double %0, 0x4350000000000000
-  %19 = bitcast double %18 to i64
-  %20 = lshr i64 %19, 32
-  %21 = trunc i64 %20 to i32
-  %22 = udiv i32 %21, 3
-  %23 = add nuw nsw i32 %22, 696219795
-  %24 = zext i32 %23 to i64
-  %25 = shl nuw nsw i64 %24, 32
-  %26 = and i64 %19, 4294967295
-  %27 = or i64 %26, %25
-  br label %33
+if.then19:                                        ; preds = %if.end13
+  %mul = fmul double %x, 0x4350000000000000
+  %2 = bitcast double %mul to i64
+  %ut.sroa.0.4.extract.shift = lshr i64 %2, 32
+  %ut.sroa.0.4.extract.trunc = trunc i64 %ut.sroa.0.4.extract.shift to i32
+  %div = udiv i32 %ut.sroa.0.4.extract.trunc, 3
+  %narrow103 = add nuw nsw i32 %div, 696219795
+  %ut.sroa.0.4.insert.ext = zext i32 %narrow103 to i64
+  %ut.sroa.0.4.insert.shift = shl nuw nsw i64 %ut.sroa.0.4.insert.ext, 32
+  %ut.sroa.0.4.insert.mask109 = and i64 %2, 4294967295
+  %ut.sroa.0.4.insert.insert110 = or i64 %ut.sroa.0.4.insert.shift, %ut.sroa.0.4.insert.mask109
+  br label %if.end34
 
-28:                                               ; preds = %13
-  %29 = udiv i32 %5, 3
-  %30 = add nuw nsw i32 %29, 715094163
-  %31 = zext i32 %30 to i64
-  %32 = shl nuw nsw i64 %31, 32
-  br label %33
+if.else:                                          ; preds = %if.end13
+  %3 = udiv i32 %xor101, 3
+  %narrow = add nuw nsw i32 %3, 715094163
+  %ut.sroa.0.4.insert.ext112 = zext i32 %narrow to i64
+  %ut.sroa.0.4.insert.shift113 = shl nuw nsw i64 %ut.sroa.0.4.insert.ext112, 32
+  br label %if.end34
 
-33:                                               ; preds = %28, %17
-  %34 = phi i64 [ %27, %17 ], [ %32, %28 ]
-  %35 = bitcast i64 %34 to double
-  %36 = fmul double %35, %35
-  %37 = fdiv double %36, %15
-  %38 = tail call double @llvm.fmuladd.f64(double %37, double %35, double 0x3FE15F15F15F15F1)
-  %39 = fadd double %38, 0x3FF6A0EA0EA0EA0F
-  %40 = fdiv double 0x3FE691DE2532C834, %38
-  %41 = fsub double %39, %40
-  %42 = fdiv double 0x3FF9B6DB6DB6DB6E, %41
-  %43 = fadd double %42, 0x3FD6DB6DB6DB6DB7
-  %44 = fmul double %43, %35
-  %45 = bitcast double %44 to i64
-  %46 = and i64 %45, -4294967296
-  %47 = add i64 %46, 4294967296
-  %48 = bitcast i64 %47 to double
-  %49 = fmul double %48, %48
-  %50 = fdiv double %15, %49
-  %51 = fadd double %48, %48
-  %52 = fsub double %50, %48
-  %53 = fadd double %51, %50
-  %54 = fdiv double %52, %53
-  %55 = tail call double @llvm.fmuladd.f64(double %48, double %54, double %48)
-  %56 = bitcast double %55 to i64
-  %57 = and i64 %2, -9223372036854775808
-  %58 = or i64 %57, %56
-  %59 = bitcast i64 %58 to double
-  %60 = fmul double %59, %59
-  %61 = fdiv double %0, %60
-  %62 = fsub double %59, %61
-  %63 = fneg double %62
-  %64 = tail call double @llvm.fmuladd.f64(double %63, double 0x3FD5555555555555, double %59)
-  br label %65
+if.end34:                                         ; preds = %if.else, %if.then19
+  %ut.sroa.0.0.in = phi i64 [ %ut.sroa.0.4.insert.insert110, %if.then19 ], [ %ut.sroa.0.4.insert.shift113, %if.else ]
+  %ut.sroa.0.0 = bitcast i64 %ut.sroa.0.0.in to double
+  %mul35 = fmul double %ut.sroa.0.0, %ut.sroa.0.0
+  %div36 = fdiv double %mul35, %1
+  %4 = tail call double @llvm.fmuladd.f64(double %div36, double %ut.sroa.0.0, double 0x3FE15F15F15F15F1)
+  %add38 = fadd double %4, 0x3FF6A0EA0EA0EA0F
+  %div39 = fdiv double 0x3FE691DE2532C834, %4
+  %5 = fsub double %add38, %div39
+  %div41 = fdiv double 0x3FF9B6DB6DB6DB6E, %5
+  %add42 = fadd double %div41, 0x3FD6DB6DB6DB6DB7
+  %mul43 = fmul double %add42, %ut.sroa.0.0
+  %6 = bitcast double %mul43 to i64
+  %7 = and i64 %6, -4294967296
+  %ut.sroa.0.4.insert.shift121 = add i64 %7, 4294967296
+  %8 = bitcast i64 %ut.sroa.0.4.insert.shift121 to double
+  %mul50 = fmul double %8, %8
+  %div51 = fdiv double %1, %mul50
+  %add52 = fadd double %8, %8
+  %sub53 = fsub double %div51, %8
+  %add54 = fadd double %add52, %div51
+  %div55 = fdiv double %sub53, %add54
+  %9 = tail call double @llvm.fmuladd.f64(double %8, double %div55, double %8)
+  %10 = bitcast double %9 to i64
+  %or59132 = and i64 %0, -9223372036854775808
+  %ut.sroa.0.4.insert.insert128 = or i64 %or59132, %10
+  %11 = bitcast i64 %ut.sroa.0.4.insert.insert128 to double
+  %mul60 = fmul double %11, %11
+  %div61 = fdiv double %x, %mul60
+  %sub62 = fsub double %11, %div61
+  %neg = fneg double %sub62
+  %12 = tail call double @llvm.fmuladd.f64(double %neg, double 0x3FD5555555555555, double %11)
+  br label %cleanup
 
-65:                                               ; preds = %9, %33, %7
-  %66 = phi double [ %8, %7 ], [ %64, %33 ], [ %0, %9 ]
-  ret double %66
+cleanup:                                          ; preds = %if.end, %if.end34, %if.then
+  %retval.0 = phi double [ %add, %if.then ], [ %12, %if.end34 ], [ %x, %if.end ]
+  ret double %retval.0
 }
 
 ; Function Attrs: mustprogress nocallback nofree nosync nounwind speculatable willreturn memory(none)
@@ -92,6 +93,7 @@ declare double @llvm.fmuladd.f64(double, double, double) #1
 
 ; Function Attrs: noreturn nounwind uwtable
 define dso_local i32 @main() local_unnamed_addr #2 {
+if.end:
   tail call void @exit(i32 noundef 0) #4
   unreachable
 }

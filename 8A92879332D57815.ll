@@ -7,282 +7,229 @@ target triple = "x86_64-unknown-linux-gnu"
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(readwrite, argmem: none, inaccessiblemem: none) uwtable
 define dso_local i64 @simple_rand() local_unnamed_addr #0 {
-  %1 = load i64, ptr @simple_rand.seed, align 8, !tbaa !5
-  %2 = mul i64 %1, 1103515245
-  %3 = add i64 %2, 12345
-  store i64 %3, ptr @simple_rand.seed, align 8, !tbaa !5
-  %4 = lshr i64 %3, 8
-  ret i64 %4
+entry:
+  %0 = load i64, ptr @simple_rand.seed, align 8, !tbaa !5
+  %mul = mul i64 %0, 1103515245
+  %add = add i64 %mul, 12345
+  store i64 %add, ptr @simple_rand.seed, align 8, !tbaa !5
+  %shr = lshr i64 %add, 8
+  ret i64 %shr
 }
 
 ; Function Attrs: nofree norecurse nosync nounwind memory(readwrite, argmem: none, inaccessiblemem: none) uwtable
 define dso_local i64 @random_bitstring() local_unnamed_addr #1 {
-  %1 = load i64, ptr @simple_rand.seed, align 8, !tbaa !5
-  br label %2
+entry:
+  %simple_rand.seed.promoted = load i64, ptr @simple_rand.seed, align 8, !tbaa !5
+  br label %for.cond
 
-2:                                                ; preds = %12, %0
-  %3 = phi i64 [ %1, %0 ], [ %7, %12 ]
-  %4 = phi i64 [ 0, %0 ], [ %22, %12 ]
-  %5 = phi i32 [ 0, %0 ], [ %13, %12 ]
-  %6 = mul i64 %3, 1103515245
-  %7 = add i64 %6, 12345
-  %8 = trunc i64 %7 to i32
-  %9 = lshr i32 %8, 9
-  %10 = and i32 %9, 15
-  %11 = icmp eq i32 %10, 0
-  br i1 %11, label %24, label %12
+for.cond:                                         ; preds = %if.else, %entry
+  %add.i22 = phi i64 [ %simple_rand.seed.promoted, %entry ], [ %add.i, %if.else ]
+  %x.0 = phi i64 [ 0, %entry ], [ %x.1, %if.else ]
+  %tot_bits.0 = phi i32 [ 0, %entry ], [ %add, %if.else ]
+  %mul.i = mul i64 %add.i22, 1103515245
+  %add.i = add i64 %mul.i, 12345
+  %0 = trunc i64 %add.i to i32
+  %1 = lshr i32 %0, 9
+  %conv = and i32 %1, 15
+  %cmp = icmp eq i32 %conv, 0
+  br i1 %cmp, label %cleanup, label %if.else
 
-12:                                               ; preds = %2
-  %13 = add nuw nsw i32 %10, %5
-  %14 = zext i32 %10 to i64
-  %15 = shl i64 %4, %14
-  %16 = and i64 %7, 256
-  %17 = icmp eq i64 %16, 0
-  %18 = shl nsw i32 -1, %10
-  %19 = xor i32 %18, -1
-  %20 = zext i32 %19 to i64
-  %21 = select i1 %17, i64 0, i64 %20
-  %22 = or i64 %21, %15
-  %23 = icmp ugt i32 %13, 70
-  br i1 %23, label %24, label %2
+if.else:                                          ; preds = %for.cond
+  %add = add nuw nsw i32 %conv, %tot_bits.0
+  %sh_prom = zext i32 %conv to i64
+  %shl = shl i64 %x.0, %sh_prom
+  %2 = and i64 %add.i, 256
+  %tobool.not = icmp eq i64 %2, 0
+  %notmask = shl nsw i32 -1, %conv
+  %sub = xor i32 %notmask, -1
+  %conv4 = zext i32 %sub to i64
+  %or = select i1 %tobool.not, i64 0, i64 %conv4
+  %x.1 = or i64 %or, %shl
+  %cmp6 = icmp ugt i32 %add, 70
+  br i1 %cmp6, label %cleanup, label %for.cond
 
-24:                                               ; preds = %12, %2
-  %25 = phi i64 [ %4, %2 ], [ %22, %12 ]
-  store i64 %7, ptr @simple_rand.seed, align 8, !tbaa !5
-  ret i64 %25
+cleanup:                                          ; preds = %if.else, %for.cond
+  %retval.0 = phi i64 [ %x.0, %for.cond ], [ %x.1, %if.else ]
+  store i64 %add.i, ptr @simple_rand.seed, align 8, !tbaa !5
+  ret i64 %retval.0
 }
 
 ; Function Attrs: noreturn nounwind uwtable
 define dso_local i32 @main() local_unnamed_addr #2 {
-  %1 = load i64, ptr @simple_rand.seed, align 8, !tbaa !5
-  br label %2
+entry:
+  %simple_rand.seed.promoted = load i64, ptr @simple_rand.seed, align 8, !tbaa !5
+  br label %for.body
 
-2:                                                ; preds = %0, %153
-  %3 = phi i64 [ 0, %0 ], [ %154, %153 ]
-  %4 = phi i64 [ %1, %0 ], [ %35, %153 ]
-  br label %5
+for.body:                                         ; preds = %entry, %cleanup301
+  %i.0450 = phi i64 [ 0, %entry ], [ %inc, %cleanup301 ]
+  %add.i.i425.lcssa445449 = phi i64 [ %simple_rand.seed.promoted, %entry ], [ %add.i.i425, %cleanup301 ]
+  br label %for.cond.i
 
-5:                                                ; preds = %15, %2
-  %6 = phi i64 [ %4, %2 ], [ %10, %15 ]
-  %7 = phi i64 [ 0, %2 ], [ %25, %15 ]
-  %8 = phi i32 [ 0, %2 ], [ %16, %15 ]
-  %9 = mul i64 %6, 1103515245
-  %10 = add i64 %9, 12345
-  %11 = trunc i64 %10 to i32
-  %12 = lshr i32 %11, 9
-  %13 = and i32 %12, 15
-  %14 = icmp eq i32 %13, 0
-  br i1 %14, label %27, label %15
+for.cond.i:                                       ; preds = %if.else.i, %for.body
+  %add.i22.i = phi i64 [ %add.i.i425.lcssa445449, %for.body ], [ %add.i.i, %if.else.i ]
+  %x.0.i = phi i64 [ 0, %for.body ], [ %x.1.i, %if.else.i ]
+  %tot_bits.0.i = phi i32 [ 0, %for.body ], [ %add.i, %if.else.i ]
+  %mul.i.i = mul i64 %add.i22.i, 1103515245
+  %add.i.i = add i64 %mul.i.i, 12345
+  %0 = trunc i64 %add.i.i to i32
+  %1 = lshr i32 %0, 9
+  %conv.i = and i32 %1, 15
+  %cmp.i = icmp eq i32 %conv.i, 0
+  br i1 %cmp.i, label %random_bitstring.exit, label %if.else.i
 
-15:                                               ; preds = %5
-  %16 = add nuw nsw i32 %13, %8
-  %17 = zext i32 %13 to i64
-  %18 = shl i64 %7, %17
-  %19 = and i64 %10, 256
-  %20 = icmp eq i64 %19, 0
-  %21 = shl nsw i32 -1, %13
-  %22 = xor i32 %21, -1
-  %23 = zext i32 %22 to i64
-  %24 = select i1 %20, i64 0, i64 %23
-  %25 = or i64 %24, %18
-  %26 = icmp ugt i32 %16, 70
-  br i1 %26, label %27, label %5
+if.else.i:                                        ; preds = %for.cond.i
+  %add.i = add nuw nsw i32 %conv.i, %tot_bits.0.i
+  %sh_prom.i = zext i32 %conv.i to i64
+  %shl.i = shl i64 %x.0.i, %sh_prom.i
+  %2 = and i64 %add.i.i, 256
+  %tobool.not.i = icmp eq i64 %2, 0
+  %notmask.i = shl nsw i32 -1, %conv.i
+  %sub.i = xor i32 %notmask.i, -1
+  %conv4.i = zext i32 %sub.i to i64
+  %or.i = select i1 %tobool.not.i, i64 0, i64 %conv4.i
+  %x.1.i = or i64 %or.i, %shl.i
+  %cmp6.i = icmp ugt i32 %add.i, 70
+  br i1 %cmp6.i, label %random_bitstring.exit, label %for.cond.i
 
-27:                                               ; preds = %5, %15
-  %28 = phi i64 [ %7, %5 ], [ %25, %15 ]
-  %29 = freeze i64 %28
-  br label %30
+random_bitstring.exit:                            ; preds = %for.cond.i, %if.else.i
+  %retval.0.i = phi i64 [ %x.0.i, %for.cond.i ], [ %x.1.i, %if.else.i ]
+  %call.fr = freeze i64 %retval.0.i
+  br label %for.cond.i428
 
-30:                                               ; preds = %40, %27
-  %31 = phi i64 [ %10, %27 ], [ %35, %40 ]
-  %32 = phi i64 [ 0, %27 ], [ %50, %40 ]
-  %33 = phi i32 [ 0, %27 ], [ %41, %40 ]
-  %34 = mul i64 %31, 1103515245
-  %35 = add i64 %34, 12345
-  %36 = trunc i64 %35 to i32
-  %37 = lshr i32 %36, 9
-  %38 = and i32 %37, 15
-  %39 = icmp eq i32 %38, 0
-  br i1 %39, label %52, label %40
+for.cond.i428:                                    ; preds = %if.else.i439, %random_bitstring.exit
+  %add.i22.i421 = phi i64 [ %add.i.i, %random_bitstring.exit ], [ %add.i.i425, %if.else.i439 ]
+  %x.0.i422 = phi i64 [ 0, %random_bitstring.exit ], [ %x.1.i437, %if.else.i439 ]
+  %tot_bits.0.i423 = phi i32 [ 0, %random_bitstring.exit ], [ %add.i429, %if.else.i439 ]
+  %mul.i.i424 = mul i64 %add.i22.i421, 1103515245
+  %add.i.i425 = add i64 %mul.i.i424, 12345
+  %3 = trunc i64 %add.i.i425 to i32
+  %4 = lshr i32 %3, 9
+  %conv.i426 = and i32 %4, 15
+  %cmp.i427 = icmp eq i32 %conv.i426, 0
+  br i1 %cmp.i427, label %random_bitstring.exit441, label %if.else.i439
 
-40:                                               ; preds = %30
-  %41 = add nuw nsw i32 %38, %33
-  %42 = zext i32 %38 to i64
-  %43 = shl i64 %32, %42
-  %44 = and i64 %35, 256
-  %45 = icmp eq i64 %44, 0
-  %46 = shl nsw i32 -1, %38
-  %47 = xor i32 %46, -1
-  %48 = zext i32 %47 to i64
-  %49 = select i1 %45, i64 0, i64 %48
-  %50 = or i64 %49, %43
-  %51 = icmp ugt i32 %41, 70
-  br i1 %51, label %52, label %30
+if.else.i439:                                     ; preds = %for.cond.i428
+  %add.i429 = add nuw nsw i32 %conv.i426, %tot_bits.0.i423
+  %sh_prom.i430 = zext i32 %conv.i426 to i64
+  %shl.i431 = shl i64 %x.0.i422, %sh_prom.i430
+  %5 = and i64 %add.i.i425, 256
+  %tobool.not.i432 = icmp eq i64 %5, 0
+  %notmask.i433 = shl nsw i32 -1, %conv.i426
+  %sub.i434 = xor i32 %notmask.i433, -1
+  %conv4.i435 = zext i32 %sub.i434 to i64
+  %or.i436 = select i1 %tobool.not.i432, i64 0, i64 %conv4.i435
+  %x.1.i437 = or i64 %or.i436, %shl.i431
+  %cmp6.i438 = icmp ugt i32 %add.i429, 70
+  br i1 %cmp6.i438, label %random_bitstring.exit441, label %for.cond.i428
 
-52:                                               ; preds = %30, %40
-  %53 = phi i64 [ %32, %30 ], [ %50, %40 ]
-  %54 = icmp eq i64 %53, 0
-  br i1 %54, label %153, label %55
+random_bitstring.exit441:                         ; preds = %for.cond.i428, %if.else.i439
+  %retval.0.i440 = phi i64 [ %x.0.i422, %for.cond.i428 ], [ %x.1.i437, %if.else.i439 ]
+  %cmp2.not = icmp eq i64 %retval.0.i440, 0
+  br i1 %cmp2.not, label %cleanup301, label %cleanup.cont
 
-55:                                               ; preds = %52
-  %56 = and i64 %29, 9223372036854775807
-  %57 = icmp eq i64 %56, 0
-  %58 = icmp eq i64 %53, -1
-  %59 = select i1 %57, i1 %58, i1 false
-  br i1 %59, label %153, label %60
+cleanup.cont:                                     ; preds = %random_bitstring.exit441
+  %shl.mask = and i64 %call.fr, 9223372036854775807
+  %cmp14 = icmp ne i64 %shl.mask, 0
+  %cmp15 = icmp ne i64 %retval.0.i440, -1
+  %or.cond.not = select i1 %cmp14, i1 true, i1 %cmp15
+  br i1 %or.cond.not, label %if.end17, label %cleanup301
 
-60:                                               ; preds = %55
-  %61 = srem i64 %29, %53
-  %62 = tail call i64 @llvm.abs.i64(i64 %61, i1 true)
-  %63 = tail call i64 @llvm.abs.i64(i64 %53, i1 true)
-  %64 = icmp ult i64 %62, %63
-  br i1 %64, label %66, label %65
+if.end17:                                         ; preds = %cleanup.cont
+  %rem19 = srem i64 %call.fr, %retval.0.i440
+  %cond = tail call i64 @llvm.abs.i64(i64 %rem19, i1 true)
+  %cond26 = tail call i64 @llvm.abs.i64(i64 %retval.0.i440, i1 true)
+  %cmp27.not = icmp ult i64 %cond, %cond26
+  br i1 %cmp27.not, label %save_time, label %if.then32
 
-65:                                               ; preds = %60
-  store i64 %35, ptr @simple_rand.seed, align 8, !tbaa !5
+if.then32:                                        ; preds = %if.end17
+  store i64 %add.i.i425, ptr @simple_rand.seed, align 8, !tbaa !5
   tail call void @abort() #5
   unreachable
 
-66:                                               ; preds = %60
-  %67 = trunc i64 %29 to i32
-  %68 = trunc i64 %53 to i32
-  %69 = icmp eq i32 %68, 0
-  br i1 %69, label %153, label %70
+save_time:                                        ; preds = %if.end17
+  %conv = trunc i64 %call.fr to i32
+  %conv42 = trunc i64 %retval.0.i440 to i32
+  %cmp45.not = icmp eq i32 %conv42, 0
+  br i1 %cmp45.not, label %cleanup301, label %cleanup.cont65
 
-70:                                               ; preds = %66
-  %71 = and i32 %67, 2147483647
-  %72 = icmp eq i32 %71, 0
-  %73 = icmp eq i32 %68, -1
-  %74 = select i1 %72, i1 %73, i1 false
-  br i1 %74, label %153, label %75
+cleanup.cont65:                                   ; preds = %save_time
+  %shl72.mask = and i32 %conv, 2147483647
+  %cmp73 = icmp ne i32 %shl72.mask, 0
+  %cmp76 = icmp ne i32 %conv42, -1
+  %or.cond311.not = select i1 %cmp73, i1 true, i1 %cmp76
+  br i1 %or.cond311.not, label %if.end79, label %cleanup301
 
-75:                                               ; preds = %70
-  %76 = srem i32 %67, %68
-  %77 = tail call i32 @llvm.abs.i32(i32 %76, i1 true)
-  %78 = tail call i32 @llvm.abs.i32(i32 %68, i1 true)
-  %79 = icmp ult i32 %77, %78
-  br i1 %79, label %80, label %85
+if.end79:                                         ; preds = %cleanup.cont65
+  %rem81 = srem i32 %conv, %conv42
+  %cond88 = tail call i32 @llvm.abs.i32(i32 %rem81, i1 true)
+  %cond95 = tail call i32 @llvm.abs.i32(i32 %conv42, i1 true)
+  %cmp96.not = icmp ult i32 %cond88, %cond95
+  br i1 %cmp96.not, label %lor.lhs.false103, label %if.then111
 
-80:                                               ; preds = %75
-  %81 = xor i32 %76, %67
-  %82 = icmp slt i32 %81, 0
-  %83 = icmp ne i32 %76, 0
-  %84 = and i1 %83, %82
-  br i1 %84, label %85, label %86
+lor.lhs.false103:                                 ; preds = %if.end79
+  %cmp108.unshifted = xor i32 %rem81, %conv
+  %cmp108 = icmp slt i32 %cmp108.unshifted, 0
+  %tobool = icmp ne i32 %rem81, 0
+  %or.cond312 = and i1 %tobool, %cmp108
+  br i1 %or.cond312, label %if.then111, label %cleanup.cont118
 
-85:                                               ; preds = %80, %75
-  store i64 %35, ptr @simple_rand.seed, align 8, !tbaa !5
+if.then111:                                       ; preds = %lor.lhs.false103, %if.end79
+  store i64 %add.i.i425, ptr @simple_rand.seed, align 8, !tbaa !5
   tail call void @abort() #5
   unreachable
 
-86:                                               ; preds = %80
-  %87 = and i32 %68, 65535
-  %88 = icmp eq i32 %87, 0
-  br i1 %88, label %153, label %89
+cleanup.cont118:                                  ; preds = %lor.lhs.false103
+  %conv125 = and i32 %conv42, 65535
+  %cmp126.not = icmp eq i32 %conv125, 0
+  br i1 %cmp126.not, label %cleanup301, label %cleanup.cont158
 
-89:                                               ; preds = %86
-  %90 = trunc i64 %29 to i16
-  %91 = trunc i64 %53 to i16
-  %92 = urem i16 %90, %91
-  %93 = udiv i16 %90, %91
-  %94 = zext i16 %92 to i32
-  %95 = icmp ugt i32 %87, %94
-  br i1 %95, label %96, label %102
+cleanup.cont158:                                  ; preds = %cleanup.cont118
+  %sext = shl i32 %conv, 16
+  %conv165 = ashr exact i32 %sext, 16
+  %sext408 = shl i32 %conv42, 16
+  %conv166 = ashr exact i32 %sext408, 16
+  %rem171 = srem i32 %conv165, %conv166
+  %cond182 = tail call i32 @llvm.abs.i32(i32 %rem171, i1 true)
+  %cond192 = tail call i32 @llvm.abs.i32(i32 %conv166, i1 true)
+  %cmp195.not = icmp ult i32 %cond182, %cond192
+  br i1 %cmp195.not, label %if.end209, label %if.then208
 
-96:                                               ; preds = %89
-  %97 = and i32 %67, 65535
-  %98 = zext i16 %93 to i32
-  %99 = mul nuw nsw i32 %87, %98
-  %100 = add nuw nsw i32 %99, %94
-  %101 = icmp eq i32 %100, %97
-  br i1 %101, label %103, label %102
-
-102:                                              ; preds = %96, %89
-  store i64 %35, ptr @simple_rand.seed, align 8, !tbaa !5
+if.then208:                                       ; preds = %cleanup.cont158
+  store i64 %add.i.i425, ptr @simple_rand.seed, align 8, !tbaa !5
   tail call void @abort() #5
   unreachable
 
-103:                                              ; preds = %96
-  %104 = shl i32 %67, 16
-  %105 = ashr exact i32 %104, 16
-  %106 = shl i32 %68, 16
-  %107 = ashr exact i32 %106, 16
-  %108 = srem i32 %105, %107
-  %109 = tail call i32 @llvm.abs.i32(i32 %108, i1 true)
-  %110 = tail call i32 @llvm.abs.i32(i32 %107, i1 true)
-  %111 = icmp ult i32 %109, %110
-  br i1 %111, label %113, label %112
+if.end209:                                        ; preds = %cleanup.cont158
+  %conv216 = and i32 %conv42, 255
+  %cmp217.not = icmp eq i32 %conv216, 0
+  br i1 %cmp217.not, label %cleanup301, label %cleanup.cont249
 
-112:                                              ; preds = %103
-  store i64 %35, ptr @simple_rand.seed, align 8, !tbaa !5
+cleanup.cont249:                                  ; preds = %if.end209
+  %sext411 = shl i32 %conv, 24
+  %conv256 = ashr exact i32 %sext411, 24
+  %sext412 = shl i32 %conv42, 24
+  %conv257 = ashr exact i32 %sext412, 24
+  %rem262.lhs.trunc = trunc i32 %conv256 to i16
+  %rem262.rhs.trunc = trunc i32 %conv257 to i16
+  %rem262444 = srem i16 %rem262.lhs.trunc, %rem262.rhs.trunc
+  %6 = tail call i16 @llvm.abs.i16(i16 %rem262444, i1 true)
+  %cond273 = zext i16 %6 to i32
+  %cond283 = tail call i32 @llvm.abs.i32(i32 %conv257, i1 true)
+  %cmp286.not = icmp ugt i32 %cond283, %cond273
+  br i1 %cmp286.not, label %cleanup301, label %if.then299
+
+if.then299:                                       ; preds = %cleanup.cont249
+  store i64 %add.i.i425, ptr @simple_rand.seed, align 8, !tbaa !5
   tail call void @abort() #5
   unreachable
 
-113:                                              ; preds = %103
-  %114 = and i32 %68, 255
-  %115 = icmp eq i32 %114, 0
-  br i1 %115, label %153, label %116
+cleanup301:                                       ; preds = %cleanup.cont249, %if.end209, %cleanup.cont118, %cleanup.cont65, %save_time, %cleanup.cont, %random_bitstring.exit441
+  %inc = add nuw nsw i64 %i.0450, 1
+  %exitcond.not = icmp eq i64 %inc, 10000
+  br i1 %exitcond.not, label %for.end, label %for.body, !llvm.loop !9
 
-116:                                              ; preds = %113
-  %117 = trunc i64 %29 to i8
-  %118 = trunc i64 %53 to i8
-  %119 = urem i8 %117, %118
-  %120 = udiv i8 %117, %118
-  %121 = zext i8 %119 to i32
-  %122 = icmp ugt i32 %114, %121
-  br i1 %122, label %123, label %129
-
-123:                                              ; preds = %116
-  %124 = and i32 %67, 255
-  %125 = zext i8 %120 to i32
-  %126 = mul nuw nsw i32 %114, %125
-  %127 = add nuw nsw i32 %126, %121
-  %128 = icmp eq i32 %127, %124
-  br i1 %128, label %130, label %129
-
-129:                                              ; preds = %123, %116
-  store i64 %35, ptr @simple_rand.seed, align 8, !tbaa !5
-  tail call void @abort() #5
-  unreachable
-
-130:                                              ; preds = %123
-  %131 = shl i32 %67, 24
-  %132 = ashr exact i32 %131, 24
-  %133 = shl i32 %68, 24
-  %134 = ashr exact i32 %133, 24
-  %135 = trunc i32 %132 to i16
-  %136 = trunc i32 %134 to i16
-  %137 = srem i16 %135, %136
-  %138 = sdiv i16 %135, %136
-  %139 = zext i16 %137 to i32
-  %140 = shl i32 %139, 24
-  %141 = ashr exact i32 %140, 24
-  %142 = tail call i32 @llvm.abs.i32(i32 %141, i1 true)
-  %143 = tail call i32 @llvm.abs.i32(i32 %134, i1 true)
-  %144 = icmp ult i32 %142, %143
-  br i1 %144, label %145, label %152
-
-145:                                              ; preds = %130
-  %146 = zext i16 %138 to i32
-  %147 = mul i32 %146, %68
-  %148 = add i32 %147, %139
-  %149 = shl i32 %148, 24
-  %150 = ashr exact i32 %149, 24
-  %151 = icmp eq i32 %150, %132
-  br i1 %151, label %153, label %152
-
-152:                                              ; preds = %145, %130
-  store i64 %35, ptr @simple_rand.seed, align 8, !tbaa !5
-  tail call void @abort() #5
-  unreachable
-
-153:                                              ; preds = %145, %113, %86, %70, %66, %55, %52
-  %154 = add nuw nsw i64 %3, 1
-  %155 = icmp eq i64 %154, 10000
-  br i1 %155, label %156, label %2, !llvm.loop !9
-
-156:                                              ; preds = %153
-  store i64 %35, ptr @simple_rand.seed, align 8, !tbaa !5
+for.end:                                          ; preds = %cleanup301
+  store i64 %add.i.i425, ptr @simple_rand.seed, align 8, !tbaa !5
   tail call void @exit(i32 noundef 0) #5
   unreachable
 }
@@ -298,6 +245,9 @@ declare i64 @llvm.abs.i64(i64, i1 immarg) #4
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
 declare i32 @llvm.abs.i32(i32, i1 immarg) #4
+
+; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
+declare i16 @llvm.abs.i16(i16, i1 immarg) #4
 
 attributes #0 = { mustprogress nofree norecurse nosync nounwind willreturn memory(readwrite, argmem: none, inaccessiblemem: none) uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #1 = { nofree norecurse nosync nounwind memory(readwrite, argmem: none, inaccessiblemem: none) uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }

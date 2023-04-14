@@ -111,28 +111,31 @@ target triple = "x86_64-unknown-linux-gnu"
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(write, argmem: none, inaccessiblemem: none) uwtable
 define dso_local void @reset_pic_bin_count() local_unnamed_addr #0 {
+entry:
   store i32 0, ptr @pic_bin_count, align 4, !tbaa !5
   ret void
 }
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(read, argmem: none, inaccessiblemem: none) uwtable
 define dso_local i32 @get_pic_bin_count() local_unnamed_addr #1 {
-  %1 = load i32, ptr @pic_bin_count, align 4, !tbaa !5
-  ret i32 %1
+entry:
+  %0 = load i32, ptr @pic_bin_count, align 4, !tbaa !5
+  ret i32 %0
 }
 
 ; Function Attrs: nounwind uwtable
 define dso_local noalias ptr @arienco_create_encoding_environment() local_unnamed_addr #2 {
-  %1 = tail call noalias dereferenceable_or_null(48) ptr @calloc(i64 noundef 1, i64 noundef 48) #12
-  %2 = icmp eq ptr %1, null
-  br i1 %2, label %3, label %4
+entry:
+  %call = tail call noalias dereferenceable_or_null(48) ptr @calloc(i64 noundef 1, i64 noundef 48) #12
+  %cmp = icmp eq ptr %call, null
+  br i1 %cmp, label %if.then, label %if.end
 
-3:                                                ; preds = %0
+if.then:                                          ; preds = %entry
   tail call void @no_mem_exit(ptr noundef nonnull @.str) #13
-  br label %4
+  br label %if.end
 
-4:                                                ; preds = %3, %0
-  ret ptr %1
+if.end:                                           ; preds = %if.then, %entry
+  ret ptr %call
 }
 
 ; Function Attrs: mustprogress nofree nounwind willreturn allockind("alloc,zeroed") allocsize(0,1) memory(inaccessiblemem: readwrite)
@@ -141,20 +144,21 @@ declare noalias noundef ptr @calloc(i64 noundef, i64 noundef) local_unnamed_addr
 declare void @no_mem_exit(ptr noundef) local_unnamed_addr #4
 
 ; Function Attrs: nounwind uwtable
-define dso_local void @arienco_delete_encoding_environment(ptr noundef %0) local_unnamed_addr #2 {
-  %2 = icmp eq ptr %0, null
-  br i1 %2, label %3, label %4
+define dso_local void @arienco_delete_encoding_environment(ptr noundef %eep) local_unnamed_addr #2 {
+entry:
+  %cmp = icmp eq ptr %eep, null
+  br i1 %cmp, label %if.then, label %if.else
 
-3:                                                ; preds = %1
+if.then:                                          ; preds = %entry
   tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 16 dereferenceable(33) @errortext, ptr noundef nonnull align 1 dereferenceable(33) @.str.1, i64 33, i1 false)
   tail call void @error(ptr noundef nonnull @errortext, i32 noundef 200) #13
-  br label %5
+  br label %if.end
 
-4:                                                ; preds = %1
-  tail call void @free(ptr noundef nonnull %0) #13
-  br label %5
+if.else:                                          ; preds = %entry
+  tail call void @free(ptr noundef nonnull %eep) #13
+  br label %if.end
 
-5:                                                ; preds = %4, %3
+if.end:                                           ; preds = %if.else, %if.then
   ret void
 }
 
@@ -164,1171 +168,1178 @@ declare void @error(ptr noundef, i32 noundef) local_unnamed_addr #4
 declare void @free(ptr allocptr nocapture noundef) local_unnamed_addr #5
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(argmem: write) uwtable
-define dso_local void @arienco_start_encoding(ptr nocapture noundef writeonly %0, ptr noundef %1, ptr noundef %2) local_unnamed_addr #6 {
-  %4 = getelementptr inbounds %struct.EncodingEnvironment, ptr %0, i64 0, i32 4
-  store i32 0, ptr %4, align 8, !tbaa !9
-  %5 = getelementptr inbounds %struct.EncodingEnvironment, ptr %0, i64 0, i32 5
-  store ptr %1, ptr %5, align 8, !tbaa !12
-  %6 = getelementptr inbounds %struct.EncodingEnvironment, ptr %0, i64 0, i32 6
-  store ptr %2, ptr %6, align 8, !tbaa !13
-  store <4 x i32> <i32 0, i32 510, i32 0, i32 9>, ptr %0, align 8, !tbaa !5
-  %7 = getelementptr inbounds %struct.EncodingEnvironment, ptr %0, i64 0, i32 7
-  store i32 0, ptr %7, align 8, !tbaa !14
-  %8 = getelementptr inbounds %struct.EncodingEnvironment, ptr %0, i64 0, i32 8
-  store i32 0, ptr %8, align 4, !tbaa !15
+define dso_local void @arienco_start_encoding(ptr nocapture noundef writeonly %eep, ptr noundef %code_buffer, ptr noundef %code_len) local_unnamed_addr #6 {
+entry:
+  %Ebits_to_follow = getelementptr inbounds %struct.EncodingEnvironment, ptr %eep, i64 0, i32 4
+  store i32 0, ptr %Ebits_to_follow, align 8, !tbaa !9
+  %Ecodestrm = getelementptr inbounds %struct.EncodingEnvironment, ptr %eep, i64 0, i32 5
+  store ptr %code_buffer, ptr %Ecodestrm, align 8, !tbaa !12
+  %Ecodestrm_len = getelementptr inbounds %struct.EncodingEnvironment, ptr %eep, i64 0, i32 6
+  store ptr %code_len, ptr %Ecodestrm_len, align 8, !tbaa !13
+  store <4 x i32> <i32 0, i32 510, i32 0, i32 9>, ptr %eep, align 8, !tbaa !5
+  %C = getelementptr inbounds %struct.EncodingEnvironment, ptr %eep, i64 0, i32 7
+  store i32 0, ptr %C, align 8, !tbaa !14
+  %E = getelementptr inbounds %struct.EncodingEnvironment, ptr %eep, i64 0, i32 8
+  store i32 0, ptr %E, align 4, !tbaa !15
   ret void
 }
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(read, inaccessiblemem: none) uwtable
-define dso_local i32 @arienco_bits_written(ptr nocapture noundef readonly %0) local_unnamed_addr #7 {
-  %2 = getelementptr inbounds %struct.EncodingEnvironment, ptr %0, i64 0, i32 6
-  %3 = load ptr, ptr %2, align 8, !tbaa !13
-  %4 = load i32, ptr %3, align 4, !tbaa !5
-  %5 = shl nsw i32 %4, 3
-  %6 = getelementptr inbounds %struct.EncodingEnvironment, ptr %0, i64 0, i32 4
-  %7 = load i32, ptr %6, align 8, !tbaa !9
-  %8 = getelementptr inbounds %struct.EncodingEnvironment, ptr %0, i64 0, i32 3
-  %9 = load i32, ptr %8, align 4, !tbaa !16
-  %10 = add i32 %7, 8
-  %11 = add i32 %10, %5
-  %12 = sub i32 %11, %9
-  ret i32 %12
+define dso_local i32 @arienco_bits_written(ptr nocapture noundef readonly %eep) local_unnamed_addr #7 {
+entry:
+  %Ecodestrm_len = getelementptr inbounds %struct.EncodingEnvironment, ptr %eep, i64 0, i32 6
+  %0 = load ptr, ptr %Ecodestrm_len, align 8, !tbaa !13
+  %1 = load i32, ptr %0, align 4, !tbaa !5
+  %mul = shl nsw i32 %1, 3
+  %Ebits_to_follow = getelementptr inbounds %struct.EncodingEnvironment, ptr %eep, i64 0, i32 4
+  %2 = load i32, ptr %Ebits_to_follow, align 8, !tbaa !9
+  %Ebits_to_go = getelementptr inbounds %struct.EncodingEnvironment, ptr %eep, i64 0, i32 3
+  %3 = load i32, ptr %Ebits_to_go, align 4, !tbaa !16
+  %add = add i32 %2, 8
+  %add1 = add i32 %add, %mul
+  %sub = sub i32 %add1, %3
+  ret i32 %sub
 }
 
 ; Function Attrs: nofree nosync nounwind memory(readwrite, inaccessiblemem: none) uwtable
-define dso_local void @arienco_done_encoding(ptr nocapture noundef %0) local_unnamed_addr #8 {
-  %2 = getelementptr inbounds %struct.EncodingEnvironment, ptr %0, i64 0, i32 2
-  %3 = load i32, ptr %2, align 8, !tbaa !17
-  %4 = shl i32 %3, 1
-  %5 = load i32, ptr %0, align 8, !tbaa !18
-  %6 = lshr i32 %5, 9
-  %7 = and i32 %6, 1
-  %8 = or i32 %7, %4
-  store i32 %8, ptr %2, align 8, !tbaa !17
-  %9 = getelementptr inbounds %struct.EncodingEnvironment, ptr %0, i64 0, i32 3
-  %10 = load i32, ptr %9, align 4, !tbaa !16
-  %11 = add i32 %10, -1
-  store i32 %11, ptr %9, align 4, !tbaa !16
-  %12 = icmp eq i32 %11, 0
-  br i1 %12, label %13, label %38
+define dso_local void @arienco_done_encoding(ptr nocapture noundef %eep) local_unnamed_addr #8 {
+entry:
+  %Ebuffer = getelementptr inbounds %struct.EncodingEnvironment, ptr %eep, i64 0, i32 2
+  %0 = load i32, ptr %Ebuffer, align 8, !tbaa !17
+  %shl = shl i32 %0, 1
+  %1 = load i32, ptr %eep, align 8, !tbaa !18
+  %shr = lshr i32 %1, 9
+  %conv = and i32 %shr, 1
+  %or = or i32 %conv, %shl
+  store i32 %or, ptr %Ebuffer, align 8, !tbaa !17
+  %Ebits_to_go = getelementptr inbounds %struct.EncodingEnvironment, ptr %eep, i64 0, i32 3
+  %2 = load i32, ptr %Ebits_to_go, align 4, !tbaa !16
+  %dec = add i32 %2, -1
+  store i32 %dec, ptr %Ebits_to_go, align 4, !tbaa !16
+  %cmp = icmp eq i32 %dec, 0
+  br i1 %cmp, label %if.then, label %if.end
 
-13:                                               ; preds = %1
-  %14 = trunc i32 %8 to i8
-  %15 = getelementptr inbounds %struct.EncodingEnvironment, ptr %0, i64 0, i32 5
-  %16 = load ptr, ptr %15, align 8, !tbaa !12
-  %17 = getelementptr inbounds %struct.EncodingEnvironment, ptr %0, i64 0, i32 6
-  %18 = load ptr, ptr %17, align 8, !tbaa !13
-  %19 = load i32, ptr %18, align 4, !tbaa !5
-  %20 = add nsw i32 %19, 1
-  store i32 %20, ptr %18, align 4, !tbaa !5
-  %21 = sext i32 %19 to i64
-  %22 = getelementptr inbounds i8, ptr %16, i64 %21
-  store i8 %14, ptr %22, align 1, !tbaa !19
-  %23 = getelementptr inbounds %struct.EncodingEnvironment, ptr %0, i64 0, i32 7
-  %24 = load i32, ptr %23, align 8, !tbaa !14
-  %25 = icmp sgt i32 %24, 7
-  br i1 %25, label %26, label %38
+if.then:                                          ; preds = %entry
+  %conv5 = trunc i32 %or to i8
+  %Ecodestrm = getelementptr inbounds %struct.EncodingEnvironment, ptr %eep, i64 0, i32 5
+  %3 = load ptr, ptr %Ecodestrm, align 8, !tbaa !12
+  %Ecodestrm_len = getelementptr inbounds %struct.EncodingEnvironment, ptr %eep, i64 0, i32 6
+  %4 = load ptr, ptr %Ecodestrm_len, align 8, !tbaa !13
+  %5 = load i32, ptr %4, align 4, !tbaa !5
+  %inc = add nsw i32 %5, 1
+  store i32 %inc, ptr %4, align 4, !tbaa !5
+  %idxprom = sext i32 %5 to i64
+  %arrayidx = getelementptr inbounds i8, ptr %3, i64 %idxprom
+  store i8 %conv5, ptr %arrayidx, align 1, !tbaa !19
+  %C = getelementptr inbounds %struct.EncodingEnvironment, ptr %eep, i64 0, i32 7
+  %C.promoted = load i32, ptr %C, align 8, !tbaa !14
+  %cmp7219 = icmp sgt i32 %C.promoted, 7
+  br i1 %cmp7219, label %while.body.lr.ph, label %if.end
 
-26:                                               ; preds = %13
-  %27 = getelementptr inbounds %struct.EncodingEnvironment, ptr %0, i64 0, i32 8
-  %28 = load i32, ptr %27, align 4, !tbaa !15
-  %29 = add nuw i32 %24, 7
-  %30 = tail call i32 @llvm.smin.i32(i32 %24, i32 15)
-  %31 = sub nuw i32 %29, %30
-  %32 = lshr i32 %31, 3
-  %33 = and i32 %31, -8
-  %34 = add i32 %28, %32
-  %35 = add nsw i32 %24, -8
-  %36 = sub nsw i32 %35, %33
-  %37 = add i32 %34, 1
-  store i32 %36, ptr %23, align 8, !tbaa !14
-  store i32 %37, ptr %27, align 4, !tbaa !15
-  br label %38
+while.body.lr.ph:                                 ; preds = %if.then
+  %E = getelementptr inbounds %struct.EncodingEnvironment, ptr %eep, i64 0, i32 8
+  %E.promoted = load i32, ptr %E, align 4, !tbaa !15
+  %6 = add nuw i32 %C.promoted, 7
+  %smin = tail call i32 @llvm.smin.i32(i32 %C.promoted, i32 15)
+  %7 = sub nuw i32 %6, %smin
+  %8 = lshr i32 %7, 3
+  %9 = and i32 %7, -8
+  %10 = add i32 %E.promoted, %8
+  %11 = add nsw i32 %C.promoted, -8
+  %12 = sub nsw i32 %11, %9
+  %13 = add i32 %10, 1
+  store i32 %12, ptr %C, align 8, !tbaa !14
+  store i32 %13, ptr %E, align 4, !tbaa !15
+  br label %if.end
 
-38:                                               ; preds = %13, %26, %1
-  %39 = phi i32 [ 8, %13 ], [ 8, %26 ], [ %11, %1 ]
-  %40 = getelementptr inbounds %struct.EncodingEnvironment, ptr %0, i64 0, i32 4
-  %41 = load i32, ptr %40, align 8, !tbaa !9
-  %42 = icmp eq i32 %41, 0
-  br i1 %42, label %86, label %43
+if.end:                                           ; preds = %if.then, %while.body.lr.ph, %entry
+  %14 = phi i32 [ 8, %if.then ], [ 8, %while.body.lr.ph ], [ %dec, %entry ]
+  %Ebits_to_follow = getelementptr inbounds %struct.EncodingEnvironment, ptr %eep, i64 0, i32 4
+  %15 = load i32, ptr %Ebits_to_follow, align 8, !tbaa !9
+  %cmp12.not226 = icmp eq i32 %15, 0
+  br i1 %cmp12.not226, label %while.end49, label %while.body14.lr.ph
 
-43:                                               ; preds = %38
-  %44 = getelementptr inbounds %struct.EncodingEnvironment, ptr %0, i64 0, i32 5
-  %45 = getelementptr inbounds %struct.EncodingEnvironment, ptr %0, i64 0, i32 6
-  %46 = getelementptr inbounds %struct.EncodingEnvironment, ptr %0, i64 0, i32 7
-  %47 = getelementptr inbounds %struct.EncodingEnvironment, ptr %0, i64 0, i32 8
-  br label %48
+while.body14.lr.ph:                               ; preds = %if.end
+  %Ecodestrm32 = getelementptr inbounds %struct.EncodingEnvironment, ptr %eep, i64 0, i32 5
+  %Ecodestrm_len33 = getelementptr inbounds %struct.EncodingEnvironment, ptr %eep, i64 0, i32 6
+  %C39 = getelementptr inbounds %struct.EncodingEnvironment, ptr %eep, i64 0, i32 7
+  %E45 = getelementptr inbounds %struct.EncodingEnvironment, ptr %eep, i64 0, i32 8
+  br label %while.body14
 
-48:                                               ; preds = %43, %82
-  %49 = phi i32 [ %39, %43 ], [ %83, %82 ]
-  %50 = phi i32 [ %41, %43 ], [ %84, %82 ]
-  %51 = add i32 %50, -1
-  store i32 %51, ptr %40, align 8, !tbaa !9
-  %52 = load i32, ptr %2, align 8, !tbaa !17
-  %53 = shl i32 %52, 1
-  %54 = load i32, ptr %0, align 8, !tbaa !18
-  %55 = lshr i32 %54, 9
-  %56 = and i32 %55, 1
-  %57 = or i32 %56, %53
-  %58 = xor i32 %57, 1
-  store i32 %58, ptr %2, align 8, !tbaa !17
-  %59 = add i32 %49, -1
-  store i32 %59, ptr %9, align 4, !tbaa !16
-  %60 = icmp eq i32 %59, 0
-  br i1 %60, label %61, label %82
+while.body14:                                     ; preds = %while.body14.lr.ph, %if.end48
+  %16 = phi i32 [ %14, %while.body14.lr.ph ], [ %33, %if.end48 ]
+  %17 = phi i32 [ %15, %while.body14.lr.ph ], [ %34, %if.end48 ]
+  %dec16 = add i32 %17, -1
+  store i32 %dec16, ptr %Ebits_to_follow, align 8, !tbaa !9
+  %18 = load i32, ptr %Ebuffer, align 8, !tbaa !17
+  %shl18 = shl i32 %18, 1
+  %19 = load i32, ptr %eep, align 8, !tbaa !18
+  %20 = lshr i32 %19, 9
+  %.lobit = and i32 %20, 1
+  %21 = or i32 %.lobit, %shl18
+  %or24 = xor i32 %21, 1
+  store i32 %or24, ptr %Ebuffer, align 8, !tbaa !17
+  %dec26 = add i32 %16, -1
+  store i32 %dec26, ptr %Ebits_to_go, align 4, !tbaa !16
+  %cmp27 = icmp eq i32 %dec26, 0
+  br i1 %cmp27, label %if.then29, label %if.end48
 
-61:                                               ; preds = %48
-  %62 = trunc i32 %58 to i8
-  %63 = load ptr, ptr %44, align 8, !tbaa !12
-  %64 = load ptr, ptr %45, align 8, !tbaa !13
-  %65 = load i32, ptr %64, align 4, !tbaa !5
-  %66 = add nsw i32 %65, 1
-  store i32 %66, ptr %64, align 4, !tbaa !5
-  %67 = sext i32 %65 to i64
-  %68 = getelementptr inbounds i8, ptr %63, i64 %67
-  store i8 %62, ptr %68, align 1, !tbaa !19
-  store i32 8, ptr %9, align 4, !tbaa !16
-  %69 = load i32, ptr %46, align 8, !tbaa !14
-  %70 = icmp sgt i32 %69, 7
-  br i1 %70, label %71, label %82
+if.then29:                                        ; preds = %while.body14
+  %conv31 = trunc i32 %or24 to i8
+  %22 = load ptr, ptr %Ecodestrm32, align 8, !tbaa !12
+  %23 = load ptr, ptr %Ecodestrm_len33, align 8, !tbaa !13
+  %24 = load i32, ptr %23, align 4, !tbaa !5
+  %inc34 = add nsw i32 %24, 1
+  store i32 %inc34, ptr %23, align 4, !tbaa !5
+  %idxprom35 = sext i32 %24 to i64
+  %arrayidx36 = getelementptr inbounds i8, ptr %22, i64 %idxprom35
+  store i8 %conv31, ptr %arrayidx36, align 1, !tbaa !19
+  store i32 8, ptr %Ebits_to_go, align 4, !tbaa !16
+  %C39.promoted = load i32, ptr %C39, align 8, !tbaa !14
+  %cmp40223 = icmp sgt i32 %C39.promoted, 7
+  br i1 %cmp40223, label %while.body42.lr.ph, label %if.end48
 
-71:                                               ; preds = %61
-  %72 = load i32, ptr %47, align 4, !tbaa !15
-  %73 = add nuw i32 %69, 7
-  %74 = tail call i32 @llvm.smin.i32(i32 %69, i32 15)
-  %75 = sub nuw i32 %73, %74
-  %76 = lshr i32 %75, 3
-  %77 = and i32 %75, -8
-  %78 = add i32 %72, 1
-  %79 = add nsw i32 %69, -8
-  %80 = sub nsw i32 %79, %77
-  %81 = add i32 %78, %76
-  store i32 %80, ptr %46, align 8, !tbaa !14
-  store i32 %81, ptr %47, align 4, !tbaa !15
-  br label %82
+while.body42.lr.ph:                               ; preds = %if.then29
+  %E45.promoted = load i32, ptr %E45, align 4, !tbaa !15
+  %25 = add nuw i32 %C39.promoted, 7
+  %smin240 = tail call i32 @llvm.smin.i32(i32 %C39.promoted, i32 15)
+  %26 = sub nuw i32 %25, %smin240
+  %27 = lshr i32 %26, 3
+  %28 = and i32 %26, -8
+  %29 = add i32 %E45.promoted, 1
+  %30 = add nsw i32 %C39.promoted, -8
+  %31 = sub nsw i32 %30, %28
+  %32 = add i32 %29, %27
+  store i32 %31, ptr %C39, align 8, !tbaa !14
+  store i32 %32, ptr %E45, align 4, !tbaa !15
+  br label %if.end48
 
-82:                                               ; preds = %61, %71, %48
-  %83 = phi i32 [ 8, %61 ], [ 8, %71 ], [ %59, %48 ]
-  %84 = load i32, ptr %40, align 8, !tbaa !9
-  %85 = icmp eq i32 %84, 0
-  br i1 %85, label %86, label %48, !llvm.loop !20
+if.end48:                                         ; preds = %if.then29, %while.body42.lr.ph, %while.body14
+  %33 = phi i32 [ 8, %if.then29 ], [ 8, %while.body42.lr.ph ], [ %dec26, %while.body14 ]
+  %34 = load i32, ptr %Ebits_to_follow, align 8, !tbaa !9
+  %cmp12.not = icmp eq i32 %34, 0
+  br i1 %cmp12.not, label %while.end49, label %while.body14, !llvm.loop !20
 
-86:                                               ; preds = %82, %38
-  %87 = phi i32 [ %39, %38 ], [ %83, %82 ]
-  %88 = load i32, ptr %2, align 8, !tbaa !17
-  %89 = shl i32 %88, 1
-  %90 = load i32, ptr %0, align 8, !tbaa !18
-  %91 = lshr i32 %90, 8
-  %92 = and i32 %91, 1
-  %93 = or i32 %92, %89
-  store i32 %93, ptr %2, align 8, !tbaa !17
-  %94 = add i32 %87, -1
-  store i32 %94, ptr %9, align 4, !tbaa !16
-  %95 = icmp eq i32 %94, 0
-  br i1 %95, label %96, label %121
+while.end49:                                      ; preds = %if.end48, %if.end
+  %35 = phi i32 [ %14, %if.end ], [ %33, %if.end48 ]
+  %36 = load i32, ptr %Ebuffer, align 8, !tbaa !17
+  %shl51 = shl i32 %36, 1
+  %37 = load i32, ptr %eep, align 8, !tbaa !18
+  %shr53 = lshr i32 %37, 8
+  %and56 = and i32 %shr53, 1
+  %or58 = or i32 %and56, %shl51
+  store i32 %or58, ptr %Ebuffer, align 8, !tbaa !17
+  %dec60 = add i32 %35, -1
+  store i32 %dec60, ptr %Ebits_to_go, align 4, !tbaa !16
+  %cmp61 = icmp eq i32 %dec60, 0
+  br i1 %cmp61, label %if.then63, label %if.end82
 
-96:                                               ; preds = %86
-  %97 = trunc i32 %93 to i8
-  %98 = getelementptr inbounds %struct.EncodingEnvironment, ptr %0, i64 0, i32 5
-  %99 = load ptr, ptr %98, align 8, !tbaa !12
-  %100 = getelementptr inbounds %struct.EncodingEnvironment, ptr %0, i64 0, i32 6
-  %101 = load ptr, ptr %100, align 8, !tbaa !13
-  %102 = load i32, ptr %101, align 4, !tbaa !5
-  %103 = add nsw i32 %102, 1
-  store i32 %103, ptr %101, align 4, !tbaa !5
-  %104 = sext i32 %102 to i64
-  %105 = getelementptr inbounds i8, ptr %99, i64 %104
-  store i8 %97, ptr %105, align 1, !tbaa !19
-  %106 = getelementptr inbounds %struct.EncodingEnvironment, ptr %0, i64 0, i32 7
-  %107 = load i32, ptr %106, align 8, !tbaa !14
-  %108 = icmp sgt i32 %107, 7
-  br i1 %108, label %109, label %121
+if.then63:                                        ; preds = %while.end49
+  %conv65 = trunc i32 %or58 to i8
+  %Ecodestrm66 = getelementptr inbounds %struct.EncodingEnvironment, ptr %eep, i64 0, i32 5
+  %38 = load ptr, ptr %Ecodestrm66, align 8, !tbaa !12
+  %Ecodestrm_len67 = getelementptr inbounds %struct.EncodingEnvironment, ptr %eep, i64 0, i32 6
+  %39 = load ptr, ptr %Ecodestrm_len67, align 8, !tbaa !13
+  %40 = load i32, ptr %39, align 4, !tbaa !5
+  %inc68 = add nsw i32 %40, 1
+  store i32 %inc68, ptr %39, align 4, !tbaa !5
+  %idxprom69 = sext i32 %40 to i64
+  %arrayidx70 = getelementptr inbounds i8, ptr %38, i64 %idxprom69
+  store i8 %conv65, ptr %arrayidx70, align 1, !tbaa !19
+  %C73 = getelementptr inbounds %struct.EncodingEnvironment, ptr %eep, i64 0, i32 7
+  %C73.promoted = load i32, ptr %C73, align 8, !tbaa !14
+  %cmp74228 = icmp sgt i32 %C73.promoted, 7
+  br i1 %cmp74228, label %while.body76.lr.ph, label %if.end82
 
-109:                                              ; preds = %96
-  %110 = getelementptr inbounds %struct.EncodingEnvironment, ptr %0, i64 0, i32 8
-  %111 = load i32, ptr %110, align 4, !tbaa !15
-  %112 = add nuw i32 %107, 7
-  %113 = tail call i32 @llvm.smin.i32(i32 %107, i32 15)
-  %114 = sub nuw i32 %112, %113
-  %115 = lshr i32 %114, 3
-  %116 = and i32 %114, -8
-  %117 = add i32 %111, %115
-  %118 = add nsw i32 %107, -8
-  %119 = sub nsw i32 %118, %116
-  %120 = add i32 %117, 1
-  store i32 %119, ptr %106, align 8, !tbaa !14
-  store i32 %120, ptr %110, align 4, !tbaa !15
-  br label %121
+while.body76.lr.ph:                               ; preds = %if.then63
+  %E79 = getelementptr inbounds %struct.EncodingEnvironment, ptr %eep, i64 0, i32 8
+  %E79.promoted = load i32, ptr %E79, align 4, !tbaa !15
+  %41 = add nuw i32 %C73.promoted, 7
+  %smin241 = tail call i32 @llvm.smin.i32(i32 %C73.promoted, i32 15)
+  %42 = sub nuw i32 %41, %smin241
+  %43 = lshr i32 %42, 3
+  %44 = and i32 %42, -8
+  %45 = add i32 %E79.promoted, %43
+  %46 = add nsw i32 %C73.promoted, -8
+  %47 = sub nsw i32 %46, %44
+  %48 = add i32 %45, 1
+  store i32 %47, ptr %C73, align 8, !tbaa !14
+  store i32 %48, ptr %E79, align 4, !tbaa !15
+  br label %if.end82
 
-121:                                              ; preds = %96, %109, %86
-  %122 = phi i32 [ 8, %96 ], [ 8, %109 ], [ %94, %86 ]
-  %123 = load i32, ptr %2, align 8, !tbaa !17
-  %124 = shl i32 %123, 1
-  %125 = or i32 %124, 1
-  store i32 %125, ptr %2, align 8, !tbaa !17
-  %126 = add i32 %122, -1
-  store i32 %126, ptr %9, align 4, !tbaa !16
-  %127 = icmp eq i32 %126, 0
-  br i1 %127, label %128, label %153
+if.end82:                                         ; preds = %if.then63, %while.body76.lr.ph, %while.end49
+  %49 = phi i32 [ 8, %if.then63 ], [ 8, %while.body76.lr.ph ], [ %dec60, %while.end49 ]
+  %50 = load i32, ptr %Ebuffer, align 8, !tbaa !17
+  %shl84 = shl i32 %50, 1
+  %or86 = or i32 %shl84, 1
+  store i32 %or86, ptr %Ebuffer, align 8, !tbaa !17
+  %dec88 = add i32 %49, -1
+  store i32 %dec88, ptr %Ebits_to_go, align 4, !tbaa !16
+  %cmp89 = icmp eq i32 %dec88, 0
+  br i1 %cmp89, label %if.then91, label %if.end110
 
-128:                                              ; preds = %121
-  %129 = trunc i32 %125 to i8
-  %130 = getelementptr inbounds %struct.EncodingEnvironment, ptr %0, i64 0, i32 5
-  %131 = load ptr, ptr %130, align 8, !tbaa !12
-  %132 = getelementptr inbounds %struct.EncodingEnvironment, ptr %0, i64 0, i32 6
-  %133 = load ptr, ptr %132, align 8, !tbaa !13
-  %134 = load i32, ptr %133, align 4, !tbaa !5
-  %135 = add nsw i32 %134, 1
-  store i32 %135, ptr %133, align 4, !tbaa !5
-  %136 = sext i32 %134 to i64
-  %137 = getelementptr inbounds i8, ptr %131, i64 %136
-  store i8 %129, ptr %137, align 1, !tbaa !19
-  store i32 8, ptr %9, align 4, !tbaa !16
-  %138 = getelementptr inbounds %struct.EncodingEnvironment, ptr %0, i64 0, i32 7
-  %139 = load i32, ptr %138, align 8, !tbaa !14
-  %140 = icmp sgt i32 %139, 7
-  br i1 %140, label %141, label %153
+if.then91:                                        ; preds = %if.end82
+  %conv93 = trunc i32 %or86 to i8
+  %Ecodestrm94 = getelementptr inbounds %struct.EncodingEnvironment, ptr %eep, i64 0, i32 5
+  %51 = load ptr, ptr %Ecodestrm94, align 8, !tbaa !12
+  %Ecodestrm_len95 = getelementptr inbounds %struct.EncodingEnvironment, ptr %eep, i64 0, i32 6
+  %52 = load ptr, ptr %Ecodestrm_len95, align 8, !tbaa !13
+  %53 = load i32, ptr %52, align 4, !tbaa !5
+  %inc96 = add nsw i32 %53, 1
+  store i32 %inc96, ptr %52, align 4, !tbaa !5
+  %idxprom97 = sext i32 %53 to i64
+  %arrayidx98 = getelementptr inbounds i8, ptr %51, i64 %idxprom97
+  store i8 %conv93, ptr %arrayidx98, align 1, !tbaa !19
+  store i32 8, ptr %Ebits_to_go, align 4, !tbaa !16
+  %C101 = getelementptr inbounds %struct.EncodingEnvironment, ptr %eep, i64 0, i32 7
+  %C101.promoted = load i32, ptr %C101, align 8, !tbaa !14
+  %cmp102232 = icmp sgt i32 %C101.promoted, 7
+  br i1 %cmp102232, label %while.body104.lr.ph, label %if.end110
 
-141:                                              ; preds = %128
-  %142 = getelementptr inbounds %struct.EncodingEnvironment, ptr %0, i64 0, i32 8
-  %143 = load i32, ptr %142, align 4, !tbaa !15
-  %144 = add nuw i32 %139, 7
-  %145 = tail call i32 @llvm.smin.i32(i32 %139, i32 15)
-  %146 = sub nuw i32 %144, %145
-  %147 = lshr i32 %146, 3
-  %148 = and i32 %146, -8
-  %149 = add i32 %143, %147
-  %150 = add nsw i32 %139, -8
-  %151 = sub nsw i32 %150, %148
-  %152 = add i32 %149, 1
-  store i32 %151, ptr %138, align 8, !tbaa !14
-  store i32 %152, ptr %142, align 4, !tbaa !15
-  br label %153
+while.body104.lr.ph:                              ; preds = %if.then91
+  %E107 = getelementptr inbounds %struct.EncodingEnvironment, ptr %eep, i64 0, i32 8
+  %E107.promoted = load i32, ptr %E107, align 4, !tbaa !15
+  %54 = add nuw i32 %C101.promoted, 7
+  %smin242 = tail call i32 @llvm.smin.i32(i32 %C101.promoted, i32 15)
+  %55 = sub nuw i32 %54, %smin242
+  %56 = lshr i32 %55, 3
+  %57 = and i32 %55, -8
+  %58 = add i32 %E107.promoted, %56
+  %59 = add nsw i32 %C101.promoted, -8
+  %60 = sub nsw i32 %59, %57
+  %61 = add i32 %58, 1
+  store i32 %60, ptr %C101, align 8, !tbaa !14
+  store i32 %61, ptr %E107, align 4, !tbaa !15
+  br label %if.end110
 
-153:                                              ; preds = %128, %141, %121
-  %154 = phi i32 [ 8, %128 ], [ 8, %141 ], [ %126, %121 ]
-  %155 = sub i32 8, %154
-  %156 = zext i32 %155 to i64
-  %157 = load ptr, ptr @stats, align 8, !tbaa !22
-  %158 = load ptr, ptr @img, align 8, !tbaa !22
-  %159 = getelementptr inbounds %struct.ImageParameters, ptr %158, i64 0, i32 5
-  %160 = load i32, ptr %159, align 4, !tbaa !23
-  %161 = sext i32 %160 to i64
-  %162 = getelementptr inbounds %struct.StatParameters, ptr %157, i64 0, i32 24, i64 %161
-  %163 = load i64, ptr %162, align 8, !tbaa !28
-  %164 = add nsw i64 %163, %156
-  store i64 %164, ptr %162, align 8, !tbaa !28
-  %165 = icmp eq i32 %154, 8
-  br i1 %165, label %199, label %166
+if.end110:                                        ; preds = %if.then91, %while.body104.lr.ph, %if.end82
+  %62 = phi i32 [ 8, %if.then91 ], [ 8, %while.body104.lr.ph ], [ %dec88, %if.end82 ]
+  %sub112 = sub i32 8, %62
+  %conv113 = zext i32 %sub112 to i64
+  %63 = load ptr, ptr @stats, align 8, !tbaa !22
+  %64 = load ptr, ptr @img, align 8, !tbaa !22
+  %type = getelementptr inbounds %struct.ImageParameters, ptr %64, i64 0, i32 5
+  %65 = load i32, ptr %type, align 4, !tbaa !23
+  %idxprom114 = sext i32 %65 to i64
+  %arrayidx115 = getelementptr inbounds %struct.StatParameters, ptr %63, i64 0, i32 24, i64 %idxprom114
+  %66 = load i64, ptr %arrayidx115, align 8, !tbaa !28
+  %add = add nsw i64 %66, %conv113
+  store i64 %add, ptr %arrayidx115, align 8, !tbaa !28
+  %cmp118.not239 = icmp eq i32 %62, 8
+  br i1 %cmp118.not239, label %while.end149, label %while.body120.lr.ph
 
-166:                                              ; preds = %153
-  %167 = getelementptr inbounds %struct.EncodingEnvironment, ptr %0, i64 0, i32 5
-  %168 = getelementptr inbounds %struct.EncodingEnvironment, ptr %0, i64 0, i32 6
-  %169 = getelementptr inbounds %struct.EncodingEnvironment, ptr %0, i64 0, i32 7
-  %170 = getelementptr inbounds %struct.EncodingEnvironment, ptr %0, i64 0, i32 8
-  %171 = load i32, ptr %2, align 8, !tbaa !17
-  br label %172
+while.body120.lr.ph:                              ; preds = %if.end110
+  %Ecodestrm132 = getelementptr inbounds %struct.EncodingEnvironment, ptr %eep, i64 0, i32 5
+  %Ecodestrm_len133 = getelementptr inbounds %struct.EncodingEnvironment, ptr %eep, i64 0, i32 6
+  %C139 = getelementptr inbounds %struct.EncodingEnvironment, ptr %eep, i64 0, i32 7
+  %E145 = getelementptr inbounds %struct.EncodingEnvironment, ptr %eep, i64 0, i32 8
+  %Ebuffer.promoted = load i32, ptr %Ebuffer, align 8, !tbaa !17
+  br label %while.body120
 
-172:                                              ; preds = %172, %166
-  %173 = phi i32 [ %171, %166 ], [ %175, %172 ]
-  %174 = phi i32 [ %154, %166 ], [ %176, %172 ]
-  %175 = shl i32 %173, 1
-  %176 = add i32 %174, -1
-  switch i32 %174, label %172 [
-    i32 1, label %177
-    i32 9, label %198
+while.body120:                                    ; preds = %while.body120, %while.body120.lr.ph
+  %shl122246 = phi i32 [ %Ebuffer.promoted, %while.body120.lr.ph ], [ %shl122, %while.body120 ]
+  %67 = phi i32 [ %62, %while.body120.lr.ph ], [ %dec126, %while.body120 ]
+  %shl122 = shl i32 %shl122246, 1
+  %dec126 = add i32 %67, -1
+  switch i32 %67, label %while.body120 [
+    i32 1, label %if.then129
+    i32 9, label %while.end149.loopexit
   ]
 
-177:                                              ; preds = %172
-  store i32 %175, ptr %2, align 8, !tbaa !17
-  store i32 %176, ptr %9, align 4, !tbaa !16
-  %178 = trunc i32 %175 to i8
-  %179 = load ptr, ptr %167, align 8, !tbaa !12
-  %180 = load ptr, ptr %168, align 8, !tbaa !13
-  %181 = load i32, ptr %180, align 4, !tbaa !5
-  %182 = add nsw i32 %181, 1
-  store i32 %182, ptr %180, align 4, !tbaa !5
-  %183 = sext i32 %181 to i64
-  %184 = getelementptr inbounds i8, ptr %179, i64 %183
-  store i8 %178, ptr %184, align 1, !tbaa !19
-  store i32 8, ptr %9, align 4, !tbaa !16
-  %185 = load i32, ptr %169, align 8, !tbaa !14
-  %186 = icmp sgt i32 %185, 7
-  br i1 %186, label %187, label %199
+if.then129:                                       ; preds = %while.body120
+  store i32 %shl122, ptr %Ebuffer, align 8, !tbaa !17
+  store i32 %dec126, ptr %Ebits_to_go, align 4, !tbaa !16
+  %conv131 = trunc i32 %shl122 to i8
+  %68 = load ptr, ptr %Ecodestrm132, align 8, !tbaa !12
+  %69 = load ptr, ptr %Ecodestrm_len133, align 8, !tbaa !13
+  %70 = load i32, ptr %69, align 4, !tbaa !5
+  %inc134 = add nsw i32 %70, 1
+  store i32 %inc134, ptr %69, align 4, !tbaa !5
+  %idxprom135 = sext i32 %70 to i64
+  %arrayidx136 = getelementptr inbounds i8, ptr %68, i64 %idxprom135
+  store i8 %conv131, ptr %arrayidx136, align 1, !tbaa !19
+  store i32 8, ptr %Ebits_to_go, align 4, !tbaa !16
+  %C139.promoted = load i32, ptr %C139, align 8, !tbaa !14
+  %cmp140236 = icmp sgt i32 %C139.promoted, 7
+  br i1 %cmp140236, label %while.body142.lr.ph, label %while.end149
 
-187:                                              ; preds = %177
-  %188 = load i32, ptr %170, align 4, !tbaa !15
-  %189 = add nuw i32 %185, 7
-  %190 = tail call i32 @llvm.smin.i32(i32 %185, i32 15)
-  %191 = sub nuw i32 %189, %190
-  %192 = lshr i32 %191, 3
-  %193 = and i32 %191, -8
-  %194 = add i32 %188, 1
-  %195 = add nsw i32 %185, -8
-  %196 = sub nsw i32 %195, %193
-  %197 = add i32 %194, %192
-  store i32 %196, ptr %169, align 8, !tbaa !14
-  store i32 %197, ptr %170, align 4, !tbaa !15
-  br label %199
+while.body142.lr.ph:                              ; preds = %if.then129
+  %E145.promoted = load i32, ptr %E145, align 4, !tbaa !15
+  %71 = add nuw i32 %C139.promoted, 7
+  %smin243 = tail call i32 @llvm.smin.i32(i32 %C139.promoted, i32 15)
+  %72 = sub nuw i32 %71, %smin243
+  %73 = lshr i32 %72, 3
+  %74 = and i32 %72, -8
+  %75 = add i32 %E145.promoted, 1
+  %76 = add nsw i32 %C139.promoted, -8
+  %77 = sub nsw i32 %76, %74
+  %78 = add i32 %75, %73
+  store i32 %77, ptr %C139, align 8, !tbaa !14
+  store i32 %78, ptr %E145, align 4, !tbaa !15
+  br label %while.end149
 
-198:                                              ; preds = %172
-  store i32 %175, ptr %2, align 8, !tbaa !17
-  store i32 %176, ptr %9, align 4, !tbaa !16
-  br label %199
+while.end149.loopexit:                            ; preds = %while.body120
+  store i32 %shl122, ptr %Ebuffer, align 8, !tbaa !17
+  store i32 %dec126, ptr %Ebits_to_go, align 4, !tbaa !16
+  br label %while.end149
 
-199:                                              ; preds = %198, %187, %177, %153
-  %200 = getelementptr inbounds %struct.EncodingEnvironment, ptr %0, i64 0, i32 8
-  %201 = load i32, ptr %200, align 4, !tbaa !15
-  %202 = shl nsw i32 %201, 3
-  %203 = getelementptr inbounds %struct.EncodingEnvironment, ptr %0, i64 0, i32 7
-  %204 = load i32, ptr %203, align 8, !tbaa !14
-  %205 = add nsw i32 %202, %204
-  %206 = load i32, ptr @pic_bin_count, align 4, !tbaa !5
-  %207 = add nsw i32 %205, %206
-  store i32 %207, ptr @pic_bin_count, align 4, !tbaa !5
+while.end149:                                     ; preds = %while.end149.loopexit, %while.body142.lr.ph, %if.then129, %if.end110
+  %E150 = getelementptr inbounds %struct.EncodingEnvironment, ptr %eep, i64 0, i32 8
+  %79 = load i32, ptr %E150, align 4, !tbaa !15
+  %mul = shl nsw i32 %79, 3
+  %C151 = getelementptr inbounds %struct.EncodingEnvironment, ptr %eep, i64 0, i32 7
+  %80 = load i32, ptr %C151, align 8, !tbaa !14
+  %add152 = add nsw i32 %mul, %80
+  %81 = load i32, ptr @pic_bin_count, align 4, !tbaa !5
+  %add153 = add nsw i32 %add152, %81
+  store i32 %add153, ptr @pic_bin_count, align 4, !tbaa !5
   ret void
 }
 
 ; Function Attrs: nofree nosync nounwind memory(readwrite, inaccessiblemem: none) uwtable
-define dso_local void @biari_encode_symbol(ptr nocapture noundef %0, i16 noundef signext %1, ptr nocapture noundef %2) local_unnamed_addr #8 {
-  %4 = getelementptr inbounds %struct.EncodingEnvironment, ptr %0, i64 0, i32 1
-  %5 = load i32, ptr %4, align 4, !tbaa !30
-  %6 = load i32, ptr %0, align 8, !tbaa !18
-  %7 = load i16, ptr %2, align 8, !tbaa !31
-  %8 = zext i16 %7 to i64
-  %9 = lshr i32 %5, 6
-  %10 = and i32 %9, 3
-  %11 = zext i32 %10 to i64
-  %12 = getelementptr inbounds [64 x [4 x i8]], ptr @rLPS_table_64x4, i64 0, i64 %8, i64 %11
-  %13 = load i8, ptr %12, align 1, !tbaa !19
-  %14 = zext i8 %13 to i32
-  %15 = sub i32 %5, %14
-  %16 = load i32, ptr @cabac_encoding, align 4, !tbaa !5
-  %17 = sext i32 %16 to i64
-  %18 = getelementptr inbounds %struct.BiContextType, ptr %2, i64 0, i32 2
-  %19 = load i64, ptr %18, align 8, !tbaa !34
-  %20 = add i64 %19, %17
-  store i64 %20, ptr %18, align 8, !tbaa !34
-  %21 = icmp ne i16 %1, 0
-  %22 = getelementptr inbounds %struct.BiContextType, ptr %2, i64 0, i32 1
-  %23 = load i8, ptr %22, align 2, !tbaa !35
-  %24 = zext i1 %21 to i8
-  %25 = icmp eq i8 %23, %24
-  br i1 %25, label %34, label %26
+define dso_local void @biari_encode_symbol(ptr nocapture noundef %eep, i16 noundef signext %symbol, ptr nocapture noundef %bi_ct) local_unnamed_addr #8 {
+entry:
+  %Erange = getelementptr inbounds %struct.EncodingEnvironment, ptr %eep, i64 0, i32 1
+  %0 = load i32, ptr %Erange, align 4, !tbaa !30
+  %1 = load i32, ptr %eep, align 8, !tbaa !18
+  %2 = load i16, ptr %bi_ct, align 8, !tbaa !31
+  %idxprom = zext i16 %2 to i64
+  %shr = lshr i32 %0, 6
+  %and = and i32 %shr, 3
+  %idxprom1 = zext i32 %and to i64
+  %arrayidx2 = getelementptr inbounds [64 x [4 x i8]], ptr @rLPS_table_64x4, i64 0, i64 %idxprom, i64 %idxprom1
+  %3 = load i8, ptr %arrayidx2, align 1, !tbaa !19
+  %conv = zext i8 %3 to i32
+  %sub = sub i32 %0, %conv
+  %4 = load i32, ptr @cabac_encoding, align 4, !tbaa !5
+  %conv3 = sext i32 %4 to i64
+  %count = getelementptr inbounds %struct.BiContextType, ptr %bi_ct, i64 0, i32 2
+  %5 = load i64, ptr %count, align 8, !tbaa !34
+  %add = add i64 %5, %conv3
+  store i64 %add, ptr %count, align 8, !tbaa !34
+  %cmp = icmp ne i16 %symbol, 0
+  %MPS = getelementptr inbounds %struct.BiContextType, ptr %bi_ct, i64 0, i32 1
+  %6 = load i8, ptr %MPS, align 2, !tbaa !35
+  %7 = zext i1 %cmp to i8
+  %cmp9.not = icmp eq i8 %6, %7
+  br i1 %cmp9.not, label %if.end26, label %if.then
 
-26:                                               ; preds = %3
-  %27 = add i32 %15, %6
-  %28 = icmp eq i16 %7, 0
-  br i1 %28, label %29, label %31
+if.then:                                          ; preds = %entry
+  %add11 = add i32 %sub, %1
+  %tobool.not = icmp eq i16 %2, 0
+  br i1 %tobool.not, label %if.then13, label %if.end26.thread
 
-29:                                               ; preds = %26
-  %30 = xor i8 %23, 1
-  store i8 %30, ptr %22, align 2, !tbaa !35
-  br label %31
+if.then13:                                        ; preds = %if.then
+  %8 = xor i8 %6, 1
+  store i8 %8, ptr %MPS, align 2, !tbaa !35
+  br label %if.end26.thread
 
-31:                                               ; preds = %29, %26
-  %32 = getelementptr inbounds [64 x i16], ptr @AC_next_state_LPS_64, i64 0, i64 %8
-  %33 = load i16, ptr %32, align 2, !tbaa !36
-  store i16 %33, ptr %2, align 8, !tbaa !31
-  br label %38
+if.end26.thread:                                  ; preds = %if.then13, %if.then
+  %storemerge.in270 = getelementptr inbounds [64 x i16], ptr @AC_next_state_LPS_64, i64 0, i64 %idxprom
+  %storemerge271 = load i16, ptr %storemerge.in270, align 2, !tbaa !36
+  store i16 %storemerge271, ptr %bi_ct, align 8, !tbaa !31
+  br label %while.body.lr.ph
 
-34:                                               ; preds = %3
-  %35 = getelementptr inbounds [64 x i16], ptr @AC_next_state_MPS_64, i64 0, i64 %8
-  %36 = load i16, ptr %35, align 2, !tbaa !36
-  store i16 %36, ptr %2, align 8, !tbaa !31
-  %37 = icmp ult i32 %15, 256
-  br i1 %37, label %38, label %195
+if.end26:                                         ; preds = %entry
+  %storemerge.in = getelementptr inbounds [64 x i16], ptr @AC_next_state_MPS_64, i64 0, i64 %idxprom
+  %storemerge = load i16, ptr %storemerge.in, align 2, !tbaa !36
+  store i16 %storemerge, ptr %bi_ct, align 8, !tbaa !31
+  %cmp27260 = icmp ult i32 %sub, 256
+  br i1 %cmp27260, label %while.body.lr.ph, label %while.end161
 
-38:                                               ; preds = %31, %34
-  %39 = phi i32 [ %14, %31 ], [ %15, %34 ]
-  %40 = phi i32 [ %27, %31 ], [ %6, %34 ]
-  %41 = getelementptr inbounds %struct.EncodingEnvironment, ptr %0, i64 0, i32 4
-  %42 = getelementptr inbounds %struct.EncodingEnvironment, ptr %0, i64 0, i32 2
-  %43 = getelementptr inbounds %struct.EncodingEnvironment, ptr %0, i64 0, i32 3
-  %44 = getelementptr inbounds %struct.EncodingEnvironment, ptr %0, i64 0, i32 5
-  %45 = getelementptr inbounds %struct.EncodingEnvironment, ptr %0, i64 0, i32 6
-  %46 = getelementptr inbounds %struct.EncodingEnvironment, ptr %0, i64 0, i32 7
-  %47 = getelementptr inbounds %struct.EncodingEnvironment, ptr %0, i64 0, i32 8
-  br label %48
+while.body.lr.ph:                                 ; preds = %if.end26.thread, %if.end26
+  %range.0274 = phi i32 [ %conv, %if.end26.thread ], [ %sub, %if.end26 ]
+  %low.0273 = phi i32 [ %add11, %if.end26.thread ], [ %1, %if.end26 ]
+  %Ebits_to_follow154 = getelementptr inbounds %struct.EncodingEnvironment, ptr %eep, i64 0, i32 4
+  %Ebuffer89 = getelementptr inbounds %struct.EncodingEnvironment, ptr %eep, i64 0, i32 2
+  %Ebits_to_go93 = getelementptr inbounds %struct.EncodingEnvironment, ptr %eep, i64 0, i32 3
+  %Ecodestrm100 = getelementptr inbounds %struct.EncodingEnvironment, ptr %eep, i64 0, i32 5
+  %Ecodestrm_len101 = getelementptr inbounds %struct.EncodingEnvironment, ptr %eep, i64 0, i32 6
+  %C107 = getelementptr inbounds %struct.EncodingEnvironment, ptr %eep, i64 0, i32 7
+  %E113 = getelementptr inbounds %struct.EncodingEnvironment, ptr %eep, i64 0, i32 8
+  br label %while.body
 
-48:                                               ; preds = %38, %190
-  %49 = phi i32 [ %39, %38 ], [ %193, %190 ]
-  %50 = phi i32 [ %40, %38 ], [ %192, %190 ]
-  %51 = icmp ugt i32 %50, 511
-  br i1 %51, label %52, label %119
+while.body:                                       ; preds = %while.body.lr.ph, %if.end158
+  %range.1262 = phi i32 [ %range.0274, %while.body.lr.ph ], [ %shl160, %if.end158 ]
+  %low.1261 = phi i32 [ %low.0273, %while.body.lr.ph ], [ %shl159, %if.end158 ]
+  %cmp29 = icmp ugt i32 %low.1261, 511
+  br i1 %cmp29, label %if.then31, label %if.else85
 
-52:                                               ; preds = %48
-  %53 = load i32, ptr %42, align 8, !tbaa !17
-  %54 = shl i32 %53, 1
-  %55 = or i32 %54, 1
-  store i32 %55, ptr %42, align 8, !tbaa !17
-  %56 = load i32, ptr %43, align 4, !tbaa !16
-  %57 = add i32 %56, -1
-  store i32 %57, ptr %43, align 4, !tbaa !16
-  %58 = icmp eq i32 %57, 0
-  br i1 %58, label %59, label %80
+if.then31:                                        ; preds = %while.body
+  %9 = load i32, ptr %Ebuffer89, align 8, !tbaa !17
+  %shl = shl i32 %9, 1
+  %or = or i32 %shl, 1
+  store i32 %or, ptr %Ebuffer89, align 8, !tbaa !17
+  %10 = load i32, ptr %Ebits_to_go93, align 4, !tbaa !16
+  %dec = add i32 %10, -1
+  store i32 %dec, ptr %Ebits_to_go93, align 4, !tbaa !16
+  %cmp33 = icmp eq i32 %dec, 0
+  br i1 %cmp33, label %if.then35, label %if.end48
 
-59:                                               ; preds = %52
-  %60 = trunc i32 %55 to i8
-  %61 = load ptr, ptr %44, align 8, !tbaa !12
-  %62 = load ptr, ptr %45, align 8, !tbaa !13
-  %63 = load i32, ptr %62, align 4, !tbaa !5
-  %64 = add nsw i32 %63, 1
-  store i32 %64, ptr %62, align 4, !tbaa !5
-  %65 = sext i32 %63 to i64
-  %66 = getelementptr inbounds i8, ptr %61, i64 %65
-  store i8 %60, ptr %66, align 1, !tbaa !19
-  store i32 8, ptr %43, align 4, !tbaa !16
-  %67 = load i32, ptr %46, align 8, !tbaa !14
-  %68 = icmp sgt i32 %67, 7
-  br i1 %68, label %69, label %80
+if.then35:                                        ; preds = %if.then31
+  %conv37 = trunc i32 %or to i8
+  %11 = load ptr, ptr %Ecodestrm100, align 8, !tbaa !12
+  %12 = load ptr, ptr %Ecodestrm_len101, align 8, !tbaa !13
+  %13 = load i32, ptr %12, align 4, !tbaa !5
+  %inc = add nsw i32 %13, 1
+  store i32 %inc, ptr %12, align 4, !tbaa !5
+  %idxprom38 = sext i32 %13 to i64
+  %arrayidx39 = getelementptr inbounds i8, ptr %11, i64 %idxprom38
+  store i8 %conv37, ptr %arrayidx39, align 1, !tbaa !19
+  store i32 8, ptr %Ebits_to_go93, align 4, !tbaa !16
+  %C.promoted = load i32, ptr %C107, align 8, !tbaa !14
+  %cmp42252 = icmp sgt i32 %C.promoted, 7
+  br i1 %cmp42252, label %while.body44.lr.ph, label %if.end48
 
-69:                                               ; preds = %59
-  %70 = load i32, ptr %47, align 4, !tbaa !15
-  %71 = add nuw i32 %67, 7
-  %72 = tail call i32 @llvm.smin.i32(i32 %67, i32 15)
-  %73 = sub nuw i32 %71, %72
-  %74 = lshr i32 %73, 3
-  %75 = and i32 %73, -8
-  %76 = add i32 %70, 1
-  %77 = add nsw i32 %67, -8
-  %78 = sub nsw i32 %77, %75
-  %79 = add i32 %76, %74
-  store i32 %78, ptr %46, align 8, !tbaa !14
-  store i32 %79, ptr %47, align 4, !tbaa !15
-  br label %80
+while.body44.lr.ph:                               ; preds = %if.then35
+  %E.promoted = load i32, ptr %E113, align 4, !tbaa !15
+  %14 = add nuw i32 %C.promoted, 7
+  %smin265 = tail call i32 @llvm.smin.i32(i32 %C.promoted, i32 15)
+  %15 = sub nuw i32 %14, %smin265
+  %16 = lshr i32 %15, 3
+  %17 = and i32 %15, -8
+  %18 = add i32 %E.promoted, 1
+  %19 = add nsw i32 %C.promoted, -8
+  %20 = sub nsw i32 %19, %17
+  %21 = add i32 %18, %16
+  store i32 %20, ptr %C107, align 8, !tbaa !14
+  store i32 %21, ptr %E113, align 4, !tbaa !15
+  br label %if.end48
 
-80:                                               ; preds = %59, %69, %52
-  %81 = phi i32 [ 8, %59 ], [ 8, %69 ], [ %57, %52 ]
-  %82 = load i32, ptr %41, align 8, !tbaa !9
-  %83 = icmp eq i32 %82, 0
-  br i1 %83, label %117, label %84
+if.end48:                                         ; preds = %if.then35, %while.body44.lr.ph, %if.then31
+  %22 = phi i32 [ 8, %if.then35 ], [ 8, %while.body44.lr.ph ], [ %dec, %if.then31 ]
+  %23 = load i32, ptr %Ebits_to_follow154, align 8, !tbaa !9
+  %cmp50.not259 = icmp eq i32 %23, 0
+  br i1 %cmp50.not259, label %while.end83, label %while.body52
 
-84:                                               ; preds = %80, %113
-  %85 = phi i32 [ %114, %113 ], [ %81, %80 ]
-  %86 = phi i32 [ %115, %113 ], [ %82, %80 ]
-  %87 = add i32 %86, -1
-  store i32 %87, ptr %41, align 8, !tbaa !9
-  %88 = load i32, ptr %42, align 8, !tbaa !17
-  %89 = shl i32 %88, 1
-  store i32 %89, ptr %42, align 8, !tbaa !17
-  %90 = add i32 %85, -1
-  store i32 %90, ptr %43, align 4, !tbaa !16
-  %91 = icmp eq i32 %90, 0
-  br i1 %91, label %92, label %113
+while.body52:                                     ; preds = %if.end48, %if.end82
+  %24 = phi i32 [ %38, %if.end82 ], [ %22, %if.end48 ]
+  %25 = phi i32 [ %39, %if.end82 ], [ %23, %if.end48 ]
+  %dec54 = add i32 %25, -1
+  store i32 %dec54, ptr %Ebits_to_follow154, align 8, !tbaa !9
+  %26 = load i32, ptr %Ebuffer89, align 8, !tbaa !17
+  %shl56 = shl i32 %26, 1
+  store i32 %shl56, ptr %Ebuffer89, align 8, !tbaa !17
+  %dec60 = add i32 %24, -1
+  store i32 %dec60, ptr %Ebits_to_go93, align 4, !tbaa !16
+  %cmp61 = icmp eq i32 %dec60, 0
+  br i1 %cmp61, label %if.then63, label %if.end82
 
-92:                                               ; preds = %84
-  %93 = trunc i32 %89 to i8
-  %94 = load ptr, ptr %44, align 8, !tbaa !12
-  %95 = load ptr, ptr %45, align 8, !tbaa !13
-  %96 = load i32, ptr %95, align 4, !tbaa !5
-  %97 = add nsw i32 %96, 1
-  store i32 %97, ptr %95, align 4, !tbaa !5
-  %98 = sext i32 %96 to i64
-  %99 = getelementptr inbounds i8, ptr %94, i64 %98
-  store i8 %93, ptr %99, align 1, !tbaa !19
-  store i32 8, ptr %43, align 4, !tbaa !16
-  %100 = load i32, ptr %46, align 8, !tbaa !14
-  %101 = icmp sgt i32 %100, 7
-  br i1 %101, label %102, label %113
+if.then63:                                        ; preds = %while.body52
+  %conv65 = trunc i32 %shl56 to i8
+  %27 = load ptr, ptr %Ecodestrm100, align 8, !tbaa !12
+  %28 = load ptr, ptr %Ecodestrm_len101, align 8, !tbaa !13
+  %29 = load i32, ptr %28, align 4, !tbaa !5
+  %inc68 = add nsw i32 %29, 1
+  store i32 %inc68, ptr %28, align 4, !tbaa !5
+  %idxprom69 = sext i32 %29 to i64
+  %arrayidx70 = getelementptr inbounds i8, ptr %27, i64 %idxprom69
+  store i8 %conv65, ptr %arrayidx70, align 1, !tbaa !19
+  store i32 8, ptr %Ebits_to_go93, align 4, !tbaa !16
+  %C73.promoted = load i32, ptr %C107, align 8, !tbaa !14
+  %cmp74256 = icmp sgt i32 %C73.promoted, 7
+  br i1 %cmp74256, label %while.body76.lr.ph, label %if.end82
 
-102:                                              ; preds = %92
-  %103 = load i32, ptr %47, align 4, !tbaa !15
-  %104 = add nuw i32 %100, 7
-  %105 = tail call i32 @llvm.smin.i32(i32 %100, i32 15)
-  %106 = sub nuw i32 %104, %105
-  %107 = lshr i32 %106, 3
-  %108 = and i32 %106, -8
-  %109 = add i32 %103, 1
-  %110 = add nsw i32 %100, -8
-  %111 = sub nsw i32 %110, %108
-  %112 = add i32 %109, %107
-  store i32 %111, ptr %46, align 8, !tbaa !14
-  store i32 %112, ptr %47, align 4, !tbaa !15
-  br label %113
+while.body76.lr.ph:                               ; preds = %if.then63
+  %E79.promoted = load i32, ptr %E113, align 4, !tbaa !15
+  %30 = add nuw i32 %C73.promoted, 7
+  %smin266 = tail call i32 @llvm.smin.i32(i32 %C73.promoted, i32 15)
+  %31 = sub nuw i32 %30, %smin266
+  %32 = lshr i32 %31, 3
+  %33 = and i32 %31, -8
+  %34 = add i32 %E79.promoted, 1
+  %35 = add nsw i32 %C73.promoted, -8
+  %36 = sub nsw i32 %35, %33
+  %37 = add i32 %34, %32
+  store i32 %36, ptr %C107, align 8, !tbaa !14
+  store i32 %37, ptr %E113, align 4, !tbaa !15
+  br label %if.end82
 
-113:                                              ; preds = %92, %102, %84
-  %114 = phi i32 [ 8, %92 ], [ 8, %102 ], [ %90, %84 ]
-  %115 = load i32, ptr %41, align 8, !tbaa !9
-  %116 = icmp eq i32 %115, 0
-  br i1 %116, label %117, label %84, !llvm.loop !37
+if.end82:                                         ; preds = %if.then63, %while.body76.lr.ph, %while.body52
+  %38 = phi i32 [ 8, %if.then63 ], [ 8, %while.body76.lr.ph ], [ %dec60, %while.body52 ]
+  %39 = load i32, ptr %Ebits_to_follow154, align 8, !tbaa !9
+  %cmp50.not = icmp eq i32 %39, 0
+  br i1 %cmp50.not, label %while.end83, label %while.body52, !llvm.loop !37
 
-117:                                              ; preds = %113, %80
-  %118 = add i32 %50, -512
-  br label %190
+while.end83:                                      ; preds = %if.end82, %if.end48
+  %sub84 = add i32 %low.1261, -512
+  br label %if.end158
 
-119:                                              ; preds = %48
-  %120 = icmp ult i32 %50, 256
-  br i1 %120, label %121, label %186
+if.else85:                                        ; preds = %while.body
+  %cmp86 = icmp ult i32 %low.1261, 256
+  br i1 %cmp86, label %if.then88, label %if.else153
 
-121:                                              ; preds = %119
-  %122 = load i32, ptr %42, align 8, !tbaa !17
-  %123 = shl i32 %122, 1
-  store i32 %123, ptr %42, align 8, !tbaa !17
-  %124 = load i32, ptr %43, align 4, !tbaa !16
-  %125 = add i32 %124, -1
-  store i32 %125, ptr %43, align 4, !tbaa !16
-  %126 = icmp eq i32 %125, 0
-  br i1 %126, label %127, label %148
+if.then88:                                        ; preds = %if.else85
+  %40 = load i32, ptr %Ebuffer89, align 8, !tbaa !17
+  %shl90 = shl i32 %40, 1
+  store i32 %shl90, ptr %Ebuffer89, align 8, !tbaa !17
+  %41 = load i32, ptr %Ebits_to_go93, align 4, !tbaa !16
+  %dec94 = add i32 %41, -1
+  store i32 %dec94, ptr %Ebits_to_go93, align 4, !tbaa !16
+  %cmp95 = icmp eq i32 %dec94, 0
+  br i1 %cmp95, label %if.then97, label %if.end116
 
-127:                                              ; preds = %121
-  %128 = trunc i32 %123 to i8
-  %129 = load ptr, ptr %44, align 8, !tbaa !12
-  %130 = load ptr, ptr %45, align 8, !tbaa !13
-  %131 = load i32, ptr %130, align 4, !tbaa !5
-  %132 = add nsw i32 %131, 1
-  store i32 %132, ptr %130, align 4, !tbaa !5
-  %133 = sext i32 %131 to i64
-  %134 = getelementptr inbounds i8, ptr %129, i64 %133
-  store i8 %128, ptr %134, align 1, !tbaa !19
-  store i32 8, ptr %43, align 4, !tbaa !16
-  %135 = load i32, ptr %46, align 8, !tbaa !14
-  %136 = icmp sgt i32 %135, 7
-  br i1 %136, label %137, label %148
+if.then97:                                        ; preds = %if.then88
+  %conv99 = trunc i32 %shl90 to i8
+  %42 = load ptr, ptr %Ecodestrm100, align 8, !tbaa !12
+  %43 = load ptr, ptr %Ecodestrm_len101, align 8, !tbaa !13
+  %44 = load i32, ptr %43, align 4, !tbaa !5
+  %inc102 = add nsw i32 %44, 1
+  store i32 %inc102, ptr %43, align 4, !tbaa !5
+  %idxprom103 = sext i32 %44 to i64
+  %arrayidx104 = getelementptr inbounds i8, ptr %42, i64 %idxprom103
+  store i8 %conv99, ptr %arrayidx104, align 1, !tbaa !19
+  store i32 8, ptr %Ebits_to_go93, align 4, !tbaa !16
+  %C107.promoted = load i32, ptr %C107, align 8, !tbaa !14
+  %cmp108243 = icmp sgt i32 %C107.promoted, 7
+  br i1 %cmp108243, label %while.body110.lr.ph, label %if.end116
 
-137:                                              ; preds = %127
-  %138 = load i32, ptr %47, align 4, !tbaa !15
-  %139 = add nuw i32 %135, 7
-  %140 = tail call i32 @llvm.smin.i32(i32 %135, i32 15)
-  %141 = sub nuw i32 %139, %140
-  %142 = lshr i32 %141, 3
-  %143 = and i32 %141, -8
-  %144 = add i32 %138, 1
-  %145 = add nsw i32 %135, -8
-  %146 = sub nsw i32 %145, %143
-  %147 = add i32 %144, %142
-  store i32 %146, ptr %46, align 8, !tbaa !14
-  store i32 %147, ptr %47, align 4, !tbaa !15
-  br label %148
+while.body110.lr.ph:                              ; preds = %if.then97
+  %E113.promoted = load i32, ptr %E113, align 4, !tbaa !15
+  %45 = add nuw i32 %C107.promoted, 7
+  %smin = tail call i32 @llvm.smin.i32(i32 %C107.promoted, i32 15)
+  %46 = sub nuw i32 %45, %smin
+  %47 = lshr i32 %46, 3
+  %48 = and i32 %46, -8
+  %49 = add i32 %E113.promoted, 1
+  %50 = add nsw i32 %C107.promoted, -8
+  %51 = sub nsw i32 %50, %48
+  %52 = add i32 %49, %47
+  store i32 %51, ptr %C107, align 8, !tbaa !14
+  store i32 %52, ptr %E113, align 4, !tbaa !15
+  br label %if.end116
 
-148:                                              ; preds = %127, %137, %121
-  %149 = phi i32 [ 8, %127 ], [ 8, %137 ], [ %125, %121 ]
-  %150 = load i32, ptr %41, align 8, !tbaa !9
-  %151 = icmp eq i32 %150, 0
-  br i1 %151, label %190, label %152
+if.end116:                                        ; preds = %if.then97, %while.body110.lr.ph, %if.then88
+  %53 = phi i32 [ 8, %if.then97 ], [ 8, %while.body110.lr.ph ], [ %dec94, %if.then88 ]
+  %54 = load i32, ptr %Ebits_to_follow154, align 8, !tbaa !9
+  %cmp119.not250 = icmp eq i32 %54, 0
+  br i1 %cmp119.not250, label %if.end158, label %while.body121
 
-152:                                              ; preds = %148, %182
-  %153 = phi i32 [ %183, %182 ], [ %149, %148 ]
-  %154 = phi i32 [ %184, %182 ], [ %150, %148 ]
-  %155 = add i32 %154, -1
-  store i32 %155, ptr %41, align 8, !tbaa !9
-  %156 = load i32, ptr %42, align 8, !tbaa !17
-  %157 = shl i32 %156, 1
-  %158 = or i32 %157, 1
-  store i32 %158, ptr %42, align 8, !tbaa !17
-  %159 = add i32 %153, -1
-  store i32 %159, ptr %43, align 4, !tbaa !16
-  %160 = icmp eq i32 %159, 0
-  br i1 %160, label %161, label %182
+while.body121:                                    ; preds = %if.end116, %if.end151
+  %55 = phi i32 [ %69, %if.end151 ], [ %53, %if.end116 ]
+  %56 = phi i32 [ %70, %if.end151 ], [ %54, %if.end116 ]
+  %dec123 = add i32 %56, -1
+  store i32 %dec123, ptr %Ebits_to_follow154, align 8, !tbaa !9
+  %57 = load i32, ptr %Ebuffer89, align 8, !tbaa !17
+  %shl125 = shl i32 %57, 1
+  %or127 = or i32 %shl125, 1
+  store i32 %or127, ptr %Ebuffer89, align 8, !tbaa !17
+  %dec129 = add i32 %55, -1
+  store i32 %dec129, ptr %Ebits_to_go93, align 4, !tbaa !16
+  %cmp130 = icmp eq i32 %dec129, 0
+  br i1 %cmp130, label %if.then132, label %if.end151
 
-161:                                              ; preds = %152
-  %162 = trunc i32 %158 to i8
-  %163 = load ptr, ptr %44, align 8, !tbaa !12
-  %164 = load ptr, ptr %45, align 8, !tbaa !13
-  %165 = load i32, ptr %164, align 4, !tbaa !5
-  %166 = add nsw i32 %165, 1
-  store i32 %166, ptr %164, align 4, !tbaa !5
-  %167 = sext i32 %165 to i64
-  %168 = getelementptr inbounds i8, ptr %163, i64 %167
-  store i8 %162, ptr %168, align 1, !tbaa !19
-  store i32 8, ptr %43, align 4, !tbaa !16
-  %169 = load i32, ptr %46, align 8, !tbaa !14
-  %170 = icmp sgt i32 %169, 7
-  br i1 %170, label %171, label %182
+if.then132:                                       ; preds = %while.body121
+  %conv134 = trunc i32 %or127 to i8
+  %58 = load ptr, ptr %Ecodestrm100, align 8, !tbaa !12
+  %59 = load ptr, ptr %Ecodestrm_len101, align 8, !tbaa !13
+  %60 = load i32, ptr %59, align 4, !tbaa !5
+  %inc137 = add nsw i32 %60, 1
+  store i32 %inc137, ptr %59, align 4, !tbaa !5
+  %idxprom138 = sext i32 %60 to i64
+  %arrayidx139 = getelementptr inbounds i8, ptr %58, i64 %idxprom138
+  store i8 %conv134, ptr %arrayidx139, align 1, !tbaa !19
+  store i32 8, ptr %Ebits_to_go93, align 4, !tbaa !16
+  %C142.promoted = load i32, ptr %C107, align 8, !tbaa !14
+  %cmp143247 = icmp sgt i32 %C142.promoted, 7
+  br i1 %cmp143247, label %while.body145.lr.ph, label %if.end151
 
-171:                                              ; preds = %161
-  %172 = load i32, ptr %47, align 4, !tbaa !15
-  %173 = add nuw i32 %169, 7
-  %174 = tail call i32 @llvm.smin.i32(i32 %169, i32 15)
-  %175 = sub nuw i32 %173, %174
-  %176 = lshr i32 %175, 3
-  %177 = and i32 %175, -8
-  %178 = add i32 %172, 1
-  %179 = add nsw i32 %169, -8
-  %180 = sub nsw i32 %179, %177
-  %181 = add i32 %178, %176
-  store i32 %180, ptr %46, align 8, !tbaa !14
-  store i32 %181, ptr %47, align 4, !tbaa !15
-  br label %182
+while.body145.lr.ph:                              ; preds = %if.then132
+  %E148.promoted = load i32, ptr %E113, align 4, !tbaa !15
+  %61 = add nuw i32 %C142.promoted, 7
+  %smin264 = tail call i32 @llvm.smin.i32(i32 %C142.promoted, i32 15)
+  %62 = sub nuw i32 %61, %smin264
+  %63 = lshr i32 %62, 3
+  %64 = and i32 %62, -8
+  %65 = add i32 %E148.promoted, 1
+  %66 = add nsw i32 %C142.promoted, -8
+  %67 = sub nsw i32 %66, %64
+  %68 = add i32 %65, %63
+  store i32 %67, ptr %C107, align 8, !tbaa !14
+  store i32 %68, ptr %E113, align 4, !tbaa !15
+  br label %if.end151
 
-182:                                              ; preds = %161, %171, %152
-  %183 = phi i32 [ 8, %161 ], [ 8, %171 ], [ %159, %152 ]
-  %184 = load i32, ptr %41, align 8, !tbaa !9
-  %185 = icmp eq i32 %184, 0
-  br i1 %185, label %190, label %152, !llvm.loop !38
+if.end151:                                        ; preds = %if.then132, %while.body145.lr.ph, %while.body121
+  %69 = phi i32 [ 8, %if.then132 ], [ 8, %while.body145.lr.ph ], [ %dec129, %while.body121 ]
+  %70 = load i32, ptr %Ebits_to_follow154, align 8, !tbaa !9
+  %cmp119.not = icmp eq i32 %70, 0
+  br i1 %cmp119.not, label %if.end158, label %while.body121, !llvm.loop !38
 
-186:                                              ; preds = %119
-  %187 = load i32, ptr %41, align 8, !tbaa !9
-  %188 = add i32 %187, 1
-  store i32 %188, ptr %41, align 8, !tbaa !9
-  %189 = add nsw i32 %50, -256
-  br label %190
+if.else153:                                       ; preds = %if.else85
+  %71 = load i32, ptr %Ebits_to_follow154, align 8, !tbaa !9
+  %inc155 = add i32 %71, 1
+  store i32 %inc155, ptr %Ebits_to_follow154, align 8, !tbaa !9
+  %sub156 = add nsw i32 %low.1261, -256
+  br label %if.end158
 
-190:                                              ; preds = %182, %148, %186, %117
-  %191 = phi i32 [ %118, %117 ], [ %189, %186 ], [ %50, %148 ], [ %50, %182 ]
-  %192 = shl i32 %191, 1
-  %193 = shl nuw nsw i32 %49, 1
-  %194 = icmp ult i32 %49, 128
-  br i1 %194, label %48, label %195, !llvm.loop !39
+if.end158:                                        ; preds = %if.end151, %if.end116, %if.else153, %while.end83
+  %low.2 = phi i32 [ %sub84, %while.end83 ], [ %sub156, %if.else153 ], [ %low.1261, %if.end116 ], [ %low.1261, %if.end151 ]
+  %shl159 = shl i32 %low.2, 1
+  %shl160 = shl nuw nsw i32 %range.1262, 1
+  %cmp27 = icmp ult i32 %range.1262, 128
+  br i1 %cmp27, label %while.body, label %while.end161, !llvm.loop !39
 
-195:                                              ; preds = %190, %34
-  %196 = phi i32 [ %6, %34 ], [ %192, %190 ]
-  %197 = phi i32 [ %15, %34 ], [ %193, %190 ]
-  store i32 %197, ptr %4, align 4, !tbaa !30
-  store i32 %196, ptr %0, align 8, !tbaa !18
-  %198 = getelementptr inbounds %struct.EncodingEnvironment, ptr %0, i64 0, i32 7
-  %199 = load i32, ptr %198, align 8, !tbaa !14
-  %200 = add nsw i32 %199, 1
-  store i32 %200, ptr %198, align 8, !tbaa !14
+while.end161:                                     ; preds = %if.end158, %if.end26
+  %low.1.lcssa = phi i32 [ %1, %if.end26 ], [ %shl159, %if.end158 ]
+  %range.1.lcssa = phi i32 [ %sub, %if.end26 ], [ %shl160, %if.end158 ]
+  store i32 %range.1.lcssa, ptr %Erange, align 4, !tbaa !30
+  store i32 %low.1.lcssa, ptr %eep, align 8, !tbaa !18
+  %C164 = getelementptr inbounds %struct.EncodingEnvironment, ptr %eep, i64 0, i32 7
+  %72 = load i32, ptr %C164, align 8, !tbaa !14
+  %inc165 = add nsw i32 %72, 1
+  store i32 %inc165, ptr %C164, align 8, !tbaa !14
   ret void
 }
 
 ; Function Attrs: nofree nosync nounwind memory(readwrite, inaccessiblemem: none) uwtable
-define dso_local void @biari_encode_symbol_eq_prob(ptr nocapture noundef %0, i16 noundef signext %1) local_unnamed_addr #8 {
-  %3 = load i32, ptr %0, align 8, !tbaa !18
-  %4 = shl i32 %3, 1
-  %5 = icmp eq i16 %1, 0
-  br i1 %5, label %10, label %6
+define dso_local void @biari_encode_symbol_eq_prob(ptr nocapture noundef %eep, i16 noundef signext %symbol) local_unnamed_addr #8 {
+entry:
+  %0 = load i32, ptr %eep, align 8, !tbaa !18
+  %shl = shl i32 %0, 1
+  %cmp.not = icmp eq i16 %symbol, 0
+  br i1 %cmp.not, label %if.end, label %if.then
 
-6:                                                ; preds = %2
-  %7 = getelementptr inbounds %struct.EncodingEnvironment, ptr %0, i64 0, i32 1
-  %8 = load i32, ptr %7, align 4, !tbaa !30
-  %9 = add i32 %8, %4
-  br label %10
+if.then:                                          ; preds = %entry
+  %Erange = getelementptr inbounds %struct.EncodingEnvironment, ptr %eep, i64 0, i32 1
+  %1 = load i32, ptr %Erange, align 4, !tbaa !30
+  %add = add i32 %1, %shl
+  br label %if.end
 
-10:                                               ; preds = %6, %2
-  %11 = phi i32 [ %9, %6 ], [ %4, %2 ]
-  %12 = icmp ugt i32 %11, 1023
-  br i1 %12, label %13, label %92
+if.end:                                           ; preds = %if.then, %entry
+  %low.0 = phi i32 [ %add, %if.then ], [ %shl, %entry ]
+  %cmp2 = icmp ugt i32 %low.0, 1023
+  br i1 %cmp2, label %if.then4, label %if.else
 
-13:                                               ; preds = %10
-  %14 = getelementptr inbounds %struct.EncodingEnvironment, ptr %0, i64 0, i32 2
-  %15 = load i32, ptr %14, align 8, !tbaa !17
-  %16 = shl i32 %15, 1
-  %17 = or i32 %16, 1
-  store i32 %17, ptr %14, align 8, !tbaa !17
-  %18 = getelementptr inbounds %struct.EncodingEnvironment, ptr %0, i64 0, i32 3
-  %19 = load i32, ptr %18, align 4, !tbaa !16
-  %20 = add i32 %19, -1
-  store i32 %20, ptr %18, align 4, !tbaa !16
-  %21 = icmp eq i32 %20, 0
-  br i1 %21, label %22, label %47
+if.then4:                                         ; preds = %if.end
+  %Ebuffer = getelementptr inbounds %struct.EncodingEnvironment, ptr %eep, i64 0, i32 2
+  %2 = load i32, ptr %Ebuffer, align 8, !tbaa !17
+  %shl5 = shl i32 %2, 1
+  %or = or i32 %shl5, 1
+  store i32 %or, ptr %Ebuffer, align 8, !tbaa !17
+  %Ebits_to_go = getelementptr inbounds %struct.EncodingEnvironment, ptr %eep, i64 0, i32 3
+  %3 = load i32, ptr %Ebits_to_go, align 4, !tbaa !16
+  %dec = add i32 %3, -1
+  store i32 %dec, ptr %Ebits_to_go, align 4, !tbaa !16
+  %cmp7 = icmp eq i32 %dec, 0
+  br i1 %cmp7, label %if.then9, label %if.end17
 
-22:                                               ; preds = %13
-  %23 = trunc i32 %17 to i8
-  %24 = getelementptr inbounds %struct.EncodingEnvironment, ptr %0, i64 0, i32 5
-  %25 = load ptr, ptr %24, align 8, !tbaa !12
-  %26 = getelementptr inbounds %struct.EncodingEnvironment, ptr %0, i64 0, i32 6
-  %27 = load ptr, ptr %26, align 8, !tbaa !13
-  %28 = load i32, ptr %27, align 4, !tbaa !5
-  %29 = add nsw i32 %28, 1
-  store i32 %29, ptr %27, align 4, !tbaa !5
-  %30 = sext i32 %28 to i64
-  %31 = getelementptr inbounds i8, ptr %25, i64 %30
-  store i8 %23, ptr %31, align 1, !tbaa !19
-  store i32 8, ptr %18, align 4, !tbaa !16
-  %32 = getelementptr inbounds %struct.EncodingEnvironment, ptr %0, i64 0, i32 7
-  %33 = load i32, ptr %32, align 8, !tbaa !14
-  %34 = icmp sgt i32 %33, 7
-  br i1 %34, label %35, label %47
+if.then9:                                         ; preds = %if.then4
+  %conv11 = trunc i32 %or to i8
+  %Ecodestrm = getelementptr inbounds %struct.EncodingEnvironment, ptr %eep, i64 0, i32 5
+  %4 = load ptr, ptr %Ecodestrm, align 8, !tbaa !12
+  %Ecodestrm_len = getelementptr inbounds %struct.EncodingEnvironment, ptr %eep, i64 0, i32 6
+  %5 = load ptr, ptr %Ecodestrm_len, align 8, !tbaa !13
+  %6 = load i32, ptr %5, align 4, !tbaa !5
+  %inc = add nsw i32 %6, 1
+  store i32 %inc, ptr %5, align 4, !tbaa !5
+  %idxprom = sext i32 %6 to i64
+  %arrayidx = getelementptr inbounds i8, ptr %4, i64 %idxprom
+  store i8 %conv11, ptr %arrayidx, align 1, !tbaa !19
+  store i32 8, ptr %Ebits_to_go, align 4, !tbaa !16
+  %C = getelementptr inbounds %struct.EncodingEnvironment, ptr %eep, i64 0, i32 7
+  %C.promoted = load i32, ptr %C, align 8, !tbaa !14
+  %cmp13198 = icmp sgt i32 %C.promoted, 7
+  br i1 %cmp13198, label %while.body.lr.ph, label %if.end17
 
-35:                                               ; preds = %22
-  %36 = getelementptr inbounds %struct.EncodingEnvironment, ptr %0, i64 0, i32 8
-  %37 = load i32, ptr %36, align 4, !tbaa !15
-  %38 = add nuw i32 %33, 7
-  %39 = tail call i32 @llvm.smin.i32(i32 %33, i32 15)
-  %40 = sub nuw i32 %38, %39
-  %41 = lshr i32 %40, 3
-  %42 = and i32 %40, -8
-  %43 = add i32 %37, %41
-  %44 = add nsw i32 %33, -8
-  %45 = sub nsw i32 %44, %42
-  %46 = add i32 %43, 1
-  store i32 %45, ptr %32, align 8, !tbaa !14
-  store i32 %46, ptr %36, align 4, !tbaa !15
-  br label %47
+while.body.lr.ph:                                 ; preds = %if.then9
+  %E = getelementptr inbounds %struct.EncodingEnvironment, ptr %eep, i64 0, i32 8
+  %E.promoted = load i32, ptr %E, align 4, !tbaa !15
+  %7 = add nuw i32 %C.promoted, 7
+  %smin207 = tail call i32 @llvm.smin.i32(i32 %C.promoted, i32 15)
+  %8 = sub nuw i32 %7, %smin207
+  %9 = lshr i32 %8, 3
+  %10 = and i32 %8, -8
+  %11 = add i32 %E.promoted, %9
+  %12 = add nsw i32 %C.promoted, -8
+  %13 = sub nsw i32 %12, %10
+  %14 = add i32 %11, 1
+  store i32 %13, ptr %C, align 8, !tbaa !14
+  store i32 %14, ptr %E, align 4, !tbaa !15
+  br label %if.end17
 
-47:                                               ; preds = %22, %35, %13
-  %48 = phi i32 [ 8, %22 ], [ 8, %35 ], [ %20, %13 ]
-  %49 = getelementptr inbounds %struct.EncodingEnvironment, ptr %0, i64 0, i32 4
-  %50 = load i32, ptr %49, align 8, !tbaa !9
-  %51 = icmp eq i32 %50, 0
-  br i1 %51, label %90, label %52
+if.end17:                                         ; preds = %if.then9, %while.body.lr.ph, %if.then4
+  %15 = phi i32 [ 8, %if.then9 ], [ 8, %while.body.lr.ph ], [ %dec, %if.then4 ]
+  %Ebits_to_follow = getelementptr inbounds %struct.EncodingEnvironment, ptr %eep, i64 0, i32 4
+  %16 = load i32, ptr %Ebits_to_follow, align 8, !tbaa !9
+  %cmp19.not205 = icmp eq i32 %16, 0
+  br i1 %cmp19.not205, label %while.end52, label %while.body21.lr.ph
 
-52:                                               ; preds = %47
-  %53 = getelementptr inbounds %struct.EncodingEnvironment, ptr %0, i64 0, i32 5
-  %54 = getelementptr inbounds %struct.EncodingEnvironment, ptr %0, i64 0, i32 6
-  %55 = getelementptr inbounds %struct.EncodingEnvironment, ptr %0, i64 0, i32 7
-  %56 = getelementptr inbounds %struct.EncodingEnvironment, ptr %0, i64 0, i32 8
-  br label %57
+while.body21.lr.ph:                               ; preds = %if.end17
+  %Ecodestrm35 = getelementptr inbounds %struct.EncodingEnvironment, ptr %eep, i64 0, i32 5
+  %Ecodestrm_len36 = getelementptr inbounds %struct.EncodingEnvironment, ptr %eep, i64 0, i32 6
+  %C42 = getelementptr inbounds %struct.EncodingEnvironment, ptr %eep, i64 0, i32 7
+  %E48 = getelementptr inbounds %struct.EncodingEnvironment, ptr %eep, i64 0, i32 8
+  br label %while.body21
 
-57:                                               ; preds = %52, %86
-  %58 = phi i32 [ %48, %52 ], [ %87, %86 ]
-  %59 = phi i32 [ %50, %52 ], [ %88, %86 ]
-  %60 = add i32 %59, -1
-  store i32 %60, ptr %49, align 8, !tbaa !9
-  %61 = load i32, ptr %14, align 8, !tbaa !17
-  %62 = shl i32 %61, 1
-  store i32 %62, ptr %14, align 8, !tbaa !17
-  %63 = add i32 %58, -1
-  store i32 %63, ptr %18, align 4, !tbaa !16
-  %64 = icmp eq i32 %63, 0
-  br i1 %64, label %65, label %86
+while.body21:                                     ; preds = %while.body21.lr.ph, %if.end51
+  %17 = phi i32 [ %15, %while.body21.lr.ph ], [ %31, %if.end51 ]
+  %18 = phi i32 [ %16, %while.body21.lr.ph ], [ %32, %if.end51 ]
+  %dec23 = add i32 %18, -1
+  store i32 %dec23, ptr %Ebits_to_follow, align 8, !tbaa !9
+  %19 = load i32, ptr %Ebuffer, align 8, !tbaa !17
+  %shl25 = shl i32 %19, 1
+  store i32 %shl25, ptr %Ebuffer, align 8, !tbaa !17
+  %dec29 = add i32 %17, -1
+  store i32 %dec29, ptr %Ebits_to_go, align 4, !tbaa !16
+  %cmp30 = icmp eq i32 %dec29, 0
+  br i1 %cmp30, label %if.then32, label %if.end51
 
-65:                                               ; preds = %57
-  %66 = trunc i32 %62 to i8
-  %67 = load ptr, ptr %53, align 8, !tbaa !12
-  %68 = load ptr, ptr %54, align 8, !tbaa !13
-  %69 = load i32, ptr %68, align 4, !tbaa !5
-  %70 = add nsw i32 %69, 1
-  store i32 %70, ptr %68, align 4, !tbaa !5
-  %71 = sext i32 %69 to i64
-  %72 = getelementptr inbounds i8, ptr %67, i64 %71
-  store i8 %66, ptr %72, align 1, !tbaa !19
-  store i32 8, ptr %18, align 4, !tbaa !16
-  %73 = load i32, ptr %55, align 8, !tbaa !14
-  %74 = icmp sgt i32 %73, 7
-  br i1 %74, label %75, label %86
+if.then32:                                        ; preds = %while.body21
+  %conv34 = trunc i32 %shl25 to i8
+  %20 = load ptr, ptr %Ecodestrm35, align 8, !tbaa !12
+  %21 = load ptr, ptr %Ecodestrm_len36, align 8, !tbaa !13
+  %22 = load i32, ptr %21, align 4, !tbaa !5
+  %inc37 = add nsw i32 %22, 1
+  store i32 %inc37, ptr %21, align 4, !tbaa !5
+  %idxprom38 = sext i32 %22 to i64
+  %arrayidx39 = getelementptr inbounds i8, ptr %20, i64 %idxprom38
+  store i8 %conv34, ptr %arrayidx39, align 1, !tbaa !19
+  store i32 8, ptr %Ebits_to_go, align 4, !tbaa !16
+  %C42.promoted = load i32, ptr %C42, align 8, !tbaa !14
+  %cmp43202 = icmp sgt i32 %C42.promoted, 7
+  br i1 %cmp43202, label %while.body45.lr.ph, label %if.end51
 
-75:                                               ; preds = %65
-  %76 = load i32, ptr %56, align 4, !tbaa !15
-  %77 = add nuw i32 %73, 7
-  %78 = tail call i32 @llvm.smin.i32(i32 %73, i32 15)
-  %79 = sub nuw i32 %77, %78
-  %80 = lshr i32 %79, 3
-  %81 = and i32 %79, -8
-  %82 = add i32 %76, 1
-  %83 = add nsw i32 %73, -8
-  %84 = sub nsw i32 %83, %81
-  %85 = add i32 %82, %80
-  store i32 %84, ptr %55, align 8, !tbaa !14
-  store i32 %85, ptr %56, align 4, !tbaa !15
-  br label %86
+while.body45.lr.ph:                               ; preds = %if.then32
+  %E48.promoted = load i32, ptr %E48, align 4, !tbaa !15
+  %23 = add nuw i32 %C42.promoted, 7
+  %smin208 = tail call i32 @llvm.smin.i32(i32 %C42.promoted, i32 15)
+  %24 = sub nuw i32 %23, %smin208
+  %25 = lshr i32 %24, 3
+  %26 = and i32 %24, -8
+  %27 = add i32 %E48.promoted, 1
+  %28 = add nsw i32 %C42.promoted, -8
+  %29 = sub nsw i32 %28, %26
+  %30 = add i32 %27, %25
+  store i32 %29, ptr %C42, align 8, !tbaa !14
+  store i32 %30, ptr %E48, align 4, !tbaa !15
+  br label %if.end51
 
-86:                                               ; preds = %65, %75, %57
-  %87 = phi i32 [ 8, %65 ], [ 8, %75 ], [ %63, %57 ]
-  %88 = load i32, ptr %49, align 8, !tbaa !9
-  %89 = icmp eq i32 %88, 0
-  br i1 %89, label %90, label %57, !llvm.loop !40
+if.end51:                                         ; preds = %if.then32, %while.body45.lr.ph, %while.body21
+  %31 = phi i32 [ 8, %if.then32 ], [ 8, %while.body45.lr.ph ], [ %dec29, %while.body21 ]
+  %32 = load i32, ptr %Ebits_to_follow, align 8, !tbaa !9
+  %cmp19.not = icmp eq i32 %32, 0
+  br i1 %cmp19.not, label %while.end52, label %while.body21, !llvm.loop !40
 
-90:                                               ; preds = %86, %47
-  %91 = add i32 %11, -1024
-  br label %176
+while.end52:                                      ; preds = %if.end51, %if.end17
+  %sub53 = add i32 %low.0, -1024
+  br label %if.end126
 
-92:                                               ; preds = %10
-  %93 = icmp ult i32 %11, 512
-  br i1 %93, label %94, label %171
+if.else:                                          ; preds = %if.end
+  %cmp54 = icmp ult i32 %low.0, 512
+  br i1 %cmp54, label %if.then56, label %if.else121
 
-94:                                               ; preds = %92
-  %95 = getelementptr inbounds %struct.EncodingEnvironment, ptr %0, i64 0, i32 2
-  %96 = load i32, ptr %95, align 8, !tbaa !17
-  %97 = shl i32 %96, 1
-  store i32 %97, ptr %95, align 8, !tbaa !17
-  %98 = getelementptr inbounds %struct.EncodingEnvironment, ptr %0, i64 0, i32 3
-  %99 = load i32, ptr %98, align 4, !tbaa !16
-  %100 = add i32 %99, -1
-  store i32 %100, ptr %98, align 4, !tbaa !16
-  %101 = icmp eq i32 %100, 0
-  br i1 %101, label %102, label %127
+if.then56:                                        ; preds = %if.else
+  %Ebuffer57 = getelementptr inbounds %struct.EncodingEnvironment, ptr %eep, i64 0, i32 2
+  %33 = load i32, ptr %Ebuffer57, align 8, !tbaa !17
+  %shl58 = shl i32 %33, 1
+  store i32 %shl58, ptr %Ebuffer57, align 8, !tbaa !17
+  %Ebits_to_go61 = getelementptr inbounds %struct.EncodingEnvironment, ptr %eep, i64 0, i32 3
+  %34 = load i32, ptr %Ebits_to_go61, align 4, !tbaa !16
+  %dec62 = add i32 %34, -1
+  store i32 %dec62, ptr %Ebits_to_go61, align 4, !tbaa !16
+  %cmp63 = icmp eq i32 %dec62, 0
+  br i1 %cmp63, label %if.then65, label %if.end84
 
-102:                                              ; preds = %94
-  %103 = trunc i32 %97 to i8
-  %104 = getelementptr inbounds %struct.EncodingEnvironment, ptr %0, i64 0, i32 5
-  %105 = load ptr, ptr %104, align 8, !tbaa !12
-  %106 = getelementptr inbounds %struct.EncodingEnvironment, ptr %0, i64 0, i32 6
-  %107 = load ptr, ptr %106, align 8, !tbaa !13
-  %108 = load i32, ptr %107, align 4, !tbaa !5
-  %109 = add nsw i32 %108, 1
-  store i32 %109, ptr %107, align 4, !tbaa !5
-  %110 = sext i32 %108 to i64
-  %111 = getelementptr inbounds i8, ptr %105, i64 %110
-  store i8 %103, ptr %111, align 1, !tbaa !19
-  store i32 8, ptr %98, align 4, !tbaa !16
-  %112 = getelementptr inbounds %struct.EncodingEnvironment, ptr %0, i64 0, i32 7
-  %113 = load i32, ptr %112, align 8, !tbaa !14
-  %114 = icmp sgt i32 %113, 7
-  br i1 %114, label %115, label %127
+if.then65:                                        ; preds = %if.then56
+  %conv67 = trunc i32 %shl58 to i8
+  %Ecodestrm68 = getelementptr inbounds %struct.EncodingEnvironment, ptr %eep, i64 0, i32 5
+  %35 = load ptr, ptr %Ecodestrm68, align 8, !tbaa !12
+  %Ecodestrm_len69 = getelementptr inbounds %struct.EncodingEnvironment, ptr %eep, i64 0, i32 6
+  %36 = load ptr, ptr %Ecodestrm_len69, align 8, !tbaa !13
+  %37 = load i32, ptr %36, align 4, !tbaa !5
+  %inc70 = add nsw i32 %37, 1
+  store i32 %inc70, ptr %36, align 4, !tbaa !5
+  %idxprom71 = sext i32 %37 to i64
+  %arrayidx72 = getelementptr inbounds i8, ptr %35, i64 %idxprom71
+  store i8 %conv67, ptr %arrayidx72, align 1, !tbaa !19
+  store i32 8, ptr %Ebits_to_go61, align 4, !tbaa !16
+  %C75 = getelementptr inbounds %struct.EncodingEnvironment, ptr %eep, i64 0, i32 7
+  %C75.promoted = load i32, ptr %C75, align 8, !tbaa !14
+  %cmp76189 = icmp sgt i32 %C75.promoted, 7
+  br i1 %cmp76189, label %while.body78.lr.ph, label %if.end84
 
-115:                                              ; preds = %102
-  %116 = getelementptr inbounds %struct.EncodingEnvironment, ptr %0, i64 0, i32 8
-  %117 = load i32, ptr %116, align 4, !tbaa !15
-  %118 = add nuw i32 %113, 7
-  %119 = tail call i32 @llvm.smin.i32(i32 %113, i32 15)
-  %120 = sub nuw i32 %118, %119
-  %121 = lshr i32 %120, 3
-  %122 = and i32 %120, -8
-  %123 = add i32 %117, %121
-  %124 = add nsw i32 %113, -8
-  %125 = sub nsw i32 %124, %122
-  %126 = add i32 %123, 1
-  store i32 %125, ptr %112, align 8, !tbaa !14
-  store i32 %126, ptr %116, align 4, !tbaa !15
-  br label %127
+while.body78.lr.ph:                               ; preds = %if.then65
+  %E81 = getelementptr inbounds %struct.EncodingEnvironment, ptr %eep, i64 0, i32 8
+  %E81.promoted = load i32, ptr %E81, align 4, !tbaa !15
+  %38 = add nuw i32 %C75.promoted, 7
+  %smin = tail call i32 @llvm.smin.i32(i32 %C75.promoted, i32 15)
+  %39 = sub nuw i32 %38, %smin
+  %40 = lshr i32 %39, 3
+  %41 = and i32 %39, -8
+  %42 = add i32 %E81.promoted, %40
+  %43 = add nsw i32 %C75.promoted, -8
+  %44 = sub nsw i32 %43, %41
+  %45 = add i32 %42, 1
+  store i32 %44, ptr %C75, align 8, !tbaa !14
+  store i32 %45, ptr %E81, align 4, !tbaa !15
+  br label %if.end84
 
-127:                                              ; preds = %102, %115, %94
-  %128 = phi i32 [ 8, %102 ], [ 8, %115 ], [ %100, %94 ]
-  %129 = getelementptr inbounds %struct.EncodingEnvironment, ptr %0, i64 0, i32 4
-  %130 = load i32, ptr %129, align 8, !tbaa !9
-  %131 = icmp eq i32 %130, 0
-  br i1 %131, label %176, label %132
+if.end84:                                         ; preds = %if.then65, %while.body78.lr.ph, %if.then56
+  %46 = phi i32 [ 8, %if.then65 ], [ 8, %while.body78.lr.ph ], [ %dec62, %if.then56 ]
+  %Ebits_to_follow86 = getelementptr inbounds %struct.EncodingEnvironment, ptr %eep, i64 0, i32 4
+  %47 = load i32, ptr %Ebits_to_follow86, align 8, !tbaa !9
+  %cmp87.not196 = icmp eq i32 %47, 0
+  br i1 %cmp87.not196, label %if.end126, label %while.body89.lr.ph
 
-132:                                              ; preds = %127
-  %133 = getelementptr inbounds %struct.EncodingEnvironment, ptr %0, i64 0, i32 5
-  %134 = getelementptr inbounds %struct.EncodingEnvironment, ptr %0, i64 0, i32 6
-  %135 = getelementptr inbounds %struct.EncodingEnvironment, ptr %0, i64 0, i32 7
-  %136 = getelementptr inbounds %struct.EncodingEnvironment, ptr %0, i64 0, i32 8
-  br label %137
+while.body89.lr.ph:                               ; preds = %if.end84
+  %Ecodestrm103 = getelementptr inbounds %struct.EncodingEnvironment, ptr %eep, i64 0, i32 5
+  %Ecodestrm_len104 = getelementptr inbounds %struct.EncodingEnvironment, ptr %eep, i64 0, i32 6
+  %C110 = getelementptr inbounds %struct.EncodingEnvironment, ptr %eep, i64 0, i32 7
+  %E116 = getelementptr inbounds %struct.EncodingEnvironment, ptr %eep, i64 0, i32 8
+  br label %while.body89
 
-137:                                              ; preds = %132, %167
-  %138 = phi i32 [ %128, %132 ], [ %168, %167 ]
-  %139 = phi i32 [ %130, %132 ], [ %169, %167 ]
-  %140 = add i32 %139, -1
-  store i32 %140, ptr %129, align 8, !tbaa !9
-  %141 = load i32, ptr %95, align 8, !tbaa !17
-  %142 = shl i32 %141, 1
-  %143 = or i32 %142, 1
-  store i32 %143, ptr %95, align 8, !tbaa !17
-  %144 = add i32 %138, -1
-  store i32 %144, ptr %98, align 4, !tbaa !16
-  %145 = icmp eq i32 %144, 0
-  br i1 %145, label %146, label %167
+while.body89:                                     ; preds = %while.body89.lr.ph, %if.end119
+  %48 = phi i32 [ %46, %while.body89.lr.ph ], [ %62, %if.end119 ]
+  %49 = phi i32 [ %47, %while.body89.lr.ph ], [ %63, %if.end119 ]
+  %dec91 = add i32 %49, -1
+  store i32 %dec91, ptr %Ebits_to_follow86, align 8, !tbaa !9
+  %50 = load i32, ptr %Ebuffer57, align 8, !tbaa !17
+  %shl93 = shl i32 %50, 1
+  %or95 = or i32 %shl93, 1
+  store i32 %or95, ptr %Ebuffer57, align 8, !tbaa !17
+  %dec97 = add i32 %48, -1
+  store i32 %dec97, ptr %Ebits_to_go61, align 4, !tbaa !16
+  %cmp98 = icmp eq i32 %dec97, 0
+  br i1 %cmp98, label %if.then100, label %if.end119
 
-146:                                              ; preds = %137
-  %147 = trunc i32 %143 to i8
-  %148 = load ptr, ptr %133, align 8, !tbaa !12
-  %149 = load ptr, ptr %134, align 8, !tbaa !13
-  %150 = load i32, ptr %149, align 4, !tbaa !5
-  %151 = add nsw i32 %150, 1
-  store i32 %151, ptr %149, align 4, !tbaa !5
-  %152 = sext i32 %150 to i64
-  %153 = getelementptr inbounds i8, ptr %148, i64 %152
-  store i8 %147, ptr %153, align 1, !tbaa !19
-  store i32 8, ptr %98, align 4, !tbaa !16
-  %154 = load i32, ptr %135, align 8, !tbaa !14
-  %155 = icmp sgt i32 %154, 7
-  br i1 %155, label %156, label %167
+if.then100:                                       ; preds = %while.body89
+  %conv102 = trunc i32 %or95 to i8
+  %51 = load ptr, ptr %Ecodestrm103, align 8, !tbaa !12
+  %52 = load ptr, ptr %Ecodestrm_len104, align 8, !tbaa !13
+  %53 = load i32, ptr %52, align 4, !tbaa !5
+  %inc105 = add nsw i32 %53, 1
+  store i32 %inc105, ptr %52, align 4, !tbaa !5
+  %idxprom106 = sext i32 %53 to i64
+  %arrayidx107 = getelementptr inbounds i8, ptr %51, i64 %idxprom106
+  store i8 %conv102, ptr %arrayidx107, align 1, !tbaa !19
+  store i32 8, ptr %Ebits_to_go61, align 4, !tbaa !16
+  %C110.promoted = load i32, ptr %C110, align 8, !tbaa !14
+  %cmp111193 = icmp sgt i32 %C110.promoted, 7
+  br i1 %cmp111193, label %while.body113.lr.ph, label %if.end119
 
-156:                                              ; preds = %146
-  %157 = load i32, ptr %136, align 4, !tbaa !15
-  %158 = add nuw i32 %154, 7
-  %159 = tail call i32 @llvm.smin.i32(i32 %154, i32 15)
-  %160 = sub nuw i32 %158, %159
-  %161 = lshr i32 %160, 3
-  %162 = and i32 %160, -8
-  %163 = add i32 %157, 1
-  %164 = add nsw i32 %154, -8
-  %165 = sub nsw i32 %164, %162
-  %166 = add i32 %163, %161
-  store i32 %165, ptr %135, align 8, !tbaa !14
-  store i32 %166, ptr %136, align 4, !tbaa !15
-  br label %167
+while.body113.lr.ph:                              ; preds = %if.then100
+  %E116.promoted = load i32, ptr %E116, align 4, !tbaa !15
+  %54 = add nuw i32 %C110.promoted, 7
+  %smin206 = tail call i32 @llvm.smin.i32(i32 %C110.promoted, i32 15)
+  %55 = sub nuw i32 %54, %smin206
+  %56 = lshr i32 %55, 3
+  %57 = and i32 %55, -8
+  %58 = add i32 %E116.promoted, 1
+  %59 = add nsw i32 %C110.promoted, -8
+  %60 = sub nsw i32 %59, %57
+  %61 = add i32 %58, %56
+  store i32 %60, ptr %C110, align 8, !tbaa !14
+  store i32 %61, ptr %E116, align 4, !tbaa !15
+  br label %if.end119
 
-167:                                              ; preds = %146, %156, %137
-  %168 = phi i32 [ 8, %146 ], [ 8, %156 ], [ %144, %137 ]
-  %169 = load i32, ptr %129, align 8, !tbaa !9
-  %170 = icmp eq i32 %169, 0
-  br i1 %170, label %176, label %137, !llvm.loop !41
+if.end119:                                        ; preds = %if.then100, %while.body113.lr.ph, %while.body89
+  %62 = phi i32 [ 8, %if.then100 ], [ 8, %while.body113.lr.ph ], [ %dec97, %while.body89 ]
+  %63 = load i32, ptr %Ebits_to_follow86, align 8, !tbaa !9
+  %cmp87.not = icmp eq i32 %63, 0
+  br i1 %cmp87.not, label %if.end126, label %while.body89, !llvm.loop !41
 
-171:                                              ; preds = %92
-  %172 = getelementptr inbounds %struct.EncodingEnvironment, ptr %0, i64 0, i32 4
-  %173 = load i32, ptr %172, align 8, !tbaa !9
-  %174 = add i32 %173, 1
-  store i32 %174, ptr %172, align 8, !tbaa !9
-  %175 = add nsw i32 %11, -512
-  br label %176
+if.else121:                                       ; preds = %if.else
+  %Ebits_to_follow122 = getelementptr inbounds %struct.EncodingEnvironment, ptr %eep, i64 0, i32 4
+  %64 = load i32, ptr %Ebits_to_follow122, align 8, !tbaa !9
+  %inc123 = add i32 %64, 1
+  store i32 %inc123, ptr %Ebits_to_follow122, align 8, !tbaa !9
+  %sub124 = add nsw i32 %low.0, -512
+  br label %if.end126
 
-176:                                              ; preds = %167, %127, %171, %90
-  %177 = phi i32 [ %91, %90 ], [ %175, %171 ], [ %11, %127 ], [ %11, %167 ]
-  store i32 %177, ptr %0, align 8, !tbaa !18
-  %178 = getelementptr inbounds %struct.EncodingEnvironment, ptr %0, i64 0, i32 7
-  %179 = load i32, ptr %178, align 8, !tbaa !14
-  %180 = add nsw i32 %179, 1
-  store i32 %180, ptr %178, align 8, !tbaa !14
+if.end126:                                        ; preds = %if.end119, %if.end84, %if.else121, %while.end52
+  %low.1 = phi i32 [ %sub53, %while.end52 ], [ %sub124, %if.else121 ], [ %low.0, %if.end84 ], [ %low.0, %if.end119 ]
+  store i32 %low.1, ptr %eep, align 8, !tbaa !18
+  %C128 = getelementptr inbounds %struct.EncodingEnvironment, ptr %eep, i64 0, i32 7
+  %65 = load i32, ptr %C128, align 8, !tbaa !14
+  %inc129 = add nsw i32 %65, 1
+  store i32 %inc129, ptr %C128, align 8, !tbaa !14
   ret void
 }
 
 ; Function Attrs: nofree nosync nounwind memory(readwrite, inaccessiblemem: none) uwtable
-define dso_local void @biari_encode_symbol_final(ptr nocapture noundef %0, i16 noundef signext %1) local_unnamed_addr #8 {
-  %3 = getelementptr inbounds %struct.EncodingEnvironment, ptr %0, i64 0, i32 1
-  %4 = load i32, ptr %3, align 4, !tbaa !30
-  %5 = add i32 %4, -2
-  %6 = load i32, ptr %0, align 8, !tbaa !18
-  %7 = icmp eq i16 %1, 0
-  %8 = select i1 %7, i32 %5, i32 2
-  %9 = select i1 %7, i32 0, i32 %5
-  %10 = add i32 %9, %6
-  %11 = icmp ult i32 %8, 256
-  br i1 %11, label %12, label %167
+define dso_local void @biari_encode_symbol_final(ptr nocapture noundef %eep, i16 noundef signext %symbol) local_unnamed_addr #8 {
+entry:
+  %Erange = getelementptr inbounds %struct.EncodingEnvironment, ptr %eep, i64 0, i32 1
+  %0 = load i32, ptr %Erange, align 4, !tbaa !30
+  %sub = add i32 %0, -2
+  %1 = load i32, ptr %eep, align 8, !tbaa !18
+  %tobool.not = icmp eq i16 %symbol, 0
+  %spec.select = select i1 %tobool.not, i32 %sub, i32 2
+  %add = select i1 %tobool.not, i32 0, i32 %sub
+  %spec.select196 = add i32 %add, %1
+  %cmp215 = icmp ult i32 %spec.select, 256
+  br i1 %cmp215, label %while.body.lr.ph, label %while.end127
 
-12:                                               ; preds = %2
-  %13 = getelementptr inbounds %struct.EncodingEnvironment, ptr %0, i64 0, i32 4
-  %14 = getelementptr inbounds %struct.EncodingEnvironment, ptr %0, i64 0, i32 2
-  %15 = getelementptr inbounds %struct.EncodingEnvironment, ptr %0, i64 0, i32 3
-  %16 = getelementptr inbounds %struct.EncodingEnvironment, ptr %0, i64 0, i32 5
-  %17 = getelementptr inbounds %struct.EncodingEnvironment, ptr %0, i64 0, i32 6
-  %18 = getelementptr inbounds %struct.EncodingEnvironment, ptr %0, i64 0, i32 7
-  %19 = getelementptr inbounds %struct.EncodingEnvironment, ptr %0, i64 0, i32 8
-  br label %20
+while.body.lr.ph:                                 ; preds = %entry
+  %Ebits_to_follow120 = getelementptr inbounds %struct.EncodingEnvironment, ptr %eep, i64 0, i32 4
+  %Ebuffer55 = getelementptr inbounds %struct.EncodingEnvironment, ptr %eep, i64 0, i32 2
+  %Ebits_to_go59 = getelementptr inbounds %struct.EncodingEnvironment, ptr %eep, i64 0, i32 3
+  %Ecodestrm66 = getelementptr inbounds %struct.EncodingEnvironment, ptr %eep, i64 0, i32 5
+  %Ecodestrm_len67 = getelementptr inbounds %struct.EncodingEnvironment, ptr %eep, i64 0, i32 6
+  %C73 = getelementptr inbounds %struct.EncodingEnvironment, ptr %eep, i64 0, i32 7
+  %E79 = getelementptr inbounds %struct.EncodingEnvironment, ptr %eep, i64 0, i32 8
+  br label %while.body
 
-20:                                               ; preds = %12, %162
-  %21 = phi i32 [ %10, %12 ], [ %164, %162 ]
-  %22 = phi i32 [ %8, %12 ], [ %165, %162 ]
-  %23 = icmp ugt i32 %21, 511
-  br i1 %23, label %24, label %91
+while.body:                                       ; preds = %while.body.lr.ph, %if.end124
+  %low.1217 = phi i32 [ %spec.select196, %while.body.lr.ph ], [ %shl125, %if.end124 ]
+  %range.1216 = phi i32 [ %spec.select, %while.body.lr.ph ], [ %shl126, %if.end124 ]
+  %cmp1 = icmp ugt i32 %low.1217, 511
+  br i1 %cmp1, label %if.then2, label %if.else
 
-24:                                               ; preds = %20
-  %25 = load i32, ptr %14, align 8, !tbaa !17
-  %26 = shl i32 %25, 1
-  %27 = or i32 %26, 1
-  store i32 %27, ptr %14, align 8, !tbaa !17
-  %28 = load i32, ptr %15, align 4, !tbaa !16
-  %29 = add i32 %28, -1
-  store i32 %29, ptr %15, align 4, !tbaa !16
-  %30 = icmp eq i32 %29, 0
-  br i1 %30, label %31, label %52
+if.then2:                                         ; preds = %while.body
+  %2 = load i32, ptr %Ebuffer55, align 8, !tbaa !17
+  %shl = shl i32 %2, 1
+  %or = or i32 %shl, 1
+  store i32 %or, ptr %Ebuffer55, align 8, !tbaa !17
+  %3 = load i32, ptr %Ebits_to_go59, align 4, !tbaa !16
+  %dec = add i32 %3, -1
+  store i32 %dec, ptr %Ebits_to_go59, align 4, !tbaa !16
+  %cmp4 = icmp eq i32 %dec, 0
+  br i1 %cmp4, label %if.then5, label %if.end15
 
-31:                                               ; preds = %24
-  %32 = trunc i32 %27 to i8
-  %33 = load ptr, ptr %16, align 8, !tbaa !12
-  %34 = load ptr, ptr %17, align 8, !tbaa !13
-  %35 = load i32, ptr %34, align 4, !tbaa !5
-  %36 = add nsw i32 %35, 1
-  store i32 %36, ptr %34, align 4, !tbaa !5
-  %37 = sext i32 %35 to i64
-  %38 = getelementptr inbounds i8, ptr %33, i64 %37
-  store i8 %32, ptr %38, align 1, !tbaa !19
-  store i32 8, ptr %15, align 4, !tbaa !16
-  %39 = load i32, ptr %18, align 8, !tbaa !14
-  %40 = icmp sgt i32 %39, 7
-  br i1 %40, label %41, label %52
+if.then5:                                         ; preds = %if.then2
+  %conv = trunc i32 %or to i8
+  %4 = load ptr, ptr %Ecodestrm66, align 8, !tbaa !12
+  %5 = load ptr, ptr %Ecodestrm_len67, align 8, !tbaa !13
+  %6 = load i32, ptr %5, align 4, !tbaa !5
+  %inc = add nsw i32 %6, 1
+  store i32 %inc, ptr %5, align 4, !tbaa !5
+  %idxprom = sext i32 %6 to i64
+  %arrayidx = getelementptr inbounds i8, ptr %4, i64 %idxprom
+  store i8 %conv, ptr %arrayidx, align 1, !tbaa !19
+  store i32 8, ptr %Ebits_to_go59, align 4, !tbaa !16
+  %C.promoted = load i32, ptr %C73, align 8, !tbaa !14
+  %cmp9207 = icmp sgt i32 %C.promoted, 7
+  br i1 %cmp9207, label %while.body11.lr.ph, label %if.end15
 
-41:                                               ; preds = %31
-  %42 = load i32, ptr %19, align 4, !tbaa !15
-  %43 = add nuw i32 %39, 7
-  %44 = tail call i32 @llvm.smin.i32(i32 %39, i32 15)
-  %45 = sub nuw i32 %43, %44
-  %46 = lshr i32 %45, 3
-  %47 = and i32 %45, -8
-  %48 = add i32 %42, 1
-  %49 = add nsw i32 %39, -8
-  %50 = sub nsw i32 %49, %47
-  %51 = add i32 %48, %46
-  store i32 %50, ptr %18, align 8, !tbaa !14
-  store i32 %51, ptr %19, align 4, !tbaa !15
-  br label %52
+while.body11.lr.ph:                               ; preds = %if.then5
+  %E.promoted = load i32, ptr %E79, align 4, !tbaa !15
+  %7 = add nuw i32 %C.promoted, 7
+  %smin220 = tail call i32 @llvm.smin.i32(i32 %C.promoted, i32 15)
+  %8 = sub nuw i32 %7, %smin220
+  %9 = lshr i32 %8, 3
+  %10 = and i32 %8, -8
+  %11 = add i32 %E.promoted, 1
+  %12 = add nsw i32 %C.promoted, -8
+  %13 = sub nsw i32 %12, %10
+  %14 = add i32 %11, %9
+  store i32 %13, ptr %C73, align 8, !tbaa !14
+  store i32 %14, ptr %E79, align 4, !tbaa !15
+  br label %if.end15
 
-52:                                               ; preds = %31, %41, %24
-  %53 = phi i32 [ 8, %31 ], [ 8, %41 ], [ %29, %24 ]
-  %54 = load i32, ptr %13, align 8, !tbaa !9
-  %55 = icmp eq i32 %54, 0
-  br i1 %55, label %89, label %56
+if.end15:                                         ; preds = %if.then5, %while.body11.lr.ph, %if.then2
+  %15 = phi i32 [ 8, %if.then5 ], [ 8, %while.body11.lr.ph ], [ %dec, %if.then2 ]
+  %16 = load i32, ptr %Ebits_to_follow120, align 8, !tbaa !9
+  %cmp17.not214 = icmp eq i32 %16, 0
+  br i1 %cmp17.not214, label %while.end50, label %while.body19
 
-56:                                               ; preds = %52, %85
-  %57 = phi i32 [ %86, %85 ], [ %53, %52 ]
-  %58 = phi i32 [ %87, %85 ], [ %54, %52 ]
-  %59 = add i32 %58, -1
-  store i32 %59, ptr %13, align 8, !tbaa !9
-  %60 = load i32, ptr %14, align 8, !tbaa !17
-  %61 = shl i32 %60, 1
-  store i32 %61, ptr %14, align 8, !tbaa !17
-  %62 = add i32 %57, -1
-  store i32 %62, ptr %15, align 4, !tbaa !16
-  %63 = icmp eq i32 %62, 0
-  br i1 %63, label %64, label %85
+while.body19:                                     ; preds = %if.end15, %if.end49
+  %17 = phi i32 [ %31, %if.end49 ], [ %15, %if.end15 ]
+  %18 = phi i32 [ %32, %if.end49 ], [ %16, %if.end15 ]
+  %dec21 = add i32 %18, -1
+  store i32 %dec21, ptr %Ebits_to_follow120, align 8, !tbaa !9
+  %19 = load i32, ptr %Ebuffer55, align 8, !tbaa !17
+  %shl23 = shl i32 %19, 1
+  store i32 %shl23, ptr %Ebuffer55, align 8, !tbaa !17
+  %dec27 = add i32 %17, -1
+  store i32 %dec27, ptr %Ebits_to_go59, align 4, !tbaa !16
+  %cmp28 = icmp eq i32 %dec27, 0
+  br i1 %cmp28, label %if.then30, label %if.end49
 
-64:                                               ; preds = %56
-  %65 = trunc i32 %61 to i8
-  %66 = load ptr, ptr %16, align 8, !tbaa !12
-  %67 = load ptr, ptr %17, align 8, !tbaa !13
-  %68 = load i32, ptr %67, align 4, !tbaa !5
-  %69 = add nsw i32 %68, 1
-  store i32 %69, ptr %67, align 4, !tbaa !5
-  %70 = sext i32 %68 to i64
-  %71 = getelementptr inbounds i8, ptr %66, i64 %70
-  store i8 %65, ptr %71, align 1, !tbaa !19
-  store i32 8, ptr %15, align 4, !tbaa !16
-  %72 = load i32, ptr %18, align 8, !tbaa !14
-  %73 = icmp sgt i32 %72, 7
-  br i1 %73, label %74, label %85
+if.then30:                                        ; preds = %while.body19
+  %conv32 = trunc i32 %shl23 to i8
+  %20 = load ptr, ptr %Ecodestrm66, align 8, !tbaa !12
+  %21 = load ptr, ptr %Ecodestrm_len67, align 8, !tbaa !13
+  %22 = load i32, ptr %21, align 4, !tbaa !5
+  %inc35 = add nsw i32 %22, 1
+  store i32 %inc35, ptr %21, align 4, !tbaa !5
+  %idxprom36 = sext i32 %22 to i64
+  %arrayidx37 = getelementptr inbounds i8, ptr %20, i64 %idxprom36
+  store i8 %conv32, ptr %arrayidx37, align 1, !tbaa !19
+  store i32 8, ptr %Ebits_to_go59, align 4, !tbaa !16
+  %C40.promoted = load i32, ptr %C73, align 8, !tbaa !14
+  %cmp41211 = icmp sgt i32 %C40.promoted, 7
+  br i1 %cmp41211, label %while.body43.lr.ph, label %if.end49
 
-74:                                               ; preds = %64
-  %75 = load i32, ptr %19, align 4, !tbaa !15
-  %76 = add nuw i32 %72, 7
-  %77 = tail call i32 @llvm.smin.i32(i32 %72, i32 15)
-  %78 = sub nuw i32 %76, %77
-  %79 = lshr i32 %78, 3
-  %80 = and i32 %78, -8
-  %81 = add i32 %75, 1
-  %82 = add nsw i32 %72, -8
-  %83 = sub nsw i32 %82, %80
-  %84 = add i32 %81, %79
-  store i32 %83, ptr %18, align 8, !tbaa !14
-  store i32 %84, ptr %19, align 4, !tbaa !15
-  br label %85
+while.body43.lr.ph:                               ; preds = %if.then30
+  %E46.promoted = load i32, ptr %E79, align 4, !tbaa !15
+  %23 = add nuw i32 %C40.promoted, 7
+  %smin221 = tail call i32 @llvm.smin.i32(i32 %C40.promoted, i32 15)
+  %24 = sub nuw i32 %23, %smin221
+  %25 = lshr i32 %24, 3
+  %26 = and i32 %24, -8
+  %27 = add i32 %E46.promoted, 1
+  %28 = add nsw i32 %C40.promoted, -8
+  %29 = sub nsw i32 %28, %26
+  %30 = add i32 %27, %25
+  store i32 %29, ptr %C73, align 8, !tbaa !14
+  store i32 %30, ptr %E79, align 4, !tbaa !15
+  br label %if.end49
 
-85:                                               ; preds = %64, %74, %56
-  %86 = phi i32 [ 8, %64 ], [ 8, %74 ], [ %62, %56 ]
-  %87 = load i32, ptr %13, align 8, !tbaa !9
-  %88 = icmp eq i32 %87, 0
-  br i1 %88, label %89, label %56, !llvm.loop !42
+if.end49:                                         ; preds = %if.then30, %while.body43.lr.ph, %while.body19
+  %31 = phi i32 [ 8, %if.then30 ], [ 8, %while.body43.lr.ph ], [ %dec27, %while.body19 ]
+  %32 = load i32, ptr %Ebits_to_follow120, align 8, !tbaa !9
+  %cmp17.not = icmp eq i32 %32, 0
+  br i1 %cmp17.not, label %while.end50, label %while.body19, !llvm.loop !42
 
-89:                                               ; preds = %85, %52
-  %90 = add i32 %21, -512
-  br label %162
+while.end50:                                      ; preds = %if.end49, %if.end15
+  %sub51 = add i32 %low.1217, -512
+  br label %if.end124
 
-91:                                               ; preds = %20
-  %92 = icmp ult i32 %21, 256
-  br i1 %92, label %93, label %158
+if.else:                                          ; preds = %while.body
+  %cmp52 = icmp ult i32 %low.1217, 256
+  br i1 %cmp52, label %if.then54, label %if.else119
 
-93:                                               ; preds = %91
-  %94 = load i32, ptr %14, align 8, !tbaa !17
-  %95 = shl i32 %94, 1
-  store i32 %95, ptr %14, align 8, !tbaa !17
-  %96 = load i32, ptr %15, align 4, !tbaa !16
-  %97 = add i32 %96, -1
-  store i32 %97, ptr %15, align 4, !tbaa !16
-  %98 = icmp eq i32 %97, 0
-  br i1 %98, label %99, label %120
+if.then54:                                        ; preds = %if.else
+  %33 = load i32, ptr %Ebuffer55, align 8, !tbaa !17
+  %shl56 = shl i32 %33, 1
+  store i32 %shl56, ptr %Ebuffer55, align 8, !tbaa !17
+  %34 = load i32, ptr %Ebits_to_go59, align 4, !tbaa !16
+  %dec60 = add i32 %34, -1
+  store i32 %dec60, ptr %Ebits_to_go59, align 4, !tbaa !16
+  %cmp61 = icmp eq i32 %dec60, 0
+  br i1 %cmp61, label %if.then63, label %if.end82
 
-99:                                               ; preds = %93
-  %100 = trunc i32 %95 to i8
-  %101 = load ptr, ptr %16, align 8, !tbaa !12
-  %102 = load ptr, ptr %17, align 8, !tbaa !13
-  %103 = load i32, ptr %102, align 4, !tbaa !5
-  %104 = add nsw i32 %103, 1
-  store i32 %104, ptr %102, align 4, !tbaa !5
-  %105 = sext i32 %103 to i64
-  %106 = getelementptr inbounds i8, ptr %101, i64 %105
-  store i8 %100, ptr %106, align 1, !tbaa !19
-  store i32 8, ptr %15, align 4, !tbaa !16
-  %107 = load i32, ptr %18, align 8, !tbaa !14
-  %108 = icmp sgt i32 %107, 7
-  br i1 %108, label %109, label %120
+if.then63:                                        ; preds = %if.then54
+  %conv65 = trunc i32 %shl56 to i8
+  %35 = load ptr, ptr %Ecodestrm66, align 8, !tbaa !12
+  %36 = load ptr, ptr %Ecodestrm_len67, align 8, !tbaa !13
+  %37 = load i32, ptr %36, align 4, !tbaa !5
+  %inc68 = add nsw i32 %37, 1
+  store i32 %inc68, ptr %36, align 4, !tbaa !5
+  %idxprom69 = sext i32 %37 to i64
+  %arrayidx70 = getelementptr inbounds i8, ptr %35, i64 %idxprom69
+  store i8 %conv65, ptr %arrayidx70, align 1, !tbaa !19
+  store i32 8, ptr %Ebits_to_go59, align 4, !tbaa !16
+  %C73.promoted = load i32, ptr %C73, align 8, !tbaa !14
+  %cmp74198 = icmp sgt i32 %C73.promoted, 7
+  br i1 %cmp74198, label %while.body76.lr.ph, label %if.end82
 
-109:                                              ; preds = %99
-  %110 = load i32, ptr %19, align 4, !tbaa !15
-  %111 = add nuw i32 %107, 7
-  %112 = tail call i32 @llvm.smin.i32(i32 %107, i32 15)
-  %113 = sub nuw i32 %111, %112
-  %114 = lshr i32 %113, 3
-  %115 = and i32 %113, -8
-  %116 = add i32 %110, 1
-  %117 = add nsw i32 %107, -8
-  %118 = sub nsw i32 %117, %115
-  %119 = add i32 %116, %114
-  store i32 %118, ptr %18, align 8, !tbaa !14
-  store i32 %119, ptr %19, align 4, !tbaa !15
-  br label %120
+while.body76.lr.ph:                               ; preds = %if.then63
+  %E79.promoted = load i32, ptr %E79, align 4, !tbaa !15
+  %38 = add nuw i32 %C73.promoted, 7
+  %smin = tail call i32 @llvm.smin.i32(i32 %C73.promoted, i32 15)
+  %39 = sub nuw i32 %38, %smin
+  %40 = lshr i32 %39, 3
+  %41 = and i32 %39, -8
+  %42 = add i32 %E79.promoted, 1
+  %43 = add nsw i32 %C73.promoted, -8
+  %44 = sub nsw i32 %43, %41
+  %45 = add i32 %42, %40
+  store i32 %44, ptr %C73, align 8, !tbaa !14
+  store i32 %45, ptr %E79, align 4, !tbaa !15
+  br label %if.end82
 
-120:                                              ; preds = %99, %109, %93
-  %121 = phi i32 [ 8, %99 ], [ 8, %109 ], [ %97, %93 ]
-  %122 = load i32, ptr %13, align 8, !tbaa !9
-  %123 = icmp eq i32 %122, 0
-  br i1 %123, label %162, label %124
+if.end82:                                         ; preds = %if.then63, %while.body76.lr.ph, %if.then54
+  %46 = phi i32 [ 8, %if.then63 ], [ 8, %while.body76.lr.ph ], [ %dec60, %if.then54 ]
+  %47 = load i32, ptr %Ebits_to_follow120, align 8, !tbaa !9
+  %cmp85.not205 = icmp eq i32 %47, 0
+  br i1 %cmp85.not205, label %if.end124, label %while.body87
 
-124:                                              ; preds = %120, %154
-  %125 = phi i32 [ %155, %154 ], [ %121, %120 ]
-  %126 = phi i32 [ %156, %154 ], [ %122, %120 ]
-  %127 = add i32 %126, -1
-  store i32 %127, ptr %13, align 8, !tbaa !9
-  %128 = load i32, ptr %14, align 8, !tbaa !17
-  %129 = shl i32 %128, 1
-  %130 = or i32 %129, 1
-  store i32 %130, ptr %14, align 8, !tbaa !17
-  %131 = add i32 %125, -1
-  store i32 %131, ptr %15, align 4, !tbaa !16
-  %132 = icmp eq i32 %131, 0
-  br i1 %132, label %133, label %154
+while.body87:                                     ; preds = %if.end82, %if.end117
+  %48 = phi i32 [ %62, %if.end117 ], [ %46, %if.end82 ]
+  %49 = phi i32 [ %63, %if.end117 ], [ %47, %if.end82 ]
+  %dec89 = add i32 %49, -1
+  store i32 %dec89, ptr %Ebits_to_follow120, align 8, !tbaa !9
+  %50 = load i32, ptr %Ebuffer55, align 8, !tbaa !17
+  %shl91 = shl i32 %50, 1
+  %or93 = or i32 %shl91, 1
+  store i32 %or93, ptr %Ebuffer55, align 8, !tbaa !17
+  %dec95 = add i32 %48, -1
+  store i32 %dec95, ptr %Ebits_to_go59, align 4, !tbaa !16
+  %cmp96 = icmp eq i32 %dec95, 0
+  br i1 %cmp96, label %if.then98, label %if.end117
 
-133:                                              ; preds = %124
-  %134 = trunc i32 %130 to i8
-  %135 = load ptr, ptr %16, align 8, !tbaa !12
-  %136 = load ptr, ptr %17, align 8, !tbaa !13
-  %137 = load i32, ptr %136, align 4, !tbaa !5
-  %138 = add nsw i32 %137, 1
-  store i32 %138, ptr %136, align 4, !tbaa !5
-  %139 = sext i32 %137 to i64
-  %140 = getelementptr inbounds i8, ptr %135, i64 %139
-  store i8 %134, ptr %140, align 1, !tbaa !19
-  store i32 8, ptr %15, align 4, !tbaa !16
-  %141 = load i32, ptr %18, align 8, !tbaa !14
-  %142 = icmp sgt i32 %141, 7
-  br i1 %142, label %143, label %154
+if.then98:                                        ; preds = %while.body87
+  %conv100 = trunc i32 %or93 to i8
+  %51 = load ptr, ptr %Ecodestrm66, align 8, !tbaa !12
+  %52 = load ptr, ptr %Ecodestrm_len67, align 8, !tbaa !13
+  %53 = load i32, ptr %52, align 4, !tbaa !5
+  %inc103 = add nsw i32 %53, 1
+  store i32 %inc103, ptr %52, align 4, !tbaa !5
+  %idxprom104 = sext i32 %53 to i64
+  %arrayidx105 = getelementptr inbounds i8, ptr %51, i64 %idxprom104
+  store i8 %conv100, ptr %arrayidx105, align 1, !tbaa !19
+  store i32 8, ptr %Ebits_to_go59, align 4, !tbaa !16
+  %C108.promoted = load i32, ptr %C73, align 8, !tbaa !14
+  %cmp109202 = icmp sgt i32 %C108.promoted, 7
+  br i1 %cmp109202, label %while.body111.lr.ph, label %if.end117
 
-143:                                              ; preds = %133
-  %144 = load i32, ptr %19, align 4, !tbaa !15
-  %145 = add nuw i32 %141, 7
-  %146 = tail call i32 @llvm.smin.i32(i32 %141, i32 15)
-  %147 = sub nuw i32 %145, %146
-  %148 = lshr i32 %147, 3
-  %149 = and i32 %147, -8
-  %150 = add i32 %144, 1
-  %151 = add nsw i32 %141, -8
-  %152 = sub nsw i32 %151, %149
-  %153 = add i32 %150, %148
-  store i32 %152, ptr %18, align 8, !tbaa !14
-  store i32 %153, ptr %19, align 4, !tbaa !15
-  br label %154
+while.body111.lr.ph:                              ; preds = %if.then98
+  %E114.promoted = load i32, ptr %E79, align 4, !tbaa !15
+  %54 = add nuw i32 %C108.promoted, 7
+  %smin219 = tail call i32 @llvm.smin.i32(i32 %C108.promoted, i32 15)
+  %55 = sub nuw i32 %54, %smin219
+  %56 = lshr i32 %55, 3
+  %57 = and i32 %55, -8
+  %58 = add i32 %E114.promoted, 1
+  %59 = add nsw i32 %C108.promoted, -8
+  %60 = sub nsw i32 %59, %57
+  %61 = add i32 %58, %56
+  store i32 %60, ptr %C73, align 8, !tbaa !14
+  store i32 %61, ptr %E79, align 4, !tbaa !15
+  br label %if.end117
 
-154:                                              ; preds = %133, %143, %124
-  %155 = phi i32 [ 8, %133 ], [ 8, %143 ], [ %131, %124 ]
-  %156 = load i32, ptr %13, align 8, !tbaa !9
-  %157 = icmp eq i32 %156, 0
-  br i1 %157, label %162, label %124, !llvm.loop !43
+if.end117:                                        ; preds = %if.then98, %while.body111.lr.ph, %while.body87
+  %62 = phi i32 [ 8, %if.then98 ], [ 8, %while.body111.lr.ph ], [ %dec95, %while.body87 ]
+  %63 = load i32, ptr %Ebits_to_follow120, align 8, !tbaa !9
+  %cmp85.not = icmp eq i32 %63, 0
+  br i1 %cmp85.not, label %if.end124, label %while.body87, !llvm.loop !43
 
-158:                                              ; preds = %91
-  %159 = load i32, ptr %13, align 8, !tbaa !9
-  %160 = add i32 %159, 1
-  store i32 %160, ptr %13, align 8, !tbaa !9
-  %161 = add nsw i32 %21, -256
-  br label %162
+if.else119:                                       ; preds = %if.else
+  %64 = load i32, ptr %Ebits_to_follow120, align 8, !tbaa !9
+  %inc121 = add i32 %64, 1
+  store i32 %inc121, ptr %Ebits_to_follow120, align 8, !tbaa !9
+  %sub122 = add nsw i32 %low.1217, -256
+  br label %if.end124
 
-162:                                              ; preds = %154, %120, %158, %89
-  %163 = phi i32 [ %90, %89 ], [ %161, %158 ], [ %21, %120 ], [ %21, %154 ]
-  %164 = shl i32 %163, 1
-  %165 = shl nuw nsw i32 %22, 1
-  %166 = icmp ult i32 %22, 128
-  br i1 %166, label %20, label %167, !llvm.loop !44
+if.end124:                                        ; preds = %if.end117, %if.end82, %if.else119, %while.end50
+  %low.2 = phi i32 [ %sub51, %while.end50 ], [ %sub122, %if.else119 ], [ %low.1217, %if.end82 ], [ %low.1217, %if.end117 ]
+  %shl125 = shl i32 %low.2, 1
+  %shl126 = shl nuw nsw i32 %range.1216, 1
+  %cmp = icmp ult i32 %range.1216, 128
+  br i1 %cmp, label %while.body, label %while.end127, !llvm.loop !44
 
-167:                                              ; preds = %162, %2
-  %168 = phi i32 [ %5, %2 ], [ %165, %162 ]
-  %169 = phi i32 [ %10, %2 ], [ %164, %162 ]
-  store i32 %168, ptr %3, align 4, !tbaa !30
-  store i32 %169, ptr %0, align 8, !tbaa !18
-  %170 = getelementptr inbounds %struct.EncodingEnvironment, ptr %0, i64 0, i32 7
-  %171 = load i32, ptr %170, align 8, !tbaa !14
-  %172 = add nsw i32 %171, 1
-  store i32 %172, ptr %170, align 8, !tbaa !14
+while.end127:                                     ; preds = %if.end124, %entry
+  %range.1.lcssa = phi i32 [ %sub, %entry ], [ %shl126, %if.end124 ]
+  %low.1.lcssa = phi i32 [ %spec.select196, %entry ], [ %shl125, %if.end124 ]
+  store i32 %range.1.lcssa, ptr %Erange, align 4, !tbaa !30
+  store i32 %low.1.lcssa, ptr %eep, align 8, !tbaa !18
+  %C130 = getelementptr inbounds %struct.EncodingEnvironment, ptr %eep, i64 0, i32 7
+  %65 = load i32, ptr %C130, align 8, !tbaa !14
+  %inc131 = add nsw i32 %65, 1
+  store i32 %inc131, ptr %C130, align 8, !tbaa !14
   ret void
 }
 
 ; Function Attrs: mustprogress nofree nosync nounwind willreturn memory(read, argmem: readwrite, inaccessiblemem: none) uwtable
-define dso_local void @biari_init_context(ptr nocapture noundef writeonly %0, ptr nocapture noundef readonly %1) local_unnamed_addr #9 {
-  %3 = load i32, ptr %1, align 4, !tbaa !5
-  %4 = load ptr, ptr @img, align 8, !tbaa !22
-  %5 = getelementptr inbounds %struct.ImageParameters, ptr %4, i64 0, i32 60
-  %6 = load ptr, ptr %5, align 8, !tbaa !45
-  %7 = getelementptr inbounds %struct.Slice, ptr %6, i64 0, i32 1
-  %8 = load i32, ptr %7, align 4, !tbaa !46
-  %9 = tail call i32 @llvm.smax.i32(i32 %8, i32 0)
-  %10 = mul nsw i32 %9, %3
-  %11 = ashr i32 %10, 4
-  %12 = getelementptr inbounds i32, ptr %1, i64 1
-  %13 = load i32, ptr %12, align 4, !tbaa !5
-  %14 = add nsw i32 %11, %13
-  %15 = tail call i32 @llvm.smax.i32(i32 %14, i32 1)
-  %16 = tail call i32 @llvm.smin.i32(i32 %15, i32 126)
-  %17 = icmp ugt i32 %16, 63
-  %18 = trunc i32 %16 to i16
-  %19 = add nsw i16 %18, -64
-  %20 = sub nuw nsw i16 63, %18
-  %21 = select i1 %17, i16 %19, i16 %20
-  %22 = zext i1 %17 to i8
-  store i16 %21, ptr %0, align 8
-  %23 = getelementptr inbounds %struct.BiContextType, ptr %0, i64 0, i32 1
-  store i8 %22, ptr %23, align 2
-  %24 = getelementptr inbounds %struct.BiContextType, ptr %0, i64 0, i32 2
-  store i64 0, ptr %24, align 8, !tbaa !34
+define dso_local void @biari_init_context(ptr nocapture noundef writeonly %ctx, ptr nocapture noundef readonly %ini) local_unnamed_addr #9 {
+entry:
+  %0 = load i32, ptr %ini, align 4, !tbaa !5
+  %1 = load ptr, ptr @img, align 8, !tbaa !22
+  %currentSlice = getelementptr inbounds %struct.ImageParameters, ptr %1, i64 0, i32 60
+  %2 = load ptr, ptr %currentSlice, align 8, !tbaa !45
+  %qp = getelementptr inbounds %struct.Slice, ptr %2, i64 0, i32 1
+  %3 = load i32, ptr %qp, align 4, !tbaa !46
+  %cond.i = tail call i32 @llvm.smax.i32(i32 %3, i32 0)
+  %mul = mul nsw i32 %cond.i, %0
+  %shr = ashr i32 %mul, 4
+  %arrayidx1 = getelementptr inbounds i32, ptr %ini, i64 1
+  %4 = load i32, ptr %arrayidx1, align 4, !tbaa !5
+  %add = add nsw i32 %shr, %4
+  %cond.i.i = tail call i32 @llvm.smax.i32(i32 %add, i32 1)
+  %cond.i4.i = tail call i32 @llvm.smin.i32(i32 %cond.i.i, i32 126)
+  %cmp = icmp ugt i32 %cond.i4.i, 63
+  %5 = trunc i32 %cond.i4.i to i16
+  %conv = add nsw i16 %5, -64
+  %conv4 = sub nuw nsw i16 63, %5
+  %conv4.sink = select i1 %cmp, i16 %conv, i16 %conv4
+  %.sink = zext i1 %cmp to i8
+  store i16 %conv4.sink, ptr %ctx, align 8
+  %6 = getelementptr inbounds %struct.BiContextType, ptr %ctx, i64 0, i32 1
+  store i8 %.sink, ptr %6, align 2
+  %count = getelementptr inbounds %struct.BiContextType, ptr %ctx, i64 0, i32 2
+  store i64 0, ptr %count, align 8, !tbaa !34
   ret void
 }
 
@@ -1336,10 +1347,10 @@ define dso_local void @biari_init_context(ptr nocapture noundef writeonly %0, pt
 declare void @llvm.memcpy.p0.p0.i64(ptr noalias nocapture writeonly, ptr noalias nocapture readonly, i64, i1 immarg) #10
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i32 @llvm.smin.i32(i32, i32) #11
+declare i32 @llvm.smax.i32(i32, i32) #11
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i32 @llvm.smax.i32(i32, i32) #11
+declare i32 @llvm.smin.i32(i32, i32) #11
 
 attributes #0 = { mustprogress nofree norecurse nosync nounwind willreturn memory(write, argmem: none, inaccessiblemem: none) uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #1 = { mustprogress nofree norecurse nosync nounwind willreturn memory(read, argmem: none, inaccessiblemem: none) uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }

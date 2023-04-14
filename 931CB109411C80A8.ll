@@ -28,256 +28,257 @@ $_ZTIP1A = comdat any
 @str.13 = private unnamed_addr constant [17 x i8] c"Base pointer ok!\00", align 1
 @str.14 = private unnamed_addr constant [9 x i8] c"Copy ok!\00", align 1
 @str.15 = private unnamed_addr constant [17 x i8] c"Copy pointer ok!\00", align 1
-@str.16 = private unnamed_addr constant [18 x i8] c"caught negative T\00", align 1
-@str.17 = private unnamed_addr constant [20 x i8] c"Member negative ok!\00", align 1
-@str.18 = private unnamed_addr constant [16 x i8] c"Member zero ok!\00", align 1
-@str.19 = private unnamed_addr constant [20 x i8] c"Member positive ok!\00", align 1
+@str.18 = private unnamed_addr constant [18 x i8] c"caught negative T\00", align 1
+@str.19 = private unnamed_addr constant [20 x i8] c"Member negative ok!\00", align 1
+@str.21 = private unnamed_addr constant [16 x i8] c"Member zero ok!\00", align 1
+@str.22 = private unnamed_addr constant [20 x i8] c"Member positive ok!\00", align 1
 
 ; Function Attrs: uwtable
 define dso_local noundef i32 @_Z6simplev() local_unnamed_addr #0 personality ptr @__gxx_personality_v0 {
-  %1 = load i32, ptr @_ZL1c, align 4, !tbaa !5
-  %2 = add nsw i32 %1, 2
-  store i32 %2, ptr @_ZL1c, align 4, !tbaa !5
-  %3 = tail call ptr @__cxa_allocate_exception(i64 4) #7
-  store i32 1, ptr %3, align 16, !tbaa !5
-  invoke void @__cxa_throw(ptr nonnull %3, ptr nonnull @_ZTIi, ptr null) #8
-          to label %12 unwind label %4
+entry:
+  %0 = load i32, ptr @_ZL1c, align 4, !tbaa !5
+  %inc.i6.i = add nsw i32 %0, 2
+  store i32 %inc.i6.i, ptr @_ZL1c, align 4, !tbaa !5
+  %exception.i = tail call ptr @__cxa_allocate_exception(i64 4) #7
+  store i32 1, ptr %exception.i, align 16, !tbaa !5
+  invoke void @__cxa_throw(ptr nonnull %exception.i, ptr nonnull @_ZTIi, ptr null) #8
+          to label %unreachable.i unwind label %lpad3.i
 
-4:                                                ; preds = %0
-  %5 = landingpad { ptr, i32 }
+lpad3.i:                                          ; preds = %entry
+  %1 = landingpad { ptr, i32 }
           catch ptr null
-  %6 = load i32, ptr @_ZL1c, align 4, !tbaa !5
-  %7 = add nsw i32 %6, -2
-  store i32 %7, ptr @_ZL1c, align 4, !tbaa !5
-  %8 = extractvalue { ptr, i32 } %5, 0
-  %9 = tail call ptr @__cxa_begin_catch(ptr %8) #7
+  %2 = load i32, ptr @_ZL1c, align 4, !tbaa !5
+  %dec.i7.i = add nsw i32 %2, -2
+  store i32 %dec.i7.i, ptr @_ZL1c, align 4, !tbaa !5
+  %3 = extractvalue { ptr, i32 } %1, 0
+  %4 = tail call ptr @__cxa_begin_catch(ptr %3) #7
   tail call void @__cxa_end_catch()
+  %.pr = load i32, ptr @_ZL1c, align 4, !tbaa !5
+  %tobool.not = icmp eq i32 %.pr, 0
+  br i1 %tobool.not, label %if.then, label %invoke.cont3
+
+unreachable.i:                                    ; preds = %entry
+  unreachable
+
+if.then:                                          ; preds = %lpad3.i
+  %puts = tail call i32 @puts(ptr nonnull dereferenceable(1) @str)
+  %.pre = load i32, ptr @_ZL1c, align 4, !tbaa !5
+  br label %invoke.cont3
+
+invoke.cont3:                                     ; preds = %lpad3.i, %if.then
+  %5 = phi i32 [ %.pr, %lpad3.i ], [ %.pre, %if.then ]
+  %inc.i6.i108 = add nsw i32 %5, 2
+  store i32 %inc.i6.i108, ptr @_ZL1c, align 4, !tbaa !5
+  %exception.i109 = tail call ptr @__cxa_allocate_exception(i64 4) #7
+  store i32 1, ptr %exception.i109, align 16, !tbaa !5
+  invoke void @__cxa_throw(ptr nonnull %exception.i109, ptr nonnull @_ZTIi, ptr null) #8
+          to label %unreachable.i112 unwind label %lpad3.i111
+
+lpad3.i111:                                       ; preds = %invoke.cont3
+  %6 = landingpad { ptr, i32 }
+          catch ptr null
+  %7 = load i32, ptr @_ZL1c, align 4, !tbaa !5
+  %dec.i7.i110 = add nsw i32 %7, -2
+  store i32 %dec.i7.i110, ptr @_ZL1c, align 4, !tbaa !5
+  %exn.slot.0 = extractvalue { ptr, i32 } %6, 0
+  %8 = tail call ptr @__cxa_begin_catch(ptr %exn.slot.0) #7
+  tail call void @__cxa_end_catch()
+  %9 = load i32, ptr @_ZL1c, align 4, !tbaa !5
+  %tobool10.not = icmp eq i32 %9, 0
+  br i1 %tobool10.not, label %if.then11, label %if.end13
+
+unreachable.i112:                                 ; preds = %invoke.cont3
+  unreachable
+
+if.then11:                                        ; preds = %lpad3.i111
+  %puts99 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.11)
+  br label %if.end13
+
+if.end13:                                         ; preds = %if.then11, %lpad3.i111
+  %exception = tail call ptr @__cxa_allocate_exception(i64 1) #7
   %10 = load i32, ptr @_ZL1c, align 4, !tbaa !5
-  %11 = icmp eq i32 %10, 0
-  br i1 %11, label %13, label %16
+  %inc.i = add nsw i32 %10, 1
+  store i32 %inc.i, ptr @_ZL1c, align 4, !tbaa !5
+  invoke void @__cxa_throw(ptr nonnull %exception, ptr nonnull @_ZTI1A, ptr nonnull @_ZN1AD2Ev) #8
+          to label %unreachable unwind label %lpad17
 
-12:                                               ; preds = %0
-  unreachable
+lpad17:                                           ; preds = %if.end13
+  %11 = landingpad { ptr, i32 }
+          catch ptr null
+  %12 = extractvalue { ptr, i32 } %11, 0
+  %13 = tail call ptr @__cxa_begin_catch(ptr %12) #7
+  tail call void @__cxa_end_catch()
+  %14 = load i32, ptr @_ZL1c, align 4, !tbaa !5
+  %tobool21.not = icmp eq i32 %14, 0
+  br i1 %tobool21.not, label %if.then22, label %if.end24
 
-13:                                               ; preds = %4
-  %14 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str)
+if.then22:                                        ; preds = %lpad17
+  %puts100 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.12)
+  br label %if.end24
+
+if.end24:                                         ; preds = %if.then22, %lpad17
+  %exception25 = tail call ptr @__cxa_allocate_exception(i64 8) #7
+  %call28 = invoke noalias noundef nonnull dereferenceable(1) ptr @_Znwm(i64 noundef 1) #9
+          to label %invoke.cont27 unwind label %lpad26
+
+invoke.cont27:                                    ; preds = %if.end24
   %15 = load i32, ptr @_ZL1c, align 4, !tbaa !5
-  br label %16
+  %inc.i115 = add nsw i32 %15, 1
+  store i32 %inc.i115, ptr @_ZL1c, align 4, !tbaa !5
+  store ptr %call28, ptr %exception25, align 16, !tbaa !9
+  invoke void @__cxa_throw(ptr nonnull %exception25, ptr nonnull @_ZTIP1A, ptr null) #8
+          to label %unreachable unwind label %lpad33
 
-16:                                               ; preds = %4, %13
-  %17 = phi i32 [ %10, %4 ], [ %15, %13 ]
-  %18 = add nsw i32 %17, 2
-  store i32 %18, ptr @_ZL1c, align 4, !tbaa !5
-  %19 = tail call ptr @__cxa_allocate_exception(i64 4) #7
-  store i32 1, ptr %19, align 16, !tbaa !5
-  invoke void @__cxa_throw(ptr nonnull %19, ptr nonnull @_ZTIi, ptr null) #8
-          to label %28 unwind label %20
-
-20:                                               ; preds = %16
-  %21 = landingpad { ptr, i32 }
-          catch ptr null
-  %22 = load i32, ptr @_ZL1c, align 4, !tbaa !5
-  %23 = add nsw i32 %22, -2
-  store i32 %23, ptr @_ZL1c, align 4, !tbaa !5
-  %24 = extractvalue { ptr, i32 } %21, 0
-  %25 = tail call ptr @__cxa_begin_catch(ptr %24) #7
-  tail call void @__cxa_end_catch()
-  %26 = load i32, ptr @_ZL1c, align 4, !tbaa !5
-  %27 = icmp eq i32 %26, 0
-  br i1 %27, label %29, label %31
-
-28:                                               ; preds = %16
-  unreachable
-
-29:                                               ; preds = %20
-  %30 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.11)
-  br label %31
-
-31:                                               ; preds = %29, %20
-  %32 = tail call ptr @__cxa_allocate_exception(i64 1) #7
-  %33 = load i32, ptr @_ZL1c, align 4, !tbaa !5
-  %34 = add nsw i32 %33, 1
-  store i32 %34, ptr @_ZL1c, align 4, !tbaa !5
-  invoke void @__cxa_throw(ptr %32, ptr nonnull @_ZTI1A, ptr nonnull @_ZN1AD2Ev) #8
-          to label %127 unwind label %35
-
-35:                                               ; preds = %31
-  %36 = landingpad { ptr, i32 }
-          catch ptr null
-  %37 = extractvalue { ptr, i32 } %36, 0
-  %38 = tail call ptr @__cxa_begin_catch(ptr %37) #7
-  tail call void @__cxa_end_catch()
-  %39 = load i32, ptr @_ZL1c, align 4, !tbaa !5
-  %40 = icmp eq i32 %39, 0
-  br i1 %40, label %41, label %43
-
-41:                                               ; preds = %35
-  %42 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.12)
-  br label %43
-
-43:                                               ; preds = %41, %35
-  %44 = tail call ptr @__cxa_allocate_exception(i64 8) #7
-  %45 = invoke noalias noundef nonnull dereferenceable(1) ptr @_Znwm(i64 noundef 1) #9
-          to label %46 unwind label %49
-
-46:                                               ; preds = %43
-  %47 = load i32, ptr @_ZL1c, align 4, !tbaa !5
-  %48 = add nsw i32 %47, 1
-  store i32 %48, ptr @_ZL1c, align 4, !tbaa !5
-  store ptr %45, ptr %44, align 16, !tbaa !9
-  invoke void @__cxa_throw(ptr nonnull %44, ptr nonnull @_ZTIP1A, ptr null) #8
-          to label %127 unwind label %51
-
-49:                                               ; preds = %43
-  %50 = landingpad { ptr, i32 }
+lpad26:                                           ; preds = %if.end24
+  %16 = landingpad { ptr, i32 }
           cleanup
           catch ptr @_ZTIP1A
-  tail call void @__cxa_free_exception(ptr %44) #7
-  br label %53
+  tail call void @__cxa_free_exception(ptr %exception25) #7
+  br label %catch.dispatch
 
-51:                                               ; preds = %46
-  %52 = landingpad { ptr, i32 }
+lpad33:                                           ; preds = %invoke.cont27
+  %17 = landingpad { ptr, i32 }
           catch ptr @_ZTIP1A
-  br label %53
+  br label %catch.dispatch
 
-53:                                               ; preds = %51, %49
-  %54 = phi { ptr, i32 } [ %52, %51 ], [ %50, %49 ]
-  %55 = extractvalue { ptr, i32 } %54, 1
-  %56 = tail call i32 @llvm.eh.typeid.for(ptr nonnull @_ZTIP1A) #7
-  %57 = icmp eq i32 %55, %56
-  br i1 %57, label %58, label %125
+catch.dispatch:                                   ; preds = %lpad33, %lpad26
+  %.pn101 = phi { ptr, i32 } [ %17, %lpad33 ], [ %16, %lpad26 ]
+  %ehselector.slot.0 = extractvalue { ptr, i32 } %.pn101, 1
+  %18 = tail call i32 @llvm.eh.typeid.for(ptr nonnull @_ZTIP1A) #7
+  %matches = icmp eq i32 %ehselector.slot.0, %18
+  br i1 %matches, label %catch34, label %eh.resume
 
-58:                                               ; preds = %53
-  %59 = extractvalue { ptr, i32 } %54, 0
-  %60 = tail call ptr @__cxa_begin_catch(ptr %59) #7
-  %61 = icmp eq ptr %60, null
-  br i1 %61, label %65, label %62
+catch34:                                          ; preds = %catch.dispatch
+  %exn.slot.1 = extractvalue { ptr, i32 } %.pn101, 0
+  %19 = tail call ptr @__cxa_begin_catch(ptr %exn.slot.1) #7
+  %isnull = icmp eq ptr %19, null
+  br i1 %isnull, label %delete.end, label %delete.notnull
 
-62:                                               ; preds = %58
-  %63 = load i32, ptr @_ZL1c, align 4, !tbaa !5
-  %64 = add nsw i32 %63, -1
-  store i32 %64, ptr @_ZL1c, align 4, !tbaa !5
-  tail call void @_ZdlPv(ptr noundef nonnull %60) #10
-  br label %65
+delete.notnull:                                   ; preds = %catch34
+  %20 = load i32, ptr @_ZL1c, align 4, !tbaa !5
+  %dec.i = add nsw i32 %20, -1
+  store i32 %dec.i, ptr @_ZL1c, align 4, !tbaa !5
+  tail call void @_ZdlPv(ptr noundef nonnull %19) #10
+  br label %delete.end
 
-65:                                               ; preds = %62, %58
+delete.end:                                       ; preds = %delete.notnull, %catch34
   tail call void @__cxa_end_catch() #7
-  %66 = load i32, ptr @_ZL1c, align 4, !tbaa !5
-  %67 = icmp eq i32 %66, 0
-  br i1 %67, label %68, label %71
+  %21 = load i32, ptr @_ZL1c, align 4, !tbaa !5
+  %tobool37.not = icmp eq i32 %21, 0
+  br i1 %tobool37.not, label %if.then38, label %if.end40
 
-68:                                               ; preds = %65
-  %69 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.13)
-  %70 = load i32, ptr @_ZL1c, align 4, !tbaa !5
-  br label %71
+if.then38:                                        ; preds = %delete.end
+  %puts103 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.13)
+  %.pre123 = load i32, ptr @_ZL1c, align 4, !tbaa !5
+  br label %if.end40
 
-71:                                               ; preds = %68, %65
-  %72 = phi i32 [ %70, %68 ], [ %66, %65 ]
-  %73 = add nsw i32 %72, 1
-  store i32 %73, ptr @_ZL1c, align 4, !tbaa !5
-  %74 = tail call ptr @__cxa_allocate_exception(i64 1) #7
-  %75 = load i32, ptr @_ZL1c, align 4, !tbaa !5
-  %76 = add nsw i32 %75, 1
-  store i32 %76, ptr @_ZL1c, align 4, !tbaa !5
-  invoke void @__cxa_throw(ptr %74, ptr nonnull @_ZTI1A, ptr nonnull @_ZN1AD2Ev) #8
-          to label %127 unwind label %77
+if.end40:                                         ; preds = %if.then38, %delete.end
+  %22 = phi i32 [ %.pre123, %if.then38 ], [ %21, %delete.end ]
+  %inc.i116 = add nsw i32 %22, 1
+  store i32 %inc.i116, ptr @_ZL1c, align 4, !tbaa !5
+  %exception44 = tail call ptr @__cxa_allocate_exception(i64 1) #7
+  %23 = load i32, ptr @_ZL1c, align 4, !tbaa !5
+  %inc.i117 = add nsw i32 %23, 1
+  store i32 %inc.i117, ptr @_ZL1c, align 4, !tbaa !5
+  invoke void @__cxa_throw(ptr nonnull %exception44, ptr nonnull @_ZTI1A, ptr nonnull @_ZN1AD2Ev) #8
+          to label %unreachable unwind label %lpad48
 
-77:                                               ; preds = %71
-  %78 = landingpad { ptr, i32 }
+lpad48:                                           ; preds = %if.end40
+  %24 = landingpad { ptr, i32 }
           cleanup
           catch ptr @_ZTI1A
-  %79 = extractvalue { ptr, i32 } %78, 1
-  %80 = load i32, ptr @_ZL1c, align 4, !tbaa !5
-  %81 = add nsw i32 %80, -1
-  store i32 %81, ptr @_ZL1c, align 4, !tbaa !5
-  %82 = tail call i32 @llvm.eh.typeid.for(ptr nonnull @_ZTI1A) #7
-  %83 = icmp eq i32 %79, %82
-  br i1 %83, label %84, label %125
+  %25 = extractvalue { ptr, i32 } %24, 1
+  %26 = load i32, ptr @_ZL1c, align 4, !tbaa !5
+  %dec.i118 = add nsw i32 %26, -1
+  store i32 %dec.i118, ptr @_ZL1c, align 4, !tbaa !5
+  %27 = tail call i32 @llvm.eh.typeid.for(ptr nonnull @_ZTI1A) #7
+  %matches53 = icmp eq i32 %25, %27
+  br i1 %matches53, label %catch54, label %eh.resume
 
-84:                                               ; preds = %77
-  %85 = extractvalue { ptr, i32 } %78, 0
-  %86 = tail call ptr @__cxa_begin_catch(ptr %85) #7
+catch54:                                          ; preds = %lpad48
+  %28 = extractvalue { ptr, i32 } %24, 0
+  %29 = tail call ptr @__cxa_begin_catch(ptr %28) #7
   tail call void @__cxa_end_catch()
-  %87 = load i32, ptr @_ZL1c, align 4, !tbaa !5
-  %88 = icmp eq i32 %87, 0
-  br i1 %88, label %89, label %92
+  %30 = load i32, ptr @_ZL1c, align 4, !tbaa !5
+  %tobool58.not = icmp eq i32 %30, 0
+  br i1 %tobool58.not, label %if.then59, label %if.end61
 
-89:                                               ; preds = %84
-  %90 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.14)
-  %91 = load i32, ptr @_ZL1c, align 4, !tbaa !5
-  br label %92
+if.then59:                                        ; preds = %catch54
+  %puts104 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.14)
+  %.pre124 = load i32, ptr @_ZL1c, align 4, !tbaa !5
+  br label %if.end61
 
-92:                                               ; preds = %89, %84
-  %93 = phi i32 [ %91, %89 ], [ %87, %84 ]
-  %94 = add nsw i32 %93, 1
-  store i32 %94, ptr @_ZL1c, align 4, !tbaa !5
-  %95 = tail call ptr @__cxa_allocate_exception(i64 8) #7
-  %96 = invoke noalias noundef nonnull dereferenceable(1) ptr @_Znwm(i64 noundef 1) #9
-          to label %97 unwind label %100
+if.end61:                                         ; preds = %if.then59, %catch54
+  %31 = phi i32 [ %.pre124, %if.then59 ], [ %30, %catch54 ]
+  %inc.i119 = add nsw i32 %31, 1
+  store i32 %inc.i119, ptr @_ZL1c, align 4, !tbaa !5
+  %exception65 = tail call ptr @__cxa_allocate_exception(i64 8) #7
+  %call68 = invoke noalias noundef nonnull dereferenceable(1) ptr @_Znwm(i64 noundef 1) #9
+          to label %invoke.cont67 unwind label %lpad66
 
-97:                                               ; preds = %92
-  %98 = load i32, ptr @_ZL1c, align 4, !tbaa !5
-  %99 = add nsw i32 %98, 1
-  store i32 %99, ptr @_ZL1c, align 4, !tbaa !5
-  store ptr %96, ptr %95, align 16, !tbaa !9
-  invoke void @__cxa_throw(ptr nonnull %95, ptr nonnull @_ZTIP1A, ptr null) #8
-          to label %127 unwind label %102
+invoke.cont67:                                    ; preds = %if.end61
+  %32 = load i32, ptr @_ZL1c, align 4, !tbaa !5
+  %inc.i120 = add nsw i32 %32, 1
+  store i32 %inc.i120, ptr @_ZL1c, align 4, !tbaa !5
+  store ptr %call68, ptr %exception65, align 16, !tbaa !9
+  invoke void @__cxa_throw(ptr nonnull %exception65, ptr nonnull @_ZTIP1A, ptr null) #8
+          to label %unreachable unwind label %lpad73
 
-100:                                              ; preds = %92
-  %101 = landingpad { ptr, i32 }
+lpad66:                                           ; preds = %if.end61
+  %33 = landingpad { ptr, i32 }
           cleanup
           catch ptr @_ZTIP1A
-  tail call void @__cxa_free_exception(ptr %95) #7
-  br label %104
+  tail call void @__cxa_free_exception(ptr %exception65) #7
+  br label %ehcleanup74
 
-102:                                              ; preds = %97
-  %103 = landingpad { ptr, i32 }
+lpad73:                                           ; preds = %invoke.cont67
+  %34 = landingpad { ptr, i32 }
           cleanup
           catch ptr @_ZTIP1A
-  br label %104
+  br label %ehcleanup74
 
-104:                                              ; preds = %102, %100
-  %105 = phi { ptr, i32 } [ %103, %102 ], [ %101, %100 ]
-  %106 = extractvalue { ptr, i32 } %105, 1
-  %107 = load i32, ptr @_ZL1c, align 4, !tbaa !5
-  %108 = add nsw i32 %107, -1
-  store i32 %108, ptr @_ZL1c, align 4, !tbaa !5
-  %109 = icmp eq i32 %106, %55
-  br i1 %109, label %110, label %125
+ehcleanup74:                                      ; preds = %lpad73, %lpad66
+  %.pn105 = phi { ptr, i32 } [ %34, %lpad73 ], [ %33, %lpad66 ]
+  %ehselector.slot.1 = extractvalue { ptr, i32 } %.pn105, 1
+  %35 = load i32, ptr @_ZL1c, align 4, !tbaa !5
+  %dec.i121 = add nsw i32 %35, -1
+  store i32 %dec.i121, ptr @_ZL1c, align 4, !tbaa !5
+  %matches78 = icmp eq i32 %ehselector.slot.1, %ehselector.slot.0
+  br i1 %matches78, label %catch79, label %eh.resume
 
-110:                                              ; preds = %104
-  %111 = extractvalue { ptr, i32 } %105, 0
-  %112 = tail call ptr @__cxa_begin_catch(ptr %111) #7
-  %113 = icmp eq ptr %112, null
-  br i1 %113, label %117, label %114
+catch79:                                          ; preds = %ehcleanup74
+  %exn.slot.2 = extractvalue { ptr, i32 } %.pn105, 0
+  %36 = tail call ptr @__cxa_begin_catch(ptr %exn.slot.2) #7
+  %isnull82 = icmp eq ptr %36, null
+  br i1 %isnull82, label %delete.end84, label %delete.notnull83
 
-114:                                              ; preds = %110
-  %115 = load i32, ptr @_ZL1c, align 4, !tbaa !5
-  %116 = add nsw i32 %115, -1
-  store i32 %116, ptr @_ZL1c, align 4, !tbaa !5
-  tail call void @_ZdlPv(ptr noundef nonnull %112) #10
-  br label %117
+delete.notnull83:                                 ; preds = %catch79
+  %37 = load i32, ptr @_ZL1c, align 4, !tbaa !5
+  %dec.i122 = add nsw i32 %37, -1
+  store i32 %dec.i122, ptr @_ZL1c, align 4, !tbaa !5
+  tail call void @_ZdlPv(ptr noundef nonnull %36) #10
+  br label %delete.end84
 
-117:                                              ; preds = %114, %110
+delete.end84:                                     ; preds = %delete.notnull83, %catch79
   tail call void @__cxa_end_catch() #7
-  %118 = load i32, ptr @_ZL1c, align 4, !tbaa !5
-  %119 = icmp eq i32 %118, 0
-  br i1 %119, label %120, label %123
+  %38 = load i32, ptr @_ZL1c, align 4, !tbaa !5
+  %tobool86.not = icmp eq i32 %38, 0
+  br i1 %tobool86.not, label %if.then87, label %if.end89
 
-120:                                              ; preds = %117
-  %121 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.15)
-  %122 = load i32, ptr @_ZL1c, align 4, !tbaa !5
-  br label %123
+if.then87:                                        ; preds = %delete.end84
+  %puts107 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.15)
+  %.pre125 = load i32, ptr @_ZL1c, align 4, !tbaa !5
+  br label %if.end89
 
-123:                                              ; preds = %120, %117
-  %124 = phi i32 [ %122, %120 ], [ %118, %117 ]
-  ret i32 %124
+if.end89:                                         ; preds = %if.then87, %delete.end84
+  %39 = phi i32 [ %.pre125, %if.then87 ], [ %38, %delete.end84 ]
+  ret i32 %39
 
-125:                                              ; preds = %104, %77, %53
-  %126 = phi { ptr, i32 } [ %105, %104 ], [ %78, %77 ], [ %54, %53 ]
-  resume { ptr, i32 } %126
+eh.resume:                                        ; preds = %ehcleanup74, %lpad48, %catch.dispatch
+  %lpad.val92.merged = phi { ptr, i32 } [ %.pn105, %ehcleanup74 ], [ %24, %lpad48 ], [ %.pn101, %catch.dispatch ]
+  resume { ptr, i32 } %lpad.val92.merged
 
-127:                                              ; preds = %97, %71, %46, %31
+unreachable:                                      ; preds = %invoke.cont67, %if.end40, %invoke.cont27, %if.end13
   unreachable
 }
 
@@ -304,89 +305,92 @@ declare i32 @llvm.eh.typeid.for(ptr) #3
 
 ; Function Attrs: uwtable
 define dso_local noundef i32 @_Z6memberv() local_unnamed_addr #0 personality ptr @__gxx_personality_v0 {
-  %1 = load i32, ptr @_ZL1c, align 4, !tbaa !5
-  %2 = load i32, ptr @_ZL1k, align 4, !tbaa !5
-  %3 = add nsw i32 %2, 1
-  store i32 %3, ptr @_ZL1k, align 4, !tbaa !5
-  %4 = icmp eq i32 %1, 0
-  %5 = icmp eq i32 %2, 0
-  %6 = select i1 %4, i1 %5, i1 false
-  br i1 %6, label %7, label %11
+invoke.cont:
+  %0 = load i32, ptr @_ZL1c, align 4, !tbaa !5
+  %1 = load i32, ptr @_ZL1k, align 4, !tbaa !5
+  %inc.i4.i = add nsw i32 %1, 1
+  store i32 %inc.i4.i, ptr @_ZL1k, align 4, !tbaa !5
+  %tobool = icmp eq i32 %0, 0
+  %cmp = icmp eq i32 %1, 0
+  %or.cond = select i1 %tobool, i1 %cmp, i1 false
+  br i1 %or.cond, label %if.then, label %invoke.cont7
 
-7:                                                ; preds = %0
-  %8 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.19)
-  %9 = load i32, ptr @_ZL1c, align 4, !tbaa !5
-  %10 = load i32, ptr @_ZL1k, align 4, !tbaa !5
-  br label %11
+if.then:                                          ; preds = %invoke.cont
+  %puts48 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.22)
+  %.pre = load i32, ptr @_ZL1c, align 4, !tbaa !5
+  %.pre55 = load i32, ptr @_ZL1k, align 4, !tbaa !5
+  br label %invoke.cont7
 
-11:                                               ; preds = %0, %7
-  %12 = phi i32 [ %3, %0 ], [ %10, %7 ]
-  %13 = phi i32 [ %1, %0 ], [ %9, %7 ]
-  %14 = add nsw i32 %12, 1
-  store i32 %14, ptr @_ZL1k, align 4, !tbaa !5
-  store i32 %13, ptr @_ZL1c, align 4, !tbaa !5
-  %15 = icmp eq i32 %13, 0
-  %16 = icmp eq i32 %14, 2
-  %17 = select i1 %15, i1 %16, i1 false
-  br i1 %17, label %18, label %21
+invoke.cont7:                                     ; preds = %invoke.cont, %if.then
+  %2 = phi i32 [ %inc.i4.i, %invoke.cont ], [ %.pre55, %if.then ]
+  %3 = phi i32 [ %0, %invoke.cont ], [ %.pre, %if.then ]
+  %inc.i4.i51 = add nsw i32 %2, 1
+  store i32 %inc.i4.i51, ptr @_ZL1k, align 4, !tbaa !5
+  store i32 %3, ptr @_ZL1c, align 4, !tbaa !5
+  %tobool15 = icmp eq i32 %3, 0
+  %cmp17 = icmp eq i32 %inc.i4.i51, 2
+  %or.cond41 = select i1 %tobool15, i1 %cmp17, i1 false
+  br i1 %or.cond41, label %if.then18, label %if.end20
 
-18:                                               ; preds = %11
-  %19 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.18)
-  %20 = load i32, ptr @_ZL1c, align 4, !tbaa !5
-  br label %21
+if.then18:                                        ; preds = %invoke.cont7
+  %puts47 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.21)
+  %.pre56 = load i32, ptr @_ZL1c, align 4, !tbaa !5
+  br label %if.end20
 
-21:                                               ; preds = %18, %11
-  %22 = phi i32 [ %20, %18 ], [ %13, %11 ]
-  %23 = add nsw i32 %22, 1
-  store i32 %23, ptr @_ZL1c, align 4, !tbaa !5
-  %24 = tail call ptr @__cxa_allocate_exception(i64 4) #7
-  store i32 -10, ptr %24, align 16, !tbaa !5
-  invoke void @__cxa_throw(ptr nonnull %24, ptr nonnull @_ZTIi, ptr null) #8
-          to label %25 unwind label %26
+if.end20:                                         ; preds = %if.then18, %invoke.cont7
+  %4 = phi i32 [ %.pre56, %if.then18 ], [ %3, %invoke.cont7 ]
+  %inc.i.i53 = add nsw i32 %4, 1
+  store i32 %inc.i.i53, ptr @_ZL1c, align 4, !tbaa !5
+  %exception.i.i = tail call ptr @__cxa_allocate_exception(i64 4) #7
+  store i32 -10, ptr %exception.i.i, align 16, !tbaa !5
+  invoke void @__cxa_throw(ptr nonnull %exception.i.i, ptr nonnull @_ZTIi, ptr null) #8
+          to label %.noexc.i unwind label %lpad.i
 
-25:                                               ; preds = %21
+.noexc.i:                                         ; preds = %if.end20
   unreachable
 
-26:                                               ; preds = %21
-  %27 = landingpad { ptr, i32 }
+lpad.i:                                           ; preds = %if.end20
+  %5 = landingpad { ptr, i32 }
           catch ptr null
-  %28 = load i32, ptr @_ZL1c, align 4, !tbaa !5
-  %29 = add nsw i32 %28, -1
-  store i32 %29, ptr @_ZL1c, align 4, !tbaa !5
-  %30 = extractvalue { ptr, i32 } %27, 0
-  %31 = tail call ptr @__cxa_begin_catch(ptr %30) #7
-  %32 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.16)
+  %6 = load i32, ptr @_ZL1c, align 4, !tbaa !5
+  %dec.i.i = add nsw i32 %6, -1
+  store i32 %dec.i.i, ptr @_ZL1c, align 4, !tbaa !5
+  %7 = extractvalue { ptr, i32 } %5, 0
+  %8 = tail call ptr @__cxa_begin_catch(ptr %7) #7
+  %puts44 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.18)
   tail call void @__cxa_end_catch()
-  %33 = load i32, ptr @_ZL1c, align 4, !tbaa !5
-  %34 = icmp eq i32 %33, 0
-  %35 = load i32, ptr @_ZL1k, align 4
-  %36 = icmp eq i32 %35, 2
-  %37 = select i1 %34, i1 %36, i1 false
-  br i1 %37, label %38, label %41
+  %9 = load i32, ptr @_ZL1c, align 4, !tbaa !5
+  %tobool33 = icmp eq i32 %9, 0
+  %10 = load i32, ptr @_ZL1k, align 4
+  %cmp35 = icmp eq i32 %10, 2
+  %or.cond42 = select i1 %tobool33, i1 %cmp35, i1 false
+  br i1 %or.cond42, label %if.then36, label %if.end38
 
-38:                                               ; preds = %26
-  %39 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.17)
-  %40 = load i32, ptr @_ZL1c, align 4, !tbaa !5
-  br label %41
+if.then36:                                        ; preds = %lpad.i
+  %puts45 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.19)
+  %.pre57 = load i32, ptr @_ZL1c, align 4, !tbaa !5
+  br label %if.end38
 
-41:                                               ; preds = %38, %26
-  %42 = phi i32 [ %40, %38 ], [ %33, %26 ]
-  ret i32 %42
+if.end38:                                         ; preds = %if.then36, %lpad.i
+  %11 = phi i32 [ %.pre57, %if.then36 ], [ %9, %lpad.i ]
+  ret i32 %11
 }
 
 ; Function Attrs: mustprogress norecurse uwtable
 define dso_local noundef i32 @main() local_unnamed_addr #4 {
-  %1 = tail call noundef i32 @_Z6simplev()
-  %2 = tail call noundef i32 @_Z6memberv()
-  %3 = add nsw i32 %2, %1
-  ret i32 %3
+entry:
+  %call = tail call noundef i32 @_Z6simplev()
+  %call1 = tail call noundef i32 @_Z6memberv()
+  %add = add nsw i32 %call1, %call
+  ret i32 %add
 }
 
 ; Function Attrs: nounwind uwtable
-define linkonce_odr dso_local void @_ZN1AD2Ev(ptr noundef nonnull align 1 dereferenceable(1) %0) unnamed_addr #5 comdat align 2 {
-  %2 = load i32, ptr @_ZL1c, align 4, !tbaa !5
-  %3 = add nsw i32 %2, -1
-  store i32 %3, ptr @_ZL1c, align 4, !tbaa !5
+define linkonce_odr dso_local void @_ZN1AD2Ev(ptr noundef nonnull align 1 dereferenceable(1) %this) unnamed_addr #5 comdat align 2 {
+entry:
+  %0 = load i32, ptr @_ZL1c, align 4, !tbaa !5
+  %dec = add nsw i32 %0, -1
+  store i32 %dec, ptr @_ZL1c, align 4, !tbaa !5
   ret void
 }
 

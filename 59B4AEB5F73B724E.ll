@@ -40,25 +40,28 @@ target triple = "x86_64-unknown-linux-gnu"
 
 ; Function Attrs: mustprogress nofree nounwind willreturn memory(readwrite, argmem: none) uwtable
 define dso_local void @AllocVCG() local_unnamed_addr #0 {
-  %1 = load i64, ptr @channelNets, align 8, !tbaa !5
-  %2 = add i64 %1, 1
-  %3 = shl i64 %2, 6
-  %4 = tail call noalias ptr @malloc(i64 noundef %3) #13
-  store ptr %4, ptr @VCG, align 8, !tbaa !9
-  %5 = mul i64 %2, %2
-  %6 = shl i64 %5, 5
-  %7 = tail call noalias ptr @malloc(i64 noundef %6) #13
-  store ptr %7, ptr @storageRootVCG, align 8, !tbaa !9
-  store ptr %7, ptr @storageVCG, align 8, !tbaa !9
-  store i64 %5, ptr @storageLimitVCG, align 8, !tbaa !5
-  %8 = shl i64 %2, 3
-  %9 = tail call noalias ptr @malloc(i64 noundef %8) #13
-  store ptr %9, ptr @SCC, align 8, !tbaa !9
-  %10 = tail call noalias ptr @malloc(i64 noundef %8) #13
-  store ptr %10, ptr @perSCC, align 8, !tbaa !9
-  %11 = shl i64 %5, 3
-  %12 = tail call noalias ptr @malloc(i64 noundef %11) #13
-  store ptr %12, ptr @removeVCG, align 8, !tbaa !9
+entry:
+  %0 = load i64, ptr @channelNets, align 8, !tbaa !5
+  %add = shl i64 %0, 6
+  %mul = add i64 %add, 64
+  %call = tail call noalias ptr @malloc(i64 noundef %mul) #13
+  store ptr %call, ptr @VCG, align 8, !tbaa !9
+  %add1 = add i64 %0, 1
+  %mul3 = mul i64 %add1, %add1
+  %mul4 = shl i64 %mul3, 5
+  %call5 = tail call noalias ptr @malloc(i64 noundef %mul4) #13
+  store ptr %call5, ptr @storageRootVCG, align 8, !tbaa !9
+  store ptr %call5, ptr @storageVCG, align 8, !tbaa !9
+  store i64 %mul3, ptr @storageLimitVCG, align 8, !tbaa !5
+  %add9 = shl i64 %0, 3
+  %mul10 = add i64 %add9, 8
+  %call11 = tail call noalias ptr @malloc(i64 noundef %mul10) #13
+  store ptr %call11, ptr @SCC, align 8, !tbaa !9
+  %call14 = tail call noalias ptr @malloc(i64 noundef %mul10) #13
+  store ptr %call14, ptr @perSCC, align 8, !tbaa !9
+  %mul18 = shl i64 %mul3, 3
+  %call19 = tail call noalias ptr @malloc(i64 noundef %mul18) #13
+  store ptr %call19, ptr @removeVCG, align 8, !tbaa !9
   ret void
 }
 
@@ -67,17 +70,18 @@ declare noalias noundef ptr @malloc(i64 noundef) local_unnamed_addr #1
 
 ; Function Attrs: mustprogress nounwind willreturn uwtable
 define dso_local void @FreeVCG() local_unnamed_addr #2 {
-  %1 = load ptr, ptr @VCG, align 8, !tbaa !9
+entry:
+  %0 = load ptr, ptr @VCG, align 8, !tbaa !9
+  tail call void @free(ptr noundef %0) #14
+  %1 = load ptr, ptr @storageRootVCG, align 8, !tbaa !9
   tail call void @free(ptr noundef %1) #14
-  %2 = load ptr, ptr @storageRootVCG, align 8, !tbaa !9
-  tail call void @free(ptr noundef %2) #14
   store i64 0, ptr @storageLimitVCG, align 8, !tbaa !5
-  %3 = load ptr, ptr @SCC, align 8, !tbaa !9
+  %2 = load ptr, ptr @SCC, align 8, !tbaa !9
+  tail call void @free(ptr noundef %2) #14
+  %3 = load ptr, ptr @perSCC, align 8, !tbaa !9
   tail call void @free(ptr noundef %3) #14
-  %4 = load ptr, ptr @perSCC, align 8, !tbaa !9
+  %4 = load ptr, ptr @removeVCG, align 8, !tbaa !9
   tail call void @free(ptr noundef %4) #14
-  %5 = load ptr, ptr @removeVCG, align 8, !tbaa !9
-  tail call void @free(ptr noundef %5) #14
   ret void
 }
 
@@ -86,201 +90,204 @@ declare void @free(ptr allocptr nocapture noundef) local_unnamed_addr #3
 
 ; Function Attrs: nofree nounwind uwtable
 define dso_local void @BuildVCG() local_unnamed_addr #4 {
-  %1 = load i64, ptr @channelNets, align 8, !tbaa !5
-  %2 = add i64 %1, 1
-  %3 = shl i64 %2, 6
-  %4 = tail call noalias ptr @malloc(i64 noundef %3) #13
-  store ptr %4, ptr @VCG, align 8, !tbaa !9
-  %5 = mul i64 %2, %2
-  %6 = shl i64 %5, 5
-  %7 = tail call noalias ptr @malloc(i64 noundef %6) #13
-  store ptr %7, ptr @storageRootVCG, align 8, !tbaa !9
-  store ptr %7, ptr @storageVCG, align 8, !tbaa !9
-  store i64 %5, ptr @storageLimitVCG, align 8, !tbaa !5
-  %8 = shl i64 %2, 3
-  %9 = tail call noalias ptr @malloc(i64 noundef %8) #13
-  store ptr %9, ptr @SCC, align 8, !tbaa !9
-  %10 = tail call noalias ptr @malloc(i64 noundef %8) #13
-  store ptr %10, ptr @perSCC, align 8, !tbaa !9
-  %11 = shl i64 %5, 3
-  %12 = tail call noalias ptr @malloc(i64 noundef %11) #13
-  store ptr %12, ptr @removeVCG, align 8, !tbaa !9
-  %13 = icmp eq i64 %1, 0
-  br i1 %13, label %132, label %14
+entry:
+  %0 = load i64, ptr @channelNets, align 8, !tbaa !5
+  %add.i = shl i64 %0, 6
+  %mul.i = add i64 %add.i, 64
+  %call.i = tail call noalias ptr @malloc(i64 noundef %mul.i) #13
+  store ptr %call.i, ptr @VCG, align 8, !tbaa !9
+  %add1.i = add i64 %0, 1
+  %mul3.i = mul i64 %add1.i, %add1.i
+  %mul4.i = shl i64 %mul3.i, 5
+  %call5.i = tail call noalias ptr @malloc(i64 noundef %mul4.i) #13
+  store ptr %call5.i, ptr @storageRootVCG, align 8, !tbaa !9
+  store ptr %call5.i, ptr @storageVCG, align 8, !tbaa !9
+  store i64 %mul3.i, ptr @storageLimitVCG, align 8, !tbaa !5
+  %add9.i = shl i64 %0, 3
+  %mul10.i = add i64 %add9.i, 8
+  %call11.i = tail call noalias ptr @malloc(i64 noundef %mul10.i) #13
+  store ptr %call11.i, ptr @SCC, align 8, !tbaa !9
+  %call14.i = tail call noalias ptr @malloc(i64 noundef %mul10.i) #13
+  store ptr %call14.i, ptr @perSCC, align 8, !tbaa !9
+  %mul18.i = shl i64 %mul3.i, 3
+  %call19.i = tail call noalias ptr @malloc(i64 noundef %mul18.i) #13
+  store ptr %call19.i, ptr @removeVCG, align 8, !tbaa !9
+  %cmp.not178 = icmp eq i64 %0, 0
+  br i1 %cmp.not178, label %for.end102, label %for.body
 
-14:                                               ; preds = %0, %125
-  %15 = phi ptr [ %127, %125 ], [ %4, %0 ]
-  %16 = phi i64 [ %129, %125 ], [ 1, %0 ]
-  %17 = load ptr, ptr @storageVCG, align 8, !tbaa !9
-  %18 = getelementptr inbounds %struct._nodeVCGType, ptr %15, i64 %16
-  store ptr %17, ptr %18, align 8, !tbaa !11
-  %19 = load i64, ptr @channelColumns, align 8, !tbaa !5
-  %20 = icmp eq i64 %19, 0
-  %21 = load ptr, ptr @storageVCG, align 8, !tbaa !9
-  br i1 %20, label %69, label %22
+for.body:                                         ; preds = %entry, %for.end98
+  %1 = phi ptr [ %27, %for.end98 ], [ %call.i, %entry ]
+  %net.0179 = phi i64 [ %inc101, %for.end98 ], [ 1, %entry ]
+  %2 = load ptr, ptr @storageVCG, align 8, !tbaa !9
+  %arrayidx = getelementptr inbounds %struct._nodeVCGType, ptr %1, i64 %net.0179
+  store ptr %2, ptr %arrayidx, align 8, !tbaa !11
+  %3 = load i64, ptr @channelColumns, align 8, !tbaa !5
+  %cmp2.not164 = icmp eq i64 %3, 0
+  %.pre182 = load ptr, ptr @storageVCG, align 8, !tbaa !9
+  br i1 %cmp2.not164, label %for.end42, label %for.body3.lr.ph
 
-22:                                               ; preds = %14
-  %23 = load ptr, ptr @TOP, align 8, !tbaa !9
-  %24 = load ptr, ptr @BOT, align 8
-  %25 = load ptr, ptr @VCG, align 8
-  %26 = getelementptr inbounds %struct._nodeVCGType, ptr %25, i64 %16
-  br label %27
+for.body3.lr.ph:                                  ; preds = %for.body
+  %4 = load ptr, ptr @TOP, align 8, !tbaa !9
+  %5 = load ptr, ptr @BOT, align 8
+  %6 = load ptr, ptr @VCG, align 8
+  %arrayidx14 = getelementptr inbounds %struct._nodeVCGType, ptr %6, i64 %net.0179
+  br label %for.body3
 
-27:                                               ; preds = %22, %63
-  %28 = phi i64 [ %19, %22 ], [ %64, %63 ]
-  %29 = phi i64 [ 0, %22 ], [ %66, %63 ]
-  %30 = phi i64 [ 1, %22 ], [ %67, %63 ]
-  %31 = phi ptr [ %21, %22 ], [ %65, %63 ]
-  %32 = getelementptr inbounds i64, ptr %23, i64 %30
-  %33 = load i64, ptr %32, align 8, !tbaa !5
-  %34 = icmp eq i64 %33, %16
-  br i1 %34, label %35, label %63
+for.body3:                                        ; preds = %for.body3.lr.ph, %for.inc40
+  %7 = phi i64 [ %3, %for.body3.lr.ph ], [ %13, %for.inc40 ]
+  %constraint.0167 = phi i64 [ 0, %for.body3.lr.ph ], [ %constraint.1, %for.inc40 ]
+  %col.0166 = phi i64 [ 1, %for.body3.lr.ph ], [ %inc41, %for.inc40 ]
+  %incdec.ptr163165 = phi ptr [ %.pre182, %for.body3.lr.ph ], [ %incdec.ptr162, %for.inc40 ]
+  %arrayidx4 = getelementptr inbounds i64, ptr %4, i64 %col.0166
+  %8 = load i64, ptr %arrayidx4, align 8, !tbaa !5
+  %cmp5 = icmp eq i64 %8, %net.0179
+  br i1 %cmp5, label %land.lhs.true, label %for.inc40
 
-35:                                               ; preds = %27
-  %36 = getelementptr inbounds i64, ptr %24, i64 %30
-  %37 = load i64, ptr %36, align 8, !tbaa !5
-  %38 = icmp ne i64 %37, %16
-  %39 = icmp ne i64 %37, 0
-  %40 = and i1 %38, %39
-  br i1 %40, label %41, label %63
+land.lhs.true:                                    ; preds = %for.body3
+  %arrayidx6 = getelementptr inbounds i64, ptr %5, i64 %col.0166
+  %9 = load i64, ptr %arrayidx6, align 8, !tbaa !5
+  %cmp7.not = icmp eq i64 %9, %net.0179
+  %cmp10.not = icmp eq i64 %9, 0
+  %or.cond = or i1 %cmp7.not, %cmp10.not
+  br i1 %or.cond, label %for.inc40, label %for.cond11.preheader
 
-41:                                               ; preds = %35
-  %42 = icmp eq i64 %29, 0
-  %43 = load ptr, ptr %26, align 8, !tbaa !11
-  br i1 %42, label %52, label %47
+for.cond11.preheader:                             ; preds = %land.lhs.true
+  %cmp12160.not = icmp eq i64 %constraint.0167, 0
+  %.pre = load ptr, ptr %arrayidx14, align 8, !tbaa !11
+  br i1 %cmp12160.not, label %if.then20, label %for.body13
 
-44:                                               ; preds = %47
-  %45 = add nuw i64 %48, 1
-  %46 = icmp eq i64 %45, %29
-  br i1 %46, label %52, label %47, !llvm.loop !13
+for.cond11:                                       ; preds = %for.body13
+  %inc = add nuw i64 %check.0161, 1
+  %exitcond.not = icmp eq i64 %inc, %constraint.0167
+  br i1 %exitcond.not, label %if.then20, label %for.body13, !llvm.loop !13
 
-47:                                               ; preds = %41, %44
-  %48 = phi i64 [ %45, %44 ], [ 0, %41 ]
-  %49 = getelementptr inbounds %struct._constraintVCGType, ptr %43, i64 %48, i32 1
-  %50 = load i64, ptr %49, align 8, !tbaa !15
-  %51 = icmp eq i64 %50, %37
-  br i1 %51, label %63, label %44
+for.body13:                                       ; preds = %for.cond11.preheader, %for.cond11
+  %check.0161 = phi i64 [ %inc, %for.cond11 ], [ 0, %for.cond11.preheader ]
+  %bot = getelementptr inbounds %struct._constraintVCGType, ptr %.pre, i64 %check.0161, i32 1
+  %10 = load i64, ptr %bot, align 8, !tbaa !15
+  %cmp18 = icmp eq i64 %10, %9
+  br i1 %cmp18, label %for.inc40, label %for.cond11
 
-52:                                               ; preds = %44, %41
-  %53 = getelementptr inbounds %struct._constraintVCGType, ptr %43, i64 %29
-  store i64 %16, ptr %53, align 8, !tbaa !17
-  %54 = load i64, ptr %36, align 8, !tbaa !5
-  %55 = getelementptr inbounds %struct._constraintVCGType, ptr %43, i64 %29, i32 1
-  store i64 %54, ptr %55, align 8, !tbaa !15
-  %56 = getelementptr inbounds %struct._constraintVCGType, ptr %43, i64 %29, i32 2
-  store i64 %30, ptr %56, align 8, !tbaa !18
-  %57 = getelementptr inbounds %struct._constraintVCGType, ptr %43, i64 %29, i32 3
-  store i64 0, ptr %57, align 8, !tbaa !19
-  %58 = getelementptr inbounds %struct._constraintVCGType, ptr %31, i64 1
-  store ptr %58, ptr @storageVCG, align 8, !tbaa !9
-  %59 = load i64, ptr @storageLimitVCG, align 8, !tbaa !5
-  %60 = add i64 %59, -1
-  store i64 %60, ptr @storageLimitVCG, align 8, !tbaa !5
-  %61 = add i64 %29, 1
-  %62 = load i64, ptr @channelColumns, align 8, !tbaa !5
-  br label %63
+if.then20:                                        ; preds = %for.cond11, %for.cond11.preheader
+  %arrayidx24 = getelementptr inbounds %struct._constraintVCGType, ptr %.pre, i64 %constraint.0167
+  store i64 %net.0179, ptr %arrayidx24, align 8, !tbaa !17
+  %11 = load i64, ptr %arrayidx6, align 8, !tbaa !5
+  %bot29 = getelementptr inbounds %struct._constraintVCGType, ptr %.pre, i64 %constraint.0167, i32 1
+  store i64 %11, ptr %bot29, align 8, !tbaa !15
+  %col33 = getelementptr inbounds %struct._constraintVCGType, ptr %.pre, i64 %constraint.0167, i32 2
+  store i64 %col.0166, ptr %col33, align 8, !tbaa !18
+  %removed = getelementptr inbounds %struct._constraintVCGType, ptr %.pre, i64 %constraint.0167, i32 3
+  store i64 0, ptr %removed, align 8, !tbaa !19
+  %incdec.ptr = getelementptr inbounds %struct._constraintVCGType, ptr %incdec.ptr163165, i64 1
+  store ptr %incdec.ptr, ptr @storageVCG, align 8, !tbaa !9
+  %12 = load i64, ptr @storageLimitVCG, align 8, !tbaa !5
+  %dec = add i64 %12, -1
+  store i64 %dec, ptr @storageLimitVCG, align 8, !tbaa !5
+  %inc37 = add i64 %constraint.0167, 1
+  %.pre181 = load i64, ptr @channelColumns, align 8, !tbaa !5
+  br label %for.inc40
 
-63:                                               ; preds = %47, %27, %35, %52
-  %64 = phi i64 [ %62, %52 ], [ %28, %35 ], [ %28, %27 ], [ %28, %47 ]
-  %65 = phi ptr [ %58, %52 ], [ %31, %35 ], [ %31, %27 ], [ %31, %47 ]
-  %66 = phi i64 [ %61, %52 ], [ %29, %35 ], [ %29, %27 ], [ %29, %47 ]
-  %67 = add i64 %30, 1
-  %68 = icmp ugt i64 %67, %64
-  br i1 %68, label %69, label %27, !llvm.loop !20
+for.inc40:                                        ; preds = %for.body13, %for.body3, %land.lhs.true, %if.then20
+  %13 = phi i64 [ %.pre181, %if.then20 ], [ %7, %land.lhs.true ], [ %7, %for.body3 ], [ %7, %for.body13 ]
+  %incdec.ptr162 = phi ptr [ %incdec.ptr, %if.then20 ], [ %incdec.ptr163165, %land.lhs.true ], [ %incdec.ptr163165, %for.body3 ], [ %incdec.ptr163165, %for.body13 ]
+  %constraint.1 = phi i64 [ %inc37, %if.then20 ], [ %constraint.0167, %land.lhs.true ], [ %constraint.0167, %for.body3 ], [ %constraint.0167, %for.body13 ]
+  %inc41 = add i64 %col.0166, 1
+  %cmp2.not = icmp ugt i64 %inc41, %13
+  br i1 %cmp2.not, label %for.end42, label %for.body3, !llvm.loop !20
 
-69:                                               ; preds = %63, %14
-  %70 = phi ptr [ %21, %14 ], [ %65, %63 ]
-  %71 = phi i64 [ 0, %14 ], [ %66, %63 ]
-  %72 = load ptr, ptr @VCG, align 8, !tbaa !9
-  %73 = getelementptr inbounds %struct._nodeVCGType, ptr %72, i64 %16, i32 1
-  store i64 %71, ptr %73, align 8, !tbaa !21
-  %74 = getelementptr inbounds %struct._nodeVCGType, ptr %72, i64 %16, i32 4
-  store ptr %70, ptr %74, align 8, !tbaa !22
-  %75 = load i64, ptr @channelColumns, align 8, !tbaa !5
-  %76 = icmp eq i64 %75, 0
-  br i1 %76, label %125, label %77
+for.end42:                                        ; preds = %for.inc40, %for.body
+  %14 = phi ptr [ %.pre182, %for.body ], [ %incdec.ptr162, %for.inc40 ]
+  %constraint.0.lcssa = phi i64 [ 0, %for.body ], [ %constraint.1, %for.inc40 ]
+  %15 = load ptr, ptr @VCG, align 8, !tbaa !9
+  %netsAbove = getelementptr inbounds %struct._nodeVCGType, ptr %15, i64 %net.0179, i32 1
+  store i64 %constraint.0.lcssa, ptr %netsAbove, align 8, !tbaa !21
+  %netsBelowHook = getelementptr inbounds %struct._nodeVCGType, ptr %15, i64 %net.0179, i32 4
+  store ptr %14, ptr %netsBelowHook, align 8, !tbaa !22
+  %16 = load i64, ptr @channelColumns, align 8, !tbaa !5
+  %cmp46.not173 = icmp eq i64 %16, 0
+  br i1 %cmp46.not173, label %for.end98, label %for.body47.lr.ph
 
-77:                                               ; preds = %69
-  %78 = load ptr, ptr @storageVCG, align 8, !tbaa !9
-  %79 = load ptr, ptr @BOT, align 8, !tbaa !9
-  %80 = load ptr, ptr @TOP, align 8
-  %81 = load ptr, ptr @VCG, align 8
-  %82 = getelementptr inbounds %struct._nodeVCGType, ptr %81, i64 %16, i32 4
-  br label %83
+for.body47.lr.ph:                                 ; preds = %for.end42
+  %storageVCG.promoted170 = load ptr, ptr @storageVCG, align 8, !tbaa !9
+  %17 = load ptr, ptr @BOT, align 8, !tbaa !9
+  %18 = load ptr, ptr @TOP, align 8
+  %19 = load ptr, ptr @VCG, align 8
+  %netsBelowHook61 = getelementptr inbounds %struct._nodeVCGType, ptr %19, i64 %net.0179, i32 4
+  br label %for.body47
 
-83:                                               ; preds = %77, %119
-  %84 = phi i64 [ %75, %77 ], [ %120, %119 ]
-  %85 = phi i64 [ 0, %77 ], [ %122, %119 ]
-  %86 = phi i64 [ 1, %77 ], [ %123, %119 ]
-  %87 = phi ptr [ %78, %77 ], [ %121, %119 ]
-  %88 = getelementptr inbounds i64, ptr %79, i64 %86
-  %89 = load i64, ptr %88, align 8, !tbaa !5
-  %90 = icmp eq i64 %89, %16
-  br i1 %90, label %91, label %119
+for.body47:                                       ; preds = %for.body47.lr.ph, %for.inc96
+  %20 = phi i64 [ %16, %for.body47.lr.ph ], [ %26, %for.inc96 ]
+  %constraint.2176 = phi i64 [ 0, %for.body47.lr.ph ], [ %constraint.3, %for.inc96 ]
+  %col.1175 = phi i64 [ 1, %for.body47.lr.ph ], [ %inc97, %for.inc96 ]
+  %incdec.ptr91172174 = phi ptr [ %storageVCG.promoted170, %for.body47.lr.ph ], [ %incdec.ptr91171, %for.inc96 ]
+  %arrayidx48 = getelementptr inbounds i64, ptr %17, i64 %col.1175
+  %21 = load i64, ptr %arrayidx48, align 8, !tbaa !5
+  %cmp49 = icmp eq i64 %21, %net.0179
+  br i1 %cmp49, label %land.lhs.true50, label %for.inc96
 
-91:                                               ; preds = %83
-  %92 = getelementptr inbounds i64, ptr %80, i64 %86
-  %93 = load i64, ptr %92, align 8, !tbaa !5
-  %94 = icmp ne i64 %93, %16
-  %95 = icmp ne i64 %93, 0
-  %96 = and i1 %94, %95
-  br i1 %96, label %97, label %119
+land.lhs.true50:                                  ; preds = %for.body47
+  %arrayidx51 = getelementptr inbounds i64, ptr %18, i64 %col.1175
+  %22 = load i64, ptr %arrayidx51, align 8, !tbaa !5
+  %cmp52.not = icmp eq i64 %22, %net.0179
+  %cmp55.not = icmp eq i64 %22, 0
+  %or.cond159 = or i1 %cmp52.not, %cmp55.not
+  br i1 %or.cond159, label %for.inc96, label %for.cond57.preheader
 
-97:                                               ; preds = %91
-  %98 = icmp eq i64 %85, 0
-  %99 = load ptr, ptr %82, align 8, !tbaa !22
-  br i1 %98, label %108, label %103
+for.cond57.preheader:                             ; preds = %land.lhs.true50
+  %cmp58168.not = icmp eq i64 %constraint.2176, 0
+  %.pre183 = load ptr, ptr %netsBelowHook61, align 8, !tbaa !22
+  br i1 %cmp58168.not, label %if.then72, label %for.body59
 
-100:                                              ; preds = %103
-  %101 = add nuw i64 %104, 1
-  %102 = icmp eq i64 %101, %85
-  br i1 %102, label %108, label %103, !llvm.loop !23
+for.cond57:                                       ; preds = %for.body59
+  %inc69 = add nuw i64 %check.1169, 1
+  %exitcond180.not = icmp eq i64 %inc69, %constraint.2176
+  br i1 %exitcond180.not, label %if.then72, label %for.body59, !llvm.loop !23
 
-103:                                              ; preds = %97, %100
-  %104 = phi i64 [ %101, %100 ], [ 0, %97 ]
-  %105 = getelementptr inbounds %struct._constraintVCGType, ptr %99, i64 %104
-  %106 = load i64, ptr %105, align 8, !tbaa !17
-  %107 = icmp eq i64 %106, %93
-  br i1 %107, label %119, label %100
+for.body59:                                       ; preds = %for.cond57.preheader, %for.cond57
+  %check.1169 = phi i64 [ %inc69, %for.cond57 ], [ 0, %for.cond57.preheader ]
+  %arrayidx62 = getelementptr inbounds %struct._constraintVCGType, ptr %.pre183, i64 %check.1169
+  %23 = load i64, ptr %arrayidx62, align 8, !tbaa !17
+  %cmp65 = icmp eq i64 %23, %22
+  br i1 %cmp65, label %for.inc96, label %for.cond57
 
-108:                                              ; preds = %100, %97
-  %109 = getelementptr inbounds %struct._constraintVCGType, ptr %99, i64 %85
-  store i64 %93, ptr %109, align 8, !tbaa !17
-  %110 = load i64, ptr %88, align 8, !tbaa !5
-  %111 = getelementptr inbounds %struct._constraintVCGType, ptr %99, i64 %85, i32 1
-  store i64 %110, ptr %111, align 8, !tbaa !15
-  %112 = getelementptr inbounds %struct._constraintVCGType, ptr %99, i64 %85, i32 2
-  store i64 %86, ptr %112, align 8, !tbaa !18
-  %113 = getelementptr inbounds %struct._constraintVCGType, ptr %99, i64 %85, i32 3
-  store i64 0, ptr %113, align 8, !tbaa !19
-  %114 = getelementptr inbounds %struct._constraintVCGType, ptr %87, i64 1
-  store ptr %114, ptr @storageVCG, align 8, !tbaa !9
-  %115 = load i64, ptr @storageLimitVCG, align 8, !tbaa !5
-  %116 = add i64 %115, -1
-  store i64 %116, ptr @storageLimitVCG, align 8, !tbaa !5
-  %117 = add i64 %85, 1
-  %118 = load i64, ptr @channelColumns, align 8, !tbaa !5
-  br label %119
+if.then72:                                        ; preds = %for.cond57, %for.cond57.preheader
+  %arrayidx76 = getelementptr inbounds %struct._constraintVCGType, ptr %.pre183, i64 %constraint.2176
+  store i64 %22, ptr %arrayidx76, align 8, !tbaa !17
+  %24 = load i64, ptr %arrayidx48, align 8, !tbaa !5
+  %bot82 = getelementptr inbounds %struct._constraintVCGType, ptr %.pre183, i64 %constraint.2176, i32 1
+  store i64 %24, ptr %bot82, align 8, !tbaa !15
+  %col86 = getelementptr inbounds %struct._constraintVCGType, ptr %.pre183, i64 %constraint.2176, i32 2
+  store i64 %col.1175, ptr %col86, align 8, !tbaa !18
+  %removed90 = getelementptr inbounds %struct._constraintVCGType, ptr %.pre183, i64 %constraint.2176, i32 3
+  store i64 0, ptr %removed90, align 8, !tbaa !19
+  %incdec.ptr91 = getelementptr inbounds %struct._constraintVCGType, ptr %incdec.ptr91172174, i64 1
+  store ptr %incdec.ptr91, ptr @storageVCG, align 8, !tbaa !9
+  %25 = load i64, ptr @storageLimitVCG, align 8, !tbaa !5
+  %dec92 = add i64 %25, -1
+  store i64 %dec92, ptr @storageLimitVCG, align 8, !tbaa !5
+  %inc93 = add i64 %constraint.2176, 1
+  %.pre184 = load i64, ptr @channelColumns, align 8, !tbaa !5
+  br label %for.inc96
 
-119:                                              ; preds = %103, %83, %91, %108
-  %120 = phi i64 [ %118, %108 ], [ %84, %91 ], [ %84, %83 ], [ %84, %103 ]
-  %121 = phi ptr [ %114, %108 ], [ %87, %91 ], [ %87, %83 ], [ %87, %103 ]
-  %122 = phi i64 [ %117, %108 ], [ %85, %91 ], [ %85, %83 ], [ %85, %103 ]
-  %123 = add i64 %86, 1
-  %124 = icmp ugt i64 %123, %120
-  br i1 %124, label %125, label %83, !llvm.loop !24
+for.inc96:                                        ; preds = %for.body59, %for.body47, %land.lhs.true50, %if.then72
+  %26 = phi i64 [ %.pre184, %if.then72 ], [ %20, %land.lhs.true50 ], [ %20, %for.body47 ], [ %20, %for.body59 ]
+  %incdec.ptr91171 = phi ptr [ %incdec.ptr91, %if.then72 ], [ %incdec.ptr91172174, %land.lhs.true50 ], [ %incdec.ptr91172174, %for.body47 ], [ %incdec.ptr91172174, %for.body59 ]
+  %constraint.3 = phi i64 [ %inc93, %if.then72 ], [ %constraint.2176, %land.lhs.true50 ], [ %constraint.2176, %for.body47 ], [ %constraint.2176, %for.body59 ]
+  %inc97 = add i64 %col.1175, 1
+  %cmp46.not = icmp ugt i64 %inc97, %26
+  br i1 %cmp46.not, label %for.end98, label %for.body47, !llvm.loop !24
 
-125:                                              ; preds = %119, %69
-  %126 = phi i64 [ 0, %69 ], [ %122, %119 ]
-  %127 = load ptr, ptr @VCG, align 8, !tbaa !9
-  %128 = getelementptr inbounds %struct._nodeVCGType, ptr %127, i64 %16, i32 5
-  store i64 %126, ptr %128, align 8, !tbaa !25
-  %129 = add i64 %16, 1
-  %130 = load i64, ptr @channelNets, align 8, !tbaa !5
-  %131 = icmp ugt i64 %129, %130
-  br i1 %131, label %132, label %14, !llvm.loop !26
+for.end98:                                        ; preds = %for.inc96, %for.end42
+  %constraint.2.lcssa = phi i64 [ 0, %for.end42 ], [ %constraint.3, %for.inc96 ]
+  %27 = load ptr, ptr @VCG, align 8, !tbaa !9
+  %netsBelow = getelementptr inbounds %struct._nodeVCGType, ptr %27, i64 %net.0179, i32 5
+  store i64 %constraint.2.lcssa, ptr %netsBelow, align 8, !tbaa !25
+  %inc101 = add i64 %net.0179, 1
+  %28 = load i64, ptr @channelNets, align 8, !tbaa !5
+  %cmp.not = icmp ugt i64 %inc101, %28
+  br i1 %cmp.not, label %for.end102, label %for.body, !llvm.loop !26
 
-132:                                              ; preds = %125, %0
+for.end102:                                       ; preds = %for.end98, %entry
   ret void
 }
 
@@ -291,109 +298,111 @@ declare void @llvm.lifetime.start.p0(i64 immarg, ptr nocapture) #5
 declare void @llvm.lifetime.end.p0(i64 immarg, ptr nocapture) #5
 
 ; Function Attrs: nofree nosync nounwind memory(read, argmem: write, inaccessiblemem: none) uwtable
-define dso_local void @DFSClearVCG(ptr nocapture noundef writeonly %0) local_unnamed_addr #6 {
-  %2 = load i64, ptr @channelNets, align 8, !tbaa !5
-  %3 = icmp eq i64 %2, 0
-  br i1 %3, label %11, label %4
+define dso_local void @DFSClearVCG(ptr nocapture noundef writeonly %VCG) local_unnamed_addr #6 {
+entry:
+  %0 = load i64, ptr @channelNets, align 8, !tbaa !5
+  %cmp.not12 = icmp eq i64 %0, 0
+  br i1 %cmp.not12, label %for.end, label %for.body
 
-4:                                                ; preds = %1, %4
-  %5 = phi i64 [ %8, %4 ], [ 1, %1 ]
-  %6 = getelementptr inbounds %struct._nodeVCGType, ptr %0, i64 %5, i32 2
-  %7 = getelementptr inbounds %struct._nodeVCGType, ptr %0, i64 %5, i32 6
-  %8 = add i64 %5, 1
-  tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %6, i8 0, i64 16, i1 false)
-  tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %7, i8 0, i64 16, i1 false)
-  %9 = load i64, ptr @channelNets, align 8, !tbaa !5
-  %10 = icmp ugt i64 %8, %9
-  br i1 %10, label %11, label %4, !llvm.loop !27
+for.body:                                         ; preds = %entry, %for.body
+  %net.013 = phi i64 [ %inc, %for.body ], [ 1, %entry ]
+  %netsAboveLabel = getelementptr inbounds %struct._nodeVCGType, ptr %VCG, i64 %net.013, i32 2
+  %netsBelowLabel = getelementptr inbounds %struct._nodeVCGType, ptr %VCG, i64 %net.013, i32 6
+  %inc = add i64 %net.013, 1
+  tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %netsAboveLabel, i8 0, i64 16, i1 false)
+  tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %netsBelowLabel, i8 0, i64 16, i1 false)
+  %1 = load i64, ptr @channelNets, align 8, !tbaa !5
+  %cmp.not = icmp ugt i64 %inc, %1
+  br i1 %cmp.not, label %for.end, label %for.body, !llvm.loop !27
 
-11:                                               ; preds = %4, %1
+for.end:                                          ; preds = %for.body, %entry
   ret void
 }
 
 ; Function Attrs: nofree nounwind uwtable
-define dso_local void @DumpVCG(ptr nocapture noundef readonly %0) local_unnamed_addr #4 {
-  %2 = load i64, ptr @channelNets, align 8, !tbaa !5
-  %3 = icmp eq i64 %2, 0
-  br i1 %3, label %58, label %4
+define dso_local void @DumpVCG(ptr nocapture noundef readonly %VCG) local_unnamed_addr #4 {
+entry:
+  %0 = load i64, ptr @channelNets, align 8, !tbaa !5
+  %cmp.not58 = icmp eq i64 %0, 0
+  br i1 %cmp.not58, label %for.end33, label %for.body
 
-4:                                                ; preds = %1, %53
-  %5 = phi i64 [ %55, %53 ], [ 1, %1 ]
-  %6 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str, i64 noundef %5)
-  %7 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.1)
-  %8 = getelementptr inbounds %struct._nodeVCGType, ptr %0, i64 %5, i32 1
-  %9 = load i64, ptr %8, align 8, !tbaa !21
-  %10 = icmp eq i64 %9, 0
-  br i1 %10, label %29, label %11
+for.body:                                         ; preds = %entry, %for.end29
+  %net.059 = phi i64 [ %inc32, %for.end29 ], [ 1, %entry ]
+  %call = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str, i64 noundef %net.059)
+  %call1 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.1)
+  %netsAbove = getelementptr inbounds %struct._nodeVCGType, ptr %VCG, i64 %net.059, i32 1
+  %1 = load i64, ptr %netsAbove, align 8, !tbaa !21
+  %cmp354.not = icmp eq i64 %1, 0
+  br i1 %cmp354.not, label %for.end, label %for.body4.lr.ph
 
-11:                                               ; preds = %4
-  %12 = getelementptr inbounds %struct._nodeVCGType, ptr %0, i64 %5
-  br label %13
+for.body4.lr.ph:                                  ; preds = %for.body
+  %arrayidx = getelementptr inbounds %struct._nodeVCGType, ptr %VCG, i64 %net.059
+  br label %for.body4
 
-13:                                               ; preds = %11, %25
-  %14 = phi i64 [ %9, %11 ], [ %26, %25 ]
-  %15 = phi i64 [ 0, %11 ], [ %27, %25 ]
-  %16 = load ptr, ptr %12, align 8, !tbaa !11
-  %17 = getelementptr inbounds %struct._constraintVCGType, ptr %16, i64 %15, i32 3
-  %18 = load i64, ptr %17, align 8, !tbaa !19
-  %19 = icmp eq i64 %18, 0
-  br i1 %19, label %20, label %25
+for.body4:                                        ; preds = %for.body4.lr.ph, %for.inc
+  %2 = phi i64 [ %1, %for.body4.lr.ph ], [ %6, %for.inc ]
+  %which.055 = phi i64 [ 0, %for.body4.lr.ph ], [ %inc, %for.inc ]
+  %3 = load ptr, ptr %arrayidx, align 8, !tbaa !11
+  %removed = getelementptr inbounds %struct._constraintVCGType, ptr %3, i64 %which.055, i32 3
+  %4 = load i64, ptr %removed, align 8, !tbaa !19
+  %tobool.not = icmp eq i64 %4, 0
+  br i1 %tobool.not, label %if.then, label %for.inc
 
-20:                                               ; preds = %13
-  %21 = getelementptr inbounds %struct._constraintVCGType, ptr %16, i64 %15, i32 1
-  %22 = load i64, ptr %21, align 8, !tbaa !15
-  %23 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.2, i64 noundef %22)
-  %24 = load i64, ptr %8, align 8, !tbaa !21
-  br label %25
+if.then:                                          ; preds = %for.body4
+  %bot = getelementptr inbounds %struct._constraintVCGType, ptr %3, i64 %which.055, i32 1
+  %5 = load i64, ptr %bot, align 8, !tbaa !15
+  %call10 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.2, i64 noundef %5)
+  %.pre = load i64, ptr %netsAbove, align 8, !tbaa !21
+  br label %for.inc
 
-25:                                               ; preds = %13, %20
-  %26 = phi i64 [ %14, %13 ], [ %24, %20 ]
-  %27 = add nuw i64 %15, 1
-  %28 = icmp ult i64 %27, %26
-  br i1 %28, label %13, label %29, !llvm.loop !28
+for.inc:                                          ; preds = %for.body4, %if.then
+  %6 = phi i64 [ %2, %for.body4 ], [ %.pre, %if.then ]
+  %inc = add nuw i64 %which.055, 1
+  %cmp3 = icmp ult i64 %inc, %6
+  br i1 %cmp3, label %for.body4, label %for.end, !llvm.loop !28
 
-29:                                               ; preds = %25, %4
-  %30 = tail call i32 @putchar(i32 10)
-  %31 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.4)
-  %32 = getelementptr inbounds %struct._nodeVCGType, ptr %0, i64 %5, i32 5
-  %33 = load i64, ptr %32, align 8, !tbaa !25
-  %34 = icmp eq i64 %33, 0
-  br i1 %34, label %53, label %35
+for.end:                                          ; preds = %for.inc, %for.body
+  %putchar = tail call i32 @putchar(i32 10)
+  %call12 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.4)
+  %netsBelow = getelementptr inbounds %struct._nodeVCGType, ptr %VCG, i64 %net.059, i32 5
+  %7 = load i64, ptr %netsBelow, align 8, !tbaa !25
+  %cmp1556.not = icmp eq i64 %7, 0
+  br i1 %cmp1556.not, label %for.end29, label %for.body16.lr.ph
 
-35:                                               ; preds = %29
-  %36 = getelementptr inbounds %struct._nodeVCGType, ptr %0, i64 %5, i32 4
-  br label %37
+for.body16.lr.ph:                                 ; preds = %for.end
+  %netsBelowHook = getelementptr inbounds %struct._nodeVCGType, ptr %VCG, i64 %net.059, i32 4
+  br label %for.body16
 
-37:                                               ; preds = %35, %49
-  %38 = phi i64 [ %33, %35 ], [ %50, %49 ]
-  %39 = phi i64 [ 0, %35 ], [ %51, %49 ]
-  %40 = load ptr, ptr %36, align 8, !tbaa !22
-  %41 = getelementptr inbounds %struct._constraintVCGType, ptr %40, i64 %39, i32 3
-  %42 = load i64, ptr %41, align 8, !tbaa !19
-  %43 = icmp eq i64 %42, 0
-  br i1 %43, label %44, label %49
+for.body16:                                       ; preds = %for.body16.lr.ph, %for.inc27
+  %8 = phi i64 [ %7, %for.body16.lr.ph ], [ %12, %for.inc27 ]
+  %which.157 = phi i64 [ 0, %for.body16.lr.ph ], [ %inc28, %for.inc27 ]
+  %9 = load ptr, ptr %netsBelowHook, align 8, !tbaa !22
+  %removed19 = getelementptr inbounds %struct._constraintVCGType, ptr %9, i64 %which.157, i32 3
+  %10 = load i64, ptr %removed19, align 8, !tbaa !19
+  %tobool20.not = icmp eq i64 %10, 0
+  br i1 %tobool20.not, label %if.then21, label %for.inc27
 
-44:                                               ; preds = %37
-  %45 = getelementptr inbounds %struct._constraintVCGType, ptr %40, i64 %39
-  %46 = load i64, ptr %45, align 8, !tbaa !17
-  %47 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.2, i64 noundef %46)
-  %48 = load i64, ptr %32, align 8, !tbaa !25
-  br label %49
+if.then21:                                        ; preds = %for.body16
+  %arrayidx18 = getelementptr inbounds %struct._constraintVCGType, ptr %9, i64 %which.157
+  %11 = load i64, ptr %arrayidx18, align 8, !tbaa !17
+  %call25 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.2, i64 noundef %11)
+  %.pre60 = load i64, ptr %netsBelow, align 8, !tbaa !25
+  br label %for.inc27
 
-49:                                               ; preds = %37, %44
-  %50 = phi i64 [ %38, %37 ], [ %48, %44 ]
-  %51 = add nuw i64 %39, 1
-  %52 = icmp ult i64 %51, %50
-  br i1 %52, label %37, label %53, !llvm.loop !29
+for.inc27:                                        ; preds = %for.body16, %if.then21
+  %12 = phi i64 [ %8, %for.body16 ], [ %.pre60, %if.then21 ]
+  %inc28 = add nuw i64 %which.157, 1
+  %cmp15 = icmp ult i64 %inc28, %12
+  br i1 %cmp15, label %for.body16, label %for.end29, !llvm.loop !29
 
-53:                                               ; preds = %49, %29
-  %54 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str)
-  %55 = add i64 %5, 1
-  %56 = load i64, ptr @channelNets, align 8, !tbaa !5
-  %57 = icmp ugt i64 %55, %56
-  br i1 %57, label %58, label %4, !llvm.loop !30
+for.end29:                                        ; preds = %for.inc27, %for.end
+  %puts = tail call i32 @puts(ptr nonnull dereferenceable(1) @str)
+  %inc32 = add i64 %net.059, 1
+  %13 = load i64, ptr @channelNets, align 8, !tbaa !5
+  %cmp.not = icmp ugt i64 %inc32, %13
+  br i1 %cmp.not, label %for.end33, label %for.body, !llvm.loop !30
 
-58:                                               ; preds = %53, %1
+for.end33:                                        ; preds = %for.end29, %entry
   ret void
 }
 
@@ -401,1073 +410,1081 @@ define dso_local void @DumpVCG(ptr nocapture noundef readonly %0) local_unnamed_
 declare noundef i32 @printf(ptr nocapture noundef readonly, ...) local_unnamed_addr #7
 
 ; Function Attrs: nofree nosync nounwind memory(read, argmem: readwrite, inaccessiblemem: none) uwtable
-define dso_local void @DFSAboveVCG(ptr nocapture noundef %0, i64 noundef %1) local_unnamed_addr #8 {
-  %3 = getelementptr inbounds %struct._nodeVCGType, ptr %0, i64 %1
-  %4 = getelementptr inbounds %struct._nodeVCGType, ptr %0, i64 %1, i32 3
-  store i64 1, ptr %4, align 8, !tbaa !31
-  %5 = getelementptr inbounds %struct._nodeVCGType, ptr %0, i64 %1, i32 1
-  %6 = load i64, ptr %5, align 8, !tbaa !21
-  %7 = icmp eq i64 %6, 0
-  br i1 %7, label %27, label %8
+define dso_local void @DFSAboveVCG(ptr nocapture noundef %VCG, i64 noundef %net) local_unnamed_addr #8 {
+entry:
+  %arrayidx = getelementptr inbounds %struct._nodeVCGType, ptr %VCG, i64 %net
+  %netsAboveReached = getelementptr inbounds %struct._nodeVCGType, ptr %VCG, i64 %net, i32 3
+  store i64 1, ptr %netsAboveReached, align 8, !tbaa !31
+  %netsAbove = getelementptr inbounds %struct._nodeVCGType, ptr %VCG, i64 %net, i32 1
+  %0 = load i64, ptr %netsAbove, align 8, !tbaa !21
+  %cmp24.not = icmp eq i64 %0, 0
+  br i1 %cmp24.not, label %for.end, label %for.body
 
-8:                                                ; preds = %2, %23
-  %9 = phi i64 [ %24, %23 ], [ %6, %2 ]
-  %10 = phi i64 [ %25, %23 ], [ 0, %2 ]
-  %11 = load ptr, ptr %3, align 8, !tbaa !11
-  %12 = getelementptr inbounds %struct._constraintVCGType, ptr %11, i64 %10, i32 3
-  %13 = load i64, ptr %12, align 8, !tbaa !19
-  %14 = icmp eq i64 %13, 0
-  br i1 %14, label %15, label %23
+for.body:                                         ; preds = %entry, %for.inc
+  %1 = phi i64 [ %6, %for.inc ], [ %0, %entry ]
+  %s.025 = phi i64 [ %inc, %for.inc ], [ 0, %entry ]
+  %2 = load ptr, ptr %arrayidx, align 8, !tbaa !11
+  %removed = getelementptr inbounds %struct._constraintVCGType, ptr %2, i64 %s.025, i32 3
+  %3 = load i64, ptr %removed, align 8, !tbaa !19
+  %tobool.not = icmp eq i64 %3, 0
+  br i1 %tobool.not, label %if.then, label %for.inc
 
-15:                                               ; preds = %8
-  %16 = getelementptr inbounds %struct._constraintVCGType, ptr %11, i64 %10, i32 1
-  %17 = load i64, ptr %16, align 8, !tbaa !15
-  %18 = getelementptr inbounds %struct._nodeVCGType, ptr %0, i64 %17, i32 3
-  %19 = load i64, ptr %18, align 8, !tbaa !31
-  %20 = icmp eq i64 %19, 0
-  br i1 %20, label %21, label %23
+if.then:                                          ; preds = %for.body
+  %bot = getelementptr inbounds %struct._constraintVCGType, ptr %2, i64 %s.025, i32 1
+  %4 = load i64, ptr %bot, align 8, !tbaa !15
+  %netsAboveReached8 = getelementptr inbounds %struct._nodeVCGType, ptr %VCG, i64 %4, i32 3
+  %5 = load i64, ptr %netsAboveReached8, align 8, !tbaa !31
+  %tobool9.not = icmp eq i64 %5, 0
+  br i1 %tobool9.not, label %if.then10, label %for.inc
 
-21:                                               ; preds = %15
-  tail call void @DFSAboveVCG(ptr noundef nonnull %0, i64 noundef %17)
-  %22 = load i64, ptr %5, align 8, !tbaa !21
-  br label %23
+if.then10:                                        ; preds = %if.then
+  tail call void @DFSAboveVCG(ptr noundef nonnull %VCG, i64 noundef %4)
+  %.pre = load i64, ptr %netsAbove, align 8, !tbaa !21
+  br label %for.inc
 
-23:                                               ; preds = %8, %21, %15
-  %24 = phi i64 [ %9, %8 ], [ %22, %21 ], [ %9, %15 ]
-  %25 = add nuw i64 %10, 1
-  %26 = icmp ult i64 %25, %24
-  br i1 %26, label %8, label %27, !llvm.loop !32
+for.inc:                                          ; preds = %for.body, %if.then10, %if.then
+  %6 = phi i64 [ %1, %for.body ], [ %.pre, %if.then10 ], [ %1, %if.then ]
+  %inc = add nuw i64 %s.025, 1
+  %cmp = icmp ult i64 %inc, %6
+  br i1 %cmp, label %for.body, label %for.end, !llvm.loop !32
 
-27:                                               ; preds = %23, %2
+for.end:                                          ; preds = %for.inc, %entry
   ret void
 }
 
 ; Function Attrs: nofree nosync nounwind memory(read, argmem: readwrite, inaccessiblemem: none) uwtable
-define dso_local void @DFSBelowVCG(ptr nocapture noundef %0, i64 noundef %1) local_unnamed_addr #8 {
-  %3 = getelementptr inbounds %struct._nodeVCGType, ptr %0, i64 %1, i32 7
-  store i64 1, ptr %3, align 8, !tbaa !33
-  %4 = getelementptr inbounds %struct._nodeVCGType, ptr %0, i64 %1, i32 5
-  %5 = load i64, ptr %4, align 8, !tbaa !25
-  %6 = icmp eq i64 %5, 0
-  br i1 %6, label %28, label %7
+define dso_local void @DFSBelowVCG(ptr nocapture noundef %VCG, i64 noundef %net) local_unnamed_addr #8 {
+entry:
+  %netsBelowReached = getelementptr inbounds %struct._nodeVCGType, ptr %VCG, i64 %net, i32 7
+  store i64 1, ptr %netsBelowReached, align 8, !tbaa !33
+  %netsBelow = getelementptr inbounds %struct._nodeVCGType, ptr %VCG, i64 %net, i32 5
+  %0 = load i64, ptr %netsBelow, align 8, !tbaa !25
+  %cmp24.not = icmp eq i64 %0, 0
+  br i1 %cmp24.not, label %for.end, label %for.body.lr.ph
 
-7:                                                ; preds = %2
-  %8 = getelementptr inbounds %struct._nodeVCGType, ptr %0, i64 %1, i32 4
-  br label %9
+for.body.lr.ph:                                   ; preds = %entry
+  %netsBelowHook = getelementptr inbounds %struct._nodeVCGType, ptr %VCG, i64 %net, i32 4
+  br label %for.body
 
-9:                                                ; preds = %7, %24
-  %10 = phi i64 [ %5, %7 ], [ %25, %24 ]
-  %11 = phi i64 [ 0, %7 ], [ %26, %24 ]
-  %12 = load ptr, ptr %8, align 8, !tbaa !22
-  %13 = getelementptr inbounds %struct._constraintVCGType, ptr %12, i64 %11, i32 3
-  %14 = load i64, ptr %13, align 8, !tbaa !19
-  %15 = icmp eq i64 %14, 0
-  br i1 %15, label %16, label %24
+for.body:                                         ; preds = %for.body.lr.ph, %for.inc
+  %1 = phi i64 [ %0, %for.body.lr.ph ], [ %6, %for.inc ]
+  %s.025 = phi i64 [ 0, %for.body.lr.ph ], [ %inc, %for.inc ]
+  %2 = load ptr, ptr %netsBelowHook, align 8, !tbaa !22
+  %removed = getelementptr inbounds %struct._constraintVCGType, ptr %2, i64 %s.025, i32 3
+  %3 = load i64, ptr %removed, align 8, !tbaa !19
+  %tobool.not = icmp eq i64 %3, 0
+  br i1 %tobool.not, label %if.then, label %for.inc
 
-16:                                               ; preds = %9
-  %17 = getelementptr inbounds %struct._constraintVCGType, ptr %12, i64 %11
-  %18 = load i64, ptr %17, align 8, !tbaa !17
-  %19 = getelementptr inbounds %struct._nodeVCGType, ptr %0, i64 %18, i32 7
-  %20 = load i64, ptr %19, align 8, !tbaa !33
-  %21 = icmp eq i64 %20, 0
-  br i1 %21, label %22, label %24
+if.then:                                          ; preds = %for.body
+  %arrayidx3 = getelementptr inbounds %struct._constraintVCGType, ptr %2, i64 %s.025
+  %4 = load i64, ptr %arrayidx3, align 8, !tbaa !17
+  %netsBelowReached8 = getelementptr inbounds %struct._nodeVCGType, ptr %VCG, i64 %4, i32 7
+  %5 = load i64, ptr %netsBelowReached8, align 8, !tbaa !33
+  %tobool9.not = icmp eq i64 %5, 0
+  br i1 %tobool9.not, label %if.then10, label %for.inc
 
-22:                                               ; preds = %16
-  tail call void @DFSBelowVCG(ptr noundef nonnull %0, i64 noundef %18)
-  %23 = load i64, ptr %4, align 8, !tbaa !25
-  br label %24
+if.then10:                                        ; preds = %if.then
+  tail call void @DFSBelowVCG(ptr noundef nonnull %VCG, i64 noundef %4)
+  %.pre = load i64, ptr %netsBelow, align 8, !tbaa !25
+  br label %for.inc
 
-24:                                               ; preds = %9, %22, %16
-  %25 = phi i64 [ %10, %9 ], [ %23, %22 ], [ %10, %16 ]
-  %26 = add nuw i64 %11, 1
-  %27 = icmp ult i64 %26, %25
-  br i1 %27, label %9, label %28, !llvm.loop !34
+for.inc:                                          ; preds = %for.body, %if.then10, %if.then
+  %6 = phi i64 [ %1, %for.body ], [ %.pre, %if.then10 ], [ %1, %if.then ]
+  %inc = add nuw i64 %s.025, 1
+  %cmp = icmp ult i64 %inc, %6
+  br i1 %cmp, label %for.body, label %for.end, !llvm.loop !34
 
-28:                                               ; preds = %24, %2
+for.end:                                          ; preds = %for.inc, %entry
   ret void
 }
 
 ; Function Attrs: nofree nosync nounwind memory(readwrite, inaccessiblemem: none) uwtable
-define dso_local void @SCCofVCG(ptr nocapture noundef %0, ptr nocapture noundef %1, ptr nocapture noundef writeonly %2) local_unnamed_addr #9 {
-  %4 = alloca i64, align 8
-  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %4) #14
-  store i64 0, ptr %4, align 8, !tbaa !5
-  %5 = load i64, ptr @channelNets, align 8, !tbaa !5
-  %6 = icmp eq i64 %5, 0
-  br i1 %6, label %7, label %10
+define dso_local void @SCCofVCG(ptr nocapture noundef %VCG, ptr nocapture noundef %SCC, ptr nocapture noundef writeonly %perSCC) local_unnamed_addr #9 {
+entry:
+  %label = alloca i64, align 8
+  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %label) #14
+  store i64 0, ptr %label, align 8, !tbaa !5
+  %0 = load i64, ptr @channelNets, align 8, !tbaa !5
+  %cmp.not88 = icmp eq i64 %0, 0
+  br i1 %cmp.not88, label %do.body.preheader, label %for.body
 
-7:                                                ; preds = %18, %3
-  %8 = phi i64 [ 0, %3 ], [ %19, %18 ]
-  %9 = icmp eq i64 %8, 0
-  br i1 %9, label %22, label %23
+do.body.preheader:                                ; preds = %for.inc, %entry
+  %1 = phi i64 [ 0, %entry ], [ %4, %for.inc ]
+  %cmp2.not90115 = icmp eq i64 %1, 0
+  br i1 %cmp2.not90115, label %do.end.thread, label %for.body3.preheader
 
-10:                                               ; preds = %3, %18
-  %11 = phi i64 [ %19, %18 ], [ %5, %3 ]
-  %12 = phi i64 [ %20, %18 ], [ 1, %3 ]
-  %13 = getelementptr inbounds %struct._nodeVCGType, ptr %0, i64 %12, i32 3
-  %14 = load i64, ptr %13, align 8, !tbaa !31
-  %15 = icmp eq i64 %14, 0
-  br i1 %15, label %16, label %18
+for.body:                                         ; preds = %entry, %for.inc
+  %2 = phi i64 [ %4, %for.inc ], [ %0, %entry ]
+  %net.089 = phi i64 [ %inc, %for.inc ], [ 1, %entry ]
+  %netsAboveReached = getelementptr inbounds %struct._nodeVCGType, ptr %VCG, i64 %net.089, i32 3
+  %3 = load i64, ptr %netsAboveReached, align 8, !tbaa !31
+  %tobool.not = icmp eq i64 %3, 0
+  br i1 %tobool.not, label %if.then, label %for.inc
 
-16:                                               ; preds = %10
-  call void @SCC_DFSAboveVCG(ptr noundef nonnull %0, i64 noundef %12, ptr noundef nonnull %4)
-  %17 = load i64, ptr @channelNets, align 8, !tbaa !5
-  br label %18
+if.then:                                          ; preds = %for.body
+  call void @SCC_DFSAboveVCG(ptr noundef nonnull %VCG, i64 noundef %net.089, ptr noundef nonnull %label)
+  %.pre = load i64, ptr @channelNets, align 8, !tbaa !5
+  br label %for.inc
 
-18:                                               ; preds = %10, %16
-  %19 = phi i64 [ %11, %10 ], [ %17, %16 ]
-  %20 = add i64 %12, 1
-  %21 = icmp ugt i64 %20, %19
-  br i1 %21, label %7, label %10, !llvm.loop !35
+for.inc:                                          ; preds = %for.body, %if.then
+  %4 = phi i64 [ %2, %for.body ], [ %.pre, %if.then ]
+  %inc = add i64 %net.089, 1
+  %cmp.not = icmp ugt i64 %inc, %4
+  br i1 %cmp.not, label %do.body.preheader, label %for.body, !llvm.loop !35
 
-22:                                               ; preds = %90, %7
+do.end.thread:                                    ; preds = %do.cond, %do.body.preheader
   store i64 0, ptr @totalSCC, align 8, !tbaa !5
-  br label %166
+  br label %for.end52
 
-23:                                               ; preds = %7, %90
-  %24 = phi i1 [ %93, %90 ], [ %9, %7 ]
-  %25 = phi i64 [ %91, %90 ], [ 0, %7 ]
-  %26 = phi i64 [ %92, %90 ], [ %8, %7 ]
-  %27 = add i64 %26, 1
-  %28 = tail call i64 @llvm.umax.i64(i64 %27, i64 2)
-  %29 = add i64 %28, -1
-  %30 = and i64 %29, 1
-  %31 = icmp ult i64 %27, 3
-  br i1 %31, label %68, label %32
+for.body3.preheader:                              ; preds = %do.body.preheader, %do.cond
+  %cmp2.not90117 = phi i1 [ %cmp2.not90, %do.cond ], [ %cmp2.not90115, %do.body.preheader ]
+  %which.0116 = phi i64 [ %inc19, %do.cond ], [ 0, %do.body.preheader ]
+  %5 = phi i64 [ %.pre106, %do.cond ], [ %1, %do.body.preheader ]
+  %6 = add i64 %5, 1
+  %umax = tail call i64 @llvm.umax.i64(i64 %6, i64 2)
+  %7 = add i64 %umax, -1
+  %xtraiter = and i64 %7, 1
+  %8 = icmp ult i64 %6, 3
+  br i1 %8, label %for.end16.unr-lcssa, label %for.body3.preheader.new
 
-32:                                               ; preds = %23
-  %33 = and i64 %29, -2
-  br label %34
+for.body3.preheader.new:                          ; preds = %for.body3.preheader
+  %unroll_iter = and i64 %7, -2
+  br label %for.body3
 
-34:                                               ; preds = %61, %32
-  %35 = phi i64 [ 1, %32 ], [ %64, %61 ]
-  %36 = phi i64 [ 0, %32 ], [ %63, %61 ]
-  %37 = phi i64 [ 0, %32 ], [ %62, %61 ]
-  %38 = phi i64 [ 1, %32 ], [ %65, %61 ]
-  %39 = phi i64 [ 0, %32 ], [ %66, %61 ]
-  %40 = getelementptr inbounds %struct._nodeVCGType, ptr %0, i64 %38, i32 7
-  %41 = load i64, ptr %40, align 8, !tbaa !33
-  %42 = icmp eq i64 %41, 0
-  br i1 %42, label %43, label %48
+for.body3:                                        ; preds = %for.inc14.1, %for.body3.preheader.new
+  %done.094 = phi i64 [ 1, %for.body3.preheader.new ], [ %done.1.1, %for.inc14.1 ]
+  %large.093 = phi i64 [ 0, %for.body3.preheader.new ], [ %large.1.1, %for.inc14.1 ]
+  %choose.092 = phi i64 [ 0, %for.body3.preheader.new ], [ %choose.1.1, %for.inc14.1 ]
+  %net.191 = phi i64 [ 1, %for.body3.preheader.new ], [ %inc15.1, %for.inc14.1 ]
+  %niter = phi i64 [ 0, %for.body3.preheader.new ], [ %niter.next.1, %for.inc14.1 ]
+  %netsBelowReached = getelementptr inbounds %struct._nodeVCGType, ptr %VCG, i64 %net.191, i32 7
+  %9 = load i64, ptr %netsBelowReached, align 8, !tbaa !33
+  %tobool5.not = icmp eq i64 %9, 0
+  br i1 %tobool5.not, label %if.then6, label %for.inc14
 
-43:                                               ; preds = %34
-  %44 = getelementptr inbounds %struct._nodeVCGType, ptr %0, i64 %38, i32 2
-  %45 = load i64, ptr %44, align 8, !tbaa !36
-  %46 = icmp ugt i64 %45, %36
-  br i1 %46, label %47, label %48
+if.then6:                                         ; preds = %for.body3
+  %netsAboveLabel = getelementptr inbounds %struct._nodeVCGType, ptr %VCG, i64 %net.191, i32 2
+  %10 = load i64, ptr %netsAboveLabel, align 8, !tbaa !36
+  %cmp8 = icmp ugt i64 %10, %large.093
+  br i1 %cmp8, label %if.then9, label %for.inc14
 
-47:                                               ; preds = %43
-  br label %48
+if.then9:                                         ; preds = %if.then6
+  br label %for.inc14
 
-48:                                               ; preds = %34, %47, %43
-  %49 = phi i64 [ %37, %34 ], [ %38, %47 ], [ %37, %43 ]
-  %50 = phi i64 [ %36, %34 ], [ %45, %47 ], [ %36, %43 ]
-  %51 = phi i64 [ %35, %34 ], [ 0, %47 ], [ %35, %43 ]
-  %52 = add nuw i64 %38, 1
-  %53 = getelementptr inbounds %struct._nodeVCGType, ptr %0, i64 %52, i32 7
-  %54 = load i64, ptr %53, align 8, !tbaa !33
-  %55 = icmp eq i64 %54, 0
-  br i1 %55, label %56, label %61
+for.inc14:                                        ; preds = %for.body3, %if.then9, %if.then6
+  %choose.1 = phi i64 [ %choose.092, %for.body3 ], [ %net.191, %if.then9 ], [ %choose.092, %if.then6 ]
+  %large.1 = phi i64 [ %large.093, %for.body3 ], [ %10, %if.then9 ], [ %large.093, %if.then6 ]
+  %done.1 = phi i64 [ %done.094, %for.body3 ], [ 0, %if.then9 ], [ %done.094, %if.then6 ]
+  %inc15 = add nuw i64 %net.191, 1
+  %netsBelowReached.1 = getelementptr inbounds %struct._nodeVCGType, ptr %VCG, i64 %inc15, i32 7
+  %11 = load i64, ptr %netsBelowReached.1, align 8, !tbaa !33
+  %tobool5.not.1 = icmp eq i64 %11, 0
+  br i1 %tobool5.not.1, label %if.then6.1, label %for.inc14.1
 
-56:                                               ; preds = %48
-  %57 = getelementptr inbounds %struct._nodeVCGType, ptr %0, i64 %52, i32 2
-  %58 = load i64, ptr %57, align 8, !tbaa !36
-  %59 = icmp ugt i64 %58, %50
-  br i1 %59, label %60, label %61
+if.then6.1:                                       ; preds = %for.inc14
+  %netsAboveLabel.1 = getelementptr inbounds %struct._nodeVCGType, ptr %VCG, i64 %inc15, i32 2
+  %12 = load i64, ptr %netsAboveLabel.1, align 8, !tbaa !36
+  %cmp8.1 = icmp ugt i64 %12, %large.1
+  br i1 %cmp8.1, label %if.then9.1, label %for.inc14.1
 
-60:                                               ; preds = %56
-  br label %61
+if.then9.1:                                       ; preds = %if.then6.1
+  br label %for.inc14.1
 
-61:                                               ; preds = %60, %56, %48
-  %62 = phi i64 [ %49, %48 ], [ %52, %60 ], [ %49, %56 ]
-  %63 = phi i64 [ %50, %48 ], [ %58, %60 ], [ %50, %56 ]
-  %64 = phi i64 [ %51, %48 ], [ 0, %60 ], [ %51, %56 ]
-  %65 = add nuw i64 %38, 2
-  %66 = add i64 %39, 2
-  %67 = icmp eq i64 %66, %33
-  br i1 %67, label %68, label %34, !llvm.loop !37
+for.inc14.1:                                      ; preds = %if.then9.1, %if.then6.1, %for.inc14
+  %choose.1.1 = phi i64 [ %choose.1, %for.inc14 ], [ %inc15, %if.then9.1 ], [ %choose.1, %if.then6.1 ]
+  %large.1.1 = phi i64 [ %large.1, %for.inc14 ], [ %12, %if.then9.1 ], [ %large.1, %if.then6.1 ]
+  %done.1.1 = phi i64 [ %done.1, %for.inc14 ], [ 0, %if.then9.1 ], [ %done.1, %if.then6.1 ]
+  %inc15.1 = add nuw i64 %net.191, 2
+  %niter.next.1 = add i64 %niter, 2
+  %niter.ncmp.1 = icmp eq i64 %niter.next.1, %unroll_iter
+  br i1 %niter.ncmp.1, label %for.end16.unr-lcssa, label %for.body3, !llvm.loop !37
 
-68:                                               ; preds = %61, %23
-  %69 = phi i64 [ undef, %23 ], [ %62, %61 ]
-  %70 = phi i64 [ undef, %23 ], [ %64, %61 ]
-  %71 = phi i64 [ 1, %23 ], [ %64, %61 ]
-  %72 = phi i64 [ 0, %23 ], [ %63, %61 ]
-  %73 = phi i64 [ 0, %23 ], [ %62, %61 ]
-  %74 = phi i64 [ 1, %23 ], [ %65, %61 ]
-  %75 = icmp eq i64 %30, 0
-  br i1 %75, label %86, label %76
+for.end16.unr-lcssa:                              ; preds = %for.inc14.1, %for.body3.preheader
+  %choose.1.lcssa.ph = phi i64 [ undef, %for.body3.preheader ], [ %choose.1.1, %for.inc14.1 ]
+  %done.1.lcssa.ph = phi i64 [ undef, %for.body3.preheader ], [ %done.1.1, %for.inc14.1 ]
+  %done.094.unr = phi i64 [ 1, %for.body3.preheader ], [ %done.1.1, %for.inc14.1 ]
+  %large.093.unr = phi i64 [ 0, %for.body3.preheader ], [ %large.1.1, %for.inc14.1 ]
+  %choose.092.unr = phi i64 [ 0, %for.body3.preheader ], [ %choose.1.1, %for.inc14.1 ]
+  %net.191.unr = phi i64 [ 1, %for.body3.preheader ], [ %inc15.1, %for.inc14.1 ]
+  %lcmp.mod.not = icmp eq i64 %xtraiter, 0
+  br i1 %lcmp.mod.not, label %for.end16, label %for.body3.epil
 
-76:                                               ; preds = %68
-  %77 = getelementptr inbounds %struct._nodeVCGType, ptr %0, i64 %74, i32 7
-  %78 = load i64, ptr %77, align 8, !tbaa !33
-  %79 = icmp eq i64 %78, 0
-  br i1 %79, label %80, label %86
+for.body3.epil:                                   ; preds = %for.end16.unr-lcssa
+  %netsBelowReached.epil = getelementptr inbounds %struct._nodeVCGType, ptr %VCG, i64 %net.191.unr, i32 7
+  %13 = load i64, ptr %netsBelowReached.epil, align 8, !tbaa !33
+  %tobool5.not.epil = icmp eq i64 %13, 0
+  br i1 %tobool5.not.epil, label %if.then6.epil, label %for.end16
 
-80:                                               ; preds = %76
-  %81 = getelementptr inbounds %struct._nodeVCGType, ptr %0, i64 %74, i32 2
-  %82 = load i64, ptr %81, align 8, !tbaa !36
-  %83 = icmp ugt i64 %82, %72
-  %84 = select i1 %83, i64 %74, i64 %73
-  %85 = select i1 %83, i64 0, i64 %71
-  br label %86
+if.then6.epil:                                    ; preds = %for.body3.epil
+  %netsAboveLabel.epil = getelementptr inbounds %struct._nodeVCGType, ptr %VCG, i64 %net.191.unr, i32 2
+  %14 = load i64, ptr %netsAboveLabel.epil, align 8, !tbaa !36
+  %cmp8.epil = icmp ugt i64 %14, %large.093.unr
+  %spec.select133 = select i1 %cmp8.epil, i64 %net.191.unr, i64 %choose.092.unr
+  %spec.select134 = select i1 %cmp8.epil, i64 0, i64 %done.094.unr
+  br label %for.end16
 
-86:                                               ; preds = %80, %76, %68
-  %87 = phi i64 [ %69, %68 ], [ %73, %76 ], [ %84, %80 ]
-  %88 = phi i64 [ %70, %68 ], [ %71, %76 ], [ %85, %80 ]
-  %89 = icmp eq i64 %88, 0
-  br i1 %89, label %90, label %94
+for.end16:                                        ; preds = %if.then6.epil, %for.body3.epil, %for.end16.unr-lcssa
+  %choose.1.lcssa = phi i64 [ %choose.1.lcssa.ph, %for.end16.unr-lcssa ], [ %choose.092.unr, %for.body3.epil ], [ %spec.select133, %if.then6.epil ]
+  %done.1.lcssa = phi i64 [ %done.1.lcssa.ph, %for.end16.unr-lcssa ], [ %done.094.unr, %for.body3.epil ], [ %spec.select134, %if.then6.epil ]
+  %tobool17.not = icmp eq i64 %done.1.lcssa, 0
+  br i1 %tobool17.not, label %do.cond, label %do.end
 
-90:                                               ; preds = %86
-  %91 = add i64 %25, 1
-  tail call void @SCC_DFSBelowVCG(ptr noundef nonnull %0, i64 noundef %87, i64 noundef %91)
-  %92 = load i64, ptr @channelNets, align 8, !tbaa !5
-  %93 = icmp eq i64 %92, 0
-  br i1 %93, label %22, label %23
+do.cond:                                          ; preds = %for.end16
+  %inc19 = add i64 %which.0116, 1
+  tail call void @SCC_DFSBelowVCG(ptr noundef nonnull %VCG, i64 noundef %choose.1.lcssa, i64 noundef %inc19)
+  %.pre106 = load i64, ptr @channelNets, align 8, !tbaa !5
+  %cmp2.not90 = icmp eq i64 %.pre106, 0
+  br i1 %cmp2.not90, label %do.end.thread, label %for.body3.preheader, !llvm.loop !38
 
-94:                                               ; preds = %86
+do.end:                                           ; preds = %for.end16
   store i64 0, ptr @totalSCC, align 8, !tbaa !5
-  br i1 %24, label %166, label %97
+  br i1 %cmp2.not90117, label %for.end52, label %for.body24
 
-95:                                               ; preds = %105
-  %96 = icmp eq i64 %106, 0
-  br i1 %96, label %166, label %110
+for.cond35.preheader:                             ; preds = %for.inc32
+  %cmp36.not102 = icmp eq i64 %17, 0
+  br i1 %cmp36.not102, label %for.end52, label %for.cond38.preheader
 
-97:                                               ; preds = %94, %105
-  %98 = phi i64 [ %107, %105 ], [ 1, %94 ]
-  %99 = getelementptr inbounds %struct._nodeVCGType, ptr %0, i64 %98, i32 6
-  %100 = load i64, ptr %99, align 8, !tbaa !38
-  %101 = getelementptr inbounds i64, ptr %1, i64 %98
-  store i64 %100, ptr %101, align 8, !tbaa !5
-  %102 = load i64, ptr @totalSCC, align 8, !tbaa !5
-  %103 = icmp ugt i64 %100, %102
-  br i1 %103, label %104, label %105
+for.body24:                                       ; preds = %do.end, %for.inc32
+  %net.297 = phi i64 [ %inc33, %for.inc32 ], [ 1, %do.end ]
+  %netsBelowLabel = getelementptr inbounds %struct._nodeVCGType, ptr %VCG, i64 %net.297, i32 6
+  %15 = load i64, ptr %netsBelowLabel, align 8, !tbaa !5
+  %arrayidx26 = getelementptr inbounds i64, ptr %SCC, i64 %net.297
+  store i64 %15, ptr %arrayidx26, align 8, !tbaa !5
+  %16 = load i64, ptr @totalSCC, align 8, !tbaa !5
+  %cmp28 = icmp ugt i64 %15, %16
+  br i1 %cmp28, label %if.then29, label %for.inc32
 
-104:                                              ; preds = %97
-  store i64 %100, ptr @totalSCC, align 8, !tbaa !5
-  br label %105
+if.then29:                                        ; preds = %for.body24
+  store i64 %15, ptr @totalSCC, align 8, !tbaa !5
+  br label %for.inc32
 
-105:                                              ; preds = %97, %104
-  %106 = phi i64 [ %102, %97 ], [ 1, %104 ]
-  %107 = add i64 %98, 1
-  %108 = load i64, ptr @channelNets, align 8, !tbaa !5
-  %109 = icmp ugt i64 %107, %108
-  br i1 %109, label %95, label %97, !llvm.loop !39
+for.inc32:                                        ; preds = %for.body24, %if.then29
+  %17 = phi i64 [ %16, %for.body24 ], [ 1, %if.then29 ]
+  %inc33 = add i64 %net.297, 1
+  %18 = load i64, ptr @channelNets, align 8, !tbaa !5
+  %cmp23.not = icmp ugt i64 %inc33, %18
+  br i1 %cmp23.not, label %for.cond35.preheader, label %for.body24, !llvm.loop !39
 
-110:                                              ; preds = %95, %160
-  %111 = phi i64 [ %163, %160 ], [ 1, %95 ]
-  %112 = load i64, ptr @channelNets, align 8, !tbaa !5
-  %113 = icmp eq i64 %112, 0
-  br i1 %113, label %160, label %114
+for.cond38.preheader:                             ; preds = %for.cond35.preheader, %for.end48
+  %scc.0103 = phi i64 [ %inc51, %for.end48 ], [ 1, %for.cond35.preheader ]
+  %19 = load i64, ptr @channelNets, align 8, !tbaa !5
+  %cmp39.not98 = icmp eq i64 %19, 0
+  br i1 %cmp39.not98, label %for.end48, label %for.body40.preheader
 
-114:                                              ; preds = %110
-  %115 = add i64 %112, 1
-  %116 = tail call i64 @llvm.umax.i64(i64 %115, i64 2)
-  %117 = add i64 %116, -1
-  %118 = icmp ult i64 %117, 4
-  br i1 %118, label %147, label %119
+for.body40.preheader:                             ; preds = %for.cond38.preheader
+  %20 = add i64 %19, 1
+  %umax104 = tail call i64 @llvm.umax.i64(i64 %20, i64 2)
+  %21 = add i64 %umax104, -1
+  %min.iters.check = icmp ult i64 %21, 4
+  br i1 %min.iters.check, label %for.body40.preheader122, label %vector.ph
 
-119:                                              ; preds = %114
-  %120 = and i64 %117, -4
-  %121 = or i64 %120, 1
-  %122 = insertelement <2 x i64> poison, i64 %111, i64 0
-  %123 = shufflevector <2 x i64> %122, <2 x i64> poison, <2 x i32> zeroinitializer
-  %124 = insertelement <2 x i64> poison, i64 %111, i64 0
-  %125 = shufflevector <2 x i64> %124, <2 x i64> poison, <2 x i32> zeroinitializer
-  br label %126
+vector.ph:                                        ; preds = %for.body40.preheader
+  %n.vec = and i64 %21, -4
+  %ind.end = or i64 %n.vec, 1
+  %broadcast.splatinsert = insertelement <2 x i64> poison, i64 %scc.0103, i64 0
+  %broadcast.splat = shufflevector <2 x i64> %broadcast.splatinsert, <2 x i64> poison, <2 x i32> zeroinitializer
+  %broadcast.splatinsert120 = insertelement <2 x i64> poison, i64 %scc.0103, i64 0
+  %broadcast.splat121 = shufflevector <2 x i64> %broadcast.splatinsert120, <2 x i64> poison, <2 x i32> zeroinitializer
+  br label %vector.body
 
-126:                                              ; preds = %126, %119
-  %127 = phi i64 [ 0, %119 ], [ %141, %126 ]
-  %128 = phi <2 x i64> [ zeroinitializer, %119 ], [ %139, %126 ]
-  %129 = phi <2 x i64> [ zeroinitializer, %119 ], [ %140, %126 ]
-  %130 = or i64 %127, 1
-  %131 = getelementptr inbounds i64, ptr %1, i64 %130
-  %132 = load <2 x i64>, ptr %131, align 8, !tbaa !5
-  %133 = getelementptr inbounds i64, ptr %131, i64 2
-  %134 = load <2 x i64>, ptr %133, align 8, !tbaa !5
-  %135 = icmp eq <2 x i64> %132, %123
-  %136 = icmp eq <2 x i64> %134, %125
-  %137 = zext <2 x i1> %135 to <2 x i64>
-  %138 = zext <2 x i1> %136 to <2 x i64>
-  %139 = add <2 x i64> %128, %137
-  %140 = add <2 x i64> %129, %138
-  %141 = add nuw i64 %127, 4
-  %142 = icmp eq i64 %141, %120
-  br i1 %142, label %143, label %126, !llvm.loop !40
+vector.body:                                      ; preds = %vector.body, %vector.ph
+  %index = phi i64 [ 0, %vector.ph ], [ %index.next, %vector.body ]
+  %vec.phi = phi <2 x i64> [ zeroinitializer, %vector.ph ], [ %28, %vector.body ]
+  %vec.phi118 = phi <2 x i64> [ zeroinitializer, %vector.ph ], [ %29, %vector.body ]
+  %offset.idx = or i64 %index, 1
+  %22 = getelementptr inbounds i64, ptr %SCC, i64 %offset.idx
+  %wide.load = load <2 x i64>, ptr %22, align 8, !tbaa !5
+  %23 = getelementptr inbounds i64, ptr %22, i64 2
+  %wide.load119 = load <2 x i64>, ptr %23, align 8, !tbaa !5
+  %24 = icmp eq <2 x i64> %wide.load, %broadcast.splat
+  %25 = icmp eq <2 x i64> %wide.load119, %broadcast.splat121
+  %26 = zext <2 x i1> %24 to <2 x i64>
+  %27 = zext <2 x i1> %25 to <2 x i64>
+  %28 = add <2 x i64> %vec.phi, %26
+  %29 = add <2 x i64> %vec.phi118, %27
+  %index.next = add nuw i64 %index, 4
+  %30 = icmp eq i64 %index.next, %n.vec
+  br i1 %30, label %middle.block, label %vector.body, !llvm.loop !40
 
-143:                                              ; preds = %126
-  %144 = add <2 x i64> %140, %139
-  %145 = tail call i64 @llvm.vector.reduce.add.v2i64(<2 x i64> %144)
-  %146 = icmp eq i64 %117, %120
-  br i1 %146, label %160, label %147
+middle.block:                                     ; preds = %vector.body
+  %bin.rdx = add <2 x i64> %29, %28
+  %31 = tail call i64 @llvm.vector.reduce.add.v2i64(<2 x i64> %bin.rdx)
+  %cmp.n = icmp eq i64 %21, %n.vec
+  br i1 %cmp.n, label %for.end48, label %for.body40.preheader122
 
-147:                                              ; preds = %114, %143
-  %148 = phi i64 [ 0, %114 ], [ %145, %143 ]
-  %149 = phi i64 [ 1, %114 ], [ %121, %143 ]
-  br label %150
+for.body40.preheader122:                          ; preds = %for.body40.preheader, %middle.block
+  %per.0100.ph = phi i64 [ 0, %for.body40.preheader ], [ %31, %middle.block ]
+  %net.399.ph = phi i64 [ 1, %for.body40.preheader ], [ %ind.end, %middle.block ]
+  br label %for.body40
 
-150:                                              ; preds = %147, %150
-  %151 = phi i64 [ %157, %150 ], [ %148, %147 ]
-  %152 = phi i64 [ %158, %150 ], [ %149, %147 ]
-  %153 = getelementptr inbounds i64, ptr %1, i64 %152
-  %154 = load i64, ptr %153, align 8, !tbaa !5
-  %155 = icmp eq i64 %154, %111
-  %156 = zext i1 %155 to i64
-  %157 = add i64 %151, %156
-  %158 = add nuw i64 %152, 1
-  %159 = icmp eq i64 %158, %116
-  br i1 %159, label %160, label %150, !llvm.loop !43
+for.body40:                                       ; preds = %for.body40.preheader122, %for.body40
+  %per.0100 = phi i64 [ %spec.select, %for.body40 ], [ %per.0100.ph, %for.body40.preheader122 ]
+  %net.399 = phi i64 [ %inc47, %for.body40 ], [ %net.399.ph, %for.body40.preheader122 ]
+  %arrayidx41 = getelementptr inbounds i64, ptr %SCC, i64 %net.399
+  %32 = load i64, ptr %arrayidx41, align 8, !tbaa !5
+  %cmp42 = icmp eq i64 %32, %scc.0103
+  %inc44 = zext i1 %cmp42 to i64
+  %spec.select = add i64 %per.0100, %inc44
+  %inc47 = add nuw i64 %net.399, 1
+  %exitcond105 = icmp eq i64 %inc47, %umax104
+  br i1 %exitcond105, label %for.end48, label %for.body40, !llvm.loop !43
 
-160:                                              ; preds = %150, %143, %110
-  %161 = phi i64 [ 0, %110 ], [ %145, %143 ], [ %157, %150 ]
-  %162 = getelementptr inbounds i64, ptr %2, i64 %111
-  store i64 %161, ptr %162, align 8, !tbaa !5
-  %163 = add i64 %111, 1
-  %164 = load i64, ptr @totalSCC, align 8, !tbaa !5
-  %165 = icmp ugt i64 %163, %164
-  br i1 %165, label %166, label %110, !llvm.loop !44
+for.end48:                                        ; preds = %for.body40, %middle.block, %for.cond38.preheader
+  %per.0.lcssa = phi i64 [ 0, %for.cond38.preheader ], [ %31, %middle.block ], [ %spec.select, %for.body40 ]
+  %arrayidx49 = getelementptr inbounds i64, ptr %perSCC, i64 %scc.0103
+  store i64 %per.0.lcssa, ptr %arrayidx49, align 8, !tbaa !5
+  %inc51 = add i64 %scc.0103, 1
+  %33 = load i64, ptr @totalSCC, align 8, !tbaa !5
+  %cmp36.not = icmp ugt i64 %inc51, %33
+  br i1 %cmp36.not, label %for.end52, label %for.cond38.preheader, !llvm.loop !44
 
-166:                                              ; preds = %160, %22, %94, %95
-  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %4) #14
+for.end52:                                        ; preds = %for.end48, %do.end.thread, %do.end, %for.cond35.preheader
+  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %label) #14
   ret void
 }
 
 ; Function Attrs: nofree nosync nounwind memory(read, argmem: readwrite, inaccessiblemem: none) uwtable
-define dso_local void @SCC_DFSAboveVCG(ptr nocapture noundef %0, i64 noundef %1, ptr nocapture noundef %2) local_unnamed_addr #8 {
-  %4 = getelementptr inbounds %struct._nodeVCGType, ptr %0, i64 %1
-  %5 = getelementptr inbounds %struct._nodeVCGType, ptr %0, i64 %1, i32 3
-  store i64 1, ptr %5, align 8, !tbaa !31
-  %6 = getelementptr inbounds %struct._nodeVCGType, ptr %0, i64 %1, i32 1
-  %7 = load i64, ptr %6, align 8, !tbaa !21
-  %8 = icmp eq i64 %7, 0
-  br i1 %8, label %28, label %9
+define dso_local void @SCC_DFSAboveVCG(ptr nocapture noundef %VCG, i64 noundef %net, ptr nocapture noundef %label) local_unnamed_addr #8 {
+entry:
+  %arrayidx = getelementptr inbounds %struct._nodeVCGType, ptr %VCG, i64 %net
+  %netsAboveReached = getelementptr inbounds %struct._nodeVCGType, ptr %VCG, i64 %net, i32 3
+  store i64 1, ptr %netsAboveReached, align 8, !tbaa !31
+  %netsAbove = getelementptr inbounds %struct._nodeVCGType, ptr %VCG, i64 %net, i32 1
+  %0 = load i64, ptr %netsAbove, align 8, !tbaa !21
+  %cmp30.not = icmp eq i64 %0, 0
+  br i1 %cmp30.not, label %for.end, label %for.body
 
-9:                                                ; preds = %3, %24
-  %10 = phi i64 [ %25, %24 ], [ %7, %3 ]
-  %11 = phi i64 [ %26, %24 ], [ 0, %3 ]
-  %12 = load ptr, ptr %4, align 8, !tbaa !11
-  %13 = getelementptr inbounds %struct._constraintVCGType, ptr %12, i64 %11, i32 3
-  %14 = load i64, ptr %13, align 8, !tbaa !19
-  %15 = icmp eq i64 %14, 0
-  br i1 %15, label %16, label %24
+for.body:                                         ; preds = %entry, %for.inc
+  %1 = phi i64 [ %6, %for.inc ], [ %0, %entry ]
+  %s.031 = phi i64 [ %inc, %for.inc ], [ 0, %entry ]
+  %2 = load ptr, ptr %arrayidx, align 8, !tbaa !11
+  %removed = getelementptr inbounds %struct._constraintVCGType, ptr %2, i64 %s.031, i32 3
+  %3 = load i64, ptr %removed, align 8, !tbaa !19
+  %tobool.not = icmp eq i64 %3, 0
+  br i1 %tobool.not, label %if.then, label %for.inc
 
-16:                                               ; preds = %9
-  %17 = getelementptr inbounds %struct._constraintVCGType, ptr %12, i64 %11, i32 1
-  %18 = load i64, ptr %17, align 8, !tbaa !15
-  %19 = getelementptr inbounds %struct._nodeVCGType, ptr %0, i64 %18, i32 3
-  %20 = load i64, ptr %19, align 8, !tbaa !31
-  %21 = icmp eq i64 %20, 0
-  br i1 %21, label %22, label %24
+if.then:                                          ; preds = %for.body
+  %bot = getelementptr inbounds %struct._constraintVCGType, ptr %2, i64 %s.031, i32 1
+  %4 = load i64, ptr %bot, align 8, !tbaa !15
+  %netsAboveReached8 = getelementptr inbounds %struct._nodeVCGType, ptr %VCG, i64 %4, i32 3
+  %5 = load i64, ptr %netsAboveReached8, align 8, !tbaa !31
+  %tobool9.not = icmp eq i64 %5, 0
+  br i1 %tobool9.not, label %if.then10, label %for.inc
 
-22:                                               ; preds = %16
-  tail call void @SCC_DFSAboveVCG(ptr noundef nonnull %0, i64 noundef %18, ptr noundef %2)
-  %23 = load i64, ptr %6, align 8, !tbaa !21
-  br label %24
+if.then10:                                        ; preds = %if.then
+  tail call void @SCC_DFSAboveVCG(ptr noundef nonnull %VCG, i64 noundef %4, ptr noundef %label)
+  %.pre = load i64, ptr %netsAbove, align 8, !tbaa !21
+  br label %for.inc
 
-24:                                               ; preds = %9, %22, %16
-  %25 = phi i64 [ %10, %9 ], [ %23, %22 ], [ %10, %16 ]
-  %26 = add nuw i64 %11, 1
-  %27 = icmp ult i64 %26, %25
-  br i1 %27, label %9, label %28, !llvm.loop !45
+for.inc:                                          ; preds = %for.body, %if.then10, %if.then
+  %6 = phi i64 [ %1, %for.body ], [ %.pre, %if.then10 ], [ %1, %if.then ]
+  %inc = add nuw i64 %s.031, 1
+  %cmp = icmp ult i64 %inc, %6
+  br i1 %cmp, label %for.body, label %for.end, !llvm.loop !45
 
-28:                                               ; preds = %24, %3
-  %29 = load i64, ptr %2, align 8, !tbaa !5
-  %30 = add i64 %29, 1
-  store i64 %30, ptr %2, align 8, !tbaa !5
-  %31 = getelementptr inbounds %struct._nodeVCGType, ptr %0, i64 %1, i32 2
-  store i64 %30, ptr %31, align 8, !tbaa !36
+for.end:                                          ; preds = %for.inc, %entry
+  %7 = load i64, ptr %label, align 8, !tbaa !5
+  %inc12 = add i64 %7, 1
+  store i64 %inc12, ptr %label, align 8, !tbaa !5
+  %netsAboveLabel = getelementptr inbounds %struct._nodeVCGType, ptr %VCG, i64 %net, i32 2
+  store i64 %inc12, ptr %netsAboveLabel, align 8, !tbaa !36
   ret void
 }
 
 ; Function Attrs: nofree nosync nounwind memory(read, argmem: readwrite, inaccessiblemem: none) uwtable
-define dso_local void @SCC_DFSBelowVCG(ptr nocapture noundef %0, i64 noundef %1, i64 noundef %2) local_unnamed_addr #8 {
-  %4 = getelementptr inbounds %struct._nodeVCGType, ptr %0, i64 %1, i32 7
-  store i64 1, ptr %4, align 8, !tbaa !33
-  %5 = getelementptr inbounds %struct._nodeVCGType, ptr %0, i64 %1, i32 5
-  %6 = load i64, ptr %5, align 8, !tbaa !25
-  %7 = icmp eq i64 %6, 0
-  br i1 %7, label %29, label %8
+define dso_local void @SCC_DFSBelowVCG(ptr nocapture noundef %VCG, i64 noundef %net, i64 noundef %label) local_unnamed_addr #8 {
+entry:
+  %netsBelowReached = getelementptr inbounds %struct._nodeVCGType, ptr %VCG, i64 %net, i32 7
+  store i64 1, ptr %netsBelowReached, align 8, !tbaa !33
+  %netsBelow = getelementptr inbounds %struct._nodeVCGType, ptr %VCG, i64 %net, i32 5
+  %0 = load i64, ptr %netsBelow, align 8, !tbaa !25
+  %cmp28.not = icmp eq i64 %0, 0
+  br i1 %cmp28.not, label %for.end, label %for.body.lr.ph
 
-8:                                                ; preds = %3
-  %9 = getelementptr inbounds %struct._nodeVCGType, ptr %0, i64 %1, i32 4
-  br label %10
+for.body.lr.ph:                                   ; preds = %entry
+  %netsBelowHook = getelementptr inbounds %struct._nodeVCGType, ptr %VCG, i64 %net, i32 4
+  br label %for.body
 
-10:                                               ; preds = %8, %25
-  %11 = phi i64 [ %6, %8 ], [ %26, %25 ]
-  %12 = phi i64 [ 0, %8 ], [ %27, %25 ]
-  %13 = load ptr, ptr %9, align 8, !tbaa !22
-  %14 = getelementptr inbounds %struct._constraintVCGType, ptr %13, i64 %12, i32 3
-  %15 = load i64, ptr %14, align 8, !tbaa !19
-  %16 = icmp eq i64 %15, 0
-  br i1 %16, label %17, label %25
+for.body:                                         ; preds = %for.body.lr.ph, %for.inc
+  %1 = phi i64 [ %0, %for.body.lr.ph ], [ %6, %for.inc ]
+  %s.029 = phi i64 [ 0, %for.body.lr.ph ], [ %inc, %for.inc ]
+  %2 = load ptr, ptr %netsBelowHook, align 8, !tbaa !22
+  %removed = getelementptr inbounds %struct._constraintVCGType, ptr %2, i64 %s.029, i32 3
+  %3 = load i64, ptr %removed, align 8, !tbaa !19
+  %tobool.not = icmp eq i64 %3, 0
+  br i1 %tobool.not, label %if.then, label %for.inc
 
-17:                                               ; preds = %10
-  %18 = getelementptr inbounds %struct._constraintVCGType, ptr %13, i64 %12
-  %19 = load i64, ptr %18, align 8, !tbaa !17
-  %20 = getelementptr inbounds %struct._nodeVCGType, ptr %0, i64 %19, i32 7
-  %21 = load i64, ptr %20, align 8, !tbaa !33
-  %22 = icmp eq i64 %21, 0
-  br i1 %22, label %23, label %25
+if.then:                                          ; preds = %for.body
+  %arrayidx3 = getelementptr inbounds %struct._constraintVCGType, ptr %2, i64 %s.029
+  %4 = load i64, ptr %arrayidx3, align 8, !tbaa !17
+  %netsBelowReached8 = getelementptr inbounds %struct._nodeVCGType, ptr %VCG, i64 %4, i32 7
+  %5 = load i64, ptr %netsBelowReached8, align 8, !tbaa !33
+  %tobool9.not = icmp eq i64 %5, 0
+  br i1 %tobool9.not, label %if.then10, label %for.inc
 
-23:                                               ; preds = %17
-  tail call void @SCC_DFSBelowVCG(ptr noundef nonnull %0, i64 noundef %19, i64 noundef %2)
-  %24 = load i64, ptr %5, align 8, !tbaa !25
-  br label %25
+if.then10:                                        ; preds = %if.then
+  tail call void @SCC_DFSBelowVCG(ptr noundef nonnull %VCG, i64 noundef %4, i64 noundef %label)
+  %.pre = load i64, ptr %netsBelow, align 8, !tbaa !25
+  br label %for.inc
 
-25:                                               ; preds = %10, %23, %17
-  %26 = phi i64 [ %11, %10 ], [ %24, %23 ], [ %11, %17 ]
-  %27 = add nuw i64 %12, 1
-  %28 = icmp ult i64 %27, %26
-  br i1 %28, label %10, label %29, !llvm.loop !46
+for.inc:                                          ; preds = %for.body, %if.then10, %if.then
+  %6 = phi i64 [ %1, %for.body ], [ %.pre, %if.then10 ], [ %1, %if.then ]
+  %inc = add nuw i64 %s.029, 1
+  %cmp = icmp ult i64 %inc, %6
+  br i1 %cmp, label %for.body, label %for.end, !llvm.loop !46
 
-29:                                               ; preds = %25, %3
-  %30 = getelementptr inbounds %struct._nodeVCGType, ptr %0, i64 %1, i32 6
-  store i64 %2, ptr %30, align 8, !tbaa !38
+for.end:                                          ; preds = %for.inc, %entry
+  %netsBelowLabel = getelementptr inbounds %struct._nodeVCGType, ptr %VCG, i64 %net, i32 6
+  store i64 %label, ptr %netsBelowLabel, align 8, !tbaa !47
   ret void
 }
 
 ; Function Attrs: nofree nounwind uwtable
-define dso_local void @DumpSCC(ptr nocapture noundef readonly %0, ptr nocapture noundef readonly %1) local_unnamed_addr #4 {
-  %3 = load i64, ptr @totalSCC, align 8, !tbaa !5
-  %4 = icmp eq i64 %3, 0
-  br i1 %4, label %31, label %5
+define dso_local void @DumpSCC(ptr nocapture noundef readonly %SCC, ptr nocapture noundef readonly %perSCC) local_unnamed_addr #4 {
+entry:
+  %0 = load i64, ptr @totalSCC, align 8, !tbaa !5
+  %cmp.not23 = icmp eq i64 %0, 0
+  br i1 %cmp.not23, label %for.end11, label %for.body
 
-5:                                                ; preds = %2, %23
-  %6 = phi i64 [ %28, %23 ], [ 1, %2 ]
-  %7 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.6, i64 noundef %6)
-  %8 = load i64, ptr @channelNets, align 8, !tbaa !5
-  %9 = icmp eq i64 %8, 0
-  br i1 %9, label %23, label %10
+for.body:                                         ; preds = %entry, %for.end
+  %scc.024 = phi i64 [ %inc10, %for.end ], [ 1, %entry ]
+  %call = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.6, i64 noundef %scc.024)
+  %1 = load i64, ptr @channelNets, align 8, !tbaa !5
+  %cmp2.not21 = icmp eq i64 %1, 0
+  br i1 %cmp2.not21, label %for.end, label %for.body3
 
-10:                                               ; preds = %5, %19
-  %11 = phi i64 [ %20, %19 ], [ %8, %5 ]
-  %12 = phi i64 [ %21, %19 ], [ 1, %5 ]
-  %13 = getelementptr inbounds i64, ptr %0, i64 %12
-  %14 = load i64, ptr %13, align 8, !tbaa !5
-  %15 = icmp eq i64 %14, %6
-  br i1 %15, label %16, label %19
+for.body3:                                        ; preds = %for.body, %for.inc
+  %2 = phi i64 [ %4, %for.inc ], [ %1, %for.body ]
+  %net.022 = phi i64 [ %inc, %for.inc ], [ 1, %for.body ]
+  %arrayidx = getelementptr inbounds i64, ptr %SCC, i64 %net.022
+  %3 = load i64, ptr %arrayidx, align 8, !tbaa !5
+  %cmp4 = icmp eq i64 %3, %scc.024
+  br i1 %cmp4, label %if.then, label %for.inc
 
-16:                                               ; preds = %10
-  %17 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.2, i64 noundef %12)
-  %18 = load i64, ptr @channelNets, align 8, !tbaa !5
-  br label %19
+if.then:                                          ; preds = %for.body3
+  %call5 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.2, i64 noundef %net.022)
+  %.pre = load i64, ptr @channelNets, align 8, !tbaa !5
+  br label %for.inc
 
-19:                                               ; preds = %10, %16
-  %20 = phi i64 [ %11, %10 ], [ %18, %16 ]
-  %21 = add i64 %12, 1
-  %22 = icmp ugt i64 %21, %20
-  br i1 %22, label %23, label %10, !llvm.loop !47
+for.inc:                                          ; preds = %for.body3, %if.then
+  %4 = phi i64 [ %2, %for.body3 ], [ %.pre, %if.then ]
+  %inc = add i64 %net.022, 1
+  %cmp2.not = icmp ugt i64 %inc, %4
+  br i1 %cmp2.not, label %for.end, label %for.body3, !llvm.loop !48
 
-23:                                               ; preds = %19, %5
-  %24 = getelementptr inbounds i64, ptr %1, i64 %6
-  %25 = load i64, ptr %24, align 8, !tbaa !5
-  %26 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.7, i64 noundef %25)
-  %27 = tail call i32 @putchar(i32 10)
-  %28 = add i64 %6, 1
-  %29 = load i64, ptr @totalSCC, align 8, !tbaa !5
-  %30 = icmp ugt i64 %28, %29
-  br i1 %30, label %31, label %5, !llvm.loop !48
+for.end:                                          ; preds = %for.inc, %for.body
+  %arrayidx6 = getelementptr inbounds i64, ptr %perSCC, i64 %scc.024
+  %5 = load i64, ptr %arrayidx6, align 8, !tbaa !5
+  %call7 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.7, i64 noundef %5)
+  %putchar20 = tail call i32 @putchar(i32 10)
+  %inc10 = add i64 %scc.024, 1
+  %6 = load i64, ptr @totalSCC, align 8, !tbaa !5
+  %cmp.not = icmp ugt i64 %inc10, %6
+  br i1 %cmp.not, label %for.end11, label %for.body, !llvm.loop !49
 
-31:                                               ; preds = %23, %2
-  %32 = tail call i32 @putchar(i32 10)
+for.end11:                                        ; preds = %for.end, %entry
+  %putchar = tail call i32 @putchar(i32 10)
   ret void
 }
 
 ; Function Attrs: nofree nounwind uwtable
 define dso_local void @AcyclicVCG() local_unnamed_addr #4 {
-  %1 = load i64, ptr @channelNets, align 8, !tbaa !5
-  %2 = icmp eq i64 %1, 0
-  br i1 %2, label %78, label %3
+entry:
+  %0 = load i64, ptr @channelNets, align 8, !tbaa !5
+  %cmp.not213 = icmp eq i64 %0, 0
+  br i1 %cmp.not213, label %for.end18, label %for.cond1.preheader.lr.ph
 
-3:                                                ; preds = %0
-  %4 = load ptr, ptr @VCG, align 8, !tbaa !9
-  br label %5
+for.cond1.preheader.lr.ph:                        ; preds = %entry
+  %1 = load ptr, ptr @VCG, align 8, !tbaa !9
+  br label %for.cond1.preheader
 
-5:                                                ; preds = %3, %74
-  %6 = phi i64 [ 1, %3 ], [ %75, %74 ]
-  %7 = getelementptr inbounds %struct._nodeVCGType, ptr %4, i64 %6, i32 1
-  %8 = load i64, ptr %7, align 8, !tbaa !21
-  %9 = icmp eq i64 %8, 0
-  br i1 %9, label %27, label %10
+for.cond1.preheader:                              ; preds = %for.cond1.preheader.lr.ph, %for.inc16
+  %net.0214 = phi i64 [ 1, %for.cond1.preheader.lr.ph ], [ %inc17, %for.inc16 ]
+  %netsAbove = getelementptr inbounds %struct._nodeVCGType, ptr %1, i64 %net.0214, i32 1
+  %2 = load i64, ptr %netsAbove, align 8, !tbaa !21
+  %cmp2209.not = icmp eq i64 %2, 0
+  br i1 %cmp2209.not, label %for.cond6.preheader, label %for.body3.lr.ph
 
-10:                                               ; preds = %5
-  %11 = getelementptr inbounds %struct._nodeVCGType, ptr %4, i64 %6
-  %12 = load ptr, ptr %11, align 8, !tbaa !11
-  %13 = and i64 %8, 3
-  %14 = icmp ult i64 %8, 4
-  br i1 %14, label %17, label %15
+for.body3.lr.ph:                                  ; preds = %for.cond1.preheader
+  %arrayidx = getelementptr inbounds %struct._nodeVCGType, ptr %1, i64 %net.0214
+  %3 = load ptr, ptr %arrayidx, align 8, !tbaa !11
+  %xtraiter = and i64 %2, 3
+  %4 = icmp ult i64 %2, 4
+  br i1 %4, label %for.cond6.preheader.loopexit.unr-lcssa, label %for.body3.lr.ph.new
 
-15:                                               ; preds = %10
-  %16 = and i64 %8, -4
-  br label %38
+for.body3.lr.ph.new:                              ; preds = %for.body3.lr.ph
+  %unroll_iter = and i64 %2, -4
+  br label %for.body3
 
-17:                                               ; preds = %38, %10
-  %18 = phi i64 [ 0, %10 ], [ %48, %38 ]
-  %19 = icmp eq i64 %13, 0
-  br i1 %19, label %27, label %20
+for.cond6.preheader.loopexit.unr-lcssa:           ; preds = %for.body3, %for.body3.lr.ph
+  %which.0210.unr = phi i64 [ 0, %for.body3.lr.ph ], [ %inc.3, %for.body3 ]
+  %lcmp.mod.not = icmp eq i64 %xtraiter, 0
+  br i1 %lcmp.mod.not, label %for.cond6.preheader, label %for.body3.epil
 
-20:                                               ; preds = %17, %20
-  %21 = phi i64 [ %24, %20 ], [ %18, %17 ]
-  %22 = phi i64 [ %25, %20 ], [ 0, %17 ]
-  %23 = getelementptr inbounds %struct._constraintVCGType, ptr %12, i64 %21, i32 3
-  store i64 0, ptr %23, align 8, !tbaa !19
-  %24 = add nuw i64 %21, 1
-  %25 = add i64 %22, 1
-  %26 = icmp eq i64 %25, %13
-  br i1 %26, label %27, label %20, !llvm.loop !49
+for.body3.epil:                                   ; preds = %for.cond6.preheader.loopexit.unr-lcssa, %for.body3.epil
+  %which.0210.epil = phi i64 [ %inc.epil, %for.body3.epil ], [ %which.0210.unr, %for.cond6.preheader.loopexit.unr-lcssa ]
+  %epil.iter = phi i64 [ %epil.iter.next, %for.body3.epil ], [ 0, %for.cond6.preheader.loopexit.unr-lcssa ]
+  %removed.epil = getelementptr inbounds %struct._constraintVCGType, ptr %3, i64 %which.0210.epil, i32 3
+  store i64 0, ptr %removed.epil, align 8, !tbaa !19
+  %inc.epil = add nuw i64 %which.0210.epil, 1
+  %epil.iter.next = add i64 %epil.iter, 1
+  %epil.iter.cmp.not = icmp eq i64 %epil.iter.next, %xtraiter
+  br i1 %epil.iter.cmp.not, label %for.cond6.preheader, label %for.body3.epil, !llvm.loop !50
 
-27:                                               ; preds = %17, %20, %5
-  %28 = getelementptr inbounds %struct._nodeVCGType, ptr %4, i64 %6, i32 5
-  %29 = load i64, ptr %28, align 8, !tbaa !25
-  %30 = icmp eq i64 %29, 0
-  br i1 %30, label %74, label %31
+for.cond6.preheader:                              ; preds = %for.cond6.preheader.loopexit.unr-lcssa, %for.body3.epil, %for.cond1.preheader
+  %netsBelow = getelementptr inbounds %struct._nodeVCGType, ptr %1, i64 %net.0214, i32 5
+  %5 = load i64, ptr %netsBelow, align 8, !tbaa !25
+  %cmp8211.not = icmp eq i64 %5, 0
+  br i1 %cmp8211.not, label %for.inc16, label %for.body9.lr.ph
 
-31:                                               ; preds = %27
-  %32 = getelementptr inbounds %struct._nodeVCGType, ptr %4, i64 %6, i32 4
-  %33 = load ptr, ptr %32, align 8, !tbaa !22
-  %34 = and i64 %29, 3
-  %35 = icmp ult i64 %29, 4
-  br i1 %35, label %64, label %36
+for.body9.lr.ph:                                  ; preds = %for.cond6.preheader
+  %netsBelowHook = getelementptr inbounds %struct._nodeVCGType, ptr %1, i64 %net.0214, i32 4
+  %6 = load ptr, ptr %netsBelowHook, align 8, !tbaa !22
+  %xtraiter268 = and i64 %5, 3
+  %7 = icmp ult i64 %5, 4
+  br i1 %7, label %for.inc16.loopexit.unr-lcssa, label %for.body9.lr.ph.new
 
-36:                                               ; preds = %31
-  %37 = and i64 %29, -4
-  br label %51
+for.body9.lr.ph.new:                              ; preds = %for.body9.lr.ph
+  %unroll_iter271 = and i64 %5, -4
+  br label %for.body9
 
-38:                                               ; preds = %38, %15
-  %39 = phi i64 [ 0, %15 ], [ %48, %38 ]
-  %40 = phi i64 [ 0, %15 ], [ %49, %38 ]
-  %41 = getelementptr inbounds %struct._constraintVCGType, ptr %12, i64 %39, i32 3
-  store i64 0, ptr %41, align 8, !tbaa !19
-  %42 = or i64 %39, 1
-  %43 = getelementptr inbounds %struct._constraintVCGType, ptr %12, i64 %42, i32 3
-  store i64 0, ptr %43, align 8, !tbaa !19
-  %44 = or i64 %39, 2
-  %45 = getelementptr inbounds %struct._constraintVCGType, ptr %12, i64 %44, i32 3
-  store i64 0, ptr %45, align 8, !tbaa !19
-  %46 = or i64 %39, 3
-  %47 = getelementptr inbounds %struct._constraintVCGType, ptr %12, i64 %46, i32 3
-  store i64 0, ptr %47, align 8, !tbaa !19
-  %48 = add nuw i64 %39, 4
-  %49 = add i64 %40, 4
-  %50 = icmp eq i64 %49, %16
-  br i1 %50, label %17, label %38, !llvm.loop !51
+for.body3:                                        ; preds = %for.body3, %for.body3.lr.ph.new
+  %which.0210 = phi i64 [ 0, %for.body3.lr.ph.new ], [ %inc.3, %for.body3 ]
+  %niter = phi i64 [ 0, %for.body3.lr.ph.new ], [ %niter.next.3, %for.body3 ]
+  %removed = getelementptr inbounds %struct._constraintVCGType, ptr %3, i64 %which.0210, i32 3
+  store i64 0, ptr %removed, align 8, !tbaa !19
+  %inc = or i64 %which.0210, 1
+  %removed.1 = getelementptr inbounds %struct._constraintVCGType, ptr %3, i64 %inc, i32 3
+  store i64 0, ptr %removed.1, align 8, !tbaa !19
+  %inc.1 = or i64 %which.0210, 2
+  %removed.2 = getelementptr inbounds %struct._constraintVCGType, ptr %3, i64 %inc.1, i32 3
+  store i64 0, ptr %removed.2, align 8, !tbaa !19
+  %inc.2 = or i64 %which.0210, 3
+  %removed.3 = getelementptr inbounds %struct._constraintVCGType, ptr %3, i64 %inc.2, i32 3
+  store i64 0, ptr %removed.3, align 8, !tbaa !19
+  %inc.3 = add nuw i64 %which.0210, 4
+  %niter.next.3 = add i64 %niter, 4
+  %niter.ncmp.3 = icmp eq i64 %niter.next.3, %unroll_iter
+  br i1 %niter.ncmp.3, label %for.cond6.preheader.loopexit.unr-lcssa, label %for.body3, !llvm.loop !52
 
-51:                                               ; preds = %51, %36
-  %52 = phi i64 [ 0, %36 ], [ %61, %51 ]
-  %53 = phi i64 [ 0, %36 ], [ %62, %51 ]
-  %54 = getelementptr inbounds %struct._constraintVCGType, ptr %33, i64 %52, i32 3
-  store i64 0, ptr %54, align 8, !tbaa !19
-  %55 = or i64 %52, 1
-  %56 = getelementptr inbounds %struct._constraintVCGType, ptr %33, i64 %55, i32 3
-  store i64 0, ptr %56, align 8, !tbaa !19
-  %57 = or i64 %52, 2
-  %58 = getelementptr inbounds %struct._constraintVCGType, ptr %33, i64 %57, i32 3
-  store i64 0, ptr %58, align 8, !tbaa !19
-  %59 = or i64 %52, 3
-  %60 = getelementptr inbounds %struct._constraintVCGType, ptr %33, i64 %59, i32 3
-  store i64 0, ptr %60, align 8, !tbaa !19
-  %61 = add nuw i64 %52, 4
-  %62 = add i64 %53, 4
-  %63 = icmp eq i64 %62, %37
-  br i1 %63, label %64, label %51, !llvm.loop !52
+for.body9:                                        ; preds = %for.body9, %for.body9.lr.ph.new
+  %which.1212 = phi i64 [ 0, %for.body9.lr.ph.new ], [ %inc14.3, %for.body9 ]
+  %niter272 = phi i64 [ 0, %for.body9.lr.ph.new ], [ %niter272.next.3, %for.body9 ]
+  %removed12 = getelementptr inbounds %struct._constraintVCGType, ptr %6, i64 %which.1212, i32 3
+  store i64 0, ptr %removed12, align 8, !tbaa !19
+  %inc14 = or i64 %which.1212, 1
+  %removed12.1 = getelementptr inbounds %struct._constraintVCGType, ptr %6, i64 %inc14, i32 3
+  store i64 0, ptr %removed12.1, align 8, !tbaa !19
+  %inc14.1 = or i64 %which.1212, 2
+  %removed12.2 = getelementptr inbounds %struct._constraintVCGType, ptr %6, i64 %inc14.1, i32 3
+  store i64 0, ptr %removed12.2, align 8, !tbaa !19
+  %inc14.2 = or i64 %which.1212, 3
+  %removed12.3 = getelementptr inbounds %struct._constraintVCGType, ptr %6, i64 %inc14.2, i32 3
+  store i64 0, ptr %removed12.3, align 8, !tbaa !19
+  %inc14.3 = add nuw i64 %which.1212, 4
+  %niter272.next.3 = add i64 %niter272, 4
+  %niter272.ncmp.3 = icmp eq i64 %niter272.next.3, %unroll_iter271
+  br i1 %niter272.ncmp.3, label %for.inc16.loopexit.unr-lcssa, label %for.body9, !llvm.loop !53
 
-64:                                               ; preds = %51, %31
-  %65 = phi i64 [ 0, %31 ], [ %61, %51 ]
-  %66 = icmp eq i64 %34, 0
-  br i1 %66, label %74, label %67
+for.inc16.loopexit.unr-lcssa:                     ; preds = %for.body9, %for.body9.lr.ph
+  %which.1212.unr = phi i64 [ 0, %for.body9.lr.ph ], [ %inc14.3, %for.body9 ]
+  %lcmp.mod270.not = icmp eq i64 %xtraiter268, 0
+  br i1 %lcmp.mod270.not, label %for.inc16, label %for.body9.epil
 
-67:                                               ; preds = %64, %67
-  %68 = phi i64 [ %71, %67 ], [ %65, %64 ]
-  %69 = phi i64 [ %72, %67 ], [ 0, %64 ]
-  %70 = getelementptr inbounds %struct._constraintVCGType, ptr %33, i64 %68, i32 3
-  store i64 0, ptr %70, align 8, !tbaa !19
-  %71 = add nuw i64 %68, 1
-  %72 = add i64 %69, 1
-  %73 = icmp eq i64 %72, %34
-  br i1 %73, label %74, label %67, !llvm.loop !53
+for.body9.epil:                                   ; preds = %for.inc16.loopexit.unr-lcssa, %for.body9.epil
+  %which.1212.epil = phi i64 [ %inc14.epil, %for.body9.epil ], [ %which.1212.unr, %for.inc16.loopexit.unr-lcssa ]
+  %epil.iter269 = phi i64 [ %epil.iter269.next, %for.body9.epil ], [ 0, %for.inc16.loopexit.unr-lcssa ]
+  %removed12.epil = getelementptr inbounds %struct._constraintVCGType, ptr %6, i64 %which.1212.epil, i32 3
+  store i64 0, ptr %removed12.epil, align 8, !tbaa !19
+  %inc14.epil = add nuw i64 %which.1212.epil, 1
+  %epil.iter269.next = add i64 %epil.iter269, 1
+  %epil.iter269.cmp.not = icmp eq i64 %epil.iter269.next, %xtraiter268
+  br i1 %epil.iter269.cmp.not, label %for.inc16, label %for.body9.epil, !llvm.loop !54
 
-74:                                               ; preds = %64, %67, %27
-  %75 = add i64 %6, 1
-  %76 = load i64, ptr @channelNets, align 8, !tbaa !5
-  %77 = icmp ugt i64 %75, %76
-  br i1 %77, label %78, label %5, !llvm.loop !54
+for.inc16:                                        ; preds = %for.inc16.loopexit.unr-lcssa, %for.body9.epil, %for.cond6.preheader
+  %inc17 = add i64 %net.0214, 1
+  %8 = load i64, ptr @channelNets, align 8, !tbaa !5
+  %cmp.not = icmp ugt i64 %inc17, %8
+  br i1 %cmp.not, label %for.end18, label %for.cond1.preheader, !llvm.loop !55
 
-78:                                               ; preds = %74, %0
-  %79 = phi i64 [ 0, %0 ], [ %76, %74 ]
+for.end18:                                        ; preds = %for.inc16, %entry
+  %.lcssa208 = phi i64 [ 0, %entry ], [ %8, %for.inc16 ]
   store i64 0, ptr @removeTotalVCG, align 8, !tbaa !5
-  br label %85
+  br label %do.body
 
-80:                                               ; preds = %107
-  %81 = load ptr, ptr @VCG, align 8, !tbaa !9
-  %82 = load ptr, ptr @SCC, align 8, !tbaa !9
-  %83 = load ptr, ptr @removeVCG, align 8, !tbaa !9
-  tail call void @RemoveConstraintVCG(ptr noundef %81, ptr noundef %82, ptr noundef nonnull %103, ptr noundef %83)
-  %84 = load i64, ptr @channelNets, align 8, !tbaa !5
-  br label %85
+do.body:                                          ; preds = %if.then27, %for.end18
+  %9 = phi i64 [ %.pr, %if.then27 ], [ %.lcssa208, %for.end18 ]
+  %tobool129.not = phi i1 [ true, %if.then27 ], [ false, %for.end18 ]
+  %10 = load ptr, ptr @VCG, align 8, !tbaa !9
+  %cmp.not12.i = icmp eq i64 %9, 0
+  br i1 %cmp.not12.i, label %DFSClearVCG.exit, label %for.body.i
 
-85:                                               ; preds = %80, %78
-  %86 = phi i64 [ %84, %80 ], [ %79, %78 ]
-  %87 = phi i1 [ true, %80 ], [ false, %78 ]
-  %88 = load ptr, ptr @VCG, align 8, !tbaa !9
-  %89 = icmp eq i64 %86, 0
-  br i1 %89, label %97, label %90
+for.body.i:                                       ; preds = %do.body, %for.body.i
+  %net.013.i = phi i64 [ %inc.i, %for.body.i ], [ 1, %do.body ]
+  %netsAboveLabel.i = getelementptr inbounds %struct._nodeVCGType, ptr %10, i64 %net.013.i, i32 2
+  %netsBelowLabel.i = getelementptr inbounds %struct._nodeVCGType, ptr %10, i64 %net.013.i, i32 6
+  %inc.i = add i64 %net.013.i, 1
+  tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %netsAboveLabel.i, i8 0, i64 16, i1 false)
+  tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %netsBelowLabel.i, i8 0, i64 16, i1 false)
+  %11 = load i64, ptr @channelNets, align 8, !tbaa !5
+  %cmp.not.i = icmp ugt i64 %inc.i, %11
+  br i1 %cmp.not.i, label %DFSClearVCG.exit, label %for.body.i, !llvm.loop !27
 
-90:                                               ; preds = %85, %90
-  %91 = phi i64 [ %94, %90 ], [ 1, %85 ]
-  %92 = getelementptr inbounds %struct._nodeVCGType, ptr %88, i64 %91, i32 2
-  %93 = getelementptr inbounds %struct._nodeVCGType, ptr %88, i64 %91, i32 6
-  %94 = add i64 %91, 1
-  tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %92, i8 0, i64 16, i1 false)
-  tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %93, i8 0, i64 16, i1 false)
-  %95 = load i64, ptr @channelNets, align 8, !tbaa !5
-  %96 = icmp ugt i64 %94, %95
-  br i1 %96, label %97, label %90, !llvm.loop !27
+DFSClearVCG.exit:                                 ; preds = %for.body.i, %do.body
+  %12 = load ptr, ptr @SCC, align 8, !tbaa !9
+  %13 = load ptr, ptr @perSCC, align 8, !tbaa !9
+  tail call void @SCCofVCG(ptr noundef %10, ptr noundef %12, ptr noundef %13)
+  %14 = load i64, ptr @totalSCC, align 8, !tbaa !5
+  %cmp20.not.not215 = icmp eq i64 %14, 0
+  br i1 %cmp20.not.not215, label %do.end, label %for.body21.lr.ph
 
-97:                                               ; preds = %90, %85
-  %98 = load ptr, ptr @SCC, align 8, !tbaa !9
-  %99 = load ptr, ptr @perSCC, align 8, !tbaa !9
-  tail call void @SCCofVCG(ptr noundef %88, ptr noundef %98, ptr noundef %99)
-  %100 = load i64, ptr @totalSCC, align 8, !tbaa !5
-  %101 = icmp eq i64 %100, 0
-  br i1 %101, label %112, label %102
+for.body21.lr.ph:                                 ; preds = %DFSClearVCG.exit
+  %15 = load ptr, ptr @perSCC, align 8, !tbaa !9
+  br label %for.body21
 
-102:                                              ; preds = %97
-  %103 = load ptr, ptr @perSCC, align 8, !tbaa !9
-  br label %107
+for.cond19:                                       ; preds = %for.body21
+  %inc25 = add i64 %scc.0216, 1
+  %cmp20.not.not = icmp ugt i64 %inc25, %14
+  br i1 %cmp20.not.not, label %do.end, label %for.body21, !llvm.loop !56
 
-104:                                              ; preds = %107
-  %105 = add i64 %108, 1
-  %106 = icmp ugt i64 %105, %100
-  br i1 %106, label %112, label %107, !llvm.loop !55
+for.body21:                                       ; preds = %for.body21.lr.ph, %for.cond19
+  %scc.0216 = phi i64 [ 1, %for.body21.lr.ph ], [ %inc25, %for.cond19 ]
+  %arrayidx22 = getelementptr inbounds i64, ptr %15, i64 %scc.0216
+  %16 = load i64, ptr %arrayidx22, align 8, !tbaa !5
+  %cmp23 = icmp ugt i64 %16, 1
+  br i1 %cmp23, label %if.then27, label %for.cond19
 
-107:                                              ; preds = %102, %104
-  %108 = phi i64 [ 1, %102 ], [ %105, %104 ]
-  %109 = getelementptr inbounds i64, ptr %103, i64 %108
-  %110 = load i64, ptr %109, align 8, !tbaa !5
-  %111 = icmp ugt i64 %110, 1
-  br i1 %111, label %80, label %104
+if.then27:                                        ; preds = %for.body21
+  %17 = load ptr, ptr @VCG, align 8, !tbaa !9
+  %18 = load ptr, ptr @SCC, align 8, !tbaa !9
+  %19 = load ptr, ptr @removeVCG, align 8, !tbaa !9
+  tail call void @RemoveConstraintVCG(ptr noundef %17, ptr noundef %18, ptr noundef nonnull %15, ptr noundef %19)
+  %.pr = load i64, ptr @channelNets, align 8, !tbaa !5
+  br label %do.body, !llvm.loop !57
 
-112:                                              ; preds = %97, %104
-  %113 = load i64, ptr @removeTotalVCG, align 8, !tbaa !5
-  %114 = icmp eq i64 %113, 0
-  br i1 %114, label %225, label %115
+do.end:                                           ; preds = %DFSClearVCG.exit, %for.cond19
+  %20 = load i64, ptr @removeTotalVCG, align 8, !tbaa !5
+  %cmp31231.not = icmp eq i64 %20, 0
+  br i1 %cmp31231.not, label %for.end128, label %for.body32
 
-115:                                              ; preds = %112, %220
-  %116 = phi i64 [ %221, %220 ], [ %113, %112 ]
-  %117 = phi i64 [ %222, %220 ], [ 0, %112 ]
-  %118 = load ptr, ptr @removeVCG, align 8, !tbaa !9
-  %119 = getelementptr inbounds ptr, ptr %118, i64 %117
-  %120 = load ptr, ptr %119, align 8, !tbaa !9
-  %121 = load i64, ptr %120, align 8, !tbaa !17
-  %122 = getelementptr inbounds %struct._constraintVCGType, ptr %120, i64 0, i32 1
-  %123 = load i64, ptr %122, align 8, !tbaa !15
-  %124 = load ptr, ptr @VCG, align 8, !tbaa !9
-  %125 = getelementptr inbounds %struct._nodeVCGType, ptr %124, i64 %121, i32 1
-  %126 = load i64, ptr %125, align 8, !tbaa !21
-  %127 = icmp eq i64 %126, 0
-  br i1 %127, label %141, label %128
+for.body32:                                       ; preds = %do.end, %for.inc126
+  %total.0233 = phi i64 [ %total.1, %for.inc126 ], [ %20, %do.end ]
+  %rep.0232 = phi i64 [ %inc127, %for.inc126 ], [ 0, %do.end ]
+  %21 = load ptr, ptr @removeVCG, align 8, !tbaa !9
+  %arrayidx33 = getelementptr inbounds ptr, ptr %21, i64 %rep.0232
+  %22 = load ptr, ptr %arrayidx33, align 8, !tbaa !9
+  %23 = load i64, ptr %22, align 8, !tbaa !17
+  %bot36 = getelementptr inbounds %struct._constraintVCGType, ptr %22, i64 0, i32 1
+  %24 = load i64, ptr %bot36, align 8, !tbaa !15
+  %25 = load ptr, ptr @VCG, align 8, !tbaa !9
+  %netsAbove39 = getelementptr inbounds %struct._nodeVCGType, ptr %25, i64 %23, i32 1
+  %26 = load i64, ptr %netsAbove39, align 8, !tbaa !21
+  %cmp40219.not = icmp eq i64 %26, 0
+  br i1 %cmp40219.not, label %for.end55, label %for.body41.lr.ph
 
-128:                                              ; preds = %115
-  %129 = getelementptr inbounds %struct._nodeVCGType, ptr %124, i64 %121
-  %130 = load ptr, ptr %129, align 8, !tbaa !11
-  br label %131
+for.body41.lr.ph:                                 ; preds = %for.body32
+  %arrayidx38 = getelementptr inbounds %struct._nodeVCGType, ptr %25, i64 %23
+  %27 = load ptr, ptr %arrayidx38, align 8, !tbaa !11
+  br label %for.body41
 
-131:                                              ; preds = %128, %138
-  %132 = phi i64 [ 0, %128 ], [ %139, %138 ]
-  %133 = getelementptr inbounds %struct._constraintVCGType, ptr %130, i64 %132, i32 1
-  %134 = load i64, ptr %133, align 8, !tbaa !15
-  %135 = icmp eq i64 %134, %123
-  br i1 %135, label %136, label %138
+for.body41:                                       ; preds = %for.body41.lr.ph, %for.inc53
+  %which.2220 = phi i64 [ 0, %for.body41.lr.ph ], [ %inc54, %for.inc53 ]
+  %bot45 = getelementptr inbounds %struct._constraintVCGType, ptr %27, i64 %which.2220, i32 1
+  %28 = load i64, ptr %bot45, align 8, !tbaa !15
+  %cmp46 = icmp eq i64 %28, %24
+  br i1 %cmp46, label %if.then47, label %for.inc53
 
-136:                                              ; preds = %131
-  %137 = getelementptr inbounds %struct._constraintVCGType, ptr %130, i64 %132, i32 3
-  store i64 0, ptr %137, align 8, !tbaa !19
-  br label %141
+if.then47:                                        ; preds = %for.body41
+  %removed51 = getelementptr inbounds %struct._constraintVCGType, ptr %27, i64 %which.2220, i32 3
+  store i64 0, ptr %removed51, align 8, !tbaa !19
+  br label %for.end55
 
-138:                                              ; preds = %131
-  %139 = add nuw i64 %132, 1
-  %140 = icmp eq i64 %139, %126
-  br i1 %140, label %141, label %131, !llvm.loop !56
+for.inc53:                                        ; preds = %for.body41
+  %inc54 = add nuw i64 %which.2220, 1
+  %exitcond243.not = icmp eq i64 %inc54, %26
+  br i1 %exitcond243.not, label %for.end55, label %for.body41, !llvm.loop !58
 
-141:                                              ; preds = %138, %115, %136
-  %142 = getelementptr inbounds %struct._nodeVCGType, ptr %124, i64 %123, i32 5
-  %143 = load i64, ptr %142, align 8, !tbaa !25
-  %144 = icmp eq i64 %143, 0
-  br i1 %144, label %158, label %145
+for.end55:                                        ; preds = %for.inc53, %for.body32, %if.then47
+  %netsBelow58 = getelementptr inbounds %struct._nodeVCGType, ptr %25, i64 %24, i32 5
+  %29 = load i64, ptr %netsBelow58, align 8, !tbaa !25
+  %cmp59222.not = icmp eq i64 %29, 0
+  br i1 %cmp59222.not, label %for.end74, label %for.body60.lr.ph
 
-145:                                              ; preds = %141
-  %146 = getelementptr inbounds %struct._nodeVCGType, ptr %124, i64 %123, i32 4
-  %147 = load ptr, ptr %146, align 8, !tbaa !22
-  br label %148
+for.body60.lr.ph:                                 ; preds = %for.end55
+  %netsBelowHook62 = getelementptr inbounds %struct._nodeVCGType, ptr %25, i64 %24, i32 4
+  %30 = load ptr, ptr %netsBelowHook62, align 8, !tbaa !22
+  br label %for.body60
 
-148:                                              ; preds = %145, %155
-  %149 = phi i64 [ 0, %145 ], [ %156, %155 ]
-  %150 = getelementptr inbounds %struct._constraintVCGType, ptr %147, i64 %149
-  %151 = load i64, ptr %150, align 8, !tbaa !17
-  %152 = icmp eq i64 %151, %121
-  br i1 %152, label %153, label %155
+for.body60:                                       ; preds = %for.body60.lr.ph, %for.inc72
+  %which.3223 = phi i64 [ 0, %for.body60.lr.ph ], [ %inc73, %for.inc72 ]
+  %arrayidx63 = getelementptr inbounds %struct._constraintVCGType, ptr %30, i64 %which.3223
+  %31 = load i64, ptr %arrayidx63, align 8, !tbaa !17
+  %cmp65 = icmp eq i64 %31, %23
+  br i1 %cmp65, label %if.then66, label %for.inc72
 
-153:                                              ; preds = %148
-  %154 = getelementptr inbounds %struct._constraintVCGType, ptr %147, i64 %149, i32 3
-  store i64 0, ptr %154, align 8, !tbaa !19
-  br label %158
+if.then66:                                        ; preds = %for.body60
+  %removed70 = getelementptr inbounds %struct._constraintVCGType, ptr %30, i64 %which.3223, i32 3
+  store i64 0, ptr %removed70, align 8, !tbaa !19
+  br label %for.end74
 
-155:                                              ; preds = %148
-  %156 = add nuw i64 %149, 1
-  %157 = icmp eq i64 %156, %143
-  br i1 %157, label %158, label %148, !llvm.loop !57
+for.inc72:                                        ; preds = %for.body60
+  %inc73 = add nuw i64 %which.3223, 1
+  %exitcond244.not = icmp eq i64 %inc73, %29
+  br i1 %exitcond244.not, label %for.end74, label %for.body60, !llvm.loop !59
 
-158:                                              ; preds = %155, %141, %153
-  %159 = load i64, ptr @channelNets, align 8, !tbaa !5
-  %160 = icmp eq i64 %159, 0
-  br i1 %160, label %168, label %161
+for.end74:                                        ; preds = %for.inc72, %for.end55, %if.then66
+  %32 = load i64, ptr @channelNets, align 8, !tbaa !5
+  %cmp.not12.i186 = icmp eq i64 %32, 0
+  br i1 %cmp.not12.i186, label %DFSClearVCG.exit193, label %for.body.i192
 
-161:                                              ; preds = %158, %161
-  %162 = phi i64 [ %165, %161 ], [ 1, %158 ]
-  %163 = getelementptr inbounds %struct._nodeVCGType, ptr %124, i64 %162, i32 2
-  %164 = getelementptr inbounds %struct._nodeVCGType, ptr %124, i64 %162, i32 6
-  %165 = add i64 %162, 1
-  tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %163, i8 0, i64 16, i1 false)
-  tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %164, i8 0, i64 16, i1 false)
-  %166 = load i64, ptr @channelNets, align 8, !tbaa !5
-  %167 = icmp ugt i64 %165, %166
-  br i1 %167, label %168, label %161, !llvm.loop !27
+for.body.i192:                                    ; preds = %for.end74, %for.body.i192
+  %net.013.i187 = phi i64 [ %inc.i190, %for.body.i192 ], [ 1, %for.end74 ]
+  %netsAboveLabel.i188 = getelementptr inbounds %struct._nodeVCGType, ptr %25, i64 %net.013.i187, i32 2
+  %netsBelowLabel.i189 = getelementptr inbounds %struct._nodeVCGType, ptr %25, i64 %net.013.i187, i32 6
+  %inc.i190 = add i64 %net.013.i187, 1
+  tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %netsAboveLabel.i188, i8 0, i64 16, i1 false)
+  tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %netsBelowLabel.i189, i8 0, i64 16, i1 false)
+  %33 = load i64, ptr @channelNets, align 8, !tbaa !5
+  %cmp.not.i191 = icmp ugt i64 %inc.i190, %33
+  br i1 %cmp.not.i191, label %DFSClearVCG.exit193, label %for.body.i192, !llvm.loop !27
 
-168:                                              ; preds = %161, %158
-  %169 = load ptr, ptr @SCC, align 8, !tbaa !9
-  %170 = load ptr, ptr @perSCC, align 8, !tbaa !9
-  tail call void @SCCofVCG(ptr noundef nonnull %124, ptr noundef %169, ptr noundef %170)
-  %171 = load i64, ptr @totalSCC, align 8, !tbaa !5
-  %172 = icmp eq i64 %171, 0
-  br i1 %172, label %218, label %173
+DFSClearVCG.exit193:                              ; preds = %for.body.i192, %for.end74
+  %34 = load ptr, ptr @SCC, align 8, !tbaa !9
+  %35 = load ptr, ptr @perSCC, align 8, !tbaa !9
+  tail call void @SCCofVCG(ptr noundef nonnull %25, ptr noundef %34, ptr noundef %35)
+  %36 = load i64, ptr @totalSCC, align 8, !tbaa !5
+  %cmp76.not224 = icmp eq i64 %36, 0
+  br i1 %cmp76.not224, label %if.else, label %for.body77.lr.ph
 
-173:                                              ; preds = %168
-  %174 = load ptr, ptr @perSCC, align 8, !tbaa !9
-  br label %178
+for.body77.lr.ph:                                 ; preds = %DFSClearVCG.exit193
+  %37 = load ptr, ptr @perSCC, align 8, !tbaa !9
+  br label %for.body77
 
-175:                                              ; preds = %178
-  %176 = add i64 %179, 1
-  %177 = icmp ugt i64 %176, %171
-  br i1 %177, label %218, label %178, !llvm.loop !58
+for.cond75:                                       ; preds = %for.body77
+  %inc83 = add i64 %scc.1225, 1
+  %cmp76.not = icmp ugt i64 %inc83, %36
+  br i1 %cmp76.not, label %if.else, label %for.body77, !llvm.loop !60
 
-178:                                              ; preds = %173, %175
-  %179 = phi i64 [ 1, %173 ], [ %176, %175 ]
-  %180 = getelementptr inbounds i64, ptr %174, i64 %179
-  %181 = load i64, ptr %180, align 8, !tbaa !5
-  %182 = icmp ugt i64 %181, 1
-  br i1 %182, label %183, label %175
+for.body77:                                       ; preds = %for.body77.lr.ph, %for.cond75
+  %scc.1225 = phi i64 [ 1, %for.body77.lr.ph ], [ %inc83, %for.cond75 ]
+  %arrayidx78 = getelementptr inbounds i64, ptr %37, i64 %scc.1225
+  %38 = load i64, ptr %arrayidx78, align 8, !tbaa !5
+  %cmp79 = icmp ugt i64 %38, 1
+  br i1 %cmp79, label %for.cond87.preheader, label %for.cond75
 
-183:                                              ; preds = %178
-  %184 = load ptr, ptr @VCG, align 8, !tbaa !9
-  %185 = getelementptr inbounds %struct._nodeVCGType, ptr %184, i64 %121, i32 1
-  %186 = load i64, ptr %185, align 8, !tbaa !21
-  %187 = icmp eq i64 %186, 0
-  br i1 %187, label %201, label %188
+for.cond87.preheader:                             ; preds = %for.body77
+  %39 = load ptr, ptr @VCG, align 8, !tbaa !9
+  %netsAbove89 = getelementptr inbounds %struct._nodeVCGType, ptr %39, i64 %23, i32 1
+  %40 = load i64, ptr %netsAbove89, align 8, !tbaa !21
+  %cmp90226.not = icmp eq i64 %40, 0
+  br i1 %cmp90226.not, label %for.end105, label %for.body91.lr.ph
 
-188:                                              ; preds = %183
-  %189 = getelementptr inbounds %struct._nodeVCGType, ptr %184, i64 %121
-  %190 = load ptr, ptr %189, align 8, !tbaa !11
-  br label %191
+for.body91.lr.ph:                                 ; preds = %for.cond87.preheader
+  %arrayidx88 = getelementptr inbounds %struct._nodeVCGType, ptr %39, i64 %23
+  %41 = load ptr, ptr %arrayidx88, align 8, !tbaa !11
+  br label %for.body91
 
-191:                                              ; preds = %188, %198
-  %192 = phi i64 [ 0, %188 ], [ %199, %198 ]
-  %193 = getelementptr inbounds %struct._constraintVCGType, ptr %190, i64 %192, i32 1
-  %194 = load i64, ptr %193, align 8, !tbaa !15
-  %195 = icmp eq i64 %194, %123
-  br i1 %195, label %196, label %198
+for.body91:                                       ; preds = %for.body91.lr.ph, %for.inc103
+  %which.4227 = phi i64 [ 0, %for.body91.lr.ph ], [ %inc104, %for.inc103 ]
+  %bot95 = getelementptr inbounds %struct._constraintVCGType, ptr %41, i64 %which.4227, i32 1
+  %42 = load i64, ptr %bot95, align 8, !tbaa !15
+  %cmp96 = icmp eq i64 %42, %24
+  br i1 %cmp96, label %if.then97, label %for.inc103
 
-196:                                              ; preds = %191
-  %197 = getelementptr inbounds %struct._constraintVCGType, ptr %190, i64 %192, i32 3
-  store i64 1, ptr %197, align 8, !tbaa !19
-  br label %201
+if.then97:                                        ; preds = %for.body91
+  %removed101 = getelementptr inbounds %struct._constraintVCGType, ptr %41, i64 %which.4227, i32 3
+  store i64 1, ptr %removed101, align 8, !tbaa !19
+  br label %for.end105
 
-198:                                              ; preds = %191
-  %199 = add nuw i64 %192, 1
-  %200 = icmp eq i64 %199, %186
-  br i1 %200, label %201, label %191, !llvm.loop !59
+for.inc103:                                       ; preds = %for.body91
+  %inc104 = add nuw i64 %which.4227, 1
+  %exitcond245.not = icmp eq i64 %inc104, %40
+  br i1 %exitcond245.not, label %for.end105, label %for.body91, !llvm.loop !61
 
-201:                                              ; preds = %198, %183, %196
-  %202 = getelementptr inbounds %struct._nodeVCGType, ptr %184, i64 %123, i32 5
-  %203 = load i64, ptr %202, align 8, !tbaa !25
-  %204 = icmp eq i64 %203, 0
-  br i1 %204, label %220, label %205
+for.end105:                                       ; preds = %for.inc103, %for.cond87.preheader, %if.then97
+  %netsBelow108 = getelementptr inbounds %struct._nodeVCGType, ptr %39, i64 %24, i32 5
+  %43 = load i64, ptr %netsBelow108, align 8, !tbaa !25
+  %cmp109229.not = icmp eq i64 %43, 0
+  br i1 %cmp109229.not, label %for.inc126, label %for.body110.lr.ph
 
-205:                                              ; preds = %201
-  %206 = getelementptr inbounds %struct._nodeVCGType, ptr %184, i64 %123, i32 4
-  %207 = load ptr, ptr %206, align 8, !tbaa !22
-  br label %208
+for.body110.lr.ph:                                ; preds = %for.end105
+  %netsBelowHook112 = getelementptr inbounds %struct._nodeVCGType, ptr %39, i64 %24, i32 4
+  %44 = load ptr, ptr %netsBelowHook112, align 8, !tbaa !22
+  br label %for.body110
 
-208:                                              ; preds = %205, %215
-  %209 = phi i64 [ 0, %205 ], [ %216, %215 ]
-  %210 = getelementptr inbounds %struct._constraintVCGType, ptr %207, i64 %209
-  %211 = load i64, ptr %210, align 8, !tbaa !17
-  %212 = icmp eq i64 %211, %121
-  br i1 %212, label %213, label %215
+for.body110:                                      ; preds = %for.body110.lr.ph, %for.inc122
+  %which.5230 = phi i64 [ 0, %for.body110.lr.ph ], [ %inc123, %for.inc122 ]
+  %arrayidx113 = getelementptr inbounds %struct._constraintVCGType, ptr %44, i64 %which.5230
+  %45 = load i64, ptr %arrayidx113, align 8, !tbaa !17
+  %cmp115 = icmp eq i64 %45, %23
+  br i1 %cmp115, label %if.then116, label %for.inc122
 
-213:                                              ; preds = %208
-  %214 = getelementptr inbounds %struct._constraintVCGType, ptr %207, i64 %209, i32 3
-  store i64 1, ptr %214, align 8, !tbaa !19
-  br label %220
+if.then116:                                       ; preds = %for.body110
+  %removed120 = getelementptr inbounds %struct._constraintVCGType, ptr %44, i64 %which.5230, i32 3
+  store i64 1, ptr %removed120, align 8, !tbaa !19
+  br label %for.inc126
 
-215:                                              ; preds = %208
-  %216 = add nuw i64 %209, 1
-  %217 = icmp eq i64 %216, %203
-  br i1 %217, label %220, label %208, !llvm.loop !60
+for.inc122:                                       ; preds = %for.body110
+  %inc123 = add nuw i64 %which.5230, 1
+  %exitcond246.not = icmp eq i64 %inc123, %43
+  br i1 %exitcond246.not, label %for.inc126, label %for.body110, !llvm.loop !62
 
-218:                                              ; preds = %175, %168
-  %219 = add i64 %116, -1
-  br label %220
+if.else:                                          ; preds = %for.cond75, %DFSClearVCG.exit193
+  %dec = add i64 %total.0233, -1
+  br label %for.inc126
 
-220:                                              ; preds = %215, %201, %218, %213
-  %221 = phi i64 [ %116, %213 ], [ %219, %218 ], [ %116, %201 ], [ %116, %215 ]
-  %222 = add nuw i64 %117, 1
-  %223 = load i64, ptr @removeTotalVCG, align 8, !tbaa !5
-  %224 = icmp ult i64 %222, %223
-  br i1 %224, label %115, label %225, !llvm.loop !61
+for.inc126:                                       ; preds = %for.inc122, %for.end105, %if.else, %if.then116
+  %total.1 = phi i64 [ %total.0233, %if.then116 ], [ %dec, %if.else ], [ %total.0233, %for.end105 ], [ %total.0233, %for.inc122 ]
+  %inc127 = add nuw i64 %rep.0232, 1
+  %46 = load i64, ptr @removeTotalVCG, align 8, !tbaa !5
+  %cmp31 = icmp ult i64 %inc127, %46
+  br i1 %cmp31, label %for.body32, label %for.end128, !llvm.loop !63
 
-225:                                              ; preds = %220, %112
-  %226 = phi i64 [ 0, %112 ], [ %221, %220 ]
-  br i1 %87, label %229, label %227
+for.end128:                                       ; preds = %for.inc126, %do.end
+  %total.0.lcssa = phi i64 [ 0, %do.end ], [ %total.1, %for.inc126 ]
+  br i1 %tobool129.not, label %if.else131, label %if.then130
 
-227:                                              ; preds = %225
-  %228 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.12)
-  br label %232
+if.then130:                                       ; preds = %for.end128
+  %puts185 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.12)
+  br label %if.end134
 
-229:                                              ; preds = %225
-  %230 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.11)
-  %231 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.10, i64 noundef %226)
-  br label %232
+if.else131:                                       ; preds = %for.end128
+  %puts = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.11)
+  %call133 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.10, i64 noundef %total.0.lcssa)
+  br label %if.end134
 
-232:                                              ; preds = %229, %227
+if.end134:                                        ; preds = %if.else131, %if.then130
   ret void
 }
 
 ; Function Attrs: nofree nounwind uwtable
-define dso_local void @RemoveConstraintVCG(ptr nocapture noundef readonly %0, ptr nocapture noundef readonly %1, ptr nocapture noundef readonly %2, ptr nocapture noundef writeonly %3) local_unnamed_addr #4 {
-  %5 = load i64, ptr @totalSCC, align 8, !tbaa !5
-  %6 = icmp eq i64 %5, 0
-  br i1 %6, label %151, label %7
+define dso_local void @RemoveConstraintVCG(ptr nocapture noundef readonly %VCG, ptr nocapture noundef readonly %SCC, ptr nocapture noundef readonly %perSCC, ptr nocapture noundef writeonly %removeVCG) local_unnamed_addr #4 {
+entry:
+  %0 = load i64, ptr @totalSCC, align 8, !tbaa !5
+  %cmp.not232 = icmp eq i64 %0, 0
+  br i1 %cmp.not232, label %for.end154, label %for.body
 
-7:                                                ; preds = %4, %147
-  %8 = phi i64 [ %148, %147 ], [ 1, %4 ]
-  %9 = getelementptr inbounds i64, ptr %2, i64 %8
-  %10 = load i64, ptr %9, align 8, !tbaa !5
-  %11 = icmp ugt i64 %10, 1
-  br i1 %11, label %12, label %147
+for.body:                                         ; preds = %entry, %for.inc152
+  %scc.0233 = phi i64 [ %inc153, %for.inc152 ], [ 1, %entry ]
+  %arrayidx = getelementptr inbounds i64, ptr %perSCC, i64 %scc.0233
+  %1 = load i64, ptr %arrayidx, align 8, !tbaa !5
+  %cmp1 = icmp ugt i64 %1, 1
+  br i1 %cmp1, label %for.cond2.preheader, label %for.inc152
 
-12:                                               ; preds = %7
-  %13 = load i64, ptr @channelNets, align 8, !tbaa !5
-  %14 = icmp eq i64 %13, 0
-  br i1 %14, label %120, label %15
+for.cond2.preheader:                              ; preds = %for.body
+  %2 = load i64, ptr @channelNets, align 8, !tbaa !5
+  %cmp3.not224 = icmp eq i64 %2, 0
+  br i1 %cmp3.not224, label %for.end128, label %for.body4.lr.ph
 
-15:                                               ; preds = %12
-  %16 = load i64, ptr @channelColumns, align 8
-  %17 = load ptr, ptr @TOP, align 8
-  %18 = load ptr, ptr @BOT, align 8
-  %19 = getelementptr inbounds i64, ptr %17, i64 2
-  %20 = getelementptr inbounds i64, ptr %18, i64 2
-  %21 = add i64 %13, 1
-  %22 = tail call i64 @llvm.umax.i64(i64 %21, i64 2)
-  %23 = add i64 %16, -1
-  %24 = getelementptr inbounds i64, ptr %17, i64 %23
-  %25 = getelementptr inbounds i64, ptr %18, i64 %23
-  %26 = getelementptr inbounds i64, ptr %18, i64 %23
-  br label %27
+for.body4.lr.ph:                                  ; preds = %for.cond2.preheader
+  %3 = load i64, ptr @channelColumns, align 8
+  %4 = load ptr, ptr @TOP, align 8
+  %5 = load ptr, ptr @BOT, align 8
+  %arrayidx28 = getelementptr inbounds i64, ptr %4, i64 2
+  %arrayidx32 = getelementptr inbounds i64, ptr %5, i64 2
+  %6 = add i64 %2, 1
+  %umax = tail call i64 @llvm.umax.i64(i64 %6, i64 2)
+  %sub = add i64 %3, -1
+  %arrayidx50 = getelementptr inbounds i64, ptr %4, i64 %sub
+  %arrayidx54 = getelementptr inbounds i64, ptr %5, i64 %sub
+  %arrayidx64 = getelementptr inbounds i64, ptr %5, i64 %sub
+  br label %for.body4
 
-27:                                               ; preds = %15, %115
-  %28 = phi ptr [ null, %15 ], [ %117, %115 ]
-  %29 = phi i64 [ 1, %15 ], [ %118, %115 ]
-  %30 = phi i64 [ 7, %15 ], [ %116, %115 ]
-  %31 = getelementptr inbounds i64, ptr %1, i64 %29
-  %32 = load i64, ptr %31, align 8, !tbaa !5
-  %33 = icmp eq i64 %32, %8
-  br i1 %33, label %34, label %115
+for.body4:                                        ; preds = %for.body4.lr.ph, %for.inc126
+  %remove.0228 = phi ptr [ null, %for.body4.lr.ph ], [ %remove.3, %for.inc126 ]
+  %net.0226 = phi i64 [ 1, %for.body4.lr.ph ], [ %inc127, %for.inc126 ]
+  %best.0225 = phi i64 [ 7, %for.body4.lr.ph ], [ %best.3, %for.inc126 ]
+  %arrayidx5 = getelementptr inbounds i64, ptr %SCC, i64 %net.0226
+  %7 = load i64, ptr %arrayidx5, align 8, !tbaa !5
+  %cmp6 = icmp eq i64 %7, %scc.0233
+  br i1 %cmp6, label %for.cond8.preheader, label %for.inc126
 
-34:                                               ; preds = %27
-  %35 = getelementptr inbounds %struct._nodeVCGType, ptr %0, i64 %29, i32 1
-  %36 = load i64, ptr %35, align 8, !tbaa !21
-  %37 = icmp eq i64 %36, 0
-  br i1 %37, label %115, label %38
+for.cond8.preheader:                              ; preds = %for.body4
+  %netsAbove = getelementptr inbounds %struct._nodeVCGType, ptr %VCG, i64 %net.0226, i32 1
+  %8 = load i64, ptr %netsAbove, align 8, !tbaa !21
+  %cmp10219.not = icmp eq i64 %8, 0
+  br i1 %cmp10219.not, label %for.inc126, label %for.body11.lr.ph
 
-38:                                               ; preds = %34
-  %39 = getelementptr inbounds %struct._nodeVCGType, ptr %0, i64 %29
-  %40 = load ptr, ptr %39, align 8, !tbaa !11
-  br label %41
+for.body11.lr.ph:                                 ; preds = %for.cond8.preheader
+  %arrayidx9 = getelementptr inbounds %struct._nodeVCGType, ptr %VCG, i64 %net.0226
+  %9 = load ptr, ptr %arrayidx9, align 8, !tbaa !11
+  br label %for.body11
 
-41:                                               ; preds = %38, %110
-  %42 = phi ptr [ %28, %38 ], [ %112, %110 ]
-  %43 = phi i64 [ %30, %38 ], [ %111, %110 ]
-  %44 = phi i64 [ 0, %38 ], [ %113, %110 ]
-  %45 = getelementptr inbounds %struct._constraintVCGType, ptr %40, i64 %44
-  %46 = getelementptr inbounds %struct._constraintVCGType, ptr %40, i64 %44, i32 1
-  %47 = load i64, ptr %46, align 8, !tbaa !15
-  %48 = getelementptr inbounds i64, ptr %1, i64 %47
-  %49 = load i64, ptr %48, align 8, !tbaa !5
-  %50 = icmp eq i64 %49, %8
-  br i1 %50, label %51, label %110
+for.body11:                                       ; preds = %for.body11.lr.ph, %for.inc
+  %remove.1222 = phi ptr [ %remove.0228, %for.body11.lr.ph ], [ %remove.2, %for.inc ]
+  %best.1221 = phi i64 [ %best.0225, %for.body11.lr.ph ], [ %best.2, %for.inc ]
+  %which.0220 = phi i64 [ 0, %for.body11.lr.ph ], [ %inc, %for.inc ]
+  %bot14 = getelementptr inbounds %struct._constraintVCGType, ptr %9, i64 %which.0220, i32 1
+  %10 = load i64, ptr %bot14, align 8, !tbaa !15
+  %arrayidx15 = getelementptr inbounds i64, ptr %SCC, i64 %10
+  %11 = load i64, ptr %arrayidx15, align 8, !tbaa !5
+  %cmp16 = icmp eq i64 %11, %scc.0233
+  br i1 %cmp16, label %land.lhs.true, label %for.inc
 
-51:                                               ; preds = %41
-  %52 = getelementptr inbounds %struct._constraintVCGType, ptr %40, i64 %44, i32 3
-  %53 = load i64, ptr %52, align 8, !tbaa !19
-  %54 = icmp eq i64 %53, 0
-  br i1 %54, label %55, label %110
+land.lhs.true:                                    ; preds = %for.body11
+  %removed = getelementptr inbounds %struct._constraintVCGType, ptr %9, i64 %which.0220, i32 3
+  %12 = load i64, ptr %removed, align 8, !tbaa !19
+  %tobool.not = icmp eq i64 %12, 0
+  br i1 %tobool.not, label %if.then20, label %for.inc
 
-55:                                               ; preds = %51
-  %56 = getelementptr inbounds %struct._constraintVCGType, ptr %40, i64 %44, i32 2
-  %57 = load i64, ptr %56, align 8, !tbaa !18
-  %58 = icmp eq i64 %57, 1
-  br i1 %58, label %59, label %67
+if.then20:                                        ; preds = %land.lhs.true
+  %col24 = getelementptr inbounds %struct._constraintVCGType, ptr %9, i64 %which.0220, i32 2
+  %13 = load i64, ptr %col24, align 8, !tbaa !18
+  %cmp25 = icmp eq i64 %13, 1
+  br i1 %cmp25, label %if.then26, label %if.else46
 
-59:                                               ; preds = %55
-  %60 = load i64, ptr %19, align 8, !tbaa !5
-  %61 = icmp eq i64 %60, 0
-  %62 = load i64, ptr %20, align 8, !tbaa !5
-  %63 = icmp eq i64 %62, 0
-  br i1 %61, label %65, label %64
+if.then26:                                        ; preds = %if.then20
+  %14 = load i64, ptr %arrayidx28, align 8, !tbaa !5
+  %tobool29.not = icmp eq i64 %14, 0
+  %15 = load i64, ptr %arrayidx32, align 8, !tbaa !5
+  %tobool41.not = icmp eq i64 %15, 0
+  br i1 %tobool29.not, label %lor.lhs.false, label %land.lhs.true30
 
-64:                                               ; preds = %59
-  br i1 %63, label %66, label %105
+land.lhs.true30:                                  ; preds = %if.then26
+  br i1 %tobool41.not, label %if.else43, label %if.end117
 
-65:                                               ; preds = %59
-  br i1 %63, label %105, label %66
+lor.lhs.false:                                    ; preds = %if.then26
+  br i1 %tobool41.not, label %if.end117, label %if.else43
 
-66:                                               ; preds = %64, %65
-  br label %105
+if.else43:                                        ; preds = %land.lhs.true30, %lor.lhs.false
+  br label %if.end117
 
-67:                                               ; preds = %55
-  %68 = icmp eq i64 %57, %16
-  br i1 %68, label %69, label %79
+if.else46:                                        ; preds = %if.then20
+  %cmp47 = icmp eq i64 %13, %3
+  br i1 %cmp47, label %if.then48, label %if.else71
 
-69:                                               ; preds = %67
-  %70 = load i64, ptr %24, align 8, !tbaa !5
-  %71 = icmp eq i64 %70, 0
-  br i1 %71, label %75, label %72
+if.then48:                                        ; preds = %if.else46
+  %16 = load i64, ptr %arrayidx50, align 8, !tbaa !5
+  %tobool51.not = icmp eq i64 %16, 0
+  br i1 %tobool51.not, label %lor.lhs.false62, label %land.lhs.true52
 
-72:                                               ; preds = %69
-  %73 = load i64, ptr %25, align 8, !tbaa !5
-  %74 = icmp eq i64 %73, 0
-  br i1 %74, label %78, label %105
+land.lhs.true52:                                  ; preds = %if.then48
+  %17 = load i64, ptr %arrayidx54, align 8, !tbaa !5
+  %tobool55.not = icmp eq i64 %17, 0
+  br i1 %tobool55.not, label %if.else67, label %if.end117
 
-75:                                               ; preds = %69
-  %76 = load i64, ptr %26, align 8, !tbaa !5
-  %77 = icmp eq i64 %76, 0
-  br i1 %77, label %105, label %78
+lor.lhs.false62:                                  ; preds = %if.then48
+  %18 = load i64, ptr %arrayidx64, align 8, !tbaa !5
+  %tobool65.not = icmp eq i64 %18, 0
+  br i1 %tobool65.not, label %if.end117, label %if.else67
 
-78:                                               ; preds = %72, %75
-  br label %105
+if.else67:                                        ; preds = %land.lhs.true52, %lor.lhs.false62
+  br label %if.end117
 
-79:                                               ; preds = %67
-  %80 = add i64 %57, -1
-  %81 = getelementptr inbounds i64, ptr %17, i64 %80
-  %82 = load i64, ptr %81, align 8, !tbaa !5
-  %83 = icmp eq i64 %82, 0
-  %84 = getelementptr inbounds i64, ptr %18, i64 %80
-  %85 = load i64, ptr %84, align 8, !tbaa !5
-  %86 = icmp eq i64 %85, 0
-  br i1 %83, label %88, label %87
+if.else71:                                        ; preds = %if.else46
+  %sub72 = add i64 %13, -1
+  %arrayidx73 = getelementptr inbounds i64, ptr %4, i64 %sub72
+  %19 = load i64, ptr %arrayidx73, align 8, !tbaa !5
+  %tobool74.not = icmp eq i64 %19, 0
+  %arrayidx87 = getelementptr inbounds i64, ptr %5, i64 %sub72
+  %20 = load i64, ptr %arrayidx87, align 8, !tbaa !5
+  %tobool88.not = icmp eq i64 %20, 0
+  br i1 %tobool74.not, label %lor.lhs.false85, label %land.lhs.true75
 
-87:                                               ; preds = %79
-  br i1 %86, label %89, label %90
+land.lhs.true75:                                  ; preds = %if.else71
+  br i1 %tobool88.not, label %if.else90, label %if.end93
 
-88:                                               ; preds = %79
-  br i1 %86, label %90, label %89
+lor.lhs.false85:                                  ; preds = %if.else71
+  br i1 %tobool88.not, label %if.end93, label %if.else90
 
-89:                                               ; preds = %87, %88
-  br label %90
+if.else90:                                        ; preds = %land.lhs.true75, %lor.lhs.false85
+  br label %if.end93
 
-90:                                               ; preds = %87, %89, %88
-  %91 = phi i64 [ 2, %89 ], [ 0, %88 ], [ 3, %87 ]
-  %92 = add i64 %57, 1
-  %93 = getelementptr inbounds i64, ptr %17, i64 %92
-  %94 = load i64, ptr %93, align 8, !tbaa !5
-  %95 = icmp eq i64 %94, 0
-  %96 = getelementptr inbounds i64, ptr %18, i64 %92
-  %97 = load i64, ptr %96, align 8, !tbaa !5
-  %98 = icmp eq i64 %97, 0
-  br i1 %95, label %102, label %99
+if.end93:                                         ; preds = %land.lhs.true75, %if.else90, %lor.lhs.false85
+  %weight.0 = phi i64 [ 2, %if.else90 ], [ 0, %lor.lhs.false85 ], [ 3, %land.lhs.true75 ]
+  %add94 = add i64 %13, 1
+  %arrayidx95 = getelementptr inbounds i64, ptr %4, i64 %add94
+  %21 = load i64, ptr %arrayidx95, align 8, !tbaa !5
+  %tobool96.not = icmp eq i64 %21, 0
+  %arrayidx109 = getelementptr inbounds i64, ptr %5, i64 %add94
+  %22 = load i64, ptr %arrayidx109, align 8, !tbaa !5
+  %tobool110.not = icmp eq i64 %22, 0
+  br i1 %tobool96.not, label %lor.lhs.false107, label %land.lhs.true97
 
-99:                                               ; preds = %90
-  br i1 %98, label %103, label %100
+land.lhs.true97:                                  ; preds = %if.end93
+  br i1 %tobool110.not, label %if.else112, label %if.then101
 
-100:                                              ; preds = %99
-  %101 = add nuw nsw i64 %91, 3
-  br label %105
+if.then101:                                       ; preds = %land.lhs.true97
+  %add102 = add nuw nsw i64 %weight.0, 3
+  br label %if.end117
 
-102:                                              ; preds = %90
-  br i1 %98, label %105, label %103
+lor.lhs.false107:                                 ; preds = %if.end93
+  br i1 %tobool110.not, label %if.end117, label %if.else112
 
-103:                                              ; preds = %99, %102
-  %104 = add nuw nsw i64 %91, 2
-  br label %105
+if.else112:                                       ; preds = %land.lhs.true97, %lor.lhs.false107
+  %add113 = add nuw nsw i64 %weight.0, 2
+  br label %if.end117
 
-105:                                              ; preds = %72, %64, %78, %75, %103, %102, %100, %65, %66
-  %106 = phi i64 [ 5, %66 ], [ 3, %65 ], [ 5, %78 ], [ 3, %75 ], [ %101, %100 ], [ %104, %103 ], [ %91, %102 ], [ 6, %64 ], [ 6, %72 ]
-  %107 = icmp ult i64 %106, %43
-  %108 = tail call i64 @llvm.umin.i64(i64 %106, i64 %43)
-  %109 = select i1 %107, ptr %45, ptr %42
-  br label %110
+if.end117:                                        ; preds = %land.lhs.true52, %land.lhs.true30, %if.else67, %lor.lhs.false62, %if.else112, %lor.lhs.false107, %if.then101, %lor.lhs.false, %if.else43
+  %weight.1 = phi i64 [ 5, %if.else43 ], [ 3, %lor.lhs.false ], [ 5, %if.else67 ], [ 3, %lor.lhs.false62 ], [ %add102, %if.then101 ], [ %add113, %if.else112 ], [ %weight.0, %lor.lhs.false107 ], [ 6, %land.lhs.true30 ], [ 6, %land.lhs.true52 ]
+  %cmp118 = icmp ult i64 %weight.1, %best.1221
+  %arrayidx122 = getelementptr inbounds %struct._constraintVCGType, ptr %9, i64 %which.0220
+  %spec.select = tail call i64 @llvm.umin.i64(i64 %weight.1, i64 %best.1221)
+  %spec.select217 = select i1 %cmp118, ptr %arrayidx122, ptr %remove.1222
+  br label %for.inc
 
-110:                                              ; preds = %105, %41, %51
-  %111 = phi i64 [ %43, %51 ], [ %43, %41 ], [ %108, %105 ]
-  %112 = phi ptr [ %42, %51 ], [ %42, %41 ], [ %109, %105 ]
-  %113 = add nuw i64 %44, 1
-  %114 = icmp eq i64 %113, %36
-  br i1 %114, label %115, label %41, !llvm.loop !62
+for.inc:                                          ; preds = %if.end117, %for.body11, %land.lhs.true
+  %best.2 = phi i64 [ %best.1221, %land.lhs.true ], [ %best.1221, %for.body11 ], [ %spec.select, %if.end117 ]
+  %remove.2 = phi ptr [ %remove.1222, %land.lhs.true ], [ %remove.1222, %for.body11 ], [ %spec.select217, %if.end117 ]
+  %inc = add nuw i64 %which.0220, 1
+  %exitcond.not = icmp eq i64 %inc, %8
+  br i1 %exitcond.not, label %for.inc126, label %for.body11, !llvm.loop !64
 
-115:                                              ; preds = %110, %34, %27
-  %116 = phi i64 [ %30, %27 ], [ %30, %34 ], [ %111, %110 ]
-  %117 = phi ptr [ %28, %27 ], [ %28, %34 ], [ %112, %110 ]
-  %118 = add nuw i64 %29, 1
-  %119 = icmp eq i64 %118, %22
-  br i1 %119, label %120, label %27, !llvm.loop !63
+for.inc126:                                       ; preds = %for.inc, %for.cond8.preheader, %for.body4
+  %best.3 = phi i64 [ %best.0225, %for.body4 ], [ %best.0225, %for.cond8.preheader ], [ %best.2, %for.inc ]
+  %remove.3 = phi ptr [ %remove.0228, %for.body4 ], [ %remove.0228, %for.cond8.preheader ], [ %remove.2, %for.inc ]
+  %inc127 = add nuw i64 %net.0226, 1
+  %exitcond236 = icmp eq i64 %inc127, %umax
+  br i1 %exitcond236, label %for.end128, label %for.body4, !llvm.loop !65
 
-120:                                              ; preds = %115, %12
-  %121 = phi ptr [ null, %12 ], [ %117, %115 ]
-  %122 = load ptr, ptr @stdout, align 8, !tbaa !9
-  %123 = tail call i32 @fflush(ptr noundef %122)
-  %124 = load i64, ptr @removeTotalVCG, align 8, !tbaa !5
-  %125 = getelementptr inbounds ptr, ptr %3, i64 %124
-  store ptr %121, ptr %125, align 8, !tbaa !9
-  %126 = add i64 %124, 1
-  store i64 %126, ptr @removeTotalVCG, align 8, !tbaa !5
-  %127 = load i64, ptr %121, align 8, !tbaa !17
-  %128 = getelementptr inbounds %struct._constraintVCGType, ptr %121, i64 0, i32 1
-  %129 = load i64, ptr %128, align 8, !tbaa !15
-  %130 = getelementptr inbounds %struct._constraintVCGType, ptr %121, i64 0, i32 3
-  store i64 1, ptr %130, align 8, !tbaa !19
-  %131 = getelementptr inbounds %struct._nodeVCGType, ptr %0, i64 %129, i32 5
-  %132 = load i64, ptr %131, align 8, !tbaa !25
-  %133 = icmp eq i64 %132, 0
-  br i1 %133, label %147, label %134
+for.end128:                                       ; preds = %for.inc126, %for.cond2.preheader
+  %remove.0.lcssa = phi ptr [ null, %for.cond2.preheader ], [ %remove.3, %for.inc126 ]
+  %23 = load ptr, ptr @stdout, align 8, !tbaa !9
+  %call = tail call i32 @fflush(ptr noundef %23)
+  %24 = load i64, ptr @removeTotalVCG, align 8, !tbaa !5
+  %arrayidx129 = getelementptr inbounds ptr, ptr %removeVCG, i64 %24
+  store ptr %remove.0.lcssa, ptr %arrayidx129, align 8, !tbaa !9
+  %inc130 = add i64 %24, 1
+  store i64 %inc130, ptr @removeTotalVCG, align 8, !tbaa !5
+  %25 = load i64, ptr %remove.0.lcssa, align 8, !tbaa !17
+  %bot132 = getelementptr inbounds %struct._constraintVCGType, ptr %remove.0.lcssa, i64 0, i32 1
+  %26 = load i64, ptr %bot132, align 8, !tbaa !15
+  %removed133 = getelementptr inbounds %struct._constraintVCGType, ptr %remove.0.lcssa, i64 0, i32 3
+  store i64 1, ptr %removed133, align 8, !tbaa !19
+  %netsBelow = getelementptr inbounds %struct._nodeVCGType, ptr %VCG, i64 %26, i32 5
+  %27 = load i64, ptr %netsBelow, align 8, !tbaa !25
+  %cmp136230.not = icmp eq i64 %27, 0
+  br i1 %cmp136230.not, label %for.inc152, label %for.body137.lr.ph
 
-134:                                              ; preds = %120
-  %135 = getelementptr inbounds %struct._nodeVCGType, ptr %0, i64 %129, i32 4
-  %136 = load ptr, ptr %135, align 8, !tbaa !22
-  br label %137
+for.body137.lr.ph:                                ; preds = %for.end128
+  %netsBelowHook = getelementptr inbounds %struct._nodeVCGType, ptr %VCG, i64 %26, i32 4
+  %28 = load ptr, ptr %netsBelowHook, align 8, !tbaa !22
+  br label %for.body137
 
-137:                                              ; preds = %134, %144
-  %138 = phi i64 [ 0, %134 ], [ %145, %144 ]
-  %139 = getelementptr inbounds %struct._constraintVCGType, ptr %136, i64 %138
-  %140 = load i64, ptr %139, align 8, !tbaa !17
-  %141 = icmp eq i64 %140, %127
-  br i1 %141, label %142, label %144
+for.body137:                                      ; preds = %for.body137.lr.ph, %for.inc148
+  %which.1231 = phi i64 [ 0, %for.body137.lr.ph ], [ %inc149, %for.inc148 ]
+  %arrayidx139 = getelementptr inbounds %struct._constraintVCGType, ptr %28, i64 %which.1231
+  %29 = load i64, ptr %arrayidx139, align 8, !tbaa !17
+  %cmp141 = icmp eq i64 %29, %25
+  br i1 %cmp141, label %if.then142, label %for.inc148
 
-142:                                              ; preds = %137
-  %143 = getelementptr inbounds %struct._constraintVCGType, ptr %136, i64 %138, i32 3
-  store i64 1, ptr %143, align 8, !tbaa !19
-  br label %147
+if.then142:                                       ; preds = %for.body137
+  %removed146 = getelementptr inbounds %struct._constraintVCGType, ptr %28, i64 %which.1231, i32 3
+  store i64 1, ptr %removed146, align 8, !tbaa !19
+  br label %for.inc152
 
-144:                                              ; preds = %137
-  %145 = add nuw i64 %138, 1
-  %146 = icmp eq i64 %145, %132
-  br i1 %146, label %147, label %137, !llvm.loop !64
+for.inc148:                                       ; preds = %for.body137
+  %inc149 = add nuw i64 %which.1231, 1
+  %exitcond237.not = icmp eq i64 %inc149, %27
+  br i1 %exitcond237.not, label %for.inc152, label %for.body137, !llvm.loop !66
 
-147:                                              ; preds = %144, %120, %7, %142
-  %148 = add i64 %8, 1
-  %149 = load i64, ptr @totalSCC, align 8, !tbaa !5
-  %150 = icmp ugt i64 %148, %149
-  br i1 %150, label %151, label %7, !llvm.loop !65
+for.inc152:                                       ; preds = %for.inc148, %for.end128, %for.body, %if.then142
+  %inc153 = add i64 %scc.0233, 1
+  %30 = load i64, ptr @totalSCC, align 8, !tbaa !5
+  %cmp.not = icmp ugt i64 %inc153, %30
+  br i1 %cmp.not, label %for.end154, label %for.body, !llvm.loop !67
 
-151:                                              ; preds = %147, %4
+for.end154:                                       ; preds = %for.inc152, %entry
   ret void
 }
 
@@ -1475,419 +1492,424 @@ define dso_local void @RemoveConstraintVCG(ptr nocapture noundef readonly %0, pt
 declare noundef i32 @fflush(ptr nocapture noundef) local_unnamed_addr #7
 
 ; Function Attrs: nofree nosync nounwind memory(read, argmem: readwrite, inaccessiblemem: none) uwtable
-define dso_local i64 @ExistPathAboveVCG(ptr nocapture noundef %0, i64 noundef %1, i64 noundef %2) local_unnamed_addr #8 {
-  %4 = load i64, ptr @channelNets, align 8, !tbaa !5
-  %5 = icmp eq i64 %4, 0
-  br i1 %5, label %13, label %6
+define dso_local i64 @ExistPathAboveVCG(ptr nocapture noundef %VCG, i64 noundef %above, i64 noundef %below) local_unnamed_addr #8 {
+entry:
+  %0 = load i64, ptr @channelNets, align 8, !tbaa !5
+  %cmp.not12.i = icmp eq i64 %0, 0
+  br i1 %cmp.not12.i, label %DFSClearVCG.exit, label %for.body.i
 
-6:                                                ; preds = %3, %6
-  %7 = phi i64 [ %10, %6 ], [ 1, %3 ]
-  %8 = getelementptr inbounds %struct._nodeVCGType, ptr %0, i64 %7, i32 2
-  %9 = getelementptr inbounds %struct._nodeVCGType, ptr %0, i64 %7, i32 6
-  %10 = add i64 %7, 1
-  tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %8, i8 0, i64 16, i1 false)
-  tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %9, i8 0, i64 16, i1 false)
-  %11 = load i64, ptr @channelNets, align 8, !tbaa !5
-  %12 = icmp ugt i64 %10, %11
-  br i1 %12, label %13, label %6, !llvm.loop !27
+for.body.i:                                       ; preds = %entry, %for.body.i
+  %net.013.i = phi i64 [ %inc.i, %for.body.i ], [ 1, %entry ]
+  %netsAboveLabel.i = getelementptr inbounds %struct._nodeVCGType, ptr %VCG, i64 %net.013.i, i32 2
+  %netsBelowLabel.i = getelementptr inbounds %struct._nodeVCGType, ptr %VCG, i64 %net.013.i, i32 6
+  %inc.i = add i64 %net.013.i, 1
+  tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %netsAboveLabel.i, i8 0, i64 16, i1 false)
+  tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %netsBelowLabel.i, i8 0, i64 16, i1 false)
+  %1 = load i64, ptr @channelNets, align 8, !tbaa !5
+  %cmp.not.i = icmp ugt i64 %inc.i, %1
+  br i1 %cmp.not.i, label %DFSClearVCG.exit, label %for.body.i, !llvm.loop !27
 
-13:                                               ; preds = %6, %3
-  tail call void @DFSAboveVCG(ptr noundef %0, i64 noundef %1)
-  %14 = getelementptr inbounds %struct._nodeVCGType, ptr %0, i64 %2, i32 3
-  %15 = load i64, ptr %14, align 8, !tbaa !31
-  ret i64 %15
+DFSClearVCG.exit:                                 ; preds = %for.body.i, %entry
+  tail call void @DFSAboveVCG(ptr noundef %VCG, i64 noundef %above)
+  %netsAboveReached = getelementptr inbounds %struct._nodeVCGType, ptr %VCG, i64 %below, i32 3
+  %2 = load i64, ptr %netsAboveReached, align 8, !tbaa !31
+  ret i64 %2
 }
 
 ; Function Attrs: nofree nosync nounwind memory(readwrite, inaccessiblemem: none) uwtable
-define dso_local void @LongestPathVCG(ptr nocapture noundef %0, i64 noundef %1) local_unnamed_addr #9 {
-  %3 = load i64, ptr @channelNets, align 8, !tbaa !5
-  %4 = icmp eq i64 %3, 0
-  br i1 %4, label %12, label %5
+define dso_local void @LongestPathVCG(ptr nocapture noundef %VCG, i64 noundef %net) local_unnamed_addr #9 {
+entry:
+  %0 = load i64, ptr @channelNets, align 8, !tbaa !5
+  %cmp.not12.i = icmp eq i64 %0, 0
+  br i1 %cmp.not12.i, label %DFSClearVCG.exit, label %for.body.i
 
-5:                                                ; preds = %2, %5
-  %6 = phi i64 [ %9, %5 ], [ 1, %2 ]
-  %7 = getelementptr inbounds %struct._nodeVCGType, ptr %0, i64 %6, i32 2
-  %8 = getelementptr inbounds %struct._nodeVCGType, ptr %0, i64 %6, i32 6
-  %9 = add i64 %6, 1
-  tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %7, i8 0, i64 16, i1 false)
-  tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %8, i8 0, i64 16, i1 false)
-  %10 = load i64, ptr @channelNets, align 8, !tbaa !5
-  %11 = icmp ugt i64 %9, %10
-  br i1 %11, label %12, label %5, !llvm.loop !27
+for.body.i:                                       ; preds = %entry, %for.body.i
+  %net.013.i = phi i64 [ %inc.i, %for.body.i ], [ 1, %entry ]
+  %netsAboveLabel.i = getelementptr inbounds %struct._nodeVCGType, ptr %VCG, i64 %net.013.i, i32 2
+  %netsBelowLabel.i = getelementptr inbounds %struct._nodeVCGType, ptr %VCG, i64 %net.013.i, i32 6
+  %inc.i = add i64 %net.013.i, 1
+  tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %netsAboveLabel.i, i8 0, i64 16, i1 false)
+  tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %netsBelowLabel.i, i8 0, i64 16, i1 false)
+  %1 = load i64, ptr @channelNets, align 8, !tbaa !5
+  %cmp.not.i = icmp ugt i64 %inc.i, %1
+  br i1 %cmp.not.i, label %DFSClearVCG.exit, label %for.body.i, !llvm.loop !27
 
-12:                                               ; preds = %5, %2
-  %13 = tail call i64 @DFSAboveLongestPathVCG(ptr noundef %0, i64 noundef %1)
-  %14 = add i64 %13, -1
-  store i64 %14, ptr @cardBotNotPref, align 8, !tbaa !5
-  %15 = load i64, ptr @channelTracks, align 8, !tbaa !5
-  %16 = icmp eq i64 %15, 0
-  br i1 %16, label %44, label %17
+DFSClearVCG.exit:                                 ; preds = %for.body.i, %entry
+  %call = tail call i64 @DFSAboveLongestPathVCG(ptr noundef %VCG, i64 noundef %net)
+  %sub = add i64 %call, -1
+  store i64 %sub, ptr @cardBotNotPref, align 8, !tbaa !5
+  %2 = load i64, ptr @channelTracks, align 8, !tbaa !5
+  %cmp.not61 = icmp eq i64 %2, 0
+  br i1 %cmp.not61, label %for.end, label %for.body.lr.ph
 
-17:                                               ; preds = %12
-  %18 = load ptr, ptr @tracksBotNotPref, align 8
-  %19 = and i64 %15, 1
-  %20 = icmp eq i64 %19, 0
-  br i1 %20, label %27, label %21
+for.body.lr.ph:                                   ; preds = %DFSClearVCG.exit
+  %3 = load ptr, ptr @tracksBotNotPref, align 8
+  %xtraiter = and i64 %2, 1
+  %lcmp.mod.not = icmp eq i64 %xtraiter, 0
+  br i1 %lcmp.mod.not, label %for.body.prol.loopexit, label %for.body.prol
 
-21:                                               ; preds = %17
-  %22 = icmp ne i64 %14, 0
-  %23 = zext i1 %22 to i64
-  %24 = tail call i64 @llvm.usub.sat.i64(i64 %14, i64 1)
-  %25 = getelementptr inbounds i64, ptr %18, i64 %15
-  store i64 %23, ptr %25, align 8
-  %26 = add i64 %15, -1
-  br label %27
+for.body.prol:                                    ; preds = %for.body.lr.ph
+  %cmp1.not.prol = icmp ne i64 %sub, 0
+  %spec.select.prol = zext i1 %cmp1.not.prol to i64
+  %spec.select72.prol = tail call i64 @llvm.usub.sat.i64(i64 %sub, i64 1)
+  %4 = getelementptr inbounds i64, ptr %3, i64 %2
+  store i64 %spec.select.prol, ptr %4, align 8
+  %dec3.prol = add i64 %2, -1
+  br label %for.body.prol.loopexit
 
-27:                                               ; preds = %21, %17
-  %28 = phi i64 [ %14, %17 ], [ %24, %21 ]
-  %29 = phi i64 [ %15, %17 ], [ %26, %21 ]
-  %30 = icmp eq i64 %15, 1
-  br i1 %30, label %44, label %31
+for.body.prol.loopexit:                           ; preds = %for.body.prol, %for.body.lr.ph
+  %bot.063.unr = phi i64 [ %sub, %for.body.lr.ph ], [ %spec.select72.prol, %for.body.prol ]
+  %track.062.unr = phi i64 [ %2, %for.body.lr.ph ], [ %dec3.prol, %for.body.prol ]
+  %5 = icmp eq i64 %2, 1
+  br i1 %5, label %for.end, label %for.body
 
-31:                                               ; preds = %27, %31
-  %32 = phi i64 [ %40, %31 ], [ %28, %27 ]
-  %33 = phi i64 [ %42, %31 ], [ %29, %27 ]
-  %34 = icmp ne i64 %32, 0
-  %35 = zext i1 %34 to i64
-  %36 = getelementptr inbounds i64, ptr %18, i64 %33
-  store i64 %35, ptr %36, align 8
-  %37 = add i64 %33, -1
-  %38 = icmp ugt i64 %32, 1
-  %39 = zext i1 %38 to i64
-  %40 = tail call i64 @llvm.usub.sat.i64(i64 %32, i64 2)
-  %41 = getelementptr inbounds i64, ptr %18, i64 %37
-  store i64 %39, ptr %41, align 8
-  %42 = add i64 %33, -2
-  %43 = icmp eq i64 %42, 0
-  br i1 %43, label %44, label %31, !llvm.loop !66
+for.body:                                         ; preds = %for.body.prol.loopexit, %for.body
+  %bot.063 = phi i64 [ %spec.select72.1, %for.body ], [ %bot.063.unr, %for.body.prol.loopexit ]
+  %track.062 = phi i64 [ %dec3.1, %for.body ], [ %track.062.unr, %for.body.prol.loopexit ]
+  %cmp1.not = icmp ne i64 %bot.063, 0
+  %spec.select = zext i1 %cmp1.not to i64
+  %6 = getelementptr inbounds i64, ptr %3, i64 %track.062
+  store i64 %spec.select, ptr %6, align 8
+  %dec3 = add i64 %track.062, -1
+  %cmp1.not.1 = icmp ugt i64 %bot.063, 1
+  %spec.select.1 = zext i1 %cmp1.not.1 to i64
+  %spec.select72.1 = tail call i64 @llvm.usub.sat.i64(i64 %bot.063, i64 2)
+  %7 = getelementptr inbounds i64, ptr %3, i64 %dec3
+  store i64 %spec.select.1, ptr %7, align 8
+  %dec3.1 = add i64 %track.062, -2
+  %cmp.not.1 = icmp eq i64 %dec3.1, 0
+  br i1 %cmp.not.1, label %for.end, label %for.body, !llvm.loop !68
 
-44:                                               ; preds = %27, %31, %12
-  %45 = load i64, ptr @channelNets, align 8, !tbaa !5
-  %46 = icmp eq i64 %45, 0
-  br i1 %46, label %54, label %47
+for.end:                                          ; preds = %for.body.prol.loopexit, %for.body, %DFSClearVCG.exit
+  %8 = load i64, ptr @channelNets, align 8, !tbaa !5
+  %cmp.not12.i53 = icmp eq i64 %8, 0
+  br i1 %cmp.not12.i53, label %DFSClearVCG.exit60, label %for.body.i59
 
-47:                                               ; preds = %44, %47
-  %48 = phi i64 [ %51, %47 ], [ 1, %44 ]
-  %49 = getelementptr inbounds %struct._nodeVCGType, ptr %0, i64 %48, i32 2
-  %50 = getelementptr inbounds %struct._nodeVCGType, ptr %0, i64 %48, i32 6
-  %51 = add i64 %48, 1
-  tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %49, i8 0, i64 16, i1 false)
-  tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %50, i8 0, i64 16, i1 false)
-  %52 = load i64, ptr @channelNets, align 8, !tbaa !5
-  %53 = icmp ugt i64 %51, %52
-  br i1 %53, label %54, label %47, !llvm.loop !27
+for.body.i59:                                     ; preds = %for.end, %for.body.i59
+  %net.013.i54 = phi i64 [ %inc.i57, %for.body.i59 ], [ 1, %for.end ]
+  %netsAboveLabel.i55 = getelementptr inbounds %struct._nodeVCGType, ptr %VCG, i64 %net.013.i54, i32 2
+  %netsBelowLabel.i56 = getelementptr inbounds %struct._nodeVCGType, ptr %VCG, i64 %net.013.i54, i32 6
+  %inc.i57 = add i64 %net.013.i54, 1
+  tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %netsAboveLabel.i55, i8 0, i64 16, i1 false)
+  tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %netsBelowLabel.i56, i8 0, i64 16, i1 false)
+  %9 = load i64, ptr @channelNets, align 8, !tbaa !5
+  %cmp.not.i58 = icmp ugt i64 %inc.i57, %9
+  br i1 %cmp.not.i58, label %DFSClearVCG.exit60, label %for.body.i59, !llvm.loop !27
 
-54:                                               ; preds = %47, %44
-  %55 = tail call i64 @DFSBelowLongestPathVCG(ptr noundef %0, i64 noundef %1)
-  %56 = add i64 %55, -1
-  store i64 %56, ptr @cardTopNotPref, align 8, !tbaa !5
-  %57 = load i64, ptr @channelTracks, align 8, !tbaa !5
-  %58 = icmp eq i64 %57, 0
-  br i1 %58, label %97, label %59
+DFSClearVCG.exit60:                               ; preds = %for.body.i59, %for.end
+  %call4 = tail call i64 @DFSBelowLongestPathVCG(ptr noundef %VCG, i64 noundef %net)
+  %sub5 = add i64 %call4, -1
+  store i64 %sub5, ptr @cardTopNotPref, align 8, !tbaa !5
+  %10 = load i64, ptr @channelTracks, align 8, !tbaa !5
+  %cmp7.not64 = icmp eq i64 %10, 0
+  br i1 %cmp7.not64, label %for.end32, label %for.body8.lr.ph
 
-59:                                               ; preds = %54
-  %60 = load ptr, ptr @tracksTopNotPref, align 8
-  br label %67
+for.body8.lr.ph:                                  ; preds = %DFSClearVCG.exit60
+  %11 = load ptr, ptr @tracksTopNotPref, align 8
+  br label %for.body8
 
-61:                                               ; preds = %67
-  %62 = icmp eq i64 %75, 0
-  br i1 %62, label %97, label %63
+for.cond18.preheader:                             ; preds = %for.body8
+  %12 = icmp eq i64 %17, 0
+  br i1 %12, label %for.end32, label %for.body20.lr.ph
 
-63:                                               ; preds = %61
-  %64 = load ptr, ptr @tracksTopNotPref, align 8, !tbaa !9
-  %65 = load ptr, ptr @tracksBotNotPref, align 8
-  %66 = load ptr, ptr @tracksNotPref, align 8
-  br label %77
+for.body20.lr.ph:                                 ; preds = %for.cond18.preheader
+  %13 = load ptr, ptr @tracksTopNotPref, align 8, !tbaa !9
+  %14 = load ptr, ptr @tracksBotNotPref, align 8
+  %15 = load ptr, ptr @tracksNotPref, align 8
+  br label %for.body20
 
-67:                                               ; preds = %59, %67
-  %68 = phi i64 [ %56, %59 ], [ %72, %67 ]
-  %69 = phi i64 [ 1, %59 ], [ %74, %67 ]
-  %70 = icmp ne i64 %68, 0
-  %71 = zext i1 %70 to i64
-  %72 = tail call i64 @llvm.usub.sat.i64(i64 %68, i64 1)
-  %73 = getelementptr inbounds i64, ptr %60, i64 %69
-  store i64 %71, ptr %73, align 8
-  %74 = add i64 %69, 1
-  %75 = load i64, ptr @channelTracks, align 8, !tbaa !5
-  %76 = icmp ugt i64 %74, %75
-  br i1 %76, label %61, label %67, !llvm.loop !67
+for.body8:                                        ; preds = %for.body8.lr.ph, %for.body8
+  %top.066 = phi i64 [ %sub5, %for.body8.lr.ph ], [ %spec.select74, %for.body8 ]
+  %track.165 = phi i64 [ 1, %for.body8.lr.ph ], [ %inc, %for.body8 ]
+  %cmp9.not = icmp ne i64 %top.066, 0
+  %spec.select73 = zext i1 %cmp9.not to i64
+  %spec.select74 = tail call i64 @llvm.usub.sat.i64(i64 %top.066, i64 1)
+  %16 = getelementptr inbounds i64, ptr %11, i64 %track.165
+  store i64 %spec.select73, ptr %16, align 8
+  %inc = add i64 %track.165, 1
+  %17 = load i64, ptr @channelTracks, align 8, !tbaa !5
+  %cmp7.not = icmp ugt i64 %inc, %17
+  br i1 %cmp7.not, label %for.cond18.preheader, label %for.body8, !llvm.loop !69
 
-77:                                               ; preds = %63, %92
-  %78 = phi i64 [ 0, %63 ], [ %93, %92 ]
-  %79 = phi i64 [ 1, %63 ], [ %94, %92 ]
-  %80 = getelementptr inbounds i64, ptr %64, i64 %79
-  %81 = load i64, ptr %80, align 8, !tbaa !5
-  %82 = icmp eq i64 %81, 0
-  br i1 %82, label %83, label %87
+for.body20:                                       ; preds = %for.body20.lr.ph, %for.inc30
+  %not.069 = phi i64 [ 0, %for.body20.lr.ph ], [ %not.1, %for.inc30 ]
+  %track.268 = phi i64 [ 1, %for.body20.lr.ph ], [ %inc31, %for.inc30 ]
+  %arrayidx21 = getelementptr inbounds i64, ptr %13, i64 %track.268
+  %18 = load i64, ptr %arrayidx21, align 8, !tbaa !5
+  %tobool.not = icmp eq i64 %18, 0
+  br i1 %tobool.not, label %lor.lhs.false, label %if.then24
 
-83:                                               ; preds = %77
-  %84 = getelementptr inbounds i64, ptr %65, i64 %79
-  %85 = load i64, ptr %84, align 8, !tbaa !5
-  %86 = icmp eq i64 %85, 0
-  br i1 %86, label %90, label %87
+lor.lhs.false:                                    ; preds = %for.body20
+  %arrayidx22 = getelementptr inbounds i64, ptr %14, i64 %track.268
+  %19 = load i64, ptr %arrayidx22, align 8, !tbaa !5
+  %tobool23.not = icmp eq i64 %19, 0
+  br i1 %tobool23.not, label %if.else27, label %if.then24
 
-87:                                               ; preds = %83, %77
-  %88 = getelementptr inbounds i64, ptr %66, i64 %79
-  store i64 1, ptr %88, align 8, !tbaa !5
-  %89 = add i64 %78, 1
-  br label %92
+if.then24:                                        ; preds = %lor.lhs.false, %for.body20
+  %arrayidx25 = getelementptr inbounds i64, ptr %15, i64 %track.268
+  store i64 1, ptr %arrayidx25, align 8, !tbaa !5
+  %inc26 = add i64 %not.069, 1
+  br label %for.inc30
 
-90:                                               ; preds = %83
-  %91 = getelementptr inbounds i64, ptr %66, i64 %79
-  store i64 0, ptr %91, align 8, !tbaa !5
-  br label %92
+if.else27:                                        ; preds = %lor.lhs.false
+  %arrayidx28 = getelementptr inbounds i64, ptr %15, i64 %track.268
+  store i64 0, ptr %arrayidx28, align 8, !tbaa !5
+  br label %for.inc30
 
-92:                                               ; preds = %87, %90
-  %93 = phi i64 [ %89, %87 ], [ %78, %90 ]
-  %94 = add i64 %79, 1
-  %95 = load i64, ptr @channelTracks, align 8, !tbaa !5
-  %96 = icmp ugt i64 %94, %95
-  br i1 %96, label %97, label %77, !llvm.loop !68
+for.inc30:                                        ; preds = %if.then24, %if.else27
+  %not.1 = phi i64 [ %inc26, %if.then24 ], [ %not.069, %if.else27 ]
+  %inc31 = add i64 %track.268, 1
+  %20 = load i64, ptr @channelTracks, align 8, !tbaa !5
+  %cmp19.not = icmp ugt i64 %inc31, %20
+  br i1 %cmp19.not, label %for.end32, label %for.body20, !llvm.loop !70
 
-97:                                               ; preds = %92, %54, %61
-  %98 = phi i64 [ 0, %61 ], [ 0, %54 ], [ %93, %92 ]
-  store i64 %98, ptr @cardNotPref, align 8, !tbaa !5
+for.end32:                                        ; preds = %for.inc30, %DFSClearVCG.exit60, %for.cond18.preheader
+  %not.0.lcssa = phi i64 [ 0, %for.cond18.preheader ], [ 0, %DFSClearVCG.exit60 ], [ %not.1, %for.inc30 ]
+  store i64 %not.0.lcssa, ptr @cardNotPref, align 8, !tbaa !5
   ret void
 }
 
 ; Function Attrs: nofree nosync nounwind memory(read, argmem: readwrite, inaccessiblemem: none) uwtable
-define dso_local i64 @DFSAboveLongestPathVCG(ptr nocapture noundef %0, i64 noundef %1) local_unnamed_addr #8 {
-  %3 = getelementptr inbounds %struct._nodeVCGType, ptr %0, i64 %1
-  %4 = getelementptr inbounds %struct._nodeVCGType, ptr %0, i64 %1, i32 3
-  store i64 1, ptr %4, align 8, !tbaa !31
-  %5 = getelementptr inbounds %struct._nodeVCGType, ptr %0, i64 %1, i32 1
-  %6 = load i64, ptr %5, align 8, !tbaa !21
-  %7 = icmp eq i64 %6, 0
-  br i1 %7, label %31, label %8
+define dso_local i64 @DFSAboveLongestPathVCG(ptr nocapture noundef %VCG, i64 noundef %net) local_unnamed_addr #8 {
+entry:
+  %arrayidx = getelementptr inbounds %struct._nodeVCGType, ptr %VCG, i64 %net
+  %netsAboveReached = getelementptr inbounds %struct._nodeVCGType, ptr %VCG, i64 %net, i32 3
+  store i64 1, ptr %netsAboveReached, align 8, !tbaa !31
+  %netsAbove = getelementptr inbounds %struct._nodeVCGType, ptr %VCG, i64 %net, i32 1
+  %0 = load i64, ptr %netsAbove, align 8, !tbaa !21
+  %cmp29.not = icmp eq i64 %0, 0
+  br i1 %cmp29.not, label %for.end, label %for.body
 
-8:                                                ; preds = %2, %26
-  %9 = phi i64 [ %27, %26 ], [ %6, %2 ]
-  %10 = phi i64 [ %28, %26 ], [ 0, %2 ]
-  %11 = phi i64 [ %29, %26 ], [ 0, %2 ]
-  %12 = load ptr, ptr %3, align 8, !tbaa !11
-  %13 = getelementptr inbounds %struct._constraintVCGType, ptr %12, i64 %11, i32 3
-  %14 = load i64, ptr %13, align 8, !tbaa !19
-  %15 = icmp eq i64 %14, 0
-  br i1 %15, label %16, label %26
+for.body:                                         ; preds = %entry, %for.inc
+  %1 = phi i64 [ %6, %for.inc ], [ %0, %entry ]
+  %longest.031 = phi i64 [ %longest.1, %for.inc ], [ 0, %entry ]
+  %s.030 = phi i64 [ %inc, %for.inc ], [ 0, %entry ]
+  %2 = load ptr, ptr %arrayidx, align 8, !tbaa !11
+  %removed = getelementptr inbounds %struct._constraintVCGType, ptr %2, i64 %s.030, i32 3
+  %3 = load i64, ptr %removed, align 8, !tbaa !19
+  %tobool.not = icmp eq i64 %3, 0
+  br i1 %tobool.not, label %if.then, label %for.inc
 
-16:                                               ; preds = %8
-  %17 = getelementptr inbounds %struct._constraintVCGType, ptr %12, i64 %11, i32 1
-  %18 = load i64, ptr %17, align 8, !tbaa !15
-  %19 = getelementptr inbounds %struct._nodeVCGType, ptr %0, i64 %18, i32 3
-  %20 = load i64, ptr %19, align 8, !tbaa !31
-  %21 = icmp eq i64 %20, 0
-  br i1 %21, label %22, label %26
+if.then:                                          ; preds = %for.body
+  %bot = getelementptr inbounds %struct._constraintVCGType, ptr %2, i64 %s.030, i32 1
+  %4 = load i64, ptr %bot, align 8, !tbaa !15
+  %netsAboveReached8 = getelementptr inbounds %struct._nodeVCGType, ptr %VCG, i64 %4, i32 3
+  %5 = load i64, ptr %netsAboveReached8, align 8, !tbaa !31
+  %tobool9.not = icmp eq i64 %5, 0
+  br i1 %tobool9.not, label %if.then10, label %for.inc
 
-22:                                               ; preds = %16
-  %23 = tail call i64 @DFSAboveLongestPathVCG(ptr noundef nonnull %0, i64 noundef %18)
-  %24 = tail call i64 @llvm.umax.i64(i64 %23, i64 %10)
-  %25 = load i64, ptr %5, align 8, !tbaa !21
-  br label %26
+if.then10:                                        ; preds = %if.then
+  %call = tail call i64 @DFSAboveLongestPathVCG(ptr noundef nonnull %VCG, i64 noundef %4)
+  %spec.select = tail call i64 @llvm.umax.i64(i64 %call, i64 %longest.031)
+  %.pre = load i64, ptr %netsAbove, align 8, !tbaa !21
+  br label %for.inc
 
-26:                                               ; preds = %22, %8, %16
-  %27 = phi i64 [ %9, %8 ], [ %9, %16 ], [ %25, %22 ]
-  %28 = phi i64 [ %10, %8 ], [ %10, %16 ], [ %24, %22 ]
-  %29 = add nuw i64 %11, 1
-  %30 = icmp ult i64 %29, %27
-  br i1 %30, label %8, label %31, !llvm.loop !69
+for.inc:                                          ; preds = %if.then10, %for.body, %if.then
+  %6 = phi i64 [ %1, %for.body ], [ %1, %if.then ], [ %.pre, %if.then10 ]
+  %longest.1 = phi i64 [ %longest.031, %for.body ], [ %longest.031, %if.then ], [ %spec.select, %if.then10 ]
+  %inc = add nuw i64 %s.030, 1
+  %cmp = icmp ult i64 %inc, %6
+  br i1 %cmp, label %for.body, label %for.end, !llvm.loop !71
 
-31:                                               ; preds = %26, %2
-  %32 = phi i64 [ 0, %2 ], [ %28, %26 ]
-  %33 = add i64 %32, 1
-  ret i64 %33
+for.end:                                          ; preds = %for.inc, %entry
+  %longest.0.lcssa = phi i64 [ 0, %entry ], [ %longest.1, %for.inc ]
+  %add = add i64 %longest.0.lcssa, 1
+  ret i64 %add
 }
 
 ; Function Attrs: nofree nosync nounwind memory(read, argmem: readwrite, inaccessiblemem: none) uwtable
-define dso_local i64 @DFSBelowLongestPathVCG(ptr nocapture noundef %0, i64 noundef %1) local_unnamed_addr #8 {
-  %3 = getelementptr inbounds %struct._nodeVCGType, ptr %0, i64 %1, i32 7
-  store i64 1, ptr %3, align 8, !tbaa !33
-  %4 = getelementptr inbounds %struct._nodeVCGType, ptr %0, i64 %1, i32 5
-  %5 = load i64, ptr %4, align 8, !tbaa !25
-  %6 = icmp eq i64 %5, 0
-  br i1 %6, label %32, label %7
+define dso_local i64 @DFSBelowLongestPathVCG(ptr nocapture noundef %VCG, i64 noundef %net) local_unnamed_addr #8 {
+entry:
+  %netsBelowReached = getelementptr inbounds %struct._nodeVCGType, ptr %VCG, i64 %net, i32 7
+  store i64 1, ptr %netsBelowReached, align 8, !tbaa !33
+  %netsBelow = getelementptr inbounds %struct._nodeVCGType, ptr %VCG, i64 %net, i32 5
+  %0 = load i64, ptr %netsBelow, align 8, !tbaa !25
+  %cmp29.not = icmp eq i64 %0, 0
+  br i1 %cmp29.not, label %for.end, label %for.body.lr.ph
 
-7:                                                ; preds = %2
-  %8 = getelementptr inbounds %struct._nodeVCGType, ptr %0, i64 %1, i32 4
-  br label %9
+for.body.lr.ph:                                   ; preds = %entry
+  %netsBelowHook = getelementptr inbounds %struct._nodeVCGType, ptr %VCG, i64 %net, i32 4
+  br label %for.body
 
-9:                                                ; preds = %7, %27
-  %10 = phi i64 [ %5, %7 ], [ %28, %27 ]
-  %11 = phi i64 [ 0, %7 ], [ %29, %27 ]
-  %12 = phi i64 [ 0, %7 ], [ %30, %27 ]
-  %13 = load ptr, ptr %8, align 8, !tbaa !22
-  %14 = getelementptr inbounds %struct._constraintVCGType, ptr %13, i64 %12, i32 3
-  %15 = load i64, ptr %14, align 8, !tbaa !19
-  %16 = icmp eq i64 %15, 0
-  br i1 %16, label %17, label %27
+for.body:                                         ; preds = %for.body.lr.ph, %for.inc
+  %1 = phi i64 [ %0, %for.body.lr.ph ], [ %6, %for.inc ]
+  %longest.031 = phi i64 [ 0, %for.body.lr.ph ], [ %longest.1, %for.inc ]
+  %s.030 = phi i64 [ 0, %for.body.lr.ph ], [ %inc, %for.inc ]
+  %2 = load ptr, ptr %netsBelowHook, align 8, !tbaa !22
+  %removed = getelementptr inbounds %struct._constraintVCGType, ptr %2, i64 %s.030, i32 3
+  %3 = load i64, ptr %removed, align 8, !tbaa !19
+  %tobool.not = icmp eq i64 %3, 0
+  br i1 %tobool.not, label %if.then, label %for.inc
 
-17:                                               ; preds = %9
-  %18 = getelementptr inbounds %struct._constraintVCGType, ptr %13, i64 %12
-  %19 = load i64, ptr %18, align 8, !tbaa !17
-  %20 = getelementptr inbounds %struct._nodeVCGType, ptr %0, i64 %19, i32 7
-  %21 = load i64, ptr %20, align 8, !tbaa !33
-  %22 = icmp eq i64 %21, 0
-  br i1 %22, label %23, label %27
+if.then:                                          ; preds = %for.body
+  %arrayidx3 = getelementptr inbounds %struct._constraintVCGType, ptr %2, i64 %s.030
+  %4 = load i64, ptr %arrayidx3, align 8, !tbaa !17
+  %netsBelowReached8 = getelementptr inbounds %struct._nodeVCGType, ptr %VCG, i64 %4, i32 7
+  %5 = load i64, ptr %netsBelowReached8, align 8, !tbaa !33
+  %tobool9.not = icmp eq i64 %5, 0
+  br i1 %tobool9.not, label %if.then10, label %for.inc
 
-23:                                               ; preds = %17
-  %24 = tail call i64 @DFSBelowLongestPathVCG(ptr noundef nonnull %0, i64 noundef %19)
-  %25 = tail call i64 @llvm.umax.i64(i64 %24, i64 %11)
-  %26 = load i64, ptr %4, align 8, !tbaa !25
-  br label %27
+if.then10:                                        ; preds = %if.then
+  %call = tail call i64 @DFSBelowLongestPathVCG(ptr noundef nonnull %VCG, i64 noundef %4)
+  %spec.select = tail call i64 @llvm.umax.i64(i64 %call, i64 %longest.031)
+  %.pre = load i64, ptr %netsBelow, align 8, !tbaa !25
+  br label %for.inc
 
-27:                                               ; preds = %23, %9, %17
-  %28 = phi i64 [ %10, %9 ], [ %10, %17 ], [ %26, %23 ]
-  %29 = phi i64 [ %11, %9 ], [ %11, %17 ], [ %25, %23 ]
-  %30 = add nuw i64 %12, 1
-  %31 = icmp ult i64 %30, %28
-  br i1 %31, label %9, label %32, !llvm.loop !70
+for.inc:                                          ; preds = %if.then10, %for.body, %if.then
+  %6 = phi i64 [ %1, %for.body ], [ %1, %if.then ], [ %.pre, %if.then10 ]
+  %longest.1 = phi i64 [ %longest.031, %for.body ], [ %longest.031, %if.then ], [ %spec.select, %if.then10 ]
+  %inc = add nuw i64 %s.030, 1
+  %cmp = icmp ult i64 %inc, %6
+  br i1 %cmp, label %for.body, label %for.end, !llvm.loop !72
 
-32:                                               ; preds = %27, %2
-  %33 = phi i64 [ 0, %2 ], [ %29, %27 ]
-  %34 = add i64 %33, 1
-  ret i64 %34
+for.end:                                          ; preds = %for.inc, %entry
+  %longest.0.lcssa = phi i64 [ 0, %entry ], [ %longest.1, %for.inc ]
+  %add = add i64 %longest.0.lcssa, 1
+  ret i64 %add
 }
 
 ; Function Attrs: nofree nosync nounwind memory(read, argmem: readwrite, inaccessiblemem: none) uwtable
-define dso_local i64 @VCV(ptr nocapture noundef %0, i64 noundef %1, i64 noundef %2, ptr nocapture noundef readonly %3) local_unnamed_addr #8 {
+define dso_local i64 @VCV(ptr nocapture noundef %VCG, i64 noundef %check, i64 noundef %track, ptr nocapture noundef readonly %assign) local_unnamed_addr #8 {
+entry:
+  %0 = load i64, ptr @channelNets, align 8, !tbaa !5
+  %cmp.not74 = icmp eq i64 %0, 0
+  br i1 %cmp.not74, label %for.end, label %for.body.lr.ph
+
+for.body.lr.ph:                                   ; preds = %entry
+  %netsAboveReached.i63 = getelementptr inbounds %struct._nodeVCGType, ptr %VCG, i64 %check, i32 3
+  br label %for.body
+
+for.body:                                         ; preds = %for.body.lr.ph, %for.inc
+  %1 = phi i64 [ %0, %for.body.lr.ph ], [ %12, %for.inc ]
+  %vcv.076 = phi i64 [ 0, %for.body.lr.ph ], [ %vcv.1, %for.inc ]
+  %net.075 = phi i64 [ 1, %for.body.lr.ph ], [ %inc25, %for.inc ]
+  %arrayidx = getelementptr inbounds i64, ptr %assign, i64 %net.075
+  %2 = load i64, ptr %arrayidx, align 8, !tbaa !5
+  %tobool.not = icmp eq i64 %2, 0
+  br i1 %tobool.not, label %for.inc, label %if.then
+
+if.then:                                          ; preds = %for.body
+  %cmp2 = icmp ult i64 %2, %track
+  br i1 %cmp2, label %if.then3, label %if.else
+
+if.then3:                                         ; preds = %if.then
+  %cmp.not12.i.i = icmp eq i64 %1, 0
+  br i1 %cmp.not12.i.i, label %ExistPathAboveVCG.exit, label %for.body.i.i
+
+for.body.i.i:                                     ; preds = %if.then3, %for.body.i.i
+  %net.013.i.i = phi i64 [ %inc.i.i, %for.body.i.i ], [ 1, %if.then3 ]
+  %netsAboveLabel.i.i = getelementptr inbounds %struct._nodeVCGType, ptr %VCG, i64 %net.013.i.i, i32 2
+  %netsBelowLabel.i.i = getelementptr inbounds %struct._nodeVCGType, ptr %VCG, i64 %net.013.i.i, i32 6
+  %inc.i.i = add i64 %net.013.i.i, 1
+  tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %netsAboveLabel.i.i, i8 0, i64 16, i1 false)
+  tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %netsBelowLabel.i.i, i8 0, i64 16, i1 false)
+  %3 = load i64, ptr @channelNets, align 8, !tbaa !5
+  %cmp.not.i.i = icmp ugt i64 %inc.i.i, %3
+  br i1 %cmp.not.i.i, label %ExistPathAboveVCG.exit, label %for.body.i.i, !llvm.loop !27
+
+ExistPathAboveVCG.exit:                           ; preds = %for.body.i.i, %if.then3
+  tail call void @DFSAboveVCG(ptr noundef %VCG, i64 noundef %net.075)
+  %4 = load i64, ptr %netsAboveReached.i63, align 8, !tbaa !31
+  %tobool4.not = icmp ne i64 %4, 0
+  %inc = zext i1 %tobool4.not to i64
+  %spec.select = add i64 %vcv.076, %inc
+  br label %for.inc
+
+if.else:                                          ; preds = %if.then
+  %cmp7 = icmp ugt i64 %2, %track
+  %cmp.not12.i.i47 = icmp eq i64 %1, 0
+  br i1 %cmp7, label %if.then8, label %if.else14
+
+if.then8:                                         ; preds = %if.else
+  br i1 %cmp.not12.i.i47, label %ExistPathAboveVCG.exit55, label %for.body.i.i53
+
+for.body.i.i53:                                   ; preds = %if.then8, %for.body.i.i53
+  %net.013.i.i48 = phi i64 [ %inc.i.i51, %for.body.i.i53 ], [ 1, %if.then8 ]
+  %netsAboveLabel.i.i49 = getelementptr inbounds %struct._nodeVCGType, ptr %VCG, i64 %net.013.i.i48, i32 2
+  %netsBelowLabel.i.i50 = getelementptr inbounds %struct._nodeVCGType, ptr %VCG, i64 %net.013.i.i48, i32 6
+  %inc.i.i51 = add i64 %net.013.i.i48, 1
+  tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %netsAboveLabel.i.i49, i8 0, i64 16, i1 false)
+  tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %netsBelowLabel.i.i50, i8 0, i64 16, i1 false)
   %5 = load i64, ptr @channelNets, align 8, !tbaa !5
-  %6 = icmp eq i64 %5, 0
-  br i1 %6, label %81, label %7
+  %cmp.not.i.i52 = icmp ugt i64 %inc.i.i51, %5
+  br i1 %cmp.not.i.i52, label %ExistPathAboveVCG.exit55, label %for.body.i.i53, !llvm.loop !27
 
-7:                                                ; preds = %4
-  %8 = getelementptr inbounds %struct._nodeVCGType, ptr %0, i64 %1, i32 3
-  br label %9
+ExistPathAboveVCG.exit55:                         ; preds = %for.body.i.i53, %if.then8
+  tail call void @DFSAboveVCG(ptr noundef %VCG, i64 noundef %check)
+  %netsAboveReached.i54 = getelementptr inbounds %struct._nodeVCGType, ptr %VCG, i64 %net.075, i32 3
+  %6 = load i64, ptr %netsAboveReached.i54, align 8, !tbaa !31
+  %tobool10.not = icmp ne i64 %6, 0
+  %inc12 = zext i1 %tobool10.not to i64
+  %spec.select46 = add i64 %vcv.076, %inc12
+  br label %for.inc
 
-9:                                                ; preds = %7, %76
-  %10 = phi i64 [ %5, %7 ], [ %79, %76 ]
-  %11 = phi i64 [ 0, %7 ], [ %77, %76 ]
-  %12 = phi i64 [ 1, %7 ], [ %78, %76 ]
-  %13 = getelementptr inbounds i64, ptr %3, i64 %12
-  %14 = load i64, ptr %13, align 8, !tbaa !5
-  %15 = icmp eq i64 %14, 0
-  br i1 %15, label %76, label %16
+if.else14:                                        ; preds = %if.else
+  br i1 %cmp.not12.i.i47, label %ExistPathAboveVCG.exit64, label %for.body.i.i62
 
-16:                                               ; preds = %9
-  %17 = icmp ult i64 %14, %2
-  br i1 %17, label %18, label %32
+for.body.i.i62:                                   ; preds = %if.else14, %for.body.i.i62
+  %net.013.i.i57 = phi i64 [ %inc.i.i60, %for.body.i.i62 ], [ 1, %if.else14 ]
+  %netsAboveLabel.i.i58 = getelementptr inbounds %struct._nodeVCGType, ptr %VCG, i64 %net.013.i.i57, i32 2
+  %netsBelowLabel.i.i59 = getelementptr inbounds %struct._nodeVCGType, ptr %VCG, i64 %net.013.i.i57, i32 6
+  %inc.i.i60 = add i64 %net.013.i.i57, 1
+  tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %netsAboveLabel.i.i58, i8 0, i64 16, i1 false)
+  tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %netsBelowLabel.i.i59, i8 0, i64 16, i1 false)
+  %7 = load i64, ptr @channelNets, align 8, !tbaa !5
+  %cmp.not.i.i61 = icmp ugt i64 %inc.i.i60, %7
+  br i1 %cmp.not.i.i61, label %ExistPathAboveVCG.exit64, label %for.body.i.i62, !llvm.loop !27
 
-18:                                               ; preds = %16
-  %19 = icmp eq i64 %10, 0
-  br i1 %19, label %27, label %20
+ExistPathAboveVCG.exit64:                         ; preds = %for.body.i.i62, %if.else14
+  tail call void @DFSAboveVCG(ptr noundef %VCG, i64 noundef %net.075)
+  %8 = load i64, ptr %netsAboveReached.i63, align 8, !tbaa !31
+  %tobool16.not = icmp eq i64 %8, 0
+  br i1 %tobool16.not, label %lor.lhs.false, label %if.then19
 
-20:                                               ; preds = %18, %20
-  %21 = phi i64 [ %24, %20 ], [ 1, %18 ]
-  %22 = getelementptr inbounds %struct._nodeVCGType, ptr %0, i64 %21, i32 2
-  %23 = getelementptr inbounds %struct._nodeVCGType, ptr %0, i64 %21, i32 6
-  %24 = add i64 %21, 1
-  tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %22, i8 0, i64 16, i1 false)
-  tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %23, i8 0, i64 16, i1 false)
-  %25 = load i64, ptr @channelNets, align 8, !tbaa !5
-  %26 = icmp ugt i64 %24, %25
-  br i1 %26, label %27, label %20, !llvm.loop !27
+lor.lhs.false:                                    ; preds = %ExistPathAboveVCG.exit64
+  %9 = load i64, ptr @channelNets, align 8, !tbaa !5
+  %cmp.not12.i.i65 = icmp eq i64 %9, 0
+  br i1 %cmp.not12.i.i65, label %ExistPathAboveVCG.exit73, label %for.body.i.i71
 
-27:                                               ; preds = %20, %18
-  tail call void @DFSAboveVCG(ptr noundef %0, i64 noundef %12)
-  %28 = load i64, ptr %8, align 8, !tbaa !31
-  %29 = icmp ne i64 %28, 0
-  %30 = zext i1 %29 to i64
-  %31 = add i64 %11, %30
-  br label %76
+for.body.i.i71:                                   ; preds = %lor.lhs.false, %for.body.i.i71
+  %net.013.i.i66 = phi i64 [ %inc.i.i69, %for.body.i.i71 ], [ 1, %lor.lhs.false ]
+  %netsAboveLabel.i.i67 = getelementptr inbounds %struct._nodeVCGType, ptr %VCG, i64 %net.013.i.i66, i32 2
+  %netsBelowLabel.i.i68 = getelementptr inbounds %struct._nodeVCGType, ptr %VCG, i64 %net.013.i.i66, i32 6
+  %inc.i.i69 = add i64 %net.013.i.i66, 1
+  tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %netsAboveLabel.i.i67, i8 0, i64 16, i1 false)
+  tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %netsBelowLabel.i.i68, i8 0, i64 16, i1 false)
+  %10 = load i64, ptr @channelNets, align 8, !tbaa !5
+  %cmp.not.i.i70 = icmp ugt i64 %inc.i.i69, %10
+  br i1 %cmp.not.i.i70, label %ExistPathAboveVCG.exit73, label %for.body.i.i71, !llvm.loop !27
 
-32:                                               ; preds = %16
-  %33 = icmp ugt i64 %14, %2
-  %34 = icmp eq i64 %10, 0
-  br i1 %33, label %35, label %49
+ExistPathAboveVCG.exit73:                         ; preds = %for.body.i.i71, %lor.lhs.false
+  tail call void @DFSAboveVCG(ptr noundef nonnull %VCG, i64 noundef %check)
+  %netsAboveReached.i72 = getelementptr inbounds %struct._nodeVCGType, ptr %VCG, i64 %net.075, i32 3
+  %11 = load i64, ptr %netsAboveReached.i72, align 8, !tbaa !31
+  %tobool18.not = icmp eq i64 %11, 0
+  br i1 %tobool18.not, label %for.inc, label %if.then19
 
-35:                                               ; preds = %32
-  br i1 %34, label %43, label %36
+if.then19:                                        ; preds = %ExistPathAboveVCG.exit73, %ExistPathAboveVCG.exit64
+  %inc20 = add i64 %vcv.076, 1
+  br label %for.inc
 
-36:                                               ; preds = %35, %36
-  %37 = phi i64 [ %40, %36 ], [ 1, %35 ]
-  %38 = getelementptr inbounds %struct._nodeVCGType, ptr %0, i64 %37, i32 2
-  %39 = getelementptr inbounds %struct._nodeVCGType, ptr %0, i64 %37, i32 6
-  %40 = add i64 %37, 1
-  tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %38, i8 0, i64 16, i1 false)
-  tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %39, i8 0, i64 16, i1 false)
-  %41 = load i64, ptr @channelNets, align 8, !tbaa !5
-  %42 = icmp ugt i64 %40, %41
-  br i1 %42, label %43, label %36, !llvm.loop !27
+for.inc:                                          ; preds = %ExistPathAboveVCG.exit55, %ExistPathAboveVCG.exit, %for.body, %if.then19, %ExistPathAboveVCG.exit73
+  %vcv.1 = phi i64 [ %inc20, %if.then19 ], [ %vcv.076, %ExistPathAboveVCG.exit73 ], [ %vcv.076, %for.body ], [ %spec.select, %ExistPathAboveVCG.exit ], [ %spec.select46, %ExistPathAboveVCG.exit55 ]
+  %inc25 = add i64 %net.075, 1
+  %12 = load i64, ptr @channelNets, align 8, !tbaa !5
+  %cmp.not = icmp ugt i64 %inc25, %12
+  br i1 %cmp.not, label %for.end, label %for.body, !llvm.loop !73
 
-43:                                               ; preds = %36, %35
-  tail call void @DFSAboveVCG(ptr noundef %0, i64 noundef %1)
-  %44 = getelementptr inbounds %struct._nodeVCGType, ptr %0, i64 %12, i32 3
-  %45 = load i64, ptr %44, align 8, !tbaa !31
-  %46 = icmp ne i64 %45, 0
-  %47 = zext i1 %46 to i64
-  %48 = add i64 %11, %47
-  br label %76
-
-49:                                               ; preds = %32
-  br i1 %34, label %57, label %50
-
-50:                                               ; preds = %49, %50
-  %51 = phi i64 [ %54, %50 ], [ 1, %49 ]
-  %52 = getelementptr inbounds %struct._nodeVCGType, ptr %0, i64 %51, i32 2
-  %53 = getelementptr inbounds %struct._nodeVCGType, ptr %0, i64 %51, i32 6
-  %54 = add i64 %51, 1
-  tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %52, i8 0, i64 16, i1 false)
-  tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %53, i8 0, i64 16, i1 false)
-  %55 = load i64, ptr @channelNets, align 8, !tbaa !5
-  %56 = icmp ugt i64 %54, %55
-  br i1 %56, label %57, label %50, !llvm.loop !27
-
-57:                                               ; preds = %50, %49
-  tail call void @DFSAboveVCG(ptr noundef %0, i64 noundef %12)
-  %58 = load i64, ptr %8, align 8, !tbaa !31
-  %59 = icmp eq i64 %58, 0
-  br i1 %59, label %60, label %74
-
-60:                                               ; preds = %57
-  %61 = load i64, ptr @channelNets, align 8, !tbaa !5
-  %62 = icmp eq i64 %61, 0
-  br i1 %62, label %70, label %63
-
-63:                                               ; preds = %60, %63
-  %64 = phi i64 [ %67, %63 ], [ 1, %60 ]
-  %65 = getelementptr inbounds %struct._nodeVCGType, ptr %0, i64 %64, i32 2
-  %66 = getelementptr inbounds %struct._nodeVCGType, ptr %0, i64 %64, i32 6
-  %67 = add i64 %64, 1
-  tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %65, i8 0, i64 16, i1 false)
-  tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %66, i8 0, i64 16, i1 false)
-  %68 = load i64, ptr @channelNets, align 8, !tbaa !5
-  %69 = icmp ugt i64 %67, %68
-  br i1 %69, label %70, label %63, !llvm.loop !27
-
-70:                                               ; preds = %63, %60
-  tail call void @DFSAboveVCG(ptr noundef nonnull %0, i64 noundef %1)
-  %71 = getelementptr inbounds %struct._nodeVCGType, ptr %0, i64 %12, i32 3
-  %72 = load i64, ptr %71, align 8, !tbaa !31
-  %73 = icmp eq i64 %72, 0
-  br i1 %73, label %76, label %74
-
-74:                                               ; preds = %70, %57
-  %75 = add i64 %11, 1
-  br label %76
-
-76:                                               ; preds = %43, %27, %9, %74, %70
-  %77 = phi i64 [ %75, %74 ], [ %11, %70 ], [ %11, %9 ], [ %31, %27 ], [ %48, %43 ]
-  %78 = add i64 %12, 1
-  %79 = load i64, ptr @channelNets, align 8, !tbaa !5
-  %80 = icmp ugt i64 %78, %79
-  br i1 %80, label %81, label %9, !llvm.loop !71
-
-81:                                               ; preds = %76, %4
-  %82 = phi i64 [ 0, %4 ], [ %77, %76 ]
-  ret i64 %82
+for.end:                                          ; preds = %for.inc, %entry
+  %vcv.0.lcssa = phi i64 [ 0, %entry ], [ %vcv.1, %for.inc ]
+  ret i64 %vcv.0.lcssa
 }
+
+; Function Attrs: nofree nounwind
+declare noundef i32 @putchar(i32 noundef) local_unnamed_addr #10
+
+; Function Attrs: nofree nounwind
+declare noundef i32 @puts(ptr nocapture noundef readonly) local_unnamed_addr #10
 
 ; Function Attrs: nocallback nofree nounwind willreturn memory(argmem: write)
-declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #10
-
-; Function Attrs: nofree nounwind
-declare noundef i32 @putchar(i32 noundef) local_unnamed_addr #11
-
-; Function Attrs: nofree nounwind
-declare noundef i32 @puts(ptr nocapture noundef readonly) local_unnamed_addr #11
+declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #11
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
 declare i64 @llvm.umax.i64(i64, i64) #12
@@ -1911,8 +1933,8 @@ attributes #6 = { nofree nosync nounwind memory(read, argmem: write, inaccessibl
 attributes #7 = { nofree nounwind "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #8 = { nofree nosync nounwind memory(read, argmem: readwrite, inaccessiblemem: none) uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #9 = { nofree nosync nounwind memory(readwrite, inaccessiblemem: none) uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
-attributes #10 = { nocallback nofree nounwind willreturn memory(argmem: write) }
-attributes #11 = { nofree nounwind }
+attributes #10 = { nofree nounwind }
+attributes #11 = { nocallback nofree nounwind willreturn memory(argmem: write) }
 attributes #12 = { nocallback nofree nosync nounwind speculatable willreturn memory(none) }
 attributes #13 = { nounwind allocsize(0) }
 attributes #14 = { nounwind }
@@ -1958,7 +1980,7 @@ attributes #14 = { nounwind }
 !35 = distinct !{!35, !14}
 !36 = !{!12, !6, i64 16}
 !37 = distinct !{!37, !14}
-!38 = !{!12, !6, i64 48}
+!38 = distinct !{!38, !14}
 !39 = distinct !{!39, !14}
 !40 = distinct !{!40, !14, !41, !42}
 !41 = !{!"llvm.loop.isvectorized", i32 1}
@@ -1967,14 +1989,14 @@ attributes #14 = { nounwind }
 !44 = distinct !{!44, !14}
 !45 = distinct !{!45, !14}
 !46 = distinct !{!46, !14}
-!47 = distinct !{!47, !14}
+!47 = !{!12, !6, i64 48}
 !48 = distinct !{!48, !14}
-!49 = distinct !{!49, !50}
-!50 = !{!"llvm.loop.unroll.disable"}
-!51 = distinct !{!51, !14}
+!49 = distinct !{!49, !14}
+!50 = distinct !{!50, !51}
+!51 = !{!"llvm.loop.unroll.disable"}
 !52 = distinct !{!52, !14}
-!53 = distinct !{!53, !50}
-!54 = distinct !{!54, !14}
+!53 = distinct !{!53, !14}
+!54 = distinct !{!54, !51}
 !55 = distinct !{!55, !14}
 !56 = distinct !{!56, !14}
 !57 = distinct !{!57, !14}
@@ -1992,3 +2014,5 @@ attributes #14 = { nounwind }
 !69 = distinct !{!69, !14}
 !70 = distinct !{!70, !14}
 !71 = distinct !{!71, !14}
+!72 = distinct !{!72, !14}
+!73 = distinct !{!73, !14}

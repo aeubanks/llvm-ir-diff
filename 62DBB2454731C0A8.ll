@@ -66,69 +66,70 @@ declare i32 @__cxa_atexit(ptr, ptr, ptr) local_unnamed_addr #2
 declare noundef i32 @_ZN9benchmark8internal17InitializeStreamsEv() local_unnamed_addr #0
 
 ; Function Attrs: mustprogress norecurse uwtable
-define dso_local noundef i32 @main(i32 noundef %0, ptr noundef %1) local_unnamed_addr #3 {
-  %3 = alloca i32, align 4
-  store i32 %0, ptr %3, align 4, !tbaa !5
-  call void @_ZN9benchmark10InitializeEPiPPcPFvvE(ptr noundef nonnull %3, ptr noundef %1, ptr noundef null)
-  %4 = call noalias dereferenceable_or_null(4194304) ptr @malloc(i64 noundef 4194304) #13
-  store ptr %4, ptr @inputImage, align 8, !tbaa !9
-  %5 = icmp eq ptr %4, null
-  br i1 %5, label %6, label %8
+define dso_local noundef i32 @main(i32 noundef %argc, ptr noundef %argv) local_unnamed_addr #3 {
+entry:
+  %argc.addr = alloca i32, align 4
+  store i32 %argc, ptr %argc.addr, align 4, !tbaa !5
+  call void @_ZN9benchmark10InitializeEPiPPcPFvvE(ptr noundef nonnull %argc.addr, ptr noundef %argv, ptr noundef null)
+  %call = call noalias dereferenceable_or_null(4194304) ptr @malloc(i64 noundef 4194304) #13
+  store ptr %call, ptr @inputImage, align 8, !tbaa !9
+  %cmp = icmp eq ptr %call, null
+  br i1 %cmp, label %if.then, label %if.end
 
-6:                                                ; preds = %2
-  %7 = call noundef nonnull align 8 dereferenceable(8) ptr @_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_PKc(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cerr, ptr noundef nonnull @.str.2)
+if.then:                                          ; preds = %entry
+  %call1 = call noundef nonnull align 8 dereferenceable(8) ptr @_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_PKc(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cerr, ptr noundef nonnull @.str.2)
   call void @exit(i32 noundef 1) #14
   unreachable
 
-8:                                                ; preds = %2
-  call void @_Z21initializeRandomImagePiii(ptr noundef nonnull %4, i32 noundef 1024, i32 noundef 1024)
-  %9 = call noundef i64 @_ZN9benchmark22RunSpecifiedBenchmarksEv()
-  %10 = call noalias dereferenceable_or_null(4194304) ptr @malloc(i64 noundef 4194304) #13
-  %11 = call noalias dereferenceable_or_null(4194304) ptr @malloc(i64 noundef 4194304) #13
-  %12 = icmp eq ptr %10, null
-  %13 = icmp eq ptr %11, null
-  %14 = or i1 %12, %13
-  br i1 %14, label %15, label %17
+if.end:                                           ; preds = %entry
+  call void @_Z21initializeRandomImagePiii(ptr noundef nonnull %call, i32 noundef 1024, i32 noundef 1024)
+  %call2 = call noundef i64 @_ZN9benchmark22RunSpecifiedBenchmarksEv()
+  %call3 = call noalias dereferenceable_or_null(4194304) ptr @malloc(i64 noundef 4194304) #13
+  %call4 = call noalias dereferenceable_or_null(4194304) ptr @malloc(i64 noundef 4194304) #13
+  %cmp5 = icmp eq ptr %call3, null
+  %cmp6 = icmp eq ptr %call4, null
+  %or.cond = or i1 %cmp5, %cmp6
+  br i1 %or.cond, label %if.then7, label %if.end9
 
-15:                                               ; preds = %8
-  %16 = call noundef nonnull align 8 dereferenceable(8) ptr @_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_PKc(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cerr, ptr noundef nonnull @.str.2)
+if.then7:                                         ; preds = %if.end
+  %call8 = call noundef nonnull align 8 dereferenceable(8) ptr @_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_PKc(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cerr, ptr noundef nonnull @.str.2)
   call void @exit(i32 noundef 1) #14
   unreachable
 
-17:                                               ; preds = %8
-  %18 = load ptr, ptr @inputImage, align 8, !tbaa !9
-  call void @dilateKernel(i32 noundef 1024, i32 noundef 1024, ptr noundef %18, ptr noundef nonnull %10, ptr noundef nonnull %11)
-  call void @llvm.memset.p0.i64(ptr noundef nonnull align 4 dereferenceable(4096) %10, i8 0, i64 4096, i1 false), !tbaa !5
-  %19 = getelementptr i8, ptr %10, i64 4190208
-  call void @llvm.memset.p0.i64(ptr noundef nonnull align 4 dereferenceable(4096) %19, i8 0, i64 4096, i1 false), !tbaa !5
-  br label %22
+if.end9:                                          ; preds = %if.end
+  %0 = load ptr, ptr @inputImage, align 8, !tbaa !9
+  call void @dilateKernel(i32 noundef 1024, i32 noundef 1024, ptr noundef %0, ptr noundef nonnull %call3, ptr noundef nonnull %call4)
+  call void @llvm.memset.p0.i64(ptr noundef nonnull align 4 dereferenceable(4096) %call3, i8 0, i64 4096, i1 false), !tbaa !5
+  %scevgep = getelementptr i8, ptr %call3, i64 4190208
+  call void @llvm.memset.p0.i64(ptr noundef nonnull align 4 dereferenceable(4096) %scevgep, i8 0, i64 4096, i1 false), !tbaa !5
+  br label %for.body17
 
-20:                                               ; preds = %22
-  call void @_Z9saveImagePiPKcii(ptr noundef nonnull %10, ptr noundef nonnull @.str, i32 noundef 1024, i32 noundef 1024)
-  call void @free(ptr noundef %11) #15
-  call void @free(ptr noundef nonnull %10) #15
-  %21 = load ptr, ptr @inputImage, align 8, !tbaa !9
-  call void @free(ptr noundef %21) #15
+for.cond.cleanup16:                               ; preds = %for.body17
+  call void @_Z9saveImagePiPKcii(ptr noundef nonnull %call3, ptr noundef nonnull @.str, i32 noundef 1024, i32 noundef 1024)
+  call void @free(ptr noundef %call4) #15
+  call void @free(ptr noundef nonnull %call3) #15
+  %1 = load ptr, ptr @inputImage, align 8, !tbaa !9
+  call void @free(ptr noundef %1) #15
   ret i32 0
 
-22:                                               ; preds = %22, %17
-  %23 = phi i64 [ 0, %17 ], [ %33, %22 ]
-  %24 = shl nsw i64 %23, 10
-  %25 = getelementptr inbounds i32, ptr %10, i64 %24
-  store i32 0, ptr %25, align 4, !tbaa !5
-  %26 = or i64 %24, 1023
-  %27 = getelementptr inbounds i32, ptr %10, i64 %26
-  store i32 0, ptr %27, align 4, !tbaa !5
-  %28 = shl i64 %23, 10
-  %29 = or i64 %28, 1024
-  %30 = getelementptr inbounds i32, ptr %10, i64 %29
-  store i32 0, ptr %30, align 4, !tbaa !5
-  %31 = or i64 %28, 2047
-  %32 = getelementptr inbounds i32, ptr %10, i64 %31
-  store i32 0, ptr %32, align 4, !tbaa !5
-  %33 = add nuw nsw i64 %23, 2
-  %34 = icmp eq i64 %33, 1024
-  br i1 %34, label %20, label %22, !llvm.loop !11
+for.body17:                                       ; preds = %for.body17, %if.end9
+  %indvars.iv = phi i64 [ 0, %if.end9 ], [ %indvars.iv.next.1, %for.body17 ]
+  %2 = shl nuw nsw i64 %indvars.iv, 10
+  %arrayidx20 = getelementptr inbounds i32, ptr %call3, i64 %2
+  store i32 0, ptr %arrayidx20, align 4, !tbaa !5
+  %3 = or i64 %2, 1023
+  %arrayidx24 = getelementptr inbounds i32, ptr %call3, i64 %3
+  store i32 0, ptr %arrayidx24, align 4, !tbaa !5
+  %indvars.iv.next = shl i64 %indvars.iv, 10
+  %4 = or i64 %indvars.iv.next, 1024
+  %arrayidx20.1 = getelementptr inbounds i32, ptr %call3, i64 %4
+  store i32 0, ptr %arrayidx20.1, align 4, !tbaa !5
+  %5 = or i64 %indvars.iv.next, 2047
+  %arrayidx24.1 = getelementptr inbounds i32, ptr %call3, i64 %5
+  store i32 0, ptr %arrayidx24.1, align 4, !tbaa !5
+  %indvars.iv.next.1 = add nuw nsw i64 %indvars.iv, 2
+  %exitcond.not.1 = icmp eq i64 %indvars.iv.next.1, 1024
+  br i1 %exitcond.not.1, label %for.cond.cleanup16, label %for.body17, !llvm.loop !11
 }
 
 declare void @_ZN9benchmark10InitializeEPiPPcPFvvE(ptr noundef, ptr noundef, ptr noundef) local_unnamed_addr #0
@@ -154,73 +155,74 @@ declare void @_Z9saveImagePiPKcii(ptr noundef, ptr noundef, i32 noundef, i32 nou
 declare void @free(ptr allocptr nocapture noundef) local_unnamed_addr #7
 
 ; Function Attrs: mustprogress uwtable
-define dso_local void @_Z16BENCHMARK_DILATERN9benchmark5StateE(ptr noundef nonnull align 8 dereferenceable(144) %0) #8 {
-  %2 = getelementptr inbounds %"class.benchmark::State", ptr %0, i64 0, i32 6
-  %3 = load ptr, ptr %2, align 8, !tbaa !13
-  %4 = load i64, ptr %3, align 8, !tbaa !15
-  %5 = trunc i64 %4 to i32
-  %6 = shl i64 %4, 32
-  %7 = ashr exact i64 %6, 32
-  %8 = ashr exact i64 %6, 30
-  %9 = mul i64 %8, %7
-  %10 = tail call noalias ptr @malloc(i64 noundef %9) #13
-  %11 = tail call noalias ptr @malloc(i64 noundef %9) #13
-  %12 = icmp eq ptr %10, null
-  br i1 %12, label %13, label %15
+define dso_local void @_Z16BENCHMARK_DILATERN9benchmark5StateE(ptr noundef nonnull align 8 dereferenceable(144) %state) #8 {
+entry:
+  %range_.i = getelementptr inbounds %"class.benchmark::State", ptr %state, i64 0, i32 6
+  %0 = load ptr, ptr %range_.i, align 8, !tbaa !13
+  %1 = load i64, ptr %0, align 8, !tbaa !15
+  %conv = trunc i64 %1 to i32
+  %sext = shl i64 %1, 32
+  %mul = ashr exact i64 %sext, 30
+  %conv4 = ashr exact i64 %sext, 32
+  %mul5 = mul i64 %mul, %conv4
+  %call6 = tail call noalias ptr @malloc(i64 noundef %mul5) #13
+  %call11 = tail call noalias ptr @malloc(i64 noundef %mul5) #13
+  %cmp = icmp eq ptr %call6, null
+  br i1 %cmp, label %if.then, label %if.end
 
-13:                                               ; preds = %1
-  %14 = tail call noundef nonnull align 8 dereferenceable(8) ptr @_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_PKc(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cerr, ptr noundef nonnull @.str.2)
+if.then:                                          ; preds = %entry
+  %call12 = tail call noundef nonnull align 8 dereferenceable(8) ptr @_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_PKc(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cerr, ptr noundef nonnull @.str.2)
   tail call void @exit(i32 noundef 1) #14
   unreachable
 
-15:                                               ; preds = %1
-  %16 = load ptr, ptr @inputImage, align 8, !tbaa !9
-  tail call void @dilateKernel(i32 noundef %5, i32 noundef %5, ptr noundef %16, ptr noundef nonnull %10, ptr noundef %11)
-  %17 = getelementptr inbounds %"class.benchmark::State", ptr %0, i64 0, i32 3
-  %18 = getelementptr inbounds %"class.benchmark::State", ptr %0, i64 0, i32 5
-  br label %19
+if.end:                                           ; preds = %entry
+  %2 = load ptr, ptr @inputImage, align 8, !tbaa !9
+  tail call void @dilateKernel(i32 noundef %conv, i32 noundef %conv, ptr noundef %2, ptr noundef nonnull %call6, ptr noundef %call11)
+  %started_.i.i = getelementptr inbounds %"class.benchmark::State", ptr %state, i64 0, i32 3
+  %error_occurred_.i.i = getelementptr inbounds %"class.benchmark::State", ptr %state, i64 0, i32 5
+  br label %while.cond
 
-19:                                               ; preds = %31, %15
-  %20 = load i64, ptr %0, align 8, !tbaa !17
-  %21 = icmp eq i64 %20, 0
-  br i1 %21, label %22, label %31, !prof !31
+while.cond:                                       ; preds = %while.body, %if.end
+  %3 = load i64, ptr %state, align 8, !tbaa !17
+  %cmp.not.i.i = icmp eq i64 %3, 0
+  br i1 %cmp.not.i.i, label %if.end.i.i, label %while.body, !prof !31
 
-22:                                               ; preds = %19
-  %23 = load i8, ptr %17, align 8, !tbaa !32, !range !33, !noundef !34
-  %24 = icmp eq i8 %23, 0
-  br i1 %24, label %25, label %35
+if.end.i.i:                                       ; preds = %while.cond
+  %4 = load i8, ptr %started_.i.i, align 8, !tbaa !32, !range !33, !noundef !34
+  %tobool3.not.i.i = icmp eq i8 %4, 0
+  br i1 %tobool3.not.i.i, label %if.then4.i.i, label %while.end
 
-25:                                               ; preds = %22
-  tail call void @_ZN9benchmark5State16StartKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %0)
-  %26 = load i8, ptr %18, align 2, !tbaa !35, !range !33, !noundef !34
-  %27 = icmp ne i8 %26, 0
-  %28 = load i64, ptr %0, align 8
-  %29 = icmp eq i64 %28, 0
-  %30 = select i1 %27, i1 true, i1 %29
-  br i1 %30, label %35, label %31
+if.then4.i.i:                                     ; preds = %if.end.i.i
+  tail call void @_ZN9benchmark5State16StartKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %state)
+  %5 = load i8, ptr %error_occurred_.i.i, align 2, !tbaa !35, !range !33, !noundef !34
+  %tobool5.not.i.i = icmp ne i8 %5, 0
+  %6 = load i64, ptr %state, align 8
+  %cmp7.not.i.i = icmp eq i64 %6, 0
+  %or.cond = select i1 %tobool5.not.i.i, i1 true, i1 %cmp7.not.i.i
+  br i1 %or.cond, label %while.end, label %while.body
 
-31:                                               ; preds = %25, %19
-  %32 = phi i64 [ %20, %19 ], [ %28, %25 ]
-  %33 = add i64 %32, -1
-  store i64 %33, ptr %0, align 8, !tbaa !17
-  %34 = load ptr, ptr @inputImage, align 8, !tbaa !9
-  tail call void @dilateKernel(i32 noundef %5, i32 noundef %5, ptr noundef %34, ptr noundef nonnull %10, ptr noundef %11)
-  br label %19, !llvm.loop !36
+while.body:                                       ; preds = %if.then4.i.i, %while.cond
+  %storemerge.in = phi i64 [ %3, %while.cond ], [ %6, %if.then4.i.i ]
+  %storemerge = add i64 %storemerge.in, -1
+  store i64 %storemerge, ptr %state, align 8, !tbaa !17
+  %7 = load ptr, ptr @inputImage, align 8, !tbaa !9
+  tail call void @dilateKernel(i32 noundef %conv, i32 noundef %conv, ptr noundef %7, ptr noundef nonnull %call6, ptr noundef %call11)
+  br label %while.cond, !llvm.loop !36
 
-35:                                               ; preds = %25, %22
-  tail call void @_ZN9benchmark5State17FinishKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %0)
-  %36 = load ptr, ptr %2, align 8, !tbaa !13
-  %37 = load i64, ptr %36, align 8, !tbaa !15
-  %38 = icmp eq i64 %37, 20
-  br i1 %38, label %39, label %40
+while.end:                                        ; preds = %if.then4.i.i, %if.end.i.i
+  tail call void @_ZN9benchmark5State17FinishKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %state)
+  %8 = load ptr, ptr %range_.i, align 8, !tbaa !13
+  %9 = load i64, ptr %8, align 8, !tbaa !15
+  %cmp15 = icmp eq i64 %9, 20
+  br i1 %cmp15, label %if.then16, label %if.end17
 
-39:                                               ; preds = %35
-  tail call void @_Z9saveImagePiPKcii(ptr noundef nonnull %10, ptr noundef nonnull @.str.3, i32 noundef %5, i32 noundef %5)
-  br label %40
+if.then16:                                        ; preds = %while.end
+  tail call void @_Z9saveImagePiPKcii(ptr noundef nonnull %call6, ptr noundef nonnull @.str.3, i32 noundef %conv, i32 noundef %conv)
+  br label %if.end17
 
-40:                                               ; preds = %39, %35
-  tail call void @free(ptr noundef %11) #15
-  tail call void @free(ptr noundef %10) #15
+if.end17:                                         ; preds = %if.then16, %while.end
+  tail call void @free(ptr noundef %call11) #15
+  tail call void @free(ptr noundef %call6) #15
   ret void
 }
 
@@ -248,28 +250,29 @@ declare void @_ZN9benchmark8internal9BenchmarkC2EPKc(ptr noundef nonnull align 8
 
 ; Function Attrs: uwtable
 define internal void @_GLOBAL__sub_I_main.cpp() #11 section ".text.startup" personality ptr @__gxx_personality_v0 {
+entry:
   tail call void @_ZNSt8ios_base4InitC1Ev(ptr noundef nonnull align 1 dereferenceable(1) @_ZStL8__ioinit)
-  %1 = tail call i32 @__cxa_atexit(ptr nonnull @_ZNSt8ios_base4InitD1Ev, ptr nonnull @_ZStL8__ioinit, ptr nonnull @__dso_handle) #15
-  %2 = tail call noundef i32 @_ZN9benchmark8internal17InitializeStreamsEv()
-  %3 = tail call noalias noundef nonnull dereferenceable(224) ptr @_Znwm(i64 noundef 224) #16
-  invoke void @_ZN9benchmark8internal9BenchmarkC2EPKc(ptr noundef nonnull align 8 dereferenceable(216) %3, ptr noundef nonnull @.str.5)
-          to label %6 unwind label %4
+  %0 = tail call i32 @__cxa_atexit(ptr nonnull @_ZNSt8ios_base4InitD1Ev, ptr nonnull @_ZStL8__ioinit, ptr nonnull @__dso_handle) #15
+  %call.i = tail call noundef i32 @_ZN9benchmark8internal17InitializeStreamsEv()
+  %call.i1 = tail call noalias noundef nonnull dereferenceable(224) ptr @_Znwm(i64 noundef 224) #16
+  invoke void @_ZN9benchmark8internal9BenchmarkC2EPKc(ptr noundef nonnull align 8 dereferenceable(216) %call.i1, ptr noundef nonnull @.str.5)
+          to label %__cxx_global_var_init.4.exit unwind label %lpad.i
 
-4:                                                ; preds = %0
-  %5 = landingpad { ptr, i32 }
+lpad.i:                                           ; preds = %entry
+  %1 = landingpad { ptr, i32 }
           cleanup
-  tail call void @_ZdlPv(ptr noundef nonnull %3) #17
-  resume { ptr, i32 } %5
+  tail call void @_ZdlPv(ptr noundef nonnull %call.i1) #17
+  resume { ptr, i32 } %1
 
-6:                                                ; preds = %0
-  store ptr getelementptr inbounds ({ [5 x ptr] }, ptr @_ZTVN9benchmark8internal17FunctionBenchmarkE, i64 0, inrange i32 0, i64 2), ptr %3, align 8, !tbaa !37
-  %7 = getelementptr inbounds %"class.benchmark::internal::FunctionBenchmark", ptr %3, i64 0, i32 1
-  store ptr @_Z16BENCHMARK_DILATERN9benchmark5StateE, ptr %7, align 8, !tbaa !39
-  %8 = tail call noundef ptr @_ZN9benchmark8internal25RegisterBenchmarkInternalEPNS0_9BenchmarkE(ptr noundef nonnull %3)
-  %9 = tail call noundef ptr @_ZN9benchmark8internal9Benchmark15RangeMultiplierEi(ptr noundef nonnull align 8 dereferenceable(216) %8, i32 noundef 2)
-  %10 = tail call noundef ptr @_ZN9benchmark8internal9Benchmark5RangeEll(ptr noundef nonnull align 8 dereferenceable(216) %9, i64 noundef 128, i64 noundef 1024)
-  %11 = tail call noundef ptr @_ZN9benchmark8internal9Benchmark4UnitENS_8TimeUnitE(ptr noundef nonnull align 8 dereferenceable(216) %10, i32 noundef 1)
-  store ptr %11, ptr @_ZL27benchmark_uniq_2_benchmark_, align 8, !tbaa !9
+__cxx_global_var_init.4.exit:                     ; preds = %entry
+  store ptr getelementptr inbounds ({ [5 x ptr] }, ptr @_ZTVN9benchmark8internal17FunctionBenchmarkE, i64 0, inrange i32 0, i64 2), ptr %call.i1, align 8, !tbaa !37
+  %func_.i.i = getelementptr inbounds %"class.benchmark::internal::FunctionBenchmark", ptr %call.i1, i64 0, i32 1
+  store ptr @_Z16BENCHMARK_DILATERN9benchmark5StateE, ptr %func_.i.i, align 8, !tbaa !39
+  %call1.i = tail call noundef ptr @_ZN9benchmark8internal25RegisterBenchmarkInternalEPNS0_9BenchmarkE(ptr noundef nonnull %call.i1)
+  %call2.i = tail call noundef ptr @_ZN9benchmark8internal9Benchmark15RangeMultiplierEi(ptr noundef nonnull align 8 dereferenceable(216) %call1.i, i32 noundef 2)
+  %call3.i = tail call noundef ptr @_ZN9benchmark8internal9Benchmark5RangeEll(ptr noundef nonnull align 8 dereferenceable(216) %call2.i, i64 noundef 128, i64 noundef 1024)
+  %call4.i = tail call noundef ptr @_ZN9benchmark8internal9Benchmark4UnitENS_8TimeUnitE(ptr noundef nonnull align 8 dereferenceable(216) %call3.i, i32 noundef 1)
+  store ptr %call4.i, ptr @_ZL27benchmark_uniq_2_benchmark_, align 8, !tbaa !9
   ret void
 }
 

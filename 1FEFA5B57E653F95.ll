@@ -45,8 +45,8 @@ target triple = "x86_64-unknown-linux-gnu"
 @.str.49 = private unnamed_addr constant [3 x i8] c"%d\00", align 1
 @.str.50 = private unnamed_addr constant [3 x i8] c"%f\00", align 1
 @.str.51 = private unnamed_addr constant [4 x i8] c"%ld\00", align 1
-@str = private unnamed_addr constant [81 x i8] c"================================================================================\00", align 1
-@str.52 = private unnamed_addr constant [536 x i8] c"              _____ _                 _      __  __  ____   _____ \0A             / ____(_)               | |    |  \\/  |/ __ \\ / ____|\0A            | (___  _ _ __ ___  _ __ | | ___| \\  / | |  | | |     \0A             \\___ \\| | '_ ` _ \\| '_ \\| |/ _ \\ |\\/| | |  | | |     \0A             ____) | | | | | | | |_) | |  __/ |  | | |__| | |____ \0A            |_____/|_|_| |_| |_| .__/|_|\\___|_|  |_|\\____/ \\_____|\0A                               | |                                \0A                               |_|                                \00", align 1
+@str = private unnamed_addr constant [536 x i8] c"              _____ _                 _      __  __  ____   _____ \0A             / ____(_)               | |    |  \\/  |/ __ \\ / ____|\0A            | (___  _ _ __ ___  _ __ | | ___| \\  / | |  | | |     \0A             \\___ \\| | '_ ` _ \\| '_ \\| |/ _ \\ |\\/| | |  | | |     \0A             ____) | | | | | | | |_) | |  __/ |  | | |__| | |____ \0A            |_____/|_|_| |_| |_| .__/|_|\\___|_|  |_|\\____/ \\_____|\0A                               | |                                \0A                               |_|                                \00", align 1
+@str.52 = private unnamed_addr constant [81 x i8] c"================================================================================\00", align 1
 @str.53 = private unnamed_addr constant [29 x i8] c"Usage: ./SimpleMOC <options>\00", align 1
 @str.54 = private unnamed_addr constant [17 x i8] c"Options include:\00", align 1
 @str.55 = private unnamed_addr constant [51 x i8] c"  -t <threads>     Number of OpenMP threads to run\00", align 1
@@ -58,303 +58,305 @@ target triple = "x86_64-unknown-linux-gnu"
 @str.61 = private unnamed_addr constant [17 x i8] c"FIle Open FAILED\00", align 1
 
 ; Function Attrs: nofree nounwind uwtable
-define dso_local void @logo(i32 noundef %0) local_unnamed_addr #0 {
-  %2 = alloca [100 x i8], align 16
-  %3 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str)
-  %4 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.52)
-  %5 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str)
-  %6 = tail call i32 @putchar(i32 10)
+define dso_local void @logo(i32 noundef %version) local_unnamed_addr #0 {
+entry:
+  %v = alloca [100 x i8], align 16
+  %puts.i = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.52)
+  %puts = tail call i32 @puts(ptr nonnull dereferenceable(1) @str)
+  %puts.i8 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.52)
+  %putchar = tail call i32 @putchar(i32 10)
+  %0 = load ptr, ptr @stdout, align 8, !tbaa !5
+  %fputc7.i = tail call i32 @fputc(i32 32, ptr %0)
+  %1 = load ptr, ptr @stdout, align 8, !tbaa !5
+  %fputc7.i.1 = tail call i32 @fputc(i32 32, ptr %1)
+  %2 = load ptr, ptr @stdout, align 8, !tbaa !5
+  %fputc7.i.2 = tail call i32 @fputc(i32 32, ptr %2)
+  %3 = load ptr, ptr @stdout, align 8, !tbaa !5
+  %fputc7.i.3 = tail call i32 @fputc(i32 32, ptr %3)
+  %4 = load ptr, ptr @stdout, align 8, !tbaa !5
+  %fputc7.i.4 = tail call i32 @fputc(i32 32, ptr %4)
+  %5 = load ptr, ptr @stdout, align 8, !tbaa !5
+  %fputc7.i.5 = tail call i32 @fputc(i32 32, ptr %5)
+  %6 = load ptr, ptr @stdout, align 8, !tbaa !5
+  %fputc7.i.6 = tail call i32 @fputc(i32 32, ptr %6)
   %7 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %8 = tail call i32 @fputc(i32 32, ptr %7)
+  %fputc7.i.7 = tail call i32 @fputc(i32 32, ptr %7)
+  %8 = load ptr, ptr @stdout, align 8, !tbaa !5
+  %fputc7.i.8 = tail call i32 @fputc(i32 32, ptr %8)
   %9 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %10 = tail call i32 @fputc(i32 32, ptr %9)
+  %fputc7.i.9 = tail call i32 @fputc(i32 32, ptr %9)
+  %10 = load ptr, ptr @stdout, align 8, !tbaa !5
+  %fputc7.i.10 = tail call i32 @fputc(i32 32, ptr %10)
   %11 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %12 = tail call i32 @fputc(i32 32, ptr %11)
+  %fputc7.i.11 = tail call i32 @fputc(i32 32, ptr %11)
+  %12 = load ptr, ptr @stdout, align 8, !tbaa !5
+  %fputc7.i.12 = tail call i32 @fputc(i32 32, ptr %12)
   %13 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %14 = tail call i32 @fputc(i32 32, ptr %13)
+  %fputc7.i.13 = tail call i32 @fputc(i32 32, ptr %13)
+  %14 = load ptr, ptr @stdout, align 8, !tbaa !5
+  %fputc7.i.14 = tail call i32 @fputc(i32 32, ptr %14)
   %15 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %16 = tail call i32 @fputc(i32 32, ptr %15)
+  %fputc7.i.15 = tail call i32 @fputc(i32 32, ptr %15)
+  %16 = load ptr, ptr @stdout, align 8, !tbaa !5
+  %fputc7.i.16 = tail call i32 @fputc(i32 32, ptr %16)
   %17 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %18 = tail call i32 @fputc(i32 32, ptr %17)
+  %fputc7.i.17 = tail call i32 @fputc(i32 32, ptr %17)
+  %18 = load ptr, ptr @stdout, align 8, !tbaa !5
+  %fputc7.i.18 = tail call i32 @fputc(i32 32, ptr %18)
   %19 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %20 = tail call i32 @fputc(i32 32, ptr %19)
+  %fputc7.i.19 = tail call i32 @fputc(i32 32, ptr %19)
+  %20 = load ptr, ptr @stdout, align 8, !tbaa !5
+  %fputc7.i.20 = tail call i32 @fputc(i32 32, ptr %20)
   %21 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %22 = tail call i32 @fputc(i32 32, ptr %21)
+  %fputc7.i.21 = tail call i32 @fputc(i32 32, ptr %21)
+  %22 = load ptr, ptr @stdout, align 8, !tbaa !5
+  %fputc7.i.22 = tail call i32 @fputc(i32 32, ptr %22)
   %23 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %24 = tail call i32 @fputc(i32 32, ptr %23)
+  %fputc7.i.23 = tail call i32 @fputc(i32 32, ptr %23)
+  %24 = load ptr, ptr @stdout, align 8, !tbaa !5
+  %fputc7.i.24 = tail call i32 @fputc(i32 32, ptr %24)
   %25 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %26 = tail call i32 @fputc(i32 32, ptr %25)
+  %fputc7.i.25 = tail call i32 @fputc(i32 32, ptr %25)
+  %26 = load ptr, ptr @stdout, align 8, !tbaa !5
+  %fputc7.i.26 = tail call i32 @fputc(i32 32, ptr %26)
   %27 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %28 = tail call i32 @fputc(i32 32, ptr %27)
+  %fputc7.i.27 = tail call i32 @fputc(i32 32, ptr %27)
+  %28 = load ptr, ptr @stdout, align 8, !tbaa !5
+  %fputc7.i.28 = tail call i32 @fputc(i32 32, ptr %28)
   %29 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %30 = tail call i32 @fputc(i32 32, ptr %29)
+  %fputc7.i.29 = tail call i32 @fputc(i32 32, ptr %29)
+  %30 = load ptr, ptr @stdout, align 8, !tbaa !5
+  %fputc7.i.30 = tail call i32 @fputc(i32 32, ptr %30)
   %31 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %32 = tail call i32 @fputc(i32 32, ptr %31)
+  %fputc7.i.31 = tail call i32 @fputc(i32 32, ptr %31)
+  %32 = load ptr, ptr @stdout, align 8, !tbaa !5
+  %fputc7.i.32 = tail call i32 @fputc(i32 32, ptr %32)
   %33 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %34 = tail call i32 @fputc(i32 32, ptr %33)
-  %35 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %36 = tail call i32 @fputc(i32 32, ptr %35)
+  %fputc7.i.33 = tail call i32 @fputc(i32 32, ptr %33)
+  %34 = load ptr, ptr @stdout, align 8, !tbaa !5
+  %35 = tail call i64 @fwrite(ptr nonnull @.str.2, i64 12, i64 1, ptr %34)
+  %36 = load ptr, ptr @stdout, align 8, !tbaa !5
+  %fputc.i = tail call i32 @fputc(i32 10, ptr %36)
   %37 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %38 = tail call i32 @fputc(i32 32, ptr %37)
+  %fputc7.i16 = tail call i32 @fputc(i32 32, ptr %37)
+  %38 = load ptr, ptr @stdout, align 8, !tbaa !5
+  %fputc7.i16.1 = tail call i32 @fputc(i32 32, ptr %38)
   %39 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %40 = tail call i32 @fputc(i32 32, ptr %39)
+  %fputc7.i16.2 = tail call i32 @fputc(i32 32, ptr %39)
+  %40 = load ptr, ptr @stdout, align 8, !tbaa !5
+  %fputc7.i16.3 = tail call i32 @fputc(i32 32, ptr %40)
   %41 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %42 = tail call i32 @fputc(i32 32, ptr %41)
+  %fputc7.i16.4 = tail call i32 @fputc(i32 32, ptr %41)
+  %42 = load ptr, ptr @stdout, align 8, !tbaa !5
+  %fputc7.i16.5 = tail call i32 @fputc(i32 32, ptr %42)
   %43 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %44 = tail call i32 @fputc(i32 32, ptr %43)
+  %fputc7.i16.6 = tail call i32 @fputc(i32 32, ptr %43)
+  %44 = load ptr, ptr @stdout, align 8, !tbaa !5
+  %fputc7.i16.7 = tail call i32 @fputc(i32 32, ptr %44)
   %45 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %46 = tail call i32 @fputc(i32 32, ptr %45)
+  %fputc7.i16.8 = tail call i32 @fputc(i32 32, ptr %45)
+  %46 = load ptr, ptr @stdout, align 8, !tbaa !5
+  %fputc7.i16.9 = tail call i32 @fputc(i32 32, ptr %46)
   %47 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %48 = tail call i32 @fputc(i32 32, ptr %47)
+  %fputc7.i16.10 = tail call i32 @fputc(i32 32, ptr %47)
+  %48 = load ptr, ptr @stdout, align 8, !tbaa !5
+  %fputc7.i16.11 = tail call i32 @fputc(i32 32, ptr %48)
   %49 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %50 = tail call i32 @fputc(i32 32, ptr %49)
+  %fputc7.i16.12 = tail call i32 @fputc(i32 32, ptr %49)
+  %50 = load ptr, ptr @stdout, align 8, !tbaa !5
+  %fputc7.i16.13 = tail call i32 @fputc(i32 32, ptr %50)
   %51 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %52 = tail call i32 @fputc(i32 32, ptr %51)
+  %fputc7.i16.14 = tail call i32 @fputc(i32 32, ptr %51)
+  %52 = load ptr, ptr @stdout, align 8, !tbaa !5
+  %fputc7.i16.15 = tail call i32 @fputc(i32 32, ptr %52)
   %53 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %54 = tail call i32 @fputc(i32 32, ptr %53)
+  %fputc7.i16.16 = tail call i32 @fputc(i32 32, ptr %53)
+  %54 = load ptr, ptr @stdout, align 8, !tbaa !5
+  %fputc7.i16.17 = tail call i32 @fputc(i32 32, ptr %54)
   %55 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %56 = tail call i32 @fputc(i32 32, ptr %55)
+  %fputc7.i16.18 = tail call i32 @fputc(i32 32, ptr %55)
+  %56 = load ptr, ptr @stdout, align 8, !tbaa !5
+  %fputc7.i16.19 = tail call i32 @fputc(i32 32, ptr %56)
   %57 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %58 = tail call i32 @fputc(i32 32, ptr %57)
+  %58 = tail call i64 @fwrite(ptr nonnull @.str.3, i64 41, i64 1, ptr %57)
   %59 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %60 = tail call i32 @fputc(i32 32, ptr %59)
+  %fputc.i21 = tail call i32 @fputc(i32 10, ptr %59)
+  %60 = load ptr, ptr @stdout, align 8, !tbaa !5
+  %fputc7.i30 = tail call i32 @fputc(i32 32, ptr %60)
   %61 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %62 = tail call i32 @fputc(i32 32, ptr %61)
+  %fputc7.i30.1 = tail call i32 @fputc(i32 32, ptr %61)
+  %62 = load ptr, ptr @stdout, align 8, !tbaa !5
+  %fputc7.i30.2 = tail call i32 @fputc(i32 32, ptr %62)
   %63 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %64 = tail call i32 @fputc(i32 32, ptr %63)
+  %fputc7.i30.3 = tail call i32 @fputc(i32 32, ptr %63)
+  %64 = load ptr, ptr @stdout, align 8, !tbaa !5
+  %fputc7.i30.4 = tail call i32 @fputc(i32 32, ptr %64)
   %65 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %66 = tail call i32 @fputc(i32 32, ptr %65)
+  %fputc7.i30.5 = tail call i32 @fputc(i32 32, ptr %65)
+  %66 = load ptr, ptr @stdout, align 8, !tbaa !5
+  %fputc7.i30.6 = tail call i32 @fputc(i32 32, ptr %66)
   %67 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %68 = tail call i32 @fputc(i32 32, ptr %67)
+  %fputc7.i30.7 = tail call i32 @fputc(i32 32, ptr %67)
+  %68 = load ptr, ptr @stdout, align 8, !tbaa !5
+  %fputc7.i30.8 = tail call i32 @fputc(i32 32, ptr %68)
   %69 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %70 = tail call i32 @fputc(i32 32, ptr %69)
+  %fputc7.i30.9 = tail call i32 @fputc(i32 32, ptr %69)
+  %70 = load ptr, ptr @stdout, align 8, !tbaa !5
+  %fputc7.i30.10 = tail call i32 @fputc(i32 32, ptr %70)
   %71 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %72 = tail call i32 @fputc(i32 32, ptr %71)
+  %fputc7.i30.11 = tail call i32 @fputc(i32 32, ptr %71)
+  %72 = load ptr, ptr @stdout, align 8, !tbaa !5
+  %fputc7.i30.12 = tail call i32 @fputc(i32 32, ptr %72)
   %73 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %74 = tail call i32 @fputc(i32 32, ptr %73)
+  %fputc7.i30.13 = tail call i32 @fputc(i32 32, ptr %73)
+  %74 = load ptr, ptr @stdout, align 8, !tbaa !5
+  %fputc7.i30.14 = tail call i32 @fputc(i32 32, ptr %74)
   %75 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %76 = tail call i64 @fwrite(ptr nonnull @.str.2, i64 12, i64 1, ptr %75)
+  %fputc7.i30.15 = tail call i32 @fputc(i32 32, ptr %75)
+  %76 = load ptr, ptr @stdout, align 8, !tbaa !5
+  %fputc7.i30.16 = tail call i32 @fputc(i32 32, ptr %76)
   %77 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %78 = tail call i32 @fputc(i32 10, ptr %77)
+  %fputc7.i30.17 = tail call i32 @fputc(i32 32, ptr %77)
+  %78 = load ptr, ptr @stdout, align 8, !tbaa !5
+  %fputc7.i30.18 = tail call i32 @fputc(i32 32, ptr %78)
   %79 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %80 = tail call i32 @fputc(i32 32, ptr %79)
+  %fputc7.i30.19 = tail call i32 @fputc(i32 32, ptr %79)
+  %80 = load ptr, ptr @stdout, align 8, !tbaa !5
+  %fputc7.i30.20 = tail call i32 @fputc(i32 32, ptr %80)
   %81 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %82 = tail call i32 @fputc(i32 32, ptr %81)
+  %fputc7.i30.21 = tail call i32 @fputc(i32 32, ptr %81)
+  %82 = load ptr, ptr @stdout, align 8, !tbaa !5
+  %fputc7.i30.22 = tail call i32 @fputc(i32 32, ptr %82)
   %83 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %84 = tail call i32 @fputc(i32 32, ptr %83)
+  %fputc7.i30.23 = tail call i32 @fputc(i32 32, ptr %83)
+  %84 = load ptr, ptr @stdout, align 8, !tbaa !5
+  %fputc7.i30.24 = tail call i32 @fputc(i32 32, ptr %84)
   %85 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %86 = tail call i32 @fputc(i32 32, ptr %85)
+  %fputc7.i30.25 = tail call i32 @fputc(i32 32, ptr %85)
+  %86 = load ptr, ptr @stdout, align 8, !tbaa !5
+  %fputc7.i30.26 = tail call i32 @fputc(i32 32, ptr %86)
   %87 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %88 = tail call i32 @fputc(i32 32, ptr %87)
+  %fputc7.i30.27 = tail call i32 @fputc(i32 32, ptr %87)
+  %88 = load ptr, ptr @stdout, align 8, !tbaa !5
+  %fputc7.i30.28 = tail call i32 @fputc(i32 32, ptr %88)
   %89 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %90 = tail call i32 @fputc(i32 32, ptr %89)
+  %fputc7.i30.29 = tail call i32 @fputc(i32 32, ptr %89)
+  %90 = load ptr, ptr @stdout, align 8, !tbaa !5
+  %fputc7.i30.30 = tail call i32 @fputc(i32 32, ptr %90)
   %91 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %92 = tail call i32 @fputc(i32 32, ptr %91)
+  %fputc7.i30.31 = tail call i32 @fputc(i32 32, ptr %91)
+  %92 = load ptr, ptr @stdout, align 8, !tbaa !5
+  %fputc7.i30.32 = tail call i32 @fputc(i32 32, ptr %92)
   %93 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %94 = tail call i32 @fputc(i32 32, ptr %93)
+  %fputc7.i30.33 = tail call i32 @fputc(i32 32, ptr %93)
+  %94 = load ptr, ptr @stdout, align 8, !tbaa !5
+  %fputc7.i30.34 = tail call i32 @fputc(i32 32, ptr %94)
   %95 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %96 = tail call i32 @fputc(i32 32, ptr %95)
+  %fputc7.i30.35 = tail call i32 @fputc(i32 32, ptr %95)
+  %96 = load ptr, ptr @stdout, align 8, !tbaa !5
+  %fputc7.i30.36 = tail call i32 @fputc(i32 32, ptr %96)
   %97 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %98 = tail call i32 @fputc(i32 32, ptr %97)
+  %fputc7.i30.37 = tail call i32 @fputc(i32 32, ptr %97)
+  %98 = load ptr, ptr @stdout, align 8, !tbaa !5
+  %fputc7.i30.38 = tail call i32 @fputc(i32 32, ptr %98)
   %99 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %100 = tail call i32 @fputc(i32 32, ptr %99)
+  %100 = tail call i64 @fwrite(ptr nonnull @.str.4, i64 3, i64 1, ptr %99)
   %101 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %102 = tail call i32 @fputc(i32 32, ptr %101)
+  %fputc.i35 = tail call i32 @fputc(i32 10, ptr %101)
+  %102 = load ptr, ptr @stdout, align 8, !tbaa !5
+  %fputc7.i44 = tail call i32 @fputc(i32 32, ptr %102)
   %103 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %104 = tail call i32 @fputc(i32 32, ptr %103)
+  %fputc7.i44.1 = tail call i32 @fputc(i32 32, ptr %103)
+  %104 = load ptr, ptr @stdout, align 8, !tbaa !5
+  %fputc7.i44.2 = tail call i32 @fputc(i32 32, ptr %104)
   %105 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %106 = tail call i32 @fputc(i32 32, ptr %105)
+  %fputc7.i44.3 = tail call i32 @fputc(i32 32, ptr %105)
+  %106 = load ptr, ptr @stdout, align 8, !tbaa !5
+  %fputc7.i44.4 = tail call i32 @fputc(i32 32, ptr %106)
   %107 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %108 = tail call i32 @fputc(i32 32, ptr %107)
+  %fputc7.i44.5 = tail call i32 @fputc(i32 32, ptr %107)
+  %108 = load ptr, ptr @stdout, align 8, !tbaa !5
+  %fputc7.i44.6 = tail call i32 @fputc(i32 32, ptr %108)
   %109 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %110 = tail call i32 @fputc(i32 32, ptr %109)
+  %fputc7.i44.7 = tail call i32 @fputc(i32 32, ptr %109)
+  %110 = load ptr, ptr @stdout, align 8, !tbaa !5
+  %fputc7.i44.8 = tail call i32 @fputc(i32 32, ptr %110)
   %111 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %112 = tail call i32 @fputc(i32 32, ptr %111)
+  %fputc7.i44.9 = tail call i32 @fputc(i32 32, ptr %111)
+  %112 = load ptr, ptr @stdout, align 8, !tbaa !5
+  %fputc7.i44.10 = tail call i32 @fputc(i32 32, ptr %112)
   %113 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %114 = tail call i32 @fputc(i32 32, ptr %113)
+  %fputc7.i44.11 = tail call i32 @fputc(i32 32, ptr %113)
+  %114 = load ptr, ptr @stdout, align 8, !tbaa !5
+  %fputc7.i44.12 = tail call i32 @fputc(i32 32, ptr %114)
   %115 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %116 = tail call i32 @fputc(i32 32, ptr %115)
+  %fputc7.i44.13 = tail call i32 @fputc(i32 32, ptr %115)
+  %116 = load ptr, ptr @stdout, align 8, !tbaa !5
+  %fputc7.i44.14 = tail call i32 @fputc(i32 32, ptr %116)
   %117 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %118 = tail call i32 @fputc(i32 32, ptr %117)
+  %fputc7.i44.15 = tail call i32 @fputc(i32 32, ptr %117)
+  %118 = load ptr, ptr @stdout, align 8, !tbaa !5
+  %fputc7.i44.16 = tail call i32 @fputc(i32 32, ptr %118)
   %119 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %120 = tail call i64 @fwrite(ptr nonnull @.str.3, i64 41, i64 1, ptr %119)
+  %fputc7.i44.17 = tail call i32 @fputc(i32 32, ptr %119)
+  %120 = load ptr, ptr @stdout, align 8, !tbaa !5
+  %fputc7.i44.18 = tail call i32 @fputc(i32 32, ptr %120)
   %121 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %122 = tail call i32 @fputc(i32 10, ptr %121)
+  %fputc7.i44.19 = tail call i32 @fputc(i32 32, ptr %121)
+  %122 = load ptr, ptr @stdout, align 8, !tbaa !5
+  %fputc7.i44.20 = tail call i32 @fputc(i32 32, ptr %122)
   %123 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %124 = tail call i32 @fputc(i32 32, ptr %123)
+  %fputc7.i44.21 = tail call i32 @fputc(i32 32, ptr %123)
+  %124 = load ptr, ptr @stdout, align 8, !tbaa !5
+  %fputc7.i44.22 = tail call i32 @fputc(i32 32, ptr %124)
   %125 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %126 = tail call i32 @fputc(i32 32, ptr %125)
+  %fputc7.i44.23 = tail call i32 @fputc(i32 32, ptr %125)
+  %126 = load ptr, ptr @stdout, align 8, !tbaa !5
+  %fputc7.i44.24 = tail call i32 @fputc(i32 32, ptr %126)
   %127 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %128 = tail call i32 @fputc(i32 32, ptr %127)
+  %fputc7.i44.25 = tail call i32 @fputc(i32 32, ptr %127)
+  %128 = load ptr, ptr @stdout, align 8, !tbaa !5
+  %fputc7.i44.26 = tail call i32 @fputc(i32 32, ptr %128)
   %129 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %130 = tail call i32 @fputc(i32 32, ptr %129)
+  %130 = tail call i64 @fwrite(ptr nonnull @.str.5, i64 27, i64 1, ptr %129)
   %131 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %132 = tail call i32 @fputc(i32 32, ptr %131)
+  %fputc.i49 = tail call i32 @fputc(i32 10, ptr %131)
+  %putchar6 = tail call i32 @putchar(i32 10)
+  call void @llvm.lifetime.start.p0(i64 100, ptr nonnull %v) #10
+  %call3 = call i32 (ptr, ptr, ...) @sprintf(ptr noundef nonnull dereferenceable(1) %v, ptr noundef nonnull dereferenceable(1) @.str.6, i32 noundef %version) #10
+  %call.i51 = call i64 @strlen(ptr noundef nonnull dereferenceable(1) %v) #11
+  %conv.i52 = trunc i64 %call.i51 to i32
+  %cmp.not8.i54 = icmp sgt i32 %conv.i52, 80
+  br i1 %cmp.not8.i54, label %center_print.exit64, label %for.body.preheader.i56
+
+for.body.preheader.i56:                           ; preds = %entry
+  %sub.i53 = sub nsw i32 79, %conv.i52
+  %div.i55 = sdiv i32 %sub.i53, 2
+  br label %for.body.i61
+
+for.body.i61:                                     ; preds = %for.body.i61, %for.body.preheader.i56
+  %i.09.i57 = phi i32 [ %inc.i59, %for.body.i61 ], [ 0, %for.body.preheader.i56 ]
+  %132 = load ptr, ptr @stdout, align 8, !tbaa !5
+  %fputc7.i58 = tail call i32 @fputc(i32 32, ptr %132)
+  %inc.i59 = add nuw nsw i32 %i.09.i57, 1
+  %exitcond.not.i60 = icmp eq i32 %i.09.i57, %div.i55
+  br i1 %exitcond.not.i60, label %center_print.exit64, label %for.body.i61
+
+center_print.exit64:                              ; preds = %for.body.i61, %entry
   %133 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %134 = tail call i32 @fputc(i32 32, ptr %133)
-  %135 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %136 = tail call i32 @fputc(i32 32, ptr %135)
-  %137 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %138 = tail call i32 @fputc(i32 32, ptr %137)
-  %139 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %140 = tail call i32 @fputc(i32 32, ptr %139)
-  %141 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %142 = tail call i32 @fputc(i32 32, ptr %141)
-  %143 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %144 = tail call i32 @fputc(i32 32, ptr %143)
-  %145 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %146 = tail call i32 @fputc(i32 32, ptr %145)
-  %147 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %148 = tail call i32 @fputc(i32 32, ptr %147)
-  %149 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %150 = tail call i32 @fputc(i32 32, ptr %149)
-  %151 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %152 = tail call i32 @fputc(i32 32, ptr %151)
-  %153 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %154 = tail call i32 @fputc(i32 32, ptr %153)
-  %155 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %156 = tail call i32 @fputc(i32 32, ptr %155)
-  %157 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %158 = tail call i32 @fputc(i32 32, ptr %157)
-  %159 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %160 = tail call i32 @fputc(i32 32, ptr %159)
-  %161 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %162 = tail call i32 @fputc(i32 32, ptr %161)
-  %163 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %164 = tail call i32 @fputc(i32 32, ptr %163)
-  %165 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %166 = tail call i32 @fputc(i32 32, ptr %165)
-  %167 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %168 = tail call i32 @fputc(i32 32, ptr %167)
-  %169 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %170 = tail call i32 @fputc(i32 32, ptr %169)
-  %171 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %172 = tail call i32 @fputc(i32 32, ptr %171)
-  %173 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %174 = tail call i32 @fputc(i32 32, ptr %173)
-  %175 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %176 = tail call i32 @fputc(i32 32, ptr %175)
-  %177 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %178 = tail call i32 @fputc(i32 32, ptr %177)
-  %179 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %180 = tail call i32 @fputc(i32 32, ptr %179)
-  %181 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %182 = tail call i32 @fputc(i32 32, ptr %181)
-  %183 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %184 = tail call i32 @fputc(i32 32, ptr %183)
-  %185 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %186 = tail call i32 @fputc(i32 32, ptr %185)
-  %187 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %188 = tail call i32 @fputc(i32 32, ptr %187)
-  %189 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %190 = tail call i32 @fputc(i32 32, ptr %189)
-  %191 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %192 = tail call i32 @fputc(i32 32, ptr %191)
-  %193 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %194 = tail call i32 @fputc(i32 32, ptr %193)
-  %195 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %196 = tail call i32 @fputc(i32 32, ptr %195)
-  %197 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %198 = tail call i32 @fputc(i32 32, ptr %197)
-  %199 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %200 = tail call i32 @fputc(i32 32, ptr %199)
-  %201 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %202 = tail call i64 @fwrite(ptr nonnull @.str.4, i64 3, i64 1, ptr %201)
-  %203 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %204 = tail call i32 @fputc(i32 10, ptr %203)
-  %205 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %206 = tail call i32 @fputc(i32 32, ptr %205)
-  %207 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %208 = tail call i32 @fputc(i32 32, ptr %207)
-  %209 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %210 = tail call i32 @fputc(i32 32, ptr %209)
-  %211 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %212 = tail call i32 @fputc(i32 32, ptr %211)
-  %213 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %214 = tail call i32 @fputc(i32 32, ptr %213)
-  %215 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %216 = tail call i32 @fputc(i32 32, ptr %215)
-  %217 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %218 = tail call i32 @fputc(i32 32, ptr %217)
-  %219 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %220 = tail call i32 @fputc(i32 32, ptr %219)
-  %221 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %222 = tail call i32 @fputc(i32 32, ptr %221)
-  %223 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %224 = tail call i32 @fputc(i32 32, ptr %223)
-  %225 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %226 = tail call i32 @fputc(i32 32, ptr %225)
-  %227 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %228 = tail call i32 @fputc(i32 32, ptr %227)
-  %229 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %230 = tail call i32 @fputc(i32 32, ptr %229)
-  %231 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %232 = tail call i32 @fputc(i32 32, ptr %231)
-  %233 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %234 = tail call i32 @fputc(i32 32, ptr %233)
-  %235 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %236 = tail call i32 @fputc(i32 32, ptr %235)
-  %237 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %238 = tail call i32 @fputc(i32 32, ptr %237)
-  %239 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %240 = tail call i32 @fputc(i32 32, ptr %239)
-  %241 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %242 = tail call i32 @fputc(i32 32, ptr %241)
-  %243 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %244 = tail call i32 @fputc(i32 32, ptr %243)
-  %245 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %246 = tail call i32 @fputc(i32 32, ptr %245)
-  %247 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %248 = tail call i32 @fputc(i32 32, ptr %247)
-  %249 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %250 = tail call i32 @fputc(i32 32, ptr %249)
-  %251 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %252 = tail call i32 @fputc(i32 32, ptr %251)
-  %253 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %254 = tail call i32 @fputc(i32 32, ptr %253)
-  %255 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %256 = tail call i32 @fputc(i32 32, ptr %255)
-  %257 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %258 = tail call i32 @fputc(i32 32, ptr %257)
-  %259 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %260 = tail call i64 @fwrite(ptr nonnull @.str.5, i64 27, i64 1, ptr %259)
-  %261 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %262 = tail call i32 @fputc(i32 10, ptr %261)
-  %263 = tail call i32 @putchar(i32 10)
-  call void @llvm.lifetime.start.p0(i64 100, ptr nonnull %2) #10
-  %264 = call i32 (ptr, ptr, ...) @sprintf(ptr noundef nonnull dereferenceable(1) %2, ptr noundef nonnull dereferenceable(1) @.str.6, i32 noundef %0) #10
-  %265 = call i64 @strlen(ptr noundef nonnull dereferenceable(1) %2) #11
-  %266 = trunc i64 %265 to i32
-  %267 = icmp sgt i32 %266, 80
-  br i1 %267, label %277, label %268
-
-268:                                              ; preds = %1
-  %269 = sub nsw i32 79, %266
-  %270 = sdiv i32 %269, 2
-  br label %271
-
-271:                                              ; preds = %271, %268
-  %272 = phi i32 [ %275, %271 ], [ 0, %268 ]
-  %273 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %274 = tail call i32 @fputc(i32 32, ptr %273)
-  %275 = add nuw nsw i32 %272, 1
-  %276 = icmp eq i32 %272, %270
-  br i1 %276, label %277, label %271
-
-277:                                              ; preds = %271, %1
-  %278 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %279 = call i32 @fputs(ptr noundef nonnull %2, ptr noundef %278)
-  %280 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %281 = tail call i32 @fputc(i32 10, ptr %280)
-  %282 = tail call i32 @putchar(i32 10)
-  %283 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str)
-  call void @llvm.lifetime.end.p0(i64 100, ptr nonnull %2) #10
+  %call3.i62 = call i32 @fputs(ptr noundef nonnull %v, ptr noundef %133)
+  %134 = load ptr, ptr @stdout, align 8, !tbaa !5
+  %fputc.i63 = tail call i32 @fputc(i32 10, ptr %134)
+  %putchar7 = tail call i32 @putchar(i32 10)
+  %puts.i65 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.52)
+  call void @llvm.lifetime.end.p0(i64 100, ptr nonnull %v) #10
   ret void
 }
 
 ; Function Attrs: nofree nounwind uwtable
 define dso_local void @border_print() local_unnamed_addr #0 {
-  %1 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str)
+entry:
+  %puts = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.52)
   ret void
 }
 
@@ -362,30 +364,31 @@ define dso_local void @border_print() local_unnamed_addr #0 {
 declare noundef i32 @printf(ptr nocapture noundef readonly, ...) local_unnamed_addr #1
 
 ; Function Attrs: nofree nounwind uwtable
-define dso_local void @center_print(ptr nocapture noundef readonly %0, i32 noundef %1) local_unnamed_addr #0 {
-  %3 = tail call i64 @strlen(ptr noundef nonnull dereferenceable(1) %0) #11
-  %4 = trunc i64 %3 to i32
-  %5 = sub nsw i32 %1, %4
-  %6 = icmp slt i32 %5, -1
-  br i1 %6, label %15, label %7
+define dso_local void @center_print(ptr nocapture noundef readonly %s, i32 noundef %width) local_unnamed_addr #0 {
+entry:
+  %call = tail call i64 @strlen(ptr noundef nonnull dereferenceable(1) %s) #11
+  %conv = trunc i64 %call to i32
+  %sub = sub nsw i32 %width, %conv
+  %cmp.not8 = icmp slt i32 %sub, -1
+  br i1 %cmp.not8, label %for.end, label %for.body.preheader
 
-7:                                                ; preds = %2
-  %8 = sdiv i32 %5, 2
-  br label %9
+for.body.preheader:                               ; preds = %entry
+  %div = sdiv i32 %sub, 2
+  br label %for.body
 
-9:                                                ; preds = %7, %9
-  %10 = phi i32 [ %13, %9 ], [ 0, %7 ]
-  %11 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %12 = tail call i32 @fputc(i32 32, ptr %11)
-  %13 = add nuw nsw i32 %10, 1
-  %14 = icmp eq i32 %10, %8
-  br i1 %14, label %15, label %9
+for.body:                                         ; preds = %for.body.preheader, %for.body
+  %i.09 = phi i32 [ %inc, %for.body ], [ 0, %for.body.preheader ]
+  %0 = load ptr, ptr @stdout, align 8, !tbaa !5
+  %fputc7 = tail call i32 @fputc(i32 32, ptr %0)
+  %inc = add nuw nsw i32 %i.09, 1
+  %exitcond.not = icmp eq i32 %i.09, %div
+  br i1 %exitcond.not, label %for.end, label %for.body
 
-15:                                               ; preds = %9, %2
-  %16 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %17 = tail call i32 @fputs(ptr noundef %0, ptr noundef %16)
-  %18 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %19 = tail call i32 @fputc(i32 10, ptr %18)
+for.end:                                          ; preds = %for.body, %entry
+  %1 = load ptr, ptr @stdout, align 8, !tbaa !5
+  %call3 = tail call i32 @fputs(ptr noundef %s, ptr noundef %1)
+  %2 = load ptr, ptr @stdout, align 8, !tbaa !5
+  %fputc = tail call i32 @fputc(i32 10, ptr %2)
   ret void
 }
 
@@ -405,375 +408,378 @@ declare i64 @strlen(ptr nocapture noundef) local_unnamed_addr #3
 declare noundef i32 @fputs(ptr nocapture noundef readonly, ptr nocapture noundef) local_unnamed_addr #1
 
 ; Function Attrs: nofree nounwind uwtable
-define dso_local void @fancy_int(i32 noundef %0) local_unnamed_addr #0 {
-  %2 = icmp slt i32 %0, 1000
-  br i1 %2, label %3, label %5
+define dso_local void @fancy_int(i32 noundef %a) local_unnamed_addr #0 {
+entry:
+  %cmp = icmp slt i32 %a, 1000
+  br i1 %cmp, label %if.then, label %if.else
 
-3:                                                ; preds = %1
-  %4 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.9, i32 noundef %0)
-  br label %27
+if.then:                                          ; preds = %entry
+  %call = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.9, i32 noundef %a)
+  br label %if.end29
 
-5:                                                ; preds = %1
-  %6 = icmp ult i32 %0, 1000000
-  br i1 %6, label %7, label %11
+if.else:                                          ; preds = %entry
+  %cmp2 = icmp ult i32 %a, 1000000
+  br i1 %cmp2, label %if.then3, label %if.else5
 
-7:                                                ; preds = %5
-  %8 = udiv i32 %0, 1000
-  %9 = urem i32 %0, 1000
-  %10 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.10, i32 noundef %8, i32 noundef %9)
-  br label %27
+if.then3:                                         ; preds = %if.else
+  %div = udiv i32 %a, 1000
+  %rem = urem i32 %a, 1000
+  %call4 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.10, i32 noundef %div, i32 noundef %rem)
+  br label %if.end29
 
-11:                                               ; preds = %5
-  %12 = icmp ult i32 %0, 1000000000
-  %13 = udiv i32 %0, 1000000
-  %14 = urem i32 %0, 1000000
-  br i1 %12, label %15, label %20
+if.else5:                                         ; preds = %if.else
+  %cmp8 = icmp ult i32 %a, 1000000000
+  %div10 = udiv i32 %a, 1000000
+  %rem21 = urem i32 %a, 1000000
+  br i1 %cmp8, label %if.then9, label %if.then17
 
-15:                                               ; preds = %11
-  %16 = urem i32 %0, 1000000
-  %17 = udiv i32 %16, 1000
-  %18 = urem i32 %0, 1000
-  %19 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.11, i32 noundef %13, i32 noundef %17, i32 noundef %18)
-  br label %27
+if.then9:                                         ; preds = %if.else5
+  %rem11 = urem i32 %a, 1000000
+  %div12 = udiv i32 %rem11, 1000
+  %rem13 = urem i32 %a, 1000
+  %call14 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.11, i32 noundef %div10, i32 noundef %div12, i32 noundef %rem13)
+  br label %if.end29
 
-20:                                               ; preds = %11
-  %21 = udiv i32 %0, 1000000000
-  %22 = urem i32 %0, 1000000000
-  %23 = udiv i32 %22, 1000000
-  %24 = udiv i32 %14, 1000
-  %25 = urem i32 %0, 1000
-  %26 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.12, i32 noundef %21, i32 noundef %23, i32 noundef %24, i32 noundef %25)
-  br label %27
+if.then17:                                        ; preds = %if.else5
+  %div18 = udiv i32 %a, 1000000000
+  %rem19 = urem i32 %a, 1000000000
+  %div20 = udiv i32 %rem19, 1000000
+  %div22 = udiv i32 %rem21, 1000
+  %rem23 = urem i32 %a, 1000
+  %call24 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.12, i32 noundef %div18, i32 noundef %div20, i32 noundef %div22, i32 noundef %rem23)
+  br label %if.end29
 
-27:                                               ; preds = %7, %20, %15, %3
+if.end29:                                         ; preds = %if.then3, %if.then17, %if.then9, %if.then
   ret void
 }
 
 ; Function Attrs: nofree nounwind uwtable
-define dso_local void @print_input_summary(ptr nocapture noundef readonly byval(%struct.Input) align 8 %0) local_unnamed_addr #0 {
+define dso_local void @print_input_summary(ptr nocapture noundef readonly byval(%struct.Input) align 8 %I) local_unnamed_addr #0 {
+entry:
+  %0 = load ptr, ptr @stdout, align 8, !tbaa !5
+  %fputc7.i = tail call i32 @fputc(i32 32, ptr %0)
+  %1 = load ptr, ptr @stdout, align 8, !tbaa !5
+  %fputc7.i.1 = tail call i32 @fputc(i32 32, ptr %1)
   %2 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %3 = tail call i32 @fputc(i32 32, ptr %2)
+  %fputc7.i.2 = tail call i32 @fputc(i32 32, ptr %2)
+  %3 = load ptr, ptr @stdout, align 8, !tbaa !5
+  %fputc7.i.3 = tail call i32 @fputc(i32 32, ptr %3)
   %4 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %5 = tail call i32 @fputc(i32 32, ptr %4)
+  %fputc7.i.4 = tail call i32 @fputc(i32 32, ptr %4)
+  %5 = load ptr, ptr @stdout, align 8, !tbaa !5
+  %fputc7.i.5 = tail call i32 @fputc(i32 32, ptr %5)
   %6 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %7 = tail call i32 @fputc(i32 32, ptr %6)
+  %fputc7.i.6 = tail call i32 @fputc(i32 32, ptr %6)
+  %7 = load ptr, ptr @stdout, align 8, !tbaa !5
+  %fputc7.i.7 = tail call i32 @fputc(i32 32, ptr %7)
   %8 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %9 = tail call i32 @fputc(i32 32, ptr %8)
+  %fputc7.i.8 = tail call i32 @fputc(i32 32, ptr %8)
+  %9 = load ptr, ptr @stdout, align 8, !tbaa !5
+  %fputc7.i.9 = tail call i32 @fputc(i32 32, ptr %9)
   %10 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %11 = tail call i32 @fputc(i32 32, ptr %10)
+  %fputc7.i.10 = tail call i32 @fputc(i32 32, ptr %10)
+  %11 = load ptr, ptr @stdout, align 8, !tbaa !5
+  %fputc7.i.11 = tail call i32 @fputc(i32 32, ptr %11)
   %12 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %13 = tail call i32 @fputc(i32 32, ptr %12)
+  %fputc7.i.12 = tail call i32 @fputc(i32 32, ptr %12)
+  %13 = load ptr, ptr @stdout, align 8, !tbaa !5
+  %fputc7.i.13 = tail call i32 @fputc(i32 32, ptr %13)
   %14 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %15 = tail call i32 @fputc(i32 32, ptr %14)
+  %fputc7.i.14 = tail call i32 @fputc(i32 32, ptr %14)
+  %15 = load ptr, ptr @stdout, align 8, !tbaa !5
+  %fputc7.i.15 = tail call i32 @fputc(i32 32, ptr %15)
   %16 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %17 = tail call i32 @fputc(i32 32, ptr %16)
+  %fputc7.i.16 = tail call i32 @fputc(i32 32, ptr %16)
+  %17 = load ptr, ptr @stdout, align 8, !tbaa !5
+  %fputc7.i.17 = tail call i32 @fputc(i32 32, ptr %17)
   %18 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %19 = tail call i32 @fputc(i32 32, ptr %18)
+  %fputc7.i.18 = tail call i32 @fputc(i32 32, ptr %18)
+  %19 = load ptr, ptr @stdout, align 8, !tbaa !5
+  %fputc7.i.19 = tail call i32 @fputc(i32 32, ptr %19)
   %20 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %21 = tail call i32 @fputc(i32 32, ptr %20)
+  %fputc7.i.20 = tail call i32 @fputc(i32 32, ptr %20)
+  %21 = load ptr, ptr @stdout, align 8, !tbaa !5
+  %fputc7.i.21 = tail call i32 @fputc(i32 32, ptr %21)
   %22 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %23 = tail call i32 @fputc(i32 32, ptr %22)
+  %fputc7.i.22 = tail call i32 @fputc(i32 32, ptr %22)
+  %23 = load ptr, ptr @stdout, align 8, !tbaa !5
+  %fputc7.i.23 = tail call i32 @fputc(i32 32, ptr %23)
   %24 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %25 = tail call i32 @fputc(i32 32, ptr %24)
+  %fputc7.i.24 = tail call i32 @fputc(i32 32, ptr %24)
+  %25 = load ptr, ptr @stdout, align 8, !tbaa !5
+  %fputc7.i.25 = tail call i32 @fputc(i32 32, ptr %25)
   %26 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %27 = tail call i32 @fputc(i32 32, ptr %26)
+  %fputc7.i.26 = tail call i32 @fputc(i32 32, ptr %26)
+  %27 = load ptr, ptr @stdout, align 8, !tbaa !5
+  %fputc7.i.27 = tail call i32 @fputc(i32 32, ptr %27)
   %28 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %29 = tail call i32 @fputc(i32 32, ptr %28)
+  %fputc7.i.28 = tail call i32 @fputc(i32 32, ptr %28)
+  %29 = load ptr, ptr @stdout, align 8, !tbaa !5
+  %fputc7.i.29 = tail call i32 @fputc(i32 32, ptr %29)
   %30 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %31 = tail call i32 @fputc(i32 32, ptr %30)
+  %fputc7.i.30 = tail call i32 @fputc(i32 32, ptr %30)
+  %31 = load ptr, ptr @stdout, align 8, !tbaa !5
+  %fputc7.i.31 = tail call i32 @fputc(i32 32, ptr %31)
   %32 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %33 = tail call i32 @fputc(i32 32, ptr %32)
+  %fputc7.i.32 = tail call i32 @fputc(i32 32, ptr %32)
+  %33 = load ptr, ptr @stdout, align 8, !tbaa !5
+  %fputc7.i.33 = tail call i32 @fputc(i32 32, ptr %33)
   %34 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %35 = tail call i32 @fputc(i32 32, ptr %34)
+  %35 = tail call i64 @fwrite(ptr nonnull @.str.13, i64 13, i64 1, ptr %34)
   %36 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %37 = tail call i32 @fputc(i32 32, ptr %36)
-  %38 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %39 = tail call i32 @fputc(i32 32, ptr %38)
-  %40 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %41 = tail call i32 @fputc(i32 32, ptr %40)
-  %42 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %43 = tail call i32 @fputc(i32 32, ptr %42)
-  %44 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %45 = tail call i32 @fputc(i32 32, ptr %44)
-  %46 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %47 = tail call i32 @fputc(i32 32, ptr %46)
-  %48 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %49 = tail call i32 @fputc(i32 32, ptr %48)
-  %50 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %51 = tail call i32 @fputc(i32 32, ptr %50)
-  %52 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %53 = tail call i32 @fputc(i32 32, ptr %52)
-  %54 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %55 = tail call i32 @fputc(i32 32, ptr %54)
-  %56 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %57 = tail call i32 @fputc(i32 32, ptr %56)
-  %58 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %59 = tail call i32 @fputc(i32 32, ptr %58)
-  %60 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %61 = tail call i32 @fputc(i32 32, ptr %60)
-  %62 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %63 = tail call i32 @fputc(i32 32, ptr %62)
-  %64 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %65 = tail call i32 @fputc(i32 32, ptr %64)
-  %66 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %67 = tail call i32 @fputc(i32 32, ptr %66)
-  %68 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %69 = tail call i32 @fputc(i32 32, ptr %68)
-  %70 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %71 = tail call i64 @fwrite(ptr nonnull @.str.13, i64 13, i64 1, ptr %70)
-  %72 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %73 = tail call i32 @fputc(i32 10, ptr %72)
-  %74 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str)
-  %75 = load i32, ptr %0, align 8, !tbaa !9
-  %76 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.14, ptr noundef nonnull @.str.15, i32 noundef %75)
-  %77 = getelementptr inbounds %struct.Input, ptr %0, i64 0, i32 1
-  %78 = load i32, ptr %77, align 4, !tbaa !15
-  %79 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.14, ptr noundef nonnull @.str.16, i32 noundef %78)
-  %80 = getelementptr inbounds %struct.Input, ptr %0, i64 0, i32 2
-  %81 = load i32, ptr %80, align 8, !tbaa !16
-  %82 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.14, ptr noundef nonnull @.str.17, i32 noundef %81)
-  %83 = getelementptr inbounds %struct.Input, ptr %0, i64 0, i32 3
-  %84 = load i32, ptr %83, align 4, !tbaa !17
-  %85 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.14, ptr noundef nonnull @.str.18, i32 noundef %84)
-  %86 = getelementptr inbounds %struct.Input, ptr %0, i64 0, i32 4
-  %87 = load i32, ptr %86, align 8, !tbaa !18
-  %88 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.14, ptr noundef nonnull @.str.19, i32 noundef %87)
-  %89 = getelementptr inbounds %struct.Input, ptr %0, i64 0, i32 5
-  %90 = load float, ptr %89, align 4, !tbaa !19
-  %91 = fpext float %90 to double
-  %92 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.20, ptr noundef nonnull @.str.21, double noundef %91)
-  %93 = getelementptr inbounds %struct.Input, ptr %0, i64 0, i32 6
-  %94 = load float, ptr %93, align 8, !tbaa !20
-  %95 = fpext float %94 to double
-  %96 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.20, ptr noundef nonnull @.str.22, double noundef %95)
-  %97 = getelementptr inbounds %struct.Input, ptr %0, i64 0, i32 7
-  %98 = load i32, ptr %97, align 4, !tbaa !21
-  %99 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.14, ptr noundef nonnull @.str.23, i32 noundef %98)
-  %100 = getelementptr inbounds %struct.Input, ptr %0, i64 0, i32 8
-  %101 = load i32, ptr %100, align 8, !tbaa !22
-  %102 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.14, ptr noundef nonnull @.str.24, i32 noundef %101)
-  %103 = getelementptr inbounds %struct.Input, ptr %0, i64 0, i32 9
-  %104 = load i32, ptr %103, align 4, !tbaa !23
-  %105 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.14, ptr noundef nonnull @.str.25, i32 noundef %104)
-  %106 = getelementptr inbounds %struct.Input, ptr %0, i64 0, i32 11
-  %107 = load i32, ptr %106, align 4, !tbaa !24
-  %108 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.14, ptr noundef nonnull @.str.26, i32 noundef %107)
-  %109 = getelementptr inbounds %struct.Input, ptr %0, i64 0, i32 12
-  %110 = load i64, ptr %109, align 8, !tbaa !25
-  %111 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.27, ptr noundef nonnull @.str.28, i64 noundef %110)
-  %112 = getelementptr inbounds %struct.Input, ptr %0, i64 0, i32 13
-  %113 = load float, ptr %112, align 8, !tbaa !26
-  %114 = fpext float %113 to double
-  %115 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.20, ptr noundef nonnull @.str.29, double noundef %114)
-  %116 = getelementptr inbounds %struct.Input, ptr %0, i64 0, i32 14
-  %117 = load float, ptr %116, align 4, !tbaa !27
-  %118 = fpext float %117 to double
-  %119 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.20, ptr noundef nonnull @.str.30, double noundef %118)
-  %120 = getelementptr inbounds %struct.Input, ptr %0, i64 0, i32 23
-  %121 = load i64, ptr %120, align 8, !tbaa !28
-  %122 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.27, ptr noundef nonnull @.str.31, i64 noundef %121)
-  %123 = getelementptr inbounds %struct.Input, ptr %0, i64 0, i32 18
-  %124 = load i64, ptr %123, align 8, !tbaa !29
-  %125 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.27, ptr noundef nonnull @.str.32, i64 noundef %124)
-  %126 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.33, ptr noundef nonnull @.str.34)
-  %127 = getelementptr inbounds %struct.Input, ptr %0, i64 0, i32 20
-  %128 = load i64, ptr %127, align 8, !tbaa !30
-  %129 = trunc i64 %128 to i32
-  %130 = icmp slt i32 %129, 1000
-  br i1 %130, label %131, label %133
+  %fputc.i = tail call i32 @fputc(i32 10, ptr %36)
+  %puts.i = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.52)
+  %37 = load i32, ptr %I, align 8, !tbaa !9
+  %call = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.14, ptr noundef nonnull @.str.15, i32 noundef %37)
+  %y_assemblies = getelementptr inbounds %struct.Input, ptr %I, i64 0, i32 1
+  %38 = load i32, ptr %y_assemblies, align 4, !tbaa !15
+  %call1 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.14, ptr noundef nonnull @.str.16, i32 noundef %38)
+  %cai = getelementptr inbounds %struct.Input, ptr %I, i64 0, i32 2
+  %39 = load i32, ptr %cai, align 8, !tbaa !16
+  %call2 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.14, ptr noundef nonnull @.str.17, i32 noundef %39)
+  %fai = getelementptr inbounds %struct.Input, ptr %I, i64 0, i32 3
+  %40 = load i32, ptr %fai, align 4, !tbaa !17
+  %call3 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.14, ptr noundef nonnull @.str.18, i32 noundef %40)
+  %axial_exp = getelementptr inbounds %struct.Input, ptr %I, i64 0, i32 4
+  %41 = load i32, ptr %axial_exp, align 8, !tbaa !18
+  %call4 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.14, ptr noundef nonnull @.str.19, i32 noundef %41)
+  %radial_ray_sep = getelementptr inbounds %struct.Input, ptr %I, i64 0, i32 5
+  %42 = load float, ptr %radial_ray_sep, align 4, !tbaa !19
+  %conv = fpext float %42 to double
+  %call5 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.20, ptr noundef nonnull @.str.21, double noundef %conv)
+  %axial_z_sep = getelementptr inbounds %struct.Input, ptr %I, i64 0, i32 6
+  %43 = load float, ptr %axial_z_sep, align 8, !tbaa !20
+  %conv6 = fpext float %43 to double
+  %call7 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.20, ptr noundef nonnull @.str.22, double noundef %conv6)
+  %n_azimuthal = getelementptr inbounds %struct.Input, ptr %I, i64 0, i32 7
+  %44 = load i32, ptr %n_azimuthal, align 4, !tbaa !21
+  %call8 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.14, ptr noundef nonnull @.str.23, i32 noundef %44)
+  %n_polar_angles = getelementptr inbounds %struct.Input, ptr %I, i64 0, i32 8
+  %45 = load i32, ptr %n_polar_angles, align 8, !tbaa !22
+  %call9 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.14, ptr noundef nonnull @.str.24, i32 noundef %45)
+  %n_egroups = getelementptr inbounds %struct.Input, ptr %I, i64 0, i32 9
+  %46 = load i32, ptr %n_egroups, align 4, !tbaa !23
+  %call10 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.14, ptr noundef nonnull @.str.25, i32 noundef %46)
+  %decomp_assemblies_ax = getelementptr inbounds %struct.Input, ptr %I, i64 0, i32 11
+  %47 = load i32, ptr %decomp_assemblies_ax, align 4, !tbaa !24
+  %call11 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.14, ptr noundef nonnull @.str.26, i32 noundef %47)
+  %segments_per_track = getelementptr inbounds %struct.Input, ptr %I, i64 0, i32 12
+  %48 = load i64, ptr %segments_per_track, align 8, !tbaa !25
+  %call12 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.27, ptr noundef nonnull @.str.28, i64 noundef %48)
+  %assembly_width = getelementptr inbounds %struct.Input, ptr %I, i64 0, i32 13
+  %49 = load float, ptr %assembly_width, align 8, !tbaa !26
+  %conv13 = fpext float %49 to double
+  %call14 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.20, ptr noundef nonnull @.str.29, double noundef %conv13)
+  %height = getelementptr inbounds %struct.Input, ptr %I, i64 0, i32 14
+  %50 = load float, ptr %height, align 4, !tbaa !27
+  %conv15 = fpext float %50 to double
+  %call16 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.20, ptr noundef nonnull @.str.30, double noundef %conv15)
+  %n_2D_source_regions_per_assembly = getelementptr inbounds %struct.Input, ptr %I, i64 0, i32 23
+  %51 = load i64, ptr %n_2D_source_regions_per_assembly, align 8, !tbaa !28
+  %call17 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.27, ptr noundef nonnull @.str.31, i64 noundef %51)
+  %ntracks_2D = getelementptr inbounds %struct.Input, ptr %I, i64 0, i32 18
+  %52 = load i64, ptr %ntracks_2D, align 8, !tbaa !29
+  %call18 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.27, ptr noundef nonnull @.str.32, i64 noundef %52)
+  %call19 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.33, ptr noundef nonnull @.str.34)
+  %ntracks = getelementptr inbounds %struct.Input, ptr %I, i64 0, i32 20
+  %53 = load i64, ptr %ntracks, align 8, !tbaa !30
+  %conv20 = trunc i64 %53 to i32
+  %cmp.i = icmp slt i32 %conv20, 1000
+  br i1 %cmp.i, label %if.then.i, label %if.else.i
 
-131:                                              ; preds = %1
-  %132 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.9, i32 noundef %129)
-  br label %155
+if.then.i:                                        ; preds = %entry
+  %call.i21 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.9, i32 noundef %conv20)
+  br label %fancy_int.exit
 
-133:                                              ; preds = %1
-  %134 = icmp ult i32 %129, 1000000
-  br i1 %134, label %135, label %139
+if.else.i:                                        ; preds = %entry
+  %cmp2.i = icmp ult i32 %conv20, 1000000
+  br i1 %cmp2.i, label %if.then3.i, label %if.else5.i
 
-135:                                              ; preds = %133
-  %136 = udiv i32 %129, 1000
-  %137 = urem i32 %129, 1000
-  %138 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.10, i32 noundef %136, i32 noundef %137)
-  br label %155
+if.then3.i:                                       ; preds = %if.else.i
+  %div.i22 = udiv i32 %conv20, 1000
+  %rem.i = urem i32 %conv20, 1000
+  %call4.i = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.10, i32 noundef %div.i22, i32 noundef %rem.i)
+  br label %fancy_int.exit
 
-139:                                              ; preds = %133
-  %140 = icmp ult i32 %129, 1000000000
-  %141 = udiv i32 %129, 1000000
-  %142 = urem i32 %129, 1000000
-  br i1 %140, label %143, label %148
+if.else5.i:                                       ; preds = %if.else.i
+  %cmp8.i = icmp ult i32 %conv20, 1000000000
+  %div10.i = udiv i32 %conv20, 1000000
+  %rem21.i = urem i32 %conv20, 1000000
+  br i1 %cmp8.i, label %if.then9.i, label %if.then17.i
 
-143:                                              ; preds = %139
-  %144 = urem i32 %129, 1000000
-  %145 = udiv i32 %144, 1000
-  %146 = urem i32 %129, 1000
-  %147 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.11, i32 noundef %141, i32 noundef %145, i32 noundef %146)
-  br label %155
+if.then9.i:                                       ; preds = %if.else5.i
+  %rem11.i = urem i32 %conv20, 1000000
+  %div12.i = udiv i32 %rem11.i, 1000
+  %rem13.i = urem i32 %conv20, 1000
+  %call14.i = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.11, i32 noundef %div10.i, i32 noundef %div12.i, i32 noundef %rem13.i)
+  br label %fancy_int.exit
 
-148:                                              ; preds = %139
-  %149 = udiv i32 %129, 1000000000
-  %150 = urem i32 %129, 1000000000
-  %151 = udiv i32 %150, 1000000
-  %152 = udiv i32 %142, 1000
-  %153 = urem i32 %129, 1000
-  %154 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.12, i32 noundef %149, i32 noundef %151, i32 noundef %152, i32 noundef %153)
-  br label %155
+if.then17.i:                                      ; preds = %if.else5.i
+  %div18.i = udiv i32 %conv20, 1000000000
+  %rem19.i = urem i32 %conv20, 1000000000
+  %div20.i = udiv i32 %rem19.i, 1000000
+  %div22.i = udiv i32 %rem21.i, 1000
+  %rem23.i = urem i32 %conv20, 1000
+  %call24.i = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.12, i32 noundef %div18.i, i32 noundef %div20.i, i32 noundef %div22.i, i32 noundef %rem23.i)
+  br label %fancy_int.exit
 
-155:                                              ; preds = %131, %135, %143, %148
-  %156 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str)
+fancy_int.exit:                                   ; preds = %if.then.i, %if.then3.i, %if.then9.i, %if.then17.i
+  %puts.i23 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.52)
   ret void
 }
 
 ; Function Attrs: nounwind uwtable
-define dso_local void @read_CLI(i32 noundef %0, ptr nocapture noundef readonly %1, ptr noundef %2) local_unnamed_addr #4 {
-  %4 = getelementptr inbounds %struct.Input, ptr %2, i64 0, i32 21
-  store i32 1, ptr %4, align 8, !tbaa !31
-  %5 = icmp sgt i32 %0, 1
-  br i1 %5, label %6, label %101
+define dso_local void @read_CLI(i32 noundef %argc, ptr nocapture noundef readonly %argv, ptr noundef %input) local_unnamed_addr #4 {
+entry:
+  %nthreads = getelementptr inbounds %struct.Input, ptr %input, i64 0, i32 21
+  store i32 1, ptr %nthreads, align 8, !tbaa !31
+  %cmp103 = icmp sgt i32 %argc, 1
+  br i1 %cmp103, label %for.body.lr.ph, label %if.end43
 
-6:                                                ; preds = %3
-  %7 = getelementptr inbounds %struct.Input, ptr %2, i64 0, i32 26
-  %8 = getelementptr inbounds %struct.Input, ptr %2, i64 0, i32 25
-  br label %12
+for.body.lr.ph:                                   ; preds = %entry
+  %track_file = getelementptr inbounds %struct.Input, ptr %input, i64 0, i32 26
+  %load_tracks = getelementptr inbounds %struct.Input, ptr %input, i64 0, i32 25
+  br label %for.body
 
-9:                                                ; preds = %88
-  %10 = load i32, ptr %4, align 8, !tbaa !31
-  %11 = icmp slt i32 %10, 1
-  br i1 %11, label %92, label %101
+for.cond.cleanup:                                 ; preds = %if.end38
+  %.pre = load i32, ptr %nthreads, align 8, !tbaa !31
+  %0 = icmp slt i32 %.pre, 1
+  br i1 %0, label %if.then42, label %if.end43
 
-12:                                               ; preds = %6, %88
-  %13 = phi i32 [ 1, %6 ], [ %90, %88 ]
-  %14 = sext i32 %13 to i64
-  %15 = getelementptr inbounds ptr, ptr %1, i64 %14
-  %16 = load ptr, ptr %15, align 8, !tbaa !5
-  %17 = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %16, ptr noundef nonnull dereferenceable(3) @.str.35) #11
-  %18 = icmp eq i32 %17, 0
-  br i1 %18, label %19, label %37
+for.body:                                         ; preds = %for.body.lr.ph, %if.end38
+  %i.0104 = phi i32 [ 1, %for.body.lr.ph ], [ %inc39, %if.end38 ]
+  %idxprom = sext i32 %i.0104 to i64
+  %arrayidx = getelementptr inbounds ptr, ptr %argv, i64 %idxprom
+  %1 = load ptr, ptr %arrayidx, align 8, !tbaa !5
+  %call = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %1, ptr noundef nonnull dereferenceable(3) @.str.35) #11
+  %cmp1 = icmp eq i32 %call, 0
+  br i1 %cmp1, label %if.then, label %if.else8
 
-19:                                               ; preds = %12
-  %20 = add nsw i32 %13, 1
-  %21 = icmp slt i32 %20, %0
-  br i1 %21, label %22, label %28
+if.then:                                          ; preds = %for.body
+  %inc = add nsw i32 %i.0104, 1
+  %cmp2 = icmp slt i32 %inc, %argc
+  br i1 %cmp2, label %if.then3, label %if.else
 
-22:                                               ; preds = %19
-  %23 = sext i32 %20 to i64
-  %24 = getelementptr inbounds ptr, ptr %1, i64 %23
-  %25 = load ptr, ptr %24, align 8, !tbaa !5
-  %26 = tail call i64 @strtol(ptr nocapture noundef nonnull %25, ptr noundef null, i32 noundef 10) #10
-  %27 = trunc i64 %26 to i32
-  store i32 %27, ptr %4, align 8, !tbaa !31
-  br label %88
+if.then3:                                         ; preds = %if.then
+  %idxprom4 = sext i32 %inc to i64
+  %arrayidx5 = getelementptr inbounds ptr, ptr %argv, i64 %idxprom4
+  %2 = load ptr, ptr %arrayidx5, align 8, !tbaa !5
+  %call.i = tail call i64 @strtol(ptr nocapture noundef nonnull %2, ptr noundef null, i32 noundef 10) #10
+  %conv.i = trunc i64 %call.i to i32
+  store i32 %conv.i, ptr %nthreads, align 8, !tbaa !31
+  br label %if.end38
 
-28:                                               ; preds = %19
-  %29 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.53)
-  %30 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.54)
-  %31 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.55)
-  %32 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.56)
-  %33 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.57)
-  %34 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.58)
-  %35 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.59)
-  %36 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.60)
+if.else:                                          ; preds = %if.then
+  %puts.i = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.53)
+  %puts8.i = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.54)
+  %puts9.i = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.55)
+  %puts10.i = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.56)
+  %puts11.i = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.57)
+  %puts12.i = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.58)
+  %puts13.i = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.59)
+  %puts14.i = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.60)
   tail call void @exit(i32 noundef 1) #12
   unreachable
 
-37:                                               ; preds = %12
-  %38 = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %16, ptr noundef nonnull dereferenceable(3) @.str.36) #11
-  %39 = icmp eq i32 %38, 0
-  br i1 %39, label %40, label %56
+if.else8:                                         ; preds = %for.body
+  %call9 = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %1, ptr noundef nonnull dereferenceable(3) @.str.36) #11
+  %cmp10 = icmp eq i32 %call9, 0
+  br i1 %cmp10, label %if.then11, label %if.else19
 
-40:                                               ; preds = %37
-  %41 = add nsw i32 %13, 1
-  %42 = icmp slt i32 %41, %0
-  br i1 %42, label %43, label %47
+if.then11:                                        ; preds = %if.else8
+  %inc12 = add nsw i32 %i.0104, 1
+  %cmp13 = icmp slt i32 %inc12, %argc
+  br i1 %cmp13, label %if.then14, label %if.else17
 
-43:                                               ; preds = %40
-  %44 = sext i32 %41 to i64
-  %45 = getelementptr inbounds ptr, ptr %1, i64 %44
-  %46 = load ptr, ptr %45, align 8, !tbaa !5
-  tail call void @read_input_file(ptr noundef %2, ptr noundef %46)
-  br label %88
+if.then14:                                        ; preds = %if.then11
+  %idxprom15 = sext i32 %inc12 to i64
+  %arrayidx16 = getelementptr inbounds ptr, ptr %argv, i64 %idxprom15
+  %3 = load ptr, ptr %arrayidx16, align 8, !tbaa !5
+  tail call void @read_input_file(ptr noundef %input, ptr noundef %3)
+  br label %if.end38
 
-47:                                               ; preds = %40
-  %48 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.53)
-  %49 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.54)
-  %50 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.55)
-  %51 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.56)
-  %52 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.57)
-  %53 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.58)
-  %54 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.59)
-  %55 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.60)
+if.else17:                                        ; preds = %if.then11
+  %puts.i67 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.53)
+  %puts8.i68 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.54)
+  %puts9.i69 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.55)
+  %puts10.i70 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.56)
+  %puts11.i71 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.57)
+  %puts12.i72 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.58)
+  %puts13.i73 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.59)
+  %puts14.i74 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.60)
   tail call void @exit(i32 noundef 1) #12
   unreachable
 
-56:                                               ; preds = %37
-  %57 = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %16, ptr noundef nonnull dereferenceable(3) @.str.37) #11
-  %58 = icmp eq i32 %57, 0
-  br i1 %58, label %59, label %60
+if.else19:                                        ; preds = %if.else8
+  %call20 = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %1, ptr noundef nonnull dereferenceable(3) @.str.37) #11
+  %cmp21 = icmp eq i32 %call20, 0
+  br i1 %cmp21, label %if.then22, label %if.else23
 
-59:                                               ; preds = %56
-  tail call void @set_small_input(ptr noundef %2) #10
-  br label %88
+if.then22:                                        ; preds = %if.else19
+  tail call void @set_small_input(ptr noundef %input) #10
+  br label %if.end38
 
-60:                                               ; preds = %56
-  %61 = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %16, ptr noundef nonnull dereferenceable(3) @.str.38) #11
-  %62 = icmp eq i32 %61, 0
-  br i1 %62, label %63, label %79
+if.else23:                                        ; preds = %if.else19
+  %call24 = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %1, ptr noundef nonnull dereferenceable(3) @.str.38) #11
+  %cmp25 = icmp eq i32 %call24, 0
+  br i1 %cmp25, label %if.then26, label %if.else34
 
-63:                                               ; preds = %60
-  %64 = add nsw i32 %13, 1
-  %65 = icmp slt i32 %64, %0
-  br i1 %65, label %66, label %70
+if.then26:                                        ; preds = %if.else23
+  %inc27 = add nsw i32 %i.0104, 1
+  %cmp28 = icmp slt i32 %inc27, %argc
+  br i1 %cmp28, label %if.then29, label %if.else32
 
-66:                                               ; preds = %63
-  %67 = sext i32 %64 to i64
-  %68 = getelementptr inbounds ptr, ptr %1, i64 %67
-  %69 = load ptr, ptr %68, align 8, !tbaa !5
-  store ptr %69, ptr %7, align 8, !tbaa !32
-  store i8 1, ptr %8, align 8, !tbaa !33
-  br label %88
+if.then29:                                        ; preds = %if.then26
+  %idxprom30 = sext i32 %inc27 to i64
+  %arrayidx31 = getelementptr inbounds ptr, ptr %argv, i64 %idxprom30
+  %4 = load ptr, ptr %arrayidx31, align 8, !tbaa !5
+  store ptr %4, ptr %track_file, align 8, !tbaa !32
+  store i8 1, ptr %load_tracks, align 8, !tbaa !33
+  br label %if.end38
 
-70:                                               ; preds = %63
-  %71 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.53)
-  %72 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.54)
-  %73 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.55)
-  %74 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.56)
-  %75 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.57)
-  %76 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.58)
-  %77 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.59)
-  %78 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.60)
+if.else32:                                        ; preds = %if.then26
+  %puts.i76 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.53)
+  %puts8.i77 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.54)
+  %puts9.i78 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.55)
+  %puts10.i79 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.56)
+  %puts11.i80 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.57)
+  %puts12.i81 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.58)
+  %puts13.i82 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.59)
+  %puts14.i83 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.60)
   tail call void @exit(i32 noundef 1) #12
   unreachable
 
-79:                                               ; preds = %60
-  %80 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.53)
-  %81 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.54)
-  %82 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.55)
-  %83 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.56)
-  %84 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.57)
-  %85 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.58)
-  %86 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.59)
-  %87 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.60)
+if.else34:                                        ; preds = %if.else23
+  %puts.i85 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.53)
+  %puts8.i86 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.54)
+  %puts9.i87 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.55)
+  %puts10.i88 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.56)
+  %puts11.i89 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.57)
+  %puts12.i90 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.58)
+  %puts13.i91 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.59)
+  %puts14.i92 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.60)
   tail call void @exit(i32 noundef 1) #12
   unreachable
 
-88:                                               ; preds = %43, %66, %59, %22
-  %89 = phi i32 [ %20, %22 ], [ %41, %43 ], [ %13, %59 ], [ %64, %66 ]
-  %90 = add nsw i32 %89, 1
-  %91 = icmp slt i32 %90, %0
-  br i1 %91, label %12, label %9
+if.end38:                                         ; preds = %if.then14, %if.then29, %if.then22, %if.then3
+  %i.1 = phi i32 [ %inc, %if.then3 ], [ %inc12, %if.then14 ], [ %i.0104, %if.then22 ], [ %inc27, %if.then29 ]
+  %inc39 = add nsw i32 %i.1, 1
+  %cmp = icmp slt i32 %inc39, %argc
+  br i1 %cmp, label %for.body, label %for.cond.cleanup
 
-92:                                               ; preds = %9
-  %93 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.53)
-  %94 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.54)
-  %95 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.55)
-  %96 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.56)
-  %97 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.57)
-  %98 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.58)
-  %99 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.59)
-  %100 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.60)
+if.then42:                                        ; preds = %for.cond.cleanup
+  %puts.i94 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.53)
+  %puts8.i95 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.54)
+  %puts9.i96 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.55)
+  %puts10.i97 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.56)
+  %puts11.i98 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.57)
+  %puts12.i99 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.58)
+  %puts13.i100 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.59)
+  %puts14.i101 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.60)
   tail call void @exit(i32 noundef 1) #12
   unreachable
 
-101:                                              ; preds = %3, %9
+if.end43:                                         ; preds = %entry, %for.cond.cleanup
   ret void
 }
 
@@ -782,93 +788,95 @@ declare i32 @strcmp(ptr nocapture noundef, ptr nocapture noundef) local_unnamed_
 
 ; Function Attrs: noreturn nounwind uwtable
 define dso_local void @print_CLI_error() local_unnamed_addr #5 {
-  %1 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.53)
-  %2 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.54)
-  %3 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.55)
-  %4 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.56)
-  %5 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.57)
-  %6 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.58)
-  %7 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.59)
-  %8 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.60)
+entry:
+  %puts = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.53)
+  %puts8 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.54)
+  %puts9 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.55)
+  %puts10 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.56)
+  %puts11 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.57)
+  %puts12 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.58)
+  %puts13 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.59)
+  %puts14 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.60)
   tail call void @exit(i32 noundef 1) #12
   unreachable
 }
 
 ; Function Attrs: nounwind uwtable
-define dso_local void @read_input_file(ptr noundef %0, ptr nocapture noundef readonly %1) local_unnamed_addr #4 {
-  %3 = alloca [255 x i8], align 16
-  %4 = alloca i32, align 4
-  %5 = tail call noalias ptr @fopen(ptr noundef %1, ptr noundef nonnull @.str.47)
-  %6 = icmp eq ptr %5, null
-  br i1 %6, label %7, label %9
+define dso_local void @read_input_file(ptr noundef %I, ptr nocapture noundef readonly %fname) local_unnamed_addr #4 {
+entry:
+  %c = alloca [255 x i8], align 16
+  %decompose = alloca i32, align 4
+  %call = tail call noalias ptr @fopen(ptr noundef %fname, ptr noundef nonnull @.str.47)
+  %cmp = icmp eq ptr %call, null
+  br i1 %cmp, label %if.then, label %if.end
 
-7:                                                ; preds = %2
-  %8 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.61)
-  br label %9
+if.then:                                          ; preds = %entry
+  %puts = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.61)
+  br label %if.end
 
-9:                                                ; preds = %7, %2
-  call void @llvm.lifetime.start.p0(i64 255, ptr nonnull %3) #10
-  %10 = tail call i32 (ptr, ptr, ...) @__isoc99_fscanf(ptr noundef %5, ptr noundef nonnull @.str.49, ptr noundef %0) #10
-  %11 = call ptr @fgets(ptr noundef nonnull %3, i32 noundef 255, ptr noundef %5)
-  %12 = getelementptr inbounds %struct.Input, ptr %0, i64 0, i32 1
-  %13 = call i32 (ptr, ptr, ...) @__isoc99_fscanf(ptr noundef %5, ptr noundef nonnull @.str.49, ptr noundef nonnull %12) #10
-  %14 = call ptr @fgets(ptr noundef nonnull %3, i32 noundef 255, ptr noundef %5)
-  %15 = getelementptr inbounds %struct.Input, ptr %0, i64 0, i32 2
-  %16 = call i32 (ptr, ptr, ...) @__isoc99_fscanf(ptr noundef %5, ptr noundef nonnull @.str.49, ptr noundef nonnull %15) #10
-  %17 = call ptr @fgets(ptr noundef nonnull %3, i32 noundef 255, ptr noundef %5)
-  %18 = getelementptr inbounds %struct.Input, ptr %0, i64 0, i32 3
-  %19 = call i32 (ptr, ptr, ...) @__isoc99_fscanf(ptr noundef %5, ptr noundef nonnull @.str.49, ptr noundef nonnull %18) #10
-  %20 = call ptr @fgets(ptr noundef nonnull %3, i32 noundef 255, ptr noundef %5)
-  %21 = getelementptr inbounds %struct.Input, ptr %0, i64 0, i32 4
-  %22 = call i32 (ptr, ptr, ...) @__isoc99_fscanf(ptr noundef %5, ptr noundef nonnull @.str.49, ptr noundef nonnull %21) #10
-  %23 = call ptr @fgets(ptr noundef nonnull %3, i32 noundef 255, ptr noundef %5)
-  %24 = getelementptr inbounds %struct.Input, ptr %0, i64 0, i32 5
-  %25 = call i32 (ptr, ptr, ...) @__isoc99_fscanf(ptr noundef %5, ptr noundef nonnull @.str.50, ptr noundef nonnull %24) #10
-  %26 = call ptr @fgets(ptr noundef nonnull %3, i32 noundef 255, ptr noundef %5)
-  %27 = getelementptr inbounds %struct.Input, ptr %0, i64 0, i32 6
-  %28 = call i32 (ptr, ptr, ...) @__isoc99_fscanf(ptr noundef %5, ptr noundef nonnull @.str.50, ptr noundef nonnull %27) #10
-  %29 = call ptr @fgets(ptr noundef nonnull %3, i32 noundef 255, ptr noundef %5)
-  %30 = getelementptr inbounds %struct.Input, ptr %0, i64 0, i32 7
-  %31 = call i32 (ptr, ptr, ...) @__isoc99_fscanf(ptr noundef %5, ptr noundef nonnull @.str.49, ptr noundef nonnull %30) #10
-  %32 = call ptr @fgets(ptr noundef nonnull %3, i32 noundef 255, ptr noundef %5)
-  %33 = getelementptr inbounds %struct.Input, ptr %0, i64 0, i32 8
-  %34 = call i32 (ptr, ptr, ...) @__isoc99_fscanf(ptr noundef %5, ptr noundef nonnull @.str.49, ptr noundef nonnull %33) #10
-  %35 = call ptr @fgets(ptr noundef nonnull %3, i32 noundef 255, ptr noundef %5)
-  %36 = getelementptr inbounds %struct.Input, ptr %0, i64 0, i32 9
-  %37 = call i32 (ptr, ptr, ...) @__isoc99_fscanf(ptr noundef %5, ptr noundef nonnull @.str.49, ptr noundef nonnull %36) #10
-  %38 = call ptr @fgets(ptr noundef nonnull %3, i32 noundef 255, ptr noundef %5)
-  call void @llvm.lifetime.start.p0(i64 4, ptr nonnull %4) #10
-  %39 = call i32 (ptr, ptr, ...) @__isoc99_fscanf(ptr noundef %5, ptr noundef nonnull @.str.49, ptr noundef nonnull %4) #10
-  %40 = call ptr @fgets(ptr noundef nonnull %3, i32 noundef 255, ptr noundef %5)
-  %41 = load i32, ptr %4, align 4, !tbaa !34
-  %42 = icmp ne i32 %41, 0
-  %43 = zext i1 %42 to i8
-  %44 = getelementptr inbounds %struct.Input, ptr %0, i64 0, i32 10
-  store i8 %43, ptr %44, align 8
-  %45 = getelementptr inbounds %struct.Input, ptr %0, i64 0, i32 11
-  %46 = call i32 (ptr, ptr, ...) @__isoc99_fscanf(ptr noundef %5, ptr noundef nonnull @.str.49, ptr noundef nonnull %45) #10
-  %47 = call ptr @fgets(ptr noundef nonnull %3, i32 noundef 255, ptr noundef %5)
-  %48 = getelementptr inbounds %struct.Input, ptr %0, i64 0, i32 12
-  %49 = call i32 (ptr, ptr, ...) @__isoc99_fscanf(ptr noundef %5, ptr noundef nonnull @.str.51, ptr noundef nonnull %48) #10
-  %50 = call ptr @fgets(ptr noundef nonnull %3, i32 noundef 255, ptr noundef %5)
-  %51 = getelementptr inbounds %struct.Input, ptr %0, i64 0, i32 13
-  %52 = call i32 (ptr, ptr, ...) @__isoc99_fscanf(ptr noundef %5, ptr noundef nonnull @.str.50, ptr noundef nonnull %51) #10
-  %53 = call ptr @fgets(ptr noundef nonnull %3, i32 noundef 255, ptr noundef %5)
-  %54 = getelementptr inbounds %struct.Input, ptr %0, i64 0, i32 14
-  %55 = call i32 (ptr, ptr, ...) @__isoc99_fscanf(ptr noundef %5, ptr noundef nonnull @.str.50, ptr noundef nonnull %54) #10
-  %56 = call ptr @fgets(ptr noundef nonnull %3, i32 noundef 255, ptr noundef %5)
-  %57 = getelementptr inbounds %struct.Input, ptr %0, i64 0, i32 16
-  %58 = call i32 (ptr, ptr, ...) @__isoc99_fscanf(ptr noundef %5, ptr noundef nonnull @.str.50, ptr noundef nonnull %57) #10
-  %59 = call ptr @fgets(ptr noundef nonnull %3, i32 noundef 255, ptr noundef %5)
-  %60 = getelementptr inbounds %struct.Input, ptr %0, i64 0, i32 23
-  %61 = call i32 (ptr, ptr, ...) @__isoc99_fscanf(ptr noundef %5, ptr noundef nonnull @.str.51, ptr noundef nonnull %60) #10
-  %62 = call ptr @fgets(ptr noundef nonnull %3, i32 noundef 255, ptr noundef %5)
-  %63 = getelementptr inbounds %struct.Input, ptr %0, i64 0, i32 22
-  %64 = call i32 (ptr, ptr, ...) @__isoc99_fscanf(ptr noundef %5, ptr noundef nonnull @.str.49, ptr noundef nonnull %63) #10
-  %65 = call ptr @fgets(ptr noundef nonnull %3, i32 noundef 255, ptr noundef %5)
-  %66 = call i32 @fclose(ptr noundef %5)
-  call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %4) #10
-  call void @llvm.lifetime.end.p0(i64 255, ptr nonnull %3) #10
+if.end:                                           ; preds = %if.then, %entry
+  call void @llvm.lifetime.start.p0(i64 255, ptr nonnull %c) #10
+  %call2 = tail call i32 (ptr, ptr, ...) @__isoc99_fscanf(ptr noundef %call, ptr noundef nonnull @.str.49, ptr noundef %I) #10
+  %call3 = call ptr @fgets(ptr noundef nonnull %c, i32 noundef 255, ptr noundef %call)
+  %y_assemblies = getelementptr inbounds %struct.Input, ptr %I, i64 0, i32 1
+  %call4 = call i32 (ptr, ptr, ...) @__isoc99_fscanf(ptr noundef %call, ptr noundef nonnull @.str.49, ptr noundef nonnull %y_assemblies) #10
+  %call6 = call ptr @fgets(ptr noundef nonnull %c, i32 noundef 255, ptr noundef %call)
+  %cai = getelementptr inbounds %struct.Input, ptr %I, i64 0, i32 2
+  %call7 = call i32 (ptr, ptr, ...) @__isoc99_fscanf(ptr noundef %call, ptr noundef nonnull @.str.49, ptr noundef nonnull %cai) #10
+  %call9 = call ptr @fgets(ptr noundef nonnull %c, i32 noundef 255, ptr noundef %call)
+  %fai = getelementptr inbounds %struct.Input, ptr %I, i64 0, i32 3
+  %call10 = call i32 (ptr, ptr, ...) @__isoc99_fscanf(ptr noundef %call, ptr noundef nonnull @.str.49, ptr noundef nonnull %fai) #10
+  %call12 = call ptr @fgets(ptr noundef nonnull %c, i32 noundef 255, ptr noundef %call)
+  %axial_exp = getelementptr inbounds %struct.Input, ptr %I, i64 0, i32 4
+  %call13 = call i32 (ptr, ptr, ...) @__isoc99_fscanf(ptr noundef %call, ptr noundef nonnull @.str.49, ptr noundef nonnull %axial_exp) #10
+  %call15 = call ptr @fgets(ptr noundef nonnull %c, i32 noundef 255, ptr noundef %call)
+  %radial_ray_sep = getelementptr inbounds %struct.Input, ptr %I, i64 0, i32 5
+  %call16 = call i32 (ptr, ptr, ...) @__isoc99_fscanf(ptr noundef %call, ptr noundef nonnull @.str.50, ptr noundef nonnull %radial_ray_sep) #10
+  %call18 = call ptr @fgets(ptr noundef nonnull %c, i32 noundef 255, ptr noundef %call)
+  %axial_z_sep = getelementptr inbounds %struct.Input, ptr %I, i64 0, i32 6
+  %call19 = call i32 (ptr, ptr, ...) @__isoc99_fscanf(ptr noundef %call, ptr noundef nonnull @.str.50, ptr noundef nonnull %axial_z_sep) #10
+  %call21 = call ptr @fgets(ptr noundef nonnull %c, i32 noundef 255, ptr noundef %call)
+  %n_azimuthal = getelementptr inbounds %struct.Input, ptr %I, i64 0, i32 7
+  %call22 = call i32 (ptr, ptr, ...) @__isoc99_fscanf(ptr noundef %call, ptr noundef nonnull @.str.49, ptr noundef nonnull %n_azimuthal) #10
+  %call24 = call ptr @fgets(ptr noundef nonnull %c, i32 noundef 255, ptr noundef %call)
+  %n_polar_angles = getelementptr inbounds %struct.Input, ptr %I, i64 0, i32 8
+  %call25 = call i32 (ptr, ptr, ...) @__isoc99_fscanf(ptr noundef %call, ptr noundef nonnull @.str.49, ptr noundef nonnull %n_polar_angles) #10
+  %call27 = call ptr @fgets(ptr noundef nonnull %c, i32 noundef 255, ptr noundef %call)
+  %n_egroups = getelementptr inbounds %struct.Input, ptr %I, i64 0, i32 9
+  %call28 = call i32 (ptr, ptr, ...) @__isoc99_fscanf(ptr noundef %call, ptr noundef nonnull @.str.49, ptr noundef nonnull %n_egroups) #10
+  %call30 = call ptr @fgets(ptr noundef nonnull %c, i32 noundef 255, ptr noundef %call)
+  call void @llvm.lifetime.start.p0(i64 4, ptr nonnull %decompose) #10
+  %call31 = call i32 (ptr, ptr, ...) @__isoc99_fscanf(ptr noundef %call, ptr noundef nonnull @.str.49, ptr noundef nonnull %decompose) #10
+  %call33 = call ptr @fgets(ptr noundef nonnull %c, i32 noundef 255, ptr noundef %call)
+  %0 = load i32, ptr %decompose, align 4, !tbaa !34
+  %cmp34 = icmp ne i32 %0, 0
+  %spec.select = zext i1 %cmp34 to i8
+  %1 = getelementptr inbounds %struct.Input, ptr %I, i64 0, i32 10
+  store i8 %spec.select, ptr %1, align 8
+  %decomp_assemblies_ax = getelementptr inbounds %struct.Input, ptr %I, i64 0, i32 11
+  %call39 = call i32 (ptr, ptr, ...) @__isoc99_fscanf(ptr noundef %call, ptr noundef nonnull @.str.49, ptr noundef nonnull %decomp_assemblies_ax) #10
+  %call41 = call ptr @fgets(ptr noundef nonnull %c, i32 noundef 255, ptr noundef %call)
+  %segments_per_track = getelementptr inbounds %struct.Input, ptr %I, i64 0, i32 12
+  %call42 = call i32 (ptr, ptr, ...) @__isoc99_fscanf(ptr noundef %call, ptr noundef nonnull @.str.51, ptr noundef nonnull %segments_per_track) #10
+  %call44 = call ptr @fgets(ptr noundef nonnull %c, i32 noundef 255, ptr noundef %call)
+  %assembly_width = getelementptr inbounds %struct.Input, ptr %I, i64 0, i32 13
+  %call45 = call i32 (ptr, ptr, ...) @__isoc99_fscanf(ptr noundef %call, ptr noundef nonnull @.str.50, ptr noundef nonnull %assembly_width) #10
+  %call47 = call ptr @fgets(ptr noundef nonnull %c, i32 noundef 255, ptr noundef %call)
+  %height = getelementptr inbounds %struct.Input, ptr %I, i64 0, i32 14
+  %call48 = call i32 (ptr, ptr, ...) @__isoc99_fscanf(ptr noundef %call, ptr noundef nonnull @.str.50, ptr noundef nonnull %height) #10
+  %call50 = call ptr @fgets(ptr noundef nonnull %c, i32 noundef 255, ptr noundef %call)
+  %precision = getelementptr inbounds %struct.Input, ptr %I, i64 0, i32 16
+  %call51 = call i32 (ptr, ptr, ...) @__isoc99_fscanf(ptr noundef %call, ptr noundef nonnull @.str.50, ptr noundef nonnull %precision) #10
+  %call53 = call ptr @fgets(ptr noundef nonnull %c, i32 noundef 255, ptr noundef %call)
+  %n_2D_source_regions_per_assembly = getelementptr inbounds %struct.Input, ptr %I, i64 0, i32 23
+  %call54 = call i32 (ptr, ptr, ...) @__isoc99_fscanf(ptr noundef %call, ptr noundef nonnull @.str.51, ptr noundef nonnull %n_2D_source_regions_per_assembly) #10
+  %call56 = call ptr @fgets(ptr noundef nonnull %c, i32 noundef 255, ptr noundef %call)
+  %papi_event_set = getelementptr inbounds %struct.Input, ptr %I, i64 0, i32 22
+  %call57 = call i32 (ptr, ptr, ...) @__isoc99_fscanf(ptr noundef %call, ptr noundef nonnull @.str.49, ptr noundef nonnull %papi_event_set) #10
+  %call59 = call ptr @fgets(ptr noundef nonnull %c, i32 noundef 255, ptr noundef %call)
+  %call60 = call i32 @fclose(ptr noundef %call)
+  call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %decompose) #10
+  call void @llvm.lifetime.end.p0(i64 255, ptr nonnull %c) #10
   ret void
 }
 
@@ -895,13 +903,13 @@ declare i64 @strtol(ptr noundef readonly, ptr nocapture noundef, i32 noundef) lo
 declare noundef i32 @puts(ptr nocapture noundef readonly) local_unnamed_addr #9
 
 ; Function Attrs: nofree nounwind
+declare noundef i32 @putchar(i32 noundef) local_unnamed_addr #9
+
+; Function Attrs: nofree nounwind
 declare noundef i64 @fwrite(ptr nocapture noundef, i64 noundef, i64 noundef, ptr nocapture noundef) local_unnamed_addr #9
 
 ; Function Attrs: nofree nounwind
 declare noundef i32 @fputc(i32 noundef, ptr nocapture noundef) local_unnamed_addr #9
-
-; Function Attrs: nofree nounwind
-declare noundef i32 @putchar(i32 noundef) local_unnamed_addr #9
 
 attributes #0 = { nofree nounwind uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #1 = { nofree nounwind "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }

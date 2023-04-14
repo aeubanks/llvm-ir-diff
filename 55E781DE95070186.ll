@@ -18,9 +18,10 @@ target triple = "x86_64-unknown-linux-gnu"
 @IntGlob = dso_local local_unnamed_addr global double 0.000000e+00, align 8
 
 ; Function Attrs: nounwind uwtable
-define dso_local i32 @main(i32 noundef %0, ptr nocapture noundef readnone %1) local_unnamed_addr #0 {
-  %3 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str, i64 noundef 8)
-  %4 = tail call i32 @Proc0()
+define dso_local i32 @main(i32 noundef %argc, ptr nocapture noundef readnone %argv) local_unnamed_addr #0 {
+entry:
+  %call = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str, i64 noundef 8)
+  %call1 = tail call i32 @Proc0()
   ret i32 0
 }
 
@@ -29,47 +30,48 @@ declare noundef i32 @printf(ptr nocapture noundef readonly, ...) local_unnamed_a
 
 ; Function Attrs: nounwind uwtable
 define dso_local i32 @Proc0() local_unnamed_addr #0 {
-  %1 = tail call i64 @clock() #15
-  %2 = tail call i64 @clock() #15
-  %3 = tail call noalias dereferenceable_or_null(56) ptr @malloc(i64 noundef 56) #16
-  store ptr %3, ptr @PtrGlbNext, align 8, !tbaa !5
-  %4 = tail call noalias dereferenceable_or_null(56) ptr @malloc(i64 noundef 56) #16
-  store ptr %4, ptr @PtrGlb, align 8, !tbaa !5
-  store ptr %3, ptr %4, align 8, !tbaa !9
-  %5 = getelementptr inbounds %struct.Record, ptr %4, i64 0, i32 1
-  store i32 0, ptr %5, align 8, !tbaa !12
-  %6 = getelementptr inbounds %struct.Record, ptr %4, i64 0, i32 2
-  store i32 10001, ptr %6, align 4, !tbaa !13
-  %7 = getelementptr inbounds %struct.Record, ptr %4, i64 0, i32 3
-  store double 4.000000e+01, ptr %7, align 8, !tbaa !14
-  %8 = getelementptr inbounds %struct.Record, ptr %4, i64 0, i32 4
-  tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 1 dereferenceable(31) %8, ptr noundef nonnull align 1 dereferenceable(31) @.str.1, i64 31, i1 false) #15
+entry:
+  %call = tail call i64 @clock() #15
+  %call1 = tail call i64 @clock() #15
+  %call2 = tail call noalias dereferenceable_or_null(56) ptr @malloc(i64 noundef 56) #16
+  store ptr %call2, ptr @PtrGlbNext, align 8, !tbaa !5
+  %call3 = tail call noalias dereferenceable_or_null(56) ptr @malloc(i64 noundef 56) #16
+  store ptr %call3, ptr @PtrGlb, align 8, !tbaa !5
+  store ptr %call2, ptr %call3, align 8, !tbaa !9
+  %Discr = getelementptr inbounds %struct.Record, ptr %call3, i64 0, i32 1
+  store i32 0, ptr %Discr, align 8, !tbaa !12
+  %EnumComp = getelementptr inbounds %struct.Record, ptr %call3, i64 0, i32 2
+  store i32 10001, ptr %EnumComp, align 4, !tbaa !13
+  %IntComp = getelementptr inbounds %struct.Record, ptr %call3, i64 0, i32 3
+  store double 4.000000e+01, ptr %IntComp, align 8, !tbaa !14
+  %StringComp = getelementptr inbounds %struct.Record, ptr %call3, i64 0, i32 4
+  tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 1 dereferenceable(31) %StringComp, ptr noundef nonnull align 1 dereferenceable(31) @.str.1, i64 31, i1 false) #15
   store double 1.000000e+01, ptr getelementptr inbounds ([51 x [51 x double]], ptr @Array2Glob, i64 0, i64 8, i64 7), align 8, !tbaa !15
-  %9 = tail call i64 @clock() #15
-  br label %10
+  %call7 = tail call i64 @clock() #15
+  br label %for.body.i.preheader
 
-10:                                               ; preds = %10, %0
-  %11 = phi i32 [ 0, %0 ], [ %18, %10 ]
+for.body.i.preheader:                             ; preds = %for.body.i.preheader, %entry
+  %i.165 = phi i32 [ 0, %entry ], [ %inc41, %for.body.i.preheader ]
   store <2 x double> <double 7.000000e+00, double 7.000000e+00>, ptr getelementptr inbounds ([51 x double], ptr @Array1Glob, i64 0, i64 8), align 16, !tbaa !15
   store double 8.000000e+00, ptr getelementptr inbounds ([51 x double], ptr @Array1Glob, i64 0, i64 38), align 16, !tbaa !15
   store double 8.000000e+00, ptr getelementptr inbounds ([51 x [51 x double]], ptr @Array2Glob, i64 0, i64 8, i64 8), align 16, !tbaa !15
   store double 8.000000e+00, ptr getelementptr inbounds ([51 x [51 x double]], ptr @Array2Glob, i64 0, i64 8, i64 9), align 8, !tbaa !15
-  %12 = load double, ptr getelementptr inbounds ([51 x [51 x double]], ptr @Array2Glob, i64 0, i64 8, i64 7), align 8, !tbaa !15
-  %13 = fadd double %12, 1.000000e+00
-  store double %13, ptr getelementptr inbounds ([51 x [51 x double]], ptr @Array2Glob, i64 0, i64 8, i64 7), align 8, !tbaa !15
+  %0 = load double, ptr getelementptr inbounds ([51 x [51 x double]], ptr @Array2Glob, i64 0, i64 8, i64 7), align 8, !tbaa !15
+  %inc26.i = fadd double %0, 1.000000e+00
+  store double %inc26.i, ptr getelementptr inbounds ([51 x [51 x double]], ptr @Array2Glob, i64 0, i64 8, i64 7), align 8, !tbaa !15
   store double 7.000000e+00, ptr getelementptr inbounds ([51 x [51 x double]], ptr @Array2Glob, i64 0, i64 28, i64 8), align 16, !tbaa !15
-  %14 = load ptr, ptr @PtrGlb, align 8, !tbaa !5
-  %15 = getelementptr inbounds %struct.Record, ptr %14, i64 0, i32 3
-  store double 5.000000e+00, ptr %15, align 8, !tbaa !14
-  %16 = load ptr, ptr %14, align 8, !tbaa !9
-  %17 = getelementptr inbounds %struct.Record, ptr %16, i64 0, i32 3
-  store double 5.000000e+00, ptr %17, align 8, !tbaa !14
-  store ptr %16, ptr %16, align 8, !tbaa !9
-  %18 = add nuw nsw i32 %11, 1
-  %19 = icmp eq i32 %18, 100000000
-  br i1 %19, label %20, label %10, !llvm.loop !16
+  %1 = load ptr, ptr @PtrGlb, align 8, !tbaa !5
+  %IntComp.i = getelementptr inbounds %struct.Record, ptr %1, i64 0, i32 3
+  store double 5.000000e+00, ptr %IntComp.i, align 8, !tbaa !14
+  %2 = load ptr, ptr %1, align 8, !tbaa !9
+  %IntComp2.i = getelementptr inbounds %struct.Record, ptr %2, i64 0, i32 3
+  store double 5.000000e+00, ptr %IntComp2.i, align 8, !tbaa !14
+  store ptr %2, ptr %2, align 8, !tbaa !9
+  %inc41 = add nuw nsw i32 %i.165, 1
+  %exitcond.not = icmp eq i32 %inc41, 100000000
+  br i1 %exitcond.not, label %for.end42, label %for.body.i.preheader, !llvm.loop !16
 
-20:                                               ; preds = %10
+for.end42:                                        ; preds = %for.body.i.preheader
   store i8 65, ptr @Char1Glob, align 1, !tbaa !18
   store i32 1, ptr @BoolGlob, align 4, !tbaa !19
   store i8 66, ptr @Char2Glob, align 1, !tbaa !18
@@ -84,181 +86,195 @@ declare i64 @clock() local_unnamed_addr #2
 declare noalias noundef ptr @malloc(i64 noundef) local_unnamed_addr #3
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(write, argmem: readwrite, inaccessiblemem: none) uwtable
-define dso_local i32 @Proc1(ptr nocapture noundef %0) local_unnamed_addr #4 {
-  %2 = getelementptr inbounds %struct.Record, ptr %0, i64 0, i32 3
-  store double 5.000000e+00, ptr %2, align 8, !tbaa !14
-  %3 = load ptr, ptr %0, align 8, !tbaa !9
-  %4 = getelementptr inbounds %struct.Record, ptr %3, i64 0, i32 3
-  store double 5.000000e+00, ptr %4, align 8, !tbaa !14
-  store ptr %3, ptr %3, align 8, !tbaa !9
+define dso_local i32 @Proc1(ptr nocapture noundef %PtrParIn) local_unnamed_addr #4 {
+entry:
+  %IntComp = getelementptr inbounds %struct.Record, ptr %PtrParIn, i64 0, i32 3
+  store double 5.000000e+00, ptr %IntComp, align 8, !tbaa !14
+  %0 = load ptr, ptr %PtrParIn, align 8, !tbaa !9
+  %IntComp2 = getelementptr inbounds %struct.Record, ptr %0, i64 0, i32 3
+  store double 5.000000e+00, ptr %IntComp2, align 8, !tbaa !14
+  store ptr %0, ptr %0, align 8, !tbaa !9
   ret i32 undef
 }
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(read, argmem: readwrite, inaccessiblemem: none) uwtable
-define dso_local i32 @Proc2(ptr nocapture noundef %0) local_unnamed_addr #5 {
-  %2 = load i8, ptr @Char1Glob, align 1, !tbaa !18
-  %3 = icmp eq i8 %2, 65
-  br i1 %3, label %4, label %10
+define dso_local i32 @Proc2(ptr nocapture noundef %IntParIO) local_unnamed_addr #5 {
+entry:
+  %0 = load i8, ptr @Char1Glob, align 1, !tbaa !18
+  %cmp = icmp eq i8 %0, 65
+  br i1 %cmp, label %if.then, label %for.end
 
-4:                                                ; preds = %1
-  %5 = load double, ptr %0, align 8, !tbaa !15
-  %6 = fadd double %5, 1.000000e+01
-  %7 = fadd double %6, -1.000000e+00
-  %8 = load double, ptr @IntGlob, align 8, !tbaa !15
-  %9 = fsub double %7, %8
-  store double %9, ptr %0, align 8, !tbaa !15
-  br label %10
+if.then:                                          ; preds = %entry
+  %1 = load double, ptr %IntParIO, align 8, !tbaa !15
+  %add = fadd double %1, 1.000000e+01
+  %dec = fadd double %add, -1.000000e+00
+  %2 = load double, ptr @IntGlob, align 8, !tbaa !15
+  %sub = fsub double %dec, %2
+  store double %sub, ptr %IntParIO, align 8, !tbaa !15
+  br label %for.end
 
-10:                                               ; preds = %1, %4
+for.end:                                          ; preds = %entry, %if.then
   ret i32 undef
 }
 
 ; Function Attrs: mustprogress nounwind willreturn memory(readwrite, inaccessiblemem: none) uwtable
-define dso_local i32 @Proc3(ptr nocapture noundef writeonly %0) local_unnamed_addr #6 {
-  %2 = load ptr, ptr @PtrGlb, align 8, !tbaa !5
-  %3 = icmp eq ptr %2, null
-  br i1 %3, label %8, label %4
+define dso_local i32 @Proc3(ptr nocapture noundef writeonly %PtrParOut) local_unnamed_addr #6 {
+entry:
+  %0 = load ptr, ptr @PtrGlb, align 8, !tbaa !5
+  %cmp.not = icmp eq ptr %0, null
+  br i1 %cmp.not, label %if.else, label %if.then
 
-4:                                                ; preds = %1
-  %5 = load ptr, ptr %2, align 8, !tbaa !9
-  store ptr %5, ptr %0, align 8, !tbaa !5
-  %6 = load double, ptr @IntGlob, align 8, !tbaa !15
-  %7 = load ptr, ptr @PtrGlb, align 8, !tbaa !5
-  br label %9
+if.then:                                          ; preds = %entry
+  %1 = load ptr, ptr %0, align 8, !tbaa !9
+  store ptr %1, ptr %PtrParOut, align 8, !tbaa !5
+  %.pre = load double, ptr @IntGlob, align 8, !tbaa !15
+  %.pre1 = load ptr, ptr @PtrGlb, align 8, !tbaa !5
+  br label %if.end
 
-8:                                                ; preds = %1
+if.else:                                          ; preds = %entry
   store double 1.000000e+02, ptr @IntGlob, align 8, !tbaa !15
-  br label %9
+  br label %if.end
 
-9:                                                ; preds = %8, %4
-  %10 = phi ptr [ null, %8 ], [ %7, %4 ]
-  %11 = phi double [ 1.000000e+02, %8 ], [ %6, %4 ]
-  %12 = getelementptr inbounds %struct.Record, ptr %10, i64 0, i32 3
-  %13 = tail call i32 (i32, double, ptr, ...) @Proc7(i32 noundef 10, double noundef %11, ptr noundef nonnull %12)
+if.end:                                           ; preds = %if.else, %if.then
+  %2 = phi ptr [ null, %if.else ], [ %.pre1, %if.then ]
+  %3 = phi double [ 1.000000e+02, %if.else ], [ %.pre, %if.then ]
+  %IntComp = getelementptr inbounds %struct.Record, ptr %2, i64 0, i32 3
+  %call = tail call i32 (i32, double, ptr, ...) @Proc7(i32 noundef 10, double noundef %3, ptr noundef nonnull %IntComp)
   ret i32 undef
 }
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(write, argmem: none, inaccessiblemem: none) uwtable
 define dso_local i32 @Proc4() local_unnamed_addr #7 {
+entry:
   store i8 66, ptr @Char2Glob, align 1, !tbaa !18
   ret i32 undef
 }
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(write, argmem: none, inaccessiblemem: none) uwtable
 define dso_local i32 @Proc5() local_unnamed_addr #7 {
+entry:
   store i8 65, ptr @Char1Glob, align 1, !tbaa !18
   store i32 0, ptr @BoolGlob, align 4, !tbaa !19
   ret i32 undef
 }
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(read, argmem: write, inaccessiblemem: none) uwtable
-define dso_local i32 @Proc6(i32 noundef %0, ptr nocapture noundef writeonly %1) local_unnamed_addr #8 {
-  %3 = icmp eq i32 %0, 10001
-  br i1 %3, label %9, label %4
-
-4:                                                ; preds = %2
-  store i32 10002, ptr %1, align 4, !tbaa !18
-  switch i32 %0, label %11 [
-    i32 0, label %9
-    i32 10000, label %5
-    i32 10003, label %8
+define dso_local i32 @Proc6(i32 noundef %EnumParIn, ptr nocapture noundef writeonly %EnumParOut) local_unnamed_addr #8 {
+entry:
+  %cmp.i.not = icmp eq i32 %EnumParIn, 10001
+  %spec.store.select = select i1 %cmp.i.not, i32 10001, i32 10002
+  store i32 %spec.store.select, ptr %EnumParOut, align 4
+  switch i32 %EnumParIn, label %sw.epilog [
+    i32 0, label %sw.epilog.sink.split
+    i32 10000, label %sw.bb1
+    i32 10001, label %sw.bb4
+    i32 10003, label %sw.bb5
   ]
 
-5:                                                ; preds = %4
-  %6 = load double, ptr @IntGlob, align 8, !tbaa !15
-  %7 = fcmp ogt double %6, 1.000000e+02
-  br i1 %7, label %9, label %11
+sw.bb1:                                           ; preds = %entry
+  %0 = load double, ptr @IntGlob, align 8, !tbaa !15
+  %cmp = fcmp ogt double %0, 1.000000e+02
+  %. = select i1 %cmp, i32 0, i32 10002
+  br label %sw.epilog.sink.split
 
-8:                                                ; preds = %4
-  br label %9
+sw.bb4:                                           ; preds = %entry
+  br label %sw.epilog.sink.split
 
-9:                                                ; preds = %2, %5, %4, %8
-  %10 = phi i32 [ 10001, %8 ], [ %0, %4 ], [ 0, %5 ], [ 10000, %2 ]
-  store i32 %10, ptr %1, align 4, !tbaa !18
-  br label %11
+sw.bb5:                                           ; preds = %entry
+  br label %sw.epilog.sink.split
 
-11:                                               ; preds = %9, %5, %4
+sw.epilog.sink.split:                             ; preds = %sw.bb1, %entry, %sw.bb4, %sw.bb5
+  %.sink = phi i32 [ 10001, %sw.bb5 ], [ 10000, %sw.bb4 ], [ %EnumParIn, %entry ], [ %., %sw.bb1 ]
+  store i32 %.sink, ptr %EnumParOut, align 4, !tbaa !18
+  br label %sw.epilog
+
+sw.epilog:                                        ; preds = %sw.epilog.sink.split, %entry
   ret i32 undef
 }
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(argmem: write) uwtable
-define dso_local i32 @Proc7(double noundef %0, double noundef %1, ptr nocapture noundef writeonly %2) local_unnamed_addr #9 {
-  %4 = fadd double %0, 2.000000e+00
-  %5 = fadd double %4, %1
-  store double %5, ptr %2, align 8, !tbaa !15
+define dso_local i32 @Proc7(double noundef %IntParI1, double noundef %IntParI2, ptr nocapture noundef writeonly %IntParOut) local_unnamed_addr #9 {
+entry:
+  %add = fadd double %IntParI1, 2.000000e+00
+  %add1 = fadd double %add, %IntParI2
+  store double %add1, ptr %IntParOut, align 8, !tbaa !15
   ret i32 undef
 }
 
 ; Function Attrs: nofree norecurse nosync nounwind memory(write, argmem: readwrite, inaccessiblemem: none) uwtable
-define dso_local i32 @Proc8(ptr nocapture noundef %0, ptr nocapture noundef %1, double noundef %2, double noundef %3) local_unnamed_addr #10 {
-  %5 = fadd double %2, 5.000000e+00
-  %6 = fptosi double %5 to i32
-  %7 = sext i32 %6 to i64
-  %8 = getelementptr inbounds double, ptr %0, i64 %7
-  store double %3, ptr %8, align 8, !tbaa !15
-  %9 = add nsw i32 %6, 1
-  %10 = sext i32 %9 to i64
-  %11 = getelementptr inbounds double, ptr %0, i64 %10
-  store double %3, ptr %11, align 8, !tbaa !15
-  %12 = add nsw i32 %6, 30
-  %13 = sext i32 %12 to i64
-  %14 = getelementptr inbounds double, ptr %0, i64 %13
-  store double %5, ptr %14, align 8, !tbaa !15
-  %15 = fadd double %5, 1.000000e+00
-  %16 = fcmp ugt double %5, %15
-  br i1 %16, label %24, label %17
+define dso_local i32 @Proc8(ptr nocapture noundef %Array1Par, ptr nocapture noundef %Array2Par, double noundef %IntParI1, double noundef %IntParI2) local_unnamed_addr #10 {
+entry:
+  %add = fadd double %IntParI1, 5.000000e+00
+  %conv = fptosi double %add to i32
+  %idxprom = sext i32 %conv to i64
+  %arrayidx = getelementptr inbounds double, ptr %Array1Par, i64 %idxprom
+  store double %IntParI2, ptr %arrayidx, align 8, !tbaa !15
+  %add5 = add nsw i32 %conv, 1
+  %idxprom6 = sext i32 %add5 to i64
+  %arrayidx7 = getelementptr inbounds double, ptr %Array1Par, i64 %idxprom6
+  store double %IntParI2, ptr %arrayidx7, align 8, !tbaa !15
+  %add9 = add nsw i32 %conv, 30
+  %idxprom10 = sext i32 %add9 to i64
+  %arrayidx11 = getelementptr inbounds double, ptr %Array1Par, i64 %idxprom10
+  store double %add, ptr %arrayidx11, align 8, !tbaa !15
+  %add12 = fadd double %add, 1.000000e+00
+  %cmp58 = fcmp ugt double %add, %add12
+  br i1 %cmp58, label %for.end, label %for.body
 
-17:                                               ; preds = %4, %17
-  %18 = phi double [ %22, %17 ], [ %5, %4 ]
-  %19 = fptosi double %18 to i32
-  %20 = sext i32 %19 to i64
-  %21 = getelementptr inbounds [51 x double], ptr %1, i64 %7, i64 %20
-  store double %5, ptr %21, align 8, !tbaa !15
-  %22 = fadd double %18, 1.000000e+00
-  %23 = fcmp ugt double %22, %15
-  br i1 %23, label %24, label %17, !llvm.loop !21
+for.body:                                         ; preds = %entry, %for.body
+  %IntIndex.059 = phi double [ %inc, %for.body ], [ %add, %entry ]
+  %conv17 = fptosi double %IntIndex.059 to i32
+  %idxprom18 = sext i32 %conv17 to i64
+  %arrayidx19 = getelementptr inbounds [51 x double], ptr %Array2Par, i64 %idxprom, i64 %idxprom18
+  store double %add, ptr %arrayidx19, align 8, !tbaa !15
+  %inc = fadd double %IntIndex.059, 1.000000e+00
+  %cmp = fcmp ugt double %inc, %add12
+  br i1 %cmp, label %for.end, label %for.body, !llvm.loop !21
 
-24:                                               ; preds = %17, %4
-  %25 = add nsw i32 %6, -1
-  %26 = sext i32 %25 to i64
-  %27 = getelementptr inbounds [51 x double], ptr %1, i64 %7, i64 %26
-  %28 = load double, ptr %27, align 8, !tbaa !15
-  %29 = fadd double %28, 1.000000e+00
-  store double %29, ptr %27, align 8, !tbaa !15
-  %30 = load double, ptr %8, align 8, !tbaa !15
-  %31 = add nsw i32 %6, 20
-  %32 = sext i32 %31 to i64
-  %33 = getelementptr inbounds [51 x double], ptr %1, i64 %32, i64 %7
-  store double %30, ptr %33, align 8, !tbaa !15
+for.end:                                          ; preds = %for.body, %entry
+  %sub = add nsw i32 %conv, -1
+  %idxprom24 = sext i32 %sub to i64
+  %arrayidx25 = getelementptr inbounds [51 x double], ptr %Array2Par, i64 %idxprom, i64 %idxprom24
+  %0 = load double, ptr %arrayidx25, align 8, !tbaa !15
+  %inc26 = fadd double %0, 1.000000e+00
+  store double %inc26, ptr %arrayidx25, align 8, !tbaa !15
+  %1 = load double, ptr %arrayidx, align 8, !tbaa !15
+  %add31 = add nsw i32 %conv, 20
+  %idxprom32 = sext i32 %add31 to i64
+  %arrayidx36 = getelementptr inbounds [51 x double], ptr %Array2Par, i64 %idxprom32, i64 %idxprom
+  store double %1, ptr %arrayidx36, align 8, !tbaa !15
   store double 5.000000e+00, ptr @IntGlob, align 8, !tbaa !15
   ret i32 undef
 }
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(none) uwtable
 define dso_local i32 @Func1(i32 noundef %0, i32 noundef %1) local_unnamed_addr #11 {
-  %3 = xor i32 %1, %0
-  %4 = and i32 %3, 255
-  %5 = icmp eq i32 %4, 0
-  %6 = select i1 %5, i32 10000, i32 0
-  ret i32 %6
+entry:
+  %cmp.not.unshifted = xor i32 %1, %0
+  %cmp.not.mask = and i32 %cmp.not.unshifted, 255
+  %cmp.not = icmp eq i32 %cmp.not.mask, 0
+  %. = select i1 %cmp.not, i32 10000, i32 0
+  ret i32 %.
 }
 
 ; Function Attrs: mustprogress nofree nounwind willreturn memory(argmem: read) uwtable
-define dso_local i32 @Func2(ptr nocapture noundef readonly %0, ptr nocapture noundef readonly %1) local_unnamed_addr #12 {
-  %3 = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %0, ptr noundef nonnull dereferenceable(1) %1) #17
-  %4 = icmp sgt i32 %3, 0
-  %5 = zext i1 %4 to i32
-  ret i32 %5
+define dso_local i32 @Func2(ptr nocapture noundef readonly %StrParI1, ptr nocapture noundef readonly %StrParI2) local_unnamed_addr #12 {
+entry:
+  %call20 = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %StrParI1, ptr noundef nonnull dereferenceable(1) %StrParI2) #17
+  %cmp21 = icmp sgt i32 %call20, 0
+  %. = zext i1 %cmp21 to i32
+  ret i32 %.
 }
 
 ; Function Attrs: mustprogress nofree nounwind willreturn memory(argmem: read)
 declare i32 @strcmp(ptr nocapture noundef, ptr nocapture noundef) local_unnamed_addr #13
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(none) uwtable
-define dso_local i32 @Func3(i32 noundef %0) local_unnamed_addr #11 {
-  %2 = icmp eq i32 %0, 10001
-  %3 = zext i1 %2 to i32
-  ret i32 %3
+define dso_local i32 @Func3(i32 noundef %EnumParIn) local_unnamed_addr #11 {
+entry:
+  %cmp = icmp eq i32 %EnumParIn, 10001
+  %. = zext i1 %cmp to i32
+  ret i32 %.
 }
 
 ; Function Attrs: nocallback nofree nounwind willreturn memory(argmem: readwrite)

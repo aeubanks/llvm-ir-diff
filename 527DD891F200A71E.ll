@@ -6,12 +6,13 @@ target triple = "x86_64-unknown-linux-gnu"
 %struct.lzma_stream = type { i32, i32, i32, i32, i32, i32, ptr, i32, ptr, i32, i32, i8, i8, ptr, ptr, i32, i32, i32, i32, i32, i32, i32, i32, i32, i32, i32, i32, i32, i32, i32, i32, i32, i32, ptr, ptr }
 
 ; Function Attrs: mustprogress nofree nosync nounwind willreturn memory(argmem: write) uwtable
-define dso_local void @lzmaInit(ptr nocapture noundef writeonly %0) local_unnamed_addr #0 {
-  tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 1 dereferenceable(152) %0, i8 0, i64 152, i1 false), !tbaa !5
-  %2 = getelementptr inbounds %struct.lzma_stream, ptr %0, i64 0, i32 24
-  store <4 x i32> <i32 1, i32 1, i32 1, i32 1>, ptr %2, align 4, !tbaa !8
-  %3 = getelementptr inbounds %struct.lzma_stream, ptr %0, i64 0, i32 31
-  store i32 -1, ptr %3, align 8, !tbaa !10
+define dso_local void @lzmaInit(ptr nocapture noundef writeonly %s) local_unnamed_addr #0 {
+entry:
+  tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 1 dereferenceable(152) %s, i8 0, i64 152, i1 false), !tbaa !5
+  %rep0 = getelementptr inbounds %struct.lzma_stream, ptr %s, i64 0, i32 24
+  store <4 x i32> <i32 1, i32 1, i32 1, i32 1>, ptr %rep0, align 4, !tbaa !8
+  %range = getelementptr inbounds %struct.lzma_stream, ptr %s, i64 0, i32 31
+  store i32 -1, ptr %range, align 8, !tbaa !10
   ret void
 }
 
@@ -22,1967 +23,1968 @@ declare void @llvm.lifetime.start.p0(i64 immarg, ptr nocapture) #1
 declare void @llvm.lifetime.end.p0(i64 immarg, ptr nocapture) #1
 
 ; Function Attrs: nounwind uwtable
-define dso_local i32 @lzmaDecode(ptr noundef %0) local_unnamed_addr #2 {
-  %2 = alloca [6 x i8], align 2
-  call void @llvm.lifetime.start.p0(i64 6, ptr nonnull %2)
-  %3 = load i32, ptr %0, align 8, !tbaa.struct !13
-  %4 = getelementptr inbounds i8, ptr %0, i64 4
-  %5 = load i32, ptr %4, align 4, !tbaa.struct !15
-  %6 = getelementptr inbounds i8, ptr %0, i64 8
-  %7 = load i32, ptr %6, align 8, !tbaa.struct !16
-  %8 = getelementptr inbounds i8, ptr %0, i64 12
-  %9 = load i32, ptr %8, align 4, !tbaa.struct !17
-  %10 = getelementptr inbounds i8, ptr %0, i64 16
-  %11 = load i32, ptr %10, align 8, !tbaa.struct !18
-  %12 = getelementptr inbounds i8, ptr %0, i64 20
-  %13 = load i32, ptr %12, align 4, !tbaa.struct !19
-  %14 = getelementptr inbounds i8, ptr %0, i64 24
-  %15 = load ptr, ptr %14, align 8, !tbaa.struct !20
-  %16 = getelementptr inbounds i8, ptr %0, i64 32
-  %17 = load i32, ptr %16, align 8, !tbaa.struct !21
-  %18 = getelementptr inbounds i8, ptr %0, i64 36
-  %19 = load i32, ptr %18, align 4, !tbaa.struct !22
-  %20 = getelementptr inbounds i8, ptr %0, i64 40
-  %21 = load ptr, ptr %20, align 8, !tbaa.struct !23
-  %22 = getelementptr inbounds i8, ptr %0, i64 48
-  %23 = load i32, ptr %22, align 8, !tbaa.struct !24
-  %24 = getelementptr inbounds i8, ptr %0, i64 52
-  %25 = load i32, ptr %24, align 4, !tbaa.struct !25
-  %26 = getelementptr inbounds i8, ptr %0, i64 56
-  %27 = load i8, ptr %26, align 8, !tbaa.struct !26
-  %28 = getelementptr inbounds i8, ptr %0, i64 57
-  %29 = load i8, ptr %28, align 1, !tbaa.struct !27
-  %30 = getelementptr inbounds i8, ptr %0, i64 58
-  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 2 dereferenceable(6) %2, ptr noundef nonnull align 2 dereferenceable(6) %30, i64 6, i1 false), !tbaa.struct !28
-  %31 = getelementptr inbounds i8, ptr %0, i64 64
-  %32 = getelementptr inbounds i8, ptr %0, i64 72
-  %33 = getelementptr inbounds i8, ptr %0, i64 80
-  %34 = getelementptr inbounds i8, ptr %0, i64 84
-  %35 = getelementptr inbounds i8, ptr %0, i64 88
-  %36 = getelementptr inbounds i8, ptr %0, i64 92
-  %37 = getelementptr inbounds i8, ptr %0, i64 96
-  %38 = getelementptr inbounds i8, ptr %0, i64 100
-  %39 = getelementptr inbounds i8, ptr %0, i64 104
-  %40 = getelementptr inbounds i8, ptr %0, i64 108
-  %41 = getelementptr inbounds i8, ptr %0, i64 112
-  %42 = load i32, ptr %41, align 8, !tbaa.struct !29
-  %43 = getelementptr inbounds i8, ptr %0, i64 116
-  %44 = getelementptr inbounds i8, ptr %0, i64 120
-  %45 = getelementptr inbounds i8, ptr %0, i64 124
-  %46 = getelementptr inbounds i8, ptr %0, i64 128
-  %47 = getelementptr inbounds i8, ptr %0, i64 132
-  %48 = getelementptr inbounds i8, ptr %0, i64 136
-  %49 = getelementptr inbounds i8, ptr %0, i64 140
-  %50 = getelementptr inbounds i8, ptr %0, i64 144
-  %51 = getelementptr inbounds i8, ptr %0, i64 148
-  %52 = getelementptr inbounds i8, ptr %0, i64 152
-  %53 = getelementptr inbounds i8, ptr %0, i64 160
-  %54 = icmp eq i32 %42, -1
-  br i1 %54, label %1604, label %55
+define dso_local i32 @lzmaDecode(ptr noundef %s) local_unnamed_addr #2 {
+entry:
+  %_s.sroa.145 = alloca [6 x i8], align 2
+  call void @llvm.lifetime.start.p0(i64 6, ptr nonnull %_s.sroa.145)
+  %_s.sroa.0.0.copyload = load i32, ptr %s, align 8, !tbaa.struct !13
+  %_s.sroa.22.0..sroa_idx = getelementptr inbounds i8, ptr %s, i64 4
+  %_s.sroa.22.0.copyload = load i32, ptr %_s.sroa.22.0..sroa_idx, align 4, !tbaa.struct !15
+  %_s.sroa.31.0..sroa_idx = getelementptr inbounds i8, ptr %s, i64 8
+  %_s.sroa.31.0.copyload = load i32, ptr %_s.sroa.31.0..sroa_idx, align 8, !tbaa.struct !16
+  %_s.sroa.34.0..sroa_idx = getelementptr inbounds i8, ptr %s, i64 12
+  %_s.sroa.34.0.copyload = load i32, ptr %_s.sroa.34.0..sroa_idx, align 4, !tbaa.struct !17
+  %_s.sroa.37.0..sroa_idx = getelementptr inbounds i8, ptr %s, i64 16
+  %_s.sroa.37.0.copyload = load i32, ptr %_s.sroa.37.0..sroa_idx, align 8, !tbaa.struct !18
+  %_s.sroa.39.0..sroa_idx = getelementptr inbounds i8, ptr %s, i64 20
+  %_s.sroa.39.0.copyload = load i32, ptr %_s.sroa.39.0..sroa_idx, align 4, !tbaa.struct !19
+  %_s.sroa.52.0..sroa_idx = getelementptr inbounds i8, ptr %s, i64 24
+  %_s.sroa.52.0.copyload = load ptr, ptr %_s.sroa.52.0..sroa_idx, align 8, !tbaa.struct !20
+  %_s.sroa.72.0..sroa_idx = getelementptr inbounds i8, ptr %s, i64 32
+  %_s.sroa.72.0.copyload = load i32, ptr %_s.sroa.72.0..sroa_idx, align 8, !tbaa.struct !21
+  %_s.sroa.102.0..sroa_idx = getelementptr inbounds i8, ptr %s, i64 36
+  %_s.sroa.102.0.copyload = load i32, ptr %_s.sroa.102.0..sroa_idx, align 4, !tbaa.struct !22
+  %_s.sroa.1021125.0..sroa_idx = getelementptr inbounds i8, ptr %s, i64 40
+  %_s.sroa.1021125.0.copyload = load ptr, ptr %_s.sroa.1021125.0..sroa_idx, align 8, !tbaa.struct !23
+  %_s.sroa.111.0..sroa_idx = getelementptr inbounds i8, ptr %s, i64 48
+  %_s.sroa.111.0.copyload = load i32, ptr %_s.sroa.111.0..sroa_idx, align 8, !tbaa.struct !24
+  %_s.sroa.120.0..sroa_idx = getelementptr inbounds i8, ptr %s, i64 52
+  %_s.sroa.120.0.copyload = load i32, ptr %_s.sroa.120.0..sroa_idx, align 4, !tbaa.struct !25
+  %_s.sroa.130.0..sroa_idx = getelementptr inbounds i8, ptr %s, i64 56
+  %_s.sroa.130.0.copyload = load i8, ptr %_s.sroa.130.0..sroa_idx, align 8, !tbaa.struct !26
+  %_s.sroa.141.0..sroa_idx = getelementptr inbounds i8, ptr %s, i64 57
+  %_s.sroa.141.0.copyload = load i8, ptr %_s.sroa.141.0..sroa_idx, align 1, !tbaa.struct !27
+  %_s.sroa.145.0..sroa_idx = getelementptr inbounds i8, ptr %s, i64 58
+  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 2 dereferenceable(6) %_s.sroa.145, ptr noundef nonnull align 2 dereferenceable(6) %_s.sroa.145.0..sroa_idx, i64 6, i1 false), !tbaa.struct !28
+  %_s.sroa.1451160.0..sroa_idx = getelementptr inbounds i8, ptr %s, i64 64
+  %_s.sroa.164.0..sroa_idx = getelementptr inbounds i8, ptr %s, i64 72
+  %_s.sroa.207.0..sroa_idx = getelementptr inbounds i8, ptr %s, i64 80
+  %_s.sroa.222.0..sroa_idx = getelementptr inbounds i8, ptr %s, i64 84
+  %_s.sroa.227.0..sroa_idx = getelementptr inbounds i8, ptr %s, i64 88
+  %_s.sroa.251.0..sroa_idx = getelementptr inbounds i8, ptr %s, i64 92
+  %_s.sroa.294.0..sroa_idx = getelementptr inbounds i8, ptr %s, i64 96
+  %_s.sroa.321.0..sroa_idx = getelementptr inbounds i8, ptr %s, i64 100
+  %_s.sroa.325.0..sroa_idx = getelementptr inbounds i8, ptr %s, i64 104
+  %_s.sroa.344.0..sroa_idx = getelementptr inbounds i8, ptr %s, i64 108
+  %_s.sroa.347.0..sroa_idx = getelementptr inbounds i8, ptr %s, i64 112
+  %_s.sroa.347.0.copyload = load i32, ptr %_s.sroa.347.0..sroa_idx, align 8, !tbaa.struct !29
+  %_s.sroa.362.0..sroa_idx = getelementptr inbounds i8, ptr %s, i64 116
+  %_s.sroa.379.0..sroa_idx = getelementptr inbounds i8, ptr %s, i64 120
+  %_s.sroa.384.0..sroa_idx = getelementptr inbounds i8, ptr %s, i64 124
+  %_s.sroa.389.0..sroa_idx = getelementptr inbounds i8, ptr %s, i64 128
+  %_s.sroa.392.0..sroa_idx = getelementptr inbounds i8, ptr %s, i64 132
+  %_s.sroa.394.0..sroa_idx = getelementptr inbounds i8, ptr %s, i64 136
+  %_s.sroa.396.0..sroa_idx = getelementptr inbounds i8, ptr %s, i64 140
+  %_s.sroa.408.0..sroa_idx = getelementptr inbounds i8, ptr %s, i64 144
+  %_s.sroa.457.0..sroa_idx = getelementptr inbounds i8, ptr %s, i64 148
+  %_s.sroa.494.0..sroa_idx = getelementptr inbounds i8, ptr %s, i64 152
+  %_s.sroa.505.0..sroa_idx = getelementptr inbounds i8, ptr %s, i64 160
+  %cmp = icmp eq i32 %_s.sroa.347.0.copyload, -1
+  br i1 %cmp, label %cleanup, label %for.cond.preheader
 
-55:                                               ; preds = %1
-  %56 = load ptr, ptr %53, align 8, !tbaa.struct !30
-  %57 = load ptr, ptr %52, align 8, !tbaa.struct !31
-  %58 = load i32, ptr %51, align 4, !tbaa.struct !32
-  %59 = load i32, ptr %50, align 8, !tbaa.struct !33
-  %60 = load i32, ptr %49, align 4, !tbaa.struct !34
-  %61 = load i32, ptr %48, align 8, !tbaa.struct !35
-  %62 = load i32, ptr %47, align 4, !tbaa.struct !36
-  %63 = load i32, ptr %46, align 8, !tbaa.struct !37
-  %64 = load i32, ptr %45, align 4, !tbaa.struct !38
-  %65 = load i32, ptr %44, align 8, !tbaa.struct !39
-  %66 = load i32, ptr %43, align 4, !tbaa.struct !40
-  %67 = load i32, ptr %40, align 4, !tbaa.struct !41
-  %68 = load i32, ptr %39, align 8, !tbaa.struct !42
-  %69 = load i32, ptr %38, align 4, !tbaa.struct !43
-  %70 = load i32, ptr %37, align 8, !tbaa.struct !44
-  %71 = load i32, ptr %36, align 4, !tbaa.struct !45
-  %72 = load i32, ptr %35, align 8, !tbaa.struct !46
-  %73 = load i32, ptr %34, align 4, !tbaa.struct !47
-  %74 = load i32, ptr %33, align 8, !tbaa.struct !48
-  %75 = load ptr, ptr %32, align 8, !tbaa.struct !49
-  %76 = load ptr, ptr %31, align 8, !tbaa.struct !50
-  br label %77
+for.cond.preheader:                               ; preds = %entry
+  %_s.sroa.505.0.copyload = load ptr, ptr %_s.sroa.505.0..sroa_idx, align 8, !tbaa.struct !30
+  %_s.sroa.494.0.copyload = load ptr, ptr %_s.sroa.494.0..sroa_idx, align 8, !tbaa.struct !31
+  %_s.sroa.457.0.copyload = load i32, ptr %_s.sroa.457.0..sroa_idx, align 4, !tbaa.struct !32
+  %_s.sroa.408.0.copyload = load i32, ptr %_s.sroa.408.0..sroa_idx, align 8, !tbaa.struct !33
+  %_s.sroa.396.0.copyload = load i32, ptr %_s.sroa.396.0..sroa_idx, align 4, !tbaa.struct !34
+  %_s.sroa.394.0.copyload = load i32, ptr %_s.sroa.394.0..sroa_idx, align 8, !tbaa.struct !35
+  %_s.sroa.392.0.copyload = load i32, ptr %_s.sroa.392.0..sroa_idx, align 4, !tbaa.struct !36
+  %_s.sroa.389.0.copyload = load i32, ptr %_s.sroa.389.0..sroa_idx, align 8, !tbaa.struct !37
+  %_s.sroa.384.0.copyload = load i32, ptr %_s.sroa.384.0..sroa_idx, align 4, !tbaa.struct !38
+  %_s.sroa.379.0.copyload = load i32, ptr %_s.sroa.379.0..sroa_idx, align 8, !tbaa.struct !39
+  %_s.sroa.362.0.copyload = load i32, ptr %_s.sroa.362.0..sroa_idx, align 4, !tbaa.struct !40
+  %_s.sroa.344.0.copyload = load i32, ptr %_s.sroa.344.0..sroa_idx, align 4, !tbaa.struct !41
+  %_s.sroa.325.0.copyload = load i32, ptr %_s.sroa.325.0..sroa_idx, align 8, !tbaa.struct !42
+  %_s.sroa.321.0.copyload = load i32, ptr %_s.sroa.321.0..sroa_idx, align 4, !tbaa.struct !43
+  %_s.sroa.294.0.copyload = load i32, ptr %_s.sroa.294.0..sroa_idx, align 8, !tbaa.struct !44
+  %_s.sroa.251.0.copyload = load i32, ptr %_s.sroa.251.0..sroa_idx, align 4, !tbaa.struct !45
+  %_s.sroa.227.0.copyload = load i32, ptr %_s.sroa.227.0..sroa_idx, align 8, !tbaa.struct !46
+  %_s.sroa.222.0.copyload = load i32, ptr %_s.sroa.222.0..sroa_idx, align 4, !tbaa.struct !47
+  %_s.sroa.207.0.copyload = load i32, ptr %_s.sroa.207.0..sroa_idx, align 8, !tbaa.struct !48
+  %_s.sroa.164.0.copyload = load ptr, ptr %_s.sroa.164.0..sroa_idx, align 8, !tbaa.struct !49
+  %_s.sroa.1451160.0.copyload = load ptr, ptr %_s.sroa.1451160.0..sroa_idx, align 8, !tbaa.struct !50
+  br label %for.cond.outer.outer.outer
 
-77:                                               ; preds = %1563, %55
-  %78 = phi i32 [ %1445, %1563 ], [ %42, %55 ]
-  %79 = phi i32 [ %1436, %1563 ], [ %67, %55 ]
-  %80 = phi i32 [ %1439, %1563 ], [ %68, %55 ]
-  %81 = phi i32 [ %1422, %1563 ], [ %69, %55 ]
-  %82 = phi i32 [ %1446, %1563 ], [ %70, %55 ]
-  %83 = phi i32 [ %1565, %1563 ], [ %71, %55 ]
-  %84 = phi i32 [ %1447, %1563 ], [ %72, %55 ]
-  %85 = phi i32 [ %1423, %1563 ], [ %73, %55 ]
-  %86 = phi i32 [ %1448, %1563 ], [ %74, %55 ]
-  %87 = phi ptr [ %1449, %1563 ], [ %75, %55 ]
-  %88 = phi ptr [ %1450, %1563 ], [ %76, %55 ]
-  %89 = phi i8 [ %1438, %1563 ], [ %29, %55 ]
-  %90 = phi i8 [ %1440, %1563 ], [ %27, %55 ]
-  %91 = phi i32 [ %1441, %1563 ], [ %25, %55 ]
-  %92 = phi i32 [ %1442, %1563 ], [ %23, %55 ]
-  %93 = phi ptr [ %1443, %1563 ], [ %21, %55 ]
-  %94 = phi i32 [ %1424, %1563 ], [ %66, %55 ]
-  %95 = phi i32 [ %1451, %1563 ], [ %17, %55 ]
-  %96 = phi ptr [ %1452, %1563 ], [ %15, %55 ]
-  %97 = phi i32 [ %1425, %1563 ], [ %13, %55 ]
-  %98 = phi i32 [ %1426, %1563 ], [ %11, %55 ]
-  %99 = phi i32 [ %1453, %1563 ], [ %9, %55 ]
-  %100 = phi i32 [ %1427, %1563 ], [ %7, %55 ]
-  %101 = phi i32 [ %1428, %1563 ], [ %5, %55 ]
-  %102 = phi i32 [ %1453, %1563 ], [ %3, %55 ]
-  %103 = phi i32 [ %1429, %1563 ], [ %65, %55 ]
-  %104 = phi i32 [ %1430, %1563 ], [ %64, %55 ]
-  %105 = phi i32 [ %1431, %1563 ], [ %63, %55 ]
-  %106 = phi i32 [ %1432, %1563 ], [ %62, %55 ]
-  %107 = phi i32 [ %1433, %1563 ], [ %61, %55 ]
-  %108 = phi i32 [ %1444, %1563 ], [ %60, %55 ]
-  %109 = phi i32 [ %1454, %1563 ], [ %59, %55 ]
-  %110 = phi i32 [ %1455, %1563 ], [ %58, %55 ]
-  %111 = phi ptr [ %1434, %1563 ], [ %57, %55 ]
-  %112 = phi ptr [ %1435, %1563 ], [ %56, %55 ]
-  br label %113
+for.cond.outer.outer.outer:                       ; preds = %for.end1019, %for.cond.preheader
+  %_s.sroa.347.0.ph.ph.ph = phi i32 [ %_s.sroa.347.6, %for.end1019 ], [ %_s.sroa.347.0.copyload, %for.cond.preheader ]
+  %_s.sroa.344.0.ph.ph.ph = phi i32 [ %_s.sroa.344.0.ph14342284, %for.end1019 ], [ %_s.sroa.344.0.copyload, %for.cond.preheader ]
+  %_s.sroa.325.0.ph.ph.ph = phi i32 [ %_s.sroa.325.01892, %for.end1019 ], [ %_s.sroa.325.0.copyload, %for.cond.preheader ]
+  %_s.sroa.321.0.ph.ph.ph = phi i32 [ %_s.sroa.321.0.ph1436.ph2686, %for.end1019 ], [ %_s.sroa.321.0.copyload, %for.cond.preheader ]
+  %_s.sroa.294.0.ph.ph.ph = phi i32 [ %_s.sroa.294.27, %for.end1019 ], [ %_s.sroa.294.0.copyload, %for.cond.preheader ]
+  %_s.sroa.251.0.ph.ph.ph = phi i32 [ %sub1023, %for.end1019 ], [ %_s.sroa.251.0.copyload, %for.cond.preheader ]
+  %_s.sroa.227.0.ph.ph.ph = phi i32 [ %_s.sroa.227.27, %for.end1019 ], [ %_s.sroa.227.0.copyload, %for.cond.preheader ]
+  %_s.sroa.222.0.ph.ph.ph = phi i32 [ %_s.sroa.222.0.ph1440.ph2657, %for.end1019 ], [ %_s.sroa.222.0.copyload, %for.cond.preheader ]
+  %_s.sroa.207.0.ph.ph.ph = phi i32 [ %_s.sroa.207.10, %for.end1019 ], [ %_s.sroa.207.0.copyload, %for.cond.preheader ]
+  %_s.sroa.164.0.ph.ph.ph = phi ptr [ %_s.sroa.164.21, %for.end1019 ], [ %_s.sroa.164.0.copyload, %for.cond.preheader ]
+  %_s.sroa.1451160.0.ph.ph.ph = phi ptr [ %_s.sroa.1451160.27, %for.end1019 ], [ %_s.sroa.1451160.0.copyload, %for.cond.preheader ]
+  %_s.sroa.141.0.ph.ph.ph = phi i8 [ %_s.sroa.141.0.ph14442069, %for.end1019 ], [ %_s.sroa.141.0.copyload, %for.cond.preheader ]
+  %_s.sroa.130.0.ph.ph.ph = phi i8 [ %_s.sroa.130.01832, %for.end1019 ], [ %_s.sroa.130.0.copyload, %for.cond.preheader ]
+  %_s.sroa.120.0.ph.ph.ph = phi i32 [ %_s.sroa.120.01765, %for.end1019 ], [ %_s.sroa.120.0.copyload, %for.cond.preheader ]
+  %_s.sroa.111.0.ph.ph.ph = phi i32 [ %_s.sroa.111.01701, %for.end1019 ], [ %_s.sroa.111.0.copyload, %for.cond.preheader ]
+  %_s.sroa.1021125.0.ph.ph.ph = phi ptr [ %_s.sroa.1021125.01633, %for.end1019 ], [ %_s.sroa.1021125.0.copyload, %for.cond.preheader ]
+  %_s.sroa.362.0.ph.ph.ph = phi i32 [ %_s.sroa.362.0.ph1449.ph2628, %for.end1019 ], [ %_s.sroa.362.0.copyload, %for.cond.preheader ]
+  %_s.sroa.72.0.ph.ph.ph = phi i32 [ %_s.sroa.72.32, %for.end1019 ], [ %_s.sroa.72.0.copyload, %for.cond.preheader ]
+  %_s.sroa.52.0.ph.ph.ph = phi ptr [ %_s.sroa.52.32, %for.end1019 ], [ %_s.sroa.52.0.copyload, %for.cond.preheader ]
+  %_s.sroa.39.0.ph.ph.ph = phi i32 [ %_s.sroa.39.0.ph1452.ph2610, %for.end1019 ], [ %_s.sroa.39.0.copyload, %for.cond.preheader ]
+  %_s.sroa.37.0.ph.ph.ph = phi i32 [ %_s.sroa.37.0.ph1453.ph2581, %for.end1019 ], [ %_s.sroa.37.0.copyload, %for.cond.preheader ]
+  %_s.sroa.34.0.ph.ph.ph = phi i32 [ %_s.sroa.34.2, %for.end1019 ], [ %_s.sroa.34.0.copyload, %for.cond.preheader ]
+  %_s.sroa.31.0.ph.ph.ph = phi i32 [ %_s.sroa.31.0.ph1455.ph2552, %for.end1019 ], [ %_s.sroa.31.0.copyload, %for.cond.preheader ]
+  %_s.sroa.22.0.ph.ph.ph = phi i32 [ %_s.sroa.22.0.ph1456.ph2523, %for.end1019 ], [ %_s.sroa.22.0.copyload, %for.cond.preheader ]
+  %_s.sroa.0.0.ph.ph.ph = phi i32 [ %_s.sroa.34.2, %for.end1019 ], [ %_s.sroa.0.0.copyload, %for.cond.preheader ]
+  %_s.sroa.379.0.ph.ph.ph = phi i32 [ %_s.sroa.379.0.ph1458.ph2494, %for.end1019 ], [ %_s.sroa.379.0.copyload, %for.cond.preheader ]
+  %_s.sroa.384.0.ph.ph.ph = phi i32 [ %_s.sroa.384.0.ph1459.ph2465, %for.end1019 ], [ %_s.sroa.384.0.copyload, %for.cond.preheader ]
+  %_s.sroa.389.0.ph.ph.ph = phi i32 [ %_s.sroa.389.0.ph1460.ph2436, %for.end1019 ], [ %_s.sroa.389.0.copyload, %for.cond.preheader ]
+  %_s.sroa.392.0.ph.ph.ph = phi i32 [ %_s.sroa.392.0.ph1461.ph2407, %for.end1019 ], [ %_s.sroa.392.0.copyload, %for.cond.preheader ]
+  %_s.sroa.394.0.ph.ph.ph = phi i32 [ %_s.sroa.394.0.ph1462.ph2378, %for.end1019 ], [ %_s.sroa.394.0.copyload, %for.cond.preheader ]
+  %_s.sroa.396.0.ph.ph.ph = phi i32 [ %_s.sroa.396.01528, %for.end1019 ], [ %_s.sroa.396.0.copyload, %for.cond.preheader ]
+  %_s.sroa.408.0.ph.ph.ph = phi i32 [ %_s.sroa.408.31, %for.end1019 ], [ %_s.sroa.408.0.copyload, %for.cond.preheader ]
+  %_s.sroa.457.0.ph.ph.ph = phi i32 [ %_s.sroa.457.36, %for.end1019 ], [ %_s.sroa.457.0.copyload, %for.cond.preheader ]
+  %_s.sroa.494.0.ph.ph.ph = phi ptr [ %_s.sroa.494.0.ph1466.ph2349, %for.end1019 ], [ %_s.sroa.494.0.copyload, %for.cond.preheader ]
+  %_s.sroa.505.0.ph.ph.ph = phi ptr [ %_s.sroa.505.0.ph1467.ph2320, %for.end1019 ], [ %_s.sroa.505.0.copyload, %for.cond.preheader ]
+  br label %for.cond.outer.outer
 
-113:                                              ; preds = %1254, %77
-  %114 = phi i32 [ %78, %77 ], [ %1268, %1254 ]
-  %115 = phi i32 [ %79, %77 ], [ %1227, %1254 ]
-  %116 = phi i32 [ %80, %77 ], [ %1234, %1254 ]
-  %117 = phi i32 [ %81, %77 ], [ %1214, %1254 ]
-  %118 = phi i32 [ %82, %77 ], [ %1235, %1254 ]
-  %119 = phi i32 [ %83, %77 ], [ %1236, %1254 ]
-  %120 = phi i32 [ %84, %77 ], [ %1237, %1254 ]
-  %121 = phi i32 [ %85, %77 ], [ %1215, %1254 ]
-  %122 = phi i32 [ %86, %77 ], [ %1238, %1254 ]
-  %123 = phi ptr [ %87, %77 ], [ %1239, %1254 ]
-  %124 = phi ptr [ %88, %77 ], [ %1240, %1254 ]
-  %125 = phi i8 [ %89, %77 ], [ %1228, %1254 ]
-  %126 = phi i8 [ %90, %77 ], [ %1261, %1254 ]
-  %127 = phi i32 [ %91, %77 ], [ %1241, %1254 ]
-  %128 = phi i32 [ %92, %77 ], [ %1267, %1254 ]
-  %129 = phi ptr [ %93, %77 ], [ %1266, %1254 ]
-  %130 = phi i32 [ %94, %77 ], [ %1242, %1254 ]
-  %131 = phi i32 [ %95, %77 ], [ %1243, %1254 ]
-  %132 = phi ptr [ %96, %77 ], [ %1244, %1254 ]
-  %133 = phi i32 [ %97, %77 ], [ %1216, %1254 ]
-  %134 = phi i32 [ %98, %77 ], [ %1217, %1254 ]
-  %135 = phi i32 [ %100, %77 ], [ %1218, %1254 ]
-  %136 = phi i32 [ %101, %77 ], [ %1219, %1254 ]
-  %137 = phi i32 [ %102, %77 ], [ 2, %1254 ]
-  %138 = phi i32 [ %103, %77 ], [ %1220, %1254 ]
-  %139 = phi i32 [ %104, %77 ], [ %1221, %1254 ]
-  %140 = phi i32 [ %105, %77 ], [ %1222, %1254 ]
-  %141 = phi i32 [ %106, %77 ], [ %1223, %1254 ]
-  %142 = phi i32 [ %107, %77 ], [ %1224, %1254 ]
-  %143 = phi i32 [ %108, %77 ], [ %1265, %1254 ]
-  %144 = phi i32 [ %109, %77 ], [ %1245, %1254 ]
-  %145 = phi i32 [ %110, %77 ], [ %1246, %1254 ]
-  %146 = phi ptr [ %111, %77 ], [ %1225, %1254 ]
-  %147 = phi ptr [ %112, %77 ], [ %1226, %1254 ]
-  br label %148
+for.cond.outer.outer:                             ; preds = %if.end798, %for.cond.outer.outer.outer
+  %_s.sroa.347.0.ph.ph = phi i32 [ %_s.sroa.347.0.ph.ph.ph, %for.cond.outer.outer.outer ], [ %dec830, %if.end798 ]
+  %_s.sroa.344.0.ph.ph = phi i32 [ %_s.sroa.344.0.ph.ph.ph, %for.cond.outer.outer.outer ], [ %_s.sroa.344.0.ph14342273, %if.end798 ]
+  %_s.sroa.325.0.ph.ph = phi i32 [ %_s.sroa.325.0.ph.ph.ph, %for.cond.outer.outer.outer ], [ %_s.sroa.325.16.ph, %if.end798 ]
+  %_s.sroa.321.0.ph.ph = phi i32 [ %_s.sroa.321.0.ph.ph.ph, %for.cond.outer.outer.outer ], [ %_s.sroa.321.0.ph1436.ph2675, %if.end798 ]
+  %_s.sroa.294.0.ph.ph = phi i32 [ %_s.sroa.294.0.ph.ph.ph, %for.cond.outer.outer.outer ], [ %_s.sroa.294.20.ph, %if.end798 ]
+  %_s.sroa.251.0.ph.ph = phi i32 [ %_s.sroa.251.0.ph.ph.ph, %for.cond.outer.outer.outer ], [ %_s.sroa.251.26.ph, %if.end798 ]
+  %_s.sroa.227.0.ph.ph = phi i32 [ %_s.sroa.227.0.ph.ph.ph, %for.cond.outer.outer.outer ], [ %_s.sroa.227.22.ph, %if.end798 ]
+  %_s.sroa.222.0.ph.ph = phi i32 [ %_s.sroa.222.0.ph.ph.ph, %for.cond.outer.outer.outer ], [ %_s.sroa.222.0.ph1440.ph2646, %if.end798 ]
+  %_s.sroa.207.0.ph.ph = phi i32 [ %_s.sroa.207.0.ph.ph.ph, %for.cond.outer.outer.outer ], [ %_s.sroa.207.8.ph, %if.end798 ]
+  %_s.sroa.164.0.ph.ph = phi ptr [ %_s.sroa.164.0.ph.ph.ph, %for.cond.outer.outer.outer ], [ %_s.sroa.164.16.ph, %if.end798 ]
+  %_s.sroa.1451160.0.ph.ph = phi ptr [ %_s.sroa.1451160.0.ph.ph.ph, %for.cond.outer.outer.outer ], [ %_s.sroa.1451160.19.ph, %if.end798 ]
+  %_s.sroa.141.0.ph.ph = phi i8 [ %_s.sroa.141.0.ph.ph.ph, %for.cond.outer.outer.outer ], [ %_s.sroa.141.0.ph14442058, %if.end798 ]
+  %_s.sroa.130.0.ph.ph = phi i8 [ %_s.sroa.130.0.ph.ph.ph, %for.cond.outer.outer.outer ], [ %30, %if.end798 ]
+  %_s.sroa.120.0.ph.ph = phi i32 [ %_s.sroa.120.0.ph.ph.ph, %for.cond.outer.outer.outer ], [ %_s.sroa.120.2.ph, %if.end798 ]
+  %_s.sroa.111.0.ph.ph = phi i32 [ %_s.sroa.111.0.ph.ph.ph, %for.cond.outer.outer.outer ], [ %dec828, %if.end798 ]
+  %_s.sroa.1021125.0.ph.ph = phi ptr [ %_s.sroa.1021125.0.ph.ph.ph, %for.cond.outer.outer.outer ], [ %incdec.ptr826, %if.end798 ]
+  %_s.sroa.362.0.ph.ph = phi i32 [ %_s.sroa.362.0.ph.ph.ph, %for.cond.outer.outer.outer ], [ %_s.sroa.362.12.ph, %if.end798 ]
+  %_s.sroa.72.0.ph.ph = phi i32 [ %_s.sroa.72.0.ph.ph.ph, %for.cond.outer.outer.outer ], [ %_s.sroa.72.27.ph, %if.end798 ]
+  %_s.sroa.52.0.ph.ph = phi ptr [ %_s.sroa.52.0.ph.ph.ph, %for.cond.outer.outer.outer ], [ %_s.sroa.52.27.ph, %if.end798 ]
+  %_s.sroa.39.0.ph.ph = phi i32 [ %_s.sroa.39.0.ph.ph.ph, %for.cond.outer.outer.outer ], [ %_s.sroa.39.0.ph1452.ph2599, %if.end798 ]
+  %_s.sroa.37.0.ph.ph = phi i32 [ %_s.sroa.37.0.ph.ph.ph, %for.cond.outer.outer.outer ], [ %_s.sroa.37.0.ph1453.ph2570, %if.end798 ]
+  %_s.sroa.31.0.ph.ph = phi i32 [ %_s.sroa.31.0.ph.ph.ph, %for.cond.outer.outer.outer ], [ %_s.sroa.31.0.ph1455.ph2541, %if.end798 ]
+  %_s.sroa.22.0.ph.ph = phi i32 [ %_s.sroa.22.0.ph.ph.ph, %for.cond.outer.outer.outer ], [ %_s.sroa.22.0.ph1456.ph2512, %if.end798 ]
+  %_s.sroa.0.0.ph.ph = phi i32 [ %_s.sroa.0.0.ph.ph.ph, %for.cond.outer.outer.outer ], [ 2, %if.end798 ]
+  %_s.sroa.379.0.ph.ph = phi i32 [ %_s.sroa.379.0.ph.ph.ph, %for.cond.outer.outer.outer ], [ %_s.sroa.379.0.ph1458.ph2483, %if.end798 ]
+  %_s.sroa.384.0.ph.ph = phi i32 [ %_s.sroa.384.0.ph.ph.ph, %for.cond.outer.outer.outer ], [ %_s.sroa.384.0.ph1459.ph2454, %if.end798 ]
+  %_s.sroa.389.0.ph.ph = phi i32 [ %_s.sroa.389.0.ph.ph.ph, %for.cond.outer.outer.outer ], [ %_s.sroa.389.0.ph1460.ph2425, %if.end798 ]
+  %_s.sroa.392.0.ph.ph = phi i32 [ %_s.sroa.392.0.ph.ph.ph, %for.cond.outer.outer.outer ], [ %_s.sroa.392.0.ph1461.ph2396, %if.end798 ]
+  %_s.sroa.394.0.ph.ph = phi i32 [ %_s.sroa.394.0.ph.ph.ph, %for.cond.outer.outer.outer ], [ %_s.sroa.394.0.ph1462.ph2367, %if.end798 ]
+  %_s.sroa.396.0.ph.ph = phi i32 [ %_s.sroa.396.0.ph.ph.ph, %for.cond.outer.outer.outer ], [ %rem821, %if.end798 ]
+  %_s.sroa.408.0.ph.ph = phi i32 [ %_s.sroa.408.0.ph.ph.ph, %for.cond.outer.outer.outer ], [ %_s.sroa.408.26.ph, %if.end798 ]
+  %_s.sroa.457.0.ph.ph = phi i32 [ %_s.sroa.457.0.ph.ph.ph, %for.cond.outer.outer.outer ], [ %_s.sroa.457.30.ph, %if.end798 ]
+  %_s.sroa.494.0.ph.ph = phi ptr [ %_s.sroa.494.0.ph.ph.ph, %for.cond.outer.outer.outer ], [ %_s.sroa.494.0.ph1466.ph2338, %if.end798 ]
+  %_s.sroa.505.0.ph.ph = phi ptr [ %_s.sroa.505.0.ph.ph.ph, %for.cond.outer.outer.outer ], [ %_s.sroa.505.0.ph1467.ph2309, %if.end798 ]
+  br label %for.cond.outer
 
-148:                                              ; preds = %113, %1566
-  %149 = phi i32 [ %1567, %1566 ], [ %114, %113 ]
-  %150 = phi i32 [ %218, %1566 ], [ %115, %113 ]
-  %151 = phi i32 [ %219, %1566 ], [ %116, %113 ]
-  %152 = phi i32 [ %185, %1566 ], [ %117, %113 ]
-  %153 = phi i32 [ %220, %1566 ], [ %118, %113 ]
-  %154 = phi i32 [ %221, %1566 ], [ %119, %113 ]
-  %155 = phi i32 [ %222, %1566 ], [ %120, %113 ]
-  %156 = phi i32 [ %189, %1566 ], [ %121, %113 ]
-  %157 = phi ptr [ %223, %1566 ], [ %123, %113 ]
-  %158 = phi ptr [ %224, %1566 ], [ %124, %113 ]
-  %159 = phi i8 [ %225, %1566 ], [ %125, %113 ]
-  %160 = phi i8 [ %226, %1566 ], [ %126, %113 ]
-  %161 = phi i32 [ %227, %1566 ], [ %127, %113 ]
-  %162 = phi i32 [ %228, %1566 ], [ %128, %113 ]
-  %163 = phi ptr [ %229, %1566 ], [ %129, %113 ]
-  %164 = phi i32 [ %197, %1566 ], [ %130, %113 ]
-  %165 = phi i32 [ %230, %1566 ], [ %131, %113 ]
-  %166 = phi ptr [ %231, %1566 ], [ %132, %113 ]
-  %167 = phi i32 [ %200, %1566 ], [ %133, %113 ]
-  %168 = phi i32 [ %201, %1566 ], [ %134, %113 ]
-  %169 = phi i32 [ %202, %1566 ], [ %135, %113 ]
-  %170 = phi i32 [ %203, %1566 ], [ %136, %113 ]
-  %171 = phi i32 [ %202, %1566 ], [ %137, %113 ]
-  %172 = phi i32 [ %205, %1566 ], [ %138, %113 ]
-  %173 = phi i32 [ %206, %1566 ], [ %139, %113 ]
-  %174 = phi i32 [ %207, %1566 ], [ %140, %113 ]
-  %175 = phi i32 [ %208, %1566 ], [ %141, %113 ]
-  %176 = phi i32 [ %209, %1566 ], [ %142, %113 ]
-  %177 = phi i32 [ %233, %1566 ], [ %143, %113 ]
-  %178 = phi i32 [ %234, %1566 ], [ %144, %113 ]
-  %179 = phi i32 [ %235, %1566 ], [ %145, %113 ]
-  %180 = phi ptr [ %213, %1566 ], [ %146, %113 ]
-  %181 = phi ptr [ %214, %1566 ], [ %147, %113 ]
-  br label %182
+for.cond.outer:                                   ; preds = %for.cond.outer.outer, %sw.bb1027
+  %_s.sroa.347.0.ph = phi i32 [ %add1030, %sw.bb1027 ], [ %_s.sroa.347.0.ph.ph, %for.cond.outer.outer ]
+  %_s.sroa.344.0.ph = phi i32 [ %_s.sroa.344.0.ph1434, %sw.bb1027 ], [ %_s.sroa.344.0.ph.ph, %for.cond.outer.outer ]
+  %_s.sroa.325.0.ph = phi i32 [ %_s.sroa.325.0.ph1435, %sw.bb1027 ], [ %_s.sroa.325.0.ph.ph, %for.cond.outer.outer ]
+  %_s.sroa.321.0.ph = phi i32 [ %_s.sroa.321.0.ph1436.ph, %sw.bb1027 ], [ %_s.sroa.321.0.ph.ph, %for.cond.outer.outer ]
+  %_s.sroa.294.0.ph = phi i32 [ %_s.sroa.294.0.ph1437, %sw.bb1027 ], [ %_s.sroa.294.0.ph.ph, %for.cond.outer.outer ]
+  %_s.sroa.251.0.ph = phi i32 [ %_s.sroa.251.0.ph1438, %sw.bb1027 ], [ %_s.sroa.251.0.ph.ph, %for.cond.outer.outer ]
+  %_s.sroa.227.0.ph = phi i32 [ %_s.sroa.227.0.ph1439, %sw.bb1027 ], [ %_s.sroa.227.0.ph.ph, %for.cond.outer.outer ]
+  %_s.sroa.222.0.ph = phi i32 [ %_s.sroa.222.0.ph1440.ph, %sw.bb1027 ], [ %_s.sroa.222.0.ph.ph, %for.cond.outer.outer ]
+  %_s.sroa.164.0.ph = phi ptr [ %_s.sroa.164.0.ph1442, %sw.bb1027 ], [ %_s.sroa.164.0.ph.ph, %for.cond.outer.outer ]
+  %_s.sroa.1451160.0.ph = phi ptr [ %_s.sroa.1451160.0.ph1443, %sw.bb1027 ], [ %_s.sroa.1451160.0.ph.ph, %for.cond.outer.outer ]
+  %_s.sroa.141.0.ph = phi i8 [ %_s.sroa.141.0.ph1444, %sw.bb1027 ], [ %_s.sroa.141.0.ph.ph, %for.cond.outer.outer ]
+  %_s.sroa.130.0.ph = phi i8 [ %_s.sroa.130.0.ph1445, %sw.bb1027 ], [ %_s.sroa.130.0.ph.ph, %for.cond.outer.outer ]
+  %_s.sroa.120.0.ph = phi i32 [ %_s.sroa.120.0.ph1446, %sw.bb1027 ], [ %_s.sroa.120.0.ph.ph, %for.cond.outer.outer ]
+  %_s.sroa.111.0.ph = phi i32 [ %_s.sroa.111.0.ph1447, %sw.bb1027 ], [ %_s.sroa.111.0.ph.ph, %for.cond.outer.outer ]
+  %_s.sroa.1021125.0.ph = phi ptr [ %_s.sroa.1021125.0.ph1448, %sw.bb1027 ], [ %_s.sroa.1021125.0.ph.ph, %for.cond.outer.outer ]
+  %_s.sroa.362.0.ph = phi i32 [ %_s.sroa.362.0.ph1449.ph, %sw.bb1027 ], [ %_s.sroa.362.0.ph.ph, %for.cond.outer.outer ]
+  %_s.sroa.72.0.ph = phi i32 [ %_s.sroa.72.0.ph1450, %sw.bb1027 ], [ %_s.sroa.72.0.ph.ph, %for.cond.outer.outer ]
+  %_s.sroa.52.0.ph = phi ptr [ %_s.sroa.52.0.ph1451, %sw.bb1027 ], [ %_s.sroa.52.0.ph.ph, %for.cond.outer.outer ]
+  %_s.sroa.39.0.ph = phi i32 [ %_s.sroa.39.0.ph1452.ph, %sw.bb1027 ], [ %_s.sroa.39.0.ph.ph, %for.cond.outer.outer ]
+  %_s.sroa.37.0.ph = phi i32 [ %_s.sroa.37.0.ph1453.ph, %sw.bb1027 ], [ %_s.sroa.37.0.ph.ph, %for.cond.outer.outer ]
+  %_s.sroa.31.0.ph = phi i32 [ %_s.sroa.31.0.ph1455.ph, %sw.bb1027 ], [ %_s.sroa.31.0.ph.ph, %for.cond.outer.outer ]
+  %_s.sroa.22.0.ph = phi i32 [ %_s.sroa.22.0.ph1456.ph, %sw.bb1027 ], [ %_s.sroa.22.0.ph.ph, %for.cond.outer.outer ]
+  %_s.sroa.0.0.ph = phi i32 [ %_s.sroa.31.0.ph1455.ph, %sw.bb1027 ], [ %_s.sroa.0.0.ph.ph, %for.cond.outer.outer ]
+  %_s.sroa.379.0.ph = phi i32 [ %_s.sroa.379.0.ph1458.ph, %sw.bb1027 ], [ %_s.sroa.379.0.ph.ph, %for.cond.outer.outer ]
+  %_s.sroa.384.0.ph = phi i32 [ %_s.sroa.384.0.ph1459.ph, %sw.bb1027 ], [ %_s.sroa.384.0.ph.ph, %for.cond.outer.outer ]
+  %_s.sroa.389.0.ph = phi i32 [ %_s.sroa.389.0.ph1460.ph, %sw.bb1027 ], [ %_s.sroa.389.0.ph.ph, %for.cond.outer.outer ]
+  %_s.sroa.392.0.ph = phi i32 [ %_s.sroa.392.0.ph1461.ph, %sw.bb1027 ], [ %_s.sroa.392.0.ph.ph, %for.cond.outer.outer ]
+  %_s.sroa.394.0.ph = phi i32 [ %_s.sroa.394.0.ph1462.ph, %sw.bb1027 ], [ %_s.sroa.394.0.ph.ph, %for.cond.outer.outer ]
+  %_s.sroa.396.0.ph = phi i32 [ %_s.sroa.396.0.ph1463, %sw.bb1027 ], [ %_s.sroa.396.0.ph.ph, %for.cond.outer.outer ]
+  %_s.sroa.408.0.ph = phi i32 [ %_s.sroa.408.0.ph1464, %sw.bb1027 ], [ %_s.sroa.408.0.ph.ph, %for.cond.outer.outer ]
+  %_s.sroa.457.0.ph = phi i32 [ %_s.sroa.457.0.ph1465, %sw.bb1027 ], [ %_s.sroa.457.0.ph.ph, %for.cond.outer.outer ]
+  %_s.sroa.494.0.ph = phi ptr [ %_s.sroa.494.0.ph1466.ph, %sw.bb1027 ], [ %_s.sroa.494.0.ph.ph, %for.cond.outer.outer ]
+  %_s.sroa.505.0.ph = phi ptr [ %_s.sroa.505.0.ph1467.ph, %sw.bb1027 ], [ %_s.sroa.505.0.ph.ph, %for.cond.outer.outer ]
+  br label %for.cond.outer1433.outer
 
-182:                                              ; preds = %1322, %148
-  %183 = phi i32 [ %150, %148 ], [ %1330, %1322 ]
-  %184 = phi i32 [ %151, %148 ], [ %1331, %1322 ]
-  %185 = phi i32 [ %152, %148 ], [ %1332, %1322 ]
-  %186 = phi i32 [ %153, %148 ], [ %1333, %1322 ]
-  %187 = phi i32 [ %154, %148 ], [ %1323, %1322 ]
-  %188 = phi i32 [ %155, %148 ], [ %1334, %1322 ]
-  %189 = phi i32 [ %156, %148 ], [ %1335, %1322 ]
-  %190 = phi ptr [ %157, %148 ], [ %1336, %1322 ]
-  %191 = phi ptr [ %158, %148 ], [ %1337, %1322 ]
-  %192 = phi i8 [ %159, %148 ], [ %1324, %1322 ]
-  %193 = phi i8 [ %160, %148 ], [ %1325, %1322 ]
-  %194 = phi i32 [ %161, %148 ], [ %1326, %1322 ]
-  %195 = phi i32 [ %162, %148 ], [ %1327, %1322 ]
-  %196 = phi ptr [ %163, %148 ], [ %1328, %1322 ]
-  %197 = phi i32 [ %164, %148 ], [ %1338, %1322 ]
-  %198 = phi i32 [ %165, %148 ], [ %1339, %1322 ]
-  %199 = phi ptr [ %166, %148 ], [ %1340, %1322 ]
-  %200 = phi i32 [ %167, %148 ], [ %1341, %1322 ]
-  %201 = phi i32 [ %168, %148 ], [ %1342, %1322 ]
-  %202 = phi i32 [ %169, %148 ], [ %1343, %1322 ]
-  %203 = phi i32 [ %170, %148 ], [ %1344, %1322 ]
-  %204 = phi i32 [ %171, %148 ], [ %1344, %1322 ]
-  %205 = phi i32 [ %172, %148 ], [ %1345, %1322 ]
-  %206 = phi i32 [ %173, %148 ], [ %1346, %1322 ]
-  %207 = phi i32 [ %174, %148 ], [ %1347, %1322 ]
-  %208 = phi i32 [ %175, %148 ], [ %1348, %1322 ]
-  %209 = phi i32 [ %176, %148 ], [ %1349, %1322 ]
-  %210 = phi i32 [ %177, %148 ], [ %1329, %1322 ]
-  %211 = phi i32 [ %178, %148 ], [ %1350, %1322 ]
-  %212 = phi i32 [ %179, %148 ], [ %1351, %1322 ]
-  %213 = phi ptr [ %180, %148 ], [ %1352, %1322 ]
-  %214 = phi ptr [ %181, %148 ], [ %1353, %1322 ]
-  %215 = getelementptr inbounds i16, ptr %214, i64 1846
-  %216 = sub nsw i32 8, %185
-  br label %217
+for.cond.outer1433.outer:                         ; preds = %for.cond.outer1433.outer.backedge, %for.cond.outer
+  %_s.sroa.344.0.ph1434.ph = phi i32 [ %_s.sroa.344.0.ph, %for.cond.outer ], [ %_s.sroa.344.0.ph1434.ph.be, %for.cond.outer1433.outer.backedge ]
+  %_s.sroa.325.0.ph1435.ph = phi i32 [ %_s.sroa.325.0.ph, %for.cond.outer ], [ %_s.sroa.325.0.ph1435.ph.be, %for.cond.outer1433.outer.backedge ]
+  %_s.sroa.321.0.ph1436.ph = phi i32 [ %_s.sroa.321.0.ph, %for.cond.outer ], [ %_s.sroa.321.0.ph1436.ph.be, %for.cond.outer1433.outer.backedge ]
+  %_s.sroa.294.0.ph1437.ph = phi i32 [ %_s.sroa.294.0.ph, %for.cond.outer ], [ %_s.sroa.294.0.ph1437.ph.be, %for.cond.outer1433.outer.backedge ]
+  %_s.sroa.251.0.ph1438.ph = phi i32 [ %_s.sroa.251.0.ph, %for.cond.outer ], [ %_s.sroa.251.0.ph14382207, %for.cond.outer1433.outer.backedge ]
+  %_s.sroa.227.0.ph1439.ph = phi i32 [ %_s.sroa.227.0.ph, %for.cond.outer ], [ %_s.sroa.227.0.ph1439.ph.be, %for.cond.outer1433.outer.backedge ]
+  %_s.sroa.222.0.ph1440.ph = phi i32 [ %_s.sroa.222.0.ph, %for.cond.outer ], [ %_s.sroa.222.0.ph1440.ph.be, %for.cond.outer1433.outer.backedge ]
+  %_s.sroa.164.0.ph1442.ph = phi ptr [ %_s.sroa.164.0.ph, %for.cond.outer ], [ %_s.sroa.164.0.ph1442.ph.be, %for.cond.outer1433.outer.backedge ]
+  %_s.sroa.1451160.0.ph1443.ph = phi ptr [ %_s.sroa.1451160.0.ph, %for.cond.outer ], [ %_s.sroa.1451160.0.ph1443.ph.be, %for.cond.outer1433.outer.backedge ]
+  %_s.sroa.141.0.ph1444.ph = phi i8 [ %_s.sroa.141.0.ph, %for.cond.outer ], [ %_s.sroa.141.0.ph14442072, %for.cond.outer1433.outer.backedge ]
+  %_s.sroa.130.0.ph1445.ph = phi i8 [ %_s.sroa.130.0.ph, %for.cond.outer ], [ %_s.sroa.130.01843, %for.cond.outer1433.outer.backedge ]
+  %_s.sroa.120.0.ph1446.ph = phi i32 [ %_s.sroa.120.0.ph, %for.cond.outer ], [ %_s.sroa.120.01766, %for.cond.outer1433.outer.backedge ]
+  %_s.sroa.111.0.ph1447.ph = phi i32 [ %_s.sroa.111.0.ph, %for.cond.outer ], [ %_s.sroa.111.01712, %for.cond.outer1433.outer.backedge ]
+  %_s.sroa.1021125.0.ph1448.ph = phi ptr [ %_s.sroa.1021125.0.ph, %for.cond.outer ], [ %_s.sroa.1021125.01634, %for.cond.outer1433.outer.backedge ]
+  %_s.sroa.362.0.ph1449.ph = phi i32 [ %_s.sroa.362.0.ph, %for.cond.outer ], [ %_s.sroa.362.0.ph1449.ph.be, %for.cond.outer1433.outer.backedge ]
+  %_s.sroa.72.0.ph1450.ph = phi i32 [ %_s.sroa.72.0.ph, %for.cond.outer ], [ %_s.sroa.72.0.ph1450.ph.be, %for.cond.outer1433.outer.backedge ]
+  %_s.sroa.52.0.ph1451.ph = phi ptr [ %_s.sroa.52.0.ph, %for.cond.outer ], [ %_s.sroa.52.0.ph1451.ph.be, %for.cond.outer1433.outer.backedge ]
+  %_s.sroa.39.0.ph1452.ph = phi i32 [ %_s.sroa.39.0.ph, %for.cond.outer ], [ %_s.sroa.39.0.ph1452.ph.be, %for.cond.outer1433.outer.backedge ]
+  %_s.sroa.37.0.ph1453.ph = phi i32 [ %_s.sroa.37.0.ph, %for.cond.outer ], [ %_s.sroa.37.0.ph1453.ph.be, %for.cond.outer1433.outer.backedge ]
+  %_s.sroa.31.0.ph1455.ph = phi i32 [ %_s.sroa.31.0.ph, %for.cond.outer ], [ %_s.sroa.31.0.ph1455.ph.be, %for.cond.outer1433.outer.backedge ]
+  %_s.sroa.22.0.ph1456.ph = phi i32 [ %_s.sroa.22.0.ph, %for.cond.outer ], [ %_s.sroa.0.0.ph1457.ph.be, %for.cond.outer1433.outer.backedge ]
+  %_s.sroa.0.0.ph1457.ph = phi i32 [ %_s.sroa.0.0.ph, %for.cond.outer ], [ %_s.sroa.0.0.ph1457.ph.be, %for.cond.outer1433.outer.backedge ]
+  %_s.sroa.379.0.ph1458.ph = phi i32 [ %_s.sroa.379.0.ph, %for.cond.outer ], [ %_s.sroa.379.0.ph1458.ph.be, %for.cond.outer1433.outer.backedge ]
+  %_s.sroa.384.0.ph1459.ph = phi i32 [ %_s.sroa.384.0.ph, %for.cond.outer ], [ %_s.sroa.384.0.ph1459.ph.be, %for.cond.outer1433.outer.backedge ]
+  %_s.sroa.389.0.ph1460.ph = phi i32 [ %_s.sroa.389.0.ph, %for.cond.outer ], [ %_s.sroa.389.0.ph1460.ph.be, %for.cond.outer1433.outer.backedge ]
+  %_s.sroa.392.0.ph1461.ph = phi i32 [ %_s.sroa.392.0.ph, %for.cond.outer ], [ %_s.sroa.392.0.ph1461.ph.be, %for.cond.outer1433.outer.backedge ]
+  %_s.sroa.394.0.ph1462.ph = phi i32 [ %_s.sroa.394.0.ph, %for.cond.outer ], [ %_s.sroa.394.0.ph1462.ph.be, %for.cond.outer1433.outer.backedge ]
+  %_s.sroa.396.0.ph1463.ph = phi i32 [ %_s.sroa.396.0.ph, %for.cond.outer ], [ %_s.sroa.396.01529, %for.cond.outer1433.outer.backedge ]
+  %_s.sroa.408.0.ph1464.ph = phi i32 [ %_s.sroa.408.0.ph, %for.cond.outer ], [ %_s.sroa.408.0.ph1464.ph.be, %for.cond.outer1433.outer.backedge ]
+  %_s.sroa.457.0.ph1465.ph = phi i32 [ %_s.sroa.457.0.ph, %for.cond.outer ], [ %_s.sroa.457.0.ph1465.ph.be, %for.cond.outer1433.outer.backedge ]
+  %_s.sroa.494.0.ph1466.ph = phi ptr [ %_s.sroa.494.0.ph, %for.cond.outer ], [ %_s.sroa.494.0.ph1466.ph.be, %for.cond.outer1433.outer.backedge ]
+  %_s.sroa.505.0.ph1467.ph = phi ptr [ %_s.sroa.505.0.ph, %for.cond.outer ], [ %_s.sroa.505.0.ph1467.ph.be, %for.cond.outer1433.outer.backedge ]
+  %add.ptr121 = getelementptr inbounds i16, ptr %_s.sroa.505.0.ph1467.ph, i64 1846
+  %sub129 = sub nsw i32 8, %_s.sroa.321.0.ph1436.ph
+  br label %for.cond.outer1433
 
-217:                                              ; preds = %182, %784
-  %218 = phi i32 [ %770, %784 ], [ %183, %182 ]
-  %219 = phi i32 [ %771, %784 ], [ %184, %182 ]
-  %220 = phi i32 [ %772, %784 ], [ %186, %182 ]
-  %221 = phi i32 [ %773, %784 ], [ %187, %182 ]
-  %222 = phi i32 [ %774, %784 ], [ %188, %182 ]
-  %223 = phi ptr [ %775, %784 ], [ %190, %182 ]
-  %224 = phi ptr [ %776, %784 ], [ %191, %182 ]
-  %225 = phi i8 [ %777, %784 ], [ %192, %182 ]
-  %226 = phi i8 [ %778, %784 ], [ %193, %182 ]
-  %227 = phi i32 [ %785, %784 ], [ %194, %182 ]
-  %228 = phi i32 [ %787, %784 ], [ %195, %182 ]
-  %229 = phi ptr [ %786, %784 ], [ %196, %182 ]
-  %230 = phi i32 [ %779, %784 ], [ %198, %182 ]
-  %231 = phi ptr [ %780, %784 ], [ %199, %182 ]
-  %232 = phi i32 [ 2, %784 ], [ %204, %182 ]
-  %233 = phi i32 [ %791, %784 ], [ %210, %182 ]
-  %234 = phi i32 [ %781, %784 ], [ %211, %182 ]
-  %235 = phi i32 [ %782, %784 ], [ %212, %182 ]
-  switch i32 %232, label %1604 [
-    i32 0, label %261
-    i32 1, label %338
-    i32 3, label %411
-    i32 2, label %444
-    i32 6, label %473
-    i32 13, label %549
-    i32 14, label %642
-    i32 15, label %725
-    i32 26, label %765
-    i32 7, label %796
-    i32 8, label %802
-    i32 9, label %236
-    i32 27, label %243
-    i32 10, label %815
-    i32 11, label %821
-    i32 21, label %831
-    i32 22, label %838
-    i32 25, label %844
-    i32 12, label %906
-    i32 16, label %1054
-    i32 28, label %1213
-    i32 4, label %1270
-    i32 5, label %1354
-    i32 17, label %1395
-    i32 18, label %1403
-    i32 19, label %1412
-    i32 23, label %1421
-    i32 24, label %1483
-    i32 20, label %1566
+for.cond.outer1433:                               ; preds = %for.cond.outer1433.outer, %if.end410
+  %_s.sroa.344.0.ph1434 = phi i32 [ %_s.sroa.344.1, %if.end410 ], [ %_s.sroa.344.0.ph1434.ph, %for.cond.outer1433.outer ]
+  %_s.sroa.325.0.ph1435 = phi i32 [ %_s.sroa.325.12, %if.end410 ], [ %_s.sroa.325.0.ph1435.ph, %for.cond.outer1433.outer ]
+  %_s.sroa.294.0.ph1437 = phi i32 [ %_s.sroa.294.12, %if.end410 ], [ %_s.sroa.294.0.ph1437.ph, %for.cond.outer1433.outer ]
+  %_s.sroa.251.0.ph1438 = phi i32 [ %_s.sroa.251.14, %if.end410 ], [ %_s.sroa.251.0.ph1438.ph, %for.cond.outer1433.outer ]
+  %_s.sroa.227.0.ph1439 = phi i32 [ %_s.sroa.227.12, %if.end410 ], [ %_s.sroa.227.0.ph1439.ph, %for.cond.outer1433.outer ]
+  %_s.sroa.164.0.ph1442 = phi ptr [ %_s.sroa.164.9, %if.end410 ], [ %_s.sroa.164.0.ph1442.ph, %for.cond.outer1433.outer ]
+  %_s.sroa.1451160.0.ph1443 = phi ptr [ %_s.sroa.1451160.11, %if.end410 ], [ %_s.sroa.1451160.0.ph1443.ph, %for.cond.outer1433.outer ]
+  %_s.sroa.141.0.ph1444 = phi i8 [ %_s.sroa.141.8, %if.end410 ], [ %_s.sroa.141.0.ph1444.ph, %for.cond.outer1433.outer ]
+  %_s.sroa.130.0.ph1445 = phi i8 [ %_s.sroa.130.1, %if.end410 ], [ %_s.sroa.130.0.ph1445.ph, %for.cond.outer1433.outer ]
+  %_s.sroa.120.0.ph1446 = phi i32 [ %inc412, %if.end410 ], [ %_s.sroa.120.0.ph1446.ph, %for.cond.outer1433.outer ]
+  %_s.sroa.111.0.ph1447 = phi i32 [ %dec417, %if.end410 ], [ %_s.sroa.111.0.ph1447.ph, %for.cond.outer1433.outer ]
+  %_s.sroa.1021125.0.ph1448 = phi ptr [ %incdec.ptr415, %if.end410 ], [ %_s.sroa.1021125.0.ph1448.ph, %for.cond.outer1433.outer ]
+  %_s.sroa.72.0.ph1450 = phi i32 [ %_s.sroa.72.16, %if.end410 ], [ %_s.sroa.72.0.ph1450.ph, %for.cond.outer1433.outer ]
+  %_s.sroa.52.0.ph1451 = phi ptr [ %_s.sroa.52.16, %if.end410 ], [ %_s.sroa.52.0.ph1451.ph, %for.cond.outer1433.outer ]
+  %_s.sroa.0.0.ph1457 = phi i32 [ 2, %if.end410 ], [ %_s.sroa.0.0.ph1457.ph, %for.cond.outer1433.outer ]
+  %_s.sroa.396.0.ph1463 = phi i32 [ %rem426, %if.end410 ], [ %_s.sroa.396.0.ph1463.ph, %for.cond.outer1433.outer ]
+  %_s.sroa.408.0.ph1464 = phi i32 [ %_s.sroa.408.14, %if.end410 ], [ %_s.sroa.408.0.ph1464.ph, %for.cond.outer1433.outer ]
+  %_s.sroa.457.0.ph1465 = phi i32 [ %_s.sroa.457.17, %if.end410 ], [ %_s.sroa.457.0.ph1465.ph, %for.cond.outer1433.outer ]
+  switch i32 %_s.sroa.0.0.ph1457, label %cleanup [
+    i32 0, label %sw.bb
+    i32 1, label %sw.bb46
+    i32 3, label %sw.bb92
+    i32 2, label %sw.bb107
+    i32 6, label %sw.bb115
+    i32 13, label %sw.bb225
+    i32 14, label %sw.bb301
+    i32 15, label %sw.bb379
+    i32 26, label %sw.bb406
+    i32 7, label %sw.bb437
+    i32 8, label %sw.bb449
+    i32 9, label %sw.bb465.peel
+    i32 27, label %sw.bb480.peel
+    i32 10, label %sw.bb528
+    i32 11, label %sw.bb541
+    i32 21, label %sw.bb560
+    i32 22, label %sw.bb582
+    i32 25, label %sw.bb595
+    i32 12, label %sw.bb651
+    i32 16, label %sw.bb742
+    i32 28, label %sw.bb793.preheader
+    i32 4, label %_LZMA_C_RDBD
+    i32 5, label %sw.bb877
+    i32 17, label %_LZMA_C_LEND
+    i32 18, label %sw.bb902
+    i32 19, label %sw.bb920
+    i32 23, label %for.cond945
+    i32 24, label %sw.bb998
+    i32 20, label %sw.bb1027
   ]
 
-236:                                              ; preds = %217
-  %237 = icmp eq i32 %220, 0
-  br i1 %237, label %238, label %825
-
-238:                                              ; preds = %236
-  %239 = icmp eq i32 %227, 0
-  br i1 %239, label %1604, label %240
-
-240:                                              ; preds = %238
-  %241 = icmp slt i32 %219, 7
-  %242 = select i1 %241, i32 9, i32 11
-  br label %243
-
-243:                                              ; preds = %240, %217
-  %244 = phi i32 [ %219, %217 ], [ %242, %240 ]
-  %245 = icmp eq i32 %228, 0
-  br i1 %245, label %1568, label %246
-
-246:                                              ; preds = %243
-  %247 = sub i32 %233, %197
-  %248 = icmp ult i32 %247, %200
-  %249 = select i1 %248, i32 0, i32 %200
-  %250 = add i32 %249, %247
-  %251 = zext i32 %250 to i64
-  %252 = getelementptr inbounds i8, ptr %213, i64 %251
-  %253 = load i8, ptr %252, align 1, !tbaa !5
-  %254 = zext i32 %233 to i64
-  %255 = getelementptr inbounds i8, ptr %213, i64 %254
-  store i8 %253, ptr %255, align 1, !tbaa !5
-  store i8 %253, ptr %229, align 1, !tbaa !5
-  %256 = add i32 %233, 1
-  %257 = urem i32 %256, %200
-  %258 = add i32 %227, 1
-  %259 = getelementptr inbounds i8, ptr %229, i64 1
-  %260 = add i32 %228, -1
-  br label %444
-
-261:                                              ; preds = %217
-  %262 = icmp eq i32 %230, 0
-  br i1 %262, label %1568, label %263
-
-263:                                              ; preds = %261
-  %264 = load i8, ptr %231, align 1, !tbaa !5
-  %265 = icmp ugt i8 %264, -31
-  br i1 %265, label %1604, label %266
-
-266:                                              ; preds = %263
-  %267 = udiv i8 %264, 45
-  %268 = zext i8 %267 to i32
-  %269 = urem i8 %264, 45
-  %270 = udiv i8 %269, 9
-  %271 = zext i8 %270 to i32
-  %272 = urem i8 %269, 9
-  %273 = zext i8 %272 to i32
-  %274 = shl nsw i32 -1, %268
-  %275 = xor i32 %274, -1
-  %276 = shl nsw i32 -1, %271
-  %277 = xor i32 %276, -1
-  %278 = add nuw nsw i32 %273, %268
-  %279 = shl nuw nsw i32 768, %278
-  %280 = shl nuw nsw i32 1536, %278
-  %281 = add nuw nsw i32 %280, 3692
-  %282 = icmp eq i32 %281, %201
-  br i1 %282, label %290, label %283
-
-283:                                              ; preds = %266
-  %284 = icmp eq ptr %214, null
-  br i1 %284, label %286, label %285
-
-285:                                              ; preds = %283
-  tail call void @free(ptr noundef nonnull %214) #9
-  br label %286
-
-286:                                              ; preds = %285, %283
-  %287 = zext i32 %281 to i64
-  %288 = tail call ptr @cli_malloc(i64 noundef %287) #9
-  %289 = icmp eq ptr %288, null
-  br i1 %289, label %1604, label %290
-
-290:                                              ; preds = %286, %266
-  %291 = phi i32 [ %201, %266 ], [ %281, %286 ]
-  %292 = phi ptr [ %214, %266 ], [ %288, %286 ]
-  %293 = add nuw nsw i32 %279, 1846
-  %294 = zext i32 %293 to i64
-  %295 = add nsw i64 %294, -22
-  br label %296
-
-296:                                              ; preds = %296, %290
-  %297 = phi i64 [ 0, %290 ], [ %304, %296 ]
-  %298 = xor i64 %297, -1
-  %299 = add i64 %298, %294
-  %300 = getelementptr inbounds i16, ptr %292, i64 %299
-  %301 = getelementptr inbounds i16, ptr %300, i64 -7
-  store <8 x i16> <i16 1024, i16 1024, i16 1024, i16 1024, i16 1024, i16 1024, i16 1024, i16 1024>, ptr %301, align 2, !tbaa !51
-  %302 = getelementptr inbounds i16, ptr %300, i64 -8
-  %303 = getelementptr inbounds i16, ptr %302, i64 -7
-  store <8 x i16> <i16 1024, i16 1024, i16 1024, i16 1024, i16 1024, i16 1024, i16 1024, i16 1024>, ptr %303, align 2, !tbaa !51
-  %304 = add nuw i64 %297, 16
-  %305 = icmp eq i64 %297, %295
-  br i1 %305, label %306, label %296, !llvm.loop !53
-
-306:                                              ; preds = %296
-  %307 = getelementptr inbounds i16, ptr %292, i64 5
-  store i16 1024, ptr %307, align 2, !tbaa !51
-  %308 = getelementptr inbounds i16, ptr %292, i64 4
-  store i16 1024, ptr %308, align 2, !tbaa !51
-  %309 = getelementptr inbounds i16, ptr %292, i64 3
-  store i16 1024, ptr %309, align 2, !tbaa !51
-  %310 = getelementptr inbounds i16, ptr %292, i64 2
-  store i16 1024, ptr %310, align 2, !tbaa !51
-  %311 = getelementptr inbounds i16, ptr %292, i64 1
-  store i16 1024, ptr %311, align 2, !tbaa !51
-  store i16 1024, ptr %292, align 2, !tbaa !51
-  br label %312
-
-312:                                              ; preds = %306, %362
-  %313 = phi i32 [ %339, %362 ], [ %218, %306 ]
-  %314 = phi i32 [ %340, %362 ], [ %221, %306 ]
-  %315 = phi ptr [ %341, %362 ], [ %223, %306 ]
-  %316 = phi ptr [ %342, %362 ], [ %224, %306 ]
-  %317 = phi i8 [ %343, %362 ], [ %225, %306 ]
-  %318 = phi i32 [ %344, %362 ], [ %234, %306 ]
-  %319 = phi i32 [ %345, %362 ], [ %235, %306 ]
-  %320 = phi i32 [ %346, %362 ], [ %219, %306 ]
-  %321 = phi i8 [ %347, %362 ], [ %226, %306 ]
-  %322 = phi i32 [ %348, %362 ], [ %227, %306 ]
-  %323 = phi i32 [ %349, %362 ], [ %228, %306 ]
-  %324 = phi ptr [ %350, %362 ], [ %229, %306 ]
-  %325 = phi i32 [ %351, %362 ], [ %233, %306 ]
-  %326 = phi i32 [ %352, %362 ], [ %273, %306 ]
-  %327 = phi i32 [ %367, %362 ], [ 0, %306 ]
-  %328 = phi i32 [ %368, %362 ], [ 0, %306 ]
-  %329 = phi i32 [ %355, %362 ], [ %230, %306 ]
-  %330 = phi ptr [ %356, %362 ], [ %231, %306 ]
-  %331 = phi i32 [ %357, %362 ], [ %291, %306 ]
-  %332 = phi i32 [ %358, %362 ], [ %275, %306 ]
-  %333 = phi i32 [ %359, %362 ], [ %277, %306 ]
-  %334 = phi ptr [ %360, %362 ], [ %292, %306 ]
-  %335 = getelementptr inbounds i8, ptr %330, i64 1
-  %336 = add i32 %329, -1
-  %337 = icmp slt i32 %328, 4
-  br i1 %337, label %338, label %369
-
-338:                                              ; preds = %217, %312
-  %339 = phi i32 [ %313, %312 ], [ %218, %217 ]
-  %340 = phi i32 [ %314, %312 ], [ %221, %217 ]
-  %341 = phi ptr [ %315, %312 ], [ %223, %217 ]
-  %342 = phi ptr [ %316, %312 ], [ %224, %217 ]
-  %343 = phi i8 [ %317, %312 ], [ %225, %217 ]
-  %344 = phi i32 [ %318, %312 ], [ %234, %217 ]
-  %345 = phi i32 [ %319, %312 ], [ %235, %217 ]
-  %346 = phi i32 [ %320, %312 ], [ %219, %217 ]
-  %347 = phi i8 [ %321, %312 ], [ %226, %217 ]
-  %348 = phi i32 [ %322, %312 ], [ %227, %217 ]
-  %349 = phi i32 [ %323, %312 ], [ %228, %217 ]
-  %350 = phi ptr [ %324, %312 ], [ %229, %217 ]
-  %351 = phi i32 [ %325, %312 ], [ %233, %217 ]
-  %352 = phi i32 [ %326, %312 ], [ %185, %217 ]
-  %353 = phi i32 [ %327, %312 ], [ %220, %217 ]
-  %354 = phi i32 [ %328, %312 ], [ %222, %217 ]
-  %355 = phi i32 [ %336, %312 ], [ %230, %217 ]
-  %356 = phi ptr [ %335, %312 ], [ %231, %217 ]
-  %357 = phi i32 [ %331, %312 ], [ %201, %217 ]
-  %358 = phi i32 [ %332, %312 ], [ %208, %217 ]
-  %359 = phi i32 [ %333, %312 ], [ %209, %217 ]
-  %360 = phi ptr [ %334, %312 ], [ %214, %217 ]
-  %361 = icmp eq i32 %355, 0
-  br i1 %361, label %1568, label %362
-
-362:                                              ; preds = %338
-  %363 = load i8, ptr %356, align 1, !tbaa !5
-  %364 = zext i8 %363 to i32
-  %365 = shl nsw i32 %354, 3
-  %366 = shl i32 %364, %365
-  %367 = or i32 %366, %353
-  %368 = add nsw i32 %354, 1
-  br label %312, !llvm.loop !57
-
-369:                                              ; preds = %312
-  %370 = icmp eq i32 %327, %200
-  br i1 %370, label %378, label %371
-
-371:                                              ; preds = %369
-  %372 = icmp eq ptr %213, null
-  br i1 %372, label %374, label %373
-
-373:                                              ; preds = %371
-  tail call void @free(ptr noundef nonnull %213) #9
-  br label %374
-
-374:                                              ; preds = %373, %371
-  %375 = zext i32 %327 to i64
-  %376 = tail call ptr @cli_malloc(i64 noundef %375) #9
-  %377 = icmp eq ptr %376, null
-  br i1 %377, label %1604, label %378
-
-378:                                              ; preds = %374, %369
-  %379 = phi i32 [ %327, %374 ], [ %200, %369 ]
-  %380 = phi ptr [ %376, %374 ], [ %213, %369 ]
-  %381 = add i32 %379, -1
-  %382 = zext i32 %381 to i64
-  %383 = getelementptr inbounds i8, ptr %380, i64 %382
-  store i8 0, ptr %383, align 1, !tbaa !5
-  br label %384
-
-384:                                              ; preds = %437, %378
-  %385 = phi i32 [ %412, %437 ], [ %313, %378 ]
-  %386 = phi i32 [ %413, %437 ], [ %314, %378 ]
-  %387 = phi ptr [ %414, %437 ], [ %315, %378 ]
-  %388 = phi ptr [ %415, %437 ], [ %316, %378 ]
-  %389 = phi i8 [ %416, %437 ], [ %317, %378 ]
-  %390 = phi i32 [ %417, %437 ], [ %318, %378 ]
-  %391 = phi i32 [ %418, %437 ], [ %320, %378 ]
-  %392 = phi i8 [ %419, %437 ], [ %321, %378 ]
-  %393 = phi i32 [ %420, %437 ], [ %322, %378 ]
-  %394 = phi i32 [ %421, %437 ], [ %323, %378 ]
-  %395 = phi ptr [ %422, %437 ], [ %324, %378 ]
-  %396 = phi i32 [ %423, %437 ], [ %325, %378 ]
-  %397 = phi i32 [ %424, %437 ], [ %326, %378 ]
-  %398 = phi i32 [ %425, %437 ], [ %327, %378 ]
-  %399 = phi i32 [ %426, %437 ], [ 5, %378 ]
-  %400 = phi i32 [ %439, %437 ], [ %336, %378 ]
-  %401 = phi ptr [ %440, %437 ], [ %335, %378 ]
-  %402 = phi i32 [ %429, %437 ], [ %379, %378 ]
-  %403 = phi i32 [ %430, %437 ], [ %331, %378 ]
-  %404 = phi i32 [ %431, %437 ], [ %332, %378 ]
-  %405 = phi i32 [ %432, %437 ], [ %333, %378 ]
-  %406 = phi i32 [ %443, %437 ], [ %319, %378 ]
-  %407 = phi ptr [ %434, %437 ], [ %380, %378 ]
-  %408 = phi ptr [ %435, %437 ], [ %334, %378 ]
-  %409 = add nsw i32 %399, -1
-  %410 = icmp eq i32 %399, 0
-  br i1 %410, label %444, label %411
-
-411:                                              ; preds = %217, %384
-  %412 = phi i32 [ %385, %384 ], [ %218, %217 ]
-  %413 = phi i32 [ %386, %384 ], [ %221, %217 ]
-  %414 = phi ptr [ %387, %384 ], [ %223, %217 ]
-  %415 = phi ptr [ %388, %384 ], [ %224, %217 ]
-  %416 = phi i8 [ %389, %384 ], [ %225, %217 ]
-  %417 = phi i32 [ %390, %384 ], [ %234, %217 ]
-  %418 = phi i32 [ %391, %384 ], [ %219, %217 ]
-  %419 = phi i8 [ %392, %384 ], [ %226, %217 ]
-  %420 = phi i32 [ %393, %384 ], [ %227, %217 ]
-  %421 = phi i32 [ %394, %384 ], [ %228, %217 ]
-  %422 = phi ptr [ %395, %384 ], [ %229, %217 ]
-  %423 = phi i32 [ %396, %384 ], [ %233, %217 ]
-  %424 = phi i32 [ %397, %384 ], [ %185, %217 ]
-  %425 = phi i32 [ %398, %384 ], [ %220, %217 ]
-  %426 = phi i32 [ %409, %384 ], [ %222, %217 ]
-  %427 = phi i32 [ %400, %384 ], [ %230, %217 ]
-  %428 = phi ptr [ %401, %384 ], [ %231, %217 ]
-  %429 = phi i32 [ %402, %384 ], [ %200, %217 ]
-  %430 = phi i32 [ %403, %384 ], [ %201, %217 ]
-  %431 = phi i32 [ %404, %384 ], [ %208, %217 ]
-  %432 = phi i32 [ %405, %384 ], [ %209, %217 ]
-  %433 = phi i32 [ %406, %384 ], [ %235, %217 ]
-  %434 = phi ptr [ %407, %384 ], [ %213, %217 ]
-  %435 = phi ptr [ %408, %384 ], [ %214, %217 ]
-  %436 = icmp eq i32 %427, 0
-  br i1 %436, label %1568, label %437
-
-437:                                              ; preds = %411
-  %438 = shl i32 %433, 8
-  %439 = add i32 %427, -1
-  %440 = getelementptr inbounds i8, ptr %428, i64 1
-  %441 = load i8, ptr %428, align 1, !tbaa !5
-  %442 = zext i8 %441 to i32
-  %443 = or i32 %438, %442
-  br label %384, !llvm.loop !58
-
-444:                                              ; preds = %246, %217, %384
-  %445 = phi i32 [ %385, %384 ], [ %218, %217 ], [ %218, %246 ]
-  %446 = phi i32 [ %386, %384 ], [ %221, %217 ], [ %221, %246 ]
-  %447 = phi ptr [ %388, %384 ], [ %224, %217 ], [ %224, %246 ]
-  %448 = phi i8 [ %389, %384 ], [ %225, %217 ], [ %225, %246 ]
-  %449 = phi i32 [ %390, %384 ], [ %234, %217 ], [ %234, %246 ]
-  %450 = phi i32 [ %391, %384 ], [ %244, %246 ], [ %219, %217 ]
-  %451 = phi i8 [ %392, %384 ], [ %253, %246 ], [ %226, %217 ]
-  %452 = phi i32 [ %393, %384 ], [ %258, %246 ], [ %227, %217 ]
-  %453 = phi i32 [ %394, %384 ], [ %260, %246 ], [ %228, %217 ]
-  %454 = phi ptr [ %395, %384 ], [ %259, %246 ], [ %229, %217 ]
-  %455 = phi i32 [ %396, %384 ], [ %257, %246 ], [ %233, %217 ]
-  %456 = phi i32 [ %397, %384 ], [ %185, %217 ], [ %185, %246 ]
-  %457 = phi i32 [ -1, %384 ], [ %222, %217 ], [ %222, %246 ]
-  %458 = phi i32 [ %400, %384 ], [ %230, %217 ], [ %230, %246 ]
-  %459 = phi ptr [ %401, %384 ], [ %231, %217 ], [ %231, %246 ]
-  %460 = phi i32 [ %402, %384 ], [ %200, %217 ], [ %200, %246 ]
-  %461 = phi i32 [ %403, %384 ], [ %201, %217 ], [ %201, %246 ]
-  %462 = phi i32 [ %404, %384 ], [ %208, %217 ], [ %208, %246 ]
-  %463 = phi i32 [ %405, %384 ], [ %209, %217 ], [ %209, %246 ]
-  %464 = phi i32 [ %406, %384 ], [ %235, %217 ], [ %235, %246 ]
-  %465 = phi ptr [ %407, %384 ], [ %213, %217 ], [ %213, %246 ]
-  %466 = phi ptr [ %408, %384 ], [ %214, %217 ], [ %214, %246 ]
-  %467 = and i32 %462, %452
-  %468 = shl i32 %450, 4
-  %469 = sext i32 %468 to i64
-  %470 = getelementptr inbounds i16, ptr %466, i64 %469
-  %471 = sext i32 %467 to i64
-  %472 = getelementptr inbounds i16, ptr %470, i64 %471
-  br label %1270
-
-473:                                              ; preds = %217
-  %474 = icmp eq i32 %220, 0
-  br i1 %474, label %475, label %792
-
-475:                                              ; preds = %473
-  %476 = and i32 %209, %227
-  %477 = shl i32 %476, %185
-  %478 = zext i8 %226 to i32
-  %479 = lshr i32 %478, %216
-  %480 = add i32 %477, %479
-  %481 = mul i32 %480, 768
-  %482 = zext i32 %481 to i64
-  %483 = getelementptr inbounds i16, ptr %215, i64 %482
-  %484 = icmp slt i32 %219, 4
-  br i1 %484, label %491, label %485
-
-485:                                              ; preds = %475
-  %486 = icmp ult i32 %219, 10
-  br i1 %486, label %487, label %489
-
-487:                                              ; preds = %485
-  %488 = add nsw i32 %219, -3
-  br label %491
-
-489:                                              ; preds = %485
-  %490 = add nsw i32 %219, -6
-  br label %491
-
-491:                                              ; preds = %475, %487, %489
-  %492 = phi i32 [ %488, %487 ], [ %490, %489 ], [ 0, %475 ]
-  %493 = icmp eq i32 %218, 0
-  br i1 %493, label %687, label %494
-
-494:                                              ; preds = %491
-  %495 = sub i32 %233, %197
-  %496 = icmp ult i32 %495, %200
-  %497 = select i1 %496, i32 0, i32 %200
-  %498 = add i32 %497, %495
-  %499 = zext i32 %498 to i64
-  %500 = getelementptr inbounds i8, ptr %213, i64 %499
-  %501 = load i8, ptr %500, align 1, !tbaa !5
-  br label %502
-
-502:                                              ; preds = %668, %494
-  %503 = phi i8 [ %576, %668 ], [ %226, %494 ]
-  %504 = phi i32 [ %577, %668 ], [ %227, %494 ]
-  %505 = phi i32 [ %578, %668 ], [ %228, %494 ]
-  %506 = phi ptr [ %579, %668 ], [ %229, %494 ]
-  %507 = phi i32 [ %580, %668 ], [ %233, %494 ]
-  %508 = phi i32 [ %581, %668 ], [ %492, %494 ]
-  %509 = phi i32 [ %583, %668 ], [ 1, %494 ]
-  %510 = phi ptr [ %586, %668 ], [ %483, %494 ]
-  %511 = phi i8 [ %587, %668 ], [ %501, %494 ]
-  %512 = phi i32 [ %588, %668 ], [ %230, %494 ]
-  %513 = phi ptr [ %589, %668 ], [ %231, %494 ]
-  %514 = phi i32 [ %590, %668 ], [ %234, %494 ]
-  %515 = phi i32 [ %591, %668 ], [ %235, %494 ]
-  %516 = lshr i8 %511, 7
-  %517 = zext i8 %516 to i32
-  %518 = shl i8 %511, 1
-  %519 = shl nuw nsw i32 %517, 8
-  %520 = add nuw nsw i32 %519, 256
-  %521 = zext i32 %520 to i64
-  %522 = getelementptr inbounds i16, ptr %510, i64 %521
-  %523 = sext i32 %509 to i64
-  %524 = getelementptr inbounds i16, ptr %522, i64 %523
-  %525 = lshr i32 %514, 11
-  %526 = load i16, ptr %524, align 2, !tbaa !51
-  %527 = zext i16 %526 to i32
-  %528 = mul i32 %525, %527
-  %529 = icmp ult i32 %515, %528
-  %530 = shl i32 %509, 1
-  br i1 %529, label %531, label %536
-
-531:                                              ; preds = %502
-  %532 = sub nsw i32 2048, %527
-  %533 = ashr i32 %532, 5
-  %534 = trunc i32 %533 to i16
-  %535 = add i16 %526, %534
-  br label %542
-
-536:                                              ; preds = %502
-  %537 = sub i32 %514, %528
-  %538 = sub i32 %515, %528
-  %539 = lshr i16 %526, 5
-  %540 = sub i16 %526, %539
-  %541 = or i32 %530, 1
-  br label %542
-
-542:                                              ; preds = %536, %531
-  %543 = phi i16 [ %535, %531 ], [ %540, %536 ]
-  %544 = phi i32 [ 0, %531 ], [ 1, %536 ]
-  %545 = phi i32 [ %530, %531 ], [ %541, %536 ]
-  %546 = phi i32 [ %528, %531 ], [ %537, %536 ]
-  %547 = phi i32 [ %515, %531 ], [ %538, %536 ]
-  store i16 %543, ptr %524, align 2
-  %548 = icmp ult i32 %546, 16777216
-  br i1 %548, label %549, label %575
-
-549:                                              ; preds = %217, %542
-  %550 = phi i8 [ %503, %542 ], [ %226, %217 ]
-  %551 = phi i32 [ %504, %542 ], [ %227, %217 ]
-  %552 = phi i32 [ %505, %542 ], [ %228, %217 ]
-  %553 = phi ptr [ %506, %542 ], [ %229, %217 ]
-  %554 = phi i32 [ %507, %542 ], [ %233, %217 ]
-  %555 = phi i32 [ %508, %542 ], [ %219, %217 ]
-  %556 = phi i32 [ %544, %542 ], [ %220, %217 ]
-  %557 = phi i32 [ %545, %542 ], [ %221, %217 ]
-  %558 = phi i32 [ %517, %542 ], [ %222, %217 ]
-  %559 = phi ptr [ %524, %542 ], [ %223, %217 ]
-  %560 = phi ptr [ %510, %542 ], [ %224, %217 ]
-  %561 = phi i8 [ %518, %542 ], [ %225, %217 ]
-  %562 = phi i32 [ %512, %542 ], [ %230, %217 ]
-  %563 = phi ptr [ %513, %542 ], [ %231, %217 ]
-  %564 = phi i32 [ %546, %542 ], [ %234, %217 ]
-  %565 = phi i32 [ %547, %542 ], [ %235, %217 ]
-  %566 = icmp eq i32 %562, 0
-  br i1 %566, label %1568, label %567
-
-567:                                              ; preds = %549
-  %568 = shl i32 %564, 8
-  %569 = shl i32 %565, 8
-  %570 = add i32 %562, -1
-  %571 = getelementptr inbounds i8, ptr %563, i64 1
-  %572 = load i8, ptr %563, align 1, !tbaa !5
-  %573 = zext i8 %572 to i32
-  %574 = or i32 %569, %573
-  br label %575
-
-575:                                              ; preds = %567, %542
-  %576 = phi i8 [ %550, %567 ], [ %503, %542 ]
-  %577 = phi i32 [ %551, %567 ], [ %504, %542 ]
-  %578 = phi i32 [ %552, %567 ], [ %505, %542 ]
-  %579 = phi ptr [ %553, %567 ], [ %506, %542 ]
-  %580 = phi i32 [ %554, %567 ], [ %507, %542 ]
-  %581 = phi i32 [ %555, %567 ], [ %508, %542 ]
-  %582 = phi i32 [ %556, %567 ], [ %544, %542 ]
-  %583 = phi i32 [ %557, %567 ], [ %545, %542 ]
-  %584 = phi i32 [ %558, %567 ], [ %517, %542 ]
-  %585 = phi ptr [ %559, %567 ], [ %524, %542 ]
-  %586 = phi ptr [ %560, %567 ], [ %510, %542 ]
-  %587 = phi i8 [ %561, %567 ], [ %518, %542 ]
-  %588 = phi i32 [ %570, %567 ], [ %512, %542 ]
-  %589 = phi ptr [ %571, %567 ], [ %513, %542 ]
-  %590 = phi i32 [ %568, %567 ], [ %546, %542 ]
-  %591 = phi i32 [ %574, %567 ], [ %547, %542 ]
-  %592 = icmp eq i32 %584, %582
-  br i1 %592, label %668, label %593
-
-593:                                              ; preds = %575, %660
-  %594 = phi i8 [ %643, %660 ], [ %576, %575 ]
-  %595 = phi i32 [ %644, %660 ], [ %577, %575 ]
-  %596 = phi i32 [ %645, %660 ], [ %578, %575 ]
-  %597 = phi ptr [ %646, %660 ], [ %579, %575 ]
-  %598 = phi i32 [ %647, %660 ], [ %580, %575 ]
-  %599 = phi i32 [ %648, %660 ], [ %581, %575 ]
-  %600 = phi i32 [ %649, %660 ], [ %582, %575 ]
-  %601 = phi i32 [ %650, %660 ], [ %583, %575 ]
-  %602 = phi i32 [ %651, %660 ], [ %584, %575 ]
-  %603 = phi ptr [ %652, %660 ], [ %585, %575 ]
-  %604 = phi ptr [ %653, %660 ], [ %586, %575 ]
-  %605 = phi i8 [ %654, %660 ], [ %587, %575 ]
-  %606 = phi i32 [ %663, %660 ], [ %588, %575 ]
-  %607 = phi ptr [ %664, %660 ], [ %589, %575 ]
-  %608 = phi i32 [ %661, %660 ], [ %590, %575 ]
-  %609 = phi i32 [ %667, %660 ], [ %591, %575 ]
-  br label %610
-
-610:                                              ; preds = %593, %636
-  %611 = phi i32 [ %638, %636 ], [ %601, %593 ]
-  %612 = phi ptr [ %618, %636 ], [ %603, %593 ]
-  %613 = phi i32 [ %639, %636 ], [ %608, %593 ]
-  %614 = phi i32 [ %640, %636 ], [ %609, %593 ]
-  %615 = icmp slt i32 %611, 256
-  br i1 %615, label %616, label %670
-
-616:                                              ; preds = %610
-  %617 = sext i32 %611 to i64
-  %618 = getelementptr inbounds i16, ptr %604, i64 %617
-  %619 = lshr i32 %613, 11
-  %620 = load i16, ptr %618, align 2, !tbaa !51
-  %621 = zext i16 %620 to i32
-  %622 = mul i32 %619, %621
-  %623 = icmp ult i32 %614, %622
-  %624 = shl i32 %611, 1
-  br i1 %623, label %625, label %630
-
-625:                                              ; preds = %616
-  %626 = sub nsw i32 2048, %621
-  %627 = ashr i32 %626, 5
-  %628 = trunc i32 %627 to i16
-  %629 = add i16 %620, %628
-  br label %636
-
-630:                                              ; preds = %616
-  %631 = sub i32 %613, %622
-  %632 = sub i32 %614, %622
-  %633 = lshr i16 %620, 5
-  %634 = sub i16 %620, %633
-  %635 = or i32 %624, 1
-  br label %636
-
-636:                                              ; preds = %630, %625
-  %637 = phi i16 [ %629, %625 ], [ %634, %630 ]
-  %638 = phi i32 [ %624, %625 ], [ %635, %630 ]
-  %639 = phi i32 [ %622, %625 ], [ %631, %630 ]
-  %640 = phi i32 [ %614, %625 ], [ %632, %630 ]
-  store i16 %637, ptr %618, align 2
-  %641 = icmp ult i32 %639, 16777216
-  br i1 %641, label %642, label %610, !llvm.loop !59
-
-642:                                              ; preds = %217, %636
-  %643 = phi i8 [ %594, %636 ], [ %226, %217 ]
-  %644 = phi i32 [ %595, %636 ], [ %227, %217 ]
-  %645 = phi i32 [ %596, %636 ], [ %228, %217 ]
-  %646 = phi ptr [ %597, %636 ], [ %229, %217 ]
-  %647 = phi i32 [ %598, %636 ], [ %233, %217 ]
-  %648 = phi i32 [ %599, %636 ], [ %219, %217 ]
-  %649 = phi i32 [ %600, %636 ], [ %220, %217 ]
-  %650 = phi i32 [ %638, %636 ], [ %221, %217 ]
-  %651 = phi i32 [ %602, %636 ], [ %222, %217 ]
-  %652 = phi ptr [ %618, %636 ], [ %223, %217 ]
-  %653 = phi ptr [ %604, %636 ], [ %224, %217 ]
-  %654 = phi i8 [ %605, %636 ], [ %225, %217 ]
-  %655 = phi i32 [ %606, %636 ], [ %230, %217 ]
-  %656 = phi ptr [ %607, %636 ], [ %231, %217 ]
-  %657 = phi i32 [ %639, %636 ], [ %234, %217 ]
-  %658 = phi i32 [ %640, %636 ], [ %235, %217 ]
-  %659 = icmp eq i32 %655, 0
-  br i1 %659, label %1568, label %660
-
-660:                                              ; preds = %642
-  %661 = shl i32 %657, 8
-  %662 = shl i32 %658, 8
-  %663 = add i32 %655, -1
-  %664 = getelementptr inbounds i8, ptr %656, i64 1
-  %665 = load i8, ptr %656, align 1, !tbaa !5
-  %666 = zext i8 %665 to i32
-  %667 = or i32 %662, %666
-  br label %593, !llvm.loop !59
-
-668:                                              ; preds = %575
-  %669 = icmp slt i32 %583, 256
-  br i1 %669, label %502, label %670, !llvm.loop !60
-
-670:                                              ; preds = %610, %668
-  %671 = phi i32 [ %577, %668 ], [ %595, %610 ]
-  %672 = phi i32 [ %578, %668 ], [ %596, %610 ]
-  %673 = phi ptr [ %579, %668 ], [ %597, %610 ]
-  %674 = phi i32 [ %580, %668 ], [ %598, %610 ]
-  %675 = phi i32 [ %581, %668 ], [ %599, %610 ]
-  %676 = phi i32 [ %582, %668 ], [ %600, %610 ]
-  %677 = phi i32 [ %583, %668 ], [ %611, %610 ]
-  %678 = phi i32 [ %582, %668 ], [ %602, %610 ]
-  %679 = phi ptr [ %585, %668 ], [ %612, %610 ]
-  %680 = phi ptr [ %586, %668 ], [ %604, %610 ]
-  %681 = phi i8 [ %587, %668 ], [ %605, %610 ]
-  %682 = phi i32 [ %588, %668 ], [ %606, %610 ]
-  %683 = phi ptr [ %589, %668 ], [ %607, %610 ]
-  %684 = phi i32 [ %590, %668 ], [ %613, %610 ]
-  %685 = phi i32 [ %591, %668 ], [ %614, %610 ]
-  %686 = trunc i32 %677 to i8
-  br label %765
-
-687:                                              ; preds = %491, %748
-  %688 = phi i8 [ %749, %748 ], [ %226, %491 ]
-  %689 = phi i32 [ %750, %748 ], [ %227, %491 ]
-  %690 = phi i32 [ %751, %748 ], [ %228, %491 ]
-  %691 = phi ptr [ %752, %748 ], [ %229, %491 ]
-  %692 = phi i32 [ %753, %748 ], [ %233, %491 ]
-  %693 = phi i32 [ %754, %748 ], [ %492, %491 ]
-  %694 = phi i32 [ %755, %748 ], [ 1, %491 ]
-  %695 = phi ptr [ %757, %748 ], [ %483, %491 ]
-  %696 = phi i32 [ %758, %748 ], [ %230, %491 ]
-  %697 = phi ptr [ %759, %748 ], [ %231, %491 ]
-  %698 = phi i32 [ %760, %748 ], [ %234, %491 ]
-  %699 = phi i32 [ %761, %748 ], [ %235, %491 ]
-  %700 = sext i32 %694 to i64
-  %701 = getelementptr inbounds i16, ptr %695, i64 %700
-  %702 = lshr i32 %698, 11
-  %703 = load i16, ptr %701, align 2, !tbaa !51
-  %704 = zext i16 %703 to i32
-  %705 = mul i32 %702, %704
-  %706 = icmp ult i32 %699, %705
-  %707 = shl i32 %694, 1
-  br i1 %706, label %708, label %713
-
-708:                                              ; preds = %687
-  %709 = sub nsw i32 2048, %704
-  %710 = ashr i32 %709, 5
-  %711 = trunc i32 %710 to i16
-  %712 = add i16 %703, %711
-  br label %719
-
-713:                                              ; preds = %687
-  %714 = sub i32 %698, %705
-  %715 = sub i32 %699, %705
-  %716 = lshr i16 %703, 5
-  %717 = sub i16 %703, %716
-  %718 = or i32 %707, 1
-  br label %719
-
-719:                                              ; preds = %713, %708
-  %720 = phi i16 [ %712, %708 ], [ %717, %713 ]
-  %721 = phi i32 [ %707, %708 ], [ %718, %713 ]
-  %722 = phi i32 [ %705, %708 ], [ %714, %713 ]
-  %723 = phi i32 [ %699, %708 ], [ %715, %713 ]
-  store i16 %720, ptr %701, align 2
-  %724 = icmp ult i32 %722, 16777216
-  br i1 %724, label %725, label %748
-
-725:                                              ; preds = %217, %719
-  %726 = phi i8 [ %688, %719 ], [ %226, %217 ]
-  %727 = phi i32 [ %689, %719 ], [ %227, %217 ]
-  %728 = phi i32 [ %690, %719 ], [ %228, %217 ]
-  %729 = phi ptr [ %691, %719 ], [ %229, %217 ]
-  %730 = phi i32 [ %692, %719 ], [ %233, %217 ]
-  %731 = phi i32 [ %693, %719 ], [ %219, %217 ]
-  %732 = phi i32 [ %721, %719 ], [ %221, %217 ]
-  %733 = phi ptr [ %701, %719 ], [ %223, %217 ]
-  %734 = phi ptr [ %695, %719 ], [ %224, %217 ]
-  %735 = phi i32 [ %696, %719 ], [ %230, %217 ]
-  %736 = phi ptr [ %697, %719 ], [ %231, %217 ]
-  %737 = phi i32 [ %722, %719 ], [ %234, %217 ]
-  %738 = phi i32 [ %723, %719 ], [ %235, %217 ]
-  %739 = icmp eq i32 %735, 0
-  br i1 %739, label %1568, label %740
-
-740:                                              ; preds = %725
-  %741 = shl i32 %737, 8
-  %742 = shl i32 %738, 8
-  %743 = add i32 %735, -1
-  %744 = getelementptr inbounds i8, ptr %736, i64 1
-  %745 = load i8, ptr %736, align 1, !tbaa !5
-  %746 = zext i8 %745 to i32
-  %747 = or i32 %742, %746
-  br label %748
-
-748:                                              ; preds = %719, %740
-  %749 = phi i8 [ %726, %740 ], [ %688, %719 ]
-  %750 = phi i32 [ %727, %740 ], [ %689, %719 ]
-  %751 = phi i32 [ %728, %740 ], [ %690, %719 ]
-  %752 = phi ptr [ %729, %740 ], [ %691, %719 ]
-  %753 = phi i32 [ %730, %740 ], [ %692, %719 ]
-  %754 = phi i32 [ %731, %740 ], [ %693, %719 ]
-  %755 = phi i32 [ %732, %740 ], [ %721, %719 ]
-  %756 = phi ptr [ %733, %740 ], [ %701, %719 ]
-  %757 = phi ptr [ %734, %740 ], [ %695, %719 ]
-  %758 = phi i32 [ %743, %740 ], [ %696, %719 ]
-  %759 = phi ptr [ %744, %740 ], [ %697, %719 ]
-  %760 = phi i32 [ %741, %740 ], [ %722, %719 ]
-  %761 = phi i32 [ %747, %740 ], [ %723, %719 ]
-  %762 = icmp slt i32 %755, 256
-  br i1 %762, label %687, label %763, !llvm.loop !61
-
-763:                                              ; preds = %748
-  %764 = trunc i32 %755 to i8
-  br label %765
-
-765:                                              ; preds = %217, %670, %763
-  %766 = phi i32 [ %750, %763 ], [ %671, %670 ], [ %227, %217 ]
-  %767 = phi i32 [ %751, %763 ], [ %672, %670 ], [ %228, %217 ]
-  %768 = phi ptr [ %752, %763 ], [ %673, %670 ], [ %229, %217 ]
-  %769 = phi i32 [ %753, %763 ], [ %674, %670 ], [ %233, %217 ]
-  %770 = phi i32 [ %218, %763 ], [ 0, %670 ], [ %218, %217 ]
-  %771 = phi i32 [ %754, %763 ], [ %675, %670 ], [ %219, %217 ]
-  %772 = phi i32 [ %220, %763 ], [ %676, %670 ], [ %220, %217 ]
-  %773 = phi i32 [ %755, %763 ], [ %677, %670 ], [ %221, %217 ]
-  %774 = phi i32 [ %222, %763 ], [ %678, %670 ], [ %222, %217 ]
-  %775 = phi ptr [ %756, %763 ], [ %679, %670 ], [ %223, %217 ]
-  %776 = phi ptr [ %757, %763 ], [ %680, %670 ], [ %224, %217 ]
-  %777 = phi i8 [ %225, %763 ], [ %681, %670 ], [ %225, %217 ]
-  %778 = phi i8 [ %764, %763 ], [ %686, %670 ], [ %226, %217 ]
-  %779 = phi i32 [ %758, %763 ], [ %682, %670 ], [ %230, %217 ]
-  %780 = phi ptr [ %759, %763 ], [ %683, %670 ], [ %231, %217 ]
-  %781 = phi i32 [ %760, %763 ], [ %684, %670 ], [ %234, %217 ]
-  %782 = phi i32 [ %761, %763 ], [ %685, %670 ], [ %235, %217 ]
-  %783 = icmp eq i32 %767, 0
-  br i1 %783, label %1568, label %784
-
-784:                                              ; preds = %765
-  %785 = add i32 %766, 1
-  store i8 %778, ptr %768, align 1, !tbaa !5
-  %786 = getelementptr inbounds i8, ptr %768, i64 1
-  %787 = add i32 %767, -1
-  %788 = zext i32 %769 to i64
-  %789 = getelementptr inbounds i8, ptr %213, i64 %788
-  store i8 %778, ptr %789, align 1, !tbaa !5
-  %790 = add i32 %769, 1
-  %791 = urem i32 %790, %200
-  br label %217
-
-792:                                              ; preds = %473
-  %793 = getelementptr inbounds i16, ptr %214, i64 192
-  %794 = sext i32 %219 to i64
-  %795 = getelementptr inbounds i16, ptr %793, i64 %794
-  br label %1270
-
-796:                                              ; preds = %217
-  %797 = icmp eq i32 %220, 1
-  br i1 %797, label %798, label %834
-
-798:                                              ; preds = %796
-  %799 = getelementptr inbounds i16, ptr %214, i64 204
-  %800 = sext i32 %219 to i64
-  %801 = getelementptr inbounds i16, ptr %799, i64 %800
-  br label %1270
-
-802:                                              ; preds = %217
-  %803 = icmp eq i32 %220, 0
-  br i1 %803, label %804, label %811
-
-804:                                              ; preds = %802
-  %805 = getelementptr inbounds i16, ptr %214, i64 240
-  %806 = shl i32 %219, 4
-  %807 = sext i32 %806 to i64
-  %808 = getelementptr inbounds i16, ptr %805, i64 %807
-  %809 = sext i32 %189 to i64
-  %810 = getelementptr inbounds i16, ptr %808, i64 %809
-  br label %1270
-
-811:                                              ; preds = %802
-  %812 = getelementptr inbounds i16, ptr %214, i64 216
-  %813 = sext i32 %219 to i64
-  %814 = getelementptr inbounds i16, ptr %812, i64 %813
-  br label %1270
-
-815:                                              ; preds = %217
-  %816 = icmp eq i32 %220, 0
-  br i1 %816, label %825, label %817
-
-817:                                              ; preds = %815
-  %818 = getelementptr inbounds i16, ptr %214, i64 228
-  %819 = sext i32 %219 to i64
-  %820 = getelementptr inbounds i16, ptr %818, i64 %819
-  br label %1270
-
-821:                                              ; preds = %217
-  %822 = icmp eq i32 %220, 0
-  %823 = select i1 %822, i32 %206, i32 %207
-  %824 = select i1 %822, i32 %207, i32 %206
-  br label %825
-
-825:                                              ; preds = %236, %821, %815
-  %826 = phi i32 [ %205, %815 ], [ %823, %821 ], [ %197, %236 ]
-  %827 = phi i32 [ %197, %815 ], [ %197, %821 ], [ %205, %236 ]
-  %828 = phi i32 [ %206, %815 ], [ %205, %821 ], [ %206, %236 ]
-  %829 = phi i32 [ %207, %815 ], [ %824, %821 ], [ %207, %236 ]
-  %830 = getelementptr inbounds i16, ptr %214, i64 1332
-  br label %1395
-
-831:                                              ; preds = %217
-  %832 = icmp slt i32 %219, 7
-  %833 = select i1 %832, i32 8, i32 11
-  br label %1172
-
-834:                                              ; preds = %796
-  %835 = icmp slt i32 %219, 7
-  %836 = select i1 %835, i32 7, i32 10
-  %837 = getelementptr inbounds i16, ptr %214, i64 818
-  br label %1395
-
-838:                                              ; preds = %217
-  %839 = getelementptr inbounds i16, ptr %214, i64 432
-  %840 = tail call i32 @llvm.smin.i32(i32 %149, i32 3)
-  %841 = shl i32 %840, 6
-  %842 = sext i32 %841 to i64
-  %843 = getelementptr inbounds i16, ptr %839, i64 %842
-  br label %1421
-
-844:                                              ; preds = %217
-  %845 = icmp sgt i32 %221, 3
-  br i1 %845, label %846, label %1136
-
-846:                                              ; preds = %844
-  %847 = lshr i32 %221, 1
-  %848 = add nsw i32 %847, -1
-  %849 = and i32 %221, 1
-  %850 = or i32 %849, 2
-  %851 = shl i32 %850, %848
-  %852 = icmp ult i32 %221, 14
-  br i1 %852, label %853, label %860
-
-853:                                              ; preds = %846
-  %854 = zext i32 %851 to i64
-  %855 = getelementptr i16, ptr %214, i64 687
-  %856 = zext i32 %221 to i64
-  %857 = sub nsw i64 0, %856
-  %858 = getelementptr i16, ptr %855, i64 %854
-  %859 = getelementptr i16, ptr %858, i64 %857
-  br label %988
-
-860:                                              ; preds = %846
-  %861 = add nsw i32 %847, -5
-  br label %862
-
-862:                                              ; preds = %949, %860
-  %863 = phi i32 [ %950, %949 ], [ %149, %860 ]
-  %864 = phi i32 [ %951, %949 ], [ %185, %860 ]
-  %865 = phi i32 [ %952, %949 ], [ %189, %860 ]
-  %866 = phi i32 [ %953, %949 ], [ %200, %860 ]
-  %867 = phi i32 [ %954, %949 ], [ %201, %860 ]
-  %868 = phi i32 [ %955, %949 ], [ %202, %860 ]
-  %869 = phi i32 [ %956, %949 ], [ %203, %860 ]
-  %870 = phi i32 [ %957, %949 ], [ %205, %860 ]
-  %871 = phi i32 [ %958, %949 ], [ %206, %860 ]
-  %872 = phi i32 [ %959, %949 ], [ %207, %860 ]
-  %873 = phi i32 [ %960, %949 ], [ %208, %860 ]
-  %874 = phi i32 [ %961, %949 ], [ %209, %860 ]
-  %875 = phi ptr [ %962, %949 ], [ %213, %860 ]
-  %876 = phi ptr [ %963, %949 ], [ %214, %860 ]
-  %877 = phi i32 [ %964, %949 ], [ %218, %860 ]
-  %878 = phi i32 [ %965, %949 ], [ %220, %860 ]
-  %879 = phi ptr [ %966, %949 ], [ %223, %860 ]
-  %880 = phi ptr [ %967, %949 ], [ %224, %860 ]
-  %881 = phi i8 [ %968, %949 ], [ %225, %860 ]
-  %882 = phi i32 [ %969, %949 ], [ %219, %860 ]
-  %883 = phi i8 [ %970, %949 ], [ %226, %860 ]
-  %884 = phi i32 [ %971, %949 ], [ %227, %860 ]
-  %885 = phi i32 [ %972, %949 ], [ %228, %860 ]
-  %886 = phi ptr [ %973, %949 ], [ %229, %860 ]
-  %887 = phi i32 [ %974, %949 ], [ %232, %860 ]
-  %888 = phi i32 [ %975, %949 ], [ %233, %860 ]
-  %889 = phi i32 [ %976, %949 ], [ 0, %860 ]
-  %890 = phi i32 [ %983, %949 ], [ %861, %860 ]
-  %891 = phi i32 [ %978, %949 ], [ %851, %860 ]
-  %892 = phi i32 [ %979, %949 ], [ %230, %860 ]
-  %893 = phi ptr [ %980, %949 ], [ %231, %860 ]
-  %894 = phi i32 [ %981, %949 ], [ %234, %860 ]
-  %895 = phi i32 [ %982, %949 ], [ %235, %860 ]
-  %896 = icmp sgt i32 %890, 0
-  br i1 %896, label %897, label %984
-
-897:                                              ; preds = %862
-  %898 = lshr i32 %894, 1
-  %899 = shl i32 %889, 1
-  %900 = icmp uge i32 %895, %898
-  %901 = zext i1 %900 to i32
-  %902 = or i32 %899, %901
-  %903 = select i1 %900, i32 %898, i32 0
-  %904 = sub i32 %895, %903
-  %905 = icmp ult i32 %894, 33554432
-  br i1 %905, label %906, label %949
-
-906:                                              ; preds = %217, %897
-  %907 = phi i32 [ %863, %897 ], [ %149, %217 ]
-  %908 = phi i32 [ %864, %897 ], [ %185, %217 ]
-  %909 = phi i32 [ %865, %897 ], [ %189, %217 ]
-  %910 = phi i32 [ %866, %897 ], [ %200, %217 ]
-  %911 = phi i32 [ %867, %897 ], [ %201, %217 ]
-  %912 = phi i32 [ %868, %897 ], [ %202, %217 ]
-  %913 = phi i32 [ %869, %897 ], [ %203, %217 ]
-  %914 = phi i32 [ %870, %897 ], [ %205, %217 ]
-  %915 = phi i32 [ %871, %897 ], [ %206, %217 ]
-  %916 = phi i32 [ %872, %897 ], [ %207, %217 ]
-  %917 = phi i32 [ %873, %897 ], [ %208, %217 ]
-  %918 = phi i32 [ %874, %897 ], [ %209, %217 ]
-  %919 = phi ptr [ %875, %897 ], [ %213, %217 ]
-  %920 = phi ptr [ %876, %897 ], [ %214, %217 ]
-  %921 = phi i32 [ %877, %897 ], [ %218, %217 ]
-  %922 = phi i32 [ %878, %897 ], [ %220, %217 ]
-  %923 = phi ptr [ %879, %897 ], [ %223, %217 ]
-  %924 = phi ptr [ %880, %897 ], [ %224, %217 ]
-  %925 = phi i8 [ %881, %897 ], [ %225, %217 ]
-  %926 = phi i32 [ %882, %897 ], [ %219, %217 ]
-  %927 = phi i8 [ %883, %897 ], [ %226, %217 ]
-  %928 = phi i32 [ %884, %897 ], [ %227, %217 ]
-  %929 = phi i32 [ %885, %897 ], [ %228, %217 ]
-  %930 = phi ptr [ %886, %897 ], [ %229, %217 ]
-  %931 = phi i32 [ %887, %897 ], [ %232, %217 ]
-  %932 = phi i32 [ %888, %897 ], [ %233, %217 ]
-  %933 = phi i32 [ %902, %897 ], [ %221, %217 ]
-  %934 = phi i32 [ %890, %897 ], [ %222, %217 ]
-  %935 = phi i32 [ %891, %897 ], [ %197, %217 ]
-  %936 = phi i32 [ %892, %897 ], [ %230, %217 ]
-  %937 = phi ptr [ %893, %897 ], [ %231, %217 ]
-  %938 = phi i32 [ %898, %897 ], [ %234, %217 ]
-  %939 = phi i32 [ %904, %897 ], [ %235, %217 ]
-  %940 = icmp eq i32 %936, 0
-  br i1 %940, label %1568, label %941
-
-941:                                              ; preds = %906
-  %942 = shl i32 %938, 8
-  %943 = shl i32 %939, 8
-  %944 = add i32 %936, -1
-  %945 = getelementptr inbounds i8, ptr %937, i64 1
-  %946 = load i8, ptr %937, align 1, !tbaa !5
-  %947 = zext i8 %946 to i32
-  %948 = or i32 %943, %947
-  br label %949
-
-949:                                              ; preds = %897, %941
-  %950 = phi i32 [ %907, %941 ], [ %863, %897 ]
-  %951 = phi i32 [ %908, %941 ], [ %864, %897 ]
-  %952 = phi i32 [ %909, %941 ], [ %865, %897 ]
-  %953 = phi i32 [ %910, %941 ], [ %866, %897 ]
-  %954 = phi i32 [ %911, %941 ], [ %867, %897 ]
-  %955 = phi i32 [ %912, %941 ], [ %868, %897 ]
-  %956 = phi i32 [ %913, %941 ], [ %869, %897 ]
-  %957 = phi i32 [ %914, %941 ], [ %870, %897 ]
-  %958 = phi i32 [ %915, %941 ], [ %871, %897 ]
-  %959 = phi i32 [ %916, %941 ], [ %872, %897 ]
-  %960 = phi i32 [ %917, %941 ], [ %873, %897 ]
-  %961 = phi i32 [ %918, %941 ], [ %874, %897 ]
-  %962 = phi ptr [ %919, %941 ], [ %875, %897 ]
-  %963 = phi ptr [ %920, %941 ], [ %876, %897 ]
-  %964 = phi i32 [ %921, %941 ], [ %877, %897 ]
-  %965 = phi i32 [ %922, %941 ], [ %878, %897 ]
-  %966 = phi ptr [ %923, %941 ], [ %879, %897 ]
-  %967 = phi ptr [ %924, %941 ], [ %880, %897 ]
-  %968 = phi i8 [ %925, %941 ], [ %881, %897 ]
-  %969 = phi i32 [ %926, %941 ], [ %882, %897 ]
-  %970 = phi i8 [ %927, %941 ], [ %883, %897 ]
-  %971 = phi i32 [ %928, %941 ], [ %884, %897 ]
-  %972 = phi i32 [ %929, %941 ], [ %885, %897 ]
-  %973 = phi ptr [ %930, %941 ], [ %886, %897 ]
-  %974 = phi i32 [ %931, %941 ], [ %887, %897 ]
-  %975 = phi i32 [ %932, %941 ], [ %888, %897 ]
-  %976 = phi i32 [ %933, %941 ], [ %902, %897 ]
-  %977 = phi i32 [ %934, %941 ], [ %890, %897 ]
-  %978 = phi i32 [ %935, %941 ], [ %891, %897 ]
-  %979 = phi i32 [ %944, %941 ], [ %892, %897 ]
-  %980 = phi ptr [ %945, %941 ], [ %893, %897 ]
-  %981 = phi i32 [ %942, %941 ], [ %898, %897 ]
-  %982 = phi i32 [ %948, %941 ], [ %904, %897 ]
-  %983 = add nsw i32 %977, -1
-  br label %862, !llvm.loop !62
-
-984:                                              ; preds = %862
-  %985 = shl i32 %889, 4
-  %986 = add i32 %891, %985
-  %987 = getelementptr inbounds i16, ptr %876, i64 802
-  br label %988
-
-988:                                              ; preds = %853, %984, %1098
-  %989 = phi i32 [ %1099, %1098 ], [ %863, %984 ], [ %149, %853 ]
-  %990 = phi i32 [ %1100, %1098 ], [ %864, %984 ], [ %185, %853 ]
-  %991 = phi i32 [ %1101, %1098 ], [ %865, %984 ], [ %189, %853 ]
-  %992 = phi i32 [ %1102, %1098 ], [ %866, %984 ], [ %200, %853 ]
-  %993 = phi i32 [ %1103, %1098 ], [ %867, %984 ], [ %201, %853 ]
-  %994 = phi i32 [ %1104, %1098 ], [ %868, %984 ], [ %202, %853 ]
-  %995 = phi i32 [ %1105, %1098 ], [ %869, %984 ], [ %203, %853 ]
-  %996 = phi i32 [ %1106, %1098 ], [ %870, %984 ], [ %205, %853 ]
-  %997 = phi i32 [ %1107, %1098 ], [ %871, %984 ], [ %206, %853 ]
-  %998 = phi i32 [ %1108, %1098 ], [ %872, %984 ], [ %207, %853 ]
-  %999 = phi i32 [ %1109, %1098 ], [ %873, %984 ], [ %208, %853 ]
-  %1000 = phi i32 [ %1110, %1098 ], [ %874, %984 ], [ %209, %853 ]
-  %1001 = phi ptr [ %1111, %1098 ], [ %875, %984 ], [ %213, %853 ]
-  %1002 = phi ptr [ %1112, %1098 ], [ %876, %984 ], [ %214, %853 ]
-  %1003 = phi i32 [ %1113, %1098 ], [ %877, %984 ], [ %218, %853 ]
-  %1004 = phi i8 [ %1114, %1098 ], [ %881, %984 ], [ %225, %853 ]
-  %1005 = phi i32 [ %1115, %1098 ], [ %882, %984 ], [ %219, %853 ]
-  %1006 = phi i8 [ %1116, %1098 ], [ %883, %984 ], [ %226, %853 ]
-  %1007 = phi i32 [ %1117, %1098 ], [ %884, %984 ], [ %227, %853 ]
-  %1008 = phi i32 [ %1118, %1098 ], [ %885, %984 ], [ %228, %853 ]
-  %1009 = phi ptr [ %1119, %1098 ], [ %886, %984 ], [ %229, %853 ]
-  %1010 = phi i32 [ %1120, %1098 ], [ %887, %984 ], [ %232, %853 ]
-  %1011 = phi i32 [ %1121, %1098 ], [ %888, %984 ], [ %233, %853 ]
-  %1012 = phi i32 [ %1122, %1098 ], [ 4, %984 ], [ %848, %853 ]
-  %1013 = phi i32 [ %1123, %1098 ], [ 0, %984 ], [ 0, %853 ]
-  %1014 = phi i32 [ %1133, %1098 ], [ 0, %984 ], [ 0, %853 ]
-  %1015 = phi i32 [ %1125, %1098 ], [ 1, %984 ], [ 1, %853 ]
-  %1016 = phi ptr [ %1126, %1098 ], [ %879, %984 ], [ %223, %853 ]
-  %1017 = phi ptr [ %1127, %1098 ], [ %987, %984 ], [ %859, %853 ]
-  %1018 = phi i32 [ %1128, %1098 ], [ %986, %984 ], [ %851, %853 ]
-  %1019 = phi i32 [ %1129, %1098 ], [ %892, %984 ], [ %230, %853 ]
-  %1020 = phi ptr [ %1130, %1098 ], [ %893, %984 ], [ %231, %853 ]
-  %1021 = phi i32 [ %1131, %1098 ], [ %894, %984 ], [ %234, %853 ]
-  %1022 = phi i32 [ %1132, %1098 ], [ %895, %984 ], [ %235, %853 ]
-  %1023 = icmp slt i32 %1014, %1012
-  br i1 %1023, label %1024, label %1134
-
-1024:                                             ; preds = %988
-  %1025 = sext i32 %1015 to i64
-  %1026 = getelementptr inbounds i16, ptr %1017, i64 %1025
-  %1027 = lshr i32 %1021, 11
-  %1028 = load i16, ptr %1026, align 2, !tbaa !51
-  %1029 = zext i16 %1028 to i32
-  %1030 = mul i32 %1027, %1029
-  %1031 = icmp ult i32 %1022, %1030
-  br i1 %1031, label %1032, label %1038
-
-1032:                                             ; preds = %1024
-  %1033 = sub nsw i32 2048, %1029
-  %1034 = ashr i32 %1033, 5
-  %1035 = trunc i32 %1034 to i16
-  %1036 = add i16 %1028, %1035
-  %1037 = shl i32 %1015, 1
-  br label %1047
-
-1038:                                             ; preds = %1024
-  %1039 = shl nuw i32 1, %1014
-  %1040 = or i32 %1039, %1013
-  %1041 = sub i32 %1021, %1030
-  %1042 = sub i32 %1022, %1030
-  %1043 = lshr i16 %1028, 5
-  %1044 = sub i16 %1028, %1043
-  %1045 = shl nsw i32 %1015, 1
-  %1046 = or i32 %1045, 1
-  br label %1047
-
-1047:                                             ; preds = %1038, %1032
-  %1048 = phi i16 [ %1036, %1032 ], [ %1044, %1038 ]
-  %1049 = phi i32 [ %1013, %1032 ], [ %1040, %1038 ]
-  %1050 = phi i32 [ %1037, %1032 ], [ %1046, %1038 ]
-  %1051 = phi i32 [ %1030, %1032 ], [ %1041, %1038 ]
-  %1052 = phi i32 [ %1022, %1032 ], [ %1042, %1038 ]
-  store i16 %1048, ptr %1026, align 2
-  %1053 = icmp ult i32 %1051, 16777216
-  br i1 %1053, label %1054, label %1098
-
-1054:                                             ; preds = %217, %1047
-  %1055 = phi i32 [ %989, %1047 ], [ %149, %217 ]
-  %1056 = phi i32 [ %990, %1047 ], [ %185, %217 ]
-  %1057 = phi i32 [ %991, %1047 ], [ %189, %217 ]
-  %1058 = phi i32 [ %992, %1047 ], [ %200, %217 ]
-  %1059 = phi i32 [ %993, %1047 ], [ %201, %217 ]
-  %1060 = phi i32 [ %994, %1047 ], [ %202, %217 ]
-  %1061 = phi i32 [ %995, %1047 ], [ %203, %217 ]
-  %1062 = phi i32 [ %996, %1047 ], [ %205, %217 ]
-  %1063 = phi i32 [ %997, %1047 ], [ %206, %217 ]
-  %1064 = phi i32 [ %998, %1047 ], [ %207, %217 ]
-  %1065 = phi i32 [ %999, %1047 ], [ %208, %217 ]
-  %1066 = phi i32 [ %1000, %1047 ], [ %209, %217 ]
-  %1067 = phi ptr [ %1001, %1047 ], [ %213, %217 ]
-  %1068 = phi ptr [ %1002, %1047 ], [ %214, %217 ]
-  %1069 = phi i32 [ %1003, %1047 ], [ %218, %217 ]
-  %1070 = phi i8 [ %1004, %1047 ], [ %225, %217 ]
-  %1071 = phi i32 [ %1005, %1047 ], [ %219, %217 ]
-  %1072 = phi i8 [ %1006, %1047 ], [ %226, %217 ]
-  %1073 = phi i32 [ %1007, %1047 ], [ %227, %217 ]
-  %1074 = phi i32 [ %1008, %1047 ], [ %228, %217 ]
-  %1075 = phi ptr [ %1009, %1047 ], [ %229, %217 ]
-  %1076 = phi i32 [ %1010, %1047 ], [ %232, %217 ]
-  %1077 = phi i32 [ %1011, %1047 ], [ %233, %217 ]
-  %1078 = phi i32 [ %1012, %1047 ], [ %220, %217 ]
-  %1079 = phi i32 [ %1049, %1047 ], [ %221, %217 ]
-  %1080 = phi i32 [ %1014, %1047 ], [ %222, %217 ]
-  %1081 = phi i32 [ %1050, %1047 ], [ %122, %217 ]
-  %1082 = phi ptr [ %1026, %1047 ], [ %223, %217 ]
-  %1083 = phi ptr [ %1017, %1047 ], [ %224, %217 ]
-  %1084 = phi i32 [ %1018, %1047 ], [ %197, %217 ]
-  %1085 = phi i32 [ %1019, %1047 ], [ %230, %217 ]
-  %1086 = phi ptr [ %1020, %1047 ], [ %231, %217 ]
-  %1087 = phi i32 [ %1051, %1047 ], [ %234, %217 ]
-  %1088 = phi i32 [ %1052, %1047 ], [ %235, %217 ]
-  %1089 = icmp eq i32 %1085, 0
-  br i1 %1089, label %1568, label %1090
-
-1090:                                             ; preds = %1054
-  %1091 = shl i32 %1087, 8
-  %1092 = shl i32 %1088, 8
-  %1093 = add i32 %1085, -1
-  %1094 = getelementptr inbounds i8, ptr %1086, i64 1
-  %1095 = load i8, ptr %1086, align 1, !tbaa !5
-  %1096 = zext i8 %1095 to i32
-  %1097 = or i32 %1092, %1096
-  br label %1098
-
-1098:                                             ; preds = %1047, %1090
-  %1099 = phi i32 [ %1055, %1090 ], [ %989, %1047 ]
-  %1100 = phi i32 [ %1056, %1090 ], [ %990, %1047 ]
-  %1101 = phi i32 [ %1057, %1090 ], [ %991, %1047 ]
-  %1102 = phi i32 [ %1058, %1090 ], [ %992, %1047 ]
-  %1103 = phi i32 [ %1059, %1090 ], [ %993, %1047 ]
-  %1104 = phi i32 [ %1060, %1090 ], [ %994, %1047 ]
-  %1105 = phi i32 [ %1061, %1090 ], [ %995, %1047 ]
-  %1106 = phi i32 [ %1062, %1090 ], [ %996, %1047 ]
-  %1107 = phi i32 [ %1063, %1090 ], [ %997, %1047 ]
-  %1108 = phi i32 [ %1064, %1090 ], [ %998, %1047 ]
-  %1109 = phi i32 [ %1065, %1090 ], [ %999, %1047 ]
-  %1110 = phi i32 [ %1066, %1090 ], [ %1000, %1047 ]
-  %1111 = phi ptr [ %1067, %1090 ], [ %1001, %1047 ]
-  %1112 = phi ptr [ %1068, %1090 ], [ %1002, %1047 ]
-  %1113 = phi i32 [ %1069, %1090 ], [ %1003, %1047 ]
-  %1114 = phi i8 [ %1070, %1090 ], [ %1004, %1047 ]
-  %1115 = phi i32 [ %1071, %1090 ], [ %1005, %1047 ]
-  %1116 = phi i8 [ %1072, %1090 ], [ %1006, %1047 ]
-  %1117 = phi i32 [ %1073, %1090 ], [ %1007, %1047 ]
-  %1118 = phi i32 [ %1074, %1090 ], [ %1008, %1047 ]
-  %1119 = phi ptr [ %1075, %1090 ], [ %1009, %1047 ]
-  %1120 = phi i32 [ %1076, %1090 ], [ %1010, %1047 ]
-  %1121 = phi i32 [ %1077, %1090 ], [ %1011, %1047 ]
-  %1122 = phi i32 [ %1078, %1090 ], [ %1012, %1047 ]
-  %1123 = phi i32 [ %1079, %1090 ], [ %1049, %1047 ]
-  %1124 = phi i32 [ %1080, %1090 ], [ %1014, %1047 ]
-  %1125 = phi i32 [ %1081, %1090 ], [ %1050, %1047 ]
-  %1126 = phi ptr [ %1082, %1090 ], [ %1026, %1047 ]
-  %1127 = phi ptr [ %1083, %1090 ], [ %1017, %1047 ]
-  %1128 = phi i32 [ %1084, %1090 ], [ %1018, %1047 ]
-  %1129 = phi i32 [ %1093, %1090 ], [ %1019, %1047 ]
-  %1130 = phi ptr [ %1094, %1090 ], [ %1020, %1047 ]
-  %1131 = phi i32 [ %1091, %1090 ], [ %1051, %1047 ]
-  %1132 = phi i32 [ %1097, %1090 ], [ %1052, %1047 ]
-  %1133 = add nsw i32 %1124, 1
-  br label %988, !llvm.loop !63
-
-1134:                                             ; preds = %988
-  %1135 = add i32 %1018, %1013
-  br label %1136
-
-1136:                                             ; preds = %844, %1134
-  %1137 = phi i32 [ %989, %1134 ], [ %149, %844 ]
-  %1138 = phi i32 [ %990, %1134 ], [ %185, %844 ]
-  %1139 = phi i32 [ %991, %1134 ], [ %189, %844 ]
-  %1140 = phi i32 [ %992, %1134 ], [ %200, %844 ]
-  %1141 = phi i32 [ %993, %1134 ], [ %201, %844 ]
-  %1142 = phi i32 [ %994, %1134 ], [ %202, %844 ]
-  %1143 = phi i32 [ %995, %1134 ], [ %203, %844 ]
-  %1144 = phi i32 [ %996, %1134 ], [ %205, %844 ]
-  %1145 = phi i32 [ %997, %1134 ], [ %206, %844 ]
-  %1146 = phi i32 [ %998, %1134 ], [ %207, %844 ]
-  %1147 = phi i32 [ %999, %1134 ], [ %208, %844 ]
-  %1148 = phi i32 [ %1000, %1134 ], [ %209, %844 ]
-  %1149 = phi ptr [ %1001, %1134 ], [ %213, %844 ]
-  %1150 = phi ptr [ %1002, %1134 ], [ %214, %844 ]
-  %1151 = phi i32 [ %1003, %1134 ], [ %218, %844 ]
-  %1152 = phi i8 [ %1004, %1134 ], [ %225, %844 ]
-  %1153 = phi i32 [ %1005, %1134 ], [ %219, %844 ]
-  %1154 = phi i8 [ %1006, %1134 ], [ %226, %844 ]
-  %1155 = phi i32 [ %1007, %1134 ], [ %227, %844 ]
-  %1156 = phi i32 [ %1008, %1134 ], [ %228, %844 ]
-  %1157 = phi ptr [ %1009, %1134 ], [ %229, %844 ]
-  %1158 = phi i32 [ %1010, %1134 ], [ %232, %844 ]
-  %1159 = phi i32 [ %1011, %1134 ], [ %233, %844 ]
-  %1160 = phi i32 [ %1012, %1134 ], [ %220, %844 ]
-  %1161 = phi i32 [ %1013, %1134 ], [ %221, %844 ]
-  %1162 = phi i32 [ %1014, %1134 ], [ %222, %844 ]
-  %1163 = phi i32 [ %1015, %1134 ], [ %122, %844 ]
-  %1164 = phi ptr [ %1016, %1134 ], [ %223, %844 ]
-  %1165 = phi ptr [ %1017, %1134 ], [ %224, %844 ]
-  %1166 = phi i32 [ %1135, %1134 ], [ %221, %844 ]
-  %1167 = phi i32 [ %1019, %1134 ], [ %230, %844 ]
-  %1168 = phi ptr [ %1020, %1134 ], [ %231, %844 ]
-  %1169 = phi i32 [ %1021, %1134 ], [ %234, %844 ]
-  %1170 = phi i32 [ %1022, %1134 ], [ %235, %844 ]
-  %1171 = add i32 %1166, 1
-  br label %1172
-
-1172:                                             ; preds = %1136, %831
-  %1173 = phi i32 [ %1137, %1136 ], [ %149, %831 ]
-  %1174 = phi i32 [ %1138, %1136 ], [ %185, %831 ]
-  %1175 = phi i32 [ %1139, %1136 ], [ %189, %831 ]
-  %1176 = phi i32 [ %1140, %1136 ], [ %200, %831 ]
-  %1177 = phi i32 [ %1141, %1136 ], [ %201, %831 ]
-  %1178 = phi i32 [ %1142, %1136 ], [ %202, %831 ]
-  %1179 = phi i32 [ %1143, %1136 ], [ %203, %831 ]
-  %1180 = phi i32 [ %1144, %1136 ], [ %205, %831 ]
-  %1181 = phi i32 [ %1145, %1136 ], [ %206, %831 ]
-  %1182 = phi i32 [ %1146, %1136 ], [ %207, %831 ]
-  %1183 = phi i32 [ %1147, %1136 ], [ %208, %831 ]
-  %1184 = phi i32 [ %1148, %1136 ], [ %209, %831 ]
-  %1185 = phi ptr [ %1149, %1136 ], [ %213, %831 ]
-  %1186 = phi ptr [ %1150, %1136 ], [ %214, %831 ]
-  %1187 = phi i32 [ %1151, %1136 ], [ %218, %831 ]
-  %1188 = phi i8 [ %1152, %1136 ], [ %225, %831 ]
-  %1189 = phi i8 [ %1154, %1136 ], [ %226, %831 ]
-  %1190 = phi i32 [ %1155, %1136 ], [ %227, %831 ]
-  %1191 = phi i32 [ %1156, %1136 ], [ %228, %831 ]
-  %1192 = phi ptr [ %1157, %1136 ], [ %229, %831 ]
-  %1193 = phi i32 [ %1158, %1136 ], [ %232, %831 ]
-  %1194 = phi i32 [ %1159, %1136 ], [ %233, %831 ]
-  %1195 = phi i32 [ %1153, %1136 ], [ %833, %831 ]
-  %1196 = phi i32 [ %1160, %1136 ], [ %220, %831 ]
-  %1197 = phi i32 [ %1161, %1136 ], [ %221, %831 ]
-  %1198 = phi i32 [ %1162, %1136 ], [ %222, %831 ]
-  %1199 = phi i32 [ %1163, %1136 ], [ %122, %831 ]
-  %1200 = phi ptr [ %1164, %1136 ], [ %223, %831 ]
-  %1201 = phi ptr [ %1165, %1136 ], [ %224, %831 ]
-  %1202 = phi i32 [ %1171, %1136 ], [ %197, %831 ]
-  %1203 = phi i32 [ %1167, %1136 ], [ %230, %831 ]
-  %1204 = phi ptr [ %1168, %1136 ], [ %231, %831 ]
-  %1205 = phi i32 [ %1169, %1136 ], [ %234, %831 ]
-  %1206 = phi i32 [ %1170, %1136 ], [ %235, %831 ]
-  %1207 = icmp eq i32 %1202, 0
-  br i1 %1207, label %1568, label %1208
-
-1208:                                             ; preds = %1172
-  %1209 = icmp ugt i32 %1202, %1190
-  br i1 %1209, label %1604, label %1210
-
-1210:                                             ; preds = %1208
-  %1211 = add nsw i32 %1173, 2
-  %1212 = add i32 %1190, %1211
-  br label %1213
-
-1213:                                             ; preds = %217, %1210
-  %1214 = phi i32 [ %1174, %1210 ], [ %185, %217 ]
-  %1215 = phi i32 [ %1175, %1210 ], [ %189, %217 ]
-  %1216 = phi i32 [ %1176, %1210 ], [ %200, %217 ]
-  %1217 = phi i32 [ %1177, %1210 ], [ %201, %217 ]
-  %1218 = phi i32 [ %1178, %1210 ], [ %202, %217 ]
-  %1219 = phi i32 [ %1179, %1210 ], [ %203, %217 ]
-  %1220 = phi i32 [ %1180, %1210 ], [ %205, %217 ]
-  %1221 = phi i32 [ %1181, %1210 ], [ %206, %217 ]
-  %1222 = phi i32 [ %1182, %1210 ], [ %207, %217 ]
-  %1223 = phi i32 [ %1183, %1210 ], [ %208, %217 ]
-  %1224 = phi i32 [ %1184, %1210 ], [ %209, %217 ]
-  %1225 = phi ptr [ %1185, %1210 ], [ %213, %217 ]
-  %1226 = phi ptr [ %1186, %1210 ], [ %214, %217 ]
-  %1227 = phi i32 [ %1187, %1210 ], [ %218, %217 ]
-  %1228 = phi i8 [ %1188, %1210 ], [ %225, %217 ]
-  %1229 = phi i8 [ %1189, %1210 ], [ %226, %217 ]
-  %1230 = phi i32 [ %1191, %1210 ], [ %228, %217 ]
-  %1231 = phi ptr [ %1192, %1210 ], [ %229, %217 ]
-  %1232 = phi i32 [ %1194, %1210 ], [ %233, %217 ]
-  %1233 = phi i32 [ %1211, %1210 ], [ %149, %217 ]
-  %1234 = phi i32 [ %1195, %1210 ], [ %219, %217 ]
-  %1235 = phi i32 [ %1196, %1210 ], [ %220, %217 ]
-  %1236 = phi i32 [ %1197, %1210 ], [ %221, %217 ]
-  %1237 = phi i32 [ %1198, %1210 ], [ %222, %217 ]
-  %1238 = phi i32 [ %1199, %1210 ], [ %122, %217 ]
-  %1239 = phi ptr [ %1200, %1210 ], [ %223, %217 ]
-  %1240 = phi ptr [ %1201, %1210 ], [ %224, %217 ]
-  %1241 = phi i32 [ %1212, %1210 ], [ %227, %217 ]
-  %1242 = phi i32 [ %1202, %1210 ], [ %197, %217 ]
-  %1243 = phi i32 [ %1203, %1210 ], [ %230, %217 ]
-  %1244 = phi ptr [ %1204, %1210 ], [ %231, %217 ]
-  %1245 = phi i32 [ %1205, %1210 ], [ %234, %217 ]
-  %1246 = phi i32 [ %1206, %1210 ], [ %235, %217 ]
-  br label %1247
-
-1247:                                             ; preds = %1213, %1254
-  %1248 = phi i32 [ %1268, %1254 ], [ %1233, %1213 ]
-  %1249 = phi i8 [ %1261, %1254 ], [ %1229, %1213 ]
-  %1250 = phi i32 [ %1267, %1254 ], [ %1230, %1213 ]
-  %1251 = phi ptr [ %1266, %1254 ], [ %1231, %1213 ]
-  %1252 = phi i32 [ %1265, %1254 ], [ %1232, %1213 ]
-  %1253 = icmp eq i32 %1250, 0
-  br i1 %1253, label %1568, label %1254
-
-1254:                                             ; preds = %1247
-  %1255 = sub i32 %1252, %1242
-  %1256 = icmp ult i32 %1255, %1216
-  %1257 = select i1 %1256, i32 0, i32 %1216
-  %1258 = add i32 %1257, %1255
-  %1259 = zext i32 %1258 to i64
-  %1260 = getelementptr inbounds i8, ptr %1225, i64 %1259
-  %1261 = load i8, ptr %1260, align 1, !tbaa !5
-  %1262 = zext i32 %1252 to i64
-  %1263 = getelementptr inbounds i8, ptr %1225, i64 %1262
-  store i8 %1261, ptr %1263, align 1, !tbaa !5
-  %1264 = add i32 %1252, 1
-  %1265 = urem i32 %1264, %1216
-  store i8 %1261, ptr %1251, align 1, !tbaa !5
-  %1266 = getelementptr inbounds i8, ptr %1251, i64 1
-  %1267 = add i32 %1250, -1
-  %1268 = add nsw i32 %1248, -1
-  %1269 = icmp sgt i32 %1248, 1
-  br i1 %1269, label %1247, label %113, !llvm.loop !64
-
-1270:                                             ; preds = %217, %1410, %1395, %817, %811, %804, %798, %792, %444
-  %1271 = phi i32 [ %221, %1410 ], [ %221, %1395 ], [ %221, %817 ], [ %221, %804 ], [ %221, %811 ], [ %221, %798 ], [ %221, %792 ], [ %446, %444 ], [ %221, %217 ]
-  %1272 = phi i8 [ %225, %1410 ], [ %225, %1395 ], [ %225, %817 ], [ %225, %804 ], [ %225, %811 ], [ %225, %798 ], [ %225, %792 ], [ %448, %444 ], [ %225, %217 ]
-  %1273 = phi i32 [ %234, %1410 ], [ %234, %1395 ], [ %234, %817 ], [ %234, %804 ], [ %234, %811 ], [ %234, %798 ], [ %234, %792 ], [ %449, %444 ], [ %234, %217 ]
-  %1274 = phi i8 [ %226, %1410 ], [ %226, %1395 ], [ %226, %817 ], [ %226, %804 ], [ %226, %811 ], [ %226, %798 ], [ %226, %792 ], [ %451, %444 ], [ %226, %217 ]
-  %1275 = phi i32 [ %227, %1410 ], [ %227, %1395 ], [ %227, %817 ], [ %227, %804 ], [ %227, %811 ], [ %227, %798 ], [ %227, %792 ], [ %452, %444 ], [ %227, %217 ]
-  %1276 = phi i32 [ %228, %1410 ], [ %228, %1395 ], [ %228, %817 ], [ %228, %804 ], [ %228, %811 ], [ %228, %798 ], [ %228, %792 ], [ %453, %444 ], [ %228, %217 ]
-  %1277 = phi ptr [ %229, %1410 ], [ %229, %1395 ], [ %229, %817 ], [ %229, %804 ], [ %229, %811 ], [ %229, %798 ], [ %229, %792 ], [ %454, %444 ], [ %229, %217 ]
-  %1278 = phi i32 [ %233, %1410 ], [ %233, %1395 ], [ %233, %817 ], [ %233, %804 ], [ %233, %811 ], [ %233, %798 ], [ %233, %792 ], [ %455, %444 ], [ %233, %217 ]
-  %1279 = phi i32 [ %218, %1410 ], [ %218, %1395 ], [ %218, %817 ], [ %218, %804 ], [ %218, %811 ], [ %218, %798 ], [ 1, %792 ], [ %445, %444 ], [ %218, %217 ]
-  %1280 = phi i32 [ %219, %1410 ], [ %1396, %1395 ], [ %219, %817 ], [ %219, %804 ], [ %219, %811 ], [ %219, %798 ], [ %219, %792 ], [ %450, %444 ], [ %219, %217 ]
-  %1281 = phi i32 [ %185, %1410 ], [ %185, %1395 ], [ %185, %817 ], [ %185, %804 ], [ %185, %811 ], [ %185, %798 ], [ %185, %792 ], [ %456, %444 ], [ %185, %217 ]
-  %1282 = phi i32 [ %222, %1410 ], [ %222, %1395 ], [ %222, %817 ], [ %222, %804 ], [ %222, %811 ], [ %222, %798 ], [ %222, %792 ], [ %457, %444 ], [ %222, %217 ]
-  %1283 = phi i32 [ %189, %1410 ], [ %189, %1395 ], [ %189, %817 ], [ %189, %804 ], [ %189, %811 ], [ %189, %798 ], [ %189, %792 ], [ %467, %444 ], [ %189, %217 ]
-  %1284 = phi ptr [ %1411, %1410 ], [ %1397, %1395 ], [ %820, %817 ], [ %810, %804 ], [ %814, %811 ], [ %801, %798 ], [ %795, %792 ], [ %472, %444 ], [ %223, %217 ]
-  %1285 = phi ptr [ %224, %1410 ], [ %1397, %1395 ], [ %224, %817 ], [ %224, %804 ], [ %224, %811 ], [ %224, %798 ], [ %224, %792 ], [ %447, %444 ], [ %224, %217 ]
-  %1286 = phi i32 [ %197, %1410 ], [ %1398, %1395 ], [ %197, %817 ], [ %197, %804 ], [ %197, %811 ], [ %197, %798 ], [ %197, %792 ], [ %197, %444 ], [ %197, %217 ]
-  %1287 = phi i32 [ %230, %1410 ], [ %230, %1395 ], [ %230, %817 ], [ %230, %804 ], [ %230, %811 ], [ %230, %798 ], [ %230, %792 ], [ %458, %444 ], [ %230, %217 ]
-  %1288 = phi ptr [ %231, %1410 ], [ %231, %1395 ], [ %231, %817 ], [ %231, %804 ], [ %231, %811 ], [ %231, %798 ], [ %231, %792 ], [ %459, %444 ], [ %231, %217 ]
-  %1289 = phi i32 [ %200, %1410 ], [ %200, %1395 ], [ %200, %817 ], [ %200, %804 ], [ %200, %811 ], [ %200, %798 ], [ %200, %792 ], [ %460, %444 ], [ %200, %217 ]
-  %1290 = phi i32 [ %201, %1410 ], [ %201, %1395 ], [ %201, %817 ], [ %201, %804 ], [ %201, %811 ], [ %201, %798 ], [ %201, %792 ], [ %461, %444 ], [ %201, %217 ]
-  %1291 = phi i32 [ %202, %1410 ], [ %1399, %1395 ], [ %202, %817 ], [ %202, %804 ], [ %202, %811 ], [ %202, %798 ], [ %202, %792 ], [ %202, %444 ], [ %202, %217 ]
-  %1292 = phi i32 [ 19, %1410 ], [ 18, %1395 ], [ 11, %817 ], [ 9, %804 ], [ 10, %811 ], [ 8, %798 ], [ 7, %792 ], [ 6, %444 ], [ %203, %217 ]
-  %1293 = phi i32 [ %205, %1410 ], [ %1400, %1395 ], [ %205, %817 ], [ %205, %804 ], [ %205, %811 ], [ %205, %798 ], [ %205, %792 ], [ %205, %444 ], [ %205, %217 ]
-  %1294 = phi i32 [ %206, %1410 ], [ %1401, %1395 ], [ %206, %817 ], [ %206, %804 ], [ %206, %811 ], [ %206, %798 ], [ %206, %792 ], [ %206, %444 ], [ %206, %217 ]
-  %1295 = phi i32 [ %207, %1410 ], [ %1402, %1395 ], [ %207, %817 ], [ %207, %804 ], [ %207, %811 ], [ %207, %798 ], [ %207, %792 ], [ %207, %444 ], [ %207, %217 ]
-  %1296 = phi i32 [ %208, %1410 ], [ %208, %1395 ], [ %208, %817 ], [ %208, %804 ], [ %208, %811 ], [ %208, %798 ], [ %208, %792 ], [ %462, %444 ], [ %208, %217 ]
-  %1297 = phi i32 [ %209, %1410 ], [ %209, %1395 ], [ %209, %817 ], [ %209, %804 ], [ %209, %811 ], [ %209, %798 ], [ %209, %792 ], [ %463, %444 ], [ %209, %217 ]
-  %1298 = phi i32 [ %235, %1410 ], [ %235, %1395 ], [ %235, %817 ], [ %235, %804 ], [ %235, %811 ], [ %235, %798 ], [ %235, %792 ], [ %464, %444 ], [ %235, %217 ]
-  %1299 = phi ptr [ %213, %1410 ], [ %213, %1395 ], [ %213, %817 ], [ %213, %804 ], [ %213, %811 ], [ %213, %798 ], [ %213, %792 ], [ %465, %444 ], [ %213, %217 ]
-  %1300 = phi ptr [ %214, %1410 ], [ %214, %1395 ], [ %214, %817 ], [ %214, %804 ], [ %214, %811 ], [ %214, %798 ], [ %214, %792 ], [ %466, %444 ], [ %214, %217 ]
-  %1301 = lshr i32 %1273, 11
-  %1302 = load i16, ptr %1284, align 2, !tbaa !51
-  %1303 = zext i16 %1302 to i32
-  %1304 = mul i32 %1301, %1303
-  %1305 = icmp ult i32 %1298, %1304
-  br i1 %1305, label %1306, label %1311
-
-1306:                                             ; preds = %1270
-  %1307 = sub nsw i32 2048, %1303
-  %1308 = ashr i32 %1307, 5
-  %1309 = trunc i32 %1308 to i16
-  %1310 = add i16 %1302, %1309
-  br label %1316
-
-1311:                                             ; preds = %1270
-  %1312 = sub i32 %1273, %1304
-  %1313 = sub i32 %1298, %1304
-  %1314 = lshr i16 %1302, 5
-  %1315 = sub i16 %1302, %1314
-  br label %1316
-
-1316:                                             ; preds = %1311, %1306
-  %1317 = phi i16 [ %1315, %1311 ], [ %1310, %1306 ]
-  %1318 = phi i32 [ 1, %1311 ], [ 0, %1306 ]
-  %1319 = phi i32 [ %1312, %1311 ], [ %1304, %1306 ]
-  %1320 = phi i32 [ %1313, %1311 ], [ %1298, %1306 ]
-  store i16 %1317, ptr %1284, align 2, !tbaa !51
-  %1321 = icmp ult i32 %1319, 16777216
-  br i1 %1321, label %1354, label %1322
-
-1322:                                             ; preds = %1316, %1387
-  %1323 = phi i32 [ %1355, %1387 ], [ %1271, %1316 ]
-  %1324 = phi i8 [ %1356, %1387 ], [ %1272, %1316 ]
-  %1325 = phi i8 [ %1357, %1387 ], [ %1274, %1316 ]
-  %1326 = phi i32 [ %1358, %1387 ], [ %1275, %1316 ]
-  %1327 = phi i32 [ %1359, %1387 ], [ %1276, %1316 ]
-  %1328 = phi ptr [ %1360, %1387 ], [ %1277, %1316 ]
-  %1329 = phi i32 [ %1361, %1387 ], [ %1278, %1316 ]
-  %1330 = phi i32 [ %1362, %1387 ], [ %1279, %1316 ]
-  %1331 = phi i32 [ %1363, %1387 ], [ %1280, %1316 ]
-  %1332 = phi i32 [ %1364, %1387 ], [ %1281, %1316 ]
-  %1333 = phi i32 [ %1365, %1387 ], [ %1318, %1316 ]
-  %1334 = phi i32 [ %1366, %1387 ], [ %1282, %1316 ]
-  %1335 = phi i32 [ %1367, %1387 ], [ %1283, %1316 ]
-  %1336 = phi ptr [ %1368, %1387 ], [ %1284, %1316 ]
-  %1337 = phi ptr [ %1369, %1387 ], [ %1285, %1316 ]
-  %1338 = phi i32 [ %1370, %1387 ], [ %1286, %1316 ]
-  %1339 = phi i32 [ %1390, %1387 ], [ %1287, %1316 ]
-  %1340 = phi ptr [ %1391, %1387 ], [ %1288, %1316 ]
-  %1341 = phi i32 [ %1373, %1387 ], [ %1289, %1316 ]
-  %1342 = phi i32 [ %1374, %1387 ], [ %1290, %1316 ]
-  %1343 = phi i32 [ %1375, %1387 ], [ %1291, %1316 ]
-  %1344 = phi i32 [ %1376, %1387 ], [ %1292, %1316 ]
-  %1345 = phi i32 [ %1377, %1387 ], [ %1293, %1316 ]
-  %1346 = phi i32 [ %1378, %1387 ], [ %1294, %1316 ]
-  %1347 = phi i32 [ %1379, %1387 ], [ %1295, %1316 ]
-  %1348 = phi i32 [ %1380, %1387 ], [ %1296, %1316 ]
-  %1349 = phi i32 [ %1381, %1387 ], [ %1297, %1316 ]
-  %1350 = phi i32 [ %1388, %1387 ], [ %1319, %1316 ]
-  %1351 = phi i32 [ %1394, %1387 ], [ %1320, %1316 ]
-  %1352 = phi ptr [ %1384, %1387 ], [ %1299, %1316 ]
-  %1353 = phi ptr [ %1385, %1387 ], [ %1300, %1316 ]
-  br label %182
-
-1354:                                             ; preds = %217, %1316
-  %1355 = phi i32 [ %1271, %1316 ], [ %221, %217 ]
-  %1356 = phi i8 [ %1272, %1316 ], [ %225, %217 ]
-  %1357 = phi i8 [ %1274, %1316 ], [ %226, %217 ]
-  %1358 = phi i32 [ %1275, %1316 ], [ %227, %217 ]
-  %1359 = phi i32 [ %1276, %1316 ], [ %228, %217 ]
-  %1360 = phi ptr [ %1277, %1316 ], [ %229, %217 ]
-  %1361 = phi i32 [ %1278, %1316 ], [ %233, %217 ]
-  %1362 = phi i32 [ %1279, %1316 ], [ %218, %217 ]
-  %1363 = phi i32 [ %1280, %1316 ], [ %219, %217 ]
-  %1364 = phi i32 [ %1281, %1316 ], [ %185, %217 ]
-  %1365 = phi i32 [ %1318, %1316 ], [ %220, %217 ]
-  %1366 = phi i32 [ %1282, %1316 ], [ %222, %217 ]
-  %1367 = phi i32 [ %1283, %1316 ], [ %189, %217 ]
-  %1368 = phi ptr [ %1284, %1316 ], [ %223, %217 ]
-  %1369 = phi ptr [ %1285, %1316 ], [ %224, %217 ]
-  %1370 = phi i32 [ %1286, %1316 ], [ %197, %217 ]
-  %1371 = phi i32 [ %1287, %1316 ], [ %230, %217 ]
-  %1372 = phi ptr [ %1288, %1316 ], [ %231, %217 ]
-  %1373 = phi i32 [ %1289, %1316 ], [ %200, %217 ]
-  %1374 = phi i32 [ %1290, %1316 ], [ %201, %217 ]
-  %1375 = phi i32 [ %1291, %1316 ], [ %202, %217 ]
-  %1376 = phi i32 [ %1292, %1316 ], [ %203, %217 ]
-  %1377 = phi i32 [ %1293, %1316 ], [ %205, %217 ]
-  %1378 = phi i32 [ %1294, %1316 ], [ %206, %217 ]
-  %1379 = phi i32 [ %1295, %1316 ], [ %207, %217 ]
-  %1380 = phi i32 [ %1296, %1316 ], [ %208, %217 ]
-  %1381 = phi i32 [ %1297, %1316 ], [ %209, %217 ]
-  %1382 = phi i32 [ %1319, %1316 ], [ %234, %217 ]
-  %1383 = phi i32 [ %1320, %1316 ], [ %235, %217 ]
-  %1384 = phi ptr [ %1299, %1316 ], [ %213, %217 ]
-  %1385 = phi ptr [ %1300, %1316 ], [ %214, %217 ]
-  %1386 = icmp eq i32 %1371, 0
-  br i1 %1386, label %1568, label %1387
-
-1387:                                             ; preds = %1354
-  %1388 = shl i32 %1382, 8
-  %1389 = shl i32 %1383, 8
-  %1390 = add i32 %1371, -1
-  %1391 = getelementptr inbounds i8, ptr %1372, i64 1
-  %1392 = load i8, ptr %1372, align 1, !tbaa !5
-  %1393 = zext i8 %1392 to i32
-  %1394 = or i32 %1389, %1393
-  br label %1322
-
-1395:                                             ; preds = %217, %834, %825
-  %1396 = phi i32 [ %219, %825 ], [ %836, %834 ], [ %219, %217 ]
-  %1397 = phi ptr [ %830, %825 ], [ %837, %834 ], [ %224, %217 ]
-  %1398 = phi i32 [ %826, %825 ], [ %197, %834 ], [ %197, %217 ]
-  %1399 = phi i32 [ 21, %825 ], [ 22, %834 ], [ %202, %217 ]
-  %1400 = phi i32 [ %827, %825 ], [ %197, %834 ], [ %205, %217 ]
-  %1401 = phi i32 [ %828, %825 ], [ %205, %834 ], [ %206, %217 ]
-  %1402 = phi i32 [ %829, %825 ], [ %206, %834 ], [ %207, %217 ]
-  br label %1270
-
-1403:                                             ; preds = %217
-  %1404 = icmp eq i32 %220, 0
-  br i1 %1404, label %1405, label %1410
-
-1405:                                             ; preds = %1403
-  %1406 = shl i32 %189, 3
-  %1407 = or i32 %1406, 2
-  %1408 = sext i32 %1407 to i64
-  %1409 = getelementptr inbounds i16, ptr %224, i64 %1408
-  br label %1421
-
-1410:                                             ; preds = %1403
-  %1411 = getelementptr inbounds i16, ptr %224, i64 1
-  br label %1270
-
-1412:                                             ; preds = %217
-  %1413 = icmp eq i32 %220, 0
-  br i1 %1413, label %1414, label %1419
-
-1414:                                             ; preds = %1412
-  %1415 = shl i32 %189, 3
-  %1416 = add nsw i32 %1415, 130
-  %1417 = sext i32 %1416 to i64
-  %1418 = getelementptr inbounds i16, ptr %224, i64 %1417
-  br label %1421
-
-1419:                                             ; preds = %1412
-  %1420 = getelementptr inbounds i16, ptr %224, i64 258
-  br label %1421
-
-1421:                                             ; preds = %217, %838, %1414, %1419, %1405, %1527
-  %1422 = phi i32 [ %1528, %1527 ], [ %185, %838 ], [ %185, %1414 ], [ %185, %1419 ], [ %185, %1405 ], [ %185, %217 ]
-  %1423 = phi i32 [ %1529, %1527 ], [ %189, %838 ], [ %189, %1414 ], [ %189, %1419 ], [ %189, %1405 ], [ %189, %217 ]
-  %1424 = phi i32 [ %1530, %1527 ], [ %197, %838 ], [ %197, %1414 ], [ %197, %1419 ], [ %197, %1405 ], [ %197, %217 ]
-  %1425 = phi i32 [ %1531, %1527 ], [ %200, %838 ], [ %200, %1414 ], [ %200, %1419 ], [ %200, %1405 ], [ %200, %217 ]
-  %1426 = phi i32 [ %1532, %1527 ], [ %201, %838 ], [ %201, %1414 ], [ %201, %1419 ], [ %201, %1405 ], [ %201, %217 ]
-  %1427 = phi i32 [ %1533, %1527 ], [ %202, %838 ], [ %202, %1414 ], [ %202, %1419 ], [ %202, %1405 ], [ %202, %217 ]
-  %1428 = phi i32 [ %1534, %1527 ], [ %203, %838 ], [ %203, %1414 ], [ %203, %1419 ], [ %203, %1405 ], [ %203, %217 ]
-  %1429 = phi i32 [ %1535, %1527 ], [ %205, %838 ], [ %205, %1414 ], [ %205, %1419 ], [ %205, %1405 ], [ %205, %217 ]
-  %1430 = phi i32 [ %1536, %1527 ], [ %206, %838 ], [ %206, %1414 ], [ %206, %1419 ], [ %206, %1405 ], [ %206, %217 ]
-  %1431 = phi i32 [ %1537, %1527 ], [ %207, %838 ], [ %207, %1414 ], [ %207, %1419 ], [ %207, %1405 ], [ %207, %217 ]
-  %1432 = phi i32 [ %1538, %1527 ], [ %208, %838 ], [ %208, %1414 ], [ %208, %1419 ], [ %208, %1405 ], [ %208, %217 ]
-  %1433 = phi i32 [ %1539, %1527 ], [ %209, %838 ], [ %209, %1414 ], [ %209, %1419 ], [ %209, %1405 ], [ %209, %217 ]
-  %1434 = phi ptr [ %1540, %1527 ], [ %213, %838 ], [ %213, %1414 ], [ %213, %1419 ], [ %213, %1405 ], [ %213, %217 ]
-  %1435 = phi ptr [ %1541, %1527 ], [ %214, %838 ], [ %214, %1414 ], [ %214, %1419 ], [ %214, %1405 ], [ %214, %217 ]
-  %1436 = phi i32 [ %1542, %1527 ], [ %218, %838 ], [ %218, %1414 ], [ %218, %1419 ], [ %218, %1405 ], [ %218, %217 ]
-  %1437 = phi i32 [ %1543, %1527 ], [ %221, %838 ], [ %221, %1414 ], [ %221, %1419 ], [ %221, %1405 ], [ %221, %217 ]
-  %1438 = phi i8 [ %1544, %1527 ], [ %225, %838 ], [ %225, %1414 ], [ %225, %1419 ], [ %225, %1405 ], [ %225, %217 ]
-  %1439 = phi i32 [ %1545, %1527 ], [ %219, %838 ], [ %219, %1414 ], [ %219, %1419 ], [ %219, %1405 ], [ %219, %217 ]
-  %1440 = phi i8 [ %1546, %1527 ], [ %226, %838 ], [ %226, %1414 ], [ %226, %1419 ], [ %226, %1405 ], [ %226, %217 ]
-  %1441 = phi i32 [ %1547, %1527 ], [ %227, %838 ], [ %227, %1414 ], [ %227, %1419 ], [ %227, %1405 ], [ %227, %217 ]
-  %1442 = phi i32 [ %1548, %1527 ], [ %228, %838 ], [ %228, %1414 ], [ %228, %1419 ], [ %228, %1405 ], [ %228, %217 ]
-  %1443 = phi ptr [ %1549, %1527 ], [ %229, %838 ], [ %229, %1414 ], [ %229, %1419 ], [ %229, %1405 ], [ %229, %217 ]
-  %1444 = phi i32 [ %1550, %1527 ], [ %233, %838 ], [ %233, %1414 ], [ %233, %1419 ], [ %233, %1405 ], [ %233, %217 ]
-  %1445 = phi i32 [ %1551, %1527 ], [ %149, %838 ], [ 8, %1414 ], [ 16, %1419 ], [ 0, %1405 ], [ %149, %217 ]
-  %1446 = phi i32 [ %1552, %1527 ], [ 6, %838 ], [ 3, %1414 ], [ 8, %1419 ], [ 3, %1405 ], [ %220, %217 ]
-  %1447 = phi i32 [ %1562, %1527 ], [ 6, %838 ], [ 3, %1414 ], [ 8, %1419 ], [ 3, %1405 ], [ %220, %217 ]
-  %1448 = phi i32 [ %1554, %1527 ], [ 1, %838 ], [ 1, %1414 ], [ 1, %1419 ], [ 1, %1405 ], [ 1, %217 ]
-  %1449 = phi ptr [ %1555, %1527 ], [ %223, %838 ], [ %223, %1414 ], [ %223, %1419 ], [ %223, %1405 ], [ %223, %217 ]
-  %1450 = phi ptr [ %1556, %1527 ], [ %843, %838 ], [ %1418, %1414 ], [ %1420, %1419 ], [ %1409, %1405 ], [ %224, %217 ]
-  %1451 = phi i32 [ %1557, %1527 ], [ %230, %838 ], [ %230, %1414 ], [ %230, %1419 ], [ %230, %1405 ], [ %230, %217 ]
-  %1452 = phi ptr [ %1558, %1527 ], [ %231, %838 ], [ %231, %1414 ], [ %231, %1419 ], [ %231, %1405 ], [ %231, %217 ]
-  %1453 = phi i32 [ %1559, %1527 ], [ 25, %838 ], [ 20, %1414 ], [ 20, %1419 ], [ 20, %1405 ], [ %99, %217 ]
-  %1454 = phi i32 [ %1560, %1527 ], [ %234, %838 ], [ %234, %1414 ], [ %234, %1419 ], [ %234, %1405 ], [ %234, %217 ]
-  %1455 = phi i32 [ %1561, %1527 ], [ %235, %838 ], [ %235, %1414 ], [ %235, %1419 ], [ %235, %1405 ], [ %235, %217 ]
-  %1456 = icmp sgt i32 %1447, 0
-  br i1 %1456, label %1457, label %1563
-
-1457:                                             ; preds = %1421
-  %1458 = sext i32 %1448 to i64
-  %1459 = getelementptr inbounds i16, ptr %1450, i64 %1458
-  %1460 = lshr i32 %1454, 11
-  %1461 = load i16, ptr %1459, align 2, !tbaa !51
-  %1462 = zext i16 %1461 to i32
-  %1463 = mul i32 %1460, %1462
-  %1464 = icmp ult i32 %1455, %1463
-  %1465 = shl i32 %1448, 1
-  br i1 %1464, label %1466, label %1471
-
-1466:                                             ; preds = %1457
-  %1467 = sub nsw i32 2048, %1462
-  %1468 = ashr i32 %1467, 5
-  %1469 = trunc i32 %1468 to i16
-  %1470 = add i16 %1461, %1469
-  br label %1477
-
-1471:                                             ; preds = %1457
-  %1472 = sub i32 %1454, %1463
-  %1473 = sub i32 %1455, %1463
-  %1474 = lshr i16 %1461, 5
-  %1475 = sub i16 %1461, %1474
-  %1476 = or i32 %1465, 1
-  br label %1477
-
-1477:                                             ; preds = %1471, %1466
-  %1478 = phi i16 [ %1470, %1466 ], [ %1475, %1471 ]
-  %1479 = phi i32 [ %1465, %1466 ], [ %1476, %1471 ]
-  %1480 = phi i32 [ %1463, %1466 ], [ %1472, %1471 ]
-  %1481 = phi i32 [ %1455, %1466 ], [ %1473, %1471 ]
-  store i16 %1478, ptr %1459, align 2
-  %1482 = icmp ult i32 %1480, 16777216
-  br i1 %1482, label %1483, label %1527
-
-1483:                                             ; preds = %217, %1477
-  %1484 = phi i32 [ %1422, %1477 ], [ %185, %217 ]
-  %1485 = phi i32 [ %1423, %1477 ], [ %189, %217 ]
-  %1486 = phi i32 [ %1424, %1477 ], [ %197, %217 ]
-  %1487 = phi i32 [ %1425, %1477 ], [ %200, %217 ]
-  %1488 = phi i32 [ %1426, %1477 ], [ %201, %217 ]
-  %1489 = phi i32 [ %1427, %1477 ], [ %202, %217 ]
-  %1490 = phi i32 [ %1428, %1477 ], [ %203, %217 ]
-  %1491 = phi i32 [ %1429, %1477 ], [ %205, %217 ]
-  %1492 = phi i32 [ %1430, %1477 ], [ %206, %217 ]
-  %1493 = phi i32 [ %1431, %1477 ], [ %207, %217 ]
-  %1494 = phi i32 [ %1432, %1477 ], [ %208, %217 ]
-  %1495 = phi i32 [ %1433, %1477 ], [ %209, %217 ]
-  %1496 = phi ptr [ %1434, %1477 ], [ %213, %217 ]
-  %1497 = phi ptr [ %1435, %1477 ], [ %214, %217 ]
-  %1498 = phi i32 [ %1436, %1477 ], [ %218, %217 ]
-  %1499 = phi i32 [ %1437, %1477 ], [ %221, %217 ]
-  %1500 = phi i8 [ %1438, %1477 ], [ %225, %217 ]
-  %1501 = phi i32 [ %1439, %1477 ], [ %219, %217 ]
-  %1502 = phi i8 [ %1440, %1477 ], [ %226, %217 ]
-  %1503 = phi i32 [ %1441, %1477 ], [ %227, %217 ]
-  %1504 = phi i32 [ %1442, %1477 ], [ %228, %217 ]
-  %1505 = phi ptr [ %1443, %1477 ], [ %229, %217 ]
-  %1506 = phi i32 [ %1444, %1477 ], [ %233, %217 ]
-  %1507 = phi i32 [ %1445, %1477 ], [ %149, %217 ]
-  %1508 = phi i32 [ %1446, %1477 ], [ %220, %217 ]
-  %1509 = phi i32 [ %1447, %1477 ], [ %222, %217 ]
-  %1510 = phi i32 [ %1479, %1477 ], [ %122, %217 ]
-  %1511 = phi ptr [ %1459, %1477 ], [ %223, %217 ]
-  %1512 = phi ptr [ %1450, %1477 ], [ %224, %217 ]
-  %1513 = phi i32 [ %1451, %1477 ], [ %230, %217 ]
-  %1514 = phi ptr [ %1452, %1477 ], [ %231, %217 ]
-  %1515 = phi i32 [ %1453, %1477 ], [ %99, %217 ]
-  %1516 = phi i32 [ %1480, %1477 ], [ %234, %217 ]
-  %1517 = phi i32 [ %1481, %1477 ], [ %235, %217 ]
-  %1518 = icmp eq i32 %1513, 0
-  br i1 %1518, label %1568, label %1519
-
-1519:                                             ; preds = %1483
-  %1520 = shl i32 %1516, 8
-  %1521 = shl i32 %1517, 8
-  %1522 = add i32 %1513, -1
-  %1523 = getelementptr inbounds i8, ptr %1514, i64 1
-  %1524 = load i8, ptr %1514, align 1, !tbaa !5
-  %1525 = zext i8 %1524 to i32
-  %1526 = or i32 %1521, %1525
-  br label %1527
-
-1527:                                             ; preds = %1477, %1519
-  %1528 = phi i32 [ %1484, %1519 ], [ %1422, %1477 ]
-  %1529 = phi i32 [ %1485, %1519 ], [ %1423, %1477 ]
-  %1530 = phi i32 [ %1486, %1519 ], [ %1424, %1477 ]
-  %1531 = phi i32 [ %1487, %1519 ], [ %1425, %1477 ]
-  %1532 = phi i32 [ %1488, %1519 ], [ %1426, %1477 ]
-  %1533 = phi i32 [ %1489, %1519 ], [ %1427, %1477 ]
-  %1534 = phi i32 [ %1490, %1519 ], [ %1428, %1477 ]
-  %1535 = phi i32 [ %1491, %1519 ], [ %1429, %1477 ]
-  %1536 = phi i32 [ %1492, %1519 ], [ %1430, %1477 ]
-  %1537 = phi i32 [ %1493, %1519 ], [ %1431, %1477 ]
-  %1538 = phi i32 [ %1494, %1519 ], [ %1432, %1477 ]
-  %1539 = phi i32 [ %1495, %1519 ], [ %1433, %1477 ]
-  %1540 = phi ptr [ %1496, %1519 ], [ %1434, %1477 ]
-  %1541 = phi ptr [ %1497, %1519 ], [ %1435, %1477 ]
-  %1542 = phi i32 [ %1498, %1519 ], [ %1436, %1477 ]
-  %1543 = phi i32 [ %1499, %1519 ], [ %1437, %1477 ]
-  %1544 = phi i8 [ %1500, %1519 ], [ %1438, %1477 ]
-  %1545 = phi i32 [ %1501, %1519 ], [ %1439, %1477 ]
-  %1546 = phi i8 [ %1502, %1519 ], [ %1440, %1477 ]
-  %1547 = phi i32 [ %1503, %1519 ], [ %1441, %1477 ]
-  %1548 = phi i32 [ %1504, %1519 ], [ %1442, %1477 ]
-  %1549 = phi ptr [ %1505, %1519 ], [ %1443, %1477 ]
-  %1550 = phi i32 [ %1506, %1519 ], [ %1444, %1477 ]
-  %1551 = phi i32 [ %1507, %1519 ], [ %1445, %1477 ]
-  %1552 = phi i32 [ %1508, %1519 ], [ %1446, %1477 ]
-  %1553 = phi i32 [ %1509, %1519 ], [ %1447, %1477 ]
-  %1554 = phi i32 [ %1510, %1519 ], [ %1479, %1477 ]
-  %1555 = phi ptr [ %1511, %1519 ], [ %1459, %1477 ]
-  %1556 = phi ptr [ %1512, %1519 ], [ %1450, %1477 ]
-  %1557 = phi i32 [ %1522, %1519 ], [ %1451, %1477 ]
-  %1558 = phi ptr [ %1523, %1519 ], [ %1452, %1477 ]
-  %1559 = phi i32 [ %1515, %1519 ], [ %1453, %1477 ]
-  %1560 = phi i32 [ %1520, %1519 ], [ %1480, %1477 ]
-  %1561 = phi i32 [ %1526, %1519 ], [ %1481, %1477 ]
-  %1562 = add nsw i32 %1553, -1
-  br label %1421, !llvm.loop !65
-
-1563:                                             ; preds = %1421
-  %1564 = shl nsw i32 -1, %1446
-  %1565 = add i32 %1448, %1564
-  br label %77
-
-1566:                                             ; preds = %217
-  %1567 = add nsw i32 %221, %149
-  br label %148
-
-1568:                                             ; preds = %765, %725, %642, %549, %1354, %411, %338, %261, %243, %1483, %1172, %1054, %906, %1247
-  %1569 = phi i32 [ %1248, %1247 ], [ %149, %765 ], [ %149, %725 ], [ %149, %642 ], [ %149, %549 ], [ %149, %1354 ], [ %149, %411 ], [ %149, %338 ], [ %149, %261 ], [ %149, %243 ], [ -1, %1172 ], [ %1055, %1054 ], [ %907, %906 ], [ %1507, %1483 ]
-  %1570 = phi i32 [ %1227, %1247 ], [ %218, %243 ], [ %218, %549 ], [ %218, %642 ], [ %218, %725 ], [ %770, %765 ], [ %218, %261 ], [ %339, %338 ], [ %412, %411 ], [ %1362, %1354 ], [ %1187, %1172 ], [ %1069, %1054 ], [ %921, %906 ], [ %1498, %1483 ]
-  %1571 = phi i32 [ %1234, %1247 ], [ %244, %243 ], [ %555, %549 ], [ %648, %642 ], [ %731, %725 ], [ %771, %765 ], [ %219, %261 ], [ %346, %338 ], [ %418, %411 ], [ %1363, %1354 ], [ %1195, %1172 ], [ %1071, %1054 ], [ %926, %906 ], [ %1501, %1483 ]
-  %1572 = phi i32 [ %1214, %1247 ], [ %185, %243 ], [ %185, %765 ], [ %185, %725 ], [ %185, %642 ], [ %185, %549 ], [ %185, %261 ], [ %352, %338 ], [ %424, %411 ], [ %1364, %1354 ], [ %1174, %1172 ], [ %1056, %1054 ], [ %908, %906 ], [ %1484, %1483 ]
-  %1573 = phi i32 [ %1235, %1247 ], [ %220, %243 ], [ %556, %549 ], [ %649, %642 ], [ %220, %725 ], [ %772, %765 ], [ %220, %261 ], [ %353, %338 ], [ %425, %411 ], [ %1365, %1354 ], [ %1196, %1172 ], [ %1078, %1054 ], [ %922, %906 ], [ %1508, %1483 ]
-  %1574 = phi i32 [ %1236, %1247 ], [ %221, %243 ], [ %557, %549 ], [ %650, %642 ], [ %732, %725 ], [ %773, %765 ], [ %221, %261 ], [ %340, %338 ], [ %413, %411 ], [ %1355, %1354 ], [ %1197, %1172 ], [ %1079, %1054 ], [ %933, %906 ], [ %1499, %1483 ]
-  %1575 = phi i32 [ %1237, %1247 ], [ %222, %243 ], [ %558, %549 ], [ %651, %642 ], [ %222, %725 ], [ %774, %765 ], [ %222, %261 ], [ %354, %338 ], [ %426, %411 ], [ %1366, %1354 ], [ %1198, %1172 ], [ %1080, %1054 ], [ %934, %906 ], [ %1509, %1483 ]
-  %1576 = phi i32 [ %1215, %1247 ], [ %189, %243 ], [ %189, %765 ], [ %189, %725 ], [ %189, %642 ], [ %189, %549 ], [ %189, %261 ], [ %189, %338 ], [ %189, %411 ], [ %1367, %1354 ], [ %1175, %1172 ], [ %1057, %1054 ], [ %909, %906 ], [ %1485, %1483 ]
-  %1577 = phi i32 [ %1238, %1247 ], [ %122, %765 ], [ %122, %725 ], [ %122, %642 ], [ %122, %549 ], [ %122, %1354 ], [ %122, %411 ], [ %122, %338 ], [ %122, %261 ], [ %122, %243 ], [ %1199, %1172 ], [ %1081, %1054 ], [ %122, %906 ], [ %1510, %1483 ]
-  %1578 = phi ptr [ %1239, %1247 ], [ %223, %243 ], [ %559, %549 ], [ %652, %642 ], [ %733, %725 ], [ %775, %765 ], [ %223, %261 ], [ %341, %338 ], [ %414, %411 ], [ %1368, %1354 ], [ %1200, %1172 ], [ %1082, %1054 ], [ %923, %906 ], [ %1511, %1483 ]
-  %1579 = phi ptr [ %1240, %1247 ], [ %224, %243 ], [ %560, %549 ], [ %653, %642 ], [ %734, %725 ], [ %776, %765 ], [ %224, %261 ], [ %342, %338 ], [ %415, %411 ], [ %1369, %1354 ], [ %1201, %1172 ], [ %1083, %1054 ], [ %924, %906 ], [ %1512, %1483 ]
-  %1580 = phi i8 [ %1228, %1247 ], [ %225, %243 ], [ %561, %549 ], [ %654, %642 ], [ %225, %725 ], [ %777, %765 ], [ %225, %261 ], [ %343, %338 ], [ %416, %411 ], [ %1356, %1354 ], [ %1188, %1172 ], [ %1070, %1054 ], [ %925, %906 ], [ %1500, %1483 ]
-  %1581 = phi i8 [ %1249, %1247 ], [ %226, %243 ], [ %550, %549 ], [ %643, %642 ], [ %726, %725 ], [ %778, %765 ], [ %226, %261 ], [ %347, %338 ], [ %419, %411 ], [ %1357, %1354 ], [ %1189, %1172 ], [ %1072, %1054 ], [ %927, %906 ], [ %1502, %1483 ]
-  %1582 = phi i32 [ %1241, %1247 ], [ %227, %243 ], [ %551, %549 ], [ %644, %642 ], [ %727, %725 ], [ %766, %765 ], [ %227, %261 ], [ %348, %338 ], [ %420, %411 ], [ %1358, %1354 ], [ %1190, %1172 ], [ %1073, %1054 ], [ %928, %906 ], [ %1503, %1483 ]
-  %1583 = phi i32 [ 0, %1247 ], [ 0, %243 ], [ %552, %549 ], [ %645, %642 ], [ %728, %725 ], [ 0, %765 ], [ %228, %261 ], [ %349, %338 ], [ %421, %411 ], [ %1359, %1354 ], [ %1191, %1172 ], [ %1074, %1054 ], [ %929, %906 ], [ %1504, %1483 ]
-  %1584 = phi ptr [ %1251, %1247 ], [ %229, %243 ], [ %553, %549 ], [ %646, %642 ], [ %729, %725 ], [ %768, %765 ], [ %229, %261 ], [ %350, %338 ], [ %422, %411 ], [ %1360, %1354 ], [ %1192, %1172 ], [ %1075, %1054 ], [ %930, %906 ], [ %1505, %1483 ]
-  %1585 = phi i32 [ %1242, %1247 ], [ %197, %243 ], [ %197, %765 ], [ %197, %725 ], [ %197, %642 ], [ %197, %549 ], [ %197, %261 ], [ %197, %338 ], [ %197, %411 ], [ %1370, %1354 ], [ 0, %1172 ], [ %1084, %1054 ], [ %935, %906 ], [ %1486, %1483 ]
-  %1586 = phi i32 [ %1243, %1247 ], [ %230, %243 ], [ 0, %549 ], [ 0, %642 ], [ 0, %725 ], [ %779, %765 ], [ 0, %1354 ], [ 0, %411 ], [ 0, %338 ], [ 0, %261 ], [ %1203, %1172 ], [ 0, %1054 ], [ 0, %906 ], [ 0, %1483 ]
-  %1587 = phi ptr [ %1244, %1247 ], [ %231, %243 ], [ %563, %549 ], [ %656, %642 ], [ %736, %725 ], [ %780, %765 ], [ %231, %261 ], [ %356, %338 ], [ %428, %411 ], [ %1372, %1354 ], [ %1204, %1172 ], [ %1086, %1054 ], [ %937, %906 ], [ %1514, %1483 ]
-  %1588 = phi i32 [ %1216, %1247 ], [ %200, %243 ], [ %200, %765 ], [ %200, %725 ], [ %200, %642 ], [ %200, %549 ], [ %200, %261 ], [ %200, %338 ], [ %429, %411 ], [ %1373, %1354 ], [ %1176, %1172 ], [ %1058, %1054 ], [ %910, %906 ], [ %1487, %1483 ]
-  %1589 = phi i32 [ %1217, %1247 ], [ %201, %243 ], [ %201, %765 ], [ %201, %725 ], [ %201, %642 ], [ %201, %549 ], [ %201, %261 ], [ %357, %338 ], [ %430, %411 ], [ %1374, %1354 ], [ %1177, %1172 ], [ %1059, %1054 ], [ %911, %906 ], [ %1488, %1483 ]
-  %1590 = phi i32 [ %99, %1247 ], [ %99, %765 ], [ %99, %725 ], [ %99, %642 ], [ %99, %549 ], [ %99, %1354 ], [ %99, %411 ], [ %99, %338 ], [ %99, %261 ], [ %99, %243 ], [ %99, %906 ], [ %99, %1054 ], [ %99, %1172 ], [ %1515, %1483 ]
-  %1591 = phi i32 [ %1218, %1247 ], [ %202, %243 ], [ %202, %765 ], [ %202, %725 ], [ %202, %642 ], [ %202, %549 ], [ %202, %261 ], [ %202, %338 ], [ %202, %411 ], [ %1375, %1354 ], [ %1178, %1172 ], [ %1060, %1054 ], [ %912, %906 ], [ %1489, %1483 ]
-  %1592 = phi i32 [ %1219, %1247 ], [ %203, %243 ], [ %203, %765 ], [ %203, %725 ], [ %203, %642 ], [ %203, %549 ], [ %203, %261 ], [ %203, %338 ], [ %203, %411 ], [ %1376, %1354 ], [ %1179, %1172 ], [ %1061, %1054 ], [ %913, %906 ], [ %1490, %1483 ]
-  %1593 = phi i32 [ 28, %1247 ], [ 27, %243 ], [ 13, %549 ], [ 14, %642 ], [ 15, %725 ], [ 26, %765 ], [ 0, %261 ], [ 1, %338 ], [ 3, %411 ], [ 5, %1354 ], [ %1193, %1172 ], [ 16, %1054 ], [ 12, %906 ], [ 24, %1483 ]
-  %1594 = phi i32 [ %1220, %1247 ], [ %205, %243 ], [ %205, %765 ], [ %205, %725 ], [ %205, %642 ], [ %205, %549 ], [ %205, %261 ], [ %205, %338 ], [ %205, %411 ], [ %1377, %1354 ], [ %1180, %1172 ], [ %1062, %1054 ], [ %914, %906 ], [ %1491, %1483 ]
-  %1595 = phi i32 [ %1221, %1247 ], [ %206, %243 ], [ %206, %765 ], [ %206, %725 ], [ %206, %642 ], [ %206, %549 ], [ %206, %261 ], [ %206, %338 ], [ %206, %411 ], [ %1378, %1354 ], [ %1181, %1172 ], [ %1063, %1054 ], [ %915, %906 ], [ %1492, %1483 ]
-  %1596 = phi i32 [ %1222, %1247 ], [ %207, %243 ], [ %207, %765 ], [ %207, %725 ], [ %207, %642 ], [ %207, %549 ], [ %207, %261 ], [ %207, %338 ], [ %207, %411 ], [ %1379, %1354 ], [ %1182, %1172 ], [ %1064, %1054 ], [ %916, %906 ], [ %1493, %1483 ]
-  %1597 = phi i32 [ %1223, %1247 ], [ %208, %243 ], [ %208, %765 ], [ %208, %725 ], [ %208, %642 ], [ %208, %549 ], [ %208, %261 ], [ %358, %338 ], [ %431, %411 ], [ %1380, %1354 ], [ %1183, %1172 ], [ %1065, %1054 ], [ %917, %906 ], [ %1494, %1483 ]
-  %1598 = phi i32 [ %1224, %1247 ], [ %209, %243 ], [ %209, %765 ], [ %209, %725 ], [ %209, %642 ], [ %209, %549 ], [ %209, %261 ], [ %359, %338 ], [ %432, %411 ], [ %1381, %1354 ], [ %1184, %1172 ], [ %1066, %1054 ], [ %918, %906 ], [ %1495, %1483 ]
-  %1599 = phi i32 [ %1252, %1247 ], [ %233, %243 ], [ %554, %549 ], [ %647, %642 ], [ %730, %725 ], [ %769, %765 ], [ %233, %261 ], [ %351, %338 ], [ %423, %411 ], [ %1361, %1354 ], [ %1194, %1172 ], [ %1077, %1054 ], [ %932, %906 ], [ %1506, %1483 ]
-  %1600 = phi i32 [ %1245, %1247 ], [ %234, %243 ], [ %564, %549 ], [ %657, %642 ], [ %737, %725 ], [ %781, %765 ], [ %234, %261 ], [ %344, %338 ], [ %417, %411 ], [ %1382, %1354 ], [ %1205, %1172 ], [ %1087, %1054 ], [ %938, %906 ], [ %1516, %1483 ]
-  %1601 = phi i32 [ %1246, %1247 ], [ %235, %243 ], [ %565, %549 ], [ %658, %642 ], [ %738, %725 ], [ %782, %765 ], [ %235, %261 ], [ %345, %338 ], [ %433, %411 ], [ %1383, %1354 ], [ %1206, %1172 ], [ %1088, %1054 ], [ %939, %906 ], [ %1517, %1483 ]
-  %1602 = phi ptr [ %1225, %1247 ], [ %213, %243 ], [ %213, %765 ], [ %213, %725 ], [ %213, %642 ], [ %213, %549 ], [ %213, %261 ], [ %213, %338 ], [ %434, %411 ], [ %1384, %1354 ], [ %1185, %1172 ], [ %1067, %1054 ], [ %919, %906 ], [ %1496, %1483 ]
-  %1603 = phi ptr [ %1226, %1247 ], [ %214, %243 ], [ %214, %765 ], [ %214, %725 ], [ %214, %642 ], [ %214, %549 ], [ %214, %261 ], [ %360, %338 ], [ %435, %411 ], [ %1385, %1354 ], [ %1186, %1172 ], [ %1068, %1054 ], [ %920, %906 ], [ %1497, %1483 ]
-  store i32 %1593, ptr %0, align 8, !tbaa.struct !13
-  store i32 %1592, ptr %4, align 4, !tbaa.struct !15
-  store i32 %1591, ptr %6, align 8, !tbaa.struct !16
-  store i32 %1590, ptr %8, align 4, !tbaa.struct !17
-  store i32 %1589, ptr %10, align 8, !tbaa.struct !18
-  store i32 %1588, ptr %12, align 4, !tbaa.struct !19
-  store ptr %1587, ptr %14, align 8, !tbaa.struct !20
-  store i32 %1586, ptr %16, align 8, !tbaa.struct !21
-  store i32 %19, ptr %18, align 4, !tbaa.struct !22
-  store ptr %1584, ptr %20, align 8, !tbaa.struct !23
-  store i32 %1583, ptr %22, align 8, !tbaa.struct !24
-  store i32 %1582, ptr %24, align 4, !tbaa.struct !25
-  store i8 %1581, ptr %26, align 8, !tbaa.struct !26
-  store i8 %1580, ptr %28, align 1, !tbaa.struct !27
-  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 2 dereferenceable(6) %30, ptr noundef nonnull align 2 dereferenceable(6) %2, i64 6, i1 false), !tbaa.struct !28
-  store ptr %1579, ptr %31, align 8, !tbaa.struct !50
-  store ptr %1578, ptr %32, align 8, !tbaa.struct !49
-  store i32 %1577, ptr %33, align 8, !tbaa.struct !48
-  store i32 %1576, ptr %34, align 4, !tbaa.struct !47
-  store i32 %1575, ptr %35, align 8, !tbaa.struct !46
-  store i32 %1574, ptr %36, align 4, !tbaa.struct !45
-  store i32 %1573, ptr %37, align 8, !tbaa.struct !44
-  store i32 %1572, ptr %38, align 4, !tbaa.struct !43
-  store i32 %1571, ptr %39, align 8, !tbaa.struct !42
-  store i32 %1570, ptr %40, align 4, !tbaa.struct !41
-  store i32 %1569, ptr %41, align 8, !tbaa.struct !29
-  store i32 %1585, ptr %43, align 4, !tbaa.struct !40
-  store i32 %1594, ptr %44, align 8, !tbaa.struct !39
-  store i32 %1595, ptr %45, align 4, !tbaa.struct !38
-  store i32 %1596, ptr %46, align 8, !tbaa.struct !37
-  store i32 %1597, ptr %47, align 4, !tbaa.struct !36
-  store i32 %1598, ptr %48, align 8, !tbaa.struct !35
-  store i32 %1599, ptr %49, align 4, !tbaa.struct !34
-  store i32 %1600, ptr %50, align 8, !tbaa.struct !33
-  store i32 %1601, ptr %51, align 4, !tbaa.struct !32
-  store ptr %1602, ptr %52, align 8, !tbaa.struct !31
-  store ptr %1603, ptr %53, align 8, !tbaa.struct !30
-  br label %1604
-
-1604:                                             ; preds = %374, %286, %263, %217, %238, %1208, %1, %1568
-  %1605 = phi i32 [ 0, %1568 ], [ 1, %1 ], [ -1, %1208 ], [ -1, %238 ], [ -1, %217 ], [ -1, %263 ], [ -1, %286 ], [ -1, %374 ]
-  call void @llvm.lifetime.end.p0(i64 6, ptr nonnull %2)
-  ret i32 %1605
+sw.bb465.peel:                                    ; preds = %for.cond.outer1433
+  %cmp467.peel = icmp eq i32 %_s.sroa.294.0.ph1437, 0
+  br i1 %cmp467.peel, label %if.then469.peel, label %if.end556
+
+if.then469.peel:                                  ; preds = %sw.bb465.peel
+  %cmp472.peel = icmp eq i32 %_s.sroa.120.0.ph1446, 0
+  br i1 %cmp472.peel, label %cleanup, label %if.end475.peel
+
+if.end475.peel:                                   ; preds = %if.then469.peel
+  %cmp477.peel = icmp slt i32 %_s.sroa.325.0.ph1435, 7
+  %cond.peel = select i1 %cmp477.peel, i32 9, i32 11
+  br label %sw.bb480.peel
+
+sw.bb480.peel:                                    ; preds = %if.end475.peel, %for.cond.outer1433
+  %_s.sroa.325.13.peel = phi i32 [ %_s.sroa.325.0.ph1435, %for.cond.outer1433 ], [ %cond.peel, %if.end475.peel ]
+  %tobool482.not.peel = icmp eq i32 %_s.sroa.111.0.ph1447, 0
+  br i1 %tobool482.not.peel, label %saveStateAndReturn, label %if.end485.peel
+
+if.end485.peel:                                   ; preds = %sw.bb480.peel
+  %sub488.peel = sub i32 %_s.sroa.396.0.ph1463, %_s.sroa.362.0.ph1449.ph
+  %cmp490.not.peel = icmp ult i32 %sub488.peel, %_s.sroa.39.0.ph1452.ph
+  %add494.peel = select i1 %cmp490.not.peel, i32 0, i32 %_s.sroa.39.0.ph1452.ph
+  %spec.select1426.peel = add i32 %add494.peel, %sub488.peel
+  %idxprom497.peel = zext i32 %spec.select1426.peel to i64
+  %arrayidx498.peel = getelementptr inbounds i8, ptr %_s.sroa.494.0.ph1466.ph, i64 %idxprom497.peel
+  %0 = load i8, ptr %arrayidx498.peel, align 1, !tbaa !5
+  %idxprom503.peel = zext i32 %_s.sroa.396.0.ph1463 to i64
+  %arrayidx504.peel = getelementptr inbounds i8, ptr %_s.sroa.494.0.ph1466.ph, i64 %idxprom503.peel
+  store i8 %0, ptr %arrayidx504.peel, align 1, !tbaa !5
+  store i8 %0, ptr %_s.sroa.1021125.0.ph1448, align 1, !tbaa !5
+  %add506.peel.le = add i32 %_s.sroa.396.0.ph1463, 1
+  %rem508.peel.le = urem i32 %add506.peel.le, %_s.sroa.39.0.ph1452.ph
+  %inc511.peel.le = add i32 %_s.sroa.120.0.ph1446, 1
+  %incdec.ptr515.peel.le = getelementptr inbounds i8, ptr %_s.sroa.1021125.0.ph1448, i64 1
+  %dec517.peel.le = add i32 %_s.sroa.111.0.ph1447, -1
+  br label %sw.bb107
+
+sw.bb:                                            ; preds = %for.cond.outer1433
+  %tobool.not = icmp eq i32 %_s.sroa.72.0.ph1450, 0
+  br i1 %tobool.not, label %saveStateAndReturn, label %if.end2
+
+if.end2:                                          ; preds = %sw.bb
+  %1 = load i8, ptr %_s.sroa.52.0.ph1451, align 1, !tbaa !5
+  %cmp4 = icmp ugt i8 %1, -31
+  br i1 %cmp4, label %cleanup, label %if.end7
+
+if.end7:                                          ; preds = %if.end2
+  %2 = udiv i8 %1, 45
+  %div = zext i8 %2 to i32
+  %rem = urem i8 %1, 45
+  %3 = udiv i8 %rem, 9
+  %div12 = zext i8 %3 to i32
+  %rem14 = urem i8 %rem, 9
+  %conv16 = zext i8 %rem14 to i32
+  %notmask = shl nsw i32 -1, %div
+  %sub = xor i32 %notmask, -1
+  %notmask1425 = shl nsw i32 -1, %div12
+  %sub18 = xor i32 %notmask1425, -1
+  %add = add nuw nsw i32 %conv16, %div
+  %shl20 = shl nuw nsw i32 768, %add
+  %add21 = shl nuw nsw i32 1536, %add
+  %mul = add nuw nsw i32 %add21, 3692
+  %cmp24.not = icmp eq i32 %mul, %_s.sroa.37.0.ph1453.ph
+  br i1 %cmp24.not, label %if.end38, label %if.then26
+
+if.then26:                                        ; preds = %if.end7
+  %tobool27.not = icmp eq ptr %_s.sroa.505.0.ph1467.ph, null
+  br i1 %tobool27.not, label %if.end30, label %if.then28
+
+if.then28:                                        ; preds = %if.then26
+  tail call void @free(ptr noundef nonnull %_s.sroa.505.0.ph1467.ph) #9
+  br label %if.end30
+
+if.end30:                                         ; preds = %if.then28, %if.then26
+  %conv31 = zext i32 %mul to i64
+  %call = tail call ptr @cli_malloc(i64 noundef %conv31) #9
+  %tobool34.not = icmp eq ptr %call, null
+  br i1 %tobool34.not, label %cleanup, label %if.end38
+
+if.end38:                                         ; preds = %if.end30, %if.end7
+  %_s.sroa.37.1 = phi i32 [ %_s.sroa.37.0.ph1453.ph, %if.end7 ], [ %mul, %if.end30 ]
+  %_s.sroa.505.1 = phi ptr [ %_s.sroa.505.0.ph1467.ph, %if.end7 ], [ %call, %if.end30 ]
+  %narrow = add nuw nsw i32 %shl20, 1846
+  %4 = zext i32 %narrow to i64
+  %5 = add nsw i64 %4, -22
+  br label %vector.body
+
+vector.body:                                      ; preds = %vector.body, %if.end38
+  %index = phi i64 [ 0, %if.end38 ], [ %index.next, %vector.body ]
+  %6 = xor i64 %index, -1
+  %7 = add i64 %6, %4
+  %8 = getelementptr inbounds i16, ptr %_s.sroa.505.1, i64 %7
+  %9 = getelementptr inbounds i16, ptr %8, i64 -7
+  store <8 x i16> <i16 1024, i16 1024, i16 1024, i16 1024, i16 1024, i16 1024, i16 1024, i16 1024>, ptr %9, align 2, !tbaa !51
+  %10 = getelementptr inbounds i16, ptr %8, i64 -8
+  %11 = getelementptr inbounds i16, ptr %10, i64 -7
+  store <8 x i16> <i16 1024, i16 1024, i16 1024, i16 1024, i16 1024, i16 1024, i16 1024, i16 1024>, ptr %11, align 2, !tbaa !51
+  %index.next = add nuw i64 %index, 16
+  %12 = icmp eq i64 %index, %5
+  br i1 %12, label %while.body, label %vector.body, !llvm.loop !53
+
+while.body:                                       ; preds = %vector.body
+  %arrayidx = getelementptr inbounds i16, ptr %_s.sroa.505.1, i64 5
+  store i16 1024, ptr %arrayidx, align 2, !tbaa !51
+  %arrayidx.1 = getelementptr inbounds i16, ptr %_s.sroa.505.1, i64 4
+  store i16 1024, ptr %arrayidx.1, align 2, !tbaa !51
+  %arrayidx.2 = getelementptr inbounds i16, ptr %_s.sroa.505.1, i64 3
+  store i16 1024, ptr %arrayidx.2, align 2, !tbaa !51
+  %arrayidx.3 = getelementptr inbounds i16, ptr %_s.sroa.505.1, i64 2
+  store i16 1024, ptr %arrayidx.3, align 2, !tbaa !51
+  %arrayidx.4 = getelementptr inbounds i16, ptr %_s.sroa.505.1, i64 1
+  store i16 1024, ptr %arrayidx.4, align 2, !tbaa !51
+  store i16 1024, ptr %_s.sroa.505.1, align 2, !tbaa !51
+  br label %for.cond42
+
+for.cond42:                                       ; preds = %while.body, %if.end51
+  %_s.sroa.344.0.ph14342290 = phi i32 [ %_s.sroa.344.0.ph14342289, %if.end51 ], [ %_s.sroa.344.0.ph1434, %while.body ]
+  %_s.sroa.251.0.ph14382214 = phi i32 [ %_s.sroa.251.0.ph14382213, %if.end51 ], [ %_s.sroa.251.0.ph1438, %while.body ]
+  %_s.sroa.164.0.ph14422149 = phi ptr [ %_s.sroa.164.0.ph14422148, %if.end51 ], [ %_s.sroa.164.0.ph1442, %while.body ]
+  %_s.sroa.1451160.0.ph14432115 = phi ptr [ %_s.sroa.1451160.0.ph14432114, %if.end51 ], [ %_s.sroa.1451160.0.ph1443, %while.body ]
+  %_s.sroa.141.0.ph14442079 = phi i8 [ %_s.sroa.141.0.ph14442078, %if.end51 ], [ %_s.sroa.141.0.ph1444, %while.body ]
+  %_s.sroa.408.0.ph14641971 = phi i32 [ %_s.sroa.408.0.ph14641970, %if.end51 ], [ %_s.sroa.408.0.ph1464, %while.body ]
+  %_s.sroa.457.0.ph14651938 = phi i32 [ %_s.sroa.457.0.ph14651939, %if.end51 ], [ %_s.sroa.457.0.ph1465, %while.body ]
+  %_s.sroa.325.01904 = phi i32 [ %_s.sroa.325.01903, %if.end51 ], [ %_s.sroa.325.0.ph1435, %while.body ]
+  %_s.sroa.130.01850 = phi i8 [ %_s.sroa.130.01849, %if.end51 ], [ %_s.sroa.130.0.ph1445, %while.body ]
+  %_s.sroa.120.01773 = phi i32 [ %_s.sroa.120.01772, %if.end51 ], [ %_s.sroa.120.0.ph1446, %while.body ]
+  %_s.sroa.111.01719 = phi i32 [ %_s.sroa.111.01718, %if.end51 ], [ %_s.sroa.111.0.ph1447, %while.body ]
+  %_s.sroa.1021125.01641 = phi ptr [ %_s.sroa.1021125.01640, %if.end51 ], [ %_s.sroa.1021125.0.ph1448, %while.body ]
+  %_s.sroa.396.01536 = phi i32 [ %_s.sroa.396.01535, %if.end51 ], [ %_s.sroa.396.0.ph1463, %while.body ]
+  %_s.sroa.321.1 = phi i32 [ %_s.sroa.321.2, %if.end51 ], [ %conv16, %while.body ]
+  %_s.sroa.294.1 = phi i32 [ %or, %if.end51 ], [ 0, %while.body ]
+  %_s.sroa.227.1 = phi i32 [ %inc, %if.end51 ], [ 0, %while.body ]
+  %_s.sroa.72.1.in = phi i32 [ %_s.sroa.72.2, %if.end51 ], [ %_s.sroa.72.0.ph1450, %while.body ]
+  %_s.sroa.52.2.pn = phi ptr [ %_s.sroa.52.2, %if.end51 ], [ %_s.sroa.52.0.ph1451, %while.body ]
+  %_s.sroa.37.2 = phi i32 [ %_s.sroa.37.3, %if.end51 ], [ %_s.sroa.37.1, %while.body ]
+  %_s.sroa.392.1 = phi i32 [ %_s.sroa.392.2, %if.end51 ], [ %sub, %while.body ]
+  %_s.sroa.394.1 = phi i32 [ %_s.sroa.394.2, %if.end51 ], [ %sub18, %while.body ]
+  %_s.sroa.505.2 = phi ptr [ %_s.sroa.505.3, %if.end51 ], [ %_s.sroa.505.1, %while.body ]
+  %_s.sroa.52.1 = getelementptr inbounds i8, ptr %_s.sroa.52.2.pn, i64 1
+  %_s.sroa.72.1 = add i32 %_s.sroa.72.1.in, -1
+  %cmp44 = icmp slt i32 %_s.sroa.227.1, 4
+  br i1 %cmp44, label %sw.bb46, label %for.end
+
+sw.bb46:                                          ; preds = %for.cond.outer1433, %for.cond42
+  %_s.sroa.344.0.ph14342289 = phi i32 [ %_s.sroa.344.0.ph14342290, %for.cond42 ], [ %_s.sroa.344.0.ph1434, %for.cond.outer1433 ]
+  %_s.sroa.251.0.ph14382213 = phi i32 [ %_s.sroa.251.0.ph14382214, %for.cond42 ], [ %_s.sroa.251.0.ph1438, %for.cond.outer1433 ]
+  %_s.sroa.164.0.ph14422148 = phi ptr [ %_s.sroa.164.0.ph14422149, %for.cond42 ], [ %_s.sroa.164.0.ph1442, %for.cond.outer1433 ]
+  %_s.sroa.1451160.0.ph14432114 = phi ptr [ %_s.sroa.1451160.0.ph14432115, %for.cond42 ], [ %_s.sroa.1451160.0.ph1443, %for.cond.outer1433 ]
+  %_s.sroa.141.0.ph14442078 = phi i8 [ %_s.sroa.141.0.ph14442079, %for.cond42 ], [ %_s.sroa.141.0.ph1444, %for.cond.outer1433 ]
+  %_s.sroa.408.0.ph14641970 = phi i32 [ %_s.sroa.408.0.ph14641971, %for.cond42 ], [ %_s.sroa.408.0.ph1464, %for.cond.outer1433 ]
+  %_s.sroa.457.0.ph14651939 = phi i32 [ %_s.sroa.457.0.ph14651938, %for.cond42 ], [ %_s.sroa.457.0.ph1465, %for.cond.outer1433 ]
+  %_s.sroa.325.01903 = phi i32 [ %_s.sroa.325.01904, %for.cond42 ], [ %_s.sroa.325.0.ph1435, %for.cond.outer1433 ]
+  %_s.sroa.130.01849 = phi i8 [ %_s.sroa.130.01850, %for.cond42 ], [ %_s.sroa.130.0.ph1445, %for.cond.outer1433 ]
+  %_s.sroa.120.01772 = phi i32 [ %_s.sroa.120.01773, %for.cond42 ], [ %_s.sroa.120.0.ph1446, %for.cond.outer1433 ]
+  %_s.sroa.111.01718 = phi i32 [ %_s.sroa.111.01719, %for.cond42 ], [ %_s.sroa.111.0.ph1447, %for.cond.outer1433 ]
+  %_s.sroa.1021125.01640 = phi ptr [ %_s.sroa.1021125.01641, %for.cond42 ], [ %_s.sroa.1021125.0.ph1448, %for.cond.outer1433 ]
+  %_s.sroa.396.01535 = phi i32 [ %_s.sroa.396.01536, %for.cond42 ], [ %_s.sroa.396.0.ph1463, %for.cond.outer1433 ]
+  %_s.sroa.321.2 = phi i32 [ %_s.sroa.321.1, %for.cond42 ], [ %_s.sroa.321.0.ph1436.ph, %for.cond.outer1433 ]
+  %_s.sroa.294.2 = phi i32 [ %_s.sroa.294.1, %for.cond42 ], [ %_s.sroa.294.0.ph1437, %for.cond.outer1433 ]
+  %_s.sroa.227.2 = phi i32 [ %_s.sroa.227.1, %for.cond42 ], [ %_s.sroa.227.0.ph1439, %for.cond.outer1433 ]
+  %_s.sroa.72.2 = phi i32 [ %_s.sroa.72.1, %for.cond42 ], [ %_s.sroa.72.0.ph1450, %for.cond.outer1433 ]
+  %_s.sroa.52.2 = phi ptr [ %_s.sroa.52.1, %for.cond42 ], [ %_s.sroa.52.0.ph1451, %for.cond.outer1433 ]
+  %_s.sroa.37.3 = phi i32 [ %_s.sroa.37.2, %for.cond42 ], [ %_s.sroa.37.0.ph1453.ph, %for.cond.outer1433 ]
+  %_s.sroa.392.2 = phi i32 [ %_s.sroa.392.1, %for.cond42 ], [ %_s.sroa.392.0.ph1461.ph, %for.cond.outer1433 ]
+  %_s.sroa.394.2 = phi i32 [ %_s.sroa.394.1, %for.cond42 ], [ %_s.sroa.394.0.ph1462.ph, %for.cond.outer1433 ]
+  %_s.sroa.505.3 = phi ptr [ %_s.sroa.505.2, %for.cond42 ], [ %_s.sroa.505.0.ph1467.ph, %for.cond.outer1433 ]
+  %tobool48.not = icmp eq i32 %_s.sroa.72.2, 0
+  br i1 %tobool48.not, label %saveStateAndReturn, label %if.end51
+
+if.end51:                                         ; preds = %sw.bb46
+  %13 = load i8, ptr %_s.sroa.52.2, align 1, !tbaa !5
+  %conv56 = zext i8 %13 to i32
+  %mul58 = shl nsw i32 %_s.sroa.227.2, 3
+  %shl59 = shl i32 %conv56, %mul58
+  %or = or i32 %shl59, %_s.sroa.294.2
+  %inc = add nsw i32 %_s.sroa.227.2, 1
+  br label %for.cond42, !llvm.loop !57
+
+for.end:                                          ; preds = %for.cond42
+  %cmp63.not = icmp eq i32 %_s.sroa.294.1, %_s.sroa.39.0.ph1452.ph
+  br i1 %cmp63.not, label %if.end80, label %if.then65
+
+if.then65:                                        ; preds = %for.end
+  %tobool68.not = icmp eq ptr %_s.sroa.494.0.ph1466.ph, null
+  br i1 %tobool68.not, label %if.end71, label %if.then69
+
+if.then69:                                        ; preds = %if.then65
+  tail call void @free(ptr noundef nonnull %_s.sroa.494.0.ph1466.ph) #9
+  br label %if.end71
+
+if.end71:                                         ; preds = %if.then69, %if.then65
+  %conv73 = zext i32 %_s.sroa.294.1 to i64
+  %call74 = tail call ptr @cli_malloc(i64 noundef %conv73) #9
+  %tobool77.not = icmp eq ptr %call74, null
+  br i1 %tobool77.not, label %cleanup, label %if.end80
+
+if.end80:                                         ; preds = %if.end71, %for.end
+  %_s.sroa.39.1 = phi i32 [ %_s.sroa.294.1, %if.end71 ], [ %_s.sroa.39.0.ph1452.ph, %for.end ]
+  %_s.sroa.494.1 = phi ptr [ %call74, %if.end71 ], [ %_s.sroa.494.0.ph1466.ph, %for.end ]
+  %sub83 = add i32 %_s.sroa.39.1, -1
+  %idxprom84 = zext i32 %sub83 to i64
+  %arrayidx85 = getelementptr inbounds i8, ptr %_s.sroa.494.1, i64 %idxprom84
+  store i8 0, ptr %arrayidx85, align 1, !tbaa !5
+  br label %while.cond87
+
+while.cond87:                                     ; preds = %if.end97, %if.end80
+  %_s.sroa.344.0.ph14342287 = phi i32 [ %_s.sroa.344.0.ph14342288, %if.end97 ], [ %_s.sroa.344.0.ph14342290, %if.end80 ]
+  %_s.sroa.251.0.ph14382212 = phi i32 [ %_s.sroa.251.0.ph14382211, %if.end97 ], [ %_s.sroa.251.0.ph14382214, %if.end80 ]
+  %_s.sroa.164.0.ph14422146 = phi ptr [ %_s.sroa.164.0.ph14422147, %if.end97 ], [ %_s.sroa.164.0.ph14422149, %if.end80 ]
+  %_s.sroa.1451160.0.ph14432112 = phi ptr [ %_s.sroa.1451160.0.ph14432113, %if.end97 ], [ %_s.sroa.1451160.0.ph14432115, %if.end80 ]
+  %_s.sroa.141.0.ph14442077 = phi i8 [ %_s.sroa.141.0.ph14442076, %if.end97 ], [ %_s.sroa.141.0.ph14442079, %if.end80 ]
+  %_s.sroa.408.0.ph14641968 = phi i32 [ %_s.sroa.408.0.ph14641969, %if.end97 ], [ %_s.sroa.408.0.ph14641971, %if.end80 ]
+  %_s.sroa.325.01901 = phi i32 [ %_s.sroa.325.01902, %if.end97 ], [ %_s.sroa.325.01904, %if.end80 ]
+  %_s.sroa.130.01848 = phi i8 [ %_s.sroa.130.01847, %if.end97 ], [ %_s.sroa.130.01850, %if.end80 ]
+  %_s.sroa.120.01771 = phi i32 [ %_s.sroa.120.01770, %if.end97 ], [ %_s.sroa.120.01773, %if.end80 ]
+  %_s.sroa.111.01717 = phi i32 [ %_s.sroa.111.01716, %if.end97 ], [ %_s.sroa.111.01719, %if.end80 ]
+  %_s.sroa.1021125.01639 = phi ptr [ %_s.sroa.1021125.01638, %if.end97 ], [ %_s.sroa.1021125.01641, %if.end80 ]
+  %_s.sroa.396.01534 = phi i32 [ %_s.sroa.396.01533, %if.end97 ], [ %_s.sroa.396.01536, %if.end80 ]
+  %_s.sroa.321.3 = phi i32 [ %_s.sroa.321.4, %if.end97 ], [ %_s.sroa.321.1, %if.end80 ]
+  %_s.sroa.294.3 = phi i32 [ %_s.sroa.294.4, %if.end97 ], [ %_s.sroa.294.1, %if.end80 ]
+  %_s.sroa.227.3 = phi i32 [ %_s.sroa.227.4, %if.end97 ], [ 5, %if.end80 ]
+  %_s.sroa.72.3 = phi i32 [ %dec100, %if.end97 ], [ %_s.sroa.72.1, %if.end80 ]
+  %_s.sroa.52.3 = phi ptr [ %incdec.ptr102, %if.end97 ], [ %_s.sroa.52.1, %if.end80 ]
+  %_s.sroa.39.2 = phi i32 [ %_s.sroa.39.3, %if.end97 ], [ %_s.sroa.39.1, %if.end80 ]
+  %_s.sroa.37.4 = phi i32 [ %_s.sroa.37.5, %if.end97 ], [ %_s.sroa.37.2, %if.end80 ]
+  %_s.sroa.392.3 = phi i32 [ %_s.sroa.392.4, %if.end97 ], [ %_s.sroa.392.1, %if.end80 ]
+  %_s.sroa.394.3 = phi i32 [ %_s.sroa.394.4, %if.end97 ], [ %_s.sroa.394.1, %if.end80 ]
+  %_s.sroa.457.1 = phi i32 [ %or104, %if.end97 ], [ %_s.sroa.457.0.ph14651938, %if.end80 ]
+  %_s.sroa.494.2 = phi ptr [ %_s.sroa.494.3, %if.end97 ], [ %_s.sroa.494.1, %if.end80 ]
+  %_s.sroa.505.4 = phi ptr [ %_s.sroa.505.5, %if.end97 ], [ %_s.sroa.505.2, %if.end80 ]
+  %dec89 = add nsw i32 %_s.sroa.227.3, -1
+  %tobool90.not = icmp eq i32 %_s.sroa.227.3, 0
+  br i1 %tobool90.not, label %sw.bb107, label %sw.bb92
+
+sw.bb92:                                          ; preds = %for.cond.outer1433, %while.cond87
+  %_s.sroa.344.0.ph14342288 = phi i32 [ %_s.sroa.344.0.ph14342287, %while.cond87 ], [ %_s.sroa.344.0.ph1434, %for.cond.outer1433 ]
+  %_s.sroa.251.0.ph14382211 = phi i32 [ %_s.sroa.251.0.ph14382212, %while.cond87 ], [ %_s.sroa.251.0.ph1438, %for.cond.outer1433 ]
+  %_s.sroa.164.0.ph14422147 = phi ptr [ %_s.sroa.164.0.ph14422146, %while.cond87 ], [ %_s.sroa.164.0.ph1442, %for.cond.outer1433 ]
+  %_s.sroa.1451160.0.ph14432113 = phi ptr [ %_s.sroa.1451160.0.ph14432112, %while.cond87 ], [ %_s.sroa.1451160.0.ph1443, %for.cond.outer1433 ]
+  %_s.sroa.141.0.ph14442076 = phi i8 [ %_s.sroa.141.0.ph14442077, %while.cond87 ], [ %_s.sroa.141.0.ph1444, %for.cond.outer1433 ]
+  %_s.sroa.408.0.ph14641969 = phi i32 [ %_s.sroa.408.0.ph14641968, %while.cond87 ], [ %_s.sroa.408.0.ph1464, %for.cond.outer1433 ]
+  %_s.sroa.325.01902 = phi i32 [ %_s.sroa.325.01901, %while.cond87 ], [ %_s.sroa.325.0.ph1435, %for.cond.outer1433 ]
+  %_s.sroa.130.01847 = phi i8 [ %_s.sroa.130.01848, %while.cond87 ], [ %_s.sroa.130.0.ph1445, %for.cond.outer1433 ]
+  %_s.sroa.120.01770 = phi i32 [ %_s.sroa.120.01771, %while.cond87 ], [ %_s.sroa.120.0.ph1446, %for.cond.outer1433 ]
+  %_s.sroa.111.01716 = phi i32 [ %_s.sroa.111.01717, %while.cond87 ], [ %_s.sroa.111.0.ph1447, %for.cond.outer1433 ]
+  %_s.sroa.1021125.01638 = phi ptr [ %_s.sroa.1021125.01639, %while.cond87 ], [ %_s.sroa.1021125.0.ph1448, %for.cond.outer1433 ]
+  %_s.sroa.396.01533 = phi i32 [ %_s.sroa.396.01534, %while.cond87 ], [ %_s.sroa.396.0.ph1463, %for.cond.outer1433 ]
+  %_s.sroa.321.4 = phi i32 [ %_s.sroa.321.3, %while.cond87 ], [ %_s.sroa.321.0.ph1436.ph, %for.cond.outer1433 ]
+  %_s.sroa.294.4 = phi i32 [ %_s.sroa.294.3, %while.cond87 ], [ %_s.sroa.294.0.ph1437, %for.cond.outer1433 ]
+  %_s.sroa.227.4 = phi i32 [ %dec89, %while.cond87 ], [ %_s.sroa.227.0.ph1439, %for.cond.outer1433 ]
+  %_s.sroa.72.4 = phi i32 [ %_s.sroa.72.3, %while.cond87 ], [ %_s.sroa.72.0.ph1450, %for.cond.outer1433 ]
+  %_s.sroa.52.4 = phi ptr [ %_s.sroa.52.3, %while.cond87 ], [ %_s.sroa.52.0.ph1451, %for.cond.outer1433 ]
+  %_s.sroa.39.3 = phi i32 [ %_s.sroa.39.2, %while.cond87 ], [ %_s.sroa.39.0.ph1452.ph, %for.cond.outer1433 ]
+  %_s.sroa.37.5 = phi i32 [ %_s.sroa.37.4, %while.cond87 ], [ %_s.sroa.37.0.ph1453.ph, %for.cond.outer1433 ]
+  %_s.sroa.392.4 = phi i32 [ %_s.sroa.392.3, %while.cond87 ], [ %_s.sroa.392.0.ph1461.ph, %for.cond.outer1433 ]
+  %_s.sroa.394.4 = phi i32 [ %_s.sroa.394.3, %while.cond87 ], [ %_s.sroa.394.0.ph1462.ph, %for.cond.outer1433 ]
+  %_s.sroa.457.2 = phi i32 [ %_s.sroa.457.1, %while.cond87 ], [ %_s.sroa.457.0.ph1465, %for.cond.outer1433 ]
+  %_s.sroa.494.3 = phi ptr [ %_s.sroa.494.2, %while.cond87 ], [ %_s.sroa.494.0.ph1466.ph, %for.cond.outer1433 ]
+  %_s.sroa.505.5 = phi ptr [ %_s.sroa.505.4, %while.cond87 ], [ %_s.sroa.505.0.ph1467.ph, %for.cond.outer1433 ]
+  %tobool94.not = icmp eq i32 %_s.sroa.72.4, 0
+  br i1 %tobool94.not, label %saveStateAndReturn, label %if.end97
+
+if.end97:                                         ; preds = %sw.bb92
+  %shl98 = shl i32 %_s.sroa.457.2, 8
+  %dec100 = add i32 %_s.sroa.72.4, -1
+  %incdec.ptr102 = getelementptr inbounds i8, ptr %_s.sroa.52.4, i64 1
+  %14 = load i8, ptr %_s.sroa.52.4, align 1, !tbaa !5
+  %conv103 = zext i8 %14 to i32
+  %or104 = or i32 %shl98, %conv103
+  br label %while.cond87, !llvm.loop !58
+
+sw.bb107:                                         ; preds = %if.end485.peel, %for.cond.outer1433, %while.cond87
+  %_s.sroa.344.0.ph14342293 = phi i32 [ %_s.sroa.344.0.ph14342287, %while.cond87 ], [ %_s.sroa.344.0.ph1434, %for.cond.outer1433 ], [ %_s.sroa.344.0.ph1434, %if.end485.peel ]
+  %_s.sroa.251.0.ph14382210 = phi i32 [ %_s.sroa.251.0.ph14382212, %while.cond87 ], [ %_s.sroa.251.0.ph1438, %for.cond.outer1433 ], [ %_s.sroa.251.0.ph1438, %if.end485.peel ]
+  %_s.sroa.1451160.0.ph14432116 = phi ptr [ %_s.sroa.1451160.0.ph14432112, %while.cond87 ], [ %_s.sroa.1451160.0.ph1443, %for.cond.outer1433 ], [ %_s.sroa.1451160.0.ph1443, %if.end485.peel ]
+  %_s.sroa.141.0.ph14442075 = phi i8 [ %_s.sroa.141.0.ph14442077, %while.cond87 ], [ %_s.sroa.141.0.ph1444, %for.cond.outer1433 ], [ %_s.sroa.141.0.ph1444, %if.end485.peel ]
+  %_s.sroa.408.0.ph14641973 = phi i32 [ %_s.sroa.408.0.ph14641968, %while.cond87 ], [ %_s.sroa.408.0.ph1464, %for.cond.outer1433 ], [ %_s.sroa.408.0.ph1464, %if.end485.peel ]
+  %_s.sroa.325.01906 = phi i32 [ %_s.sroa.325.01901, %while.cond87 ], [ %_s.sroa.325.13.peel, %if.end485.peel ], [ %_s.sroa.325.0.ph1435, %for.cond.outer1433 ]
+  %_s.sroa.130.01846 = phi i8 [ %_s.sroa.130.01848, %while.cond87 ], [ %0, %if.end485.peel ], [ %_s.sroa.130.0.ph1445, %for.cond.outer1433 ]
+  %_s.sroa.120.01769 = phi i32 [ %_s.sroa.120.01771, %while.cond87 ], [ %inc511.peel.le, %if.end485.peel ], [ %_s.sroa.120.0.ph1446, %for.cond.outer1433 ]
+  %_s.sroa.111.01715 = phi i32 [ %_s.sroa.111.01717, %while.cond87 ], [ %dec517.peel.le, %if.end485.peel ], [ %_s.sroa.111.0.ph1447, %for.cond.outer1433 ]
+  %_s.sroa.1021125.01637 = phi ptr [ %_s.sroa.1021125.01639, %while.cond87 ], [ %incdec.ptr515.peel.le, %if.end485.peel ], [ %_s.sroa.1021125.0.ph1448, %for.cond.outer1433 ]
+  %_s.sroa.396.01532 = phi i32 [ %_s.sroa.396.01534, %while.cond87 ], [ %rem508.peel.le, %if.end485.peel ], [ %_s.sroa.396.0.ph1463, %for.cond.outer1433 ]
+  %_s.sroa.321.5 = phi i32 [ %_s.sroa.321.3, %while.cond87 ], [ %_s.sroa.321.0.ph1436.ph, %for.cond.outer1433 ], [ %_s.sroa.321.0.ph1436.ph, %if.end485.peel ]
+  %_s.sroa.227.5 = phi i32 [ -1, %while.cond87 ], [ %_s.sroa.227.0.ph1439, %for.cond.outer1433 ], [ %_s.sroa.227.0.ph1439, %if.end485.peel ]
+  %_s.sroa.72.5 = phi i32 [ %_s.sroa.72.3, %while.cond87 ], [ %_s.sroa.72.0.ph1450, %for.cond.outer1433 ], [ %_s.sroa.72.0.ph1450, %if.end485.peel ]
+  %_s.sroa.52.5 = phi ptr [ %_s.sroa.52.3, %while.cond87 ], [ %_s.sroa.52.0.ph1451, %for.cond.outer1433 ], [ %_s.sroa.52.0.ph1451, %if.end485.peel ]
+  %_s.sroa.39.4 = phi i32 [ %_s.sroa.39.2, %while.cond87 ], [ %_s.sroa.39.0.ph1452.ph, %for.cond.outer1433 ], [ %_s.sroa.39.0.ph1452.ph, %if.end485.peel ]
+  %_s.sroa.37.6 = phi i32 [ %_s.sroa.37.4, %while.cond87 ], [ %_s.sroa.37.0.ph1453.ph, %for.cond.outer1433 ], [ %_s.sroa.37.0.ph1453.ph, %if.end485.peel ]
+  %_s.sroa.392.5 = phi i32 [ %_s.sroa.392.3, %while.cond87 ], [ %_s.sroa.392.0.ph1461.ph, %for.cond.outer1433 ], [ %_s.sroa.392.0.ph1461.ph, %if.end485.peel ]
+  %_s.sroa.394.5 = phi i32 [ %_s.sroa.394.3, %while.cond87 ], [ %_s.sroa.394.0.ph1462.ph, %for.cond.outer1433 ], [ %_s.sroa.394.0.ph1462.ph, %if.end485.peel ]
+  %_s.sroa.457.3 = phi i32 [ %_s.sroa.457.1, %while.cond87 ], [ %_s.sroa.457.0.ph1465, %for.cond.outer1433 ], [ %_s.sroa.457.0.ph1465, %if.end485.peel ]
+  %_s.sroa.494.4 = phi ptr [ %_s.sroa.494.2, %while.cond87 ], [ %_s.sroa.494.0.ph1466.ph, %for.cond.outer1433 ], [ %_s.sroa.494.0.ph1466.ph, %if.end485.peel ]
+  %_s.sroa.505.6 = phi ptr [ %_s.sroa.505.4, %while.cond87 ], [ %_s.sroa.505.0.ph1467.ph, %for.cond.outer1433 ], [ %_s.sroa.505.0.ph1467.ph, %if.end485.peel ]
+  %and = and i32 %_s.sroa.392.5, %_s.sroa.120.01769
+  %shl110 = shl i32 %_s.sroa.325.01906, 4
+  %idx.ext = sext i32 %shl110 to i64
+  %add.ptr111 = getelementptr inbounds i16, ptr %_s.sroa.505.6, i64 %idx.ext
+  %idx.ext113 = sext i32 %and to i64
+  %add.ptr114 = getelementptr inbounds i16, ptr %add.ptr111, i64 %idx.ext113
+  br label %_LZMA_C_RDBD
+
+sw.bb115:                                         ; preds = %for.cond.outer1433
+  %cmp117 = icmp eq i32 %_s.sroa.294.0.ph1437, 0
+  br i1 %cmp117, label %if.then119, label %if.else428
+
+if.then119:                                       ; preds = %sw.bb115
+  %and124 = and i32 %_s.sroa.394.0.ph1462.ph, %_s.sroa.120.0.ph1446
+  %shl126 = shl i32 %and124, %_s.sroa.321.0.ph1436.ph
+  %conv127 = zext i8 %_s.sroa.130.0.ph1445 to i32
+  %shr = lshr i32 %conv127, %sub129
+  %add130 = add i32 %shl126, %shr
+  %mul131 = mul i32 %add130, 768
+  %idx.ext132 = zext i32 %mul131 to i64
+  %add.ptr133 = getelementptr inbounds i16, ptr %add.ptr121, i64 %idx.ext132
+  %cmp135 = icmp slt i32 %_s.sroa.325.0.ph1435, 4
+  br i1 %cmp135, label %if.end149, label %if.else
+
+if.else:                                          ; preds = %if.then119
+  %cmp140 = icmp ult i32 %_s.sroa.325.0.ph1435, 10
+  br i1 %cmp140, label %if.then142, label %if.else145
+
+if.then142:                                       ; preds = %if.else
+  %sub144 = add nsw i32 %_s.sroa.325.0.ph1435, -3
+  br label %if.end149
+
+if.else145:                                       ; preds = %if.else
+  %sub147 = add nsw i32 %_s.sroa.325.0.ph1435, -6
+  br label %if.end149
+
+if.end149:                                        ; preds = %if.then119, %if.then142, %if.else145
+  %_s.sroa.325.1 = phi i32 [ %sub144, %if.then142 ], [ %sub147, %if.else145 ], [ 0, %if.then119 ]
+  %tobool150.not = icmp eq i32 %_s.sroa.344.0.ph1434, 0
+  br i1 %tobool150.not, label %do.body330, label %if.then151
+
+if.then151:                                       ; preds = %if.end149
+  %sub152 = sub i32 %_s.sroa.396.0.ph1463, %_s.sroa.362.0.ph1449.ph
+  %cmp154.not = icmp ult i32 %sub152, %_s.sroa.39.0.ph1452.ph
+  %add158 = select i1 %cmp154.not, i32 0, i32 %_s.sroa.39.0.ph1452.ph
+  %spec.select = add i32 %add158, %sub152
+  %idxprom161 = zext i32 %spec.select to i64
+  %arrayidx162 = getelementptr inbounds i8, ptr %_s.sroa.494.0.ph1466.ph, i64 %idxprom161
+  %15 = load i8, ptr %arrayidx162, align 1, !tbaa !5
+  br label %do.body
+
+do.body:                                          ; preds = %do.cond, %if.then151
+  %_s.sroa.130.01861 = phi i8 [ %_s.sroa.130.01859, %do.cond ], [ %_s.sroa.130.0.ph1445, %if.then151 ]
+  %_s.sroa.120.01797 = phi i32 [ %_s.sroa.120.01795, %do.cond ], [ %_s.sroa.120.0.ph1446, %if.then151 ]
+  %_s.sroa.111.01730 = phi i32 [ %_s.sroa.111.01728, %do.cond ], [ %_s.sroa.111.0.ph1447, %if.then151 ]
+  %_s.sroa.1021125.01665 = phi ptr [ %_s.sroa.1021125.01663, %do.cond ], [ %_s.sroa.1021125.0.ph1448, %if.then151 ]
+  %_s.sroa.396.01560 = phi i32 [ %_s.sroa.396.01558, %do.cond ], [ %_s.sroa.396.0.ph1463, %if.then151 ]
+  %_s.sroa.325.2 = phi i32 [ %_s.sroa.325.4, %do.cond ], [ %_s.sroa.325.1, %if.then151 ]
+  %_s.sroa.251.1 = phi i32 [ %_s.sroa.251.4, %do.cond ], [ 1, %if.then151 ]
+  %_s.sroa.1451160.1 = phi ptr [ %_s.sroa.1451160.3, %do.cond ], [ %add.ptr133, %if.then151 ]
+  %_s.sroa.141.1 = phi i8 [ %_s.sroa.141.3, %do.cond ], [ %15, %if.then151 ]
+  %_s.sroa.72.6 = phi i32 [ %_s.sroa.72.8, %do.cond ], [ %_s.sroa.72.0.ph1450, %if.then151 ]
+  %_s.sroa.52.6 = phi ptr [ %_s.sroa.52.8, %do.cond ], [ %_s.sroa.52.0.ph1451, %if.then151 ]
+  %_s.sroa.408.1 = phi i32 [ %_s.sroa.408.4, %do.cond ], [ %_s.sroa.408.0.ph1464, %if.then151 ]
+  %_s.sroa.457.4 = phi i32 [ %_s.sroa.457.7, %do.cond ], [ %_s.sroa.457.0.ph1465, %if.then151 ]
+  %16 = lshr i8 %_s.sroa.141.1, 7
+  %shr165 = zext i8 %16 to i32
+  %shl170 = shl i8 %_s.sroa.141.1, 1
+  %add174 = shl nuw nsw i32 %shr165, 8
+  %shl175 = add nuw nsw i32 %add174, 256
+  %idx.ext176 = zext i32 %shl175 to i64
+  %add.ptr177 = getelementptr inbounds i16, ptr %_s.sroa.1451160.1, i64 %idx.ext176
+  %idx.ext179 = sext i32 %_s.sroa.251.1 to i64
+  %add.ptr180 = getelementptr inbounds i16, ptr %add.ptr177, i64 %idx.ext179
+  %shr182 = lshr i32 %_s.sroa.408.1, 11
+  %17 = load i16, ptr %add.ptr180, align 2, !tbaa !51
+  %conv184 = zext i16 %17 to i32
+  %mul185 = mul i32 %shr182, %conv184
+  %cmp187 = icmp ult i32 %_s.sroa.457.4, %mul185
+  %shl201 = shl i32 %_s.sroa.251.1, 1
+  br i1 %cmp187, label %if.then189, label %if.else202
+
+if.then189:                                       ; preds = %do.body
+  %sub194 = sub nsw i32 2048, %conv184
+  %shr195 = ashr i32 %sub194, 5
+  %18 = trunc i32 %shr195 to i16
+  %conv199 = add i16 %17, %18
+  br label %if.end220
+
+if.else202:                                       ; preds = %do.body
+  %sub205 = sub i32 %_s.sroa.408.1, %mul185
+  %sub207 = sub i32 %_s.sroa.457.4, %mul185
+  %shr210 = lshr i16 %17, 5
+  %sub213 = sub i16 %17, %shr210
+  %add218 = or i32 %shl201, 1
+  br label %if.end220
+
+if.end220:                                        ; preds = %if.else202, %if.then189
+  %sub213.sink = phi i16 [ %conv199, %if.then189 ], [ %sub213, %if.else202 ]
+  %_s.sroa.294.5 = phi i32 [ 0, %if.then189 ], [ 1, %if.else202 ]
+  %_s.sroa.251.2 = phi i32 [ %shl201, %if.then189 ], [ %add218, %if.else202 ]
+  %_s.sroa.408.2 = phi i32 [ %mul185, %if.then189 ], [ %sub205, %if.else202 ]
+  %_s.sroa.457.5 = phi i32 [ %_s.sroa.457.4, %if.then189 ], [ %sub207, %if.else202 ]
+  store i16 %sub213.sink, ptr %add.ptr180, align 2
+  %cmp222 = icmp ult i32 %_s.sroa.408.2, 16777216
+  br i1 %cmp222, label %sw.bb225, label %if.end242
+
+sw.bb225:                                         ; preds = %for.cond.outer1433, %if.end220
+  %_s.sroa.130.01860 = phi i8 [ %_s.sroa.130.01861, %if.end220 ], [ %_s.sroa.130.0.ph1445, %for.cond.outer1433 ]
+  %_s.sroa.120.01796 = phi i32 [ %_s.sroa.120.01797, %if.end220 ], [ %_s.sroa.120.0.ph1446, %for.cond.outer1433 ]
+  %_s.sroa.111.01729 = phi i32 [ %_s.sroa.111.01730, %if.end220 ], [ %_s.sroa.111.0.ph1447, %for.cond.outer1433 ]
+  %_s.sroa.1021125.01664 = phi ptr [ %_s.sroa.1021125.01665, %if.end220 ], [ %_s.sroa.1021125.0.ph1448, %for.cond.outer1433 ]
+  %_s.sroa.396.01559 = phi i32 [ %_s.sroa.396.01560, %if.end220 ], [ %_s.sroa.396.0.ph1463, %for.cond.outer1433 ]
+  %_s.sroa.325.3 = phi i32 [ %_s.sroa.325.2, %if.end220 ], [ %_s.sroa.325.0.ph1435, %for.cond.outer1433 ]
+  %_s.sroa.294.6 = phi i32 [ %_s.sroa.294.5, %if.end220 ], [ %_s.sroa.294.0.ph1437, %for.cond.outer1433 ]
+  %_s.sroa.251.3 = phi i32 [ %_s.sroa.251.2, %if.end220 ], [ %_s.sroa.251.0.ph1438, %for.cond.outer1433 ]
+  %_s.sroa.227.6 = phi i32 [ %shr165, %if.end220 ], [ %_s.sroa.227.0.ph1439, %for.cond.outer1433 ]
+  %_s.sroa.164.1 = phi ptr [ %add.ptr180, %if.end220 ], [ %_s.sroa.164.0.ph1442, %for.cond.outer1433 ]
+  %_s.sroa.1451160.2 = phi ptr [ %_s.sroa.1451160.1, %if.end220 ], [ %_s.sroa.1451160.0.ph1443, %for.cond.outer1433 ]
+  %_s.sroa.141.2 = phi i8 [ %shl170, %if.end220 ], [ %_s.sroa.141.0.ph1444, %for.cond.outer1433 ]
+  %_s.sroa.72.7 = phi i32 [ %_s.sroa.72.6, %if.end220 ], [ %_s.sroa.72.0.ph1450, %for.cond.outer1433 ]
+  %_s.sroa.52.7 = phi ptr [ %_s.sroa.52.6, %if.end220 ], [ %_s.sroa.52.0.ph1451, %for.cond.outer1433 ]
+  %_s.sroa.408.3 = phi i32 [ %_s.sroa.408.2, %if.end220 ], [ %_s.sroa.408.0.ph1464, %for.cond.outer1433 ]
+  %_s.sroa.457.6 = phi i32 [ %_s.sroa.457.5, %if.end220 ], [ %_s.sroa.457.0.ph1465, %for.cond.outer1433 ]
+  %tobool227.not = icmp eq i32 %_s.sroa.72.7, 0
+  br i1 %tobool227.not, label %saveStateAndReturn, label %if.end230
+
+if.end230:                                        ; preds = %sw.bb225
+  %shl232 = shl i32 %_s.sroa.408.3, 8
+  %shl234 = shl i32 %_s.sroa.457.6, 8
+  %dec236 = add i32 %_s.sroa.72.7, -1
+  %incdec.ptr238 = getelementptr inbounds i8, ptr %_s.sroa.52.7, i64 1
+  %19 = load i8, ptr %_s.sroa.52.7, align 1, !tbaa !5
+  %conv239 = zext i8 %19 to i32
+  %or240 = or i32 %shl234, %conv239
+  br label %if.end242
+
+if.end242:                                        ; preds = %if.end230, %if.end220
+  %_s.sroa.130.01859 = phi i8 [ %_s.sroa.130.01860, %if.end230 ], [ %_s.sroa.130.01861, %if.end220 ]
+  %_s.sroa.120.01795 = phi i32 [ %_s.sroa.120.01796, %if.end230 ], [ %_s.sroa.120.01797, %if.end220 ]
+  %_s.sroa.111.01728 = phi i32 [ %_s.sroa.111.01729, %if.end230 ], [ %_s.sroa.111.01730, %if.end220 ]
+  %_s.sroa.1021125.01663 = phi ptr [ %_s.sroa.1021125.01664, %if.end230 ], [ %_s.sroa.1021125.01665, %if.end220 ]
+  %_s.sroa.396.01558 = phi i32 [ %_s.sroa.396.01559, %if.end230 ], [ %_s.sroa.396.01560, %if.end220 ]
+  %_s.sroa.325.4 = phi i32 [ %_s.sroa.325.3, %if.end230 ], [ %_s.sroa.325.2, %if.end220 ]
+  %_s.sroa.294.7 = phi i32 [ %_s.sroa.294.6, %if.end230 ], [ %_s.sroa.294.5, %if.end220 ]
+  %_s.sroa.251.4 = phi i32 [ %_s.sroa.251.3, %if.end230 ], [ %_s.sroa.251.2, %if.end220 ]
+  %_s.sroa.227.7 = phi i32 [ %_s.sroa.227.6, %if.end230 ], [ %shr165, %if.end220 ]
+  %_s.sroa.164.2 = phi ptr [ %_s.sroa.164.1, %if.end230 ], [ %add.ptr180, %if.end220 ]
+  %_s.sroa.1451160.3 = phi ptr [ %_s.sroa.1451160.2, %if.end230 ], [ %_s.sroa.1451160.1, %if.end220 ]
+  %_s.sroa.141.3 = phi i8 [ %_s.sroa.141.2, %if.end230 ], [ %shl170, %if.end220 ]
+  %_s.sroa.72.8 = phi i32 [ %dec236, %if.end230 ], [ %_s.sroa.72.6, %if.end220 ]
+  %_s.sroa.52.8 = phi ptr [ %incdec.ptr238, %if.end230 ], [ %_s.sroa.52.6, %if.end220 ]
+  %_s.sroa.408.4 = phi i32 [ %shl232, %if.end230 ], [ %_s.sroa.408.2, %if.end220 ]
+  %_s.sroa.457.7 = phi i32 [ %or240, %if.end230 ], [ %_s.sroa.457.5, %if.end220 ]
+  %cmp245.not = icmp eq i32 %_s.sroa.227.7, %_s.sroa.294.7
+  br i1 %cmp245.not, label %do.cond, label %while.cond248.preheader
+
+while.cond248.preheader:                          ; preds = %if.end242, %if.end306
+  %_s.sroa.130.01857 = phi i8 [ %_s.sroa.130.01858, %if.end306 ], [ %_s.sroa.130.01859, %if.end242 ]
+  %_s.sroa.120.01794 = phi i32 [ %_s.sroa.120.01793, %if.end306 ], [ %_s.sroa.120.01795, %if.end242 ]
+  %_s.sroa.111.01726 = phi i32 [ %_s.sroa.111.01727, %if.end306 ], [ %_s.sroa.111.01728, %if.end242 ]
+  %_s.sroa.1021125.01662 = phi ptr [ %_s.sroa.1021125.01661, %if.end306 ], [ %_s.sroa.1021125.01663, %if.end242 ]
+  %_s.sroa.396.01557 = phi i32 [ %_s.sroa.396.01556, %if.end306 ], [ %_s.sroa.396.01558, %if.end242 ]
+  %_s.sroa.325.5.ph = phi i32 [ %_s.sroa.325.6, %if.end306 ], [ %_s.sroa.325.4, %if.end242 ]
+  %_s.sroa.294.8.ph = phi i32 [ %_s.sroa.294.9, %if.end306 ], [ %_s.sroa.294.7, %if.end242 ]
+  %_s.sroa.251.5.ph = phi i32 [ %_s.sroa.251.7, %if.end306 ], [ %_s.sroa.251.4, %if.end242 ]
+  %_s.sroa.227.8.ph = phi i32 [ %_s.sroa.227.9, %if.end306 ], [ %_s.sroa.227.7, %if.end242 ]
+  %_s.sroa.164.3.ph = phi ptr [ %_s.sroa.164.4, %if.end306 ], [ %_s.sroa.164.2, %if.end242 ]
+  %_s.sroa.1451160.4.ph = phi ptr [ %_s.sroa.1451160.5, %if.end306 ], [ %_s.sroa.1451160.3, %if.end242 ]
+  %_s.sroa.141.4.ph = phi i8 [ %_s.sroa.141.5, %if.end306 ], [ %_s.sroa.141.3, %if.end242 ]
+  %_s.sroa.72.9.ph = phi i32 [ %dec312, %if.end306 ], [ %_s.sroa.72.8, %if.end242 ]
+  %_s.sroa.52.9.ph = phi ptr [ %incdec.ptr314, %if.end306 ], [ %_s.sroa.52.8, %if.end242 ]
+  %_s.sroa.408.5.ph = phi i32 [ %shl308, %if.end306 ], [ %_s.sroa.408.4, %if.end242 ]
+  %_s.sroa.457.8.ph = phi i32 [ %or316, %if.end306 ], [ %_s.sroa.457.7, %if.end242 ]
+  br label %while.cond248
+
+while.cond248:                                    ; preds = %while.cond248.preheader, %if.end296
+  %_s.sroa.251.5 = phi i32 [ %_s.sroa.251.6, %if.end296 ], [ %_s.sroa.251.5.ph, %while.cond248.preheader ]
+  %_s.sroa.164.3 = phi ptr [ %add.ptr256, %if.end296 ], [ %_s.sroa.164.3.ph, %while.cond248.preheader ]
+  %_s.sroa.408.5 = phi i32 [ %_s.sroa.408.6, %if.end296 ], [ %_s.sroa.408.5.ph, %while.cond248.preheader ]
+  %_s.sroa.457.8 = phi i32 [ %_s.sroa.457.9, %if.end296 ], [ %_s.sroa.457.8.ph, %while.cond248.preheader ]
+  %cmp250 = icmp slt i32 %_s.sroa.251.5, 256
+  br i1 %cmp250, label %while.body252, label %do.end
+
+while.body252:                                    ; preds = %while.cond248
+  %idx.ext255 = sext i32 %_s.sroa.251.5 to i64
+  %add.ptr256 = getelementptr inbounds i16, ptr %_s.sroa.1451160.4.ph, i64 %idx.ext255
+  %shr260 = lshr i32 %_s.sroa.408.5, 11
+  %20 = load i16, ptr %add.ptr256, align 2, !tbaa !51
+  %conv262 = zext i16 %20 to i32
+  %mul263 = mul i32 %shr260, %conv262
+  %cmp265 = icmp ult i32 %_s.sroa.457.8, %mul263
+  %shl278 = shl i32 %_s.sroa.251.5, 1
+  br i1 %cmp265, label %if.then267, label %if.else279
+
+if.then267:                                       ; preds = %while.body252
+  %sub271 = sub nsw i32 2048, %conv262
+  %shr272 = ashr i32 %sub271, 5
+  %21 = trunc i32 %shr272 to i16
+  %conv276 = add i16 %20, %21
+  br label %if.end296
+
+if.else279:                                       ; preds = %while.body252
+  %sub281 = sub i32 %_s.sroa.408.5, %mul263
+  %sub283 = sub i32 %_s.sroa.457.8, %mul263
+  %shr286 = lshr i16 %20, 5
+  %sub289 = sub i16 %20, %shr286
+  %add294 = or i32 %shl278, 1
+  br label %if.end296
+
+if.end296:                                        ; preds = %if.else279, %if.then267
+  %sub289.sink = phi i16 [ %conv276, %if.then267 ], [ %sub289, %if.else279 ]
+  %_s.sroa.251.6 = phi i32 [ %shl278, %if.then267 ], [ %add294, %if.else279 ]
+  %_s.sroa.408.6 = phi i32 [ %mul263, %if.then267 ], [ %sub281, %if.else279 ]
+  %_s.sroa.457.9 = phi i32 [ %_s.sroa.457.8, %if.then267 ], [ %sub283, %if.else279 ]
+  store i16 %sub289.sink, ptr %add.ptr256, align 2
+  %cmp298 = icmp ult i32 %_s.sroa.408.6, 16777216
+  br i1 %cmp298, label %sw.bb301, label %while.cond248, !llvm.loop !59
+
+sw.bb301:                                         ; preds = %for.cond.outer1433, %if.end296
+  %_s.sroa.130.01858 = phi i8 [ %_s.sroa.130.01857, %if.end296 ], [ %_s.sroa.130.0.ph1445, %for.cond.outer1433 ]
+  %_s.sroa.120.01793 = phi i32 [ %_s.sroa.120.01794, %if.end296 ], [ %_s.sroa.120.0.ph1446, %for.cond.outer1433 ]
+  %_s.sroa.111.01727 = phi i32 [ %_s.sroa.111.01726, %if.end296 ], [ %_s.sroa.111.0.ph1447, %for.cond.outer1433 ]
+  %_s.sroa.1021125.01661 = phi ptr [ %_s.sroa.1021125.01662, %if.end296 ], [ %_s.sroa.1021125.0.ph1448, %for.cond.outer1433 ]
+  %_s.sroa.396.01556 = phi i32 [ %_s.sroa.396.01557, %if.end296 ], [ %_s.sroa.396.0.ph1463, %for.cond.outer1433 ]
+  %_s.sroa.325.6 = phi i32 [ %_s.sroa.325.5.ph, %if.end296 ], [ %_s.sroa.325.0.ph1435, %for.cond.outer1433 ]
+  %_s.sroa.294.9 = phi i32 [ %_s.sroa.294.8.ph, %if.end296 ], [ %_s.sroa.294.0.ph1437, %for.cond.outer1433 ]
+  %_s.sroa.251.7 = phi i32 [ %_s.sroa.251.6, %if.end296 ], [ %_s.sroa.251.0.ph1438, %for.cond.outer1433 ]
+  %_s.sroa.227.9 = phi i32 [ %_s.sroa.227.8.ph, %if.end296 ], [ %_s.sroa.227.0.ph1439, %for.cond.outer1433 ]
+  %_s.sroa.164.4 = phi ptr [ %add.ptr256, %if.end296 ], [ %_s.sroa.164.0.ph1442, %for.cond.outer1433 ]
+  %_s.sroa.1451160.5 = phi ptr [ %_s.sroa.1451160.4.ph, %if.end296 ], [ %_s.sroa.1451160.0.ph1443, %for.cond.outer1433 ]
+  %_s.sroa.141.5 = phi i8 [ %_s.sroa.141.4.ph, %if.end296 ], [ %_s.sroa.141.0.ph1444, %for.cond.outer1433 ]
+  %_s.sroa.72.10 = phi i32 [ %_s.sroa.72.9.ph, %if.end296 ], [ %_s.sroa.72.0.ph1450, %for.cond.outer1433 ]
+  %_s.sroa.52.10 = phi ptr [ %_s.sroa.52.9.ph, %if.end296 ], [ %_s.sroa.52.0.ph1451, %for.cond.outer1433 ]
+  %_s.sroa.408.7 = phi i32 [ %_s.sroa.408.6, %if.end296 ], [ %_s.sroa.408.0.ph1464, %for.cond.outer1433 ]
+  %_s.sroa.457.10 = phi i32 [ %_s.sroa.457.9, %if.end296 ], [ %_s.sroa.457.0.ph1465, %for.cond.outer1433 ]
+  %tobool303.not = icmp eq i32 %_s.sroa.72.10, 0
+  br i1 %tobool303.not, label %saveStateAndReturn, label %if.end306
+
+if.end306:                                        ; preds = %sw.bb301
+  %shl308 = shl i32 %_s.sroa.408.7, 8
+  %shl310 = shl i32 %_s.sroa.457.10, 8
+  %dec312 = add i32 %_s.sroa.72.10, -1
+  %incdec.ptr314 = getelementptr inbounds i8, ptr %_s.sroa.52.10, i64 1
+  %22 = load i8, ptr %_s.sroa.52.10, align 1, !tbaa !5
+  %conv315 = zext i8 %22 to i32
+  %or316 = or i32 %shl310, %conv315
+  br label %while.cond248.preheader, !llvm.loop !59
+
+do.cond:                                          ; preds = %if.end242
+  %cmp322 = icmp slt i32 %_s.sroa.251.4, 256
+  br i1 %cmp322, label %do.body, label %do.end, !llvm.loop !60
+
+do.end:                                           ; preds = %while.cond248, %do.cond
+  %_s.sroa.120.01792 = phi i32 [ %_s.sroa.120.01795, %do.cond ], [ %_s.sroa.120.01794, %while.cond248 ]
+  %_s.sroa.111.01733 = phi i32 [ %_s.sroa.111.01728, %do.cond ], [ %_s.sroa.111.01726, %while.cond248 ]
+  %_s.sroa.1021125.01660 = phi ptr [ %_s.sroa.1021125.01663, %do.cond ], [ %_s.sroa.1021125.01662, %while.cond248 ]
+  %_s.sroa.396.01555 = phi i32 [ %_s.sroa.396.01558, %do.cond ], [ %_s.sroa.396.01557, %while.cond248 ]
+  %_s.sroa.325.8 = phi i32 [ %_s.sroa.325.4, %do.cond ], [ %_s.sroa.325.5.ph, %while.cond248 ]
+  %_s.sroa.294.11 = phi i32 [ %_s.sroa.294.7, %do.cond ], [ %_s.sroa.294.8.ph, %while.cond248 ]
+  %_s.sroa.251.9 = phi i32 [ %_s.sroa.251.4, %do.cond ], [ %_s.sroa.251.5, %while.cond248 ]
+  %_s.sroa.227.11 = phi i32 [ %_s.sroa.294.7, %do.cond ], [ %_s.sroa.227.8.ph, %while.cond248 ]
+  %_s.sroa.164.6 = phi ptr [ %_s.sroa.164.2, %do.cond ], [ %_s.sroa.164.3, %while.cond248 ]
+  %_s.sroa.1451160.7 = phi ptr [ %_s.sroa.1451160.3, %do.cond ], [ %_s.sroa.1451160.4.ph, %while.cond248 ]
+  %_s.sroa.141.7 = phi i8 [ %_s.sroa.141.3, %do.cond ], [ %_s.sroa.141.4.ph, %while.cond248 ]
+  %_s.sroa.72.12 = phi i32 [ %_s.sroa.72.8, %do.cond ], [ %_s.sroa.72.9.ph, %while.cond248 ]
+  %_s.sroa.52.12 = phi ptr [ %_s.sroa.52.8, %do.cond ], [ %_s.sroa.52.9.ph, %while.cond248 ]
+  %_s.sroa.408.9 = phi i32 [ %_s.sroa.408.4, %do.cond ], [ %_s.sroa.408.5, %while.cond248 ]
+  %_s.sroa.457.12 = phi i32 [ %_s.sroa.457.7, %do.cond ], [ %_s.sroa.457.8, %while.cond248 ]
+  %conv325 = trunc i32 %_s.sroa.251.9 to i8
+  br label %sw.bb406
+
+do.body330:                                       ; preds = %if.end149, %do.cond397
+  %_s.sroa.130.01854 = phi i8 [ %_s.sroa.130.01855, %do.cond397 ], [ %_s.sroa.130.0.ph1445, %if.end149 ]
+  %_s.sroa.120.01800 = phi i32 [ %_s.sroa.120.01798, %do.cond397 ], [ %_s.sroa.120.0.ph1446, %if.end149 ]
+  %_s.sroa.111.01723 = phi i32 [ %_s.sroa.111.01724, %do.cond397 ], [ %_s.sroa.111.0.ph1447, %if.end149 ]
+  %_s.sroa.1021125.01668 = phi ptr [ %_s.sroa.1021125.01666, %do.cond397 ], [ %_s.sroa.1021125.0.ph1448, %if.end149 ]
+  %_s.sroa.396.01563 = phi i32 [ %_s.sroa.396.01561, %do.cond397 ], [ %_s.sroa.396.0.ph1463, %if.end149 ]
+  %_s.sroa.325.9 = phi i32 [ %_s.sroa.325.11, %do.cond397 ], [ %_s.sroa.325.1, %if.end149 ]
+  %_s.sroa.251.10 = phi i32 [ %_s.sroa.251.13, %do.cond397 ], [ 1, %if.end149 ]
+  %_s.sroa.1451160.8 = phi ptr [ %_s.sroa.1451160.10, %do.cond397 ], [ %add.ptr133, %if.end149 ]
+  %_s.sroa.72.13 = phi i32 [ %_s.sroa.72.15, %do.cond397 ], [ %_s.sroa.72.0.ph1450, %if.end149 ]
+  %_s.sroa.52.13 = phi ptr [ %_s.sroa.52.15, %do.cond397 ], [ %_s.sroa.52.0.ph1451, %if.end149 ]
+  %_s.sroa.408.10 = phi i32 [ %_s.sroa.408.13, %do.cond397 ], [ %_s.sroa.408.0.ph1464, %if.end149 ]
+  %_s.sroa.457.13 = phi i32 [ %_s.sroa.457.16, %do.cond397 ], [ %_s.sroa.457.0.ph1465, %if.end149 ]
+  %idx.ext333 = sext i32 %_s.sroa.251.10 to i64
+  %add.ptr334 = getelementptr inbounds i16, ptr %_s.sroa.1451160.8, i64 %idx.ext333
+  %shr338 = lshr i32 %_s.sroa.408.10, 11
+  %23 = load i16, ptr %add.ptr334, align 2, !tbaa !51
+  %conv340 = zext i16 %23 to i32
+  %mul341 = mul i32 %shr338, %conv340
+  %cmp343 = icmp ult i32 %_s.sroa.457.13, %mul341
+  %shl356 = shl i32 %_s.sroa.251.10, 1
+  br i1 %cmp343, label %if.then345, label %if.else357
+
+if.then345:                                       ; preds = %do.body330
+  %sub349 = sub nsw i32 2048, %conv340
+  %shr350 = ashr i32 %sub349, 5
+  %24 = trunc i32 %shr350 to i16
+  %conv354 = add i16 %23, %24
+  br label %if.end374
+
+if.else357:                                       ; preds = %do.body330
+  %sub359 = sub i32 %_s.sroa.408.10, %mul341
+  %sub361 = sub i32 %_s.sroa.457.13, %mul341
+  %shr364 = lshr i16 %23, 5
+  %sub367 = sub i16 %23, %shr364
+  %add372 = or i32 %shl356, 1
+  br label %if.end374
+
+if.end374:                                        ; preds = %if.else357, %if.then345
+  %sub367.sink = phi i16 [ %conv354, %if.then345 ], [ %sub367, %if.else357 ]
+  %_s.sroa.251.11 = phi i32 [ %shl356, %if.then345 ], [ %add372, %if.else357 ]
+  %_s.sroa.408.11 = phi i32 [ %mul341, %if.then345 ], [ %sub359, %if.else357 ]
+  %_s.sroa.457.14 = phi i32 [ %_s.sroa.457.13, %if.then345 ], [ %sub361, %if.else357 ]
+  store i16 %sub367.sink, ptr %add.ptr334, align 2
+  %cmp376 = icmp ult i32 %_s.sroa.408.11, 16777216
+  br i1 %cmp376, label %sw.bb379, label %do.cond397
+
+sw.bb379:                                         ; preds = %for.cond.outer1433, %if.end374
+  %_s.sroa.130.01856 = phi i8 [ %_s.sroa.130.01854, %if.end374 ], [ %_s.sroa.130.0.ph1445, %for.cond.outer1433 ]
+  %_s.sroa.120.01799 = phi i32 [ %_s.sroa.120.01800, %if.end374 ], [ %_s.sroa.120.0.ph1446, %for.cond.outer1433 ]
+  %_s.sroa.111.01725 = phi i32 [ %_s.sroa.111.01723, %if.end374 ], [ %_s.sroa.111.0.ph1447, %for.cond.outer1433 ]
+  %_s.sroa.1021125.01667 = phi ptr [ %_s.sroa.1021125.01668, %if.end374 ], [ %_s.sroa.1021125.0.ph1448, %for.cond.outer1433 ]
+  %_s.sroa.396.01562 = phi i32 [ %_s.sroa.396.01563, %if.end374 ], [ %_s.sroa.396.0.ph1463, %for.cond.outer1433 ]
+  %_s.sroa.325.10 = phi i32 [ %_s.sroa.325.9, %if.end374 ], [ %_s.sroa.325.0.ph1435, %for.cond.outer1433 ]
+  %_s.sroa.251.12 = phi i32 [ %_s.sroa.251.11, %if.end374 ], [ %_s.sroa.251.0.ph1438, %for.cond.outer1433 ]
+  %_s.sroa.164.7 = phi ptr [ %add.ptr334, %if.end374 ], [ %_s.sroa.164.0.ph1442, %for.cond.outer1433 ]
+  %_s.sroa.1451160.9 = phi ptr [ %_s.sroa.1451160.8, %if.end374 ], [ %_s.sroa.1451160.0.ph1443, %for.cond.outer1433 ]
+  %_s.sroa.72.14 = phi i32 [ %_s.sroa.72.13, %if.end374 ], [ %_s.sroa.72.0.ph1450, %for.cond.outer1433 ]
+  %_s.sroa.52.14 = phi ptr [ %_s.sroa.52.13, %if.end374 ], [ %_s.sroa.52.0.ph1451, %for.cond.outer1433 ]
+  %_s.sroa.408.12 = phi i32 [ %_s.sroa.408.11, %if.end374 ], [ %_s.sroa.408.0.ph1464, %for.cond.outer1433 ]
+  %_s.sroa.457.15 = phi i32 [ %_s.sroa.457.14, %if.end374 ], [ %_s.sroa.457.0.ph1465, %for.cond.outer1433 ]
+  %tobool381.not = icmp eq i32 %_s.sroa.72.14, 0
+  br i1 %tobool381.not, label %saveStateAndReturn, label %if.end384
+
+if.end384:                                        ; preds = %sw.bb379
+  %shl386 = shl i32 %_s.sroa.408.12, 8
+  %shl388 = shl i32 %_s.sroa.457.15, 8
+  %dec390 = add i32 %_s.sroa.72.14, -1
+  %incdec.ptr392 = getelementptr inbounds i8, ptr %_s.sroa.52.14, i64 1
+  %25 = load i8, ptr %_s.sroa.52.14, align 1, !tbaa !5
+  %conv393 = zext i8 %25 to i32
+  %or394 = or i32 %shl388, %conv393
+  br label %do.cond397
+
+do.cond397:                                       ; preds = %if.end374, %if.end384
+  %_s.sroa.130.01855 = phi i8 [ %_s.sroa.130.01856, %if.end384 ], [ %_s.sroa.130.01854, %if.end374 ]
+  %_s.sroa.120.01798 = phi i32 [ %_s.sroa.120.01799, %if.end384 ], [ %_s.sroa.120.01800, %if.end374 ]
+  %_s.sroa.111.01724 = phi i32 [ %_s.sroa.111.01725, %if.end384 ], [ %_s.sroa.111.01723, %if.end374 ]
+  %_s.sroa.1021125.01666 = phi ptr [ %_s.sroa.1021125.01667, %if.end384 ], [ %_s.sroa.1021125.01668, %if.end374 ]
+  %_s.sroa.396.01561 = phi i32 [ %_s.sroa.396.01562, %if.end384 ], [ %_s.sroa.396.01563, %if.end374 ]
+  %_s.sroa.325.11 = phi i32 [ %_s.sroa.325.10, %if.end384 ], [ %_s.sroa.325.9, %if.end374 ]
+  %_s.sroa.251.13 = phi i32 [ %_s.sroa.251.12, %if.end384 ], [ %_s.sroa.251.11, %if.end374 ]
+  %_s.sroa.164.8 = phi ptr [ %_s.sroa.164.7, %if.end384 ], [ %add.ptr334, %if.end374 ]
+  %_s.sroa.1451160.10 = phi ptr [ %_s.sroa.1451160.9, %if.end384 ], [ %_s.sroa.1451160.8, %if.end374 ]
+  %_s.sroa.72.15 = phi i32 [ %dec390, %if.end384 ], [ %_s.sroa.72.13, %if.end374 ]
+  %_s.sroa.52.15 = phi ptr [ %incdec.ptr392, %if.end384 ], [ %_s.sroa.52.13, %if.end374 ]
+  %_s.sroa.408.13 = phi i32 [ %shl386, %if.end384 ], [ %_s.sroa.408.11, %if.end374 ]
+  %_s.sroa.457.16 = phi i32 [ %or394, %if.end384 ], [ %_s.sroa.457.14, %if.end374 ]
+  %cmp399 = icmp slt i32 %_s.sroa.251.13, 256
+  br i1 %cmp399, label %do.body330, label %do.end401, !llvm.loop !61
+
+do.end401:                                        ; preds = %do.cond397
+  %conv403 = trunc i32 %_s.sroa.251.13 to i8
+  br label %sw.bb406
+
+sw.bb406:                                         ; preds = %for.cond.outer1433, %do.end, %do.end401
+  %_s.sroa.120.01791 = phi i32 [ %_s.sroa.120.01798, %do.end401 ], [ %_s.sroa.120.01792, %do.end ], [ %_s.sroa.120.0.ph1446, %for.cond.outer1433 ]
+  %_s.sroa.111.01732 = phi i32 [ %_s.sroa.111.01724, %do.end401 ], [ %_s.sroa.111.01733, %do.end ], [ %_s.sroa.111.0.ph1447, %for.cond.outer1433 ]
+  %_s.sroa.1021125.01659 = phi ptr [ %_s.sroa.1021125.01666, %do.end401 ], [ %_s.sroa.1021125.01660, %do.end ], [ %_s.sroa.1021125.0.ph1448, %for.cond.outer1433 ]
+  %_s.sroa.396.01554 = phi i32 [ %_s.sroa.396.01561, %do.end401 ], [ %_s.sroa.396.01555, %do.end ], [ %_s.sroa.396.0.ph1463, %for.cond.outer1433 ]
+  %_s.sroa.344.1 = phi i32 [ %_s.sroa.344.0.ph1434, %do.end401 ], [ 0, %do.end ], [ %_s.sroa.344.0.ph1434, %for.cond.outer1433 ]
+  %_s.sroa.325.12 = phi i32 [ %_s.sroa.325.11, %do.end401 ], [ %_s.sroa.325.8, %do.end ], [ %_s.sroa.325.0.ph1435, %for.cond.outer1433 ]
+  %_s.sroa.294.12 = phi i32 [ %_s.sroa.294.0.ph1437, %do.end401 ], [ %_s.sroa.294.11, %do.end ], [ %_s.sroa.294.0.ph1437, %for.cond.outer1433 ]
+  %_s.sroa.251.14 = phi i32 [ %_s.sroa.251.13, %do.end401 ], [ %_s.sroa.251.9, %do.end ], [ %_s.sroa.251.0.ph1438, %for.cond.outer1433 ]
+  %_s.sroa.227.12 = phi i32 [ %_s.sroa.227.0.ph1439, %do.end401 ], [ %_s.sroa.227.11, %do.end ], [ %_s.sroa.227.0.ph1439, %for.cond.outer1433 ]
+  %_s.sroa.164.9 = phi ptr [ %_s.sroa.164.8, %do.end401 ], [ %_s.sroa.164.6, %do.end ], [ %_s.sroa.164.0.ph1442, %for.cond.outer1433 ]
+  %_s.sroa.1451160.11 = phi ptr [ %_s.sroa.1451160.10, %do.end401 ], [ %_s.sroa.1451160.7, %do.end ], [ %_s.sroa.1451160.0.ph1443, %for.cond.outer1433 ]
+  %_s.sroa.141.8 = phi i8 [ %_s.sroa.141.0.ph1444, %do.end401 ], [ %_s.sroa.141.7, %do.end ], [ %_s.sroa.141.0.ph1444, %for.cond.outer1433 ]
+  %_s.sroa.130.1 = phi i8 [ %conv403, %do.end401 ], [ %conv325, %do.end ], [ %_s.sroa.130.0.ph1445, %for.cond.outer1433 ]
+  %_s.sroa.72.16 = phi i32 [ %_s.sroa.72.15, %do.end401 ], [ %_s.sroa.72.12, %do.end ], [ %_s.sroa.72.0.ph1450, %for.cond.outer1433 ]
+  %_s.sroa.52.16 = phi ptr [ %_s.sroa.52.15, %do.end401 ], [ %_s.sroa.52.12, %do.end ], [ %_s.sroa.52.0.ph1451, %for.cond.outer1433 ]
+  %_s.sroa.408.14 = phi i32 [ %_s.sroa.408.13, %do.end401 ], [ %_s.sroa.408.9, %do.end ], [ %_s.sroa.408.0.ph1464, %for.cond.outer1433 ]
+  %_s.sroa.457.17 = phi i32 [ %_s.sroa.457.16, %do.end401 ], [ %_s.sroa.457.12, %do.end ], [ %_s.sroa.457.0.ph1465, %for.cond.outer1433 ]
+  %tobool407.not = icmp eq i32 %_s.sroa.111.01732, 0
+  br i1 %tobool407.not, label %saveStateAndReturn, label %if.end410
+
+if.end410:                                        ; preds = %sw.bb406
+  %inc412 = add i32 %_s.sroa.120.01791, 1
+  store i8 %_s.sroa.130.1, ptr %_s.sroa.1021125.01659, align 1, !tbaa !5
+  %incdec.ptr415 = getelementptr inbounds i8, ptr %_s.sroa.1021125.01659, i64 1
+  %dec417 = add i32 %_s.sroa.111.01732, -1
+  %idxprom421 = zext i32 %_s.sroa.396.01554 to i64
+  %arrayidx422 = getelementptr inbounds i8, ptr %_s.sroa.494.0.ph1466.ph, i64 %idxprom421
+  store i8 %_s.sroa.130.1, ptr %arrayidx422, align 1, !tbaa !5
+  %add424 = add i32 %_s.sroa.396.01554, 1
+  %rem426 = urem i32 %add424, %_s.sroa.39.0.ph1452.ph
+  br label %for.cond.outer1433
+
+if.else428:                                       ; preds = %sw.bb115
+  %add.ptr431 = getelementptr inbounds i16, ptr %_s.sroa.505.0.ph1467.ph, i64 192
+  %idx.ext433 = sext i32 %_s.sroa.325.0.ph1435 to i64
+  %add.ptr434 = getelementptr inbounds i16, ptr %add.ptr431, i64 %idx.ext433
+  br label %_LZMA_C_RDBD
+
+sw.bb437:                                         ; preds = %for.cond.outer1433
+  %cmp439 = icmp eq i32 %_s.sroa.294.0.ph1437, 1
+  br i1 %cmp439, label %if.then441, label %if.else566
+
+if.then441:                                       ; preds = %sw.bb437
+  %add.ptr443 = getelementptr inbounds i16, ptr %_s.sroa.505.0.ph1467.ph, i64 204
+  %idx.ext445 = sext i32 %_s.sroa.325.0.ph1435 to i64
+  %add.ptr446 = getelementptr inbounds i16, ptr %add.ptr443, i64 %idx.ext445
+  br label %_LZMA_C_RDBD
+
+sw.bb449:                                         ; preds = %for.cond.outer1433
+  %cmp451 = icmp eq i32 %_s.sroa.294.0.ph1437, 0
+  br i1 %cmp451, label %if.then453, label %if.else520
+
+if.then453:                                       ; preds = %sw.bb449
+  %add.ptr455 = getelementptr inbounds i16, ptr %_s.sroa.505.0.ph1467.ph, i64 240
+  %shl457 = shl i32 %_s.sroa.325.0.ph1435, 4
+  %idx.ext458 = sext i32 %shl457 to i64
+  %add.ptr459 = getelementptr inbounds i16, ptr %add.ptr455, i64 %idx.ext458
+  %idx.ext461 = sext i32 %_s.sroa.222.0.ph1440.ph to i64
+  %add.ptr462 = getelementptr inbounds i16, ptr %add.ptr459, i64 %idx.ext461
+  br label %_LZMA_C_RDBD
+
+if.else520:                                       ; preds = %sw.bb449
+  %add.ptr522 = getelementptr inbounds i16, ptr %_s.sroa.505.0.ph1467.ph, i64 216
+  %idx.ext524 = sext i32 %_s.sroa.325.0.ph1435 to i64
+  %add.ptr525 = getelementptr inbounds i16, ptr %add.ptr522, i64 %idx.ext524
+  br label %_LZMA_C_RDBD
+
+sw.bb528:                                         ; preds = %for.cond.outer1433
+  %cmp530 = icmp eq i32 %_s.sroa.294.0.ph1437, 0
+  br i1 %cmp530, label %if.end556, label %if.else533
+
+if.else533:                                       ; preds = %sw.bb528
+  %add.ptr535 = getelementptr inbounds i16, ptr %_s.sroa.505.0.ph1467.ph, i64 228
+  %idx.ext537 = sext i32 %_s.sroa.325.0.ph1435 to i64
+  %add.ptr538 = getelementptr inbounds i16, ptr %add.ptr535, i64 %idx.ext537
+  br label %_LZMA_C_RDBD
+
+sw.bb541:                                         ; preds = %for.cond.outer1433
+  %cmp543 = icmp eq i32 %_s.sroa.294.0.ph1437, 0
+  %_s.sroa.389.0._s.sroa.384.0 = select i1 %cmp543, i32 %_s.sroa.389.0.ph1460.ph, i32 %_s.sroa.384.0.ph1459.ph
+  %_s.sroa.384.0._s.sroa.389.0 = select i1 %cmp543, i32 %_s.sroa.384.0.ph1459.ph, i32 %_s.sroa.389.0.ph1460.ph
+  br label %if.end556
+
+if.end556:                                        ; preds = %sw.bb465.peel, %sw.bb541, %sw.bb528
+  %_s.sroa.362.1 = phi i32 [ %_s.sroa.384.0._s.sroa.389.0, %sw.bb541 ], [ %_s.sroa.379.0.ph1458.ph, %sw.bb528 ], [ %_s.sroa.362.0.ph1449.ph, %sw.bb465.peel ]
+  %_s.sroa.379.1 = phi i32 [ %_s.sroa.362.0.ph1449.ph, %sw.bb541 ], [ %_s.sroa.362.0.ph1449.ph, %sw.bb528 ], [ %_s.sroa.379.0.ph1458.ph, %sw.bb465.peel ]
+  %_s.sroa.384.2 = phi i32 [ %_s.sroa.379.0.ph1458.ph, %sw.bb541 ], [ %_s.sroa.384.0.ph1459.ph, %sw.bb528 ], [ %_s.sroa.384.0.ph1459.ph, %sw.bb465.peel ]
+  %_s.sroa.389.3 = phi i32 [ %_s.sroa.389.0._s.sroa.384.0, %sw.bb541 ], [ %_s.sroa.389.0.ph1460.ph, %sw.bb528 ], [ %_s.sroa.389.0.ph1460.ph, %sw.bb465.peel ]
+  %add.ptr558 = getelementptr inbounds i16, ptr %_s.sroa.505.0.ph1467.ph, i64 1332
+  br label %_LZMA_C_LEND
+
+sw.bb560:                                         ; preds = %for.cond.outer1433
+  %cmp562 = icmp slt i32 %_s.sroa.325.0.ph1435, 7
+  %cond564 = select i1 %cmp562, i32 8, i32 11
+  br label %if.end773
+
+if.else566:                                       ; preds = %sw.bb437
+  %cmp574 = icmp slt i32 %_s.sroa.325.0.ph1435, 7
+  %cond576 = select i1 %cmp574, i32 7, i32 10
+  %add.ptr579 = getelementptr inbounds i16, ptr %_s.sroa.505.0.ph1467.ph, i64 818
+  br label %_LZMA_C_LEND
+
+sw.bb582:                                         ; preds = %for.cond.outer1433
+  %add.ptr584 = getelementptr inbounds i16, ptr %_s.sroa.505.0.ph1467.ph, i64 432
+  %cond589 = tail call i32 @llvm.smin.i32(i32 %_s.sroa.347.0.ph, i32 3)
+  %shl590 = shl i32 %cond589, 6
+  %idx.ext591 = sext i32 %shl590 to i64
+  %add.ptr592 = getelementptr inbounds i16, ptr %add.ptr584, i64 %idx.ext591
+  br label %for.cond945
+
+sw.bb595:                                         ; preds = %for.cond.outer1433
+  %cmp597 = icmp sgt i32 %_s.sroa.251.0.ph1438, 3
+  br i1 %cmp597, label %if.then599, label %if.end770
+
+if.then599:                                       ; preds = %sw.bb595
+  %shr601 = lshr i32 %_s.sroa.251.0.ph1438, 1
+  %sub602 = add nsw i32 %shr601, -1
+  %and604 = and i32 %_s.sroa.251.0.ph1438, 1
+  %or605 = or i32 %and604, 2
+  %shl606 = shl i32 %or605, %sub602
+  %cmp609 = icmp ult i32 %_s.sroa.251.0.ph1438, 14
+  br i1 %cmp609, label %if.then611, label %if.else623
+
+if.then611:                                       ; preds = %if.then599
+  %idx.ext615 = zext i32 %shl606 to i64
+  %add.ptr6161431 = getelementptr i16, ptr %_s.sroa.505.0.ph1467.ph, i64 687
+  %idx.ext618 = zext i32 %_s.sroa.251.0.ph1438 to i64
+  %idx.neg = sub nsw i64 0, %idx.ext618
+  %add.ptr6191430 = getelementptr i16, ptr %add.ptr6161431, i64 %idx.ext615
+  %add.ptr620 = getelementptr i16, ptr %add.ptr6191430, i64 %idx.neg
+  br label %for.cond684
+
+if.else623:                                       ; preds = %if.then599
+  %sub624 = add nsw i32 %shr601, -5
+  br label %for.cond627
+
+for.cond627:                                      ; preds = %for.inc669, %if.else623
+  %_s.sroa.347.0.ph2703 = phi i32 [ %_s.sroa.347.0.ph2704, %for.inc669 ], [ %_s.sroa.347.0.ph, %if.else623 ]
+  %_s.sroa.321.0.ph1436.ph2683 = phi i32 [ %_s.sroa.321.0.ph1436.ph2681, %for.inc669 ], [ %_s.sroa.321.0.ph1436.ph, %if.else623 ]
+  %_s.sroa.222.0.ph1440.ph2654 = phi i32 [ %_s.sroa.222.0.ph1440.ph2652, %for.inc669 ], [ %_s.sroa.222.0.ph1440.ph, %if.else623 ]
+  %_s.sroa.39.0.ph1452.ph2607 = phi i32 [ %_s.sroa.39.0.ph1452.ph2605, %for.inc669 ], [ %_s.sroa.39.0.ph1452.ph, %if.else623 ]
+  %_s.sroa.37.0.ph1453.ph2578 = phi i32 [ %_s.sroa.37.0.ph1453.ph2576, %for.inc669 ], [ %_s.sroa.37.0.ph1453.ph, %if.else623 ]
+  %_s.sroa.31.0.ph1455.ph2549 = phi i32 [ %_s.sroa.31.0.ph1455.ph2547, %for.inc669 ], [ %_s.sroa.31.0.ph1455.ph, %if.else623 ]
+  %_s.sroa.22.0.ph1456.ph2520 = phi i32 [ %_s.sroa.22.0.ph1456.ph2518, %for.inc669 ], [ %_s.sroa.22.0.ph1456.ph, %if.else623 ]
+  %_s.sroa.379.0.ph1458.ph2491 = phi i32 [ %_s.sroa.379.0.ph1458.ph2489, %for.inc669 ], [ %_s.sroa.379.0.ph1458.ph, %if.else623 ]
+  %_s.sroa.384.0.ph1459.ph2462 = phi i32 [ %_s.sroa.384.0.ph1459.ph2460, %for.inc669 ], [ %_s.sroa.384.0.ph1459.ph, %if.else623 ]
+  %_s.sroa.389.0.ph1460.ph2433 = phi i32 [ %_s.sroa.389.0.ph1460.ph2431, %for.inc669 ], [ %_s.sroa.389.0.ph1460.ph, %if.else623 ]
+  %_s.sroa.392.0.ph1461.ph2404 = phi i32 [ %_s.sroa.392.0.ph1461.ph2402, %for.inc669 ], [ %_s.sroa.392.0.ph1461.ph, %if.else623 ]
+  %_s.sroa.394.0.ph1462.ph2375 = phi i32 [ %_s.sroa.394.0.ph1462.ph2373, %for.inc669 ], [ %_s.sroa.394.0.ph1462.ph, %if.else623 ]
+  %_s.sroa.494.0.ph1466.ph2346 = phi ptr [ %_s.sroa.494.0.ph1466.ph2344, %for.inc669 ], [ %_s.sroa.494.0.ph1466.ph, %if.else623 ]
+  %_s.sroa.505.0.ph1467.ph2317 = phi ptr [ %_s.sroa.505.0.ph1467.ph2315, %for.inc669 ], [ %_s.sroa.505.0.ph1467.ph, %if.else623 ]
+  %_s.sroa.344.0.ph14342281 = phi i32 [ %_s.sroa.344.0.ph14342279, %for.inc669 ], [ %_s.sroa.344.0.ph1434, %if.else623 ]
+  %_s.sroa.294.0.ph14372244 = phi i32 [ %_s.sroa.294.0.ph14372245, %for.inc669 ], [ %_s.sroa.294.0.ph1437, %if.else623 ]
+  %_s.sroa.164.0.ph14422143 = phi ptr [ %_s.sroa.164.0.ph14422144, %for.inc669 ], [ %_s.sroa.164.0.ph1442, %if.else623 ]
+  %_s.sroa.1451160.0.ph14432109 = phi ptr [ %_s.sroa.1451160.0.ph14432110, %for.inc669 ], [ %_s.sroa.1451160.0.ph1443, %if.else623 ]
+  %_s.sroa.141.0.ph14442066 = phi i8 [ %_s.sroa.141.0.ph14442064, %for.inc669 ], [ %_s.sroa.141.0.ph1444, %if.else623 ]
+  %_s.sroa.325.01895 = phi i32 [ %_s.sroa.325.01896, %for.inc669 ], [ %_s.sroa.325.0.ph1435, %if.else623 ]
+  %_s.sroa.130.01839 = phi i8 [ %_s.sroa.130.01840, %for.inc669 ], [ %_s.sroa.130.0.ph1445, %if.else623 ]
+  %_s.sroa.120.01783 = phi i32 [ %_s.sroa.120.01784, %for.inc669 ], [ %_s.sroa.120.0.ph1446, %if.else623 ]
+  %_s.sroa.111.01708 = phi i32 [ %_s.sroa.111.01709, %for.inc669 ], [ %_s.sroa.111.0.ph1447, %if.else623 ]
+  %_s.sroa.1021125.01651 = phi ptr [ %_s.sroa.1021125.01652, %for.inc669 ], [ %_s.sroa.1021125.0.ph1448, %if.else623 ]
+  %_s.sroa.0.01601 = phi i32 [ %_s.sroa.0.01599, %for.inc669 ], [ %_s.sroa.0.0.ph1457, %if.else623 ]
+  %_s.sroa.396.01546 = phi i32 [ %_s.sroa.396.01547, %for.inc669 ], [ %_s.sroa.396.0.ph1463, %if.else623 ]
+  %_s.sroa.251.15 = phi i32 [ %_s.sroa.251.18, %for.inc669 ], [ 0, %if.else623 ]
+  %_s.sroa.227.13 = phi i32 [ %dec671, %for.inc669 ], [ %sub624, %if.else623 ]
+  %_s.sroa.362.2 = phi i32 [ %_s.sroa.362.4, %for.inc669 ], [ %shl606, %if.else623 ]
+  %_s.sroa.72.17 = phi i32 [ %_s.sroa.72.19, %for.inc669 ], [ %_s.sroa.72.0.ph1450, %if.else623 ]
+  %_s.sroa.52.17 = phi ptr [ %_s.sroa.52.19, %for.inc669 ], [ %_s.sroa.52.0.ph1451, %if.else623 ]
+  %_s.sroa.408.15 = phi i32 [ %_s.sroa.408.17, %for.inc669 ], [ %_s.sroa.408.0.ph1464, %if.else623 ]
+  %_s.sroa.457.18 = phi i32 [ %_s.sroa.457.21, %for.inc669 ], [ %_s.sroa.457.0.ph1465, %if.else623 ]
+  %cmp629 = icmp sgt i32 %_s.sroa.227.13, 0
+  br i1 %cmp629, label %for.body631, label %for.end672
+
+for.body631:                                      ; preds = %for.cond627
+  %shr633 = lshr i32 %_s.sroa.408.15, 1
+  %shl635 = shl i32 %_s.sroa.251.15, 1
+  %cmp638.not = icmp uge i32 %_s.sroa.457.18, %shr633
+  %or645 = zext i1 %cmp638.not to i32
+  %_s.sroa.251.16 = or i32 %shl635, %or645
+  %sub643 = select i1 %cmp638.not, i32 %shr633, i32 0
+  %_s.sroa.457.19 = sub i32 %_s.sroa.457.18, %sub643
+  %cmp648 = icmp ult i32 %_s.sroa.408.15, 33554432
+  br i1 %cmp648, label %sw.bb651, label %for.inc669
+
+sw.bb651:                                         ; preds = %for.cond.outer1433, %for.body631
+  %_s.sroa.347.0.ph2705 = phi i32 [ %_s.sroa.347.0.ph2703, %for.body631 ], [ %_s.sroa.347.0.ph, %for.cond.outer1433 ]
+  %_s.sroa.321.0.ph1436.ph2682 = phi i32 [ %_s.sroa.321.0.ph1436.ph2683, %for.body631 ], [ %_s.sroa.321.0.ph1436.ph, %for.cond.outer1433 ]
+  %_s.sroa.222.0.ph1440.ph2653 = phi i32 [ %_s.sroa.222.0.ph1440.ph2654, %for.body631 ], [ %_s.sroa.222.0.ph1440.ph, %for.cond.outer1433 ]
+  %_s.sroa.39.0.ph1452.ph2606 = phi i32 [ %_s.sroa.39.0.ph1452.ph2607, %for.body631 ], [ %_s.sroa.39.0.ph1452.ph, %for.cond.outer1433 ]
+  %_s.sroa.37.0.ph1453.ph2577 = phi i32 [ %_s.sroa.37.0.ph1453.ph2578, %for.body631 ], [ %_s.sroa.37.0.ph1453.ph, %for.cond.outer1433 ]
+  %_s.sroa.31.0.ph1455.ph2548 = phi i32 [ %_s.sroa.31.0.ph1455.ph2549, %for.body631 ], [ %_s.sroa.31.0.ph1455.ph, %for.cond.outer1433 ]
+  %_s.sroa.22.0.ph1456.ph2519 = phi i32 [ %_s.sroa.22.0.ph1456.ph2520, %for.body631 ], [ %_s.sroa.22.0.ph1456.ph, %for.cond.outer1433 ]
+  %_s.sroa.379.0.ph1458.ph2490 = phi i32 [ %_s.sroa.379.0.ph1458.ph2491, %for.body631 ], [ %_s.sroa.379.0.ph1458.ph, %for.cond.outer1433 ]
+  %_s.sroa.384.0.ph1459.ph2461 = phi i32 [ %_s.sroa.384.0.ph1459.ph2462, %for.body631 ], [ %_s.sroa.384.0.ph1459.ph, %for.cond.outer1433 ]
+  %_s.sroa.389.0.ph1460.ph2432 = phi i32 [ %_s.sroa.389.0.ph1460.ph2433, %for.body631 ], [ %_s.sroa.389.0.ph1460.ph, %for.cond.outer1433 ]
+  %_s.sroa.392.0.ph1461.ph2403 = phi i32 [ %_s.sroa.392.0.ph1461.ph2404, %for.body631 ], [ %_s.sroa.392.0.ph1461.ph, %for.cond.outer1433 ]
+  %_s.sroa.394.0.ph1462.ph2374 = phi i32 [ %_s.sroa.394.0.ph1462.ph2375, %for.body631 ], [ %_s.sroa.394.0.ph1462.ph, %for.cond.outer1433 ]
+  %_s.sroa.494.0.ph1466.ph2345 = phi ptr [ %_s.sroa.494.0.ph1466.ph2346, %for.body631 ], [ %_s.sroa.494.0.ph1466.ph, %for.cond.outer1433 ]
+  %_s.sroa.505.0.ph1467.ph2316 = phi ptr [ %_s.sroa.505.0.ph1467.ph2317, %for.body631 ], [ %_s.sroa.505.0.ph1467.ph, %for.cond.outer1433 ]
+  %_s.sroa.344.0.ph14342280 = phi i32 [ %_s.sroa.344.0.ph14342281, %for.body631 ], [ %_s.sroa.344.0.ph1434, %for.cond.outer1433 ]
+  %_s.sroa.294.0.ph14372246 = phi i32 [ %_s.sroa.294.0.ph14372244, %for.body631 ], [ %_s.sroa.294.0.ph1437, %for.cond.outer1433 ]
+  %_s.sroa.164.0.ph14422145 = phi ptr [ %_s.sroa.164.0.ph14422143, %for.body631 ], [ %_s.sroa.164.0.ph1442, %for.cond.outer1433 ]
+  %_s.sroa.1451160.0.ph14432111 = phi ptr [ %_s.sroa.1451160.0.ph14432109, %for.body631 ], [ %_s.sroa.1451160.0.ph1443, %for.cond.outer1433 ]
+  %_s.sroa.141.0.ph14442065 = phi i8 [ %_s.sroa.141.0.ph14442066, %for.body631 ], [ %_s.sroa.141.0.ph1444, %for.cond.outer1433 ]
+  %_s.sroa.325.01897 = phi i32 [ %_s.sroa.325.01895, %for.body631 ], [ %_s.sroa.325.0.ph1435, %for.cond.outer1433 ]
+  %_s.sroa.130.01842 = phi i8 [ %_s.sroa.130.01839, %for.body631 ], [ %_s.sroa.130.0.ph1445, %for.cond.outer1433 ]
+  %_s.sroa.120.01786 = phi i32 [ %_s.sroa.120.01783, %for.body631 ], [ %_s.sroa.120.0.ph1446, %for.cond.outer1433 ]
+  %_s.sroa.111.01711 = phi i32 [ %_s.sroa.111.01708, %for.body631 ], [ %_s.sroa.111.0.ph1447, %for.cond.outer1433 ]
+  %_s.sroa.1021125.01654 = phi ptr [ %_s.sroa.1021125.01651, %for.body631 ], [ %_s.sroa.1021125.0.ph1448, %for.cond.outer1433 ]
+  %_s.sroa.0.01600 = phi i32 [ %_s.sroa.0.01601, %for.body631 ], [ %_s.sroa.0.0.ph1457, %for.cond.outer1433 ]
+  %_s.sroa.396.01549 = phi i32 [ %_s.sroa.396.01546, %for.body631 ], [ %_s.sroa.396.0.ph1463, %for.cond.outer1433 ]
+  %_s.sroa.251.17 = phi i32 [ %_s.sroa.251.16, %for.body631 ], [ %_s.sroa.251.0.ph1438, %for.cond.outer1433 ]
+  %_s.sroa.227.14 = phi i32 [ %_s.sroa.227.13, %for.body631 ], [ %_s.sroa.227.0.ph1439, %for.cond.outer1433 ]
+  %_s.sroa.362.3 = phi i32 [ %_s.sroa.362.2, %for.body631 ], [ %_s.sroa.362.0.ph1449.ph, %for.cond.outer1433 ]
+  %_s.sroa.72.18 = phi i32 [ %_s.sroa.72.17, %for.body631 ], [ %_s.sroa.72.0.ph1450, %for.cond.outer1433 ]
+  %_s.sroa.52.18 = phi ptr [ %_s.sroa.52.17, %for.body631 ], [ %_s.sroa.52.0.ph1451, %for.cond.outer1433 ]
+  %_s.sroa.408.16 = phi i32 [ %shr633, %for.body631 ], [ %_s.sroa.408.0.ph1464, %for.cond.outer1433 ]
+  %_s.sroa.457.20 = phi i32 [ %_s.sroa.457.19, %for.body631 ], [ %_s.sroa.457.0.ph1465, %for.cond.outer1433 ]
+  %tobool653.not = icmp eq i32 %_s.sroa.72.18, 0
+  br i1 %tobool653.not, label %saveStateAndReturn, label %if.end656
+
+if.end656:                                        ; preds = %sw.bb651
+  %shl658 = shl i32 %_s.sroa.408.16, 8
+  %shl660 = shl i32 %_s.sroa.457.20, 8
+  %dec662 = add i32 %_s.sroa.72.18, -1
+  %incdec.ptr664 = getelementptr inbounds i8, ptr %_s.sroa.52.18, i64 1
+  %26 = load i8, ptr %_s.sroa.52.18, align 1, !tbaa !5
+  %conv665 = zext i8 %26 to i32
+  %or666 = or i32 %shl660, %conv665
+  br label %for.inc669
+
+for.inc669:                                       ; preds = %for.body631, %if.end656
+  %_s.sroa.347.0.ph2704 = phi i32 [ %_s.sroa.347.0.ph2705, %if.end656 ], [ %_s.sroa.347.0.ph2703, %for.body631 ]
+  %_s.sroa.321.0.ph1436.ph2681 = phi i32 [ %_s.sroa.321.0.ph1436.ph2682, %if.end656 ], [ %_s.sroa.321.0.ph1436.ph2683, %for.body631 ]
+  %_s.sroa.222.0.ph1440.ph2652 = phi i32 [ %_s.sroa.222.0.ph1440.ph2653, %if.end656 ], [ %_s.sroa.222.0.ph1440.ph2654, %for.body631 ]
+  %_s.sroa.39.0.ph1452.ph2605 = phi i32 [ %_s.sroa.39.0.ph1452.ph2606, %if.end656 ], [ %_s.sroa.39.0.ph1452.ph2607, %for.body631 ]
+  %_s.sroa.37.0.ph1453.ph2576 = phi i32 [ %_s.sroa.37.0.ph1453.ph2577, %if.end656 ], [ %_s.sroa.37.0.ph1453.ph2578, %for.body631 ]
+  %_s.sroa.31.0.ph1455.ph2547 = phi i32 [ %_s.sroa.31.0.ph1455.ph2548, %if.end656 ], [ %_s.sroa.31.0.ph1455.ph2549, %for.body631 ]
+  %_s.sroa.22.0.ph1456.ph2518 = phi i32 [ %_s.sroa.22.0.ph1456.ph2519, %if.end656 ], [ %_s.sroa.22.0.ph1456.ph2520, %for.body631 ]
+  %_s.sroa.379.0.ph1458.ph2489 = phi i32 [ %_s.sroa.379.0.ph1458.ph2490, %if.end656 ], [ %_s.sroa.379.0.ph1458.ph2491, %for.body631 ]
+  %_s.sroa.384.0.ph1459.ph2460 = phi i32 [ %_s.sroa.384.0.ph1459.ph2461, %if.end656 ], [ %_s.sroa.384.0.ph1459.ph2462, %for.body631 ]
+  %_s.sroa.389.0.ph1460.ph2431 = phi i32 [ %_s.sroa.389.0.ph1460.ph2432, %if.end656 ], [ %_s.sroa.389.0.ph1460.ph2433, %for.body631 ]
+  %_s.sroa.392.0.ph1461.ph2402 = phi i32 [ %_s.sroa.392.0.ph1461.ph2403, %if.end656 ], [ %_s.sroa.392.0.ph1461.ph2404, %for.body631 ]
+  %_s.sroa.394.0.ph1462.ph2373 = phi i32 [ %_s.sroa.394.0.ph1462.ph2374, %if.end656 ], [ %_s.sroa.394.0.ph1462.ph2375, %for.body631 ]
+  %_s.sroa.494.0.ph1466.ph2344 = phi ptr [ %_s.sroa.494.0.ph1466.ph2345, %if.end656 ], [ %_s.sroa.494.0.ph1466.ph2346, %for.body631 ]
+  %_s.sroa.505.0.ph1467.ph2315 = phi ptr [ %_s.sroa.505.0.ph1467.ph2316, %if.end656 ], [ %_s.sroa.505.0.ph1467.ph2317, %for.body631 ]
+  %_s.sroa.344.0.ph14342279 = phi i32 [ %_s.sroa.344.0.ph14342280, %if.end656 ], [ %_s.sroa.344.0.ph14342281, %for.body631 ]
+  %_s.sroa.294.0.ph14372245 = phi i32 [ %_s.sroa.294.0.ph14372246, %if.end656 ], [ %_s.sroa.294.0.ph14372244, %for.body631 ]
+  %_s.sroa.164.0.ph14422144 = phi ptr [ %_s.sroa.164.0.ph14422145, %if.end656 ], [ %_s.sroa.164.0.ph14422143, %for.body631 ]
+  %_s.sroa.1451160.0.ph14432110 = phi ptr [ %_s.sroa.1451160.0.ph14432111, %if.end656 ], [ %_s.sroa.1451160.0.ph14432109, %for.body631 ]
+  %_s.sroa.141.0.ph14442064 = phi i8 [ %_s.sroa.141.0.ph14442065, %if.end656 ], [ %_s.sroa.141.0.ph14442066, %for.body631 ]
+  %_s.sroa.325.01896 = phi i32 [ %_s.sroa.325.01897, %if.end656 ], [ %_s.sroa.325.01895, %for.body631 ]
+  %_s.sroa.130.01840 = phi i8 [ %_s.sroa.130.01842, %if.end656 ], [ %_s.sroa.130.01839, %for.body631 ]
+  %_s.sroa.120.01784 = phi i32 [ %_s.sroa.120.01786, %if.end656 ], [ %_s.sroa.120.01783, %for.body631 ]
+  %_s.sroa.111.01709 = phi i32 [ %_s.sroa.111.01711, %if.end656 ], [ %_s.sroa.111.01708, %for.body631 ]
+  %_s.sroa.1021125.01652 = phi ptr [ %_s.sroa.1021125.01654, %if.end656 ], [ %_s.sroa.1021125.01651, %for.body631 ]
+  %_s.sroa.0.01599 = phi i32 [ %_s.sroa.0.01600, %if.end656 ], [ %_s.sroa.0.01601, %for.body631 ]
+  %_s.sroa.396.01547 = phi i32 [ %_s.sroa.396.01549, %if.end656 ], [ %_s.sroa.396.01546, %for.body631 ]
+  %_s.sroa.251.18 = phi i32 [ %_s.sroa.251.17, %if.end656 ], [ %_s.sroa.251.16, %for.body631 ]
+  %_s.sroa.227.15 = phi i32 [ %_s.sroa.227.14, %if.end656 ], [ %_s.sroa.227.13, %for.body631 ]
+  %_s.sroa.362.4 = phi i32 [ %_s.sroa.362.3, %if.end656 ], [ %_s.sroa.362.2, %for.body631 ]
+  %_s.sroa.72.19 = phi i32 [ %dec662, %if.end656 ], [ %_s.sroa.72.17, %for.body631 ]
+  %_s.sroa.52.19 = phi ptr [ %incdec.ptr664, %if.end656 ], [ %_s.sroa.52.17, %for.body631 ]
+  %_s.sroa.408.17 = phi i32 [ %shl658, %if.end656 ], [ %shr633, %for.body631 ]
+  %_s.sroa.457.21 = phi i32 [ %or666, %if.end656 ], [ %_s.sroa.457.19, %for.body631 ]
+  %dec671 = add nsw i32 %_s.sroa.227.15, -1
+  br label %for.cond627, !llvm.loop !62
+
+for.end672:                                       ; preds = %for.cond627
+  %shl674 = shl i32 %_s.sroa.251.15, 4
+  %add676 = add i32 %_s.sroa.362.2, %shl674
+  %add.ptr678 = getelementptr inbounds i16, ptr %_s.sroa.505.0.ph1467.ph2317, i64 802
+  br label %for.cond684
+
+for.cond684:                                      ; preds = %if.then611, %for.end672, %for.inc760
+  %_s.sroa.347.0.ph2706 = phi i32 [ %_s.sroa.347.0.ph2707, %for.inc760 ], [ %_s.sroa.347.0.ph2703, %for.end672 ], [ %_s.sroa.347.0.ph, %if.then611 ]
+  %_s.sroa.321.0.ph1436.ph2680 = phi i32 [ %_s.sroa.321.0.ph1436.ph2678, %for.inc760 ], [ %_s.sroa.321.0.ph1436.ph2683, %for.end672 ], [ %_s.sroa.321.0.ph1436.ph, %if.then611 ]
+  %_s.sroa.222.0.ph1440.ph2651 = phi i32 [ %_s.sroa.222.0.ph1440.ph2649, %for.inc760 ], [ %_s.sroa.222.0.ph1440.ph2654, %for.end672 ], [ %_s.sroa.222.0.ph1440.ph, %if.then611 ]
+  %_s.sroa.39.0.ph1452.ph2604 = phi i32 [ %_s.sroa.39.0.ph1452.ph2602, %for.inc760 ], [ %_s.sroa.39.0.ph1452.ph2607, %for.end672 ], [ %_s.sroa.39.0.ph1452.ph, %if.then611 ]
+  %_s.sroa.37.0.ph1453.ph2575 = phi i32 [ %_s.sroa.37.0.ph1453.ph2573, %for.inc760 ], [ %_s.sroa.37.0.ph1453.ph2578, %for.end672 ], [ %_s.sroa.37.0.ph1453.ph, %if.then611 ]
+  %_s.sroa.31.0.ph1455.ph2546 = phi i32 [ %_s.sroa.31.0.ph1455.ph2544, %for.inc760 ], [ %_s.sroa.31.0.ph1455.ph2549, %for.end672 ], [ %_s.sroa.31.0.ph1455.ph, %if.then611 ]
+  %_s.sroa.22.0.ph1456.ph2517 = phi i32 [ %_s.sroa.22.0.ph1456.ph2515, %for.inc760 ], [ %_s.sroa.22.0.ph1456.ph2520, %for.end672 ], [ %_s.sroa.22.0.ph1456.ph, %if.then611 ]
+  %_s.sroa.379.0.ph1458.ph2488 = phi i32 [ %_s.sroa.379.0.ph1458.ph2486, %for.inc760 ], [ %_s.sroa.379.0.ph1458.ph2491, %for.end672 ], [ %_s.sroa.379.0.ph1458.ph, %if.then611 ]
+  %_s.sroa.384.0.ph1459.ph2459 = phi i32 [ %_s.sroa.384.0.ph1459.ph2457, %for.inc760 ], [ %_s.sroa.384.0.ph1459.ph2462, %for.end672 ], [ %_s.sroa.384.0.ph1459.ph, %if.then611 ]
+  %_s.sroa.389.0.ph1460.ph2430 = phi i32 [ %_s.sroa.389.0.ph1460.ph2428, %for.inc760 ], [ %_s.sroa.389.0.ph1460.ph2433, %for.end672 ], [ %_s.sroa.389.0.ph1460.ph, %if.then611 ]
+  %_s.sroa.392.0.ph1461.ph2401 = phi i32 [ %_s.sroa.392.0.ph1461.ph2399, %for.inc760 ], [ %_s.sroa.392.0.ph1461.ph2404, %for.end672 ], [ %_s.sroa.392.0.ph1461.ph, %if.then611 ]
+  %_s.sroa.394.0.ph1462.ph2372 = phi i32 [ %_s.sroa.394.0.ph1462.ph2370, %for.inc760 ], [ %_s.sroa.394.0.ph1462.ph2375, %for.end672 ], [ %_s.sroa.394.0.ph1462.ph, %if.then611 ]
+  %_s.sroa.494.0.ph1466.ph2343 = phi ptr [ %_s.sroa.494.0.ph1466.ph2341, %for.inc760 ], [ %_s.sroa.494.0.ph1466.ph2346, %for.end672 ], [ %_s.sroa.494.0.ph1466.ph, %if.then611 ]
+  %_s.sroa.505.0.ph1467.ph2314 = phi ptr [ %_s.sroa.505.0.ph1467.ph2312, %for.inc760 ], [ %_s.sroa.505.0.ph1467.ph2317, %for.end672 ], [ %_s.sroa.505.0.ph1467.ph, %if.then611 ]
+  %_s.sroa.344.0.ph14342278 = phi i32 [ %_s.sroa.344.0.ph14342276, %for.inc760 ], [ %_s.sroa.344.0.ph14342281, %for.end672 ], [ %_s.sroa.344.0.ph1434, %if.then611 ]
+  %_s.sroa.141.0.ph14442063 = phi i8 [ %_s.sroa.141.0.ph14442061, %for.inc760 ], [ %_s.sroa.141.0.ph14442066, %for.end672 ], [ %_s.sroa.141.0.ph1444, %if.then611 ]
+  %_s.sroa.325.01898 = phi i32 [ %_s.sroa.325.01899, %for.inc760 ], [ %_s.sroa.325.01895, %for.end672 ], [ %_s.sroa.325.0.ph1435, %if.then611 ]
+  %_s.sroa.130.01838 = phi i8 [ %_s.sroa.130.01836, %for.inc760 ], [ %_s.sroa.130.01839, %for.end672 ], [ %_s.sroa.130.0.ph1445, %if.then611 ]
+  %_s.sroa.120.01782 = phi i32 [ %_s.sroa.120.01780, %for.inc760 ], [ %_s.sroa.120.01783, %for.end672 ], [ %_s.sroa.120.0.ph1446, %if.then611 ]
+  %_s.sroa.111.01707 = phi i32 [ %_s.sroa.111.01705, %for.inc760 ], [ %_s.sroa.111.01708, %for.end672 ], [ %_s.sroa.111.0.ph1447, %if.then611 ]
+  %_s.sroa.1021125.01650 = phi ptr [ %_s.sroa.1021125.01648, %for.inc760 ], [ %_s.sroa.1021125.01651, %for.end672 ], [ %_s.sroa.1021125.0.ph1448, %if.then611 ]
+  %_s.sroa.0.01598 = phi i32 [ %_s.sroa.0.01596, %for.inc760 ], [ %_s.sroa.0.01601, %for.end672 ], [ %_s.sroa.0.0.ph1457, %if.then611 ]
+  %_s.sroa.396.01545 = phi i32 [ %_s.sroa.396.01543, %for.inc760 ], [ %_s.sroa.396.01546, %for.end672 ], [ %_s.sroa.396.0.ph1463, %if.then611 ]
+  %_s.sroa.294.14 = phi i32 [ %_s.sroa.294.16, %for.inc760 ], [ 4, %for.end672 ], [ %sub602, %if.then611 ]
+  %_s.sroa.251.19 = phi i32 [ %_s.sroa.251.22, %for.inc760 ], [ 0, %for.end672 ], [ 0, %if.then611 ]
+  %_s.sroa.227.16 = phi i32 [ %inc762, %for.inc760 ], [ 0, %for.end672 ], [ 0, %if.then611 ]
+  %_s.sroa.207.1 = phi i32 [ %_s.sroa.207.4, %for.inc760 ], [ 1, %for.end672 ], [ 1, %if.then611 ]
+  %_s.sroa.164.10 = phi ptr [ %_s.sroa.164.12, %for.inc760 ], [ %_s.sroa.164.0.ph14422143, %for.end672 ], [ %_s.sroa.164.0.ph1442, %if.then611 ]
+  %_s.sroa.1451160.13 = phi ptr [ %_s.sroa.1451160.15, %for.inc760 ], [ %add.ptr678, %for.end672 ], [ %add.ptr620, %if.then611 ]
+  %_s.sroa.362.6 = phi i32 [ %_s.sroa.362.8, %for.inc760 ], [ %add676, %for.end672 ], [ %shl606, %if.then611 ]
+  %_s.sroa.72.21 = phi i32 [ %_s.sroa.72.23, %for.inc760 ], [ %_s.sroa.72.17, %for.end672 ], [ %_s.sroa.72.0.ph1450, %if.then611 ]
+  %_s.sroa.52.21 = phi ptr [ %_s.sroa.52.23, %for.inc760 ], [ %_s.sroa.52.17, %for.end672 ], [ %_s.sroa.52.0.ph1451, %if.then611 ]
+  %_s.sroa.408.19 = phi i32 [ %_s.sroa.408.22, %for.inc760 ], [ %_s.sroa.408.15, %for.end672 ], [ %_s.sroa.408.0.ph1464, %if.then611 ]
+  %_s.sroa.457.23 = phi i32 [ %_s.sroa.457.26, %for.inc760 ], [ %_s.sroa.457.18, %for.end672 ], [ %_s.sroa.457.0.ph1465, %if.then611 ]
+  %cmp687 = icmp slt i32 %_s.sroa.227.16, %_s.sroa.294.14
+  br i1 %cmp687, label %for.body689, label %for.end763
+
+for.body689:                                      ; preds = %for.cond684
+  %idx.ext692 = sext i32 %_s.sroa.207.1 to i64
+  %add.ptr693 = getelementptr inbounds i16, ptr %_s.sroa.1451160.13, i64 %idx.ext692
+  %shr697 = lshr i32 %_s.sroa.408.19, 11
+  %27 = load i16, ptr %add.ptr693, align 2, !tbaa !51
+  %conv699 = zext i16 %27 to i32
+  %mul700 = mul i32 %shr697, %conv699
+  %cmp702 = icmp ult i32 %_s.sroa.457.23, %mul700
+  br i1 %cmp702, label %if.then704, label %if.else716
+
+if.then704:                                       ; preds = %for.body689
+  %sub708 = sub nsw i32 2048, %conv699
+  %shr709 = ashr i32 %sub708, 5
+  %28 = trunc i32 %shr709 to i16
+  %conv713 = add i16 %27, %28
+  %shl715 = shl i32 %_s.sroa.207.1, 1
+  br label %if.end737
+
+if.else716:                                       ; preds = %for.body689
+  %shl718 = shl nuw i32 1, %_s.sroa.227.16
+  %or720 = or i32 %shl718, %_s.sroa.251.19
+  %sub722 = sub i32 %_s.sroa.408.19, %mul700
+  %sub724 = sub i32 %_s.sroa.457.23, %mul700
+  %shr727 = lshr i16 %27, 5
+  %sub730 = sub i16 %27, %shr727
+  %add734 = shl nsw i32 %_s.sroa.207.1, 1
+  %add735 = or i32 %add734, 1
+  br label %if.end737
+
+if.end737:                                        ; preds = %if.else716, %if.then704
+  %sub730.sink = phi i16 [ %conv713, %if.then704 ], [ %sub730, %if.else716 ]
+  %_s.sroa.251.20 = phi i32 [ %_s.sroa.251.19, %if.then704 ], [ %or720, %if.else716 ]
+  %_s.sroa.207.2 = phi i32 [ %shl715, %if.then704 ], [ %add735, %if.else716 ]
+  %_s.sroa.408.20 = phi i32 [ %mul700, %if.then704 ], [ %sub722, %if.else716 ]
+  %_s.sroa.457.24 = phi i32 [ %_s.sroa.457.23, %if.then704 ], [ %sub724, %if.else716 ]
+  store i16 %sub730.sink, ptr %add.ptr693, align 2
+  %cmp739 = icmp ult i32 %_s.sroa.408.20, 16777216
+  br i1 %cmp739, label %sw.bb742, label %for.inc760
+
+sw.bb742:                                         ; preds = %for.cond.outer1433, %if.end737
+  %_s.sroa.347.0.ph2708 = phi i32 [ %_s.sroa.347.0.ph2706, %if.end737 ], [ %_s.sroa.347.0.ph, %for.cond.outer1433 ]
+  %_s.sroa.321.0.ph1436.ph2679 = phi i32 [ %_s.sroa.321.0.ph1436.ph2680, %if.end737 ], [ %_s.sroa.321.0.ph1436.ph, %for.cond.outer1433 ]
+  %_s.sroa.222.0.ph1440.ph2650 = phi i32 [ %_s.sroa.222.0.ph1440.ph2651, %if.end737 ], [ %_s.sroa.222.0.ph1440.ph, %for.cond.outer1433 ]
+  %_s.sroa.39.0.ph1452.ph2603 = phi i32 [ %_s.sroa.39.0.ph1452.ph2604, %if.end737 ], [ %_s.sroa.39.0.ph1452.ph, %for.cond.outer1433 ]
+  %_s.sroa.37.0.ph1453.ph2574 = phi i32 [ %_s.sroa.37.0.ph1453.ph2575, %if.end737 ], [ %_s.sroa.37.0.ph1453.ph, %for.cond.outer1433 ]
+  %_s.sroa.31.0.ph1455.ph2545 = phi i32 [ %_s.sroa.31.0.ph1455.ph2546, %if.end737 ], [ %_s.sroa.31.0.ph1455.ph, %for.cond.outer1433 ]
+  %_s.sroa.22.0.ph1456.ph2516 = phi i32 [ %_s.sroa.22.0.ph1456.ph2517, %if.end737 ], [ %_s.sroa.22.0.ph1456.ph, %for.cond.outer1433 ]
+  %_s.sroa.379.0.ph1458.ph2487 = phi i32 [ %_s.sroa.379.0.ph1458.ph2488, %if.end737 ], [ %_s.sroa.379.0.ph1458.ph, %for.cond.outer1433 ]
+  %_s.sroa.384.0.ph1459.ph2458 = phi i32 [ %_s.sroa.384.0.ph1459.ph2459, %if.end737 ], [ %_s.sroa.384.0.ph1459.ph, %for.cond.outer1433 ]
+  %_s.sroa.389.0.ph1460.ph2429 = phi i32 [ %_s.sroa.389.0.ph1460.ph2430, %if.end737 ], [ %_s.sroa.389.0.ph1460.ph, %for.cond.outer1433 ]
+  %_s.sroa.392.0.ph1461.ph2400 = phi i32 [ %_s.sroa.392.0.ph1461.ph2401, %if.end737 ], [ %_s.sroa.392.0.ph1461.ph, %for.cond.outer1433 ]
+  %_s.sroa.394.0.ph1462.ph2371 = phi i32 [ %_s.sroa.394.0.ph1462.ph2372, %if.end737 ], [ %_s.sroa.394.0.ph1462.ph, %for.cond.outer1433 ]
+  %_s.sroa.494.0.ph1466.ph2342 = phi ptr [ %_s.sroa.494.0.ph1466.ph2343, %if.end737 ], [ %_s.sroa.494.0.ph1466.ph, %for.cond.outer1433 ]
+  %_s.sroa.505.0.ph1467.ph2313 = phi ptr [ %_s.sroa.505.0.ph1467.ph2314, %if.end737 ], [ %_s.sroa.505.0.ph1467.ph, %for.cond.outer1433 ]
+  %_s.sroa.344.0.ph14342277 = phi i32 [ %_s.sroa.344.0.ph14342278, %if.end737 ], [ %_s.sroa.344.0.ph1434, %for.cond.outer1433 ]
+  %_s.sroa.141.0.ph14442062 = phi i8 [ %_s.sroa.141.0.ph14442063, %if.end737 ], [ %_s.sroa.141.0.ph1444, %for.cond.outer1433 ]
+  %_s.sroa.325.01900 = phi i32 [ %_s.sroa.325.01898, %if.end737 ], [ %_s.sroa.325.0.ph1435, %for.cond.outer1433 ]
+  %_s.sroa.130.01837 = phi i8 [ %_s.sroa.130.01838, %if.end737 ], [ %_s.sroa.130.0.ph1445, %for.cond.outer1433 ]
+  %_s.sroa.120.01781 = phi i32 [ %_s.sroa.120.01782, %if.end737 ], [ %_s.sroa.120.0.ph1446, %for.cond.outer1433 ]
+  %_s.sroa.111.01706 = phi i32 [ %_s.sroa.111.01707, %if.end737 ], [ %_s.sroa.111.0.ph1447, %for.cond.outer1433 ]
+  %_s.sroa.1021125.01649 = phi ptr [ %_s.sroa.1021125.01650, %if.end737 ], [ %_s.sroa.1021125.0.ph1448, %for.cond.outer1433 ]
+  %_s.sroa.0.01597 = phi i32 [ %_s.sroa.0.01598, %if.end737 ], [ %_s.sroa.0.0.ph1457, %for.cond.outer1433 ]
+  %_s.sroa.396.01544 = phi i32 [ %_s.sroa.396.01545, %if.end737 ], [ %_s.sroa.396.0.ph1463, %for.cond.outer1433 ]
+  %_s.sroa.294.15 = phi i32 [ %_s.sroa.294.14, %if.end737 ], [ %_s.sroa.294.0.ph1437, %for.cond.outer1433 ]
+  %_s.sroa.251.21 = phi i32 [ %_s.sroa.251.20, %if.end737 ], [ %_s.sroa.251.0.ph1438, %for.cond.outer1433 ]
+  %_s.sroa.227.17 = phi i32 [ %_s.sroa.227.16, %if.end737 ], [ %_s.sroa.227.0.ph1439, %for.cond.outer1433 ]
+  %_s.sroa.207.3 = phi i32 [ %_s.sroa.207.2, %if.end737 ], [ %_s.sroa.207.0.ph.ph, %for.cond.outer1433 ]
+  %_s.sroa.164.11 = phi ptr [ %add.ptr693, %if.end737 ], [ %_s.sroa.164.0.ph1442, %for.cond.outer1433 ]
+  %_s.sroa.1451160.14 = phi ptr [ %_s.sroa.1451160.13, %if.end737 ], [ %_s.sroa.1451160.0.ph1443, %for.cond.outer1433 ]
+  %_s.sroa.362.7 = phi i32 [ %_s.sroa.362.6, %if.end737 ], [ %_s.sroa.362.0.ph1449.ph, %for.cond.outer1433 ]
+  %_s.sroa.72.22 = phi i32 [ %_s.sroa.72.21, %if.end737 ], [ %_s.sroa.72.0.ph1450, %for.cond.outer1433 ]
+  %_s.sroa.52.22 = phi ptr [ %_s.sroa.52.21, %if.end737 ], [ %_s.sroa.52.0.ph1451, %for.cond.outer1433 ]
+  %_s.sroa.408.21 = phi i32 [ %_s.sroa.408.20, %if.end737 ], [ %_s.sroa.408.0.ph1464, %for.cond.outer1433 ]
+  %_s.sroa.457.25 = phi i32 [ %_s.sroa.457.24, %if.end737 ], [ %_s.sroa.457.0.ph1465, %for.cond.outer1433 ]
+  %tobool744.not = icmp eq i32 %_s.sroa.72.22, 0
+  br i1 %tobool744.not, label %saveStateAndReturn, label %if.end747
+
+if.end747:                                        ; preds = %sw.bb742
+  %shl749 = shl i32 %_s.sroa.408.21, 8
+  %shl751 = shl i32 %_s.sroa.457.25, 8
+  %dec753 = add i32 %_s.sroa.72.22, -1
+  %incdec.ptr755 = getelementptr inbounds i8, ptr %_s.sroa.52.22, i64 1
+  %29 = load i8, ptr %_s.sroa.52.22, align 1, !tbaa !5
+  %conv756 = zext i8 %29 to i32
+  %or757 = or i32 %shl751, %conv756
+  br label %for.inc760
+
+for.inc760:                                       ; preds = %if.end737, %if.end747
+  %_s.sroa.347.0.ph2707 = phi i32 [ %_s.sroa.347.0.ph2708, %if.end747 ], [ %_s.sroa.347.0.ph2706, %if.end737 ]
+  %_s.sroa.321.0.ph1436.ph2678 = phi i32 [ %_s.sroa.321.0.ph1436.ph2679, %if.end747 ], [ %_s.sroa.321.0.ph1436.ph2680, %if.end737 ]
+  %_s.sroa.222.0.ph1440.ph2649 = phi i32 [ %_s.sroa.222.0.ph1440.ph2650, %if.end747 ], [ %_s.sroa.222.0.ph1440.ph2651, %if.end737 ]
+  %_s.sroa.39.0.ph1452.ph2602 = phi i32 [ %_s.sroa.39.0.ph1452.ph2603, %if.end747 ], [ %_s.sroa.39.0.ph1452.ph2604, %if.end737 ]
+  %_s.sroa.37.0.ph1453.ph2573 = phi i32 [ %_s.sroa.37.0.ph1453.ph2574, %if.end747 ], [ %_s.sroa.37.0.ph1453.ph2575, %if.end737 ]
+  %_s.sroa.31.0.ph1455.ph2544 = phi i32 [ %_s.sroa.31.0.ph1455.ph2545, %if.end747 ], [ %_s.sroa.31.0.ph1455.ph2546, %if.end737 ]
+  %_s.sroa.22.0.ph1456.ph2515 = phi i32 [ %_s.sroa.22.0.ph1456.ph2516, %if.end747 ], [ %_s.sroa.22.0.ph1456.ph2517, %if.end737 ]
+  %_s.sroa.379.0.ph1458.ph2486 = phi i32 [ %_s.sroa.379.0.ph1458.ph2487, %if.end747 ], [ %_s.sroa.379.0.ph1458.ph2488, %if.end737 ]
+  %_s.sroa.384.0.ph1459.ph2457 = phi i32 [ %_s.sroa.384.0.ph1459.ph2458, %if.end747 ], [ %_s.sroa.384.0.ph1459.ph2459, %if.end737 ]
+  %_s.sroa.389.0.ph1460.ph2428 = phi i32 [ %_s.sroa.389.0.ph1460.ph2429, %if.end747 ], [ %_s.sroa.389.0.ph1460.ph2430, %if.end737 ]
+  %_s.sroa.392.0.ph1461.ph2399 = phi i32 [ %_s.sroa.392.0.ph1461.ph2400, %if.end747 ], [ %_s.sroa.392.0.ph1461.ph2401, %if.end737 ]
+  %_s.sroa.394.0.ph1462.ph2370 = phi i32 [ %_s.sroa.394.0.ph1462.ph2371, %if.end747 ], [ %_s.sroa.394.0.ph1462.ph2372, %if.end737 ]
+  %_s.sroa.494.0.ph1466.ph2341 = phi ptr [ %_s.sroa.494.0.ph1466.ph2342, %if.end747 ], [ %_s.sroa.494.0.ph1466.ph2343, %if.end737 ]
+  %_s.sroa.505.0.ph1467.ph2312 = phi ptr [ %_s.sroa.505.0.ph1467.ph2313, %if.end747 ], [ %_s.sroa.505.0.ph1467.ph2314, %if.end737 ]
+  %_s.sroa.344.0.ph14342276 = phi i32 [ %_s.sroa.344.0.ph14342277, %if.end747 ], [ %_s.sroa.344.0.ph14342278, %if.end737 ]
+  %_s.sroa.141.0.ph14442061 = phi i8 [ %_s.sroa.141.0.ph14442062, %if.end747 ], [ %_s.sroa.141.0.ph14442063, %if.end737 ]
+  %_s.sroa.325.01899 = phi i32 [ %_s.sroa.325.01900, %if.end747 ], [ %_s.sroa.325.01898, %if.end737 ]
+  %_s.sroa.130.01836 = phi i8 [ %_s.sroa.130.01837, %if.end747 ], [ %_s.sroa.130.01838, %if.end737 ]
+  %_s.sroa.120.01780 = phi i32 [ %_s.sroa.120.01781, %if.end747 ], [ %_s.sroa.120.01782, %if.end737 ]
+  %_s.sroa.111.01705 = phi i32 [ %_s.sroa.111.01706, %if.end747 ], [ %_s.sroa.111.01707, %if.end737 ]
+  %_s.sroa.1021125.01648 = phi ptr [ %_s.sroa.1021125.01649, %if.end747 ], [ %_s.sroa.1021125.01650, %if.end737 ]
+  %_s.sroa.0.01596 = phi i32 [ %_s.sroa.0.01597, %if.end747 ], [ %_s.sroa.0.01598, %if.end737 ]
+  %_s.sroa.396.01543 = phi i32 [ %_s.sroa.396.01544, %if.end747 ], [ %_s.sroa.396.01545, %if.end737 ]
+  %_s.sroa.294.16 = phi i32 [ %_s.sroa.294.15, %if.end747 ], [ %_s.sroa.294.14, %if.end737 ]
+  %_s.sroa.251.22 = phi i32 [ %_s.sroa.251.21, %if.end747 ], [ %_s.sroa.251.20, %if.end737 ]
+  %_s.sroa.227.18 = phi i32 [ %_s.sroa.227.17, %if.end747 ], [ %_s.sroa.227.16, %if.end737 ]
+  %_s.sroa.207.4 = phi i32 [ %_s.sroa.207.3, %if.end747 ], [ %_s.sroa.207.2, %if.end737 ]
+  %_s.sroa.164.12 = phi ptr [ %_s.sroa.164.11, %if.end747 ], [ %add.ptr693, %if.end737 ]
+  %_s.sroa.1451160.15 = phi ptr [ %_s.sroa.1451160.14, %if.end747 ], [ %_s.sroa.1451160.13, %if.end737 ]
+  %_s.sroa.362.8 = phi i32 [ %_s.sroa.362.7, %if.end747 ], [ %_s.sroa.362.6, %if.end737 ]
+  %_s.sroa.72.23 = phi i32 [ %dec753, %if.end747 ], [ %_s.sroa.72.21, %if.end737 ]
+  %_s.sroa.52.23 = phi ptr [ %incdec.ptr755, %if.end747 ], [ %_s.sroa.52.21, %if.end737 ]
+  %_s.sroa.408.22 = phi i32 [ %shl749, %if.end747 ], [ %_s.sroa.408.20, %if.end737 ]
+  %_s.sroa.457.26 = phi i32 [ %or757, %if.end747 ], [ %_s.sroa.457.24, %if.end737 ]
+  %inc762 = add nsw i32 %_s.sroa.227.18, 1
+  br label %for.cond684, !llvm.loop !63
+
+for.end763:                                       ; preds = %for.cond684
+  %add766 = add i32 %_s.sroa.362.6, %_s.sroa.251.19
+  br label %if.end770
+
+if.end770:                                        ; preds = %sw.bb595, %for.end763
+  %_s.sroa.347.0.ph2712 = phi i32 [ %_s.sroa.347.0.ph2706, %for.end763 ], [ %_s.sroa.347.0.ph, %sw.bb595 ]
+  %_s.sroa.321.0.ph1436.ph2677 = phi i32 [ %_s.sroa.321.0.ph1436.ph2680, %for.end763 ], [ %_s.sroa.321.0.ph1436.ph, %sw.bb595 ]
+  %_s.sroa.222.0.ph1440.ph2648 = phi i32 [ %_s.sroa.222.0.ph1440.ph2651, %for.end763 ], [ %_s.sroa.222.0.ph1440.ph, %sw.bb595 ]
+  %_s.sroa.39.0.ph1452.ph2601 = phi i32 [ %_s.sroa.39.0.ph1452.ph2604, %for.end763 ], [ %_s.sroa.39.0.ph1452.ph, %sw.bb595 ]
+  %_s.sroa.37.0.ph1453.ph2572 = phi i32 [ %_s.sroa.37.0.ph1453.ph2575, %for.end763 ], [ %_s.sroa.37.0.ph1453.ph, %sw.bb595 ]
+  %_s.sroa.31.0.ph1455.ph2543 = phi i32 [ %_s.sroa.31.0.ph1455.ph2546, %for.end763 ], [ %_s.sroa.31.0.ph1455.ph, %sw.bb595 ]
+  %_s.sroa.22.0.ph1456.ph2514 = phi i32 [ %_s.sroa.22.0.ph1456.ph2517, %for.end763 ], [ %_s.sroa.22.0.ph1456.ph, %sw.bb595 ]
+  %_s.sroa.379.0.ph1458.ph2485 = phi i32 [ %_s.sroa.379.0.ph1458.ph2488, %for.end763 ], [ %_s.sroa.379.0.ph1458.ph, %sw.bb595 ]
+  %_s.sroa.384.0.ph1459.ph2456 = phi i32 [ %_s.sroa.384.0.ph1459.ph2459, %for.end763 ], [ %_s.sroa.384.0.ph1459.ph, %sw.bb595 ]
+  %_s.sroa.389.0.ph1460.ph2427 = phi i32 [ %_s.sroa.389.0.ph1460.ph2430, %for.end763 ], [ %_s.sroa.389.0.ph1460.ph, %sw.bb595 ]
+  %_s.sroa.392.0.ph1461.ph2398 = phi i32 [ %_s.sroa.392.0.ph1461.ph2401, %for.end763 ], [ %_s.sroa.392.0.ph1461.ph, %sw.bb595 ]
+  %_s.sroa.394.0.ph1462.ph2369 = phi i32 [ %_s.sroa.394.0.ph1462.ph2372, %for.end763 ], [ %_s.sroa.394.0.ph1462.ph, %sw.bb595 ]
+  %_s.sroa.494.0.ph1466.ph2340 = phi ptr [ %_s.sroa.494.0.ph1466.ph2343, %for.end763 ], [ %_s.sroa.494.0.ph1466.ph, %sw.bb595 ]
+  %_s.sroa.505.0.ph1467.ph2311 = phi ptr [ %_s.sroa.505.0.ph1467.ph2314, %for.end763 ], [ %_s.sroa.505.0.ph1467.ph, %sw.bb595 ]
+  %_s.sroa.344.0.ph14342275 = phi i32 [ %_s.sroa.344.0.ph14342278, %for.end763 ], [ %_s.sroa.344.0.ph1434, %sw.bb595 ]
+  %_s.sroa.141.0.ph14442060 = phi i8 [ %_s.sroa.141.0.ph14442063, %for.end763 ], [ %_s.sroa.141.0.ph1444, %sw.bb595 ]
+  %_s.sroa.325.01907 = phi i32 [ %_s.sroa.325.01898, %for.end763 ], [ %_s.sroa.325.0.ph1435, %sw.bb595 ]
+  %_s.sroa.130.01835 = phi i8 [ %_s.sroa.130.01838, %for.end763 ], [ %_s.sroa.130.0.ph1445, %sw.bb595 ]
+  %_s.sroa.120.01779 = phi i32 [ %_s.sroa.120.01782, %for.end763 ], [ %_s.sroa.120.0.ph1446, %sw.bb595 ]
+  %_s.sroa.111.01704 = phi i32 [ %_s.sroa.111.01707, %for.end763 ], [ %_s.sroa.111.0.ph1447, %sw.bb595 ]
+  %_s.sroa.1021125.01647 = phi ptr [ %_s.sroa.1021125.01650, %for.end763 ], [ %_s.sroa.1021125.0.ph1448, %sw.bb595 ]
+  %_s.sroa.0.01595 = phi i32 [ %_s.sroa.0.01598, %for.end763 ], [ %_s.sroa.0.0.ph1457, %sw.bb595 ]
+  %_s.sroa.396.01542 = phi i32 [ %_s.sroa.396.01545, %for.end763 ], [ %_s.sroa.396.0.ph1463, %sw.bb595 ]
+  %_s.sroa.294.17 = phi i32 [ %_s.sroa.294.14, %for.end763 ], [ %_s.sroa.294.0.ph1437, %sw.bb595 ]
+  %_s.sroa.251.23 = phi i32 [ %_s.sroa.251.19, %for.end763 ], [ %_s.sroa.251.0.ph1438, %sw.bb595 ]
+  %_s.sroa.227.19 = phi i32 [ %_s.sroa.227.16, %for.end763 ], [ %_s.sroa.227.0.ph1439, %sw.bb595 ]
+  %_s.sroa.207.5 = phi i32 [ %_s.sroa.207.1, %for.end763 ], [ %_s.sroa.207.0.ph.ph, %sw.bb595 ]
+  %_s.sroa.164.13 = phi ptr [ %_s.sroa.164.10, %for.end763 ], [ %_s.sroa.164.0.ph1442, %sw.bb595 ]
+  %_s.sroa.1451160.16 = phi ptr [ %_s.sroa.1451160.13, %for.end763 ], [ %_s.sroa.1451160.0.ph1443, %sw.bb595 ]
+  %_s.sroa.362.9 = phi i32 [ %add766, %for.end763 ], [ %_s.sroa.251.0.ph1438, %sw.bb595 ]
+  %_s.sroa.72.24 = phi i32 [ %_s.sroa.72.21, %for.end763 ], [ %_s.sroa.72.0.ph1450, %sw.bb595 ]
+  %_s.sroa.52.24 = phi ptr [ %_s.sroa.52.21, %for.end763 ], [ %_s.sroa.52.0.ph1451, %sw.bb595 ]
+  %_s.sroa.408.23 = phi i32 [ %_s.sroa.408.19, %for.end763 ], [ %_s.sroa.408.0.ph1464, %sw.bb595 ]
+  %_s.sroa.457.27 = phi i32 [ %_s.sroa.457.23, %for.end763 ], [ %_s.sroa.457.0.ph1465, %sw.bb595 ]
+  %inc772 = add i32 %_s.sroa.362.9, 1
+  br label %if.end773
+
+if.end773:                                        ; preds = %if.end770, %sw.bb560
+  %_s.sroa.347.0.ph2711 = phi i32 [ %_s.sroa.347.0.ph2712, %if.end770 ], [ %_s.sroa.347.0.ph, %sw.bb560 ]
+  %_s.sroa.321.0.ph1436.ph2676 = phi i32 [ %_s.sroa.321.0.ph1436.ph2677, %if.end770 ], [ %_s.sroa.321.0.ph1436.ph, %sw.bb560 ]
+  %_s.sroa.222.0.ph1440.ph2647 = phi i32 [ %_s.sroa.222.0.ph1440.ph2648, %if.end770 ], [ %_s.sroa.222.0.ph1440.ph, %sw.bb560 ]
+  %_s.sroa.39.0.ph1452.ph2600 = phi i32 [ %_s.sroa.39.0.ph1452.ph2601, %if.end770 ], [ %_s.sroa.39.0.ph1452.ph, %sw.bb560 ]
+  %_s.sroa.37.0.ph1453.ph2571 = phi i32 [ %_s.sroa.37.0.ph1453.ph2572, %if.end770 ], [ %_s.sroa.37.0.ph1453.ph, %sw.bb560 ]
+  %_s.sroa.31.0.ph1455.ph2542 = phi i32 [ %_s.sroa.31.0.ph1455.ph2543, %if.end770 ], [ %_s.sroa.31.0.ph1455.ph, %sw.bb560 ]
+  %_s.sroa.22.0.ph1456.ph2513 = phi i32 [ %_s.sroa.22.0.ph1456.ph2514, %if.end770 ], [ %_s.sroa.22.0.ph1456.ph, %sw.bb560 ]
+  %_s.sroa.379.0.ph1458.ph2484 = phi i32 [ %_s.sroa.379.0.ph1458.ph2485, %if.end770 ], [ %_s.sroa.379.0.ph1458.ph, %sw.bb560 ]
+  %_s.sroa.384.0.ph1459.ph2455 = phi i32 [ %_s.sroa.384.0.ph1459.ph2456, %if.end770 ], [ %_s.sroa.384.0.ph1459.ph, %sw.bb560 ]
+  %_s.sroa.389.0.ph1460.ph2426 = phi i32 [ %_s.sroa.389.0.ph1460.ph2427, %if.end770 ], [ %_s.sroa.389.0.ph1460.ph, %sw.bb560 ]
+  %_s.sroa.392.0.ph1461.ph2397 = phi i32 [ %_s.sroa.392.0.ph1461.ph2398, %if.end770 ], [ %_s.sroa.392.0.ph1461.ph, %sw.bb560 ]
+  %_s.sroa.394.0.ph1462.ph2368 = phi i32 [ %_s.sroa.394.0.ph1462.ph2369, %if.end770 ], [ %_s.sroa.394.0.ph1462.ph, %sw.bb560 ]
+  %_s.sroa.494.0.ph1466.ph2339 = phi ptr [ %_s.sroa.494.0.ph1466.ph2340, %if.end770 ], [ %_s.sroa.494.0.ph1466.ph, %sw.bb560 ]
+  %_s.sroa.505.0.ph1467.ph2310 = phi ptr [ %_s.sroa.505.0.ph1467.ph2311, %if.end770 ], [ %_s.sroa.505.0.ph1467.ph, %sw.bb560 ]
+  %_s.sroa.344.0.ph14342274 = phi i32 [ %_s.sroa.344.0.ph14342275, %if.end770 ], [ %_s.sroa.344.0.ph1434, %sw.bb560 ]
+  %_s.sroa.141.0.ph14442059 = phi i8 [ %_s.sroa.141.0.ph14442060, %if.end770 ], [ %_s.sroa.141.0.ph1444, %sw.bb560 ]
+  %_s.sroa.130.01834 = phi i8 [ %_s.sroa.130.01835, %if.end770 ], [ %_s.sroa.130.0.ph1445, %sw.bb560 ]
+  %_s.sroa.120.01778 = phi i32 [ %_s.sroa.120.01779, %if.end770 ], [ %_s.sroa.120.0.ph1446, %sw.bb560 ]
+  %_s.sroa.111.01703 = phi i32 [ %_s.sroa.111.01704, %if.end770 ], [ %_s.sroa.111.0.ph1447, %sw.bb560 ]
+  %_s.sroa.1021125.01646 = phi ptr [ %_s.sroa.1021125.01647, %if.end770 ], [ %_s.sroa.1021125.0.ph1448, %sw.bb560 ]
+  %_s.sroa.0.01594 = phi i32 [ %_s.sroa.0.01595, %if.end770 ], [ %_s.sroa.0.0.ph1457, %sw.bb560 ]
+  %_s.sroa.396.01541 = phi i32 [ %_s.sroa.396.01542, %if.end770 ], [ %_s.sroa.396.0.ph1463, %sw.bb560 ]
+  %_s.sroa.325.14 = phi i32 [ %_s.sroa.325.01907, %if.end770 ], [ %cond564, %sw.bb560 ]
+  %_s.sroa.294.18 = phi i32 [ %_s.sroa.294.17, %if.end770 ], [ %_s.sroa.294.0.ph1437, %sw.bb560 ]
+  %_s.sroa.251.24 = phi i32 [ %_s.sroa.251.23, %if.end770 ], [ %_s.sroa.251.0.ph1438, %sw.bb560 ]
+  %_s.sroa.227.20 = phi i32 [ %_s.sroa.227.19, %if.end770 ], [ %_s.sroa.227.0.ph1439, %sw.bb560 ]
+  %_s.sroa.207.6 = phi i32 [ %_s.sroa.207.5, %if.end770 ], [ %_s.sroa.207.0.ph.ph, %sw.bb560 ]
+  %_s.sroa.164.14 = phi ptr [ %_s.sroa.164.13, %if.end770 ], [ %_s.sroa.164.0.ph1442, %sw.bb560 ]
+  %_s.sroa.1451160.17 = phi ptr [ %_s.sroa.1451160.16, %if.end770 ], [ %_s.sroa.1451160.0.ph1443, %sw.bb560 ]
+  %_s.sroa.362.10 = phi i32 [ %inc772, %if.end770 ], [ %_s.sroa.362.0.ph1449.ph, %sw.bb560 ]
+  %_s.sroa.72.25 = phi i32 [ %_s.sroa.72.24, %if.end770 ], [ %_s.sroa.72.0.ph1450, %sw.bb560 ]
+  %_s.sroa.52.25 = phi ptr [ %_s.sroa.52.24, %if.end770 ], [ %_s.sroa.52.0.ph1451, %sw.bb560 ]
+  %_s.sroa.408.24 = phi i32 [ %_s.sroa.408.23, %if.end770 ], [ %_s.sroa.408.0.ph1464, %sw.bb560 ]
+  %_s.sroa.457.28 = phi i32 [ %_s.sroa.457.27, %if.end770 ], [ %_s.sroa.457.0.ph1465, %sw.bb560 ]
+  %cmp775 = icmp eq i32 %_s.sroa.362.10, 0
+  br i1 %cmp775, label %saveStateAndReturn, label %if.end779
+
+if.end779:                                        ; preds = %if.end773
+  %cmp782 = icmp ugt i32 %_s.sroa.362.10, %_s.sroa.120.01778
+  br i1 %cmp782, label %cleanup, label %if.end785
+
+if.end785:                                        ; preds = %if.end779
+  %add787 = add nsw i32 %_s.sroa.347.0.ph2711, 2
+  %add790 = add i32 %_s.sroa.120.01778, %add787
+  br label %sw.bb793.preheader
+
+sw.bb793.preheader:                               ; preds = %for.cond.outer1433, %if.end785
+  %_s.sroa.321.0.ph1436.ph2675 = phi i32 [ %_s.sroa.321.0.ph1436.ph2676, %if.end785 ], [ %_s.sroa.321.0.ph1436.ph, %for.cond.outer1433 ]
+  %_s.sroa.222.0.ph1440.ph2646 = phi i32 [ %_s.sroa.222.0.ph1440.ph2647, %if.end785 ], [ %_s.sroa.222.0.ph1440.ph, %for.cond.outer1433 ]
+  %_s.sroa.39.0.ph1452.ph2599 = phi i32 [ %_s.sroa.39.0.ph1452.ph2600, %if.end785 ], [ %_s.sroa.39.0.ph1452.ph, %for.cond.outer1433 ]
+  %_s.sroa.37.0.ph1453.ph2570 = phi i32 [ %_s.sroa.37.0.ph1453.ph2571, %if.end785 ], [ %_s.sroa.37.0.ph1453.ph, %for.cond.outer1433 ]
+  %_s.sroa.31.0.ph1455.ph2541 = phi i32 [ %_s.sroa.31.0.ph1455.ph2542, %if.end785 ], [ %_s.sroa.31.0.ph1455.ph, %for.cond.outer1433 ]
+  %_s.sroa.22.0.ph1456.ph2512 = phi i32 [ %_s.sroa.22.0.ph1456.ph2513, %if.end785 ], [ %_s.sroa.22.0.ph1456.ph, %for.cond.outer1433 ]
+  %_s.sroa.379.0.ph1458.ph2483 = phi i32 [ %_s.sroa.379.0.ph1458.ph2484, %if.end785 ], [ %_s.sroa.379.0.ph1458.ph, %for.cond.outer1433 ]
+  %_s.sroa.384.0.ph1459.ph2454 = phi i32 [ %_s.sroa.384.0.ph1459.ph2455, %if.end785 ], [ %_s.sroa.384.0.ph1459.ph, %for.cond.outer1433 ]
+  %_s.sroa.389.0.ph1460.ph2425 = phi i32 [ %_s.sroa.389.0.ph1460.ph2426, %if.end785 ], [ %_s.sroa.389.0.ph1460.ph, %for.cond.outer1433 ]
+  %_s.sroa.392.0.ph1461.ph2396 = phi i32 [ %_s.sroa.392.0.ph1461.ph2397, %if.end785 ], [ %_s.sroa.392.0.ph1461.ph, %for.cond.outer1433 ]
+  %_s.sroa.394.0.ph1462.ph2367 = phi i32 [ %_s.sroa.394.0.ph1462.ph2368, %if.end785 ], [ %_s.sroa.394.0.ph1462.ph, %for.cond.outer1433 ]
+  %_s.sroa.494.0.ph1466.ph2338 = phi ptr [ %_s.sroa.494.0.ph1466.ph2339, %if.end785 ], [ %_s.sroa.494.0.ph1466.ph, %for.cond.outer1433 ]
+  %_s.sroa.505.0.ph1467.ph2309 = phi ptr [ %_s.sroa.505.0.ph1467.ph2310, %if.end785 ], [ %_s.sroa.505.0.ph1467.ph, %for.cond.outer1433 ]
+  %_s.sroa.344.0.ph14342273 = phi i32 [ %_s.sroa.344.0.ph14342274, %if.end785 ], [ %_s.sroa.344.0.ph1434, %for.cond.outer1433 ]
+  %_s.sroa.141.0.ph14442058 = phi i8 [ %_s.sroa.141.0.ph14442059, %if.end785 ], [ %_s.sroa.141.0.ph1444, %for.cond.outer1433 ]
+  %_s.sroa.130.01862 = phi i8 [ %_s.sroa.130.01834, %if.end785 ], [ %_s.sroa.130.0.ph1445, %for.cond.outer1433 ]
+  %_s.sroa.111.01731 = phi i32 [ %_s.sroa.111.01703, %if.end785 ], [ %_s.sroa.111.0.ph1447, %for.cond.outer1433 ]
+  %_s.sroa.1021125.01669 = phi ptr [ %_s.sroa.1021125.01646, %if.end785 ], [ %_s.sroa.1021125.0.ph1448, %for.cond.outer1433 ]
+  %_s.sroa.396.01564 = phi i32 [ %_s.sroa.396.01541, %if.end785 ], [ %_s.sroa.396.0.ph1463, %for.cond.outer1433 ]
+  %_s.sroa.347.2.ph = phi i32 [ %add787, %if.end785 ], [ %_s.sroa.347.0.ph, %for.cond.outer1433 ]
+  %_s.sroa.325.16.ph = phi i32 [ %_s.sroa.325.14, %if.end785 ], [ %_s.sroa.325.0.ph1435, %for.cond.outer1433 ]
+  %_s.sroa.294.20.ph = phi i32 [ %_s.sroa.294.18, %if.end785 ], [ %_s.sroa.294.0.ph1437, %for.cond.outer1433 ]
+  %_s.sroa.251.26.ph = phi i32 [ %_s.sroa.251.24, %if.end785 ], [ %_s.sroa.251.0.ph1438, %for.cond.outer1433 ]
+  %_s.sroa.227.22.ph = phi i32 [ %_s.sroa.227.20, %if.end785 ], [ %_s.sroa.227.0.ph1439, %for.cond.outer1433 ]
+  %_s.sroa.207.8.ph = phi i32 [ %_s.sroa.207.6, %if.end785 ], [ %_s.sroa.207.0.ph.ph, %for.cond.outer1433 ]
+  %_s.sroa.164.16.ph = phi ptr [ %_s.sroa.164.14, %if.end785 ], [ %_s.sroa.164.0.ph1442, %for.cond.outer1433 ]
+  %_s.sroa.1451160.19.ph = phi ptr [ %_s.sroa.1451160.17, %if.end785 ], [ %_s.sroa.1451160.0.ph1443, %for.cond.outer1433 ]
+  %_s.sroa.120.2.ph = phi i32 [ %add790, %if.end785 ], [ %_s.sroa.120.0.ph1446, %for.cond.outer1433 ]
+  %_s.sroa.362.12.ph = phi i32 [ %_s.sroa.362.10, %if.end785 ], [ %_s.sroa.362.0.ph1449.ph, %for.cond.outer1433 ]
+  %_s.sroa.72.27.ph = phi i32 [ %_s.sroa.72.25, %if.end785 ], [ %_s.sroa.72.0.ph1450, %for.cond.outer1433 ]
+  %_s.sroa.52.27.ph = phi ptr [ %_s.sroa.52.25, %if.end785 ], [ %_s.sroa.52.0.ph1451, %for.cond.outer1433 ]
+  %_s.sroa.408.26.ph = phi i32 [ %_s.sroa.408.24, %if.end785 ], [ %_s.sroa.408.0.ph1464, %for.cond.outer1433 ]
+  %_s.sroa.457.30.ph = phi i32 [ %_s.sroa.457.28, %if.end785 ], [ %_s.sroa.457.0.ph1465, %for.cond.outer1433 ]
+  br label %sw.bb793
+
+sw.bb793:                                         ; preds = %sw.bb793.preheader, %if.end798
+  %_s.sroa.347.2 = phi i32 [ %dec830, %if.end798 ], [ %_s.sroa.347.2.ph, %sw.bb793.preheader ]
+  %_s.sroa.130.3 = phi i8 [ %30, %if.end798 ], [ %_s.sroa.130.01862, %sw.bb793.preheader ]
+  %_s.sroa.111.2 = phi i32 [ %dec828, %if.end798 ], [ %_s.sroa.111.01731, %sw.bb793.preheader ]
+  %_s.sroa.1021125.2 = phi ptr [ %incdec.ptr826, %if.end798 ], [ %_s.sroa.1021125.01669, %sw.bb793.preheader ]
+  %_s.sroa.396.2 = phi i32 [ %rem821, %if.end798 ], [ %_s.sroa.396.01564, %sw.bb793.preheader ]
+  %tobool795.not = icmp eq i32 %_s.sroa.111.2, 0
+  br i1 %tobool795.not, label %saveStateAndReturn, label %if.end798
+
+if.end798:                                        ; preds = %sw.bb793
+  %sub801 = sub i32 %_s.sroa.396.2, %_s.sroa.362.12.ph
+  %cmp803.not = icmp ult i32 %sub801, %_s.sroa.39.0.ph1452.ph2599
+  %add807 = select i1 %cmp803.not, i32 0, i32 %_s.sroa.39.0.ph1452.ph2599
+  %spec.select1427 = add i32 %add807, %sub801
+  %idxprom810 = zext i32 %spec.select1427 to i64
+  %arrayidx811 = getelementptr inbounds i8, ptr %_s.sroa.494.0.ph1466.ph2338, i64 %idxprom810
+  %30 = load i8, ptr %arrayidx811, align 1, !tbaa !5
+  %idxprom816 = zext i32 %_s.sroa.396.2 to i64
+  %arrayidx817 = getelementptr inbounds i8, ptr %_s.sroa.494.0.ph1466.ph2338, i64 %idxprom816
+  store i8 %30, ptr %arrayidx817, align 1, !tbaa !5
+  %add819 = add i32 %_s.sroa.396.2, 1
+  %rem821 = urem i32 %add819, %_s.sroa.39.0.ph1452.ph2599
+  store i8 %30, ptr %_s.sroa.1021125.2, align 1, !tbaa !5
+  %incdec.ptr826 = getelementptr inbounds i8, ptr %_s.sroa.1021125.2, i64 1
+  %dec828 = add i32 %_s.sroa.111.2, -1
+  %dec830 = add nsw i32 %_s.sroa.347.2, -1
+  %cmp833 = icmp sgt i32 %_s.sroa.347.2, 1
+  br i1 %cmp833, label %sw.bb793, label %for.cond.outer.outer, !llvm.loop !64
+
+_LZMA_C_RDBD:                                     ; preds = %for.cond.outer1433, %if.else915, %_LZMA_C_LEND, %if.else533, %if.else520, %if.then453, %if.then441, %if.else428, %sw.bb107
+  %_s.sroa.251.0.ph14382209 = phi i32 [ %_s.sroa.251.0.ph1438, %if.else915 ], [ %_s.sroa.251.0.ph1438, %_LZMA_C_LEND ], [ %_s.sroa.251.0.ph1438, %if.else533 ], [ %_s.sroa.251.0.ph1438, %if.then453 ], [ %_s.sroa.251.0.ph1438, %if.else520 ], [ %_s.sroa.251.0.ph1438, %if.then441 ], [ %_s.sroa.251.0.ph1438, %if.else428 ], [ %_s.sroa.251.0.ph14382210, %sw.bb107 ], [ %_s.sroa.251.0.ph1438, %for.cond.outer1433 ]
+  %_s.sroa.141.0.ph14442074 = phi i8 [ %_s.sroa.141.0.ph1444, %if.else915 ], [ %_s.sroa.141.0.ph1444, %_LZMA_C_LEND ], [ %_s.sroa.141.0.ph1444, %if.else533 ], [ %_s.sroa.141.0.ph1444, %if.then453 ], [ %_s.sroa.141.0.ph1444, %if.else520 ], [ %_s.sroa.141.0.ph1444, %if.then441 ], [ %_s.sroa.141.0.ph1444, %if.else428 ], [ %_s.sroa.141.0.ph14442075, %sw.bb107 ], [ %_s.sroa.141.0.ph1444, %for.cond.outer1433 ]
+  %_s.sroa.408.0.ph14641972 = phi i32 [ %_s.sroa.408.0.ph1464, %if.else915 ], [ %_s.sroa.408.0.ph1464, %_LZMA_C_LEND ], [ %_s.sroa.408.0.ph1464, %if.else533 ], [ %_s.sroa.408.0.ph1464, %if.then453 ], [ %_s.sroa.408.0.ph1464, %if.else520 ], [ %_s.sroa.408.0.ph1464, %if.then441 ], [ %_s.sroa.408.0.ph1464, %if.else428 ], [ %_s.sroa.408.0.ph14641973, %sw.bb107 ], [ %_s.sroa.408.0.ph1464, %for.cond.outer1433 ]
+  %_s.sroa.130.01845 = phi i8 [ %_s.sroa.130.0.ph1445, %if.else915 ], [ %_s.sroa.130.0.ph1445, %_LZMA_C_LEND ], [ %_s.sroa.130.0.ph1445, %if.else533 ], [ %_s.sroa.130.0.ph1445, %if.then453 ], [ %_s.sroa.130.0.ph1445, %if.else520 ], [ %_s.sroa.130.0.ph1445, %if.then441 ], [ %_s.sroa.130.0.ph1445, %if.else428 ], [ %_s.sroa.130.01846, %sw.bb107 ], [ %_s.sroa.130.0.ph1445, %for.cond.outer1433 ]
+  %_s.sroa.120.01768 = phi i32 [ %_s.sroa.120.0.ph1446, %if.else915 ], [ %_s.sroa.120.0.ph1446, %_LZMA_C_LEND ], [ %_s.sroa.120.0.ph1446, %if.else533 ], [ %_s.sroa.120.0.ph1446, %if.then453 ], [ %_s.sroa.120.0.ph1446, %if.else520 ], [ %_s.sroa.120.0.ph1446, %if.then441 ], [ %_s.sroa.120.0.ph1446, %if.else428 ], [ %_s.sroa.120.01769, %sw.bb107 ], [ %_s.sroa.120.0.ph1446, %for.cond.outer1433 ]
+  %_s.sroa.111.01714 = phi i32 [ %_s.sroa.111.0.ph1447, %if.else915 ], [ %_s.sroa.111.0.ph1447, %_LZMA_C_LEND ], [ %_s.sroa.111.0.ph1447, %if.else533 ], [ %_s.sroa.111.0.ph1447, %if.then453 ], [ %_s.sroa.111.0.ph1447, %if.else520 ], [ %_s.sroa.111.0.ph1447, %if.then441 ], [ %_s.sroa.111.0.ph1447, %if.else428 ], [ %_s.sroa.111.01715, %sw.bb107 ], [ %_s.sroa.111.0.ph1447, %for.cond.outer1433 ]
+  %_s.sroa.1021125.01636 = phi ptr [ %_s.sroa.1021125.0.ph1448, %if.else915 ], [ %_s.sroa.1021125.0.ph1448, %_LZMA_C_LEND ], [ %_s.sroa.1021125.0.ph1448, %if.else533 ], [ %_s.sroa.1021125.0.ph1448, %if.then453 ], [ %_s.sroa.1021125.0.ph1448, %if.else520 ], [ %_s.sroa.1021125.0.ph1448, %if.then441 ], [ %_s.sroa.1021125.0.ph1448, %if.else428 ], [ %_s.sroa.1021125.01637, %sw.bb107 ], [ %_s.sroa.1021125.0.ph1448, %for.cond.outer1433 ]
+  %_s.sroa.396.01531 = phi i32 [ %_s.sroa.396.0.ph1463, %if.else915 ], [ %_s.sroa.396.0.ph1463, %_LZMA_C_LEND ], [ %_s.sroa.396.0.ph1463, %if.else533 ], [ %_s.sroa.396.0.ph1463, %if.then453 ], [ %_s.sroa.396.0.ph1463, %if.else520 ], [ %_s.sroa.396.0.ph1463, %if.then441 ], [ %_s.sroa.396.0.ph1463, %if.else428 ], [ %_s.sroa.396.01532, %sw.bb107 ], [ %_s.sroa.396.0.ph1463, %for.cond.outer1433 ]
+  %_s.sroa.344.3 = phi i32 [ %_s.sroa.344.0.ph1434, %if.else915 ], [ %_s.sroa.344.0.ph1434, %_LZMA_C_LEND ], [ %_s.sroa.344.0.ph1434, %if.else533 ], [ %_s.sroa.344.0.ph1434, %if.then453 ], [ %_s.sroa.344.0.ph1434, %if.else520 ], [ %_s.sroa.344.0.ph1434, %if.then441 ], [ 1, %if.else428 ], [ %_s.sroa.344.0.ph14342293, %sw.bb107 ], [ %_s.sroa.344.0.ph1434, %for.cond.outer1433 ]
+  %_s.sroa.325.18 = phi i32 [ %_s.sroa.325.0.ph1435, %if.else915 ], [ %_s.sroa.325.21, %_LZMA_C_LEND ], [ %_s.sroa.325.0.ph1435, %if.else533 ], [ %_s.sroa.325.0.ph1435, %if.then453 ], [ %_s.sroa.325.0.ph1435, %if.else520 ], [ %_s.sroa.325.0.ph1435, %if.then441 ], [ %_s.sroa.325.0.ph1435, %if.else428 ], [ %_s.sroa.325.01906, %sw.bb107 ], [ %_s.sroa.325.0.ph1435, %for.cond.outer1433 ]
+  %_s.sroa.321.6 = phi i32 [ %_s.sroa.321.0.ph1436.ph, %if.else915 ], [ %_s.sroa.321.0.ph1436.ph, %_LZMA_C_LEND ], [ %_s.sroa.321.0.ph1436.ph, %if.else533 ], [ %_s.sroa.321.0.ph1436.ph, %if.then453 ], [ %_s.sroa.321.0.ph1436.ph, %if.else520 ], [ %_s.sroa.321.0.ph1436.ph, %if.then441 ], [ %_s.sroa.321.0.ph1436.ph, %if.else428 ], [ %_s.sroa.321.5, %sw.bb107 ], [ %_s.sroa.321.0.ph1436.ph, %for.cond.outer1433 ]
+  %_s.sroa.227.24 = phi i32 [ %_s.sroa.227.0.ph1439, %if.else915 ], [ %_s.sroa.227.0.ph1439, %_LZMA_C_LEND ], [ %_s.sroa.227.0.ph1439, %if.else533 ], [ %_s.sroa.227.0.ph1439, %if.then453 ], [ %_s.sroa.227.0.ph1439, %if.else520 ], [ %_s.sroa.227.0.ph1439, %if.then441 ], [ %_s.sroa.227.0.ph1439, %if.else428 ], [ %_s.sroa.227.5, %sw.bb107 ], [ %_s.sroa.227.0.ph1439, %for.cond.outer1433 ]
+  %_s.sroa.222.1 = phi i32 [ %_s.sroa.222.0.ph1440.ph, %if.else915 ], [ %_s.sroa.222.0.ph1440.ph, %_LZMA_C_LEND ], [ %_s.sroa.222.0.ph1440.ph, %if.else533 ], [ %_s.sroa.222.0.ph1440.ph, %if.then453 ], [ %_s.sroa.222.0.ph1440.ph, %if.else520 ], [ %_s.sroa.222.0.ph1440.ph, %if.then441 ], [ %_s.sroa.222.0.ph1440.ph, %if.else428 ], [ %and, %sw.bb107 ], [ %_s.sroa.222.0.ph1440.ph, %for.cond.outer1433 ]
+  %_s.sroa.164.18 = phi ptr [ %add.ptr917, %if.else915 ], [ %_s.sroa.1451160.24, %_LZMA_C_LEND ], [ %add.ptr538, %if.else533 ], [ %add.ptr462, %if.then453 ], [ %add.ptr525, %if.else520 ], [ %add.ptr446, %if.then441 ], [ %add.ptr434, %if.else428 ], [ %add.ptr114, %sw.bb107 ], [ %_s.sroa.164.0.ph1442, %for.cond.outer1433 ]
+  %_s.sroa.1451160.21 = phi ptr [ %_s.sroa.1451160.0.ph1443, %if.else915 ], [ %_s.sroa.1451160.24, %_LZMA_C_LEND ], [ %_s.sroa.1451160.0.ph1443, %if.else533 ], [ %_s.sroa.1451160.0.ph1443, %if.then453 ], [ %_s.sroa.1451160.0.ph1443, %if.else520 ], [ %_s.sroa.1451160.0.ph1443, %if.then441 ], [ %_s.sroa.1451160.0.ph1443, %if.else428 ], [ %_s.sroa.1451160.0.ph14432116, %sw.bb107 ], [ %_s.sroa.1451160.0.ph1443, %for.cond.outer1433 ]
+  %_s.sroa.362.14 = phi i32 [ %_s.sroa.362.0.ph1449.ph, %if.else915 ], [ %_s.sroa.362.17, %_LZMA_C_LEND ], [ %_s.sroa.362.0.ph1449.ph, %if.else533 ], [ %_s.sroa.362.0.ph1449.ph, %if.then453 ], [ %_s.sroa.362.0.ph1449.ph, %if.else520 ], [ %_s.sroa.362.0.ph1449.ph, %if.then441 ], [ %_s.sroa.362.0.ph1449.ph, %if.else428 ], [ %_s.sroa.362.0.ph1449.ph, %sw.bb107 ], [ %_s.sroa.362.0.ph1449.ph, %for.cond.outer1433 ]
+  %_s.sroa.72.29 = phi i32 [ %_s.sroa.72.0.ph1450, %if.else915 ], [ %_s.sroa.72.0.ph1450, %_LZMA_C_LEND ], [ %_s.sroa.72.0.ph1450, %if.else533 ], [ %_s.sroa.72.0.ph1450, %if.then453 ], [ %_s.sroa.72.0.ph1450, %if.else520 ], [ %_s.sroa.72.0.ph1450, %if.then441 ], [ %_s.sroa.72.0.ph1450, %if.else428 ], [ %_s.sroa.72.5, %sw.bb107 ], [ %_s.sroa.72.0.ph1450, %for.cond.outer1433 ]
+  %_s.sroa.52.29 = phi ptr [ %_s.sroa.52.0.ph1451, %if.else915 ], [ %_s.sroa.52.0.ph1451, %_LZMA_C_LEND ], [ %_s.sroa.52.0.ph1451, %if.else533 ], [ %_s.sroa.52.0.ph1451, %if.then453 ], [ %_s.sroa.52.0.ph1451, %if.else520 ], [ %_s.sroa.52.0.ph1451, %if.then441 ], [ %_s.sroa.52.0.ph1451, %if.else428 ], [ %_s.sroa.52.5, %sw.bb107 ], [ %_s.sroa.52.0.ph1451, %for.cond.outer1433 ]
+  %_s.sroa.39.5 = phi i32 [ %_s.sroa.39.0.ph1452.ph, %if.else915 ], [ %_s.sroa.39.0.ph1452.ph, %_LZMA_C_LEND ], [ %_s.sroa.39.0.ph1452.ph, %if.else533 ], [ %_s.sroa.39.0.ph1452.ph, %if.then453 ], [ %_s.sroa.39.0.ph1452.ph, %if.else520 ], [ %_s.sroa.39.0.ph1452.ph, %if.then441 ], [ %_s.sroa.39.0.ph1452.ph, %if.else428 ], [ %_s.sroa.39.4, %sw.bb107 ], [ %_s.sroa.39.0.ph1452.ph, %for.cond.outer1433 ]
+  %_s.sroa.37.7 = phi i32 [ %_s.sroa.37.0.ph1453.ph, %if.else915 ], [ %_s.sroa.37.0.ph1453.ph, %_LZMA_C_LEND ], [ %_s.sroa.37.0.ph1453.ph, %if.else533 ], [ %_s.sroa.37.0.ph1453.ph, %if.then453 ], [ %_s.sroa.37.0.ph1453.ph, %if.else520 ], [ %_s.sroa.37.0.ph1453.ph, %if.then441 ], [ %_s.sroa.37.0.ph1453.ph, %if.else428 ], [ %_s.sroa.37.6, %sw.bb107 ], [ %_s.sroa.37.0.ph1453.ph, %for.cond.outer1433 ]
+  %_s.sroa.31.1 = phi i32 [ %_s.sroa.31.0.ph1455.ph, %if.else915 ], [ %_s.sroa.31.4, %_LZMA_C_LEND ], [ %_s.sroa.31.0.ph1455.ph, %if.else533 ], [ %_s.sroa.31.0.ph1455.ph, %if.then453 ], [ %_s.sroa.31.0.ph1455.ph, %if.else520 ], [ %_s.sroa.31.0.ph1455.ph, %if.then441 ], [ %_s.sroa.31.0.ph1455.ph, %if.else428 ], [ %_s.sroa.31.0.ph1455.ph, %sw.bb107 ], [ %_s.sroa.31.0.ph1455.ph, %for.cond.outer1433 ]
+  %_s.sroa.22.1 = phi i32 [ 19, %if.else915 ], [ 18, %_LZMA_C_LEND ], [ 11, %if.else533 ], [ 9, %if.then453 ], [ 10, %if.else520 ], [ 8, %if.then441 ], [ 7, %if.else428 ], [ 6, %sw.bb107 ], [ %_s.sroa.22.0.ph1456.ph, %for.cond.outer1433 ]
+  %_s.sroa.379.2 = phi i32 [ %_s.sroa.379.0.ph1458.ph, %if.else915 ], [ %_s.sroa.379.5, %_LZMA_C_LEND ], [ %_s.sroa.379.0.ph1458.ph, %if.else533 ], [ %_s.sroa.379.0.ph1458.ph, %if.then453 ], [ %_s.sroa.379.0.ph1458.ph, %if.else520 ], [ %_s.sroa.379.0.ph1458.ph, %if.then441 ], [ %_s.sroa.379.0.ph1458.ph, %if.else428 ], [ %_s.sroa.379.0.ph1458.ph, %sw.bb107 ], [ %_s.sroa.379.0.ph1458.ph, %for.cond.outer1433 ]
+  %_s.sroa.384.3 = phi i32 [ %_s.sroa.384.0.ph1459.ph, %if.else915 ], [ %_s.sroa.384.6, %_LZMA_C_LEND ], [ %_s.sroa.384.0.ph1459.ph, %if.else533 ], [ %_s.sroa.384.0.ph1459.ph, %if.then453 ], [ %_s.sroa.384.0.ph1459.ph, %if.else520 ], [ %_s.sroa.384.0.ph1459.ph, %if.then441 ], [ %_s.sroa.384.0.ph1459.ph, %if.else428 ], [ %_s.sroa.384.0.ph1459.ph, %sw.bb107 ], [ %_s.sroa.384.0.ph1459.ph, %for.cond.outer1433 ]
+  %_s.sroa.389.4 = phi i32 [ %_s.sroa.389.0.ph1460.ph, %if.else915 ], [ %_s.sroa.389.7, %_LZMA_C_LEND ], [ %_s.sroa.389.0.ph1460.ph, %if.else533 ], [ %_s.sroa.389.0.ph1460.ph, %if.then453 ], [ %_s.sroa.389.0.ph1460.ph, %if.else520 ], [ %_s.sroa.389.0.ph1460.ph, %if.then441 ], [ %_s.sroa.389.0.ph1460.ph, %if.else428 ], [ %_s.sroa.389.0.ph1460.ph, %sw.bb107 ], [ %_s.sroa.389.0.ph1460.ph, %for.cond.outer1433 ]
+  %_s.sroa.392.6 = phi i32 [ %_s.sroa.392.0.ph1461.ph, %if.else915 ], [ %_s.sroa.392.0.ph1461.ph, %_LZMA_C_LEND ], [ %_s.sroa.392.0.ph1461.ph, %if.else533 ], [ %_s.sroa.392.0.ph1461.ph, %if.then453 ], [ %_s.sroa.392.0.ph1461.ph, %if.else520 ], [ %_s.sroa.392.0.ph1461.ph, %if.then441 ], [ %_s.sroa.392.0.ph1461.ph, %if.else428 ], [ %_s.sroa.392.5, %sw.bb107 ], [ %_s.sroa.392.0.ph1461.ph, %for.cond.outer1433 ]
+  %_s.sroa.394.6 = phi i32 [ %_s.sroa.394.0.ph1462.ph, %if.else915 ], [ %_s.sroa.394.0.ph1462.ph, %_LZMA_C_LEND ], [ %_s.sroa.394.0.ph1462.ph, %if.else533 ], [ %_s.sroa.394.0.ph1462.ph, %if.then453 ], [ %_s.sroa.394.0.ph1462.ph, %if.else520 ], [ %_s.sroa.394.0.ph1462.ph, %if.then441 ], [ %_s.sroa.394.0.ph1462.ph, %if.else428 ], [ %_s.sroa.394.5, %sw.bb107 ], [ %_s.sroa.394.0.ph1462.ph, %for.cond.outer1433 ]
+  %_s.sroa.457.32 = phi i32 [ %_s.sroa.457.0.ph1465, %if.else915 ], [ %_s.sroa.457.0.ph1465, %_LZMA_C_LEND ], [ %_s.sroa.457.0.ph1465, %if.else533 ], [ %_s.sroa.457.0.ph1465, %if.then453 ], [ %_s.sroa.457.0.ph1465, %if.else520 ], [ %_s.sroa.457.0.ph1465, %if.then441 ], [ %_s.sroa.457.0.ph1465, %if.else428 ], [ %_s.sroa.457.3, %sw.bb107 ], [ %_s.sroa.457.0.ph1465, %for.cond.outer1433 ]
+  %_s.sroa.494.5 = phi ptr [ %_s.sroa.494.0.ph1466.ph, %if.else915 ], [ %_s.sroa.494.0.ph1466.ph, %_LZMA_C_LEND ], [ %_s.sroa.494.0.ph1466.ph, %if.else533 ], [ %_s.sroa.494.0.ph1466.ph, %if.then453 ], [ %_s.sroa.494.0.ph1466.ph, %if.else520 ], [ %_s.sroa.494.0.ph1466.ph, %if.then441 ], [ %_s.sroa.494.0.ph1466.ph, %if.else428 ], [ %_s.sroa.494.4, %sw.bb107 ], [ %_s.sroa.494.0.ph1466.ph, %for.cond.outer1433 ]
+  %_s.sroa.505.7 = phi ptr [ %_s.sroa.505.0.ph1467.ph, %if.else915 ], [ %_s.sroa.505.0.ph1467.ph, %_LZMA_C_LEND ], [ %_s.sroa.505.0.ph1467.ph, %if.else533 ], [ %_s.sroa.505.0.ph1467.ph, %if.then453 ], [ %_s.sroa.505.0.ph1467.ph, %if.else520 ], [ %_s.sroa.505.0.ph1467.ph, %if.then441 ], [ %_s.sroa.505.0.ph1467.ph, %if.else428 ], [ %_s.sroa.505.6, %sw.bb107 ], [ %_s.sroa.505.0.ph1467.ph, %for.cond.outer1433 ]
+  %shr841 = lshr i32 %_s.sroa.408.0.ph14641972, 11
+  %31 = load i16, ptr %_s.sroa.164.18, align 2, !tbaa !51
+  %conv843 = zext i16 %31 to i32
+  %mul844 = mul i32 %shr841, %conv843
+  %cmp846 = icmp ult i32 %_s.sroa.457.32, %mul844
+  br i1 %cmp846, label %if.then848, label %if.else859
+
+if.then848:                                       ; preds = %_LZMA_C_RDBD
+  %sub852 = sub nsw i32 2048, %conv843
+  %shr853 = ashr i32 %sub852, 5
+  %32 = trunc i32 %shr853 to i16
+  %conv857 = add i16 %31, %32
+  br label %if.end872
+
+if.else859:                                       ; preds = %_LZMA_C_RDBD
+  %sub861 = sub i32 %_s.sroa.408.0.ph14641972, %mul844
+  %sub863 = sub i32 %_s.sroa.457.32, %mul844
+  %shr866 = lshr i16 %31, 5
+  %sub869 = sub i16 %31, %shr866
+  br label %if.end872
+
+if.end872:                                        ; preds = %if.else859, %if.then848
+  %storemerge = phi i16 [ %sub869, %if.else859 ], [ %conv857, %if.then848 ]
+  %_s.sroa.294.22 = phi i32 [ 1, %if.else859 ], [ 0, %if.then848 ]
+  %_s.sroa.408.28 = phi i32 [ %sub861, %if.else859 ], [ %mul844, %if.then848 ]
+  %_s.sroa.457.33 = phi i32 [ %sub863, %if.else859 ], [ %_s.sroa.457.32, %if.then848 ]
+  store i16 %storemerge, ptr %_s.sroa.164.18, align 2, !tbaa !51
+  %cmp874 = icmp ult i32 %_s.sroa.408.28, 16777216
+  br i1 %cmp874, label %sw.bb877, label %for.cond.outer1433.outer.backedge
+
+for.cond.outer1433.outer.backedge:                ; preds = %if.end872, %if.end882
+  %_s.sroa.251.0.ph14382207 = phi i32 [ %_s.sroa.251.0.ph14382208, %if.end882 ], [ %_s.sroa.251.0.ph14382209, %if.end872 ]
+  %_s.sroa.141.0.ph14442072 = phi i8 [ %_s.sroa.141.0.ph14442073, %if.end882 ], [ %_s.sroa.141.0.ph14442074, %if.end872 ]
+  %_s.sroa.130.01843 = phi i8 [ %_s.sroa.130.01844, %if.end882 ], [ %_s.sroa.130.01845, %if.end872 ]
+  %_s.sroa.120.01766 = phi i32 [ %_s.sroa.120.01767, %if.end882 ], [ %_s.sroa.120.01768, %if.end872 ]
+  %_s.sroa.111.01712 = phi i32 [ %_s.sroa.111.01713, %if.end882 ], [ %_s.sroa.111.01714, %if.end872 ]
+  %_s.sroa.1021125.01634 = phi ptr [ %_s.sroa.1021125.01635, %if.end882 ], [ %_s.sroa.1021125.01636, %if.end872 ]
+  %_s.sroa.396.01529 = phi i32 [ %_s.sroa.396.01530, %if.end882 ], [ %_s.sroa.396.01531, %if.end872 ]
+  %_s.sroa.344.0.ph1434.ph.be = phi i32 [ %_s.sroa.344.4, %if.end882 ], [ %_s.sroa.344.3, %if.end872 ]
+  %_s.sroa.325.0.ph1435.ph.be = phi i32 [ %_s.sroa.325.19, %if.end882 ], [ %_s.sroa.325.18, %if.end872 ]
+  %_s.sroa.321.0.ph1436.ph.be = phi i32 [ %_s.sroa.321.7, %if.end882 ], [ %_s.sroa.321.6, %if.end872 ]
+  %_s.sroa.294.0.ph1437.ph.be = phi i32 [ %_s.sroa.294.23, %if.end882 ], [ %_s.sroa.294.22, %if.end872 ]
+  %_s.sroa.227.0.ph1439.ph.be = phi i32 [ %_s.sroa.227.25, %if.end882 ], [ %_s.sroa.227.24, %if.end872 ]
+  %_s.sroa.222.0.ph1440.ph.be = phi i32 [ %_s.sroa.222.2, %if.end882 ], [ %_s.sroa.222.1, %if.end872 ]
+  %_s.sroa.164.0.ph1442.ph.be = phi ptr [ %_s.sroa.164.19, %if.end882 ], [ %_s.sroa.164.18, %if.end872 ]
+  %_s.sroa.1451160.0.ph1443.ph.be = phi ptr [ %_s.sroa.1451160.22, %if.end882 ], [ %_s.sroa.1451160.21, %if.end872 ]
+  %_s.sroa.362.0.ph1449.ph.be = phi i32 [ %_s.sroa.362.15, %if.end882 ], [ %_s.sroa.362.14, %if.end872 ]
+  %_s.sroa.72.0.ph1450.ph.be = phi i32 [ %dec888, %if.end882 ], [ %_s.sroa.72.29, %if.end872 ]
+  %_s.sroa.52.0.ph1451.ph.be = phi ptr [ %incdec.ptr890, %if.end882 ], [ %_s.sroa.52.29, %if.end872 ]
+  %_s.sroa.39.0.ph1452.ph.be = phi i32 [ %_s.sroa.39.6, %if.end882 ], [ %_s.sroa.39.5, %if.end872 ]
+  %_s.sroa.37.0.ph1453.ph.be = phi i32 [ %_s.sroa.37.8, %if.end882 ], [ %_s.sroa.37.7, %if.end872 ]
+  %_s.sroa.31.0.ph1455.ph.be = phi i32 [ %_s.sroa.31.2, %if.end882 ], [ %_s.sroa.31.1, %if.end872 ]
+  %_s.sroa.0.0.ph1457.ph.be = phi i32 [ %_s.sroa.22.2, %if.end882 ], [ %_s.sroa.22.1, %if.end872 ]
+  %_s.sroa.379.0.ph1458.ph.be = phi i32 [ %_s.sroa.379.3, %if.end882 ], [ %_s.sroa.379.2, %if.end872 ]
+  %_s.sroa.384.0.ph1459.ph.be = phi i32 [ %_s.sroa.384.4, %if.end882 ], [ %_s.sroa.384.3, %if.end872 ]
+  %_s.sroa.389.0.ph1460.ph.be = phi i32 [ %_s.sroa.389.5, %if.end882 ], [ %_s.sroa.389.4, %if.end872 ]
+  %_s.sroa.392.0.ph1461.ph.be = phi i32 [ %_s.sroa.392.7, %if.end882 ], [ %_s.sroa.392.6, %if.end872 ]
+  %_s.sroa.394.0.ph1462.ph.be = phi i32 [ %_s.sroa.394.7, %if.end882 ], [ %_s.sroa.394.6, %if.end872 ]
+  %_s.sroa.408.0.ph1464.ph.be = phi i32 [ %shl884, %if.end882 ], [ %_s.sroa.408.28, %if.end872 ]
+  %_s.sroa.457.0.ph1465.ph.be = phi i32 [ %or892, %if.end882 ], [ %_s.sroa.457.33, %if.end872 ]
+  %_s.sroa.494.0.ph1466.ph.be = phi ptr [ %_s.sroa.494.6, %if.end882 ], [ %_s.sroa.494.5, %if.end872 ]
+  %_s.sroa.505.0.ph1467.ph.be = phi ptr [ %_s.sroa.505.8, %if.end882 ], [ %_s.sroa.505.7, %if.end872 ]
+  br label %for.cond.outer1433.outer
+
+sw.bb877:                                         ; preds = %for.cond.outer1433, %if.end872
+  %_s.sroa.251.0.ph14382208 = phi i32 [ %_s.sroa.251.0.ph14382209, %if.end872 ], [ %_s.sroa.251.0.ph1438, %for.cond.outer1433 ]
+  %_s.sroa.141.0.ph14442073 = phi i8 [ %_s.sroa.141.0.ph14442074, %if.end872 ], [ %_s.sroa.141.0.ph1444, %for.cond.outer1433 ]
+  %_s.sroa.130.01844 = phi i8 [ %_s.sroa.130.01845, %if.end872 ], [ %_s.sroa.130.0.ph1445, %for.cond.outer1433 ]
+  %_s.sroa.120.01767 = phi i32 [ %_s.sroa.120.01768, %if.end872 ], [ %_s.sroa.120.0.ph1446, %for.cond.outer1433 ]
+  %_s.sroa.111.01713 = phi i32 [ %_s.sroa.111.01714, %if.end872 ], [ %_s.sroa.111.0.ph1447, %for.cond.outer1433 ]
+  %_s.sroa.1021125.01635 = phi ptr [ %_s.sroa.1021125.01636, %if.end872 ], [ %_s.sroa.1021125.0.ph1448, %for.cond.outer1433 ]
+  %_s.sroa.396.01530 = phi i32 [ %_s.sroa.396.01531, %if.end872 ], [ %_s.sroa.396.0.ph1463, %for.cond.outer1433 ]
+  %_s.sroa.344.4 = phi i32 [ %_s.sroa.344.3, %if.end872 ], [ %_s.sroa.344.0.ph1434, %for.cond.outer1433 ]
+  %_s.sroa.325.19 = phi i32 [ %_s.sroa.325.18, %if.end872 ], [ %_s.sroa.325.0.ph1435, %for.cond.outer1433 ]
+  %_s.sroa.321.7 = phi i32 [ %_s.sroa.321.6, %if.end872 ], [ %_s.sroa.321.0.ph1436.ph, %for.cond.outer1433 ]
+  %_s.sroa.294.23 = phi i32 [ %_s.sroa.294.22, %if.end872 ], [ %_s.sroa.294.0.ph1437, %for.cond.outer1433 ]
+  %_s.sroa.227.25 = phi i32 [ %_s.sroa.227.24, %if.end872 ], [ %_s.sroa.227.0.ph1439, %for.cond.outer1433 ]
+  %_s.sroa.222.2 = phi i32 [ %_s.sroa.222.1, %if.end872 ], [ %_s.sroa.222.0.ph1440.ph, %for.cond.outer1433 ]
+  %_s.sroa.164.19 = phi ptr [ %_s.sroa.164.18, %if.end872 ], [ %_s.sroa.164.0.ph1442, %for.cond.outer1433 ]
+  %_s.sroa.1451160.22 = phi ptr [ %_s.sroa.1451160.21, %if.end872 ], [ %_s.sroa.1451160.0.ph1443, %for.cond.outer1433 ]
+  %_s.sroa.362.15 = phi i32 [ %_s.sroa.362.14, %if.end872 ], [ %_s.sroa.362.0.ph1449.ph, %for.cond.outer1433 ]
+  %_s.sroa.72.30 = phi i32 [ %_s.sroa.72.29, %if.end872 ], [ %_s.sroa.72.0.ph1450, %for.cond.outer1433 ]
+  %_s.sroa.52.30 = phi ptr [ %_s.sroa.52.29, %if.end872 ], [ %_s.sroa.52.0.ph1451, %for.cond.outer1433 ]
+  %_s.sroa.39.6 = phi i32 [ %_s.sroa.39.5, %if.end872 ], [ %_s.sroa.39.0.ph1452.ph, %for.cond.outer1433 ]
+  %_s.sroa.37.8 = phi i32 [ %_s.sroa.37.7, %if.end872 ], [ %_s.sroa.37.0.ph1453.ph, %for.cond.outer1433 ]
+  %_s.sroa.31.2 = phi i32 [ %_s.sroa.31.1, %if.end872 ], [ %_s.sroa.31.0.ph1455.ph, %for.cond.outer1433 ]
+  %_s.sroa.22.2 = phi i32 [ %_s.sroa.22.1, %if.end872 ], [ %_s.sroa.22.0.ph1456.ph, %for.cond.outer1433 ]
+  %_s.sroa.379.3 = phi i32 [ %_s.sroa.379.2, %if.end872 ], [ %_s.sroa.379.0.ph1458.ph, %for.cond.outer1433 ]
+  %_s.sroa.384.4 = phi i32 [ %_s.sroa.384.3, %if.end872 ], [ %_s.sroa.384.0.ph1459.ph, %for.cond.outer1433 ]
+  %_s.sroa.389.5 = phi i32 [ %_s.sroa.389.4, %if.end872 ], [ %_s.sroa.389.0.ph1460.ph, %for.cond.outer1433 ]
+  %_s.sroa.392.7 = phi i32 [ %_s.sroa.392.6, %if.end872 ], [ %_s.sroa.392.0.ph1461.ph, %for.cond.outer1433 ]
+  %_s.sroa.394.7 = phi i32 [ %_s.sroa.394.6, %if.end872 ], [ %_s.sroa.394.0.ph1462.ph, %for.cond.outer1433 ]
+  %_s.sroa.408.29 = phi i32 [ %_s.sroa.408.28, %if.end872 ], [ %_s.sroa.408.0.ph1464, %for.cond.outer1433 ]
+  %_s.sroa.457.34 = phi i32 [ %_s.sroa.457.33, %if.end872 ], [ %_s.sroa.457.0.ph1465, %for.cond.outer1433 ]
+  %_s.sroa.494.6 = phi ptr [ %_s.sroa.494.5, %if.end872 ], [ %_s.sroa.494.0.ph1466.ph, %for.cond.outer1433 ]
+  %_s.sroa.505.8 = phi ptr [ %_s.sroa.505.7, %if.end872 ], [ %_s.sroa.505.0.ph1467.ph, %for.cond.outer1433 ]
+  %tobool879.not = icmp eq i32 %_s.sroa.72.30, 0
+  br i1 %tobool879.not, label %saveStateAndReturn, label %if.end882
+
+if.end882:                                        ; preds = %sw.bb877
+  %shl884 = shl i32 %_s.sroa.408.29, 8
+  %shl886 = shl i32 %_s.sroa.457.34, 8
+  %dec888 = add i32 %_s.sroa.72.30, -1
+  %incdec.ptr890 = getelementptr inbounds i8, ptr %_s.sroa.52.30, i64 1
+  %33 = load i8, ptr %_s.sroa.52.30, align 1, !tbaa !5
+  %conv891 = zext i8 %33 to i32
+  %or892 = or i32 %shl886, %conv891
+  br label %for.cond.outer1433.outer.backedge
+
+_LZMA_C_LEND:                                     ; preds = %for.cond.outer1433, %if.else566, %if.end556
+  %_s.sroa.325.21 = phi i32 [ %_s.sroa.325.0.ph1435, %if.end556 ], [ %cond576, %if.else566 ], [ %_s.sroa.325.0.ph1435, %for.cond.outer1433 ]
+  %_s.sroa.1451160.24 = phi ptr [ %add.ptr558, %if.end556 ], [ %add.ptr579, %if.else566 ], [ %_s.sroa.1451160.0.ph1443, %for.cond.outer1433 ]
+  %_s.sroa.362.17 = phi i32 [ %_s.sroa.362.1, %if.end556 ], [ %_s.sroa.362.0.ph1449.ph, %if.else566 ], [ %_s.sroa.362.0.ph1449.ph, %for.cond.outer1433 ]
+  %_s.sroa.31.4 = phi i32 [ 21, %if.end556 ], [ 22, %if.else566 ], [ %_s.sroa.31.0.ph1455.ph, %for.cond.outer1433 ]
+  %_s.sroa.379.5 = phi i32 [ %_s.sroa.379.1, %if.end556 ], [ %_s.sroa.362.0.ph1449.ph, %if.else566 ], [ %_s.sroa.379.0.ph1458.ph, %for.cond.outer1433 ]
+  %_s.sroa.384.6 = phi i32 [ %_s.sroa.384.2, %if.end556 ], [ %_s.sroa.379.0.ph1458.ph, %if.else566 ], [ %_s.sroa.384.0.ph1459.ph, %for.cond.outer1433 ]
+  %_s.sroa.389.7 = phi i32 [ %_s.sroa.389.3, %if.end556 ], [ %_s.sroa.384.0.ph1459.ph, %if.else566 ], [ %_s.sroa.389.0.ph1460.ph, %for.cond.outer1433 ]
+  br label %_LZMA_C_RDBD
+
+sw.bb902:                                         ; preds = %for.cond.outer1433
+  %cmp904 = icmp eq i32 %_s.sroa.294.0.ph1437, 0
+  br i1 %cmp904, label %if.then906, label %if.else915
+
+if.then906:                                       ; preds = %sw.bb902
+  %shl909 = shl i32 %_s.sroa.222.0.ph1440.ph, 3
+  %add910 = or i32 %shl909, 2
+  %idx.ext912 = sext i32 %add910 to i64
+  %add.ptr913 = getelementptr inbounds i16, ptr %_s.sroa.1451160.0.ph1443, i64 %idx.ext912
+  br label %for.cond945
+
+if.else915:                                       ; preds = %sw.bb902
+  %add.ptr917 = getelementptr inbounds i16, ptr %_s.sroa.1451160.0.ph1443, i64 1
+  br label %_LZMA_C_RDBD
+
+sw.bb920:                                         ; preds = %for.cond.outer1433
+  %cmp922 = icmp eq i32 %_s.sroa.294.0.ph1437, 0
+  br i1 %cmp922, label %if.then924, label %if.else933
+
+if.then924:                                       ; preds = %sw.bb920
+  %shl927 = shl i32 %_s.sroa.222.0.ph1440.ph, 3
+  %add928 = add nsw i32 %shl927, 130
+  %idx.ext930 = sext i32 %add928 to i64
+  %add.ptr931 = getelementptr inbounds i16, ptr %_s.sroa.1451160.0.ph1443, i64 %idx.ext930
+  br label %for.cond945
+
+if.else933:                                       ; preds = %sw.bb920
+  %add.ptr936 = getelementptr inbounds i16, ptr %_s.sroa.1451160.0.ph1443, i64 258
+  br label %for.cond945
+
+for.cond945:                                      ; preds = %for.cond.outer1433, %sw.bb582, %if.then924, %if.else933, %if.then906, %for.inc1016
+  %_s.sroa.321.0.ph1436.ph2686 = phi i32 [ %_s.sroa.321.0.ph1436.ph2684, %for.inc1016 ], [ %_s.sroa.321.0.ph1436.ph, %sw.bb582 ], [ %_s.sroa.321.0.ph1436.ph, %if.then924 ], [ %_s.sroa.321.0.ph1436.ph, %if.else933 ], [ %_s.sroa.321.0.ph1436.ph, %if.then906 ], [ %_s.sroa.321.0.ph1436.ph, %for.cond.outer1433 ]
+  %_s.sroa.222.0.ph1440.ph2657 = phi i32 [ %_s.sroa.222.0.ph1440.ph2655, %for.inc1016 ], [ %_s.sroa.222.0.ph1440.ph, %sw.bb582 ], [ %_s.sroa.222.0.ph1440.ph, %if.then924 ], [ %_s.sroa.222.0.ph1440.ph, %if.else933 ], [ %_s.sroa.222.0.ph1440.ph, %if.then906 ], [ %_s.sroa.222.0.ph1440.ph, %for.cond.outer1433 ]
+  %_s.sroa.362.0.ph1449.ph2628 = phi i32 [ %_s.sroa.362.0.ph1449.ph2629, %for.inc1016 ], [ %_s.sroa.362.0.ph1449.ph, %sw.bb582 ], [ %_s.sroa.362.0.ph1449.ph, %if.then924 ], [ %_s.sroa.362.0.ph1449.ph, %if.else933 ], [ %_s.sroa.362.0.ph1449.ph, %if.then906 ], [ %_s.sroa.362.0.ph1449.ph, %for.cond.outer1433 ]
+  %_s.sroa.39.0.ph1452.ph2610 = phi i32 [ %_s.sroa.39.0.ph1452.ph2608, %for.inc1016 ], [ %_s.sroa.39.0.ph1452.ph, %sw.bb582 ], [ %_s.sroa.39.0.ph1452.ph, %if.then924 ], [ %_s.sroa.39.0.ph1452.ph, %if.else933 ], [ %_s.sroa.39.0.ph1452.ph, %if.then906 ], [ %_s.sroa.39.0.ph1452.ph, %for.cond.outer1433 ]
+  %_s.sroa.37.0.ph1453.ph2581 = phi i32 [ %_s.sroa.37.0.ph1453.ph2579, %for.inc1016 ], [ %_s.sroa.37.0.ph1453.ph, %sw.bb582 ], [ %_s.sroa.37.0.ph1453.ph, %if.then924 ], [ %_s.sroa.37.0.ph1453.ph, %if.else933 ], [ %_s.sroa.37.0.ph1453.ph, %if.then906 ], [ %_s.sroa.37.0.ph1453.ph, %for.cond.outer1433 ]
+  %_s.sroa.31.0.ph1455.ph2552 = phi i32 [ %_s.sroa.31.0.ph1455.ph2550, %for.inc1016 ], [ %_s.sroa.31.0.ph1455.ph, %sw.bb582 ], [ %_s.sroa.31.0.ph1455.ph, %if.then924 ], [ %_s.sroa.31.0.ph1455.ph, %if.else933 ], [ %_s.sroa.31.0.ph1455.ph, %if.then906 ], [ %_s.sroa.31.0.ph1455.ph, %for.cond.outer1433 ]
+  %_s.sroa.22.0.ph1456.ph2523 = phi i32 [ %_s.sroa.22.0.ph1456.ph2521, %for.inc1016 ], [ %_s.sroa.22.0.ph1456.ph, %sw.bb582 ], [ %_s.sroa.22.0.ph1456.ph, %if.then924 ], [ %_s.sroa.22.0.ph1456.ph, %if.else933 ], [ %_s.sroa.22.0.ph1456.ph, %if.then906 ], [ %_s.sroa.22.0.ph1456.ph, %for.cond.outer1433 ]
+  %_s.sroa.379.0.ph1458.ph2494 = phi i32 [ %_s.sroa.379.0.ph1458.ph2492, %for.inc1016 ], [ %_s.sroa.379.0.ph1458.ph, %sw.bb582 ], [ %_s.sroa.379.0.ph1458.ph, %if.then924 ], [ %_s.sroa.379.0.ph1458.ph, %if.else933 ], [ %_s.sroa.379.0.ph1458.ph, %if.then906 ], [ %_s.sroa.379.0.ph1458.ph, %for.cond.outer1433 ]
+  %_s.sroa.384.0.ph1459.ph2465 = phi i32 [ %_s.sroa.384.0.ph1459.ph2463, %for.inc1016 ], [ %_s.sroa.384.0.ph1459.ph, %sw.bb582 ], [ %_s.sroa.384.0.ph1459.ph, %if.then924 ], [ %_s.sroa.384.0.ph1459.ph, %if.else933 ], [ %_s.sroa.384.0.ph1459.ph, %if.then906 ], [ %_s.sroa.384.0.ph1459.ph, %for.cond.outer1433 ]
+  %_s.sroa.389.0.ph1460.ph2436 = phi i32 [ %_s.sroa.389.0.ph1460.ph2434, %for.inc1016 ], [ %_s.sroa.389.0.ph1460.ph, %sw.bb582 ], [ %_s.sroa.389.0.ph1460.ph, %if.then924 ], [ %_s.sroa.389.0.ph1460.ph, %if.else933 ], [ %_s.sroa.389.0.ph1460.ph, %if.then906 ], [ %_s.sroa.389.0.ph1460.ph, %for.cond.outer1433 ]
+  %_s.sroa.392.0.ph1461.ph2407 = phi i32 [ %_s.sroa.392.0.ph1461.ph2405, %for.inc1016 ], [ %_s.sroa.392.0.ph1461.ph, %sw.bb582 ], [ %_s.sroa.392.0.ph1461.ph, %if.then924 ], [ %_s.sroa.392.0.ph1461.ph, %if.else933 ], [ %_s.sroa.392.0.ph1461.ph, %if.then906 ], [ %_s.sroa.392.0.ph1461.ph, %for.cond.outer1433 ]
+  %_s.sroa.394.0.ph1462.ph2378 = phi i32 [ %_s.sroa.394.0.ph1462.ph2376, %for.inc1016 ], [ %_s.sroa.394.0.ph1462.ph, %sw.bb582 ], [ %_s.sroa.394.0.ph1462.ph, %if.then924 ], [ %_s.sroa.394.0.ph1462.ph, %if.else933 ], [ %_s.sroa.394.0.ph1462.ph, %if.then906 ], [ %_s.sroa.394.0.ph1462.ph, %for.cond.outer1433 ]
+  %_s.sroa.494.0.ph1466.ph2349 = phi ptr [ %_s.sroa.494.0.ph1466.ph2347, %for.inc1016 ], [ %_s.sroa.494.0.ph1466.ph, %sw.bb582 ], [ %_s.sroa.494.0.ph1466.ph, %if.then924 ], [ %_s.sroa.494.0.ph1466.ph, %if.else933 ], [ %_s.sroa.494.0.ph1466.ph, %if.then906 ], [ %_s.sroa.494.0.ph1466.ph, %for.cond.outer1433 ]
+  %_s.sroa.505.0.ph1467.ph2320 = phi ptr [ %_s.sroa.505.0.ph1467.ph2318, %for.inc1016 ], [ %_s.sroa.505.0.ph1467.ph, %sw.bb582 ], [ %_s.sroa.505.0.ph1467.ph, %if.then924 ], [ %_s.sroa.505.0.ph1467.ph, %if.else933 ], [ %_s.sroa.505.0.ph1467.ph, %if.then906 ], [ %_s.sroa.505.0.ph1467.ph, %for.cond.outer1433 ]
+  %_s.sroa.344.0.ph14342284 = phi i32 [ %_s.sroa.344.0.ph14342282, %for.inc1016 ], [ %_s.sroa.344.0.ph1434, %sw.bb582 ], [ %_s.sroa.344.0.ph1434, %if.then924 ], [ %_s.sroa.344.0.ph1434, %if.else933 ], [ %_s.sroa.344.0.ph1434, %if.then906 ], [ %_s.sroa.344.0.ph1434, %for.cond.outer1433 ]
+  %_s.sroa.251.0.ph14382204 = phi i32 [ %_s.sroa.251.0.ph14382205, %for.inc1016 ], [ %_s.sroa.251.0.ph1438, %sw.bb582 ], [ %_s.sroa.251.0.ph1438, %if.then924 ], [ %_s.sroa.251.0.ph1438, %if.else933 ], [ %_s.sroa.251.0.ph1438, %if.then906 ], [ %_s.sroa.251.0.ph1438, %for.cond.outer1433 ]
+  %_s.sroa.141.0.ph14442069 = phi i8 [ %_s.sroa.141.0.ph14442067, %for.inc1016 ], [ %_s.sroa.141.0.ph1444, %sw.bb582 ], [ %_s.sroa.141.0.ph1444, %if.then924 ], [ %_s.sroa.141.0.ph1444, %if.else933 ], [ %_s.sroa.141.0.ph1444, %if.then906 ], [ %_s.sroa.141.0.ph1444, %for.cond.outer1433 ]
+  %_s.sroa.325.01892 = phi i32 [ %_s.sroa.325.01893, %for.inc1016 ], [ %_s.sroa.325.0.ph1435, %sw.bb582 ], [ %_s.sroa.325.0.ph1435, %if.then924 ], [ %_s.sroa.325.0.ph1435, %if.else933 ], [ %_s.sroa.325.0.ph1435, %if.then906 ], [ %_s.sroa.325.0.ph1435, %for.cond.outer1433 ]
+  %_s.sroa.130.01832 = phi i8 [ %_s.sroa.130.01830, %for.inc1016 ], [ %_s.sroa.130.0.ph1445, %sw.bb582 ], [ %_s.sroa.130.0.ph1445, %if.then924 ], [ %_s.sroa.130.0.ph1445, %if.else933 ], [ %_s.sroa.130.0.ph1445, %if.then906 ], [ %_s.sroa.130.0.ph1445, %for.cond.outer1433 ]
+  %_s.sroa.120.01765 = phi i32 [ %_s.sroa.120.01763, %for.inc1016 ], [ %_s.sroa.120.0.ph1446, %sw.bb582 ], [ %_s.sroa.120.0.ph1446, %if.then924 ], [ %_s.sroa.120.0.ph1446, %if.else933 ], [ %_s.sroa.120.0.ph1446, %if.then906 ], [ %_s.sroa.120.0.ph1446, %for.cond.outer1433 ]
+  %_s.sroa.111.01701 = phi i32 [ %_s.sroa.111.01699, %for.inc1016 ], [ %_s.sroa.111.0.ph1447, %sw.bb582 ], [ %_s.sroa.111.0.ph1447, %if.then924 ], [ %_s.sroa.111.0.ph1447, %if.else933 ], [ %_s.sroa.111.0.ph1447, %if.then906 ], [ %_s.sroa.111.0.ph1447, %for.cond.outer1433 ]
+  %_s.sroa.1021125.01633 = phi ptr [ %_s.sroa.1021125.01631, %for.inc1016 ], [ %_s.sroa.1021125.0.ph1448, %sw.bb582 ], [ %_s.sroa.1021125.0.ph1448, %if.then924 ], [ %_s.sroa.1021125.0.ph1448, %if.else933 ], [ %_s.sroa.1021125.0.ph1448, %if.then906 ], [ %_s.sroa.1021125.0.ph1448, %for.cond.outer1433 ]
+  %_s.sroa.396.01528 = phi i32 [ %_s.sroa.396.01526, %for.inc1016 ], [ %_s.sroa.396.0.ph1463, %sw.bb582 ], [ %_s.sroa.396.0.ph1463, %if.then924 ], [ %_s.sroa.396.0.ph1463, %if.else933 ], [ %_s.sroa.396.0.ph1463, %if.then906 ], [ %_s.sroa.396.0.ph1463, %for.cond.outer1433 ]
+  %_s.sroa.347.6 = phi i32 [ %_s.sroa.347.8, %for.inc1016 ], [ %_s.sroa.347.0.ph, %sw.bb582 ], [ 8, %if.then924 ], [ 16, %if.else933 ], [ 0, %if.then906 ], [ %_s.sroa.347.0.ph, %for.cond.outer1433 ]
+  %_s.sroa.294.27 = phi i32 [ %_s.sroa.294.29, %for.inc1016 ], [ 6, %sw.bb582 ], [ 3, %if.then924 ], [ 8, %if.else933 ], [ 3, %if.then906 ], [ %_s.sroa.294.0.ph1437, %for.cond.outer1433 ]
+  %_s.sroa.227.27 = phi i32 [ %dec1018, %for.inc1016 ], [ 6, %sw.bb582 ], [ 3, %if.then924 ], [ 8, %if.else933 ], [ 3, %if.then906 ], [ %_s.sroa.294.0.ph1437, %for.cond.outer1433 ]
+  %_s.sroa.207.10 = phi i32 [ %_s.sroa.207.13, %for.inc1016 ], [ 1, %sw.bb582 ], [ 1, %if.then924 ], [ 1, %if.else933 ], [ 1, %if.then906 ], [ 1, %for.cond.outer1433 ]
+  %_s.sroa.164.21 = phi ptr [ %_s.sroa.164.23, %for.inc1016 ], [ %_s.sroa.164.0.ph1442, %sw.bb582 ], [ %_s.sroa.164.0.ph1442, %if.then924 ], [ %_s.sroa.164.0.ph1442, %if.else933 ], [ %_s.sroa.164.0.ph1442, %if.then906 ], [ %_s.sroa.164.0.ph1442, %for.cond.outer1433 ]
+  %_s.sroa.1451160.27 = phi ptr [ %_s.sroa.1451160.29, %for.inc1016 ], [ %add.ptr592, %sw.bb582 ], [ %add.ptr931, %if.then924 ], [ %add.ptr936, %if.else933 ], [ %add.ptr913, %if.then906 ], [ %_s.sroa.1451160.0.ph1443, %for.cond.outer1433 ]
+  %_s.sroa.72.32 = phi i32 [ %_s.sroa.72.34, %for.inc1016 ], [ %_s.sroa.72.0.ph1450, %sw.bb582 ], [ %_s.sroa.72.0.ph1450, %if.then924 ], [ %_s.sroa.72.0.ph1450, %if.else933 ], [ %_s.sroa.72.0.ph1450, %if.then906 ], [ %_s.sroa.72.0.ph1450, %for.cond.outer1433 ]
+  %_s.sroa.52.32 = phi ptr [ %_s.sroa.52.34, %for.inc1016 ], [ %_s.sroa.52.0.ph1451, %sw.bb582 ], [ %_s.sroa.52.0.ph1451, %if.then924 ], [ %_s.sroa.52.0.ph1451, %if.else933 ], [ %_s.sroa.52.0.ph1451, %if.then906 ], [ %_s.sroa.52.0.ph1451, %for.cond.outer1433 ]
+  %_s.sroa.34.2 = phi i32 [ %_s.sroa.34.4, %for.inc1016 ], [ 25, %sw.bb582 ], [ 20, %if.then924 ], [ 20, %if.else933 ], [ 20, %if.then906 ], [ %_s.sroa.34.0.ph.ph.ph, %for.cond.outer1433 ]
+  %_s.sroa.408.31 = phi i32 [ %_s.sroa.408.34, %for.inc1016 ], [ %_s.sroa.408.0.ph1464, %sw.bb582 ], [ %_s.sroa.408.0.ph1464, %if.then924 ], [ %_s.sroa.408.0.ph1464, %if.else933 ], [ %_s.sroa.408.0.ph1464, %if.then906 ], [ %_s.sroa.408.0.ph1464, %for.cond.outer1433 ]
+  %_s.sroa.457.36 = phi i32 [ %_s.sroa.457.39, %for.inc1016 ], [ %_s.sroa.457.0.ph1465, %sw.bb582 ], [ %_s.sroa.457.0.ph1465, %if.then924 ], [ %_s.sroa.457.0.ph1465, %if.else933 ], [ %_s.sroa.457.0.ph1465, %if.then906 ], [ %_s.sroa.457.0.ph1465, %for.cond.outer1433 ]
+  %cmp947 = icmp sgt i32 %_s.sroa.227.27, 0
+  br i1 %cmp947, label %for.body949, label %for.end1019
+
+for.body949:                                      ; preds = %for.cond945
+  %idx.ext952 = sext i32 %_s.sroa.207.10 to i64
+  %add.ptr953 = getelementptr inbounds i16, ptr %_s.sroa.1451160.27, i64 %idx.ext952
+  %shr957 = lshr i32 %_s.sroa.408.31, 11
+  %34 = load i16, ptr %add.ptr953, align 2, !tbaa !51
+  %conv959 = zext i16 %34 to i32
+  %mul960 = mul i32 %shr957, %conv959
+  %cmp962 = icmp ult i32 %_s.sroa.457.36, %mul960
+  %shl975 = shl i32 %_s.sroa.207.10, 1
+  br i1 %cmp962, label %if.then964, label %if.else976
+
+if.then964:                                       ; preds = %for.body949
+  %sub968 = sub nsw i32 2048, %conv959
+  %shr969 = ashr i32 %sub968, 5
+  %35 = trunc i32 %shr969 to i16
+  %conv973 = add i16 %34, %35
+  br label %if.end993
+
+if.else976:                                       ; preds = %for.body949
+  %sub978 = sub i32 %_s.sroa.408.31, %mul960
+  %sub980 = sub i32 %_s.sroa.457.36, %mul960
+  %shr983 = lshr i16 %34, 5
+  %sub986 = sub i16 %34, %shr983
+  %add991 = or i32 %shl975, 1
+  br label %if.end993
+
+if.end993:                                        ; preds = %if.else976, %if.then964
+  %sub986.sink = phi i16 [ %conv973, %if.then964 ], [ %sub986, %if.else976 ]
+  %_s.sroa.207.11 = phi i32 [ %shl975, %if.then964 ], [ %add991, %if.else976 ]
+  %_s.sroa.408.32 = phi i32 [ %mul960, %if.then964 ], [ %sub978, %if.else976 ]
+  %_s.sroa.457.37 = phi i32 [ %_s.sroa.457.36, %if.then964 ], [ %sub980, %if.else976 ]
+  store i16 %sub986.sink, ptr %add.ptr953, align 2
+  %cmp995 = icmp ult i32 %_s.sroa.408.32, 16777216
+  br i1 %cmp995, label %sw.bb998, label %for.inc1016
+
+sw.bb998:                                         ; preds = %for.cond.outer1433, %if.end993
+  %_s.sroa.321.0.ph1436.ph2685 = phi i32 [ %_s.sroa.321.0.ph1436.ph2686, %if.end993 ], [ %_s.sroa.321.0.ph1436.ph, %for.cond.outer1433 ]
+  %_s.sroa.222.0.ph1440.ph2656 = phi i32 [ %_s.sroa.222.0.ph1440.ph2657, %if.end993 ], [ %_s.sroa.222.0.ph1440.ph, %for.cond.outer1433 ]
+  %_s.sroa.362.0.ph1449.ph2630 = phi i32 [ %_s.sroa.362.0.ph1449.ph2628, %if.end993 ], [ %_s.sroa.362.0.ph1449.ph, %for.cond.outer1433 ]
+  %_s.sroa.39.0.ph1452.ph2609 = phi i32 [ %_s.sroa.39.0.ph1452.ph2610, %if.end993 ], [ %_s.sroa.39.0.ph1452.ph, %for.cond.outer1433 ]
+  %_s.sroa.37.0.ph1453.ph2580 = phi i32 [ %_s.sroa.37.0.ph1453.ph2581, %if.end993 ], [ %_s.sroa.37.0.ph1453.ph, %for.cond.outer1433 ]
+  %_s.sroa.31.0.ph1455.ph2551 = phi i32 [ %_s.sroa.31.0.ph1455.ph2552, %if.end993 ], [ %_s.sroa.31.0.ph1455.ph, %for.cond.outer1433 ]
+  %_s.sroa.22.0.ph1456.ph2522 = phi i32 [ %_s.sroa.22.0.ph1456.ph2523, %if.end993 ], [ %_s.sroa.22.0.ph1456.ph, %for.cond.outer1433 ]
+  %_s.sroa.379.0.ph1458.ph2493 = phi i32 [ %_s.sroa.379.0.ph1458.ph2494, %if.end993 ], [ %_s.sroa.379.0.ph1458.ph, %for.cond.outer1433 ]
+  %_s.sroa.384.0.ph1459.ph2464 = phi i32 [ %_s.sroa.384.0.ph1459.ph2465, %if.end993 ], [ %_s.sroa.384.0.ph1459.ph, %for.cond.outer1433 ]
+  %_s.sroa.389.0.ph1460.ph2435 = phi i32 [ %_s.sroa.389.0.ph1460.ph2436, %if.end993 ], [ %_s.sroa.389.0.ph1460.ph, %for.cond.outer1433 ]
+  %_s.sroa.392.0.ph1461.ph2406 = phi i32 [ %_s.sroa.392.0.ph1461.ph2407, %if.end993 ], [ %_s.sroa.392.0.ph1461.ph, %for.cond.outer1433 ]
+  %_s.sroa.394.0.ph1462.ph2377 = phi i32 [ %_s.sroa.394.0.ph1462.ph2378, %if.end993 ], [ %_s.sroa.394.0.ph1462.ph, %for.cond.outer1433 ]
+  %_s.sroa.494.0.ph1466.ph2348 = phi ptr [ %_s.sroa.494.0.ph1466.ph2349, %if.end993 ], [ %_s.sroa.494.0.ph1466.ph, %for.cond.outer1433 ]
+  %_s.sroa.505.0.ph1467.ph2319 = phi ptr [ %_s.sroa.505.0.ph1467.ph2320, %if.end993 ], [ %_s.sroa.505.0.ph1467.ph, %for.cond.outer1433 ]
+  %_s.sroa.344.0.ph14342283 = phi i32 [ %_s.sroa.344.0.ph14342284, %if.end993 ], [ %_s.sroa.344.0.ph1434, %for.cond.outer1433 ]
+  %_s.sroa.251.0.ph14382206 = phi i32 [ %_s.sroa.251.0.ph14382204, %if.end993 ], [ %_s.sroa.251.0.ph1438, %for.cond.outer1433 ]
+  %_s.sroa.141.0.ph14442068 = phi i8 [ %_s.sroa.141.0.ph14442069, %if.end993 ], [ %_s.sroa.141.0.ph1444, %for.cond.outer1433 ]
+  %_s.sroa.325.01894 = phi i32 [ %_s.sroa.325.01892, %if.end993 ], [ %_s.sroa.325.0.ph1435, %for.cond.outer1433 ]
+  %_s.sroa.130.01831 = phi i8 [ %_s.sroa.130.01832, %if.end993 ], [ %_s.sroa.130.0.ph1445, %for.cond.outer1433 ]
+  %_s.sroa.120.01764 = phi i32 [ %_s.sroa.120.01765, %if.end993 ], [ %_s.sroa.120.0.ph1446, %for.cond.outer1433 ]
+  %_s.sroa.111.01700 = phi i32 [ %_s.sroa.111.01701, %if.end993 ], [ %_s.sroa.111.0.ph1447, %for.cond.outer1433 ]
+  %_s.sroa.1021125.01632 = phi ptr [ %_s.sroa.1021125.01633, %if.end993 ], [ %_s.sroa.1021125.0.ph1448, %for.cond.outer1433 ]
+  %_s.sroa.396.01527 = phi i32 [ %_s.sroa.396.01528, %if.end993 ], [ %_s.sroa.396.0.ph1463, %for.cond.outer1433 ]
+  %_s.sroa.347.7 = phi i32 [ %_s.sroa.347.6, %if.end993 ], [ %_s.sroa.347.0.ph, %for.cond.outer1433 ]
+  %_s.sroa.294.28 = phi i32 [ %_s.sroa.294.27, %if.end993 ], [ %_s.sroa.294.0.ph1437, %for.cond.outer1433 ]
+  %_s.sroa.227.28 = phi i32 [ %_s.sroa.227.27, %if.end993 ], [ %_s.sroa.227.0.ph1439, %for.cond.outer1433 ]
+  %_s.sroa.207.12 = phi i32 [ %_s.sroa.207.11, %if.end993 ], [ %_s.sroa.207.0.ph.ph, %for.cond.outer1433 ]
+  %_s.sroa.164.22 = phi ptr [ %add.ptr953, %if.end993 ], [ %_s.sroa.164.0.ph1442, %for.cond.outer1433 ]
+  %_s.sroa.1451160.28 = phi ptr [ %_s.sroa.1451160.27, %if.end993 ], [ %_s.sroa.1451160.0.ph1443, %for.cond.outer1433 ]
+  %_s.sroa.72.33 = phi i32 [ %_s.sroa.72.32, %if.end993 ], [ %_s.sroa.72.0.ph1450, %for.cond.outer1433 ]
+  %_s.sroa.52.33 = phi ptr [ %_s.sroa.52.32, %if.end993 ], [ %_s.sroa.52.0.ph1451, %for.cond.outer1433 ]
+  %_s.sroa.34.3 = phi i32 [ %_s.sroa.34.2, %if.end993 ], [ %_s.sroa.34.0.ph.ph.ph, %for.cond.outer1433 ]
+  %_s.sroa.408.33 = phi i32 [ %_s.sroa.408.32, %if.end993 ], [ %_s.sroa.408.0.ph1464, %for.cond.outer1433 ]
+  %_s.sroa.457.38 = phi i32 [ %_s.sroa.457.37, %if.end993 ], [ %_s.sroa.457.0.ph1465, %for.cond.outer1433 ]
+  %tobool1000.not = icmp eq i32 %_s.sroa.72.33, 0
+  br i1 %tobool1000.not, label %saveStateAndReturn, label %if.end1003
+
+if.end1003:                                       ; preds = %sw.bb998
+  %shl1005 = shl i32 %_s.sroa.408.33, 8
+  %shl1007 = shl i32 %_s.sroa.457.38, 8
+  %dec1009 = add i32 %_s.sroa.72.33, -1
+  %incdec.ptr1011 = getelementptr inbounds i8, ptr %_s.sroa.52.33, i64 1
+  %36 = load i8, ptr %_s.sroa.52.33, align 1, !tbaa !5
+  %conv1012 = zext i8 %36 to i32
+  %or1013 = or i32 %shl1007, %conv1012
+  br label %for.inc1016
+
+for.inc1016:                                      ; preds = %if.end993, %if.end1003
+  %_s.sroa.321.0.ph1436.ph2684 = phi i32 [ %_s.sroa.321.0.ph1436.ph2685, %if.end1003 ], [ %_s.sroa.321.0.ph1436.ph2686, %if.end993 ]
+  %_s.sroa.222.0.ph1440.ph2655 = phi i32 [ %_s.sroa.222.0.ph1440.ph2656, %if.end1003 ], [ %_s.sroa.222.0.ph1440.ph2657, %if.end993 ]
+  %_s.sroa.362.0.ph1449.ph2629 = phi i32 [ %_s.sroa.362.0.ph1449.ph2630, %if.end1003 ], [ %_s.sroa.362.0.ph1449.ph2628, %if.end993 ]
+  %_s.sroa.39.0.ph1452.ph2608 = phi i32 [ %_s.sroa.39.0.ph1452.ph2609, %if.end1003 ], [ %_s.sroa.39.0.ph1452.ph2610, %if.end993 ]
+  %_s.sroa.37.0.ph1453.ph2579 = phi i32 [ %_s.sroa.37.0.ph1453.ph2580, %if.end1003 ], [ %_s.sroa.37.0.ph1453.ph2581, %if.end993 ]
+  %_s.sroa.31.0.ph1455.ph2550 = phi i32 [ %_s.sroa.31.0.ph1455.ph2551, %if.end1003 ], [ %_s.sroa.31.0.ph1455.ph2552, %if.end993 ]
+  %_s.sroa.22.0.ph1456.ph2521 = phi i32 [ %_s.sroa.22.0.ph1456.ph2522, %if.end1003 ], [ %_s.sroa.22.0.ph1456.ph2523, %if.end993 ]
+  %_s.sroa.379.0.ph1458.ph2492 = phi i32 [ %_s.sroa.379.0.ph1458.ph2493, %if.end1003 ], [ %_s.sroa.379.0.ph1458.ph2494, %if.end993 ]
+  %_s.sroa.384.0.ph1459.ph2463 = phi i32 [ %_s.sroa.384.0.ph1459.ph2464, %if.end1003 ], [ %_s.sroa.384.0.ph1459.ph2465, %if.end993 ]
+  %_s.sroa.389.0.ph1460.ph2434 = phi i32 [ %_s.sroa.389.0.ph1460.ph2435, %if.end1003 ], [ %_s.sroa.389.0.ph1460.ph2436, %if.end993 ]
+  %_s.sroa.392.0.ph1461.ph2405 = phi i32 [ %_s.sroa.392.0.ph1461.ph2406, %if.end1003 ], [ %_s.sroa.392.0.ph1461.ph2407, %if.end993 ]
+  %_s.sroa.394.0.ph1462.ph2376 = phi i32 [ %_s.sroa.394.0.ph1462.ph2377, %if.end1003 ], [ %_s.sroa.394.0.ph1462.ph2378, %if.end993 ]
+  %_s.sroa.494.0.ph1466.ph2347 = phi ptr [ %_s.sroa.494.0.ph1466.ph2348, %if.end1003 ], [ %_s.sroa.494.0.ph1466.ph2349, %if.end993 ]
+  %_s.sroa.505.0.ph1467.ph2318 = phi ptr [ %_s.sroa.505.0.ph1467.ph2319, %if.end1003 ], [ %_s.sroa.505.0.ph1467.ph2320, %if.end993 ]
+  %_s.sroa.344.0.ph14342282 = phi i32 [ %_s.sroa.344.0.ph14342283, %if.end1003 ], [ %_s.sroa.344.0.ph14342284, %if.end993 ]
+  %_s.sroa.251.0.ph14382205 = phi i32 [ %_s.sroa.251.0.ph14382206, %if.end1003 ], [ %_s.sroa.251.0.ph14382204, %if.end993 ]
+  %_s.sroa.141.0.ph14442067 = phi i8 [ %_s.sroa.141.0.ph14442068, %if.end1003 ], [ %_s.sroa.141.0.ph14442069, %if.end993 ]
+  %_s.sroa.325.01893 = phi i32 [ %_s.sroa.325.01894, %if.end1003 ], [ %_s.sroa.325.01892, %if.end993 ]
+  %_s.sroa.130.01830 = phi i8 [ %_s.sroa.130.01831, %if.end1003 ], [ %_s.sroa.130.01832, %if.end993 ]
+  %_s.sroa.120.01763 = phi i32 [ %_s.sroa.120.01764, %if.end1003 ], [ %_s.sroa.120.01765, %if.end993 ]
+  %_s.sroa.111.01699 = phi i32 [ %_s.sroa.111.01700, %if.end1003 ], [ %_s.sroa.111.01701, %if.end993 ]
+  %_s.sroa.1021125.01631 = phi ptr [ %_s.sroa.1021125.01632, %if.end1003 ], [ %_s.sroa.1021125.01633, %if.end993 ]
+  %_s.sroa.396.01526 = phi i32 [ %_s.sroa.396.01527, %if.end1003 ], [ %_s.sroa.396.01528, %if.end993 ]
+  %_s.sroa.347.8 = phi i32 [ %_s.sroa.347.7, %if.end1003 ], [ %_s.sroa.347.6, %if.end993 ]
+  %_s.sroa.294.29 = phi i32 [ %_s.sroa.294.28, %if.end1003 ], [ %_s.sroa.294.27, %if.end993 ]
+  %_s.sroa.227.29 = phi i32 [ %_s.sroa.227.28, %if.end1003 ], [ %_s.sroa.227.27, %if.end993 ]
+  %_s.sroa.207.13 = phi i32 [ %_s.sroa.207.12, %if.end1003 ], [ %_s.sroa.207.11, %if.end993 ]
+  %_s.sroa.164.23 = phi ptr [ %_s.sroa.164.22, %if.end1003 ], [ %add.ptr953, %if.end993 ]
+  %_s.sroa.1451160.29 = phi ptr [ %_s.sroa.1451160.28, %if.end1003 ], [ %_s.sroa.1451160.27, %if.end993 ]
+  %_s.sroa.72.34 = phi i32 [ %dec1009, %if.end1003 ], [ %_s.sroa.72.32, %if.end993 ]
+  %_s.sroa.52.34 = phi ptr [ %incdec.ptr1011, %if.end1003 ], [ %_s.sroa.52.32, %if.end993 ]
+  %_s.sroa.34.4 = phi i32 [ %_s.sroa.34.3, %if.end1003 ], [ %_s.sroa.34.2, %if.end993 ]
+  %_s.sroa.408.34 = phi i32 [ %shl1005, %if.end1003 ], [ %_s.sroa.408.32, %if.end993 ]
+  %_s.sroa.457.39 = phi i32 [ %or1013, %if.end1003 ], [ %_s.sroa.457.37, %if.end993 ]
+  %dec1018 = add nsw i32 %_s.sroa.227.29, -1
+  br label %for.cond945, !llvm.loop !65
+
+for.end1019:                                      ; preds = %for.cond945
+  %shl1022.neg = shl nsw i32 -1, %_s.sroa.294.27
+  %sub1023 = add i32 %_s.sroa.207.10, %shl1022.neg
+  br label %for.cond.outer.outer.outer
+
+sw.bb1027:                                        ; preds = %for.cond.outer1433
+  %add1030 = add nsw i32 %_s.sroa.251.0.ph1438, %_s.sroa.347.0.ph
+  br label %for.cond.outer
+
+saveStateAndReturn:                               ; preds = %sw.bb406, %sw.bb379, %sw.bb301, %sw.bb225, %sw.bb877, %sw.bb92, %sw.bb46, %sw.bb, %sw.bb480.peel, %sw.bb998, %if.end773, %sw.bb742, %sw.bb651, %sw.bb793
+  %_s.sroa.347.10 = phi i32 [ %_s.sroa.347.2, %sw.bb793 ], [ %_s.sroa.347.0.ph, %sw.bb406 ], [ %_s.sroa.347.0.ph, %sw.bb379 ], [ %_s.sroa.347.0.ph, %sw.bb301 ], [ %_s.sroa.347.0.ph, %sw.bb225 ], [ %_s.sroa.347.0.ph, %sw.bb877 ], [ %_s.sroa.347.0.ph, %sw.bb92 ], [ %_s.sroa.347.0.ph, %sw.bb46 ], [ %_s.sroa.347.0.ph, %sw.bb ], [ %_s.sroa.347.0.ph, %sw.bb480.peel ], [ -1, %if.end773 ], [ %_s.sroa.347.0.ph2708, %sw.bb742 ], [ %_s.sroa.347.0.ph2705, %sw.bb651 ], [ %_s.sroa.347.7, %sw.bb998 ]
+  %_s.sroa.344.7 = phi i32 [ %_s.sroa.344.0.ph14342273, %sw.bb793 ], [ %_s.sroa.344.0.ph1434, %sw.bb480.peel ], [ %_s.sroa.344.0.ph1434, %sw.bb225 ], [ %_s.sroa.344.0.ph1434, %sw.bb301 ], [ %_s.sroa.344.0.ph1434, %sw.bb379 ], [ %_s.sroa.344.1, %sw.bb406 ], [ %_s.sroa.344.0.ph1434, %sw.bb ], [ %_s.sroa.344.0.ph14342289, %sw.bb46 ], [ %_s.sroa.344.0.ph14342288, %sw.bb92 ], [ %_s.sroa.344.4, %sw.bb877 ], [ %_s.sroa.344.0.ph14342274, %if.end773 ], [ %_s.sroa.344.0.ph14342277, %sw.bb742 ], [ %_s.sroa.344.0.ph14342280, %sw.bb651 ], [ %_s.sroa.344.0.ph14342283, %sw.bb998 ]
+  %_s.sroa.325.23 = phi i32 [ %_s.sroa.325.16.ph, %sw.bb793 ], [ %_s.sroa.325.13.peel, %sw.bb480.peel ], [ %_s.sroa.325.3, %sw.bb225 ], [ %_s.sroa.325.6, %sw.bb301 ], [ %_s.sroa.325.10, %sw.bb379 ], [ %_s.sroa.325.12, %sw.bb406 ], [ %_s.sroa.325.0.ph1435, %sw.bb ], [ %_s.sroa.325.01903, %sw.bb46 ], [ %_s.sroa.325.01902, %sw.bb92 ], [ %_s.sroa.325.19, %sw.bb877 ], [ %_s.sroa.325.14, %if.end773 ], [ %_s.sroa.325.01900, %sw.bb742 ], [ %_s.sroa.325.01897, %sw.bb651 ], [ %_s.sroa.325.01894, %sw.bb998 ]
+  %_s.sroa.321.10 = phi i32 [ %_s.sroa.321.0.ph1436.ph2675, %sw.bb793 ], [ %_s.sroa.321.0.ph1436.ph, %sw.bb480.peel ], [ %_s.sroa.321.0.ph1436.ph, %sw.bb406 ], [ %_s.sroa.321.0.ph1436.ph, %sw.bb379 ], [ %_s.sroa.321.0.ph1436.ph, %sw.bb301 ], [ %_s.sroa.321.0.ph1436.ph, %sw.bb225 ], [ %_s.sroa.321.0.ph1436.ph, %sw.bb ], [ %_s.sroa.321.2, %sw.bb46 ], [ %_s.sroa.321.4, %sw.bb92 ], [ %_s.sroa.321.7, %sw.bb877 ], [ %_s.sroa.321.0.ph1436.ph2676, %if.end773 ], [ %_s.sroa.321.0.ph1436.ph2679, %sw.bb742 ], [ %_s.sroa.321.0.ph1436.ph2682, %sw.bb651 ], [ %_s.sroa.321.0.ph1436.ph2685, %sw.bb998 ]
+  %_s.sroa.294.31 = phi i32 [ %_s.sroa.294.20.ph, %sw.bb793 ], [ %_s.sroa.294.0.ph1437, %sw.bb480.peel ], [ %_s.sroa.294.6, %sw.bb225 ], [ %_s.sroa.294.9, %sw.bb301 ], [ %_s.sroa.294.0.ph1437, %sw.bb379 ], [ %_s.sroa.294.12, %sw.bb406 ], [ %_s.sroa.294.0.ph1437, %sw.bb ], [ %_s.sroa.294.2, %sw.bb46 ], [ %_s.sroa.294.4, %sw.bb92 ], [ %_s.sroa.294.23, %sw.bb877 ], [ %_s.sroa.294.18, %if.end773 ], [ %_s.sroa.294.15, %sw.bb742 ], [ %_s.sroa.294.0.ph14372246, %sw.bb651 ], [ %_s.sroa.294.28, %sw.bb998 ]
+  %_s.sroa.251.29 = phi i32 [ %_s.sroa.251.26.ph, %sw.bb793 ], [ %_s.sroa.251.0.ph1438, %sw.bb480.peel ], [ %_s.sroa.251.3, %sw.bb225 ], [ %_s.sroa.251.7, %sw.bb301 ], [ %_s.sroa.251.12, %sw.bb379 ], [ %_s.sroa.251.14, %sw.bb406 ], [ %_s.sroa.251.0.ph1438, %sw.bb ], [ %_s.sroa.251.0.ph14382213, %sw.bb46 ], [ %_s.sroa.251.0.ph14382211, %sw.bb92 ], [ %_s.sroa.251.0.ph14382208, %sw.bb877 ], [ %_s.sroa.251.24, %if.end773 ], [ %_s.sroa.251.21, %sw.bb742 ], [ %_s.sroa.251.17, %sw.bb651 ], [ %_s.sroa.251.0.ph14382206, %sw.bb998 ]
+  %_s.sroa.227.31 = phi i32 [ %_s.sroa.227.22.ph, %sw.bb793 ], [ %_s.sroa.227.0.ph1439, %sw.bb480.peel ], [ %_s.sroa.227.6, %sw.bb225 ], [ %_s.sroa.227.9, %sw.bb301 ], [ %_s.sroa.227.0.ph1439, %sw.bb379 ], [ %_s.sroa.227.12, %sw.bb406 ], [ %_s.sroa.227.0.ph1439, %sw.bb ], [ %_s.sroa.227.2, %sw.bb46 ], [ %_s.sroa.227.4, %sw.bb92 ], [ %_s.sroa.227.25, %sw.bb877 ], [ %_s.sroa.227.20, %if.end773 ], [ %_s.sroa.227.17, %sw.bb742 ], [ %_s.sroa.227.14, %sw.bb651 ], [ %_s.sroa.227.28, %sw.bb998 ]
+  %_s.sroa.222.5 = phi i32 [ %_s.sroa.222.0.ph1440.ph2646, %sw.bb793 ], [ %_s.sroa.222.0.ph1440.ph, %sw.bb480.peel ], [ %_s.sroa.222.0.ph1440.ph, %sw.bb406 ], [ %_s.sroa.222.0.ph1440.ph, %sw.bb379 ], [ %_s.sroa.222.0.ph1440.ph, %sw.bb301 ], [ %_s.sroa.222.0.ph1440.ph, %sw.bb225 ], [ %_s.sroa.222.0.ph1440.ph, %sw.bb ], [ %_s.sroa.222.0.ph1440.ph, %sw.bb46 ], [ %_s.sroa.222.0.ph1440.ph, %sw.bb92 ], [ %_s.sroa.222.2, %sw.bb877 ], [ %_s.sroa.222.0.ph1440.ph2647, %if.end773 ], [ %_s.sroa.222.0.ph1440.ph2650, %sw.bb742 ], [ %_s.sroa.222.0.ph1440.ph2653, %sw.bb651 ], [ %_s.sroa.222.0.ph1440.ph2656, %sw.bb998 ]
+  %_s.sroa.207.15 = phi i32 [ %_s.sroa.207.8.ph, %sw.bb793 ], [ %_s.sroa.207.0.ph.ph, %sw.bb406 ], [ %_s.sroa.207.0.ph.ph, %sw.bb379 ], [ %_s.sroa.207.0.ph.ph, %sw.bb301 ], [ %_s.sroa.207.0.ph.ph, %sw.bb225 ], [ %_s.sroa.207.0.ph.ph, %sw.bb877 ], [ %_s.sroa.207.0.ph.ph, %sw.bb92 ], [ %_s.sroa.207.0.ph.ph, %sw.bb46 ], [ %_s.sroa.207.0.ph.ph, %sw.bb ], [ %_s.sroa.207.0.ph.ph, %sw.bb480.peel ], [ %_s.sroa.207.6, %if.end773 ], [ %_s.sroa.207.3, %sw.bb742 ], [ %_s.sroa.207.0.ph.ph, %sw.bb651 ], [ %_s.sroa.207.12, %sw.bb998 ]
+  %_s.sroa.164.25 = phi ptr [ %_s.sroa.164.16.ph, %sw.bb793 ], [ %_s.sroa.164.0.ph1442, %sw.bb480.peel ], [ %_s.sroa.164.1, %sw.bb225 ], [ %_s.sroa.164.4, %sw.bb301 ], [ %_s.sroa.164.7, %sw.bb379 ], [ %_s.sroa.164.9, %sw.bb406 ], [ %_s.sroa.164.0.ph1442, %sw.bb ], [ %_s.sroa.164.0.ph14422148, %sw.bb46 ], [ %_s.sroa.164.0.ph14422147, %sw.bb92 ], [ %_s.sroa.164.19, %sw.bb877 ], [ %_s.sroa.164.14, %if.end773 ], [ %_s.sroa.164.11, %sw.bb742 ], [ %_s.sroa.164.0.ph14422145, %sw.bb651 ], [ %_s.sroa.164.22, %sw.bb998 ]
+  %_s.sroa.1451160.31 = phi ptr [ %_s.sroa.1451160.19.ph, %sw.bb793 ], [ %_s.sroa.1451160.0.ph1443, %sw.bb480.peel ], [ %_s.sroa.1451160.2, %sw.bb225 ], [ %_s.sroa.1451160.5, %sw.bb301 ], [ %_s.sroa.1451160.9, %sw.bb379 ], [ %_s.sroa.1451160.11, %sw.bb406 ], [ %_s.sroa.1451160.0.ph1443, %sw.bb ], [ %_s.sroa.1451160.0.ph14432114, %sw.bb46 ], [ %_s.sroa.1451160.0.ph14432113, %sw.bb92 ], [ %_s.sroa.1451160.22, %sw.bb877 ], [ %_s.sroa.1451160.17, %if.end773 ], [ %_s.sroa.1451160.14, %sw.bb742 ], [ %_s.sroa.1451160.0.ph14432111, %sw.bb651 ], [ %_s.sroa.1451160.28, %sw.bb998 ]
+  %_s.sroa.141.11 = phi i8 [ %_s.sroa.141.0.ph14442058, %sw.bb793 ], [ %_s.sroa.141.0.ph1444, %sw.bb480.peel ], [ %_s.sroa.141.2, %sw.bb225 ], [ %_s.sroa.141.5, %sw.bb301 ], [ %_s.sroa.141.0.ph1444, %sw.bb379 ], [ %_s.sroa.141.8, %sw.bb406 ], [ %_s.sroa.141.0.ph1444, %sw.bb ], [ %_s.sroa.141.0.ph14442078, %sw.bb46 ], [ %_s.sroa.141.0.ph14442076, %sw.bb92 ], [ %_s.sroa.141.0.ph14442073, %sw.bb877 ], [ %_s.sroa.141.0.ph14442059, %if.end773 ], [ %_s.sroa.141.0.ph14442062, %sw.bb742 ], [ %_s.sroa.141.0.ph14442065, %sw.bb651 ], [ %_s.sroa.141.0.ph14442068, %sw.bb998 ]
+  %_s.sroa.130.6 = phi i8 [ %_s.sroa.130.3, %sw.bb793 ], [ %_s.sroa.130.0.ph1445, %sw.bb480.peel ], [ %_s.sroa.130.01860, %sw.bb225 ], [ %_s.sroa.130.01858, %sw.bb301 ], [ %_s.sroa.130.01856, %sw.bb379 ], [ %_s.sroa.130.1, %sw.bb406 ], [ %_s.sroa.130.0.ph1445, %sw.bb ], [ %_s.sroa.130.01849, %sw.bb46 ], [ %_s.sroa.130.01847, %sw.bb92 ], [ %_s.sroa.130.01844, %sw.bb877 ], [ %_s.sroa.130.01834, %if.end773 ], [ %_s.sroa.130.01837, %sw.bb742 ], [ %_s.sroa.130.01842, %sw.bb651 ], [ %_s.sroa.130.01831, %sw.bb998 ]
+  %_s.sroa.120.5 = phi i32 [ %_s.sroa.120.2.ph, %sw.bb793 ], [ %_s.sroa.120.0.ph1446, %sw.bb480.peel ], [ %_s.sroa.120.01796, %sw.bb225 ], [ %_s.sroa.120.01793, %sw.bb301 ], [ %_s.sroa.120.01799, %sw.bb379 ], [ %_s.sroa.120.01791, %sw.bb406 ], [ %_s.sroa.120.0.ph1446, %sw.bb ], [ %_s.sroa.120.01772, %sw.bb46 ], [ %_s.sroa.120.01770, %sw.bb92 ], [ %_s.sroa.120.01767, %sw.bb877 ], [ %_s.sroa.120.01778, %if.end773 ], [ %_s.sroa.120.01781, %sw.bb742 ], [ %_s.sroa.120.01786, %sw.bb651 ], [ %_s.sroa.120.01764, %sw.bb998 ]
+  %_s.sroa.111.5 = phi i32 [ 0, %sw.bb793 ], [ 0, %sw.bb480.peel ], [ %_s.sroa.111.01729, %sw.bb225 ], [ %_s.sroa.111.01727, %sw.bb301 ], [ %_s.sroa.111.01725, %sw.bb379 ], [ 0, %sw.bb406 ], [ %_s.sroa.111.0.ph1447, %sw.bb ], [ %_s.sroa.111.01718, %sw.bb46 ], [ %_s.sroa.111.01716, %sw.bb92 ], [ %_s.sroa.111.01713, %sw.bb877 ], [ %_s.sroa.111.01703, %if.end773 ], [ %_s.sroa.111.01706, %sw.bb742 ], [ %_s.sroa.111.01711, %sw.bb651 ], [ %_s.sroa.111.01700, %sw.bb998 ]
+  %_s.sroa.1021125.5 = phi ptr [ %_s.sroa.1021125.2, %sw.bb793 ], [ %_s.sroa.1021125.0.ph1448, %sw.bb480.peel ], [ %_s.sroa.1021125.01664, %sw.bb225 ], [ %_s.sroa.1021125.01661, %sw.bb301 ], [ %_s.sroa.1021125.01667, %sw.bb379 ], [ %_s.sroa.1021125.01659, %sw.bb406 ], [ %_s.sroa.1021125.0.ph1448, %sw.bb ], [ %_s.sroa.1021125.01640, %sw.bb46 ], [ %_s.sroa.1021125.01638, %sw.bb92 ], [ %_s.sroa.1021125.01635, %sw.bb877 ], [ %_s.sroa.1021125.01646, %if.end773 ], [ %_s.sroa.1021125.01649, %sw.bb742 ], [ %_s.sroa.1021125.01654, %sw.bb651 ], [ %_s.sroa.1021125.01632, %sw.bb998 ]
+  %_s.sroa.362.19 = phi i32 [ %_s.sroa.362.12.ph, %sw.bb793 ], [ %_s.sroa.362.0.ph1449.ph, %sw.bb480.peel ], [ %_s.sroa.362.0.ph1449.ph, %sw.bb406 ], [ %_s.sroa.362.0.ph1449.ph, %sw.bb379 ], [ %_s.sroa.362.0.ph1449.ph, %sw.bb301 ], [ %_s.sroa.362.0.ph1449.ph, %sw.bb225 ], [ %_s.sroa.362.0.ph1449.ph, %sw.bb ], [ %_s.sroa.362.0.ph1449.ph, %sw.bb46 ], [ %_s.sroa.362.0.ph1449.ph, %sw.bb92 ], [ %_s.sroa.362.15, %sw.bb877 ], [ 0, %if.end773 ], [ %_s.sroa.362.7, %sw.bb742 ], [ %_s.sroa.362.3, %sw.bb651 ], [ %_s.sroa.362.0.ph1449.ph2630, %sw.bb998 ]
+  %_s.sroa.72.36 = phi i32 [ %_s.sroa.72.27.ph, %sw.bb793 ], [ %_s.sroa.72.0.ph1450, %sw.bb480.peel ], [ 0, %sw.bb225 ], [ 0, %sw.bb301 ], [ 0, %sw.bb379 ], [ %_s.sroa.72.16, %sw.bb406 ], [ 0, %sw.bb877 ], [ 0, %sw.bb92 ], [ 0, %sw.bb46 ], [ 0, %sw.bb ], [ %_s.sroa.72.25, %if.end773 ], [ 0, %sw.bb742 ], [ 0, %sw.bb651 ], [ 0, %sw.bb998 ]
+  %_s.sroa.52.36 = phi ptr [ %_s.sroa.52.27.ph, %sw.bb793 ], [ %_s.sroa.52.0.ph1451, %sw.bb480.peel ], [ %_s.sroa.52.7, %sw.bb225 ], [ %_s.sroa.52.10, %sw.bb301 ], [ %_s.sroa.52.14, %sw.bb379 ], [ %_s.sroa.52.16, %sw.bb406 ], [ %_s.sroa.52.0.ph1451, %sw.bb ], [ %_s.sroa.52.2, %sw.bb46 ], [ %_s.sroa.52.4, %sw.bb92 ], [ %_s.sroa.52.30, %sw.bb877 ], [ %_s.sroa.52.25, %if.end773 ], [ %_s.sroa.52.22, %sw.bb742 ], [ %_s.sroa.52.18, %sw.bb651 ], [ %_s.sroa.52.33, %sw.bb998 ]
+  %_s.sroa.39.9 = phi i32 [ %_s.sroa.39.0.ph1452.ph2599, %sw.bb793 ], [ %_s.sroa.39.0.ph1452.ph, %sw.bb480.peel ], [ %_s.sroa.39.0.ph1452.ph, %sw.bb406 ], [ %_s.sroa.39.0.ph1452.ph, %sw.bb379 ], [ %_s.sroa.39.0.ph1452.ph, %sw.bb301 ], [ %_s.sroa.39.0.ph1452.ph, %sw.bb225 ], [ %_s.sroa.39.0.ph1452.ph, %sw.bb ], [ %_s.sroa.39.0.ph1452.ph, %sw.bb46 ], [ %_s.sroa.39.3, %sw.bb92 ], [ %_s.sroa.39.6, %sw.bb877 ], [ %_s.sroa.39.0.ph1452.ph2600, %if.end773 ], [ %_s.sroa.39.0.ph1452.ph2603, %sw.bb742 ], [ %_s.sroa.39.0.ph1452.ph2606, %sw.bb651 ], [ %_s.sroa.39.0.ph1452.ph2609, %sw.bb998 ]
+  %_s.sroa.37.11 = phi i32 [ %_s.sroa.37.0.ph1453.ph2570, %sw.bb793 ], [ %_s.sroa.37.0.ph1453.ph, %sw.bb480.peel ], [ %_s.sroa.37.0.ph1453.ph, %sw.bb406 ], [ %_s.sroa.37.0.ph1453.ph, %sw.bb379 ], [ %_s.sroa.37.0.ph1453.ph, %sw.bb301 ], [ %_s.sroa.37.0.ph1453.ph, %sw.bb225 ], [ %_s.sroa.37.0.ph1453.ph, %sw.bb ], [ %_s.sroa.37.3, %sw.bb46 ], [ %_s.sroa.37.5, %sw.bb92 ], [ %_s.sroa.37.8, %sw.bb877 ], [ %_s.sroa.37.0.ph1453.ph2571, %if.end773 ], [ %_s.sroa.37.0.ph1453.ph2574, %sw.bb742 ], [ %_s.sroa.37.0.ph1453.ph2577, %sw.bb651 ], [ %_s.sroa.37.0.ph1453.ph2580, %sw.bb998 ]
+  %_s.sroa.34.6 = phi i32 [ %_s.sroa.34.0.ph.ph.ph, %sw.bb793 ], [ %_s.sroa.34.0.ph.ph.ph, %sw.bb406 ], [ %_s.sroa.34.0.ph.ph.ph, %sw.bb379 ], [ %_s.sroa.34.0.ph.ph.ph, %sw.bb301 ], [ %_s.sroa.34.0.ph.ph.ph, %sw.bb225 ], [ %_s.sroa.34.0.ph.ph.ph, %sw.bb877 ], [ %_s.sroa.34.0.ph.ph.ph, %sw.bb92 ], [ %_s.sroa.34.0.ph.ph.ph, %sw.bb46 ], [ %_s.sroa.34.0.ph.ph.ph, %sw.bb ], [ %_s.sroa.34.0.ph.ph.ph, %sw.bb480.peel ], [ %_s.sroa.34.0.ph.ph.ph, %sw.bb651 ], [ %_s.sroa.34.0.ph.ph.ph, %sw.bb742 ], [ %_s.sroa.34.0.ph.ph.ph, %if.end773 ], [ %_s.sroa.34.3, %sw.bb998 ]
+  %_s.sroa.31.6 = phi i32 [ %_s.sroa.31.0.ph1455.ph2541, %sw.bb793 ], [ %_s.sroa.31.0.ph1455.ph, %sw.bb480.peel ], [ %_s.sroa.31.0.ph1455.ph, %sw.bb406 ], [ %_s.sroa.31.0.ph1455.ph, %sw.bb379 ], [ %_s.sroa.31.0.ph1455.ph, %sw.bb301 ], [ %_s.sroa.31.0.ph1455.ph, %sw.bb225 ], [ %_s.sroa.31.0.ph1455.ph, %sw.bb ], [ %_s.sroa.31.0.ph1455.ph, %sw.bb46 ], [ %_s.sroa.31.0.ph1455.ph, %sw.bb92 ], [ %_s.sroa.31.2, %sw.bb877 ], [ %_s.sroa.31.0.ph1455.ph2542, %if.end773 ], [ %_s.sroa.31.0.ph1455.ph2545, %sw.bb742 ], [ %_s.sroa.31.0.ph1455.ph2548, %sw.bb651 ], [ %_s.sroa.31.0.ph1455.ph2551, %sw.bb998 ]
+  %_s.sroa.22.5 = phi i32 [ %_s.sroa.22.0.ph1456.ph2512, %sw.bb793 ], [ %_s.sroa.22.0.ph1456.ph, %sw.bb480.peel ], [ %_s.sroa.22.0.ph1456.ph, %sw.bb406 ], [ %_s.sroa.22.0.ph1456.ph, %sw.bb379 ], [ %_s.sroa.22.0.ph1456.ph, %sw.bb301 ], [ %_s.sroa.22.0.ph1456.ph, %sw.bb225 ], [ %_s.sroa.22.0.ph1456.ph, %sw.bb ], [ %_s.sroa.22.0.ph1456.ph, %sw.bb46 ], [ %_s.sroa.22.0.ph1456.ph, %sw.bb92 ], [ %_s.sroa.22.2, %sw.bb877 ], [ %_s.sroa.22.0.ph1456.ph2513, %if.end773 ], [ %_s.sroa.22.0.ph1456.ph2516, %sw.bb742 ], [ %_s.sroa.22.0.ph1456.ph2519, %sw.bb651 ], [ %_s.sroa.22.0.ph1456.ph2522, %sw.bb998 ]
+  %_s.sroa.0.2 = phi i32 [ 28, %sw.bb793 ], [ 27, %sw.bb480.peel ], [ 13, %sw.bb225 ], [ 14, %sw.bb301 ], [ 15, %sw.bb379 ], [ 26, %sw.bb406 ], [ 0, %sw.bb ], [ 1, %sw.bb46 ], [ 3, %sw.bb92 ], [ 5, %sw.bb877 ], [ %_s.sroa.0.01594, %if.end773 ], [ 16, %sw.bb742 ], [ 12, %sw.bb651 ], [ 24, %sw.bb998 ]
+  %_s.sroa.379.7 = phi i32 [ %_s.sroa.379.0.ph1458.ph2483, %sw.bb793 ], [ %_s.sroa.379.0.ph1458.ph, %sw.bb480.peel ], [ %_s.sroa.379.0.ph1458.ph, %sw.bb406 ], [ %_s.sroa.379.0.ph1458.ph, %sw.bb379 ], [ %_s.sroa.379.0.ph1458.ph, %sw.bb301 ], [ %_s.sroa.379.0.ph1458.ph, %sw.bb225 ], [ %_s.sroa.379.0.ph1458.ph, %sw.bb ], [ %_s.sroa.379.0.ph1458.ph, %sw.bb46 ], [ %_s.sroa.379.0.ph1458.ph, %sw.bb92 ], [ %_s.sroa.379.3, %sw.bb877 ], [ %_s.sroa.379.0.ph1458.ph2484, %if.end773 ], [ %_s.sroa.379.0.ph1458.ph2487, %sw.bb742 ], [ %_s.sroa.379.0.ph1458.ph2490, %sw.bb651 ], [ %_s.sroa.379.0.ph1458.ph2493, %sw.bb998 ]
+  %_s.sroa.384.8 = phi i32 [ %_s.sroa.384.0.ph1459.ph2454, %sw.bb793 ], [ %_s.sroa.384.0.ph1459.ph, %sw.bb480.peel ], [ %_s.sroa.384.0.ph1459.ph, %sw.bb406 ], [ %_s.sroa.384.0.ph1459.ph, %sw.bb379 ], [ %_s.sroa.384.0.ph1459.ph, %sw.bb301 ], [ %_s.sroa.384.0.ph1459.ph, %sw.bb225 ], [ %_s.sroa.384.0.ph1459.ph, %sw.bb ], [ %_s.sroa.384.0.ph1459.ph, %sw.bb46 ], [ %_s.sroa.384.0.ph1459.ph, %sw.bb92 ], [ %_s.sroa.384.4, %sw.bb877 ], [ %_s.sroa.384.0.ph1459.ph2455, %if.end773 ], [ %_s.sroa.384.0.ph1459.ph2458, %sw.bb742 ], [ %_s.sroa.384.0.ph1459.ph2461, %sw.bb651 ], [ %_s.sroa.384.0.ph1459.ph2464, %sw.bb998 ]
+  %_s.sroa.389.9 = phi i32 [ %_s.sroa.389.0.ph1460.ph2425, %sw.bb793 ], [ %_s.sroa.389.0.ph1460.ph, %sw.bb480.peel ], [ %_s.sroa.389.0.ph1460.ph, %sw.bb406 ], [ %_s.sroa.389.0.ph1460.ph, %sw.bb379 ], [ %_s.sroa.389.0.ph1460.ph, %sw.bb301 ], [ %_s.sroa.389.0.ph1460.ph, %sw.bb225 ], [ %_s.sroa.389.0.ph1460.ph, %sw.bb ], [ %_s.sroa.389.0.ph1460.ph, %sw.bb46 ], [ %_s.sroa.389.0.ph1460.ph, %sw.bb92 ], [ %_s.sroa.389.5, %sw.bb877 ], [ %_s.sroa.389.0.ph1460.ph2426, %if.end773 ], [ %_s.sroa.389.0.ph1460.ph2429, %sw.bb742 ], [ %_s.sroa.389.0.ph1460.ph2432, %sw.bb651 ], [ %_s.sroa.389.0.ph1460.ph2435, %sw.bb998 ]
+  %_s.sroa.392.10 = phi i32 [ %_s.sroa.392.0.ph1461.ph2396, %sw.bb793 ], [ %_s.sroa.392.0.ph1461.ph, %sw.bb480.peel ], [ %_s.sroa.392.0.ph1461.ph, %sw.bb406 ], [ %_s.sroa.392.0.ph1461.ph, %sw.bb379 ], [ %_s.sroa.392.0.ph1461.ph, %sw.bb301 ], [ %_s.sroa.392.0.ph1461.ph, %sw.bb225 ], [ %_s.sroa.392.0.ph1461.ph, %sw.bb ], [ %_s.sroa.392.2, %sw.bb46 ], [ %_s.sroa.392.4, %sw.bb92 ], [ %_s.sroa.392.7, %sw.bb877 ], [ %_s.sroa.392.0.ph1461.ph2397, %if.end773 ], [ %_s.sroa.392.0.ph1461.ph2400, %sw.bb742 ], [ %_s.sroa.392.0.ph1461.ph2403, %sw.bb651 ], [ %_s.sroa.392.0.ph1461.ph2406, %sw.bb998 ]
+  %_s.sroa.394.10 = phi i32 [ %_s.sroa.394.0.ph1462.ph2367, %sw.bb793 ], [ %_s.sroa.394.0.ph1462.ph, %sw.bb480.peel ], [ %_s.sroa.394.0.ph1462.ph, %sw.bb406 ], [ %_s.sroa.394.0.ph1462.ph, %sw.bb379 ], [ %_s.sroa.394.0.ph1462.ph, %sw.bb301 ], [ %_s.sroa.394.0.ph1462.ph, %sw.bb225 ], [ %_s.sroa.394.0.ph1462.ph, %sw.bb ], [ %_s.sroa.394.2, %sw.bb46 ], [ %_s.sroa.394.4, %sw.bb92 ], [ %_s.sroa.394.7, %sw.bb877 ], [ %_s.sroa.394.0.ph1462.ph2368, %if.end773 ], [ %_s.sroa.394.0.ph1462.ph2371, %sw.bb742 ], [ %_s.sroa.394.0.ph1462.ph2374, %sw.bb651 ], [ %_s.sroa.394.0.ph1462.ph2377, %sw.bb998 ]
+  %_s.sroa.396.5 = phi i32 [ %_s.sroa.396.2, %sw.bb793 ], [ %_s.sroa.396.0.ph1463, %sw.bb480.peel ], [ %_s.sroa.396.01559, %sw.bb225 ], [ %_s.sroa.396.01556, %sw.bb301 ], [ %_s.sroa.396.01562, %sw.bb379 ], [ %_s.sroa.396.01554, %sw.bb406 ], [ %_s.sroa.396.0.ph1463, %sw.bb ], [ %_s.sroa.396.01535, %sw.bb46 ], [ %_s.sroa.396.01533, %sw.bb92 ], [ %_s.sroa.396.01530, %sw.bb877 ], [ %_s.sroa.396.01541, %if.end773 ], [ %_s.sroa.396.01544, %sw.bb742 ], [ %_s.sroa.396.01549, %sw.bb651 ], [ %_s.sroa.396.01527, %sw.bb998 ]
+  %_s.sroa.408.36 = phi i32 [ %_s.sroa.408.26.ph, %sw.bb793 ], [ %_s.sroa.408.0.ph1464, %sw.bb480.peel ], [ %_s.sroa.408.3, %sw.bb225 ], [ %_s.sroa.408.7, %sw.bb301 ], [ %_s.sroa.408.12, %sw.bb379 ], [ %_s.sroa.408.14, %sw.bb406 ], [ %_s.sroa.408.0.ph1464, %sw.bb ], [ %_s.sroa.408.0.ph14641970, %sw.bb46 ], [ %_s.sroa.408.0.ph14641969, %sw.bb92 ], [ %_s.sroa.408.29, %sw.bb877 ], [ %_s.sroa.408.24, %if.end773 ], [ %_s.sroa.408.21, %sw.bb742 ], [ %_s.sroa.408.16, %sw.bb651 ], [ %_s.sroa.408.33, %sw.bb998 ]
+  %_s.sroa.457.41 = phi i32 [ %_s.sroa.457.30.ph, %sw.bb793 ], [ %_s.sroa.457.0.ph1465, %sw.bb480.peel ], [ %_s.sroa.457.6, %sw.bb225 ], [ %_s.sroa.457.10, %sw.bb301 ], [ %_s.sroa.457.15, %sw.bb379 ], [ %_s.sroa.457.17, %sw.bb406 ], [ %_s.sroa.457.0.ph1465, %sw.bb ], [ %_s.sroa.457.0.ph14651939, %sw.bb46 ], [ %_s.sroa.457.2, %sw.bb92 ], [ %_s.sroa.457.34, %sw.bb877 ], [ %_s.sroa.457.28, %if.end773 ], [ %_s.sroa.457.25, %sw.bb742 ], [ %_s.sroa.457.20, %sw.bb651 ], [ %_s.sroa.457.38, %sw.bb998 ]
+  %_s.sroa.494.9 = phi ptr [ %_s.sroa.494.0.ph1466.ph2338, %sw.bb793 ], [ %_s.sroa.494.0.ph1466.ph, %sw.bb480.peel ], [ %_s.sroa.494.0.ph1466.ph, %sw.bb406 ], [ %_s.sroa.494.0.ph1466.ph, %sw.bb379 ], [ %_s.sroa.494.0.ph1466.ph, %sw.bb301 ], [ %_s.sroa.494.0.ph1466.ph, %sw.bb225 ], [ %_s.sroa.494.0.ph1466.ph, %sw.bb ], [ %_s.sroa.494.0.ph1466.ph, %sw.bb46 ], [ %_s.sroa.494.3, %sw.bb92 ], [ %_s.sroa.494.6, %sw.bb877 ], [ %_s.sroa.494.0.ph1466.ph2339, %if.end773 ], [ %_s.sroa.494.0.ph1466.ph2342, %sw.bb742 ], [ %_s.sroa.494.0.ph1466.ph2345, %sw.bb651 ], [ %_s.sroa.494.0.ph1466.ph2348, %sw.bb998 ]
+  %_s.sroa.505.11 = phi ptr [ %_s.sroa.505.0.ph1467.ph2309, %sw.bb793 ], [ %_s.sroa.505.0.ph1467.ph, %sw.bb480.peel ], [ %_s.sroa.505.0.ph1467.ph, %sw.bb406 ], [ %_s.sroa.505.0.ph1467.ph, %sw.bb379 ], [ %_s.sroa.505.0.ph1467.ph, %sw.bb301 ], [ %_s.sroa.505.0.ph1467.ph, %sw.bb225 ], [ %_s.sroa.505.0.ph1467.ph, %sw.bb ], [ %_s.sroa.505.3, %sw.bb46 ], [ %_s.sroa.505.5, %sw.bb92 ], [ %_s.sroa.505.8, %sw.bb877 ], [ %_s.sroa.505.0.ph1467.ph2310, %if.end773 ], [ %_s.sroa.505.0.ph1467.ph2313, %sw.bb742 ], [ %_s.sroa.505.0.ph1467.ph2316, %sw.bb651 ], [ %_s.sroa.505.0.ph1467.ph2319, %sw.bb998 ]
+  store i32 %_s.sroa.0.2, ptr %s, align 8, !tbaa.struct !13
+  store i32 %_s.sroa.22.5, ptr %_s.sroa.22.0..sroa_idx, align 4, !tbaa.struct !15
+  store i32 %_s.sroa.31.6, ptr %_s.sroa.31.0..sroa_idx, align 8, !tbaa.struct !16
+  store i32 %_s.sroa.34.6, ptr %_s.sroa.34.0..sroa_idx, align 4, !tbaa.struct !17
+  store i32 %_s.sroa.37.11, ptr %_s.sroa.37.0..sroa_idx, align 8, !tbaa.struct !18
+  store i32 %_s.sroa.39.9, ptr %_s.sroa.39.0..sroa_idx, align 4, !tbaa.struct !19
+  store ptr %_s.sroa.52.36, ptr %_s.sroa.52.0..sroa_idx, align 8, !tbaa.struct !20
+  store i32 %_s.sroa.72.36, ptr %_s.sroa.72.0..sroa_idx, align 8, !tbaa.struct !21
+  store i32 %_s.sroa.102.0.copyload, ptr %_s.sroa.102.0..sroa_idx, align 4, !tbaa.struct !22
+  store ptr %_s.sroa.1021125.5, ptr %_s.sroa.1021125.0..sroa_idx, align 8, !tbaa.struct !23
+  store i32 %_s.sroa.111.5, ptr %_s.sroa.111.0..sroa_idx, align 8, !tbaa.struct !24
+  store i32 %_s.sroa.120.5, ptr %_s.sroa.120.0..sroa_idx, align 4, !tbaa.struct !25
+  store i8 %_s.sroa.130.6, ptr %_s.sroa.130.0..sroa_idx, align 8, !tbaa.struct !26
+  store i8 %_s.sroa.141.11, ptr %_s.sroa.141.0..sroa_idx, align 1, !tbaa.struct !27
+  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 2 dereferenceable(6) %_s.sroa.145.0..sroa_idx, ptr noundef nonnull align 2 dereferenceable(6) %_s.sroa.145, i64 6, i1 false), !tbaa.struct !28
+  store ptr %_s.sroa.1451160.31, ptr %_s.sroa.1451160.0..sroa_idx, align 8, !tbaa.struct !50
+  store ptr %_s.sroa.164.25, ptr %_s.sroa.164.0..sroa_idx, align 8, !tbaa.struct !49
+  store i32 %_s.sroa.207.15, ptr %_s.sroa.207.0..sroa_idx, align 8, !tbaa.struct !48
+  store i32 %_s.sroa.222.5, ptr %_s.sroa.222.0..sroa_idx, align 4, !tbaa.struct !47
+  store i32 %_s.sroa.227.31, ptr %_s.sroa.227.0..sroa_idx, align 8, !tbaa.struct !46
+  store i32 %_s.sroa.251.29, ptr %_s.sroa.251.0..sroa_idx, align 4, !tbaa.struct !45
+  store i32 %_s.sroa.294.31, ptr %_s.sroa.294.0..sroa_idx, align 8, !tbaa.struct !44
+  store i32 %_s.sroa.321.10, ptr %_s.sroa.321.0..sroa_idx, align 4, !tbaa.struct !43
+  store i32 %_s.sroa.325.23, ptr %_s.sroa.325.0..sroa_idx, align 8, !tbaa.struct !42
+  store i32 %_s.sroa.344.7, ptr %_s.sroa.344.0..sroa_idx, align 4, !tbaa.struct !41
+  store i32 %_s.sroa.347.10, ptr %_s.sroa.347.0..sroa_idx, align 8, !tbaa.struct !29
+  store i32 %_s.sroa.362.19, ptr %_s.sroa.362.0..sroa_idx, align 4, !tbaa.struct !40
+  store i32 %_s.sroa.379.7, ptr %_s.sroa.379.0..sroa_idx, align 8, !tbaa.struct !39
+  store i32 %_s.sroa.384.8, ptr %_s.sroa.384.0..sroa_idx, align 4, !tbaa.struct !38
+  store i32 %_s.sroa.389.9, ptr %_s.sroa.389.0..sroa_idx, align 8, !tbaa.struct !37
+  store i32 %_s.sroa.392.10, ptr %_s.sroa.392.0..sroa_idx, align 4, !tbaa.struct !36
+  store i32 %_s.sroa.394.10, ptr %_s.sroa.394.0..sroa_idx, align 8, !tbaa.struct !35
+  store i32 %_s.sroa.396.5, ptr %_s.sroa.396.0..sroa_idx, align 4, !tbaa.struct !34
+  store i32 %_s.sroa.408.36, ptr %_s.sroa.408.0..sroa_idx, align 8, !tbaa.struct !33
+  store i32 %_s.sroa.457.41, ptr %_s.sroa.457.0..sroa_idx, align 4, !tbaa.struct !32
+  store ptr %_s.sroa.494.9, ptr %_s.sroa.494.0..sroa_idx, align 8, !tbaa.struct !31
+  store ptr %_s.sroa.505.11, ptr %_s.sroa.505.0..sroa_idx, align 8, !tbaa.struct !30
+  br label %cleanup
+
+cleanup:                                          ; preds = %if.end71, %if.end30, %if.end2, %for.cond.outer1433, %if.then469.peel, %if.end779, %entry, %saveStateAndReturn
+  %retval.0 = phi i32 [ 0, %saveStateAndReturn ], [ 1, %entry ], [ -1, %if.end779 ], [ -1, %if.then469.peel ], [ -1, %for.cond.outer1433 ], [ -1, %if.end2 ], [ -1, %if.end30 ], [ -1, %if.end71 ]
+  call void @llvm.lifetime.end.p0(i64 6, ptr nonnull %_s.sroa.145)
+  ret i32 %retval.0
 }
 
 ; Function Attrs: mustprogress nocallback nofree nounwind willreturn memory(argmem: readwrite)
@@ -1994,41 +1996,42 @@ declare void @free(ptr allocptr nocapture noundef) local_unnamed_addr #4
 declare ptr @cli_malloc(i64 noundef) local_unnamed_addr #5
 
 ; Function Attrs: mustprogress nounwind willreturn uwtable
-define dso_local void @lzmaShutdown(ptr nocapture noundef %0) local_unnamed_addr #6 {
-  %2 = alloca { i32, i32, i32, i32, i32, i32, ptr, i32, ptr, i32, i32, i8, i8, ptr, ptr, i32, i32, i32, i32, i32, i32, i32, i32, i32, i32, i32, i32, i32, i32, i32, i32, i32, i32 }, align 8
-  call void @llvm.lifetime.start.p0(i64 152, ptr nonnull %2)
-  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(152) %2, ptr noundef nonnull align 8 dereferenceable(152) %0, i64 152, i1 false), !tbaa.struct !13
-  %3 = getelementptr inbounds i8, ptr %0, i64 152
-  %4 = load ptr, ptr %3, align 8, !tbaa.struct !31
-  %5 = getelementptr inbounds i8, ptr %0, i64 160
-  %6 = load ptr, ptr %5, align 8, !tbaa.struct !30
-  %7 = icmp eq ptr %6, null
-  br i1 %7, label %9, label %8
+define dso_local void @lzmaShutdown(ptr nocapture noundef %s) local_unnamed_addr #6 {
+entry:
+  %_s.sroa.0 = alloca { i32, i32, i32, i32, i32, i32, ptr, i32, ptr, i32, i32, i8, i8, ptr, ptr, i32, i32, i32, i32, i32, i32, i32, i32, i32, i32, i32, i32, i32, i32, i32, i32, i32, i32 }, align 8
+  call void @llvm.lifetime.start.p0(i64 152, ptr nonnull %_s.sroa.0)
+  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(152) %_s.sroa.0, ptr noundef nonnull align 8 dereferenceable(152) %s, i64 152, i1 false), !tbaa.struct !13
+  %_s.sroa.4.0..sroa_idx = getelementptr inbounds i8, ptr %s, i64 152
+  %_s.sroa.4.0.copyload = load ptr, ptr %_s.sroa.4.0..sroa_idx, align 8, !tbaa.struct !31
+  %_s.sroa.7.0..sroa_idx = getelementptr inbounds i8, ptr %s, i64 160
+  %_s.sroa.7.0.copyload = load ptr, ptr %_s.sroa.7.0..sroa_idx, align 8, !tbaa.struct !30
+  %tobool.not = icmp eq ptr %_s.sroa.7.0.copyload, null
+  br i1 %tobool.not, label %if.end, label %if.then
 
-8:                                                ; preds = %1
-  tail call void @free(ptr noundef nonnull %6) #9
-  br label %9
+if.then:                                          ; preds = %entry
+  tail call void @free(ptr noundef nonnull %_s.sroa.7.0.copyload) #9
+  br label %if.end
 
-9:                                                ; preds = %8, %1
-  %10 = icmp eq ptr %4, null
-  br i1 %10, label %12, label %11
+if.end:                                           ; preds = %if.then, %entry
+  %tobool2.not = icmp eq ptr %_s.sroa.4.0.copyload, null
+  br i1 %tobool2.not, label %if.end5, label %if.then3
 
-11:                                               ; preds = %9
-  tail call void @free(ptr noundef nonnull %4) #9
-  br label %12
+if.then3:                                         ; preds = %if.end
+  tail call void @free(ptr noundef nonnull %_s.sroa.4.0.copyload) #9
+  br label %if.end5
 
-12:                                               ; preds = %11, %9
-  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(152) %0, ptr noundef nonnull align 8 dereferenceable(152) %2, i64 152, i1 false), !tbaa.struct !13
-  tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %3, i8 0, i64 16, i1 false)
-  call void @llvm.lifetime.end.p0(i64 152, ptr nonnull %2)
+if.end5:                                          ; preds = %if.then3, %if.end
+  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(152) %s, ptr noundef nonnull align 8 dereferenceable(152) %_s.sroa.0, i64 152, i1 false), !tbaa.struct !13
+  tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %_s.sroa.4.0..sroa_idx, i8 0, i64 16, i1 false)
+  call void @llvm.lifetime.end.p0(i64 152, ptr nonnull %_s.sroa.0)
   ret void
 }
 
-; Function Attrs: nocallback nofree nounwind willreturn memory(argmem: write)
-declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #7
-
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i32 @llvm.smin.i32(i32, i32) #8
+declare i32 @llvm.smin.i32(i32, i32) #7
+
+; Function Attrs: nocallback nofree nounwind willreturn memory(argmem: write)
+declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #8
 
 attributes #0 = { mustprogress nofree nosync nounwind willreturn memory(argmem: write) uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #1 = { mustprogress nocallback nofree nosync nounwind willreturn memory(argmem: readwrite) }
@@ -2037,8 +2040,8 @@ attributes #3 = { mustprogress nocallback nofree nounwind willreturn memory(argm
 attributes #4 = { mustprogress nounwind willreturn allockind("free") memory(argmem: readwrite, inaccessiblemem: readwrite) "alloc-family"="malloc" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #5 = { "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #6 = { mustprogress nounwind willreturn uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
-attributes #7 = { nocallback nofree nounwind willreturn memory(argmem: write) }
-attributes #8 = { nocallback nofree nosync nounwind speculatable willreturn memory(none) }
+attributes #7 = { nocallback nofree nosync nounwind speculatable willreturn memory(none) }
+attributes #8 = { nocallback nofree nounwind willreturn memory(argmem: write) }
 attributes #9 = { nounwind }
 
 !llvm.module.flags = !{!0, !1, !2, !3}

@@ -108,69 +108,70 @@ target triple = "x86_64-unknown-linux-gnu"
 @WriteNALU = common dso_local local_unnamed_addr global ptr null, align 8
 
 ; Function Attrs: mustprogress nofree nosync nounwind willreturn memory(readwrite, inaccessiblemem: none) uwtable
-define dso_local i32 @ComposeRTPPacket(ptr nocapture noundef %0) local_unnamed_addr #0 {
-  %2 = load i32, ptr %0, align 8, !tbaa !5
-  %3 = shl i32 %2, 6
-  %4 = getelementptr inbounds %struct.RTPpacket_t, ptr %0, i64 0, i32 1
-  %5 = load i32, ptr %4, align 4, !tbaa !11
-  %6 = shl i32 %5, 5
-  %7 = and i32 %6, 32
-  %8 = or i32 %7, %3
-  %9 = getelementptr inbounds %struct.RTPpacket_t, ptr %0, i64 0, i32 2
-  %10 = load i32, ptr %9, align 8, !tbaa !12
-  %11 = shl i32 %10, 4
-  %12 = and i32 %11, 16
-  %13 = or i32 %8, %12
-  %14 = getelementptr inbounds %struct.RTPpacket_t, ptr %0, i64 0, i32 3
-  %15 = load i32, ptr %14, align 4, !tbaa !13
-  %16 = and i32 %15, 15
-  %17 = or i32 %13, %16
-  %18 = trunc i32 %17 to i8
-  %19 = getelementptr inbounds %struct.RTPpacket_t, ptr %0, i64 0, i32 11
-  %20 = load ptr, ptr %19, align 8, !tbaa !14
-  store i8 %18, ptr %20, align 1, !tbaa !15
-  %21 = getelementptr inbounds %struct.RTPpacket_t, ptr %0, i64 0, i32 4
-  %22 = load i32, ptr %21, align 8, !tbaa !16
-  %23 = shl i32 %22, 7
-  %24 = getelementptr inbounds %struct.RTPpacket_t, ptr %0, i64 0, i32 5
-  %25 = load i32, ptr %24, align 4, !tbaa !17
-  %26 = and i32 %25, 127
-  %27 = or i32 %26, %23
-  %28 = trunc i32 %27 to i8
-  %29 = load ptr, ptr %19, align 8, !tbaa !14
-  %30 = getelementptr inbounds i8, ptr %29, i64 1
-  store i8 %28, ptr %30, align 1, !tbaa !15
-  %31 = getelementptr inbounds %struct.RTPpacket_t, ptr %0, i64 0, i32 6
-  %32 = load i32, ptr %31, align 8, !tbaa !18
-  %33 = trunc i32 %32 to i16
-  %34 = tail call i16 @llvm.bswap.i16(i16 %33)
-  %35 = load ptr, ptr %19, align 8, !tbaa !14
-  %36 = getelementptr inbounds i8, ptr %35, i64 2
-  store i16 %34, ptr %36, align 1
-  %37 = getelementptr inbounds %struct.RTPpacket_t, ptr %0, i64 0, i32 7
-  %38 = load i32, ptr %37, align 4, !tbaa !19
-  %39 = tail call i32 @llvm.bswap.i32(i32 %38)
-  %40 = load ptr, ptr %19, align 8, !tbaa !14
-  %41 = getelementptr inbounds i8, ptr %40, i64 4
-  store i32 %39, ptr %41, align 1
-  %42 = getelementptr inbounds %struct.RTPpacket_t, ptr %0, i64 0, i32 8
-  %43 = load i32, ptr %42, align 8, !tbaa !20
-  %44 = tail call i32 @llvm.bswap.i32(i32 %43)
-  %45 = load ptr, ptr %19, align 8, !tbaa !14
-  %46 = getelementptr inbounds i8, ptr %45, i64 8
-  store i32 %44, ptr %46, align 1
-  %47 = load ptr, ptr %19, align 8, !tbaa !14
-  %48 = getelementptr inbounds i8, ptr %47, i64 12
-  %49 = getelementptr inbounds %struct.RTPpacket_t, ptr %0, i64 0, i32 9
-  %50 = load ptr, ptr %49, align 8, !tbaa !21
-  %51 = getelementptr inbounds %struct.RTPpacket_t, ptr %0, i64 0, i32 10
-  %52 = load i32, ptr %51, align 8, !tbaa !22
-  %53 = zext i32 %52 to i64
-  tail call void @llvm.memcpy.p0.p0.i64(ptr nonnull align 1 %48, ptr align 1 %50, i64 %53, i1 false)
-  %54 = load i32, ptr %51, align 8, !tbaa !22
-  %55 = add i32 %54, 12
-  %56 = getelementptr inbounds %struct.RTPpacket_t, ptr %0, i64 0, i32 12
-  store i32 %55, ptr %56, align 8, !tbaa !23
+define dso_local i32 @ComposeRTPPacket(ptr nocapture noundef %p) local_unnamed_addr #0 {
+entry:
+  %0 = load i32, ptr %p, align 8, !tbaa !5
+  %and = shl i32 %0, 6
+  %p1 = getelementptr inbounds %struct.RTPpacket_t, ptr %p, i64 0, i32 1
+  %1 = load i32, ptr %p1, align 4, !tbaa !11
+  %and2 = shl i32 %1, 5
+  %shl3 = and i32 %and2, 32
+  %or = or i32 %shl3, %and
+  %x = getelementptr inbounds %struct.RTPpacket_t, ptr %p, i64 0, i32 2
+  %2 = load i32, ptr %x, align 8, !tbaa !12
+  %and4 = shl i32 %2, 4
+  %shl5 = and i32 %and4, 16
+  %or6 = or i32 %or, %shl5
+  %cc = getelementptr inbounds %struct.RTPpacket_t, ptr %p, i64 0, i32 3
+  %3 = load i32, ptr %cc, align 4, !tbaa !13
+  %and7 = and i32 %3, 15
+  %or9 = or i32 %or6, %and7
+  %conv = trunc i32 %or9 to i8
+  %packet = getelementptr inbounds %struct.RTPpacket_t, ptr %p, i64 0, i32 11
+  %4 = load ptr, ptr %packet, align 8, !tbaa !14
+  store i8 %conv, ptr %4, align 1, !tbaa !15
+  %m = getelementptr inbounds %struct.RTPpacket_t, ptr %p, i64 0, i32 4
+  %5 = load i32, ptr %m, align 8, !tbaa !16
+  %and10 = shl i32 %5, 7
+  %pt = getelementptr inbounds %struct.RTPpacket_t, ptr %p, i64 0, i32 5
+  %6 = load i32, ptr %pt, align 4, !tbaa !17
+  %and12 = and i32 %6, 127
+  %or14 = or i32 %and12, %and10
+  %conv15 = trunc i32 %or14 to i8
+  %7 = load ptr, ptr %packet, align 8, !tbaa !14
+  %arrayidx17 = getelementptr inbounds i8, ptr %7, i64 1
+  store i8 %conv15, ptr %arrayidx17, align 1, !tbaa !15
+  %seq = getelementptr inbounds %struct.RTPpacket_t, ptr %p, i64 0, i32 6
+  %8 = load i32, ptr %seq, align 8, !tbaa !18
+  %conv18 = trunc i32 %8 to i16
+  %rev.i = tail call i16 @llvm.bswap.i16(i16 %conv18)
+  %9 = load ptr, ptr %packet, align 8, !tbaa !14
+  %arrayidx20 = getelementptr inbounds i8, ptr %9, i64 2
+  store i16 %rev.i, ptr %arrayidx20, align 1
+  %timestamp = getelementptr inbounds %struct.RTPpacket_t, ptr %p, i64 0, i32 7
+  %10 = load i32, ptr %timestamp, align 4, !tbaa !19
+  %or7.i = tail call i32 @llvm.bswap.i32(i32 %10)
+  %11 = load ptr, ptr %packet, align 8, !tbaa !14
+  %arrayidx23 = getelementptr inbounds i8, ptr %11, i64 4
+  store i32 %or7.i, ptr %arrayidx23, align 1
+  %ssrc = getelementptr inbounds %struct.RTPpacket_t, ptr %p, i64 0, i32 8
+  %12 = load i32, ptr %ssrc, align 8, !tbaa !20
+  %or7.i50 = tail call i32 @llvm.bswap.i32(i32 %12)
+  %13 = load ptr, ptr %packet, align 8, !tbaa !14
+  %arrayidx26 = getelementptr inbounds i8, ptr %13, i64 8
+  store i32 %or7.i50, ptr %arrayidx26, align 1
+  %14 = load ptr, ptr %packet, align 8, !tbaa !14
+  %arrayidx28 = getelementptr inbounds i8, ptr %14, i64 12
+  %payload = getelementptr inbounds %struct.RTPpacket_t, ptr %p, i64 0, i32 9
+  %15 = load ptr, ptr %payload, align 8, !tbaa !21
+  %paylen = getelementptr inbounds %struct.RTPpacket_t, ptr %p, i64 0, i32 10
+  %16 = load i32, ptr %paylen, align 8, !tbaa !22
+  %conv29 = zext i32 %16 to i64
+  tail call void @llvm.memcpy.p0.p0.i64(ptr nonnull align 1 %arrayidx28, ptr align 1 %15, i64 %conv29, i1 false)
+  %17 = load i32, ptr %paylen, align 8, !tbaa !22
+  %add = add i32 %17, 12
+  %packlen = getelementptr inbounds %struct.RTPpacket_t, ptr %p, i64 0, i32 12
+  store i32 %add, ptr %packlen, align 8, !tbaa !23
   ret i32 0
 }
 
@@ -184,170 +185,172 @@ declare void @llvm.memcpy.p0.p0.i64(ptr noalias nocapture writeonly, ptr noalias
 declare void @llvm.lifetime.end.p0(i64 immarg, ptr nocapture) #1
 
 ; Function Attrs: nofree nounwind uwtable
-define dso_local i32 @WriteRTPPacket(ptr nocapture noundef %0, ptr nocapture noundef %1) local_unnamed_addr #3 {
-  %3 = alloca i32, align 4
-  call void @llvm.lifetime.start.p0(i64 4, ptr nonnull %3) #12
-  store i32 -1, ptr %3, align 4, !tbaa !24
-  %4 = getelementptr inbounds %struct.RTPpacket_t, ptr %0, i64 0, i32 12
-  %5 = tail call i64 @fwrite(ptr noundef nonnull %4, i64 noundef 4, i64 noundef 1, ptr noundef %1)
-  %6 = icmp eq i64 %5, 1
-  br i1 %6, label %7, label %18
+define dso_local i32 @WriteRTPPacket(ptr nocapture noundef %p, ptr nocapture noundef %f) local_unnamed_addr #3 {
+entry:
+  %intime = alloca i32, align 4
+  call void @llvm.lifetime.start.p0(i64 4, ptr nonnull %intime) #12
+  store i32 -1, ptr %intime, align 4, !tbaa !24
+  %packlen = getelementptr inbounds %struct.RTPpacket_t, ptr %p, i64 0, i32 12
+  %call = tail call i64 @fwrite(ptr noundef nonnull %packlen, i64 noundef 4, i64 noundef 1, ptr noundef %f)
+  %cmp.not = icmp eq i64 %call, 1
+  br i1 %cmp.not, label %if.end, label %cleanup
 
-7:                                                ; preds = %2
-  %8 = call i64 @fwrite(ptr noundef nonnull %3, i64 noundef 4, i64 noundef 1, ptr noundef %1)
-  %9 = icmp eq i64 %8, 1
-  br i1 %9, label %10, label %18
+if.end:                                           ; preds = %entry
+  %call1 = call i64 @fwrite(ptr noundef nonnull %intime, i64 noundef 4, i64 noundef 1, ptr noundef %f)
+  %cmp2.not = icmp eq i64 %call1, 1
+  br i1 %cmp2.not, label %if.end4, label %cleanup
 
-10:                                               ; preds = %7
-  %11 = getelementptr inbounds %struct.RTPpacket_t, ptr %0, i64 0, i32 11
-  %12 = load ptr, ptr %11, align 8, !tbaa !14
-  %13 = load i32, ptr %4, align 8, !tbaa !23
-  %14 = zext i32 %13 to i64
-  %15 = tail call i64 @fwrite(ptr noundef %12, i64 noundef %14, i64 noundef 1, ptr noundef %1)
-  %16 = icmp ne i64 %15, 1
-  %17 = sext i1 %16 to i32
-  br label %18
+if.end4:                                          ; preds = %if.end
+  %packet = getelementptr inbounds %struct.RTPpacket_t, ptr %p, i64 0, i32 11
+  %0 = load ptr, ptr %packet, align 8, !tbaa !14
+  %1 = load i32, ptr %packlen, align 8, !tbaa !23
+  %conv = zext i32 %1 to i64
+  %call6 = tail call i64 @fwrite(ptr noundef %0, i64 noundef %conv, i64 noundef 1, ptr noundef %f)
+  %cmp7.not = icmp ne i64 %call6, 1
+  %. = sext i1 %cmp7.not to i32
+  br label %cleanup
 
-18:                                               ; preds = %10, %7, %2
-  %19 = phi i32 [ -1, %2 ], [ -1, %7 ], [ %17, %10 ]
-  call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %3) #12
-  ret i32 %19
+cleanup:                                          ; preds = %if.end4, %if.end, %entry
+  %retval.0 = phi i32 [ -1, %entry ], [ -1, %if.end ], [ %., %if.end4 ]
+  call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %intime) #12
+  ret i32 %retval.0
 }
 
 ; Function Attrs: nofree nounwind
 declare noundef i64 @fwrite(ptr nocapture noundef, i64 noundef, i64 noundef, ptr nocapture noundef) local_unnamed_addr #4
 
 ; Function Attrs: nounwind uwtable
-define dso_local i32 @WriteRTPNALU(ptr nocapture noundef readonly %0) local_unnamed_addr #5 {
-  %2 = alloca i32, align 4
-  %3 = getelementptr inbounds %struct.NALU_t, ptr %0, i64 0, i32 5
-  %4 = load i32, ptr %3, align 4, !tbaa !25
-  %5 = shl i32 %4, 7
-  %6 = getelementptr inbounds %struct.NALU_t, ptr %0, i64 0, i32 4
-  %7 = load i32, ptr %6, align 8, !tbaa !27
-  %8 = shl i32 %7, 5
-  %9 = or i32 %8, %5
-  %10 = getelementptr inbounds %struct.NALU_t, ptr %0, i64 0, i32 3
-  %11 = load i32, ptr %10, align 4, !tbaa !28
-  %12 = or i32 %9, %11
-  %13 = trunc i32 %12 to i8
-  %14 = getelementptr inbounds %struct.NALU_t, ptr %0, i64 0, i32 6
-  %15 = load ptr, ptr %14, align 8, !tbaa !29
-  store i8 %13, ptr %15, align 1, !tbaa !15
-  %16 = tail call noalias dereferenceable_or_null(72) ptr @malloc(i64 noundef 72) #13
-  %17 = icmp eq ptr %16, null
-  br i1 %17, label %18, label %19
+define dso_local i32 @WriteRTPNALU(ptr nocapture noundef readonly %n) local_unnamed_addr #5 {
+entry:
+  %intime.i = alloca i32, align 4
+  %forbidden_bit = getelementptr inbounds %struct.NALU_t, ptr %n, i64 0, i32 5
+  %0 = load i32, ptr %forbidden_bit, align 4, !tbaa !25
+  %shl = shl i32 %0, 7
+  %nal_reference_idc = getelementptr inbounds %struct.NALU_t, ptr %n, i64 0, i32 4
+  %1 = load i32, ptr %nal_reference_idc, align 8, !tbaa !27
+  %shl1 = shl i32 %1, 5
+  %or = or i32 %shl1, %shl
+  %nal_unit_type = getelementptr inbounds %struct.NALU_t, ptr %n, i64 0, i32 3
+  %2 = load i32, ptr %nal_unit_type, align 4, !tbaa !28
+  %or2 = or i32 %or, %2
+  %conv = trunc i32 %or2 to i8
+  %buf = getelementptr inbounds %struct.NALU_t, ptr %n, i64 0, i32 6
+  %3 = load ptr, ptr %buf, align 8, !tbaa !29
+  store i8 %conv, ptr %3, align 1, !tbaa !15
+  %call = tail call noalias dereferenceable_or_null(72) ptr @malloc(i64 noundef 72) #13
+  %cmp = icmp eq ptr %call, null
+  br i1 %cmp, label %if.then, label %if.end
 
-18:                                               ; preds = %1
+if.then:                                          ; preds = %entry
   tail call void @no_mem_exit(ptr noundef nonnull @.str) #12
-  br label %19
+  br label %if.end
 
-19:                                               ; preds = %18, %1
-  %20 = tail call noalias dereferenceable_or_null(65508) ptr @malloc(i64 noundef 65508) #13
-  %21 = getelementptr inbounds %struct.RTPpacket_t, ptr %16, i64 0, i32 11
-  store ptr %20, ptr %21, align 8, !tbaa !14
-  %22 = icmp eq ptr %20, null
-  br i1 %22, label %23, label %24
+if.end:                                           ; preds = %if.then, %entry
+  %call4 = tail call noalias dereferenceable_or_null(65508) ptr @malloc(i64 noundef 65508) #13
+  %packet = getelementptr inbounds %struct.RTPpacket_t, ptr %call, i64 0, i32 11
+  store ptr %call4, ptr %packet, align 8, !tbaa !14
+  %cmp5 = icmp eq ptr %call4, null
+  br i1 %cmp5, label %if.then7, label %if.end8
 
-23:                                               ; preds = %19
+if.then7:                                         ; preds = %if.end
   tail call void @no_mem_exit(ptr noundef nonnull @.str.1) #12
-  br label %24
+  br label %if.end8
 
-24:                                               ; preds = %23, %19
-  %25 = tail call noalias dereferenceable_or_null(65508) ptr @malloc(i64 noundef 65508) #13
-  %26 = getelementptr inbounds %struct.RTPpacket_t, ptr %16, i64 0, i32 9
-  store ptr %25, ptr %26, align 8, !tbaa !21
-  %27 = icmp eq ptr %25, null
-  br i1 %27, label %28, label %29
+if.end8:                                          ; preds = %if.then7, %if.end
+  %call9 = tail call noalias dereferenceable_or_null(65508) ptr @malloc(i64 noundef 65508) #13
+  %payload = getelementptr inbounds %struct.RTPpacket_t, ptr %call, i64 0, i32 9
+  store ptr %call9, ptr %payload, align 8, !tbaa !21
+  %cmp10 = icmp eq ptr %call9, null
+  br i1 %cmp10, label %if.then12, label %if.end13
 
-28:                                               ; preds = %24
+if.then12:                                        ; preds = %if.end8
   tail call void @no_mem_exit(ptr noundef nonnull @.str.2) #12
-  br label %29
+  br label %if.end13
 
-29:                                               ; preds = %24, %28
-  store <4 x i32> <i32 2, i32 0, i32 0, i32 0>, ptr %16, align 8, !tbaa !24
-  %30 = load i32, ptr %0, align 8, !tbaa !30
-  %31 = icmp eq i32 %30, 4
-  %32 = zext i1 %31 to i32
-  %33 = getelementptr inbounds %struct.RTPpacket_t, ptr %16, i64 0, i32 4
-  store i32 %32, ptr %33, align 8, !tbaa !16
-  %34 = getelementptr inbounds %struct.RTPpacket_t, ptr %16, i64 0, i32 5
-  store i32 105, ptr %34, align 4, !tbaa !17
-  %35 = load i32, ptr @CurrentRTPSequenceNumber, align 4, !tbaa !24
-  %36 = add nsw i32 %35, 1
-  store i32 %36, ptr @CurrentRTPSequenceNumber, align 4, !tbaa !24
-  %37 = getelementptr inbounds %struct.RTPpacket_t, ptr %16, i64 0, i32 6
-  store i32 %35, ptr %37, align 8, !tbaa !18
-  %38 = load i32, ptr @CurrentRTPTimestamp, align 4, !tbaa !24
-  %39 = getelementptr inbounds %struct.RTPpacket_t, ptr %16, i64 0, i32 7
-  store i32 %38, ptr %39, align 4, !tbaa !19
-  %40 = getelementptr inbounds %struct.RTPpacket_t, ptr %16, i64 0, i32 8
-  store i32 305419896, ptr %40, align 8, !tbaa !20
-  %41 = getelementptr inbounds %struct.NALU_t, ptr %0, i64 0, i32 1
-  %42 = load i32, ptr %41, align 4, !tbaa !24
-  %43 = getelementptr inbounds %struct.RTPpacket_t, ptr %16, i64 0, i32 10
-  store i32 %42, ptr %43, align 8, !tbaa !22
-  %44 = load ptr, ptr %14, align 8, !tbaa !29
-  %45 = zext i32 %42 to i64
-  tail call void @llvm.memcpy.p0.p0.i64(ptr align 1 %25, ptr align 1 %44, i64 %45, i1 false)
-  store i8 -128, ptr %20, align 1, !tbaa !15
-  %46 = select i1 %31, i8 -23, i8 105
-  %47 = getelementptr inbounds i8, ptr %20, i64 1
-  store i8 %46, ptr %47, align 1, !tbaa !15
-  %48 = trunc i32 %35 to i16
-  %49 = tail call i16 @llvm.bswap.i16(i16 %48)
-  %50 = getelementptr inbounds i8, ptr %20, i64 2
-  store i16 %49, ptr %50, align 1
-  %51 = tail call i32 @llvm.bswap.i32(i32 %38)
-  %52 = getelementptr inbounds i8, ptr %20, i64 4
-  store i32 %51, ptr %52, align 1
-  %53 = getelementptr inbounds i8, ptr %20, i64 8
-  store i32 2018915346, ptr %53, align 1
-  %54 = getelementptr inbounds i8, ptr %20, i64 12
-  tail call void @llvm.memcpy.p0.p0.i64(ptr nonnull align 1 %54, ptr align 1 %25, i64 %45, i1 false)
-  %55 = add i32 %42, 12
-  %56 = getelementptr inbounds %struct.RTPpacket_t, ptr %16, i64 0, i32 12
-  store i32 %55, ptr %56, align 8, !tbaa !23
-  %57 = load ptr, ptr @f, align 8, !tbaa !31
-  call void @llvm.lifetime.start.p0(i64 4, ptr nonnull %2) #12
-  store i32 -1, ptr %2, align 4, !tbaa !24
-  %58 = tail call i64 @fwrite(ptr noundef nonnull %56, i64 noundef 4, i64 noundef 1, ptr noundef %57)
-  %59 = icmp eq i64 %58, 1
-  br i1 %59, label %60, label %63
+if.end13:                                         ; preds = %if.then12, %if.end8
+  store <4 x i32> <i32 2, i32 0, i32 0, i32 0>, ptr %call, align 8, !tbaa !24
+  %4 = load i32, ptr %n, align 8, !tbaa !30
+  %cmp15 = icmp eq i32 %4, 4
+  %conv16 = zext i1 %cmp15 to i32
+  %m = getelementptr inbounds %struct.RTPpacket_t, ptr %call, i64 0, i32 4
+  store i32 %conv16, ptr %m, align 8, !tbaa !16
+  %pt = getelementptr inbounds %struct.RTPpacket_t, ptr %call, i64 0, i32 5
+  store i32 105, ptr %pt, align 4, !tbaa !17
+  %5 = load i32, ptr @CurrentRTPSequenceNumber, align 4, !tbaa !24
+  %inc = add nsw i32 %5, 1
+  store i32 %inc, ptr @CurrentRTPSequenceNumber, align 4, !tbaa !24
+  %seq = getelementptr inbounds %struct.RTPpacket_t, ptr %call, i64 0, i32 6
+  store i32 %5, ptr %seq, align 8, !tbaa !18
+  %6 = load i32, ptr @CurrentRTPTimestamp, align 4, !tbaa !24
+  %timestamp = getelementptr inbounds %struct.RTPpacket_t, ptr %call, i64 0, i32 7
+  store i32 %6, ptr %timestamp, align 4, !tbaa !19
+  %ssrc = getelementptr inbounds %struct.RTPpacket_t, ptr %call, i64 0, i32 8
+  store i32 305419896, ptr %ssrc, align 8, !tbaa !20
+  %len = getelementptr inbounds %struct.NALU_t, ptr %n, i64 0, i32 1
+  %7 = load i32, ptr %len, align 4, !tbaa !24
+  %paylen = getelementptr inbounds %struct.RTPpacket_t, ptr %call, i64 0, i32 10
+  store i32 %7, ptr %paylen, align 8, !tbaa !22
+  %8 = load ptr, ptr %buf, align 8, !tbaa !29
+  %conv20 = zext i32 %7 to i64
+  tail call void @llvm.memcpy.p0.p0.i64(ptr align 1 %call9, ptr align 1 %8, i64 %conv20, i1 false)
+  store i8 -128, ptr %call4, align 1, !tbaa !15
+  %conv15.i = select i1 %cmp15, i8 -23, i8 105
+  %arrayidx17.i = getelementptr inbounds i8, ptr %call4, i64 1
+  store i8 %conv15.i, ptr %arrayidx17.i, align 1, !tbaa !15
+  %conv18.i = trunc i32 %5 to i16
+  %rev.i.i = tail call i16 @llvm.bswap.i16(i16 %conv18.i)
+  %arrayidx20.i = getelementptr inbounds i8, ptr %call4, i64 2
+  store i16 %rev.i.i, ptr %arrayidx20.i, align 1
+  %or7.i.i = tail call i32 @llvm.bswap.i32(i32 %6)
+  %arrayidx23.i = getelementptr inbounds i8, ptr %call4, i64 4
+  store i32 %or7.i.i, ptr %arrayidx23.i, align 1
+  %arrayidx26.i = getelementptr inbounds i8, ptr %call4, i64 8
+  store i32 2018915346, ptr %arrayidx26.i, align 1
+  %arrayidx28.i = getelementptr inbounds i8, ptr %call4, i64 12
+  tail call void @llvm.memcpy.p0.p0.i64(ptr nonnull align 1 %arrayidx28.i, ptr align 1 %call9, i64 %conv20, i1 false)
+  %add.i = add i32 %7, 12
+  %packlen.i = getelementptr inbounds %struct.RTPpacket_t, ptr %call, i64 0, i32 12
+  store i32 %add.i, ptr %packlen.i, align 8, !tbaa !23
+  %9 = load ptr, ptr @f, align 8, !tbaa !31
+  call void @llvm.lifetime.start.p0(i64 4, ptr nonnull %intime.i) #12
+  store i32 -1, ptr %intime.i, align 4, !tbaa !24
+  %call.i = tail call i64 @fwrite(ptr noundef nonnull %packlen.i, i64 noundef 4, i64 noundef 1, ptr noundef %9)
+  %cmp.not.i = icmp eq i64 %call.i, 1
+  br i1 %cmp.not.i, label %if.end.i, label %WriteRTPPacket.exit.thread
 
-60:                                               ; preds = %29
-  %61 = call i64 @fwrite(ptr noundef nonnull %2, i64 noundef 4, i64 noundef 1, ptr noundef %57)
-  %62 = icmp eq i64 %61, 1
-  br i1 %62, label %65, label %63
+if.end.i:                                         ; preds = %if.end13
+  %call1.i = call i64 @fwrite(ptr noundef nonnull %intime.i, i64 noundef 4, i64 noundef 1, ptr noundef %9)
+  %cmp2.not.i = icmp eq i64 %call1.i, 1
+  br i1 %cmp2.not.i, label %WriteRTPPacket.exit, label %WriteRTPPacket.exit.thread
 
-63:                                               ; preds = %29, %60
-  call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %2) #12
-  %64 = load i32, ptr %56, align 8, !tbaa !23
-  br label %71
+WriteRTPPacket.exit.thread:                       ; preds = %if.end13, %if.end.i
+  call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %intime.i) #12
+  %.pre = load i32, ptr %packlen.i, align 8, !tbaa !23
+  br label %if.then30
 
-65:                                               ; preds = %60
-  %66 = load ptr, ptr %21, align 8, !tbaa !14
-  %67 = load i32, ptr %56, align 8, !tbaa !23
-  %68 = zext i32 %67 to i64
-  %69 = tail call i64 @fwrite(ptr noundef %66, i64 noundef %68, i64 noundef 1, ptr noundef %57)
-  %70 = icmp eq i64 %69, 1
-  call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %2) #12
-  br i1 %70, label %74, label %71
+WriteRTPPacket.exit:                              ; preds = %if.end.i
+  %10 = load ptr, ptr %packet, align 8, !tbaa !14
+  %11 = load i32, ptr %packlen.i, align 8, !tbaa !23
+  %conv.i64 = zext i32 %11 to i64
+  %call6.i = tail call i64 @fwrite(ptr noundef %10, i64 noundef %conv.i64, i64 noundef 1, ptr noundef %9)
+  %cmp7.not.i.not = icmp eq i64 %call6.i, 1
+  call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %intime.i) #12
+  br i1 %cmp7.not.i.not, label %if.end32, label %if.then30
 
-71:                                               ; preds = %63, %65
-  %72 = phi i32 [ %64, %63 ], [ %67, %65 ]
-  %73 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.4, i32 noundef %72)
+if.then30:                                        ; preds = %WriteRTPPacket.exit.thread, %WriteRTPPacket.exit
+  %12 = phi i32 [ %.pre, %WriteRTPPacket.exit.thread ], [ %11, %WriteRTPPacket.exit ]
+  %call31 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.4, i32 noundef %12)
   tail call void @exit(i32 noundef -1) #14
   unreachable
 
-74:                                               ; preds = %65
-  tail call void @free(ptr noundef %66) #12
-  %75 = load ptr, ptr %26, align 8, !tbaa !21
-  tail call void @free(ptr noundef %75) #12
-  tail call void @free(ptr noundef nonnull %16) #12
-  %76 = load i32, ptr %41, align 4, !tbaa !32
-  %77 = shl i32 %76, 3
-  ret i32 %77
+if.end32:                                         ; preds = %WriteRTPPacket.exit
+  tail call void @free(ptr noundef %10) #12
+  %13 = load ptr, ptr %payload, align 8, !tbaa !21
+  tail call void @free(ptr noundef %13) #12
+  tail call void @free(ptr noundef nonnull %call) #12
+  %14 = load i32, ptr %len, align 4, !tbaa !32
+  %mul = shl i32 %14, 3
+  ret i32 %mul
 }
 
 ; Function Attrs: mustprogress nofree nounwind willreturn allockind("alloc,uninitialized") allocsize(0) memory(inaccessiblemem: readwrite)
@@ -365,42 +368,44 @@ declare void @exit(i32 noundef) local_unnamed_addr #8
 declare void @free(ptr allocptr nocapture noundef) local_unnamed_addr #9
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(readwrite, argmem: none, inaccessiblemem: none) uwtable
-define dso_local void @RTPUpdateTimestamp(i32 noundef %0) local_unnamed_addr #10 {
-  %2 = load i32, ptr @RTPUpdateTimestamp.oldtr, align 4, !tbaa !24
-  %3 = icmp eq i32 %2, -1
-  br i1 %3, label %12, label %4
+define dso_local void @RTPUpdateTimestamp(i32 noundef %tr) local_unnamed_addr #10 {
+entry:
+  %0 = load i32, ptr @RTPUpdateTimestamp.oldtr, align 4, !tbaa !24
+  %cmp = icmp eq i32 %0, -1
+  br i1 %cmp, label %cleanup, label %if.end
 
-4:                                                ; preds = %1
-  %5 = sub nsw i32 %0, %2
-  %6 = icmp slt i32 %5, -10
-  %7 = add nsw i32 %5, 256
-  %8 = select i1 %6, i32 %7, i32 %5
-  %9 = mul nsw i32 %8, 1000
-  %10 = load i32, ptr @CurrentRTPTimestamp, align 4, !tbaa !24
-  %11 = add nsw i32 %10, %9
-  br label %12
+if.end:                                           ; preds = %entry
+  %sub = sub nsw i32 %tr, %0
+  %cmp1 = icmp slt i32 %sub, -10
+  %add = add nsw i32 %sub, 256
+  %spec.select = select i1 %cmp1, i32 %add, i32 %sub
+  %mul = mul nsw i32 %spec.select, 1000
+  %1 = load i32, ptr @CurrentRTPTimestamp, align 4, !tbaa !24
+  %add4 = add nsw i32 %1, %mul
+  br label %cleanup
 
-12:                                               ; preds = %1, %4
-  %13 = phi i32 [ %11, %4 ], [ 0, %1 ]
-  %14 = phi i32 [ %0, %4 ], [ 0, %1 ]
-  store i32 %13, ptr @CurrentRTPTimestamp, align 4, !tbaa !24
-  store i32 %14, ptr @RTPUpdateTimestamp.oldtr, align 4, !tbaa !24
+cleanup:                                          ; preds = %entry, %if.end
+  %storemerge8 = phi i32 [ %add4, %if.end ], [ 0, %entry ]
+  %storemerge = phi i32 [ %tr, %if.end ], [ 0, %entry ]
+  store i32 %storemerge8, ptr @CurrentRTPTimestamp, align 4, !tbaa !24
+  store i32 %storemerge, ptr @RTPUpdateTimestamp.oldtr, align 4, !tbaa !24
   ret void
 }
 
 ; Function Attrs: nounwind uwtable
-define dso_local void @OpenRTPFile(ptr noundef %0) local_unnamed_addr #5 {
-  %2 = tail call noalias ptr @fopen64(ptr noundef %0, ptr noundef nonnull @.str.5)
-  store ptr %2, ptr @f, align 8, !tbaa !31
-  %3 = icmp eq ptr %2, null
-  br i1 %3, label %4, label %6
+define dso_local void @OpenRTPFile(ptr noundef %Filename) local_unnamed_addr #5 {
+entry:
+  %call = tail call noalias ptr @fopen64(ptr noundef %Filename, ptr noundef nonnull @.str.5)
+  store ptr %call, ptr @f, align 8, !tbaa !31
+  %cmp = icmp eq ptr %call, null
+  br i1 %cmp, label %if.then, label %if.end
 
-4:                                                ; preds = %1
-  %5 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.6, ptr noundef %0)
+if.then:                                          ; preds = %entry
+  %call1 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.6, ptr noundef %Filename)
   tail call void @exit(i32 noundef -1) #14
   unreachable
 
-6:                                                ; preds = %1
+if.end:                                           ; preds = %entry
   ret void
 }
 
@@ -409,8 +414,9 @@ declare noalias noundef ptr @fopen64(ptr nocapture noundef readonly, ptr nocaptu
 
 ; Function Attrs: nofree nounwind uwtable
 define dso_local void @CloseRTPFile() local_unnamed_addr #3 {
-  %1 = load ptr, ptr @f, align 8, !tbaa !31
-  %2 = tail call i32 @fclose(ptr noundef %1)
+entry:
+  %0 = load ptr, ptr @f, align 8, !tbaa !31
+  %call = tail call i32 @fclose(ptr noundef %0)
   ret void
 }
 

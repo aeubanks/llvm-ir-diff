@@ -11,8 +11,9 @@ target triple = "x86_64-unknown-linux-gnu"
 @s = dso_local global %struct.S zeroinitializer, align 2
 
 ; Function Attrs: mustprogress nofree nosync nounwind willreturn memory(argmem: readwrite, inaccessiblemem: readwrite) uwtable
-define dso_local void @arg_ptr(ptr nocapture noundef readonly %0) local_unnamed_addr #0 {
-  tail call void @llvm.prefetch.p0(ptr %0, i32 0, i32 0, i32 1)
+define dso_local void @arg_ptr(ptr nocapture noundef readonly %p) local_unnamed_addr #0 {
+entry:
+  tail call void @llvm.prefetch.p0(ptr %p, i32 0, i32 0, i32 1)
   ret void
 }
 
@@ -20,48 +21,52 @@ define dso_local void @arg_ptr(ptr nocapture noundef readonly %0) local_unnamed_
 declare void @llvm.prefetch.p0(ptr nocapture readonly, i32 immarg, i32 immarg, i32 immarg) #1
 
 ; Function Attrs: mustprogress nofree nosync nounwind willreturn memory(argmem: readwrite, inaccessiblemem: readwrite) uwtable
-define dso_local void @arg_idx(ptr nocapture noundef readonly %0, i32 noundef %1) local_unnamed_addr #0 {
-  %3 = sext i32 %1 to i64
-  %4 = getelementptr inbounds i8, ptr %0, i64 %3
-  tail call void @llvm.prefetch.p0(ptr %4, i32 0, i32 0, i32 1)
+define dso_local void @arg_idx(ptr nocapture noundef readonly %p, i32 noundef %i) local_unnamed_addr #0 {
+entry:
+  %idxprom = sext i32 %i to i64
+  %arrayidx = getelementptr inbounds i8, ptr %p, i64 %idxprom
+  tail call void @llvm.prefetch.p0(ptr %arrayidx, i32 0, i32 0, i32 1)
   ret void
 }
 
 ; Function Attrs: mustprogress nofree nosync nounwind willreturn uwtable
 define dso_local void @glob_ptr() local_unnamed_addr #2 {
-  %1 = load ptr, ptr @ptr, align 8, !tbaa !5
-  tail call void @llvm.prefetch.p0(ptr %1, i32 0, i32 0, i32 1)
+entry:
+  %0 = load ptr, ptr @ptr, align 8, !tbaa !5
+  tail call void @llvm.prefetch.p0(ptr %0, i32 0, i32 0, i32 1)
   ret void
 }
 
 ; Function Attrs: mustprogress nofree nosync nounwind willreturn uwtable
 define dso_local void @glob_idx() local_unnamed_addr #2 {
-  %1 = load ptr, ptr @ptr, align 8, !tbaa !5
-  %2 = load i32, ptr @idx, align 4, !tbaa !9
-  %3 = sext i32 %2 to i64
-  %4 = getelementptr inbounds i8, ptr %1, i64 %3
-  tail call void @llvm.prefetch.p0(ptr %4, i32 0, i32 0, i32 1)
+entry:
+  %0 = load ptr, ptr @ptr, align 8, !tbaa !5
+  %1 = load i32, ptr @idx, align 4, !tbaa !9
+  %idxprom = sext i32 %1 to i64
+  %arrayidx = getelementptr inbounds i8, ptr %0, i64 %idxprom
+  tail call void @llvm.prefetch.p0(ptr %arrayidx, i32 0, i32 0, i32 1)
   ret void
 }
 
 ; Function Attrs: noreturn nounwind uwtable
 define dso_local i32 @main() local_unnamed_addr #3 {
+entry:
   tail call void @llvm.prefetch.p0(ptr nonnull getelementptr inbounds (%struct.S, ptr @s, i64 0, i32 1), i32 0, i32 0, i32 1)
   tail call void @llvm.prefetch.p0(ptr nonnull getelementptr inbounds (%struct.S, ptr @s, i64 0, i32 2, i64 1), i32 0, i32 0, i32 1)
   tail call void @llvm.prefetch.p0(ptr nonnull getelementptr inbounds (%struct.S, ptr @s, i64 0, i32 2, i64 1), i32 0, i32 0, i32 1)
-  %1 = load ptr, ptr @ptr, align 8, !tbaa !5
-  %2 = getelementptr inbounds i8, ptr %1, i64 3
-  tail call void @llvm.prefetch.p0(ptr nonnull %2, i32 0, i32 0, i32 1)
-  tail call void @llvm.prefetch.p0(ptr nonnull %2, i32 0, i32 0, i32 1)
-  tail call void @llvm.prefetch.p0(ptr nonnull %2, i32 0, i32 0, i32 1)
+  %0 = load ptr, ptr @ptr, align 8, !tbaa !5
+  %add.ptr = getelementptr inbounds i8, ptr %0, i64 3
+  tail call void @llvm.prefetch.p0(ptr nonnull %add.ptr, i32 0, i32 0, i32 1)
+  tail call void @llvm.prefetch.p0(ptr nonnull %add.ptr, i32 0, i32 0, i32 1)
+  %add.ptr1 = getelementptr inbounds i8, ptr %0, i64 1
+  tail call void @llvm.prefetch.p0(ptr nonnull %add.ptr, i32 0, i32 0, i32 1)
   store i32 3, ptr @idx, align 4, !tbaa !9
-  tail call void @llvm.prefetch.p0(ptr %1, i32 0, i32 0, i32 1)
-  tail call void @llvm.prefetch.p0(ptr nonnull %2, i32 0, i32 0, i32 1)
-  %3 = getelementptr inbounds i8, ptr %1, i64 1
-  store ptr %3, ptr @ptr, align 8, !tbaa !5
+  tail call void @llvm.prefetch.p0(ptr %0, i32 0, i32 0, i32 1)
+  tail call void @llvm.prefetch.p0(ptr nonnull %add.ptr, i32 0, i32 0, i32 1)
+  store ptr %add.ptr1, ptr @ptr, align 8, !tbaa !5
   store i32 2, ptr @idx, align 4, !tbaa !9
-  tail call void @llvm.prefetch.p0(ptr nonnull %3, i32 0, i32 0, i32 1)
-  tail call void @llvm.prefetch.p0(ptr nonnull %2, i32 0, i32 0, i32 1)
+  tail call void @llvm.prefetch.p0(ptr nonnull %add.ptr1, i32 0, i32 0, i32 1)
+  tail call void @llvm.prefetch.p0(ptr nonnull %add.ptr, i32 0, i32 0, i32 1)
   tail call void @exit(i32 noundef 0) #5
   unreachable
 }

@@ -54,660 +54,676 @@ target triple = "x86_64-unknown-linux-gnu"
 @.str.44 = private unnamed_addr constant [4 x i8] c"PHP\00", align 1
 
 ; Function Attrs: nounwind uwtable
-define dso_local i32 @TreeCCOptionProcess(ptr noundef %0, ptr nocapture noundef readonly %1, ptr noundef %2) local_unnamed_addr #0 {
-  %4 = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %1, ptr noundef nonnull dereferenceable(12) @.str) #6
-  %5 = icmp eq i32 %4, 0
-  br i1 %5, label %6, label %13
+define dso_local i32 @TreeCCOptionProcess(ptr noundef %context, ptr nocapture noundef readonly %name, ptr noundef %value) local_unnamed_addr #0 {
+entry:
+  %call = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %name, ptr noundef nonnull dereferenceable(12) @.str) #6
+  %tobool.not = icmp eq i32 %call, 0
+  br i1 %tobool.not, label %if.then, label %if.end
 
-6:                                                ; preds = %103, %100, %97, %94, %91, %88, %85, %82, %79, %76, %73, %70, %67, %64, %61, %58, %55, %52, %49, %46, %43, %40, %37, %34, %31, %28, %25, %22, %19, %16, %13, %3
-  %7 = phi i64 [ 0, %3 ], [ 1, %13 ], [ 2, %16 ], [ 3, %19 ], [ 4, %22 ], [ 5, %25 ], [ 6, %28 ], [ 7, %31 ], [ 8, %34 ], [ 9, %37 ], [ 10, %40 ], [ 11, %43 ], [ 12, %46 ], [ 13, %49 ], [ 14, %52 ], [ 15, %55 ], [ 16, %58 ], [ 17, %61 ], [ 18, %64 ], [ 19, %67 ], [ 20, %70 ], [ 21, %73 ], [ 22, %76 ], [ 23, %79 ], [ 24, %82 ], [ 25, %85 ], [ 26, %88 ], [ 27, %91 ], [ 28, %94 ], [ 29, %97 ], [ 30, %100 ], [ 31, %103 ]
-  %8 = getelementptr inbounds [33 x %struct.anon], ptr @OptionHandlers, i64 0, i64 %7, i32 1
-  %9 = load ptr, ptr %8, align 8, !tbaa !5
-  %10 = getelementptr inbounds [33 x %struct.anon], ptr @OptionHandlers, i64 0, i64 %7, i32 2
-  %11 = load i32, ptr %10, align 8, !tbaa !11
-  %12 = tail call i32 %9(ptr noundef %0, ptr noundef %2, i32 noundef %11) #7
-  br label %106
+if.then:                                          ; preds = %if.end.30, %if.end.29, %if.end.28, %if.end.27, %if.end.26, %if.end.25, %if.end.24, %if.end.23, %if.end.22, %if.end.21, %if.end.20, %if.end.19, %if.end.18, %if.end.17, %if.end.16, %if.end.15, %if.end.14, %if.end.13, %if.end.12, %if.end.11, %if.end.10, %if.end.9, %if.end.8, %if.end.7, %if.end.6, %if.end.5, %if.end.4, %if.end.3, %if.end.2, %if.end.1, %if.end, %entry
+  %opt.015.lcssa.wide = phi i64 [ 0, %entry ], [ 1, %if.end ], [ 2, %if.end.1 ], [ 3, %if.end.2 ], [ 4, %if.end.3 ], [ 5, %if.end.4 ], [ 6, %if.end.5 ], [ 7, %if.end.6 ], [ 8, %if.end.7 ], [ 9, %if.end.8 ], [ 10, %if.end.9 ], [ 11, %if.end.10 ], [ 12, %if.end.11 ], [ 13, %if.end.12 ], [ 14, %if.end.13 ], [ 15, %if.end.14 ], [ 16, %if.end.15 ], [ 17, %if.end.16 ], [ 18, %if.end.17 ], [ 19, %if.end.18 ], [ 20, %if.end.19 ], [ 21, %if.end.20 ], [ 22, %if.end.21 ], [ 23, %if.end.22 ], [ 24, %if.end.23 ], [ 25, %if.end.24 ], [ 26, %if.end.25 ], [ 27, %if.end.26 ], [ 28, %if.end.27 ], [ 29, %if.end.28 ], [ 30, %if.end.29 ], [ 31, %if.end.30 ]
+  %func = getelementptr inbounds [33 x %struct.anon], ptr @OptionHandlers, i64 0, i64 %opt.015.lcssa.wide, i32 1
+  %0 = load ptr, ptr %func, align 8, !tbaa !5
+  %flag = getelementptr inbounds [33 x %struct.anon], ptr @OptionHandlers, i64 0, i64 %opt.015.lcssa.wide, i32 2
+  %1 = load i32, ptr %flag, align 8, !tbaa !11
+  %call9 = tail call i32 %0(ptr noundef %context, ptr noundef %value, i32 noundef %1) #7
+  br label %cleanup
 
-13:                                               ; preds = %3
-  %14 = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %1, ptr noundef nonnull dereferenceable(15) @.str.1) #6
-  %15 = icmp eq i32 %14, 0
-  br i1 %15, label %6, label %16
+if.end:                                           ; preds = %entry
+  %call.1 = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %name, ptr noundef nonnull dereferenceable(15) @.str.1) #6
+  %tobool.not.1 = icmp eq i32 %call.1, 0
+  br i1 %tobool.not.1, label %if.then, label %if.end.1
 
-16:                                               ; preds = %13
-  %17 = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %1, ptr noundef nonnull dereferenceable(14) @.str.2) #6
-  %18 = icmp eq i32 %17, 0
-  br i1 %18, label %6, label %19
+if.end.1:                                         ; preds = %if.end
+  %call.2 = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %name, ptr noundef nonnull dereferenceable(14) @.str.2) #6
+  %tobool.not.2 = icmp eq i32 %call.2, 0
+  br i1 %tobool.not.2, label %if.then, label %if.end.2
 
-19:                                               ; preds = %16
-  %20 = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %1, ptr noundef nonnull dereferenceable(11) @.str.3) #6
-  %21 = icmp eq i32 %20, 0
-  br i1 %21, label %6, label %22
+if.end.2:                                         ; preds = %if.end.1
+  %call.3 = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %name, ptr noundef nonnull dereferenceable(11) @.str.3) #6
+  %tobool.not.3 = icmp eq i32 %call.3, 0
+  br i1 %tobool.not.3, label %if.then, label %if.end.3
 
-22:                                               ; preds = %19
-  %23 = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %1, ptr noundef nonnull dereferenceable(10) @.str.4) #6
-  %24 = icmp eq i32 %23, 0
-  br i1 %24, label %6, label %25
+if.end.3:                                         ; preds = %if.end.2
+  %call.4 = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %name, ptr noundef nonnull dereferenceable(10) @.str.4) #6
+  %tobool.not.4 = icmp eq i32 %call.4, 0
+  br i1 %tobool.not.4, label %if.then, label %if.end.4
 
-25:                                               ; preds = %22
-  %26 = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %1, ptr noundef nonnull dereferenceable(13) @.str.5) #6
-  %27 = icmp eq i32 %26, 0
-  br i1 %27, label %6, label %28
+if.end.4:                                         ; preds = %if.end.3
+  %call.5 = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %name, ptr noundef nonnull dereferenceable(13) @.str.5) #6
+  %tobool.not.5 = icmp eq i32 %call.5, 0
+  br i1 %tobool.not.5, label %if.then, label %if.end.5
 
-28:                                               ; preds = %25
-  %29 = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %1, ptr noundef nonnull dereferenceable(6) @.str.6) #6
-  %30 = icmp eq i32 %29, 0
-  br i1 %30, label %6, label %31
+if.end.5:                                         ; preds = %if.end.4
+  %call.6 = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %name, ptr noundef nonnull dereferenceable(6) @.str.6) #6
+  %tobool.not.6 = icmp eq i32 %call.6, 0
+  br i1 %tobool.not.6, label %if.then, label %if.end.6
 
-31:                                               ; preds = %28
-  %32 = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %1, ptr noundef nonnull dereferenceable(9) @.str.7) #6
-  %33 = icmp eq i32 %32, 0
-  br i1 %33, label %6, label %34
+if.end.6:                                         ; preds = %if.end.5
+  %call.7 = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %name, ptr noundef nonnull dereferenceable(9) @.str.7) #6
+  %tobool.not.7 = icmp eq i32 %call.7, 0
+  br i1 %tobool.not.7, label %if.then, label %if.end.7
 
-34:                                               ; preds = %31
-  %35 = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %1, ptr noundef nonnull dereferenceable(16) @.str.8) #6
-  %36 = icmp eq i32 %35, 0
-  br i1 %36, label %6, label %37
+if.end.7:                                         ; preds = %if.end.6
+  %call.8 = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %name, ptr noundef nonnull dereferenceable(16) @.str.8) #6
+  %tobool.not.8 = icmp eq i32 %call.8, 0
+  br i1 %tobool.not.8, label %if.then, label %if.end.8
 
-37:                                               ; preds = %34
-  %38 = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %1, ptr noundef nonnull dereferenceable(19) @.str.9) #6
-  %39 = icmp eq i32 %38, 0
-  br i1 %39, label %6, label %40
+if.end.8:                                         ; preds = %if.end.7
+  %call.9 = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %name, ptr noundef nonnull dereferenceable(19) @.str.9) #6
+  %tobool.not.9 = icmp eq i32 %call.9, 0
+  br i1 %tobool.not.9, label %if.then, label %if.end.9
 
-40:                                               ; preds = %37
-  %41 = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %1, ptr noundef nonnull dereferenceable(17) @.str.10) #6
-  %42 = icmp eq i32 %41, 0
-  br i1 %42, label %6, label %43
+if.end.9:                                         ; preds = %if.end.8
+  %call.10 = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %name, ptr noundef nonnull dereferenceable(17) @.str.10) #6
+  %tobool.not.10 = icmp eq i32 %call.10, 0
+  br i1 %tobool.not.10, label %if.then, label %if.end.10
 
-43:                                               ; preds = %40
-  %44 = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %1, ptr noundef nonnull dereferenceable(20) @.str.11) #6
-  %45 = icmp eq i32 %44, 0
-  br i1 %45, label %6, label %46
+if.end.10:                                        ; preds = %if.end.9
+  %call.11 = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %name, ptr noundef nonnull dereferenceable(20) @.str.11) #6
+  %tobool.not.11 = icmp eq i32 %call.11, 0
+  br i1 %tobool.not.11, label %if.then, label %if.end.11
 
-46:                                               ; preds = %43
-  %47 = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %1, ptr noundef nonnull dereferenceable(15) @.str.12) #6
-  %48 = icmp eq i32 %47, 0
-  br i1 %48, label %6, label %49
+if.end.11:                                        ; preds = %if.end.10
+  %call.12 = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %name, ptr noundef nonnull dereferenceable(15) @.str.12) #6
+  %tobool.not.12 = icmp eq i32 %call.12, 0
+  br i1 %tobool.not.12, label %if.then, label %if.end.12
 
-49:                                               ; preds = %46
-  %50 = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %1, ptr noundef nonnull dereferenceable(13) @.str.13) #6
-  %51 = icmp eq i32 %50, 0
-  br i1 %51, label %6, label %52
+if.end.12:                                        ; preds = %if.end.11
+  %call.13 = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %name, ptr noundef nonnull dereferenceable(13) @.str.13) #6
+  %tobool.not.13 = icmp eq i32 %call.13, 0
+  br i1 %tobool.not.13, label %if.then, label %if.end.13
 
-52:                                               ; preds = %49
-  %53 = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %1, ptr noundef nonnull dereferenceable(7) @.str.14) #6
-  %54 = icmp eq i32 %53, 0
-  br i1 %54, label %6, label %55
+if.end.13:                                        ; preds = %if.end.12
+  %call.14 = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %name, ptr noundef nonnull dereferenceable(7) @.str.14) #6
+  %tobool.not.14 = icmp eq i32 %call.14, 0
+  br i1 %tobool.not.14, label %if.then, label %if.end.14
 
-55:                                               ; preds = %52
-  %56 = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %1, ptr noundef nonnull dereferenceable(11) @.str.15) #6
-  %57 = icmp eq i32 %56, 0
-  br i1 %57, label %6, label %58
+if.end.14:                                        ; preds = %if.end.13
+  %call.15 = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %name, ptr noundef nonnull dereferenceable(11) @.str.15) #6
+  %tobool.not.15 = icmp eq i32 %call.15, 0
+  br i1 %tobool.not.15, label %if.then, label %if.end.15
 
-58:                                               ; preds = %55
-  %59 = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %1, ptr noundef nonnull dereferenceable(10) @.str.16) #6
-  %60 = icmp eq i32 %59, 0
-  br i1 %60, label %6, label %61
+if.end.15:                                        ; preds = %if.end.14
+  %call.16 = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %name, ptr noundef nonnull dereferenceable(10) @.str.16) #6
+  %tobool.not.16 = icmp eq i32 %call.16, 0
+  br i1 %tobool.not.16, label %if.then, label %if.end.16
 
-61:                                               ; preds = %58
-  %62 = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %1, ptr noundef nonnull dereferenceable(8) @.str.17) #6
-  %63 = icmp eq i32 %62, 0
-  br i1 %63, label %6, label %64
+if.end.16:                                        ; preds = %if.end.15
+  %call.17 = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %name, ptr noundef nonnull dereferenceable(8) @.str.17) #6
+  %tobool.not.17 = icmp eq i32 %call.17, 0
+  br i1 %tobool.not.17, label %if.then, label %if.end.17
 
-64:                                               ; preds = %61
-  %65 = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %1, ptr noundef nonnull dereferenceable(5) @.str.18) #6
-  %66 = icmp eq i32 %65, 0
-  br i1 %66, label %6, label %67
+if.end.17:                                        ; preds = %if.end.16
+  %call.18 = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %name, ptr noundef nonnull dereferenceable(5) @.str.18) #6
+  %tobool.not.18 = icmp eq i32 %call.18, 0
+  br i1 %tobool.not.18, label %if.then, label %if.end.18
 
-67:                                               ; preds = %64
-  %68 = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %1, ptr noundef nonnull dereferenceable(5) @.str.19) #6
-  %69 = icmp eq i32 %68, 0
-  br i1 %69, label %6, label %70
+if.end.18:                                        ; preds = %if.end.17
+  %call.19 = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %name, ptr noundef nonnull dereferenceable(5) @.str.19) #6
+  %tobool.not.19 = icmp eq i32 %call.19, 0
+  br i1 %tobool.not.19, label %if.then, label %if.end.19
 
-70:                                               ; preds = %67
-  %71 = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %1, ptr noundef nonnull dereferenceable(11) @.str.20) #6
-  %72 = icmp eq i32 %71, 0
-  br i1 %72, label %6, label %73
+if.end.19:                                        ; preds = %if.end.18
+  %call.20 = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %name, ptr noundef nonnull dereferenceable(11) @.str.20) #6
+  %tobool.not.20 = icmp eq i32 %call.20, 0
+  br i1 %tobool.not.20, label %if.then, label %if.end.20
 
-73:                                               ; preds = %70
-  %74 = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %1, ptr noundef nonnull dereferenceable(16) @.str.21) #6
-  %75 = icmp eq i32 %74, 0
-  br i1 %75, label %6, label %76
+if.end.20:                                        ; preds = %if.end.19
+  %call.21 = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %name, ptr noundef nonnull dereferenceable(16) @.str.21) #6
+  %tobool.not.21 = icmp eq i32 %call.21, 0
+  br i1 %tobool.not.21, label %if.then, label %if.end.21
 
-76:                                               ; preds = %73
-  %77 = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %1, ptr noundef nonnull dereferenceable(12) @.str.22) #6
-  %78 = icmp eq i32 %77, 0
-  br i1 %78, label %6, label %79
+if.end.21:                                        ; preds = %if.end.20
+  %call.22 = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %name, ptr noundef nonnull dereferenceable(12) @.str.22) #6
+  %tobool.not.22 = icmp eq i32 %call.22, 0
+  br i1 %tobool.not.22, label %if.then, label %if.end.22
 
-79:                                               ; preds = %76
-  %80 = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %1, ptr noundef nonnull dereferenceable(15) @.str.23) #6
-  %81 = icmp eq i32 %80, 0
-  br i1 %81, label %6, label %82
+if.end.22:                                        ; preds = %if.end.21
+  %call.23 = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %name, ptr noundef nonnull dereferenceable(15) @.str.23) #6
+  %tobool.not.23 = icmp eq i32 %call.23, 0
+  br i1 %tobool.not.23, label %if.then, label %if.end.23
 
-82:                                               ; preds = %79
-  %83 = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %1, ptr noundef nonnull dereferenceable(19) @.str.24) #6
-  %84 = icmp eq i32 %83, 0
-  br i1 %84, label %6, label %85
+if.end.23:                                        ; preds = %if.end.22
+  %call.24 = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %name, ptr noundef nonnull dereferenceable(19) @.str.24) #6
+  %tobool.not.24 = icmp eq i32 %call.24, 0
+  br i1 %tobool.not.24, label %if.then, label %if.end.24
 
-85:                                               ; preds = %82
-  %86 = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %1, ptr noundef nonnull dereferenceable(16) @.str.25) #6
-  %87 = icmp eq i32 %86, 0
-  br i1 %87, label %6, label %88
+if.end.24:                                        ; preds = %if.end.23
+  %call.25 = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %name, ptr noundef nonnull dereferenceable(16) @.str.25) #6
+  %tobool.not.25 = icmp eq i32 %call.25, 0
+  br i1 %tobool.not.25, label %if.then, label %if.end.25
 
-88:                                               ; preds = %85
-  %89 = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %1, ptr noundef nonnull dereferenceable(14) @.str.26) #6
-  %90 = icmp eq i32 %89, 0
-  br i1 %90, label %6, label %91
+if.end.25:                                        ; preds = %if.end.24
+  %call.26 = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %name, ptr noundef nonnull dereferenceable(14) @.str.26) #6
+  %tobool.not.26 = icmp eq i32 %call.26, 0
+  br i1 %tobool.not.26, label %if.then, label %if.end.26
 
-91:                                               ; preds = %88
-  %92 = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %1, ptr noundef nonnull dereferenceable(10) @.str.27) #6
-  %93 = icmp eq i32 %92, 0
-  br i1 %93, label %6, label %94
+if.end.26:                                        ; preds = %if.end.25
+  %call.27 = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %name, ptr noundef nonnull dereferenceable(10) @.str.27) #6
+  %tobool.not.27 = icmp eq i32 %call.27, 0
+  br i1 %tobool.not.27, label %if.then, label %if.end.27
 
-94:                                               ; preds = %91
-  %95 = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %1, ptr noundef nonnull dereferenceable(13) @.str.28) #6
-  %96 = icmp eq i32 %95, 0
-  br i1 %96, label %6, label %97
+if.end.27:                                        ; preds = %if.end.26
+  %call.28 = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %name, ptr noundef nonnull dereferenceable(13) @.str.28) #6
+  %tobool.not.28 = icmp eq i32 %call.28, 0
+  br i1 %tobool.not.28, label %if.then, label %if.end.28
 
-97:                                               ; preds = %94
-  %98 = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %1, ptr noundef nonnull dereferenceable(13) @.str.29) #6
-  %99 = icmp eq i32 %98, 0
-  br i1 %99, label %6, label %100
+if.end.28:                                        ; preds = %if.end.27
+  %call.29 = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %name, ptr noundef nonnull dereferenceable(13) @.str.29) #6
+  %tobool.not.29 = icmp eq i32 %call.29, 0
+  br i1 %tobool.not.29, label %if.then, label %if.end.29
 
-100:                                              ; preds = %97
-  %101 = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %1, ptr noundef nonnull dereferenceable(16) @.str.30) #6
-  %102 = icmp eq i32 %101, 0
-  br i1 %102, label %6, label %103
+if.end.29:                                        ; preds = %if.end.28
+  %call.30 = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %name, ptr noundef nonnull dereferenceable(16) @.str.30) #6
+  %tobool.not.30 = icmp eq i32 %call.30, 0
+  br i1 %tobool.not.30, label %if.then, label %if.end.30
 
-103:                                              ; preds = %100
-  %104 = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %1, ptr noundef nonnull dereferenceable(10) @.str.31) #6
-  %105 = icmp eq i32 %104, 0
-  br i1 %105, label %6, label %106
+if.end.30:                                        ; preds = %if.end.29
+  %call.31 = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %name, ptr noundef nonnull dereferenceable(10) @.str.31) #6
+  %tobool.not.31 = icmp eq i32 %call.31, 0
+  br i1 %tobool.not.31, label %if.then, label %cleanup
 
-106:                                              ; preds = %103, %6
-  %107 = phi i32 [ %12, %6 ], [ 2, %103 ]
-  ret i32 %107
+cleanup:                                          ; preds = %if.end.30, %if.then
+  %retval.0 = phi i32 [ %call9, %if.then ], [ 2, %if.end.30 ]
+  ret i32 %retval.0
 }
 
 ; Function Attrs: mustprogress nofree nounwind willreturn memory(argmem: read)
 declare i32 @strcmp(ptr nocapture noundef, ptr nocapture noundef) local_unnamed_addr #1
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(argmem: readwrite) uwtable
-define internal i32 @TrackLinesOption(ptr nocapture noundef %0, ptr noundef readnone %1, i32 noundef %2) #2 {
-  %4 = icmp eq ptr %1, null
-  br i1 %4, label %5, label %13
+define internal i32 @TrackLinesOption(ptr nocapture noundef %context, ptr noundef readnone %value, i32 noundef %flag) #2 {
+entry:
+  %tobool.not = icmp eq ptr %value, null
+  br i1 %tobool.not, label %if.else, label %return
 
-5:                                                ; preds = %3
-  %6 = getelementptr inbounds %struct._tagTreeCCContext, ptr %0, i64 0, i32 8
-  %7 = trunc i32 %2 to i16
-  %8 = load i16, ptr %6, align 8
-  %9 = shl i16 %7, 1
-  %10 = and i16 %9, 2
-  %11 = and i16 %8, -3
-  %12 = or i16 %11, %10
-  store i16 %12, ptr %6, align 8
-  br label %13
+if.else:                                          ; preds = %entry
+  %track_lines = getelementptr inbounds %struct._tagTreeCCContext, ptr %context, i64 0, i32 8
+  %0 = trunc i32 %flag to i16
+  %bf.load = load i16, ptr %track_lines, align 8
+  %bf.value = shl i16 %0, 1
+  %bf.shl = and i16 %bf.value, 2
+  %bf.clear = and i16 %bf.load, -3
+  %bf.set = or i16 %bf.clear, %bf.shl
+  store i16 %bf.set, ptr %track_lines, align 8
+  br label %return
 
-13:                                               ; preds = %3, %5
-  %14 = phi i32 [ 0, %5 ], [ 5, %3 ]
-  ret i32 %14
+return:                                           ; preds = %entry, %if.else
+  %retval.0 = phi i32 [ 0, %if.else ], [ 5, %entry ]
+  ret i32 %retval.0
 }
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(argmem: readwrite) uwtable
-define internal i32 @NoSingletonsOption(ptr nocapture noundef %0, ptr noundef readnone %1, i32 noundef %2) #2 {
-  %4 = icmp eq ptr %1, null
-  br i1 %4, label %5, label %13
+define internal i32 @NoSingletonsOption(ptr nocapture noundef %context, ptr noundef readnone %value, i32 noundef %flag) #2 {
+entry:
+  %tobool.not = icmp eq ptr %value, null
+  br i1 %tobool.not, label %if.else, label %return
 
-5:                                                ; preds = %3
-  %6 = getelementptr inbounds %struct._tagTreeCCContext, ptr %0, i64 0, i32 8
-  %7 = trunc i32 %2 to i16
-  %8 = load i16, ptr %6, align 8
-  %9 = shl i16 %7, 2
-  %10 = and i16 %9, 4
-  %11 = and i16 %8, -5
-  %12 = or i16 %11, %10
-  store i16 %12, ptr %6, align 8
-  br label %13
+if.else:                                          ; preds = %entry
+  %no_singletons = getelementptr inbounds %struct._tagTreeCCContext, ptr %context, i64 0, i32 8
+  %0 = trunc i32 %flag to i16
+  %bf.load = load i16, ptr %no_singletons, align 8
+  %bf.value = shl i16 %0, 2
+  %bf.shl = and i16 %bf.value, 4
+  %bf.clear = and i16 %bf.load, -5
+  %bf.set = or i16 %bf.clear, %bf.shl
+  store i16 %bf.set, ptr %no_singletons, align 8
+  br label %return
 
-13:                                               ; preds = %3, %5
-  %14 = phi i32 [ 0, %5 ], [ 5, %3 ]
-  ret i32 %14
+return:                                           ; preds = %entry, %if.else
+  %retval.0 = phi i32 [ 0, %if.else ], [ 5, %entry ]
+  ret i32 %retval.0
 }
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(argmem: readwrite) uwtable
-define internal i32 @ReentrantOption(ptr nocapture noundef %0, ptr noundef readnone %1, i32 noundef %2) #2 {
-  %4 = icmp eq ptr %1, null
-  br i1 %4, label %5, label %13
+define internal i32 @ReentrantOption(ptr nocapture noundef %context, ptr noundef readnone %value, i32 noundef %flag) #2 {
+entry:
+  %tobool.not = icmp eq ptr %value, null
+  br i1 %tobool.not, label %if.else, label %return
 
-5:                                                ; preds = %3
-  %6 = getelementptr inbounds %struct._tagTreeCCContext, ptr %0, i64 0, i32 8
-  %7 = trunc i32 %2 to i16
-  %8 = load i16, ptr %6, align 8
-  %9 = shl i16 %7, 3
-  %10 = and i16 %9, 8
-  %11 = and i16 %8, -9
-  %12 = or i16 %11, %10
-  store i16 %12, ptr %6, align 8
-  br label %13
+if.else:                                          ; preds = %entry
+  %reentrant = getelementptr inbounds %struct._tagTreeCCContext, ptr %context, i64 0, i32 8
+  %0 = trunc i32 %flag to i16
+  %bf.load = load i16, ptr %reentrant, align 8
+  %bf.value = shl i16 %0, 3
+  %bf.shl = and i16 %bf.value, 8
+  %bf.clear = and i16 %bf.load, -9
+  %bf.set = or i16 %bf.clear, %bf.shl
+  store i16 %bf.set, ptr %reentrant, align 8
+  br label %return
 
-13:                                               ; preds = %3, %5
-  %14 = phi i32 [ 0, %5 ], [ 5, %3 ]
-  ret i32 %14
+return:                                           ; preds = %entry, %if.else
+  %retval.0 = phi i32 [ 0, %if.else ], [ 5, %entry ]
+  ret i32 %retval.0
 }
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(argmem: readwrite) uwtable
-define internal i32 @ForceOption(ptr nocapture noundef %0, ptr noundef readnone %1, i32 noundef %2) #2 {
-  %4 = icmp eq ptr %1, null
-  br i1 %4, label %5, label %13
+define internal i32 @ForceOption(ptr nocapture noundef %context, ptr noundef readnone %value, i32 noundef %flag) #2 {
+entry:
+  %tobool.not = icmp eq ptr %value, null
+  br i1 %tobool.not, label %if.else, label %return
 
-5:                                                ; preds = %3
-  %6 = getelementptr inbounds %struct._tagTreeCCContext, ptr %0, i64 0, i32 8
-  %7 = trunc i32 %2 to i16
-  %8 = load i16, ptr %6, align 8
-  %9 = shl i16 %7, 4
-  %10 = and i16 %9, 16
-  %11 = and i16 %8, -17
-  %12 = or i16 %11, %10
-  store i16 %12, ptr %6, align 8
-  br label %13
+if.else:                                          ; preds = %entry
+  %force = getelementptr inbounds %struct._tagTreeCCContext, ptr %context, i64 0, i32 8
+  %0 = trunc i32 %flag to i16
+  %bf.load = load i16, ptr %force, align 8
+  %bf.value = shl i16 %0, 4
+  %bf.shl = and i16 %bf.value, 16
+  %bf.clear = and i16 %bf.load, -17
+  %bf.set = or i16 %bf.clear, %bf.shl
+  store i16 %bf.set, ptr %force, align 8
+  br label %return
 
-13:                                               ; preds = %3, %5
-  %14 = phi i32 [ 0, %5 ], [ 5, %3 ]
-  ret i32 %14
+return:                                           ; preds = %entry, %if.else
+  %retval.0 = phi i32 [ 0, %if.else ], [ 5, %entry ]
+  ret i32 %retval.0
 }
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(argmem: readwrite) uwtable
-define internal i32 @VirtualFactoryOption(ptr nocapture noundef %0, ptr noundef readnone %1, i32 noundef %2) #2 {
-  %4 = icmp eq ptr %1, null
-  br i1 %4, label %5, label %13
+define internal i32 @VirtualFactoryOption(ptr nocapture noundef %context, ptr noundef readnone %value, i32 noundef %flag) #2 {
+entry:
+  %tobool.not = icmp eq ptr %value, null
+  br i1 %tobool.not, label %if.else, label %return
 
-5:                                                ; preds = %3
-  %6 = getelementptr inbounds %struct._tagTreeCCContext, ptr %0, i64 0, i32 8
-  %7 = trunc i32 %2 to i16
-  %8 = load i16, ptr %6, align 8
-  %9 = shl i16 %7, 5
-  %10 = and i16 %9, 32
-  %11 = and i16 %8, -33
-  %12 = or i16 %11, %10
-  store i16 %12, ptr %6, align 8
-  br label %13
+if.else:                                          ; preds = %entry
+  %virtual_factory = getelementptr inbounds %struct._tagTreeCCContext, ptr %context, i64 0, i32 8
+  %0 = trunc i32 %flag to i16
+  %bf.load = load i16, ptr %virtual_factory, align 8
+  %bf.value = shl i16 %0, 5
+  %bf.shl = and i16 %bf.value, 32
+  %bf.clear = and i16 %bf.load, -33
+  %bf.set = or i16 %bf.clear, %bf.shl
+  store i16 %bf.set, ptr %virtual_factory, align 8
+  br label %return
 
-13:                                               ; preds = %3, %5
-  %14 = phi i32 [ 0, %5 ], [ 5, %3 ]
-  ret i32 %14
+return:                                           ; preds = %entry, %if.else
+  %retval.0 = phi i32 [ 0, %if.else ], [ 5, %entry ]
+  ret i32 %retval.0
 }
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(argmem: readwrite) uwtable
-define internal i32 @AbstractFactoryOption(ptr nocapture noundef %0, ptr noundef readnone %1, i32 noundef %2) #2 {
-  %4 = icmp eq ptr %1, null
-  br i1 %4, label %5, label %13
+define internal i32 @AbstractFactoryOption(ptr nocapture noundef %context, ptr noundef readnone %value, i32 noundef %flag) #2 {
+entry:
+  %tobool.not = icmp eq ptr %value, null
+  br i1 %tobool.not, label %if.else, label %return
 
-5:                                                ; preds = %3
-  %6 = getelementptr inbounds %struct._tagTreeCCContext, ptr %0, i64 0, i32 8
-  %7 = trunc i32 %2 to i16
-  %8 = load i16, ptr %6, align 8
-  %9 = shl i16 %7, 6
-  %10 = and i16 %9, 64
-  %11 = and i16 %8, -65
-  %12 = or i16 %11, %10
-  store i16 %12, ptr %6, align 8
-  br label %13
+if.else:                                          ; preds = %entry
+  %abstract_factory = getelementptr inbounds %struct._tagTreeCCContext, ptr %context, i64 0, i32 8
+  %0 = trunc i32 %flag to i16
+  %bf.load = load i16, ptr %abstract_factory, align 8
+  %bf.value = shl i16 %0, 6
+  %bf.shl = and i16 %bf.value, 64
+  %bf.clear = and i16 %bf.load, -65
+  %bf.set = or i16 %bf.clear, %bf.shl
+  store i16 %bf.set, ptr %abstract_factory, align 8
+  br label %return
 
-13:                                               ; preds = %3, %5
-  %14 = phi i32 [ 0, %5 ], [ 5, %3 ]
-  ret i32 %14
+return:                                           ; preds = %entry, %if.else
+  %retval.0 = phi i32 [ 0, %if.else ], [ 5, %entry ]
+  ret i32 %retval.0
 }
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(argmem: readwrite) uwtable
-define internal i32 @KindInVtableOption(ptr nocapture noundef %0, ptr noundef readnone %1, i32 noundef %2) #2 {
-  %4 = icmp eq ptr %1, null
-  br i1 %4, label %5, label %13
+define internal i32 @KindInVtableOption(ptr nocapture noundef %context, ptr noundef readnone %value, i32 noundef %flag) #2 {
+entry:
+  %tobool.not = icmp eq ptr %value, null
+  br i1 %tobool.not, label %if.else, label %return
 
-5:                                                ; preds = %3
-  %6 = getelementptr inbounds %struct._tagTreeCCContext, ptr %0, i64 0, i32 8
-  %7 = trunc i32 %2 to i16
-  %8 = load i16, ptr %6, align 8
-  %9 = shl i16 %7, 7
-  %10 = and i16 %9, 128
-  %11 = and i16 %8, -129
-  %12 = or i16 %11, %10
-  store i16 %12, ptr %6, align 8
-  br label %13
+if.else:                                          ; preds = %entry
+  %kind_in_vtable = getelementptr inbounds %struct._tagTreeCCContext, ptr %context, i64 0, i32 8
+  %0 = trunc i32 %flag to i16
+  %bf.load = load i16, ptr %kind_in_vtable, align 8
+  %bf.value = shl i16 %0, 7
+  %bf.shl = and i16 %bf.value, 128
+  %bf.clear = and i16 %bf.load, -129
+  %bf.set = or i16 %bf.clear, %bf.shl
+  store i16 %bf.set, ptr %kind_in_vtable, align 8
+  br label %return
 
-13:                                               ; preds = %3, %5
-  %14 = phi i32 [ 0, %5 ], [ 5, %3 ]
-  ret i32 %14
+return:                                           ; preds = %entry, %if.else
+  %retval.0 = phi i32 [ 0, %if.else ], [ 5, %entry ]
+  ret i32 %retval.0
 }
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(argmem: write) uwtable
-define internal i32 @PrefixOption(ptr nocapture noundef writeonly %0, ptr noundef %1, i32 %2) #3 {
-  %4 = icmp eq ptr %1, null
-  br i1 %4, label %7, label %5
+define internal i32 @PrefixOption(ptr nocapture noundef writeonly %context, ptr noundef %value, i32 %flag) #3 {
+entry:
+  %tobool.not = icmp eq ptr %value, null
+  br i1 %tobool.not, label %return, label %if.else
 
-5:                                                ; preds = %3
-  %6 = getelementptr inbounds %struct._tagTreeCCContext, ptr %0, i64 0, i32 9
-  store ptr %1, ptr %6, align 8, !tbaa !12
-  br label %7
+if.else:                                          ; preds = %entry
+  %yy_replacement = getelementptr inbounds %struct._tagTreeCCContext, ptr %context, i64 0, i32 9
+  store ptr %value, ptr %yy_replacement, align 8, !tbaa !12
+  br label %return
 
-7:                                                ; preds = %3, %5
-  %8 = phi i32 [ 1, %5 ], [ 4, %3 ]
-  ret i32 %8
+return:                                           ; preds = %entry, %if.else
+  %retval.0 = phi i32 [ 1, %if.else ], [ 4, %entry ]
+  ret i32 %retval.0
 }
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(argmem: write) uwtable
-define internal i32 @StateTypeOption(ptr nocapture noundef writeonly %0, ptr noundef %1, i32 %2) #3 {
-  %4 = icmp eq ptr %1, null
-  br i1 %4, label %7, label %5
+define internal i32 @StateTypeOption(ptr nocapture noundef writeonly %context, ptr noundef %value, i32 %flag) #3 {
+entry:
+  %tobool.not = icmp eq ptr %value, null
+  br i1 %tobool.not, label %return, label %if.else
 
-5:                                                ; preds = %3
-  %6 = getelementptr inbounds %struct._tagTreeCCContext, ptr %0, i64 0, i32 10
-  store ptr %1, ptr %6, align 8, !tbaa !14
-  br label %7
+if.else:                                          ; preds = %entry
+  %state_type = getelementptr inbounds %struct._tagTreeCCContext, ptr %context, i64 0, i32 10
+  store ptr %value, ptr %state_type, align 8, !tbaa !14
+  br label %return
 
-7:                                                ; preds = %3, %5
-  %8 = phi i32 [ 1, %5 ], [ 4, %3 ]
-  ret i32 %8
+return:                                           ; preds = %entry, %if.else
+  %retval.0 = phi i32 [ 1, %if.else ], [ 4, %entry ]
+  ret i32 %retval.0
 }
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(argmem: readwrite) uwtable
-define internal i32 @NamespaceOption(ptr nocapture noundef writeonly %0, ptr noundef %1, i32 %2) #2 {
-  %4 = icmp eq ptr %1, null
-  br i1 %4, label %11, label %5
+define internal i32 @NamespaceOption(ptr nocapture noundef writeonly %context, ptr noundef %value, i32 %flag) #2 {
+entry:
+  %tobool.not = icmp eq ptr %value, null
+  br i1 %tobool.not, label %return, label %if.else
 
-5:                                                ; preds = %3
-  %6 = load i8, ptr %1, align 1, !tbaa !15
-  %7 = icmp ne i8 %6, 0
-  %8 = getelementptr inbounds %struct._tagTreeCCContext, ptr %0, i64 0, i32 11
-  %9 = select i1 %7, ptr %1, ptr null
-  %10 = zext i1 %7 to i32
-  store ptr %9, ptr %8, align 8, !tbaa !16
-  br label %11
+if.else:                                          ; preds = %entry
+  %0 = load i8, ptr %value, align 1, !tbaa !15
+  %cmp = icmp ne i8 %0, 0
+  %namespace = getelementptr inbounds %struct._tagTreeCCContext, ptr %context, i64 0, i32 11
+  %.value = select i1 %cmp, ptr %value, ptr null
+  %. = zext i1 %cmp to i32
+  store ptr %.value, ptr %namespace, align 8, !tbaa !16
+  br label %return
 
-11:                                               ; preds = %5, %3
-  %12 = phi i32 [ 4, %3 ], [ %10, %5 ]
-  ret i32 %12
+return:                                           ; preds = %if.else, %entry
+  %retval.0 = phi i32 [ 4, %entry ], [ %., %if.else ]
+  ret i32 %retval.0
 }
 
 ; Function Attrs: nofree norecurse nosync nounwind memory(read, argmem: readwrite, inaccessiblemem: none) uwtable
-define internal i32 @BaseOption(ptr nocapture noundef writeonly %0, ptr noundef readonly %1, i32 %2) #4 {
-  %4 = icmp eq ptr %1, null
-  br i1 %4, label %25, label %5
+define internal i32 @BaseOption(ptr nocapture noundef writeonly %context, ptr noundef readonly %value, i32 %flag) #4 {
+entry:
+  %tobool.not = icmp eq ptr %value, null
+  br i1 %tobool.not, label %return, label %if.else
 
-5:                                                ; preds = %3
-  %6 = load i8, ptr %1, align 1, !tbaa !15
-  %7 = icmp sgt i8 %6, 47
-  br i1 %7, label %8, label %25
+if.else:                                          ; preds = %entry
+  %0 = load i8, ptr %value, align 1, !tbaa !15
+  %1 = add i8 %0, -48
+  %or.cond28 = icmp ult i8 %1, 10
+  br i1 %or.cond28, label %while.body, label %return
 
-8:                                                ; preds = %5, %13
-  %9 = phi i8 [ %19, %13 ], [ %6, %5 ]
-  %10 = phi i32 [ %17, %13 ], [ 0, %5 ]
-  %11 = phi ptr [ %18, %13 ], [ %1, %5 ]
-  %12 = icmp ult i8 %9, 58
-  br i1 %12, label %13, label %25
+while.body:                                       ; preds = %if.else, %while.body
+  %num.024 = phi i32 [ %add, %while.body ], [ 0, %if.else ]
+  %value.addr.023 = phi ptr [ %incdec.ptr, %while.body ], [ %value, %if.else ]
+  %2 = phi i8 [ %.pr, %while.body ], [ %0, %if.else ]
+  %conv4 = zext i8 %2 to i32
+  %mul = mul nsw i32 %num.024, 10
+  %sub = add nsw i32 %conv4, -48
+  %add = add nsw i32 %sub, %mul
+  %incdec.ptr = getelementptr inbounds i8, ptr %value.addr.023, i64 1
+  %.pr = load i8, ptr %incdec.ptr, align 1, !tbaa !15
+  %3 = add i8 %.pr, -48
+  %or.cond = icmp ult i8 %3, 10
+  br i1 %or.cond, label %while.body, label %while.end, !llvm.loop !17
 
-13:                                               ; preds = %8
-  %14 = zext i8 %9 to i32
-  %15 = mul nsw i32 %10, 10
-  %16 = add i32 %15, -48
-  %17 = add i32 %16, %14
-  %18 = getelementptr inbounds i8, ptr %11, i64 1
-  %19 = load i8, ptr %18, align 1, !tbaa !15
-  %20 = icmp sgt i8 %19, 47
-  br i1 %20, label %8, label %21, !llvm.loop !17
+while.end:                                        ; preds = %while.body
+  %4 = icmp eq i8 %.pr, 0
+  br i1 %4, label %if.end, label %return
 
-21:                                               ; preds = %13
-  %22 = icmp eq i8 %19, 0
-  br i1 %22, label %23, label %25
+if.end:                                           ; preds = %while.end
+  %nodeNumber = getelementptr inbounds %struct._tagTreeCCContext, ptr %context, i64 0, i32 12
+  store i32 %add, ptr %nodeNumber, align 8, !tbaa !19
+  br label %return
 
-23:                                               ; preds = %21
-  %24 = getelementptr inbounds %struct._tagTreeCCContext, ptr %0, i64 0, i32 12
-  store i32 %17, ptr %24, align 8, !tbaa !19
-  br label %25
-
-25:                                               ; preds = %8, %23, %21, %5, %3
-  %26 = phi i32 [ 4, %3 ], [ 3, %5 ], [ 0, %23 ], [ 3, %21 ], [ 3, %8 ]
-  ret i32 %26
+return:                                           ; preds = %if.end, %while.end, %if.else, %entry
+  %retval.1 = phi i32 [ 4, %entry ], [ 3, %if.else ], [ 0, %if.end ], [ 3, %while.end ]
+  ret i32 %retval.1
 }
 
 ; Function Attrs: mustprogress nofree nounwind willreturn memory(argmem: readwrite) uwtable
-define internal i32 @LangOption(ptr nocapture noundef writeonly %0, ptr noundef readonly %1, i32 %2) #5 {
-  %4 = icmp eq ptr %1, null
-  br i1 %4, label %47, label %5
+define internal i32 @LangOption(ptr nocapture noundef writeonly %context, ptr noundef readonly %value, i32 %flag) #5 {
+entry:
+  %tobool.not = icmp eq ptr %value, null
+  br i1 %tobool.not, label %return, label %if.else
 
-5:                                                ; preds = %3
-  %6 = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %1, ptr noundef nonnull dereferenceable(2) @.str.32) #6
-  %7 = icmp eq i32 %6, 0
-  br i1 %7, label %44, label %8
+if.else:                                          ; preds = %entry
+  %call = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %value, ptr noundef nonnull dereferenceable(2) @.str.32) #6
+  %tobool1.not = icmp eq i32 %call, 0
+  br i1 %tobool1.not, label %return.sink.split, label %lor.lhs.false
 
-8:                                                ; preds = %5
-  %9 = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %1, ptr noundef nonnull dereferenceable(2) @.str.33) #6
-  %10 = icmp eq i32 %9, 0
-  br i1 %10, label %44, label %11
+lor.lhs.false:                                    ; preds = %if.else
+  %call2 = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %value, ptr noundef nonnull dereferenceable(2) @.str.33) #6
+  %tobool3.not = icmp eq i32 %call2, 0
+  br i1 %tobool3.not, label %return.sink.split, label %if.else5
 
-11:                                               ; preds = %8
-  %12 = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %1, ptr noundef nonnull dereferenceable(4) @.str.34) #6
-  %13 = icmp eq i32 %12, 0
-  br i1 %13, label %44, label %14
+if.else5:                                         ; preds = %lor.lhs.false
+  %call6 = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %value, ptr noundef nonnull dereferenceable(4) @.str.34) #6
+  %tobool7.not = icmp eq i32 %call6, 0
+  br i1 %tobool7.not, label %return.sink.split, label %lor.lhs.false8
 
-14:                                               ; preds = %11
-  %15 = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %1, ptr noundef nonnull dereferenceable(4) @.str.35) #6
-  %16 = icmp eq i32 %15, 0
-  br i1 %16, label %44, label %17
+lor.lhs.false8:                                   ; preds = %if.else5
+  %call9 = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %value, ptr noundef nonnull dereferenceable(4) @.str.35) #6
+  %tobool10.not = icmp eq i32 %call9, 0
+  br i1 %tobool10.not, label %return.sink.split, label %if.else13
 
-17:                                               ; preds = %14
-  %18 = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %1, ptr noundef nonnull dereferenceable(5) @.str.36) #6
-  %19 = icmp eq i32 %18, 0
-  br i1 %19, label %44, label %20
+if.else13:                                        ; preds = %lor.lhs.false8
+  %call14 = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %value, ptr noundef nonnull dereferenceable(5) @.str.36) #6
+  %tobool15.not = icmp eq i32 %call14, 0
+  br i1 %tobool15.not, label %return.sink.split, label %lor.lhs.false16
 
-20:                                               ; preds = %17
-  %21 = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %1, ptr noundef nonnull dereferenceable(5) @.str.37) #6
-  %22 = icmp eq i32 %21, 0
-  br i1 %22, label %44, label %23
+lor.lhs.false16:                                  ; preds = %if.else13
+  %call17 = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %value, ptr noundef nonnull dereferenceable(5) @.str.37) #6
+  %tobool18.not = icmp eq i32 %call17, 0
+  br i1 %tobool18.not, label %return.sink.split, label %if.else21
 
-23:                                               ; preds = %20
-  %24 = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %1, ptr noundef nonnull dereferenceable(3) @.str.38) #6
-  %25 = icmp eq i32 %24, 0
-  br i1 %25, label %44, label %26
+if.else21:                                        ; preds = %lor.lhs.false16
+  %call22 = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %value, ptr noundef nonnull dereferenceable(3) @.str.38) #6
+  %tobool23.not = icmp eq i32 %call22, 0
+  br i1 %tobool23.not, label %return.sink.split, label %lor.lhs.false24
 
-26:                                               ; preds = %23
-  %27 = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %1, ptr noundef nonnull dereferenceable(3) @.str.39) #6
-  %28 = icmp eq i32 %27, 0
-  br i1 %28, label %44, label %29
+lor.lhs.false24:                                  ; preds = %if.else21
+  %call25 = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %value, ptr noundef nonnull dereferenceable(3) @.str.39) #6
+  %tobool26.not = icmp eq i32 %call25, 0
+  br i1 %tobool26.not, label %return.sink.split, label %lor.lhs.false27
 
-29:                                               ; preds = %26
-  %30 = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %1, ptr noundef nonnull dereferenceable(7) @.str.40) #6
-  %31 = icmp eq i32 %30, 0
-  br i1 %31, label %44, label %32
+lor.lhs.false27:                                  ; preds = %lor.lhs.false24
+  %call28 = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %value, ptr noundef nonnull dereferenceable(7) @.str.40) #6
+  %tobool29.not = icmp eq i32 %call28, 0
+  br i1 %tobool29.not, label %return.sink.split, label %if.else32
 
-32:                                               ; preds = %29
-  %33 = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %1, ptr noundef nonnull dereferenceable(5) @.str.41) #6
-  %34 = icmp eq i32 %33, 0
-  br i1 %34, label %44, label %35
+if.else32:                                        ; preds = %lor.lhs.false27
+  %call33 = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %value, ptr noundef nonnull dereferenceable(5) @.str.41) #6
+  %tobool34.not = icmp eq i32 %call33, 0
+  br i1 %tobool34.not, label %return.sink.split, label %lor.lhs.false35
 
-35:                                               ; preds = %32
-  %36 = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %1, ptr noundef nonnull dereferenceable(5) @.str.42) #6
-  %37 = icmp eq i32 %36, 0
-  br i1 %37, label %44, label %38
+lor.lhs.false35:                                  ; preds = %if.else32
+  %call36 = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %value, ptr noundef nonnull dereferenceable(5) @.str.42) #6
+  %tobool37.not = icmp eq i32 %call36, 0
+  br i1 %tobool37.not, label %return.sink.split, label %if.else40
 
-38:                                               ; preds = %35
-  %39 = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %1, ptr noundef nonnull dereferenceable(4) @.str.43) #6
-  %40 = icmp eq i32 %39, 0
-  br i1 %40, label %44, label %41
+if.else40:                                        ; preds = %lor.lhs.false35
+  %call41 = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %value, ptr noundef nonnull dereferenceable(4) @.str.43) #6
+  %tobool42.not = icmp eq i32 %call41, 0
+  br i1 %tobool42.not, label %return.sink.split, label %lor.lhs.false43
 
-41:                                               ; preds = %38
-  %42 = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %1, ptr noundef nonnull dereferenceable(4) @.str.44) #6
-  %43 = icmp eq i32 %42, 0
-  br i1 %43, label %44, label %47
+lor.lhs.false43:                                  ; preds = %if.else40
+  %call44 = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %value, ptr noundef nonnull dereferenceable(4) @.str.44) #6
+  %tobool45.not = icmp eq i32 %call44, 0
+  br i1 %tobool45.not, label %return.sink.split, label %return
 
-44:                                               ; preds = %38, %41, %32, %35, %23, %26, %29, %17, %20, %11, %14, %5, %8
-  %45 = phi i32 [ 0, %8 ], [ 0, %5 ], [ 1, %14 ], [ 1, %11 ], [ 2, %20 ], [ 2, %17 ], [ 3, %29 ], [ 3, %26 ], [ 3, %23 ], [ 4, %35 ], [ 4, %32 ], [ 5, %41 ], [ 5, %38 ]
-  %46 = getelementptr inbounds %struct._tagTreeCCContext, ptr %0, i64 0, i32 13
-  store i32 %45, ptr %46, align 4, !tbaa !20
-  br label %47
+return.sink.split:                                ; preds = %if.else40, %lor.lhs.false43, %if.else32, %lor.lhs.false35, %if.else21, %lor.lhs.false24, %lor.lhs.false27, %if.else13, %lor.lhs.false16, %if.else5, %lor.lhs.false8, %if.else, %lor.lhs.false
+  %.sink = phi i32 [ 0, %lor.lhs.false ], [ 0, %if.else ], [ 1, %lor.lhs.false8 ], [ 1, %if.else5 ], [ 2, %lor.lhs.false16 ], [ 2, %if.else13 ], [ 3, %lor.lhs.false27 ], [ 3, %lor.lhs.false24 ], [ 3, %if.else21 ], [ 4, %lor.lhs.false35 ], [ 4, %if.else32 ], [ 5, %lor.lhs.false43 ], [ 5, %if.else40 ]
+  %language = getelementptr inbounds %struct._tagTreeCCContext, ptr %context, i64 0, i32 13
+  store i32 %.sink, ptr %language, align 4, !tbaa !20
+  br label %return
 
-47:                                               ; preds = %44, %41, %3
-  %48 = phi i32 [ 4, %3 ], [ 3, %41 ], [ 0, %44 ]
-  ret i32 %48
+return:                                           ; preds = %return.sink.split, %lor.lhs.false43, %entry
+  %retval.0 = phi i32 [ 4, %entry ], [ 3, %lor.lhs.false43 ], [ 0, %return.sink.split ]
+  ret i32 %retval.0
 }
 
 ; Function Attrs: nofree norecurse nosync nounwind memory(read, argmem: readwrite, inaccessiblemem: none) uwtable
-define internal i32 @BlockSizeOption(ptr nocapture noundef writeonly %0, ptr noundef readonly %1, i32 %2) #4 {
-  %4 = icmp eq ptr %1, null
-  br i1 %4, label %25, label %5
+define internal i32 @BlockSizeOption(ptr nocapture noundef writeonly %context, ptr noundef readonly %value, i32 %flag) #4 {
+entry:
+  %tobool.not = icmp eq ptr %value, null
+  br i1 %tobool.not, label %return, label %if.else
 
-5:                                                ; preds = %3
-  %6 = load i8, ptr %1, align 1, !tbaa !15
-  %7 = icmp sgt i8 %6, 47
-  br i1 %7, label %8, label %25
+if.else:                                          ; preds = %entry
+  %0 = load i8, ptr %value, align 1, !tbaa !15
+  %1 = add i8 %0, -48
+  %or.cond28 = icmp ult i8 %1, 10
+  br i1 %or.cond28, label %while.body, label %return
 
-8:                                                ; preds = %5, %13
-  %9 = phi i8 [ %19, %13 ], [ %6, %5 ]
-  %10 = phi i32 [ %17, %13 ], [ 0, %5 ]
-  %11 = phi ptr [ %18, %13 ], [ %1, %5 ]
-  %12 = icmp ult i8 %9, 58
-  br i1 %12, label %13, label %25
+while.body:                                       ; preds = %if.else, %while.body
+  %num.024 = phi i32 [ %add, %while.body ], [ 0, %if.else ]
+  %value.addr.023 = phi ptr [ %incdec.ptr, %while.body ], [ %value, %if.else ]
+  %2 = phi i8 [ %.pr, %while.body ], [ %0, %if.else ]
+  %conv4 = zext i8 %2 to i32
+  %mul = mul nsw i32 %num.024, 10
+  %sub = add nsw i32 %conv4, -48
+  %add = add nsw i32 %sub, %mul
+  %incdec.ptr = getelementptr inbounds i8, ptr %value.addr.023, i64 1
+  %.pr = load i8, ptr %incdec.ptr, align 1, !tbaa !15
+  %3 = add i8 %.pr, -48
+  %or.cond = icmp ult i8 %3, 10
+  br i1 %or.cond, label %while.body, label %while.end, !llvm.loop !21
 
-13:                                               ; preds = %8
-  %14 = zext i8 %9 to i32
-  %15 = mul nsw i32 %10, 10
-  %16 = add i32 %15, -48
-  %17 = add i32 %16, %14
-  %18 = getelementptr inbounds i8, ptr %11, i64 1
-  %19 = load i8, ptr %18, align 1, !tbaa !15
-  %20 = icmp sgt i8 %19, 47
-  br i1 %20, label %8, label %21, !llvm.loop !21
+while.end:                                        ; preds = %while.body
+  %4 = icmp eq i8 %.pr, 0
+  br i1 %4, label %if.end, label %return
 
-21:                                               ; preds = %13
-  %22 = icmp eq i8 %19, 0
-  br i1 %22, label %23, label %25
+if.end:                                           ; preds = %while.end
+  %block_size = getelementptr inbounds %struct._tagTreeCCContext, ptr %context, i64 0, i32 14
+  store i32 %add, ptr %block_size, align 8, !tbaa !22
+  br label %return
 
-23:                                               ; preds = %21
-  %24 = getelementptr inbounds %struct._tagTreeCCContext, ptr %0, i64 0, i32 14
-  store i32 %17, ptr %24, align 8, !tbaa !22
-  br label %25
-
-25:                                               ; preds = %8, %23, %21, %5, %3
-  %26 = phi i32 [ 4, %3 ], [ 3, %5 ], [ 0, %23 ], [ 3, %21 ], [ 3, %8 ]
-  ret i32 %26
+return:                                           ; preds = %if.end, %while.end, %if.else, %entry
+  %retval.1 = phi i32 [ 4, %entry ], [ 3, %if.else ], [ 0, %if.end ], [ 3, %while.end ]
+  ret i32 %retval.1
 }
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(argmem: readwrite) uwtable
-define internal i32 @StripFilenamesOption(ptr nocapture noundef %0, ptr noundef readnone %1, i32 noundef %2) #2 {
-  %4 = icmp eq ptr %1, null
-  br i1 %4, label %5, label %13
+define internal i32 @StripFilenamesOption(ptr nocapture noundef %context, ptr noundef readnone %value, i32 noundef %flag) #2 {
+entry:
+  %tobool.not = icmp eq ptr %value, null
+  br i1 %tobool.not, label %if.else, label %return
 
-5:                                                ; preds = %3
-  %6 = getelementptr inbounds %struct._tagTreeCCContext, ptr %0, i64 0, i32 8
-  %7 = trunc i32 %2 to i16
-  %8 = load i16, ptr %6, align 8
-  %9 = shl i16 %7, 8
-  %10 = and i16 %9, 256
-  %11 = and i16 %8, -257
-  %12 = or i16 %11, %10
-  store i16 %12, ptr %6, align 8
-  br label %13
+if.else:                                          ; preds = %entry
+  %strip_filenames = getelementptr inbounds %struct._tagTreeCCContext, ptr %context, i64 0, i32 8
+  %0 = trunc i32 %flag to i16
+  %bf.load = load i16, ptr %strip_filenames, align 8
+  %bf.value = shl i16 %0, 8
+  %bf.shl = and i16 %bf.value, 256
+  %bf.clear = and i16 %bf.load, -257
+  %bf.set = or i16 %bf.clear, %bf.shl
+  store i16 %bf.set, ptr %strip_filenames, align 8
+  br label %return
 
-13:                                               ; preds = %3, %5
-  %14 = phi i32 [ 0, %5 ], [ 5, %3 ]
-  ret i32 %14
+return:                                           ; preds = %entry, %if.else
+  %retval.0 = phi i32 [ 0, %if.else ], [ 5, %entry ]
+  ret i32 %retval.0
 }
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(argmem: readwrite) uwtable
-define internal i32 @PrintLineNumberOption(ptr nocapture noundef %0, ptr noundef readnone %1, i32 noundef %2) #2 {
-  %4 = icmp eq ptr %1, null
-  br i1 %4, label %5, label %13
+define internal i32 @PrintLineNumberOption(ptr nocapture noundef %context, ptr noundef readnone %value, i32 noundef %flag) #2 {
+entry:
+  %tobool.not = icmp eq ptr %value, null
+  br i1 %tobool.not, label %if.else, label %return
 
-5:                                                ; preds = %3
-  %6 = getelementptr inbounds %struct._tagTreeCCContext, ptr %0, i64 0, i32 8
-  %7 = trunc i32 %2 to i16
-  %8 = load i16, ptr %6, align 8
-  %9 = shl i16 %7, 9
-  %10 = and i16 %9, 512
-  %11 = and i16 %8, -513
-  %12 = or i16 %11, %10
-  store i16 %12, ptr %6, align 8
-  br label %13
+if.else:                                          ; preds = %entry
+  %print_lines = getelementptr inbounds %struct._tagTreeCCContext, ptr %context, i64 0, i32 8
+  %0 = trunc i32 %flag to i16
+  %bf.load = load i16, ptr %print_lines, align 8
+  %bf.value = shl i16 %0, 9
+  %bf.shl = and i16 %bf.value, 512
+  %bf.clear = and i16 %bf.load, -513
+  %bf.set = or i16 %bf.clear, %bf.shl
+  store i16 %bf.set, ptr %print_lines, align 8
+  br label %return
 
-13:                                               ; preds = %3, %5
-  %14 = phi i32 [ 0, %5 ], [ 5, %3 ]
-  ret i32 %14
+return:                                           ; preds = %entry, %if.else
+  %retval.0 = phi i32 [ 0, %if.else ], [ 5, %entry ]
+  ret i32 %retval.0
 }
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(argmem: readwrite) uwtable
-define internal i32 @InternalAccessOption(ptr nocapture noundef %0, ptr noundef readnone %1, i32 noundef %2) #2 {
-  %4 = icmp eq ptr %1, null
-  br i1 %4, label %5, label %13
+define internal i32 @InternalAccessOption(ptr nocapture noundef %context, ptr noundef readnone %value, i32 noundef %flag) #2 {
+entry:
+  %tobool.not = icmp eq ptr %value, null
+  br i1 %tobool.not, label %if.else, label %return
 
-5:                                                ; preds = %3
-  %6 = getelementptr inbounds %struct._tagTreeCCContext, ptr %0, i64 0, i32 8
-  %7 = trunc i32 %2 to i16
-  %8 = load i16, ptr %6, align 8
-  %9 = shl i16 %7, 10
-  %10 = and i16 %9, 1024
-  %11 = and i16 %8, -1025
-  %12 = or i16 %11, %10
-  store i16 %12, ptr %6, align 8
-  br label %13
+if.else:                                          ; preds = %entry
+  %internal_access = getelementptr inbounds %struct._tagTreeCCContext, ptr %context, i64 0, i32 8
+  %0 = trunc i32 %flag to i16
+  %bf.load = load i16, ptr %internal_access, align 8
+  %bf.value = shl i16 %0, 10
+  %bf.shl = and i16 %bf.value, 1024
+  %bf.clear = and i16 %bf.load, -1025
+  %bf.set = or i16 %bf.clear, %bf.shl
+  store i16 %bf.set, ptr %internal_access, align 8
+  br label %return
 
-13:                                               ; preds = %3, %5
-  %14 = phi i32 [ 0, %5 ], [ 5, %3 ]
-  ret i32 %14
+return:                                           ; preds = %entry, %if.else
+  %retval.0 = phi i32 [ 0, %if.else ], [ 5, %entry ]
+  ret i32 %retval.0
 }
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(argmem: readwrite) uwtable
-define internal i32 @AllocatorOption(ptr nocapture noundef %0, ptr noundef readnone %1, i32 noundef %2) #2 {
-  %4 = icmp eq ptr %1, null
-  br i1 %4, label %5, label %13
+define internal i32 @AllocatorOption(ptr nocapture noundef %context, ptr noundef readnone %value, i32 noundef %flag) #2 {
+entry:
+  %tobool.not = icmp eq ptr %value, null
+  br i1 %tobool.not, label %if.else, label %return
 
-5:                                                ; preds = %3
-  %6 = getelementptr inbounds %struct._tagTreeCCContext, ptr %0, i64 0, i32 8
-  %7 = trunc i32 %2 to i16
-  %8 = load i16, ptr %6, align 8
-  %9 = shl i16 %7, 11
-  %10 = and i16 %9, 2048
-  %11 = and i16 %8, -2049
-  %12 = or i16 %11, %10
-  store i16 %12, ptr %6, align 8
-  br label %13
+if.else:                                          ; preds = %entry
+  %use_allocator = getelementptr inbounds %struct._tagTreeCCContext, ptr %context, i64 0, i32 8
+  %0 = trunc i32 %flag to i16
+  %bf.load = load i16, ptr %use_allocator, align 8
+  %bf.value = shl i16 %0, 11
+  %bf.shl = and i16 %bf.value, 2048
+  %bf.clear = and i16 %bf.load, -2049
+  %bf.set = or i16 %bf.clear, %bf.shl
+  store i16 %bf.set, ptr %use_allocator, align 8
+  br label %return
 
-13:                                               ; preds = %3, %5
-  %14 = phi i32 [ 0, %5 ], [ 5, %3 ]
-  ret i32 %14
+return:                                           ; preds = %entry, %if.else
+  %retval.0 = phi i32 [ 0, %if.else ], [ 5, %entry ]
+  ret i32 %retval.0
 }
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(argmem: readwrite) uwtable
-define internal i32 @GCAllocatorOption(ptr nocapture noundef %0, ptr noundef readnone %1, i32 noundef %2) #2 {
-  %4 = icmp eq ptr %1, null
-  br i1 %4, label %5, label %13
+define internal i32 @GCAllocatorOption(ptr nocapture noundef %context, ptr noundef readnone %value, i32 noundef %flag) #2 {
+entry:
+  %tobool.not = icmp eq ptr %value, null
+  br i1 %tobool.not, label %if.else, label %return
 
-5:                                                ; preds = %3
-  %6 = getelementptr inbounds %struct._tagTreeCCContext, ptr %0, i64 0, i32 8
-  %7 = trunc i32 %2 to i16
-  %8 = load i16, ptr %6, align 8
-  %9 = shl i16 %7, 12
-  %10 = and i16 %9, 4096
-  %11 = and i16 %8, -4097
-  %12 = or i16 %11, %10
-  store i16 %12, ptr %6, align 8
-  br label %13
+if.else:                                          ; preds = %entry
+  %use_gc_allocator = getelementptr inbounds %struct._tagTreeCCContext, ptr %context, i64 0, i32 8
+  %0 = trunc i32 %flag to i16
+  %bf.load = load i16, ptr %use_gc_allocator, align 8
+  %bf.value = shl i16 %0, 12
+  %bf.shl = and i16 %bf.value, 4096
+  %bf.clear = and i16 %bf.load, -4097
+  %bf.set = or i16 %bf.clear, %bf.shl
+  store i16 %bf.set, ptr %use_gc_allocator, align 8
+  br label %return
 
-13:                                               ; preds = %3, %5
-  %14 = phi i32 [ 0, %5 ], [ 5, %3 ]
-  ret i32 %14
+return:                                           ; preds = %entry, %if.else
+  %retval.0 = phi i32 [ 0, %if.else ], [ 5, %entry ]
+  ret i32 %retval.0
 }
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(argmem: write) uwtable
-define internal i32 @BaseTypeOption(ptr nocapture noundef writeonly %0, ptr noundef %1, i32 %2) #3 {
-  %4 = icmp eq ptr %1, null
-  br i1 %4, label %7, label %5
+define internal i32 @BaseTypeOption(ptr nocapture noundef writeonly %context, ptr noundef %value, i32 %flag) #3 {
+entry:
+  %tobool.not = icmp eq ptr %value, null
+  br i1 %tobool.not, label %return, label %if.else2
 
-5:                                                ; preds = %3
-  %6 = getelementptr inbounds %struct._tagTreeCCContext, ptr %0, i64 0, i32 16
-  store ptr %1, ptr %6, align 8, !tbaa !23
-  br label %7
+if.else2:                                         ; preds = %entry
+  %baseType3 = getelementptr inbounds %struct._tagTreeCCContext, ptr %context, i64 0, i32 16
+  store ptr %value, ptr %baseType3, align 8, !tbaa !23
+  br label %return
 
-7:                                                ; preds = %3, %5
-  %8 = phi i32 [ 1, %5 ], [ 4, %3 ]
-  ret i32 %8
+return:                                           ; preds = %entry, %if.else2
+  %retval.0 = phi i32 [ 1, %if.else2 ], [ 4, %entry ]
+  ret i32 %retval.0
 }
 
 attributes #0 = { nounwind uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }

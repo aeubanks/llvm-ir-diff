@@ -13,30 +13,31 @@ target triple = "x86_64-unknown-linux-gnu"
 @.str.6 = private unnamed_addr constant [21 x i8] c"Call tsp(t, %d, %d)\0A\00", align 1
 @str = private unnamed_addr constant [11 x i8] c"Past build\00", align 1
 @str.8 = private unnamed_addr constant [15 x i8] c"linetype solid\00", align 1
-@str.9 = private unnamed_addr constant [9 x i8] c"newgraph\00", align 1
-@str.10 = private unnamed_addr constant [13 x i8] c"newcurve pts\00", align 1
+@str.9 = private unnamed_addr constant [13 x i8] c"newcurve pts\00", align 1
+@str.10 = private unnamed_addr constant [9 x i8] c"newgraph\00", align 1
 
 ; Function Attrs: nofree nounwind uwtable
-define dso_local void @print_tree(ptr noundef readonly %0) local_unnamed_addr #0 {
-  %2 = icmp eq ptr %0, null
-  br i1 %2, label %15, label %3
+define dso_local void @print_tree(ptr noundef readonly %t) local_unnamed_addr #0 {
+entry:
+  %tobool.not12 = icmp eq ptr %t, null
+  br i1 %tobool.not12, label %cleanup, label %if.end
 
-3:                                                ; preds = %1, %3
-  %4 = phi ptr [ %13, %3 ], [ %0, %1 ]
-  %5 = getelementptr inbounds %struct.tree, ptr %4, i64 0, i32 1
-  %6 = load double, ptr %5, align 8, !tbaa !5
-  %7 = getelementptr inbounds %struct.tree, ptr %4, i64 0, i32 2
-  %8 = load double, ptr %7, align 8, !tbaa !12
-  %9 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str, double noundef %6, double noundef %8)
-  %10 = getelementptr inbounds %struct.tree, ptr %4, i64 0, i32 3
-  %11 = load ptr, ptr %10, align 8, !tbaa !13
-  %12 = getelementptr inbounds %struct.tree, ptr %4, i64 0, i32 4
-  %13 = load ptr, ptr %12, align 8, !tbaa !14
-  tail call void @print_tree(ptr noundef %11)
-  %14 = icmp eq ptr %13, null
-  br i1 %14, label %15, label %3
+if.end:                                           ; preds = %entry, %if.end
+  %t.tr13 = phi ptr [ %3, %if.end ], [ %t, %entry ]
+  %x1 = getelementptr inbounds %struct.tree, ptr %t.tr13, i64 0, i32 1
+  %0 = load double, ptr %x1, align 8, !tbaa !5
+  %y2 = getelementptr inbounds %struct.tree, ptr %t.tr13, i64 0, i32 2
+  %1 = load double, ptr %y2, align 8, !tbaa !12
+  %call = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str, double noundef %0, double noundef %1)
+  %left3 = getelementptr inbounds %struct.tree, ptr %t.tr13, i64 0, i32 3
+  %2 = load ptr, ptr %left3, align 8, !tbaa !13
+  %right4 = getelementptr inbounds %struct.tree, ptr %t.tr13, i64 0, i32 4
+  %3 = load ptr, ptr %right4, align 8, !tbaa !14
+  tail call void @print_tree(ptr noundef %2)
+  %tobool.not = icmp eq ptr %3, null
+  br i1 %tobool.not, label %cleanup, label %if.end
 
-15:                                               ; preds = %3, %1
+cleanup:                                          ; preds = %if.end, %entry
   ret void
 }
 
@@ -44,109 +45,111 @@ define dso_local void @print_tree(ptr noundef readonly %0) local_unnamed_addr #0
 declare noundef i32 @printf(ptr nocapture noundef readonly, ...) local_unnamed_addr #1
 
 ; Function Attrs: nofree nounwind uwtable
-define dso_local void @print_list(ptr noundef readonly %0) local_unnamed_addr #0 {
-  %2 = icmp eq ptr %0, null
-  br i1 %2, label %22, label %3
+define dso_local void @print_list(ptr noundef readonly %t) local_unnamed_addr #0 {
+entry:
+  %tobool.not = icmp eq ptr %t, null
+  br i1 %tobool.not, label %cleanup, label %if.end
 
-3:                                                ; preds = %1
-  %4 = getelementptr inbounds %struct.tree, ptr %0, i64 0, i32 1
-  %5 = load double, ptr %4, align 8, !tbaa !5
-  %6 = getelementptr inbounds %struct.tree, ptr %0, i64 0, i32 2
-  %7 = load double, ptr %6, align 8, !tbaa !12
-  %8 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.1, double noundef %5, double noundef %7)
-  %9 = getelementptr inbounds %struct.tree, ptr %0, i64 0, i32 5
-  %10 = load ptr, ptr %9, align 8, !tbaa !15
-  %11 = icmp eq ptr %10, %0
-  br i1 %11, label %22, label %12
+if.end:                                           ; preds = %entry
+  %x1 = getelementptr inbounds %struct.tree, ptr %t, i64 0, i32 1
+  %0 = load double, ptr %x1, align 8, !tbaa !5
+  %y2 = getelementptr inbounds %struct.tree, ptr %t, i64 0, i32 2
+  %1 = load double, ptr %y2, align 8, !tbaa !12
+  %call = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.1, double noundef %0, double noundef %1)
+  %tmp.0.in18 = getelementptr inbounds %struct.tree, ptr %t, i64 0, i32 5
+  %tmp.019 = load ptr, ptr %tmp.0.in18, align 8, !tbaa !15
+  %cmp.not20 = icmp eq ptr %tmp.019, %t
+  br i1 %cmp.not20, label %cleanup, label %for.body
 
-12:                                               ; preds = %3, %12
-  %13 = phi ptr [ %20, %12 ], [ %10, %3 ]
-  %14 = getelementptr inbounds %struct.tree, ptr %13, i64 0, i32 1
-  %15 = load double, ptr %14, align 8, !tbaa !5
-  %16 = getelementptr inbounds %struct.tree, ptr %13, i64 0, i32 2
-  %17 = load double, ptr %16, align 8, !tbaa !12
-  %18 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.1, double noundef %15, double noundef %17)
-  %19 = getelementptr inbounds %struct.tree, ptr %13, i64 0, i32 5
-  %20 = load ptr, ptr %19, align 8, !tbaa !15
-  %21 = icmp eq ptr %20, %0
-  br i1 %21, label %22, label %12, !llvm.loop !16
+for.body:                                         ; preds = %if.end, %for.body
+  %tmp.021 = phi ptr [ %tmp.0, %for.body ], [ %tmp.019, %if.end ]
+  %x3 = getelementptr inbounds %struct.tree, ptr %tmp.021, i64 0, i32 1
+  %2 = load double, ptr %x3, align 8, !tbaa !5
+  %y4 = getelementptr inbounds %struct.tree, ptr %tmp.021, i64 0, i32 2
+  %3 = load double, ptr %y4, align 8, !tbaa !12
+  %call5 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.1, double noundef %2, double noundef %3)
+  %tmp.0.in = getelementptr inbounds %struct.tree, ptr %tmp.021, i64 0, i32 5
+  %tmp.0 = load ptr, ptr %tmp.0.in, align 8, !tbaa !15
+  %cmp.not = icmp eq ptr %tmp.0, %t
+  br i1 %cmp.not, label %cleanup, label %for.body, !llvm.loop !16
 
-22:                                               ; preds = %12, %3, %1
+cleanup:                                          ; preds = %for.body, %if.end, %entry
   ret void
 }
 
 ; Function Attrs: nounwind uwtable
-define dso_local i32 @main(i32 noundef %0, ptr noundef %1) local_unnamed_addr #2 {
-  %3 = tail call i32 @dealwithargs(i32 noundef %0, ptr noundef %1) #5
-  %4 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.2, i32 noundef %3)
-  %5 = load i32, ptr @NumNodes, align 4, !tbaa !18
-  %6 = tail call ptr @build_tree(i32 noundef %3, i32 noundef 0, i32 noundef 0, i32 noundef %5, double noundef 0.000000e+00, double noundef 1.000000e+00, double noundef 0.000000e+00, double noundef 1.000000e+00) #5
-  %7 = load i32, ptr @flag, align 4, !tbaa !18
-  %8 = icmp eq i32 %7, 0
-  br i1 %8, label %9, label %13
+define dso_local i32 @main(i32 noundef %argc, ptr noundef %argv) local_unnamed_addr #2 {
+entry:
+  %call = tail call i32 @dealwithargs(i32 noundef %argc, ptr noundef %argv) #5
+  %call1 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.2, i32 noundef %call)
+  %0 = load i32, ptr @NumNodes, align 4, !tbaa !18
+  %call2 = tail call ptr @build_tree(i32 noundef %call, i32 noundef 0, i32 noundef 0, i32 noundef %0, double noundef 0.000000e+00, double noundef 1.000000e+00, double noundef 0.000000e+00, double noundef 1.000000e+00) #5
+  %1 = load i32, ptr @flag, align 4, !tbaa !18
+  %tobool.not = icmp eq i32 %1, 0
+  br i1 %tobool.not, label %if.end, label %if.end7
 
-9:                                                ; preds = %2
-  %10 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str)
-  %11 = load i32, ptr @flag, align 4, !tbaa !18
-  %12 = icmp eq i32 %11, 0
-  br i1 %12, label %19, label %13
+if.end:                                           ; preds = %entry
+  %puts = tail call i32 @puts(ptr nonnull dereferenceable(1) @str)
+  %.pr = load i32, ptr @flag, align 4, !tbaa !18
+  %tobool4.not = icmp eq i32 %.pr, 0
+  br i1 %tobool4.not, label %if.end11, label %if.end7
 
-13:                                               ; preds = %2, %9
-  %14 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.9)
-  %15 = load i32, ptr @flag, align 4, !tbaa !18
-  %16 = icmp eq i32 %15, 0
-  br i1 %16, label %19, label %17
+if.end7:                                          ; preds = %entry, %if.end
+  %puts25 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.10)
+  %.pr27 = load i32, ptr @flag, align 4, !tbaa !18
+  %tobool8.not = icmp eq i32 %.pr27, 0
+  br i1 %tobool8.not, label %if.end11, label %if.then9
 
-17:                                               ; preds = %13
-  %18 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.10)
-  br label %19
+if.then9:                                         ; preds = %if.end7
+  %puts24 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.9)
+  br label %if.end11
 
-19:                                               ; preds = %9, %17, %13
-  %20 = load i32, ptr @NumNodes, align 4, !tbaa !18
-  %21 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.6, i32 noundef 150, i32 noundef %20)
-  %22 = load i32, ptr @NumNodes, align 4, !tbaa !18
-  %23 = tail call ptr @tsp(ptr noundef %6, i32 noundef 150, i32 noundef %22) #5
-  %24 = load i32, ptr @flag, align 4, !tbaa !18
-  %25 = icmp eq i32 %24, 0
-  br i1 %25, label %52, label %26
+if.end11:                                         ; preds = %if.end, %if.then9, %if.end7
+  %2 = load i32, ptr @NumNodes, align 4, !tbaa !18
+  %call12 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.6, i32 noundef 150, i32 noundef %2)
+  %3 = load i32, ptr @NumNodes, align 4, !tbaa !18
+  %call13 = tail call ptr @tsp(ptr noundef %call2, i32 noundef 150, i32 noundef %3) #5
+  %4 = load i32, ptr @flag, align 4, !tbaa !18
+  %tobool14.not = icmp eq i32 %4, 0
+  br i1 %tobool14.not, label %if.end20, label %if.then15
 
-26:                                               ; preds = %19
-  %27 = icmp eq ptr %6, null
-  br i1 %27, label %50, label %28
+if.then15:                                        ; preds = %if.end11
+  %tobool.not.i = icmp eq ptr %call2, null
+  br i1 %tobool.not.i, label %if.then18, label %if.end.i
 
-28:                                               ; preds = %26
-  %29 = getelementptr inbounds %struct.tree, ptr %6, i64 0, i32 1
-  %30 = load double, ptr %29, align 8, !tbaa !5
-  %31 = getelementptr inbounds %struct.tree, ptr %6, i64 0, i32 2
-  %32 = load double, ptr %31, align 8, !tbaa !12
-  %33 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.1, double noundef %30, double noundef %32)
-  %34 = getelementptr inbounds %struct.tree, ptr %6, i64 0, i32 5
-  %35 = load ptr, ptr %34, align 8, !tbaa !15
-  %36 = icmp eq ptr %35, %6
-  br i1 %36, label %47, label %37
+if.end.i:                                         ; preds = %if.then15
+  %x1.i = getelementptr inbounds %struct.tree, ptr %call2, i64 0, i32 1
+  %5 = load double, ptr %x1.i, align 8, !tbaa !5
+  %y2.i = getelementptr inbounds %struct.tree, ptr %call2, i64 0, i32 2
+  %6 = load double, ptr %y2.i, align 8, !tbaa !12
+  %call.i = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.1, double noundef %5, double noundef %6)
+  %tmp.0.in18.i = getelementptr inbounds %struct.tree, ptr %call2, i64 0, i32 5
+  %tmp.019.i = load ptr, ptr %tmp.0.in18.i, align 8, !tbaa !15
+  %cmp.not20.i = icmp eq ptr %tmp.019.i, %call2
+  br i1 %cmp.not20.i, label %if.end16, label %for.body.i
 
-37:                                               ; preds = %28, %37
-  %38 = phi ptr [ %45, %37 ], [ %35, %28 ]
-  %39 = getelementptr inbounds %struct.tree, ptr %38, i64 0, i32 1
-  %40 = load double, ptr %39, align 8, !tbaa !5
-  %41 = getelementptr inbounds %struct.tree, ptr %38, i64 0, i32 2
-  %42 = load double, ptr %41, align 8, !tbaa !12
-  %43 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.1, double noundef %40, double noundef %42)
-  %44 = getelementptr inbounds %struct.tree, ptr %38, i64 0, i32 5
-  %45 = load ptr, ptr %44, align 8, !tbaa !15
-  %46 = icmp eq ptr %45, %6
-  br i1 %46, label %47, label %37, !llvm.loop !16
+for.body.i:                                       ; preds = %if.end.i, %for.body.i
+  %tmp.021.i = phi ptr [ %tmp.0.i, %for.body.i ], [ %tmp.019.i, %if.end.i ]
+  %x3.i = getelementptr inbounds %struct.tree, ptr %tmp.021.i, i64 0, i32 1
+  %7 = load double, ptr %x3.i, align 8, !tbaa !5
+  %y4.i = getelementptr inbounds %struct.tree, ptr %tmp.021.i, i64 0, i32 2
+  %8 = load double, ptr %y4.i, align 8, !tbaa !12
+  %call5.i = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.1, double noundef %7, double noundef %8)
+  %tmp.0.in.i = getelementptr inbounds %struct.tree, ptr %tmp.021.i, i64 0, i32 5
+  %tmp.0.i = load ptr, ptr %tmp.0.in.i, align 8, !tbaa !15
+  %cmp.not.i = icmp eq ptr %tmp.0.i, %call2
+  br i1 %cmp.not.i, label %if.end16, label %for.body.i, !llvm.loop !16
 
-47:                                               ; preds = %37, %28
-  %48 = load i32, ptr @flag, align 4, !tbaa !18
-  %49 = icmp eq i32 %48, 0
-  br i1 %49, label %52, label %50
+if.end16:                                         ; preds = %for.body.i, %if.end.i
+  %.pr29 = load i32, ptr @flag, align 4, !tbaa !18
+  %tobool17.not = icmp eq i32 %.pr29, 0
+  br i1 %tobool17.not, label %if.end20, label %if.then18
 
-50:                                               ; preds = %26, %47
-  %51 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.8)
-  br label %52
+if.then18:                                        ; preds = %if.then15, %if.end16
+  %puts23 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.8)
+  br label %if.end20
 
-52:                                               ; preds = %19, %50, %47
+if.end20:                                         ; preds = %if.end11, %if.then18, %if.end16
   ret i32 0
 }
 

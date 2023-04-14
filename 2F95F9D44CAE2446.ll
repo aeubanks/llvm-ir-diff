@@ -4,50 +4,52 @@ target datalayout = "e-m:e-p270:32:32-p271:32:32-p272:64:64-i64:64-f80:128-n8:16
 target triple = "x86_64-unknown-linux-gnu"
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(none) uwtable
-define dso_local i32 @f(i32 noundef %0) local_unnamed_addr #0 {
-  %2 = zext i32 %0 to i64
-  %3 = mul nuw i64 %2, 2863311531
-  %4 = lshr i64 %3, 33
-  %5 = trunc i64 %4 to i32
-  ret i32 %5
+define dso_local i32 @f(i32 noundef %x) local_unnamed_addr #0 {
+entry:
+  %conv = zext i32 %x to i64
+  %mul = mul nuw i64 %conv, 2863311531
+  %sum.shift = lshr i64 %mul, 33
+  %shr23 = trunc i64 %sum.shift to i32
+  ret i32 %shr23
 }
 
 ; Function Attrs: noreturn nounwind uwtable
 define dso_local i32 @main() local_unnamed_addr #1 {
-  br label %13
+entry:
+  br label %for.body
 
-1:                                                ; preds = %13
-  %2 = or i64 %14, 1
-  %3 = mul nuw nsw i64 %2, 2863311531
-  %4 = lshr i64 %3, 33
-  %5 = trunc i64 %4 to i32
-  %6 = trunc i64 %2 to i16
-  %7 = udiv i16 %6, 3
-  %8 = zext i16 %7 to i32
-  %9 = icmp eq i32 %5, %8
-  br i1 %9, label %10, label %22
+for.cond:                                         ; preds = %for.body
+  %indvars.iv.next = or i64 %indvars.iv, 1
+  %mul.i.1 = mul nuw nsw i64 %indvars.iv.next, 2863311531
+  %sum.shift.i.1 = lshr i64 %mul.i.1, 33
+  %shr23.i.1 = trunc i64 %sum.shift.i.1 to i32
+  %div.lhs.trunc.1 = trunc i64 %indvars.iv.next to i16
+  %div5.1 = udiv i16 %div.lhs.trunc.1, 3
+  %div.zext.1 = zext i16 %div5.1 to i32
+  %cmp1.not.1 = icmp eq i32 %shr23.i.1, %div.zext.1
+  br i1 %cmp1.not.1, label %for.cond.1, label %if.then
 
-10:                                               ; preds = %1
-  %11 = add nuw nsw i64 %14, 2
-  %12 = icmp eq i64 %11, 10000
-  br i1 %12, label %23, label %13, !llvm.loop !5
+for.cond.1:                                       ; preds = %for.cond
+  %indvars.iv.next.1 = add nuw nsw i64 %indvars.iv, 2
+  %exitcond.not.1 = icmp eq i64 %indvars.iv.next.1, 10000
+  br i1 %exitcond.not.1, label %for.end, label %for.body, !llvm.loop !5
 
-13:                                               ; preds = %10, %0
-  %14 = phi i64 [ 0, %0 ], [ %11, %10 ]
-  %15 = mul nuw nsw i64 %14, 2863311531
-  %16 = lshr i64 %15, 33
-  %17 = trunc i64 %16 to i32
-  %18 = trunc i64 %14 to i16
-  %19 = udiv i16 %18, 3
-  %20 = zext i16 %19 to i32
-  %21 = icmp eq i32 %17, %20
-  br i1 %21, label %1, label %22
+for.body:                                         ; preds = %for.cond.1, %entry
+  %indvars.iv = phi i64 [ 0, %entry ], [ %indvars.iv.next.1, %for.cond.1 ]
+  %mul.i = mul nuw nsw i64 %indvars.iv, 2863311531
+  %sum.shift.i = lshr i64 %mul.i, 33
+  %shr23.i = trunc i64 %sum.shift.i to i32
+  %div.lhs.trunc = trunc i64 %indvars.iv to i16
+  %div5 = udiv i16 %div.lhs.trunc, 3
+  %div.zext = zext i16 %div5 to i32
+  %cmp1.not = icmp eq i32 %shr23.i, %div.zext
+  br i1 %cmp1.not, label %for.cond, label %if.then
 
-22:                                               ; preds = %1, %13
+if.then:                                          ; preds = %for.cond, %for.body
   tail call void @abort() #3
   unreachable
 
-23:                                               ; preds = %10
+for.end:                                          ; preds = %for.cond.1
   tail call void @exit(i32 noundef 0) #3
   unreachable
 }

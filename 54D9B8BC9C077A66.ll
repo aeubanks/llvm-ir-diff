@@ -22,99 +22,88 @@ target triple = "x86_64-unknown-linux-gnu"
 @extra_pool_slop = internal unnamed_addr constant [2 x i64] [i64 0, i64 5000], align 16
 
 ; Function Attrs: nounwind uwtable
-define dso_local void @jinit_memory_mgr(ptr noundef %0) local_unnamed_addr #0 {
-  %2 = alloca i64, align 8
-  %3 = alloca i8, align 1
-  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %2) #7
-  %4 = getelementptr inbounds %struct.jpeg_common_struct, ptr %0, i64 0, i32 1
-  store ptr null, ptr %4, align 8, !tbaa !5
-  %5 = tail call i64 @jpeg_mem_init(ptr noundef %0) #7
-  store i64 %5, ptr %2, align 8, !tbaa !11
-  %6 = tail call ptr @jpeg_get_small(ptr noundef %0, i64 noundef 160) #7
-  %7 = icmp eq ptr %6, null
-  br i1 %7, label %8, label %14
+define dso_local void @jinit_memory_mgr(ptr noundef %cinfo) local_unnamed_addr #0 {
+entry:
+  %max_to_use = alloca i64, align 8
+  %ch = alloca i8, align 1
+  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %max_to_use) #7
+  %mem1 = getelementptr inbounds %struct.jpeg_common_struct, ptr %cinfo, i64 0, i32 1
+  store ptr null, ptr %mem1, align 8, !tbaa !5
+  %call = tail call i64 @jpeg_mem_init(ptr noundef %cinfo) #7
+  store i64 %call, ptr %max_to_use, align 8, !tbaa !11
+  %call3 = tail call ptr @jpeg_get_small(ptr noundef %cinfo, i64 noundef 160) #7
+  %cmp4 = icmp eq ptr %call3, null
+  br i1 %cmp4, label %if.then5, label %if.end11
 
-8:                                                ; preds = %1
-  tail call void @jpeg_mem_term(ptr noundef nonnull %0) #7
-  %9 = load ptr, ptr %0, align 8, !tbaa !13
-  %10 = getelementptr inbounds %struct.jpeg_error_mgr, ptr %9, i64 0, i32 5
-  store i32 53, ptr %10, align 8, !tbaa !14
-  %11 = getelementptr inbounds %struct.jpeg_error_mgr, ptr %9, i64 0, i32 6
-  store i32 0, ptr %11, align 4, !tbaa !16
-  %12 = load ptr, ptr %0, align 8, !tbaa !13
-  %13 = load ptr, ptr %12, align 8, !tbaa !17
-  tail call void %13(ptr noundef nonnull %0) #7
-  br label %14
+if.then5:                                         ; preds = %entry
+  tail call void @jpeg_mem_term(ptr noundef nonnull %cinfo) #7
+  %0 = load ptr, ptr %cinfo, align 8, !tbaa !13
+  %msg_code7 = getelementptr inbounds %struct.jpeg_error_mgr, ptr %0, i64 0, i32 5
+  store i32 53, ptr %msg_code7, align 8, !tbaa !14
+  %msg_parm = getelementptr inbounds %struct.jpeg_error_mgr, ptr %0, i64 0, i32 6
+  store i32 0, ptr %msg_parm, align 4, !tbaa !16
+  %1 = load ptr, ptr %cinfo, align 8, !tbaa !13
+  %2 = load ptr, ptr %1, align 8, !tbaa !17
+  tail call void %2(ptr noundef nonnull %cinfo) #7
+  br label %if.end11
 
-14:                                               ; preds = %8, %1
-  store ptr @alloc_small, ptr %6, align 8, !tbaa !18
-  %15 = getelementptr inbounds %struct.jpeg_memory_mgr, ptr %6, i64 0, i32 1
-  store ptr @alloc_large, ptr %15, align 8, !tbaa !21
-  %16 = getelementptr inbounds %struct.jpeg_memory_mgr, ptr %6, i64 0, i32 2
-  store ptr @alloc_sarray, ptr %16, align 8, !tbaa !22
-  %17 = getelementptr inbounds %struct.jpeg_memory_mgr, ptr %6, i64 0, i32 3
-  store ptr @alloc_barray, ptr %17, align 8, !tbaa !23
-  %18 = getelementptr inbounds %struct.jpeg_memory_mgr, ptr %6, i64 0, i32 4
-  store ptr @request_virt_sarray, ptr %18, align 8, !tbaa !24
-  %19 = getelementptr inbounds %struct.jpeg_memory_mgr, ptr %6, i64 0, i32 5
-  store ptr @request_virt_barray, ptr %19, align 8, !tbaa !25
-  %20 = getelementptr inbounds %struct.jpeg_memory_mgr, ptr %6, i64 0, i32 6
-  store ptr @realize_virt_arrays, ptr %20, align 8, !tbaa !26
-  %21 = getelementptr inbounds %struct.jpeg_memory_mgr, ptr %6, i64 0, i32 7
-  store ptr @access_virt_sarray, ptr %21, align 8, !tbaa !27
-  %22 = getelementptr inbounds %struct.jpeg_memory_mgr, ptr %6, i64 0, i32 8
-  store ptr @access_virt_barray, ptr %22, align 8, !tbaa !28
-  %23 = getelementptr inbounds %struct.jpeg_memory_mgr, ptr %6, i64 0, i32 9
-  store ptr @free_pool, ptr %23, align 8, !tbaa !29
-  %24 = getelementptr inbounds %struct.jpeg_memory_mgr, ptr %6, i64 0, i32 10
-  store ptr @self_destruct, ptr %24, align 8, !tbaa !30
-  %25 = getelementptr inbounds %struct.jpeg_memory_mgr, ptr %6, i64 0, i32 11
-  store i64 %5, ptr %25, align 8, !tbaa !31
-  %26 = getelementptr i8, ptr %6, i64 96
-  %27 = getelementptr inbounds %struct.my_memory_mgr, ptr %6, i64 0, i32 5
-  tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(48) %26, i8 0, i64 48, i1 false)
-  store i64 160, ptr %27, align 8, !tbaa !32
-  store ptr %6, ptr %4, align 8, !tbaa !5
-  %28 = tail call ptr @getenv(ptr noundef nonnull @.str) #7
-  %29 = icmp eq ptr %28, null
-  br i1 %29, label %45, label %30
+if.end11:                                         ; preds = %if.then5, %entry
+  store ptr @alloc_small, ptr %call3, align 8, !tbaa !18
+  %alloc_large = getelementptr inbounds %struct.jpeg_memory_mgr, ptr %call3, i64 0, i32 1
+  store ptr @alloc_large, ptr %alloc_large, align 8, !tbaa !21
+  %alloc_sarray = getelementptr inbounds %struct.jpeg_memory_mgr, ptr %call3, i64 0, i32 2
+  store ptr @alloc_sarray, ptr %alloc_sarray, align 8, !tbaa !22
+  %alloc_barray = getelementptr inbounds %struct.jpeg_memory_mgr, ptr %call3, i64 0, i32 3
+  store ptr @alloc_barray, ptr %alloc_barray, align 8, !tbaa !23
+  %request_virt_sarray = getelementptr inbounds %struct.jpeg_memory_mgr, ptr %call3, i64 0, i32 4
+  store ptr @request_virt_sarray, ptr %request_virt_sarray, align 8, !tbaa !24
+  %request_virt_barray = getelementptr inbounds %struct.jpeg_memory_mgr, ptr %call3, i64 0, i32 5
+  store ptr @request_virt_barray, ptr %request_virt_barray, align 8, !tbaa !25
+  %realize_virt_arrays = getelementptr inbounds %struct.jpeg_memory_mgr, ptr %call3, i64 0, i32 6
+  store ptr @realize_virt_arrays, ptr %realize_virt_arrays, align 8, !tbaa !26
+  %access_virt_sarray = getelementptr inbounds %struct.jpeg_memory_mgr, ptr %call3, i64 0, i32 7
+  store ptr @access_virt_sarray, ptr %access_virt_sarray, align 8, !tbaa !27
+  %access_virt_barray = getelementptr inbounds %struct.jpeg_memory_mgr, ptr %call3, i64 0, i32 8
+  store ptr @access_virt_barray, ptr %access_virt_barray, align 8, !tbaa !28
+  %free_pool = getelementptr inbounds %struct.jpeg_memory_mgr, ptr %call3, i64 0, i32 9
+  store ptr @free_pool, ptr %free_pool, align 8, !tbaa !29
+  %self_destruct = getelementptr inbounds %struct.jpeg_memory_mgr, ptr %call3, i64 0, i32 10
+  store ptr @self_destruct, ptr %self_destruct, align 8, !tbaa !30
+  %max_memory_to_use = getelementptr inbounds %struct.jpeg_memory_mgr, ptr %call3, i64 0, i32 11
+  store i64 %call, ptr %max_memory_to_use, align 8, !tbaa !31
+  %scevgep = getelementptr i8, ptr %call3, i64 96
+  %total_space_allocated = getelementptr inbounds %struct.my_memory_mgr, ptr %call3, i64 0, i32 5
+  tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(48) %scevgep, i8 0, i64 48, i1 false)
+  store i64 160, ptr %total_space_allocated, align 8, !tbaa !32
+  store ptr %call3, ptr %mem1, align 8, !tbaa !5
+  %call29 = tail call ptr @getenv(ptr noundef nonnull @.str) #7
+  %cmp30.not = icmp eq ptr %call29, null
+  br i1 %cmp30.not, label %if.end46, label %if.then31
 
-30:                                               ; preds = %14
-  call void @llvm.lifetime.start.p0(i64 1, ptr nonnull %3) #7
-  store i8 120, ptr %3, align 1, !tbaa !16
-  %31 = call i32 (ptr, ptr, ...) @__isoc99_sscanf(ptr noundef nonnull %28, ptr noundef nonnull @.str.1, ptr noundef nonnull %2, ptr noundef nonnull %3) #7
-  %32 = icmp sgt i32 %31, 0
-  br i1 %32, label %33, label %44
+if.then31:                                        ; preds = %if.end11
+  call void @llvm.lifetime.start.p0(i64 1, ptr nonnull %ch) #7
+  store i8 120, ptr %ch, align 1, !tbaa !16
+  %call32 = call i32 (ptr, ptr, ...) @__isoc99_sscanf(ptr noundef nonnull %call29, ptr noundef nonnull @.str.1, ptr noundef nonnull %max_to_use, ptr noundef nonnull %ch) #7
+  %cmp33 = icmp sgt i32 %call32, 0
+  br i1 %cmp33, label %if.then34, label %if.end45
 
-33:                                               ; preds = %30
-  %34 = load i8, ptr %3, align 1, !tbaa !16
-  %35 = sext i8 %34 to i32
-  switch i32 %35, label %36 [
-    i32 109, label %38
-    i32 77, label %38
-  ]
+if.then34:                                        ; preds = %if.then31
+  %3 = load i8, ptr %ch, align 1
+  %4 = and i8 %3, -33
+  %or.cond = icmp eq i8 %4, 77
+  %5 = load i64, ptr %max_to_use, align 8, !tbaa !11
+  %mul = mul nsw i64 %5, 1000
+  %6 = select i1 %or.cond, i64 %mul, i64 %5
+  %mul42 = mul nsw i64 %6, 1000
+  store i64 %mul42, ptr %max_memory_to_use, align 8, !tbaa !31
+  br label %if.end45
 
-36:                                               ; preds = %33
-  %37 = load i64, ptr %2, align 8, !tbaa !11
-  br label %41
+if.end45:                                         ; preds = %if.then34, %if.then31
+  call void @llvm.lifetime.end.p0(i64 1, ptr nonnull %ch) #7
+  br label %if.end46
 
-38:                                               ; preds = %33, %33
-  %39 = load i64, ptr %2, align 8, !tbaa !11
-  %40 = mul nsw i64 %39, 1000
-  br label %41
-
-41:                                               ; preds = %36, %38
-  %42 = phi i64 [ %37, %36 ], [ %40, %38 ]
-  %43 = mul nsw i64 %42, 1000
-  store i64 %43, ptr %25, align 8, !tbaa !31
-  br label %44
-
-44:                                               ; preds = %41, %30
-  call void @llvm.lifetime.end.p0(i64 1, ptr nonnull %3) #7
-  br label %45
-
-45:                                               ; preds = %44, %14
-  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %2) #7
+if.end46:                                         ; preds = %if.end45, %if.end11
+  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %max_to_use) #7
   ret void
 }
 
@@ -128,1615 +117,1626 @@ declare ptr @jpeg_get_small(ptr noundef, i64 noundef) local_unnamed_addr #2
 declare void @jpeg_mem_term(ptr noundef) local_unnamed_addr #2
 
 ; Function Attrs: nounwind uwtable
-define internal ptr @alloc_small(ptr noundef %0, i32 noundef %1, i64 noundef %2) #0 {
-  %4 = getelementptr inbounds %struct.jpeg_common_struct, ptr %0, i64 0, i32 1
-  %5 = load ptr, ptr %4, align 8, !tbaa !5
-  %6 = icmp ugt i64 %2, 999999976
-  br i1 %6, label %7, label %13
+define internal ptr @alloc_small(ptr noundef %cinfo, i32 noundef %pool_id, i64 noundef %sizeofobject) #0 {
+entry:
+  %mem1 = getelementptr inbounds %struct.jpeg_common_struct, ptr %cinfo, i64 0, i32 1
+  %0 = load ptr, ptr %mem1, align 8, !tbaa !5
+  %cmp = icmp ugt i64 %sizeofobject, 999999976
+  br i1 %cmp, label %if.then, label %if.end
 
-7:                                                ; preds = %3
-  %8 = load ptr, ptr %0, align 8, !tbaa !13
-  %9 = getelementptr inbounds %struct.jpeg_error_mgr, ptr %8, i64 0, i32 5
-  store i32 53, ptr %9, align 8, !tbaa !14
-  %10 = getelementptr inbounds %struct.jpeg_error_mgr, ptr %8, i64 0, i32 6
-  store i32 1, ptr %10, align 4, !tbaa !16
-  %11 = load ptr, ptr %0, align 8, !tbaa !13
+if.then:                                          ; preds = %entry
+  %1 = load ptr, ptr %cinfo, align 8, !tbaa !13
+  %msg_code.i = getelementptr inbounds %struct.jpeg_error_mgr, ptr %1, i64 0, i32 5
+  store i32 53, ptr %msg_code.i, align 8, !tbaa !14
+  %msg_parm.i = getelementptr inbounds %struct.jpeg_error_mgr, ptr %1, i64 0, i32 6
+  store i32 1, ptr %msg_parm.i, align 4, !tbaa !16
+  %2 = load ptr, ptr %cinfo, align 8, !tbaa !13
+  %3 = load ptr, ptr %2, align 8, !tbaa !17
+  tail call void %3(ptr noundef nonnull %cinfo) #7
+  br label %if.end
+
+if.end:                                           ; preds = %if.then, %entry
+  %sizeofobject.biased = add i64 %sizeofobject, 7
+  %sizeofobject.addr.0 = and i64 %sizeofobject.biased, -8
+  %or.cond = icmp ugt i32 %pool_id, 1
+  br i1 %or.cond, label %if.then7, label %if.end10
+
+if.then7:                                         ; preds = %if.end
+  %4 = load ptr, ptr %cinfo, align 8, !tbaa !13
+  %msg_code = getelementptr inbounds %struct.jpeg_error_mgr, ptr %4, i64 0, i32 5
+  store i32 12, ptr %msg_code, align 8, !tbaa !14
+  %msg_parm = getelementptr inbounds %struct.jpeg_error_mgr, ptr %4, i64 0, i32 6
+  store i32 %pool_id, ptr %msg_parm, align 4, !tbaa !16
+  %5 = load ptr, ptr %cinfo, align 8, !tbaa !13
+  %6 = load ptr, ptr %5, align 8, !tbaa !17
+  tail call void %6(ptr noundef nonnull %cinfo) #7
+  br label %if.end10
+
+if.end10:                                         ; preds = %if.end, %if.then7
+  %idxprom = sext i32 %pool_id to i64
+  %arrayidx11 = getelementptr inbounds %struct.my_memory_mgr, ptr %0, i64 0, i32 1, i64 %idxprom
+  %hdr_ptr.0111 = load ptr, ptr %arrayidx11, align 8, !tbaa !16
+  %cond112 = icmp eq ptr %hdr_ptr.0111, null
+  br i1 %cond112, label %if.then17, label %while.body
+
+while.cond:                                       ; preds = %while.body
+  %hdr_ptr.0 = load ptr, ptr %hdr_ptr.0113, align 8, !tbaa !16
+  %cond = icmp eq ptr %hdr_ptr.0, null
+  br i1 %cond, label %if.then17, label %while.body, !llvm.loop !33
+
+while.body:                                       ; preds = %if.end10, %while.cond
+  %hdr_ptr.0113 = phi ptr [ %hdr_ptr.0, %while.cond ], [ %hdr_ptr.0111, %if.end10 ]
+  %bytes_left = getelementptr inbounds %struct.anon, ptr %hdr_ptr.0113, i64 0, i32 2
+  %7 = load i64, ptr %bytes_left, align 8, !tbaa !16
+  %cmp13.not = icmp ult i64 %7, %sizeofobject.addr.0
+  br i1 %cmp13.not, label %while.cond, label %if.end51, !llvm.loop !33
+
+if.then17:                                        ; preds = %while.cond, %if.end10
+  %prev_hdr_ptr.0.lcssa = phi ptr [ null, %if.end10 ], [ %hdr_ptr.0113, %while.cond ]
+  %cmp19 = icmp eq ptr %prev_hdr_ptr.0.lcssa, null
+  %first_pool_slop.extra_pool_slop = select i1 %cmp19, ptr @first_pool_slop, ptr @extra_pool_slop
+  %slop.0.in = getelementptr inbounds [2 x i64], ptr %first_pool_slop.extra_pool_slop, i64 0, i64 %idxprom
+  %slop.0 = load i64, ptr %slop.0.in, align 8, !tbaa !11
+  %sub26 = sub i64 999999976, %sizeofobject.addr.0
+  %slop.1 = tail call i64 @llvm.umin.i64(i64 %slop.0, i64 %sub26)
+  %add18114 = add i64 %slop.1, %sizeofobject.addr.0
+  %add31115 = add i64 %add18114, 24
+  %call116 = tail call ptr @jpeg_get_small(ptr noundef %cinfo, i64 noundef %add31115) #7
+  %cmp32.not117 = icmp eq ptr %call116, null
+  br i1 %cmp32.not117, label %if.end34, label %for.end
+
+if.end34:                                         ; preds = %if.then17, %if.end37
+  %slop.2118 = phi i64 [ %div106, %if.end37 ], [ %slop.1, %if.then17 ]
+  %div106 = lshr i64 %slop.2118, 1
+  %cmp35 = icmp ult i64 %slop.2118, 100
+  br i1 %cmp35, label %if.then36, label %if.end37
+
+if.then36:                                        ; preds = %if.end34
+  %8 = load ptr, ptr %cinfo, align 8, !tbaa !13
+  %msg_code.i107 = getelementptr inbounds %struct.jpeg_error_mgr, ptr %8, i64 0, i32 5
+  store i32 53, ptr %msg_code.i107, align 8, !tbaa !14
+  %msg_parm.i108 = getelementptr inbounds %struct.jpeg_error_mgr, ptr %8, i64 0, i32 6
+  store i32 2, ptr %msg_parm.i108, align 4, !tbaa !16
+  %9 = load ptr, ptr %cinfo, align 8, !tbaa !13
+  %10 = load ptr, ptr %9, align 8, !tbaa !17
+  tail call void %10(ptr noundef nonnull %cinfo) #7
+  br label %if.end37
+
+if.end37:                                         ; preds = %if.then36, %if.end34
+  %add18 = add i64 %div106, %sizeofobject.addr.0
+  %add31 = add i64 %add18, 24
+  %call = tail call ptr @jpeg_get_small(ptr noundef %cinfo, i64 noundef %add31) #7
+  %cmp32.not = icmp eq ptr %call, null
+  br i1 %cmp32.not, label %if.end34, label %for.end
+
+for.end:                                          ; preds = %if.end37, %if.then17
+  %add41.pre-phi = phi i64 [ %add18114, %if.then17 ], [ %add18, %if.end37 ]
+  %add31.lcssa = phi i64 [ %add31115, %if.then17 ], [ %add31, %if.end37 ]
+  %call.lcssa = phi ptr [ %call116, %if.then17 ], [ %call, %if.end37 ]
+  %total_space_allocated = getelementptr inbounds %struct.my_memory_mgr, ptr %0, i64 0, i32 5
+  %11 = load i64, ptr %total_space_allocated, align 8, !tbaa !32
+  %add39 = add i64 %11, %add31.lcssa
+  store i64 %add39, ptr %total_space_allocated, align 8, !tbaa !32
+  %bytes_left42 = getelementptr inbounds %struct.anon, ptr %call.lcssa, i64 0, i32 2
+  tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %call.lcssa, i8 0, i64 16, i1 false)
+  store i64 %add41.pre-phi, ptr %bytes_left42, align 8, !tbaa !16
+  %arrayidx11.prev_hdr_ptr.0.lcssa = select i1 %cmp19, ptr %arrayidx11, ptr %prev_hdr_ptr.0.lcssa
+  store ptr %call.lcssa, ptr %arrayidx11.prev_hdr_ptr.0.lcssa, align 8, !tbaa !16
+  br label %if.end51
+
+if.end51:                                         ; preds = %while.body, %for.end
+  %hdr_ptr.1 = phi ptr [ %call.lcssa, %for.end ], [ %hdr_ptr.0113, %while.body ]
+  %add.ptr = getelementptr inbounds %union.small_pool_struct, ptr %hdr_ptr.1, i64 1
+  %bytes_used52 = getelementptr inbounds %struct.anon, ptr %hdr_ptr.1, i64 0, i32 1
+  %12 = load i64, ptr %bytes_used52, align 8, !tbaa !16
+  %add.ptr53 = getelementptr inbounds i8, ptr %add.ptr, i64 %12
+  %add55 = add i64 %12, %sizeofobject.addr.0
+  store i64 %add55, ptr %bytes_used52, align 8, !tbaa !16
+  %bytes_left56 = getelementptr inbounds %struct.anon, ptr %hdr_ptr.1, i64 0, i32 2
+  %13 = load i64, ptr %bytes_left56, align 8, !tbaa !16
+  %sub57 = sub i64 %13, %sizeofobject.addr.0
+  store i64 %sub57, ptr %bytes_left56, align 8, !tbaa !16
+  ret ptr %add.ptr53
+}
+
+; Function Attrs: nounwind uwtable
+define internal ptr @alloc_large(ptr noundef %cinfo, i32 noundef %pool_id, i64 noundef %sizeofobject) #0 {
+entry:
+  %mem1 = getelementptr inbounds %struct.jpeg_common_struct, ptr %cinfo, i64 0, i32 1
+  %0 = load ptr, ptr %mem1, align 8, !tbaa !5
+  %cmp = icmp ugt i64 %sizeofobject, 999999976
+  br i1 %cmp, label %if.then, label %if.end
+
+if.then:                                          ; preds = %entry
+  %1 = load ptr, ptr %cinfo, align 8, !tbaa !13
+  %msg_code.i = getelementptr inbounds %struct.jpeg_error_mgr, ptr %1, i64 0, i32 5
+  store i32 53, ptr %msg_code.i, align 8, !tbaa !14
+  %msg_parm.i = getelementptr inbounds %struct.jpeg_error_mgr, ptr %1, i64 0, i32 6
+  store i32 3, ptr %msg_parm.i, align 4, !tbaa !16
+  %2 = load ptr, ptr %cinfo, align 8, !tbaa !13
+  %3 = load ptr, ptr %2, align 8, !tbaa !17
+  tail call void %3(ptr noundef nonnull %cinfo) #7
+  br label %if.end
+
+if.end:                                           ; preds = %if.then, %entry
+  %sizeofobject.biased = add i64 %sizeofobject, 7
+  %sizeofobject.addr.0 = and i64 %sizeofobject.biased, -8
+  %or.cond = icmp ugt i32 %pool_id, 1
+  br i1 %or.cond, label %if.then7, label %if.end10
+
+if.then7:                                         ; preds = %if.end
+  %4 = load ptr, ptr %cinfo, align 8, !tbaa !13
+  %msg_code = getelementptr inbounds %struct.jpeg_error_mgr, ptr %4, i64 0, i32 5
+  store i32 12, ptr %msg_code, align 8, !tbaa !14
+  %msg_parm = getelementptr inbounds %struct.jpeg_error_mgr, ptr %4, i64 0, i32 6
+  store i32 %pool_id, ptr %msg_parm, align 4, !tbaa !16
+  %5 = load ptr, ptr %cinfo, align 8, !tbaa !13
+  %6 = load ptr, ptr %5, align 8, !tbaa !17
+  tail call void %6(ptr noundef nonnull %cinfo) #7
+  br label %if.end10
+
+if.end10:                                         ; preds = %if.end, %if.then7
+  %add11 = add i64 %sizeofobject.addr.0, 24
+  %call = tail call ptr @jpeg_get_large(ptr noundef nonnull %cinfo, i64 noundef %add11) #7
+  %cmp12 = icmp eq ptr %call, null
+  br i1 %cmp12, label %if.then13, label %if.end14
+
+if.then13:                                        ; preds = %if.end10
+  %7 = load ptr, ptr %cinfo, align 8, !tbaa !13
+  %msg_code.i45 = getelementptr inbounds %struct.jpeg_error_mgr, ptr %7, i64 0, i32 5
+  store i32 53, ptr %msg_code.i45, align 8, !tbaa !14
+  %msg_parm.i46 = getelementptr inbounds %struct.jpeg_error_mgr, ptr %7, i64 0, i32 6
+  store i32 4, ptr %msg_parm.i46, align 4, !tbaa !16
+  %8 = load ptr, ptr %cinfo, align 8, !tbaa !13
+  %9 = load ptr, ptr %8, align 8, !tbaa !17
+  tail call void %9(ptr noundef nonnull %cinfo) #7
+  br label %if.end14
+
+if.end14:                                         ; preds = %if.then13, %if.end10
+  %total_space_allocated = getelementptr inbounds %struct.my_memory_mgr, ptr %0, i64 0, i32 5
+  %10 = load i64, ptr %total_space_allocated, align 8, !tbaa !32
+  %add16 = add i64 %10, %add11
+  store i64 %add16, ptr %total_space_allocated, align 8, !tbaa !32
+  %idxprom = sext i32 %pool_id to i64
+  %arrayidx17 = getelementptr inbounds %struct.my_memory_mgr, ptr %0, i64 0, i32 2, i64 %idxprom
+  %11 = load ptr, ptr %arrayidx17, align 8, !tbaa !35
+  store ptr %11, ptr %call, align 8, !tbaa !16
+  %bytes_used = getelementptr inbounds %struct.anon.0, ptr %call, i64 0, i32 1
+  store i64 %sizeofobject.addr.0, ptr %bytes_used, align 8, !tbaa !16
+  %bytes_left = getelementptr inbounds %struct.anon.0, ptr %call, i64 0, i32 2
+  store i64 0, ptr %bytes_left, align 8, !tbaa !16
+  store ptr %call, ptr %arrayidx17, align 8, !tbaa !35
+  %add.ptr = getelementptr inbounds %union.large_pool_struct, ptr %call, i64 1
+  ret ptr %add.ptr
+}
+
+; Function Attrs: nounwind uwtable
+define internal ptr @alloc_sarray(ptr noundef %cinfo, i32 noundef %pool_id, i32 noundef %samplesperrow, i32 noundef %numrows) #0 {
+entry:
+  %mem1 = getelementptr inbounds %struct.jpeg_common_struct, ptr %cinfo, i64 0, i32 1
+  %0 = load ptr, ptr %mem1, align 8, !tbaa !5
+  %conv = zext i32 %samplesperrow to i64
+  %div49 = udiv i32 999999976, %samplesperrow
+  %cmp = icmp ugt i32 %samplesperrow, 999999976
+  br i1 %cmp, label %if.then, label %if.end
+
+if.then:                                          ; preds = %entry
+  %1 = load ptr, ptr %cinfo, align 8, !tbaa !13
+  %msg_code = getelementptr inbounds %struct.jpeg_error_mgr, ptr %1, i64 0, i32 5
+  store i32 69, ptr %msg_code, align 8, !tbaa !14
+  %2 = load ptr, ptr %1, align 8, !tbaa !17
+  tail call void %2(ptr noundef nonnull %cinfo) #7
+  br label %if.end
+
+if.end:                                           ; preds = %if.then, %entry
+  %conv4 = zext i32 %numrows to i64
+  %rowsperchunk.0 = tail call i32 @llvm.umin.i32(i32 %div49, i32 %numrows)
+  %last_rowsperchunk = getelementptr inbounds %struct.my_memory_mgr, ptr %0, i64 0, i32 6
+  store i32 %rowsperchunk.0, ptr %last_rowsperchunk, align 8, !tbaa !36
+  %mul11 = shl nuw nsw i64 %conv4, 3
+  %call = tail call ptr @alloc_small(ptr noundef nonnull %cinfo, i32 noundef %pool_id, i64 noundef %mul11)
+  %cmp1254.not = icmp eq i32 %numrows, 0
+  br i1 %cmp1254.not, label %while.end, label %while.body.lr.ph
+
+while.body.lr.ph:                                 ; preds = %if.end
+  %or.cond.i = icmp ugt i32 %pool_id, 1
+  %idxprom.i = sext i32 %pool_id to i64
+  br label %while.body
+
+while.cond.loopexit:                              ; preds = %for.body.prol.loopexit, %for.body, %alloc_large.exit
+  %currow.1.lcssa = phi i32 [ %currow.056, %alloc_large.exit ], [ %inc.lcssa.unr, %for.body.prol.loopexit ], [ %inc.3, %for.body ]
+  %cmp12 = icmp ult i32 %currow.1.lcssa, %numrows
+  br i1 %cmp12, label %while.body, label %while.end, !llvm.loop !37
+
+while.body:                                       ; preds = %while.body.lr.ph, %while.cond.loopexit
+  %currow.056 = phi i32 [ 0, %while.body.lr.ph ], [ %currow.1.lcssa, %while.cond.loopexit ]
+  %rowsperchunk.155 = phi i32 [ %rowsperchunk.0, %while.body.lr.ph ], [ %cond, %while.cond.loopexit ]
+  %sub = sub i32 %numrows, %currow.056
+  %cond = tail call i32 @llvm.umin.i32(i32 %rowsperchunk.155, i32 %sub)
+  %conv17 = zext i32 %cond to i64
+  %mul19 = mul nuw nsw i64 %conv17, %conv
+  %3 = load ptr, ptr %mem1, align 8, !tbaa !5
+  %cmp.i = icmp ugt i64 %mul19, 999999976
+  br i1 %cmp.i, label %if.then.i, label %if.end.i
+
+if.then.i:                                        ; preds = %while.body
+  %4 = load ptr, ptr %cinfo, align 8, !tbaa !13
+  %msg_code.i.i = getelementptr inbounds %struct.jpeg_error_mgr, ptr %4, i64 0, i32 5
+  store i32 53, ptr %msg_code.i.i, align 8, !tbaa !14
+  %msg_parm.i.i = getelementptr inbounds %struct.jpeg_error_mgr, ptr %4, i64 0, i32 6
+  store i32 3, ptr %msg_parm.i.i, align 4, !tbaa !16
+  %5 = load ptr, ptr %cinfo, align 8, !tbaa !13
+  %6 = load ptr, ptr %5, align 8, !tbaa !17
+  tail call void %6(ptr noundef nonnull %cinfo) #7
+  br label %if.end.i
+
+if.end.i:                                         ; preds = %if.then.i, %while.body
+  %sizeofobject.biased.i = add nuw nsw i64 %mul19, 7
+  %sizeofobject.addr.0.i = and i64 %sizeofobject.biased.i, 9223372036854775800
+  br i1 %or.cond.i, label %if.then7.i, label %if.end10.i
+
+if.then7.i:                                       ; preds = %if.end.i
+  %7 = load ptr, ptr %cinfo, align 8, !tbaa !13
+  %msg_code.i = getelementptr inbounds %struct.jpeg_error_mgr, ptr %7, i64 0, i32 5
+  store i32 12, ptr %msg_code.i, align 8, !tbaa !14
+  %msg_parm.i = getelementptr inbounds %struct.jpeg_error_mgr, ptr %7, i64 0, i32 6
+  store i32 %pool_id, ptr %msg_parm.i, align 4, !tbaa !16
+  %8 = load ptr, ptr %cinfo, align 8, !tbaa !13
+  %9 = load ptr, ptr %8, align 8, !tbaa !17
+  tail call void %9(ptr noundef nonnull %cinfo) #7
+  br label %if.end10.i
+
+if.end10.i:                                       ; preds = %if.then7.i, %if.end.i
+  %add11.i = add nuw nsw i64 %sizeofobject.addr.0.i, 24
+  %call.i = tail call ptr @jpeg_get_large(ptr noundef nonnull %cinfo, i64 noundef %add11.i) #7
+  %cmp12.i = icmp eq ptr %call.i, null
+  br i1 %cmp12.i, label %if.then13.i, label %alloc_large.exit
+
+if.then13.i:                                      ; preds = %if.end10.i
+  %10 = load ptr, ptr %cinfo, align 8, !tbaa !13
+  %msg_code.i45.i = getelementptr inbounds %struct.jpeg_error_mgr, ptr %10, i64 0, i32 5
+  store i32 53, ptr %msg_code.i45.i, align 8, !tbaa !14
+  %msg_parm.i46.i = getelementptr inbounds %struct.jpeg_error_mgr, ptr %10, i64 0, i32 6
+  store i32 4, ptr %msg_parm.i46.i, align 4, !tbaa !16
+  %11 = load ptr, ptr %cinfo, align 8, !tbaa !13
   %12 = load ptr, ptr %11, align 8, !tbaa !17
-  tail call void %12(ptr noundef nonnull %0) #7
-  br label %13
+  tail call void %12(ptr noundef nonnull %cinfo) #7
+  br label %alloc_large.exit
 
-13:                                               ; preds = %7, %3
-  %14 = add i64 %2, 7
-  %15 = and i64 %14, -8
-  %16 = icmp ugt i32 %1, 1
-  br i1 %16, label %17, label %23
+alloc_large.exit:                                 ; preds = %if.end10.i, %if.then13.i
+  %total_space_allocated.i = getelementptr inbounds %struct.my_memory_mgr, ptr %3, i64 0, i32 5
+  %13 = load i64, ptr %total_space_allocated.i, align 8, !tbaa !32
+  %add16.i = add i64 %13, %add11.i
+  store i64 %add16.i, ptr %total_space_allocated.i, align 8, !tbaa !32
+  %arrayidx17.i = getelementptr inbounds %struct.my_memory_mgr, ptr %3, i64 0, i32 2, i64 %idxprom.i
+  %14 = load ptr, ptr %arrayidx17.i, align 8, !tbaa !35
+  store ptr %14, ptr %call.i, align 8, !tbaa !16
+  %bytes_used.i = getelementptr inbounds %struct.anon.0, ptr %call.i, i64 0, i32 1
+  store i64 %sizeofobject.addr.0.i, ptr %bytes_used.i, align 8, !tbaa !16
+  %bytes_left.i = getelementptr inbounds %struct.anon.0, ptr %call.i, i64 0, i32 2
+  store i64 0, ptr %bytes_left.i, align 8, !tbaa !16
+  store ptr %call.i, ptr %arrayidx17.i, align 8, !tbaa !35
+  %cmp22.not50 = icmp eq i32 %cond, 0
+  br i1 %cmp22.not50, label %while.cond.loopexit, label %for.body.preheader
 
-17:                                               ; preds = %13
-  %18 = load ptr, ptr %0, align 8, !tbaa !13
-  %19 = getelementptr inbounds %struct.jpeg_error_mgr, ptr %18, i64 0, i32 5
-  store i32 12, ptr %19, align 8, !tbaa !14
-  %20 = getelementptr inbounds %struct.jpeg_error_mgr, ptr %18, i64 0, i32 6
-  store i32 %1, ptr %20, align 4, !tbaa !16
-  %21 = load ptr, ptr %0, align 8, !tbaa !13
-  %22 = load ptr, ptr %21, align 8, !tbaa !17
-  tail call void %22(ptr noundef nonnull %0) #7
-  br label %23
+for.body.preheader:                               ; preds = %alloc_large.exit
+  %add.ptr.i = getelementptr inbounds %union.large_pool_struct, ptr %call.i, i64 1
+  %xtraiter = and i32 %cond, 3
+  %lcmp.mod.not = icmp eq i32 %xtraiter, 0
+  br i1 %lcmp.mod.not, label %for.body.prol.loopexit, label %for.body.prol
 
-23:                                               ; preds = %13, %17
-  %24 = sext i32 %1 to i64
-  %25 = getelementptr inbounds %struct.my_memory_mgr, ptr %5, i64 0, i32 1, i64 %24
-  %26 = load ptr, ptr %25, align 8, !tbaa !16
-  %27 = icmp eq ptr %26, null
-  br i1 %27, label %36, label %31
+for.body.prol:                                    ; preds = %for.body.preheader, %for.body.prol
+  %workspace.053.prol = phi ptr [ %add.ptr.prol, %for.body.prol ], [ %add.ptr.i, %for.body.preheader ]
+  %i.052.prol = phi i32 [ %dec.prol, %for.body.prol ], [ %cond, %for.body.preheader ]
+  %currow.151.prol = phi i32 [ %inc.prol, %for.body.prol ], [ %currow.056, %for.body.preheader ]
+  %prol.iter = phi i32 [ %prol.iter.next, %for.body.prol ], [ 0, %for.body.preheader ]
+  %inc.prol = add i32 %currow.151.prol, 1
+  %idxprom.prol = zext i32 %currow.151.prol to i64
+  %arrayidx.prol = getelementptr inbounds ptr, ptr %call, i64 %idxprom.prol
+  store ptr %workspace.053.prol, ptr %arrayidx.prol, align 8, !tbaa !35
+  %add.ptr.prol = getelementptr inbounds i8, ptr %workspace.053.prol, i64 %conv
+  %dec.prol = add i32 %i.052.prol, -1
+  %prol.iter.next = add i32 %prol.iter, 1
+  %prol.iter.cmp.not = icmp eq i32 %prol.iter.next, %xtraiter
+  br i1 %prol.iter.cmp.not, label %for.body.prol.loopexit, label %for.body.prol, !llvm.loop !38
 
-28:                                               ; preds = %31
-  %29 = load ptr, ptr %32, align 8, !tbaa !16
-  %30 = icmp eq ptr %29, null
-  br i1 %30, label %36, label %31, !llvm.loop !33
+for.body.prol.loopexit:                           ; preds = %for.body.prol, %for.body.preheader
+  %inc.lcssa.unr = phi i32 [ undef, %for.body.preheader ], [ %inc.prol, %for.body.prol ]
+  %workspace.053.unr = phi ptr [ %add.ptr.i, %for.body.preheader ], [ %add.ptr.prol, %for.body.prol ]
+  %i.052.unr = phi i32 [ %cond, %for.body.preheader ], [ %dec.prol, %for.body.prol ]
+  %currow.151.unr = phi i32 [ %currow.056, %for.body.preheader ], [ %inc.prol, %for.body.prol ]
+  %15 = icmp ult i32 %cond, 4
+  br i1 %15, label %while.cond.loopexit, label %for.body
 
-31:                                               ; preds = %23, %28
-  %32 = phi ptr [ %29, %28 ], [ %26, %23 ]
-  %33 = getelementptr inbounds %struct.anon, ptr %32, i64 0, i32 2
-  %34 = load i64, ptr %33, align 8, !tbaa !16
-  %35 = icmp ult i64 %34, %15
-  br i1 %35, label %28, label %72, !llvm.loop !33
+for.body:                                         ; preds = %for.body.prol.loopexit, %for.body
+  %workspace.053 = phi ptr [ %add.ptr.3, %for.body ], [ %workspace.053.unr, %for.body.prol.loopexit ]
+  %i.052 = phi i32 [ %dec.3, %for.body ], [ %i.052.unr, %for.body.prol.loopexit ]
+  %currow.151 = phi i32 [ %inc.3, %for.body ], [ %currow.151.unr, %for.body.prol.loopexit ]
+  %inc = add i32 %currow.151, 1
+  %idxprom = zext i32 %currow.151 to i64
+  %arrayidx = getelementptr inbounds ptr, ptr %call, i64 %idxprom
+  store ptr %workspace.053, ptr %arrayidx, align 8, !tbaa !35
+  %add.ptr = getelementptr inbounds i8, ptr %workspace.053, i64 %conv
+  %inc.1 = add i32 %currow.151, 2
+  %idxprom.1 = zext i32 %inc to i64
+  %arrayidx.1 = getelementptr inbounds ptr, ptr %call, i64 %idxprom.1
+  store ptr %add.ptr, ptr %arrayidx.1, align 8, !tbaa !35
+  %add.ptr.1 = getelementptr inbounds i8, ptr %add.ptr, i64 %conv
+  %inc.2 = add i32 %currow.151, 3
+  %idxprom.2 = zext i32 %inc.1 to i64
+  %arrayidx.2 = getelementptr inbounds ptr, ptr %call, i64 %idxprom.2
+  store ptr %add.ptr.1, ptr %arrayidx.2, align 8, !tbaa !35
+  %add.ptr.2 = getelementptr inbounds i8, ptr %add.ptr.1, i64 %conv
+  %inc.3 = add i32 %currow.151, 4
+  %idxprom.3 = zext i32 %inc.2 to i64
+  %arrayidx.3 = getelementptr inbounds ptr, ptr %call, i64 %idxprom.3
+  store ptr %add.ptr.2, ptr %arrayidx.3, align 8, !tbaa !35
+  %add.ptr.3 = getelementptr inbounds i8, ptr %add.ptr.2, i64 %conv
+  %dec.3 = add i32 %i.052, -4
+  %cmp22.not.3 = icmp eq i32 %dec.3, 0
+  br i1 %cmp22.not.3, label %while.cond.loopexit, label %for.body, !llvm.loop !40
 
-36:                                               ; preds = %28, %23
-  %37 = phi ptr [ null, %23 ], [ %32, %28 ]
-  %38 = icmp eq ptr %37, null
-  %39 = select i1 %38, ptr @first_pool_slop, ptr @extra_pool_slop
-  %40 = getelementptr inbounds [2 x i64], ptr %39, i64 0, i64 %24
-  %41 = load i64, ptr %40, align 8, !tbaa !11
-  %42 = sub i64 999999976, %15
-  %43 = tail call i64 @llvm.umin.i64(i64 %41, i64 %42)
-  %44 = add i64 %43, %15
-  %45 = add i64 %44, 24
-  %46 = tail call ptr @jpeg_get_small(ptr noundef %0, i64 noundef %45) #7
-  %47 = icmp eq ptr %46, null
-  br i1 %47, label %48, label %63
-
-48:                                               ; preds = %36, %58
-  %49 = phi i64 [ %50, %58 ], [ %43, %36 ]
-  %50 = lshr i64 %49, 1
-  %51 = icmp ult i64 %49, 100
-  br i1 %51, label %52, label %58
-
-52:                                               ; preds = %48
-  %53 = load ptr, ptr %0, align 8, !tbaa !13
-  %54 = getelementptr inbounds %struct.jpeg_error_mgr, ptr %53, i64 0, i32 5
-  store i32 53, ptr %54, align 8, !tbaa !14
-  %55 = getelementptr inbounds %struct.jpeg_error_mgr, ptr %53, i64 0, i32 6
-  store i32 2, ptr %55, align 4, !tbaa !16
-  %56 = load ptr, ptr %0, align 8, !tbaa !13
-  %57 = load ptr, ptr %56, align 8, !tbaa !17
-  tail call void %57(ptr noundef nonnull %0) #7
-  br label %58
-
-58:                                               ; preds = %52, %48
-  %59 = add i64 %50, %15
-  %60 = add i64 %59, 24
-  %61 = tail call ptr @jpeg_get_small(ptr noundef %0, i64 noundef %60) #7
-  %62 = icmp eq ptr %61, null
-  br i1 %62, label %48, label %63
-
-63:                                               ; preds = %58, %36
-  %64 = phi i64 [ %44, %36 ], [ %59, %58 ]
-  %65 = phi i64 [ %45, %36 ], [ %60, %58 ]
-  %66 = phi ptr [ %46, %36 ], [ %61, %58 ]
-  %67 = getelementptr inbounds %struct.my_memory_mgr, ptr %5, i64 0, i32 5
-  %68 = load i64, ptr %67, align 8, !tbaa !32
-  %69 = add i64 %68, %65
-  store i64 %69, ptr %67, align 8, !tbaa !32
-  %70 = getelementptr inbounds %struct.anon, ptr %66, i64 0, i32 2
-  tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %66, i8 0, i64 16, i1 false)
-  store i64 %64, ptr %70, align 8, !tbaa !16
-  %71 = select i1 %38, ptr %25, ptr %37
-  store ptr %66, ptr %71, align 8, !tbaa !16
-  br label %72
-
-72:                                               ; preds = %31, %63
-  %73 = phi ptr [ %66, %63 ], [ %32, %31 ]
-  %74 = getelementptr inbounds %union.small_pool_struct, ptr %73, i64 1
-  %75 = getelementptr inbounds %struct.anon, ptr %73, i64 0, i32 1
-  %76 = load i64, ptr %75, align 8, !tbaa !16
-  %77 = getelementptr inbounds i8, ptr %74, i64 %76
-  %78 = add i64 %76, %15
-  store i64 %78, ptr %75, align 8, !tbaa !16
-  %79 = getelementptr inbounds %struct.anon, ptr %73, i64 0, i32 2
-  %80 = load i64, ptr %79, align 8, !tbaa !16
-  %81 = sub i64 %80, %15
-  store i64 %81, ptr %79, align 8, !tbaa !16
-  ret ptr %77
+while.end:                                        ; preds = %while.cond.loopexit, %if.end
+  ret ptr %call
 }
 
 ; Function Attrs: nounwind uwtable
-define internal ptr @alloc_large(ptr noundef %0, i32 noundef %1, i64 noundef %2) #0 {
-  %4 = getelementptr inbounds %struct.jpeg_common_struct, ptr %0, i64 0, i32 1
-  %5 = load ptr, ptr %4, align 8, !tbaa !5
-  %6 = icmp ugt i64 %2, 999999976
-  br i1 %6, label %7, label %13
+define internal ptr @alloc_barray(ptr noundef %cinfo, i32 noundef %pool_id, i32 noundef %blocksperrow, i32 noundef %numrows) #0 {
+entry:
+  %mem1 = getelementptr inbounds %struct.jpeg_common_struct, ptr %cinfo, i64 0, i32 1
+  %0 = load ptr, ptr %mem1, align 8, !tbaa !5
+  %conv = zext i32 %blocksperrow to i64
+  %mul = shl nuw nsw i64 %conv, 7
+  %div = udiv i64 999999976, %mul
+  %cmp = icmp ugt i32 %blocksperrow, 7812499
+  br i1 %cmp, label %if.then, label %if.end
 
-7:                                                ; preds = %3
-  %8 = load ptr, ptr %0, align 8, !tbaa !13
-  %9 = getelementptr inbounds %struct.jpeg_error_mgr, ptr %8, i64 0, i32 5
-  store i32 53, ptr %9, align 8, !tbaa !14
-  %10 = getelementptr inbounds %struct.jpeg_error_mgr, ptr %8, i64 0, i32 6
-  store i32 3, ptr %10, align 4, !tbaa !16
-  %11 = load ptr, ptr %0, align 8, !tbaa !13
+if.then:                                          ; preds = %entry
+  %1 = load ptr, ptr %cinfo, align 8, !tbaa !13
+  %msg_code = getelementptr inbounds %struct.jpeg_error_mgr, ptr %1, i64 0, i32 5
+  store i32 69, ptr %msg_code, align 8, !tbaa !14
+  %2 = load ptr, ptr %1, align 8, !tbaa !17
+  tail call void %2(ptr noundef nonnull %cinfo) #7
+  br label %if.end
+
+if.end:                                           ; preds = %if.then, %entry
+  %conv4 = zext i32 %numrows to i64
+  %cmp5 = icmp ult i64 %div, %conv4
+  %conv8 = trunc i64 %div to i32
+  %rowsperchunk.0 = select i1 %cmp5, i32 %conv8, i32 %numrows
+  %last_rowsperchunk = getelementptr inbounds %struct.my_memory_mgr, ptr %0, i64 0, i32 6
+  store i32 %rowsperchunk.0, ptr %last_rowsperchunk, align 8, !tbaa !36
+  %mul11 = shl nuw nsw i64 %conv4, 3
+  %call = tail call ptr @alloc_small(ptr noundef nonnull %cinfo, i32 noundef %pool_id, i64 noundef %mul11)
+  %cmp1253.not = icmp eq i32 %numrows, 0
+  br i1 %cmp1253.not, label %while.end, label %while.body.lr.ph
+
+while.body.lr.ph:                                 ; preds = %if.end
+  %or.cond.i = icmp ugt i32 %pool_id, 1
+  %idxprom.i = sext i32 %pool_id to i64
+  br label %while.body
+
+while.cond.loopexit:                              ; preds = %for.body.prol.loopexit, %for.body, %alloc_large.exit
+  %currow.1.lcssa = phi i32 [ %currow.055, %alloc_large.exit ], [ %inc.lcssa.unr, %for.body.prol.loopexit ], [ %inc.3, %for.body ]
+  %cmp12 = icmp ult i32 %currow.1.lcssa, %numrows
+  br i1 %cmp12, label %while.body, label %while.end, !llvm.loop !41
+
+while.body:                                       ; preds = %while.body.lr.ph, %while.cond.loopexit
+  %currow.055 = phi i32 [ 0, %while.body.lr.ph ], [ %currow.1.lcssa, %while.cond.loopexit ]
+  %rowsperchunk.154 = phi i32 [ %rowsperchunk.0, %while.body.lr.ph ], [ %cond, %while.cond.loopexit ]
+  %sub = sub i32 %numrows, %currow.055
+  %cond = tail call i32 @llvm.umin.i32(i32 %rowsperchunk.154, i32 %sub)
+  %conv17 = zext i32 %cond to i64
+  %mul20 = mul i64 %mul, %conv17
+  %3 = load ptr, ptr %mem1, align 8, !tbaa !5
+  %cmp.i = icmp ugt i64 %mul20, 999999976
+  br i1 %cmp.i, label %if.then.i, label %if.end.i
+
+if.then.i:                                        ; preds = %while.body
+  %4 = load ptr, ptr %cinfo, align 8, !tbaa !13
+  %msg_code.i.i = getelementptr inbounds %struct.jpeg_error_mgr, ptr %4, i64 0, i32 5
+  store i32 53, ptr %msg_code.i.i, align 8, !tbaa !14
+  %msg_parm.i.i = getelementptr inbounds %struct.jpeg_error_mgr, ptr %4, i64 0, i32 6
+  store i32 3, ptr %msg_parm.i.i, align 4, !tbaa !16
+  %5 = load ptr, ptr %cinfo, align 8, !tbaa !13
+  %6 = load ptr, ptr %5, align 8, !tbaa !17
+  tail call void %6(ptr noundef nonnull %cinfo) #7
+  br label %if.end.i
+
+if.end.i:                                         ; preds = %if.then.i, %while.body
+  br i1 %or.cond.i, label %if.then7.i, label %if.end10.i
+
+if.then7.i:                                       ; preds = %if.end.i
+  %7 = load ptr, ptr %cinfo, align 8, !tbaa !13
+  %msg_code.i = getelementptr inbounds %struct.jpeg_error_mgr, ptr %7, i64 0, i32 5
+  store i32 12, ptr %msg_code.i, align 8, !tbaa !14
+  %msg_parm.i = getelementptr inbounds %struct.jpeg_error_mgr, ptr %7, i64 0, i32 6
+  store i32 %pool_id, ptr %msg_parm.i, align 4, !tbaa !16
+  %8 = load ptr, ptr %cinfo, align 8, !tbaa !13
+  %9 = load ptr, ptr %8, align 8, !tbaa !17
+  tail call void %9(ptr noundef nonnull %cinfo) #7
+  br label %if.end10.i
+
+if.end10.i:                                       ; preds = %if.then7.i, %if.end.i
+  %add11.i = or i64 %mul20, 24
+  %call.i = tail call ptr @jpeg_get_large(ptr noundef nonnull %cinfo, i64 noundef %add11.i) #7
+  %cmp12.i = icmp eq ptr %call.i, null
+  br i1 %cmp12.i, label %if.then13.i, label %alloc_large.exit
+
+if.then13.i:                                      ; preds = %if.end10.i
+  %10 = load ptr, ptr %cinfo, align 8, !tbaa !13
+  %msg_code.i45.i = getelementptr inbounds %struct.jpeg_error_mgr, ptr %10, i64 0, i32 5
+  store i32 53, ptr %msg_code.i45.i, align 8, !tbaa !14
+  %msg_parm.i46.i = getelementptr inbounds %struct.jpeg_error_mgr, ptr %10, i64 0, i32 6
+  store i32 4, ptr %msg_parm.i46.i, align 4, !tbaa !16
+  %11 = load ptr, ptr %cinfo, align 8, !tbaa !13
   %12 = load ptr, ptr %11, align 8, !tbaa !17
-  tail call void %12(ptr noundef nonnull %0) #7
-  br label %13
+  tail call void %12(ptr noundef nonnull %cinfo) #7
+  br label %alloc_large.exit
 
-13:                                               ; preds = %7, %3
-  %14 = add i64 %2, 7
-  %15 = and i64 %14, -8
-  %16 = icmp ugt i32 %1, 1
-  br i1 %16, label %17, label %23
+alloc_large.exit:                                 ; preds = %if.end10.i, %if.then13.i
+  %total_space_allocated.i = getelementptr inbounds %struct.my_memory_mgr, ptr %3, i64 0, i32 5
+  %13 = load i64, ptr %total_space_allocated.i, align 8, !tbaa !32
+  %add16.i = add i64 %13, %add11.i
+  store i64 %add16.i, ptr %total_space_allocated.i, align 8, !tbaa !32
+  %arrayidx17.i = getelementptr inbounds %struct.my_memory_mgr, ptr %3, i64 0, i32 2, i64 %idxprom.i
+  %14 = load ptr, ptr %arrayidx17.i, align 8, !tbaa !35
+  store ptr %14, ptr %call.i, align 8, !tbaa !16
+  %bytes_used.i = getelementptr inbounds %struct.anon.0, ptr %call.i, i64 0, i32 1
+  store i64 %mul20, ptr %bytes_used.i, align 8, !tbaa !16
+  %bytes_left.i = getelementptr inbounds %struct.anon.0, ptr %call.i, i64 0, i32 2
+  store i64 0, ptr %bytes_left.i, align 8, !tbaa !16
+  store ptr %call.i, ptr %arrayidx17.i, align 8, !tbaa !35
+  %cmp22.not49 = icmp eq i32 %cond, 0
+  br i1 %cmp22.not49, label %while.cond.loopexit, label %for.body.preheader
 
-17:                                               ; preds = %13
-  %18 = load ptr, ptr %0, align 8, !tbaa !13
-  %19 = getelementptr inbounds %struct.jpeg_error_mgr, ptr %18, i64 0, i32 5
-  store i32 12, ptr %19, align 8, !tbaa !14
-  %20 = getelementptr inbounds %struct.jpeg_error_mgr, ptr %18, i64 0, i32 6
-  store i32 %1, ptr %20, align 4, !tbaa !16
-  %21 = load ptr, ptr %0, align 8, !tbaa !13
-  %22 = load ptr, ptr %21, align 8, !tbaa !17
-  tail call void %22(ptr noundef nonnull %0) #7
-  br label %23
+for.body.preheader:                               ; preds = %alloc_large.exit
+  %add.ptr.i = getelementptr inbounds %union.large_pool_struct, ptr %call.i, i64 1
+  %xtraiter = and i32 %cond, 3
+  %lcmp.mod.not = icmp eq i32 %xtraiter, 0
+  br i1 %lcmp.mod.not, label %for.body.prol.loopexit, label %for.body.prol
 
-23:                                               ; preds = %13, %17
-  %24 = add i64 %15, 24
-  %25 = tail call ptr @jpeg_get_large(ptr noundef nonnull %0, i64 noundef %24) #7
-  %26 = icmp eq ptr %25, null
-  br i1 %26, label %27, label %33
+for.body.prol:                                    ; preds = %for.body.preheader, %for.body.prol
+  %workspace.052.prol = phi ptr [ %add.ptr.prol, %for.body.prol ], [ %add.ptr.i, %for.body.preheader ]
+  %i.051.prol = phi i32 [ %dec.prol, %for.body.prol ], [ %cond, %for.body.preheader ]
+  %currow.150.prol = phi i32 [ %inc.prol, %for.body.prol ], [ %currow.055, %for.body.preheader ]
+  %prol.iter = phi i32 [ %prol.iter.next, %for.body.prol ], [ 0, %for.body.preheader ]
+  %inc.prol = add i32 %currow.150.prol, 1
+  %idxprom.prol = zext i32 %currow.150.prol to i64
+  %arrayidx.prol = getelementptr inbounds ptr, ptr %call, i64 %idxprom.prol
+  store ptr %workspace.052.prol, ptr %arrayidx.prol, align 8, !tbaa !35
+  %add.ptr.prol = getelementptr inbounds [64 x i16], ptr %workspace.052.prol, i64 %conv
+  %dec.prol = add i32 %i.051.prol, -1
+  %prol.iter.next = add i32 %prol.iter, 1
+  %prol.iter.cmp.not = icmp eq i32 %prol.iter.next, %xtraiter
+  br i1 %prol.iter.cmp.not, label %for.body.prol.loopexit, label %for.body.prol, !llvm.loop !42
 
-27:                                               ; preds = %23
-  %28 = load ptr, ptr %0, align 8, !tbaa !13
-  %29 = getelementptr inbounds %struct.jpeg_error_mgr, ptr %28, i64 0, i32 5
-  store i32 53, ptr %29, align 8, !tbaa !14
-  %30 = getelementptr inbounds %struct.jpeg_error_mgr, ptr %28, i64 0, i32 6
-  store i32 4, ptr %30, align 4, !tbaa !16
-  %31 = load ptr, ptr %0, align 8, !tbaa !13
-  %32 = load ptr, ptr %31, align 8, !tbaa !17
-  tail call void %32(ptr noundef nonnull %0) #7
-  br label %33
+for.body.prol.loopexit:                           ; preds = %for.body.prol, %for.body.preheader
+  %inc.lcssa.unr = phi i32 [ undef, %for.body.preheader ], [ %inc.prol, %for.body.prol ]
+  %workspace.052.unr = phi ptr [ %add.ptr.i, %for.body.preheader ], [ %add.ptr.prol, %for.body.prol ]
+  %i.051.unr = phi i32 [ %cond, %for.body.preheader ], [ %dec.prol, %for.body.prol ]
+  %currow.150.unr = phi i32 [ %currow.055, %for.body.preheader ], [ %inc.prol, %for.body.prol ]
+  %15 = icmp ult i32 %cond, 4
+  br i1 %15, label %while.cond.loopexit, label %for.body
 
-33:                                               ; preds = %27, %23
-  %34 = getelementptr inbounds %struct.my_memory_mgr, ptr %5, i64 0, i32 5
-  %35 = load i64, ptr %34, align 8, !tbaa !32
-  %36 = add i64 %35, %24
-  store i64 %36, ptr %34, align 8, !tbaa !32
-  %37 = sext i32 %1 to i64
-  %38 = getelementptr inbounds %struct.my_memory_mgr, ptr %5, i64 0, i32 2, i64 %37
-  %39 = load ptr, ptr %38, align 8, !tbaa !35
-  store ptr %39, ptr %25, align 8, !tbaa !16
-  %40 = getelementptr inbounds %struct.anon.0, ptr %25, i64 0, i32 1
-  store i64 %15, ptr %40, align 8, !tbaa !16
-  %41 = getelementptr inbounds %struct.anon.0, ptr %25, i64 0, i32 2
-  store i64 0, ptr %41, align 8, !tbaa !16
-  store ptr %25, ptr %38, align 8, !tbaa !35
-  %42 = getelementptr inbounds %union.large_pool_struct, ptr %25, i64 1
-  ret ptr %42
+for.body:                                         ; preds = %for.body.prol.loopexit, %for.body
+  %workspace.052 = phi ptr [ %add.ptr.3, %for.body ], [ %workspace.052.unr, %for.body.prol.loopexit ]
+  %i.051 = phi i32 [ %dec.3, %for.body ], [ %i.051.unr, %for.body.prol.loopexit ]
+  %currow.150 = phi i32 [ %inc.3, %for.body ], [ %currow.150.unr, %for.body.prol.loopexit ]
+  %inc = add i32 %currow.150, 1
+  %idxprom = zext i32 %currow.150 to i64
+  %arrayidx = getelementptr inbounds ptr, ptr %call, i64 %idxprom
+  store ptr %workspace.052, ptr %arrayidx, align 8, !tbaa !35
+  %add.ptr = getelementptr inbounds [64 x i16], ptr %workspace.052, i64 %conv
+  %inc.1 = add i32 %currow.150, 2
+  %idxprom.1 = zext i32 %inc to i64
+  %arrayidx.1 = getelementptr inbounds ptr, ptr %call, i64 %idxprom.1
+  store ptr %add.ptr, ptr %arrayidx.1, align 8, !tbaa !35
+  %add.ptr.1 = getelementptr inbounds [64 x i16], ptr %add.ptr, i64 %conv
+  %inc.2 = add i32 %currow.150, 3
+  %idxprom.2 = zext i32 %inc.1 to i64
+  %arrayidx.2 = getelementptr inbounds ptr, ptr %call, i64 %idxprom.2
+  store ptr %add.ptr.1, ptr %arrayidx.2, align 8, !tbaa !35
+  %add.ptr.2 = getelementptr inbounds [64 x i16], ptr %add.ptr.1, i64 %conv
+  %inc.3 = add i32 %currow.150, 4
+  %idxprom.3 = zext i32 %inc.2 to i64
+  %arrayidx.3 = getelementptr inbounds ptr, ptr %call, i64 %idxprom.3
+  store ptr %add.ptr.2, ptr %arrayidx.3, align 8, !tbaa !35
+  %add.ptr.3 = getelementptr inbounds [64 x i16], ptr %add.ptr.2, i64 %conv
+  %dec.3 = add i32 %i.051, -4
+  %cmp22.not.3 = icmp eq i32 %dec.3, 0
+  br i1 %cmp22.not.3, label %while.cond.loopexit, label %for.body, !llvm.loop !43
+
+while.end:                                        ; preds = %while.cond.loopexit, %if.end
+  ret ptr %call
 }
 
 ; Function Attrs: nounwind uwtable
-define internal ptr @alloc_sarray(ptr noundef %0, i32 noundef %1, i32 noundef %2, i32 noundef %3) #0 {
-  %5 = getelementptr inbounds %struct.jpeg_common_struct, ptr %0, i64 0, i32 1
-  %6 = load ptr, ptr %5, align 8, !tbaa !5
-  %7 = zext i32 %2 to i64
-  %8 = udiv i32 999999976, %2
-  %9 = icmp ugt i32 %2, 999999976
-  br i1 %9, label %10, label %14
+define internal ptr @request_virt_sarray(ptr noundef %cinfo, i32 noundef %pool_id, i32 noundef %pre_zero, i32 noundef %samplesperrow, i32 noundef %numrows, i32 noundef %maxaccess) #0 {
+entry:
+  %mem1 = getelementptr inbounds %struct.jpeg_common_struct, ptr %cinfo, i64 0, i32 1
+  %0 = load ptr, ptr %mem1, align 8, !tbaa !5
+  %cmp.not = icmp eq i32 %pool_id, 1
+  br i1 %cmp.not, label %if.end, label %if.then
 
-10:                                               ; preds = %4
-  %11 = load ptr, ptr %0, align 8, !tbaa !13
-  %12 = getelementptr inbounds %struct.jpeg_error_mgr, ptr %11, i64 0, i32 5
-  store i32 69, ptr %12, align 8, !tbaa !14
-  %13 = load ptr, ptr %11, align 8, !tbaa !17
-  tail call void %13(ptr noundef nonnull %0) #7
-  br label %14
+if.then:                                          ; preds = %entry
+  %1 = load ptr, ptr %cinfo, align 8, !tbaa !13
+  %msg_code = getelementptr inbounds %struct.jpeg_error_mgr, ptr %1, i64 0, i32 5
+  store i32 12, ptr %msg_code, align 8, !tbaa !14
+  %msg_parm = getelementptr inbounds %struct.jpeg_error_mgr, ptr %1, i64 0, i32 6
+  store i32 %pool_id, ptr %msg_parm, align 4, !tbaa !16
+  %2 = load ptr, ptr %cinfo, align 8, !tbaa !13
+  %3 = load ptr, ptr %2, align 8, !tbaa !17
+  tail call void %3(ptr noundef nonnull %cinfo) #7
+  br label %if.end
 
-14:                                               ; preds = %10, %4
-  %15 = zext i32 %3 to i64
-  %16 = tail call i32 @llvm.umin.i32(i32 %8, i32 %3)
-  %17 = getelementptr inbounds %struct.my_memory_mgr, ptr %6, i64 0, i32 6
-  store i32 %16, ptr %17, align 8, !tbaa !36
-  %18 = shl nuw nsw i64 %15, 3
-  %19 = tail call ptr @alloc_small(ptr noundef nonnull %0, i32 noundef %1, i64 noundef %18)
-  %20 = icmp eq i32 %3, 0
-  br i1 %20, label %114, label %21
-
-21:                                               ; preds = %14
-  %22 = icmp ugt i32 %1, 1
-  %23 = sext i32 %1 to i64
-  br label %27
-
-24:                                               ; preds = %86, %92, %61
-  %25 = phi i32 [ %28, %61 ], [ %87, %86 ], [ %108, %92 ]
-  %26 = icmp ult i32 %25, %3
-  br i1 %26, label %27, label %114, !llvm.loop !37
-
-27:                                               ; preds = %21, %24
-  %28 = phi i32 [ 0, %21 ], [ %25, %24 ]
-  %29 = phi i32 [ %16, %21 ], [ %31, %24 ]
-  %30 = sub i32 %3, %28
-  %31 = tail call i32 @llvm.umin.i32(i32 %29, i32 %30)
-  %32 = zext i32 %31 to i64
-  %33 = mul nuw nsw i64 %32, %7
-  %34 = load ptr, ptr %5, align 8, !tbaa !5
-  %35 = icmp ugt i64 %33, 999999976
-  br i1 %35, label %36, label %42
-
-36:                                               ; preds = %27
-  %37 = load ptr, ptr %0, align 8, !tbaa !13
-  %38 = getelementptr inbounds %struct.jpeg_error_mgr, ptr %37, i64 0, i32 5
-  store i32 53, ptr %38, align 8, !tbaa !14
-  %39 = getelementptr inbounds %struct.jpeg_error_mgr, ptr %37, i64 0, i32 6
-  store i32 3, ptr %39, align 4, !tbaa !16
-  %40 = load ptr, ptr %0, align 8, !tbaa !13
-  %41 = load ptr, ptr %40, align 8, !tbaa !17
-  tail call void %41(ptr noundef nonnull %0) #7
-  br label %42
-
-42:                                               ; preds = %36, %27
-  %43 = add nuw nsw i64 %33, 7
-  %44 = and i64 %43, 9223372036854775800
-  br i1 %22, label %45, label %51
-
-45:                                               ; preds = %42
-  %46 = load ptr, ptr %0, align 8, !tbaa !13
-  %47 = getelementptr inbounds %struct.jpeg_error_mgr, ptr %46, i64 0, i32 5
-  store i32 12, ptr %47, align 8, !tbaa !14
-  %48 = getelementptr inbounds %struct.jpeg_error_mgr, ptr %46, i64 0, i32 6
-  store i32 %1, ptr %48, align 4, !tbaa !16
-  %49 = load ptr, ptr %0, align 8, !tbaa !13
-  %50 = load ptr, ptr %49, align 8, !tbaa !17
-  tail call void %50(ptr noundef nonnull %0) #7
-  br label %51
-
-51:                                               ; preds = %45, %42
-  %52 = add nuw nsw i64 %44, 24
-  %53 = tail call ptr @jpeg_get_large(ptr noundef nonnull %0, i64 noundef %52) #7
-  %54 = icmp eq ptr %53, null
-  br i1 %54, label %55, label %61
-
-55:                                               ; preds = %51
-  %56 = load ptr, ptr %0, align 8, !tbaa !13
-  %57 = getelementptr inbounds %struct.jpeg_error_mgr, ptr %56, i64 0, i32 5
-  store i32 53, ptr %57, align 8, !tbaa !14
-  %58 = getelementptr inbounds %struct.jpeg_error_mgr, ptr %56, i64 0, i32 6
-  store i32 4, ptr %58, align 4, !tbaa !16
-  %59 = load ptr, ptr %0, align 8, !tbaa !13
-  %60 = load ptr, ptr %59, align 8, !tbaa !17
-  tail call void %60(ptr noundef nonnull %0) #7
-  br label %61
-
-61:                                               ; preds = %51, %55
-  %62 = getelementptr inbounds %struct.my_memory_mgr, ptr %34, i64 0, i32 5
-  %63 = load i64, ptr %62, align 8, !tbaa !32
-  %64 = add i64 %63, %52
-  store i64 %64, ptr %62, align 8, !tbaa !32
-  %65 = getelementptr inbounds %struct.my_memory_mgr, ptr %34, i64 0, i32 2, i64 %23
-  %66 = load ptr, ptr %65, align 8, !tbaa !35
-  store ptr %66, ptr %53, align 8, !tbaa !16
-  %67 = getelementptr inbounds %struct.anon.0, ptr %53, i64 0, i32 1
-  store i64 %44, ptr %67, align 8, !tbaa !16
-  %68 = getelementptr inbounds %struct.anon.0, ptr %53, i64 0, i32 2
-  store i64 0, ptr %68, align 8, !tbaa !16
-  store ptr %53, ptr %65, align 8, !tbaa !35
-  %69 = icmp eq i32 %31, 0
-  br i1 %69, label %24, label %70
-
-70:                                               ; preds = %61
-  %71 = getelementptr inbounds %union.large_pool_struct, ptr %53, i64 1
-  %72 = and i32 %31, 3
-  %73 = icmp eq i32 %72, 0
-  br i1 %73, label %86, label %74
-
-74:                                               ; preds = %70, %74
-  %75 = phi ptr [ %82, %74 ], [ %71, %70 ]
-  %76 = phi i32 [ %83, %74 ], [ %31, %70 ]
-  %77 = phi i32 [ %79, %74 ], [ %28, %70 ]
-  %78 = phi i32 [ %84, %74 ], [ 0, %70 ]
-  %79 = add i32 %77, 1
-  %80 = zext i32 %77 to i64
-  %81 = getelementptr inbounds ptr, ptr %19, i64 %80
-  store ptr %75, ptr %81, align 8, !tbaa !35
-  %82 = getelementptr inbounds i8, ptr %75, i64 %7
-  %83 = add i32 %76, -1
-  %84 = add i32 %78, 1
-  %85 = icmp eq i32 %84, %72
-  br i1 %85, label %86, label %74, !llvm.loop !38
-
-86:                                               ; preds = %74, %70
-  %87 = phi i32 [ undef, %70 ], [ %79, %74 ]
-  %88 = phi ptr [ %71, %70 ], [ %82, %74 ]
-  %89 = phi i32 [ %31, %70 ], [ %83, %74 ]
-  %90 = phi i32 [ %28, %70 ], [ %79, %74 ]
-  %91 = icmp ult i32 %31, 4
-  br i1 %91, label %24, label %92
-
-92:                                               ; preds = %86, %92
-  %93 = phi ptr [ %111, %92 ], [ %88, %86 ]
-  %94 = phi i32 [ %112, %92 ], [ %89, %86 ]
-  %95 = phi i32 [ %108, %92 ], [ %90, %86 ]
-  %96 = add i32 %95, 1
-  %97 = zext i32 %95 to i64
-  %98 = getelementptr inbounds ptr, ptr %19, i64 %97
-  store ptr %93, ptr %98, align 8, !tbaa !35
-  %99 = getelementptr inbounds i8, ptr %93, i64 %7
-  %100 = add i32 %95, 2
-  %101 = zext i32 %96 to i64
-  %102 = getelementptr inbounds ptr, ptr %19, i64 %101
-  store ptr %99, ptr %102, align 8, !tbaa !35
-  %103 = getelementptr inbounds i8, ptr %99, i64 %7
-  %104 = add i32 %95, 3
-  %105 = zext i32 %100 to i64
-  %106 = getelementptr inbounds ptr, ptr %19, i64 %105
-  store ptr %103, ptr %106, align 8, !tbaa !35
-  %107 = getelementptr inbounds i8, ptr %103, i64 %7
-  %108 = add i32 %95, 4
-  %109 = zext i32 %104 to i64
-  %110 = getelementptr inbounds ptr, ptr %19, i64 %109
-  store ptr %107, ptr %110, align 8, !tbaa !35
-  %111 = getelementptr inbounds i8, ptr %107, i64 %7
-  %112 = add i32 %94, -4
-  %113 = icmp eq i32 %112, 0
-  br i1 %113, label %24, label %92, !llvm.loop !40
-
-114:                                              ; preds = %24, %14
-  ret ptr %19
+if.end:                                           ; preds = %entry, %if.then
+  %.sink = phi i32 [ %pool_id, %if.then ], [ 1, %entry ]
+  %call24 = tail call ptr @alloc_small(ptr noundef nonnull %cinfo, i32 noundef %.sink, i64 noundef 152)
+  store ptr null, ptr %call24, align 8, !tbaa !44
+  %rows_in_array = getelementptr inbounds %struct.jvirt_sarray_control, ptr %call24, i64 0, i32 1
+  store i32 %numrows, ptr %rows_in_array, align 8, !tbaa !47
+  %samplesperrow4 = getelementptr inbounds %struct.jvirt_sarray_control, ptr %call24, i64 0, i32 2
+  store i32 %samplesperrow, ptr %samplesperrow4, align 4, !tbaa !48
+  %maxaccess5 = getelementptr inbounds %struct.jvirt_sarray_control, ptr %call24, i64 0, i32 3
+  store i32 %maxaccess, ptr %maxaccess5, align 8, !tbaa !49
+  %pre_zero6 = getelementptr inbounds %struct.jvirt_sarray_control, ptr %call24, i64 0, i32 8
+  store i32 %pre_zero, ptr %pre_zero6, align 4, !tbaa !50
+  %b_s_open = getelementptr inbounds %struct.jvirt_sarray_control, ptr %call24, i64 0, i32 10
+  store i32 0, ptr %b_s_open, align 4, !tbaa !51
+  %virt_sarray_list = getelementptr inbounds %struct.my_memory_mgr, ptr %0, i64 0, i32 3
+  %4 = load ptr, ptr %virt_sarray_list, align 8, !tbaa !52
+  %next = getelementptr inbounds %struct.jvirt_sarray_control, ptr %call24, i64 0, i32 11
+  store ptr %4, ptr %next, align 8, !tbaa !53
+  store ptr %call24, ptr %virt_sarray_list, align 8, !tbaa !52
+  ret ptr %call24
 }
 
 ; Function Attrs: nounwind uwtable
-define internal ptr @alloc_barray(ptr noundef %0, i32 noundef %1, i32 noundef %2, i32 noundef %3) #0 {
-  %5 = getelementptr inbounds %struct.jpeg_common_struct, ptr %0, i64 0, i32 1
-  %6 = load ptr, ptr %5, align 8, !tbaa !5
-  %7 = zext i32 %2 to i64
-  %8 = shl nuw nsw i64 %7, 7
-  %9 = udiv i64 999999976, %8
-  %10 = icmp ugt i32 %2, 7812499
-  br i1 %10, label %11, label %15
+define internal ptr @request_virt_barray(ptr noundef %cinfo, i32 noundef %pool_id, i32 noundef %pre_zero, i32 noundef %blocksperrow, i32 noundef %numrows, i32 noundef %maxaccess) #0 {
+entry:
+  %mem1 = getelementptr inbounds %struct.jpeg_common_struct, ptr %cinfo, i64 0, i32 1
+  %0 = load ptr, ptr %mem1, align 8, !tbaa !5
+  %cmp.not = icmp eq i32 %pool_id, 1
+  br i1 %cmp.not, label %if.end, label %if.then
 
-11:                                               ; preds = %4
-  %12 = load ptr, ptr %0, align 8, !tbaa !13
-  %13 = getelementptr inbounds %struct.jpeg_error_mgr, ptr %12, i64 0, i32 5
-  store i32 69, ptr %13, align 8, !tbaa !14
-  %14 = load ptr, ptr %12, align 8, !tbaa !17
-  tail call void %14(ptr noundef nonnull %0) #7
-  br label %15
+if.then:                                          ; preds = %entry
+  %1 = load ptr, ptr %cinfo, align 8, !tbaa !13
+  %msg_code = getelementptr inbounds %struct.jpeg_error_mgr, ptr %1, i64 0, i32 5
+  store i32 12, ptr %msg_code, align 8, !tbaa !14
+  %msg_parm = getelementptr inbounds %struct.jpeg_error_mgr, ptr %1, i64 0, i32 6
+  store i32 %pool_id, ptr %msg_parm, align 4, !tbaa !16
+  %2 = load ptr, ptr %cinfo, align 8, !tbaa !13
+  %3 = load ptr, ptr %2, align 8, !tbaa !17
+  tail call void %3(ptr noundef nonnull %cinfo) #7
+  br label %if.end
 
-15:                                               ; preds = %11, %4
-  %16 = zext i32 %3 to i64
-  %17 = icmp ult i64 %9, %16
-  %18 = trunc i64 %9 to i32
-  %19 = select i1 %17, i32 %18, i32 %3
-  %20 = getelementptr inbounds %struct.my_memory_mgr, ptr %6, i64 0, i32 6
-  store i32 %19, ptr %20, align 8, !tbaa !36
-  %21 = shl nuw nsw i64 %16, 3
-  %22 = tail call ptr @alloc_small(ptr noundef nonnull %0, i32 noundef %1, i64 noundef %21)
-  %23 = icmp eq i32 %3, 0
-  br i1 %23, label %115, label %24
-
-24:                                               ; preds = %15
-  %25 = icmp ugt i32 %1, 1
-  %26 = sext i32 %1 to i64
-  br label %30
-
-27:                                               ; preds = %87, %93, %62
-  %28 = phi i32 [ %31, %62 ], [ %88, %87 ], [ %109, %93 ]
-  %29 = icmp ult i32 %28, %3
-  br i1 %29, label %30, label %115, !llvm.loop !41
-
-30:                                               ; preds = %24, %27
-  %31 = phi i32 [ 0, %24 ], [ %28, %27 ]
-  %32 = phi i32 [ %19, %24 ], [ %34, %27 ]
-  %33 = sub i32 %3, %31
-  %34 = tail call i32 @llvm.umin.i32(i32 %32, i32 %33)
-  %35 = zext i32 %34 to i64
-  %36 = mul i64 %8, %35
-  %37 = load ptr, ptr %5, align 8, !tbaa !5
-  %38 = icmp ugt i64 %36, 999999976
-  br i1 %38, label %39, label %45
-
-39:                                               ; preds = %30
-  %40 = load ptr, ptr %0, align 8, !tbaa !13
-  %41 = getelementptr inbounds %struct.jpeg_error_mgr, ptr %40, i64 0, i32 5
-  store i32 53, ptr %41, align 8, !tbaa !14
-  %42 = getelementptr inbounds %struct.jpeg_error_mgr, ptr %40, i64 0, i32 6
-  store i32 3, ptr %42, align 4, !tbaa !16
-  %43 = load ptr, ptr %0, align 8, !tbaa !13
-  %44 = load ptr, ptr %43, align 8, !tbaa !17
-  tail call void %44(ptr noundef nonnull %0) #7
-  br label %45
-
-45:                                               ; preds = %39, %30
-  br i1 %25, label %46, label %52
-
-46:                                               ; preds = %45
-  %47 = load ptr, ptr %0, align 8, !tbaa !13
-  %48 = getelementptr inbounds %struct.jpeg_error_mgr, ptr %47, i64 0, i32 5
-  store i32 12, ptr %48, align 8, !tbaa !14
-  %49 = getelementptr inbounds %struct.jpeg_error_mgr, ptr %47, i64 0, i32 6
-  store i32 %1, ptr %49, align 4, !tbaa !16
-  %50 = load ptr, ptr %0, align 8, !tbaa !13
-  %51 = load ptr, ptr %50, align 8, !tbaa !17
-  tail call void %51(ptr noundef nonnull %0) #7
-  br label %52
-
-52:                                               ; preds = %46, %45
-  %53 = or i64 %36, 24
-  %54 = tail call ptr @jpeg_get_large(ptr noundef nonnull %0, i64 noundef %53) #7
-  %55 = icmp eq ptr %54, null
-  br i1 %55, label %56, label %62
-
-56:                                               ; preds = %52
-  %57 = load ptr, ptr %0, align 8, !tbaa !13
-  %58 = getelementptr inbounds %struct.jpeg_error_mgr, ptr %57, i64 0, i32 5
-  store i32 53, ptr %58, align 8, !tbaa !14
-  %59 = getelementptr inbounds %struct.jpeg_error_mgr, ptr %57, i64 0, i32 6
-  store i32 4, ptr %59, align 4, !tbaa !16
-  %60 = load ptr, ptr %0, align 8, !tbaa !13
-  %61 = load ptr, ptr %60, align 8, !tbaa !17
-  tail call void %61(ptr noundef nonnull %0) #7
-  br label %62
-
-62:                                               ; preds = %52, %56
-  %63 = getelementptr inbounds %struct.my_memory_mgr, ptr %37, i64 0, i32 5
-  %64 = load i64, ptr %63, align 8, !tbaa !32
-  %65 = add i64 %64, %53
-  store i64 %65, ptr %63, align 8, !tbaa !32
-  %66 = getelementptr inbounds %struct.my_memory_mgr, ptr %37, i64 0, i32 2, i64 %26
-  %67 = load ptr, ptr %66, align 8, !tbaa !35
-  store ptr %67, ptr %54, align 8, !tbaa !16
-  %68 = getelementptr inbounds %struct.anon.0, ptr %54, i64 0, i32 1
-  store i64 %36, ptr %68, align 8, !tbaa !16
-  %69 = getelementptr inbounds %struct.anon.0, ptr %54, i64 0, i32 2
-  store i64 0, ptr %69, align 8, !tbaa !16
-  store ptr %54, ptr %66, align 8, !tbaa !35
-  %70 = icmp eq i32 %34, 0
-  br i1 %70, label %27, label %71
-
-71:                                               ; preds = %62
-  %72 = getelementptr inbounds %union.large_pool_struct, ptr %54, i64 1
-  %73 = and i32 %34, 3
-  %74 = icmp eq i32 %73, 0
-  br i1 %74, label %87, label %75
-
-75:                                               ; preds = %71, %75
-  %76 = phi ptr [ %83, %75 ], [ %72, %71 ]
-  %77 = phi i32 [ %84, %75 ], [ %34, %71 ]
-  %78 = phi i32 [ %80, %75 ], [ %31, %71 ]
-  %79 = phi i32 [ %85, %75 ], [ 0, %71 ]
-  %80 = add i32 %78, 1
-  %81 = zext i32 %78 to i64
-  %82 = getelementptr inbounds ptr, ptr %22, i64 %81
-  store ptr %76, ptr %82, align 8, !tbaa !35
-  %83 = getelementptr inbounds [64 x i16], ptr %76, i64 %7
-  %84 = add i32 %77, -1
-  %85 = add i32 %79, 1
-  %86 = icmp eq i32 %85, %73
-  br i1 %86, label %87, label %75, !llvm.loop !42
-
-87:                                               ; preds = %75, %71
-  %88 = phi i32 [ undef, %71 ], [ %80, %75 ]
-  %89 = phi ptr [ %72, %71 ], [ %83, %75 ]
-  %90 = phi i32 [ %34, %71 ], [ %84, %75 ]
-  %91 = phi i32 [ %31, %71 ], [ %80, %75 ]
-  %92 = icmp ult i32 %34, 4
-  br i1 %92, label %27, label %93
-
-93:                                               ; preds = %87, %93
-  %94 = phi ptr [ %112, %93 ], [ %89, %87 ]
-  %95 = phi i32 [ %113, %93 ], [ %90, %87 ]
-  %96 = phi i32 [ %109, %93 ], [ %91, %87 ]
-  %97 = add i32 %96, 1
-  %98 = zext i32 %96 to i64
-  %99 = getelementptr inbounds ptr, ptr %22, i64 %98
-  store ptr %94, ptr %99, align 8, !tbaa !35
-  %100 = getelementptr inbounds [64 x i16], ptr %94, i64 %7
-  %101 = add i32 %96, 2
-  %102 = zext i32 %97 to i64
-  %103 = getelementptr inbounds ptr, ptr %22, i64 %102
-  store ptr %100, ptr %103, align 8, !tbaa !35
-  %104 = getelementptr inbounds [64 x i16], ptr %100, i64 %7
-  %105 = add i32 %96, 3
-  %106 = zext i32 %101 to i64
-  %107 = getelementptr inbounds ptr, ptr %22, i64 %106
-  store ptr %104, ptr %107, align 8, !tbaa !35
-  %108 = getelementptr inbounds [64 x i16], ptr %104, i64 %7
-  %109 = add i32 %96, 4
-  %110 = zext i32 %105 to i64
-  %111 = getelementptr inbounds ptr, ptr %22, i64 %110
-  store ptr %108, ptr %111, align 8, !tbaa !35
-  %112 = getelementptr inbounds [64 x i16], ptr %108, i64 %7
-  %113 = add i32 %95, -4
-  %114 = icmp eq i32 %113, 0
-  br i1 %114, label %27, label %93, !llvm.loop !43
-
-115:                                              ; preds = %27, %15
-  ret ptr %22
+if.end:                                           ; preds = %entry, %if.then
+  %.sink = phi i32 [ %pool_id, %if.then ], [ 1, %entry ]
+  %call24 = tail call ptr @alloc_small(ptr noundef nonnull %cinfo, i32 noundef %.sink, i64 noundef 152)
+  store ptr null, ptr %call24, align 8, !tbaa !54
+  %rows_in_array = getelementptr inbounds %struct.jvirt_barray_control, ptr %call24, i64 0, i32 1
+  store i32 %numrows, ptr %rows_in_array, align 8, !tbaa !56
+  %blocksperrow4 = getelementptr inbounds %struct.jvirt_barray_control, ptr %call24, i64 0, i32 2
+  store i32 %blocksperrow, ptr %blocksperrow4, align 4, !tbaa !57
+  %maxaccess5 = getelementptr inbounds %struct.jvirt_barray_control, ptr %call24, i64 0, i32 3
+  store i32 %maxaccess, ptr %maxaccess5, align 8, !tbaa !58
+  %pre_zero6 = getelementptr inbounds %struct.jvirt_barray_control, ptr %call24, i64 0, i32 8
+  store i32 %pre_zero, ptr %pre_zero6, align 4, !tbaa !59
+  %b_s_open = getelementptr inbounds %struct.jvirt_barray_control, ptr %call24, i64 0, i32 10
+  store i32 0, ptr %b_s_open, align 4, !tbaa !60
+  %virt_barray_list = getelementptr inbounds %struct.my_memory_mgr, ptr %0, i64 0, i32 4
+  %4 = load ptr, ptr %virt_barray_list, align 8, !tbaa !61
+  %next = getelementptr inbounds %struct.jvirt_barray_control, ptr %call24, i64 0, i32 11
+  store ptr %4, ptr %next, align 8, !tbaa !62
+  store ptr %call24, ptr %virt_barray_list, align 8, !tbaa !61
+  ret ptr %call24
 }
 
 ; Function Attrs: nounwind uwtable
-define internal ptr @request_virt_sarray(ptr noundef %0, i32 noundef %1, i32 noundef %2, i32 noundef %3, i32 noundef %4, i32 noundef %5) #0 {
-  %7 = getelementptr inbounds %struct.jpeg_common_struct, ptr %0, i64 0, i32 1
-  %8 = load ptr, ptr %7, align 8, !tbaa !5
-  %9 = icmp eq i32 %1, 1
-  br i1 %9, label %16, label %10
+define internal void @realize_virt_arrays(ptr noundef %cinfo) #0 {
+entry:
+  %mem1 = getelementptr inbounds %struct.jpeg_common_struct, ptr %cinfo, i64 0, i32 1
+  %0 = load ptr, ptr %mem1, align 8, !tbaa !5
+  %virt_sarray_list = getelementptr inbounds %struct.my_memory_mgr, ptr %0, i64 0, i32 3
+  %sptr.0220 = load ptr, ptr %virt_sarray_list, align 8, !tbaa !35
+  %cmp.not221 = icmp eq ptr %sptr.0220, null
+  br i1 %cmp.not221, label %for.end, label %for.body
 
-10:                                               ; preds = %6
-  %11 = load ptr, ptr %0, align 8, !tbaa !13
-  %12 = getelementptr inbounds %struct.jpeg_error_mgr, ptr %11, i64 0, i32 5
-  store i32 12, ptr %12, align 8, !tbaa !14
-  %13 = getelementptr inbounds %struct.jpeg_error_mgr, ptr %11, i64 0, i32 6
-  store i32 %1, ptr %13, align 4, !tbaa !16
-  %14 = load ptr, ptr %0, align 8, !tbaa !13
-  %15 = load ptr, ptr %14, align 8, !tbaa !17
-  tail call void %15(ptr noundef nonnull %0) #7
-  br label %16
+for.body:                                         ; preds = %entry, %for.inc
+  %sptr.0224 = phi ptr [ %sptr.0, %for.inc ], [ %sptr.0220, %entry ]
+  %space_per_minheight.0223 = phi i64 [ %space_per_minheight.1, %for.inc ], [ 0, %entry ]
+  %maximum_space.0222 = phi i64 [ %maximum_space.1, %for.inc ], [ 0, %entry ]
+  %1 = load ptr, ptr %sptr.0224, align 8, !tbaa !44
+  %cmp2 = icmp eq ptr %1, null
+  br i1 %cmp2, label %if.then, label %for.inc
 
-16:                                               ; preds = %6, %10
-  %17 = phi i32 [ %1, %10 ], [ 1, %6 ]
-  %18 = tail call ptr @alloc_small(ptr noundef nonnull %0, i32 noundef %17, i64 noundef 152)
-  store ptr null, ptr %18, align 8, !tbaa !44
-  %19 = getelementptr inbounds %struct.jvirt_sarray_control, ptr %18, i64 0, i32 1
-  store i32 %4, ptr %19, align 8, !tbaa !47
-  %20 = getelementptr inbounds %struct.jvirt_sarray_control, ptr %18, i64 0, i32 2
-  store i32 %3, ptr %20, align 4, !tbaa !48
-  %21 = getelementptr inbounds %struct.jvirt_sarray_control, ptr %18, i64 0, i32 3
-  store i32 %5, ptr %21, align 8, !tbaa !49
-  %22 = getelementptr inbounds %struct.jvirt_sarray_control, ptr %18, i64 0, i32 8
-  store i32 %2, ptr %22, align 4, !tbaa !50
-  %23 = getelementptr inbounds %struct.jvirt_sarray_control, ptr %18, i64 0, i32 10
-  store i32 0, ptr %23, align 4, !tbaa !51
-  %24 = getelementptr inbounds %struct.my_memory_mgr, ptr %8, i64 0, i32 3
-  %25 = load ptr, ptr %24, align 8, !tbaa !52
-  %26 = getelementptr inbounds %struct.jvirt_sarray_control, ptr %18, i64 0, i32 11
-  store ptr %25, ptr %26, align 8, !tbaa !53
-  store ptr %18, ptr %24, align 8, !tbaa !52
-  ret ptr %18
-}
+if.then:                                          ; preds = %for.body
+  %maxaccess = getelementptr inbounds %struct.jvirt_sarray_control, ptr %sptr.0224, i64 0, i32 3
+  %2 = load i32, ptr %maxaccess, align 8, !tbaa !49
+  %conv = zext i32 %2 to i64
+  %samplesperrow = getelementptr inbounds %struct.jvirt_sarray_control, ptr %sptr.0224, i64 0, i32 2
+  %3 = load i32, ptr %samplesperrow, align 4, !tbaa !48
+  %conv3 = zext i32 %3 to i64
+  %mul = mul nuw nsw i64 %conv3, %conv
+  %add = add i64 %mul, %space_per_minheight.0223
+  %rows_in_array = getelementptr inbounds %struct.jvirt_sarray_control, ptr %sptr.0224, i64 0, i32 1
+  %4 = load i32, ptr %rows_in_array, align 8, !tbaa !47
+  %conv5 = zext i32 %4 to i64
+  %mul8 = mul nuw nsw i64 %conv5, %conv3
+  %add10 = add i64 %mul8, %maximum_space.0222
+  br label %for.inc
 
-; Function Attrs: nounwind uwtable
-define internal ptr @request_virt_barray(ptr noundef %0, i32 noundef %1, i32 noundef %2, i32 noundef %3, i32 noundef %4, i32 noundef %5) #0 {
-  %7 = getelementptr inbounds %struct.jpeg_common_struct, ptr %0, i64 0, i32 1
-  %8 = load ptr, ptr %7, align 8, !tbaa !5
-  %9 = icmp eq i32 %1, 1
-  br i1 %9, label %16, label %10
+for.inc:                                          ; preds = %for.body, %if.then
+  %maximum_space.1 = phi i64 [ %add10, %if.then ], [ %maximum_space.0222, %for.body ]
+  %space_per_minheight.1 = phi i64 [ %add, %if.then ], [ %space_per_minheight.0223, %for.body ]
+  %next = getelementptr inbounds %struct.jvirt_sarray_control, ptr %sptr.0224, i64 0, i32 11
+  %sptr.0 = load ptr, ptr %next, align 8, !tbaa !35
+  %cmp.not = icmp eq ptr %sptr.0, null
+  br i1 %cmp.not, label %for.end, label %for.body, !llvm.loop !63
 
-10:                                               ; preds = %6
-  %11 = load ptr, ptr %0, align 8, !tbaa !13
-  %12 = getelementptr inbounds %struct.jpeg_error_mgr, ptr %11, i64 0, i32 5
-  store i32 12, ptr %12, align 8, !tbaa !14
-  %13 = getelementptr inbounds %struct.jpeg_error_mgr, ptr %11, i64 0, i32 6
-  store i32 %1, ptr %13, align 4, !tbaa !16
-  %14 = load ptr, ptr %0, align 8, !tbaa !13
-  %15 = load ptr, ptr %14, align 8, !tbaa !17
-  tail call void %15(ptr noundef nonnull %0) #7
-  br label %16
+for.end:                                          ; preds = %for.inc, %entry
+  %maximum_space.0.lcssa = phi i64 [ 0, %entry ], [ %maximum_space.1, %for.inc ]
+  %space_per_minheight.0.lcssa = phi i64 [ 0, %entry ], [ %space_per_minheight.1, %for.inc ]
+  %virt_barray_list = getelementptr inbounds %struct.my_memory_mgr, ptr %0, i64 0, i32 4
+  %bptr.0226 = load ptr, ptr %virt_barray_list, align 8, !tbaa !35
+  %cmp12.not227 = icmp eq ptr %bptr.0226, null
+  br i1 %cmp12.not227, label %for.end35, label %for.body14
 
-16:                                               ; preds = %6, %10
-  %17 = phi i32 [ %1, %10 ], [ 1, %6 ]
-  %18 = tail call ptr @alloc_small(ptr noundef nonnull %0, i32 noundef %17, i64 noundef 152)
-  store ptr null, ptr %18, align 8, !tbaa !54
-  %19 = getelementptr inbounds %struct.jvirt_barray_control, ptr %18, i64 0, i32 1
-  store i32 %4, ptr %19, align 8, !tbaa !56
-  %20 = getelementptr inbounds %struct.jvirt_barray_control, ptr %18, i64 0, i32 2
-  store i32 %3, ptr %20, align 4, !tbaa !57
-  %21 = getelementptr inbounds %struct.jvirt_barray_control, ptr %18, i64 0, i32 3
-  store i32 %5, ptr %21, align 8, !tbaa !58
-  %22 = getelementptr inbounds %struct.jvirt_barray_control, ptr %18, i64 0, i32 8
-  store i32 %2, ptr %22, align 4, !tbaa !59
-  %23 = getelementptr inbounds %struct.jvirt_barray_control, ptr %18, i64 0, i32 10
-  store i32 0, ptr %23, align 4, !tbaa !60
-  %24 = getelementptr inbounds %struct.my_memory_mgr, ptr %8, i64 0, i32 4
-  %25 = load ptr, ptr %24, align 8, !tbaa !61
-  %26 = getelementptr inbounds %struct.jvirt_barray_control, ptr %18, i64 0, i32 11
-  store ptr %25, ptr %26, align 8, !tbaa !62
-  store ptr %18, ptr %24, align 8, !tbaa !61
-  ret ptr %18
-}
+for.body14:                                       ; preds = %for.end, %for.inc33
+  %bptr.0230 = phi ptr [ %bptr.0, %for.inc33 ], [ %bptr.0226, %for.end ]
+  %space_per_minheight.2229 = phi i64 [ %space_per_minheight.3, %for.inc33 ], [ %space_per_minheight.0.lcssa, %for.end ]
+  %maximum_space.2228 = phi i64 [ %maximum_space.3, %for.inc33 ], [ %maximum_space.0.lcssa, %for.end ]
+  %5 = load ptr, ptr %bptr.0230, align 8, !tbaa !54
+  %cmp16 = icmp eq ptr %5, null
+  br i1 %cmp16, label %if.then18, label %for.inc33
 
-; Function Attrs: nounwind uwtable
-define internal void @realize_virt_arrays(ptr noundef %0) #0 {
-  %2 = getelementptr inbounds %struct.jpeg_common_struct, ptr %0, i64 0, i32 1
-  %3 = load ptr, ptr %2, align 8, !tbaa !5
-  %4 = getelementptr inbounds %struct.my_memory_mgr, ptr %3, i64 0, i32 3
-  %5 = load ptr, ptr %4, align 8, !tbaa !35
-  %6 = icmp eq ptr %5, null
-  br i1 %6, label %33, label %7
+if.then18:                                        ; preds = %for.body14
+  %maxaccess19 = getelementptr inbounds %struct.jvirt_barray_control, ptr %bptr.0230, i64 0, i32 3
+  %6 = load i32, ptr %maxaccess19, align 8, !tbaa !58
+  %conv20 = zext i32 %6 to i64
+  %blocksperrow = getelementptr inbounds %struct.jvirt_barray_control, ptr %bptr.0230, i64 0, i32 2
+  %7 = load i32, ptr %blocksperrow, align 4, !tbaa !57
+  %conv21 = zext i32 %7 to i64
+  %mul22 = shl nuw nsw i64 %conv20, 7
+  %mul23 = mul i64 %mul22, %conv21
+  %add24 = add i64 %mul23, %space_per_minheight.2229
+  %rows_in_array25 = getelementptr inbounds %struct.jvirt_barray_control, ptr %bptr.0230, i64 0, i32 1
+  %8 = load i32, ptr %rows_in_array25, align 8, !tbaa !56
+  %conv26 = zext i32 %8 to i64
+  %mul29 = shl nuw nsw i64 %conv21, 7
+  %mul30 = mul i64 %mul29, %conv26
+  %add31 = add i64 %mul30, %maximum_space.2228
+  br label %for.inc33
 
-7:                                                ; preds = %1, %27
-  %8 = phi ptr [ %31, %27 ], [ %5, %1 ]
-  %9 = phi i64 [ %29, %27 ], [ 0, %1 ]
-  %10 = phi i64 [ %28, %27 ], [ 0, %1 ]
-  %11 = load ptr, ptr %8, align 8, !tbaa !44
-  %12 = icmp eq ptr %11, null
-  br i1 %12, label %13, label %27
+for.inc33:                                        ; preds = %for.body14, %if.then18
+  %maximum_space.3 = phi i64 [ %add31, %if.then18 ], [ %maximum_space.2228, %for.body14 ]
+  %space_per_minheight.3 = phi i64 [ %add24, %if.then18 ], [ %space_per_minheight.2229, %for.body14 ]
+  %next34 = getelementptr inbounds %struct.jvirt_barray_control, ptr %bptr.0230, i64 0, i32 11
+  %bptr.0 = load ptr, ptr %next34, align 8, !tbaa !35
+  %cmp12.not = icmp eq ptr %bptr.0, null
+  br i1 %cmp12.not, label %for.end35, label %for.body14, !llvm.loop !64
 
-13:                                               ; preds = %7
-  %14 = getelementptr inbounds %struct.jvirt_sarray_control, ptr %8, i64 0, i32 3
-  %15 = load i32, ptr %14, align 8, !tbaa !49
-  %16 = zext i32 %15 to i64
-  %17 = getelementptr inbounds %struct.jvirt_sarray_control, ptr %8, i64 0, i32 2
-  %18 = load i32, ptr %17, align 4, !tbaa !48
-  %19 = zext i32 %18 to i64
-  %20 = mul nuw nsw i64 %19, %16
-  %21 = add i64 %20, %9
-  %22 = getelementptr inbounds %struct.jvirt_sarray_control, ptr %8, i64 0, i32 1
-  %23 = load i32, ptr %22, align 8, !tbaa !47
-  %24 = zext i32 %23 to i64
-  %25 = mul nuw nsw i64 %24, %19
-  %26 = add i64 %25, %10
-  br label %27
+for.end35:                                        ; preds = %for.inc33, %for.end
+  %maximum_space.2.lcssa = phi i64 [ %maximum_space.0.lcssa, %for.end ], [ %maximum_space.3, %for.inc33 ]
+  %space_per_minheight.2.lcssa = phi i64 [ %space_per_minheight.0.lcssa, %for.end ], [ %space_per_minheight.3, %for.inc33 ]
+  %cmp36 = icmp slt i64 %space_per_minheight.2.lcssa, 1
+  br i1 %cmp36, label %cleanup, label %if.end39
 
-27:                                               ; preds = %7, %13
-  %28 = phi i64 [ %26, %13 ], [ %10, %7 ]
-  %29 = phi i64 [ %21, %13 ], [ %9, %7 ]
-  %30 = getelementptr inbounds %struct.jvirt_sarray_control, ptr %8, i64 0, i32 11
-  %31 = load ptr, ptr %30, align 8, !tbaa !35
-  %32 = icmp eq ptr %31, null
-  br i1 %32, label %33, label %7, !llvm.loop !63
+if.end39:                                         ; preds = %for.end35
+  %total_space_allocated = getelementptr inbounds %struct.my_memory_mgr, ptr %0, i64 0, i32 5
+  %9 = load i64, ptr %total_space_allocated, align 8, !tbaa !32
+  %call = tail call i64 @jpeg_mem_available(ptr noundef %cinfo, i64 noundef %space_per_minheight.2.lcssa, i64 noundef %maximum_space.2.lcssa, i64 noundef %9) #7
+  %cmp40.not = icmp slt i64 %call, %maximum_space.2.lcssa
+  br i1 %cmp40.not, label %if.else, label %if.end47
 
-33:                                               ; preds = %27, %1
-  %34 = phi i64 [ 0, %1 ], [ %28, %27 ]
-  %35 = phi i64 [ 0, %1 ], [ %29, %27 ]
-  %36 = getelementptr inbounds %struct.my_memory_mgr, ptr %3, i64 0, i32 4
-  %37 = load ptr, ptr %36, align 8, !tbaa !35
-  %38 = icmp eq ptr %37, null
-  br i1 %38, label %67, label %39
+if.else:                                          ; preds = %if.end39
+  %div = sdiv i64 %call, %space_per_minheight.2.lcssa
+  %spec.store.select = tail call i64 @llvm.smax.i64(i64 %div, i64 1)
+  br label %if.end47
 
-39:                                               ; preds = %33, %61
-  %40 = phi ptr [ %65, %61 ], [ %37, %33 ]
-  %41 = phi i64 [ %63, %61 ], [ %35, %33 ]
-  %42 = phi i64 [ %62, %61 ], [ %34, %33 ]
-  %43 = load ptr, ptr %40, align 8, !tbaa !54
-  %44 = icmp eq ptr %43, null
-  br i1 %44, label %45, label %61
+if.end47:                                         ; preds = %if.end39, %if.else
+  %max_minheights.0 = phi i64 [ %spec.store.select, %if.else ], [ 1000000000, %if.end39 ]
+  %sptr.1233 = load ptr, ptr %virt_sarray_list, align 8, !tbaa !35
+  %cmp50.not234 = icmp eq ptr %sptr.1233, null
+  br i1 %cmp50.not234, label %for.cond89.preheader, label %for.body52.lr.ph
 
-45:                                               ; preds = %39
-  %46 = getelementptr inbounds %struct.jvirt_barray_control, ptr %40, i64 0, i32 3
-  %47 = load i32, ptr %46, align 8, !tbaa !58
-  %48 = zext i32 %47 to i64
-  %49 = getelementptr inbounds %struct.jvirt_barray_control, ptr %40, i64 0, i32 2
-  %50 = load i32, ptr %49, align 4, !tbaa !57
-  %51 = zext i32 %50 to i64
-  %52 = shl nuw nsw i64 %48, 7
-  %53 = mul i64 %52, %51
-  %54 = add i64 %53, %41
-  %55 = getelementptr inbounds %struct.jvirt_barray_control, ptr %40, i64 0, i32 1
-  %56 = load i32, ptr %55, align 8, !tbaa !56
-  %57 = zext i32 %56 to i64
-  %58 = shl nuw nsw i64 %51, 7
-  %59 = mul i64 %58, %57
-  %60 = add i64 %59, %42
-  br label %61
+for.body52.lr.ph:                                 ; preds = %if.end47
+  %10 = trunc i64 %max_minheights.0 to i32
+  %last_rowsperchunk = getelementptr inbounds %struct.my_memory_mgr, ptr %0, i64 0, i32 6
+  br label %for.body52
 
-61:                                               ; preds = %39, %45
-  %62 = phi i64 [ %60, %45 ], [ %42, %39 ]
-  %63 = phi i64 [ %54, %45 ], [ %41, %39 ]
-  %64 = getelementptr inbounds %struct.jvirt_barray_control, ptr %40, i64 0, i32 11
-  %65 = load ptr, ptr %64, align 8, !tbaa !35
-  %66 = icmp eq ptr %65, null
-  br i1 %66, label %67, label %39, !llvm.loop !64
+for.cond89.preheader:                             ; preds = %for.inc85, %if.end47
+  %bptr.1236 = load ptr, ptr %virt_barray_list, align 8, !tbaa !35
+  %cmp90.not237 = icmp eq ptr %bptr.1236, null
+  br i1 %cmp90.not237, label %cleanup, label %for.body92.lr.ph
 
-67:                                               ; preds = %61, %33
-  %68 = phi i64 [ %34, %33 ], [ %62, %61 ]
-  %69 = phi i64 [ %35, %33 ], [ %63, %61 ]
-  %70 = icmp slt i64 %69, 1
-  br i1 %70, label %173, label %71
+for.body92.lr.ph:                                 ; preds = %for.cond89.preheader
+  %11 = trunc i64 %max_minheights.0 to i32
+  %last_rowsperchunk128 = getelementptr inbounds %struct.my_memory_mgr, ptr %0, i64 0, i32 6
+  br label %for.body92
 
-71:                                               ; preds = %67
-  %72 = getelementptr inbounds %struct.my_memory_mgr, ptr %3, i64 0, i32 5
-  %73 = load i64, ptr %72, align 8, !tbaa !32
-  %74 = tail call i64 @jpeg_mem_available(ptr noundef %0, i64 noundef %69, i64 noundef %68, i64 noundef %73) #7
-  %75 = icmp slt i64 %74, %68
-  br i1 %75, label %76, label %79
+for.body52:                                       ; preds = %for.body52.lr.ph, %for.inc85
+  %sptr.1235 = phi ptr [ %sptr.1233, %for.body52.lr.ph ], [ %sptr.1, %for.inc85 ]
+  %12 = load ptr, ptr %sptr.1235, align 8, !tbaa !44
+  %cmp54 = icmp eq ptr %12, null
+  br i1 %cmp54, label %if.then56, label %for.inc85
 
-76:                                               ; preds = %71
-  %77 = sdiv i64 %74, %69
-  %78 = tail call i64 @llvm.smax.i64(i64 %77, i64 1)
-  br label %79
+if.then56:                                        ; preds = %for.body52
+  %rows_in_array57 = getelementptr inbounds %struct.jvirt_sarray_control, ptr %sptr.1235, i64 0, i32 1
+  %13 = load i32, ptr %rows_in_array57, align 8, !tbaa !47
+  %conv58 = zext i32 %13 to i64
+  %sub = add nsw i64 %conv58, -1
+  %maxaccess59 = getelementptr inbounds %struct.jvirt_sarray_control, ptr %sptr.1235, i64 0, i32 3
+  %14 = load i32, ptr %maxaccess59, align 8, !tbaa !49
+  %conv60 = zext i32 %14 to i64
+  %div61 = sdiv i64 %sub, %conv60
+  %cmp63.not.not = icmp slt i64 %div61, %max_minheights.0
+  br i1 %cmp63.not.not, label %if.then65, label %if.else67
 
-79:                                               ; preds = %71, %76
-  %80 = phi i64 [ %78, %76 ], [ 1000000000, %71 ]
-  %81 = load ptr, ptr %4, align 8, !tbaa !35
-  %82 = icmp eq ptr %81, null
-  br i1 %82, label %86, label %83
+if.then65:                                        ; preds = %if.then56
+  %rows_in_mem = getelementptr inbounds %struct.jvirt_sarray_control, ptr %sptr.1235, i64 0, i32 4
+  store i32 %13, ptr %rows_in_mem, align 4, !tbaa !65
+  br label %if.end79
 
-83:                                               ; preds = %79
-  %84 = trunc i64 %80 to i32
-  %85 = getelementptr inbounds %struct.my_memory_mgr, ptr %3, i64 0, i32 6
-  br label %92
+if.else67:                                        ; preds = %if.then56
+  %conv71 = mul i32 %14, %10
+  %rows_in_mem72 = getelementptr inbounds %struct.jvirt_sarray_control, ptr %sptr.1235, i64 0, i32 4
+  store i32 %conv71, ptr %rows_in_mem72, align 4, !tbaa !65
+  %b_s_info = getelementptr inbounds %struct.jvirt_sarray_control, ptr %sptr.1235, i64 0, i32 12
+  %samplesperrow75 = getelementptr inbounds %struct.jvirt_sarray_control, ptr %sptr.1235, i64 0, i32 2
+  %15 = load i32, ptr %samplesperrow75, align 4, !tbaa !48
+  %conv76 = zext i32 %15 to i64
+  %mul77 = mul nuw nsw i64 %conv76, %conv58
+  tail call void @jpeg_open_backing_store(ptr noundef %cinfo, ptr noundef nonnull %b_s_info, i64 noundef %mul77) #7
+  %b_s_open = getelementptr inbounds %struct.jvirt_sarray_control, ptr %sptr.1235, i64 0, i32 10
+  store i32 1, ptr %b_s_open, align 4, !tbaa !51
+  %.pre = load i32, ptr %rows_in_mem72, align 4, !tbaa !65
+  br label %if.end79
 
-86:                                               ; preds = %128, %79
-  %87 = load ptr, ptr %36, align 8, !tbaa !35
-  %88 = icmp eq ptr %87, null
-  br i1 %88, label %173, label %89
+if.end79:                                         ; preds = %if.else67, %if.then65
+  %16 = phi i32 [ %.pre, %if.else67 ], [ %13, %if.then65 ]
+  %samplesperrow80 = getelementptr inbounds %struct.jvirt_sarray_control, ptr %sptr.1235, i64 0, i32 2
+  %17 = load i32, ptr %samplesperrow80, align 4, !tbaa !48
+  %call82 = tail call ptr @alloc_sarray(ptr noundef %cinfo, i32 noundef 1, i32 noundef %17, i32 noundef %16)
+  store ptr %call82, ptr %sptr.1235, align 8, !tbaa !44
+  %18 = load i32, ptr %last_rowsperchunk, align 8, !tbaa !36
+  %rowsperchunk = getelementptr inbounds %struct.jvirt_sarray_control, ptr %sptr.1235, i64 0, i32 5
+  store i32 %18, ptr %rowsperchunk, align 8, !tbaa !66
+  %cur_start_row = getelementptr inbounds %struct.jvirt_sarray_control, ptr %sptr.1235, i64 0, i32 6
+  store i32 0, ptr %cur_start_row, align 4, !tbaa !67
+  %first_undef_row = getelementptr inbounds %struct.jvirt_sarray_control, ptr %sptr.1235, i64 0, i32 7
+  store i32 0, ptr %first_undef_row, align 8, !tbaa !68
+  %dirty = getelementptr inbounds %struct.jvirt_sarray_control, ptr %sptr.1235, i64 0, i32 9
+  store i32 0, ptr %dirty, align 8, !tbaa !69
+  br label %for.inc85
 
-89:                                               ; preds = %86
-  %90 = trunc i64 %80 to i32
-  %91 = getelementptr inbounds %struct.my_memory_mgr, ptr %3, i64 0, i32 6
-  br label %132
+for.inc85:                                        ; preds = %for.body52, %if.end79
+  %next86 = getelementptr inbounds %struct.jvirt_sarray_control, ptr %sptr.1235, i64 0, i32 11
+  %sptr.1 = load ptr, ptr %next86, align 8, !tbaa !35
+  %cmp50.not = icmp eq ptr %sptr.1, null
+  br i1 %cmp50.not, label %for.cond89.preheader, label %for.body52, !llvm.loop !70
 
-92:                                               ; preds = %83, %128
-  %93 = phi ptr [ %81, %83 ], [ %130, %128 ]
-  %94 = load ptr, ptr %93, align 8, !tbaa !44
-  %95 = icmp eq ptr %94, null
-  br i1 %95, label %96, label %128
+for.body92:                                       ; preds = %for.body92.lr.ph, %for.inc134
+  %bptr.1238 = phi ptr [ %bptr.1236, %for.body92.lr.ph ], [ %bptr.1, %for.inc134 ]
+  %19 = load ptr, ptr %bptr.1238, align 8, !tbaa !54
+  %cmp94 = icmp eq ptr %19, null
+  br i1 %cmp94, label %if.then96, label %for.inc134
 
-96:                                               ; preds = %92
-  %97 = getelementptr inbounds %struct.jvirt_sarray_control, ptr %93, i64 0, i32 1
-  %98 = load i32, ptr %97, align 8, !tbaa !47
-  %99 = zext i32 %98 to i64
-  %100 = add nsw i64 %99, -1
-  %101 = getelementptr inbounds %struct.jvirt_sarray_control, ptr %93, i64 0, i32 3
-  %102 = load i32, ptr %101, align 8, !tbaa !49
-  %103 = zext i32 %102 to i64
-  %104 = sdiv i64 %100, %103
-  %105 = icmp slt i64 %104, %80
-  br i1 %105, label %106, label %108
+if.then96:                                        ; preds = %for.body92
+  %rows_in_array97 = getelementptr inbounds %struct.jvirt_barray_control, ptr %bptr.1238, i64 0, i32 1
+  %20 = load i32, ptr %rows_in_array97, align 8, !tbaa !56
+  %conv98 = zext i32 %20 to i64
+  %sub99 = add nsw i64 %conv98, -1
+  %maxaccess100 = getelementptr inbounds %struct.jvirt_barray_control, ptr %bptr.1238, i64 0, i32 3
+  %21 = load i32, ptr %maxaccess100, align 8, !tbaa !58
+  %conv101 = zext i32 %21 to i64
+  %div102 = sdiv i64 %sub99, %conv101
+  %cmp104.not.not = icmp slt i64 %div102, %max_minheights.0
+  br i1 %cmp104.not.not, label %if.then106, label %if.else109
 
-106:                                              ; preds = %96
-  %107 = getelementptr inbounds %struct.jvirt_sarray_control, ptr %93, i64 0, i32 4
-  store i32 %98, ptr %107, align 4, !tbaa !65
-  br label %118
+if.then106:                                       ; preds = %if.then96
+  %rows_in_mem108 = getelementptr inbounds %struct.jvirt_barray_control, ptr %bptr.1238, i64 0, i32 4
+  store i32 %20, ptr %rows_in_mem108, align 4, !tbaa !71
+  br label %if.end123
 
-108:                                              ; preds = %96
-  %109 = mul i32 %102, %84
-  %110 = getelementptr inbounds %struct.jvirt_sarray_control, ptr %93, i64 0, i32 4
-  store i32 %109, ptr %110, align 4, !tbaa !65
-  %111 = getelementptr inbounds %struct.jvirt_sarray_control, ptr %93, i64 0, i32 12
-  %112 = getelementptr inbounds %struct.jvirt_sarray_control, ptr %93, i64 0, i32 2
-  %113 = load i32, ptr %112, align 4, !tbaa !48
-  %114 = zext i32 %113 to i64
-  %115 = mul nuw nsw i64 %114, %99
-  tail call void @jpeg_open_backing_store(ptr noundef %0, ptr noundef nonnull %111, i64 noundef %115) #7
-  %116 = getelementptr inbounds %struct.jvirt_sarray_control, ptr %93, i64 0, i32 10
-  store i32 1, ptr %116, align 4, !tbaa !51
-  %117 = load i32, ptr %110, align 4, !tbaa !65
-  br label %118
+if.else109:                                       ; preds = %if.then96
+  %conv113 = mul i32 %21, %11
+  %rows_in_mem114 = getelementptr inbounds %struct.jvirt_barray_control, ptr %bptr.1238, i64 0, i32 4
+  store i32 %conv113, ptr %rows_in_mem114, align 4, !tbaa !71
+  %b_s_info115 = getelementptr inbounds %struct.jvirt_barray_control, ptr %bptr.1238, i64 0, i32 12
+  %blocksperrow118 = getelementptr inbounds %struct.jvirt_barray_control, ptr %bptr.1238, i64 0, i32 2
+  %22 = load i32, ptr %blocksperrow118, align 4, !tbaa !57
+  %conv119 = zext i32 %22 to i64
+  %mul120 = shl nuw nsw i64 %conv98, 7
+  %mul121 = mul i64 %mul120, %conv119
+  tail call void @jpeg_open_backing_store(ptr noundef %cinfo, ptr noundef nonnull %b_s_info115, i64 noundef %mul121) #7
+  %b_s_open122 = getelementptr inbounds %struct.jvirt_barray_control, ptr %bptr.1238, i64 0, i32 10
+  store i32 1, ptr %b_s_open122, align 4, !tbaa !60
+  %.pre239 = load i32, ptr %rows_in_mem114, align 4, !tbaa !71
+  br label %if.end123
 
-118:                                              ; preds = %108, %106
-  %119 = phi i32 [ %117, %108 ], [ %98, %106 ]
-  %120 = getelementptr inbounds %struct.jvirt_sarray_control, ptr %93, i64 0, i32 2
-  %121 = load i32, ptr %120, align 4, !tbaa !48
-  %122 = tail call ptr @alloc_sarray(ptr noundef %0, i32 noundef 1, i32 noundef %121, i32 noundef %119)
-  store ptr %122, ptr %93, align 8, !tbaa !44
-  %123 = load i32, ptr %85, align 8, !tbaa !36
-  %124 = getelementptr inbounds %struct.jvirt_sarray_control, ptr %93, i64 0, i32 5
-  store i32 %123, ptr %124, align 8, !tbaa !66
-  %125 = getelementptr inbounds %struct.jvirt_sarray_control, ptr %93, i64 0, i32 6
-  store i32 0, ptr %125, align 4, !tbaa !67
-  %126 = getelementptr inbounds %struct.jvirt_sarray_control, ptr %93, i64 0, i32 7
-  store i32 0, ptr %126, align 8, !tbaa !68
-  %127 = getelementptr inbounds %struct.jvirt_sarray_control, ptr %93, i64 0, i32 9
-  store i32 0, ptr %127, align 8, !tbaa !69
-  br label %128
+if.end123:                                        ; preds = %if.else109, %if.then106
+  %23 = phi i32 [ %.pre239, %if.else109 ], [ %20, %if.then106 ]
+  %blocksperrow124 = getelementptr inbounds %struct.jvirt_barray_control, ptr %bptr.1238, i64 0, i32 2
+  %24 = load i32, ptr %blocksperrow124, align 4, !tbaa !57
+  %call126 = tail call ptr @alloc_barray(ptr noundef %cinfo, i32 noundef 1, i32 noundef %24, i32 noundef %23)
+  store ptr %call126, ptr %bptr.1238, align 8, !tbaa !54
+  %25 = load i32, ptr %last_rowsperchunk128, align 8, !tbaa !36
+  %rowsperchunk129 = getelementptr inbounds %struct.jvirt_barray_control, ptr %bptr.1238, i64 0, i32 5
+  store i32 %25, ptr %rowsperchunk129, align 8, !tbaa !72
+  %cur_start_row130 = getelementptr inbounds %struct.jvirt_barray_control, ptr %bptr.1238, i64 0, i32 6
+  store i32 0, ptr %cur_start_row130, align 4, !tbaa !73
+  %first_undef_row131 = getelementptr inbounds %struct.jvirt_barray_control, ptr %bptr.1238, i64 0, i32 7
+  store i32 0, ptr %first_undef_row131, align 8, !tbaa !74
+  %dirty132 = getelementptr inbounds %struct.jvirt_barray_control, ptr %bptr.1238, i64 0, i32 9
+  store i32 0, ptr %dirty132, align 8, !tbaa !75
+  br label %for.inc134
 
-128:                                              ; preds = %92, %118
-  %129 = getelementptr inbounds %struct.jvirt_sarray_control, ptr %93, i64 0, i32 11
-  %130 = load ptr, ptr %129, align 8, !tbaa !35
-  %131 = icmp eq ptr %130, null
-  br i1 %131, label %86, label %92, !llvm.loop !70
+for.inc134:                                       ; preds = %for.body92, %if.end123
+  %next135 = getelementptr inbounds %struct.jvirt_barray_control, ptr %bptr.1238, i64 0, i32 11
+  %bptr.1 = load ptr, ptr %next135, align 8, !tbaa !35
+  %cmp90.not = icmp eq ptr %bptr.1, null
+  br i1 %cmp90.not, label %cleanup, label %for.body92, !llvm.loop !76
 
-132:                                              ; preds = %89, %169
-  %133 = phi ptr [ %87, %89 ], [ %171, %169 ]
-  %134 = load ptr, ptr %133, align 8, !tbaa !54
-  %135 = icmp eq ptr %134, null
-  br i1 %135, label %136, label %169
-
-136:                                              ; preds = %132
-  %137 = getelementptr inbounds %struct.jvirt_barray_control, ptr %133, i64 0, i32 1
-  %138 = load i32, ptr %137, align 8, !tbaa !56
-  %139 = zext i32 %138 to i64
-  %140 = add nsw i64 %139, -1
-  %141 = getelementptr inbounds %struct.jvirt_barray_control, ptr %133, i64 0, i32 3
-  %142 = load i32, ptr %141, align 8, !tbaa !58
-  %143 = zext i32 %142 to i64
-  %144 = sdiv i64 %140, %143
-  %145 = icmp slt i64 %144, %80
-  br i1 %145, label %146, label %148
-
-146:                                              ; preds = %136
-  %147 = getelementptr inbounds %struct.jvirt_barray_control, ptr %133, i64 0, i32 4
-  store i32 %138, ptr %147, align 4, !tbaa !71
-  br label %159
-
-148:                                              ; preds = %136
-  %149 = mul i32 %142, %90
-  %150 = getelementptr inbounds %struct.jvirt_barray_control, ptr %133, i64 0, i32 4
-  store i32 %149, ptr %150, align 4, !tbaa !71
-  %151 = getelementptr inbounds %struct.jvirt_barray_control, ptr %133, i64 0, i32 12
-  %152 = getelementptr inbounds %struct.jvirt_barray_control, ptr %133, i64 0, i32 2
-  %153 = load i32, ptr %152, align 4, !tbaa !57
-  %154 = zext i32 %153 to i64
-  %155 = shl nuw nsw i64 %139, 7
-  %156 = mul i64 %155, %154
-  tail call void @jpeg_open_backing_store(ptr noundef %0, ptr noundef nonnull %151, i64 noundef %156) #7
-  %157 = getelementptr inbounds %struct.jvirt_barray_control, ptr %133, i64 0, i32 10
-  store i32 1, ptr %157, align 4, !tbaa !60
-  %158 = load i32, ptr %150, align 4, !tbaa !71
-  br label %159
-
-159:                                              ; preds = %148, %146
-  %160 = phi i32 [ %158, %148 ], [ %138, %146 ]
-  %161 = getelementptr inbounds %struct.jvirt_barray_control, ptr %133, i64 0, i32 2
-  %162 = load i32, ptr %161, align 4, !tbaa !57
-  %163 = tail call ptr @alloc_barray(ptr noundef %0, i32 noundef 1, i32 noundef %162, i32 noundef %160)
-  store ptr %163, ptr %133, align 8, !tbaa !54
-  %164 = load i32, ptr %91, align 8, !tbaa !36
-  %165 = getelementptr inbounds %struct.jvirt_barray_control, ptr %133, i64 0, i32 5
-  store i32 %164, ptr %165, align 8, !tbaa !72
-  %166 = getelementptr inbounds %struct.jvirt_barray_control, ptr %133, i64 0, i32 6
-  store i32 0, ptr %166, align 4, !tbaa !73
-  %167 = getelementptr inbounds %struct.jvirt_barray_control, ptr %133, i64 0, i32 7
-  store i32 0, ptr %167, align 8, !tbaa !74
-  %168 = getelementptr inbounds %struct.jvirt_barray_control, ptr %133, i64 0, i32 9
-  store i32 0, ptr %168, align 8, !tbaa !75
-  br label %169
-
-169:                                              ; preds = %132, %159
-  %170 = getelementptr inbounds %struct.jvirt_barray_control, ptr %133, i64 0, i32 11
-  %171 = load ptr, ptr %170, align 8, !tbaa !35
-  %172 = icmp eq ptr %171, null
-  br i1 %172, label %173, label %132, !llvm.loop !76
-
-173:                                              ; preds = %169, %86, %67
+cleanup:                                          ; preds = %for.inc134, %for.cond89.preheader, %for.end35
   ret void
 }
 
 ; Function Attrs: nounwind uwtable
-define internal ptr @access_virt_sarray(ptr noundef %0, ptr noundef %1, i32 noundef %2, i32 noundef %3, i32 noundef %4) #0 {
-  %6 = add i32 %3, %2
-  %7 = getelementptr inbounds %struct.jvirt_sarray_control, ptr %1, i64 0, i32 1
-  %8 = load i32, ptr %7, align 8, !tbaa !47
-  %9 = icmp ugt i32 %6, %8
-  br i1 %9, label %17, label %10
+define internal ptr @access_virt_sarray(ptr noundef %cinfo, ptr noundef %ptr, i32 noundef %start_row, i32 noundef %num_rows, i32 noundef %writable) #0 {
+entry:
+  %add = add i32 %num_rows, %start_row
+  %rows_in_array = getelementptr inbounds %struct.jvirt_sarray_control, ptr %ptr, i64 0, i32 1
+  %0 = load i32, ptr %rows_in_array, align 8, !tbaa !47
+  %cmp = icmp ugt i32 %add, %0
+  br i1 %cmp, label %if.then, label %lor.lhs.false
 
-10:                                               ; preds = %5
-  %11 = getelementptr inbounds %struct.jvirt_sarray_control, ptr %1, i64 0, i32 3
-  %12 = load i32, ptr %11, align 8, !tbaa !49
-  %13 = icmp ult i32 %12, %3
-  br i1 %13, label %17, label %14
+lor.lhs.false:                                    ; preds = %entry
+  %maxaccess = getelementptr inbounds %struct.jvirt_sarray_control, ptr %ptr, i64 0, i32 3
+  %1 = load i32, ptr %maxaccess, align 8, !tbaa !49
+  %cmp1 = icmp ult i32 %1, %num_rows
+  br i1 %cmp1, label %if.then, label %lor.lhs.false2
 
-14:                                               ; preds = %10
-  %15 = load ptr, ptr %1, align 8, !tbaa !44
-  %16 = icmp eq ptr %15, null
-  br i1 %16, label %17, label %21
+lor.lhs.false2:                                   ; preds = %lor.lhs.false
+  %2 = load ptr, ptr %ptr, align 8, !tbaa !44
+  %cmp3 = icmp eq ptr %2, null
+  br i1 %cmp3, label %if.then, label %if.end
 
-17:                                               ; preds = %14, %10, %5
-  %18 = load ptr, ptr %0, align 8, !tbaa !13
-  %19 = getelementptr inbounds %struct.jpeg_error_mgr, ptr %18, i64 0, i32 5
-  store i32 20, ptr %19, align 8, !tbaa !14
-  %20 = load ptr, ptr %18, align 8, !tbaa !17
-  tail call void %20(ptr noundef nonnull %0) #7
-  br label %21
+if.then:                                          ; preds = %lor.lhs.false2, %lor.lhs.false, %entry
+  %3 = load ptr, ptr %cinfo, align 8, !tbaa !13
+  %msg_code = getelementptr inbounds %struct.jpeg_error_mgr, ptr %3, i64 0, i32 5
+  store i32 20, ptr %msg_code, align 8, !tbaa !14
+  %4 = load ptr, ptr %3, align 8, !tbaa !17
+  tail call void %4(ptr noundef nonnull %cinfo) #7
+  br label %if.end
 
-21:                                               ; preds = %17, %14
-  %22 = getelementptr inbounds %struct.jvirt_sarray_control, ptr %1, i64 0, i32 6
-  %23 = load i32, ptr %22, align 4, !tbaa !67
-  %24 = icmp ugt i32 %23, %2
-  br i1 %24, label %30, label %25
+if.end:                                           ; preds = %if.then, %lor.lhs.false2
+  %cur_start_row = getelementptr inbounds %struct.jvirt_sarray_control, ptr %ptr, i64 0, i32 6
+  %5 = load i32, ptr %cur_start_row, align 4, !tbaa !67
+  %cmp5 = icmp ugt i32 %5, %start_row
+  br i1 %cmp5, label %if.then10, label %lor.lhs.false6
 
-25:                                               ; preds = %21
-  %26 = getelementptr inbounds %struct.jvirt_sarray_control, ptr %1, i64 0, i32 4
-  %27 = load i32, ptr %26, align 4, !tbaa !65
-  %28 = add i32 %27, %23
-  %29 = icmp ugt i32 %6, %28
-  br i1 %29, label %30, label %156
+lor.lhs.false6:                                   ; preds = %if.end
+  %rows_in_mem = getelementptr inbounds %struct.jvirt_sarray_control, ptr %ptr, i64 0, i32 4
+  %6 = load i32, ptr %rows_in_mem, align 4, !tbaa !65
+  %add8 = add i32 %6, %5
+  %cmp9 = icmp ugt i32 %add, %add8
+  br i1 %cmp9, label %if.then10, label %if.end34
 
-30:                                               ; preds = %25, %21
-  %31 = getelementptr inbounds %struct.jvirt_sarray_control, ptr %1, i64 0, i32 10
-  %32 = load i32, ptr %31, align 4, !tbaa !51
-  %33 = icmp eq i32 %32, 0
-  br i1 %33, label %34, label %38
+if.then10:                                        ; preds = %lor.lhs.false6, %if.end
+  %b_s_open = getelementptr inbounds %struct.jvirt_sarray_control, ptr %ptr, i64 0, i32 10
+  %7 = load i32, ptr %b_s_open, align 4, !tbaa !51
+  %tobool.not = icmp eq i32 %7, 0
+  br i1 %tobool.not, label %if.then11, label %if.end16
 
-34:                                               ; preds = %30
-  %35 = load ptr, ptr %0, align 8, !tbaa !13
-  %36 = getelementptr inbounds %struct.jpeg_error_mgr, ptr %35, i64 0, i32 5
-  store i32 68, ptr %36, align 8, !tbaa !14
-  %37 = load ptr, ptr %35, align 8, !tbaa !17
-  tail call void %37(ptr noundef nonnull %0) #7
-  br label %38
+if.then11:                                        ; preds = %if.then10
+  %8 = load ptr, ptr %cinfo, align 8, !tbaa !13
+  %msg_code13 = getelementptr inbounds %struct.jpeg_error_mgr, ptr %8, i64 0, i32 5
+  store i32 68, ptr %msg_code13, align 8, !tbaa !14
+  %9 = load ptr, ptr %8, align 8, !tbaa !17
+  tail call void %9(ptr noundef nonnull %cinfo) #7
+  br label %if.end16
 
-38:                                               ; preds = %34, %30
-  %39 = getelementptr inbounds %struct.jvirt_sarray_control, ptr %1, i64 0, i32 9
-  %40 = load i32, ptr %39, align 8, !tbaa !69
-  %41 = icmp eq i32 %40, 0
-  br i1 %41, label %93, label %42
+if.end16:                                         ; preds = %if.then11, %if.then10
+  %dirty = getelementptr inbounds %struct.jvirt_sarray_control, ptr %ptr, i64 0, i32 9
+  %10 = load i32, ptr %dirty, align 8, !tbaa !69
+  %tobool17.not = icmp eq i32 %10, 0
+  br i1 %tobool17.not, label %if.end20, label %if.then18
 
-42:                                               ; preds = %38
-  %43 = getelementptr inbounds %struct.jvirt_sarray_control, ptr %1, i64 0, i32 2
-  %44 = load i32, ptr %43, align 4, !tbaa !48
-  %45 = zext i32 %44 to i64
-  %46 = getelementptr inbounds %struct.jvirt_sarray_control, ptr %1, i64 0, i32 5
-  %47 = getelementptr inbounds %struct.jvirt_sarray_control, ptr %1, i64 0, i32 4
-  %48 = load i32, ptr %47, align 4, !tbaa !65
-  %49 = icmp eq i32 %48, 0
-  br i1 %49, label %92, label %50
+if.then18:                                        ; preds = %if.end16
+  %samplesperrow.i = getelementptr inbounds %struct.jvirt_sarray_control, ptr %ptr, i64 0, i32 2
+  %11 = load i32, ptr %samplesperrow.i, align 4, !tbaa !48
+  %conv.i = zext i32 %11 to i64
+  %rowsperchunk.i = getelementptr inbounds %struct.jvirt_sarray_control, ptr %ptr, i64 0, i32 5
+  %rows_in_mem.i = getelementptr inbounds %struct.jvirt_sarray_control, ptr %ptr, i64 0, i32 4
+  %12 = load i32, ptr %rows_in_mem.i, align 4, !tbaa !65
+  %cmp92.not.i = icmp eq i32 %12, 0
+  br i1 %cmp92.not.i, label %do_sarray_io.exit, label %for.body.lr.ph.i
 
-50:                                               ; preds = %42
-  %51 = zext i32 %48 to i64
-  %52 = load i32, ptr %22, align 4, !tbaa !67
-  %53 = zext i32 %52 to i64
-  %54 = mul nuw nsw i64 %53, %45
-  %55 = getelementptr inbounds %struct.jvirt_sarray_control, ptr %1, i64 0, i32 7
-  %56 = getelementptr inbounds %struct.jvirt_sarray_control, ptr %1, i64 0, i32 12
-  %57 = getelementptr inbounds %struct.jvirt_sarray_control, ptr %1, i64 0, i32 12, i32 1
-  %58 = load i32, ptr %46, align 8, !tbaa !66
-  br label %59
+for.body.lr.ph.i:                                 ; preds = %if.then18
+  %conv391.i = zext i32 %12 to i64
+  %13 = load i32, ptr %cur_start_row, align 4, !tbaa !67
+  %conv1.i = zext i32 %13 to i64
+  %mul2.i = mul nuw nsw i64 %conv1.i, %conv.i
+  %first_undef_row.i = getelementptr inbounds %struct.jvirt_sarray_control, ptr %ptr, i64 0, i32 7
+  %b_s_info.i = getelementptr inbounds %struct.jvirt_sarray_control, ptr %ptr, i64 0, i32 12
+  %write_backing_store.i = getelementptr inbounds %struct.jvirt_sarray_control, ptr %ptr, i64 0, i32 12, i32 1
+  %.pre97.i = load i32, ptr %rowsperchunk.i, align 8, !tbaa !66
+  br label %for.body.i
 
-59:                                               ; preds = %79, %50
-  %60 = phi i32 [ %86, %79 ], [ %58, %50 ]
-  %61 = phi i64 [ %90, %79 ], [ %51, %50 ]
-  %62 = phi i64 [ %88, %79 ], [ 0, %50 ]
-  %63 = phi i64 [ %85, %79 ], [ %54, %50 ]
-  %64 = zext i32 %60 to i64
-  %65 = sub nsw i64 %61, %62
-  %66 = tail call i64 @llvm.smin.i64(i64 %65, i64 %64)
-  %67 = load i32, ptr %22, align 4, !tbaa !67
-  %68 = zext i32 %67 to i64
-  %69 = add nuw nsw i64 %62, %68
-  %70 = load i32, ptr %55, align 8, !tbaa !68
-  %71 = zext i32 %70 to i64
-  %72 = sub nsw i64 %71, %69
-  %73 = tail call i64 @llvm.smin.i64(i64 %66, i64 %72)
-  %74 = load i32, ptr %7, align 8, !tbaa !47
-  %75 = zext i32 %74 to i64
-  %76 = sub nsw i64 %75, %69
-  %77 = tail call i64 @llvm.smin.i64(i64 %73, i64 %76)
-  %78 = icmp slt i64 %77, 1
-  br i1 %78, label %92, label %79
+for.body.i:                                       ; preds = %if.end.i, %for.body.lr.ph.i
+  %14 = phi i32 [ %21, %if.end.i ], [ %.pre97.i, %for.body.lr.ph.i ]
+  %conv395.i = phi i64 [ %conv3.i, %if.end.i ], [ %conv391.i, %for.body.lr.ph.i ]
+  %i.094.i = phi i64 [ %add52.i, %if.end.i ], [ 0, %for.body.lr.ph.i ]
+  %file_offset.093.i = phi i64 [ %add49.i, %if.end.i ], [ %mul2.i, %for.body.lr.ph.i ]
+  %conv5.i = zext i32 %14 to i64
+  %sub.i = sub nsw i64 %conv395.i, %i.094.i
+  %conv5.sub.i = tail call i64 @llvm.smin.i64(i64 %sub.i, i64 %conv5.i)
+  %15 = load i32, ptr %cur_start_row, align 4, !tbaa !67
+  %conv16.i = zext i32 %15 to i64
+  %add.i = add nuw nsw i64 %i.094.i, %conv16.i
+  %16 = load i32, ptr %first_undef_row.i, align 8, !tbaa !68
+  %conv17.i = zext i32 %16 to i64
+  %sub18.i = sub nsw i64 %conv17.i, %add.i
+  %cond27.i = tail call i64 @llvm.smin.i64(i64 %conv5.sub.i, i64 %sub18.i)
+  %17 = load i32, ptr %rows_in_array, align 8, !tbaa !47
+  %conv28.i = zext i32 %17 to i64
+  %sub29.i = sub nsw i64 %conv28.i, %add.i
+  %cond38.i = tail call i64 @llvm.smin.i64(i64 %cond27.i, i64 %sub29.i)
+  %cmp39.i = icmp slt i64 %cond38.i, 1
+  br i1 %cmp39.i, label %do_sarray_io.exit, label %if.end.i
 
-79:                                               ; preds = %59
-  %80 = mul nuw nsw i64 %77, %45
-  %81 = load ptr, ptr %57, align 8, !tbaa !77
-  %82 = load ptr, ptr %1, align 8, !tbaa !44
-  %83 = getelementptr inbounds ptr, ptr %82, i64 %62
-  %84 = load ptr, ptr %83, align 8, !tbaa !35
-  tail call void %81(ptr noundef %0, ptr noundef nonnull %56, ptr noundef %84, i64 noundef %63, i64 noundef %80) #7
-  %85 = add nsw i64 %80, %63
-  %86 = load i32, ptr %46, align 8, !tbaa !66
-  %87 = zext i32 %86 to i64
-  %88 = add nuw nsw i64 %62, %87
-  %89 = load i32, ptr %47, align 4, !tbaa !65
-  %90 = zext i32 %89 to i64
-  %91 = icmp ult i64 %88, %90
-  br i1 %91, label %59, label %92, !llvm.loop !78
+if.end.i:                                         ; preds = %for.body.i
+  %mul41.i = mul nuw nsw i64 %cond38.i, %conv.i
+  %18 = load ptr, ptr %write_backing_store.i, align 8, !tbaa !77
+  %19 = load ptr, ptr %ptr, align 8, !tbaa !44
+  %arrayidx.i = getelementptr inbounds ptr, ptr %19, i64 %i.094.i
+  %20 = load ptr, ptr %arrayidx.i, align 8, !tbaa !35
+  tail call void %18(ptr noundef %cinfo, ptr noundef nonnull %b_s_info.i, ptr noundef %20, i64 noundef %file_offset.093.i, i64 noundef %mul41.i) #7
+  %add49.i = add nsw i64 %mul41.i, %file_offset.093.i
+  %21 = load i32, ptr %rowsperchunk.i, align 8, !tbaa !66
+  %conv51.i = zext i32 %21 to i64
+  %add52.i = add nuw nsw i64 %i.094.i, %conv51.i
+  %22 = load i32, ptr %rows_in_mem.i, align 4, !tbaa !65
+  %conv3.i = zext i32 %22 to i64
+  %cmp.i = icmp ult i64 %add52.i, %conv3.i
+  br i1 %cmp.i, label %for.body.i, label %do_sarray_io.exit, !llvm.loop !78
 
-92:                                               ; preds = %59, %79, %42
-  store i32 0, ptr %39, align 8, !tbaa !69
-  br label %93
+do_sarray_io.exit:                                ; preds = %for.body.i, %if.end.i, %if.then18
+  store i32 0, ptr %dirty, align 8, !tbaa !69
+  br label %if.end20
 
-93:                                               ; preds = %92, %38
-  %94 = load i32, ptr %22, align 4, !tbaa !67
-  %95 = icmp ult i32 %94, %2
-  br i1 %95, label %96, label %99
+if.end20:                                         ; preds = %do_sarray_io.exit, %if.end16
+  %23 = load i32, ptr %cur_start_row, align 4, !tbaa !67
+  %cmp22 = icmp ult i32 %23, %start_row
+  br i1 %cmp22, label %if.end20.if.end33_crit_edge, label %if.else
 
-96:                                               ; preds = %93
-  %97 = getelementptr inbounds %struct.jvirt_sarray_control, ptr %1, i64 0, i32 4
-  %98 = load i32, ptr %97, align 4, !tbaa !65
-  br label %107
+if.end20.if.end33_crit_edge:                      ; preds = %if.end20
+  %rows_in_mem.i147.phi.trans.insert = getelementptr inbounds %struct.jvirt_sarray_control, ptr %ptr, i64 0, i32 4
+  %.pre = load i32, ptr %rows_in_mem.i147.phi.trans.insert, align 4, !tbaa !65
+  br label %if.end33
 
-99:                                               ; preds = %93
-  %100 = zext i32 %6 to i64
-  %101 = getelementptr inbounds %struct.jvirt_sarray_control, ptr %1, i64 0, i32 4
-  %102 = load i32, ptr %101, align 4, !tbaa !65
-  %103 = zext i32 %102 to i64
-  %104 = sub nsw i64 %100, %103
-  %105 = tail call i64 @llvm.smax.i64(i64 %104, i64 0)
-  %106 = trunc i64 %105 to i32
-  br label %107
+if.else:                                          ; preds = %if.end20
+  %conv = zext i32 %add to i64
+  %rows_in_mem25 = getelementptr inbounds %struct.jvirt_sarray_control, ptr %ptr, i64 0, i32 4
+  %24 = load i32, ptr %rows_in_mem25, align 4, !tbaa !65
+  %conv26 = zext i32 %24 to i64
+  %sub = sub nsw i64 %conv, %conv26
+  %spec.store.select = tail call i64 @llvm.smax.i64(i64 %sub, i64 0)
+  %conv31 = trunc i64 %spec.store.select to i32
+  br label %if.end33
 
-107:                                              ; preds = %96, %99
-  %108 = phi i32 [ %102, %99 ], [ %98, %96 ]
-  %109 = phi i32 [ %106, %99 ], [ %2, %96 ]
-  store i32 %109, ptr %22, align 4, !tbaa !67
-  %110 = getelementptr inbounds %struct.jvirt_sarray_control, ptr %1, i64 0, i32 2
-  %111 = load i32, ptr %110, align 4, !tbaa !48
-  %112 = zext i32 %111 to i64
-  %113 = getelementptr inbounds %struct.jvirt_sarray_control, ptr %1, i64 0, i32 5
-  %114 = getelementptr inbounds %struct.jvirt_sarray_control, ptr %1, i64 0, i32 4
-  %115 = icmp eq i32 %108, 0
-  br i1 %115, label %156, label %116
+if.end33:                                         ; preds = %if.end20.if.end33_crit_edge, %if.else
+  %25 = phi i32 [ %24, %if.else ], [ %.pre, %if.end20.if.end33_crit_edge ]
+  %storemerge = phi i32 [ %conv31, %if.else ], [ %start_row, %if.end20.if.end33_crit_edge ]
+  store i32 %storemerge, ptr %cur_start_row, align 4, !tbaa !67
+  %samplesperrow.i143 = getelementptr inbounds %struct.jvirt_sarray_control, ptr %ptr, i64 0, i32 2
+  %26 = load i32, ptr %samplesperrow.i143, align 4, !tbaa !48
+  %conv.i144 = zext i32 %26 to i64
+  %rowsperchunk.i146 = getelementptr inbounds %struct.jvirt_sarray_control, ptr %ptr, i64 0, i32 5
+  %rows_in_mem.i147 = getelementptr inbounds %struct.jvirt_sarray_control, ptr %ptr, i64 0, i32 4
+  %cmp92.not.i148 = icmp eq i32 %25, 0
+  br i1 %cmp92.not.i148, label %if.end34, label %for.body.lr.ph.i157
 
-116:                                              ; preds = %107
-  %117 = zext i32 %108 to i64
-  %118 = zext i32 %109 to i64
-  %119 = mul nuw nsw i64 %118, %112
-  %120 = getelementptr inbounds %struct.jvirt_sarray_control, ptr %1, i64 0, i32 7
-  %121 = getelementptr inbounds %struct.jvirt_sarray_control, ptr %1, i64 0, i32 12
-  %122 = load i32, ptr %113, align 8, !tbaa !66
-  br label %123
+for.body.lr.ph.i157:                              ; preds = %if.end33
+  %conv391.i149 = zext i32 %25 to i64
+  %conv1.i150 = zext i32 %storemerge to i64
+  %mul2.i151 = mul nuw nsw i64 %conv.i144, %conv1.i150
+  %first_undef_row.i152 = getelementptr inbounds %struct.jvirt_sarray_control, ptr %ptr, i64 0, i32 7
+  %b_s_info.i154 = getelementptr inbounds %struct.jvirt_sarray_control, ptr %ptr, i64 0, i32 12
+  %.pre97.i156 = load i32, ptr %rowsperchunk.i146, align 8, !tbaa !66
+  br label %for.body.us.i
 
-123:                                              ; preds = %143, %116
-  %124 = phi i32 [ %150, %143 ], [ %122, %116 ]
-  %125 = phi i64 [ %154, %143 ], [ %117, %116 ]
-  %126 = phi i64 [ %152, %143 ], [ 0, %116 ]
-  %127 = phi i64 [ %149, %143 ], [ %119, %116 ]
-  %128 = zext i32 %124 to i64
-  %129 = sub nsw i64 %125, %126
-  %130 = tail call i64 @llvm.smin.i64(i64 %129, i64 %128)
-  %131 = load i32, ptr %22, align 4, !tbaa !67
-  %132 = zext i32 %131 to i64
-  %133 = add nuw nsw i64 %126, %132
-  %134 = load i32, ptr %120, align 8, !tbaa !68
-  %135 = zext i32 %134 to i64
-  %136 = sub nsw i64 %135, %133
-  %137 = tail call i64 @llvm.smin.i64(i64 %130, i64 %136)
-  %138 = load i32, ptr %7, align 8, !tbaa !47
-  %139 = zext i32 %138 to i64
-  %140 = sub nsw i64 %139, %133
-  %141 = tail call i64 @llvm.smin.i64(i64 %137, i64 %140)
-  %142 = icmp slt i64 %141, 1
-  br i1 %142, label %156, label %143
+for.body.us.i:                                    ; preds = %if.end.us.i, %for.body.lr.ph.i157
+  %27 = phi i32 [ %34, %if.end.us.i ], [ %.pre97.i156, %for.body.lr.ph.i157 ]
+  %conv395.us.i = phi i64 [ %conv3.us.i, %if.end.us.i ], [ %conv391.i149, %for.body.lr.ph.i157 ]
+  %i.094.us.i = phi i64 [ %add52.us.i, %if.end.us.i ], [ 0, %for.body.lr.ph.i157 ]
+  %file_offset.093.us.i = phi i64 [ %add49.us.i, %if.end.us.i ], [ %mul2.i151, %for.body.lr.ph.i157 ]
+  %conv5.us.i = zext i32 %27 to i64
+  %sub.us.i = sub nsw i64 %conv395.us.i, %i.094.us.i
+  %conv5.sub.us.i = tail call i64 @llvm.smin.i64(i64 %sub.us.i, i64 %conv5.us.i)
+  %28 = load i32, ptr %cur_start_row, align 4, !tbaa !67
+  %conv16.us.i = zext i32 %28 to i64
+  %add.us.i = add nuw nsw i64 %i.094.us.i, %conv16.us.i
+  %29 = load i32, ptr %first_undef_row.i152, align 8, !tbaa !68
+  %conv17.us.i = zext i32 %29 to i64
+  %sub18.us.i = sub nsw i64 %conv17.us.i, %add.us.i
+  %cond27.us.i = tail call i64 @llvm.smin.i64(i64 %conv5.sub.us.i, i64 %sub18.us.i)
+  %30 = load i32, ptr %rows_in_array, align 8, !tbaa !47
+  %conv28.us.i = zext i32 %30 to i64
+  %sub29.us.i = sub nsw i64 %conv28.us.i, %add.us.i
+  %cond38.us.i = tail call i64 @llvm.smin.i64(i64 %cond27.us.i, i64 %sub29.us.i)
+  %cmp39.us.i = icmp slt i64 %cond38.us.i, 1
+  br i1 %cmp39.us.i, label %if.end34, label %if.end.us.i
 
-143:                                              ; preds = %123
-  %144 = mul nuw nsw i64 %141, %112
-  %145 = load ptr, ptr %121, align 8, !tbaa !79
-  %146 = load ptr, ptr %1, align 8, !tbaa !44
-  %147 = getelementptr inbounds ptr, ptr %146, i64 %126
-  %148 = load ptr, ptr %147, align 8, !tbaa !35
-  tail call void %145(ptr noundef %0, ptr noundef nonnull %121, ptr noundef %148, i64 noundef %127, i64 noundef %144) #7
-  %149 = add nsw i64 %144, %127
-  %150 = load i32, ptr %113, align 8, !tbaa !66
-  %151 = zext i32 %150 to i64
-  %152 = add nuw nsw i64 %126, %151
-  %153 = load i32, ptr %114, align 4, !tbaa !65
-  %154 = zext i32 %153 to i64
-  %155 = icmp ult i64 %152, %154
-  br i1 %155, label %123, label %156, !llvm.loop !78
+if.end.us.i:                                      ; preds = %for.body.us.i
+  %mul41.us.i = mul nuw nsw i64 %cond38.us.i, %conv.i144
+  %31 = load ptr, ptr %b_s_info.i154, align 8, !tbaa !79
+  %32 = load ptr, ptr %ptr, align 8, !tbaa !44
+  %arrayidx47.us.i = getelementptr inbounds ptr, ptr %32, i64 %i.094.us.i
+  %33 = load ptr, ptr %arrayidx47.us.i, align 8, !tbaa !35
+  tail call void %31(ptr noundef %cinfo, ptr noundef nonnull %b_s_info.i154, ptr noundef %33, i64 noundef %file_offset.093.us.i, i64 noundef %mul41.us.i) #7
+  %add49.us.i = add nsw i64 %mul41.us.i, %file_offset.093.us.i
+  %34 = load i32, ptr %rowsperchunk.i146, align 8, !tbaa !66
+  %conv51.us.i = zext i32 %34 to i64
+  %add52.us.i = add nuw nsw i64 %i.094.us.i, %conv51.us.i
+  %35 = load i32, ptr %rows_in_mem.i147, align 4, !tbaa !65
+  %conv3.us.i = zext i32 %35 to i64
+  %cmp.us.i = icmp ult i64 %add52.us.i, %conv3.us.i
+  br i1 %cmp.us.i, label %for.body.us.i, label %if.end34, !llvm.loop !78
 
-156:                                              ; preds = %143, %123, %107, %25
-  %157 = getelementptr inbounds %struct.jvirt_sarray_control, ptr %1, i64 0, i32 7
-  %158 = load i32, ptr %157, align 8, !tbaa !68
-  %159 = icmp ult i32 %158, %6
-  br i1 %159, label %160, label %205
+if.end34:                                         ; preds = %if.end.us.i, %for.body.us.i, %if.end33, %lor.lhs.false6
+  %first_undef_row = getelementptr inbounds %struct.jvirt_sarray_control, ptr %ptr, i64 0, i32 7
+  %36 = load i32, ptr %first_undef_row, align 8, !tbaa !68
+  %cmp35 = icmp ult i32 %36, %add
+  br i1 %cmp35, label %if.then37, label %if.end75
 
-160:                                              ; preds = %156
-  %161 = icmp ult i32 %158, %2
-  %162 = icmp eq i32 %4, 0
-  br i1 %161, label %163, label %168
+if.then37:                                        ; preds = %if.end34
+  %cmp39 = icmp ult i32 %36, %start_row
+  %tobool42.not = icmp eq i32 %writable, 0
+  br i1 %cmp39, label %if.then41, label %if.end51
 
-163:                                              ; preds = %160
-  br i1 %162, label %178, label %164
+if.then41:                                        ; preds = %if.then37
+  br i1 %tobool42.not, label %if.end55.thread, label %if.end51.thread163
 
-164:                                              ; preds = %163
-  %165 = load ptr, ptr %0, align 8, !tbaa !13
-  %166 = getelementptr inbounds %struct.jpeg_error_mgr, ptr %165, i64 0, i32 5
-  store i32 20, ptr %166, align 8, !tbaa !14
-  %167 = load ptr, ptr %165, align 8, !tbaa !17
-  tail call void %167(ptr noundef nonnull %0) #7
-  br label %169
+if.end51.thread163:                               ; preds = %if.then41
+  %37 = load ptr, ptr %cinfo, align 8, !tbaa !13
+  %msg_code45 = getelementptr inbounds %struct.jpeg_error_mgr, ptr %37, i64 0, i32 5
+  store i32 20, ptr %msg_code45, align 8, !tbaa !14
+  %38 = load ptr, ptr %37, align 8, !tbaa !17
+  tail call void %38(ptr noundef nonnull %cinfo) #7
+  br label %if.end55.thread178
 
-168:                                              ; preds = %160
-  br i1 %162, label %174, label %169
+if.end51:                                         ; preds = %if.then37
+  br i1 %tobool42.not, label %if.end55, label %if.end55.thread178
 
-169:                                              ; preds = %168, %164
-  %170 = phi i32 [ %2, %164 ], [ %158, %168 ]
-  store i32 %6, ptr %157, align 8, !tbaa !68
-  %171 = getelementptr inbounds %struct.jvirt_sarray_control, ptr %1, i64 0, i32 8
-  %172 = load i32, ptr %171, align 4, !tbaa !50
-  %173 = icmp eq i32 %172, 0
-  br i1 %173, label %207, label %182
+if.end55:                                         ; preds = %if.end51
+  %pre_zero = getelementptr inbounds %struct.jvirt_sarray_control, ptr %ptr, i64 0, i32 8
+  %39 = load i32, ptr %pre_zero, align 4, !tbaa !50
+  %tobool56.not = icmp eq i32 %39, 0
+  br i1 %tobool56.not, label %if.end75.thread, label %if.then57
 
-174:                                              ; preds = %168
-  %175 = getelementptr inbounds %struct.jvirt_sarray_control, ptr %1, i64 0, i32 8
-  %176 = load i32, ptr %175, align 4, !tbaa !50
-  %177 = icmp eq i32 %176, 0
-  br i1 %177, label %201, label %182
+if.end55.thread178:                               ; preds = %if.end51, %if.end51.thread163
+  %undef_row.0166 = phi i32 [ %start_row, %if.end51.thread163 ], [ %36, %if.end51 ]
+  store i32 %add, ptr %first_undef_row, align 8, !tbaa !68
+  %pre_zero181 = getelementptr inbounds %struct.jvirt_sarray_control, ptr %ptr, i64 0, i32 8
+  %40 = load i32, ptr %pre_zero181, align 4, !tbaa !50
+  %tobool56.not182 = icmp eq i32 %40, 0
+  br i1 %tobool56.not182, label %if.then77, label %if.then57
 
-178:                                              ; preds = %163
-  %179 = getelementptr inbounds %struct.jvirt_sarray_control, ptr %1, i64 0, i32 8
-  %180 = load i32, ptr %179, align 4, !tbaa !50
-  %181 = icmp eq i32 %180, 0
-  br i1 %181, label %201, label %182
+if.end55.thread:                                  ; preds = %if.then41
+  %pre_zero170 = getelementptr inbounds %struct.jvirt_sarray_control, ptr %ptr, i64 0, i32 8
+  %41 = load i32, ptr %pre_zero170, align 4, !tbaa !50
+  %tobool56.not171 = icmp eq i32 %41, 0
+  br i1 %tobool56.not171, label %if.end75.thread, label %if.then57
 
-182:                                              ; preds = %174, %178, %169
-  %183 = phi i32 [ %2, %178 ], [ %170, %169 ], [ %158, %174 ]
-  %184 = getelementptr inbounds %struct.jvirt_sarray_control, ptr %1, i64 0, i32 2
-  %185 = load i32, ptr %184, align 4, !tbaa !48
-  %186 = zext i32 %185 to i64
-  %187 = load i32, ptr %22, align 4, !tbaa !67
-  %188 = sub i32 %183, %187
-  %189 = sub i32 %6, %187
-  %190 = icmp ult i32 %188, %189
-  br i1 %190, label %191, label %205
+if.then57:                                        ; preds = %if.end55.thread178, %if.end55.thread, %if.end55
+  %undef_row.0161173 = phi i32 [ %start_row, %if.end55.thread ], [ %36, %if.end55 ], [ %undef_row.0166, %if.end55.thread178 ]
+  %samplesperrow = getelementptr inbounds %struct.jvirt_sarray_control, ptr %ptr, i64 0, i32 2
+  %42 = load i32, ptr %samplesperrow, align 4, !tbaa !48
+  %conv58 = zext i32 %42 to i64
+  %43 = load i32, ptr %cur_start_row, align 4, !tbaa !67
+  %sub60 = sub i32 %undef_row.0161173, %43
+  %sub62 = sub i32 %add, %43
+  %cmp63175 = icmp ult i32 %sub60, %sub62
+  br i1 %cmp63175, label %while.body.preheader, label %if.end75
 
-191:                                              ; preds = %182
-  %192 = zext i32 %188 to i64
-  br label %193
+while.body.preheader:                             ; preds = %if.then57
+  %44 = zext i32 %sub60 to i64
+  br label %while.body
 
-193:                                              ; preds = %191, %193
-  %194 = phi i64 [ %192, %191 ], [ %198, %193 ]
-  %195 = load ptr, ptr %1, align 8, !tbaa !44
-  %196 = getelementptr inbounds ptr, ptr %195, i64 %194
-  %197 = load ptr, ptr %196, align 8, !tbaa !35
-  tail call void @jzero_far(ptr noundef %197, i64 noundef %186) #7
-  %198 = add nuw nsw i64 %194, 1
-  %199 = trunc i64 %198 to i32
-  %200 = icmp eq i32 %189, %199
-  br i1 %200, label %205, label %193, !llvm.loop !80
+while.body:                                       ; preds = %while.body.preheader, %while.body
+  %indvars.iv = phi i64 [ %44, %while.body.preheader ], [ %indvars.iv.next, %while.body ]
+  %45 = load ptr, ptr %ptr, align 8, !tbaa !44
+  %arrayidx = getelementptr inbounds ptr, ptr %45, i64 %indvars.iv
+  %46 = load ptr, ptr %arrayidx, align 8, !tbaa !35
+  tail call void @jzero_far(ptr noundef %46, i64 noundef %conv58) #7
+  %indvars.iv.next = add nuw nsw i64 %indvars.iv, 1
+  %lftr.wideiv = trunc i64 %indvars.iv.next to i32
+  %exitcond.not = icmp eq i32 %sub62, %lftr.wideiv
+  br i1 %exitcond.not, label %if.end75, label %while.body, !llvm.loop !80
 
-201:                                              ; preds = %178, %174
-  %202 = load ptr, ptr %0, align 8, !tbaa !13
-  %203 = getelementptr inbounds %struct.jpeg_error_mgr, ptr %202, i64 0, i32 5
-  store i32 20, ptr %203, align 8, !tbaa !14
-  %204 = load ptr, ptr %202, align 8, !tbaa !17
-  tail call void %204(ptr noundef nonnull %0) #7
-  br label %209
+if.end75.thread:                                  ; preds = %if.end55.thread, %if.end55
+  %47 = load ptr, ptr %cinfo, align 8, !tbaa !13
+  %msg_code70 = getelementptr inbounds %struct.jpeg_error_mgr, ptr %47, i64 0, i32 5
+  store i32 20, ptr %msg_code70, align 8, !tbaa !14
+  %48 = load ptr, ptr %47, align 8, !tbaa !17
+  tail call void %48(ptr noundef nonnull %cinfo) #7
+  br label %if.end79
 
-205:                                              ; preds = %193, %182, %156
-  %206 = icmp eq i32 %4, 0
-  br i1 %206, label %209, label %207
+if.end75:                                         ; preds = %while.body, %if.then57, %if.end34
+  %tobool76.not = icmp eq i32 %writable, 0
+  br i1 %tobool76.not, label %if.end79, label %if.then77
 
-207:                                              ; preds = %169, %205
-  %208 = getelementptr inbounds %struct.jvirt_sarray_control, ptr %1, i64 0, i32 9
-  store i32 1, ptr %208, align 8, !tbaa !69
-  br label %209
+if.then77:                                        ; preds = %if.end55.thread178, %if.end75
+  %dirty78 = getelementptr inbounds %struct.jvirt_sarray_control, ptr %ptr, i64 0, i32 9
+  store i32 1, ptr %dirty78, align 8, !tbaa !69
+  br label %if.end79
 
-209:                                              ; preds = %201, %207, %205
-  %210 = load ptr, ptr %1, align 8, !tbaa !44
-  %211 = load i32, ptr %22, align 4, !tbaa !67
-  %212 = sub i32 %2, %211
-  %213 = zext i32 %212 to i64
-  %214 = getelementptr inbounds ptr, ptr %210, i64 %213
-  ret ptr %214
+if.end79:                                         ; preds = %if.end75.thread, %if.then77, %if.end75
+  %49 = load ptr, ptr %ptr, align 8, !tbaa !44
+  %50 = load i32, ptr %cur_start_row, align 4, !tbaa !67
+  %sub82 = sub i32 %start_row, %50
+  %idx.ext = zext i32 %sub82 to i64
+  %add.ptr = getelementptr inbounds ptr, ptr %49, i64 %idx.ext
+  ret ptr %add.ptr
 }
 
 ; Function Attrs: nounwind uwtable
-define internal ptr @access_virt_barray(ptr noundef %0, ptr noundef %1, i32 noundef %2, i32 noundef %3, i32 noundef %4) #0 {
-  %6 = add i32 %3, %2
-  %7 = getelementptr inbounds %struct.jvirt_barray_control, ptr %1, i64 0, i32 1
-  %8 = load i32, ptr %7, align 8, !tbaa !56
-  %9 = icmp ugt i32 %6, %8
-  br i1 %9, label %17, label %10
+define internal ptr @access_virt_barray(ptr noundef %cinfo, ptr noundef %ptr, i32 noundef %start_row, i32 noundef %num_rows, i32 noundef %writable) #0 {
+entry:
+  %add = add i32 %num_rows, %start_row
+  %rows_in_array = getelementptr inbounds %struct.jvirt_barray_control, ptr %ptr, i64 0, i32 1
+  %0 = load i32, ptr %rows_in_array, align 8, !tbaa !56
+  %cmp = icmp ugt i32 %add, %0
+  br i1 %cmp, label %if.then, label %lor.lhs.false
 
-10:                                               ; preds = %5
-  %11 = getelementptr inbounds %struct.jvirt_barray_control, ptr %1, i64 0, i32 3
-  %12 = load i32, ptr %11, align 8, !tbaa !58
-  %13 = icmp ult i32 %12, %3
-  br i1 %13, label %17, label %14
+lor.lhs.false:                                    ; preds = %entry
+  %maxaccess = getelementptr inbounds %struct.jvirt_barray_control, ptr %ptr, i64 0, i32 3
+  %1 = load i32, ptr %maxaccess, align 8, !tbaa !58
+  %cmp1 = icmp ult i32 %1, %num_rows
+  br i1 %cmp1, label %if.then, label %lor.lhs.false2
 
-14:                                               ; preds = %10
-  %15 = load ptr, ptr %1, align 8, !tbaa !54
-  %16 = icmp eq ptr %15, null
-  br i1 %16, label %17, label %21
+lor.lhs.false2:                                   ; preds = %lor.lhs.false
+  %2 = load ptr, ptr %ptr, align 8, !tbaa !54
+  %cmp3 = icmp eq ptr %2, null
+  br i1 %cmp3, label %if.then, label %if.end
 
-17:                                               ; preds = %14, %10, %5
-  %18 = load ptr, ptr %0, align 8, !tbaa !13
-  %19 = getelementptr inbounds %struct.jpeg_error_mgr, ptr %18, i64 0, i32 5
-  store i32 20, ptr %19, align 8, !tbaa !14
-  %20 = load ptr, ptr %18, align 8, !tbaa !17
-  tail call void %20(ptr noundef nonnull %0) #7
-  br label %21
+if.then:                                          ; preds = %lor.lhs.false2, %lor.lhs.false, %entry
+  %3 = load ptr, ptr %cinfo, align 8, !tbaa !13
+  %msg_code = getelementptr inbounds %struct.jpeg_error_mgr, ptr %3, i64 0, i32 5
+  store i32 20, ptr %msg_code, align 8, !tbaa !14
+  %4 = load ptr, ptr %3, align 8, !tbaa !17
+  tail call void %4(ptr noundef nonnull %cinfo) #7
+  br label %if.end
 
-21:                                               ; preds = %17, %14
-  %22 = getelementptr inbounds %struct.jvirt_barray_control, ptr %1, i64 0, i32 6
-  %23 = load i32, ptr %22, align 4, !tbaa !73
-  %24 = icmp ugt i32 %23, %2
-  br i1 %24, label %30, label %25
+if.end:                                           ; preds = %if.then, %lor.lhs.false2
+  %cur_start_row = getelementptr inbounds %struct.jvirt_barray_control, ptr %ptr, i64 0, i32 6
+  %5 = load i32, ptr %cur_start_row, align 4, !tbaa !73
+  %cmp5 = icmp ugt i32 %5, %start_row
+  br i1 %cmp5, label %if.then10, label %lor.lhs.false6
 
-25:                                               ; preds = %21
-  %26 = getelementptr inbounds %struct.jvirt_barray_control, ptr %1, i64 0, i32 4
-  %27 = load i32, ptr %26, align 4, !tbaa !71
-  %28 = add i32 %27, %23
-  %29 = icmp ugt i32 %6, %28
-  br i1 %29, label %30, label %158
+lor.lhs.false6:                                   ; preds = %if.end
+  %rows_in_mem = getelementptr inbounds %struct.jvirt_barray_control, ptr %ptr, i64 0, i32 4
+  %6 = load i32, ptr %rows_in_mem, align 4, !tbaa !71
+  %add8 = add i32 %6, %5
+  %cmp9 = icmp ugt i32 %add, %add8
+  br i1 %cmp9, label %if.then10, label %if.end34
 
-30:                                               ; preds = %25, %21
-  %31 = getelementptr inbounds %struct.jvirt_barray_control, ptr %1, i64 0, i32 10
-  %32 = load i32, ptr %31, align 4, !tbaa !60
-  %33 = icmp eq i32 %32, 0
-  br i1 %33, label %34, label %38
+if.then10:                                        ; preds = %lor.lhs.false6, %if.end
+  %b_s_open = getelementptr inbounds %struct.jvirt_barray_control, ptr %ptr, i64 0, i32 10
+  %7 = load i32, ptr %b_s_open, align 4, !tbaa !60
+  %tobool.not = icmp eq i32 %7, 0
+  br i1 %tobool.not, label %if.then11, label %if.end16
 
-34:                                               ; preds = %30
-  %35 = load ptr, ptr %0, align 8, !tbaa !13
-  %36 = getelementptr inbounds %struct.jpeg_error_mgr, ptr %35, i64 0, i32 5
-  store i32 68, ptr %36, align 8, !tbaa !14
-  %37 = load ptr, ptr %35, align 8, !tbaa !17
-  tail call void %37(ptr noundef nonnull %0) #7
-  br label %38
+if.then11:                                        ; preds = %if.then10
+  %8 = load ptr, ptr %cinfo, align 8, !tbaa !13
+  %msg_code13 = getelementptr inbounds %struct.jpeg_error_mgr, ptr %8, i64 0, i32 5
+  store i32 68, ptr %msg_code13, align 8, !tbaa !14
+  %9 = load ptr, ptr %8, align 8, !tbaa !17
+  tail call void %9(ptr noundef nonnull %cinfo) #7
+  br label %if.end16
 
-38:                                               ; preds = %34, %30
-  %39 = getelementptr inbounds %struct.jvirt_barray_control, ptr %1, i64 0, i32 9
-  %40 = load i32, ptr %39, align 8, !tbaa !75
-  %41 = icmp eq i32 %40, 0
-  br i1 %41, label %94, label %42
+if.end16:                                         ; preds = %if.then11, %if.then10
+  %dirty = getelementptr inbounds %struct.jvirt_barray_control, ptr %ptr, i64 0, i32 9
+  %10 = load i32, ptr %dirty, align 8, !tbaa !75
+  %tobool17.not = icmp eq i32 %10, 0
+  br i1 %tobool17.not, label %if.end20, label %if.then18
 
-42:                                               ; preds = %38
-  %43 = getelementptr inbounds %struct.jvirt_barray_control, ptr %1, i64 0, i32 2
-  %44 = load i32, ptr %43, align 4, !tbaa !57
-  %45 = zext i32 %44 to i64
-  %46 = shl nuw nsw i64 %45, 7
-  %47 = getelementptr inbounds %struct.jvirt_barray_control, ptr %1, i64 0, i32 5
-  %48 = getelementptr inbounds %struct.jvirt_barray_control, ptr %1, i64 0, i32 4
-  %49 = load i32, ptr %48, align 4, !tbaa !71
-  %50 = icmp eq i32 %49, 0
-  br i1 %50, label %93, label %51
+if.then18:                                        ; preds = %if.end16
+  %blocksperrow.i = getelementptr inbounds %struct.jvirt_barray_control, ptr %ptr, i64 0, i32 2
+  %11 = load i32, ptr %blocksperrow.i, align 4, !tbaa !57
+  %conv.i = zext i32 %11 to i64
+  %mul.i = shl nuw nsw i64 %conv.i, 7
+  %rowsperchunk.i = getelementptr inbounds %struct.jvirt_barray_control, ptr %ptr, i64 0, i32 5
+  %rows_in_mem.i = getelementptr inbounds %struct.jvirt_barray_control, ptr %ptr, i64 0, i32 4
+  %12 = load i32, ptr %rows_in_mem.i, align 4, !tbaa !71
+  %cmp92.not.i = icmp eq i32 %12, 0
+  br i1 %cmp92.not.i, label %do_barray_io.exit, label %for.body.lr.ph.i
 
-51:                                               ; preds = %42
-  %52 = zext i32 %49 to i64
-  %53 = load i32, ptr %22, align 4, !tbaa !73
-  %54 = zext i32 %53 to i64
-  %55 = mul nsw i64 %46, %54
-  %56 = getelementptr inbounds %struct.jvirt_barray_control, ptr %1, i64 0, i32 7
-  %57 = getelementptr inbounds %struct.jvirt_barray_control, ptr %1, i64 0, i32 12
-  %58 = getelementptr inbounds %struct.jvirt_barray_control, ptr %1, i64 0, i32 12, i32 1
-  %59 = load i32, ptr %47, align 8, !tbaa !72
-  br label %60
+for.body.lr.ph.i:                                 ; preds = %if.then18
+  %conv391.i = zext i32 %12 to i64
+  %13 = load i32, ptr %cur_start_row, align 4, !tbaa !73
+  %conv1.i = zext i32 %13 to i64
+  %mul2.i = mul nsw i64 %mul.i, %conv1.i
+  %first_undef_row.i = getelementptr inbounds %struct.jvirt_barray_control, ptr %ptr, i64 0, i32 7
+  %b_s_info.i = getelementptr inbounds %struct.jvirt_barray_control, ptr %ptr, i64 0, i32 12
+  %write_backing_store.i = getelementptr inbounds %struct.jvirt_barray_control, ptr %ptr, i64 0, i32 12, i32 1
+  %.pre97.i = load i32, ptr %rowsperchunk.i, align 8, !tbaa !72
+  br label %for.body.i
 
-60:                                               ; preds = %80, %51
-  %61 = phi i32 [ %87, %80 ], [ %59, %51 ]
-  %62 = phi i64 [ %91, %80 ], [ %52, %51 ]
-  %63 = phi i64 [ %89, %80 ], [ 0, %51 ]
-  %64 = phi i64 [ %86, %80 ], [ %55, %51 ]
-  %65 = zext i32 %61 to i64
-  %66 = sub nsw i64 %62, %63
-  %67 = tail call i64 @llvm.smin.i64(i64 %66, i64 %65)
-  %68 = load i32, ptr %22, align 4, !tbaa !73
-  %69 = zext i32 %68 to i64
-  %70 = add nuw nsw i64 %63, %69
-  %71 = load i32, ptr %56, align 8, !tbaa !74
-  %72 = zext i32 %71 to i64
-  %73 = sub nsw i64 %72, %70
-  %74 = tail call i64 @llvm.smin.i64(i64 %67, i64 %73)
-  %75 = load i32, ptr %7, align 8, !tbaa !56
-  %76 = zext i32 %75 to i64
-  %77 = sub nsw i64 %76, %70
-  %78 = tail call i64 @llvm.smin.i64(i64 %74, i64 %77)
-  %79 = icmp slt i64 %78, 1
-  br i1 %79, label %93, label %80
+for.body.i:                                       ; preds = %if.end.i, %for.body.lr.ph.i
+  %14 = phi i32 [ %21, %if.end.i ], [ %.pre97.i, %for.body.lr.ph.i ]
+  %conv395.i = phi i64 [ %conv3.i, %if.end.i ], [ %conv391.i, %for.body.lr.ph.i ]
+  %i.094.i = phi i64 [ %add52.i, %if.end.i ], [ 0, %for.body.lr.ph.i ]
+  %file_offset.093.i = phi i64 [ %add49.i, %if.end.i ], [ %mul2.i, %for.body.lr.ph.i ]
+  %conv5.i = zext i32 %14 to i64
+  %sub.i = sub nsw i64 %conv395.i, %i.094.i
+  %conv5.sub.i = tail call i64 @llvm.smin.i64(i64 %sub.i, i64 %conv5.i)
+  %15 = load i32, ptr %cur_start_row, align 4, !tbaa !73
+  %conv16.i = zext i32 %15 to i64
+  %add.i = add nuw nsw i64 %i.094.i, %conv16.i
+  %16 = load i32, ptr %first_undef_row.i, align 8, !tbaa !74
+  %conv17.i = zext i32 %16 to i64
+  %sub18.i = sub nsw i64 %conv17.i, %add.i
+  %cond27.i = tail call i64 @llvm.smin.i64(i64 %conv5.sub.i, i64 %sub18.i)
+  %17 = load i32, ptr %rows_in_array, align 8, !tbaa !56
+  %conv28.i = zext i32 %17 to i64
+  %sub29.i = sub nsw i64 %conv28.i, %add.i
+  %cond38.i = tail call i64 @llvm.smin.i64(i64 %cond27.i, i64 %sub29.i)
+  %cmp39.i = icmp slt i64 %cond38.i, 1
+  br i1 %cmp39.i, label %do_barray_io.exit, label %if.end.i
 
-80:                                               ; preds = %60
-  %81 = mul nsw i64 %78, %46
-  %82 = load ptr, ptr %58, align 8, !tbaa !81
-  %83 = load ptr, ptr %1, align 8, !tbaa !54
-  %84 = getelementptr inbounds ptr, ptr %83, i64 %63
-  %85 = load ptr, ptr %84, align 8, !tbaa !35
-  tail call void %82(ptr noundef %0, ptr noundef nonnull %57, ptr noundef %85, i64 noundef %64, i64 noundef %81) #7
-  %86 = add nsw i64 %81, %64
-  %87 = load i32, ptr %47, align 8, !tbaa !72
-  %88 = zext i32 %87 to i64
-  %89 = add nuw nsw i64 %63, %88
-  %90 = load i32, ptr %48, align 4, !tbaa !71
-  %91 = zext i32 %90 to i64
-  %92 = icmp ult i64 %89, %91
-  br i1 %92, label %60, label %93, !llvm.loop !82
+if.end.i:                                         ; preds = %for.body.i
+  %mul41.i = mul nsw i64 %cond38.i, %mul.i
+  %18 = load ptr, ptr %write_backing_store.i, align 8, !tbaa !81
+  %19 = load ptr, ptr %ptr, align 8, !tbaa !54
+  %arrayidx.i = getelementptr inbounds ptr, ptr %19, i64 %i.094.i
+  %20 = load ptr, ptr %arrayidx.i, align 8, !tbaa !35
+  tail call void %18(ptr noundef %cinfo, ptr noundef nonnull %b_s_info.i, ptr noundef %20, i64 noundef %file_offset.093.i, i64 noundef %mul41.i) #7
+  %add49.i = add nsw i64 %mul41.i, %file_offset.093.i
+  %21 = load i32, ptr %rowsperchunk.i, align 8, !tbaa !72
+  %conv51.i = zext i32 %21 to i64
+  %add52.i = add nuw nsw i64 %i.094.i, %conv51.i
+  %22 = load i32, ptr %rows_in_mem.i, align 4, !tbaa !71
+  %conv3.i = zext i32 %22 to i64
+  %cmp.i = icmp ult i64 %add52.i, %conv3.i
+  br i1 %cmp.i, label %for.body.i, label %do_barray_io.exit, !llvm.loop !82
 
-93:                                               ; preds = %60, %80, %42
-  store i32 0, ptr %39, align 8, !tbaa !75
-  br label %94
+do_barray_io.exit:                                ; preds = %for.body.i, %if.end.i, %if.then18
+  store i32 0, ptr %dirty, align 8, !tbaa !75
+  br label %if.end20
 
-94:                                               ; preds = %93, %38
-  %95 = load i32, ptr %22, align 4, !tbaa !73
-  %96 = icmp ult i32 %95, %2
-  br i1 %96, label %97, label %100
+if.end20:                                         ; preds = %do_barray_io.exit, %if.end16
+  %23 = load i32, ptr %cur_start_row, align 4, !tbaa !73
+  %cmp22 = icmp ult i32 %23, %start_row
+  br i1 %cmp22, label %if.end20.if.end33_crit_edge, label %if.else
 
-97:                                               ; preds = %94
-  %98 = getelementptr inbounds %struct.jvirt_barray_control, ptr %1, i64 0, i32 4
-  %99 = load i32, ptr %98, align 4, !tbaa !71
-  br label %108
+if.end20.if.end33_crit_edge:                      ; preds = %if.end20
+  %rows_in_mem.i148.phi.trans.insert = getelementptr inbounds %struct.jvirt_barray_control, ptr %ptr, i64 0, i32 4
+  %.pre = load i32, ptr %rows_in_mem.i148.phi.trans.insert, align 4, !tbaa !71
+  br label %if.end33
 
-100:                                              ; preds = %94
-  %101 = zext i32 %6 to i64
-  %102 = getelementptr inbounds %struct.jvirt_barray_control, ptr %1, i64 0, i32 4
-  %103 = load i32, ptr %102, align 4, !tbaa !71
-  %104 = zext i32 %103 to i64
-  %105 = sub nsw i64 %101, %104
-  %106 = tail call i64 @llvm.smax.i64(i64 %105, i64 0)
-  %107 = trunc i64 %106 to i32
-  br label %108
+if.else:                                          ; preds = %if.end20
+  %conv = zext i32 %add to i64
+  %rows_in_mem25 = getelementptr inbounds %struct.jvirt_barray_control, ptr %ptr, i64 0, i32 4
+  %24 = load i32, ptr %rows_in_mem25, align 4, !tbaa !71
+  %conv26 = zext i32 %24 to i64
+  %sub = sub nsw i64 %conv, %conv26
+  %spec.store.select = tail call i64 @llvm.smax.i64(i64 %sub, i64 0)
+  %conv31 = trunc i64 %spec.store.select to i32
+  br label %if.end33
 
-108:                                              ; preds = %97, %100
-  %109 = phi i32 [ %103, %100 ], [ %99, %97 ]
-  %110 = phi i32 [ %107, %100 ], [ %2, %97 ]
-  store i32 %110, ptr %22, align 4, !tbaa !73
-  %111 = getelementptr inbounds %struct.jvirt_barray_control, ptr %1, i64 0, i32 2
-  %112 = load i32, ptr %111, align 4, !tbaa !57
-  %113 = zext i32 %112 to i64
-  %114 = shl nuw nsw i64 %113, 7
-  %115 = getelementptr inbounds %struct.jvirt_barray_control, ptr %1, i64 0, i32 5
-  %116 = getelementptr inbounds %struct.jvirt_barray_control, ptr %1, i64 0, i32 4
-  %117 = icmp eq i32 %109, 0
-  br i1 %117, label %158, label %118
+if.end33:                                         ; preds = %if.end20.if.end33_crit_edge, %if.else
+  %25 = phi i32 [ %24, %if.else ], [ %.pre, %if.end20.if.end33_crit_edge ]
+  %storemerge = phi i32 [ %conv31, %if.else ], [ %start_row, %if.end20.if.end33_crit_edge ]
+  store i32 %storemerge, ptr %cur_start_row, align 4, !tbaa !73
+  %blocksperrow.i143 = getelementptr inbounds %struct.jvirt_barray_control, ptr %ptr, i64 0, i32 2
+  %26 = load i32, ptr %blocksperrow.i143, align 4, !tbaa !57
+  %conv.i144 = zext i32 %26 to i64
+  %mul.i145 = shl nuw nsw i64 %conv.i144, 7
+  %rowsperchunk.i147 = getelementptr inbounds %struct.jvirt_barray_control, ptr %ptr, i64 0, i32 5
+  %rows_in_mem.i148 = getelementptr inbounds %struct.jvirt_barray_control, ptr %ptr, i64 0, i32 4
+  %cmp92.not.i149 = icmp eq i32 %25, 0
+  br i1 %cmp92.not.i149, label %if.end34, label %for.body.lr.ph.i158
 
-118:                                              ; preds = %108
-  %119 = zext i32 %109 to i64
-  %120 = zext i32 %110 to i64
-  %121 = mul nsw i64 %114, %120
-  %122 = getelementptr inbounds %struct.jvirt_barray_control, ptr %1, i64 0, i32 7
-  %123 = getelementptr inbounds %struct.jvirt_barray_control, ptr %1, i64 0, i32 12
-  %124 = load i32, ptr %115, align 8, !tbaa !72
-  br label %125
+for.body.lr.ph.i158:                              ; preds = %if.end33
+  %conv391.i150 = zext i32 %25 to i64
+  %conv1.i151 = zext i32 %storemerge to i64
+  %mul2.i152 = mul nsw i64 %mul.i145, %conv1.i151
+  %first_undef_row.i153 = getelementptr inbounds %struct.jvirt_barray_control, ptr %ptr, i64 0, i32 7
+  %b_s_info.i155 = getelementptr inbounds %struct.jvirt_barray_control, ptr %ptr, i64 0, i32 12
+  %.pre97.i157 = load i32, ptr %rowsperchunk.i147, align 8, !tbaa !72
+  br label %for.body.us.i
 
-125:                                              ; preds = %145, %118
-  %126 = phi i32 [ %152, %145 ], [ %124, %118 ]
-  %127 = phi i64 [ %156, %145 ], [ %119, %118 ]
-  %128 = phi i64 [ %154, %145 ], [ 0, %118 ]
-  %129 = phi i64 [ %151, %145 ], [ %121, %118 ]
-  %130 = zext i32 %126 to i64
-  %131 = sub nsw i64 %127, %128
-  %132 = tail call i64 @llvm.smin.i64(i64 %131, i64 %130)
-  %133 = load i32, ptr %22, align 4, !tbaa !73
-  %134 = zext i32 %133 to i64
-  %135 = add nuw nsw i64 %128, %134
-  %136 = load i32, ptr %122, align 8, !tbaa !74
-  %137 = zext i32 %136 to i64
-  %138 = sub nsw i64 %137, %135
-  %139 = tail call i64 @llvm.smin.i64(i64 %132, i64 %138)
-  %140 = load i32, ptr %7, align 8, !tbaa !56
-  %141 = zext i32 %140 to i64
-  %142 = sub nsw i64 %141, %135
-  %143 = tail call i64 @llvm.smin.i64(i64 %139, i64 %142)
-  %144 = icmp slt i64 %143, 1
-  br i1 %144, label %158, label %145
+for.body.us.i:                                    ; preds = %if.end.us.i, %for.body.lr.ph.i158
+  %27 = phi i32 [ %34, %if.end.us.i ], [ %.pre97.i157, %for.body.lr.ph.i158 ]
+  %conv395.us.i = phi i64 [ %conv3.us.i, %if.end.us.i ], [ %conv391.i150, %for.body.lr.ph.i158 ]
+  %i.094.us.i = phi i64 [ %add52.us.i, %if.end.us.i ], [ 0, %for.body.lr.ph.i158 ]
+  %file_offset.093.us.i = phi i64 [ %add49.us.i, %if.end.us.i ], [ %mul2.i152, %for.body.lr.ph.i158 ]
+  %conv5.us.i = zext i32 %27 to i64
+  %sub.us.i = sub nsw i64 %conv395.us.i, %i.094.us.i
+  %conv5.sub.us.i = tail call i64 @llvm.smin.i64(i64 %sub.us.i, i64 %conv5.us.i)
+  %28 = load i32, ptr %cur_start_row, align 4, !tbaa !73
+  %conv16.us.i = zext i32 %28 to i64
+  %add.us.i = add nuw nsw i64 %i.094.us.i, %conv16.us.i
+  %29 = load i32, ptr %first_undef_row.i153, align 8, !tbaa !74
+  %conv17.us.i = zext i32 %29 to i64
+  %sub18.us.i = sub nsw i64 %conv17.us.i, %add.us.i
+  %cond27.us.i = tail call i64 @llvm.smin.i64(i64 %conv5.sub.us.i, i64 %sub18.us.i)
+  %30 = load i32, ptr %rows_in_array, align 8, !tbaa !56
+  %conv28.us.i = zext i32 %30 to i64
+  %sub29.us.i = sub nsw i64 %conv28.us.i, %add.us.i
+  %cond38.us.i = tail call i64 @llvm.smin.i64(i64 %cond27.us.i, i64 %sub29.us.i)
+  %cmp39.us.i = icmp slt i64 %cond38.us.i, 1
+  br i1 %cmp39.us.i, label %if.end34, label %if.end.us.i
 
-145:                                              ; preds = %125
-  %146 = mul nsw i64 %143, %114
-  %147 = load ptr, ptr %123, align 8, !tbaa !83
-  %148 = load ptr, ptr %1, align 8, !tbaa !54
-  %149 = getelementptr inbounds ptr, ptr %148, i64 %128
-  %150 = load ptr, ptr %149, align 8, !tbaa !35
-  tail call void %147(ptr noundef %0, ptr noundef nonnull %123, ptr noundef %150, i64 noundef %129, i64 noundef %146) #7
-  %151 = add nsw i64 %146, %129
-  %152 = load i32, ptr %115, align 8, !tbaa !72
-  %153 = zext i32 %152 to i64
-  %154 = add nuw nsw i64 %128, %153
-  %155 = load i32, ptr %116, align 4, !tbaa !71
-  %156 = zext i32 %155 to i64
-  %157 = icmp ult i64 %154, %156
-  br i1 %157, label %125, label %158, !llvm.loop !82
+if.end.us.i:                                      ; preds = %for.body.us.i
+  %mul41.us.i = mul nsw i64 %cond38.us.i, %mul.i145
+  %31 = load ptr, ptr %b_s_info.i155, align 8, !tbaa !83
+  %32 = load ptr, ptr %ptr, align 8, !tbaa !54
+  %arrayidx47.us.i = getelementptr inbounds ptr, ptr %32, i64 %i.094.us.i
+  %33 = load ptr, ptr %arrayidx47.us.i, align 8, !tbaa !35
+  tail call void %31(ptr noundef %cinfo, ptr noundef nonnull %b_s_info.i155, ptr noundef %33, i64 noundef %file_offset.093.us.i, i64 noundef %mul41.us.i) #7
+  %add49.us.i = add nsw i64 %mul41.us.i, %file_offset.093.us.i
+  %34 = load i32, ptr %rowsperchunk.i147, align 8, !tbaa !72
+  %conv51.us.i = zext i32 %34 to i64
+  %add52.us.i = add nuw nsw i64 %i.094.us.i, %conv51.us.i
+  %35 = load i32, ptr %rows_in_mem.i148, align 4, !tbaa !71
+  %conv3.us.i = zext i32 %35 to i64
+  %cmp.us.i = icmp ult i64 %add52.us.i, %conv3.us.i
+  br i1 %cmp.us.i, label %for.body.us.i, label %if.end34, !llvm.loop !82
 
-158:                                              ; preds = %145, %125, %108, %25
-  %159 = getelementptr inbounds %struct.jvirt_barray_control, ptr %1, i64 0, i32 7
-  %160 = load i32, ptr %159, align 8, !tbaa !74
-  %161 = icmp ult i32 %160, %6
-  br i1 %161, label %162, label %208
+if.end34:                                         ; preds = %if.end.us.i, %for.body.us.i, %if.end33, %lor.lhs.false6
+  %first_undef_row = getelementptr inbounds %struct.jvirt_barray_control, ptr %ptr, i64 0, i32 7
+  %36 = load i32, ptr %first_undef_row, align 8, !tbaa !74
+  %cmp35 = icmp ult i32 %36, %add
+  br i1 %cmp35, label %if.then37, label %if.end75
 
-162:                                              ; preds = %158
-  %163 = icmp ult i32 %160, %2
-  %164 = icmp eq i32 %4, 0
-  br i1 %163, label %165, label %170
+if.then37:                                        ; preds = %if.end34
+  %cmp39 = icmp ult i32 %36, %start_row
+  %tobool42.not = icmp eq i32 %writable, 0
+  br i1 %cmp39, label %if.then41, label %if.end51
 
-165:                                              ; preds = %162
-  br i1 %164, label %180, label %166
+if.then41:                                        ; preds = %if.then37
+  br i1 %tobool42.not, label %if.end55.thread, label %if.end51.thread164
 
-166:                                              ; preds = %165
-  %167 = load ptr, ptr %0, align 8, !tbaa !13
-  %168 = getelementptr inbounds %struct.jpeg_error_mgr, ptr %167, i64 0, i32 5
-  store i32 20, ptr %168, align 8, !tbaa !14
-  %169 = load ptr, ptr %167, align 8, !tbaa !17
-  tail call void %169(ptr noundef nonnull %0) #7
-  br label %171
+if.end51.thread164:                               ; preds = %if.then41
+  %37 = load ptr, ptr %cinfo, align 8, !tbaa !13
+  %msg_code45 = getelementptr inbounds %struct.jpeg_error_mgr, ptr %37, i64 0, i32 5
+  store i32 20, ptr %msg_code45, align 8, !tbaa !14
+  %38 = load ptr, ptr %37, align 8, !tbaa !17
+  tail call void %38(ptr noundef nonnull %cinfo) #7
+  br label %if.end55.thread179
 
-170:                                              ; preds = %162
-  br i1 %164, label %176, label %171
+if.end51:                                         ; preds = %if.then37
+  br i1 %tobool42.not, label %if.end55, label %if.end55.thread179
 
-171:                                              ; preds = %170, %166
-  %172 = phi i32 [ %2, %166 ], [ %160, %170 ]
-  store i32 %6, ptr %159, align 8, !tbaa !74
-  %173 = getelementptr inbounds %struct.jvirt_barray_control, ptr %1, i64 0, i32 8
-  %174 = load i32, ptr %173, align 4, !tbaa !59
-  %175 = icmp eq i32 %174, 0
-  br i1 %175, label %210, label %184
+if.end55:                                         ; preds = %if.end51
+  %pre_zero = getelementptr inbounds %struct.jvirt_barray_control, ptr %ptr, i64 0, i32 8
+  %39 = load i32, ptr %pre_zero, align 4, !tbaa !59
+  %tobool56.not = icmp eq i32 %39, 0
+  br i1 %tobool56.not, label %if.end75.thread, label %if.then57
 
-176:                                              ; preds = %170
-  %177 = getelementptr inbounds %struct.jvirt_barray_control, ptr %1, i64 0, i32 8
-  %178 = load i32, ptr %177, align 4, !tbaa !59
-  %179 = icmp eq i32 %178, 0
-  br i1 %179, label %204, label %184
+if.end55.thread179:                               ; preds = %if.end51, %if.end51.thread164
+  %undef_row.0167 = phi i32 [ %start_row, %if.end51.thread164 ], [ %36, %if.end51 ]
+  store i32 %add, ptr %first_undef_row, align 8, !tbaa !74
+  %pre_zero182 = getelementptr inbounds %struct.jvirt_barray_control, ptr %ptr, i64 0, i32 8
+  %40 = load i32, ptr %pre_zero182, align 4, !tbaa !59
+  %tobool56.not183 = icmp eq i32 %40, 0
+  br i1 %tobool56.not183, label %if.then77, label %if.then57
 
-180:                                              ; preds = %165
-  %181 = getelementptr inbounds %struct.jvirt_barray_control, ptr %1, i64 0, i32 8
-  %182 = load i32, ptr %181, align 4, !tbaa !59
-  %183 = icmp eq i32 %182, 0
-  br i1 %183, label %204, label %184
+if.end55.thread:                                  ; preds = %if.then41
+  %pre_zero171 = getelementptr inbounds %struct.jvirt_barray_control, ptr %ptr, i64 0, i32 8
+  %41 = load i32, ptr %pre_zero171, align 4, !tbaa !59
+  %tobool56.not172 = icmp eq i32 %41, 0
+  br i1 %tobool56.not172, label %if.end75.thread, label %if.then57
 
-184:                                              ; preds = %176, %180, %171
-  %185 = phi i32 [ %2, %180 ], [ %172, %171 ], [ %160, %176 ]
-  %186 = getelementptr inbounds %struct.jvirt_barray_control, ptr %1, i64 0, i32 2
-  %187 = load i32, ptr %186, align 4, !tbaa !57
-  %188 = zext i32 %187 to i64
-  %189 = shl nuw nsw i64 %188, 7
-  %190 = load i32, ptr %22, align 4, !tbaa !73
-  %191 = sub i32 %185, %190
-  %192 = sub i32 %6, %190
-  %193 = icmp ult i32 %191, %192
-  br i1 %193, label %194, label %208
+if.then57:                                        ; preds = %if.end55.thread179, %if.end55.thread, %if.end55
+  %undef_row.0162174 = phi i32 [ %start_row, %if.end55.thread ], [ %36, %if.end55 ], [ %undef_row.0167, %if.end55.thread179 ]
+  %blocksperrow = getelementptr inbounds %struct.jvirt_barray_control, ptr %ptr, i64 0, i32 2
+  %42 = load i32, ptr %blocksperrow, align 4, !tbaa !57
+  %conv58 = zext i32 %42 to i64
+  %mul = shl nuw nsw i64 %conv58, 7
+  %43 = load i32, ptr %cur_start_row, align 4, !tbaa !73
+  %sub60 = sub i32 %undef_row.0162174, %43
+  %sub62 = sub i32 %add, %43
+  %cmp63176 = icmp ult i32 %sub60, %sub62
+  br i1 %cmp63176, label %while.body.preheader, label %if.end75
 
-194:                                              ; preds = %184
-  %195 = zext i32 %191 to i64
-  br label %196
+while.body.preheader:                             ; preds = %if.then57
+  %44 = zext i32 %sub60 to i64
+  br label %while.body
 
-196:                                              ; preds = %194, %196
-  %197 = phi i64 [ %195, %194 ], [ %201, %196 ]
-  %198 = load ptr, ptr %1, align 8, !tbaa !54
-  %199 = getelementptr inbounds ptr, ptr %198, i64 %197
-  %200 = load ptr, ptr %199, align 8, !tbaa !35
-  tail call void @jzero_far(ptr noundef %200, i64 noundef %189) #7
-  %201 = add nuw nsw i64 %197, 1
-  %202 = trunc i64 %201 to i32
-  %203 = icmp eq i32 %192, %202
-  br i1 %203, label %208, label %196, !llvm.loop !84
+while.body:                                       ; preds = %while.body.preheader, %while.body
+  %indvars.iv = phi i64 [ %44, %while.body.preheader ], [ %indvars.iv.next, %while.body ]
+  %45 = load ptr, ptr %ptr, align 8, !tbaa !54
+  %arrayidx = getelementptr inbounds ptr, ptr %45, i64 %indvars.iv
+  %46 = load ptr, ptr %arrayidx, align 8, !tbaa !35
+  tail call void @jzero_far(ptr noundef %46, i64 noundef %mul) #7
+  %indvars.iv.next = add nuw nsw i64 %indvars.iv, 1
+  %lftr.wideiv = trunc i64 %indvars.iv.next to i32
+  %exitcond.not = icmp eq i32 %sub62, %lftr.wideiv
+  br i1 %exitcond.not, label %if.end75, label %while.body, !llvm.loop !84
 
-204:                                              ; preds = %180, %176
-  %205 = load ptr, ptr %0, align 8, !tbaa !13
-  %206 = getelementptr inbounds %struct.jpeg_error_mgr, ptr %205, i64 0, i32 5
-  store i32 20, ptr %206, align 8, !tbaa !14
-  %207 = load ptr, ptr %205, align 8, !tbaa !17
-  tail call void %207(ptr noundef nonnull %0) #7
-  br label %212
+if.end75.thread:                                  ; preds = %if.end55.thread, %if.end55
+  %47 = load ptr, ptr %cinfo, align 8, !tbaa !13
+  %msg_code70 = getelementptr inbounds %struct.jpeg_error_mgr, ptr %47, i64 0, i32 5
+  store i32 20, ptr %msg_code70, align 8, !tbaa !14
+  %48 = load ptr, ptr %47, align 8, !tbaa !17
+  tail call void %48(ptr noundef nonnull %cinfo) #7
+  br label %if.end79
 
-208:                                              ; preds = %196, %184, %158
-  %209 = icmp eq i32 %4, 0
-  br i1 %209, label %212, label %210
+if.end75:                                         ; preds = %while.body, %if.then57, %if.end34
+  %tobool76.not = icmp eq i32 %writable, 0
+  br i1 %tobool76.not, label %if.end79, label %if.then77
 
-210:                                              ; preds = %171, %208
-  %211 = getelementptr inbounds %struct.jvirt_barray_control, ptr %1, i64 0, i32 9
-  store i32 1, ptr %211, align 8, !tbaa !75
-  br label %212
+if.then77:                                        ; preds = %if.end55.thread179, %if.end75
+  %dirty78 = getelementptr inbounds %struct.jvirt_barray_control, ptr %ptr, i64 0, i32 9
+  store i32 1, ptr %dirty78, align 8, !tbaa !75
+  br label %if.end79
 
-212:                                              ; preds = %204, %210, %208
-  %213 = load ptr, ptr %1, align 8, !tbaa !54
-  %214 = load i32, ptr %22, align 4, !tbaa !73
-  %215 = sub i32 %2, %214
-  %216 = zext i32 %215 to i64
-  %217 = getelementptr inbounds ptr, ptr %213, i64 %216
-  ret ptr %217
+if.end79:                                         ; preds = %if.end75.thread, %if.then77, %if.end75
+  %49 = load ptr, ptr %ptr, align 8, !tbaa !54
+  %50 = load i32, ptr %cur_start_row, align 4, !tbaa !73
+  %sub82 = sub i32 %start_row, %50
+  %idx.ext = zext i32 %sub82 to i64
+  %add.ptr = getelementptr inbounds ptr, ptr %49, i64 %idx.ext
+  ret ptr %add.ptr
 }
 
 ; Function Attrs: nounwind uwtable
-define internal void @free_pool(ptr noundef %0, i32 noundef %1) #0 {
-  %3 = getelementptr inbounds %struct.jpeg_common_struct, ptr %0, i64 0, i32 1
-  %4 = load ptr, ptr %3, align 8, !tbaa !5
-  %5 = icmp ugt i32 %1, 1
-  br i1 %5, label %6, label %12
+define internal void @free_pool(ptr noundef %cinfo, i32 noundef %pool_id) #0 {
+entry:
+  %mem1 = getelementptr inbounds %struct.jpeg_common_struct, ptr %cinfo, i64 0, i32 1
+  %0 = load ptr, ptr %mem1, align 8, !tbaa !5
+  %or.cond = icmp ugt i32 %pool_id, 1
+  br i1 %or.cond, label %if.end.thread, label %if.end
 
-6:                                                ; preds = %2
-  %7 = load ptr, ptr %0, align 8, !tbaa !13
-  %8 = getelementptr inbounds %struct.jpeg_error_mgr, ptr %7, i64 0, i32 5
-  store i32 12, ptr %8, align 8, !tbaa !14
-  %9 = getelementptr inbounds %struct.jpeg_error_mgr, ptr %7, i64 0, i32 6
-  store i32 %1, ptr %9, align 4, !tbaa !16
-  %10 = load ptr, ptr %0, align 8, !tbaa !13
-  %11 = load ptr, ptr %10, align 8, !tbaa !17
-  tail call void %11(ptr noundef nonnull %0) #7
-  br label %49
+if.end.thread:                                    ; preds = %entry
+  %1 = load ptr, ptr %cinfo, align 8, !tbaa !13
+  %msg_code = getelementptr inbounds %struct.jpeg_error_mgr, ptr %1, i64 0, i32 5
+  store i32 12, ptr %msg_code, align 8, !tbaa !14
+  %msg_parm = getelementptr inbounds %struct.jpeg_error_mgr, ptr %1, i64 0, i32 6
+  store i32 %pool_id, ptr %msg_parm, align 4, !tbaa !16
+  %2 = load ptr, ptr %cinfo, align 8, !tbaa !13
+  %3 = load ptr, ptr %2, align 8, !tbaa !17
+  tail call void %3(ptr noundef nonnull %cinfo) #7
+  br label %if.end28
 
-12:                                               ; preds = %2
-  %13 = icmp eq i32 %1, 1
-  br i1 %13, label %14, label %49
+if.end:                                           ; preds = %entry
+  %cmp5 = icmp eq i32 %pool_id, 1
+  br i1 %cmp5, label %if.then6, label %if.end28
 
-14:                                               ; preds = %12
-  %15 = getelementptr inbounds %struct.my_memory_mgr, ptr %4, i64 0, i32 3
-  %16 = load ptr, ptr %15, align 8, !tbaa !35
-  %17 = icmp eq ptr %16, null
-  br i1 %17, label %31, label %18
+if.then6:                                         ; preds = %if.end
+  %virt_sarray_list = getelementptr inbounds %struct.my_memory_mgr, ptr %0, i64 0, i32 3
+  %sptr.098 = load ptr, ptr %virt_sarray_list, align 8, !tbaa !35
+  %cmp7.not99 = icmp eq ptr %sptr.098, null
+  br i1 %cmp7.not99, label %for.end, label %for.body
 
-18:                                               ; preds = %14, %27
-  %19 = phi ptr [ %29, %27 ], [ %16, %14 ]
-  %20 = getelementptr inbounds %struct.jvirt_sarray_control, ptr %19, i64 0, i32 10
-  %21 = load i32, ptr %20, align 4, !tbaa !51
-  %22 = icmp eq i32 %21, 0
-  br i1 %22, label %27, label %23
+for.body:                                         ; preds = %if.then6, %for.inc
+  %sptr.0100 = phi ptr [ %sptr.0, %for.inc ], [ %sptr.098, %if.then6 ]
+  %b_s_open = getelementptr inbounds %struct.jvirt_sarray_control, ptr %sptr.0100, i64 0, i32 10
+  %4 = load i32, ptr %b_s_open, align 4, !tbaa !51
+  %tobool.not = icmp eq i32 %4, 0
+  br i1 %tobool.not, label %for.inc, label %if.then8
 
-23:                                               ; preds = %18
-  store i32 0, ptr %20, align 4, !tbaa !51
-  %24 = getelementptr inbounds %struct.jvirt_sarray_control, ptr %19, i64 0, i32 12
-  %25 = getelementptr inbounds %struct.jvirt_sarray_control, ptr %19, i64 0, i32 12, i32 2
-  %26 = load ptr, ptr %25, align 8, !tbaa !85
-  tail call void %26(ptr noundef %0, ptr noundef nonnull %24) #7
-  br label %27
+if.then8:                                         ; preds = %for.body
+  store i32 0, ptr %b_s_open, align 4, !tbaa !51
+  %b_s_info = getelementptr inbounds %struct.jvirt_sarray_control, ptr %sptr.0100, i64 0, i32 12
+  %close_backing_store = getelementptr inbounds %struct.jvirt_sarray_control, ptr %sptr.0100, i64 0, i32 12, i32 2
+  %5 = load ptr, ptr %close_backing_store, align 8, !tbaa !85
+  tail call void %5(ptr noundef %cinfo, ptr noundef nonnull %b_s_info) #7
+  br label %for.inc
 
-27:                                               ; preds = %18, %23
-  %28 = getelementptr inbounds %struct.jvirt_sarray_control, ptr %19, i64 0, i32 11
-  %29 = load ptr, ptr %28, align 8, !tbaa !35
-  %30 = icmp eq ptr %29, null
-  br i1 %30, label %31, label %18, !llvm.loop !86
+for.inc:                                          ; preds = %for.body, %if.then8
+  %next = getelementptr inbounds %struct.jvirt_sarray_control, ptr %sptr.0100, i64 0, i32 11
+  %sptr.0 = load ptr, ptr %next, align 8, !tbaa !35
+  %cmp7.not = icmp eq ptr %sptr.0, null
+  br i1 %cmp7.not, label %for.end, label %for.body, !llvm.loop !86
 
-31:                                               ; preds = %27, %14
-  store ptr null, ptr %15, align 8, !tbaa !52
-  %32 = getelementptr inbounds %struct.my_memory_mgr, ptr %4, i64 0, i32 4
-  %33 = load ptr, ptr %32, align 8, !tbaa !35
-  %34 = icmp eq ptr %33, null
-  br i1 %34, label %48, label %35
+for.end:                                          ; preds = %for.inc, %if.then6
+  store ptr null, ptr %virt_sarray_list, align 8, !tbaa !52
+  %virt_barray_list = getelementptr inbounds %struct.my_memory_mgr, ptr %0, i64 0, i32 4
+  %bptr.0101 = load ptr, ptr %virt_barray_list, align 8, !tbaa !35
+  %cmp14.not102 = icmp eq ptr %bptr.0101, null
+  br i1 %cmp14.not102, label %for.end26, label %for.body15
 
-35:                                               ; preds = %31, %44
-  %36 = phi ptr [ %46, %44 ], [ %33, %31 ]
-  %37 = getelementptr inbounds %struct.jvirt_barray_control, ptr %36, i64 0, i32 10
-  %38 = load i32, ptr %37, align 4, !tbaa !60
-  %39 = icmp eq i32 %38, 0
-  br i1 %39, label %44, label %40
+for.body15:                                       ; preds = %for.end, %for.inc24
+  %bptr.0103 = phi ptr [ %bptr.0, %for.inc24 ], [ %bptr.0101, %for.end ]
+  %b_s_open16 = getelementptr inbounds %struct.jvirt_barray_control, ptr %bptr.0103, i64 0, i32 10
+  %6 = load i32, ptr %b_s_open16, align 4, !tbaa !60
+  %tobool17.not = icmp eq i32 %6, 0
+  br i1 %tobool17.not, label %for.inc24, label %if.then18
 
-40:                                               ; preds = %35
-  store i32 0, ptr %37, align 4, !tbaa !60
-  %41 = getelementptr inbounds %struct.jvirt_barray_control, ptr %36, i64 0, i32 12
-  %42 = getelementptr inbounds %struct.jvirt_barray_control, ptr %36, i64 0, i32 12, i32 2
-  %43 = load ptr, ptr %42, align 8, !tbaa !87
-  tail call void %43(ptr noundef %0, ptr noundef nonnull %41) #7
-  br label %44
+if.then18:                                        ; preds = %for.body15
+  store i32 0, ptr %b_s_open16, align 4, !tbaa !60
+  %b_s_info20 = getelementptr inbounds %struct.jvirt_barray_control, ptr %bptr.0103, i64 0, i32 12
+  %close_backing_store21 = getelementptr inbounds %struct.jvirt_barray_control, ptr %bptr.0103, i64 0, i32 12, i32 2
+  %7 = load ptr, ptr %close_backing_store21, align 8, !tbaa !87
+  tail call void %7(ptr noundef %cinfo, ptr noundef nonnull %b_s_info20) #7
+  br label %for.inc24
 
-44:                                               ; preds = %35, %40
-  %45 = getelementptr inbounds %struct.jvirt_barray_control, ptr %36, i64 0, i32 11
-  %46 = load ptr, ptr %45, align 8, !tbaa !35
-  %47 = icmp eq ptr %46, null
-  br i1 %47, label %48, label %35, !llvm.loop !88
+for.inc24:                                        ; preds = %for.body15, %if.then18
+  %next25 = getelementptr inbounds %struct.jvirt_barray_control, ptr %bptr.0103, i64 0, i32 11
+  %bptr.0 = load ptr, ptr %next25, align 8, !tbaa !35
+  %cmp14.not = icmp eq ptr %bptr.0, null
+  br i1 %cmp14.not, label %for.end26, label %for.body15, !llvm.loop !88
 
-48:                                               ; preds = %44, %31
-  store ptr null, ptr %32, align 8, !tbaa !61
-  br label %49
+for.end26:                                        ; preds = %for.inc24, %for.end
+  store ptr null, ptr %virt_barray_list, align 8, !tbaa !61
+  br label %if.end28
 
-49:                                               ; preds = %6, %48, %12
-  %50 = sext i32 %1 to i64
-  %51 = getelementptr inbounds %struct.my_memory_mgr, ptr %4, i64 0, i32 2, i64 %50
-  %52 = load ptr, ptr %51, align 8, !tbaa !35
-  store ptr null, ptr %51, align 8, !tbaa !35
-  %53 = icmp eq ptr %52, null
-  br i1 %53, label %68, label %54
+if.end28:                                         ; preds = %if.end.thread, %for.end26, %if.end
+  %idxprom = sext i32 %pool_id to i64
+  %arrayidx29 = getelementptr inbounds %struct.my_memory_mgr, ptr %0, i64 0, i32 2, i64 %idxprom
+  %8 = load ptr, ptr %arrayidx29, align 8, !tbaa !35
+  store ptr null, ptr %arrayidx29, align 8, !tbaa !35
+  %cmp33.not104 = icmp eq ptr %8, null
+  br i1 %cmp33.not104, label %while.end, label %while.body.lr.ph
 
-54:                                               ; preds = %49
-  %55 = getelementptr inbounds %struct.my_memory_mgr, ptr %4, i64 0, i32 5
-  br label %56
+while.body.lr.ph:                                 ; preds = %if.end28
+  %total_space_allocated = getelementptr inbounds %struct.my_memory_mgr, ptr %0, i64 0, i32 5
+  br label %while.body
 
-56:                                               ; preds = %54, %56
-  %57 = phi ptr [ %52, %54 ], [ %58, %56 ]
-  %58 = load ptr, ptr %57, align 8, !tbaa !16
-  %59 = getelementptr inbounds %struct.anon.0, ptr %57, i64 0, i32 1
-  %60 = load i64, ptr %59, align 8, !tbaa !16
-  %61 = getelementptr inbounds %struct.anon.0, ptr %57, i64 0, i32 2
-  %62 = load i64, ptr %61, align 8, !tbaa !16
-  %63 = add i64 %60, 24
-  %64 = add i64 %63, %62
-  tail call void @jpeg_free_large(ptr noundef %0, ptr noundef nonnull %57, i64 noundef %64) #7
-  %65 = load i64, ptr %55, align 8, !tbaa !32
-  %66 = sub i64 %65, %64
-  store i64 %66, ptr %55, align 8, !tbaa !32
-  %67 = icmp eq ptr %58, null
-  br i1 %67, label %68, label %56, !llvm.loop !89
+while.body:                                       ; preds = %while.body.lr.ph, %while.body
+  %lhdr_ptr.0105 = phi ptr [ %8, %while.body.lr.ph ], [ %9, %while.body ]
+  %9 = load ptr, ptr %lhdr_ptr.0105, align 8, !tbaa !16
+  %bytes_used = getelementptr inbounds %struct.anon.0, ptr %lhdr_ptr.0105, i64 0, i32 1
+  %10 = load i64, ptr %bytes_used, align 8, !tbaa !16
+  %bytes_left = getelementptr inbounds %struct.anon.0, ptr %lhdr_ptr.0105, i64 0, i32 2
+  %11 = load i64, ptr %bytes_left, align 8, !tbaa !16
+  %add = add i64 %10, 24
+  %add35 = add i64 %add, %11
+  tail call void @jpeg_free_large(ptr noundef %cinfo, ptr noundef nonnull %lhdr_ptr.0105, i64 noundef %add35) #7
+  %12 = load i64, ptr %total_space_allocated, align 8, !tbaa !32
+  %sub = sub i64 %12, %add35
+  store i64 %sub, ptr %total_space_allocated, align 8, !tbaa !32
+  %cmp33.not = icmp eq ptr %9, null
+  br i1 %cmp33.not, label %while.end, label %while.body, !llvm.loop !89
 
-68:                                               ; preds = %56, %49
-  %69 = getelementptr inbounds %struct.my_memory_mgr, ptr %4, i64 0, i32 1, i64 %50
-  %70 = load ptr, ptr %69, align 8, !tbaa !35
-  store ptr null, ptr %69, align 8, !tbaa !35
-  %71 = icmp eq ptr %70, null
-  br i1 %71, label %86, label %72
+while.end:                                        ; preds = %while.body, %if.end28
+  %arrayidx37 = getelementptr inbounds %struct.my_memory_mgr, ptr %0, i64 0, i32 1, i64 %idxprom
+  %13 = load ptr, ptr %arrayidx37, align 8, !tbaa !35
+  store ptr null, ptr %arrayidx37, align 8, !tbaa !35
+  %cmp42.not106 = icmp eq ptr %13, null
+  br i1 %cmp42.not106, label %while.end51, label %while.body43.lr.ph
 
-72:                                               ; preds = %68
-  %73 = getelementptr inbounds %struct.my_memory_mgr, ptr %4, i64 0, i32 5
-  br label %74
+while.body43.lr.ph:                               ; preds = %while.end
+  %total_space_allocated49 = getelementptr inbounds %struct.my_memory_mgr, ptr %0, i64 0, i32 5
+  br label %while.body43
 
-74:                                               ; preds = %72, %74
-  %75 = phi ptr [ %70, %72 ], [ %76, %74 ]
-  %76 = load ptr, ptr %75, align 8, !tbaa !16
-  %77 = getelementptr inbounds %struct.anon, ptr %75, i64 0, i32 1
-  %78 = load i64, ptr %77, align 8, !tbaa !16
-  %79 = getelementptr inbounds %struct.anon, ptr %75, i64 0, i32 2
-  %80 = load i64, ptr %79, align 8, !tbaa !16
-  %81 = add i64 %78, 24
-  %82 = add i64 %81, %80
-  tail call void @jpeg_free_small(ptr noundef %0, ptr noundef nonnull %75, i64 noundef %82) #7
-  %83 = load i64, ptr %73, align 8, !tbaa !32
-  %84 = sub i64 %83, %82
-  store i64 %84, ptr %73, align 8, !tbaa !32
-  %85 = icmp eq ptr %76, null
-  br i1 %85, label %86, label %74, !llvm.loop !90
+while.body43:                                     ; preds = %while.body43.lr.ph, %while.body43
+  %shdr_ptr.0107 = phi ptr [ %13, %while.body43.lr.ph ], [ %14, %while.body43 ]
+  %14 = load ptr, ptr %shdr_ptr.0107, align 8, !tbaa !16
+  %bytes_used45 = getelementptr inbounds %struct.anon, ptr %shdr_ptr.0107, i64 0, i32 1
+  %15 = load i64, ptr %bytes_used45, align 8, !tbaa !16
+  %bytes_left46 = getelementptr inbounds %struct.anon, ptr %shdr_ptr.0107, i64 0, i32 2
+  %16 = load i64, ptr %bytes_left46, align 8, !tbaa !16
+  %add47 = add i64 %15, 24
+  %add48 = add i64 %add47, %16
+  tail call void @jpeg_free_small(ptr noundef %cinfo, ptr noundef nonnull %shdr_ptr.0107, i64 noundef %add48) #7
+  %17 = load i64, ptr %total_space_allocated49, align 8, !tbaa !32
+  %sub50 = sub i64 %17, %add48
+  store i64 %sub50, ptr %total_space_allocated49, align 8, !tbaa !32
+  %cmp42.not = icmp eq ptr %14, null
+  br i1 %cmp42.not, label %while.end51, label %while.body43, !llvm.loop !90
 
-86:                                               ; preds = %74, %68
+while.end51:                                      ; preds = %while.body43, %while.end
   ret void
 }
 
 ; Function Attrs: nounwind uwtable
-define internal void @self_destruct(ptr noundef %0) #0 {
-  tail call void @free_pool(ptr noundef %0, i32 noundef 1)
-  tail call void @free_pool(ptr noundef %0, i32 noundef 0)
-  %2 = getelementptr inbounds %struct.jpeg_common_struct, ptr %0, i64 0, i32 1
-  %3 = load ptr, ptr %2, align 8, !tbaa !5
-  tail call void @jpeg_free_small(ptr noundef %0, ptr noundef %3, i64 noundef 160) #7
-  store ptr null, ptr %2, align 8, !tbaa !5
-  tail call void @jpeg_mem_term(ptr noundef %0) #7
+define internal void @self_destruct(ptr noundef %cinfo) #0 {
+entry:
+  tail call void @free_pool(ptr noundef %cinfo, i32 noundef 1)
+  tail call void @free_pool(ptr noundef %cinfo, i32 noundef 0)
+  %mem = getelementptr inbounds %struct.jpeg_common_struct, ptr %cinfo, i64 0, i32 1
+  %0 = load ptr, ptr %mem, align 8, !tbaa !5
+  tail call void @jpeg_free_small(ptr noundef %cinfo, ptr noundef %0, i64 noundef 160) #7
+  store ptr null, ptr %mem, align 8, !tbaa !5
+  tail call void @jpeg_mem_term(ptr noundef %cinfo) #7
   ret void
 }
 
@@ -1762,19 +1762,19 @@ declare void @jpeg_free_large(ptr noundef, ptr noundef, i64 noundef) local_unnam
 declare void @jpeg_free_small(ptr noundef, ptr noundef, i64 noundef) local_unnamed_addr #2
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i64 @llvm.smin.i64(i64, i64) #5
+declare i32 @llvm.umin.i32(i32, i32) #5
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
 declare i64 @llvm.smax.i64(i64, i64) #5
+
+; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
+declare i64 @llvm.smin.i64(i64, i64) #5
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
 declare i64 @llvm.umin.i64(i64, i64) #5
 
 ; Function Attrs: nocallback nofree nounwind willreturn memory(argmem: write)
 declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #6
-
-; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i32 @llvm.umin.i32(i32, i32) #5
 
 attributes #0 = { nounwind uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #1 = { mustprogress nocallback nofree nosync nounwind willreturn memory(argmem: readwrite) }

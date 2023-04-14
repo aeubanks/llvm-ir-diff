@@ -9,22 +9,23 @@ target triple = "x86_64-unknown-linux-gnu"
 @cell = dso_local local_unnamed_addr global %struct.s zeroinitializer, align 8
 
 ; Function Attrs: mustprogress nofree nosync nounwind willreturn memory(none) uwtable
-define dso_local i32 @check(i64 %0, i64 %1) local_unnamed_addr #0 {
-  %3 = alloca %struct.s, align 8
-  store i64 %0, ptr %3, align 8
-  %4 = getelementptr inbounds { i64, i64 }, ptr %3, i64 0, i32 1
-  store i64 %1, ptr %4, align 8
-  %5 = and i64 %1, -4294967296
-  %6 = icmp eq i64 %5, 425201762304
-  br i1 %6, label %7, label %9
+define dso_local i32 @check(i64 %p.coerce0, i64 %p.coerce1) local_unnamed_addr #0 {
+entry:
+  %p = alloca %struct.s, align 8
+  store i64 %p.coerce0, ptr %p, align 8
+  %0 = getelementptr inbounds { i64, i64 }, ptr %p, i64 0, i32 1
+  store i64 %p.coerce1, ptr %0, align 8
+  %.mask = and i64 %p.coerce1, -4294967296
+  %cmp.not = icmp eq i64 %.mask, 425201762304
+  br i1 %cmp.not, label %if.end, label %return
 
-7:                                                ; preds = %2
-  %8 = call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %3, ptr noundef nonnull dereferenceable(11) @.str)
-  br label %9
+if.end:                                           ; preds = %entry
+  %call = call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %p, ptr noundef nonnull dereferenceable(11) @.str)
+  br label %return
 
-9:                                                ; preds = %2, %7
-  %10 = phi i32 [ %8, %7 ], [ 1, %2 ]
-  ret i32 %10
+return:                                           ; preds = %entry, %if.end
+  %retval.0 = phi i32 [ %call, %if.end ], [ 1, %entry ]
+  ret i32 %retval.0
 }
 
 ; Function Attrs: mustprogress nofree nounwind willreturn memory(argmem: read)
@@ -32,33 +33,34 @@ declare i32 @strcmp(ptr nocapture noundef, ptr nocapture noundef) local_unnamed_
 
 ; Function Attrs: noreturn nounwind uwtable
 define dso_local i32 @main() local_unnamed_addr #2 {
-  %1 = alloca %struct.s, align 8
+entry:
+  %p.i = alloca %struct.s, align 8
   store i32 99, ptr getelementptr inbounds (%struct.s, ptr @cell, i64 0, i32 1), align 4, !tbaa !5
   tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(11) @cell, ptr noundef nonnull align 1 dereferenceable(11) @.str, i64 11, i1 false)
-  %2 = load i64, ptr getelementptr inbounds (%struct.s, ptr @cell, i64 0, i32 0, i64 8), align 8
-  call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %1)
-  store i64 3978425819141910832, ptr %1, align 8
-  %3 = getelementptr inbounds { i64, i64 }, ptr %1, i64 0, i32 1
-  store i64 %2, ptr %3, align 8
-  %4 = and i64 %2, -4294967296
-  %5 = icmp eq i64 %4, 425201762304
-  br i1 %5, label %7, label %6
+  %0 = load i64, ptr getelementptr inbounds (%struct.s, ptr @cell, i64 0, i32 0, i64 8), align 8
+  call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %p.i)
+  store i64 3978425819141910832, ptr %p.i, align 8
+  %1 = getelementptr inbounds { i64, i64 }, ptr %p.i, i64 0, i32 1
+  store i64 %0, ptr %1, align 8
+  %.mask.i = and i64 %0, -4294967296
+  %cmp.not.i = icmp eq i64 %.mask.i, 425201762304
+  br i1 %cmp.not.i, label %check.exit, label %check.exit.thread
 
-6:                                                ; preds = %0
-  call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %1)
-  br label %10
+check.exit.thread:                                ; preds = %entry
+  call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %p.i)
+  br label %if.then
 
-7:                                                ; preds = %0
-  %8 = call i32 @bcmp(ptr noundef nonnull dereferenceable(11) %1, ptr noundef nonnull dereferenceable(11) @.str, i64 11)
-  call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %1)
-  %9 = icmp eq i32 %8, 0
-  br i1 %9, label %11, label %10
+check.exit:                                       ; preds = %entry
+  %bcmp = call i32 @bcmp(ptr noundef nonnull dereferenceable(11) %p.i, ptr noundef nonnull dereferenceable(11) @.str, i64 11)
+  call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %p.i)
+  %tobool.not = icmp eq i32 %bcmp, 0
+  br i1 %tobool.not, label %if.end, label %if.then
 
-10:                                               ; preds = %6, %7
+if.then:                                          ; preds = %check.exit.thread, %check.exit
   tail call void @abort() #7
   unreachable
 
-11:                                               ; preds = %7
+if.end:                                           ; preds = %check.exit
   tail call void @exit(i32 noundef 0) #7
   unreachable
 }
@@ -69,14 +71,14 @@ declare void @abort() local_unnamed_addr #3
 ; Function Attrs: noreturn
 declare void @exit(i32 noundef) local_unnamed_addr #3
 
-; Function Attrs: nocallback nofree nosync nounwind willreturn memory(argmem: readwrite)
-declare void @llvm.lifetime.start.p0(i64 immarg, ptr nocapture) #4
-
-; Function Attrs: nocallback nofree nosync nounwind willreturn memory(argmem: readwrite)
-declare void @llvm.lifetime.end.p0(i64 immarg, ptr nocapture) #4
-
 ; Function Attrs: nocallback nofree nounwind willreturn memory(argmem: readwrite)
-declare void @llvm.memcpy.p0.p0.i64(ptr noalias nocapture writeonly, ptr noalias nocapture readonly, i64, i1 immarg) #5
+declare void @llvm.memcpy.p0.p0.i64(ptr noalias nocapture writeonly, ptr noalias nocapture readonly, i64, i1 immarg) #4
+
+; Function Attrs: nocallback nofree nosync nounwind willreturn memory(argmem: readwrite)
+declare void @llvm.lifetime.start.p0(i64 immarg, ptr nocapture) #5
+
+; Function Attrs: nocallback nofree nosync nounwind willreturn memory(argmem: readwrite)
+declare void @llvm.lifetime.end.p0(i64 immarg, ptr nocapture) #5
 
 ; Function Attrs: nofree nounwind willreturn memory(argmem: read)
 declare i32 @bcmp(ptr nocapture, ptr nocapture, i64) local_unnamed_addr #6
@@ -85,8 +87,8 @@ attributes #0 = { mustprogress nofree nosync nounwind willreturn memory(none) uw
 attributes #1 = { mustprogress nofree nounwind willreturn memory(argmem: read) "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #2 = { noreturn nounwind uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #3 = { noreturn "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
-attributes #4 = { nocallback nofree nosync nounwind willreturn memory(argmem: readwrite) }
-attributes #5 = { nocallback nofree nounwind willreturn memory(argmem: readwrite) }
+attributes #4 = { nocallback nofree nounwind willreturn memory(argmem: readwrite) }
+attributes #5 = { nocallback nofree nosync nounwind willreturn memory(argmem: readwrite) }
 attributes #6 = { nofree nounwind willreturn memory(argmem: read) }
 attributes #7 = { noreturn nounwind }
 

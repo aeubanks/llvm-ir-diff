@@ -66,103 +66,104 @@ declare i32 @__cxa_atexit(ptr, ptr, ptr) local_unnamed_addr #2
 declare noundef i32 @_ZN9benchmark8internal17InitializeStreamsEv() local_unnamed_addr #0
 
 ; Function Attrs: mustprogress norecurse uwtable
-define dso_local noundef i32 @main(i32 noundef %0, ptr noundef %1) local_unnamed_addr #3 {
-  %3 = alloca i32, align 4
-  store i32 %0, ptr %3, align 4, !tbaa !5
-  call void @_ZN9benchmark10InitializeEPiPPcPFvvE(ptr noundef nonnull %3, ptr noundef %1, ptr noundef null)
-  %4 = call noalias dereferenceable_or_null(1048576) ptr @malloc(i64 noundef 1048576) #13
-  store ptr %4, ptr @inputImage, align 8, !tbaa !9
-  %5 = icmp eq ptr %4, null
-  br i1 %5, label %6, label %8
+define dso_local noundef i32 @main(i32 noundef %argc, ptr noundef %argv) local_unnamed_addr #3 {
+entry:
+  %argc.addr = alloca i32, align 4
+  store i32 %argc, ptr %argc.addr, align 4, !tbaa !5
+  call void @_ZN9benchmark10InitializeEPiPPcPFvvE(ptr noundef nonnull %argc.addr, ptr noundef %argv, ptr noundef null)
+  %call = call noalias dereferenceable_or_null(1048576) ptr @malloc(i64 noundef 1048576) #13
+  store ptr %call, ptr @inputImage, align 8, !tbaa !9
+  %cmp = icmp eq ptr %call, null
+  br i1 %cmp, label %if.then, label %if.end
 
-6:                                                ; preds = %2
-  %7 = call noundef nonnull align 8 dereferenceable(8) ptr @_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_PKc(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cerr, ptr noundef nonnull @.str.2)
+if.then:                                          ; preds = %entry
+  %call1 = call noundef nonnull align 8 dereferenceable(8) ptr @_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_PKc(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cerr, ptr noundef nonnull @.str.2)
   call void @exit(i32 noundef 1) #14
   unreachable
 
-8:                                                ; preds = %2
-  call void @_Z21initializeRandomImagePiii(ptr noundef nonnull %4, i32 noundef 512, i32 noundef 512)
-  %9 = call noundef i64 @_ZN9benchmark22RunSpecifiedBenchmarksEv()
-  %10 = call noalias dereferenceable_or_null(1048576) ptr @malloc(i64 noundef 1048576) #13
-  %11 = icmp eq ptr %10, null
-  br i1 %11, label %12, label %14
+if.end:                                           ; preds = %entry
+  call void @_Z21initializeRandomImagePiii(ptr noundef nonnull %call, i32 noundef 512, i32 noundef 512)
+  %call2 = call noundef i64 @_ZN9benchmark22RunSpecifiedBenchmarksEv()
+  %call3 = call noalias dereferenceable_or_null(1048576) ptr @malloc(i64 noundef 1048576) #13
+  %cmp4 = icmp eq ptr %call3, null
+  br i1 %cmp4, label %if.then5, label %if.end7
 
-12:                                               ; preds = %8
-  %13 = call noundef nonnull align 8 dereferenceable(8) ptr @_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_PKc(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cerr, ptr noundef nonnull @.str.2)
+if.then5:                                         ; preds = %if.end
+  %call6 = call noundef nonnull align 8 dereferenceable(8) ptr @_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_PKc(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cerr, ptr noundef nonnull @.str.2)
   call void @exit(i32 noundef 1) #14
   unreachable
 
-14:                                               ; preds = %8
-  %15 = load ptr, ptr @inputImage, align 8, !tbaa !9
-  call void @anisotropicDiffusionKernel(i32 noundef 512, i32 noundef 512, ptr noundef %15, ptr noundef nonnull %10, i32 noundef 10)
-  %16 = getelementptr i8, ptr %10, i64 1044480
-  call void @llvm.memset.p0.i64(ptr noundef nonnull align 4 dereferenceable(2048) %16, i8 0, i64 2048, i1 false), !tbaa !5
-  call void @llvm.memset.p0.i64(ptr noundef nonnull align 4 dereferenceable(4096) %10, i8 0, i64 4096, i1 false)
-  br label %17
+if.end7:                                          ; preds = %if.end
+  %0 = load ptr, ptr @inputImage, align 8, !tbaa !9
+  call void @anisotropicDiffusionKernel(i32 noundef 512, i32 noundef 512, ptr noundef %0, ptr noundef nonnull %call3, i32 noundef 10)
+  %scevgep64 = getelementptr i8, ptr %call3, i64 1044480
+  call void @llvm.memset.p0.i64(ptr noundef nonnull align 4 dereferenceable(2048) %scevgep64, i8 0, i64 2048, i1 false), !tbaa !5
+  call void @llvm.memset.p0.i64(ptr noundef nonnull align 4 dereferenceable(4096) %call3, i8 0, i64 4096, i1 false)
+  br label %vector.body
 
-17:                                               ; preds = %17, %14
-  %18 = phi i64 [ 0, %14 ], [ %31, %17 ]
-  %19 = add nuw nsw i64 %18, 261632
-  %20 = getelementptr inbounds i32, ptr %10, i64 %19
-  store <4 x i32> zeroinitializer, ptr %20, align 4, !tbaa !5
-  %21 = getelementptr inbounds i32, ptr %20, i64 4
-  store <4 x i32> zeroinitializer, ptr %21, align 4, !tbaa !5
-  %22 = add nuw nsw i64 %18, 261640
-  %23 = getelementptr inbounds i32, ptr %10, i64 %22
-  store <4 x i32> zeroinitializer, ptr %23, align 4, !tbaa !5
-  %24 = getelementptr inbounds i32, ptr %23, i64 4
-  store <4 x i32> zeroinitializer, ptr %24, align 4, !tbaa !5
-  %25 = add nuw nsw i64 %18, 261648
-  %26 = getelementptr inbounds i32, ptr %10, i64 %25
-  store <4 x i32> zeroinitializer, ptr %26, align 4, !tbaa !5
-  %27 = getelementptr inbounds i32, ptr %26, i64 4
-  store <4 x i32> zeroinitializer, ptr %27, align 4, !tbaa !5
-  %28 = add nuw nsw i64 %18, 261656
-  %29 = getelementptr inbounds i32, ptr %10, i64 %28
-  store <4 x i32> zeroinitializer, ptr %29, align 4, !tbaa !5
-  %30 = getelementptr inbounds i32, ptr %29, i64 4
-  store <4 x i32> zeroinitializer, ptr %30, align 4, !tbaa !5
-  %31 = add nuw nsw i64 %18, 32
-  %32 = icmp eq i64 %31, 512
-  br i1 %32, label %35, label %17, !llvm.loop !11
+vector.body:                                      ; preds = %vector.body, %if.end7
+  %index = phi i64 [ 0, %if.end7 ], [ %index.next.3, %vector.body ]
+  %1 = add nuw nsw i64 %index, 261632
+  %2 = getelementptr inbounds i32, ptr %call3, i64 %1
+  store <4 x i32> zeroinitializer, ptr %2, align 4, !tbaa !5
+  %3 = getelementptr inbounds i32, ptr %2, i64 4
+  store <4 x i32> zeroinitializer, ptr %3, align 4, !tbaa !5
+  %4 = add nuw nsw i64 %index, 261640
+  %5 = getelementptr inbounds i32, ptr %call3, i64 %4
+  store <4 x i32> zeroinitializer, ptr %5, align 4, !tbaa !5
+  %6 = getelementptr inbounds i32, ptr %5, i64 4
+  store <4 x i32> zeroinitializer, ptr %6, align 4, !tbaa !5
+  %7 = add nuw nsw i64 %index, 261648
+  %8 = getelementptr inbounds i32, ptr %call3, i64 %7
+  store <4 x i32> zeroinitializer, ptr %8, align 4, !tbaa !5
+  %9 = getelementptr inbounds i32, ptr %8, i64 4
+  store <4 x i32> zeroinitializer, ptr %9, align 4, !tbaa !5
+  %10 = add nuw nsw i64 %index, 261656
+  %11 = getelementptr inbounds i32, ptr %call3, i64 %10
+  store <4 x i32> zeroinitializer, ptr %11, align 4, !tbaa !5
+  %12 = getelementptr inbounds i32, ptr %11, i64 4
+  store <4 x i32> zeroinitializer, ptr %12, align 4, !tbaa !5
+  %index.next.3 = add nuw nsw i64 %index, 32
+  %13 = icmp eq i64 %index.next.3, 512
+  br i1 %13, label %for.body21, label %vector.body, !llvm.loop !11
 
-33:                                               ; preds = %35
-  call void @_Z9saveImagePiPKcii(ptr noundef nonnull %10, ptr noundef nonnull @.str, i32 noundef 512, i32 noundef 512)
-  call void @free(ptr noundef nonnull %10) #15
-  %34 = load ptr, ptr @inputImage, align 8, !tbaa !9
-  call void @free(ptr noundef %34) #15
+for.cond.cleanup20:                               ; preds = %for.body21
+  call void @_Z9saveImagePiPKcii(ptr noundef nonnull %call3, ptr noundef nonnull @.str, i32 noundef 512, i32 noundef 512)
+  call void @free(ptr noundef nonnull %call3) #15
+  %14 = load ptr, ptr @inputImage, align 8, !tbaa !9
+  call void @free(ptr noundef %14) #15
   ret i32 0
 
-35:                                               ; preds = %17, %35
-  %36 = phi i64 [ %54, %35 ], [ 0, %17 ]
-  %37 = shl nsw i64 %36, 9
-  %38 = getelementptr inbounds i32, ptr %10, i64 %37
-  store i32 0, ptr %38, align 4, !tbaa !5
-  %39 = or i64 %37, 1
-  %40 = getelementptr inbounds i32, ptr %10, i64 %39
-  store i32 0, ptr %40, align 4, !tbaa !5
-  %41 = or i64 %37, 511
-  %42 = getelementptr inbounds i32, ptr %10, i64 %41
-  store i32 0, ptr %42, align 4, !tbaa !5
-  %43 = or i64 %37, 510
-  %44 = getelementptr inbounds i32, ptr %10, i64 %43
-  store i32 0, ptr %44, align 4, !tbaa !5
-  %45 = shl i64 %36, 9
-  %46 = or i64 %45, 512
-  %47 = getelementptr inbounds i32, ptr %10, i64 %46
-  store i32 0, ptr %47, align 4, !tbaa !5
-  %48 = or i64 %45, 513
-  %49 = getelementptr inbounds i32, ptr %10, i64 %48
-  store i32 0, ptr %49, align 4, !tbaa !5
-  %50 = or i64 %45, 1023
-  %51 = getelementptr inbounds i32, ptr %10, i64 %50
-  store i32 0, ptr %51, align 4, !tbaa !5
-  %52 = or i64 %45, 1022
-  %53 = getelementptr inbounds i32, ptr %10, i64 %52
-  store i32 0, ptr %53, align 4, !tbaa !5
-  %54 = add nuw nsw i64 %36, 2
-  %55 = icmp eq i64 %54, 512
-  br i1 %55, label %33, label %35, !llvm.loop !15
+for.body21:                                       ; preds = %vector.body, %for.body21
+  %indvars.iv69 = phi i64 [ %indvars.iv.next70.1, %for.body21 ], [ 0, %vector.body ]
+  %15 = shl nuw nsw i64 %indvars.iv69, 9
+  %arrayidx24 = getelementptr inbounds i32, ptr %call3, i64 %15
+  store i32 0, ptr %arrayidx24, align 4, !tbaa !5
+  %16 = or i64 %15, 1
+  %arrayidx28 = getelementptr inbounds i32, ptr %call3, i64 %16
+  store i32 0, ptr %arrayidx28, align 4, !tbaa !5
+  %17 = or i64 %15, 511
+  %arrayidx32 = getelementptr inbounds i32, ptr %call3, i64 %17
+  store i32 0, ptr %arrayidx32, align 4, !tbaa !5
+  %18 = or i64 %15, 510
+  %arrayidx36 = getelementptr inbounds i32, ptr %call3, i64 %18
+  store i32 0, ptr %arrayidx36, align 4, !tbaa !5
+  %indvars.iv.next70 = shl i64 %indvars.iv69, 9
+  %19 = or i64 %indvars.iv.next70, 512
+  %arrayidx24.1 = getelementptr inbounds i32, ptr %call3, i64 %19
+  store i32 0, ptr %arrayidx24.1, align 4, !tbaa !5
+  %20 = or i64 %indvars.iv.next70, 513
+  %arrayidx28.1 = getelementptr inbounds i32, ptr %call3, i64 %20
+  store i32 0, ptr %arrayidx28.1, align 4, !tbaa !5
+  %21 = or i64 %indvars.iv.next70, 1023
+  %arrayidx32.1 = getelementptr inbounds i32, ptr %call3, i64 %21
+  store i32 0, ptr %arrayidx32.1, align 4, !tbaa !5
+  %22 = or i64 %indvars.iv.next70, 1022
+  %arrayidx36.1 = getelementptr inbounds i32, ptr %call3, i64 %22
+  store i32 0, ptr %arrayidx36.1, align 4, !tbaa !5
+  %indvars.iv.next70.1 = add nuw nsw i64 %indvars.iv69, 2
+  %exitcond76.not.1 = icmp eq i64 %indvars.iv.next70.1, 512
+  br i1 %exitcond76.not.1, label %for.cond.cleanup20, label %for.body21, !llvm.loop !15
 }
 
 declare void @_ZN9benchmark10InitializeEPiPPcPFvvE(ptr noundef, ptr noundef, ptr noundef) local_unnamed_addr #0
@@ -188,71 +189,72 @@ declare void @_Z9saveImagePiPKcii(ptr noundef, ptr noundef, i32 noundef, i32 nou
 declare void @free(ptr allocptr nocapture noundef) local_unnamed_addr #7
 
 ; Function Attrs: mustprogress uwtable
-define dso_local void @_Z30BENCHMARK_ANISTROPIC_DIFFUSIONRN9benchmark5StateE(ptr noundef nonnull align 8 dereferenceable(144) %0) #8 {
-  %2 = getelementptr inbounds %"class.benchmark::State", ptr %0, i64 0, i32 6
-  %3 = load ptr, ptr %2, align 8, !tbaa !16
-  %4 = load i64, ptr %3, align 8, !tbaa !18
-  %5 = trunc i64 %4 to i32
-  %6 = shl i64 %4, 32
-  %7 = ashr exact i64 %6, 32
-  %8 = ashr exact i64 %6, 30
-  %9 = mul i64 %8, %7
-  %10 = tail call noalias ptr @malloc(i64 noundef %9) #13
-  %11 = icmp eq ptr %10, null
-  br i1 %11, label %12, label %14
+define dso_local void @_Z30BENCHMARK_ANISTROPIC_DIFFUSIONRN9benchmark5StateE(ptr noundef nonnull align 8 dereferenceable(144) %state) #8 {
+entry:
+  %range_.i = getelementptr inbounds %"class.benchmark::State", ptr %state, i64 0, i32 6
+  %0 = load ptr, ptr %range_.i, align 8, !tbaa !16
+  %1 = load i64, ptr %0, align 8, !tbaa !18
+  %conv = trunc i64 %1 to i32
+  %sext = shl i64 %1, 32
+  %mul = ashr exact i64 %sext, 30
+  %conv4 = ashr exact i64 %sext, 32
+  %mul5 = mul i64 %mul, %conv4
+  %call6 = tail call noalias ptr @malloc(i64 noundef %mul5) #13
+  %cmp = icmp eq ptr %call6, null
+  br i1 %cmp, label %if.then, label %if.end
 
-12:                                               ; preds = %1
-  %13 = tail call noundef nonnull align 8 dereferenceable(8) ptr @_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_PKc(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cerr, ptr noundef nonnull @.str.2)
+if.then:                                          ; preds = %entry
+  %call7 = tail call noundef nonnull align 8 dereferenceable(8) ptr @_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_PKc(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cerr, ptr noundef nonnull @.str.2)
   tail call void @exit(i32 noundef 1) #14
   unreachable
 
-14:                                               ; preds = %1
-  %15 = load ptr, ptr @inputImage, align 8, !tbaa !9
-  tail call void @anisotropicDiffusionKernel(i32 noundef %5, i32 noundef %5, ptr noundef %15, ptr noundef nonnull %10, i32 noundef 10)
-  %16 = getelementptr inbounds %"class.benchmark::State", ptr %0, i64 0, i32 3
-  %17 = getelementptr inbounds %"class.benchmark::State", ptr %0, i64 0, i32 5
-  br label %18
+if.end:                                           ; preds = %entry
+  %2 = load ptr, ptr @inputImage, align 8, !tbaa !9
+  tail call void @anisotropicDiffusionKernel(i32 noundef %conv, i32 noundef %conv, ptr noundef %2, ptr noundef nonnull %call6, i32 noundef 10)
+  %started_.i.i = getelementptr inbounds %"class.benchmark::State", ptr %state, i64 0, i32 3
+  %error_occurred_.i.i = getelementptr inbounds %"class.benchmark::State", ptr %state, i64 0, i32 5
+  br label %while.cond
 
-18:                                               ; preds = %30, %14
-  %19 = load i64, ptr %0, align 8, !tbaa !20
-  %20 = icmp eq i64 %19, 0
-  br i1 %20, label %21, label %30, !prof !34
+while.cond:                                       ; preds = %while.body, %if.end
+  %3 = load i64, ptr %state, align 8, !tbaa !20
+  %cmp.not.i.i = icmp eq i64 %3, 0
+  br i1 %cmp.not.i.i, label %if.end.i.i, label %while.body, !prof !34
 
-21:                                               ; preds = %18
-  %22 = load i8, ptr %16, align 8, !tbaa !35, !range !36, !noundef !37
-  %23 = icmp eq i8 %22, 0
-  br i1 %23, label %24, label %34
+if.end.i.i:                                       ; preds = %while.cond
+  %4 = load i8, ptr %started_.i.i, align 8, !tbaa !35, !range !36, !noundef !37
+  %tobool3.not.i.i = icmp eq i8 %4, 0
+  br i1 %tobool3.not.i.i, label %if.then4.i.i, label %while.end
 
-24:                                               ; preds = %21
-  tail call void @_ZN9benchmark5State16StartKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %0)
-  %25 = load i8, ptr %17, align 2, !tbaa !38, !range !36, !noundef !37
-  %26 = icmp ne i8 %25, 0
-  %27 = load i64, ptr %0, align 8
-  %28 = icmp eq i64 %27, 0
-  %29 = select i1 %26, i1 true, i1 %28
-  br i1 %29, label %34, label %30
+if.then4.i.i:                                     ; preds = %if.end.i.i
+  tail call void @_ZN9benchmark5State16StartKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %state)
+  %5 = load i8, ptr %error_occurred_.i.i, align 2, !tbaa !38, !range !36, !noundef !37
+  %tobool5.not.i.i = icmp ne i8 %5, 0
+  %6 = load i64, ptr %state, align 8
+  %cmp7.not.i.i = icmp eq i64 %6, 0
+  %or.cond = select i1 %tobool5.not.i.i, i1 true, i1 %cmp7.not.i.i
+  br i1 %or.cond, label %while.end, label %while.body
 
-30:                                               ; preds = %24, %18
-  %31 = phi i64 [ %19, %18 ], [ %27, %24 ]
-  %32 = add i64 %31, -1
-  store i64 %32, ptr %0, align 8, !tbaa !20
-  %33 = load ptr, ptr @inputImage, align 8, !tbaa !9
-  tail call void @anisotropicDiffusionKernel(i32 noundef %5, i32 noundef %5, ptr noundef %33, ptr noundef nonnull %10, i32 noundef 10)
-  br label %18, !llvm.loop !39
+while.body:                                       ; preds = %if.then4.i.i, %while.cond
+  %storemerge.in = phi i64 [ %3, %while.cond ], [ %6, %if.then4.i.i ]
+  %storemerge = add i64 %storemerge.in, -1
+  store i64 %storemerge, ptr %state, align 8, !tbaa !20
+  %7 = load ptr, ptr @inputImage, align 8, !tbaa !9
+  tail call void @anisotropicDiffusionKernel(i32 noundef %conv, i32 noundef %conv, ptr noundef %7, ptr noundef nonnull %call6, i32 noundef 10)
+  br label %while.cond, !llvm.loop !39
 
-34:                                               ; preds = %24, %21
-  tail call void @_ZN9benchmark5State17FinishKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %0)
-  %35 = load ptr, ptr %2, align 8, !tbaa !16
-  %36 = load i64, ptr %35, align 8, !tbaa !18
-  %37 = icmp eq i64 %36, 20
-  br i1 %37, label %38, label %39
+while.end:                                        ; preds = %if.then4.i.i, %if.end.i.i
+  tail call void @_ZN9benchmark5State17FinishKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %state)
+  %8 = load ptr, ptr %range_.i, align 8, !tbaa !16
+  %9 = load i64, ptr %8, align 8, !tbaa !18
+  %cmp10 = icmp eq i64 %9, 20
+  br i1 %cmp10, label %if.then11, label %if.end12
 
-38:                                               ; preds = %34
-  tail call void @_Z9saveImagePiPKcii(ptr noundef nonnull %10, ptr noundef nonnull @.str.3, i32 noundef %5, i32 noundef %5)
-  br label %39
+if.then11:                                        ; preds = %while.end
+  tail call void @_Z9saveImagePiPKcii(ptr noundef nonnull %call6, ptr noundef nonnull @.str.3, i32 noundef %conv, i32 noundef %conv)
+  br label %if.end12
 
-39:                                               ; preds = %38, %34
-  tail call void @free(ptr noundef %10) #15
+if.end12:                                         ; preds = %if.then11, %while.end
+  tail call void @free(ptr noundef %call6) #15
   ret void
 }
 
@@ -278,30 +280,31 @@ declare void @_ZN9benchmark8internal9BenchmarkC2EPKc(ptr noundef nonnull align 8
 
 ; Function Attrs: uwtable
 define internal void @_GLOBAL__sub_I_main.cpp() #11 section ".text.startup" personality ptr @__gxx_personality_v0 {
+entry:
   tail call void @_ZNSt8ios_base4InitC1Ev(ptr noundef nonnull align 1 dereferenceable(1) @_ZStL8__ioinit)
-  %1 = tail call i32 @__cxa_atexit(ptr nonnull @_ZNSt8ios_base4InitD1Ev, ptr nonnull @_ZStL8__ioinit, ptr nonnull @__dso_handle) #15
-  %2 = tail call noundef i32 @_ZN9benchmark8internal17InitializeStreamsEv()
-  %3 = tail call noalias noundef nonnull dereferenceable(224) ptr @_Znwm(i64 noundef 224) #16
-  invoke void @_ZN9benchmark8internal9BenchmarkC2EPKc(ptr noundef nonnull align 8 dereferenceable(216) %3, ptr noundef nonnull @.str.5)
-          to label %6 unwind label %4
+  %0 = tail call i32 @__cxa_atexit(ptr nonnull @_ZNSt8ios_base4InitD1Ev, ptr nonnull @_ZStL8__ioinit, ptr nonnull @__dso_handle) #15
+  %call.i = tail call noundef i32 @_ZN9benchmark8internal17InitializeStreamsEv()
+  %call.i1 = tail call noalias noundef nonnull dereferenceable(224) ptr @_Znwm(i64 noundef 224) #16
+  invoke void @_ZN9benchmark8internal9BenchmarkC2EPKc(ptr noundef nonnull align 8 dereferenceable(216) %call.i1, ptr noundef nonnull @.str.5)
+          to label %__cxx_global_var_init.4.exit unwind label %lpad.i
 
-4:                                                ; preds = %0
-  %5 = landingpad { ptr, i32 }
+lpad.i:                                           ; preds = %entry
+  %1 = landingpad { ptr, i32 }
           cleanup
-  tail call void @_ZdlPv(ptr noundef nonnull %3) #17
-  resume { ptr, i32 } %5
+  tail call void @_ZdlPv(ptr noundef nonnull %call.i1) #17
+  resume { ptr, i32 } %1
 
-6:                                                ; preds = %0
-  store ptr getelementptr inbounds ({ [5 x ptr] }, ptr @_ZTVN9benchmark8internal17FunctionBenchmarkE, i64 0, inrange i32 0, i64 2), ptr %3, align 8, !tbaa !40
-  %7 = getelementptr inbounds %"class.benchmark::internal::FunctionBenchmark", ptr %3, i64 0, i32 1
-  store ptr @_Z30BENCHMARK_ANISTROPIC_DIFFUSIONRN9benchmark5StateE, ptr %7, align 8, !tbaa !42
-  %8 = tail call noundef ptr @_ZN9benchmark8internal25RegisterBenchmarkInternalEPNS0_9BenchmarkE(ptr noundef nonnull %3)
-  %9 = tail call noundef ptr @_ZN9benchmark8internal9Benchmark3ArgEl(ptr noundef nonnull align 8 dereferenceable(216) %8, i64 noundef 32)
-  %10 = tail call noundef ptr @_ZN9benchmark8internal9Benchmark3ArgEl(ptr noundef nonnull align 8 dereferenceable(216) %9, i64 noundef 64)
-  %11 = tail call noundef ptr @_ZN9benchmark8internal9Benchmark3ArgEl(ptr noundef nonnull align 8 dereferenceable(216) %10, i64 noundef 128)
-  %12 = tail call noundef ptr @_ZN9benchmark8internal9Benchmark3ArgEl(ptr noundef nonnull align 8 dereferenceable(216) %11, i64 noundef 256)
-  %13 = tail call noundef ptr @_ZN9benchmark8internal9Benchmark4UnitENS_8TimeUnitE(ptr noundef nonnull align 8 dereferenceable(216) %12, i32 noundef 1)
-  store ptr %13, ptr @_ZL27benchmark_uniq_2_benchmark_, align 8, !tbaa !9
+__cxx_global_var_init.4.exit:                     ; preds = %entry
+  store ptr getelementptr inbounds ({ [5 x ptr] }, ptr @_ZTVN9benchmark8internal17FunctionBenchmarkE, i64 0, inrange i32 0, i64 2), ptr %call.i1, align 8, !tbaa !40
+  %func_.i.i = getelementptr inbounds %"class.benchmark::internal::FunctionBenchmark", ptr %call.i1, i64 0, i32 1
+  store ptr @_Z30BENCHMARK_ANISTROPIC_DIFFUSIONRN9benchmark5StateE, ptr %func_.i.i, align 8, !tbaa !42
+  %call1.i = tail call noundef ptr @_ZN9benchmark8internal25RegisterBenchmarkInternalEPNS0_9BenchmarkE(ptr noundef nonnull %call.i1)
+  %call2.i = tail call noundef ptr @_ZN9benchmark8internal9Benchmark3ArgEl(ptr noundef nonnull align 8 dereferenceable(216) %call1.i, i64 noundef 32)
+  %call3.i = tail call noundef ptr @_ZN9benchmark8internal9Benchmark3ArgEl(ptr noundef nonnull align 8 dereferenceable(216) %call2.i, i64 noundef 64)
+  %call4.i = tail call noundef ptr @_ZN9benchmark8internal9Benchmark3ArgEl(ptr noundef nonnull align 8 dereferenceable(216) %call3.i, i64 noundef 128)
+  %call5.i = tail call noundef ptr @_ZN9benchmark8internal9Benchmark3ArgEl(ptr noundef nonnull align 8 dereferenceable(216) %call4.i, i64 noundef 256)
+  %call6.i = tail call noundef ptr @_ZN9benchmark8internal9Benchmark4UnitENS_8TimeUnitE(ptr noundef nonnull align 8 dereferenceable(216) %call5.i, i32 noundef 1)
+  store ptr %call6.i, ptr @_ZL27benchmark_uniq_2_benchmark_, align 8, !tbaa !9
   ret void
 }
 

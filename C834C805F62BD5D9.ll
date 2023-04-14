@@ -77,159 +77,165 @@ $_ZTI1A = comdat any
 @_ZN7SpArrayD1Ev = dso_local unnamed_addr alias void (ptr), ptr @_ZN7SpArrayD2Ev
 
 ; Function Attrs: mustprogress uwtable
-define dso_local noundef i32 @_ZN5Table6SearchER6Object(ptr noundef nonnull align 8 dereferenceable(20) %0, ptr noundef nonnull align 8 dereferenceable(8) %1) unnamed_addr #0 align 2 {
-  %3 = getelementptr inbounds %class.Table, ptr %0, i64 0, i32 1
-  %4 = load i32, ptr %3, align 8, !tbaa !5
-  %5 = icmp sgt i32 %4, 0
-  br i1 %5, label %6, label %21
+define dso_local noundef i32 @_ZN5Table6SearchER6Object(ptr noundef nonnull align 8 dereferenceable(20) %this, ptr noundef nonnull align 8 dereferenceable(8) %obj) unnamed_addr #0 align 2 {
+entry:
+  %nelem = getelementptr inbounds %class.Table, ptr %this, i64 0, i32 1
+  %0 = load i32, ptr %nelem, align 8, !tbaa !5
+  %cmp.not8 = icmp sgt i32 %0, 0
+  br i1 %cmp.not8, label %for.body, label %cleanup
 
-6:                                                ; preds = %2, %17
-  %7 = phi i32 [ %18, %17 ], [ 0, %2 ]
-  %8 = load ptr, ptr %0, align 8, !tbaa !12
-  %9 = getelementptr inbounds ptr, ptr %8, i64 7
-  %10 = load ptr, ptr %9, align 8
-  %11 = tail call noundef ptr %10(ptr noundef nonnull align 8 dereferenceable(20) %0, i32 noundef %7)
-  %12 = load ptr, ptr %1, align 8, !tbaa !12
-  %13 = getelementptr inbounds ptr, ptr %12, i64 2
-  %14 = load ptr, ptr %13, align 8
-  %15 = tail call noundef i32 %14(ptr noundef nonnull align 8 dereferenceable(8) %1, ptr noundef nonnull align 8 dereferenceable(8) %11)
-  %16 = icmp eq i32 %15, 0
-  br i1 %16, label %17, label %21
+for.body:                                         ; preds = %entry, %for.inc
+  %i.09 = phi i32 [ %inc, %for.inc ], [ 0, %entry ]
+  %vtable = load ptr, ptr %this, align 8, !tbaa !12
+  %vfn = getelementptr inbounds ptr, ptr %vtable, i64 7
+  %1 = load ptr, ptr %vfn, align 8
+  %call = tail call noundef ptr %1(ptr noundef nonnull align 8 dereferenceable(20) %this, i32 noundef %i.09)
+  %vtable2 = load ptr, ptr %obj, align 8, !tbaa !12
+  %vfn3 = getelementptr inbounds ptr, ptr %vtable2, i64 2
+  %2 = load ptr, ptr %vfn3, align 8
+  %call4 = tail call noundef i32 %2(ptr noundef nonnull align 8 dereferenceable(8) %obj, ptr noundef nonnull align 8 dereferenceable(8) %call)
+  %tobool.not = icmp eq i32 %call4, 0
+  br i1 %tobool.not, label %for.inc, label %cleanup
 
-17:                                               ; preds = %6
-  %18 = add nuw nsw i32 %7, 1
-  %19 = load i32, ptr %3, align 8, !tbaa !5
-  %20 = icmp slt i32 %18, %19
-  br i1 %20, label %6, label %21, !llvm.loop !14
+for.inc:                                          ; preds = %for.body
+  %inc = add nuw nsw i32 %i.09, 1
+  %3 = load i32, ptr %nelem, align 8, !tbaa !5
+  %cmp.not = icmp slt i32 %inc, %3
+  br i1 %cmp.not, label %for.body, label %cleanup, !llvm.loop !14
 
-21:                                               ; preds = %6, %17, %2
-  %22 = phi i32 [ -1, %2 ], [ -1, %17 ], [ %7, %6 ]
-  ret i32 %22
+cleanup:                                          ; preds = %for.inc, %for.body, %entry
+  %spec.select = phi i32 [ -1, %entry ], [ %i.09, %for.body ], [ -1, %for.inc ]
+  ret i32 %spec.select
 }
 
 ; Function Attrs: mustprogress uwtable
-define dso_local noundef i32 @_ZN5TableeqER6Object(ptr noundef nonnull align 8 dereferenceable(20) %0, ptr noundef nonnull align 8 dereferenceable(8) %1) unnamed_addr #0 align 2 {
-  %3 = load ptr, ptr %1, align 8, !tbaa !12
-  %4 = getelementptr inbounds ptr, ptr %3, i64 3
-  %5 = load ptr, ptr %4, align 8
-  %6 = tail call noundef ptr %5(ptr noundef nonnull align 8 dereferenceable(8) %1)
-  %7 = load ptr, ptr %0, align 8, !tbaa !12
-  %8 = getelementptr inbounds ptr, ptr %7, i64 3
-  %9 = load ptr, ptr %8, align 8
-  %10 = tail call noundef ptr %9(ptr noundef nonnull align 8 dereferenceable(20) %0)
-  %11 = load ptr, ptr %1, align 8, !tbaa !12
-  %12 = getelementptr inbounds ptr, ptr %11, i64 12
-  %13 = load ptr, ptr %12, align 8
-  %14 = tail call noundef i32 %13(ptr noundef nonnull align 8 dereferenceable(20) %1)
-  %15 = getelementptr inbounds %class.Table, ptr %0, i64 0, i32 1
-  %16 = load i32, ptr %15, align 8, !tbaa !5
-  %17 = icmp eq i32 %14, %16
-  br i1 %17, label %18, label %39
+define dso_local noundef i32 @_ZN5TableeqER6Object(ptr noundef nonnull align 8 dereferenceable(20) %this, ptr noundef nonnull align 8 dereferenceable(8) %tblobj) unnamed_addr #0 align 2 {
+entry:
+  %vtable = load ptr, ptr %tblobj, align 8, !tbaa !12
+  %vfn = getelementptr inbounds ptr, ptr %vtable, i64 3
+  %0 = load ptr, ptr %vfn, align 8
+  %call = tail call noundef ptr %0(ptr noundef nonnull align 8 dereferenceable(8) %tblobj)
+  %vtable2 = load ptr, ptr %this, align 8, !tbaa !12
+  %vfn3 = getelementptr inbounds ptr, ptr %vtable2, i64 3
+  %1 = load ptr, ptr %vfn3, align 8
+  %call4 = tail call noundef ptr %1(ptr noundef nonnull align 8 dereferenceable(20) %this)
+  %vtable6 = load ptr, ptr %tblobj, align 8, !tbaa !12
+  %vfn7 = getelementptr inbounds ptr, ptr %vtable6, i64 12
+  %2 = load ptr, ptr %vfn7, align 8
+  %call8 = tail call noundef i32 %2(ptr noundef nonnull align 8 dereferenceable(20) %tblobj)
+  %nelem = getelementptr inbounds %class.Table, ptr %this, i64 0, i32 1
+  %3 = load i32, ptr %nelem, align 8, !tbaa !5
+  %cmp = icmp eq i32 %call8, %3
+  br i1 %cmp, label %for.cond.preheader, label %cleanup26
 
-18:                                               ; preds = %2
-  %19 = icmp sgt i32 %14, 0
-  br i1 %19, label %24, label %39
+for.cond.preheader:                               ; preds = %entry
+  %cmp11.not34 = icmp slt i32 %call8, 1
+  br i1 %cmp11.not34, label %cleanup26, label %for.body
 
-20:                                               ; preds = %24
-  %21 = add nuw nsw i32 %25, 1
-  %22 = load i32, ptr %15, align 8, !tbaa !5
-  %23 = icmp slt i32 %21, %22
-  br i1 %23, label %24, label %39, !llvm.loop !16
+for.cond:                                         ; preds = %for.body
+  %inc = add nuw nsw i32 %i.035, 1
+  %4 = load i32, ptr %nelem, align 8, !tbaa !5
+  %cmp11.not.not = icmp slt i32 %inc, %4
+  br i1 %cmp11.not.not, label %for.body, label %cleanup.loopexit, !llvm.loop !16
 
-24:                                               ; preds = %18, %20
-  %25 = phi i32 [ %21, %20 ], [ 0, %18 ]
-  %26 = load ptr, ptr %1, align 8, !tbaa !12
-  %27 = getelementptr inbounds ptr, ptr %26, i64 7
-  %28 = load ptr, ptr %27, align 8
-  %29 = tail call noundef ptr %28(ptr noundef nonnull align 8 dereferenceable(20) %1, i32 noundef %25)
-  %30 = load ptr, ptr %0, align 8, !tbaa !12
-  %31 = getelementptr inbounds ptr, ptr %30, i64 7
-  %32 = load ptr, ptr %31, align 8
-  %33 = tail call noundef ptr %32(ptr noundef nonnull align 8 dereferenceable(20) %0, i32 noundef %25)
-  %34 = load ptr, ptr %29, align 8, !tbaa !12
-  %35 = getelementptr inbounds ptr, ptr %34, i64 2
-  %36 = load ptr, ptr %35, align 8
-  %37 = tail call noundef i32 %36(ptr noundef nonnull align 8 dereferenceable(8) %29, ptr noundef nonnull align 8 dereferenceable(8) %33)
-  %38 = icmp eq i32 %37, 0
-  br i1 %38, label %39, label %20
+for.body:                                         ; preds = %for.cond.preheader, %for.cond
+  %i.035 = phi i32 [ %inc, %for.cond ], [ 0, %for.cond.preheader ]
+  %vtable12 = load ptr, ptr %tblobj, align 8, !tbaa !12
+  %vfn13 = getelementptr inbounds ptr, ptr %vtable12, i64 7
+  %5 = load ptr, ptr %vfn13, align 8
+  %call14 = tail call noundef ptr %5(ptr noundef nonnull align 8 dereferenceable(20) %tblobj, i32 noundef %i.035)
+  %vtable15 = load ptr, ptr %this, align 8, !tbaa !12
+  %vfn16 = getelementptr inbounds ptr, ptr %vtable15, i64 7
+  %6 = load ptr, ptr %vfn16, align 8
+  %call17 = tail call noundef ptr %6(ptr noundef nonnull align 8 dereferenceable(20) %this, i32 noundef %i.035)
+  %vtable.i = load ptr, ptr %call14, align 8, !tbaa !12
+  %vfn.i = getelementptr inbounds ptr, ptr %vtable.i, i64 2
+  %7 = load ptr, ptr %vfn.i, align 8
+  %call.i = tail call noundef i32 %7(ptr noundef nonnull align 8 dereferenceable(8) %call14, ptr noundef nonnull align 8 dereferenceable(8) %call17)
+  %tobool.not.i.not = icmp ne i32 %call.i, 0
+  br i1 %tobool.not.i.not, label %for.cond, label %cleanup.loopexit
 
-39:                                               ; preds = %20, %24, %18, %2
-  %40 = phi i32 [ 0, %2 ], [ 1, %18 ], [ 1, %20 ], [ 0, %24 ]
-  ret i32 %40
+cleanup.loopexit:                                 ; preds = %for.body, %for.cond
+  %8 = zext i1 %tobool.not.i.not to i32
+  br label %cleanup26
+
+cleanup26:                                        ; preds = %for.cond.preheader, %cleanup.loopexit, %entry
+  %retval.1 = phi i32 [ 0, %entry ], [ 1, %for.cond.preheader ], [ %8, %cleanup.loopexit ]
+  ret i32 %retval.1
 }
 
 ; Function Attrs: uwtable
-define dso_local void @_ZN5ArrayC2Ei7TblType(ptr nocapture noundef nonnull align 8 dereferenceable(36) %0, i32 noundef %1, i32 noundef %2) unnamed_addr #1 align 2 personality ptr @__gxx_personality_v0 {
-  %4 = getelementptr inbounds %class.Table, ptr %0, i64 0, i32 3
-  store i32 %2, ptr %4, align 8, !tbaa !17
-  %5 = getelementptr inbounds %class.Table, ptr %0, i64 0, i32 1
-  store i32 0, ptr %5, align 8, !tbaa !5
-  %6 = getelementptr inbounds %class.Table, ptr %0, i64 0, i32 2
-  store i32 -1, ptr %6, align 4, !tbaa !18
-  store ptr getelementptr inbounds ({ [15 x ptr] }, ptr @_ZTV5Array, i64 0, inrange i32 0, i64 2), ptr %0, align 8, !tbaa !12
-  %7 = zext i32 %1 to i64
-  %8 = icmp slt i32 %1, 0
-  %9 = shl nuw nsw i64 %7, 3
-  %10 = select i1 %8, i64 -1, i64 %9
-  %11 = tail call noalias noundef nonnull ptr @_Znam(i64 noundef %10) #14
-  %12 = getelementptr inbounds %class.Array, ptr %0, i64 0, i32 2
-  store ptr %11, ptr %12, align 8, !tbaa !19
-  %13 = getelementptr inbounds %class.Array, ptr %0, i64 0, i32 3
-  store i32 %1, ptr %13, align 8, !tbaa !22
-  %14 = icmp sgt i32 %1, 0
-  br i1 %14, label %15, label %32
+define dso_local void @_ZN5ArrayC2Ei7TblType(ptr nocapture noundef nonnull align 8 dereferenceable(36) %this, i32 noundef %sz, i32 noundef %t) unnamed_addr #1 align 2 personality ptr @__gxx_personality_v0 {
+entry:
+  %type.i = getelementptr inbounds %class.Table, ptr %this, i64 0, i32 3
+  store i32 %t, ptr %type.i, align 8, !tbaa !17
+  %nelem.i.i = getelementptr inbounds %class.Table, ptr %this, i64 0, i32 1
+  store i32 0, ptr %nelem.i.i, align 8, !tbaa !5
+  %curind.i.i = getelementptr inbounds %class.Table, ptr %this, i64 0, i32 2
+  store i32 -1, ptr %curind.i.i, align 4, !tbaa !18
+  store ptr getelementptr inbounds ({ [15 x ptr] }, ptr @_ZTV5Array, i64 0, inrange i32 0, i64 2), ptr %this, align 8, !tbaa !12
+  %conv = zext i32 %sz to i64
+  %0 = icmp slt i32 %sz, 0
+  %1 = shl nuw nsw i64 %conv, 3
+  %2 = select i1 %0, i64 -1, i64 %1
+  %call = tail call noalias noundef nonnull ptr @_Znam(i64 noundef %2) #14
+  %array = getelementptr inbounds %class.Array, ptr %this, i64 0, i32 2
+  store ptr %call, ptr %array, align 8, !tbaa !19
+  %size = getelementptr inbounds %class.Array, ptr %this, i64 0, i32 3
+  store i32 %sz, ptr %size, align 8, !tbaa !22
+  %cmp8 = icmp sgt i32 %sz, 0
+  br i1 %cmp8, label %for.body.preheader, label %for.cond.cleanup
 
-15:                                               ; preds = %3
-  %16 = zext i32 %1 to i64
-  %17 = and i64 %16, 3
-  %18 = icmp ult i32 %1, 4
-  br i1 %18, label %21, label %19
+for.body.preheader:                               ; preds = %entry
+  %xtraiter = and i64 %conv, 3
+  %3 = icmp ult i32 %sz, 4
+  br i1 %3, label %for.cond.cleanup.loopexit.unr-lcssa, label %for.body.preheader.new
 
-19:                                               ; preds = %15
-  %20 = and i64 %16, 4294967292
-  br label %33
+for.body.preheader.new:                           ; preds = %for.body.preheader
+  %unroll_iter = and i64 %conv, 4294967292
+  br label %for.body
 
-21:                                               ; preds = %33, %15
-  %22 = phi i64 [ 0, %15 ], [ %47, %33 ]
-  %23 = icmp eq i64 %17, 0
-  br i1 %23, label %32, label %24
+for.cond.cleanup.loopexit.unr-lcssa:              ; preds = %for.body, %for.body.preheader
+  %indvars.iv.unr = phi i64 [ 0, %for.body.preheader ], [ %indvars.iv.next.3, %for.body ]
+  %lcmp.mod.not = icmp eq i64 %xtraiter, 0
+  br i1 %lcmp.mod.not, label %for.cond.cleanup, label %for.body.epil
 
-24:                                               ; preds = %21, %24
-  %25 = phi i64 [ %29, %24 ], [ %22, %21 ]
-  %26 = phi i64 [ %30, %24 ], [ 0, %21 ]
-  %27 = load ptr, ptr %12, align 8, !tbaa !19
-  %28 = getelementptr inbounds ptr, ptr %27, i64 %25
-  store ptr null, ptr %28, align 8, !tbaa !23
-  %29 = add nuw nsw i64 %25, 1
-  %30 = add i64 %26, 1
-  %31 = icmp eq i64 %30, %17
-  br i1 %31, label %32, label %24, !llvm.loop !24
+for.body.epil:                                    ; preds = %for.cond.cleanup.loopexit.unr-lcssa, %for.body.epil
+  %indvars.iv.epil = phi i64 [ %indvars.iv.next.epil, %for.body.epil ], [ %indvars.iv.unr, %for.cond.cleanup.loopexit.unr-lcssa ]
+  %epil.iter = phi i64 [ %epil.iter.next, %for.body.epil ], [ 0, %for.cond.cleanup.loopexit.unr-lcssa ]
+  %4 = load ptr, ptr %array, align 8, !tbaa !19
+  %arrayidx.epil = getelementptr inbounds ptr, ptr %4, i64 %indvars.iv.epil
+  store ptr null, ptr %arrayidx.epil, align 8, !tbaa !23
+  %indvars.iv.next.epil = add nuw nsw i64 %indvars.iv.epil, 1
+  %epil.iter.next = add i64 %epil.iter, 1
+  %epil.iter.cmp.not = icmp eq i64 %epil.iter.next, %xtraiter
+  br i1 %epil.iter.cmp.not, label %for.cond.cleanup, label %for.body.epil, !llvm.loop !24
 
-32:                                               ; preds = %21, %24, %3
+for.cond.cleanup:                                 ; preds = %for.cond.cleanup.loopexit.unr-lcssa, %for.body.epil, %entry
   ret void
 
-33:                                               ; preds = %33, %19
-  %34 = phi i64 [ 0, %19 ], [ %47, %33 ]
-  %35 = phi i64 [ 0, %19 ], [ %48, %33 ]
-  %36 = load ptr, ptr %12, align 8, !tbaa !19
-  %37 = getelementptr inbounds ptr, ptr %36, i64 %34
-  store ptr null, ptr %37, align 8, !tbaa !23
-  %38 = or i64 %34, 1
-  %39 = load ptr, ptr %12, align 8, !tbaa !19
-  %40 = getelementptr inbounds ptr, ptr %39, i64 %38
-  store ptr null, ptr %40, align 8, !tbaa !23
-  %41 = or i64 %34, 2
-  %42 = load ptr, ptr %12, align 8, !tbaa !19
-  %43 = getelementptr inbounds ptr, ptr %42, i64 %41
-  store ptr null, ptr %43, align 8, !tbaa !23
-  %44 = or i64 %34, 3
-  %45 = load ptr, ptr %12, align 8, !tbaa !19
-  %46 = getelementptr inbounds ptr, ptr %45, i64 %44
-  store ptr null, ptr %46, align 8, !tbaa !23
-  %47 = add nuw nsw i64 %34, 4
-  %48 = add i64 %35, 4
-  %49 = icmp eq i64 %48, %20
-  br i1 %49, label %21, label %33, !llvm.loop !26
+for.body:                                         ; preds = %for.body, %for.body.preheader.new
+  %indvars.iv = phi i64 [ 0, %for.body.preheader.new ], [ %indvars.iv.next.3, %for.body ]
+  %niter = phi i64 [ 0, %for.body.preheader.new ], [ %niter.next.3, %for.body ]
+  %5 = load ptr, ptr %array, align 8, !tbaa !19
+  %arrayidx = getelementptr inbounds ptr, ptr %5, i64 %indvars.iv
+  store ptr null, ptr %arrayidx, align 8, !tbaa !23
+  %indvars.iv.next = or i64 %indvars.iv, 1
+  %6 = load ptr, ptr %array, align 8, !tbaa !19
+  %arrayidx.1 = getelementptr inbounds ptr, ptr %6, i64 %indvars.iv.next
+  store ptr null, ptr %arrayidx.1, align 8, !tbaa !23
+  %indvars.iv.next.1 = or i64 %indvars.iv, 2
+  %7 = load ptr, ptr %array, align 8, !tbaa !19
+  %arrayidx.2 = getelementptr inbounds ptr, ptr %7, i64 %indvars.iv.next.1
+  store ptr null, ptr %arrayidx.2, align 8, !tbaa !23
+  %indvars.iv.next.2 = or i64 %indvars.iv, 3
+  %8 = load ptr, ptr %array, align 8, !tbaa !19
+  %arrayidx.3 = getelementptr inbounds ptr, ptr %8, i64 %indvars.iv.next.2
+  store ptr null, ptr %arrayidx.3, align 8, !tbaa !23
+  %indvars.iv.next.3 = add nuw nsw i64 %indvars.iv, 4
+  %niter.next.3 = add i64 %niter, 4
+  %niter.ncmp.3 = icmp eq i64 %niter.next.3, %unroll_iter
+  br i1 %niter.ncmp.3, label %for.cond.cleanup.loopexit.unr-lcssa, label %for.body, !llvm.loop !26
 }
 
 ; Function Attrs: nobuiltin allocsize(0)
@@ -238,54 +244,55 @@ declare noundef nonnull ptr @_Znam(i64 noundef) local_unnamed_addr #2
 declare i32 @__gxx_personality_v0(...)
 
 ; Function Attrs: nounwind uwtable
-define dso_local void @_ZN5ArrayD2Ev(ptr noundef nonnull align 8 dereferenceable(36) %0) unnamed_addr #3 align 2 personality ptr @__gxx_personality_v0 {
-  store ptr getelementptr inbounds ({ [15 x ptr] }, ptr @_ZTV5Array, i64 0, inrange i32 0, i64 2), ptr %0, align 8, !tbaa !12
-  %2 = getelementptr inbounds %class.Table, ptr %0, i64 0, i32 3
-  %3 = load i32, ptr %2, align 8, !tbaa !17
-  %4 = icmp eq i32 %3, 1
-  br i1 %4, label %5, label %17
+define dso_local void @_ZN5ArrayD2Ev(ptr noundef nonnull align 8 dereferenceable(36) %this) unnamed_addr #3 align 2 personality ptr @__gxx_personality_v0 {
+entry:
+  store ptr getelementptr inbounds ({ [15 x ptr] }, ptr @_ZTV5Array, i64 0, inrange i32 0, i64 2), ptr %this, align 8, !tbaa !12
+  %type = getelementptr inbounds %class.Table, ptr %this, i64 0, i32 3
+  %0 = load i32, ptr %type, align 8, !tbaa !17
+  %cmp = icmp eq i32 %0, 1
+  br i1 %cmp, label %if.then, label %if.end
 
-5:                                                ; preds = %1
-  %6 = getelementptr inbounds %class.Table, ptr %0, i64 0, i32 1
-  %7 = load i32, ptr %6, align 8, !tbaa !5
-  br label %8
+if.then:                                          ; preds = %entry
+  %nelem = getelementptr inbounds %class.Table, ptr %this, i64 0, i32 1
+  %1 = load i32, ptr %nelem, align 8, !tbaa !5
+  br label %for.cond
 
-8:                                                ; preds = %11, %5
-  %9 = phi i32 [ %7, %5 ], [ %12, %11 ]
-  %10 = icmp sgt i32 %9, 0
-  br i1 %10, label %11, label %17
+for.cond:                                         ; preds = %for.body, %if.then
+  %i.0.in = phi i32 [ %1, %if.then ], [ %i.0, %for.body ]
+  %cmp2 = icmp sgt i32 %i.0.in, 0
+  br i1 %cmp2, label %for.body, label %if.end
 
-11:                                               ; preds = %8
-  %12 = add nsw i32 %9, -1
-  %13 = load ptr, ptr %0, align 8, !tbaa !12
-  %14 = getelementptr inbounds ptr, ptr %13, i64 9
-  %15 = load ptr, ptr %14, align 8
-  %16 = invoke noundef i32 %15(ptr noundef nonnull align 8 dereferenceable(20) %0, i32 noundef %12)
-          to label %8 unwind label %25, !llvm.loop !27
+for.body:                                         ; preds = %for.cond
+  %i.0 = add nsw i32 %i.0.in, -1
+  %vtable = load ptr, ptr %this, align 8, !tbaa !12
+  %vfn = getelementptr inbounds ptr, ptr %vtable, i64 9
+  %2 = load ptr, ptr %vfn, align 8
+  %call = invoke noundef i32 %2(ptr noundef nonnull align 8 dereferenceable(20) %this, i32 noundef %i.0)
+          to label %for.cond unwind label %terminate.lpad, !llvm.loop !27
 
-17:                                               ; preds = %8, %1
-  %18 = getelementptr inbounds %class.Array, ptr %0, i64 0, i32 2
-  %19 = load ptr, ptr %18, align 8, !tbaa !19
-  %20 = icmp eq ptr %19, null
-  br i1 %20, label %22, label %21
+if.end:                                           ; preds = %for.cond, %entry
+  %array = getelementptr inbounds %class.Array, ptr %this, i64 0, i32 2
+  %3 = load ptr, ptr %array, align 8, !tbaa !19
+  %tobool.not = icmp eq ptr %3, null
+  br i1 %tobool.not, label %if.end6, label %delete.notnull
 
-21:                                               ; preds = %17
-  tail call void @_ZdlPv(ptr noundef nonnull %19) #15
-  store ptr null, ptr %18, align 8, !tbaa !19
-  br label %22
+delete.notnull:                                   ; preds = %if.end
+  tail call void @_ZdlPv(ptr noundef nonnull %3) #15
+  store ptr null, ptr %array, align 8, !tbaa !19
+  br label %if.end6
 
-22:                                               ; preds = %21, %17
-  %23 = getelementptr inbounds %class.Table, ptr %0, i64 0, i32 1
-  store i32 0, ptr %23, align 8, !tbaa !5
-  %24 = getelementptr inbounds %class.Table, ptr %0, i64 0, i32 2
-  store i32 -1, ptr %24, align 4, !tbaa !18
+if.end6:                                          ; preds = %delete.notnull, %if.end
+  %nelem.i = getelementptr inbounds %class.Table, ptr %this, i64 0, i32 1
+  store i32 0, ptr %nelem.i, align 8, !tbaa !5
+  %curind.i = getelementptr inbounds %class.Table, ptr %this, i64 0, i32 2
+  store i32 -1, ptr %curind.i, align 4, !tbaa !18
   ret void
 
-25:                                               ; preds = %11
-  %26 = landingpad { ptr, i32 }
+terminate.lpad:                                   ; preds = %for.body
+  %4 = landingpad { ptr, i32 }
           catch ptr null
-  %27 = extractvalue { ptr, i32 } %26, 0
-  tail call void @__clang_call_terminate(ptr %27) #16
+  %5 = extractvalue { ptr, i32 } %4, 0
+  tail call void @__clang_call_terminate(ptr %5) #16
   unreachable
 }
 
@@ -304,575 +311,588 @@ declare void @_ZSt9terminatev() local_unnamed_addr
 declare void @_ZdlPv(ptr noundef) local_unnamed_addr #5
 
 ; Function Attrs: nounwind uwtable
-define dso_local void @_ZN5ArrayD0Ev(ptr noundef nonnull align 8 dereferenceable(36) %0) unnamed_addr #3 align 2 personality ptr @__gxx_personality_v0 {
-  store ptr getelementptr inbounds ({ [15 x ptr] }, ptr @_ZTV5Array, i64 0, inrange i32 0, i64 2), ptr %0, align 8, !tbaa !12
-  %2 = getelementptr inbounds %class.Table, ptr %0, i64 0, i32 3
-  %3 = load i32, ptr %2, align 8, !tbaa !17
-  %4 = icmp eq i32 %3, 1
-  br i1 %4, label %5, label %17
+define dso_local void @_ZN5ArrayD0Ev(ptr noundef nonnull align 8 dereferenceable(36) %this) unnamed_addr #3 align 2 personality ptr @__gxx_personality_v0 {
+entry:
+  store ptr getelementptr inbounds ({ [15 x ptr] }, ptr @_ZTV5Array, i64 0, inrange i32 0, i64 2), ptr %this, align 8, !tbaa !12
+  %type.i = getelementptr inbounds %class.Table, ptr %this, i64 0, i32 3
+  %0 = load i32, ptr %type.i, align 8, !tbaa !17
+  %cmp.i = icmp eq i32 %0, 1
+  br i1 %cmp.i, label %if.then.i, label %if.end.i
 
-5:                                                ; preds = %1
-  %6 = getelementptr inbounds %class.Table, ptr %0, i64 0, i32 1
-  %7 = load i32, ptr %6, align 8, !tbaa !5
-  br label %8
+if.then.i:                                        ; preds = %entry
+  %nelem.i = getelementptr inbounds %class.Table, ptr %this, i64 0, i32 1
+  %1 = load i32, ptr %nelem.i, align 8, !tbaa !5
+  br label %for.cond.i
 
-8:                                                ; preds = %11, %5
-  %9 = phi i32 [ %7, %5 ], [ %12, %11 ]
-  %10 = icmp sgt i32 %9, 0
-  br i1 %10, label %11, label %17
+for.cond.i:                                       ; preds = %for.body.i, %if.then.i
+  %i.0.in.i = phi i32 [ %1, %if.then.i ], [ %i.0.i, %for.body.i ]
+  %cmp2.i = icmp sgt i32 %i.0.in.i, 0
+  br i1 %cmp2.i, label %for.body.i, label %if.end.i
 
-11:                                               ; preds = %8
-  %12 = add nsw i32 %9, -1
-  %13 = load ptr, ptr %0, align 8, !tbaa !12
-  %14 = getelementptr inbounds ptr, ptr %13, i64 9
-  %15 = load ptr, ptr %14, align 8
-  %16 = invoke noundef i32 %15(ptr noundef nonnull align 8 dereferenceable(20) %0, i32 noundef %12)
-          to label %8 unwind label %22, !llvm.loop !27
+for.body.i:                                       ; preds = %for.cond.i
+  %i.0.i = add nsw i32 %i.0.in.i, -1
+  %vtable.i = load ptr, ptr %this, align 8, !tbaa !12
+  %vfn.i = getelementptr inbounds ptr, ptr %vtable.i, i64 9
+  %2 = load ptr, ptr %vfn.i, align 8
+  %call.i = invoke noundef i32 %2(ptr noundef nonnull align 8 dereferenceable(20) %this, i32 noundef %i.0.i)
+          to label %for.cond.i unwind label %terminate.lpad.i, !llvm.loop !27
 
-17:                                               ; preds = %8, %1
-  %18 = getelementptr inbounds %class.Array, ptr %0, i64 0, i32 2
-  %19 = load ptr, ptr %18, align 8, !tbaa !19
-  %20 = icmp eq ptr %19, null
-  br i1 %20, label %25, label %21
+if.end.i:                                         ; preds = %for.cond.i, %entry
+  %array.i = getelementptr inbounds %class.Array, ptr %this, i64 0, i32 2
+  %3 = load ptr, ptr %array.i, align 8, !tbaa !19
+  %tobool.not.i = icmp eq ptr %3, null
+  br i1 %tobool.not.i, label %_ZN5ArrayD2Ev.exit, label %delete.notnull.i
 
-21:                                               ; preds = %17
-  tail call void @_ZdlPv(ptr noundef nonnull %19) #15
-  br label %25
+delete.notnull.i:                                 ; preds = %if.end.i
+  tail call void @_ZdlPv(ptr noundef nonnull %3) #15
+  br label %_ZN5ArrayD2Ev.exit
 
-22:                                               ; preds = %11
-  %23 = landingpad { ptr, i32 }
+terminate.lpad.i:                                 ; preds = %for.body.i
+  %4 = landingpad { ptr, i32 }
           catch ptr null
-  %24 = extractvalue { ptr, i32 } %23, 0
-  tail call void @__clang_call_terminate(ptr %24) #16
+  %5 = extractvalue { ptr, i32 } %4, 0
+  tail call void @__clang_call_terminate(ptr %5) #16
   unreachable
 
-25:                                               ; preds = %17, %21
-  tail call void @_ZdlPv(ptr noundef nonnull %0) #15
+_ZN5ArrayD2Ev.exit:                               ; preds = %if.end.i, %delete.notnull.i
+  tail call void @_ZdlPv(ptr noundef nonnull %this) #15
   ret void
 }
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(write, argmem: readwrite, inaccessiblemem: none) uwtable
-define dso_local noundef i32 @_ZN5Array6AppendEP6Object(ptr nocapture noundef nonnull align 8 dereferenceable(36) %0, ptr noundef %1) unnamed_addr #6 align 2 {
-  %3 = getelementptr inbounds %class.Table, ptr %0, i64 0, i32 1
-  %4 = load i32, ptr %3, align 8, !tbaa !5
-  %5 = getelementptr inbounds %class.Array, ptr %0, i64 0, i32 3
-  %6 = load i32, ptr %5, align 8, !tbaa !22
-  %7 = icmp eq i32 %4, %6
-  br i1 %7, label %15, label %8
+define dso_local noundef i32 @_ZN5Array6AppendEP6Object(ptr nocapture noundef nonnull align 8 dereferenceable(36) %this, ptr noundef %o) unnamed_addr #6 align 2 {
+entry:
+  %nelem = getelementptr inbounds %class.Table, ptr %this, i64 0, i32 1
+  %0 = load i32, ptr %nelem, align 8, !tbaa !5
+  %size = getelementptr inbounds %class.Array, ptr %this, i64 0, i32 3
+  %1 = load i32, ptr %size, align 8, !tbaa !22
+  %cmp = icmp eq i32 %0, %1
+  br i1 %cmp, label %return, label %if.end
 
-8:                                                ; preds = %2
-  %9 = getelementptr inbounds %class.Array, ptr %0, i64 0, i32 2
-  %10 = load ptr, ptr %9, align 8, !tbaa !19
-  %11 = getelementptr inbounds %class.Table, ptr %0, i64 0, i32 2
-  store i32 %4, ptr %11, align 4, !tbaa !18
-  %12 = sext i32 %4 to i64
-  %13 = getelementptr inbounds ptr, ptr %10, i64 %12
-  store ptr %1, ptr %13, align 8, !tbaa !23
-  %14 = add nsw i32 %4, 1
-  store i32 %14, ptr %3, align 8, !tbaa !5
-  br label %15
+if.end:                                           ; preds = %entry
+  %array = getelementptr inbounds %class.Array, ptr %this, i64 0, i32 2
+  %2 = load ptr, ptr %array, align 8, !tbaa !19
+  %curind = getelementptr inbounds %class.Table, ptr %this, i64 0, i32 2
+  store i32 %0, ptr %curind, align 4, !tbaa !18
+  %idxprom = sext i32 %0 to i64
+  %arrayidx = getelementptr inbounds ptr, ptr %2, i64 %idxprom
+  store ptr %o, ptr %arrayidx, align 8, !tbaa !23
+  %inc = add nsw i32 %0, 1
+  store i32 %inc, ptr %nelem, align 8, !tbaa !5
+  br label %return
 
-15:                                               ; preds = %2, %8
-  %16 = phi i32 [ 1, %8 ], [ 0, %2 ]
-  ret i32 %16
+return:                                           ; preds = %entry, %if.end
+  %retval.0 = phi i32 [ 1, %if.end ], [ 0, %entry ]
+  ret i32 %retval.0
 }
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind memory(readwrite, inaccessiblemem: none) uwtable
-define dso_local noundef i32 @_ZN5Array6InsertEP6Objecti(ptr nocapture noundef nonnull align 8 dereferenceable(36) %0, ptr noundef %1, i32 noundef %2) unnamed_addr #7 align 2 {
-  %4 = getelementptr inbounds %class.Table, ptr %0, i64 0, i32 1
-  %5 = load i32, ptr %4, align 8, !tbaa !5
-  %6 = icmp slt i32 %5, %2
-  %7 = icmp slt i32 %2, 0
-  %8 = or i1 %7, %6
-  %9 = getelementptr inbounds %class.Array, ptr %0, i64 0, i32 3
-  %10 = load i32, ptr %9, align 8
-  %11 = icmp sge i32 %5, %10
-  %12 = select i1 %8, i1 true, i1 %11
-  br i1 %12, label %75, label %13
+define dso_local noundef i32 @_ZN5Array6InsertEP6Objecti(ptr nocapture noundef nonnull align 8 dereferenceable(36) %this, ptr noundef %obj, i32 noundef %pos) unnamed_addr #7 align 2 {
+entry:
+  %nelem = getelementptr inbounds %class.Table, ptr %this, i64 0, i32 1
+  %0 = load i32, ptr %nelem, align 8, !tbaa !5
+  %cmp = icmp sge i32 %0, %pos
+  %cmp2 = icmp sgt i32 %pos, -1
+  %or.cond.not23 = and i1 %cmp2, %cmp
+  %size = getelementptr inbounds %class.Array, ptr %this, i64 0, i32 3
+  %1 = load i32, ptr %size, align 8
+  %cmp5.not = icmp slt i32 %0, %1
+  %or.cond22 = select i1 %or.cond.not23, i1 %cmp5.not, i1 false
+  br i1 %or.cond22, label %for.cond.preheader, label %return
 
-13:                                               ; preds = %3
-  %14 = icmp sgt i32 %5, %2
-  br i1 %14, label %15, label %37
+for.cond.preheader:                               ; preds = %entry
+  %cmp724 = icmp sgt i32 %0, %pos
+  br i1 %cmp724, label %for.body.lr.ph, label %for.cond.cleanup
 
-15:                                               ; preds = %13
-  %16 = getelementptr inbounds %class.Array, ptr %0, i64 0, i32 2
-  %17 = sub i32 %5, %2
-  %18 = xor i32 %2, -1
-  %19 = add i32 %5, %18
-  %20 = and i32 %17, 3
-  %21 = icmp eq i32 %20, 0
-  br i1 %21, label %34, label %22
+for.body.lr.ph:                                   ; preds = %for.cond.preheader
+  %array = getelementptr inbounds %class.Array, ptr %this, i64 0, i32 2
+  %2 = sub i32 %0, %pos
+  %3 = xor i32 %pos, -1
+  %4 = add i32 %0, %3
+  %xtraiter = and i32 %2, 3
+  %lcmp.mod.not = icmp eq i32 %xtraiter, 0
+  br i1 %lcmp.mod.not, label %for.body.prol.loopexit, label %for.body.prol
 
-22:                                               ; preds = %15, %22
-  %23 = phi i32 [ %26, %22 ], [ %5, %15 ]
-  %24 = phi i32 [ %32, %22 ], [ 0, %15 ]
-  %25 = load ptr, ptr %16, align 8, !tbaa !19
-  %26 = add nsw i32 %23, -1
-  %27 = zext i32 %26 to i64
-  %28 = getelementptr inbounds ptr, ptr %25, i64 %27
-  %29 = load ptr, ptr %28, align 8, !tbaa !23
-  %30 = zext i32 %23 to i64
-  %31 = getelementptr inbounds ptr, ptr %25, i64 %30
-  store ptr %29, ptr %31, align 8, !tbaa !23
-  %32 = add i32 %24, 1
-  %33 = icmp eq i32 %32, %20
-  br i1 %33, label %34, label %22, !llvm.loop !28
+for.body.prol:                                    ; preds = %for.body.lr.ph, %for.body.prol
+  %i.025.prol = phi i32 [ %sub.prol, %for.body.prol ], [ %0, %for.body.lr.ph ]
+  %prol.iter = phi i32 [ %prol.iter.next, %for.body.prol ], [ 0, %for.body.lr.ph ]
+  %5 = load ptr, ptr %array, align 8, !tbaa !19
+  %sub.prol = add nsw i32 %i.025.prol, -1
+  %idxprom.prol = zext i32 %sub.prol to i64
+  %arrayidx.prol = getelementptr inbounds ptr, ptr %5, i64 %idxprom.prol
+  %6 = load ptr, ptr %arrayidx.prol, align 8, !tbaa !23
+  %idxprom9.prol = zext i32 %i.025.prol to i64
+  %arrayidx10.prol = getelementptr inbounds ptr, ptr %5, i64 %idxprom9.prol
+  store ptr %6, ptr %arrayidx10.prol, align 8, !tbaa !23
+  %prol.iter.next = add i32 %prol.iter, 1
+  %prol.iter.cmp.not = icmp eq i32 %prol.iter.next, %xtraiter
+  br i1 %prol.iter.cmp.not, label %for.body.prol.loopexit, label %for.body.prol, !llvm.loop !28
 
-34:                                               ; preds = %22, %15
-  %35 = phi i32 [ %5, %15 ], [ %26, %22 ]
-  %36 = icmp ult i32 %19, 3
-  br i1 %36, label %37, label %44
+for.body.prol.loopexit:                           ; preds = %for.body.prol, %for.body.lr.ph
+  %i.025.unr = phi i32 [ %0, %for.body.lr.ph ], [ %sub.prol, %for.body.prol ]
+  %7 = icmp ult i32 %4, 3
+  br i1 %7, label %for.cond.cleanup, label %for.body
 
-37:                                               ; preds = %34, %44, %13
-  %38 = getelementptr inbounds %class.Array, ptr %0, i64 0, i32 2
-  %39 = load ptr, ptr %38, align 8, !tbaa !19
-  %40 = zext i32 %2 to i64
-  %41 = getelementptr inbounds ptr, ptr %39, i64 %40
-  store ptr %1, ptr %41, align 8, !tbaa !23
-  %42 = add nsw i32 %5, 1
-  store i32 %42, ptr %4, align 8, !tbaa !5
-  %43 = getelementptr inbounds %class.Table, ptr %0, i64 0, i32 2
-  store i32 %2, ptr %43, align 4, !tbaa !18
-  br label %75
+for.cond.cleanup:                                 ; preds = %for.body.prol.loopexit, %for.body, %for.cond.preheader
+  %array11 = getelementptr inbounds %class.Array, ptr %this, i64 0, i32 2
+  %8 = load ptr, ptr %array11, align 8, !tbaa !19
+  %idxprom12 = zext i32 %pos to i64
+  %arrayidx13 = getelementptr inbounds ptr, ptr %8, i64 %idxprom12
+  store ptr %obj, ptr %arrayidx13, align 8, !tbaa !23
+  %inc = add nsw i32 %0, 1
+  store i32 %inc, ptr %nelem, align 8, !tbaa !5
+  %curind = getelementptr inbounds %class.Table, ptr %this, i64 0, i32 2
+  store i32 %pos, ptr %curind, align 4, !tbaa !18
+  br label %return
 
-44:                                               ; preds = %34, %44
-  %45 = phi i32 [ %68, %44 ], [ %35, %34 ]
-  %46 = load ptr, ptr %16, align 8, !tbaa !19
-  %47 = add nsw i32 %45, -1
-  %48 = zext i32 %47 to i64
-  %49 = getelementptr inbounds ptr, ptr %46, i64 %48
-  %50 = load ptr, ptr %49, align 8, !tbaa !23
-  %51 = zext i32 %45 to i64
-  %52 = getelementptr inbounds ptr, ptr %46, i64 %51
-  store ptr %50, ptr %52, align 8, !tbaa !23
-  %53 = load ptr, ptr %16, align 8, !tbaa !19
-  %54 = add nsw i32 %45, -2
-  %55 = zext i32 %54 to i64
-  %56 = getelementptr inbounds ptr, ptr %53, i64 %55
-  %57 = load ptr, ptr %56, align 8, !tbaa !23
-  %58 = zext i32 %47 to i64
-  %59 = getelementptr inbounds ptr, ptr %53, i64 %58
-  store ptr %57, ptr %59, align 8, !tbaa !23
-  %60 = load ptr, ptr %16, align 8, !tbaa !19
-  %61 = add nsw i32 %45, -3
-  %62 = zext i32 %61 to i64
-  %63 = getelementptr inbounds ptr, ptr %60, i64 %62
-  %64 = load ptr, ptr %63, align 8, !tbaa !23
-  %65 = zext i32 %54 to i64
-  %66 = getelementptr inbounds ptr, ptr %60, i64 %65
-  store ptr %64, ptr %66, align 8, !tbaa !23
-  %67 = load ptr, ptr %16, align 8, !tbaa !19
-  %68 = add nsw i32 %45, -4
-  %69 = zext i32 %68 to i64
-  %70 = getelementptr inbounds ptr, ptr %67, i64 %69
-  %71 = load ptr, ptr %70, align 8, !tbaa !23
-  %72 = zext i32 %61 to i64
-  %73 = getelementptr inbounds ptr, ptr %67, i64 %72
-  store ptr %71, ptr %73, align 8, !tbaa !23
-  %74 = icmp sgt i32 %68, %2
-  br i1 %74, label %44, label %37, !llvm.loop !29
+for.body:                                         ; preds = %for.body.prol.loopexit, %for.body
+  %i.025 = phi i32 [ %sub.3, %for.body ], [ %i.025.unr, %for.body.prol.loopexit ]
+  %9 = load ptr, ptr %array, align 8, !tbaa !19
+  %sub = add nsw i32 %i.025, -1
+  %idxprom = zext i32 %sub to i64
+  %arrayidx = getelementptr inbounds ptr, ptr %9, i64 %idxprom
+  %10 = load ptr, ptr %arrayidx, align 8, !tbaa !23
+  %idxprom9 = zext i32 %i.025 to i64
+  %arrayidx10 = getelementptr inbounds ptr, ptr %9, i64 %idxprom9
+  store ptr %10, ptr %arrayidx10, align 8, !tbaa !23
+  %11 = load ptr, ptr %array, align 8, !tbaa !19
+  %sub.1 = add nsw i32 %i.025, -2
+  %idxprom.1 = zext i32 %sub.1 to i64
+  %arrayidx.1 = getelementptr inbounds ptr, ptr %11, i64 %idxprom.1
+  %12 = load ptr, ptr %arrayidx.1, align 8, !tbaa !23
+  %idxprom9.1 = zext i32 %sub to i64
+  %arrayidx10.1 = getelementptr inbounds ptr, ptr %11, i64 %idxprom9.1
+  store ptr %12, ptr %arrayidx10.1, align 8, !tbaa !23
+  %13 = load ptr, ptr %array, align 8, !tbaa !19
+  %sub.2 = add nsw i32 %i.025, -3
+  %idxprom.2 = zext i32 %sub.2 to i64
+  %arrayidx.2 = getelementptr inbounds ptr, ptr %13, i64 %idxprom.2
+  %14 = load ptr, ptr %arrayidx.2, align 8, !tbaa !23
+  %idxprom9.2 = zext i32 %sub.1 to i64
+  %arrayidx10.2 = getelementptr inbounds ptr, ptr %13, i64 %idxprom9.2
+  store ptr %14, ptr %arrayidx10.2, align 8, !tbaa !23
+  %15 = load ptr, ptr %array, align 8, !tbaa !19
+  %sub.3 = add nsw i32 %i.025, -4
+  %idxprom.3 = zext i32 %sub.3 to i64
+  %arrayidx.3 = getelementptr inbounds ptr, ptr %15, i64 %idxprom.3
+  %16 = load ptr, ptr %arrayidx.3, align 8, !tbaa !23
+  %idxprom9.3 = zext i32 %sub.2 to i64
+  %arrayidx10.3 = getelementptr inbounds ptr, ptr %15, i64 %idxprom9.3
+  store ptr %16, ptr %arrayidx10.3, align 8, !tbaa !23
+  %cmp7.3 = icmp sgt i32 %sub.3, %pos
+  br i1 %cmp7.3, label %for.body, label %for.cond.cleanup, !llvm.loop !29
 
-75:                                               ; preds = %3, %37
-  %76 = phi i32 [ 1, %37 ], [ 0, %3 ]
-  ret i32 %76
+return:                                           ; preds = %entry, %for.cond.cleanup
+  %retval.0 = phi i32 [ 1, %for.cond.cleanup ], [ 0, %entry ]
+  ret i32 %retval.0
 }
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(write, argmem: readwrite, inaccessiblemem: none) uwtable
-define dso_local noundef i32 @_ZN5Array6AssignEP6Objecti(ptr nocapture noundef nonnull align 8 dereferenceable(36) %0, ptr noundef %1, i32 noundef %2) unnamed_addr #6 align 2 {
-  %4 = getelementptr inbounds %class.Table, ptr %0, i64 0, i32 1
-  %5 = load i32, ptr %4, align 8, !tbaa !5
-  %6 = icmp slt i32 %5, %2
-  %7 = icmp slt i32 %2, 0
-  %8 = or i1 %7, %6
-  %9 = getelementptr inbounds %class.Array, ptr %0, i64 0, i32 3
-  %10 = load i32, ptr %9, align 8
-  %11 = icmp sge i32 %5, %10
-  %12 = select i1 %8, i1 true, i1 %11
-  br i1 %12, label %23, label %13
+define dso_local noundef i32 @_ZN5Array6AssignEP6Objecti(ptr nocapture noundef nonnull align 8 dereferenceable(36) %this, ptr noundef %obj, i32 noundef %pos) unnamed_addr #6 align 2 {
+entry:
+  %nelem = getelementptr inbounds %class.Table, ptr %this, i64 0, i32 1
+  %0 = load i32, ptr %nelem, align 8, !tbaa !5
+  %cmp = icmp sge i32 %0, %pos
+  %cmp2 = icmp sgt i32 %pos, -1
+  %or.cond.not15 = and i1 %cmp2, %cmp
+  %size = getelementptr inbounds %class.Array, ptr %this, i64 0, i32 3
+  %1 = load i32, ptr %size, align 8
+  %cmp5.not = icmp slt i32 %0, %1
+  %or.cond14 = select i1 %or.cond.not15, i1 %cmp5.not, i1 false
+  br i1 %or.cond14, label %if.end, label %return
 
-13:                                               ; preds = %3
-  %14 = icmp eq i32 %5, %2
-  br i1 %14, label %15, label %17
+if.end:                                           ; preds = %entry
+  %cmp7 = icmp eq i32 %0, %pos
+  br i1 %cmp7, label %if.then8, label %if.end10
 
-15:                                               ; preds = %13
-  %16 = add nuw nsw i32 %2, 1
-  store i32 %16, ptr %4, align 8, !tbaa !5
-  br label %17
+if.then8:                                         ; preds = %if.end
+  %inc = add nuw nsw i32 %pos, 1
+  store i32 %inc, ptr %nelem, align 8, !tbaa !5
+  br label %if.end10
 
-17:                                               ; preds = %15, %13
-  %18 = getelementptr inbounds %class.Array, ptr %0, i64 0, i32 2
-  %19 = load ptr, ptr %18, align 8, !tbaa !19
-  %20 = getelementptr inbounds %class.Table, ptr %0, i64 0, i32 2
-  store i32 %2, ptr %20, align 4, !tbaa !18
-  %21 = zext i32 %2 to i64
-  %22 = getelementptr inbounds ptr, ptr %19, i64 %21
-  store ptr %1, ptr %22, align 8, !tbaa !23
-  br label %23
+if.end10:                                         ; preds = %if.then8, %if.end
+  %array = getelementptr inbounds %class.Array, ptr %this, i64 0, i32 2
+  %2 = load ptr, ptr %array, align 8, !tbaa !19
+  %curind = getelementptr inbounds %class.Table, ptr %this, i64 0, i32 2
+  store i32 %pos, ptr %curind, align 4, !tbaa !18
+  %idxprom = zext i32 %pos to i64
+  %arrayidx = getelementptr inbounds ptr, ptr %2, i64 %idxprom
+  store ptr %obj, ptr %arrayidx, align 8, !tbaa !23
+  br label %return
 
-23:                                               ; preds = %3, %17
-  %24 = phi i32 [ 1, %17 ], [ 0, %3 ]
-  ret i32 %24
+return:                                           ; preds = %entry, %if.end10
+  %retval.0 = phi i32 [ 1, %if.end10 ], [ 0, %entry ]
+  ret i32 %retval.0
 }
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(read, argmem: readwrite, inaccessiblemem: none) uwtable
-define dso_local noundef ptr @_ZN5Array3GetEi(ptr nocapture noundef nonnull align 8 dereferenceable(36) %0, i32 noundef %1) unnamed_addr #8 align 2 {
-  %3 = getelementptr inbounds %class.Table, ptr %0, i64 0, i32 1
-  %4 = load i32, ptr %3, align 8, !tbaa !5
-  %5 = icmp sle i32 %4, %1
-  %6 = icmp slt i32 %1, 0
-  %7 = or i1 %6, %5
-  br i1 %7, label %15, label %8
+define dso_local noundef ptr @_ZN5Array3GetEi(ptr nocapture noundef nonnull align 8 dereferenceable(36) %this, i32 noundef %idx) unnamed_addr #8 align 2 {
+entry:
+  %nelem = getelementptr inbounds %class.Table, ptr %this, i64 0, i32 1
+  %0 = load i32, ptr %nelem, align 8, !tbaa !5
+  %cmp = icmp sle i32 %0, %idx
+  %cmp2 = icmp slt i32 %idx, 0
+  %or.cond = or i1 %cmp2, %cmp
+  br i1 %or.cond, label %return, label %if.end
 
-8:                                                ; preds = %2
-  %9 = getelementptr inbounds %class.Table, ptr %0, i64 0, i32 2
-  store i32 %1, ptr %9, align 4, !tbaa !18
-  %10 = getelementptr inbounds %class.Array, ptr %0, i64 0, i32 2
-  %11 = load ptr, ptr %10, align 8, !tbaa !19
-  %12 = zext i32 %1 to i64
-  %13 = getelementptr inbounds ptr, ptr %11, i64 %12
-  %14 = load ptr, ptr %13, align 8, !tbaa !23
-  br label %15
+if.end:                                           ; preds = %entry
+  %curind = getelementptr inbounds %class.Table, ptr %this, i64 0, i32 2
+  store i32 %idx, ptr %curind, align 4, !tbaa !18
+  %array = getelementptr inbounds %class.Array, ptr %this, i64 0, i32 2
+  %1 = load ptr, ptr %array, align 8, !tbaa !19
+  %idxprom = zext i32 %idx to i64
+  %arrayidx = getelementptr inbounds ptr, ptr %1, i64 %idxprom
+  %2 = load ptr, ptr %arrayidx, align 8, !tbaa !23
+  br label %return
 
-15:                                               ; preds = %2, %8
-  %16 = phi ptr [ %14, %8 ], [ null, %2 ]
-  ret ptr %16
+return:                                           ; preds = %entry, %if.end
+  %retval.0 = phi ptr [ %2, %if.end ], [ null, %entry ]
+  ret ptr %retval.0
 }
 
 ; Function Attrs: mustprogress uwtable
-define dso_local noundef ptr @_ZN5Array5FetchEi(ptr noundef nonnull align 8 dereferenceable(36) %0, i32 noundef %1) unnamed_addr #0 align 2 {
-  %3 = getelementptr inbounds %class.Table, ptr %0, i64 0, i32 1
-  %4 = load i32, ptr %3, align 8, !tbaa !5
-  %5 = icmp sle i32 %4, %1
-  %6 = icmp slt i32 %1, 0
-  %7 = or i1 %6, %5
-  br i1 %7, label %39, label %8
+define dso_local noundef ptr @_ZN5Array5FetchEi(ptr noundef nonnull align 8 dereferenceable(36) %this, i32 noundef %idx) unnamed_addr #0 align 2 {
+entry:
+  %nelem = getelementptr inbounds %class.Table, ptr %this, i64 0, i32 1
+  %0 = load i32, ptr %nelem, align 8, !tbaa !5
+  %cmp = icmp sle i32 %0, %idx
+  %cmp2 = icmp slt i32 %idx, 0
+  %or.cond = or i1 %cmp2, %cmp
+  br i1 %or.cond, label %return, label %if.end
 
-8:                                                ; preds = %2
-  %9 = load ptr, ptr %0, align 8, !tbaa !12
-  %10 = getelementptr inbounds ptr, ptr %9, i64 7
-  %11 = load ptr, ptr %10, align 8
-  %12 = tail call noundef ptr %11(ptr noundef nonnull align 8 dereferenceable(36) %0, i32 noundef %1)
-  %13 = load i32, ptr %3, align 8, !tbaa !5
-  %14 = add nsw i32 %13, -1
-  %15 = icmp sgt i32 %14, %1
-  br i1 %15, label %18, label %16
+if.end:                                           ; preds = %entry
+  %vtable = load ptr, ptr %this, align 8, !tbaa !12
+  %vfn = getelementptr inbounds ptr, ptr %vtable, i64 7
+  %1 = load ptr, ptr %vfn, align 8
+  %call = tail call noundef ptr %1(ptr noundef nonnull align 8 dereferenceable(36) %this, i32 noundef %idx)
+  %2 = load i32, ptr %nelem, align 8, !tbaa !5
+  %sub = add nsw i32 %2, -1
+  %cmp430 = icmp sgt i32 %sub, %idx
+  br i1 %cmp430, label %for.body.lr.ph, label %if.end.for.cond.cleanup_crit_edge
 
-16:                                               ; preds = %8
-  %17 = sext i32 %14 to i64
-  br label %22
+if.end.for.cond.cleanup_crit_edge:                ; preds = %if.end
+  %.pre = sext i32 %sub to i64
+  br label %for.cond.cleanup
 
-18:                                               ; preds = %8
-  %19 = getelementptr inbounds %class.Array, ptr %0, i64 0, i32 2
-  %20 = zext i32 %1 to i64
-  %21 = sext i32 %14 to i64
-  br label %31
+for.body.lr.ph:                                   ; preds = %if.end
+  %array = getelementptr inbounds %class.Array, ptr %this, i64 0, i32 2
+  %3 = zext i32 %idx to i64
+  %wide.trip.count = sext i32 %sub to i64
+  br label %for.body
 
-22:                                               ; preds = %31, %16
-  %23 = phi i64 [ %17, %16 ], [ %21, %31 ]
-  %24 = getelementptr inbounds %class.Array, ptr %0, i64 0, i32 2
-  %25 = load ptr, ptr %24, align 8, !tbaa !19
-  %26 = getelementptr inbounds ptr, ptr %25, i64 %23
-  store ptr null, ptr %26, align 8, !tbaa !23
-  %27 = icmp eq i32 %14, %1
-  %28 = sext i1 %27 to i32
-  %29 = add nsw i32 %28, %1
-  %30 = getelementptr inbounds %class.Table, ptr %0, i64 0, i32 2
-  store i32 %29, ptr %30, align 4
-  store i32 %14, ptr %3, align 8, !tbaa !5
-  br label %39
+for.cond.cleanup:                                 ; preds = %for.body, %if.end.for.cond.cleanup_crit_edge
+  %idxprom11.pre-phi = phi i64 [ %.pre, %if.end.for.cond.cleanup_crit_edge ], [ %wide.trip.count, %for.body ]
+  %array8 = getelementptr inbounds %class.Array, ptr %this, i64 0, i32 2
+  %4 = load ptr, ptr %array8, align 8, !tbaa !19
+  %arrayidx12 = getelementptr inbounds ptr, ptr %4, i64 %idxprom11.pre-phi
+  store ptr null, ptr %arrayidx12, align 8, !tbaa !23
+  %cmp15 = icmp eq i32 %sub, %idx
+  %sub17 = sext i1 %cmp15 to i32
+  %spec.select = add nsw i32 %sub17, %idx
+  %5 = getelementptr inbounds %class.Table, ptr %this, i64 0, i32 2
+  store i32 %spec.select, ptr %5, align 4
+  store i32 %sub, ptr %nelem, align 8, !tbaa !5
+  br label %return
 
-31:                                               ; preds = %18, %31
-  %32 = phi i64 [ %20, %18 ], [ %34, %31 ]
-  %33 = load ptr, ptr %19, align 8, !tbaa !19
-  %34 = add nuw nsw i64 %32, 1
-  %35 = getelementptr inbounds ptr, ptr %33, i64 %34
-  %36 = load ptr, ptr %35, align 8, !tbaa !23
-  %37 = getelementptr inbounds ptr, ptr %33, i64 %32
-  store ptr %36, ptr %37, align 8, !tbaa !23
-  %38 = icmp eq i64 %34, %21
-  br i1 %38, label %22, label %31, !llvm.loop !30
+for.body:                                         ; preds = %for.body.lr.ph, %for.body
+  %indvars.iv = phi i64 [ %3, %for.body.lr.ph ], [ %indvars.iv.next, %for.body ]
+  %6 = load ptr, ptr %array, align 8, !tbaa !19
+  %indvars.iv.next = add nuw nsw i64 %indvars.iv, 1
+  %arrayidx = getelementptr inbounds ptr, ptr %6, i64 %indvars.iv.next
+  %7 = load ptr, ptr %arrayidx, align 8, !tbaa !23
+  %arrayidx7 = getelementptr inbounds ptr, ptr %6, i64 %indvars.iv
+  store ptr %7, ptr %arrayidx7, align 8, !tbaa !23
+  %exitcond.not = icmp eq i64 %indvars.iv.next, %wide.trip.count
+  br i1 %exitcond.not, label %for.cond.cleanup, label %for.body, !llvm.loop !30
 
-39:                                               ; preds = %2, %22
-  %40 = phi ptr [ %12, %22 ], [ null, %2 ]
-  ret ptr %40
+return:                                           ; preds = %entry, %for.cond.cleanup
+  %retval.0 = phi ptr [ %call, %for.cond.cleanup ], [ null, %entry ]
+  ret ptr %retval.0
 }
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(readwrite, inaccessiblemem: none) uwtable
-define dso_local noundef i32 @_ZN7SpArray6AssignEP6Objecti(ptr nocapture noundef nonnull align 8 dereferenceable(36) %0, ptr noundef %1, i32 noundef %2) unnamed_addr #9 align 2 {
-  %4 = getelementptr inbounds %class.Array, ptr %0, i64 0, i32 3
-  %5 = load i32, ptr %4, align 8, !tbaa !22
-  %6 = icmp sle i32 %5, %2
-  %7 = icmp slt i32 %2, 0
-  %8 = or i1 %7, %6
-  br i1 %8, label %22, label %9
+define dso_local noundef i32 @_ZN7SpArray6AssignEP6Objecti(ptr nocapture noundef nonnull align 8 dereferenceable(36) %this, ptr noundef %o, i32 noundef %pos) unnamed_addr #9 align 2 {
+entry:
+  %size = getelementptr inbounds %class.Array, ptr %this, i64 0, i32 3
+  %0 = load i32, ptr %size, align 8, !tbaa !22
+  %cmp = icmp sle i32 %0, %pos
+  %cmp2 = icmp slt i32 %pos, 0
+  %or.cond = or i1 %cmp2, %cmp
+  br i1 %or.cond, label %return, label %if.end
 
-9:                                                ; preds = %3
-  %10 = getelementptr inbounds %class.Array, ptr %0, i64 0, i32 2
-  %11 = load ptr, ptr %10, align 8, !tbaa !19
-  %12 = zext i32 %2 to i64
-  %13 = getelementptr inbounds ptr, ptr %11, i64 %12
-  %14 = load ptr, ptr %13, align 8, !tbaa !23
-  %15 = icmp eq ptr %14, null
-  br i1 %15, label %16, label %20
+if.end:                                           ; preds = %entry
+  %array = getelementptr inbounds %class.Array, ptr %this, i64 0, i32 2
+  %1 = load ptr, ptr %array, align 8, !tbaa !19
+  %idxprom = zext i32 %pos to i64
+  %arrayidx = getelementptr inbounds ptr, ptr %1, i64 %idxprom
+  %2 = load ptr, ptr %arrayidx, align 8, !tbaa !23
+  %cmp3 = icmp eq ptr %2, null
+  br i1 %cmp3, label %if.then4, label %if.end5
 
-16:                                               ; preds = %9
-  %17 = getelementptr inbounds %class.Table, ptr %0, i64 0, i32 1
-  %18 = load i32, ptr %17, align 8, !tbaa !5
-  %19 = add nsw i32 %18, 1
-  store i32 %19, ptr %17, align 8, !tbaa !5
-  br label %20
+if.then4:                                         ; preds = %if.end
+  %nelem = getelementptr inbounds %class.Table, ptr %this, i64 0, i32 1
+  %3 = load i32, ptr %nelem, align 8, !tbaa !5
+  %inc = add nsw i32 %3, 1
+  store i32 %inc, ptr %nelem, align 8, !tbaa !5
+  br label %if.end5
 
-20:                                               ; preds = %16, %9
-  %21 = getelementptr inbounds %class.Table, ptr %0, i64 0, i32 2
-  store i32 %2, ptr %21, align 4, !tbaa !18
-  store ptr %1, ptr %13, align 8, !tbaa !23
-  br label %22
+if.end5:                                          ; preds = %if.then4, %if.end
+  %curind = getelementptr inbounds %class.Table, ptr %this, i64 0, i32 2
+  store i32 %pos, ptr %curind, align 4, !tbaa !18
+  store ptr %o, ptr %arrayidx, align 8, !tbaa !23
+  br label %return
 
-22:                                               ; preds = %3, %20
-  %23 = phi i32 [ 1, %20 ], [ 0, %3 ]
-  ret i32 %23
+return:                                           ; preds = %entry, %if.end5
+  %retval.0 = phi i32 [ 1, %if.end5 ], [ 0, %entry ]
+  ret i32 %retval.0
 }
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(read, argmem: readwrite, inaccessiblemem: none) uwtable
-define dso_local noundef ptr @_ZN7SpArray3GetEi(ptr nocapture noundef nonnull align 8 dereferenceable(36) %0, i32 noundef %1) unnamed_addr #8 align 2 {
-  %3 = getelementptr inbounds %class.Array, ptr %0, i64 0, i32 3
-  %4 = load i32, ptr %3, align 8, !tbaa !22
-  %5 = icmp sle i32 %4, %1
-  %6 = icmp slt i32 %1, 0
-  %7 = or i1 %6, %5
-  br i1 %7, label %15, label %8
+define dso_local noundef ptr @_ZN7SpArray3GetEi(ptr nocapture noundef nonnull align 8 dereferenceable(36) %this, i32 noundef %idx) unnamed_addr #8 align 2 {
+entry:
+  %size = getelementptr inbounds %class.Array, ptr %this, i64 0, i32 3
+  %0 = load i32, ptr %size, align 8, !tbaa !22
+  %cmp = icmp sle i32 %0, %idx
+  %cmp2 = icmp slt i32 %idx, 0
+  %or.cond = or i1 %cmp2, %cmp
+  br i1 %or.cond, label %return, label %if.end
 
-8:                                                ; preds = %2
-  %9 = getelementptr inbounds %class.Table, ptr %0, i64 0, i32 2
-  store i32 %1, ptr %9, align 4, !tbaa !18
-  %10 = getelementptr inbounds %class.Array, ptr %0, i64 0, i32 2
-  %11 = load ptr, ptr %10, align 8, !tbaa !19
-  %12 = zext i32 %1 to i64
-  %13 = getelementptr inbounds ptr, ptr %11, i64 %12
-  %14 = load ptr, ptr %13, align 8, !tbaa !23
-  br label %15
+if.end:                                           ; preds = %entry
+  %curind = getelementptr inbounds %class.Table, ptr %this, i64 0, i32 2
+  store i32 %idx, ptr %curind, align 4, !tbaa !18
+  %array = getelementptr inbounds %class.Array, ptr %this, i64 0, i32 2
+  %1 = load ptr, ptr %array, align 8, !tbaa !19
+  %idxprom = zext i32 %idx to i64
+  %arrayidx = getelementptr inbounds ptr, ptr %1, i64 %idxprom
+  %2 = load ptr, ptr %arrayidx, align 8, !tbaa !23
+  br label %return
 
-15:                                               ; preds = %2, %8
-  %16 = phi ptr [ %14, %8 ], [ null, %2 ]
-  ret ptr %16
+return:                                           ; preds = %entry, %if.end
+  %retval.0 = phi ptr [ %2, %if.end ], [ null, %entry ]
+  ret ptr %retval.0
 }
 
 ; Function Attrs: mustprogress uwtable
-define dso_local noundef ptr @_ZN7SpArray5FetchEi(ptr noundef nonnull align 8 dereferenceable(36) %0, i32 noundef %1) unnamed_addr #0 align 2 {
-  %3 = load ptr, ptr %0, align 8, !tbaa !12
-  %4 = getelementptr inbounds ptr, ptr %3, i64 7
-  %5 = load ptr, ptr %4, align 8
-  %6 = tail call noundef ptr %5(ptr noundef nonnull align 8 dereferenceable(36) %0, i32 noundef %1)
-  %7 = icmp eq ptr %6, null
-  br i1 %7, label %20, label %8
+define dso_local noundef ptr @_ZN7SpArray5FetchEi(ptr noundef nonnull align 8 dereferenceable(36) %this, i32 noundef %pos) unnamed_addr #0 align 2 {
+entry:
+  %vtable = load ptr, ptr %this, align 8, !tbaa !12
+  %vfn = getelementptr inbounds ptr, ptr %vtable, i64 7
+  %0 = load ptr, ptr %vfn, align 8
+  %call = tail call noundef ptr %0(ptr noundef nonnull align 8 dereferenceable(36) %this, i32 noundef %pos)
+  %tobool.not = icmp eq ptr %call, null
+  br i1 %tobool.not, label %if.end6, label %if.then
 
-8:                                                ; preds = %2
-  %9 = getelementptr inbounds %class.Array, ptr %0, i64 0, i32 2
-  %10 = load ptr, ptr %9, align 8, !tbaa !19
-  %11 = sext i32 %1 to i64
-  %12 = getelementptr inbounds ptr, ptr %10, i64 %11
-  store ptr null, ptr %12, align 8, !tbaa !23
-  %13 = getelementptr inbounds %class.Table, ptr %0, i64 0, i32 1
-  %14 = load i32, ptr %13, align 8, !tbaa !5
-  %15 = add nsw i32 %14, -1
-  %16 = icmp eq i32 %15, %1
-  %17 = sext i1 %16 to i32
-  %18 = add nsw i32 %17, %1
-  %19 = getelementptr inbounds %class.Table, ptr %0, i64 0, i32 2
-  store i32 %18, ptr %19, align 4
-  store i32 %15, ptr %13, align 8, !tbaa !5
-  br label %20
+if.then:                                          ; preds = %entry
+  %array = getelementptr inbounds %class.Array, ptr %this, i64 0, i32 2
+  %1 = load ptr, ptr %array, align 8, !tbaa !19
+  %idxprom = sext i32 %pos to i64
+  %arrayidx = getelementptr inbounds ptr, ptr %1, i64 %idxprom
+  store ptr null, ptr %arrayidx, align 8, !tbaa !23
+  %nelem = getelementptr inbounds %class.Table, ptr %this, i64 0, i32 1
+  %2 = load i32, ptr %nelem, align 8, !tbaa !5
+  %sub = add nsw i32 %2, -1
+  %cmp = icmp eq i32 %sub, %pos
+  %sub3 = sext i1 %cmp to i32
+  %spec.select = add nsw i32 %sub3, %pos
+  %3 = getelementptr inbounds %class.Table, ptr %this, i64 0, i32 2
+  store i32 %spec.select, ptr %3, align 4
+  store i32 %sub, ptr %nelem, align 8, !tbaa !5
+  br label %if.end6
 
-20:                                               ; preds = %8, %2
-  ret ptr %6
+if.end6:                                          ; preds = %if.then, %entry
+  ret ptr %call
 }
 
 ; Function Attrs: mustprogress uwtable
-define dso_local noundef i32 @_ZN7SpArray6SearchER6Object(ptr nocapture noundef nonnull readonly align 8 dereferenceable(36) %0, ptr noundef nonnull align 8 dereferenceable(8) %1) unnamed_addr #0 align 2 {
-  %3 = getelementptr inbounds %class.Array, ptr %0, i64 0, i32 3
-  %4 = load i32, ptr %3, align 8, !tbaa !22
-  %5 = icmp sgt i32 %4, 0
-  br i1 %5, label %6, label %30
+define dso_local noundef i32 @_ZN7SpArray6SearchER6Object(ptr nocapture noundef nonnull readonly align 8 dereferenceable(36) %this, ptr noundef nonnull align 8 dereferenceable(8) %o) unnamed_addr #0 align 2 {
+entry:
+  %size = getelementptr inbounds %class.Array, ptr %this, i64 0, i32 3
+  %0 = load i32, ptr %size, align 8, !tbaa !22
+  %cmp.not15 = icmp sgt i32 %0, 0
+  br i1 %cmp.not15, label %for.body.lr.ph, label %cleanup5
 
-6:                                                ; preds = %2
-  %7 = getelementptr inbounds %class.Array, ptr %0, i64 0, i32 2
-  br label %8
+for.body.lr.ph:                                   ; preds = %entry
+  %array = getelementptr inbounds %class.Array, ptr %this, i64 0, i32 2
+  br label %for.body
 
-8:                                                ; preds = %6, %23
-  %9 = phi i32 [ %4, %6 ], [ %24, %23 ]
-  %10 = phi i64 [ 0, %6 ], [ %25, %23 ]
-  %11 = load ptr, ptr %7, align 8, !tbaa !19
-  %12 = getelementptr inbounds ptr, ptr %11, i64 %10
-  %13 = load ptr, ptr %12, align 8, !tbaa !23
-  %14 = icmp eq ptr %13, null
-  br i1 %14, label %23, label %15
+for.body:                                         ; preds = %for.body.lr.ph, %for.inc
+  %1 = phi i32 [ %0, %for.body.lr.ph ], [ %5, %for.inc ]
+  %indvars.iv = phi i64 [ 0, %for.body.lr.ph ], [ %indvars.iv.next, %for.inc ]
+  %2 = load ptr, ptr %array, align 8, !tbaa !19
+  %arrayidx = getelementptr inbounds ptr, ptr %2, i64 %indvars.iv
+  %3 = load ptr, ptr %arrayidx, align 8, !tbaa !23
+  %cmp2.not = icmp eq ptr %3, null
+  br i1 %cmp2.not, label %for.inc, label %if.then
 
-15:                                               ; preds = %8
-  %16 = load ptr, ptr %13, align 8, !tbaa !12
-  %17 = getelementptr inbounds ptr, ptr %16, i64 2
-  %18 = load ptr, ptr %17, align 8
-  %19 = tail call noundef i32 %18(ptr noundef nonnull align 8 dereferenceable(8) %13, ptr noundef nonnull align 8 dereferenceable(8) %1)
-  %20 = icmp eq i32 %19, 0
-  br i1 %20, label %21, label %28
+if.then:                                          ; preds = %for.body
+  %vtable = load ptr, ptr %3, align 8, !tbaa !12
+  %vfn = getelementptr inbounds ptr, ptr %vtable, i64 2
+  %4 = load ptr, ptr %vfn, align 8
+  %call = tail call noundef i32 %4(ptr noundef nonnull align 8 dereferenceable(8) %3, ptr noundef nonnull align 8 dereferenceable(8) %o)
+  %tobool.not = icmp eq i32 %call, 0
+  br i1 %tobool.not, label %if.then.for.inc_crit_edge, label %cleanup5.loopexit.split.loop.exit
 
-21:                                               ; preds = %15
-  %22 = load i32, ptr %3, align 8, !tbaa !22
-  br label %23
+if.then.for.inc_crit_edge:                        ; preds = %if.then
+  %.pre = load i32, ptr %size, align 8, !tbaa !22
+  br label %for.inc
 
-23:                                               ; preds = %21, %8
-  %24 = phi i32 [ %22, %21 ], [ %9, %8 ]
-  %25 = add nuw nsw i64 %10, 1
-  %26 = sext i32 %24 to i64
-  %27 = icmp slt i64 %25, %26
-  br i1 %27, label %8, label %30, !llvm.loop !31
+for.inc:                                          ; preds = %if.then.for.inc_crit_edge, %for.body
+  %5 = phi i32 [ %.pre, %if.then.for.inc_crit_edge ], [ %1, %for.body ]
+  %indvars.iv.next = add nuw nsw i64 %indvars.iv, 1
+  %6 = sext i32 %5 to i64
+  %cmp.not = icmp slt i64 %indvars.iv.next, %6
+  br i1 %cmp.not, label %for.body, label %cleanup5, !llvm.loop !31
 
-28:                                               ; preds = %15
-  %29 = trunc i64 %10 to i32
-  br label %30
+cleanup5.loopexit.split.loop.exit:                ; preds = %if.then
+  %7 = trunc i64 %indvars.iv to i32
+  br label %cleanup5
 
-30:                                               ; preds = %23, %28, %2
-  %31 = phi i32 [ -1, %2 ], [ %29, %28 ], [ -1, %23 ]
-  ret i32 %31
+cleanup5:                                         ; preds = %for.inc, %cleanup5.loopexit.split.loop.exit, %entry
+  %spec.select = phi i32 [ -1, %entry ], [ %7, %cleanup5.loopexit.split.loop.exit ], [ -1, %for.inc ]
+  ret i32 %spec.select
 }
 
 ; Function Attrs: nounwind uwtable
-define dso_local void @_ZN7SpArrayD2Ev(ptr noundef nonnull align 8 dereferenceable(36) %0) unnamed_addr #3 align 2 personality ptr @__gxx_personality_v0 {
-  store ptr getelementptr inbounds ({ [15 x ptr] }, ptr @_ZTV7SpArray, i64 0, inrange i32 0, i64 2), ptr %0, align 8, !tbaa !12
-  %2 = getelementptr inbounds %class.Table, ptr %0, i64 0, i32 3
-  %3 = load i32, ptr %2, align 8, !tbaa !17
-  %4 = icmp eq i32 %3, 1
-  br i1 %4, label %5, label %28
+define dso_local void @_ZN7SpArrayD2Ev(ptr noundef nonnull align 8 dereferenceable(36) %this) unnamed_addr #3 align 2 personality ptr @__gxx_personality_v0 {
+entry:
+  store ptr getelementptr inbounds ({ [15 x ptr] }, ptr @_ZTV7SpArray, i64 0, inrange i32 0, i64 2), ptr %this, align 8, !tbaa !12
+  %type = getelementptr inbounds %class.Table, ptr %this, i64 0, i32 3
+  %0 = load i32, ptr %type, align 8, !tbaa !17
+  %cmp = icmp eq i32 %0, 1
+  br i1 %cmp, label %if.then, label %if.end5
 
-5:                                                ; preds = %1
-  %6 = getelementptr inbounds %class.Array, ptr %0, i64 0, i32 3
-  %7 = load i32, ptr %6, align 8, !tbaa !22
-  %8 = icmp sgt i32 %7, 0
-  br i1 %8, label %9, label %28
+if.then:                                          ; preds = %entry
+  %size = getelementptr inbounds %class.Array, ptr %this, i64 0, i32 3
+  %1 = load i32, ptr %size, align 8, !tbaa !22
+  %cmp217 = icmp sgt i32 %1, 0
+  br i1 %cmp217, label %for.body.lr.ph, label %if.end5
 
-9:                                                ; preds = %5
-  %10 = getelementptr inbounds %class.Array, ptr %0, i64 0, i32 2
-  %11 = zext i32 %7 to i64
-  br label %12
+for.body.lr.ph:                                   ; preds = %if.then
+  %array = getelementptr inbounds %class.Array, ptr %this, i64 0, i32 2
+  %2 = zext i32 %1 to i64
+  br label %for.body
 
-12:                                               ; preds = %9, %26
-  %13 = phi i64 [ %11, %9 ], [ %14, %26 ]
-  %14 = add nsw i64 %13, -1
-  %15 = load ptr, ptr %10, align 8, !tbaa !19
-  %16 = and i64 %14, 4294967295
-  %17 = getelementptr inbounds ptr, ptr %15, i64 %16
-  %18 = load ptr, ptr %17, align 8, !tbaa !23
-  %19 = icmp eq ptr %18, null
-  br i1 %19, label %26, label %20
+for.body:                                         ; preds = %for.body.lr.ph, %for.inc
+  %indvars.iv = phi i64 [ %2, %for.body.lr.ph ], [ %indvars.iv.next, %for.inc ]
+  %indvars.iv.next = add nsw i64 %indvars.iv, -1
+  %3 = load ptr, ptr %array, align 8, !tbaa !19
+  %idxprom = and i64 %indvars.iv.next, 4294967295
+  %arrayidx = getelementptr inbounds ptr, ptr %3, i64 %idxprom
+  %4 = load ptr, ptr %arrayidx, align 8, !tbaa !23
+  %cmp3.not = icmp eq ptr %4, null
+  br i1 %cmp3.not, label %for.inc, label %if.then4
 
-20:                                               ; preds = %12
-  %21 = trunc i64 %14 to i32
-  %22 = load ptr, ptr %0, align 8, !tbaa !12
-  %23 = getelementptr inbounds ptr, ptr %22, i64 9
-  %24 = load ptr, ptr %23, align 8
-  %25 = invoke noundef i32 %24(ptr noundef nonnull align 8 dereferenceable(20) %0, i32 noundef %21)
-          to label %26 unwind label %36
+if.then4:                                         ; preds = %for.body
+  %indvars = trunc i64 %indvars.iv.next to i32
+  %vtable = load ptr, ptr %this, align 8, !tbaa !12
+  %vfn = getelementptr inbounds ptr, ptr %vtable, i64 9
+  %5 = load ptr, ptr %vfn, align 8
+  %call = invoke noundef i32 %5(ptr noundef nonnull align 8 dereferenceable(20) %this, i32 noundef %indvars)
+          to label %for.inc unwind label %terminate.lpad
 
-26:                                               ; preds = %12, %20
-  %27 = icmp ugt i64 %13, 1
-  br i1 %27, label %12, label %28, !llvm.loop !32
+for.inc:                                          ; preds = %for.body, %if.then4
+  %cmp2 = icmp ugt i64 %indvars.iv, 1
+  br i1 %cmp2, label %for.body, label %if.end5, !llvm.loop !32
 
-28:                                               ; preds = %26, %5, %1
-  %29 = getelementptr inbounds %class.Array, ptr %0, i64 0, i32 2
-  %30 = load ptr, ptr %29, align 8, !tbaa !19
-  %31 = icmp eq ptr %30, null
-  br i1 %31, label %33, label %32
+if.end5:                                          ; preds = %for.inc, %if.then, %entry
+  %array6 = getelementptr inbounds %class.Array, ptr %this, i64 0, i32 2
+  %6 = load ptr, ptr %array6, align 8, !tbaa !19
+  %tobool.not = icmp eq ptr %6, null
+  br i1 %tobool.not, label %if.end10, label %delete.notnull
 
-32:                                               ; preds = %28
-  tail call void @_ZdlPv(ptr noundef nonnull %30) #15
-  store ptr null, ptr %29, align 8, !tbaa !19
-  br label %33
+delete.notnull:                                   ; preds = %if.end5
+  tail call void @_ZdlPv(ptr noundef nonnull %6) #15
+  store ptr null, ptr %array6, align 8, !tbaa !19
+  br label %if.end10
 
-33:                                               ; preds = %32, %28
-  %34 = getelementptr inbounds %class.Table, ptr %0, i64 0, i32 1
-  %35 = getelementptr inbounds %class.Table, ptr %0, i64 0, i32 2
-  store ptr getelementptr inbounds ({ [15 x ptr] }, ptr @_ZTV5Array, i64 0, inrange i32 0, i64 2), ptr %0, align 8, !tbaa !12
-  store i32 0, ptr %34, align 8, !tbaa !5
-  store i32 -1, ptr %35, align 4, !tbaa !18
+if.end10:                                         ; preds = %delete.notnull, %if.end5
+  %nelem.i = getelementptr inbounds %class.Table, ptr %this, i64 0, i32 1
+  %curind.i = getelementptr inbounds %class.Table, ptr %this, i64 0, i32 2
+  store ptr getelementptr inbounds ({ [15 x ptr] }, ptr @_ZTV5Array, i64 0, inrange i32 0, i64 2), ptr %this, align 8, !tbaa !12
+  store i32 0, ptr %nelem.i, align 8, !tbaa !5
+  store i32 -1, ptr %curind.i, align 4, !tbaa !18
   ret void
 
-36:                                               ; preds = %20
-  %37 = landingpad { ptr, i32 }
+terminate.lpad:                                   ; preds = %if.then4
+  %7 = landingpad { ptr, i32 }
           catch ptr null
-  %38 = extractvalue { ptr, i32 } %37, 0
-  tail call void @__clang_call_terminate(ptr %38) #16
+  %8 = extractvalue { ptr, i32 } %7, 0
+  tail call void @__clang_call_terminate(ptr %8) #16
   unreachable
 }
 
 ; Function Attrs: nounwind uwtable
-define dso_local void @_ZN7SpArrayD0Ev(ptr noundef nonnull align 8 dereferenceable(36) %0) unnamed_addr #3 align 2 personality ptr @__gxx_personality_v0 {
-  store ptr getelementptr inbounds ({ [15 x ptr] }, ptr @_ZTV7SpArray, i64 0, inrange i32 0, i64 2), ptr %0, align 8, !tbaa !12
-  %2 = getelementptr inbounds %class.Table, ptr %0, i64 0, i32 3
-  %3 = load i32, ptr %2, align 8, !tbaa !17
-  %4 = icmp eq i32 %3, 1
-  br i1 %4, label %5, label %28
+define dso_local void @_ZN7SpArrayD0Ev(ptr noundef nonnull align 8 dereferenceable(36) %this) unnamed_addr #3 align 2 personality ptr @__gxx_personality_v0 {
+entry:
+  store ptr getelementptr inbounds ({ [15 x ptr] }, ptr @_ZTV7SpArray, i64 0, inrange i32 0, i64 2), ptr %this, align 8, !tbaa !12
+  %type.i = getelementptr inbounds %class.Table, ptr %this, i64 0, i32 3
+  %0 = load i32, ptr %type.i, align 8, !tbaa !17
+  %cmp.i = icmp eq i32 %0, 1
+  br i1 %cmp.i, label %if.then.i, label %if.end5.i
 
-5:                                                ; preds = %1
-  %6 = getelementptr inbounds %class.Array, ptr %0, i64 0, i32 3
-  %7 = load i32, ptr %6, align 8, !tbaa !22
-  %8 = icmp sgt i32 %7, 0
-  br i1 %8, label %9, label %28
+if.then.i:                                        ; preds = %entry
+  %size.i = getelementptr inbounds %class.Array, ptr %this, i64 0, i32 3
+  %1 = load i32, ptr %size.i, align 8, !tbaa !22
+  %cmp217.i = icmp sgt i32 %1, 0
+  br i1 %cmp217.i, label %for.body.lr.ph.i, label %if.end5.i
 
-9:                                                ; preds = %5
-  %10 = getelementptr inbounds %class.Array, ptr %0, i64 0, i32 2
-  %11 = zext i32 %7 to i64
-  br label %12
+for.body.lr.ph.i:                                 ; preds = %if.then.i
+  %array.i = getelementptr inbounds %class.Array, ptr %this, i64 0, i32 2
+  %2 = zext i32 %1 to i64
+  br label %for.body.i
 
-12:                                               ; preds = %26, %9
-  %13 = phi i64 [ %11, %9 ], [ %14, %26 ]
-  %14 = add nsw i64 %13, -1
-  %15 = load ptr, ptr %10, align 8, !tbaa !19
-  %16 = and i64 %14, 4294967295
-  %17 = getelementptr inbounds ptr, ptr %15, i64 %16
-  %18 = load ptr, ptr %17, align 8, !tbaa !23
-  %19 = icmp eq ptr %18, null
-  br i1 %19, label %26, label %20
+for.body.i:                                       ; preds = %for.inc.i, %for.body.lr.ph.i
+  %indvars.iv.i = phi i64 [ %2, %for.body.lr.ph.i ], [ %indvars.iv.next.i, %for.inc.i ]
+  %indvars.iv.next.i = add nsw i64 %indvars.iv.i, -1
+  %3 = load ptr, ptr %array.i, align 8, !tbaa !19
+  %idxprom.i = and i64 %indvars.iv.next.i, 4294967295
+  %arrayidx.i = getelementptr inbounds ptr, ptr %3, i64 %idxprom.i
+  %4 = load ptr, ptr %arrayidx.i, align 8, !tbaa !23
+  %cmp3.not.i = icmp eq ptr %4, null
+  br i1 %cmp3.not.i, label %for.inc.i, label %if.then4.i
 
-20:                                               ; preds = %12
-  %21 = trunc i64 %14 to i32
-  %22 = load ptr, ptr %0, align 8, !tbaa !12
-  %23 = getelementptr inbounds ptr, ptr %22, i64 9
-  %24 = load ptr, ptr %23, align 8
-  %25 = invoke noundef i32 %24(ptr noundef nonnull align 8 dereferenceable(20) %0, i32 noundef %21)
-          to label %26 unwind label %33
+if.then4.i:                                       ; preds = %for.body.i
+  %indvars.i = trunc i64 %indvars.iv.next.i to i32
+  %vtable.i = load ptr, ptr %this, align 8, !tbaa !12
+  %vfn.i = getelementptr inbounds ptr, ptr %vtable.i, i64 9
+  %5 = load ptr, ptr %vfn.i, align 8
+  %call.i = invoke noundef i32 %5(ptr noundef nonnull align 8 dereferenceable(20) %this, i32 noundef %indvars.i)
+          to label %for.inc.i unwind label %terminate.lpad.i
 
-26:                                               ; preds = %20, %12
-  %27 = icmp ugt i64 %13, 1
-  br i1 %27, label %12, label %28, !llvm.loop !32
+for.inc.i:                                        ; preds = %if.then4.i, %for.body.i
+  %cmp2.i = icmp ugt i64 %indvars.iv.i, 1
+  br i1 %cmp2.i, label %for.body.i, label %if.end5.i, !llvm.loop !32
 
-28:                                               ; preds = %26, %5, %1
-  %29 = getelementptr inbounds %class.Array, ptr %0, i64 0, i32 2
-  %30 = load ptr, ptr %29, align 8, !tbaa !19
-  %31 = icmp eq ptr %30, null
-  br i1 %31, label %36, label %32
+if.end5.i:                                        ; preds = %for.inc.i, %if.then.i, %entry
+  %array6.i = getelementptr inbounds %class.Array, ptr %this, i64 0, i32 2
+  %6 = load ptr, ptr %array6.i, align 8, !tbaa !19
+  %tobool.not.i = icmp eq ptr %6, null
+  br i1 %tobool.not.i, label %_ZN7SpArrayD2Ev.exit, label %delete.notnull.i
 
-32:                                               ; preds = %28
-  tail call void @_ZdlPv(ptr noundef nonnull %30) #15
-  br label %36
+delete.notnull.i:                                 ; preds = %if.end5.i
+  tail call void @_ZdlPv(ptr noundef nonnull %6) #15
+  br label %_ZN7SpArrayD2Ev.exit
 
-33:                                               ; preds = %20
-  %34 = landingpad { ptr, i32 }
+terminate.lpad.i:                                 ; preds = %if.then4.i
+  %7 = landingpad { ptr, i32 }
           catch ptr null
-  %35 = extractvalue { ptr, i32 } %34, 0
-  tail call void @__clang_call_terminate(ptr %35) #16
+  %8 = extractvalue { ptr, i32 } %7, 0
+  tail call void @__clang_call_terminate(ptr %8) #16
   unreachable
 
-36:                                               ; preds = %28, %32
-  tail call void @_ZdlPv(ptr noundef nonnull %0) #15
+_ZN7SpArrayD2Ev.exit:                             ; preds = %if.end5.i, %delete.notnull.i
+  tail call void @_ZdlPv(ptr noundef nonnull %this) #15
   ret void
 }
 
 ; Function Attrs: norecurse uwtable
 define dso_local noundef i32 @main() local_unnamed_addr #10 personality ptr @__gxx_personality_v0 {
-  %1 = tail call noalias noundef nonnull dereferenceable(16) ptr @_Znwm(i64 noundef 16) #14
-  store ptr getelementptr inbounds ({ [6 x ptr] }, ptr @_ZTV1A, i64 0, inrange i32 0, i64 2), ptr %1, align 8, !tbaa !12
-  %2 = getelementptr inbounds %class.A, ptr %1, i64 0, i32 1
-  store i32 2, ptr %2, align 8, !tbaa !33
-  %3 = tail call noundef ptr @_ZN1A4TypeEv(ptr noundef nonnull align 8 dereferenceable(12) %1)
+entry:
+  %call1 = tail call noalias noundef nonnull dereferenceable(16) ptr @_Znwm(i64 noundef 16) #14
+  store ptr getelementptr inbounds ({ [6 x ptr] }, ptr @_ZTV1A, i64 0, inrange i32 0, i64 2), ptr %call1, align 8, !tbaa !12
+  %i.i27 = getelementptr inbounds %class.A, ptr %call1, i64 0, i32 1
+  store i32 2, ptr %i.i27, align 8, !tbaa !33
+  %call19 = tail call noundef ptr @_ZN1A4TypeEv(ptr noundef nonnull align 8 dereferenceable(12) %call1)
   ret i32 0
 }
 
@@ -880,101 +900,113 @@ define dso_local noundef i32 @main() local_unnamed_addr #10 personality ptr @__g
 declare noundef nonnull ptr @_Znwm(i64 noundef) local_unnamed_addr #2
 
 ; Function Attrs: nounwind uwtable
-define linkonce_odr dso_local void @_ZN6ObjectD2Ev(ptr noundef nonnull align 8 dereferenceable(8) %0) unnamed_addr #3 comdat align 2 {
+define linkonce_odr dso_local void @_ZN6ObjectD2Ev(ptr noundef nonnull align 8 dereferenceable(8) %this) unnamed_addr #3 comdat align 2 {
+entry:
   ret void
 }
 
 ; Function Attrs: inlinehint nounwind uwtable
-define linkonce_odr dso_local void @_ZN5TableD0Ev(ptr noundef nonnull align 8 dereferenceable(20) %0) unnamed_addr #11 comdat align 2 {
+define linkonce_odr dso_local void @_ZN5TableD0Ev(ptr noundef nonnull align 8 dereferenceable(20) %this) unnamed_addr #11 comdat align 2 {
+entry:
   tail call void @llvm.trap() #16
   unreachable
 }
 
 ; Function Attrs: mustprogress nounwind uwtable
-define linkonce_odr dso_local noundef ptr @_ZN5Table4TypeEv(ptr noundef nonnull align 8 dereferenceable(20) %0) unnamed_addr #12 comdat align 2 {
+define linkonce_odr dso_local noundef ptr @_ZN5Table4TypeEv(ptr noundef nonnull align 8 dereferenceable(20) %this) unnamed_addr #12 comdat align 2 {
+entry:
   ret ptr @.str.2
 }
 
 declare void @__cxa_pure_virtual() unnamed_addr
 
 ; Function Attrs: mustprogress uwtable
-define linkonce_odr dso_local noundef i32 @_ZN5Table6AppendEP6Object(ptr noundef nonnull align 8 dereferenceable(20) %0, ptr noundef %1) unnamed_addr #0 comdat align 2 {
-  %3 = load ptr, ptr %0, align 8, !tbaa !12
-  %4 = getelementptr inbounds ptr, ptr %3, i64 12
-  %5 = load ptr, ptr %4, align 8
-  %6 = tail call noundef i32 %5(ptr noundef nonnull align 8 dereferenceable(20) %0)
-  %7 = load ptr, ptr %0, align 8, !tbaa !12
-  %8 = getelementptr inbounds ptr, ptr %7, i64 4
-  %9 = load ptr, ptr %8, align 8
-  %10 = tail call noundef i32 %9(ptr noundef nonnull align 8 dereferenceable(20) %0, ptr noundef %1, i32 noundef %6)
-  ret i32 %10
+define linkonce_odr dso_local noundef i32 @_ZN5Table6AppendEP6Object(ptr noundef nonnull align 8 dereferenceable(20) %this, ptr noundef %p) unnamed_addr #0 comdat align 2 {
+entry:
+  %vtable = load ptr, ptr %this, align 8, !tbaa !12
+  %vfn = getelementptr inbounds ptr, ptr %vtable, i64 12
+  %0 = load ptr, ptr %vfn, align 8
+  %call = tail call noundef i32 %0(ptr noundef nonnull align 8 dereferenceable(20) %this)
+  %vtable2 = load ptr, ptr %this, align 8, !tbaa !12
+  %vfn3 = getelementptr inbounds ptr, ptr %vtable2, i64 4
+  %1 = load ptr, ptr %vfn3, align 8
+  %call4 = tail call noundef i32 %1(ptr noundef nonnull align 8 dereferenceable(20) %this, ptr noundef %p, i32 noundef %call)
+  ret i32 %call4
 }
 
 ; Function Attrs: mustprogress uwtable
-define linkonce_odr dso_local noundef i32 @_ZN5Table6AssignEP6Objecti(ptr noundef nonnull align 8 dereferenceable(20) %0, ptr noundef %1, i32 noundef %2) unnamed_addr #0 comdat align 2 {
-  %4 = load ptr, ptr %0, align 8, !tbaa !12
-  %5 = getelementptr inbounds ptr, ptr %4, i64 8
-  %6 = load ptr, ptr %5, align 8
-  %7 = tail call noundef ptr %6(ptr noundef nonnull align 8 dereferenceable(20) %0, i32 noundef %2)
-  %8 = load ptr, ptr %0, align 8, !tbaa !12
-  %9 = getelementptr inbounds ptr, ptr %8, i64 4
-  %10 = load ptr, ptr %9, align 8
-  %11 = tail call noundef i32 %10(ptr noundef nonnull align 8 dereferenceable(20) %0, ptr noundef %1, i32 noundef %2)
-  ret i32 %11
+define linkonce_odr dso_local noundef i32 @_ZN5Table6AssignEP6Objecti(ptr noundef nonnull align 8 dereferenceable(20) %this, ptr noundef %o, i32 noundef %pos) unnamed_addr #0 comdat align 2 {
+entry:
+  %vtable = load ptr, ptr %this, align 8, !tbaa !12
+  %vfn = getelementptr inbounds ptr, ptr %vtable, i64 8
+  %0 = load ptr, ptr %vfn, align 8
+  %call = tail call noundef ptr %0(ptr noundef nonnull align 8 dereferenceable(20) %this, i32 noundef %pos)
+  %vtable2 = load ptr, ptr %this, align 8, !tbaa !12
+  %vfn3 = getelementptr inbounds ptr, ptr %vtable2, i64 4
+  %1 = load ptr, ptr %vfn3, align 8
+  %call4 = tail call noundef i32 %1(ptr noundef nonnull align 8 dereferenceable(20) %this, ptr noundef %o, i32 noundef %pos)
+  ret i32 %call4
 }
 
 ; Function Attrs: mustprogress uwtable
-define linkonce_odr dso_local noundef i32 @_ZN5Table6RemoveEi(ptr noundef nonnull align 8 dereferenceable(20) %0, i32 noundef %1) unnamed_addr #0 comdat align 2 {
-  %3 = load ptr, ptr %0, align 8, !tbaa !12
-  %4 = getelementptr inbounds ptr, ptr %3, i64 8
-  %5 = load ptr, ptr %4, align 8
-  %6 = tail call noundef ptr %5(ptr noundef nonnull align 8 dereferenceable(20) %0, i32 noundef %1)
-  %7 = icmp ne ptr %6, null
-  br i1 %7, label %8, label %12
+define linkonce_odr dso_local noundef i32 @_ZN5Table6RemoveEi(ptr noundef nonnull align 8 dereferenceable(20) %this, i32 noundef %pos) unnamed_addr #0 comdat align 2 {
+entry:
+  %vtable = load ptr, ptr %this, align 8, !tbaa !12
+  %vfn = getelementptr inbounds ptr, ptr %vtable, i64 8
+  %0 = load ptr, ptr %vfn, align 8
+  %call = tail call noundef ptr %0(ptr noundef nonnull align 8 dereferenceable(20) %this, i32 noundef %pos)
+  %isnull = icmp ne ptr %call, null
+  br i1 %isnull, label %delete.notnull, label %delete.end
 
-8:                                                ; preds = %2
-  %9 = load ptr, ptr %6, align 8, !tbaa !12
-  %10 = getelementptr inbounds ptr, ptr %9, i64 1
-  %11 = load ptr, ptr %10, align 8
-  tail call void %11(ptr noundef nonnull align 8 dereferenceable(8) %6) #17
-  br label %12
+delete.notnull:                                   ; preds = %entry
+  %vtable2 = load ptr, ptr %call, align 8, !tbaa !12
+  %vfn3 = getelementptr inbounds ptr, ptr %vtable2, i64 1
+  %1 = load ptr, ptr %vfn3, align 8
+  tail call void %1(ptr noundef nonnull align 8 dereferenceable(8) %call) #17
+  br label %delete.end
 
-12:                                               ; preds = %8, %2
-  %13 = zext i1 %7 to i32
-  ret i32 %13
+delete.end:                                       ; preds = %delete.notnull, %entry
+  %cond = zext i1 %isnull to i32
+  ret i32 %cond
 }
 
 ; Function Attrs: mustprogress nounwind uwtable
-define linkonce_odr dso_local noundef i32 @_ZN5Table6CurIndEv(ptr noundef nonnull align 8 dereferenceable(20) %0) unnamed_addr #12 comdat align 2 {
-  %2 = getelementptr inbounds %class.Table, ptr %0, i64 0, i32 2
-  %3 = load i32, ptr %2, align 4, !tbaa !18
-  ret i32 %3
+define linkonce_odr dso_local noundef i32 @_ZN5Table6CurIndEv(ptr noundef nonnull align 8 dereferenceable(20) %this) unnamed_addr #12 comdat align 2 {
+entry:
+  %curind = getelementptr inbounds %class.Table, ptr %this, i64 0, i32 2
+  %0 = load i32, ptr %curind, align 4, !tbaa !18
+  ret i32 %0
 }
 
 ; Function Attrs: mustprogress nounwind uwtable
-define linkonce_odr dso_local noundef i32 @_ZN5Table5NelemEv(ptr noundef nonnull align 8 dereferenceable(20) %0) unnamed_addr #12 comdat align 2 {
-  %2 = getelementptr inbounds %class.Table, ptr %0, i64 0, i32 1
-  %3 = load i32, ptr %2, align 8, !tbaa !5
-  ret i32 %3
+define linkonce_odr dso_local noundef i32 @_ZN5Table5NelemEv(ptr noundef nonnull align 8 dereferenceable(20) %this) unnamed_addr #12 comdat align 2 {
+entry:
+  %nelem = getelementptr inbounds %class.Table, ptr %this, i64 0, i32 1
+  %0 = load i32, ptr %nelem, align 8, !tbaa !5
+  ret i32 %0
 }
 
 ; Function Attrs: mustprogress nounwind uwtable
-define linkonce_odr dso_local noundef ptr @_ZN7SpArray4TypeEv(ptr noundef nonnull align 8 dereferenceable(36) %0) unnamed_addr #12 comdat align 2 {
+define linkonce_odr dso_local noundef ptr @_ZN7SpArray4TypeEv(ptr noundef nonnull align 8 dereferenceable(36) %this) unnamed_addr #12 comdat align 2 {
+entry:
   ret ptr @.str.3
 }
 
 ; Function Attrs: mustprogress nounwind uwtable
-define linkonce_odr dso_local noundef i32 @_ZN7SpArray6InsertEP6Objecti(ptr noundef nonnull align 8 dereferenceable(36) %0, ptr noundef %1, i32 noundef %2) unnamed_addr #12 comdat align 2 {
+define linkonce_odr dso_local noundef i32 @_ZN7SpArray6InsertEP6Objecti(ptr noundef nonnull align 8 dereferenceable(36) %this, ptr noundef %0, i32 noundef %1) unnamed_addr #12 comdat align 2 {
+entry:
   ret i32 0
 }
 
 ; Function Attrs: mustprogress nounwind uwtable
-define linkonce_odr dso_local noundef i32 @_ZN7SpArray6AppendEP6Object(ptr noundef nonnull align 8 dereferenceable(36) %0, ptr noundef %1) unnamed_addr #12 comdat align 2 {
+define linkonce_odr dso_local noundef i32 @_ZN7SpArray6AppendEP6Object(ptr noundef nonnull align 8 dereferenceable(36) %this, ptr noundef %0) unnamed_addr #12 comdat align 2 {
+entry:
   ret i32 0
 }
 
 ; Function Attrs: mustprogress nounwind uwtable
-define linkonce_odr dso_local noundef ptr @_ZN5Array4TypeEv(ptr noundef nonnull align 8 dereferenceable(36) %0) unnamed_addr #12 comdat align 2 {
+define linkonce_odr dso_local noundef ptr @_ZN5Array4TypeEv(ptr noundef nonnull align 8 dereferenceable(36) %this) unnamed_addr #12 comdat align 2 {
+entry:
   ret ptr @.str.4
 }
 
@@ -982,32 +1014,35 @@ define linkonce_odr dso_local noundef ptr @_ZN5Array4TypeEv(ptr noundef nonnull 
 declare void @llvm.trap() #13
 
 ; Function Attrs: nounwind uwtable
-define linkonce_odr dso_local void @_ZN1AD0Ev(ptr noundef nonnull align 8 dereferenceable(12) %0) unnamed_addr #3 comdat align 2 {
-  tail call void @_ZdlPv(ptr noundef nonnull %0) #15
+define linkonce_odr dso_local void @_ZN1AD0Ev(ptr noundef nonnull align 8 dereferenceable(12) %this) unnamed_addr #3 comdat align 2 {
+entry:
+  tail call void @_ZdlPv(ptr noundef nonnull %this) #15
   ret void
 }
 
 ; Function Attrs: mustprogress uwtable
-define linkonce_odr dso_local noundef i32 @_ZN1AeqER6Object(ptr noundef nonnull align 8 dereferenceable(12) %0, ptr noundef nonnull align 8 dereferenceable(8) %1) unnamed_addr #0 comdat align 2 {
-  %3 = load ptr, ptr %1, align 8, !tbaa !12
-  %4 = getelementptr inbounds ptr, ptr %3, i64 3
-  %5 = load ptr, ptr %4, align 8
-  %6 = tail call noundef ptr %5(ptr noundef nonnull align 8 dereferenceable(8) %1)
-  %7 = load ptr, ptr %0, align 8, !tbaa !12
-  %8 = getelementptr inbounds ptr, ptr %7, i64 3
-  %9 = load ptr, ptr %8, align 8
-  %10 = tail call noundef ptr %9(ptr noundef nonnull align 8 dereferenceable(12) %0)
-  %11 = getelementptr inbounds %class.A, ptr %0, i64 0, i32 1
-  %12 = load i32, ptr %11, align 8, !tbaa !33
-  %13 = getelementptr inbounds %class.A, ptr %1, i64 0, i32 1
-  %14 = load i32, ptr %13, align 8, !tbaa !33
-  %15 = icmp eq i32 %12, %14
-  %16 = zext i1 %15 to i32
-  ret i32 %16
+define linkonce_odr dso_local noundef i32 @_ZN1AeqER6Object(ptr noundef nonnull align 8 dereferenceable(12) %this, ptr noundef nonnull align 8 dereferenceable(8) %o) unnamed_addr #0 comdat align 2 {
+entry:
+  %vtable = load ptr, ptr %o, align 8, !tbaa !12
+  %vfn = getelementptr inbounds ptr, ptr %vtable, i64 3
+  %0 = load ptr, ptr %vfn, align 8
+  %call = tail call noundef ptr %0(ptr noundef nonnull align 8 dereferenceable(8) %o)
+  %vtable2 = load ptr, ptr %this, align 8, !tbaa !12
+  %vfn3 = getelementptr inbounds ptr, ptr %vtable2, i64 3
+  %1 = load ptr, ptr %vfn3, align 8
+  %call4 = tail call noundef ptr %1(ptr noundef nonnull align 8 dereferenceable(12) %this)
+  %i = getelementptr inbounds %class.A, ptr %this, i64 0, i32 1
+  %2 = load i32, ptr %i, align 8, !tbaa !33
+  %i6 = getelementptr inbounds %class.A, ptr %o, i64 0, i32 1
+  %3 = load i32, ptr %i6, align 8, !tbaa !33
+  %cmp = icmp eq i32 %2, %3
+  %conv = zext i1 %cmp to i32
+  ret i32 %conv
 }
 
 ; Function Attrs: mustprogress nounwind uwtable
-define linkonce_odr dso_local noundef ptr @_ZN1A4TypeEv(ptr noundef nonnull align 8 dereferenceable(12) %0) unnamed_addr #12 comdat align 2 {
+define linkonce_odr dso_local noundef ptr @_ZN1A4TypeEv(ptr noundef nonnull align 8 dereferenceable(12) %this) unnamed_addr #12 comdat align 2 {
+entry:
   ret ptr @.str.1
 }
 

@@ -4,194 +4,194 @@ target datalayout = "e-m:e-p270:32:32-p271:32:32-p272:64:64-i64:64-f80:128-n8:16
 target triple = "x86_64-unknown-linux-gnu"
 
 ; Function Attrs: uwtable
-define dso_local noundef i32 @_Z21FindSignatureInStreamP19ISequentialInStreamPKhjPKyRy(ptr noundef %0, ptr nocapture noundef readonly %1, i32 noundef %2, ptr noundef readonly %3, ptr nocapture noundef nonnull align 8 dereferenceable(8) %4) local_unnamed_addr #0 personality ptr @__gxx_personality_v0 {
-  %6 = alloca i32, align 4
-  store i64 0, ptr %4, align 8, !tbaa !5
-  %7 = zext i32 %2 to i64
-  %8 = icmp eq i32 %2, 0
-  br i1 %8, label %11, label %9
+define dso_local noundef i32 @_Z21FindSignatureInStreamP19ISequentialInStreamPKhjPKyRy(ptr noundef %stream, ptr nocapture noundef readonly %signature, i32 noundef %signatureSize, ptr noundef readonly %limit, ptr nocapture noundef nonnull align 8 dereferenceable(8) %resPos) local_unnamed_addr #0 personality ptr @__gxx_personality_v0 {
+entry:
+  %processedSize = alloca i32, align 4
+  store i64 0, ptr %resPos, align 8, !tbaa !5
+  %conv = zext i32 %signatureSize to i64
+  %cmp.i = icmp eq i32 %signatureSize, 0
+  br i1 %cmp.i, label %invoke.cont, label %if.then3.i
 
-9:                                                ; preds = %5
-  %10 = tail call noalias noundef nonnull ptr @_Znam(i64 noundef %7) #7
-  br label %11
+if.then3.i:                                       ; preds = %entry
+  %call.i158 = tail call noalias noundef nonnull ptr @_Znam(i64 noundef %conv) #7
+  br label %invoke.cont
 
-11:                                               ; preds = %9, %5
-  %12 = phi ptr [ null, %5 ], [ %10, %9 ]
-  %13 = invoke noundef i32 @_Z16ReadStream_FALSEP19ISequentialInStreamPvm(ptr noundef %0, ptr noundef %12, i64 noundef %7)
-          to label %14 unwind label %16
+invoke.cont:                                      ; preds = %if.then3.i, %entry
+  %byteBuffer2.sroa.9.0 = phi ptr [ null, %entry ], [ %call.i158, %if.then3.i ]
+  %call5 = invoke noundef i32 @_Z16ReadStream_FALSEP19ISequentialInStreamPvm(ptr noundef %stream, ptr noundef %byteBuffer2.sroa.9.0, i64 noundef %conv)
+          to label %invoke.cont4 unwind label %lpad1
 
-14:                                               ; preds = %11
-  %15 = icmp eq i32 %13, 0
-  br i1 %15, label %18, label %99
+invoke.cont4:                                     ; preds = %invoke.cont
+  %cmp.not = icmp eq i32 %call5, 0
+  br i1 %cmp.not, label %cleanup.cont, label %cleanup99
 
-16:                                               ; preds = %11
-  %17 = landingpad { ptr, i32 }
+lpad1:                                            ; preds = %invoke.cont
+  %0 = landingpad { ptr, i32 }
           cleanup
-  br label %104
+  br label %ehcleanup100
 
-18:                                               ; preds = %14
-  %19 = tail call i32 @bcmp(ptr %12, ptr %1, i64 %7)
-  %20 = icmp eq i32 %19, 0
-  br i1 %20, label %99, label %21
+cleanup.cont:                                     ; preds = %invoke.cont4
+  %bcmp = tail call i32 @bcmp(ptr %byteBuffer2.sroa.9.0, ptr %signature, i64 %conv)
+  %cmp10 = icmp eq i32 %bcmp, 0
+  br i1 %cmp10, label %cleanup99, label %if.end.i164
 
-21:                                               ; preds = %18
-  %22 = invoke noalias noundef nonnull dereferenceable(65536) ptr @_Znam(i64 noundef 65536) #7
-          to label %23 unwind label %35
+if.end.i164:                                      ; preds = %cleanup.cont
+  %call.i177 = invoke noalias noundef nonnull dereferenceable(65536) ptr @_Znam(i64 noundef 65536) #7
+          to label %invoke.cont16 unwind label %ehcleanup94.thread
 
-23:                                               ; preds = %21
-  %24 = add i32 %2, -1
-  %25 = getelementptr inbounds i8, ptr %12, i64 1
-  %26 = zext i32 %24 to i64
-  tail call void @llvm.memcpy.p0.p0.i64(ptr nonnull align 1 %22, ptr nonnull align 1 %25, i64 %26, i1 false)
-  store i64 1, ptr %4, align 8, !tbaa !5
-  %27 = icmp eq ptr %3, null
-  br label %28
+invoke.cont16:                                    ; preds = %if.end.i164
+  %sub = add i32 %signatureSize, -1
+  %add.ptr = getelementptr inbounds i8, ptr %byteBuffer2.sroa.9.0, i64 1
+  %conv23 = zext i32 %sub to i64
+  tail call void @llvm.memcpy.p0.p0.i64(ptr nonnull align 1 %call.i177, ptr nonnull align 1 %add.ptr, i64 %conv23, i1 false)
+  store i64 1, ptr %resPos, align 8, !tbaa !5
+  %cmp24.not = icmp eq ptr %limit, null
+  br label %for.cond
 
-28:                                               ; preds = %88, %23
-  %29 = phi i64 [ 1, %23 ], [ %91, %88 ]
-  %30 = phi i32 [ %24, %23 ], [ %92, %88 ]
-  br i1 %27, label %31, label %32
+for.cond:                                         ; preds = %cleanup87, %invoke.cont16
+  %1 = phi i64 [ 1, %invoke.cont16 ], [ %add82, %cleanup87 ]
+  %numPrevBytes.0 = phi i32 [ %sub, %invoke.cont16 ], [ %sub83, %cleanup87 ]
+  br i1 %cmp24.not, label %do.body.preheader, label %if.then25
 
-31:                                               ; preds = %32, %28
-  br label %37
+do.body.preheader:                                ; preds = %if.then25, %for.cond
+  br label %do.body
 
-32:                                               ; preds = %28
-  %33 = load i64, ptr %3, align 8, !tbaa !5
-  %34 = icmp ugt i64 %29, %33
-  br i1 %34, label %95, label %31
+if.then25:                                        ; preds = %for.cond
+  %2 = load i64, ptr %limit, align 8, !tbaa !5
+  %cmp26 = icmp ugt i64 %1, %2
+  br i1 %cmp26, label %_ZN7CBufferIhED2Ev.exit, label %do.body.preheader
 
-35:                                               ; preds = %21
-  %36 = landingpad { ptr, i32 }
+ehcleanup94.thread:                               ; preds = %if.end.i164
+  %3 = landingpad { ptr, i32 }
           cleanup
-  br label %104
+  br label %ehcleanup100
 
-37:                                               ; preds = %31, %53
-  %38 = phi i32 [ %54, %53 ], [ %30, %31 ]
-  %39 = sub i32 65536, %38
-  call void @llvm.lifetime.start.p0(i64 4, ptr nonnull %6) #8
-  %40 = zext i32 %38 to i64
-  %41 = getelementptr inbounds i8, ptr %22, i64 %40
-  %42 = load ptr, ptr %0, align 8, !tbaa !9
-  %43 = getelementptr inbounds ptr, ptr %42, i64 5
-  %44 = load ptr, ptr %43, align 8
-  %45 = invoke noundef i32 %44(ptr noundef nonnull align 8 dereferenceable(8) %0, ptr noundef nonnull %41, i32 noundef %39, ptr noundef nonnull %6)
-          to label %46 unwind label %97
+do.body:                                          ; preds = %do.body.preheader, %do.cond
+  %numPrevBytes.1 = phi i32 [ %add, %do.cond ], [ %numPrevBytes.0, %do.body.preheader ]
+  %sub30 = sub i32 65536, %numPrevBytes.1
+  call void @llvm.lifetime.start.p0(i64 4, ptr nonnull %processedSize) #8
+  %idx.ext = zext i32 %numPrevBytes.1 to i64
+  %add.ptr32 = getelementptr inbounds i8, ptr %call.i177, i64 %idx.ext
+  %vtable = load ptr, ptr %stream, align 8, !tbaa !9
+  %vfn = getelementptr inbounds ptr, ptr %vtable, i64 5
+  %4 = load ptr, ptr %vfn, align 8
+  %call35 = invoke noundef i32 %4(ptr noundef nonnull align 8 dereferenceable(8) %stream, ptr noundef nonnull %add.ptr32, i32 noundef %sub30, ptr noundef nonnull %processedSize)
+          to label %invoke.cont34 unwind label %delete.notnull.i187
 
-46:                                               ; preds = %37
-  %47 = icmp eq i32 %45, 0
-  br i1 %47, label %48, label %51
+invoke.cont34:                                    ; preds = %do.body
+  %cmp36.not = icmp eq i32 %call35, 0
+  br i1 %cmp36.not, label %cleanup45, label %cleanup45.thread
 
-48:                                               ; preds = %46
-  %49 = load i32, ptr %6, align 4, !tbaa !11
-  %50 = icmp eq i32 %49, 0
-  br i1 %50, label %51, label %53
+cleanup45.thread:                                 ; preds = %invoke.cont34
+  call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %processedSize) #8
+  br label %_ZN7CBufferIhED2Ev.exit
 
-51:                                               ; preds = %46, %48
-  %52 = phi i32 [ 1, %48 ], [ %45, %46 ]
-  call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %6) #8
-  br label %95
+cleanup45:                                        ; preds = %invoke.cont34
+  %5 = load i32, ptr %processedSize, align 4, !tbaa !11
+  %cmp42.not = icmp eq i32 %5, 0
+  call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %processedSize) #8
+  br i1 %cmp42.not, label %_ZN7CBufferIhED2Ev.exit, label %do.cond
 
-53:                                               ; preds = %48
-  %54 = add i32 %49, %38
-  call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %6) #8
-  %55 = icmp ult i32 %54, %2
-  br i1 %55, label %37, label %56, !llvm.loop !13
+do.cond:                                          ; preds = %cleanup45
+  %add = add i32 %5, %numPrevBytes.1
+  %cmp49 = icmp ult i32 %add, %signatureSize
+  br i1 %cmp49, label %do.body, label %do.end, !llvm.loop !13
 
-56:                                               ; preds = %53
-  %57 = sub i32 %54, %2
-  %58 = add i32 %57, 1
-  %59 = icmp eq i32 %58, 0
-  br i1 %59, label %88, label %60
+do.end:                                           ; preds = %do.cond
+  %sub50 = sub i32 %add, %signatureSize
+  %add51 = add i32 %sub50, 1
+  %cmp53244.not = icmp eq i32 %add51, 0
+  br i1 %cmp53244.not, label %cleanup87, label %for.body.lr.ph
 
-60:                                               ; preds = %56
-  %61 = load i8, ptr %1, align 1, !tbaa !15
-  %62 = zext i32 %58 to i64
-  br label %66
+for.body.lr.ph:                                   ; preds = %do.end
+  %6 = load i8, ptr %signature, align 1, !tbaa !15
+  %7 = zext i32 %add51 to i64
+  br label %for.body
 
-63:                                               ; preds = %80
-  %64 = add i32 %78, 1
-  %65 = icmp ult i32 %64, %58
-  br i1 %65, label %66, label %88, !llvm.loop !16
+for.cond52:                                       ; preds = %if.end63
+  %inc77 = add i32 %11, 1
+  %cmp53 = icmp ult i32 %inc77, %add51
+  br i1 %cmp53, label %for.body, label %cleanup87, !llvm.loop !16
 
-66:                                               ; preds = %60, %63
-  %67 = phi i32 [ 0, %60 ], [ %64, %63 ]
-  %68 = zext i32 %67 to i64
-  br label %69
+for.body:                                         ; preds = %for.body.lr.ph, %for.cond52
+  %pos.0245 = phi i32 [ 0, %for.body.lr.ph ], [ %inc77, %for.cond52 ]
+  %8 = zext i32 %pos.0245 to i64
+  br label %for.cond54
 
-69:                                               ; preds = %69, %66
-  %70 = phi i64 [ %76, %69 ], [ %68, %66 ]
-  %71 = getelementptr inbounds i8, ptr %22, i64 %70
-  %72 = load i8, ptr %71, align 1, !tbaa !15
-  %73 = icmp ne i8 %72, %61
-  %74 = icmp ult i64 %70, %62
-  %75 = select i1 %73, i1 %74, i1 false
-  %76 = add nuw nsw i64 %70, 1
-  br i1 %75, label %69, label %77, !llvm.loop !17
+for.cond54:                                       ; preds = %for.cond54, %for.body
+  %indvars.iv = phi i64 [ %indvars.iv.next, %for.cond54 ], [ %8, %for.body ]
+  %arrayidx55 = getelementptr inbounds i8, ptr %call.i177, i64 %indvars.iv
+  %9 = load i8, ptr %arrayidx55, align 1, !tbaa !15
+  %cmp58 = icmp ne i8 %9, %6
+  %cmp59 = icmp ult i64 %indvars.iv, %7
+  %10 = select i1 %cmp58, i1 %cmp59, i1 false
+  %indvars.iv.next = add nuw nsw i64 %indvars.iv, 1
+  br i1 %10, label %for.cond54, label %for.end, !llvm.loop !17
 
-77:                                               ; preds = %69
-  %78 = trunc i64 %70 to i32
-  %79 = icmp eq i32 %58, %78
-  br i1 %79, label %88, label %80
+for.end:                                          ; preds = %for.cond54
+  %11 = trunc i64 %indvars.iv to i32
+  %cmp61 = icmp eq i32 %add51, %11
+  br i1 %cmp61, label %cleanup87, label %if.end63
 
-80:                                               ; preds = %77
-  %81 = and i64 %70, 4294967295
-  %82 = getelementptr inbounds i8, ptr %22, i64 %81
-  %83 = call i32 @bcmp(ptr nonnull %82, ptr nonnull %1, i64 %7)
-  %84 = icmp eq i32 %83, 0
-  br i1 %84, label %85, label %63
+if.end63:                                         ; preds = %for.end
+  %idxprom.le = and i64 %indvars.iv, 4294967295
+  %arrayidx55.le = getelementptr inbounds i8, ptr %call.i177, i64 %idxprom.le
+  %bcmp156 = call i32 @bcmp(ptr nonnull %arrayidx55.le, ptr nonnull %signature, i64 %conv)
+  %cmp68 = icmp eq i32 %bcmp156, 0
+  br i1 %cmp68, label %cleanup87.thread, label %for.cond52
 
-85:                                               ; preds = %80
-  %86 = load i64, ptr %4, align 8, !tbaa !5
-  %87 = add i64 %86, %81
-  store i64 %87, ptr %4, align 8, !tbaa !5
-  br label %95
+cleanup87.thread:                                 ; preds = %if.end63
+  %12 = load i64, ptr %resPos, align 8, !tbaa !5
+  %add71 = add i64 %12, %idxprom.le
+  store i64 %add71, ptr %resPos, align 8, !tbaa !5
+  br label %_ZN7CBufferIhED2Ev.exit
 
-88:                                               ; preds = %63, %77, %56
-  %89 = phi i64 [ 0, %56 ], [ %62, %77 ], [ %62, %63 ]
-  %90 = load i64, ptr %4, align 8, !tbaa !5
-  %91 = add i64 %90, %89
-  store i64 %91, ptr %4, align 8, !tbaa !5
-  %92 = sub i32 %54, %58
-  %93 = getelementptr inbounds i8, ptr %22, i64 %89
-  %94 = zext i32 %92 to i64
-  call void @llvm.memmove.p0.p0.i64(ptr nonnull align 1 %22, ptr nonnull align 1 %93, i64 %94, i1 false)
-  br label %28, !llvm.loop !18
+cleanup87:                                        ; preds = %for.cond52, %for.end, %do.end
+  %conv81.pre-phi = phi i64 [ 0, %do.end ], [ %7, %for.end ], [ %7, %for.cond52 ]
+  %13 = load i64, ptr %resPos, align 8, !tbaa !5
+  %add82 = add i64 %13, %conv81.pre-phi
+  store i64 %add82, ptr %resPos, align 8, !tbaa !5
+  %sub83 = sub i32 %add, %add51
+  %add.ptr85 = getelementptr inbounds i8, ptr %call.i177, i64 %conv81.pre-phi
+  %conv86 = zext i32 %sub83 to i64
+  call void @llvm.memmove.p0.p0.i64(ptr nonnull align 1 %call.i177, ptr nonnull align 1 %add.ptr85, i64 %conv86, i1 false)
+  br label %for.cond, !llvm.loop !18
 
-95:                                               ; preds = %32, %85, %51
-  %96 = phi i32 [ %52, %51 ], [ 0, %85 ], [ 1, %32 ]
-  call void @_ZdaPv(ptr noundef nonnull %22) #9
-  br label %99
+_ZN7CBufferIhED2Ev.exit:                          ; preds = %if.then25, %cleanup45, %cleanup87.thread, %cleanup45.thread
+  %retval.8 = phi i32 [ %call35, %cleanup45.thread ], [ 0, %cleanup87.thread ], [ 1, %cleanup45 ], [ 1, %if.then25 ]
+  call void @_ZdaPv(ptr noundef nonnull %call.i177) #9
+  br label %cleanup99
 
-97:                                               ; preds = %37
-  %98 = landingpad { ptr, i32 }
+delete.notnull.i187:                              ; preds = %do.body
+  %14 = landingpad { ptr, i32 }
           cleanup
-  call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %6) #8
-  call void @_ZdaPv(ptr noundef nonnull %22) #9
-  br label %104
+  call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %processedSize) #8
+  call void @_ZdaPv(ptr noundef nonnull %call.i177) #9
+  br label %ehcleanup100
 
-99:                                               ; preds = %18, %14, %95
-  %100 = phi i32 [ %96, %95 ], [ %13, %14 ], [ 0, %18 ]
-  %101 = icmp eq ptr %12, null
-  br i1 %101, label %103, label %102
+cleanup99:                                        ; preds = %cleanup.cont, %invoke.cont4, %_ZN7CBufferIhED2Ev.exit
+  %retval.9 = phi i32 [ %retval.8, %_ZN7CBufferIhED2Ev.exit ], [ %call5, %invoke.cont4 ], [ 0, %cleanup.cont ]
+  %isnull.i191 = icmp eq ptr %byteBuffer2.sroa.9.0, null
+  br i1 %isnull.i191, label %_ZN7CBufferIhED2Ev.exit194, label %delete.notnull.i192
 
-102:                                              ; preds = %99
-  call void @_ZdaPv(ptr noundef nonnull %12) #9
-  br label %103
+delete.notnull.i192:                              ; preds = %cleanup99
+  call void @_ZdaPv(ptr noundef nonnull %byteBuffer2.sroa.9.0) #9
+  br label %_ZN7CBufferIhED2Ev.exit194
 
-103:                                              ; preds = %99, %102
-  ret i32 %100
+_ZN7CBufferIhED2Ev.exit194:                       ; preds = %cleanup99, %delete.notnull.i192
+  ret i32 %retval.9
 
-104:                                              ; preds = %97, %35, %16
-  %105 = phi { ptr, i32 } [ %17, %16 ], [ %36, %35 ], [ %98, %97 ]
-  %106 = icmp eq ptr %12, null
-  br i1 %106, label %108, label %107
+ehcleanup100:                                     ; preds = %delete.notnull.i187, %ehcleanup94.thread, %lpad1
+  %.pn.pn = phi { ptr, i32 } [ %0, %lpad1 ], [ %3, %ehcleanup94.thread ], [ %14, %delete.notnull.i187 ]
+  %isnull.i196 = icmp eq ptr %byteBuffer2.sroa.9.0, null
+  br i1 %isnull.i196, label %_ZN7CBufferIhED2Ev.exit199, label %delete.notnull.i197
 
-107:                                              ; preds = %104
-  call void @_ZdaPv(ptr noundef nonnull %12) #9
-  br label %108
+delete.notnull.i197:                              ; preds = %ehcleanup100
+  call void @_ZdaPv(ptr noundef nonnull %byteBuffer2.sroa.9.0) #9
+  br label %_ZN7CBufferIhED2Ev.exit199
 
-108:                                              ; preds = %104, %107
-  resume { ptr, i32 } %105
+_ZN7CBufferIhED2Ev.exit199:                       ; preds = %ehcleanup100, %delete.notnull.i197
+  resume { ptr, i32 } %.pn.pn
 }
 
 ; Function Attrs: mustprogress nocallback nofree nosync nounwind willreturn memory(argmem: readwrite)

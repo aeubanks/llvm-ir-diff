@@ -15,181 +15,183 @@ target triple = "x86_64-unknown-linux-gnu"
 @scaled_flat_sq = dso_local local_unnamed_addr global float 0.000000e+00, align 4
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(argmem: readwrite) uwtable
-define dso_local i32 @gx_path_current_point(ptr nocapture noundef readonly %0, ptr nocapture noundef writeonly %1) local_unnamed_addr #0 {
-  %3 = getelementptr inbounds %struct.gx_path_s, ptr %0, i64 0, i32 10
-  %4 = load i8, ptr %3, align 8, !tbaa !5
-  %5 = icmp eq i8 %4, 0
-  br i1 %5, label %9, label %6
+define dso_local i32 @gx_path_current_point(ptr nocapture noundef readonly %ppath, ptr nocapture noundef writeonly %ppt) local_unnamed_addr #0 {
+entry:
+  %position_valid = getelementptr inbounds %struct.gx_path_s, ptr %ppath, i64 0, i32 10
+  %0 = load i8, ptr %position_valid, align 8, !tbaa !5
+  %tobool.not = icmp eq i8 %0, 0
+  br i1 %tobool.not, label %return, label %if.end
 
-6:                                                ; preds = %2
-  %7 = getelementptr inbounds %struct.gx_path_s, ptr %0, i64 0, i32 9
-  %8 = load <2 x i64>, ptr %7, align 8, !tbaa !15
-  store <2 x i64> %8, ptr %1, align 8, !tbaa !15
-  br label %9
+if.end:                                           ; preds = %entry
+  %position = getelementptr inbounds %struct.gx_path_s, ptr %ppath, i64 0, i32 9
+  %1 = load <2 x i64>, ptr %position, align 8, !tbaa !15
+  store <2 x i64> %1, ptr %ppt, align 8, !tbaa !15
+  br label %return
 
-9:                                                ; preds = %2, %6
-  %10 = phi i32 [ 0, %6 ], [ -14, %2 ]
-  ret i32 %10
+return:                                           ; preds = %entry, %if.end
+  %retval.0 = phi i32 [ 0, %if.end ], [ -14, %entry ]
+  ret i32 %retval.0
 }
 
 ; Function Attrs: nofree nosync nounwind memory(read, argmem: readwrite, inaccessiblemem: none) uwtable
-define dso_local i32 @gx_path_bbox(ptr nocapture noundef %0, ptr nocapture noundef writeonly %1) local_unnamed_addr #1 {
-  %3 = getelementptr inbounds %struct.gx_path_s, ptr %0, i64 0, i32 4
-  %4 = load ptr, ptr %3, align 8, !tbaa !16
-  %5 = icmp eq ptr %4, null
-  br i1 %5, label %6, label %15
+define dso_local i32 @gx_path_bbox(ptr nocapture noundef %ppath, ptr nocapture noundef writeonly %pbox) local_unnamed_addr #1 {
+entry:
+  %first_subpath = getelementptr inbounds %struct.gx_path_s, ptr %ppath, i64 0, i32 4
+  %0 = load ptr, ptr %first_subpath, align 8, !tbaa !16
+  %cmp = icmp eq ptr %0, null
+  br i1 %cmp, label %if.then, label %if.end
 
-6:                                                ; preds = %2
-  %7 = getelementptr inbounds %struct.gx_path_s, ptr %0, i64 0, i32 10
-  %8 = load i8, ptr %7, align 8, !tbaa !5
-  %9 = icmp eq i8 %8, 0
-  br i1 %9, label %116, label %10
+if.then:                                          ; preds = %entry
+  %position_valid.i = getelementptr inbounds %struct.gx_path_s, ptr %ppath, i64 0, i32 10
+  %1 = load i8, ptr %position_valid.i, align 8, !tbaa !5
+  %tobool.not.i = icmp eq i8 %1, 0
+  br i1 %tobool.not.i, label %return, label %if.end.i244
 
-10:                                               ; preds = %6
-  %11 = getelementptr inbounds %struct.gx_path_s, ptr %0, i64 0, i32 9
-  %12 = load <2 x i64>, ptr %11, align 8, !tbaa !15
-  store <2 x i64> %12, ptr %1, align 8, !tbaa !15
-  %13 = getelementptr inbounds %struct.gs_fixed_rect_s, ptr %1, i64 0, i32 1
-  %14 = load <2 x i64>, ptr %11, align 8, !tbaa !15
-  store <2 x i64> %14, ptr %13, align 8, !tbaa !15
-  br label %116
+if.end.i244:                                      ; preds = %if.then
+  %position.i = getelementptr inbounds %struct.gx_path_s, ptr %ppath, i64 0, i32 9
+  %2 = load <2 x i64>, ptr %position.i, align 8, !tbaa !15
+  store <2 x i64> %2, ptr %pbox, align 8, !tbaa !15
+  %q = getelementptr inbounds %struct.gs_fixed_rect_s, ptr %pbox, i64 0, i32 1
+  %3 = load <2 x i64>, ptr %position.i, align 8, !tbaa !15
+  store <2 x i64> %3, ptr %q, align 8, !tbaa !15
+  br label %return
 
-15:                                               ; preds = %2
-  %16 = getelementptr inbounds %struct.gx_path_s, ptr %0, i64 0, i32 2
-  %17 = load ptr, ptr %16, align 8, !tbaa !17
-  %18 = getelementptr inbounds %struct.gx_path_s, ptr %0, i64 0, i32 5
-  %19 = load ptr, ptr %18, align 8, !tbaa !18
-  %20 = getelementptr inbounds %struct.subpath, ptr %19, i64 0, i32 4
-  %21 = load ptr, ptr %20, align 8, !tbaa !19
-  %22 = icmp eq ptr %17, %21
-  br i1 %22, label %23, label %25
+if.end:                                           ; preds = %entry
+  %box_last = getelementptr inbounds %struct.gx_path_s, ptr %ppath, i64 0, i32 2
+  %4 = load ptr, ptr %box_last, align 8, !tbaa !17
+  %current_subpath = getelementptr inbounds %struct.gx_path_s, ptr %ppath, i64 0, i32 5
+  %5 = load ptr, ptr %current_subpath, align 8, !tbaa !18
+  %last = getelementptr inbounds %struct.subpath, ptr %5, i64 0, i32 4
+  %6 = load ptr, ptr %last, align 8, !tbaa !19
+  %cmp2 = icmp eq ptr %4, %6
+  br i1 %cmp2, label %if.then3, label %if.else
 
-23:                                               ; preds = %15
-  %24 = getelementptr inbounds %struct.gx_path_s, ptr %0, i64 0, i32 1
-  tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(32) %1, ptr noundef nonnull align 8 dereferenceable(32) %24, i64 32, i1 false), !tbaa.struct !21
-  br label %116
+if.then3:                                         ; preds = %if.end
+  %bbox = getelementptr inbounds %struct.gx_path_s, ptr %ppath, i64 0, i32 1
+  tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(32) %pbox, ptr noundef nonnull align 8 dereferenceable(32) %bbox, i64 32, i1 false), !tbaa.struct !21
+  br label %return
 
-25:                                               ; preds = %15
-  %26 = icmp eq ptr %17, null
-  br i1 %26, label %27, label %32
+if.else:                                          ; preds = %if.end
+  %cmp5 = icmp eq ptr %4, null
+  br i1 %cmp5, label %if.end19.thread, label %if.end19
 
-27:                                               ; preds = %25
-  %28 = getelementptr inbounds %struct.segment_s, ptr %4, i64 0, i32 3
-  %29 = load i64, ptr %28, align 8, !tbaa !22
-  %30 = getelementptr inbounds %struct.segment_s, ptr %4, i64 0, i32 3, i32 1
-  %31 = load i64, ptr %30, align 8, !tbaa !24
-  br label %44
+if.end19.thread:                                  ; preds = %if.else
+  %pt = getelementptr inbounds %struct.segment_s, ptr %0, i64 0, i32 3
+  %7 = load i64, ptr %pt, align 8, !tbaa !22
+  %y = getelementptr inbounds %struct.segment_s, ptr %0, i64 0, i32 3, i32 1
+  %8 = load i64, ptr %y, align 8, !tbaa !24
+  br label %while.body.preheader
 
-32:                                               ; preds = %25
-  %33 = getelementptr inbounds %struct.gx_path_s, ptr %0, i64 0, i32 1
-  %34 = load i64, ptr %33, align 8, !tbaa.struct !21
-  %35 = getelementptr inbounds %struct.gx_path_s, ptr %0, i64 0, i32 1, i32 0, i32 1
-  %36 = load i64, ptr %35, align 8, !tbaa.struct !25
-  %37 = getelementptr inbounds %struct.gx_path_s, ptr %0, i64 0, i32 1, i32 1
-  %38 = load i64, ptr %37, align 8, !tbaa.struct !26
-  %39 = getelementptr inbounds %struct.gx_path_s, ptr %0, i64 0, i32 1, i32 1, i32 1
-  %40 = load i64, ptr %39, align 8, !tbaa.struct !27
-  %41 = getelementptr inbounds %struct.segment_s, ptr %17, i64 0, i32 1
-  %42 = load ptr, ptr %41, align 8, !tbaa !28
-  %43 = icmp eq ptr %42, null
-  br i1 %43, label %103, label %44
+if.end19:                                         ; preds = %if.else
+  %bbox18 = getelementptr inbounds %struct.gx_path_s, ptr %ppath, i64 0, i32 1
+  %box.sroa.0.0.copyload = load i64, ptr %bbox18, align 8, !tbaa.struct !21
+  %box.sroa.12.0.bbox18.sroa_idx = getelementptr inbounds %struct.gx_path_s, ptr %ppath, i64 0, i32 1, i32 0, i32 1
+  %box.sroa.12.0.copyload = load i64, ptr %box.sroa.12.0.bbox18.sroa_idx, align 8, !tbaa.struct !25
+  %box.sroa.19.0.bbox18.sroa_idx = getelementptr inbounds %struct.gx_path_s, ptr %ppath, i64 0, i32 1, i32 1
+  %box.sroa.19.0.copyload = load i64, ptr %box.sroa.19.0.bbox18.sroa_idx, align 8, !tbaa.struct !26
+  %box.sroa.26.0.bbox18.sroa_idx = getelementptr inbounds %struct.gx_path_s, ptr %ppath, i64 0, i32 1, i32 1, i32 1
+  %box.sroa.26.0.copyload = load i64, ptr %box.sroa.26.0.bbox18.sroa_idx, align 8, !tbaa.struct !27
+  %next = getelementptr inbounds %struct.segment_s, ptr %4, i64 0, i32 1
+  %9 = load ptr, ptr %next, align 8, !tbaa !28
+  %tobool.not248 = icmp eq ptr %9, null
+  br i1 %tobool.not248, label %while.end, label %while.body.preheader
 
-44:                                               ; preds = %27, %32
-  %45 = phi ptr [ %42, %32 ], [ %4, %27 ]
-  %46 = phi i64 [ %34, %32 ], [ %29, %27 ]
-  %47 = phi i64 [ %36, %32 ], [ %31, %27 ]
-  %48 = phi i64 [ %38, %32 ], [ %29, %27 ]
-  %49 = phi i64 [ %40, %32 ], [ %31, %27 ]
-  br label %50
+while.body.preheader:                             ; preds = %if.end19.thread, %if.end19
+  %pseg.1253.ph = phi ptr [ %9, %if.end19 ], [ %0, %if.end19.thread ]
+  %box.sroa.0.1252.ph = phi i64 [ %box.sroa.0.0.copyload, %if.end19 ], [ %7, %if.end19.thread ]
+  %box.sroa.12.1251.ph = phi i64 [ %box.sroa.12.0.copyload, %if.end19 ], [ %8, %if.end19.thread ]
+  %box.sroa.19.1250.ph = phi i64 [ %box.sroa.19.0.copyload, %if.end19 ], [ %7, %if.end19.thread ]
+  %box.sroa.26.1249.ph = phi i64 [ %box.sroa.26.0.copyload, %if.end19 ], [ %8, %if.end19.thread ]
+  br label %while.body
 
-50:                                               ; preds = %44, %83
-  %51 = phi ptr [ %101, %83 ], [ %45, %44 ]
-  %52 = phi i64 [ %93, %83 ], [ %46, %44 ]
-  %53 = phi i64 [ %99, %83 ], [ %47, %44 ]
-  %54 = phi i64 [ %92, %83 ], [ %48, %44 ]
-  %55 = phi i64 [ %98, %83 ], [ %49, %44 ]
-  %56 = getelementptr inbounds %struct.segment_s, ptr %51, i64 0, i32 2
-  %57 = load i32, ptr %56, align 8, !tbaa !29
-  %58 = icmp eq i32 %57, 3
-  br i1 %58, label %59, label %83
+while.body:                                       ; preds = %while.body.preheader, %sw.default
+  %pseg.1253 = phi ptr [ %17, %sw.default ], [ %pseg.1253.ph, %while.body.preheader ]
+  %box.sroa.0.1252 = phi i64 [ %box.sroa.0.5, %sw.default ], [ %box.sroa.0.1252.ph, %while.body.preheader ]
+  %box.sroa.12.1251 = phi i64 [ %box.sroa.12.4, %sw.default ], [ %box.sroa.12.1251.ph, %while.body.preheader ]
+  %box.sroa.19.1250 = phi i64 [ %box.sroa.19.5, %sw.default ], [ %box.sroa.19.1250.ph, %while.body.preheader ]
+  %box.sroa.26.1249 = phi i64 [ %box.sroa.26.4, %sw.default ], [ %box.sroa.26.1249.ph, %while.body.preheader ]
+  %type = getelementptr inbounds %struct.segment_s, ptr %pseg.1253, i64 0, i32 2
+  %10 = load i32, ptr %type, align 8, !tbaa !29
+  %cond = icmp eq i32 %10, 3
+  br i1 %cond, label %sw.bb, label %sw.default
 
-59:                                               ; preds = %50
-  %60 = getelementptr inbounds %struct.curve_segment, ptr %51, i64 0, i32 4
-  %61 = load i64, ptr %60, align 8, !tbaa !30
-  %62 = icmp slt i64 %61, %52
-  %63 = tail call i64 @llvm.smax.i64(i64 %61, i64 %54)
-  %64 = select i1 %62, i64 %54, i64 %63
-  %65 = tail call i64 @llvm.smin.i64(i64 %61, i64 %52)
-  %66 = getelementptr inbounds %struct.curve_segment, ptr %51, i64 0, i32 4, i32 1
-  %67 = load i64, ptr %66, align 8, !tbaa !32
-  %68 = icmp slt i64 %67, %53
-  %69 = tail call i64 @llvm.smax.i64(i64 %67, i64 %55)
-  %70 = select i1 %68, i64 %55, i64 %69
-  %71 = tail call i64 @llvm.smin.i64(i64 %67, i64 %53)
-  %72 = getelementptr inbounds %struct.curve_segment, ptr %51, i64 0, i32 5
-  %73 = load i64, ptr %72, align 8, !tbaa !33
-  %74 = icmp slt i64 %73, %65
-  %75 = tail call i64 @llvm.smax.i64(i64 %73, i64 %64)
-  %76 = select i1 %74, i64 %64, i64 %75
-  %77 = tail call i64 @llvm.smin.i64(i64 %73, i64 %65)
-  %78 = getelementptr inbounds %struct.curve_segment, ptr %51, i64 0, i32 5, i32 1
-  %79 = load i64, ptr %78, align 8, !tbaa !34
-  %80 = icmp slt i64 %79, %71
-  br i1 %80, label %83, label %81
+sw.bb:                                            ; preds = %while.body
+  %p1 = getelementptr inbounds %struct.curve_segment, ptr %pseg.1253, i64 0, i32 4
+  %11 = load i64, ptr %p1, align 8, !tbaa !30
+  %cmp23 = icmp slt i64 %11, %box.sroa.0.1252
+  %spec.select = tail call i64 @llvm.smax.i64(i64 %11, i64 %box.sroa.19.1250)
+  %box.sroa.19.2 = select i1 %cmp23, i64 %box.sroa.19.1250, i64 %spec.select
+  %box.sroa.0.2 = tail call i64 @llvm.smin.i64(i64 %11, i64 %box.sroa.0.1252)
+  %y43 = getelementptr inbounds %struct.curve_segment, ptr %pseg.1253, i64 0, i32 4, i32 1
+  %12 = load i64, ptr %y43, align 8, !tbaa !32
+  %cmp46 = icmp slt i64 %12, %box.sroa.12.1251
+  %spec.select234 = tail call i64 @llvm.smax.i64(i64 %12, i64 %box.sroa.26.1249)
+  %box.sroa.26.2 = select i1 %cmp46, i64 %box.sroa.26.1249, i64 %spec.select234
+  %box.sroa.12.2 = tail call i64 @llvm.smin.i64(i64 %12, i64 %box.sroa.12.1251)
+  %p2 = getelementptr inbounds %struct.curve_segment, ptr %pseg.1253, i64 0, i32 5
+  %13 = load i64, ptr %p2, align 8, !tbaa !33
+  %cmp68 = icmp slt i64 %13, %box.sroa.0.2
+  %spec.select235 = tail call i64 @llvm.smax.i64(i64 %13, i64 %box.sroa.19.2)
+  %box.sroa.19.3 = select i1 %cmp68, i64 %box.sroa.19.2, i64 %spec.select235
+  %box.sroa.0.3 = tail call i64 @llvm.smin.i64(i64 %13, i64 %box.sroa.0.2)
+  %y88 = getelementptr inbounds %struct.curve_segment, ptr %pseg.1253, i64 0, i32 5, i32 1
+  %14 = load i64, ptr %y88, align 8, !tbaa !34
+  %cmp91 = icmp slt i64 %14, %box.sroa.12.2
+  br i1 %cmp91, label %sw.default, label %if.else97
 
-81:                                               ; preds = %59
-  %82 = tail call i64 @llvm.smax.i64(i64 %79, i64 %70)
-  br label %83
+if.else97:                                        ; preds = %sw.bb
+  %spec.select236 = tail call i64 @llvm.smax.i64(i64 %14, i64 %box.sroa.26.2)
+  br label %sw.default
 
-83:                                               ; preds = %81, %59, %50
-  %84 = phi i64 [ %55, %50 ], [ %70, %59 ], [ %82, %81 ]
-  %85 = phi i64 [ %54, %50 ], [ %76, %59 ], [ %76, %81 ]
-  %86 = phi i64 [ %53, %50 ], [ %79, %59 ], [ %71, %81 ]
-  %87 = phi i64 [ %52, %50 ], [ %77, %59 ], [ %77, %81 ]
-  %88 = getelementptr inbounds %struct.segment_s, ptr %51, i64 0, i32 3
-  %89 = load i64, ptr %88, align 8, !tbaa !22
-  %90 = icmp slt i64 %89, %87
-  %91 = tail call i64 @llvm.smax.i64(i64 %89, i64 %85)
-  %92 = select i1 %90, i64 %85, i64 %91
-  %93 = tail call i64 @llvm.smin.i64(i64 %89, i64 %87)
-  %94 = getelementptr inbounds %struct.segment_s, ptr %51, i64 0, i32 3, i32 1
-  %95 = load i64, ptr %94, align 8, !tbaa !24
-  %96 = icmp slt i64 %95, %86
-  %97 = tail call i64 @llvm.smax.i64(i64 %95, i64 %84)
-  %98 = select i1 %96, i64 %84, i64 %97
-  %99 = tail call i64 @llvm.smin.i64(i64 %95, i64 %86)
-  %100 = getelementptr inbounds %struct.segment_s, ptr %51, i64 0, i32 1
-  %101 = load ptr, ptr %100, align 8, !tbaa !28
-  %102 = icmp eq ptr %101, null
-  br i1 %102, label %103, label %50, !llvm.loop !35
+sw.default:                                       ; preds = %if.else97, %sw.bb, %while.body
+  %box.sroa.26.3 = phi i64 [ %box.sroa.26.1249, %while.body ], [ %box.sroa.26.2, %sw.bb ], [ %spec.select236, %if.else97 ]
+  %box.sroa.19.4 = phi i64 [ %box.sroa.19.1250, %while.body ], [ %box.sroa.19.3, %sw.bb ], [ %box.sroa.19.3, %if.else97 ]
+  %box.sroa.12.3 = phi i64 [ %box.sroa.12.1251, %while.body ], [ %14, %sw.bb ], [ %box.sroa.12.2, %if.else97 ]
+  %box.sroa.0.4 = phi i64 [ %box.sroa.0.1252, %while.body ], [ %box.sroa.0.3, %sw.bb ], [ %box.sroa.0.3, %if.else97 ]
+  %pt110 = getelementptr inbounds %struct.segment_s, ptr %pseg.1253, i64 0, i32 3
+  %15 = load i64, ptr %pt110, align 8, !tbaa !22
+  %cmp114 = icmp slt i64 %15, %box.sroa.0.4
+  %spec.select237 = tail call i64 @llvm.smax.i64(i64 %15, i64 %box.sroa.19.4)
+  %box.sroa.19.5 = select i1 %cmp114, i64 %box.sroa.19.4, i64 %spec.select237
+  %box.sroa.0.5 = tail call i64 @llvm.smin.i64(i64 %15, i64 %box.sroa.0.4)
+  %y134 = getelementptr inbounds %struct.segment_s, ptr %pseg.1253, i64 0, i32 3, i32 1
+  %16 = load i64, ptr %y134, align 8, !tbaa !24
+  %cmp137 = icmp slt i64 %16, %box.sroa.12.3
+  %spec.select238 = tail call i64 @llvm.smax.i64(i64 %16, i64 %box.sroa.26.3)
+  %box.sroa.26.4 = select i1 %cmp137, i64 %box.sroa.26.3, i64 %spec.select238
+  %box.sroa.12.4 = tail call i64 @llvm.smin.i64(i64 %16, i64 %box.sroa.12.3)
+  %next156 = getelementptr inbounds %struct.segment_s, ptr %pseg.1253, i64 0, i32 1
+  %17 = load ptr, ptr %next156, align 8, !tbaa !28
+  %tobool.not = icmp eq ptr %17, null
+  br i1 %tobool.not, label %while.end, label %while.body, !llvm.loop !35
 
-103:                                              ; preds = %83, %32
-  %104 = phi i64 [ %40, %32 ], [ %98, %83 ]
-  %105 = phi i64 [ %38, %32 ], [ %92, %83 ]
-  %106 = phi i64 [ %36, %32 ], [ %99, %83 ]
-  %107 = phi i64 [ %34, %32 ], [ %93, %83 ]
-  %108 = getelementptr inbounds %struct.gx_path_s, ptr %0, i64 0, i32 1
-  store i64 %107, ptr %108, align 8, !tbaa.struct !21
-  %109 = getelementptr inbounds %struct.gx_path_s, ptr %0, i64 0, i32 1, i32 0, i32 1
-  store i64 %106, ptr %109, align 8, !tbaa.struct !25
-  %110 = getelementptr inbounds %struct.gx_path_s, ptr %0, i64 0, i32 1, i32 1
-  store i64 %105, ptr %110, align 8, !tbaa.struct !26
-  %111 = getelementptr inbounds %struct.gx_path_s, ptr %0, i64 0, i32 1, i32 1, i32 1
-  store i64 %104, ptr %111, align 8, !tbaa.struct !27
-  %112 = load ptr, ptr %20, align 8, !tbaa !19
-  store ptr %112, ptr %16, align 8, !tbaa !17
-  store i64 %107, ptr %1, align 8, !tbaa.struct !21
-  %113 = getelementptr inbounds i8, ptr %1, i64 8
-  store i64 %106, ptr %113, align 8, !tbaa.struct !25
-  %114 = getelementptr inbounds i8, ptr %1, i64 16
-  store i64 %105, ptr %114, align 8, !tbaa.struct !26
-  %115 = getelementptr inbounds i8, ptr %1, i64 24
-  store i64 %104, ptr %115, align 8, !tbaa.struct !27
-  br label %116
+while.end:                                        ; preds = %sw.default, %if.end19
+  %box.sroa.26.1.lcssa = phi i64 [ %box.sroa.26.0.copyload, %if.end19 ], [ %box.sroa.26.4, %sw.default ]
+  %box.sroa.19.1.lcssa = phi i64 [ %box.sroa.19.0.copyload, %if.end19 ], [ %box.sroa.19.5, %sw.default ]
+  %box.sroa.12.1.lcssa = phi i64 [ %box.sroa.12.0.copyload, %if.end19 ], [ %box.sroa.12.4, %sw.default ]
+  %box.sroa.0.1.lcssa = phi i64 [ %box.sroa.0.0.copyload, %if.end19 ], [ %box.sroa.0.5, %sw.default ]
+  %bbox157 = getelementptr inbounds %struct.gx_path_s, ptr %ppath, i64 0, i32 1
+  store i64 %box.sroa.0.1.lcssa, ptr %bbox157, align 8, !tbaa.struct !21
+  %box.sroa.12.0.bbox157.sroa_idx = getelementptr inbounds %struct.gx_path_s, ptr %ppath, i64 0, i32 1, i32 0, i32 1
+  store i64 %box.sroa.12.1.lcssa, ptr %box.sroa.12.0.bbox157.sroa_idx, align 8, !tbaa.struct !25
+  %box.sroa.19.0.bbox157.sroa_idx = getelementptr inbounds %struct.gx_path_s, ptr %ppath, i64 0, i32 1, i32 1
+  store i64 %box.sroa.19.1.lcssa, ptr %box.sroa.19.0.bbox157.sroa_idx, align 8, !tbaa.struct !26
+  %box.sroa.26.0.bbox157.sroa_idx = getelementptr inbounds %struct.gx_path_s, ptr %ppath, i64 0, i32 1, i32 1, i32 1
+  store i64 %box.sroa.26.1.lcssa, ptr %box.sroa.26.0.bbox157.sroa_idx, align 8, !tbaa.struct !27
+  %18 = load ptr, ptr %last, align 8, !tbaa !19
+  store ptr %18, ptr %box_last, align 8, !tbaa !17
+  store i64 %box.sroa.0.1.lcssa, ptr %pbox, align 8, !tbaa.struct !21
+  %box.sroa.12.0..sroa_idx = getelementptr inbounds i8, ptr %pbox, i64 8
+  store i64 %box.sroa.12.1.lcssa, ptr %box.sroa.12.0..sroa_idx, align 8, !tbaa.struct !25
+  %box.sroa.19.0..sroa_idx = getelementptr inbounds i8, ptr %pbox, i64 16
+  store i64 %box.sroa.19.1.lcssa, ptr %box.sroa.19.0..sroa_idx, align 8, !tbaa.struct !26
+  %box.sroa.26.0..sroa_idx = getelementptr inbounds i8, ptr %pbox, i64 24
+  store i64 %box.sroa.26.1.lcssa, ptr %box.sroa.26.0..sroa_idx, align 8, !tbaa.struct !27
+  br label %return
 
-116:                                              ; preds = %6, %23, %103, %10
-  %117 = phi i32 [ 0, %10 ], [ 0, %103 ], [ 0, %23 ], [ -14, %6 ]
-  ret i32 %117
+return:                                           ; preds = %if.then, %if.end.i244, %if.then3, %while.end
+  %retval.0 = phi i32 [ 0, %while.end ], [ 0, %if.then3 ], [ 0, %if.end.i244 ], [ -14, %if.then ]
+  ret i32 %retval.0
 }
 
 ; Function Attrs: mustprogress nocallback nofree nounwind willreturn memory(argmem: readwrite)
@@ -202,635 +204,646 @@ declare void @llvm.lifetime.start.p0(i64 immarg, ptr nocapture) #3
 declare void @llvm.lifetime.end.p0(i64 immarg, ptr nocapture) #3
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(argmem: read) uwtable
-define dso_local i32 @gx_path_has_curves(ptr nocapture noundef readonly %0) local_unnamed_addr #4 {
-  %2 = getelementptr inbounds %struct.gx_path_s, ptr %0, i64 0, i32 8
-  %3 = load i32, ptr %2, align 8, !tbaa !37
-  %4 = icmp ne i32 %3, 0
-  %5 = zext i1 %4 to i32
-  ret i32 %5
+define dso_local i32 @gx_path_has_curves(ptr nocapture noundef readonly %ppath) local_unnamed_addr #4 {
+entry:
+  %curve_count = getelementptr inbounds %struct.gx_path_s, ptr %ppath, i64 0, i32 8
+  %0 = load i32, ptr %curve_count, align 8, !tbaa !37
+  %cmp = icmp ne i32 %0, 0
+  %conv = zext i1 %cmp to i32
+  ret i32 %conv
 }
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(argmem: read) uwtable
-define dso_local i32 @gx_path_is_void(ptr nocapture noundef readonly %0) local_unnamed_addr #4 {
-  %2 = getelementptr inbounds %struct.gx_path_s, ptr %0, i64 0, i32 7
-  %3 = load i32, ptr %2, align 4, !tbaa !38
-  %4 = icmp eq i32 %3, 0
-  %5 = zext i1 %4 to i32
-  ret i32 %5
+define dso_local i32 @gx_path_is_void(ptr nocapture noundef readonly %ppath) local_unnamed_addr #4 {
+entry:
+  %segment_count = getelementptr inbounds %struct.gx_path_s, ptr %ppath, i64 0, i32 7
+  %0 = load i32, ptr %segment_count, align 4, !tbaa !38
+  %cmp = icmp eq i32 %0, 0
+  %conv = zext i1 %cmp to i32
+  ret i32 %conv
 }
 
 ; Function Attrs: mustprogress nofree nosync nounwind willreturn memory(read, argmem: readwrite, inaccessiblemem: none) uwtable
-define dso_local i32 @gx_path_is_rectangle(ptr nocapture noundef readonly %0, ptr nocapture noundef writeonly %1) local_unnamed_addr #5 {
-  %3 = getelementptr inbounds %struct.gx_path_s, ptr %0, i64 0, i32 6
-  %4 = load i32, ptr %3, align 8, !tbaa !39
-  %5 = icmp eq i32 %4, 1
-  br i1 %5, label %6, label %74
+define dso_local i32 @gx_path_is_rectangle(ptr nocapture noundef readonly %ppath, ptr nocapture noundef writeonly %pbox) local_unnamed_addr #5 {
+entry:
+  %subpath_count = getelementptr inbounds %struct.gx_path_s, ptr %ppath, i64 0, i32 6
+  %0 = load i32, ptr %subpath_count, align 8, !tbaa !39
+  %cmp = icmp eq i32 %0, 1
+  br i1 %cmp, label %land.lhs.true, label %cleanup72
 
-6:                                                ; preds = %2
-  %7 = getelementptr inbounds %struct.gx_path_s, ptr %0, i64 0, i32 7
-  %8 = load i32, ptr %7, align 4, !tbaa !38
-  %9 = icmp eq i32 %8, 4
-  br i1 %9, label %10, label %74
+land.lhs.true:                                    ; preds = %entry
+  %segment_count = getelementptr inbounds %struct.gx_path_s, ptr %ppath, i64 0, i32 7
+  %1 = load i32, ptr %segment_count, align 4, !tbaa !38
+  %cmp1 = icmp eq i32 %1, 4
+  br i1 %cmp1, label %land.lhs.true2, label %cleanup72
 
-10:                                               ; preds = %6
-  %11 = getelementptr inbounds %struct.gx_path_s, ptr %0, i64 0, i32 8
-  %12 = load i32, ptr %11, align 8, !tbaa !37
-  %13 = icmp eq i32 %12, 0
-  br i1 %13, label %14, label %74
+land.lhs.true2:                                   ; preds = %land.lhs.true
+  %curve_count = getelementptr inbounds %struct.gx_path_s, ptr %ppath, i64 0, i32 8
+  %2 = load i32, ptr %curve_count, align 8, !tbaa !37
+  %cmp3 = icmp eq i32 %2, 0
+  br i1 %cmp3, label %land.lhs.true4, label %cleanup72
 
-14:                                               ; preds = %10
-  %15 = getelementptr inbounds %struct.gx_path_s, ptr %0, i64 0, i32 4
-  %16 = load ptr, ptr %15, align 8, !tbaa !16
-  %17 = getelementptr inbounds %struct.subpath, ptr %16, i64 0, i32 4
-  %18 = load ptr, ptr %17, align 8, !tbaa !19
-  %19 = getelementptr inbounds %struct.segment_s, ptr %18, i64 0, i32 2
-  %20 = load i32, ptr %19, align 8, !tbaa !29
-  %21 = icmp eq i32 %20, 2
-  br i1 %21, label %22, label %74
+land.lhs.true4:                                   ; preds = %land.lhs.true2
+  %first_subpath = getelementptr inbounds %struct.gx_path_s, ptr %ppath, i64 0, i32 4
+  %3 = load ptr, ptr %first_subpath, align 8, !tbaa !16
+  %last = getelementptr inbounds %struct.subpath, ptr %3, i64 0, i32 4
+  %4 = load ptr, ptr %last, align 8, !tbaa !19
+  %type = getelementptr inbounds %struct.segment_s, ptr %4, i64 0, i32 2
+  %5 = load i32, ptr %type, align 8, !tbaa !29
+  %cmp5 = icmp eq i32 %5, 2
+  br i1 %cmp5, label %if.then, label %cleanup72
 
-22:                                               ; preds = %14
-  %23 = getelementptr inbounds %struct.subpath, ptr %16, i64 0, i32 3
-  %24 = load i64, ptr %23, align 8, !tbaa !40
-  %25 = getelementptr inbounds %struct.subpath, ptr %16, i64 0, i32 3, i32 1
-  %26 = load i64, ptr %25, align 8, !tbaa !41
-  %27 = getelementptr inbounds %struct.subpath, ptr %16, i64 0, i32 1
-  %28 = load ptr, ptr %27, align 8, !tbaa !42
-  %29 = getelementptr inbounds %struct.segment_s, ptr %28, i64 0, i32 1
-  %30 = load ptr, ptr %29, align 8, !tbaa !28
-  %31 = getelementptr inbounds %struct.segment_s, ptr %30, i64 0, i32 3
-  %32 = load i64, ptr %31, align 8, !tbaa !22
-  %33 = getelementptr inbounds %struct.segment_s, ptr %30, i64 0, i32 3, i32 1
-  %34 = load i64, ptr %33, align 8, !tbaa !24
-  %35 = getelementptr inbounds %struct.segment_s, ptr %30, i64 0, i32 1
-  %36 = load ptr, ptr %35, align 8, !tbaa !28
-  %37 = getelementptr inbounds %struct.segment_s, ptr %28, i64 0, i32 3
-  %38 = load i64, ptr %37, align 8, !tbaa !22
-  %39 = icmp eq i64 %24, %38
-  br i1 %39, label %40, label %52
+if.then:                                          ; preds = %land.lhs.true4
+  %pt = getelementptr inbounds %struct.subpath, ptr %3, i64 0, i32 3
+  %6 = load i64, ptr %pt, align 8, !tbaa !40
+  %y = getelementptr inbounds %struct.subpath, ptr %3, i64 0, i32 3, i32 1
+  %7 = load i64, ptr %y, align 8, !tbaa !41
+  %next = getelementptr inbounds %struct.subpath, ptr %3, i64 0, i32 1
+  %8 = load ptr, ptr %next, align 8, !tbaa !42
+  %next7 = getelementptr inbounds %struct.segment_s, ptr %8, i64 0, i32 1
+  %9 = load ptr, ptr %next7, align 8, !tbaa !28
+  %pt8 = getelementptr inbounds %struct.segment_s, ptr %9, i64 0, i32 3
+  %10 = load i64, ptr %pt8, align 8, !tbaa !22
+  %y11 = getelementptr inbounds %struct.segment_s, ptr %9, i64 0, i32 3, i32 1
+  %11 = load i64, ptr %y11, align 8, !tbaa !24
+  %next12 = getelementptr inbounds %struct.segment_s, ptr %9, i64 0, i32 1
+  %12 = load ptr, ptr %next12, align 8, !tbaa !28
+  %pt13 = getelementptr inbounds %struct.segment_s, ptr %8, i64 0, i32 3
+  %13 = load i64, ptr %pt13, align 8, !tbaa !22
+  %cmp15 = icmp eq i64 %6, %13
+  br i1 %cmp15, label %land.lhs.true16, label %lor.lhs.false
 
-40:                                               ; preds = %22
-  %41 = getelementptr inbounds %struct.segment_s, ptr %28, i64 0, i32 3, i32 1
-  %42 = load i64, ptr %41, align 8, !tbaa !24
-  %43 = icmp eq i64 %42, %34
-  br i1 %43, label %44, label %52
+land.lhs.true16:                                  ; preds = %if.then
+  %y18 = getelementptr inbounds %struct.segment_s, ptr %8, i64 0, i32 3, i32 1
+  %14 = load i64, ptr %y18, align 8, !tbaa !24
+  %cmp19 = icmp eq i64 %14, %11
+  br i1 %cmp19, label %land.lhs.true20, label %lor.lhs.false
 
-44:                                               ; preds = %40
-  %45 = getelementptr inbounds %struct.segment_s, ptr %36, i64 0, i32 3
-  %46 = load i64, ptr %45, align 8, !tbaa !22
-  %47 = icmp eq i64 %32, %46
-  br i1 %47, label %48, label %52
+land.lhs.true20:                                  ; preds = %land.lhs.true16
+  %pt21 = getelementptr inbounds %struct.segment_s, ptr %12, i64 0, i32 3
+  %15 = load i64, ptr %pt21, align 8, !tbaa !22
+  %cmp23 = icmp eq i64 %10, %15
+  br i1 %cmp23, label %land.lhs.true24, label %lor.lhs.false
 
-48:                                               ; preds = %44
-  %49 = getelementptr inbounds %struct.segment_s, ptr %36, i64 0, i32 3, i32 1
-  %50 = load i64, ptr %49, align 8, !tbaa !24
-  %51 = icmp eq i64 %50, %26
-  br i1 %51, label %66, label %52
+land.lhs.true24:                                  ; preds = %land.lhs.true20
+  %y26 = getelementptr inbounds %struct.segment_s, ptr %12, i64 0, i32 3, i32 1
+  %16 = load i64, ptr %y26, align 8, !tbaa !24
+  %cmp27 = icmp eq i64 %16, %7
+  br i1 %cmp27, label %if.then43, label %lor.lhs.false
 
-52:                                               ; preds = %48, %44, %40, %22
-  %53 = getelementptr inbounds %struct.segment_s, ptr %36, i64 0, i32 3
-  %54 = load i64, ptr %53, align 8, !tbaa !22
-  %55 = icmp eq i64 %24, %54
-  br i1 %55, label %56, label %74
+lor.lhs.false:                                    ; preds = %land.lhs.true24, %land.lhs.true20, %land.lhs.true16, %if.then
+  %pt28 = getelementptr inbounds %struct.segment_s, ptr %12, i64 0, i32 3
+  %17 = load i64, ptr %pt28, align 8, !tbaa !22
+  %cmp30 = icmp eq i64 %6, %17
+  br i1 %cmp30, label %land.lhs.true31, label %cleanup72
 
-56:                                               ; preds = %52
-  %57 = getelementptr inbounds %struct.segment_s, ptr %36, i64 0, i32 3, i32 1
-  %58 = load i64, ptr %57, align 8, !tbaa !24
-  %59 = icmp eq i64 %58, %34
-  %60 = icmp eq i64 %32, %38
-  %61 = select i1 %59, i1 %60, i1 false
-  br i1 %61, label %62, label %74
+land.lhs.true31:                                  ; preds = %lor.lhs.false
+  %y33 = getelementptr inbounds %struct.segment_s, ptr %12, i64 0, i32 3, i32 1
+  %18 = load i64, ptr %y33, align 8, !tbaa !24
+  %cmp34 = icmp eq i64 %18, %11
+  %cmp38 = icmp eq i64 %10, %13
+  %or.cond = select i1 %cmp34, i1 %cmp38, i1 false
+  br i1 %or.cond, label %land.lhs.true39, label %cleanup72
 
-62:                                               ; preds = %56
-  %63 = getelementptr inbounds %struct.segment_s, ptr %28, i64 0, i32 3, i32 1
-  %64 = load i64, ptr %63, align 8, !tbaa !24
-  %65 = icmp eq i64 %64, %26
-  br i1 %65, label %66, label %74
+land.lhs.true39:                                  ; preds = %land.lhs.true31
+  %y41 = getelementptr inbounds %struct.segment_s, ptr %8, i64 0, i32 3, i32 1
+  %19 = load i64, ptr %y41, align 8, !tbaa !24
+  %cmp42 = icmp eq i64 %19, %7
+  br i1 %cmp42, label %if.then43, label %cleanup72
 
-66:                                               ; preds = %62, %48
-  %67 = tail call i64 @llvm.smin.i64(i64 %24, i64 %32)
-  %68 = tail call i64 @llvm.smax.i64(i64 %24, i64 %32)
-  store i64 %67, ptr %1, align 8
-  %69 = getelementptr inbounds %struct.gs_fixed_rect_s, ptr %1, i64 0, i32 1
-  store i64 %68, ptr %69, align 8
-  %70 = tail call i64 @llvm.smin.i64(i64 %26, i64 %34)
-  %71 = tail call i64 @llvm.smax.i64(i64 %26, i64 %34)
-  %72 = getelementptr inbounds %struct.gs_fixed_point_s, ptr %1, i64 0, i32 1
-  store i64 %70, ptr %72, align 8, !tbaa !43
-  %73 = getelementptr inbounds %struct.gs_fixed_rect_s, ptr %1, i64 0, i32 1, i32 1
-  store i64 %71, ptr %73, align 8, !tbaa !44
-  br label %74
+if.then43:                                        ; preds = %land.lhs.true39, %land.lhs.true24
+  %spec.select = tail call i64 @llvm.smin.i64(i64 %6, i64 %10)
+  %spec.select117 = tail call i64 @llvm.smax.i64(i64 %6, i64 %10)
+  store i64 %spec.select, ptr %pbox, align 8
+  %20 = getelementptr inbounds %struct.gs_fixed_rect_s, ptr %pbox, i64 0, i32 1
+  store i64 %spec.select117, ptr %20, align 8
+  %. = tail call i64 @llvm.smin.i64(i64 %7, i64 %11)
+  %.119 = tail call i64 @llvm.smax.i64(i64 %7, i64 %11)
+  %y60 = getelementptr inbounds %struct.gs_fixed_point_s, ptr %pbox, i64 0, i32 1
+  store i64 %., ptr %y60, align 8, !tbaa !43
+  %y62 = getelementptr inbounds %struct.gs_fixed_rect_s, ptr %pbox, i64 0, i32 1, i32 1
+  store i64 %.119, ptr %y62, align 8, !tbaa !44
+  br label %cleanup72
 
-74:                                               ; preds = %66, %52, %56, %62, %2, %6, %10, %14
-  %75 = phi i32 [ 0, %14 ], [ 0, %10 ], [ 0, %6 ], [ 0, %2 ], [ 0, %62 ], [ 0, %56 ], [ 0, %52 ], [ 1, %66 ]
-  ret i32 %75
+cleanup72:                                        ; preds = %if.then43, %entry, %land.lhs.true, %land.lhs.true2, %land.lhs.true4, %lor.lhs.false, %land.lhs.true31, %land.lhs.true39
+  %retval.1 = phi i32 [ 0, %land.lhs.true39 ], [ 0, %land.lhs.true31 ], [ 0, %lor.lhs.false ], [ 0, %land.lhs.true4 ], [ 0, %land.lhs.true2 ], [ 0, %land.lhs.true ], [ 0, %entry ], [ 1, %if.then43 ]
+  ret i32 %retval.1
 }
 
 ; Function Attrs: mustprogress nofree nosync nounwind willreturn memory(argmem: readwrite) uwtable
-define dso_local i32 @gx_cpath_box_for_check(ptr nocapture noundef readonly %0, ptr nocapture noundef writeonly %1) local_unnamed_addr #6 {
-  %3 = getelementptr inbounds %struct.gx_path_s, ptr %0, i64 0, i32 3
-  tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(32) %1, ptr noundef nonnull align 8 dereferenceable(32) %3, i64 32, i1 false), !tbaa.struct !21
+define dso_local i32 @gx_cpath_box_for_check(ptr nocapture noundef readonly %ppath, ptr nocapture noundef writeonly %pbox) local_unnamed_addr #6 {
+entry:
+  %cbox = getelementptr inbounds %struct.gx_path_s, ptr %ppath, i64 0, i32 3
+  tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(32) %pbox, ptr noundef nonnull align 8 dereferenceable(32) %cbox, i64 32, i1 false), !tbaa.struct !21
   ret i32 0
 }
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(argmem: read) uwtable
-define dso_local i32 @gx_cpath_includes_rectangle(ptr nocapture noundef readonly %0, i64 noundef %1, i64 noundef %2, i64 noundef %3, i64 noundef %4) local_unnamed_addr #4 {
-  %6 = icmp sgt i64 %1, %3
-  %7 = getelementptr inbounds %struct.gx_path_s, ptr %0, i64 0, i32 3
-  %8 = load i64, ptr %7, align 8, !tbaa !45
-  br i1 %6, label %15, label %9
+define dso_local i32 @gx_cpath_includes_rectangle(ptr nocapture noundef readonly %ppath, i64 noundef %x0, i64 noundef %y0, i64 noundef %x1, i64 noundef %y1) local_unnamed_addr #4 {
+entry:
+  %cmp.not = icmp sgt i64 %x0, %x1
+  %cbox5 = getelementptr inbounds %struct.gx_path_s, ptr %ppath, i64 0, i32 3
+  %0 = load i64, ptr %cbox5, align 8, !tbaa !45
+  br i1 %cmp.not, label %cond.false, label %cond.true
 
-9:                                                ; preds = %5
-  %10 = icmp sgt i64 %8, %1
-  br i1 %10, label %35, label %11
+cond.true:                                        ; preds = %entry
+  %cmp1.not = icmp sgt i64 %0, %x0
+  br i1 %cmp1.not, label %land.end36, label %land.lhs.true
 
-11:                                               ; preds = %9
-  %12 = getelementptr inbounds %struct.gx_path_s, ptr %0, i64 0, i32 3, i32 1
-  %13 = load i64, ptr %12, align 8, !tbaa !46
-  %14 = icmp slt i64 %13, %3
-  br i1 %14, label %35, label %21
+land.lhs.true:                                    ; preds = %cond.true
+  %q = getelementptr inbounds %struct.gx_path_s, ptr %ppath, i64 0, i32 3, i32 1
+  %1 = load i64, ptr %q, align 8, !tbaa !46
+  %cmp4.not = icmp slt i64 %1, %x1
+  br i1 %cmp4.not, label %land.end36, label %land.rhs
 
-15:                                               ; preds = %5
-  %16 = icmp sgt i64 %8, %3
-  br i1 %16, label %35, label %17
+cond.false:                                       ; preds = %entry
+  %cmp8.not = icmp sgt i64 %0, %x1
+  br i1 %cmp8.not, label %land.end36, label %land.lhs.true9
 
-17:                                               ; preds = %15
-  %18 = getelementptr inbounds %struct.gx_path_s, ptr %0, i64 0, i32 3, i32 1
-  %19 = load i64, ptr %18, align 8, !tbaa !46
-  %20 = icmp slt i64 %19, %1
-  br i1 %20, label %35, label %21
+land.lhs.true9:                                   ; preds = %cond.false
+  %q11 = getelementptr inbounds %struct.gx_path_s, ptr %ppath, i64 0, i32 3, i32 1
+  %2 = load i64, ptr %q11, align 8, !tbaa !46
+  %cmp13.not = icmp slt i64 %2, %x0
+  br i1 %cmp13.not, label %land.end36, label %land.rhs
 
-21:                                               ; preds = %17, %11
-  %22 = icmp sgt i64 %2, %4
-  %23 = getelementptr inbounds %struct.gx_path_s, ptr %0, i64 0, i32 3, i32 0, i32 1
-  %24 = load i64, ptr %23, align 8, !tbaa !47
-  br i1 %22, label %27, label %25
+land.rhs:                                         ; preds = %land.lhs.true9, %land.lhs.true
+  %cmp14.not = icmp sgt i64 %y0, %y1
+  %y27 = getelementptr inbounds %struct.gx_path_s, ptr %ppath, i64 0, i32 3, i32 0, i32 1
+  %3 = load i64, ptr %y27, align 8, !tbaa !47
+  br i1 %cmp14.not, label %cond.false24, label %cond.true15
 
-25:                                               ; preds = %21
-  %26 = icmp sgt i64 %24, %2
-  br i1 %26, label %35, label %29
+cond.true15:                                      ; preds = %land.rhs
+  %cmp18.not = icmp sgt i64 %3, %y0
+  br i1 %cmp18.not, label %land.end36, label %land.end36.sink.split
 
-27:                                               ; preds = %21
-  %28 = icmp sgt i64 %24, %4
-  br i1 %28, label %35, label %29
+cond.false24:                                     ; preds = %land.rhs
+  %cmp28.not = icmp sgt i64 %3, %y1
+  br i1 %cmp28.not, label %land.end36, label %land.end36.sink.split
 
-29:                                               ; preds = %27, %25
-  %30 = phi i64 [ %4, %25 ], [ %2, %27 ]
-  %31 = getelementptr inbounds %struct.gx_path_s, ptr %0, i64 0, i32 3, i32 1, i32 1
-  %32 = load i64, ptr %31, align 8, !tbaa !48
-  %33 = icmp sge i64 %32, %30
-  %34 = zext i1 %33 to i32
-  br label %35
+land.end36.sink.split:                            ; preds = %cond.false24, %cond.true15
+  %y1.sink = phi i64 [ %y1, %cond.true15 ], [ %y0, %cond.false24 ]
+  %y22 = getelementptr inbounds %struct.gx_path_s, ptr %ppath, i64 0, i32 3, i32 1, i32 1
+  %4 = load i64, ptr %y22, align 8, !tbaa !48
+  %cmp23 = icmp sge i64 %4, %y1.sink
+  %5 = zext i1 %cmp23 to i32
+  br label %land.end36
 
-35:                                               ; preds = %29, %25, %27, %17, %15, %11, %9
-  %36 = phi i32 [ 0, %17 ], [ 0, %15 ], [ 0, %11 ], [ 0, %9 ], [ 0, %25 ], [ 0, %27 ], [ %34, %29 ]
-  ret i32 %36
+land.end36:                                       ; preds = %land.end36.sink.split, %cond.true15, %cond.false24, %land.lhs.true9, %cond.false, %land.lhs.true, %cond.true
+  %land.ext37.shrunk = phi i32 [ 0, %land.lhs.true9 ], [ 0, %cond.false ], [ 0, %land.lhs.true ], [ 0, %cond.true ], [ 0, %cond.true15 ], [ 0, %cond.false24 ], [ %5, %land.end36.sink.split ]
+  ret i32 %land.ext37.shrunk
 }
 
 ; Function Attrs: nounwind uwtable
-define dso_local i32 @gx_path_copy(ptr noundef %0, ptr noundef %1) local_unnamed_addr #7 {
-  %3 = alloca { %struct.gs_memory_procs, %struct.gs_fixed_rect_s, ptr, %struct.gs_fixed_rect_s }, align 8
-  %4 = alloca { ptr, i32, i32, i32, %struct.gs_fixed_point_s }, align 8
-  call void @llvm.lifetime.start.p0(i64 88, ptr nonnull %3)
-  call void @llvm.lifetime.start.p0(i64 40, ptr nonnull %4)
-  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(88) %3, ptr noundef nonnull align 8 dereferenceable(88) %0, i64 88, i1 false), !tbaa.struct !49
-  %5 = getelementptr inbounds i8, ptr %0, i64 88
-  %6 = load ptr, ptr %5, align 8, !tbaa.struct !53
-  %7 = getelementptr inbounds i8, ptr %0, i64 96
-  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(40) %4, ptr noundef nonnull align 8 dereferenceable(40) %7, i64 40, i1 false), !tbaa.struct !54
-  %8 = getelementptr inbounds i8, ptr %0, i64 136
-  %9 = load i64, ptr %8, align 8, !tbaa.struct !55
-  tail call void @gx_path_init(ptr noundef %1, ptr noundef %0) #11
-  %10 = icmp eq ptr %6, null
-  br i1 %10, label %53, label %11
+define dso_local i32 @gx_path_copy(ptr noundef %ppath_old, ptr noundef %ppath) local_unnamed_addr #7 {
+entry:
+  %old.sroa.0.i = alloca { %struct.gs_memory_procs, %struct.gs_fixed_rect_s, ptr, %struct.gs_fixed_rect_s }, align 8
+  %old.sroa.5.i = alloca { ptr, i32, i32, i32, %struct.gs_fixed_point_s }, align 8
+  call void @llvm.lifetime.start.p0(i64 88, ptr nonnull %old.sroa.0.i)
+  call void @llvm.lifetime.start.p0(i64 40, ptr nonnull %old.sroa.5.i)
+  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(88) %old.sroa.0.i, ptr noundef nonnull align 8 dereferenceable(88) %ppath_old, i64 88, i1 false), !tbaa.struct !49
+  %old.sroa.4.0..sroa_idx.i = getelementptr inbounds i8, ptr %ppath_old, i64 88
+  %old.sroa.4.0.copyload.i = load ptr, ptr %old.sroa.4.0..sroa_idx.i, align 8, !tbaa.struct !53
+  %old.sroa.5.0..sroa_idx.i = getelementptr inbounds i8, ptr %ppath_old, i64 96
+  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(40) %old.sroa.5.i, ptr noundef nonnull align 8 dereferenceable(40) %old.sroa.5.0..sroa_idx.i, i64 40, i1 false), !tbaa.struct !54
+  %old.sroa.6.0..sroa_idx.i = getelementptr inbounds i8, ptr %ppath_old, i64 136
+  %old.sroa.6.0.copyload.i = load i64, ptr %old.sroa.6.0..sroa_idx.i, align 8, !tbaa.struct !55
+  tail call void @gx_path_init(ptr noundef %ppath, ptr noundef %ppath_old) #11
+  %tobool.not58.i = icmp eq ptr %old.sroa.4.0.copyload.i, null
+  br i1 %tobool.not58.i, label %while.end.i, label %while.body.i
 
-11:                                               ; preds = %2, %49
-  %12 = phi ptr [ %51, %49 ], [ %6, %2 ]
-  %13 = getelementptr inbounds %struct.segment_s, ptr %12, i64 0, i32 2
-  %14 = load i32, ptr %13, align 8, !tbaa !29
-  switch i32 %14, label %49 [
-    i32 0, label %15
-    i32 3, label %21
-    i32 1, label %35
-    i32 2, label %41
+while.body.i:                                     ; preds = %entry, %if.end24.i
+  %pseg.059.i = phi ptr [ %11, %if.end24.i ], [ %old.sroa.4.0.copyload.i, %entry ]
+  %type.i = getelementptr inbounds %struct.segment_s, ptr %pseg.059.i, i64 0, i32 2
+  %0 = load i32, ptr %type.i, align 8, !tbaa !29
+  switch i32 %0, label %if.end24.i [
+    i32 0, label %sw.bb.i
+    i32 3, label %sw.bb2.i
+    i32 1, label %sw.bb14.i
+    i32 2, label %sw.bb20.i
   ]
 
-15:                                               ; preds = %11
-  %16 = getelementptr inbounds %struct.segment_s, ptr %12, i64 0, i32 3
-  %17 = load i64, ptr %16, align 8, !tbaa !22
-  %18 = getelementptr inbounds %struct.segment_s, ptr %12, i64 0, i32 3, i32 1
-  %19 = load i64, ptr %18, align 8, !tbaa !24
-  %20 = tail call i32 @gx_path_add_point(ptr noundef %1, i64 noundef %17, i64 noundef %19) #11
-  br label %43
+sw.bb.i:                                          ; preds = %while.body.i
+  %pt.i = getelementptr inbounds %struct.segment_s, ptr %pseg.059.i, i64 0, i32 3
+  %1 = load i64, ptr %pt.i, align 8, !tbaa !22
+  %y.i = getelementptr inbounds %struct.segment_s, ptr %pseg.059.i, i64 0, i32 3, i32 1
+  %2 = load i64, ptr %y.i, align 8, !tbaa !24
+  %call.i = tail call i32 @gx_path_add_point(ptr noundef %ppath, i64 noundef %1, i64 noundef %2) #11
+  br label %sw.epilog.i
 
-21:                                               ; preds = %11
-  %22 = getelementptr inbounds %struct.curve_segment, ptr %12, i64 0, i32 4
-  %23 = load i64, ptr %22, align 8, !tbaa !30
-  %24 = getelementptr inbounds %struct.curve_segment, ptr %12, i64 0, i32 4, i32 1
-  %25 = load i64, ptr %24, align 8, !tbaa !32
-  %26 = getelementptr inbounds %struct.curve_segment, ptr %12, i64 0, i32 5
-  %27 = load i64, ptr %26, align 8, !tbaa !33
-  %28 = getelementptr inbounds %struct.curve_segment, ptr %12, i64 0, i32 5, i32 1
-  %29 = load i64, ptr %28, align 8, !tbaa !34
-  %30 = getelementptr inbounds %struct.curve_segment, ptr %12, i64 0, i32 3
-  %31 = load i64, ptr %30, align 8, !tbaa !56
-  %32 = getelementptr inbounds %struct.curve_segment, ptr %12, i64 0, i32 3, i32 1
-  %33 = load i64, ptr %32, align 8, !tbaa !57
-  %34 = tail call i32 @gx_path_add_curve(ptr noundef %1, i64 noundef %23, i64 noundef %25, i64 noundef %27, i64 noundef %29, i64 noundef %31, i64 noundef %33) #11
-  br label %43
+sw.bb2.i:                                         ; preds = %while.body.i
+  %p1.i = getelementptr inbounds %struct.curve_segment, ptr %pseg.059.i, i64 0, i32 4
+  %3 = load i64, ptr %p1.i, align 8, !tbaa !30
+  %y5.i = getelementptr inbounds %struct.curve_segment, ptr %pseg.059.i, i64 0, i32 4, i32 1
+  %4 = load i64, ptr %y5.i, align 8, !tbaa !32
+  %p2.i = getelementptr inbounds %struct.curve_segment, ptr %pseg.059.i, i64 0, i32 5
+  %5 = load i64, ptr %p2.i, align 8, !tbaa !33
+  %y8.i = getelementptr inbounds %struct.curve_segment, ptr %pseg.059.i, i64 0, i32 5, i32 1
+  %6 = load i64, ptr %y8.i, align 8, !tbaa !34
+  %pt9.i = getelementptr inbounds %struct.curve_segment, ptr %pseg.059.i, i64 0, i32 3
+  %7 = load i64, ptr %pt9.i, align 8, !tbaa !56
+  %y12.i = getelementptr inbounds %struct.curve_segment, ptr %pseg.059.i, i64 0, i32 3, i32 1
+  %8 = load i64, ptr %y12.i, align 8, !tbaa !57
+  %call13.i = tail call i32 @gx_path_add_curve(ptr noundef %ppath, i64 noundef %3, i64 noundef %4, i64 noundef %5, i64 noundef %6, i64 noundef %7, i64 noundef %8) #11
+  br label %sw.epilog.i
 
-35:                                               ; preds = %11
-  %36 = getelementptr inbounds %struct.segment_s, ptr %12, i64 0, i32 3
-  %37 = load i64, ptr %36, align 8, !tbaa !22
-  %38 = getelementptr inbounds %struct.segment_s, ptr %12, i64 0, i32 3, i32 1
-  %39 = load i64, ptr %38, align 8, !tbaa !24
-  %40 = tail call i32 @gx_path_add_line(ptr noundef %1, i64 noundef %37, i64 noundef %39) #11
-  br label %43
+sw.bb14.i:                                        ; preds = %while.body.i
+  %pt15.i = getelementptr inbounds %struct.segment_s, ptr %pseg.059.i, i64 0, i32 3
+  %9 = load i64, ptr %pt15.i, align 8, !tbaa !22
+  %y18.i = getelementptr inbounds %struct.segment_s, ptr %pseg.059.i, i64 0, i32 3, i32 1
+  %10 = load i64, ptr %y18.i, align 8, !tbaa !24
+  %call19.i = tail call i32 @gx_path_add_line(ptr noundef %ppath, i64 noundef %9, i64 noundef %10) #11
+  br label %sw.epilog.i
 
-41:                                               ; preds = %11
-  %42 = tail call i32 @gx_path_close_subpath(ptr noundef %1) #11
-  br label %43
+sw.bb20.i:                                        ; preds = %while.body.i
+  %call21.i = tail call i32 @gx_path_close_subpath(ptr noundef %ppath) #11
+  br label %sw.epilog.i
 
-43:                                               ; preds = %41, %35, %21, %15
-  %44 = phi i32 [ %42, %41 ], [ %40, %35 ], [ %34, %21 ], [ %20, %15 ]
-  %45 = icmp eq i32 %44, 0
-  br i1 %45, label %49, label %46
+sw.epilog.i:                                      ; preds = %sw.bb20.i, %sw.bb14.i, %sw.bb2.i, %sw.bb.i
+  %code.1.i = phi i32 [ %call21.i, %sw.bb20.i ], [ %call19.i, %sw.bb14.i ], [ %call13.i, %sw.bb2.i ], [ %call.i, %sw.bb.i ]
+  %tobool22.not.i = icmp eq i32 %code.1.i, 0
+  br i1 %tobool22.not.i, label %if.end24.i, label %if.then.i
 
-46:                                               ; preds = %43
-  tail call void @gx_path_release(ptr noundef %1) #11
-  %47 = icmp eq ptr %1, %0
-  br i1 %47, label %48, label %56
+if.then.i:                                        ; preds = %sw.epilog.i
+  tail call void @gx_path_release(ptr noundef %ppath) #11
+  %cmp.i = icmp eq ptr %ppath, %ppath_old
+  br i1 %cmp.i, label %if.then23.i, label %copy_path.exit
 
-48:                                               ; preds = %46
-  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(88) %0, ptr noundef nonnull align 8 dereferenceable(88) %3, i64 88, i1 false), !tbaa.struct !49
-  store ptr %6, ptr %5, align 8, !tbaa.struct !53
-  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(40) %7, ptr noundef nonnull align 8 dereferenceable(40) %4, i64 40, i1 false), !tbaa.struct !54
-  store i64 %9, ptr %8, align 8, !tbaa.struct !55
-  br label %56
+if.then23.i:                                      ; preds = %if.then.i
+  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(88) %ppath_old, ptr noundef nonnull align 8 dereferenceable(88) %old.sroa.0.i, i64 88, i1 false), !tbaa.struct !49
+  store ptr %old.sroa.4.0.copyload.i, ptr %old.sroa.4.0..sroa_idx.i, align 8, !tbaa.struct !53
+  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(40) %old.sroa.5.0..sroa_idx.i, ptr noundef nonnull align 8 dereferenceable(40) %old.sroa.5.i, i64 40, i1 false), !tbaa.struct !54
+  store i64 %old.sroa.6.0.copyload.i, ptr %old.sroa.6.0..sroa_idx.i, align 8, !tbaa.struct !55
+  br label %copy_path.exit
 
-49:                                               ; preds = %43, %11
-  %50 = getelementptr inbounds %struct.segment_s, ptr %12, i64 0, i32 1
-  %51 = load ptr, ptr %50, align 8, !tbaa !28
-  %52 = icmp eq ptr %51, null
-  br i1 %52, label %53, label %11, !llvm.loop !58
+if.end24.i:                                       ; preds = %sw.epilog.i, %while.body.i
+  %next.i = getelementptr inbounds %struct.segment_s, ptr %pseg.059.i, i64 0, i32 1
+  %11 = load ptr, ptr %next.i, align 8, !tbaa !28
+  %tobool.not.i = icmp eq ptr %11, null
+  br i1 %tobool.not.i, label %while.end.i, label %while.body.i, !llvm.loop !58
 
-53:                                               ; preds = %49, %2
-  %54 = getelementptr inbounds %struct.gx_path_s, ptr %1, i64 0, i32 9
-  %55 = getelementptr inbounds i8, ptr %4, i64 24
-  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %54, ptr noundef nonnull align 8 dereferenceable(16) %55, i64 16, i1 false), !tbaa.struct !26
-  br label %56
+while.end.i:                                      ; preds = %if.end24.i, %entry
+  %position.i = getelementptr inbounds %struct.gx_path_s, ptr %ppath, i64 0, i32 9
+  %old.sroa.5.120.sroa_idx.i = getelementptr inbounds i8, ptr %old.sroa.5.i, i64 24
+  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %position.i, ptr noundef nonnull align 8 dereferenceable(16) %old.sroa.5.120.sroa_idx.i, i64 16, i1 false), !tbaa.struct !26
+  br label %copy_path.exit
 
-56:                                               ; preds = %46, %48, %53
-  %57 = phi i32 [ 0, %53 ], [ %44, %48 ], [ %44, %46 ]
-  call void @llvm.lifetime.end.p0(i64 88, ptr nonnull %3)
-  call void @llvm.lifetime.end.p0(i64 40, ptr nonnull %4)
-  ret i32 %57
+copy_path.exit:                                   ; preds = %if.then.i, %if.then23.i, %while.end.i
+  %retval.0.i = phi i32 [ 0, %while.end.i ], [ %code.1.i, %if.then23.i ], [ %code.1.i, %if.then.i ]
+  call void @llvm.lifetime.end.p0(i64 88, ptr nonnull %old.sroa.0.i)
+  call void @llvm.lifetime.end.p0(i64 40, ptr nonnull %old.sroa.5.i)
+  ret i32 %retval.0.i
 }
 
 ; Function Attrs: nounwind uwtable
-define dso_local i32 @copy_path(ptr noundef %0, ptr noundef %1, ptr nocapture noundef readonly %2) local_unnamed_addr #7 {
-  %4 = alloca { %struct.gs_memory_procs, %struct.gs_fixed_rect_s, ptr, %struct.gs_fixed_rect_s }, align 8
-  %5 = alloca { ptr, i32, i32, i32, %struct.gs_fixed_point_s }, align 8
-  call void @llvm.lifetime.start.p0(i64 88, ptr nonnull %4)
-  call void @llvm.lifetime.start.p0(i64 40, ptr nonnull %5)
-  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(88) %4, ptr noundef nonnull align 8 dereferenceable(88) %0, i64 88, i1 false), !tbaa.struct !49
-  %6 = getelementptr inbounds i8, ptr %0, i64 88
-  %7 = load ptr, ptr %6, align 8, !tbaa.struct !53
-  %8 = getelementptr inbounds i8, ptr %0, i64 96
-  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(40) %5, ptr noundef nonnull align 8 dereferenceable(40) %8, i64 40, i1 false), !tbaa.struct !54
-  %9 = getelementptr inbounds i8, ptr %0, i64 136
-  %10 = load i64, ptr %9, align 8, !tbaa.struct !55
-  tail call void @gx_path_init(ptr noundef %1, ptr noundef %0) #11
-  %11 = icmp eq ptr %7, null
-  br i1 %11, label %54, label %12
+define dso_local i32 @copy_path(ptr noundef %ppath_old, ptr noundef %ppath, ptr nocapture noundef readonly %curve_proc) local_unnamed_addr #7 {
+entry:
+  %old.sroa.0 = alloca { %struct.gs_memory_procs, %struct.gs_fixed_rect_s, ptr, %struct.gs_fixed_rect_s }, align 8
+  %old.sroa.5 = alloca { ptr, i32, i32, i32, %struct.gs_fixed_point_s }, align 8
+  call void @llvm.lifetime.start.p0(i64 88, ptr nonnull %old.sroa.0)
+  call void @llvm.lifetime.start.p0(i64 40, ptr nonnull %old.sroa.5)
+  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(88) %old.sroa.0, ptr noundef nonnull align 8 dereferenceable(88) %ppath_old, i64 88, i1 false), !tbaa.struct !49
+  %old.sroa.4.0..sroa_idx = getelementptr inbounds i8, ptr %ppath_old, i64 88
+  %old.sroa.4.0.copyload = load ptr, ptr %old.sroa.4.0..sroa_idx, align 8, !tbaa.struct !53
+  %old.sroa.5.0..sroa_idx = getelementptr inbounds i8, ptr %ppath_old, i64 96
+  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(40) %old.sroa.5, ptr noundef nonnull align 8 dereferenceable(40) %old.sroa.5.0..sroa_idx, i64 40, i1 false), !tbaa.struct !54
+  %old.sroa.6.0..sroa_idx = getelementptr inbounds i8, ptr %ppath_old, i64 136
+  %old.sroa.6.0.copyload = load i64, ptr %old.sroa.6.0..sroa_idx, align 8, !tbaa.struct !55
+  tail call void @gx_path_init(ptr noundef %ppath, ptr noundef %ppath_old) #11
+  %tobool.not58 = icmp eq ptr %old.sroa.4.0.copyload, null
+  br i1 %tobool.not58, label %while.end, label %while.body
 
-12:                                               ; preds = %3, %50
-  %13 = phi ptr [ %52, %50 ], [ %7, %3 ]
-  %14 = getelementptr inbounds %struct.segment_s, ptr %13, i64 0, i32 2
-  %15 = load i32, ptr %14, align 8, !tbaa !29
-  switch i32 %15, label %50 [
-    i32 0, label %16
-    i32 3, label %22
-    i32 1, label %36
-    i32 2, label %42
+while.body:                                       ; preds = %entry, %if.end24
+  %pseg.059 = phi ptr [ %11, %if.end24 ], [ %old.sroa.4.0.copyload, %entry ]
+  %type = getelementptr inbounds %struct.segment_s, ptr %pseg.059, i64 0, i32 2
+  %0 = load i32, ptr %type, align 8, !tbaa !29
+  switch i32 %0, label %if.end24 [
+    i32 0, label %sw.bb
+    i32 3, label %sw.bb2
+    i32 1, label %sw.bb14
+    i32 2, label %sw.bb20
   ]
 
-16:                                               ; preds = %12
-  %17 = getelementptr inbounds %struct.segment_s, ptr %13, i64 0, i32 3
-  %18 = load i64, ptr %17, align 8, !tbaa !22
-  %19 = getelementptr inbounds %struct.segment_s, ptr %13, i64 0, i32 3, i32 1
-  %20 = load i64, ptr %19, align 8, !tbaa !24
-  %21 = tail call i32 @gx_path_add_point(ptr noundef %1, i64 noundef %18, i64 noundef %20) #11
-  br label %44
+sw.bb:                                            ; preds = %while.body
+  %pt = getelementptr inbounds %struct.segment_s, ptr %pseg.059, i64 0, i32 3
+  %1 = load i64, ptr %pt, align 8, !tbaa !22
+  %y = getelementptr inbounds %struct.segment_s, ptr %pseg.059, i64 0, i32 3, i32 1
+  %2 = load i64, ptr %y, align 8, !tbaa !24
+  %call = tail call i32 @gx_path_add_point(ptr noundef %ppath, i64 noundef %1, i64 noundef %2) #11
+  br label %sw.epilog
 
-22:                                               ; preds = %12
-  %23 = getelementptr inbounds %struct.curve_segment, ptr %13, i64 0, i32 4
-  %24 = load i64, ptr %23, align 8, !tbaa !30
-  %25 = getelementptr inbounds %struct.curve_segment, ptr %13, i64 0, i32 4, i32 1
-  %26 = load i64, ptr %25, align 8, !tbaa !32
-  %27 = getelementptr inbounds %struct.curve_segment, ptr %13, i64 0, i32 5
-  %28 = load i64, ptr %27, align 8, !tbaa !33
-  %29 = getelementptr inbounds %struct.curve_segment, ptr %13, i64 0, i32 5, i32 1
-  %30 = load i64, ptr %29, align 8, !tbaa !34
-  %31 = getelementptr inbounds %struct.curve_segment, ptr %13, i64 0, i32 3
-  %32 = load i64, ptr %31, align 8, !tbaa !56
-  %33 = getelementptr inbounds %struct.curve_segment, ptr %13, i64 0, i32 3, i32 1
-  %34 = load i64, ptr %33, align 8, !tbaa !57
-  %35 = tail call i32 %2(ptr noundef %1, i64 noundef %24, i64 noundef %26, i64 noundef %28, i64 noundef %30, i64 noundef %32, i64 noundef %34) #11
-  br label %44
+sw.bb2:                                           ; preds = %while.body
+  %p1 = getelementptr inbounds %struct.curve_segment, ptr %pseg.059, i64 0, i32 4
+  %3 = load i64, ptr %p1, align 8, !tbaa !30
+  %y5 = getelementptr inbounds %struct.curve_segment, ptr %pseg.059, i64 0, i32 4, i32 1
+  %4 = load i64, ptr %y5, align 8, !tbaa !32
+  %p2 = getelementptr inbounds %struct.curve_segment, ptr %pseg.059, i64 0, i32 5
+  %5 = load i64, ptr %p2, align 8, !tbaa !33
+  %y8 = getelementptr inbounds %struct.curve_segment, ptr %pseg.059, i64 0, i32 5, i32 1
+  %6 = load i64, ptr %y8, align 8, !tbaa !34
+  %pt9 = getelementptr inbounds %struct.curve_segment, ptr %pseg.059, i64 0, i32 3
+  %7 = load i64, ptr %pt9, align 8, !tbaa !56
+  %y12 = getelementptr inbounds %struct.curve_segment, ptr %pseg.059, i64 0, i32 3, i32 1
+  %8 = load i64, ptr %y12, align 8, !tbaa !57
+  %call13 = tail call i32 %curve_proc(ptr noundef %ppath, i64 noundef %3, i64 noundef %4, i64 noundef %5, i64 noundef %6, i64 noundef %7, i64 noundef %8) #11
+  br label %sw.epilog
 
-36:                                               ; preds = %12
-  %37 = getelementptr inbounds %struct.segment_s, ptr %13, i64 0, i32 3
-  %38 = load i64, ptr %37, align 8, !tbaa !22
-  %39 = getelementptr inbounds %struct.segment_s, ptr %13, i64 0, i32 3, i32 1
-  %40 = load i64, ptr %39, align 8, !tbaa !24
-  %41 = tail call i32 @gx_path_add_line(ptr noundef %1, i64 noundef %38, i64 noundef %40) #11
-  br label %44
+sw.bb14:                                          ; preds = %while.body
+  %pt15 = getelementptr inbounds %struct.segment_s, ptr %pseg.059, i64 0, i32 3
+  %9 = load i64, ptr %pt15, align 8, !tbaa !22
+  %y18 = getelementptr inbounds %struct.segment_s, ptr %pseg.059, i64 0, i32 3, i32 1
+  %10 = load i64, ptr %y18, align 8, !tbaa !24
+  %call19 = tail call i32 @gx_path_add_line(ptr noundef %ppath, i64 noundef %9, i64 noundef %10) #11
+  br label %sw.epilog
 
-42:                                               ; preds = %12
-  %43 = tail call i32 @gx_path_close_subpath(ptr noundef %1) #11
-  br label %44
+sw.bb20:                                          ; preds = %while.body
+  %call21 = tail call i32 @gx_path_close_subpath(ptr noundef %ppath) #11
+  br label %sw.epilog
 
-44:                                               ; preds = %42, %36, %22, %16
-  %45 = phi i32 [ %43, %42 ], [ %41, %36 ], [ %35, %22 ], [ %21, %16 ]
-  %46 = icmp eq i32 %45, 0
-  br i1 %46, label %50, label %47
+sw.epilog:                                        ; preds = %sw.bb20, %sw.bb14, %sw.bb2, %sw.bb
+  %code.1 = phi i32 [ %call21, %sw.bb20 ], [ %call19, %sw.bb14 ], [ %call13, %sw.bb2 ], [ %call, %sw.bb ]
+  %tobool22.not = icmp eq i32 %code.1, 0
+  br i1 %tobool22.not, label %if.end24, label %if.then
 
-47:                                               ; preds = %44
-  tail call void @gx_path_release(ptr noundef %1) #11
-  %48 = icmp eq ptr %1, %0
-  br i1 %48, label %49, label %57
+if.then:                                          ; preds = %sw.epilog
+  tail call void @gx_path_release(ptr noundef %ppath) #11
+  %cmp = icmp eq ptr %ppath, %ppath_old
+  br i1 %cmp, label %if.then23, label %cleanup
 
-49:                                               ; preds = %47
-  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(88) %0, ptr noundef nonnull align 8 dereferenceable(88) %4, i64 88, i1 false), !tbaa.struct !49
-  store ptr %7, ptr %6, align 8, !tbaa.struct !53
-  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(40) %8, ptr noundef nonnull align 8 dereferenceable(40) %5, i64 40, i1 false), !tbaa.struct !54
-  store i64 %10, ptr %9, align 8, !tbaa.struct !55
-  br label %57
+if.then23:                                        ; preds = %if.then
+  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(88) %ppath_old, ptr noundef nonnull align 8 dereferenceable(88) %old.sroa.0, i64 88, i1 false), !tbaa.struct !49
+  store ptr %old.sroa.4.0.copyload, ptr %old.sroa.4.0..sroa_idx, align 8, !tbaa.struct !53
+  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(40) %old.sroa.5.0..sroa_idx, ptr noundef nonnull align 8 dereferenceable(40) %old.sroa.5, i64 40, i1 false), !tbaa.struct !54
+  store i64 %old.sroa.6.0.copyload, ptr %old.sroa.6.0..sroa_idx, align 8, !tbaa.struct !55
+  br label %cleanup
 
-50:                                               ; preds = %12, %44
-  %51 = getelementptr inbounds %struct.segment_s, ptr %13, i64 0, i32 1
-  %52 = load ptr, ptr %51, align 8, !tbaa !28
-  %53 = icmp eq ptr %52, null
-  br i1 %53, label %54, label %12, !llvm.loop !58
+if.end24:                                         ; preds = %while.body, %sw.epilog
+  %next = getelementptr inbounds %struct.segment_s, ptr %pseg.059, i64 0, i32 1
+  %11 = load ptr, ptr %next, align 8, !tbaa !28
+  %tobool.not = icmp eq ptr %11, null
+  br i1 %tobool.not, label %while.end, label %while.body, !llvm.loop !58
 
-54:                                               ; preds = %50, %3
-  %55 = getelementptr inbounds %struct.gx_path_s, ptr %1, i64 0, i32 9
-  %56 = getelementptr inbounds i8, ptr %5, i64 24
-  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %55, ptr noundef nonnull align 8 dereferenceable(16) %56, i64 16, i1 false), !tbaa.struct !26
-  br label %57
+while.end:                                        ; preds = %if.end24, %entry
+  %position = getelementptr inbounds %struct.gx_path_s, ptr %ppath, i64 0, i32 9
+  %old.sroa.5.120.sroa_idx = getelementptr inbounds i8, ptr %old.sroa.5, i64 24
+  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %position, ptr noundef nonnull align 8 dereferenceable(16) %old.sroa.5.120.sroa_idx, i64 16, i1 false), !tbaa.struct !26
+  br label %cleanup
 
-57:                                               ; preds = %47, %49, %54
-  %58 = phi i32 [ 0, %54 ], [ %45, %49 ], [ %45, %47 ]
-  call void @llvm.lifetime.end.p0(i64 88, ptr nonnull %4)
-  call void @llvm.lifetime.end.p0(i64 40, ptr nonnull %5)
-  ret i32 %58
+cleanup:                                          ; preds = %if.then, %if.then23, %while.end
+  %retval.0 = phi i32 [ 0, %while.end ], [ %code.1, %if.then23 ], [ %code.1, %if.then ]
+  call void @llvm.lifetime.end.p0(i64 88, ptr nonnull %old.sroa.0)
+  call void @llvm.lifetime.end.p0(i64 40, ptr nonnull %old.sroa.5)
+  ret i32 %retval.0
 }
 
 declare i32 @gx_path_add_curve(ptr noundef, i64 noundef, i64 noundef, i64 noundef, i64 noundef, i64 noundef, i64 noundef) local_unnamed_addr #8
 
 ; Function Attrs: nounwind uwtable
-define dso_local i32 @gx_path_merge(ptr nocapture noundef %0, ptr noundef %1) local_unnamed_addr #7 {
-  %3 = getelementptr inbounds %struct.gx_path_s, ptr %1, i64 0, i32 5
-  %4 = load ptr, ptr %3, align 8, !tbaa !18
-  %5 = icmp eq ptr %4, null
-  br i1 %5, label %15, label %6
+define dso_local i32 @gx_path_merge(ptr nocapture noundef %ppfrom, ptr noundef %ppto) local_unnamed_addr #7 {
+entry:
+  %current_subpath1 = getelementptr inbounds %struct.gx_path_s, ptr %ppto, i64 0, i32 5
+  %0 = load ptr, ptr %current_subpath1, align 8, !tbaa !18
+  %cmp.not = icmp eq ptr %0, null
+  br i1 %cmp.not, label %if.end, label %land.lhs.true
 
-6:                                                ; preds = %2
-  %7 = getelementptr inbounds %struct.gx_path_s, ptr %0, i64 0, i32 5
-  %8 = load ptr, ptr %7, align 8, !tbaa !18
-  %9 = getelementptr inbounds %struct.subpath, ptr %8, i64 0, i32 4
-  %10 = load ptr, ptr %9, align 8, !tbaa !19
-  %11 = getelementptr inbounds %struct.subpath, ptr %4, i64 0, i32 4
-  %12 = load ptr, ptr %11, align 8, !tbaa !19
-  %13 = icmp eq ptr %10, %12
-  br i1 %13, label %15, label %14
+land.lhs.true:                                    ; preds = %entry
+  %current_subpath = getelementptr inbounds %struct.gx_path_s, ptr %ppfrom, i64 0, i32 5
+  %1 = load ptr, ptr %current_subpath, align 8, !tbaa !18
+  %last = getelementptr inbounds %struct.subpath, ptr %1, i64 0, i32 4
+  %2 = load ptr, ptr %last, align 8, !tbaa !19
+  %last2 = getelementptr inbounds %struct.subpath, ptr %0, i64 0, i32 4
+  %3 = load ptr, ptr %last2, align 8, !tbaa !19
+  %cmp3.not = icmp eq ptr %2, %3
+  br i1 %cmp3.not, label %if.end, label %if.then
 
-14:                                               ; preds = %6
-  tail call void @gx_path_release(ptr noundef nonnull %1) #11
-  br label %15
+if.then:                                          ; preds = %land.lhs.true
+  tail call void @gx_path_release(ptr noundef nonnull %ppto) #11
+  br label %if.end
 
-15:                                               ; preds = %14, %6, %2
-  tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(144) %1, ptr noundef nonnull align 8 dereferenceable(144) %0, i64 144, i1 false), !tbaa.struct !49
-  %16 = getelementptr inbounds %struct.gx_path_s, ptr %0, i64 0, i32 12
-  store i8 1, ptr %16, align 2, !tbaa !59
+if.end:                                           ; preds = %if.then, %land.lhs.true, %entry
+  tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(144) %ppto, ptr noundef nonnull align 8 dereferenceable(144) %ppfrom, i64 144, i1 false), !tbaa.struct !49
+  %shares_segments = getelementptr inbounds %struct.gx_path_s, ptr %ppfrom, i64 0, i32 12
+  store i8 1, ptr %shares_segments, align 2, !tbaa !59
   ret i32 0
 }
 
 declare void @gx_path_release(ptr noundef) local_unnamed_addr #8
 
 ; Function Attrs: nofree norecurse nosync nounwind memory(readwrite, inaccessiblemem: none) uwtable
-define dso_local i32 @gx_path_translate(ptr nocapture noundef %0, i64 noundef %1, i64 noundef %2) local_unnamed_addr #9 {
-  %4 = getelementptr inbounds %struct.gx_path_s, ptr %0, i64 0, i32 1
-  %5 = load i64, ptr %4, align 8, !tbaa !60
-  %6 = add nsw i64 %5, %1
-  store i64 %6, ptr %4, align 8, !tbaa !60
-  %7 = getelementptr inbounds %struct.gx_path_s, ptr %0, i64 0, i32 1, i32 0, i32 1
-  %8 = load i64, ptr %7, align 8, !tbaa !61
-  %9 = add nsw i64 %8, %2
-  store i64 %9, ptr %7, align 8, !tbaa !61
-  %10 = getelementptr inbounds %struct.gx_path_s, ptr %0, i64 0, i32 1, i32 1
-  %11 = load i64, ptr %10, align 8, !tbaa !62
-  %12 = add nsw i64 %11, %1
-  store i64 %12, ptr %10, align 8, !tbaa !62
-  %13 = getelementptr inbounds %struct.gx_path_s, ptr %0, i64 0, i32 1, i32 1, i32 1
-  %14 = load i64, ptr %13, align 8, !tbaa !63
-  %15 = add nsw i64 %14, %2
-  store i64 %15, ptr %13, align 8, !tbaa !63
-  %16 = getelementptr inbounds %struct.gx_path_s, ptr %0, i64 0, i32 9
-  %17 = load i64, ptr %16, align 8, !tbaa !64
-  %18 = add nsw i64 %17, %1
-  store i64 %18, ptr %16, align 8, !tbaa !64
-  %19 = getelementptr inbounds %struct.gx_path_s, ptr %0, i64 0, i32 9, i32 1
-  %20 = load i64, ptr %19, align 8, !tbaa !65
-  %21 = add nsw i64 %20, %2
-  store i64 %21, ptr %19, align 8, !tbaa !65
-  %22 = getelementptr inbounds %struct.gx_path_s, ptr %0, i64 0, i32 4
-  %23 = load ptr, ptr %22, align 8, !tbaa !50
-  %24 = icmp eq ptr %23, null
-  br i1 %24, label %53, label %25
+define dso_local i32 @gx_path_translate(ptr nocapture noundef %ppath, i64 noundef %dx, i64 noundef %dy) local_unnamed_addr #9 {
+entry:
+  %bbox = getelementptr inbounds %struct.gx_path_s, ptr %ppath, i64 0, i32 1
+  %0 = load i64, ptr %bbox, align 8, !tbaa !60
+  %add = add nsw i64 %0, %dx
+  store i64 %add, ptr %bbox, align 8, !tbaa !60
+  %y = getelementptr inbounds %struct.gx_path_s, ptr %ppath, i64 0, i32 1, i32 0, i32 1
+  %1 = load i64, ptr %y, align 8, !tbaa !61
+  %add3 = add nsw i64 %1, %dy
+  store i64 %add3, ptr %y, align 8, !tbaa !61
+  %q = getelementptr inbounds %struct.gx_path_s, ptr %ppath, i64 0, i32 1, i32 1
+  %2 = load i64, ptr %q, align 8, !tbaa !62
+  %add6 = add nsw i64 %2, %dx
+  store i64 %add6, ptr %q, align 8, !tbaa !62
+  %y9 = getelementptr inbounds %struct.gx_path_s, ptr %ppath, i64 0, i32 1, i32 1, i32 1
+  %3 = load i64, ptr %y9, align 8, !tbaa !63
+  %add10 = add nsw i64 %3, %dy
+  store i64 %add10, ptr %y9, align 8, !tbaa !63
+  %position = getelementptr inbounds %struct.gx_path_s, ptr %ppath, i64 0, i32 9
+  %4 = load i64, ptr %position, align 8, !tbaa !64
+  %add12 = add nsw i64 %4, %dx
+  store i64 %add12, ptr %position, align 8, !tbaa !64
+  %y14 = getelementptr inbounds %struct.gx_path_s, ptr %ppath, i64 0, i32 9, i32 1
+  %5 = load i64, ptr %y14, align 8, !tbaa !65
+  %add15 = add nsw i64 %5, %dy
+  store i64 %add15, ptr %y14, align 8, !tbaa !65
+  %first_subpath = getelementptr inbounds %struct.gx_path_s, ptr %ppath, i64 0, i32 4
+  %pseg.056 = load ptr, ptr %first_subpath, align 8, !tbaa !50
+  %tobool.not57 = icmp eq ptr %pseg.056, null
+  br i1 %tobool.not57, label %while.end, label %while.body
 
-25:                                               ; preds = %3, %43
-  %26 = phi ptr [ %51, %43 ], [ %23, %3 ]
-  %27 = getelementptr inbounds %struct.segment_s, ptr %26, i64 0, i32 2
-  %28 = load i32, ptr %27, align 8, !tbaa !29
-  %29 = icmp eq i32 %28, 3
-  br i1 %29, label %30, label %43
+while.body:                                       ; preds = %entry, %sw.default
+  %pseg.058 = phi ptr [ %pseg.0, %sw.default ], [ %pseg.056, %entry ]
+  %type = getelementptr inbounds %struct.segment_s, ptr %pseg.058, i64 0, i32 2
+  %6 = load i32, ptr %type, align 8, !tbaa !29
+  %cond = icmp eq i32 %6, 3
+  br i1 %cond, label %sw.bb, label %sw.default
 
-30:                                               ; preds = %25
-  %31 = getelementptr inbounds %struct.curve_segment, ptr %26, i64 0, i32 4
-  %32 = load i64, ptr %31, align 8, !tbaa !30
-  %33 = add nsw i64 %32, %1
-  store i64 %33, ptr %31, align 8, !tbaa !30
-  %34 = getelementptr inbounds %struct.curve_segment, ptr %26, i64 0, i32 4, i32 1
-  %35 = load i64, ptr %34, align 8, !tbaa !32
-  %36 = add nsw i64 %35, %2
-  store i64 %36, ptr %34, align 8, !tbaa !32
-  %37 = getelementptr inbounds %struct.curve_segment, ptr %26, i64 0, i32 5
-  %38 = load i64, ptr %37, align 8, !tbaa !33
-  %39 = add nsw i64 %38, %1
-  store i64 %39, ptr %37, align 8, !tbaa !33
-  %40 = getelementptr inbounds %struct.curve_segment, ptr %26, i64 0, i32 5, i32 1
-  %41 = load i64, ptr %40, align 8, !tbaa !34
-  %42 = add nsw i64 %41, %2
-  store i64 %42, ptr %40, align 8, !tbaa !34
-  br label %43
+sw.bb:                                            ; preds = %while.body
+  %p1 = getelementptr inbounds %struct.curve_segment, ptr %pseg.058, i64 0, i32 4
+  %7 = load i64, ptr %p1, align 8, !tbaa !30
+  %add17 = add nsw i64 %7, %dx
+  store i64 %add17, ptr %p1, align 8, !tbaa !30
+  %y19 = getelementptr inbounds %struct.curve_segment, ptr %pseg.058, i64 0, i32 4, i32 1
+  %8 = load i64, ptr %y19, align 8, !tbaa !32
+  %add20 = add nsw i64 %8, %dy
+  store i64 %add20, ptr %y19, align 8, !tbaa !32
+  %p221 = getelementptr inbounds %struct.curve_segment, ptr %pseg.058, i64 0, i32 5
+  %9 = load i64, ptr %p221, align 8, !tbaa !33
+  %add23 = add nsw i64 %9, %dx
+  store i64 %add23, ptr %p221, align 8, !tbaa !33
+  %y25 = getelementptr inbounds %struct.curve_segment, ptr %pseg.058, i64 0, i32 5, i32 1
+  %10 = load i64, ptr %y25, align 8, !tbaa !34
+  %add26 = add nsw i64 %10, %dy
+  store i64 %add26, ptr %y25, align 8, !tbaa !34
+  br label %sw.default
 
-43:                                               ; preds = %25, %30
-  %44 = getelementptr inbounds %struct.segment_s, ptr %26, i64 0, i32 3
-  %45 = load i64, ptr %44, align 8, !tbaa !22
-  %46 = add nsw i64 %45, %1
-  store i64 %46, ptr %44, align 8, !tbaa !22
-  %47 = getelementptr inbounds %struct.segment_s, ptr %26, i64 0, i32 3, i32 1
-  %48 = load i64, ptr %47, align 8, !tbaa !24
-  %49 = add nsw i64 %48, %2
-  store i64 %49, ptr %47, align 8, !tbaa !24
-  %50 = getelementptr inbounds %struct.segment_s, ptr %26, i64 0, i32 1
-  %51 = load ptr, ptr %50, align 8, !tbaa !50
-  %52 = icmp eq ptr %51, null
-  br i1 %52, label %53, label %25, !llvm.loop !66
+sw.default:                                       ; preds = %while.body, %sw.bb
+  %pt = getelementptr inbounds %struct.segment_s, ptr %pseg.058, i64 0, i32 3
+  %11 = load i64, ptr %pt, align 8, !tbaa !22
+  %add28 = add nsw i64 %11, %dx
+  store i64 %add28, ptr %pt, align 8, !tbaa !22
+  %y30 = getelementptr inbounds %struct.segment_s, ptr %pseg.058, i64 0, i32 3, i32 1
+  %12 = load i64, ptr %y30, align 8, !tbaa !24
+  %add31 = add nsw i64 %12, %dy
+  store i64 %add31, ptr %y30, align 8, !tbaa !24
+  %next = getelementptr inbounds %struct.segment_s, ptr %pseg.058, i64 0, i32 1
+  %pseg.0 = load ptr, ptr %next, align 8, !tbaa !50
+  %tobool.not = icmp eq ptr %pseg.0, null
+  br i1 %tobool.not, label %while.end, label %while.body, !llvm.loop !66
 
-53:                                               ; preds = %43, %3
+while.end:                                        ; preds = %sw.default, %entry
   ret i32 0
 }
 
 ; Function Attrs: nounwind uwtable
-define dso_local i32 @gx_path_flatten(ptr noundef %0, ptr noundef %1, double noundef %2) local_unnamed_addr #7 {
-  %4 = fmul double %2, 4.096000e+03
-  %5 = fptrunc double %4 to float
-  %6 = fptosi float %5 to i64
-  store i64 %6, ptr @scaled_flat, align 8, !tbaa !15
-  %7 = fpext float %5 to double
-  %8 = fmul double %7, 4.500000e-01
-  %9 = fptrunc double %8 to float
-  store float %9, ptr @scaled_flat_sq, align 4, !tbaa !67
-  %10 = tail call i32 @copy_path(ptr noundef %0, ptr noundef %1, ptr noundef nonnull @flatten_curve)
-  ret i32 %10
+define dso_local i32 @gx_path_flatten(ptr noundef %ppath_old, ptr noundef %ppath, double noundef %flatness) local_unnamed_addr #7 {
+entry:
+  %mul = fmul double %flatness, 4.096000e+03
+  %conv = fptrunc double %mul to float
+  %conv1 = fptosi float %conv to i64
+  store i64 %conv1, ptr @scaled_flat, align 8, !tbaa !15
+  %conv2 = fpext float %conv to double
+  %mul3 = fmul double %conv2, 4.500000e-01
+  %conv4 = fptrunc double %mul3 to float
+  store float %conv4, ptr @scaled_flat_sq, align 4, !tbaa !67
+  %call = tail call i32 @copy_path(ptr noundef %ppath_old, ptr noundef %ppath, ptr noundef nonnull @flatten_curve)
+  ret i32 %call
 }
 
 ; Function Attrs: nounwind uwtable
-define dso_local i32 @flatten_curve(ptr noundef %0, i64 noundef %1, i64 noundef %2, i64 noundef %3, i64 noundef %4, i64 noundef %5, i64 noundef %6) #7 {
-  %8 = getelementptr inbounds %struct.gx_path_s, ptr %0, i64 0, i32 9
-  %9 = load i64, ptr %8, align 8, !tbaa !64
-  %10 = getelementptr inbounds %struct.gx_path_s, ptr %0, i64 0, i32 9, i32 1
-  %11 = load i64, ptr %10, align 8, !tbaa !65
-  br label %12
+define dso_local i32 @flatten_curve(ptr noundef %ppath, i64 noundef %x1, i64 noundef %y1, i64 noundef %x2, i64 noundef %y2, i64 noundef %x3, i64 noundef %y3) #7 {
+entry:
+  %position = getelementptr inbounds %struct.gx_path_s, ptr %ppath, i64 0, i32 9
+  %0 = load i64, ptr %position, align 8, !tbaa !64
+  %y = getelementptr inbounds %struct.gx_path_s, ptr %ppath, i64 0, i32 9, i32 1
+  %1 = load i64, ptr %y, align 8, !tbaa !65
+  br label %top
 
-12:                                               ; preds = %80, %7
-  %13 = phi i64 [ %11, %7 ], [ %104, %80 ]
-  %14 = phi i64 [ %9, %7 ], [ %102, %80 ]
-  %15 = phi i64 [ %4, %7 ], [ %96, %80 ]
-  %16 = phi i64 [ %3, %7 ], [ %94, %80 ]
-  %17 = phi i64 [ %2, %7 ], [ %100, %80 ]
-  %18 = phi i64 [ %1, %7 ], [ %98, %80 ]
-  %19 = sub nsw i64 %5, %14
-  %20 = sub nsw i64 %6, %13
-  %21 = tail call i64 @llvm.abs.i64(i64 %19, i1 true)
-  %22 = tail call i64 @llvm.abs.i64(i64 %20, i1 true)
-  %23 = icmp ult i64 %21, %22
-  br i1 %23, label %53, label %24
+top:                                              ; preds = %cleanup.cont, %entry
+  %y0.0 = phi i64 [ %1, %entry ], [ %shr116, %cleanup.cont ]
+  %x0.0 = phi i64 [ %0, %entry ], [ %shr114, %cleanup.cont ]
+  %y2.addr.0 = phi i64 [ %y2, %entry ], [ %shr108, %cleanup.cont ]
+  %x2.addr.0 = phi i64 [ %x2, %entry ], [ %shr106, %cleanup.cont ]
+  %y1.addr.0 = phi i64 [ %y1, %entry ], [ %shr112, %cleanup.cont ]
+  %x1.addr.0 = phi i64 [ %x1, %entry ], [ %shr110, %cleanup.cont ]
+  %sub = sub nsw i64 %x3, %x0.0
+  %sub2 = sub nsw i64 %y3, %y0.0
+  %cond = tail call i64 @llvm.abs.i64(i64 %sub, i1 true)
+  %cond9 = tail call i64 @llvm.abs.i64(i64 %sub2, i1 true)
+  %cmp10.not = icmp ult i64 %cond, %cond9
+  br i1 %cmp10.not, label %if.else, label %if.then
 
-24:                                               ; preds = %12
-  %25 = icmp eq i64 %14, %5
-  br i1 %25, label %109, label %26
+if.then:                                          ; preds = %top
+  %cmp11 = icmp eq i64 %x0.0, %x3
+  br i1 %cmp11, label %cleanup131, label %if.end
 
-26:                                               ; preds = %24
-  %27 = sitofp i64 %20 to float
-  %28 = sitofp i64 %19 to float
-  %29 = fdiv float %27, %28
-  %30 = fmul float %29, %29
-  %31 = load float, ptr @scaled_flat_sq, align 4, !tbaa !67
-  %32 = fmul float %30, %31
-  %33 = fptosi float %32 to i64
-  %34 = load i64, ptr @scaled_flat, align 8, !tbaa !15
-  %35 = add nsw i64 %34, %33
-  %36 = sub nsw i64 %18, %14
-  %37 = sitofp i64 %36 to float
-  %38 = fmul float %29, %37
-  %39 = fptosi float %38 to i64
-  %40 = sub i64 %13, %17
-  %41 = add i64 %40, %39
-  %42 = tail call i64 @llvm.abs.i64(i64 %41, i1 true)
-  %43 = icmp sgt i64 %42, %35
-  br i1 %43, label %80, label %44
+if.end:                                           ; preds = %if.then
+  %conv = sitofp i64 %sub2 to float
+  %conv13 = sitofp i64 %sub to float
+  %div = fdiv float %conv, %conv13
+  %mul = fmul float %div, %div
+  %2 = load float, ptr @scaled_flat_sq, align 4, !tbaa !67
+  %mul14 = fmul float %mul, %2
+  %conv15 = fptosi float %mul14 to i64
+  %3 = load i64, ptr @scaled_flat, align 8, !tbaa !15
+  %add = add nsw i64 %3, %conv15
+  %sub16 = sub nsw i64 %x1.addr.0, %x0.0
+  %conv17 = sitofp i64 %sub16 to float
+  %mul18 = fmul float %div, %conv17
+  %conv19 = fptosi float %mul18 to i64
+  %sub20 = sub i64 %y0.0, %y1.addr.0
+  %add21 = add i64 %sub20, %conv19
+  %cond28 = tail call i64 @llvm.abs.i64(i64 %add21, i1 true)
+  %cmp29.not = icmp sgt i64 %cond28, %add
+  br i1 %cmp29.not, label %cleanup.cont, label %land.lhs.true
 
-44:                                               ; preds = %26
-  %45 = sub nsw i64 %16, %14
-  %46 = sitofp i64 %45 to float
-  %47 = fmul float %29, %46
-  %48 = fptosi float %47 to i64
-  %49 = sub i64 %13, %15
-  %50 = add i64 %49, %48
-  %51 = tail call i64 @llvm.abs.i64(i64 %50, i1 true)
-  %52 = icmp sgt i64 %51, %35
-  br i1 %52, label %80, label %107
+land.lhs.true:                                    ; preds = %if.end
+  %sub31 = sub nsw i64 %x2.addr.0, %x0.0
+  %conv32 = sitofp i64 %sub31 to float
+  %mul33 = fmul float %div, %conv32
+  %conv34 = fptosi float %mul33 to i64
+  %sub35 = sub i64 %y0.0, %y2.addr.0
+  %add36 = add i64 %sub35, %conv34
+  %cond43 = tail call i64 @llvm.abs.i64(i64 %add36, i1 true)
+  %cmp44.not = icmp sgt i64 %cond43, %add
+  br i1 %cmp44.not, label %cleanup.cont, label %cleanup131.sink.split
 
-53:                                               ; preds = %12
-  %54 = sitofp i64 %19 to float
-  %55 = sitofp i64 %20 to float
-  %56 = fdiv float %54, %55
-  %57 = fmul float %56, %56
-  %58 = load float, ptr @scaled_flat_sq, align 4, !tbaa !67
-  %59 = fmul float %57, %58
-  %60 = fptosi float %59 to i64
-  %61 = load i64, ptr @scaled_flat, align 8, !tbaa !15
-  %62 = add nsw i64 %61, %60
-  %63 = sub nsw i64 %17, %13
-  %64 = sitofp i64 %63 to float
-  %65 = fmul float %56, %64
-  %66 = fptosi float %65 to i64
-  %67 = sub i64 %14, %18
-  %68 = add i64 %67, %66
-  %69 = tail call i64 @llvm.abs.i64(i64 %68, i1 true)
-  %70 = icmp sgt i64 %69, %62
-  br i1 %70, label %80, label %71
+if.else:                                          ; preds = %top
+  %conv48 = sitofp i64 %sub to float
+  %conv49 = sitofp i64 %sub2 to float
+  %div50 = fdiv float %conv48, %conv49
+  %mul51 = fmul float %div50, %div50
+  %4 = load float, ptr @scaled_flat_sq, align 4, !tbaa !67
+  %mul52 = fmul float %mul51, %4
+  %conv53 = fptosi float %mul52 to i64
+  %5 = load i64, ptr @scaled_flat, align 8, !tbaa !15
+  %add54 = add nsw i64 %5, %conv53
+  %sub55 = sub nsw i64 %y1.addr.0, %y0.0
+  %conv56 = sitofp i64 %sub55 to float
+  %mul57 = fmul float %div50, %conv56
+  %conv58 = fptosi float %mul57 to i64
+  %sub59 = sub i64 %x0.0, %x1.addr.0
+  %add60 = add i64 %sub59, %conv58
+  %cond67 = tail call i64 @llvm.abs.i64(i64 %add60, i1 true)
+  %cmp68.not = icmp sgt i64 %cond67, %add54
+  br i1 %cmp68.not, label %cleanup.cont, label %land.lhs.true70
 
-71:                                               ; preds = %53
-  %72 = sub nsw i64 %15, %13
-  %73 = sitofp i64 %72 to float
-  %74 = fmul float %56, %73
-  %75 = fptosi float %74 to i64
-  %76 = sub i64 %14, %16
-  %77 = add i64 %76, %75
-  %78 = tail call i64 @llvm.abs.i64(i64 %77, i1 true)
-  %79 = icmp sgt i64 %78, %62
-  br i1 %79, label %80, label %107
+land.lhs.true70:                                  ; preds = %if.else
+  %sub71 = sub nsw i64 %y2.addr.0, %y0.0
+  %conv72 = sitofp i64 %sub71 to float
+  %mul73 = fmul float %div50, %conv72
+  %conv74 = fptosi float %mul73 to i64
+  %sub75 = sub i64 %x0.0, %x2.addr.0
+  %add76 = add i64 %sub75, %conv74
+  %cond83 = tail call i64 @llvm.abs.i64(i64 %add76, i1 true)
+  %cmp84.not = icmp sgt i64 %cond83, %add54
+  br i1 %cmp84.not, label %cleanup.cont, label %cleanup131.sink.split
 
-80:                                               ; preds = %53, %71, %26, %44
-  %81 = add nsw i64 %18, %14
-  %82 = ashr i64 %81, 1
-  %83 = add nsw i64 %17, %13
-  %84 = ashr i64 %83, 1
-  %85 = add nsw i64 %18, %16
-  %86 = ashr i64 %85, 1
-  %87 = add nsw i64 %17, %15
-  %88 = ashr i64 %87, 1
-  %89 = add nsw i64 %82, %86
-  %90 = ashr i64 %89, 1
-  %91 = add nsw i64 %84, %88
-  %92 = ashr i64 %91, 1
-  %93 = add nsw i64 %16, %5
-  %94 = ashr i64 %93, 1
-  %95 = add nsw i64 %15, %6
-  %96 = ashr i64 %95, 1
-  %97 = add nsw i64 %86, %94
-  %98 = ashr i64 %97, 1
-  %99 = add nsw i64 %88, %96
-  %100 = ashr i64 %99, 1
-  %101 = add nsw i64 %90, %98
-  %102 = ashr i64 %101, 1
-  %103 = add nsw i64 %92, %100
-  %104 = ashr i64 %103, 1
-  %105 = tail call i32 @flatten_curve(ptr noundef %0, i64 noundef %82, i64 noundef %84, i64 noundef %90, i64 noundef %92, i64 noundef %102, i64 noundef %104)
-  %106 = icmp slt i32 %105, 0
-  br i1 %106, label %109, label %12
+cleanup.cont:                                     ; preds = %if.else, %land.lhs.true70, %if.end, %land.lhs.true
+  %add94 = add nsw i64 %x1.addr.0, %x0.0
+  %shr = ashr i64 %add94, 1
+  %add95 = add nsw i64 %y1.addr.0, %y0.0
+  %shr96 = ashr i64 %add95, 1
+  %add97 = add nsw i64 %x1.addr.0, %x2.addr.0
+  %shr98 = ashr i64 %add97, 1
+  %add99 = add nsw i64 %y1.addr.0, %y2.addr.0
+  %shr100 = ashr i64 %add99, 1
+  %add101 = add nsw i64 %shr, %shr98
+  %shr102 = ashr i64 %add101, 1
+  %add103 = add nsw i64 %shr96, %shr100
+  %shr104 = ashr i64 %add103, 1
+  %add105 = add nsw i64 %x2.addr.0, %x3
+  %shr106 = ashr i64 %add105, 1
+  %add107 = add nsw i64 %y2.addr.0, %y3
+  %shr108 = ashr i64 %add107, 1
+  %add109 = add nsw i64 %shr98, %shr106
+  %shr110 = ashr i64 %add109, 1
+  %add111 = add nsw i64 %shr100, %shr108
+  %shr112 = ashr i64 %add111, 1
+  %add113 = add nsw i64 %shr102, %shr110
+  %shr114 = ashr i64 %add113, 1
+  %add115 = add nsw i64 %shr104, %shr112
+  %shr116 = ashr i64 %add115, 1
+  %call117 = tail call i32 @flatten_curve(ptr noundef %ppath, i64 noundef %shr, i64 noundef %shr96, i64 noundef %shr102, i64 noundef %shr104, i64 noundef %shr114, i64 noundef %shr116)
+  %cmp118 = icmp sgt i32 %call117, -1
+  br i1 %cmp118, label %top, label %cleanup131
 
-107:                                              ; preds = %71, %44
-  %108 = tail call i32 @gx_path_add_line(ptr noundef %0, i64 noundef %5, i64 noundef %6) #11
-  br label %109
+cleanup131.sink.split:                            ; preds = %land.lhs.true70, %land.lhs.true
+  %call = tail call i32 @gx_path_add_line(ptr noundef %ppath, i64 noundef %x3, i64 noundef %y3) #11
+  br label %cleanup131
 
-109:                                              ; preds = %80, %24, %107
-  %110 = phi i32 [ %108, %107 ], [ %105, %80 ], [ 0, %24 ]
-  ret i32 %110
+cleanup131:                                       ; preds = %if.then, %cleanup.cont, %cleanup131.sink.split
+  %retval.3 = phi i32 [ %call, %cleanup131.sink.split ], [ 0, %if.then ], [ %call117, %cleanup.cont ]
+  ret i32 %retval.3
 }
 
 declare void @gx_path_init(ptr noundef, ptr noundef) local_unnamed_addr #8
@@ -842,13 +855,13 @@ declare i32 @gx_path_add_line(ptr noundef, i64 noundef, i64 noundef) local_unnam
 declare i32 @gx_path_close_subpath(ptr noundef) local_unnamed_addr #8
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
+declare i64 @llvm.abs.i64(i64, i1 immarg) #10
+
+; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
 declare i64 @llvm.smax.i64(i64, i64) #10
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
 declare i64 @llvm.smin.i64(i64, i64) #10
-
-; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i64 @llvm.abs.i64(i64, i1 immarg) #10
 
 attributes #0 = { mustprogress nofree norecurse nosync nounwind willreturn memory(argmem: readwrite) uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #1 = { nofree nosync nounwind memory(read, argmem: readwrite, inaccessiblemem: none) uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }

@@ -8,47 +8,50 @@ target triple = "x86_64-unknown-linux-gnu"
 @.str = private unnamed_addr constant [7 x i8] c"%d %d\0A\00", align 1
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(argmem: read) uwtable
-define dso_local { i64, i64 } @_ZNK3fooplERKS_(ptr nocapture noundef nonnull readonly align 4 dereferenceable(16) %0, ptr nocapture noundef nonnull readonly align 4 dereferenceable(16) %1) local_unnamed_addr #0 align 2 {
-  %3 = load i32, ptr %0, align 4, !tbaa !5
-  %4 = load i32, ptr %1, align 4, !tbaa !5
-  %5 = add nsw i32 %4, %3
-  %6 = getelementptr inbounds %class.foo, ptr %0, i64 0, i32 1
-  %7 = load i32, ptr %6, align 4, !tbaa !10
-  %8 = getelementptr inbounds %class.foo, ptr %1, i64 0, i32 1
-  %9 = load i32, ptr %8, align 4, !tbaa !10
-  %10 = add nsw i32 %9, %7
-  %11 = zext i32 %10 to i64
-  %12 = shl nuw i64 %11, 32
-  %13 = zext i32 %5 to i64
-  %14 = or i64 %12, %13
-  %15 = insertvalue { i64, i64 } poison, i64 %14, 0
-  %16 = insertvalue { i64, i64 } %15, i64 undef, 1
-  ret { i64, i64 } %16
+define dso_local { i64, i64 } @_ZNK3fooplERKS_(ptr nocapture noundef nonnull readonly align 4 dereferenceable(16) %this, ptr nocapture noundef nonnull readonly align 4 dereferenceable(16) %in) local_unnamed_addr #0 align 2 {
+entry:
+  %0 = load i32, ptr %this, align 4, !tbaa !5
+  %1 = load i32, ptr %in, align 4, !tbaa !5
+  %add = add nsw i32 %1, %0
+  %b = getelementptr inbounds %class.foo, ptr %this, i64 0, i32 1
+  %2 = load i32, ptr %b, align 4, !tbaa !10
+  %b4 = getelementptr inbounds %class.foo, ptr %in, i64 0, i32 1
+  %3 = load i32, ptr %b4, align 4, !tbaa !10
+  %add5 = add nsw i32 %3, %2
+  %retval.sroa.3.0.insert.ext = zext i32 %add5 to i64
+  %retval.sroa.3.0.insert.shift = shl nuw i64 %retval.sroa.3.0.insert.ext, 32
+  %retval.sroa.0.0.insert.ext = zext i32 %add to i64
+  %retval.sroa.0.0.insert.insert = or i64 %retval.sroa.3.0.insert.shift, %retval.sroa.0.0.insert.ext
+  %.fca.0.insert = insertvalue { i64, i64 } poison, i64 %retval.sroa.0.0.insert.insert, 0
+  %.fca.1.insert = insertvalue { i64, i64 } %.fca.0.insert, i64 undef, 1
+  ret { i64, i64 } %.fca.1.insert
 }
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(argmem: readwrite) uwtable
-define dso_local { i64, i64 } @_ZN3foopLERKS_(ptr nocapture noundef nonnull align 4 dereferenceable(16) %0, ptr nocapture noundef nonnull readonly align 4 dereferenceable(16) %1) local_unnamed_addr #1 align 2 {
-  %3 = load i32, ptr %0, align 4, !tbaa !5
-  %4 = load i32, ptr %1, align 4, !tbaa !5
-  %5 = add nsw i32 %4, %3
-  %6 = getelementptr inbounds %class.foo, ptr %0, i64 0, i32 1
-  %7 = load i32, ptr %6, align 4, !tbaa !10
-  %8 = getelementptr inbounds %class.foo, ptr %1, i64 0, i32 1
-  %9 = load i32, ptr %8, align 4, !tbaa !10
-  %10 = add nsw i32 %9, %7
-  %11 = zext i32 %10 to i64
-  %12 = shl nuw i64 %11, 32
-  %13 = zext i32 %5 to i64
-  %14 = or i64 %12, %13
-  %15 = insertvalue { i64, i64 } poison, i64 %14, 0
-  %16 = insertvalue { i64, i64 } %15, i64 undef, 1
-  store i64 %14, ptr %0, align 4, !tbaa.struct !11
-  ret { i64, i64 } %16
+define dso_local { i64, i64 } @_ZN3foopLERKS_(ptr nocapture noundef nonnull align 4 dereferenceable(16) %this, ptr nocapture noundef nonnull readonly align 4 dereferenceable(16) %in) local_unnamed_addr #1 align 2 {
+entry:
+  %0 = load i32, ptr %this, align 4, !tbaa !5
+  %1 = load i32, ptr %in, align 4, !tbaa !5
+  %add.i = add nsw i32 %1, %0
+  %b.i = getelementptr inbounds %class.foo, ptr %this, i64 0, i32 1
+  %2 = load i32, ptr %b.i, align 4, !tbaa !10
+  %b4.i = getelementptr inbounds %class.foo, ptr %in, i64 0, i32 1
+  %3 = load i32, ptr %b4.i, align 4, !tbaa !10
+  %add5.i = add nsw i32 %3, %2
+  %retval.sroa.3.0.insert.ext.i = zext i32 %add5.i to i64
+  %retval.sroa.3.0.insert.shift.i = shl nuw i64 %retval.sroa.3.0.insert.ext.i, 32
+  %retval.sroa.0.0.insert.ext.i = zext i32 %add.i to i64
+  %retval.sroa.0.0.insert.insert.i = or i64 %retval.sroa.3.0.insert.shift.i, %retval.sroa.0.0.insert.ext.i
+  %.fca.0.insert.i = insertvalue { i64, i64 } poison, i64 %retval.sroa.0.0.insert.insert.i, 0
+  %.fca.1.insert.i = insertvalue { i64, i64 } %.fca.0.insert.i, i64 undef, 1
+  store i64 %retval.sroa.0.0.insert.insert.i, ptr %this, align 4, !tbaa.struct !11
+  ret { i64, i64 } %.fca.1.insert.i
 }
 
 ; Function Attrs: nofree norecurse nounwind uwtable
 define dso_local noundef i32 @main() local_unnamed_addr #2 {
-  %1 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str, i32 noundef 4, i32 noundef 6)
+entry:
+  %call1 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str, i32 noundef 4, i32 noundef 6)
   ret i32 0
 }
 

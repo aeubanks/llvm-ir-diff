@@ -326,1050 +326,1052 @@ target triple = "x86_64-unknown-linux-gnu"
 
 ; Function Attrs: nofree nounwind uwtable
 define dso_local void @profile() local_unnamed_addr #0 {
+entry:
   tail call void @calculate_results()
-  %1 = load i64, ptr @total_blocks, align 8, !tbaa !5
-  %2 = sitofp i64 %1 to double
-  %3 = load i32, ptr @x_block_size, align 4, !tbaa !9
-  %4 = sitofp i32 %3 to double
-  %5 = fmul double %2, %4
-  %6 = load i32, ptr @y_block_size, align 4, !tbaa !9
-  %7 = sitofp i32 %6 to double
-  %8 = fmul double %5, %7
-  %9 = load i32, ptr @z_block_size, align 4, !tbaa !9
-  %10 = sitofp i32 %9 to double
-  %11 = fmul double %8, %10
-  %12 = load i32, ptr @stencil, align 4, !tbaa !9
-  %13 = icmp eq i32 %12, 7
-  %14 = select i1 %13, double 6.000000e+00, double 2.600000e+01
-  %15 = fmul double %11, %14
-  %16 = fadd double %11, %15
-  %17 = load double, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 38), align 16, !tbaa !11
-  %18 = fmul double %17, 1.024000e+03
-  %19 = fmul double %18, 1.024000e+03
-  %20 = fmul double %19, 1.024000e+03
-  %21 = fdiv double %16, %20
-  %22 = load i32, ptr @num_pes, align 4, !tbaa !9
-  %23 = sitofp i32 %22 to double
-  %24 = fdiv double %21, %23
-  %25 = load i32, ptr @my_pe, align 4, !tbaa !9
-  %26 = icmp eq i32 %25, 0
-  br i1 %26, label %27, label %782
+  %0 = load i64, ptr @total_blocks, align 8, !tbaa !5
+  %conv = sitofp i64 %0 to double
+  %1 = load i32, ptr @x_block_size, align 4, !tbaa !9
+  %conv1 = sitofp i32 %1 to double
+  %mul = fmul double %conv, %conv1
+  %2 = load i32, ptr @y_block_size, align 4, !tbaa !9
+  %conv2 = sitofp i32 %2 to double
+  %mul3 = fmul double %mul, %conv2
+  %3 = load i32, ptr @z_block_size, align 4, !tbaa !9
+  %conv4 = sitofp i32 %3 to double
+  %mul5 = fmul double %mul3, %conv4
+  %4 = load i32, ptr @stencil, align 4, !tbaa !9
+  %cmp = icmp eq i32 %4, 7
+  %total_fp_adds.0.v = select i1 %cmp, double 6.000000e+00, double 2.600000e+01
+  %total_fp_adds.0 = fmul double %mul5, %total_fp_adds.0.v
+  %add = fadd double %mul5, %total_fp_adds.0
+  %5 = load double, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 38), align 16, !tbaa !11
+  %mul9 = fmul double %5, 1.024000e+03
+  %mul10 = fmul double %mul9, 1.024000e+03
+  %mul11 = fmul double %mul10, 1.024000e+03
+  %div = fdiv double %add, %mul11
+  %6 = load i32, ptr @num_pes, align 4, !tbaa !9
+  %conv12 = sitofp i32 %6 to double
+  %div13 = fdiv double %div, %conv12
+  %7 = load i32, ptr @my_pe, align 4, !tbaa !9
+  %tobool.not = icmp eq i32 %7, 0
+  br i1 %tobool.not, label %if.then14, label %if.end853
 
-27:                                               ; preds = %0
-  %28 = load i32, ptr @report_perf, align 4, !tbaa !9
-  %29 = and i32 %28, 1
-  %30 = icmp eq i32 %29, 0
-  br i1 %30, label %236, label %31
+if.then14:                                        ; preds = %entry
+  %8 = load i32, ptr @report_perf, align 4, !tbaa !9
+  %and = and i32 %8, 1
+  %tobool15.not = icmp eq i32 %and, 0
+  br i1 %tobool15.not, label %if.end132, label %if.then16
 
-31:                                               ; preds = %27
-  %32 = tail call noalias ptr @fopen(ptr noundef nonnull @.str.1, ptr noundef nonnull @.str.2)
-  %33 = tail call i64 @fwrite(ptr nonnull @.str.3, i64 14, i64 1, ptr %32)
-  %34 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %32, ptr noundef nonnull @.str.4, ptr noundef nonnull @.str)
-  %35 = load i32, ptr @num_pes, align 4, !tbaa !9
-  %36 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %32, ptr noundef nonnull @.str.5, i32 noundef %35)
-  %37 = load i32, ptr @init_block_x, align 4, !tbaa !9
-  %38 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %32, ptr noundef nonnull @.str.6, i32 noundef %37)
-  %39 = load i32, ptr @init_block_y, align 4, !tbaa !9
-  %40 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %32, ptr noundef nonnull @.str.7, i32 noundef %39)
-  %41 = load i32, ptr @init_block_z, align 4, !tbaa !9
-  %42 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %32, ptr noundef nonnull @.str.8, i32 noundef %41)
-  %43 = load i32, ptr @x_block_size, align 4, !tbaa !9
-  %44 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %32, ptr noundef nonnull @.str.9, i32 noundef %43)
-  %45 = load i32, ptr @y_block_size, align 4, !tbaa !9
-  %46 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %32, ptr noundef nonnull @.str.10, i32 noundef %45)
-  %47 = load i32, ptr @z_block_size, align 4, !tbaa !9
-  %48 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %32, ptr noundef nonnull @.str.11, i32 noundef %47)
-  %49 = load i32, ptr @permute, align 4, !tbaa !9
-  %50 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %32, ptr noundef nonnull @.str.12, i32 noundef %49)
-  %51 = load i32, ptr @max_num_blocks, align 4, !tbaa !9
-  %52 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %32, ptr noundef nonnull @.str.13, i32 noundef %51)
-  %53 = load i32, ptr @code, align 4, !tbaa !9
-  %54 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %32, ptr noundef nonnull @.str.14, i32 noundef %53)
-  %55 = load i32, ptr @num_refine, align 4, !tbaa !9
-  %56 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %32, ptr noundef nonnull @.str.15, i32 noundef %55)
-  %57 = load i32, ptr @block_change, align 4, !tbaa !9
-  %58 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %32, ptr noundef nonnull @.str.16, i32 noundef %57)
-  %59 = load i32, ptr @refine_ghost, align 4, !tbaa !9
-  %60 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %32, ptr noundef nonnull @.str.17, i32 noundef %59)
-  %61 = load i32, ptr @uniform_refine, align 4, !tbaa !9
-  %62 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %32, ptr noundef nonnull @.str.18, i32 noundef %61)
-  %63 = load i32, ptr @num_objects, align 4, !tbaa !9
-  %64 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %32, ptr noundef nonnull @.str.19, i32 noundef %63)
-  %65 = load i32, ptr @num_objects, align 4, !tbaa !9
-  %66 = icmp sgt i32 %65, 0
-  br i1 %66, label %67, label %117
+if.then16:                                        ; preds = %if.then14
+  %call = tail call noalias ptr @fopen(ptr noundef nonnull @.str.1, ptr noundef nonnull @.str.2)
+  %9 = tail call i64 @fwrite(ptr nonnull @.str.3, i64 14, i64 1, ptr %call)
+  %call18 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %call, ptr noundef nonnull @.str.4, ptr noundef nonnull @.str)
+  %10 = load i32, ptr @num_pes, align 4, !tbaa !9
+  %call19 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %call, ptr noundef nonnull @.str.5, i32 noundef %10)
+  %11 = load i32, ptr @init_block_x, align 4, !tbaa !9
+  %call20 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %call, ptr noundef nonnull @.str.6, i32 noundef %11)
+  %12 = load i32, ptr @init_block_y, align 4, !tbaa !9
+  %call21 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %call, ptr noundef nonnull @.str.7, i32 noundef %12)
+  %13 = load i32, ptr @init_block_z, align 4, !tbaa !9
+  %call22 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %call, ptr noundef nonnull @.str.8, i32 noundef %13)
+  %14 = load i32, ptr @x_block_size, align 4, !tbaa !9
+  %call23 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %call, ptr noundef nonnull @.str.9, i32 noundef %14)
+  %15 = load i32, ptr @y_block_size, align 4, !tbaa !9
+  %call24 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %call, ptr noundef nonnull @.str.10, i32 noundef %15)
+  %16 = load i32, ptr @z_block_size, align 4, !tbaa !9
+  %call25 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %call, ptr noundef nonnull @.str.11, i32 noundef %16)
+  %17 = load i32, ptr @permute, align 4, !tbaa !9
+  %call26 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %call, ptr noundef nonnull @.str.12, i32 noundef %17)
+  %18 = load i32, ptr @max_num_blocks, align 4, !tbaa !9
+  %call27 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %call, ptr noundef nonnull @.str.13, i32 noundef %18)
+  %19 = load i32, ptr @code, align 4, !tbaa !9
+  %call28 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %call, ptr noundef nonnull @.str.14, i32 noundef %19)
+  %20 = load i32, ptr @num_refine, align 4, !tbaa !9
+  %call29 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %call, ptr noundef nonnull @.str.15, i32 noundef %20)
+  %21 = load i32, ptr @block_change, align 4, !tbaa !9
+  %call30 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %call, ptr noundef nonnull @.str.16, i32 noundef %21)
+  %22 = load i32, ptr @refine_ghost, align 4, !tbaa !9
+  %call31 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %call, ptr noundef nonnull @.str.17, i32 noundef %22)
+  %23 = load i32, ptr @uniform_refine, align 4, !tbaa !9
+  %call32 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %call, ptr noundef nonnull @.str.18, i32 noundef %23)
+  %24 = load i32, ptr @num_objects, align 4, !tbaa !9
+  %call33 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %call, ptr noundef nonnull @.str.19, i32 noundef %24)
+  %25 = load i32, ptr @num_objects, align 4, !tbaa !9
+  %cmp341278 = icmp sgt i32 %25, 0
+  br i1 %cmp341278, label %for.body, label %for.end
 
-67:                                               ; preds = %31, %67
-  %68 = phi i64 [ %113, %67 ], [ 0, %31 ]
-  %69 = load ptr, ptr @objects, align 8, !tbaa !13
-  %70 = getelementptr inbounds %struct.object, ptr %69, i64 %68
-  %71 = load i32, ptr %70, align 8, !tbaa !15
-  %72 = trunc i64 %68 to i32
-  %73 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %32, ptr noundef nonnull @.str.20, i32 noundef %72, i32 noundef %71)
-  %74 = getelementptr inbounds %struct.object, ptr %69, i64 %68, i32 1
-  %75 = load i32, ptr %74, align 4, !tbaa !17
-  %76 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %32, ptr noundef nonnull @.str.21, i32 noundef %72, i32 noundef %75)
-  %77 = getelementptr inbounds %struct.object, ptr %69, i64 %68, i32 2
-  %78 = load double, ptr %77, align 8, !tbaa !11
-  %79 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %32, ptr noundef nonnull @.str.22, i32 noundef %72, double noundef %78)
-  %80 = getelementptr inbounds %struct.object, ptr %69, i64 %68, i32 2, i64 1
-  %81 = load double, ptr %80, align 8, !tbaa !11
-  %82 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %32, ptr noundef nonnull @.str.23, i32 noundef %72, double noundef %81)
-  %83 = getelementptr inbounds %struct.object, ptr %69, i64 %68, i32 2, i64 2
-  %84 = load double, ptr %83, align 8, !tbaa !11
-  %85 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %32, ptr noundef nonnull @.str.24, i32 noundef %72, double noundef %84)
-  %86 = getelementptr inbounds %struct.object, ptr %69, i64 %68, i32 4
-  %87 = load double, ptr %86, align 8, !tbaa !11
-  %88 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %32, ptr noundef nonnull @.str.25, i32 noundef %72, double noundef %87)
-  %89 = getelementptr inbounds %struct.object, ptr %69, i64 %68, i32 4, i64 1
-  %90 = load double, ptr %89, align 8, !tbaa !11
-  %91 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %32, ptr noundef nonnull @.str.26, i32 noundef %72, double noundef %90)
-  %92 = getelementptr inbounds %struct.object, ptr %69, i64 %68, i32 4, i64 2
-  %93 = load double, ptr %92, align 8, !tbaa !11
-  %94 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %32, ptr noundef nonnull @.str.27, i32 noundef %72, double noundef %93)
-  %95 = getelementptr inbounds %struct.object, ptr %69, i64 %68, i32 6
-  %96 = load double, ptr %95, align 8, !tbaa !11
-  %97 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %32, ptr noundef nonnull @.str.28, i32 noundef %72, double noundef %96)
-  %98 = getelementptr inbounds %struct.object, ptr %69, i64 %68, i32 6, i64 1
-  %99 = load double, ptr %98, align 8, !tbaa !11
-  %100 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %32, ptr noundef nonnull @.str.29, i32 noundef %72, double noundef %99)
-  %101 = getelementptr inbounds %struct.object, ptr %69, i64 %68, i32 6, i64 2
-  %102 = load double, ptr %101, align 8, !tbaa !11
-  %103 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %32, ptr noundef nonnull @.str.30, i32 noundef %72, double noundef %102)
-  %104 = getelementptr inbounds %struct.object, ptr %69, i64 %68, i32 8
-  %105 = load double, ptr %104, align 8, !tbaa !11
-  %106 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %32, ptr noundef nonnull @.str.31, i32 noundef %72, double noundef %105)
-  %107 = getelementptr inbounds %struct.object, ptr %69, i64 %68, i32 8, i64 1
-  %108 = load double, ptr %107, align 8, !tbaa !11
-  %109 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %32, ptr noundef nonnull @.str.32, i32 noundef %72, double noundef %108)
-  %110 = getelementptr inbounds %struct.object, ptr %69, i64 %68, i32 8, i64 2
-  %111 = load double, ptr %110, align 8, !tbaa !11
-  %112 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %32, ptr noundef nonnull @.str.33, i32 noundef %72, double noundef %111)
-  %113 = add nuw nsw i64 %68, 1
-  %114 = load i32, ptr @num_objects, align 4, !tbaa !9
-  %115 = sext i32 %114 to i64
-  %116 = icmp slt i64 %113, %115
-  br i1 %116, label %67, label %117, !llvm.loop !18
+for.body:                                         ; preds = %if.then16, %for.body
+  %indvars.iv = phi i64 [ %indvars.iv.next, %for.body ], [ 0, %if.then16 ]
+  %26 = load ptr, ptr @objects, align 8, !tbaa !13
+  %arrayidx = getelementptr inbounds %struct.object, ptr %26, i64 %indvars.iv
+  %27 = load i32, ptr %arrayidx, align 8, !tbaa !15
+  %28 = trunc i64 %indvars.iv to i32
+  %call36 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %call, ptr noundef nonnull @.str.20, i32 noundef %28, i32 noundef %27)
+  %bounce = getelementptr inbounds %struct.object, ptr %26, i64 %indvars.iv, i32 1
+  %29 = load i32, ptr %bounce, align 4, !tbaa !17
+  %call37 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %call, ptr noundef nonnull @.str.21, i32 noundef %28, i32 noundef %29)
+  %cen = getelementptr inbounds %struct.object, ptr %26, i64 %indvars.iv, i32 2
+  %30 = load double, ptr %cen, align 8, !tbaa !11
+  %call39 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %call, ptr noundef nonnull @.str.22, i32 noundef %28, double noundef %30)
+  %arrayidx41 = getelementptr inbounds %struct.object, ptr %26, i64 %indvars.iv, i32 2, i64 1
+  %31 = load double, ptr %arrayidx41, align 8, !tbaa !11
+  %call42 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %call, ptr noundef nonnull @.str.23, i32 noundef %28, double noundef %31)
+  %arrayidx44 = getelementptr inbounds %struct.object, ptr %26, i64 %indvars.iv, i32 2, i64 2
+  %32 = load double, ptr %arrayidx44, align 8, !tbaa !11
+  %call45 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %call, ptr noundef nonnull @.str.24, i32 noundef %28, double noundef %32)
+  %move = getelementptr inbounds %struct.object, ptr %26, i64 %indvars.iv, i32 4
+  %33 = load double, ptr %move, align 8, !tbaa !11
+  %call47 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %call, ptr noundef nonnull @.str.25, i32 noundef %28, double noundef %33)
+  %arrayidx49 = getelementptr inbounds %struct.object, ptr %26, i64 %indvars.iv, i32 4, i64 1
+  %34 = load double, ptr %arrayidx49, align 8, !tbaa !11
+  %call50 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %call, ptr noundef nonnull @.str.26, i32 noundef %28, double noundef %34)
+  %arrayidx52 = getelementptr inbounds %struct.object, ptr %26, i64 %indvars.iv, i32 4, i64 2
+  %35 = load double, ptr %arrayidx52, align 8, !tbaa !11
+  %call53 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %call, ptr noundef nonnull @.str.27, i32 noundef %28, double noundef %35)
+  %size = getelementptr inbounds %struct.object, ptr %26, i64 %indvars.iv, i32 6
+  %36 = load double, ptr %size, align 8, !tbaa !11
+  %call55 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %call, ptr noundef nonnull @.str.28, i32 noundef %28, double noundef %36)
+  %arrayidx57 = getelementptr inbounds %struct.object, ptr %26, i64 %indvars.iv, i32 6, i64 1
+  %37 = load double, ptr %arrayidx57, align 8, !tbaa !11
+  %call58 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %call, ptr noundef nonnull @.str.29, i32 noundef %28, double noundef %37)
+  %arrayidx60 = getelementptr inbounds %struct.object, ptr %26, i64 %indvars.iv, i32 6, i64 2
+  %38 = load double, ptr %arrayidx60, align 8, !tbaa !11
+  %call61 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %call, ptr noundef nonnull @.str.30, i32 noundef %28, double noundef %38)
+  %inc = getelementptr inbounds %struct.object, ptr %26, i64 %indvars.iv, i32 8
+  %39 = load double, ptr %inc, align 8, !tbaa !11
+  %call63 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %call, ptr noundef nonnull @.str.31, i32 noundef %28, double noundef %39)
+  %arrayidx65 = getelementptr inbounds %struct.object, ptr %26, i64 %indvars.iv, i32 8, i64 1
+  %40 = load double, ptr %arrayidx65, align 8, !tbaa !11
+  %call66 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %call, ptr noundef nonnull @.str.32, i32 noundef %28, double noundef %40)
+  %arrayidx68 = getelementptr inbounds %struct.object, ptr %26, i64 %indvars.iv, i32 8, i64 2
+  %41 = load double, ptr %arrayidx68, align 8, !tbaa !11
+  %call69 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %call, ptr noundef nonnull @.str.33, i32 noundef %28, double noundef %41)
+  %indvars.iv.next = add nuw nsw i64 %indvars.iv, 1
+  %42 = load i32, ptr @num_objects, align 4, !tbaa !9
+  %43 = sext i32 %42 to i64
+  %cmp34 = icmp slt i64 %indvars.iv.next, %43
+  br i1 %cmp34, label %for.body, label %for.end, !llvm.loop !18
 
-117:                                              ; preds = %67, %31
-  %118 = load i32, ptr @num_tsteps, align 4, !tbaa !9
-  %119 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %32, ptr noundef nonnull @.str.34, i32 noundef %118)
-  %120 = load i32, ptr @stages_per_ts, align 4, !tbaa !9
-  %121 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %32, ptr noundef nonnull @.str.35, i32 noundef %120)
-  %122 = load i32, ptr @checksum_freq, align 4, !tbaa !9
-  %123 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %32, ptr noundef nonnull @.str.36, i32 noundef %122)
-  %124 = load i32, ptr @refine_freq, align 4, !tbaa !9
-  %125 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %32, ptr noundef nonnull @.str.37, i32 noundef %124)
-  %126 = load i32, ptr @plot_freq, align 4, !tbaa !9
-  %127 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %32, ptr noundef nonnull @.str.38, i32 noundef %126)
-  %128 = load i32, ptr @num_vars, align 4, !tbaa !9
-  %129 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %32, ptr noundef nonnull @.str.39, i32 noundef %128)
-  %130 = load i32, ptr @stencil, align 4, !tbaa !9
-  %131 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %32, ptr noundef nonnull @.str.40, i32 noundef %130)
-  %132 = load i32, ptr @comm_vars, align 4, !tbaa !9
-  %133 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %32, ptr noundef nonnull @.str.41, i32 noundef %132)
-  %134 = load i32, ptr @error_tol, align 4, !tbaa !9
-  %135 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %32, ptr noundef nonnull @.str.42, i32 noundef %134)
-  %136 = load double, ptr @average, align 16, !tbaa !11
-  %137 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %32, ptr noundef nonnull @.str.43, double noundef %136)
-  %138 = load double, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 111), align 8, !tbaa !11
-  %139 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %32, ptr noundef nonnull @.str.44, double noundef %138)
-  %140 = load double, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 38), align 16, !tbaa !11
-  %141 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %32, ptr noundef nonnull @.str.45, double noundef %140)
-  %142 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %32, ptr noundef nonnull @.str.46, double noundef %21)
-  %143 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %32, ptr noundef nonnull @.str.47, double noundef %24)
-  %144 = load double, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 37), align 8, !tbaa !11
-  %145 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %32, ptr noundef nonnull @.str.48, double noundef %144)
-  %146 = load double, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 5), align 8, !tbaa !11
-  %147 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %32, ptr noundef nonnull @.str.49, double noundef %146)
-  %148 = load double, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 6), align 16, !tbaa !11
-  %149 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %32, ptr noundef nonnull @.str.50, double noundef %148)
-  %150 = load double, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 7), align 8, !tbaa !11
-  %151 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %32, ptr noundef nonnull @.str.51, double noundef %150)
-  %152 = load double, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 75), align 8, !tbaa !11
-  %153 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %32, ptr noundef nonnull @.str.52, double noundef %152)
-  %154 = load double, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 76), align 16, !tbaa !11
-  %155 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %32, ptr noundef nonnull @.str.53, double noundef %154)
-  %156 = load double, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 74), align 16, !tbaa !11
-  %157 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %32, ptr noundef nonnull @.str.54, double noundef %156)
-  %158 = load double, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 10), align 16, !tbaa !11
-  %159 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %32, ptr noundef nonnull @.str.55, double noundef %158)
-  %160 = load double, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 14), align 16, !tbaa !11
-  %161 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %32, ptr noundef nonnull @.str.56, double noundef %160)
-  %162 = load double, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 15), align 8, !tbaa !11
-  %163 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %32, ptr noundef nonnull @.str.57, double noundef %162)
-  %164 = load double, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 16), align 16, !tbaa !11
-  %165 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %32, ptr noundef nonnull @.str.58, double noundef %164)
-  %166 = load double, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 84), align 16, !tbaa !11
-  %167 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %32, ptr noundef nonnull @.str.59, double noundef %166)
-  %168 = load double, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 85), align 8, !tbaa !11
-  %169 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %32, ptr noundef nonnull @.str.60, double noundef %168)
-  %170 = load double, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 83), align 8, !tbaa !11
-  %171 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %32, ptr noundef nonnull @.str.61, double noundef %170)
-  %172 = load double, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 19), align 8, !tbaa !11
-  %173 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %32, ptr noundef nonnull @.str.62, double noundef %172)
-  %174 = load double, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 23), align 8, !tbaa !11
-  %175 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %32, ptr noundef nonnull @.str.63, double noundef %174)
-  %176 = load double, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 24), align 16, !tbaa !11
-  %177 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %32, ptr noundef nonnull @.str.64, double noundef %176)
-  %178 = load double, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 25), align 8, !tbaa !11
-  %179 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %32, ptr noundef nonnull @.str.65, double noundef %178)
-  %180 = load double, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 93), align 8, !tbaa !11
-  %181 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %32, ptr noundef nonnull @.str.66, double noundef %180)
-  %182 = load double, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 94), align 16, !tbaa !11
-  %183 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %32, ptr noundef nonnull @.str.67, double noundef %182)
-  %184 = load double, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 92), align 16, !tbaa !11
-  %185 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %32, ptr noundef nonnull @.str.68, double noundef %184)
-  %186 = load double, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 28), align 16, !tbaa !11
-  %187 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %32, ptr noundef nonnull @.str.69, double noundef %186)
-  %188 = load double, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 32), align 16, !tbaa !11
-  %189 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %32, ptr noundef nonnull @.str.70, double noundef %188)
-  %190 = load double, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 33), align 8, !tbaa !11
-  %191 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %32, ptr noundef nonnull @.str.71, double noundef %190)
-  %192 = load double, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 34), align 16, !tbaa !11
-  %193 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %32, ptr noundef nonnull @.str.72, double noundef %192)
-  %194 = load double, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 102), align 16, !tbaa !11
-  %195 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %32, ptr noundef nonnull @.str.73, double noundef %194)
-  %196 = load double, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 103), align 8, !tbaa !11
-  %197 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %32, ptr noundef nonnull @.str.74, double noundef %196)
-  %198 = load double, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 101), align 8, !tbaa !11
-  %199 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %32, ptr noundef nonnull @.str.75, double noundef %198)
-  %200 = load double, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 39), align 8, !tbaa !11
-  %201 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %32, ptr noundef nonnull @.str.76, double noundef %200)
-  %202 = load double, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 41), align 8, !tbaa !11
-  %203 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %32, ptr noundef nonnull @.str.77, double noundef %202)
-  %204 = load double, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 42), align 16, !tbaa !11
-  %205 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %32, ptr noundef nonnull @.str.78, double noundef %204)
-  %206 = load i64, ptr @total_blocks, align 8, !tbaa !5
-  %207 = sitofp i64 %206 to double
-  %208 = load i32, ptr @num_tsteps, align 4, !tbaa !9
-  %209 = load i32, ptr @stages_per_ts, align 4, !tbaa !9
-  %210 = mul nsw i32 %209, %208
-  %211 = sitofp i32 %210 to double
-  %212 = fdiv double %207, %211
-  %213 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %32, ptr noundef nonnull @.str.79, double noundef %212)
-  %214 = load i32, ptr @nb_min, align 4, !tbaa !9
-  %215 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %32, ptr noundef nonnull @.str.80, i32 noundef %214)
-  %216 = load i32, ptr @nb_max, align 4, !tbaa !9
-  %217 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %32, ptr noundef nonnull @.str.81, i32 noundef %216)
-  %218 = load double, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 104), align 16, !tbaa !11
-  %219 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %32, ptr noundef nonnull @.str.82, double noundef %218)
-  %220 = load double, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 105), align 8, !tbaa !11
-  %221 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %32, ptr noundef nonnull @.str.83, double noundef %220)
-  %222 = load double, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 43), align 8, !tbaa !11
-  %223 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %32, ptr noundef nonnull @.str.84, double noundef %222)
-  %224 = load double, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 44), align 16, !tbaa !11
-  %225 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %32, ptr noundef nonnull @.str.85, double noundef %224)
-  %226 = load double, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 46), align 16, !tbaa !11
-  %227 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %32, ptr noundef nonnull @.str.86, double noundef %226)
-  %228 = load double, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 47), align 8, !tbaa !11
-  %229 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %32, ptr noundef nonnull @.str.87, double noundef %228)
-  %230 = load double, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 45), align 8, !tbaa !11
-  %231 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %32, ptr noundef nonnull @.str.88, double noundef %230)
-  %232 = load double, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 67), align 8, !tbaa !11
-  %233 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %32, ptr noundef nonnull @.str.89, double noundef %232)
-  %234 = tail call i32 @fclose(ptr noundef %32)
-  %235 = load i32, ptr @report_perf, align 4, !tbaa !9
-  br label %236
+for.end:                                          ; preds = %for.body, %if.then16
+  %44 = load i32, ptr @num_tsteps, align 4, !tbaa !9
+  %call71 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %call, ptr noundef nonnull @.str.34, i32 noundef %44)
+  %45 = load i32, ptr @stages_per_ts, align 4, !tbaa !9
+  %call72 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %call, ptr noundef nonnull @.str.35, i32 noundef %45)
+  %46 = load i32, ptr @checksum_freq, align 4, !tbaa !9
+  %call73 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %call, ptr noundef nonnull @.str.36, i32 noundef %46)
+  %47 = load i32, ptr @refine_freq, align 4, !tbaa !9
+  %call74 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %call, ptr noundef nonnull @.str.37, i32 noundef %47)
+  %48 = load i32, ptr @plot_freq, align 4, !tbaa !9
+  %call75 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %call, ptr noundef nonnull @.str.38, i32 noundef %48)
+  %49 = load i32, ptr @num_vars, align 4, !tbaa !9
+  %call76 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %call, ptr noundef nonnull @.str.39, i32 noundef %49)
+  %50 = load i32, ptr @stencil, align 4, !tbaa !9
+  %call77 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %call, ptr noundef nonnull @.str.40, i32 noundef %50)
+  %51 = load i32, ptr @comm_vars, align 4, !tbaa !9
+  %call78 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %call, ptr noundef nonnull @.str.41, i32 noundef %51)
+  %52 = load i32, ptr @error_tol, align 4, !tbaa !9
+  %call79 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %call, ptr noundef nonnull @.str.42, i32 noundef %52)
+  %53 = load double, ptr @average, align 16, !tbaa !11
+  %call80 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %call, ptr noundef nonnull @.str.43, double noundef %53)
+  %54 = load double, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 111), align 8, !tbaa !11
+  %call81 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %call, ptr noundef nonnull @.str.44, double noundef %54)
+  %55 = load double, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 38), align 16, !tbaa !11
+  %call82 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %call, ptr noundef nonnull @.str.45, double noundef %55)
+  %call83 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %call, ptr noundef nonnull @.str.46, double noundef %div)
+  %call84 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %call, ptr noundef nonnull @.str.47, double noundef %div13)
+  %56 = load double, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 37), align 8, !tbaa !11
+  %call85 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %call, ptr noundef nonnull @.str.48, double noundef %56)
+  %57 = load double, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 5), align 8, !tbaa !11
+  %call86 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %call, ptr noundef nonnull @.str.49, double noundef %57)
+  %58 = load double, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 6), align 16, !tbaa !11
+  %call87 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %call, ptr noundef nonnull @.str.50, double noundef %58)
+  %59 = load double, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 7), align 8, !tbaa !11
+  %call88 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %call, ptr noundef nonnull @.str.51, double noundef %59)
+  %60 = load double, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 75), align 8, !tbaa !11
+  %call89 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %call, ptr noundef nonnull @.str.52, double noundef %60)
+  %61 = load double, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 76), align 16, !tbaa !11
+  %call90 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %call, ptr noundef nonnull @.str.53, double noundef %61)
+  %62 = load double, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 74), align 16, !tbaa !11
+  %call91 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %call, ptr noundef nonnull @.str.54, double noundef %62)
+  %63 = load double, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 10), align 16, !tbaa !11
+  %call92 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %call, ptr noundef nonnull @.str.55, double noundef %63)
+  %64 = load double, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 14), align 16, !tbaa !11
+  %call93 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %call, ptr noundef nonnull @.str.56, double noundef %64)
+  %65 = load double, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 15), align 8, !tbaa !11
+  %call94 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %call, ptr noundef nonnull @.str.57, double noundef %65)
+  %66 = load double, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 16), align 16, !tbaa !11
+  %call95 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %call, ptr noundef nonnull @.str.58, double noundef %66)
+  %67 = load double, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 84), align 16, !tbaa !11
+  %call96 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %call, ptr noundef nonnull @.str.59, double noundef %67)
+  %68 = load double, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 85), align 8, !tbaa !11
+  %call97 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %call, ptr noundef nonnull @.str.60, double noundef %68)
+  %69 = load double, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 83), align 8, !tbaa !11
+  %call98 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %call, ptr noundef nonnull @.str.61, double noundef %69)
+  %70 = load double, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 19), align 8, !tbaa !11
+  %call99 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %call, ptr noundef nonnull @.str.62, double noundef %70)
+  %71 = load double, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 23), align 8, !tbaa !11
+  %call100 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %call, ptr noundef nonnull @.str.63, double noundef %71)
+  %72 = load double, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 24), align 16, !tbaa !11
+  %call101 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %call, ptr noundef nonnull @.str.64, double noundef %72)
+  %73 = load double, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 25), align 8, !tbaa !11
+  %call102 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %call, ptr noundef nonnull @.str.65, double noundef %73)
+  %74 = load double, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 93), align 8, !tbaa !11
+  %call103 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %call, ptr noundef nonnull @.str.66, double noundef %74)
+  %75 = load double, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 94), align 16, !tbaa !11
+  %call104 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %call, ptr noundef nonnull @.str.67, double noundef %75)
+  %76 = load double, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 92), align 16, !tbaa !11
+  %call105 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %call, ptr noundef nonnull @.str.68, double noundef %76)
+  %77 = load double, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 28), align 16, !tbaa !11
+  %call106 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %call, ptr noundef nonnull @.str.69, double noundef %77)
+  %78 = load double, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 32), align 16, !tbaa !11
+  %call107 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %call, ptr noundef nonnull @.str.70, double noundef %78)
+  %79 = load double, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 33), align 8, !tbaa !11
+  %call108 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %call, ptr noundef nonnull @.str.71, double noundef %79)
+  %80 = load double, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 34), align 16, !tbaa !11
+  %call109 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %call, ptr noundef nonnull @.str.72, double noundef %80)
+  %81 = load double, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 102), align 16, !tbaa !11
+  %call110 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %call, ptr noundef nonnull @.str.73, double noundef %81)
+  %82 = load double, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 103), align 8, !tbaa !11
+  %call111 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %call, ptr noundef nonnull @.str.74, double noundef %82)
+  %83 = load double, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 101), align 8, !tbaa !11
+  %call112 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %call, ptr noundef nonnull @.str.75, double noundef %83)
+  %84 = load double, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 39), align 8, !tbaa !11
+  %call113 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %call, ptr noundef nonnull @.str.76, double noundef %84)
+  %85 = load double, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 41), align 8, !tbaa !11
+  %call114 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %call, ptr noundef nonnull @.str.77, double noundef %85)
+  %86 = load double, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 42), align 16, !tbaa !11
+  %call115 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %call, ptr noundef nonnull @.str.78, double noundef %86)
+  %87 = load i64, ptr @total_blocks, align 8, !tbaa !5
+  %conv116 = sitofp i64 %87 to double
+  %88 = load i32, ptr @num_tsteps, align 4, !tbaa !9
+  %89 = load i32, ptr @stages_per_ts, align 4, !tbaa !9
+  %mul117 = mul nsw i32 %89, %88
+  %conv118 = sitofp i32 %mul117 to double
+  %div119 = fdiv double %conv116, %conv118
+  %call120 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %call, ptr noundef nonnull @.str.79, double noundef %div119)
+  %90 = load i32, ptr @nb_min, align 4, !tbaa !9
+  %call121 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %call, ptr noundef nonnull @.str.80, i32 noundef %90)
+  %91 = load i32, ptr @nb_max, align 4, !tbaa !9
+  %call122 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %call, ptr noundef nonnull @.str.81, i32 noundef %91)
+  %92 = load double, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 104), align 16, !tbaa !11
+  %call123 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %call, ptr noundef nonnull @.str.82, double noundef %92)
+  %93 = load double, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 105), align 8, !tbaa !11
+  %call124 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %call, ptr noundef nonnull @.str.83, double noundef %93)
+  %94 = load double, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 43), align 8, !tbaa !11
+  %call125 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %call, ptr noundef nonnull @.str.84, double noundef %94)
+  %95 = load double, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 44), align 16, !tbaa !11
+  %call126 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %call, ptr noundef nonnull @.str.85, double noundef %95)
+  %96 = load double, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 46), align 16, !tbaa !11
+  %call127 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %call, ptr noundef nonnull @.str.86, double noundef %96)
+  %97 = load double, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 47), align 8, !tbaa !11
+  %call128 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %call, ptr noundef nonnull @.str.87, double noundef %97)
+  %98 = load double, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 45), align 8, !tbaa !11
+  %call129 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %call, ptr noundef nonnull @.str.88, double noundef %98)
+  %99 = load double, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 67), align 8, !tbaa !11
+  %call130 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %call, ptr noundef nonnull @.str.89, double noundef %99)
+  %call131 = tail call i32 @fclose(ptr noundef %call)
+  %.pre = load i32, ptr @report_perf, align 4, !tbaa !9
+  br label %if.end132
 
-236:                                              ; preds = %117, %27
-  %237 = phi i32 [ %235, %117 ], [ %28, %27 ]
-  %238 = and i32 %237, 2
-  %239 = icmp eq i32 %238, 0
-  br i1 %239, label %591, label %240
+if.end132:                                        ; preds = %for.end, %if.then14
+  %100 = phi i32 [ %.pre, %for.end ], [ %8, %if.then14 ]
+  %and133 = and i32 %100, 2
+  %tobool134.not = icmp eq i32 %and133, 0
+  br i1 %tobool134.not, label %if.end552, label %if.then135
 
-240:                                              ; preds = %236
-  %241 = tail call noalias ptr @fopen(ptr noundef nonnull @.str.90, ptr noundef nonnull @.str.2)
-  %242 = tail call i64 @fwrite(ptr nonnull @.str.91, i64 53, i64 1, ptr %241)
-  %243 = tail call i64 @fwrite(ptr nonnull @.str.92, i64 26, i64 1, ptr %241)
-  %244 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %241, ptr noundef nonnull @.str.93, ptr noundef nonnull @.str)
-  %245 = tail call i64 @fwrite(ptr nonnull @.str.94, i64 21, i64 1, ptr %241)
-  %246 = load i32, ptr @init_block_x, align 4, !tbaa !9
-  %247 = load i32, ptr @init_block_y, align 4, !tbaa !9
-  %248 = load i32, ptr @init_block_z, align 4, !tbaa !9
-  %249 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %241, ptr noundef nonnull @.str.95, i32 noundef %246, i32 noundef %247, i32 noundef %248)
-  %250 = load i32, ptr @x_block_size, align 4, !tbaa !9
-  %251 = load i32, ptr @y_block_size, align 4, !tbaa !9
-  %252 = load i32, ptr @z_block_size, align 4, !tbaa !9
-  %253 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %241, ptr noundef nonnull @.str.96, i32 noundef %250, i32 noundef %251, i32 noundef %252)
-  %254 = load i32, ptr @permute, align 4, !tbaa !9
-  %255 = icmp eq i32 %254, 0
-  br i1 %255, label %258, label %256
+if.then135:                                       ; preds = %if.end132
+  %call136 = tail call noalias ptr @fopen(ptr noundef nonnull @.str.90, ptr noundef nonnull @.str.2)
+  %101 = tail call i64 @fwrite(ptr nonnull @.str.91, i64 53, i64 1, ptr %call136)
+  %102 = tail call i64 @fwrite(ptr nonnull @.str.92, i64 26, i64 1, ptr %call136)
+  %call139 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %call136, ptr noundef nonnull @.str.93, ptr noundef nonnull @.str)
+  %103 = tail call i64 @fwrite(ptr nonnull @.str.94, i64 21, i64 1, ptr %call136)
+  %104 = load i32, ptr @init_block_x, align 4, !tbaa !9
+  %105 = load i32, ptr @init_block_y, align 4, !tbaa !9
+  %106 = load i32, ptr @init_block_z, align 4, !tbaa !9
+  %call141 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %call136, ptr noundef nonnull @.str.95, i32 noundef %104, i32 noundef %105, i32 noundef %106)
+  %107 = load i32, ptr @x_block_size, align 4, !tbaa !9
+  %108 = load i32, ptr @y_block_size, align 4, !tbaa !9
+  %109 = load i32, ptr @z_block_size, align 4, !tbaa !9
+  %call142 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %call136, ptr noundef nonnull @.str.96, i32 noundef %107, i32 noundef %108, i32 noundef %109)
+  %110 = load i32, ptr @permute, align 4, !tbaa !9
+  %tobool143.not = icmp eq i32 %110, 0
+  br i1 %tobool143.not, label %if.end146, label %if.then144
 
-256:                                              ; preds = %240
-  %257 = tail call i64 @fwrite(ptr nonnull @.str.97, i64 28, i64 1, ptr %241)
-  br label %258
+if.then144:                                       ; preds = %if.then135
+  %111 = tail call i64 @fwrite(ptr nonnull @.str.97, i64 28, i64 1, ptr %call136)
+  br label %if.end146
 
-258:                                              ; preds = %256, %240
-  %259 = load i32, ptr @max_num_blocks, align 4, !tbaa !9
-  %260 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %241, ptr noundef nonnull @.str.98, i32 noundef %259)
-  %261 = load i32, ptr @target_active, align 4, !tbaa !9
-  %262 = icmp eq i32 %261, 0
-  br i1 %262, label %265, label %263
+if.end146:                                        ; preds = %if.then144, %if.then135
+  %112 = load i32, ptr @max_num_blocks, align 4, !tbaa !9
+  %call147 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %call136, ptr noundef nonnull @.str.98, i32 noundef %112)
+  %113 = load i32, ptr @target_active, align 4, !tbaa !9
+  %tobool148.not = icmp eq i32 %113, 0
+  br i1 %tobool148.not, label %if.end151, label %if.then149
 
-263:                                              ; preds = %258
-  %264 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %241, ptr noundef nonnull @.str.99, i32 noundef %261)
-  br label %265
+if.then149:                                       ; preds = %if.end146
+  %call150 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %call136, ptr noundef nonnull @.str.99, i32 noundef %113)
+  br label %if.end151
 
-265:                                              ; preds = %263, %258
-  %266 = load i32, ptr @target_max, align 4, !tbaa !9
-  %267 = icmp eq i32 %266, 0
-  br i1 %267, label %270, label %268
+if.end151:                                        ; preds = %if.then149, %if.end146
+  %114 = load i32, ptr @target_max, align 4, !tbaa !9
+  %tobool152.not = icmp eq i32 %114, 0
+  br i1 %tobool152.not, label %if.end155, label %if.then153
 
-268:                                              ; preds = %265
-  %269 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %241, ptr noundef nonnull @.str.100, i32 noundef %266)
-  br label %270
+if.then153:                                       ; preds = %if.end151
+  %call154 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %call136, ptr noundef nonnull @.str.100, i32 noundef %114)
+  br label %if.end155
 
-270:                                              ; preds = %268, %265
-  %271 = load i32, ptr @target_min, align 4, !tbaa !9
-  %272 = icmp eq i32 %271, 0
-  br i1 %272, label %275, label %273
+if.end155:                                        ; preds = %if.then153, %if.end151
+  %115 = load i32, ptr @target_min, align 4, !tbaa !9
+  %tobool156.not = icmp eq i32 %115, 0
+  br i1 %tobool156.not, label %if.end159, label %if.then157
 
-273:                                              ; preds = %270
-  %274 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %241, ptr noundef nonnull @.str.101, i32 noundef %271)
-  br label %275
+if.then157:                                       ; preds = %if.end155
+  %call158 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %call136, ptr noundef nonnull @.str.101, i32 noundef %115)
+  br label %if.end159
 
-275:                                              ; preds = %273, %270
-  %276 = load i32, ptr @code, align 4, !tbaa !9
-  %277 = icmp eq i32 %276, 0
-  br i1 %277, label %280, label %278
+if.end159:                                        ; preds = %if.then157, %if.end155
+  %116 = load i32, ptr @code, align 4, !tbaa !9
+  %tobool160.not = icmp eq i32 %116, 0
+  br i1 %tobool160.not, label %if.end163, label %if.then161
 
-278:                                              ; preds = %275
-  %279 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %241, ptr noundef nonnull @.str.102, i32 noundef %276)
-  br label %280
+if.then161:                                       ; preds = %if.end159
+  %call162 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %call136, ptr noundef nonnull @.str.102, i32 noundef %116)
+  br label %if.end163
 
-280:                                              ; preds = %278, %275
-  %281 = load i32, ptr @num_refine, align 4, !tbaa !9
-  %282 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %241, ptr noundef nonnull @.str.103, i32 noundef %281)
-  %283 = load i32, ptr @block_change, align 4, !tbaa !9
-  %284 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %241, ptr noundef nonnull @.str.104, i32 noundef %283)
+if.end163:                                        ; preds = %if.then161, %if.end159
+  %117 = load i32, ptr @num_refine, align 4, !tbaa !9
+  %call164 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %call136, ptr noundef nonnull @.str.103, i32 noundef %117)
+  %118 = load i32, ptr @block_change, align 4, !tbaa !9
+  %call165 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %call136, ptr noundef nonnull @.str.104, i32 noundef %118)
+  %119 = load i32, ptr @refine_ghost, align 4, !tbaa !9
+  %tobool166.not = icmp eq i32 %119, 0
+  br i1 %tobool166.not, label %if.end169, label %if.then167
+
+if.then167:                                       ; preds = %if.end163
+  %120 = tail call i64 @fwrite(ptr nonnull @.str.105, i64 55, i64 1, ptr %call136)
+  br label %if.end169
+
+if.end169:                                        ; preds = %if.then167, %if.end163
+  %121 = load i32, ptr @uniform_refine, align 4, !tbaa !9
+  %tobool170.not = icmp eq i32 %121, 0
+  br i1 %tobool170.not, label %if.else173, label %if.then171
+
+if.then171:                                       ; preds = %if.end169
+  %122 = tail call i64 @fwrite(ptr nonnull @.str.106, i64 34, i64 1, ptr %call136)
+  br label %if.end416
+
+if.else173:                                       ; preds = %if.end169
+  %123 = load i32, ptr @num_objects, align 4, !tbaa !9
+  %call174 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %call136, ptr noundef nonnull @.str.107, i32 noundef %123)
+  %124 = load i32, ptr @num_objects, align 4, !tbaa !9
+  %cmp1761280 = icmp sgt i32 %124, 0
+  br i1 %cmp1761280, label %for.body178, label %if.end416
+
+for.body178:                                      ; preds = %if.else173, %if.end341
+  %indvars.iv1286 = phi i64 [ %indvars.iv.next1287, %if.end341 ], [ 0, %if.else173 ]
+  %125 = load ptr, ptr @objects, align 8, !tbaa !13
+  %arrayidx180 = getelementptr inbounds %struct.object, ptr %125, i64 %indvars.iv1286
+  %126 = load i32, ptr %arrayidx180, align 8, !tbaa !15
+  %127 = icmp ult i32 %126, 26
+  br i1 %127, label %switch.hole_check, label %if.end333
+
+switch.hole_check:                                ; preds = %for.body178
+  %switch.shifted = lshr i32 66125823, %126
+  %128 = and i32 %switch.shifted, 1
+  %switch.lobit.not = icmp eq i32 %128, 0
+  br i1 %switch.lobit.not, label %if.end333, label %switch.lookup
+
+switch.lookup:                                    ; preds = %switch.hole_check
+  %129 = sext i32 %126 to i64
+  %switch.gep = getelementptr inbounds [26 x ptr], ptr @switch.table.profile.209, i64 0, i64 %129
+  %switch.load = load ptr, ptr %switch.gep, align 8
+  %130 = trunc i64 %indvars.iv1286 to i32
+  %call191 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %call136, ptr noundef nonnull %switch.load, i32 noundef %130)
+  br label %if.end333
+
+if.end333:                                        ; preds = %switch.hole_check, %for.body178, %switch.lookup
+  %bounce334 = getelementptr inbounds %struct.object, ptr %125, i64 %indvars.iv1286, i32 1
+  %131 = load i32, ptr %bounce334, align 4, !tbaa !17
+  %cmp335 = icmp eq i32 %131, 0
+  br i1 %cmp335, label %if.then337, label %if.else339
+
+if.then337:                                       ; preds = %if.end333
+  %132 = tail call i64 @fwrite(ptr nonnull @.str.130, i64 21, i64 1, ptr %call136)
+  br label %if.end341
+
+if.else339:                                       ; preds = %if.end333
+  %133 = tail call i64 @fwrite(ptr nonnull @.str.131, i64 38, i64 1, ptr %call136)
+  br label %if.end341
+
+if.end341:                                        ; preds = %if.else339, %if.then337
+  %orig_cen = getelementptr inbounds %struct.object, ptr %125, i64 %indvars.iv1286, i32 3
+  %134 = load double, ptr %orig_cen, align 8, !tbaa !11
+  %arrayidx344 = getelementptr inbounds %struct.object, ptr %125, i64 %indvars.iv1286, i32 3, i64 1
+  %135 = load double, ptr %arrayidx344, align 8, !tbaa !11
+  %arrayidx346 = getelementptr inbounds %struct.object, ptr %125, i64 %indvars.iv1286, i32 3, i64 2
+  %136 = load double, ptr %arrayidx346, align 8, !tbaa !11
+  %call347 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %call136, ptr noundef nonnull @.str.132, double noundef %134, double noundef %135, double noundef %136)
+  %cen348 = getelementptr inbounds %struct.object, ptr %125, i64 %indvars.iv1286, i32 2
+  %137 = load double, ptr %cen348, align 8, !tbaa !11
+  %arrayidx351 = getelementptr inbounds %struct.object, ptr %125, i64 %indvars.iv1286, i32 2, i64 1
+  %138 = load double, ptr %arrayidx351, align 8, !tbaa !11
+  %arrayidx353 = getelementptr inbounds %struct.object, ptr %125, i64 %indvars.iv1286, i32 2, i64 2
+  %139 = load double, ptr %arrayidx353, align 8, !tbaa !11
+  %call354 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %call136, ptr noundef nonnull @.str.133, double noundef %137, double noundef %138, double noundef %139)
+  %orig_move = getelementptr inbounds %struct.object, ptr %125, i64 %indvars.iv1286, i32 5
+  %140 = load double, ptr %orig_move, align 8, !tbaa !11
+  %arrayidx357 = getelementptr inbounds %struct.object, ptr %125, i64 %indvars.iv1286, i32 5, i64 1
+  %141 = load double, ptr %arrayidx357, align 8, !tbaa !11
+  %arrayidx359 = getelementptr inbounds %struct.object, ptr %125, i64 %indvars.iv1286, i32 5, i64 2
+  %142 = load double, ptr %arrayidx359, align 8, !tbaa !11
+  %call360 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %call136, ptr noundef nonnull @.str.134, double noundef %140, double noundef %141, double noundef %142)
+  %143 = load double, ptr %orig_move, align 8, !tbaa !11
+  %144 = load i32, ptr @mesh_size, align 4, !tbaa !9
+  %145 = load i32, ptr @x_block_size, align 4, !tbaa !9
+  %mul363 = mul nsw i32 %145, %144
+  %conv364 = sitofp i32 %mul363 to double
+  %mul365 = fmul double %143, %conv364
+  %146 = load double, ptr %arrayidx357, align 8, !tbaa !11
+  %147 = load i32, ptr getelementptr inbounds ([3 x i32], ptr @mesh_size, i64 0, i64 1), align 4, !tbaa !9
+  %148 = load i32, ptr @y_block_size, align 4, !tbaa !9
+  %mul368 = mul nsw i32 %148, %147
+  %conv369 = sitofp i32 %mul368 to double
+  %mul370 = fmul double %146, %conv369
+  %149 = load double, ptr %arrayidx359, align 8, !tbaa !11
+  %150 = load i32, ptr getelementptr inbounds ([3 x i32], ptr @mesh_size, i64 0, i64 2), align 4, !tbaa !9
+  %151 = load i32, ptr @z_block_size, align 4, !tbaa !9
+  %mul373 = mul nsw i32 %151, %150
+  %conv374 = sitofp i32 %mul373 to double
+  %mul375 = fmul double %149, %conv374
+  %call376 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %call136, ptr noundef nonnull @.str.135, double noundef %mul365, double noundef %mul370, double noundef %mul375)
+  %orig_size = getelementptr inbounds %struct.object, ptr %125, i64 %indvars.iv1286, i32 7
+  %152 = load double, ptr %orig_size, align 8, !tbaa !11
+  %arrayidx379 = getelementptr inbounds %struct.object, ptr %125, i64 %indvars.iv1286, i32 7, i64 1
+  %153 = load double, ptr %arrayidx379, align 8, !tbaa !11
+  %arrayidx381 = getelementptr inbounds %struct.object, ptr %125, i64 %indvars.iv1286, i32 7, i64 2
+  %154 = load double, ptr %arrayidx381, align 8, !tbaa !11
+  %call382 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %call136, ptr noundef nonnull @.str.136, double noundef %152, double noundef %153, double noundef %154)
+  %size383 = getelementptr inbounds %struct.object, ptr %125, i64 %indvars.iv1286, i32 6
+  %155 = load double, ptr %size383, align 8, !tbaa !11
+  %arrayidx386 = getelementptr inbounds %struct.object, ptr %125, i64 %indvars.iv1286, i32 6, i64 1
+  %156 = load double, ptr %arrayidx386, align 8, !tbaa !11
+  %arrayidx388 = getelementptr inbounds %struct.object, ptr %125, i64 %indvars.iv1286, i32 6, i64 2
+  %157 = load double, ptr %arrayidx388, align 8, !tbaa !11
+  %call389 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %call136, ptr noundef nonnull @.str.137, double noundef %155, double noundef %156, double noundef %157)
+  %inc390 = getelementptr inbounds %struct.object, ptr %125, i64 %indvars.iv1286, i32 8
+  %158 = load double, ptr %inc390, align 8, !tbaa !11
+  %arrayidx393 = getelementptr inbounds %struct.object, ptr %125, i64 %indvars.iv1286, i32 8, i64 1
+  %159 = load double, ptr %arrayidx393, align 8, !tbaa !11
+  %arrayidx395 = getelementptr inbounds %struct.object, ptr %125, i64 %indvars.iv1286, i32 8, i64 2
+  %160 = load double, ptr %arrayidx395, align 8, !tbaa !11
+  %call396 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %call136, ptr noundef nonnull @.str.138, double noundef %158, double noundef %159, double noundef %160)
+  %161 = load double, ptr %inc390, align 8, !tbaa !11
+  %162 = load i32, ptr @mesh_size, align 4, !tbaa !9
+  %163 = load i32, ptr @x_block_size, align 4, !tbaa !9
+  %mul399 = mul nsw i32 %163, %162
+  %conv400 = sitofp i32 %mul399 to double
+  %mul401 = fmul double %161, %conv400
+  %164 = load double, ptr %arrayidx393, align 8, !tbaa !11
+  %165 = load i32, ptr getelementptr inbounds ([3 x i32], ptr @mesh_size, i64 0, i64 1), align 4, !tbaa !9
+  %166 = load i32, ptr @y_block_size, align 4, !tbaa !9
+  %mul404 = mul nsw i32 %166, %165
+  %conv405 = sitofp i32 %mul404 to double
+  %mul406 = fmul double %164, %conv405
+  %167 = load double, ptr %arrayidx395, align 8, !tbaa !11
+  %168 = load i32, ptr getelementptr inbounds ([3 x i32], ptr @mesh_size, i64 0, i64 2), align 4, !tbaa !9
+  %169 = load i32, ptr @z_block_size, align 4, !tbaa !9
+  %mul409 = mul nsw i32 %169, %168
+  %conv410 = sitofp i32 %mul409 to double
+  %mul411 = fmul double %167, %conv410
+  %call412 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %call136, ptr noundef nonnull @.str.139, double noundef %mul401, double noundef %mul406, double noundef %mul411)
+  %indvars.iv.next1287 = add nuw nsw i64 %indvars.iv1286, 1
+  %170 = load i32, ptr @num_objects, align 4, !tbaa !9
+  %171 = sext i32 %170 to i64
+  %cmp176 = icmp slt i64 %indvars.iv.next1287, %171
+  br i1 %cmp176, label %for.body178, label %if.end416, !llvm.loop !20
+
+if.end416:                                        ; preds = %if.end341, %if.else173, %if.then171
+  %172 = load i32, ptr @num_tsteps, align 4, !tbaa !9
+  %call417 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %call136, ptr noundef nonnull @.str.140, i32 noundef %172)
+  %173 = load i32, ptr @stages_per_ts, align 4, !tbaa !9
+  %call418 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %call136, ptr noundef nonnull @.str.141, i32 noundef %173)
+  %174 = load i32, ptr @checksum_freq, align 4, !tbaa !9
+  %call419 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %call136, ptr noundef nonnull @.str.142, i32 noundef %174)
+  %175 = load i32, ptr @refine_freq, align 4, !tbaa !9
+  %call420 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %call136, ptr noundef nonnull @.str.143, i32 noundef %175)
+  %176 = load i32, ptr @plot_freq, align 4, !tbaa !9
+  %tobool421.not = icmp eq i32 %176, 0
+  br i1 %tobool421.not, label %if.else424, label %if.then422
+
+if.then422:                                       ; preds = %if.end416
+  %call423 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %call136, ptr noundef nonnull @.str.144, i32 noundef %176)
+  br label %if.end468.3
+
+if.else424:                                       ; preds = %if.end416
+  %177 = tail call i64 @fwrite(ptr nonnull @.str.145, i64 22, i64 1, ptr %call136)
+  br label %if.end468.3
+
+if.end468.3:                                      ; preds = %if.else424, %if.then422
+  %178 = load i32, ptr @num_vars, align 4, !tbaa !9
+  %179 = load i32, ptr @stencil, align 4, !tbaa !9
+  %call427 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %call136, ptr noundef nonnull @.str.146, i32 noundef %178, i32 noundef %179)
+  %180 = load i32, ptr @comm_vars, align 4, !tbaa !9
+  %call428 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %call136, ptr noundef nonnull @.str.147, i32 noundef %180)
+  %181 = load i32, ptr @error_tol, align 4, !tbaa !9
+  %call429 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %call136, ptr noundef nonnull @.str.148, i32 noundef %181)
+  %182 = load double, ptr @average, align 16, !tbaa !11
+  %call430 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %call136, ptr noundef nonnull @.str.149, double noundef %182)
+  %183 = load double, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 110), align 16, !tbaa !11
+  %call431 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %call136, ptr noundef nonnull @.str.150, double noundef %183)
+  %184 = load double, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 111), align 8, !tbaa !11
+  %call432 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %call136, ptr noundef nonnull @.str.151, double noundef %184)
+  %185 = tail call i64 @fwrite(ptr nonnull @.str.152, i64 46, i64 1, ptr %call136)
+  %186 = tail call i64 @fwrite(ptr nonnull @.str.153, i64 36, i64 1, ptr %call136)
+  %187 = tail call i64 @fwrite(ptr nonnull @.str.154, i64 47, i64 1, ptr %call136)
+  %188 = load double, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 38), align 16, !tbaa !11
+  %call436 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %call136, ptr noundef nonnull @.str.155, double noundef %188)
+  %call437 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %call136, ptr noundef nonnull @.str.156, double noundef %div)
+  %call438 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %call136, ptr noundef nonnull @.str.157, double noundef %div13)
+  %call439 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %call136, ptr noundef nonnull @.str.158, double noundef %add)
+  %call440 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %call136, ptr noundef nonnull @.str.159, double noundef %total_fp_adds.0)
+  %call441 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %call136, ptr noundef nonnull @.str.160, double noundef %mul5)
+  %189 = tail call i64 @fwrite(ptr nonnull @.str.152, i64 46, i64 1, ptr %call136)
+  %190 = tail call i64 @fwrite(ptr nonnull @.str.161, i64 36, i64 1, ptr %call136)
+  %191 = tail call i64 @fwrite(ptr nonnull @.str.154, i64 47, i64 1, ptr %call136)
+  %192 = load double, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 37), align 8, !tbaa !11
+  %call445 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %call136, ptr noundef nonnull @.str.155, double noundef %192)
+  %193 = tail call i64 @fwrite(ptr nonnull @.str.162, i64 23, i64 1, ptr %call136)
+  %194 = tail call i64 @fwrite(ptr nonnull @.str.166, i64 66, i64 1, ptr %call136)
+  %195 = load double, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 1), align 8, !tbaa !11
+  %call474 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %call136, ptr noundef nonnull @.str.167, double noundef %195)
+  %196 = load double, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 5), align 8, !tbaa !11
+  %call479 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %call136, ptr noundef nonnull @.str.168, double noundef %196)
+  %197 = load double, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 6), align 16, !tbaa !11
+  %call484 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %call136, ptr noundef nonnull @.str.169, double noundef %197)
+  %198 = load double, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 7), align 8, !tbaa !11
+  %call489 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %call136, ptr noundef nonnull @.str.170, double noundef %198)
+  %199 = load double, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 75), align 8, !tbaa !11
+  %call494 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %call136, ptr noundef nonnull @.str.171, double noundef %199)
+  %200 = load double, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 76), align 16, !tbaa !11
+  %call499 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %call136, ptr noundef nonnull @.str.172, double noundef %200)
+  %201 = load double, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 74), align 16, !tbaa !11
+  %call504 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %call136, ptr noundef nonnull @.str.173, double noundef %201)
+  %202 = tail call i64 @fwrite(ptr nonnull @.str.163, i64 40, i64 1, ptr %call136)
+  %203 = tail call i64 @fwrite(ptr nonnull @.str.166, i64 66, i64 1, ptr %call136)
+  %204 = load double, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 10), align 16, !tbaa !11
+  %call474.1 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %call136, ptr noundef nonnull @.str.167, double noundef %204)
+  %205 = load double, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 14), align 16, !tbaa !11
+  %call479.1 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %call136, ptr noundef nonnull @.str.168, double noundef %205)
+  %206 = load double, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 15), align 8, !tbaa !11
+  %call484.1 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %call136, ptr noundef nonnull @.str.169, double noundef %206)
+  %207 = load double, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 16), align 16, !tbaa !11
+  %call489.1 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %call136, ptr noundef nonnull @.str.170, double noundef %207)
+  %208 = load double, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 84), align 16, !tbaa !11
+  %call494.1 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %call136, ptr noundef nonnull @.str.171, double noundef %208)
+  %209 = load double, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 85), align 8, !tbaa !11
+  %call499.1 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %call136, ptr noundef nonnull @.str.172, double noundef %209)
+  %210 = load double, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 83), align 8, !tbaa !11
+  %call504.1 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %call136, ptr noundef nonnull @.str.173, double noundef %210)
+  %211 = tail call i64 @fwrite(ptr nonnull @.str.164, i64 40, i64 1, ptr %call136)
+  %212 = tail call i64 @fwrite(ptr nonnull @.str.166, i64 66, i64 1, ptr %call136)
+  %213 = load double, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 19), align 8, !tbaa !11
+  %call474.2 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %call136, ptr noundef nonnull @.str.167, double noundef %213)
+  %214 = load double, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 23), align 8, !tbaa !11
+  %call479.2 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %call136, ptr noundef nonnull @.str.168, double noundef %214)
+  %215 = load double, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 24), align 16, !tbaa !11
+  %call484.2 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %call136, ptr noundef nonnull @.str.169, double noundef %215)
+  %216 = load double, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 25), align 8, !tbaa !11
+  %call489.2 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %call136, ptr noundef nonnull @.str.170, double noundef %216)
+  %217 = load double, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 93), align 8, !tbaa !11
+  %call494.2 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %call136, ptr noundef nonnull @.str.171, double noundef %217)
+  %218 = load double, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 94), align 16, !tbaa !11
+  %call499.2 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %call136, ptr noundef nonnull @.str.172, double noundef %218)
+  %219 = load double, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 92), align 16, !tbaa !11
+  %call504.2 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %call136, ptr noundef nonnull @.str.173, double noundef %219)
+  %220 = tail call i64 @fwrite(ptr nonnull @.str.165, i64 40, i64 1, ptr %call136)
+  %221 = tail call i64 @fwrite(ptr nonnull @.str.166, i64 66, i64 1, ptr %call136)
+  %222 = load double, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 28), align 16, !tbaa !11
+  %call474.3 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %call136, ptr noundef nonnull @.str.167, double noundef %222)
+  %223 = load double, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 32), align 16, !tbaa !11
+  %call479.3 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %call136, ptr noundef nonnull @.str.168, double noundef %223)
+  %224 = load double, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 33), align 8, !tbaa !11
+  %call484.3 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %call136, ptr noundef nonnull @.str.169, double noundef %224)
+  %225 = load double, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 34), align 16, !tbaa !11
+  %call489.3 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %call136, ptr noundef nonnull @.str.170, double noundef %225)
+  %226 = load double, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 102), align 16, !tbaa !11
+  %call494.3 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %call136, ptr noundef nonnull @.str.171, double noundef %226)
+  %227 = load double, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 103), align 8, !tbaa !11
+  %call499.3 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %call136, ptr noundef nonnull @.str.172, double noundef %227)
+  %228 = load double, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 101), align 8, !tbaa !11
+  %call504.3 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %call136, ptr noundef nonnull @.str.173, double noundef %228)
+  %229 = tail call i64 @fwrite(ptr nonnull @.str.174, i64 47, i64 1, ptr %call136)
+  %230 = tail call i64 @fwrite(ptr nonnull @.str.175, i64 33, i64 1, ptr %call136)
+  %231 = tail call i64 @fwrite(ptr nonnull @.str.154, i64 47, i64 1, ptr %call136)
+  %232 = load double, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 39), align 8, !tbaa !11
+  %call511 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %call136, ptr noundef nonnull @.str.155, double noundef %232)
+  %233 = load double, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 41), align 8, !tbaa !11
+  %call512 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %call136, ptr noundef nonnull @.str.176, double noundef %233)
+  %234 = load i32, ptr @total_red, align 4, !tbaa !9
+  %call513 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %call136, ptr noundef nonnull @.str.177, i32 noundef %234)
+  %235 = load i32, ptr @num_vars, align 4, !tbaa !9
+  %call514 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %call136, ptr noundef nonnull @.str.178, i32 noundef %235)
+  %236 = tail call i64 @fwrite(ptr nonnull @.str.152, i64 46, i64 1, ptr %call136)
+  %237 = tail call i64 @fwrite(ptr nonnull @.str.179, i64 31, i64 1, ptr %call136)
+  %238 = tail call i64 @fwrite(ptr nonnull @.str.154, i64 47, i64 1, ptr %call136)
+  %239 = load double, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 42), align 16, !tbaa !11
+  %call518 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %call136, ptr noundef nonnull @.str.155, double noundef %239)
+  %240 = load i32, ptr @nrs, align 4, !tbaa !9
+  %call519 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %call136, ptr noundef nonnull @.str.180, i32 noundef %240)
+  %241 = load i64, ptr @total_blocks, align 8, !tbaa !5
+  %call520 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %call136, ptr noundef nonnull @.str.181, i64 noundef %241)
+  %242 = load i64, ptr @total_blocks, align 8, !tbaa !5
+  %conv521 = sitofp i64 %242 to double
+  %243 = load i32, ptr @num_tsteps, align 4, !tbaa !9
+  %244 = load i32, ptr @stages_per_ts, align 4, !tbaa !9
+  %mul522 = mul nsw i32 %244, %243
+  %conv523 = sitofp i32 %mul522 to double
+  %div524 = fdiv double %conv521, %conv523
+  %245 = load i32, ptr @nb_min, align 4, !tbaa !9
+  %246 = load i32, ptr @nb_max, align 4, !tbaa !9
+  %call525 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %call136, ptr noundef nonnull @.str.182, double noundef %div524, i32 noundef %245, i32 noundef %246)
+  %247 = load i32, ptr @global_max_b, align 4, !tbaa !9
+  %call526 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %call136, ptr noundef nonnull @.str.183, i32 noundef %247)
+  %248 = load double, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 104), align 16, !tbaa !11
+  %call527 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %call136, ptr noundef nonnull @.str.184, double noundef %248)
+  %249 = load double, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 105), align 8, !tbaa !11
+  %call528 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %call136, ptr noundef nonnull @.str.185, double noundef %249)
+  %250 = tail call i64 @fwrite(ptr nonnull @.str.186, i64 11, i64 1, ptr %call136)
+  %251 = load double, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 43), align 8, !tbaa !11
+  %call530 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %call136, ptr noundef nonnull @.str.187, double noundef %251)
+  %252 = load double, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 44), align 16, !tbaa !11
+  %call531 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %call136, ptr noundef nonnull @.str.188, double noundef %252)
+  %253 = load double, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 46), align 16, !tbaa !11
+  %call532 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %call136, ptr noundef nonnull @.str.189, double noundef %253)
+  %254 = load double, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 47), align 8, !tbaa !11
+  %call533 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %call136, ptr noundef nonnull @.str.190, double noundef %254)
+  %255 = load double, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 45), align 8, !tbaa !11
+  %call534 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %call136, ptr noundef nonnull @.str.191, double noundef %255)
+  %256 = load i32, ptr @target_active, align 4, !tbaa !9
+  %tobool535.not = icmp eq i32 %256, 0
+  br i1 %tobool535.not, label %if.end544, label %if.then536
+
+if.then536:                                       ; preds = %if.end468.3
+  %257 = load double, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 52), align 16, !tbaa !11
+  %call537 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %call136, ptr noundef nonnull @.str.192, double noundef %257)
+  %258 = load double, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 53), align 8, !tbaa !11
+  %call538 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %call136, ptr noundef nonnull @.str.193, double noundef %258)
+  %259 = load double, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 54), align 16, !tbaa !11
+  %call539 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %call136, ptr noundef nonnull @.str.194, double noundef %259)
+  %260 = load double, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 58), align 16, !tbaa !11
+  %call540 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %call136, ptr noundef nonnull @.str.195, double noundef %260)
+  %261 = load double, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 59), align 8, !tbaa !11
+  %call541 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %call136, ptr noundef nonnull @.str.196, double noundef %261)
+  %262 = load double, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 60), align 16, !tbaa !11
+  %call542 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %call136, ptr noundef nonnull @.str.194, double noundef %262)
+  %263 = load double, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 61), align 8, !tbaa !11
+  %call543 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %call136, ptr noundef nonnull @.str.197, double noundef %263)
+  br label %if.end544
+
+if.end544:                                        ; preds = %if.then536, %if.end468.3
+  %264 = tail call i64 @fwrite(ptr nonnull @.str.152, i64 46, i64 1, ptr %call136)
+  %265 = tail call i64 @fwrite(ptr nonnull @.str.198, i64 24, i64 1, ptr %call136)
+  %266 = tail call i64 @fwrite(ptr nonnull @.str.154, i64 47, i64 1, ptr %call136)
+  %267 = load double, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 67), align 8, !tbaa !11
+  %call548 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %call136, ptr noundef nonnull @.str.155, double noundef %267)
+  %268 = load i32, ptr @nps, align 4, !tbaa !9
+  %call549 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %call136, ptr noundef nonnull @.str.199, i32 noundef %268)
+  %269 = tail call i64 @fwrite(ptr nonnull @.str.200, i64 52, i64 1, ptr %call136)
+  %call551 = tail call i32 @fclose(ptr noundef %call136)
+  %.pre1303 = load i32, ptr @report_perf, align 4, !tbaa !9
+  br label %if.end552
+
+if.end552:                                        ; preds = %if.end544, %if.end132
+  %270 = phi i32 [ %.pre1303, %if.end544 ], [ %100, %if.end132 ]
+  %and553 = and i32 %270, 4
+  %tobool554.not = icmp eq i32 %and553, 0
+  br i1 %tobool554.not, label %if.end853, label %if.then555
+
+if.then555:                                       ; preds = %if.end552
+  %puts = tail call i32 @puts(ptr nonnull dereferenceable(1) @str)
+  %puts1270 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.201)
+  %call558 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.93, ptr noundef nonnull @.str)
+  %puts1271 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.202)
+  %271 = load i32, ptr @init_block_x, align 4, !tbaa !9
+  %272 = load i32, ptr @init_block_y, align 4, !tbaa !9
+  %273 = load i32, ptr @init_block_z, align 4, !tbaa !9
+  %call560 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.95, i32 noundef %271, i32 noundef %272, i32 noundef %273)
+  %274 = load i32, ptr @x_block_size, align 4, !tbaa !9
+  %275 = load i32, ptr @y_block_size, align 4, !tbaa !9
+  %276 = load i32, ptr @z_block_size, align 4, !tbaa !9
+  %call561 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.96, i32 noundef %274, i32 noundef %275, i32 noundef %276)
+  %277 = load i32, ptr @permute, align 4, !tbaa !9
+  %tobool562.not = icmp eq i32 %277, 0
+  br i1 %tobool562.not, label %if.end565, label %if.then563
+
+if.then563:                                       ; preds = %if.then555
+  %puts1277 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.208)
+  br label %if.end565
+
+if.end565:                                        ; preds = %if.then563, %if.then555
+  %278 = load i32, ptr @max_num_blocks, align 4, !tbaa !9
+  %call566 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.98, i32 noundef %278)
+  %279 = load i32, ptr @target_active, align 4, !tbaa !9
+  %tobool567.not = icmp eq i32 %279, 0
+  br i1 %tobool567.not, label %if.end570, label %if.then568
+
+if.then568:                                       ; preds = %if.end565
+  %call569 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.99, i32 noundef %279)
+  br label %if.end570
+
+if.end570:                                        ; preds = %if.then568, %if.end565
+  %280 = load i32, ptr @target_max, align 4, !tbaa !9
+  %tobool571.not = icmp eq i32 %280, 0
+  br i1 %tobool571.not, label %if.end574, label %if.then572
+
+if.then572:                                       ; preds = %if.end570
+  %call573 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.100, i32 noundef %280)
+  br label %if.end574
+
+if.end574:                                        ; preds = %if.then572, %if.end570
+  %281 = load i32, ptr @target_min, align 4, !tbaa !9
+  %tobool575.not = icmp eq i32 %281, 0
+  br i1 %tobool575.not, label %if.end578, label %if.then576
+
+if.then576:                                       ; preds = %if.end574
+  %call577 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.101, i32 noundef %281)
+  br label %if.end578
+
+if.end578:                                        ; preds = %if.then576, %if.end574
+  %282 = load i32, ptr @code, align 4, !tbaa !9
+  %tobool579.not = icmp eq i32 %282, 0
+  br i1 %tobool579.not, label %if.end582, label %if.then580
+
+if.then580:                                       ; preds = %if.end578
+  %call581 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.102, i32 noundef %282)
+  br label %if.end582
+
+if.end582:                                        ; preds = %if.then580, %if.end578
+  %283 = load i32, ptr @num_refine, align 4, !tbaa !9
+  %call583 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.103, i32 noundef %283)
+  %284 = load i32, ptr @block_change, align 4, !tbaa !9
+  %call584 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.104, i32 noundef %284)
   %285 = load i32, ptr @refine_ghost, align 4, !tbaa !9
-  %286 = icmp eq i32 %285, 0
-  br i1 %286, label %289, label %287
+  %tobool585.not = icmp eq i32 %285, 0
+  br i1 %tobool585.not, label %if.end588, label %if.then586
 
-287:                                              ; preds = %280
-  %288 = tail call i64 @fwrite(ptr nonnull @.str.105, i64 55, i64 1, ptr %241)
-  br label %289
+if.then586:                                       ; preds = %if.end582
+  %puts1276 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.207)
+  br label %if.end588
 
-289:                                              ; preds = %287, %280
-  %290 = load i32, ptr @uniform_refine, align 4, !tbaa !9
-  %291 = icmp eq i32 %290, 0
-  br i1 %291, label %294, label %292
+if.end588:                                        ; preds = %if.then586, %if.end582
+  %286 = load i32, ptr @uniform_refine, align 4, !tbaa !9
+  %tobool589.not = icmp eq i32 %286, 0
+  br i1 %tobool589.not, label %if.else592, label %if.then590
 
-292:                                              ; preds = %289
-  %293 = tail call i64 @fwrite(ptr nonnull @.str.106, i64 34, i64 1, ptr %241)
-  br label %408
+if.then590:                                       ; preds = %if.end588
+  %puts1275 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.206)
+  br label %if.end838
 
-294:                                              ; preds = %289
-  %295 = load i32, ptr @num_objects, align 4, !tbaa !9
-  %296 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %241, ptr noundef nonnull @.str.107, i32 noundef %295)
-  %297 = load i32, ptr @num_objects, align 4, !tbaa !9
-  %298 = icmp sgt i32 %297, 0
-  br i1 %298, label %299, label %408
+if.else592:                                       ; preds = %if.end588
+  %287 = load i32, ptr @num_objects, align 4, !tbaa !9
+  %call593 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.107, i32 noundef %287)
+  %288 = load i32, ptr @num_objects, align 4, !tbaa !9
+  %cmp5951283 = icmp sgt i32 %288, 0
+  br i1 %cmp5951283, label %for.body597, label %if.end838
 
-299:                                              ; preds = %294, %323
-  %300 = phi i64 [ %404, %323 ], [ 0, %294 ]
-  %301 = load ptr, ptr @objects, align 8, !tbaa !13
-  %302 = getelementptr inbounds %struct.object, ptr %301, i64 %300
-  %303 = load i32, ptr %302, align 8, !tbaa !15
-  %304 = icmp ult i32 %303, 26
-  br i1 %304, label %305, label %315
+for.body597:                                      ; preds = %if.else592, %if.end752
+  %indvars.iv1300 = phi i64 [ %indvars.iv.next1301, %if.end752 ], [ 0, %if.else592 ]
+  %289 = load ptr, ptr @objects, align 8, !tbaa !13
+  %arrayidx599 = getelementptr inbounds %struct.object, ptr %289, i64 %indvars.iv1300
+  %290 = load i32, ptr %arrayidx599, align 8, !tbaa !15
+  %291 = icmp ult i32 %290, 26
+  br i1 %291, label %switch.hole_check1306, label %if.end752
 
-305:                                              ; preds = %299
-  %306 = lshr i32 66125823, %303
-  %307 = and i32 %306, 1
-  %308 = icmp eq i32 %307, 0
-  br i1 %308, label %315, label %309
+switch.hole_check1306:                            ; preds = %for.body597
+  %switch.shifted1308 = lshr i32 66125823, %290
+  %292 = and i32 %switch.shifted1308, 1
+  %switch.lobit1309.not = icmp eq i32 %292, 0
+  br i1 %switch.lobit1309.not, label %if.end752, label %switch.lookup1307
 
-309:                                              ; preds = %305
-  %310 = sext i32 %303 to i64
-  %311 = getelementptr inbounds [26 x ptr], ptr @switch.table.profile.209, i64 0, i64 %310
-  %312 = load ptr, ptr %311, align 8
-  %313 = trunc i64 %300 to i32
-  %314 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %241, ptr noundef nonnull %312, i32 noundef %313)
-  br label %315
+switch.lookup1307:                                ; preds = %switch.hole_check1306
+  %293 = sext i32 %290 to i64
+  %switch.gep1310 = getelementptr inbounds [26 x ptr], ptr @switch.table.profile.209, i64 0, i64 %293
+  %switch.load1311 = load ptr, ptr %switch.gep1310, align 8
+  %294 = trunc i64 %indvars.iv1300 to i32
+  %call610 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) %switch.load1311, i32 noundef %294)
+  br label %if.end752
 
-315:                                              ; preds = %305, %299, %309
-  %316 = getelementptr inbounds %struct.object, ptr %301, i64 %300, i32 1
-  %317 = load i32, ptr %316, align 4, !tbaa !17
-  %318 = icmp eq i32 %317, 0
-  br i1 %318, label %319, label %321
+if.end752:                                        ; preds = %switch.hole_check1306, %for.body597, %switch.lookup1307
+  %bounce753 = getelementptr inbounds %struct.object, ptr %289, i64 %indvars.iv1300, i32 1
+  %295 = load i32, ptr %bounce753, align 4, !tbaa !17
+  %cmp754 = icmp eq i32 %295, 0
+  %str.205.str.204 = select i1 %cmp754, ptr @str.205, ptr @str.204
+  %puts1273 = tail call i32 @puts(ptr nonnull dereferenceable(1) %str.205.str.204)
+  %orig_cen761 = getelementptr inbounds %struct.object, ptr %289, i64 %indvars.iv1300, i32 3
+  %296 = load double, ptr %orig_cen761, align 8, !tbaa !11
+  %arrayidx764 = getelementptr inbounds %struct.object, ptr %289, i64 %indvars.iv1300, i32 3, i64 1
+  %297 = load double, ptr %arrayidx764, align 8, !tbaa !11
+  %arrayidx766 = getelementptr inbounds %struct.object, ptr %289, i64 %indvars.iv1300, i32 3, i64 2
+  %298 = load double, ptr %arrayidx766, align 8, !tbaa !11
+  %call767 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.132, double noundef %296, double noundef %297, double noundef %298)
+  %cen768 = getelementptr inbounds %struct.object, ptr %289, i64 %indvars.iv1300, i32 2
+  %299 = load double, ptr %cen768, align 8, !tbaa !11
+  %arrayidx771 = getelementptr inbounds %struct.object, ptr %289, i64 %indvars.iv1300, i32 2, i64 1
+  %300 = load double, ptr %arrayidx771, align 8, !tbaa !11
+  %arrayidx773 = getelementptr inbounds %struct.object, ptr %289, i64 %indvars.iv1300, i32 2, i64 2
+  %301 = load double, ptr %arrayidx773, align 8, !tbaa !11
+  %call774 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.133, double noundef %299, double noundef %300, double noundef %301)
+  %orig_move775 = getelementptr inbounds %struct.object, ptr %289, i64 %indvars.iv1300, i32 5
+  %302 = load double, ptr %orig_move775, align 8, !tbaa !11
+  %arrayidx778 = getelementptr inbounds %struct.object, ptr %289, i64 %indvars.iv1300, i32 5, i64 1
+  %303 = load double, ptr %arrayidx778, align 8, !tbaa !11
+  %arrayidx780 = getelementptr inbounds %struct.object, ptr %289, i64 %indvars.iv1300, i32 5, i64 2
+  %304 = load double, ptr %arrayidx780, align 8, !tbaa !11
+  %call781 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.134, double noundef %302, double noundef %303, double noundef %304)
+  %305 = load double, ptr %orig_move775, align 8, !tbaa !11
+  %306 = load i32, ptr @mesh_size, align 4, !tbaa !9
+  %307 = load i32, ptr @x_block_size, align 4, !tbaa !9
+  %mul784 = mul nsw i32 %307, %306
+  %conv785 = sitofp i32 %mul784 to double
+  %mul786 = fmul double %305, %conv785
+  %308 = load double, ptr %arrayidx778, align 8, !tbaa !11
+  %309 = load i32, ptr getelementptr inbounds ([3 x i32], ptr @mesh_size, i64 0, i64 1), align 4, !tbaa !9
+  %310 = load i32, ptr @y_block_size, align 4, !tbaa !9
+  %mul789 = mul nsw i32 %310, %309
+  %conv790 = sitofp i32 %mul789 to double
+  %mul791 = fmul double %308, %conv790
+  %311 = load double, ptr %arrayidx780, align 8, !tbaa !11
+  %312 = load i32, ptr getelementptr inbounds ([3 x i32], ptr @mesh_size, i64 0, i64 2), align 4, !tbaa !9
+  %313 = load i32, ptr @z_block_size, align 4, !tbaa !9
+  %mul794 = mul nsw i32 %313, %312
+  %conv795 = sitofp i32 %mul794 to double
+  %mul796 = fmul double %311, %conv795
+  %call797 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.135, double noundef %mul786, double noundef %mul791, double noundef %mul796)
+  %orig_size798 = getelementptr inbounds %struct.object, ptr %289, i64 %indvars.iv1300, i32 7
+  %314 = load double, ptr %orig_size798, align 8, !tbaa !11
+  %arrayidx801 = getelementptr inbounds %struct.object, ptr %289, i64 %indvars.iv1300, i32 7, i64 1
+  %315 = load double, ptr %arrayidx801, align 8, !tbaa !11
+  %arrayidx803 = getelementptr inbounds %struct.object, ptr %289, i64 %indvars.iv1300, i32 7, i64 2
+  %316 = load double, ptr %arrayidx803, align 8, !tbaa !11
+  %call804 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.136, double noundef %314, double noundef %315, double noundef %316)
+  %size805 = getelementptr inbounds %struct.object, ptr %289, i64 %indvars.iv1300, i32 6
+  %317 = load double, ptr %size805, align 8, !tbaa !11
+  %arrayidx808 = getelementptr inbounds %struct.object, ptr %289, i64 %indvars.iv1300, i32 6, i64 1
+  %318 = load double, ptr %arrayidx808, align 8, !tbaa !11
+  %arrayidx810 = getelementptr inbounds %struct.object, ptr %289, i64 %indvars.iv1300, i32 6, i64 2
+  %319 = load double, ptr %arrayidx810, align 8, !tbaa !11
+  %call811 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.137, double noundef %317, double noundef %318, double noundef %319)
+  %inc812 = getelementptr inbounds %struct.object, ptr %289, i64 %indvars.iv1300, i32 8
+  %320 = load double, ptr %inc812, align 8, !tbaa !11
+  %arrayidx815 = getelementptr inbounds %struct.object, ptr %289, i64 %indvars.iv1300, i32 8, i64 1
+  %321 = load double, ptr %arrayidx815, align 8, !tbaa !11
+  %arrayidx817 = getelementptr inbounds %struct.object, ptr %289, i64 %indvars.iv1300, i32 8, i64 2
+  %322 = load double, ptr %arrayidx817, align 8, !tbaa !11
+  %call818 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.138, double noundef %320, double noundef %321, double noundef %322)
+  %323 = load double, ptr %inc812, align 8, !tbaa !11
+  %324 = load i32, ptr @mesh_size, align 4, !tbaa !9
+  %325 = load i32, ptr @x_block_size, align 4, !tbaa !9
+  %mul821 = mul nsw i32 %325, %324
+  %conv822 = sitofp i32 %mul821 to double
+  %mul823 = fmul double %323, %conv822
+  %326 = load double, ptr %arrayidx815, align 8, !tbaa !11
+  %327 = load i32, ptr getelementptr inbounds ([3 x i32], ptr @mesh_size, i64 0, i64 1), align 4, !tbaa !9
+  %328 = load i32, ptr @y_block_size, align 4, !tbaa !9
+  %mul826 = mul nsw i32 %328, %327
+  %conv827 = sitofp i32 %mul826 to double
+  %mul828 = fmul double %326, %conv827
+  %329 = load double, ptr %arrayidx817, align 8, !tbaa !11
+  %330 = load i32, ptr getelementptr inbounds ([3 x i32], ptr @mesh_size, i64 0, i64 2), align 4, !tbaa !9
+  %331 = load i32, ptr @z_block_size, align 4, !tbaa !9
+  %mul831 = mul nsw i32 %331, %330
+  %conv832 = sitofp i32 %mul831 to double
+  %mul833 = fmul double %329, %conv832
+  %call834 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.139, double noundef %mul823, double noundef %mul828, double noundef %mul833)
+  %indvars.iv.next1301 = add nuw nsw i64 %indvars.iv1300, 1
+  %332 = load i32, ptr @num_objects, align 4, !tbaa !9
+  %333 = sext i32 %332 to i64
+  %cmp595 = icmp slt i64 %indvars.iv.next1301, %333
+  br i1 %cmp595, label %for.body597, label %if.end838, !llvm.loop !21
 
-319:                                              ; preds = %315
-  %320 = tail call i64 @fwrite(ptr nonnull @.str.130, i64 21, i64 1, ptr %241)
-  br label %323
+if.end838:                                        ; preds = %if.end752, %if.else592, %if.then590
+  %334 = load i32, ptr @num_tsteps, align 4, !tbaa !9
+  %call839 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.140, i32 noundef %334)
+  %335 = load i32, ptr @stages_per_ts, align 4, !tbaa !9
+  %call840 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.141, i32 noundef %335)
+  %336 = load i32, ptr @checksum_freq, align 4, !tbaa !9
+  %call841 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.142, i32 noundef %336)
+  %337 = load i32, ptr @refine_freq, align 4, !tbaa !9
+  %call842 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.143, i32 noundef %337)
+  %338 = load i32, ptr @plot_freq, align 4, !tbaa !9
+  %tobool843.not = icmp eq i32 %338, 0
+  br i1 %tobool843.not, label %if.else846, label %if.then844
 
-321:                                              ; preds = %315
-  %322 = tail call i64 @fwrite(ptr nonnull @.str.131, i64 38, i64 1, ptr %241)
-  br label %323
+if.then844:                                       ; preds = %if.end838
+  %call845 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.144, i32 noundef %338)
+  br label %if.end848
 
-323:                                              ; preds = %321, %319
-  %324 = getelementptr inbounds %struct.object, ptr %301, i64 %300, i32 3
-  %325 = load double, ptr %324, align 8, !tbaa !11
-  %326 = getelementptr inbounds %struct.object, ptr %301, i64 %300, i32 3, i64 1
-  %327 = load double, ptr %326, align 8, !tbaa !11
-  %328 = getelementptr inbounds %struct.object, ptr %301, i64 %300, i32 3, i64 2
-  %329 = load double, ptr %328, align 8, !tbaa !11
-  %330 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %241, ptr noundef nonnull @.str.132, double noundef %325, double noundef %327, double noundef %329)
-  %331 = getelementptr inbounds %struct.object, ptr %301, i64 %300, i32 2
-  %332 = load double, ptr %331, align 8, !tbaa !11
-  %333 = getelementptr inbounds %struct.object, ptr %301, i64 %300, i32 2, i64 1
-  %334 = load double, ptr %333, align 8, !tbaa !11
-  %335 = getelementptr inbounds %struct.object, ptr %301, i64 %300, i32 2, i64 2
-  %336 = load double, ptr %335, align 8, !tbaa !11
-  %337 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %241, ptr noundef nonnull @.str.133, double noundef %332, double noundef %334, double noundef %336)
-  %338 = getelementptr inbounds %struct.object, ptr %301, i64 %300, i32 5
-  %339 = load double, ptr %338, align 8, !tbaa !11
-  %340 = getelementptr inbounds %struct.object, ptr %301, i64 %300, i32 5, i64 1
-  %341 = load double, ptr %340, align 8, !tbaa !11
-  %342 = getelementptr inbounds %struct.object, ptr %301, i64 %300, i32 5, i64 2
-  %343 = load double, ptr %342, align 8, !tbaa !11
-  %344 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %241, ptr noundef nonnull @.str.134, double noundef %339, double noundef %341, double noundef %343)
-  %345 = load double, ptr %338, align 8, !tbaa !11
-  %346 = load i32, ptr @mesh_size, align 4, !tbaa !9
-  %347 = load i32, ptr @x_block_size, align 4, !tbaa !9
-  %348 = mul nsw i32 %347, %346
-  %349 = sitofp i32 %348 to double
-  %350 = fmul double %345, %349
-  %351 = load double, ptr %340, align 8, !tbaa !11
-  %352 = load i32, ptr getelementptr inbounds ([3 x i32], ptr @mesh_size, i64 0, i64 1), align 4, !tbaa !9
-  %353 = load i32, ptr @y_block_size, align 4, !tbaa !9
-  %354 = mul nsw i32 %353, %352
-  %355 = sitofp i32 %354 to double
-  %356 = fmul double %351, %355
-  %357 = load double, ptr %342, align 8, !tbaa !11
-  %358 = load i32, ptr getelementptr inbounds ([3 x i32], ptr @mesh_size, i64 0, i64 2), align 4, !tbaa !9
-  %359 = load i32, ptr @z_block_size, align 4, !tbaa !9
-  %360 = mul nsw i32 %359, %358
-  %361 = sitofp i32 %360 to double
-  %362 = fmul double %357, %361
-  %363 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %241, ptr noundef nonnull @.str.135, double noundef %350, double noundef %356, double noundef %362)
-  %364 = getelementptr inbounds %struct.object, ptr %301, i64 %300, i32 7
-  %365 = load double, ptr %364, align 8, !tbaa !11
-  %366 = getelementptr inbounds %struct.object, ptr %301, i64 %300, i32 7, i64 1
-  %367 = load double, ptr %366, align 8, !tbaa !11
-  %368 = getelementptr inbounds %struct.object, ptr %301, i64 %300, i32 7, i64 2
-  %369 = load double, ptr %368, align 8, !tbaa !11
-  %370 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %241, ptr noundef nonnull @.str.136, double noundef %365, double noundef %367, double noundef %369)
-  %371 = getelementptr inbounds %struct.object, ptr %301, i64 %300, i32 6
-  %372 = load double, ptr %371, align 8, !tbaa !11
-  %373 = getelementptr inbounds %struct.object, ptr %301, i64 %300, i32 6, i64 1
-  %374 = load double, ptr %373, align 8, !tbaa !11
-  %375 = getelementptr inbounds %struct.object, ptr %301, i64 %300, i32 6, i64 2
-  %376 = load double, ptr %375, align 8, !tbaa !11
-  %377 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %241, ptr noundef nonnull @.str.137, double noundef %372, double noundef %374, double noundef %376)
-  %378 = getelementptr inbounds %struct.object, ptr %301, i64 %300, i32 8
-  %379 = load double, ptr %378, align 8, !tbaa !11
-  %380 = getelementptr inbounds %struct.object, ptr %301, i64 %300, i32 8, i64 1
-  %381 = load double, ptr %380, align 8, !tbaa !11
-  %382 = getelementptr inbounds %struct.object, ptr %301, i64 %300, i32 8, i64 2
-  %383 = load double, ptr %382, align 8, !tbaa !11
-  %384 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %241, ptr noundef nonnull @.str.138, double noundef %379, double noundef %381, double noundef %383)
-  %385 = load double, ptr %378, align 8, !tbaa !11
-  %386 = load i32, ptr @mesh_size, align 4, !tbaa !9
-  %387 = load i32, ptr @x_block_size, align 4, !tbaa !9
-  %388 = mul nsw i32 %387, %386
-  %389 = sitofp i32 %388 to double
-  %390 = fmul double %385, %389
-  %391 = load double, ptr %380, align 8, !tbaa !11
-  %392 = load i32, ptr getelementptr inbounds ([3 x i32], ptr @mesh_size, i64 0, i64 1), align 4, !tbaa !9
-  %393 = load i32, ptr @y_block_size, align 4, !tbaa !9
-  %394 = mul nsw i32 %393, %392
-  %395 = sitofp i32 %394 to double
-  %396 = fmul double %391, %395
-  %397 = load double, ptr %382, align 8, !tbaa !11
-  %398 = load i32, ptr getelementptr inbounds ([3 x i32], ptr @mesh_size, i64 0, i64 2), align 4, !tbaa !9
-  %399 = load i32, ptr @z_block_size, align 4, !tbaa !9
-  %400 = mul nsw i32 %399, %398
-  %401 = sitofp i32 %400 to double
-  %402 = fmul double %397, %401
-  %403 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %241, ptr noundef nonnull @.str.139, double noundef %390, double noundef %396, double noundef %402)
-  %404 = add nuw nsw i64 %300, 1
-  %405 = load i32, ptr @num_objects, align 4, !tbaa !9
-  %406 = sext i32 %405 to i64
-  %407 = icmp slt i64 %404, %406
-  br i1 %407, label %299, label %408, !llvm.loop !20
+if.else846:                                       ; preds = %if.end838
+  %puts1272 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.203)
+  br label %if.end848
 
-408:                                              ; preds = %323, %294, %292
-  %409 = load i32, ptr @num_tsteps, align 4, !tbaa !9
-  %410 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %241, ptr noundef nonnull @.str.140, i32 noundef %409)
-  %411 = load i32, ptr @stages_per_ts, align 4, !tbaa !9
-  %412 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %241, ptr noundef nonnull @.str.141, i32 noundef %411)
-  %413 = load i32, ptr @checksum_freq, align 4, !tbaa !9
-  %414 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %241, ptr noundef nonnull @.str.142, i32 noundef %413)
-  %415 = load i32, ptr @refine_freq, align 4, !tbaa !9
-  %416 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %241, ptr noundef nonnull @.str.143, i32 noundef %415)
-  %417 = load i32, ptr @plot_freq, align 4, !tbaa !9
-  %418 = icmp eq i32 %417, 0
-  br i1 %418, label %421, label %419
+if.end848:                                        ; preds = %if.else846, %if.then844
+  %339 = load i32, ptr @num_vars, align 4, !tbaa !9
+  %340 = load i32, ptr @stencil, align 4, !tbaa !9
+  %call849 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.146, i32 noundef %339, i32 noundef %340)
+  %341 = load i32, ptr @comm_vars, align 4, !tbaa !9
+  %call850 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.147, i32 noundef %341)
+  %342 = load i32, ptr @error_tol, align 4, !tbaa !9
+  %call851 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.148, i32 noundef %342)
+  br label %if.end853
 
-419:                                              ; preds = %408
-  %420 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %241, ptr noundef nonnull @.str.144, i32 noundef %417)
-  br label %423
-
-421:                                              ; preds = %408
-  %422 = tail call i64 @fwrite(ptr nonnull @.str.145, i64 22, i64 1, ptr %241)
-  br label %423
-
-423:                                              ; preds = %421, %419
-  %424 = load i32, ptr @num_vars, align 4, !tbaa !9
-  %425 = load i32, ptr @stencil, align 4, !tbaa !9
-  %426 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %241, ptr noundef nonnull @.str.146, i32 noundef %424, i32 noundef %425)
-  %427 = load i32, ptr @comm_vars, align 4, !tbaa !9
-  %428 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %241, ptr noundef nonnull @.str.147, i32 noundef %427)
-  %429 = load i32, ptr @error_tol, align 4, !tbaa !9
-  %430 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %241, ptr noundef nonnull @.str.148, i32 noundef %429)
-  %431 = load double, ptr @average, align 16, !tbaa !11
-  %432 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %241, ptr noundef nonnull @.str.149, double noundef %431)
-  %433 = load double, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 110), align 16, !tbaa !11
-  %434 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %241, ptr noundef nonnull @.str.150, double noundef %433)
-  %435 = load double, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 111), align 8, !tbaa !11
-  %436 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %241, ptr noundef nonnull @.str.151, double noundef %435)
-  %437 = tail call i64 @fwrite(ptr nonnull @.str.152, i64 46, i64 1, ptr %241)
-  %438 = tail call i64 @fwrite(ptr nonnull @.str.153, i64 36, i64 1, ptr %241)
-  %439 = tail call i64 @fwrite(ptr nonnull @.str.154, i64 47, i64 1, ptr %241)
-  %440 = load double, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 38), align 16, !tbaa !11
-  %441 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %241, ptr noundef nonnull @.str.155, double noundef %440)
-  %442 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %241, ptr noundef nonnull @.str.156, double noundef %21)
-  %443 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %241, ptr noundef nonnull @.str.157, double noundef %24)
-  %444 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %241, ptr noundef nonnull @.str.158, double noundef %16)
-  %445 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %241, ptr noundef nonnull @.str.159, double noundef %15)
-  %446 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %241, ptr noundef nonnull @.str.160, double noundef %11)
-  %447 = tail call i64 @fwrite(ptr nonnull @.str.152, i64 46, i64 1, ptr %241)
-  %448 = tail call i64 @fwrite(ptr nonnull @.str.161, i64 36, i64 1, ptr %241)
-  %449 = tail call i64 @fwrite(ptr nonnull @.str.154, i64 47, i64 1, ptr %241)
-  %450 = load double, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 37), align 8, !tbaa !11
-  %451 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %241, ptr noundef nonnull @.str.155, double noundef %450)
-  %452 = tail call i64 @fwrite(ptr nonnull @.str.162, i64 23, i64 1, ptr %241)
-  %453 = tail call i64 @fwrite(ptr nonnull @.str.166, i64 66, i64 1, ptr %241)
-  %454 = load double, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 1), align 8, !tbaa !11
-  %455 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %241, ptr noundef nonnull @.str.167, double noundef %454)
-  %456 = load double, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 5), align 8, !tbaa !11
-  %457 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %241, ptr noundef nonnull @.str.168, double noundef %456)
-  %458 = load double, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 6), align 16, !tbaa !11
-  %459 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %241, ptr noundef nonnull @.str.169, double noundef %458)
-  %460 = load double, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 7), align 8, !tbaa !11
-  %461 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %241, ptr noundef nonnull @.str.170, double noundef %460)
-  %462 = load double, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 75), align 8, !tbaa !11
-  %463 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %241, ptr noundef nonnull @.str.171, double noundef %462)
-  %464 = load double, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 76), align 16, !tbaa !11
-  %465 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %241, ptr noundef nonnull @.str.172, double noundef %464)
-  %466 = load double, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 74), align 16, !tbaa !11
-  %467 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %241, ptr noundef nonnull @.str.173, double noundef %466)
-  %468 = tail call i64 @fwrite(ptr nonnull @.str.163, i64 40, i64 1, ptr %241)
-  %469 = tail call i64 @fwrite(ptr nonnull @.str.166, i64 66, i64 1, ptr %241)
-  %470 = load double, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 10), align 16, !tbaa !11
-  %471 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %241, ptr noundef nonnull @.str.167, double noundef %470)
-  %472 = load double, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 14), align 16, !tbaa !11
-  %473 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %241, ptr noundef nonnull @.str.168, double noundef %472)
-  %474 = load double, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 15), align 8, !tbaa !11
-  %475 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %241, ptr noundef nonnull @.str.169, double noundef %474)
-  %476 = load double, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 16), align 16, !tbaa !11
-  %477 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %241, ptr noundef nonnull @.str.170, double noundef %476)
-  %478 = load double, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 84), align 16, !tbaa !11
-  %479 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %241, ptr noundef nonnull @.str.171, double noundef %478)
-  %480 = load double, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 85), align 8, !tbaa !11
-  %481 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %241, ptr noundef nonnull @.str.172, double noundef %480)
-  %482 = load double, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 83), align 8, !tbaa !11
-  %483 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %241, ptr noundef nonnull @.str.173, double noundef %482)
-  %484 = tail call i64 @fwrite(ptr nonnull @.str.164, i64 40, i64 1, ptr %241)
-  %485 = tail call i64 @fwrite(ptr nonnull @.str.166, i64 66, i64 1, ptr %241)
-  %486 = load double, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 19), align 8, !tbaa !11
-  %487 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %241, ptr noundef nonnull @.str.167, double noundef %486)
-  %488 = load double, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 23), align 8, !tbaa !11
-  %489 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %241, ptr noundef nonnull @.str.168, double noundef %488)
-  %490 = load double, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 24), align 16, !tbaa !11
-  %491 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %241, ptr noundef nonnull @.str.169, double noundef %490)
-  %492 = load double, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 25), align 8, !tbaa !11
-  %493 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %241, ptr noundef nonnull @.str.170, double noundef %492)
-  %494 = load double, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 93), align 8, !tbaa !11
-  %495 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %241, ptr noundef nonnull @.str.171, double noundef %494)
-  %496 = load double, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 94), align 16, !tbaa !11
-  %497 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %241, ptr noundef nonnull @.str.172, double noundef %496)
-  %498 = load double, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 92), align 16, !tbaa !11
-  %499 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %241, ptr noundef nonnull @.str.173, double noundef %498)
-  %500 = tail call i64 @fwrite(ptr nonnull @.str.165, i64 40, i64 1, ptr %241)
-  %501 = tail call i64 @fwrite(ptr nonnull @.str.166, i64 66, i64 1, ptr %241)
-  %502 = load double, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 28), align 16, !tbaa !11
-  %503 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %241, ptr noundef nonnull @.str.167, double noundef %502)
-  %504 = load double, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 32), align 16, !tbaa !11
-  %505 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %241, ptr noundef nonnull @.str.168, double noundef %504)
-  %506 = load double, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 33), align 8, !tbaa !11
-  %507 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %241, ptr noundef nonnull @.str.169, double noundef %506)
-  %508 = load double, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 34), align 16, !tbaa !11
-  %509 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %241, ptr noundef nonnull @.str.170, double noundef %508)
-  %510 = load double, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 102), align 16, !tbaa !11
-  %511 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %241, ptr noundef nonnull @.str.171, double noundef %510)
-  %512 = load double, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 103), align 8, !tbaa !11
-  %513 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %241, ptr noundef nonnull @.str.172, double noundef %512)
-  %514 = load double, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 101), align 8, !tbaa !11
-  %515 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %241, ptr noundef nonnull @.str.173, double noundef %514)
-  %516 = tail call i64 @fwrite(ptr nonnull @.str.174, i64 47, i64 1, ptr %241)
-  %517 = tail call i64 @fwrite(ptr nonnull @.str.175, i64 33, i64 1, ptr %241)
-  %518 = tail call i64 @fwrite(ptr nonnull @.str.154, i64 47, i64 1, ptr %241)
-  %519 = load double, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 39), align 8, !tbaa !11
-  %520 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %241, ptr noundef nonnull @.str.155, double noundef %519)
-  %521 = load double, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 41), align 8, !tbaa !11
-  %522 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %241, ptr noundef nonnull @.str.176, double noundef %521)
-  %523 = load i32, ptr @total_red, align 4, !tbaa !9
-  %524 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %241, ptr noundef nonnull @.str.177, i32 noundef %523)
-  %525 = load i32, ptr @num_vars, align 4, !tbaa !9
-  %526 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %241, ptr noundef nonnull @.str.178, i32 noundef %525)
-  %527 = tail call i64 @fwrite(ptr nonnull @.str.152, i64 46, i64 1, ptr %241)
-  %528 = tail call i64 @fwrite(ptr nonnull @.str.179, i64 31, i64 1, ptr %241)
-  %529 = tail call i64 @fwrite(ptr nonnull @.str.154, i64 47, i64 1, ptr %241)
-  %530 = load double, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 42), align 16, !tbaa !11
-  %531 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %241, ptr noundef nonnull @.str.155, double noundef %530)
-  %532 = load i32, ptr @nrs, align 4, !tbaa !9
-  %533 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %241, ptr noundef nonnull @.str.180, i32 noundef %532)
-  %534 = load i64, ptr @total_blocks, align 8, !tbaa !5
-  %535 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %241, ptr noundef nonnull @.str.181, i64 noundef %534)
-  %536 = load i64, ptr @total_blocks, align 8, !tbaa !5
-  %537 = sitofp i64 %536 to double
-  %538 = load i32, ptr @num_tsteps, align 4, !tbaa !9
-  %539 = load i32, ptr @stages_per_ts, align 4, !tbaa !9
-  %540 = mul nsw i32 %539, %538
-  %541 = sitofp i32 %540 to double
-  %542 = fdiv double %537, %541
-  %543 = load i32, ptr @nb_min, align 4, !tbaa !9
-  %544 = load i32, ptr @nb_max, align 4, !tbaa !9
-  %545 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %241, ptr noundef nonnull @.str.182, double noundef %542, i32 noundef %543, i32 noundef %544)
-  %546 = load i32, ptr @global_max_b, align 4, !tbaa !9
-  %547 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %241, ptr noundef nonnull @.str.183, i32 noundef %546)
-  %548 = load double, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 104), align 16, !tbaa !11
-  %549 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %241, ptr noundef nonnull @.str.184, double noundef %548)
-  %550 = load double, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 105), align 8, !tbaa !11
-  %551 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %241, ptr noundef nonnull @.str.185, double noundef %550)
-  %552 = tail call i64 @fwrite(ptr nonnull @.str.186, i64 11, i64 1, ptr %241)
-  %553 = load double, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 43), align 8, !tbaa !11
-  %554 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %241, ptr noundef nonnull @.str.187, double noundef %553)
-  %555 = load double, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 44), align 16, !tbaa !11
-  %556 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %241, ptr noundef nonnull @.str.188, double noundef %555)
-  %557 = load double, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 46), align 16, !tbaa !11
-  %558 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %241, ptr noundef nonnull @.str.189, double noundef %557)
-  %559 = load double, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 47), align 8, !tbaa !11
-  %560 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %241, ptr noundef nonnull @.str.190, double noundef %559)
-  %561 = load double, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 45), align 8, !tbaa !11
-  %562 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %241, ptr noundef nonnull @.str.191, double noundef %561)
-  %563 = load i32, ptr @target_active, align 4, !tbaa !9
-  %564 = icmp eq i32 %563, 0
-  br i1 %564, label %580, label %565
-
-565:                                              ; preds = %423
-  %566 = load double, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 52), align 16, !tbaa !11
-  %567 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %241, ptr noundef nonnull @.str.192, double noundef %566)
-  %568 = load double, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 53), align 8, !tbaa !11
-  %569 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %241, ptr noundef nonnull @.str.193, double noundef %568)
-  %570 = load double, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 54), align 16, !tbaa !11
-  %571 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %241, ptr noundef nonnull @.str.194, double noundef %570)
-  %572 = load double, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 58), align 16, !tbaa !11
-  %573 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %241, ptr noundef nonnull @.str.195, double noundef %572)
-  %574 = load double, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 59), align 8, !tbaa !11
-  %575 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %241, ptr noundef nonnull @.str.196, double noundef %574)
-  %576 = load double, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 60), align 16, !tbaa !11
-  %577 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %241, ptr noundef nonnull @.str.194, double noundef %576)
-  %578 = load double, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 61), align 8, !tbaa !11
-  %579 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %241, ptr noundef nonnull @.str.197, double noundef %578)
-  br label %580
-
-580:                                              ; preds = %565, %423
-  %581 = tail call i64 @fwrite(ptr nonnull @.str.152, i64 46, i64 1, ptr %241)
-  %582 = tail call i64 @fwrite(ptr nonnull @.str.198, i64 24, i64 1, ptr %241)
-  %583 = tail call i64 @fwrite(ptr nonnull @.str.154, i64 47, i64 1, ptr %241)
-  %584 = load double, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 67), align 8, !tbaa !11
-  %585 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %241, ptr noundef nonnull @.str.155, double noundef %584)
-  %586 = load i32, ptr @nps, align 4, !tbaa !9
-  %587 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %241, ptr noundef nonnull @.str.199, i32 noundef %586)
-  %588 = tail call i64 @fwrite(ptr nonnull @.str.200, i64 52, i64 1, ptr %241)
-  %589 = tail call i32 @fclose(ptr noundef %241)
-  %590 = load i32, ptr @report_perf, align 4, !tbaa !9
-  br label %591
-
-591:                                              ; preds = %580, %236
-  %592 = phi i32 [ %590, %580 ], [ %237, %236 ]
-  %593 = and i32 %592, 4
-  %594 = icmp eq i32 %593, 0
-  br i1 %594, label %782, label %595
-
-595:                                              ; preds = %591
-  %596 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str)
-  %597 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.201)
-  %598 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.93, ptr noundef nonnull @.str)
-  %599 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.202)
-  %600 = load i32, ptr @init_block_x, align 4, !tbaa !9
-  %601 = load i32, ptr @init_block_y, align 4, !tbaa !9
-  %602 = load i32, ptr @init_block_z, align 4, !tbaa !9
-  %603 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.95, i32 noundef %600, i32 noundef %601, i32 noundef %602)
-  %604 = load i32, ptr @x_block_size, align 4, !tbaa !9
-  %605 = load i32, ptr @y_block_size, align 4, !tbaa !9
-  %606 = load i32, ptr @z_block_size, align 4, !tbaa !9
-  %607 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.96, i32 noundef %604, i32 noundef %605, i32 noundef %606)
-  %608 = load i32, ptr @permute, align 4, !tbaa !9
-  %609 = icmp eq i32 %608, 0
-  br i1 %609, label %612, label %610
-
-610:                                              ; preds = %595
-  %611 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.208)
-  br label %612
-
-612:                                              ; preds = %610, %595
-  %613 = load i32, ptr @max_num_blocks, align 4, !tbaa !9
-  %614 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.98, i32 noundef %613)
-  %615 = load i32, ptr @target_active, align 4, !tbaa !9
-  %616 = icmp eq i32 %615, 0
-  br i1 %616, label %619, label %617
-
-617:                                              ; preds = %612
-  %618 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.99, i32 noundef %615)
-  br label %619
-
-619:                                              ; preds = %617, %612
-  %620 = load i32, ptr @target_max, align 4, !tbaa !9
-  %621 = icmp eq i32 %620, 0
-  br i1 %621, label %624, label %622
-
-622:                                              ; preds = %619
-  %623 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.100, i32 noundef %620)
-  br label %624
-
-624:                                              ; preds = %622, %619
-  %625 = load i32, ptr @target_min, align 4, !tbaa !9
-  %626 = icmp eq i32 %625, 0
-  br i1 %626, label %629, label %627
-
-627:                                              ; preds = %624
-  %628 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.101, i32 noundef %625)
-  br label %629
-
-629:                                              ; preds = %627, %624
-  %630 = load i32, ptr @code, align 4, !tbaa !9
-  %631 = icmp eq i32 %630, 0
-  br i1 %631, label %634, label %632
-
-632:                                              ; preds = %629
-  %633 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.102, i32 noundef %630)
-  br label %634
-
-634:                                              ; preds = %632, %629
-  %635 = load i32, ptr @num_refine, align 4, !tbaa !9
-  %636 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.103, i32 noundef %635)
-  %637 = load i32, ptr @block_change, align 4, !tbaa !9
-  %638 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.104, i32 noundef %637)
-  %639 = load i32, ptr @refine_ghost, align 4, !tbaa !9
-  %640 = icmp eq i32 %639, 0
-  br i1 %640, label %643, label %641
-
-641:                                              ; preds = %634
-  %642 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.207)
-  br label %643
-
-643:                                              ; preds = %641, %634
-  %644 = load i32, ptr @uniform_refine, align 4, !tbaa !9
-  %645 = icmp eq i32 %644, 0
-  br i1 %645, label %648, label %646
-
-646:                                              ; preds = %643
-  %647 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.206)
-  br label %759
-
-648:                                              ; preds = %643
-  %649 = load i32, ptr @num_objects, align 4, !tbaa !9
-  %650 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.107, i32 noundef %649)
-  %651 = load i32, ptr @num_objects, align 4, !tbaa !9
-  %652 = icmp sgt i32 %651, 0
-  br i1 %652, label %653, label %759
-
-653:                                              ; preds = %648, %669
-  %654 = phi i64 [ %755, %669 ], [ 0, %648 ]
-  %655 = load ptr, ptr @objects, align 8, !tbaa !13
-  %656 = getelementptr inbounds %struct.object, ptr %655, i64 %654
-  %657 = load i32, ptr %656, align 8, !tbaa !15
-  %658 = icmp ult i32 %657, 26
-  br i1 %658, label %659, label %669
-
-659:                                              ; preds = %653
-  %660 = lshr i32 66125823, %657
-  %661 = and i32 %660, 1
-  %662 = icmp eq i32 %661, 0
-  br i1 %662, label %669, label %663
-
-663:                                              ; preds = %659
-  %664 = sext i32 %657 to i64
-  %665 = getelementptr inbounds [26 x ptr], ptr @switch.table.profile.209, i64 0, i64 %664
-  %666 = load ptr, ptr %665, align 8
-  %667 = trunc i64 %654 to i32
-  %668 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) %666, i32 noundef %667)
-  br label %669
-
-669:                                              ; preds = %659, %653, %663
-  %670 = getelementptr inbounds %struct.object, ptr %655, i64 %654, i32 1
-  %671 = load i32, ptr %670, align 4, !tbaa !17
-  %672 = icmp eq i32 %671, 0
-  %673 = select i1 %672, ptr @str.205, ptr @str.204
-  %674 = tail call i32 @puts(ptr nonnull dereferenceable(1) %673)
-  %675 = getelementptr inbounds %struct.object, ptr %655, i64 %654, i32 3
-  %676 = load double, ptr %675, align 8, !tbaa !11
-  %677 = getelementptr inbounds %struct.object, ptr %655, i64 %654, i32 3, i64 1
-  %678 = load double, ptr %677, align 8, !tbaa !11
-  %679 = getelementptr inbounds %struct.object, ptr %655, i64 %654, i32 3, i64 2
-  %680 = load double, ptr %679, align 8, !tbaa !11
-  %681 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.132, double noundef %676, double noundef %678, double noundef %680)
-  %682 = getelementptr inbounds %struct.object, ptr %655, i64 %654, i32 2
-  %683 = load double, ptr %682, align 8, !tbaa !11
-  %684 = getelementptr inbounds %struct.object, ptr %655, i64 %654, i32 2, i64 1
-  %685 = load double, ptr %684, align 8, !tbaa !11
-  %686 = getelementptr inbounds %struct.object, ptr %655, i64 %654, i32 2, i64 2
-  %687 = load double, ptr %686, align 8, !tbaa !11
-  %688 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.133, double noundef %683, double noundef %685, double noundef %687)
-  %689 = getelementptr inbounds %struct.object, ptr %655, i64 %654, i32 5
-  %690 = load double, ptr %689, align 8, !tbaa !11
-  %691 = getelementptr inbounds %struct.object, ptr %655, i64 %654, i32 5, i64 1
-  %692 = load double, ptr %691, align 8, !tbaa !11
-  %693 = getelementptr inbounds %struct.object, ptr %655, i64 %654, i32 5, i64 2
-  %694 = load double, ptr %693, align 8, !tbaa !11
-  %695 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.134, double noundef %690, double noundef %692, double noundef %694)
-  %696 = load double, ptr %689, align 8, !tbaa !11
-  %697 = load i32, ptr @mesh_size, align 4, !tbaa !9
-  %698 = load i32, ptr @x_block_size, align 4, !tbaa !9
-  %699 = mul nsw i32 %698, %697
-  %700 = sitofp i32 %699 to double
-  %701 = fmul double %696, %700
-  %702 = load double, ptr %691, align 8, !tbaa !11
-  %703 = load i32, ptr getelementptr inbounds ([3 x i32], ptr @mesh_size, i64 0, i64 1), align 4, !tbaa !9
-  %704 = load i32, ptr @y_block_size, align 4, !tbaa !9
-  %705 = mul nsw i32 %704, %703
-  %706 = sitofp i32 %705 to double
-  %707 = fmul double %702, %706
-  %708 = load double, ptr %693, align 8, !tbaa !11
-  %709 = load i32, ptr getelementptr inbounds ([3 x i32], ptr @mesh_size, i64 0, i64 2), align 4, !tbaa !9
-  %710 = load i32, ptr @z_block_size, align 4, !tbaa !9
-  %711 = mul nsw i32 %710, %709
-  %712 = sitofp i32 %711 to double
-  %713 = fmul double %708, %712
-  %714 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.135, double noundef %701, double noundef %707, double noundef %713)
-  %715 = getelementptr inbounds %struct.object, ptr %655, i64 %654, i32 7
-  %716 = load double, ptr %715, align 8, !tbaa !11
-  %717 = getelementptr inbounds %struct.object, ptr %655, i64 %654, i32 7, i64 1
-  %718 = load double, ptr %717, align 8, !tbaa !11
-  %719 = getelementptr inbounds %struct.object, ptr %655, i64 %654, i32 7, i64 2
-  %720 = load double, ptr %719, align 8, !tbaa !11
-  %721 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.136, double noundef %716, double noundef %718, double noundef %720)
-  %722 = getelementptr inbounds %struct.object, ptr %655, i64 %654, i32 6
-  %723 = load double, ptr %722, align 8, !tbaa !11
-  %724 = getelementptr inbounds %struct.object, ptr %655, i64 %654, i32 6, i64 1
-  %725 = load double, ptr %724, align 8, !tbaa !11
-  %726 = getelementptr inbounds %struct.object, ptr %655, i64 %654, i32 6, i64 2
-  %727 = load double, ptr %726, align 8, !tbaa !11
-  %728 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.137, double noundef %723, double noundef %725, double noundef %727)
-  %729 = getelementptr inbounds %struct.object, ptr %655, i64 %654, i32 8
-  %730 = load double, ptr %729, align 8, !tbaa !11
-  %731 = getelementptr inbounds %struct.object, ptr %655, i64 %654, i32 8, i64 1
-  %732 = load double, ptr %731, align 8, !tbaa !11
-  %733 = getelementptr inbounds %struct.object, ptr %655, i64 %654, i32 8, i64 2
-  %734 = load double, ptr %733, align 8, !tbaa !11
-  %735 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.138, double noundef %730, double noundef %732, double noundef %734)
-  %736 = load double, ptr %729, align 8, !tbaa !11
-  %737 = load i32, ptr @mesh_size, align 4, !tbaa !9
-  %738 = load i32, ptr @x_block_size, align 4, !tbaa !9
-  %739 = mul nsw i32 %738, %737
-  %740 = sitofp i32 %739 to double
-  %741 = fmul double %736, %740
-  %742 = load double, ptr %731, align 8, !tbaa !11
-  %743 = load i32, ptr getelementptr inbounds ([3 x i32], ptr @mesh_size, i64 0, i64 1), align 4, !tbaa !9
-  %744 = load i32, ptr @y_block_size, align 4, !tbaa !9
-  %745 = mul nsw i32 %744, %743
-  %746 = sitofp i32 %745 to double
-  %747 = fmul double %742, %746
-  %748 = load double, ptr %733, align 8, !tbaa !11
-  %749 = load i32, ptr getelementptr inbounds ([3 x i32], ptr @mesh_size, i64 0, i64 2), align 4, !tbaa !9
-  %750 = load i32, ptr @z_block_size, align 4, !tbaa !9
-  %751 = mul nsw i32 %750, %749
-  %752 = sitofp i32 %751 to double
-  %753 = fmul double %748, %752
-  %754 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.139, double noundef %741, double noundef %747, double noundef %753)
-  %755 = add nuw nsw i64 %654, 1
-  %756 = load i32, ptr @num_objects, align 4, !tbaa !9
-  %757 = sext i32 %756 to i64
-  %758 = icmp slt i64 %755, %757
-  br i1 %758, label %653, label %759, !llvm.loop !21
-
-759:                                              ; preds = %669, %648, %646
-  %760 = load i32, ptr @num_tsteps, align 4, !tbaa !9
-  %761 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.140, i32 noundef %760)
-  %762 = load i32, ptr @stages_per_ts, align 4, !tbaa !9
-  %763 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.141, i32 noundef %762)
-  %764 = load i32, ptr @checksum_freq, align 4, !tbaa !9
-  %765 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.142, i32 noundef %764)
-  %766 = load i32, ptr @refine_freq, align 4, !tbaa !9
-  %767 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.143, i32 noundef %766)
-  %768 = load i32, ptr @plot_freq, align 4, !tbaa !9
-  %769 = icmp eq i32 %768, 0
-  br i1 %769, label %772, label %770
-
-770:                                              ; preds = %759
-  %771 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.144, i32 noundef %768)
-  br label %774
-
-772:                                              ; preds = %759
-  %773 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.203)
-  br label %774
-
-774:                                              ; preds = %772, %770
-  %775 = load i32, ptr @num_vars, align 4, !tbaa !9
-  %776 = load i32, ptr @stencil, align 4, !tbaa !9
-  %777 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.146, i32 noundef %775, i32 noundef %776)
-  %778 = load i32, ptr @comm_vars, align 4, !tbaa !9
-  %779 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.147, i32 noundef %778)
-  %780 = load i32, ptr @error_tol, align 4, !tbaa !9
-  %781 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.148, i32 noundef %780)
-  br label %782
-
-782:                                              ; preds = %591, %774, %0
+if.end853:                                        ; preds = %if.end552, %if.end848, %entry
   ret void
 }
 
 ; Function Attrs: mustprogress nofree nosync nounwind willreturn memory(readwrite, argmem: none, inaccessiblemem: none) uwtable
 define dso_local void @calculate_results() local_unnamed_addr #1 {
-  %1 = load double, ptr @timer_all, align 8, !tbaa !11
+entry:
+  %0 = load double, ptr @timer_all, align 8, !tbaa !11
   tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 16 dereferenceable(24) getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 2), i8 0, i64 24, i1 false), !tbaa !11
   tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 16 dereferenceable(16) getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 8), i8 0, i64 16, i1 false), !tbaa !11
-  %2 = load double, ptr @timer_comm_dir, align 16, !tbaa !11
-  %3 = fadd double %2, 0.000000e+00
-  %4 = load double, ptr @timer_comm_bc, align 16, !tbaa !11
-  %5 = fadd double %4, 0.000000e+00
-  %6 = load double, ptr getelementptr inbounds ([3 x double], ptr @timer_comm_dir, i64 0, i64 1), align 8, !tbaa !11
-  %7 = fadd double %6, %3
-  %8 = load double, ptr getelementptr inbounds ([3 x double], ptr @timer_comm_bc, i64 0, i64 1), align 8, !tbaa !11
-  %9 = fadd double %8, %5
-  %10 = load double, ptr getelementptr inbounds ([3 x double], ptr @timer_comm_dir, i64 0, i64 2), align 16, !tbaa !11
-  %11 = fadd double %10, %7
-  %12 = load double, ptr getelementptr inbounds ([3 x double], ptr @timer_comm_bc, i64 0, i64 2), align 16, !tbaa !11
-  %13 = fadd double %12, %9
-  %14 = load double, ptr @timer_comm_all, align 8, !tbaa !11
-  %15 = load double, ptr @timer_calc_all, align 8, !tbaa !11
-  %16 = load double, ptr @timer_cs_all, align 8, !tbaa !11
-  %17 = load double, ptr @timer_cs_calc, align 8, !tbaa !11
-  %18 = load double, ptr @timer_refine_all, align 8, !tbaa !11
-  %19 = load double, ptr @timer_refine_co, align 8, !tbaa !11
-  %20 = load double, ptr @timer_refine_mr, align 8, !tbaa !11
-  %21 = load double, ptr @timer_refine_cc, align 8, !tbaa !11
-  %22 = load double, ptr @timer_refine_sb, align 8, !tbaa !11
-  %23 = load double, ptr @timer_cb_all, align 8, !tbaa !11
-  %24 = load double, ptr @timer_target_all, align 8, !tbaa !11
-  %25 = load double, ptr @timer_target_rb, align 8, !tbaa !11
-  %26 = load double, ptr @timer_target_dc, align 8, !tbaa !11
-  %27 = load double, ptr @timer_target_cb, align 8, !tbaa !11
-  %28 = load double, ptr @timer_target_ab, align 8, !tbaa !11
-  %29 = load double, ptr @timer_target_da, align 8, !tbaa !11
-  %30 = load double, ptr @timer_target_sb, align 8, !tbaa !11
-  %31 = load double, ptr @timer_plot, align 8, !tbaa !11
+  %1 = load double, ptr @timer_comm_dir, align 16, !tbaa !11
+  %add11 = fadd double %1, 0.000000e+00
+  %2 = load double, ptr @timer_comm_bc, align 16, !tbaa !11
+  %add35 = fadd double %2, 0.000000e+00
+  %3 = load double, ptr getelementptr inbounds ([3 x double], ptr @timer_comm_dir, i64 0, i64 1), align 8, !tbaa !11
+  %add11.1 = fadd double %3, %add11
+  %4 = load double, ptr getelementptr inbounds ([3 x double], ptr @timer_comm_bc, i64 0, i64 1), align 8, !tbaa !11
+  %add35.1 = fadd double %4, %add35
+  %5 = load double, ptr getelementptr inbounds ([3 x double], ptr @timer_comm_dir, i64 0, i64 2), align 16, !tbaa !11
+  %add11.2 = fadd double %5, %add11.1
+  %6 = load double, ptr getelementptr inbounds ([3 x double], ptr @timer_comm_bc, i64 0, i64 2), align 16, !tbaa !11
+  %add35.2 = fadd double %6, %add35.1
+  %7 = load double, ptr @timer_comm_all, align 8, !tbaa !11
+  %8 = load double, ptr @timer_calc_all, align 8, !tbaa !11
+  %9 = load double, ptr @timer_cs_all, align 8, !tbaa !11
+  %10 = load double, ptr @timer_cs_calc, align 8, !tbaa !11
+  %11 = load double, ptr @timer_refine_all, align 8, !tbaa !11
+  %12 = load double, ptr @timer_refine_co, align 8, !tbaa !11
+  %13 = load double, ptr @timer_refine_mr, align 8, !tbaa !11
+  %14 = load double, ptr @timer_refine_cc, align 8, !tbaa !11
+  %15 = load double, ptr @timer_refine_sb, align 8, !tbaa !11
+  %16 = load double, ptr @timer_cb_all, align 8, !tbaa !11
+  %17 = load double, ptr @timer_target_all, align 8, !tbaa !11
+  %18 = load double, ptr @timer_target_rb, align 8, !tbaa !11
+  %19 = load double, ptr @timer_target_dc, align 8, !tbaa !11
+  %20 = load double, ptr @timer_target_cb, align 8, !tbaa !11
+  %21 = load double, ptr @timer_target_ab, align 8, !tbaa !11
+  %22 = load double, ptr @timer_target_da, align 8, !tbaa !11
+  %23 = load double, ptr @timer_target_sb, align 8, !tbaa !11
+  %24 = load double, ptr @timer_plot, align 8, !tbaa !11
   tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 16 dereferenceable(48) getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 68), i8 0, i64 48, i1 false), !tbaa !11
-  %32 = load i32, ptr @counter_bc, align 4, !tbaa !9
-  %33 = sitofp i32 %32 to double
-  %34 = load i32, ptr @counter_same, align 4, !tbaa !9
-  %35 = sitofp i32 %34 to double
-  %36 = load i32, ptr @counter_diff, align 4, !tbaa !9
-  %37 = sitofp i32 %36 to double
-  %38 = load i32, ptr getelementptr inbounds ([3 x i32], ptr @counter_bc, i64 0, i64 1), align 4, !tbaa !9
-  %39 = sitofp i32 %38 to double
-  %40 = fadd double %33, %39
-  %41 = load i32, ptr getelementptr inbounds ([3 x i32], ptr @counter_same, i64 0, i64 1), align 4, !tbaa !9
-  %42 = sitofp i32 %41 to double
-  %43 = fadd double %35, %42
-  %44 = load i32, ptr getelementptr inbounds ([3 x i32], ptr @counter_diff, i64 0, i64 1), align 4, !tbaa !9
-  %45 = sitofp i32 %44 to double
-  %46 = fadd double %37, %45
-  %47 = load i32, ptr getelementptr inbounds ([3 x i32], ptr @counter_bc, i64 0, i64 2), align 4, !tbaa !9
-  %48 = sitofp i32 %47 to double
-  %49 = fadd double %40, %48
-  %50 = load i32, ptr getelementptr inbounds ([3 x i32], ptr @counter_same, i64 0, i64 2), align 4, !tbaa !9
-  %51 = sitofp i32 %50 to double
-  %52 = fadd double %43, %51
-  %53 = load i32, ptr getelementptr inbounds ([3 x i32], ptr @counter_diff, i64 0, i64 2), align 4, !tbaa !9
-  %54 = sitofp i32 %53 to double
-  %55 = fadd double %46, %54
-  %56 = load i32, ptr @num_refined, align 4, !tbaa !9
-  %57 = sitofp i32 %56 to double
-  %58 = load i32, ptr @num_reformed, align 4, !tbaa !9
-  %59 = sitofp i32 %58 to double
-  %60 = load i32, ptr @counter_malloc, align 4, !tbaa !9
-  %61 = sitofp i32 %60 to double
-  %62 = load double, ptr @size_malloc, align 8, !tbaa !11
-  %63 = load i32, ptr @counter_malloc_init, align 4, !tbaa !9
-  %64 = sitofp i32 %63 to double
-  %65 = load double, ptr @size_malloc_init, align 8, !tbaa !11
-  %66 = sub nsw i32 %60, %63
-  %67 = sitofp i32 %66 to double
-  %68 = fsub double %62, %65
-  store double %1, ptr @average, align 16, !tbaa !11
-  store double %11, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 1), align 8, !tbaa !11
-  %69 = load double, ptr @timer_comm_same, align 16, !tbaa !11
-  %70 = load double, ptr @timer_comm_diff, align 16, !tbaa !11
-  %71 = insertelement <2 x double> poison, double %69, i64 0
-  %72 = insertelement <2 x double> %71, double %70, i64 1
-  %73 = fadd <2 x double> %72, zeroinitializer
-  %74 = load double, ptr getelementptr inbounds ([3 x double], ptr @timer_comm_same, i64 0, i64 1), align 8, !tbaa !11
-  %75 = load double, ptr getelementptr inbounds ([3 x double], ptr @timer_comm_diff, i64 0, i64 1), align 8, !tbaa !11
-  %76 = insertelement <2 x double> poison, double %74, i64 0
-  %77 = insertelement <2 x double> %76, double %75, i64 1
-  %78 = fadd <2 x double> %77, %73
-  %79 = load double, ptr getelementptr inbounds ([3 x double], ptr @timer_comm_same, i64 0, i64 2), align 16, !tbaa !11
-  %80 = load double, ptr getelementptr inbounds ([3 x double], ptr @timer_comm_diff, i64 0, i64 2), align 16, !tbaa !11
-  %81 = insertelement <2 x double> poison, double %79, i64 0
-  %82 = insertelement <2 x double> %81, double %80, i64 1
-  %83 = fadd <2 x double> %82, %78
-  store <2 x double> %83, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 5), align 8, !tbaa !11
-  store double %13, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 7), align 8, !tbaa !11
-  store double %2, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 10), align 16, !tbaa !11
-  store double %69, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 14), align 16, !tbaa !11
-  store double %70, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 15), align 8, !tbaa !11
-  store double %4, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 16), align 16, !tbaa !11
-  store double %6, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 19), align 8, !tbaa !11
-  store double %74, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 23), align 8, !tbaa !11
-  store double %75, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 24), align 16, !tbaa !11
-  store double %8, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 25), align 8, !tbaa !11
-  store double %10, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 28), align 16, !tbaa !11
-  store double %79, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 32), align 16, !tbaa !11
-  store double %80, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 33), align 8, !tbaa !11
-  store double %12, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 34), align 16, !tbaa !11
-  store double %14, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 37), align 8, !tbaa !11
-  store double %15, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 38), align 16, !tbaa !11
-  store double %16, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 39), align 8, !tbaa !11
-  store double %17, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 41), align 8, !tbaa !11
-  store double %18, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 42), align 16, !tbaa !11
-  store double %19, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 43), align 8, !tbaa !11
-  store double %20, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 44), align 16, !tbaa !11
-  store double %21, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 45), align 8, !tbaa !11
-  store double %22, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 46), align 16, !tbaa !11
-  store double %23, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 47), align 8, !tbaa !11
-  store double %24, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 52), align 16, !tbaa !11
-  store double %25, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 53), align 8, !tbaa !11
-  store double %26, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 54), align 16, !tbaa !11
-  store double %27, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 58), align 16, !tbaa !11
-  store double %28, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 59), align 8, !tbaa !11
-  store double %29, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 60), align 16, !tbaa !11
-  store double %30, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 61), align 8, !tbaa !11
-  store double %31, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 67), align 8, !tbaa !11
-  store double %49, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 74), align 16, !tbaa !11
-  store double %52, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 75), align 8, !tbaa !11
-  store double %55, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 76), align 16, !tbaa !11
-  store double %33, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 83), align 8, !tbaa !11
-  store double %35, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 84), align 16, !tbaa !11
-  store double %37, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 85), align 8, !tbaa !11
-  store double %39, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 92), align 16, !tbaa !11
-  store double %42, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 93), align 8, !tbaa !11
-  store double %45, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 94), align 16, !tbaa !11
-  store double %48, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 101), align 8, !tbaa !11
-  store double %51, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 102), align 16, !tbaa !11
-  store double %54, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 103), align 8, !tbaa !11
-  store double %57, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 104), align 16, !tbaa !11
-  store double %59, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 105), align 8, !tbaa !11
-  store double %61, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 110), align 16, !tbaa !11
-  store double %62, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 111), align 8, !tbaa !11
-  store double %64, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 112), align 16, !tbaa !11
-  store double %65, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 113), align 8, !tbaa !11
-  store double %67, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 114), align 16, !tbaa !11
-  store double %68, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 115), align 8, !tbaa !11
+  %25 = load i32, ptr @counter_bc, align 4, !tbaa !9
+  %conv = sitofp i32 %25 to double
+  %26 = load i32, ptr @counter_same, align 4, !tbaa !9
+  %conv79 = sitofp i32 %26 to double
+  %27 = load i32, ptr @counter_diff, align 4, !tbaa !9
+  %conv88 = sitofp i32 %27 to double
+  %28 = load i32, ptr getelementptr inbounds ([3 x i32], ptr @counter_bc, i64 0, i64 1), align 4, !tbaa !9
+  %conv.1 = sitofp i32 %28 to double
+  %add76.1 = fadd double %conv, %conv.1
+  %29 = load i32, ptr getelementptr inbounds ([3 x i32], ptr @counter_same, i64 0, i64 1), align 4, !tbaa !9
+  %conv79.1 = sitofp i32 %29 to double
+  %add85.1 = fadd double %conv79, %conv79.1
+  %30 = load i32, ptr getelementptr inbounds ([3 x i32], ptr @counter_diff, i64 0, i64 1), align 4, !tbaa !9
+  %conv88.1 = sitofp i32 %30 to double
+  %add94.1 = fadd double %conv88, %conv88.1
+  %31 = load i32, ptr getelementptr inbounds ([3 x i32], ptr @counter_bc, i64 0, i64 2), align 4, !tbaa !9
+  %conv.2 = sitofp i32 %31 to double
+  %add76.2 = fadd double %add76.1, %conv.2
+  %32 = load i32, ptr getelementptr inbounds ([3 x i32], ptr @counter_same, i64 0, i64 2), align 4, !tbaa !9
+  %conv79.2 = sitofp i32 %32 to double
+  %add85.2 = fadd double %add85.1, %conv79.2
+  %33 = load i32, ptr getelementptr inbounds ([3 x i32], ptr @counter_diff, i64 0, i64 2), align 4, !tbaa !9
+  %conv88.2 = sitofp i32 %33 to double
+  %add94.2 = fadd double %add94.1, %conv88.2
+  %34 = load i32, ptr @num_refined, align 4, !tbaa !9
+  %conv98 = sitofp i32 %34 to double
+  %35 = load i32, ptr @num_reformed, align 4, !tbaa !9
+  %conv100 = sitofp i32 %35 to double
+  %36 = load i32, ptr @counter_malloc, align 4, !tbaa !9
+  %conv102 = sitofp i32 %36 to double
+  %37 = load double, ptr @size_malloc, align 8, !tbaa !11
+  %38 = load i32, ptr @counter_malloc_init, align 4, !tbaa !9
+  %conv105 = sitofp i32 %38 to double
+  %39 = load double, ptr @size_malloc_init, align 8, !tbaa !11
+  %sub = sub nsw i32 %36, %38
+  %conv108 = sitofp i32 %sub to double
+  %sub110 = fsub double %37, %39
+  store double %0, ptr @average, align 16, !tbaa !11
+  store double %add11.2, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 1), align 8, !tbaa !11
+  %40 = load double, ptr @timer_comm_same, align 16, !tbaa !11
+  %41 = load double, ptr @timer_comm_diff, align 16, !tbaa !11
+  %42 = insertelement <2 x double> poison, double %40, i64 0
+  %43 = insertelement <2 x double> %42, double %41, i64 1
+  %44 = fadd <2 x double> %43, zeroinitializer
+  %45 = load double, ptr getelementptr inbounds ([3 x double], ptr @timer_comm_same, i64 0, i64 1), align 8, !tbaa !11
+  %46 = load double, ptr getelementptr inbounds ([3 x double], ptr @timer_comm_diff, i64 0, i64 1), align 8, !tbaa !11
+  %47 = insertelement <2 x double> poison, double %45, i64 0
+  %48 = insertelement <2 x double> %47, double %46, i64 1
+  %49 = fadd <2 x double> %48, %44
+  %50 = load double, ptr getelementptr inbounds ([3 x double], ptr @timer_comm_same, i64 0, i64 2), align 16, !tbaa !11
+  %51 = load double, ptr getelementptr inbounds ([3 x double], ptr @timer_comm_diff, i64 0, i64 2), align 16, !tbaa !11
+  %52 = insertelement <2 x double> poison, double %50, i64 0
+  %53 = insertelement <2 x double> %52, double %51, i64 1
+  %54 = fadd <2 x double> %53, %49
+  store <2 x double> %54, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 5), align 8, !tbaa !11
+  store double %add35.2, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 7), align 8, !tbaa !11
+  store double %1, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 10), align 16, !tbaa !11
+  store double %40, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 14), align 16, !tbaa !11
+  store double %41, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 15), align 8, !tbaa !11
+  store double %2, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 16), align 16, !tbaa !11
+  store double %3, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 19), align 8, !tbaa !11
+  store double %45, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 23), align 8, !tbaa !11
+  store double %46, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 24), align 16, !tbaa !11
+  store double %4, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 25), align 8, !tbaa !11
+  store double %5, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 28), align 16, !tbaa !11
+  store double %50, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 32), align 16, !tbaa !11
+  store double %51, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 33), align 8, !tbaa !11
+  store double %6, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 34), align 16, !tbaa !11
+  store double %7, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 37), align 8, !tbaa !11
+  store double %8, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 38), align 16, !tbaa !11
+  store double %9, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 39), align 8, !tbaa !11
+  store double %10, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 41), align 8, !tbaa !11
+  store double %11, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 42), align 16, !tbaa !11
+  store double %12, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 43), align 8, !tbaa !11
+  store double %13, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 44), align 16, !tbaa !11
+  store double %14, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 45), align 8, !tbaa !11
+  store double %15, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 46), align 16, !tbaa !11
+  store double %16, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 47), align 8, !tbaa !11
+  store double %17, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 52), align 16, !tbaa !11
+  store double %18, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 53), align 8, !tbaa !11
+  store double %19, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 54), align 16, !tbaa !11
+  store double %20, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 58), align 16, !tbaa !11
+  store double %21, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 59), align 8, !tbaa !11
+  store double %22, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 60), align 16, !tbaa !11
+  store double %23, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 61), align 8, !tbaa !11
+  store double %24, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 67), align 8, !tbaa !11
+  store double %add76.2, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 74), align 16, !tbaa !11
+  store double %add85.2, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 75), align 8, !tbaa !11
+  store double %add94.2, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 76), align 16, !tbaa !11
+  store double %conv, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 83), align 8, !tbaa !11
+  store double %conv79, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 84), align 16, !tbaa !11
+  store double %conv88, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 85), align 8, !tbaa !11
+  store double %conv.1, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 92), align 16, !tbaa !11
+  store double %conv79.1, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 93), align 8, !tbaa !11
+  store double %conv88.1, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 94), align 16, !tbaa !11
+  store double %conv.2, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 101), align 8, !tbaa !11
+  store double %conv79.2, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 102), align 16, !tbaa !11
+  store double %conv88.2, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 103), align 8, !tbaa !11
+  store double %conv98, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 104), align 16, !tbaa !11
+  store double %conv100, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 105), align 8, !tbaa !11
+  store double %conv102, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 110), align 16, !tbaa !11
+  store double %37, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 111), align 8, !tbaa !11
+  store double %conv105, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 112), align 16, !tbaa !11
+  store double %39, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 113), align 8, !tbaa !11
+  store double %conv108, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 114), align 16, !tbaa !11
+  store double %sub110, ptr getelementptr inbounds ([128 x double], ptr @average, i64 0, i64 115), align 8, !tbaa !11
   ret void
 }
 
@@ -1387,6 +1389,7 @@ declare noundef i32 @printf(ptr nocapture noundef readonly, ...) local_unnamed_a
 
 ; Function Attrs: mustprogress nofree nosync nounwind willreturn memory(write, argmem: none, inaccessiblemem: none) uwtable
 define dso_local void @init_profile() local_unnamed_addr #3 {
+entry:
   store double 0.000000e+00, ptr @timer_all, align 8, !tbaa !11
   store double 0.000000e+00, ptr @timer_comm_all, align 8, !tbaa !11
   tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 16 dereferenceable(24) @timer_comm_dir, i8 0, i64 24, i1 false), !tbaa !11
@@ -1422,21 +1425,21 @@ define dso_local void @init_profile() local_unnamed_addr #3 {
   ret void
 }
 
+; Function Attrs: nofree nounwind
+declare noundef i32 @puts(ptr nocapture noundef readonly) local_unnamed_addr #4
+
+; Function Attrs: nofree nounwind
+declare noundef i64 @fwrite(ptr nocapture noundef, i64 noundef, i64 noundef, ptr nocapture noundef) local_unnamed_addr #4
+
 ; Function Attrs: nocallback nofree nounwind willreturn memory(argmem: write)
-declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #4
-
-; Function Attrs: nofree nounwind
-declare noundef i32 @puts(ptr nocapture noundef readonly) local_unnamed_addr #5
-
-; Function Attrs: nofree nounwind
-declare noundef i64 @fwrite(ptr nocapture noundef, i64 noundef, i64 noundef, ptr nocapture noundef) local_unnamed_addr #5
+declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #5
 
 attributes #0 = { nofree nounwind uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #1 = { mustprogress nofree nosync nounwind willreturn memory(readwrite, argmem: none, inaccessiblemem: none) uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #2 = { nofree nounwind "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #3 = { mustprogress nofree nosync nounwind willreturn memory(write, argmem: none, inaccessiblemem: none) uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
-attributes #4 = { nocallback nofree nounwind willreturn memory(argmem: write) }
-attributes #5 = { nofree nounwind }
+attributes #4 = { nofree nounwind }
+attributes #5 = { nocallback nofree nounwind willreturn memory(argmem: write) }
 
 !llvm.module.flags = !{!0, !1, !2, !3}
 !llvm.ident = !{!4}

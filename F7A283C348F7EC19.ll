@@ -30,114 +30,115 @@ $_ZTIP7Cleanup = comdat any
 
 ; Function Attrs: norecurse uwtable
 define dso_local noundef i32 @main() local_unnamed_addr #0 personality ptr @__gxx_personality_v0 {
-  %1 = alloca %class.Cleanup, align 4
-  %2 = alloca %class.Cleanup, align 2
-  %3 = alloca %class.Cleanup, align 1
-  call void @llvm.lifetime.start.p0(i64 10, ptr nonnull %1) #9
-  store i32 7173486, ptr %1, align 4
-  %4 = tail call ptr @__cxa_allocate_exception(i64 4) #9
-  store i32 3, ptr %4, align 16, !tbaa !5
-  invoke void @__cxa_throw(ptr nonnull %4, ptr nonnull @_ZTIi, ptr null) #10
-          to label %11 unwind label %5
+entry:
+  %C.i = alloca %class.Cleanup, align 4
+  %a = alloca %class.Cleanup, align 2
+  %a21 = alloca %class.Cleanup, align 1
+  call void @llvm.lifetime.start.p0(i64 10, ptr nonnull %C.i) #9
+  store i32 7173486, ptr %C.i, align 4
+  %exception.i = tail call ptr @__cxa_allocate_exception(i64 4) #9
+  store i32 3, ptr %exception.i, align 16, !tbaa !5
+  invoke void @__cxa_throw(ptr nonnull %exception.i, ptr nonnull @_ZTIi, ptr null) #10
+          to label %unreachable.i unwind label %lpad.i
 
-5:                                                ; preds = %0
-  %6 = landingpad { ptr, i32 }
+lpad.i:                                           ; preds = %entry
+  %0 = landingpad { ptr, i32 }
           cleanup
           catch ptr @_ZTIi
-  %7 = call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.7, ptr noundef nonnull %1)
-  call void @llvm.lifetime.end.p0(i64 10, ptr nonnull %1) #9
-  %8 = extractvalue { ptr, i32 } %6, 1
-  %9 = call i32 @llvm.eh.typeid.for(ptr nonnull @_ZTIi) #9
-  %10 = icmp eq i32 %8, %9
-  br i1 %10, label %12, label %49
+  %call.i2.i = call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.7, ptr noundef nonnull %C.i)
+  call void @llvm.lifetime.end.p0(i64 10, ptr nonnull %C.i) #9
+  %1 = extractvalue { ptr, i32 } %0, 1
+  %2 = call i32 @llvm.eh.typeid.for(ptr nonnull @_ZTIi) #9
+  %matches = icmp eq i32 %1, %2
+  br i1 %matches, label %catch, label %eh.resume
 
-11:                                               ; preds = %0
+unreachable.i:                                    ; preds = %entry
   unreachable
 
-12:                                               ; preds = %5
-  %13 = extractvalue { ptr, i32 } %6, 0
-  %14 = call ptr @__cxa_begin_catch(ptr %13) #9
-  %15 = load i32, ptr %14, align 4, !tbaa !5
-  %16 = call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str, i32 noundef %15)
+catch:                                            ; preds = %lpad.i
+  %3 = extractvalue { ptr, i32 } %0, 0
+  %4 = call ptr @__cxa_begin_catch(ptr %3) #9
+  %5 = load i32, ptr %4, align 4, !tbaa !5
+  %call = call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str, i32 noundef %5)
   call void @__cxa_end_catch() #9
-  call void @llvm.lifetime.start.p0(i64 10, ptr nonnull %2) #9
-  store i16 97, ptr %2, align 2
-  %17 = call ptr @__cxa_allocate_exception(i64 10) #9
-  store i16 99, ptr %17, align 1
-  invoke void @__cxa_throw(ptr nonnull %17, ptr nonnull @_ZTI7Cleanup, ptr nonnull @_ZN7CleanupD2Ev) #10
-          to label %51 unwind label %18
+  call void @llvm.lifetime.start.p0(i64 10, ptr nonnull %a) #9
+  store i16 97, ptr %a, align 2
+  %exception = call ptr @__cxa_allocate_exception(i64 10) #9
+  store i16 99, ptr %exception, align 1
+  invoke void @__cxa_throw(ptr nonnull %exception, ptr nonnull @_ZTI7Cleanup, ptr nonnull @_ZN7CleanupD2Ev) #10
+          to label %unreachable unwind label %lpad7
 
-18:                                               ; preds = %12
-  %19 = landingpad { ptr, i32 }
+lpad7:                                            ; preds = %catch
+  %6 = landingpad { ptr, i32 }
           cleanup
           catch ptr @_ZTI7Cleanup
-  %20 = extractvalue { ptr, i32 } %19, 1
-  %21 = call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.7, ptr noundef nonnull %2)
-  call void @llvm.lifetime.end.p0(i64 10, ptr nonnull %2) #9
-  %22 = call i32 @llvm.eh.typeid.for(ptr nonnull @_ZTI7Cleanup) #9
-  %23 = icmp eq i32 %20, %22
-  br i1 %23, label %24, label %49
+  %7 = extractvalue { ptr, i32 } %6, 1
+  %call.i59 = call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.7, ptr noundef nonnull %a)
+  call void @llvm.lifetime.end.p0(i64 10, ptr nonnull %a) #9
+  %8 = call i32 @llvm.eh.typeid.for(ptr nonnull @_ZTI7Cleanup) #9
+  %matches11 = icmp eq i32 %7, %8
+  br i1 %matches11, label %catch12, label %eh.resume
 
-24:                                               ; preds = %18
-  %25 = extractvalue { ptr, i32 } %19, 0
-  %26 = call ptr @__cxa_begin_catch(ptr %25) #9
-  %27 = call i32 @puts(ptr nonnull dereferenceable(1) @str.8)
+catch12:                                          ; preds = %lpad7
+  %9 = extractvalue { ptr, i32 } %6, 0
+  %10 = call ptr @__cxa_begin_catch(ptr %9) #9
+  %puts = call i32 @puts(ptr nonnull dereferenceable(1) @str.8)
   call void @__cxa_end_catch()
-  call void @llvm.lifetime.start.p0(i64 10, ptr nonnull %3) #9
-  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 1 dereferenceable(3) %3, ptr noundef nonnull align 1 dereferenceable(3) @.str.4, i64 3, i1 false) #9
-  %28 = call ptr @__cxa_allocate_exception(i64 8) #9
-  %29 = invoke noalias noundef nonnull dereferenceable(10) ptr @_Znwm(i64 noundef 10) #11
-          to label %30 unwind label %31
+  call void @llvm.lifetime.start.p0(i64 10, ptr nonnull %a21) #9
+  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 1 dereferenceable(3) %a21, ptr noundef nonnull align 1 dereferenceable(3) @.str.4, i64 3, i1 false) #9
+  %exception24 = call ptr @__cxa_allocate_exception(i64 8) #9
+  %call27 = invoke noalias noundef nonnull dereferenceable(10) ptr @_Znwm(i64 noundef 10) #11
+          to label %invoke.cont26 unwind label %lpad25
 
-30:                                               ; preds = %24
-  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 1 dereferenceable(3) %29, ptr noundef nonnull align 1 dereferenceable(3) @.str.5, i64 3, i1 false) #9
-  store ptr %29, ptr %28, align 16, !tbaa !9
-  invoke void @__cxa_throw(ptr nonnull %28, ptr nonnull @_ZTIP7Cleanup, ptr null) #10
-          to label %51 unwind label %33
+invoke.cont26:                                    ; preds = %catch12
+  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 1 dereferenceable(3) %call27, ptr noundef nonnull align 1 dereferenceable(3) @.str.5, i64 3, i1 false) #9
+  store ptr %call27, ptr %exception24, align 16, !tbaa !9
+  invoke void @__cxa_throw(ptr nonnull %exception24, ptr nonnull @_ZTIP7Cleanup, ptr null) #10
+          to label %unreachable unwind label %lpad32
 
-31:                                               ; preds = %24
-  %32 = landingpad { ptr, i32 }
+lpad25:                                           ; preds = %catch12
+  %11 = landingpad { ptr, i32 }
           cleanup
           catch ptr @_ZTIP7Cleanup
-  call void @__cxa_free_exception(ptr %28) #9
-  br label %35
+  call void @__cxa_free_exception(ptr %exception24) #9
+  br label %ehcleanup34
 
-33:                                               ; preds = %30
-  %34 = landingpad { ptr, i32 }
+lpad32:                                           ; preds = %invoke.cont26
+  %12 = landingpad { ptr, i32 }
           cleanup
           catch ptr @_ZTIP7Cleanup
-  br label %35
+  br label %ehcleanup34
 
-35:                                               ; preds = %33, %31
-  %36 = phi { ptr, i32 } [ %34, %33 ], [ %32, %31 ]
-  %37 = extractvalue { ptr, i32 } %36, 1
-  %38 = call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.7, ptr noundef nonnull %3)
-  call void @llvm.lifetime.end.p0(i64 10, ptr nonnull %3) #9
-  %39 = call i32 @llvm.eh.typeid.for(ptr nonnull @_ZTIP7Cleanup) #9
-  %40 = icmp eq i32 %37, %39
-  br i1 %40, label %41, label %49
+ehcleanup34:                                      ; preds = %lpad32, %lpad25
+  %.pn = phi { ptr, i32 } [ %12, %lpad32 ], [ %11, %lpad25 ]
+  %ehselector.slot.0 = extractvalue { ptr, i32 } %.pn, 1
+  %call.i62 = call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.7, ptr noundef nonnull %a21)
+  call void @llvm.lifetime.end.p0(i64 10, ptr nonnull %a21) #9
+  %13 = call i32 @llvm.eh.typeid.for(ptr nonnull @_ZTIP7Cleanup) #9
+  %matches38 = icmp eq i32 %ehselector.slot.0, %13
+  br i1 %matches38, label %catch39, label %eh.resume
 
-41:                                               ; preds = %35
-  %42 = extractvalue { ptr, i32 } %36, 0
-  %43 = call ptr @__cxa_begin_catch(ptr %42) #9
-  %44 = call i32 @puts(ptr nonnull dereferenceable(1) @str.8)
-  %45 = icmp eq ptr %43, null
-  br i1 %45, label %48, label %46
+catch39:                                          ; preds = %ehcleanup34
+  %exn.slot.0 = extractvalue { ptr, i32 } %.pn, 0
+  %14 = call ptr @__cxa_begin_catch(ptr %exn.slot.0) #9
+  %puts57 = call i32 @puts(ptr nonnull dereferenceable(1) @str.8)
+  %isnull = icmp eq ptr %14, null
+  br i1 %isnull, label %delete.end, label %delete.notnull
 
-46:                                               ; preds = %41
-  %47 = call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.7, ptr noundef nonnull %43)
-  call void @_ZdlPv(ptr noundef nonnull %43) #12
-  br label %48
+delete.notnull:                                   ; preds = %catch39
+  %call.i63 = call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.7, ptr noundef nonnull %14)
+  call void @_ZdlPv(ptr noundef nonnull %14) #12
+  br label %delete.end
 
-48:                                               ; preds = %46, %41
+delete.end:                                       ; preds = %delete.notnull, %catch39
   call void @__cxa_end_catch() #9
   ret i32 0
 
-49:                                               ; preds = %35, %18, %5
-  %50 = phi { ptr, i32 } [ %36, %35 ], [ %19, %18 ], [ %6, %5 ]
-  resume { ptr, i32 } %50
+eh.resume:                                        ; preds = %ehcleanup34, %lpad7, %lpad.i
+  %lpad.val50.merged = phi { ptr, i32 } [ %.pn, %ehcleanup34 ], [ %6, %lpad7 ], [ %0, %lpad.i ]
+  resume { ptr, i32 } %lpad.val50.merged
 
-51:                                               ; preds = %30, %12
+unreachable:                                      ; preds = %invoke.cont26, %catch
   unreachable
 }
 
@@ -164,8 +165,9 @@ declare ptr @__cxa_allocate_exception(i64) local_unnamed_addr
 declare void @__cxa_free_exception(ptr) local_unnamed_addr
 
 ; Function Attrs: nounwind uwtable
-define linkonce_odr dso_local void @_ZN7CleanupD2Ev(ptr noundef nonnull align 1 dereferenceable(10) %0) unnamed_addr #4 comdat align 2 personality ptr @__gxx_personality_v0 {
-  %2 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.7, ptr noundef nonnull %0)
+define linkonce_odr dso_local void @_ZN7CleanupD2Ev(ptr noundef nonnull align 1 dereferenceable(10) %this) unnamed_addr #4 comdat align 2 personality ptr @__gxx_personality_v0 {
+entry:
+  %call = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.7, ptr noundef nonnull %this)
   ret void
 }
 
@@ -177,11 +179,11 @@ declare noundef nonnull ptr @_Znwm(i64 noundef) local_unnamed_addr #5
 ; Function Attrs: nobuiltin nounwind
 declare void @_ZdlPv(ptr noundef) local_unnamed_addr #6
 
-; Function Attrs: nocallback nofree nounwind willreturn memory(argmem: readwrite)
-declare void @llvm.memcpy.p0.p0.i64(ptr noalias nocapture writeonly, ptr noalias nocapture readonly, i64, i1 immarg) #7
-
 ; Function Attrs: nofree nounwind
-declare noundef i32 @puts(ptr nocapture noundef readonly) local_unnamed_addr #8
+declare noundef i32 @puts(ptr nocapture noundef readonly) local_unnamed_addr #7
+
+; Function Attrs: nocallback nofree nounwind willreturn memory(argmem: readwrite)
+declare void @llvm.memcpy.p0.p0.i64(ptr noalias nocapture writeonly, ptr noalias nocapture readonly, i64, i1 immarg) #8
 
 attributes #0 = { norecurse uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #1 = { nofree nosync nounwind memory(none) }
@@ -190,8 +192,8 @@ attributes #3 = { nofree nounwind "no-trapping-math"="true" "stack-protector-buf
 attributes #4 = { nounwind uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #5 = { nobuiltin allocsize(0) "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #6 = { nobuiltin nounwind "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
-attributes #7 = { nocallback nofree nounwind willreturn memory(argmem: readwrite) }
-attributes #8 = { nofree nounwind }
+attributes #7 = { nofree nounwind }
+attributes #8 = { nocallback nofree nounwind willreturn memory(argmem: readwrite) }
 attributes #9 = { nounwind }
 attributes #10 = { noreturn }
 attributes #11 = { builtin allocsize(0) }

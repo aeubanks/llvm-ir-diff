@@ -9,77 +9,47 @@ target triple = "x86_64-unknown-linux-gnu"
 
 ; Function Attrs: nofree norecurse nosync nounwind memory(readwrite, argmem: none, inaccessiblemem: none) uwtable
 define dso_local i32 @test() local_unnamed_addr #0 {
-  %1 = load i32, ptr @loop_1, align 4, !tbaa !5
-  %2 = icmp sgt i32 %1, 0
-  br i1 %2, label %3, label %20
+entry:
+  %0 = load i32, ptr @loop_1, align 4, !tbaa !5
+  %cmp10 = icmp sgt i32 %0, 0
+  br i1 %cmp10, label %while.body.lr.ph, label %while.end
 
-3:                                                ; preds = %0
-  %4 = load i32, ptr @loop_2, align 4
-  %5 = freeze i32 %4
-  %6 = icmp sgt i32 %5, 0
-  br i1 %6, label %7, label %18
+while.body.lr.ph:                                 ; preds = %entry
+  %1 = load i32, ptr @loop_2, align 4
+  %.fr = freeze i32 %1
+  %cmp16 = icmp sgt i32 %.fr, 0
+  br i1 %cmp16, label %while.body.us.preheader, label %while.body.us13
 
-7:                                                ; preds = %3
-  %8 = load i32, ptr @flag, align 4, !tbaa !5
-  br label %9
+while.body.us.preheader:                          ; preds = %while.body.lr.ph
+  %flag.promoted = load i32, ptr @flag, align 4, !tbaa !5
+  br label %while.body.us
 
-9:                                                ; preds = %7, %9
-  %10 = phi i32 [ %15, %9 ], [ 0, %7 ]
-  %11 = phi i32 [ %16, %9 ], [ %8, %7 ]
-  %12 = and i32 %11, 1
-  %13 = icmp eq i32 %12, 0
-  %14 = select i1 %13, i32 0, i32 %5
-  %15 = add i32 %10, %14
-  %16 = add nsw i32 %11, 1
-  %17 = icmp sgt i32 %1, %15
-  br i1 %17, label %9, label %19, !llvm.loop !9
+while.body.us:                                    ; preds = %while.body.us.preheader, %while.body.us
+  %counter.012.us = phi i32 [ %spec.select, %while.body.us ], [ 0, %while.body.us.preheader ]
+  %inc3911.us = phi i32 [ %inc3.us, %while.body.us ], [ %flag.promoted, %while.body.us.preheader ]
+  %and.us = and i32 %inc3911.us, 1
+  %tobool.not.us = icmp eq i32 %and.us, 0
+  %2 = select i1 %tobool.not.us, i32 0, i32 %.fr
+  %spec.select = add i32 %counter.012.us, %2
+  %inc3.us = add nsw i32 %inc3911.us, 1
+  %cmp.us = icmp sgt i32 %0, %spec.select
+  br i1 %cmp.us, label %while.body.us, label %while.cond.while.end_crit_edge, !llvm.loop !9
 
-18:                                               ; preds = %3, %18
-  br label %18
+while.body.us13:                                  ; preds = %while.body.lr.ph, %while.body.us13
+  br label %while.body.us13
 
-19:                                               ; preds = %9
-  store i32 %16, ptr @flag, align 4, !tbaa !5
-  br label %20
+while.cond.while.end_crit_edge:                   ; preds = %while.body.us
+  store i32 %inc3.us, ptr @flag, align 4, !tbaa !5
+  br label %while.end
 
-20:                                               ; preds = %19, %0
+while.end:                                        ; preds = %while.cond.while.end_crit_edge, %entry
   ret i32 1
 }
 
 ; Function Attrs: noreturn nounwind uwtable
 define dso_local i32 @main() local_unnamed_addr #1 {
-  %1 = load i32, ptr @loop_1, align 4, !tbaa !5
-  %2 = icmp sgt i32 %1, 0
-  br i1 %2, label %3, label %20
-
-3:                                                ; preds = %0
-  %4 = load i32, ptr @loop_2, align 4
-  %5 = freeze i32 %4
-  %6 = icmp sgt i32 %5, 0
-  br i1 %6, label %7, label %18
-
-7:                                                ; preds = %3
-  %8 = load i32, ptr @flag, align 4, !tbaa !5
-  br label %9
-
-9:                                                ; preds = %7, %9
-  %10 = phi i32 [ %15, %9 ], [ 0, %7 ]
-  %11 = phi i32 [ %16, %9 ], [ %8, %7 ]
-  %12 = and i32 %11, 1
-  %13 = icmp eq i32 %12, 0
-  %14 = select i1 %13, i32 0, i32 %5
-  %15 = add i32 %14, %10
-  %16 = add nsw i32 %11, 1
-  %17 = icmp sgt i32 %1, %15
-  br i1 %17, label %9, label %19, !llvm.loop !9
-
-18:                                               ; preds = %3, %18
-  br label %18
-
-19:                                               ; preds = %9
-  store i32 %16, ptr @flag, align 4, !tbaa !5
-  br label %20
-
-20:                                               ; preds = %19, %0
+entry:
+  %call = tail call i32 @test()
   tail call void @exit(i32 noundef 0) #3
   unreachable
 }

@@ -8,40 +8,43 @@ target triple = "x86_64-unknown-linux-gnu"
 
 ; Function Attrs: noreturn nounwind uwtable
 define dso_local i32 @main() local_unnamed_addr #0 {
-  %1 = load i64, ptr @aa, align 8, !tbaa !5
-  %2 = load i64, ptr @bb, align 8, !tbaa !5
-  %3 = add i64 %1, 4096
-  %4 = sub i64 %3, %2
-  %5 = icmp sgt i64 %4, 0
-  br i1 %5, label %7, label %6
+entry:
+  %0 = load i64, ptr @aa, align 8, !tbaa !5
+  %1 = load i64, ptr @bb, align 8, !tbaa !5
+  %add.i = add i64 %0, 4096
+  %sub.i = sub i64 %add.i, %1
+  %cmp.i = icmp slt i64 %sub.i, 1
+  br i1 %cmp.i, label %if.then, label %if.end
 
-6:                                                ; preds = %0
+if.then:                                          ; preds = %entry
   tail call void @abort() #3
   unreachable
 
-7:                                                ; preds = %0
+if.end:                                           ; preds = %entry
   tail call void @exit(i32 noundef 0) #3
   unreachable
 }
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(none) uwtable
-define dso_local i32 @seqgt(i64 noundef %0, i16 noundef zeroext %1, i64 noundef %2) local_unnamed_addr #1 {
-  %4 = zext i16 %1 to i64
-  %5 = add i64 %4, %0
-  %6 = sub i64 %5, %2
-  %7 = icmp sgt i64 %6, 0
-  %8 = zext i1 %7 to i32
-  ret i32 %8
+define dso_local i32 @seqgt(i64 noundef %a, i16 noundef zeroext %win, i64 noundef %b) local_unnamed_addr #1 {
+entry:
+  %conv = zext i16 %win to i64
+  %add = add i64 %conv, %a
+  %sub = sub i64 %add, %b
+  %cmp = icmp sgt i64 %sub, 0
+  %conv1 = zext i1 %cmp to i32
+  ret i32 %conv1
 }
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(none) uwtable
-define dso_local i32 @seqgt2(i64 noundef %0, i16 noundef zeroext %1, i64 noundef %2) local_unnamed_addr #1 {
-  %4 = zext i16 %1 to i64
-  %5 = add i64 %4, %0
-  %6 = sub i64 %5, %2
-  %7 = icmp sgt i64 %6, 0
-  %8 = zext i1 %7 to i32
-  ret i32 %8
+define dso_local i32 @seqgt2(i64 noundef %a, i16 noundef zeroext %win, i64 noundef %b) local_unnamed_addr #1 {
+entry:
+  %conv = zext i16 %win to i64
+  %add = add i64 %conv, %a
+  %sub = sub i64 %add, %b
+  %cmp = icmp sgt i64 %sub, 0
+  %conv1 = zext i1 %cmp to i32
+  ret i32 %conv1
 }
 
 ; Function Attrs: noreturn

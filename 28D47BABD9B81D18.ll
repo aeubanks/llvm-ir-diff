@@ -14,82 +14,85 @@ target triple = "x86_64-unknown-linux-gnu"
 @_ZN17CBaseRecordVectorD1Ev = dso_local unnamed_addr alias void (ptr), ptr @_ZN17CBaseRecordVectorD2Ev
 
 ; Function Attrs: nounwind uwtable
-define dso_local void @_ZN17CBaseRecordVectorD2Ev(ptr nocapture noundef nonnull align 8 dereferenceable(32) %0) unnamed_addr #0 align 2 personality ptr @__gxx_personality_v0 {
-  store ptr getelementptr inbounds ({ [5 x ptr] }, ptr @_ZTV17CBaseRecordVector, i64 0, inrange i32 0, i64 2), ptr %0, align 8, !tbaa !5
-  %2 = getelementptr inbounds %class.CBaseRecordVector, ptr %0, i64 0, i32 2
-  %3 = load i32, ptr %2, align 4, !tbaa !8
-  %4 = icmp sgt i32 %3, 0
-  br i1 %4, label %5, label %6
+define dso_local void @_ZN17CBaseRecordVectorD2Ev(ptr nocapture noundef nonnull align 8 dereferenceable(32) %this) unnamed_addr #0 align 2 personality ptr @__gxx_personality_v0 {
+entry:
+  store ptr getelementptr inbounds ({ [5 x ptr] }, ptr @_ZTV17CBaseRecordVector, i64 0, inrange i32 0, i64 2), ptr %this, align 8, !tbaa !5
+  %_size.i.i.i = getelementptr inbounds %class.CBaseRecordVector, ptr %this, i64 0, i32 2
+  %0 = load i32, ptr %_size.i.i.i, align 4, !tbaa !8
+  %cmp.i = icmp sgt i32 %0, 0
+  br i1 %cmp.i, label %if.then.i, label %_ZN17CBaseRecordVector6DeleteEii.exit
 
-5:                                                ; preds = %1
-  store i32 0, ptr %2, align 4, !tbaa !8
-  br label %6
+if.then.i:                                        ; preds = %entry
+  store i32 0, ptr %_size.i.i.i, align 4, !tbaa !8
+  br label %_ZN17CBaseRecordVector6DeleteEii.exit
 
-6:                                                ; preds = %1, %5
-  %7 = getelementptr inbounds %class.CBaseRecordVector, ptr %0, i64 0, i32 3
-  %8 = load ptr, ptr %7, align 8, !tbaa !14
-  %9 = icmp eq ptr %8, null
-  br i1 %9, label %11, label %10
+_ZN17CBaseRecordVector6DeleteEii.exit:            ; preds = %entry, %if.then.i
+  %_items.i = getelementptr inbounds %class.CBaseRecordVector, ptr %this, i64 0, i32 3
+  %1 = load ptr, ptr %_items.i, align 8, !tbaa !14
+  %isnull.i = icmp eq ptr %1, null
+  br i1 %isnull.i, label %invoke.cont, label %delete.notnull.i
 
-10:                                               ; preds = %6
-  tail call void @_ZdaPv(ptr noundef nonnull %8) #8
-  br label %11
+delete.notnull.i:                                 ; preds = %_ZN17CBaseRecordVector6DeleteEii.exit
+  tail call void @_ZdaPv(ptr noundef nonnull %1) #8
+  br label %invoke.cont
 
-11:                                               ; preds = %10, %6
-  %12 = getelementptr inbounds %class.CBaseRecordVector, ptr %0, i64 0, i32 1
-  tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %12, i8 0, i64 16, i1 false)
+invoke.cont:                                      ; preds = %delete.notnull.i, %_ZN17CBaseRecordVector6DeleteEii.exit
+  %_capacity.i = getelementptr inbounds %class.CBaseRecordVector, ptr %this, i64 0, i32 1
+  tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %_capacity.i, i8 0, i64 16, i1 false)
   ret void
 }
 
 ; Function Attrs: mustprogress uwtable
-define dso_local void @_ZN17CBaseRecordVector12ClearAndFreeEv(ptr noundef nonnull align 8 dereferenceable(32) %0) local_unnamed_addr #1 align 2 {
-  %2 = getelementptr inbounds %class.CBaseRecordVector, ptr %0, i64 0, i32 2
-  %3 = load i32, ptr %2, align 4, !tbaa !8
-  %4 = load ptr, ptr %0, align 8, !tbaa !5
-  %5 = getelementptr inbounds ptr, ptr %4, i64 2
-  %6 = load ptr, ptr %5, align 8
-  tail call void %6(ptr noundef nonnull align 8 dereferenceable(32) %0, i32 noundef 0, i32 noundef %3)
-  %7 = getelementptr inbounds %class.CBaseRecordVector, ptr %0, i64 0, i32 3
-  %8 = load ptr, ptr %7, align 8, !tbaa !14
-  %9 = icmp eq ptr %8, null
-  br i1 %9, label %11, label %10
+define dso_local void @_ZN17CBaseRecordVector12ClearAndFreeEv(ptr noundef nonnull align 8 dereferenceable(32) %this) local_unnamed_addr #1 align 2 {
+entry:
+  %_size.i.i = getelementptr inbounds %class.CBaseRecordVector, ptr %this, i64 0, i32 2
+  %0 = load i32, ptr %_size.i.i, align 4, !tbaa !8
+  %vtable.i.i = load ptr, ptr %this, align 8, !tbaa !5
+  %vfn.i.i = getelementptr inbounds ptr, ptr %vtable.i.i, i64 2
+  %1 = load ptr, ptr %vfn.i.i, align 8
+  tail call void %1(ptr noundef nonnull align 8 dereferenceable(32) %this, i32 noundef 0, i32 noundef %0)
+  %_items = getelementptr inbounds %class.CBaseRecordVector, ptr %this, i64 0, i32 3
+  %2 = load ptr, ptr %_items, align 8, !tbaa !14
+  %isnull = icmp eq ptr %2, null
+  br i1 %isnull, label %delete.end, label %delete.notnull
 
-10:                                               ; preds = %1
-  tail call void @_ZdaPv(ptr noundef nonnull %8) #8
-  br label %11
+delete.notnull:                                   ; preds = %entry
+  tail call void @_ZdaPv(ptr noundef nonnull %2) #8
+  br label %delete.end
 
-11:                                               ; preds = %10, %1
-  %12 = getelementptr inbounds %class.CBaseRecordVector, ptr %0, i64 0, i32 1
-  tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %12, i8 0, i64 16, i1 false)
+delete.end:                                       ; preds = %delete.notnull, %entry
+  %_capacity = getelementptr inbounds %class.CBaseRecordVector, ptr %this, i64 0, i32 1
+  tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %_capacity, i8 0, i64 16, i1 false)
   ret void
 }
 
 declare i32 @__gxx_personality_v0(...)
 
 ; Function Attrs: nounwind uwtable
-define dso_local void @_ZN17CBaseRecordVectorD0Ev(ptr noundef nonnull align 8 dereferenceable(32) %0) unnamed_addr #0 align 2 personality ptr @__gxx_personality_v0 {
-  store ptr getelementptr inbounds ({ [5 x ptr] }, ptr @_ZTV17CBaseRecordVector, i64 0, inrange i32 0, i64 2), ptr %0, align 8, !tbaa !5
-  %2 = getelementptr inbounds %class.CBaseRecordVector, ptr %0, i64 0, i32 2
-  %3 = load i32, ptr %2, align 4, !tbaa !8
-  %4 = icmp sgt i32 %3, 0
-  br i1 %4, label %5, label %6
+define dso_local void @_ZN17CBaseRecordVectorD0Ev(ptr noundef nonnull align 8 dereferenceable(32) %this) unnamed_addr #0 align 2 personality ptr @__gxx_personality_v0 {
+entry:
+  store ptr getelementptr inbounds ({ [5 x ptr] }, ptr @_ZTV17CBaseRecordVector, i64 0, inrange i32 0, i64 2), ptr %this, align 8, !tbaa !5
+  %_size.i.i.i.i = getelementptr inbounds %class.CBaseRecordVector, ptr %this, i64 0, i32 2
+  %0 = load i32, ptr %_size.i.i.i.i, align 4, !tbaa !8
+  %cmp.i.i = icmp sgt i32 %0, 0
+  br i1 %cmp.i.i, label %if.then.i.i, label %_ZN17CBaseRecordVector6DeleteEii.exit.i
 
-5:                                                ; preds = %1
-  store i32 0, ptr %2, align 4, !tbaa !8
-  br label %6
+if.then.i.i:                                      ; preds = %entry
+  store i32 0, ptr %_size.i.i.i.i, align 4, !tbaa !8
+  br label %_ZN17CBaseRecordVector6DeleteEii.exit.i
 
-6:                                                ; preds = %5, %1
-  %7 = getelementptr inbounds %class.CBaseRecordVector, ptr %0, i64 0, i32 3
-  %8 = load ptr, ptr %7, align 8, !tbaa !14
-  %9 = icmp eq ptr %8, null
-  br i1 %9, label %11, label %10
+_ZN17CBaseRecordVector6DeleteEii.exit.i:          ; preds = %if.then.i.i, %entry
+  %_items.i.i = getelementptr inbounds %class.CBaseRecordVector, ptr %this, i64 0, i32 3
+  %1 = load ptr, ptr %_items.i.i, align 8, !tbaa !14
+  %isnull.i.i = icmp eq ptr %1, null
+  br i1 %isnull.i.i, label %_ZN17CBaseRecordVectorD2Ev.exit, label %delete.notnull.i.i
 
-10:                                               ; preds = %6
-  tail call void @_ZdaPv(ptr noundef nonnull %8) #8
-  br label %11
+delete.notnull.i.i:                               ; preds = %_ZN17CBaseRecordVector6DeleteEii.exit.i
+  tail call void @_ZdaPv(ptr noundef nonnull %1) #8
+  br label %_ZN17CBaseRecordVectorD2Ev.exit
 
-11:                                               ; preds = %6, %10
-  tail call void @_ZdlPv(ptr noundef nonnull %0) #8
+_ZN17CBaseRecordVectorD2Ev.exit:                  ; preds = %_ZN17CBaseRecordVector6DeleteEii.exit.i, %delete.notnull.i.i
+  tail call void @_ZdlPv(ptr noundef nonnull %this) #8
   ret void
 }
 
@@ -97,13 +100,14 @@ define dso_local void @_ZN17CBaseRecordVectorD0Ev(ptr noundef nonnull align 8 de
 declare void @_ZdlPv(ptr noundef) local_unnamed_addr #2
 
 ; Function Attrs: mustprogress uwtable
-define dso_local void @_ZN17CBaseRecordVector5ClearEv(ptr noundef nonnull align 8 dereferenceable(32) %0) local_unnamed_addr #1 align 2 {
-  %2 = getelementptr inbounds %class.CBaseRecordVector, ptr %0, i64 0, i32 2
-  %3 = load i32, ptr %2, align 4, !tbaa !8
-  %4 = load ptr, ptr %0, align 8, !tbaa !5
-  %5 = getelementptr inbounds ptr, ptr %4, i64 2
-  %6 = load ptr, ptr %5, align 8
-  tail call void %6(ptr noundef nonnull align 8 dereferenceable(32) %0, i32 noundef 0, i32 noundef %3)
+define dso_local void @_ZN17CBaseRecordVector5ClearEv(ptr noundef nonnull align 8 dereferenceable(32) %this) local_unnamed_addr #1 align 2 {
+entry:
+  %_size.i = getelementptr inbounds %class.CBaseRecordVector, ptr %this, i64 0, i32 2
+  %0 = load i32, ptr %_size.i, align 4, !tbaa !8
+  %vtable.i = load ptr, ptr %this, align 8, !tbaa !5
+  %vfn.i = getelementptr inbounds ptr, ptr %vtable.i, i64 2
+  %1 = load ptr, ptr %vfn.i, align 8
+  tail call void %1(ptr noundef nonnull align 8 dereferenceable(32) %this, i32 noundef 0, i32 noundef %0)
   ret void
 }
 
@@ -111,122 +115,126 @@ define dso_local void @_ZN17CBaseRecordVector5ClearEv(ptr noundef nonnull align 
 declare void @_ZdaPv(ptr noundef) local_unnamed_addr #2
 
 ; Function Attrs: mustprogress uwtable
-define dso_local void @_ZN17CBaseRecordVector10DeleteFromEi(ptr noundef nonnull align 8 dereferenceable(32) %0, i32 noundef %1) local_unnamed_addr #1 align 2 {
-  %3 = getelementptr inbounds %class.CBaseRecordVector, ptr %0, i64 0, i32 2
-  %4 = load i32, ptr %3, align 4, !tbaa !8
-  %5 = sub nsw i32 %4, %1
-  %6 = load ptr, ptr %0, align 8, !tbaa !5
-  %7 = getelementptr inbounds ptr, ptr %6, i64 2
-  %8 = load ptr, ptr %7, align 8
-  tail call void %8(ptr noundef nonnull align 8 dereferenceable(32) %0, i32 noundef %1, i32 noundef %5)
+define dso_local void @_ZN17CBaseRecordVector10DeleteFromEi(ptr noundef nonnull align 8 dereferenceable(32) %this, i32 noundef %index) local_unnamed_addr #1 align 2 {
+entry:
+  %_size = getelementptr inbounds %class.CBaseRecordVector, ptr %this, i64 0, i32 2
+  %0 = load i32, ptr %_size, align 4, !tbaa !8
+  %sub = sub nsw i32 %0, %index
+  %vtable = load ptr, ptr %this, align 8, !tbaa !5
+  %vfn = getelementptr inbounds ptr, ptr %vtable, i64 2
+  %1 = load ptr, ptr %vfn, align 8
+  tail call void %1(ptr noundef nonnull align 8 dereferenceable(32) %this, i32 noundef %index, i32 noundef %sub)
   ret void
 }
 
 ; Function Attrs: mustprogress uwtable
-define dso_local void @_ZN17CBaseRecordVector10DeleteBackEv(ptr noundef nonnull align 8 dereferenceable(32) %0) local_unnamed_addr #1 align 2 {
-  %2 = getelementptr inbounds %class.CBaseRecordVector, ptr %0, i64 0, i32 2
-  %3 = load i32, ptr %2, align 4, !tbaa !8
-  %4 = add nsw i32 %3, -1
-  %5 = load ptr, ptr %0, align 8, !tbaa !5
-  %6 = getelementptr inbounds ptr, ptr %5, i64 2
-  %7 = load ptr, ptr %6, align 8
-  tail call void %7(ptr noundef nonnull align 8 dereferenceable(32) %0, i32 noundef %4, i32 noundef 1)
+define dso_local void @_ZN17CBaseRecordVector10DeleteBackEv(ptr noundef nonnull align 8 dereferenceable(32) %this) local_unnamed_addr #1 align 2 {
+entry:
+  %_size = getelementptr inbounds %class.CBaseRecordVector, ptr %this, i64 0, i32 2
+  %0 = load i32, ptr %_size, align 4, !tbaa !8
+  %sub = add nsw i32 %0, -1
+  %vtable = load ptr, ptr %this, align 8, !tbaa !5
+  %vfn = getelementptr inbounds ptr, ptr %vtable, i64 2
+  %1 = load ptr, ptr %vfn, align 8
+  tail call void %1(ptr noundef nonnull align 8 dereferenceable(32) %this, i32 noundef %sub, i32 noundef 1)
   ret void
 }
 
 ; Function Attrs: mustprogress uwtable
-define dso_local void @_ZN17CBaseRecordVector18ReserveOnePositionEv(ptr nocapture noundef nonnull align 8 dereferenceable(32) %0) local_unnamed_addr #1 align 2 {
-  %2 = getelementptr inbounds %class.CBaseRecordVector, ptr %0, i64 0, i32 2
-  %3 = load i32, ptr %2, align 4, !tbaa !8
-  %4 = getelementptr inbounds %class.CBaseRecordVector, ptr %0, i64 0, i32 1
-  %5 = load i32, ptr %4, align 8, !tbaa !15
-  %6 = icmp eq i32 %3, %5
-  br i1 %6, label %7, label %14
+define dso_local void @_ZN17CBaseRecordVector18ReserveOnePositionEv(ptr nocapture noundef nonnull align 8 dereferenceable(32) %this) local_unnamed_addr #1 align 2 {
+entry:
+  %_size = getelementptr inbounds %class.CBaseRecordVector, ptr %this, i64 0, i32 2
+  %0 = load i32, ptr %_size, align 4, !tbaa !8
+  %_capacity = getelementptr inbounds %class.CBaseRecordVector, ptr %this, i64 0, i32 1
+  %1 = load i32, ptr %_capacity, align 8, !tbaa !15
+  %cmp.not = icmp eq i32 %0, %1
+  br i1 %cmp.not, label %if.end, label %return
 
-7:                                                ; preds = %1
-  %8 = icmp sgt i32 %3, 63
-  %9 = lshr i32 %3, 2
-  %10 = icmp slt i32 %3, 8
-  %11 = select i1 %10, i32 1, i32 8
-  %12 = select i1 %8, i32 %9, i32 %11
-  %13 = add nsw i32 %12, %3
-  tail call void @_ZN17CBaseRecordVector7ReserveEi(ptr noundef nonnull align 8 dereferenceable(32) %0, i32 noundef %13)
-  br label %14
+if.end:                                           ; preds = %entry
+  %cmp3 = icmp sgt i32 %0, 63
+  %div12 = lshr i32 %0, 2
+  %cmp7.inv = icmp slt i32 %0, 8
+  %spec.select = select i1 %cmp7.inv, i32 1, i32 8
+  %delta.0 = select i1 %cmp3, i32 %div12, i32 %spec.select
+  %add = add nsw i32 %delta.0, %0
+  tail call void @_ZN17CBaseRecordVector7ReserveEi(ptr noundef nonnull align 8 dereferenceable(32) %this, i32 noundef %add)
+  br label %return
 
-14:                                               ; preds = %1, %7
+return:                                           ; preds = %entry, %if.end
   ret void
 }
 
 ; Function Attrs: mustprogress uwtable
-define dso_local void @_ZN17CBaseRecordVector7ReserveEi(ptr nocapture noundef nonnull align 8 dereferenceable(32) %0, i32 noundef %1) local_unnamed_addr #1 align 2 {
-  %3 = getelementptr inbounds %class.CBaseRecordVector, ptr %0, i64 0, i32 1
-  %4 = load i32, ptr %3, align 8, !tbaa !15
-  %5 = icmp eq i32 %4, %1
-  br i1 %5, label %40, label %6
+define dso_local void @_ZN17CBaseRecordVector7ReserveEi(ptr nocapture noundef nonnull align 8 dereferenceable(32) %this, i32 noundef %newCapacity) local_unnamed_addr #1 align 2 {
+entry:
+  %_capacity = getelementptr inbounds %class.CBaseRecordVector, ptr %this, i64 0, i32 1
+  %0 = load i32, ptr %_capacity, align 8, !tbaa !15
+  %cmp = icmp eq i32 %0, %newCapacity
+  br i1 %cmp, label %return, label %if.end
 
-6:                                                ; preds = %2
-  %7 = icmp slt i32 %1, 0
-  br i1 %7, label %8, label %10
+if.end:                                           ; preds = %entry
+  %cmp2 = icmp slt i32 %newCapacity, 0
+  br i1 %cmp2, label %if.then3, label %if.end4
 
-8:                                                ; preds = %6
-  %9 = tail call ptr @__cxa_allocate_exception(i64 4) #9
-  store i32 1052353, ptr %9, align 16, !tbaa !16
-  tail call void @__cxa_throw(ptr nonnull %9, ptr nonnull @_ZTIi, ptr null) #10
+if.then3:                                         ; preds = %if.end
+  %exception = tail call ptr @__cxa_allocate_exception(i64 4) #9
+  store i32 1052353, ptr %exception, align 16, !tbaa !16
+  tail call void @__cxa_throw(ptr nonnull %exception, ptr nonnull @_ZTIi, ptr null) #10
   unreachable
 
-10:                                               ; preds = %6
-  %11 = zext i32 %1 to i64
-  %12 = getelementptr inbounds %class.CBaseRecordVector, ptr %0, i64 0, i32 4
-  %13 = load i64, ptr %12, align 8, !tbaa !17
-  %14 = tail call { i64, i1 } @llvm.umul.with.overflow.i64(i64 %13, i64 %11)
-  %15 = extractvalue { i64, i1 } %14, 0
-  %16 = extractvalue { i64, i1 } %14, 1
-  br i1 %16, label %17, label %19
+if.end4:                                          ; preds = %if.end
+  %conv = zext i32 %newCapacity to i64
+  %_itemSize = getelementptr inbounds %class.CBaseRecordVector, ptr %this, i64 0, i32 4
+  %1 = load i64, ptr %_itemSize, align 8, !tbaa !17
+  %mul37 = tail call { i64, i1 } @llvm.umul.with.overflow.i64(i64 %1, i64 %conv)
+  %mul.val = extractvalue { i64, i1 } %mul37, 0
+  %mul.ov = extractvalue { i64, i1 } %mul37, 1
+  br i1 %mul.ov, label %if.then8, label %if.end10
 
-17:                                               ; preds = %10
-  %18 = tail call ptr @__cxa_allocate_exception(i64 4) #9
-  store i32 1052354, ptr %18, align 16, !tbaa !16
-  tail call void @__cxa_throw(ptr nonnull %18, ptr nonnull @_ZTIi, ptr null) #10
+if.then8:                                         ; preds = %if.end4
+  %exception9 = tail call ptr @__cxa_allocate_exception(i64 4) #9
+  store i32 1052354, ptr %exception9, align 16, !tbaa !16
+  tail call void @__cxa_throw(ptr nonnull %exception9, ptr nonnull @_ZTIi, ptr null) #10
   unreachable
 
-19:                                               ; preds = %10
-  %20 = icmp eq i64 %15, 0
-  br i1 %20, label %21, label %24
+if.end10:                                         ; preds = %if.end4
+  %cmp11.not = icmp eq i64 %mul.val, 0
+  br i1 %cmp11.not, label %if.end10.if.end22_crit_edge, label %if.then12
 
-21:                                               ; preds = %19
-  %22 = getelementptr inbounds %class.CBaseRecordVector, ptr %0, i64 0, i32 3
-  %23 = load ptr, ptr %22, align 8, !tbaa !14
-  br label %33
+if.end10.if.end22_crit_edge:                      ; preds = %if.end10
+  %_items23.phi.trans.insert = getelementptr inbounds %class.CBaseRecordVector, ptr %this, i64 0, i32 3
+  %.pre = load ptr, ptr %_items23.phi.trans.insert, align 8, !tbaa !14
+  br label %if.end22
 
-24:                                               ; preds = %19
-  %25 = tail call noalias noundef nonnull ptr @_Znam(i64 noundef %15) #11
-  %26 = getelementptr inbounds %class.CBaseRecordVector, ptr %0, i64 0, i32 2
-  %27 = load i32, ptr %26, align 4, !tbaa !8
-  %28 = tail call i32 @llvm.smin.i32(i32 %27, i32 %1)
-  %29 = getelementptr inbounds %class.CBaseRecordVector, ptr %0, i64 0, i32 3
-  %30 = load ptr, ptr %29, align 8, !tbaa !14
-  %31 = sext i32 %28 to i64
-  %32 = mul i64 %13, %31
-  tail call void @llvm.memcpy.p0.p0.i64(ptr nonnull align 1 %25, ptr align 1 %30, i64 %32, i1 false)
-  br label %33
+if.then12:                                        ; preds = %if.end10
+  %call = tail call noalias noundef nonnull ptr @_Znam(i64 noundef %mul.val) #11
+  %_size = getelementptr inbounds %class.CBaseRecordVector, ptr %this, i64 0, i32 2
+  %2 = load i32, ptr %_size, align 4, !tbaa !8
+  %cond = tail call i32 @llvm.smin.i32(i32 %2, i32 %newCapacity)
+  %_items = getelementptr inbounds %class.CBaseRecordVector, ptr %this, i64 0, i32 3
+  %3 = load ptr, ptr %_items, align 8, !tbaa !14
+  %conv20 = sext i32 %cond to i64
+  %mul21 = mul i64 %1, %conv20
+  tail call void @llvm.memcpy.p0.p0.i64(ptr nonnull align 1 %call, ptr align 1 %3, i64 %mul21, i1 false)
+  br label %if.end22
 
-33:                                               ; preds = %21, %24
-  %34 = phi ptr [ %30, %24 ], [ %23, %21 ]
-  %35 = phi ptr [ %25, %24 ], [ null, %21 ]
-  %36 = getelementptr inbounds %class.CBaseRecordVector, ptr %0, i64 0, i32 3
-  %37 = icmp eq ptr %34, null
-  br i1 %37, label %39, label %38
+if.end22:                                         ; preds = %if.end10.if.end22_crit_edge, %if.then12
+  %4 = phi ptr [ %3, %if.then12 ], [ %.pre, %if.end10.if.end22_crit_edge ]
+  %p.0 = phi ptr [ %call, %if.then12 ], [ null, %if.end10.if.end22_crit_edge ]
+  %_items23 = getelementptr inbounds %class.CBaseRecordVector, ptr %this, i64 0, i32 3
+  %isnull = icmp eq ptr %4, null
+  br i1 %isnull, label %delete.end, label %delete.notnull
 
-38:                                               ; preds = %33
-  tail call void @_ZdaPv(ptr noundef nonnull %34) #8
-  br label %39
+delete.notnull:                                   ; preds = %if.end22
+  tail call void @_ZdaPv(ptr noundef nonnull %4) #8
+  br label %delete.end
 
-39:                                               ; preds = %38, %33
-  store ptr %35, ptr %36, align 8, !tbaa !14
-  store i32 %1, ptr %3, align 8, !tbaa !15
-  br label %40
+delete.end:                                       ; preds = %delete.notnull, %if.end22
+  store ptr %p.0, ptr %_items23, align 8, !tbaa !14
+  store i32 %newCapacity, ptr %_capacity, align 8, !tbaa !15
+  br label %return
 
-40:                                               ; preds = %2, %39
+return:                                           ; preds = %entry, %delete.end
   ret void
 }
 
@@ -241,31 +249,33 @@ declare noundef nonnull ptr @_Znam(i64 noundef) local_unnamed_addr #3
 declare void @llvm.memcpy.p0.p0.i64(ptr noalias nocapture writeonly, ptr noalias nocapture readonly, i64, i1 immarg) #4
 
 ; Function Attrs: mustprogress uwtable
-define dso_local void @_ZN17CBaseRecordVector11ReserveDownEv(ptr nocapture noundef nonnull align 8 dereferenceable(32) %0) local_unnamed_addr #1 align 2 {
-  %2 = getelementptr inbounds %class.CBaseRecordVector, ptr %0, i64 0, i32 2
-  %3 = load i32, ptr %2, align 4, !tbaa !8
-  tail call void @_ZN17CBaseRecordVector7ReserveEi(ptr noundef nonnull align 8 dereferenceable(32) %0, i32 noundef %3)
+define dso_local void @_ZN17CBaseRecordVector11ReserveDownEv(ptr nocapture noundef nonnull align 8 dereferenceable(32) %this) local_unnamed_addr #1 align 2 {
+entry:
+  %_size = getelementptr inbounds %class.CBaseRecordVector, ptr %this, i64 0, i32 2
+  %0 = load i32, ptr %_size, align 4, !tbaa !8
+  tail call void @_ZN17CBaseRecordVector7ReserveEi(ptr noundef nonnull align 8 dereferenceable(32) %this, i32 noundef %0)
   ret void
 }
 
 ; Function Attrs: mustprogress nofree nosync nounwind willreturn memory(readwrite, inaccessiblemem: none) uwtable
-define dso_local void @_ZN17CBaseRecordVector9MoveItemsEii(ptr nocapture noundef nonnull readonly align 8 dereferenceable(32) %0, i32 noundef %1, i32 noundef %2) local_unnamed_addr #5 align 2 {
-  %4 = getelementptr inbounds %class.CBaseRecordVector, ptr %0, i64 0, i32 3
-  %5 = load ptr, ptr %4, align 8, !tbaa !14
-  %6 = sext i32 %1 to i64
-  %7 = getelementptr inbounds %class.CBaseRecordVector, ptr %0, i64 0, i32 4
-  %8 = load i64, ptr %7, align 8, !tbaa !17
-  %9 = mul i64 %8, %6
-  %10 = getelementptr inbounds i8, ptr %5, i64 %9
-  %11 = sext i32 %2 to i64
-  %12 = mul i64 %8, %11
-  %13 = getelementptr inbounds i8, ptr %5, i64 %12
-  %14 = getelementptr inbounds %class.CBaseRecordVector, ptr %0, i64 0, i32 2
-  %15 = load i32, ptr %14, align 4, !tbaa !8
-  %16 = sub nsw i32 %15, %2
-  %17 = sext i32 %16 to i64
-  %18 = mul i64 %8, %17
-  tail call void @llvm.memmove.p0.p0.i64(ptr align 1 %10, ptr align 1 %13, i64 %18, i1 false)
+define dso_local void @_ZN17CBaseRecordVector9MoveItemsEii(ptr nocapture noundef nonnull readonly align 8 dereferenceable(32) %this, i32 noundef %destIndex, i32 noundef %srcIndex) local_unnamed_addr #5 align 2 {
+entry:
+  %_items = getelementptr inbounds %class.CBaseRecordVector, ptr %this, i64 0, i32 3
+  %0 = load ptr, ptr %_items, align 8, !tbaa !14
+  %conv = sext i32 %destIndex to i64
+  %_itemSize = getelementptr inbounds %class.CBaseRecordVector, ptr %this, i64 0, i32 4
+  %1 = load i64, ptr %_itemSize, align 8, !tbaa !17
+  %mul = mul i64 %1, %conv
+  %add.ptr = getelementptr inbounds i8, ptr %0, i64 %mul
+  %conv3 = sext i32 %srcIndex to i64
+  %mul5 = mul i64 %1, %conv3
+  %add.ptr6 = getelementptr inbounds i8, ptr %0, i64 %mul5
+  %_size = getelementptr inbounds %class.CBaseRecordVector, ptr %this, i64 0, i32 2
+  %2 = load i32, ptr %_size, align 4, !tbaa !8
+  %sub = sub nsw i32 %2, %srcIndex
+  %conv8 = sext i32 %sub to i64
+  %mul9 = mul i64 %1, %conv8
+  tail call void @llvm.memmove.p0.p0.i64(ptr align 1 %add.ptr, ptr align 1 %add.ptr6, i64 %mul9, i1 false)
   ret void
 }
 
@@ -273,92 +283,94 @@ define dso_local void @_ZN17CBaseRecordVector9MoveItemsEii(ptr nocapture noundef
 declare void @llvm.memmove.p0.p0.i64(ptr nocapture writeonly, ptr nocapture readonly, i64, i1 immarg) #4
 
 ; Function Attrs: mustprogress uwtable
-define dso_local void @_ZN17CBaseRecordVector13InsertOneItemEi(ptr nocapture noundef nonnull align 8 dereferenceable(32) %0, i32 noundef %1) local_unnamed_addr #1 align 2 {
-  %3 = getelementptr inbounds %class.CBaseRecordVector, ptr %0, i64 0, i32 2
-  %4 = load i32, ptr %3, align 4, !tbaa !8
-  %5 = getelementptr inbounds %class.CBaseRecordVector, ptr %0, i64 0, i32 1
-  %6 = load i32, ptr %5, align 8, !tbaa !15
-  %7 = icmp eq i32 %4, %6
-  br i1 %7, label %8, label %16
+define dso_local void @_ZN17CBaseRecordVector13InsertOneItemEi(ptr nocapture noundef nonnull align 8 dereferenceable(32) %this, i32 noundef %index) local_unnamed_addr #1 align 2 {
+entry:
+  %_size.i = getelementptr inbounds %class.CBaseRecordVector, ptr %this, i64 0, i32 2
+  %0 = load i32, ptr %_size.i, align 4, !tbaa !8
+  %_capacity.i = getelementptr inbounds %class.CBaseRecordVector, ptr %this, i64 0, i32 1
+  %1 = load i32, ptr %_capacity.i, align 8, !tbaa !15
+  %cmp.not.i = icmp eq i32 %0, %1
+  br i1 %cmp.not.i, label %if.end.i, label %_ZN17CBaseRecordVector18ReserveOnePositionEv.exit
 
-8:                                                ; preds = %2
-  %9 = icmp sgt i32 %4, 63
-  %10 = lshr i32 %4, 2
-  %11 = icmp slt i32 %4, 8
-  %12 = select i1 %11, i32 1, i32 8
-  %13 = select i1 %9, i32 %10, i32 %12
-  %14 = add nsw i32 %13, %4
-  tail call void @_ZN17CBaseRecordVector7ReserveEi(ptr noundef nonnull align 8 dereferenceable(32) %0, i32 noundef %14)
-  %15 = load i32, ptr %3, align 4, !tbaa !8
-  br label %16
+if.end.i:                                         ; preds = %entry
+  %cmp3.i = icmp sgt i32 %0, 63
+  %div12.i = lshr i32 %0, 2
+  %cmp7.inv.i = icmp slt i32 %0, 8
+  %spec.select.i = select i1 %cmp7.inv.i, i32 1, i32 8
+  %delta.0.i = select i1 %cmp3.i, i32 %div12.i, i32 %spec.select.i
+  %add.i = add nsw i32 %delta.0.i, %0
+  tail call void @_ZN17CBaseRecordVector7ReserveEi(ptr noundef nonnull align 8 dereferenceable(32) %this, i32 noundef %add.i)
+  %.pre = load i32, ptr %_size.i, align 4, !tbaa !8
+  br label %_ZN17CBaseRecordVector18ReserveOnePositionEv.exit
 
-16:                                               ; preds = %2, %8
-  %17 = phi i32 [ %4, %2 ], [ %15, %8 ]
-  %18 = add nsw i32 %1, 1
-  %19 = getelementptr inbounds %class.CBaseRecordVector, ptr %0, i64 0, i32 3
-  %20 = load ptr, ptr %19, align 8, !tbaa !14
-  %21 = sext i32 %18 to i64
-  %22 = getelementptr inbounds %class.CBaseRecordVector, ptr %0, i64 0, i32 4
-  %23 = load i64, ptr %22, align 8, !tbaa !17
-  %24 = mul i64 %23, %21
-  %25 = getelementptr inbounds i8, ptr %20, i64 %24
-  %26 = sext i32 %1 to i64
-  %27 = mul i64 %23, %26
-  %28 = getelementptr inbounds i8, ptr %20, i64 %27
-  %29 = sub nsw i32 %17, %1
-  %30 = sext i32 %29 to i64
-  %31 = mul i64 %23, %30
-  tail call void @llvm.memmove.p0.p0.i64(ptr align 1 %25, ptr align 1 %28, i64 %31, i1 false)
-  %32 = load i32, ptr %3, align 4, !tbaa !8
-  %33 = add nsw i32 %32, 1
-  store i32 %33, ptr %3, align 4, !tbaa !8
+_ZN17CBaseRecordVector18ReserveOnePositionEv.exit: ; preds = %entry, %if.end.i
+  %2 = phi i32 [ %0, %entry ], [ %.pre, %if.end.i ]
+  %add = add nsw i32 %index, 1
+  %_items.i = getelementptr inbounds %class.CBaseRecordVector, ptr %this, i64 0, i32 3
+  %3 = load ptr, ptr %_items.i, align 8, !tbaa !14
+  %conv.i = sext i32 %add to i64
+  %_itemSize.i = getelementptr inbounds %class.CBaseRecordVector, ptr %this, i64 0, i32 4
+  %4 = load i64, ptr %_itemSize.i, align 8, !tbaa !17
+  %mul.i = mul i64 %4, %conv.i
+  %add.ptr.i = getelementptr inbounds i8, ptr %3, i64 %mul.i
+  %conv3.i = sext i32 %index to i64
+  %mul5.i = mul i64 %4, %conv3.i
+  %add.ptr6.i = getelementptr inbounds i8, ptr %3, i64 %mul5.i
+  %sub.i = sub nsw i32 %2, %index
+  %conv8.i = sext i32 %sub.i to i64
+  %mul9.i = mul i64 %4, %conv8.i
+  tail call void @llvm.memmove.p0.p0.i64(ptr align 1 %add.ptr.i, ptr align 1 %add.ptr6.i, i64 %mul9.i, i1 false)
+  %5 = load i32, ptr %_size.i, align 4, !tbaa !8
+  %inc = add nsw i32 %5, 1
+  store i32 %inc, ptr %_size.i, align 4, !tbaa !8
   ret void
 }
 
 ; Function Attrs: mustprogress nofree nosync nounwind willreturn memory(readwrite, inaccessiblemem: none) uwtable
-define dso_local void @_ZN17CBaseRecordVector6DeleteEii(ptr nocapture noundef nonnull align 8 dereferenceable(32) %0, i32 noundef %1, i32 noundef %2) unnamed_addr #5 align 2 {
-  %4 = add nsw i32 %2, %1
-  %5 = getelementptr inbounds %class.CBaseRecordVector, ptr %0, i64 0, i32 2
-  %6 = load i32, ptr %5, align 4, !tbaa !8
-  %7 = icmp sgt i32 %4, %6
-  %8 = sub nsw i32 %6, %1
-  %9 = select i1 %7, i32 %8, i32 %2
-  %10 = icmp sgt i32 %9, 0
-  br i1 %10, label %11, label %28
+define dso_local void @_ZN17CBaseRecordVector6DeleteEii(ptr nocapture noundef nonnull align 8 dereferenceable(32) %this, i32 noundef %index, i32 noundef %num) unnamed_addr #5 align 2 {
+entry:
+  %add.i = add nsw i32 %num, %index
+  %_size.i = getelementptr inbounds %class.CBaseRecordVector, ptr %this, i64 0, i32 2
+  %0 = load i32, ptr %_size.i, align 4, !tbaa !8
+  %cmp.i = icmp sgt i32 %add.i, %0
+  %sub.i = sub nsw i32 %0, %index
+  %spec.select = select i1 %cmp.i, i32 %sub.i, i32 %num
+  %cmp = icmp sgt i32 %spec.select, 0
+  br i1 %cmp, label %if.then, label %if.end
 
-11:                                               ; preds = %3
-  %12 = add nsw i32 %9, %1
-  %13 = getelementptr inbounds %class.CBaseRecordVector, ptr %0, i64 0, i32 3
-  %14 = load ptr, ptr %13, align 8, !tbaa !14
-  %15 = sext i32 %1 to i64
-  %16 = getelementptr inbounds %class.CBaseRecordVector, ptr %0, i64 0, i32 4
-  %17 = load i64, ptr %16, align 8, !tbaa !17
-  %18 = mul i64 %17, %15
-  %19 = getelementptr inbounds i8, ptr %14, i64 %18
-  %20 = sext i32 %12 to i64
-  %21 = mul i64 %17, %20
-  %22 = getelementptr inbounds i8, ptr %14, i64 %21
-  %23 = sub nsw i32 %6, %12
-  %24 = sext i32 %23 to i64
-  %25 = mul i64 %17, %24
-  tail call void @llvm.memmove.p0.p0.i64(ptr align 1 %19, ptr align 1 %22, i64 %25, i1 false)
-  %26 = load i32, ptr %5, align 4, !tbaa !8
-  %27 = sub nsw i32 %26, %9
-  store i32 %27, ptr %5, align 4, !tbaa !8
-  br label %28
+if.then:                                          ; preds = %entry
+  %add = add nsw i32 %spec.select, %index
+  %_items.i = getelementptr inbounds %class.CBaseRecordVector, ptr %this, i64 0, i32 3
+  %1 = load ptr, ptr %_items.i, align 8, !tbaa !14
+  %conv.i = sext i32 %index to i64
+  %_itemSize.i = getelementptr inbounds %class.CBaseRecordVector, ptr %this, i64 0, i32 4
+  %2 = load i64, ptr %_itemSize.i, align 8, !tbaa !17
+  %mul.i = mul i64 %2, %conv.i
+  %add.ptr.i = getelementptr inbounds i8, ptr %1, i64 %mul.i
+  %conv3.i = sext i32 %add to i64
+  %mul5.i = mul i64 %2, %conv3.i
+  %add.ptr6.i = getelementptr inbounds i8, ptr %1, i64 %mul5.i
+  %sub.i5 = sub nsw i32 %0, %add
+  %conv8.i = sext i32 %sub.i5 to i64
+  %mul9.i = mul i64 %2, %conv8.i
+  tail call void @llvm.memmove.p0.p0.i64(ptr align 1 %add.ptr.i, ptr align 1 %add.ptr6.i, i64 %mul9.i, i1 false)
+  %3 = load i32, ptr %_size.i, align 4, !tbaa !8
+  %sub = sub nsw i32 %3, %spec.select
+  store i32 %sub, ptr %_size.i, align 4, !tbaa !8
+  br label %if.end
 
-28:                                               ; preds = %11, %3
+if.end:                                           ; preds = %if.then, %entry
   ret void
 }
 
+; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
+declare { i64, i1 } @llvm.umul.with.overflow.i64(i64, i64) #6
+
 ; Function Attrs: nocallback nofree nounwind willreturn memory(argmem: write)
-declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #6
+declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #7
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare { i64, i1 } @llvm.umul.with.overflow.i64(i64, i64) #7
-
-; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i32 @llvm.smin.i32(i32, i32) #7
+declare i32 @llvm.smin.i32(i32, i32) #6
 
 attributes #0 = { nounwind uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #1 = { mustprogress uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
@@ -366,8 +378,8 @@ attributes #2 = { nobuiltin nounwind "no-trapping-math"="true" "stack-protector-
 attributes #3 = { nobuiltin allocsize(0) "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #4 = { mustprogress nocallback nofree nounwind willreturn memory(argmem: readwrite) }
 attributes #5 = { mustprogress nofree nosync nounwind willreturn memory(readwrite, inaccessiblemem: none) uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
-attributes #6 = { nocallback nofree nounwind willreturn memory(argmem: write) }
-attributes #7 = { nocallback nofree nosync nounwind speculatable willreturn memory(none) }
+attributes #6 = { nocallback nofree nosync nounwind speculatable willreturn memory(none) }
+attributes #7 = { nocallback nofree nounwind willreturn memory(argmem: write) }
 attributes #8 = { builtin nounwind }
 attributes #9 = { nounwind }
 attributes #10 = { noreturn }

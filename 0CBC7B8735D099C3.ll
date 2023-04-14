@@ -46,23 +46,24 @@ declare i32 @__cxa_atexit(ptr, ptr, ptr) local_unnamed_addr #2
 
 ; Function Attrs: mustprogress uwtable
 define hidden noundef double @_ZN9benchmark15ProcessCPUUsageEv() local_unnamed_addr #3 {
-  %1 = alloca %struct.timespec, align 8
-  call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %1) #16
-  %2 = call i32 @clock_gettime(i32 noundef 2, ptr noundef nonnull %1) #16
-  %3 = icmp eq i32 %2, 0
-  br i1 %3, label %4, label %11
+entry:
+  %spec = alloca %struct.timespec, align 8
+  call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %spec) #16
+  %call = call i32 @clock_gettime(i32 noundef 2, ptr noundef nonnull %spec) #16
+  %cmp = icmp eq i32 %call, 0
+  br i1 %cmp, label %if.then, label %if.end
 
-4:                                                ; preds = %0
-  %5 = load i64, ptr %1, align 8, !tbaa !5
-  %6 = getelementptr inbounds i8, ptr %1, i64 8
-  %7 = load i64, ptr %6, align 8, !tbaa !10
-  %8 = sitofp i64 %5 to double
-  %9 = sitofp i64 %7 to double
-  %10 = call double @llvm.fmuladd.f64(double %9, double 1.000000e-09, double %8)
-  call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %1) #16
-  ret double %10
+if.then:                                          ; preds = %entry
+  %spec.val = load i64, ptr %spec, align 8, !tbaa !5
+  %0 = getelementptr inbounds i8, ptr %spec, i64 8
+  %spec.val2 = load i64, ptr %0, align 8, !tbaa !10
+  %conv.i = sitofp i64 %spec.val to double
+  %conv1.i = sitofp i64 %spec.val2 to double
+  %1 = call double @llvm.fmuladd.f64(double %conv1.i, double 1.000000e-09, double %conv.i)
+  call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %spec) #16
+  ret double %1
 
-11:                                               ; preds = %0
+if.end:                                           ; preds = %entry
   call fastcc void @_ZN9benchmark12_GLOBAL__N_115DiagnoseAndExitEPKc(ptr noundef nonnull @.str) #17
   unreachable
 }
@@ -74,10 +75,11 @@ declare void @llvm.lifetime.start.p0(i64 immarg, ptr nocapture) #4
 declare i32 @clock_gettime(i32 noundef, ptr noundef) local_unnamed_addr #1
 
 ; Function Attrs: mustprogress noreturn uwtable
-define internal fastcc void @_ZN9benchmark12_GLOBAL__N_115DiagnoseAndExitEPKc(ptr noundef %0) unnamed_addr #5 {
-  %2 = tail call noundef nonnull align 8 dereferenceable(8) ptr @_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_PKc(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cerr, ptr noundef nonnull @.str.7)
-  %3 = tail call noundef nonnull align 8 dereferenceable(8) ptr @_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_PKc(ptr noundef nonnull align 8 dereferenceable(8) %2, ptr noundef %0)
-  %4 = tail call noundef nonnull align 8 dereferenceable(8) ptr @_ZSt4endlIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_(ptr noundef nonnull align 8 dereferenceable(8) %3)
+define internal fastcc void @_ZN9benchmark12_GLOBAL__N_115DiagnoseAndExitEPKc(ptr noundef %msg) unnamed_addr #5 {
+entry:
+  %call = tail call noundef nonnull align 8 dereferenceable(8) ptr @_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_PKc(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cerr, ptr noundef nonnull @.str.7)
+  %call1 = tail call noundef nonnull align 8 dereferenceable(8) ptr @_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_PKc(ptr noundef nonnull align 8 dereferenceable(8) %call, ptr noundef %msg)
+  %call.i = tail call noundef nonnull align 8 dereferenceable(8) ptr @_ZSt4endlIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_(ptr noundef nonnull align 8 dereferenceable(8) %call1)
   tail call void @exit(i32 noundef 1) #18
   unreachable
 }
@@ -87,136 +89,138 @@ declare void @llvm.lifetime.end.p0(i64 immarg, ptr nocapture) #4
 
 ; Function Attrs: mustprogress uwtable
 define hidden noundef double @_ZN9benchmark14ThreadCPUUsageEv() local_unnamed_addr #3 {
-  %1 = alloca %struct.timespec, align 8
-  call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %1) #16
-  %2 = call i32 @clock_gettime(i32 noundef 3, ptr noundef nonnull %1) #16
-  %3 = icmp eq i32 %2, 0
-  br i1 %3, label %4, label %11
+entry:
+  %ts = alloca %struct.timespec, align 8
+  call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %ts) #16
+  %call = call i32 @clock_gettime(i32 noundef 3, ptr noundef nonnull %ts) #16
+  %cmp = icmp eq i32 %call, 0
+  br i1 %cmp, label %if.then, label %if.end
 
-4:                                                ; preds = %0
-  %5 = load i64, ptr %1, align 8, !tbaa !5
-  %6 = getelementptr inbounds i8, ptr %1, i64 8
-  %7 = load i64, ptr %6, align 8, !tbaa !10
-  %8 = sitofp i64 %5 to double
-  %9 = sitofp i64 %7 to double
-  %10 = call double @llvm.fmuladd.f64(double %9, double 1.000000e-09, double %8)
-  call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %1) #16
-  ret double %10
+if.then:                                          ; preds = %entry
+  %ts.val = load i64, ptr %ts, align 8, !tbaa !5
+  %0 = getelementptr inbounds i8, ptr %ts, i64 8
+  %ts.val2 = load i64, ptr %0, align 8, !tbaa !10
+  %conv.i = sitofp i64 %ts.val to double
+  %conv1.i = sitofp i64 %ts.val2 to double
+  %1 = call double @llvm.fmuladd.f64(double %conv1.i, double 1.000000e-09, double %conv.i)
+  call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %ts) #16
+  ret double %1
 
-11:                                               ; preds = %0
+if.end:                                           ; preds = %entry
   call fastcc void @_ZN9benchmark12_GLOBAL__N_115DiagnoseAndExitEPKc(ptr noundef nonnull @.str.2) #17
   unreachable
 }
 
 ; Function Attrs: uwtable
-define hidden void @_ZN9benchmark19LocalDateTimeStringB5cxx11Ev(ptr noalias sret(%"class.std::__cxx11::basic_string") align 8 %0) local_unnamed_addr #6 personality ptr @__gxx_personality_v0 {
-  %2 = alloca i64, align 8
-  %3 = alloca i64, align 8
-  %4 = alloca [41 x i8], align 16
-  %5 = alloca [128 x i8], align 16
-  %6 = alloca %struct.tm, align 8
-  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %3) #16
-  %7 = tail call i64 @_ZNSt6chrono3_V212system_clock3nowEv() #16
-  %8 = sdiv i64 %7, 1000000000
-  store i64 %8, ptr %3, align 8, !tbaa !11
-  call void @llvm.lifetime.start.p0(i64 41, ptr nonnull %4) #16
-  call void @llvm.lifetime.start.p0(i64 128, ptr nonnull %5) #16
-  call void @llvm.lifetime.start.p0(i64 56, ptr nonnull %6) #16
-  %9 = call ptr @localtime_r(ptr noundef nonnull %3, ptr noundef nonnull %6) #16
-  %10 = call i64 @strftime(ptr noundef nonnull %4, i64 noundef 41, ptr noundef nonnull @.str.3, ptr noundef nonnull %6) #16
-  %11 = add i64 %10, -2
-  %12 = icmp ult i64 %11, 4
-  br i1 %12, label %13, label %27
+define hidden void @_ZN9benchmark19LocalDateTimeStringB5cxx11Ev(ptr noalias sret(%"class.std::__cxx11::basic_string") align 8 %agg.result) local_unnamed_addr #6 personality ptr @__gxx_personality_v0 {
+entry:
+  %__dnew.i.i = alloca i64, align 8
+  %now = alloca i64, align 8
+  %tz_offset = alloca [41 x i8], align 16
+  %storage = alloca [128 x i8], align 16
+  %timeinfo = alloca %struct.tm, align 8
+  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %now) #16
+  %call = tail call i64 @_ZNSt6chrono3_V212system_clock3nowEv() #16
+  %div.i.i.i = sdiv i64 %call, 1000000000
+  store i64 %div.i.i.i, ptr %now, align 8, !tbaa !11
+  call void @llvm.lifetime.start.p0(i64 41, ptr nonnull %tz_offset) #16
+  call void @llvm.lifetime.start.p0(i64 128, ptr nonnull %storage) #16
+  call void @llvm.lifetime.start.p0(i64 56, ptr nonnull %timeinfo) #16
+  %call3 = call ptr @localtime_r(ptr noundef nonnull %now, ptr noundef nonnull %timeinfo) #16
+  %call4 = call i64 @strftime(ptr noundef nonnull %tz_offset, i64 noundef 41, ptr noundef nonnull @.str.3, ptr noundef nonnull %timeinfo) #16
+  %0 = add i64 %call4, -2
+  %or.cond = icmp ult i64 %0, 4
+  br i1 %or.cond, label %if.then, label %if.else
 
-13:                                               ; preds = %1
-  %14 = call i64 @strtol(ptr nocapture noundef nonnull %4, ptr noundef null, i32 noundef 10) #16
-  %15 = icmp slt i64 %14, 0
-  %16 = call i64 @llvm.abs.i64(i64 %14, i1 true)
-  %17 = select i1 %15, i32 45, i32 43
-  %18 = udiv i64 %16, 100
-  %19 = urem i64 %16, 100
-  %20 = call i32 (ptr, i64, ptr, ...) @snprintf(ptr noundef nonnull dereferenceable(1) %4, i64 noundef 41, ptr noundef nonnull @.str.4, i32 noundef %17, i64 noundef %18, i64 noundef %19) #16
-  %21 = load atomic i8, ptr @_ZGVZN9benchmark8internal18GetNullLogInstanceEvE3log acquire, align 8
-  %22 = icmp eq i8 %21, 0
-  br i1 %22, label %23, label %29, !prof !12
+if.then:                                          ; preds = %entry
+  %call7 = call i64 @strtol(ptr nocapture noundef nonnull %tz_offset, ptr noundef null, i32 noundef 10) #16
+  %cmp8 = icmp slt i64 %call7, 0
+  %spec.select = select i1 %cmp8, i32 45, i32 43
+  %spec.select33 = call i64 @llvm.abs.i64(i64 %call7, i1 true)
+  %div = udiv i64 %spec.select33, 100
+  %rem = urem i64 %spec.select33, 100
+  %call11 = call i32 (ptr, i64, ptr, ...) @snprintf(ptr noundef nonnull dereferenceable(1) %tz_offset, i64 noundef 41, ptr noundef nonnull @.str.4, i32 noundef %spec.select, i64 noundef %div, i64 noundef %rem) #16
+  %1 = load atomic i8, ptr @_ZGVZN9benchmark8internal18GetNullLogInstanceEvE3log acquire, align 8
+  %guard.uninitialized.i = icmp eq i8 %1, 0
+  br i1 %guard.uninitialized.i, label %init.check.i, label %if.end17, !prof !12
 
-23:                                               ; preds = %13
-  %24 = call i32 @__cxa_guard_acquire(ptr nonnull @_ZGVZN9benchmark8internal18GetNullLogInstanceEvE3log) #16
-  %25 = icmp eq i32 %24, 0
-  br i1 %25, label %29, label %26
+init.check.i:                                     ; preds = %if.then
+  %2 = call i32 @__cxa_guard_acquire(ptr nonnull @_ZGVZN9benchmark8internal18GetNullLogInstanceEvE3log) #16
+  %tobool.not.i = icmp eq i32 %2, 0
+  br i1 %tobool.not.i, label %if.end17, label %init.i
 
-26:                                               ; preds = %23
+init.i:                                           ; preds = %init.check.i
   store ptr null, ptr @_ZZN9benchmark8internal18GetNullLogInstanceEvE3log, align 8, !tbaa !13
   call void @__cxa_guard_release(ptr nonnull @_ZGVZN9benchmark8internal18GetNullLogInstanceEvE3log) #16
-  br label %29
+  br label %if.end17
 
-27:                                               ; preds = %1
-  %28 = call ptr @gmtime_r(ptr noundef nonnull %3, ptr noundef nonnull %6) #16
-  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 16 dereferenceable(7) %4, ptr noundef nonnull align 1 dereferenceable(7) @.str.5, i64 noundef 7, i1 false) #16
-  br label %29
+if.else:                                          ; preds = %entry
+  %call14 = call ptr @gmtime_r(ptr noundef nonnull %now, ptr noundef nonnull %timeinfo) #16
+  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 16 dereferenceable(7) %tz_offset, ptr noundef nonnull align 1 dereferenceable(7) @.str.5, i64 noundef 7, i1 false) #16
+  br label %if.end17
 
-29:                                               ; preds = %26, %23, %13, %27
-  %30 = call i64 @strftime(ptr noundef nonnull %5, i64 noundef 128, ptr noundef nonnull @.str.6, ptr noundef nonnull %6) #16
-  %31 = load atomic i8, ptr @_ZGVZN9benchmark8internal18GetNullLogInstanceEvE3log acquire, align 8
-  %32 = icmp eq i8 %31, 0
-  br i1 %32, label %33, label %37, !prof !12
+if.end17:                                         ; preds = %init.i, %init.check.i, %if.then, %if.else
+  %call19 = call i64 @strftime(ptr noundef nonnull %storage, i64 noundef 128, ptr noundef nonnull @.str.6, ptr noundef nonnull %timeinfo) #16
+  %3 = load atomic i8, ptr @_ZGVZN9benchmark8internal18GetNullLogInstanceEvE3log acquire, align 8
+  %guard.uninitialized.i34 = icmp eq i8 %3, 0
+  br i1 %guard.uninitialized.i34, label %init.check.i36, label %_ZN9benchmark8internal18GetNullLogInstanceEv.exit38, !prof !12
 
-33:                                               ; preds = %29
-  %34 = call i32 @__cxa_guard_acquire(ptr nonnull @_ZGVZN9benchmark8internal18GetNullLogInstanceEvE3log) #16
-  %35 = icmp eq i32 %34, 0
-  br i1 %35, label %37, label %36
+init.check.i36:                                   ; preds = %if.end17
+  %4 = call i32 @__cxa_guard_acquire(ptr nonnull @_ZGVZN9benchmark8internal18GetNullLogInstanceEvE3log) #16
+  %tobool.not.i35 = icmp eq i32 %4, 0
+  br i1 %tobool.not.i35, label %_ZN9benchmark8internal18GetNullLogInstanceEv.exit38, label %init.i37
 
-36:                                               ; preds = %33
+init.i37:                                         ; preds = %init.check.i36
   store ptr null, ptr @_ZZN9benchmark8internal18GetNullLogInstanceEvE3log, align 8, !tbaa !13
   call void @__cxa_guard_release(ptr nonnull @_ZGVZN9benchmark8internal18GetNullLogInstanceEvE3log) #16
-  br label %37
+  br label %_ZN9benchmark8internal18GetNullLogInstanceEv.exit38
 
-37:                                               ; preds = %29, %33, %36
-  %38 = sub i64 127, %30
-  %39 = call ptr @strncat(ptr noundef nonnull dereferenceable(1) %5, ptr noundef nonnull %4, i64 noundef %38) #16
-  %40 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %0, i64 0, i32 2
-  store ptr %40, ptr %0, align 8, !tbaa !16
-  %41 = call i64 @strlen(ptr noundef nonnull dereferenceable(1) %5) #16
-  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %2) #16
-  store i64 %41, ptr %2, align 8, !tbaa !11
-  %42 = icmp ugt i64 %41, 15
-  br i1 %42, label %43, label %46
+_ZN9benchmark8internal18GetNullLogInstanceEv.exit38: ; preds = %if.end17, %init.check.i36, %init.i37
+  %sub23 = sub i64 127, %call19
+  %call24 = call ptr @strncat(ptr noundef nonnull dereferenceable(1) %storage, ptr noundef nonnull %tz_offset, i64 noundef %sub23) #16
+  %5 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %agg.result, i64 0, i32 2
+  store ptr %5, ptr %agg.result, align 8, !tbaa !16
+  %call.i.i = call i64 @strlen(ptr noundef nonnull dereferenceable(1) %storage) #16
+  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %__dnew.i.i) #16
+  store i64 %call.i.i, ptr %__dnew.i.i, align 8, !tbaa !11
+  %cmp.i.i = icmp ugt i64 %call.i.i, 15
+  br i1 %cmp.i.i, label %if.then.i.i, label %if.end.i.i
 
-43:                                               ; preds = %37
-  %44 = call noundef ptr @_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE9_M_createERmm(ptr noundef nonnull align 8 dereferenceable(32) %0, ptr noundef nonnull align 8 dereferenceable(8) %2, i64 noundef 0)
-  store ptr %44, ptr %0, align 8, !tbaa !18
-  %45 = load i64, ptr %2, align 8, !tbaa !11
-  store i64 %45, ptr %40, align 8, !tbaa !20
-  br label %46
+if.then.i.i:                                      ; preds = %_ZN9benchmark8internal18GetNullLogInstanceEv.exit38
+  %call2.i10.i39 = call noundef ptr @_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE9_M_createERmm(ptr noundef nonnull align 8 dereferenceable(32) %agg.result, ptr noundef nonnull align 8 dereferenceable(8) %__dnew.i.i, i64 noundef 0)
+  store ptr %call2.i10.i39, ptr %agg.result, align 8, !tbaa !18
+  %6 = load i64, ptr %__dnew.i.i, align 8, !tbaa !11
+  store i64 %6, ptr %5, align 8, !tbaa !20
+  br label %if.end.i.i
 
-46:                                               ; preds = %43, %37
-  %47 = phi ptr [ %44, %43 ], [ %40, %37 ]
-  switch i64 %41, label %50 [
-    i64 1, label %48
-    i64 0, label %51
+if.end.i.i:                                       ; preds = %if.then.i.i, %_ZN9benchmark8internal18GetNullLogInstanceEv.exit38
+  %7 = phi ptr [ %call2.i10.i39, %if.then.i.i ], [ %5, %_ZN9benchmark8internal18GetNullLogInstanceEv.exit38 ]
+  switch i64 %call.i.i, label %if.end.i.i.i.i.i [
+    i64 1, label %if.then.i.i.i.i
+    i64 0, label %invoke.cont
   ]
 
-48:                                               ; preds = %46
-  %49 = load i8, ptr %5, align 16, !tbaa !20
-  store i8 %49, ptr %47, align 1, !tbaa !20
-  br label %51
+if.then.i.i.i.i:                                  ; preds = %if.end.i.i
+  %8 = load i8, ptr %storage, align 16, !tbaa !20
+  store i8 %8, ptr %7, align 1, !tbaa !20
+  br label %invoke.cont
 
-50:                                               ; preds = %46
-  call void @llvm.memcpy.p0.p0.i64(ptr align 1 %47, ptr nonnull align 16 %5, i64 %41, i1 false)
-  br label %51
+if.end.i.i.i.i.i:                                 ; preds = %if.end.i.i
+  call void @llvm.memcpy.p0.p0.i64(ptr align 1 %7, ptr nonnull align 16 %storage, i64 %call.i.i, i1 false)
+  br label %invoke.cont
 
-51:                                               ; preds = %50, %48, %46
-  %52 = load i64, ptr %2, align 8, !tbaa !11
-  %53 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %0, i64 0, i32 1
-  store i64 %52, ptr %53, align 8, !tbaa !21
-  %54 = load ptr, ptr %0, align 8, !tbaa !18
-  %55 = getelementptr inbounds i8, ptr %54, i64 %52
-  store i8 0, ptr %55, align 1, !tbaa !20
-  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %2) #16
-  call void @llvm.lifetime.end.p0(i64 56, ptr nonnull %6) #16
-  call void @llvm.lifetime.end.p0(i64 128, ptr nonnull %5) #16
-  call void @llvm.lifetime.end.p0(i64 41, ptr nonnull %4) #16
-  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %3) #16
+invoke.cont:                                      ; preds = %if.end.i.i.i.i.i, %if.then.i.i.i.i, %if.end.i.i
+  %9 = load i64, ptr %__dnew.i.i, align 8, !tbaa !11
+  %_M_string_length.i.i.i.i = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %agg.result, i64 0, i32 1
+  store i64 %9, ptr %_M_string_length.i.i.i.i, align 8, !tbaa !21
+  %10 = load ptr, ptr %agg.result, align 8, !tbaa !18
+  %arrayidx.i.i.i = getelementptr inbounds i8, ptr %10, i64 %9
+  store i8 0, ptr %arrayidx.i.i.i, align 1, !tbaa !20
+  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %__dnew.i.i) #16
+  call void @llvm.lifetime.end.p0(i64 56, ptr nonnull %timeinfo) #16
+  call void @llvm.lifetime.end.p0(i64 128, ptr nonnull %storage) #16
+  call void @llvm.lifetime.end.p0(i64 41, ptr nonnull %tz_offset) #16
+  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %now) #16
   ret void
 }
 
@@ -271,9 +275,10 @@ declare noundef ptr @_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE9_M_cr
 
 ; Function Attrs: uwtable
 define internal void @_GLOBAL__sub_I_timers.cc() #6 section ".text.startup" {
-  %1 = tail call noundef i32 @_ZN9benchmark8internal17InitializeStreamsEv()
+entry:
+  %call.i = tail call noundef i32 @_ZN9benchmark8internal17InitializeStreamsEv()
   tail call void @_ZNSt8ios_base4InitC1Ev(ptr noundef nonnull align 1 dereferenceable(1) @_ZStL8__ioinit)
-  %2 = tail call i32 @__cxa_atexit(ptr nonnull @_ZNSt8ios_base4InitD1Ev, ptr nonnull @_ZStL8__ioinit, ptr nonnull @__dso_handle) #16
+  %0 = tail call i32 @__cxa_atexit(ptr nonnull @_ZNSt8ios_base4InitD1Ev, ptr nonnull @_ZStL8__ioinit, ptr nonnull @__dso_handle) #16
   ret void
 }
 

@@ -11,166 +11,167 @@ target triple = "x86_64-unknown-linux-gnu"
 @.str = private unnamed_addr constant [40 x i8] c"Internal collision in update action set\00", align 1
 
 ; Function Attrs: uwtable
-define dso_local void @_Z13UpdateProduceRK13CRecordVectorI11CUpdatePairERKN14NUpdateArchive10CActionSetERS_I12CUpdatePair2EP22IUpdateProduceCallback(ptr nocapture noundef nonnull readonly align 8 dereferenceable(32) %0, ptr nocapture noundef nonnull readonly align 4 dereferenceable(28) %1, ptr noundef nonnull align 8 dereferenceable(32) %2, ptr noundef %3) local_unnamed_addr #0 {
-  %5 = getelementptr inbounds %class.CBaseRecordVector, ptr %0, i64 0, i32 2
-  %6 = load i32, ptr %5, align 4, !tbaa !5
-  %7 = icmp sgt i32 %6, 0
-  br i1 %7, label %8, label %56
+define dso_local void @_Z13UpdateProduceRK13CRecordVectorI11CUpdatePairERKN14NUpdateArchive10CActionSetERS_I12CUpdatePair2EP22IUpdateProduceCallback(ptr nocapture noundef nonnull readonly align 8 dereferenceable(32) %updatePairs, ptr nocapture noundef nonnull readonly align 4 dereferenceable(28) %actionSet, ptr noundef nonnull align 8 dereferenceable(32) %operationChain, ptr noundef %callback) local_unnamed_addr #0 {
+entry:
+  %_size.i = getelementptr inbounds %class.CBaseRecordVector, ptr %updatePairs, i64 0, i32 2
+  %0 = load i32, ptr %_size.i, align 4, !tbaa !5
+  %cmp59 = icmp sgt i32 %0, 0
+  br i1 %cmp59, label %for.body.lr.ph, label %for.cond.cleanup
 
-8:                                                ; preds = %4
-  %9 = getelementptr inbounds %class.CBaseRecordVector, ptr %0, i64 0, i32 3
-  %10 = icmp eq ptr %3, null
-  %11 = getelementptr inbounds %class.CBaseRecordVector, ptr %2, i64 0, i32 3
-  %12 = getelementptr inbounds %class.CBaseRecordVector, ptr %2, i64 0, i32 2
-  br i1 %10, label %13, label %57
+for.body.lr.ph:                                   ; preds = %entry
+  %_items.i = getelementptr inbounds %class.CBaseRecordVector, ptr %updatePairs, i64 0, i32 3
+  %tobool.not = icmp eq ptr %callback, null
+  %_items.i37 = getelementptr inbounds %class.CBaseRecordVector, ptr %operationChain, i64 0, i32 3
+  %_size.i38 = getelementptr inbounds %class.CBaseRecordVector, ptr %operationChain, i64 0, i32 2
+  br i1 %tobool.not, label %for.body.us, label %for.body
 
-13:                                               ; preds = %8, %50
-  %14 = phi i32 [ %51, %50 ], [ %6, %8 ]
-  %15 = phi i64 [ %53, %50 ], [ 0, %8 ]
-  %16 = phi i64 [ %52, %50 ], [ undef, %8 ]
-  %17 = load ptr, ptr %9, align 8, !tbaa !12
-  %18 = getelementptr inbounds %struct.CUpdatePair, ptr %17, i64 %15
-  %19 = and i64 %16, 4278190080
-  %20 = getelementptr inbounds %struct.CUpdatePair, ptr %17, i64 %15, i32 2
-  %21 = load i32, ptr %20, align 4, !tbaa !13
-  %22 = zext i32 %21 to i64
-  %23 = shl nuw i64 %22, 32
-  %24 = or i64 %23, %19
-  %25 = getelementptr inbounds %struct.CUpdatePair, ptr %17, i64 %15, i32 1
-  %26 = load i32, ptr %25, align 4, !tbaa !16
-  %27 = zext i32 %26 to i64
-  %28 = or i64 %27, -4294967296
-  %29 = or i64 %24, 257
-  %30 = load i32, ptr %18, align 4, !tbaa !17
-  %31 = zext i32 %30 to i64
-  %32 = getelementptr inbounds [7 x i32], ptr %1, i64 0, i64 %31
-  %33 = load i32, ptr %32, align 4, !tbaa !18
-  switch i32 %33, label %40 [
-    i32 0, label %50
-    i32 1, label %38
-    i32 2, label %36
-    i32 3, label %34
+for.body.us:                                      ; preds = %for.body.lr.ph, %cleanup.us
+  %1 = phi i32 [ %10, %cleanup.us ], [ %0, %for.body.lr.ph ]
+  %indvars.iv66 = phi i64 [ %indvars.iv.next67, %cleanup.us ], [ 0, %for.body.lr.ph ]
+  %up2.sroa.0.060.us = phi i64 [ %up2.sroa.0.2.us, %cleanup.us ], [ undef, %for.body.lr.ph ]
+  %2 = load ptr, ptr %_items.i, align 8, !tbaa !12
+  %arrayidx.i.us = getelementptr inbounds %struct.CUpdatePair, ptr %2, i64 %indvars.iv66
+  %up2.sroa.0.4.insert.mask54.us = and i64 %up2.sroa.0.060.us, 4278190080
+  %DirIndex.us = getelementptr inbounds %struct.CUpdatePair, ptr %2, i64 %indvars.iv66, i32 2
+  %3 = load i32, ptr %DirIndex.us, align 4, !tbaa !13
+  %up2.sroa.0.4.insert.ext.us = zext i32 %3 to i64
+  %up2.sroa.0.4.insert.shift.us = shl nuw i64 %up2.sroa.0.4.insert.ext.us, 32
+  %up2.sroa.0.4.insert.insert.us = or i64 %up2.sroa.0.4.insert.shift.us, %up2.sroa.0.4.insert.mask54.us
+  %ArcIndex.us = getelementptr inbounds %struct.CUpdatePair, ptr %2, i64 %indvars.iv66, i32 1
+  %4 = load i32, ptr %ArcIndex.us, align 4, !tbaa !16
+  %up2.sroa.12.8.insert.ext.us = zext i32 %4 to i64
+  %up2.sroa.12.8.insert.insert.us = or i64 %up2.sroa.12.8.insert.ext.us, -4294967296
+  %up2.sroa.0.0.insert.insert.us = or i64 %up2.sroa.0.4.insert.insert.us, 257
+  %5 = load i32, ptr %arrayidx.i.us, align 4, !tbaa !17
+  %idxprom.us = zext i32 %5 to i64
+  %arrayidx.us = getelementptr inbounds [7 x i32], ptr %actionSet, i64 0, i64 %idxprom.us
+  %6 = load i32, ptr %arrayidx.us, align 4, !tbaa !18
+  switch i32 %6, label %sw.epilog.us [
+    i32 0, label %cleanup.us
+    i32 1, label %sw.bb6.us
+    i32 2, label %sw.bb13.us
+    i32 3, label %sw.bb21.us
   ]
 
-34:                                               ; preds = %13
-  %35 = or i64 %24, 65793
-  br label %40
+sw.bb21.us:                                       ; preds = %for.body.us
+  %up2.sroa.0.2.insert.insert49.us = or i64 %up2.sroa.0.4.insert.insert.us, 65793
+  br label %sw.epilog.us
 
-36:                                               ; preds = %13
-  %37 = icmp ult i32 %30, 2
-  br i1 %37, label %87, label %40
+sw.bb13.us:                                       ; preds = %for.body.us
+  %switch.us = icmp ult i32 %5, 2
+  br i1 %switch.us, label %if.then18, label %sw.epilog.us
 
-38:                                               ; preds = %13
-  %39 = icmp eq i32 %30, 2
-  br i1 %39, label %83, label %40
+sw.bb6.us:                                        ; preds = %for.body.us
+  %cmp8.us = icmp eq i32 %5, 2
+  br i1 %cmp8.us, label %if.then9, label %sw.epilog.us
 
-40:                                               ; preds = %38, %36, %34, %13
-  %41 = phi i64 [ %29, %13 ], [ %35, %34 ], [ %29, %36 ], [ %24, %38 ]
-  tail call void @_ZN17CBaseRecordVector18ReserveOnePositionEv(ptr noundef nonnull align 8 dereferenceable(32) %2)
-  %42 = load ptr, ptr %11, align 8, !tbaa !12
-  %43 = load i32, ptr %12, align 4, !tbaa !5
-  %44 = sext i32 %43 to i64
-  %45 = getelementptr inbounds %struct.CUpdatePair2, ptr %42, i64 %44
-  store i64 %41, ptr %45, align 4, !tbaa.struct !20
-  %46 = getelementptr inbounds i8, ptr %45, i64 8
-  store i64 %28, ptr %46, align 4, !tbaa.struct !24
-  %47 = load i32, ptr %12, align 4, !tbaa !5
-  %48 = add nsw i32 %47, 1
-  store i32 %48, ptr %12, align 4, !tbaa !5
-  %49 = load i32, ptr %5, align 4, !tbaa !5
-  br label %50
+sw.epilog.us:                                     ; preds = %sw.bb6.us, %sw.bb13.us, %sw.bb21.us, %for.body.us
+  %up2.sroa.0.1.us = phi i64 [ %up2.sroa.0.0.insert.insert.us, %for.body.us ], [ %up2.sroa.0.2.insert.insert49.us, %sw.bb21.us ], [ %up2.sroa.0.0.insert.insert.us, %sw.bb13.us ], [ %up2.sroa.0.4.insert.insert.us, %sw.bb6.us ]
+  tail call void @_ZN17CBaseRecordVector18ReserveOnePositionEv(ptr noundef nonnull align 8 dereferenceable(32) %operationChain)
+  %7 = load ptr, ptr %_items.i37, align 8, !tbaa !12
+  %8 = load i32, ptr %_size.i38, align 4, !tbaa !5
+  %idxprom.i39.us = sext i32 %8 to i64
+  %arrayidx.i40.us = getelementptr inbounds %struct.CUpdatePair2, ptr %7, i64 %idxprom.i39.us
+  store i64 %up2.sroa.0.1.us, ptr %arrayidx.i40.us, align 4, !tbaa.struct !20
+  %item.sroa.2.0.arrayidx.sroa_idx.i.us = getelementptr inbounds i8, ptr %arrayidx.i40.us, i64 8
+  store i64 %up2.sroa.12.8.insert.insert.us, ptr %item.sroa.2.0.arrayidx.sroa_idx.i.us, align 4, !tbaa.struct !24
+  %9 = load i32, ptr %_size.i38, align 4, !tbaa !5
+  %inc.i.us = add nsw i32 %9, 1
+  store i32 %inc.i.us, ptr %_size.i38, align 4, !tbaa !5
+  %.pre = load i32, ptr %_size.i, align 4, !tbaa !5
+  br label %cleanup.us
 
-50:                                               ; preds = %13, %40
-  %51 = phi i32 [ %49, %40 ], [ %14, %13 ]
-  %52 = phi i64 [ %41, %40 ], [ %29, %13 ]
-  %53 = add nuw nsw i64 %15, 1
-  %54 = sext i32 %51 to i64
-  %55 = icmp slt i64 %53, %54
-  br i1 %55, label %13, label %56, !llvm.loop !25
+cleanup.us:                                       ; preds = %for.body.us, %sw.epilog.us
+  %10 = phi i32 [ %.pre, %sw.epilog.us ], [ %1, %for.body.us ]
+  %up2.sroa.0.2.us = phi i64 [ %up2.sroa.0.1.us, %sw.epilog.us ], [ %up2.sroa.0.0.insert.insert.us, %for.body.us ]
+  %indvars.iv.next67 = add nuw nsw i64 %indvars.iv66, 1
+  %11 = sext i32 %10 to i64
+  %cmp.us = icmp slt i64 %indvars.iv.next67, %11
+  br i1 %cmp.us, label %for.body.us, label %for.cond.cleanup, !llvm.loop !25
 
-56:                                               ; preds = %100, %50, %4
-  tail call void @_ZN17CBaseRecordVector11ReserveDownEv(ptr noundef nonnull align 8 dereferenceable(32) %2)
+for.cond.cleanup:                                 ; preds = %cleanup, %cleanup.us, %entry
+  tail call void @_ZN17CBaseRecordVector11ReserveDownEv(ptr noundef nonnull align 8 dereferenceable(32) %operationChain)
   ret void
 
-57:                                               ; preds = %8, %100
-  %58 = phi i64 [ %102, %100 ], [ 0, %8 ]
-  %59 = phi i64 [ %101, %100 ], [ undef, %8 ]
-  %60 = load ptr, ptr %9, align 8, !tbaa !12
-  %61 = getelementptr inbounds %struct.CUpdatePair, ptr %60, i64 %58
-  %62 = and i64 %59, 4278190080
-  %63 = getelementptr inbounds %struct.CUpdatePair, ptr %60, i64 %58, i32 2
-  %64 = load i32, ptr %63, align 4, !tbaa !13
-  %65 = zext i32 %64 to i64
-  %66 = shl nuw i64 %65, 32
-  %67 = or i64 %66, %62
-  %68 = getelementptr inbounds %struct.CUpdatePair, ptr %60, i64 %58, i32 1
-  %69 = load i32, ptr %68, align 4, !tbaa !16
-  %70 = zext i32 %69 to i64
-  %71 = or i64 %70, -4294967296
-  %72 = or i64 %67, 257
-  %73 = load i32, ptr %61, align 4, !tbaa !17
-  %74 = zext i32 %73 to i64
-  %75 = getelementptr inbounds [7 x i32], ptr %1, i64 0, i64 %74
-  %76 = load i32, ptr %75, align 4, !tbaa !18
-  switch i32 %76, label %91 [
-    i32 0, label %77
-    i32 1, label %81
-    i32 2, label %85
-    i32 3, label %89
+for.body:                                         ; preds = %for.body.lr.ph, %cleanup
+  %indvars.iv = phi i64 [ %indvars.iv.next, %cleanup ], [ 0, %for.body.lr.ph ]
+  %up2.sroa.0.060 = phi i64 [ %up2.sroa.0.2, %cleanup ], [ undef, %for.body.lr.ph ]
+  %12 = load ptr, ptr %_items.i, align 8, !tbaa !12
+  %arrayidx.i = getelementptr inbounds %struct.CUpdatePair, ptr %12, i64 %indvars.iv
+  %up2.sroa.0.4.insert.mask54 = and i64 %up2.sroa.0.060, 4278190080
+  %DirIndex = getelementptr inbounds %struct.CUpdatePair, ptr %12, i64 %indvars.iv, i32 2
+  %13 = load i32, ptr %DirIndex, align 4, !tbaa !13
+  %up2.sroa.0.4.insert.ext = zext i32 %13 to i64
+  %up2.sroa.0.4.insert.shift = shl nuw i64 %up2.sroa.0.4.insert.ext, 32
+  %up2.sroa.0.4.insert.insert = or i64 %up2.sroa.0.4.insert.shift, %up2.sroa.0.4.insert.mask54
+  %ArcIndex = getelementptr inbounds %struct.CUpdatePair, ptr %12, i64 %indvars.iv, i32 1
+  %14 = load i32, ptr %ArcIndex, align 4, !tbaa !16
+  %up2.sroa.12.8.insert.ext = zext i32 %14 to i64
+  %up2.sroa.12.8.insert.insert = or i64 %up2.sroa.12.8.insert.ext, -4294967296
+  %up2.sroa.0.0.insert.insert = or i64 %up2.sroa.0.4.insert.insert, 257
+  %15 = load i32, ptr %arrayidx.i, align 4, !tbaa !17
+  %idxprom = zext i32 %15 to i64
+  %arrayidx = getelementptr inbounds [7 x i32], ptr %actionSet, i64 0, i64 %idxprom
+  %16 = load i32, ptr %arrayidx, align 4, !tbaa !18
+  switch i32 %16, label %sw.epilog [
+    i32 0, label %sw.bb
+    i32 1, label %sw.bb6
+    i32 2, label %sw.bb13
+    i32 3, label %sw.bb21
   ]
 
-77:                                               ; preds = %57
-  %78 = load ptr, ptr %3, align 8, !tbaa !27
-  %79 = load ptr, ptr %78, align 8
-  %80 = tail call noundef i32 %79(ptr noundef nonnull align 8 dereferenceable(8) %3, i32 noundef %69)
-  br label %100
+sw.bb:                                            ; preds = %for.body
+  %vtable = load ptr, ptr %callback, align 8, !tbaa !27
+  %17 = load ptr, ptr %vtable, align 8
+  %call5 = tail call noundef i32 %17(ptr noundef nonnull align 8 dereferenceable(8) %callback, i32 noundef %14)
+  br label %cleanup
 
-81:                                               ; preds = %57
-  %82 = icmp eq i32 %73, 2
-  br i1 %82, label %83, label %91
+sw.bb6:                                           ; preds = %for.body
+  %cmp8 = icmp eq i32 %15, 2
+  br i1 %cmp8, label %if.then9, label %sw.epilog
 
-83:                                               ; preds = %81, %38
-  %84 = tail call ptr @__cxa_allocate_exception(i64 8) #2
-  store ptr @.str, ptr %84, align 16, !tbaa !29
-  tail call void @__cxa_throw(ptr nonnull %84, ptr nonnull @_ZTIPKc, ptr null) #3
+if.then9:                                         ; preds = %sw.bb6, %sw.bb6.us
+  %exception = tail call ptr @__cxa_allocate_exception(i64 8) #2
+  store ptr @.str, ptr %exception, align 16, !tbaa !29
+  tail call void @__cxa_throw(ptr nonnull %exception, ptr nonnull @_ZTIPKc, ptr null) #3
   unreachable
 
-85:                                               ; preds = %57
-  %86 = icmp ult i32 %73, 2
-  br i1 %86, label %87, label %91
+sw.bb13:                                          ; preds = %for.body
+  %switch = icmp ult i32 %15, 2
+  br i1 %switch, label %if.then18, label %sw.epilog
 
-87:                                               ; preds = %85, %36
-  %88 = tail call ptr @__cxa_allocate_exception(i64 8) #2
-  store ptr @.str, ptr %88, align 16, !tbaa !29
-  tail call void @__cxa_throw(ptr nonnull %88, ptr nonnull @_ZTIPKc, ptr null) #3
+if.then18:                                        ; preds = %sw.bb13, %sw.bb13.us
+  %exception19 = tail call ptr @__cxa_allocate_exception(i64 8) #2
+  store ptr @.str, ptr %exception19, align 16, !tbaa !29
+  tail call void @__cxa_throw(ptr nonnull %exception19, ptr nonnull @_ZTIPKc, ptr null) #3
   unreachable
 
-89:                                               ; preds = %57
-  %90 = or i64 %67, 65793
-  br label %91
+sw.bb21:                                          ; preds = %for.body
+  %up2.sroa.0.2.insert.insert49 = or i64 %up2.sroa.0.4.insert.insert, 65793
+  br label %sw.epilog
 
-91:                                               ; preds = %81, %85, %57, %89
-  %92 = phi i64 [ %72, %57 ], [ %90, %89 ], [ %72, %85 ], [ %67, %81 ]
-  tail call void @_ZN17CBaseRecordVector18ReserveOnePositionEv(ptr noundef nonnull align 8 dereferenceable(32) %2)
-  %93 = load ptr, ptr %11, align 8, !tbaa !12
-  %94 = load i32, ptr %12, align 4, !tbaa !5
-  %95 = sext i32 %94 to i64
-  %96 = getelementptr inbounds %struct.CUpdatePair2, ptr %93, i64 %95
-  store i64 %92, ptr %96, align 4, !tbaa.struct !20
-  %97 = getelementptr inbounds i8, ptr %96, i64 8
-  store i64 %71, ptr %97, align 4, !tbaa.struct !24
-  %98 = load i32, ptr %12, align 4, !tbaa !5
-  %99 = add nsw i32 %98, 1
-  store i32 %99, ptr %12, align 4, !tbaa !5
-  br label %100
+sw.epilog:                                        ; preds = %sw.bb6, %sw.bb13, %for.body, %sw.bb21
+  %up2.sroa.0.1 = phi i64 [ %up2.sroa.0.0.insert.insert, %for.body ], [ %up2.sroa.0.2.insert.insert49, %sw.bb21 ], [ %up2.sroa.0.0.insert.insert, %sw.bb13 ], [ %up2.sroa.0.4.insert.insert, %sw.bb6 ]
+  tail call void @_ZN17CBaseRecordVector18ReserveOnePositionEv(ptr noundef nonnull align 8 dereferenceable(32) %operationChain)
+  %18 = load ptr, ptr %_items.i37, align 8, !tbaa !12
+  %19 = load i32, ptr %_size.i38, align 4, !tbaa !5
+  %idxprom.i39 = sext i32 %19 to i64
+  %arrayidx.i40 = getelementptr inbounds %struct.CUpdatePair2, ptr %18, i64 %idxprom.i39
+  store i64 %up2.sroa.0.1, ptr %arrayidx.i40, align 4, !tbaa.struct !20
+  %item.sroa.2.0.arrayidx.sroa_idx.i = getelementptr inbounds i8, ptr %arrayidx.i40, i64 8
+  store i64 %up2.sroa.12.8.insert.insert, ptr %item.sroa.2.0.arrayidx.sroa_idx.i, align 4, !tbaa.struct !24
+  %20 = load i32, ptr %_size.i38, align 4, !tbaa !5
+  %inc.i = add nsw i32 %20, 1
+  store i32 %inc.i, ptr %_size.i38, align 4, !tbaa !5
+  br label %cleanup
 
-100:                                              ; preds = %77, %91
-  %101 = phi i64 [ %92, %91 ], [ %72, %77 ]
-  %102 = add nuw nsw i64 %58, 1
-  %103 = load i32, ptr %5, align 4, !tbaa !5
-  %104 = sext i32 %103 to i64
-  %105 = icmp slt i64 %102, %104
-  br i1 %105, label %57, label %56, !llvm.loop !25
+cleanup:                                          ; preds = %sw.bb, %sw.epilog
+  %up2.sroa.0.2 = phi i64 [ %up2.sroa.0.1, %sw.epilog ], [ %up2.sroa.0.0.insert.insert, %sw.bb ]
+  %indvars.iv.next = add nuw nsw i64 %indvars.iv, 1
+  %21 = load i32, ptr %_size.i, align 4, !tbaa !5
+  %22 = sext i32 %21 to i64
+  %cmp = icmp slt i64 %indvars.iv.next, %22
+  br i1 %cmp, label %for.body, label %for.cond.cleanup, !llvm.loop !25
 }
 
 declare ptr @__cxa_allocate_exception(i64) local_unnamed_addr

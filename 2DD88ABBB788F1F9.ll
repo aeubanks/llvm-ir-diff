@@ -14,61 +14,62 @@ target triple = "x86_64-unknown-linux-gnu"
 @.str.12 = private unnamed_addr constant [28 x i8] c"     DEFLATED to\0A(x - %g)*(\00", align 1
 @.str.13 = private unnamed_addr constant [5 x i8] c"%g)\0A\00", align 1
 @.str.14 = private unnamed_addr constant [39 x i8] c"\0A  ROOT = %g (from quadratic formula)\0A\00", align 1
-@str = private unnamed_addr constant [9 x i8] c"No roots\00", align 1
-@str.17 = private unnamed_addr constant [59 x i8] c"----> Refine Root on the Orginal Polynomial (non-deflated)\00", align 1
-@str.19 = private unnamed_addr constant [18 x i8] c"Find all roots of\00", align 1
-@str.20 = private unnamed_addr constant [21 x i8] c"using NEWTON method.\00", align 1
-@str.21 = private unnamed_addr constant [63 x i8] c"==============================================================\00", align 1
+@str.15 = private unnamed_addr constant [18 x i8] c"Find all roots of\00", align 1
+@str.16 = private unnamed_addr constant [21 x i8] c"using NEWTON method.\00", align 1
+@str.17 = private unnamed_addr constant [63 x i8] c"==============================================================\00", align 1
+@str.18 = private unnamed_addr constant [9 x i8] c"No roots\00", align 1
+@str.21 = private unnamed_addr constant [59 x i8] c"----> Refine Root on the Orginal Polynomial (non-deflated)\00", align 1
 
 ; Function Attrs: nounwind uwtable
 define dso_local i32 @main() local_unnamed_addr #0 {
-  %1 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str, double noundef 0x40337AAE58825399, double noundef 0x401CF55906D75FA4)
-  %2 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.21)
-  %3 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.19)
-  %4 = load double, ptr getelementptr inbounds ([4 x double], ptr @main.A, i64 0, i64 3), align 8, !tbaa !5
-  %5 = tail call double @d_abs(double noundef %4) #8
-  %6 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.3, double noundef %5)
-  %7 = load double, ptr getelementptr inbounds ([4 x double], ptr @main.A, i64 0, i64 2), align 16, !tbaa !5
-  %8 = fcmp olt double %7, 0.000000e+00
-  %9 = select i1 %8, ptr @.str.4, ptr @.str.5
-  %10 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) %9, i32 noundef 3)
-  %11 = load double, ptr getelementptr inbounds ([4 x double], ptr @main.A, i64 0, i64 2), align 16, !tbaa !5
-  %12 = tail call double @d_abs(double noundef %11) #8
-  %13 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.3, double noundef %12)
-  %14 = load double, ptr getelementptr inbounds ([4 x double], ptr @main.A, i64 0, i64 1), align 8, !tbaa !5
-  %15 = fcmp olt double %14, 0.000000e+00
-  %16 = select i1 %15, ptr @.str.4, ptr @.str.5
-  %17 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) %16, i32 noundef 2)
-  %18 = load double, ptr getelementptr inbounds ([4 x double], ptr @main.A, i64 0, i64 1), align 8, !tbaa !5
-  %19 = tail call double @d_abs(double noundef %18) #8
-  %20 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.3, double noundef %19)
-  %21 = load double, ptr @main.A, align 16, !tbaa !5
-  %22 = fcmp olt double %21, 0.000000e+00
-  %23 = select i1 %22, ptr @.str.4, ptr @.str.5
-  %24 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) %23, i32 noundef 1)
-  %25 = load double, ptr @main.A, align 16, !tbaa !5
-  %26 = tail call double @d_abs(double noundef %25) #8
-  %27 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.6, double noundef %26)
-  %28 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.20)
-  %29 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.21)
-  %30 = load double, ptr @main.A, align 16, !tbaa !5
-  %31 = tail call double @d_abs(double noundef %30) #8
-  %32 = fadd double %31, 0.000000e+00
-  %33 = load double, ptr getelementptr inbounds ([4 x double], ptr @main.A, i64 0, i64 1), align 8, !tbaa !5
-  %34 = tail call double @d_abs(double noundef %33) #8
-  %35 = fadd double %32, %34
-  %36 = load double, ptr getelementptr inbounds ([4 x double], ptr @main.A, i64 0, i64 2), align 16, !tbaa !5
-  %37 = tail call double @d_abs(double noundef %36) #8
-  %38 = fadd double %35, %37
-  %39 = load double, ptr getelementptr inbounds ([4 x double], ptr @main.A, i64 0, i64 3), align 8, !tbaa !5
-  %40 = tail call double @d_abs(double noundef %39) #8
-  %41 = fadd double %38, %40
-  %42 = load double, ptr getelementptr inbounds ([4 x double], ptr @main.A, i64 0, i64 3), align 8, !tbaa !5
-  %43 = tail call double @d_abs(double noundef %42) #8
-  %44 = fdiv double %41, %43
-  %45 = fsub double -1.000000e+00, %44
-  %46 = tail call double @newton(i32 noundef 3, ptr noundef nonnull @main.A, double noundef %45, double noundef %44) #8
-  tail call void @deflat(i32 noundef 3, ptr noundef nonnull @main.A, i32 noundef 3, ptr noundef nonnull @main.A, double noundef %46) #9
+entry:
+  %call = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str, double noundef 0x40337AAE58825399, double noundef 0x401CF55906D75FA4)
+  %puts = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.17)
+  %puts21 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.15)
+  %0 = load double, ptr getelementptr inbounds ([4 x double], ptr @main.A, i64 0, i64 3), align 8, !tbaa !5
+  %call3 = tail call double @d_abs(double noundef %0) #8
+  %call4 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.3, double noundef %call3)
+  %1 = load double, ptr getelementptr inbounds ([4 x double], ptr @main.A, i64 0, i64 2), align 16, !tbaa !5
+  %cmp7 = fcmp olt double %1, 0.000000e+00
+  %.str.4..str.5 = select i1 %cmp7, ptr @.str.4, ptr @.str.5
+  %call8 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) %.str.4..str.5, i32 noundef 3)
+  %2 = load double, ptr getelementptr inbounds ([4 x double], ptr @main.A, i64 0, i64 2), align 16, !tbaa !5
+  %call3.1 = tail call double @d_abs(double noundef %2) #8
+  %call4.1 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.3, double noundef %call3.1)
+  %3 = load double, ptr getelementptr inbounds ([4 x double], ptr @main.A, i64 0, i64 1), align 8, !tbaa !5
+  %cmp7.1 = fcmp olt double %3, 0.000000e+00
+  %.str.4.sink26 = select i1 %cmp7.1, ptr @.str.4, ptr @.str.5
+  %call8.1 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) %.str.4.sink26, i32 noundef 2)
+  %4 = load double, ptr getelementptr inbounds ([4 x double], ptr @main.A, i64 0, i64 1), align 8, !tbaa !5
+  %call3.2 = tail call double @d_abs(double noundef %4) #8
+  %call4.2 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.3, double noundef %call3.2)
+  %5 = load double, ptr @main.A, align 16, !tbaa !5
+  %cmp7.2 = fcmp olt double %5, 0.000000e+00
+  %.str.4.sink27 = select i1 %cmp7.2, ptr @.str.4, ptr @.str.5
+  %call8.2 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) %.str.4.sink27, i32 noundef 1)
+  %6 = load double, ptr @main.A, align 16, !tbaa !5
+  %call10 = tail call double @d_abs(double noundef %6) #8
+  %call11 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.6, double noundef %call10)
+  %puts22 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.16)
+  %puts23 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.17)
+  %7 = load double, ptr @main.A, align 16, !tbaa !5
+  %call.i = tail call double @d_abs(double noundef %7) #8
+  %add.i = fadd double %call.i, 0.000000e+00
+  %8 = load double, ptr getelementptr inbounds ([4 x double], ptr @main.A, i64 0, i64 1), align 8, !tbaa !5
+  %call.i.1 = tail call double @d_abs(double noundef %8) #8
+  %add.i.1 = fadd double %add.i, %call.i.1
+  %9 = load double, ptr getelementptr inbounds ([4 x double], ptr @main.A, i64 0, i64 2), align 16, !tbaa !5
+  %call.i.2 = tail call double @d_abs(double noundef %9) #8
+  %add.i.2 = fadd double %add.i.1, %call.i.2
+  %10 = load double, ptr getelementptr inbounds ([4 x double], ptr @main.A, i64 0, i64 3), align 8, !tbaa !5
+  %call.i.3 = tail call double @d_abs(double noundef %10) #8
+  %add.i.3 = fadd double %add.i.2, %call.i.3
+  %11 = load double, ptr getelementptr inbounds ([4 x double], ptr @main.A, i64 0, i64 3), align 8, !tbaa !5
+  %call3.i = tail call double @d_abs(double noundef %11) #8
+  %div.i = fdiv double %add.i.3, %call3.i
+  %sub.i = fsub double -1.000000e+00, %div.i
+  %call46.i = tail call double @newton(i32 noundef 3, ptr noundef nonnull @main.A, double noundef %sub.i, double noundef %div.i) #8
+  tail call void @deflat(i32 noundef 3, ptr noundef nonnull @main.A, i32 noundef 3, ptr noundef nonnull @main.A, double noundef %call46.i) #9
   ret i32 0
 }
 
@@ -78,89 +79,90 @@ declare noundef i32 @printf(ptr nocapture noundef readonly, ...) local_unnamed_a
 declare double @d_abs(double noundef) local_unnamed_addr #2
 
 ; Function Attrs: nounwind uwtable
-define dso_local void @allroots(i32 noundef %0, ptr noundef %1, i32 noundef %2, ptr noundef %3) local_unnamed_addr #0 {
-  %5 = icmp slt i32 %2, 0
-  br i1 %5, label %18, label %6
+define dso_local void @allroots(i32 noundef %No, ptr noundef %Po, i32 noundef %N, ptr noundef %Pn) local_unnamed_addr #0 {
+entry:
+  %cmp.not80 = icmp slt i32 %N, 0
+  br i1 %cmp.not80, label %for.end, label %for.body.preheader
 
-6:                                                ; preds = %4
-  %7 = add nuw i32 %2, 1
-  %8 = zext i32 %7 to i64
-  br label %9
+for.body.preheader:                               ; preds = %entry
+  %0 = add nuw i32 %N, 1
+  %wide.trip.count = zext i32 %0 to i64
+  br label %for.body
 
-9:                                                ; preds = %6, %9
-  %10 = phi i64 [ 0, %6 ], [ %16, %9 ]
-  %11 = phi double [ 0.000000e+00, %6 ], [ %15, %9 ]
-  %12 = getelementptr inbounds double, ptr %3, i64 %10
-  %13 = load double, ptr %12, align 8, !tbaa !5
-  %14 = tail call double @d_abs(double noundef %13) #8
-  %15 = fadd double %11, %14
-  %16 = add nuw nsw i64 %10, 1
-  %17 = icmp eq i64 %16, %8
-  br i1 %17, label %18, label %9, !llvm.loop !9
+for.body:                                         ; preds = %for.body.preheader, %for.body
+  %indvars.iv = phi i64 [ 0, %for.body.preheader ], [ %indvars.iv.next, %for.body ]
+  %UPPER.082 = phi double [ 0.000000e+00, %for.body.preheader ], [ %add, %for.body ]
+  %arrayidx = getelementptr inbounds double, ptr %Pn, i64 %indvars.iv
+  %1 = load double, ptr %arrayidx, align 8, !tbaa !5
+  %call = tail call double @d_abs(double noundef %1) #8
+  %add = fadd double %UPPER.082, %call
+  %indvars.iv.next = add nuw nsw i64 %indvars.iv, 1
+  %exitcond.not = icmp eq i64 %indvars.iv.next, %wide.trip.count
+  br i1 %exitcond.not, label %for.end, label %for.body, !llvm.loop !9
 
-18:                                               ; preds = %9, %4
-  %19 = phi double [ 0.000000e+00, %4 ], [ %15, %9 ]
-  %20 = sext i32 %2 to i64
-  %21 = getelementptr inbounds double, ptr %3, i64 %20
-  %22 = load double, ptr %21, align 8, !tbaa !5
-  %23 = tail call double @d_abs(double noundef %22) #8
-  switch i32 %2, label %61 [
-    i32 0, label %24
-    i32 1, label %26
-    i32 2, label %33
+for.end:                                          ; preds = %for.body, %entry
+  %UPPER.0.lcssa = phi double [ 0.000000e+00, %entry ], [ %add, %for.body ]
+  %idxprom1 = sext i32 %N to i64
+  %arrayidx2 = getelementptr inbounds double, ptr %Pn, i64 %idxprom1
+  %2 = load double, ptr %arrayidx2, align 8, !tbaa !5
+  %call3 = tail call double @d_abs(double noundef %2) #8
+  switch i32 %N, label %if.else45 [
+    i32 0, label %if.then
+    i32 1, label %if.then7
+    i32 2, label %if.then15
   ]
 
-24:                                               ; preds = %18
-  %25 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str)
-  br label %65
+if.then:                                          ; preds = %for.end
+  %puts = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.18)
+  br label %if.end48
 
-26:                                               ; preds = %18
-  %27 = load double, ptr %3, align 8, !tbaa !5
-  %28 = fneg double %27
-  %29 = getelementptr inbounds double, ptr %3, i64 1
-  %30 = load double, ptr %29, align 8, !tbaa !5
-  %31 = fdiv double %28, %30
-  %32 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.9, double noundef %31)
-  br label %65
+if.then7:                                         ; preds = %for.end
+  %3 = load double, ptr %Pn, align 8, !tbaa !5
+  %fneg9 = fneg double %3
+  %arrayidx10 = getelementptr inbounds double, ptr %Pn, i64 1
+  %4 = load double, ptr %arrayidx10, align 8, !tbaa !5
+  %div11 = fdiv double %fneg9, %4
+  %call12 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.9, double noundef %div11)
+  br label %if.end48
 
-33:                                               ; preds = %18
-  %34 = getelementptr inbounds double, ptr %3, i64 1
-  %35 = load double, ptr %34, align 8, !tbaa !5
-  %36 = getelementptr inbounds double, ptr %3, i64 2
-  %37 = load double, ptr %36, align 8, !tbaa !5
-  %38 = load double, ptr %3, align 8, !tbaa !5
-  %39 = fmul double %37, -4.000000e+00
-  %40 = fmul double %39, %38
-  %41 = tail call double @llvm.fmuladd.f64(double %35, double %35, double %40)
-  %42 = tail call double @sqrt(double noundef %41) #8
-  %43 = fsub double %42, %35
-  %44 = load double, ptr %36, align 8, !tbaa !5
-  %45 = fmul double %44, 2.000000e+00
-  %46 = fdiv double %43, %45
-  %47 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.10, double noundef %46)
-  %48 = load double, ptr %34, align 8, !tbaa !5
-  %49 = fneg double %48
-  %50 = load double, ptr %36, align 8, !tbaa !5
-  %51 = load double, ptr %3, align 8, !tbaa !5
-  %52 = fmul double %50, -4.000000e+00
-  %53 = fmul double %52, %51
-  %54 = tail call double @llvm.fmuladd.f64(double %48, double %48, double %53)
-  %55 = tail call double @sqrt(double noundef %54) #8
-  %56 = fsub double %49, %55
-  %57 = load double, ptr %36, align 8, !tbaa !5
-  %58 = fmul double %57, 2.000000e+00
-  %59 = fdiv double %56, %58
-  %60 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.10, double noundef %59)
-  br label %65
+if.then15:                                        ; preds = %for.end
+  %arrayidx16 = getelementptr inbounds double, ptr %Pn, i64 1
+  %5 = load double, ptr %arrayidx16, align 8, !tbaa !5
+  %arrayidx20 = getelementptr inbounds double, ptr %Pn, i64 2
+  %6 = load double, ptr %arrayidx20, align 8, !tbaa !5
+  %7 = load double, ptr %Pn, align 8, !tbaa !5
+  %8 = fmul double %6, -4.000000e+00
+  %neg = fmul double %8, %7
+  %9 = tail call double @llvm.fmuladd.f64(double %5, double %5, double %neg)
+  %call24 = tail call double @sqrt(double noundef %9) #8
+  %add25 = fsub double %call24, %5
+  %10 = load double, ptr %arrayidx20, align 8, !tbaa !5
+  %mul = fmul double %10, 2.000000e+00
+  %div27 = fdiv double %add25, %mul
+  %call28 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.10, double noundef %div27)
+  %11 = load double, ptr %arrayidx16, align 8, !tbaa !5
+  %fneg30 = fneg double %11
+  %12 = load double, ptr %arrayidx20, align 8, !tbaa !5
+  %13 = load double, ptr %Pn, align 8, !tbaa !5
+  %14 = fmul double %12, -4.000000e+00
+  %neg38 = fmul double %14, %13
+  %15 = tail call double @llvm.fmuladd.f64(double %11, double %11, double %neg38)
+  %call39 = tail call double @sqrt(double noundef %15) #8
+  %sub40 = fsub double %fneg30, %call39
+  %16 = load double, ptr %arrayidx20, align 8, !tbaa !5
+  %mul42 = fmul double %16, 2.000000e+00
+  %div43 = fdiv double %sub40, %mul42
+  %call44 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.10, double noundef %div43)
+  br label %if.end48
 
-61:                                               ; preds = %18
-  %62 = fdiv double %19, %23
-  %63 = fsub double -1.000000e+00, %62
-  %64 = tail call double @newton(i32 noundef %2, ptr noundef nonnull %3, double noundef %63, double noundef %62) #8
-  tail call void @deflat(i32 noundef %0, ptr noundef %1, i32 noundef %2, ptr noundef nonnull %3, double noundef %64)
-  br label %65
+if.else45:                                        ; preds = %for.end
+  %div = fdiv double %UPPER.0.lcssa, %call3
+  %sub = fsub double -1.000000e+00, %div
+  %call46 = tail call double @newton(i32 noundef %N, ptr noundef nonnull %Pn, double noundef %sub, double noundef %div) #8
+  tail call void @deflat(i32 noundef %No, ptr noundef %Po, i32 noundef %N, ptr noundef nonnull %Pn, double noundef %call46)
+  br label %if.end48
 
-65:                                               ; preds = %26, %61, %33, %24
+if.end48:                                         ; preds = %if.then7, %if.else45, %if.then15, %if.then
   ret void
 }
 
@@ -173,177 +175,176 @@ declare double @llvm.fmuladd.f64(double, double, double) #4
 declare double @newton(i32 noundef, ptr noundef, double noundef, double noundef) local_unnamed_addr #2
 
 ; Function Attrs: nounwind uwtable
-define dso_local void @deflat(i32 noundef %0, ptr noundef %1, i32 noundef %2, ptr nocapture noundef readonly %3, double noundef %4) local_unnamed_addr #0 {
-  %6 = icmp eq i32 %2, %0
-  br i1 %6, label %12, label %7
+define dso_local void @deflat(i32 noundef %No, ptr noundef %Po, i32 noundef %N, ptr nocapture noundef readonly %Pn, double noundef %ROOT) local_unnamed_addr #0 {
+entry:
+  %cmp.not = icmp eq i32 %N, %No
+  br i1 %cmp.not, label %if.end, label %if.then
 
-7:                                                ; preds = %5
-  %8 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.17)
-  %9 = fadd double %4, -5.000000e-01
-  %10 = fadd double %4, 5.000000e-01
-  %11 = tail call double @newton(i32 noundef %0, ptr noundef %1, double noundef %9, double noundef %10) #8
-  br label %12
+if.then:                                          ; preds = %entry
+  %puts170 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.21)
+  %sub = fadd double %ROOT, -5.000000e-01
+  %add = fadd double %ROOT, 5.000000e-01
+  %call1 = tail call double @newton(i32 noundef %No, ptr noundef %Po, double noundef %sub, double noundef %add) #8
+  br label %if.end
 
-12:                                               ; preds = %7, %5
-  %13 = sext i32 %2 to i64
-  %14 = tail call noalias ptr @calloc(i64 noundef %13, i64 noundef 8) #10
-  %15 = getelementptr inbounds double, ptr %3, i64 %13
-  %16 = load double, ptr %15, align 8, !tbaa !5
-  %17 = add nsw i32 %2, -1
-  %18 = sext i32 %17 to i64
-  %19 = getelementptr inbounds double, ptr %14, i64 %18
-  store double %16, ptr %19, align 8, !tbaa !5
-  %20 = icmp sgt i32 %2, 1
-  br i1 %20, label %21, label %38
+if.end:                                           ; preds = %if.then, %entry
+  %conv = sext i32 %N to i64
+  %call2 = tail call noalias ptr @calloc(i64 noundef %conv, i64 noundef 8) #10
+  %arrayidx = getelementptr inbounds double, ptr %Pn, i64 %conv
+  %0 = load double, ptr %arrayidx, align 8, !tbaa !5
+  %sub3 = add nsw i32 %N, -1
+  %idxprom4 = sext i32 %sub3 to i64
+  %arrayidx5 = getelementptr inbounds double, ptr %call2, i64 %idxprom4
+  store double %0, ptr %arrayidx5, align 8, !tbaa !5
+  %cmp7171 = icmp sgt i32 %N, 1
+  br i1 %cmp7171, label %for.body.preheader, label %for.cond17.preheader
 
-21:                                               ; preds = %12
-  %22 = add nsw i32 %2, -2
-  %23 = zext i32 %22 to i64
-  %24 = and i64 %23, 1
-  %25 = icmp eq i64 %24, 0
-  br i1 %25, label %26, label %35
+for.body.preheader:                               ; preds = %if.end
+  %sub6 = add nsw i32 %N, -2
+  %1 = zext i32 %sub6 to i64
+  %2 = and i64 %1, 1
+  %lcmp.mod.not.not = icmp eq i64 %2, 0
+  br i1 %lcmp.mod.not.not, label %for.body.prol, label %for.body.prol.loopexit
 
-26:                                               ; preds = %21
-  %27 = add nuw nsw i64 %23, 1
-  %28 = getelementptr inbounds double, ptr %14, i64 %27
-  %29 = load double, ptr %28, align 8, !tbaa !5
-  %30 = getelementptr inbounds double, ptr %3, i64 %27
-  %31 = load double, ptr %30, align 8, !tbaa !5
-  %32 = tail call double @llvm.fmuladd.f64(double %29, double %4, double %31)
-  %33 = getelementptr inbounds double, ptr %14, i64 %23
-  store double %32, ptr %33, align 8, !tbaa !5
-  %34 = add nsw i64 %23, -1
-  br label %35
+for.body.prol:                                    ; preds = %for.body.preheader
+  %3 = add nuw nsw i64 %1, 1
+  %arrayidx11.prol = getelementptr inbounds double, ptr %call2, i64 %3
+  %4 = load double, ptr %arrayidx11.prol, align 8, !tbaa !5
+  %arrayidx14.prol = getelementptr inbounds double, ptr %Pn, i64 %3
+  %5 = load double, ptr %arrayidx14.prol, align 8, !tbaa !5
+  %6 = tail call double @llvm.fmuladd.f64(double %4, double %ROOT, double %5)
+  %arrayidx16.prol = getelementptr inbounds double, ptr %call2, i64 %1
+  store double %6, ptr %arrayidx16.prol, align 8, !tbaa !5
+  %indvars.iv.next.prol = add nsw i64 %1, -1
+  br label %for.body.prol.loopexit
 
-35:                                               ; preds = %26, %21
-  %36 = phi i64 [ %23, %21 ], [ %34, %26 ]
-  %37 = icmp eq i32 %22, 0
-  br i1 %37, label %38, label %42
+for.body.prol.loopexit:                           ; preds = %for.body.prol, %for.body.preheader
+  %indvars.iv.unr = phi i64 [ %1, %for.body.preheader ], [ %indvars.iv.next.prol, %for.body.prol ]
+  %7 = icmp eq i32 %sub6, 0
+  br i1 %7, label %for.cond17.preheader, label %for.body
 
-38:                                               ; preds = %35, %42, %12
-  %39 = icmp sgt i32 %2, 0
-  br i1 %39, label %40, label %74
+for.cond17.preheader:                             ; preds = %for.body.prol.loopexit, %for.body, %if.end
+  %cmp18173 = icmp sgt i32 %N, 0
+  br i1 %cmp18173, label %for.body20.preheader, label %for.end36
 
-40:                                               ; preds = %38
-  %41 = zext i32 %2 to i64
-  br label %58
+for.body20.preheader:                             ; preds = %for.cond17.preheader
+  %8 = zext i32 %N to i64
+  br label %for.body20
 
-42:                                               ; preds = %35, %42
-  %43 = phi i64 [ %56, %42 ], [ %36, %35 ]
-  %44 = add nuw nsw i64 %43, 1
-  %45 = getelementptr inbounds double, ptr %14, i64 %44
-  %46 = load double, ptr %45, align 8, !tbaa !5
-  %47 = getelementptr inbounds double, ptr %3, i64 %44
-  %48 = load double, ptr %47, align 8, !tbaa !5
-  %49 = tail call double @llvm.fmuladd.f64(double %46, double %4, double %48)
-  %50 = getelementptr inbounds double, ptr %14, i64 %43
-  store double %49, ptr %50, align 8, !tbaa !5
-  %51 = add nsw i64 %43, -1
-  %52 = getelementptr inbounds double, ptr %3, i64 %43
-  %53 = load double, ptr %52, align 8, !tbaa !5
-  %54 = tail call double @llvm.fmuladd.f64(double %49, double %4, double %53)
-  %55 = getelementptr inbounds double, ptr %14, i64 %51
-  store double %54, ptr %55, align 8, !tbaa !5
-  %56 = add nsw i64 %43, -2
-  %57 = icmp eq i64 %51, 0
-  br i1 %57, label %38, label %42, !llvm.loop !11
+for.body:                                         ; preds = %for.body.prol.loopexit, %for.body
+  %indvars.iv = phi i64 [ %indvars.iv.next.1, %for.body ], [ %indvars.iv.unr, %for.body.prol.loopexit ]
+  %9 = add nuw nsw i64 %indvars.iv, 1
+  %arrayidx11 = getelementptr inbounds double, ptr %call2, i64 %9
+  %10 = load double, ptr %arrayidx11, align 8, !tbaa !5
+  %arrayidx14 = getelementptr inbounds double, ptr %Pn, i64 %9
+  %11 = load double, ptr %arrayidx14, align 8, !tbaa !5
+  %12 = tail call double @llvm.fmuladd.f64(double %10, double %ROOT, double %11)
+  %arrayidx16 = getelementptr inbounds double, ptr %call2, i64 %indvars.iv
+  store double %12, ptr %arrayidx16, align 8, !tbaa !5
+  %indvars.iv.next = add nsw i64 %indvars.iv, -1
+  %arrayidx14.1 = getelementptr inbounds double, ptr %Pn, i64 %indvars.iv
+  %13 = load double, ptr %arrayidx14.1, align 8, !tbaa !5
+  %14 = tail call double @llvm.fmuladd.f64(double %12, double %ROOT, double %13)
+  %arrayidx16.1 = getelementptr inbounds double, ptr %call2, i64 %indvars.iv.next
+  store double %14, ptr %arrayidx16.1, align 8, !tbaa !5
+  %indvars.iv.next.1 = add nsw i64 %indvars.iv, -2
+  %cmp7.not.1 = icmp eq i64 %indvars.iv.next, 0
+  br i1 %cmp7.not.1, label %for.cond17.preheader, label %for.body, !llvm.loop !11
 
-58:                                               ; preds = %40, %58
-  %59 = phi i64 [ %41, %40 ], [ %72, %58 ]
-  %60 = trunc i64 %59 to i32
-  %61 = getelementptr inbounds double, ptr %3, i64 %59
-  %62 = load double, ptr %61, align 8, !tbaa !5
-  %63 = tail call double @d_abs(double noundef %62) #8
-  %64 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.3, double noundef %63)
-  %65 = add nuw i64 %59, 4294967295
-  %66 = and i64 %65, 4294967295
-  %67 = getelementptr inbounds double, ptr %3, i64 %66
-  %68 = load double, ptr %67, align 8, !tbaa !5
-  %69 = fcmp olt double %68, 0.000000e+00
-  %70 = select i1 %69, ptr @.str.4, ptr @.str.5
-  %71 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) %70, i32 noundef %60)
-  %72 = add nsw i64 %59, -1
-  %73 = icmp sgt i64 %59, 1
-  br i1 %73, label %58, label %74, !llvm.loop !12
+for.body20:                                       ; preds = %for.body20.preheader, %for.body20
+  %indvars.iv179 = phi i64 [ %8, %for.body20.preheader ], [ %indvars.iv.next180, %for.body20 ]
+  %arrayidx22 = getelementptr inbounds double, ptr %Pn, i64 %indvars.iv179
+  %15 = load double, ptr %arrayidx22, align 8, !tbaa !5
+  %call23 = tail call double @d_abs(double noundef %15) #8
+  %call24 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.3, double noundef %call23)
+  %indvars.iv.next180 = add nsw i64 %indvars.iv179, -1
+  %idxprom26 = and i64 %indvars.iv.next180, 4294967295
+  %arrayidx27 = getelementptr inbounds double, ptr %Pn, i64 %idxprom26
+  %16 = load double, ptr %arrayidx27, align 8, !tbaa !5
+  %cmp28 = fcmp olt double %16, 0.000000e+00
+  %17 = trunc i64 %indvars.iv179 to i32
+  %.str.4..str.5 = select i1 %cmp28, ptr @.str.4, ptr @.str.5
+  %call31 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) %.str.4..str.5, i32 noundef %17)
+  %cmp18 = icmp ugt i64 %indvars.iv179, 1
+  br i1 %cmp18, label %for.body20, label %for.end36, !llvm.loop !12
 
-74:                                               ; preds = %58, %38
-  %75 = load double, ptr %3, align 8, !tbaa !5
-  %76 = tail call double @d_abs(double noundef %75) #8
-  %77 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.6, double noundef %76)
-  %78 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.12, double noundef %4)
-  br i1 %20, label %79, label %97
+for.end36:                                        ; preds = %for.body20, %for.cond17.preheader
+  %18 = load double, ptr %Pn, align 8, !tbaa !5
+  %call38 = tail call double @d_abs(double noundef %18) #8
+  %call39 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.6, double noundef %call38)
+  %call40 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.12, double noundef %ROOT)
+  br i1 %cmp7171, label %for.body45.preheader, label %for.end62
 
-79:                                               ; preds = %74
-  %80 = zext i32 %17 to i64
-  br label %81
+for.body45.preheader:                             ; preds = %for.end36
+  %19 = zext i32 %sub3 to i64
+  br label %for.body45
 
-81:                                               ; preds = %79, %81
-  %82 = phi i64 [ %80, %79 ], [ %95, %81 ]
-  %83 = trunc i64 %82 to i32
-  %84 = getelementptr inbounds double, ptr %14, i64 %82
-  %85 = load double, ptr %84, align 8, !tbaa !5
-  %86 = tail call double @d_abs(double noundef %85) #8
-  %87 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.3, double noundef %86)
-  %88 = add nuw i64 %82, 4294967295
-  %89 = and i64 %88, 4294967295
-  %90 = getelementptr inbounds double, ptr %14, i64 %89
-  %91 = load double, ptr %90, align 8, !tbaa !5
-  %92 = fcmp olt double %91, 0.000000e+00
-  %93 = select i1 %92, ptr @.str.4, ptr @.str.5
-  %94 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) %93, i32 noundef %83)
-  %95 = add nsw i64 %82, -1
-  %96 = icmp sgt i64 %82, 1
-  br i1 %96, label %81, label %97, !llvm.loop !13
+for.body45:                                       ; preds = %for.body45.preheader, %for.body45
+  %indvars.iv182 = phi i64 [ %19, %for.body45.preheader ], [ %indvars.iv.next183, %for.body45 ]
+  %arrayidx47 = getelementptr inbounds double, ptr %call2, i64 %indvars.iv182
+  %20 = load double, ptr %arrayidx47, align 8, !tbaa !5
+  %call48 = tail call double @d_abs(double noundef %20) #8
+  %call49 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.3, double noundef %call48)
+  %indvars.iv.next183 = add nsw i64 %indvars.iv182, -1
+  %idxprom51 = and i64 %indvars.iv.next183, 4294967295
+  %arrayidx52 = getelementptr inbounds double, ptr %call2, i64 %idxprom51
+  %21 = load double, ptr %arrayidx52, align 8, !tbaa !5
+  %cmp53 = fcmp olt double %21, 0.000000e+00
+  %22 = trunc i64 %indvars.iv182 to i32
+  %.str.4..str.5187 = select i1 %cmp53, ptr @.str.4, ptr @.str.5
+  %call56 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) %.str.4..str.5187, i32 noundef %22)
+  %cmp43 = icmp ugt i64 %indvars.iv182, 1
+  br i1 %cmp43, label %for.body45, label %for.end62, !llvm.loop !13
 
-97:                                               ; preds = %81, %74
-  %98 = load double, ptr %14, align 8, !tbaa !5
-  %99 = tail call double @d_abs(double noundef %98) #8
-  %100 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.13, double noundef %99)
-  %101 = icmp eq i32 %2, 3
-  br i1 %101, label %102, label %136
+for.end62:                                        ; preds = %for.body45, %for.end36
+  %23 = load double, ptr %call2, align 8, !tbaa !5
+  %call64 = tail call double @d_abs(double noundef %23) #8
+  %call65 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.13, double noundef %call64)
+  %cmp66 = icmp eq i32 %N, 3
+  br i1 %cmp66, label %if.then68, label %if.else104
 
-102:                                              ; preds = %97
-  %103 = getelementptr inbounds double, ptr %14, i64 1
-  %104 = load double, ptr %103, align 8, !tbaa !5
-  %105 = getelementptr inbounds double, ptr %14, i64 2
-  %106 = load double, ptr %105, align 8, !tbaa !5
-  %107 = fmul double %106, -4.000000e+00
-  %108 = fmul double %107, %98
-  %109 = tail call double @llvm.fmuladd.f64(double %104, double %104, double %108)
-  %110 = tail call double @sqrt(double noundef %109) #8
-  %111 = fsub double %110, %104
-  %112 = load double, ptr %105, align 8, !tbaa !5
-  %113 = fmul double %112, 2.000000e+00
-  %114 = fdiv double %111, %113
-  %115 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.14, double noundef %114)
-  %116 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.17)
-  %117 = fadd double %114, -5.000000e-01
-  %118 = fadd double %114, 5.000000e-01
-  %119 = tail call double @newton(i32 noundef %0, ptr noundef %1, double noundef %117, double noundef %118) #8
-  %120 = load double, ptr %103, align 8, !tbaa !5
-  %121 = fneg double %120
-  %122 = load double, ptr %14, align 8, !tbaa !5
-  %123 = fmul double %112, -4.000000e+00
-  %124 = fmul double %123, %122
-  %125 = tail call double @llvm.fmuladd.f64(double %120, double %120, double %124)
-  %126 = tail call double @sqrt(double noundef %125) #8
-  %127 = fsub double %121, %126
-  %128 = load double, ptr %105, align 8, !tbaa !5
-  %129 = fmul double %128, 2.000000e+00
-  %130 = fdiv double %127, %129
-  %131 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.10, double noundef %130)
-  %132 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.17)
-  %133 = fadd double %130, -5.000000e-01
-  %134 = fadd double %130, 5.000000e-01
-  %135 = tail call double @newton(i32 noundef %0, ptr noundef %1, double noundef %133, double noundef %134) #8
-  br label %137
+if.then68:                                        ; preds = %for.end62
+  %arrayidx69 = getelementptr inbounds double, ptr %call2, i64 1
+  %24 = load double, ptr %arrayidx69, align 8, !tbaa !5
+  %arrayidx72 = getelementptr inbounds double, ptr %call2, i64 2
+  %25 = load double, ptr %arrayidx72, align 8, !tbaa !5
+  %26 = fmul double %25, -4.000000e+00
+  %neg = fmul double %26, %23
+  %27 = tail call double @llvm.fmuladd.f64(double %24, double %24, double %neg)
+  %call76 = tail call double @sqrt(double noundef %27) #8
+  %add77 = fsub double %call76, %24
+  %28 = load double, ptr %arrayidx72, align 8, !tbaa !5
+  %mul = fmul double %28, 2.000000e+00
+  %div = fdiv double %add77, %mul
+  %call79 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.14, double noundef %div)
+  %puts = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.21)
+  %sub81 = fadd double %div, -5.000000e-01
+  %add82 = fadd double %div, 5.000000e-01
+  %call83 = tail call double @newton(i32 noundef %No, ptr noundef %Po, double noundef %sub81, double noundef %add82) #8
+  %29 = load double, ptr %arrayidx69, align 8, !tbaa !5
+  %fneg85 = fneg double %29
+  %30 = load double, ptr %call2, align 8, !tbaa !5
+  %31 = fmul double %28, -4.000000e+00
+  %neg93 = fmul double %31, %30
+  %32 = tail call double @llvm.fmuladd.f64(double %29, double %29, double %neg93)
+  %call94 = tail call double @sqrt(double noundef %32) #8
+  %sub95 = fsub double %fneg85, %call94
+  %33 = load double, ptr %arrayidx72, align 8, !tbaa !5
+  %mul97 = fmul double %33, 2.000000e+00
+  %div98 = fdiv double %sub95, %mul97
+  %call99 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.10, double noundef %div98)
+  %puts169 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.21)
+  %sub101 = fadd double %div98, -5.000000e-01
+  %add102 = fadd double %div98, 5.000000e-01
+  %call103 = tail call double @newton(i32 noundef %No, ptr noundef %Po, double noundef %sub101, double noundef %add102) #8
+  br label %if.end106
 
-136:                                              ; preds = %97
-  tail call void @allroots(i32 noundef %0, ptr noundef %1, i32 noundef %17, ptr noundef nonnull %14)
-  br label %137
+if.else104:                                       ; preds = %for.end62
+  tail call void @allroots(i32 noundef %No, ptr noundef %Po, i32 noundef %sub3, ptr noundef nonnull %call2)
+  br label %if.end106
 
-137:                                              ; preds = %136, %102
-  tail call void @free(ptr noundef nonnull %14) #8
+if.end106:                                        ; preds = %if.else104, %if.then68
+  tail call void @free(ptr noundef nonnull %call2) #8
   ret void
 }
 

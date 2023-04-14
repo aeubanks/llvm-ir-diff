@@ -7,16 +7,18 @@ target triple = "x86_64-unknown-linux-gnu"
 
 ; Function Attrs: nounwind uwtable
 define dso_local i32 @main() local_unnamed_addr #0 {
-  %1 = load i32, ptr @a, align 4, !tbaa !5
-  %2 = mul i32 %1, -939524096
-  %3 = icmp sgt i32 %2, 0
-  br i1 %3, label %4, label %5
+entry:
+  %0 = load i32, ptr @a, align 4, !tbaa !5
+  %conv1 = trunc i32 %0 to i8
+  %mul.i = mul i8 %conv1, -56
+  %cmp = icmp sgt i8 %mul.i, 0
+  br i1 %cmp, label %if.then, label %if.end
 
-4:                                                ; preds = %0
+if.then:                                          ; preds = %entry
   tail call void @abort() #2
   unreachable
 
-5:                                                ; preds = %0
+if.end:                                           ; preds = %entry
   ret i32 0
 }
 

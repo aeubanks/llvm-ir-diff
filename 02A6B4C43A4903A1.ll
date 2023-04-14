@@ -4,47 +4,47 @@ target datalayout = "e-m:e-p270:32:32-p271:32:32-p272:64:64-i64:64-f80:128-n8:16
 target triple = "x86_64-unknown-linux-gnu"
 
 ; Function Attrs: mustprogress uwtable
-define dso_local noundef i32 @_Z10ReadStreamP19ISequentialInStreamPvPm(ptr noundef %0, ptr noundef %1, ptr nocapture noundef %2) local_unnamed_addr #0 {
-  %4 = alloca i32, align 4
-  %5 = load i64, ptr %2, align 8, !tbaa !5
-  store i64 0, ptr %2, align 8, !tbaa !5
-  %6 = icmp eq i64 %5, 0
-  br i1 %6, label %28, label %7
+define dso_local noundef i32 @_Z10ReadStreamP19ISequentialInStreamPvPm(ptr noundef %stream, ptr noundef %data, ptr nocapture noundef %processedSize) local_unnamed_addr #0 {
+entry:
+  %processedSizeLoc = alloca i32, align 4
+  %0 = load i64, ptr %processedSize, align 8, !tbaa !5
+  store i64 0, ptr %processedSize, align 8, !tbaa !5
+  br label %while.cond
 
-7:                                                ; preds = %3, %24
-  %8 = phi ptr [ %26, %24 ], [ %1, %3 ]
-  %9 = phi i64 [ %25, %24 ], [ %5, %3 ]
-  %10 = call i64 @llvm.umin.i64(i64 %9, i64 2147483648)
-  %11 = trunc i64 %10 to i32
-  call void @llvm.lifetime.start.p0(i64 4, ptr nonnull %4) #3
-  %12 = load ptr, ptr %0, align 8, !tbaa !9
-  %13 = getelementptr inbounds ptr, ptr %12, i64 5
-  %14 = load ptr, ptr %13, align 8
-  %15 = call noundef i32 %14(ptr noundef nonnull align 8 dereferenceable(8) %0, ptr noundef %8, i32 noundef %11, ptr noundef nonnull %4)
-  %16 = load i32, ptr %4, align 4, !tbaa !11
-  %17 = zext i32 %16 to i64
-  %18 = load i64, ptr %2, align 8, !tbaa !5
-  %19 = add i64 %18, %17
-  store i64 %19, ptr %2, align 8, !tbaa !5
-  %20 = icmp ne i32 %15, 0
-  %21 = icmp eq i32 %16, 0
-  %22 = select i1 %20, i1 true, i1 %21
-  br i1 %22, label %23, label %24
+while.cond:                                       ; preds = %while.body, %entry
+  %size.0 = phi i64 [ %0, %entry ], [ %sub, %while.body ]
+  %data.addr.0 = phi ptr [ %data, %entry ], [ %add.ptr, %while.body ]
+  %retval.0 = phi i32 [ undef, %entry ], [ %retval.2, %while.body ]
+  %cmp.not = icmp eq i64 %size.0, 0
+  br i1 %cmp.not, label %cleanup13, label %while.body
 
-23:                                               ; preds = %7
-  call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %4) #3
-  br label %28
+while.body:                                       ; preds = %while.cond
+  %cond24 = call i64 @llvm.umin.i64(i64 %size.0, i64 2147483648)
+  %cond = trunc i64 %cond24 to i32
+  call void @llvm.lifetime.start.p0(i64 4, ptr nonnull %processedSizeLoc) #3
+  %vtable = load ptr, ptr %stream, align 8, !tbaa !9
+  %vfn = getelementptr inbounds ptr, ptr %vtable, i64 5
+  %1 = load ptr, ptr %vfn, align 8
+  %call = call noundef i32 %1(ptr noundef nonnull align 8 dereferenceable(8) %stream, ptr noundef %data.addr.0, i32 noundef %cond, ptr noundef nonnull %processedSizeLoc)
+  %2 = load i32, ptr %processedSizeLoc, align 4
+  %conv2 = zext i32 %2 to i64
+  %3 = load i64, ptr %processedSize, align 8, !tbaa !5
+  %add = add i64 %3, %conv2
+  store i64 %add, ptr %processedSize, align 8, !tbaa !5
+  %add.ptr = getelementptr inbounds i8, ptr %data.addr.0, i64 %conv2
+  %sub = sub i64 %size.0, %conv2
+  %cmp4.not = icmp eq i32 %call, 0
+  %cmp5 = icmp ne i32 %2, 0
+  %4 = and i1 %cmp4.not, %cmp5
+  %.retval.0.call = select i1 %4, i32 %retval.0, i32 0
+  %retval.2 = select i1 %cmp4.not, i32 %.retval.0.call, i32 %call
+  %cond15 = select i1 %cmp4.not, i1 %cmp5, i1 false
+  call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %processedSizeLoc) #3
+  br i1 %cond15, label %while.cond, label %cleanup13, !llvm.loop !11
 
-24:                                               ; preds = %7
-  %25 = sub i64 %9, %17
-  %26 = getelementptr inbounds i8, ptr %8, i64 %17
-  call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %4) #3
-  %27 = icmp eq i64 %25, 0
-  br i1 %27, label %28, label %7, !llvm.loop !13
-
-28:                                               ; preds = %24, %3, %23
-  %29 = phi i32 [ %15, %23 ], [ 0, %3 ], [ 0, %24 ]
-  ret i32 %29
+cleanup13:                                        ; preds = %while.cond, %while.body
+  %retval.3 = phi i32 [ %retval.2, %while.body ], [ 0, %while.cond ]
+  ret i32 %retval.3
 }
 
 ; Function Attrs: mustprogress nocallback nofree nosync nounwind willreturn memory(argmem: readwrite)
@@ -54,141 +54,151 @@ declare void @llvm.lifetime.start.p0(i64 immarg, ptr nocapture) #1
 declare void @llvm.lifetime.end.p0(i64 immarg, ptr nocapture) #1
 
 ; Function Attrs: mustprogress uwtable
-define dso_local noundef i32 @_Z16ReadStream_FALSEP19ISequentialInStreamPvm(ptr noundef %0, ptr noundef %1, i64 noundef %2) local_unnamed_addr #0 {
-  %4 = alloca i32, align 4
-  %5 = icmp eq i64 %2, 0
-  br i1 %5, label %28, label %6
+define dso_local noundef i32 @_Z16ReadStream_FALSEP19ISequentialInStreamPvm(ptr noundef %stream, ptr noundef %data, i64 noundef %size) local_unnamed_addr #0 {
+entry:
+  %processedSizeLoc.i = alloca i32, align 4
+  br label %while.cond.i
 
-6:                                                ; preds = %3, %22
-  %7 = phi i64 [ %18, %22 ], [ 0, %3 ]
-  %8 = phi ptr [ %24, %22 ], [ %1, %3 ]
-  %9 = phi i64 [ %23, %22 ], [ %2, %3 ]
-  %10 = call i64 @llvm.umin.i64(i64 %9, i64 2147483648)
-  %11 = trunc i64 %10 to i32
-  call void @llvm.lifetime.start.p0(i64 4, ptr nonnull %4) #3
-  %12 = load ptr, ptr %0, align 8, !tbaa !9
-  %13 = getelementptr inbounds ptr, ptr %12, i64 5
-  %14 = load ptr, ptr %13, align 8
-  %15 = call noundef i32 %14(ptr noundef nonnull align 8 dereferenceable(8) %0, ptr noundef %8, i32 noundef %11, ptr noundef nonnull %4)
-  %16 = load i32, ptr %4, align 4, !tbaa !11
-  %17 = zext i32 %16 to i64
-  %18 = add i64 %7, %17
-  %19 = icmp ne i32 %15, 0
-  %20 = icmp eq i32 %16, 0
-  %21 = select i1 %19, i1 true, i1 %20
-  br i1 %21, label %26, label %22
+while.cond.i:                                     ; preds = %while.body.i, %entry
+  %processedSize.0 = phi i64 [ 0, %entry ], [ %add.i, %while.body.i ]
+  %size.0.i = phi i64 [ %size, %entry ], [ %sub.i, %while.body.i ]
+  %data.addr.0.i = phi ptr [ %data, %entry ], [ %add.ptr.i, %while.body.i ]
+  %retval.0.i = phi i32 [ undef, %entry ], [ %retval.2.i, %while.body.i ]
+  %cmp.not.i = icmp eq i64 %size.0.i, 0
+  br i1 %cmp.not.i, label %_Z10ReadStreamP19ISequentialInStreamPvPm.exit.thread, label %while.body.i
 
-22:                                               ; preds = %6
-  %23 = sub i64 %9, %17
-  %24 = getelementptr inbounds i8, ptr %8, i64 %17
-  call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %4) #3
-  %25 = icmp eq i64 %23, 0
-  br i1 %25, label %28, label %6, !llvm.loop !13
+while.body.i:                                     ; preds = %while.cond.i
+  %cond24.i = call i64 @llvm.umin.i64(i64 %size.0.i, i64 2147483648)
+  %cond.i = trunc i64 %cond24.i to i32
+  call void @llvm.lifetime.start.p0(i64 4, ptr nonnull %processedSizeLoc.i) #3
+  %vtable.i = load ptr, ptr %stream, align 8, !tbaa !9
+  %vfn.i = getelementptr inbounds ptr, ptr %vtable.i, i64 5
+  %0 = load ptr, ptr %vfn.i, align 8
+  %call.i = call noundef i32 %0(ptr noundef nonnull align 8 dereferenceable(8) %stream, ptr noundef %data.addr.0.i, i32 noundef %cond.i, ptr noundef nonnull %processedSizeLoc.i)
+  %1 = load i32, ptr %processedSizeLoc.i, align 4
+  %conv2.i = zext i32 %1 to i64
+  %add.i = add i64 %processedSize.0, %conv2.i
+  %add.ptr.i = getelementptr inbounds i8, ptr %data.addr.0.i, i64 %conv2.i
+  %sub.i = sub i64 %size.0.i, %conv2.i
+  %cmp4.not.i = icmp eq i32 %call.i, 0
+  %cmp5.i = icmp ne i32 %1, 0
+  %2 = and i1 %cmp4.not.i, %cmp5.i
+  %.retval.0.call.i = select i1 %2, i32 %retval.0.i, i32 0
+  %.retval.0.call.i.fr = freeze i32 %.retval.0.call.i
+  %retval.2.i = select i1 %cmp4.not.i, i32 %.retval.0.call.i.fr, i32 %call.i
+  %cond15.i = select i1 %cmp4.not.i, i1 %cmp5.i, i1 false
+  call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %processedSizeLoc.i) #3
+  br i1 %cond15.i, label %while.cond.i, label %_Z10ReadStreamP19ISequentialInStreamPvPm.exit, !llvm.loop !11
 
-26:                                               ; preds = %6
-  call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %4) #3
-  %27 = icmp eq i32 %15, 0
-  br i1 %27, label %28, label %32
+_Z10ReadStreamP19ISequentialInStreamPvPm.exit:    ; preds = %while.body.i
+  %cmp.not = icmp eq i32 %retval.2.i, 0
+  br i1 %cmp.not, label %_Z10ReadStreamP19ISequentialInStreamPvPm.exit.thread, label %3
 
-28:                                               ; preds = %22, %3, %26
-  %29 = phi i64 [ %18, %26 ], [ 0, %3 ], [ %18, %22 ]
-  %30 = icmp ne i64 %29, %2
-  %31 = zext i1 %30 to i32
-  br label %32
+_Z10ReadStreamP19ISequentialInStreamPvPm.exit.thread: ; preds = %while.cond.i, %_Z10ReadStreamP19ISequentialInStreamPvPm.exit
+  %processedSize.0.pn = phi i64 [ %add.i, %_Z10ReadStreamP19ISequentialInStreamPvPm.exit ], [ %processedSize.0, %while.cond.i ]
+  %cond14.in = icmp ne i64 %processedSize.0.pn, %size
+  %cond14 = zext i1 %cond14.in to i32
+  br label %3
 
-32:                                               ; preds = %26, %28
-  %33 = phi i32 [ %31, %28 ], [ %15, %26 ]
-  ret i32 %33
+3:                                                ; preds = %_Z10ReadStreamP19ISequentialInStreamPvPm.exit, %_Z10ReadStreamP19ISequentialInStreamPvPm.exit.thread
+  %4 = phi i32 [ %cond14, %_Z10ReadStreamP19ISequentialInStreamPvPm.exit.thread ], [ %retval.2.i, %_Z10ReadStreamP19ISequentialInStreamPvPm.exit ]
+  ret i32 %4
 }
 
 ; Function Attrs: mustprogress uwtable
-define dso_local noundef i32 @_Z15ReadStream_FAILP19ISequentialInStreamPvm(ptr noundef %0, ptr noundef %1, i64 noundef %2) local_unnamed_addr #0 {
-  %4 = alloca i32, align 4
-  %5 = icmp eq i64 %2, 0
-  br i1 %5, label %28, label %6
+define dso_local noundef i32 @_Z15ReadStream_FAILP19ISequentialInStreamPvm(ptr noundef %stream, ptr noundef %data, i64 noundef %size) local_unnamed_addr #0 {
+entry:
+  %processedSizeLoc.i = alloca i32, align 4
+  br label %while.cond.i
 
-6:                                                ; preds = %3, %22
-  %7 = phi i64 [ %18, %22 ], [ 0, %3 ]
-  %8 = phi ptr [ %24, %22 ], [ %1, %3 ]
-  %9 = phi i64 [ %23, %22 ], [ %2, %3 ]
-  %10 = call i64 @llvm.umin.i64(i64 %9, i64 2147483648)
-  %11 = trunc i64 %10 to i32
-  call void @llvm.lifetime.start.p0(i64 4, ptr nonnull %4) #3
-  %12 = load ptr, ptr %0, align 8, !tbaa !9
-  %13 = getelementptr inbounds ptr, ptr %12, i64 5
-  %14 = load ptr, ptr %13, align 8
-  %15 = call noundef i32 %14(ptr noundef nonnull align 8 dereferenceable(8) %0, ptr noundef %8, i32 noundef %11, ptr noundef nonnull %4)
-  %16 = load i32, ptr %4, align 4, !tbaa !11
-  %17 = zext i32 %16 to i64
-  %18 = add i64 %7, %17
-  %19 = icmp ne i32 %15, 0
-  %20 = icmp eq i32 %16, 0
-  %21 = select i1 %19, i1 true, i1 %20
-  br i1 %21, label %26, label %22
+while.cond.i:                                     ; preds = %while.body.i, %entry
+  %processedSize.0 = phi i64 [ 0, %entry ], [ %add.i, %while.body.i ]
+  %size.0.i = phi i64 [ %size, %entry ], [ %sub.i, %while.body.i ]
+  %data.addr.0.i = phi ptr [ %data, %entry ], [ %add.ptr.i, %while.body.i ]
+  %retval.0.i = phi i32 [ undef, %entry ], [ %retval.2.i, %while.body.i ]
+  %cmp.not.i = icmp eq i64 %size.0.i, 0
+  br i1 %cmp.not.i, label %_Z10ReadStreamP19ISequentialInStreamPvPm.exit.thread, label %while.body.i
 
-22:                                               ; preds = %6
-  %23 = sub i64 %9, %17
-  %24 = getelementptr inbounds i8, ptr %8, i64 %17
-  call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %4) #3
-  %25 = icmp eq i64 %23, 0
-  br i1 %25, label %28, label %6, !llvm.loop !13
+_Z10ReadStreamP19ISequentialInStreamPvPm.exit.thread: ; preds = %while.cond.i
+  %cmp111 = icmp eq i64 %processedSize.0, %size
+  %cond12 = select i1 %cmp111, i32 0, i32 -2147467259
+  br label %3
 
-26:                                               ; preds = %6
-  call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %4) #3
-  %27 = icmp eq i32 %15, 0
-  br i1 %27, label %28, label %32
+while.body.i:                                     ; preds = %while.cond.i
+  %cond24.i = call i64 @llvm.umin.i64(i64 %size.0.i, i64 2147483648)
+  %cond.i = trunc i64 %cond24.i to i32
+  call void @llvm.lifetime.start.p0(i64 4, ptr nonnull %processedSizeLoc.i) #3
+  %vtable.i = load ptr, ptr %stream, align 8, !tbaa !9
+  %vfn.i = getelementptr inbounds ptr, ptr %vtable.i, i64 5
+  %0 = load ptr, ptr %vfn.i, align 8
+  %call.i = call noundef i32 %0(ptr noundef nonnull align 8 dereferenceable(8) %stream, ptr noundef %data.addr.0.i, i32 noundef %cond.i, ptr noundef nonnull %processedSizeLoc.i)
+  %1 = load i32, ptr %processedSizeLoc.i, align 4
+  %conv2.i = zext i32 %1 to i64
+  %add.i = add i64 %processedSize.0, %conv2.i
+  %add.ptr.i = getelementptr inbounds i8, ptr %data.addr.0.i, i64 %conv2.i
+  %sub.i = sub i64 %size.0.i, %conv2.i
+  %cmp4.not.i = icmp eq i32 %call.i, 0
+  %cmp5.i = icmp ne i32 %1, 0
+  %2 = and i1 %cmp4.not.i, %cmp5.i
+  %.retval.0.call.i = select i1 %2, i32 %retval.0.i, i32 0
+  %.retval.0.call.i.fr = freeze i32 %.retval.0.call.i
+  %retval.2.i = select i1 %cmp4.not.i, i32 %.retval.0.call.i.fr, i32 %call.i
+  %cond15.i = select i1 %cmp4.not.i, i1 %cmp5.i, i1 false
+  call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %processedSizeLoc.i) #3
+  br i1 %cond15.i, label %while.cond.i, label %_Z10ReadStreamP19ISequentialInStreamPvPm.exit, !llvm.loop !11
 
-28:                                               ; preds = %22, %3, %26
-  %29 = phi i64 [ %18, %26 ], [ 0, %3 ], [ %18, %22 ]
-  %30 = icmp eq i64 %29, %2
-  %31 = select i1 %30, i32 0, i32 -2147467259
-  br label %32
+_Z10ReadStreamP19ISequentialInStreamPvPm.exit:    ; preds = %while.body.i
+  %cmp.not = icmp eq i32 %retval.2.i, 0
+  %cmp1 = icmp eq i64 %add.i, %size
+  %cond = select i1 %cmp1, i32 0, i32 -2147467259
+  br i1 %cmp.not, label %3, label %4
 
-32:                                               ; preds = %26, %28
-  %33 = phi i32 [ %31, %28 ], [ %15, %26 ]
-  ret i32 %33
+3:                                                ; preds = %_Z10ReadStreamP19ISequentialInStreamPvPm.exit.thread, %_Z10ReadStreamP19ISequentialInStreamPvPm.exit
+  %cond14 = phi i32 [ %cond12, %_Z10ReadStreamP19ISequentialInStreamPvPm.exit.thread ], [ %cond, %_Z10ReadStreamP19ISequentialInStreamPvPm.exit ]
+  br label %4
+
+4:                                                ; preds = %_Z10ReadStreamP19ISequentialInStreamPvPm.exit, %3
+  %5 = phi i32 [ %cond14, %3 ], [ %retval.2.i, %_Z10ReadStreamP19ISequentialInStreamPvPm.exit ]
+  ret i32 %5
 }
 
 ; Function Attrs: mustprogress uwtable
-define dso_local noundef i32 @_Z11WriteStreamP20ISequentialOutStreamPKvm(ptr noundef %0, ptr noundef %1, i64 noundef %2) local_unnamed_addr #0 {
-  %4 = alloca i32, align 4
-  %5 = icmp eq i64 %2, 0
-  br i1 %5, label %26, label %6
+define dso_local noundef i32 @_Z11WriteStreamP20ISequentialOutStreamPKvm(ptr noundef %stream, ptr noundef %data, i64 noundef %size) local_unnamed_addr #0 {
+entry:
+  %processedSizeLoc = alloca i32, align 4
+  br label %while.cond
 
-6:                                                ; preds = %3, %24
-  %7 = phi ptr [ %17, %24 ], [ %1, %3 ]
-  %8 = phi i64 [ %18, %24 ], [ %2, %3 ]
-  %9 = call i64 @llvm.umin.i64(i64 %8, i64 2147483648)
-  %10 = trunc i64 %9 to i32
-  call void @llvm.lifetime.start.p0(i64 4, ptr nonnull %4) #3
-  %11 = load ptr, ptr %0, align 8, !tbaa !9
-  %12 = getelementptr inbounds ptr, ptr %11, i64 5
-  %13 = load ptr, ptr %12, align 8
-  %14 = call noundef i32 %13(ptr noundef nonnull align 8 dereferenceable(8) %0, ptr noundef %7, i32 noundef %10, ptr noundef nonnull %4)
-  %15 = load i32, ptr %4, align 4, !tbaa !11
-  %16 = zext i32 %15 to i64
-  %17 = getelementptr inbounds i8, ptr %7, i64 %16
-  %18 = sub i64 %8, %16
-  %19 = icmp eq i32 %14, 0
-  br i1 %19, label %20, label %22
+while.cond:                                       ; preds = %while.body, %entry
+  %size.addr.0 = phi i64 [ %size, %entry ], [ %sub, %while.body ]
+  %data.addr.0 = phi ptr [ %data, %entry ], [ %add.ptr, %while.body ]
+  %retval.0 = phi i32 [ undef, %entry ], [ %retval.2, %while.body ]
+  %cmp.not = icmp eq i64 %size.addr.0, 0
+  br i1 %cmp.not, label %return, label %while.body
 
-20:                                               ; preds = %6
-  %21 = icmp eq i32 %15, 0
-  br i1 %21, label %22, label %24
+while.body:                                       ; preds = %while.cond
+  %cond19 = call i64 @llvm.umin.i64(i64 %size.addr.0, i64 2147483648)
+  %cond = trunc i64 %cond19 to i32
+  call void @llvm.lifetime.start.p0(i64 4, ptr nonnull %processedSizeLoc) #3
+  %vtable = load ptr, ptr %stream, align 8, !tbaa !9
+  %vfn = getelementptr inbounds ptr, ptr %vtable, i64 5
+  %0 = load ptr, ptr %vfn, align 8
+  %call = call noundef i32 %0(ptr noundef nonnull align 8 dereferenceable(8) %stream, ptr noundef %data.addr.0, i32 noundef %cond, ptr noundef nonnull %processedSizeLoc)
+  %1 = load i32, ptr %processedSizeLoc, align 4
+  %idx.ext = zext i32 %1 to i64
+  %add.ptr = getelementptr inbounds i8, ptr %data.addr.0, i64 %idx.ext
+  %sub = sub i64 %size.addr.0, %idx.ext
+  %cmp3.not = icmp eq i32 %call, 0
+  %retval.0.call = select i1 %cmp3.not, i32 %retval.0, i32 0
+  %cmp4 = icmp ne i32 %1, 0
+  %.retval.0.call = select i1 %cmp4, i32 %retval.0.call, i32 -2147467259
+  %retval.2 = select i1 %cmp3.not, i32 %.retval.0.call, i32 %call
+  %cleanup.dest.slot.1.not = select i1 %cmp3.not, i1 %cmp4, i1 false
+  call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %processedSizeLoc) #3
+  br i1 %cleanup.dest.slot.1.not, label %while.cond, label %return
 
-22:                                               ; preds = %6, %20
-  %23 = phi i32 [ -2147467259, %20 ], [ %14, %6 ]
-  call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %4) #3
-  br label %26
-
-24:                                               ; preds = %20
-  call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %4) #3
-  %25 = icmp eq i64 %18, 0
-  br i1 %25, label %26, label %6
-
-26:                                               ; preds = %24, %3, %22
-  %27 = phi i32 [ %23, %22 ], [ 0, %3 ], [ 0, %24 ]
-  ret i32 %27
+return:                                           ; preds = %while.body, %while.cond
+  %retval.3 = phi i32 [ %retval.2, %while.body ], [ 0, %while.cond ]
+  ret i32 %retval.3
 }
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
@@ -213,7 +223,5 @@ attributes #3 = { nounwind }
 !8 = !{!"Simple C++ TBAA"}
 !9 = !{!10, !10, i64 0}
 !10 = !{!"vtable pointer", !8, i64 0}
-!11 = !{!12, !12, i64 0}
-!12 = !{!"int", !7, i64 0}
-!13 = distinct !{!13, !14}
-!14 = !{!"llvm.loop.mustprogress"}
+!11 = distinct !{!11, !12}
+!12 = !{!"llvm.loop.mustprogress"}

@@ -4,21 +4,22 @@ target datalayout = "e-m:e-p270:32:32-p271:32:32-p272:64:64-i64:64-f80:128-n8:16
 target triple = "x86_64-unknown-linux-gnu"
 
 ; Function Attrs: nounwind uwtable
-define dso_local i32 @f(i32 noundef %0, i32 noundef %1, i32 noundef %2, i1 noundef zeroext %3, i1 noundef zeroext %4, i1 noundef zeroext %5, i8 noundef signext %6) local_unnamed_addr #0 {
-  %8 = icmp eq i8 %6, 1
-  %9 = and i1 %3, %4
-  %10 = and i1 %9, %5
-  %11 = and i1 %10, %8
-  br i1 %11, label %13, label %12
+define dso_local i32 @f(i32 noundef %a, i32 noundef %b, i32 noundef %c, i1 noundef zeroext %d, i1 noundef zeroext %e, i1 noundef zeroext %f, i8 noundef signext %g) local_unnamed_addr #0 {
+entry:
+  %cmp.not = icmp eq i8 %g, 1
+  %0 = and i1 %d, %e
+  %1 = and i1 %0, %f
+  %brmerge19.not = and i1 %1, %cmp.not
+  br i1 %brmerge19.not, label %if.end, label %if.then
 
-12:                                               ; preds = %7
+if.then:                                          ; preds = %entry
   tail call void @abort() #3
   unreachable
 
-13:                                               ; preds = %7
-  %14 = add nsw i32 %1, %0
-  %15 = add nsw i32 %14, %2
-  ret i32 %15
+if.end:                                           ; preds = %entry
+  %add = add nsw i32 %b, %a
+  %add17 = add nsw i32 %add, %c
+  ret i32 %add17
 }
 
 ; Function Attrs: noreturn
@@ -26,6 +27,7 @@ declare void @abort() local_unnamed_addr #1
 
 ; Function Attrs: noreturn nounwind uwtable
 define dso_local i32 @main() local_unnamed_addr #2 {
+if.end:
   tail call void @exit(i32 noundef 0) #3
   unreachable
 }

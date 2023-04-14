@@ -11,379 +11,383 @@ target triple = "x86_64-unknown-linux-gnu"
 @.str.2 = private unnamed_addr constant [17 x i8] c"perimeter is %d\0A\00", align 1
 
 ; Function Attrs: nofree nosync nounwind memory(argmem: read) uwtable
-define dso_local i32 @CountTree(ptr nocapture noundef readonly %0) local_unnamed_addr #0 {
-  %2 = getelementptr inbounds %struct.quad_struct, ptr %0, i64 0, i32 2
-  %3 = load ptr, ptr %2, align 8, !tbaa !5
-  %4 = getelementptr inbounds %struct.quad_struct, ptr %0, i64 0, i32 3
-  %5 = load ptr, ptr %4, align 8, !tbaa !10
-  %6 = getelementptr inbounds %struct.quad_struct, ptr %0, i64 0, i32 4
-  %7 = load ptr, ptr %6, align 8, !tbaa !11
-  %8 = getelementptr inbounds %struct.quad_struct, ptr %0, i64 0, i32 5
-  %9 = load ptr, ptr %8, align 8, !tbaa !12
-  %10 = icmp eq ptr %3, null
-  %11 = icmp eq ptr %5, null
-  %12 = select i1 %10, i1 %11, i1 false
-  %13 = icmp eq ptr %7, null
-  %14 = select i1 %12, i1 %13, i1 false
-  %15 = icmp eq ptr %9, null
-  %16 = select i1 %14, i1 %15, i1 false
-  br i1 %16, label %46, label %17
+define dso_local i32 @CountTree(ptr nocapture noundef readonly %tree) local_unnamed_addr #0 {
+entry:
+  %nw127 = getelementptr inbounds %struct.quad_struct, ptr %tree, i64 0, i32 2
+  %0 = load ptr, ptr %nw127, align 8, !tbaa !5
+  %ne228 = getelementptr inbounds %struct.quad_struct, ptr %tree, i64 0, i32 3
+  %1 = load ptr, ptr %ne228, align 8, !tbaa !10
+  %sw329 = getelementptr inbounds %struct.quad_struct, ptr %tree, i64 0, i32 4
+  %2 = load ptr, ptr %sw329, align 8, !tbaa !11
+  %se430 = getelementptr inbounds %struct.quad_struct, ptr %tree, i64 0, i32 5
+  %3 = load ptr, ptr %se430, align 8, !tbaa !12
+  %cmp31 = icmp eq ptr %0, null
+  %cmp532 = icmp eq ptr %1, null
+  %or.cond33 = select i1 %cmp31, i1 %cmp532, i1 false
+  %cmp734 = icmp eq ptr %2, null
+  %or.cond1835 = select i1 %or.cond33, i1 %cmp734, i1 false
+  %cmp936 = icmp eq ptr %3, null
+  %or.cond1937 = select i1 %or.cond1835, i1 %cmp936, i1 false
+  br i1 %or.cond1937, label %cleanup, label %if.else
 
-17:                                               ; preds = %1, %17
-  %18 = phi ptr [ %36, %17 ], [ %9, %1 ]
-  %19 = phi ptr [ %34, %17 ], [ %7, %1 ]
-  %20 = phi ptr [ %32, %17 ], [ %5, %1 ]
-  %21 = phi ptr [ %30, %17 ], [ %3, %1 ]
-  %22 = phi i32 [ %28, %17 ], [ 0, %1 ]
-  %23 = tail call i32 @CountTree(ptr noundef %21)
-  %24 = tail call i32 @CountTree(ptr noundef %20)
-  %25 = tail call i32 @CountTree(ptr noundef %19)
-  %26 = add i32 %23, %22
-  %27 = add i32 %26, %24
-  %28 = add i32 %27, %25
-  %29 = getelementptr inbounds %struct.quad_struct, ptr %18, i64 0, i32 2
-  %30 = load ptr, ptr %29, align 8, !tbaa !5
-  %31 = getelementptr inbounds %struct.quad_struct, ptr %18, i64 0, i32 3
-  %32 = load ptr, ptr %31, align 8, !tbaa !10
-  %33 = getelementptr inbounds %struct.quad_struct, ptr %18, i64 0, i32 4
-  %34 = load ptr, ptr %33, align 8, !tbaa !11
-  %35 = getelementptr inbounds %struct.quad_struct, ptr %18, i64 0, i32 5
-  %36 = load ptr, ptr %35, align 8, !tbaa !12
-  %37 = icmp eq ptr %30, null
-  %38 = icmp eq ptr %32, null
-  %39 = select i1 %37, i1 %38, i1 false
-  %40 = icmp eq ptr %34, null
-  %41 = select i1 %39, i1 %40, i1 false
-  %42 = icmp eq ptr %36, null
-  %43 = select i1 %41, i1 %42, i1 false
-  br i1 %43, label %44, label %17
+if.else:                                          ; preds = %entry, %if.else
+  %4 = phi ptr [ %11, %if.else ], [ %3, %entry ]
+  %5 = phi ptr [ %10, %if.else ], [ %2, %entry ]
+  %6 = phi ptr [ %9, %if.else ], [ %1, %entry ]
+  %7 = phi ptr [ %8, %if.else ], [ %0, %entry ]
+  %accumulator.tr38 = phi i32 [ %add14, %if.else ], [ 0, %entry ]
+  %call = tail call i32 @CountTree(ptr noundef %7)
+  %call10 = tail call i32 @CountTree(ptr noundef %6)
+  %call11 = tail call i32 @CountTree(ptr noundef %5)
+  %add = add i32 %call, %accumulator.tr38
+  %add12 = add i32 %add, %call10
+  %add14 = add i32 %add12, %call11
+  %nw1 = getelementptr inbounds %struct.quad_struct, ptr %4, i64 0, i32 2
+  %8 = load ptr, ptr %nw1, align 8, !tbaa !5
+  %ne2 = getelementptr inbounds %struct.quad_struct, ptr %4, i64 0, i32 3
+  %9 = load ptr, ptr %ne2, align 8, !tbaa !10
+  %sw3 = getelementptr inbounds %struct.quad_struct, ptr %4, i64 0, i32 4
+  %10 = load ptr, ptr %sw3, align 8, !tbaa !11
+  %se4 = getelementptr inbounds %struct.quad_struct, ptr %4, i64 0, i32 5
+  %11 = load ptr, ptr %se4, align 8, !tbaa !12
+  %cmp = icmp eq ptr %8, null
+  %cmp5 = icmp eq ptr %9, null
+  %or.cond = select i1 %cmp, i1 %cmp5, i1 false
+  %cmp7 = icmp eq ptr %10, null
+  %or.cond18 = select i1 %or.cond, i1 %cmp7, i1 false
+  %cmp9 = icmp eq ptr %11, null
+  %or.cond19 = select i1 %or.cond18, i1 %cmp9, i1 false
+  br i1 %or.cond19, label %cleanup.loopexit, label %if.else
 
-44:                                               ; preds = %17
-  %45 = add nsw i32 %28, 1
-  br label %46
+cleanup.loopexit:                                 ; preds = %if.else
+  %12 = add nsw i32 %add14, 1
+  br label %cleanup
 
-46:                                               ; preds = %44, %1
-  %47 = phi i32 [ 1, %1 ], [ %45, %44 ]
-  ret i32 %47
+cleanup:                                          ; preds = %cleanup.loopexit, %entry
+  %accumulator.tr.lcssa = phi i32 [ 1, %entry ], [ %12, %cleanup.loopexit ]
+  ret i32 %accumulator.tr.lcssa
 }
 
 ; Function Attrs: nofree nosync nounwind memory(read, inaccessiblemem: none) uwtable
-define dso_local i32 @perimeter(ptr nocapture noundef readonly %0, i32 noundef %1) local_unnamed_addr #1 {
-  br label %3
+define dso_local i32 @perimeter(ptr nocapture noundef readonly %tree, i32 noundef %size) local_unnamed_addr #1 {
+entry:
+  br label %tailrecurse
 
-3:                                                ; preds = %8, %2
-  %4 = phi i32 [ 0, %2 ], [ %23, %8 ]
-  %5 = phi ptr [ %0, %2 ], [ %20, %8 ]
-  %6 = phi i32 [ %1, %2 ], [ %11, %8 ]
-  %7 = load i32, ptr %5, align 8, !tbaa !13
-  switch i32 %7, label %65 [
-    i32 2, label %8
-    i32 0, label %24
+tailrecurse:                                      ; preds = %if.then, %entry
+  %accumulator.tr = phi i32 [ 0, %entry ], [ %add10, %if.then ]
+  %tree.tr = phi ptr [ %tree, %entry ], [ %4, %if.then ]
+  %size.tr = phi i32 [ %size, %entry ], [ %div, %if.then ]
+  %0 = load i32, ptr %tree.tr, align 8, !tbaa !13
+  switch i32 %0, label %if.end73 [
+    i32 2, label %if.then
+    i32 0, label %if.then13
   ]
 
-8:                                                ; preds = %3
-  %9 = getelementptr inbounds %struct.quad_struct, ptr %5, i64 0, i32 4
-  %10 = load ptr, ptr %9, align 8, !tbaa !11
-  %11 = sdiv i32 %6, 2
-  %12 = tail call i32 @perimeter(ptr noundef %10, i32 noundef %11)
-  %13 = getelementptr inbounds %struct.quad_struct, ptr %5, i64 0, i32 5
-  %14 = load ptr, ptr %13, align 8, !tbaa !12
-  %15 = tail call i32 @perimeter(ptr noundef %14, i32 noundef %11)
-  %16 = getelementptr inbounds %struct.quad_struct, ptr %5, i64 0, i32 3
-  %17 = load ptr, ptr %16, align 8, !tbaa !10
-  %18 = tail call i32 @perimeter(ptr noundef %17, i32 noundef %11)
-  %19 = getelementptr inbounds %struct.quad_struct, ptr %5, i64 0, i32 2
-  %20 = load ptr, ptr %19, align 8, !tbaa !5
-  %21 = add i32 %12, %4
-  %22 = add i32 %21, %15
-  %23 = add i32 %22, %18
-  br label %3
+if.then:                                          ; preds = %tailrecurse
+  %sw = getelementptr inbounds %struct.quad_struct, ptr %tree.tr, i64 0, i32 4
+  %1 = load ptr, ptr %sw, align 8, !tbaa !11
+  %div = sdiv i32 %size.tr, 2
+  %call = tail call i32 @perimeter(ptr noundef %1, i32 noundef %div)
+  %se = getelementptr inbounds %struct.quad_struct, ptr %tree.tr, i64 0, i32 5
+  %2 = load ptr, ptr %se, align 8, !tbaa !12
+  %call3 = tail call i32 @perimeter(ptr noundef %2, i32 noundef %div)
+  %ne = getelementptr inbounds %struct.quad_struct, ptr %tree.tr, i64 0, i32 3
+  %3 = load ptr, ptr %ne, align 8, !tbaa !10
+  %call6 = tail call i32 @perimeter(ptr noundef %3, i32 noundef %div)
+  %nw = getelementptr inbounds %struct.quad_struct, ptr %tree.tr, i64 0, i32 2
+  %4 = load ptr, ptr %nw, align 8, !tbaa !5
+  %add4 = add i32 %call, %accumulator.tr
+  %add7 = add i32 %add4, %call3
+  %add10 = add i32 %add7, %call6
+  br label %tailrecurse
 
-24:                                               ; preds = %3
-  %25 = tail call fastcc ptr @gtequal_adj_neighbor(ptr noundef nonnull %5, i32 noundef 0)
-  %26 = icmp eq ptr %25, null
-  br i1 %26, label %32, label %27
+if.then13:                                        ; preds = %tailrecurse
+  %call14 = tail call fastcc ptr @gtequal_adj_neighbor(ptr noundef nonnull %tree.tr, i32 noundef 0)
+  %cmp15 = icmp eq ptr %call14, null
+  br i1 %cmp15, label %if.end26, label %lor.lhs.false
 
-27:                                               ; preds = %24
-  %28 = load i32, ptr %25, align 8, !tbaa !13
-  switch i32 %28, label %31 [
-    i32 1, label %32
-    i32 2, label %29
+lor.lhs.false:                                    ; preds = %if.then13
+  %5 = load i32, ptr %call14, align 8, !tbaa !13
+  switch i32 %5, label %if.end26.fold.split [
+    i32 1, label %if.end26
+    i32 2, label %if.then23
   ]
 
-29:                                               ; preds = %27
-  %30 = tail call fastcc i32 @sum_adjacent(ptr noundef nonnull %25, i32 noundef 3, i32 noundef 2, i32 noundef %6)
-  br label %32
+if.then23:                                        ; preds = %lor.lhs.false
+  %call24 = tail call fastcc i32 @sum_adjacent(ptr noundef nonnull %call14, i32 noundef 3, i32 noundef 2, i32 noundef %size.tr)
+  br label %if.end26
 
-31:                                               ; preds = %27
-  br label %32
+if.end26.fold.split:                              ; preds = %lor.lhs.false
+  br label %if.end26
 
-32:                                               ; preds = %27, %31, %24, %29
-  %33 = phi i32 [ %30, %29 ], [ %6, %27 ], [ %6, %24 ], [ 0, %31 ]
-  %34 = tail call fastcc ptr @gtequal_adj_neighbor(ptr noundef nonnull %5, i32 noundef 1)
-  %35 = icmp eq ptr %34, null
-  br i1 %35, label %38, label %36
+if.end26:                                         ; preds = %lor.lhs.false, %if.end26.fold.split, %if.then13, %if.then23
+  %retval1.0 = phi i32 [ %call24, %if.then23 ], [ %size.tr, %lor.lhs.false ], [ %size.tr, %if.then13 ], [ 0, %if.end26.fold.split ]
+  %call27 = tail call fastcc ptr @gtequal_adj_neighbor(ptr noundef nonnull %tree.tr, i32 noundef 1)
+  %cmp28 = icmp eq ptr %call27, null
+  br i1 %cmp28, label %if.then32, label %lor.lhs.false29
 
-36:                                               ; preds = %32
-  %37 = load i32, ptr %34, align 8, !tbaa !13
-  switch i32 %37, label %43 [
-    i32 1, label %38
-    i32 2, label %40
+lor.lhs.false29:                                  ; preds = %if.end26
+  %6 = load i32, ptr %call27, align 8, !tbaa !13
+  switch i32 %6, label %if.end41 [
+    i32 1, label %if.then32
+    i32 2, label %if.then37
   ]
 
-38:                                               ; preds = %36, %32
-  %39 = add nsw i32 %33, %6
-  br label %43
+if.then32:                                        ; preds = %lor.lhs.false29, %if.end26
+  %add33 = add nsw i32 %retval1.0, %size.tr
+  br label %if.end41
 
-40:                                               ; preds = %36
-  %41 = tail call fastcc i32 @sum_adjacent(ptr noundef nonnull %34, i32 noundef 2, i32 noundef 0, i32 noundef %6)
-  %42 = add nsw i32 %41, %33
-  br label %43
+if.then37:                                        ; preds = %lor.lhs.false29
+  %call38 = tail call fastcc i32 @sum_adjacent(ptr noundef nonnull %call27, i32 noundef 2, i32 noundef 0, i32 noundef %size.tr)
+  %add39 = add nsw i32 %call38, %retval1.0
+  br label %if.end41
 
-43:                                               ; preds = %36, %40, %38
-  %44 = phi i32 [ %39, %38 ], [ %42, %40 ], [ %33, %36 ]
-  %45 = tail call fastcc ptr @gtequal_adj_neighbor(ptr noundef nonnull %5, i32 noundef 2)
-  %46 = icmp eq ptr %45, null
-  br i1 %46, label %49, label %47
+if.end41:                                         ; preds = %lor.lhs.false29, %if.then37, %if.then32
+  %retval1.1 = phi i32 [ %add33, %if.then32 ], [ %add39, %if.then37 ], [ %retval1.0, %lor.lhs.false29 ]
+  %call42 = tail call fastcc ptr @gtequal_adj_neighbor(ptr noundef nonnull %tree.tr, i32 noundef 2)
+  %cmp43 = icmp eq ptr %call42, null
+  br i1 %cmp43, label %if.then47, label %lor.lhs.false44
 
-47:                                               ; preds = %43
-  %48 = load i32, ptr %45, align 8, !tbaa !13
-  switch i32 %48, label %54 [
-    i32 1, label %49
-    i32 2, label %51
+lor.lhs.false44:                                  ; preds = %if.end41
+  %7 = load i32, ptr %call42, align 8, !tbaa !13
+  switch i32 %7, label %if.end56 [
+    i32 1, label %if.then47
+    i32 2, label %if.then52
   ]
 
-49:                                               ; preds = %47, %43
-  %50 = add nsw i32 %44, %6
-  br label %54
+if.then47:                                        ; preds = %lor.lhs.false44, %if.end41
+  %add48 = add nsw i32 %retval1.1, %size.tr
+  br label %if.end56
 
-51:                                               ; preds = %47
-  %52 = tail call fastcc i32 @sum_adjacent(ptr noundef nonnull %45, i32 noundef 0, i32 noundef 1, i32 noundef %6)
-  %53 = add nsw i32 %52, %44
-  br label %54
+if.then52:                                        ; preds = %lor.lhs.false44
+  %call53 = tail call fastcc i32 @sum_adjacent(ptr noundef nonnull %call42, i32 noundef 0, i32 noundef 1, i32 noundef %size.tr)
+  %add54 = add nsw i32 %call53, %retval1.1
+  br label %if.end56
 
-54:                                               ; preds = %47, %51, %49
-  %55 = phi i32 [ %50, %49 ], [ %53, %51 ], [ %44, %47 ]
-  %56 = tail call fastcc ptr @gtequal_adj_neighbor(ptr noundef nonnull %5, i32 noundef 3)
-  %57 = icmp eq ptr %56, null
-  br i1 %57, label %60, label %58
+if.end56:                                         ; preds = %lor.lhs.false44, %if.then52, %if.then47
+  %retval1.2 = phi i32 [ %add48, %if.then47 ], [ %add54, %if.then52 ], [ %retval1.1, %lor.lhs.false44 ]
+  %call57 = tail call fastcc ptr @gtequal_adj_neighbor(ptr noundef nonnull %tree.tr, i32 noundef 3)
+  %cmp58 = icmp eq ptr %call57, null
+  br i1 %cmp58, label %if.then62, label %lor.lhs.false59
 
-58:                                               ; preds = %54
-  %59 = load i32, ptr %56, align 8, !tbaa !13
-  switch i32 %59, label %65 [
-    i32 1, label %60
-    i32 2, label %62
+lor.lhs.false59:                                  ; preds = %if.end56
+  %8 = load i32, ptr %call57, align 8, !tbaa !13
+  switch i32 %8, label %if.end73 [
+    i32 1, label %if.then62
+    i32 2, label %if.then67
   ]
 
-60:                                               ; preds = %58, %54
-  %61 = add nsw i32 %55, %6
-  br label %65
+if.then62:                                        ; preds = %lor.lhs.false59, %if.end56
+  %add63 = add nsw i32 %retval1.2, %size.tr
+  br label %if.end73
 
-62:                                               ; preds = %58
-  %63 = tail call fastcc i32 @sum_adjacent(ptr noundef nonnull %56, i32 noundef 1, i32 noundef 3, i32 noundef %6)
-  %64 = add nsw i32 %63, %55
-  br label %65
+if.then67:                                        ; preds = %lor.lhs.false59
+  %call68 = tail call fastcc i32 @sum_adjacent(ptr noundef nonnull %call57, i32 noundef 1, i32 noundef 3, i32 noundef %size.tr)
+  %add69 = add nsw i32 %call68, %retval1.2
+  br label %if.end73
 
-65:                                               ; preds = %3, %58, %62, %60
-  %66 = phi i32 [ %61, %60 ], [ %64, %62 ], [ %55, %58 ], [ 0, %3 ]
-  %67 = add nsw i32 %66, %4
-  ret i32 %67
+if.end73:                                         ; preds = %tailrecurse, %lor.lhs.false59, %if.then67, %if.then62
+  %retval1.3 = phi i32 [ %add63, %if.then62 ], [ %add69, %if.then67 ], [ %retval1.2, %lor.lhs.false59 ], [ 0, %tailrecurse ]
+  %accumulator.ret.tr = add nsw i32 %retval1.3, %accumulator.tr
+  ret i32 %accumulator.ret.tr
 }
 
 ; Function Attrs: nofree nosync nounwind memory(read, inaccessiblemem: none) uwtable
-define internal fastcc ptr @gtequal_adj_neighbor(ptr nocapture noundef readonly %0, i32 noundef %1) unnamed_addr #1 {
-  %3 = getelementptr inbounds %struct.quad_struct, ptr %0, i64 0, i32 6
-  %4 = load ptr, ptr %3, align 8, !tbaa !14
-  %5 = getelementptr inbounds %struct.quad_struct, ptr %0, i64 0, i32 1
-  %6 = load i32, ptr %5, align 4, !tbaa !15
-  %7 = icmp eq ptr %4, null
-  br i1 %7, label %41, label %8
+define internal fastcc ptr @gtequal_adj_neighbor(ptr nocapture noundef readonly %tree, i32 noundef %d) unnamed_addr #1 {
+entry:
+  %parent1 = getelementptr inbounds %struct.quad_struct, ptr %tree, i64 0, i32 6
+  %0 = load ptr, ptr %parent1, align 8, !tbaa !14
+  %childtype = getelementptr inbounds %struct.quad_struct, ptr %tree, i64 0, i32 1
+  %1 = load i32, ptr %childtype, align 4, !tbaa !15
+  %cmp.not = icmp eq ptr %0, null
+  br i1 %cmp.not, label %cleanup, label %land.lhs.true
 
-8:                                                ; preds = %2
-  switch i32 %1, label %20 [
-    i32 0, label %18
-    i32 2, label %9
-    i32 1, label %12
-    i32 3, label %15
+land.lhs.true:                                    ; preds = %entry
+  switch i32 %d, label %if.end [
+    i32 0, label %adj.exit
+    i32 2, label %sw.bb2.i
+    i32 1, label %sw.bb8.i
+    i32 3, label %sw.bb14.i
   ]
 
-9:                                                ; preds = %8
-  %10 = and i32 %6, -2
-  %11 = icmp eq i32 %10, 2
-  br i1 %11, label %20, label %23
+sw.bb2.i:                                         ; preds = %land.lhs.true
+  %2 = and i32 %1, -2
+  %3 = icmp eq i32 %2, 2
+  br i1 %3, label %if.end, label %land.lhs.true4
 
-12:                                               ; preds = %8
-  %13 = and i32 %6, -3
-  %14 = icmp eq i32 %13, 1
-  br i1 %14, label %20, label %23
+sw.bb8.i:                                         ; preds = %land.lhs.true
+  %4 = and i32 %1, -3
+  %5 = icmp eq i32 %4, 1
+  br i1 %5, label %if.end, label %land.lhs.true4
 
-15:                                               ; preds = %8
-  %16 = and i32 %6, -3
-  %17 = icmp eq i32 %16, 0
-  br i1 %17, label %20, label %23
+sw.bb14.i:                                        ; preds = %land.lhs.true
+  %6 = and i32 %1, -3
+  %7 = icmp eq i32 %6, 0
+  br i1 %7, label %if.end, label %land.lhs.true4
 
-18:                                               ; preds = %8
-  %19 = icmp ult i32 %6, 2
-  br i1 %19, label %20, label %23
+adj.exit:                                         ; preds = %land.lhs.true
+  %8 = icmp ult i32 %1, 2
+  br i1 %8, label %if.end, label %land.lhs.true4
 
-20:                                               ; preds = %9, %12, %15, %8, %18
-  %21 = tail call fastcc ptr @gtequal_adj_neighbor(ptr noundef nonnull %4, i32 noundef %1)
-  %22 = icmp eq ptr %21, null
-  br i1 %22, label %41, label %23
+if.end:                                           ; preds = %sw.bb2.i, %sw.bb8.i, %sw.bb14.i, %land.lhs.true, %adj.exit
+  %call2 = tail call fastcc ptr @gtequal_adj_neighbor(ptr noundef nonnull %0, i32 noundef %d)
+  %tobool3.not = icmp eq ptr %call2, null
+  br i1 %tobool3.not, label %cleanup, label %land.lhs.true4
 
-23:                                               ; preds = %9, %12, %15, %18, %20
-  %24 = phi ptr [ %21, %20 ], [ %4, %18 ], [ %4, %15 ], [ %4, %12 ], [ %4, %9 ]
-  %25 = load i32, ptr %24, align 8, !tbaa !13
-  %26 = icmp eq i32 %25, 2
-  br i1 %26, label %27, label %41
+land.lhs.true4:                                   ; preds = %sw.bb2.i, %sw.bb8.i, %sw.bb14.i, %adj.exit, %if.end
+  %q.035 = phi ptr [ %call2, %if.end ], [ %0, %adj.exit ], [ %0, %sw.bb14.i ], [ %0, %sw.bb8.i ], [ %0, %sw.bb2.i ]
+  %9 = load i32, ptr %q.035, align 8, !tbaa !13
+  %cmp5 = icmp eq i32 %9, 2
+  br i1 %cmp5, label %if.then6, label %cleanup
 
-27:                                               ; preds = %23
-  switch i32 %1, label %29 [
-    i32 3, label %28
-    i32 1, label %28
+if.then6:                                         ; preds = %land.lhs.true4
+  %10 = and i32 %d, -3
+  %or.cond.i = icmp eq i32 %10, 1
+  br i1 %or.cond.i, label %if.then.i, label %if.end.i
+
+if.then.i:                                        ; preds = %if.then6
+  switch i32 %1, label %sw.bb.i24 [
+    i32 2, label %sw.bb2.i25
+    i32 1, label %sw.bb1.i
+    i32 3, label %sw.bb3.i26
   ]
 
-28:                                               ; preds = %27, %27
-  switch i32 %6, label %36 [
-    i32 0, label %30
-    i32 1, label %32
-    i32 2, label %34
+if.end.i:                                         ; preds = %if.then6
+  switch i32 %1, label %sw.bb3.i26 [
+    i32 2, label %sw.bb1.i
+    i32 1, label %sw.bb2.i25
+    i32 3, label %sw.bb.i24
   ]
 
-29:                                               ; preds = %27
-  switch i32 %6, label %36 [
-    i32 2, label %32
-    i32 1, label %34
-    i32 3, label %30
-  ]
+sw.bb.i24:                                        ; preds = %if.end.i, %if.then.i
+  %ne.i = getelementptr inbounds %struct.quad_struct, ptr %q.035, i64 0, i32 3
+  br label %child.exit
 
-30:                                               ; preds = %29, %28
-  %31 = getelementptr inbounds %struct.quad_struct, ptr %24, i64 0, i32 3
-  br label %38
+sw.bb1.i:                                         ; preds = %if.end.i, %if.then.i
+  %nw.i = getelementptr inbounds %struct.quad_struct, ptr %q.035, i64 0, i32 2
+  br label %child.exit
 
-32:                                               ; preds = %29, %28
-  %33 = getelementptr inbounds %struct.quad_struct, ptr %24, i64 0, i32 2
-  br label %38
+sw.bb2.i25:                                       ; preds = %if.end.i, %if.then.i
+  %se.i = getelementptr inbounds %struct.quad_struct, ptr %q.035, i64 0, i32 5
+  br label %child.exit
 
-34:                                               ; preds = %28, %29
-  %35 = getelementptr inbounds %struct.quad_struct, ptr %24, i64 0, i32 5
-  br label %38
+sw.bb3.i26:                                       ; preds = %if.then.i, %if.end.i
+  %sw.i = getelementptr inbounds %struct.quad_struct, ptr %q.035, i64 0, i32 4
+  br label %child.exit
 
-36:                                               ; preds = %28, %29
-  %37 = getelementptr inbounds %struct.quad_struct, ptr %24, i64 0, i32 4
-  br label %38
+child.exit:                                       ; preds = %sw.bb.i24, %sw.bb1.i, %sw.bb2.i25, %sw.bb3.i26
+  %sw.sink.i = phi ptr [ %sw.i, %sw.bb3.i26 ], [ %se.i, %sw.bb2.i25 ], [ %nw.i, %sw.bb1.i ], [ %ne.i, %sw.bb.i24 ]
+  %11 = load ptr, ptr %sw.sink.i, align 8, !tbaa !16
+  br label %cleanup
 
-38:                                               ; preds = %30, %32, %34, %36
-  %39 = phi ptr [ %37, %36 ], [ %35, %34 ], [ %33, %32 ], [ %31, %30 ]
-  %40 = load ptr, ptr %39, align 8, !tbaa !16
-  br label %41
-
-41:                                               ; preds = %2, %20, %23, %38
-  %42 = phi ptr [ %40, %38 ], [ %24, %23 ], [ null, %20 ], [ null, %2 ]
-  ret ptr %42
+cleanup:                                          ; preds = %entry, %if.end, %land.lhs.true4, %child.exit
+  %retval.0 = phi ptr [ %11, %child.exit ], [ %q.035, %land.lhs.true4 ], [ null, %if.end ], [ null, %entry ]
+  ret ptr %retval.0
 }
 
 ; Function Attrs: nofree nosync nounwind memory(read, inaccessiblemem: none) uwtable
-define internal fastcc i32 @sum_adjacent(ptr nocapture noundef readonly %0, i32 noundef %1, i32 noundef %2, i32 noundef %3) unnamed_addr #1 {
-  br label %5
+define internal fastcc i32 @sum_adjacent(ptr nocapture noundef readonly %p, i32 noundef %q1, i32 noundef %q2, i32 noundef %size) unnamed_addr #1 {
+entry:
+  br label %tailrecurse
 
-5:                                                ; preds = %37, %4
-  %6 = phi i32 [ 0, %4 ], [ %39, %37 ]
-  %7 = phi ptr [ %0, %4 ], [ %38, %37 ]
-  %8 = phi i32 [ %3, %4 ], [ %24, %37 ]
-  %9 = load i32, ptr %7, align 8, !tbaa !13
-  switch i32 %9, label %41 [
-    i32 2, label %10
-    i32 1, label %40
+tailrecurse:                                      ; preds = %child.exit29, %entry
+  %accumulator.tr = phi i32 [ 0, %entry ], [ %add, %child.exit29 ]
+  %p.tr = phi ptr [ %p, %entry ], [ %retval.0.i28, %child.exit29 ]
+  %size.tr = phi i32 [ %size, %entry ], [ %div, %child.exit29 ]
+  %0 = load i32, ptr %p.tr, align 8, !tbaa !13
+  switch i32 %0, label %return [
+    i32 2, label %if.then
+    i32 1, label %return.loopexit
   ]
 
-10:                                               ; preds = %5
-  switch i32 %1, label %22 [
-    i32 1, label %11
-    i32 0, label %13
-    i32 3, label %15
-    i32 2, label %17
+if.then:                                          ; preds = %tailrecurse
+  switch i32 %q1, label %child.exit [
+    i32 1, label %sw.bb.i
+    i32 0, label %sw.bb1.i
+    i32 3, label %sw.bb2.i
+    i32 2, label %sw.bb3.i
   ]
 
-11:                                               ; preds = %10
-  %12 = getelementptr inbounds %struct.quad_struct, ptr %7, i64 0, i32 3
-  br label %19
+sw.bb.i:                                          ; preds = %if.then
+  %ne.i = getelementptr inbounds %struct.quad_struct, ptr %p.tr, i64 0, i32 3
+  br label %return.sink.split.i
 
-13:                                               ; preds = %10
-  %14 = getelementptr inbounds %struct.quad_struct, ptr %7, i64 0, i32 2
-  br label %19
+sw.bb1.i:                                         ; preds = %if.then
+  %nw.i = getelementptr inbounds %struct.quad_struct, ptr %p.tr, i64 0, i32 2
+  br label %return.sink.split.i
 
-15:                                               ; preds = %10
-  %16 = getelementptr inbounds %struct.quad_struct, ptr %7, i64 0, i32 5
-  br label %19
+sw.bb2.i:                                         ; preds = %if.then
+  %se.i = getelementptr inbounds %struct.quad_struct, ptr %p.tr, i64 0, i32 5
+  br label %return.sink.split.i
 
-17:                                               ; preds = %10
-  %18 = getelementptr inbounds %struct.quad_struct, ptr %7, i64 0, i32 4
-  br label %19
+sw.bb3.i:                                         ; preds = %if.then
+  %sw.i = getelementptr inbounds %struct.quad_struct, ptr %p.tr, i64 0, i32 4
+  br label %return.sink.split.i
 
-19:                                               ; preds = %17, %15, %13, %11
-  %20 = phi ptr [ %18, %17 ], [ %16, %15 ], [ %14, %13 ], [ %12, %11 ]
-  %21 = load ptr, ptr %20, align 8, !tbaa !16
-  br label %22
+return.sink.split.i:                              ; preds = %sw.bb3.i, %sw.bb2.i, %sw.bb1.i, %sw.bb.i
+  %sw.sink.i = phi ptr [ %sw.i, %sw.bb3.i ], [ %se.i, %sw.bb2.i ], [ %nw.i, %sw.bb1.i ], [ %ne.i, %sw.bb.i ]
+  %1 = load ptr, ptr %sw.sink.i, align 8, !tbaa !16
+  br label %child.exit
 
-22:                                               ; preds = %10, %19
-  %23 = phi ptr [ null, %10 ], [ %21, %19 ]
-  %24 = sdiv i32 %8, 2
-  %25 = tail call fastcc i32 @sum_adjacent(ptr noundef %23, i32 noundef %1, i32 noundef %2, i32 noundef %24)
-  switch i32 %2, label %37 [
-    i32 1, label %26
-    i32 0, label %28
-    i32 3, label %30
-    i32 2, label %32
+child.exit:                                       ; preds = %if.then, %return.sink.split.i
+  %retval.0.i = phi ptr [ null, %if.then ], [ %1, %return.sink.split.i ]
+  %div = sdiv i32 %size.tr, 2
+  %call1 = tail call fastcc i32 @sum_adjacent(ptr noundef %retval.0.i, i32 noundef %q1, i32 noundef %q2, i32 noundef %div)
+  switch i32 %q2, label %child.exit29 [
+    i32 1, label %sw.bb.i19
+    i32 0, label %sw.bb1.i21
+    i32 3, label %sw.bb2.i23
+    i32 2, label %sw.bb3.i25
   ]
 
-26:                                               ; preds = %22
-  %27 = getelementptr inbounds %struct.quad_struct, ptr %7, i64 0, i32 3
-  br label %34
+sw.bb.i19:                                        ; preds = %child.exit
+  %ne.i18 = getelementptr inbounds %struct.quad_struct, ptr %p.tr, i64 0, i32 3
+  br label %return.sink.split.i27
 
-28:                                               ; preds = %22
-  %29 = getelementptr inbounds %struct.quad_struct, ptr %7, i64 0, i32 2
-  br label %34
+sw.bb1.i21:                                       ; preds = %child.exit
+  %nw.i20 = getelementptr inbounds %struct.quad_struct, ptr %p.tr, i64 0, i32 2
+  br label %return.sink.split.i27
 
-30:                                               ; preds = %22
-  %31 = getelementptr inbounds %struct.quad_struct, ptr %7, i64 0, i32 5
-  br label %34
+sw.bb2.i23:                                       ; preds = %child.exit
+  %se.i22 = getelementptr inbounds %struct.quad_struct, ptr %p.tr, i64 0, i32 5
+  br label %return.sink.split.i27
 
-32:                                               ; preds = %22
-  %33 = getelementptr inbounds %struct.quad_struct, ptr %7, i64 0, i32 4
-  br label %34
+sw.bb3.i25:                                       ; preds = %child.exit
+  %sw.i24 = getelementptr inbounds %struct.quad_struct, ptr %p.tr, i64 0, i32 4
+  br label %return.sink.split.i27
 
-34:                                               ; preds = %32, %30, %28, %26
-  %35 = phi ptr [ %33, %32 ], [ %31, %30 ], [ %29, %28 ], [ %27, %26 ]
-  %36 = load ptr, ptr %35, align 8, !tbaa !16
-  br label %37
+return.sink.split.i27:                            ; preds = %sw.bb3.i25, %sw.bb2.i23, %sw.bb1.i21, %sw.bb.i19
+  %sw.sink.i26 = phi ptr [ %sw.i24, %sw.bb3.i25 ], [ %se.i22, %sw.bb2.i23 ], [ %nw.i20, %sw.bb1.i21 ], [ %ne.i18, %sw.bb.i19 ]
+  %2 = load ptr, ptr %sw.sink.i26, align 8, !tbaa !16
+  br label %child.exit29
 
-37:                                               ; preds = %22, %34
-  %38 = phi ptr [ null, %22 ], [ %36, %34 ]
-  %39 = add nsw i32 %25, %6
-  br label %5
+child.exit29:                                     ; preds = %child.exit, %return.sink.split.i27
+  %retval.0.i28 = phi ptr [ null, %child.exit ], [ %2, %return.sink.split.i27 ]
+  %add = add nsw i32 %call1, %accumulator.tr
+  br label %tailrecurse
 
-40:                                               ; preds = %5
-  br label %41
+return.loopexit:                                  ; preds = %tailrecurse
+  br label %return
 
-41:                                               ; preds = %5, %40
-  %42 = phi i32 [ %8, %40 ], [ 0, %5 ]
-  %43 = add nsw i32 %42, %6
-  ret i32 %43
+return:                                           ; preds = %tailrecurse, %return.loopexit
+  %retval.0 = phi i32 [ %size.tr, %return.loopexit ], [ 0, %tailrecurse ]
+  %accumulator.ret.tr = add nsw i32 %retval.0, %accumulator.tr
+  ret i32 %accumulator.ret.tr
 }
 
 ; Function Attrs: noreturn nounwind uwtable
-define dso_local i32 @main(i32 noundef %0, ptr noundef %1) local_unnamed_addr #2 {
-  %3 = tail call i32 @dealwithargs(i32 noundef %0, ptr noundef %1) #6
-  %4 = load i32, ptr @NumNodes, align 4, !tbaa !17
-  %5 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str, i32 noundef %3, i32 noundef %4)
-  %6 = load i32, ptr @NumNodes, align 4, !tbaa !17
-  %7 = add nsw i32 %6, -1
-  %8 = tail call ptr @MakeTree(i32 noundef 2097152, i32 noundef 0, i32 noundef 0, i32 noundef 0, i32 noundef %7, ptr noundef null, i32 noundef 3, i32 noundef %3) #6
-  %9 = tail call i32 @CountTree(ptr noundef %8)
-  %10 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.1, i32 noundef %9)
-  %11 = tail call i32 @perimeter(ptr noundef %8, i32 noundef 4096)
-  %12 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.2, i32 noundef %11)
+define dso_local i32 @main(i32 noundef %argc, ptr noundef %argv) local_unnamed_addr #2 {
+entry:
+  %call = tail call i32 @dealwithargs(i32 noundef %argc, ptr noundef %argv) #6
+  %0 = load i32, ptr @NumNodes, align 4, !tbaa !17
+  %call1 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str, i32 noundef %call, i32 noundef %0)
+  %1 = load i32, ptr @NumNodes, align 4, !tbaa !17
+  %sub = add nsw i32 %1, -1
+  %call2 = tail call ptr @MakeTree(i32 noundef 2097152, i32 noundef 0, i32 noundef 0, i32 noundef 0, i32 noundef %sub, ptr noundef null, i32 noundef 3, i32 noundef %call) #6
+  %call3 = tail call i32 @CountTree(ptr noundef %call2)
+  %call4 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.1, i32 noundef %call3)
+  %call5 = tail call i32 @perimeter(ptr noundef %call2, i32 noundef 4096)
+  %call6 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.2, i32 noundef %call5)
   tail call void @exit(i32 noundef 0) #7
   unreachable
 }

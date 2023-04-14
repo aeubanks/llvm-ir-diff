@@ -20,220 +20,221 @@ target triple = "x86_64-unknown-linux-gnu"
 @.str.5 = private unnamed_addr constant [25 x i8] c"EXTERNAL(AFTP,DIRECTORY)\00", align 1
 
 ; Function Attrs: nounwind uwtable
-define dso_local ptr @archie_query(ptr noundef %0, ptr noundef %1, i32 noundef %2, i32 noundef %3, i8 noundef signext %4, ptr noundef readonly %5, i32 noundef %6) local_unnamed_addr #0 {
-  %8 = alloca [1024 x i8], align 16
-  %9 = alloca %struct.vdir, align 8
-  call void @llvm.lifetime.start.p0(i64 1024, ptr nonnull %8) #8
-  call void @llvm.lifetime.start.p0(i64 72, ptr nonnull %9) #8
-  %10 = icmp eq ptr %5, null
-  %11 = select i1 %10, ptr @defcmplink, ptr %5
-  %12 = sext i8 %4 to i32
-  %13 = call i32 (ptr, ptr, ...) @sprintf(ptr noundef nonnull dereferenceable(1) %8, ptr noundef nonnull dereferenceable(1) @.str, i32 noundef %2, i32 noundef %3, i32 noundef %12, ptr noundef %1) #8
+define dso_local ptr @archie_query(ptr noundef %host, ptr noundef %string, i32 noundef %max_hits, i32 noundef %offset, i8 noundef signext %query_type, ptr noundef readonly %cmp_proc, i32 noundef %flags) local_unnamed_addr #0 {
+entry:
+  %qstring = alloca [1024 x i8], align 16
+  %dir_st = alloca %struct.vdir, align 8
+  call void @llvm.lifetime.start.p0(i64 1024, ptr nonnull %qstring) #8
+  call void @llvm.lifetime.start.p0(i64 72, ptr nonnull %dir_st) #8
+  %cmp = icmp eq ptr %cmp_proc, null
+  %spec.store.select = select i1 %cmp, ptr @defcmplink, ptr %cmp_proc
+  %conv = sext i8 %query_type to i32
+  %call = call i32 (ptr, ptr, ...) @sprintf(ptr noundef nonnull dereferenceable(1) %qstring, ptr noundef nonnull dereferenceable(1) @.str, i32 noundef %max_hits, i32 noundef %offset, i32 noundef %conv, ptr noundef %string) #8
   store i32 0, ptr @perrno, align 4, !tbaa !5
   store i8 0, ptr @p_err_string, align 1, !tbaa !9
   store i32 0, ptr @pwarn, align 4, !tbaa !5
   store i8 0, ptr @p_warn_string, align 1, !tbaa !9
-  call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(72) %9, i8 0, i64 72, i1 false)
-  %14 = call i32 @get_vdir(ptr noundef %0, ptr noundef nonnull %8, ptr noundef nonnull @.str.1, ptr noundef nonnull %9, i64 noundef 96, ptr noundef null, ptr noundef null) #8
-  %15 = icmp eq i32 %14, 0
-  br i1 %15, label %16, label %127
+  call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(72) %dir_st, i8 0, i64 72, i1 false)
+  %call2 = call i32 @get_vdir(ptr noundef %host, ptr noundef nonnull %qstring, ptr noundef nonnull @.str.1, ptr noundef nonnull %dir_st, i64 noundef 96, ptr noundef null, ptr noundef null) #8
+  %tobool.not = icmp eq i32 %call2, 0
+  br i1 %tobool.not, label %if.end4, label %cleanup
 
-16:                                               ; preds = %7
-  %17 = getelementptr inbounds %struct.vdir, ptr %9, i64 0, i32 5
-  %18 = load ptr, ptr %17, align 8, !tbaa !10
-  store ptr null, ptr %17, align 8, !tbaa !10
-  %19 = icmp eq ptr %18, null
-  br i1 %19, label %75, label %20
+if.end4:                                          ; preds = %entry
+  %links5 = getelementptr inbounds %struct.vdir, ptr %dir_st, i64 0, i32 5
+  %0 = load ptr, ptr %links5, align 8, !tbaa !10
+  store ptr null, ptr %links5, align 8, !tbaa !10
+  %cmp7.not185 = icmp eq ptr %0, null
+  br i1 %cmp7.not185, label %if.end37.thread, label %for.body
 
-20:                                               ; preds = %16, %37
-  %21 = phi ptr [ %23, %37 ], [ %18, %16 ]
-  %22 = getelementptr inbounds %struct.vlink, ptr %21, i64 0, i32 20
-  %23 = load ptr, ptr %22, align 8, !tbaa !14
-  %24 = getelementptr inbounds %struct.vlink, ptr %21, i64 0, i32 6
-  %25 = load ptr, ptr %24, align 8, !tbaa !16
-  %26 = icmp eq ptr %25, null
-  br i1 %26, label %37, label %27
+for.body:                                         ; preds = %if.end4, %for.inc26
+  %p.0186 = phi ptr [ %1, %for.inc26 ], [ %0, %if.end4 ]
+  %next = getelementptr inbounds %struct.vlink, ptr %p.0186, i64 0, i32 20
+  %1 = load ptr, ptr %next, align 8, !tbaa !14
+  %replicas = getelementptr inbounds %struct.vlink, ptr %p.0186, i64 0, i32 6
+  %2 = load ptr, ptr %replicas, align 8, !tbaa !16
+  %cmp9.not = icmp eq ptr %2, null
+  br i1 %cmp9.not, label %for.inc26, label %if.then11
 
-27:                                               ; preds = %20
-  store ptr %25, ptr %22, align 8, !tbaa !14
-  %28 = getelementptr inbounds %struct.vlink, ptr %25, i64 0, i32 19
-  store ptr %21, ptr %28, align 8, !tbaa !17
-  br label %29
+if.then11:                                        ; preds = %for.body
+  store ptr %2, ptr %next, align 8, !tbaa !14
+  %previous = getelementptr inbounds %struct.vlink, ptr %2, i64 0, i32 19
+  store ptr %p.0186, ptr %previous, align 8, !tbaa !17
+  br label %for.cond16
 
-29:                                               ; preds = %29, %27
-  %30 = phi ptr [ %25, %27 ], [ %32, %29 ]
-  %31 = getelementptr inbounds %struct.vlink, ptr %30, i64 0, i32 20
-  %32 = load ptr, ptr %31, align 8, !tbaa !14
-  %33 = icmp eq ptr %32, null
-  br i1 %33, label %34, label %29, !llvm.loop !18
+for.cond16:                                       ; preds = %for.cond16, %if.then11
+  %r.0 = phi ptr [ %2, %if.then11 ], [ %3, %for.cond16 ]
+  %next17 = getelementptr inbounds %struct.vlink, ptr %r.0, i64 0, i32 20
+  %3 = load ptr, ptr %next17, align 8, !tbaa !14
+  %cmp18.not = icmp eq ptr %3, null
+  br i1 %cmp18.not, label %for.end, label %for.cond16, !llvm.loop !18
 
-34:                                               ; preds = %29
-  %35 = getelementptr inbounds %struct.vlink, ptr %30, i64 0, i32 20
-  store ptr %23, ptr %35, align 8, !tbaa !14
-  %36 = getelementptr inbounds %struct.vlink, ptr %23, i64 0, i32 19
-  store ptr %30, ptr %36, align 8, !tbaa !17
-  store ptr null, ptr %24, align 8, !tbaa !16
-  br label %37
+for.end:                                          ; preds = %for.cond16
+  %next17.le = getelementptr inbounds %struct.vlink, ptr %r.0, i64 0, i32 20
+  store ptr %1, ptr %next17.le, align 8, !tbaa !14
+  %previous23 = getelementptr inbounds %struct.vlink, ptr %1, i64 0, i32 19
+  store ptr %r.0, ptr %previous23, align 8, !tbaa !17
+  store ptr null, ptr %replicas, align 8, !tbaa !20
+  br label %for.inc26
 
-37:                                               ; preds = %20, %34
-  %38 = icmp eq ptr %23, null
-  br i1 %38, label %39, label %20, !llvm.loop !20
+for.inc26:                                        ; preds = %for.body, %for.end
+  %cmp7.not = icmp eq ptr %1, null
+  br i1 %cmp7.not, label %for.end27, label %for.body, !llvm.loop !21
 
-39:                                               ; preds = %37
-  %40 = and i32 %6, 2
-  %41 = icmp ne i32 %40, 0
-  %42 = or i1 %41, %19
-  br i1 %42, label %72, label %43
+for.end27:                                        ; preds = %for.inc26
+  %and = and i32 %flags, 2
+  %tobool28.not = icmp ne i32 %and, 0
+  %or.cond = or i1 %tobool28.not, %cmp7.not185
+  br i1 %or.cond, label %if.end37, label %for.body33
 
-43:                                               ; preds = %39, %68
-  %44 = phi ptr [ %70, %68 ], [ %18, %39 ]
-  %45 = getelementptr inbounds %struct.vlink, ptr %44, i64 0, i32 4
-  %46 = load ptr, ptr %45, align 8, !tbaa !21
-  %47 = call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %46, ptr noundef nonnull dereferenceable(10) @.str.3)
-  %48 = icmp eq i32 %47, 0
-  br i1 %48, label %49, label %68
+for.body33:                                       ; preds = %for.end27, %translateArchieResponse.exit
+  %p.1188 = phi ptr [ %9, %translateArchieResponse.exit ], [ %0, %for.end27 ]
+  %type.i = getelementptr inbounds %struct.vlink, ptr %p.1188, i64 0, i32 4
+  %4 = load ptr, ptr %type.i, align 8, !tbaa !22
+  %call.i = call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %4, ptr noundef nonnull dereferenceable(10) @.str.3)
+  %cmp.i = icmp eq i32 %call.i, 0
+  br i1 %cmp.i, label %if.then.i, label %translateArchieResponse.exit
 
-49:                                               ; preds = %43
-  %50 = getelementptr inbounds %struct.vlink, ptr %44, i64 0, i32 10
-  %51 = load ptr, ptr %50, align 8, !tbaa !22
-  %52 = call i32 @strncmp(ptr noundef nonnull dereferenceable(1) %51, ptr noundef nonnull dereferenceable(12) @.str.4, i64 noundef 11)
-  %53 = icmp eq i32 %52, 0
-  br i1 %53, label %54, label %68
+if.then.i:                                        ; preds = %for.body33
+  %filename.i = getelementptr inbounds %struct.vlink, ptr %p.1188, i64 0, i32 10
+  %5 = load ptr, ptr %filename.i, align 8, !tbaa !23
+  %call1.i = call i32 @strncmp(ptr noundef nonnull dereferenceable(1) %5, ptr noundef nonnull dereferenceable(12) @.str.4, i64 noundef 11)
+  %cmp2.i = icmp eq i32 %call1.i, 0
+  br i1 %cmp2.i, label %if.then3.i, label %translateArchieResponse.exit
 
-54:                                               ; preds = %49
-  %55 = call ptr (ptr, ptr, ...) @stcopyr(ptr noundef nonnull @.str.5, ptr noundef %46) #8
-  store ptr %55, ptr %45, align 8, !tbaa !21
-  %56 = load ptr, ptr %50, align 8, !tbaa !22
-  %57 = getelementptr inbounds i8, ptr %56, i64 12
-  %58 = getelementptr inbounds %struct.vlink, ptr %44, i64 0, i32 8
-  %59 = load ptr, ptr %58, align 8, !tbaa !23
-  %60 = call ptr (ptr, ptr, ...) @stcopyr(ptr noundef nonnull %57, ptr noundef %59) #8
-  store ptr %60, ptr %58, align 8, !tbaa !23
-  %61 = call ptr @strchr(ptr noundef nonnull dereferenceable(1) %60, i32 noundef 47)
-  %62 = icmp eq ptr %61, null
-  %63 = load ptr, ptr %50, align 8, !tbaa !22
-  br i1 %62, label %66, label %64
+if.then3.i:                                       ; preds = %if.then.i
+  %call5.i = call ptr (ptr, ptr, ...) @stcopyr(ptr noundef nonnull @.str.5, ptr noundef %4) #8
+  store ptr %call5.i, ptr %type.i, align 8, !tbaa !22
+  %6 = load ptr, ptr %filename.i, align 8, !tbaa !23
+  %add.ptr.i = getelementptr inbounds i8, ptr %6, i64 12
+  %host.i = getelementptr inbounds %struct.vlink, ptr %p.1188, i64 0, i32 8
+  %7 = load ptr, ptr %host.i, align 8, !tbaa !24
+  %call8.i = call ptr (ptr, ptr, ...) @stcopyr(ptr noundef nonnull %add.ptr.i, ptr noundef %7) #8
+  store ptr %call8.i, ptr %host.i, align 8, !tbaa !24
+  %call11.i = call ptr @strchr(ptr noundef nonnull dereferenceable(1) %call8.i, i32 noundef 47)
+  %tobool.not.i = icmp eq ptr %call11.i, null
+  %8 = load ptr, ptr %filename.i, align 8, !tbaa !23
+  br i1 %tobool.not.i, label %if.else.i, label %if.then12.i
 
-64:                                               ; preds = %54
-  %65 = call ptr (ptr, ptr, ...) @stcopyr(ptr noundef nonnull %61, ptr noundef %63) #8
-  store ptr %65, ptr %50, align 8, !tbaa !22
-  store i8 0, ptr %61, align 1, !tbaa !9
-  br label %68
+if.then12.i:                                      ; preds = %if.then3.i
+  %call14.i = call ptr (ptr, ptr, ...) @stcopyr(ptr noundef nonnull %call11.i, ptr noundef %8) #8
+  store ptr %call14.i, ptr %filename.i, align 8, !tbaa !23
+  store i8 0, ptr %call11.i, align 1, !tbaa !9
+  br label %translateArchieResponse.exit
 
-66:                                               ; preds = %54
-  %67 = call ptr (ptr, ptr, ...) @stcopyr(ptr noundef nonnull @.str.1, ptr noundef %63) #8
-  store ptr %67, ptr %50, align 8, !tbaa !22
-  br label %68
+if.else.i:                                        ; preds = %if.then3.i
+  %call17.i = call ptr (ptr, ptr, ...) @stcopyr(ptr noundef nonnull @.str.1, ptr noundef %8) #8
+  store ptr %call17.i, ptr %filename.i, align 8, !tbaa !23
+  br label %translateArchieResponse.exit
 
-68:                                               ; preds = %43, %49, %64, %66
-  %69 = getelementptr inbounds %struct.vlink, ptr %44, i64 0, i32 20
-  %70 = load ptr, ptr %69, align 8, !tbaa !14
-  %71 = icmp eq ptr %70, null
-  br i1 %71, label %72, label %43, !llvm.loop !24
+translateArchieResponse.exit:                     ; preds = %for.body33, %if.then.i, %if.then12.i, %if.else.i
+  %next35 = getelementptr inbounds %struct.vlink, ptr %p.1188, i64 0, i32 20
+  %9 = load ptr, ptr %next35, align 8, !tbaa !14
+  %cmp31.not = icmp eq ptr %9, null
+  br i1 %cmp31.not, label %if.end37, label %for.body33, !llvm.loop !25
 
-72:                                               ; preds = %68, %39
-  %73 = and i32 %6, 1
-  %74 = icmp eq i32 %73, 0
-  br i1 %74, label %78, label %127
+if.end37:                                         ; preds = %translateArchieResponse.exit, %for.end27
+  %and38 = and i32 %flags, 1
+  %tobool39.not = icmp eq i32 %and38, 0
+  br i1 %tobool39.not, label %for.cond42.preheader, label %cleanup
 
-75:                                               ; preds = %16
-  %76 = and i32 %6, 1
-  %77 = icmp eq i32 %76, 0
-  br i1 %77, label %125, label %127
+if.end37.thread:                                  ; preds = %if.end4
+  %and38199 = and i32 %flags, 1
+  %tobool39.not200 = icmp eq i32 %and38199, 0
+  br i1 %tobool39.not200, label %for.end103, label %cleanup
 
-78:                                               ; preds = %72
-  br i1 %19, label %125, label %79
+for.cond42.preheader:                             ; preds = %if.end37
+  br i1 %cmp7.not185, label %for.end103, label %for.body45
 
-79:                                               ; preds = %78, %123
-  %80 = phi ptr [ %124, %123 ], [ %18, %78 ]
-  %81 = phi ptr [ %83, %123 ], [ %18, %78 ]
-  %82 = getelementptr inbounds %struct.vlink, ptr %81, i64 0, i32 20
-  %83 = load ptr, ptr %82, align 8, !tbaa !14
-  %84 = icmp eq ptr %83, null
-  br i1 %84, label %94, label %85
+for.body45:                                       ; preds = %for.cond42.preheader, %for.inc102
+  %links.0194 = phi ptr [ %links.1, %for.inc102 ], [ %0, %for.cond42.preheader ]
+  %p.2193 = phi ptr [ %10, %for.inc102 ], [ %0, %for.cond42.preheader ]
+  %next46 = getelementptr inbounds %struct.vlink, ptr %p.2193, i64 0, i32 20
+  %10 = load ptr, ptr %next46, align 8, !tbaa !14
+  %cmp49.not189 = icmp eq ptr %10, null
+  br i1 %cmp49.not189, label %for.end59, label %for.body51
 
-85:                                               ; preds = %79, %85
-  %86 = phi ptr [ %90, %85 ], [ %81, %79 ]
-  %87 = phi ptr [ %92, %85 ], [ %83, %79 ]
-  %88 = call i32 (ptr, ptr, ...) %11(ptr noundef nonnull %87, ptr noundef %86) #8
-  %89 = icmp slt i32 %88, 0
-  %90 = select i1 %89, ptr %87, ptr %86
-  %91 = getelementptr inbounds %struct.vlink, ptr %87, i64 0, i32 20
-  %92 = load ptr, ptr %91, align 8, !tbaa !14
-  %93 = icmp eq ptr %92, null
-  br i1 %93, label %94, label %85, !llvm.loop !25
+for.body51:                                       ; preds = %for.body45, %for.body51
+  %lowest.0191 = phi ptr [ %spec.select, %for.body51 ], [ %p.2193, %for.body45 ]
+  %q.0190 = phi ptr [ %11, %for.body51 ], [ %10, %for.body45 ]
+  %call52 = call i32 (ptr, ptr, ...) %spec.store.select(ptr noundef nonnull %q.0190, ptr noundef %lowest.0191) #8
+  %cmp53 = icmp slt i32 %call52, 0
+  %spec.select = select i1 %cmp53, ptr %q.0190, ptr %lowest.0191
+  %next58 = getelementptr inbounds %struct.vlink, ptr %q.0190, i64 0, i32 20
+  %11 = load ptr, ptr %next58, align 8, !tbaa !14
+  %cmp49.not = icmp eq ptr %11, null
+  br i1 %cmp49.not, label %for.end59, label %for.body51, !llvm.loop !26
 
-94:                                               ; preds = %85, %79
-  %95 = phi ptr [ %81, %79 ], [ %90, %85 ]
-  %96 = icmp eq ptr %81, %95
-  br i1 %96, label %123, label %97
+for.end59:                                        ; preds = %for.body51, %for.body45
+  %lowest.0.lcssa = phi ptr [ %p.2193, %for.body45 ], [ %spec.select, %for.body51 ]
+  %cmp60.not = icmp eq ptr %p.2193, %lowest.0.lcssa
+  br i1 %cmp60.not, label %for.inc102, label %if.then62
 
-97:                                               ; preds = %94
-  %98 = load ptr, ptr %82, align 8, !tbaa !14
-  %99 = getelementptr inbounds %struct.vlink, ptr %81, i64 0, i32 19
-  %100 = load ptr, ptr %99, align 8, !tbaa !17
-  %101 = getelementptr inbounds %struct.vlink, ptr %95, i64 0, i32 20
-  %102 = load ptr, ptr %101, align 8, !tbaa !14
-  %103 = icmp eq ptr %102, null
-  br i1 %103, label %106, label %104
+if.then62:                                        ; preds = %for.end59
+  %12 = load ptr, ptr %next46, align 8, !tbaa !14
+  %previous64 = getelementptr inbounds %struct.vlink, ptr %p.2193, i64 0, i32 19
+  %13 = load ptr, ptr %previous64, align 8, !tbaa !17
+  %next65 = getelementptr inbounds %struct.vlink, ptr %lowest.0.lcssa, i64 0, i32 20
+  %14 = load ptr, ptr %next65, align 8, !tbaa !14
+  %cmp66.not = icmp eq ptr %14, null
+  br i1 %cmp66.not, label %if.end71, label %if.then68
 
-104:                                              ; preds = %97
-  %105 = getelementptr inbounds %struct.vlink, ptr %102, i64 0, i32 19
-  store ptr %81, ptr %105, align 8, !tbaa !17
-  br label %106
+if.then68:                                        ; preds = %if.then62
+  %previous70 = getelementptr inbounds %struct.vlink, ptr %14, i64 0, i32 19
+  store ptr %p.2193, ptr %previous70, align 8, !tbaa !17
+  br label %if.end71
 
-106:                                              ; preds = %104, %97
-  store ptr %102, ptr %82, align 8, !tbaa !14
-  %107 = icmp eq ptr %83, %95
-  br i1 %107, label %108, label %109
+if.end71:                                         ; preds = %if.then68, %if.then62
+  store ptr %14, ptr %next46, align 8, !tbaa !14
+  %cmp74 = icmp eq ptr %10, %lowest.0.lcssa
+  br i1 %cmp74, label %if.then85.critedge, label %if.else
 
-108:                                              ; preds = %106
-  store ptr %83, ptr %99, align 8, !tbaa !17
-  br label %114
+if.else:                                          ; preds = %if.end71
+  %previous78 = getelementptr inbounds %struct.vlink, ptr %lowest.0.lcssa, i64 0, i32 19
+  %15 = load ptr, ptr %previous78, align 8, !tbaa !17
+  %next79 = getelementptr inbounds %struct.vlink, ptr %15, i64 0, i32 20
+  store ptr %p.2193, ptr %next79, align 8, !tbaa !14
+  store ptr %15, ptr %previous64, align 8, !tbaa !17
+  %previous88 = getelementptr inbounds %struct.vlink, ptr %12, i64 0, i32 19
+  store ptr %lowest.0.lcssa, ptr %previous88, align 8, !tbaa !17
+  br label %if.end90
 
-109:                                              ; preds = %106
-  %110 = getelementptr inbounds %struct.vlink, ptr %95, i64 0, i32 19
-  %111 = load ptr, ptr %110, align 8, !tbaa !17
-  %112 = getelementptr inbounds %struct.vlink, ptr %111, i64 0, i32 20
-  store ptr %81, ptr %112, align 8, !tbaa !14
-  store ptr %111, ptr %99, align 8, !tbaa !17
-  %113 = getelementptr inbounds %struct.vlink, ptr %98, i64 0, i32 19
-  store ptr %95, ptr %113, align 8, !tbaa !17
-  br label %114
+if.then85.critedge:                               ; preds = %if.end71
+  store ptr %10, ptr %previous64, align 8, !tbaa !17
+  br label %if.end90
 
-114:                                              ; preds = %109, %108
-  %115 = phi ptr [ %98, %109 ], [ %81, %108 ]
-  store ptr %115, ptr %101, align 8, !tbaa !14
-  %116 = icmp eq ptr %100, null
-  br i1 %116, label %119, label %117
+if.end90:                                         ; preds = %if.then85.critedge, %if.else
+  %storemerge182 = phi ptr [ %12, %if.else ], [ %p.2193, %if.then85.critedge ]
+  store ptr %storemerge182, ptr %next65, align 8, !tbaa !14
+  %cmp91.not = icmp eq ptr %13, null
+  br i1 %cmp91.not, label %if.end95, label %if.then93
 
-117:                                              ; preds = %114
-  %118 = getelementptr inbounds %struct.vlink, ptr %100, i64 0, i32 20
-  store ptr %95, ptr %118, align 8, !tbaa !14
-  br label %119
+if.then93:                                        ; preds = %if.end90
+  %next94 = getelementptr inbounds %struct.vlink, ptr %13, i64 0, i32 20
+  store ptr %lowest.0.lcssa, ptr %next94, align 8, !tbaa !14
+  br label %if.end95
 
-119:                                              ; preds = %117, %114
-  %120 = getelementptr inbounds %struct.vlink, ptr %95, i64 0, i32 19
-  store ptr %100, ptr %120, align 8, !tbaa !17
-  %121 = icmp eq ptr %80, %81
-  %122 = select i1 %121, ptr %95, ptr %80
-  br label %123
+if.end95:                                         ; preds = %if.then93, %if.end90
+  %previous96 = getelementptr inbounds %struct.vlink, ptr %lowest.0.lcssa, i64 0, i32 19
+  store ptr %13, ptr %previous96, align 8, !tbaa !17
+  %cmp97 = icmp eq ptr %links.0194, %p.2193
+  %spec.select183 = select i1 %cmp97, ptr %lowest.0.lcssa, ptr %links.0194
+  br label %for.inc102
 
-123:                                              ; preds = %119, %94
-  %124 = phi ptr [ %80, %94 ], [ %122, %119 ]
-  br i1 %84, label %125, label %79, !llvm.loop !26
+for.inc102:                                       ; preds = %if.end95, %for.end59
+  %links.1 = phi ptr [ %links.0194, %for.end59 ], [ %spec.select183, %if.end95 ]
+  br i1 %cmp49.not189, label %for.end103, label %for.body45, !llvm.loop !27
 
-125:                                              ; preds = %123, %75, %78
-  %126 = phi ptr [ null, %78 ], [ null, %75 ], [ %124, %123 ]
-  br label %127
+for.end103:                                       ; preds = %for.inc102, %if.end37.thread, %for.cond42.preheader
+  %links.0.lcssa = phi ptr [ null, %for.cond42.preheader ], [ null, %if.end37.thread ], [ %links.1, %for.inc102 ]
+  br label %cleanup
 
-127:                                              ; preds = %72, %75, %7, %125
-  %128 = phi i32 [ 0, %125 ], [ %14, %7 ], [ 0, %75 ], [ 0, %72 ]
-  %129 = phi ptr [ %126, %125 ], [ null, %7 ], [ %18, %75 ], [ %18, %72 ]
-  store i32 %128, ptr @perrno, align 4, !tbaa !5
-  call void @llvm.lifetime.end.p0(i64 72, ptr nonnull %9) #8
-  call void @llvm.lifetime.end.p0(i64 1024, ptr nonnull %8) #8
-  ret ptr %129
+cleanup:                                          ; preds = %if.end37, %if.end37.thread, %entry, %for.end103
+  %.sink = phi i32 [ 0, %for.end103 ], [ %call2, %entry ], [ 0, %if.end37.thread ], [ 0, %if.end37 ]
+  %retval.0 = phi ptr [ %links.0.lcssa, %for.end103 ], [ null, %entry ], [ %0, %if.end37.thread ], [ %0, %if.end37 ]
+  store i32 %.sink, ptr @perrno, align 4, !tbaa !5
+  call void @llvm.lifetime.end.p0(i64 72, ptr nonnull %dir_st) #8
+  call void @llvm.lifetime.end.p0(i64 1024, ptr nonnull %qstring) #8
+  ret ptr %retval.0
 }
 
 ; Function Attrs: mustprogress nocallback nofree nosync nounwind willreturn memory(argmem: readwrite)
@@ -251,133 +252,135 @@ declare i32 @get_vdir(ptr noundef, ptr noundef, ptr noundef, ptr noundef, i64 no
 declare void @llvm.lifetime.end.p0(i64 immarg, ptr nocapture) #1
 
 ; Function Attrs: mustprogress nofree nounwind willreturn memory(read, inaccessiblemem: none) uwtable
-define dso_local i32 @defcmplink(ptr nocapture noundef readonly %0, ptr nocapture noundef readonly %1) local_unnamed_addr #5 {
-  %3 = getelementptr inbounds %struct.vlink, ptr %0, i64 0, i32 8
-  %4 = load ptr, ptr %3, align 8, !tbaa !23
-  %5 = getelementptr inbounds %struct.vlink, ptr %1, i64 0, i32 8
-  %6 = load ptr, ptr %5, align 8, !tbaa !23
-  %7 = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %4, ptr noundef nonnull dereferenceable(1) %6)
-  %8 = icmp eq i32 %7, 0
-  br i1 %8, label %9, label %15
+define dso_local i32 @defcmplink(ptr nocapture noundef readonly %p, ptr nocapture noundef readonly %q) local_unnamed_addr #5 {
+entry:
+  %host = getelementptr inbounds %struct.vlink, ptr %p, i64 0, i32 8
+  %0 = load ptr, ptr %host, align 8, !tbaa !24
+  %host1 = getelementptr inbounds %struct.vlink, ptr %q, i64 0, i32 8
+  %1 = load ptr, ptr %host1, align 8, !tbaa !24
+  %call = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %0, ptr noundef nonnull dereferenceable(1) %1)
+  %cmp.not = icmp eq i32 %call, 0
+  br i1 %cmp.not, label %if.else, label %cleanup
 
-9:                                                ; preds = %2
-  %10 = getelementptr inbounds %struct.vlink, ptr %0, i64 0, i32 10
-  %11 = load ptr, ptr %10, align 8, !tbaa !22
-  %12 = getelementptr inbounds %struct.vlink, ptr %1, i64 0, i32 10
-  %13 = load ptr, ptr %12, align 8, !tbaa !22
-  %14 = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %11, ptr noundef nonnull dereferenceable(1) %13)
-  br label %15
+if.else:                                          ; preds = %entry
+  %filename = getelementptr inbounds %struct.vlink, ptr %p, i64 0, i32 10
+  %2 = load ptr, ptr %filename, align 8, !tbaa !23
+  %filename2 = getelementptr inbounds %struct.vlink, ptr %q, i64 0, i32 10
+  %3 = load ptr, ptr %filename2, align 8, !tbaa !23
+  %call3 = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %2, ptr noundef nonnull dereferenceable(1) %3)
+  br label %cleanup
 
-15:                                               ; preds = %2, %9
-  %16 = phi i32 [ %14, %9 ], [ %7, %2 ]
-  ret i32 %16
+cleanup:                                          ; preds = %entry, %if.else
+  %retval.0 = phi i32 [ %call3, %if.else ], [ %call, %entry ]
+  ret i32 %retval.0
 }
 
 ; Function Attrs: mustprogress nofree nounwind willreturn memory(argmem: read)
 declare i32 @strcmp(ptr nocapture noundef, ptr nocapture noundef) local_unnamed_addr #6
 
 ; Function Attrs: nofree nounwind memory(read, inaccessiblemem: none) uwtable
-define dso_local i32 @invdatecmplink(ptr nocapture noundef readonly %0, ptr nocapture noundef readonly %1) local_unnamed_addr #7 {
-  %3 = getelementptr inbounds %struct.vlink, ptr %0, i64 0, i32 17
-  %4 = load ptr, ptr %3, align 8, !tbaa !27
-  %5 = icmp eq ptr %4, null
-  br i1 %5, label %21, label %6
+define dso_local i32 @invdatecmplink(ptr nocapture noundef readonly %p, ptr nocapture noundef readonly %q) local_unnamed_addr #7 {
+entry:
+  %lattrib = getelementptr inbounds %struct.vlink, ptr %p, i64 0, i32 17
+  %pat.057 = load ptr, ptr %lattrib, align 8, !tbaa !16
+  %tobool.not58 = icmp eq ptr %pat.057, null
+  br i1 %tobool.not58, label %for.end, label %for.body
 
-6:                                                ; preds = %2, %16
-  %7 = phi ptr [ %19, %16 ], [ %4, %2 ]
-  %8 = phi ptr [ %17, %16 ], [ null, %2 ]
-  %9 = getelementptr inbounds %struct.pattrib, ptr %7, i64 0, i32 1
-  %10 = load ptr, ptr %9, align 8, !tbaa !28
-  %11 = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %10, ptr noundef nonnull dereferenceable(14) @.str.2)
-  %12 = icmp eq i32 %11, 0
-  br i1 %12, label %13, label %16
+for.body:                                         ; preds = %entry, %for.inc
+  %pat.060 = phi ptr [ %pat.0, %for.inc ], [ %pat.057, %entry ]
+  %pdate.059 = phi ptr [ %pdate.1, %for.inc ], [ null, %entry ]
+  %aname = getelementptr inbounds %struct.pattrib, ptr %pat.060, i64 0, i32 1
+  %0 = load ptr, ptr %aname, align 8, !tbaa !28
+  %call = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %0, ptr noundef nonnull dereferenceable(14) @.str.2)
+  %cmp = icmp eq i32 %call, 0
+  br i1 %cmp, label %if.then, label %for.inc
 
-13:                                               ; preds = %6
-  %14 = getelementptr inbounds %struct.pattrib, ptr %7, i64 0, i32 3
-  %15 = load ptr, ptr %14, align 8, !tbaa !9
-  br label %16
+if.then:                                          ; preds = %for.body
+  %value = getelementptr inbounds %struct.pattrib, ptr %pat.060, i64 0, i32 3
+  %1 = load ptr, ptr %value, align 8, !tbaa !9
+  br label %for.inc
 
-16:                                               ; preds = %6, %13
-  %17 = phi ptr [ %15, %13 ], [ %8, %6 ]
-  %18 = getelementptr inbounds %struct.pattrib, ptr %7, i64 0, i32 5
-  %19 = load ptr, ptr %18, align 8, !tbaa !27
-  %20 = icmp eq ptr %19, null
-  br i1 %20, label %21, label %6, !llvm.loop !30
+for.inc:                                          ; preds = %for.body, %if.then
+  %pdate.1 = phi ptr [ %1, %if.then ], [ %pdate.059, %for.body ]
+  %next = getelementptr inbounds %struct.pattrib, ptr %pat.060, i64 0, i32 5
+  %pat.0 = load ptr, ptr %next, align 8, !tbaa !16
+  %tobool.not = icmp eq ptr %pat.0, null
+  br i1 %tobool.not, label %for.end, label %for.body, !llvm.loop !30
 
-21:                                               ; preds = %16, %2
-  %22 = phi ptr [ null, %2 ], [ %17, %16 ]
-  %23 = getelementptr inbounds %struct.vlink, ptr %1, i64 0, i32 17
-  %24 = load ptr, ptr %23, align 8, !tbaa !27
-  %25 = icmp eq ptr %24, null
-  br i1 %25, label %41, label %26
+for.end:                                          ; preds = %for.inc, %entry
+  %pdate.0.lcssa = phi ptr [ null, %entry ], [ %pdate.1, %for.inc ]
+  %lattrib1 = getelementptr inbounds %struct.vlink, ptr %q, i64 0, i32 17
+  %qat.061 = load ptr, ptr %lattrib1, align 8, !tbaa !16
+  %tobool3.not62 = icmp eq ptr %qat.061, null
+  br i1 %tobool3.not62, label %for.end13, label %for.body4
 
-26:                                               ; preds = %21, %36
-  %27 = phi ptr [ %39, %36 ], [ %24, %21 ]
-  %28 = phi ptr [ %37, %36 ], [ null, %21 ]
-  %29 = getelementptr inbounds %struct.pattrib, ptr %27, i64 0, i32 1
-  %30 = load ptr, ptr %29, align 8, !tbaa !28
-  %31 = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %30, ptr noundef nonnull dereferenceable(14) @.str.2)
-  %32 = icmp eq i32 %31, 0
-  br i1 %32, label %33, label %36
+for.body4:                                        ; preds = %for.end, %for.inc11
+  %qat.064 = phi ptr [ %qat.0, %for.inc11 ], [ %qat.061, %for.end ]
+  %qdate.063 = phi ptr [ %qdate.1, %for.inc11 ], [ null, %for.end ]
+  %aname5 = getelementptr inbounds %struct.pattrib, ptr %qat.064, i64 0, i32 1
+  %2 = load ptr, ptr %aname5, align 8, !tbaa !28
+  %call6 = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %2, ptr noundef nonnull dereferenceable(14) @.str.2)
+  %cmp7 = icmp eq i32 %call6, 0
+  br i1 %cmp7, label %if.then8, label %for.inc11
 
-33:                                               ; preds = %26
-  %34 = getelementptr inbounds %struct.pattrib, ptr %27, i64 0, i32 3
-  %35 = load ptr, ptr %34, align 8, !tbaa !9
-  br label %36
+if.then8:                                         ; preds = %for.body4
+  %value9 = getelementptr inbounds %struct.pattrib, ptr %qat.064, i64 0, i32 3
+  %3 = load ptr, ptr %value9, align 8, !tbaa !9
+  br label %for.inc11
 
-36:                                               ; preds = %26, %33
-  %37 = phi ptr [ %35, %33 ], [ %28, %26 ]
-  %38 = getelementptr inbounds %struct.pattrib, ptr %27, i64 0, i32 5
-  %39 = load ptr, ptr %38, align 8, !tbaa !27
-  %40 = icmp eq ptr %39, null
-  br i1 %40, label %41, label %26, !llvm.loop !31
+for.inc11:                                        ; preds = %for.body4, %if.then8
+  %qdate.1 = phi ptr [ %3, %if.then8 ], [ %qdate.063, %for.body4 ]
+  %next12 = getelementptr inbounds %struct.pattrib, ptr %qat.064, i64 0, i32 5
+  %qat.0 = load ptr, ptr %next12, align 8, !tbaa !16
+  %tobool3.not = icmp eq ptr %qat.0, null
+  br i1 %tobool3.not, label %for.end13, label %for.body4, !llvm.loop !31
 
-41:                                               ; preds = %36, %21
-  %42 = phi ptr [ null, %21 ], [ %37, %36 ]
-  %43 = icmp ne ptr %22, null
-  %44 = icmp ne ptr %42, null
-  %45 = select i1 %43, i1 true, i1 %44
-  br i1 %45, label %53, label %46
+for.end13:                                        ; preds = %for.inc11, %for.end
+  %qdate.0.lcssa = phi ptr [ null, %for.end ], [ %qdate.1, %for.inc11 ]
+  %tobool14 = icmp ne ptr %pdate.0.lcssa, null
+  %tobool15 = icmp ne ptr %qdate.0.lcssa, null
+  %or.cond = select i1 %tobool14, i1 true, i1 %tobool15
+  br i1 %or.cond, label %if.end18, label %if.then16
 
-46:                                               ; preds = %41
-  %47 = getelementptr inbounds %struct.vlink, ptr %0, i64 0, i32 8
-  %48 = load ptr, ptr %47, align 8, !tbaa !23
-  %49 = getelementptr inbounds %struct.vlink, ptr %1, i64 0, i32 8
-  %50 = load ptr, ptr %49, align 8, !tbaa !23
-  %51 = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %48, ptr noundef nonnull dereferenceable(1) %50)
-  %52 = icmp eq i32 %51, 0
-  br i1 %52, label %66, label %72
+if.then16:                                        ; preds = %for.end13
+  %host.i = getelementptr inbounds %struct.vlink, ptr %p, i64 0, i32 8
+  %4 = load ptr, ptr %host.i, align 8, !tbaa !24
+  %host1.i = getelementptr inbounds %struct.vlink, ptr %q, i64 0, i32 8
+  %5 = load ptr, ptr %host1.i, align 8, !tbaa !24
+  %call.i = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %4, ptr noundef nonnull dereferenceable(1) %5)
+  %cmp.not.i = icmp eq i32 %call.i, 0
+  br i1 %cmp.not.i, label %cleanup.sink.split, label %cleanup
 
-53:                                               ; preds = %41
-  %54 = select i1 %43, i1 %44, i1 false
-  %55 = select i1 %43, i32 -1, i32 1
-  br i1 %54, label %56, label %72
+if.end18:                                         ; preds = %for.end13
+  %6 = select i1 %tobool14, i1 %tobool15, i1 false
+  %.mux = select i1 %tobool14, i32 -1, i32 1
+  br i1 %6, label %if.end24, label %cleanup
 
-56:                                               ; preds = %53
-  %57 = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %42, ptr noundef nonnull dereferenceable(1) %22)
-  %58 = icmp eq i32 %57, 0
-  br i1 %58, label %59, label %72
+if.end24:                                         ; preds = %if.end18
+  %call25 = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %qdate.0.lcssa, ptr noundef nonnull dereferenceable(1) %pdate.0.lcssa)
+  %cmp26 = icmp eq i32 %call25, 0
+  br i1 %cmp26, label %if.then27, label %cleanup
 
-59:                                               ; preds = %56
-  %60 = getelementptr inbounds %struct.vlink, ptr %0, i64 0, i32 8
-  %61 = load ptr, ptr %60, align 8, !tbaa !23
-  %62 = getelementptr inbounds %struct.vlink, ptr %1, i64 0, i32 8
-  %63 = load ptr, ptr %62, align 8, !tbaa !23
-  %64 = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %61, ptr noundef nonnull dereferenceable(1) %63)
-  %65 = icmp eq i32 %64, 0
-  br i1 %65, label %66, label %72
+if.then27:                                        ; preds = %if.end24
+  %host.i47 = getelementptr inbounds %struct.vlink, ptr %p, i64 0, i32 8
+  %7 = load ptr, ptr %host.i47, align 8, !tbaa !24
+  %host1.i48 = getelementptr inbounds %struct.vlink, ptr %q, i64 0, i32 8
+  %8 = load ptr, ptr %host1.i48, align 8, !tbaa !24
+  %call.i49 = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %7, ptr noundef nonnull dereferenceable(1) %8)
+  %cmp.not.i50 = icmp eq i32 %call.i49, 0
+  br i1 %cmp.not.i50, label %cleanup.sink.split, label %cleanup
 
-66:                                               ; preds = %59, %46
-  %67 = getelementptr inbounds %struct.vlink, ptr %0, i64 0, i32 10
-  %68 = load ptr, ptr %67, align 8, !tbaa !22
-  %69 = getelementptr inbounds %struct.vlink, ptr %1, i64 0, i32 10
-  %70 = load ptr, ptr %69, align 8, !tbaa !22
-  %71 = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %68, ptr noundef nonnull dereferenceable(1) %70)
-  br label %72
+cleanup.sink.split:                               ; preds = %if.then27, %if.then16
+  %filename.i51 = getelementptr inbounds %struct.vlink, ptr %p, i64 0, i32 10
+  %9 = load ptr, ptr %filename.i51, align 8, !tbaa !23
+  %filename2.i52 = getelementptr inbounds %struct.vlink, ptr %q, i64 0, i32 10
+  %10 = load ptr, ptr %filename2.i52, align 8, !tbaa !23
+  %call3.i53 = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %9, ptr noundef nonnull dereferenceable(1) %10)
+  br label %cleanup
 
-72:                                               ; preds = %66, %53, %56, %59, %46
-  %73 = phi i32 [ %51, %46 ], [ %55, %53 ], [ %64, %59 ], [ %57, %56 ], [ %71, %66 ]
-  ret i32 %73
+cleanup:                                          ; preds = %cleanup.sink.split, %if.then27, %if.then16, %if.end18, %if.end24
+  %retval.0 = phi i32 [ %.mux, %if.end18 ], [ %call25, %if.end24 ], [ %call.i, %if.then16 ], [ %call.i49, %if.then27 ], [ %call3.i53, %cleanup.sink.split ]
+  ret i32 %retval.0
 }
 
 ; Function Attrs: mustprogress nofree nounwind willreturn memory(argmem: read)
@@ -417,18 +420,18 @@ attributes #8 = { nounwind }
 !13 = !{!"any pointer", !7, i64 0}
 !14 = !{!15, !13, i64 152}
 !15 = !{!"vlink", !6, i64 0, !13, i64 8, !7, i64 16, !6, i64 20, !13, i64 24, !13, i64 32, !13, i64 40, !13, i64 48, !13, i64 56, !13, i64 64, !13, i64 72, !12, i64 80, !12, i64 88, !13, i64 96, !12, i64 104, !12, i64 112, !13, i64 120, !13, i64 128, !13, i64 136, !13, i64 144, !13, i64 152}
-!16 = !{!15, !13, i64 40}
+!16 = !{!13, !13, i64 0}
 !17 = !{!15, !13, i64 144}
 !18 = distinct !{!18, !19}
 !19 = !{!"llvm.loop.mustprogress"}
-!20 = distinct !{!20, !19}
-!21 = !{!15, !13, i64 24}
-!22 = !{!15, !13, i64 72}
-!23 = !{!15, !13, i64 56}
-!24 = distinct !{!24, !19}
+!20 = !{!15, !13, i64 40}
+!21 = distinct !{!21, !19}
+!22 = !{!15, !13, i64 24}
+!23 = !{!15, !13, i64 72}
+!24 = !{!15, !13, i64 56}
 !25 = distinct !{!25, !19}
 !26 = distinct !{!26, !19}
-!27 = !{!13, !13, i64 0}
+!27 = distinct !{!27, !19}
 !28 = !{!29, !13, i64 8}
 !29 = !{!"pattrib", !7, i64 0, !13, i64 8, !13, i64 16, !7, i64 24, !13, i64 32, !13, i64 40}
 !30 = distinct !{!30, !19}

@@ -12,7 +12,8 @@ target triple = "x86_64-unknown-linux-gnu"
 @f = dso_local local_unnamed_addr global %struct.file zeroinitializer, align 8
 
 ; Function Attrs: noreturn nounwind uwtable
-define dso_local i32 @main(i32 noundef %0, ptr nocapture noundef readnone %1) local_unnamed_addr #0 {
+define dso_local i32 @main(i32 noundef %argc, ptr nocapture noundef readnone %argv) local_unnamed_addr #0 {
+entry:
   store i32 512, ptr @s, align 4, !tbaa !5
   store i8 9, ptr getelementptr inbounds (%struct.super_block, ptr @s, i64 0, i32 1), align 4, !tbaa !10
   store i64 2048, ptr @i, align 8, !tbaa !11
@@ -25,35 +26,43 @@ define dso_local i32 @main(i32 noundef %0, ptr nocapture noundef readnone %1) lo
 
 ; Function Attrs: nounwind uwtable
 define internal fastcc void @do_isofs_readdir() unnamed_addr #1 {
-  %1 = load i64, ptr @f, align 8
-  %2 = load i64, ptr @i, align 8, !tbaa !11
-  %3 = icmp slt i64 %1, %2
-  br i1 %3, label %4, label %14
+entry:
+  %0 = load i64, ptr @f, align 8, !tbaa !16
+  %1 = load i64, ptr @i, align 8, !tbaa !11
+  %cmp.not = icmp slt i64 %0, %1
+  br i1 %cmp.not, label %if.then12, label %cleanup
 
-4:                                                ; preds = %0
-  %5 = load ptr, ptr getelementptr inbounds (%struct.inode, ptr @i, i64 0, i32 1), align 8, !tbaa !15
-  %6 = getelementptr inbounds %struct.super_block, ptr %5, i64 0, i32 1
-  %7 = load i8, ptr %6, align 4, !tbaa !10
-  %8 = zext i8 %7 to i64
-  %9 = ashr i64 %1, %8
-  %10 = and i64 %9, 4294967295
-  %11 = icmp eq i64 %10, 0
-  br i1 %11, label %13, label %12
-
-12:                                               ; preds = %4
-  tail call void @abort() #3
+if.then12:                                        ; preds = %entry
+  %2 = load ptr, ptr getelementptr inbounds (%struct.inode, ptr @i, i64 0, i32 1), align 8, !tbaa !15
+  %s_blocksize_bits = getelementptr inbounds %struct.super_block, ptr %2, i64 0, i32 1
+  %3 = load i8, ptr %s_blocksize_bits, align 4, !tbaa !10
+  %sh_prom = zext i8 %3 to i64
+  %shr = ashr i64 %0, %sh_prom
+  %conv6 = trunc i64 %shr to i32
+  tail call fastcc void @isofs_bread(i32 noundef %conv6)
   unreachable
 
-13:                                               ; preds = %4
-  tail call void @exit(i32 noundef 0) #3
-  unreachable
-
-14:                                               ; preds = %0
+cleanup:                                          ; preds = %entry
   ret void
 }
 
 ; Function Attrs: noreturn
 declare void @abort() local_unnamed_addr #2
+
+; Function Attrs: noreturn nounwind uwtable
+define internal fastcc void @isofs_bread(i32 noundef %block) unnamed_addr #0 {
+entry:
+  %tobool.not = icmp eq i32 %block, 0
+  br i1 %tobool.not, label %if.end, label %if.then
+
+if.then:                                          ; preds = %entry
+  tail call void @abort() #3
+  unreachable
+
+if.end:                                           ; preds = %entry
+  tail call void @exit(i32 noundef 0) #3
+  unreachable
+}
 
 ; Function Attrs: noreturn
 declare void @exit(i32 noundef) local_unnamed_addr #2

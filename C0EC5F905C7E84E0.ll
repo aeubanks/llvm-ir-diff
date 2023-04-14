@@ -17,109 +17,110 @@ target triple = "x86_64-unknown-linux-gnu"
 @.str.3 = private unnamed_addr constant [17 x i8] c"dict_resize(new)\00", align 1
 
 ; Function Attrs: nounwind uwtable
-define dso_local i32 @dict_create(i32 noundef %0, ptr nocapture noundef writeonly %1) local_unnamed_addr #0 {
-  %3 = tail call i32 @llvm.umax.i32(i32 %0, i32 1)
-  %4 = add i32 %3, 1
-  %5 = tail call ptr @alloc(i32 noundef 1, i32 noundef 32, ptr noundef nonnull @.str) #8
-  %6 = icmp eq ptr %5, null
-  br i1 %6, label %60, label %7
+define dso_local i32 @dict_create(i32 noundef %size, ptr nocapture noundef writeonly %pref) local_unnamed_addr #0 {
+entry:
+  %cond = tail call i32 @llvm.umax.i32(i32 %size, i32 1)
+  %add = add i32 %cond, 1
+  %call = tail call ptr @alloc(i32 noundef 1, i32 noundef 32, ptr noundef nonnull @.str) #8
+  %cmp1 = icmp eq ptr %call, null
+  br i1 %cmp1, label %cleanup, label %if.end
 
-7:                                                ; preds = %2
-  %8 = tail call ptr @alloc(i32 noundef %4, i32 noundef 32, ptr noundef nonnull @.str.1) #8
-  %9 = icmp eq ptr %8, null
-  br i1 %9, label %10, label %11
+if.end:                                           ; preds = %entry
+  %call2 = tail call ptr @alloc(i32 noundef %add, i32 noundef 32, ptr noundef nonnull @.str.1) #8
+  %cmp3 = icmp eq ptr %call2, null
+  br i1 %cmp3, label %if.then4, label %if.end5
 
-10:                                               ; preds = %7
-  tail call void @alloc_free(ptr noundef nonnull %5, i32 noundef 1, i32 noundef 32, ptr noundef nonnull @.str) #8
-  br label %60
+if.then4:                                         ; preds = %if.end
+  tail call void @alloc_free(ptr noundef nonnull %call, i32 noundef 1, i32 noundef 32, ptr noundef nonnull @.str) #8
+  br label %cleanup
 
-11:                                               ; preds = %7
-  store i64 0, ptr %5, align 8, !tbaa !5
-  %12 = getelementptr inbounds %struct.ref_s, ptr %5, i64 0, i32 1
-  store i16 20, ptr %12, align 8, !tbaa !8
-  %13 = getelementptr inbounds %struct.dict_s, ptr %5, i64 0, i32 1
-  store ptr %8, ptr %13, align 8, !tbaa !5
-  %14 = getelementptr inbounds %struct.dict_s, ptr %5, i64 0, i32 1, i32 1
-  store i16 770, ptr %14, align 8, !tbaa !12
-  %15 = trunc i32 %4 to i16
-  %16 = shl i16 %15, 1
-  %17 = getelementptr inbounds %struct.dict_s, ptr %5, i64 0, i32 1, i32 2
-  store i16 %16, ptr %17, align 2, !tbaa !13
-  store ptr %5, ptr %1, align 8, !tbaa !5
-  %18 = getelementptr inbounds %struct.ref_s, ptr %1, i64 0, i32 1
-  store i16 778, ptr %18, align 8, !tbaa !14
-  %19 = icmp eq i32 %4, 0
-  br i1 %19, label %60, label %20
+if.end5:                                          ; preds = %if.end
+  store i64 0, ptr %call, align 8, !tbaa !5
+  %type_attrs = getelementptr inbounds %struct.ref_s, ptr %call, i64 0, i32 1
+  store i16 20, ptr %type_attrs, align 8, !tbaa !8
+  %contents = getelementptr inbounds %struct.dict_s, ptr %call, i64 0, i32 1
+  store ptr %call2, ptr %contents, align 8, !tbaa !5
+  %type_attrs9 = getelementptr inbounds %struct.dict_s, ptr %call, i64 0, i32 1, i32 1
+  store i16 770, ptr %type_attrs9, align 8, !tbaa !12
+  %add.tr = trunc i32 %add to i16
+  %conv = shl i16 %add.tr, 1
+  %size11 = getelementptr inbounds %struct.dict_s, ptr %call, i64 0, i32 1, i32 2
+  store i16 %conv, ptr %size11, align 2, !tbaa !13
+  store ptr %call, ptr %pref, align 8, !tbaa !5
+  %type_attrs13 = getelementptr inbounds %struct.ref_s, ptr %pref, i64 0, i32 1
+  store i16 778, ptr %type_attrs13, align 8, !tbaa !14
+  %tobool.not37 = icmp eq i32 %add, 0
+  br i1 %tobool.not37, label %cleanup, label %while.body.preheader
 
-20:                                               ; preds = %11
-  %21 = load ptr, ptr %13, align 8, !tbaa !5
-  %22 = and i32 %4, 7
-  %23 = icmp eq i32 %22, 0
-  br i1 %23, label %34, label %24
+while.body.preheader:                             ; preds = %if.end5
+  %0 = load ptr, ptr %contents, align 8, !tbaa !5
+  %xtraiter = and i32 %add, 7
+  %lcmp.mod.not = icmp eq i32 %xtraiter, 0
+  br i1 %lcmp.mod.not, label %while.body.prol.loopexit, label %while.body.prol
 
-24:                                               ; preds = %20, %24
-  %25 = phi ptr [ %31, %24 ], [ %21, %20 ]
-  %26 = phi i32 [ %28, %24 ], [ %4, %20 ]
-  %27 = phi i32 [ %32, %24 ], [ 0, %20 ]
-  %28 = add i32 %26, -1
-  %29 = getelementptr inbounds %struct.pair_s, ptr %25, i64 0, i32 1, i32 1
-  store i16 32, ptr %29, align 8, !tbaa !15
-  %30 = getelementptr inbounds %struct.ref_s, ptr %25, i64 0, i32 1
-  store i16 32, ptr %30, align 8, !tbaa !17
-  %31 = getelementptr inbounds %struct.pair_s, ptr %25, i64 1
-  %32 = add i32 %27, 1
-  %33 = icmp eq i32 %32, %22
-  br i1 %33, label %34, label %24, !llvm.loop !18
+while.body.prol:                                  ; preds = %while.body.preheader, %while.body.prol
+  %pp.039.prol = phi ptr [ %incdec.ptr.prol, %while.body.prol ], [ %0, %while.body.preheader ]
+  %asize.038.prol = phi i32 [ %dec.prol, %while.body.prol ], [ %add, %while.body.preheader ]
+  %prol.iter = phi i32 [ %prol.iter.next, %while.body.prol ], [ 0, %while.body.preheader ]
+  %dec.prol = add i32 %asize.038.prol, -1
+  %type_attrs17.prol = getelementptr inbounds %struct.pair_s, ptr %pp.039.prol, i64 0, i32 1, i32 1
+  store i16 32, ptr %type_attrs17.prol, align 8, !tbaa !15
+  %type_attrs18.prol = getelementptr inbounds %struct.ref_s, ptr %pp.039.prol, i64 0, i32 1
+  store i16 32, ptr %type_attrs18.prol, align 8, !tbaa !17
+  %incdec.ptr.prol = getelementptr inbounds %struct.pair_s, ptr %pp.039.prol, i64 1
+  %prol.iter.next = add i32 %prol.iter, 1
+  %prol.iter.cmp.not = icmp eq i32 %prol.iter.next, %xtraiter
+  br i1 %prol.iter.cmp.not, label %while.body.prol.loopexit, label %while.body.prol, !llvm.loop !18
 
-34:                                               ; preds = %24, %20
-  %35 = phi ptr [ %21, %20 ], [ %31, %24 ]
-  %36 = phi i32 [ %4, %20 ], [ %28, %24 ]
-  %37 = icmp ult i32 %3, 7
-  br i1 %37, label %60, label %38
+while.body.prol.loopexit:                         ; preds = %while.body.prol, %while.body.preheader
+  %pp.039.unr = phi ptr [ %0, %while.body.preheader ], [ %incdec.ptr.prol, %while.body.prol ]
+  %asize.038.unr = phi i32 [ %add, %while.body.preheader ], [ %dec.prol, %while.body.prol ]
+  %1 = icmp ult i32 %cond, 7
+  br i1 %1, label %cleanup, label %while.body
 
-38:                                               ; preds = %34, %38
-  %39 = phi ptr [ %58, %38 ], [ %35, %34 ]
-  %40 = phi i32 [ %55, %38 ], [ %36, %34 ]
-  %41 = getelementptr inbounds %struct.pair_s, ptr %39, i64 0, i32 1, i32 1
-  store i16 32, ptr %41, align 8, !tbaa !15
-  %42 = getelementptr inbounds %struct.ref_s, ptr %39, i64 0, i32 1
-  store i16 32, ptr %42, align 8, !tbaa !17
-  %43 = getelementptr inbounds %struct.pair_s, ptr %39, i64 1, i32 1, i32 1
-  store i16 32, ptr %43, align 8, !tbaa !15
-  %44 = getelementptr inbounds %struct.pair_s, ptr %39, i64 1, i32 0, i32 1
-  store i16 32, ptr %44, align 8, !tbaa !17
-  %45 = getelementptr inbounds %struct.pair_s, ptr %39, i64 2, i32 1, i32 1
-  store i16 32, ptr %45, align 8, !tbaa !15
-  %46 = getelementptr inbounds %struct.pair_s, ptr %39, i64 2, i32 0, i32 1
-  store i16 32, ptr %46, align 8, !tbaa !17
-  %47 = getelementptr inbounds %struct.pair_s, ptr %39, i64 3, i32 1, i32 1
-  store i16 32, ptr %47, align 8, !tbaa !15
-  %48 = getelementptr inbounds %struct.pair_s, ptr %39, i64 3, i32 0, i32 1
-  store i16 32, ptr %48, align 8, !tbaa !17
-  %49 = getelementptr inbounds %struct.pair_s, ptr %39, i64 4, i32 1, i32 1
-  store i16 32, ptr %49, align 8, !tbaa !15
-  %50 = getelementptr inbounds %struct.pair_s, ptr %39, i64 4, i32 0, i32 1
-  store i16 32, ptr %50, align 8, !tbaa !17
-  %51 = getelementptr inbounds %struct.pair_s, ptr %39, i64 5, i32 1, i32 1
-  store i16 32, ptr %51, align 8, !tbaa !15
-  %52 = getelementptr inbounds %struct.pair_s, ptr %39, i64 5, i32 0, i32 1
-  store i16 32, ptr %52, align 8, !tbaa !17
-  %53 = getelementptr inbounds %struct.pair_s, ptr %39, i64 6, i32 1, i32 1
-  store i16 32, ptr %53, align 8, !tbaa !15
-  %54 = getelementptr inbounds %struct.pair_s, ptr %39, i64 6, i32 0, i32 1
-  store i16 32, ptr %54, align 8, !tbaa !17
-  %55 = add i32 %40, -8
-  %56 = getelementptr inbounds %struct.pair_s, ptr %39, i64 7, i32 1, i32 1
-  store i16 32, ptr %56, align 8, !tbaa !15
-  %57 = getelementptr inbounds %struct.pair_s, ptr %39, i64 7, i32 0, i32 1
-  store i16 32, ptr %57, align 8, !tbaa !17
-  %58 = getelementptr inbounds %struct.pair_s, ptr %39, i64 8
-  %59 = icmp eq i32 %55, 0
-  br i1 %59, label %60, label %38, !llvm.loop !20
+while.body:                                       ; preds = %while.body.prol.loopexit, %while.body
+  %pp.039 = phi ptr [ %incdec.ptr.7, %while.body ], [ %pp.039.unr, %while.body.prol.loopexit ]
+  %asize.038 = phi i32 [ %dec.7, %while.body ], [ %asize.038.unr, %while.body.prol.loopexit ]
+  %type_attrs17 = getelementptr inbounds %struct.pair_s, ptr %pp.039, i64 0, i32 1, i32 1
+  store i16 32, ptr %type_attrs17, align 8, !tbaa !15
+  %type_attrs18 = getelementptr inbounds %struct.ref_s, ptr %pp.039, i64 0, i32 1
+  store i16 32, ptr %type_attrs18, align 8, !tbaa !17
+  %type_attrs17.1 = getelementptr inbounds %struct.pair_s, ptr %pp.039, i64 1, i32 1, i32 1
+  store i16 32, ptr %type_attrs17.1, align 8, !tbaa !15
+  %type_attrs18.1 = getelementptr inbounds %struct.pair_s, ptr %pp.039, i64 1, i32 0, i32 1
+  store i16 32, ptr %type_attrs18.1, align 8, !tbaa !17
+  %type_attrs17.2 = getelementptr inbounds %struct.pair_s, ptr %pp.039, i64 2, i32 1, i32 1
+  store i16 32, ptr %type_attrs17.2, align 8, !tbaa !15
+  %type_attrs18.2 = getelementptr inbounds %struct.pair_s, ptr %pp.039, i64 2, i32 0, i32 1
+  store i16 32, ptr %type_attrs18.2, align 8, !tbaa !17
+  %type_attrs17.3 = getelementptr inbounds %struct.pair_s, ptr %pp.039, i64 3, i32 1, i32 1
+  store i16 32, ptr %type_attrs17.3, align 8, !tbaa !15
+  %type_attrs18.3 = getelementptr inbounds %struct.pair_s, ptr %pp.039, i64 3, i32 0, i32 1
+  store i16 32, ptr %type_attrs18.3, align 8, !tbaa !17
+  %type_attrs17.4 = getelementptr inbounds %struct.pair_s, ptr %pp.039, i64 4, i32 1, i32 1
+  store i16 32, ptr %type_attrs17.4, align 8, !tbaa !15
+  %type_attrs18.4 = getelementptr inbounds %struct.pair_s, ptr %pp.039, i64 4, i32 0, i32 1
+  store i16 32, ptr %type_attrs18.4, align 8, !tbaa !17
+  %type_attrs17.5 = getelementptr inbounds %struct.pair_s, ptr %pp.039, i64 5, i32 1, i32 1
+  store i16 32, ptr %type_attrs17.5, align 8, !tbaa !15
+  %type_attrs18.5 = getelementptr inbounds %struct.pair_s, ptr %pp.039, i64 5, i32 0, i32 1
+  store i16 32, ptr %type_attrs18.5, align 8, !tbaa !17
+  %type_attrs17.6 = getelementptr inbounds %struct.pair_s, ptr %pp.039, i64 6, i32 1, i32 1
+  store i16 32, ptr %type_attrs17.6, align 8, !tbaa !15
+  %type_attrs18.6 = getelementptr inbounds %struct.pair_s, ptr %pp.039, i64 6, i32 0, i32 1
+  store i16 32, ptr %type_attrs18.6, align 8, !tbaa !17
+  %dec.7 = add i32 %asize.038, -8
+  %type_attrs17.7 = getelementptr inbounds %struct.pair_s, ptr %pp.039, i64 7, i32 1, i32 1
+  store i16 32, ptr %type_attrs17.7, align 8, !tbaa !15
+  %type_attrs18.7 = getelementptr inbounds %struct.pair_s, ptr %pp.039, i64 7, i32 0, i32 1
+  store i16 32, ptr %type_attrs18.7, align 8, !tbaa !17
+  %incdec.ptr.7 = getelementptr inbounds %struct.pair_s, ptr %pp.039, i64 8
+  %tobool.not.7 = icmp eq i32 %dec.7, 0
+  br i1 %tobool.not.7, label %cleanup, label %while.body, !llvm.loop !20
 
-60:                                               ; preds = %34, %38, %11, %2, %10
-  %61 = phi i32 [ -25, %10 ], [ -25, %2 ], [ 0, %11 ], [ 0, %38 ], [ 0, %34 ]
-  ret i32 %61
+cleanup:                                          ; preds = %while.body.prol.loopexit, %while.body, %if.end5, %entry, %if.then4
+  %retval.0 = phi i32 [ -25, %if.then4 ], [ -25, %entry ], [ 0, %if.end5 ], [ 0, %while.body ], [ 0, %while.body.prol.loopexit ]
+  ret i32 %retval.0
 }
 
 ; Function Attrs: mustprogress nocallback nofree nosync nounwind willreturn memory(argmem: readwrite)
@@ -133,187 +134,176 @@ declare void @alloc_free(ptr noundef, i32 noundef, i32 noundef, ptr noundef) loc
 declare void @llvm.lifetime.end.p0(i64 immarg, ptr nocapture) #1
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(argmem: read) uwtable
-define dso_local nonnull ptr @dict_access_ref(ptr nocapture noundef readonly %0) local_unnamed_addr #3 {
-  %2 = load ptr, ptr %0, align 8, !tbaa !5
-  %3 = getelementptr inbounds %struct.dict_s, ptr %2, i64 0, i32 1
-  ret ptr %3
+define dso_local nonnull ptr @dict_access_ref(ptr nocapture noundef readonly %pdref) local_unnamed_addr #3 {
+entry:
+  %0 = load ptr, ptr %pdref, align 8, !tbaa !5
+  %contents = getelementptr inbounds %struct.dict_s, ptr %0, i64 0, i32 1
+  ret ptr %contents
 }
 
 ; Function Attrs: nounwind uwtable
-define dso_local i32 @dict_lookup(ptr noundef readnone %0, ptr noundef readonly %1, ptr noundef %2, ptr nocapture noundef writeonly %3) local_unnamed_addr #0 {
-  %5 = alloca %struct.ref_s, align 8
-  %6 = getelementptr inbounds %struct.ref_s, ptr %2, i64 0, i32 1
-  %7 = load i16, ptr %6, align 8, !tbaa !14
-  %8 = lshr i16 %7, 2
-  %9 = and i16 %8, 63
-  %10 = zext i16 %9 to i32
-  switch i32 %10, label %29 [
-    i32 7, label %11
-    i32 13, label %19
+define dso_local i32 @dict_lookup(ptr noundef readnone %pdbot, ptr noundef readonly %pdtop, ptr noundef %pkey, ptr nocapture noundef writeonly %ppvalue) local_unnamed_addr #0 {
+entry:
+  %nref = alloca %struct.ref_s, align 8
+  %type_attrs = getelementptr inbounds %struct.ref_s, ptr %pkey, i64 0, i32 1
+  %0 = load i16, ptr %type_attrs, align 8, !tbaa !14
+  %1 = lshr i16 %0, 2
+  %2 = and i16 %1, 63
+  %shr = zext i16 %2 to i32
+  switch i32 %shr, label %sw.default [
+    i32 7, label %sw.bb
+    i32 13, label %sw.bb2
   ]
 
-11:                                               ; preds = %4
-  %12 = load ptr, ptr %2, align 8, !tbaa !5
-  br label %13
+sw.bb:                                            ; preds = %entry
+  %3 = load ptr, ptr %pkey, align 8, !tbaa !5
+  br label %nh
 
-13:                                               ; preds = %26, %11
-  %14 = phi ptr [ %12, %11 ], [ %27, %26 ]
-  %15 = getelementptr inbounds %struct.name_s, ptr %14, i64 0, i32 1
-  %16 = load i16, ptr %15, align 8, !tbaa !22
-  %17 = zext i16 %16 to i32
-  %18 = mul nuw nsw i32 %17, 40503
-  br label %33
+nh:                                               ; preds = %sw.bb2, %sw.bb
+  %kpname.0 = phi ptr [ %7, %sw.bb2 ], [ %3, %sw.bb ]
+  %index = getelementptr inbounds %struct.name_s, ptr %kpname.0, i64 0, i32 1
+  %4 = load i16, ptr %index, align 8, !tbaa !22
+  %conv1 = zext i16 %4 to i32
+  %mul = mul nuw nsw i32 %conv1, 40503
+  br label %sw.epilog
 
-19:                                               ; preds = %4
-  call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %5) #8
-  %20 = load ptr, ptr %2, align 8, !tbaa !5
-  %21 = getelementptr inbounds %struct.ref_s, ptr %2, i64 0, i32 2
-  %22 = load i16, ptr %21, align 2, !tbaa !25
-  %23 = zext i16 %22 to i32
-  %24 = call i32 @name_ref(ptr noundef %20, i32 noundef %23, ptr noundef nonnull %5, i32 noundef 1) #8
-  %25 = icmp slt i32 %24, 0
-  br i1 %25, label %28, label %26
+sw.bb2:                                           ; preds = %entry
+  call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %nref) #8
+  %5 = load ptr, ptr %pkey, align 8, !tbaa !5
+  %size = getelementptr inbounds %struct.ref_s, ptr %pkey, i64 0, i32 2
+  %6 = load i16, ptr %size, align 2, !tbaa !25
+  %conv4 = zext i16 %6 to i32
+  %call = call i32 @name_ref(ptr noundef %5, i32 noundef %conv4, ptr noundef nonnull %nref, i32 noundef 1) #8
+  %cmp = icmp sgt i32 %call, -1
+  %7 = load ptr, ptr %nref, align 8
+  call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %nref) #8
+  br i1 %cmp, label %nh, label %cleanup82
 
-26:                                               ; preds = %19
-  %27 = load ptr, ptr %5, align 8, !tbaa !5
-  call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %5) #8
-  br label %13
+sw.default:                                       ; preds = %entry
+  %cmp12 = icmp ugt i16 %2, 15
+  %8 = mul nuw nsw i32 %shr, 99
+  %spec.select = select i1 %cmp12, i32 891, i32 %8
+  br label %sw.epilog
 
-28:                                               ; preds = %19
-  call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %5) #8
-  br label %112
+sw.epilog:                                        ; preds = %sw.default, %nh
+  %kpname.2 = phi ptr [ undef, %sw.default ], [ %kpname.0, %nh ]
+  %ktype.0 = phi i32 [ -1, %sw.default ], [ 7, %nh ]
+  %hash.0 = phi i32 [ %spec.select, %sw.default ], [ %mul, %nh ]
+  br label %do.body
 
-29:                                               ; preds = %4
-  %30 = icmp ugt i16 %9, 15
-  %31 = mul nuw nsw i32 %10, 99
-  %32 = select i1 %30, i32 891, i32 %31
-  br label %33
+do.body:                                          ; preds = %do.cond, %sw.epilog
+  %full.0 = phi i32 [ 1, %sw.epilog ], [ %full.2.ph, %do.cond ]
+  %pdref.0 = phi ptr [ %pdtop, %sw.epilog ], [ %incdec.ptr79, %do.cond ]
+  %9 = load ptr, ptr %pdref.0, align 8, !tbaa !5
+  %contents = getelementptr inbounds %struct.dict_s, ptr %9, i64 0, i32 1
+  %size21 = getelementptr inbounds %struct.dict_s, ptr %9, i64 0, i32 1, i32 2
+  %10 = load i16, ptr %size21, align 2, !tbaa !13
+  %11 = lshr i16 %10, 1
+  %12 = load ptr, ptr %contents, align 8, !tbaa !5
+  %idx.ext53 = zext i16 %11 to i64
+  %add.ptr54 = getelementptr inbounds %struct.pair_s, ptr %12, i64 %idx.ext53
+  %add.ptr124 = getelementptr inbounds %struct.pair_s, ptr %12, i64 2
+  %shr23 = zext i16 %11 to i32
+  %sub = add nsw i32 %shr23, -1
+  %rem = urem i32 %hash.0, %sub
+  %idx.ext = zext i32 %rem to i64
+  %add.ptr26 = getelementptr inbounds %struct.pair_s, ptr %add.ptr124, i64 %idx.ext
+  br label %for.cond
 
-33:                                               ; preds = %29, %13
-  %34 = phi ptr [ undef, %29 ], [ %14, %13 ]
-  %35 = phi i32 [ -1, %29 ], [ 7, %13 ]
-  %36 = phi i32 [ %32, %29 ], [ %18, %13 ]
-  br label %37
+for.cond:                                         ; preds = %for.cond.backedge, %do.body
+  %pp.0 = phi ptr [ %add.ptr26, %do.body ], [ %incdec.ptr, %for.cond.backedge ]
+  %incdec.ptr = getelementptr inbounds %struct.pair_s, ptr %pp.0, i64 -1
+  %type_attrs27 = getelementptr %struct.pair_s, ptr %pp.0, i64 -1, i32 0, i32 1
+  %13 = load i16, ptr %type_attrs27, align 8, !tbaa !17
+  %14 = lshr i16 %13, 2
+  %15 = and i16 %14, 63
+  %shr30 = zext i16 %15 to i32
+  %cmp31 = icmp eq i32 %ktype.0, %shr30
+  br i1 %cmp31, label %if.then33, label %if.else
 
-37:                                               ; preds = %108, %33
-  %38 = phi i32 [ 1, %33 ], [ %109, %108 ]
-  %39 = phi ptr [ %1, %33 ], [ %110, %108 ]
-  %40 = load ptr, ptr %39, align 8, !tbaa !5
-  %41 = getelementptr inbounds %struct.dict_s, ptr %40, i64 0, i32 1
-  %42 = getelementptr inbounds %struct.dict_s, ptr %40, i64 0, i32 1, i32 2
-  %43 = load i16, ptr %42, align 2, !tbaa !13
-  %44 = lshr i16 %43, 1
-  %45 = load ptr, ptr %41, align 8, !tbaa !5
-  %46 = zext i16 %44 to i64
-  %47 = getelementptr inbounds %struct.pair_s, ptr %45, i64 %46
-  %48 = getelementptr inbounds %struct.pair_s, ptr %45, i64 2
-  %49 = zext i16 %44 to i32
-  %50 = add nsw i32 %49, -1
-  %51 = urem i32 %36, %50
-  %52 = zext i32 %51 to i64
-  %53 = getelementptr inbounds %struct.pair_s, ptr %48, i64 %52
-  br label %54
+if.then33:                                        ; preds = %for.cond
+  %16 = load ptr, ptr %incdec.ptr, align 8, !tbaa !5
+  %cmp36 = icmp eq ptr %16, %kpname.2
+  br i1 %cmp36, label %cleanup82.sink.split, label %for.cond.backedge
 
-54:                                               ; preds = %99, %37
-  %55 = phi ptr [ %53, %37 ], [ %56, %99 ]
-  %56 = getelementptr inbounds %struct.pair_s, ptr %55, i64 -1
-  %57 = getelementptr %struct.pair_s, ptr %55, i64 -1, i32 0, i32 1
-  %58 = load i16, ptr %57, align 8, !tbaa !17
-  %59 = lshr i16 %58, 2
-  %60 = and i16 %59, 63
-  %61 = zext i16 %60 to i32
-  %62 = icmp eq i32 %35, %61
-  br i1 %62, label %63, label %69
+if.else:                                          ; preds = %for.cond
+  %cmp41 = icmp eq i16 %15, 8
+  br i1 %cmp41, label %if.then43, label %if.else57
 
-63:                                               ; preds = %54
-  %64 = load ptr, ptr %56, align 8, !tbaa !5
-  %65 = icmp eq ptr %64, %34
-  br i1 %65, label %66, label %99
+if.then43:                                        ; preds = %if.else
+  %cmp44 = icmp eq ptr %incdec.ptr, %12
+  br i1 %cmp44, label %for.cond.1, label %for.end
 
-66:                                               ; preds = %92, %63
-  %67 = phi ptr [ %55, %63 ], [ %74, %92 ]
-  %68 = getelementptr %struct.pair_s, ptr %67, i64 -1, i32 1
-  store ptr %68, ptr %3, align 8, !tbaa !26
-  br label %112
+for.cond.1:                                       ; preds = %if.then43, %for.cond.backedge.1
+  %pp.0.1 = phi ptr [ %incdec.ptr.1, %for.cond.backedge.1 ], [ %add.ptr54, %if.then43 ]
+  %incdec.ptr.1 = getelementptr inbounds %struct.pair_s, ptr %pp.0.1, i64 -1
+  %type_attrs27.1 = getelementptr %struct.pair_s, ptr %pp.0.1, i64 -1, i32 0, i32 1
+  %17 = load i16, ptr %type_attrs27.1, align 8, !tbaa !17
+  %18 = lshr i16 %17, 2
+  %19 = and i16 %18, 63
+  %shr30.1 = zext i16 %19 to i32
+  %cmp31.1 = icmp eq i32 %ktype.0, %shr30.1
+  br i1 %cmp31.1, label %if.then33.1, label %if.else.1
 
-69:                                               ; preds = %54
-  %70 = icmp eq i16 %60, 8
-  br i1 %70, label %71, label %96
+if.else.1:                                        ; preds = %for.cond.1
+  %cmp41.1 = icmp eq i16 %19, 8
+  br i1 %cmp41.1, label %if.then43.1, label %if.else57.1
 
-71:                                               ; preds = %69
-  %72 = icmp eq ptr %56, %45
-  br i1 %72, label %73, label %103
+if.else57.1:                                      ; preds = %if.else.1
+  %call59.1 = call i32 (ptr, ptr, ...) @obj_eq(ptr noundef nonnull %incdec.ptr.1, ptr noundef %pkey) #8
+  %tobool60.not.1 = icmp eq i32 %call59.1, 0
+  br i1 %tobool60.not.1, label %for.cond.backedge.1, label %cleanup82.sink.split
 
-73:                                               ; preds = %71, %95
-  %74 = phi ptr [ %75, %95 ], [ %47, %71 ]
-  %75 = getelementptr inbounds %struct.pair_s, ptr %74, i64 -1
-  %76 = getelementptr %struct.pair_s, ptr %74, i64 -1, i32 0, i32 1
-  %77 = load i16, ptr %76, align 8, !tbaa !17
-  %78 = lshr i16 %77, 2
-  %79 = and i16 %78, 63
-  %80 = zext i16 %79 to i32
-  %81 = icmp eq i32 %35, %80
-  br i1 %81, label %92, label %82
+if.then43.1:                                      ; preds = %if.else.1
+  %cmp44.1 = icmp eq ptr %incdec.ptr.1, %12
+  br i1 %cmp44.1, label %if.then46.1, label %for.end
 
-82:                                               ; preds = %73
-  %83 = icmp eq i16 %79, 8
-  br i1 %83, label %87, label %84
+if.then46.1:                                      ; preds = %if.then43.1
+  %cmp48 = icmp sgt i32 %full.0, 0
+  %spec.store.select = select i1 %cmp48, i32 -2, i32 %full.0
+  br label %do.cond
 
-84:                                               ; preds = %82
-  %85 = call i32 (ptr, ptr, ...) @obj_eq(ptr noundef nonnull %75, ptr noundef %2) #8
-  %86 = icmp eq i32 %85, 0
-  br i1 %86, label %95, label %100
+if.then33.1:                                      ; preds = %for.cond.1
+  %20 = load ptr, ptr %incdec.ptr.1, align 8, !tbaa !5
+  %cmp36.1 = icmp eq ptr %20, %kpname.2
+  br i1 %cmp36.1, label %cleanup82.sink.split, label %for.cond.backedge.1
 
-87:                                               ; preds = %82
-  %88 = icmp eq ptr %75, %45
-  br i1 %88, label %89, label %103
+for.cond.backedge.1:                              ; preds = %if.then33.1, %if.else57.1
+  br label %for.cond.1
 
-89:                                               ; preds = %87
-  %90 = icmp sgt i32 %38, 0
-  %91 = select i1 %90, i32 -2, i32 %38
-  br label %108
+if.else57:                                        ; preds = %if.else
+  %call59 = call i32 (ptr, ptr, ...) @obj_eq(ptr noundef nonnull %incdec.ptr, ptr noundef %pkey) #8
+  %tobool60.not = icmp eq i32 %call59, 0
+  br i1 %tobool60.not, label %for.cond.backedge, label %cleanup82.sink.split
 
-92:                                               ; preds = %73
-  %93 = load ptr, ptr %75, align 8, !tbaa !5
-  %94 = icmp eq ptr %93, %34
-  br i1 %94, label %66, label %95
+for.cond.backedge:                                ; preds = %if.else57, %if.then33
+  br label %for.cond
 
-95:                                               ; preds = %92, %84
-  br label %73
+for.end:                                          ; preds = %if.then43.1, %if.then43
+  %pp.0.lcssa.lcssa = phi ptr [ %pp.0, %if.then43 ], [ %pp.0.1, %if.then43.1 ]
+  %cmp66 = icmp sgt i32 %full.0, 0
+  br i1 %cmp66, label %if.then68, label %do.cond
 
-96:                                               ; preds = %69
-  %97 = call i32 (ptr, ptr, ...) @obj_eq(ptr noundef nonnull %56, ptr noundef %2) #8
-  %98 = icmp eq i32 %97, 0
-  br i1 %98, label %99, label %100
+if.then68:                                        ; preds = %for.end
+  %value69 = getelementptr %struct.pair_s, ptr %pp.0.lcssa.lcssa, i64 -1, i32 1
+  store ptr %value69, ptr %ppvalue, align 8, !tbaa !26
+  br label %do.cond
 
-99:                                               ; preds = %96, %63
-  br label %54
+do.cond:                                          ; preds = %for.end, %if.then68, %if.then46.1
+  %full.2.ph = phi i32 [ %full.0, %for.end ], [ 0, %if.then68 ], [ %spec.store.select, %if.then46.1 ]
+  %incdec.ptr79 = getelementptr inbounds %struct.ref_s, ptr %pdref.0, i64 -1
+  %cmp80.not = icmp ult ptr %incdec.ptr79, %pdbot
+  br i1 %cmp80.not, label %cleanup82, label %do.body, !llvm.loop !27
 
-100:                                              ; preds = %84, %96
-  %101 = phi ptr [ %55, %96 ], [ %74, %84 ]
-  %102 = getelementptr %struct.pair_s, ptr %101, i64 -1, i32 1
-  store ptr %102, ptr %3, align 8, !tbaa !26
-  br label %112
+cleanup82.sink.split:                             ; preds = %if.then33.1, %if.else57.1, %if.else57, %if.then33
+  %pp.0.lcssa131 = phi ptr [ %pp.0, %if.then33 ], [ %pp.0, %if.else57 ], [ %pp.0.1, %if.else57.1 ], [ %pp.0.1, %if.then33.1 ]
+  %value39 = getelementptr %struct.pair_s, ptr %pp.0.lcssa131, i64 -1, i32 1
+  store ptr %value39, ptr %ppvalue, align 8, !tbaa !26
+  br label %cleanup82
 
-103:                                              ; preds = %87, %71
-  %104 = phi ptr [ %55, %71 ], [ %74, %87 ]
-  %105 = icmp sgt i32 %38, 0
-  br i1 %105, label %106, label %108
-
-106:                                              ; preds = %103
-  %107 = getelementptr %struct.pair_s, ptr %104, i64 -1, i32 1
-  store ptr %107, ptr %3, align 8, !tbaa !26
-  br label %108
-
-108:                                              ; preds = %103, %106, %89
-  %109 = phi i32 [ %38, %103 ], [ 0, %106 ], [ %91, %89 ]
-  %110 = getelementptr inbounds %struct.ref_s, ptr %39, i64 -1
-  %111 = icmp ult ptr %110, %0
-  br i1 %111, label %112, label %37, !llvm.loop !27
-
-112:                                              ; preds = %108, %66, %100, %28
-  %113 = phi i32 [ %24, %28 ], [ 1, %66 ], [ 1, %100 ], [ %109, %108 ]
-  ret i32 %113
+cleanup82:                                        ; preds = %do.cond, %cleanup82.sink.split, %sw.bb2
+  %retval.5 = phi i32 [ %call, %sw.bb2 ], [ 1, %cleanup82.sink.split ], [ %full.2.ph, %do.cond ]
+  ret i32 %retval.5
 }
 
 declare i32 @name_ref(ptr noundef, i32 noundef, ptr noundef, i32 noundef) local_unnamed_addr #2
@@ -321,468 +311,475 @@ declare i32 @name_ref(ptr noundef, i32 noundef, ptr noundef, i32 noundef) local_
 declare i32 @obj_eq(...) local_unnamed_addr #2
 
 ; Function Attrs: nounwind uwtable
-define dso_local i32 @dict_put(ptr noundef %0, ptr noundef %1, ptr nocapture noundef readonly %2) local_unnamed_addr #0 {
-  %4 = alloca ptr, align 8
-  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %4) #8
-  %5 = call i32 @dict_lookup(ptr noundef %0, ptr noundef %0, ptr noundef %1, ptr noundef nonnull %4)
-  %6 = icmp slt i32 %5, 1
-  br i1 %6, label %9, label %7
+define dso_local i32 @dict_put(ptr noundef %pdref, ptr noundef %pkey, ptr nocapture noundef readonly %pvalue) local_unnamed_addr #0 {
+entry:
+  %pvslot = alloca ptr, align 8
+  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %pvslot) #8
+  %call = call i32 @dict_lookup(ptr noundef %pdref, ptr noundef %pdref, ptr noundef %pkey, ptr noundef nonnull %pvslot)
+  %cmp = icmp slt i32 %call, 1
+  br i1 %cmp, label %if.then, label %entry.if.end26_crit_edge
 
-7:                                                ; preds = %3
-  %8 = load ptr, ptr %4, align 8, !tbaa !26
-  br label %39
+entry.if.end26_crit_edge:                         ; preds = %entry
+  %.pre = load ptr, ptr %pvslot, align 8, !tbaa !26
+  br label %if.end26
 
-9:                                                ; preds = %3
-  %10 = load ptr, ptr %0, align 8, !tbaa !5
-  %11 = load i64, ptr %10, align 8, !tbaa !5
-  %12 = getelementptr inbounds %struct.dict_s, ptr %10, i64 0, i32 1, i32 2
-  %13 = load i16, ptr %12, align 2, !tbaa !13
-  %14 = lshr i16 %13, 1
-  %15 = zext i16 %14 to i64
-  %16 = add nsw i64 %15, -1
-  %17 = icmp eq i64 %11, %16
-  br i1 %17, label %41, label %18
+if.then:                                          ; preds = %entry
+  %0 = load ptr, ptr %pdref, align 8, !tbaa !5
+  %1 = load i64, ptr %0, align 8, !tbaa !5
+  %size = getelementptr inbounds %struct.dict_s, ptr %0, i64 0, i32 1, i32 2
+  %2 = load i16, ptr %size, align 2, !tbaa !13
+  %3 = lshr i16 %2, 1
+  %shr = zext i16 %3 to i64
+  %sub = add nsw i64 %shr, -1
+  %cmp3.not = icmp eq i64 %1, %sub
+  br i1 %cmp3.not, label %cleanup27, label %if.end
 
-18:                                               ; preds = %9
-  %19 = add nsw i64 %11, 1
-  store i64 %19, ptr %10, align 8, !tbaa !5
-  %20 = load ptr, ptr %4, align 8, !tbaa !26
-  %21 = getelementptr inbounds %struct.ref_s, ptr %20, i64 -1
-  tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %21, ptr noundef nonnull align 8 dereferenceable(16) %1, i64 16, i1 false), !tbaa.struct !28
-  %22 = getelementptr inbounds %struct.ref_s, ptr %1, i64 0, i32 1
-  %23 = load i16, ptr %22, align 8, !tbaa !14
-  %24 = and i16 %23, 252
-  %25 = icmp eq i16 %24, 28
-  br i1 %25, label %26, label %39
+if.end:                                           ; preds = %if.then
+  %inc = add nsw i64 %1, 1
+  store i64 %inc, ptr %0, align 8, !tbaa !5
+  %4 = load ptr, ptr %pvslot, align 8, !tbaa !26
+  %arrayidx = getelementptr inbounds %struct.ref_s, ptr %4, i64 -1
+  tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %arrayidx, ptr noundef nonnull align 8 dereferenceable(16) %pkey, i64 16, i1 false), !tbaa.struct !28
+  %type_attrs = getelementptr inbounds %struct.ref_s, ptr %pkey, i64 0, i32 1
+  %5 = load i16, ptr %type_attrs, align 8, !tbaa !14
+  %6 = and i16 %5, 252
+  %cmp10 = icmp eq i16 %6, 28
+  br i1 %cmp10, label %if.then12, label %if.end26
 
-26:                                               ; preds = %18
-  %27 = load ptr, ptr %1, align 8, !tbaa !5
-  %28 = getelementptr inbounds %struct.name_s, ptr %27, i64 0, i32 4
-  %29 = load ptr, ptr %28, align 8, !tbaa !34
-  %30 = icmp eq ptr %29, null
-  br i1 %30, label %31, label %38
+if.then12:                                        ; preds = %if.end
+  %7 = load ptr, ptr %pkey, align 8, !tbaa !5
+  %pvalue14 = getelementptr inbounds %struct.name_s, ptr %7, i64 0, i32 4
+  %8 = load ptr, ptr %pvalue14, align 8, !tbaa !34
+  %cmp15 = icmp eq ptr %8, null
+  br i1 %cmp15, label %land.lhs.true, label %if.end24
 
-31:                                               ; preds = %26
-  %32 = load ptr, ptr @dstack, align 8, !tbaa !5
-  %33 = icmp eq ptr %10, %32
-  br i1 %33, label %37, label %34
+land.lhs.true:                                    ; preds = %if.then12
+  %9 = load ptr, ptr @dstack, align 8, !tbaa !5
+  %cmp17 = icmp eq ptr %0, %9
+  br i1 %cmp17, label %if.then21, label %lor.lhs.false
 
-34:                                               ; preds = %31
-  %35 = load ptr, ptr getelementptr inbounds ([0 x %struct.ref_s], ptr @dstack, i64 0, i64 1), align 8, !tbaa !5
-  %36 = icmp eq ptr %10, %35
-  br i1 %36, label %37, label %38
+lor.lhs.false:                                    ; preds = %land.lhs.true
+  %10 = load ptr, ptr getelementptr inbounds ([0 x %struct.ref_s], ptr @dstack, i64 0, i64 1), align 8, !tbaa !5
+  %cmp19 = icmp eq ptr %0, %10
+  br i1 %cmp19, label %if.then21, label %if.end24
 
-37:                                               ; preds = %34, %31
-  store ptr %20, ptr %28, align 8, !tbaa !34
-  br label %39
+if.then21:                                        ; preds = %lor.lhs.false, %land.lhs.true
+  br label %if.end24
 
-38:                                               ; preds = %34, %26
-  store ptr inttoptr (i64 1 to ptr), ptr %28, align 8, !tbaa !34
-  br label %39
+if.end24:                                         ; preds = %if.then12, %lor.lhs.false, %if.then21
+  %storemerge = phi ptr [ %4, %if.then21 ], [ inttoptr (i64 1 to ptr), %lor.lhs.false ], [ inttoptr (i64 1 to ptr), %if.then12 ]
+  store ptr %storemerge, ptr %pvalue14, align 8, !tbaa !34
+  br label %if.end26
 
-39:                                               ; preds = %7, %18, %38, %37
-  %40 = phi ptr [ %8, %7 ], [ %20, %18 ], [ %20, %38 ], [ %20, %37 ]
-  tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %40, ptr noundef nonnull align 8 dereferenceable(16) %2, i64 16, i1 false), !tbaa.struct !28
-  br label %41
+if.end26:                                         ; preds = %entry.if.end26_crit_edge, %if.end24, %if.end
+  %11 = phi ptr [ %.pre, %entry.if.end26_crit_edge ], [ %4, %if.end24 ], [ %4, %if.end ]
+  tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %11, ptr noundef nonnull align 8 dereferenceable(16) %pvalue, i64 16, i1 false), !tbaa.struct !28
+  br label %cleanup27
 
-41:                                               ; preds = %9, %39
-  %42 = phi i32 [ 0, %39 ], [ -2, %9 ]
-  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %4) #8
-  ret i32 %42
+cleanup27:                                        ; preds = %if.then, %if.end26
+  %retval.1 = phi i32 [ 0, %if.end26 ], [ -2, %if.then ]
+  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %pvslot) #8
+  ret i32 %retval.1
 }
 
 ; Function Attrs: mustprogress nocallback nofree nounwind willreturn memory(argmem: readwrite)
 declare void @llvm.memcpy.p0.p0.i64(ptr noalias nocapture writeonly, ptr noalias nocapture readonly, i64, i1 immarg) #4
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(read, inaccessiblemem: none) uwtable
-define dso_local i32 @dict_length(ptr nocapture noundef readonly %0) local_unnamed_addr #5 {
-  %2 = load ptr, ptr %0, align 8, !tbaa !5
-  %3 = load i64, ptr %2, align 8, !tbaa !5
-  %4 = trunc i64 %3 to i32
-  ret i32 %4
+define dso_local i32 @dict_length(ptr nocapture noundef readonly %pdref) local_unnamed_addr #5 {
+entry:
+  %0 = load ptr, ptr %pdref, align 8, !tbaa !5
+  %1 = load i64, ptr %0, align 8, !tbaa !5
+  %conv = trunc i64 %1 to i32
+  ret i32 %conv
 }
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(read, inaccessiblemem: none) uwtable
-define dso_local i32 @dict_maxlength(ptr nocapture noundef readonly %0) local_unnamed_addr #5 {
-  %2 = load ptr, ptr %0, align 8, !tbaa !5
-  %3 = getelementptr inbounds %struct.dict_s, ptr %2, i64 0, i32 1, i32 2
-  %4 = load i16, ptr %3, align 2, !tbaa !13
-  %5 = lshr i16 %4, 1
-  %6 = zext i16 %5 to i32
-  %7 = add nsw i32 %6, -1
-  ret i32 %7
+define dso_local i32 @dict_maxlength(ptr nocapture noundef readonly %pdref) local_unnamed_addr #5 {
+entry:
+  %0 = load ptr, ptr %pdref, align 8, !tbaa !5
+  %size = getelementptr inbounds %struct.dict_s, ptr %0, i64 0, i32 1, i32 2
+  %1 = load i16, ptr %size, align 2, !tbaa !13
+  %2 = lshr i16 %1, 1
+  %shr = zext i16 %2 to i32
+  %sub = add nsw i32 %shr, -1
+  ret i32 %sub
 }
 
 ; Function Attrs: nounwind uwtable
-define dso_local i32 @dict_copy(ptr nocapture noundef readonly %0, ptr noundef %1) local_unnamed_addr #0 {
-  %3 = alloca ptr, align 8
-  %4 = load ptr, ptr %0, align 8, !tbaa !5
-  %5 = getelementptr inbounds %struct.dict_s, ptr %4, i64 0, i32 1, i32 2
-  %6 = load i16, ptr %5, align 2, !tbaa !13
-  %7 = icmp ult i16 %6, 2
-  br i1 %7, label %62, label %8
+define dso_local i32 @dict_copy(ptr nocapture noundef readonly %pdrfrom, ptr noundef %pdrto) local_unnamed_addr #0 {
+entry:
+  %pvslot.i = alloca ptr, align 8
+  %0 = load ptr, ptr %pdrfrom, align 8, !tbaa !5
+  %size = getelementptr inbounds %struct.dict_s, ptr %0, i64 0, i32 1, i32 2
+  %1 = load i16, ptr %size, align 2, !tbaa !13
+  %tobool.not22 = icmp ult i16 %1, 2
+  br i1 %tobool.not22, label %cleanup, label %while.body.preheader
 
-8:                                                ; preds = %2
-  %9 = getelementptr inbounds %struct.dict_s, ptr %4, i64 0, i32 1
-  %10 = load ptr, ptr %9, align 8, !tbaa !5
-  %11 = lshr i16 %6, 1
-  %12 = zext i16 %11 to i32
-  br label %13
+while.body.preheader:                             ; preds = %entry
+  %contents = getelementptr inbounds %struct.dict_s, ptr %0, i64 0, i32 1
+  %2 = load ptr, ptr %contents, align 8, !tbaa !5
+  %3 = lshr i16 %1, 1
+  %shr = zext i16 %3 to i32
+  br label %while.body
 
-13:                                               ; preds = %8, %59
-  %14 = phi i32 [ %16, %59 ], [ %12, %8 ]
-  %15 = phi ptr [ %60, %59 ], [ %10, %8 ]
-  %16 = add nsw i32 %14, -1
-  %17 = getelementptr inbounds %struct.ref_s, ptr %15, i64 0, i32 1
-  %18 = load i16, ptr %17, align 8, !tbaa !17
-  %19 = and i16 %18, 252
-  %20 = icmp eq i16 %19, 32
-  br i1 %20, label %59, label %21
+while.body:                                       ; preds = %while.body.preheader, %if.end11
+  %dec25.in = phi i32 [ %dec25, %if.end11 ], [ %shr, %while.body.preheader ]
+  %pp.023 = phi ptr [ %incdec.ptr, %if.end11 ], [ %2, %while.body.preheader ]
+  %dec25 = add nsw i32 %dec25.in, -1
+  %type_attrs = getelementptr inbounds %struct.ref_s, ptr %pp.023, i64 0, i32 1
+  %4 = load i16, ptr %type_attrs, align 8, !tbaa !17
+  %5 = and i16 %4, 252
+  %cmp.not = icmp eq i16 %5, 32
+  br i1 %cmp.not, label %if.end11, label %if.then
 
-21:                                               ; preds = %13
-  %22 = getelementptr inbounds %struct.pair_s, ptr %15, i64 0, i32 1
-  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %3) #8
-  %23 = call i32 @dict_lookup(ptr noundef %1, ptr noundef %1, ptr noundef nonnull %15, ptr noundef nonnull %3)
-  %24 = icmp slt i32 %23, 1
-  br i1 %24, label %27, label %25
+if.then:                                          ; preds = %while.body
+  %value7 = getelementptr inbounds %struct.pair_s, ptr %pp.023, i64 0, i32 1
+  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %pvslot.i) #8
+  %call.i = call i32 @dict_lookup(ptr noundef %pdrto, ptr noundef %pdrto, ptr noundef nonnull %pp.023, ptr noundef nonnull %pvslot.i)
+  %cmp.i = icmp slt i32 %call.i, 1
+  br i1 %cmp.i, label %if.then.i, label %entry.if.end26_crit_edge.i
 
-25:                                               ; preds = %21
-  %26 = load ptr, ptr %3, align 8, !tbaa !26
-  br label %56
+entry.if.end26_crit_edge.i:                       ; preds = %if.then
+  %.pre.i = load ptr, ptr %pvslot.i, align 8, !tbaa !26
+  br label %dict_put.exit.thread
 
-27:                                               ; preds = %21
-  %28 = load ptr, ptr %1, align 8, !tbaa !5
-  %29 = load i64, ptr %28, align 8, !tbaa !5
-  %30 = getelementptr inbounds %struct.dict_s, ptr %28, i64 0, i32 1, i32 2
-  %31 = load i16, ptr %30, align 2, !tbaa !13
-  %32 = lshr i16 %31, 1
-  %33 = zext i16 %32 to i64
-  %34 = add nsw i64 %33, -1
-  %35 = icmp eq i64 %29, %34
-  br i1 %35, label %58, label %36
+if.then.i:                                        ; preds = %if.then
+  %6 = load ptr, ptr %pdrto, align 8, !tbaa !5
+  %7 = load i64, ptr %6, align 8, !tbaa !5
+  %size.i = getelementptr inbounds %struct.dict_s, ptr %6, i64 0, i32 1, i32 2
+  %8 = load i16, ptr %size.i, align 2, !tbaa !13
+  %9 = lshr i16 %8, 1
+  %shr.i = zext i16 %9 to i64
+  %sub.i = add nsw i64 %shr.i, -1
+  %cmp3.not.i = icmp eq i64 %7, %sub.i
+  br i1 %cmp3.not.i, label %dict_put.exit, label %if.end.i
 
-36:                                               ; preds = %27
-  %37 = add nsw i64 %29, 1
-  store i64 %37, ptr %28, align 8, !tbaa !5
-  %38 = load ptr, ptr %3, align 8, !tbaa !26
-  %39 = getelementptr inbounds %struct.ref_s, ptr %38, i64 -1
-  tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %39, ptr noundef nonnull align 8 dereferenceable(16) %15, i64 16, i1 false), !tbaa.struct !28
-  %40 = load i16, ptr %17, align 8, !tbaa !14
-  %41 = and i16 %40, 252
-  %42 = icmp eq i16 %41, 28
-  br i1 %42, label %43, label %56
+if.end.i:                                         ; preds = %if.then.i
+  %inc.i = add nsw i64 %7, 1
+  store i64 %inc.i, ptr %6, align 8, !tbaa !5
+  %10 = load ptr, ptr %pvslot.i, align 8, !tbaa !26
+  %arrayidx.i = getelementptr inbounds %struct.ref_s, ptr %10, i64 -1
+  tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %arrayidx.i, ptr noundef nonnull align 8 dereferenceable(16) %pp.023, i64 16, i1 false), !tbaa.struct !28
+  %11 = load i16, ptr %type_attrs, align 8, !tbaa !14
+  %12 = and i16 %11, 252
+  %cmp10.i = icmp eq i16 %12, 28
+  br i1 %cmp10.i, label %if.then12.i, label %dict_put.exit.thread
 
-43:                                               ; preds = %36
-  %44 = load ptr, ptr %15, align 8, !tbaa !5
-  %45 = getelementptr inbounds %struct.name_s, ptr %44, i64 0, i32 4
-  %46 = load ptr, ptr %45, align 8, !tbaa !34
-  %47 = icmp eq ptr %46, null
-  br i1 %47, label %48, label %55
+if.then12.i:                                      ; preds = %if.end.i
+  %13 = load ptr, ptr %pp.023, align 8, !tbaa !5
+  %pvalue14.i = getelementptr inbounds %struct.name_s, ptr %13, i64 0, i32 4
+  %14 = load ptr, ptr %pvalue14.i, align 8, !tbaa !34
+  %cmp15.i = icmp eq ptr %14, null
+  br i1 %cmp15.i, label %land.lhs.true.i, label %if.end24.i
 
-48:                                               ; preds = %43
-  %49 = load ptr, ptr @dstack, align 8, !tbaa !5
-  %50 = icmp eq ptr %28, %49
-  br i1 %50, label %54, label %51
+land.lhs.true.i:                                  ; preds = %if.then12.i
+  %15 = load ptr, ptr @dstack, align 8, !tbaa !5
+  %cmp17.i = icmp eq ptr %6, %15
+  br i1 %cmp17.i, label %if.then21.i, label %lor.lhs.false.i
 
-51:                                               ; preds = %48
-  %52 = load ptr, ptr getelementptr inbounds ([0 x %struct.ref_s], ptr @dstack, i64 0, i64 1), align 8, !tbaa !5
-  %53 = icmp eq ptr %28, %52
-  br i1 %53, label %54, label %55
+lor.lhs.false.i:                                  ; preds = %land.lhs.true.i
+  %16 = load ptr, ptr getelementptr inbounds ([0 x %struct.ref_s], ptr @dstack, i64 0, i64 1), align 8, !tbaa !5
+  %cmp19.i = icmp eq ptr %6, %16
+  br i1 %cmp19.i, label %if.then21.i, label %if.end24.i
 
-54:                                               ; preds = %51, %48
-  store ptr %38, ptr %45, align 8, !tbaa !34
-  br label %56
+if.then21.i:                                      ; preds = %lor.lhs.false.i, %land.lhs.true.i
+  br label %if.end24.i
 
-55:                                               ; preds = %51, %43
-  store ptr inttoptr (i64 1 to ptr), ptr %45, align 8, !tbaa !34
-  br label %56
+if.end24.i:                                       ; preds = %if.then21.i, %lor.lhs.false.i, %if.then12.i
+  %storemerge.i = phi ptr [ %10, %if.then21.i ], [ inttoptr (i64 1 to ptr), %lor.lhs.false.i ], [ inttoptr (i64 1 to ptr), %if.then12.i ]
+  store ptr %storemerge.i, ptr %pvalue14.i, align 8, !tbaa !34
+  br label %dict_put.exit.thread
 
-56:                                               ; preds = %25, %36, %54, %55
-  %57 = phi ptr [ %26, %25 ], [ %38, %36 ], [ %38, %55 ], [ %38, %54 ]
-  tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %57, ptr noundef nonnull align 8 dereferenceable(16) %22, i64 16, i1 false), !tbaa.struct !28
-  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %3) #8
-  br label %59
+dict_put.exit.thread:                             ; preds = %entry.if.end26_crit_edge.i, %if.end.i, %if.end24.i
+  %17 = phi ptr [ %.pre.i, %entry.if.end26_crit_edge.i ], [ %10, %if.end24.i ], [ %10, %if.end.i ]
+  tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %17, ptr noundef nonnull align 8 dereferenceable(16) %value7, i64 16, i1 false), !tbaa.struct !28
+  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %pvslot.i) #8
+  br label %if.end11
 
-58:                                               ; preds = %27
-  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %3) #8
-  br label %62
+dict_put.exit:                                    ; preds = %if.then.i
+  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %pvslot.i) #8
+  br label %cleanup
 
-59:                                               ; preds = %56, %13
-  %60 = getelementptr inbounds %struct.pair_s, ptr %15, i64 1
-  %61 = icmp eq i32 %16, 0
-  br i1 %61, label %62, label %13, !llvm.loop !35
+if.end11:                                         ; preds = %dict_put.exit.thread, %while.body
+  %incdec.ptr = getelementptr inbounds %struct.pair_s, ptr %pp.023, i64 1
+  %tobool.not = icmp eq i32 %dec25, 0
+  br i1 %tobool.not, label %cleanup, label %while.body, !llvm.loop !35
 
-62:                                               ; preds = %59, %2, %58
-  %63 = phi i32 [ -2, %58 ], [ 0, %2 ], [ 0, %59 ]
-  ret i32 %63
+cleanup:                                          ; preds = %if.end11, %entry, %dict_put.exit
+  %retval.0 = phi i32 [ -2, %dict_put.exit ], [ 0, %entry ], [ 0, %if.end11 ]
+  ret i32 %retval.0
 }
 
 ; Function Attrs: nounwind uwtable
-define dso_local i32 @dict_resize(ptr nocapture noundef readonly %0, i32 noundef %1) local_unnamed_addr #0 {
-  %3 = alloca ptr, align 8
-  %4 = alloca %struct.ref_s, align 8
-  %5 = load ptr, ptr %0, align 8, !tbaa !5
-  call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %4) #8
-  %6 = tail call i32 @llvm.umax.i32(i32 %1, i32 1)
-  %7 = add i32 %6, 1
-  %8 = tail call ptr @alloc(i32 noundef 1, i32 noundef 32, ptr noundef nonnull @.str) #8
-  %9 = icmp eq ptr %8, null
-  br i1 %9, label %131, label %10
+define dso_local i32 @dict_resize(ptr nocapture noundef readonly %pdrfrom, i32 noundef %new_size) local_unnamed_addr #0 {
+entry:
+  %pvslot.i.i = alloca ptr, align 8
+  %drto = alloca %struct.ref_s, align 8
+  %0 = load ptr, ptr %pdrfrom, align 8, !tbaa !5
+  call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %drto) #8
+  %cond.i = tail call i32 @llvm.umax.i32(i32 %new_size, i32 1)
+  %add.i = add i32 %cond.i, 1
+  %call.i = tail call ptr @alloc(i32 noundef 1, i32 noundef 32, ptr noundef nonnull @.str) #8
+  %cmp1.i = icmp eq ptr %call.i, null
+  br i1 %cmp1.i, label %cleanup, label %if.end.i
 
-10:                                               ; preds = %2
-  %11 = tail call ptr @alloc(i32 noundef %7, i32 noundef 32, ptr noundef nonnull @.str.1) #8
-  %12 = icmp eq ptr %11, null
-  br i1 %12, label %13, label %14
+if.end.i:                                         ; preds = %entry
+  %call2.i = tail call ptr @alloc(i32 noundef %add.i, i32 noundef 32, ptr noundef nonnull @.str.1) #8
+  %cmp3.i = icmp eq ptr %call2.i, null
+  br i1 %cmp3.i, label %if.then4.i, label %if.end5.i
 
-13:                                               ; preds = %10
-  tail call void @alloc_free(ptr noundef nonnull %8, i32 noundef 1, i32 noundef 32, ptr noundef nonnull @.str) #8
-  br label %131
+if.then4.i:                                       ; preds = %if.end.i
+  tail call void @alloc_free(ptr noundef nonnull %call.i, i32 noundef 1, i32 noundef 32, ptr noundef nonnull @.str) #8
+  br label %cleanup
 
-14:                                               ; preds = %10
-  store i64 0, ptr %8, align 8, !tbaa !5
-  %15 = getelementptr inbounds %struct.ref_s, ptr %8, i64 0, i32 1
-  store i16 20, ptr %15, align 8, !tbaa !8
-  %16 = getelementptr inbounds %struct.dict_s, ptr %8, i64 0, i32 1
-  store ptr %11, ptr %16, align 8, !tbaa !5
-  %17 = getelementptr inbounds %struct.dict_s, ptr %8, i64 0, i32 1, i32 1
-  store i16 770, ptr %17, align 8, !tbaa !12
-  %18 = trunc i32 %7 to i16
-  %19 = shl i16 %18, 1
-  %20 = getelementptr inbounds %struct.dict_s, ptr %8, i64 0, i32 1, i32 2
-  store i16 %19, ptr %20, align 2, !tbaa !13
-  store ptr %8, ptr %4, align 8, !tbaa !5
-  %21 = getelementptr inbounds %struct.ref_s, ptr %4, i64 0, i32 1
-  store i16 778, ptr %21, align 8, !tbaa !14
-  %22 = icmp eq i32 %7, 0
-  br i1 %22, label %62, label %23
+if.end5.i:                                        ; preds = %if.end.i
+  store i64 0, ptr %call.i, align 8, !tbaa !5
+  %type_attrs.i = getelementptr inbounds %struct.ref_s, ptr %call.i, i64 0, i32 1
+  store i16 20, ptr %type_attrs.i, align 8, !tbaa !8
+  %contents.i = getelementptr inbounds %struct.dict_s, ptr %call.i, i64 0, i32 1
+  store ptr %call2.i, ptr %contents.i, align 8, !tbaa !5
+  %type_attrs9.i = getelementptr inbounds %struct.dict_s, ptr %call.i, i64 0, i32 1, i32 1
+  store i16 770, ptr %type_attrs9.i, align 8, !tbaa !12
+  %add.tr.i = trunc i32 %add.i to i16
+  %conv.i = shl i16 %add.tr.i, 1
+  %size11.i = getelementptr inbounds %struct.dict_s, ptr %call.i, i64 0, i32 1, i32 2
+  store i16 %conv.i, ptr %size11.i, align 2, !tbaa !13
+  store ptr %call.i, ptr %drto, align 8, !tbaa !5
+  %type_attrs13.i = getelementptr inbounds %struct.ref_s, ptr %drto, i64 0, i32 1
+  store i16 778, ptr %type_attrs13.i, align 8, !tbaa !14
+  %tobool.not37.i = icmp eq i32 %add.i, 0
+  br i1 %tobool.not37.i, label %if.end, label %while.body.i.preheader
 
-23:                                               ; preds = %14
-  %24 = and i32 %7, 7
-  %25 = icmp eq i32 %24, 0
-  br i1 %25, label %36, label %26
+while.body.i.preheader:                           ; preds = %if.end5.i
+  %xtraiter = and i32 %add.i, 7
+  %lcmp.mod.not = icmp eq i32 %xtraiter, 0
+  br i1 %lcmp.mod.not, label %while.body.i.prol.loopexit, label %while.body.i.prol
 
-26:                                               ; preds = %23, %26
-  %27 = phi ptr [ %33, %26 ], [ %11, %23 ]
-  %28 = phi i32 [ %30, %26 ], [ %7, %23 ]
-  %29 = phi i32 [ %34, %26 ], [ 0, %23 ]
-  %30 = add i32 %28, -1
-  %31 = getelementptr inbounds %struct.pair_s, ptr %27, i64 0, i32 1, i32 1
-  store i16 32, ptr %31, align 8, !tbaa !15
-  %32 = getelementptr inbounds %struct.ref_s, ptr %27, i64 0, i32 1
-  store i16 32, ptr %32, align 8, !tbaa !17
-  %33 = getelementptr inbounds %struct.pair_s, ptr %27, i64 1
-  %34 = add i32 %29, 1
-  %35 = icmp eq i32 %34, %24
-  br i1 %35, label %36, label %26, !llvm.loop !36
+while.body.i.prol:                                ; preds = %while.body.i.preheader, %while.body.i.prol
+  %pp.039.i.prol = phi ptr [ %incdec.ptr.i.prol, %while.body.i.prol ], [ %call2.i, %while.body.i.preheader ]
+  %asize.038.i.prol = phi i32 [ %dec.i.prol, %while.body.i.prol ], [ %add.i, %while.body.i.preheader ]
+  %prol.iter = phi i32 [ %prol.iter.next, %while.body.i.prol ], [ 0, %while.body.i.preheader ]
+  %dec.i.prol = add i32 %asize.038.i.prol, -1
+  %type_attrs17.i.prol = getelementptr inbounds %struct.pair_s, ptr %pp.039.i.prol, i64 0, i32 1, i32 1
+  store i16 32, ptr %type_attrs17.i.prol, align 8, !tbaa !15
+  %type_attrs18.i.prol = getelementptr inbounds %struct.ref_s, ptr %pp.039.i.prol, i64 0, i32 1
+  store i16 32, ptr %type_attrs18.i.prol, align 8, !tbaa !17
+  %incdec.ptr.i.prol = getelementptr inbounds %struct.pair_s, ptr %pp.039.i.prol, i64 1
+  %prol.iter.next = add i32 %prol.iter, 1
+  %prol.iter.cmp.not = icmp eq i32 %prol.iter.next, %xtraiter
+  br i1 %prol.iter.cmp.not, label %while.body.i.prol.loopexit, label %while.body.i.prol, !llvm.loop !36
 
-36:                                               ; preds = %26, %23
-  %37 = phi ptr [ %11, %23 ], [ %33, %26 ]
-  %38 = phi i32 [ %7, %23 ], [ %30, %26 ]
-  %39 = icmp ult i32 %6, 7
-  br i1 %39, label %62, label %40
+while.body.i.prol.loopexit:                       ; preds = %while.body.i.prol, %while.body.i.preheader
+  %pp.039.i.unr = phi ptr [ %call2.i, %while.body.i.preheader ], [ %incdec.ptr.i.prol, %while.body.i.prol ]
+  %asize.038.i.unr = phi i32 [ %add.i, %while.body.i.preheader ], [ %dec.i.prol, %while.body.i.prol ]
+  %1 = icmp ult i32 %cond.i, 7
+  br i1 %1, label %if.end, label %while.body.i
 
-40:                                               ; preds = %36, %40
-  %41 = phi ptr [ %60, %40 ], [ %37, %36 ]
-  %42 = phi i32 [ %57, %40 ], [ %38, %36 ]
-  %43 = getelementptr inbounds %struct.pair_s, ptr %41, i64 0, i32 1, i32 1
-  store i16 32, ptr %43, align 8, !tbaa !15
-  %44 = getelementptr inbounds %struct.ref_s, ptr %41, i64 0, i32 1
-  store i16 32, ptr %44, align 8, !tbaa !17
-  %45 = getelementptr inbounds %struct.pair_s, ptr %41, i64 1, i32 1, i32 1
-  store i16 32, ptr %45, align 8, !tbaa !15
-  %46 = getelementptr inbounds %struct.pair_s, ptr %41, i64 1, i32 0, i32 1
-  store i16 32, ptr %46, align 8, !tbaa !17
-  %47 = getelementptr inbounds %struct.pair_s, ptr %41, i64 2, i32 1, i32 1
-  store i16 32, ptr %47, align 8, !tbaa !15
-  %48 = getelementptr inbounds %struct.pair_s, ptr %41, i64 2, i32 0, i32 1
-  store i16 32, ptr %48, align 8, !tbaa !17
-  %49 = getelementptr inbounds %struct.pair_s, ptr %41, i64 3, i32 1, i32 1
-  store i16 32, ptr %49, align 8, !tbaa !15
-  %50 = getelementptr inbounds %struct.pair_s, ptr %41, i64 3, i32 0, i32 1
-  store i16 32, ptr %50, align 8, !tbaa !17
-  %51 = getelementptr inbounds %struct.pair_s, ptr %41, i64 4, i32 1, i32 1
-  store i16 32, ptr %51, align 8, !tbaa !15
-  %52 = getelementptr inbounds %struct.pair_s, ptr %41, i64 4, i32 0, i32 1
-  store i16 32, ptr %52, align 8, !tbaa !17
-  %53 = getelementptr inbounds %struct.pair_s, ptr %41, i64 5, i32 1, i32 1
-  store i16 32, ptr %53, align 8, !tbaa !15
-  %54 = getelementptr inbounds %struct.pair_s, ptr %41, i64 5, i32 0, i32 1
-  store i16 32, ptr %54, align 8, !tbaa !17
-  %55 = getelementptr inbounds %struct.pair_s, ptr %41, i64 6, i32 1, i32 1
-  store i16 32, ptr %55, align 8, !tbaa !15
-  %56 = getelementptr inbounds %struct.pair_s, ptr %41, i64 6, i32 0, i32 1
-  store i16 32, ptr %56, align 8, !tbaa !17
-  %57 = add i32 %42, -8
-  %58 = getelementptr inbounds %struct.pair_s, ptr %41, i64 7, i32 1, i32 1
-  store i16 32, ptr %58, align 8, !tbaa !15
-  %59 = getelementptr inbounds %struct.pair_s, ptr %41, i64 7, i32 0, i32 1
-  store i16 32, ptr %59, align 8, !tbaa !17
-  %60 = getelementptr inbounds %struct.pair_s, ptr %41, i64 8
-  %61 = icmp eq i32 %57, 0
-  br i1 %61, label %62, label %40, !llvm.loop !20
+while.body.i:                                     ; preds = %while.body.i.prol.loopexit, %while.body.i
+  %pp.039.i = phi ptr [ %incdec.ptr.i.7, %while.body.i ], [ %pp.039.i.unr, %while.body.i.prol.loopexit ]
+  %asize.038.i = phi i32 [ %dec.i.7, %while.body.i ], [ %asize.038.i.unr, %while.body.i.prol.loopexit ]
+  %type_attrs17.i = getelementptr inbounds %struct.pair_s, ptr %pp.039.i, i64 0, i32 1, i32 1
+  store i16 32, ptr %type_attrs17.i, align 8, !tbaa !15
+  %type_attrs18.i = getelementptr inbounds %struct.ref_s, ptr %pp.039.i, i64 0, i32 1
+  store i16 32, ptr %type_attrs18.i, align 8, !tbaa !17
+  %type_attrs17.i.1 = getelementptr inbounds %struct.pair_s, ptr %pp.039.i, i64 1, i32 1, i32 1
+  store i16 32, ptr %type_attrs17.i.1, align 8, !tbaa !15
+  %type_attrs18.i.1 = getelementptr inbounds %struct.pair_s, ptr %pp.039.i, i64 1, i32 0, i32 1
+  store i16 32, ptr %type_attrs18.i.1, align 8, !tbaa !17
+  %type_attrs17.i.2 = getelementptr inbounds %struct.pair_s, ptr %pp.039.i, i64 2, i32 1, i32 1
+  store i16 32, ptr %type_attrs17.i.2, align 8, !tbaa !15
+  %type_attrs18.i.2 = getelementptr inbounds %struct.pair_s, ptr %pp.039.i, i64 2, i32 0, i32 1
+  store i16 32, ptr %type_attrs18.i.2, align 8, !tbaa !17
+  %type_attrs17.i.3 = getelementptr inbounds %struct.pair_s, ptr %pp.039.i, i64 3, i32 1, i32 1
+  store i16 32, ptr %type_attrs17.i.3, align 8, !tbaa !15
+  %type_attrs18.i.3 = getelementptr inbounds %struct.pair_s, ptr %pp.039.i, i64 3, i32 0, i32 1
+  store i16 32, ptr %type_attrs18.i.3, align 8, !tbaa !17
+  %type_attrs17.i.4 = getelementptr inbounds %struct.pair_s, ptr %pp.039.i, i64 4, i32 1, i32 1
+  store i16 32, ptr %type_attrs17.i.4, align 8, !tbaa !15
+  %type_attrs18.i.4 = getelementptr inbounds %struct.pair_s, ptr %pp.039.i, i64 4, i32 0, i32 1
+  store i16 32, ptr %type_attrs18.i.4, align 8, !tbaa !17
+  %type_attrs17.i.5 = getelementptr inbounds %struct.pair_s, ptr %pp.039.i, i64 5, i32 1, i32 1
+  store i16 32, ptr %type_attrs17.i.5, align 8, !tbaa !15
+  %type_attrs18.i.5 = getelementptr inbounds %struct.pair_s, ptr %pp.039.i, i64 5, i32 0, i32 1
+  store i16 32, ptr %type_attrs18.i.5, align 8, !tbaa !17
+  %type_attrs17.i.6 = getelementptr inbounds %struct.pair_s, ptr %pp.039.i, i64 6, i32 1, i32 1
+  store i16 32, ptr %type_attrs17.i.6, align 8, !tbaa !15
+  %type_attrs18.i.6 = getelementptr inbounds %struct.pair_s, ptr %pp.039.i, i64 6, i32 0, i32 1
+  store i16 32, ptr %type_attrs18.i.6, align 8, !tbaa !17
+  %dec.i.7 = add i32 %asize.038.i, -8
+  %type_attrs17.i.7 = getelementptr inbounds %struct.pair_s, ptr %pp.039.i, i64 7, i32 1, i32 1
+  store i16 32, ptr %type_attrs17.i.7, align 8, !tbaa !15
+  %type_attrs18.i.7 = getelementptr inbounds %struct.pair_s, ptr %pp.039.i, i64 7, i32 0, i32 1
+  store i16 32, ptr %type_attrs18.i.7, align 8, !tbaa !17
+  %incdec.ptr.i.7 = getelementptr inbounds %struct.pair_s, ptr %pp.039.i, i64 8
+  %tobool.not.i.7 = icmp eq i32 %dec.i.7, 0
+  br i1 %tobool.not.i.7, label %if.end, label %while.body.i, !llvm.loop !20
 
-62:                                               ; preds = %36, %40, %14
-  %63 = load ptr, ptr %0, align 8, !tbaa !5
-  %64 = getelementptr inbounds %struct.dict_s, ptr %63, i64 0, i32 1, i32 2
-  %65 = load i16, ptr %64, align 2, !tbaa !13
-  %66 = icmp ult i16 %65, 2
-  br i1 %66, label %121, label %67
+if.end:                                           ; preds = %while.body.i.prol.loopexit, %while.body.i, %if.end5.i
+  %2 = load ptr, ptr %pdrfrom, align 8, !tbaa !5
+  %size.i = getelementptr inbounds %struct.dict_s, ptr %2, i64 0, i32 1, i32 2
+  %3 = load i16, ptr %size.i, align 2, !tbaa !13
+  %tobool.not22.i = icmp ult i16 %3, 2
+  br i1 %tobool.not22.i, label %dict_copy.exit, label %while.body.preheader.i12
 
-67:                                               ; preds = %62
-  %68 = getelementptr inbounds %struct.dict_s, ptr %63, i64 0, i32 1
-  %69 = load ptr, ptr %68, align 8, !tbaa !5
-  %70 = lshr i16 %65, 1
-  %71 = zext i16 %70 to i32
-  br label %72
+while.body.preheader.i12:                         ; preds = %if.end
+  %contents.i11 = getelementptr inbounds %struct.dict_s, ptr %2, i64 0, i32 1
+  %4 = load ptr, ptr %contents.i11, align 8, !tbaa !5
+  %5 = lshr i16 %3, 1
+  %shr.i = zext i16 %5 to i32
+  br label %while.body.i14
 
-72:                                               ; preds = %118, %67
-  %73 = phi i32 [ %75, %118 ], [ %71, %67 ]
-  %74 = phi ptr [ %119, %118 ], [ %69, %67 ]
-  %75 = add nsw i32 %73, -1
-  %76 = getelementptr inbounds %struct.ref_s, ptr %74, i64 0, i32 1
-  %77 = load i16, ptr %76, align 8, !tbaa !17
-  %78 = and i16 %77, 252
-  %79 = icmp eq i16 %78, 32
-  br i1 %79, label %118, label %80
+while.body.i14:                                   ; preds = %if.end11.i, %while.body.preheader.i12
+  %dec25.in.i = phi i32 [ %dec25.i, %if.end11.i ], [ %shr.i, %while.body.preheader.i12 ]
+  %pp.023.i = phi ptr [ %incdec.ptr.i15, %if.end11.i ], [ %4, %while.body.preheader.i12 ]
+  %dec25.i = add nsw i32 %dec25.in.i, -1
+  %type_attrs.i13 = getelementptr inbounds %struct.ref_s, ptr %pp.023.i, i64 0, i32 1
+  %6 = load i16, ptr %type_attrs.i13, align 8, !tbaa !17
+  %7 = and i16 %6, 252
+  %cmp.not.i = icmp eq i16 %7, 32
+  br i1 %cmp.not.i, label %if.end11.i, label %if.then.i
 
-80:                                               ; preds = %72
-  %81 = getelementptr inbounds %struct.pair_s, ptr %74, i64 0, i32 1
-  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %3) #8
-  %82 = call i32 @dict_lookup(ptr noundef nonnull %4, ptr noundef nonnull %4, ptr noundef nonnull %74, ptr noundef nonnull %3)
-  %83 = icmp slt i32 %82, 1
-  br i1 %83, label %86, label %84
+if.then.i:                                        ; preds = %while.body.i14
+  %value7.i = getelementptr inbounds %struct.pair_s, ptr %pp.023.i, i64 0, i32 1
+  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %pvslot.i.i) #8
+  %call.i.i = call i32 @dict_lookup(ptr noundef nonnull %drto, ptr noundef nonnull %drto, ptr noundef nonnull %pp.023.i, ptr noundef nonnull %pvslot.i.i)
+  %cmp.i.i = icmp slt i32 %call.i.i, 1
+  br i1 %cmp.i.i, label %if.then.i.i, label %entry.if.end26_crit_edge.i.i
 
-84:                                               ; preds = %80
-  %85 = load ptr, ptr %3, align 8, !tbaa !26
-  br label %115
+entry.if.end26_crit_edge.i.i:                     ; preds = %if.then.i
+  %.pre.i.i = load ptr, ptr %pvslot.i.i, align 8, !tbaa !26
+  br label %dict_put.exit.thread.i
 
-86:                                               ; preds = %80
-  %87 = load ptr, ptr %4, align 8, !tbaa !5
-  %88 = load i64, ptr %87, align 8, !tbaa !5
-  %89 = getelementptr inbounds %struct.dict_s, ptr %87, i64 0, i32 1, i32 2
-  %90 = load i16, ptr %89, align 2, !tbaa !13
-  %91 = lshr i16 %90, 1
-  %92 = zext i16 %91 to i64
-  %93 = add nsw i64 %92, -1
-  %94 = icmp eq i64 %88, %93
-  br i1 %94, label %117, label %95
+if.then.i.i:                                      ; preds = %if.then.i
+  %8 = load ptr, ptr %drto, align 8, !tbaa !5
+  %9 = load i64, ptr %8, align 8, !tbaa !5
+  %size.i.i = getelementptr inbounds %struct.dict_s, ptr %8, i64 0, i32 1, i32 2
+  %10 = load i16, ptr %size.i.i, align 2, !tbaa !13
+  %11 = lshr i16 %10, 1
+  %shr.i.i = zext i16 %11 to i64
+  %sub.i.i = add nsw i64 %shr.i.i, -1
+  %cmp3.not.i.i = icmp eq i64 %9, %sub.i.i
+  br i1 %cmp3.not.i.i, label %dict_put.exit.i, label %if.end.i.i
 
-95:                                               ; preds = %86
-  %96 = add nsw i64 %88, 1
-  store i64 %96, ptr %87, align 8, !tbaa !5
-  %97 = load ptr, ptr %3, align 8, !tbaa !26
-  %98 = getelementptr inbounds %struct.ref_s, ptr %97, i64 -1
-  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %98, ptr noundef nonnull align 8 dereferenceable(16) %74, i64 16, i1 false), !tbaa.struct !28
-  %99 = load i16, ptr %76, align 8, !tbaa !14
-  %100 = and i16 %99, 252
-  %101 = icmp eq i16 %100, 28
-  br i1 %101, label %102, label %115
+if.end.i.i:                                       ; preds = %if.then.i.i
+  %inc.i.i = add nsw i64 %9, 1
+  store i64 %inc.i.i, ptr %8, align 8, !tbaa !5
+  %12 = load ptr, ptr %pvslot.i.i, align 8, !tbaa !26
+  %arrayidx.i.i = getelementptr inbounds %struct.ref_s, ptr %12, i64 -1
+  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %arrayidx.i.i, ptr noundef nonnull align 8 dereferenceable(16) %pp.023.i, i64 16, i1 false), !tbaa.struct !28
+  %13 = load i16, ptr %type_attrs.i13, align 8, !tbaa !14
+  %14 = and i16 %13, 252
+  %cmp10.i.i = icmp eq i16 %14, 28
+  br i1 %cmp10.i.i, label %if.then12.i.i, label %dict_put.exit.thread.i
 
-102:                                              ; preds = %95
-  %103 = load ptr, ptr %74, align 8, !tbaa !5
-  %104 = getelementptr inbounds %struct.name_s, ptr %103, i64 0, i32 4
-  %105 = load ptr, ptr %104, align 8, !tbaa !34
-  %106 = icmp eq ptr %105, null
-  br i1 %106, label %107, label %114
+if.then12.i.i:                                    ; preds = %if.end.i.i
+  %15 = load ptr, ptr %pp.023.i, align 8, !tbaa !5
+  %pvalue14.i.i = getelementptr inbounds %struct.name_s, ptr %15, i64 0, i32 4
+  %16 = load ptr, ptr %pvalue14.i.i, align 8, !tbaa !34
+  %cmp15.i.i = icmp eq ptr %16, null
+  br i1 %cmp15.i.i, label %land.lhs.true.i.i, label %if.end24.i.i
 
-107:                                              ; preds = %102
-  %108 = load ptr, ptr @dstack, align 8, !tbaa !5
-  %109 = icmp eq ptr %87, %108
-  br i1 %109, label %113, label %110
+land.lhs.true.i.i:                                ; preds = %if.then12.i.i
+  %17 = load ptr, ptr @dstack, align 8, !tbaa !5
+  %cmp17.i.i = icmp eq ptr %8, %17
+  br i1 %cmp17.i.i, label %if.then21.i.i, label %lor.lhs.false.i.i
 
-110:                                              ; preds = %107
-  %111 = load ptr, ptr getelementptr inbounds ([0 x %struct.ref_s], ptr @dstack, i64 0, i64 1), align 8, !tbaa !5
-  %112 = icmp eq ptr %87, %111
-  br i1 %112, label %113, label %114
+lor.lhs.false.i.i:                                ; preds = %land.lhs.true.i.i
+  %18 = load ptr, ptr getelementptr inbounds ([0 x %struct.ref_s], ptr @dstack, i64 0, i64 1), align 8, !tbaa !5
+  %cmp19.i.i = icmp eq ptr %8, %18
+  br i1 %cmp19.i.i, label %if.then21.i.i, label %if.end24.i.i
 
-113:                                              ; preds = %110, %107
-  store ptr %97, ptr %104, align 8, !tbaa !34
-  br label %115
+if.then21.i.i:                                    ; preds = %lor.lhs.false.i.i, %land.lhs.true.i.i
+  br label %if.end24.i.i
 
-114:                                              ; preds = %110, %102
-  store ptr inttoptr (i64 1 to ptr), ptr %104, align 8, !tbaa !34
-  br label %115
+if.end24.i.i:                                     ; preds = %if.then21.i.i, %lor.lhs.false.i.i, %if.then12.i.i
+  %storemerge.i.i = phi ptr [ %12, %if.then21.i.i ], [ inttoptr (i64 1 to ptr), %lor.lhs.false.i.i ], [ inttoptr (i64 1 to ptr), %if.then12.i.i ]
+  store ptr %storemerge.i.i, ptr %pvalue14.i.i, align 8, !tbaa !34
+  br label %dict_put.exit.thread.i
 
-115:                                              ; preds = %114, %113, %95, %84
-  %116 = phi ptr [ %85, %84 ], [ %97, %95 ], [ %97, %114 ], [ %97, %113 ]
-  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %116, ptr noundef nonnull align 8 dereferenceable(16) %81, i64 16, i1 false), !tbaa.struct !28
-  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %3) #8
-  br label %118
+dict_put.exit.thread.i:                           ; preds = %if.end24.i.i, %if.end.i.i, %entry.if.end26_crit_edge.i.i
+  %19 = phi ptr [ %.pre.i.i, %entry.if.end26_crit_edge.i.i ], [ %12, %if.end24.i.i ], [ %12, %if.end.i.i ]
+  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %19, ptr noundef nonnull align 8 dereferenceable(16) %value7.i, i64 16, i1 false), !tbaa.struct !28
+  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %pvslot.i.i) #8
+  br label %if.end11.i
 
-117:                                              ; preds = %86
-  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %3) #8
-  br label %121
+dict_put.exit.i:                                  ; preds = %if.then.i.i
+  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %pvslot.i.i) #8
+  br label %dict_copy.exit
 
-118:                                              ; preds = %115, %72
-  %119 = getelementptr inbounds %struct.pair_s, ptr %74, i64 1
-  %120 = icmp eq i32 %75, 0
-  br i1 %120, label %121, label %72, !llvm.loop !35
+if.end11.i:                                       ; preds = %dict_put.exit.thread.i, %while.body.i14
+  %incdec.ptr.i15 = getelementptr inbounds %struct.pair_s, ptr %pp.023.i, i64 1
+  %tobool.not.i16 = icmp eq i32 %dec25.i, 0
+  br i1 %tobool.not.i16, label %dict_copy.exit, label %while.body.i14, !llvm.loop !35
 
-121:                                              ; preds = %118, %62, %117
-  %122 = getelementptr inbounds %struct.dict_s, ptr %5, i64 0, i32 1
-  %123 = load ptr, ptr %122, align 8, !tbaa !5
-  %124 = load ptr, ptr %0, align 8, !tbaa !5
-  %125 = getelementptr inbounds %struct.dict_s, ptr %124, i64 0, i32 1, i32 2
-  %126 = load i16, ptr %125, align 2, !tbaa !13
-  %127 = lshr i16 %126, 1
-  %128 = zext i16 %127 to i32
-  %129 = add nsw i32 %128, -1
-  call void @alloc_free(ptr noundef %123, i32 noundef %129, i32 noundef 32, ptr noundef nonnull @.str.2) #8
-  %130 = load ptr, ptr %4, align 8, !tbaa !5
-  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(32) %5, ptr noundef nonnull align 8 dereferenceable(32) %130, i64 32, i1 false), !tbaa.struct !37
-  call void @alloc_free(ptr noundef %130, i32 noundef 1, i32 noundef 32, ptr noundef nonnull @.str.3) #8
-  br label %131
+dict_copy.exit:                                   ; preds = %if.end11.i, %if.end, %dict_put.exit.i
+  %contents = getelementptr inbounds %struct.dict_s, ptr %0, i64 0, i32 1
+  %20 = load ptr, ptr %contents, align 8, !tbaa !5
+  %21 = load ptr, ptr %pdrfrom, align 8, !tbaa !5
+  %size.i18 = getelementptr inbounds %struct.dict_s, ptr %21, i64 0, i32 1, i32 2
+  %22 = load i16, ptr %size.i18, align 2, !tbaa !13
+  %23 = lshr i16 %22, 1
+  %shr.i19 = zext i16 %23 to i32
+  %sub.i = add nsw i32 %shr.i19, -1
+  call void @alloc_free(ptr noundef %20, i32 noundef %sub.i, i32 noundef 32, ptr noundef nonnull @.str.2) #8
+  %24 = load ptr, ptr %drto, align 8, !tbaa !5
+  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(32) %0, ptr noundef nonnull align 8 dereferenceable(32) %24, i64 32, i1 false), !tbaa.struct !37
+  call void @alloc_free(ptr noundef %24, i32 noundef 1, i32 noundef 32, ptr noundef nonnull @.str.3) #8
+  br label %cleanup
 
-131:                                              ; preds = %2, %13, %121
-  %132 = phi i32 [ 0, %121 ], [ -25, %13 ], [ -25, %2 ]
-  call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %4) #8
-  ret i32 %132
+cleanup:                                          ; preds = %entry, %if.then4.i, %dict_copy.exit
+  %retval.0 = phi i32 [ 0, %dict_copy.exit ], [ -25, %if.then4.i ], [ -25, %entry ]
+  call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %drto) #8
+  ret i32 %retval.0
 }
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(read, inaccessiblemem: none) uwtable
-define dso_local i32 @dict_first(ptr nocapture noundef readonly %0) local_unnamed_addr #5 {
-  %2 = load ptr, ptr %0, align 8, !tbaa !5
-  %3 = getelementptr inbounds %struct.dict_s, ptr %2, i64 0, i32 1, i32 2
-  %4 = load i16, ptr %3, align 2, !tbaa !13
-  %5 = lshr i16 %4, 1
-  %6 = zext i16 %5 to i32
-  ret i32 %6
+define dso_local i32 @dict_first(ptr nocapture noundef readonly %pdref) local_unnamed_addr #5 {
+entry:
+  %0 = load ptr, ptr %pdref, align 8, !tbaa !5
+  %size = getelementptr inbounds %struct.dict_s, ptr %0, i64 0, i32 1, i32 2
+  %1 = load i16, ptr %size, align 2, !tbaa !13
+  %2 = lshr i16 %1, 1
+  %shr = zext i16 %2 to i32
+  ret i32 %shr
 }
 
 ; Function Attrs: nofree nosync nounwind memory(readwrite, inaccessiblemem: none) uwtable
-define dso_local i32 @dict_next(ptr nocapture noundef readonly %0, i32 noundef %1, ptr nocapture noundef writeonly %2) local_unnamed_addr #6 {
-  %4 = load ptr, ptr %0, align 8, !tbaa !5
-  %5 = getelementptr inbounds %struct.dict_s, ptr %4, i64 0, i32 1
-  %6 = load ptr, ptr %5, align 8, !tbaa !5
-  %7 = sext i32 %1 to i64
-  %8 = getelementptr inbounds %struct.pair_s, ptr %6, i64 %7
-  br label %9
+define dso_local i32 @dict_next(ptr nocapture noundef readonly %pdref, i32 noundef %index, ptr nocapture noundef writeonly %eltp) local_unnamed_addr #6 {
+entry:
+  %0 = load ptr, ptr %pdref, align 8, !tbaa !5
+  %contents = getelementptr inbounds %struct.dict_s, ptr %0, i64 0, i32 1
+  %1 = load ptr, ptr %contents, align 8, !tbaa !5
+  %idx.ext = sext i32 %index to i64
+  %add.ptr = getelementptr inbounds %struct.pair_s, ptr %1, i64 %idx.ext
+  br label %while.cond
 
-9:                                                ; preds = %13, %3
-  %10 = phi i32 [ %1, %3 ], [ %14, %13 ]
-  %11 = phi ptr [ %8, %3 ], [ %15, %13 ]
-  %12 = icmp sgt i32 %10, 0
-  br i1 %12, label %13, label %23
+while.cond:                                       ; preds = %while.body, %entry
+  %index.addr.0 = phi i32 [ %index, %entry ], [ %dec, %while.body ]
+  %pp.0 = phi ptr [ %add.ptr, %entry ], [ %incdec.ptr, %while.body ]
+  %cmp = icmp sgt i32 %index.addr.0, 0
+  br i1 %cmp, label %while.body, label %cleanup
 
-13:                                               ; preds = %9
-  %14 = add nsw i32 %10, -1
-  %15 = getelementptr inbounds %struct.pair_s, ptr %11, i64 -1
-  %16 = getelementptr %struct.pair_s, ptr %11, i64 -1, i32 0, i32 1
-  %17 = load i16, ptr %16, align 8, !tbaa !17
-  %18 = and i16 %17, 252
-  %19 = icmp eq i16 %18, 32
-  br i1 %19, label %9, label %20, !llvm.loop !38
+while.body:                                       ; preds = %while.cond
+  %dec = add nsw i32 %index.addr.0, -1
+  %incdec.ptr = getelementptr inbounds %struct.pair_s, ptr %pp.0, i64 -1
+  %type_attrs = getelementptr %struct.pair_s, ptr %pp.0, i64 -1, i32 0, i32 1
+  %2 = load i16, ptr %type_attrs, align 8, !tbaa !17
+  %3 = and i16 %2, 252
+  %cmp2.not = icmp eq i16 %3, 32
+  br i1 %cmp2.not, label %while.cond, label %if.then, !llvm.loop !38
 
-20:                                               ; preds = %13
-  tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %2, ptr noundef nonnull align 8 dereferenceable(16) %15, i64 16, i1 false), !tbaa.struct !28
-  %21 = getelementptr inbounds %struct.ref_s, ptr %2, i64 1
-  %22 = getelementptr %struct.pair_s, ptr %11, i64 -1, i32 1
-  tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %21, ptr noundef nonnull align 8 dereferenceable(16) %22, i64 16, i1 false), !tbaa.struct !28
-  br label %23
+if.then:                                          ; preds = %while.body
+  tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %eltp, ptr noundef nonnull align 8 dereferenceable(16) %incdec.ptr, i64 16, i1 false), !tbaa.struct !28
+  %arrayidx5 = getelementptr inbounds %struct.ref_s, ptr %eltp, i64 1
+  %value6 = getelementptr %struct.pair_s, ptr %pp.0, i64 -1, i32 1
+  tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %arrayidx5, ptr noundef nonnull align 8 dereferenceable(16) %value6, i64 16, i1 false), !tbaa.struct !28
+  br label %cleanup
 
-23:                                               ; preds = %9, %20
-  %24 = phi i32 [ %14, %20 ], [ -1, %9 ]
-  ret i32 %24
+cleanup:                                          ; preds = %while.cond, %if.then
+  %retval.0 = phi i32 [ %dec, %if.then ], [ -1, %while.cond ]
+  ret i32 %retval.0
 }
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)

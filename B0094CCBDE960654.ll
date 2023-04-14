@@ -5,58 +5,70 @@ target triple = "x86_64-unknown-linux-gnu"
 
 %struct.st = type { i32 }
 
-@__const.main._1 = private unnamed_addr constant [2 x %struct.st] [%struct.st { i32 2 }, %struct.st { i32 1 }], align 4
-
 ; Function Attrs: nofree noinline norecurse nosync nounwind memory(read, inaccessiblemem: none) uwtable
-define dso_local i32 @foo(ptr nocapture noundef readonly %0, i32 noundef %1) local_unnamed_addr #0 {
-  %3 = icmp ult i32 %1, 2
-  br i1 %3, label %17, label %4
+define dso_local i32 @foo(ptr nocapture noundef readonly %s, i32 noundef %c) local_unnamed_addr #0 {
+entry:
+  %or.cond = icmp ult i32 %c, 2
+  br i1 %or.cond, label %cleanup, label %while.body.preheader
 
-4:                                                ; preds = %2
-  %5 = add nsw i32 %1, -1
-  %6 = load i32, ptr %0, align 4, !tbaa !5
-  br label %10
+while.body.preheader:                             ; preds = %entry
+  %dec18.peel = add nsw i32 %c, -1
+  %0 = load i32, ptr %s, align 4, !tbaa !5
+  br label %while.body
 
-7:                                                ; preds = %10
-  %8 = add nsw i32 %11, -1
-  %9 = icmp eq i32 %8, 0
-  br i1 %9, label %17, label %10, !llvm.loop !10
+while.cond:                                       ; preds = %while.body
+  %dec18 = add nsw i32 %dec18.in, -1
+  %tobool.not = icmp eq i32 %dec18, 0
+  br i1 %tobool.not, label %cleanup, label %while.body, !llvm.loop !10
 
-10:                                               ; preds = %4, %7
-  %11 = phi i32 [ %8, %7 ], [ %5, %4 ]
-  %12 = phi i32 [ %15, %7 ], [ %6, %4 ]
-  %13 = phi ptr [ %14, %7 ], [ %0, %4 ]
-  %14 = getelementptr inbounds %struct.st, ptr %13, i64 1
-  %15 = load i32, ptr %14, align 4, !tbaa !5
-  %16 = icmp slt i32 %15, %12
-  br i1 %16, label %7, label %17
+while.body:                                       ; preds = %while.body.preheader, %while.cond
+  %dec18.in = phi i32 [ %dec18, %while.cond ], [ %dec18.peel, %while.body.preheader ]
+  %a.017 = phi i32 [ %1, %while.cond ], [ %0, %while.body.preheader ]
+  %item.016.pn = phi ptr [ %item.016, %while.cond ], [ %s, %while.body.preheader ]
+  %item.016 = getelementptr inbounds %struct.st, ptr %item.016.pn, i64 1
+  %1 = load i32, ptr %item.016, align 4, !tbaa !5
+  %cmp.not = icmp slt i32 %1, %a.017
+  br i1 %cmp.not, label %while.cond, label %cleanup
 
-17:                                               ; preds = %7, %10, %2
-  %18 = phi i32 [ 0, %2 ], [ 0, %7 ], [ 1, %10 ]
-  ret i32 %18
+cleanup:                                          ; preds = %while.body, %while.cond, %entry
+  %retval.0 = phi i32 [ 0, %entry ], [ 1, %while.body ], [ 0, %while.cond ]
+  ret i32 %retval.0
 }
 
-; Function Attrs: nounwind uwtable
-define dso_local i32 @main() local_unnamed_addr #1 {
-  %1 = tail call i32 @foo(ptr noundef nonnull @__const.main._1, i32 noundef 2), !range !13
-  %2 = icmp eq i32 %1, 0
-  br i1 %2, label %4, label %3
+; Function Attrs: mustprogress nocallback nofree nosync nounwind willreturn memory(argmem: readwrite)
+declare void @llvm.lifetime.start.p0(i64 immarg, ptr nocapture) #1
 
-3:                                                ; preds = %0
-  tail call void @abort() #3
+; Function Attrs: mustprogress nocallback nofree nosync nounwind willreturn memory(argmem: readwrite)
+declare void @llvm.lifetime.end.p0(i64 immarg, ptr nocapture) #1
+
+; Function Attrs: nounwind uwtable
+define dso_local i32 @main() local_unnamed_addr #2 {
+entry:
+  %_1 = alloca [2 x %struct.st], align 8
+  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %_1) #4
+  store i64 4294967298, ptr %_1, align 8
+  %call = call i32 @foo(ptr noundef nonnull %_1, i32 noundef 2), !range !13
+  %cmp.not = icmp eq i32 %call, 0
+  br i1 %cmp.not, label %if.end, label %if.then
+
+if.then:                                          ; preds = %entry
+  tail call void @abort() #5
   unreachable
 
-4:                                                ; preds = %0
+if.end:                                           ; preds = %entry
+  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %_1) #4
   ret i32 0
 }
 
 ; Function Attrs: noreturn
-declare void @abort() local_unnamed_addr #2
+declare void @abort() local_unnamed_addr #3
 
 attributes #0 = { nofree noinline norecurse nosync nounwind memory(read, inaccessiblemem: none) uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
-attributes #1 = { nounwind uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
-attributes #2 = { noreturn "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
-attributes #3 = { noreturn nounwind }
+attributes #1 = { mustprogress nocallback nofree nosync nounwind willreturn memory(argmem: readwrite) }
+attributes #2 = { nounwind uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
+attributes #3 = { noreturn "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
+attributes #4 = { nounwind }
+attributes #5 = { noreturn nounwind }
 
 !llvm.module.flags = !{!0, !1, !2, !3}
 !llvm.ident = !{!4}

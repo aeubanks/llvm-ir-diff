@@ -4,16 +4,17 @@ target datalayout = "e-m:e-p270:32:32-p271:32:32-p272:64:64-i64:64-f80:128-n8:16
 target triple = "x86_64-unknown-linux-gnu"
 
 ; Function Attrs: nounwind uwtable
-define dso_local void @foo(i64 noundef %0) local_unnamed_addr #0 {
-  %2 = icmp sgt i64 %0, 10
-  br i1 %2, label %3, label %4
+define dso_local void @foo(i64 noundef %j) local_unnamed_addr #0 {
+entry:
+  %cmp = icmp sgt i64 %j, 10
+  br i1 %cmp, label %if.then, label %lor.lhs.false
 
-3:                                                ; preds = %1
+lor.lhs.false:                                    ; preds = %entry
+  ret void
+
+if.then:                                          ; preds = %entry
   tail call void @abort() #3
   unreachable
-
-4:                                                ; preds = %1
-  ret void
 }
 
 ; Function Attrs: noreturn
@@ -21,6 +22,7 @@ declare void @abort() local_unnamed_addr #1
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(none) uwtable
 define dso_local i32 @main() local_unnamed_addr #2 {
+entry:
   ret i32 0
 }
 

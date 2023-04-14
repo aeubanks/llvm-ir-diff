@@ -13,118 +13,122 @@ target triple = "x86_64-unknown-linux-gnu"
 @ResvMax = internal unnamed_addr global i32 0, align 4
 
 ; Function Attrs: mustprogress nofree nosync nounwind willreturn memory(readwrite, argmem: read, inaccessiblemem: none) uwtable
-define dso_local i32 @ResvFrameBegin(ptr nocapture noundef readonly %0, ptr nocapture noundef readnone %1, i32 noundef %2, i32 noundef %3) local_unnamed_addr #0 {
-  %5 = getelementptr inbounds %struct.lame_global_flags, ptr %0, i64 0, i32 39
-  %6 = load i64, ptr %5, align 8, !tbaa !5
-  %7 = icmp eq i64 %6, 0
-  br i1 %7, label %10, label %8
+define dso_local i32 @ResvFrameBegin(ptr nocapture noundef readonly %gfp, ptr nocapture noundef readnone %l3_side, i32 noundef %mean_bits, i32 noundef %frameLength) local_unnamed_addr #0 {
+entry:
+  %frameNum = getelementptr inbounds %struct.lame_global_flags, ptr %gfp, i64 0, i32 39
+  %0 = load i64, ptr %frameNum, align 8, !tbaa !5
+  %cmp = icmp eq i64 %0, 0
+  br i1 %cmp, label %if.then, label %entry.if.end_crit_edge
 
-8:                                                ; preds = %4
-  %9 = load i32, ptr @ResvSize, align 4, !tbaa !13
-  br label %11
+entry.if.end_crit_edge:                           ; preds = %entry
+  %.pre = load i32, ptr @ResvSize, align 4, !tbaa !13
+  br label %if.end
 
-10:                                               ; preds = %4
+if.then:                                          ; preds = %entry
   store i32 0, ptr @ResvSize, align 4, !tbaa !13
-  br label %11
+  br label %if.end
 
-11:                                               ; preds = %8, %10
-  %12 = phi i32 [ %9, %8 ], [ 0, %10 ]
-  %13 = getelementptr inbounds %struct.lame_global_flags, ptr %0, i64 0, i32 43
-  %14 = load i32, ptr %13, align 8, !tbaa !14
-  %15 = icmp eq i32 %14, 1
-  %16 = select i1 %15, i32 4088, i32 2040
-  %17 = getelementptr inbounds %struct.lame_global_flags, ptr %0, i64 0, i32 45
-  %18 = load i32, ptr %17, align 8, !tbaa !15
-  %19 = icmp sgt i32 %3, 7680
-  %20 = sub nsw i32 7680, %3
-  %21 = select i1 %19, i32 0, i32 %20
-  %22 = getelementptr inbounds %struct.lame_global_flags, ptr %0, i64 0, i32 17
-  %23 = load i32, ptr %22, align 8, !tbaa !16
-  %24 = icmp eq i32 %23, 0
-  %25 = select i1 %24, i32 %21, i32 0
-  %26 = tail call i32 @llvm.smin.i32(i32 %25, i32 %16)
-  store i32 %26, ptr @ResvMax, align 4
-  %27 = mul nsw i32 %18, %2
-  %28 = add nsw i32 %27, %12
-  ret i32 %28
+if.end:                                           ; preds = %entry.if.end_crit_edge, %if.then
+  %1 = phi i32 [ %.pre, %entry.if.end_crit_edge ], [ 0, %if.then ]
+  %version = getelementptr inbounds %struct.lame_global_flags, ptr %gfp, i64 0, i32 43
+  %2 = load i32, ptr %version, align 8, !tbaa !14
+  %cmp1 = icmp eq i32 %2, 1
+  %. = select i1 %cmp1, i32 4088, i32 2040
+  %mode_gr = getelementptr inbounds %struct.lame_global_flags, ptr %gfp, i64 0, i32 45
+  %3 = load i32, ptr %mode_gr, align 8, !tbaa !15
+  %cmp4 = icmp sgt i32 %frameLength, 7680
+  %sub = sub nsw i32 7680, %frameLength
+  %storemerge = select i1 %cmp4, i32 0, i32 %sub
+  %disable_reservoir = getelementptr inbounds %struct.lame_global_flags, ptr %gfp, i64 0, i32 17
+  %4 = load i32, ptr %disable_reservoir, align 8, !tbaa !16
+  %tobool.not = icmp eq i32 %4, 0
+  %spec.store.select = select i1 %tobool.not, i32 %storemerge, i32 0
+  %spec.store.select18 = tail call i32 @llvm.smin.i32(i32 %spec.store.select, i32 %.)
+  store i32 %spec.store.select18, ptr @ResvMax, align 4
+  %mul = mul nsw i32 %3, %mean_bits
+  %add = add nsw i32 %mul, %1
+  ret i32 %add
 }
 
 ; Function Attrs: mustprogress nofree nosync nounwind willreturn memory(read, argmem: write, inaccessiblemem: none) uwtable
-define dso_local void @ResvMaxBits(i32 noundef %0, ptr nocapture noundef writeonly %1, ptr nocapture noundef writeonly %2, i32 noundef %3) local_unnamed_addr #1 {
-  %5 = load i32, ptr @ResvSize, align 4, !tbaa !13
-  %6 = load i32, ptr @ResvMax, align 4, !tbaa !13
-  %7 = mul nsw i32 %6, 9
-  %8 = sdiv i32 %7, 10
-  %9 = icmp sgt i32 %5, %8
-  br i1 %9, label %10, label %13
+define dso_local void @ResvMaxBits(i32 noundef %mean_bits, ptr nocapture noundef writeonly %targ_bits, ptr nocapture noundef writeonly %extra_bits, i32 noundef %gr) local_unnamed_addr #1 {
+entry:
+  %0 = load i32, ptr @ResvSize, align 4, !tbaa !13
+  %1 = load i32, ptr @ResvMax, align 4, !tbaa !13
+  %mul = mul nsw i32 %1, 9
+  %div = sdiv i32 %mul, 10
+  %cmp = icmp sgt i32 %0, %div
+  br i1 %cmp, label %if.then, label %if.else
 
-10:                                               ; preds = %4
-  %11 = sub nsw i32 %5, %8
-  %12 = add nsw i32 %11, %0
-  br label %18
+if.then:                                          ; preds = %entry
+  %sub = sub nsw i32 %0, %div
+  %add = add nsw i32 %sub, %mean_bits
+  br label %if.end
 
-13:                                               ; preds = %4
-  %14 = sitofp i32 %0 to double
-  %15 = fdiv double %14, 1.520000e+01
-  %16 = fptosi double %15 to i32
-  %17 = sub nsw i32 %0, %16
-  br label %18
+if.else:                                          ; preds = %entry
+  %conv = sitofp i32 %mean_bits to double
+  %div3 = fdiv double %conv, 1.520000e+01
+  %conv4 = fptosi double %div3 to i32
+  %sub5 = sub nsw i32 %mean_bits, %conv4
+  br label %if.end
 
-18:                                               ; preds = %13, %10
-  %19 = phi i32 [ %17, %13 ], [ %12, %10 ]
-  %20 = phi i32 [ 0, %13 ], [ %11, %10 ]
-  store i32 %19, ptr %1, align 4, !tbaa !13
-  %21 = mul nsw i32 %6, 6
-  %22 = sdiv i32 %21, 10
-  %23 = tail call i32 @llvm.smin.i32(i32 %5, i32 %22)
-  %24 = sub nsw i32 %23, %20
-  %25 = tail call i32 @llvm.smax.i32(i32 %24, i32 0)
-  store i32 %25, ptr %2, align 4
+if.end:                                           ; preds = %if.else, %if.then
+  %storemerge = phi i32 [ %sub5, %if.else ], [ %add, %if.then ]
+  %add_bits.0 = phi i32 [ 0, %if.else ], [ %sub, %if.then ]
+  store i32 %storemerge, ptr %targ_bits, align 4, !tbaa !13
+  %mul6 = mul nsw i32 %1, 6
+  %div7 = sdiv i32 %mul6, 10
+  %.div7 = tail call i32 @llvm.smin.i32(i32 %0, i32 %div7)
+  %sub12 = sub nsw i32 %.div7, %add_bits.0
+  %storemerge25 = tail call i32 @llvm.smax.i32(i32 %sub12, i32 0)
+  store i32 %storemerge25, ptr %extra_bits, align 4, !tbaa !13
   ret void
 }
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(readwrite, argmem: read, inaccessiblemem: none) uwtable
-define dso_local void @ResvAdjust(ptr nocapture noundef readonly %0, ptr nocapture noundef readonly %1, ptr nocapture noundef readnone %2, i32 noundef %3) local_unnamed_addr #2 {
-  %5 = getelementptr inbounds %struct.lame_global_flags, ptr %0, i64 0, i32 46
-  %6 = load i32, ptr %5, align 4, !tbaa !17
-  %7 = sdiv i32 %3, %6
-  %8 = load i32, ptr %1, align 8, !tbaa !18
-  %9 = sub i32 %7, %8
-  %10 = load i32, ptr @ResvSize, align 4, !tbaa !13
-  %11 = add i32 %9, %10
-  store i32 %11, ptr @ResvSize, align 4, !tbaa !13
+define dso_local void @ResvAdjust(ptr nocapture noundef readonly %gfp, ptr nocapture noundef readonly %gi, ptr nocapture noundef readnone %l3_side, i32 noundef %mean_bits) local_unnamed_addr #2 {
+entry:
+  %stereo = getelementptr inbounds %struct.lame_global_flags, ptr %gfp, i64 0, i32 46
+  %0 = load i32, ptr %stereo, align 4, !tbaa !17
+  %div = sdiv i32 %mean_bits, %0
+  %1 = load i32, ptr %gi, align 8, !tbaa !18
+  %sub = sub i32 %div, %1
+  %2 = load i32, ptr @ResvSize, align 4, !tbaa !13
+  %add = add i32 %sub, %2
+  store i32 %add, ptr @ResvSize, align 4, !tbaa !13
   ret void
 }
 
 ; Function Attrs: mustprogress nofree nosync nounwind willreturn memory(readwrite, inaccessiblemem: none) uwtable
-define dso_local void @ResvFrameEnd(ptr nocapture noundef readonly %0, ptr nocapture noundef writeonly %1, i32 noundef %2) local_unnamed_addr #3 {
-  %4 = getelementptr inbounds %struct.lame_global_flags, ptr %0, i64 0, i32 46
-  %5 = load i32, ptr %4, align 4, !tbaa !17
-  %6 = icmp eq i32 %5, 2
-  %7 = and i32 %2, 1
-  %8 = icmp ne i32 %7, 0
-  %9 = and i1 %8, %6
-  %10 = load i32, ptr @ResvSize, align 4, !tbaa !13
-  %11 = zext i1 %9 to i32
-  %12 = add nsw i32 %10, %11
-  %13 = load i32, ptr @ResvMax, align 4, !tbaa !13
-  %14 = sub nsw i32 %12, %13
-  %15 = tail call i32 @llvm.smax.i32(i32 %14, i32 0)
-  %16 = tail call i32 @llvm.smin.i32(i32 %12, i32 %13)
-  %17 = srem i32 %16, 8
-  %18 = add nsw i32 %15, %17
-  %19 = sub nsw i32 %16, %17
-  store i32 %19, ptr @ResvSize, align 4, !tbaa !13
-  %20 = getelementptr inbounds %struct.III_side_info_t, ptr %1, i64 0, i32 2
-  store i32 %18, ptr %20, align 8, !tbaa !20
+define dso_local void @ResvFrameEnd(ptr nocapture noundef readonly %gfp, ptr nocapture noundef writeonly %l3_side, i32 noundef %mean_bits) local_unnamed_addr #3 {
+entry:
+  %stereo = getelementptr inbounds %struct.lame_global_flags, ptr %gfp, i64 0, i32 46
+  %0 = load i32, ptr %stereo, align 4, !tbaa !17
+  %cmp = icmp eq i32 %0, 2
+  %and = and i32 %mean_bits, 1
+  %tobool.not = icmp ne i32 %and, 0
+  %or.cond.not = and i1 %tobool.not, %cmp
+  %.pre = load i32, ptr @ResvSize, align 4, !tbaa !13
+  %add = zext i1 %or.cond.not to i32
+  %1 = add nsw i32 %.pre, %add
+  %2 = load i32, ptr @ResvMax, align 4, !tbaa !13
+  %sub = sub nsw i32 %1, %2
+  %spec.store.select = tail call i32 @llvm.smax.i32(i32 %sub, i32 0)
+  %sub4 = tail call i32 @llvm.smin.i32(i32 %1, i32 %2)
+  %rem = srem i32 %sub4, 8
+  %add7 = add nsw i32 %spec.store.select, %rem
+  %sub8 = sub nsw i32 %sub4, %rem
+  store i32 %sub8, ptr @ResvSize, align 4, !tbaa !13
+  %resvDrain = getelementptr inbounds %struct.III_side_info_t, ptr %l3_side, i64 0, i32 2
+  store i32 %add7, ptr %resvDrain, align 8, !tbaa !20
   ret void
 }
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i32 @llvm.smin.i32(i32, i32) #4
+declare i32 @llvm.smax.i32(i32, i32) #4
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i32 @llvm.smax.i32(i32, i32) #4
+declare i32 @llvm.smin.i32(i32, i32) #4
 
 attributes #0 = { mustprogress nofree nosync nounwind willreturn memory(readwrite, argmem: read, inaccessiblemem: none) uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #1 = { mustprogress nofree nosync nounwind willreturn memory(read, argmem: write, inaccessiblemem: none) uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }

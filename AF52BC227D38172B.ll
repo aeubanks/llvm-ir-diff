@@ -39,86 +39,73 @@ $_ZN3ExpC2EjPc4Type3Loci = comdat any
 @.str.4 = private unnamed_addr constant [34 x i8] c"Error in pushing unary operation\0A\00", align 1
 
 ; Function Attrs: uwtable
-define dso_local noundef i32 @_Z9pushbinopP9Classfile(ptr nocapture noundef readnone %0) local_unnamed_addr #0 personality ptr @__gxx_personality_v0 {
-  %2 = load i32, ptr @currpc, align 4, !tbaa !5
-  %3 = add i32 %2, -1
-  %4 = load ptr, ptr @stkptr, align 8, !tbaa !9
-  %5 = getelementptr inbounds ptr, ptr %4, i64 -1
-  store ptr %5, ptr @stkptr, align 8, !tbaa !9
-  %6 = load ptr, ptr %5, align 8, !tbaa !9
-  %7 = getelementptr inbounds ptr, ptr %4, i64 -2
-  %8 = load ptr, ptr %7, align 8, !tbaa !9
-  %9 = tail call noalias noundef nonnull dereferenceable(64) ptr @_Znwm(i64 noundef 64) #9
-  %10 = getelementptr inbounds %struct.Exp, ptr %8, i64 0, i32 3
-  %11 = load i32, ptr %10, align 8, !tbaa !11
-  %12 = getelementptr inbounds %struct.Exp, ptr %6, i64 0, i32 3
-  %13 = load i32, ptr %12, align 8, !tbaa !11
-  %14 = icmp ult i32 %11, %13
-  br i1 %14, label %15, label %17
+define dso_local noundef i32 @_Z9pushbinopP9Classfile(ptr nocapture noundef readnone %c) local_unnamed_addr #0 personality ptr @__gxx_personality_v0 {
+entry:
+  %0 = load i32, ptr @currpc, align 4, !tbaa !5
+  %sub = add i32 %0, -1
+  %1 = load ptr, ptr @stkptr, align 8, !tbaa !9
+  %incdec.ptr = getelementptr inbounds ptr, ptr %1, i64 -1
+  store ptr %incdec.ptr, ptr @stkptr, align 8, !tbaa !9
+  %2 = load ptr, ptr %incdec.ptr, align 8, !tbaa !9
+  %add.ptr = getelementptr inbounds ptr, ptr %1, i64 -2
+  %3 = load ptr, ptr %add.ptr, align 8, !tbaa !9
+  %call = tail call noalias noundef nonnull dereferenceable(64) ptr @_Znwm(i64 noundef 64) #9
+  %minpc = getelementptr inbounds %struct.Exp, ptr %3, i64 0, i32 3
+  %4 = load i32, ptr %minpc, align 8, !tbaa !11
+  %minpc1 = getelementptr inbounds %struct.Exp, ptr %2, i64 0, i32 3
+  %5 = load i32, ptr %minpc1, align 8, !tbaa !11
+  %. = tail call i32 @llvm.umin.i32(i32 %4, i32 %5)
+  %spec.select = tail call i32 @llvm.umin.i32(i32 %., i32 %sub)
+  %6 = load ptr, ptr %3, align 8, !tbaa !13
+  %type = getelementptr inbounds %struct.Exp_, ptr %6, i64 0, i32 2
+  %7 = load i32, ptr %type, align 8, !tbaa !14
+  %8 = load i32, ptr @ch, align 4, !tbaa !5
+  %cmp18 = icmp slt i32 %8, 116
+  br i1 %cmp18, label %cond.true19, label %cond.false21
 
-15:                                               ; preds = %1
-  %16 = icmp ult i32 %11, %3
-  br i1 %16, label %20, label %19
+cond.true19:                                      ; preds = %entry
+  %sub20 = add nsw i32 %8, -96
+  %shr = ashr i32 %sub20, 2
+  br label %cond.end24
 
-17:                                               ; preds = %1
-  %18 = icmp ult i32 %13, %3
-  br i1 %18, label %20, label %19
+cond.false21:                                     ; preds = %entry
+  %sub22 = add nsw i32 %8, -120
+  %shr23 = ashr i32 %sub22, 1
+  %add = add nsw i32 %shr23, 7
+  br label %cond.end24
 
-19:                                               ; preds = %17, %15
-  br label %20
+cond.end24:                                       ; preds = %cond.false21, %cond.true19
+  %cond25 = phi i32 [ %shr, %cond.true19 ], [ %add, %cond.false21 ]
+  %numrefs.i = getelementptr inbounds %struct.Exp, ptr %call, i64 0, i32 1
+  store i32 1, ptr %numrefs.i, align 8, !tbaa !19
+  %pc.i = getelementptr inbounds %struct.Exp, ptr %call, i64 0, i32 2
+  store i32 %sub, ptr %pc.i, align 4, !tbaa !20
+  %minpc.i = getelementptr inbounds %struct.Exp, ptr %call, i64 0, i32 3
+  store i32 %spec.select, ptr %minpc.i, align 8, !tbaa !11
+  %call.i44 = invoke noalias noundef nonnull dereferenceable(24) ptr @_Znwm(i64 noundef 24) #9
+          to label %invoke.cont unwind label %lpad
 
-20:                                               ; preds = %17, %15, %19
-  %21 = phi i32 [ %3, %19 ], [ %11, %15 ], [ %13, %17 ]
-  %22 = load ptr, ptr %8, align 8, !tbaa !13
-  %23 = getelementptr inbounds %struct.Exp_, ptr %22, i64 0, i32 2
-  %24 = load i32, ptr %23, align 8, !tbaa !14
-  %25 = load i32, ptr @ch, align 4, !tbaa !5
-  %26 = icmp slt i32 %25, 116
-  br i1 %26, label %27, label %30
-
-27:                                               ; preds = %20
-  %28 = add nsw i32 %25, -96
-  %29 = ashr i32 %28, 2
-  br label %34
-
-30:                                               ; preds = %20
-  %31 = add nsw i32 %25, -120
-  %32 = ashr i32 %31, 1
-  %33 = add nsw i32 %32, 7
-  br label %34
-
-34:                                               ; preds = %30, %27
-  %35 = phi i32 [ %29, %27 ], [ %33, %30 ]
-  %36 = getelementptr inbounds %struct.Exp, ptr %9, i64 0, i32 1
-  store i32 1, ptr %36, align 8, !tbaa !19
-  %37 = getelementptr inbounds %struct.Exp, ptr %9, i64 0, i32 2
-  store i32 %3, ptr %37, align 4, !tbaa !20
-  %38 = getelementptr inbounds %struct.Exp, ptr %9, i64 0, i32 3
-  store i32 %21, ptr %38, align 8, !tbaa !11
-  %39 = invoke noalias noundef nonnull dereferenceable(24) ptr @_Znwm(i64 noundef 24) #9
-          to label %40 unwind label %46
-
-40:                                               ; preds = %34
-  store i32 0, ptr %39, align 8, !tbaa !21
-  %41 = getelementptr inbounds %struct.Exp_, ptr %39, i64 0, i32 1
-  store i32 4, ptr %41, align 4, !tbaa !22
-  %42 = getelementptr inbounds %struct.Exp_, ptr %39, i64 0, i32 2
-  store i32 %24, ptr %42, align 8, !tbaa !14
-  %43 = getelementptr inbounds %struct.Exp_, ptr %39, i64 0, i32 3
-  store i32 %35, ptr %43, align 4, !tbaa !23
-  store ptr %39, ptr %9, align 8, !tbaa !13
-  %44 = getelementptr inbounds %struct.Exp, ptr %9, i64 0, i32 4
-  store ptr %8, ptr %44, align 8, !tbaa !24
-  %45 = getelementptr inbounds %struct.Exp, ptr %9, i64 0, i32 5
-  store ptr %6, ptr %45, align 8, !tbaa !25
-  store ptr %9, ptr %7, align 8, !tbaa !9
+invoke.cont:                                      ; preds = %cond.end24
+  store i32 0, ptr %call.i44, align 8, !tbaa !21
+  %et.i.i = getelementptr inbounds %struct.Exp_, ptr %call.i44, i64 0, i32 1
+  store i32 4, ptr %et.i.i, align 4, !tbaa !22
+  %type.i.i = getelementptr inbounds %struct.Exp_, ptr %call.i44, i64 0, i32 2
+  store i32 %7, ptr %type.i.i, align 8, !tbaa !14
+  %op.i.i = getelementptr inbounds %struct.Exp_, ptr %call.i44, i64 0, i32 3
+  store i32 %cond25, ptr %op.i.i, align 4, !tbaa !23
+  store ptr %call.i44, ptr %call, align 8, !tbaa !13
+  %exp1.i = getelementptr inbounds %struct.Exp, ptr %call, i64 0, i32 4
+  store ptr %3, ptr %exp1.i, align 8, !tbaa !24
+  %exp2.i = getelementptr inbounds %struct.Exp, ptr %call, i64 0, i32 5
+  store ptr %2, ptr %exp2.i, align 8, !tbaa !25
+  store ptr %call, ptr %add.ptr, align 8, !tbaa !9
   ret i32 0
 
-46:                                               ; preds = %34
-  %47 = landingpad { ptr, i32 }
+lpad:                                             ; preds = %cond.end24
+  %9 = landingpad { ptr, i32 }
           cleanup
-  tail call void @_ZdlPv(ptr noundef nonnull %9) #10
-  resume { ptr, i32 } %47
+  tail call void @_ZdlPv(ptr noundef nonnull %call) #10
+  resume { ptr, i32 } %9
 }
 
 ; Function Attrs: nobuiltin allocsize(0)
@@ -130,372 +117,373 @@ declare i32 @__gxx_personality_v0(...)
 declare void @_ZdlPv(ptr noundef) local_unnamed_addr #2
 
 ; Function Attrs: uwtable
-define dso_local noundef i32 @_Z8pushunopP9Classfile(ptr nocapture noundef readonly %0) local_unnamed_addr #0 personality ptr @__gxx_personality_v0 {
-  %2 = load i32, ptr @currpc, align 4, !tbaa !5
-  %3 = add i32 %2, -1
-  %4 = load ptr, ptr @stkptr, align 8, !tbaa !9
-  %5 = getelementptr inbounds ptr, ptr %4, i64 -1
-  %6 = load ptr, ptr %5, align 8, !tbaa !9
-  %7 = load i32, ptr @ch, align 4, !tbaa !5
-  switch i32 %7, label %165 [
-    i32 116, label %8
-    i32 117, label %8
-    i32 118, label %8
-    i32 119, label %8
-    i32 136, label %168
-    i32 139, label %168
-    i32 142, label %168
-    i32 133, label %12
-    i32 140, label %12
-    i32 143, label %12
-    i32 134, label %13
-    i32 137, label %13
-    i32 144, label %13
-    i32 135, label %14
-    i32 138, label %14
-    i32 141, label %14
-    i32 145, label %15
-    i32 146, label %16
-    i32 147, label %17
-    i32 191, label %18
-    i32 187, label %34
-    i32 186, label %80
-    i32 167, label %86
+define dso_local noundef i32 @_Z8pushunopP9Classfile(ptr nocapture noundef readonly %c) local_unnamed_addr #0 personality ptr @__gxx_personality_v0 {
+entry:
+  %0 = load i32, ptr @currpc, align 4, !tbaa !5
+  %sub = add i32 %0, -1
+  %1 = load ptr, ptr @stkptr, align 8, !tbaa !9
+  %add.ptr = getelementptr inbounds ptr, ptr %1, i64 -1
+  %2 = load ptr, ptr %add.ptr, align 8, !tbaa !9
+  %3 = load i32, ptr @ch, align 4, !tbaa !5
+  switch i32 %3, label %sw.default [
+    i32 116, label %sw.bb
+    i32 117, label %sw.bb
+    i32 118, label %sw.bb
+    i32 119, label %sw.bb
+    i32 136, label %sw.epilog
+    i32 139, label %sw.epilog
+    i32 142, label %sw.epilog
+    i32 133, label %sw.bb2
+    i32 140, label %sw.bb2
+    i32 143, label %sw.bb2
+    i32 134, label %sw.bb3
+    i32 137, label %sw.bb3
+    i32 144, label %sw.bb3
+    i32 135, label %sw.bb4
+    i32 138, label %sw.bb4
+    i32 141, label %sw.bb4
+    i32 145, label %sw.bb5
+    i32 146, label %sw.bb6
+    i32 147, label %sw.bb7
+    i32 191, label %sw.bb8
+    i32 187, label %sw.bb11
+    i32 186, label %sw.bb42
+    i32 167, label %sw.bb43
   ]
 
-8:                                                ; preds = %1, %1, %1, %1
-  %9 = load ptr, ptr %6, align 8, !tbaa !13
-  %10 = getelementptr inbounds %struct.Exp_, ptr %9, i64 0, i32 2
-  %11 = load i32, ptr %10, align 8, !tbaa !14
-  br label %168
+sw.bb:                                            ; preds = %entry, %entry, %entry, %entry
+  %4 = load ptr, ptr %2, align 8, !tbaa !13
+  %type = getelementptr inbounds %struct.Exp_, ptr %4, i64 0, i32 2
+  %5 = load i32, ptr %type, align 8, !tbaa !14
+  br label %sw.epilog
 
-12:                                               ; preds = %1, %1, %1
-  br label %168
+sw.bb2:                                           ; preds = %entry, %entry, %entry
+  br label %sw.epilog
 
-13:                                               ; preds = %1, %1, %1
-  br label %168
+sw.bb3:                                           ; preds = %entry, %entry, %entry
+  br label %sw.epilog
 
-14:                                               ; preds = %1, %1, %1
-  br label %168
+sw.bb4:                                           ; preds = %entry, %entry, %entry
+  br label %sw.epilog
 
-15:                                               ; preds = %1
-  br label %168
+sw.bb5:                                           ; preds = %entry
+  br label %sw.epilog
 
-16:                                               ; preds = %1
-  br label %168
+sw.bb6:                                           ; preds = %entry
+  br label %sw.epilog
 
-17:                                               ; preds = %1
-  br label %168
+sw.bb7:                                           ; preds = %entry
+  br label %sw.epilog
 
-18:                                               ; preds = %1
-  store ptr %5, ptr @stkptr, align 8, !tbaa !9
-  %19 = tail call noalias noundef nonnull dereferenceable(64) ptr @_Znwm(i64 noundef 64) #9
-  %20 = getelementptr inbounds %struct.Exp, ptr %6, i64 0, i32 3
-  %21 = load i32, ptr %20, align 8, !tbaa !11
-  %22 = tail call i32 @llvm.umin.i32(i32 %21, i32 %3)
-  %23 = getelementptr inbounds %struct.Exp, ptr %19, i64 0, i32 1
-  store i32 1, ptr %23, align 8, !tbaa !19
-  %24 = getelementptr inbounds %struct.Exp, ptr %19, i64 0, i32 2
-  store i32 %3, ptr %24, align 4, !tbaa !20
-  %25 = getelementptr inbounds %struct.Exp, ptr %19, i64 0, i32 3
-  store i32 %22, ptr %25, align 8, !tbaa !11
-  %26 = invoke noalias noundef nonnull dereferenceable(24) ptr @_Znwm(i64 noundef 24) #9
-          to label %27 unwind label %32
+sw.bb8:                                           ; preds = %entry
+  store ptr %add.ptr, ptr @stkptr, align 8, !tbaa !9
+  %call = tail call noalias noundef nonnull dereferenceable(64) ptr @_Znwm(i64 noundef 64) #9
+  %minpc = getelementptr inbounds %struct.Exp, ptr %2, i64 0, i32 3
+  %6 = load i32, ptr %minpc, align 8, !tbaa !11
+  %.sub = tail call i32 @llvm.umin.i32(i32 %6, i32 %sub)
+  %numrefs.i = getelementptr inbounds %struct.Exp, ptr %call, i64 0, i32 1
+  store i32 1, ptr %numrefs.i, align 8, !tbaa !19
+  %pc.i = getelementptr inbounds %struct.Exp, ptr %call, i64 0, i32 2
+  store i32 %sub, ptr %pc.i, align 4, !tbaa !20
+  %minpc.i = getelementptr inbounds %struct.Exp, ptr %call, i64 0, i32 3
+  store i32 %.sub, ptr %minpc.i, align 8, !tbaa !11
+  %call.i166 = invoke noalias noundef nonnull dereferenceable(24) ptr @_Znwm(i64 noundef 24) #9
+          to label %invoke.cont unwind label %lpad
 
-27:                                               ; preds = %18
-  store <4 x i32> <i32 0, i32 2, i32 0, i32 17>, ptr %26, align 8, !tbaa !26
-  store ptr %26, ptr %19, align 8, !tbaa !13
-  %28 = getelementptr inbounds %struct.Exp, ptr %19, i64 0, i32 4
-  store ptr %6, ptr %28, align 8, !tbaa !24
-  %29 = getelementptr inbounds %struct.Exp, ptr %19, i64 0, i32 5
-  store ptr null, ptr %29, align 8, !tbaa !25
-  %30 = load ptr, ptr @donestkptr, align 8, !tbaa !9
-  %31 = getelementptr inbounds ptr, ptr %30, i64 1
-  store ptr %31, ptr @donestkptr, align 8, !tbaa !9
-  store ptr %19, ptr %30, align 8, !tbaa !9
-  br label %190
+invoke.cont:                                      ; preds = %sw.bb8
+  store <4 x i32> <i32 0, i32 2, i32 0, i32 17>, ptr %call.i166, align 8, !tbaa !26
+  store ptr %call.i166, ptr %call, align 8, !tbaa !13
+  %exp1.i = getelementptr inbounds %struct.Exp, ptr %call, i64 0, i32 4
+  store ptr %2, ptr %exp1.i, align 8, !tbaa !24
+  %exp2.i = getelementptr inbounds %struct.Exp, ptr %call, i64 0, i32 5
+  store ptr null, ptr %exp2.i, align 8, !tbaa !25
+  %7 = load ptr, ptr @donestkptr, align 8, !tbaa !9
+  %incdec.ptr10 = getelementptr inbounds ptr, ptr %7, i64 1
+  store ptr %incdec.ptr10, ptr @donestkptr, align 8, !tbaa !9
+  store ptr %call, ptr %7, align 8, !tbaa !9
+  br label %cleanup
 
-32:                                               ; preds = %18
-  %33 = landingpad { ptr, i32 }
+lpad:                                             ; preds = %sw.bb8
+  %8 = landingpad { ptr, i32 }
           cleanup
-  br label %192
+  br label %ehcleanup
 
-34:                                               ; preds = %1
-  %35 = add i32 %2, 2
-  store i32 %35, ptr @currpc, align 4, !tbaa !5
-  %36 = load i32, ptr @bufflength, align 4, !tbaa !5
-  %37 = add nsw i32 %36, -2
-  store i32 %37, ptr @bufflength, align 4, !tbaa !5
-  %38 = load ptr, ptr @inbuff, align 8, !tbaa !9
-  %39 = getelementptr inbounds i8, ptr %38, i64 2
-  store ptr %39, ptr @inbuff, align 8, !tbaa !9
-  %40 = load i8, ptr %38, align 1, !tbaa !26
-  %41 = zext i8 %40 to i16
-  %42 = shl nuw i16 %41, 8
-  %43 = getelementptr inbounds i8, ptr %38, i64 1
-  %44 = load i8, ptr %43, align 1, !tbaa !26
-  %45 = zext i8 %44 to i16
-  %46 = or i16 %42, %45
-  %47 = getelementptr inbounds %struct.Classfile, ptr %0, i64 0, i32 6, i32 1
-  %48 = load ptr, ptr %47, align 8, !tbaa !27
-  %49 = zext i16 %46 to i64
-  %50 = getelementptr inbounds %struct.cp_info, ptr %48, i64 %49, i32 1
-  %51 = load i64, ptr %50, align 8, !tbaa !26
-  %52 = getelementptr inbounds %struct.cp_info, ptr %48, i64 %51, i32 1
-  %53 = load ptr, ptr %52, align 8, !tbaa !26
-  %54 = tail call i64 @strlen(ptr noundef nonnull dereferenceable(1) %53) #11
-  %55 = add i64 %54, 1
-  %56 = tail call noalias noundef nonnull ptr @_Znam(i64 noundef %55) #9
-  %57 = tail call ptr @strcpy(ptr noundef nonnull dereferenceable(1) %56, ptr noundef nonnull dereferenceable(1) %53) #12
-  %58 = tail call noalias noundef nonnull dereferenceable(64) ptr @_Znwm(i64 noundef 64) #9
-  %59 = invoke noalias noundef nonnull dereferenceable(40) ptr @_Znwm(i64 noundef 40) #9
-          to label %60 unwind label %82
+sw.bb11:                                          ; preds = %entry
+  %add = add i32 %0, 2
+  store i32 %add, ptr @currpc, align 4, !tbaa !5
+  %9 = load i32, ptr @bufflength, align 4, !tbaa !5
+  %sub12 = add nsw i32 %9, -2
+  store i32 %sub12, ptr @bufflength, align 4, !tbaa !5
+  %10 = load ptr, ptr @inbuff, align 8, !tbaa !9
+  %add.ptr13 = getelementptr inbounds i8, ptr %10, i64 2
+  store ptr %add.ptr13, ptr @inbuff, align 8, !tbaa !9
+  %11 = load i8, ptr %10, align 1, !tbaa !26
+  %conv15 = zext i8 %11 to i16
+  %shl = shl nuw i16 %conv15, 8
+  %add.ptr16 = getelementptr inbounds i8, ptr %10, i64 1
+  %12 = load i8, ptr %add.ptr16, align 1, !tbaa !26
+  %conv18 = zext i8 %12 to i16
+  %add19 = or i16 %shl, %conv18
+  %constant_pool.i = getelementptr inbounds %struct.Classfile, ptr %c, i64 0, i32 6, i32 1
+  %13 = load ptr, ptr %constant_pool.i, align 8, !tbaa !27
+  %idxprom.i = zext i16 %add19 to i64
+  %14 = getelementptr inbounds %struct.cp_info, ptr %13, i64 %idxprom.i, i32 1
+  %15 = load i64, ptr %14, align 8, !tbaa !26
+  %16 = getelementptr inbounds %struct.cp_info, ptr %13, i64 %15, i32 1
+  %17 = load ptr, ptr %16, align 8, !tbaa !26
+  %call24 = tail call i64 @strlen(ptr noundef nonnull dereferenceable(1) %17) #11
+  %add25 = add i64 %call24, 1
+  %call26 = tail call noalias noundef nonnull ptr @_Znam(i64 noundef %add25) #9
+  %call27 = tail call ptr @strcpy(ptr noundef nonnull dereferenceable(1) %call26, ptr noundef nonnull dereferenceable(1) %17) #12
+  %call28 = tail call noalias noundef nonnull dereferenceable(64) ptr @_Znwm(i64 noundef 64) #9
+  %call.i173 = invoke noalias noundef nonnull dereferenceable(40) ptr @_Znwm(i64 noundef 40) #9
+          to label %call.i.noexc unwind label %lpad29
 
-60:                                               ; preds = %34
-  %61 = zext i16 %46 to i32
-  store ptr %56, ptr %59, align 8, !tbaa !30
-  %62 = getelementptr inbounds %struct.Id, ptr %59, i64 0, i32 1
-  store i32 0, ptr %62, align 8, !tbaa !33
-  %63 = getelementptr inbounds %struct.Id, ptr %59, i64 0, i32 2
-  store i32 2, ptr %63, align 4, !tbaa !34
-  %64 = getelementptr inbounds %struct.Id, ptr %59, i64 0, i32 3
-  store i32 %61, ptr %64, align 8, !tbaa !35
-  %65 = getelementptr inbounds %struct.Exp, ptr %58, i64 0, i32 1
-  store i32 1, ptr %65, align 8, !tbaa !19
-  %66 = getelementptr inbounds %struct.Exp, ptr %58, i64 0, i32 3
-  store i32 %3, ptr %66, align 8, !tbaa !11
-  %67 = getelementptr inbounds %struct.Exp, ptr %58, i64 0, i32 2
-  store i32 %3, ptr %67, align 4, !tbaa !20
-  %68 = invoke noalias noundef nonnull dereferenceable(24) ptr @_Znwm(i64 noundef 24) #9
-          to label %69 unwind label %82
+call.i.noexc:                                     ; preds = %sw.bb11
+  %conv21 = zext i16 %add19 to i32
+  store ptr %call26, ptr %call.i173, align 8, !tbaa !30
+  %type.i = getelementptr inbounds %struct.Id, ptr %call.i173, i64 0, i32 1
+  store i32 0, ptr %type.i, align 8, !tbaa !33
+  %loc.i = getelementptr inbounds %struct.Id, ptr %call.i173, i64 0, i32 2
+  store i32 2, ptr %loc.i, align 4, !tbaa !34
+  %locinfo.i = getelementptr inbounds %struct.Id, ptr %call.i173, i64 0, i32 3
+  store i32 %conv21, ptr %locinfo.i, align 8, !tbaa !35
+  %numrefs.i167 = getelementptr inbounds %struct.Exp, ptr %call28, i64 0, i32 1
+  store i32 1, ptr %numrefs.i167, align 8, !tbaa !19
+  %minpc.i168 = getelementptr inbounds %struct.Exp, ptr %call28, i64 0, i32 3
+  store i32 %sub, ptr %minpc.i168, align 8, !tbaa !11
+  %pc.i169 = getelementptr inbounds %struct.Exp, ptr %call28, i64 0, i32 2
+  store i32 %sub, ptr %pc.i169, align 4, !tbaa !20
+  %call2.i174 = invoke noalias noundef nonnull dereferenceable(24) ptr @_Znwm(i64 noundef 24) #9
+          to label %invoke.cont30 unwind label %lpad29
 
-69:                                               ; preds = %60
-  store <4 x i32> <i32 0, i32 1, i32 0, i32 39>, ptr %68, align 8, !tbaa !26
-  %70 = getelementptr inbounds %struct.Exp_, ptr %68, i64 0, i32 4
-  store ptr %59, ptr %70, align 8, !tbaa !36
-  store ptr %68, ptr %58, align 8, !tbaa !13
-  %71 = tail call noalias noundef nonnull dereferenceable(64) ptr @_Znwm(i64 noundef 64) #9
-  %72 = getelementptr inbounds %struct.Exp, ptr %71, i64 0, i32 1
-  store i32 1, ptr %72, align 8, !tbaa !19
-  %73 = getelementptr inbounds %struct.Exp, ptr %71, i64 0, i32 2
-  store i32 %3, ptr %73, align 4, !tbaa !20
-  %74 = getelementptr inbounds %struct.Exp, ptr %71, i64 0, i32 3
-  store i32 %3, ptr %74, align 8, !tbaa !11
-  %75 = invoke noalias noundef nonnull dereferenceable(24) ptr @_Znwm(i64 noundef 24) #9
-          to label %76 unwind label %84
+invoke.cont30:                                    ; preds = %call.i.noexc
+  store <4 x i32> <i32 0, i32 1, i32 0, i32 39>, ptr %call2.i174, align 8, !tbaa !26
+  %id.i.i = getelementptr inbounds %struct.Exp_, ptr %call2.i174, i64 0, i32 4
+  store ptr %call.i173, ptr %id.i.i, align 8, !tbaa !36
+  store ptr %call2.i174, ptr %call28, align 8, !tbaa !13
+  %call31 = tail call noalias noundef nonnull dereferenceable(64) ptr @_Znwm(i64 noundef 64) #9
+  %numrefs.i175 = getelementptr inbounds %struct.Exp, ptr %call31, i64 0, i32 1
+  store i32 1, ptr %numrefs.i175, align 8, !tbaa !19
+  %pc.i176 = getelementptr inbounds %struct.Exp, ptr %call31, i64 0, i32 2
+  store i32 %sub, ptr %pc.i176, align 4, !tbaa !20
+  %minpc.i177 = getelementptr inbounds %struct.Exp, ptr %call31, i64 0, i32 3
+  store i32 %sub, ptr %minpc.i177, align 8, !tbaa !11
+  %call.i184 = invoke noalias noundef nonnull dereferenceable(24) ptr @_Znwm(i64 noundef 24) #9
+          to label %invoke.cont40 unwind label %lpad39
 
-76:                                               ; preds = %69
-  store <4 x i32> <i32 0, i32 2, i32 8, i32 18>, ptr %75, align 8, !tbaa !26
-  store ptr %75, ptr %71, align 8, !tbaa !13
-  %77 = getelementptr inbounds %struct.Exp, ptr %71, i64 0, i32 4
-  store ptr %58, ptr %77, align 8, !tbaa !24
-  %78 = getelementptr inbounds %struct.Exp, ptr %71, i64 0, i32 5
-  store ptr null, ptr %78, align 8, !tbaa !25
-  %79 = getelementptr inbounds ptr, ptr %4, i64 1
-  store ptr %79, ptr @stkptr, align 8, !tbaa !9
-  store ptr %71, ptr %4, align 8, !tbaa !9
-  br label %80
+invoke.cont40:                                    ; preds = %invoke.cont30
+  store <4 x i32> <i32 0, i32 2, i32 8, i32 18>, ptr %call.i184, align 8, !tbaa !26
+  store ptr %call.i184, ptr %call31, align 8, !tbaa !13
+  %exp1.i181 = getelementptr inbounds %struct.Exp, ptr %call31, i64 0, i32 4
+  store ptr %call28, ptr %exp1.i181, align 8, !tbaa !24
+  %exp2.i182 = getelementptr inbounds %struct.Exp, ptr %call31, i64 0, i32 5
+  store ptr null, ptr %exp2.i182, align 8, !tbaa !25
+  %incdec.ptr41 = getelementptr inbounds ptr, ptr %1, i64 1
+  store ptr %incdec.ptr41, ptr @stkptr, align 8, !tbaa !9
+  store ptr %call31, ptr %1, align 8, !tbaa !9
+  br label %sw.bb42
 
-80:                                               ; preds = %1, %76
-  %81 = phi ptr [ %6, %1 ], [ %58, %76 ]
-  br label %168
+sw.bb42:                                          ; preds = %entry, %invoke.cont40
+  %e1.0 = phi ptr [ %2, %entry ], [ %call28, %invoke.cont40 ]
+  br label %sw.epilog
 
-82:                                               ; preds = %60, %34
-  %83 = landingpad { ptr, i32 }
+lpad29:                                           ; preds = %call.i.noexc, %sw.bb11
+  %18 = landingpad { ptr, i32 }
           cleanup
-  br label %192
+  br label %ehcleanup
 
-84:                                               ; preds = %69
-  %85 = landingpad { ptr, i32 }
+lpad39:                                           ; preds = %invoke.cont30
+  %19 = landingpad { ptr, i32 }
           cleanup
-  br label %192
+  br label %ehcleanup
 
-86:                                               ; preds = %1
-  %87 = icmp eq ptr %4, @stack
-  br i1 %87, label %128, label %88
+sw.bb43:                                          ; preds = %entry
+  %cmp44.not = icmp eq ptr %1, @stack
+  br i1 %cmp44.not, label %if.end73, label %if.then
 
-88:                                               ; preds = %86
-  %89 = load i32, ptr @cond_pcend, align 4, !tbaa !5
-  %90 = icmp eq i32 %89, -1
-  br i1 %90, label %94, label %91
+if.then:                                          ; preds = %sw.bb43
+  %20 = load i32, ptr @cond_pcend, align 4, !tbaa !5
+  %cmp45.not = icmp eq i32 %20, -1
+  br i1 %cmp45.not, label %if.end, label %if.then46
 
-91:                                               ; preds = %88
-  %92 = load ptr, ptr @stderr, align 8, !tbaa !9
-  %93 = tail call i64 @fwrite(ptr nonnull @.str, i64 46, i64 1, ptr %92) #13
-  br label %190
+if.then46:                                        ; preds = %if.then
+  %21 = load ptr, ptr @stderr, align 8, !tbaa !9
+  %22 = tail call i64 @fwrite(ptr nonnull @.str, i64 46, i64 1, ptr %21) #13
+  br label %cleanup
 
-94:                                               ; preds = %88
-  %95 = add i32 %2, 2
-  store i32 %95, ptr @currpc, align 4, !tbaa !5
-  %96 = load i32, ptr @bufflength, align 4, !tbaa !5
-  %97 = add nsw i32 %96, -2
-  store i32 %97, ptr @bufflength, align 4, !tbaa !5
-  %98 = load ptr, ptr @inbuff, align 8, !tbaa !9
-  %99 = getelementptr inbounds i8, ptr %98, i64 2
-  store ptr %99, ptr @inbuff, align 8, !tbaa !9
-  %100 = load i8, ptr %98, align 1, !tbaa !26
-  %101 = zext i8 %100 to i16
-  %102 = shl nuw i16 %101, 8
-  %103 = getelementptr inbounds i8, ptr %98, i64 1
-  %104 = load i8, ptr %103, align 1, !tbaa !26
-  %105 = zext i8 %104 to i16
-  %106 = or i16 %102, %105
-  %107 = sext i16 %106 to i32
-  %108 = add i32 %3, %107
-  store i32 %108, ptr @cond_pcend, align 4, !tbaa !5
-  store ptr %4, ptr @cond_stkptr, align 8, !tbaa !9
-  store ptr %5, ptr @stkptr, align 8, !tbaa !9
-  %109 = load ptr, ptr %5, align 8, !tbaa !9
-  store ptr %109, ptr @cond_e2, align 8, !tbaa !9
-  %110 = load ptr, ptr @donestkptr, align 8, !tbaa !9
-  %111 = getelementptr inbounds ptr, ptr %110, i64 -1
-  store ptr %111, ptr @donestkptr, align 8, !tbaa !9
-  %112 = load ptr, ptr %111, align 8, !tbaa !9
-  %113 = load ptr, ptr %112, align 8, !tbaa !13
-  %114 = getelementptr inbounds %struct.Exp_, ptr %113, i64 0, i32 1
-  %115 = load i32, ptr %114, align 4, !tbaa !22
-  %116 = icmp eq i32 %115, 8
-  br i1 %116, label %117, label %125
+if.end:                                           ; preds = %if.then
+  %add48 = add i32 %0, 2
+  store i32 %add48, ptr @currpc, align 4, !tbaa !5
+  %23 = load i32, ptr @bufflength, align 4, !tbaa !5
+  %sub49 = add nsw i32 %23, -2
+  store i32 %sub49, ptr @bufflength, align 4, !tbaa !5
+  %24 = load ptr, ptr @inbuff, align 8, !tbaa !9
+  %add.ptr50 = getelementptr inbounds i8, ptr %24, i64 2
+  store ptr %add.ptr50, ptr @inbuff, align 8, !tbaa !9
+  %25 = load i8, ptr %24, align 1, !tbaa !26
+  %conv53 = zext i8 %25 to i16
+  %shl54 = shl nuw i16 %conv53, 8
+  %add.ptr55 = getelementptr inbounds i8, ptr %24, i64 1
+  %26 = load i8, ptr %add.ptr55, align 1, !tbaa !26
+  %conv57 = zext i8 %26 to i16
+  %add58 = or i16 %shl54, %conv57
+  %conv60 = sext i16 %add58 to i32
+  %add61 = add i32 %sub, %conv60
+  store i32 %add61, ptr @cond_pcend, align 4, !tbaa !5
+  store ptr %1, ptr @cond_stkptr, align 8, !tbaa !9
+  store ptr %add.ptr, ptr @stkptr, align 8, !tbaa !9
+  %27 = load ptr, ptr %add.ptr, align 8, !tbaa !9
+  store ptr %27, ptr @cond_e2, align 8, !tbaa !9
+  %28 = load ptr, ptr @donestkptr, align 8, !tbaa !9
+  %incdec.ptr63 = getelementptr inbounds ptr, ptr %28, i64 -1
+  store ptr %incdec.ptr63, ptr @donestkptr, align 8, !tbaa !9
+  %29 = load ptr, ptr %incdec.ptr63, align 8, !tbaa !9
+  %30 = load ptr, ptr %29, align 8, !tbaa !13
+  %et = getelementptr inbounds %struct.Exp_, ptr %30, i64 0, i32 1
+  %31 = load i32, ptr %et, align 4, !tbaa !22
+  %cmp65 = icmp eq i32 %31, 8
+  br i1 %cmp65, label %if.then66, label %if.else
 
-117:                                              ; preds = %94
-  %118 = getelementptr inbounds %struct.Exp, ptr %112, i64 0, i32 7
-  %119 = load i32, ptr %118, align 8, !tbaa !26
-  %120 = icmp eq i32 %119, %95
-  br i1 %120, label %124, label %121
+if.then66:                                        ; preds = %if.end
+  %32 = getelementptr inbounds %struct.Exp, ptr %29, i64 0, i32 7
+  %33 = load i32, ptr %32, align 8, !tbaa !26
+  %cmp67.not = icmp eq i32 %33, %add48
+  br i1 %cmp67.not, label %if.end70, label %if.then68
 
-121:                                              ; preds = %117
-  %122 = load ptr, ptr @stderr, align 8, !tbaa !9
-  %123 = tail call i64 @fwrite(ptr nonnull @.str.1, i64 31, i64 1, ptr %122) #13
-  br label %190
+if.then68:                                        ; preds = %if.then66
+  %34 = load ptr, ptr @stderr, align 8, !tbaa !9
+  %35 = tail call i64 @fwrite(ptr nonnull @.str.1, i64 31, i64 1, ptr %34) #13
+  br label %cleanup
 
-124:                                              ; preds = %117
-  store ptr %112, ptr @cond_e, align 8, !tbaa !9
-  store ptr %111, ptr @cond_donestkptr, align 8, !tbaa !9
-  br label %190
+if.end70:                                         ; preds = %if.then66
+  store ptr %29, ptr @cond_e, align 8, !tbaa !9
+  store ptr %incdec.ptr63, ptr @cond_donestkptr, align 8, !tbaa !9
+  br label %cleanup
 
-125:                                              ; preds = %94
-  %126 = load ptr, ptr @stderr, align 8, !tbaa !9
-  %127 = tail call i64 @fwrite(ptr nonnull @.str.2, i64 57, i64 1, ptr %126) #13
-  br label %190
+if.else:                                          ; preds = %if.end
+  %36 = load ptr, ptr @stderr, align 8, !tbaa !9
+  %37 = tail call i64 @fwrite(ptr nonnull @.str.2, i64 57, i64 1, ptr %36) #13
+  br label %cleanup
 
-128:                                              ; preds = %86
-  %129 = add i32 %2, 2
-  store i32 %129, ptr @currpc, align 4, !tbaa !5
-  %130 = load i32, ptr @bufflength, align 4, !tbaa !5
-  %131 = add nsw i32 %130, -2
-  store i32 %131, ptr @bufflength, align 4, !tbaa !5
-  %132 = load ptr, ptr @inbuff, align 8, !tbaa !9
-  %133 = getelementptr inbounds i8, ptr %132, i64 2
-  store ptr %133, ptr @inbuff, align 8, !tbaa !9
-  %134 = load i8, ptr %132, align 1, !tbaa !26
-  %135 = zext i8 %134 to i16
-  %136 = shl nuw i16 %135, 8
-  %137 = getelementptr inbounds i8, ptr %132, i64 1
-  %138 = load i8, ptr %137, align 1, !tbaa !26
-  %139 = zext i8 %138 to i16
-  %140 = or i16 %136, %139
-  %141 = sext i16 %140 to i32
-  %142 = add i32 %3, %141
-  %143 = tail call noalias noundef nonnull dereferenceable(100) ptr @_Znam(i64 noundef 100) #9
-  %144 = tail call i32 (ptr, ptr, ...) @sprintf(ptr noundef nonnull dereferenceable(1) %143, ptr noundef nonnull dereferenceable(1) @.str.3, i32 noundef %142) #12
-  %145 = tail call i64 @strlen(ptr noundef nonnull dereferenceable(1) %143) #11
-  %146 = add i64 %145, 1
-  %147 = tail call noalias noundef nonnull ptr @_Znam(i64 noundef %146) #9
-  %148 = tail call ptr @strcpy(ptr noundef nonnull dereferenceable(1) %147, ptr noundef nonnull dereferenceable(1) %143) #12
-  tail call void @_ZdaPv(ptr noundef nonnull %143) #10
-  %149 = tail call noalias noundef nonnull dereferenceable(64) ptr @_Znwm(i64 noundef 64) #9
-  invoke void @_ZN3ExpC2EjPc4Type3Loci(ptr noundef nonnull align 8 dereferenceable(64) %149, i32 noundef %3, ptr noundef nonnull %147, i32 noundef 0, i32 noundef 1, i32 noundef 0)
-          to label %150 unwind label %161
+if.end73:                                         ; preds = %sw.bb43
+  %add74 = add i32 %0, 2
+  store i32 %add74, ptr @currpc, align 4, !tbaa !5
+  %38 = load i32, ptr @bufflength, align 4, !tbaa !5
+  %sub75 = add nsw i32 %38, -2
+  store i32 %sub75, ptr @bufflength, align 4, !tbaa !5
+  %39 = load ptr, ptr @inbuff, align 8, !tbaa !9
+  %add.ptr76 = getelementptr inbounds i8, ptr %39, i64 2
+  store ptr %add.ptr76, ptr @inbuff, align 8, !tbaa !9
+  %40 = load i8, ptr %39, align 1, !tbaa !26
+  %conv79 = zext i8 %40 to i16
+  %shl80 = shl nuw i16 %conv79, 8
+  %add.ptr81 = getelementptr inbounds i8, ptr %39, i64 1
+  %41 = load i8, ptr %add.ptr81, align 1, !tbaa !26
+  %conv83 = zext i8 %41 to i16
+  %add84 = or i16 %shl80, %conv83
+  %conv86 = sext i16 %add84 to i32
+  %add87 = add i32 %sub, %conv86
+  %call88 = tail call noalias noundef nonnull dereferenceable(100) ptr @_Znam(i64 noundef 100) #9
+  %call89 = tail call i32 (ptr, ptr, ...) @sprintf(ptr noundef nonnull dereferenceable(1) %call88, ptr noundef nonnull dereferenceable(1) @.str.3, i32 noundef %add87) #12
+  %call90 = tail call i64 @strlen(ptr noundef nonnull dereferenceable(1) %call88) #11
+  %add91 = add i64 %call90, 1
+  %call92 = tail call noalias noundef nonnull ptr @_Znam(i64 noundef %add91) #9
+  %call93 = tail call ptr @strcpy(ptr noundef nonnull dereferenceable(1) %call92, ptr noundef nonnull dereferenceable(1) %call88) #12
+  tail call void @_ZdaPv(ptr noundef nonnull %call88) #10
+  %call94 = tail call noalias noundef nonnull dereferenceable(64) ptr @_Znwm(i64 noundef 64) #9
+  invoke void @_ZN3ExpC2EjPc4Type3Loci(ptr noundef nonnull align 8 dereferenceable(64) %call94, i32 noundef %sub, ptr noundef nonnull %call92, i32 noundef 0, i32 noundef 1, i32 noundef 0)
+          to label %invoke.cont96 unwind label %lpad95
 
-150:                                              ; preds = %128
-  %151 = tail call noalias noundef nonnull dereferenceable(64) ptr @_Znwm(i64 noundef 64) #9
-  %152 = getelementptr inbounds %struct.Exp, ptr %151, i64 0, i32 1
-  store i32 1, ptr %152, align 8, !tbaa !19
-  %153 = getelementptr inbounds %struct.Exp, ptr %151, i64 0, i32 3
-  store i32 %3, ptr %153, align 8, !tbaa !11
-  %154 = getelementptr inbounds %struct.Exp, ptr %151, i64 0, i32 2
-  store i32 %3, ptr %154, align 4, !tbaa !20
-  %155 = invoke noalias noundef nonnull dereferenceable(24) ptr @_Znwm(i64 noundef 24) #9
-          to label %156 unwind label %163
+invoke.cont96:                                    ; preds = %if.end73
+  %call97 = tail call noalias noundef nonnull dereferenceable(64) ptr @_Znwm(i64 noundef 64) #9
+  %numrefs.i186 = getelementptr inbounds %struct.Exp, ptr %call97, i64 0, i32 1
+  store i32 1, ptr %numrefs.i186, align 8, !tbaa !19
+  %minpc.i187 = getelementptr inbounds %struct.Exp, ptr %call97, i64 0, i32 3
+  store i32 %sub, ptr %minpc.i187, align 8, !tbaa !11
+  %pc.i188 = getelementptr inbounds %struct.Exp, ptr %call97, i64 0, i32 2
+  store i32 %sub, ptr %pc.i188, align 4, !tbaa !20
+  %call.i194 = invoke noalias noundef nonnull dereferenceable(24) ptr @_Znwm(i64 noundef 24) #9
+          to label %invoke.cont99 unwind label %lpad98
 
-156:                                              ; preds = %150
-  store <4 x i32> <i32 0, i32 2, i32 0, i32 19>, ptr %155, align 8, !tbaa !26
-  store ptr %155, ptr %151, align 8, !tbaa !13
-  %157 = getelementptr inbounds %struct.Exp, ptr %151, i64 0, i32 4
-  store ptr %149, ptr %157, align 8, !tbaa !24
-  %158 = getelementptr inbounds %struct.Exp, ptr %151, i64 0, i32 7
-  store i32 %142, ptr %158, align 8, !tbaa !26
-  %159 = load ptr, ptr @donestkptr, align 8, !tbaa !9
-  %160 = getelementptr inbounds ptr, ptr %159, i64 1
-  store ptr %160, ptr @donestkptr, align 8, !tbaa !9
-  store ptr %151, ptr %159, align 8, !tbaa !9
-  br label %190
+invoke.cont99:                                    ; preds = %invoke.cont96
+  store <4 x i32> <i32 0, i32 2, i32 0, i32 19>, ptr %call.i194, align 8, !tbaa !26
+  store ptr %call.i194, ptr %call97, align 8, !tbaa !13
+  %exp1.i192 = getelementptr inbounds %struct.Exp, ptr %call97, i64 0, i32 4
+  store ptr %call94, ptr %exp1.i192, align 8, !tbaa !24
+  %42 = getelementptr inbounds %struct.Exp, ptr %call97, i64 0, i32 7
+  store i32 %add87, ptr %42, align 8, !tbaa !26
+  %43 = load ptr, ptr @donestkptr, align 8, !tbaa !9
+  %incdec.ptr100 = getelementptr inbounds ptr, ptr %43, i64 1
+  store ptr %incdec.ptr100, ptr @donestkptr, align 8, !tbaa !9
+  store ptr %call97, ptr %43, align 8, !tbaa !9
+  br label %cleanup
 
-161:                                              ; preds = %128
-  %162 = landingpad { ptr, i32 }
+lpad95:                                           ; preds = %if.end73
+  %44 = landingpad { ptr, i32 }
           cleanup
-  br label %192
+  br label %ehcleanup
 
-163:                                              ; preds = %150
-  %164 = landingpad { ptr, i32 }
+lpad98:                                           ; preds = %invoke.cont96
+  %45 = landingpad { ptr, i32 }
           cleanup
-  br label %192
+  br label %ehcleanup
 
-165:                                              ; preds = %1
-  %166 = load ptr, ptr @stderr, align 8, !tbaa !9
-  %167 = tail call i64 @fwrite(ptr nonnull @.str.4, i64 33, i64 1, ptr %166) #13
+sw.default:                                       ; preds = %entry
+  %46 = load ptr, ptr @stderr, align 8, !tbaa !9
+  %47 = tail call i64 @fwrite(ptr nonnull @.str.4, i64 33, i64 1, ptr %46) #13
   tail call void @exit(i32 noundef -1) #14
   unreachable
 
-168:                                              ; preds = %1, %1, %1, %80, %17, %16, %15, %14, %13, %12, %8
-  %169 = phi ptr [ %81, %80 ], [ %6, %17 ], [ %6, %16 ], [ %6, %15 ], [ %6, %14 ], [ %6, %13 ], [ %6, %12 ], [ %6, %8 ], [ %6, %1 ], [ %6, %1 ], [ %6, %1 ]
-  %170 = phi i32 [ 18, %80 ], [ 15, %17 ], [ 15, %16 ], [ 15, %15 ], [ 15, %14 ], [ 15, %13 ], [ 15, %12 ], [ 14, %8 ], [ 15, %1 ], [ 15, %1 ], [ 15, %1 ]
-  %171 = phi i32 [ 0, %80 ], [ 3, %17 ], [ 2, %16 ], [ 1, %15 ], [ 7, %14 ], [ 6, %13 ], [ 5, %12 ], [ %11, %8 ], [ 4, %1 ], [ 4, %1 ], [ 4, %1 ]
-  %172 = tail call noalias noundef nonnull dereferenceable(64) ptr @_Znwm(i64 noundef 64) #9
-  %173 = getelementptr inbounds %struct.Exp, ptr %169, i64 0, i32 3
-  %174 = load i32, ptr %173, align 8, !tbaa !11
-  %175 = tail call i32 @llvm.umin.i32(i32 %174, i32 %3)
-  %176 = getelementptr inbounds %struct.Exp, ptr %172, i64 0, i32 1
-  store i32 1, ptr %176, align 8, !tbaa !19
-  %177 = getelementptr inbounds %struct.Exp, ptr %172, i64 0, i32 2
-  store i32 %3, ptr %177, align 4, !tbaa !20
-  %178 = getelementptr inbounds %struct.Exp, ptr %172, i64 0, i32 3
-  store i32 %175, ptr %178, align 8, !tbaa !11
-  %179 = invoke noalias noundef nonnull dereferenceable(24) ptr @_Znwm(i64 noundef 24) #9
-          to label %180 unwind label %188
+sw.epilog:                                        ; preds = %entry, %entry, %entry, %sw.bb42, %sw.bb7, %sw.bb6, %sw.bb5, %sw.bb4, %sw.bb3, %sw.bb2, %sw.bb
+  %e1.1 = phi ptr [ %e1.0, %sw.bb42 ], [ %2, %sw.bb7 ], [ %2, %sw.bb6 ], [ %2, %sw.bb5 ], [ %2, %sw.bb4 ], [ %2, %sw.bb3 ], [ %2, %sw.bb2 ], [ %2, %sw.bb ], [ %2, %entry ], [ %2, %entry ], [ %2, %entry ]
+  %eop.0 = phi i32 [ 18, %sw.bb42 ], [ 15, %sw.bb7 ], [ 15, %sw.bb6 ], [ 15, %sw.bb5 ], [ 15, %sw.bb4 ], [ 15, %sw.bb3 ], [ 15, %sw.bb2 ], [ 14, %sw.bb ], [ 15, %entry ], [ 15, %entry ], [ 15, %entry ]
+  %etype.0 = phi i32 [ 0, %sw.bb42 ], [ 3, %sw.bb7 ], [ 2, %sw.bb6 ], [ 1, %sw.bb5 ], [ 7, %sw.bb4 ], [ 6, %sw.bb3 ], [ 5, %sw.bb2 ], [ %5, %sw.bb ], [ 4, %entry ], [ 4, %entry ], [ 4, %entry ]
+  %call102 = tail call noalias noundef nonnull dereferenceable(64) ptr @_Znwm(i64 noundef 64) #9
+  %minpc103 = getelementptr inbounds %struct.Exp, ptr %e1.1, i64 0, i32 3
+  %48 = load i32, ptr %minpc103, align 8, !tbaa !11
+  %.sub165 = tail call i32 @llvm.umin.i32(i32 %48, i32 %sub)
+  %numrefs.i195 = getelementptr inbounds %struct.Exp, ptr %call102, i64 0, i32 1
+  store i32 1, ptr %numrefs.i195, align 8, !tbaa !19
+  %pc.i196 = getelementptr inbounds %struct.Exp, ptr %call102, i64 0, i32 2
+  store i32 %sub, ptr %pc.i196, align 4, !tbaa !20
+  %minpc.i197 = getelementptr inbounds %struct.Exp, ptr %call102, i64 0, i32 3
+  store i32 %.sub165, ptr %minpc.i197, align 8, !tbaa !11
+  %call.i204 = invoke noalias noundef nonnull dereferenceable(24) ptr @_Znwm(i64 noundef 24) #9
+          to label %invoke.cont111 unwind label %lpad110
 
-180:                                              ; preds = %168
-  store i32 0, ptr %179, align 8, !tbaa !21
-  %181 = getelementptr inbounds %struct.Exp_, ptr %179, i64 0, i32 1
-  store i32 2, ptr %181, align 4, !tbaa !22
-  %182 = getelementptr inbounds %struct.Exp_, ptr %179, i64 0, i32 2
-  store i32 %171, ptr %182, align 8, !tbaa !14
-  %183 = getelementptr inbounds %struct.Exp_, ptr %179, i64 0, i32 3
-  store i32 %170, ptr %183, align 4, !tbaa !23
-  store ptr %179, ptr %172, align 8, !tbaa !13
-  %184 = getelementptr inbounds %struct.Exp, ptr %172, i64 0, i32 4
-  store ptr %169, ptr %184, align 8, !tbaa !24
-  %185 = getelementptr inbounds %struct.Exp, ptr %172, i64 0, i32 5
-  store ptr null, ptr %185, align 8, !tbaa !25
-  %186 = load ptr, ptr @stkptr, align 8, !tbaa !9
-  %187 = getelementptr inbounds ptr, ptr %186, i64 -1
-  store ptr %172, ptr %187, align 8, !tbaa !9
-  br label %190
+invoke.cont111:                                   ; preds = %sw.epilog
+  store i32 0, ptr %call.i204, align 8, !tbaa !21
+  %et.i.i198 = getelementptr inbounds %struct.Exp_, ptr %call.i204, i64 0, i32 1
+  store i32 2, ptr %et.i.i198, align 4, !tbaa !22
+  %type.i.i199 = getelementptr inbounds %struct.Exp_, ptr %call.i204, i64 0, i32 2
+  store i32 %etype.0, ptr %type.i.i199, align 8, !tbaa !14
+  %op.i.i200 = getelementptr inbounds %struct.Exp_, ptr %call.i204, i64 0, i32 3
+  store i32 %eop.0, ptr %op.i.i200, align 4, !tbaa !23
+  store ptr %call.i204, ptr %call102, align 8, !tbaa !13
+  %exp1.i201 = getelementptr inbounds %struct.Exp, ptr %call102, i64 0, i32 4
+  store ptr %e1.1, ptr %exp1.i201, align 8, !tbaa !24
+  %exp2.i202 = getelementptr inbounds %struct.Exp, ptr %call102, i64 0, i32 5
+  store ptr null, ptr %exp2.i202, align 8, !tbaa !25
+  %49 = load ptr, ptr @stkptr, align 8, !tbaa !9
+  %add.ptr112 = getelementptr inbounds ptr, ptr %49, i64 -1
+  store ptr %call102, ptr %add.ptr112, align 8, !tbaa !9
+  br label %cleanup
 
-188:                                              ; preds = %168
-  %189 = landingpad { ptr, i32 }
+lpad110:                                          ; preds = %sw.epilog
+  %50 = landingpad { ptr, i32 }
           cleanup
-  br label %192
+  br label %ehcleanup
 
-190:                                              ; preds = %180, %156, %124, %125, %121, %91, %27
-  %191 = phi i32 [ 1, %91 ], [ 1, %121 ], [ 0, %124 ], [ 1, %125 ], [ 0, %156 ], [ 0, %180 ], [ 0, %27 ]
-  ret i32 %191
+cleanup:                                          ; preds = %invoke.cont111, %invoke.cont99, %if.end70, %if.else, %if.then68, %if.then46, %invoke.cont
+  %retval.0 = phi i32 [ 1, %if.then46 ], [ 1, %if.then68 ], [ 0, %if.end70 ], [ 1, %if.else ], [ 0, %invoke.cont99 ], [ 0, %invoke.cont111 ], [ 0, %invoke.cont ]
+  ret i32 %retval.0
 
-192:                                              ; preds = %188, %163, %161, %84, %82, %32
-  %193 = phi ptr [ %172, %188 ], [ %151, %163 ], [ %149, %161 ], [ %71, %84 ], [ %58, %82 ], [ %19, %32 ]
-  %194 = phi { ptr, i32 } [ %189, %188 ], [ %164, %163 ], [ %162, %161 ], [ %85, %84 ], [ %83, %82 ], [ %33, %32 ]
-  tail call void @_ZdlPv(ptr noundef nonnull %193) #10
-  resume { ptr, i32 } %194
+ehcleanup:                                        ; preds = %lpad110, %lpad98, %lpad95, %lpad39, %lpad29, %lpad
+  %call102.sink = phi ptr [ %call102, %lpad110 ], [ %call97, %lpad98 ], [ %call94, %lpad95 ], [ %call31, %lpad39 ], [ %call28, %lpad29 ], [ %call, %lpad ]
+  %.pn = phi { ptr, i32 } [ %50, %lpad110 ], [ %45, %lpad98 ], [ %44, %lpad95 ], [ %19, %lpad39 ], [ %18, %lpad29 ], [ %8, %lpad ]
+  tail call void @_ZdlPv(ptr noundef nonnull %call102.sink) #10
+  resume { ptr, i32 } %.pn
 }
 
 ; Function Attrs: mustprogress nofree nounwind willreturn memory(argmem: read)
@@ -508,32 +496,33 @@ declare noundef nonnull ptr @_Znam(i64 noundef) local_unnamed_addr #1
 declare ptr @strcpy(ptr noalias noundef returned writeonly, ptr noalias nocapture noundef readonly) local_unnamed_addr #4
 
 ; Function Attrs: uwtable
-define linkonce_odr dso_local void @_ZN3ExpC2EjPc4Type3Loci(ptr noundef nonnull align 8 dereferenceable(64) %0, i32 noundef %1, ptr noundef %2, i32 noundef %3, i32 noundef %4, i32 noundef %5) unnamed_addr #0 comdat align 2 personality ptr @__gxx_personality_v0 {
-  %7 = tail call noalias noundef nonnull dereferenceable(40) ptr @_Znwm(i64 noundef 40) #9
-  store ptr %2, ptr %7, align 8, !tbaa !30
-  %8 = getelementptr inbounds %struct.Id, ptr %7, i64 0, i32 1
-  store i32 %3, ptr %8, align 8, !tbaa !33
-  %9 = getelementptr inbounds %struct.Id, ptr %7, i64 0, i32 2
-  store i32 %4, ptr %9, align 4, !tbaa !34
-  %10 = getelementptr inbounds %struct.Id, ptr %7, i64 0, i32 3
-  store i32 %5, ptr %10, align 8, !tbaa !35
-  %11 = getelementptr inbounds %struct.Exp, ptr %0, i64 0, i32 1
-  store i32 1, ptr %11, align 8, !tbaa !19
-  %12 = getelementptr inbounds %struct.Exp, ptr %0, i64 0, i32 3
-  store i32 %1, ptr %12, align 8, !tbaa !11
-  %13 = getelementptr inbounds %struct.Exp, ptr %0, i64 0, i32 2
-  store i32 %1, ptr %13, align 4, !tbaa !20
-  %14 = tail call noalias noundef nonnull dereferenceable(24) ptr @_Znwm(i64 noundef 24) #9
-  store i32 0, ptr %14, align 8, !tbaa !21
-  %15 = getelementptr inbounds %struct.Exp_, ptr %14, i64 0, i32 1
-  store i32 1, ptr %15, align 4, !tbaa !22
-  %16 = getelementptr inbounds %struct.Exp_, ptr %14, i64 0, i32 2
-  store i32 %3, ptr %16, align 8, !tbaa !14
-  %17 = getelementptr inbounds %struct.Exp_, ptr %14, i64 0, i32 3
-  store i32 39, ptr %17, align 4, !tbaa !23
-  %18 = getelementptr inbounds %struct.Exp_, ptr %14, i64 0, i32 4
-  store ptr %7, ptr %18, align 8, !tbaa !36
-  store ptr %14, ptr %0, align 8, !tbaa !13
+define linkonce_odr dso_local void @_ZN3ExpC2EjPc4Type3Loci(ptr noundef nonnull align 8 dereferenceable(64) %this, i32 noundef %pcval, ptr noundef %idname, i32 noundef %idtype, i32 noundef %idloc, i32 noundef %idlocinfo) unnamed_addr #0 comdat align 2 personality ptr @__gxx_personality_v0 {
+entry:
+  %call = tail call noalias noundef nonnull dereferenceable(40) ptr @_Znwm(i64 noundef 40) #9
+  store ptr %idname, ptr %call, align 8, !tbaa !30
+  %type = getelementptr inbounds %struct.Id, ptr %call, i64 0, i32 1
+  store i32 %idtype, ptr %type, align 8, !tbaa !33
+  %loc = getelementptr inbounds %struct.Id, ptr %call, i64 0, i32 2
+  store i32 %idloc, ptr %loc, align 4, !tbaa !34
+  %locinfo = getelementptr inbounds %struct.Id, ptr %call, i64 0, i32 3
+  store i32 %idlocinfo, ptr %locinfo, align 8, !tbaa !35
+  %numrefs = getelementptr inbounds %struct.Exp, ptr %this, i64 0, i32 1
+  store i32 1, ptr %numrefs, align 8, !tbaa !19
+  %minpc = getelementptr inbounds %struct.Exp, ptr %this, i64 0, i32 3
+  store i32 %pcval, ptr %minpc, align 8, !tbaa !11
+  %pc = getelementptr inbounds %struct.Exp, ptr %this, i64 0, i32 2
+  store i32 %pcval, ptr %pc, align 4, !tbaa !20
+  %call2 = tail call noalias noundef nonnull dereferenceable(24) ptr @_Znwm(i64 noundef 24) #9
+  store i32 0, ptr %call2, align 8, !tbaa !21
+  %et.i = getelementptr inbounds %struct.Exp_, ptr %call2, i64 0, i32 1
+  store i32 1, ptr %et.i, align 4, !tbaa !22
+  %type.i = getelementptr inbounds %struct.Exp_, ptr %call2, i64 0, i32 2
+  store i32 %idtype, ptr %type.i, align 8, !tbaa !14
+  %op.i = getelementptr inbounds %struct.Exp_, ptr %call2, i64 0, i32 3
+  store i32 39, ptr %op.i, align 4, !tbaa !23
+  %id.i = getelementptr inbounds %struct.Exp_, ptr %call2, i64 0, i32 4
+  store ptr %call, ptr %id.i, align 8, !tbaa !36
+  store ptr %call2, ptr %this, align 8, !tbaa !13
   ret void
 }
 

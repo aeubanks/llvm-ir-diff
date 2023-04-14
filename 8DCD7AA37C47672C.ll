@@ -31,28 +31,29 @@ target triple = "x86_64-unknown-linux-gnu"
 @str.17 = private unnamed_addr constant [17 x i8] c"Style     : FULL\00", align 1
 
 ; Function Attrs: mustprogress nofree nounwind willreturn uwtable
-define dso_local ptr @Oalloc(ptr nocapture noundef readonly %0) local_unnamed_addr #0 {
-  %2 = tail call noalias dereferenceable_or_null(272) ptr @calloc(i64 noundef 272, i64 noundef 1) #15
-  %3 = tail call ptr @strcpy(ptr noundef nonnull dereferenceable(1) %2, ptr noundef nonnull dereferenceable(1) %0) #16
-  %4 = getelementptr inbounds %struct.ObjectStruct, ptr %2, i64 0, i32 6
-  store <2 x double> <double 1.000000e+00, double 1.000000e+00>, ptr %4, align 8, !tbaa !5
-  %5 = getelementptr inbounds %struct.ObjectStruct, ptr %2, i64 0, i32 6, i32 2
-  store double 1.000000e+00, ptr %5, align 8, !tbaa !9
-  %6 = getelementptr inbounds %struct.ObjectStruct, ptr %2, i64 0, i32 7
-  store i32 0, ptr %6, align 8, !tbaa !15
-  %7 = getelementptr inbounds %struct.ObjectStruct, ptr %2, i64 0, i32 8
-  store i32 0, ptr %7, align 4, !tbaa !16
-  %8 = getelementptr inbounds %struct.ObjectStruct, ptr %2, i64 0, i32 12
-  %9 = getelementptr inbounds %struct.ObjectStruct, ptr %2, i64 0, i32 10
-  %10 = getelementptr inbounds %struct.ObjectStruct, ptr %2, i64 0, i32 11
-  tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(24) %9, i8 0, i64 24, i1 false)
-  tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(44) %8, i8 0, i64 44, i1 false)
-  store <2 x double> <double 1.000000e+00, double 1.000000e+00>, ptr %10, align 8, !tbaa !5
-  %11 = getelementptr inbounds %struct.ObjectStruct, ptr %2, i64 0, i32 11, i32 2
-  store double 1.000000e+00, ptr %11, align 8, !tbaa !17
-  %12 = getelementptr inbounds %struct.ObjectStruct, ptr %2, i64 0, i32 9
-  tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(24) %12, i8 0, i64 24, i1 false)
-  ret ptr %2
+define dso_local ptr @Oalloc(ptr nocapture noundef readonly %name) local_unnamed_addr #0 {
+entry:
+  %call = tail call noalias dereferenceable_or_null(272) ptr @calloc(i64 noundef 272, i64 noundef 1) #15
+  %call1 = tail call ptr @strcpy(ptr noundef nonnull dereferenceable(1) %call, ptr noundef nonnull dereferenceable(1) %name) #16
+  %Color = getelementptr inbounds %struct.ObjectStruct, ptr %call, i64 0, i32 6
+  store <2 x double> <double 1.000000e+00, double 1.000000e+00>, ptr %Color, align 8, !tbaa !5
+  %B = getelementptr inbounds %struct.ObjectStruct, ptr %call, i64 0, i32 6, i32 2
+  store double 1.000000e+00, ptr %B, align 8, !tbaa !9
+  %ReNo = getelementptr inbounds %struct.ObjectStruct, ptr %call, i64 0, i32 7
+  store i32 0, ptr %ReNo, align 8, !tbaa !15
+  %styletag = getelementptr inbounds %struct.ObjectStruct, ptr %call, i64 0, i32 8
+  store i32 0, ptr %styletag, align 4, !tbaa !16
+  %Children = getelementptr inbounds %struct.ObjectStruct, ptr %call, i64 0, i32 12
+  %Rotation = getelementptr inbounds %struct.ObjectStruct, ptr %call, i64 0, i32 10
+  %Scale = getelementptr inbounds %struct.ObjectStruct, ptr %call, i64 0, i32 11
+  tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(24) %Rotation, i8 0, i64 24, i1 false)
+  tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(44) %Children, i8 0, i64 44, i1 false)
+  store <2 x double> <double 1.000000e+00, double 1.000000e+00>, ptr %Scale, align 8, !tbaa !5
+  %z10 = getelementptr inbounds %struct.ObjectStruct, ptr %call, i64 0, i32 11, i32 2
+  store double 1.000000e+00, ptr %z10, align 8, !tbaa !17
+  %Origin = getelementptr inbounds %struct.ObjectStruct, ptr %call, i64 0, i32 9
+  tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(24) %Origin, i8 0, i64 24, i1 false)
+  ret ptr %call
 }
 
 ; Function Attrs: mustprogress nocallback nofree nosync nounwind willreturn memory(argmem: readwrite)
@@ -68,370 +69,376 @@ declare ptr @strcpy(ptr noalias noundef returned writeonly, ptr noalias nocaptur
 declare void @llvm.lifetime.end.p0(i64 immarg, ptr nocapture) #1
 
 ; Function Attrs: nofree nounwind uwtable
-define dso_local ptr @InsertPoint(ptr nocapture noundef %0, double noundef %1, double noundef %2, double noundef %3) local_unnamed_addr #4 {
-  %5 = getelementptr inbounds %struct.ObjectStruct, ptr %0, i64 0, i32 15
-  %6 = load i32, ptr %5, align 4, !tbaa !18
-  %7 = icmp eq i32 %6, 0
-  br i1 %7, label %8, label %18
+define dso_local ptr @InsertPoint(ptr nocapture noundef %o, double noundef %x, double noundef %y, double noundef %z) local_unnamed_addr #4 {
+entry:
+  %Number_of_Points = getelementptr inbounds %struct.ObjectStruct, ptr %o, i64 0, i32 15
+  %0 = load i32, ptr %Number_of_Points, align 4, !tbaa !18
+  %cmp = icmp eq i32 %0, 0
+  br i1 %cmp, label %if.then, label %if.else
 
-8:                                                ; preds = %4
-  %9 = tail call noalias dereferenceable_or_null(24) ptr @malloc(i64 noundef 24) #17
-  %10 = getelementptr inbounds %struct.ObjectStruct, ptr %0, i64 0, i32 1
-  store ptr %9, ptr %10, align 8, !tbaa !19
-  %11 = tail call noalias dereferenceable_or_null(48) ptr @malloc(i64 noundef 48) #17
-  store ptr %11, ptr %9, align 8, !tbaa !20
-  store double %1, ptr %11, align 8, !tbaa !22
-  %12 = getelementptr inbounds %struct.ObjPointStruct, ptr %11, i64 0, i32 1
-  store double %2, ptr %12, align 8, !tbaa !24
-  %13 = getelementptr inbounds %struct.ObjPointStruct, ptr %11, i64 0, i32 2
-  store double %3, ptr %13, align 8, !tbaa !25
-  %14 = getelementptr inbounds %struct.ObjPointStruct, ptr %11, i64 0, i32 3
-  store double %1, ptr %14, align 8, !tbaa !26
-  %15 = getelementptr inbounds %struct.ObjPointStruct, ptr %11, i64 0, i32 4
-  store double %2, ptr %15, align 8, !tbaa !27
-  %16 = getelementptr inbounds %struct.ObjPointStruct, ptr %11, i64 0, i32 5
-  store double %3, ptr %16, align 8, !tbaa !28
-  %17 = getelementptr inbounds %struct.PointListStruct, ptr %9, i64 0, i32 1
-  tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %17, i8 0, i64 16, i1 false)
-  br label %59
+if.then:                                          ; preds = %entry
+  %call = tail call noalias dereferenceable_or_null(24) ptr @malloc(i64 noundef 24) #17
+  %Points = getelementptr inbounds %struct.ObjectStruct, ptr %o, i64 0, i32 1
+  store ptr %call, ptr %Points, align 8, !tbaa !19
+  %call1 = tail call noalias dereferenceable_or_null(48) ptr @malloc(i64 noundef 48) #17
+  store ptr %call1, ptr %call, align 8, !tbaa !20
+  store double %x, ptr %call1, align 8, !tbaa !22
+  %y8 = getelementptr inbounds %struct.ObjPointStruct, ptr %call1, i64 0, i32 1
+  store double %y, ptr %y8, align 8, !tbaa !24
+  %z11 = getelementptr inbounds %struct.ObjPointStruct, ptr %call1, i64 0, i32 2
+  store double %z, ptr %z11, align 8, !tbaa !25
+  %tx = getelementptr inbounds %struct.ObjPointStruct, ptr %call1, i64 0, i32 3
+  store double %x, ptr %tx, align 8, !tbaa !26
+  %ty = getelementptr inbounds %struct.ObjPointStruct, ptr %call1, i64 0, i32 4
+  store double %y, ptr %ty, align 8, !tbaa !27
+  %tz = getelementptr inbounds %struct.ObjPointStruct, ptr %call1, i64 0, i32 5
+  store double %z, ptr %tz, align 8, !tbaa !28
+  %NextPoint = getelementptr inbounds %struct.PointListStruct, ptr %call, i64 0, i32 1
+  tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %NextPoint, i8 0, i64 16, i1 false)
+  br label %if.end68.sink.split
 
-18:                                               ; preds = %4
-  %19 = getelementptr inbounds %struct.ObjectStruct, ptr %0, i64 0, i32 1
-  %20 = load ptr, ptr %19, align 8, !tbaa !19, !nonnull !29
-  br label %21
+if.else:                                          ; preds = %entry
+  %Points23 = getelementptr inbounds %struct.ObjectStruct, ptr %o, i64 0, i32 1
+  %1 = load ptr, ptr %Points23, align 8, !tbaa !19, !nonnull !29
+  br label %while.body
 
-21:                                               ; preds = %18, %43
-  %22 = phi ptr [ %45, %43 ], [ %20, %18 ]
-  %23 = load ptr, ptr %22, align 8, !tbaa !20
-  %24 = load double, ptr %23, align 8, !tbaa !22
-  %25 = fsub double %24, %1
-  %26 = tail call double @llvm.fabs.f64(double %25)
-  %27 = fpext double %26 to x86_fp80
-  %28 = fcmp olt x86_fp80 %27, 0xK3FEB8637BD05AF6C69B6
-  br i1 %28, label %29, label %43
+while.body:                                       ; preds = %if.else, %if.end
+  %tmp.0125 = phi ptr [ %9, %if.end ], [ %1, %if.else ]
+  %2 = load ptr, ptr %tmp.0125, align 8, !tbaa !20
+  %3 = load double, ptr %2, align 8, !tbaa !22
+  %sub.i = fsub double %3, %x
+  %4 = tail call double @llvm.fabs.f64(double %sub.i)
+  %conv.i = fpext double %4 to x86_fp80
+  %cmp.i = fcmp uge x86_fp80 %conv.i, 0xK3FEB8637BD05AF6C69B6
+  br i1 %cmp.i, label %if.end, label %land.lhs.true
 
-29:                                               ; preds = %21
-  %30 = getelementptr inbounds %struct.ObjPointStruct, ptr %23, i64 0, i32 1
-  %31 = load double, ptr %30, align 8, !tbaa !24
-  %32 = fsub double %31, %2
-  %33 = tail call double @llvm.fabs.f64(double %32)
-  %34 = fpext double %33 to x86_fp80
-  %35 = fcmp olt x86_fp80 %34, 0xK3FEB8637BD05AF6C69B6
-  br i1 %35, label %36, label %43
+land.lhs.true:                                    ; preds = %while.body
+  %y30 = getelementptr inbounds %struct.ObjPointStruct, ptr %2, i64 0, i32 1
+  %5 = load double, ptr %y30, align 8, !tbaa !24
+  %sub.i116 = fsub double %5, %y
+  %6 = tail call double @llvm.fabs.f64(double %sub.i116)
+  %conv.i117 = fpext double %6 to x86_fp80
+  %cmp.i118 = fcmp uge x86_fp80 %conv.i117, 0xK3FEB8637BD05AF6C69B6
+  br i1 %cmp.i118, label %if.end, label %land.lhs.true33
 
-36:                                               ; preds = %29
-  %37 = getelementptr inbounds %struct.ObjPointStruct, ptr %23, i64 0, i32 2
-  %38 = load double, ptr %37, align 8, !tbaa !25
-  %39 = fsub double %38, %3
-  %40 = tail call double @llvm.fabs.f64(double %39)
-  %41 = fpext double %40 to x86_fp80
-  %42 = fcmp olt x86_fp80 %41, 0xK3FEB8637BD05AF6C69B6
-  br i1 %42, label %62, label %43
+land.lhs.true33:                                  ; preds = %land.lhs.true
+  %z35 = getelementptr inbounds %struct.ObjPointStruct, ptr %2, i64 0, i32 2
+  %7 = load double, ptr %z35, align 8, !tbaa !25
+  %sub.i120 = fsub double %7, %z
+  %8 = tail call double @llvm.fabs.f64(double %sub.i120)
+  %conv.i121 = fpext double %8 to x86_fp80
+  %cmp.i122 = fcmp uge x86_fp80 %conv.i121, 0xK3FEB8637BD05AF6C69B6
+  br i1 %cmp.i122, label %if.end, label %if.end68
 
-43:                                               ; preds = %21, %29, %36
-  %44 = getelementptr inbounds %struct.PointListStruct, ptr %22, i64 0, i32 1
-  %45 = load ptr, ptr %44, align 8, !tbaa !30
-  %46 = icmp eq ptr %45, null
-  br i1 %46, label %47, label %21, !llvm.loop !31
+if.end:                                           ; preds = %while.body, %land.lhs.true, %land.lhs.true33
+  %NextPoint41 = getelementptr inbounds %struct.PointListStruct, ptr %tmp.0125, i64 0, i32 1
+  %9 = load ptr, ptr %NextPoint41, align 8, !tbaa !30
+  %cmp24.not = icmp eq ptr %9, null
+  br i1 %cmp24.not, label %if.then45, label %while.body, !llvm.loop !31
 
-47:                                               ; preds = %43
-  %48 = tail call noalias dereferenceable_or_null(24) ptr @malloc(i64 noundef 24) #17
-  %49 = getelementptr inbounds %struct.PointListStruct, ptr %22, i64 0, i32 1
-  store ptr %48, ptr %49, align 8, !tbaa !30
-  %50 = tail call noalias dereferenceable_or_null(48) ptr @malloc(i64 noundef 48) #17
-  store ptr %50, ptr %48, align 8, !tbaa !20
-  store double %1, ptr %50, align 8, !tbaa !22
-  %51 = getelementptr inbounds %struct.ObjPointStruct, ptr %50, i64 0, i32 1
-  store double %2, ptr %51, align 8, !tbaa !24
-  %52 = getelementptr inbounds %struct.ObjPointStruct, ptr %50, i64 0, i32 2
-  store double %3, ptr %52, align 8, !tbaa !25
-  %53 = getelementptr inbounds %struct.ObjPointStruct, ptr %50, i64 0, i32 3
-  store double %1, ptr %53, align 8, !tbaa !26
-  %54 = getelementptr inbounds %struct.ObjPointStruct, ptr %50, i64 0, i32 4
-  store double %2, ptr %54, align 8, !tbaa !27
-  %55 = getelementptr inbounds %struct.ObjPointStruct, ptr %50, i64 0, i32 5
-  store double %3, ptr %55, align 8, !tbaa !28
-  %56 = getelementptr inbounds %struct.PointListStruct, ptr %48, i64 0, i32 2
-  store ptr %22, ptr %56, align 8, !tbaa !33
-  %57 = getelementptr inbounds %struct.PointListStruct, ptr %48, i64 0, i32 1
-  store ptr null, ptr %57, align 8, !tbaa !30
-  %58 = add nsw i32 %6, 1
-  br label %59
+if.then45:                                        ; preds = %if.end
+  %call46 = tail call noalias dereferenceable_or_null(24) ptr @malloc(i64 noundef 24) #17
+  %NextPoint47 = getelementptr inbounds %struct.PointListStruct, ptr %tmp.0125, i64 0, i32 1
+  store ptr %call46, ptr %NextPoint47, align 8, !tbaa !30
+  %call48 = tail call noalias dereferenceable_or_null(48) ptr @malloc(i64 noundef 48) #17
+  store ptr %call48, ptr %call46, align 8, !tbaa !20
+  store double %x, ptr %call48, align 8, !tbaa !22
+  %y53 = getelementptr inbounds %struct.ObjPointStruct, ptr %call48, i64 0, i32 1
+  store double %y, ptr %y53, align 8, !tbaa !24
+  %z55 = getelementptr inbounds %struct.ObjPointStruct, ptr %call48, i64 0, i32 2
+  store double %z, ptr %z55, align 8, !tbaa !25
+  %tx57 = getelementptr inbounds %struct.ObjPointStruct, ptr %call48, i64 0, i32 3
+  store double %x, ptr %tx57, align 8, !tbaa !26
+  %ty59 = getelementptr inbounds %struct.ObjPointStruct, ptr %call48, i64 0, i32 4
+  store double %y, ptr %ty59, align 8, !tbaa !27
+  %tz61 = getelementptr inbounds %struct.ObjPointStruct, ptr %call48, i64 0, i32 5
+  store double %z, ptr %tz61, align 8, !tbaa !28
+  %PrevPoint62 = getelementptr inbounds %struct.PointListStruct, ptr %call46, i64 0, i32 2
+  store ptr %tmp.0125, ptr %PrevPoint62, align 8, !tbaa !33
+  %NextPoint63 = getelementptr inbounds %struct.PointListStruct, ptr %call46, i64 0, i32 1
+  store ptr null, ptr %NextPoint63, align 8, !tbaa !30
+  %inc66 = add nsw i32 %0, 1
+  br label %if.end68.sink.split
 
-59:                                               ; preds = %8, %47
-  %60 = phi i32 [ %58, %47 ], [ 1, %8 ]
-  %61 = phi ptr [ %50, %47 ], [ %11, %8 ]
-  store i32 %60, ptr %5, align 4, !tbaa !18
-  br label %62
+if.end68.sink.split:                              ; preds = %if.then, %if.then45
+  %inc66.sink = phi i32 [ %inc66, %if.then45 ], [ 1, %if.then ]
+  %p.2.ph = phi ptr [ %call48, %if.then45 ], [ %call1, %if.then ]
+  store i32 %inc66.sink, ptr %Number_of_Points, align 4, !tbaa !18
+  br label %if.end68
 
-62:                                               ; preds = %36, %59
-  %63 = phi ptr [ %61, %59 ], [ %23, %36 ]
-  ret ptr %63
+if.end68:                                         ; preds = %land.lhs.true33, %if.end68.sink.split
+  %p.2 = phi ptr [ %p.2.ph, %if.end68.sink.split ], [ %2, %land.lhs.true33 ]
+  ret ptr %p.2
 }
 
 ; Function Attrs: mustprogress nofree nounwind willreturn allockind("alloc,uninitialized") allocsize(0) memory(inaccessiblemem: readwrite)
 declare noalias noundef ptr @malloc(i64 noundef) local_unnamed_addr #5
 
 ; Function Attrs: nofree nounwind uwtable
-define dso_local void @InsertPoly3(ptr nocapture noundef %0, ptr nocapture noundef readonly %1, ptr nocapture noundef readnone %2, ptr nocapture noundef readnone %3) local_unnamed_addr #4 {
-  %5 = tail call noalias dereferenceable_or_null(56) ptr @malloc(i64 noundef 56) #17
-  %6 = getelementptr inbounds %struct.Poly3Struct, ptr %5, i64 0, i32 1
-  tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(32) %6, i8 0, i64 32, i1 false)
-  %7 = load double, ptr %1, align 8, !tbaa !34
-  %8 = getelementptr inbounds %struct.PointStruct, ptr %1, i64 0, i32 1
-  %9 = load double, ptr %8, align 8, !tbaa !35
-  %10 = getelementptr inbounds %struct.PointStruct, ptr %1, i64 0, i32 2
-  %11 = load double, ptr %10, align 8, !tbaa !36
-  %12 = tail call ptr @InsertPoint(ptr noundef %0, double noundef %7, double noundef %9, double noundef %11)
-  store ptr %12, ptr %5, align 8, !tbaa !37
-  %13 = getelementptr inbounds %struct.PointStruct, ptr %1, i64 1
-  %14 = load double, ptr %13, align 8, !tbaa !34
-  %15 = getelementptr inbounds %struct.PointStruct, ptr %1, i64 1, i32 1
-  %16 = load double, ptr %15, align 8, !tbaa !35
-  %17 = getelementptr inbounds %struct.PointStruct, ptr %1, i64 1, i32 2
-  %18 = load double, ptr %17, align 8, !tbaa !36
-  %19 = tail call ptr @InsertPoint(ptr noundef %0, double noundef %14, double noundef %16, double noundef %18)
-  %20 = getelementptr inbounds [3 x ptr], ptr %5, i64 0, i64 1
-  store ptr %19, ptr %20, align 8, !tbaa !37
-  %21 = getelementptr inbounds %struct.PointStruct, ptr %1, i64 2
-  %22 = load double, ptr %21, align 8, !tbaa !34
-  %23 = getelementptr inbounds %struct.PointStruct, ptr %1, i64 2, i32 1
-  %24 = load double, ptr %23, align 8, !tbaa !35
-  %25 = getelementptr inbounds %struct.PointStruct, ptr %1, i64 2, i32 2
-  %26 = load double, ptr %25, align 8, !tbaa !36
-  %27 = tail call ptr @InsertPoint(ptr noundef %0, double noundef %22, double noundef %24, double noundef %26)
-  %28 = getelementptr inbounds [3 x ptr], ptr %5, i64 0, i64 2
-  store ptr %27, ptr %28, align 8, !tbaa !37
-  %29 = getelementptr inbounds %struct.ObjectStruct, ptr %0, i64 0, i32 2
-  %30 = load ptr, ptr %29, align 8, !tbaa !38
-  %31 = icmp eq ptr %30, null
-  br i1 %31, label %35, label %32
+define dso_local void @InsertPoly3(ptr nocapture noundef %o, ptr nocapture noundef readonly %p, ptr nocapture noundef readnone %txture, ptr nocapture noundef readnone %mtrial) local_unnamed_addr #4 {
+entry:
+  %call = tail call noalias dereferenceable_or_null(56) ptr @malloc(i64 noundef 56) #17
+  %Mat = getelementptr inbounds %struct.Poly3Struct, ptr %call, i64 0, i32 1
+  tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(32) %Mat, i8 0, i64 32, i1 false)
+  %0 = load double, ptr %p, align 8, !tbaa !34
+  %y = getelementptr inbounds %struct.PointStruct, ptr %p, i64 0, i32 1
+  %1 = load double, ptr %y, align 8, !tbaa !35
+  %z = getelementptr inbounds %struct.PointStruct, ptr %p, i64 0, i32 2
+  %2 = load double, ptr %z, align 8, !tbaa !36
+  %call5 = tail call ptr @InsertPoint(ptr noundef %o, double noundef %0, double noundef %1, double noundef %2)
+  store ptr %call5, ptr %call, align 8, !tbaa !37
+  %arrayidx.1 = getelementptr inbounds %struct.PointStruct, ptr %p, i64 1
+  %3 = load double, ptr %arrayidx.1, align 8, !tbaa !34
+  %y.1 = getelementptr inbounds %struct.PointStruct, ptr %p, i64 1, i32 1
+  %4 = load double, ptr %y.1, align 8, !tbaa !35
+  %z.1 = getelementptr inbounds %struct.PointStruct, ptr %p, i64 1, i32 2
+  %5 = load double, ptr %z.1, align 8, !tbaa !36
+  %call5.1 = tail call ptr @InsertPoint(ptr noundef %o, double noundef %3, double noundef %4, double noundef %5)
+  %arrayidx7.1 = getelementptr inbounds [3 x ptr], ptr %call, i64 0, i64 1
+  store ptr %call5.1, ptr %arrayidx7.1, align 8, !tbaa !37
+  %arrayidx.2 = getelementptr inbounds %struct.PointStruct, ptr %p, i64 2
+  %6 = load double, ptr %arrayidx.2, align 8, !tbaa !34
+  %y.2 = getelementptr inbounds %struct.PointStruct, ptr %p, i64 2, i32 1
+  %7 = load double, ptr %y.2, align 8, !tbaa !35
+  %z.2 = getelementptr inbounds %struct.PointStruct, ptr %p, i64 2, i32 2
+  %8 = load double, ptr %z.2, align 8, !tbaa !36
+  %call5.2 = tail call ptr @InsertPoint(ptr noundef %o, double noundef %6, double noundef %7, double noundef %8)
+  %arrayidx7.2 = getelementptr inbounds [3 x ptr], ptr %call, i64 0, i64 2
+  store ptr %call5.2, ptr %arrayidx7.2, align 8, !tbaa !37
+  %Poly3s = getelementptr inbounds %struct.ObjectStruct, ptr %o, i64 0, i32 2
+  %9 = load ptr, ptr %Poly3s, align 8, !tbaa !38
+  %cmp8 = icmp eq ptr %9, null
+  br i1 %cmp8, label %if.end, label %if.else
 
-32:                                               ; preds = %4
-  %33 = getelementptr inbounds %struct.Poly3Struct, ptr %5, i64 0, i32 3
-  %34 = getelementptr inbounds %struct.Poly3Struct, ptr %30, i64 0, i32 4
-  store ptr %5, ptr %34, align 8, !tbaa !39
-  store ptr %30, ptr %33, align 8, !tbaa !41
-  br label %35
+if.else:                                          ; preds = %entry
+  %Next = getelementptr inbounds %struct.Poly3Struct, ptr %call, i64 0, i32 3
+  %Prev11 = getelementptr inbounds %struct.Poly3Struct, ptr %9, i64 0, i32 4
+  store ptr %call, ptr %Prev11, align 8, !tbaa !39
+  store ptr %9, ptr %Next, align 8, !tbaa !41
+  br label %if.end
 
-35:                                               ; preds = %4, %32
-  store ptr %5, ptr %29, align 8, !tbaa !38
-  %36 = getelementptr inbounds %struct.ObjectStruct, ptr %0, i64 0, i32 16
-  %37 = load i32, ptr %36, align 8, !tbaa !42
-  %38 = add nsw i32 %37, 1
-  store i32 %38, ptr %36, align 8, !tbaa !42
+if.end:                                           ; preds = %entry, %if.else
+  store ptr %call, ptr %Poly3s, align 8, !tbaa !38
+  %Number_of_Poly3s = getelementptr inbounds %struct.ObjectStruct, ptr %o, i64 0, i32 16
+  %10 = load i32, ptr %Number_of_Poly3s, align 8, !tbaa !42
+  %inc15 = add nsw i32 %10, 1
+  store i32 %inc15, ptr %Number_of_Poly3s, align 8, !tbaa !42
   ret void
 }
 
 ; Function Attrs: nofree nounwind uwtable
-define dso_local void @InsertPoly4(ptr nocapture noundef %0, ptr nocapture noundef readonly %1, ptr nocapture readnone %2, ptr nocapture readnone %3) local_unnamed_addr #4 {
-  %5 = tail call noalias dereferenceable_or_null(64) ptr @malloc(i64 noundef 64) #17
-  %6 = getelementptr inbounds %struct.Poly4Struct, ptr %5, i64 0, i32 1
-  tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(32) %6, i8 0, i64 32, i1 false)
-  %7 = load double, ptr %1, align 8, !tbaa !34
-  %8 = getelementptr inbounds %struct.PointStruct, ptr %1, i64 0, i32 1
-  %9 = load double, ptr %8, align 8, !tbaa !35
-  %10 = getelementptr inbounds %struct.PointStruct, ptr %1, i64 0, i32 2
-  %11 = load double, ptr %10, align 8, !tbaa !36
-  %12 = tail call ptr @InsertPoint(ptr noundef %0, double noundef %7, double noundef %9, double noundef %11)
-  store ptr %12, ptr %5, align 8, !tbaa !37
-  %13 = getelementptr inbounds %struct.PointStruct, ptr %1, i64 1
-  %14 = load double, ptr %13, align 8, !tbaa !34
-  %15 = getelementptr inbounds %struct.PointStruct, ptr %1, i64 1, i32 1
-  %16 = load double, ptr %15, align 8, !tbaa !35
-  %17 = getelementptr inbounds %struct.PointStruct, ptr %1, i64 1, i32 2
-  %18 = load double, ptr %17, align 8, !tbaa !36
-  %19 = tail call ptr @InsertPoint(ptr noundef %0, double noundef %14, double noundef %16, double noundef %18)
-  %20 = getelementptr inbounds [4 x ptr], ptr %5, i64 0, i64 1
-  store ptr %19, ptr %20, align 8, !tbaa !37
-  %21 = getelementptr inbounds %struct.PointStruct, ptr %1, i64 2
-  %22 = load double, ptr %21, align 8, !tbaa !34
-  %23 = getelementptr inbounds %struct.PointStruct, ptr %1, i64 2, i32 1
-  %24 = load double, ptr %23, align 8, !tbaa !35
-  %25 = getelementptr inbounds %struct.PointStruct, ptr %1, i64 2, i32 2
-  %26 = load double, ptr %25, align 8, !tbaa !36
-  %27 = tail call ptr @InsertPoint(ptr noundef %0, double noundef %22, double noundef %24, double noundef %26)
-  %28 = getelementptr inbounds [4 x ptr], ptr %5, i64 0, i64 2
-  store ptr %27, ptr %28, align 8, !tbaa !37
-  %29 = getelementptr inbounds %struct.PointStruct, ptr %1, i64 3
-  %30 = load double, ptr %29, align 8, !tbaa !34
-  %31 = getelementptr inbounds %struct.PointStruct, ptr %1, i64 3, i32 1
-  %32 = load double, ptr %31, align 8, !tbaa !35
-  %33 = getelementptr inbounds %struct.PointStruct, ptr %1, i64 3, i32 2
-  %34 = load double, ptr %33, align 8, !tbaa !36
-  %35 = tail call ptr @InsertPoint(ptr noundef %0, double noundef %30, double noundef %32, double noundef %34)
-  %36 = getelementptr inbounds [4 x ptr], ptr %5, i64 0, i64 3
-  store ptr %35, ptr %36, align 8, !tbaa !37
-  %37 = getelementptr inbounds %struct.ObjectStruct, ptr %0, i64 0, i32 3
-  %38 = load ptr, ptr %37, align 8, !tbaa !43
-  %39 = icmp eq ptr %38, null
-  br i1 %39, label %43, label %40
+define dso_local void @InsertPoly4(ptr nocapture noundef %o, ptr nocapture noundef readonly %p, ptr nocapture readnone %txture, ptr nocapture readnone %mtrial) local_unnamed_addr #4 {
+entry:
+  %call = tail call noalias dereferenceable_or_null(64) ptr @malloc(i64 noundef 64) #17
+  %Mat = getelementptr inbounds %struct.Poly4Struct, ptr %call, i64 0, i32 1
+  tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(32) %Mat, i8 0, i64 32, i1 false)
+  %0 = load double, ptr %p, align 8, !tbaa !34
+  %y = getelementptr inbounds %struct.PointStruct, ptr %p, i64 0, i32 1
+  %1 = load double, ptr %y, align 8, !tbaa !35
+  %z = getelementptr inbounds %struct.PointStruct, ptr %p, i64 0, i32 2
+  %2 = load double, ptr %z, align 8, !tbaa !36
+  %call5 = tail call ptr @InsertPoint(ptr noundef %o, double noundef %0, double noundef %1, double noundef %2)
+  store ptr %call5, ptr %call, align 8, !tbaa !37
+  %arrayidx.1 = getelementptr inbounds %struct.PointStruct, ptr %p, i64 1
+  %3 = load double, ptr %arrayidx.1, align 8, !tbaa !34
+  %y.1 = getelementptr inbounds %struct.PointStruct, ptr %p, i64 1, i32 1
+  %4 = load double, ptr %y.1, align 8, !tbaa !35
+  %z.1 = getelementptr inbounds %struct.PointStruct, ptr %p, i64 1, i32 2
+  %5 = load double, ptr %z.1, align 8, !tbaa !36
+  %call5.1 = tail call ptr @InsertPoint(ptr noundef %o, double noundef %3, double noundef %4, double noundef %5)
+  %arrayidx7.1 = getelementptr inbounds [4 x ptr], ptr %call, i64 0, i64 1
+  store ptr %call5.1, ptr %arrayidx7.1, align 8, !tbaa !37
+  %arrayidx.2 = getelementptr inbounds %struct.PointStruct, ptr %p, i64 2
+  %6 = load double, ptr %arrayidx.2, align 8, !tbaa !34
+  %y.2 = getelementptr inbounds %struct.PointStruct, ptr %p, i64 2, i32 1
+  %7 = load double, ptr %y.2, align 8, !tbaa !35
+  %z.2 = getelementptr inbounds %struct.PointStruct, ptr %p, i64 2, i32 2
+  %8 = load double, ptr %z.2, align 8, !tbaa !36
+  %call5.2 = tail call ptr @InsertPoint(ptr noundef %o, double noundef %6, double noundef %7, double noundef %8)
+  %arrayidx7.2 = getelementptr inbounds [4 x ptr], ptr %call, i64 0, i64 2
+  store ptr %call5.2, ptr %arrayidx7.2, align 8, !tbaa !37
+  %arrayidx.3 = getelementptr inbounds %struct.PointStruct, ptr %p, i64 3
+  %9 = load double, ptr %arrayidx.3, align 8, !tbaa !34
+  %y.3 = getelementptr inbounds %struct.PointStruct, ptr %p, i64 3, i32 1
+  %10 = load double, ptr %y.3, align 8, !tbaa !35
+  %z.3 = getelementptr inbounds %struct.PointStruct, ptr %p, i64 3, i32 2
+  %11 = load double, ptr %z.3, align 8, !tbaa !36
+  %call5.3 = tail call ptr @InsertPoint(ptr noundef %o, double noundef %9, double noundef %10, double noundef %11)
+  %arrayidx7.3 = getelementptr inbounds [4 x ptr], ptr %call, i64 0, i64 3
+  store ptr %call5.3, ptr %arrayidx7.3, align 8, !tbaa !37
+  %Poly4s = getelementptr inbounds %struct.ObjectStruct, ptr %o, i64 0, i32 3
+  %12 = load ptr, ptr %Poly4s, align 8, !tbaa !43
+  %cmp8 = icmp eq ptr %12, null
+  br i1 %cmp8, label %if.end, label %if.else
 
-40:                                               ; preds = %4
-  %41 = getelementptr inbounds %struct.Poly4Struct, ptr %5, i64 0, i32 3
-  %42 = getelementptr inbounds %struct.Poly4Struct, ptr %38, i64 0, i32 4
-  store ptr %5, ptr %42, align 8, !tbaa !44
-  store ptr %38, ptr %41, align 8, !tbaa !46
-  br label %43
+if.else:                                          ; preds = %entry
+  %Next = getelementptr inbounds %struct.Poly4Struct, ptr %call, i64 0, i32 3
+  %Prev11 = getelementptr inbounds %struct.Poly4Struct, ptr %12, i64 0, i32 4
+  store ptr %call, ptr %Prev11, align 8, !tbaa !44
+  store ptr %12, ptr %Next, align 8, !tbaa !46
+  br label %if.end
 
-43:                                               ; preds = %4, %40
-  store ptr %5, ptr %37, align 8, !tbaa !43
-  %44 = getelementptr inbounds %struct.ObjectStruct, ptr %0, i64 0, i32 17
-  %45 = load i32, ptr %44, align 4, !tbaa !47
-  %46 = add nsw i32 %45, 1
-  store i32 %46, ptr %44, align 4, !tbaa !47
+if.end:                                           ; preds = %entry, %if.else
+  store ptr %call, ptr %Poly4s, align 8, !tbaa !43
+  %Number_of_Poly4s = getelementptr inbounds %struct.ObjectStruct, ptr %o, i64 0, i32 17
+  %13 = load i32, ptr %Number_of_Poly4s, align 4, !tbaa !47
+  %inc15 = add nsw i32 %13, 1
+  store i32 %inc15, ptr %Number_of_Poly4s, align 4, !tbaa !47
   ret void
 }
 
 ; Function Attrs: nofree nounwind uwtable
-define dso_local ptr @ArrayToPoly3(ptr noundef returned %0, ptr nocapture noundef readonly %1, i32 noundef %2) local_unnamed_addr #4 {
-  %4 = icmp sgt i32 %2, 0
-  br i1 %4, label %5, label %48
+define dso_local ptr @ArrayToPoly3(ptr noundef returned %o, ptr nocapture noundef readonly %array, i32 noundef %size) local_unnamed_addr #4 {
+entry:
+  %cmp66 = icmp sgt i32 %size, 0
+  br i1 %cmp66, label %for.body.lr.ph, label %for.end
 
-5:                                                ; preds = %3
-  %6 = getelementptr inbounds %struct.ObjectStruct, ptr %0, i64 0, i32 2
-  %7 = getelementptr inbounds %struct.ObjectStruct, ptr %0, i64 0, i32 16
-  br label %8
+for.body.lr.ph:                                   ; preds = %entry
+  %Poly3s.i = getelementptr inbounds %struct.ObjectStruct, ptr %o, i64 0, i32 2
+  %Number_of_Poly3s.i = getelementptr inbounds %struct.ObjectStruct, ptr %o, i64 0, i32 16
+  br label %for.body
 
-8:                                                ; preds = %5, %42
-  %9 = phi i64 [ 0, %5 ], [ %45, %42 ]
-  %10 = getelementptr inbounds [3 x double], ptr %1, i64 %9
-  %11 = load double, ptr %10, align 8, !tbaa !5
-  %12 = getelementptr inbounds [3 x double], ptr %1, i64 %9, i64 1
-  %13 = load double, ptr %12, align 8, !tbaa !5
-  %14 = getelementptr inbounds [3 x double], ptr %1, i64 %9, i64 2
-  %15 = load double, ptr %14, align 8, !tbaa !5
-  %16 = add nuw nsw i64 %9, 1
-  %17 = getelementptr inbounds [3 x double], ptr %1, i64 %16
-  %18 = load double, ptr %17, align 8, !tbaa !5
-  %19 = getelementptr inbounds [3 x double], ptr %1, i64 %16, i64 1
-  %20 = load double, ptr %19, align 8, !tbaa !5
-  %21 = getelementptr inbounds [3 x double], ptr %1, i64 %16, i64 2
-  %22 = load double, ptr %21, align 8, !tbaa !5
-  %23 = add nuw nsw i64 %9, 2
-  %24 = getelementptr inbounds [3 x double], ptr %1, i64 %23
-  %25 = load double, ptr %24, align 8, !tbaa !5
-  %26 = getelementptr inbounds [3 x double], ptr %1, i64 %23, i64 1
-  %27 = load double, ptr %26, align 8, !tbaa !5
-  %28 = getelementptr inbounds [3 x double], ptr %1, i64 %23, i64 2
-  %29 = load double, ptr %28, align 8, !tbaa !5
-  %30 = tail call noalias dereferenceable_or_null(56) ptr @malloc(i64 noundef 56) #17
-  %31 = getelementptr inbounds %struct.Poly3Struct, ptr %30, i64 0, i32 1
-  tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(32) %31, i8 0, i64 32, i1 false)
-  %32 = tail call ptr @InsertPoint(ptr noundef %0, double noundef %11, double noundef %13, double noundef %15)
-  store ptr %32, ptr %30, align 8, !tbaa !37
-  %33 = tail call ptr @InsertPoint(ptr noundef %0, double noundef %18, double noundef %20, double noundef %22)
-  %34 = getelementptr inbounds [3 x ptr], ptr %30, i64 0, i64 1
-  store ptr %33, ptr %34, align 8, !tbaa !37
-  %35 = tail call ptr @InsertPoint(ptr noundef %0, double noundef %25, double noundef %27, double noundef %29)
-  %36 = getelementptr inbounds [3 x ptr], ptr %30, i64 0, i64 2
-  store ptr %35, ptr %36, align 8, !tbaa !37
-  %37 = load ptr, ptr %6, align 8, !tbaa !38
-  %38 = icmp eq ptr %37, null
-  br i1 %38, label %42, label %39
+for.body:                                         ; preds = %for.body.lr.ph, %InsertPoly3.exit
+  %indvars.iv = phi i64 [ 0, %for.body.lr.ph ], [ %indvars.iv.next, %InsertPoly3.exit ]
+  %arrayidx = getelementptr inbounds [3 x double], ptr %array, i64 %indvars.iv
+  %0 = load double, ptr %arrayidx, align 8, !tbaa !5
+  %arrayidx5 = getelementptr inbounds [3 x double], ptr %array, i64 %indvars.iv, i64 1
+  %1 = load double, ptr %arrayidx5, align 8, !tbaa !5
+  %arrayidx9 = getelementptr inbounds [3 x double], ptr %array, i64 %indvars.iv, i64 2
+  %2 = load double, ptr %arrayidx9, align 8, !tbaa !5
+  %3 = add nuw nsw i64 %indvars.iv, 1
+  %arrayidx12 = getelementptr inbounds [3 x double], ptr %array, i64 %3
+  %4 = load double, ptr %arrayidx12, align 8, !tbaa !5
+  %arrayidx19 = getelementptr inbounds [3 x double], ptr %array, i64 %3, i64 1
+  %5 = load double, ptr %arrayidx19, align 8, !tbaa !5
+  %arrayidx25 = getelementptr inbounds [3 x double], ptr %array, i64 %3, i64 2
+  %6 = load double, ptr %arrayidx25, align 8, !tbaa !5
+  %7 = add nuw nsw i64 %indvars.iv, 2
+  %arrayidx30 = getelementptr inbounds [3 x double], ptr %array, i64 %7
+  %8 = load double, ptr %arrayidx30, align 8, !tbaa !5
+  %arrayidx37 = getelementptr inbounds [3 x double], ptr %array, i64 %7, i64 1
+  %9 = load double, ptr %arrayidx37, align 8, !tbaa !5
+  %arrayidx43 = getelementptr inbounds [3 x double], ptr %array, i64 %7, i64 2
+  %10 = load double, ptr %arrayidx43, align 8, !tbaa !5
+  %call.i = tail call noalias dereferenceable_or_null(56) ptr @malloc(i64 noundef 56) #17
+  %Mat.i = getelementptr inbounds %struct.Poly3Struct, ptr %call.i, i64 0, i32 1
+  tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(32) %Mat.i, i8 0, i64 32, i1 false)
+  %call5.i = tail call ptr @InsertPoint(ptr noundef %o, double noundef %0, double noundef %1, double noundef %2)
+  store ptr %call5.i, ptr %call.i, align 8, !tbaa !37
+  %call5.1.i = tail call ptr @InsertPoint(ptr noundef %o, double noundef %4, double noundef %5, double noundef %6)
+  %arrayidx7.1.i = getelementptr inbounds [3 x ptr], ptr %call.i, i64 0, i64 1
+  store ptr %call5.1.i, ptr %arrayidx7.1.i, align 8, !tbaa !37
+  %call5.2.i = tail call ptr @InsertPoint(ptr noundef %o, double noundef %8, double noundef %9, double noundef %10)
+  %arrayidx7.2.i = getelementptr inbounds [3 x ptr], ptr %call.i, i64 0, i64 2
+  store ptr %call5.2.i, ptr %arrayidx7.2.i, align 8, !tbaa !37
+  %11 = load ptr, ptr %Poly3s.i, align 8, !tbaa !38
+  %cmp8.i = icmp eq ptr %11, null
+  br i1 %cmp8.i, label %InsertPoly3.exit, label %if.else.i
 
-39:                                               ; preds = %8
-  %40 = getelementptr inbounds %struct.Poly3Struct, ptr %30, i64 0, i32 3
-  %41 = getelementptr inbounds %struct.Poly3Struct, ptr %37, i64 0, i32 4
-  store ptr %30, ptr %41, align 8, !tbaa !39
-  store ptr %37, ptr %40, align 8, !tbaa !41
-  br label %42
+if.else.i:                                        ; preds = %for.body
+  %Next.i = getelementptr inbounds %struct.Poly3Struct, ptr %call.i, i64 0, i32 3
+  %Prev11.i = getelementptr inbounds %struct.Poly3Struct, ptr %11, i64 0, i32 4
+  store ptr %call.i, ptr %Prev11.i, align 8, !tbaa !39
+  store ptr %11, ptr %Next.i, align 8, !tbaa !41
+  br label %InsertPoly3.exit
 
-42:                                               ; preds = %8, %39
-  store ptr %30, ptr %6, align 8, !tbaa !38
-  %43 = load i32, ptr %7, align 8, !tbaa !42
-  %44 = add nsw i32 %43, 1
-  store i32 %44, ptr %7, align 8, !tbaa !42
-  %45 = add nuw i64 %9, 3
-  %46 = trunc i64 %45 to i32
-  %47 = icmp slt i32 %46, %2
-  br i1 %47, label %8, label %48, !llvm.loop !48
+InsertPoly3.exit:                                 ; preds = %for.body, %if.else.i
+  store ptr %call.i, ptr %Poly3s.i, align 8, !tbaa !38
+  %12 = load i32, ptr %Number_of_Poly3s.i, align 8, !tbaa !42
+  %inc15.i = add nsw i32 %12, 1
+  store i32 %inc15.i, ptr %Number_of_Poly3s.i, align 8, !tbaa !42
+  %indvars.iv.next = add nuw i64 %indvars.iv, 3
+  %13 = trunc i64 %indvars.iv.next to i32
+  %cmp = icmp slt i32 %13, %size
+  br i1 %cmp, label %for.body, label %for.end, !llvm.loop !48
 
-48:                                               ; preds = %42, %3
-  ret ptr %0
+for.end:                                          ; preds = %InsertPoly3.exit, %entry
+  ret ptr %o
 }
 
 ; Function Attrs: nofree nounwind uwtable
-define dso_local ptr @ArrayToPoly4(ptr noundef returned %0, ptr nocapture noundef readonly %1, i32 noundef %2) local_unnamed_addr #4 {
-  %4 = alloca [4 x %struct.PointStruct], align 16
-  call void @llvm.lifetime.start.p0(i64 96, ptr nonnull %4) #16
-  %5 = icmp sgt i32 %2, 0
-  br i1 %5, label %6, label %32
+define dso_local ptr @ArrayToPoly4(ptr noundef returned %o, ptr nocapture noundef readonly %array, i32 noundef %size) local_unnamed_addr #4 {
+entry:
+  %p = alloca [4 x %struct.PointStruct], align 16
+  call void @llvm.lifetime.start.p0(i64 96, ptr nonnull %p) #16
+  %cmp90 = icmp sgt i32 %size, 0
+  br i1 %cmp90, label %for.body.lr.ph, label %for.end
 
-6:                                                ; preds = %3
-  %7 = getelementptr inbounds %struct.PointStruct, ptr %4, i64 0, i32 2
-  %8 = getelementptr inbounds [4 x %struct.PointStruct], ptr %4, i64 0, i64 1, i32 1
-  %9 = getelementptr inbounds [4 x %struct.PointStruct], ptr %4, i64 0, i64 2
-  %10 = getelementptr inbounds [4 x %struct.PointStruct], ptr %4, i64 0, i64 2, i32 2
-  %11 = getelementptr inbounds [4 x %struct.PointStruct], ptr %4, i64 0, i64 3, i32 1
-  br label %12
+for.body.lr.ph:                                   ; preds = %entry
+  %z = getelementptr inbounds %struct.PointStruct, ptr %p, i64 0, i32 2
+  %y21 = getelementptr inbounds [4 x %struct.PointStruct], ptr %p, i64 0, i64 1, i32 1
+  %arrayidx32 = getelementptr inbounds [4 x %struct.PointStruct], ptr %p, i64 0, i64 2
+  %z45 = getelementptr inbounds [4 x %struct.PointStruct], ptr %p, i64 0, i64 2, i32 2
+  %y57 = getelementptr inbounds [4 x %struct.PointStruct], ptr %p, i64 0, i64 3, i32 1
+  br label %for.body
 
-12:                                               ; preds = %6, %12
-  %13 = phi i64 [ 0, %6 ], [ %29, %12 ]
-  %14 = getelementptr inbounds [3 x double], ptr %1, i64 %13
-  %15 = load <2 x double>, ptr %14, align 8, !tbaa !5
-  store <2 x double> %15, ptr %4, align 16, !tbaa !5
-  %16 = getelementptr inbounds [3 x double], ptr %1, i64 %13, i64 2
-  %17 = or i64 %13, 1
-  %18 = load <2 x double>, ptr %16, align 8, !tbaa !5
-  store <2 x double> %18, ptr %7, align 16, !tbaa !5
-  %19 = getelementptr inbounds [3 x double], ptr %1, i64 %17, i64 1
-  %20 = load <2 x double>, ptr %19, align 8, !tbaa !5
-  store <2 x double> %20, ptr %8, align 16, !tbaa !5
-  %21 = or i64 %13, 2
-  %22 = getelementptr inbounds [3 x double], ptr %1, i64 %21
-  %23 = load <2 x double>, ptr %22, align 8, !tbaa !5
-  store <2 x double> %23, ptr %9, align 16, !tbaa !5
-  %24 = getelementptr inbounds [3 x double], ptr %1, i64 %21, i64 2
-  %25 = or i64 %13, 3
-  %26 = load <2 x double>, ptr %24, align 8, !tbaa !5
-  store <2 x double> %26, ptr %10, align 16, !tbaa !5
-  %27 = getelementptr inbounds [3 x double], ptr %1, i64 %25, i64 1
-  %28 = load <2 x double>, ptr %27, align 8, !tbaa !5
-  store <2 x double> %28, ptr %11, align 16, !tbaa !5
-  call void @InsertPoly4(ptr noundef %0, ptr noundef nonnull %4, ptr poison, ptr poison)
-  %29 = add nuw i64 %13, 4
-  %30 = trunc i64 %29 to i32
-  %31 = icmp slt i32 %30, %2
-  br i1 %31, label %12, label %32, !llvm.loop !49
+for.body:                                         ; preds = %for.body.lr.ph, %for.body
+  %indvars.iv = phi i64 [ 0, %for.body.lr.ph ], [ %indvars.iv.next, %for.body ]
+  %arrayidx = getelementptr inbounds [3 x double], ptr %array, i64 %indvars.iv
+  %0 = load <2 x double>, ptr %arrayidx, align 8, !tbaa !5
+  store <2 x double> %0, ptr %p, align 16, !tbaa !5
+  %arrayidx9 = getelementptr inbounds [3 x double], ptr %array, i64 %indvars.iv, i64 2
+  %1 = or i64 %indvars.iv, 1
+  %2 = load <2 x double>, ptr %arrayidx9, align 8, !tbaa !5
+  store <2 x double> %2, ptr %z, align 16, !tbaa !5
+  %arrayidx19 = getelementptr inbounds [3 x double], ptr %array, i64 %1, i64 1
+  %3 = load <2 x double>, ptr %arrayidx19, align 8, !tbaa !5
+  store <2 x double> %3, ptr %y21, align 16, !tbaa !5
+  %4 = or i64 %indvars.iv, 2
+  %arrayidx30 = getelementptr inbounds [3 x double], ptr %array, i64 %4
+  %5 = load <2 x double>, ptr %arrayidx30, align 8, !tbaa !5
+  store <2 x double> %5, ptr %arrayidx32, align 16, !tbaa !5
+  %arrayidx43 = getelementptr inbounds [3 x double], ptr %array, i64 %4, i64 2
+  %6 = or i64 %indvars.iv, 3
+  %7 = load <2 x double>, ptr %arrayidx43, align 8, !tbaa !5
+  store <2 x double> %7, ptr %z45, align 16, !tbaa !5
+  %arrayidx55 = getelementptr inbounds [3 x double], ptr %array, i64 %6, i64 1
+  %8 = load <2 x double>, ptr %arrayidx55, align 8, !tbaa !5
+  store <2 x double> %8, ptr %y57, align 16, !tbaa !5
+  call void @InsertPoly4(ptr noundef %o, ptr noundef nonnull %p, ptr poison, ptr poison)
+  %indvars.iv.next = add nuw i64 %indvars.iv, 4
+  %9 = trunc i64 %indvars.iv.next to i32
+  %cmp = icmp slt i32 %9, %size
+  br i1 %cmp, label %for.body, label %for.end, !llvm.loop !49
 
-32:                                               ; preds = %12, %3
-  call void @llvm.lifetime.end.p0(i64 96, ptr nonnull %4) #16
-  ret ptr %0
+for.end:                                          ; preds = %for.body, %entry
+  call void @llvm.lifetime.end.p0(i64 96, ptr nonnull %p) #16
+  ret ptr %o
 }
 
 ; Function Attrs: nofree nounwind uwtable
-define dso_local void @PrintPoints(ptr nocapture noundef readonly %0) local_unnamed_addr #4 {
-  %2 = getelementptr inbounds %struct.ObjectStruct, ptr %0, i64 0, i32 1
-  %3 = load ptr, ptr %2, align 8, !tbaa !37
-  %4 = icmp eq ptr %3, null
-  br i1 %4, label %27, label %5
+define dso_local void @PrintPoints(ptr nocapture noundef readonly %o) local_unnamed_addr #4 {
+entry:
+  %Points = getelementptr inbounds %struct.ObjectStruct, ptr %o, i64 0, i32 1
+  %tmp.118 = load ptr, ptr %Points, align 8, !tbaa !37
+  %cmp2.not19 = icmp eq ptr %tmp.118, null
+  br i1 %cmp2.not19, label %while.end, label %while.body
 
-5:                                                ; preds = %1, %5
-  %6 = phi ptr [ %25, %5 ], [ %3, %1 ]
-  %7 = phi i32 [ %23, %5 ], [ 0, %1 ]
-  %8 = load ptr, ptr %6, align 8, !tbaa !20
-  %9 = load double, ptr %8, align 8, !tbaa !22
-  %10 = getelementptr inbounds %struct.ObjPointStruct, ptr %8, i64 0, i32 1
-  %11 = load double, ptr %10, align 8, !tbaa !24
-  %12 = getelementptr inbounds %struct.ObjPointStruct, ptr %8, i64 0, i32 2
-  %13 = load double, ptr %12, align 8, !tbaa !25
-  %14 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str, i32 noundef %7, double noundef %9, double noundef %11, double noundef %13)
-  %15 = load ptr, ptr %6, align 8, !tbaa !20
-  %16 = getelementptr inbounds %struct.ObjPointStruct, ptr %15, i64 0, i32 3
-  %17 = load double, ptr %16, align 8, !tbaa !26
-  %18 = getelementptr inbounds %struct.ObjPointStruct, ptr %15, i64 0, i32 4
-  %19 = load double, ptr %18, align 8, !tbaa !27
-  %20 = getelementptr inbounds %struct.ObjPointStruct, ptr %15, i64 0, i32 5
-  %21 = load double, ptr %20, align 8, !tbaa !28
-  %22 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.1, double noundef %17, double noundef %19, double noundef %21)
-  %23 = add nuw nsw i32 %7, 1
-  %24 = getelementptr inbounds %struct.PointListStruct, ptr %6, i64 0, i32 1
-  %25 = load ptr, ptr %24, align 8, !tbaa !37
-  %26 = icmp eq ptr %25, null
-  br i1 %26, label %27, label %5, !llvm.loop !50
+while.body:                                       ; preds = %entry, %while.body
+  %tmp.121 = phi ptr [ %tmp.1, %while.body ], [ %tmp.118, %entry ]
+  %i.020 = phi i32 [ %inc, %while.body ], [ 0, %entry ]
+  %0 = load ptr, ptr %tmp.121, align 8, !tbaa !20
+  %1 = load double, ptr %0, align 8, !tbaa !22
+  %y = getelementptr inbounds %struct.ObjPointStruct, ptr %0, i64 0, i32 1
+  %2 = load double, ptr %y, align 8, !tbaa !24
+  %z = getelementptr inbounds %struct.ObjPointStruct, ptr %0, i64 0, i32 2
+  %3 = load double, ptr %z, align 8, !tbaa !25
+  %call = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str, i32 noundef %i.020, double noundef %1, double noundef %2, double noundef %3)
+  %4 = load ptr, ptr %tmp.121, align 8, !tbaa !20
+  %tx = getelementptr inbounds %struct.ObjPointStruct, ptr %4, i64 0, i32 3
+  %5 = load double, ptr %tx, align 8, !tbaa !26
+  %ty = getelementptr inbounds %struct.ObjPointStruct, ptr %4, i64 0, i32 4
+  %6 = load double, ptr %ty, align 8, !tbaa !27
+  %tz = getelementptr inbounds %struct.ObjPointStruct, ptr %4, i64 0, i32 5
+  %7 = load double, ptr %tz, align 8, !tbaa !28
+  %call8 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.1, double noundef %5, double noundef %6, double noundef %7)
+  %inc = add nuw nsw i32 %i.020, 1
+  %NextPoint = getelementptr inbounds %struct.PointListStruct, ptr %tmp.121, i64 0, i32 1
+  %tmp.1 = load ptr, ptr %NextPoint, align 8, !tbaa !37
+  %cmp2.not = icmp eq ptr %tmp.1, null
+  br i1 %cmp2.not, label %while.end, label %while.body, !llvm.loop !50
 
-27:                                               ; preds = %5, %1
+while.end:                                        ; preds = %while.body, %entry
   ret void
 }
 
@@ -439,785 +446,795 @@ define dso_local void @PrintPoints(ptr nocapture noundef readonly %0) local_unna
 declare noundef i32 @printf(ptr nocapture noundef readonly, ...) local_unnamed_addr #6
 
 ; Function Attrs: nofree nounwind uwtable
-define dso_local void @PrintPoly3s(ptr nocapture noundef readonly %0) local_unnamed_addr #4 {
-  %2 = getelementptr inbounds %struct.ObjectStruct, ptr %0, i64 0, i32 2
-  %3 = load ptr, ptr %2, align 8, !tbaa !38
-  %4 = icmp eq ptr %3, null
-  br i1 %4, label %57, label %5
+define dso_local void @PrintPoly3s(ptr nocapture noundef readonly %o) local_unnamed_addr #4 {
+entry:
+  %Poly3s = getelementptr inbounds %struct.ObjectStruct, ptr %o, i64 0, i32 2
+  %0 = load ptr, ptr %Poly3s, align 8, !tbaa !38
+  %cmp.not = icmp eq ptr %0, null
+  br i1 %cmp.not, label %if.end, label %for.cond.preheader
 
-5:                                                ; preds = %1, %5
-  %6 = phi ptr [ %55, %5 ], [ %3, %1 ]
-  %7 = load ptr, ptr %6, align 8, !tbaa !37
-  %8 = load double, ptr %7, align 8, !tbaa !22
-  %9 = getelementptr inbounds %struct.ObjPointStruct, ptr %7, i64 0, i32 1
-  %10 = load double, ptr %9, align 8, !tbaa !24
-  %11 = getelementptr inbounds %struct.ObjPointStruct, ptr %7, i64 0, i32 2
-  %12 = load double, ptr %11, align 8, !tbaa !25
-  %13 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.2, i32 noundef 0, double noundef %8, double noundef %10, double noundef %12)
-  %14 = load ptr, ptr %6, align 8, !tbaa !37
-  %15 = getelementptr inbounds %struct.ObjPointStruct, ptr %14, i64 0, i32 3
-  %16 = load double, ptr %15, align 8, !tbaa !26
-  %17 = getelementptr inbounds %struct.ObjPointStruct, ptr %14, i64 0, i32 4
-  %18 = load double, ptr %17, align 8, !tbaa !27
-  %19 = getelementptr inbounds %struct.ObjPointStruct, ptr %14, i64 0, i32 5
-  %20 = load double, ptr %19, align 8, !tbaa !28
-  %21 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.3, double noundef %16, double noundef %18, double noundef %20)
-  %22 = getelementptr inbounds [3 x ptr], ptr %6, i64 0, i64 1
-  %23 = load ptr, ptr %22, align 8, !tbaa !37
-  %24 = load double, ptr %23, align 8, !tbaa !22
-  %25 = getelementptr inbounds %struct.ObjPointStruct, ptr %23, i64 0, i32 1
-  %26 = load double, ptr %25, align 8, !tbaa !24
-  %27 = getelementptr inbounds %struct.ObjPointStruct, ptr %23, i64 0, i32 2
-  %28 = load double, ptr %27, align 8, !tbaa !25
-  %29 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.2, i32 noundef 1, double noundef %24, double noundef %26, double noundef %28)
-  %30 = load ptr, ptr %22, align 8, !tbaa !37
-  %31 = getelementptr inbounds %struct.ObjPointStruct, ptr %30, i64 0, i32 3
-  %32 = load double, ptr %31, align 8, !tbaa !26
-  %33 = getelementptr inbounds %struct.ObjPointStruct, ptr %30, i64 0, i32 4
-  %34 = load double, ptr %33, align 8, !tbaa !27
-  %35 = getelementptr inbounds %struct.ObjPointStruct, ptr %30, i64 0, i32 5
-  %36 = load double, ptr %35, align 8, !tbaa !28
-  %37 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.3, double noundef %32, double noundef %34, double noundef %36)
-  %38 = getelementptr inbounds [3 x ptr], ptr %6, i64 0, i64 2
-  %39 = load ptr, ptr %38, align 8, !tbaa !37
-  %40 = load double, ptr %39, align 8, !tbaa !22
-  %41 = getelementptr inbounds %struct.ObjPointStruct, ptr %39, i64 0, i32 1
-  %42 = load double, ptr %41, align 8, !tbaa !24
-  %43 = getelementptr inbounds %struct.ObjPointStruct, ptr %39, i64 0, i32 2
-  %44 = load double, ptr %43, align 8, !tbaa !25
-  %45 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.2, i32 noundef 2, double noundef %40, double noundef %42, double noundef %44)
-  %46 = load ptr, ptr %38, align 8, !tbaa !37
-  %47 = getelementptr inbounds %struct.ObjPointStruct, ptr %46, i64 0, i32 3
-  %48 = load double, ptr %47, align 8, !tbaa !26
-  %49 = getelementptr inbounds %struct.ObjPointStruct, ptr %46, i64 0, i32 4
-  %50 = load double, ptr %49, align 8, !tbaa !27
-  %51 = getelementptr inbounds %struct.ObjPointStruct, ptr %46, i64 0, i32 5
-  %52 = load double, ptr %51, align 8, !tbaa !28
-  %53 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.3, double noundef %48, double noundef %50, double noundef %52)
-  %54 = getelementptr inbounds %struct.Poly3Struct, ptr %6, i64 0, i32 3
-  %55 = load ptr, ptr %54, align 8, !tbaa !41
-  %56 = icmp eq ptr %55, null
-  br i1 %56, label %57, label %5, !llvm.loop !51
-
-57:                                               ; preds = %5, %1
-  ret void
-}
-
-; Function Attrs: nofree nounwind uwtable
-define dso_local void @PrintPoly4s(ptr nocapture noundef readonly %0) local_unnamed_addr #4 {
-  %2 = getelementptr inbounds %struct.ObjectStruct, ptr %0, i64 0, i32 3
-  %3 = load ptr, ptr %2, align 8, !tbaa !43
-  %4 = icmp eq ptr %3, null
-  br i1 %4, label %73, label %5
-
-5:                                                ; preds = %1, %5
-  %6 = phi ptr [ %71, %5 ], [ %3, %1 ]
-  %7 = load ptr, ptr %6, align 8, !tbaa !37
-  %8 = load double, ptr %7, align 8, !tbaa !22
-  %9 = getelementptr inbounds %struct.ObjPointStruct, ptr %7, i64 0, i32 1
-  %10 = load double, ptr %9, align 8, !tbaa !24
-  %11 = getelementptr inbounds %struct.ObjPointStruct, ptr %7, i64 0, i32 2
-  %12 = load double, ptr %11, align 8, !tbaa !25
-  %13 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.4, i32 noundef 0, double noundef %8, double noundef %10, double noundef %12)
-  %14 = load ptr, ptr %6, align 8, !tbaa !37
-  %15 = getelementptr inbounds %struct.ObjPointStruct, ptr %14, i64 0, i32 3
-  %16 = load double, ptr %15, align 8, !tbaa !26
-  %17 = getelementptr inbounds %struct.ObjPointStruct, ptr %14, i64 0, i32 4
-  %18 = load double, ptr %17, align 8, !tbaa !27
-  %19 = getelementptr inbounds %struct.ObjPointStruct, ptr %14, i64 0, i32 5
-  %20 = load double, ptr %19, align 8, !tbaa !28
-  %21 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.3, double noundef %16, double noundef %18, double noundef %20)
-  %22 = getelementptr inbounds [4 x ptr], ptr %6, i64 0, i64 1
-  %23 = load ptr, ptr %22, align 8, !tbaa !37
-  %24 = load double, ptr %23, align 8, !tbaa !22
-  %25 = getelementptr inbounds %struct.ObjPointStruct, ptr %23, i64 0, i32 1
-  %26 = load double, ptr %25, align 8, !tbaa !24
-  %27 = getelementptr inbounds %struct.ObjPointStruct, ptr %23, i64 0, i32 2
-  %28 = load double, ptr %27, align 8, !tbaa !25
-  %29 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.4, i32 noundef 1, double noundef %24, double noundef %26, double noundef %28)
-  %30 = load ptr, ptr %22, align 8, !tbaa !37
-  %31 = getelementptr inbounds %struct.ObjPointStruct, ptr %30, i64 0, i32 3
-  %32 = load double, ptr %31, align 8, !tbaa !26
-  %33 = getelementptr inbounds %struct.ObjPointStruct, ptr %30, i64 0, i32 4
-  %34 = load double, ptr %33, align 8, !tbaa !27
-  %35 = getelementptr inbounds %struct.ObjPointStruct, ptr %30, i64 0, i32 5
-  %36 = load double, ptr %35, align 8, !tbaa !28
-  %37 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.3, double noundef %32, double noundef %34, double noundef %36)
-  %38 = getelementptr inbounds [4 x ptr], ptr %6, i64 0, i64 2
-  %39 = load ptr, ptr %38, align 8, !tbaa !37
-  %40 = load double, ptr %39, align 8, !tbaa !22
-  %41 = getelementptr inbounds %struct.ObjPointStruct, ptr %39, i64 0, i32 1
-  %42 = load double, ptr %41, align 8, !tbaa !24
-  %43 = getelementptr inbounds %struct.ObjPointStruct, ptr %39, i64 0, i32 2
-  %44 = load double, ptr %43, align 8, !tbaa !25
-  %45 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.4, i32 noundef 2, double noundef %40, double noundef %42, double noundef %44)
-  %46 = load ptr, ptr %38, align 8, !tbaa !37
-  %47 = getelementptr inbounds %struct.ObjPointStruct, ptr %46, i64 0, i32 3
-  %48 = load double, ptr %47, align 8, !tbaa !26
-  %49 = getelementptr inbounds %struct.ObjPointStruct, ptr %46, i64 0, i32 4
-  %50 = load double, ptr %49, align 8, !tbaa !27
-  %51 = getelementptr inbounds %struct.ObjPointStruct, ptr %46, i64 0, i32 5
-  %52 = load double, ptr %51, align 8, !tbaa !28
-  %53 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.3, double noundef %48, double noundef %50, double noundef %52)
-  %54 = getelementptr inbounds [4 x ptr], ptr %6, i64 0, i64 3
-  %55 = load ptr, ptr %54, align 8, !tbaa !37
-  %56 = load double, ptr %55, align 8, !tbaa !22
-  %57 = getelementptr inbounds %struct.ObjPointStruct, ptr %55, i64 0, i32 1
-  %58 = load double, ptr %57, align 8, !tbaa !24
-  %59 = getelementptr inbounds %struct.ObjPointStruct, ptr %55, i64 0, i32 2
-  %60 = load double, ptr %59, align 8, !tbaa !25
-  %61 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.4, i32 noundef 3, double noundef %56, double noundef %58, double noundef %60)
-  %62 = load ptr, ptr %54, align 8, !tbaa !37
-  %63 = getelementptr inbounds %struct.ObjPointStruct, ptr %62, i64 0, i32 3
-  %64 = load double, ptr %63, align 8, !tbaa !26
-  %65 = getelementptr inbounds %struct.ObjPointStruct, ptr %62, i64 0, i32 4
-  %66 = load double, ptr %65, align 8, !tbaa !27
-  %67 = getelementptr inbounds %struct.ObjPointStruct, ptr %62, i64 0, i32 5
-  %68 = load double, ptr %67, align 8, !tbaa !28
-  %69 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.3, double noundef %64, double noundef %66, double noundef %68)
-  %70 = getelementptr inbounds %struct.Poly4Struct, ptr %6, i64 0, i32 3
-  %71 = load ptr, ptr %70, align 8, !tbaa !46
-  %72 = icmp eq ptr %71, null
-  br i1 %72, label %73, label %5, !llvm.loop !52
-
-73:                                               ; preds = %5, %1
-  ret void
-}
-
-; Function Attrs: nofree nounwind uwtable
-define dso_local void @PrintObject(ptr noundef %0) local_unnamed_addr #4 {
-  %2 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.5, ptr noundef %0)
-  %3 = getelementptr inbounds %struct.ObjectStruct, ptr %0, i64 0, i32 1
-  %4 = load ptr, ptr %3, align 8, !tbaa !37
-  %5 = icmp eq ptr %4, null
-  br i1 %5, label %28, label %6
-
-6:                                                ; preds = %1, %6
-  %7 = phi ptr [ %26, %6 ], [ %4, %1 ]
-  %8 = phi i32 [ %24, %6 ], [ 0, %1 ]
-  %9 = load ptr, ptr %7, align 8, !tbaa !20
+for.cond.preheader:                               ; preds = %entry, %for.cond.preheader
+  %tmp.039 = phi ptr [ %25, %for.cond.preheader ], [ %0, %entry ]
+  %1 = load ptr, ptr %tmp.039, align 8, !tbaa !37
+  %2 = load double, ptr %1, align 8, !tbaa !22
+  %y = getelementptr inbounds %struct.ObjPointStruct, ptr %1, i64 0, i32 1
+  %3 = load double, ptr %y, align 8, !tbaa !24
+  %z = getelementptr inbounds %struct.ObjPointStruct, ptr %1, i64 0, i32 2
+  %4 = load double, ptr %z, align 8, !tbaa !25
+  %call = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.2, i32 noundef 0, double noundef %2, double noundef %3, double noundef %4)
+  %5 = load ptr, ptr %tmp.039, align 8, !tbaa !37
+  %tx = getelementptr inbounds %struct.ObjPointStruct, ptr %5, i64 0, i32 3
+  %6 = load double, ptr %tx, align 8, !tbaa !26
+  %ty = getelementptr inbounds %struct.ObjPointStruct, ptr %5, i64 0, i32 4
+  %7 = load double, ptr %ty, align 8, !tbaa !27
+  %tz = getelementptr inbounds %struct.ObjPointStruct, ptr %5, i64 0, i32 5
+  %8 = load double, ptr %tz, align 8, !tbaa !28
+  %call19 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.3, double noundef %6, double noundef %7, double noundef %8)
+  %arrayidx.1 = getelementptr inbounds [3 x ptr], ptr %tmp.039, i64 0, i64 1
+  %9 = load ptr, ptr %arrayidx.1, align 8, !tbaa !37
   %10 = load double, ptr %9, align 8, !tbaa !22
-  %11 = getelementptr inbounds %struct.ObjPointStruct, ptr %9, i64 0, i32 1
-  %12 = load double, ptr %11, align 8, !tbaa !24
-  %13 = getelementptr inbounds %struct.ObjPointStruct, ptr %9, i64 0, i32 2
-  %14 = load double, ptr %13, align 8, !tbaa !25
-  %15 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str, i32 noundef %8, double noundef %10, double noundef %12, double noundef %14)
-  %16 = load ptr, ptr %7, align 8, !tbaa !20
-  %17 = getelementptr inbounds %struct.ObjPointStruct, ptr %16, i64 0, i32 3
-  %18 = load double, ptr %17, align 8, !tbaa !26
-  %19 = getelementptr inbounds %struct.ObjPointStruct, ptr %16, i64 0, i32 4
-  %20 = load double, ptr %19, align 8, !tbaa !27
-  %21 = getelementptr inbounds %struct.ObjPointStruct, ptr %16, i64 0, i32 5
-  %22 = load double, ptr %21, align 8, !tbaa !28
-  %23 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.1, double noundef %18, double noundef %20, double noundef %22)
-  %24 = add nuw nsw i32 %8, 1
-  %25 = getelementptr inbounds %struct.PointListStruct, ptr %7, i64 0, i32 1
-  %26 = load ptr, ptr %25, align 8, !tbaa !37
-  %27 = icmp eq ptr %26, null
-  br i1 %27, label %28, label %6, !llvm.loop !50
+  %y.1 = getelementptr inbounds %struct.ObjPointStruct, ptr %9, i64 0, i32 1
+  %11 = load double, ptr %y.1, align 8, !tbaa !24
+  %z.1 = getelementptr inbounds %struct.ObjPointStruct, ptr %9, i64 0, i32 2
+  %12 = load double, ptr %z.1, align 8, !tbaa !25
+  %call.1 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.2, i32 noundef 1, double noundef %10, double noundef %11, double noundef %12)
+  %13 = load ptr, ptr %arrayidx.1, align 8, !tbaa !37
+  %tx.1 = getelementptr inbounds %struct.ObjPointStruct, ptr %13, i64 0, i32 3
+  %14 = load double, ptr %tx.1, align 8, !tbaa !26
+  %ty.1 = getelementptr inbounds %struct.ObjPointStruct, ptr %13, i64 0, i32 4
+  %15 = load double, ptr %ty.1, align 8, !tbaa !27
+  %tz.1 = getelementptr inbounds %struct.ObjPointStruct, ptr %13, i64 0, i32 5
+  %16 = load double, ptr %tz.1, align 8, !tbaa !28
+  %call19.1 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.3, double noundef %14, double noundef %15, double noundef %16)
+  %arrayidx.2 = getelementptr inbounds [3 x ptr], ptr %tmp.039, i64 0, i64 2
+  %17 = load ptr, ptr %arrayidx.2, align 8, !tbaa !37
+  %18 = load double, ptr %17, align 8, !tbaa !22
+  %y.2 = getelementptr inbounds %struct.ObjPointStruct, ptr %17, i64 0, i32 1
+  %19 = load double, ptr %y.2, align 8, !tbaa !24
+  %z.2 = getelementptr inbounds %struct.ObjPointStruct, ptr %17, i64 0, i32 2
+  %20 = load double, ptr %z.2, align 8, !tbaa !25
+  %call.2 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.2, i32 noundef 2, double noundef %18, double noundef %19, double noundef %20)
+  %21 = load ptr, ptr %arrayidx.2, align 8, !tbaa !37
+  %tx.2 = getelementptr inbounds %struct.ObjPointStruct, ptr %21, i64 0, i32 3
+  %22 = load double, ptr %tx.2, align 8, !tbaa !26
+  %ty.2 = getelementptr inbounds %struct.ObjPointStruct, ptr %21, i64 0, i32 4
+  %23 = load double, ptr %ty.2, align 8, !tbaa !27
+  %tz.2 = getelementptr inbounds %struct.ObjPointStruct, ptr %21, i64 0, i32 5
+  %24 = load double, ptr %tz.2, align 8, !tbaa !28
+  %call19.2 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.3, double noundef %22, double noundef %23, double noundef %24)
+  %Next = getelementptr inbounds %struct.Poly3Struct, ptr %tmp.039, i64 0, i32 3
+  %25 = load ptr, ptr %Next, align 8, !tbaa !41
+  %cmp2.not = icmp eq ptr %25, null
+  br i1 %cmp2.not, label %if.end, label %for.cond.preheader, !llvm.loop !51
 
-28:                                               ; preds = %6, %1
-  tail call void @PrintPoly3s(ptr noundef %0)
-  tail call void @PrintPoly4s(ptr noundef %0)
-  %29 = getelementptr inbounds %struct.ObjectStruct, ptr %0, i64 0, i32 11
-  %30 = load double, ptr %29, align 8, !tbaa !53
-  %31 = getelementptr inbounds %struct.ObjectStruct, ptr %0, i64 0, i32 11, i32 1
-  %32 = load double, ptr %31, align 8, !tbaa !54
-  %33 = getelementptr inbounds %struct.ObjectStruct, ptr %0, i64 0, i32 11, i32 2
-  %34 = load double, ptr %33, align 8, !tbaa !17
-  %35 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.6, double noundef %30, double noundef %32, double noundef %34)
-  %36 = getelementptr inbounds %struct.ObjectStruct, ptr %0, i64 0, i32 9
-  %37 = load double, ptr %36, align 8, !tbaa !55
-  %38 = getelementptr inbounds %struct.ObjectStruct, ptr %0, i64 0, i32 9, i32 1
-  %39 = load double, ptr %38, align 8, !tbaa !56
-  %40 = getelementptr inbounds %struct.ObjectStruct, ptr %0, i64 0, i32 9, i32 2
-  %41 = load double, ptr %40, align 8, !tbaa !57
-  %42 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.7, double noundef %37, double noundef %39, double noundef %41)
-  %43 = getelementptr inbounds %struct.ObjectStruct, ptr %0, i64 0, i32 10
-  %44 = load double, ptr %43, align 8, !tbaa !58
-  %45 = getelementptr inbounds %struct.ObjectStruct, ptr %0, i64 0, i32 10, i32 1
-  %46 = load double, ptr %45, align 8, !tbaa !59
-  %47 = getelementptr inbounds %struct.ObjectStruct, ptr %0, i64 0, i32 10, i32 2
-  %48 = load double, ptr %47, align 8, !tbaa !60
-  %49 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.8, double noundef %44, double noundef %46, double noundef %48)
-  %50 = getelementptr inbounds %struct.ObjectStruct, ptr %0, i64 0, i32 6
-  %51 = load double, ptr %50, align 8, !tbaa !61
-  %52 = getelementptr inbounds %struct.ObjectStruct, ptr %0, i64 0, i32 6, i32 1
-  %53 = load double, ptr %52, align 8, !tbaa !62
-  %54 = getelementptr inbounds %struct.ObjectStruct, ptr %0, i64 0, i32 6, i32 2
-  %55 = load double, ptr %54, align 8, !tbaa !9
-  %56 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.9, double noundef %51, double noundef %53, double noundef %55)
-  %57 = getelementptr inbounds %struct.ObjectStruct, ptr %0, i64 0, i32 8
-  %58 = load i32, ptr %57, align 4, !tbaa !16
-  %59 = icmp eq i32 %58, 0
-  br i1 %59, label %60, label %63
+if.end:                                           ; preds = %for.cond.preheader, %entry
+  ret void
+}
 
-60:                                               ; preds = %28
-  %61 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.17)
-  %62 = load i32, ptr %57, align 4, !tbaa !16
-  br label %63
+; Function Attrs: nofree nounwind uwtable
+define dso_local void @PrintPoly4s(ptr nocapture noundef readonly %o) local_unnamed_addr #4 {
+entry:
+  %Poly4s = getelementptr inbounds %struct.ObjectStruct, ptr %o, i64 0, i32 3
+  %0 = load ptr, ptr %Poly4s, align 8, !tbaa !43
+  %cmp.not = icmp eq ptr %0, null
+  br i1 %cmp.not, label %if.end, label %for.cond.preheader
 
-63:                                               ; preds = %60, %28
-  %64 = phi i32 [ %62, %60 ], [ %58, %28 ]
-  %65 = icmp eq i32 %64, 1
-  br i1 %65, label %66, label %69
+for.cond.preheader:                               ; preds = %entry, %for.cond.preheader
+  %tmp.039 = phi ptr [ %33, %for.cond.preheader ], [ %0, %entry ]
+  %1 = load ptr, ptr %tmp.039, align 8, !tbaa !37
+  %2 = load double, ptr %1, align 8, !tbaa !22
+  %y = getelementptr inbounds %struct.ObjPointStruct, ptr %1, i64 0, i32 1
+  %3 = load double, ptr %y, align 8, !tbaa !24
+  %z = getelementptr inbounds %struct.ObjPointStruct, ptr %1, i64 0, i32 2
+  %4 = load double, ptr %z, align 8, !tbaa !25
+  %call = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.4, i32 noundef 0, double noundef %2, double noundef %3, double noundef %4)
+  %5 = load ptr, ptr %tmp.039, align 8, !tbaa !37
+  %tx = getelementptr inbounds %struct.ObjPointStruct, ptr %5, i64 0, i32 3
+  %6 = load double, ptr %tx, align 8, !tbaa !26
+  %ty = getelementptr inbounds %struct.ObjPointStruct, ptr %5, i64 0, i32 4
+  %7 = load double, ptr %ty, align 8, !tbaa !27
+  %tz = getelementptr inbounds %struct.ObjPointStruct, ptr %5, i64 0, i32 5
+  %8 = load double, ptr %tz, align 8, !tbaa !28
+  %call19 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.3, double noundef %6, double noundef %7, double noundef %8)
+  %arrayidx.1 = getelementptr inbounds [4 x ptr], ptr %tmp.039, i64 0, i64 1
+  %9 = load ptr, ptr %arrayidx.1, align 8, !tbaa !37
+  %10 = load double, ptr %9, align 8, !tbaa !22
+  %y.1 = getelementptr inbounds %struct.ObjPointStruct, ptr %9, i64 0, i32 1
+  %11 = load double, ptr %y.1, align 8, !tbaa !24
+  %z.1 = getelementptr inbounds %struct.ObjPointStruct, ptr %9, i64 0, i32 2
+  %12 = load double, ptr %z.1, align 8, !tbaa !25
+  %call.1 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.4, i32 noundef 1, double noundef %10, double noundef %11, double noundef %12)
+  %13 = load ptr, ptr %arrayidx.1, align 8, !tbaa !37
+  %tx.1 = getelementptr inbounds %struct.ObjPointStruct, ptr %13, i64 0, i32 3
+  %14 = load double, ptr %tx.1, align 8, !tbaa !26
+  %ty.1 = getelementptr inbounds %struct.ObjPointStruct, ptr %13, i64 0, i32 4
+  %15 = load double, ptr %ty.1, align 8, !tbaa !27
+  %tz.1 = getelementptr inbounds %struct.ObjPointStruct, ptr %13, i64 0, i32 5
+  %16 = load double, ptr %tz.1, align 8, !tbaa !28
+  %call19.1 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.3, double noundef %14, double noundef %15, double noundef %16)
+  %arrayidx.2 = getelementptr inbounds [4 x ptr], ptr %tmp.039, i64 0, i64 2
+  %17 = load ptr, ptr %arrayidx.2, align 8, !tbaa !37
+  %18 = load double, ptr %17, align 8, !tbaa !22
+  %y.2 = getelementptr inbounds %struct.ObjPointStruct, ptr %17, i64 0, i32 1
+  %19 = load double, ptr %y.2, align 8, !tbaa !24
+  %z.2 = getelementptr inbounds %struct.ObjPointStruct, ptr %17, i64 0, i32 2
+  %20 = load double, ptr %z.2, align 8, !tbaa !25
+  %call.2 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.4, i32 noundef 2, double noundef %18, double noundef %19, double noundef %20)
+  %21 = load ptr, ptr %arrayidx.2, align 8, !tbaa !37
+  %tx.2 = getelementptr inbounds %struct.ObjPointStruct, ptr %21, i64 0, i32 3
+  %22 = load double, ptr %tx.2, align 8, !tbaa !26
+  %ty.2 = getelementptr inbounds %struct.ObjPointStruct, ptr %21, i64 0, i32 4
+  %23 = load double, ptr %ty.2, align 8, !tbaa !27
+  %tz.2 = getelementptr inbounds %struct.ObjPointStruct, ptr %21, i64 0, i32 5
+  %24 = load double, ptr %tz.2, align 8, !tbaa !28
+  %call19.2 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.3, double noundef %22, double noundef %23, double noundef %24)
+  %arrayidx.3 = getelementptr inbounds [4 x ptr], ptr %tmp.039, i64 0, i64 3
+  %25 = load ptr, ptr %arrayidx.3, align 8, !tbaa !37
+  %26 = load double, ptr %25, align 8, !tbaa !22
+  %y.3 = getelementptr inbounds %struct.ObjPointStruct, ptr %25, i64 0, i32 1
+  %27 = load double, ptr %y.3, align 8, !tbaa !24
+  %z.3 = getelementptr inbounds %struct.ObjPointStruct, ptr %25, i64 0, i32 2
+  %28 = load double, ptr %z.3, align 8, !tbaa !25
+  %call.3 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.4, i32 noundef 3, double noundef %26, double noundef %27, double noundef %28)
+  %29 = load ptr, ptr %arrayidx.3, align 8, !tbaa !37
+  %tx.3 = getelementptr inbounds %struct.ObjPointStruct, ptr %29, i64 0, i32 3
+  %30 = load double, ptr %tx.3, align 8, !tbaa !26
+  %ty.3 = getelementptr inbounds %struct.ObjPointStruct, ptr %29, i64 0, i32 4
+  %31 = load double, ptr %ty.3, align 8, !tbaa !27
+  %tz.3 = getelementptr inbounds %struct.ObjPointStruct, ptr %29, i64 0, i32 5
+  %32 = load double, ptr %tz.3, align 8, !tbaa !28
+  %call19.3 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.3, double noundef %30, double noundef %31, double noundef %32)
+  %Next = getelementptr inbounds %struct.Poly4Struct, ptr %tmp.039, i64 0, i32 3
+  %33 = load ptr, ptr %Next, align 8, !tbaa !46
+  %cmp2.not = icmp eq ptr %33, null
+  br i1 %cmp2.not, label %if.end, label %for.cond.preheader, !llvm.loop !52
 
-66:                                               ; preds = %63
-  %67 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.16)
-  %68 = load i32, ptr %57, align 4, !tbaa !16
-  br label %69
+if.end:                                           ; preds = %for.cond.preheader, %entry
+  ret void
+}
 
-69:                                               ; preds = %66, %63
-  %70 = phi i32 [ %68, %66 ], [ %64, %63 ]
-  %71 = icmp eq i32 %70, 2
-  br i1 %71, label %72, label %74
+; Function Attrs: nofree nounwind uwtable
+define dso_local void @PrintObject(ptr noundef %o) local_unnamed_addr #4 {
+entry:
+  %call = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.5, ptr noundef %o)
+  %Points.i = getelementptr inbounds %struct.ObjectStruct, ptr %o, i64 0, i32 1
+  %tmp.118.i = load ptr, ptr %Points.i, align 8, !tbaa !37
+  %cmp2.not19.i = icmp eq ptr %tmp.118.i, null
+  br i1 %cmp2.not19.i, label %PrintPoints.exit, label %while.body.i
 
-72:                                               ; preds = %69
-  %73 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str)
-  br label %74
+while.body.i:                                     ; preds = %entry, %while.body.i
+  %tmp.121.i = phi ptr [ %tmp.1.i, %while.body.i ], [ %tmp.118.i, %entry ]
+  %i.020.i = phi i32 [ %inc.i, %while.body.i ], [ 0, %entry ]
+  %0 = load ptr, ptr %tmp.121.i, align 8, !tbaa !20
+  %1 = load double, ptr %0, align 8, !tbaa !22
+  %y.i = getelementptr inbounds %struct.ObjPointStruct, ptr %0, i64 0, i32 1
+  %2 = load double, ptr %y.i, align 8, !tbaa !24
+  %z.i = getelementptr inbounds %struct.ObjPointStruct, ptr %0, i64 0, i32 2
+  %3 = load double, ptr %z.i, align 8, !tbaa !25
+  %call.i = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str, i32 noundef %i.020.i, double noundef %1, double noundef %2, double noundef %3)
+  %4 = load ptr, ptr %tmp.121.i, align 8, !tbaa !20
+  %tx.i = getelementptr inbounds %struct.ObjPointStruct, ptr %4, i64 0, i32 3
+  %5 = load double, ptr %tx.i, align 8, !tbaa !26
+  %ty.i = getelementptr inbounds %struct.ObjPointStruct, ptr %4, i64 0, i32 4
+  %6 = load double, ptr %ty.i, align 8, !tbaa !27
+  %tz.i = getelementptr inbounds %struct.ObjPointStruct, ptr %4, i64 0, i32 5
+  %7 = load double, ptr %tz.i, align 8, !tbaa !28
+  %call8.i = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.1, double noundef %5, double noundef %6, double noundef %7)
+  %inc.i = add nuw nsw i32 %i.020.i, 1
+  %NextPoint.i = getelementptr inbounds %struct.PointListStruct, ptr %tmp.121.i, i64 0, i32 1
+  %tmp.1.i = load ptr, ptr %NextPoint.i, align 8, !tbaa !37
+  %cmp2.not.i = icmp eq ptr %tmp.1.i, null
+  br i1 %cmp2.not.i, label %PrintPoints.exit, label %while.body.i, !llvm.loop !50
 
-74:                                               ; preds = %72, %69
+PrintPoints.exit:                                 ; preds = %while.body.i, %entry
+  tail call void @PrintPoly3s(ptr noundef %o)
+  tail call void @PrintPoly4s(ptr noundef %o)
+  %Scale = getelementptr inbounds %struct.ObjectStruct, ptr %o, i64 0, i32 11
+  %8 = load double, ptr %Scale, align 8, !tbaa !53
+  %y = getelementptr inbounds %struct.ObjectStruct, ptr %o, i64 0, i32 11, i32 1
+  %9 = load double, ptr %y, align 8, !tbaa !54
+  %z = getelementptr inbounds %struct.ObjectStruct, ptr %o, i64 0, i32 11, i32 2
+  %10 = load double, ptr %z, align 8, !tbaa !17
+  %call3 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.6, double noundef %8, double noundef %9, double noundef %10)
+  %Origin = getelementptr inbounds %struct.ObjectStruct, ptr %o, i64 0, i32 9
+  %11 = load double, ptr %Origin, align 8, !tbaa !55
+  %y6 = getelementptr inbounds %struct.ObjectStruct, ptr %o, i64 0, i32 9, i32 1
+  %12 = load double, ptr %y6, align 8, !tbaa !56
+  %z8 = getelementptr inbounds %struct.ObjectStruct, ptr %o, i64 0, i32 9, i32 2
+  %13 = load double, ptr %z8, align 8, !tbaa !57
+  %call9 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.7, double noundef %11, double noundef %12, double noundef %13)
+  %Rotation = getelementptr inbounds %struct.ObjectStruct, ptr %o, i64 0, i32 10
+  %14 = load double, ptr %Rotation, align 8, !tbaa !58
+  %y12 = getelementptr inbounds %struct.ObjectStruct, ptr %o, i64 0, i32 10, i32 1
+  %15 = load double, ptr %y12, align 8, !tbaa !59
+  %z14 = getelementptr inbounds %struct.ObjectStruct, ptr %o, i64 0, i32 10, i32 2
+  %16 = load double, ptr %z14, align 8, !tbaa !60
+  %call15 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.8, double noundef %14, double noundef %15, double noundef %16)
+  %Color = getelementptr inbounds %struct.ObjectStruct, ptr %o, i64 0, i32 6
+  %17 = load double, ptr %Color, align 8, !tbaa !61
+  %G = getelementptr inbounds %struct.ObjectStruct, ptr %o, i64 0, i32 6, i32 1
+  %18 = load double, ptr %G, align 8, !tbaa !62
+  %B = getelementptr inbounds %struct.ObjectStruct, ptr %o, i64 0, i32 6, i32 2
+  %19 = load double, ptr %B, align 8, !tbaa !9
+  %call18 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.9, double noundef %17, double noundef %18, double noundef %19)
+  %styletag = getelementptr inbounds %struct.ObjectStruct, ptr %o, i64 0, i32 8
+  %20 = load i32, ptr %styletag, align 4, !tbaa !16
+  %cmp = icmp eq i32 %20, 0
+  br i1 %cmp, label %if.then, label %if.end
+
+if.then:                                          ; preds = %PrintPoints.exit
+  %puts49 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.17)
+  %.pr = load i32, ptr %styletag, align 4, !tbaa !16
+  br label %if.end
+
+if.end:                                           ; preds = %if.then, %PrintPoints.exit
+  %21 = phi i32 [ %.pr, %if.then ], [ %20, %PrintPoints.exit ]
+  %cmp21 = icmp eq i32 %21, 1
+  br i1 %cmp21, label %if.then22, label %if.end24
+
+if.then22:                                        ; preds = %if.end
+  %puts48 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.16)
+  %.pre = load i32, ptr %styletag, align 4, !tbaa !16
+  br label %if.end24
+
+if.end24:                                         ; preds = %if.then22, %if.end
+  %22 = phi i32 [ %.pre, %if.then22 ], [ %21, %if.end ]
+  %cmp26 = icmp eq i32 %22, 2
+  br i1 %cmp26, label %if.then27, label %if.end29
+
+if.then27:                                        ; preds = %if.end24
+  %puts = tail call i32 @puts(ptr nonnull dereferenceable(1) @str)
+  br label %if.end29
+
+if.end29:                                         ; preds = %if.then27, %if.end24
   ret void
 }
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(write, argmem: readwrite, inaccessiblemem: none) uwtable
-define dso_local void @InsertChild(ptr noundef %0, ptr noundef %1) local_unnamed_addr #7 {
-  %3 = icmp eq ptr %0, null
-  br i1 %3, label %13, label %4
+define dso_local void @InsertChild(ptr noundef %par, ptr noundef %chld) local_unnamed_addr #7 {
+entry:
+  %cmp.not = icmp eq ptr %par, null
+  br i1 %cmp.not, label %if.end8, label %if.then
 
-4:                                                ; preds = %2
-  %5 = getelementptr inbounds %struct.ObjectStruct, ptr %0, i64 0, i32 12
-  %6 = load ptr, ptr %5, align 8, !tbaa !63
-  %7 = icmp eq ptr %6, null
-  br i1 %7, label %12, label %8
+if.then:                                          ; preds = %entry
+  %Children = getelementptr inbounds %struct.ObjectStruct, ptr %par, i64 0, i32 12
+  %0 = load ptr, ptr %Children, align 8, !tbaa !63
+  %cmp1 = icmp eq ptr %0, null
+  br i1 %cmp1, label %if.end8.sink.split, label %if.else
 
-8:                                                ; preds = %4
-  %9 = getelementptr inbounds %struct.ObjectStruct, ptr %6, i64 0, i32 21
-  store ptr %1, ptr %9, align 8, !tbaa !64
-  %10 = getelementptr inbounds %struct.ObjectStruct, ptr %1, i64 0, i32 22
-  store ptr %6, ptr %10, align 8, !tbaa !65
-  %11 = getelementptr inbounds %struct.ObjectStruct, ptr %1, i64 0, i32 21
-  store ptr null, ptr %11, align 8, !tbaa !64
-  br label %12
+if.else:                                          ; preds = %if.then
+  %next = getelementptr inbounds %struct.ObjectStruct, ptr %0, i64 0, i32 21
+  store ptr %chld, ptr %next, align 8, !tbaa !64
+  %prev = getelementptr inbounds %struct.ObjectStruct, ptr %chld, i64 0, i32 22
+  store ptr %0, ptr %prev, align 8, !tbaa !65
+  %next6 = getelementptr inbounds %struct.ObjectStruct, ptr %chld, i64 0, i32 21
+  store ptr null, ptr %next6, align 8, !tbaa !64
+  br label %if.end8.sink.split
 
-12:                                               ; preds = %4, %8
-  store ptr %1, ptr %5, align 8, !tbaa !63
-  br label %13
+if.end8.sink.split:                               ; preds = %if.then, %if.else
+  store ptr %chld, ptr %Children, align 8, !tbaa !63
+  br label %if.end8
 
-13:                                               ; preds = %12, %2
+if.end8:                                          ; preds = %if.end8.sink.split, %entry
   ret void
 }
 
 ; Function Attrs: nounwind uwtable
-define dso_local void @CalcObjectChildren(ptr noundef readonly %0, double noundef %1, double noundef %2, double noundef %3, double noundef %4, double noundef %5, double noundef %6, double noundef %7, double noundef %8, double noundef %9) local_unnamed_addr #8 {
-  %11 = alloca %struct.HPointStruct, align 16
-  %12 = alloca %struct.HPointStruct, align 8
-  %13 = alloca %struct.HPointStruct, align 8
-  %14 = alloca %struct.HPointStruct, align 16
-  %15 = alloca %struct.HPointStruct, align 8
-  %16 = alloca %struct.HPointStruct, align 8
-  %17 = alloca %struct.HPointStruct, align 16
-  %18 = alloca %struct.HPointStruct, align 8
-  %19 = alloca %struct.HPointStruct, align 8
-  %20 = icmp eq ptr %0, null
-  br i1 %20, label %80, label %21
+define dso_local void @CalcObjectChildren(ptr noundef readonly %o, double noundef %sx, double noundef %sy, double noundef %sz, double noundef %ax, double noundef %ay, double noundef %az, double noundef %dx, double noundef %dy, double noundef %dz) local_unnamed_addr #8 {
+entry:
+  %hp.i38 = alloca %struct.HPointStruct, align 16
+  %tmp.i39 = alloca %struct.HPointStruct, align 8
+  %tmp2.i40 = alloca %struct.HPointStruct, align 8
+  %hp.i17 = alloca %struct.HPointStruct, align 16
+  %tmp.i18 = alloca %struct.HPointStruct, align 8
+  %tmp2.i19 = alloca %struct.HPointStruct, align 8
+  %hp.i = alloca %struct.HPointStruct, align 16
+  %tmp.i = alloca %struct.HPointStruct, align 8
+  %tmp2.i = alloca %struct.HPointStruct, align 8
+  %cmp.not = icmp eq ptr %o, null
+  br i1 %cmp.not, label %if.end, label %if.then
 
-21:                                               ; preds = %10
-  %22 = getelementptr inbounds %struct.ObjectStruct, ptr %0, i64 0, i32 12
-  %23 = load ptr, ptr %22, align 8, !tbaa !37
-  %24 = icmp eq ptr %23, null
-  br i1 %24, label %80, label %25
+if.then:                                          ; preds = %entry
+  %Children = getelementptr inbounds %struct.ObjectStruct, ptr %o, i64 0, i32 12
+  %tmp.059 = load ptr, ptr %Children, align 8, !tbaa !37
+  %cmp1.not60 = icmp eq ptr %tmp.059, null
+  br i1 %cmp1.not60, label %if.end, label %if.then.i.lr.ph
 
-25:                                               ; preds = %21
-  %26 = getelementptr inbounds %struct.HPointStruct, ptr %17, i64 0, i32 2
-  %27 = getelementptr inbounds %struct.HPointStruct, ptr %14, i64 0, i32 2
-  %28 = getelementptr inbounds %struct.HPointStruct, ptr %11, i64 0, i32 2
-  br label %29
+if.then.i.lr.ph:                                  ; preds = %if.then
+  %z.i = getelementptr inbounds %struct.HPointStruct, ptr %hp.i, i64 0, i32 2
+  %z.i27 = getelementptr inbounds %struct.HPointStruct, ptr %hp.i17, i64 0, i32 2
+  %z.i48 = getelementptr inbounds %struct.HPointStruct, ptr %hp.i38, i64 0, i32 2
+  br label %if.then.i
 
-29:                                               ; preds = %25, %76
-  %30 = phi ptr [ %23, %25 ], [ %78, %76 ]
-  call void @llvm.lifetime.start.p0(i64 32, ptr nonnull %17) #16
-  %31 = call ptr @ScaleMatrix(double noundef %1, double noundef %2, double noundef %3) #16
-  %32 = getelementptr inbounds %struct.ObjectStruct, ptr %30, i64 0, i32 1
-  %33 = load ptr, ptr %32, align 8, !tbaa !37
-  %34 = icmp eq ptr %33, null
-  br i1 %34, label %46, label %35
+if.then.i:                                        ; preds = %if.then.i.lr.ph, %TranslateObjectAdd.exit
+  %tmp.061 = phi ptr [ %tmp.059, %if.then.i.lr.ph ], [ %tmp.0, %TranslateObjectAdd.exit ]
+  call void @llvm.lifetime.start.p0(i64 32, ptr nonnull %hp.i) #16
+  %call.i = call ptr @ScaleMatrix(double noundef %sx, double noundef %sy, double noundef %sz) #16
+  %Points.i = getelementptr inbounds %struct.ObjectStruct, ptr %tmp.061, i64 0, i32 1
+  %index.013.i = load ptr, ptr %Points.i, align 8, !tbaa !37
+  %cmp1.not14.i = icmp eq ptr %index.013.i, null
+  br i1 %cmp1.not14.i, label %if.then.i25, label %while.body.i
 
-35:                                               ; preds = %29, %35
-  %36 = phi ptr [ %44, %35 ], [ %33, %29 ]
-  call void @llvm.lifetime.start.p0(i64 32, ptr nonnull %18) #16
-  %37 = load ptr, ptr %36, align 8, !tbaa !20
-  call void @TPointToHPoint(ptr nonnull sret(%struct.HPointStruct) align 8 %18, ptr noundef byval(%struct.ObjPointStruct) align 8 %37) #16
-  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 16 dereferenceable(32) %17, ptr noundef nonnull align 8 dereferenceable(32) %18, i64 32, i1 false), !tbaa.struct !66
-  call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %18) #16
-  call void @llvm.lifetime.start.p0(i64 32, ptr nonnull %19) #16
-  call void @MultMatrixHPoint(ptr nonnull sret(%struct.HPointStruct) align 8 %19, ptr noundef %31, ptr noundef nonnull byval(%struct.HPointStruct) align 8 %17) #16
-  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 16 dereferenceable(32) %17, ptr noundef nonnull align 8 dereferenceable(32) %19, i64 32, i1 false), !tbaa.struct !66
-  call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %19) #16
-  %38 = load ptr, ptr %36, align 8, !tbaa !20
-  %39 = getelementptr inbounds %struct.ObjPointStruct, ptr %38, i64 0, i32 3
-  %40 = load <2 x double>, ptr %17, align 16, !tbaa !5
-  store <2 x double> %40, ptr %39, align 8, !tbaa !5
-  %41 = load double, ptr %26, align 16, !tbaa !67
-  %42 = getelementptr inbounds %struct.ObjPointStruct, ptr %38, i64 0, i32 5
-  store double %41, ptr %42, align 8, !tbaa !28
-  %43 = getelementptr inbounds %struct.PointListStruct, ptr %36, i64 0, i32 1
-  %44 = load ptr, ptr %43, align 8, !tbaa !37
-  %45 = icmp eq ptr %44, null
-  br i1 %45, label %46, label %35, !llvm.loop !69
+while.body.i:                                     ; preds = %if.then.i, %while.body.i
+  %index.015.i = phi ptr [ %index.0.i, %while.body.i ], [ %index.013.i, %if.then.i ]
+  call void @llvm.lifetime.start.p0(i64 32, ptr nonnull %tmp.i) #16
+  %0 = load ptr, ptr %index.015.i, align 8, !tbaa !20
+  call void @TPointToHPoint(ptr nonnull sret(%struct.HPointStruct) align 8 %tmp.i, ptr noundef byval(%struct.ObjPointStruct) align 8 %0) #16
+  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 16 dereferenceable(32) %hp.i, ptr noundef nonnull align 8 dereferenceable(32) %tmp.i, i64 32, i1 false), !tbaa.struct !66
+  call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %tmp.i) #16
+  call void @llvm.lifetime.start.p0(i64 32, ptr nonnull %tmp2.i) #16
+  call void @MultMatrixHPoint(ptr nonnull sret(%struct.HPointStruct) align 8 %tmp2.i, ptr noundef %call.i, ptr noundef nonnull byval(%struct.HPointStruct) align 8 %hp.i) #16
+  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 16 dereferenceable(32) %hp.i, ptr noundef nonnull align 8 dereferenceable(32) %tmp2.i, i64 32, i1 false), !tbaa.struct !66
+  call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %tmp2.i) #16
+  %1 = load ptr, ptr %index.015.i, align 8, !tbaa !20
+  %tx.i = getelementptr inbounds %struct.ObjPointStruct, ptr %1, i64 0, i32 3
+  %2 = load <2 x double>, ptr %hp.i, align 16, !tbaa !5
+  store <2 x double> %2, ptr %tx.i, align 8, !tbaa !5
+  %3 = load double, ptr %z.i, align 16, !tbaa !67
+  %tz.i = getelementptr inbounds %struct.ObjPointStruct, ptr %1, i64 0, i32 5
+  store double %3, ptr %tz.i, align 8, !tbaa !28
+  %NextPoint.i = getelementptr inbounds %struct.PointListStruct, ptr %index.015.i, i64 0, i32 1
+  %index.0.i = load ptr, ptr %NextPoint.i, align 8, !tbaa !37
+  %cmp1.not.i = icmp eq ptr %index.0.i, null
+  br i1 %cmp1.not.i, label %if.then.i25, label %while.body.i, !llvm.loop !69
 
-46:                                               ; preds = %35, %29
-  call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %17) #16
-  call void @llvm.lifetime.start.p0(i64 32, ptr nonnull %14) #16
-  %47 = call ptr @RotateMatrix(double noundef %4, double noundef %5, double noundef %6) #16
-  %48 = load ptr, ptr %32, align 8, !tbaa !37
-  %49 = icmp eq ptr %48, null
-  br i1 %49, label %61, label %50
+if.then.i25:                                      ; preds = %while.body.i, %if.then.i
+  call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %hp.i) #16
+  call void @llvm.lifetime.start.p0(i64 32, ptr nonnull %hp.i17) #16
+  %call.i21 = call ptr @RotateMatrix(double noundef %ax, double noundef %ay, double noundef %az) #16
+  %index.013.i23 = load ptr, ptr %Points.i, align 8, !tbaa !37
+  %cmp1.not14.i24 = icmp eq ptr %index.013.i23, null
+  br i1 %cmp1.not14.i24, label %if.then.i46, label %while.body.i36
 
-50:                                               ; preds = %46, %50
-  %51 = phi ptr [ %59, %50 ], [ %48, %46 ]
-  call void @llvm.lifetime.start.p0(i64 32, ptr nonnull %15) #16
-  %52 = load ptr, ptr %51, align 8, !tbaa !20
-  call void @TPointToHPoint(ptr nonnull sret(%struct.HPointStruct) align 8 %15, ptr noundef byval(%struct.ObjPointStruct) align 8 %52) #16
-  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 16 dereferenceable(32) %14, ptr noundef nonnull align 8 dereferenceable(32) %15, i64 32, i1 false), !tbaa.struct !66
-  call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %15) #16
-  call void @llvm.lifetime.start.p0(i64 32, ptr nonnull %16) #16
-  call void @MultMatrixHPoint(ptr nonnull sret(%struct.HPointStruct) align 8 %16, ptr noundef %47, ptr noundef nonnull byval(%struct.HPointStruct) align 8 %14) #16
-  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 16 dereferenceable(32) %14, ptr noundef nonnull align 8 dereferenceable(32) %16, i64 32, i1 false), !tbaa.struct !66
-  call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %16) #16
-  %53 = load ptr, ptr %51, align 8, !tbaa !20
-  %54 = getelementptr inbounds %struct.ObjPointStruct, ptr %53, i64 0, i32 3
-  %55 = load <2 x double>, ptr %14, align 16, !tbaa !5
-  store <2 x double> %55, ptr %54, align 8, !tbaa !5
-  %56 = load double, ptr %27, align 16, !tbaa !67
-  %57 = getelementptr inbounds %struct.ObjPointStruct, ptr %53, i64 0, i32 5
-  store double %56, ptr %57, align 8, !tbaa !28
-  %58 = getelementptr inbounds %struct.PointListStruct, ptr %51, i64 0, i32 1
-  %59 = load ptr, ptr %58, align 8, !tbaa !37
-  %60 = icmp eq ptr %59, null
-  br i1 %60, label %61, label %50, !llvm.loop !70
+while.body.i36:                                   ; preds = %if.then.i25, %while.body.i36
+  %index.015.i29 = phi ptr [ %index.0.i34, %while.body.i36 ], [ %index.013.i23, %if.then.i25 ]
+  call void @llvm.lifetime.start.p0(i64 32, ptr nonnull %tmp.i18) #16
+  %4 = load ptr, ptr %index.015.i29, align 8, !tbaa !20
+  call void @TPointToHPoint(ptr nonnull sret(%struct.HPointStruct) align 8 %tmp.i18, ptr noundef byval(%struct.ObjPointStruct) align 8 %4) #16
+  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 16 dereferenceable(32) %hp.i17, ptr noundef nonnull align 8 dereferenceable(32) %tmp.i18, i64 32, i1 false), !tbaa.struct !66
+  call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %tmp.i18) #16
+  call void @llvm.lifetime.start.p0(i64 32, ptr nonnull %tmp2.i19) #16
+  call void @MultMatrixHPoint(ptr nonnull sret(%struct.HPointStruct) align 8 %tmp2.i19, ptr noundef %call.i21, ptr noundef nonnull byval(%struct.HPointStruct) align 8 %hp.i17) #16
+  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 16 dereferenceable(32) %hp.i17, ptr noundef nonnull align 8 dereferenceable(32) %tmp2.i19, i64 32, i1 false), !tbaa.struct !66
+  call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %tmp2.i19) #16
+  %5 = load ptr, ptr %index.015.i29, align 8, !tbaa !20
+  %tx.i30 = getelementptr inbounds %struct.ObjPointStruct, ptr %5, i64 0, i32 3
+  %6 = load <2 x double>, ptr %hp.i17, align 16, !tbaa !5
+  store <2 x double> %6, ptr %tx.i30, align 8, !tbaa !5
+  %7 = load double, ptr %z.i27, align 16, !tbaa !67
+  %tz.i32 = getelementptr inbounds %struct.ObjPointStruct, ptr %5, i64 0, i32 5
+  store double %7, ptr %tz.i32, align 8, !tbaa !28
+  %NextPoint.i33 = getelementptr inbounds %struct.PointListStruct, ptr %index.015.i29, i64 0, i32 1
+  %index.0.i34 = load ptr, ptr %NextPoint.i33, align 8, !tbaa !37
+  %cmp1.not.i35 = icmp eq ptr %index.0.i34, null
+  br i1 %cmp1.not.i35, label %if.then.i46, label %while.body.i36, !llvm.loop !70
 
-61:                                               ; preds = %50, %46
-  call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %14) #16
-  call void @llvm.lifetime.start.p0(i64 32, ptr nonnull %11) #16
-  %62 = call ptr @TranslateMatrix(double noundef %7, double noundef %8, double noundef %9) #16
-  %63 = load ptr, ptr %32, align 8, !tbaa !37
-  %64 = icmp eq ptr %63, null
-  br i1 %64, label %76, label %65
+if.then.i46:                                      ; preds = %while.body.i36, %if.then.i25
+  call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %hp.i17) #16
+  call void @llvm.lifetime.start.p0(i64 32, ptr nonnull %hp.i38) #16
+  %call.i42 = call ptr @TranslateMatrix(double noundef %dx, double noundef %dy, double noundef %dz) #16
+  %index.013.i44 = load ptr, ptr %Points.i, align 8, !tbaa !37
+  %cmp1.not14.i45 = icmp eq ptr %index.013.i44, null
+  br i1 %cmp1.not14.i45, label %TranslateObjectAdd.exit, label %while.body.i57
 
-65:                                               ; preds = %61, %65
-  %66 = phi ptr [ %74, %65 ], [ %63, %61 ]
-  call void @llvm.lifetime.start.p0(i64 32, ptr nonnull %12) #16
-  %67 = load ptr, ptr %66, align 8, !tbaa !20
-  call void @TPointToHPoint(ptr nonnull sret(%struct.HPointStruct) align 8 %12, ptr noundef byval(%struct.ObjPointStruct) align 8 %67) #16
-  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 16 dereferenceable(32) %11, ptr noundef nonnull align 8 dereferenceable(32) %12, i64 32, i1 false), !tbaa.struct !66
-  call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %12) #16
-  call void @llvm.lifetime.start.p0(i64 32, ptr nonnull %13) #16
-  call void @MultMatrixHPoint(ptr nonnull sret(%struct.HPointStruct) align 8 %13, ptr noundef %62, ptr noundef nonnull byval(%struct.HPointStruct) align 8 %11) #16
-  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 16 dereferenceable(32) %11, ptr noundef nonnull align 8 dereferenceable(32) %13, i64 32, i1 false), !tbaa.struct !66
-  call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %13) #16
-  %68 = load ptr, ptr %66, align 8, !tbaa !20
-  %69 = getelementptr inbounds %struct.ObjPointStruct, ptr %68, i64 0, i32 3
-  %70 = load <2 x double>, ptr %11, align 16, !tbaa !5
-  store <2 x double> %70, ptr %69, align 8, !tbaa !5
-  %71 = load double, ptr %28, align 16, !tbaa !67
-  %72 = getelementptr inbounds %struct.ObjPointStruct, ptr %68, i64 0, i32 5
-  store double %71, ptr %72, align 8, !tbaa !28
-  %73 = getelementptr inbounds %struct.PointListStruct, ptr %66, i64 0, i32 1
-  %74 = load ptr, ptr %73, align 8, !tbaa !37
-  %75 = icmp eq ptr %74, null
-  br i1 %75, label %76, label %65, !llvm.loop !71
+while.body.i57:                                   ; preds = %if.then.i46, %while.body.i57
+  %index.015.i50 = phi ptr [ %index.0.i55, %while.body.i57 ], [ %index.013.i44, %if.then.i46 ]
+  call void @llvm.lifetime.start.p0(i64 32, ptr nonnull %tmp.i39) #16
+  %8 = load ptr, ptr %index.015.i50, align 8, !tbaa !20
+  call void @TPointToHPoint(ptr nonnull sret(%struct.HPointStruct) align 8 %tmp.i39, ptr noundef byval(%struct.ObjPointStruct) align 8 %8) #16
+  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 16 dereferenceable(32) %hp.i38, ptr noundef nonnull align 8 dereferenceable(32) %tmp.i39, i64 32, i1 false), !tbaa.struct !66
+  call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %tmp.i39) #16
+  call void @llvm.lifetime.start.p0(i64 32, ptr nonnull %tmp2.i40) #16
+  call void @MultMatrixHPoint(ptr nonnull sret(%struct.HPointStruct) align 8 %tmp2.i40, ptr noundef %call.i42, ptr noundef nonnull byval(%struct.HPointStruct) align 8 %hp.i38) #16
+  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 16 dereferenceable(32) %hp.i38, ptr noundef nonnull align 8 dereferenceable(32) %tmp2.i40, i64 32, i1 false), !tbaa.struct !66
+  call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %tmp2.i40) #16
+  %9 = load ptr, ptr %index.015.i50, align 8, !tbaa !20
+  %tx.i51 = getelementptr inbounds %struct.ObjPointStruct, ptr %9, i64 0, i32 3
+  %10 = load <2 x double>, ptr %hp.i38, align 16, !tbaa !5
+  store <2 x double> %10, ptr %tx.i51, align 8, !tbaa !5
+  %11 = load double, ptr %z.i48, align 16, !tbaa !67
+  %tz.i53 = getelementptr inbounds %struct.ObjPointStruct, ptr %9, i64 0, i32 5
+  store double %11, ptr %tz.i53, align 8, !tbaa !28
+  %NextPoint.i54 = getelementptr inbounds %struct.PointListStruct, ptr %index.015.i50, i64 0, i32 1
+  %index.0.i55 = load ptr, ptr %NextPoint.i54, align 8, !tbaa !37
+  %cmp1.not.i56 = icmp eq ptr %index.0.i55, null
+  br i1 %cmp1.not.i56, label %TranslateObjectAdd.exit, label %while.body.i57, !llvm.loop !71
 
-76:                                               ; preds = %65, %61
-  call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %11) #16
-  call void @CalcObjectChildren(ptr noundef nonnull %30, double noundef %1, double noundef %2, double noundef %3, double noundef %4, double noundef %5, double noundef %6, double noundef %7, double noundef %8, double noundef %9)
-  %77 = getelementptr inbounds %struct.ObjectStruct, ptr %30, i64 0, i32 21
-  %78 = load ptr, ptr %77, align 8, !tbaa !37
-  %79 = icmp eq ptr %78, null
-  br i1 %79, label %80, label %29, !llvm.loop !72
+TranslateObjectAdd.exit:                          ; preds = %while.body.i57, %if.then.i46
+  call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %hp.i38) #16
+  call void @CalcObjectChildren(ptr noundef nonnull %tmp.061, double noundef %sx, double noundef %sy, double noundef %sz, double noundef %ax, double noundef %ay, double noundef %az, double noundef %dx, double noundef %dy, double noundef %dz)
+  %next = getelementptr inbounds %struct.ObjectStruct, ptr %tmp.061, i64 0, i32 21
+  %tmp.0 = load ptr, ptr %next, align 8, !tbaa !37
+  %cmp1.not = icmp eq ptr %tmp.0, null
+  br i1 %cmp1.not, label %if.end, label %if.then.i, !llvm.loop !72
 
-80:                                               ; preds = %76, %21, %10
+if.end:                                           ; preds = %TranslateObjectAdd.exit, %if.then, %entry
   ret void
 }
 
 ; Function Attrs: nounwind uwtable
-define dso_local void @ScaleObjectAdd(ptr noundef readonly %0, double noundef %1, double noundef %2, double noundef %3) local_unnamed_addr #8 {
-  %5 = alloca %struct.HPointStruct, align 16
-  %6 = alloca %struct.HPointStruct, align 8
-  %7 = alloca %struct.HPointStruct, align 8
-  call void @llvm.lifetime.start.p0(i64 32, ptr nonnull %5) #16
-  %8 = tail call ptr @ScaleMatrix(double noundef %1, double noundef %2, double noundef %3) #16
-  %9 = icmp eq ptr %0, null
-  br i1 %9, label %27, label %10
+define dso_local void @ScaleObjectAdd(ptr noundef readonly %o, double noundef %sx, double noundef %sy, double noundef %sz) local_unnamed_addr #8 {
+entry:
+  %hp = alloca %struct.HPointStruct, align 16
+  %tmp = alloca %struct.HPointStruct, align 8
+  %tmp2 = alloca %struct.HPointStruct, align 8
+  call void @llvm.lifetime.start.p0(i64 32, ptr nonnull %hp) #16
+  %call = tail call ptr @ScaleMatrix(double noundef %sx, double noundef %sy, double noundef %sz) #16
+  %cmp.not = icmp eq ptr %o, null
+  br i1 %cmp.not, label %if.else, label %if.then
 
-10:                                               ; preds = %4
-  %11 = getelementptr inbounds %struct.ObjectStruct, ptr %0, i64 0, i32 1
-  %12 = load ptr, ptr %11, align 8, !tbaa !37
-  %13 = icmp eq ptr %12, null
-  br i1 %13, label %30, label %14
+if.then:                                          ; preds = %entry
+  %Points = getelementptr inbounds %struct.ObjectStruct, ptr %o, i64 0, i32 1
+  %index.013 = load ptr, ptr %Points, align 8, !tbaa !37
+  %cmp1.not14 = icmp eq ptr %index.013, null
+  br i1 %cmp1.not14, label %if.end, label %while.body.lr.ph
 
-14:                                               ; preds = %10
-  %15 = getelementptr inbounds %struct.HPointStruct, ptr %5, i64 0, i32 2
-  br label %16
+while.body.lr.ph:                                 ; preds = %if.then
+  %z = getelementptr inbounds %struct.HPointStruct, ptr %hp, i64 0, i32 2
+  br label %while.body
 
-16:                                               ; preds = %14, %16
-  %17 = phi ptr [ %12, %14 ], [ %25, %16 ]
-  call void @llvm.lifetime.start.p0(i64 32, ptr nonnull %6) #16
-  %18 = load ptr, ptr %17, align 8, !tbaa !20
-  call void @TPointToHPoint(ptr nonnull sret(%struct.HPointStruct) align 8 %6, ptr noundef byval(%struct.ObjPointStruct) align 8 %18) #16
-  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 16 dereferenceable(32) %5, ptr noundef nonnull align 8 dereferenceable(32) %6, i64 32, i1 false), !tbaa.struct !66
-  call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %6) #16
-  call void @llvm.lifetime.start.p0(i64 32, ptr nonnull %7) #16
-  call void @MultMatrixHPoint(ptr nonnull sret(%struct.HPointStruct) align 8 %7, ptr noundef %8, ptr noundef nonnull byval(%struct.HPointStruct) align 8 %5) #16
-  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 16 dereferenceable(32) %5, ptr noundef nonnull align 8 dereferenceable(32) %7, i64 32, i1 false), !tbaa.struct !66
-  call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %7) #16
-  %19 = load ptr, ptr %17, align 8, !tbaa !20
-  %20 = getelementptr inbounds %struct.ObjPointStruct, ptr %19, i64 0, i32 3
-  %21 = load <2 x double>, ptr %5, align 16, !tbaa !5
-  store <2 x double> %21, ptr %20, align 8, !tbaa !5
-  %22 = load double, ptr %15, align 16, !tbaa !67
-  %23 = getelementptr inbounds %struct.ObjPointStruct, ptr %19, i64 0, i32 5
-  store double %22, ptr %23, align 8, !tbaa !28
-  %24 = getelementptr inbounds %struct.PointListStruct, ptr %17, i64 0, i32 1
-  %25 = load ptr, ptr %24, align 8, !tbaa !37
-  %26 = icmp eq ptr %25, null
-  br i1 %26, label %30, label %16, !llvm.loop !69
+while.body:                                       ; preds = %while.body.lr.ph, %while.body
+  %index.015 = phi ptr [ %index.013, %while.body.lr.ph ], [ %index.0, %while.body ]
+  call void @llvm.lifetime.start.p0(i64 32, ptr nonnull %tmp) #16
+  %0 = load ptr, ptr %index.015, align 8, !tbaa !20
+  call void @TPointToHPoint(ptr nonnull sret(%struct.HPointStruct) align 8 %tmp, ptr noundef byval(%struct.ObjPointStruct) align 8 %0) #16
+  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 16 dereferenceable(32) %hp, ptr noundef nonnull align 8 dereferenceable(32) %tmp, i64 32, i1 false), !tbaa.struct !66
+  call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %tmp) #16
+  call void @llvm.lifetime.start.p0(i64 32, ptr nonnull %tmp2) #16
+  call void @MultMatrixHPoint(ptr nonnull sret(%struct.HPointStruct) align 8 %tmp2, ptr noundef %call, ptr noundef nonnull byval(%struct.HPointStruct) align 8 %hp) #16
+  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 16 dereferenceable(32) %hp, ptr noundef nonnull align 8 dereferenceable(32) %tmp2, i64 32, i1 false), !tbaa.struct !66
+  call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %tmp2) #16
+  %1 = load ptr, ptr %index.015, align 8, !tbaa !20
+  %tx = getelementptr inbounds %struct.ObjPointStruct, ptr %1, i64 0, i32 3
+  %2 = load <2 x double>, ptr %hp, align 16, !tbaa !5
+  store <2 x double> %2, ptr %tx, align 8, !tbaa !5
+  %3 = load double, ptr %z, align 16, !tbaa !67
+  %tz = getelementptr inbounds %struct.ObjPointStruct, ptr %1, i64 0, i32 5
+  store double %3, ptr %tz, align 8, !tbaa !28
+  %NextPoint = getelementptr inbounds %struct.PointListStruct, ptr %index.015, i64 0, i32 1
+  %index.0 = load ptr, ptr %NextPoint, align 8, !tbaa !37
+  %cmp1.not = icmp eq ptr %index.0, null
+  br i1 %cmp1.not, label %if.end, label %while.body, !llvm.loop !69
 
-27:                                               ; preds = %4
-  %28 = load ptr, ptr @stderr, align 8, !tbaa !37
-  %29 = tail call i64 @fwrite(ptr nonnull @.str.15, i64 25, i64 1, ptr %28) #18
-  br label %30
+if.else:                                          ; preds = %entry
+  %4 = load ptr, ptr @stderr, align 8, !tbaa !37
+  %5 = tail call i64 @fwrite(ptr nonnull @.str.15, i64 25, i64 1, ptr %4) #18
+  br label %if.end
 
-30:                                               ; preds = %16, %10, %27
-  call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %5) #16
+if.end:                                           ; preds = %while.body, %if.then, %if.else
+  call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %hp) #16
   ret void
 }
 
 ; Function Attrs: nounwind uwtable
-define dso_local void @RotateObjectAdd(ptr noundef readonly %0, double noundef %1, double noundef %2, double noundef %3) local_unnamed_addr #8 {
-  %5 = alloca %struct.HPointStruct, align 16
-  %6 = alloca %struct.HPointStruct, align 8
-  %7 = alloca %struct.HPointStruct, align 8
-  call void @llvm.lifetime.start.p0(i64 32, ptr nonnull %5) #16
-  %8 = icmp eq ptr %0, null
-  br i1 %8, label %27, label %9
+define dso_local void @RotateObjectAdd(ptr noundef readonly %o, double noundef %ax, double noundef %ay, double noundef %az) local_unnamed_addr #8 {
+entry:
+  %hp = alloca %struct.HPointStruct, align 16
+  %tmp = alloca %struct.HPointStruct, align 8
+  %tmp2 = alloca %struct.HPointStruct, align 8
+  call void @llvm.lifetime.start.p0(i64 32, ptr nonnull %hp) #16
+  %cmp.not = icmp eq ptr %o, null
+  br i1 %cmp.not, label %if.else, label %if.then
 
-9:                                                ; preds = %4
-  %10 = tail call ptr @RotateMatrix(double noundef %1, double noundef %2, double noundef %3) #16
-  %11 = getelementptr inbounds %struct.ObjectStruct, ptr %0, i64 0, i32 1
-  %12 = load ptr, ptr %11, align 8, !tbaa !37
-  %13 = icmp eq ptr %12, null
-  br i1 %13, label %30, label %14
+if.then:                                          ; preds = %entry
+  %call = tail call ptr @RotateMatrix(double noundef %ax, double noundef %ay, double noundef %az) #16
+  %Points = getelementptr inbounds %struct.ObjectStruct, ptr %o, i64 0, i32 1
+  %index.013 = load ptr, ptr %Points, align 8, !tbaa !37
+  %cmp1.not14 = icmp eq ptr %index.013, null
+  br i1 %cmp1.not14, label %if.end, label %while.body.lr.ph
 
-14:                                               ; preds = %9
-  %15 = getelementptr inbounds %struct.HPointStruct, ptr %5, i64 0, i32 2
-  br label %16
+while.body.lr.ph:                                 ; preds = %if.then
+  %z = getelementptr inbounds %struct.HPointStruct, ptr %hp, i64 0, i32 2
+  br label %while.body
 
-16:                                               ; preds = %14, %16
-  %17 = phi ptr [ %12, %14 ], [ %25, %16 ]
-  call void @llvm.lifetime.start.p0(i64 32, ptr nonnull %6) #16
-  %18 = load ptr, ptr %17, align 8, !tbaa !20
-  call void @TPointToHPoint(ptr nonnull sret(%struct.HPointStruct) align 8 %6, ptr noundef byval(%struct.ObjPointStruct) align 8 %18) #16
-  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 16 dereferenceable(32) %5, ptr noundef nonnull align 8 dereferenceable(32) %6, i64 32, i1 false), !tbaa.struct !66
-  call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %6) #16
-  call void @llvm.lifetime.start.p0(i64 32, ptr nonnull %7) #16
-  call void @MultMatrixHPoint(ptr nonnull sret(%struct.HPointStruct) align 8 %7, ptr noundef %10, ptr noundef nonnull byval(%struct.HPointStruct) align 8 %5) #16
-  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 16 dereferenceable(32) %5, ptr noundef nonnull align 8 dereferenceable(32) %7, i64 32, i1 false), !tbaa.struct !66
-  call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %7) #16
-  %19 = load ptr, ptr %17, align 8, !tbaa !20
-  %20 = getelementptr inbounds %struct.ObjPointStruct, ptr %19, i64 0, i32 3
-  %21 = load <2 x double>, ptr %5, align 16, !tbaa !5
-  store <2 x double> %21, ptr %20, align 8, !tbaa !5
-  %22 = load double, ptr %15, align 16, !tbaa !67
-  %23 = getelementptr inbounds %struct.ObjPointStruct, ptr %19, i64 0, i32 5
-  store double %22, ptr %23, align 8, !tbaa !28
-  %24 = getelementptr inbounds %struct.PointListStruct, ptr %17, i64 0, i32 1
-  %25 = load ptr, ptr %24, align 8, !tbaa !37
-  %26 = icmp eq ptr %25, null
-  br i1 %26, label %30, label %16, !llvm.loop !70
+while.body:                                       ; preds = %while.body.lr.ph, %while.body
+  %index.015 = phi ptr [ %index.013, %while.body.lr.ph ], [ %index.0, %while.body ]
+  call void @llvm.lifetime.start.p0(i64 32, ptr nonnull %tmp) #16
+  %0 = load ptr, ptr %index.015, align 8, !tbaa !20
+  call void @TPointToHPoint(ptr nonnull sret(%struct.HPointStruct) align 8 %tmp, ptr noundef byval(%struct.ObjPointStruct) align 8 %0) #16
+  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 16 dereferenceable(32) %hp, ptr noundef nonnull align 8 dereferenceable(32) %tmp, i64 32, i1 false), !tbaa.struct !66
+  call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %tmp) #16
+  call void @llvm.lifetime.start.p0(i64 32, ptr nonnull %tmp2) #16
+  call void @MultMatrixHPoint(ptr nonnull sret(%struct.HPointStruct) align 8 %tmp2, ptr noundef %call, ptr noundef nonnull byval(%struct.HPointStruct) align 8 %hp) #16
+  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 16 dereferenceable(32) %hp, ptr noundef nonnull align 8 dereferenceable(32) %tmp2, i64 32, i1 false), !tbaa.struct !66
+  call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %tmp2) #16
+  %1 = load ptr, ptr %index.015, align 8, !tbaa !20
+  %tx = getelementptr inbounds %struct.ObjPointStruct, ptr %1, i64 0, i32 3
+  %2 = load <2 x double>, ptr %hp, align 16, !tbaa !5
+  store <2 x double> %2, ptr %tx, align 8, !tbaa !5
+  %3 = load double, ptr %z, align 16, !tbaa !67
+  %tz = getelementptr inbounds %struct.ObjPointStruct, ptr %1, i64 0, i32 5
+  store double %3, ptr %tz, align 8, !tbaa !28
+  %NextPoint = getelementptr inbounds %struct.PointListStruct, ptr %index.015, i64 0, i32 1
+  %index.0 = load ptr, ptr %NextPoint, align 8, !tbaa !37
+  %cmp1.not = icmp eq ptr %index.0, null
+  br i1 %cmp1.not, label %if.end, label %while.body, !llvm.loop !70
 
-27:                                               ; preds = %4
-  %28 = load ptr, ptr @stderr, align 8, !tbaa !37
-  %29 = tail call i64 @fwrite(ptr nonnull @.str.14, i64 26, i64 1, ptr %28) #18
-  br label %30
+if.else:                                          ; preds = %entry
+  %4 = load ptr, ptr @stderr, align 8, !tbaa !37
+  %5 = tail call i64 @fwrite(ptr nonnull @.str.14, i64 26, i64 1, ptr %4) #18
+  br label %if.end
 
-30:                                               ; preds = %16, %9, %27
-  call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %5) #16
+if.end:                                           ; preds = %while.body, %if.then, %if.else
+  call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %hp) #16
   ret void
 }
 
 ; Function Attrs: nounwind uwtable
-define dso_local void @TranslateObjectAdd(ptr noundef readonly %0, double noundef %1, double noundef %2, double noundef %3) local_unnamed_addr #8 {
-  %5 = alloca %struct.HPointStruct, align 16
-  %6 = alloca %struct.HPointStruct, align 8
-  %7 = alloca %struct.HPointStruct, align 8
-  call void @llvm.lifetime.start.p0(i64 32, ptr nonnull %5) #16
-  %8 = icmp eq ptr %0, null
-  br i1 %8, label %27, label %9
+define dso_local void @TranslateObjectAdd(ptr noundef readonly %o, double noundef %dx, double noundef %dy, double noundef %dz) local_unnamed_addr #8 {
+entry:
+  %hp = alloca %struct.HPointStruct, align 16
+  %tmp = alloca %struct.HPointStruct, align 8
+  %tmp2 = alloca %struct.HPointStruct, align 8
+  call void @llvm.lifetime.start.p0(i64 32, ptr nonnull %hp) #16
+  %cmp.not = icmp eq ptr %o, null
+  br i1 %cmp.not, label %if.else, label %if.then
 
-9:                                                ; preds = %4
-  %10 = tail call ptr @TranslateMatrix(double noundef %1, double noundef %2, double noundef %3) #16
-  %11 = getelementptr inbounds %struct.ObjectStruct, ptr %0, i64 0, i32 1
-  %12 = load ptr, ptr %11, align 8, !tbaa !37
-  %13 = icmp eq ptr %12, null
-  br i1 %13, label %30, label %14
+if.then:                                          ; preds = %entry
+  %call = tail call ptr @TranslateMatrix(double noundef %dx, double noundef %dy, double noundef %dz) #16
+  %Points = getelementptr inbounds %struct.ObjectStruct, ptr %o, i64 0, i32 1
+  %index.013 = load ptr, ptr %Points, align 8, !tbaa !37
+  %cmp1.not14 = icmp eq ptr %index.013, null
+  br i1 %cmp1.not14, label %if.end, label %while.body.lr.ph
 
-14:                                               ; preds = %9
-  %15 = getelementptr inbounds %struct.HPointStruct, ptr %5, i64 0, i32 2
-  br label %16
+while.body.lr.ph:                                 ; preds = %if.then
+  %z = getelementptr inbounds %struct.HPointStruct, ptr %hp, i64 0, i32 2
+  br label %while.body
 
-16:                                               ; preds = %14, %16
-  %17 = phi ptr [ %12, %14 ], [ %25, %16 ]
-  call void @llvm.lifetime.start.p0(i64 32, ptr nonnull %6) #16
-  %18 = load ptr, ptr %17, align 8, !tbaa !20
-  call void @TPointToHPoint(ptr nonnull sret(%struct.HPointStruct) align 8 %6, ptr noundef byval(%struct.ObjPointStruct) align 8 %18) #16
-  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 16 dereferenceable(32) %5, ptr noundef nonnull align 8 dereferenceable(32) %6, i64 32, i1 false), !tbaa.struct !66
-  call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %6) #16
-  call void @llvm.lifetime.start.p0(i64 32, ptr nonnull %7) #16
-  call void @MultMatrixHPoint(ptr nonnull sret(%struct.HPointStruct) align 8 %7, ptr noundef %10, ptr noundef nonnull byval(%struct.HPointStruct) align 8 %5) #16
-  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 16 dereferenceable(32) %5, ptr noundef nonnull align 8 dereferenceable(32) %7, i64 32, i1 false), !tbaa.struct !66
-  call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %7) #16
-  %19 = load ptr, ptr %17, align 8, !tbaa !20
-  %20 = getelementptr inbounds %struct.ObjPointStruct, ptr %19, i64 0, i32 3
-  %21 = load <2 x double>, ptr %5, align 16, !tbaa !5
-  store <2 x double> %21, ptr %20, align 8, !tbaa !5
-  %22 = load double, ptr %15, align 16, !tbaa !67
-  %23 = getelementptr inbounds %struct.ObjPointStruct, ptr %19, i64 0, i32 5
-  store double %22, ptr %23, align 8, !tbaa !28
-  %24 = getelementptr inbounds %struct.PointListStruct, ptr %17, i64 0, i32 1
-  %25 = load ptr, ptr %24, align 8, !tbaa !37
-  %26 = icmp eq ptr %25, null
-  br i1 %26, label %30, label %16, !llvm.loop !71
+while.body:                                       ; preds = %while.body.lr.ph, %while.body
+  %index.015 = phi ptr [ %index.013, %while.body.lr.ph ], [ %index.0, %while.body ]
+  call void @llvm.lifetime.start.p0(i64 32, ptr nonnull %tmp) #16
+  %0 = load ptr, ptr %index.015, align 8, !tbaa !20
+  call void @TPointToHPoint(ptr nonnull sret(%struct.HPointStruct) align 8 %tmp, ptr noundef byval(%struct.ObjPointStruct) align 8 %0) #16
+  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 16 dereferenceable(32) %hp, ptr noundef nonnull align 8 dereferenceable(32) %tmp, i64 32, i1 false), !tbaa.struct !66
+  call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %tmp) #16
+  call void @llvm.lifetime.start.p0(i64 32, ptr nonnull %tmp2) #16
+  call void @MultMatrixHPoint(ptr nonnull sret(%struct.HPointStruct) align 8 %tmp2, ptr noundef %call, ptr noundef nonnull byval(%struct.HPointStruct) align 8 %hp) #16
+  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 16 dereferenceable(32) %hp, ptr noundef nonnull align 8 dereferenceable(32) %tmp2, i64 32, i1 false), !tbaa.struct !66
+  call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %tmp2) #16
+  %1 = load ptr, ptr %index.015, align 8, !tbaa !20
+  %tx = getelementptr inbounds %struct.ObjPointStruct, ptr %1, i64 0, i32 3
+  %2 = load <2 x double>, ptr %hp, align 16, !tbaa !5
+  store <2 x double> %2, ptr %tx, align 8, !tbaa !5
+  %3 = load double, ptr %z, align 16, !tbaa !67
+  %tz = getelementptr inbounds %struct.ObjPointStruct, ptr %1, i64 0, i32 5
+  store double %3, ptr %tz, align 8, !tbaa !28
+  %NextPoint = getelementptr inbounds %struct.PointListStruct, ptr %index.015, i64 0, i32 1
+  %index.0 = load ptr, ptr %NextPoint, align 8, !tbaa !37
+  %cmp1.not = icmp eq ptr %index.0, null
+  br i1 %cmp1.not, label %if.end, label %while.body, !llvm.loop !71
 
-27:                                               ; preds = %4
-  %28 = load ptr, ptr @stderr, align 8, !tbaa !37
-  %29 = tail call i64 @fwrite(ptr nonnull @.str.13, i64 29, i64 1, ptr %28) #18
-  br label %30
+if.else:                                          ; preds = %entry
+  %4 = load ptr, ptr @stderr, align 8, !tbaa !37
+  %5 = tail call i64 @fwrite(ptr nonnull @.str.13, i64 29, i64 1, ptr %4) #18
+  br label %if.end
 
-30:                                               ; preds = %16, %9, %27
-  call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %5) #16
+if.end:                                           ; preds = %while.body, %if.then, %if.else
+  call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %hp) #16
   ret void
 }
 
 ; Function Attrs: nounwind uwtable
-define dso_local void @CalcObject(ptr noundef %0) local_unnamed_addr #8 {
-  %2 = alloca %struct.HPointStruct, align 16
-  %3 = alloca %struct.HPointStruct, align 8
-  %4 = alloca %struct.HPointStruct, align 8
-  %5 = alloca %struct.HPointStruct, align 16
-  %6 = alloca %struct.HPointStruct, align 8
-  %7 = alloca %struct.HPointStruct, align 8
-  %8 = alloca %struct.HPointStruct, align 16
-  %9 = alloca %struct.HPointStruct, align 8
-  %10 = alloca %struct.HPointStruct, align 8
-  %11 = icmp eq ptr %0, null
-  br i1 %11, label %101, label %12
+define dso_local void @CalcObject(ptr noundef %o) local_unnamed_addr #8 {
+entry:
+  %hp.i78 = alloca %struct.HPointStruct, align 16
+  %tmp.i79 = alloca %struct.HPointStruct, align 8
+  %tmp2.i80 = alloca %struct.HPointStruct, align 8
+  %hp.i57 = alloca %struct.HPointStruct, align 16
+  %tmp.i58 = alloca %struct.HPointStruct, align 8
+  %tmp2.i59 = alloca %struct.HPointStruct, align 8
+  %hp.i = alloca %struct.HPointStruct, align 16
+  %tmp.i = alloca %struct.HPointStruct, align 8
+  %tmp2.i = alloca %struct.HPointStruct, align 8
+  %cmp.not = icmp eq ptr %o, null
+  br i1 %cmp.not, label %if.end, label %if.then
 
-12:                                               ; preds = %1
-  %13 = getelementptr inbounds %struct.ObjectStruct, ptr %0, i64 0, i32 12
-  %14 = load ptr, ptr %13, align 8, !tbaa !37
-  %15 = icmp eq ptr %14, null
-  br i1 %15, label %21, label %16
+if.then:                                          ; preds = %entry
+  %Children = getelementptr inbounds %struct.ObjectStruct, ptr %o, i64 0, i32 12
+  %tmp.099 = load ptr, ptr %Children, align 8, !tbaa !37
+  %cmp1.not100 = icmp eq ptr %tmp.099, null
+  br i1 %cmp1.not100, label %if.then.i, label %while.body
 
-16:                                               ; preds = %12, %16
-  %17 = phi ptr [ %19, %16 ], [ %14, %12 ]
-  tail call void @CalcObject(ptr noundef nonnull %17)
-  %18 = getelementptr inbounds %struct.ObjectStruct, ptr %17, i64 0, i32 21
-  %19 = load ptr, ptr %18, align 8, !tbaa !37
-  %20 = icmp eq ptr %19, null
-  br i1 %20, label %21, label %16, !llvm.loop !73
+while.body:                                       ; preds = %if.then, %while.body
+  %tmp.0101 = phi ptr [ %tmp.0, %while.body ], [ %tmp.099, %if.then ]
+  tail call void @CalcObject(ptr noundef nonnull %tmp.0101)
+  %next = getelementptr inbounds %struct.ObjectStruct, ptr %tmp.0101, i64 0, i32 21
+  %tmp.0 = load ptr, ptr %next, align 8, !tbaa !37
+  %cmp1.not = icmp eq ptr %tmp.0, null
+  br i1 %cmp1.not, label %if.then.i, label %while.body, !llvm.loop !73
 
-21:                                               ; preds = %16, %12
-  %22 = getelementptr inbounds %struct.ObjectStruct, ptr %0, i64 0, i32 11
-  %23 = load double, ptr %22, align 8, !tbaa !53
-  %24 = getelementptr inbounds %struct.ObjectStruct, ptr %0, i64 0, i32 11, i32 1
-  %25 = load double, ptr %24, align 8, !tbaa !54
-  %26 = getelementptr inbounds %struct.ObjectStruct, ptr %0, i64 0, i32 11, i32 2
-  %27 = load double, ptr %26, align 8, !tbaa !17
-  %28 = getelementptr inbounds %struct.ObjectStruct, ptr %0, i64 0, i32 10
-  %29 = load double, ptr %28, align 8, !tbaa !58
-  %30 = getelementptr inbounds %struct.ObjectStruct, ptr %0, i64 0, i32 10, i32 1
-  %31 = load double, ptr %30, align 8, !tbaa !59
-  %32 = getelementptr inbounds %struct.ObjectStruct, ptr %0, i64 0, i32 10, i32 2
-  %33 = load double, ptr %32, align 8, !tbaa !60
-  %34 = getelementptr inbounds %struct.ObjectStruct, ptr %0, i64 0, i32 9
-  %35 = load double, ptr %34, align 8, !tbaa !55
-  %36 = getelementptr inbounds %struct.ObjectStruct, ptr %0, i64 0, i32 9, i32 1
-  %37 = load double, ptr %36, align 8, !tbaa !56
-  %38 = getelementptr inbounds %struct.ObjectStruct, ptr %0, i64 0, i32 9, i32 2
-  %39 = load double, ptr %38, align 8, !tbaa !57
-  tail call void @CalcObjectChildren(ptr noundef nonnull %0, double noundef %23, double noundef %25, double noundef %27, double noundef %29, double noundef %31, double noundef %33, double noundef %35, double noundef %37, double noundef %39)
-  %40 = load double, ptr %22, align 8, !tbaa !53
-  %41 = load double, ptr %24, align 8, !tbaa !54
-  %42 = load double, ptr %26, align 8, !tbaa !17
-  call void @llvm.lifetime.start.p0(i64 32, ptr nonnull %8) #16
-  %43 = tail call ptr @ScaleMatrix(double noundef %40, double noundef %41, double noundef %42) #16
-  %44 = getelementptr inbounds %struct.ObjectStruct, ptr %0, i64 0, i32 1
-  %45 = load ptr, ptr %44, align 8, !tbaa !37
-  %46 = icmp eq ptr %45, null
-  br i1 %46, label %60, label %47
+if.then.i:                                        ; preds = %while.body, %if.then
+  %Scale = getelementptr inbounds %struct.ObjectStruct, ptr %o, i64 0, i32 11
+  %0 = load double, ptr %Scale, align 8, !tbaa !53
+  %y = getelementptr inbounds %struct.ObjectStruct, ptr %o, i64 0, i32 11, i32 1
+  %1 = load double, ptr %y, align 8, !tbaa !54
+  %z = getelementptr inbounds %struct.ObjectStruct, ptr %o, i64 0, i32 11, i32 2
+  %2 = load double, ptr %z, align 8, !tbaa !17
+  %Rotation = getelementptr inbounds %struct.ObjectStruct, ptr %o, i64 0, i32 10
+  %3 = load double, ptr %Rotation, align 8, !tbaa !58
+  %y6 = getelementptr inbounds %struct.ObjectStruct, ptr %o, i64 0, i32 10, i32 1
+  %4 = load double, ptr %y6, align 8, !tbaa !59
+  %z8 = getelementptr inbounds %struct.ObjectStruct, ptr %o, i64 0, i32 10, i32 2
+  %5 = load double, ptr %z8, align 8, !tbaa !60
+  %Origin = getelementptr inbounds %struct.ObjectStruct, ptr %o, i64 0, i32 9
+  %6 = load double, ptr %Origin, align 8, !tbaa !55
+  %y11 = getelementptr inbounds %struct.ObjectStruct, ptr %o, i64 0, i32 9, i32 1
+  %7 = load double, ptr %y11, align 8, !tbaa !56
+  %z13 = getelementptr inbounds %struct.ObjectStruct, ptr %o, i64 0, i32 9, i32 2
+  %8 = load double, ptr %z13, align 8, !tbaa !57
+  tail call void @CalcObjectChildren(ptr noundef nonnull %o, double noundef %0, double noundef %1, double noundef %2, double noundef %3, double noundef %4, double noundef %5, double noundef %6, double noundef %7, double noundef %8)
+  %9 = load double, ptr %Scale, align 8, !tbaa !53
+  %10 = load double, ptr %y, align 8, !tbaa !54
+  %11 = load double, ptr %z, align 8, !tbaa !17
+  call void @llvm.lifetime.start.p0(i64 32, ptr nonnull %hp.i) #16
+  %call.i = tail call ptr @ScaleMatrix(double noundef %9, double noundef %10, double noundef %11) #16
+  %Points.i = getelementptr inbounds %struct.ObjectStruct, ptr %o, i64 0, i32 1
+  %index.013.i = load ptr, ptr %Points.i, align 8, !tbaa !37
+  %cmp1.not14.i = icmp eq ptr %index.013.i, null
+  br i1 %cmp1.not14.i, label %if.then.i65, label %while.body.lr.ph.i
 
-47:                                               ; preds = %21
-  %48 = getelementptr inbounds %struct.HPointStruct, ptr %8, i64 0, i32 2
-  br label %49
+while.body.lr.ph.i:                               ; preds = %if.then.i
+  %z.i = getelementptr inbounds %struct.HPointStruct, ptr %hp.i, i64 0, i32 2
+  br label %while.body.i
 
-49:                                               ; preds = %49, %47
-  %50 = phi ptr [ %45, %47 ], [ %58, %49 ]
-  call void @llvm.lifetime.start.p0(i64 32, ptr nonnull %9) #16
-  %51 = load ptr, ptr %50, align 8, !tbaa !20
-  call void @PointToHPoint(ptr nonnull sret(%struct.HPointStruct) align 8 %9, ptr noundef byval(%struct.ObjPointStruct) align 8 %51) #16
-  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 16 dereferenceable(32) %8, ptr noundef nonnull align 8 dereferenceable(32) %9, i64 32, i1 false), !tbaa.struct !66
-  call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %9) #16
-  call void @llvm.lifetime.start.p0(i64 32, ptr nonnull %10) #16
-  call void @MultMatrixHPoint(ptr nonnull sret(%struct.HPointStruct) align 8 %10, ptr noundef %43, ptr noundef nonnull byval(%struct.HPointStruct) align 8 %8) #16
-  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 16 dereferenceable(32) %8, ptr noundef nonnull align 8 dereferenceable(32) %10, i64 32, i1 false), !tbaa.struct !66
-  call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %10) #16
-  %52 = load ptr, ptr %50, align 8, !tbaa !20
-  %53 = getelementptr inbounds %struct.ObjPointStruct, ptr %52, i64 0, i32 3
-  %54 = load <2 x double>, ptr %8, align 16, !tbaa !5
-  store <2 x double> %54, ptr %53, align 8, !tbaa !5
-  %55 = load double, ptr %48, align 16, !tbaa !67
-  %56 = getelementptr inbounds %struct.ObjPointStruct, ptr %52, i64 0, i32 5
-  store double %55, ptr %56, align 8, !tbaa !28
-  %57 = getelementptr inbounds %struct.PointListStruct, ptr %50, i64 0, i32 1
-  %58 = load ptr, ptr %57, align 8, !tbaa !37
-  %59 = icmp eq ptr %58, null
-  br i1 %59, label %60, label %49, !llvm.loop !74
+while.body.i:                                     ; preds = %while.body.i, %while.body.lr.ph.i
+  %index.015.i = phi ptr [ %index.013.i, %while.body.lr.ph.i ], [ %index.0.i, %while.body.i ]
+  call void @llvm.lifetime.start.p0(i64 32, ptr nonnull %tmp.i) #16
+  %12 = load ptr, ptr %index.015.i, align 8, !tbaa !20
+  call void @PointToHPoint(ptr nonnull sret(%struct.HPointStruct) align 8 %tmp.i, ptr noundef byval(%struct.ObjPointStruct) align 8 %12) #16
+  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 16 dereferenceable(32) %hp.i, ptr noundef nonnull align 8 dereferenceable(32) %tmp.i, i64 32, i1 false), !tbaa.struct !66
+  call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %tmp.i) #16
+  call void @llvm.lifetime.start.p0(i64 32, ptr nonnull %tmp2.i) #16
+  call void @MultMatrixHPoint(ptr nonnull sret(%struct.HPointStruct) align 8 %tmp2.i, ptr noundef %call.i, ptr noundef nonnull byval(%struct.HPointStruct) align 8 %hp.i) #16
+  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 16 dereferenceable(32) %hp.i, ptr noundef nonnull align 8 dereferenceable(32) %tmp2.i, i64 32, i1 false), !tbaa.struct !66
+  call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %tmp2.i) #16
+  %13 = load ptr, ptr %index.015.i, align 8, !tbaa !20
+  %tx.i = getelementptr inbounds %struct.ObjPointStruct, ptr %13, i64 0, i32 3
+  %14 = load <2 x double>, ptr %hp.i, align 16, !tbaa !5
+  store <2 x double> %14, ptr %tx.i, align 8, !tbaa !5
+  %15 = load double, ptr %z.i, align 16, !tbaa !67
+  %tz.i = getelementptr inbounds %struct.ObjPointStruct, ptr %13, i64 0, i32 5
+  store double %15, ptr %tz.i, align 8, !tbaa !28
+  %NextPoint.i = getelementptr inbounds %struct.PointListStruct, ptr %index.015.i, i64 0, i32 1
+  %index.0.i = load ptr, ptr %NextPoint.i, align 8, !tbaa !37
+  %cmp1.not.i = icmp eq ptr %index.0.i, null
+  br i1 %cmp1.not.i, label %if.then.i65, label %while.body.i, !llvm.loop !74
 
-60:                                               ; preds = %49, %21
-  call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %8) #16
-  %61 = load double, ptr %28, align 8, !tbaa !58
-  %62 = load double, ptr %30, align 8, !tbaa !59
-  %63 = load double, ptr %32, align 8, !tbaa !60
-  call void @llvm.lifetime.start.p0(i64 32, ptr nonnull %5) #16
-  %64 = call ptr @RotateMatrix(double noundef %61, double noundef %62, double noundef %63) #16
-  %65 = load ptr, ptr %44, align 8, !tbaa !37
-  %66 = icmp eq ptr %65, null
-  br i1 %66, label %80, label %67
+if.then.i65:                                      ; preds = %while.body.i, %if.then.i
+  call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %hp.i) #16
+  %16 = load double, ptr %Rotation, align 8, !tbaa !58
+  %17 = load double, ptr %y6, align 8, !tbaa !59
+  %18 = load double, ptr %z8, align 8, !tbaa !60
+  call void @llvm.lifetime.start.p0(i64 32, ptr nonnull %hp.i57) #16
+  %call.i61 = call ptr @RotateMatrix(double noundef %16, double noundef %17, double noundef %18) #16
+  %index.013.i63 = load ptr, ptr %Points.i, align 8, !tbaa !37
+  %cmp1.not14.i64 = icmp eq ptr %index.013.i63, null
+  br i1 %cmp1.not14.i64, label %if.then.i86, label %while.body.lr.ph.i68
 
-67:                                               ; preds = %60
-  %68 = getelementptr inbounds %struct.HPointStruct, ptr %5, i64 0, i32 2
-  br label %69
+while.body.lr.ph.i68:                             ; preds = %if.then.i65
+  %z.i67 = getelementptr inbounds %struct.HPointStruct, ptr %hp.i57, i64 0, i32 2
+  br label %while.body.i76
 
-69:                                               ; preds = %69, %67
-  %70 = phi ptr [ %65, %67 ], [ %78, %69 ]
-  call void @llvm.lifetime.start.p0(i64 32, ptr nonnull %6) #16
-  %71 = load ptr, ptr %70, align 8, !tbaa !20
-  call void @TPointToHPoint(ptr nonnull sret(%struct.HPointStruct) align 8 %6, ptr noundef byval(%struct.ObjPointStruct) align 8 %71) #16
-  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 16 dereferenceable(32) %5, ptr noundef nonnull align 8 dereferenceable(32) %6, i64 32, i1 false), !tbaa.struct !66
-  call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %6) #16
-  call void @llvm.lifetime.start.p0(i64 32, ptr nonnull %7) #16
-  call void @MultMatrixHPoint(ptr nonnull sret(%struct.HPointStruct) align 8 %7, ptr noundef %64, ptr noundef nonnull byval(%struct.HPointStruct) align 8 %5) #16
-  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 16 dereferenceable(32) %5, ptr noundef nonnull align 8 dereferenceable(32) %7, i64 32, i1 false), !tbaa.struct !66
-  call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %7) #16
-  %72 = load ptr, ptr %70, align 8, !tbaa !20
-  %73 = getelementptr inbounds %struct.ObjPointStruct, ptr %72, i64 0, i32 3
-  %74 = load <2 x double>, ptr %5, align 16, !tbaa !5
-  store <2 x double> %74, ptr %73, align 8, !tbaa !5
-  %75 = load double, ptr %68, align 16, !tbaa !67
-  %76 = getelementptr inbounds %struct.ObjPointStruct, ptr %72, i64 0, i32 5
-  store double %75, ptr %76, align 8, !tbaa !28
-  %77 = getelementptr inbounds %struct.PointListStruct, ptr %70, i64 0, i32 1
-  %78 = load ptr, ptr %77, align 8, !tbaa !37
-  %79 = icmp eq ptr %78, null
-  br i1 %79, label %80, label %69, !llvm.loop !70
+while.body.i76:                                   ; preds = %while.body.i76, %while.body.lr.ph.i68
+  %index.015.i69 = phi ptr [ %index.013.i63, %while.body.lr.ph.i68 ], [ %index.0.i74, %while.body.i76 ]
+  call void @llvm.lifetime.start.p0(i64 32, ptr nonnull %tmp.i58) #16
+  %19 = load ptr, ptr %index.015.i69, align 8, !tbaa !20
+  call void @TPointToHPoint(ptr nonnull sret(%struct.HPointStruct) align 8 %tmp.i58, ptr noundef byval(%struct.ObjPointStruct) align 8 %19) #16
+  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 16 dereferenceable(32) %hp.i57, ptr noundef nonnull align 8 dereferenceable(32) %tmp.i58, i64 32, i1 false), !tbaa.struct !66
+  call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %tmp.i58) #16
+  call void @llvm.lifetime.start.p0(i64 32, ptr nonnull %tmp2.i59) #16
+  call void @MultMatrixHPoint(ptr nonnull sret(%struct.HPointStruct) align 8 %tmp2.i59, ptr noundef %call.i61, ptr noundef nonnull byval(%struct.HPointStruct) align 8 %hp.i57) #16
+  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 16 dereferenceable(32) %hp.i57, ptr noundef nonnull align 8 dereferenceable(32) %tmp2.i59, i64 32, i1 false), !tbaa.struct !66
+  call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %tmp2.i59) #16
+  %20 = load ptr, ptr %index.015.i69, align 8, !tbaa !20
+  %tx.i70 = getelementptr inbounds %struct.ObjPointStruct, ptr %20, i64 0, i32 3
+  %21 = load <2 x double>, ptr %hp.i57, align 16, !tbaa !5
+  store <2 x double> %21, ptr %tx.i70, align 8, !tbaa !5
+  %22 = load double, ptr %z.i67, align 16, !tbaa !67
+  %tz.i72 = getelementptr inbounds %struct.ObjPointStruct, ptr %20, i64 0, i32 5
+  store double %22, ptr %tz.i72, align 8, !tbaa !28
+  %NextPoint.i73 = getelementptr inbounds %struct.PointListStruct, ptr %index.015.i69, i64 0, i32 1
+  %index.0.i74 = load ptr, ptr %NextPoint.i73, align 8, !tbaa !37
+  %cmp1.not.i75 = icmp eq ptr %index.0.i74, null
+  br i1 %cmp1.not.i75, label %if.then.i86, label %while.body.i76, !llvm.loop !70
 
-80:                                               ; preds = %69, %60
-  call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %5) #16
-  %81 = load double, ptr %34, align 8, !tbaa !55
-  %82 = load double, ptr %36, align 8, !tbaa !56
-  %83 = load double, ptr %38, align 8, !tbaa !57
-  call void @llvm.lifetime.start.p0(i64 32, ptr nonnull %2) #16
-  %84 = call ptr @TranslateMatrix(double noundef %81, double noundef %82, double noundef %83) #16
-  %85 = load ptr, ptr %44, align 8, !tbaa !37
-  %86 = icmp eq ptr %85, null
-  br i1 %86, label %100, label %87
+if.then.i86:                                      ; preds = %while.body.i76, %if.then.i65
+  call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %hp.i57) #16
+  %23 = load double, ptr %Origin, align 8, !tbaa !55
+  %24 = load double, ptr %y11, align 8, !tbaa !56
+  %25 = load double, ptr %z13, align 8, !tbaa !57
+  call void @llvm.lifetime.start.p0(i64 32, ptr nonnull %hp.i78) #16
+  %call.i82 = call ptr @TranslateMatrix(double noundef %23, double noundef %24, double noundef %25) #16
+  %index.013.i84 = load ptr, ptr %Points.i, align 8, !tbaa !37
+  %cmp1.not14.i85 = icmp eq ptr %index.013.i84, null
+  br i1 %cmp1.not14.i85, label %TranslateObjectAdd.exit, label %while.body.lr.ph.i89
 
-87:                                               ; preds = %80
-  %88 = getelementptr inbounds %struct.HPointStruct, ptr %2, i64 0, i32 2
-  br label %89
+while.body.lr.ph.i89:                             ; preds = %if.then.i86
+  %z.i88 = getelementptr inbounds %struct.HPointStruct, ptr %hp.i78, i64 0, i32 2
+  br label %while.body.i97
 
-89:                                               ; preds = %89, %87
-  %90 = phi ptr [ %85, %87 ], [ %98, %89 ]
-  call void @llvm.lifetime.start.p0(i64 32, ptr nonnull %3) #16
-  %91 = load ptr, ptr %90, align 8, !tbaa !20
-  call void @TPointToHPoint(ptr nonnull sret(%struct.HPointStruct) align 8 %3, ptr noundef byval(%struct.ObjPointStruct) align 8 %91) #16
-  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 16 dereferenceable(32) %2, ptr noundef nonnull align 8 dereferenceable(32) %3, i64 32, i1 false), !tbaa.struct !66
-  call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %3) #16
-  call void @llvm.lifetime.start.p0(i64 32, ptr nonnull %4) #16
-  call void @MultMatrixHPoint(ptr nonnull sret(%struct.HPointStruct) align 8 %4, ptr noundef %84, ptr noundef nonnull byval(%struct.HPointStruct) align 8 %2) #16
-  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 16 dereferenceable(32) %2, ptr noundef nonnull align 8 dereferenceable(32) %4, i64 32, i1 false), !tbaa.struct !66
-  call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %4) #16
-  %92 = load ptr, ptr %90, align 8, !tbaa !20
-  %93 = getelementptr inbounds %struct.ObjPointStruct, ptr %92, i64 0, i32 3
-  %94 = load <2 x double>, ptr %2, align 16, !tbaa !5
-  store <2 x double> %94, ptr %93, align 8, !tbaa !5
-  %95 = load double, ptr %88, align 16, !tbaa !67
-  %96 = getelementptr inbounds %struct.ObjPointStruct, ptr %92, i64 0, i32 5
-  store double %95, ptr %96, align 8, !tbaa !28
-  %97 = getelementptr inbounds %struct.PointListStruct, ptr %90, i64 0, i32 1
-  %98 = load ptr, ptr %97, align 8, !tbaa !37
-  %99 = icmp eq ptr %98, null
-  br i1 %99, label %100, label %89, !llvm.loop !71
+while.body.i97:                                   ; preds = %while.body.i97, %while.body.lr.ph.i89
+  %index.015.i90 = phi ptr [ %index.013.i84, %while.body.lr.ph.i89 ], [ %index.0.i95, %while.body.i97 ]
+  call void @llvm.lifetime.start.p0(i64 32, ptr nonnull %tmp.i79) #16
+  %26 = load ptr, ptr %index.015.i90, align 8, !tbaa !20
+  call void @TPointToHPoint(ptr nonnull sret(%struct.HPointStruct) align 8 %tmp.i79, ptr noundef byval(%struct.ObjPointStruct) align 8 %26) #16
+  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 16 dereferenceable(32) %hp.i78, ptr noundef nonnull align 8 dereferenceable(32) %tmp.i79, i64 32, i1 false), !tbaa.struct !66
+  call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %tmp.i79) #16
+  call void @llvm.lifetime.start.p0(i64 32, ptr nonnull %tmp2.i80) #16
+  call void @MultMatrixHPoint(ptr nonnull sret(%struct.HPointStruct) align 8 %tmp2.i80, ptr noundef %call.i82, ptr noundef nonnull byval(%struct.HPointStruct) align 8 %hp.i78) #16
+  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 16 dereferenceable(32) %hp.i78, ptr noundef nonnull align 8 dereferenceable(32) %tmp2.i80, i64 32, i1 false), !tbaa.struct !66
+  call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %tmp2.i80) #16
+  %27 = load ptr, ptr %index.015.i90, align 8, !tbaa !20
+  %tx.i91 = getelementptr inbounds %struct.ObjPointStruct, ptr %27, i64 0, i32 3
+  %28 = load <2 x double>, ptr %hp.i78, align 16, !tbaa !5
+  store <2 x double> %28, ptr %tx.i91, align 8, !tbaa !5
+  %29 = load double, ptr %z.i88, align 16, !tbaa !67
+  %tz.i93 = getelementptr inbounds %struct.ObjPointStruct, ptr %27, i64 0, i32 5
+  store double %29, ptr %tz.i93, align 8, !tbaa !28
+  %NextPoint.i94 = getelementptr inbounds %struct.PointListStruct, ptr %index.015.i90, i64 0, i32 1
+  %index.0.i95 = load ptr, ptr %NextPoint.i94, align 8, !tbaa !37
+  %cmp1.not.i96 = icmp eq ptr %index.0.i95, null
+  br i1 %cmp1.not.i96, label %TranslateObjectAdd.exit, label %while.body.i97, !llvm.loop !71
 
-100:                                              ; preds = %89, %80
-  call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %2) #16
-  br label %101
+TranslateObjectAdd.exit:                          ; preds = %while.body.i97, %if.then.i86
+  call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %hp.i78) #16
+  br label %if.end
 
-101:                                              ; preds = %100, %1
+if.end:                                           ; preds = %TranslateObjectAdd.exit, %entry
   ret void
 }
 
 ; Function Attrs: nounwind uwtable
-define dso_local void @ScaleObjectOverwrite(ptr noundef readonly %0, double noundef %1, double noundef %2, double noundef %3) local_unnamed_addr #8 {
-  %5 = alloca %struct.HPointStruct, align 16
-  %6 = alloca %struct.HPointStruct, align 8
-  %7 = alloca %struct.HPointStruct, align 8
-  call void @llvm.lifetime.start.p0(i64 32, ptr nonnull %5) #16
-  %8 = tail call ptr @ScaleMatrix(double noundef %1, double noundef %2, double noundef %3) #16
-  %9 = icmp eq ptr %0, null
-  br i1 %9, label %27, label %10
+define dso_local void @ScaleObjectOverwrite(ptr noundef readonly %o, double noundef %sx, double noundef %sy, double noundef %sz) local_unnamed_addr #8 {
+entry:
+  %hp = alloca %struct.HPointStruct, align 16
+  %tmp = alloca %struct.HPointStruct, align 8
+  %tmp2 = alloca %struct.HPointStruct, align 8
+  call void @llvm.lifetime.start.p0(i64 32, ptr nonnull %hp) #16
+  %call = tail call ptr @ScaleMatrix(double noundef %sx, double noundef %sy, double noundef %sz) #16
+  %cmp.not = icmp eq ptr %o, null
+  br i1 %cmp.not, label %if.else, label %if.then
 
-10:                                               ; preds = %4
-  %11 = getelementptr inbounds %struct.ObjectStruct, ptr %0, i64 0, i32 1
-  %12 = load ptr, ptr %11, align 8, !tbaa !37
-  %13 = icmp eq ptr %12, null
-  br i1 %13, label %30, label %14
+if.then:                                          ; preds = %entry
+  %Points = getelementptr inbounds %struct.ObjectStruct, ptr %o, i64 0, i32 1
+  %index.013 = load ptr, ptr %Points, align 8, !tbaa !37
+  %cmp1.not14 = icmp eq ptr %index.013, null
+  br i1 %cmp1.not14, label %if.end, label %while.body.lr.ph
 
-14:                                               ; preds = %10
-  %15 = getelementptr inbounds %struct.HPointStruct, ptr %5, i64 0, i32 2
-  br label %16
+while.body.lr.ph:                                 ; preds = %if.then
+  %z = getelementptr inbounds %struct.HPointStruct, ptr %hp, i64 0, i32 2
+  br label %while.body
 
-16:                                               ; preds = %14, %16
-  %17 = phi ptr [ %12, %14 ], [ %25, %16 ]
-  call void @llvm.lifetime.start.p0(i64 32, ptr nonnull %6) #16
-  %18 = load ptr, ptr %17, align 8, !tbaa !20
-  call void @PointToHPoint(ptr nonnull sret(%struct.HPointStruct) align 8 %6, ptr noundef byval(%struct.ObjPointStruct) align 8 %18) #16
-  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 16 dereferenceable(32) %5, ptr noundef nonnull align 8 dereferenceable(32) %6, i64 32, i1 false), !tbaa.struct !66
-  call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %6) #16
-  call void @llvm.lifetime.start.p0(i64 32, ptr nonnull %7) #16
-  call void @MultMatrixHPoint(ptr nonnull sret(%struct.HPointStruct) align 8 %7, ptr noundef %8, ptr noundef nonnull byval(%struct.HPointStruct) align 8 %5) #16
-  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 16 dereferenceable(32) %5, ptr noundef nonnull align 8 dereferenceable(32) %7, i64 32, i1 false), !tbaa.struct !66
-  call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %7) #16
-  %19 = load ptr, ptr %17, align 8, !tbaa !20
-  %20 = getelementptr inbounds %struct.ObjPointStruct, ptr %19, i64 0, i32 3
-  %21 = load <2 x double>, ptr %5, align 16, !tbaa !5
-  store <2 x double> %21, ptr %20, align 8, !tbaa !5
-  %22 = load double, ptr %15, align 16, !tbaa !67
-  %23 = getelementptr inbounds %struct.ObjPointStruct, ptr %19, i64 0, i32 5
-  store double %22, ptr %23, align 8, !tbaa !28
-  %24 = getelementptr inbounds %struct.PointListStruct, ptr %17, i64 0, i32 1
-  %25 = load ptr, ptr %24, align 8, !tbaa !37
-  %26 = icmp eq ptr %25, null
-  br i1 %26, label %30, label %16, !llvm.loop !74
+while.body:                                       ; preds = %while.body.lr.ph, %while.body
+  %index.015 = phi ptr [ %index.013, %while.body.lr.ph ], [ %index.0, %while.body ]
+  call void @llvm.lifetime.start.p0(i64 32, ptr nonnull %tmp) #16
+  %0 = load ptr, ptr %index.015, align 8, !tbaa !20
+  call void @PointToHPoint(ptr nonnull sret(%struct.HPointStruct) align 8 %tmp, ptr noundef byval(%struct.ObjPointStruct) align 8 %0) #16
+  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 16 dereferenceable(32) %hp, ptr noundef nonnull align 8 dereferenceable(32) %tmp, i64 32, i1 false), !tbaa.struct !66
+  call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %tmp) #16
+  call void @llvm.lifetime.start.p0(i64 32, ptr nonnull %tmp2) #16
+  call void @MultMatrixHPoint(ptr nonnull sret(%struct.HPointStruct) align 8 %tmp2, ptr noundef %call, ptr noundef nonnull byval(%struct.HPointStruct) align 8 %hp) #16
+  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 16 dereferenceable(32) %hp, ptr noundef nonnull align 8 dereferenceable(32) %tmp2, i64 32, i1 false), !tbaa.struct !66
+  call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %tmp2) #16
+  %1 = load ptr, ptr %index.015, align 8, !tbaa !20
+  %tx = getelementptr inbounds %struct.ObjPointStruct, ptr %1, i64 0, i32 3
+  %2 = load <2 x double>, ptr %hp, align 16, !tbaa !5
+  store <2 x double> %2, ptr %tx, align 8, !tbaa !5
+  %3 = load double, ptr %z, align 16, !tbaa !67
+  %tz = getelementptr inbounds %struct.ObjPointStruct, ptr %1, i64 0, i32 5
+  store double %3, ptr %tz, align 8, !tbaa !28
+  %NextPoint = getelementptr inbounds %struct.PointListStruct, ptr %index.015, i64 0, i32 1
+  %index.0 = load ptr, ptr %NextPoint, align 8, !tbaa !37
+  %cmp1.not = icmp eq ptr %index.0, null
+  br i1 %cmp1.not, label %if.end, label %while.body, !llvm.loop !74
 
-27:                                               ; preds = %4
-  %28 = load ptr, ptr @stderr, align 8, !tbaa !37
-  %29 = tail call i64 @fwrite(ptr nonnull @.str.15, i64 25, i64 1, ptr %28) #18
-  br label %30
+if.else:                                          ; preds = %entry
+  %4 = load ptr, ptr @stderr, align 8, !tbaa !37
+  %5 = tail call i64 @fwrite(ptr nonnull @.str.15, i64 25, i64 1, ptr %4) #18
+  br label %if.end
 
-30:                                               ; preds = %16, %10, %27
-  call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %5) #16
+if.end:                                           ; preds = %while.body, %if.then, %if.else
+  call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %hp) #16
   ret void
 }
 
@@ -1231,55 +1248,56 @@ declare void @llvm.memcpy.p0.p0.i64(ptr noalias nocapture writeonly, ptr noalias
 declare void @MultMatrixHPoint(ptr sret(%struct.HPointStruct) align 8, ptr noundef, ptr noundef byval(%struct.HPointStruct) align 8) local_unnamed_addr #9
 
 ; Function Attrs: nounwind uwtable
-define dso_local void @TranslateObjectOverwrite(ptr noundef readonly %0, double noundef %1, double noundef %2, double noundef %3) local_unnamed_addr #8 {
-  %5 = alloca %struct.HPointStruct, align 16
-  %6 = alloca %struct.HPointStruct, align 8
-  %7 = alloca %struct.HPointStruct, align 8
-  call void @llvm.lifetime.start.p0(i64 32, ptr nonnull %5) #16
-  %8 = icmp eq ptr %0, null
-  br i1 %8, label %27, label %9
+define dso_local void @TranslateObjectOverwrite(ptr noundef readonly %o, double noundef %dx, double noundef %dy, double noundef %dz) local_unnamed_addr #8 {
+entry:
+  %hp = alloca %struct.HPointStruct, align 16
+  %tmp = alloca %struct.HPointStruct, align 8
+  %tmp2 = alloca %struct.HPointStruct, align 8
+  call void @llvm.lifetime.start.p0(i64 32, ptr nonnull %hp) #16
+  %cmp.not = icmp eq ptr %o, null
+  br i1 %cmp.not, label %if.else, label %if.then
 
-9:                                                ; preds = %4
-  %10 = tail call ptr @TranslateMatrix(double noundef %1, double noundef %2, double noundef %3) #16
-  %11 = getelementptr inbounds %struct.ObjectStruct, ptr %0, i64 0, i32 1
-  %12 = load ptr, ptr %11, align 8, !tbaa !37
-  %13 = icmp eq ptr %12, null
-  br i1 %13, label %30, label %14
+if.then:                                          ; preds = %entry
+  %call = tail call ptr @TranslateMatrix(double noundef %dx, double noundef %dy, double noundef %dz) #16
+  %Points = getelementptr inbounds %struct.ObjectStruct, ptr %o, i64 0, i32 1
+  %index.013 = load ptr, ptr %Points, align 8, !tbaa !37
+  %cmp1.not14 = icmp eq ptr %index.013, null
+  br i1 %cmp1.not14, label %if.end, label %while.body.lr.ph
 
-14:                                               ; preds = %9
-  %15 = getelementptr inbounds %struct.HPointStruct, ptr %5, i64 0, i32 2
-  br label %16
+while.body.lr.ph:                                 ; preds = %if.then
+  %z = getelementptr inbounds %struct.HPointStruct, ptr %hp, i64 0, i32 2
+  br label %while.body
 
-16:                                               ; preds = %14, %16
-  %17 = phi ptr [ %12, %14 ], [ %25, %16 ]
-  call void @llvm.lifetime.start.p0(i64 32, ptr nonnull %6) #16
-  %18 = load ptr, ptr %17, align 8, !tbaa !20
-  call void @PointToHPoint(ptr nonnull sret(%struct.HPointStruct) align 8 %6, ptr noundef byval(%struct.ObjPointStruct) align 8 %18) #16
-  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 16 dereferenceable(32) %5, ptr noundef nonnull align 8 dereferenceable(32) %6, i64 32, i1 false), !tbaa.struct !66
-  call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %6) #16
-  call void @llvm.lifetime.start.p0(i64 32, ptr nonnull %7) #16
-  call void @MultMatrixHPoint(ptr nonnull sret(%struct.HPointStruct) align 8 %7, ptr noundef %10, ptr noundef nonnull byval(%struct.HPointStruct) align 8 %5) #16
-  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 16 dereferenceable(32) %5, ptr noundef nonnull align 8 dereferenceable(32) %7, i64 32, i1 false), !tbaa.struct !66
-  call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %7) #16
-  %19 = load ptr, ptr %17, align 8, !tbaa !20
-  %20 = getelementptr inbounds %struct.ObjPointStruct, ptr %19, i64 0, i32 3
-  %21 = load <2 x double>, ptr %5, align 16, !tbaa !5
-  store <2 x double> %21, ptr %20, align 8, !tbaa !5
-  %22 = load double, ptr %15, align 16, !tbaa !67
-  %23 = getelementptr inbounds %struct.ObjPointStruct, ptr %19, i64 0, i32 5
-  store double %22, ptr %23, align 8, !tbaa !28
-  %24 = getelementptr inbounds %struct.PointListStruct, ptr %17, i64 0, i32 1
-  %25 = load ptr, ptr %24, align 8, !tbaa !37
-  %26 = icmp eq ptr %25, null
-  br i1 %26, label %30, label %16, !llvm.loop !75
+while.body:                                       ; preds = %while.body.lr.ph, %while.body
+  %index.015 = phi ptr [ %index.013, %while.body.lr.ph ], [ %index.0, %while.body ]
+  call void @llvm.lifetime.start.p0(i64 32, ptr nonnull %tmp) #16
+  %0 = load ptr, ptr %index.015, align 8, !tbaa !20
+  call void @PointToHPoint(ptr nonnull sret(%struct.HPointStruct) align 8 %tmp, ptr noundef byval(%struct.ObjPointStruct) align 8 %0) #16
+  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 16 dereferenceable(32) %hp, ptr noundef nonnull align 8 dereferenceable(32) %tmp, i64 32, i1 false), !tbaa.struct !66
+  call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %tmp) #16
+  call void @llvm.lifetime.start.p0(i64 32, ptr nonnull %tmp2) #16
+  call void @MultMatrixHPoint(ptr nonnull sret(%struct.HPointStruct) align 8 %tmp2, ptr noundef %call, ptr noundef nonnull byval(%struct.HPointStruct) align 8 %hp) #16
+  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 16 dereferenceable(32) %hp, ptr noundef nonnull align 8 dereferenceable(32) %tmp2, i64 32, i1 false), !tbaa.struct !66
+  call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %tmp2) #16
+  %1 = load ptr, ptr %index.015, align 8, !tbaa !20
+  %tx = getelementptr inbounds %struct.ObjPointStruct, ptr %1, i64 0, i32 3
+  %2 = load <2 x double>, ptr %hp, align 16, !tbaa !5
+  store <2 x double> %2, ptr %tx, align 8, !tbaa !5
+  %3 = load double, ptr %z, align 16, !tbaa !67
+  %tz = getelementptr inbounds %struct.ObjPointStruct, ptr %1, i64 0, i32 5
+  store double %3, ptr %tz, align 8, !tbaa !28
+  %NextPoint = getelementptr inbounds %struct.PointListStruct, ptr %index.015, i64 0, i32 1
+  %index.0 = load ptr, ptr %NextPoint, align 8, !tbaa !37
+  %cmp1.not = icmp eq ptr %index.0, null
+  br i1 %cmp1.not, label %if.end, label %while.body, !llvm.loop !75
 
-27:                                               ; preds = %4
-  %28 = load ptr, ptr @stderr, align 8, !tbaa !37
-  %29 = tail call i64 @fwrite(ptr nonnull @.str.13, i64 29, i64 1, ptr %28) #18
-  br label %30
+if.else:                                          ; preds = %entry
+  %4 = load ptr, ptr @stderr, align 8, !tbaa !37
+  %5 = tail call i64 @fwrite(ptr nonnull @.str.13, i64 29, i64 1, ptr %4) #18
+  br label %if.end
 
-30:                                               ; preds = %16, %9, %27
-  call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %5) #16
+if.end:                                           ; preds = %while.body, %if.then, %if.else
+  call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %hp) #16
   ret void
 }
 
@@ -1288,235 +1306,242 @@ declare void @PointToHPoint(ptr sret(%struct.HPointStruct) align 8, ptr noundef 
 declare ptr @RotateMatrix(double noundef, double noundef, double noundef) local_unnamed_addr #9
 
 ; Function Attrs: nounwind uwtable
-define dso_local void @RotateObjectOverwrite(ptr noundef readonly %0, double noundef %1, double noundef %2, double noundef %3) local_unnamed_addr #8 {
-  %5 = alloca %struct.HPointStruct, align 16
-  %6 = alloca %struct.HPointStruct, align 8
-  %7 = alloca %struct.HPointStruct, align 8
-  call void @llvm.lifetime.start.p0(i64 32, ptr nonnull %5) #16
-  %8 = tail call ptr @RotateMatrix(double noundef %1, double noundef %2, double noundef %3) #16
-  %9 = icmp eq ptr %0, null
-  br i1 %9, label %27, label %10
+define dso_local void @RotateObjectOverwrite(ptr noundef readonly %o, double noundef %ax, double noundef %ay, double noundef %az) local_unnamed_addr #8 {
+entry:
+  %hp = alloca %struct.HPointStruct, align 16
+  %tmp = alloca %struct.HPointStruct, align 8
+  %tmp2 = alloca %struct.HPointStruct, align 8
+  call void @llvm.lifetime.start.p0(i64 32, ptr nonnull %hp) #16
+  %call = tail call ptr @RotateMatrix(double noundef %ax, double noundef %ay, double noundef %az) #16
+  %cmp.not = icmp eq ptr %o, null
+  br i1 %cmp.not, label %if.else, label %if.then
 
-10:                                               ; preds = %4
-  %11 = getelementptr inbounds %struct.ObjectStruct, ptr %0, i64 0, i32 1
-  %12 = load ptr, ptr %11, align 8, !tbaa !37
-  %13 = icmp eq ptr %12, null
-  br i1 %13, label %30, label %14
+if.then:                                          ; preds = %entry
+  %Points = getelementptr inbounds %struct.ObjectStruct, ptr %o, i64 0, i32 1
+  %index.013 = load ptr, ptr %Points, align 8, !tbaa !37
+  %cmp1.not14 = icmp eq ptr %index.013, null
+  br i1 %cmp1.not14, label %if.end, label %while.body.lr.ph
 
-14:                                               ; preds = %10
-  %15 = getelementptr inbounds %struct.HPointStruct, ptr %5, i64 0, i32 2
-  br label %16
+while.body.lr.ph:                                 ; preds = %if.then
+  %z = getelementptr inbounds %struct.HPointStruct, ptr %hp, i64 0, i32 2
+  br label %while.body
 
-16:                                               ; preds = %14, %16
-  %17 = phi ptr [ %12, %14 ], [ %25, %16 ]
-  call void @llvm.lifetime.start.p0(i64 32, ptr nonnull %6) #16
-  %18 = load ptr, ptr %17, align 8, !tbaa !20
-  call void @PointToHPoint(ptr nonnull sret(%struct.HPointStruct) align 8 %6, ptr noundef byval(%struct.ObjPointStruct) align 8 %18) #16
-  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 16 dereferenceable(32) %5, ptr noundef nonnull align 8 dereferenceable(32) %6, i64 32, i1 false), !tbaa.struct !66
-  call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %6) #16
-  call void @llvm.lifetime.start.p0(i64 32, ptr nonnull %7) #16
-  call void @MultMatrixHPoint(ptr nonnull sret(%struct.HPointStruct) align 8 %7, ptr noundef %8, ptr noundef nonnull byval(%struct.HPointStruct) align 8 %5) #16
-  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 16 dereferenceable(32) %5, ptr noundef nonnull align 8 dereferenceable(32) %7, i64 32, i1 false), !tbaa.struct !66
-  call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %7) #16
-  %19 = load ptr, ptr %17, align 8, !tbaa !20
-  %20 = getelementptr inbounds %struct.ObjPointStruct, ptr %19, i64 0, i32 3
-  %21 = load <2 x double>, ptr %5, align 16, !tbaa !5
-  store <2 x double> %21, ptr %20, align 8, !tbaa !5
-  %22 = load double, ptr %15, align 16, !tbaa !67
-  %23 = getelementptr inbounds %struct.ObjPointStruct, ptr %19, i64 0, i32 5
-  store double %22, ptr %23, align 8, !tbaa !28
-  %24 = getelementptr inbounds %struct.PointListStruct, ptr %17, i64 0, i32 1
-  %25 = load ptr, ptr %24, align 8, !tbaa !37
-  %26 = icmp eq ptr %25, null
-  br i1 %26, label %30, label %16, !llvm.loop !76
+while.body:                                       ; preds = %while.body.lr.ph, %while.body
+  %index.015 = phi ptr [ %index.013, %while.body.lr.ph ], [ %index.0, %while.body ]
+  call void @llvm.lifetime.start.p0(i64 32, ptr nonnull %tmp) #16
+  %0 = load ptr, ptr %index.015, align 8, !tbaa !20
+  call void @PointToHPoint(ptr nonnull sret(%struct.HPointStruct) align 8 %tmp, ptr noundef byval(%struct.ObjPointStruct) align 8 %0) #16
+  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 16 dereferenceable(32) %hp, ptr noundef nonnull align 8 dereferenceable(32) %tmp, i64 32, i1 false), !tbaa.struct !66
+  call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %tmp) #16
+  call void @llvm.lifetime.start.p0(i64 32, ptr nonnull %tmp2) #16
+  call void @MultMatrixHPoint(ptr nonnull sret(%struct.HPointStruct) align 8 %tmp2, ptr noundef %call, ptr noundef nonnull byval(%struct.HPointStruct) align 8 %hp) #16
+  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 16 dereferenceable(32) %hp, ptr noundef nonnull align 8 dereferenceable(32) %tmp2, i64 32, i1 false), !tbaa.struct !66
+  call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %tmp2) #16
+  %1 = load ptr, ptr %index.015, align 8, !tbaa !20
+  %tx = getelementptr inbounds %struct.ObjPointStruct, ptr %1, i64 0, i32 3
+  %2 = load <2 x double>, ptr %hp, align 16, !tbaa !5
+  store <2 x double> %2, ptr %tx, align 8, !tbaa !5
+  %3 = load double, ptr %z, align 16, !tbaa !67
+  %tz = getelementptr inbounds %struct.ObjPointStruct, ptr %1, i64 0, i32 5
+  store double %3, ptr %tz, align 8, !tbaa !28
+  %NextPoint = getelementptr inbounds %struct.PointListStruct, ptr %index.015, i64 0, i32 1
+  %index.0 = load ptr, ptr %NextPoint, align 8, !tbaa !37
+  %cmp1.not = icmp eq ptr %index.0, null
+  br i1 %cmp1.not, label %if.end, label %while.body, !llvm.loop !76
 
-27:                                               ; preds = %4
-  %28 = load ptr, ptr @stderr, align 8, !tbaa !37
-  %29 = tail call i64 @fwrite(ptr nonnull @.str.14, i64 26, i64 1, ptr %28) #18
-  br label %30
+if.else:                                          ; preds = %entry
+  %4 = load ptr, ptr @stderr, align 8, !tbaa !37
+  %5 = tail call i64 @fwrite(ptr nonnull @.str.14, i64 26, i64 1, ptr %4) #18
+  br label %if.end
 
-30:                                               ; preds = %16, %10, %27
-  call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %5) #16
+if.end:                                           ; preds = %while.body, %if.then, %if.else
+  call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %hp) #16
   ret void
 }
 
 declare ptr @ScaleMatrix(double noundef, double noundef, double noundef) local_unnamed_addr #9
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(argmem: write) uwtable
-define dso_local void @SetObjectColor(ptr noundef writeonly %0, float noundef %1, float noundef %2, float noundef %3) local_unnamed_addr #11 {
-  %5 = icmp eq ptr %0, null
-  br i1 %5, label %9, label %6
+define dso_local void @SetObjectColor(ptr noundef writeonly %o, float noundef %R, float noundef %G, float noundef %B) local_unnamed_addr #11 {
+entry:
+  %cmp.not = icmp eq ptr %o, null
+  br i1 %cmp.not, label %if.end, label %if.then
 
-6:                                                ; preds = %4
-  %7 = fpext float %1 to double
-  %8 = getelementptr inbounds %struct.ObjectStruct, ptr %0, i64 0, i32 6
-  store double %7, ptr %8, align 8, !tbaa !61
-  br label %9
+if.then:                                          ; preds = %entry
+  %conv = fpext float %R to double
+  %Color = getelementptr inbounds %struct.ObjectStruct, ptr %o, i64 0, i32 6
+  store double %conv, ptr %Color, align 8, !tbaa !61
+  br label %if.end
 
-9:                                                ; preds = %6, %4
-  %10 = insertelement <2 x float> poison, float %2, i64 0
-  %11 = insertelement <2 x float> %10, float %3, i64 1
-  %12 = fpext <2 x float> %11 to <2 x double>
-  %13 = getelementptr inbounds %struct.ObjectStruct, ptr %0, i64 0, i32 6, i32 1
-  store <2 x double> %12, ptr %13, align 8, !tbaa !5
+if.end:                                           ; preds = %if.then, %entry
+  %0 = insertelement <2 x float> poison, float %G, i64 0
+  %1 = insertelement <2 x float> %0, float %B, i64 1
+  %2 = fpext <2 x float> %1 to <2 x double>
+  %G4 = getelementptr inbounds %struct.ObjectStruct, ptr %o, i64 0, i32 6, i32 1
+  store <2 x double> %2, ptr %G4, align 8, !tbaa !5
   ret void
 }
 
 ; Function Attrs: nofree nounwind uwtable
-define dso_local void @Draw_Children(ptr noundef %0) local_unnamed_addr #4 {
-  %2 = icmp eq ptr %0, null
-  br i1 %2, label %12, label %3
+define dso_local void @Draw_Children(ptr noundef %o) local_unnamed_addr #4 {
+entry:
+  %cmp.not = icmp eq ptr %o, null
+  br i1 %cmp.not, label %if.end, label %if.then
 
-3:                                                ; preds = %1
-  tail call void @PrintObject(ptr noundef nonnull %0)
-  %4 = getelementptr inbounds %struct.ObjectStruct, ptr %0, i64 0, i32 12
-  %5 = load ptr, ptr %4, align 8, !tbaa !37
-  %6 = icmp eq ptr %5, null
-  br i1 %6, label %12, label %7
+if.then:                                          ; preds = %entry
+  tail call void @PrintObject(ptr noundef nonnull %o)
+  %Children = getelementptr inbounds %struct.ObjectStruct, ptr %o, i64 0, i32 12
+  %tmp.06 = load ptr, ptr %Children, align 8, !tbaa !37
+  %cmp1.not7 = icmp eq ptr %tmp.06, null
+  br i1 %cmp1.not7, label %if.end, label %while.body
 
-7:                                                ; preds = %3, %7
-  %8 = phi ptr [ %10, %7 ], [ %5, %3 ]
-  tail call void @Draw_Children(ptr noundef nonnull %8)
-  %9 = getelementptr inbounds %struct.ObjectStruct, ptr %8, i64 0, i32 21
-  %10 = load ptr, ptr %9, align 8, !tbaa !37
-  %11 = icmp eq ptr %10, null
-  br i1 %11, label %12, label %7, !llvm.loop !77
+while.body:                                       ; preds = %if.then, %while.body
+  %tmp.08 = phi ptr [ %tmp.0, %while.body ], [ %tmp.06, %if.then ]
+  tail call void @Draw_Children(ptr noundef nonnull %tmp.08)
+  %next = getelementptr inbounds %struct.ObjectStruct, ptr %tmp.08, i64 0, i32 21
+  %tmp.0 = load ptr, ptr %next, align 8, !tbaa !37
+  %cmp1.not = icmp eq ptr %tmp.0, null
+  br i1 %cmp1.not, label %if.end, label %while.body, !llvm.loop !77
 
-12:                                               ; preds = %7, %3, %1
+if.end:                                           ; preds = %while.body, %if.then, %entry
   ret void
 }
 
 ; Function Attrs: nofree nounwind uwtable
-define dso_local void @Draw_Object(ptr noundef %0) local_unnamed_addr #4 {
-  %2 = icmp eq ptr %0, null
-  br i1 %2, label %6, label %3
+define dso_local void @Draw_Object(ptr noundef %o) local_unnamed_addr #4 {
+entry:
+  %cmp.not = icmp eq ptr %o, null
+  br i1 %cmp.not, label %if.end, label %if.then
 
-3:                                                ; preds = %1
-  tail call void @PrintObject(ptr noundef nonnull %0)
-  %4 = getelementptr inbounds %struct.ObjectStruct, ptr %0, i64 0, i32 12
-  %5 = load ptr, ptr %4, align 8, !tbaa !63
-  tail call void @Draw_Children(ptr noundef %5)
-  br label %6
+if.then:                                          ; preds = %entry
+  tail call void @PrintObject(ptr noundef nonnull %o)
+  %Children = getelementptr inbounds %struct.ObjectStruct, ptr %o, i64 0, i32 12
+  %0 = load ptr, ptr %Children, align 8, !tbaa !63
+  tail call void @Draw_Children(ptr noundef %0)
+  br label %if.end
 
-6:                                                ; preds = %3, %1
+if.end:                                           ; preds = %if.then, %entry
   ret void
 }
 
 ; Function Attrs: nounwind uwtable
-define dso_local void @Draw_All_Nexts(ptr noundef readonly %0) local_unnamed_addr #8 {
-  %2 = icmp eq ptr %0, null
-  br i1 %2, label %14, label %3
+define dso_local void @Draw_All_Nexts(ptr noundef readonly %o) local_unnamed_addr #8 {
+entry:
+  %cmp.not = icmp eq ptr %o, null
+  br i1 %cmp.not, label %if.end, label %while.cond.preheader
 
-3:                                                ; preds = %1
-  %4 = getelementptr inbounds %struct.ObjectStruct, ptr %0, i64 0, i32 21
-  %5 = load ptr, ptr %4, align 8, !tbaa !64
-  %6 = icmp eq ptr %5, null
-  br i1 %6, label %14, label %7
+while.cond.preheader:                             ; preds = %entry
+  %tmp.0.in7 = getelementptr inbounds %struct.ObjectStruct, ptr %o, i64 0, i32 21
+  %tmp.08 = load ptr, ptr %tmp.0.in7, align 8, !tbaa !64
+  %cmp1.not9 = icmp eq ptr %tmp.08, null
+  br i1 %cmp1.not9, label %if.end, label %Draw_Object.exit
 
-7:                                                ; preds = %3, %7
-  %8 = phi ptr [ %12, %7 ], [ %5, %3 ]
-  tail call void @CalcObject(ptr noundef nonnull %8)
-  tail call void @PrintObject(ptr noundef nonnull %8)
-  %9 = getelementptr inbounds %struct.ObjectStruct, ptr %8, i64 0, i32 12
-  %10 = load ptr, ptr %9, align 8, !tbaa !63
-  tail call void @Draw_Children(ptr noundef %10)
-  %11 = getelementptr inbounds %struct.ObjectStruct, ptr %8, i64 0, i32 21
-  %12 = load ptr, ptr %11, align 8, !tbaa !64
-  %13 = icmp eq ptr %12, null
-  br i1 %13, label %14, label %7, !llvm.loop !78
+Draw_Object.exit:                                 ; preds = %while.cond.preheader, %Draw_Object.exit
+  %tmp.010 = phi ptr [ %tmp.0, %Draw_Object.exit ], [ %tmp.08, %while.cond.preheader ]
+  tail call void @CalcObject(ptr noundef nonnull %tmp.010)
+  tail call void @PrintObject(ptr noundef nonnull %tmp.010)
+  %Children.i = getelementptr inbounds %struct.ObjectStruct, ptr %tmp.010, i64 0, i32 12
+  %0 = load ptr, ptr %Children.i, align 8, !tbaa !63
+  tail call void @Draw_Children(ptr noundef %0)
+  %tmp.0.in = getelementptr inbounds %struct.ObjectStruct, ptr %tmp.010, i64 0, i32 21
+  %tmp.0 = load ptr, ptr %tmp.0.in, align 8, !tbaa !64
+  %cmp1.not = icmp eq ptr %tmp.0, null
+  br i1 %cmp1.not, label %if.end, label %Draw_Object.exit, !llvm.loop !78
 
-14:                                               ; preds = %7, %3, %1
+if.end:                                           ; preds = %Draw_Object.exit, %while.cond.preheader, %entry
   ret void
 }
 
 ; Function Attrs: nounwind uwtable
-define dso_local void @Draw_All_Prevs(ptr noundef readonly %0) local_unnamed_addr #8 {
-  %2 = icmp eq ptr %0, null
-  br i1 %2, label %14, label %3
+define dso_local void @Draw_All_Prevs(ptr noundef readonly %o) local_unnamed_addr #8 {
+entry:
+  %cmp.not = icmp eq ptr %o, null
+  br i1 %cmp.not, label %if.end, label %while.cond.preheader
 
-3:                                                ; preds = %1
-  %4 = getelementptr inbounds %struct.ObjectStruct, ptr %0, i64 0, i32 22
-  %5 = load ptr, ptr %4, align 8, !tbaa !65
-  %6 = icmp eq ptr %5, null
-  br i1 %6, label %14, label %7
+while.cond.preheader:                             ; preds = %entry
+  %tmp.0.in7 = getelementptr inbounds %struct.ObjectStruct, ptr %o, i64 0, i32 22
+  %tmp.08 = load ptr, ptr %tmp.0.in7, align 8, !tbaa !65
+  %cmp1.not9 = icmp eq ptr %tmp.08, null
+  br i1 %cmp1.not9, label %if.end, label %Draw_Object.exit
 
-7:                                                ; preds = %3, %7
-  %8 = phi ptr [ %12, %7 ], [ %5, %3 ]
-  tail call void @CalcObject(ptr noundef nonnull %8)
-  tail call void @PrintObject(ptr noundef nonnull %8)
-  %9 = getelementptr inbounds %struct.ObjectStruct, ptr %8, i64 0, i32 12
-  %10 = load ptr, ptr %9, align 8, !tbaa !63
-  tail call void @Draw_Children(ptr noundef %10)
-  %11 = getelementptr inbounds %struct.ObjectStruct, ptr %8, i64 0, i32 22
-  %12 = load ptr, ptr %11, align 8, !tbaa !65
-  %13 = icmp eq ptr %12, null
-  br i1 %13, label %14, label %7, !llvm.loop !79
+Draw_Object.exit:                                 ; preds = %while.cond.preheader, %Draw_Object.exit
+  %tmp.010 = phi ptr [ %tmp.0, %Draw_Object.exit ], [ %tmp.08, %while.cond.preheader ]
+  tail call void @CalcObject(ptr noundef nonnull %tmp.010)
+  tail call void @PrintObject(ptr noundef nonnull %tmp.010)
+  %Children.i = getelementptr inbounds %struct.ObjectStruct, ptr %tmp.010, i64 0, i32 12
+  %0 = load ptr, ptr %Children.i, align 8, !tbaa !63
+  tail call void @Draw_Children(ptr noundef %0)
+  %tmp.0.in = getelementptr inbounds %struct.ObjectStruct, ptr %tmp.010, i64 0, i32 22
+  %tmp.0 = load ptr, ptr %tmp.0.in, align 8, !tbaa !65
+  %cmp1.not = icmp eq ptr %tmp.0, null
+  br i1 %cmp1.not, label %if.end, label %Draw_Object.exit, !llvm.loop !79
 
-14:                                               ; preds = %7, %3, %1
+if.end:                                           ; preds = %Draw_Object.exit, %while.cond.preheader, %entry
   ret void
 }
 
 ; Function Attrs: nounwind uwtable
-define dso_local void @Draw_All(ptr noundef %0) local_unnamed_addr #8 {
-  %2 = icmp eq ptr %0, null
-  br i1 %2, label %27, label %3
+define dso_local void @Draw_All(ptr noundef %o) local_unnamed_addr #8 {
+entry:
+  %cmp.not = icmp eq ptr %o, null
+  br i1 %cmp.not, label %if.end, label %while.cond.preheader.i
 
-3:                                                ; preds = %1
-  tail call void @CalcObject(ptr noundef nonnull %0)
-  %4 = getelementptr inbounds %struct.ObjectStruct, ptr %0, i64 0, i32 22
-  %5 = load ptr, ptr %4, align 8, !tbaa !65
-  %6 = icmp eq ptr %5, null
-  br i1 %6, label %14, label %7
+while.cond.preheader.i:                           ; preds = %entry
+  tail call void @CalcObject(ptr noundef nonnull %o)
+  %tmp.0.in7.i = getelementptr inbounds %struct.ObjectStruct, ptr %o, i64 0, i32 22
+  %tmp.08.i = load ptr, ptr %tmp.0.in7.i, align 8, !tbaa !65
+  %cmp1.not9.i = icmp eq ptr %tmp.08.i, null
+  br i1 %cmp1.not9.i, label %while.cond.preheader.i10, label %Draw_Object.exit.i
 
-7:                                                ; preds = %3, %7
-  %8 = phi ptr [ %12, %7 ], [ %5, %3 ]
-  tail call void @CalcObject(ptr noundef nonnull %8)
-  tail call void @PrintObject(ptr noundef nonnull %8)
-  %9 = getelementptr inbounds %struct.ObjectStruct, ptr %8, i64 0, i32 12
-  %10 = load ptr, ptr %9, align 8, !tbaa !63
-  tail call void @Draw_Children(ptr noundef %10)
-  %11 = getelementptr inbounds %struct.ObjectStruct, ptr %8, i64 0, i32 22
-  %12 = load ptr, ptr %11, align 8, !tbaa !65
-  %13 = icmp eq ptr %12, null
-  br i1 %13, label %14, label %7, !llvm.loop !79
+Draw_Object.exit.i:                               ; preds = %while.cond.preheader.i, %Draw_Object.exit.i
+  %tmp.010.i = phi ptr [ %tmp.0.i, %Draw_Object.exit.i ], [ %tmp.08.i, %while.cond.preheader.i ]
+  tail call void @CalcObject(ptr noundef nonnull %tmp.010.i)
+  tail call void @PrintObject(ptr noundef nonnull %tmp.010.i)
+  %Children.i.i = getelementptr inbounds %struct.ObjectStruct, ptr %tmp.010.i, i64 0, i32 12
+  %0 = load ptr, ptr %Children.i.i, align 8, !tbaa !63
+  tail call void @Draw_Children(ptr noundef %0)
+  %tmp.0.in.i = getelementptr inbounds %struct.ObjectStruct, ptr %tmp.010.i, i64 0, i32 22
+  %tmp.0.i = load ptr, ptr %tmp.0.in.i, align 8, !tbaa !65
+  %cmp1.not.i = icmp eq ptr %tmp.0.i, null
+  br i1 %cmp1.not.i, label %while.cond.preheader.i10, label %Draw_Object.exit.i, !llvm.loop !79
 
-14:                                               ; preds = %7, %3
-  tail call void @PrintObject(ptr noundef nonnull %0)
-  %15 = getelementptr inbounds %struct.ObjectStruct, ptr %0, i64 0, i32 12
-  %16 = load ptr, ptr %15, align 8, !tbaa !63
-  tail call void @Draw_Children(ptr noundef %16)
-  %17 = getelementptr inbounds %struct.ObjectStruct, ptr %0, i64 0, i32 21
-  %18 = load ptr, ptr %17, align 8, !tbaa !64
-  %19 = icmp eq ptr %18, null
-  br i1 %19, label %27, label %20
+while.cond.preheader.i10:                         ; preds = %Draw_Object.exit.i, %while.cond.preheader.i
+  tail call void @PrintObject(ptr noundef nonnull %o)
+  %Children.i = getelementptr inbounds %struct.ObjectStruct, ptr %o, i64 0, i32 12
+  %1 = load ptr, ptr %Children.i, align 8, !tbaa !63
+  tail call void @Draw_Children(ptr noundef %1)
+  %tmp.0.in7.i7 = getelementptr inbounds %struct.ObjectStruct, ptr %o, i64 0, i32 21
+  %tmp.08.i8 = load ptr, ptr %tmp.0.in7.i7, align 8, !tbaa !64
+  %cmp1.not9.i9 = icmp eq ptr %tmp.08.i8, null
+  br i1 %cmp1.not9.i9, label %if.end, label %Draw_Object.exit.i16
 
-20:                                               ; preds = %14, %20
-  %21 = phi ptr [ %25, %20 ], [ %18, %14 ]
-  tail call void @CalcObject(ptr noundef nonnull %21)
-  tail call void @PrintObject(ptr noundef nonnull %21)
-  %22 = getelementptr inbounds %struct.ObjectStruct, ptr %21, i64 0, i32 12
-  %23 = load ptr, ptr %22, align 8, !tbaa !63
-  tail call void @Draw_Children(ptr noundef %23)
-  %24 = getelementptr inbounds %struct.ObjectStruct, ptr %21, i64 0, i32 21
-  %25 = load ptr, ptr %24, align 8, !tbaa !64
-  %26 = icmp eq ptr %25, null
-  br i1 %26, label %27, label %20, !llvm.loop !78
+Draw_Object.exit.i16:                             ; preds = %while.cond.preheader.i10, %Draw_Object.exit.i16
+  %tmp.010.i11 = phi ptr [ %tmp.0.i14, %Draw_Object.exit.i16 ], [ %tmp.08.i8, %while.cond.preheader.i10 ]
+  tail call void @CalcObject(ptr noundef nonnull %tmp.010.i11)
+  tail call void @PrintObject(ptr noundef nonnull %tmp.010.i11)
+  %Children.i.i12 = getelementptr inbounds %struct.ObjectStruct, ptr %tmp.010.i11, i64 0, i32 12
+  %2 = load ptr, ptr %Children.i.i12, align 8, !tbaa !63
+  tail call void @Draw_Children(ptr noundef %2)
+  %tmp.0.in.i13 = getelementptr inbounds %struct.ObjectStruct, ptr %tmp.010.i11, i64 0, i32 21
+  %tmp.0.i14 = load ptr, ptr %tmp.0.in.i13, align 8, !tbaa !64
+  %cmp1.not.i15 = icmp eq ptr %tmp.0.i14, null
+  br i1 %cmp1.not.i15, label %if.end, label %Draw_Object.exit.i16, !llvm.loop !78
 
-27:                                               ; preds = %20, %14, %1
+if.end:                                           ; preds = %Draw_Object.exit.i16, %while.cond.preheader.i10, %entry
   ret void
 }
 
 ; Function Attrs: mustprogress nocallback nofree nosync nounwind speculatable willreturn memory(none)
 declare double @llvm.fabs.f64(double) #12
 
+; Function Attrs: nofree nounwind
+declare noundef i32 @puts(ptr nocapture noundef readonly) local_unnamed_addr #13
+
+; Function Attrs: nofree nounwind
+declare noundef i64 @fwrite(ptr nocapture noundef, i64 noundef, i64 noundef, ptr nocapture noundef) local_unnamed_addr #13
+
 ; Function Attrs: nocallback nofree nounwind willreturn memory(argmem: write)
-declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #13
-
-; Function Attrs: nofree nounwind
-declare noundef i32 @puts(ptr nocapture noundef readonly) local_unnamed_addr #14
-
-; Function Attrs: nofree nounwind
-declare noundef i64 @fwrite(ptr nocapture noundef, i64 noundef, i64 noundef, ptr nocapture noundef) local_unnamed_addr #14
+declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #14
 
 attributes #0 = { mustprogress nofree nounwind willreturn uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #1 = { mustprogress nocallback nofree nosync nounwind willreturn memory(argmem: readwrite) }
@@ -1531,8 +1556,8 @@ attributes #9 = { "no-trapping-math"="true" "stack-protector-buffer-size"="8" "t
 attributes #10 = { mustprogress nocallback nofree nounwind willreturn memory(argmem: readwrite) }
 attributes #11 = { mustprogress nofree norecurse nosync nounwind willreturn memory(argmem: write) uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #12 = { mustprogress nocallback nofree nosync nounwind speculatable willreturn memory(none) }
-attributes #13 = { nocallback nofree nounwind willreturn memory(argmem: write) }
-attributes #14 = { nofree nounwind }
+attributes #13 = { nofree nounwind }
+attributes #14 = { nocallback nofree nounwind willreturn memory(argmem: write) }
 attributes #15 = { nounwind allocsize(0,1) }
 attributes #16 = { nounwind }
 attributes #17 = { nounwind allocsize(0) }

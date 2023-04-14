@@ -75,1280 +75,1281 @@ $_ZTI13CMyUnknownImp = comdat any
 @IID_IUnknown = external local_unnamed_addr global %struct.GUID, align 4
 
 ; Function Attrs: uwtable
-define dso_local noundef i32 @_ZN9NCompress7NShrink8CDecoder8CodeRealEP19ISequentialInStreamP20ISequentialOutStreamPKyS7_P21ICompressProgressInfo(ptr nocapture noundef nonnull align 8 dereferenceable(49164) %0, ptr noundef %1, ptr noundef %2, ptr nocapture readnone %3, ptr nocapture readnone %4, ptr noundef %5) local_unnamed_addr #0 align 2 personality ptr @__gxx_personality_v0 {
-  %7 = alloca %"class.NBitl::CBaseDecoder", align 8
-  %8 = alloca %class.COutBuffer, align 8
-  %9 = alloca i64, align 8
-  %10 = alloca i64, align 8
-  call void @llvm.lifetime.start.p0(i64 64, ptr nonnull %7) #11
-  %11 = getelementptr inbounds %"class.NBitl::CBaseDecoder", ptr %7, i64 0, i32 2
-  call void @_ZN9CInBufferC1Ev(ptr noundef nonnull align 8 dereferenceable(45) %11)
-  call void @llvm.lifetime.start.p0(i64 56, ptr nonnull %8) #11
-  store ptr null, ptr %8, align 8, !tbaa !5
-  %12 = getelementptr inbounds %class.COutBuffer, ptr %8, i64 0, i32 1
-  store i32 0, ptr %12, align 8, !tbaa !14
-  %13 = getelementptr inbounds %class.COutBuffer, ptr %8, i64 0, i32 5
-  store ptr null, ptr %13, align 8, !tbaa !15
-  %14 = getelementptr inbounds %class.COutBuffer, ptr %8, i64 0, i32 7
-  store ptr null, ptr %14, align 8, !tbaa !16
-  %15 = invoke noundef zeroext i1 @_ZN9CInBuffer6CreateEj(ptr noundef nonnull align 8 dereferenceable(45) %11, i32 noundef 1048576)
-          to label %16 unwind label %17
+define dso_local noundef i32 @_ZN9NCompress7NShrink8CDecoder8CodeRealEP19ISequentialInStreamP20ISequentialOutStreamPKyS7_P21ICompressProgressInfo(ptr nocapture noundef nonnull align 8 dereferenceable(49164) %this, ptr noundef %inStream, ptr noundef %outStream, ptr nocapture readnone %0, ptr nocapture readnone %1, ptr noundef %progress) local_unnamed_addr #0 align 2 personality ptr @__gxx_personality_v0 {
+invoke.cont:
+  %inBuffer = alloca %"class.NBitl::CBaseDecoder", align 8
+  %outBuffer = alloca %class.COutBuffer, align 8
+  %nowPos = alloca i64, align 8
+  %packSize = alloca i64, align 8
+  call void @llvm.lifetime.start.p0(i64 64, ptr nonnull %inBuffer) #11
+  %m_Stream.i = getelementptr inbounds %"class.NBitl::CBaseDecoder", ptr %inBuffer, i64 0, i32 2
+  call void @_ZN9CInBufferC1Ev(ptr noundef nonnull align 8 dereferenceable(45) %m_Stream.i)
+  call void @llvm.lifetime.start.p0(i64 56, ptr nonnull %outBuffer) #11
+  store ptr null, ptr %outBuffer, align 8, !tbaa !5
+  %_pos.i = getelementptr inbounds %class.COutBuffer, ptr %outBuffer, i64 0, i32 1
+  store i32 0, ptr %_pos.i, align 8, !tbaa !14
+  %_stream.i = getelementptr inbounds %class.COutBuffer, ptr %outBuffer, i64 0, i32 5
+  store ptr null, ptr %_stream.i, align 8, !tbaa !15
+  %_buffer2.i = getelementptr inbounds %class.COutBuffer, ptr %outBuffer, i64 0, i32 7
+  store ptr null, ptr %_buffer2.i, align 8, !tbaa !16
+  %call.i335 = invoke noundef zeroext i1 @_ZN9CInBuffer6CreateEj(ptr noundef nonnull align 8 dereferenceable(45) %m_Stream.i, i32 noundef 1048576)
+          to label %invoke.cont4 unwind label %lpad3
 
-16:                                               ; preds = %6
-  br i1 %15, label %19, label %663
+invoke.cont4:                                     ; preds = %invoke.cont
+  br i1 %call.i335, label %if.end, label %cleanup250
 
-17:                                               ; preds = %20, %19, %6, %27, %26, %21
-  %18 = landingpad { ptr, i32 }
+lpad3:                                            ; preds = %invoke.cont5, %if.end, %invoke.cont, %invoke.cont11, %if.end10, %invoke.cont6
+  %2 = landingpad { ptr, i32 }
           cleanup
-  br label %696
+  br label %ehcleanup251
 
-19:                                               ; preds = %16
-  invoke void @_ZN9CInBuffer9SetStreamEP19ISequentialInStream(ptr noundef nonnull align 8 dereferenceable(45) %11, ptr noundef %1)
-          to label %20 unwind label %17
+if.end:                                           ; preds = %invoke.cont4
+  invoke void @_ZN9CInBuffer9SetStreamEP19ISequentialInStream(ptr noundef nonnull align 8 dereferenceable(45) %m_Stream.i, ptr noundef %inStream)
+          to label %invoke.cont5 unwind label %lpad3
 
-20:                                               ; preds = %19
-  invoke void @_ZN9CInBuffer4InitEv(ptr noundef nonnull align 8 dereferenceable(45) %11)
-          to label %21 unwind label %17
+invoke.cont5:                                     ; preds = %if.end
+  invoke void @_ZN9CInBuffer4InitEv(ptr noundef nonnull align 8 dereferenceable(45) %m_Stream.i)
+          to label %invoke.cont6 unwind label %lpad3
 
-21:                                               ; preds = %20
-  store i32 32, ptr %7, align 8, !tbaa !17
-  %22 = getelementptr inbounds %"class.NBitl::CBaseDecoder", ptr %7, i64 0, i32 1
-  store i32 0, ptr %22, align 4, !tbaa !21
-  %23 = getelementptr inbounds %"class.NBitl::CBaseDecoder", ptr %7, i64 0, i32 3
-  store i32 0, ptr %23, align 8, !tbaa !22
-  %24 = invoke noundef zeroext i1 @_ZN10COutBuffer6CreateEj(ptr noundef nonnull align 8 dereferenceable(49) %8, i32 noundef 1048576)
-          to label %25 unwind label %17
+invoke.cont6:                                     ; preds = %invoke.cont5
+  store i32 32, ptr %inBuffer, align 8, !tbaa !17
+  %m_Value.i = getelementptr inbounds %"class.NBitl::CBaseDecoder", ptr %inBuffer, i64 0, i32 1
+  store i32 0, ptr %m_Value.i, align 4, !tbaa !21
+  %NumExtraBytes.i = getelementptr inbounds %"class.NBitl::CBaseDecoder", ptr %inBuffer, i64 0, i32 3
+  store i32 0, ptr %NumExtraBytes.i, align 8, !tbaa !22
+  %call8 = invoke noundef zeroext i1 @_ZN10COutBuffer6CreateEj(ptr noundef nonnull align 8 dereferenceable(49) %outBuffer, i32 noundef 1048576)
+          to label %invoke.cont7 unwind label %lpad3
 
-25:                                               ; preds = %21
-  br i1 %24, label %26, label %663
+invoke.cont7:                                     ; preds = %invoke.cont6
+  br i1 %call8, label %if.end10, label %cleanup250
 
-26:                                               ; preds = %25
-  invoke void @_ZN10COutBuffer9SetStreamEP20ISequentialOutStream(ptr noundef nonnull align 8 dereferenceable(49) %8, ptr noundef %2)
-          to label %27 unwind label %17
+if.end10:                                         ; preds = %invoke.cont7
+  invoke void @_ZN10COutBuffer9SetStreamEP20ISequentialOutStream(ptr noundef nonnull align 8 dereferenceable(49) %outBuffer, ptr noundef %outStream)
+          to label %invoke.cont11 unwind label %lpad3
 
-27:                                               ; preds = %26
-  invoke void @_ZN10COutBuffer4InitEv(ptr noundef nonnull align 8 dereferenceable(49) %8)
-          to label %28 unwind label %17
+invoke.cont11:                                    ; preds = %if.end10
+  invoke void @_ZN10COutBuffer4InitEv(ptr noundef nonnull align 8 dereferenceable(49) %outBuffer)
+          to label %for.cond38.preheader unwind label %lpad3
 
-28:                                               ; preds = %27
-  %29 = getelementptr i8, ptr %0, i64 12
-  %30 = getelementptr i8, ptr %0, i64 32780
-  call void @llvm.memset.p0.i64(ptr noundef nonnull align 4 dereferenceable(257) %30, i8 0, i64 257, i1 false), !tbaa !23
-  %31 = getelementptr i8, ptr %0, i64 33037
-  call void @llvm.memset.p0.i64(ptr noundef nonnull align 4 dereferenceable(24576) %29, i8 0, i64 24576, i1 false)
-  call void @llvm.memset.p0.i64(ptr noundef nonnull align 1 dereferenceable(7935) %31, i8 1, i64 7935, i1 false), !tbaa !23
-  %32 = getelementptr inbounds %"class.NBitl::CBaseDecoder", ptr %7, i64 0, i32 2, i32 1
-  %33 = getelementptr inbounds %class.COutBuffer, ptr %8, i64 0, i32 2
-  %34 = icmp ne ptr %5, null
-  %35 = getelementptr inbounds %"class.NBitl::CBaseDecoder", ptr %7, i64 0, i32 2, i32 4
-  %36 = getelementptr inbounds %"class.NBitl::CBaseDecoder", ptr %7, i64 0, i32 2, i32 2
-  %37 = getelementptr i8, ptr %0, i64 41229
-  %38 = getelementptr inbounds %"class.NCompress::NShrink::CDecoder", ptr %0, i64 0, i32 6, i64 8161
-  %39 = getelementptr inbounds %"class.NCompress::NShrink::CDecoder", ptr %0, i64 0, i32 5, i64 8161
-  %40 = getelementptr inbounds %"class.NCompress::NShrink::CDecoder", ptr %0, i64 0, i32 5, i64 8162
-  %41 = getelementptr inbounds %"class.NCompress::NShrink::CDecoder", ptr %0, i64 0, i32 5, i64 8163
-  %42 = getelementptr inbounds %"class.NCompress::NShrink::CDecoder", ptr %0, i64 0, i32 5, i64 8164
-  %43 = getelementptr inbounds %"class.NCompress::NShrink::CDecoder", ptr %0, i64 0, i32 5, i64 8165
-  %44 = getelementptr inbounds %"class.NCompress::NShrink::CDecoder", ptr %0, i64 0, i32 5, i64 8166
-  %45 = getelementptr inbounds %"class.NCompress::NShrink::CDecoder", ptr %0, i64 0, i32 5, i64 8167
-  %46 = getelementptr inbounds %"class.NCompress::NShrink::CDecoder", ptr %0, i64 0, i32 5, i64 8168
-  %47 = getelementptr inbounds %"class.NCompress::NShrink::CDecoder", ptr %0, i64 0, i32 6, i64 8169
-  %48 = getelementptr inbounds %"class.NCompress::NShrink::CDecoder", ptr %0, i64 0, i32 5, i64 8169
-  %49 = getelementptr inbounds %"class.NCompress::NShrink::CDecoder", ptr %0, i64 0, i32 5, i64 8170
-  %50 = getelementptr inbounds %"class.NCompress::NShrink::CDecoder", ptr %0, i64 0, i32 5, i64 8171
-  %51 = getelementptr inbounds %"class.NCompress::NShrink::CDecoder", ptr %0, i64 0, i32 5, i64 8172
-  %52 = getelementptr inbounds %"class.NCompress::NShrink::CDecoder", ptr %0, i64 0, i32 5, i64 8173
-  %53 = getelementptr inbounds %"class.NCompress::NShrink::CDecoder", ptr %0, i64 0, i32 5, i64 8174
-  %54 = getelementptr inbounds %"class.NCompress::NShrink::CDecoder", ptr %0, i64 0, i32 5, i64 8175
-  %55 = getelementptr inbounds %"class.NCompress::NShrink::CDecoder", ptr %0, i64 0, i32 5, i64 8176
-  %56 = getelementptr inbounds %"class.NCompress::NShrink::CDecoder", ptr %0, i64 0, i32 6, i64 8177
-  %57 = getelementptr inbounds %"class.NCompress::NShrink::CDecoder", ptr %0, i64 0, i32 5, i64 8177
-  %58 = getelementptr inbounds %"class.NCompress::NShrink::CDecoder", ptr %0, i64 0, i32 5, i64 8178
-  %59 = getelementptr inbounds %"class.NCompress::NShrink::CDecoder", ptr %0, i64 0, i32 5, i64 8179
-  %60 = getelementptr inbounds %"class.NCompress::NShrink::CDecoder", ptr %0, i64 0, i32 5, i64 8180
-  %61 = getelementptr inbounds %"class.NCompress::NShrink::CDecoder", ptr %0, i64 0, i32 5, i64 8181
-  %62 = getelementptr inbounds %"class.NCompress::NShrink::CDecoder", ptr %0, i64 0, i32 5, i64 8182
-  %63 = getelementptr inbounds %"class.NCompress::NShrink::CDecoder", ptr %0, i64 0, i32 5, i64 8183
-  %64 = getelementptr inbounds %"class.NCompress::NShrink::CDecoder", ptr %0, i64 0, i32 5, i64 8184
-  %65 = getelementptr inbounds %"class.NCompress::NShrink::CDecoder", ptr %0, i64 0, i32 6, i64 8185
-  %66 = getelementptr inbounds %"class.NCompress::NShrink::CDecoder", ptr %0, i64 0, i32 5, i64 8185
-  %67 = getelementptr inbounds %"class.NCompress::NShrink::CDecoder", ptr %0, i64 0, i32 6, i64 8186
-  %68 = getelementptr inbounds %"class.NCompress::NShrink::CDecoder", ptr %0, i64 0, i32 5, i64 8186
-  %69 = getelementptr inbounds %"class.NCompress::NShrink::CDecoder", ptr %0, i64 0, i32 6, i64 8187
-  %70 = getelementptr inbounds %"class.NCompress::NShrink::CDecoder", ptr %0, i64 0, i32 5, i64 8187
-  %71 = getelementptr inbounds %"class.NCompress::NShrink::CDecoder", ptr %0, i64 0, i32 6, i64 8188
-  %72 = getelementptr inbounds %"class.NCompress::NShrink::CDecoder", ptr %0, i64 0, i32 5, i64 8188
-  %73 = getelementptr inbounds %"class.NCompress::NShrink::CDecoder", ptr %0, i64 0, i32 6, i64 8189
-  %74 = getelementptr inbounds %"class.NCompress::NShrink::CDecoder", ptr %0, i64 0, i32 5, i64 8189
-  %75 = getelementptr inbounds %"class.NCompress::NShrink::CDecoder", ptr %0, i64 0, i32 6, i64 8190
-  %76 = getelementptr inbounds %"class.NCompress::NShrink::CDecoder", ptr %0, i64 0, i32 5, i64 8190
-  %77 = getelementptr inbounds %"class.NCompress::NShrink::CDecoder", ptr %0, i64 0, i32 6, i64 8191
-  %78 = getelementptr inbounds %"class.NCompress::NShrink::CDecoder", ptr %0, i64 0, i32 5, i64 8191
-  br label %79
+for.cond38.preheader:                             ; preds = %invoke.cont11
+  %scevgep = getelementptr i8, ptr %this, i64 12
+  %scevgep434 = getelementptr i8, ptr %this, i64 32780
+  call void @llvm.memset.p0.i64(ptr noundef nonnull align 4 dereferenceable(257) %scevgep434, i8 0, i64 257, i1 false), !tbaa !23
+  %scevgep436 = getelementptr i8, ptr %this, i64 33037
+  call void @llvm.memset.p0.i64(ptr noundef nonnull align 4 dereferenceable(24576) %scevgep, i8 0, i64 24576, i1 false)
+  call void @llvm.memset.p0.i64(ptr noundef nonnull align 1 dereferenceable(7935) %scevgep436, i8 1, i64 7935, i1 false), !tbaa !23
+  %_bufferLimit.i.i.i = getelementptr inbounds %"class.NBitl::CBaseDecoder", ptr %inBuffer, i64 0, i32 2, i32 1
+  %_limitPos.i = getelementptr inbounds %class.COutBuffer, ptr %outBuffer, i64 0, i32 2
+  %cmp206.not = icmp ne ptr %progress, null
+  %_processedSize.i.i = getelementptr inbounds %"class.NBitl::CBaseDecoder", ptr %inBuffer, i64 0, i32 2, i32 4
+  %_bufferBase.i.i = getelementptr inbounds %"class.NBitl::CBaseDecoder", ptr %inBuffer, i64 0, i32 2, i32 2
+  %scevgep446 = getelementptr i8, ptr %this, i64 41229
+  %3 = getelementptr inbounds %"class.NCompress::NShrink::CDecoder", ptr %this, i64 0, i32 6, i64 8161
+  %4 = getelementptr inbounds %"class.NCompress::NShrink::CDecoder", ptr %this, i64 0, i32 5, i64 8161
+  %5 = getelementptr inbounds %"class.NCompress::NShrink::CDecoder", ptr %this, i64 0, i32 5, i64 8162
+  %6 = getelementptr inbounds %"class.NCompress::NShrink::CDecoder", ptr %this, i64 0, i32 5, i64 8163
+  %7 = getelementptr inbounds %"class.NCompress::NShrink::CDecoder", ptr %this, i64 0, i32 5, i64 8164
+  %8 = getelementptr inbounds %"class.NCompress::NShrink::CDecoder", ptr %this, i64 0, i32 5, i64 8165
+  %9 = getelementptr inbounds %"class.NCompress::NShrink::CDecoder", ptr %this, i64 0, i32 5, i64 8166
+  %10 = getelementptr inbounds %"class.NCompress::NShrink::CDecoder", ptr %this, i64 0, i32 5, i64 8167
+  %11 = getelementptr inbounds %"class.NCompress::NShrink::CDecoder", ptr %this, i64 0, i32 5, i64 8168
+  %12 = getelementptr inbounds %"class.NCompress::NShrink::CDecoder", ptr %this, i64 0, i32 6, i64 8169
+  %13 = getelementptr inbounds %"class.NCompress::NShrink::CDecoder", ptr %this, i64 0, i32 5, i64 8169
+  %14 = getelementptr inbounds %"class.NCompress::NShrink::CDecoder", ptr %this, i64 0, i32 5, i64 8170
+  %15 = getelementptr inbounds %"class.NCompress::NShrink::CDecoder", ptr %this, i64 0, i32 5, i64 8171
+  %16 = getelementptr inbounds %"class.NCompress::NShrink::CDecoder", ptr %this, i64 0, i32 5, i64 8172
+  %17 = getelementptr inbounds %"class.NCompress::NShrink::CDecoder", ptr %this, i64 0, i32 5, i64 8173
+  %18 = getelementptr inbounds %"class.NCompress::NShrink::CDecoder", ptr %this, i64 0, i32 5, i64 8174
+  %19 = getelementptr inbounds %"class.NCompress::NShrink::CDecoder", ptr %this, i64 0, i32 5, i64 8175
+  %20 = getelementptr inbounds %"class.NCompress::NShrink::CDecoder", ptr %this, i64 0, i32 5, i64 8176
+  %21 = getelementptr inbounds %"class.NCompress::NShrink::CDecoder", ptr %this, i64 0, i32 6, i64 8177
+  %22 = getelementptr inbounds %"class.NCompress::NShrink::CDecoder", ptr %this, i64 0, i32 5, i64 8177
+  %23 = getelementptr inbounds %"class.NCompress::NShrink::CDecoder", ptr %this, i64 0, i32 5, i64 8178
+  %24 = getelementptr inbounds %"class.NCompress::NShrink::CDecoder", ptr %this, i64 0, i32 5, i64 8179
+  %25 = getelementptr inbounds %"class.NCompress::NShrink::CDecoder", ptr %this, i64 0, i32 5, i64 8180
+  %26 = getelementptr inbounds %"class.NCompress::NShrink::CDecoder", ptr %this, i64 0, i32 5, i64 8181
+  %27 = getelementptr inbounds %"class.NCompress::NShrink::CDecoder", ptr %this, i64 0, i32 5, i64 8182
+  %28 = getelementptr inbounds %"class.NCompress::NShrink::CDecoder", ptr %this, i64 0, i32 5, i64 8183
+  %29 = getelementptr inbounds %"class.NCompress::NShrink::CDecoder", ptr %this, i64 0, i32 5, i64 8184
+  %arrayidx102 = getelementptr inbounds %"class.NCompress::NShrink::CDecoder", ptr %this, i64 0, i32 6, i64 8185
+  %arrayidx107 = getelementptr inbounds %"class.NCompress::NShrink::CDecoder", ptr %this, i64 0, i32 5, i64 8185
+  %arrayidx102.1 = getelementptr inbounds %"class.NCompress::NShrink::CDecoder", ptr %this, i64 0, i32 6, i64 8186
+  %arrayidx107.1 = getelementptr inbounds %"class.NCompress::NShrink::CDecoder", ptr %this, i64 0, i32 5, i64 8186
+  %arrayidx102.2 = getelementptr inbounds %"class.NCompress::NShrink::CDecoder", ptr %this, i64 0, i32 6, i64 8187
+  %arrayidx107.2 = getelementptr inbounds %"class.NCompress::NShrink::CDecoder", ptr %this, i64 0, i32 5, i64 8187
+  %arrayidx102.3 = getelementptr inbounds %"class.NCompress::NShrink::CDecoder", ptr %this, i64 0, i32 6, i64 8188
+  %arrayidx107.3 = getelementptr inbounds %"class.NCompress::NShrink::CDecoder", ptr %this, i64 0, i32 5, i64 8188
+  %arrayidx102.4 = getelementptr inbounds %"class.NCompress::NShrink::CDecoder", ptr %this, i64 0, i32 6, i64 8189
+  %arrayidx107.4 = getelementptr inbounds %"class.NCompress::NShrink::CDecoder", ptr %this, i64 0, i32 5, i64 8189
+  %arrayidx102.5 = getelementptr inbounds %"class.NCompress::NShrink::CDecoder", ptr %this, i64 0, i32 6, i64 8190
+  %arrayidx107.5 = getelementptr inbounds %"class.NCompress::NShrink::CDecoder", ptr %this, i64 0, i32 5, i64 8190
+  %arrayidx102.6 = getelementptr inbounds %"class.NCompress::NShrink::CDecoder", ptr %this, i64 0, i32 6, i64 8191
+  %arrayidx107.6 = getelementptr inbounds %"class.NCompress::NShrink::CDecoder", ptr %this, i64 0, i32 5, i64 8191
+  br label %for.cond38
 
-79:                                               ; preds = %651, %28
-  %80 = phi i64 [ 0, %28 ], [ %656, %651 ]
-  %81 = phi i32 [ 9, %28 ], [ %655, %651 ]
-  %82 = phi i32 [ 257, %28 ], [ %654, %651 ]
-  %83 = phi i8 [ 0, %28 ], [ %653, %651 ]
-  %84 = phi i32 [ 0, %28 ], [ %652, %651 ]
-  %85 = load i32, ptr %7, align 8, !tbaa !17
-  %86 = icmp ugt i32 %85, 7
-  br i1 %86, label %89, label %87
+for.cond38:                                       ; preds = %for.cond38.backedge, %for.cond38.preheader
+  %prevPos.0 = phi i64 [ 0, %for.cond38.preheader ], [ %prevPos.3473, %for.cond38.backedge ]
+  %numBits.0 = phi i32 [ 9, %for.cond38.preheader ], [ %numBits.3474, %for.cond38.backedge ]
+  %head.0 = phi i32 [ 257, %for.cond38.preheader ], [ %head.6475, %for.cond38.backedge ]
+  %needPrev.0 = phi i8 [ 0, %for.cond38.preheader ], [ %needPrev.4476, %for.cond38.backedge ]
+  %lastSymbol.0 = phi i32 [ 0, %for.cond38.preheader ], [ %lastSymbol.1477, %for.cond38.backedge ]
+  %.pr.i.i = load i32, ptr %inBuffer, align 8, !tbaa !17
+  %cmp8.i.i = icmp ugt i32 %.pr.i.i, 7
+  br i1 %cmp8.i.i, label %for.body.i.i, label %entry._ZN5NBitl12CBaseDecoderI9CInBufferE9NormalizeEv.exit_crit_edge.i
 
-87:                                               ; preds = %79
-  %88 = load i32, ptr %22, align 4, !tbaa !21
-  br label %115
+entry._ZN5NBitl12CBaseDecoderI9CInBufferE9NormalizeEv.exit_crit_edge.i: ; preds = %for.cond38
+  %.pre.i = load i32, ptr %m_Value.i, align 4, !tbaa !21
+  br label %invoke.cont40
 
-89:                                               ; preds = %79, %105
-  %90 = load ptr, ptr %11, align 8, !tbaa !24
-  %91 = load ptr, ptr %32, align 8, !tbaa !25
-  %92 = icmp ult ptr %90, %91
-  br i1 %92, label %98, label %93
+for.body.i.i:                                     ; preds = %for.cond38, %if.end.i.i
+  %30 = load ptr, ptr %m_Stream.i, align 8, !tbaa !24
+  %31 = load ptr, ptr %_bufferLimit.i.i.i, align 8, !tbaa !25
+  %cmp.not.i.i.i = icmp ult ptr %30, %31
+  br i1 %cmp.not.i.i.i, label %_ZN9CInBuffer8ReadByteERh.exit.thread.i.i, label %if.then.i.i.i
 
-93:                                               ; preds = %89
-  %94 = invoke noundef zeroext i1 @_ZN9CInBuffer9ReadBlockEv(ptr noundef nonnull align 8 dereferenceable(45) %11)
-          to label %95 unwind label %129
+if.then.i.i.i:                                    ; preds = %for.body.i.i
+  %call.i.i.i339 = invoke noundef zeroext i1 @_ZN9CInBuffer9ReadBlockEv(ptr noundef nonnull align 8 dereferenceable(45) %m_Stream.i)
+          to label %call.i.i.i.noexc unwind label %lpad39
 
-95:                                               ; preds = %93
-  br i1 %94, label %96, label %102
+call.i.i.i.noexc:                                 ; preds = %if.then.i.i.i
+  br i1 %call.i.i.i339, label %if.then.if.end3_crit_edge.i.i.i, label %if.then.i.i
 
-96:                                               ; preds = %95
-  %97 = load ptr, ptr %11, align 8, !tbaa !24
-  br label %98
+if.then.if.end3_crit_edge.i.i.i:                  ; preds = %call.i.i.i.noexc
+  %.pre.i.i.i = load ptr, ptr %m_Stream.i, align 8, !tbaa !24
+  br label %_ZN9CInBuffer8ReadByteERh.exit.thread.i.i
 
-98:                                               ; preds = %96, %89
-  %99 = phi ptr [ %97, %96 ], [ %90, %89 ]
-  %100 = getelementptr inbounds i8, ptr %99, i64 1
-  store ptr %100, ptr %11, align 8, !tbaa !24
-  %101 = load i8, ptr %99, align 1, !tbaa !26
-  br label %105
+_ZN9CInBuffer8ReadByteERh.exit.thread.i.i:        ; preds = %if.then.if.end3_crit_edge.i.i.i, %for.body.i.i
+  %32 = phi ptr [ %.pre.i.i.i, %if.then.if.end3_crit_edge.i.i.i ], [ %30, %for.body.i.i ]
+  %incdec.ptr.i.i.i = getelementptr inbounds i8, ptr %32, i64 1
+  store ptr %incdec.ptr.i.i.i, ptr %m_Stream.i, align 8, !tbaa !24
+  %33 = load i8, ptr %32, align 1, !tbaa !26
+  br label %if.end.i.i
 
-102:                                              ; preds = %95
-  %103 = load i32, ptr %23, align 8, !tbaa !22
-  %104 = add i32 %103, 1
-  store i32 %104, ptr %23, align 8, !tbaa !22
-  br label %105
+if.then.i.i:                                      ; preds = %call.i.i.i.noexc
+  %34 = load i32, ptr %NumExtraBytes.i, align 8, !tbaa !22
+  %inc.i.i = add i32 %34, 1
+  store i32 %inc.i.i, ptr %NumExtraBytes.i, align 8, !tbaa !22
+  br label %if.end.i.i
 
-105:                                              ; preds = %102, %98
-  %106 = phi i8 [ -1, %102 ], [ %101, %98 ]
-  %107 = zext i8 %106 to i32
-  %108 = load i32, ptr %7, align 8, !tbaa !17
-  %109 = sub i32 32, %108
-  %110 = shl i32 %107, %109
-  %111 = load i32, ptr %22, align 4, !tbaa !21
-  %112 = or i32 %110, %111
-  store i32 %112, ptr %22, align 4, !tbaa !21
-  %113 = add i32 %108, -8
-  store i32 %113, ptr %7, align 8, !tbaa !17
-  %114 = icmp ugt i32 %113, 7
-  br i1 %114, label %89, label %115, !llvm.loop !27
+if.end.i.i:                                       ; preds = %if.then.i.i, %_ZN9CInBuffer8ReadByteERh.exit.thread.i.i
+  %b.1.i.i = phi i8 [ -1, %if.then.i.i ], [ %33, %_ZN9CInBuffer8ReadByteERh.exit.thread.i.i ]
+  %conv.i.i = zext i8 %b.1.i.i to i32
+  %35 = load i32, ptr %inBuffer, align 8, !tbaa !17
+  %sub.i.i = sub i32 32, %35
+  %shl.i.i = shl i32 %conv.i.i, %sub.i.i
+  %36 = load i32, ptr %m_Value.i, align 4, !tbaa !21
+  %or.i.i = or i32 %shl.i.i, %36
+  store i32 %or.i.i, ptr %m_Value.i, align 4, !tbaa !21
+  %sub5.i.i = add i32 %35, -8
+  store i32 %sub5.i.i, ptr %inBuffer, align 8, !tbaa !17
+  %cmp.i.i = icmp ugt i32 %sub5.i.i, 7
+  br i1 %cmp.i.i, label %for.body.i.i, label %invoke.cont40, !llvm.loop !27
 
-115:                                              ; preds = %105, %87
-  %116 = phi i32 [ %85, %87 ], [ %113, %105 ]
-  %117 = phi i32 [ %88, %87 ], [ %112, %105 ]
-  %118 = shl nsw i32 -1, %81
-  %119 = xor i32 %118, -1
-  %120 = and i32 %117, %119
-  %121 = add i32 %116, %81
-  store i32 %121, ptr %7, align 8, !tbaa !17
-  %122 = lshr i32 %117, %81
-  store i32 %122, ptr %22, align 4, !tbaa !21
-  %123 = load i32, ptr %23, align 8, !tbaa !22
-  %124 = icmp ne i32 %123, 0
-  %125 = sub i32 32, %121
-  %126 = shl i32 %123, 3
-  %127 = icmp ult i32 %125, %126
-  %128 = select i1 %124, i1 %127, i1 false
-  br i1 %128, label %659, label %131
+invoke.cont40:                                    ; preds = %if.end.i.i, %entry._ZN5NBitl12CBaseDecoderI9CInBufferE9NormalizeEv.exit_crit_edge.i
+  %37 = phi i32 [ %.pr.i.i, %entry._ZN5NBitl12CBaseDecoderI9CInBufferE9NormalizeEv.exit_crit_edge.i ], [ %sub5.i.i, %if.end.i.i ]
+  %38 = phi i32 [ %.pre.i, %entry._ZN5NBitl12CBaseDecoderI9CInBufferE9NormalizeEv.exit_crit_edge.i ], [ %or.i.i, %if.end.i.i ]
+  %notmask.i = shl nsw i32 -1, %numBits.0
+  %sub.i = xor i32 %notmask.i, -1
+  %and.i = and i32 %38, %sub.i
+  %add.i = add i32 %37, %numBits.0
+  store i32 %add.i, ptr %inBuffer, align 8, !tbaa !17
+  %shr.i = lshr i32 %38, %numBits.0
+  store i32 %shr.i, ptr %m_Value.i, align 4, !tbaa !21
+  %39 = load i32, ptr %NumExtraBytes.i, align 8, !tbaa !22
+  %cmp.i = icmp ne i32 %39, 0
+  %sub.i341 = sub i32 32, %add.i
+  %shl.i = shl i32 %39, 3
+  %cmp3.i = icmp ult i32 %sub.i341, %shl.i
+  %retval.0.i = select i1 %cmp.i, i1 %cmp3.i, i1 false
+  br i1 %retval.0.i, label %for.end234, label %if.end45
 
-129:                                              ; preds = %93
-  %130 = landingpad { ptr, i32 }
+lpad39:                                           ; preds = %if.then.i.i.i
+  %40 = landingpad { ptr, i32 }
           cleanup
-  br label %696
+  br label %ehcleanup251
 
-131:                                              ; preds = %115
-  %132 = zext i32 %120 to i64
-  %133 = getelementptr inbounds %"class.NCompress::NShrink::CDecoder", ptr %0, i64 0, i32 5, i64 %132
-  %134 = load i8, ptr %133, align 1, !tbaa !23, !range !29, !noundef !30
-  %135 = icmp eq i8 %134, 0
-  br i1 %135, label %136, label %663
+if.end45:                                         ; preds = %invoke.cont40
+  %idxprom47 = zext i32 %and.i to i64
+  %arrayidx48 = getelementptr inbounds %"class.NCompress::NShrink::CDecoder", ptr %this, i64 0, i32 5, i64 %idxprom47
+  %41 = load i8, ptr %arrayidx48, align 1, !tbaa !23, !range !29, !noundef !30
+  %tobool.not = icmp eq i8 %41, 0
+  br i1 %tobool.not, label %if.end50, label %cleanup250
 
-136:                                              ; preds = %131
-  %137 = icmp eq i32 %120, 256
-  br i1 %137, label %142, label %138
+if.end50:                                         ; preds = %if.end45
+  %cmp51 = icmp eq i32 %and.i, 256
+  br i1 %cmp51, label %if.then52, label %while.cond132.preheader
 
-138:                                              ; preds = %136
-  %139 = icmp ugt i32 %120, 255
-  br i1 %139, label %140, label %555
+while.cond132.preheader:                          ; preds = %if.end50
+  %cmp133410 = icmp ugt i32 %and.i, 255
+  br i1 %cmp133410, label %while.body134.lr.ph, label %while.end149
 
-140:                                              ; preds = %138
-  %141 = add i32 %82, -1
-  br label %536
+while.body134.lr.ph:                              ; preds = %while.cond132.preheader
+  %sub135 = add i32 %head.0, -1
+  br label %while.body134
 
-142:                                              ; preds = %136
-  %143 = icmp ugt i32 %121, 7
-  br i1 %143, label %144, label %170
+if.then52:                                        ; preds = %if.end50
+  %cmp8.i.i343 = icmp ugt i32 %add.i, 7
+  br i1 %cmp8.i.i343, label %for.body.i.i353, label %invoke.cont55
 
-144:                                              ; preds = %142, %160
-  %145 = load ptr, ptr %11, align 8, !tbaa !24
-  %146 = load ptr, ptr %32, align 8, !tbaa !25
-  %147 = icmp ult ptr %145, %146
-  br i1 %147, label %153, label %148
+for.body.i.i353:                                  ; preds = %if.then52, %if.end.i.i368
+  %42 = load ptr, ptr %m_Stream.i, align 8, !tbaa !24
+  %43 = load ptr, ptr %_bufferLimit.i.i.i, align 8, !tbaa !25
+  %cmp.not.i.i.i352 = icmp ult ptr %42, %43
+  br i1 %cmp.not.i.i.i352, label %_ZN9CInBuffer8ReadByteERh.exit.thread.i.i358, label %if.then.i.i.i354
 
-148:                                              ; preds = %144
-  %149 = invoke noundef zeroext i1 @_ZN9CInBuffer9ReadBlockEv(ptr noundef nonnull align 8 dereferenceable(45) %11)
-          to label %150 unwind label %180
+if.then.i.i.i354:                                 ; preds = %for.body.i.i353
+  %call.i.i.i376 = invoke noundef zeroext i1 @_ZN9CInBuffer9ReadBlockEv(ptr noundef nonnull align 8 dereferenceable(45) %m_Stream.i)
+          to label %call.i.i.i.noexc375 unwind label %lpad54
 
-150:                                              ; preds = %148
-  br i1 %149, label %151, label %157
+call.i.i.i.noexc375:                              ; preds = %if.then.i.i.i354
+  br i1 %call.i.i.i376, label %if.then.if.end3_crit_edge.i.i.i356, label %if.then.i.i360
 
-151:                                              ; preds = %150
-  %152 = load ptr, ptr %11, align 8, !tbaa !24
-  br label %153
+if.then.if.end3_crit_edge.i.i.i356:               ; preds = %call.i.i.i.noexc375
+  %.pre.i.i.i355 = load ptr, ptr %m_Stream.i, align 8, !tbaa !24
+  br label %_ZN9CInBuffer8ReadByteERh.exit.thread.i.i358
 
-153:                                              ; preds = %151, %144
-  %154 = phi ptr [ %152, %151 ], [ %145, %144 ]
-  %155 = getelementptr inbounds i8, ptr %154, i64 1
-  store ptr %155, ptr %11, align 8, !tbaa !24
-  %156 = load i8, ptr %154, align 1, !tbaa !26
-  br label %160
+_ZN9CInBuffer8ReadByteERh.exit.thread.i.i358:     ; preds = %if.then.if.end3_crit_edge.i.i.i356, %for.body.i.i353
+  %44 = phi ptr [ %.pre.i.i.i355, %if.then.if.end3_crit_edge.i.i.i356 ], [ %42, %for.body.i.i353 ]
+  %incdec.ptr.i.i.i357 = getelementptr inbounds i8, ptr %44, i64 1
+  store ptr %incdec.ptr.i.i.i357, ptr %m_Stream.i, align 8, !tbaa !24
+  %45 = load i8, ptr %44, align 1, !tbaa !26
+  br label %if.end.i.i368
 
-157:                                              ; preds = %150
-  %158 = load i32, ptr %23, align 8, !tbaa !22
-  %159 = add i32 %158, 1
-  store i32 %159, ptr %23, align 8, !tbaa !22
-  br label %160
+if.then.i.i360:                                   ; preds = %call.i.i.i.noexc375
+  %46 = load i32, ptr %NumExtraBytes.i, align 8, !tbaa !22
+  %inc.i.i359 = add i32 %46, 1
+  store i32 %inc.i.i359, ptr %NumExtraBytes.i, align 8, !tbaa !22
+  br label %if.end.i.i368
 
-160:                                              ; preds = %157, %153
-  %161 = phi i8 [ -1, %157 ], [ %156, %153 ]
-  %162 = zext i8 %161 to i32
-  %163 = load i32, ptr %7, align 8, !tbaa !17
-  %164 = sub i32 32, %163
-  %165 = shl i32 %162, %164
-  %166 = load i32, ptr %22, align 4, !tbaa !21
-  %167 = or i32 %165, %166
-  store i32 %167, ptr %22, align 4, !tbaa !21
-  %168 = add i32 %163, -8
-  store i32 %168, ptr %7, align 8, !tbaa !17
-  %169 = icmp ugt i32 %168, 7
-  br i1 %169, label %144, label %170, !llvm.loop !27
+if.end.i.i368:                                    ; preds = %if.then.i.i360, %_ZN9CInBuffer8ReadByteERh.exit.thread.i.i358
+  %b.1.i.i361 = phi i8 [ -1, %if.then.i.i360 ], [ %45, %_ZN9CInBuffer8ReadByteERh.exit.thread.i.i358 ]
+  %conv.i.i362 = zext i8 %b.1.i.i361 to i32
+  %47 = load i32, ptr %inBuffer, align 8, !tbaa !17
+  %sub.i.i363 = sub i32 32, %47
+  %shl.i.i364 = shl i32 %conv.i.i362, %sub.i.i363
+  %48 = load i32, ptr %m_Value.i, align 4, !tbaa !21
+  %or.i.i365 = or i32 %shl.i.i364, %48
+  store i32 %or.i.i365, ptr %m_Value.i, align 4, !tbaa !21
+  %sub5.i.i366 = add i32 %47, -8
+  store i32 %sub5.i.i366, ptr %inBuffer, align 8, !tbaa !17
+  %cmp.i.i367 = icmp ugt i32 %sub5.i.i366, 7
+  br i1 %cmp.i.i367, label %for.body.i.i353, label %invoke.cont55, !llvm.loop !27
 
-170:                                              ; preds = %160, %142
-  %171 = phi i32 [ %121, %142 ], [ %168, %160 ]
-  %172 = phi i32 [ %122, %142 ], [ %167, %160 ]
-  %173 = and i32 %172, %119
-  %174 = add i32 %171, %81
-  store i32 %174, ptr %7, align 8, !tbaa !17
-  %175 = lshr i32 %172, %81
-  store i32 %175, ptr %22, align 4, !tbaa !21
-  switch i32 %173, label %663 [
-    i32 1, label %176
-    i32 2, label %182
+invoke.cont55:                                    ; preds = %if.end.i.i368, %if.then52
+  %49 = phi i32 [ %add.i, %if.then52 ], [ %sub5.i.i366, %if.end.i.i368 ]
+  %50 = phi i32 [ %shr.i, %if.then52 ], [ %or.i.i365, %if.end.i.i368 ]
+  %and.i372 = and i32 %50, %sub.i
+  %add.i373 = add i32 %49, %numBits.0
+  store i32 %add.i373, ptr %inBuffer, align 8, !tbaa !17
+  %shr.i374 = lshr i32 %50, %numBits.0
+  store i32 %shr.i374, ptr %m_Value.i, align 4, !tbaa !21
+  switch i32 %and.i372, label %cleanup250 [
+    i32 1, label %if.then58
+    i32 2, label %if.then64
   ]
 
-176:                                              ; preds = %170
-  %177 = icmp slt i32 %81, 13
-  %178 = zext i1 %177 to i32
-  %179 = add nsw i32 %81, %178
-  br label %651, !llvm.loop !31
+if.then58:                                        ; preds = %invoke.cont55
+  %cmp59 = icmp slt i32 %numBits.0, 13
+  %inc61 = zext i1 %cmp59 to i32
+  %spec.select = add nsw i32 %numBits.0, %inc61
+  br label %for.cond38.backedge, !llvm.loop !31
 
-180:                                              ; preds = %148
-  %181 = landingpad { ptr, i32 }
+lpad54:                                           ; preds = %if.then.i.i.i354
+  %51 = landingpad { ptr, i32 }
           cleanup
-  br label %696
-
-182:                                              ; preds = %170
-  %183 = and i8 %83, 1
-  %184 = icmp eq i8 %183, 0
-  br i1 %184, label %189, label %185
-
-185:                                              ; preds = %182
-  %186 = add i32 %82, -1
-  %187 = zext i32 %186 to i64
-  %188 = getelementptr inbounds %"class.NCompress::NShrink::CDecoder", ptr %0, i64 0, i32 5, i64 %187
-  store i8 1, ptr %188, align 1, !tbaa !23
-  br label %189
-
-189:                                              ; preds = %185, %182
-  call void @llvm.memset.p0.i64(ptr noundef nonnull align 1 dereferenceable(7935) %37, i8 0, i64 7935, i1 false), !tbaa !23
-  br label %190
-
-190:                                              ; preds = %220, %189
-  %191 = phi i64 [ 257, %189 ], [ %221, %220 ]
-  %192 = getelementptr inbounds %"class.NCompress::NShrink::CDecoder", ptr %0, i64 0, i32 5, i64 %191
-  %193 = load i8, ptr %192, align 1, !tbaa !23, !range !29, !noundef !30
-  %194 = icmp eq i8 %193, 0
-  br i1 %194, label %195, label %200
-
-195:                                              ; preds = %190
-  %196 = getelementptr inbounds %"class.NCompress::NShrink::CDecoder", ptr %0, i64 0, i32 2, i64 %191
-  %197 = load i16, ptr %196, align 2, !tbaa !32
-  %198 = zext i16 %197 to i64
-  %199 = getelementptr inbounds %"class.NCompress::NShrink::CDecoder", ptr %0, i64 0, i32 6, i64 %198
-  store i8 1, ptr %199, align 1, !tbaa !23
-  br label %200
-
-200:                                              ; preds = %190, %195
-  %201 = add nuw nsw i64 %191, 1
-  %202 = getelementptr inbounds %"class.NCompress::NShrink::CDecoder", ptr %0, i64 0, i32 5, i64 %201
-  %203 = load i8, ptr %202, align 1, !tbaa !23, !range !29, !noundef !30
-  %204 = icmp eq i8 %203, 0
-  br i1 %204, label %205, label %210
-
-205:                                              ; preds = %200
-  %206 = getelementptr inbounds %"class.NCompress::NShrink::CDecoder", ptr %0, i64 0, i32 2, i64 %201
-  %207 = load i16, ptr %206, align 2, !tbaa !32
-  %208 = zext i16 %207 to i64
-  %209 = getelementptr inbounds %"class.NCompress::NShrink::CDecoder", ptr %0, i64 0, i32 6, i64 %208
-  store i8 1, ptr %209, align 1, !tbaa !23
-  br label %210
-
-210:                                              ; preds = %205, %200
-  %211 = add nuw nsw i64 %191, 2
-  %212 = getelementptr inbounds %"class.NCompress::NShrink::CDecoder", ptr %0, i64 0, i32 5, i64 %211
-  %213 = load i8, ptr %212, align 1, !tbaa !23, !range !29, !noundef !30
-  %214 = icmp eq i8 %213, 0
-  br i1 %214, label %215, label %220
-
-215:                                              ; preds = %210
-  %216 = getelementptr inbounds %"class.NCompress::NShrink::CDecoder", ptr %0, i64 0, i32 2, i64 %211
-  %217 = load i16, ptr %216, align 2, !tbaa !32
-  %218 = zext i16 %217 to i64
-  %219 = getelementptr inbounds %"class.NCompress::NShrink::CDecoder", ptr %0, i64 0, i32 6, i64 %218
-  store i8 1, ptr %219, align 1, !tbaa !23
-  br label %220
-
-220:                                              ; preds = %215, %210
-  %221 = add nuw nsw i64 %191, 3
-  %222 = icmp eq i64 %221, 8192
-  br i1 %222, label %223, label %190, !llvm.loop !34
-
-223:                                              ; preds = %220, %390
-  %224 = phi i64 [ %391, %390 ], [ 0, %220 ]
-  %225 = add i64 %224, 257
-  %226 = add i64 %224, 273
-  %227 = getelementptr inbounds %"class.NCompress::NShrink::CDecoder", ptr %0, i64 0, i32 6, i64 %225
-  %228 = load <16 x i8>, ptr %227, align 1, !tbaa !23
-  %229 = getelementptr inbounds i8, ptr %227, i64 16
-  %230 = load <16 x i8>, ptr %229, align 1, !tbaa !23
-  %231 = icmp eq <16 x i8> %228, zeroinitializer
-  %232 = icmp eq <16 x i8> %230, zeroinitializer
-  %233 = extractelement <16 x i1> %231, i64 0
-  br i1 %233, label %234, label %236
-
-234:                                              ; preds = %223
-  %235 = getelementptr inbounds %"class.NCompress::NShrink::CDecoder", ptr %0, i64 0, i32 5, i64 %225
-  store i8 1, ptr %235, align 1, !tbaa !23
-  br label %236
-
-236:                                              ; preds = %234, %223
-  %237 = extractelement <16 x i1> %231, i64 1
-  br i1 %237, label %238, label %241
-
-238:                                              ; preds = %236
-  %239 = add i64 %224, 258
-  %240 = getelementptr inbounds %"class.NCompress::NShrink::CDecoder", ptr %0, i64 0, i32 5, i64 %239
-  store i8 1, ptr %240, align 2, !tbaa !23
-  br label %241
-
-241:                                              ; preds = %238, %236
-  %242 = extractelement <16 x i1> %231, i64 2
-  br i1 %242, label %243, label %246
-
-243:                                              ; preds = %241
-  %244 = add i64 %224, 259
-  %245 = getelementptr inbounds %"class.NCompress::NShrink::CDecoder", ptr %0, i64 0, i32 5, i64 %244
-  store i8 1, ptr %245, align 1, !tbaa !23
-  br label %246
-
-246:                                              ; preds = %243, %241
-  %247 = extractelement <16 x i1> %231, i64 3
-  br i1 %247, label %248, label %251
-
-248:                                              ; preds = %246
-  %249 = add i64 %224, 260
-  %250 = getelementptr inbounds %"class.NCompress::NShrink::CDecoder", ptr %0, i64 0, i32 5, i64 %249
-  store i8 1, ptr %250, align 8, !tbaa !23
-  br label %251
-
-251:                                              ; preds = %248, %246
-  %252 = extractelement <16 x i1> %231, i64 4
-  br i1 %252, label %253, label %256
-
-253:                                              ; preds = %251
-  %254 = add i64 %224, 261
-  %255 = getelementptr inbounds %"class.NCompress::NShrink::CDecoder", ptr %0, i64 0, i32 5, i64 %254
-  store i8 1, ptr %255, align 1, !tbaa !23
-  br label %256
-
-256:                                              ; preds = %253, %251
-  %257 = extractelement <16 x i1> %231, i64 5
-  br i1 %257, label %258, label %261
-
-258:                                              ; preds = %256
-  %259 = add i64 %224, 262
-  %260 = getelementptr inbounds %"class.NCompress::NShrink::CDecoder", ptr %0, i64 0, i32 5, i64 %259
-  store i8 1, ptr %260, align 2, !tbaa !23
-  br label %261
-
-261:                                              ; preds = %258, %256
-  %262 = extractelement <16 x i1> %231, i64 6
-  br i1 %262, label %263, label %266
-
-263:                                              ; preds = %261
-  %264 = add i64 %224, 263
-  %265 = getelementptr inbounds %"class.NCompress::NShrink::CDecoder", ptr %0, i64 0, i32 5, i64 %264
-  store i8 1, ptr %265, align 1, !tbaa !23
-  br label %266
-
-266:                                              ; preds = %263, %261
-  %267 = extractelement <16 x i1> %231, i64 7
-  br i1 %267, label %268, label %271
-
-268:                                              ; preds = %266
-  %269 = add i64 %224, 264
-  %270 = getelementptr inbounds %"class.NCompress::NShrink::CDecoder", ptr %0, i64 0, i32 5, i64 %269
-  store i8 1, ptr %270, align 4, !tbaa !23
-  br label %271
-
-271:                                              ; preds = %268, %266
-  %272 = extractelement <16 x i1> %231, i64 8
-  br i1 %272, label %273, label %276
-
-273:                                              ; preds = %271
-  %274 = add i64 %224, 265
-  %275 = getelementptr inbounds %"class.NCompress::NShrink::CDecoder", ptr %0, i64 0, i32 5, i64 %274
-  store i8 1, ptr %275, align 1, !tbaa !23
-  br label %276
-
-276:                                              ; preds = %273, %271
-  %277 = extractelement <16 x i1> %231, i64 9
-  br i1 %277, label %278, label %281
-
-278:                                              ; preds = %276
-  %279 = add i64 %224, 266
-  %280 = getelementptr inbounds %"class.NCompress::NShrink::CDecoder", ptr %0, i64 0, i32 5, i64 %279
-  store i8 1, ptr %280, align 2, !tbaa !23
-  br label %281
-
-281:                                              ; preds = %278, %276
-  %282 = extractelement <16 x i1> %231, i64 10
-  br i1 %282, label %283, label %286
-
-283:                                              ; preds = %281
-  %284 = add i64 %224, 267
-  %285 = getelementptr inbounds %"class.NCompress::NShrink::CDecoder", ptr %0, i64 0, i32 5, i64 %284
-  store i8 1, ptr %285, align 1, !tbaa !23
-  br label %286
-
-286:                                              ; preds = %283, %281
-  %287 = extractelement <16 x i1> %231, i64 11
-  br i1 %287, label %288, label %291
-
-288:                                              ; preds = %286
-  %289 = add i64 %224, 268
-  %290 = getelementptr inbounds %"class.NCompress::NShrink::CDecoder", ptr %0, i64 0, i32 5, i64 %289
-  store i8 1, ptr %290, align 8, !tbaa !23
-  br label %291
-
-291:                                              ; preds = %288, %286
-  %292 = extractelement <16 x i1> %231, i64 12
-  br i1 %292, label %293, label %296
-
-293:                                              ; preds = %291
-  %294 = add i64 %224, 269
-  %295 = getelementptr inbounds %"class.NCompress::NShrink::CDecoder", ptr %0, i64 0, i32 5, i64 %294
-  store i8 1, ptr %295, align 1, !tbaa !23
-  br label %296
-
-296:                                              ; preds = %293, %291
-  %297 = extractelement <16 x i1> %231, i64 13
-  br i1 %297, label %298, label %301
-
-298:                                              ; preds = %296
-  %299 = add i64 %224, 270
-  %300 = getelementptr inbounds %"class.NCompress::NShrink::CDecoder", ptr %0, i64 0, i32 5, i64 %299
-  store i8 1, ptr %300, align 2, !tbaa !23
-  br label %301
-
-301:                                              ; preds = %298, %296
-  %302 = extractelement <16 x i1> %231, i64 14
-  br i1 %302, label %303, label %306
-
-303:                                              ; preds = %301
-  %304 = add i64 %224, 271
-  %305 = getelementptr inbounds %"class.NCompress::NShrink::CDecoder", ptr %0, i64 0, i32 5, i64 %304
-  store i8 1, ptr %305, align 1, !tbaa !23
-  br label %306
-
-306:                                              ; preds = %303, %301
-  %307 = extractelement <16 x i1> %231, i64 15
-  br i1 %307, label %308, label %311
-
-308:                                              ; preds = %306
-  %309 = add i64 %224, 272
-  %310 = getelementptr inbounds %"class.NCompress::NShrink::CDecoder", ptr %0, i64 0, i32 5, i64 %309
-  store i8 1, ptr %310, align 4, !tbaa !23
-  br label %311
-
-311:                                              ; preds = %308, %306
-  %312 = extractelement <16 x i1> %232, i64 0
-  br i1 %312, label %313, label %315
-
-313:                                              ; preds = %311
-  %314 = getelementptr inbounds %"class.NCompress::NShrink::CDecoder", ptr %0, i64 0, i32 5, i64 %226
-  store i8 1, ptr %314, align 1, !tbaa !23
-  br label %315
-
-315:                                              ; preds = %313, %311
-  %316 = extractelement <16 x i1> %232, i64 1
-  br i1 %316, label %317, label %320
-
-317:                                              ; preds = %315
-  %318 = add i64 %224, 274
-  %319 = getelementptr inbounds %"class.NCompress::NShrink::CDecoder", ptr %0, i64 0, i32 5, i64 %318
-  store i8 1, ptr %319, align 2, !tbaa !23
-  br label %320
-
-320:                                              ; preds = %317, %315
-  %321 = extractelement <16 x i1> %232, i64 2
-  br i1 %321, label %322, label %325
-
-322:                                              ; preds = %320
-  %323 = add i64 %224, 275
-  %324 = getelementptr inbounds %"class.NCompress::NShrink::CDecoder", ptr %0, i64 0, i32 5, i64 %323
-  store i8 1, ptr %324, align 1, !tbaa !23
-  br label %325
-
-325:                                              ; preds = %322, %320
-  %326 = extractelement <16 x i1> %232, i64 3
-  br i1 %326, label %327, label %330
-
-327:                                              ; preds = %325
-  %328 = add i64 %224, 276
-  %329 = getelementptr inbounds %"class.NCompress::NShrink::CDecoder", ptr %0, i64 0, i32 5, i64 %328
-  store i8 1, ptr %329, align 8, !tbaa !23
-  br label %330
-
-330:                                              ; preds = %327, %325
-  %331 = extractelement <16 x i1> %232, i64 4
-  br i1 %331, label %332, label %335
-
-332:                                              ; preds = %330
-  %333 = add i64 %224, 277
-  %334 = getelementptr inbounds %"class.NCompress::NShrink::CDecoder", ptr %0, i64 0, i32 5, i64 %333
-  store i8 1, ptr %334, align 1, !tbaa !23
-  br label %335
-
-335:                                              ; preds = %332, %330
-  %336 = extractelement <16 x i1> %232, i64 5
-  br i1 %336, label %337, label %340
-
-337:                                              ; preds = %335
-  %338 = add i64 %224, 278
-  %339 = getelementptr inbounds %"class.NCompress::NShrink::CDecoder", ptr %0, i64 0, i32 5, i64 %338
-  store i8 1, ptr %339, align 2, !tbaa !23
-  br label %340
-
-340:                                              ; preds = %337, %335
-  %341 = extractelement <16 x i1> %232, i64 6
-  br i1 %341, label %342, label %345
-
-342:                                              ; preds = %340
-  %343 = add i64 %224, 279
-  %344 = getelementptr inbounds %"class.NCompress::NShrink::CDecoder", ptr %0, i64 0, i32 5, i64 %343
-  store i8 1, ptr %344, align 1, !tbaa !23
-  br label %345
-
-345:                                              ; preds = %342, %340
-  %346 = extractelement <16 x i1> %232, i64 7
-  br i1 %346, label %347, label %350
-
-347:                                              ; preds = %345
-  %348 = add i64 %224, 280
-  %349 = getelementptr inbounds %"class.NCompress::NShrink::CDecoder", ptr %0, i64 0, i32 5, i64 %348
-  store i8 1, ptr %349, align 4, !tbaa !23
-  br label %350
-
-350:                                              ; preds = %347, %345
-  %351 = extractelement <16 x i1> %232, i64 8
-  br i1 %351, label %352, label %355
-
-352:                                              ; preds = %350
-  %353 = add i64 %224, 281
-  %354 = getelementptr inbounds %"class.NCompress::NShrink::CDecoder", ptr %0, i64 0, i32 5, i64 %353
-  store i8 1, ptr %354, align 1, !tbaa !23
-  br label %355
-
-355:                                              ; preds = %352, %350
-  %356 = extractelement <16 x i1> %232, i64 9
-  br i1 %356, label %357, label %360
-
-357:                                              ; preds = %355
-  %358 = add i64 %224, 282
-  %359 = getelementptr inbounds %"class.NCompress::NShrink::CDecoder", ptr %0, i64 0, i32 5, i64 %358
-  store i8 1, ptr %359, align 2, !tbaa !23
-  br label %360
-
-360:                                              ; preds = %357, %355
-  %361 = extractelement <16 x i1> %232, i64 10
-  br i1 %361, label %362, label %365
-
-362:                                              ; preds = %360
-  %363 = add i64 %224, 283
-  %364 = getelementptr inbounds %"class.NCompress::NShrink::CDecoder", ptr %0, i64 0, i32 5, i64 %363
-  store i8 1, ptr %364, align 1, !tbaa !23
-  br label %365
-
-365:                                              ; preds = %362, %360
-  %366 = extractelement <16 x i1> %232, i64 11
-  br i1 %366, label %367, label %370
-
-367:                                              ; preds = %365
-  %368 = add i64 %224, 284
-  %369 = getelementptr inbounds %"class.NCompress::NShrink::CDecoder", ptr %0, i64 0, i32 5, i64 %368
-  store i8 1, ptr %369, align 8, !tbaa !23
-  br label %370
-
-370:                                              ; preds = %367, %365
-  %371 = extractelement <16 x i1> %232, i64 12
-  br i1 %371, label %372, label %375
-
-372:                                              ; preds = %370
-  %373 = add i64 %224, 285
-  %374 = getelementptr inbounds %"class.NCompress::NShrink::CDecoder", ptr %0, i64 0, i32 5, i64 %373
-  store i8 1, ptr %374, align 1, !tbaa !23
-  br label %375
-
-375:                                              ; preds = %372, %370
-  %376 = extractelement <16 x i1> %232, i64 13
-  br i1 %376, label %377, label %380
-
-377:                                              ; preds = %375
-  %378 = add i64 %224, 286
-  %379 = getelementptr inbounds %"class.NCompress::NShrink::CDecoder", ptr %0, i64 0, i32 5, i64 %378
-  store i8 1, ptr %379, align 2, !tbaa !23
-  br label %380
-
-380:                                              ; preds = %377, %375
-  %381 = extractelement <16 x i1> %232, i64 14
-  br i1 %381, label %382, label %385
-
-382:                                              ; preds = %380
-  %383 = add i64 %224, 287
-  %384 = getelementptr inbounds %"class.NCompress::NShrink::CDecoder", ptr %0, i64 0, i32 5, i64 %383
-  store i8 1, ptr %384, align 1, !tbaa !23
-  br label %385
-
-385:                                              ; preds = %382, %380
-  %386 = extractelement <16 x i1> %232, i64 15
-  br i1 %386, label %387, label %390
-
-387:                                              ; preds = %385
-  %388 = add i64 %224, 288
-  %389 = getelementptr inbounds %"class.NCompress::NShrink::CDecoder", ptr %0, i64 0, i32 5, i64 %388
-  store i8 1, ptr %389, align 4, !tbaa !23
-  br label %390
-
-390:                                              ; preds = %387, %385
-  %391 = add nuw i64 %224, 32
-  %392 = icmp eq i64 %391, 7904
-  br i1 %392, label %393, label %223, !llvm.loop !35
-
-393:                                              ; preds = %390
-  %394 = load <8 x i8>, ptr %38, align 1, !tbaa !23
-  %395 = icmp eq <8 x i8> %394, zeroinitializer
-  %396 = extractelement <8 x i1> %395, i64 0
-  br i1 %396, label %397, label %398
-
-397:                                              ; preds = %393
-  store i8 1, ptr %39, align 1, !tbaa !23
-  br label %398
-
-398:                                              ; preds = %397, %393
-  %399 = extractelement <8 x i1> %395, i64 1
-  br i1 %399, label %400, label %401
-
-400:                                              ; preds = %398
-  store i8 1, ptr %40, align 2, !tbaa !23
-  br label %401
-
-401:                                              ; preds = %400, %398
-  %402 = extractelement <8 x i1> %395, i64 2
-  br i1 %402, label %403, label %404
-
-403:                                              ; preds = %401
-  store i8 1, ptr %41, align 1, !tbaa !23
-  br label %404
-
-404:                                              ; preds = %403, %401
-  %405 = extractelement <8 x i1> %395, i64 3
-  br i1 %405, label %406, label %407
-
-406:                                              ; preds = %404
-  store i8 1, ptr %42, align 8, !tbaa !23
-  br label %407
-
-407:                                              ; preds = %406, %404
-  %408 = extractelement <8 x i1> %395, i64 4
-  br i1 %408, label %409, label %410
-
-409:                                              ; preds = %407
-  store i8 1, ptr %43, align 1, !tbaa !23
-  br label %410
-
-410:                                              ; preds = %409, %407
-  %411 = extractelement <8 x i1> %395, i64 5
-  br i1 %411, label %412, label %413
-
-412:                                              ; preds = %410
-  store i8 1, ptr %44, align 2, !tbaa !23
-  br label %413
-
-413:                                              ; preds = %412, %410
-  %414 = extractelement <8 x i1> %395, i64 6
-  br i1 %414, label %415, label %416
-
-415:                                              ; preds = %413
-  store i8 1, ptr %45, align 1, !tbaa !23
-  br label %416
-
-416:                                              ; preds = %415, %413
-  %417 = extractelement <8 x i1> %395, i64 7
-  br i1 %417, label %418, label %419
-
-418:                                              ; preds = %416
-  store i8 1, ptr %46, align 4, !tbaa !23
-  br label %419
-
-419:                                              ; preds = %418, %416
-  %420 = load <8 x i8>, ptr %47, align 1, !tbaa !23
-  %421 = icmp eq <8 x i8> %420, zeroinitializer
-  %422 = extractelement <8 x i1> %421, i64 0
-  br i1 %422, label %423, label %424
-
-423:                                              ; preds = %419
-  store i8 1, ptr %48, align 1, !tbaa !23
-  br label %424
-
-424:                                              ; preds = %423, %419
-  %425 = extractelement <8 x i1> %421, i64 1
-  br i1 %425, label %426, label %427
-
-426:                                              ; preds = %424
-  store i8 1, ptr %49, align 2, !tbaa !23
-  br label %427
-
-427:                                              ; preds = %426, %424
-  %428 = extractelement <8 x i1> %421, i64 2
-  br i1 %428, label %429, label %430
-
-429:                                              ; preds = %427
-  store i8 1, ptr %50, align 1, !tbaa !23
-  br label %430
-
-430:                                              ; preds = %429, %427
-  %431 = extractelement <8 x i1> %421, i64 3
-  br i1 %431, label %432, label %433
-
-432:                                              ; preds = %430
-  store i8 1, ptr %51, align 8, !tbaa !23
-  br label %433
-
-433:                                              ; preds = %432, %430
-  %434 = extractelement <8 x i1> %421, i64 4
-  br i1 %434, label %435, label %436
-
-435:                                              ; preds = %433
-  store i8 1, ptr %52, align 1, !tbaa !23
-  br label %436
-
-436:                                              ; preds = %435, %433
-  %437 = extractelement <8 x i1> %421, i64 5
-  br i1 %437, label %438, label %439
-
-438:                                              ; preds = %436
-  store i8 1, ptr %53, align 2, !tbaa !23
-  br label %439
-
-439:                                              ; preds = %438, %436
-  %440 = extractelement <8 x i1> %421, i64 6
-  br i1 %440, label %441, label %442
-
-441:                                              ; preds = %439
-  store i8 1, ptr %54, align 1, !tbaa !23
-  br label %442
-
-442:                                              ; preds = %441, %439
-  %443 = extractelement <8 x i1> %421, i64 7
-  br i1 %443, label %444, label %445
-
-444:                                              ; preds = %442
-  store i8 1, ptr %55, align 4, !tbaa !23
-  br label %445
-
-445:                                              ; preds = %444, %442
-  %446 = load <8 x i8>, ptr %56, align 1, !tbaa !23
-  %447 = icmp eq <8 x i8> %446, zeroinitializer
-  %448 = extractelement <8 x i1> %447, i64 0
-  br i1 %448, label %449, label %450
-
-449:                                              ; preds = %445
-  store i8 1, ptr %57, align 1, !tbaa !23
-  br label %450
-
-450:                                              ; preds = %449, %445
-  %451 = extractelement <8 x i1> %447, i64 1
-  br i1 %451, label %452, label %453
-
-452:                                              ; preds = %450
-  store i8 1, ptr %58, align 2, !tbaa !23
-  br label %453
-
-453:                                              ; preds = %452, %450
-  %454 = extractelement <8 x i1> %447, i64 2
-  br i1 %454, label %455, label %456
-
-455:                                              ; preds = %453
-  store i8 1, ptr %59, align 1, !tbaa !23
-  br label %456
-
-456:                                              ; preds = %455, %453
-  %457 = extractelement <8 x i1> %447, i64 3
-  br i1 %457, label %458, label %459
-
-458:                                              ; preds = %456
-  store i8 1, ptr %60, align 8, !tbaa !23
-  br label %459
-
-459:                                              ; preds = %458, %456
-  %460 = extractelement <8 x i1> %447, i64 4
-  br i1 %460, label %461, label %462
-
-461:                                              ; preds = %459
-  store i8 1, ptr %61, align 1, !tbaa !23
-  br label %462
-
-462:                                              ; preds = %461, %459
-  %463 = extractelement <8 x i1> %447, i64 5
-  br i1 %463, label %464, label %465
-
-464:                                              ; preds = %462
-  store i8 1, ptr %62, align 2, !tbaa !23
-  br label %465
-
-465:                                              ; preds = %464, %462
-  %466 = extractelement <8 x i1> %447, i64 6
-  br i1 %466, label %467, label %468
-
-467:                                              ; preds = %465
-  store i8 1, ptr %63, align 1, !tbaa !23
-  br label %468
-
-468:                                              ; preds = %467, %465
-  %469 = extractelement <8 x i1> %447, i64 7
-  br i1 %469, label %470, label %471
-
-470:                                              ; preds = %468
-  store i8 1, ptr %64, align 4, !tbaa !23
-  br label %471
-
-471:                                              ; preds = %468, %470
-  %472 = load i8, ptr %65, align 1, !tbaa !23, !range !29, !noundef !30
-  %473 = icmp eq i8 %472, 0
-  br i1 %473, label %474, label %475
-
-474:                                              ; preds = %471
-  store i8 1, ptr %66, align 1, !tbaa !23
-  br label %475
-
-475:                                              ; preds = %471, %474
-  %476 = load i8, ptr %67, align 2, !tbaa !23, !range !29, !noundef !30
-  %477 = icmp eq i8 %476, 0
-  br i1 %477, label %478, label %479
-
-478:                                              ; preds = %475
+  br label %ehcleanup251
+
+if.then64:                                        ; preds = %invoke.cont55
+  %52 = and i8 %needPrev.0, 1
+  %tobool65.not = icmp eq i8 %52, 0
+  br i1 %tobool65.not, label %if.end70, label %if.then66
+
+if.then66:                                        ; preds = %if.then64
+  %sub = add i32 %head.0, -1
+  %idxprom68 = zext i32 %sub to i64
+  %arrayidx69 = getelementptr inbounds %"class.NCompress::NShrink::CDecoder", ptr %this, i64 0, i32 5, i64 %idxprom68
+  store i8 1, ptr %arrayidx69, align 1, !tbaa !23
+  br label %if.end70
+
+if.end70:                                         ; preds = %if.then66, %if.then64
+  call void @llvm.memset.p0.i64(ptr noundef nonnull align 1 dereferenceable(7935) %scevgep446, i8 0, i64 7935, i1 false), !tbaa !23
+  br label %for.body81
+
+for.body81:                                       ; preds = %for.inc94.2, %if.end70
+  %indvars.iv451 = phi i64 [ 257, %if.end70 ], [ %indvars.iv.next452.2, %for.inc94.2 ]
+  %arrayidx84 = getelementptr inbounds %"class.NCompress::NShrink::CDecoder", ptr %this, i64 0, i32 5, i64 %indvars.iv451
+  %53 = load i8, ptr %arrayidx84, align 1, !tbaa !23, !range !29, !noundef !30
+  %tobool85.not = icmp eq i8 %53, 0
+  br i1 %tobool85.not, label %if.then86, label %for.inc94
+
+if.then86:                                        ; preds = %for.body81
+  %arrayidx90 = getelementptr inbounds %"class.NCompress::NShrink::CDecoder", ptr %this, i64 0, i32 2, i64 %indvars.iv451
+  %54 = load i16, ptr %arrayidx90, align 2, !tbaa !32
+  %idxprom91 = zext i16 %54 to i64
+  %arrayidx92 = getelementptr inbounds %"class.NCompress::NShrink::CDecoder", ptr %this, i64 0, i32 6, i64 %idxprom91
+  store i8 1, ptr %arrayidx92, align 1, !tbaa !23
+  br label %for.inc94
+
+for.inc94:                                        ; preds = %for.body81, %if.then86
+  %indvars.iv.next452 = add nuw nsw i64 %indvars.iv451, 1
+  %arrayidx84.1 = getelementptr inbounds %"class.NCompress::NShrink::CDecoder", ptr %this, i64 0, i32 5, i64 %indvars.iv.next452
+  %55 = load i8, ptr %arrayidx84.1, align 1, !tbaa !23, !range !29, !noundef !30
+  %tobool85.not.1 = icmp eq i8 %55, 0
+  br i1 %tobool85.not.1, label %if.then86.1, label %for.inc94.1
+
+if.then86.1:                                      ; preds = %for.inc94
+  %arrayidx90.1 = getelementptr inbounds %"class.NCompress::NShrink::CDecoder", ptr %this, i64 0, i32 2, i64 %indvars.iv.next452
+  %56 = load i16, ptr %arrayidx90.1, align 2, !tbaa !32
+  %idxprom91.1 = zext i16 %56 to i64
+  %arrayidx92.1 = getelementptr inbounds %"class.NCompress::NShrink::CDecoder", ptr %this, i64 0, i32 6, i64 %idxprom91.1
+  store i8 1, ptr %arrayidx92.1, align 1, !tbaa !23
+  br label %for.inc94.1
+
+for.inc94.1:                                      ; preds = %if.then86.1, %for.inc94
+  %indvars.iv.next452.1 = add nuw nsw i64 %indvars.iv451, 2
+  %arrayidx84.2 = getelementptr inbounds %"class.NCompress::NShrink::CDecoder", ptr %this, i64 0, i32 5, i64 %indvars.iv.next452.1
+  %57 = load i8, ptr %arrayidx84.2, align 1, !tbaa !23, !range !29, !noundef !30
+  %tobool85.not.2 = icmp eq i8 %57, 0
+  br i1 %tobool85.not.2, label %if.then86.2, label %for.inc94.2
+
+if.then86.2:                                      ; preds = %for.inc94.1
+  %arrayidx90.2 = getelementptr inbounds %"class.NCompress::NShrink::CDecoder", ptr %this, i64 0, i32 2, i64 %indvars.iv.next452.1
+  %58 = load i16, ptr %arrayidx90.2, align 2, !tbaa !32
+  %idxprom91.2 = zext i16 %58 to i64
+  %arrayidx92.2 = getelementptr inbounds %"class.NCompress::NShrink::CDecoder", ptr %this, i64 0, i32 6, i64 %idxprom91.2
+  store i8 1, ptr %arrayidx92.2, align 1, !tbaa !23
+  br label %for.inc94.2
+
+for.inc94.2:                                      ; preds = %if.then86.2, %for.inc94.1
+  %indvars.iv.next452.2 = add nuw nsw i64 %indvars.iv451, 3
+  %exitcond455.not.2 = icmp eq i64 %indvars.iv.next452.2, 8192
+  br i1 %exitcond455.not.2, label %vector.body, label %for.body81, !llvm.loop !34
+
+vector.body:                                      ; preds = %for.inc94.2, %pred.store.continue549
+  %index = phi i64 [ %index.next, %pred.store.continue549 ], [ 0, %for.inc94.2 ]
+  %offset.idx = add i64 %index, 257
+  %59 = add i64 %index, 273
+  %60 = getelementptr inbounds %"class.NCompress::NShrink::CDecoder", ptr %this, i64 0, i32 6, i64 %offset.idx
+  %wide.load = load <16 x i8>, ptr %60, align 1, !tbaa !23
+  %61 = getelementptr inbounds i8, ptr %60, i64 16
+  %wide.load487 = load <16 x i8>, ptr %61, align 1, !tbaa !23
+  %62 = icmp eq <16 x i8> %wide.load, zeroinitializer
+  %63 = icmp eq <16 x i8> %wide.load487, zeroinitializer
+  %64 = extractelement <16 x i1> %62, i64 0
+  br i1 %64, label %pred.store.if, label %pred.store.continue
+
+pred.store.if:                                    ; preds = %vector.body
+  %65 = getelementptr inbounds %"class.NCompress::NShrink::CDecoder", ptr %this, i64 0, i32 5, i64 %offset.idx
+  store i8 1, ptr %65, align 1, !tbaa !23
+  br label %pred.store.continue
+
+pred.store.continue:                              ; preds = %pred.store.if, %vector.body
+  %66 = extractelement <16 x i1> %62, i64 1
+  br i1 %66, label %pred.store.if488, label %pred.store.continue489
+
+pred.store.if488:                                 ; preds = %pred.store.continue
+  %67 = add i64 %index, 258
+  %68 = getelementptr inbounds %"class.NCompress::NShrink::CDecoder", ptr %this, i64 0, i32 5, i64 %67
   store i8 1, ptr %68, align 2, !tbaa !23
-  br label %479
+  br label %pred.store.continue489
 
-479:                                              ; preds = %478, %475
-  %480 = load i8, ptr %69, align 1, !tbaa !23, !range !29, !noundef !30
-  %481 = icmp eq i8 %480, 0
-  br i1 %481, label %482, label %483
+pred.store.continue489:                           ; preds = %pred.store.if488, %pred.store.continue
+  %69 = extractelement <16 x i1> %62, i64 2
+  br i1 %69, label %pred.store.if490, label %pred.store.continue491
 
-482:                                              ; preds = %479
-  store i8 1, ptr %70, align 1, !tbaa !23
-  br label %483
+pred.store.if490:                                 ; preds = %pred.store.continue489
+  %70 = add i64 %index, 259
+  %71 = getelementptr inbounds %"class.NCompress::NShrink::CDecoder", ptr %this, i64 0, i32 5, i64 %70
+  store i8 1, ptr %71, align 1, !tbaa !23
+  br label %pred.store.continue491
 
-483:                                              ; preds = %482, %479
-  %484 = load i8, ptr %71, align 8, !tbaa !23, !range !29, !noundef !30
-  %485 = icmp eq i8 %484, 0
-  br i1 %485, label %486, label %487
+pred.store.continue491:                           ; preds = %pred.store.if490, %pred.store.continue489
+  %72 = extractelement <16 x i1> %62, i64 3
+  br i1 %72, label %pred.store.if492, label %pred.store.continue493
 
-486:                                              ; preds = %483
-  store i8 1, ptr %72, align 8, !tbaa !23
-  br label %487
+pred.store.if492:                                 ; preds = %pred.store.continue491
+  %73 = add i64 %index, 260
+  %74 = getelementptr inbounds %"class.NCompress::NShrink::CDecoder", ptr %this, i64 0, i32 5, i64 %73
+  store i8 1, ptr %74, align 8, !tbaa !23
+  br label %pred.store.continue493
 
-487:                                              ; preds = %486, %483
-  %488 = load i8, ptr %73, align 1, !tbaa !23, !range !29, !noundef !30
-  %489 = icmp eq i8 %488, 0
-  br i1 %489, label %490, label %491
+pred.store.continue493:                           ; preds = %pred.store.if492, %pred.store.continue491
+  %75 = extractelement <16 x i1> %62, i64 4
+  br i1 %75, label %pred.store.if494, label %pred.store.continue495
 
-490:                                              ; preds = %487
-  store i8 1, ptr %74, align 1, !tbaa !23
-  br label %491
+pred.store.if494:                                 ; preds = %pred.store.continue493
+  %76 = add i64 %index, 261
+  %77 = getelementptr inbounds %"class.NCompress::NShrink::CDecoder", ptr %this, i64 0, i32 5, i64 %76
+  store i8 1, ptr %77, align 1, !tbaa !23
+  br label %pred.store.continue495
 
-491:                                              ; preds = %490, %487
-  %492 = load i8, ptr %75, align 2, !tbaa !23, !range !29, !noundef !30
-  %493 = icmp eq i8 %492, 0
-  br i1 %493, label %494, label %495
+pred.store.continue495:                           ; preds = %pred.store.if494, %pred.store.continue493
+  %78 = extractelement <16 x i1> %62, i64 5
+  br i1 %78, label %pred.store.if496, label %pred.store.continue497
 
-494:                                              ; preds = %491
-  store i8 1, ptr %76, align 2, !tbaa !23
-  br label %495
+pred.store.if496:                                 ; preds = %pred.store.continue495
+  %79 = add i64 %index, 262
+  %80 = getelementptr inbounds %"class.NCompress::NShrink::CDecoder", ptr %this, i64 0, i32 5, i64 %79
+  store i8 1, ptr %80, align 2, !tbaa !23
+  br label %pred.store.continue497
 
-495:                                              ; preds = %494, %491
-  %496 = load i8, ptr %77, align 1, !tbaa !23, !range !29, !noundef !30
-  %497 = icmp eq i8 %496, 0
-  br i1 %497, label %498, label %499
+pred.store.continue497:                           ; preds = %pred.store.if496, %pred.store.continue495
+  %81 = extractelement <16 x i1> %62, i64 6
+  br i1 %81, label %pred.store.if498, label %pred.store.continue499
 
-498:                                              ; preds = %495
-  store i8 1, ptr %78, align 1, !tbaa !23
-  br label %499
+pred.store.if498:                                 ; preds = %pred.store.continue497
+  %82 = add i64 %index, 263
+  %83 = getelementptr inbounds %"class.NCompress::NShrink::CDecoder", ptr %this, i64 0, i32 5, i64 %82
+  store i8 1, ptr %83, align 1, !tbaa !23
+  br label %pred.store.continue499
 
-499:                                              ; preds = %498, %495
-  br label %500
+pred.store.continue499:                           ; preds = %pred.store.if498, %pred.store.continue497
+  %84 = extractelement <16 x i1> %62, i64 7
+  br i1 %84, label %pred.store.if500, label %pred.store.continue501
 
-500:                                              ; preds = %525, %499
-  %501 = phi i64 [ 257, %499 ], [ %526, %525 ]
-  %502 = getelementptr inbounds %"class.NCompress::NShrink::CDecoder", ptr %0, i64 0, i32 5, i64 %501
-  %503 = load i8, ptr %502, align 1, !tbaa !23, !range !29, !noundef !30
-  %504 = icmp eq i8 %503, 0
-  br i1 %504, label %505, label %528
+pred.store.if500:                                 ; preds = %pred.store.continue499
+  %85 = add i64 %index, 264
+  %86 = getelementptr inbounds %"class.NCompress::NShrink::CDecoder", ptr %this, i64 0, i32 5, i64 %85
+  store i8 1, ptr %86, align 4, !tbaa !23
+  br label %pred.store.continue501
 
-505:                                              ; preds = %500
-  %506 = add nuw nsw i64 %501, 1
-  %507 = getelementptr inbounds %"class.NCompress::NShrink::CDecoder", ptr %0, i64 0, i32 5, i64 %506
-  %508 = load i8, ptr %507, align 1, !tbaa !23, !range !29, !noundef !30
-  %509 = icmp eq i8 %508, 0
-  br i1 %509, label %510, label %528
+pred.store.continue501:                           ; preds = %pred.store.if500, %pred.store.continue499
+  %87 = extractelement <16 x i1> %62, i64 8
+  br i1 %87, label %pred.store.if502, label %pred.store.continue503
 
-510:                                              ; preds = %505
-  %511 = add nuw nsw i64 %501, 2
-  %512 = getelementptr inbounds %"class.NCompress::NShrink::CDecoder", ptr %0, i64 0, i32 5, i64 %511
-  %513 = load i8, ptr %512, align 1, !tbaa !23, !range !29, !noundef !30
-  %514 = icmp eq i8 %513, 0
-  br i1 %514, label %515, label %528
+pred.store.if502:                                 ; preds = %pred.store.continue501
+  %88 = add i64 %index, 265
+  %89 = getelementptr inbounds %"class.NCompress::NShrink::CDecoder", ptr %this, i64 0, i32 5, i64 %88
+  store i8 1, ptr %89, align 1, !tbaa !23
+  br label %pred.store.continue503
 
-515:                                              ; preds = %510
-  %516 = add nuw nsw i64 %501, 3
-  %517 = getelementptr inbounds %"class.NCompress::NShrink::CDecoder", ptr %0, i64 0, i32 5, i64 %516
-  %518 = load i8, ptr %517, align 1, !tbaa !23, !range !29, !noundef !30
-  %519 = icmp eq i8 %518, 0
-  br i1 %519, label %520, label %528
+pred.store.continue503:                           ; preds = %pred.store.if502, %pred.store.continue501
+  %90 = extractelement <16 x i1> %62, i64 9
+  br i1 %90, label %pred.store.if504, label %pred.store.continue505
 
-520:                                              ; preds = %515
-  %521 = add nuw nsw i64 %501, 4
-  %522 = getelementptr inbounds %"class.NCompress::NShrink::CDecoder", ptr %0, i64 0, i32 5, i64 %521
-  %523 = load i8, ptr %522, align 1, !tbaa !23, !range !29, !noundef !30
-  %524 = icmp eq i8 %523, 0
-  br i1 %524, label %525, label %528
+pred.store.if504:                                 ; preds = %pred.store.continue503
+  %91 = add i64 %index, 266
+  %92 = getelementptr inbounds %"class.NCompress::NShrink::CDecoder", ptr %this, i64 0, i32 5, i64 %91
+  store i8 1, ptr %92, align 2, !tbaa !23
+  br label %pred.store.continue505
 
-525:                                              ; preds = %520
-  %526 = add nuw nsw i64 %501, 5
-  %527 = icmp eq i64 %526, 8192
-  br i1 %527, label %651, label %500, !llvm.loop !38
+pred.store.continue505:                           ; preds = %pred.store.if504, %pred.store.continue503
+  %93 = extractelement <16 x i1> %62, i64 10
+  br i1 %93, label %pred.store.if506, label %pred.store.continue507
 
-528:                                              ; preds = %520, %515, %510, %505, %500
-  %529 = phi i64 [ %501, %500 ], [ %506, %505 ], [ %511, %510 ], [ %516, %515 ], [ %521, %520 ]
-  %530 = trunc i64 %529 to i32
-  %531 = and i64 %529, 4294967295
-  %532 = getelementptr inbounds %"class.NCompress::NShrink::CDecoder", ptr %0, i64 0, i32 5, i64 %531
-  store i8 0, ptr %532, align 1, !tbaa !23
-  %533 = trunc i32 %84 to i16
-  %534 = getelementptr inbounds %"class.NCompress::NShrink::CDecoder", ptr %0, i64 0, i32 2, i64 %531
-  store i16 %533, ptr %534, align 2, !tbaa !32
-  %535 = add nuw nsw i32 %530, 1
-  br label %651, !llvm.loop !31
+pred.store.if506:                                 ; preds = %pred.store.continue505
+  %94 = add i64 %index, 267
+  %95 = getelementptr inbounds %"class.NCompress::NShrink::CDecoder", ptr %this, i64 0, i32 5, i64 %94
+  store i8 1, ptr %95, align 1, !tbaa !23
+  br label %pred.store.continue507
 
-536:                                              ; preds = %140, %536
-  %537 = phi i64 [ 0, %140 ], [ %546, %536 ]
-  %538 = phi i32 [ -1, %140 ], [ %542, %536 ]
-  %539 = phi i32 [ %120, %140 ], [ %550, %536 ]
-  %540 = icmp eq i32 %539, %141
-  %541 = trunc i64 %537 to i32
-  %542 = select i1 %540, i32 %541, i32 %538
-  %543 = zext i32 %539 to i64
-  %544 = getelementptr inbounds %"class.NCompress::NShrink::CDecoder", ptr %0, i64 0, i32 3, i64 %543
-  %545 = load i8, ptr %544, align 1, !tbaa !26
-  %546 = add nuw i64 %537, 1
-  %547 = getelementptr inbounds %"class.NCompress::NShrink::CDecoder", ptr %0, i64 0, i32 4, i64 %537
-  store i8 %545, ptr %547, align 1, !tbaa !26
-  %548 = getelementptr inbounds %"class.NCompress::NShrink::CDecoder", ptr %0, i64 0, i32 2, i64 %543
-  %549 = load i16, ptr %548, align 2, !tbaa !32
-  %550 = zext i16 %549 to i32
-  %551 = icmp ugt i16 %549, 255
-  br i1 %551, label %536, label %552, !llvm.loop !39
+pred.store.continue507:                           ; preds = %pred.store.if506, %pred.store.continue505
+  %96 = extractelement <16 x i1> %62, i64 11
+  br i1 %96, label %pred.store.if508, label %pred.store.continue509
 
-552:                                              ; preds = %536
-  %553 = zext i16 %549 to i32
-  %554 = trunc i64 %546 to i32
-  br label %555
+pred.store.if508:                                 ; preds = %pred.store.continue507
+  %97 = add i64 %index, 268
+  %98 = getelementptr inbounds %"class.NCompress::NShrink::CDecoder", ptr %this, i64 0, i32 5, i64 %97
+  store i8 1, ptr %98, align 8, !tbaa !23
+  br label %pred.store.continue509
 
-555:                                              ; preds = %552, %138
-  %556 = phi i32 [ %554, %552 ], [ 0, %138 ]
-  %557 = phi i32 [ %553, %552 ], [ %120, %138 ]
-  %558 = phi i32 [ %542, %552 ], [ -1, %138 ]
-  %559 = trunc i32 %557 to i8
-  %560 = add i32 %556, 1
-  %561 = zext i32 %556 to i64
-  %562 = getelementptr inbounds %"class.NCompress::NShrink::CDecoder", ptr %0, i64 0, i32 4, i64 %561
-  store i8 %559, ptr %562, align 1, !tbaa !26
-  %563 = and i8 %83, 1
-  %564 = icmp eq i8 %563, 0
-  br i1 %564, label %573, label %565
+pred.store.continue509:                           ; preds = %pred.store.if508, %pred.store.continue507
+  %99 = extractelement <16 x i1> %62, i64 12
+  br i1 %99, label %pred.store.if510, label %pred.store.continue511
 
-565:                                              ; preds = %555
-  %566 = add i32 %82, -1
-  %567 = zext i32 %566 to i64
-  %568 = getelementptr inbounds %"class.NCompress::NShrink::CDecoder", ptr %0, i64 0, i32 3, i64 %567
-  store i8 %559, ptr %568, align 1, !tbaa !26
-  %569 = icmp sgt i32 %558, -1
-  br i1 %569, label %570, label %573
+pred.store.if510:                                 ; preds = %pred.store.continue509
+  %100 = add i64 %index, 269
+  %101 = getelementptr inbounds %"class.NCompress::NShrink::CDecoder", ptr %this, i64 0, i32 5, i64 %100
+  store i8 1, ptr %101, align 1, !tbaa !23
+  br label %pred.store.continue511
 
-570:                                              ; preds = %565
-  %571 = zext i32 %558 to i64
-  %572 = getelementptr inbounds %"class.NCompress::NShrink::CDecoder", ptr %0, i64 0, i32 4, i64 %571
-  store i8 %559, ptr %572, align 1, !tbaa !26
-  br label %573
+pred.store.continue511:                           ; preds = %pred.store.if510, %pred.store.continue509
+  %102 = extractelement <16 x i1> %62, i64 13
+  br i1 %102, label %pred.store.if512, label %pred.store.continue513
 
-573:                                              ; preds = %555, %570, %565
-  %574 = zext i32 %560 to i64
-  br label %579
+pred.store.if512:                                 ; preds = %pred.store.continue511
+  %103 = add i64 %index, 270
+  %104 = getelementptr inbounds %"class.NCompress::NShrink::CDecoder", ptr %this, i64 0, i32 5, i64 %103
+  store i8 1, ptr %104, align 2, !tbaa !23
+  br label %pred.store.continue513
 
-575:                                              ; preds = %594
-  %576 = icmp ult i32 %82, 8192
-  br i1 %576, label %577, label %614
+pred.store.continue513:                           ; preds = %pred.store.if512, %pred.store.continue511
+  %105 = extractelement <16 x i1> %62, i64 14
+  br i1 %105, label %pred.store.if514, label %pred.store.continue515
 
-577:                                              ; preds = %575
-  %578 = zext i32 %82 to i64
-  br label %599
+pred.store.if514:                                 ; preds = %pred.store.continue513
+  %106 = add i64 %index, 271
+  %107 = getelementptr inbounds %"class.NCompress::NShrink::CDecoder", ptr %this, i64 0, i32 5, i64 %106
+  store i8 1, ptr %107, align 1, !tbaa !23
+  br label %pred.store.continue515
 
-579:                                              ; preds = %573, %594
-  %580 = phi i64 [ %574, %573 ], [ %581, %594 ]
-  %581 = add nsw i64 %580, -1
-  %582 = and i64 %581, 4294967295
-  %583 = getelementptr inbounds %"class.NCompress::NShrink::CDecoder", ptr %0, i64 0, i32 4, i64 %582
-  %584 = load i8, ptr %583, align 1, !tbaa !26
-  %585 = load ptr, ptr %8, align 8, !tbaa !5
-  %586 = load i32, ptr %12, align 8, !tbaa !14
-  %587 = add i32 %586, 1
-  store i32 %587, ptr %12, align 8, !tbaa !14
-  %588 = zext i32 %586 to i64
-  %589 = getelementptr inbounds i8, ptr %585, i64 %588
-  store i8 %584, ptr %589, align 1, !tbaa !26
-  %590 = load i32, ptr %12, align 8, !tbaa !14
-  %591 = load i32, ptr %33, align 4, !tbaa !40
-  %592 = icmp eq i32 %590, %591
-  br i1 %592, label %593, label %594
+pred.store.continue515:                           ; preds = %pred.store.if514, %pred.store.continue513
+  %108 = extractelement <16 x i1> %62, i64 15
+  br i1 %108, label %pred.store.if516, label %pred.store.continue517
 
-593:                                              ; preds = %579
-  invoke void @_ZN10COutBuffer14FlushWithCheckEv(ptr noundef nonnull align 8 dereferenceable(49) %8)
-          to label %594 unwind label %597
+pred.store.if516:                                 ; preds = %pred.store.continue515
+  %109 = add i64 %index, 272
+  %110 = getelementptr inbounds %"class.NCompress::NShrink::CDecoder", ptr %this, i64 0, i32 5, i64 %109
+  store i8 1, ptr %110, align 4, !tbaa !23
+  br label %pred.store.continue517
 
-594:                                              ; preds = %593, %579
-  %595 = trunc i64 %580 to i32
-  %596 = icmp sgt i32 %595, 1
-  br i1 %596, label %579, label %575
+pred.store.continue517:                           ; preds = %pred.store.if516, %pred.store.continue515
+  %111 = extractelement <16 x i1> %63, i64 0
+  br i1 %111, label %pred.store.if518, label %pred.store.continue519
 
-597:                                              ; preds = %593
-  %598 = landingpad { ptr, i32 }
+pred.store.if518:                                 ; preds = %pred.store.continue517
+  %112 = getelementptr inbounds %"class.NCompress::NShrink::CDecoder", ptr %this, i64 0, i32 5, i64 %59
+  store i8 1, ptr %112, align 1, !tbaa !23
+  br label %pred.store.continue519
+
+pred.store.continue519:                           ; preds = %pred.store.if518, %pred.store.continue517
+  %113 = extractelement <16 x i1> %63, i64 1
+  br i1 %113, label %pred.store.if520, label %pred.store.continue521
+
+pred.store.if520:                                 ; preds = %pred.store.continue519
+  %114 = add i64 %index, 274
+  %115 = getelementptr inbounds %"class.NCompress::NShrink::CDecoder", ptr %this, i64 0, i32 5, i64 %114
+  store i8 1, ptr %115, align 2, !tbaa !23
+  br label %pred.store.continue521
+
+pred.store.continue521:                           ; preds = %pred.store.if520, %pred.store.continue519
+  %116 = extractelement <16 x i1> %63, i64 2
+  br i1 %116, label %pred.store.if522, label %pred.store.continue523
+
+pred.store.if522:                                 ; preds = %pred.store.continue521
+  %117 = add i64 %index, 275
+  %118 = getelementptr inbounds %"class.NCompress::NShrink::CDecoder", ptr %this, i64 0, i32 5, i64 %117
+  store i8 1, ptr %118, align 1, !tbaa !23
+  br label %pred.store.continue523
+
+pred.store.continue523:                           ; preds = %pred.store.if522, %pred.store.continue521
+  %119 = extractelement <16 x i1> %63, i64 3
+  br i1 %119, label %pred.store.if524, label %pred.store.continue525
+
+pred.store.if524:                                 ; preds = %pred.store.continue523
+  %120 = add i64 %index, 276
+  %121 = getelementptr inbounds %"class.NCompress::NShrink::CDecoder", ptr %this, i64 0, i32 5, i64 %120
+  store i8 1, ptr %121, align 8, !tbaa !23
+  br label %pred.store.continue525
+
+pred.store.continue525:                           ; preds = %pred.store.if524, %pred.store.continue523
+  %122 = extractelement <16 x i1> %63, i64 4
+  br i1 %122, label %pred.store.if526, label %pred.store.continue527
+
+pred.store.if526:                                 ; preds = %pred.store.continue525
+  %123 = add i64 %index, 277
+  %124 = getelementptr inbounds %"class.NCompress::NShrink::CDecoder", ptr %this, i64 0, i32 5, i64 %123
+  store i8 1, ptr %124, align 1, !tbaa !23
+  br label %pred.store.continue527
+
+pred.store.continue527:                           ; preds = %pred.store.if526, %pred.store.continue525
+  %125 = extractelement <16 x i1> %63, i64 5
+  br i1 %125, label %pred.store.if528, label %pred.store.continue529
+
+pred.store.if528:                                 ; preds = %pred.store.continue527
+  %126 = add i64 %index, 278
+  %127 = getelementptr inbounds %"class.NCompress::NShrink::CDecoder", ptr %this, i64 0, i32 5, i64 %126
+  store i8 1, ptr %127, align 2, !tbaa !23
+  br label %pred.store.continue529
+
+pred.store.continue529:                           ; preds = %pred.store.if528, %pred.store.continue527
+  %128 = extractelement <16 x i1> %63, i64 6
+  br i1 %128, label %pred.store.if530, label %pred.store.continue531
+
+pred.store.if530:                                 ; preds = %pred.store.continue529
+  %129 = add i64 %index, 279
+  %130 = getelementptr inbounds %"class.NCompress::NShrink::CDecoder", ptr %this, i64 0, i32 5, i64 %129
+  store i8 1, ptr %130, align 1, !tbaa !23
+  br label %pred.store.continue531
+
+pred.store.continue531:                           ; preds = %pred.store.if530, %pred.store.continue529
+  %131 = extractelement <16 x i1> %63, i64 7
+  br i1 %131, label %pred.store.if532, label %pred.store.continue533
+
+pred.store.if532:                                 ; preds = %pred.store.continue531
+  %132 = add i64 %index, 280
+  %133 = getelementptr inbounds %"class.NCompress::NShrink::CDecoder", ptr %this, i64 0, i32 5, i64 %132
+  store i8 1, ptr %133, align 4, !tbaa !23
+  br label %pred.store.continue533
+
+pred.store.continue533:                           ; preds = %pred.store.if532, %pred.store.continue531
+  %134 = extractelement <16 x i1> %63, i64 8
+  br i1 %134, label %pred.store.if534, label %pred.store.continue535
+
+pred.store.if534:                                 ; preds = %pred.store.continue533
+  %135 = add i64 %index, 281
+  %136 = getelementptr inbounds %"class.NCompress::NShrink::CDecoder", ptr %this, i64 0, i32 5, i64 %135
+  store i8 1, ptr %136, align 1, !tbaa !23
+  br label %pred.store.continue535
+
+pred.store.continue535:                           ; preds = %pred.store.if534, %pred.store.continue533
+  %137 = extractelement <16 x i1> %63, i64 9
+  br i1 %137, label %pred.store.if536, label %pred.store.continue537
+
+pred.store.if536:                                 ; preds = %pred.store.continue535
+  %138 = add i64 %index, 282
+  %139 = getelementptr inbounds %"class.NCompress::NShrink::CDecoder", ptr %this, i64 0, i32 5, i64 %138
+  store i8 1, ptr %139, align 2, !tbaa !23
+  br label %pred.store.continue537
+
+pred.store.continue537:                           ; preds = %pred.store.if536, %pred.store.continue535
+  %140 = extractelement <16 x i1> %63, i64 10
+  br i1 %140, label %pred.store.if538, label %pred.store.continue539
+
+pred.store.if538:                                 ; preds = %pred.store.continue537
+  %141 = add i64 %index, 283
+  %142 = getelementptr inbounds %"class.NCompress::NShrink::CDecoder", ptr %this, i64 0, i32 5, i64 %141
+  store i8 1, ptr %142, align 1, !tbaa !23
+  br label %pred.store.continue539
+
+pred.store.continue539:                           ; preds = %pred.store.if538, %pred.store.continue537
+  %143 = extractelement <16 x i1> %63, i64 11
+  br i1 %143, label %pred.store.if540, label %pred.store.continue541
+
+pred.store.if540:                                 ; preds = %pred.store.continue539
+  %144 = add i64 %index, 284
+  %145 = getelementptr inbounds %"class.NCompress::NShrink::CDecoder", ptr %this, i64 0, i32 5, i64 %144
+  store i8 1, ptr %145, align 8, !tbaa !23
+  br label %pred.store.continue541
+
+pred.store.continue541:                           ; preds = %pred.store.if540, %pred.store.continue539
+  %146 = extractelement <16 x i1> %63, i64 12
+  br i1 %146, label %pred.store.if542, label %pred.store.continue543
+
+pred.store.if542:                                 ; preds = %pred.store.continue541
+  %147 = add i64 %index, 285
+  %148 = getelementptr inbounds %"class.NCompress::NShrink::CDecoder", ptr %this, i64 0, i32 5, i64 %147
+  store i8 1, ptr %148, align 1, !tbaa !23
+  br label %pred.store.continue543
+
+pred.store.continue543:                           ; preds = %pred.store.if542, %pred.store.continue541
+  %149 = extractelement <16 x i1> %63, i64 13
+  br i1 %149, label %pred.store.if544, label %pred.store.continue545
+
+pred.store.if544:                                 ; preds = %pred.store.continue543
+  %150 = add i64 %index, 286
+  %151 = getelementptr inbounds %"class.NCompress::NShrink::CDecoder", ptr %this, i64 0, i32 5, i64 %150
+  store i8 1, ptr %151, align 2, !tbaa !23
+  br label %pred.store.continue545
+
+pred.store.continue545:                           ; preds = %pred.store.if544, %pred.store.continue543
+  %152 = extractelement <16 x i1> %63, i64 14
+  br i1 %152, label %pred.store.if546, label %pred.store.continue547
+
+pred.store.if546:                                 ; preds = %pred.store.continue545
+  %153 = add i64 %index, 287
+  %154 = getelementptr inbounds %"class.NCompress::NShrink::CDecoder", ptr %this, i64 0, i32 5, i64 %153
+  store i8 1, ptr %154, align 1, !tbaa !23
+  br label %pred.store.continue547
+
+pred.store.continue547:                           ; preds = %pred.store.if546, %pred.store.continue545
+  %155 = extractelement <16 x i1> %63, i64 15
+  br i1 %155, label %pred.store.if548, label %pred.store.continue549
+
+pred.store.if548:                                 ; preds = %pred.store.continue547
+  %156 = add i64 %index, 288
+  %157 = getelementptr inbounds %"class.NCompress::NShrink::CDecoder", ptr %this, i64 0, i32 5, i64 %156
+  store i8 1, ptr %157, align 4, !tbaa !23
+  br label %pred.store.continue549
+
+pred.store.continue549:                           ; preds = %pred.store.if548, %pred.store.continue547
+  %index.next = add nuw i64 %index, 32
+  %158 = icmp eq i64 %index.next, 7904
+  br i1 %158, label %vec.epilog.vector.body, label %vector.body, !llvm.loop !35
+
+vec.epilog.vector.body:                           ; preds = %pred.store.continue549
+  %wide.load553 = load <8 x i8>, ptr %3, align 1, !tbaa !23
+  %159 = icmp eq <8 x i8> %wide.load553, zeroinitializer
+  %160 = extractelement <8 x i1> %159, i64 0
+  br i1 %160, label %pred.store.if554, label %pred.store.continue555
+
+pred.store.if554:                                 ; preds = %vec.epilog.vector.body
+  store i8 1, ptr %4, align 1, !tbaa !23
+  br label %pred.store.continue555
+
+pred.store.continue555:                           ; preds = %pred.store.if554, %vec.epilog.vector.body
+  %161 = extractelement <8 x i1> %159, i64 1
+  br i1 %161, label %pred.store.if556, label %pred.store.continue557
+
+pred.store.if556:                                 ; preds = %pred.store.continue555
+  store i8 1, ptr %5, align 2, !tbaa !23
+  br label %pred.store.continue557
+
+pred.store.continue557:                           ; preds = %pred.store.if556, %pred.store.continue555
+  %162 = extractelement <8 x i1> %159, i64 2
+  br i1 %162, label %pred.store.if558, label %pred.store.continue559
+
+pred.store.if558:                                 ; preds = %pred.store.continue557
+  store i8 1, ptr %6, align 1, !tbaa !23
+  br label %pred.store.continue559
+
+pred.store.continue559:                           ; preds = %pred.store.if558, %pred.store.continue557
+  %163 = extractelement <8 x i1> %159, i64 3
+  br i1 %163, label %pred.store.if560, label %pred.store.continue561
+
+pred.store.if560:                                 ; preds = %pred.store.continue559
+  store i8 1, ptr %7, align 8, !tbaa !23
+  br label %pred.store.continue561
+
+pred.store.continue561:                           ; preds = %pred.store.if560, %pred.store.continue559
+  %164 = extractelement <8 x i1> %159, i64 4
+  br i1 %164, label %pred.store.if562, label %pred.store.continue563
+
+pred.store.if562:                                 ; preds = %pred.store.continue561
+  store i8 1, ptr %8, align 1, !tbaa !23
+  br label %pred.store.continue563
+
+pred.store.continue563:                           ; preds = %pred.store.if562, %pred.store.continue561
+  %165 = extractelement <8 x i1> %159, i64 5
+  br i1 %165, label %pred.store.if564, label %pred.store.continue565
+
+pred.store.if564:                                 ; preds = %pred.store.continue563
+  store i8 1, ptr %9, align 2, !tbaa !23
+  br label %pred.store.continue565
+
+pred.store.continue565:                           ; preds = %pred.store.if564, %pred.store.continue563
+  %166 = extractelement <8 x i1> %159, i64 6
+  br i1 %166, label %pred.store.if566, label %pred.store.continue567
+
+pred.store.if566:                                 ; preds = %pred.store.continue565
+  store i8 1, ptr %10, align 1, !tbaa !23
+  br label %pred.store.continue567
+
+pred.store.continue567:                           ; preds = %pred.store.if566, %pred.store.continue565
+  %167 = extractelement <8 x i1> %159, i64 7
+  br i1 %167, label %pred.store.if568, label %pred.store.continue569
+
+pred.store.if568:                                 ; preds = %pred.store.continue567
+  store i8 1, ptr %11, align 4, !tbaa !23
+  br label %pred.store.continue569
+
+pred.store.continue569:                           ; preds = %pred.store.if568, %pred.store.continue567
+  %wide.load553.1 = load <8 x i8>, ptr %12, align 1, !tbaa !23
+  %168 = icmp eq <8 x i8> %wide.load553.1, zeroinitializer
+  %169 = extractelement <8 x i1> %168, i64 0
+  br i1 %169, label %pred.store.if554.1, label %pred.store.continue555.1
+
+pred.store.if554.1:                               ; preds = %pred.store.continue569
+  store i8 1, ptr %13, align 1, !tbaa !23
+  br label %pred.store.continue555.1
+
+pred.store.continue555.1:                         ; preds = %pred.store.if554.1, %pred.store.continue569
+  %170 = extractelement <8 x i1> %168, i64 1
+  br i1 %170, label %pred.store.if556.1, label %pred.store.continue557.1
+
+pred.store.if556.1:                               ; preds = %pred.store.continue555.1
+  store i8 1, ptr %14, align 2, !tbaa !23
+  br label %pred.store.continue557.1
+
+pred.store.continue557.1:                         ; preds = %pred.store.if556.1, %pred.store.continue555.1
+  %171 = extractelement <8 x i1> %168, i64 2
+  br i1 %171, label %pred.store.if558.1, label %pred.store.continue559.1
+
+pred.store.if558.1:                               ; preds = %pred.store.continue557.1
+  store i8 1, ptr %15, align 1, !tbaa !23
+  br label %pred.store.continue559.1
+
+pred.store.continue559.1:                         ; preds = %pred.store.if558.1, %pred.store.continue557.1
+  %172 = extractelement <8 x i1> %168, i64 3
+  br i1 %172, label %pred.store.if560.1, label %pred.store.continue561.1
+
+pred.store.if560.1:                               ; preds = %pred.store.continue559.1
+  store i8 1, ptr %16, align 8, !tbaa !23
+  br label %pred.store.continue561.1
+
+pred.store.continue561.1:                         ; preds = %pred.store.if560.1, %pred.store.continue559.1
+  %173 = extractelement <8 x i1> %168, i64 4
+  br i1 %173, label %pred.store.if562.1, label %pred.store.continue563.1
+
+pred.store.if562.1:                               ; preds = %pred.store.continue561.1
+  store i8 1, ptr %17, align 1, !tbaa !23
+  br label %pred.store.continue563.1
+
+pred.store.continue563.1:                         ; preds = %pred.store.if562.1, %pred.store.continue561.1
+  %174 = extractelement <8 x i1> %168, i64 5
+  br i1 %174, label %pred.store.if564.1, label %pred.store.continue565.1
+
+pred.store.if564.1:                               ; preds = %pred.store.continue563.1
+  store i8 1, ptr %18, align 2, !tbaa !23
+  br label %pred.store.continue565.1
+
+pred.store.continue565.1:                         ; preds = %pred.store.if564.1, %pred.store.continue563.1
+  %175 = extractelement <8 x i1> %168, i64 6
+  br i1 %175, label %pred.store.if566.1, label %pred.store.continue567.1
+
+pred.store.if566.1:                               ; preds = %pred.store.continue565.1
+  store i8 1, ptr %19, align 1, !tbaa !23
+  br label %pred.store.continue567.1
+
+pred.store.continue567.1:                         ; preds = %pred.store.if566.1, %pred.store.continue565.1
+  %176 = extractelement <8 x i1> %168, i64 7
+  br i1 %176, label %pred.store.if568.1, label %pred.store.continue569.1
+
+pred.store.if568.1:                               ; preds = %pred.store.continue567.1
+  store i8 1, ptr %20, align 4, !tbaa !23
+  br label %pred.store.continue569.1
+
+pred.store.continue569.1:                         ; preds = %pred.store.if568.1, %pred.store.continue567.1
+  %wide.load553.2 = load <8 x i8>, ptr %21, align 1, !tbaa !23
+  %177 = icmp eq <8 x i8> %wide.load553.2, zeroinitializer
+  %178 = extractelement <8 x i1> %177, i64 0
+  br i1 %178, label %pred.store.if554.2, label %pred.store.continue555.2
+
+pred.store.if554.2:                               ; preds = %pred.store.continue569.1
+  store i8 1, ptr %22, align 1, !tbaa !23
+  br label %pred.store.continue555.2
+
+pred.store.continue555.2:                         ; preds = %pred.store.if554.2, %pred.store.continue569.1
+  %179 = extractelement <8 x i1> %177, i64 1
+  br i1 %179, label %pred.store.if556.2, label %pred.store.continue557.2
+
+pred.store.if556.2:                               ; preds = %pred.store.continue555.2
+  store i8 1, ptr %23, align 2, !tbaa !23
+  br label %pred.store.continue557.2
+
+pred.store.continue557.2:                         ; preds = %pred.store.if556.2, %pred.store.continue555.2
+  %180 = extractelement <8 x i1> %177, i64 2
+  br i1 %180, label %pred.store.if558.2, label %pred.store.continue559.2
+
+pred.store.if558.2:                               ; preds = %pred.store.continue557.2
+  store i8 1, ptr %24, align 1, !tbaa !23
+  br label %pred.store.continue559.2
+
+pred.store.continue559.2:                         ; preds = %pred.store.if558.2, %pred.store.continue557.2
+  %181 = extractelement <8 x i1> %177, i64 3
+  br i1 %181, label %pred.store.if560.2, label %pred.store.continue561.2
+
+pred.store.if560.2:                               ; preds = %pred.store.continue559.2
+  store i8 1, ptr %25, align 8, !tbaa !23
+  br label %pred.store.continue561.2
+
+pred.store.continue561.2:                         ; preds = %pred.store.if560.2, %pred.store.continue559.2
+  %182 = extractelement <8 x i1> %177, i64 4
+  br i1 %182, label %pred.store.if562.2, label %pred.store.continue563.2
+
+pred.store.if562.2:                               ; preds = %pred.store.continue561.2
+  store i8 1, ptr %26, align 1, !tbaa !23
+  br label %pred.store.continue563.2
+
+pred.store.continue563.2:                         ; preds = %pred.store.if562.2, %pred.store.continue561.2
+  %183 = extractelement <8 x i1> %177, i64 5
+  br i1 %183, label %pred.store.if564.2, label %pred.store.continue565.2
+
+pred.store.if564.2:                               ; preds = %pred.store.continue563.2
+  store i8 1, ptr %27, align 2, !tbaa !23
+  br label %pred.store.continue565.2
+
+pred.store.continue565.2:                         ; preds = %pred.store.if564.2, %pred.store.continue563.2
+  %184 = extractelement <8 x i1> %177, i64 6
+  br i1 %184, label %pred.store.if566.2, label %pred.store.continue567.2
+
+pred.store.if566.2:                               ; preds = %pred.store.continue565.2
+  store i8 1, ptr %28, align 1, !tbaa !23
+  br label %pred.store.continue567.2
+
+pred.store.continue567.2:                         ; preds = %pred.store.if566.2, %pred.store.continue565.2
+  %185 = extractelement <8 x i1> %177, i64 7
+  br i1 %185, label %pred.store.if568.2, label %for.body99
+
+pred.store.if568.2:                               ; preds = %pred.store.continue567.2
+  store i8 1, ptr %29, align 4, !tbaa !23
+  br label %for.body99
+
+for.body99:                                       ; preds = %pred.store.continue567.2, %pred.store.if568.2
+  %186 = load i8, ptr %arrayidx102, align 1, !tbaa !23, !range !29, !noundef !30
+  %tobool103.not = icmp eq i8 %186, 0
+  br i1 %tobool103.not, label %if.then104, label %for.inc109
+
+if.then104:                                       ; preds = %for.body99
+  store i8 1, ptr %arrayidx107, align 1, !tbaa !23
+  br label %for.inc109
+
+for.inc109:                                       ; preds = %for.body99, %if.then104
+  %187 = load i8, ptr %arrayidx102.1, align 2, !tbaa !23, !range !29, !noundef !30
+  %tobool103.not.1 = icmp eq i8 %187, 0
+  br i1 %tobool103.not.1, label %if.then104.1, label %for.inc109.1
+
+if.then104.1:                                     ; preds = %for.inc109
+  store i8 1, ptr %arrayidx107.1, align 2, !tbaa !23
+  br label %for.inc109.1
+
+for.inc109.1:                                     ; preds = %if.then104.1, %for.inc109
+  %188 = load i8, ptr %arrayidx102.2, align 1, !tbaa !23, !range !29, !noundef !30
+  %tobool103.not.2 = icmp eq i8 %188, 0
+  br i1 %tobool103.not.2, label %if.then104.2, label %for.inc109.2
+
+if.then104.2:                                     ; preds = %for.inc109.1
+  store i8 1, ptr %arrayidx107.2, align 1, !tbaa !23
+  br label %for.inc109.2
+
+for.inc109.2:                                     ; preds = %if.then104.2, %for.inc109.1
+  %189 = load i8, ptr %arrayidx102.3, align 8, !tbaa !23, !range !29, !noundef !30
+  %tobool103.not.3 = icmp eq i8 %189, 0
+  br i1 %tobool103.not.3, label %if.then104.3, label %for.inc109.3
+
+if.then104.3:                                     ; preds = %for.inc109.2
+  store i8 1, ptr %arrayidx107.3, align 8, !tbaa !23
+  br label %for.inc109.3
+
+for.inc109.3:                                     ; preds = %if.then104.3, %for.inc109.2
+  %190 = load i8, ptr %arrayidx102.4, align 1, !tbaa !23, !range !29, !noundef !30
+  %tobool103.not.4 = icmp eq i8 %190, 0
+  br i1 %tobool103.not.4, label %if.then104.4, label %for.inc109.4
+
+if.then104.4:                                     ; preds = %for.inc109.3
+  store i8 1, ptr %arrayidx107.4, align 1, !tbaa !23
+  br label %for.inc109.4
+
+for.inc109.4:                                     ; preds = %if.then104.4, %for.inc109.3
+  %191 = load i8, ptr %arrayidx102.5, align 2, !tbaa !23, !range !29, !noundef !30
+  %tobool103.not.5 = icmp eq i8 %191, 0
+  br i1 %tobool103.not.5, label %if.then104.5, label %for.inc109.5
+
+if.then104.5:                                     ; preds = %for.inc109.4
+  store i8 1, ptr %arrayidx107.5, align 2, !tbaa !23
+  br label %for.inc109.5
+
+for.inc109.5:                                     ; preds = %if.then104.5, %for.inc109.4
+  %192 = load i8, ptr %arrayidx102.6, align 1, !tbaa !23, !range !29, !noundef !30
+  %tobool103.not.6 = icmp eq i8 %192, 0
+  br i1 %tobool103.not.6, label %if.then104.6, label %for.inc109.6
+
+if.then104.6:                                     ; preds = %for.inc109.5
+  store i8 1, ptr %arrayidx107.6, align 1, !tbaa !23
+  br label %for.inc109.6
+
+for.inc109.6:                                     ; preds = %if.then104.6, %for.inc109.5
+  br label %land.rhs
+
+land.rhs:                                         ; preds = %while.body.4, %for.inc109.6
+  %indvars.iv461 = phi i64 [ 257, %for.inc109.6 ], [ %indvars.iv.next462.4, %while.body.4 ]
+  %arrayidx115 = getelementptr inbounds %"class.NCompress::NShrink::CDecoder", ptr %this, i64 0, i32 5, i64 %indvars.iv461
+  %193 = load i8, ptr %arrayidx115, align 1, !tbaa !23, !range !29, !noundef !30
+  %tobool116.not = icmp eq i8 %193, 0
+  br i1 %tobool116.not, label %while.body, label %if.then119
+
+while.body:                                       ; preds = %land.rhs
+  %indvars.iv.next462 = add nuw nsw i64 %indvars.iv461, 1
+  %arrayidx115.1 = getelementptr inbounds %"class.NCompress::NShrink::CDecoder", ptr %this, i64 0, i32 5, i64 %indvars.iv.next462
+  %194 = load i8, ptr %arrayidx115.1, align 1, !tbaa !23, !range !29, !noundef !30
+  %tobool116.not.1 = icmp eq i8 %194, 0
+  br i1 %tobool116.not.1, label %while.body.1, label %if.then119
+
+while.body.1:                                     ; preds = %while.body
+  %indvars.iv.next462.1 = add nuw nsw i64 %indvars.iv461, 2
+  %arrayidx115.2 = getelementptr inbounds %"class.NCompress::NShrink::CDecoder", ptr %this, i64 0, i32 5, i64 %indvars.iv.next462.1
+  %195 = load i8, ptr %arrayidx115.2, align 1, !tbaa !23, !range !29, !noundef !30
+  %tobool116.not.2 = icmp eq i8 %195, 0
+  br i1 %tobool116.not.2, label %while.body.2, label %if.then119
+
+while.body.2:                                     ; preds = %while.body.1
+  %indvars.iv.next462.2 = add nuw nsw i64 %indvars.iv461, 3
+  %arrayidx115.3 = getelementptr inbounds %"class.NCompress::NShrink::CDecoder", ptr %this, i64 0, i32 5, i64 %indvars.iv.next462.2
+  %196 = load i8, ptr %arrayidx115.3, align 1, !tbaa !23, !range !29, !noundef !30
+  %tobool116.not.3 = icmp eq i8 %196, 0
+  br i1 %tobool116.not.3, label %while.body.3, label %if.then119
+
+while.body.3:                                     ; preds = %while.body.2
+  %indvars.iv.next462.3 = add nuw nsw i64 %indvars.iv461, 4
+  %arrayidx115.4 = getelementptr inbounds %"class.NCompress::NShrink::CDecoder", ptr %this, i64 0, i32 5, i64 %indvars.iv.next462.3
+  %197 = load i8, ptr %arrayidx115.4, align 1, !tbaa !23, !range !29, !noundef !30
+  %tobool116.not.4 = icmp eq i8 %197, 0
+  br i1 %tobool116.not.4, label %while.body.4, label %if.then119
+
+while.body.4:                                     ; preds = %while.body.3
+  %indvars.iv.next462.4 = add nuw nsw i64 %indvars.iv461, 5
+  %exitcond465.not.4 = icmp eq i64 %indvars.iv.next462.4, 8192
+  br i1 %exitcond465.not.4, label %for.cond38.backedge, label %land.rhs, !llvm.loop !38
+
+if.then119:                                       ; preds = %while.body.3, %while.body.2, %while.body.1, %while.body, %land.rhs
+  %indvars.iv461.lcssa = phi i64 [ %indvars.iv461, %land.rhs ], [ %indvars.iv.next462, %while.body ], [ %indvars.iv.next462.1, %while.body.1 ], [ %indvars.iv.next462.2, %while.body.2 ], [ %indvars.iv.next462.3, %while.body.3 ]
+  %198 = trunc i64 %indvars.iv461.lcssa to i32
+  %idxprom114.le = and i64 %indvars.iv461.lcssa, 4294967295
+  %arrayidx115.le = getelementptr inbounds %"class.NCompress::NShrink::CDecoder", ptr %this, i64 0, i32 5, i64 %idxprom114.le
+  store i8 0, ptr %arrayidx115.le, align 1, !tbaa !23
+  %conv = trunc i32 %lastSymbol.0 to i16
+  %arrayidx125 = getelementptr inbounds %"class.NCompress::NShrink::CDecoder", ptr %this, i64 0, i32 2, i64 %idxprom114.le
+  store i16 %conv, ptr %arrayidx125, align 2, !tbaa !32
+  %inc126 = add nuw nsw i32 %198, 1
+  br label %for.cond38.backedge, !llvm.loop !31
+
+while.body134:                                    ; preds = %while.body134.lr.ph, %while.body134
+  %indvars.iv = phi i64 [ 0, %while.body134.lr.ph ], [ %indvars.iv.next, %while.body134 ]
+  %corectionIndex.0413 = phi i32 [ -1, %while.body134.lr.ph ], [ %spec.select333, %while.body134 ]
+  %cur.0412 = phi i32 [ %and.i, %while.body134.lr.ph ], [ %conv148, %while.body134 ]
+  %cmp136 = icmp eq i32 %cur.0412, %sub135
+  %199 = trunc i64 %indvars.iv to i32
+  %spec.select333 = select i1 %cmp136, i32 %199, i32 %corectionIndex.0413
+  %idxprom140 = zext i32 %cur.0412 to i64
+  %arrayidx141 = getelementptr inbounds %"class.NCompress::NShrink::CDecoder", ptr %this, i64 0, i32 3, i64 %idxprom140
+  %200 = load i8, ptr %arrayidx141, align 1, !tbaa !26
+  %indvars.iv.next = add nuw i64 %indvars.iv, 1
+  %arrayidx144 = getelementptr inbounds %"class.NCompress::NShrink::CDecoder", ptr %this, i64 0, i32 4, i64 %indvars.iv
+  store i8 %200, ptr %arrayidx144, align 1, !tbaa !26
+  %arrayidx147 = getelementptr inbounds %"class.NCompress::NShrink::CDecoder", ptr %this, i64 0, i32 2, i64 %idxprom140
+  %201 = load i16, ptr %arrayidx147, align 2, !tbaa !32
+  %conv148 = zext i16 %201 to i32
+  %cmp133 = icmp ugt i16 %201, 255
+  br i1 %cmp133, label %while.body134, label %while.cond132.while.end149_crit_edge, !llvm.loop !39
+
+while.cond132.while.end149_crit_edge:             ; preds = %while.body134
+  %conv148.le = zext i16 %201 to i32
+  %202 = trunc i64 %indvars.iv.next to i32
+  br label %while.end149
+
+while.end149:                                     ; preds = %while.cond132.while.end149_crit_edge, %while.cond132.preheader
+  %i.7.lcssa = phi i32 [ %202, %while.cond132.while.end149_crit_edge ], [ 0, %while.cond132.preheader ]
+  %cur.0.lcssa = phi i32 [ %conv148.le, %while.cond132.while.end149_crit_edge ], [ %and.i, %while.cond132.preheader ]
+  %corectionIndex.0.lcssa = phi i32 [ %spec.select333, %while.cond132.while.end149_crit_edge ], [ -1, %while.cond132.preheader ]
+  %conv150 = trunc i32 %cur.0.lcssa to i8
+  %inc152 = add i32 %i.7.lcssa, 1
+  %idxprom153 = zext i32 %i.7.lcssa to i64
+  %arrayidx154 = getelementptr inbounds %"class.NCompress::NShrink::CDecoder", ptr %this, i64 0, i32 4, i64 %idxprom153
+  store i8 %conv150, ptr %arrayidx154, align 1, !tbaa !26
+  %203 = and i8 %needPrev.0, 1
+  %tobool155.not = icmp eq i8 %203, 0
+  br i1 %tobool155.not, label %while.body172.preheader, label %if.then156
+
+if.then156:                                       ; preds = %while.end149
+  %sub159 = add i32 %head.0, -1
+  %idxprom160 = zext i32 %sub159 to i64
+  %arrayidx161 = getelementptr inbounds %"class.NCompress::NShrink::CDecoder", ptr %this, i64 0, i32 3, i64 %idxprom160
+  store i8 %conv150, ptr %arrayidx161, align 1, !tbaa !26
+  %cmp162 = icmp sgt i32 %corectionIndex.0.lcssa, -1
+  br i1 %cmp162, label %if.then163, label %while.body172.preheader
+
+if.then163:                                       ; preds = %if.then156
+  %idxprom166 = zext i32 %corectionIndex.0.lcssa to i64
+  %arrayidx167 = getelementptr inbounds %"class.NCompress::NShrink::CDecoder", ptr %this, i64 0, i32 4, i64 %idxprom166
+  store i8 %conv150, ptr %arrayidx167, align 1, !tbaa !26
+  br label %while.body172.preheader
+
+while.body172.preheader:                          ; preds = %while.end149, %if.then163, %if.then156
+  %204 = zext i32 %inc152 to i64
+  br label %while.body172
+
+while.cond179.preheader:                          ; preds = %_ZN10COutBuffer9WriteByteEh.exit
+  %cmp180420 = icmp ult i32 %head.0, 8192
+  br i1 %cmp180420, label %land.rhs181.preheader, label %if.end202
+
+land.rhs181.preheader:                            ; preds = %while.cond179.preheader
+  %205 = zext i32 %head.0 to i64
+  br label %land.rhs181
+
+while.body172:                                    ; preds = %while.body172.preheader, %_ZN10COutBuffer9WriteByteEh.exit
+  %indvars.iv439 = phi i64 [ %204, %while.body172.preheader ], [ %indvars.iv.next440, %_ZN10COutBuffer9WriteByteEh.exit ]
+  %indvars.iv.next440 = add nsw i64 %indvars.iv439, -1
+  %idxprom174 = and i64 %indvars.iv.next440, 4294967295
+  %arrayidx175 = getelementptr inbounds %"class.NCompress::NShrink::CDecoder", ptr %this, i64 0, i32 4, i64 %idxprom174
+  %206 = load i8, ptr %arrayidx175, align 1, !tbaa !26
+  %207 = load ptr, ptr %outBuffer, align 8, !tbaa !5
+  %208 = load i32, ptr %_pos.i, align 8, !tbaa !14
+  %inc.i = add i32 %208, 1
+  store i32 %inc.i, ptr %_pos.i, align 8, !tbaa !14
+  %idxprom.i = zext i32 %208 to i64
+  %arrayidx.i = getelementptr inbounds i8, ptr %207, i64 %idxprom.i
+  store i8 %206, ptr %arrayidx.i, align 1, !tbaa !26
+  %209 = load i32, ptr %_pos.i, align 8, !tbaa !14
+  %210 = load i32, ptr %_limitPos.i, align 4, !tbaa !40
+  %cmp.i379 = icmp eq i32 %209, %210
+  br i1 %cmp.i379, label %if.then.i, label %_ZN10COutBuffer9WriteByteEh.exit
+
+if.then.i:                                        ; preds = %while.body172
+  invoke void @_ZN10COutBuffer14FlushWithCheckEv(ptr noundef nonnull align 8 dereferenceable(49) %outBuffer)
+          to label %_ZN10COutBuffer9WriteByteEh.exit unwind label %lpad176
+
+_ZN10COutBuffer9WriteByteEh.exit:                 ; preds = %if.then.i, %while.body172
+  %211 = trunc i64 %indvars.iv439 to i32
+  %cmp171 = icmp sgt i32 %211, 1
+  br i1 %cmp171, label %while.body172, label %while.cond179.preheader
+
+lpad176:                                          ; preds = %if.then.i
+  %212 = landingpad { ptr, i32 }
           cleanup
-  br label %696
+  br label %ehcleanup251
 
-599:                                              ; preds = %577, %604
-  %600 = phi i64 [ %578, %577 ], [ %605, %604 ]
-  %601 = getelementptr inbounds %"class.NCompress::NShrink::CDecoder", ptr %0, i64 0, i32 5, i64 %600
-  %602 = load i8, ptr %601, align 1, !tbaa !23, !range !29, !noundef !30
-  %603 = icmp eq i8 %602, 0
-  br i1 %603, label %604, label %607
+land.rhs181:                                      ; preds = %land.rhs181.preheader, %while.body188
+  %indvars.iv442 = phi i64 [ %205, %land.rhs181.preheader ], [ %indvars.iv.next443, %while.body188 ]
+  %arrayidx184 = getelementptr inbounds %"class.NCompress::NShrink::CDecoder", ptr %this, i64 0, i32 5, i64 %indvars.iv442
+  %213 = load i8, ptr %arrayidx184, align 1, !tbaa !23, !range !29, !noundef !30
+  %tobool185.not = icmp eq i8 %213, 0
+  br i1 %tobool185.not, label %while.body188, label %if.then192
 
-604:                                              ; preds = %599
-  %605 = add nuw nsw i64 %600, 1
-  %606 = icmp eq i64 %605, 8192
-  br i1 %606, label %614, label %599, !llvm.loop !41
+while.body188:                                    ; preds = %land.rhs181
+  %indvars.iv.next443 = add nuw nsw i64 %indvars.iv442, 1
+  %exitcond.not = icmp eq i64 %indvars.iv.next443, 8192
+  br i1 %exitcond.not, label %if.end202, label %land.rhs181, !llvm.loop !41
 
-607:                                              ; preds = %599
-  %608 = trunc i64 %600 to i32
-  %609 = and i64 %600, 4294967295
-  %610 = getelementptr inbounds %"class.NCompress::NShrink::CDecoder", ptr %0, i64 0, i32 5, i64 %609
-  store i8 0, ptr %610, align 1, !tbaa !23
-  %611 = trunc i32 %120 to i16
-  %612 = getelementptr inbounds %"class.NCompress::NShrink::CDecoder", ptr %0, i64 0, i32 2, i64 %609
-  store i16 %611, ptr %612, align 2, !tbaa !32
-  %613 = add nuw nsw i32 %608, 1
-  br label %614
+if.then192:                                       ; preds = %land.rhs181
+  %214 = trunc i64 %indvars.iv442 to i32
+  %idxprom183.le = and i64 %indvars.iv442, 4294967295
+  %arrayidx184.le = getelementptr inbounds %"class.NCompress::NShrink::CDecoder", ptr %this, i64 0, i32 5, i64 %idxprom183.le
+  store i8 0, ptr %arrayidx184.le, align 1, !tbaa !23
+  %conv196 = trunc i32 %and.i to i16
+  %arrayidx199 = getelementptr inbounds %"class.NCompress::NShrink::CDecoder", ptr %this, i64 0, i32 2, i64 %idxprom183.le
+  store i16 %conv196, ptr %arrayidx199, align 2, !tbaa !32
+  %inc200 = add nuw nsw i32 %214, 1
+  br label %if.end202
 
-614:                                              ; preds = %604, %575, %607
-  %615 = phi i32 [ %613, %607 ], [ %82, %575 ], [ 8192, %604 ]
-  %616 = phi i8 [ 1, %607 ], [ 0, %575 ], [ 0, %604 ]
-  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %9) #11
-  %617 = invoke noundef i64 @_ZNK10COutBuffer16GetProcessedSizeEv(ptr noundef nonnull align 8 dereferenceable(49) %8)
-          to label %618 unwind label %644
+if.end202:                                        ; preds = %while.body188, %while.cond179.preheader, %if.then192
+  %head.5 = phi i32 [ %inc200, %if.then192 ], [ %head.0, %while.cond179.preheader ], [ 8192, %while.body188 ]
+  %needPrev.3 = phi i8 [ 1, %if.then192 ], [ 0, %while.cond179.preheader ], [ 0, %while.body188 ]
+  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %nowPos) #11
+  %call205 = invoke noundef i64 @_ZNK10COutBuffer16GetProcessedSizeEv(ptr noundef nonnull align 8 dereferenceable(49) %outBuffer)
+          to label %invoke.cont204 unwind label %lpad203
 
-618:                                              ; preds = %614
-  store i64 %617, ptr %9, align 8, !tbaa !42
-  %619 = sub i64 %617, %80
-  %620 = icmp ugt i64 %619, 262144
-  %621 = select i1 %34, i1 %620, i1 false
-  br i1 %621, label %622, label %648
+invoke.cont204:                                   ; preds = %if.end202
+  store i64 %call205, ptr %nowPos, align 8, !tbaa !42
+  %sub207 = sub i64 %call205, %prevPos.0
+  %cmp208 = icmp ugt i64 %sub207, 262144
+  %or.cond = select i1 %cmp206.not, i1 %cmp208, i1 false
+  br i1 %or.cond, label %invoke.cont211, label %cleanup230
 
-622:                                              ; preds = %618
-  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %10) #11
-  %623 = load i64, ptr %35, align 8, !tbaa !43
-  %624 = load ptr, ptr %11, align 8, !tbaa !24
-  %625 = load ptr, ptr %36, align 8, !tbaa !44
-  %626 = ptrtoint ptr %624 to i64
-  %627 = ptrtoint ptr %625 to i64
-  %628 = load i32, ptr %23, align 8, !tbaa !22
-  %629 = zext i32 %628 to i64
-  %630 = load i32, ptr %7, align 8, !tbaa !17
-  %631 = sub i32 32, %630
-  %632 = lshr i32 %631, 3
-  %633 = zext i32 %632 to i64
-  %634 = add i64 %623, %626
-  %635 = add i64 %634, %629
-  %636 = add i64 %627, %633
-  %637 = sub i64 %635, %636
-  store i64 %637, ptr %10, align 8, !tbaa !42
-  %638 = load ptr, ptr %5, align 8, !tbaa !45
-  %639 = getelementptr inbounds ptr, ptr %638, i64 5
-  %640 = load ptr, ptr %639, align 8
-  %641 = invoke noundef i32 %640(ptr noundef nonnull align 8 dereferenceable(8) %5, ptr noundef nonnull %10, ptr noundef nonnull %9)
-          to label %642 unwind label %646
+invoke.cont211:                                   ; preds = %invoke.cont204
+  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %packSize) #11
+  %215 = load i64, ptr %_processedSize.i.i, align 8, !tbaa !43
+  %216 = load ptr, ptr %m_Stream.i, align 8, !tbaa !24
+  %217 = load ptr, ptr %_bufferBase.i.i, align 8, !tbaa !44
+  %sub.ptr.lhs.cast.i.i = ptrtoint ptr %216 to i64
+  %sub.ptr.rhs.cast.i.i = ptrtoint ptr %217 to i64
+  %218 = load i32, ptr %NumExtraBytes.i, align 8, !tbaa !22
+  %conv.i = zext i32 %218 to i64
+  %219 = load i32, ptr %inBuffer, align 8, !tbaa !17
+  %sub.i382 = sub i32 32, %219
+  %div4.i = lshr i32 %sub.i382, 3
+  %conv2.i = zext i32 %div4.i to i64
+  %.neg = add i64 %215, %sub.ptr.lhs.cast.i.i
+  %220 = add i64 %.neg, %conv.i
+  %221 = add i64 %sub.ptr.rhs.cast.i.i, %conv2.i
+  %sub3.i = sub i64 %220, %221
+  store i64 %sub3.i, ptr %packSize, align 8, !tbaa !42
+  %vtable = load ptr, ptr %progress, align 8, !tbaa !45
+  %vfn = getelementptr inbounds ptr, ptr %vtable, i64 5
+  %222 = load ptr, ptr %vfn, align 8
+  %call215 = invoke noundef i32 %222(ptr noundef nonnull align 8 dereferenceable(8) %progress, ptr noundef nonnull %packSize, ptr noundef nonnull %nowPos)
+          to label %invoke.cont214 unwind label %lpad213
 
-642:                                              ; preds = %622
-  %643 = icmp eq i32 %641, 0
-  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %10) #11
-  br i1 %643, label %648, label %650
+invoke.cont214:                                   ; preds = %invoke.cont211
+  %cmp216.not = icmp eq i32 %call215, 0
+  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %packSize) #11
+  br i1 %cmp216.not, label %cleanup230, label %cleanup230.thread479
 
-644:                                              ; preds = %614
-  %645 = landingpad { ptr, i32 }
+cleanup230.thread479:                             ; preds = %invoke.cont214
+  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %nowPos) #11
+  br label %cleanup250
+
+lpad203:                                          ; preds = %if.end202
+  %223 = landingpad { ptr, i32 }
           cleanup
-  br label %657
+  br label %ehcleanup225
 
-646:                                              ; preds = %622
-  %647 = landingpad { ptr, i32 }
+lpad213:                                          ; preds = %invoke.cont211
+  %224 = landingpad { ptr, i32 }
           cleanup
-  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %10) #11
-  br label %657
+  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %packSize) #11
+  br label %ehcleanup225
 
-648:                                              ; preds = %642, %618
-  %649 = phi i64 [ %80, %618 ], [ %617, %642 ]
-  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %9) #11
-  br label %651
+cleanup230:                                       ; preds = %invoke.cont204, %invoke.cont214
+  %prevPos.1 = phi i64 [ %call205, %invoke.cont214 ], [ %prevPos.0, %invoke.cont204 ]
+  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %nowPos) #11
+  br label %for.cond38.backedge
 
-650:                                              ; preds = %642
-  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %9) #11
-  br label %663
+for.cond38.backedge:                              ; preds = %while.body.4, %if.then58, %if.then119, %cleanup230
+  %lastSymbol.1477 = phi i32 [ %and.i, %cleanup230 ], [ %lastSymbol.0, %if.then119 ], [ %lastSymbol.0, %if.then58 ], [ %lastSymbol.0, %while.body.4 ]
+  %needPrev.4476 = phi i8 [ %needPrev.3, %cleanup230 ], [ 1, %if.then119 ], [ %needPrev.0, %if.then58 ], [ %needPrev.0, %while.body.4 ]
+  %head.6475 = phi i32 [ %head.5, %cleanup230 ], [ %inc126, %if.then119 ], [ %head.0, %if.then58 ], [ 8192, %while.body.4 ]
+  %numBits.3474 = phi i32 [ %numBits.0, %cleanup230 ], [ %numBits.0, %if.then119 ], [ %spec.select, %if.then58 ], [ %numBits.0, %while.body.4 ]
+  %prevPos.3473 = phi i64 [ %prevPos.1, %cleanup230 ], [ %prevPos.0, %if.then119 ], [ %prevPos.0, %if.then58 ], [ %prevPos.0, %while.body.4 ]
+  br label %for.cond38, !llvm.loop !31
 
-651:                                              ; preds = %525, %176, %528, %648
-  %652 = phi i32 [ %120, %648 ], [ %84, %528 ], [ %84, %176 ], [ %84, %525 ]
-  %653 = phi i8 [ %616, %648 ], [ 1, %528 ], [ %83, %176 ], [ %83, %525 ]
-  %654 = phi i32 [ %615, %648 ], [ %535, %528 ], [ %82, %176 ], [ 8192, %525 ]
-  %655 = phi i32 [ %81, %648 ], [ %81, %528 ], [ %179, %176 ], [ %81, %525 ]
-  %656 = phi i64 [ %649, %648 ], [ %80, %528 ], [ %80, %176 ], [ %80, %525 ]
-  br label %79, !llvm.loop !31
+ehcleanup225:                                     ; preds = %lpad213, %lpad203
+  %.pn.pn = phi { ptr, i32 } [ %224, %lpad213 ], [ %223, %lpad203 ]
+  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %nowPos) #11
+  br label %ehcleanup251
 
-657:                                              ; preds = %646, %644
-  %658 = phi { ptr, i32 } [ %647, %646 ], [ %645, %644 ]
-  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %9) #11
-  br label %696
+for.end234:                                       ; preds = %invoke.cont40
+  %call237 = invoke noundef i32 @_ZN10COutBuffer5FlushEv(ptr noundef nonnull align 8 dereferenceable(49) %outBuffer)
+          to label %cleanup250 unwind label %lpad235
 
-659:                                              ; preds = %115
-  %660 = invoke noundef i32 @_ZN10COutBuffer5FlushEv(ptr noundef nonnull align 8 dereferenceable(49) %8)
-          to label %663 unwind label %661
-
-661:                                              ; preds = %659
-  %662 = landingpad { ptr, i32 }
+lpad235:                                          ; preds = %for.end234
+  %225 = landingpad { ptr, i32 }
           cleanup
-  br label %696
+  br label %ehcleanup251
 
-663:                                              ; preds = %170, %131, %650, %659, %25, %16
-  %664 = phi i32 [ -2147024882, %16 ], [ -2147024882, %25 ], [ %660, %659 ], [ %641, %650 ], [ 1, %131 ], [ 1, %170 ]
-  invoke void @_ZN10COutBuffer4FreeEv(ptr noundef nonnull align 8 dereferenceable(49) %8)
-          to label %665 unwind label %676
+cleanup250:                                       ; preds = %invoke.cont55, %if.end45, %cleanup230.thread479, %for.end234, %invoke.cont7, %invoke.cont4
+  %retval.7 = phi i32 [ -2147024882, %invoke.cont4 ], [ -2147024882, %invoke.cont7 ], [ %call237, %for.end234 ], [ %call215, %cleanup230.thread479 ], [ 1, %if.end45 ], [ 1, %invoke.cont55 ]
+  invoke void @_ZN10COutBuffer4FreeEv(ptr noundef nonnull align 8 dereferenceable(49) %outBuffer)
+          to label %invoke.cont.i unwind label %terminate.lpad.i
 
-665:                                              ; preds = %663
-  %666 = load ptr, ptr %13, align 8, !tbaa !15
-  %667 = icmp eq ptr %666, null
-  br i1 %667, label %679, label %668
+invoke.cont.i:                                    ; preds = %cleanup250
+  %226 = load ptr, ptr %_stream.i, align 8, !tbaa !15
+  %tobool.not.i.i = icmp eq ptr %226, null
+  br i1 %tobool.not.i.i, label %_ZN10COutBufferD2Ev.exit, label %if.then.i.i384
 
-668:                                              ; preds = %665
-  %669 = load ptr, ptr %666, align 8, !tbaa !45
-  %670 = getelementptr inbounds ptr, ptr %669, i64 2
-  %671 = load ptr, ptr %670, align 8
-  %672 = invoke noundef i32 %671(ptr noundef nonnull align 8 dereferenceable(8) %666)
-          to label %679 unwind label %673
+if.then.i.i384:                                   ; preds = %invoke.cont.i
+  %vtable.i.i = load ptr, ptr %226, align 8, !tbaa !45
+  %vfn.i.i = getelementptr inbounds ptr, ptr %vtable.i.i, i64 2
+  %227 = load ptr, ptr %vfn.i.i, align 8
+  %call.i.i = invoke noundef i32 %227(ptr noundef nonnull align 8 dereferenceable(8) %226)
+          to label %_ZN10COutBufferD2Ev.exit unwind label %terminate.lpad.i.i
 
-673:                                              ; preds = %668
-  %674 = landingpad { ptr, i32 }
+terminate.lpad.i.i:                               ; preds = %if.then.i.i384
+  %228 = landingpad { ptr, i32 }
           catch ptr null
-  %675 = extractvalue { ptr, i32 } %674, 0
-  call void @__clang_call_terminate(ptr %675) #12
+  %229 = extractvalue { ptr, i32 } %228, 0
+  call void @__clang_call_terminate(ptr %229) #12
   unreachable
 
-676:                                              ; preds = %663
-  %677 = landingpad { ptr, i32 }
+terminate.lpad.i:                                 ; preds = %cleanup250
+  %230 = landingpad { ptr, i32 }
           catch ptr null
-  %678 = extractvalue { ptr, i32 } %677, 0
-  call void @__clang_call_terminate(ptr %678) #12
+  %231 = extractvalue { ptr, i32 } %230, 0
+  call void @__clang_call_terminate(ptr %231) #12
   unreachable
 
-679:                                              ; preds = %665, %668
-  call void @llvm.lifetime.end.p0(i64 56, ptr nonnull %8) #11
-  invoke void @_ZN9CInBuffer4FreeEv(ptr noundef nonnull align 8 dereferenceable(45) %11)
-          to label %680 unwind label %692
+_ZN10COutBufferD2Ev.exit:                         ; preds = %invoke.cont.i, %if.then.i.i384
+  call void @llvm.lifetime.end.p0(i64 56, ptr nonnull %outBuffer) #11
+  invoke void @_ZN9CInBuffer4FreeEv(ptr noundef nonnull align 8 dereferenceable(45) %m_Stream.i)
+          to label %invoke.cont.i.i unwind label %terminate.lpad.i.i387
 
-680:                                              ; preds = %679
-  %681 = getelementptr inbounds %"class.NBitl::CBaseDecoder", ptr %7, i64 0, i32 2, i32 3
-  %682 = load ptr, ptr %681, align 8, !tbaa !47
-  %683 = icmp eq ptr %682, null
-  br i1 %683, label %695, label %684
+invoke.cont.i.i:                                  ; preds = %_ZN10COutBufferD2Ev.exit
+  %_stream.i.i = getelementptr inbounds %"class.NBitl::CBaseDecoder", ptr %inBuffer, i64 0, i32 2, i32 3
+  %232 = load ptr, ptr %_stream.i.i, align 8, !tbaa !47
+  %tobool.not.i.i.i = icmp eq ptr %232, null
+  br i1 %tobool.not.i.i.i, label %_ZN5NBitl12CBaseDecoderI9CInBufferED2Ev.exit, label %if.then.i.i.i386
 
-684:                                              ; preds = %680
-  %685 = load ptr, ptr %682, align 8, !tbaa !45
-  %686 = getelementptr inbounds ptr, ptr %685, i64 2
-  %687 = load ptr, ptr %686, align 8
-  %688 = invoke noundef i32 %687(ptr noundef nonnull align 8 dereferenceable(8) %682)
-          to label %695 unwind label %689
+if.then.i.i.i386:                                 ; preds = %invoke.cont.i.i
+  %vtable.i.i.i = load ptr, ptr %232, align 8, !tbaa !45
+  %vfn.i.i.i = getelementptr inbounds ptr, ptr %vtable.i.i.i, i64 2
+  %233 = load ptr, ptr %vfn.i.i.i, align 8
+  %call.i.i.i = invoke noundef i32 %233(ptr noundef nonnull align 8 dereferenceable(8) %232)
+          to label %_ZN5NBitl12CBaseDecoderI9CInBufferED2Ev.exit unwind label %terminate.lpad.i.i.i
 
-689:                                              ; preds = %684
-  %690 = landingpad { ptr, i32 }
+terminate.lpad.i.i.i:                             ; preds = %if.then.i.i.i386
+  %234 = landingpad { ptr, i32 }
           catch ptr null
-  %691 = extractvalue { ptr, i32 } %690, 0
-  call void @__clang_call_terminate(ptr %691) #12
+  %235 = extractvalue { ptr, i32 } %234, 0
+  call void @__clang_call_terminate(ptr %235) #12
   unreachable
 
-692:                                              ; preds = %679
-  %693 = landingpad { ptr, i32 }
+terminate.lpad.i.i387:                            ; preds = %_ZN10COutBufferD2Ev.exit
+  %236 = landingpad { ptr, i32 }
           catch ptr null
-  %694 = extractvalue { ptr, i32 } %693, 0
-  call void @__clang_call_terminate(ptr %694) #12
+  %237 = extractvalue { ptr, i32 } %236, 0
+  call void @__clang_call_terminate(ptr %237) #12
   unreachable
 
-695:                                              ; preds = %680, %684
-  call void @llvm.lifetime.end.p0(i64 64, ptr nonnull %7) #11
-  ret i32 %664
+_ZN5NBitl12CBaseDecoderI9CInBufferED2Ev.exit:     ; preds = %invoke.cont.i.i, %if.then.i.i.i386
+  call void @llvm.lifetime.end.p0(i64 64, ptr nonnull %inBuffer) #11
+  ret i32 %retval.7
 
-696:                                              ; preds = %661, %597, %657, %180, %129, %17
-  %697 = phi { ptr, i32 } [ %18, %17 ], [ %662, %661 ], [ %181, %180 ], [ %130, %129 ], [ %598, %597 ], [ %658, %657 ]
-  call void @_ZN10COutBufferD2Ev(ptr noundef nonnull align 8 dereferenceable(49) %8) #11
-  call void @llvm.lifetime.end.p0(i64 56, ptr nonnull %8) #11
-  call void @_ZN5NBitl12CBaseDecoderI9CInBufferED2Ev(ptr noundef nonnull align 8 dereferenceable(60) %7) #11
-  call void @llvm.lifetime.end.p0(i64 64, ptr nonnull %7) #11
-  resume { ptr, i32 } %697
+ehcleanup251:                                     ; preds = %lpad235, %lpad176, %ehcleanup225, %lpad54, %lpad39, %lpad3
+  %.pn325.pn = phi { ptr, i32 } [ %2, %lpad3 ], [ %225, %lpad235 ], [ %51, %lpad54 ], [ %40, %lpad39 ], [ %212, %lpad176 ], [ %.pn.pn, %ehcleanup225 ]
+  call void @_ZN10COutBufferD2Ev(ptr noundef nonnull align 8 dereferenceable(49) %outBuffer) #11
+  call void @llvm.lifetime.end.p0(i64 56, ptr nonnull %outBuffer) #11
+  call void @_ZN5NBitl12CBaseDecoderI9CInBufferED2Ev(ptr noundef nonnull align 8 dereferenceable(60) %inBuffer) #11
+  call void @llvm.lifetime.end.p0(i64 64, ptr nonnull %inBuffer) #11
+  resume { ptr, i32 } %.pn325.pn
 }
 
 ; Function Attrs: mustprogress nocallback nofree nosync nounwind willreturn memory(argmem: readwrite)
@@ -1370,117 +1371,120 @@ declare noundef i64 @_ZNK10COutBuffer16GetProcessedSizeEv(ptr noundef nonnull al
 declare noundef i32 @_ZN10COutBuffer5FlushEv(ptr noundef nonnull align 8 dereferenceable(49)) local_unnamed_addr #2
 
 ; Function Attrs: nounwind uwtable
-define linkonce_odr dso_local void @_ZN10COutBufferD2Ev(ptr noundef nonnull align 8 dereferenceable(49) %0) unnamed_addr #3 comdat align 2 personality ptr @__gxx_personality_v0 {
-  invoke void @_ZN10COutBuffer4FreeEv(ptr noundef nonnull align 8 dereferenceable(49) %0)
-          to label %2 unwind label %15
+define linkonce_odr dso_local void @_ZN10COutBufferD2Ev(ptr noundef nonnull align 8 dereferenceable(49) %this) unnamed_addr #3 comdat align 2 personality ptr @__gxx_personality_v0 {
+entry:
+  invoke void @_ZN10COutBuffer4FreeEv(ptr noundef nonnull align 8 dereferenceable(49) %this)
+          to label %invoke.cont unwind label %terminate.lpad
 
-2:                                                ; preds = %1
-  %3 = getelementptr inbounds %class.COutBuffer, ptr %0, i64 0, i32 5
-  %4 = load ptr, ptr %3, align 8, !tbaa !15
-  %5 = icmp eq ptr %4, null
-  br i1 %5, label %14, label %6
+invoke.cont:                                      ; preds = %entry
+  %_stream = getelementptr inbounds %class.COutBuffer, ptr %this, i64 0, i32 5
+  %0 = load ptr, ptr %_stream, align 8, !tbaa !15
+  %tobool.not.i = icmp eq ptr %0, null
+  br i1 %tobool.not.i, label %_ZN9CMyComPtrI20ISequentialOutStreamED2Ev.exit, label %if.then.i
 
-6:                                                ; preds = %2
-  %7 = load ptr, ptr %4, align 8, !tbaa !45
-  %8 = getelementptr inbounds ptr, ptr %7, i64 2
-  %9 = load ptr, ptr %8, align 8
-  %10 = invoke noundef i32 %9(ptr noundef nonnull align 8 dereferenceable(8) %4)
-          to label %14 unwind label %11
+if.then.i:                                        ; preds = %invoke.cont
+  %vtable.i = load ptr, ptr %0, align 8, !tbaa !45
+  %vfn.i = getelementptr inbounds ptr, ptr %vtable.i, i64 2
+  %1 = load ptr, ptr %vfn.i, align 8
+  %call.i = invoke noundef i32 %1(ptr noundef nonnull align 8 dereferenceable(8) %0)
+          to label %_ZN9CMyComPtrI20ISequentialOutStreamED2Ev.exit unwind label %terminate.lpad.i
 
-11:                                               ; preds = %6
-  %12 = landingpad { ptr, i32 }
+terminate.lpad.i:                                 ; preds = %if.then.i
+  %2 = landingpad { ptr, i32 }
           catch ptr null
-  %13 = extractvalue { ptr, i32 } %12, 0
-  tail call void @__clang_call_terminate(ptr %13) #12
+  %3 = extractvalue { ptr, i32 } %2, 0
+  tail call void @__clang_call_terminate(ptr %3) #12
   unreachable
 
-14:                                               ; preds = %2, %6
+_ZN9CMyComPtrI20ISequentialOutStreamED2Ev.exit:   ; preds = %invoke.cont, %if.then.i
   ret void
 
-15:                                               ; preds = %1
-  %16 = landingpad { ptr, i32 }
+terminate.lpad:                                   ; preds = %entry
+  %4 = landingpad { ptr, i32 }
           catch ptr null
-  %17 = extractvalue { ptr, i32 } %16, 0
-  tail call void @__clang_call_terminate(ptr %17) #12
+  %5 = extractvalue { ptr, i32 } %4, 0
+  tail call void @__clang_call_terminate(ptr %5) #12
   unreachable
 }
 
 ; Function Attrs: inlinehint nounwind uwtable
-define linkonce_odr dso_local void @_ZN5NBitl12CBaseDecoderI9CInBufferED2Ev(ptr noundef nonnull align 8 dereferenceable(60) %0) unnamed_addr #4 comdat align 2 personality ptr @__gxx_personality_v0 {
-  %2 = getelementptr inbounds %"class.NBitl::CBaseDecoder", ptr %0, i64 0, i32 2
-  invoke void @_ZN9CInBuffer4FreeEv(ptr noundef nonnull align 8 dereferenceable(45) %2)
-          to label %3 unwind label %15
+define linkonce_odr dso_local void @_ZN5NBitl12CBaseDecoderI9CInBufferED2Ev(ptr noundef nonnull align 8 dereferenceable(60) %this) unnamed_addr #4 comdat align 2 personality ptr @__gxx_personality_v0 {
+entry:
+  %m_Stream = getelementptr inbounds %"class.NBitl::CBaseDecoder", ptr %this, i64 0, i32 2
+  invoke void @_ZN9CInBuffer4FreeEv(ptr noundef nonnull align 8 dereferenceable(45) %m_Stream)
+          to label %invoke.cont.i unwind label %terminate.lpad.i
 
-3:                                                ; preds = %1
-  %4 = getelementptr inbounds %"class.NBitl::CBaseDecoder", ptr %0, i64 0, i32 2, i32 3
-  %5 = load ptr, ptr %4, align 8, !tbaa !47
-  %6 = icmp eq ptr %5, null
-  br i1 %6, label %18, label %7
+invoke.cont.i:                                    ; preds = %entry
+  %_stream.i = getelementptr inbounds %"class.NBitl::CBaseDecoder", ptr %this, i64 0, i32 2, i32 3
+  %0 = load ptr, ptr %_stream.i, align 8, !tbaa !47
+  %tobool.not.i.i = icmp eq ptr %0, null
+  br i1 %tobool.not.i.i, label %_ZN9CInBufferD2Ev.exit, label %if.then.i.i
 
-7:                                                ; preds = %3
-  %8 = load ptr, ptr %5, align 8, !tbaa !45
-  %9 = getelementptr inbounds ptr, ptr %8, i64 2
-  %10 = load ptr, ptr %9, align 8
-  %11 = invoke noundef i32 %10(ptr noundef nonnull align 8 dereferenceable(8) %5)
-          to label %18 unwind label %12
+if.then.i.i:                                      ; preds = %invoke.cont.i
+  %vtable.i.i = load ptr, ptr %0, align 8, !tbaa !45
+  %vfn.i.i = getelementptr inbounds ptr, ptr %vtable.i.i, i64 2
+  %1 = load ptr, ptr %vfn.i.i, align 8
+  %call.i.i = invoke noundef i32 %1(ptr noundef nonnull align 8 dereferenceable(8) %0)
+          to label %_ZN9CInBufferD2Ev.exit unwind label %terminate.lpad.i.i
 
-12:                                               ; preds = %7
-  %13 = landingpad { ptr, i32 }
+terminate.lpad.i.i:                               ; preds = %if.then.i.i
+  %2 = landingpad { ptr, i32 }
           catch ptr null
-  %14 = extractvalue { ptr, i32 } %13, 0
-  tail call void @__clang_call_terminate(ptr %14) #12
+  %3 = extractvalue { ptr, i32 } %2, 0
+  tail call void @__clang_call_terminate(ptr %3) #12
   unreachable
 
-15:                                               ; preds = %1
-  %16 = landingpad { ptr, i32 }
+terminate.lpad.i:                                 ; preds = %entry
+  %4 = landingpad { ptr, i32 }
           catch ptr null
-  %17 = extractvalue { ptr, i32 } %16, 0
-  tail call void @__clang_call_terminate(ptr %17) #12
+  %5 = extractvalue { ptr, i32 } %4, 0
+  tail call void @__clang_call_terminate(ptr %5) #12
   unreachable
 
-18:                                               ; preds = %3, %7
+_ZN9CInBufferD2Ev.exit:                           ; preds = %invoke.cont.i, %if.then.i.i
   ret void
 }
 
 ; Function Attrs: mustprogress uwtable
-define dso_local noundef i32 @_ZN9NCompress7NShrink8CDecoder4CodeEP19ISequentialInStreamP20ISequentialOutStreamPKyS7_P21ICompressProgressInfo(ptr nocapture noundef nonnull align 8 dereferenceable(49164) %0, ptr noundef %1, ptr noundef %2, ptr nocapture readnone %3, ptr nocapture readnone %4, ptr noundef %5) unnamed_addr #5 align 2 personality ptr @__gxx_personality_v0 {
-  %7 = invoke noundef i32 @_ZN9NCompress7NShrink8CDecoder8CodeRealEP19ISequentialInStreamP20ISequentialOutStreamPKyS7_P21ICompressProgressInfo(ptr noundef nonnull align 8 dereferenceable(49164) %0, ptr noundef %1, ptr noundef %2, ptr poison, ptr poison, ptr noundef %5)
-          to label %25 unwind label %8
+define dso_local noundef i32 @_ZN9NCompress7NShrink8CDecoder4CodeEP19ISequentialInStreamP20ISequentialOutStreamPKyS7_P21ICompressProgressInfo(ptr nocapture noundef nonnull align 8 dereferenceable(49164) %this, ptr noundef %inStream, ptr noundef %outStream, ptr nocapture readnone %inSize, ptr nocapture readnone %outSize, ptr noundef %progress) unnamed_addr #5 align 2 personality ptr @__gxx_personality_v0 {
+entry:
+  %call = invoke noundef i32 @_ZN9NCompress7NShrink8CDecoder8CodeRealEP19ISequentialInStreamP20ISequentialOutStreamPKyS7_P21ICompressProgressInfo(ptr noundef nonnull align 8 dereferenceable(49164) %this, ptr noundef %inStream, ptr noundef %outStream, ptr poison, ptr poison, ptr noundef %progress)
+          to label %return unwind label %lpad
 
-8:                                                ; preds = %6
-  %9 = landingpad { ptr, i32 }
+lpad:                                             ; preds = %entry
+  %0 = landingpad { ptr, i32 }
           catch ptr @_ZTI18CInBufferException
           catch ptr @_ZTI19COutBufferException
           catch ptr null
-  %10 = extractvalue { ptr, i32 } %9, 0
-  %11 = extractvalue { ptr, i32 } %9, 1
-  %12 = tail call i32 @llvm.eh.typeid.for(ptr nonnull @_ZTI18CInBufferException) #11
-  %13 = icmp eq i32 %11, %12
-  br i1 %13, label %14, label %16
+  %1 = extractvalue { ptr, i32 } %0, 0
+  %2 = extractvalue { ptr, i32 } %0, 1
+  %3 = tail call i32 @llvm.eh.typeid.for(ptr nonnull @_ZTI18CInBufferException) #11
+  %matches = icmp eq i32 %2, %3
+  br i1 %matches, label %catch5, label %catch.fallthrough
 
-14:                                               ; preds = %8
-  %15 = tail call ptr @__cxa_begin_catch(ptr %10) #11
-  br label %20
+catch5:                                           ; preds = %lpad
+  %4 = tail call ptr @__cxa_begin_catch(ptr %1) #11
+  br label %return.sink.split.sink.split
 
-16:                                               ; preds = %8
-  %17 = tail call i32 @llvm.eh.typeid.for(ptr nonnull @_ZTI19COutBufferException) #11
-  %18 = icmp eq i32 %11, %17
-  %19 = tail call ptr @__cxa_begin_catch(ptr %10) #11
-  br i1 %18, label %20, label %23
+catch.fallthrough:                                ; preds = %lpad
+  %5 = tail call i32 @llvm.eh.typeid.for(ptr nonnull @_ZTI19COutBufferException) #11
+  %matches2 = icmp eq i32 %2, %5
+  %6 = tail call ptr @__cxa_begin_catch(ptr %1) #11
+  br i1 %matches2, label %return.sink.split.sink.split, label %return.sink.split
 
-20:                                               ; preds = %16, %14
-  %21 = phi ptr [ %15, %14 ], [ %19, %16 ]
-  %22 = load i32, ptr %21, align 4, !tbaa !48
-  br label %23
+return.sink.split.sink.split:                     ; preds = %catch.fallthrough, %catch5
+  %.sink = phi ptr [ %4, %catch5 ], [ %6, %catch.fallthrough ]
+  %7 = load i32, ptr %.sink, align 4, !tbaa !48
+  br label %return.sink.split
 
-23:                                               ; preds = %20, %16
-  %24 = phi i32 [ 1, %16 ], [ %22, %20 ]
+return.sink.split:                                ; preds = %return.sink.split.sink.split, %catch.fallthrough
+  %retval.0.ph = phi i32 [ 1, %catch.fallthrough ], [ %7, %return.sink.split.sink.split ]
   tail call void @__cxa_end_catch()
-  br label %25
+  br label %return
 
-25:                                               ; preds = %23, %6
-  %26 = phi i32 [ %7, %6 ], [ %24, %23 ]
-  ret i32 %26
+return:                                           ; preds = %return.sink.split, %entry
+  %retval.0 = phi i32 [ %call, %entry ], [ %retval.0.ph, %return.sink.split ]
+  ret i32 %retval.0
 }
 
 ; Function Attrs: nofree nosync nounwind memory(none)
@@ -1491,167 +1495,172 @@ declare ptr @__cxa_begin_catch(ptr) local_unnamed_addr
 declare void @__cxa_end_catch() local_unnamed_addr
 
 ; Function Attrs: mustprogress uwtable
-define linkonce_odr dso_local noundef i32 @_ZN9NCompress7NShrink8CDecoder14QueryInterfaceERK4GUIDPPv(ptr noundef nonnull align 8 dereferenceable(49164) %0, ptr noundef nonnull align 4 dereferenceable(16) %1, ptr noundef %2) unnamed_addr #5 comdat align 2 {
-  %4 = load i8, ptr %1, align 4, !tbaa !26
-  %5 = load i8, ptr @IID_IUnknown, align 4, !tbaa !26
-  %6 = icmp eq i8 %4, %5
-  br i1 %6, label %7, label %87
+define linkonce_odr dso_local noundef i32 @_ZN9NCompress7NShrink8CDecoder14QueryInterfaceERK4GUIDPPv(ptr noundef nonnull align 8 dereferenceable(49164) %this, ptr noundef nonnull align 4 dereferenceable(16) %iid, ptr noundef %outObject) unnamed_addr #5 comdat align 2 {
+entry:
+  %0 = load i8, ptr %iid, align 4, !tbaa !26
+  %1 = load i8, ptr @IID_IUnknown, align 4, !tbaa !26
+  %cmp4.not.i = icmp eq i8 %0, %1
+  br i1 %cmp4.not.i, label %for.cond.i, label %return
 
-7:                                                ; preds = %3
-  %8 = getelementptr inbounds i8, ptr %1, i64 1
-  %9 = load i8, ptr %8, align 1, !tbaa !26
-  %10 = load i8, ptr getelementptr inbounds (i8, ptr @IID_IUnknown, i64 1), align 1, !tbaa !26
-  %11 = icmp eq i8 %9, %10
-  br i1 %11, label %12, label %87
+for.cond.i:                                       ; preds = %entry
+  %arrayidx.1.i = getelementptr inbounds i8, ptr %iid, i64 1
+  %2 = load i8, ptr %arrayidx.1.i, align 1, !tbaa !26
+  %3 = load i8, ptr getelementptr inbounds (i8, ptr @IID_IUnknown, i64 1), align 1, !tbaa !26
+  %cmp4.not.1.i = icmp eq i8 %2, %3
+  br i1 %cmp4.not.1.i, label %for.cond.1.i, label %return
 
-12:                                               ; preds = %7
-  %13 = getelementptr inbounds i8, ptr %1, i64 2
-  %14 = load i8, ptr %13, align 2, !tbaa !26
-  %15 = load i8, ptr getelementptr inbounds (i8, ptr @IID_IUnknown, i64 2), align 2, !tbaa !26
-  %16 = icmp eq i8 %14, %15
-  br i1 %16, label %17, label %87
+for.cond.1.i:                                     ; preds = %for.cond.i
+  %arrayidx.2.i = getelementptr inbounds i8, ptr %iid, i64 2
+  %4 = load i8, ptr %arrayidx.2.i, align 2, !tbaa !26
+  %5 = load i8, ptr getelementptr inbounds (i8, ptr @IID_IUnknown, i64 2), align 2, !tbaa !26
+  %cmp4.not.2.i = icmp eq i8 %4, %5
+  br i1 %cmp4.not.2.i, label %for.cond.2.i, label %return
 
-17:                                               ; preds = %12
-  %18 = getelementptr inbounds i8, ptr %1, i64 3
-  %19 = load i8, ptr %18, align 1, !tbaa !26
-  %20 = load i8, ptr getelementptr inbounds (i8, ptr @IID_IUnknown, i64 3), align 1, !tbaa !26
-  %21 = icmp eq i8 %19, %20
-  br i1 %21, label %22, label %87
+for.cond.2.i:                                     ; preds = %for.cond.1.i
+  %arrayidx.3.i = getelementptr inbounds i8, ptr %iid, i64 3
+  %6 = load i8, ptr %arrayidx.3.i, align 1, !tbaa !26
+  %7 = load i8, ptr getelementptr inbounds (i8, ptr @IID_IUnknown, i64 3), align 1, !tbaa !26
+  %cmp4.not.3.i = icmp eq i8 %6, %7
+  br i1 %cmp4.not.3.i, label %for.cond.3.i, label %return
 
-22:                                               ; preds = %17
-  %23 = getelementptr inbounds i8, ptr %1, i64 4
-  %24 = load i8, ptr %23, align 4, !tbaa !26
-  %25 = load i8, ptr getelementptr inbounds (%struct.GUID, ptr @IID_IUnknown, i64 0, i32 1), align 4, !tbaa !26
-  %26 = icmp eq i8 %24, %25
-  br i1 %26, label %27, label %87
+for.cond.3.i:                                     ; preds = %for.cond.2.i
+  %arrayidx.4.i = getelementptr inbounds i8, ptr %iid, i64 4
+  %8 = load i8, ptr %arrayidx.4.i, align 4, !tbaa !26
+  %9 = load i8, ptr getelementptr inbounds (%struct.GUID, ptr @IID_IUnknown, i64 0, i32 1), align 4, !tbaa !26
+  %cmp4.not.4.i = icmp eq i8 %8, %9
+  br i1 %cmp4.not.4.i, label %for.cond.4.i, label %return
 
-27:                                               ; preds = %22
-  %28 = getelementptr inbounds i8, ptr %1, i64 5
-  %29 = load i8, ptr %28, align 1, !tbaa !26
-  %30 = load i8, ptr getelementptr inbounds (i8, ptr @IID_IUnknown, i64 5), align 1, !tbaa !26
-  %31 = icmp eq i8 %29, %30
-  br i1 %31, label %32, label %87
+for.cond.4.i:                                     ; preds = %for.cond.3.i
+  %arrayidx.5.i = getelementptr inbounds i8, ptr %iid, i64 5
+  %10 = load i8, ptr %arrayidx.5.i, align 1, !tbaa !26
+  %11 = load i8, ptr getelementptr inbounds (i8, ptr @IID_IUnknown, i64 5), align 1, !tbaa !26
+  %cmp4.not.5.i = icmp eq i8 %10, %11
+  br i1 %cmp4.not.5.i, label %for.cond.5.i, label %return
 
-32:                                               ; preds = %27
-  %33 = getelementptr inbounds i8, ptr %1, i64 6
-  %34 = load i8, ptr %33, align 2, !tbaa !26
-  %35 = load i8, ptr getelementptr inbounds (%struct.GUID, ptr @IID_IUnknown, i64 0, i32 2), align 2, !tbaa !26
-  %36 = icmp eq i8 %34, %35
-  br i1 %36, label %37, label %87
+for.cond.5.i:                                     ; preds = %for.cond.4.i
+  %arrayidx.6.i = getelementptr inbounds i8, ptr %iid, i64 6
+  %12 = load i8, ptr %arrayidx.6.i, align 2, !tbaa !26
+  %13 = load i8, ptr getelementptr inbounds (%struct.GUID, ptr @IID_IUnknown, i64 0, i32 2), align 2, !tbaa !26
+  %cmp4.not.6.i = icmp eq i8 %12, %13
+  br i1 %cmp4.not.6.i, label %for.cond.6.i, label %return
 
-37:                                               ; preds = %32
-  %38 = getelementptr inbounds i8, ptr %1, i64 7
-  %39 = load i8, ptr %38, align 1, !tbaa !26
-  %40 = load i8, ptr getelementptr inbounds (i8, ptr @IID_IUnknown, i64 7), align 1, !tbaa !26
-  %41 = icmp eq i8 %39, %40
-  br i1 %41, label %42, label %87
+for.cond.6.i:                                     ; preds = %for.cond.5.i
+  %arrayidx.7.i = getelementptr inbounds i8, ptr %iid, i64 7
+  %14 = load i8, ptr %arrayidx.7.i, align 1, !tbaa !26
+  %15 = load i8, ptr getelementptr inbounds (i8, ptr @IID_IUnknown, i64 7), align 1, !tbaa !26
+  %cmp4.not.7.i = icmp eq i8 %14, %15
+  br i1 %cmp4.not.7.i, label %for.cond.7.i, label %return
 
-42:                                               ; preds = %37
-  %43 = getelementptr inbounds i8, ptr %1, i64 8
-  %44 = load i8, ptr %43, align 4, !tbaa !26
-  %45 = load i8, ptr getelementptr inbounds (%struct.GUID, ptr @IID_IUnknown, i64 0, i32 3, i64 0), align 4, !tbaa !26
-  %46 = icmp eq i8 %44, %45
-  br i1 %46, label %47, label %87
+for.cond.7.i:                                     ; preds = %for.cond.6.i
+  %arrayidx.8.i = getelementptr inbounds i8, ptr %iid, i64 8
+  %16 = load i8, ptr %arrayidx.8.i, align 4, !tbaa !26
+  %17 = load i8, ptr getelementptr inbounds (%struct.GUID, ptr @IID_IUnknown, i64 0, i32 3, i64 0), align 4, !tbaa !26
+  %cmp4.not.8.i = icmp eq i8 %16, %17
+  br i1 %cmp4.not.8.i, label %for.cond.8.i, label %return
 
-47:                                               ; preds = %42
-  %48 = getelementptr inbounds i8, ptr %1, i64 9
-  %49 = load i8, ptr %48, align 1, !tbaa !26
-  %50 = load i8, ptr getelementptr inbounds (%struct.GUID, ptr @IID_IUnknown, i64 0, i32 3, i64 1), align 1, !tbaa !26
-  %51 = icmp eq i8 %49, %50
-  br i1 %51, label %52, label %87
+for.cond.8.i:                                     ; preds = %for.cond.7.i
+  %arrayidx.9.i = getelementptr inbounds i8, ptr %iid, i64 9
+  %18 = load i8, ptr %arrayidx.9.i, align 1, !tbaa !26
+  %19 = load i8, ptr getelementptr inbounds (%struct.GUID, ptr @IID_IUnknown, i64 0, i32 3, i64 1), align 1, !tbaa !26
+  %cmp4.not.9.i = icmp eq i8 %18, %19
+  br i1 %cmp4.not.9.i, label %for.cond.9.i, label %return
 
-52:                                               ; preds = %47
-  %53 = getelementptr inbounds i8, ptr %1, i64 10
-  %54 = load i8, ptr %53, align 2, !tbaa !26
-  %55 = load i8, ptr getelementptr inbounds (%struct.GUID, ptr @IID_IUnknown, i64 0, i32 3, i64 2), align 2, !tbaa !26
-  %56 = icmp eq i8 %54, %55
-  br i1 %56, label %57, label %87
+for.cond.9.i:                                     ; preds = %for.cond.8.i
+  %arrayidx.10.i = getelementptr inbounds i8, ptr %iid, i64 10
+  %20 = load i8, ptr %arrayidx.10.i, align 2, !tbaa !26
+  %21 = load i8, ptr getelementptr inbounds (%struct.GUID, ptr @IID_IUnknown, i64 0, i32 3, i64 2), align 2, !tbaa !26
+  %cmp4.not.10.i = icmp eq i8 %20, %21
+  br i1 %cmp4.not.10.i, label %for.cond.10.i, label %return
 
-57:                                               ; preds = %52
-  %58 = getelementptr inbounds i8, ptr %1, i64 11
-  %59 = load i8, ptr %58, align 1, !tbaa !26
-  %60 = load i8, ptr getelementptr inbounds (%struct.GUID, ptr @IID_IUnknown, i64 0, i32 3, i64 3), align 1, !tbaa !26
-  %61 = icmp eq i8 %59, %60
-  br i1 %61, label %62, label %87
+for.cond.10.i:                                    ; preds = %for.cond.9.i
+  %arrayidx.11.i = getelementptr inbounds i8, ptr %iid, i64 11
+  %22 = load i8, ptr %arrayidx.11.i, align 1, !tbaa !26
+  %23 = load i8, ptr getelementptr inbounds (%struct.GUID, ptr @IID_IUnknown, i64 0, i32 3, i64 3), align 1, !tbaa !26
+  %cmp4.not.11.i = icmp eq i8 %22, %23
+  br i1 %cmp4.not.11.i, label %for.cond.11.i, label %return
 
-62:                                               ; preds = %57
-  %63 = getelementptr inbounds i8, ptr %1, i64 12
-  %64 = load i8, ptr %63, align 4, !tbaa !26
-  %65 = load i8, ptr getelementptr inbounds (%struct.GUID, ptr @IID_IUnknown, i64 0, i32 3, i64 4), align 4, !tbaa !26
-  %66 = icmp eq i8 %64, %65
-  br i1 %66, label %67, label %87
+for.cond.11.i:                                    ; preds = %for.cond.10.i
+  %arrayidx.12.i = getelementptr inbounds i8, ptr %iid, i64 12
+  %24 = load i8, ptr %arrayidx.12.i, align 4, !tbaa !26
+  %25 = load i8, ptr getelementptr inbounds (%struct.GUID, ptr @IID_IUnknown, i64 0, i32 3, i64 4), align 4, !tbaa !26
+  %cmp4.not.12.i = icmp eq i8 %24, %25
+  br i1 %cmp4.not.12.i, label %for.cond.12.i, label %return
 
-67:                                               ; preds = %62
-  %68 = getelementptr inbounds i8, ptr %1, i64 13
-  %69 = load i8, ptr %68, align 1, !tbaa !26
-  %70 = load i8, ptr getelementptr inbounds (%struct.GUID, ptr @IID_IUnknown, i64 0, i32 3, i64 5), align 1, !tbaa !26
-  %71 = icmp eq i8 %69, %70
-  br i1 %71, label %72, label %87
+for.cond.12.i:                                    ; preds = %for.cond.11.i
+  %arrayidx.13.i = getelementptr inbounds i8, ptr %iid, i64 13
+  %26 = load i8, ptr %arrayidx.13.i, align 1, !tbaa !26
+  %27 = load i8, ptr getelementptr inbounds (%struct.GUID, ptr @IID_IUnknown, i64 0, i32 3, i64 5), align 1, !tbaa !26
+  %cmp4.not.13.i = icmp eq i8 %26, %27
+  br i1 %cmp4.not.13.i, label %for.cond.13.i, label %return
 
-72:                                               ; preds = %67
-  %73 = getelementptr inbounds i8, ptr %1, i64 14
-  %74 = load i8, ptr %73, align 2, !tbaa !26
-  %75 = load i8, ptr getelementptr inbounds (%struct.GUID, ptr @IID_IUnknown, i64 0, i32 3, i64 6), align 2, !tbaa !26
-  %76 = icmp eq i8 %74, %75
-  br i1 %76, label %77, label %87
+for.cond.13.i:                                    ; preds = %for.cond.12.i
+  %arrayidx.14.i = getelementptr inbounds i8, ptr %iid, i64 14
+  %28 = load i8, ptr %arrayidx.14.i, align 2, !tbaa !26
+  %29 = load i8, ptr getelementptr inbounds (%struct.GUID, ptr @IID_IUnknown, i64 0, i32 3, i64 6), align 2, !tbaa !26
+  %cmp4.not.14.i = icmp eq i8 %28, %29
+  br i1 %cmp4.not.14.i, label %_ZeqRK4GUIDS1_.exit, label %return
 
-77:                                               ; preds = %72
-  %78 = getelementptr inbounds i8, ptr %1, i64 15
-  %79 = load i8, ptr %78, align 1, !tbaa !26
-  %80 = load i8, ptr getelementptr inbounds (%struct.GUID, ptr @IID_IUnknown, i64 0, i32 3, i64 7), align 1, !tbaa !26
-  %81 = icmp eq i8 %79, %80
-  br i1 %81, label %82, label %87
+_ZeqRK4GUIDS1_.exit:                              ; preds = %for.cond.13.i
+  %arrayidx.15.i = getelementptr inbounds i8, ptr %iid, i64 15
+  %30 = load i8, ptr %arrayidx.15.i, align 1, !tbaa !26
+  %31 = load i8, ptr getelementptr inbounds (%struct.GUID, ptr @IID_IUnknown, i64 0, i32 3, i64 7), align 1, !tbaa !26
+  %cmp4.not.15.i.not = icmp eq i8 %30, %31
+  br i1 %cmp4.not.15.i.not, label %if.then, label %return
 
-82:                                               ; preds = %77
-  store ptr %0, ptr %2, align 8, !tbaa !50
-  %83 = load ptr, ptr %0, align 8, !tbaa !45
-  %84 = getelementptr inbounds ptr, ptr %83, i64 1
-  %85 = load ptr, ptr %84, align 8
-  %86 = tail call noundef i32 %85(ptr noundef nonnull align 8 dereferenceable(49164) %0)
-  br label %87
+if.then:                                          ; preds = %_ZeqRK4GUIDS1_.exit
+  store ptr %this, ptr %outObject, align 8, !tbaa !50
+  %vtable = load ptr, ptr %this, align 8, !tbaa !45
+  %vfn = getelementptr inbounds ptr, ptr %vtable, i64 1
+  %32 = load ptr, ptr %vfn, align 8
+  %call2 = tail call noundef i32 %32(ptr noundef nonnull align 8 dereferenceable(49164) %this)
+  br label %return
 
-87:                                               ; preds = %72, %67, %62, %57, %52, %47, %42, %37, %32, %27, %22, %17, %12, %7, %3, %77, %82
-  %88 = phi i32 [ 0, %82 ], [ -2147467262, %77 ], [ -2147467262, %3 ], [ -2147467262, %7 ], [ -2147467262, %12 ], [ -2147467262, %17 ], [ -2147467262, %22 ], [ -2147467262, %27 ], [ -2147467262, %32 ], [ -2147467262, %37 ], [ -2147467262, %42 ], [ -2147467262, %47 ], [ -2147467262, %52 ], [ -2147467262, %57 ], [ -2147467262, %62 ], [ -2147467262, %67 ], [ -2147467262, %72 ]
-  ret i32 %88
+return:                                           ; preds = %for.cond.13.i, %for.cond.12.i, %for.cond.11.i, %for.cond.10.i, %for.cond.9.i, %for.cond.8.i, %for.cond.7.i, %for.cond.6.i, %for.cond.5.i, %for.cond.4.i, %for.cond.3.i, %for.cond.2.i, %for.cond.1.i, %for.cond.i, %entry, %_ZeqRK4GUIDS1_.exit, %if.then
+  %retval.0 = phi i32 [ 0, %if.then ], [ -2147467262, %_ZeqRK4GUIDS1_.exit ], [ -2147467262, %entry ], [ -2147467262, %for.cond.i ], [ -2147467262, %for.cond.1.i ], [ -2147467262, %for.cond.2.i ], [ -2147467262, %for.cond.3.i ], [ -2147467262, %for.cond.4.i ], [ -2147467262, %for.cond.5.i ], [ -2147467262, %for.cond.6.i ], [ -2147467262, %for.cond.7.i ], [ -2147467262, %for.cond.8.i ], [ -2147467262, %for.cond.9.i ], [ -2147467262, %for.cond.10.i ], [ -2147467262, %for.cond.11.i ], [ -2147467262, %for.cond.12.i ], [ -2147467262, %for.cond.13.i ]
+  ret i32 %retval.0
 }
 
 ; Function Attrs: mustprogress nounwind uwtable
-define linkonce_odr dso_local noundef i32 @_ZN9NCompress7NShrink8CDecoder6AddRefEv(ptr noundef nonnull align 8 dereferenceable(49164) %0) unnamed_addr #7 comdat align 2 {
-  %2 = getelementptr inbounds i8, ptr %0, i64 8
-  %3 = load i32, ptr %2, align 8, !tbaa !51
-  %4 = add i32 %3, 1
-  store i32 %4, ptr %2, align 8, !tbaa !51
-  ret i32 %4
+define linkonce_odr dso_local noundef i32 @_ZN9NCompress7NShrink8CDecoder6AddRefEv(ptr noundef nonnull align 8 dereferenceable(49164) %this) unnamed_addr #7 comdat align 2 {
+entry:
+  %add.ptr = getelementptr inbounds i8, ptr %this, i64 8
+  %0 = load i32, ptr %add.ptr, align 8, !tbaa !51
+  %inc = add i32 %0, 1
+  store i32 %inc, ptr %add.ptr, align 8, !tbaa !51
+  ret i32 %inc
 }
 
 ; Function Attrs: mustprogress nounwind uwtable
-define linkonce_odr dso_local noundef i32 @_ZN9NCompress7NShrink8CDecoder7ReleaseEv(ptr noundef nonnull align 8 dereferenceable(49164) %0) unnamed_addr #7 comdat align 2 {
-  %2 = getelementptr inbounds i8, ptr %0, i64 8
-  %3 = load i32, ptr %2, align 8, !tbaa !51
-  %4 = add i32 %3, -1
-  store i32 %4, ptr %2, align 8, !tbaa !51
-  %5 = icmp eq i32 %4, 0
-  br i1 %5, label %6, label %10
+define linkonce_odr dso_local noundef i32 @_ZN9NCompress7NShrink8CDecoder7ReleaseEv(ptr noundef nonnull align 8 dereferenceable(49164) %this) unnamed_addr #7 comdat align 2 {
+entry:
+  %add.ptr = getelementptr inbounds i8, ptr %this, i64 8
+  %0 = load i32, ptr %add.ptr, align 8, !tbaa !51
+  %dec = add i32 %0, -1
+  store i32 %dec, ptr %add.ptr, align 8, !tbaa !51
+  %cmp.not = icmp eq i32 %dec, 0
+  br i1 %cmp.not, label %delete.notnull, label %return
 
-6:                                                ; preds = %1
-  %7 = load ptr, ptr %0, align 8, !tbaa !45
-  %8 = getelementptr inbounds ptr, ptr %7, i64 4
-  %9 = load ptr, ptr %8, align 8
-  tail call void %9(ptr noundef nonnull align 8 dereferenceable(49164) %0) #11
-  br label %10
+delete.notnull:                                   ; preds = %entry
+  %vtable = load ptr, ptr %this, align 8, !tbaa !45
+  %vfn = getelementptr inbounds ptr, ptr %vtable, i64 4
+  %1 = load ptr, ptr %vfn, align 8
+  tail call void %1(ptr noundef nonnull align 8 dereferenceable(49164) %this) #11
+  br label %return
 
-10:                                               ; preds = %1, %6
-  ret i32 %4
+return:                                           ; preds = %entry, %delete.notnull
+  ret i32 %dec
 }
 
 ; Function Attrs: nounwind uwtable
-define linkonce_odr dso_local void @_ZN8IUnknownD2Ev(ptr noundef nonnull align 8 dereferenceable(8) %0) unnamed_addr #3 comdat align 2 {
+define linkonce_odr dso_local void @_ZN8IUnknownD2Ev(ptr noundef nonnull align 8 dereferenceable(8) %this) unnamed_addr #3 comdat align 2 {
+entry:
   ret void
 }
 
 ; Function Attrs: inlinehint nounwind uwtable
-define linkonce_odr dso_local void @_ZN9NCompress7NShrink8CDecoderD0Ev(ptr noundef nonnull align 8 dereferenceable(49164) %0) unnamed_addr #4 comdat align 2 {
-  tail call void @_ZdlPv(ptr noundef nonnull %0) #13
+define linkonce_odr dso_local void @_ZN9NCompress7NShrink8CDecoderD0Ev(ptr noundef nonnull align 8 dereferenceable(49164) %this) unnamed_addr #4 comdat align 2 {
+entry:
+  tail call void @_ZdlPv(ptr noundef nonnull %this) #13
   ret void
 }
 

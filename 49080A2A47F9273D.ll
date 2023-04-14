@@ -53,24 +53,25 @@ target triple = "x86_64-unknown-linux-gnu"
 @Is_redundant_correct = common dso_local local_unnamed_addr global i32 0, align 4
 @redundant_slice_ref_idx = common dso_local local_unnamed_addr global i32 0, align 4
 @nal_startcode_follows = common dso_local local_unnamed_addr global ptr null, align 8
-@str = private unnamed_addr constant [67 x i8] c"DecomposeRTPpacket, RTP header consistency problem, header follows\00", align 1
-@str.19 = private unnamed_addr constant [43 x i8] c"Errors reported by DecomposePacket(), exit\00", align 1
-@str.20 = private unnamed_addr constant [63 x i8] c"RTPReadPacket: File corruption, could not read Timestamp, exit\00", align 1
+@str = private unnamed_addr constant [43 x i8] c"Errors reported by DecomposePacket(), exit\00", align 1
+@str.19 = private unnamed_addr constant [63 x i8] c"RTPReadPacket: File corruption, could not read Timestamp, exit\00", align 1
+@str.20 = private unnamed_addr constant [67 x i8] c"DecomposeRTPpacket, RTP header consistency problem, header follows\00", align 1
 
 ; Function Attrs: nounwind uwtable
-define dso_local void @OpenRTPFile(ptr nocapture noundef readonly %0) local_unnamed_addr #0 {
-  %2 = tail call noalias ptr @fopen64(ptr noundef %0, ptr noundef nonnull @.str)
-  store ptr %2, ptr @bits, align 8, !tbaa !5
-  %3 = icmp eq ptr %2, null
-  br i1 %3, label %4, label %7
+define dso_local void @OpenRTPFile(ptr nocapture noundef readonly %fn) local_unnamed_addr #0 {
+entry:
+  %call = tail call noalias ptr @fopen64(ptr noundef %fn, ptr noundef nonnull @.str)
+  store ptr %call, ptr @bits, align 8, !tbaa !5
+  %cmp = icmp eq ptr %call, null
+  br i1 %cmp, label %if.then, label %if.end
 
-4:                                                ; preds = %1
-  %5 = load ptr, ptr @input, align 8, !tbaa !5
-  %6 = tail call i32 (ptr, i64, ptr, ...) @snprintf(ptr noundef nonnull dereferenceable(1) @errortext, i64 noundef 300, ptr noundef nonnull @.str.1, ptr noundef %5) #11
+if.then:                                          ; preds = %entry
+  %0 = load ptr, ptr @input, align 8, !tbaa !5
+  %call1 = tail call i32 (ptr, i64, ptr, ...) @snprintf(ptr noundef nonnull dereferenceable(1) @errortext, i64 noundef 300, ptr noundef nonnull @.str.1, ptr noundef %0) #11
   tail call void @error(ptr noundef nonnull @errortext, i32 noundef 500) #11
-  br label %7
+  br label %if.end
 
-7:                                                ; preds = %4, %1
+if.end:                                           ; preds = %if.then, %entry
   ret void
 }
 
@@ -84,8 +85,9 @@ declare void @error(ptr noundef, i32 noundef) local_unnamed_addr #2
 
 ; Function Attrs: nofree nounwind uwtable
 define dso_local void @CloseRTPFile() local_unnamed_addr #3 {
-  %1 = load ptr, ptr @bits, align 8, !tbaa !5
-  %2 = tail call i32 @fclose(ptr noundef %1)
+entry:
+  %0 = load ptr, ptr @bits, align 8, !tbaa !5
+  %call = tail call i32 @fclose(ptr noundef %0)
   ret void
 }
 
@@ -93,86 +95,87 @@ define dso_local void @CloseRTPFile() local_unnamed_addr #3 {
 declare noundef i32 @fclose(ptr nocapture noundef) local_unnamed_addr #1
 
 ; Function Attrs: nounwind uwtable
-define dso_local i32 @GetRTPNALU(ptr nocapture noundef %0) local_unnamed_addr #0 {
-  %2 = tail call noalias dereferenceable_or_null(72) ptr @malloc(i64 noundef 72) #12
-  %3 = icmp eq ptr %2, null
-  br i1 %3, label %4, label %5
+define dso_local i32 @GetRTPNALU(ptr nocapture noundef %nalu) local_unnamed_addr #0 {
+entry:
+  %call = tail call noalias dereferenceable_or_null(72) ptr @malloc(i64 noundef 72) #12
+  %cmp = icmp eq ptr %call, null
+  br i1 %cmp, label %if.then, label %if.end
 
-4:                                                ; preds = %1
+if.then:                                          ; preds = %entry
   tail call void @no_mem_exit(ptr noundef nonnull @.str.2) #11
-  br label %5
+  br label %if.end
 
-5:                                                ; preds = %4, %1
-  %6 = tail call noalias dereferenceable_or_null(65508) ptr @malloc(i64 noundef 65508) #12
-  %7 = getelementptr inbounds %struct.RTPpacket_t, ptr %2, i64 0, i32 12
-  store ptr %6, ptr %7, align 8, !tbaa !9
-  %8 = icmp eq ptr %6, null
-  br i1 %8, label %9, label %10
+if.end:                                           ; preds = %if.then, %entry
+  %call1 = tail call noalias dereferenceable_or_null(65508) ptr @malloc(i64 noundef 65508) #12
+  %packet = getelementptr inbounds %struct.RTPpacket_t, ptr %call, i64 0, i32 12
+  store ptr %call1, ptr %packet, align 8, !tbaa !9
+  %cmp2 = icmp eq ptr %call1, null
+  br i1 %cmp2, label %if.then3, label %if.end4
 
-9:                                                ; preds = %5
+if.then3:                                         ; preds = %if.end
   tail call void @no_mem_exit(ptr noundef nonnull @.str.3) #11
-  br label %10
+  br label %if.end4
 
-10:                                               ; preds = %9, %5
-  %11 = tail call noalias dereferenceable_or_null(65508) ptr @malloc(i64 noundef 65508) #12
-  %12 = getelementptr inbounds %struct.RTPpacket_t, ptr %2, i64 0, i32 10
-  store ptr %11, ptr %12, align 8, !tbaa !12
-  %13 = icmp eq ptr %11, null
-  br i1 %13, label %14, label %15
+if.end4:                                          ; preds = %if.then3, %if.end
+  %call5 = tail call noalias dereferenceable_or_null(65508) ptr @malloc(i64 noundef 65508) #12
+  %payload = getelementptr inbounds %struct.RTPpacket_t, ptr %call, i64 0, i32 10
+  store ptr %call5, ptr %payload, align 8, !tbaa !12
+  %cmp6 = icmp eq ptr %call5, null
+  br i1 %cmp6, label %if.then7, label %if.end8
 
-14:                                               ; preds = %10
+if.then7:                                         ; preds = %if.end4
   tail call void @no_mem_exit(ptr noundef nonnull @.str.4) #11
-  br label %15
+  br label %if.end8
 
-15:                                               ; preds = %14, %10
-  %16 = load ptr, ptr @bits, align 8, !tbaa !5
-  %17 = tail call i32 @RTPReadPacket(ptr noundef nonnull %2, ptr noundef %16)
-  %18 = getelementptr inbounds %struct.NALU_t, ptr %0, i64 0, i32 5
-  store i32 1, ptr %18, align 4, !tbaa !13
-  %19 = getelementptr inbounds %struct.NALU_t, ptr %0, i64 0, i32 1
-  store i32 0, ptr %19, align 4, !tbaa !15
-  %20 = icmp slt i32 %17, 0
-  br i1 %20, label %45, label %21
+if.end8:                                          ; preds = %if.then7, %if.end4
+  %0 = load ptr, ptr @bits, align 8, !tbaa !5
+  %call9 = tail call i32 @RTPReadPacket(ptr noundef nonnull %call, ptr noundef %0)
+  %forbidden_bit = getelementptr inbounds %struct.NALU_t, ptr %nalu, i64 0, i32 5
+  store i32 1, ptr %forbidden_bit, align 4, !tbaa !13
+  %len = getelementptr inbounds %struct.NALU_t, ptr %nalu, i64 0, i32 1
+  store i32 0, ptr %len, align 4, !tbaa !15
+  %cmp10 = icmp slt i32 %call9, 0
+  br i1 %cmp10, label %cleanup, label %if.end12
 
-21:                                               ; preds = %15
-  %22 = icmp eq i32 %17, 0
-  br i1 %22, label %45, label %23
+if.end12:                                         ; preds = %if.end8
+  %cmp13 = icmp eq i32 %call9, 0
+  br i1 %cmp13, label %cleanup, label %if.end15
 
-23:                                               ; preds = %21
-  %24 = getelementptr inbounds %struct.RTPpacket_t, ptr %2, i64 0, i32 11
-  %25 = load i32, ptr %24, align 8, !tbaa !16
-  store i32 %25, ptr %19, align 4, !tbaa !15
-  %26 = getelementptr inbounds %struct.NALU_t, ptr %0, i64 0, i32 6
-  %27 = load ptr, ptr %26, align 8, !tbaa !17
-  %28 = load ptr, ptr %12, align 8, !tbaa !12
-  %29 = zext i32 %25 to i64
-  tail call void @llvm.memcpy.p0.p0.i64(ptr align 1 %27, ptr align 1 %28, i64 %29, i1 false)
-  %30 = load ptr, ptr %26, align 8, !tbaa !17
-  %31 = load i8, ptr %30, align 1, !tbaa !18
-  %32 = lshr i8 %31, 7
-  %33 = zext i8 %32 to i32
-  store i32 %33, ptr %18, align 4, !tbaa !13
-  %34 = load i8, ptr %30, align 1, !tbaa !18
-  %35 = lshr i8 %34, 5
-  %36 = and i8 %35, 3
-  %37 = zext i8 %36 to i32
-  %38 = getelementptr inbounds %struct.NALU_t, ptr %0, i64 0, i32 4
-  store i32 %37, ptr %38, align 8, !tbaa !19
-  %39 = load i8, ptr %30, align 1, !tbaa !18
-  %40 = and i8 %39, 31
-  %41 = zext i8 %40 to i32
-  %42 = getelementptr inbounds %struct.NALU_t, ptr %0, i64 0, i32 3
-  store i32 %41, ptr %42, align 4, !tbaa !20
-  tail call void @free(ptr noundef %28) #11
-  %43 = load ptr, ptr %7, align 8, !tbaa !9
-  tail call void @free(ptr noundef %43) #11
-  tail call void @free(ptr noundef nonnull %2) #11
-  %44 = load i32, ptr %19, align 4, !tbaa !15
-  br label %45
+if.end15:                                         ; preds = %if.end12
+  %paylen = getelementptr inbounds %struct.RTPpacket_t, ptr %call, i64 0, i32 11
+  %1 = load i32, ptr %paylen, align 8, !tbaa !16
+  store i32 %1, ptr %len, align 4, !tbaa !15
+  %buf = getelementptr inbounds %struct.NALU_t, ptr %nalu, i64 0, i32 6
+  %2 = load ptr, ptr %buf, align 8, !tbaa !17
+  %3 = load ptr, ptr %payload, align 8, !tbaa !12
+  %conv = zext i32 %1 to i64
+  tail call void @llvm.memcpy.p0.p0.i64(ptr align 1 %2, ptr align 1 %3, i64 %conv, i1 false)
+  %4 = load ptr, ptr %buf, align 8, !tbaa !17
+  %5 = load i8, ptr %4, align 1, !tbaa !18
+  %6 = lshr i8 %5, 7
+  %shr = zext i8 %6 to i32
+  store i32 %shr, ptr %forbidden_bit, align 4, !tbaa !13
+  %7 = load i8, ptr %4, align 1, !tbaa !18
+  %8 = lshr i8 %7, 5
+  %9 = and i8 %8, 3
+  %and26 = zext i8 %9 to i32
+  %nal_reference_idc = getelementptr inbounds %struct.NALU_t, ptr %nalu, i64 0, i32 4
+  store i32 %and26, ptr %nal_reference_idc, align 8, !tbaa !19
+  %10 = load i8, ptr %4, align 1, !tbaa !18
+  %11 = and i8 %10, 31
+  %and30 = zext i8 %11 to i32
+  %nal_unit_type = getelementptr inbounds %struct.NALU_t, ptr %nalu, i64 0, i32 3
+  store i32 %and30, ptr %nal_unit_type, align 4, !tbaa !20
+  tail call void @free(ptr noundef %3) #11
+  %12 = load ptr, ptr %packet, align 8, !tbaa !9
+  tail call void @free(ptr noundef %12) #11
+  tail call void @free(ptr noundef nonnull %call) #11
+  %13 = load i32, ptr %len, align 4, !tbaa !15
+  br label %cleanup
 
-45:                                               ; preds = %21, %15, %23
-  %46 = phi i32 [ %44, %23 ], [ -1, %15 ], [ 0, %21 ]
-  ret i32 %46
+cleanup:                                          ; preds = %if.end12, %if.end8, %if.end15
+  %retval.0 = phi i32 [ %13, %if.end15 ], [ -1, %if.end8 ], [ 0, %if.end12 ]
+  ret i32 %retval.0
 }
 
 ; Function Attrs: mustprogress nocallback nofree nosync nounwind willreturn memory(argmem: readwrite)
@@ -184,61 +187,62 @@ declare noalias noundef ptr @malloc(i64 noundef) local_unnamed_addr #5
 declare void @no_mem_exit(ptr noundef) local_unnamed_addr #2
 
 ; Function Attrs: nounwind uwtable
-define dso_local i32 @RTPReadPacket(ptr nocapture noundef %0, ptr nocapture noundef %1) local_unnamed_addr #0 {
-  %3 = alloca i32, align 4
-  call void @llvm.lifetime.start.p0(i64 4, ptr nonnull %3) #11
-  %4 = tail call i64 @ftell(ptr noundef %1)
-  %5 = getelementptr inbounds %struct.RTPpacket_t, ptr %0, i64 0, i32 13
-  %6 = tail call i64 @fread(ptr noundef nonnull %5, i64 noundef 1, i64 noundef 4, ptr noundef %1)
-  %7 = icmp eq i64 %6, 4
-  br i1 %7, label %8, label %33
+define dso_local i32 @RTPReadPacket(ptr nocapture noundef %p, ptr nocapture noundef %bits) local_unnamed_addr #0 {
+entry:
+  %intime = alloca i32, align 4
+  call void @llvm.lifetime.start.p0(i64 4, ptr nonnull %intime) #11
+  %call = tail call i64 @ftell(ptr noundef %bits)
+  %packlen = getelementptr inbounds %struct.RTPpacket_t, ptr %p, i64 0, i32 13
+  %call1 = tail call i64 @fread(ptr noundef nonnull %packlen, i64 noundef 1, i64 noundef 4, ptr noundef %bits)
+  %cmp.not = icmp eq i64 %call1, 4
+  br i1 %cmp.not, label %if.end, label %cleanup
 
-8:                                                ; preds = %2
-  %9 = call i64 @fread(ptr noundef nonnull %3, i64 noundef 1, i64 noundef 4, ptr noundef %1)
-  %10 = icmp eq i64 %9, 4
-  br i1 %10, label %16, label %11
+if.end:                                           ; preds = %entry
+  %call3 = call i64 @fread(ptr noundef nonnull %intime, i64 noundef 1, i64 noundef 4, ptr noundef %bits)
+  %cmp4.not = icmp eq i64 %call3, 4
+  br i1 %cmp4.not, label %if.end10, label %if.then6
 
-11:                                               ; preds = %8
-  %12 = shl i64 %4, 32
-  %13 = ashr exact i64 %12, 32
-  %14 = tail call i32 @fseek(ptr noundef %1, i64 noundef %13, i32 noundef 0)
-  %15 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.20)
+if.then6:                                         ; preds = %if.end
+  %sext = shl i64 %call, 32
+  %conv7 = ashr exact i64 %sext, 32
+  %call8 = tail call i32 @fseek(ptr noundef %bits, i64 noundef %conv7, i32 noundef 0)
+  %puts40 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.19)
   tail call void @exit(i32 noundef -1) #13
   unreachable
 
-16:                                               ; preds = %8
-  %17 = load i32, ptr %5, align 8, !tbaa !21
-  %18 = zext i32 %17 to i64
-  %19 = getelementptr inbounds %struct.RTPpacket_t, ptr %0, i64 0, i32 12
-  %20 = load ptr, ptr %19, align 8, !tbaa !9
-  %21 = tail call i64 @fread(ptr noundef %20, i64 noundef 1, i64 noundef %18, ptr noundef %1)
-  %22 = icmp eq i64 %21, %18
-  br i1 %22, label %26, label %23
+if.end10:                                         ; preds = %if.end
+  %0 = load i32, ptr %packlen, align 8, !tbaa !21
+  %conv12 = zext i32 %0 to i64
+  %packet = getelementptr inbounds %struct.RTPpacket_t, ptr %p, i64 0, i32 12
+  %1 = load ptr, ptr %packet, align 8, !tbaa !9
+  %call15 = tail call i64 @fread(ptr noundef %1, i64 noundef 1, i64 noundef %conv12, ptr noundef %bits)
+  %cmp16.not = icmp eq i64 %call15, %conv12
+  br i1 %cmp16.not, label %if.end21, label %if.then18
 
-23:                                               ; preds = %16
-  %24 = load i32, ptr %5, align 8, !tbaa !21
-  %25 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.17, i32 noundef %24)
+if.then18:                                        ; preds = %if.end10
+  %2 = load i32, ptr %packlen, align 8, !tbaa !21
+  %call20 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.17, i32 noundef %2)
   tail call void @exit(i32 noundef -1) #13
   unreachable
 
-26:                                               ; preds = %16
-  %27 = tail call i32 @DecomposeRTPpacket(ptr noundef nonnull %0), !range !22
-  %28 = icmp slt i32 %27, 0
-  br i1 %28, label %29, label %31
+if.end21:                                         ; preds = %if.end10
+  %call22 = tail call i32 @DecomposeRTPpacket(ptr noundef nonnull %p), !range !22
+  %cmp23 = icmp slt i32 %call22, 0
+  br i1 %cmp23, label %if.then25, label %if.end27
 
-29:                                               ; preds = %26
-  %30 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.19)
+if.then25:                                        ; preds = %if.end21
+  %puts = tail call i32 @puts(ptr nonnull dereferenceable(1) @str)
   tail call void @exit(i32 noundef -700) #13
   unreachable
 
-31:                                               ; preds = %26
-  %32 = load i32, ptr %5, align 8, !tbaa !21
-  br label %33
+if.end27:                                         ; preds = %if.end21
+  %3 = load i32, ptr %packlen, align 8, !tbaa !21
+  br label %cleanup
 
-33:                                               ; preds = %2, %31
-  %34 = phi i32 [ %32, %31 ], [ 0, %2 ]
-  call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %3) #11
-  ret i32 %34
+cleanup:                                          ; preds = %entry, %if.end27
+  %retval.0 = phi i32 [ %3, %if.end27 ], [ 0, %entry ]
+  call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %intime) #11
+  ret i32 %retval.0
 }
 
 ; Function Attrs: mustprogress nocallback nofree nounwind willreturn memory(argmem: readwrite)
@@ -251,273 +255,275 @@ declare void @free(ptr allocptr nocapture noundef) local_unnamed_addr #7
 declare void @llvm.lifetime.end.p0(i64 immarg, ptr nocapture) #4
 
 ; Function Attrs: nofree nounwind uwtable
-define dso_local i32 @DecomposeRTPpacket(ptr nocapture noundef %0) local_unnamed_addr #3 {
-  %2 = getelementptr inbounds %struct.RTPpacket_t, ptr %0, i64 0, i32 12
-  %3 = load ptr, ptr %2, align 8, !tbaa !9
-  %4 = load i8, ptr %3, align 1, !tbaa !18
-  %5 = lshr i8 %4, 6
-  %6 = zext i8 %5 to i32
-  store i32 %6, ptr %0, align 8, !tbaa !23
-  %7 = load i8, ptr %3, align 1, !tbaa !18
-  %8 = lshr i8 %7, 5
-  %9 = and i8 %8, 1
-  %10 = zext i8 %9 to i32
-  %11 = getelementptr inbounds %struct.RTPpacket_t, ptr %0, i64 0, i32 1
-  store i32 %10, ptr %11, align 4, !tbaa !24
-  %12 = load i8, ptr %3, align 1, !tbaa !18
-  %13 = lshr i8 %12, 4
-  %14 = and i8 %13, 1
-  %15 = zext i8 %14 to i32
-  %16 = getelementptr inbounds %struct.RTPpacket_t, ptr %0, i64 0, i32 2
-  store i32 %15, ptr %16, align 8, !tbaa !25
-  %17 = load i8, ptr %3, align 1, !tbaa !18
-  %18 = and i8 %17, 15
-  %19 = zext i8 %18 to i32
-  %20 = getelementptr inbounds %struct.RTPpacket_t, ptr %0, i64 0, i32 3
-  store i32 %19, ptr %20, align 4, !tbaa !26
-  %21 = getelementptr inbounds i8, ptr %3, i64 1
-  %22 = load i8, ptr %21, align 1, !tbaa !18
-  %23 = lshr i8 %22, 7
-  %24 = zext i8 %23 to i32
-  %25 = getelementptr inbounds %struct.RTPpacket_t, ptr %0, i64 0, i32 4
-  store i32 %24, ptr %25, align 8, !tbaa !27
-  %26 = load i8, ptr %21, align 1, !tbaa !18
-  %27 = and i8 %26, 127
-  %28 = zext i8 %27 to i32
-  %29 = getelementptr inbounds %struct.RTPpacket_t, ptr %0, i64 0, i32 5
-  store i32 %28, ptr %29, align 4, !tbaa !28
-  %30 = getelementptr inbounds %struct.RTPpacket_t, ptr %0, i64 0, i32 6
-  %31 = getelementptr inbounds i8, ptr %3, i64 2
-  %32 = load i16, ptr %31, align 1
-  store i16 %32, ptr %30, align 8
-  %33 = load i32, ptr %30, align 8, !tbaa !29
-  %34 = trunc i32 %33 to i16
-  %35 = tail call i16 @llvm.bswap.i16(i16 %34)
-  %36 = zext i16 %35 to i32
-  store i32 %36, ptr %30, align 8, !tbaa !29
-  %37 = getelementptr inbounds %struct.RTPpacket_t, ptr %0, i64 0, i32 8
-  %38 = getelementptr inbounds i8, ptr %3, i64 4
-  %39 = load i32, ptr %38, align 1
-  %40 = tail call i32 @llvm.bswap.i32(i32 %39)
-  store i32 %40, ptr %37, align 8, !tbaa !30
-  %41 = getelementptr inbounds %struct.RTPpacket_t, ptr %0, i64 0, i32 9
-  %42 = getelementptr inbounds i8, ptr %3, i64 8
-  %43 = load i32, ptr %42, align 1
-  %44 = tail call i32 @llvm.bswap.i32(i32 %43)
-  store i32 %44, ptr %41, align 4, !tbaa !31
-  %45 = icmp ne i8 %5, 2
-  %46 = icmp ne i8 %9, 0
-  %47 = select i1 %45, i1 true, i1 %46
-  %48 = icmp ne i8 %14, 0
-  %49 = select i1 %47, i1 true, i1 %48
-  %50 = icmp ne i8 %18, 0
-  %51 = select i1 %49, i1 true, i1 %50
-  br i1 %51, label %52, label %54
+define dso_local i32 @DecomposeRTPpacket(ptr nocapture noundef %p) local_unnamed_addr #3 {
+entry:
+  %packet = getelementptr inbounds %struct.RTPpacket_t, ptr %p, i64 0, i32 12
+  %0 = load ptr, ptr %packet, align 8, !tbaa !9
+  %1 = load i8, ptr %0, align 1, !tbaa !18
+  %2 = lshr i8 %1, 6
+  %shr = zext i8 %2 to i32
+  store i32 %shr, ptr %p, align 8, !tbaa !23
+  %3 = load i8, ptr %0, align 1, !tbaa !18
+  %4 = lshr i8 %3, 5
+  %5 = and i8 %4, 1
+  %and5 = zext i8 %5 to i32
+  %p6 = getelementptr inbounds %struct.RTPpacket_t, ptr %p, i64 0, i32 1
+  store i32 %and5, ptr %p6, align 4, !tbaa !24
+  %6 = load i8, ptr %0, align 1, !tbaa !18
+  %7 = lshr i8 %6, 4
+  %8 = and i8 %7, 1
+  %and11 = zext i8 %8 to i32
+  %x = getelementptr inbounds %struct.RTPpacket_t, ptr %p, i64 0, i32 2
+  store i32 %and11, ptr %x, align 8, !tbaa !25
+  %9 = load i8, ptr %0, align 1, !tbaa !18
+  %10 = and i8 %9, 15
+  %and16 = zext i8 %10 to i32
+  %cc = getelementptr inbounds %struct.RTPpacket_t, ptr %p, i64 0, i32 3
+  store i32 %and16, ptr %cc, align 4, !tbaa !26
+  %arrayidx18 = getelementptr inbounds i8, ptr %0, i64 1
+  %11 = load i8, ptr %arrayidx18, align 1, !tbaa !18
+  %12 = lshr i8 %11, 7
+  %shr20 = zext i8 %12 to i32
+  %m = getelementptr inbounds %struct.RTPpacket_t, ptr %p, i64 0, i32 4
+  store i32 %shr20, ptr %m, align 8, !tbaa !27
+  %13 = load i8, ptr %arrayidx18, align 1, !tbaa !18
+  %14 = and i8 %13, 127
+  %and26 = zext i8 %14 to i32
+  %pt = getelementptr inbounds %struct.RTPpacket_t, ptr %p, i64 0, i32 5
+  store i32 %and26, ptr %pt, align 4, !tbaa !28
+  %seq = getelementptr inbounds %struct.RTPpacket_t, ptr %p, i64 0, i32 6
+  %arrayidx28 = getelementptr inbounds i8, ptr %0, i64 2
+  %15 = load i16, ptr %arrayidx28, align 1
+  store i16 %15, ptr %seq, align 8
+  %16 = load i32, ptr %seq, align 8, !tbaa !29
+  %conv30 = trunc i32 %16 to i16
+  %rev.i = tail call i16 @llvm.bswap.i16(i16 %conv30)
+  %conv31 = zext i16 %rev.i to i32
+  store i32 %conv31, ptr %seq, align 8, !tbaa !29
+  %timestamp = getelementptr inbounds %struct.RTPpacket_t, ptr %p, i64 0, i32 8
+  %arrayidx34 = getelementptr inbounds i8, ptr %0, i64 4
+  %17 = load i32, ptr %arrayidx34, align 1
+  %or7.i = tail call i32 @llvm.bswap.i32(i32 %17)
+  store i32 %or7.i, ptr %timestamp, align 8, !tbaa !30
+  %ssrc = getelementptr inbounds %struct.RTPpacket_t, ptr %p, i64 0, i32 9
+  %arrayidx39 = getelementptr inbounds i8, ptr %0, i64 8
+  %18 = load i32, ptr %arrayidx39, align 1
+  %or7.i94 = tail call i32 @llvm.bswap.i32(i32 %18)
+  store i32 %or7.i94, ptr %ssrc, align 4, !tbaa !31
+  %cmp.not = icmp eq i8 %2, 2
+  %cmp46.not = icmp eq i8 %5, 0
+  %or.cond = select i1 %cmp.not, i1 %cmp46.not, i1 false
+  %cmp50.not = icmp eq i8 %8, 0
+  %or.cond95 = select i1 %or.cond, i1 %cmp50.not, i1 false
+  %cmp54.not = icmp eq i8 %10, 0
+  %or.cond96 = select i1 %or.cond95, i1 %cmp54.not, i1 false
+  br i1 %or.cond96, label %if.end, label %if.then
 
-52:                                               ; preds = %1
-  %53 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str)
-  tail call void @DumpRTPHeader(ptr noundef nonnull %0)
-  br label %63
+if.then:                                          ; preds = %entry
+  %puts = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.20)
+  tail call void @DumpRTPHeader(ptr noundef nonnull %p)
+  br label %return
 
-54:                                               ; preds = %1
-  %55 = getelementptr inbounds %struct.RTPpacket_t, ptr %0, i64 0, i32 13
-  %56 = load i32, ptr %55, align 8, !tbaa !21
-  %57 = add i32 %56, -12
-  %58 = getelementptr inbounds %struct.RTPpacket_t, ptr %0, i64 0, i32 11
-  store i32 %57, ptr %58, align 8, !tbaa !16
-  %59 = getelementptr inbounds %struct.RTPpacket_t, ptr %0, i64 0, i32 10
-  %60 = load ptr, ptr %59, align 8, !tbaa !12
-  %61 = getelementptr inbounds i8, ptr %3, i64 12
-  %62 = zext i32 %57 to i64
-  tail call void @llvm.memcpy.p0.p0.i64(ptr align 1 %60, ptr nonnull align 1 %61, i64 %62, i1 false)
-  br label %63
+if.end:                                           ; preds = %entry
+  %packlen = getelementptr inbounds %struct.RTPpacket_t, ptr %p, i64 0, i32 13
+  %19 = load i32, ptr %packlen, align 8, !tbaa !21
+  %sub = add i32 %19, -12
+  %paylen = getelementptr inbounds %struct.RTPpacket_t, ptr %p, i64 0, i32 11
+  store i32 %sub, ptr %paylen, align 8, !tbaa !16
+  %payload = getelementptr inbounds %struct.RTPpacket_t, ptr %p, i64 0, i32 10
+  %20 = load ptr, ptr %payload, align 8, !tbaa !12
+  %arrayidx58 = getelementptr inbounds i8, ptr %0, i64 12
+  %conv60 = zext i32 %sub to i64
+  tail call void @llvm.memcpy.p0.p0.i64(ptr align 1 %20, ptr nonnull align 1 %arrayidx58, i64 %conv60, i1 false)
+  br label %return
 
-63:                                               ; preds = %54, %52
-  %64 = phi i32 [ -1, %52 ], [ 0, %54 ]
-  ret i32 %64
+return:                                           ; preds = %if.end, %if.then
+  %retval.0 = phi i32 [ -1, %if.then ], [ 0, %if.end ]
+  ret i32 %retval.0
 }
 
 ; Function Attrs: nofree nounwind
 declare noundef i32 @printf(ptr nocapture noundef readonly, ...) local_unnamed_addr #1
 
 ; Function Attrs: nofree nounwind uwtable
-define dso_local void @DumpRTPHeader(ptr nocapture noundef readonly %0) local_unnamed_addr #3 {
-  %2 = getelementptr inbounds %struct.RTPpacket_t, ptr %0, i64 0, i32 12
-  %3 = load ptr, ptr %2, align 8, !tbaa !9
-  %4 = load i8, ptr %3, align 1, !tbaa !18
-  %5 = zext i8 %4 to i32
-  %6 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.6, i32 noundef %5)
-  %7 = load ptr, ptr %2, align 8, !tbaa !9
-  %8 = getelementptr inbounds i8, ptr %7, i64 1
-  %9 = load i8, ptr %8, align 1, !tbaa !18
-  %10 = zext i8 %9 to i32
-  %11 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.6, i32 noundef %10)
-  %12 = load ptr, ptr %2, align 8, !tbaa !9
-  %13 = getelementptr inbounds i8, ptr %12, i64 2
-  %14 = load i8, ptr %13, align 1, !tbaa !18
-  %15 = zext i8 %14 to i32
-  %16 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.6, i32 noundef %15)
-  %17 = load ptr, ptr %2, align 8, !tbaa !9
-  %18 = getelementptr inbounds i8, ptr %17, i64 3
-  %19 = load i8, ptr %18, align 1, !tbaa !18
-  %20 = zext i8 %19 to i32
-  %21 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.6, i32 noundef %20)
-  %22 = load ptr, ptr %2, align 8, !tbaa !9
-  %23 = getelementptr inbounds i8, ptr %22, i64 4
-  %24 = load i8, ptr %23, align 1, !tbaa !18
-  %25 = zext i8 %24 to i32
-  %26 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.6, i32 noundef %25)
-  %27 = load ptr, ptr %2, align 8, !tbaa !9
-  %28 = getelementptr inbounds i8, ptr %27, i64 5
-  %29 = load i8, ptr %28, align 1, !tbaa !18
-  %30 = zext i8 %29 to i32
-  %31 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.6, i32 noundef %30)
-  %32 = load ptr, ptr %2, align 8, !tbaa !9
-  %33 = getelementptr inbounds i8, ptr %32, i64 6
-  %34 = load i8, ptr %33, align 1, !tbaa !18
-  %35 = zext i8 %34 to i32
-  %36 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.6, i32 noundef %35)
-  %37 = load ptr, ptr %2, align 8, !tbaa !9
-  %38 = getelementptr inbounds i8, ptr %37, i64 7
-  %39 = load i8, ptr %38, align 1, !tbaa !18
-  %40 = zext i8 %39 to i32
-  %41 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.6, i32 noundef %40)
-  %42 = load ptr, ptr %2, align 8, !tbaa !9
-  %43 = getelementptr inbounds i8, ptr %42, i64 8
-  %44 = load i8, ptr %43, align 1, !tbaa !18
-  %45 = zext i8 %44 to i32
-  %46 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.6, i32 noundef %45)
-  %47 = load ptr, ptr %2, align 8, !tbaa !9
-  %48 = getelementptr inbounds i8, ptr %47, i64 9
-  %49 = load i8, ptr %48, align 1, !tbaa !18
-  %50 = zext i8 %49 to i32
-  %51 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.6, i32 noundef %50)
-  %52 = load ptr, ptr %2, align 8, !tbaa !9
-  %53 = getelementptr inbounds i8, ptr %52, i64 10
-  %54 = load i8, ptr %53, align 1, !tbaa !18
-  %55 = zext i8 %54 to i32
-  %56 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.6, i32 noundef %55)
-  %57 = load ptr, ptr %2, align 8, !tbaa !9
-  %58 = getelementptr inbounds i8, ptr %57, i64 11
-  %59 = load i8, ptr %58, align 1, !tbaa !18
-  %60 = zext i8 %59 to i32
-  %61 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.6, i32 noundef %60)
-  %62 = load ptr, ptr %2, align 8, !tbaa !9
-  %63 = getelementptr inbounds i8, ptr %62, i64 12
-  %64 = load i8, ptr %63, align 1, !tbaa !18
-  %65 = zext i8 %64 to i32
-  %66 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.6, i32 noundef %65)
-  %67 = load ptr, ptr %2, align 8, !tbaa !9
-  %68 = getelementptr inbounds i8, ptr %67, i64 13
-  %69 = load i8, ptr %68, align 1, !tbaa !18
-  %70 = zext i8 %69 to i32
-  %71 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.6, i32 noundef %70)
-  %72 = load ptr, ptr %2, align 8, !tbaa !9
-  %73 = getelementptr inbounds i8, ptr %72, i64 14
-  %74 = load i8, ptr %73, align 1, !tbaa !18
-  %75 = zext i8 %74 to i32
-  %76 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.6, i32 noundef %75)
-  %77 = load ptr, ptr %2, align 8, !tbaa !9
-  %78 = getelementptr inbounds i8, ptr %77, i64 15
-  %79 = load i8, ptr %78, align 1, !tbaa !18
-  %80 = zext i8 %79 to i32
-  %81 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.6, i32 noundef %80)
-  %82 = load ptr, ptr %2, align 8, !tbaa !9
-  %83 = getelementptr inbounds i8, ptr %82, i64 16
-  %84 = load i8, ptr %83, align 1, !tbaa !18
-  %85 = zext i8 %84 to i32
-  %86 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.6, i32 noundef %85)
-  %87 = load ptr, ptr %2, align 8, !tbaa !9
-  %88 = getelementptr inbounds i8, ptr %87, i64 17
-  %89 = load i8, ptr %88, align 1, !tbaa !18
-  %90 = zext i8 %89 to i32
-  %91 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.6, i32 noundef %90)
-  %92 = load ptr, ptr %2, align 8, !tbaa !9
-  %93 = getelementptr inbounds i8, ptr %92, i64 18
-  %94 = load i8, ptr %93, align 1, !tbaa !18
-  %95 = zext i8 %94 to i32
-  %96 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.6, i32 noundef %95)
-  %97 = load ptr, ptr %2, align 8, !tbaa !9
-  %98 = getelementptr inbounds i8, ptr %97, i64 19
-  %99 = load i8, ptr %98, align 1, !tbaa !18
-  %100 = zext i8 %99 to i32
-  %101 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.6, i32 noundef %100)
-  %102 = load ptr, ptr %2, align 8, !tbaa !9
-  %103 = getelementptr inbounds i8, ptr %102, i64 20
-  %104 = load i8, ptr %103, align 1, !tbaa !18
-  %105 = zext i8 %104 to i32
-  %106 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.6, i32 noundef %105)
-  %107 = load ptr, ptr %2, align 8, !tbaa !9
-  %108 = getelementptr inbounds i8, ptr %107, i64 21
-  %109 = load i8, ptr %108, align 1, !tbaa !18
-  %110 = zext i8 %109 to i32
-  %111 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.6, i32 noundef %110)
-  %112 = load ptr, ptr %2, align 8, !tbaa !9
-  %113 = getelementptr inbounds i8, ptr %112, i64 22
-  %114 = load i8, ptr %113, align 1, !tbaa !18
-  %115 = zext i8 %114 to i32
-  %116 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.6, i32 noundef %115)
-  %117 = load ptr, ptr %2, align 8, !tbaa !9
-  %118 = getelementptr inbounds i8, ptr %117, i64 23
-  %119 = load i8, ptr %118, align 1, !tbaa !18
-  %120 = zext i8 %119 to i32
-  %121 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.6, i32 noundef %120)
-  %122 = load ptr, ptr %2, align 8, !tbaa !9
-  %123 = getelementptr inbounds i8, ptr %122, i64 24
-  %124 = load i8, ptr %123, align 1, !tbaa !18
-  %125 = zext i8 %124 to i32
-  %126 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.6, i32 noundef %125)
-  %127 = load ptr, ptr %2, align 8, !tbaa !9
-  %128 = getelementptr inbounds i8, ptr %127, i64 25
-  %129 = load i8, ptr %128, align 1, !tbaa !18
-  %130 = zext i8 %129 to i32
-  %131 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.6, i32 noundef %130)
-  %132 = load ptr, ptr %2, align 8, !tbaa !9
-  %133 = getelementptr inbounds i8, ptr %132, i64 26
-  %134 = load i8, ptr %133, align 1, !tbaa !18
-  %135 = zext i8 %134 to i32
-  %136 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.6, i32 noundef %135)
-  %137 = load ptr, ptr %2, align 8, !tbaa !9
-  %138 = getelementptr inbounds i8, ptr %137, i64 27
-  %139 = load i8, ptr %138, align 1, !tbaa !18
-  %140 = zext i8 %139 to i32
-  %141 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.6, i32 noundef %140)
-  %142 = load ptr, ptr %2, align 8, !tbaa !9
-  %143 = getelementptr inbounds i8, ptr %142, i64 28
-  %144 = load i8, ptr %143, align 1, !tbaa !18
-  %145 = zext i8 %144 to i32
-  %146 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.6, i32 noundef %145)
-  %147 = load ptr, ptr %2, align 8, !tbaa !9
-  %148 = getelementptr inbounds i8, ptr %147, i64 29
-  %149 = load i8, ptr %148, align 1, !tbaa !18
-  %150 = zext i8 %149 to i32
-  %151 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.6, i32 noundef %150)
-  %152 = load i32, ptr %0, align 8, !tbaa !23
-  %153 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.7, i32 noundef %152)
-  %154 = getelementptr inbounds %struct.RTPpacket_t, ptr %0, i64 0, i32 1
-  %155 = load i32, ptr %154, align 4, !tbaa !24
-  %156 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.8, i32 noundef %155)
-  %157 = getelementptr inbounds %struct.RTPpacket_t, ptr %0, i64 0, i32 2
-  %158 = load i32, ptr %157, align 8, !tbaa !25
-  %159 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.9, i32 noundef %158)
-  %160 = getelementptr inbounds %struct.RTPpacket_t, ptr %0, i64 0, i32 3
-  %161 = load i32, ptr %160, align 4, !tbaa !26
-  %162 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.10, i32 noundef %161)
-  %163 = getelementptr inbounds %struct.RTPpacket_t, ptr %0, i64 0, i32 4
-  %164 = load i32, ptr %163, align 8, !tbaa !27
-  %165 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.11, i32 noundef %164)
-  %166 = getelementptr inbounds %struct.RTPpacket_t, ptr %0, i64 0, i32 5
-  %167 = load i32, ptr %166, align 4, !tbaa !28
-  %168 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.12, i32 noundef %167)
-  %169 = getelementptr inbounds %struct.RTPpacket_t, ptr %0, i64 0, i32 6
-  %170 = load i32, ptr %169, align 8, !tbaa !29
-  %171 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.13, i32 noundef %170)
-  %172 = getelementptr inbounds %struct.RTPpacket_t, ptr %0, i64 0, i32 8
-  %173 = load i32, ptr %172, align 8, !tbaa !30
-  %174 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.14, i32 noundef %173)
-  %175 = getelementptr inbounds %struct.RTPpacket_t, ptr %0, i64 0, i32 9
-  %176 = load i32, ptr %175, align 4, !tbaa !31
-  %177 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.15, i32 noundef %176)
+define dso_local void @DumpRTPHeader(ptr nocapture noundef readonly %p) local_unnamed_addr #3 {
+entry:
+  %packet = getelementptr inbounds %struct.RTPpacket_t, ptr %p, i64 0, i32 12
+  %0 = load ptr, ptr %packet, align 8, !tbaa !9
+  %1 = load i8, ptr %0, align 1, !tbaa !18
+  %conv = zext i8 %1 to i32
+  %call = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.6, i32 noundef %conv)
+  %2 = load ptr, ptr %packet, align 8, !tbaa !9
+  %arrayidx.1 = getelementptr inbounds i8, ptr %2, i64 1
+  %3 = load i8, ptr %arrayidx.1, align 1, !tbaa !18
+  %conv.1 = zext i8 %3 to i32
+  %call.1 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.6, i32 noundef %conv.1)
+  %4 = load ptr, ptr %packet, align 8, !tbaa !9
+  %arrayidx.2 = getelementptr inbounds i8, ptr %4, i64 2
+  %5 = load i8, ptr %arrayidx.2, align 1, !tbaa !18
+  %conv.2 = zext i8 %5 to i32
+  %call.2 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.6, i32 noundef %conv.2)
+  %6 = load ptr, ptr %packet, align 8, !tbaa !9
+  %arrayidx.3 = getelementptr inbounds i8, ptr %6, i64 3
+  %7 = load i8, ptr %arrayidx.3, align 1, !tbaa !18
+  %conv.3 = zext i8 %7 to i32
+  %call.3 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.6, i32 noundef %conv.3)
+  %8 = load ptr, ptr %packet, align 8, !tbaa !9
+  %arrayidx.4 = getelementptr inbounds i8, ptr %8, i64 4
+  %9 = load i8, ptr %arrayidx.4, align 1, !tbaa !18
+  %conv.4 = zext i8 %9 to i32
+  %call.4 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.6, i32 noundef %conv.4)
+  %10 = load ptr, ptr %packet, align 8, !tbaa !9
+  %arrayidx.5 = getelementptr inbounds i8, ptr %10, i64 5
+  %11 = load i8, ptr %arrayidx.5, align 1, !tbaa !18
+  %conv.5 = zext i8 %11 to i32
+  %call.5 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.6, i32 noundef %conv.5)
+  %12 = load ptr, ptr %packet, align 8, !tbaa !9
+  %arrayidx.6 = getelementptr inbounds i8, ptr %12, i64 6
+  %13 = load i8, ptr %arrayidx.6, align 1, !tbaa !18
+  %conv.6 = zext i8 %13 to i32
+  %call.6 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.6, i32 noundef %conv.6)
+  %14 = load ptr, ptr %packet, align 8, !tbaa !9
+  %arrayidx.7 = getelementptr inbounds i8, ptr %14, i64 7
+  %15 = load i8, ptr %arrayidx.7, align 1, !tbaa !18
+  %conv.7 = zext i8 %15 to i32
+  %call.7 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.6, i32 noundef %conv.7)
+  %16 = load ptr, ptr %packet, align 8, !tbaa !9
+  %arrayidx.8 = getelementptr inbounds i8, ptr %16, i64 8
+  %17 = load i8, ptr %arrayidx.8, align 1, !tbaa !18
+  %conv.8 = zext i8 %17 to i32
+  %call.8 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.6, i32 noundef %conv.8)
+  %18 = load ptr, ptr %packet, align 8, !tbaa !9
+  %arrayidx.9 = getelementptr inbounds i8, ptr %18, i64 9
+  %19 = load i8, ptr %arrayidx.9, align 1, !tbaa !18
+  %conv.9 = zext i8 %19 to i32
+  %call.9 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.6, i32 noundef %conv.9)
+  %20 = load ptr, ptr %packet, align 8, !tbaa !9
+  %arrayidx.10 = getelementptr inbounds i8, ptr %20, i64 10
+  %21 = load i8, ptr %arrayidx.10, align 1, !tbaa !18
+  %conv.10 = zext i8 %21 to i32
+  %call.10 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.6, i32 noundef %conv.10)
+  %22 = load ptr, ptr %packet, align 8, !tbaa !9
+  %arrayidx.11 = getelementptr inbounds i8, ptr %22, i64 11
+  %23 = load i8, ptr %arrayidx.11, align 1, !tbaa !18
+  %conv.11 = zext i8 %23 to i32
+  %call.11 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.6, i32 noundef %conv.11)
+  %24 = load ptr, ptr %packet, align 8, !tbaa !9
+  %arrayidx.12 = getelementptr inbounds i8, ptr %24, i64 12
+  %25 = load i8, ptr %arrayidx.12, align 1, !tbaa !18
+  %conv.12 = zext i8 %25 to i32
+  %call.12 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.6, i32 noundef %conv.12)
+  %26 = load ptr, ptr %packet, align 8, !tbaa !9
+  %arrayidx.13 = getelementptr inbounds i8, ptr %26, i64 13
+  %27 = load i8, ptr %arrayidx.13, align 1, !tbaa !18
+  %conv.13 = zext i8 %27 to i32
+  %call.13 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.6, i32 noundef %conv.13)
+  %28 = load ptr, ptr %packet, align 8, !tbaa !9
+  %arrayidx.14 = getelementptr inbounds i8, ptr %28, i64 14
+  %29 = load i8, ptr %arrayidx.14, align 1, !tbaa !18
+  %conv.14 = zext i8 %29 to i32
+  %call.14 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.6, i32 noundef %conv.14)
+  %30 = load ptr, ptr %packet, align 8, !tbaa !9
+  %arrayidx.15 = getelementptr inbounds i8, ptr %30, i64 15
+  %31 = load i8, ptr %arrayidx.15, align 1, !tbaa !18
+  %conv.15 = zext i8 %31 to i32
+  %call.15 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.6, i32 noundef %conv.15)
+  %32 = load ptr, ptr %packet, align 8, !tbaa !9
+  %arrayidx.16 = getelementptr inbounds i8, ptr %32, i64 16
+  %33 = load i8, ptr %arrayidx.16, align 1, !tbaa !18
+  %conv.16 = zext i8 %33 to i32
+  %call.16 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.6, i32 noundef %conv.16)
+  %34 = load ptr, ptr %packet, align 8, !tbaa !9
+  %arrayidx.17 = getelementptr inbounds i8, ptr %34, i64 17
+  %35 = load i8, ptr %arrayidx.17, align 1, !tbaa !18
+  %conv.17 = zext i8 %35 to i32
+  %call.17 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.6, i32 noundef %conv.17)
+  %36 = load ptr, ptr %packet, align 8, !tbaa !9
+  %arrayidx.18 = getelementptr inbounds i8, ptr %36, i64 18
+  %37 = load i8, ptr %arrayidx.18, align 1, !tbaa !18
+  %conv.18 = zext i8 %37 to i32
+  %call.18 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.6, i32 noundef %conv.18)
+  %38 = load ptr, ptr %packet, align 8, !tbaa !9
+  %arrayidx.19 = getelementptr inbounds i8, ptr %38, i64 19
+  %39 = load i8, ptr %arrayidx.19, align 1, !tbaa !18
+  %conv.19 = zext i8 %39 to i32
+  %call.19 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.6, i32 noundef %conv.19)
+  %40 = load ptr, ptr %packet, align 8, !tbaa !9
+  %arrayidx.20 = getelementptr inbounds i8, ptr %40, i64 20
+  %41 = load i8, ptr %arrayidx.20, align 1, !tbaa !18
+  %conv.20 = zext i8 %41 to i32
+  %call.20 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.6, i32 noundef %conv.20)
+  %42 = load ptr, ptr %packet, align 8, !tbaa !9
+  %arrayidx.21 = getelementptr inbounds i8, ptr %42, i64 21
+  %43 = load i8, ptr %arrayidx.21, align 1, !tbaa !18
+  %conv.21 = zext i8 %43 to i32
+  %call.21 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.6, i32 noundef %conv.21)
+  %44 = load ptr, ptr %packet, align 8, !tbaa !9
+  %arrayidx.22 = getelementptr inbounds i8, ptr %44, i64 22
+  %45 = load i8, ptr %arrayidx.22, align 1, !tbaa !18
+  %conv.22 = zext i8 %45 to i32
+  %call.22 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.6, i32 noundef %conv.22)
+  %46 = load ptr, ptr %packet, align 8, !tbaa !9
+  %arrayidx.23 = getelementptr inbounds i8, ptr %46, i64 23
+  %47 = load i8, ptr %arrayidx.23, align 1, !tbaa !18
+  %conv.23 = zext i8 %47 to i32
+  %call.23 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.6, i32 noundef %conv.23)
+  %48 = load ptr, ptr %packet, align 8, !tbaa !9
+  %arrayidx.24 = getelementptr inbounds i8, ptr %48, i64 24
+  %49 = load i8, ptr %arrayidx.24, align 1, !tbaa !18
+  %conv.24 = zext i8 %49 to i32
+  %call.24 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.6, i32 noundef %conv.24)
+  %50 = load ptr, ptr %packet, align 8, !tbaa !9
+  %arrayidx.25 = getelementptr inbounds i8, ptr %50, i64 25
+  %51 = load i8, ptr %arrayidx.25, align 1, !tbaa !18
+  %conv.25 = zext i8 %51 to i32
+  %call.25 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.6, i32 noundef %conv.25)
+  %52 = load ptr, ptr %packet, align 8, !tbaa !9
+  %arrayidx.26 = getelementptr inbounds i8, ptr %52, i64 26
+  %53 = load i8, ptr %arrayidx.26, align 1, !tbaa !18
+  %conv.26 = zext i8 %53 to i32
+  %call.26 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.6, i32 noundef %conv.26)
+  %54 = load ptr, ptr %packet, align 8, !tbaa !9
+  %arrayidx.27 = getelementptr inbounds i8, ptr %54, i64 27
+  %55 = load i8, ptr %arrayidx.27, align 1, !tbaa !18
+  %conv.27 = zext i8 %55 to i32
+  %call.27 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.6, i32 noundef %conv.27)
+  %56 = load ptr, ptr %packet, align 8, !tbaa !9
+  %arrayidx.28 = getelementptr inbounds i8, ptr %56, i64 28
+  %57 = load i8, ptr %arrayidx.28, align 1, !tbaa !18
+  %conv.28 = zext i8 %57 to i32
+  %call.28 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.6, i32 noundef %conv.28)
+  %58 = load ptr, ptr %packet, align 8, !tbaa !9
+  %arrayidx.29 = getelementptr inbounds i8, ptr %58, i64 29
+  %59 = load i8, ptr %arrayidx.29, align 1, !tbaa !18
+  %conv.29 = zext i8 %59 to i32
+  %call.29 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.6, i32 noundef %conv.29)
+  %60 = load i32, ptr %p, align 8, !tbaa !23
+  %call1 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.7, i32 noundef %60)
+  %p2 = getelementptr inbounds %struct.RTPpacket_t, ptr %p, i64 0, i32 1
+  %61 = load i32, ptr %p2, align 4, !tbaa !24
+  %call3 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.8, i32 noundef %61)
+  %x = getelementptr inbounds %struct.RTPpacket_t, ptr %p, i64 0, i32 2
+  %62 = load i32, ptr %x, align 8, !tbaa !25
+  %call4 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.9, i32 noundef %62)
+  %cc = getelementptr inbounds %struct.RTPpacket_t, ptr %p, i64 0, i32 3
+  %63 = load i32, ptr %cc, align 4, !tbaa !26
+  %call5 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.10, i32 noundef %63)
+  %m = getelementptr inbounds %struct.RTPpacket_t, ptr %p, i64 0, i32 4
+  %64 = load i32, ptr %m, align 8, !tbaa !27
+  %call6 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.11, i32 noundef %64)
+  %pt = getelementptr inbounds %struct.RTPpacket_t, ptr %p, i64 0, i32 5
+  %65 = load i32, ptr %pt, align 4, !tbaa !28
+  %call7 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.12, i32 noundef %65)
+  %seq = getelementptr inbounds %struct.RTPpacket_t, ptr %p, i64 0, i32 6
+  %66 = load i32, ptr %seq, align 8, !tbaa !29
+  %call8 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.13, i32 noundef %66)
+  %timestamp = getelementptr inbounds %struct.RTPpacket_t, ptr %p, i64 0, i32 8
+  %67 = load i32, ptr %timestamp, align 8, !tbaa !30
+  %call9 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.14, i32 noundef %67)
+  %ssrc = getelementptr inbounds %struct.RTPpacket_t, ptr %p, i64 0, i32 9
+  %68 = load i32, ptr %ssrc, align 4, !tbaa !31
+  %call10 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.15, i32 noundef %68)
   ret void
 }
 
@@ -533,14 +539,14 @@ declare noundef i32 @fseek(ptr nocapture noundef, i64 noundef, i32 noundef) loca
 ; Function Attrs: noreturn nounwind
 declare void @exit(i32 noundef) local_unnamed_addr #8
 
-; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i16 @llvm.bswap.i16(i16) #9
-
-; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i32 @llvm.bswap.i32(i32) #9
-
 ; Function Attrs: nofree nounwind
-declare noundef i32 @puts(ptr nocapture noundef readonly) local_unnamed_addr #10
+declare noundef i32 @puts(ptr nocapture noundef readonly) local_unnamed_addr #9
+
+; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
+declare i16 @llvm.bswap.i16(i16) #10
+
+; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
+declare i32 @llvm.bswap.i32(i32) #10
 
 attributes #0 = { nounwind uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #1 = { nofree nounwind "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
@@ -551,8 +557,8 @@ attributes #5 = { mustprogress nofree nounwind willreturn allockind("alloc,unini
 attributes #6 = { mustprogress nocallback nofree nounwind willreturn memory(argmem: readwrite) }
 attributes #7 = { mustprogress nounwind willreturn allockind("free") memory(argmem: readwrite, inaccessiblemem: readwrite) "alloc-family"="malloc" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #8 = { noreturn nounwind "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
-attributes #9 = { nocallback nofree nosync nounwind speculatable willreturn memory(none) }
-attributes #10 = { nofree nounwind }
+attributes #9 = { nofree nounwind }
+attributes #10 = { nocallback nofree nosync nounwind speculatable willreturn memory(none) }
 attributes #11 = { nounwind }
 attributes #12 = { nounwind allocsize(0) }
 attributes #13 = { noreturn nounwind }

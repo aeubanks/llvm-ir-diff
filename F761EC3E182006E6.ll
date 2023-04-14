@@ -53,163 +53,166 @@ $_ZTI13CMyUnknownImp = comdat any
 @_ZN14CLocalProgressC1Ev = dso_local unnamed_addr alias void (ptr), ptr @_ZN14CLocalProgressC2Ev
 
 ; Function Attrs: mustprogress nofree nosync nounwind willreturn memory(argmem: write) uwtable
-define dso_local void @_ZN14CLocalProgressC2Ev(ptr nocapture noundef nonnull writeonly align 8 dereferenceable(66) %0) unnamed_addr #0 align 2 personality ptr @__gxx_personality_v0 {
-  %2 = getelementptr inbounds i8, ptr %0, i64 8
-  store i32 0, ptr %2, align 8, !tbaa !5
-  store ptr getelementptr inbounds ({ [8 x ptr] }, ptr @_ZTV14CLocalProgress, i64 0, inrange i32 0, i64 2), ptr %0, align 8, !tbaa !10
-  %3 = getelementptr inbounds %class.CLocalProgress, ptr %0, i64 0, i32 3
-  %4 = getelementptr inbounds %class.CLocalProgress, ptr %0, i64 0, i32 7
-  %5 = getelementptr inbounds %class.CLocalProgress, ptr %0, i64 0, i32 11
-  tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %3, i8 0, i64 16, i1 false)
-  tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(24) %4, i8 0, i64 24, i1 false)
-  store i8 1, ptr %5, align 1, !tbaa !12
-  %6 = getelementptr inbounds %class.CLocalProgress, ptr %0, i64 0, i32 10
-  store i8 1, ptr %6, align 8, !tbaa !21
+define dso_local void @_ZN14CLocalProgressC2Ev(ptr nocapture noundef nonnull writeonly align 8 dereferenceable(66) %this) unnamed_addr #0 align 2 personality ptr @__gxx_personality_v0 {
+entry:
+  %0 = getelementptr inbounds i8, ptr %this, i64 8
+  store i32 0, ptr %0, align 8, !tbaa !5
+  store ptr getelementptr inbounds ({ [8 x ptr] }, ptr @_ZTV14CLocalProgress, i64 0, inrange i32 0, i64 2), ptr %this, align 8, !tbaa !10
+  %_progress = getelementptr inbounds %class.CLocalProgress, ptr %this, i64 0, i32 3
+  %ProgressOffset = getelementptr inbounds %class.CLocalProgress, ptr %this, i64 0, i32 7
+  %SendProgress = getelementptr inbounds %class.CLocalProgress, ptr %this, i64 0, i32 11
+  tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %_progress, i8 0, i64 16, i1 false)
+  tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(24) %ProgressOffset, i8 0, i64 24, i1 false)
+  store i8 1, ptr %SendProgress, align 1, !tbaa !12
+  %SendRatio = getelementptr inbounds %class.CLocalProgress, ptr %this, i64 0, i32 10
+  store i8 1, ptr %SendRatio, align 8, !tbaa !21
   ret void
 }
 
 declare i32 @__gxx_personality_v0(...)
 
 ; Function Attrs: mustprogress uwtable
-define dso_local void @_ZN14CLocalProgress4InitEP9IProgressb(ptr noundef nonnull align 8 dereferenceable(66) %0, ptr noundef %1, i1 noundef zeroext %2) local_unnamed_addr #1 align 2 {
-  %4 = getelementptr inbounds %class.CLocalProgress, ptr %0, i64 0, i32 4
-  %5 = load ptr, ptr %4, align 8, !tbaa !22
-  %6 = icmp eq ptr %5, null
-  br i1 %6, label %12, label %7
+define dso_local void @_ZN14CLocalProgress4InitEP9IProgressb(ptr noundef nonnull align 8 dereferenceable(66) %this, ptr noundef %progress, i1 noundef zeroext %inSizeIsMain) local_unnamed_addr #1 align 2 {
+entry:
+  %_ratioProgress = getelementptr inbounds %class.CLocalProgress, ptr %this, i64 0, i32 4
+  %0 = load ptr, ptr %_ratioProgress, align 8, !tbaa !22
+  %tobool.not.i = icmp eq ptr %0, null
+  br i1 %tobool.not.i, label %_ZN9CMyComPtrI21ICompressProgressInfoE7ReleaseEv.exit, label %if.then.i
 
-7:                                                ; preds = %3
-  %8 = load ptr, ptr %5, align 8, !tbaa !10
-  %9 = getelementptr inbounds ptr, ptr %8, i64 2
-  %10 = load ptr, ptr %9, align 8
-  %11 = tail call noundef i32 %10(ptr noundef nonnull align 8 dereferenceable(8) %5)
-  store ptr null, ptr %4, align 8, !tbaa !22
-  br label %12
+if.then.i:                                        ; preds = %entry
+  %vtable.i = load ptr, ptr %0, align 8, !tbaa !10
+  %vfn.i = getelementptr inbounds ptr, ptr %vtable.i, i64 2
+  %1 = load ptr, ptr %vfn.i, align 8
+  %call.i = tail call noundef i32 %1(ptr noundef nonnull align 8 dereferenceable(8) %0)
+  store ptr null, ptr %_ratioProgress, align 8, !tbaa !22
+  br label %_ZN9CMyComPtrI21ICompressProgressInfoE7ReleaseEv.exit
 
-12:                                               ; preds = %3, %7
-  %13 = getelementptr inbounds %class.CLocalProgress, ptr %0, i64 0, i32 3
-  %14 = icmp eq ptr %1, null
-  br i1 %14, label %20, label %15
+_ZN9CMyComPtrI21ICompressProgressInfoE7ReleaseEv.exit: ; preds = %entry, %if.then.i
+  %_progress = getelementptr inbounds %class.CLocalProgress, ptr %this, i64 0, i32 3
+  %cmp.not.i = icmp eq ptr %progress, null
+  br i1 %cmp.not.i, label %if.end.i, label %if.then.i10
 
-15:                                               ; preds = %12
-  %16 = load ptr, ptr %1, align 8, !tbaa !10
-  %17 = getelementptr inbounds ptr, ptr %16, i64 1
-  %18 = load ptr, ptr %17, align 8
-  %19 = tail call noundef i32 %18(ptr noundef nonnull align 8 dereferenceable(8) %1)
-  br label %20
+if.then.i10:                                      ; preds = %_ZN9CMyComPtrI21ICompressProgressInfoE7ReleaseEv.exit
+  %vtable.i7 = load ptr, ptr %progress, align 8, !tbaa !10
+  %vfn.i8 = getelementptr inbounds ptr, ptr %vtable.i7, i64 1
+  %2 = load ptr, ptr %vfn.i8, align 8
+  %call.i9 = tail call noundef i32 %2(ptr noundef nonnull align 8 dereferenceable(8) %progress)
+  br label %if.end.i
 
-20:                                               ; preds = %15, %12
-  %21 = load ptr, ptr %13, align 8, !tbaa !23
-  %22 = icmp eq ptr %21, null
-  br i1 %22, label %28, label %23
+if.end.i:                                         ; preds = %if.then.i10, %_ZN9CMyComPtrI21ICompressProgressInfoE7ReleaseEv.exit
+  %3 = load ptr, ptr %_progress, align 8, !tbaa !23
+  %tobool.not.i11 = icmp eq ptr %3, null
+  br i1 %tobool.not.i11, label %_ZN9CMyComPtrI9IProgressEaSEPS0_.exit, label %if.then2.i
 
-23:                                               ; preds = %20
-  %24 = load ptr, ptr %21, align 8, !tbaa !10
-  %25 = getelementptr inbounds ptr, ptr %24, i64 2
-  %26 = load ptr, ptr %25, align 8
-  %27 = tail call noundef i32 %26(ptr noundef nonnull align 8 dereferenceable(8) %21)
-  br label %28
+if.then2.i:                                       ; preds = %if.end.i
+  %vtable4.i = load ptr, ptr %3, align 8, !tbaa !10
+  %vfn5.i = getelementptr inbounds ptr, ptr %vtable4.i, i64 2
+  %4 = load ptr, ptr %vfn5.i, align 8
+  %call6.i = tail call noundef i32 %4(ptr noundef nonnull align 8 dereferenceable(8) %3)
+  br label %_ZN9CMyComPtrI9IProgressEaSEPS0_.exit
 
-28:                                               ; preds = %20, %23
-  %29 = zext i1 %2 to i8
-  store ptr %1, ptr %13, align 8, !tbaa !23
-  %30 = load ptr, ptr %1, align 8, !tbaa !10
-  %31 = load ptr, ptr %30, align 8
-  %32 = tail call noundef i32 %31(ptr noundef nonnull align 8 dereferenceable(8) %1, ptr noundef nonnull align 4 dereferenceable(16) @IID_ICompressProgressInfo, ptr noundef nonnull %4)
-  %33 = getelementptr inbounds %class.CLocalProgress, ptr %0, i64 0, i32 5
-  store i8 %29, ptr %33, align 8, !tbaa !24
+_ZN9CMyComPtrI9IProgressEaSEPS0_.exit:            ; preds = %if.end.i, %if.then2.i
+  %frombool = zext i1 %inSizeIsMain to i8
+  store ptr %progress, ptr %_progress, align 8, !tbaa !23
+  %vtable.i12 = load ptr, ptr %progress, align 8, !tbaa !10
+  %5 = load ptr, ptr %vtable.i12, align 8
+  %call.i13 = tail call noundef i32 %5(ptr noundef nonnull align 8 dereferenceable(8) %progress, ptr noundef nonnull align 4 dereferenceable(16) @IID_ICompressProgressInfo, ptr noundef nonnull %_ratioProgress)
+  %_inSizeIsMain = getelementptr inbounds %class.CLocalProgress, ptr %this, i64 0, i32 5
+  store i8 %frombool, ptr %_inSizeIsMain, align 8, !tbaa !24
   ret void
 }
 
 ; Function Attrs: mustprogress uwtable
-define dso_local noundef i32 @_ZN14CLocalProgress12SetRatioInfoEPKyS1_(ptr nocapture noundef nonnull readonly align 8 dereferenceable(66) %0, ptr noundef readonly %1, ptr noundef readonly %2) unnamed_addr #1 align 2 {
-  %4 = alloca i64, align 8
-  %5 = alloca i64, align 8
-  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %4) #8
-  %6 = getelementptr inbounds %class.CLocalProgress, ptr %0, i64 0, i32 8
-  %7 = load i64, ptr %6, align 8, !tbaa !25
-  store i64 %7, ptr %4, align 8, !tbaa !26
-  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %5) #8
-  %8 = getelementptr inbounds %class.CLocalProgress, ptr %0, i64 0, i32 9
-  %9 = load i64, ptr %8, align 8, !tbaa !27
-  store i64 %9, ptr %5, align 8, !tbaa !26
-  %10 = icmp eq ptr %1, null
-  br i1 %10, label %14, label %11
+define dso_local noundef i32 @_ZN14CLocalProgress12SetRatioInfoEPKyS1_(ptr nocapture noundef nonnull readonly align 8 dereferenceable(66) %this, ptr noundef readonly %inSize, ptr noundef readonly %outSize) unnamed_addr #1 align 2 {
+entry:
+  %inSizeNew = alloca i64, align 8
+  %outSizeNew = alloca i64, align 8
+  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %inSizeNew) #8
+  %InSize = getelementptr inbounds %class.CLocalProgress, ptr %this, i64 0, i32 8
+  %0 = load i64, ptr %InSize, align 8, !tbaa !25
+  store i64 %0, ptr %inSizeNew, align 8, !tbaa !25
+  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %outSizeNew) #8
+  %OutSize = getelementptr inbounds %class.CLocalProgress, ptr %this, i64 0, i32 9
+  %1 = load i64, ptr %OutSize, align 8, !tbaa !25
+  store i64 %1, ptr %outSizeNew, align 8, !tbaa !25
+  %tobool.not = icmp eq ptr %inSize, null
+  br i1 %tobool.not, label %if.end, label %if.then
 
-11:                                               ; preds = %3
-  %12 = load i64, ptr %1, align 8, !tbaa !26
-  %13 = add i64 %12, %7
-  store i64 %13, ptr %4, align 8, !tbaa !26
-  br label %14
+if.then:                                          ; preds = %entry
+  %2 = load i64, ptr %inSize, align 8, !tbaa !25
+  %add = add i64 %2, %0
+  store i64 %add, ptr %inSizeNew, align 8, !tbaa !25
+  br label %if.end
 
-14:                                               ; preds = %11, %3
-  %15 = phi i64 [ %13, %11 ], [ %7, %3 ]
-  %16 = icmp eq ptr %2, null
-  br i1 %16, label %20, label %17
+if.end:                                           ; preds = %if.then, %entry
+  %3 = phi i64 [ %add, %if.then ], [ %0, %entry ]
+  %tobool2.not = icmp eq ptr %outSize, null
+  br i1 %tobool2.not, label %if.end5, label %if.then3
 
-17:                                               ; preds = %14
-  %18 = load i64, ptr %2, align 8, !tbaa !26
-  %19 = add i64 %18, %9
-  store i64 %19, ptr %5, align 8, !tbaa !26
-  br label %20
+if.then3:                                         ; preds = %if.end
+  %4 = load i64, ptr %outSize, align 8, !tbaa !25
+  %add4 = add i64 %4, %1
+  store i64 %add4, ptr %outSizeNew, align 8, !tbaa !25
+  br label %if.end5
 
-20:                                               ; preds = %17, %14
-  %21 = phi i64 [ %19, %17 ], [ %9, %14 ]
-  %22 = getelementptr inbounds %class.CLocalProgress, ptr %0, i64 0, i32 10
-  %23 = load i8, ptr %22, align 8, !tbaa !21, !range !28, !noundef !29
-  %24 = icmp eq i8 %23, 0
-  br i1 %24, label %38, label %25
+if.end5:                                          ; preds = %if.then3, %if.end
+  %5 = phi i64 [ %add4, %if.then3 ], [ %1, %if.end ]
+  %SendRatio = getelementptr inbounds %class.CLocalProgress, ptr %this, i64 0, i32 10
+  %6 = load i8, ptr %SendRatio, align 8, !tbaa !21, !range !26, !noundef !27
+  %tobool6.not = icmp eq i8 %6, 0
+  br i1 %tobool6.not, label %if.end14, label %land.lhs.true
 
-25:                                               ; preds = %20
-  %26 = getelementptr inbounds %class.CLocalProgress, ptr %0, i64 0, i32 4
-  %27 = load ptr, ptr %26, align 8, !tbaa !22
-  %28 = icmp eq ptr %27, null
-  br i1 %28, label %38, label %29
+land.lhs.true:                                    ; preds = %if.end5
+  %_ratioProgress = getelementptr inbounds %class.CLocalProgress, ptr %this, i64 0, i32 4
+  %7 = load ptr, ptr %_ratioProgress, align 8, !tbaa !22
+  %tobool7.not = icmp eq ptr %7, null
+  br i1 %tobool7.not, label %if.end14, label %if.then8
 
-29:                                               ; preds = %25
-  %30 = load ptr, ptr %27, align 8, !tbaa !10
-  %31 = getelementptr inbounds ptr, ptr %30, i64 5
-  %32 = load ptr, ptr %31, align 8
-  %33 = call noundef i32 %32(ptr noundef nonnull align 8 dereferenceable(8) %27, ptr noundef nonnull %4, ptr noundef nonnull %5)
-  %34 = icmp eq i32 %33, 0
-  br i1 %34, label %35, label %59
+if.then8:                                         ; preds = %land.lhs.true
+  %vtable = load ptr, ptr %7, align 8, !tbaa !10
+  %vfn = getelementptr inbounds ptr, ptr %vtable, i64 5
+  %8 = load ptr, ptr %vfn, align 8
+  %call11 = call noundef i32 %8(ptr noundef nonnull align 8 dereferenceable(8) %7, ptr noundef nonnull %inSizeNew, ptr noundef nonnull %outSizeNew)
+  %cmp.not = icmp eq i32 %call11, 0
+  br i1 %cmp.not, label %if.then8.if.end14_crit_edge, label %cleanup26
 
-35:                                               ; preds = %29
-  %36 = load i64, ptr %4, align 8, !tbaa !26
-  %37 = load i64, ptr %5, align 8, !tbaa !26
-  br label %38
+if.then8.if.end14_crit_edge:                      ; preds = %if.then8
+  %.pre = load i64, ptr %inSizeNew, align 8, !tbaa !25
+  %.pre32 = load i64, ptr %outSizeNew, align 8, !tbaa !25
+  br label %if.end14
 
-38:                                               ; preds = %35, %25, %20
-  %39 = phi i64 [ %37, %35 ], [ %21, %25 ], [ %21, %20 ]
-  %40 = phi i64 [ %36, %35 ], [ %15, %25 ], [ %15, %20 ]
-  %41 = getelementptr inbounds %class.CLocalProgress, ptr %0, i64 0, i32 7
-  %42 = load i64, ptr %41, align 8, !tbaa !30
-  %43 = add i64 %40, %42
-  store i64 %43, ptr %4, align 8, !tbaa !26
-  %44 = add i64 %39, %42
-  store i64 %44, ptr %5, align 8, !tbaa !26
-  %45 = getelementptr inbounds %class.CLocalProgress, ptr %0, i64 0, i32 11
-  %46 = load i8, ptr %45, align 1, !tbaa !12, !range !28, !noundef !29
-  %47 = icmp eq i8 %46, 0
-  br i1 %47, label %59, label %48
+if.end14:                                         ; preds = %if.then8.if.end14_crit_edge, %land.lhs.true, %if.end5
+  %9 = phi i64 [ %.pre32, %if.then8.if.end14_crit_edge ], [ %5, %land.lhs.true ], [ %5, %if.end5 ]
+  %10 = phi i64 [ %.pre, %if.then8.if.end14_crit_edge ], [ %3, %land.lhs.true ], [ %3, %if.end5 ]
+  %ProgressOffset = getelementptr inbounds %class.CLocalProgress, ptr %this, i64 0, i32 7
+  %11 = load i64, ptr %ProgressOffset, align 8, !tbaa !28
+  %add15 = add i64 %10, %11
+  store i64 %add15, ptr %inSizeNew, align 8, !tbaa !25
+  %add17 = add i64 %9, %11
+  store i64 %add17, ptr %outSizeNew, align 8, !tbaa !25
+  %SendProgress = getelementptr inbounds %class.CLocalProgress, ptr %this, i64 0, i32 11
+  %12 = load i8, ptr %SendProgress, align 1, !tbaa !12, !range !26, !noundef !27
+  %tobool18.not = icmp eq i8 %12, 0
+  br i1 %tobool18.not, label %cleanup26, label %if.then19
 
-48:                                               ; preds = %38
-  %49 = getelementptr inbounds %class.CLocalProgress, ptr %0, i64 0, i32 3
-  %50 = load ptr, ptr %49, align 8, !tbaa !23
-  %51 = getelementptr inbounds %class.CLocalProgress, ptr %0, i64 0, i32 5
-  %52 = load i8, ptr %51, align 8, !tbaa !24, !range !28, !noundef !29
-  %53 = icmp eq i8 %52, 0
-  %54 = select i1 %53, ptr %5, ptr %4
-  %55 = load ptr, ptr %50, align 8, !tbaa !10
-  %56 = getelementptr inbounds ptr, ptr %55, i64 6
-  %57 = load ptr, ptr %56, align 8
-  %58 = call noundef i32 %57(ptr noundef nonnull align 8 dereferenceable(8) %50, ptr noundef nonnull %54)
-  br label %59
+if.then19:                                        ; preds = %if.end14
+  %_progress = getelementptr inbounds %class.CLocalProgress, ptr %this, i64 0, i32 3
+  %13 = load ptr, ptr %_progress, align 8, !tbaa !23
+  %_inSizeIsMain = getelementptr inbounds %class.CLocalProgress, ptr %this, i64 0, i32 5
+  %14 = load i8, ptr %_inSizeIsMain, align 8, !tbaa !24, !range !26, !noundef !27
+  %tobool21.not = icmp eq i8 %14, 0
+  %inSizeNew.outSizeNew = select i1 %tobool21.not, ptr %outSizeNew, ptr %inSizeNew
+  %vtable22 = load ptr, ptr %13, align 8, !tbaa !10
+  %vfn23 = getelementptr inbounds ptr, ptr %vtable22, i64 6
+  %15 = load ptr, ptr %vfn23, align 8
+  %call24 = call noundef i32 %15(ptr noundef nonnull align 8 dereferenceable(8) %13, ptr noundef nonnull %inSizeNew.outSizeNew)
+  br label %cleanup26
 
-59:                                               ; preds = %38, %29, %48
-  %60 = phi i32 [ %58, %48 ], [ %33, %29 ], [ 0, %38 ]
-  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %5) #8
-  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %4) #8
-  ret i32 %60
+cleanup26:                                        ; preds = %if.end14, %if.then8, %if.then19
+  %retval.1 = phi i32 [ %call24, %if.then19 ], [ %call11, %if.then8 ], [ 0, %if.end14 ]
+  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %outSizeNew) #8
+  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %inSizeNew) #8
+  ret i32 %retval.1
 }
 
 ; Function Attrs: mustprogress nocallback nofree nosync nounwind willreturn memory(argmem: readwrite)
@@ -219,258 +222,264 @@ declare void @llvm.lifetime.start.p0(i64 immarg, ptr nocapture) #2
 declare void @llvm.lifetime.end.p0(i64 immarg, ptr nocapture) #2
 
 ; Function Attrs: mustprogress uwtable
-define dso_local noundef i32 @_ZN14CLocalProgress6SetCurEv(ptr noundef nonnull align 8 dereferenceable(66) %0) local_unnamed_addr #1 align 2 {
-  %2 = load ptr, ptr %0, align 8, !tbaa !10
-  %3 = getelementptr inbounds ptr, ptr %2, i64 5
-  %4 = load ptr, ptr %3, align 8
-  %5 = tail call noundef i32 %4(ptr noundef nonnull align 8 dereferenceable(66) %0, ptr noundef null, ptr noundef null)
-  ret i32 %5
+define dso_local noundef i32 @_ZN14CLocalProgress6SetCurEv(ptr noundef nonnull align 8 dereferenceable(66) %this) local_unnamed_addr #1 align 2 {
+entry:
+  %vtable = load ptr, ptr %this, align 8, !tbaa !10
+  %vfn = getelementptr inbounds ptr, ptr %vtable, i64 5
+  %0 = load ptr, ptr %vfn, align 8
+  %call = tail call noundef i32 %0(ptr noundef nonnull align 8 dereferenceable(66) %this, ptr noundef null, ptr noundef null)
+  ret i32 %call
 }
 
 ; Function Attrs: mustprogress uwtable
-define linkonce_odr dso_local noundef i32 @_ZN14CLocalProgress14QueryInterfaceERK4GUIDPPv(ptr noundef nonnull align 8 dereferenceable(66) %0, ptr noundef nonnull align 4 dereferenceable(16) %1, ptr noundef %2) unnamed_addr #1 comdat align 2 {
-  %4 = load i8, ptr %1, align 4, !tbaa !31
-  %5 = load i8, ptr @IID_IUnknown, align 4, !tbaa !31
-  %6 = icmp eq i8 %4, %5
-  br i1 %6, label %7, label %87
+define linkonce_odr dso_local noundef i32 @_ZN14CLocalProgress14QueryInterfaceERK4GUIDPPv(ptr noundef nonnull align 8 dereferenceable(66) %this, ptr noundef nonnull align 4 dereferenceable(16) %iid, ptr noundef %outObject) unnamed_addr #1 comdat align 2 {
+entry:
+  %0 = load i8, ptr %iid, align 4, !tbaa !29
+  %1 = load i8, ptr @IID_IUnknown, align 4, !tbaa !29
+  %cmp4.not.i = icmp eq i8 %0, %1
+  br i1 %cmp4.not.i, label %for.cond.i, label %return
 
-7:                                                ; preds = %3
-  %8 = getelementptr inbounds i8, ptr %1, i64 1
-  %9 = load i8, ptr %8, align 1, !tbaa !31
-  %10 = load i8, ptr getelementptr inbounds (i8, ptr @IID_IUnknown, i64 1), align 1, !tbaa !31
-  %11 = icmp eq i8 %9, %10
-  br i1 %11, label %12, label %87
+for.cond.i:                                       ; preds = %entry
+  %arrayidx.1.i = getelementptr inbounds i8, ptr %iid, i64 1
+  %2 = load i8, ptr %arrayidx.1.i, align 1, !tbaa !29
+  %3 = load i8, ptr getelementptr inbounds (i8, ptr @IID_IUnknown, i64 1), align 1, !tbaa !29
+  %cmp4.not.1.i = icmp eq i8 %2, %3
+  br i1 %cmp4.not.1.i, label %for.cond.1.i, label %return
 
-12:                                               ; preds = %7
-  %13 = getelementptr inbounds i8, ptr %1, i64 2
-  %14 = load i8, ptr %13, align 2, !tbaa !31
-  %15 = load i8, ptr getelementptr inbounds (i8, ptr @IID_IUnknown, i64 2), align 2, !tbaa !31
-  %16 = icmp eq i8 %14, %15
-  br i1 %16, label %17, label %87
+for.cond.1.i:                                     ; preds = %for.cond.i
+  %arrayidx.2.i = getelementptr inbounds i8, ptr %iid, i64 2
+  %4 = load i8, ptr %arrayidx.2.i, align 2, !tbaa !29
+  %5 = load i8, ptr getelementptr inbounds (i8, ptr @IID_IUnknown, i64 2), align 2, !tbaa !29
+  %cmp4.not.2.i = icmp eq i8 %4, %5
+  br i1 %cmp4.not.2.i, label %for.cond.2.i, label %return
 
-17:                                               ; preds = %12
-  %18 = getelementptr inbounds i8, ptr %1, i64 3
-  %19 = load i8, ptr %18, align 1, !tbaa !31
-  %20 = load i8, ptr getelementptr inbounds (i8, ptr @IID_IUnknown, i64 3), align 1, !tbaa !31
-  %21 = icmp eq i8 %19, %20
-  br i1 %21, label %22, label %87
+for.cond.2.i:                                     ; preds = %for.cond.1.i
+  %arrayidx.3.i = getelementptr inbounds i8, ptr %iid, i64 3
+  %6 = load i8, ptr %arrayidx.3.i, align 1, !tbaa !29
+  %7 = load i8, ptr getelementptr inbounds (i8, ptr @IID_IUnknown, i64 3), align 1, !tbaa !29
+  %cmp4.not.3.i = icmp eq i8 %6, %7
+  br i1 %cmp4.not.3.i, label %for.cond.3.i, label %return
 
-22:                                               ; preds = %17
-  %23 = getelementptr inbounds i8, ptr %1, i64 4
-  %24 = load i8, ptr %23, align 4, !tbaa !31
-  %25 = load i8, ptr getelementptr inbounds (%struct.GUID, ptr @IID_IUnknown, i64 0, i32 1), align 4, !tbaa !31
-  %26 = icmp eq i8 %24, %25
-  br i1 %26, label %27, label %87
+for.cond.3.i:                                     ; preds = %for.cond.2.i
+  %arrayidx.4.i = getelementptr inbounds i8, ptr %iid, i64 4
+  %8 = load i8, ptr %arrayidx.4.i, align 4, !tbaa !29
+  %9 = load i8, ptr getelementptr inbounds (%struct.GUID, ptr @IID_IUnknown, i64 0, i32 1), align 4, !tbaa !29
+  %cmp4.not.4.i = icmp eq i8 %8, %9
+  br i1 %cmp4.not.4.i, label %for.cond.4.i, label %return
 
-27:                                               ; preds = %22
-  %28 = getelementptr inbounds i8, ptr %1, i64 5
-  %29 = load i8, ptr %28, align 1, !tbaa !31
-  %30 = load i8, ptr getelementptr inbounds (i8, ptr @IID_IUnknown, i64 5), align 1, !tbaa !31
-  %31 = icmp eq i8 %29, %30
-  br i1 %31, label %32, label %87
+for.cond.4.i:                                     ; preds = %for.cond.3.i
+  %arrayidx.5.i = getelementptr inbounds i8, ptr %iid, i64 5
+  %10 = load i8, ptr %arrayidx.5.i, align 1, !tbaa !29
+  %11 = load i8, ptr getelementptr inbounds (i8, ptr @IID_IUnknown, i64 5), align 1, !tbaa !29
+  %cmp4.not.5.i = icmp eq i8 %10, %11
+  br i1 %cmp4.not.5.i, label %for.cond.5.i, label %return
 
-32:                                               ; preds = %27
-  %33 = getelementptr inbounds i8, ptr %1, i64 6
-  %34 = load i8, ptr %33, align 2, !tbaa !31
-  %35 = load i8, ptr getelementptr inbounds (%struct.GUID, ptr @IID_IUnknown, i64 0, i32 2), align 2, !tbaa !31
-  %36 = icmp eq i8 %34, %35
-  br i1 %36, label %37, label %87
+for.cond.5.i:                                     ; preds = %for.cond.4.i
+  %arrayidx.6.i = getelementptr inbounds i8, ptr %iid, i64 6
+  %12 = load i8, ptr %arrayidx.6.i, align 2, !tbaa !29
+  %13 = load i8, ptr getelementptr inbounds (%struct.GUID, ptr @IID_IUnknown, i64 0, i32 2), align 2, !tbaa !29
+  %cmp4.not.6.i = icmp eq i8 %12, %13
+  br i1 %cmp4.not.6.i, label %for.cond.6.i, label %return
 
-37:                                               ; preds = %32
-  %38 = getelementptr inbounds i8, ptr %1, i64 7
-  %39 = load i8, ptr %38, align 1, !tbaa !31
-  %40 = load i8, ptr getelementptr inbounds (i8, ptr @IID_IUnknown, i64 7), align 1, !tbaa !31
-  %41 = icmp eq i8 %39, %40
-  br i1 %41, label %42, label %87
+for.cond.6.i:                                     ; preds = %for.cond.5.i
+  %arrayidx.7.i = getelementptr inbounds i8, ptr %iid, i64 7
+  %14 = load i8, ptr %arrayidx.7.i, align 1, !tbaa !29
+  %15 = load i8, ptr getelementptr inbounds (i8, ptr @IID_IUnknown, i64 7), align 1, !tbaa !29
+  %cmp4.not.7.i = icmp eq i8 %14, %15
+  br i1 %cmp4.not.7.i, label %for.cond.7.i, label %return
 
-42:                                               ; preds = %37
-  %43 = getelementptr inbounds i8, ptr %1, i64 8
-  %44 = load i8, ptr %43, align 4, !tbaa !31
-  %45 = load i8, ptr getelementptr inbounds (%struct.GUID, ptr @IID_IUnknown, i64 0, i32 3, i64 0), align 4, !tbaa !31
-  %46 = icmp eq i8 %44, %45
-  br i1 %46, label %47, label %87
+for.cond.7.i:                                     ; preds = %for.cond.6.i
+  %arrayidx.8.i = getelementptr inbounds i8, ptr %iid, i64 8
+  %16 = load i8, ptr %arrayidx.8.i, align 4, !tbaa !29
+  %17 = load i8, ptr getelementptr inbounds (%struct.GUID, ptr @IID_IUnknown, i64 0, i32 3, i64 0), align 4, !tbaa !29
+  %cmp4.not.8.i = icmp eq i8 %16, %17
+  br i1 %cmp4.not.8.i, label %for.cond.8.i, label %return
 
-47:                                               ; preds = %42
-  %48 = getelementptr inbounds i8, ptr %1, i64 9
-  %49 = load i8, ptr %48, align 1, !tbaa !31
-  %50 = load i8, ptr getelementptr inbounds (%struct.GUID, ptr @IID_IUnknown, i64 0, i32 3, i64 1), align 1, !tbaa !31
-  %51 = icmp eq i8 %49, %50
-  br i1 %51, label %52, label %87
+for.cond.8.i:                                     ; preds = %for.cond.7.i
+  %arrayidx.9.i = getelementptr inbounds i8, ptr %iid, i64 9
+  %18 = load i8, ptr %arrayidx.9.i, align 1, !tbaa !29
+  %19 = load i8, ptr getelementptr inbounds (%struct.GUID, ptr @IID_IUnknown, i64 0, i32 3, i64 1), align 1, !tbaa !29
+  %cmp4.not.9.i = icmp eq i8 %18, %19
+  br i1 %cmp4.not.9.i, label %for.cond.9.i, label %return
 
-52:                                               ; preds = %47
-  %53 = getelementptr inbounds i8, ptr %1, i64 10
-  %54 = load i8, ptr %53, align 2, !tbaa !31
-  %55 = load i8, ptr getelementptr inbounds (%struct.GUID, ptr @IID_IUnknown, i64 0, i32 3, i64 2), align 2, !tbaa !31
-  %56 = icmp eq i8 %54, %55
-  br i1 %56, label %57, label %87
+for.cond.9.i:                                     ; preds = %for.cond.8.i
+  %arrayidx.10.i = getelementptr inbounds i8, ptr %iid, i64 10
+  %20 = load i8, ptr %arrayidx.10.i, align 2, !tbaa !29
+  %21 = load i8, ptr getelementptr inbounds (%struct.GUID, ptr @IID_IUnknown, i64 0, i32 3, i64 2), align 2, !tbaa !29
+  %cmp4.not.10.i = icmp eq i8 %20, %21
+  br i1 %cmp4.not.10.i, label %for.cond.10.i, label %return
 
-57:                                               ; preds = %52
-  %58 = getelementptr inbounds i8, ptr %1, i64 11
-  %59 = load i8, ptr %58, align 1, !tbaa !31
-  %60 = load i8, ptr getelementptr inbounds (%struct.GUID, ptr @IID_IUnknown, i64 0, i32 3, i64 3), align 1, !tbaa !31
-  %61 = icmp eq i8 %59, %60
-  br i1 %61, label %62, label %87
+for.cond.10.i:                                    ; preds = %for.cond.9.i
+  %arrayidx.11.i = getelementptr inbounds i8, ptr %iid, i64 11
+  %22 = load i8, ptr %arrayidx.11.i, align 1, !tbaa !29
+  %23 = load i8, ptr getelementptr inbounds (%struct.GUID, ptr @IID_IUnknown, i64 0, i32 3, i64 3), align 1, !tbaa !29
+  %cmp4.not.11.i = icmp eq i8 %22, %23
+  br i1 %cmp4.not.11.i, label %for.cond.11.i, label %return
 
-62:                                               ; preds = %57
-  %63 = getelementptr inbounds i8, ptr %1, i64 12
-  %64 = load i8, ptr %63, align 4, !tbaa !31
-  %65 = load i8, ptr getelementptr inbounds (%struct.GUID, ptr @IID_IUnknown, i64 0, i32 3, i64 4), align 4, !tbaa !31
-  %66 = icmp eq i8 %64, %65
-  br i1 %66, label %67, label %87
+for.cond.11.i:                                    ; preds = %for.cond.10.i
+  %arrayidx.12.i = getelementptr inbounds i8, ptr %iid, i64 12
+  %24 = load i8, ptr %arrayidx.12.i, align 4, !tbaa !29
+  %25 = load i8, ptr getelementptr inbounds (%struct.GUID, ptr @IID_IUnknown, i64 0, i32 3, i64 4), align 4, !tbaa !29
+  %cmp4.not.12.i = icmp eq i8 %24, %25
+  br i1 %cmp4.not.12.i, label %for.cond.12.i, label %return
 
-67:                                               ; preds = %62
-  %68 = getelementptr inbounds i8, ptr %1, i64 13
-  %69 = load i8, ptr %68, align 1, !tbaa !31
-  %70 = load i8, ptr getelementptr inbounds (%struct.GUID, ptr @IID_IUnknown, i64 0, i32 3, i64 5), align 1, !tbaa !31
-  %71 = icmp eq i8 %69, %70
-  br i1 %71, label %72, label %87
+for.cond.12.i:                                    ; preds = %for.cond.11.i
+  %arrayidx.13.i = getelementptr inbounds i8, ptr %iid, i64 13
+  %26 = load i8, ptr %arrayidx.13.i, align 1, !tbaa !29
+  %27 = load i8, ptr getelementptr inbounds (%struct.GUID, ptr @IID_IUnknown, i64 0, i32 3, i64 5), align 1, !tbaa !29
+  %cmp4.not.13.i = icmp eq i8 %26, %27
+  br i1 %cmp4.not.13.i, label %for.cond.13.i, label %return
 
-72:                                               ; preds = %67
-  %73 = getelementptr inbounds i8, ptr %1, i64 14
-  %74 = load i8, ptr %73, align 2, !tbaa !31
-  %75 = load i8, ptr getelementptr inbounds (%struct.GUID, ptr @IID_IUnknown, i64 0, i32 3, i64 6), align 2, !tbaa !31
-  %76 = icmp eq i8 %74, %75
-  br i1 %76, label %77, label %87
+for.cond.13.i:                                    ; preds = %for.cond.12.i
+  %arrayidx.14.i = getelementptr inbounds i8, ptr %iid, i64 14
+  %28 = load i8, ptr %arrayidx.14.i, align 2, !tbaa !29
+  %29 = load i8, ptr getelementptr inbounds (%struct.GUID, ptr @IID_IUnknown, i64 0, i32 3, i64 6), align 2, !tbaa !29
+  %cmp4.not.14.i = icmp eq i8 %28, %29
+  br i1 %cmp4.not.14.i, label %_ZeqRK4GUIDS1_.exit, label %return
 
-77:                                               ; preds = %72
-  %78 = getelementptr inbounds i8, ptr %1, i64 15
-  %79 = load i8, ptr %78, align 1, !tbaa !31
-  %80 = load i8, ptr getelementptr inbounds (%struct.GUID, ptr @IID_IUnknown, i64 0, i32 3, i64 7), align 1, !tbaa !31
-  %81 = icmp eq i8 %79, %80
-  br i1 %81, label %82, label %87
+_ZeqRK4GUIDS1_.exit:                              ; preds = %for.cond.13.i
+  %arrayidx.15.i = getelementptr inbounds i8, ptr %iid, i64 15
+  %30 = load i8, ptr %arrayidx.15.i, align 1, !tbaa !29
+  %31 = load i8, ptr getelementptr inbounds (%struct.GUID, ptr @IID_IUnknown, i64 0, i32 3, i64 7), align 1, !tbaa !29
+  %cmp4.not.15.i.not = icmp eq i8 %30, %31
+  br i1 %cmp4.not.15.i.not, label %if.then, label %return
 
-82:                                               ; preds = %77
-  store ptr %0, ptr %2, align 8, !tbaa !32
-  %83 = load ptr, ptr %0, align 8, !tbaa !10
-  %84 = getelementptr inbounds ptr, ptr %83, i64 1
-  %85 = load ptr, ptr %84, align 8
-  %86 = tail call noundef i32 %85(ptr noundef nonnull align 8 dereferenceable(66) %0)
-  br label %87
+if.then:                                          ; preds = %_ZeqRK4GUIDS1_.exit
+  store ptr %this, ptr %outObject, align 8, !tbaa !30
+  %vtable = load ptr, ptr %this, align 8, !tbaa !10
+  %vfn = getelementptr inbounds ptr, ptr %vtable, i64 1
+  %32 = load ptr, ptr %vfn, align 8
+  %call2 = tail call noundef i32 %32(ptr noundef nonnull align 8 dereferenceable(66) %this)
+  br label %return
 
-87:                                               ; preds = %72, %67, %62, %57, %52, %47, %42, %37, %32, %27, %22, %17, %12, %7, %3, %77, %82
-  %88 = phi i32 [ 0, %82 ], [ -2147467262, %77 ], [ -2147467262, %3 ], [ -2147467262, %7 ], [ -2147467262, %12 ], [ -2147467262, %17 ], [ -2147467262, %22 ], [ -2147467262, %27 ], [ -2147467262, %32 ], [ -2147467262, %37 ], [ -2147467262, %42 ], [ -2147467262, %47 ], [ -2147467262, %52 ], [ -2147467262, %57 ], [ -2147467262, %62 ], [ -2147467262, %67 ], [ -2147467262, %72 ]
-  ret i32 %88
+return:                                           ; preds = %for.cond.13.i, %for.cond.12.i, %for.cond.11.i, %for.cond.10.i, %for.cond.9.i, %for.cond.8.i, %for.cond.7.i, %for.cond.6.i, %for.cond.5.i, %for.cond.4.i, %for.cond.3.i, %for.cond.2.i, %for.cond.1.i, %for.cond.i, %entry, %_ZeqRK4GUIDS1_.exit, %if.then
+  %retval.0 = phi i32 [ 0, %if.then ], [ -2147467262, %_ZeqRK4GUIDS1_.exit ], [ -2147467262, %entry ], [ -2147467262, %for.cond.i ], [ -2147467262, %for.cond.1.i ], [ -2147467262, %for.cond.2.i ], [ -2147467262, %for.cond.3.i ], [ -2147467262, %for.cond.4.i ], [ -2147467262, %for.cond.5.i ], [ -2147467262, %for.cond.6.i ], [ -2147467262, %for.cond.7.i ], [ -2147467262, %for.cond.8.i ], [ -2147467262, %for.cond.9.i ], [ -2147467262, %for.cond.10.i ], [ -2147467262, %for.cond.11.i ], [ -2147467262, %for.cond.12.i ], [ -2147467262, %for.cond.13.i ]
+  ret i32 %retval.0
 }
 
 ; Function Attrs: mustprogress nounwind uwtable
-define linkonce_odr dso_local noundef i32 @_ZN14CLocalProgress6AddRefEv(ptr noundef nonnull align 8 dereferenceable(66) %0) unnamed_addr #3 comdat align 2 {
-  %2 = getelementptr inbounds i8, ptr %0, i64 8
-  %3 = load i32, ptr %2, align 8, !tbaa !5
-  %4 = add i32 %3, 1
-  store i32 %4, ptr %2, align 8, !tbaa !5
-  ret i32 %4
+define linkonce_odr dso_local noundef i32 @_ZN14CLocalProgress6AddRefEv(ptr noundef nonnull align 8 dereferenceable(66) %this) unnamed_addr #3 comdat align 2 {
+entry:
+  %add.ptr = getelementptr inbounds i8, ptr %this, i64 8
+  %0 = load i32, ptr %add.ptr, align 8, !tbaa !5
+  %inc = add i32 %0, 1
+  store i32 %inc, ptr %add.ptr, align 8, !tbaa !5
+  ret i32 %inc
 }
 
 ; Function Attrs: mustprogress nounwind uwtable
-define linkonce_odr dso_local noundef i32 @_ZN14CLocalProgress7ReleaseEv(ptr noundef nonnull align 8 dereferenceable(66) %0) unnamed_addr #3 comdat align 2 {
-  %2 = getelementptr inbounds i8, ptr %0, i64 8
-  %3 = load i32, ptr %2, align 8, !tbaa !5
-  %4 = add i32 %3, -1
-  store i32 %4, ptr %2, align 8, !tbaa !5
-  %5 = icmp eq i32 %4, 0
-  br i1 %5, label %6, label %10
+define linkonce_odr dso_local noundef i32 @_ZN14CLocalProgress7ReleaseEv(ptr noundef nonnull align 8 dereferenceable(66) %this) unnamed_addr #3 comdat align 2 {
+entry:
+  %add.ptr = getelementptr inbounds i8, ptr %this, i64 8
+  %0 = load i32, ptr %add.ptr, align 8, !tbaa !5
+  %dec = add i32 %0, -1
+  store i32 %dec, ptr %add.ptr, align 8, !tbaa !5
+  %cmp.not = icmp eq i32 %dec, 0
+  br i1 %cmp.not, label %delete.notnull, label %return
 
-6:                                                ; preds = %1
-  %7 = load ptr, ptr %0, align 8, !tbaa !10
-  %8 = getelementptr inbounds ptr, ptr %7, i64 4
-  %9 = load ptr, ptr %8, align 8
-  tail call void %9(ptr noundef nonnull align 8 dereferenceable(66) %0) #8
-  br label %10
+delete.notnull:                                   ; preds = %entry
+  %vtable = load ptr, ptr %this, align 8, !tbaa !10
+  %vfn = getelementptr inbounds ptr, ptr %vtable, i64 4
+  %1 = load ptr, ptr %vfn, align 8
+  tail call void %1(ptr noundef nonnull align 8 dereferenceable(66) %this) #8
+  br label %return
 
-10:                                               ; preds = %1, %6
-  ret i32 %4
+return:                                           ; preds = %entry, %delete.notnull
+  ret i32 %dec
 }
 
 ; Function Attrs: inlinehint nounwind uwtable
-define linkonce_odr dso_local void @_ZN14CLocalProgressD2Ev(ptr noundef nonnull align 8 dereferenceable(66) %0) unnamed_addr #4 comdat align 2 personality ptr @__gxx_personality_v0 {
-  store ptr getelementptr inbounds ({ [8 x ptr] }, ptr @_ZTV14CLocalProgress, i64 0, inrange i32 0, i64 2), ptr %0, align 8, !tbaa !10
-  %2 = getelementptr inbounds %class.CLocalProgress, ptr %0, i64 0, i32 4
-  %3 = load ptr, ptr %2, align 8, !tbaa !22
-  %4 = icmp eq ptr %3, null
-  br i1 %4, label %13, label %5
+define linkonce_odr dso_local void @_ZN14CLocalProgressD2Ev(ptr noundef nonnull align 8 dereferenceable(66) %this) unnamed_addr #4 comdat align 2 personality ptr @__gxx_personality_v0 {
+entry:
+  store ptr getelementptr inbounds ({ [8 x ptr] }, ptr @_ZTV14CLocalProgress, i64 0, inrange i32 0, i64 2), ptr %this, align 8, !tbaa !10
+  %_ratioProgress = getelementptr inbounds %class.CLocalProgress, ptr %this, i64 0, i32 4
+  %0 = load ptr, ptr %_ratioProgress, align 8, !tbaa !22
+  %tobool.not.i = icmp eq ptr %0, null
+  br i1 %tobool.not.i, label %_ZN9CMyComPtrI21ICompressProgressInfoED2Ev.exit, label %if.then.i
 
-5:                                                ; preds = %1
-  %6 = load ptr, ptr %3, align 8, !tbaa !10
-  %7 = getelementptr inbounds ptr, ptr %6, i64 2
-  %8 = load ptr, ptr %7, align 8
-  %9 = invoke noundef i32 %8(ptr noundef nonnull align 8 dereferenceable(8) %3)
-          to label %13 unwind label %10
+if.then.i:                                        ; preds = %entry
+  %vtable.i = load ptr, ptr %0, align 8, !tbaa !10
+  %vfn.i = getelementptr inbounds ptr, ptr %vtable.i, i64 2
+  %1 = load ptr, ptr %vfn.i, align 8
+  %call.i = invoke noundef i32 %1(ptr noundef nonnull align 8 dereferenceable(8) %0)
+          to label %_ZN9CMyComPtrI21ICompressProgressInfoED2Ev.exit unwind label %terminate.lpad.i
 
-10:                                               ; preds = %5
-  %11 = landingpad { ptr, i32 }
+terminate.lpad.i:                                 ; preds = %if.then.i
+  %2 = landingpad { ptr, i32 }
           catch ptr null
-  %12 = extractvalue { ptr, i32 } %11, 0
-  tail call void @__clang_call_terminate(ptr %12) #9
+  %3 = extractvalue { ptr, i32 } %2, 0
+  tail call void @__clang_call_terminate(ptr %3) #9
   unreachable
 
-13:                                               ; preds = %1, %5
-  %14 = getelementptr inbounds %class.CLocalProgress, ptr %0, i64 0, i32 3
-  %15 = load ptr, ptr %14, align 8, !tbaa !23
-  %16 = icmp eq ptr %15, null
-  br i1 %16, label %25, label %17
+_ZN9CMyComPtrI21ICompressProgressInfoED2Ev.exit:  ; preds = %entry, %if.then.i
+  %_progress = getelementptr inbounds %class.CLocalProgress, ptr %this, i64 0, i32 3
+  %4 = load ptr, ptr %_progress, align 8, !tbaa !23
+  %tobool.not.i2 = icmp eq ptr %4, null
+  br i1 %tobool.not.i2, label %_ZN9CMyComPtrI9IProgressED2Ev.exit, label %if.then.i6
 
-17:                                               ; preds = %13
-  %18 = load ptr, ptr %15, align 8, !tbaa !10
-  %19 = getelementptr inbounds ptr, ptr %18, i64 2
-  %20 = load ptr, ptr %19, align 8
-  %21 = invoke noundef i32 %20(ptr noundef nonnull align 8 dereferenceable(8) %15)
-          to label %25 unwind label %22
+if.then.i6:                                       ; preds = %_ZN9CMyComPtrI21ICompressProgressInfoED2Ev.exit
+  %vtable.i3 = load ptr, ptr %4, align 8, !tbaa !10
+  %vfn.i4 = getelementptr inbounds ptr, ptr %vtable.i3, i64 2
+  %5 = load ptr, ptr %vfn.i4, align 8
+  %call.i5 = invoke noundef i32 %5(ptr noundef nonnull align 8 dereferenceable(8) %4)
+          to label %_ZN9CMyComPtrI9IProgressED2Ev.exit unwind label %terminate.lpad.i7
 
-22:                                               ; preds = %17
-  %23 = landingpad { ptr, i32 }
+terminate.lpad.i7:                                ; preds = %if.then.i6
+  %6 = landingpad { ptr, i32 }
           catch ptr null
-  %24 = extractvalue { ptr, i32 } %23, 0
-  tail call void @__clang_call_terminate(ptr %24) #9
+  %7 = extractvalue { ptr, i32 } %6, 0
+  tail call void @__clang_call_terminate(ptr %7) #9
   unreachable
 
-25:                                               ; preds = %13, %17
+_ZN9CMyComPtrI9IProgressED2Ev.exit:               ; preds = %_ZN9CMyComPtrI21ICompressProgressInfoED2Ev.exit, %if.then.i6
   ret void
 }
 
 ; Function Attrs: inlinehint nounwind uwtable
-define linkonce_odr dso_local void @_ZN14CLocalProgressD0Ev(ptr noundef nonnull align 8 dereferenceable(66) %0) unnamed_addr #4 comdat align 2 personality ptr @__gxx_personality_v0 {
-  store ptr getelementptr inbounds ({ [8 x ptr] }, ptr @_ZTV14CLocalProgress, i64 0, inrange i32 0, i64 2), ptr %0, align 8, !tbaa !10
-  %2 = getelementptr inbounds %class.CLocalProgress, ptr %0, i64 0, i32 4
-  %3 = load ptr, ptr %2, align 8, !tbaa !22
-  %4 = icmp eq ptr %3, null
-  br i1 %4, label %13, label %5
+define linkonce_odr dso_local void @_ZN14CLocalProgressD0Ev(ptr noundef nonnull align 8 dereferenceable(66) %this) unnamed_addr #4 comdat align 2 personality ptr @__gxx_personality_v0 {
+entry:
+  store ptr getelementptr inbounds ({ [8 x ptr] }, ptr @_ZTV14CLocalProgress, i64 0, inrange i32 0, i64 2), ptr %this, align 8, !tbaa !10
+  %_ratioProgress.i = getelementptr inbounds %class.CLocalProgress, ptr %this, i64 0, i32 4
+  %0 = load ptr, ptr %_ratioProgress.i, align 8, !tbaa !22
+  %tobool.not.i.i = icmp eq ptr %0, null
+  br i1 %tobool.not.i.i, label %_ZN9CMyComPtrI21ICompressProgressInfoED2Ev.exit.i, label %if.then.i.i
 
-5:                                                ; preds = %1
-  %6 = load ptr, ptr %3, align 8, !tbaa !10
-  %7 = getelementptr inbounds ptr, ptr %6, i64 2
-  %8 = load ptr, ptr %7, align 8
-  %9 = invoke noundef i32 %8(ptr noundef nonnull align 8 dereferenceable(8) %3)
-          to label %13 unwind label %10
+if.then.i.i:                                      ; preds = %entry
+  %vtable.i.i = load ptr, ptr %0, align 8, !tbaa !10
+  %vfn.i.i = getelementptr inbounds ptr, ptr %vtable.i.i, i64 2
+  %1 = load ptr, ptr %vfn.i.i, align 8
+  %call.i.i = invoke noundef i32 %1(ptr noundef nonnull align 8 dereferenceable(8) %0)
+          to label %_ZN9CMyComPtrI21ICompressProgressInfoED2Ev.exit.i unwind label %terminate.lpad.i.i
 
-10:                                               ; preds = %5
-  %11 = landingpad { ptr, i32 }
+terminate.lpad.i.i:                               ; preds = %if.then.i.i
+  %2 = landingpad { ptr, i32 }
           catch ptr null
-  %12 = extractvalue { ptr, i32 } %11, 0
-  tail call void @__clang_call_terminate(ptr %12) #9
+  %3 = extractvalue { ptr, i32 } %2, 0
+  tail call void @__clang_call_terminate(ptr %3) #9
   unreachable
 
-13:                                               ; preds = %5, %1
-  %14 = getelementptr inbounds %class.CLocalProgress, ptr %0, i64 0, i32 3
-  %15 = load ptr, ptr %14, align 8, !tbaa !23
-  %16 = icmp eq ptr %15, null
-  br i1 %16, label %25, label %17
+_ZN9CMyComPtrI21ICompressProgressInfoED2Ev.exit.i: ; preds = %if.then.i.i, %entry
+  %_progress.i = getelementptr inbounds %class.CLocalProgress, ptr %this, i64 0, i32 3
+  %4 = load ptr, ptr %_progress.i, align 8, !tbaa !23
+  %tobool.not.i2.i = icmp eq ptr %4, null
+  br i1 %tobool.not.i2.i, label %_ZN14CLocalProgressD2Ev.exit, label %if.then.i6.i
 
-17:                                               ; preds = %13
-  %18 = load ptr, ptr %15, align 8, !tbaa !10
-  %19 = getelementptr inbounds ptr, ptr %18, i64 2
-  %20 = load ptr, ptr %19, align 8
-  %21 = invoke noundef i32 %20(ptr noundef nonnull align 8 dereferenceable(8) %15)
-          to label %25 unwind label %22
+if.then.i6.i:                                     ; preds = %_ZN9CMyComPtrI21ICompressProgressInfoED2Ev.exit.i
+  %vtable.i3.i = load ptr, ptr %4, align 8, !tbaa !10
+  %vfn.i4.i = getelementptr inbounds ptr, ptr %vtable.i3.i, i64 2
+  %5 = load ptr, ptr %vfn.i4.i, align 8
+  %call.i5.i = invoke noundef i32 %5(ptr noundef nonnull align 8 dereferenceable(8) %4)
+          to label %_ZN14CLocalProgressD2Ev.exit unwind label %terminate.lpad.i7.i
 
-22:                                               ; preds = %17
-  %23 = landingpad { ptr, i32 }
+terminate.lpad.i7.i:                              ; preds = %if.then.i6.i
+  %6 = landingpad { ptr, i32 }
           catch ptr null
-  %24 = extractvalue { ptr, i32 } %23, 0
-  tail call void @__clang_call_terminate(ptr %24) #9
+  %7 = extractvalue { ptr, i32 } %6, 0
+  tail call void @__clang_call_terminate(ptr %7) #9
   unreachable
 
-25:                                               ; preds = %13, %17
-  tail call void @_ZdlPv(ptr noundef nonnull %0) #10
+_ZN14CLocalProgressD2Ev.exit:                     ; preds = %_ZN9CMyComPtrI21ICompressProgressInfoED2Ev.exit.i, %if.then.i6.i
+  tail call void @_ZdlPv(ptr noundef nonnull %this) #10
   ret void
 }
 
@@ -531,11 +540,9 @@ attributes #10 = { builtin nounwind }
 !22 = !{!18, !17, i64 0}
 !23 = !{!16, !17, i64 0}
 !24 = !{!13, !19, i64 32}
-!25 = !{!13, !20, i64 48}
-!26 = !{!20, !20, i64 0}
-!27 = !{!13, !20, i64 56}
-!28 = !{i8 0, i8 2}
-!29 = !{}
-!30 = !{!13, !20, i64 40}
-!31 = !{!8, !8, i64 0}
-!32 = !{!17, !17, i64 0}
+!25 = !{!20, !20, i64 0}
+!26 = !{i8 0, i8 2}
+!27 = !{}
+!28 = !{!13, !20, i64 40}
+!29 = !{!8, !8, i64 0}
+!30 = !{!17, !17, i64 0}

@@ -9,254 +9,257 @@ target triple = "x86_64-unknown-linux-gnu"
 @str.2 = private unnamed_addr constant [6 x i8] c"ERROR\00", align 1
 
 ; Function Attrs: nofree nounwind uwtable
-define dso_local i32 @main(i32 noundef %0, ptr nocapture noundef readnone %1) local_unnamed_addr #0 {
-  %3 = alloca i32, align 4
-  call void @llvm.lifetime.start.p0(i64 4, ptr nonnull %3)
-  store i32 1, ptr %3, align 4, !tbaa !5
-  %4 = call i32 (ptr, ...) @test_stdarg_va(ptr noundef nonnull %3, i32 noundef 1, i64 noundef 1981891429, i32 noundef 2, ptr noundef nonnull %3), !range !9
-  %5 = icmp eq i32 %4, 0
-  br i1 %5, label %9, label %6
+define dso_local i32 @main(i32 noundef %argc, ptr nocapture noundef readnone %argv) local_unnamed_addr #0 {
+entry:
+  %r.addr.i = alloca i32, align 4
+  call void @llvm.lifetime.start.p0(i64 4, ptr nonnull %r.addr.i)
+  store i32 1, ptr %r.addr.i, align 4, !tbaa !5
+  %call.i = call i32 (ptr, ...) @test_stdarg_va(ptr noundef nonnull %r.addr.i, i32 noundef 1, i64 noundef 1981891429, i32 noundef 2, ptr noundef nonnull %r.addr.i), !range !9
+  %cmp.not.not.i = icmp eq i32 %call.i, 0
+  br i1 %cmp.not.not.i, label %test_stdarg.exit.thread, label %if.end.i
 
-6:                                                ; preds = %2
-  %7 = call i32 (ptr, ...) @test_stdarg_builtin_va(ptr noundef nonnull %3, i32 noundef 1, i64 noundef 1981891433, i32 noundef 2, ptr noundef nonnull %3), !range !9
-  %8 = icmp eq i32 %7, 0
-  br i1 %8, label %9, label %10
+if.end.i:                                         ; preds = %entry
+  %call5.i = call i32 (ptr, ...) @test_stdarg_builtin_va(ptr noundef nonnull %r.addr.i, i32 noundef 1, i64 noundef 1981891433, i32 noundef 2, ptr noundef nonnull %r.addr.i), !range !9
+  %cmp6.not.not.i = icmp eq i32 %call5.i, 0
+  br i1 %cmp6.not.not.i, label %test_stdarg.exit.thread, label %test_stdarg.exit
 
-9:                                                ; preds = %2, %6
-  call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %3)
-  br label %16
+test_stdarg.exit.thread:                          ; preds = %entry, %if.end.i
+  call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %r.addr.i)
+  br label %return
 
-10:                                               ; preds = %6
-  %11 = load i32, ptr %3, align 4, !tbaa !5
-  %12 = and i32 %11, 1
-  call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %3)
-  %13 = icmp eq i32 %12, 0
-  %14 = select i1 %13, ptr @str.2, ptr @str
-  %15 = xor i32 %12, 1
-  br label %16
+test_stdarg.exit:                                 ; preds = %if.end.i
+  %0 = load i32, ptr %r.addr.i, align 4, !tbaa !5
+  %and.i = and i32 %0, 1
+  call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %r.addr.i)
+  %cmp.not.not = icmp eq i32 %and.i, 0
+  %spec.select = select i1 %cmp.not.not, ptr @str.2, ptr @str
+  %spec.select6 = xor i32 %and.i, 1
+  br label %return
 
-16:                                               ; preds = %10, %9
-  %17 = phi ptr [ @str.2, %9 ], [ %14, %10 ]
-  %18 = phi i32 [ 1, %9 ], [ %15, %10 ]
-  %19 = call i32 @puts(ptr nonnull dereferenceable(1) %17)
-  ret i32 %18
+return:                                           ; preds = %test_stdarg.exit, %test_stdarg.exit.thread
+  %str.sink = phi ptr [ @str.2, %test_stdarg.exit.thread ], [ %spec.select, %test_stdarg.exit ]
+  %retval.0 = phi i32 [ 1, %test_stdarg.exit.thread ], [ %spec.select6, %test_stdarg.exit ]
+  %puts = call i32 @puts(ptr nonnull dereferenceable(1) %str.sink)
+  ret i32 %retval.0
 }
 
 ; Function Attrs: mustprogress nocallback nofree nosync nounwind willreturn memory(argmem: readwrite)
 declare void @llvm.lifetime.start.p0(i64 immarg, ptr nocapture) #1
 
 ; Function Attrs: mustprogress nofree nosync nounwind willreturn uwtable
-define internal i32 @test_stdarg_va(ptr noundef readnone %0, ...) unnamed_addr #2 {
-  %2 = alloca [1 x %struct.__va_list_tag], align 16
-  call void @llvm.lifetime.start.p0(i64 24, ptr nonnull %2) #5
-  call void @llvm.va_start(ptr nonnull %2)
-  %3 = load i32, ptr %2, align 16
-  %4 = icmp ult i32 %3, 41
-  br i1 %4, label %10, label %5
+define internal i32 @test_stdarg_va(ptr noundef readnone %p1, ...) unnamed_addr #2 {
+entry:
+  %ap = alloca [1 x %struct.__va_list_tag], align 16
+  call void @llvm.lifetime.start.p0(i64 24, ptr nonnull %ap) #5
+  call void @llvm.va_start(ptr nonnull %ap)
+  %gp_offset = load i32, ptr %ap, align 16
+  %fits_in_gp = icmp ult i32 %gp_offset, 41
+  br i1 %fits_in_gp, label %vaarg.end, label %vaarg.end.thread
 
-5:                                                ; preds = %1
-  %6 = getelementptr inbounds %struct.__va_list_tag, ptr %2, i64 0, i32 2
-  %7 = load ptr, ptr %6, align 8
-  %8 = getelementptr i8, ptr %7, i64 8
-  store ptr %8, ptr %6, align 8
-  %9 = load i32, ptr %7, align 4
-  br label %18
+vaarg.end.thread:                                 ; preds = %entry
+  %overflow_arg_area_p = getelementptr inbounds %struct.__va_list_tag, ptr %ap, i64 0, i32 2
+  %overflow_arg_area = load ptr, ptr %overflow_arg_area_p, align 8
+  %overflow_arg_area.next = getelementptr i8, ptr %overflow_arg_area, i64 8
+  store ptr %overflow_arg_area.next, ptr %overflow_arg_area_p, align 8
+  %0 = load i32, ptr %overflow_arg_area, align 4
+  br label %vaarg.end12.thread
 
-10:                                               ; preds = %1
-  %11 = getelementptr inbounds %struct.__va_list_tag, ptr %2, i64 0, i32 3
-  %12 = load ptr, ptr %11, align 16
-  %13 = zext i32 %3 to i64
-  %14 = getelementptr i8, ptr %12, i64 %13
-  %15 = add nuw nsw i32 %3, 8
-  store i32 %15, ptr %2, align 16
-  %16 = load i32, ptr %14, align 4
-  %17 = icmp ult i32 %3, 33
-  br i1 %17, label %24, label %18
+vaarg.end:                                        ; preds = %entry
+  %1 = getelementptr inbounds %struct.__va_list_tag, ptr %ap, i64 0, i32 3
+  %reg_save_area = load ptr, ptr %1, align 16
+  %2 = zext i32 %gp_offset to i64
+  %3 = getelementptr i8, ptr %reg_save_area, i64 %2
+  %4 = add nuw nsw i32 %gp_offset, 8
+  store i32 %4, ptr %ap, align 16
+  %5 = load i32, ptr %3, align 4
+  %fits_in_gp5 = icmp ult i32 %gp_offset, 33
+  br i1 %fits_in_gp5, label %vaarg.end12, label %vaarg.end12.thread
 
-18:                                               ; preds = %10, %5
-  %19 = phi i32 [ %9, %5 ], [ %16, %10 ]
-  %20 = getelementptr inbounds %struct.__va_list_tag, ptr %2, i64 0, i32 2
-  %21 = load ptr, ptr %20, align 8
-  %22 = getelementptr i8, ptr %21, i64 8
-  store ptr %22, ptr %20, align 8
-  %23 = load i64, ptr %21, align 8
-  br label %32
+vaarg.end12.thread:                               ; preds = %vaarg.end, %vaarg.end.thread
+  %6 = phi i32 [ %0, %vaarg.end.thread ], [ %5, %vaarg.end ]
+  %overflow_arg_area_p9 = getelementptr inbounds %struct.__va_list_tag, ptr %ap, i64 0, i32 2
+  %overflow_arg_area10 = load ptr, ptr %overflow_arg_area_p9, align 8
+  %overflow_arg_area.next11 = getelementptr i8, ptr %overflow_arg_area10, i64 8
+  store ptr %overflow_arg_area.next11, ptr %overflow_arg_area_p9, align 8
+  %7 = load i64, ptr %overflow_arg_area10, align 8
+  br label %vaarg.end24.thread
 
-24:                                               ; preds = %10
-  %25 = getelementptr inbounds %struct.__va_list_tag, ptr %2, i64 0, i32 3
-  %26 = load ptr, ptr %25, align 16
-  %27 = zext i32 %15 to i64
-  %28 = getelementptr i8, ptr %26, i64 %27
-  %29 = add nuw nsw i32 %3, 16
-  store i32 %29, ptr %2, align 16
-  %30 = load i64, ptr %28, align 8
-  %31 = icmp ult i32 %3, 25
-  br i1 %31, label %39, label %32
+vaarg.end12:                                      ; preds = %vaarg.end
+  %8 = getelementptr inbounds %struct.__va_list_tag, ptr %ap, i64 0, i32 3
+  %reg_save_area7 = load ptr, ptr %8, align 16
+  %9 = zext i32 %4 to i64
+  %10 = getelementptr i8, ptr %reg_save_area7, i64 %9
+  %11 = add nuw nsw i32 %gp_offset, 16
+  store i32 %11, ptr %ap, align 16
+  %12 = load i64, ptr %10, align 8
+  %fits_in_gp17 = icmp ult i32 %gp_offset, 25
+  br i1 %fits_in_gp17, label %vaarg.end24, label %vaarg.end24.thread
 
-32:                                               ; preds = %24, %18
-  %33 = phi i64 [ %23, %18 ], [ %30, %24 ]
-  %34 = phi i32 [ %19, %18 ], [ %16, %24 ]
-  %35 = getelementptr inbounds %struct.__va_list_tag, ptr %2, i64 0, i32 2
-  %36 = load ptr, ptr %35, align 8
-  %37 = getelementptr i8, ptr %36, i64 8
-  store ptr %37, ptr %35, align 8
-  %38 = load i32, ptr %36, align 4
-  br label %53
+vaarg.end24.thread:                               ; preds = %vaarg.end12, %vaarg.end12.thread
+  %13 = phi i64 [ %7, %vaarg.end12.thread ], [ %12, %vaarg.end12 ]
+  %14 = phi i32 [ %6, %vaarg.end12.thread ], [ %5, %vaarg.end12 ]
+  %overflow_arg_area_p21 = getelementptr inbounds %struct.__va_list_tag, ptr %ap, i64 0, i32 2
+  %overflow_arg_area22 = load ptr, ptr %overflow_arg_area_p21, align 8
+  %overflow_arg_area.next23 = getelementptr i8, ptr %overflow_arg_area22, i64 8
+  store ptr %overflow_arg_area.next23, ptr %overflow_arg_area_p21, align 8
+  %15 = load i32, ptr %overflow_arg_area22, align 4
+  br label %vaarg.in_mem32
 
-39:                                               ; preds = %24
-  %40 = getelementptr inbounds %struct.__va_list_tag, ptr %2, i64 0, i32 3
-  %41 = load ptr, ptr %40, align 16
-  %42 = zext i32 %29 to i64
-  %43 = getelementptr i8, ptr %41, i64 %42
-  %44 = add nuw nsw i32 %3, 24
-  store i32 %44, ptr %2, align 16
-  %45 = load i32, ptr %43, align 4
-  %46 = icmp ult i32 %3, 17
-  br i1 %46, label %47, label %53
+vaarg.end24:                                      ; preds = %vaarg.end12
+  %16 = getelementptr inbounds %struct.__va_list_tag, ptr %ap, i64 0, i32 3
+  %reg_save_area19 = load ptr, ptr %16, align 16
+  %17 = zext i32 %11 to i64
+  %18 = getelementptr i8, ptr %reg_save_area19, i64 %17
+  %19 = add nuw nsw i32 %gp_offset, 24
+  store i32 %19, ptr %ap, align 16
+  %20 = load i32, ptr %18, align 4
+  %fits_in_gp29 = icmp ult i32 %gp_offset, 17
+  br i1 %fits_in_gp29, label %vaarg.in_reg30, label %vaarg.in_mem32
 
-47:                                               ; preds = %39
-  %48 = getelementptr inbounds %struct.__va_list_tag, ptr %2, i64 0, i32 3
-  %49 = load ptr, ptr %48, align 16
-  %50 = zext i32 %44 to i64
-  %51 = getelementptr i8, ptr %49, i64 %50
-  %52 = add nuw nsw i32 %3, 32
-  store i32 %52, ptr %2, align 16
-  br label %60
+vaarg.in_reg30:                                   ; preds = %vaarg.end24
+  %21 = getelementptr inbounds %struct.__va_list_tag, ptr %ap, i64 0, i32 3
+  %reg_save_area31 = load ptr, ptr %21, align 16
+  %22 = zext i32 %19 to i64
+  %23 = getelementptr i8, ptr %reg_save_area31, i64 %22
+  %24 = add nuw nsw i32 %gp_offset, 32
+  store i32 %24, ptr %ap, align 16
+  br label %vaarg.end36
 
-53:                                               ; preds = %32, %39
-  %54 = phi i32 [ %38, %32 ], [ %45, %39 ]
-  %55 = phi i32 [ %34, %32 ], [ %16, %39 ]
-  %56 = phi i64 [ %33, %32 ], [ %30, %39 ]
-  %57 = getelementptr inbounds %struct.__va_list_tag, ptr %2, i64 0, i32 2
-  %58 = load ptr, ptr %57, align 8
-  %59 = getelementptr i8, ptr %58, i64 8
-  store ptr %59, ptr %57, align 8
-  br label %60
+vaarg.in_mem32:                                   ; preds = %vaarg.end24.thread, %vaarg.end24
+  %25 = phi i32 [ %15, %vaarg.end24.thread ], [ %20, %vaarg.end24 ]
+  %26 = phi i32 [ %14, %vaarg.end24.thread ], [ %5, %vaarg.end24 ]
+  %27 = phi i64 [ %13, %vaarg.end24.thread ], [ %12, %vaarg.end24 ]
+  %overflow_arg_area_p33 = getelementptr inbounds %struct.__va_list_tag, ptr %ap, i64 0, i32 2
+  %overflow_arg_area34 = load ptr, ptr %overflow_arg_area_p33, align 8
+  %overflow_arg_area.next35 = getelementptr i8, ptr %overflow_arg_area34, i64 8
+  store ptr %overflow_arg_area.next35, ptr %overflow_arg_area_p33, align 8
+  br label %vaarg.end36
 
-60:                                               ; preds = %53, %47
-  %61 = phi i32 [ %45, %47 ], [ %54, %53 ]
-  %62 = phi i32 [ %16, %47 ], [ %55, %53 ]
-  %63 = phi i64 [ %30, %47 ], [ %56, %53 ]
-  %64 = phi ptr [ %51, %47 ], [ %58, %53 ]
-  %65 = load ptr, ptr %64, align 8
-  call void @llvm.va_end(ptr nonnull %2)
-  %66 = icmp eq ptr %65, %0
-  %67 = icmp eq i32 %62, 1
-  %68 = select i1 %66, i1 %67, i1 false
-  %69 = icmp eq i64 %63, 1981891429
-  %70 = select i1 %68, i1 %69, i1 false
-  %71 = icmp eq i32 %61, 2
-  %72 = select i1 %70, i1 %71, i1 false
-  %73 = zext i1 %72 to i32
-  call void @llvm.lifetime.end.p0(i64 24, ptr nonnull %2) #5
-  ret i32 %73
+vaarg.end36:                                      ; preds = %vaarg.in_mem32, %vaarg.in_reg30
+  %28 = phi i32 [ %20, %vaarg.in_reg30 ], [ %25, %vaarg.in_mem32 ]
+  %29 = phi i32 [ %5, %vaarg.in_reg30 ], [ %26, %vaarg.in_mem32 ]
+  %30 = phi i64 [ %12, %vaarg.in_reg30 ], [ %27, %vaarg.in_mem32 ]
+  %vaarg.addr37 = phi ptr [ %23, %vaarg.in_reg30 ], [ %overflow_arg_area34, %vaarg.in_mem32 ]
+  %31 = load ptr, ptr %vaarg.addr37, align 8
+  call void @llvm.va_end(ptr nonnull %ap)
+  %cmp = icmp eq ptr %31, %p1
+  %cmp39 = icmp eq i32 %29, 1
+  %or.cond = select i1 %cmp, i1 %cmp39, i1 false
+  %cmp41 = icmp eq i64 %30, 1981891429
+  %or.cond43 = select i1 %or.cond, i1 %cmp41, i1 false
+  %cmp42 = icmp eq i32 %28, 2
+  %narrow = select i1 %or.cond43, i1 %cmp42, i1 false
+  %land.ext = zext i1 %narrow to i32
+  call void @llvm.lifetime.end.p0(i64 24, ptr nonnull %ap) #5
+  ret i32 %land.ext
 }
 
 ; Function Attrs: mustprogress nofree nosync nounwind willreturn uwtable
-define internal i32 @test_stdarg_builtin_va(ptr noundef readnone %0, ...) unnamed_addr #2 {
-  %2 = alloca [1 x %struct.__va_list_tag], align 16
-  call void @llvm.lifetime.start.p0(i64 24, ptr nonnull %2) #5
-  call void @llvm.va_start(ptr nonnull %2)
-  %3 = load i32, ptr %2, align 16
-  %4 = icmp ult i32 %3, 41
-  br i1 %4, label %10, label %5
+define internal i32 @test_stdarg_builtin_va(ptr noundef readnone %p1, ...) unnamed_addr #2 {
+entry:
+  %ap = alloca [1 x %struct.__va_list_tag], align 16
+  call void @llvm.lifetime.start.p0(i64 24, ptr nonnull %ap) #5
+  call void @llvm.va_start(ptr nonnull %ap)
+  %gp_offset = load i32, ptr %ap, align 16
+  %fits_in_gp = icmp ult i32 %gp_offset, 41
+  br i1 %fits_in_gp, label %vaarg.end, label %vaarg.end.thread
 
-5:                                                ; preds = %1
-  %6 = getelementptr inbounds %struct.__va_list_tag, ptr %2, i64 0, i32 2
-  %7 = load ptr, ptr %6, align 8
-  %8 = getelementptr i8, ptr %7, i64 8
-  store ptr %8, ptr %6, align 8
-  %9 = load i32, ptr %7, align 4
-  br label %18
+vaarg.end.thread:                                 ; preds = %entry
+  %overflow_arg_area_p = getelementptr inbounds %struct.__va_list_tag, ptr %ap, i64 0, i32 2
+  %overflow_arg_area = load ptr, ptr %overflow_arg_area_p, align 8
+  %overflow_arg_area.next = getelementptr i8, ptr %overflow_arg_area, i64 8
+  store ptr %overflow_arg_area.next, ptr %overflow_arg_area_p, align 8
+  %0 = load i32, ptr %overflow_arg_area, align 4
+  br label %vaarg.end12.thread
 
-10:                                               ; preds = %1
-  %11 = getelementptr inbounds %struct.__va_list_tag, ptr %2, i64 0, i32 3
-  %12 = load ptr, ptr %11, align 16
-  %13 = zext i32 %3 to i64
-  %14 = getelementptr i8, ptr %12, i64 %13
-  %15 = add nuw nsw i32 %3, 8
-  store i32 %15, ptr %2, align 16
-  %16 = load i32, ptr %14, align 4
-  %17 = icmp ult i32 %3, 33
-  br i1 %17, label %24, label %18
+vaarg.end:                                        ; preds = %entry
+  %1 = getelementptr inbounds %struct.__va_list_tag, ptr %ap, i64 0, i32 3
+  %reg_save_area = load ptr, ptr %1, align 16
+  %2 = zext i32 %gp_offset to i64
+  %3 = getelementptr i8, ptr %reg_save_area, i64 %2
+  %4 = add nuw nsw i32 %gp_offset, 8
+  store i32 %4, ptr %ap, align 16
+  %5 = load i32, ptr %3, align 4
+  %fits_in_gp5 = icmp ult i32 %gp_offset, 33
+  br i1 %fits_in_gp5, label %vaarg.end12, label %vaarg.end12.thread
 
-18:                                               ; preds = %10, %5
-  %19 = phi i32 [ %9, %5 ], [ %16, %10 ]
-  %20 = getelementptr inbounds %struct.__va_list_tag, ptr %2, i64 0, i32 2
-  %21 = load ptr, ptr %20, align 8
-  %22 = getelementptr i8, ptr %21, i64 8
-  store ptr %22, ptr %20, align 8
-  %23 = load i64, ptr %21, align 8
-  br label %32
+vaarg.end12.thread:                               ; preds = %vaarg.end, %vaarg.end.thread
+  %6 = phi i32 [ %0, %vaarg.end.thread ], [ %5, %vaarg.end ]
+  %overflow_arg_area_p9 = getelementptr inbounds %struct.__va_list_tag, ptr %ap, i64 0, i32 2
+  %overflow_arg_area10 = load ptr, ptr %overflow_arg_area_p9, align 8
+  %overflow_arg_area.next11 = getelementptr i8, ptr %overflow_arg_area10, i64 8
+  store ptr %overflow_arg_area.next11, ptr %overflow_arg_area_p9, align 8
+  %7 = load i64, ptr %overflow_arg_area10, align 8
+  br label %vaarg.end24.thread
 
-24:                                               ; preds = %10
-  %25 = getelementptr inbounds %struct.__va_list_tag, ptr %2, i64 0, i32 3
-  %26 = load ptr, ptr %25, align 16
-  %27 = zext i32 %15 to i64
-  %28 = getelementptr i8, ptr %26, i64 %27
-  %29 = add nuw nsw i32 %3, 16
-  store i32 %29, ptr %2, align 16
-  %30 = load i64, ptr %28, align 8
-  %31 = icmp ult i32 %3, 25
-  br i1 %31, label %39, label %32
+vaarg.end12:                                      ; preds = %vaarg.end
+  %8 = getelementptr inbounds %struct.__va_list_tag, ptr %ap, i64 0, i32 3
+  %reg_save_area7 = load ptr, ptr %8, align 16
+  %9 = zext i32 %4 to i64
+  %10 = getelementptr i8, ptr %reg_save_area7, i64 %9
+  %11 = add nuw nsw i32 %gp_offset, 16
+  store i32 %11, ptr %ap, align 16
+  %12 = load i64, ptr %10, align 8
+  %fits_in_gp17 = icmp ult i32 %gp_offset, 25
+  br i1 %fits_in_gp17, label %vaarg.end24, label %vaarg.end24.thread
 
-32:                                               ; preds = %24, %18
-  %33 = phi i64 [ %23, %18 ], [ %30, %24 ]
-  %34 = phi i32 [ %19, %18 ], [ %16, %24 ]
-  %35 = getelementptr inbounds %struct.__va_list_tag, ptr %2, i64 0, i32 2
-  %36 = load ptr, ptr %35, align 8
-  %37 = getelementptr i8, ptr %36, i64 8
-  store ptr %37, ptr %35, align 8
-  %38 = load i32, ptr %36, align 4
-  br label %53
+vaarg.end24.thread:                               ; preds = %vaarg.end12, %vaarg.end12.thread
+  %13 = phi i64 [ %7, %vaarg.end12.thread ], [ %12, %vaarg.end12 ]
+  %14 = phi i32 [ %6, %vaarg.end12.thread ], [ %5, %vaarg.end12 ]
+  %overflow_arg_area_p21 = getelementptr inbounds %struct.__va_list_tag, ptr %ap, i64 0, i32 2
+  %overflow_arg_area22 = load ptr, ptr %overflow_arg_area_p21, align 8
+  %overflow_arg_area.next23 = getelementptr i8, ptr %overflow_arg_area22, i64 8
+  store ptr %overflow_arg_area.next23, ptr %overflow_arg_area_p21, align 8
+  %15 = load i32, ptr %overflow_arg_area22, align 4
+  br label %vaarg.in_mem32
 
-39:                                               ; preds = %24
-  %40 = getelementptr inbounds %struct.__va_list_tag, ptr %2, i64 0, i32 3
-  %41 = load ptr, ptr %40, align 16
-  %42 = zext i32 %29 to i64
-  %43 = getelementptr i8, ptr %41, i64 %42
-  %44 = add nuw nsw i32 %3, 24
-  store i32 %44, ptr %2, align 16
-  %45 = load i32, ptr %43, align 4
-  %46 = icmp ult i32 %3, 17
-  br i1 %46, label %47, label %53
+vaarg.end24:                                      ; preds = %vaarg.end12
+  %16 = getelementptr inbounds %struct.__va_list_tag, ptr %ap, i64 0, i32 3
+  %reg_save_area19 = load ptr, ptr %16, align 16
+  %17 = zext i32 %11 to i64
+  %18 = getelementptr i8, ptr %reg_save_area19, i64 %17
+  %19 = add nuw nsw i32 %gp_offset, 24
+  store i32 %19, ptr %ap, align 16
+  %20 = load i32, ptr %18, align 4
+  %fits_in_gp29 = icmp ult i32 %gp_offset, 17
+  br i1 %fits_in_gp29, label %vaarg.in_reg30, label %vaarg.in_mem32
 
-47:                                               ; preds = %39
-  %48 = getelementptr inbounds %struct.__va_list_tag, ptr %2, i64 0, i32 3
-  %49 = load ptr, ptr %48, align 16
-  %50 = zext i32 %44 to i64
-  %51 = getelementptr i8, ptr %49, i64 %50
-  %52 = add nuw nsw i32 %3, 32
-  store i32 %52, ptr %2, align 16
-  br label %60
+vaarg.in_reg30:                                   ; preds = %vaarg.end24
+  %21 = getelementptr inbounds %struct.__va_list_tag, ptr %ap, i64 0, i32 3
+  %reg_save_area31 = load ptr, ptr %21, align 16
+  %22 = zext i32 %19 to i64
+  %23 = getelementptr i8, ptr %reg_save_area31, i64 %22
+  %24 = add nuw nsw i32 %gp_offset, 32
+  store i32 %24, ptr %ap, align 16
+  br label %vaarg.end36
 
-53:                                               ; preds = %32, %39
-  %54 = phi i32 [ %38, %32 ], [ %45, %39 ]
-  %55 = phi i32 [ %34, %32 ], [ %16, %39 ]
-  %56 = phi i64 [ %33, %32 ], [ %30, %39 ]
-  %57 = getelementptr inbounds %struct.__va_list_tag, ptr %2, i64 0, i32 2
-  %58 = load ptr, ptr %57, align 8
-  %59 = getelementptr i8, ptr %58, i64 8
-  store ptr %59, ptr %57, align 8
-  br label %60
+vaarg.in_mem32:                                   ; preds = %vaarg.end24.thread, %vaarg.end24
+  %25 = phi i32 [ %15, %vaarg.end24.thread ], [ %20, %vaarg.end24 ]
+  %26 = phi i32 [ %14, %vaarg.end24.thread ], [ %5, %vaarg.end24 ]
+  %27 = phi i64 [ %13, %vaarg.end24.thread ], [ %12, %vaarg.end24 ]
+  %overflow_arg_area_p33 = getelementptr inbounds %struct.__va_list_tag, ptr %ap, i64 0, i32 2
+  %overflow_arg_area34 = load ptr, ptr %overflow_arg_area_p33, align 8
+  %overflow_arg_area.next35 = getelementptr i8, ptr %overflow_arg_area34, i64 8
+  store ptr %overflow_arg_area.next35, ptr %overflow_arg_area_p33, align 8
+  br label %vaarg.end36
 
-60:                                               ; preds = %53, %47
-  %61 = phi i32 [ %45, %47 ], [ %54, %53 ]
-  %62 = phi i32 [ %16, %47 ], [ %55, %53 ]
-  %63 = phi i64 [ %30, %47 ], [ %56, %53 ]
-  %64 = phi ptr [ %51, %47 ], [ %58, %53 ]
-  %65 = load ptr, ptr %64, align 8
-  call void @llvm.va_end(ptr nonnull %2)
-  %66 = icmp eq ptr %65, %0
-  %67 = icmp eq i32 %62, 1
-  %68 = select i1 %66, i1 %67, i1 false
-  %69 = icmp eq i64 %63, 1981891433
-  %70 = select i1 %68, i1 %69, i1 false
-  %71 = icmp eq i32 %61, 2
-  %72 = select i1 %70, i1 %71, i1 false
-  %73 = zext i1 %72 to i32
-  call void @llvm.lifetime.end.p0(i64 24, ptr nonnull %2) #5
-  ret i32 %73
+vaarg.end36:                                      ; preds = %vaarg.in_mem32, %vaarg.in_reg30
+  %28 = phi i32 [ %20, %vaarg.in_reg30 ], [ %25, %vaarg.in_mem32 ]
+  %29 = phi i32 [ %5, %vaarg.in_reg30 ], [ %26, %vaarg.in_mem32 ]
+  %30 = phi i64 [ %12, %vaarg.in_reg30 ], [ %27, %vaarg.in_mem32 ]
+  %vaarg.addr37 = phi ptr [ %23, %vaarg.in_reg30 ], [ %overflow_arg_area34, %vaarg.in_mem32 ]
+  %31 = load ptr, ptr %vaarg.addr37, align 8
+  call void @llvm.va_end(ptr nonnull %ap)
+  %cmp = icmp eq ptr %31, %p1
+  %cmp39 = icmp eq i32 %29, 1
+  %or.cond = select i1 %cmp, i1 %cmp39, i1 false
+  %cmp41 = icmp eq i64 %30, 1981891433
+  %or.cond43 = select i1 %or.cond, i1 %cmp41, i1 false
+  %cmp42 = icmp eq i32 %28, 2
+  %narrow = select i1 %or.cond43, i1 %cmp42, i1 false
+  %land.ext = zext i1 %narrow to i32
+  call void @llvm.lifetime.end.p0(i64 24, ptr nonnull %ap) #5
+  ret i32 %land.ext
 }
 
 ; Function Attrs: mustprogress nocallback nofree nosync nounwind willreturn memory(argmem: readwrite)

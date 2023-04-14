@@ -6,434 +6,447 @@ target triple = "x86_64-unknown-linux-gnu"
 %struct.BitBuffer = type { ptr, ptr, i32, i32 }
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(argmem: write) uwtable
-define dso_local void @BitBufferInit(ptr nocapture noundef writeonly %0, ptr noundef %1, i32 noundef %2) local_unnamed_addr #0 {
-  store ptr %1, ptr %0, align 8, !tbaa !5
-  %4 = zext i32 %2 to i64
-  %5 = getelementptr inbounds i8, ptr %1, i64 %4
-  %6 = getelementptr inbounds %struct.BitBuffer, ptr %0, i64 0, i32 1
-  store ptr %5, ptr %6, align 8, !tbaa !11
-  %7 = getelementptr inbounds %struct.BitBuffer, ptr %0, i64 0, i32 2
-  store i32 0, ptr %7, align 8, !tbaa !12
-  %8 = getelementptr inbounds %struct.BitBuffer, ptr %0, i64 0, i32 3
-  store i32 %2, ptr %8, align 4, !tbaa !13
+define dso_local void @BitBufferInit(ptr nocapture noundef writeonly %bits, ptr noundef %buffer, i32 noundef %byteSize) local_unnamed_addr #0 {
+entry:
+  store ptr %buffer, ptr %bits, align 8, !tbaa !5
+  %idx.ext = zext i32 %byteSize to i64
+  %add.ptr = getelementptr inbounds i8, ptr %buffer, i64 %idx.ext
+  %end = getelementptr inbounds %struct.BitBuffer, ptr %bits, i64 0, i32 1
+  store ptr %add.ptr, ptr %end, align 8, !tbaa !11
+  %bitIndex = getelementptr inbounds %struct.BitBuffer, ptr %bits, i64 0, i32 2
+  store i32 0, ptr %bitIndex, align 8, !tbaa !12
+  %byteSize2 = getelementptr inbounds %struct.BitBuffer, ptr %bits, i64 0, i32 3
+  store i32 %byteSize, ptr %byteSize2, align 4, !tbaa !13
   ret void
 }
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(read, argmem: readwrite, inaccessiblemem: none) uwtable
-define dso_local i32 @BitBufferRead(ptr nocapture noundef %0, i8 noundef zeroext %1) local_unnamed_addr #1 {
-  %3 = load ptr, ptr %0, align 8, !tbaa !5
-  %4 = load i8, ptr %3, align 1, !tbaa !14
-  %5 = zext i8 %4 to i32
-  %6 = shl nuw nsw i32 %5, 16
-  %7 = getelementptr inbounds i8, ptr %3, i64 1
-  %8 = load i8, ptr %7, align 1, !tbaa !14
-  %9 = zext i8 %8 to i32
-  %10 = shl nuw nsw i32 %9, 8
-  %11 = or i32 %10, %6
-  %12 = getelementptr inbounds i8, ptr %3, i64 2
-  %13 = load i8, ptr %12, align 1, !tbaa !14
-  %14 = zext i8 %13 to i32
-  %15 = or i32 %11, %14
-  %16 = getelementptr inbounds %struct.BitBuffer, ptr %0, i64 0, i32 2
-  %17 = load i32, ptr %16, align 8, !tbaa !12
-  %18 = shl i32 %15, %17
-  %19 = and i32 %18, 16777215
-  %20 = zext i8 %1 to i32
-  %21 = add i32 %17, %20
-  %22 = sub nsw i32 24, %20
-  %23 = lshr i32 %19, %22
-  %24 = lshr i32 %21, 3
-  %25 = zext i32 %24 to i64
-  %26 = getelementptr inbounds i8, ptr %3, i64 %25
-  store ptr %26, ptr %0, align 8, !tbaa !5
-  %27 = and i32 %21, 7
-  store i32 %27, ptr %16, align 8, !tbaa !12
-  ret i32 %23
+define dso_local i32 @BitBufferRead(ptr nocapture noundef %bits, i8 noundef zeroext %numBits) local_unnamed_addr #1 {
+entry:
+  %0 = load ptr, ptr %bits, align 8, !tbaa !5
+  %1 = load i8, ptr %0, align 1, !tbaa !14
+  %conv = zext i8 %1 to i32
+  %shl = shl nuw nsw i32 %conv, 16
+  %arrayidx2 = getelementptr inbounds i8, ptr %0, i64 1
+  %2 = load i8, ptr %arrayidx2, align 1, !tbaa !14
+  %conv3 = zext i8 %2 to i32
+  %shl4 = shl nuw nsw i32 %conv3, 8
+  %or = or i32 %shl4, %shl
+  %arrayidx6 = getelementptr inbounds i8, ptr %0, i64 2
+  %3 = load i8, ptr %arrayidx6, align 1, !tbaa !14
+  %conv7 = zext i8 %3 to i32
+  %or8 = or i32 %or, %conv7
+  %bitIndex = getelementptr inbounds %struct.BitBuffer, ptr %bits, i64 0, i32 2
+  %4 = load i32, ptr %bitIndex, align 8, !tbaa !12
+  %shl9 = shl i32 %or8, %4
+  %and = and i32 %shl9, 16777215
+  %conv10 = zext i8 %numBits to i32
+  %add = add i32 %4, %conv10
+  %sub = sub nsw i32 24, %conv10
+  %shr = lshr i32 %and, %sub
+  %shr14 = lshr i32 %add, 3
+  %idx.ext = zext i32 %shr14 to i64
+  %add.ptr = getelementptr inbounds i8, ptr %0, i64 %idx.ext
+  store ptr %add.ptr, ptr %bits, align 8, !tbaa !5
+  %and17 = and i32 %add, 7
+  store i32 %and17, ptr %bitIndex, align 8, !tbaa !12
+  ret i32 %shr
 }
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(read, argmem: readwrite, inaccessiblemem: none) uwtable
-define dso_local zeroext i8 @BitBufferReadSmall(ptr nocapture noundef %0, i8 noundef zeroext %1) local_unnamed_addr #1 {
-  %3 = load ptr, ptr %0, align 8, !tbaa !5
-  %4 = load i8, ptr %3, align 1, !tbaa !14
-  %5 = zext i8 %4 to i32
-  %6 = shl nuw nsw i32 %5, 8
-  %7 = getelementptr inbounds i8, ptr %3, i64 1
-  %8 = load i8, ptr %7, align 1, !tbaa !14
-  %9 = zext i8 %8 to i32
-  %10 = or i32 %6, %9
-  %11 = getelementptr inbounds %struct.BitBuffer, ptr %0, i64 0, i32 2
-  %12 = load i32, ptr %11, align 8, !tbaa !12
-  %13 = shl i32 %10, %12
-  %14 = zext i8 %1 to i32
-  %15 = add i32 %12, %14
-  %16 = and i32 %13, 65535
-  %17 = sub nsw i32 16, %14
-  %18 = lshr i32 %16, %17
-  %19 = lshr i32 %15, 3
-  %20 = zext i32 %19 to i64
-  %21 = getelementptr inbounds i8, ptr %3, i64 %20
-  store ptr %21, ptr %0, align 8, !tbaa !5
-  %22 = and i32 %15, 7
-  store i32 %22, ptr %11, align 8, !tbaa !12
-  %23 = trunc i32 %18 to i8
-  ret i8 %23
+define dso_local zeroext i8 @BitBufferReadSmall(ptr nocapture noundef %bits, i8 noundef zeroext %numBits) local_unnamed_addr #1 {
+entry:
+  %0 = load ptr, ptr %bits, align 8, !tbaa !5
+  %1 = load i8, ptr %0, align 1, !tbaa !14
+  %conv = zext i8 %1 to i32
+  %shl = shl nuw nsw i32 %conv, 8
+  %arrayidx2 = getelementptr inbounds i8, ptr %0, i64 1
+  %2 = load i8, ptr %arrayidx2, align 1, !tbaa !14
+  %conv3 = zext i8 %2 to i32
+  %or = or i32 %shl, %conv3
+  %bitIndex = getelementptr inbounds %struct.BitBuffer, ptr %bits, i64 0, i32 2
+  %3 = load i32, ptr %bitIndex, align 8, !tbaa !12
+  %shl6 = shl i32 %or, %3
+  %conv8 = zext i8 %numBits to i32
+  %add = add i32 %3, %conv8
+  %conv10 = and i32 %shl6, 65535
+  %sub = sub nsw i32 16, %conv8
+  %shr = lshr i32 %conv10, %sub
+  %shr14 = lshr i32 %add, 3
+  %idx.ext = zext i32 %shr14 to i64
+  %add.ptr = getelementptr inbounds i8, ptr %0, i64 %idx.ext
+  store ptr %add.ptr, ptr %bits, align 8, !tbaa !5
+  %and = and i32 %add, 7
+  store i32 %and, ptr %bitIndex, align 8, !tbaa !12
+  %conv17 = trunc i32 %shr to i8
+  ret i8 %conv17
 }
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(read, argmem: readwrite, inaccessiblemem: none) uwtable
-define dso_local zeroext i8 @BitBufferReadOne(ptr nocapture noundef %0) local_unnamed_addr #1 {
-  %2 = load ptr, ptr %0, align 8, !tbaa !5
-  %3 = load i8, ptr %2, align 1, !tbaa !14
-  %4 = zext i8 %3 to i32
-  %5 = getelementptr inbounds %struct.BitBuffer, ptr %0, i64 0, i32 2
-  %6 = load i32, ptr %5, align 8, !tbaa !12
-  %7 = sub i32 7, %6
-  %8 = lshr i32 %4, %7
-  %9 = trunc i32 %8 to i8
-  %10 = and i8 %9, 1
-  %11 = add i32 %6, 1
-  %12 = lshr i32 %11, 3
-  %13 = zext i32 %12 to i64
-  %14 = getelementptr inbounds i8, ptr %2, i64 %13
-  store ptr %14, ptr %0, align 8, !tbaa !5
-  %15 = and i32 %11, 7
-  store i32 %15, ptr %5, align 8, !tbaa !12
-  ret i8 %10
+define dso_local zeroext i8 @BitBufferReadOne(ptr nocapture noundef %bits) local_unnamed_addr #1 {
+entry:
+  %0 = load ptr, ptr %bits, align 8, !tbaa !5
+  %1 = load i8, ptr %0, align 1, !tbaa !14
+  %conv = zext i8 %1 to i32
+  %bitIndex = getelementptr inbounds %struct.BitBuffer, ptr %bits, i64 0, i32 2
+  %2 = load i32, ptr %bitIndex, align 8, !tbaa !12
+  %sub = sub i32 7, %2
+  %shr = lshr i32 %conv, %sub
+  %3 = trunc i32 %shr to i8
+  %conv1 = and i8 %3, 1
+  %inc = add i32 %2, 1
+  %shr4 = lshr i32 %inc, 3
+  %idx.ext = zext i32 %shr4 to i64
+  %add.ptr = getelementptr inbounds i8, ptr %0, i64 %idx.ext
+  store ptr %add.ptr, ptr %bits, align 8, !tbaa !5
+  %and7 = and i32 %inc, 7
+  store i32 %and7, ptr %bitIndex, align 8, !tbaa !12
+  ret i8 %conv1
 }
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(read, inaccessiblemem: none) uwtable
-define dso_local i32 @BitBufferPeek(ptr nocapture noundef readonly %0, i8 noundef zeroext %1) local_unnamed_addr #2 {
-  %3 = load ptr, ptr %0, align 8, !tbaa !5
-  %4 = load i8, ptr %3, align 1, !tbaa !14
-  %5 = zext i8 %4 to i32
-  %6 = shl nuw nsw i32 %5, 16
-  %7 = getelementptr inbounds i8, ptr %3, i64 1
-  %8 = load i8, ptr %7, align 1, !tbaa !14
-  %9 = zext i8 %8 to i32
-  %10 = shl nuw nsw i32 %9, 8
-  %11 = or i32 %10, %6
-  %12 = getelementptr inbounds i8, ptr %3, i64 2
-  %13 = load i8, ptr %12, align 1, !tbaa !14
-  %14 = zext i8 %13 to i32
-  %15 = or i32 %11, %14
-  %16 = getelementptr inbounds %struct.BitBuffer, ptr %0, i64 0, i32 2
-  %17 = load i32, ptr %16, align 8, !tbaa !12
-  %18 = shl i32 %15, %17
-  %19 = and i32 %18, 16777215
-  %20 = zext i8 %1 to i32
-  %21 = sub nsw i32 24, %20
-  %22 = lshr i32 %19, %21
-  ret i32 %22
+define dso_local i32 @BitBufferPeek(ptr nocapture noundef readonly %bits, i8 noundef zeroext %numBits) local_unnamed_addr #2 {
+entry:
+  %0 = load ptr, ptr %bits, align 8, !tbaa !5
+  %1 = load i8, ptr %0, align 1, !tbaa !14
+  %conv = zext i8 %1 to i32
+  %shl = shl nuw nsw i32 %conv, 16
+  %arrayidx2 = getelementptr inbounds i8, ptr %0, i64 1
+  %2 = load i8, ptr %arrayidx2, align 1, !tbaa !14
+  %conv3 = zext i8 %2 to i32
+  %shl4 = shl nuw nsw i32 %conv3, 8
+  %or = or i32 %shl4, %shl
+  %arrayidx6 = getelementptr inbounds i8, ptr %0, i64 2
+  %3 = load i8, ptr %arrayidx6, align 1, !tbaa !14
+  %conv7 = zext i8 %3 to i32
+  %or8 = or i32 %or, %conv7
+  %bitIndex = getelementptr inbounds %struct.BitBuffer, ptr %bits, i64 0, i32 2
+  %4 = load i32, ptr %bitIndex, align 8, !tbaa !12
+  %shl9 = shl i32 %or8, %4
+  %and = and i32 %shl9, 16777215
+  %conv10 = zext i8 %numBits to i32
+  %sub = sub nsw i32 24, %conv10
+  %shr = lshr i32 %and, %sub
+  ret i32 %shr
 }
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(read, inaccessiblemem: none) uwtable
-define dso_local i32 @BitBufferPeekOne(ptr nocapture noundef readonly %0) local_unnamed_addr #2 {
-  %2 = load ptr, ptr %0, align 8, !tbaa !5
-  %3 = load i8, ptr %2, align 1, !tbaa !14
-  %4 = zext i8 %3 to i32
-  %5 = getelementptr inbounds %struct.BitBuffer, ptr %0, i64 0, i32 2
-  %6 = load i32, ptr %5, align 8, !tbaa !12
-  %7 = sub i32 7, %6
-  %8 = lshr i32 %4, %7
-  %9 = and i32 %8, 1
-  ret i32 %9
+define dso_local i32 @BitBufferPeekOne(ptr nocapture noundef readonly %bits) local_unnamed_addr #2 {
+entry:
+  %0 = load ptr, ptr %bits, align 8, !tbaa !5
+  %1 = load i8, ptr %0, align 1, !tbaa !14
+  %conv = zext i8 %1 to i32
+  %bitIndex = getelementptr inbounds %struct.BitBuffer, ptr %bits, i64 0, i32 2
+  %2 = load i32, ptr %bitIndex, align 8, !tbaa !12
+  %sub = sub i32 7, %2
+  %shr = lshr i32 %conv, %sub
+  %and = and i32 %shr, 1
+  ret i32 %and
 }
 
 ; Function Attrs: nofree norecurse nosync nounwind memory(read, argmem: readwrite, inaccessiblemem: none) uwtable
-define dso_local i32 @BitBufferUnpackBERSize(ptr nocapture noundef %0) local_unnamed_addr #3 {
-  %2 = getelementptr inbounds %struct.BitBuffer, ptr %0, i64 0, i32 2
-  %3 = load ptr, ptr %0, align 8, !tbaa !5
-  %4 = load i32, ptr %2, align 8, !tbaa !12
-  %5 = load i8, ptr %3, align 1, !tbaa !14
-  %6 = zext i8 %5 to i32
-  %7 = shl nuw nsw i32 %6, 8
-  %8 = getelementptr inbounds i8, ptr %3, i64 1
-  %9 = load i8, ptr %8, align 1, !tbaa !14
-  %10 = zext i8 %9 to i32
-  %11 = or i32 %7, %10
-  %12 = shl i32 %11, %4
-  %13 = add i32 %4, 8
-  %14 = lshr i32 %12, 8
-  %15 = lshr i32 %13, 3
-  %16 = zext i32 %15 to i64
-  %17 = getelementptr inbounds i8, ptr %3, i64 %16
-  store ptr %17, ptr %0, align 8, !tbaa !5
-  %18 = and i32 %4, 7
-  store i32 %18, ptr %2, align 8, !tbaa !12
-  %19 = and i32 %14, 127
-  %20 = and i32 %12, 32768
-  %21 = icmp eq i32 %20, 0
-  br i1 %21, label %40, label %22
+define dso_local i32 @BitBufferUnpackBERSize(ptr nocapture noundef %bits) local_unnamed_addr #3 {
+entry:
+  %bitIndex.i = getelementptr inbounds %struct.BitBuffer, ptr %bits, i64 0, i32 2
+  %bits.promoted = load ptr, ptr %bits, align 8, !tbaa !5
+  %bitIndex.i.promoted = load i32, ptr %bitIndex.i, align 8, !tbaa !12
+  %0 = load i8, ptr %bits.promoted, align 1, !tbaa !14
+  %conv.i.peel = zext i8 %0 to i32
+  %shl.i.peel = shl nuw nsw i32 %conv.i.peel, 8
+  %arrayidx2.i.peel = getelementptr inbounds i8, ptr %bits.promoted, i64 1
+  %1 = load i8, ptr %arrayidx2.i.peel, align 1, !tbaa !14
+  %conv3.i.peel = zext i8 %1 to i32
+  %or.i.peel = or i32 %shl.i.peel, %conv3.i.peel
+  %shl6.i.peel = shl i32 %or.i.peel, %bitIndex.i.promoted
+  %add.i.peel = add i32 %bitIndex.i.promoted, 8
+  %conv10.i.peel = lshr i32 %shl6.i.peel, 8
+  %shr14.i.peel = lshr i32 %add.i.peel, 3
+  %idx.ext.i.peel = zext i32 %shr14.i.peel to i64
+  %add.ptr.i.peel = getelementptr inbounds i8, ptr %bits.promoted, i64 %idx.ext.i.peel
+  store ptr %add.ptr.i.peel, ptr %bits, align 8, !tbaa !5
+  %and.i.peel = and i32 %bitIndex.i.promoted, 7
+  store i32 %and.i.peel, ptr %bitIndex.i, align 8, !tbaa !12
+  %and3.peel = and i32 %conv10.i.peel, 127
+  %2 = and i32 %shl6.i.peel, 32768
+  %tobool.not.peel = icmp eq i32 %2, 0
+  br i1 %tobool.not.peel, label %for.end, label %for.body
 
-22:                                               ; preds = %1, %22
-  %23 = phi i32 [ %37, %22 ], [ %19, %1 ]
-  %24 = phi ptr [ %34, %22 ], [ %17, %1 ]
-  %25 = load i8, ptr %24, align 1, !tbaa !14
-  %26 = zext i8 %25 to i32
-  %27 = shl nuw nsw i32 %26, 8
-  %28 = getelementptr inbounds i8, ptr %24, i64 1
-  %29 = load i8, ptr %28, align 1, !tbaa !14
-  %30 = zext i8 %29 to i32
-  %31 = or i32 %27, %30
-  %32 = shl nuw nsw i32 %31, %18
-  %33 = lshr i32 %32, 8
-  %34 = getelementptr inbounds i8, ptr %24, i64 1
-  store ptr %34, ptr %0, align 8, !tbaa !5
-  store i32 %18, ptr %2, align 8, !tbaa !12
-  %35 = shl i32 %23, 7
-  %36 = and i32 %33, 127
-  %37 = or i32 %36, %35
-  %38 = and i32 %32, 32768
-  %39 = icmp eq i32 %38, 0
-  br i1 %39, label %40, label %22, !llvm.loop !15
+for.body:                                         ; preds = %entry, %for.body
+  %size.010 = phi i32 [ %or, %for.body ], [ %and3.peel, %entry ]
+  %add.ptr.i69 = phi ptr [ %add.ptr.i, %for.body ], [ %add.ptr.i.peel, %entry ]
+  %3 = load i8, ptr %add.ptr.i69, align 1, !tbaa !14
+  %conv.i = zext i8 %3 to i32
+  %shl.i = shl nuw nsw i32 %conv.i, 8
+  %arrayidx2.i = getelementptr inbounds i8, ptr %add.ptr.i69, i64 1
+  %4 = load i8, ptr %arrayidx2.i, align 1, !tbaa !14
+  %conv3.i = zext i8 %4 to i32
+  %or.i = or i32 %shl.i, %conv3.i
+  %shl6.i = shl nuw nsw i32 %or.i, %and.i.peel
+  %conv10.i = lshr i32 %shl6.i, 8
+  %add.ptr.i = getelementptr inbounds i8, ptr %add.ptr.i69, i64 1
+  store ptr %add.ptr.i, ptr %bits, align 8, !tbaa !5
+  store i32 %and.i.peel, ptr %bitIndex.i, align 8, !tbaa !12
+  %shl = shl i32 %size.010, 7
+  %and3 = and i32 %conv10.i, 127
+  %or = or i32 %and3, %shl
+  %5 = and i32 %shl6.i, 32768
+  %tobool.not = icmp eq i32 %5, 0
+  br i1 %tobool.not, label %for.end, label %for.body, !llvm.loop !15
 
-40:                                               ; preds = %22, %1
-  %41 = phi i32 [ %19, %1 ], [ %37, %22 ]
-  ret i32 %41
+for.end:                                          ; preds = %for.body, %entry
+  %or.lcssa = phi i32 [ %and3.peel, %entry ], [ %or, %for.body ]
+  ret i32 %or.lcssa
 }
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(argmem: read) uwtable
-define dso_local i32 @BitBufferGetPosition(ptr nocapture noundef readonly %0) local_unnamed_addr #4 {
-  %2 = getelementptr inbounds %struct.BitBuffer, ptr %0, i64 0, i32 1
-  %3 = load ptr, ptr %2, align 8, !tbaa !11
-  %4 = getelementptr inbounds %struct.BitBuffer, ptr %0, i64 0, i32 3
-  %5 = load i32, ptr %4, align 4, !tbaa !13
-  %6 = zext i32 %5 to i64
-  %7 = sub nsw i64 0, %6
-  %8 = getelementptr inbounds i8, ptr %3, i64 %7
-  %9 = load ptr, ptr %0, align 8, !tbaa !5
-  %10 = ptrtoint ptr %9 to i64
-  %11 = ptrtoint ptr %8 to i64
-  %12 = sub i64 %10, %11
-  %13 = trunc i64 %12 to i32
-  %14 = shl i32 %13, 3
-  %15 = getelementptr inbounds %struct.BitBuffer, ptr %0, i64 0, i32 2
-  %16 = load i32, ptr %15, align 8, !tbaa !12
-  %17 = add i32 %14, %16
-  ret i32 %17
+define dso_local i32 @BitBufferGetPosition(ptr nocapture noundef readonly %bits) local_unnamed_addr #4 {
+entry:
+  %end = getelementptr inbounds %struct.BitBuffer, ptr %bits, i64 0, i32 1
+  %0 = load ptr, ptr %end, align 8, !tbaa !11
+  %byteSize = getelementptr inbounds %struct.BitBuffer, ptr %bits, i64 0, i32 3
+  %1 = load i32, ptr %byteSize, align 4, !tbaa !13
+  %idx.ext = zext i32 %1 to i64
+  %idx.neg = sub nsw i64 0, %idx.ext
+  %add.ptr = getelementptr inbounds i8, ptr %0, i64 %idx.neg
+  %2 = load ptr, ptr %bits, align 8, !tbaa !5
+  %sub.ptr.lhs.cast = ptrtoint ptr %2 to i64
+  %sub.ptr.rhs.cast = ptrtoint ptr %add.ptr to i64
+  %sub.ptr.sub = sub i64 %sub.ptr.lhs.cast, %sub.ptr.rhs.cast
+  %conv = trunc i64 %sub.ptr.sub to i32
+  %mul = shl i32 %conv, 3
+  %bitIndex = getelementptr inbounds %struct.BitBuffer, ptr %bits, i64 0, i32 2
+  %3 = load i32, ptr %bitIndex, align 8, !tbaa !12
+  %add = add i32 %mul, %3
+  ret i32 %add
 }
 
 ; Function Attrs: nofree nosync nounwind memory(readwrite, inaccessiblemem: none) uwtable
-define dso_local void @BitBufferByteAlign(ptr nocapture noundef %0, i32 noundef %1) local_unnamed_addr #5 {
-  %3 = getelementptr inbounds %struct.BitBuffer, ptr %0, i64 0, i32 2
-  %4 = load i32, ptr %3, align 8, !tbaa !12
-  %5 = icmp eq i32 %4, 0
-  br i1 %5, label %42, label %6
+define dso_local void @BitBufferByteAlign(ptr nocapture noundef %bits, i32 noundef %addZeros) local_unnamed_addr #5 {
+entry:
+  %bitIndex = getelementptr inbounds %struct.BitBuffer, ptr %bits, i64 0, i32 2
+  %0 = load i32, ptr %bitIndex, align 8, !tbaa !12
+  %cmp = icmp eq i32 %0, 0
+  br i1 %cmp, label %if.end5, label %if.end
 
-6:                                                ; preds = %2
-  %7 = icmp eq i32 %1, 0
-  %8 = icmp eq i32 %4, 8
-  br i1 %7, label %36, label %9
+if.end:                                           ; preds = %entry
+  %tobool.not = icmp eq i32 %addZeros, 0
+  %tobool.not.i = icmp eq i32 %0, 8
+  br i1 %tobool.not, label %if.else, label %if.then1
 
-9:                                                ; preds = %6
-  br i1 %8, label %42, label %10
+if.then1:                                         ; preds = %if.end
+  br i1 %tobool.not.i, label %if.end5, label %while.body.i.preheader
 
-10:                                               ; preds = %9
-  %11 = sub i32 8, %4
-  br label %12
+while.body.i.preheader:                           ; preds = %if.then1
+  %sub = sub i32 8, %0
+  br label %while.body.i
 
-12:                                               ; preds = %31, %10
-  %13 = phi i32 [ %11, %10 ], [ %16, %31 ]
-  %14 = phi i32 [ %11, %10 ], [ %32, %31 ]
-  %15 = tail call i32 @llvm.umin.i32(i32 %14, i32 %13)
-  %16 = sub i32 %13, %15
-  %17 = sub i32 %14, %15
-  %18 = sub i32 8, %15
-  %19 = lshr i32 255, %18
-  %20 = and i32 %17, 255
-  %21 = shl i32 %19, %20
-  %22 = load ptr, ptr %0, align 8, !tbaa !5
-  %23 = load i8, ptr %22, align 1, !tbaa !14
-  %24 = trunc i32 %21 to i8
-  %25 = xor i8 %24, -1
-  %26 = and i8 %23, %25
-  store i8 %26, ptr %22, align 1, !tbaa !14
-  %27 = icmp eq i32 %17, 0
-  br i1 %27, label %28, label %31
+while.body.i:                                     ; preds = %while.body.i.preheader, %if.end31.i
+  %numBits.addr.059.i = phi i32 [ %sub6.i, %if.end31.i ], [ %sub, %while.body.i.preheader ]
+  %invBitIndex.058.i = phi i32 [ %invBitIndex.1.i, %if.end31.i ], [ %sub, %while.body.i.preheader ]
+  %cond.i = tail call i32 @llvm.umin.i32(i32 %invBitIndex.058.i, i32 %numBits.addr.059.i)
+  %sub6.i = sub i32 %numBits.addr.059.i, %cond.i
+  %sub7.i = sub i32 %invBitIndex.058.i, %cond.i
+  %sub8.i = sub i32 8, %cond.i
+  %shr9.i = lshr i32 255, %sub8.i
+  %conv11.i = and i32 %sub7.i, 255
+  %shl.i = shl i32 %shr9.i, %conv11.i
+  %1 = load ptr, ptr %bits, align 8, !tbaa !5
+  %2 = load i8, ptr %1, align 1, !tbaa !14
+  %3 = trunc i32 %shl.i to i8
+  %4 = xor i8 %3, -1
+  %conv22.i = and i8 %2, %4
+  store i8 %conv22.i, ptr %1, align 1, !tbaa !14
+  %cmp27.i = icmp eq i32 %sub7.i, 0
+  br i1 %cmp27.i, label %if.then29.i, label %if.end31.i
 
-28:                                               ; preds = %12
-  %29 = load ptr, ptr %0, align 8, !tbaa !5
-  %30 = getelementptr inbounds i8, ptr %29, i64 1
-  store ptr %30, ptr %0, align 8, !tbaa !5
-  br label %31
+if.then29.i:                                      ; preds = %while.body.i
+  %5 = load ptr, ptr %bits, align 8, !tbaa !5
+  %incdec.ptr.i = getelementptr inbounds i8, ptr %5, i64 1
+  store ptr %incdec.ptr.i, ptr %bits, align 8, !tbaa !5
+  br label %if.end31.i
 
-31:                                               ; preds = %28, %12
-  %32 = phi i32 [ 8, %28 ], [ %17, %12 ]
-  %33 = icmp eq i32 %16, 0
-  br i1 %33, label %34, label %12, !llvm.loop !18
+if.end31.i:                                       ; preds = %if.then29.i, %while.body.i
+  %invBitIndex.1.i = phi i32 [ 8, %if.then29.i ], [ %sub7.i, %while.body.i ]
+  %cmp4.not.i = icmp eq i32 %sub6.i, 0
+  br i1 %cmp4.not.i, label %while.end.i, label %while.body.i, !llvm.loop !18
 
-34:                                               ; preds = %31
-  %35 = sub i32 8, %32
-  br label %40
+while.end.i:                                      ; preds = %if.end31.i
+  %sub32.i = sub i32 8, %invBitIndex.1.i
+  br label %if.end5.sink.split
 
-36:                                               ; preds = %6
-  br i1 %8, label %42, label %37
+if.else:                                          ; preds = %if.end
+  br i1 %tobool.not.i, label %if.end5, label %if.then.i
 
-37:                                               ; preds = %36
-  %38 = load ptr, ptr %0, align 8, !tbaa !5
-  %39 = getelementptr inbounds i8, ptr %38, i64 1
-  store ptr %39, ptr %0, align 8, !tbaa !5
-  br label %40
+if.then.i:                                        ; preds = %if.else
+  %6 = load ptr, ptr %bits, align 8, !tbaa !5
+  %add.ptr.i = getelementptr inbounds i8, ptr %6, i64 1
+  store ptr %add.ptr.i, ptr %bits, align 8, !tbaa !5
+  br label %if.end5.sink.split
 
-40:                                               ; preds = %34, %37
-  %41 = phi i32 [ 0, %37 ], [ %35, %34 ]
-  store i32 %41, ptr %3, align 8, !tbaa !12
-  br label %42
+if.end5.sink.split:                               ; preds = %while.end.i, %if.then.i
+  %.sink = phi i32 [ 0, %if.then.i ], [ %sub32.i, %while.end.i ]
+  store i32 %.sink, ptr %bitIndex, align 8, !tbaa !12
+  br label %if.end5
 
-42:                                               ; preds = %40, %36, %9, %2
+if.end5:                                          ; preds = %if.end5.sink.split, %if.else, %if.then1, %entry
   ret void
 }
 
 ; Function Attrs: nofree nosync nounwind memory(readwrite, inaccessiblemem: none) uwtable
-define dso_local void @BitBufferWrite(ptr noundef %0, i32 noundef %1, i32 noundef %2) local_unnamed_addr #5 {
-  %4 = icmp ne ptr %0, null
-  %5 = icmp ne i32 %2, 0
-  %6 = and i1 %4, %5
-  br i1 %6, label %7, label %40
+define dso_local void @BitBufferWrite(ptr noundef %bits, i32 noundef %bitValues, i32 noundef %numBits) local_unnamed_addr #5 {
+entry:
+  %cmp.not = icmp eq ptr %bits, null
+  %cmp1.not = icmp eq i32 %numBits, 0
+  %or.cond = or i1 %cmp.not, %cmp1.not
+  br i1 %or.cond, label %cleanup, label %if.end3
 
-7:                                                ; preds = %3
-  %8 = getelementptr inbounds %struct.BitBuffer, ptr %0, i64 0, i32 2
-  %9 = load i32, ptr %8, align 8, !tbaa !12
-  %10 = sub i32 8, %9
-  br label %11
+if.end3:                                          ; preds = %entry
+  %bitIndex = getelementptr inbounds %struct.BitBuffer, ptr %bits, i64 0, i32 2
+  %0 = load i32, ptr %bitIndex, align 8, !tbaa !12
+  %sub = sub i32 8, %0
+  br label %while.body
 
-11:                                               ; preds = %7, %35
-  %12 = phi i32 [ %2, %7 ], [ %15, %35 ]
-  %13 = phi i32 [ %10, %7 ], [ %36, %35 ]
-  %14 = tail call i32 @llvm.umin.i32(i32 %13, i32 %12)
-  %15 = sub i32 %12, %14
-  %16 = lshr i32 %1, %15
-  %17 = sub i32 %13, %14
-  %18 = sub i32 8, %14
-  %19 = lshr i32 255, %18
-  %20 = and i32 %17, 255
-  %21 = shl i32 %19, %20
-  %22 = load ptr, ptr %0, align 8, !tbaa !5
-  %23 = load i8, ptr %22, align 1, !tbaa !14
-  %24 = zext i8 %23 to i32
-  %25 = xor i32 %21, -1
-  %26 = and i32 %24, %25
-  %27 = and i32 %16, %19
-  %28 = shl i32 %27, %20
-  %29 = or i32 %26, %28
-  %30 = trunc i32 %29 to i8
-  store i8 %30, ptr %22, align 1, !tbaa !14
-  %31 = icmp eq i32 %17, 0
-  br i1 %31, label %32, label %35
+while.body:                                       ; preds = %if.end3, %if.end31
+  %numBits.addr.059 = phi i32 [ %numBits, %if.end3 ], [ %sub6, %if.end31 ]
+  %invBitIndex.058 = phi i32 [ %sub, %if.end3 ], [ %invBitIndex.1, %if.end31 ]
+  %cond = tail call i32 @llvm.umin.i32(i32 %invBitIndex.058, i32 %numBits.addr.059)
+  %sub6 = sub i32 %numBits.addr.059, %cond
+  %shr = lshr i32 %bitValues, %sub6
+  %sub7 = sub i32 %invBitIndex.058, %cond
+  %sub8 = sub i32 8, %cond
+  %shr9 = lshr i32 255, %sub8
+  %conv11 = and i32 %sub7, 255
+  %shl = shl i32 %shr9, %conv11
+  %1 = load ptr, ptr %bits, align 8, !tbaa !5
+  %2 = load i8, ptr %1, align 1, !tbaa !14
+  %conv14 = zext i8 %2 to i32
+  %not = xor i32 %shl, -1
+  %and = and i32 %conv14, %not
+  %shl1956 = and i32 %shr, %shr9
+  %and21 = shl i32 %shl1956, %conv11
+  %or = or i32 %and, %and21
+  %conv22 = trunc i32 %or to i8
+  store i8 %conv22, ptr %1, align 1, !tbaa !14
+  %cmp27 = icmp eq i32 %sub7, 0
+  br i1 %cmp27, label %if.then29, label %if.end31
 
-32:                                               ; preds = %11
-  %33 = load ptr, ptr %0, align 8, !tbaa !5
-  %34 = getelementptr inbounds i8, ptr %33, i64 1
-  store ptr %34, ptr %0, align 8, !tbaa !5
-  br label %35
+if.then29:                                        ; preds = %while.body
+  %3 = load ptr, ptr %bits, align 8, !tbaa !5
+  %incdec.ptr = getelementptr inbounds i8, ptr %3, i64 1
+  store ptr %incdec.ptr, ptr %bits, align 8, !tbaa !5
+  br label %if.end31
 
-35:                                               ; preds = %32, %11
-  %36 = phi i32 [ 8, %32 ], [ %17, %11 ]
-  %37 = icmp eq i32 %15, 0
-  br i1 %37, label %38, label %11, !llvm.loop !18
+if.end31:                                         ; preds = %if.then29, %while.body
+  %invBitIndex.1 = phi i32 [ 8, %if.then29 ], [ %sub7, %while.body ]
+  %cmp4.not = icmp eq i32 %sub6, 0
+  br i1 %cmp4.not, label %while.end, label %while.body, !llvm.loop !18
 
-38:                                               ; preds = %35
-  %39 = sub i32 8, %36
-  store i32 %39, ptr %8, align 8, !tbaa !12
-  br label %40
+while.end:                                        ; preds = %if.end31
+  %sub32 = sub i32 8, %invBitIndex.1
+  store i32 %sub32, ptr %bitIndex, align 8, !tbaa !12
+  br label %cleanup
 
-40:                                               ; preds = %3, %38
+cleanup:                                          ; preds = %entry, %while.end
   ret void
 }
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(argmem: readwrite) uwtable
-define dso_local void @BitBufferAdvance(ptr nocapture noundef %0, i32 noundef %1) local_unnamed_addr #6 {
-  %3 = icmp eq i32 %1, 0
-  br i1 %3, label %13, label %4
+define dso_local void @BitBufferAdvance(ptr nocapture noundef %bits, i32 noundef %numBits) local_unnamed_addr #6 {
+entry:
+  %tobool.not = icmp eq i32 %numBits, 0
+  br i1 %tobool.not, label %if.end, label %if.then
 
-4:                                                ; preds = %2
-  %5 = getelementptr inbounds %struct.BitBuffer, ptr %0, i64 0, i32 2
-  %6 = load i32, ptr %5, align 8, !tbaa !12
-  %7 = add i32 %6, %1
-  %8 = lshr i32 %7, 3
-  %9 = load ptr, ptr %0, align 8, !tbaa !5
-  %10 = zext i32 %8 to i64
-  %11 = getelementptr inbounds i8, ptr %9, i64 %10
-  store ptr %11, ptr %0, align 8, !tbaa !5
-  %12 = and i32 %7, 7
-  store i32 %12, ptr %5, align 8, !tbaa !12
-  br label %13
+if.then:                                          ; preds = %entry
+  %bitIndex = getelementptr inbounds %struct.BitBuffer, ptr %bits, i64 0, i32 2
+  %0 = load i32, ptr %bitIndex, align 8, !tbaa !12
+  %add = add i32 %0, %numBits
+  %shr = lshr i32 %add, 3
+  %1 = load ptr, ptr %bits, align 8, !tbaa !5
+  %idx.ext = zext i32 %shr to i64
+  %add.ptr = getelementptr inbounds i8, ptr %1, i64 %idx.ext
+  store ptr %add.ptr, ptr %bits, align 8, !tbaa !5
+  %and = and i32 %add, 7
+  store i32 %and, ptr %bitIndex, align 8, !tbaa !12
+  br label %if.end
 
-13:                                               ; preds = %4, %2
+if.end:                                           ; preds = %if.then, %entry
   ret void
 }
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(argmem: readwrite) uwtable
-define dso_local void @BitBufferRewind(ptr nocapture noundef %0, i32 noundef %1) local_unnamed_addr #6 {
-  %3 = icmp eq i32 %1, 0
-  br i1 %3, label %35, label %4
+define dso_local void @BitBufferRewind(ptr nocapture noundef %bits, i32 noundef %numBits) local_unnamed_addr #6 {
+entry:
+  %cmp = icmp eq i32 %numBits, 0
+  br i1 %cmp, label %cleanup, label %if.end
 
-4:                                                ; preds = %2
-  %5 = getelementptr inbounds %struct.BitBuffer, ptr %0, i64 0, i32 2
-  %6 = load i32, ptr %5, align 8, !tbaa !12
-  %7 = icmp ult i32 %6, %1
-  br i1 %7, label %10, label %8
+if.end:                                           ; preds = %entry
+  %bitIndex = getelementptr inbounds %struct.BitBuffer, ptr %bits, i64 0, i32 2
+  %0 = load i32, ptr %bitIndex, align 8, !tbaa !12
+  %cmp1.not = icmp ult i32 %0, %numBits
+  br i1 %cmp1.not, label %if.end4, label %if.then2
 
-8:                                                ; preds = %4
-  %9 = sub i32 %6, %1
-  br label %33
+if.then2:                                         ; preds = %if.end
+  %sub = sub i32 %0, %numBits
+  br label %cleanup.sink.split
 
-10:                                               ; preds = %4
-  %11 = sub i32 %1, %6
-  store i32 0, ptr %5, align 8, !tbaa !12
-  %12 = lshr i32 %11, 3
-  %13 = and i32 %11, 7
-  %14 = load ptr, ptr %0, align 8, !tbaa !5
-  %15 = zext i32 %12 to i64
-  %16 = sub nsw i64 0, %15
-  %17 = getelementptr inbounds i8, ptr %14, i64 %16
-  store ptr %17, ptr %0, align 8, !tbaa !5
-  %18 = icmp eq i32 %13, 0
-  br i1 %18, label %22, label %19
+if.end4:                                          ; preds = %if.end
+  %sub6 = sub i32 %numBits, %0
+  store i32 0, ptr %bitIndex, align 8, !tbaa !12
+  %div48 = lshr i32 %sub6, 3
+  %rem = and i32 %sub6, 7
+  %1 = load ptr, ptr %bits, align 8, !tbaa !5
+  %idx.ext = zext i32 %div48 to i64
+  %idx.neg = sub nsw i64 0, %idx.ext
+  %add.ptr = getelementptr inbounds i8, ptr %1, i64 %idx.neg
+  store ptr %add.ptr, ptr %bits, align 8, !tbaa !5
+  %cmp8.not = icmp eq i32 %rem, 0
+  br i1 %cmp8.not, label %if.end13, label %if.then9
 
-19:                                               ; preds = %10
-  %20 = sub nuw nsw i32 8, %13
-  store i32 %20, ptr %5, align 8, !tbaa !12
-  %21 = getelementptr inbounds i8, ptr %17, i64 -1
-  store ptr %21, ptr %0, align 8, !tbaa !5
-  br label %22
+if.then9:                                         ; preds = %if.end4
+  %sub10 = sub nuw nsw i32 8, %rem
+  store i32 %sub10, ptr %bitIndex, align 8, !tbaa !12
+  %incdec.ptr = getelementptr inbounds i8, ptr %add.ptr, i64 -1
+  store ptr %incdec.ptr, ptr %bits, align 8, !tbaa !5
+  br label %if.end13
 
-22:                                               ; preds = %19, %10
-  %23 = phi ptr [ %21, %19 ], [ %17, %10 ]
-  %24 = getelementptr inbounds %struct.BitBuffer, ptr %0, i64 0, i32 1
-  %25 = load ptr, ptr %24, align 8, !tbaa !11
-  %26 = getelementptr inbounds %struct.BitBuffer, ptr %0, i64 0, i32 3
-  %27 = load i32, ptr %26, align 4, !tbaa !13
-  %28 = zext i32 %27 to i64
-  %29 = sub nsw i64 0, %28
-  %30 = getelementptr inbounds i8, ptr %25, i64 %29
-  %31 = icmp ult ptr %23, %30
-  br i1 %31, label %32, label %35
+if.end13:                                         ; preds = %if.then9, %if.end4
+  %2 = phi ptr [ %incdec.ptr, %if.then9 ], [ %add.ptr, %if.end4 ]
+  %end = getelementptr inbounds %struct.BitBuffer, ptr %bits, i64 0, i32 1
+  %3 = load ptr, ptr %end, align 8, !tbaa !11
+  %byteSize = getelementptr inbounds %struct.BitBuffer, ptr %bits, i64 0, i32 3
+  %4 = load i32, ptr %byteSize, align 4, !tbaa !13
+  %idx.ext15 = zext i32 %4 to i64
+  %idx.neg16 = sub nsw i64 0, %idx.ext15
+  %add.ptr17 = getelementptr inbounds i8, ptr %3, i64 %idx.neg16
+  %cmp18 = icmp ult ptr %2, %add.ptr17
+  br i1 %cmp18, label %if.then19, label %cleanup
 
-32:                                               ; preds = %22
-  store ptr %30, ptr %0, align 8, !tbaa !5
-  br label %33
+if.then19:                                        ; preds = %if.end13
+  store ptr %add.ptr17, ptr %bits, align 8, !tbaa !5
+  br label %cleanup.sink.split
 
-33:                                               ; preds = %8, %32
-  %34 = phi i32 [ 0, %32 ], [ %9, %8 ]
-  store i32 %34, ptr %5, align 8, !tbaa !12
-  br label %35
+cleanup.sink.split:                               ; preds = %if.then2, %if.then19
+  %.sink = phi i32 [ 0, %if.then19 ], [ %sub, %if.then2 ]
+  store i32 %.sink, ptr %bitIndex, align 8, !tbaa !12
+  br label %cleanup
 
-35:                                               ; preds = %33, %22, %2
+cleanup:                                          ; preds = %cleanup.sink.split, %if.end13, %entry
   ret void
 }
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(argmem: readwrite) uwtable
-define dso_local void @BitBufferReset(ptr nocapture noundef %0) local_unnamed_addr #6 {
-  %2 = getelementptr inbounds %struct.BitBuffer, ptr %0, i64 0, i32 1
-  %3 = load ptr, ptr %2, align 8, !tbaa !11
-  %4 = getelementptr inbounds %struct.BitBuffer, ptr %0, i64 0, i32 3
-  %5 = load i32, ptr %4, align 4, !tbaa !13
-  %6 = zext i32 %5 to i64
-  %7 = sub nsw i64 0, %6
-  %8 = getelementptr inbounds i8, ptr %3, i64 %7
-  store ptr %8, ptr %0, align 8, !tbaa !5
-  %9 = getelementptr inbounds %struct.BitBuffer, ptr %0, i64 0, i32 2
-  store i32 0, ptr %9, align 8, !tbaa !12
+define dso_local void @BitBufferReset(ptr nocapture noundef %bits) local_unnamed_addr #6 {
+entry:
+  %end = getelementptr inbounds %struct.BitBuffer, ptr %bits, i64 0, i32 1
+  %0 = load ptr, ptr %end, align 8, !tbaa !11
+  %byteSize = getelementptr inbounds %struct.BitBuffer, ptr %bits, i64 0, i32 3
+  %1 = load i32, ptr %byteSize, align 4, !tbaa !13
+  %idx.ext = zext i32 %1 to i64
+  %idx.neg = sub nsw i64 0, %idx.ext
+  %add.ptr = getelementptr inbounds i8, ptr %0, i64 %idx.neg
+  store ptr %add.ptr, ptr %bits, align 8, !tbaa !5
+  %bitIndex = getelementptr inbounds %struct.BitBuffer, ptr %bits, i64 0, i32 2
+  store i32 0, ptr %bitIndex, align 8, !tbaa !12
   ret void
 }
 

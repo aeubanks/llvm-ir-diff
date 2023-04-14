@@ -9,34 +9,36 @@ target triple = "x86_64-unknown-linux-gnu"
 
 ; Function Attrs: nounwind uwtable
 define dso_local i32 @main() local_unnamed_addr #0 {
+entry:
   tail call fastcc void @func_32()
-  %1 = load i32, ptr @g_261, align 4, !tbaa !5
-  %2 = icmp eq i32 %1, -1
-  br i1 %2, label %4, label %3
+  %0 = load i32, ptr @g_261, align 4, !tbaa !5
+  %cmp.not = icmp eq i32 %0, -1
+  br i1 %cmp.not, label %if.end, label %if.then
 
-3:                                                ; preds = %0
+if.then:                                          ; preds = %entry
   tail call void @abort() #3
   unreachable
 
-4:                                                ; preds = %0
+if.end:                                           ; preds = %entry
   ret i32 0
 }
 
 ; Function Attrs: nofree noinline norecurse nosync nounwind memory(readwrite, argmem: none, inaccessiblemem: none) uwtable
 define internal fastcc void @func_32() unnamed_addr #1 {
+entry:
+  %.pr = load i32, ptr @g_211, align 4, !tbaa !5
+  %0 = icmp eq i32 %.pr, -1
   store i32 -1, ptr @g_261, align 4, !tbaa !5
-  %1 = load i32, ptr @g_211, align 4, !tbaa !5
-  %2 = icmp eq i32 %1, -1
-  br i1 %2, label %3, label %5
+  br i1 %0, label %if.else.preheader, label %for.end
 
-3:                                                ; preds = %0
+if.else.preheader:                                ; preds = %entry
   store i32 1, ptr @g_21, align 4, !tbaa !5
-  br label %4
+  br label %if.else
 
-4:                                                ; preds = %4, %3
-  br label %4
+if.else:                                          ; preds = %if.else.preheader, %if.else
+  br label %if.else
 
-5:                                                ; preds = %0
+for.end:                                          ; preds = %entry
   ret void
 }
 

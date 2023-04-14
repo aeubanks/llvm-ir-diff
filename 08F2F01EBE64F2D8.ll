@@ -14,10 +14,11 @@ $_ZTI13TestException = comdat any
 @_ZTI13TestException = linkonce_odr dso_local constant { ptr, ptr } { ptr getelementptr inbounds (ptr, ptr @_ZTVN10__cxxabiv117__class_type_infoE, i64 2), ptr @_ZTS13TestException }, comdat, align 8
 
 ; Function Attrs: noreturn uwtable
-define dso_local void @_Z3thri(i32 %0) local_unnamed_addr #0 personality ptr @__gxx_personality_v0 {
+define dso_local void @_Z3thri(i32 %n) local_unnamed_addr #0 personality ptr @__gxx_personality_v0 {
+entry:
   store i8 1, ptr @thrown, align 1, !tbaa !5
-  %2 = tail call ptr @__cxa_allocate_exception(i64 1) #5
-  tail call void @__cxa_throw(ptr %2, ptr nonnull @_ZTI13TestException, ptr null) #6
+  %exception = tail call ptr @__cxa_allocate_exception(i64 1) #5
+  tail call void @__cxa_throw(ptr nonnull %exception, ptr nonnull @_ZTI13TestException, ptr null) #6
   unreachable
 }
 
@@ -29,29 +30,30 @@ declare void @__cxa_throw(ptr, ptr, ptr) local_unnamed_addr
 
 ; Function Attrs: mustprogress noinline uwtable
 define dso_local void @_Z3runv() local_unnamed_addr #1 personality ptr @__gxx_personality_v0 {
+entry:
   invoke void @_Z3thri(i32 poison)
-          to label %1 unwind label %2
+          to label %invoke.cont.unreachable unwind label %lpad
 
-1:                                                ; preds = %0
+invoke.cont.unreachable:                          ; preds = %entry
   unreachable
 
-2:                                                ; preds = %0
-  %3 = landingpad { ptr, i32 }
+lpad:                                             ; preds = %entry
+  %0 = landingpad { ptr, i32 }
           catch ptr @_ZTI13TestException
-  %4 = extractvalue { ptr, i32 } %3, 1
-  %5 = tail call i32 @llvm.eh.typeid.for(ptr nonnull @_ZTI13TestException) #5
-  %6 = icmp eq i32 %4, %5
-  br i1 %6, label %7, label %10
+  %1 = extractvalue { ptr, i32 } %0, 1
+  %2 = tail call i32 @llvm.eh.typeid.for(ptr nonnull @_ZTI13TestException) #5
+  %matches = icmp eq i32 %1, %2
+  br i1 %matches, label %catch, label %eh.resume
 
-7:                                                ; preds = %2
-  %8 = extractvalue { ptr, i32 } %3, 0
-  %9 = tail call ptr @__cxa_begin_catch(ptr %8) #5
+catch:                                            ; preds = %lpad
+  %3 = extractvalue { ptr, i32 } %0, 0
+  %4 = tail call ptr @__cxa_begin_catch(ptr %3) #5
   store i8 1, ptr @caught, align 1, !tbaa !5
   tail call void @__cxa_end_catch()
   ret void
 
-10:                                               ; preds = %2
-  resume { ptr, i32 } %3
+eh.resume:                                        ; preds = %lpad
+  resume { ptr, i32 } %0
 }
 
 ; Function Attrs: noreturn nounwind
@@ -65,26 +67,27 @@ declare ptr @__cxa_begin_catch(ptr) local_unnamed_addr
 declare void @__cxa_end_catch() local_unnamed_addr
 
 ; Function Attrs: mustprogress norecurse nounwind uwtable
-define dso_local noundef i32 @main(i32 noundef %0, ptr nocapture noundef readnone %1) local_unnamed_addr #4 personality ptr @__gxx_personality_v0 {
+define dso_local noundef i32 @main(i32 noundef %argc, ptr nocapture noundef readnone %argv) local_unnamed_addr #4 personality ptr @__gxx_personality_v0 {
+entry:
   invoke void @_Z3runv()
-          to label %7 unwind label %3
+          to label %try.cont unwind label %lpad
 
-3:                                                ; preds = %2
-  %4 = landingpad { ptr, i32 }
+lpad:                                             ; preds = %entry
+  %0 = landingpad { ptr, i32 }
           catch ptr null
-  %5 = extractvalue { ptr, i32 } %4, 0
-  %6 = tail call ptr @__cxa_begin_catch(ptr %5) #5
+  %1 = extractvalue { ptr, i32 } %0, 0
+  %2 = tail call ptr @__cxa_begin_catch(ptr %1) #5
   tail call void @abort() #7
   unreachable
 
-7:                                                ; preds = %2
-  %8 = load i8, ptr @thrown, align 1, !tbaa !5, !range !9, !noundef !10
-  %9 = icmp eq i8 %8, 0
-  %10 = load i8, ptr @caught, align 1
-  %11 = icmp eq i8 %10, 0
-  %12 = select i1 %9, i1 true, i1 %11
-  %13 = zext i1 %12 to i32
-  ret i32 %13
+try.cont:                                         ; preds = %entry
+  %3 = load i8, ptr @thrown, align 1, !tbaa !5, !range !9, !noundef !10
+  %tobool.not = icmp eq i8 %3, 0
+  %4 = load i8, ptr @caught, align 1
+  %tobool1.not = icmp eq i8 %4, 0
+  %or.cond = select i1 %tobool.not, i1 true, i1 %tobool1.not
+  %retval.0 = zext i1 %or.cond to i32
+  ret i32 %retval.0
 }
 
 attributes #0 = { noreturn uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }

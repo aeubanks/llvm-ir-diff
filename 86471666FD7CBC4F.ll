@@ -15,197 +15,198 @@ target triple = "x86_64-unknown-linux-gnu"
 @str = private unnamed_addr constant [8 x i8] c"I pass.\00", align 1
 
 ; Function Attrs: nounwind uwtable
-define dso_local void @genmove(ptr nocapture noundef %0, ptr nocapture noundef %1) local_unnamed_addr #0 {
-  %3 = alloca i32, align 4
-  %4 = alloca i32, align 4
-  %5 = alloca i32, align 4
-  call void @llvm.lifetime.start.p0(i64 4, ptr nonnull %3) #5
-  call void @llvm.lifetime.start.p0(i64 4, ptr nonnull %4) #5
-  call void @llvm.lifetime.start.p0(i64 4, ptr nonnull %5) #5
-  store i32 -1, ptr %0, align 4, !tbaa !5
-  store i32 -1, ptr %1, align 4, !tbaa !5
-  %6 = load i32, ptr @umove, align 4, !tbaa !5
-  tail call void @eval(i32 noundef %6) #5
-  %7 = call i32 @findwinner(ptr noundef nonnull %3, ptr noundef nonnull %4, ptr noundef nonnull %5) #5
-  %8 = icmp eq i32 %7, 0
-  br i1 %8, label %15, label %9
+define dso_local void @genmove(ptr nocapture noundef %i, ptr nocapture noundef %j) local_unnamed_addr #0 {
+entry:
+  %ti = alloca i32, align 4
+  %tj = alloca i32, align 4
+  %tval = alloca i32, align 4
+  call void @llvm.lifetime.start.p0(i64 4, ptr nonnull %ti) #5
+  call void @llvm.lifetime.start.p0(i64 4, ptr nonnull %tj) #5
+  call void @llvm.lifetime.start.p0(i64 4, ptr nonnull %tval) #5
+  store i32 -1, ptr %i, align 4, !tbaa !5
+  store i32 -1, ptr %j, align 4, !tbaa !5
+  %0 = load i32, ptr @umove, align 4, !tbaa !5
+  tail call void @eval(i32 noundef %0) #5
+  %call = call i32 @findwinner(ptr noundef nonnull %ti, ptr noundef nonnull %tj, ptr noundef nonnull %tval) #5
+  %tobool.not = icmp eq i32 %call, 0
+  br i1 %tobool.not, label %if.end2, label %if.then
 
-9:                                                ; preds = %2
-  %10 = load i32, ptr %5, align 4, !tbaa !5
-  %11 = icmp sgt i32 %10, -1
-  br i1 %11, label %12, label %15
+if.then:                                          ; preds = %entry
+  %1 = load i32, ptr %tval, align 4, !tbaa !5
+  %cmp = icmp sgt i32 %1, -1
+  br i1 %cmp, label %if.then1, label %if.end2
 
-12:                                               ; preds = %9
-  %13 = load i32, ptr %3, align 4, !tbaa !5
-  store i32 %13, ptr %0, align 4, !tbaa !5
-  %14 = load i32, ptr %4, align 4, !tbaa !5
-  store i32 %14, ptr %1, align 4, !tbaa !5
-  br label %15
+if.then1:                                         ; preds = %if.then
+  %2 = load i32, ptr %ti, align 4, !tbaa !5
+  store i32 %2, ptr %i, align 4, !tbaa !5
+  %3 = load i32, ptr %tj, align 4, !tbaa !5
+  store i32 %3, ptr %j, align 4, !tbaa !5
+  br label %if.end2
 
-15:                                               ; preds = %9, %12, %2
-  %16 = phi i32 [ %10, %12 ], [ -1, %9 ], [ -1, %2 ]
-  %17 = call i32 @findsaver(ptr noundef nonnull %3, ptr noundef nonnull %4, ptr noundef nonnull %5) #5
-  %18 = icmp eq i32 %17, 0
-  br i1 %18, label %25, label %19
+if.end2:                                          ; preds = %if.then, %if.then1, %entry
+  %val.0 = phi i32 [ %1, %if.then1 ], [ -1, %if.then ], [ -1, %entry ]
+  %call3 = call i32 @findsaver(ptr noundef nonnull %ti, ptr noundef nonnull %tj, ptr noundef nonnull %tval) #5
+  %tobool4.not = icmp eq i32 %call3, 0
+  br i1 %tobool4.not, label %if.end9, label %if.then5
 
-19:                                               ; preds = %15
-  %20 = load i32, ptr %5, align 4, !tbaa !5
-  %21 = icmp sgt i32 %20, %16
-  br i1 %21, label %22, label %25
+if.then5:                                         ; preds = %if.end2
+  %4 = load i32, ptr %tval, align 4, !tbaa !5
+  %cmp6 = icmp sgt i32 %4, %val.0
+  br i1 %cmp6, label %if.then7, label %if.end9
 
-22:                                               ; preds = %19
-  %23 = load i32, ptr %3, align 4, !tbaa !5
-  store i32 %23, ptr %0, align 4, !tbaa !5
-  %24 = load i32, ptr %4, align 4, !tbaa !5
-  store i32 %24, ptr %1, align 4, !tbaa !5
-  br label %25
+if.then7:                                         ; preds = %if.then5
+  %5 = load i32, ptr %ti, align 4, !tbaa !5
+  store i32 %5, ptr %i, align 4, !tbaa !5
+  %6 = load i32, ptr %tj, align 4, !tbaa !5
+  store i32 %6, ptr %j, align 4, !tbaa !5
+  br label %if.end9
 
-25:                                               ; preds = %19, %22, %15
-  %26 = phi i32 [ %20, %22 ], [ %16, %19 ], [ %16, %15 ]
-  %27 = call i32 @findpatn(ptr noundef nonnull %3, ptr noundef nonnull %4, ptr noundef nonnull %5) #5
-  %28 = icmp eq i32 %27, 0
-  br i1 %28, label %35, label %29
+if.end9:                                          ; preds = %if.then5, %if.then7, %if.end2
+  %val.1 = phi i32 [ %4, %if.then7 ], [ %val.0, %if.then5 ], [ %val.0, %if.end2 ]
+  %call10 = call i32 @findpatn(ptr noundef nonnull %ti, ptr noundef nonnull %tj, ptr noundef nonnull %tval) #5
+  %tobool11.not = icmp eq i32 %call10, 0
+  br i1 %tobool11.not, label %if.end16, label %if.then12
 
-29:                                               ; preds = %25
-  %30 = load i32, ptr %5, align 4, !tbaa !5
-  %31 = icmp sgt i32 %30, %26
-  br i1 %31, label %32, label %35
+if.then12:                                        ; preds = %if.end9
+  %7 = load i32, ptr %tval, align 4, !tbaa !5
+  %cmp13 = icmp sgt i32 %7, %val.1
+  br i1 %cmp13, label %if.then14, label %if.end16
 
-32:                                               ; preds = %29
-  %33 = load i32, ptr %3, align 4, !tbaa !5
-  store i32 %33, ptr %0, align 4, !tbaa !5
-  %34 = load i32, ptr %4, align 4, !tbaa !5
-  store i32 %34, ptr %1, align 4, !tbaa !5
-  br label %35
+if.then14:                                        ; preds = %if.then12
+  %8 = load i32, ptr %ti, align 4, !tbaa !5
+  store i32 %8, ptr %i, align 4, !tbaa !5
+  %9 = load i32, ptr %tj, align 4, !tbaa !5
+  store i32 %9, ptr %j, align 4, !tbaa !5
+  br label %if.end16
 
-35:                                               ; preds = %29, %32, %25
-  %36 = phi i32 [ %30, %32 ], [ %26, %29 ], [ %26, %25 ]
-  %37 = icmp slt i32 %36, 0
-  br i1 %37, label %38, label %96
+if.end16:                                         ; preds = %if.then12, %if.then14, %if.end9
+  %val.2 = phi i32 [ %7, %if.then14 ], [ %val.1, %if.then12 ], [ %val.1, %if.end9 ]
+  %cmp17 = icmp slt i32 %val.2, 0
+  br i1 %cmp17, label %do.body, label %if.else
 
-38:                                               ; preds = %35, %91
-  %39 = phi i32 [ %75, %91 ], [ 0, %35 ]
+do.body:                                          ; preds = %if.end16, %do.body.backedge
+  %try1.0 = phi i32 [ %inc, %do.body.backedge ], [ 0, %if.end16 ]
   call void @random_nasko(ptr noundef nonnull @rd) #5
-  %40 = load i32, ptr @rd, align 4, !tbaa !5
-  %41 = srem i32 %40, 19
-  store i32 %41, ptr %0, align 4, !tbaa !5
-  %42 = add nsw i32 %41, -17
-  %43 = icmp ult i32 %42, -15
-  %44 = add nsw i32 %41, -6
-  %45 = icmp ult i32 %44, 7
-  %46 = select i1 %43, i1 true, i1 %45
-  br i1 %46, label %47, label %55
+  %10 = load i32, ptr @rd, align 4, !tbaa !5
+  %rem = srem i32 %10, 19
+  store i32 %rem, ptr %i, align 4, !tbaa !5
+  %11 = add nsw i32 %rem, -17
+  %or.cond129 = icmp ult i32 %11, -15
+  %12 = add nsw i32 %rem, -6
+  %or.cond130 = icmp ult i32 %12, 7
+  %or.cond137 = select i1 %or.cond129, i1 true, i1 %or.cond130
+  br i1 %or.cond137, label %if.then24, label %if.end32
 
-47:                                               ; preds = %38
+if.then24:                                        ; preds = %do.body
   call void @random_nasko(ptr noundef nonnull @rd) #5
-  %48 = load i32, ptr @rd, align 4, !tbaa !5
-  %49 = srem i32 %48, 19
-  store i32 %49, ptr %0, align 4, !tbaa !5
-  %50 = add nsw i32 %49, -17
-  %51 = icmp ult i32 %50, -15
-  br i1 %51, label %52, label %55
+  %13 = load i32, ptr @rd, align 4, !tbaa !5
+  %rem25 = srem i32 %13, 19
+  store i32 %rem25, ptr %i, align 4, !tbaa !5
+  %14 = add nsw i32 %rem25, -17
+  %or.cond131 = icmp ult i32 %14, -15
+  br i1 %or.cond131, label %if.then29, label %if.end32
 
-52:                                               ; preds = %47
+if.then29:                                        ; preds = %if.then24
   call void @random_nasko(ptr noundef nonnull @rd) #5
-  %53 = load i32, ptr @rd, align 4, !tbaa !5
-  %54 = srem i32 %53, 19
-  store i32 %54, ptr %0, align 4, !tbaa !5
-  br label %55
+  %15 = load i32, ptr @rd, align 4, !tbaa !5
+  %rem30 = srem i32 %15, 19
+  store i32 %rem30, ptr %i, align 4, !tbaa !5
+  br label %if.end32
 
-55:                                               ; preds = %38, %47, %52
+if.end32:                                         ; preds = %do.body, %if.then24, %if.then29
   call void @random_nasko(ptr noundef nonnull @rd) #5
-  %56 = load i32, ptr @rd, align 4, !tbaa !5
-  %57 = srem i32 %56, 19
-  store i32 %57, ptr %1, align 4, !tbaa !5
-  %58 = add nsw i32 %57, -17
-  %59 = icmp ult i32 %58, -15
-  %60 = add nsw i32 %57, -6
-  %61 = icmp ult i32 %60, 7
-  %62 = select i1 %59, i1 true, i1 %61
-  br i1 %62, label %63, label %71
+  %16 = load i32, ptr @rd, align 4, !tbaa !5
+  %rem33 = srem i32 %16, 19
+  store i32 %rem33, ptr %j, align 4, !tbaa !5
+  %17 = add nsw i32 %rem33, -17
+  %or.cond132 = icmp ult i32 %17, -15
+  %18 = add nsw i32 %rem33, -6
+  %or.cond133 = icmp ult i32 %18, 7
+  %or.cond138 = select i1 %or.cond132, i1 true, i1 %or.cond133
+  br i1 %or.cond138, label %if.then41, label %if.end49
 
-63:                                               ; preds = %55
+if.then41:                                        ; preds = %if.end32
   call void @random_nasko(ptr noundef nonnull @rd) #5
-  %64 = load i32, ptr @rd, align 4, !tbaa !5
-  %65 = srem i32 %64, 19
-  store i32 %65, ptr %1, align 4, !tbaa !5
-  %66 = add nsw i32 %65, -17
-  %67 = icmp ult i32 %66, -15
-  br i1 %67, label %68, label %71
+  %19 = load i32, ptr @rd, align 4, !tbaa !5
+  %rem42 = srem i32 %19, 19
+  store i32 %rem42, ptr %j, align 4, !tbaa !5
+  %20 = add nsw i32 %rem42, -17
+  %or.cond134 = icmp ult i32 %20, -15
+  br i1 %or.cond134, label %if.then46, label %if.end49
 
-68:                                               ; preds = %63
+if.then46:                                        ; preds = %if.then41
   call void @random_nasko(ptr noundef nonnull @rd) #5
-  %69 = load i32, ptr @rd, align 4, !tbaa !5
-  %70 = srem i32 %69, 19
-  store i32 %70, ptr %1, align 4, !tbaa !5
-  br label %71
+  %21 = load i32, ptr @rd, align 4, !tbaa !5
+  %rem47 = srem i32 %21, 19
+  store i32 %rem47, ptr %j, align 4, !tbaa !5
+  br label %if.end49
 
-71:                                               ; preds = %55, %63, %68
+if.end49:                                         ; preds = %if.end32, %if.then41, %if.then46
   store i32 0, ptr @lib, align 4, !tbaa !5
-  %72 = load i32, ptr %0, align 4, !tbaa !5
-  %73 = load i32, ptr %1, align 4, !tbaa !5
-  %74 = load i32, ptr @mymove, align 4, !tbaa !5
-  call void @countlib(i32 noundef %72, i32 noundef %73, i32 noundef %74) #5
-  %75 = add nuw nsw i32 %39, 1
-  %76 = icmp eq i32 %39, 399
-  br i1 %76, label %92, label %77
+  %22 = load i32, ptr %i, align 4, !tbaa !5
+  %23 = load i32, ptr %j, align 4, !tbaa !5
+  %24 = load i32, ptr @mymove, align 4, !tbaa !5
+  call void @countlib(i32 noundef %22, i32 noundef %23, i32 noundef %24) #5
+  %inc = add nuw nsw i32 %try1.0, 1
+  %exitcond.not = icmp eq i32 %try1.0, 399
+  br i1 %exitcond.not, label %if.then63, label %land.rhs
 
-77:                                               ; preds = %71
-  %78 = load i32, ptr %0, align 4, !tbaa !5
-  %79 = sext i32 %78 to i64
-  %80 = load i32, ptr %1, align 4, !tbaa !5
-  %81 = sext i32 %80 to i64
-  %82 = getelementptr inbounds [19 x [19 x i8]], ptr @p, i64 0, i64 %79, i64 %81
-  %83 = load i8, ptr %82, align 1, !tbaa !9
-  %84 = icmp ne i8 %83, 0
-  %85 = load i32, ptr @lib, align 4
-  %86 = icmp slt i32 %85, 2
-  %87 = select i1 %84, i1 true, i1 %86
-  br i1 %87, label %91, label %88
+land.rhs:                                         ; preds = %if.end49
+  %25 = load i32, ptr %i, align 4, !tbaa !5
+  %idxprom = sext i32 %25 to i64
+  %26 = load i32, ptr %j, align 4, !tbaa !5
+  %idxprom51 = sext i32 %26 to i64
+  %arrayidx52 = getelementptr inbounds [19 x [19 x i8]], ptr @p, i64 0, i64 %idxprom, i64 %idxprom51
+  %27 = load i8, ptr %arrayidx52, align 1, !tbaa !9
+  %cmp53 = icmp ne i8 %27, 0
+  %28 = load i32, ptr @lib, align 4
+  %cmp56 = icmp slt i32 %28, 2
+  %or.cond = select i1 %cmp53, i1 true, i1 %cmp56
+  br i1 %or.cond, label %do.body.backedge, label %lor.rhs
 
-88:                                               ; preds = %77
-  %89 = call i32 @fioe(i32 noundef %78, i32 noundef %80) #5
-  %90 = icmp eq i32 %89, 0
-  br i1 %90, label %96, label %91
+lor.rhs:                                          ; preds = %land.rhs
+  %call58 = call i32 @fioe(i32 noundef %25, i32 noundef %26) #5
+  %tobool59.not = icmp eq i32 %call58, 0
+  br i1 %tobool59.not, label %if.else, label %do.body.backedge
 
-91:                                               ; preds = %88, %77
-  br label %38, !llvm.loop !10
+do.body.backedge:                                 ; preds = %lor.rhs, %land.rhs
+  br label %do.body, !llvm.loop !10
 
-92:                                               ; preds = %71
-  %93 = load i32, ptr @pass, align 4, !tbaa !5
-  %94 = add nsw i32 %93, 1
-  store i32 %94, ptr @pass, align 4, !tbaa !5
-  %95 = call i32 @puts(ptr nonnull dereferenceable(1) @str)
-  store i32 -1, ptr %0, align 4, !tbaa !5
-  br label %112
+if.then63:                                        ; preds = %if.end49
+  %29 = load i32, ptr @pass, align 4, !tbaa !5
+  %inc64 = add nsw i32 %29, 1
+  store i32 %inc64, ptr @pass, align 4, !tbaa !5
+  %puts = call i32 @puts(ptr nonnull dereferenceable(1) @str)
+  store i32 -1, ptr %i, align 4, !tbaa !5
+  br label %if.end84
 
-96:                                               ; preds = %88, %35
+if.else:                                          ; preds = %lor.rhs, %if.end16
   store i32 0, ptr @pass, align 4, !tbaa !5
-  %97 = call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.1)
-  %98 = load i32, ptr %1, align 4, !tbaa !5
-  %99 = icmp slt i32 %98, 8
-  %100 = select i1 %99, i32 65, i32 66
-  %101 = add i32 %100, %98
-  %102 = shl i32 %101, 24
-  %103 = ashr exact i32 %102, 24
-  %104 = call i32 @putchar(i32 %103)
-  %105 = load i32, ptr %0, align 4, !tbaa !5
-  %106 = sub nsw i32 19, %105
-  %107 = icmp sgt i32 %105, 9
-  br i1 %107, label %108, label %110
+  %call66 = call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.1)
+  %30 = load i32, ptr %j, align 4, !tbaa !5
+  %cmp67 = icmp slt i32 %30, 8
+  %a.0.v = select i1 %cmp67, i32 65, i32 66
+  %a.0 = add i32 %a.0.v, %30
+  %sext = shl i32 %a.0, 24
+  %conv75 = ashr exact i32 %sext, 24
+  %putchar = call i32 @putchar(i32 %conv75)
+  %31 = load i32, ptr %i, align 4, !tbaa !5
+  %sub = sub nsw i32 19, %31
+  %cmp77 = icmp sgt i32 %31, 9
+  br i1 %cmp77, label %if.then79, label %if.else81
 
-108:                                              ; preds = %96
-  %109 = call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.3, i32 noundef %106)
-  br label %112
+if.then79:                                        ; preds = %if.else
+  %call80 = call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.3, i32 noundef %sub)
+  br label %if.end84
 
-110:                                              ; preds = %96
-  %111 = call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.4, i32 noundef %106)
-  br label %112
+if.else81:                                        ; preds = %if.else
+  %call82 = call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.4, i32 noundef %sub)
+  br label %if.end84
 
-112:                                              ; preds = %108, %110, %92
-  call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %5) #5
-  call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %4) #5
-  call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %3) #5
+if.end84:                                         ; preds = %if.then79, %if.else81, %if.then63
+  call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %tval) #5
+  call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %tj) #5
+  call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %ti) #5
   ret void
 }
 

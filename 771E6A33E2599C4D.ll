@@ -21,215 +21,216 @@ target triple = "x86_64-unknown-linux-gnu"
 @.str.1 = private unnamed_addr constant [91 x i8] c"/usr/local/google/home/aeubanks/repos/test-suite/MultiSource/Applications/kimwitu++/gen.cc\00", align 1
 
 ; Function Attrs: mustprogress uwtable
-define dso_local noundef i32 @_ZN2kc15f_selofoperatorEPNS_7impl_IDE(ptr noundef %0) local_unnamed_addr #0 {
-  %2 = load ptr, ptr @Thephylumdeclarations, align 8, !tbaa !5
-  %3 = load ptr, ptr %2, align 8, !tbaa !9
-  %4 = load ptr, ptr %3, align 8
-  %5 = tail call noundef i32 %4(ptr noundef nonnull align 8 dereferenceable(24) %2)
-  %6 = icmp eq i32 %5, 12
-  br i1 %6, label %7, label %157
+define dso_local noundef i32 @_ZN2kc15f_selofoperatorEPNS_7impl_IDE(ptr noundef %oid) local_unnamed_addr #0 {
+entry:
+  %kc_fe_selvar_1.0216 = load ptr, ptr @Thephylumdeclarations, align 8, !tbaa !5
+  %vtable217 = load ptr, ptr %kc_fe_selvar_1.0216, align 8, !tbaa !9
+  %0 = load ptr, ptr %vtable217, align 8
+  %call218 = tail call noundef i32 %0(ptr noundef nonnull align 8 dereferenceable(24) %kc_fe_selvar_1.0216)
+  %cmp.not219 = icmp eq i32 %call218, 12
+  br i1 %cmp.not219, label %while.body, label %cleanup128.thread
 
-7:                                                ; preds = %1, %147
-  %8 = phi ptr [ %151, %147 ], [ %2, %1 ]
-  %9 = phi i32 [ %149, %147 ], [ 0, %1 ]
-  %10 = phi i32 [ %148, %147 ], [ 0, %1 ]
-  %11 = getelementptr inbounds %"class.kc::impl_phylumdeclarations", ptr %8, i64 0, i32 1
-  %12 = load ptr, ptr %11, align 8, !tbaa !11
-  %13 = load ptr, ptr %12, align 8, !tbaa !9
-  %14 = load ptr, ptr %13, align 8
-  %15 = tail call noundef i32 %14(ptr noundef nonnull align 8 dereferenceable(8) %12)
-  %16 = icmp eq i32 %15, 15
-  br i1 %16, label %17, label %57
+while.body:                                       ; preds = %entry, %cleanup124
+  %kc_fe_selvar_1.0222 = phi ptr [ %kc_fe_selvar_1.0, %cleanup124 ], [ %kc_fe_selvar_1.0216, %entry ]
+  %kc_i.0221 = phi i32 [ %kc_i.11.ph, %cleanup124 ], [ 0, %entry ]
+  %kc_end.0220 = phi i32 [ %kc_end.8.ph, %cleanup124 ], [ 0, %entry ]
+  %phylumdeclaration_1 = getelementptr inbounds %"class.kc::impl_phylumdeclarations", ptr %kc_fe_selvar_1.0222, i64 0, i32 1
+  %1 = load ptr, ptr %phylumdeclaration_1, align 8, !tbaa !11
+  %vtable2 = load ptr, ptr %1, align 8, !tbaa !9
+  %2 = load ptr, ptr %vtable2, align 8
+  %call4 = tail call noundef i32 %2(ptr noundef nonnull align 8 dereferenceable(8) %1)
+  %cmp5 = icmp eq i32 %call4, 15
+  br i1 %cmp5, label %land.lhs.true, label %if.else31
 
-17:                                               ; preds = %7
-  %18 = getelementptr inbounds %"class.kc::impl_phylumdeclaration_PhylumDeclaration", ptr %12, i64 0, i32 3
-  %19 = load ptr, ptr %18, align 8, !tbaa !15
-  %20 = load ptr, ptr %19, align 8, !tbaa !9
-  %21 = load ptr, ptr %20, align 8
-  %22 = tail call noundef i32 %21(ptr noundef nonnull align 8 dereferenceable(8) %19)
-  %23 = icmp eq i32 %22, 22
-  br i1 %23, label %24, label %57
+land.lhs.true:                                    ; preds = %while.body
+  %productionblock_1 = getelementptr inbounds %"class.kc::impl_phylumdeclaration_PhylumDeclaration", ptr %1, i64 0, i32 3
+  %3 = load ptr, ptr %productionblock_1, align 8, !tbaa !15
+  %vtable7 = load ptr, ptr %3, align 8, !tbaa !9
+  %4 = load ptr, ptr %vtable7, align 8
+  %call9 = tail call noundef i32 %4(ptr noundef nonnull align 8 dereferenceable(8) %3)
+  %cmp10 = icmp eq i32 %call9, 22
+  br i1 %cmp10, label %if.then, label %if.else31
 
-24:                                               ; preds = %17
-  %25 = load ptr, ptr %18, align 8, !tbaa !15
-  %26 = getelementptr inbounds %"class.kc::impl_productionblock_ListAlternatives", ptr %25, i64 0, i32 1
-  %27 = load ptr, ptr %26, align 8, !tbaa !5
-  %28 = load ptr, ptr %27, align 8, !tbaa !9
-  %29 = load ptr, ptr %28, align 8
-  %30 = tail call noundef i32 %29(ptr noundef nonnull align 8 dereferenceable(24) %27)
-  %31 = icmp eq i32 %30, 26
-  br i1 %31, label %32, label %147
+if.then:                                          ; preds = %land.lhs.true
+  %5 = load ptr, ptr %productionblock_1, align 8, !tbaa !15
+  %alternatives_1 = getelementptr inbounds %"class.kc::impl_productionblock_ListAlternatives", ptr %5, i64 0, i32 1
+  %kc_fe_selvar_114.0207 = load ptr, ptr %alternatives_1, align 8, !tbaa !5
+  %vtable16208 = load ptr, ptr %kc_fe_selvar_114.0207, align 8, !tbaa !9
+  %6 = load ptr, ptr %vtable16208, align 8
+  %call18209 = tail call noundef i32 %6(ptr noundef nonnull align 8 dereferenceable(24) %kc_fe_selvar_114.0207)
+  %cmp19210 = icmp eq i32 %call18209, 26
+  br i1 %cmp19210, label %while.body20, label %cleanup124
 
-32:                                               ; preds = %24, %48
-  %33 = phi ptr [ %52, %48 ], [ %27, %24 ]
-  %34 = phi i32 [ %50, %48 ], [ %9, %24 ]
-  %35 = phi i32 [ %49, %48 ], [ %10, %24 ]
-  %36 = getelementptr inbounds %"class.kc::impl_alternatives", ptr %33, i64 0, i32 1
-  %37 = load ptr, ptr %36, align 8, !tbaa !19
-  %38 = load ptr, ptr %37, align 8, !tbaa !9
-  %39 = load ptr, ptr %38, align 8
-  %40 = tail call noundef i32 %39(ptr noundef nonnull align 8 dereferenceable(8) %37)
-  %41 = icmp eq i32 %40, 27
-  br i1 %41, label %42, label %48
+while.body20:                                     ; preds = %if.then, %if.end29
+  %kc_fe_selvar_114.0213 = phi ptr [ %kc_fe_selvar_114.0, %if.end29 ], [ %kc_fe_selvar_114.0207, %if.then ]
+  %kc_i.1212 = phi i32 [ %kc_i.3, %if.end29 ], [ %kc_i.0221, %if.then ]
+  %kc_end.1211 = phi i32 [ %kc_end.2, %if.end29 ], [ %kc_end.0220, %if.then ]
+  %alternative_1 = getelementptr inbounds %"class.kc::impl_alternatives", ptr %kc_fe_selvar_114.0213, i64 0, i32 1
+  %7 = load ptr, ptr %alternative_1, align 8, !tbaa !19
+  %vtable21 = load ptr, ptr %7, align 8, !tbaa !9
+  %8 = load ptr, ptr %vtable21, align 8
+  %call23 = tail call noundef i32 %8(ptr noundef nonnull align 8 dereferenceable(8) %7)
+  %cmp24 = icmp eq i32 %call23, 27
+  br i1 %cmp24, label %if.then25, label %if.end29
 
-42:                                               ; preds = %32
-  %43 = getelementptr inbounds %"class.kc::impl_alternative_Alternative", ptr %37, i64 0, i32 1
-  %44 = load ptr, ptr %43, align 8, !tbaa !21
-  %45 = add nsw i32 %35, 1
-  %46 = tail call noundef zeroext i1 @_ZNK2kc20impl_abstract_phylum2eqEPKS0_(ptr noundef nonnull align 8 dereferenceable(8) %0, ptr noundef %44)
-  %47 = select i1 %46, i32 %45, i32 %34
-  br label %48
+if.then25:                                        ; preds = %while.body20
+  %ID_1 = getelementptr inbounds %"class.kc::impl_alternative_Alternative", ptr %7, i64 0, i32 1
+  %9 = load ptr, ptr %ID_1, align 8, !tbaa !21
+  %inc = add nsw i32 %kc_end.1211, 1
+  %call27 = tail call noundef zeroext i1 @_ZNK2kc20impl_abstract_phylum2eqEPKS0_(ptr noundef nonnull align 8 dereferenceable(8) %oid, ptr noundef %9)
+  %spec.select = select i1 %call27, i32 %inc, i32 %kc_i.1212
+  br label %if.end29
 
-48:                                               ; preds = %42, %32
-  %49 = phi i32 [ %35, %32 ], [ %45, %42 ]
-  %50 = phi i32 [ %34, %32 ], [ %47, %42 ]
-  %51 = getelementptr inbounds %"class.kc::impl_alternatives", ptr %33, i64 0, i32 2
-  %52 = load ptr, ptr %51, align 8, !tbaa !5
-  %53 = load ptr, ptr %52, align 8, !tbaa !9
-  %54 = load ptr, ptr %53, align 8
-  %55 = tail call noundef i32 %54(ptr noundef nonnull align 8 dereferenceable(24) %52)
-  %56 = icmp eq i32 %55, 26
-  br i1 %56, label %32, label %147, !llvm.loop !24
+if.end29:                                         ; preds = %while.body20, %if.then25
+  %kc_end.2 = phi i32 [ %inc, %if.then25 ], [ %kc_end.1211, %while.body20 ]
+  %kc_i.3 = phi i32 [ %spec.select, %if.then25 ], [ %kc_i.1212, %while.body20 ]
+  %alternatives_130 = getelementptr inbounds %"class.kc::impl_alternatives", ptr %kc_fe_selvar_114.0213, i64 0, i32 2
+  %kc_fe_selvar_114.0 = load ptr, ptr %alternatives_130, align 8, !tbaa !5
+  %vtable16 = load ptr, ptr %kc_fe_selvar_114.0, align 8, !tbaa !9
+  %10 = load ptr, ptr %vtable16, align 8
+  %call18 = tail call noundef i32 %10(ptr noundef nonnull align 8 dereferenceable(24) %kc_fe_selvar_114.0)
+  %cmp19 = icmp eq i32 %call18, 26
+  br i1 %cmp19, label %while.body20, label %cleanup124, !llvm.loop !24
 
-57:                                               ; preds = %17, %7
-  %58 = load ptr, ptr %12, align 8, !tbaa !9
-  %59 = load ptr, ptr %58, align 8
-  %60 = tail call noundef i32 %59(ptr noundef nonnull align 8 dereferenceable(8) %12)
-  %61 = icmp eq i32 %60, 15
-  br i1 %61, label %62, label %102
+if.else31:                                        ; preds = %land.lhs.true, %while.body
+  %vtable32 = load ptr, ptr %1, align 8, !tbaa !9
+  %11 = load ptr, ptr %vtable32, align 8
+  %call34 = tail call noundef i32 %11(ptr noundef nonnull align 8 dereferenceable(8) %1)
+  %cmp35 = icmp eq i32 %call34, 15
+  br i1 %cmp35, label %land.lhs.true36, label %if.else74
 
-62:                                               ; preds = %57
-  %63 = getelementptr inbounds %"class.kc::impl_phylumdeclaration_PhylumDeclaration", ptr %12, i64 0, i32 3
-  %64 = load ptr, ptr %63, align 8, !tbaa !15
-  %65 = load ptr, ptr %64, align 8, !tbaa !9
-  %66 = load ptr, ptr %65, align 8
-  %67 = tail call noundef i32 %66(ptr noundef nonnull align 8 dereferenceable(8) %64)
-  %68 = icmp eq i32 %67, 23
-  br i1 %68, label %69, label %102
+land.lhs.true36:                                  ; preds = %if.else31
+  %productionblock_138 = getelementptr inbounds %"class.kc::impl_phylumdeclaration_PhylumDeclaration", ptr %1, i64 0, i32 3
+  %12 = load ptr, ptr %productionblock_138, align 8, !tbaa !15
+  %vtable39 = load ptr, ptr %12, align 8, !tbaa !9
+  %13 = load ptr, ptr %vtable39, align 8
+  %call41 = tail call noundef i32 %13(ptr noundef nonnull align 8 dereferenceable(8) %12)
+  %cmp42 = icmp eq i32 %call41, 23
+  br i1 %cmp42, label %if.then43, label %if.else74
 
-69:                                               ; preds = %62
-  %70 = load ptr, ptr %63, align 8, !tbaa !15
-  %71 = getelementptr inbounds %"class.kc::impl_productionblock_NonlistAlternatives", ptr %70, i64 0, i32 1
-  %72 = load ptr, ptr %71, align 8, !tbaa !5
-  %73 = load ptr, ptr %72, align 8, !tbaa !9
-  %74 = load ptr, ptr %73, align 8
-  %75 = tail call noundef i32 %74(ptr noundef nonnull align 8 dereferenceable(24) %72)
-  %76 = icmp eq i32 %75, 26
-  br i1 %76, label %77, label %147
+if.then43:                                        ; preds = %land.lhs.true36
+  %14 = load ptr, ptr %productionblock_138, align 8, !tbaa !15
+  %alternatives_148 = getelementptr inbounds %"class.kc::impl_productionblock_NonlistAlternatives", ptr %14, i64 0, i32 1
+  %kc_fe_selvar_149.0198 = load ptr, ptr %alternatives_148, align 8, !tbaa !5
+  %vtable51199 = load ptr, ptr %kc_fe_selvar_149.0198, align 8, !tbaa !9
+  %15 = load ptr, ptr %vtable51199, align 8
+  %call53200 = tail call noundef i32 %15(ptr noundef nonnull align 8 dereferenceable(24) %kc_fe_selvar_149.0198)
+  %cmp54201 = icmp eq i32 %call53200, 26
+  br i1 %cmp54201, label %while.body55, label %cleanup124
 
-77:                                               ; preds = %69, %93
-  %78 = phi ptr [ %97, %93 ], [ %72, %69 ]
-  %79 = phi i32 [ %95, %93 ], [ %9, %69 ]
-  %80 = phi i32 [ %94, %93 ], [ %10, %69 ]
-  %81 = getelementptr inbounds %"class.kc::impl_alternatives", ptr %78, i64 0, i32 1
-  %82 = load ptr, ptr %81, align 8, !tbaa !19
-  %83 = load ptr, ptr %82, align 8, !tbaa !9
-  %84 = load ptr, ptr %83, align 8
-  %85 = tail call noundef i32 %84(ptr noundef nonnull align 8 dereferenceable(8) %82)
-  %86 = icmp eq i32 %85, 27
-  br i1 %86, label %87, label %93
+while.body55:                                     ; preds = %if.then43, %if.end71
+  %kc_fe_selvar_149.0204 = phi ptr [ %kc_fe_selvar_149.0, %if.end71 ], [ %kc_fe_selvar_149.0198, %if.then43 ]
+  %kc_i.4203 = phi i32 [ %kc_i.6, %if.end71 ], [ %kc_i.0221, %if.then43 ]
+  %kc_end.3202 = phi i32 [ %kc_end.4, %if.end71 ], [ %kc_end.0220, %if.then43 ]
+  %alternative_157 = getelementptr inbounds %"class.kc::impl_alternatives", ptr %kc_fe_selvar_149.0204, i64 0, i32 1
+  %16 = load ptr, ptr %alternative_157, align 8, !tbaa !19
+  %vtable58 = load ptr, ptr %16, align 8, !tbaa !9
+  %17 = load ptr, ptr %vtable58, align 8
+  %call60 = tail call noundef i32 %17(ptr noundef nonnull align 8 dereferenceable(8) %16)
+  %cmp61 = icmp eq i32 %call60, 27
+  br i1 %cmp61, label %if.then62, label %if.end71
 
-87:                                               ; preds = %77
-  %88 = getelementptr inbounds %"class.kc::impl_alternative_Alternative", ptr %82, i64 0, i32 1
-  %89 = load ptr, ptr %88, align 8, !tbaa !21
-  %90 = add nsw i32 %80, 1
-  %91 = tail call noundef zeroext i1 @_ZNK2kc20impl_abstract_phylum2eqEPKS0_(ptr noundef nonnull align 8 dereferenceable(8) %0, ptr noundef %89)
-  %92 = select i1 %91, i32 %90, i32 %79
-  br label %93
+if.then62:                                        ; preds = %while.body55
+  %ID_165 = getelementptr inbounds %"class.kc::impl_alternative_Alternative", ptr %16, i64 0, i32 1
+  %18 = load ptr, ptr %ID_165, align 8, !tbaa !21
+  %inc66 = add nsw i32 %kc_end.3202, 1
+  %call67 = tail call noundef zeroext i1 @_ZNK2kc20impl_abstract_phylum2eqEPKS0_(ptr noundef nonnull align 8 dereferenceable(8) %oid, ptr noundef %18)
+  %spec.select167 = select i1 %call67, i32 %inc66, i32 %kc_i.4203
+  br label %if.end71
 
-93:                                               ; preds = %87, %77
-  %94 = phi i32 [ %80, %77 ], [ %90, %87 ]
-  %95 = phi i32 [ %79, %77 ], [ %92, %87 ]
-  %96 = getelementptr inbounds %"class.kc::impl_alternatives", ptr %78, i64 0, i32 2
-  %97 = load ptr, ptr %96, align 8, !tbaa !5
-  %98 = load ptr, ptr %97, align 8, !tbaa !9
-  %99 = load ptr, ptr %98, align 8
-  %100 = tail call noundef i32 %99(ptr noundef nonnull align 8 dereferenceable(24) %97)
-  %101 = icmp eq i32 %100, 26
-  br i1 %101, label %77, label %147, !llvm.loop !26
+if.end71:                                         ; preds = %while.body55, %if.then62
+  %kc_end.4 = phi i32 [ %inc66, %if.then62 ], [ %kc_end.3202, %while.body55 ]
+  %kc_i.6 = phi i32 [ %spec.select167, %if.then62 ], [ %kc_i.4203, %while.body55 ]
+  %alternatives_172 = getelementptr inbounds %"class.kc::impl_alternatives", ptr %kc_fe_selvar_149.0204, i64 0, i32 2
+  %kc_fe_selvar_149.0 = load ptr, ptr %alternatives_172, align 8, !tbaa !5
+  %vtable51 = load ptr, ptr %kc_fe_selvar_149.0, align 8, !tbaa !9
+  %19 = load ptr, ptr %vtable51, align 8
+  %call53 = tail call noundef i32 %19(ptr noundef nonnull align 8 dereferenceable(24) %kc_fe_selvar_149.0)
+  %cmp54 = icmp eq i32 %call53, 26
+  br i1 %cmp54, label %while.body55, label %cleanup124, !llvm.loop !26
 
-102:                                              ; preds = %62, %57
-  %103 = load ptr, ptr %12, align 8, !tbaa !9
-  %104 = load ptr, ptr %103, align 8
-  %105 = tail call noundef i32 %104(ptr noundef nonnull align 8 dereferenceable(8) %12)
-  %106 = icmp eq i32 %105, 15
-  br i1 %106, label %107, label %156
+if.else74:                                        ; preds = %land.lhs.true36, %if.else31
+  %vtable75 = load ptr, ptr %1, align 8, !tbaa !9
+  %20 = load ptr, ptr %vtable75, align 8
+  %call77 = tail call noundef i32 %20(ptr noundef nonnull align 8 dereferenceable(8) %1)
+  %cmp78 = icmp eq i32 %call77, 15
+  br i1 %cmp78, label %land.lhs.true79, label %30
 
-107:                                              ; preds = %102
-  %108 = getelementptr inbounds %"class.kc::impl_phylumdeclaration_PhylumDeclaration", ptr %12, i64 0, i32 3
-  %109 = load ptr, ptr %108, align 8, !tbaa !15
-  %110 = load ptr, ptr %109, align 8, !tbaa !9
-  %111 = load ptr, ptr %110, align 8
-  %112 = tail call noundef i32 %111(ptr noundef nonnull align 8 dereferenceable(8) %109)
-  %113 = icmp eq i32 %112, 24
-  br i1 %113, label %114, label %156
+land.lhs.true79:                                  ; preds = %if.else74
+  %productionblock_181 = getelementptr inbounds %"class.kc::impl_phylumdeclaration_PhylumDeclaration", ptr %1, i64 0, i32 3
+  %21 = load ptr, ptr %productionblock_181, align 8, !tbaa !15
+  %vtable82 = load ptr, ptr %21, align 8, !tbaa !9
+  %22 = load ptr, ptr %vtable82, align 8
+  %call84 = tail call noundef i32 %22(ptr noundef nonnull align 8 dereferenceable(8) %21)
+  %cmp85 = icmp eq i32 %call84, 24
+  br i1 %cmp85, label %if.then86, label %30
 
-114:                                              ; preds = %107
-  %115 = load ptr, ptr %108, align 8, !tbaa !15
-  %116 = getelementptr inbounds %"class.kc::impl_productionblock_PredefinedAlternatives", ptr %115, i64 0, i32 1
-  %117 = load ptr, ptr %116, align 8, !tbaa !5
-  %118 = load ptr, ptr %117, align 8, !tbaa !9
-  %119 = load ptr, ptr %118, align 8
-  %120 = tail call noundef i32 %119(ptr noundef nonnull align 8 dereferenceable(24) %117)
-  %121 = icmp eq i32 %120, 26
-  br i1 %121, label %122, label %147
+if.then86:                                        ; preds = %land.lhs.true79
+  %23 = load ptr, ptr %productionblock_181, align 8, !tbaa !15
+  %alternatives_191 = getelementptr inbounds %"class.kc::impl_productionblock_PredefinedAlternatives", ptr %23, i64 0, i32 1
+  %kc_fe_selvar_192.0190 = load ptr, ptr %alternatives_191, align 8, !tbaa !5
+  %vtable94191 = load ptr, ptr %kc_fe_selvar_192.0190, align 8, !tbaa !9
+  %24 = load ptr, ptr %vtable94191, align 8
+  %call96192 = tail call noundef i32 %24(ptr noundef nonnull align 8 dereferenceable(24) %kc_fe_selvar_192.0190)
+  %cmp97193 = icmp eq i32 %call96192, 26
+  br i1 %cmp97193, label %while.body98, label %cleanup124
 
-122:                                              ; preds = %114, %138
-  %123 = phi ptr [ %142, %138 ], [ %117, %114 ]
-  %124 = phi i32 [ %140, %138 ], [ %9, %114 ]
-  %125 = phi i32 [ %139, %138 ], [ %10, %114 ]
-  %126 = getelementptr inbounds %"class.kc::impl_alternatives", ptr %123, i64 0, i32 1
-  %127 = load ptr, ptr %126, align 8, !tbaa !19
-  %128 = load ptr, ptr %127, align 8, !tbaa !9
-  %129 = load ptr, ptr %128, align 8
-  %130 = tail call noundef i32 %129(ptr noundef nonnull align 8 dereferenceable(8) %127)
-  %131 = icmp eq i32 %130, 27
-  br i1 %131, label %132, label %138
+while.body98:                                     ; preds = %if.then86, %if.end114
+  %kc_fe_selvar_192.0196 = phi ptr [ %kc_fe_selvar_192.0, %if.end114 ], [ %kc_fe_selvar_192.0190, %if.then86 ]
+  %kc_i.7195 = phi i32 [ %kc_i.9, %if.end114 ], [ %kc_i.0221, %if.then86 ]
+  %kc_end.5194 = phi i32 [ %kc_end.6, %if.end114 ], [ %kc_end.0220, %if.then86 ]
+  %alternative_1100 = getelementptr inbounds %"class.kc::impl_alternatives", ptr %kc_fe_selvar_192.0196, i64 0, i32 1
+  %25 = load ptr, ptr %alternative_1100, align 8, !tbaa !19
+  %vtable101 = load ptr, ptr %25, align 8, !tbaa !9
+  %26 = load ptr, ptr %vtable101, align 8
+  %call103 = tail call noundef i32 %26(ptr noundef nonnull align 8 dereferenceable(8) %25)
+  %cmp104 = icmp eq i32 %call103, 27
+  br i1 %cmp104, label %if.then105, label %if.end114
 
-132:                                              ; preds = %122
-  %133 = getelementptr inbounds %"class.kc::impl_alternative_Alternative", ptr %127, i64 0, i32 1
-  %134 = load ptr, ptr %133, align 8, !tbaa !21
-  %135 = add nsw i32 %125, 1
-  %136 = tail call noundef zeroext i1 @_ZNK2kc20impl_abstract_phylum2eqEPKS0_(ptr noundef nonnull align 8 dereferenceable(8) %0, ptr noundef %134)
-  %137 = select i1 %136, i32 %135, i32 %124
-  br label %138
+if.then105:                                       ; preds = %while.body98
+  %ID_1108 = getelementptr inbounds %"class.kc::impl_alternative_Alternative", ptr %25, i64 0, i32 1
+  %27 = load ptr, ptr %ID_1108, align 8, !tbaa !21
+  %inc109 = add nsw i32 %kc_end.5194, 1
+  %call110 = tail call noundef zeroext i1 @_ZNK2kc20impl_abstract_phylum2eqEPKS0_(ptr noundef nonnull align 8 dereferenceable(8) %oid, ptr noundef %27)
+  %spec.select168 = select i1 %call110, i32 %inc109, i32 %kc_i.7195
+  br label %if.end114
 
-138:                                              ; preds = %132, %122
-  %139 = phi i32 [ %125, %122 ], [ %135, %132 ]
-  %140 = phi i32 [ %124, %122 ], [ %137, %132 ]
-  %141 = getelementptr inbounds %"class.kc::impl_alternatives", ptr %123, i64 0, i32 2
-  %142 = load ptr, ptr %141, align 8, !tbaa !5
-  %143 = load ptr, ptr %142, align 8, !tbaa !9
-  %144 = load ptr, ptr %143, align 8
-  %145 = tail call noundef i32 %144(ptr noundef nonnull align 8 dereferenceable(24) %142)
-  %146 = icmp eq i32 %145, 26
-  br i1 %146, label %122, label %147, !llvm.loop !27
+if.end114:                                        ; preds = %while.body98, %if.then105
+  %kc_end.6 = phi i32 [ %inc109, %if.then105 ], [ %kc_end.5194, %while.body98 ]
+  %kc_i.9 = phi i32 [ %spec.select168, %if.then105 ], [ %kc_i.7195, %while.body98 ]
+  %alternatives_1115 = getelementptr inbounds %"class.kc::impl_alternatives", ptr %kc_fe_selvar_192.0196, i64 0, i32 2
+  %kc_fe_selvar_192.0 = load ptr, ptr %alternatives_1115, align 8, !tbaa !5
+  %vtable94 = load ptr, ptr %kc_fe_selvar_192.0, align 8, !tbaa !9
+  %28 = load ptr, ptr %vtable94, align 8
+  %call96 = tail call noundef i32 %28(ptr noundef nonnull align 8 dereferenceable(24) %kc_fe_selvar_192.0)
+  %cmp97 = icmp eq i32 %call96, 26
+  br i1 %cmp97, label %while.body98, label %cleanup124, !llvm.loop !27
 
-147:                                              ; preds = %138, %93, %48, %114, %69, %24
-  %148 = phi i32 [ %10, %24 ], [ %10, %69 ], [ %10, %114 ], [ %49, %48 ], [ %94, %93 ], [ %139, %138 ]
-  %149 = phi i32 [ %9, %24 ], [ %9, %69 ], [ %9, %114 ], [ %50, %48 ], [ %95, %93 ], [ %140, %138 ]
-  %150 = getelementptr inbounds %"class.kc::impl_phylumdeclarations", ptr %8, i64 0, i32 2
-  %151 = load ptr, ptr %150, align 8, !tbaa !5
-  %152 = load ptr, ptr %151, align 8, !tbaa !9
-  %153 = load ptr, ptr %152, align 8
-  %154 = tail call noundef i32 %153(ptr noundef nonnull align 8 dereferenceable(24) %151)
-  %155 = icmp eq i32 %154, 12
-  br i1 %155, label %7, label %157, !llvm.loop !28
+cleanup124:                                       ; preds = %if.end114, %if.end71, %if.end29, %if.then86, %if.then43, %if.then
+  %kc_end.8.ph = phi i32 [ %kc_end.0220, %if.then ], [ %kc_end.0220, %if.then43 ], [ %kc_end.0220, %if.then86 ], [ %kc_end.2, %if.end29 ], [ %kc_end.4, %if.end71 ], [ %kc_end.6, %if.end114 ]
+  %kc_i.11.ph = phi i32 [ %kc_i.0221, %if.then ], [ %kc_i.0221, %if.then43 ], [ %kc_i.0221, %if.then86 ], [ %kc_i.3, %if.end29 ], [ %kc_i.6, %if.end71 ], [ %kc_i.9, %if.end114 ]
+  %phylumdeclarations_1 = getelementptr inbounds %"class.kc::impl_phylumdeclarations", ptr %kc_fe_selvar_1.0222, i64 0, i32 2
+  %kc_fe_selvar_1.0 = load ptr, ptr %phylumdeclarations_1, align 8, !tbaa !5
+  %vtable = load ptr, ptr %kc_fe_selvar_1.0, align 8, !tbaa !9
+  %29 = load ptr, ptr %vtable, align 8
+  %call = tail call noundef i32 %29(ptr noundef nonnull align 8 dereferenceable(24) %kc_fe_selvar_1.0)
+  %cmp.not = icmp eq i32 %call, 12
+  br i1 %cmp.not, label %while.body, label %cleanup128.thread, !llvm.loop !28
 
-156:                                              ; preds = %107, %102
+cleanup128.thread:                                ; preds = %cleanup124, %entry
+  %kc_end.0189.ph = phi i32 [ 0, %entry ], [ %kc_end.8.ph, %cleanup124 ]
+  %kc_i.0187.ph = phi i32 [ 0, %entry ], [ %kc_i.11.ph, %cleanup124 ]
+  %sub235 = add i32 %kc_end.0189.ph, 1
+  %add236 = sub i32 %sub235, %kc_i.0187.ph
+  br label %31
+
+30:                                               ; preds = %land.lhs.true79, %if.else74
   tail call void @_ZN2kc21kc_no_default_in_withEPKciS1_(ptr noundef nonnull @.str, i32 noundef 150, ptr noundef nonnull @.str.1)
-  br label %162
+  br label %31
 
-157:                                              ; preds = %147, %1
-  %158 = phi i32 [ 0, %1 ], [ %148, %147 ]
-  %159 = phi i32 [ 0, %1 ], [ %149, %147 ]
-  %160 = add i32 %158, 1
-  %161 = sub i32 %160, %159
-  br label %162
-
-162:                                              ; preds = %156, %157
-  %163 = phi i32 [ %161, %157 ], [ 0, %156 ]
-  ret i32 %163
+31:                                               ; preds = %cleanup128.thread, %30
+  %32 = phi i32 [ 0, %30 ], [ %add236, %cleanup128.thread ]
+  ret i32 %32
 }
 
 declare noundef zeroext i1 @_ZNK2kc20impl_abstract_phylum2eqEPKS0_(ptr noundef nonnull align 8 dereferenceable(8), ptr noundef) local_unnamed_addr #1
@@ -237,37 +238,38 @@ declare noundef zeroext i1 @_ZNK2kc20impl_abstract_phylum2eqEPKS0_(ptr noundef n
 declare void @_ZN2kc21kc_no_default_in_withEPKciS1_(ptr noundef, i32 noundef, ptr noundef) local_unnamed_addr #1
 
 ; Function Attrs: mustprogress uwtable
-define dso_local void @_ZN2kc20freespineandelementsEPNS_21impl_unparseviewsinfoE(ptr noundef %0) local_unnamed_addr #0 {
-  %2 = icmp eq ptr %0, null
-  br i1 %2, label %21, label %3
+define dso_local void @_ZN2kc20freespineandelementsEPNS_21impl_unparseviewsinfoE(ptr noundef %a_unparseviewsinfo) local_unnamed_addr #0 {
+entry:
+  %tobool.not12 = icmp eq ptr %a_unparseviewsinfo, null
+  br i1 %tobool.not12, label %while.end, label %while.body
 
-3:                                                ; preds = %1, %15
-  %4 = phi ptr [ %19, %15 ], [ %0, %1 ]
-  %5 = load ptr, ptr %4, align 8, !tbaa !9
-  %6 = getelementptr inbounds ptr, ptr %5, i64 1
-  %7 = load ptr, ptr %6, align 8
-  %8 = tail call noundef ptr %7(ptr noundef nonnull align 8 dereferenceable(8) %4, i32 noundef 0)
-  %9 = icmp eq ptr %8, null
-  br i1 %9, label %15, label %10
+while.body:                                       ; preds = %entry, %if.end
+  %kc_p.013 = phi ptr [ %call7, %if.end ], [ %a_unparseviewsinfo, %entry ]
+  %vtable = load ptr, ptr %kc_p.013, align 8, !tbaa !9
+  %vfn = getelementptr inbounds ptr, ptr %vtable, i64 1
+  %0 = load ptr, ptr %vfn, align 8
+  %call = tail call noundef ptr %0(ptr noundef nonnull align 8 dereferenceable(8) %kc_p.013, i32 noundef 0)
+  %tobool1.not = icmp eq ptr %call, null
+  br i1 %tobool1.not, label %if.end, label %if.then
 
-10:                                               ; preds = %3
-  %11 = load ptr, ptr %4, align 8, !tbaa !9
-  %12 = getelementptr inbounds ptr, ptr %11, i64 1
-  %13 = load ptr, ptr %12, align 8
-  %14 = tail call noundef ptr %13(ptr noundef nonnull align 8 dereferenceable(8) %4, i32 noundef 0)
-  tail call void @_ZN2kc20impl_abstract_phylum4freeEb(ptr noundef nonnull align 8 dereferenceable(8) %14, i1 noundef zeroext false)
-  br label %15
+if.then:                                          ; preds = %while.body
+  %vtable2 = load ptr, ptr %kc_p.013, align 8, !tbaa !9
+  %vfn3 = getelementptr inbounds ptr, ptr %vtable2, i64 1
+  %1 = load ptr, ptr %vfn3, align 8
+  %call4 = tail call noundef ptr %1(ptr noundef nonnull align 8 dereferenceable(8) %kc_p.013, i32 noundef 0)
+  tail call void @_ZN2kc20impl_abstract_phylum4freeEb(ptr noundef nonnull align 8 dereferenceable(8) %call4, i1 noundef zeroext false)
+  br label %if.end
 
-15:                                               ; preds = %10, %3
-  %16 = load ptr, ptr %4, align 8, !tbaa !9
-  %17 = getelementptr inbounds ptr, ptr %16, i64 1
-  %18 = load ptr, ptr %17, align 8
-  %19 = tail call noundef ptr %18(ptr noundef nonnull align 8 dereferenceable(8) %4, i32 noundef 1)
-  %20 = icmp eq ptr %19, null
-  br i1 %20, label %21, label %3, !llvm.loop !29
+if.end:                                           ; preds = %if.then, %while.body
+  %vtable5 = load ptr, ptr %kc_p.013, align 8, !tbaa !9
+  %vfn6 = getelementptr inbounds ptr, ptr %vtable5, i64 1
+  %2 = load ptr, ptr %vfn6, align 8
+  %call7 = tail call noundef ptr %2(ptr noundef nonnull align 8 dereferenceable(8) %kc_p.013, i32 noundef 1)
+  %tobool.not = icmp eq ptr %call7, null
+  br i1 %tobool.not, label %while.end, label %while.body, !llvm.loop !29
 
-21:                                               ; preds = %15, %1
-  tail call void @_ZN2kc18impl_abstract_list8freelistEv(ptr noundef nonnull align 8 dereferenceable(8) %0)
+while.end:                                        ; preds = %if.end, %entry
+  tail call void @_ZN2kc18impl_abstract_list8freelistEv(ptr noundef nonnull align 8 dereferenceable(8) %a_unparseviewsinfo)
   ret void
 }
 
@@ -276,37 +278,38 @@ declare void @_ZN2kc20impl_abstract_phylum4freeEb(ptr noundef nonnull align 8 de
 declare void @_ZN2kc18impl_abstract_list8freelistEv(ptr noundef nonnull align 8 dereferenceable(8)) local_unnamed_addr #1
 
 ; Function Attrs: mustprogress uwtable
-define dso_local void @_ZN2kc20freespineandelementsEPNS_21impl_rewriteviewsinfoE(ptr noundef %0) local_unnamed_addr #0 {
-  %2 = icmp eq ptr %0, null
-  br i1 %2, label %21, label %3
+define dso_local void @_ZN2kc20freespineandelementsEPNS_21impl_rewriteviewsinfoE(ptr noundef %a_rewriteviewsinfo) local_unnamed_addr #0 {
+entry:
+  %tobool.not12 = icmp eq ptr %a_rewriteviewsinfo, null
+  br i1 %tobool.not12, label %while.end, label %while.body
 
-3:                                                ; preds = %1, %15
-  %4 = phi ptr [ %19, %15 ], [ %0, %1 ]
-  %5 = load ptr, ptr %4, align 8, !tbaa !9
-  %6 = getelementptr inbounds ptr, ptr %5, i64 1
-  %7 = load ptr, ptr %6, align 8
-  %8 = tail call noundef ptr %7(ptr noundef nonnull align 8 dereferenceable(8) %4, i32 noundef 0)
-  %9 = icmp eq ptr %8, null
-  br i1 %9, label %15, label %10
+while.body:                                       ; preds = %entry, %if.end
+  %kc_p.013 = phi ptr [ %call7, %if.end ], [ %a_rewriteviewsinfo, %entry ]
+  %vtable = load ptr, ptr %kc_p.013, align 8, !tbaa !9
+  %vfn = getelementptr inbounds ptr, ptr %vtable, i64 1
+  %0 = load ptr, ptr %vfn, align 8
+  %call = tail call noundef ptr %0(ptr noundef nonnull align 8 dereferenceable(8) %kc_p.013, i32 noundef 0)
+  %tobool1.not = icmp eq ptr %call, null
+  br i1 %tobool1.not, label %if.end, label %if.then
 
-10:                                               ; preds = %3
-  %11 = load ptr, ptr %4, align 8, !tbaa !9
-  %12 = getelementptr inbounds ptr, ptr %11, i64 1
-  %13 = load ptr, ptr %12, align 8
-  %14 = tail call noundef ptr %13(ptr noundef nonnull align 8 dereferenceable(8) %4, i32 noundef 0)
-  tail call void @_ZN2kc20impl_abstract_phylum4freeEb(ptr noundef nonnull align 8 dereferenceable(8) %14, i1 noundef zeroext false)
-  br label %15
+if.then:                                          ; preds = %while.body
+  %vtable2 = load ptr, ptr %kc_p.013, align 8, !tbaa !9
+  %vfn3 = getelementptr inbounds ptr, ptr %vtable2, i64 1
+  %1 = load ptr, ptr %vfn3, align 8
+  %call4 = tail call noundef ptr %1(ptr noundef nonnull align 8 dereferenceable(8) %kc_p.013, i32 noundef 0)
+  tail call void @_ZN2kc20impl_abstract_phylum4freeEb(ptr noundef nonnull align 8 dereferenceable(8) %call4, i1 noundef zeroext false)
+  br label %if.end
 
-15:                                               ; preds = %10, %3
-  %16 = load ptr, ptr %4, align 8, !tbaa !9
-  %17 = getelementptr inbounds ptr, ptr %16, i64 1
-  %18 = load ptr, ptr %17, align 8
-  %19 = tail call noundef ptr %18(ptr noundef nonnull align 8 dereferenceable(8) %4, i32 noundef 1)
-  %20 = icmp eq ptr %19, null
-  br i1 %20, label %21, label %3, !llvm.loop !30
+if.end:                                           ; preds = %if.then, %while.body
+  %vtable5 = load ptr, ptr %kc_p.013, align 8, !tbaa !9
+  %vfn6 = getelementptr inbounds ptr, ptr %vtable5, i64 1
+  %2 = load ptr, ptr %vfn6, align 8
+  %call7 = tail call noundef ptr %2(ptr noundef nonnull align 8 dereferenceable(8) %kc_p.013, i32 noundef 1)
+  %tobool.not = icmp eq ptr %call7, null
+  br i1 %tobool.not, label %while.end, label %while.body, !llvm.loop !30
 
-21:                                               ; preds = %15, %1
-  tail call void @_ZN2kc18impl_abstract_list8freelistEv(ptr noundef nonnull align 8 dereferenceable(8) %0)
+while.end:                                        ; preds = %if.end, %entry
+  tail call void @_ZN2kc18impl_abstract_list8freelistEv(ptr noundef nonnull align 8 dereferenceable(8) %a_rewriteviewsinfo)
   ret void
 }
 

@@ -18,33 +18,34 @@ target triple = "x86_64-unknown-linux-gnu"
 @str.9 = private unnamed_addr constant [13 x i8] c"Sorted Tree:\00", align 1
 
 ; Function Attrs: nofree nounwind uwtable
-define dso_local void @InOrder(ptr noundef readonly %0) local_unnamed_addr #0 {
-  %2 = icmp eq ptr %0, null
-  br i1 %2, label %17, label %3
+define dso_local void @InOrder(ptr noundef readonly %h) local_unnamed_addr #0 {
+entry:
+  %cmp.not8 = icmp eq ptr %h, null
+  br i1 %cmp.not8, label %if.end4, label %if.then
 
-3:                                                ; preds = %1, %15
-  %4 = phi ptr [ %8, %15 ], [ %0, %1 ]
-  %5 = getelementptr inbounds %struct.node, ptr %4, i64 0, i32 1
-  %6 = load ptr, ptr %5, align 8, !tbaa !5
-  %7 = getelementptr inbounds %struct.node, ptr %4, i64 0, i32 2
-  %8 = load ptr, ptr %7, align 8, !tbaa !11
-  tail call void @InOrder(ptr noundef %6)
-  %9 = load i8, ptr @InOrder.counter, align 1, !tbaa !12
-  %10 = add i8 %9, 1
-  store i8 %10, ptr @InOrder.counter, align 1, !tbaa !12
-  %11 = icmp eq i8 %9, 0
-  br i1 %11, label %12, label %15
+if.then:                                          ; preds = %entry, %if.end
+  %h.tr9 = phi ptr [ %1, %if.end ], [ %h, %entry ]
+  %left = getelementptr inbounds %struct.node, ptr %h.tr9, i64 0, i32 1
+  %0 = load ptr, ptr %left, align 8, !tbaa !5
+  %right = getelementptr inbounds %struct.node, ptr %h.tr9, i64 0, i32 2
+  %1 = load ptr, ptr %right, align 8, !tbaa !11
+  tail call void @InOrder(ptr noundef %0)
+  %2 = load i8, ptr @InOrder.counter, align 1, !tbaa !12
+  %inc = add i8 %2, 1
+  store i8 %inc, ptr @InOrder.counter, align 1, !tbaa !12
+  %cmp1 = icmp eq i8 %2, 0
+  br i1 %cmp1, label %if.then3, label %if.end
 
-12:                                               ; preds = %3
-  %13 = load i32, ptr %4, align 8, !tbaa !13
-  %14 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str, i32 noundef %13, i32 noundef 0)
-  br label %15
+if.then3:                                         ; preds = %if.then
+  %3 = load i32, ptr %h.tr9, align 8, !tbaa !13
+  %call = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str, i32 noundef %3, i32 noundef 0)
+  br label %if.end
 
-15:                                               ; preds = %12, %3
-  %16 = icmp eq ptr %8, null
-  br i1 %16, label %17, label %3
+if.end:                                           ; preds = %if.then3, %if.then
+  %cmp.not = icmp eq ptr %1, null
+  br i1 %cmp.not, label %if.end4, label %if.then
 
-17:                                               ; preds = %15, %1
+if.end4:                                          ; preds = %if.end, %entry
   ret void
 }
 
@@ -52,360 +53,370 @@ define dso_local void @InOrder(ptr noundef readonly %0) local_unnamed_addr #0 {
 declare noundef i32 @printf(ptr nocapture noundef readonly, ...) local_unnamed_addr #1
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(none) uwtable
-define dso_local i32 @mult(i32 noundef %0, i32 noundef %1) local_unnamed_addr #2 {
-  %3 = sdiv i32 %0, 10000
-  %4 = srem i32 %0, 10000
-  %5 = sdiv i32 %1, 10000
-  %6 = srem i32 %1, 10000
-  %7 = mul nsw i32 %5, %4
-  %8 = mul nsw i32 %6, %3
-  %9 = add nsw i32 %7, %8
-  %10 = srem i32 %9, 10000
-  %11 = mul nsw i32 %10, 10000
-  %12 = mul nsw i32 %6, %4
-  %13 = add nsw i32 %11, %12
-  ret i32 %13
+define dso_local i32 @mult(i32 noundef %p, i32 noundef %q) local_unnamed_addr #2 {
+entry:
+  %div = sdiv i32 %p, 10000
+  %rem = srem i32 %p, 10000
+  %div1 = sdiv i32 %q, 10000
+  %rem2 = srem i32 %q, 10000
+  %mul = mul nsw i32 %div1, %rem
+  %mul3 = mul nsw i32 %rem2, %div
+  %add = add nsw i32 %mul, %mul3
+  %rem4 = srem i32 %add, 10000
+  %mul5 = mul nsw i32 %rem4, 10000
+  %mul6 = mul nsw i32 %rem2, %rem
+  %add7 = add nsw i32 %mul5, %mul6
+  ret i32 %add7
 }
 
 ; Function Attrs: nofree norecurse nosync nounwind memory(none) uwtable
-define dso_local i32 @skiprand(i32 noundef %0, i32 noundef %1) local_unnamed_addr #3 {
-  %3 = icmp eq i32 %1, 0
-  br i1 %3, label %19, label %4
+define dso_local i32 @skiprand(i32 noundef %seed, i32 noundef %n) local_unnamed_addr #3 {
+entry:
+  %tobool.not3 = icmp eq i32 %n, 0
+  br i1 %tobool.not3, label %for.end, label %for.body
 
-4:                                                ; preds = %2, %4
-  %5 = phi i32 [ %17, %4 ], [ %1, %2 ]
-  %6 = phi i32 [ %16, %4 ], [ %0, %2 ]
-  %7 = sdiv i32 %6, 10000
-  %8 = srem i32 %6, 10000
-  %9 = mul nsw i32 %8, 3141
-  %10 = mul nsw i32 %7, 5821
-  %11 = add nsw i32 %9, %10
-  %12 = srem i32 %11, 10000
-  %13 = mul nsw i32 %12, 10000
-  %14 = mul nsw i32 %8, 5821
-  %15 = add nsw i32 %14, 1
-  %16 = add nsw i32 %15, %13
-  %17 = add nsw i32 %5, -1
-  %18 = icmp eq i32 %17, 0
-  br i1 %18, label %19, label %4, !llvm.loop !14
+for.body:                                         ; preds = %entry, %for.body
+  %n.addr.05 = phi i32 [ %dec, %for.body ], [ %n, %entry ]
+  %seed.addr.04 = phi i32 [ %add.i, %for.body ], [ %seed, %entry ]
+  %div.i.i = sdiv i32 %seed.addr.04, 10000
+  %rem.i.i = srem i32 %seed.addr.04, 10000
+  %mul.i.i = mul nsw i32 %rem.i.i, 3141
+  %mul3.i.i = mul nsw i32 %div.i.i, 5821
+  %add.i.i = add nsw i32 %mul.i.i, %mul3.i.i
+  %rem4.i.i = srem i32 %add.i.i, 10000
+  %mul5.i.i = mul nsw i32 %rem4.i.i, 10000
+  %mul6.i.i = mul nsw i32 %rem.i.i, 5821
+  %add7.i.i = add nsw i32 %mul6.i.i, 1
+  %add.i = add nsw i32 %add7.i.i, %mul5.i.i
+  %dec = add nsw i32 %n.addr.05, -1
+  %tobool.not = icmp eq i32 %dec, 0
+  br i1 %tobool.not, label %for.end, label %for.body, !llvm.loop !14
 
-19:                                               ; preds = %4, %2
-  %20 = phi i32 [ %0, %2 ], [ %16, %4 ]
-  ret i32 %20
+for.end:                                          ; preds = %for.body, %entry
+  %seed.addr.0.lcssa = phi i32 [ %seed, %entry ], [ %add.i, %for.body ]
+  ret i32 %seed.addr.0.lcssa
 }
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(none) uwtable
-define dso_local i32 @random(i32 noundef %0) local_unnamed_addr #2 {
-  %2 = sdiv i32 %0, 10000
-  %3 = srem i32 %0, 10000
-  %4 = mul nsw i32 %3, 3141
-  %5 = mul nsw i32 %2, 5821
-  %6 = add nsw i32 %4, %5
-  %7 = srem i32 %6, 10000
-  %8 = mul nsw i32 %7, 10000
-  %9 = mul nsw i32 %3, 5821
-  %10 = add nsw i32 %9, 1
-  %11 = add nsw i32 %10, %8
-  ret i32 %11
+define dso_local i32 @random(i32 noundef %seed) local_unnamed_addr #2 {
+entry:
+  %div.i = sdiv i32 %seed, 10000
+  %rem.i = srem i32 %seed, 10000
+  %mul.i = mul nsw i32 %rem.i, 3141
+  %mul3.i = mul nsw i32 %div.i, 5821
+  %add.i = add nsw i32 %mul.i, %mul3.i
+  %rem4.i = srem i32 %add.i, 10000
+  %mul5.i = mul nsw i32 %rem4.i, 10000
+  %mul6.i = mul nsw i32 %rem.i, 5821
+  %add7.i = add nsw i32 %mul6.i, 1
+  %add = add nsw i32 %add7.i, %mul5.i
+  ret i32 %add
 }
 
 ; Function Attrs: nounwind uwtable
-define dso_local ptr @RandTree(i32 noundef %0, i32 noundef %1, i32 noundef %2, i32 noundef %3) local_unnamed_addr #4 {
-  %5 = load i32, ptr @foo, align 4, !tbaa !16
-  %6 = add nsw i32 %5, 1
-  store i32 %6, ptr @foo, align 4, !tbaa !16
-  %7 = icmp sgt i32 %0, 1
-  br i1 %7, label %8, label %49
+define dso_local ptr @RandTree(i32 noundef %n, i32 noundef %seed, i32 noundef %node, i32 noundef %level) local_unnamed_addr #4 {
+entry:
+  %0 = load i32, ptr @foo, align 4, !tbaa !16
+  %inc = add nsw i32 %0, 1
+  store i32 %inc, ptr @foo, align 4, !tbaa !16
+  %cmp = icmp sgt i32 %n, 1
+  br i1 %cmp, label %if.then, label %common.ret38
 
-8:                                                ; preds = %4
-  %9 = load i32, ptr @NDim, align 4, !tbaa !16
-  %10 = icmp sgt i32 %9, %3
-  %11 = xor i32 %3, -1
-  %12 = add i32 %9, %11
-  %13 = shl nuw i32 1, %12
-  %14 = select i1 %10, i32 %13, i32 0
-  %15 = add nsw i32 %14, %2
-  %16 = sdiv i32 %1, 10000
-  %17 = srem i32 %1, 10000
-  %18 = mul nsw i32 %17, 3141
-  %19 = mul nsw i32 %16, 5821
-  %20 = add nsw i32 %18, %19
-  %21 = srem i32 %20, 10000
-  %22 = mul nsw i32 %21, 10000
-  %23 = mul nsw i32 %17, 5821
-  %24 = add nsw i32 %23, 1
-  %25 = add nsw i32 %24, %22
-  %26 = srem i32 %25, 100
-  %27 = tail call ptr @malloc(i32 noundef 24) #11
-  store i32 %26, ptr %27, align 8, !tbaa !13
-  %28 = getelementptr inbounds %struct.node, ptr %27, i64 0, i32 1
-  %29 = getelementptr inbounds %struct.node, ptr %27, i64 0, i32 2
-  %30 = lshr i32 %0, 1
-  %31 = add nsw i32 %3, 1
-  tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %28, i8 0, i64 16, i1 false)
-  %32 = tail call ptr @RandTree(i32 noundef %30, i32 noundef %25, i32 noundef %15, i32 noundef %31)
-  %33 = add nuw nsw i32 %0, 1
-  br label %34
+if.then:                                          ; preds = %entry
+  %1 = load i32, ptr @NDim, align 4, !tbaa !16
+  %cmp1 = icmp sgt i32 %1, %level
+  %2 = xor i32 %level, -1
+  %sub3 = add i32 %1, %2
+  %shl = shl nuw i32 1, %sub3
+  %add = select i1 %cmp1, i32 %shl, i32 0
+  %newnode.0 = add nsw i32 %add, %node
+  %div.i.i = sdiv i32 %seed, 10000
+  %rem.i.i = srem i32 %seed, 10000
+  %mul.i.i = mul nsw i32 %rem.i.i, 3141
+  %mul3.i.i = mul nsw i32 %div.i.i, 5821
+  %add.i.i = add nsw i32 %mul.i.i, %mul3.i.i
+  %rem4.i.i = srem i32 %add.i.i, 10000
+  %mul5.i.i = mul nsw i32 %rem4.i.i, 10000
+  %mul6.i.i = mul nsw i32 %rem.i.i, 5821
+  %add7.i.i = add nsw i32 %mul6.i.i, 1
+  %add.i = add nsw i32 %add7.i.i, %mul5.i.i
+  %rem = srem i32 %add.i, 100
+  %call4 = tail call ptr @malloc(i32 noundef 24) #11
+  store i32 %rem, ptr %call4, align 8, !tbaa !13
+  %left = getelementptr inbounds %struct.node, ptr %call4, i64 0, i32 1
+  %right = getelementptr inbounds %struct.node, ptr %call4, i64 0, i32 2
+  %div36 = lshr i32 %n, 1
+  %add5 = add nsw i32 %level, 1
+  tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %left, i8 0, i64 16, i1 false)
+  %call6 = tail call ptr @RandTree(i32 noundef %div36, i32 noundef %add.i, i32 noundef %newnode.0, i32 noundef %add5)
+  %add9 = add nuw nsw i32 %n, 1
+  br label %for.body.i
 
-34:                                               ; preds = %34, %8
-  %35 = phi i32 [ %47, %34 ], [ %33, %8 ]
-  %36 = phi i32 [ %46, %34 ], [ %25, %8 ]
-  %37 = sdiv i32 %36, 10000
-  %38 = srem i32 %36, 10000
-  %39 = mul nsw i32 %38, 3141
-  %40 = mul nsw i32 %37, 5821
-  %41 = add nsw i32 %39, %40
-  %42 = srem i32 %41, 10000
-  %43 = mul nsw i32 %42, 10000
-  %44 = mul nsw i32 %38, 5821
-  %45 = add nsw i32 %44, 1
-  %46 = add nsw i32 %45, %43
-  %47 = add nsw i32 %35, -1
-  %48 = icmp eq i32 %47, 0
-  br i1 %48, label %51, label %34, !llvm.loop !14
+for.body.i:                                       ; preds = %for.body.i, %if.then
+  %n.addr.05.i = phi i32 [ %dec.i, %for.body.i ], [ %add9, %if.then ]
+  %seed.addr.04.i = phi i32 [ %add.i.i37, %for.body.i ], [ %add.i, %if.then ]
+  %div.i.i.i = sdiv i32 %seed.addr.04.i, 10000
+  %rem.i.i.i = srem i32 %seed.addr.04.i, 10000
+  %mul.i.i.i = mul nsw i32 %rem.i.i.i, 3141
+  %mul3.i.i.i = mul nsw i32 %div.i.i.i, 5821
+  %add.i.i.i = add nsw i32 %mul.i.i.i, %mul3.i.i.i
+  %rem4.i.i.i = srem i32 %add.i.i.i, 10000
+  %mul5.i.i.i = mul nsw i32 %rem4.i.i.i, 10000
+  %mul6.i.i.i = mul nsw i32 %rem.i.i.i, 5821
+  %add7.i.i.i = add nsw i32 %mul6.i.i.i, 1
+  %add.i.i37 = add nsw i32 %add7.i.i.i, %mul5.i.i.i
+  %dec.i = add nsw i32 %n.addr.05.i, -1
+  %tobool.not.i = icmp eq i32 %dec.i, 0
+  br i1 %tobool.not.i, label %skiprand.exit, label %for.body.i, !llvm.loop !14
 
-49:                                               ; preds = %4, %51
-  %50 = phi ptr [ %27, %51 ], [ null, %4 ]
-  ret ptr %50
+common.ret38:                                     ; preds = %entry, %skiprand.exit
+  %common.ret38.op = phi ptr [ %call4, %skiprand.exit ], [ null, %entry ]
+  ret ptr %common.ret38.op
 
-51:                                               ; preds = %34
-  %52 = tail call ptr @RandTree(i32 noundef %30, i32 noundef %46, i32 noundef %2, i32 noundef %31)
-  store ptr %32, ptr %28, align 8, !tbaa !5
-  store ptr %52, ptr %29, align 8, !tbaa !11
-  br label %49
+skiprand.exit:                                    ; preds = %for.body.i
+  %call12 = tail call ptr @RandTree(i32 noundef %div36, i32 noundef %add.i.i37, i32 noundef %node, i32 noundef %add5)
+  store ptr %call6, ptr %left, align 8, !tbaa !5
+  store ptr %call12, ptr %right, align 8, !tbaa !11
+  br label %common.ret38
 }
 
 declare ptr @malloc(i32 noundef) local_unnamed_addr #5
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(argmem: readwrite) uwtable
-define dso_local void @SwapValue(ptr nocapture noundef %0, ptr nocapture noundef %1) local_unnamed_addr #6 {
-  %3 = load i32, ptr %0, align 8, !tbaa !13
-  %4 = load i32, ptr %1, align 8, !tbaa !13
-  store i32 %3, ptr %1, align 8, !tbaa !13
-  store i32 %4, ptr %0, align 8, !tbaa !13
+define dso_local void @SwapValue(ptr nocapture noundef %l, ptr nocapture noundef %r) local_unnamed_addr #6 {
+entry:
+  %0 = load i32, ptr %l, align 8, !tbaa !13
+  %1 = load i32, ptr %r, align 8, !tbaa !13
+  store i32 %0, ptr %r, align 8, !tbaa !13
+  store i32 %1, ptr %l, align 8, !tbaa !13
   ret void
 }
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(argmem: write) uwtable
-define dso_local void @SwapValLeft(ptr nocapture noundef writeonly %0, ptr nocapture noundef writeonly %1, ptr noundef %2, ptr noundef %3, i32 noundef %4, i32 noundef %5) local_unnamed_addr #7 {
-  store i32 %4, ptr %1, align 8, !tbaa !13
-  %7 = getelementptr inbounds %struct.node, ptr %1, i64 0, i32 1
-  store ptr %2, ptr %7, align 8, !tbaa !5
-  %8 = getelementptr inbounds %struct.node, ptr %0, i64 0, i32 1
-  store ptr %3, ptr %8, align 8, !tbaa !5
-  store i32 %5, ptr %0, align 8, !tbaa !13
+define dso_local void @SwapValLeft(ptr nocapture noundef writeonly %l, ptr nocapture noundef writeonly %r, ptr noundef %ll, ptr noundef %rl, i32 noundef %lval, i32 noundef %rval) local_unnamed_addr #7 {
+entry:
+  store i32 %lval, ptr %r, align 8, !tbaa !13
+  %left = getelementptr inbounds %struct.node, ptr %r, i64 0, i32 1
+  store ptr %ll, ptr %left, align 8, !tbaa !5
+  %left1 = getelementptr inbounds %struct.node, ptr %l, i64 0, i32 1
+  store ptr %rl, ptr %left1, align 8, !tbaa !5
+  store i32 %rval, ptr %l, align 8, !tbaa !13
   ret void
 }
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(argmem: write) uwtable
-define dso_local void @SwapValRight(ptr nocapture noundef writeonly %0, ptr nocapture noundef writeonly %1, ptr noundef %2, ptr noundef %3, i32 noundef %4, i32 noundef %5) local_unnamed_addr #7 {
-  store i32 %4, ptr %1, align 8, !tbaa !13
-  %7 = getelementptr inbounds %struct.node, ptr %1, i64 0, i32 2
-  store ptr %2, ptr %7, align 8, !tbaa !11
-  %8 = getelementptr inbounds %struct.node, ptr %0, i64 0, i32 2
-  store ptr %3, ptr %8, align 8, !tbaa !11
-  store i32 %5, ptr %0, align 8, !tbaa !13
+define dso_local void @SwapValRight(ptr nocapture noundef writeonly %l, ptr nocapture noundef writeonly %r, ptr noundef %lr, ptr noundef %rr, i32 noundef %lval, i32 noundef %rval) local_unnamed_addr #7 {
+entry:
+  store i32 %lval, ptr %r, align 8, !tbaa !13
+  %right = getelementptr inbounds %struct.node, ptr %r, i64 0, i32 2
+  store ptr %lr, ptr %right, align 8, !tbaa !11
+  %right1 = getelementptr inbounds %struct.node, ptr %l, i64 0, i32 2
+  store ptr %rr, ptr %right1, align 8, !tbaa !11
+  store i32 %rval, ptr %l, align 8, !tbaa !13
   ret void
 }
 
 ; Function Attrs: nofree nosync nounwind memory(readwrite, inaccessiblemem: none) uwtable
-define dso_local i32 @Bimerge(ptr nocapture noundef %0, i32 noundef %1, i32 noundef %2) local_unnamed_addr #8 {
-  br label %4
+define dso_local i32 @Bimerge(ptr nocapture noundef %root, i32 noundef %spr_val, i32 noundef %dir) local_unnamed_addr #8 {
+entry:
+  br label %tailrecurse
 
-4:                                                ; preds = %67, %3
-  %5 = phi ptr [ %0, %3 ], [ %68, %67 ]
-  %6 = phi i32 [ %1, %3 ], [ %64, %67 ]
-  %7 = load i32, ptr %5, align 8, !tbaa !13
-  %8 = getelementptr inbounds %struct.node, ptr %5, i64 0, i32 1
-  %9 = load ptr, ptr %8, align 8, !tbaa !5
-  %10 = getelementptr inbounds %struct.node, ptr %5, i64 0, i32 2
-  %11 = load ptr, ptr %10, align 8, !tbaa !11
-  %12 = icmp sgt i32 %7, %6
-  %13 = zext i1 %12 to i32
-  %14 = icmp eq i32 %13, %2
-  br i1 %14, label %15, label %17
+tailrecurse:                                      ; preds = %if.then27, %entry
+  %root.tr = phi ptr [ %root, %entry ], [ %16, %if.then27 ]
+  %spr_val.tr = phi i32 [ %spr_val, %entry ], [ %spr_val.addr.081, %if.then27 ]
+  %0 = load i32, ptr %root.tr, align 8, !tbaa !13
+  %left = getelementptr inbounds %struct.node, ptr %root.tr, i64 0, i32 1
+  %1 = load ptr, ptr %left, align 8, !tbaa !5
+  %right = getelementptr inbounds %struct.node, ptr %root.tr, i64 0, i32 2
+  %2 = load ptr, ptr %right, align 8, !tbaa !11
+  %cmp = icmp sgt i32 %0, %spr_val.tr
+  %conv = zext i1 %cmp to i32
+  %tobool.not = icmp eq i32 %conv, %dir
+  br i1 %tobool.not, label %if.end, label %if.end.thread
 
-15:                                               ; preds = %4
-  %16 = icmp eq ptr %9, null
-  br i1 %16, label %71, label %19
+if.end:                                           ; preds = %tailrecurse
+  %cmp2.not74 = icmp eq ptr %1, null
+  br i1 %cmp2.not74, label %if.end34, label %while.body.us
 
-17:                                               ; preds = %4
-  store i32 %6, ptr %5, align 8, !tbaa !13
-  %18 = icmp eq ptr %9, null
-  br i1 %18, label %71, label %40
+if.end.thread:                                    ; preds = %tailrecurse
+  store i32 %spr_val.tr, ptr %root.tr, align 8, !tbaa !13
+  %cmp2.not7479 = icmp eq ptr %1, null
+  br i1 %cmp2.not7479, label %if.end34, label %while.body
 
-19:                                               ; preds = %15, %36
-  %20 = phi ptr [ %38, %36 ], [ %9, %15 ]
-  %21 = phi ptr [ %37, %36 ], [ %11, %15 ]
-  %22 = load i32, ptr %20, align 8, !tbaa !13
-  %23 = getelementptr inbounds %struct.node, ptr %20, i64 0, i32 1
-  %24 = load ptr, ptr %23, align 8, !tbaa !5
-  %25 = load i32, ptr %21, align 8, !tbaa !13
-  %26 = getelementptr inbounds %struct.node, ptr %21, i64 0, i32 1
-  %27 = load ptr, ptr %26, align 8, !tbaa !5
-  %28 = icmp sgt i32 %22, %25
-  %29 = zext i1 %28 to i32
-  %30 = icmp eq i32 %29, %2
-  br i1 %30, label %36, label %31
+while.body.us:                                    ; preds = %if.end, %if.end23.us
+  %pl.076.us = phi ptr [ %pl.1.us, %if.end23.us ], [ %1, %if.end ]
+  %pr.075.us = phi ptr [ %pr.1.us, %if.end23.us ], [ %2, %if.end ]
+  %3 = load i32, ptr %pl.076.us, align 8, !tbaa !13
+  %left5.us = getelementptr inbounds %struct.node, ptr %pl.076.us, i64 0, i32 1
+  %4 = load ptr, ptr %left5.us, align 8, !tbaa !5
+  %5 = load i32, ptr %pr.075.us, align 8, !tbaa !13
+  %left8.us = getelementptr inbounds %struct.node, ptr %pr.075.us, i64 0, i32 1
+  %6 = load ptr, ptr %left8.us, align 8, !tbaa !5
+  %cmp10.us = icmp sgt i32 %3, %5
+  %conv11.us = zext i1 %cmp10.us to i32
+  %tobool19.not.us = icmp eq i32 %conv11.us, %dir
+  br i1 %tobool19.not.us, label %if.end23.us, label %if.then20.us
 
-31:                                               ; preds = %19
-  %32 = getelementptr inbounds %struct.node, ptr %21, i64 0, i32 2
-  %33 = load ptr, ptr %32, align 8, !tbaa !11
-  %34 = getelementptr inbounds %struct.node, ptr %20, i64 0, i32 2
-  %35 = load ptr, ptr %34, align 8, !tbaa !11
-  store i32 %22, ptr %21, align 8, !tbaa !13
-  store ptr %24, ptr %26, align 8, !tbaa !5
-  store ptr %27, ptr %23, align 8, !tbaa !5
-  store i32 %25, ptr %20, align 8, !tbaa !13
-  br label %36
+if.then20.us:                                     ; preds = %while.body.us
+  %right9.us = getelementptr inbounds %struct.node, ptr %pr.075.us, i64 0, i32 2
+  %7 = load ptr, ptr %right9.us, align 8, !tbaa !11
+  %right6.us = getelementptr inbounds %struct.node, ptr %pl.076.us, i64 0, i32 2
+  %8 = load ptr, ptr %right6.us, align 8, !tbaa !11
+  store i32 %3, ptr %pr.075.us, align 8, !tbaa !13
+  store ptr %4, ptr %left8.us, align 8, !tbaa !5
+  store ptr %6, ptr %left5.us, align 8, !tbaa !5
+  store i32 %5, ptr %pl.076.us, align 8, !tbaa !13
+  br label %if.end23.us
 
-36:                                               ; preds = %31, %19
-  %37 = phi ptr [ %33, %31 ], [ %27, %19 ]
-  %38 = phi ptr [ %35, %31 ], [ %24, %19 ]
-  %39 = icmp eq ptr %38, null
-  br i1 %39, label %61, label %19, !llvm.loop !17
+if.end23.us:                                      ; preds = %if.then20.us, %while.body.us
+  %pr.1.us = phi ptr [ %7, %if.then20.us ], [ %6, %while.body.us ]
+  %pl.1.us = phi ptr [ %8, %if.then20.us ], [ %4, %while.body.us ]
+  %cmp2.not.us = icmp eq ptr %pl.1.us, null
+  br i1 %cmp2.not.us, label %while.end.loopexit, label %while.body.us, !llvm.loop !17
 
-40:                                               ; preds = %17, %57
-  %41 = phi ptr [ %59, %57 ], [ %9, %17 ]
-  %42 = phi ptr [ %58, %57 ], [ %11, %17 ]
-  %43 = load i32, ptr %41, align 8, !tbaa !13
-  %44 = getelementptr inbounds %struct.node, ptr %41, i64 0, i32 2
-  %45 = load ptr, ptr %44, align 8, !tbaa !11
-  %46 = load i32, ptr %42, align 8, !tbaa !13
-  %47 = getelementptr inbounds %struct.node, ptr %42, i64 0, i32 2
-  %48 = load ptr, ptr %47, align 8, !tbaa !11
-  %49 = icmp sgt i32 %43, %46
-  %50 = zext i1 %49 to i32
-  %51 = icmp eq i32 %50, %2
-  br i1 %51, label %57, label %52
+while.body:                                       ; preds = %if.end.thread, %if.end23
+  %pl.076 = phi ptr [ %pl.1, %if.end23 ], [ %1, %if.end.thread ]
+  %pr.075 = phi ptr [ %pr.1, %if.end23 ], [ %2, %if.end.thread ]
+  %9 = load i32, ptr %pl.076, align 8, !tbaa !13
+  %right6 = getelementptr inbounds %struct.node, ptr %pl.076, i64 0, i32 2
+  %10 = load ptr, ptr %right6, align 8, !tbaa !11
+  %11 = load i32, ptr %pr.075, align 8, !tbaa !13
+  %right9 = getelementptr inbounds %struct.node, ptr %pr.075, i64 0, i32 2
+  %12 = load ptr, ptr %right9, align 8, !tbaa !11
+  %cmp10 = icmp sgt i32 %9, %11
+  %conv11 = zext i1 %cmp10 to i32
+  %tobool15.not = icmp eq i32 %conv11, %dir
+  br i1 %tobool15.not, label %if.end23, label %if.then16
 
-52:                                               ; preds = %40
-  %53 = getelementptr inbounds %struct.node, ptr %42, i64 0, i32 1
-  %54 = load ptr, ptr %53, align 8, !tbaa !5
-  %55 = getelementptr inbounds %struct.node, ptr %41, i64 0, i32 1
-  %56 = load ptr, ptr %55, align 8, !tbaa !5
-  store i32 %43, ptr %42, align 8, !tbaa !13
-  store ptr %45, ptr %47, align 8, !tbaa !11
-  store ptr %48, ptr %44, align 8, !tbaa !11
-  store i32 %46, ptr %41, align 8, !tbaa !13
-  br label %57
+if.then16:                                        ; preds = %while.body
+  %left8 = getelementptr inbounds %struct.node, ptr %pr.075, i64 0, i32 1
+  %13 = load ptr, ptr %left8, align 8, !tbaa !5
+  %left5 = getelementptr inbounds %struct.node, ptr %pl.076, i64 0, i32 1
+  %14 = load ptr, ptr %left5, align 8, !tbaa !5
+  store i32 %9, ptr %pr.075, align 8, !tbaa !13
+  store ptr %10, ptr %right9, align 8, !tbaa !11
+  store ptr %12, ptr %right6, align 8, !tbaa !11
+  store i32 %11, ptr %pl.076, align 8, !tbaa !13
+  br label %if.end23
 
-57:                                               ; preds = %40, %52
-  %58 = phi ptr [ %54, %52 ], [ %48, %40 ]
-  %59 = phi ptr [ %56, %52 ], [ %45, %40 ]
-  %60 = icmp eq ptr %59, null
-  br i1 %60, label %63, label %40, !llvm.loop !17
+if.end23:                                         ; preds = %while.body, %if.then16
+  %pr.1 = phi ptr [ %13, %if.then16 ], [ %12, %while.body ]
+  %pl.1 = phi ptr [ %14, %if.then16 ], [ %10, %while.body ]
+  %cmp2.not = icmp eq ptr %pl.1, null
+  br i1 %cmp2.not, label %while.end, label %while.body, !llvm.loop !17
 
-61:                                               ; preds = %36
-  %62 = load ptr, ptr %8, align 8, !tbaa !5
-  br label %63
+while.end.loopexit:                               ; preds = %if.end23.us
+  %.pre = load ptr, ptr %left, align 8, !tbaa !5
+  br label %while.end
 
-63:                                               ; preds = %57, %61
-  %64 = phi i32 [ %6, %61 ], [ %7, %57 ]
-  %65 = phi ptr [ %62, %61 ], [ %9, %57 ]
-  %66 = icmp eq ptr %65, null
-  br i1 %66, label %71, label %67
+while.end:                                        ; preds = %if.end23, %while.end.loopexit
+  %spr_val.addr.081 = phi i32 [ %spr_val.tr, %while.end.loopexit ], [ %0, %if.end23 ]
+  %15 = phi ptr [ %.pre, %while.end.loopexit ], [ %1, %if.end23 ]
+  %cmp25.not = icmp eq ptr %15, null
+  br i1 %cmp25.not, label %if.end34, label %if.then27
 
-67:                                               ; preds = %63
-  %68 = load ptr, ptr %10, align 8, !tbaa !11
-  %69 = load i32, ptr %5, align 8, !tbaa !13
-  %70 = tail call i32 @Bimerge(ptr noundef nonnull %65, i32 noundef %69, i32 noundef %2)
-  store i32 %70, ptr %5, align 8, !tbaa !13
-  br label %4
+if.then27:                                        ; preds = %while.end
+  %16 = load ptr, ptr %right, align 8, !tbaa !11
+  %17 = load i32, ptr %root.tr, align 8, !tbaa !13
+  %call = tail call i32 @Bimerge(ptr noundef nonnull %15, i32 noundef %17, i32 noundef %dir)
+  store i32 %call, ptr %root.tr, align 8, !tbaa !13
+  br label %tailrecurse
 
-71:                                               ; preds = %17, %15, %63
-  %72 = phi i32 [ %64, %63 ], [ %7, %17 ], [ %6, %15 ]
-  ret i32 %72
+if.end34:                                         ; preds = %if.end.thread, %if.end, %while.end
+  %spr_val.addr.08186 = phi i32 [ %spr_val.addr.081, %while.end ], [ %0, %if.end.thread ], [ %spr_val.tr, %if.end ]
+  ret i32 %spr_val.addr.08186
 }
 
 ; Function Attrs: nofree nosync nounwind memory(readwrite, inaccessiblemem: none) uwtable
-define dso_local i32 @Bisort(ptr nocapture noundef %0, i32 noundef %1, i32 noundef %2) local_unnamed_addr #8 {
-  %4 = getelementptr inbounds %struct.node, ptr %0, i64 0, i32 1
-  %5 = load ptr, ptr %4, align 8, !tbaa !5
-  %6 = icmp eq ptr %5, null
-  br i1 %6, label %7, label %15
+define dso_local i32 @Bisort(ptr nocapture noundef %root, i32 noundef %spr_val, i32 noundef %dir) local_unnamed_addr #8 {
+entry:
+  %left = getelementptr inbounds %struct.node, ptr %root, i64 0, i32 1
+  %0 = load ptr, ptr %left, align 8, !tbaa !5
+  %cmp = icmp eq ptr %0, null
+  br i1 %cmp, label %if.then, label %if.else
 
-7:                                                ; preds = %3
-  %8 = load i32, ptr %0, align 8, !tbaa !13
-  %9 = icmp sgt i32 %8, %1
-  %10 = zext i1 %9 to i32
-  %11 = icmp eq i32 %10, %2
-  br i1 %11, label %13, label %12
+if.then:                                          ; preds = %entry
+  %1 = load i32, ptr %root, align 8, !tbaa !13
+  %cmp1 = icmp sgt i32 %1, %spr_val
+  %conv = zext i1 %cmp1 to i32
+  %tobool.not = icmp eq i32 %conv, %dir
+  br i1 %tobool.not, label %common.ret28, label %if.then2
 
-12:                                               ; preds = %7
-  store i32 %1, ptr %0, align 8, !tbaa !13
-  br label %13
+if.then2:                                         ; preds = %if.then
+  store i32 %spr_val, ptr %root, align 8, !tbaa !13
+  br label %common.ret28
 
-13:                                               ; preds = %7, %12, %15
-  %14 = phi i32 [ %23, %15 ], [ %8, %12 ], [ %1, %7 ]
-  ret i32 %14
+common.ret28:                                     ; preds = %if.then, %if.then2, %if.else
+  %common.ret28.op = phi i32 [ %call10, %if.else ], [ %1, %if.then2 ], [ %spr_val, %if.then ]
+  ret i32 %common.ret28.op
 
-15:                                               ; preds = %3
-  %16 = getelementptr inbounds %struct.node, ptr %0, i64 0, i32 2
-  %17 = load ptr, ptr %16, align 8, !tbaa !11
-  %18 = load i32, ptr %0, align 8, !tbaa !13
-  %19 = tail call i32 @Bisort(ptr noundef nonnull %5, i32 noundef %18, i32 noundef %2)
-  store i32 %19, ptr %0, align 8, !tbaa !13
-  %20 = icmp eq i32 %2, 0
-  %21 = zext i1 %20 to i32
-  %22 = tail call i32 @Bisort(ptr noundef %17, i32 noundef %1, i32 noundef %21)
-  %23 = tail call i32 @Bimerge(ptr noundef nonnull %0, i32 noundef %22, i32 noundef %2)
-  br label %13
+if.else:                                          ; preds = %entry
+  %right = getelementptr inbounds %struct.node, ptr %root, i64 0, i32 2
+  %2 = load ptr, ptr %right, align 8, !tbaa !11
+  %3 = load i32, ptr %root, align 8, !tbaa !13
+  %call = tail call i32 @Bisort(ptr noundef nonnull %0, i32 noundef %3, i32 noundef %dir)
+  store i32 %call, ptr %root, align 8, !tbaa !13
+  %tobool8.not = icmp eq i32 %dir, 0
+  %lnot.ext = zext i1 %tobool8.not to i32
+  %call9 = tail call i32 @Bisort(ptr noundef %2, i32 noundef %spr_val, i32 noundef %lnot.ext)
+  %call10 = tail call i32 @Bimerge(ptr noundef nonnull %root, i32 noundef %call9, i32 noundef %dir)
+  br label %common.ret28
 }
 
 ; Function Attrs: nounwind uwtable
-define dso_local i32 @main(i32 noundef %0, ptr noundef %1) local_unnamed_addr #4 {
-  %3 = tail call i32 @dealwithargs(i32 noundef %0, ptr noundef %1) #11
-  %4 = load i32, ptr @NDim, align 4, !tbaa !16
-  %5 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.1, i32 noundef %3, i32 noundef %4)
-  %6 = tail call ptr @RandTree(i32 noundef %3, i32 noundef 12345768, i32 noundef 0, i32 noundef 0)
-  %7 = load i32, ptr @flag, align 4, !tbaa !16
-  %8 = icmp eq i32 %7, 0
-  br i1 %8, label %11, label %9
+define dso_local i32 @main(i32 noundef %argc, ptr noundef %argv) local_unnamed_addr #4 {
+entry:
+  %call = tail call i32 @dealwithargs(i32 noundef %argc, ptr noundef %argv) #11
+  %0 = load i32, ptr @NDim, align 4, !tbaa !16
+  %call1 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.1, i32 noundef %call, i32 noundef %0)
+  %call2 = tail call ptr @RandTree(i32 noundef %call, i32 noundef 12345768, i32 noundef 0, i32 noundef 0)
+  %1 = load i32, ptr @flag, align 4, !tbaa !16
+  %tobool.not = icmp eq i32 %1, 0
+  br i1 %tobool.not, label %if.end, label %if.then
 
-9:                                                ; preds = %2
-  tail call void @InOrder(ptr noundef %6)
-  %10 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.2, i32 noundef 8)
-  br label %11
+if.then:                                          ; preds = %entry
+  tail call void @InOrder(ptr noundef %call2)
+  %call4 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.2, i32 noundef 8)
+  br label %if.end
 
-11:                                               ; preds = %9, %2
-  %12 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.7)
-  %13 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.6)
-  %14 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.7)
-  %15 = tail call i32 @Bisort(ptr noundef %6, i32 noundef 8, i32 noundef 0)
-  %16 = load i32, ptr @flag, align 4, !tbaa !16
-  %17 = icmp eq i32 %16, 0
-  br i1 %17, label %21, label %18
+if.end:                                           ; preds = %if.then, %entry
+  %puts = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.7)
+  %puts29 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.6)
+  %puts30 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.7)
+  %call8 = tail call i32 @Bisort(ptr noundef %call2, i32 noundef 8, i32 noundef 0)
+  %2 = load i32, ptr @flag, align 4, !tbaa !16
+  %tobool9.not = icmp eq i32 %2, 0
+  br i1 %tobool9.not, label %if.end13, label %if.then10
 
-18:                                               ; preds = %11
-  %19 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.9)
-  tail call void @InOrder(ptr noundef %6)
-  %20 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.2, i32 noundef %15)
-  br label %21
+if.then10:                                        ; preds = %if.end
+  %puts32 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.9)
+  tail call void @InOrder(ptr noundef %call2)
+  %call12 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.2, i32 noundef %call8)
+  br label %if.end13
 
-21:                                               ; preds = %18, %11
-  %22 = tail call i32 @Bisort(ptr noundef %6, i32 noundef %15, i32 noundef 1)
-  %23 = load i32, ptr @flag, align 4, !tbaa !16
-  %24 = icmp eq i32 %23, 0
-  br i1 %24, label %28, label %25
+if.end13:                                         ; preds = %if.then10, %if.end
+  %call14 = tail call i32 @Bisort(ptr noundef %call2, i32 noundef %call8, i32 noundef 1)
+  %3 = load i32, ptr @flag, align 4, !tbaa !16
+  %tobool15.not = icmp eq i32 %3, 0
+  br i1 %tobool15.not, label %if.end19, label %if.then16
 
-25:                                               ; preds = %21
-  %26 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.9)
-  tail call void @InOrder(ptr noundef %6)
-  %27 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.2, i32 noundef %22)
-  br label %28
+if.then16:                                        ; preds = %if.end13
+  %puts31 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.9)
+  tail call void @InOrder(ptr noundef %call2)
+  %call18 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.2, i32 noundef %call14)
+  br label %if.end19
 
-28:                                               ; preds = %25, %21
+if.end19:                                         ; preds = %if.then16, %if.end13
   ret i32 0
 }
 
 declare i32 @dealwithargs(i32 noundef, ptr noundef) local_unnamed_addr #5
 
-; Function Attrs: nocallback nofree nounwind willreturn memory(argmem: write)
-declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #9
-
 ; Function Attrs: nofree nounwind
-declare noundef i32 @puts(ptr nocapture noundef readonly) local_unnamed_addr #10
+declare noundef i32 @puts(ptr nocapture noundef readonly) local_unnamed_addr #9
+
+; Function Attrs: nocallback nofree nounwind willreturn memory(argmem: write)
+declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #10
 
 attributes #0 = { nofree nounwind uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #1 = { nofree nounwind "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
@@ -416,8 +427,8 @@ attributes #5 = { "no-trapping-math"="true" "stack-protector-buffer-size"="8" "t
 attributes #6 = { mustprogress nofree norecurse nosync nounwind willreturn memory(argmem: readwrite) uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #7 = { mustprogress nofree norecurse nosync nounwind willreturn memory(argmem: write) uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #8 = { nofree nosync nounwind memory(readwrite, inaccessiblemem: none) uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
-attributes #9 = { nocallback nofree nounwind willreturn memory(argmem: write) }
-attributes #10 = { nofree nounwind }
+attributes #9 = { nofree nounwind }
+attributes #10 = { nocallback nofree nounwind willreturn memory(argmem: write) }
 attributes #11 = { nounwind }
 
 !llvm.module.flags = !{!0, !1, !2, !3}

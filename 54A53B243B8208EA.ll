@@ -17,34 +17,35 @@ target triple = "x86_64-unknown-linux-gnu"
 @str.11 = private unnamed_addr constant [37 x i8] c"ADD_TO_TEXT_RECORD called illegally.\00", align 1
 
 ; Function Attrs: nofree nounwind uwtable
-define dso_local void @INITIALIZE_RECORD(ptr nocapture noundef readonly %0, i32 noundef %1) local_unnamed_addr #0 {
-  %3 = icmp sgt i32 %1, 80
-  br i1 %3, label %11, label %4
+define dso_local void @INITIALIZE_RECORD(ptr nocapture noundef readonly %VAL, i32 noundef %SIZE) local_unnamed_addr #0 {
+entry:
+  %cmp = icmp sgt i32 %SIZE, 80
+  br i1 %cmp, label %if.then, label %lor.lhs.false
 
-4:                                                ; preds = %2
-  %5 = tail call i64 @strlen(ptr noundef nonnull dereferenceable(1) %0) #7
-  %6 = sext i32 %1 to i64
-  %7 = icmp ugt i64 %5, %6
-  %8 = load i32, ptr @IS_INITIALIZED, align 4
-  %9 = icmp ne i32 %8, 0
-  %10 = select i1 %7, i1 true, i1 %9
-  br i1 %10, label %11, label %13
+lor.lhs.false:                                    ; preds = %entry
+  %call = tail call i64 @strlen(ptr noundef nonnull dereferenceable(1) %VAL) #7
+  %conv = sext i32 %SIZE to i64
+  %cmp1 = icmp ugt i64 %call, %conv
+  %0 = load i32, ptr @IS_INITIALIZED, align 4
+  %tobool = icmp ne i32 %0, 0
+  %or.cond = select i1 %cmp1, i1 true, i1 %tobool
+  br i1 %or.cond, label %if.then, label %if.else
 
-11:                                               ; preds = %4, %2
-  %12 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str)
-  br label %18
+if.then:                                          ; preds = %lor.lhs.false, %entry
+  %puts = tail call i32 @puts(ptr nonnull dereferenceable(1) @str)
+  br label %if.end
 
-13:                                               ; preds = %4
-  %14 = tail call ptr @strcpy(ptr noundef nonnull dereferenceable(1) @INIT_RECORD, ptr noundef nonnull dereferenceable(1) %0) #8
-  %15 = tail call ptr @strcpy(ptr noundef nonnull dereferenceable(1) @RECORD, ptr noundef nonnull dereferenceable(1) %0) #8
-  store i32 %1, ptr @MAX_SIZE, align 4, !tbaa !5
-  %16 = tail call i64 @strlen(ptr noundef nonnull dereferenceable(1) @RECORD) #7
-  %17 = trunc i64 %16 to i32
-  store i32 %17, ptr @NEXT_COL, align 4, !tbaa !5
+if.else:                                          ; preds = %lor.lhs.false
+  %call5 = tail call ptr @strcpy(ptr noundef nonnull dereferenceable(1) @INIT_RECORD, ptr noundef nonnull dereferenceable(1) %VAL) #8
+  %call6 = tail call ptr @strcpy(ptr noundef nonnull dereferenceable(1) @RECORD, ptr noundef nonnull dereferenceable(1) %VAL) #8
+  store i32 %SIZE, ptr @MAX_SIZE, align 4, !tbaa !5
+  %call7 = tail call i64 @strlen(ptr noundef nonnull dereferenceable(1) @RECORD) #7
+  %conv8 = trunc i64 %call7 to i32
+  store i32 %conv8, ptr @NEXT_COL, align 4, !tbaa !5
   store i32 1, ptr @IS_INITIALIZED, align 4, !tbaa !5
-  br label %18
+  br label %if.end
 
-18:                                               ; preds = %13, %11
+if.end:                                           ; preds = %if.else, %if.then
   ret void
 }
 
@@ -55,29 +56,30 @@ declare i64 @strlen(ptr nocapture noundef) local_unnamed_addr #1
 declare ptr @strcpy(ptr noalias noundef returned writeonly, ptr noalias nocapture noundef readonly) local_unnamed_addr #2
 
 ; Function Attrs: nofree nounwind uwtable
-define dso_local void @PRT_RECORD(ptr nocapture noundef %0) local_unnamed_addr #0 {
-  %2 = load i32, ptr @IS_INITIALIZED, align 4, !tbaa !5
-  %3 = icmp eq i32 %2, 0
-  br i1 %3, label %4, label %6
+define dso_local void @PRT_RECORD(ptr nocapture noundef %OUTPUT) local_unnamed_addr #0 {
+entry:
+  %0 = load i32, ptr @IS_INITIALIZED, align 4, !tbaa !5
+  %tobool.not = icmp eq i32 %0, 0
+  br i1 %tobool.not, label %if.then, label %if.else
 
-4:                                                ; preds = %1
-  %5 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.8)
-  br label %12
+if.then:                                          ; preds = %entry
+  %puts = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.8)
+  br label %if.end5
 
-6:                                                ; preds = %1
-  %7 = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(1) @RECORD, ptr noundef nonnull dereferenceable(1) @INIT_RECORD) #7
-  %8 = icmp eq i32 %7, 0
-  br i1 %8, label %11, label %9
+if.else:                                          ; preds = %entry
+  %call1 = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(1) @RECORD, ptr noundef nonnull dereferenceable(1) @INIT_RECORD) #7
+  %tobool2.not = icmp eq i32 %call1, 0
+  br i1 %tobool2.not, label %if.end, label %if.then3
 
-9:                                                ; preds = %6
-  %10 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %0, ptr noundef nonnull @.str.2, ptr noundef nonnull @RECORD)
-  br label %11
+if.then3:                                         ; preds = %if.else
+  %call4 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %OUTPUT, ptr noundef nonnull @.str.2, ptr noundef nonnull @RECORD)
+  br label %if.end
 
-11:                                               ; preds = %9, %6
+if.end:                                           ; preds = %if.then3, %if.else
   store i32 0, ptr @IS_INITIALIZED, align 4, !tbaa !5
-  br label %12
+  br label %if.end5
 
-12:                                               ; preds = %11, %4
+if.end5:                                          ; preds = %if.end, %if.then
   ret void
 }
 
@@ -88,238 +90,243 @@ declare i32 @strcmp(ptr nocapture noundef, ptr nocapture noundef) local_unnamed_
 declare noundef i32 @fprintf(ptr nocapture noundef, ptr nocapture noundef readonly, ...) local_unnamed_addr #3
 
 ; Function Attrs: nofree nounwind uwtable
-define dso_local void @ADD_TO_RECORD(ptr nocapture noundef readonly %0, ptr nocapture noundef %1) local_unnamed_addr #0 {
-  %3 = load i32, ptr @IS_INITIALIZED, align 4, !tbaa !5
-  %4 = icmp eq i32 %3, 0
-  br i1 %4, label %44, label %5
+define dso_local void @ADD_TO_RECORD(ptr nocapture noundef readonly %VAL, ptr nocapture noundef %OUTPUT) local_unnamed_addr #0 {
+entry:
+  %0 = load i32, ptr @IS_INITIALIZED, align 4, !tbaa !5
+  %tobool.not = icmp eq i32 %0, 0
+  br i1 %tobool.not, label %if.else13, label %if.else
 
-5:                                                ; preds = %2
-  %6 = load i32, ptr @NEXT_COL, align 4, !tbaa !5
-  %7 = tail call i64 @strlen(ptr noundef nonnull dereferenceable(1) %0) #7
-  %8 = trunc i64 %7 to i32
-  %9 = add nsw i32 %6, %8
-  %10 = load i32, ptr @MAX_SIZE, align 4, !tbaa !5
-  %11 = icmp sgt i32 %9, %10
-  br i1 %11, label %12, label %38
+if.else:                                          ; preds = %entry
+  %1 = load i32, ptr @NEXT_COL, align 4, !tbaa !5
+  %call = tail call i64 @strlen(ptr noundef nonnull dereferenceable(1) %VAL) #7
+  %conv = trunc i64 %call to i32
+  %add = add nsw i32 %1, %conv
+  %2 = load i32, ptr @MAX_SIZE, align 4, !tbaa !5
+  %cmp = icmp sgt i32 %add, %2
+  br i1 %cmp, label %if.else.i, label %if.then10
 
-12:                                               ; preds = %5
-  %13 = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(1) @RECORD, ptr noundef nonnull dereferenceable(1) @INIT_RECORD) #7
-  %14 = icmp eq i32 %13, 0
-  br i1 %14, label %18, label %15
+if.else.i:                                        ; preds = %if.else
+  %call1.i = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(1) @RECORD, ptr noundef nonnull dereferenceable(1) @INIT_RECORD) #7
+  %tobool2.not.i = icmp eq i32 %call1.i, 0
+  br i1 %tobool2.not.i, label %PRT_RECORD.exit, label %if.then3.i
 
-15:                                               ; preds = %12
-  %16 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %1, ptr noundef nonnull @.str.2, ptr noundef nonnull @RECORD)
-  %17 = load i32, ptr @MAX_SIZE, align 4, !tbaa !5
-  br label %18
+if.then3.i:                                       ; preds = %if.else.i
+  %call4.i = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %OUTPUT, ptr noundef nonnull @.str.2, ptr noundef nonnull @RECORD)
+  %.pr = load i32, ptr @MAX_SIZE, align 4, !tbaa !5
+  br label %PRT_RECORD.exit
 
-18:                                               ; preds = %12, %15
-  %19 = phi i32 [ %10, %12 ], [ %17, %15 ]
+PRT_RECORD.exit:                                  ; preds = %if.else.i, %if.then3.i
+  %3 = phi i32 [ %2, %if.else.i ], [ %.pr, %if.then3.i ]
   store i32 0, ptr @IS_INITIALIZED, align 4, !tbaa !5
-  %20 = icmp sgt i32 %19, 80
-  br i1 %20, label %25, label %21
+  %cmp.i = icmp sgt i32 %3, 80
+  br i1 %cmp.i, label %if.then.i19, label %lor.lhs.false.i
 
-21:                                               ; preds = %18
-  %22 = tail call i64 @strlen(ptr noundef nonnull dereferenceable(1) @INIT_RECORD) #7
-  %23 = sext i32 %19 to i64
-  %24 = icmp ugt i64 %22, %23
-  br i1 %24, label %25, label %29
+lor.lhs.false.i:                                  ; preds = %PRT_RECORD.exit
+  %call.i = tail call i64 @strlen(ptr noundef nonnull dereferenceable(1) @INIT_RECORD) #7
+  %conv.i = sext i32 %3 to i64
+  %cmp1.i = icmp ugt i64 %call.i, %conv.i
+  br i1 %cmp1.i, label %if.then.i19, label %if.else.i20
 
-25:                                               ; preds = %21, %18
-  %26 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str)
-  %27 = load i32, ptr @NEXT_COL, align 4, !tbaa !5
-  %28 = load i32, ptr @MAX_SIZE, align 4, !tbaa !5
-  br label %33
+if.then.i19:                                      ; preds = %lor.lhs.false.i, %PRT_RECORD.exit
+  %puts.i18 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str)
+  %.pre = load i32, ptr @NEXT_COL, align 4, !tbaa !5
+  %.pre28 = load i32, ptr @MAX_SIZE, align 4, !tbaa !5
+  br label %if.end8
 
-29:                                               ; preds = %21
-  %30 = tail call ptr @strcpy(ptr noundef nonnull dereferenceable(1) @RECORD, ptr noundef nonnull dereferenceable(1) @INIT_RECORD) #8
-  %31 = tail call i64 @strlen(ptr noundef nonnull dereferenceable(1) @RECORD) #7
-  %32 = trunc i64 %31 to i32
-  store i32 %32, ptr @NEXT_COL, align 4, !tbaa !5
+if.else.i20:                                      ; preds = %lor.lhs.false.i
+  %call6.i = tail call ptr @strcpy(ptr noundef nonnull dereferenceable(1) @RECORD, ptr noundef nonnull dereferenceable(1) @INIT_RECORD) #8
+  %call7.i = tail call i64 @strlen(ptr noundef nonnull dereferenceable(1) @RECORD) #7
+  %conv8.i = trunc i64 %call7.i to i32
+  store i32 %conv8.i, ptr @NEXT_COL, align 4, !tbaa !5
   store i32 1, ptr @IS_INITIALIZED, align 4, !tbaa !5
-  br label %33
+  br label %if.end8
 
-33:                                               ; preds = %25, %29
-  %34 = phi i32 [ %28, %25 ], [ %19, %29 ]
-  %35 = phi i32 [ %27, %25 ], [ %32, %29 ]
-  %36 = add nsw i32 %35, %8
-  %37 = icmp sgt i32 %36, %34
-  br i1 %37, label %44, label %38
+if.end8:                                          ; preds = %if.else.i20, %if.then.i19
+  %4 = phi i32 [ %3, %if.else.i20 ], [ %.pre28, %if.then.i19 ]
+  %5 = phi i32 [ %conv8.i, %if.else.i20 ], [ %.pre, %if.then.i19 ]
+  %add3 = add nsw i32 %5, %conv
+  %cmp4.not = icmp sgt i32 %add3, %4
+  br i1 %cmp4.not, label %if.else13, label %if.then10
 
-38:                                               ; preds = %33, %5
-  %39 = phi i32 [ %36, %33 ], [ %9, %5 ]
-  %40 = phi i32 [ %35, %33 ], [ %6, %5 ]
-  %41 = sext i32 %40 to i64
-  %42 = getelementptr inbounds [81 x i8], ptr @RECORD, i64 0, i64 %41
-  %43 = tail call ptr @strcpy(ptr noundef nonnull dereferenceable(1) %42, ptr noundef nonnull dereferenceable(1) %0) #8
-  store i32 %39, ptr @NEXT_COL, align 4, !tbaa !5
-  br label %46
+if.then10:                                        ; preds = %if.else, %if.end8
+  %add12.pre-phi = phi i32 [ %add, %if.else ], [ %add3, %if.end8 ]
+  %6 = phi i32 [ %1, %if.else ], [ %5, %if.end8 ]
+  %idxprom = sext i32 %6 to i64
+  %arrayidx = getelementptr inbounds [81 x i8], ptr @RECORD, i64 0, i64 %idxprom
+  %call11 = tail call ptr @strcpy(ptr noundef nonnull dereferenceable(1) %arrayidx, ptr noundef nonnull dereferenceable(1) %VAL) #8
+  store i32 %add12.pre-phi, ptr @NEXT_COL, align 4, !tbaa !5
+  br label %if.end15
 
-44:                                               ; preds = %33, %2
-  %45 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.9)
-  br label %46
+if.else13:                                        ; preds = %entry, %if.end8
+  %puts = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.9)
+  br label %if.end15
 
-46:                                               ; preds = %44, %38
+if.end15:                                         ; preds = %if.else13, %if.then10
   ret void
 }
 
 ; Function Attrs: nofree nounwind uwtable
 define dso_local void @INITIALIZE_TEXT_RECORD() local_unnamed_addr #0 {
-  %1 = load i32, ptr @IS_INITIALIZED, align 4
-  %2 = icmp eq i32 %1, 0
-  br i1 %2, label %5, label %3
+entry:
+  %0 = load i32, ptr @IS_INITIALIZED, align 4
+  %tobool.i.not = icmp eq i32 %0, 0
+  br i1 %tobool.i.not, label %if.else.i, label %if.then.i
 
-3:                                                ; preds = %0
-  %4 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str)
-  br label %8
+if.then.i:                                        ; preds = %entry
+  %puts.i = tail call i32 @puts(ptr nonnull dereferenceable(1) @str)
+  br label %INITIALIZE_RECORD.exit
 
-5:                                                ; preds = %0
+if.else.i:                                        ; preds = %entry
   store i8 0, ptr @INIT_RECORD, align 16
   store i8 0, ptr @RECORD, align 16
   store i32 60, ptr @MAX_SIZE, align 4, !tbaa !5
-  %6 = tail call i64 @strlen(ptr noundef nonnull dereferenceable(1) @RECORD) #7
-  %7 = trunc i64 %6 to i32
-  store i32 %7, ptr @NEXT_COL, align 4, !tbaa !5
+  %call7.i = tail call i64 @strlen(ptr noundef nonnull dereferenceable(1) @RECORD) #7
+  %conv8.i = trunc i64 %call7.i to i32
+  store i32 %conv8.i, ptr @NEXT_COL, align 4, !tbaa !5
   store i32 1, ptr @IS_INITIALIZED, align 4, !tbaa !5
-  br label %8
+  br label %INITIALIZE_RECORD.exit
 
-8:                                                ; preds = %3, %5
+INITIALIZE_RECORD.exit:                           ; preds = %if.then.i, %if.else.i
   ret void
 }
 
 ; Function Attrs: nounwind uwtable
-define dso_local void @PRT_TEXT_RECORD(ptr noundef %0) local_unnamed_addr #4 {
-  %2 = load i32, ptr @IS_INITIALIZED, align 4, !tbaa !5
-  %3 = icmp eq i32 %2, 0
-  br i1 %3, label %4, label %6
+define dso_local void @PRT_TEXT_RECORD(ptr noundef %OUTPUT) local_unnamed_addr #4 {
+entry:
+  %0 = load i32, ptr @IS_INITIALIZED, align 4, !tbaa !5
+  %tobool.not = icmp eq i32 %0, 0
+  br i1 %tobool.not, label %if.then, label %if.else
 
-4:                                                ; preds = %1
-  %5 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.10)
-  br label %16
+if.then:                                          ; preds = %entry
+  %puts = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.10)
+  br label %if.end6
 
-6:                                                ; preds = %1
-  %7 = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(1) @RECORD, ptr noundef nonnull dereferenceable(1) @INIT_RECORD) #7
-  %8 = icmp eq i32 %7, 0
-  br i1 %8, label %15, label %9
+if.else:                                          ; preds = %entry
+  %call1 = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(1) @RECORD, ptr noundef nonnull dereferenceable(1) @INIT_RECORD) #7
+  %tobool2.not = icmp eq i32 %call1, 0
+  br i1 %tobool2.not, label %if.end, label %if.then3
 
-9:                                                ; preds = %6
-  %10 = tail call i32 @fputc(i32 84, ptr %0)
-  %11 = load i32, ptr @LOCATION, align 4, !tbaa !5
-  tail call void (i32, i32, i32, ptr, ...) @PRT_NUM(i32 noundef %11, i32 noundef 16, i32 noundef 6, ptr noundef %0) #8
-  %12 = load i32, ptr @NEXT_COL, align 4, !tbaa !5
-  %13 = sdiv i32 %12, 2
-  tail call void (i32, i32, i32, ptr, ...) @PRT_NUM(i32 noundef %13, i32 noundef 16, i32 noundef 2, ptr noundef %0) #8
-  %14 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %0, ptr noundef nonnull @.str.2, ptr noundef nonnull @RECORD)
-  br label %15
+if.then3:                                         ; preds = %if.else
+  %fputc = tail call i32 @fputc(i32 84, ptr %OUTPUT)
+  %1 = load i32, ptr @LOCATION, align 4, !tbaa !5
+  tail call void (i32, i32, i32, ptr, ...) @PRT_NUM(i32 noundef %1, i32 noundef 16, i32 noundef 6, ptr noundef %OUTPUT) #8
+  %2 = load i32, ptr @NEXT_COL, align 4, !tbaa !5
+  %div = sdiv i32 %2, 2
+  tail call void (i32, i32, i32, ptr, ...) @PRT_NUM(i32 noundef %div, i32 noundef 16, i32 noundef 2, ptr noundef %OUTPUT) #8
+  %call5 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %OUTPUT, ptr noundef nonnull @.str.2, ptr noundef nonnull @RECORD)
+  br label %if.end
 
-15:                                               ; preds = %9, %6
+if.end:                                           ; preds = %if.then3, %if.else
   store i32 0, ptr @IS_INITIALIZED, align 4, !tbaa !5
-  br label %16
+  br label %if.end6
 
-16:                                               ; preds = %15, %4
+if.end6:                                          ; preds = %if.end, %if.then
   ret void
 }
 
 declare void @PRT_NUM(...) local_unnamed_addr #5
 
 ; Function Attrs: nounwind uwtable
-define dso_local void @ADD_TO_TEXT_RECORD(ptr nocapture noundef readonly %0, i32 noundef %1, ptr noundef %2) local_unnamed_addr #4 {
-  %4 = tail call i64 @strlen(ptr noundef nonnull dereferenceable(1) %0) #7
-  %5 = trunc i64 %4 to i32
-  %6 = load i32, ptr @IS_INITIALIZED, align 4, !tbaa !5
-  %7 = icmp eq i32 %6, 0
-  %8 = load i32, ptr @MAX_SIZE, align 4
-  %9 = icmp slt i32 %8, %5
-  %10 = select i1 %7, i1 true, i1 %9
-  br i1 %10, label %59, label %11
+define dso_local void @ADD_TO_TEXT_RECORD(ptr nocapture noundef readonly %VAL, i32 noundef %PUT_AT, ptr noundef %OUTPUT) local_unnamed_addr #4 {
+entry:
+  %call = tail call i64 @strlen(ptr noundef nonnull dereferenceable(1) %VAL) #7
+  %conv = trunc i64 %call to i32
+  %0 = load i32, ptr @IS_INITIALIZED, align 4, !tbaa !5
+  %tobool.not = icmp eq i32 %0, 0
+  %1 = load i32, ptr @MAX_SIZE, align 4
+  %cmp = icmp slt i32 %1, %conv
+  %or.cond = select i1 %tobool.not, i1 true, i1 %cmp
+  br i1 %or.cond, label %if.else23, label %land.lhs.true
 
-11:                                               ; preds = %3
-  %12 = load i32, ptr @LOCATION, align 4, !tbaa !5
-  %13 = load i32, ptr @NEXT_COL, align 4, !tbaa !5
-  %14 = sdiv i32 %13, 2
-  %15 = add nsw i32 %14, %12
-  %16 = icmp eq i32 %15, %1
-  br i1 %16, label %29, label %17
+land.lhs.true:                                    ; preds = %entry
+  %2 = load i32, ptr @LOCATION, align 4, !tbaa !5
+  %3 = load i32, ptr @NEXT_COL, align 4, !tbaa !5
+  %div = sdiv i32 %3, 2
+  %add = add nsw i32 %div, %2
+  %cmp3.not = icmp eq i32 %add, %PUT_AT
+  br i1 %cmp3.not, label %land.lhs.true7, label %if.else.i
 
-17:                                               ; preds = %11
-  %18 = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(1) @RECORD, ptr noundef nonnull dereferenceable(1) @INIT_RECORD) #7
-  %19 = icmp eq i32 %18, 0
-  br i1 %19, label %26, label %20
+if.else.i:                                        ; preds = %land.lhs.true
+  %call1.i = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(1) @RECORD, ptr noundef nonnull dereferenceable(1) @INIT_RECORD) #7
+  %tobool2.not.i = icmp eq i32 %call1.i, 0
+  br i1 %tobool2.not.i, label %INITIALIZE_TEXT_RECORD.exit, label %if.then3.i
 
-20:                                               ; preds = %17
-  %21 = tail call i32 @fputc(i32 84, ptr %2)
-  %22 = load i32, ptr @LOCATION, align 4, !tbaa !5
-  tail call void (i32, i32, i32, ptr, ...) @PRT_NUM(i32 noundef %22, i32 noundef 16, i32 noundef 6, ptr noundef %2) #8
-  %23 = load i32, ptr @NEXT_COL, align 4, !tbaa !5
-  %24 = sdiv i32 %23, 2
-  tail call void (i32, i32, i32, ptr, ...) @PRT_NUM(i32 noundef %24, i32 noundef 16, i32 noundef 2, ptr noundef %2) #8
-  %25 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %2, ptr noundef nonnull @.str.2, ptr noundef nonnull @RECORD)
-  br label %26
+if.then3.i:                                       ; preds = %if.else.i
+  %fputc.i = tail call i32 @fputc(i32 84, ptr %OUTPUT)
+  %4 = load i32, ptr @LOCATION, align 4, !tbaa !5
+  tail call void (i32, i32, i32, ptr, ...) @PRT_NUM(i32 noundef %4, i32 noundef 16, i32 noundef 6, ptr noundef %OUTPUT) #8
+  %5 = load i32, ptr @NEXT_COL, align 4, !tbaa !5
+  %div.i = sdiv i32 %5, 2
+  tail call void (i32, i32, i32, ptr, ...) @PRT_NUM(i32 noundef %div.i, i32 noundef 16, i32 noundef 2, ptr noundef %OUTPUT) #8
+  %call5.i = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %OUTPUT, ptr noundef nonnull @.str.2, ptr noundef nonnull @RECORD)
+  br label %INITIALIZE_TEXT_RECORD.exit
 
-26:                                               ; preds = %17, %20
-  store i32 %1, ptr @LOCATION, align 4, !tbaa !5
+INITIALIZE_TEXT_RECORD.exit:                      ; preds = %if.else.i, %if.then3.i
+  store i32 %PUT_AT, ptr @LOCATION, align 4, !tbaa !5
   store i8 0, ptr @INIT_RECORD, align 16
   store i8 0, ptr @RECORD, align 16
   store i32 60, ptr @MAX_SIZE, align 4, !tbaa !5
-  %27 = tail call i64 @strlen(ptr noundef nonnull dereferenceable(1) @RECORD) #7
-  %28 = trunc i64 %27 to i32
-  store i32 %28, ptr @NEXT_COL, align 4, !tbaa !5
+  %call7.i.i = tail call i64 @strlen(ptr noundef nonnull dereferenceable(1) @RECORD) #7
+  %conv8.i.i = trunc i64 %call7.i.i to i32
+  store i32 %conv8.i.i, ptr @NEXT_COL, align 4, !tbaa !5
   store i32 1, ptr @IS_INITIALIZED, align 4, !tbaa !5
-  br label %29
+  br label %land.lhs.true7
 
-29:                                               ; preds = %11, %26
-  %30 = phi i32 [ %12, %11 ], [ %1, %26 ]
-  %31 = phi i32 [ %8, %11 ], [ 60, %26 ]
-  %32 = phi i32 [ %13, %11 ], [ %28, %26 ]
-  %33 = add nsw i32 %32, %5
-  %34 = icmp sgt i32 %33, %31
-  br i1 %34, label %35, label %53
+land.lhs.true7:                                   ; preds = %land.lhs.true, %INITIALIZE_TEXT_RECORD.exit
+  %6 = phi i32 [ %2, %land.lhs.true ], [ %PUT_AT, %INITIALIZE_TEXT_RECORD.exit ]
+  %7 = phi i32 [ %1, %land.lhs.true ], [ 60, %INITIALIZE_TEXT_RECORD.exit ]
+  %8 = phi i32 [ %3, %land.lhs.true ], [ %conv8.i.i, %INITIALIZE_TEXT_RECORD.exit ]
+  %add8 = add nsw i32 %8, %conv
+  %cmp9 = icmp sgt i32 %add8, %7
+  br i1 %cmp9, label %if.else.i40, label %if.then20.critedge
 
-35:                                               ; preds = %29
-  %36 = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(1) @RECORD, ptr noundef nonnull dereferenceable(1) @INIT_RECORD) #7
-  %37 = icmp eq i32 %36, 0
-  br i1 %37, label %45, label %38
+if.else.i40:                                      ; preds = %land.lhs.true7
+  %call1.i38 = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(1) @RECORD, ptr noundef nonnull dereferenceable(1) @INIT_RECORD) #7
+  %tobool2.not.i39 = icmp eq i32 %call1.i38, 0
+  br i1 %tobool2.not.i39, label %if.else.i.i52, label %if.then3.i44
 
-38:                                               ; preds = %35
-  %39 = tail call i32 @fputc(i32 84, ptr %2)
-  %40 = load i32, ptr @LOCATION, align 4, !tbaa !5
-  tail call void (i32, i32, i32, ptr, ...) @PRT_NUM(i32 noundef %40, i32 noundef 16, i32 noundef 6, ptr noundef %2) #8
-  %41 = load i32, ptr @NEXT_COL, align 4, !tbaa !5
-  %42 = sdiv i32 %41, 2
-  tail call void (i32, i32, i32, ptr, ...) @PRT_NUM(i32 noundef %42, i32 noundef 16, i32 noundef 2, ptr noundef %2) #8
-  %43 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %2, ptr noundef nonnull @.str.2, ptr noundef nonnull @RECORD)
-  %44 = load i32, ptr @LOCATION, align 4, !tbaa !5
-  br label %45
+if.then3.i44:                                     ; preds = %if.else.i40
+  %fputc.i41 = tail call i32 @fputc(i32 84, ptr %OUTPUT)
+  %9 = load i32, ptr @LOCATION, align 4, !tbaa !5
+  tail call void (i32, i32, i32, ptr, ...) @PRT_NUM(i32 noundef %9, i32 noundef 16, i32 noundef 6, ptr noundef %OUTPUT) #8
+  %10 = load i32, ptr @NEXT_COL, align 4, !tbaa !5
+  %div.i42 = sdiv i32 %10, 2
+  tail call void (i32, i32, i32, ptr, ...) @PRT_NUM(i32 noundef %div.i42, i32 noundef 16, i32 noundef 2, ptr noundef %OUTPUT) #8
+  %call5.i43 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %OUTPUT, ptr noundef nonnull @.str.2, ptr noundef nonnull @RECORD)
+  %.pre = load i32, ptr @LOCATION, align 4, !tbaa !5
+  br label %if.else.i.i52
 
-45:                                               ; preds = %38, %35
-  %46 = phi i32 [ %44, %38 ], [ %30, %35 ]
-  %47 = tail call i64 @strlen(ptr noundef nonnull dereferenceable(1) @RECORD) #7
-  %48 = lshr i64 %47, 1
-  %49 = trunc i64 %48 to i32
-  %50 = add i32 %46, %49
-  store i32 %50, ptr @LOCATION, align 4, !tbaa !5
+if.else.i.i52:                                    ; preds = %if.else.i40, %if.then3.i44
+  %11 = phi i32 [ %.pre, %if.then3.i44 ], [ %6, %if.else.i40 ]
+  %call12.c = tail call i64 @strlen(ptr noundef nonnull dereferenceable(1) @RECORD) #7
+  %div1333.c = lshr i64 %call12.c, 1
+  %12 = trunc i64 %div1333.c to i32
+  %conv16.c = add i32 %11, %12
+  store i32 %conv16.c, ptr @LOCATION, align 4, !tbaa !5
   store i8 0, ptr @INIT_RECORD, align 16
   store i8 0, ptr @RECORD, align 16
   store i32 60, ptr @MAX_SIZE, align 4, !tbaa !5
-  %51 = tail call i64 @strlen(ptr noundef nonnull dereferenceable(1) @RECORD) #7
-  %52 = trunc i64 %51 to i32
-  store i32 %52, ptr @NEXT_COL, align 4, !tbaa !5
+  %call7.i.i50 = tail call i64 @strlen(ptr noundef nonnull dereferenceable(1) @RECORD) #7
+  %conv8.i.i51 = trunc i64 %call7.i.i50 to i32
+  store i32 %conv8.i.i51, ptr @NEXT_COL, align 4, !tbaa !5
   store i32 1, ptr @IS_INITIALIZED, align 4, !tbaa !5
-  br label %53
+  %.pre54 = add nsw i32 %conv8.i.i51, %conv
+  br label %if.then20.critedge
 
-53:                                               ; preds = %29, %45
-  %54 = phi i32 [ %32, %29 ], [ %52, %45 ]
-  %55 = sext i32 %54 to i64
-  %56 = getelementptr inbounds [81 x i8], ptr @RECORD, i64 0, i64 %55
-  %57 = tail call ptr @strcpy(ptr noundef nonnull dereferenceable(1) %56, ptr noundef nonnull dereferenceable(1) %0) #8
-  %58 = add nsw i32 %54, %5
-  store i32 %58, ptr @NEXT_COL, align 4, !tbaa !5
-  br label %61
+if.then20.critedge:                               ; preds = %if.else.i.i52, %land.lhs.true7
+  %add22.pre-phi = phi i32 [ %.pre54, %if.else.i.i52 ], [ %add8, %land.lhs.true7 ]
+  %13 = phi i32 [ %conv8.i.i51, %if.else.i.i52 ], [ %8, %land.lhs.true7 ]
+  %idxprom = sext i32 %13 to i64
+  %arrayidx = getelementptr inbounds [81 x i8], ptr @RECORD, i64 0, i64 %idxprom
+  %call21 = tail call ptr @strcpy(ptr noundef nonnull dereferenceable(1) %arrayidx, ptr noundef nonnull dereferenceable(1) %VAL) #8
+  store i32 %add22.pre-phi, ptr @NEXT_COL, align 4, !tbaa !5
+  br label %if.end25
 
-59:                                               ; preds = %3
-  %60 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.11)
-  br label %61
+if.else23:                                        ; preds = %entry
+  %puts = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.11)
+  br label %if.end25
 
-61:                                               ; preds = %59, %53
+if.end25:                                         ; preds = %if.else23, %if.then20.critedge
   ret void
 }
 

@@ -7,33 +7,35 @@ target triple = "x86_64-unknown-linux-gnu"
 @y = dso_local global i32 0, align 4
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(read, argmem: none, inaccessiblemem: none) uwtable
-define dso_local i32 @foo(i32 noundef %0) local_unnamed_addr #0 {
-  %2 = load i32, ptr @x, align 4, !tbaa !5
-  %3 = icmp ne i32 %2, 0
-  %4 = load i32, ptr @y, align 4
-  %5 = icmp ne i32 %4, 0
-  %6 = select i1 %3, i1 %5, i1 false
-  %7 = add nsw i32 %0, 1
-  %8 = select i1 %6, i32 7, i32 %7
-  ret i32 %8
+define dso_local i32 @foo(i32 noundef %z) local_unnamed_addr #0 {
+entry:
+  %0 = load i32, ptr @x, align 4, !tbaa !5
+  %tobool.not = icmp ne i32 %0, 0
+  %1 = load i32, ptr @y, align 4
+  %cmp = icmp ne i32 %1, 0
+  %narrow = select i1 %tobool.not, i1 %cmp, i1 false
+  %inc = add nsw i32 %z, 1
+  %retval.0 = select i1 %narrow, i32 7, i32 %inc
+  ret i32 %retval.0
 }
 
 ; Function Attrs: nounwind uwtable
 define dso_local i32 @main() local_unnamed_addr #1 {
+entry:
   store i32 1, ptr @x, align 4, !tbaa !5
   tail call void asm sideeffect "", "=*m,=*m,*m,*m,~{dirflag},~{fpsr},~{flags}"(ptr nonnull elementtype(i32) @x, ptr nonnull elementtype(i32) @y, ptr nonnull elementtype(i32) @x, ptr nonnull elementtype(i32) @y) #3, !srcloc !9
-  %1 = load i32, ptr @x, align 4, !tbaa !5
-  %2 = icmp ne i32 %1, 0
-  %3 = load i32, ptr @y, align 4
-  %4 = icmp ne i32 %3, 0
-  %5 = select i1 %2, i1 %4, i1 false
-  br i1 %5, label %6, label %7
+  %0 = load i32, ptr @x, align 4, !tbaa !5
+  %tobool.not.i = icmp eq i32 %0, 0
+  %1 = load i32, ptr @y, align 4
+  %cmp.i = icmp eq i32 %1, 0
+  %narrow.i.not = select i1 %tobool.not.i, i1 true, i1 %cmp.i
+  br i1 %narrow.i.not, label %if.end, label %if.then
 
-6:                                                ; preds = %0
+if.then:                                          ; preds = %entry
   tail call void @abort() #4
   unreachable
 
-7:                                                ; preds = %0
+if.end:                                           ; preds = %entry
   ret i32 0
 }
 

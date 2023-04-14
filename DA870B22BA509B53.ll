@@ -24,18 +24,19 @@ target triple = "x86_64-unknown-linux-gnu"
 @switch.table.gx_path_release = private unnamed_addr constant [4 x i32] [i32 64, i32 40, i32 40, i32 72], align 4
 
 ; Function Attrs: mustprogress nofree nosync nounwind willreturn memory(argmem: readwrite) uwtable
-define dso_local void @gx_path_init(ptr nocapture noundef writeonly %0, ptr nocapture noundef readonly %1) local_unnamed_addr #0 {
-  tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %0, ptr noundef nonnull align 8 dereferenceable(16) %1, i64 16, i1 false), !tbaa.struct !5
-  %3 = getelementptr inbounds %struct.gx_path_s, ptr %0, i64 0, i32 2
-  store ptr null, ptr %3, align 8, !tbaa !10
-  %4 = getelementptr inbounds %struct.gx_path_s, ptr %0, i64 0, i32 10
-  store i8 0, ptr %4, align 8, !tbaa !17
-  %5 = getelementptr inbounds %struct.gx_path_s, ptr %0, i64 0, i32 4
-  %6 = getelementptr inbounds %struct.gx_path_s, ptr %0, i64 0, i32 11
-  store i8 0, ptr %6, align 1, !tbaa !18
-  %7 = getelementptr inbounds %struct.gx_path_s, ptr %0, i64 0, i32 12
-  store i8 0, ptr %7, align 2, !tbaa !19
-  tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(28) %5, i8 0, i64 28, i1 false)
+define dso_local void @gx_path_init(ptr nocapture noundef writeonly %ppath, ptr nocapture noundef readonly %pprocs) local_unnamed_addr #0 {
+entry:
+  tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %ppath, ptr noundef nonnull align 8 dereferenceable(16) %pprocs, i64 16, i1 false), !tbaa.struct !5
+  %box_last = getelementptr inbounds %struct.gx_path_s, ptr %ppath, i64 0, i32 2
+  store ptr null, ptr %box_last, align 8, !tbaa !10
+  %position_valid = getelementptr inbounds %struct.gx_path_s, ptr %ppath, i64 0, i32 10
+  store i8 0, ptr %position_valid, align 8, !tbaa !17
+  %first_subpath = getelementptr inbounds %struct.gx_path_s, ptr %ppath, i64 0, i32 4
+  %subpath_open = getelementptr inbounds %struct.gx_path_s, ptr %ppath, i64 0, i32 11
+  store i8 0, ptr %subpath_open, align 1, !tbaa !18
+  %shares_segments = getelementptr inbounds %struct.gx_path_s, ptr %ppath, i64 0, i32 12
+  store i8 0, ptr %shares_segments, align 2, !tbaa !19
+  tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(28) %first_subpath, i8 0, i64 28, i1 false)
   ret void
 }
 
@@ -43,62 +44,63 @@ define dso_local void @gx_path_init(ptr nocapture noundef writeonly %0, ptr noca
 declare void @llvm.memcpy.p0.p0.i64(ptr noalias nocapture writeonly, ptr noalias nocapture readonly, i64, i1 immarg) #1
 
 ; Function Attrs: nounwind uwtable
-define dso_local void @gx_path_release(ptr nocapture noundef %0) local_unnamed_addr #2 {
-  %2 = getelementptr inbounds %struct.gx_path_s, ptr %0, i64 0, i32 4
-  %3 = load ptr, ptr %2, align 8, !tbaa !20
-  %4 = icmp eq ptr %3, null
-  br i1 %4, label %37, label %5
+define dso_local void @gx_path_release(ptr nocapture noundef %ppath) local_unnamed_addr #2 {
+entry:
+  %first_subpath = getelementptr inbounds %struct.gx_path_s, ptr %ppath, i64 0, i32 4
+  %0 = load ptr, ptr %first_subpath, align 8, !tbaa !20
+  %cmp = icmp eq ptr %0, null
+  br i1 %cmp, label %cleanup, label %if.end
 
-5:                                                ; preds = %1
-  %6 = getelementptr inbounds %struct.gx_path_s, ptr %0, i64 0, i32 12
-  %7 = load i8, ptr %6, align 2, !tbaa !19
-  %8 = icmp eq i8 %7, 0
-  br i1 %8, label %9, label %37
+if.end:                                           ; preds = %entry
+  %shares_segments = getelementptr inbounds %struct.gx_path_s, ptr %ppath, i64 0, i32 12
+  %1 = load i8, ptr %shares_segments, align 2, !tbaa !19
+  %tobool.not = icmp eq i8 %1, 0
+  br i1 %tobool.not, label %if.end2, label %cleanup
 
-9:                                                ; preds = %5
-  %10 = getelementptr inbounds %struct.gx_path_s, ptr %0, i64 0, i32 5
-  %11 = load ptr, ptr %10, align 8, !tbaa !21
-  %12 = getelementptr inbounds %struct.subpath, ptr %11, i64 0, i32 4
-  %13 = load ptr, ptr %12, align 8, !tbaa !22
-  %14 = icmp eq ptr %13, null
-  br i1 %14, label %36, label %15
+if.end2:                                          ; preds = %if.end
+  %current_subpath = getelementptr inbounds %struct.gx_path_s, ptr %ppath, i64 0, i32 5
+  %2 = load ptr, ptr %current_subpath, align 8, !tbaa !21
+  %last = getelementptr inbounds %struct.subpath, ptr %2, i64 0, i32 4
+  %3 = load ptr, ptr %last, align 8, !tbaa !22
+  %tobool3.not18 = icmp eq ptr %3, null
+  br i1 %tobool3.not18, label %while.end, label %while.body.lr.ph
 
-15:                                               ; preds = %9
-  %16 = getelementptr inbounds %struct.gs_memory_procs, ptr %0, i64 0, i32 1
-  br label %17
+while.body.lr.ph:                                 ; preds = %if.end2
+  %free = getelementptr inbounds %struct.gs_memory_procs, ptr %ppath, i64 0, i32 1
+  br label %while.body
 
-17:                                               ; preds = %15, %29
-  %18 = phi ptr [ %13, %15 ], [ %30, %29 ]
-  %19 = getelementptr inbounds %struct.segment_s, ptr %18, i64 0, i32 2
-  %20 = load i32, ptr %19, align 8, !tbaa !24
-  %21 = icmp ult i32 %20, 4
-  br i1 %21, label %29, label %22
+while.body:                                       ; preds = %while.body.lr.ph, %switch.lookup
+  %pseg.019 = phi ptr [ %3, %while.body.lr.ph ], [ %9, %switch.lookup ]
+  %type = getelementptr inbounds %struct.segment_s, ptr %pseg.019, i64 0, i32 2
+  %4 = load i32, ptr %type, align 8, !tbaa !24
+  %5 = icmp ult i32 %4, 4
+  br i1 %5, label %switch.lookup, label %sw.default
 
-22:                                               ; preds = %17
-  %23 = getelementptr inbounds %struct.segment_s, ptr %18, i64 0, i32 2
-  %24 = load ptr, ptr @stderr, align 8, !tbaa !6
-  %25 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %24, ptr noundef nonnull @.str, ptr noundef nonnull @.str.1, i32 noundef 75) #10
-  %26 = load ptr, ptr @stderr, align 8, !tbaa !6
-  %27 = load i32, ptr %23, align 8, !tbaa !24
-  %28 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %26, ptr noundef nonnull @.str.2, i32 noundef %27) #10
+sw.default:                                       ; preds = %while.body
+  %type.le = getelementptr inbounds %struct.segment_s, ptr %pseg.019, i64 0, i32 2
+  %6 = load ptr, ptr @stderr, align 8, !tbaa !6
+  %call = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %6, ptr noundef nonnull @.str, ptr noundef nonnull @.str.1, i32 noundef 75) #10
+  %7 = load ptr, ptr @stderr, align 8, !tbaa !6
+  %8 = load i32, ptr %type.le, align 8, !tbaa !24
+  %call8 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %7, ptr noundef nonnull @.str.2, i32 noundef %8) #10
   tail call void @exit(i32 noundef 1) #11
   unreachable
 
-29:                                               ; preds = %17
-  %30 = load ptr, ptr %18, align 8, !tbaa !26
-  %31 = sext i32 %20 to i64
-  %32 = getelementptr inbounds [4 x i32], ptr @switch.table.gx_path_release, i64 0, i64 %31
-  %33 = load i32, ptr %32, align 4
-  %34 = load ptr, ptr %16, align 8, !tbaa !27
-  tail call void %34(ptr noundef nonnull %18, i32 noundef 1, i32 noundef %33, ptr noundef nonnull @.str.3) #12
-  %35 = icmp eq ptr %30, null
-  br i1 %35, label %36, label %17, !llvm.loop !28
+switch.lookup:                                    ; preds = %while.body
+  %9 = load ptr, ptr %pseg.019, align 8, !tbaa !26
+  %10 = sext i32 %4 to i64
+  %switch.gep = getelementptr inbounds [4 x i32], ptr @switch.table.gx_path_release, i64 0, i64 %10
+  %switch.load = load i32, ptr %switch.gep, align 4
+  %11 = load ptr, ptr %free, align 8, !tbaa !27
+  tail call void %11(ptr noundef nonnull %pseg.019, i32 noundef 1, i32 noundef %switch.load, ptr noundef nonnull @.str.3) #12
+  %tobool3.not = icmp eq ptr %9, null
+  br i1 %tobool3.not, label %while.end, label %while.body, !llvm.loop !28
 
-36:                                               ; preds = %29, %9
-  store ptr null, ptr %2, align 8, !tbaa !20
-  br label %37
+while.end:                                        ; preds = %switch.lookup, %if.end2
+  store ptr null, ptr %first_subpath, align 8, !tbaa !20
+  br label %cleanup
 
-37:                                               ; preds = %5, %1, %36
+cleanup:                                          ; preds = %if.end, %entry, %while.end
   ret void
 }
 
@@ -115,712 +117,723 @@ declare void @exit(i32 noundef) local_unnamed_addr #5
 declare void @llvm.lifetime.end.p0(i64 immarg, ptr nocapture) #3
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(argmem: readwrite) uwtable
-define dso_local void @gx_path_share(ptr nocapture noundef %0) local_unnamed_addr #6 {
-  %2 = getelementptr inbounds %struct.gx_path_s, ptr %0, i64 0, i32 4
-  %3 = load ptr, ptr %2, align 8, !tbaa !20
-  %4 = icmp eq ptr %3, null
-  br i1 %4, label %7, label %5
+define dso_local void @gx_path_share(ptr nocapture noundef %ppath) local_unnamed_addr #6 {
+entry:
+  %first_subpath = getelementptr inbounds %struct.gx_path_s, ptr %ppath, i64 0, i32 4
+  %0 = load ptr, ptr %first_subpath, align 8, !tbaa !20
+  %tobool.not = icmp eq ptr %0, null
+  br i1 %tobool.not, label %if.end, label %if.then
 
-5:                                                ; preds = %1
-  %6 = getelementptr inbounds %struct.gx_path_s, ptr %0, i64 0, i32 12
-  store i8 1, ptr %6, align 2, !tbaa !19
-  br label %7
+if.then:                                          ; preds = %entry
+  %shares_segments = getelementptr inbounds %struct.gx_path_s, ptr %ppath, i64 0, i32 12
+  store i8 1, ptr %shares_segments, align 2, !tbaa !19
+  br label %if.end
 
-7:                                                ; preds = %5, %1
+if.end:                                           ; preds = %if.then, %entry
   ret void
 }
 
 ; Function Attrs: nounwind uwtable
-define dso_local i32 @gx_path_new_subpath(ptr noundef %0) local_unnamed_addr #2 {
-  %2 = alloca %struct.gx_path_s, align 8
-  %3 = getelementptr inbounds %struct.gx_path_s, ptr %0, i64 0, i32 5
-  %4 = load ptr, ptr %3, align 8, !tbaa !21
-  %5 = getelementptr inbounds %struct.gx_path_s, ptr %0, i64 0, i32 12
-  %6 = load i8, ptr %5, align 2, !tbaa !19
-  %7 = icmp eq i8 %6, 0
-  br i1 %7, label %15, label %8
+define dso_local i32 @gx_path_new_subpath(ptr noundef %ppath) local_unnamed_addr #2 {
+entry:
+  %path_new.i = alloca %struct.gx_path_s, align 8
+  %current_subpath = getelementptr inbounds %struct.gx_path_s, ptr %ppath, i64 0, i32 5
+  %0 = load ptr, ptr %current_subpath, align 8, !tbaa !21
+  %shares_segments = getelementptr inbounds %struct.gx_path_s, ptr %ppath, i64 0, i32 12
+  %1 = load i8, ptr %shares_segments, align 2, !tbaa !19
+  %tobool.not = icmp eq i8 %1, 0
+  br i1 %tobool.not, label %if.end3, label %if.then
 
-8:                                                ; preds = %1
-  call void @llvm.lifetime.start.p0(i64 144, ptr nonnull %2) #12
-  %9 = call i32 @gx_path_copy(ptr noundef nonnull %0, ptr noundef nonnull %2) #12
-  %10 = icmp slt i32 %9, 0
-  br i1 %10, label %11, label %12
+if.then:                                          ; preds = %entry
+  call void @llvm.lifetime.start.p0(i64 144, ptr nonnull %path_new.i) #12
+  %call.i = call i32 @gx_path_copy(ptr noundef nonnull %ppath, ptr noundef nonnull %path_new.i) #12
+  %cmp.i = icmp slt i32 %call.i, 0
+  br i1 %cmp.i, label %path_alloc_copy.exit.thread, label %path_alloc_copy.exit
 
-11:                                               ; preds = %8
-  call void @llvm.lifetime.end.p0(i64 144, ptr nonnull %2) #12
-  br label %41
+path_alloc_copy.exit.thread:                      ; preds = %if.then
+  call void @llvm.lifetime.end.p0(i64 144, ptr nonnull %path_new.i) #12
+  br label %cleanup
 
-12:                                               ; preds = %8
-  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(144) %0, ptr noundef nonnull align 8 dereferenceable(144) %2, i64 144, i1 false), !tbaa.struct !30
-  store i8 0, ptr %5, align 2, !tbaa !19
-  %13 = load ptr, ptr %3, align 8, !tbaa !21
-  call void @llvm.lifetime.end.p0(i64 144, ptr nonnull %2) #12
-  %14 = icmp eq ptr %13, null
-  br i1 %14, label %41, label %15
+path_alloc_copy.exit:                             ; preds = %if.then
+  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(144) %ppath, ptr noundef nonnull align 8 dereferenceable(144) %path_new.i, i64 144, i1 false), !tbaa.struct !30
+  store i8 0, ptr %shares_segments, align 2, !tbaa !19
+  %2 = load ptr, ptr %current_subpath, align 8, !tbaa !21
+  call void @llvm.lifetime.end.p0(i64 144, ptr nonnull %path_new.i) #12
+  %tobool1.not = icmp eq ptr %2, null
+  br i1 %tobool1.not, label %cleanup, label %if.end3
 
-15:                                               ; preds = %12, %1
-  %16 = phi ptr [ %13, %12 ], [ %4, %1 ]
-  %17 = load ptr, ptr %0, align 8, !tbaa !34
-  %18 = call ptr %17(i32 noundef 1, i32 noundef 64, ptr noundef nonnull @.str.4) #12
-  %19 = icmp eq ptr %18, null
-  br i1 %19, label %41, label %20
+if.end3:                                          ; preds = %path_alloc_copy.exit, %entry
+  %psub.0 = phi ptr [ %2, %path_alloc_copy.exit ], [ %0, %entry ]
+  %3 = load ptr, ptr %ppath, align 8, !tbaa !34
+  %call4 = call ptr %3(i32 noundef 1, i32 noundef 64, ptr noundef nonnull @.str.4) #12
+  %tobool5.not = icmp eq ptr %call4, null
+  br i1 %tobool5.not, label %cleanup, label %if.end7
 
-20:                                               ; preds = %15
-  %21 = getelementptr inbounds %struct.subpath, ptr %18, i64 0, i32 2
-  store i32 0, ptr %21, align 8, !tbaa !35
-  %22 = getelementptr inbounds %struct.subpath, ptr %18, i64 0, i32 1
-  store ptr null, ptr %22, align 8, !tbaa !36
-  %23 = getelementptr inbounds %struct.subpath, ptr %18, i64 0, i32 4
-  store ptr %18, ptr %23, align 8, !tbaa !22
-  %24 = getelementptr inbounds %struct.subpath, ptr %18, i64 0, i32 5
-  %25 = getelementptr inbounds %struct.subpath, ptr %18, i64 0, i32 3
-  %26 = getelementptr inbounds %struct.gx_path_s, ptr %0, i64 0, i32 9
-  call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(9) %24, i8 0, i64 9, i1 false)
-  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %25, ptr noundef nonnull align 8 dereferenceable(16) %26, i64 16, i1 false), !tbaa.struct !37
-  %27 = getelementptr inbounds %struct.gx_path_s, ptr %0, i64 0, i32 11
-  store i8 1, ptr %27, align 1, !tbaa !18
-  %28 = icmp eq ptr %16, null
-  br i1 %28, label %29, label %31
+if.end7:                                          ; preds = %if.end3
+  %type = getelementptr inbounds %struct.subpath, ptr %call4, i64 0, i32 2
+  store i32 0, ptr %type, align 8, !tbaa !35
+  %next = getelementptr inbounds %struct.subpath, ptr %call4, i64 0, i32 1
+  store ptr null, ptr %next, align 8, !tbaa !36
+  %last = getelementptr inbounds %struct.subpath, ptr %call4, i64 0, i32 4
+  store ptr %call4, ptr %last, align 8, !tbaa !22
+  %line_count = getelementptr inbounds %struct.subpath, ptr %call4, i64 0, i32 5
+  %pt = getelementptr inbounds %struct.subpath, ptr %call4, i64 0, i32 3
+  %position = getelementptr inbounds %struct.gx_path_s, ptr %ppath, i64 0, i32 9
+  call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(9) %line_count, i8 0, i64 9, i1 false)
+  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %pt, ptr noundef nonnull align 8 dereferenceable(16) %position, i64 16, i1 false), !tbaa.struct !37
+  %subpath_open = getelementptr inbounds %struct.gx_path_s, ptr %ppath, i64 0, i32 11
+  store i8 1, ptr %subpath_open, align 1, !tbaa !18
+  %tobool8.not = icmp eq ptr %psub.0, null
+  br i1 %tobool8.not, label %if.then9, label %if.else
 
-29:                                               ; preds = %20
-  %30 = getelementptr inbounds %struct.gx_path_s, ptr %0, i64 0, i32 4
-  br label %35
+if.then9:                                         ; preds = %if.end7
+  %first_subpath = getelementptr inbounds %struct.gx_path_s, ptr %ppath, i64 0, i32 4
+  br label %if.end14
 
-31:                                               ; preds = %20
-  %32 = getelementptr inbounds %struct.subpath, ptr %16, i64 0, i32 4
-  %33 = load ptr, ptr %32, align 8, !tbaa !22
-  %34 = getelementptr inbounds %struct.segment_s, ptr %33, i64 0, i32 1
-  br label %35
+if.else:                                          ; preds = %if.end7
+  %last11 = getelementptr inbounds %struct.subpath, ptr %psub.0, i64 0, i32 4
+  %4 = load ptr, ptr %last11, align 8, !tbaa !22
+  %next12 = getelementptr inbounds %struct.segment_s, ptr %4, i64 0, i32 1
+  br label %if.end14
 
-35:                                               ; preds = %31, %29
-  %36 = phi ptr [ %34, %31 ], [ %30, %29 ]
-  %37 = phi ptr [ %33, %31 ], [ null, %29 ]
-  store ptr %18, ptr %36, align 8, !tbaa !6
-  store ptr %37, ptr %18, align 8, !tbaa !38
-  store ptr %18, ptr %3, align 8, !tbaa !21
-  %38 = getelementptr inbounds %struct.gx_path_s, ptr %0, i64 0, i32 6
-  %39 = load i32, ptr %38, align 8, !tbaa !39
-  %40 = add nsw i32 %39, 1
-  store i32 %40, ptr %38, align 8, !tbaa !39
-  br label %41
+if.end14:                                         ; preds = %if.else, %if.then9
+  %next12.sink = phi ptr [ %next12, %if.else ], [ %first_subpath, %if.then9 ]
+  %storemerge = phi ptr [ %4, %if.else ], [ null, %if.then9 ]
+  store ptr %call4, ptr %next12.sink, align 8, !tbaa !6
+  store ptr %storemerge, ptr %call4, align 8, !tbaa !38
+  store ptr %call4, ptr %current_subpath, align 8, !tbaa !21
+  %subpath_count = getelementptr inbounds %struct.gx_path_s, ptr %ppath, i64 0, i32 6
+  %5 = load i32, ptr %subpath_count, align 8, !tbaa !39
+  %inc = add nsw i32 %5, 1
+  store i32 %inc, ptr %subpath_count, align 8, !tbaa !39
+  br label %cleanup
 
-41:                                               ; preds = %15, %12, %11, %35
-  %42 = phi i32 [ 0, %35 ], [ -13, %11 ], [ -13, %12 ], [ -13, %15 ]
-  ret i32 %42
+cleanup:                                          ; preds = %path_alloc_copy.exit.thread, %if.end3, %path_alloc_copy.exit, %if.end14
+  %retval.0 = phi i32 [ 0, %if.end14 ], [ -13, %path_alloc_copy.exit ], [ -13, %if.end3 ], [ -13, %path_alloc_copy.exit.thread ]
+  ret i32 %retval.0
 }
 
 ; Function Attrs: nounwind uwtable
-define dso_local ptr @path_alloc_copy(ptr noundef %0) local_unnamed_addr #2 {
-  %2 = alloca %struct.gx_path_s, align 8
-  call void @llvm.lifetime.start.p0(i64 144, ptr nonnull %2) #12
-  %3 = call i32 @gx_path_copy(ptr noundef %0, ptr noundef nonnull %2) #12
-  %4 = icmp slt i32 %3, 0
-  br i1 %4, label %9, label %5
+define dso_local ptr @path_alloc_copy(ptr noundef %ppath) local_unnamed_addr #2 {
+entry:
+  %path_new = alloca %struct.gx_path_s, align 8
+  call void @llvm.lifetime.start.p0(i64 144, ptr nonnull %path_new) #12
+  %call = call i32 @gx_path_copy(ptr noundef %ppath, ptr noundef nonnull %path_new) #12
+  %cmp = icmp slt i32 %call, 0
+  br i1 %cmp, label %cleanup, label %if.end
 
-5:                                                ; preds = %1
-  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(144) %0, ptr noundef nonnull align 8 dereferenceable(144) %2, i64 144, i1 false), !tbaa.struct !30
-  %6 = getelementptr inbounds %struct.gx_path_s, ptr %0, i64 0, i32 12
-  store i8 0, ptr %6, align 2, !tbaa !19
-  %7 = getelementptr inbounds %struct.gx_path_s, ptr %0, i64 0, i32 5
-  %8 = load ptr, ptr %7, align 8, !tbaa !21
-  br label %9
+if.end:                                           ; preds = %entry
+  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(144) %ppath, ptr noundef nonnull align 8 dereferenceable(144) %path_new, i64 144, i1 false), !tbaa.struct !30
+  %shares_segments = getelementptr inbounds %struct.gx_path_s, ptr %ppath, i64 0, i32 12
+  store i8 0, ptr %shares_segments, align 2, !tbaa !19
+  %current_subpath = getelementptr inbounds %struct.gx_path_s, ptr %ppath, i64 0, i32 5
+  %0 = load ptr, ptr %current_subpath, align 8, !tbaa !21
+  br label %cleanup
 
-9:                                                ; preds = %1, %5
-  %10 = phi ptr [ %8, %5 ], [ null, %1 ]
-  call void @llvm.lifetime.end.p0(i64 144, ptr nonnull %2) #12
-  ret ptr %10
+cleanup:                                          ; preds = %entry, %if.end
+  %retval.0 = phi ptr [ %0, %if.end ], [ null, %entry ]
+  call void @llvm.lifetime.end.p0(i64 144, ptr nonnull %path_new) #12
+  ret ptr %retval.0
 }
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(argmem: write) uwtable
-define dso_local i32 @gx_path_add_point(ptr nocapture noundef writeonly %0, i64 noundef %1, i64 noundef %2) local_unnamed_addr #7 {
-  %4 = getelementptr inbounds %struct.gx_path_s, ptr %0, i64 0, i32 11
-  store i8 0, ptr %4, align 1, !tbaa !18
-  %5 = getelementptr inbounds %struct.gx_path_s, ptr %0, i64 0, i32 10
-  store i8 1, ptr %5, align 8, !tbaa !17
-  %6 = getelementptr inbounds %struct.gx_path_s, ptr %0, i64 0, i32 9
-  store i64 %1, ptr %6, align 8, !tbaa !40
-  %7 = getelementptr inbounds %struct.gx_path_s, ptr %0, i64 0, i32 9, i32 1
-  store i64 %2, ptr %7, align 8, !tbaa !41
+define dso_local i32 @gx_path_add_point(ptr nocapture noundef writeonly %ppath, i64 noundef %x, i64 noundef %y) local_unnamed_addr #7 {
+entry:
+  %subpath_open = getelementptr inbounds %struct.gx_path_s, ptr %ppath, i64 0, i32 11
+  store i8 0, ptr %subpath_open, align 1, !tbaa !18
+  %position_valid = getelementptr inbounds %struct.gx_path_s, ptr %ppath, i64 0, i32 10
+  store i8 1, ptr %position_valid, align 8, !tbaa !17
+  %position = getelementptr inbounds %struct.gx_path_s, ptr %ppath, i64 0, i32 9
+  store i64 %x, ptr %position, align 8, !tbaa !40
+  %y3 = getelementptr inbounds %struct.gx_path_s, ptr %ppath, i64 0, i32 9, i32 1
+  store i64 %y, ptr %y3, align 8, !tbaa !41
   ret i32 0
 }
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(argmem: readwrite) uwtable
-define dso_local i32 @gx_path_add_relative_point(ptr nocapture noundef %0, i64 noundef %1, i64 noundef %2) local_unnamed_addr #6 {
-  %4 = getelementptr inbounds %struct.gx_path_s, ptr %0, i64 0, i32 10
-  %5 = load i8, ptr %4, align 8, !tbaa !17
-  %6 = icmp eq i8 %5, 0
-  br i1 %6, label %15, label %7
+define dso_local i32 @gx_path_add_relative_point(ptr nocapture noundef %ppath, i64 noundef %dx, i64 noundef %dy) local_unnamed_addr #6 {
+entry:
+  %position_valid = getelementptr inbounds %struct.gx_path_s, ptr %ppath, i64 0, i32 10
+  %0 = load i8, ptr %position_valid, align 8, !tbaa !17
+  %tobool.not = icmp eq i8 %0, 0
+  br i1 %tobool.not, label %return, label %if.end
 
-7:                                                ; preds = %3
-  %8 = getelementptr inbounds %struct.gx_path_s, ptr %0, i64 0, i32 11
-  store i8 0, ptr %8, align 1, !tbaa !18
-  %9 = getelementptr inbounds %struct.gx_path_s, ptr %0, i64 0, i32 9
-  %10 = load i64, ptr %9, align 8, !tbaa !40
-  %11 = add nsw i64 %10, %1
-  store i64 %11, ptr %9, align 8, !tbaa !40
-  %12 = getelementptr inbounds %struct.gx_path_s, ptr %0, i64 0, i32 9, i32 1
-  %13 = load i64, ptr %12, align 8, !tbaa !41
-  %14 = add nsw i64 %13, %2
-  store i64 %14, ptr %12, align 8, !tbaa !41
-  br label %15
+if.end:                                           ; preds = %entry
+  %subpath_open = getelementptr inbounds %struct.gx_path_s, ptr %ppath, i64 0, i32 11
+  store i8 0, ptr %subpath_open, align 1, !tbaa !18
+  %position = getelementptr inbounds %struct.gx_path_s, ptr %ppath, i64 0, i32 9
+  %1 = load i64, ptr %position, align 8, !tbaa !40
+  %add = add nsw i64 %1, %dx
+  store i64 %add, ptr %position, align 8, !tbaa !40
+  %y = getelementptr inbounds %struct.gx_path_s, ptr %ppath, i64 0, i32 9, i32 1
+  %2 = load i64, ptr %y, align 8, !tbaa !41
+  %add2 = add nsw i64 %2, %dy
+  store i64 %add2, ptr %y, align 8, !tbaa !41
+  br label %return
 
-15:                                               ; preds = %3, %7
-  %16 = phi i32 [ 0, %7 ], [ -14, %3 ]
-  ret i32 %16
+return:                                           ; preds = %entry, %if.end
+  %retval.0 = phi i32 [ 0, %if.end ], [ -14, %entry ]
+  ret i32 %retval.0
 }
 
 ; Function Attrs: nounwind uwtable
-define dso_local i32 @gx_path_add_line(ptr noundef %0, i64 noundef %1, i64 noundef %2) local_unnamed_addr #2 {
-  %4 = alloca %struct.gx_path_s, align 8
-  %5 = alloca %struct.gx_path_s, align 8
-  %6 = getelementptr inbounds %struct.gx_path_s, ptr %0, i64 0, i32 5
-  %7 = load ptr, ptr %6, align 8, !tbaa !21
-  %8 = getelementptr inbounds %struct.gx_path_s, ptr %0, i64 0, i32 11
-  %9 = load i8, ptr %8, align 1, !tbaa !18
-  %10 = icmp eq i8 %9, 0
-  br i1 %10, label %11, label %51
+define dso_local i32 @gx_path_add_line(ptr noundef %ppath, i64 noundef %x, i64 noundef %y) local_unnamed_addr #2 {
+entry:
+  %path_new.i = alloca %struct.gx_path_s, align 8
+  %path_new.i.i = alloca %struct.gx_path_s, align 8
+  %current_subpath = getelementptr inbounds %struct.gx_path_s, ptr %ppath, i64 0, i32 5
+  %0 = load ptr, ptr %current_subpath, align 8, !tbaa !21
+  %subpath_open = getelementptr inbounds %struct.gx_path_s, ptr %ppath, i64 0, i32 11
+  %1 = load i8, ptr %subpath_open, align 1, !tbaa !18
+  %tobool.not = icmp eq i8 %1, 0
+  br i1 %tobool.not, label %if.then, label %if.end6
 
-11:                                               ; preds = %3
-  %12 = getelementptr inbounds %struct.gx_path_s, ptr %0, i64 0, i32 10
-  %13 = load i8, ptr %12, align 8, !tbaa !17
-  %14 = icmp eq i8 %13, 0
-  br i1 %14, label %84, label %15
+if.then:                                          ; preds = %entry
+  %position_valid = getelementptr inbounds %struct.gx_path_s, ptr %ppath, i64 0, i32 10
+  %2 = load i8, ptr %position_valid, align 8, !tbaa !17
+  %tobool1.not = icmp eq i8 %2, 0
+  br i1 %tobool1.not, label %cleanup28, label %if.end
 
-15:                                               ; preds = %11
-  %16 = getelementptr inbounds %struct.gx_path_s, ptr %0, i64 0, i32 12
-  %17 = load i8, ptr %16, align 2, !tbaa !19
-  %18 = icmp eq i8 %17, 0
-  br i1 %18, label %26, label %19
+if.end:                                           ; preds = %if.then
+  %shares_segments.i = getelementptr inbounds %struct.gx_path_s, ptr %ppath, i64 0, i32 12
+  %3 = load i8, ptr %shares_segments.i, align 2, !tbaa !19
+  %tobool.not.i = icmp eq i8 %3, 0
+  br i1 %tobool.not.i, label %if.end3.i, label %if.then.i
 
-19:                                               ; preds = %15
-  call void @llvm.lifetime.start.p0(i64 144, ptr nonnull %5) #12
-  %20 = call i32 @gx_path_copy(ptr noundef nonnull %0, ptr noundef nonnull %5) #12
-  %21 = icmp slt i32 %20, 0
-  br i1 %21, label %22, label %23
+if.then.i:                                        ; preds = %if.end
+  call void @llvm.lifetime.start.p0(i64 144, ptr nonnull %path_new.i.i) #12
+  %call.i.i = call i32 @gx_path_copy(ptr noundef nonnull %ppath, ptr noundef nonnull %path_new.i.i) #12
+  %cmp.i.i = icmp slt i32 %call.i.i, 0
+  br i1 %cmp.i.i, label %path_alloc_copy.exit.thread.i, label %path_alloc_copy.exit.i
 
-22:                                               ; preds = %19
-  call void @llvm.lifetime.end.p0(i64 144, ptr nonnull %5) #12
-  br label %84
+path_alloc_copy.exit.thread.i:                    ; preds = %if.then.i
+  call void @llvm.lifetime.end.p0(i64 144, ptr nonnull %path_new.i.i) #12
+  br label %cleanup28
 
-23:                                               ; preds = %19
-  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(144) %0, ptr noundef nonnull align 8 dereferenceable(144) %5, i64 144, i1 false), !tbaa.struct !30
-  store i8 0, ptr %16, align 2, !tbaa !19
-  %24 = load ptr, ptr %6, align 8, !tbaa !21
-  call void @llvm.lifetime.end.p0(i64 144, ptr nonnull %5) #12
-  %25 = icmp eq ptr %24, null
-  br i1 %25, label %84, label %26
+path_alloc_copy.exit.i:                           ; preds = %if.then.i
+  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(144) %ppath, ptr noundef nonnull align 8 dereferenceable(144) %path_new.i.i, i64 144, i1 false), !tbaa.struct !30
+  store i8 0, ptr %shares_segments.i, align 2, !tbaa !19
+  %4 = load ptr, ptr %current_subpath, align 8, !tbaa !21
+  call void @llvm.lifetime.end.p0(i64 144, ptr nonnull %path_new.i.i) #12
+  %tobool1.not.i = icmp eq ptr %4, null
+  br i1 %tobool1.not.i, label %cleanup28, label %if.end3.i
 
-26:                                               ; preds = %23, %15
-  %27 = phi ptr [ %24, %23 ], [ %7, %15 ]
-  %28 = load ptr, ptr %0, align 8, !tbaa !34
-  %29 = call ptr %28(i32 noundef 1, i32 noundef 64, ptr noundef nonnull @.str.4) #12
-  %30 = icmp eq ptr %29, null
-  br i1 %30, label %84, label %31
+if.end3.i:                                        ; preds = %path_alloc_copy.exit.i, %if.end
+  %psub.0.i = phi ptr [ %4, %path_alloc_copy.exit.i ], [ %0, %if.end ]
+  %5 = load ptr, ptr %ppath, align 8, !tbaa !34
+  %call4.i = call ptr %5(i32 noundef 1, i32 noundef 64, ptr noundef nonnull @.str.4) #12
+  %tobool5.not.i = icmp eq ptr %call4.i, null
+  br i1 %tobool5.not.i, label %cleanup28, label %if.end7.i
 
-31:                                               ; preds = %26
-  %32 = getelementptr inbounds %struct.subpath, ptr %29, i64 0, i32 2
-  store i32 0, ptr %32, align 8, !tbaa !35
-  %33 = getelementptr inbounds %struct.subpath, ptr %29, i64 0, i32 1
-  store ptr null, ptr %33, align 8, !tbaa !36
-  %34 = getelementptr inbounds %struct.subpath, ptr %29, i64 0, i32 4
-  store ptr %29, ptr %34, align 8, !tbaa !22
-  %35 = getelementptr inbounds %struct.subpath, ptr %29, i64 0, i32 5
-  %36 = getelementptr inbounds %struct.subpath, ptr %29, i64 0, i32 3
-  %37 = getelementptr inbounds %struct.gx_path_s, ptr %0, i64 0, i32 9
-  call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(9) %35, i8 0, i64 9, i1 false)
-  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %36, ptr noundef nonnull align 8 dereferenceable(16) %37, i64 16, i1 false), !tbaa.struct !37
-  store i8 1, ptr %8, align 1, !tbaa !18
-  %38 = icmp eq ptr %27, null
-  br i1 %38, label %39, label %41
+if.end7.i:                                        ; preds = %if.end3.i
+  %type.i = getelementptr inbounds %struct.subpath, ptr %call4.i, i64 0, i32 2
+  store i32 0, ptr %type.i, align 8, !tbaa !35
+  %next.i = getelementptr inbounds %struct.subpath, ptr %call4.i, i64 0, i32 1
+  store ptr null, ptr %next.i, align 8, !tbaa !36
+  %last.i = getelementptr inbounds %struct.subpath, ptr %call4.i, i64 0, i32 4
+  store ptr %call4.i, ptr %last.i, align 8, !tbaa !22
+  %line_count.i = getelementptr inbounds %struct.subpath, ptr %call4.i, i64 0, i32 5
+  %pt.i = getelementptr inbounds %struct.subpath, ptr %call4.i, i64 0, i32 3
+  %position.i = getelementptr inbounds %struct.gx_path_s, ptr %ppath, i64 0, i32 9
+  call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(9) %line_count.i, i8 0, i64 9, i1 false)
+  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %pt.i, ptr noundef nonnull align 8 dereferenceable(16) %position.i, i64 16, i1 false), !tbaa.struct !37
+  store i8 1, ptr %subpath_open, align 1, !tbaa !18
+  %tobool8.not.i = icmp eq ptr %psub.0.i, null
+  br i1 %tobool8.not.i, label %if.then9.i, label %if.else.i
 
-39:                                               ; preds = %31
-  %40 = getelementptr inbounds %struct.gx_path_s, ptr %0, i64 0, i32 4
-  br label %45
+if.then9.i:                                       ; preds = %if.end7.i
+  %first_subpath.i = getelementptr inbounds %struct.gx_path_s, ptr %ppath, i64 0, i32 4
+  br label %cleanup
 
-41:                                               ; preds = %31
-  %42 = getelementptr inbounds %struct.subpath, ptr %27, i64 0, i32 4
-  %43 = load ptr, ptr %42, align 8, !tbaa !22
-  %44 = getelementptr inbounds %struct.segment_s, ptr %43, i64 0, i32 1
-  br label %45
+if.else.i:                                        ; preds = %if.end7.i
+  %last11.i = getelementptr inbounds %struct.subpath, ptr %psub.0.i, i64 0, i32 4
+  %6 = load ptr, ptr %last11.i, align 8, !tbaa !22
+  %next12.i = getelementptr inbounds %struct.segment_s, ptr %6, i64 0, i32 1
+  br label %cleanup
 
-45:                                               ; preds = %39, %41
-  %46 = phi ptr [ %44, %41 ], [ %40, %39 ]
-  %47 = phi ptr [ %43, %41 ], [ null, %39 ]
-  store ptr %29, ptr %46, align 8, !tbaa !6
-  store ptr %47, ptr %29, align 8, !tbaa !38
-  store ptr %29, ptr %6, align 8, !tbaa !21
-  %48 = getelementptr inbounds %struct.gx_path_s, ptr %0, i64 0, i32 6
-  %49 = load i32, ptr %48, align 8, !tbaa !39
-  %50 = add nsw i32 %49, 1
-  store i32 %50, ptr %48, align 8, !tbaa !39
-  br label %51
+cleanup:                                          ; preds = %if.then9.i, %if.else.i
+  %next12.sink.i = phi ptr [ %next12.i, %if.else.i ], [ %first_subpath.i, %if.then9.i ]
+  %storemerge.i = phi ptr [ %6, %if.else.i ], [ null, %if.then9.i ]
+  store ptr %call4.i, ptr %next12.sink.i, align 8, !tbaa !6
+  store ptr %storemerge.i, ptr %call4.i, align 8, !tbaa !38
+  store ptr %call4.i, ptr %current_subpath, align 8, !tbaa !21
+  %subpath_count.i = getelementptr inbounds %struct.gx_path_s, ptr %ppath, i64 0, i32 6
+  %7 = load i32, ptr %subpath_count.i, align 8, !tbaa !39
+  %inc.i = add nsw i32 %7, 1
+  store i32 %inc.i, ptr %subpath_count.i, align 8, !tbaa !39
+  br label %if.end6
 
-51:                                               ; preds = %45, %3
-  %52 = phi ptr [ %7, %3 ], [ %29, %45 ]
-  %53 = getelementptr inbounds %struct.gx_path_s, ptr %0, i64 0, i32 12
-  %54 = load i8, ptr %53, align 2, !tbaa !19
-  %55 = icmp eq i8 %54, 0
-  br i1 %55, label %63, label %56
+if.end6:                                          ; preds = %cleanup, %entry
+  %psub.1 = phi ptr [ %0, %entry ], [ %call4.i, %cleanup ]
+  %shares_segments = getelementptr inbounds %struct.gx_path_s, ptr %ppath, i64 0, i32 12
+  %8 = load i8, ptr %shares_segments, align 2, !tbaa !19
+  %tobool7.not = icmp eq i8 %8, 0
+  br i1 %tobool7.not, label %if.end13, label %if.then8
 
-56:                                               ; preds = %51
-  call void @llvm.lifetime.start.p0(i64 144, ptr nonnull %4) #12
-  %57 = call i32 @gx_path_copy(ptr noundef nonnull %0, ptr noundef nonnull %4) #12
-  %58 = icmp slt i32 %57, 0
-  br i1 %58, label %59, label %60
+if.then8:                                         ; preds = %if.end6
+  call void @llvm.lifetime.start.p0(i64 144, ptr nonnull %path_new.i) #12
+  %call.i = call i32 @gx_path_copy(ptr noundef nonnull %ppath, ptr noundef nonnull %path_new.i) #12
+  %cmp.i = icmp slt i32 %call.i, 0
+  br i1 %cmp.i, label %path_alloc_copy.exit.thread, label %path_alloc_copy.exit
 
-59:                                               ; preds = %56
-  call void @llvm.lifetime.end.p0(i64 144, ptr nonnull %4) #12
-  br label %84
+path_alloc_copy.exit.thread:                      ; preds = %if.then8
+  call void @llvm.lifetime.end.p0(i64 144, ptr nonnull %path_new.i) #12
+  br label %cleanup28
 
-60:                                               ; preds = %56
-  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(144) %0, ptr noundef nonnull align 8 dereferenceable(144) %4, i64 144, i1 false), !tbaa.struct !30
-  store i8 0, ptr %53, align 2, !tbaa !19
-  %61 = load ptr, ptr %6, align 8, !tbaa !21
-  call void @llvm.lifetime.end.p0(i64 144, ptr nonnull %4) #12
-  %62 = icmp eq ptr %61, null
-  br i1 %62, label %84, label %63
+path_alloc_copy.exit:                             ; preds = %if.then8
+  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(144) %ppath, ptr noundef nonnull align 8 dereferenceable(144) %path_new.i, i64 144, i1 false), !tbaa.struct !30
+  store i8 0, ptr %shares_segments, align 2, !tbaa !19
+  %9 = load ptr, ptr %current_subpath, align 8, !tbaa !21
+  call void @llvm.lifetime.end.p0(i64 144, ptr nonnull %path_new.i) #12
+  %tobool10.not = icmp eq ptr %9, null
+  br i1 %tobool10.not, label %cleanup28, label %if.end13
 
-63:                                               ; preds = %60, %51
-  %64 = phi ptr [ %61, %60 ], [ %52, %51 ]
-  %65 = load ptr, ptr %0, align 8, !tbaa !34
-  %66 = call ptr %65(i32 noundef 1, i32 noundef 40, ptr noundef nonnull @.str.5) #12
-  %67 = icmp eq ptr %66, null
-  br i1 %67, label %84, label %68
+if.end13:                                         ; preds = %path_alloc_copy.exit, %if.end6
+  %psub.2 = phi ptr [ %9, %path_alloc_copy.exit ], [ %psub.1, %if.end6 ]
+  %10 = load ptr, ptr %ppath, align 8, !tbaa !34
+  %call14 = call ptr %10(i32 noundef 1, i32 noundef 40, ptr noundef nonnull @.str.5) #12
+  %tobool15.not = icmp eq ptr %call14, null
+  br i1 %tobool15.not, label %cleanup28, label %if.end17
 
-68:                                               ; preds = %63
-  %69 = getelementptr inbounds %struct.line_segment, ptr %66, i64 0, i32 2
-  store i32 1, ptr %69, align 8, !tbaa !42
-  %70 = getelementptr inbounds %struct.line_segment, ptr %66, i64 0, i32 1
-  store ptr null, ptr %70, align 8, !tbaa !44
-  %71 = getelementptr inbounds %struct.subpath, ptr %64, i64 0, i32 4
-  %72 = load ptr, ptr %71, align 8, !tbaa !22
-  %73 = getelementptr inbounds %struct.segment_s, ptr %72, i64 0, i32 1
-  store ptr %66, ptr %73, align 8, !tbaa !45
-  store ptr %72, ptr %66, align 8, !tbaa !46
-  store ptr %66, ptr %71, align 8, !tbaa !22
-  %74 = getelementptr inbounds %struct.gx_path_s, ptr %0, i64 0, i32 9
-  store i64 %1, ptr %74, align 8, !tbaa !40
-  %75 = getelementptr inbounds %struct.line_segment, ptr %66, i64 0, i32 3
-  store i64 %1, ptr %75, align 8, !tbaa !47
-  %76 = getelementptr inbounds %struct.gx_path_s, ptr %0, i64 0, i32 9, i32 1
-  store i64 %2, ptr %76, align 8, !tbaa !41
-  %77 = getelementptr inbounds %struct.line_segment, ptr %66, i64 0, i32 3, i32 1
-  store i64 %2, ptr %77, align 8, !tbaa !48
-  %78 = getelementptr inbounds %struct.subpath, ptr %64, i64 0, i32 5
-  %79 = load i32, ptr %78, align 8, !tbaa !49
-  %80 = add nsw i32 %79, 1
-  store i32 %80, ptr %78, align 8, !tbaa !49
-  %81 = getelementptr inbounds %struct.gx_path_s, ptr %0, i64 0, i32 7
-  %82 = load i32, ptr %81, align 4, !tbaa !50
-  %83 = add nsw i32 %82, 1
-  store i32 %83, ptr %81, align 4, !tbaa !50
-  br label %84
+if.end17:                                         ; preds = %if.end13
+  %type = getelementptr inbounds %struct.line_segment, ptr %call14, i64 0, i32 2
+  store i32 1, ptr %type, align 8, !tbaa !42
+  %next = getelementptr inbounds %struct.line_segment, ptr %call14, i64 0, i32 1
+  store ptr null, ptr %next, align 8, !tbaa !44
+  %last = getelementptr inbounds %struct.subpath, ptr %psub.2, i64 0, i32 4
+  %11 = load ptr, ptr %last, align 8, !tbaa !22
+  %next18 = getelementptr inbounds %struct.segment_s, ptr %11, i64 0, i32 1
+  store ptr %call14, ptr %next18, align 8, !tbaa !45
+  store ptr %11, ptr %call14, align 8, !tbaa !46
+  store ptr %call14, ptr %last, align 8, !tbaa !22
+  %position = getelementptr inbounds %struct.gx_path_s, ptr %ppath, i64 0, i32 9
+  store i64 %x, ptr %position, align 8, !tbaa !40
+  %pt = getelementptr inbounds %struct.line_segment, ptr %call14, i64 0, i32 3
+  store i64 %x, ptr %pt, align 8, !tbaa !47
+  %y24 = getelementptr inbounds %struct.gx_path_s, ptr %ppath, i64 0, i32 9, i32 1
+  store i64 %y, ptr %y24, align 8, !tbaa !41
+  %y26 = getelementptr inbounds %struct.line_segment, ptr %call14, i64 0, i32 3, i32 1
+  store i64 %y, ptr %y26, align 8, !tbaa !48
+  %line_count = getelementptr inbounds %struct.subpath, ptr %psub.2, i64 0, i32 5
+  %12 = load i32, ptr %line_count, align 8, !tbaa !49
+  %inc = add nsw i32 %12, 1
+  store i32 %inc, ptr %line_count, align 8, !tbaa !49
+  %segment_count = getelementptr inbounds %struct.gx_path_s, ptr %ppath, i64 0, i32 7
+  %13 = load i32, ptr %segment_count, align 4, !tbaa !50
+  %inc27 = add nsw i32 %13, 1
+  store i32 %inc27, ptr %segment_count, align 4, !tbaa !50
+  br label %cleanup28
 
-84:                                               ; preds = %26, %23, %22, %11, %63, %60, %59, %68
-  %85 = phi i32 [ 0, %68 ], [ -13, %59 ], [ -13, %60 ], [ -13, %63 ], [ -13, %26 ], [ -13, %23 ], [ -13, %22 ], [ -14, %11 ]
-  ret i32 %85
+cleanup28:                                        ; preds = %path_alloc_copy.exit.thread.i, %if.end3.i, %path_alloc_copy.exit.i, %if.then, %path_alloc_copy.exit.thread, %if.end13, %path_alloc_copy.exit, %if.end17
+  %retval.1 = phi i32 [ 0, %if.end17 ], [ -13, %path_alloc_copy.exit ], [ -13, %if.end13 ], [ -13, %path_alloc_copy.exit.thread ], [ -14, %if.then ], [ -13, %path_alloc_copy.exit.i ], [ -13, %if.end3.i ], [ -13, %path_alloc_copy.exit.thread.i ]
+  ret i32 %retval.1
 }
 
 ; Function Attrs: nounwind uwtable
-define dso_local i32 @gx_path_add_rectangle(ptr noundef %0, i64 noundef %1, i64 noundef %2, i64 noundef %3, i64 noundef %4) local_unnamed_addr #2 {
-  %6 = getelementptr inbounds %struct.gx_path_s, ptr %0, i64 0, i32 11
-  store i8 0, ptr %6, align 1, !tbaa !18
-  %7 = getelementptr inbounds %struct.gx_path_s, ptr %0, i64 0, i32 10
-  store i8 1, ptr %7, align 8, !tbaa !17
-  %8 = getelementptr inbounds %struct.gx_path_s, ptr %0, i64 0, i32 9
-  store i64 %1, ptr %8, align 8, !tbaa !40
-  %9 = getelementptr inbounds %struct.gx_path_s, ptr %0, i64 0, i32 9, i32 1
-  store i64 %2, ptr %9, align 8, !tbaa !41
-  %10 = tail call i32 @gx_path_add_line(ptr noundef %0, i64 noundef %1, i64 noundef %4)
-  %11 = icmp slt i32 %10, 0
-  br i1 %11, label %20, label %12
+define dso_local i32 @gx_path_add_rectangle(ptr noundef %ppath, i64 noundef %x0, i64 noundef %y0, i64 noundef %x1, i64 noundef %y1) local_unnamed_addr #2 {
+entry:
+  %subpath_open.i.i = getelementptr inbounds %struct.gx_path_s, ptr %ppath, i64 0, i32 11
+  store i8 0, ptr %subpath_open.i.i, align 1, !tbaa !18
+  %position_valid.i.i = getelementptr inbounds %struct.gx_path_s, ptr %ppath, i64 0, i32 10
+  store i8 1, ptr %position_valid.i.i, align 8, !tbaa !17
+  %position.i.i = getelementptr inbounds %struct.gx_path_s, ptr %ppath, i64 0, i32 9
+  store i64 %x0, ptr %position.i.i, align 8, !tbaa !40
+  %y3.i.i = getelementptr inbounds %struct.gx_path_s, ptr %ppath, i64 0, i32 9, i32 1
+  store i64 %y0, ptr %y3.i.i, align 8, !tbaa !41
+  %call1.i = tail call i32 @gx_path_add_line(ptr noundef %ppath, i64 noundef %x0, i64 noundef %y1)
+  %cmp2.i = icmp slt i32 %call1.i, 0
+  br i1 %cmp2.i, label %gx_path_add_pgram.exit, label %lor.lhs.false3.i
 
-12:                                               ; preds = %5
-  %13 = tail call i32 @gx_path_add_line(ptr noundef nonnull %0, i64 noundef %3, i64 noundef %4)
-  %14 = icmp slt i32 %13, 0
-  br i1 %14, label %20, label %15
+lor.lhs.false3.i:                                 ; preds = %entry
+  %call4.i = tail call i32 @gx_path_add_line(ptr noundef nonnull %ppath, i64 noundef %x1, i64 noundef %y1)
+  %cmp5.i = icmp slt i32 %call4.i, 0
+  br i1 %cmp5.i, label %gx_path_add_pgram.exit, label %lor.lhs.false6.i
 
-15:                                               ; preds = %12
-  %16 = tail call i32 @gx_path_add_line(ptr noundef nonnull %0, i64 noundef %3, i64 noundef %2)
-  %17 = icmp slt i32 %16, 0
-  br i1 %17, label %20, label %18
+lor.lhs.false6.i:                                 ; preds = %lor.lhs.false3.i
+  %call9.i = tail call i32 @gx_path_add_line(ptr noundef nonnull %ppath, i64 noundef %x1, i64 noundef %y0)
+  %cmp10.i = icmp slt i32 %call9.i, 0
+  br i1 %cmp10.i, label %gx_path_add_pgram.exit, label %lor.lhs.false11.i
 
-18:                                               ; preds = %15
-  %19 = tail call i32 @gx_path_close_subpath(ptr noundef nonnull %0), !range !51
-  br label %20
+lor.lhs.false11.i:                                ; preds = %lor.lhs.false6.i
+  %call12.i = tail call i32 @gx_path_close_subpath(ptr noundef nonnull %ppath), !range !51
+  br label %gx_path_add_pgram.exit
 
-20:                                               ; preds = %5, %12, %15, %18
-  %21 = phi i32 [ %10, %5 ], [ %13, %12 ], [ %16, %15 ], [ %19, %18 ]
-  ret i32 %21
+gx_path_add_pgram.exit:                           ; preds = %entry, %lor.lhs.false3.i, %lor.lhs.false6.i, %lor.lhs.false11.i
+  %retval.0.i = phi i32 [ %call1.i, %entry ], [ %call4.i, %lor.lhs.false3.i ], [ %call9.i, %lor.lhs.false6.i ], [ %call12.i, %lor.lhs.false11.i ]
+  ret i32 %retval.0.i
 }
 
 ; Function Attrs: nounwind uwtable
-define dso_local i32 @gx_path_add_pgram(ptr noundef %0, i64 noundef %1, i64 noundef %2, i64 noundef %3, i64 noundef %4, i64 noundef %5, i64 noundef %6) local_unnamed_addr #2 {
-  %8 = getelementptr inbounds %struct.gx_path_s, ptr %0, i64 0, i32 11
-  store i8 0, ptr %8, align 1, !tbaa !18
-  %9 = getelementptr inbounds %struct.gx_path_s, ptr %0, i64 0, i32 10
-  store i8 1, ptr %9, align 8, !tbaa !17
-  %10 = getelementptr inbounds %struct.gx_path_s, ptr %0, i64 0, i32 9
-  store i64 %1, ptr %10, align 8, !tbaa !40
-  %11 = getelementptr inbounds %struct.gx_path_s, ptr %0, i64 0, i32 9, i32 1
-  store i64 %2, ptr %11, align 8, !tbaa !41
-  %12 = tail call i32 @gx_path_add_line(ptr noundef %0, i64 noundef %3, i64 noundef %4)
-  %13 = icmp slt i32 %12, 0
-  br i1 %13, label %26, label %14
+define dso_local i32 @gx_path_add_pgram(ptr noundef %ppath, i64 noundef %x0, i64 noundef %y0, i64 noundef %x1, i64 noundef %y1, i64 noundef %x2, i64 noundef %y2) local_unnamed_addr #2 {
+entry:
+  %subpath_open.i = getelementptr inbounds %struct.gx_path_s, ptr %ppath, i64 0, i32 11
+  store i8 0, ptr %subpath_open.i, align 1, !tbaa !18
+  %position_valid.i = getelementptr inbounds %struct.gx_path_s, ptr %ppath, i64 0, i32 10
+  store i8 1, ptr %position_valid.i, align 8, !tbaa !17
+  %position.i = getelementptr inbounds %struct.gx_path_s, ptr %ppath, i64 0, i32 9
+  store i64 %x0, ptr %position.i, align 8, !tbaa !40
+  %y3.i = getelementptr inbounds %struct.gx_path_s, ptr %ppath, i64 0, i32 9, i32 1
+  store i64 %y0, ptr %y3.i, align 8, !tbaa !41
+  %call1 = tail call i32 @gx_path_add_line(ptr noundef %ppath, i64 noundef %x1, i64 noundef %y1)
+  %cmp2 = icmp slt i32 %call1, 0
+  br i1 %cmp2, label %cleanup, label %lor.lhs.false3
 
-14:                                               ; preds = %7
-  %15 = tail call i32 @gx_path_add_line(ptr noundef nonnull %0, i64 noundef %5, i64 noundef %6)
-  %16 = icmp slt i32 %15, 0
-  br i1 %16, label %26, label %17
+lor.lhs.false3:                                   ; preds = %entry
+  %call4 = tail call i32 @gx_path_add_line(ptr noundef nonnull %ppath, i64 noundef %x2, i64 noundef %y2)
+  %cmp5 = icmp slt i32 %call4, 0
+  br i1 %cmp5, label %cleanup, label %lor.lhs.false6
 
-17:                                               ; preds = %14
-  %18 = sub i64 %1, %3
-  %19 = add i64 %18, %5
-  %20 = sub i64 %2, %4
-  %21 = add i64 %20, %6
-  %22 = tail call i32 @gx_path_add_line(ptr noundef nonnull %0, i64 noundef %19, i64 noundef %21)
-  %23 = icmp slt i32 %22, 0
-  br i1 %23, label %26, label %24
+lor.lhs.false6:                                   ; preds = %lor.lhs.false3
+  %add = sub i64 %x0, %x1
+  %sub = add i64 %add, %x2
+  %add7 = sub i64 %y0, %y1
+  %sub8 = add i64 %add7, %y2
+  %call9 = tail call i32 @gx_path_add_line(ptr noundef nonnull %ppath, i64 noundef %sub, i64 noundef %sub8)
+  %cmp10 = icmp slt i32 %call9, 0
+  br i1 %cmp10, label %cleanup, label %lor.lhs.false11
 
-24:                                               ; preds = %17
-  %25 = tail call i32 @gx_path_close_subpath(ptr noundef nonnull %0), !range !51
-  br label %26
+lor.lhs.false11:                                  ; preds = %lor.lhs.false6
+  %call12 = tail call i32 @gx_path_close_subpath(ptr noundef nonnull %ppath), !range !51
+  br label %cleanup
 
-26:                                               ; preds = %24, %7, %14, %17
-  %27 = phi i32 [ %12, %7 ], [ %15, %14 ], [ %22, %17 ], [ %25, %24 ]
-  ret i32 %27
+cleanup:                                          ; preds = %lor.lhs.false11, %entry, %lor.lhs.false3, %lor.lhs.false6
+  %retval.0 = phi i32 [ %call1, %entry ], [ %call4, %lor.lhs.false3 ], [ %call9, %lor.lhs.false6 ], [ %call12, %lor.lhs.false11 ]
+  ret i32 %retval.0
 }
 
 ; Function Attrs: nounwind uwtable
-define dso_local i32 @gx_path_close_subpath(ptr noundef %0) local_unnamed_addr #2 {
-  %2 = alloca %struct.gx_path_s, align 8
-  %3 = alloca %struct.gx_path_s, align 8
-  %4 = getelementptr inbounds %struct.gx_path_s, ptr %0, i64 0, i32 5
-  %5 = load ptr, ptr %4, align 8, !tbaa !21
-  %6 = getelementptr inbounds %struct.gx_path_s, ptr %0, i64 0, i32 11
-  %7 = load i8, ptr %6, align 1, !tbaa !18
-  %8 = icmp eq i8 %7, 0
-  br i1 %8, label %81, label %9
+define dso_local i32 @gx_path_close_subpath(ptr noundef %ppath) local_unnamed_addr #2 {
+entry:
+  %path_new.i78 = alloca %struct.gx_path_s, align 8
+  %path_new.i = alloca %struct.gx_path_s, align 8
+  %current_subpath = getelementptr inbounds %struct.gx_path_s, ptr %ppath, i64 0, i32 5
+  %0 = load ptr, ptr %current_subpath, align 8, !tbaa !21
+  %subpath_open = getelementptr inbounds %struct.gx_path_s, ptr %ppath, i64 0, i32 11
+  %1 = load i8, ptr %subpath_open, align 1, !tbaa !18
+  %tobool.not = icmp eq i8 %1, 0
+  br i1 %tobool.not, label %cleanup, label %if.end
 
-9:                                                ; preds = %1
-  %10 = getelementptr inbounds %struct.gx_path_s, ptr %0, i64 0, i32 9
-  %11 = load i64, ptr %10, align 8, !tbaa !40
-  %12 = getelementptr inbounds %struct.subpath, ptr %5, i64 0, i32 3
-  %13 = load i64, ptr %12, align 8, !tbaa !52
-  %14 = icmp eq i64 %11, %13
-  br i1 %14, label %15, label %43
+if.end:                                           ; preds = %entry
+  %position = getelementptr inbounds %struct.gx_path_s, ptr %ppath, i64 0, i32 9
+  %2 = load i64, ptr %position, align 8, !tbaa !40
+  %pt = getelementptr inbounds %struct.subpath, ptr %0, i64 0, i32 3
+  %3 = load i64, ptr %pt, align 8, !tbaa !52
+  %cmp = icmp eq i64 %2, %3
+  br i1 %cmp, label %land.lhs.true, label %if.else
 
-15:                                               ; preds = %9
-  %16 = getelementptr inbounds %struct.gx_path_s, ptr %0, i64 0, i32 9, i32 1
-  %17 = load i64, ptr %16, align 8, !tbaa !41
-  %18 = getelementptr inbounds %struct.subpath, ptr %5, i64 0, i32 3, i32 1
-  %19 = load i64, ptr %18, align 8, !tbaa !53
-  %20 = icmp eq i64 %17, %19
-  br i1 %20, label %21, label %43
+land.lhs.true:                                    ; preds = %if.end
+  %y = getelementptr inbounds %struct.gx_path_s, ptr %ppath, i64 0, i32 9, i32 1
+  %4 = load i64, ptr %y, align 8, !tbaa !41
+  %y4 = getelementptr inbounds %struct.subpath, ptr %0, i64 0, i32 3, i32 1
+  %5 = load i64, ptr %y4, align 8, !tbaa !53
+  %cmp5 = icmp eq i64 %4, %5
+  br i1 %cmp5, label %land.lhs.true6, label %if.else
 
-21:                                               ; preds = %15
-  %22 = getelementptr inbounds %struct.subpath, ptr %5, i64 0, i32 4
-  %23 = load ptr, ptr %22, align 8, !tbaa !22
-  %24 = getelementptr inbounds %struct.segment_s, ptr %23, i64 0, i32 2
-  %25 = load i32, ptr %24, align 8, !tbaa !24
-  %26 = icmp eq i32 %25, 1
-  br i1 %26, label %27, label %43
+land.lhs.true6:                                   ; preds = %land.lhs.true
+  %last = getelementptr inbounds %struct.subpath, ptr %0, i64 0, i32 4
+  %6 = load ptr, ptr %last, align 8, !tbaa !22
+  %type = getelementptr inbounds %struct.segment_s, ptr %6, i64 0, i32 2
+  %7 = load i32, ptr %type, align 8, !tbaa !24
+  %cmp7 = icmp eq i32 %7, 1
+  br i1 %cmp7, label %if.then8, label %if.else
 
-27:                                               ; preds = %21
-  %28 = getelementptr inbounds %struct.gx_path_s, ptr %0, i64 0, i32 12
-  %29 = load i8, ptr %28, align 2, !tbaa !19
-  %30 = icmp eq i8 %29, 0
-  br i1 %30, label %40, label %31
+if.then8:                                         ; preds = %land.lhs.true6
+  %shares_segments = getelementptr inbounds %struct.gx_path_s, ptr %ppath, i64 0, i32 12
+  %8 = load i8, ptr %shares_segments, align 2, !tbaa !19
+  %tobool9.not = icmp eq i8 %8, 0
+  br i1 %tobool9.not, label %if.end14, label %if.then10
 
-31:                                               ; preds = %27
-  call void @llvm.lifetime.start.p0(i64 144, ptr nonnull %3) #12
-  %32 = call i32 @gx_path_copy(ptr noundef nonnull %0, ptr noundef nonnull %3) #12
-  %33 = icmp slt i32 %32, 0
-  br i1 %33, label %34, label %35
+if.then10:                                        ; preds = %if.then8
+  call void @llvm.lifetime.start.p0(i64 144, ptr nonnull %path_new.i) #12
+  %call.i = call i32 @gx_path_copy(ptr noundef nonnull %ppath, ptr noundef nonnull %path_new.i) #12
+  %cmp.i = icmp slt i32 %call.i, 0
+  br i1 %cmp.i, label %path_alloc_copy.exit.thread, label %path_alloc_copy.exit
 
-34:                                               ; preds = %31
-  call void @llvm.lifetime.end.p0(i64 144, ptr nonnull %3) #12
-  br label %81
+path_alloc_copy.exit.thread:                      ; preds = %if.then10
+  call void @llvm.lifetime.end.p0(i64 144, ptr nonnull %path_new.i) #12
+  br label %cleanup
 
-35:                                               ; preds = %31
-  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(144) %0, ptr noundef nonnull align 8 dereferenceable(144) %3, i64 144, i1 false), !tbaa.struct !30
-  store i8 0, ptr %28, align 2, !tbaa !19
-  %36 = load ptr, ptr %4, align 8, !tbaa !21
-  call void @llvm.lifetime.end.p0(i64 144, ptr nonnull %3) #12
-  %37 = icmp eq ptr %36, null
-  br i1 %37, label %81, label %38
+path_alloc_copy.exit:                             ; preds = %if.then10
+  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(144) %ppath, ptr noundef nonnull align 8 dereferenceable(144) %path_new.i, i64 144, i1 false), !tbaa.struct !30
+  store i8 0, ptr %shares_segments, align 2, !tbaa !19
+  %9 = load ptr, ptr %current_subpath, align 8, !tbaa !21
+  call void @llvm.lifetime.end.p0(i64 144, ptr nonnull %path_new.i) #12
+  %cmp11.not = icmp eq ptr %9, null
+  br i1 %cmp11.not, label %cleanup, label %path_alloc_copy.exit.if.end14_crit_edge
 
-38:                                               ; preds = %35
-  %39 = load ptr, ptr %22, align 8, !tbaa !22
-  br label %40
+path_alloc_copy.exit.if.end14_crit_edge:          ; preds = %path_alloc_copy.exit
+  %.pre = load ptr, ptr %last, align 8, !tbaa !22
+  br label %if.end14
 
-40:                                               ; preds = %38, %27
-  %41 = phi ptr [ %39, %38 ], [ %23, %27 ]
-  %42 = getelementptr inbounds %struct.segment_s, ptr %41, i64 0, i32 2
-  store i32 2, ptr %42, align 8, !tbaa !24
-  br label %78
+if.end14:                                         ; preds = %path_alloc_copy.exit.if.end14_crit_edge, %if.then8
+  %10 = phi ptr [ %.pre, %path_alloc_copy.exit.if.end14_crit_edge ], [ %6, %if.then8 ]
+  %type16 = getelementptr inbounds %struct.segment_s, ptr %10, i64 0, i32 2
+  store i32 2, ptr %type16, align 8, !tbaa !24
+  br label %if.end47
 
-43:                                               ; preds = %21, %15, %9
-  %44 = getelementptr inbounds %struct.gx_path_s, ptr %0, i64 0, i32 12
-  %45 = load i8, ptr %44, align 2, !tbaa !19
-  %46 = icmp eq i8 %45, 0
-  br i1 %46, label %54, label %47
+if.else:                                          ; preds = %land.lhs.true6, %land.lhs.true, %if.end
+  %shares_segments17 = getelementptr inbounds %struct.gx_path_s, ptr %ppath, i64 0, i32 12
+  %11 = load i8, ptr %shares_segments17, align 2, !tbaa !19
+  %tobool18.not = icmp eq i8 %11, 0
+  br i1 %tobool18.not, label %if.end24, label %if.then19
 
-47:                                               ; preds = %43
-  call void @llvm.lifetime.start.p0(i64 144, ptr nonnull %2) #12
-  %48 = call i32 @gx_path_copy(ptr noundef nonnull %0, ptr noundef nonnull %2) #12
-  %49 = icmp slt i32 %48, 0
-  br i1 %49, label %50, label %51
+if.then19:                                        ; preds = %if.else
+  call void @llvm.lifetime.start.p0(i64 144, ptr nonnull %path_new.i78) #12
+  %call.i79 = call i32 @gx_path_copy(ptr noundef nonnull %ppath, ptr noundef nonnull %path_new.i78) #12
+  %cmp.i80 = icmp slt i32 %call.i79, 0
+  br i1 %cmp.i80, label %path_alloc_copy.exit85.thread, label %path_alloc_copy.exit85
 
-50:                                               ; preds = %47
-  call void @llvm.lifetime.end.p0(i64 144, ptr nonnull %2) #12
-  br label %81
+path_alloc_copy.exit85.thread:                    ; preds = %if.then19
+  call void @llvm.lifetime.end.p0(i64 144, ptr nonnull %path_new.i78) #12
+  br label %cleanup
 
-51:                                               ; preds = %47
-  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(144) %0, ptr noundef nonnull align 8 dereferenceable(144) %2, i64 144, i1 false), !tbaa.struct !30
-  store i8 0, ptr %44, align 2, !tbaa !19
-  %52 = load ptr, ptr %4, align 8, !tbaa !21
-  call void @llvm.lifetime.end.p0(i64 144, ptr nonnull %2) #12
-  %53 = icmp eq ptr %52, null
-  br i1 %53, label %81, label %54
+path_alloc_copy.exit85:                           ; preds = %if.then19
+  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(144) %ppath, ptr noundef nonnull align 8 dereferenceable(144) %path_new.i78, i64 144, i1 false), !tbaa.struct !30
+  store i8 0, ptr %shares_segments17, align 2, !tbaa !19
+  %12 = load ptr, ptr %current_subpath, align 8, !tbaa !21
+  call void @llvm.lifetime.end.p0(i64 144, ptr nonnull %path_new.i78) #12
+  %tobool21.not = icmp eq ptr %12, null
+  br i1 %tobool21.not, label %cleanup, label %if.end24
 
-54:                                               ; preds = %51, %43
-  %55 = phi ptr [ %52, %51 ], [ %5, %43 ]
-  %56 = load ptr, ptr %0, align 8, !tbaa !34
-  %57 = call ptr %56(i32 noundef 1, i32 noundef 40, ptr noundef nonnull @.str.7) #12
-  %58 = icmp eq ptr %57, null
-  br i1 %58, label %81, label %59
+if.end24:                                         ; preds = %path_alloc_copy.exit85, %if.else
+  %psub.0 = phi ptr [ %12, %path_alloc_copy.exit85 ], [ %0, %if.else ]
+  %13 = load ptr, ptr %ppath, align 8, !tbaa !34
+  %call25 = call ptr %13(i32 noundef 1, i32 noundef 40, ptr noundef nonnull @.str.7) #12
+  %tobool26.not = icmp eq ptr %call25, null
+  br i1 %tobool26.not, label %cleanup, label %if.end28
 
-59:                                               ; preds = %54
-  %60 = getelementptr inbounds %struct.line_segment, ptr %57, i64 0, i32 2
-  store i32 2, ptr %60, align 8, !tbaa !42
-  %61 = getelementptr inbounds %struct.line_segment, ptr %57, i64 0, i32 1
-  store ptr null, ptr %61, align 8, !tbaa !44
-  %62 = getelementptr inbounds %struct.subpath, ptr %55, i64 0, i32 4
-  %63 = load ptr, ptr %62, align 8, !tbaa !22
-  %64 = getelementptr inbounds %struct.segment_s, ptr %63, i64 0, i32 1
-  store ptr %57, ptr %64, align 8, !tbaa !45
-  store ptr %63, ptr %57, align 8, !tbaa !46
-  store ptr %57, ptr %62, align 8, !tbaa !22
-  %65 = getelementptr inbounds %struct.subpath, ptr %55, i64 0, i32 3
-  %66 = load i64, ptr %65, align 8, !tbaa !52
-  store i64 %66, ptr %10, align 8, !tbaa !40
-  %67 = getelementptr inbounds %struct.line_segment, ptr %57, i64 0, i32 3
-  store i64 %66, ptr %67, align 8, !tbaa !47
-  %68 = getelementptr inbounds %struct.subpath, ptr %55, i64 0, i32 3, i32 1
-  %69 = load i64, ptr %68, align 8, !tbaa !53
-  %70 = getelementptr inbounds %struct.gx_path_s, ptr %0, i64 0, i32 9, i32 1
-  store i64 %69, ptr %70, align 8, !tbaa !41
-  %71 = getelementptr inbounds %struct.line_segment, ptr %57, i64 0, i32 3, i32 1
-  store i64 %69, ptr %71, align 8, !tbaa !48
-  %72 = getelementptr inbounds %struct.subpath, ptr %55, i64 0, i32 5
-  %73 = load i32, ptr %72, align 8, !tbaa !49
-  %74 = add nsw i32 %73, 1
-  store i32 %74, ptr %72, align 8, !tbaa !49
-  %75 = getelementptr inbounds %struct.gx_path_s, ptr %0, i64 0, i32 7
-  %76 = load i32, ptr %75, align 4, !tbaa !50
-  %77 = add nsw i32 %76, 1
-  store i32 %77, ptr %75, align 4, !tbaa !50
-  br label %78
+if.end28:                                         ; preds = %if.end24
+  %type29 = getelementptr inbounds %struct.line_segment, ptr %call25, i64 0, i32 2
+  store i32 2, ptr %type29, align 8, !tbaa !42
+  %next = getelementptr inbounds %struct.line_segment, ptr %call25, i64 0, i32 1
+  store ptr null, ptr %next, align 8, !tbaa !44
+  %last30 = getelementptr inbounds %struct.subpath, ptr %psub.0, i64 0, i32 4
+  %14 = load ptr, ptr %last30, align 8, !tbaa !22
+  %next31 = getelementptr inbounds %struct.segment_s, ptr %14, i64 0, i32 1
+  store ptr %call25, ptr %next31, align 8, !tbaa !45
+  store ptr %14, ptr %call25, align 8, !tbaa !46
+  store ptr %call25, ptr %last30, align 8, !tbaa !22
+  %pt34 = getelementptr inbounds %struct.subpath, ptr %psub.0, i64 0, i32 3
+  %15 = load i64, ptr %pt34, align 8, !tbaa !52
+  store i64 %15, ptr %position, align 8, !tbaa !40
+  %pt38 = getelementptr inbounds %struct.line_segment, ptr %call25, i64 0, i32 3
+  store i64 %15, ptr %pt38, align 8, !tbaa !47
+  %y41 = getelementptr inbounds %struct.subpath, ptr %psub.0, i64 0, i32 3, i32 1
+  %16 = load i64, ptr %y41, align 8, !tbaa !53
+  %y43 = getelementptr inbounds %struct.gx_path_s, ptr %ppath, i64 0, i32 9, i32 1
+  store i64 %16, ptr %y43, align 8, !tbaa !41
+  %y45 = getelementptr inbounds %struct.line_segment, ptr %call25, i64 0, i32 3, i32 1
+  store i64 %16, ptr %y45, align 8, !tbaa !48
+  %line_count = getelementptr inbounds %struct.subpath, ptr %psub.0, i64 0, i32 5
+  %17 = load i32, ptr %line_count, align 8, !tbaa !49
+  %inc = add nsw i32 %17, 1
+  store i32 %inc, ptr %line_count, align 8, !tbaa !49
+  %segment_count = getelementptr inbounds %struct.gx_path_s, ptr %ppath, i64 0, i32 7
+  %18 = load i32, ptr %segment_count, align 4, !tbaa !50
+  %inc46 = add nsw i32 %18, 1
+  store i32 %inc46, ptr %segment_count, align 4, !tbaa !50
+  br label %if.end47
 
-78:                                               ; preds = %59, %40
-  %79 = phi ptr [ %5, %40 ], [ %55, %59 ]
-  %80 = getelementptr inbounds %struct.subpath, ptr %79, i64 0, i32 7
-  store i8 1, ptr %80, align 8, !tbaa !54
-  store i8 0, ptr %6, align 1, !tbaa !18
-  br label %81
+if.end47:                                         ; preds = %if.end28, %if.end14
+  %psub.1 = phi ptr [ %0, %if.end14 ], [ %psub.0, %if.end28 ]
+  %closed = getelementptr inbounds %struct.subpath, ptr %psub.1, i64 0, i32 7
+  store i8 1, ptr %closed, align 8, !tbaa !54
+  store i8 0, ptr %subpath_open, align 1, !tbaa !18
+  br label %cleanup
 
-81:                                               ; preds = %54, %51, %50, %35, %34, %1, %78
-  %82 = phi i32 [ 0, %78 ], [ 0, %1 ], [ -13, %34 ], [ -13, %35 ], [ -13, %50 ], [ -13, %51 ], [ -13, %54 ]
-  ret i32 %82
+cleanup:                                          ; preds = %path_alloc_copy.exit85.thread, %path_alloc_copy.exit.thread, %if.end24, %path_alloc_copy.exit85, %path_alloc_copy.exit, %entry, %if.end47
+  %retval.0 = phi i32 [ 0, %if.end47 ], [ 0, %entry ], [ -13, %path_alloc_copy.exit ], [ -13, %path_alloc_copy.exit85 ], [ -13, %if.end24 ], [ -13, %path_alloc_copy.exit.thread ], [ -13, %path_alloc_copy.exit85.thread ]
+  ret i32 %retval.0
 }
 
 ; Function Attrs: nounwind uwtable
-define dso_local i32 @gx_path_add_curve(ptr noundef %0, i64 noundef %1, i64 noundef %2, i64 noundef %3, i64 noundef %4, i64 noundef %5, i64 noundef %6) local_unnamed_addr #2 {
-  %8 = alloca %struct.gx_path_s, align 8
-  %9 = alloca %struct.gx_path_s, align 8
-  %10 = getelementptr inbounds %struct.gx_path_s, ptr %0, i64 0, i32 5
-  %11 = load ptr, ptr %10, align 8, !tbaa !21
-  %12 = getelementptr inbounds %struct.gx_path_s, ptr %0, i64 0, i32 11
-  %13 = load i8, ptr %12, align 1, !tbaa !18
-  %14 = icmp eq i8 %13, 0
-  br i1 %14, label %15, label %55
+define dso_local i32 @gx_path_add_curve(ptr noundef %ppath, i64 noundef %x1, i64 noundef %y1, i64 noundef %x2, i64 noundef %y2, i64 noundef %x3, i64 noundef %y3) local_unnamed_addr #2 {
+entry:
+  %path_new.i = alloca %struct.gx_path_s, align 8
+  %path_new.i.i = alloca %struct.gx_path_s, align 8
+  %current_subpath = getelementptr inbounds %struct.gx_path_s, ptr %ppath, i64 0, i32 5
+  %0 = load ptr, ptr %current_subpath, align 8, !tbaa !21
+  %subpath_open = getelementptr inbounds %struct.gx_path_s, ptr %ppath, i64 0, i32 11
+  %1 = load i8, ptr %subpath_open, align 1, !tbaa !18
+  %tobool.not = icmp eq i8 %1, 0
+  br i1 %tobool.not, label %if.then, label %if.end6
 
-15:                                               ; preds = %7
-  %16 = getelementptr inbounds %struct.gx_path_s, ptr %0, i64 0, i32 10
-  %17 = load i8, ptr %16, align 8, !tbaa !17
-  %18 = icmp eq i8 %17, 0
-  br i1 %18, label %92, label %19
+if.then:                                          ; preds = %entry
+  %position_valid = getelementptr inbounds %struct.gx_path_s, ptr %ppath, i64 0, i32 10
+  %2 = load i8, ptr %position_valid, align 8, !tbaa !17
+  %tobool1.not = icmp eq i8 %2, 0
+  br i1 %tobool1.not, label %cleanup34, label %if.end
 
-19:                                               ; preds = %15
-  %20 = getelementptr inbounds %struct.gx_path_s, ptr %0, i64 0, i32 12
-  %21 = load i8, ptr %20, align 2, !tbaa !19
-  %22 = icmp eq i8 %21, 0
-  br i1 %22, label %30, label %23
+if.end:                                           ; preds = %if.then
+  %shares_segments.i = getelementptr inbounds %struct.gx_path_s, ptr %ppath, i64 0, i32 12
+  %3 = load i8, ptr %shares_segments.i, align 2, !tbaa !19
+  %tobool.not.i = icmp eq i8 %3, 0
+  br i1 %tobool.not.i, label %if.end3.i, label %if.then.i
 
-23:                                               ; preds = %19
-  call void @llvm.lifetime.start.p0(i64 144, ptr nonnull %9) #12
-  %24 = call i32 @gx_path_copy(ptr noundef nonnull %0, ptr noundef nonnull %9) #12
-  %25 = icmp slt i32 %24, 0
-  br i1 %25, label %26, label %27
+if.then.i:                                        ; preds = %if.end
+  call void @llvm.lifetime.start.p0(i64 144, ptr nonnull %path_new.i.i) #12
+  %call.i.i = call i32 @gx_path_copy(ptr noundef nonnull %ppath, ptr noundef nonnull %path_new.i.i) #12
+  %cmp.i.i = icmp slt i32 %call.i.i, 0
+  br i1 %cmp.i.i, label %path_alloc_copy.exit.thread.i, label %path_alloc_copy.exit.i
 
-26:                                               ; preds = %23
-  call void @llvm.lifetime.end.p0(i64 144, ptr nonnull %9) #12
-  br label %92
+path_alloc_copy.exit.thread.i:                    ; preds = %if.then.i
+  call void @llvm.lifetime.end.p0(i64 144, ptr nonnull %path_new.i.i) #12
+  br label %cleanup34
 
-27:                                               ; preds = %23
-  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(144) %0, ptr noundef nonnull align 8 dereferenceable(144) %9, i64 144, i1 false), !tbaa.struct !30
-  store i8 0, ptr %20, align 2, !tbaa !19
-  %28 = load ptr, ptr %10, align 8, !tbaa !21
-  call void @llvm.lifetime.end.p0(i64 144, ptr nonnull %9) #12
-  %29 = icmp eq ptr %28, null
-  br i1 %29, label %92, label %30
+path_alloc_copy.exit.i:                           ; preds = %if.then.i
+  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(144) %ppath, ptr noundef nonnull align 8 dereferenceable(144) %path_new.i.i, i64 144, i1 false), !tbaa.struct !30
+  store i8 0, ptr %shares_segments.i, align 2, !tbaa !19
+  %4 = load ptr, ptr %current_subpath, align 8, !tbaa !21
+  call void @llvm.lifetime.end.p0(i64 144, ptr nonnull %path_new.i.i) #12
+  %tobool1.not.i = icmp eq ptr %4, null
+  br i1 %tobool1.not.i, label %cleanup34, label %if.end3.i
 
-30:                                               ; preds = %27, %19
-  %31 = phi ptr [ %28, %27 ], [ %11, %19 ]
-  %32 = load ptr, ptr %0, align 8, !tbaa !34
-  %33 = call ptr %32(i32 noundef 1, i32 noundef 64, ptr noundef nonnull @.str.4) #12
-  %34 = icmp eq ptr %33, null
-  br i1 %34, label %92, label %35
+if.end3.i:                                        ; preds = %path_alloc_copy.exit.i, %if.end
+  %psub.0.i = phi ptr [ %4, %path_alloc_copy.exit.i ], [ %0, %if.end ]
+  %5 = load ptr, ptr %ppath, align 8, !tbaa !34
+  %call4.i = call ptr %5(i32 noundef 1, i32 noundef 64, ptr noundef nonnull @.str.4) #12
+  %tobool5.not.i = icmp eq ptr %call4.i, null
+  br i1 %tobool5.not.i, label %cleanup34, label %if.end7.i
 
-35:                                               ; preds = %30
-  %36 = getelementptr inbounds %struct.subpath, ptr %33, i64 0, i32 2
-  store i32 0, ptr %36, align 8, !tbaa !35
-  %37 = getelementptr inbounds %struct.subpath, ptr %33, i64 0, i32 1
-  store ptr null, ptr %37, align 8, !tbaa !36
-  %38 = getelementptr inbounds %struct.subpath, ptr %33, i64 0, i32 4
-  store ptr %33, ptr %38, align 8, !tbaa !22
-  %39 = getelementptr inbounds %struct.subpath, ptr %33, i64 0, i32 5
-  %40 = getelementptr inbounds %struct.subpath, ptr %33, i64 0, i32 3
-  %41 = getelementptr inbounds %struct.gx_path_s, ptr %0, i64 0, i32 9
-  call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(9) %39, i8 0, i64 9, i1 false)
-  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %40, ptr noundef nonnull align 8 dereferenceable(16) %41, i64 16, i1 false), !tbaa.struct !37
-  store i8 1, ptr %12, align 1, !tbaa !18
-  %42 = icmp eq ptr %31, null
-  br i1 %42, label %43, label %45
+if.end7.i:                                        ; preds = %if.end3.i
+  %type.i = getelementptr inbounds %struct.subpath, ptr %call4.i, i64 0, i32 2
+  store i32 0, ptr %type.i, align 8, !tbaa !35
+  %next.i = getelementptr inbounds %struct.subpath, ptr %call4.i, i64 0, i32 1
+  store ptr null, ptr %next.i, align 8, !tbaa !36
+  %last.i = getelementptr inbounds %struct.subpath, ptr %call4.i, i64 0, i32 4
+  store ptr %call4.i, ptr %last.i, align 8, !tbaa !22
+  %line_count.i = getelementptr inbounds %struct.subpath, ptr %call4.i, i64 0, i32 5
+  %pt.i = getelementptr inbounds %struct.subpath, ptr %call4.i, i64 0, i32 3
+  %position.i = getelementptr inbounds %struct.gx_path_s, ptr %ppath, i64 0, i32 9
+  call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(9) %line_count.i, i8 0, i64 9, i1 false)
+  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %pt.i, ptr noundef nonnull align 8 dereferenceable(16) %position.i, i64 16, i1 false), !tbaa.struct !37
+  store i8 1, ptr %subpath_open, align 1, !tbaa !18
+  %tobool8.not.i = icmp eq ptr %psub.0.i, null
+  br i1 %tobool8.not.i, label %if.then9.i, label %if.else.i
 
-43:                                               ; preds = %35
-  %44 = getelementptr inbounds %struct.gx_path_s, ptr %0, i64 0, i32 4
-  br label %49
+if.then9.i:                                       ; preds = %if.end7.i
+  %first_subpath.i = getelementptr inbounds %struct.gx_path_s, ptr %ppath, i64 0, i32 4
+  br label %cleanup
 
-45:                                               ; preds = %35
-  %46 = getelementptr inbounds %struct.subpath, ptr %31, i64 0, i32 4
-  %47 = load ptr, ptr %46, align 8, !tbaa !22
-  %48 = getelementptr inbounds %struct.segment_s, ptr %47, i64 0, i32 1
-  br label %49
+if.else.i:                                        ; preds = %if.end7.i
+  %last11.i = getelementptr inbounds %struct.subpath, ptr %psub.0.i, i64 0, i32 4
+  %6 = load ptr, ptr %last11.i, align 8, !tbaa !22
+  %next12.i = getelementptr inbounds %struct.segment_s, ptr %6, i64 0, i32 1
+  br label %cleanup
 
-49:                                               ; preds = %43, %45
-  %50 = phi ptr [ %48, %45 ], [ %44, %43 ]
-  %51 = phi ptr [ %47, %45 ], [ null, %43 ]
-  store ptr %33, ptr %50, align 8, !tbaa !6
-  store ptr %51, ptr %33, align 8, !tbaa !38
-  store ptr %33, ptr %10, align 8, !tbaa !21
-  %52 = getelementptr inbounds %struct.gx_path_s, ptr %0, i64 0, i32 6
-  %53 = load i32, ptr %52, align 8, !tbaa !39
-  %54 = add nsw i32 %53, 1
-  store i32 %54, ptr %52, align 8, !tbaa !39
-  br label %55
+cleanup:                                          ; preds = %if.then9.i, %if.else.i
+  %next12.sink.i = phi ptr [ %next12.i, %if.else.i ], [ %first_subpath.i, %if.then9.i ]
+  %storemerge.i = phi ptr [ %6, %if.else.i ], [ null, %if.then9.i ]
+  store ptr %call4.i, ptr %next12.sink.i, align 8, !tbaa !6
+  store ptr %storemerge.i, ptr %call4.i, align 8, !tbaa !38
+  store ptr %call4.i, ptr %current_subpath, align 8, !tbaa !21
+  %subpath_count.i = getelementptr inbounds %struct.gx_path_s, ptr %ppath, i64 0, i32 6
+  %7 = load i32, ptr %subpath_count.i, align 8, !tbaa !39
+  %inc.i = add nsw i32 %7, 1
+  store i32 %inc.i, ptr %subpath_count.i, align 8, !tbaa !39
+  br label %if.end6
 
-55:                                               ; preds = %49, %7
-  %56 = phi ptr [ %11, %7 ], [ %33, %49 ]
-  %57 = getelementptr inbounds %struct.gx_path_s, ptr %0, i64 0, i32 12
-  %58 = load i8, ptr %57, align 2, !tbaa !19
-  %59 = icmp eq i8 %58, 0
-  br i1 %59, label %67, label %60
+if.end6:                                          ; preds = %cleanup, %entry
+  %psub.1 = phi ptr [ %0, %entry ], [ %call4.i, %cleanup ]
+  %shares_segments = getelementptr inbounds %struct.gx_path_s, ptr %ppath, i64 0, i32 12
+  %8 = load i8, ptr %shares_segments, align 2, !tbaa !19
+  %tobool7.not = icmp eq i8 %8, 0
+  br i1 %tobool7.not, label %if.end13, label %if.then8
 
-60:                                               ; preds = %55
-  call void @llvm.lifetime.start.p0(i64 144, ptr nonnull %8) #12
-  %61 = call i32 @gx_path_copy(ptr noundef nonnull %0, ptr noundef nonnull %8) #12
-  %62 = icmp slt i32 %61, 0
-  br i1 %62, label %63, label %64
+if.then8:                                         ; preds = %if.end6
+  call void @llvm.lifetime.start.p0(i64 144, ptr nonnull %path_new.i) #12
+  %call.i = call i32 @gx_path_copy(ptr noundef nonnull %ppath, ptr noundef nonnull %path_new.i) #12
+  %cmp.i = icmp slt i32 %call.i, 0
+  br i1 %cmp.i, label %path_alloc_copy.exit.thread, label %path_alloc_copy.exit
 
-63:                                               ; preds = %60
-  call void @llvm.lifetime.end.p0(i64 144, ptr nonnull %8) #12
-  br label %92
+path_alloc_copy.exit.thread:                      ; preds = %if.then8
+  call void @llvm.lifetime.end.p0(i64 144, ptr nonnull %path_new.i) #12
+  br label %cleanup34
 
-64:                                               ; preds = %60
-  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(144) %0, ptr noundef nonnull align 8 dereferenceable(144) %8, i64 144, i1 false), !tbaa.struct !30
-  store i8 0, ptr %57, align 2, !tbaa !19
-  %65 = load ptr, ptr %10, align 8, !tbaa !21
-  call void @llvm.lifetime.end.p0(i64 144, ptr nonnull %8) #12
-  %66 = icmp eq ptr %65, null
-  br i1 %66, label %92, label %67
+path_alloc_copy.exit:                             ; preds = %if.then8
+  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(144) %ppath, ptr noundef nonnull align 8 dereferenceable(144) %path_new.i, i64 144, i1 false), !tbaa.struct !30
+  store i8 0, ptr %shares_segments, align 2, !tbaa !19
+  %9 = load ptr, ptr %current_subpath, align 8, !tbaa !21
+  call void @llvm.lifetime.end.p0(i64 144, ptr nonnull %path_new.i) #12
+  %tobool10.not = icmp eq ptr %9, null
+  br i1 %tobool10.not, label %cleanup34, label %if.end13
 
-67:                                               ; preds = %64, %55
-  %68 = phi ptr [ %65, %64 ], [ %56, %55 ]
-  %69 = load ptr, ptr %0, align 8, !tbaa !34
-  %70 = call ptr %69(i32 noundef 1, i32 noundef 72, ptr noundef nonnull @.str.6) #12
-  %71 = icmp eq ptr %70, null
-  br i1 %71, label %92, label %72
+if.end13:                                         ; preds = %path_alloc_copy.exit, %if.end6
+  %psub.2 = phi ptr [ %9, %path_alloc_copy.exit ], [ %psub.1, %if.end6 ]
+  %10 = load ptr, ptr %ppath, align 8, !tbaa !34
+  %call14 = call ptr %10(i32 noundef 1, i32 noundef 72, ptr noundef nonnull @.str.6) #12
+  %tobool15.not = icmp eq ptr %call14, null
+  br i1 %tobool15.not, label %cleanup34, label %if.end17
 
-72:                                               ; preds = %67
-  %73 = getelementptr inbounds %struct.curve_segment, ptr %70, i64 0, i32 2
-  store i32 3, ptr %73, align 8, !tbaa !55
-  %74 = getelementptr inbounds %struct.curve_segment, ptr %70, i64 0, i32 1
-  store ptr null, ptr %74, align 8, !tbaa !57
-  %75 = getelementptr inbounds %struct.subpath, ptr %68, i64 0, i32 4
-  %76 = load ptr, ptr %75, align 8, !tbaa !22
-  %77 = getelementptr inbounds %struct.segment_s, ptr %76, i64 0, i32 1
-  store ptr %70, ptr %77, align 8, !tbaa !45
-  store ptr %76, ptr %70, align 8, !tbaa !58
-  store ptr %70, ptr %75, align 8, !tbaa !22
-  %78 = getelementptr inbounds %struct.curve_segment, ptr %70, i64 0, i32 4
-  store i64 %1, ptr %78, align 8, !tbaa !59
-  %79 = getelementptr inbounds %struct.curve_segment, ptr %70, i64 0, i32 4, i32 1
-  store i64 %2, ptr %79, align 8, !tbaa !60
-  %80 = getelementptr inbounds %struct.curve_segment, ptr %70, i64 0, i32 5
-  store i64 %3, ptr %80, align 8, !tbaa !61
-  %81 = getelementptr inbounds %struct.curve_segment, ptr %70, i64 0, i32 5, i32 1
-  store i64 %4, ptr %81, align 8, !tbaa !62
-  %82 = getelementptr inbounds %struct.gx_path_s, ptr %0, i64 0, i32 9
-  store i64 %5, ptr %82, align 8, !tbaa !40
-  %83 = getelementptr inbounds %struct.curve_segment, ptr %70, i64 0, i32 3
-  store i64 %5, ptr %83, align 8, !tbaa !63
-  %84 = getelementptr inbounds %struct.gx_path_s, ptr %0, i64 0, i32 9, i32 1
-  store i64 %6, ptr %84, align 8, !tbaa !41
-  %85 = getelementptr inbounds %struct.curve_segment, ptr %70, i64 0, i32 3, i32 1
-  store i64 %6, ptr %85, align 8, !tbaa !64
-  %86 = getelementptr inbounds %struct.subpath, ptr %68, i64 0, i32 6
-  %87 = load i32, ptr %86, align 4, !tbaa !65
-  %88 = add nsw i32 %87, 1
-  store i32 %88, ptr %86, align 4, !tbaa !65
-  %89 = getelementptr inbounds %struct.gx_path_s, ptr %0, i64 0, i32 7
-  %90 = load <2 x i32>, ptr %89, align 4, !tbaa !32
-  %91 = add nsw <2 x i32> %90, <i32 1, i32 1>
-  store <2 x i32> %91, ptr %89, align 4, !tbaa !32
-  br label %92
+if.end17:                                         ; preds = %if.end13
+  %type = getelementptr inbounds %struct.curve_segment, ptr %call14, i64 0, i32 2
+  store i32 3, ptr %type, align 8, !tbaa !55
+  %next = getelementptr inbounds %struct.curve_segment, ptr %call14, i64 0, i32 1
+  store ptr null, ptr %next, align 8, !tbaa !57
+  %last = getelementptr inbounds %struct.subpath, ptr %psub.2, i64 0, i32 4
+  %11 = load ptr, ptr %last, align 8, !tbaa !22
+  %next18 = getelementptr inbounds %struct.segment_s, ptr %11, i64 0, i32 1
+  store ptr %call14, ptr %next18, align 8, !tbaa !45
+  store ptr %11, ptr %call14, align 8, !tbaa !58
+  store ptr %call14, ptr %last, align 8, !tbaa !22
+  %p1 = getelementptr inbounds %struct.curve_segment, ptr %call14, i64 0, i32 4
+  store i64 %x1, ptr %p1, align 8, !tbaa !59
+  %y = getelementptr inbounds %struct.curve_segment, ptr %call14, i64 0, i32 4, i32 1
+  store i64 %y1, ptr %y, align 8, !tbaa !60
+  %p2 = getelementptr inbounds %struct.curve_segment, ptr %call14, i64 0, i32 5
+  store i64 %x2, ptr %p2, align 8, !tbaa !61
+  %y24 = getelementptr inbounds %struct.curve_segment, ptr %call14, i64 0, i32 5, i32 1
+  store i64 %y2, ptr %y24, align 8, !tbaa !62
+  %position = getelementptr inbounds %struct.gx_path_s, ptr %ppath, i64 0, i32 9
+  store i64 %x3, ptr %position, align 8, !tbaa !40
+  %pt = getelementptr inbounds %struct.curve_segment, ptr %call14, i64 0, i32 3
+  store i64 %x3, ptr %pt, align 8, !tbaa !63
+  %y28 = getelementptr inbounds %struct.gx_path_s, ptr %ppath, i64 0, i32 9, i32 1
+  store i64 %y3, ptr %y28, align 8, !tbaa !41
+  %y30 = getelementptr inbounds %struct.curve_segment, ptr %call14, i64 0, i32 3, i32 1
+  store i64 %y3, ptr %y30, align 8, !tbaa !64
+  %curve_count = getelementptr inbounds %struct.subpath, ptr %psub.2, i64 0, i32 6
+  %12 = load i32, ptr %curve_count, align 4, !tbaa !65
+  %inc = add nsw i32 %12, 1
+  store i32 %inc, ptr %curve_count, align 4, !tbaa !65
+  %segment_count = getelementptr inbounds %struct.gx_path_s, ptr %ppath, i64 0, i32 7
+  %13 = load <2 x i32>, ptr %segment_count, align 4, !tbaa !32
+  %14 = add nsw <2 x i32> %13, <i32 1, i32 1>
+  store <2 x i32> %14, ptr %segment_count, align 4, !tbaa !32
+  br label %cleanup34
 
-92:                                               ; preds = %30, %27, %26, %15, %67, %64, %63, %72
-  %93 = phi i32 [ 0, %72 ], [ -13, %63 ], [ -13, %64 ], [ -13, %67 ], [ -13, %30 ], [ -13, %27 ], [ -13, %26 ], [ -14, %15 ]
-  ret i32 %93
+cleanup34:                                        ; preds = %path_alloc_copy.exit.thread.i, %if.end3.i, %path_alloc_copy.exit.i, %if.then, %path_alloc_copy.exit.thread, %if.end13, %path_alloc_copy.exit, %if.end17
+  %retval.1 = phi i32 [ 0, %if.end17 ], [ -13, %path_alloc_copy.exit ], [ -13, %if.end13 ], [ -13, %path_alloc_copy.exit.thread ], [ -14, %if.then ], [ -13, %path_alloc_copy.exit.i ], [ -13, %if.end3.i ], [ -13, %path_alloc_copy.exit.thread.i ]
+  ret i32 %retval.1
 }
 
 ; Function Attrs: nounwind uwtable
-define dso_local i32 @gx_path_add_arc(ptr noundef %0, i64 noundef %1, i64 noundef %2, i64 noundef %3, i64 noundef %4, i64 noundef %5, i64 noundef %6) local_unnamed_addr #2 {
-  %8 = sitofp i64 %5 to double
-  %9 = fmul double %8, 5.500000e-01
-  %10 = fptosi double %9 to i64
-  %11 = sitofp i64 %6 to double
-  %12 = fmul double %11, 5.500000e-01
-  %13 = fptosi double %12 to i64
-  %14 = sitofp i64 %1 to double
-  %15 = fmul double %14, 0x3FDCCCCCCCCCCCCC
-  %16 = fptosi double %15 to i64
-  %17 = add nsw i64 %10, %16
-  %18 = sitofp i64 %2 to double
-  %19 = fmul double %18, 0x3FDCCCCCCCCCCCCC
-  %20 = fptosi double %19 to i64
-  %21 = add nsw i64 %13, %20
-  %22 = sitofp i64 %3 to double
-  %23 = fmul double %22, 0x3FDCCCCCCCCCCCCC
-  %24 = fptosi double %23 to i64
-  %25 = add nsw i64 %10, %24
-  %26 = sitofp i64 %4 to double
-  %27 = fmul double %26, 0x3FDCCCCCCCCCCCCC
-  %28 = fptosi double %27 to i64
-  %29 = add nsw i64 %13, %28
-  %30 = tail call i32 @gx_path_add_curve(ptr noundef %0, i64 noundef %17, i64 noundef %21, i64 noundef %25, i64 noundef %29, i64 noundef %3, i64 noundef %4)
-  ret i32 %30
+define dso_local i32 @gx_path_add_arc(ptr noundef %ppath, i64 noundef %x0, i64 noundef %y0, i64 noundef %x3, i64 noundef %y3, i64 noundef %xt, i64 noundef %yt) local_unnamed_addr #2 {
+entry:
+  %conv = sitofp i64 %xt to double
+  %mul = fmul double %conv, 5.500000e-01
+  %conv1 = fptosi double %mul to i64
+  %conv2 = sitofp i64 %yt to double
+  %mul3 = fmul double %conv2, 5.500000e-01
+  %conv4 = fptosi double %mul3 to i64
+  %conv5 = sitofp i64 %x0 to double
+  %mul6 = fmul double %conv5, 0x3FDCCCCCCCCCCCCC
+  %conv7 = fptosi double %mul6 to i64
+  %add = add nsw i64 %conv1, %conv7
+  %conv8 = sitofp i64 %y0 to double
+  %mul9 = fmul double %conv8, 0x3FDCCCCCCCCCCCCC
+  %conv10 = fptosi double %mul9 to i64
+  %add11 = add nsw i64 %conv4, %conv10
+  %conv12 = sitofp i64 %x3 to double
+  %mul13 = fmul double %conv12, 0x3FDCCCCCCCCCCCCC
+  %conv14 = fptosi double %mul13 to i64
+  %add15 = add nsw i64 %conv1, %conv14
+  %conv16 = sitofp i64 %y3 to double
+  %mul17 = fmul double %conv16, 0x3FDCCCCCCCCCCCCC
+  %conv18 = fptosi double %mul17 to i64
+  %add19 = add nsw i64 %conv4, %conv18
+  %call = tail call i32 @gx_path_add_curve(ptr noundef %ppath, i64 noundef %add, i64 noundef %add11, i64 noundef %add15, i64 noundef %add19, i64 noundef %x3, i64 noundef %y3)
+  ret i32 %call
 }
 
 declare i32 @gx_path_copy(ptr noundef, ptr noundef) local_unnamed_addr #8

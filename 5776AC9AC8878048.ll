@@ -29,74 +29,75 @@ target triple = "x86_64-unknown-linux-gnu"
 @.str.14 = private unnamed_addr constant [5 x i8] c"$Id$\00", align 1
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(read, inaccessiblemem: none) uwtable
-define dso_local ptr @ltrace_fcn_name(ptr noundef readonly %0) local_unnamed_addr #0 {
-  %2 = icmp eq ptr %0, null
-  br i1 %2, label %44, label %3
+define dso_local ptr @ltrace_fcn_name(ptr noundef readonly %body) local_unnamed_addr #0 {
+entry:
+  %cmp = icmp eq ptr %body, null
+  br i1 %cmp, label %cleanup, label %cond.false
 
-3:                                                ; preds = %1
-  %4 = getelementptr inbounds %struct.obj, ptr %0, i64 0, i32 1
-  %5 = load i16, ptr %4, align 2, !tbaa !5
+cond.false:                                       ; preds = %entry
+  %type = getelementptr inbounds %struct.obj, ptr %body, i64 0, i32 1
+  %0 = load i16, ptr %type, align 2, !tbaa !5
+  %1 = icmp eq i16 %0, 1
+  br i1 %1, label %if.end, label %cleanup
+
+if.end:                                           ; preds = %cond.false
+  %storage_as = getelementptr inbounds %struct.obj, ptr %body, i64 0, i32 2
+  %2 = load ptr, ptr %storage_as, align 8, !tbaa !10
+  %3 = load ptr, ptr @sym_begin, align 8, !tbaa !11
+  %cmp3.not = icmp eq ptr %2, %3
+  br i1 %cmp3.not, label %if.end6, label %cleanup
+
+if.end6:                                          ; preds = %if.end
+  %cdr = getelementptr inbounds %struct.obj, ptr %body, i64 0, i32 2, i32 0, i32 1
+  %4 = load ptr, ptr %cdr, align 8, !tbaa !10
+  %cmp8 = icmp eq ptr %4, null
+  br i1 %cmp8, label %cleanup, label %cond.false11
+
+cond.false11:                                     ; preds = %if.end6
+  %type12 = getelementptr inbounds %struct.obj, ptr %4, i64 0, i32 1
+  %5 = load i16, ptr %type12, align 2, !tbaa !5
   %6 = icmp eq i16 %5, 1
-  br i1 %6, label %7, label %44
+  br i1 %6, label %if.end19, label %cleanup
 
-7:                                                ; preds = %3
-  %8 = getelementptr inbounds %struct.obj, ptr %0, i64 0, i32 2
-  %9 = load ptr, ptr %8, align 8, !tbaa !10
-  %10 = load ptr, ptr @sym_begin, align 8, !tbaa !11
-  %11 = icmp eq ptr %9, %10
-  br i1 %11, label %12, label %44
+if.end19:                                         ; preds = %cond.false11
+  %storage_as20 = getelementptr inbounds %struct.obj, ptr %4, i64 0, i32 2
+  %7 = load ptr, ptr %storage_as20, align 8, !tbaa !10
+  %cmp22 = icmp eq ptr %7, null
+  br i1 %cmp22, label %cleanup, label %cond.false25
 
-12:                                               ; preds = %7
-  %13 = getelementptr inbounds %struct.obj, ptr %0, i64 0, i32 2, i32 0, i32 1
-  %14 = load ptr, ptr %13, align 8, !tbaa !10
-  %15 = icmp eq ptr %14, null
-  br i1 %15, label %44, label %16
+cond.false25:                                     ; preds = %if.end19
+  %type26 = getelementptr inbounds %struct.obj, ptr %7, i64 0, i32 1
+  %8 = load i16, ptr %type26, align 2, !tbaa !5
+  %9 = icmp eq i16 %8, 1
+  br i1 %9, label %if.end33, label %cleanup
 
-16:                                               ; preds = %12
-  %17 = getelementptr inbounds %struct.obj, ptr %14, i64 0, i32 1
-  %18 = load i16, ptr %17, align 2, !tbaa !5
-  %19 = icmp eq i16 %18, 1
-  br i1 %19, label %20, label %44
+if.end33:                                         ; preds = %cond.false25
+  %storage_as34 = getelementptr inbounds %struct.obj, ptr %7, i64 0, i32 2
+  %10 = load ptr, ptr %storage_as34, align 8, !tbaa !10
+  %11 = load ptr, ptr @sym_quote, align 8, !tbaa !11
+  %cmp36.not = icmp eq ptr %10, %11
+  br i1 %cmp36.not, label %if.end39, label %cleanup
 
-20:                                               ; preds = %16
-  %21 = getelementptr inbounds %struct.obj, ptr %14, i64 0, i32 2
-  %22 = load ptr, ptr %21, align 8, !tbaa !10
-  %23 = icmp eq ptr %22, null
-  br i1 %23, label %44, label %24
+if.end39:                                         ; preds = %if.end33
+  %cdr41 = getelementptr inbounds %struct.obj, ptr %7, i64 0, i32 2, i32 0, i32 1
+  %12 = load ptr, ptr %cdr41, align 8, !tbaa !10
+  %cmp42 = icmp eq ptr %12, null
+  br i1 %cmp42, label %cleanup, label %cond.false45
 
-24:                                               ; preds = %20
-  %25 = getelementptr inbounds %struct.obj, ptr %22, i64 0, i32 1
-  %26 = load i16, ptr %25, align 2, !tbaa !5
-  %27 = icmp eq i16 %26, 1
-  br i1 %27, label %28, label %44
+cond.false45:                                     ; preds = %if.end39
+  %type46 = getelementptr inbounds %struct.obj, ptr %12, i64 0, i32 1
+  %13 = load i16, ptr %type46, align 2, !tbaa !5
+  %14 = icmp eq i16 %13, 1
+  br i1 %14, label %if.end53, label %cleanup
 
-28:                                               ; preds = %24
-  %29 = getelementptr inbounds %struct.obj, ptr %22, i64 0, i32 2
-  %30 = load ptr, ptr %29, align 8, !tbaa !10
-  %31 = load ptr, ptr @sym_quote, align 8, !tbaa !11
-  %32 = icmp eq ptr %30, %31
-  br i1 %32, label %33, label %44
+if.end53:                                         ; preds = %cond.false45
+  %storage_as54 = getelementptr inbounds %struct.obj, ptr %12, i64 0, i32 2
+  %15 = load ptr, ptr %storage_as54, align 8, !tbaa !10
+  br label %cleanup
 
-33:                                               ; preds = %28
-  %34 = getelementptr inbounds %struct.obj, ptr %22, i64 0, i32 2, i32 0, i32 1
-  %35 = load ptr, ptr %34, align 8, !tbaa !10
-  %36 = icmp eq ptr %35, null
-  br i1 %36, label %44, label %37
-
-37:                                               ; preds = %33
-  %38 = getelementptr inbounds %struct.obj, ptr %35, i64 0, i32 1
-  %39 = load i16, ptr %38, align 2, !tbaa !5
-  %40 = icmp eq i16 %39, 1
-  br i1 %40, label %41, label %44
-
-41:                                               ; preds = %37
-  %42 = getelementptr inbounds %struct.obj, ptr %35, i64 0, i32 2
-  %43 = load ptr, ptr %42, align 8, !tbaa !10
-  br label %44
-
-44:                                               ; preds = %33, %20, %12, %1, %37, %28, %24, %16, %7, %3, %41
-  %45 = phi ptr [ %43, %41 ], [ null, %3 ], [ null, %7 ], [ null, %16 ], [ null, %24 ], [ null, %28 ], [ null, %37 ], [ null, %1 ], [ null, %12 ], [ null, %20 ], [ null, %33 ]
-  ret ptr %45
+cleanup:                                          ; preds = %if.end39, %if.end19, %if.end6, %entry, %cond.false45, %if.end33, %cond.false25, %cond.false11, %if.end, %cond.false, %if.end53
+  %retval.0 = phi ptr [ %15, %if.end53 ], [ null, %cond.false ], [ null, %if.end ], [ null, %cond.false11 ], [ null, %cond.false25 ], [ null, %if.end33 ], [ null, %cond.false45 ], [ null, %entry ], [ null, %if.end6 ], [ null, %if.end19 ], [ null, %if.end39 ]
+  ret ptr %retval.0
 }
 
 ; Function Attrs: mustprogress nocallback nofree nosync nounwind willreturn memory(argmem: readwrite)
@@ -106,119 +107,120 @@ declare void @llvm.lifetime.start.p0(i64 immarg, ptr nocapture) #1
 declare void @llvm.lifetime.end.p0(i64 immarg, ptr nocapture) #1
 
 ; Function Attrs: nounwind uwtable
-define dso_local noalias ptr @ltrace_1(ptr noundef %0, ptr noundef %1) local_unnamed_addr #2 {
-  %3 = tail call ptr @leval(ptr noundef %0, ptr noundef %1) #4
-  %4 = icmp eq ptr %3, null
-  br i1 %4, label %71, label %5
+define dso_local noalias ptr @ltrace_1(ptr noundef %fcn_name, ptr noundef %env) local_unnamed_addr #2 {
+entry:
+  %call = tail call ptr @leval(ptr noundef %fcn_name, ptr noundef %env) #4
+  %cmp = icmp eq ptr %call, null
+  br i1 %cmp, label %cond.end24, label %cond.false
 
-5:                                                ; preds = %2
-  %6 = getelementptr inbounds %struct.obj, ptr %3, i64 0, i32 1
-  %7 = load i16, ptr %6, align 2, !tbaa !5
-  %8 = icmp eq i16 %7, 11
-  br i1 %8, label %9, label %69
+cond.false:                                       ; preds = %entry
+  %type = getelementptr inbounds %struct.obj, ptr %call, i64 0, i32 1
+  %0 = load i16, ptr %type, align 2, !tbaa !5
+  %1 = icmp eq i16 %0, 11
+  br i1 %1, label %if.then, label %cond.false21
 
-9:                                                ; preds = %5
-  %10 = getelementptr inbounds %struct.obj, ptr %3, i64 0, i32 2, i32 0, i32 1
-  %11 = load ptr, ptr %10, align 8, !tbaa !10
-  %12 = tail call ptr @cdr(ptr noundef %11) #4
-  %13 = icmp eq ptr %12, null
-  br i1 %13, label %56, label %14
+if.then:                                          ; preds = %cond.false
+  %code3 = getelementptr inbounds %struct.obj, ptr %call, i64 0, i32 2, i32 0, i32 1
+  %2 = load ptr, ptr %code3, align 8, !tbaa !10
+  %call4 = tail call ptr @cdr(ptr noundef %2) #4
+  %cmp.i = icmp eq ptr %call4, null
+  br i1 %cmp.i, label %if.then8, label %cond.false.i
 
-14:                                               ; preds = %9
-  %15 = getelementptr inbounds %struct.obj, ptr %12, i64 0, i32 1
-  %16 = load i16, ptr %15, align 2, !tbaa !5
+cond.false.i:                                     ; preds = %if.then
+  %type.i = getelementptr inbounds %struct.obj, ptr %call4, i64 0, i32 1
+  %3 = load i16, ptr %type.i, align 2, !tbaa !5
+  %4 = icmp eq i16 %3, 1
+  br i1 %4, label %if.end.i, label %if.then8
+
+if.end.i:                                         ; preds = %cond.false.i
+  %storage_as.i = getelementptr inbounds %struct.obj, ptr %call4, i64 0, i32 2
+  %5 = load ptr, ptr %storage_as.i, align 8, !tbaa !10
+  %6 = load ptr, ptr @sym_begin, align 8, !tbaa !11
+  %cmp3.not.i = icmp eq ptr %5, %6
+  br i1 %cmp3.not.i, label %if.end6.i, label %if.then8
+
+if.end6.i:                                        ; preds = %if.end.i
+  %cdr.i = getelementptr inbounds %struct.obj, ptr %call4, i64 0, i32 2, i32 0, i32 1
+  %7 = load ptr, ptr %cdr.i, align 8, !tbaa !10
+  %cmp8.i = icmp eq ptr %7, null
+  br i1 %cmp8.i, label %if.then8, label %cond.false11.i
+
+cond.false11.i:                                   ; preds = %if.end6.i
+  %type12.i = getelementptr inbounds %struct.obj, ptr %7, i64 0, i32 1
+  %8 = load i16, ptr %type12.i, align 2, !tbaa !5
+  %9 = icmp eq i16 %8, 1
+  br i1 %9, label %if.end19.i, label %if.then8
+
+if.end19.i:                                       ; preds = %cond.false11.i
+  %storage_as20.i = getelementptr inbounds %struct.obj, ptr %7, i64 0, i32 2
+  %10 = load ptr, ptr %storage_as20.i, align 8, !tbaa !10
+  %cmp22.i = icmp eq ptr %10, null
+  br i1 %cmp22.i, label %if.then8, label %cond.false25.i
+
+cond.false25.i:                                   ; preds = %if.end19.i
+  %type26.i = getelementptr inbounds %struct.obj, ptr %10, i64 0, i32 1
+  %11 = load i16, ptr %type26.i, align 2, !tbaa !5
+  %12 = icmp eq i16 %11, 1
+  br i1 %12, label %if.end33.i, label %if.then8
+
+if.end33.i:                                       ; preds = %cond.false25.i
+  %storage_as34.i = getelementptr inbounds %struct.obj, ptr %10, i64 0, i32 2
+  %13 = load ptr, ptr %storage_as34.i, align 8, !tbaa !10
+  %14 = load ptr, ptr @sym_quote, align 8, !tbaa !11
+  %cmp36.not.i = icmp eq ptr %13, %14
+  br i1 %cmp36.not.i, label %if.end39.i, label %if.then8
+
+if.end39.i:                                       ; preds = %if.end33.i
+  %cdr41.i = getelementptr inbounds %struct.obj, ptr %10, i64 0, i32 2, i32 0, i32 1
+  %15 = load ptr, ptr %cdr41.i, align 8, !tbaa !10
+  %cmp42.i = icmp eq ptr %15, null
+  br i1 %cmp42.i, label %if.then8, label %cond.false45.i
+
+cond.false45.i:                                   ; preds = %if.end39.i
+  %type46.i = getelementptr inbounds %struct.obj, ptr %15, i64 0, i32 1
+  %16 = load i16, ptr %type46.i, align 2, !tbaa !5
   %17 = icmp eq i16 %16, 1
-  br i1 %17, label %18, label %56
+  br i1 %17, label %ltrace_fcn_name.exit, label %if.then8
 
-18:                                               ; preds = %14
-  %19 = getelementptr inbounds %struct.obj, ptr %12, i64 0, i32 2
-  %20 = load ptr, ptr %19, align 8, !tbaa !10
-  %21 = load ptr, ptr @sym_begin, align 8, !tbaa !11
-  %22 = icmp eq ptr %20, %21
-  br i1 %22, label %23, label %56
+ltrace_fcn_name.exit:                             ; preds = %cond.false45.i
+  %storage_as54.i = getelementptr inbounds %struct.obj, ptr %15, i64 0, i32 2
+  %18 = load ptr, ptr %storage_as54.i, align 8, !tbaa !10
+  %cmp6 = icmp eq ptr %18, null
+  br i1 %cmp6, label %if.then8, label %if.end
 
-23:                                               ; preds = %18
-  %24 = getelementptr inbounds %struct.obj, ptr %12, i64 0, i32 2, i32 0, i32 1
-  %25 = load ptr, ptr %24, align 8, !tbaa !10
-  %26 = icmp eq ptr %25, null
-  br i1 %26, label %56, label %27
+if.then8:                                         ; preds = %if.end39.i, %if.end19.i, %if.end6.i, %if.then, %cond.false45.i, %if.end33.i, %cond.false25.i, %cond.false11.i, %if.end.i, %cond.false.i, %ltrace_fcn_name.exit
+  %19 = load ptr, ptr @sym_begin, align 8, !tbaa !11
+  %20 = load ptr, ptr @sym_quote, align 8, !tbaa !11
+  %call9 = tail call ptr @cons(ptr noundef %fcn_name, ptr noundef null) #4
+  %call10 = tail call ptr @cons(ptr noundef %20, ptr noundef %call9) #4
+  %call11 = tail call ptr @cdr(ptr noundef %2) #4
+  %call12 = tail call ptr @cons(ptr noundef %call11, ptr noundef null) #4
+  %call13 = tail call ptr @cons(ptr noundef %call10, ptr noundef %call12) #4
+  %call14 = tail call ptr @cons(ptr noundef %19, ptr noundef %call13) #4
+  %call15 = tail call ptr @setcdr(ptr noundef %2, ptr noundef %call14) #4
+  br label %if.end
 
-27:                                               ; preds = %23
-  %28 = getelementptr inbounds %struct.obj, ptr %25, i64 0, i32 1
-  %29 = load i16, ptr %28, align 2, !tbaa !5
-  %30 = icmp eq i16 %29, 1
-  br i1 %30, label %31, label %56
+if.end:                                           ; preds = %if.then8, %ltrace_fcn_name.exit
+  %21 = load i64, ptr @tc_closure_traced, align 8, !tbaa !13
+  %conv16 = trunc i64 %21 to i16
+  store i16 %conv16, ptr %type, align 2, !tbaa !5
+  br label %if.end33
 
-31:                                               ; preds = %27
-  %32 = getelementptr inbounds %struct.obj, ptr %25, i64 0, i32 2
-  %33 = load ptr, ptr %32, align 8, !tbaa !10
-  %34 = icmp eq ptr %33, null
-  br i1 %34, label %56, label %35
+cond.false21:                                     ; preds = %cond.false
+  %22 = sext i16 %0 to i64
+  br label %cond.end24
 
-35:                                               ; preds = %31
-  %36 = getelementptr inbounds %struct.obj, ptr %33, i64 0, i32 1
-  %37 = load i16, ptr %36, align 2, !tbaa !5
-  %38 = icmp eq i16 %37, 1
-  br i1 %38, label %39, label %56
+cond.end24:                                       ; preds = %entry, %cond.false21
+  %cond25 = phi i64 [ %22, %cond.false21 ], [ 0, %entry ]
+  %23 = load i64, ptr @tc_closure_traced, align 8, !tbaa !13
+  %cmp27 = icmp eq i64 %cond25, %23
+  br i1 %cmp27, label %if.end33, label %if.else30
 
-39:                                               ; preds = %35
-  %40 = getelementptr inbounds %struct.obj, ptr %33, i64 0, i32 2
-  %41 = load ptr, ptr %40, align 8, !tbaa !10
-  %42 = load ptr, ptr @sym_quote, align 8, !tbaa !11
-  %43 = icmp eq ptr %41, %42
-  br i1 %43, label %44, label %56
+if.else30:                                        ; preds = %cond.end24
+  %call31 = tail call ptr @err(ptr noundef nonnull @.str, ptr noundef %call) #4
+  br label %if.end33
 
-44:                                               ; preds = %39
-  %45 = getelementptr inbounds %struct.obj, ptr %33, i64 0, i32 2, i32 0, i32 1
-  %46 = load ptr, ptr %45, align 8, !tbaa !10
-  %47 = icmp eq ptr %46, null
-  br i1 %47, label %56, label %48
-
-48:                                               ; preds = %44
-  %49 = getelementptr inbounds %struct.obj, ptr %46, i64 0, i32 1
-  %50 = load i16, ptr %49, align 2, !tbaa !5
-  %51 = icmp eq i16 %50, 1
-  br i1 %51, label %52, label %56
-
-52:                                               ; preds = %48
-  %53 = getelementptr inbounds %struct.obj, ptr %46, i64 0, i32 2
-  %54 = load ptr, ptr %53, align 8, !tbaa !10
-  %55 = icmp eq ptr %54, null
-  br i1 %55, label %56, label %66
-
-56:                                               ; preds = %44, %31, %23, %9, %48, %39, %35, %27, %18, %14, %52
-  %57 = load ptr, ptr @sym_begin, align 8, !tbaa !11
-  %58 = load ptr, ptr @sym_quote, align 8, !tbaa !11
-  %59 = tail call ptr @cons(ptr noundef %0, ptr noundef null) #4
-  %60 = tail call ptr @cons(ptr noundef %58, ptr noundef %59) #4
-  %61 = tail call ptr @cdr(ptr noundef %11) #4
-  %62 = tail call ptr @cons(ptr noundef %61, ptr noundef null) #4
-  %63 = tail call ptr @cons(ptr noundef %60, ptr noundef %62) #4
-  %64 = tail call ptr @cons(ptr noundef %57, ptr noundef %63) #4
-  %65 = tail call ptr @setcdr(ptr noundef %11, ptr noundef %64) #4
-  br label %66
-
-66:                                               ; preds = %56, %52
-  %67 = load i64, ptr @tc_closure_traced, align 8, !tbaa !13
-  %68 = trunc i64 %67 to i16
-  store i16 %68, ptr %6, align 2, !tbaa !5
-  br label %77
-
-69:                                               ; preds = %5
-  %70 = sext i16 %7 to i64
-  br label %71
-
-71:                                               ; preds = %2, %69
-  %72 = phi i64 [ %70, %69 ], [ 0, %2 ]
-  %73 = load i64, ptr @tc_closure_traced, align 8, !tbaa !13
-  %74 = icmp eq i64 %72, %73
-  br i1 %74, label %77, label %75
-
-75:                                               ; preds = %71
-  %76 = tail call ptr @err(ptr noundef nonnull @.str, ptr noundef %3) #4
-  br label %77
-
-77:                                               ; preds = %75, %71, %66
+if.end33:                                         ; preds = %if.else30, %cond.end24, %if.end
   ret ptr null
 }
 
@@ -233,115 +235,119 @@ declare ptr @cons(ptr noundef, ptr noundef) local_unnamed_addr #3
 declare ptr @err(ptr noundef, ptr noundef) local_unnamed_addr #3
 
 ; Function Attrs: nounwind uwtable
-define dso_local noalias ptr @ltrace(ptr noundef %0, ptr noundef %1) #2 {
-  %3 = icmp eq ptr %0, null
-  br i1 %3, label %10, label %4
+define dso_local noalias ptr @ltrace(ptr noundef %fcn_names, ptr noundef %env) #2 {
+entry:
+  %cmp.not5 = icmp eq ptr %fcn_names, null
+  br i1 %cmp.not5, label %for.end, label %for.body
 
-4:                                                ; preds = %2, %4
-  %5 = phi ptr [ %8, %4 ], [ %0, %2 ]
-  %6 = tail call ptr @car(ptr noundef nonnull %5) #4
-  %7 = tail call ptr @ltrace_1(ptr noundef %6, ptr noundef %1)
-  %8 = tail call ptr @cdr(ptr noundef nonnull %5) #4
-  %9 = icmp eq ptr %8, null
-  br i1 %9, label %10, label %4, !llvm.loop !15
+for.body:                                         ; preds = %entry, %for.body
+  %l.06 = phi ptr [ %call2, %for.body ], [ %fcn_names, %entry ]
+  %call = tail call ptr @car(ptr noundef nonnull %l.06) #4
+  %call1 = tail call ptr @ltrace_1(ptr noundef %call, ptr noundef %env)
+  %call2 = tail call ptr @cdr(ptr noundef nonnull %l.06) #4
+  %cmp.not = icmp eq ptr %call2, null
+  br i1 %cmp.not, label %for.end, label %for.body, !llvm.loop !15
 
-10:                                               ; preds = %4, %2
+for.end:                                          ; preds = %for.body, %entry
   ret ptr null
 }
 
 declare ptr @car(ptr noundef) local_unnamed_addr #3
 
 ; Function Attrs: nounwind uwtable
-define dso_local noalias ptr @luntrace_1(ptr noundef %0) local_unnamed_addr #2 {
-  %2 = icmp eq ptr %0, null
-  br i1 %2, label %9, label %3
+define dso_local noalias ptr @luntrace_1(ptr noundef %fcn) local_unnamed_addr #2 {
+entry:
+  %cmp = icmp eq ptr %fcn, null
+  br i1 %cmp, label %cond.end9, label %cond.false
 
-3:                                                ; preds = %1
-  %4 = getelementptr inbounds %struct.obj, ptr %0, i64 0, i32 1
-  %5 = load i16, ptr %4, align 2, !tbaa !5
-  %6 = icmp eq i16 %5, 11
-  br i1 %6, label %17, label %7
+cond.false:                                       ; preds = %entry
+  %type = getelementptr inbounds %struct.obj, ptr %fcn, i64 0, i32 1
+  %0 = load i16, ptr %type, align 2, !tbaa !5
+  %1 = icmp eq i16 %0, 11
+  br i1 %1, label %if.end17, label %cond.false6
 
-7:                                                ; preds = %3
-  %8 = sext i16 %5 to i64
-  br label %9
+cond.false6:                                      ; preds = %cond.false
+  %2 = sext i16 %0 to i64
+  br label %cond.end9
 
-9:                                                ; preds = %1, %7
-  %10 = phi i64 [ %8, %7 ], [ 0, %1 ]
-  %11 = load i64, ptr @tc_closure_traced, align 8, !tbaa !13
-  %12 = icmp eq i64 %10, %11
-  br i1 %12, label %13, label %15
+cond.end9:                                        ; preds = %entry, %cond.false6
+  %cond10 = phi i64 [ %2, %cond.false6 ], [ 0, %entry ]
+  %3 = load i64, ptr @tc_closure_traced, align 8, !tbaa !13
+  %cmp12 = icmp eq i64 %cond10, %3
+  br i1 %cmp12, label %if.then14, label %if.else16
 
-13:                                               ; preds = %9
-  %14 = getelementptr inbounds %struct.obj, ptr %0, i64 0, i32 1
-  store i16 11, ptr %14, align 2, !tbaa !5
-  br label %17
+if.then14:                                        ; preds = %cond.end9
+  %type15 = getelementptr inbounds %struct.obj, ptr %fcn, i64 0, i32 1
+  store i16 11, ptr %type15, align 2, !tbaa !5
+  br label %if.end17
 
-15:                                               ; preds = %9
-  %16 = tail call ptr @err(ptr noundef nonnull @.str.1, ptr noundef %0) #4
-  br label %17
+if.else16:                                        ; preds = %cond.end9
+  %call = tail call ptr @err(ptr noundef nonnull @.str.1, ptr noundef %fcn) #4
+  br label %if.end17
 
-17:                                               ; preds = %13, %15, %3
+if.end17:                                         ; preds = %if.then14, %if.else16, %cond.false
   ret ptr null
 }
 
 ; Function Attrs: nounwind uwtable
-define dso_local noalias ptr @luntrace(ptr noundef %0) #2 {
-  %2 = icmp eq ptr %0, null
-  br i1 %2, label %24, label %3
+define dso_local noalias ptr @luntrace(ptr noundef %fcns) #2 {
+entry:
+  %cmp.not5 = icmp eq ptr %fcns, null
+  br i1 %cmp.not5, label %for.end, label %for.body
 
-3:                                                ; preds = %1, %21
-  %4 = phi ptr [ %22, %21 ], [ %0, %1 ]
-  %5 = tail call ptr @car(ptr noundef nonnull %4) #4
-  %6 = icmp eq ptr %5, null
-  br i1 %6, label %13, label %7
+for.body:                                         ; preds = %entry, %luntrace_1.exit
+  %l.06 = phi ptr [ %call2, %luntrace_1.exit ], [ %fcns, %entry ]
+  %call = tail call ptr @car(ptr noundef nonnull %l.06) #4
+  %cmp.i = icmp eq ptr %call, null
+  br i1 %cmp.i, label %cond.end9.i, label %cond.false.i
 
-7:                                                ; preds = %3
-  %8 = getelementptr inbounds %struct.obj, ptr %5, i64 0, i32 1
-  %9 = load i16, ptr %8, align 2, !tbaa !5
-  %10 = icmp eq i16 %9, 11
-  br i1 %10, label %21, label %11
+cond.false.i:                                     ; preds = %for.body
+  %type.i = getelementptr inbounds %struct.obj, ptr %call, i64 0, i32 1
+  %0 = load i16, ptr %type.i, align 2, !tbaa !5
+  %1 = icmp eq i16 %0, 11
+  br i1 %1, label %luntrace_1.exit, label %cond.false6.i
 
-11:                                               ; preds = %7
-  %12 = sext i16 %9 to i64
-  br label %13
+cond.false6.i:                                    ; preds = %cond.false.i
+  %2 = sext i16 %0 to i64
+  br label %cond.end9.i
 
-13:                                               ; preds = %11, %3
-  %14 = phi i64 [ %12, %11 ], [ 0, %3 ]
-  %15 = load i64, ptr @tc_closure_traced, align 8, !tbaa !13
-  %16 = icmp eq i64 %14, %15
-  br i1 %16, label %17, label %19
+cond.end9.i:                                      ; preds = %cond.false6.i, %for.body
+  %cond10.i = phi i64 [ %2, %cond.false6.i ], [ 0, %for.body ]
+  %3 = load i64, ptr @tc_closure_traced, align 8, !tbaa !13
+  %cmp12.i = icmp eq i64 %cond10.i, %3
+  br i1 %cmp12.i, label %if.then14.i, label %if.else16.i
 
-17:                                               ; preds = %13
-  %18 = getelementptr inbounds %struct.obj, ptr %5, i64 0, i32 1
-  store i16 11, ptr %18, align 2, !tbaa !5
-  br label %21
+if.then14.i:                                      ; preds = %cond.end9.i
+  %type15.i = getelementptr inbounds %struct.obj, ptr %call, i64 0, i32 1
+  store i16 11, ptr %type15.i, align 2, !tbaa !5
+  br label %luntrace_1.exit
 
-19:                                               ; preds = %13
-  %20 = tail call ptr @err(ptr noundef nonnull @.str.1, ptr noundef %5) #4
-  br label %21
+if.else16.i:                                      ; preds = %cond.end9.i
+  %call.i = tail call ptr @err(ptr noundef nonnull @.str.1, ptr noundef %call) #4
+  br label %luntrace_1.exit
 
-21:                                               ; preds = %7, %17, %19
-  %22 = tail call ptr @cdr(ptr noundef nonnull %4) #4
-  %23 = icmp eq ptr %22, null
-  br i1 %23, label %24, label %3, !llvm.loop !17
+luntrace_1.exit:                                  ; preds = %cond.false.i, %if.then14.i, %if.else16.i
+  %call2 = tail call ptr @cdr(ptr noundef nonnull %l.06) #4
+  %cmp.not = icmp eq ptr %call2, null
+  br i1 %cmp.not, label %for.end, label %for.body, !llvm.loop !17
 
-24:                                               ; preds = %21, %1
+for.end:                                          ; preds = %luntrace_1.exit, %entry
   ret ptr null
 }
 
 ; Function Attrs: nounwind uwtable
-define dso_local void @ct_prin1(ptr nocapture noundef readonly %0, ptr noundef %1) #2 {
-  tail call void @gput_st(ptr noundef %1, ptr noundef nonnull @.str.2) #4
-  %3 = getelementptr inbounds %struct.obj, ptr %0, i64 0, i32 2, i32 0, i32 1
-  %4 = load ptr, ptr %3, align 8, !tbaa !10
-  %5 = tail call ptr @car(ptr noundef %4) #4
-  %6 = tail call ptr @lprin1g(ptr noundef %5, ptr noundef %1) #4
-  tail call void @gput_st(ptr noundef %1, ptr noundef nonnull @.str.3) #4
-  %7 = load ptr, ptr %3, align 8, !tbaa !10
-  %8 = tail call ptr @cdr(ptr noundef %7) #4
-  %9 = tail call ptr @lprin1g(ptr noundef %8, ptr noundef %1) #4
-  tail call void @gput_st(ptr noundef %1, ptr noundef nonnull @.str.4) #4
+define dso_local void @ct_prin1(ptr nocapture noundef readonly %ptr, ptr noundef %f) #2 {
+entry:
+  tail call void @gput_st(ptr noundef %f, ptr noundef nonnull @.str.2) #4
+  %code = getelementptr inbounds %struct.obj, ptr %ptr, i64 0, i32 2, i32 0, i32 1
+  %0 = load ptr, ptr %code, align 8, !tbaa !10
+  %call = tail call ptr @car(ptr noundef %0) #4
+  %call1 = tail call ptr @lprin1g(ptr noundef %call, ptr noundef %f) #4
+  tail call void @gput_st(ptr noundef %f, ptr noundef nonnull @.str.3) #4
+  %1 = load ptr, ptr %code, align 8, !tbaa !10
+  %call4 = tail call ptr @cdr(ptr noundef %1) #4
+  %call5 = tail call ptr @lprin1g(ptr noundef %call4, ptr noundef %f) #4
+  tail call void @gput_st(ptr noundef %f, ptr noundef nonnull @.str.4) #4
   ret void
 }
 
@@ -350,121 +356,122 @@ declare void @gput_st(ptr noundef, ptr noundef) local_unnamed_addr #3
 declare ptr @lprin1g(ptr noundef, ptr noundef) local_unnamed_addr #3
 
 ; Function Attrs: nounwind uwtable
-define dso_local noalias ptr @ct_eval(ptr nocapture noundef readonly %0, ptr nocapture noundef %1, ptr nocapture noundef readonly %2) #2 {
-  %4 = getelementptr inbounds %struct.obj, ptr %0, i64 0, i32 2, i32 0, i32 1
-  %5 = load ptr, ptr %4, align 8, !tbaa !10
-  %6 = tail call ptr @cdr(ptr noundef %5) #4
-  %7 = icmp eq ptr %6, null
-  br i1 %7, label %49, label %8
+define dso_local noalias ptr @ct_eval(ptr nocapture noundef readonly %ct, ptr nocapture noundef %px, ptr nocapture noundef readonly %penv) #2 {
+entry:
+  %code = getelementptr inbounds %struct.obj, ptr %ct, i64 0, i32 2, i32 0, i32 1
+  %0 = load ptr, ptr %code, align 8, !tbaa !10
+  %call = tail call ptr @cdr(ptr noundef %0) #4
+  %cmp.i = icmp eq ptr %call, null
+  br i1 %cmp.i, label %ltrace_fcn_name.exit, label %cond.false.i
 
-8:                                                ; preds = %3
-  %9 = getelementptr inbounds %struct.obj, ptr %6, i64 0, i32 1
-  %10 = load i16, ptr %9, align 2, !tbaa !5
-  %11 = icmp eq i16 %10, 1
-  br i1 %11, label %12, label %49
+cond.false.i:                                     ; preds = %entry
+  %type.i = getelementptr inbounds %struct.obj, ptr %call, i64 0, i32 1
+  %1 = load i16, ptr %type.i, align 2, !tbaa !5
+  %2 = icmp eq i16 %1, 1
+  br i1 %2, label %if.end.i, label %ltrace_fcn_name.exit
 
-12:                                               ; preds = %8
-  %13 = getelementptr inbounds %struct.obj, ptr %6, i64 0, i32 2
-  %14 = load ptr, ptr %13, align 8, !tbaa !10
-  %15 = load ptr, ptr @sym_begin, align 8, !tbaa !11
-  %16 = icmp eq ptr %14, %15
-  br i1 %16, label %17, label %49
+if.end.i:                                         ; preds = %cond.false.i
+  %storage_as.i = getelementptr inbounds %struct.obj, ptr %call, i64 0, i32 2
+  %3 = load ptr, ptr %storage_as.i, align 8, !tbaa !10
+  %4 = load ptr, ptr @sym_begin, align 8, !tbaa !11
+  %cmp3.not.i = icmp eq ptr %3, %4
+  br i1 %cmp3.not.i, label %if.end6.i, label %ltrace_fcn_name.exit
 
-17:                                               ; preds = %12
-  %18 = getelementptr inbounds %struct.obj, ptr %6, i64 0, i32 2, i32 0, i32 1
-  %19 = load ptr, ptr %18, align 8, !tbaa !10
-  %20 = icmp eq ptr %19, null
-  br i1 %20, label %49, label %21
+if.end6.i:                                        ; preds = %if.end.i
+  %cdr.i = getelementptr inbounds %struct.obj, ptr %call, i64 0, i32 2, i32 0, i32 1
+  %5 = load ptr, ptr %cdr.i, align 8, !tbaa !10
+  %cmp8.i = icmp eq ptr %5, null
+  br i1 %cmp8.i, label %ltrace_fcn_name.exit, label %cond.false11.i
 
-21:                                               ; preds = %17
-  %22 = getelementptr inbounds %struct.obj, ptr %19, i64 0, i32 1
-  %23 = load i16, ptr %22, align 2, !tbaa !5
-  %24 = icmp eq i16 %23, 1
-  br i1 %24, label %25, label %49
+cond.false11.i:                                   ; preds = %if.end6.i
+  %type12.i = getelementptr inbounds %struct.obj, ptr %5, i64 0, i32 1
+  %6 = load i16, ptr %type12.i, align 2, !tbaa !5
+  %7 = icmp eq i16 %6, 1
+  br i1 %7, label %if.end19.i, label %ltrace_fcn_name.exit
 
-25:                                               ; preds = %21
-  %26 = getelementptr inbounds %struct.obj, ptr %19, i64 0, i32 2
-  %27 = load ptr, ptr %26, align 8, !tbaa !10
-  %28 = icmp eq ptr %27, null
-  br i1 %28, label %49, label %29
+if.end19.i:                                       ; preds = %cond.false11.i
+  %storage_as20.i = getelementptr inbounds %struct.obj, ptr %5, i64 0, i32 2
+  %8 = load ptr, ptr %storage_as20.i, align 8, !tbaa !10
+  %cmp22.i = icmp eq ptr %8, null
+  br i1 %cmp22.i, label %ltrace_fcn_name.exit, label %cond.false25.i
 
-29:                                               ; preds = %25
-  %30 = getelementptr inbounds %struct.obj, ptr %27, i64 0, i32 1
-  %31 = load i16, ptr %30, align 2, !tbaa !5
-  %32 = icmp eq i16 %31, 1
-  br i1 %32, label %33, label %49
+cond.false25.i:                                   ; preds = %if.end19.i
+  %type26.i = getelementptr inbounds %struct.obj, ptr %8, i64 0, i32 1
+  %9 = load i16, ptr %type26.i, align 2, !tbaa !5
+  %10 = icmp eq i16 %9, 1
+  br i1 %10, label %if.end33.i, label %ltrace_fcn_name.exit
 
-33:                                               ; preds = %29
-  %34 = getelementptr inbounds %struct.obj, ptr %27, i64 0, i32 2
-  %35 = load ptr, ptr %34, align 8, !tbaa !10
-  %36 = load ptr, ptr @sym_quote, align 8, !tbaa !11
-  %37 = icmp eq ptr %35, %36
-  br i1 %37, label %38, label %49
+if.end33.i:                                       ; preds = %cond.false25.i
+  %storage_as34.i = getelementptr inbounds %struct.obj, ptr %8, i64 0, i32 2
+  %11 = load ptr, ptr %storage_as34.i, align 8, !tbaa !10
+  %12 = load ptr, ptr @sym_quote, align 8, !tbaa !11
+  %cmp36.not.i = icmp eq ptr %11, %12
+  br i1 %cmp36.not.i, label %if.end39.i, label %ltrace_fcn_name.exit
 
-38:                                               ; preds = %33
-  %39 = getelementptr inbounds %struct.obj, ptr %27, i64 0, i32 2, i32 0, i32 1
-  %40 = load ptr, ptr %39, align 8, !tbaa !10
-  %41 = icmp eq ptr %40, null
-  br i1 %41, label %49, label %42
+if.end39.i:                                       ; preds = %if.end33.i
+  %cdr41.i = getelementptr inbounds %struct.obj, ptr %8, i64 0, i32 2, i32 0, i32 1
+  %13 = load ptr, ptr %cdr41.i, align 8, !tbaa !10
+  %cmp42.i = icmp eq ptr %13, null
+  br i1 %cmp42.i, label %ltrace_fcn_name.exit, label %cond.false45.i
 
-42:                                               ; preds = %38
-  %43 = getelementptr inbounds %struct.obj, ptr %40, i64 0, i32 1
-  %44 = load i16, ptr %43, align 2, !tbaa !5
-  %45 = icmp eq i16 %44, 1
-  br i1 %45, label %46, label %49
+cond.false45.i:                                   ; preds = %if.end39.i
+  %type46.i = getelementptr inbounds %struct.obj, ptr %13, i64 0, i32 1
+  %14 = load i16, ptr %type46.i, align 2, !tbaa !5
+  %15 = icmp eq i16 %14, 1
+  br i1 %15, label %if.end53.i, label %ltrace_fcn_name.exit
 
-46:                                               ; preds = %42
-  %47 = getelementptr inbounds %struct.obj, ptr %40, i64 0, i32 2
-  %48 = load ptr, ptr %47, align 8, !tbaa !10
-  br label %49
+if.end53.i:                                       ; preds = %cond.false45.i
+  %storage_as54.i = getelementptr inbounds %struct.obj, ptr %13, i64 0, i32 2
+  %16 = load ptr, ptr %storage_as54.i, align 8, !tbaa !10
+  br label %ltrace_fcn_name.exit
 
-49:                                               ; preds = %3, %8, %12, %17, %21, %25, %29, %33, %38, %42, %46
-  %50 = phi ptr [ %48, %46 ], [ null, %8 ], [ null, %12 ], [ null, %21 ], [ null, %29 ], [ null, %33 ], [ null, %42 ], [ null, %3 ], [ null, %17 ], [ null, %25 ], [ null, %38 ]
-  %51 = load ptr, ptr %1, align 8, !tbaa !11
-  %52 = getelementptr inbounds %struct.obj, ptr %51, i64 0, i32 2, i32 0, i32 1
-  %53 = load ptr, ptr %52, align 8, !tbaa !10
-  %54 = load ptr, ptr %2, align 8, !tbaa !11
-  %55 = tail call ptr @leval_args(ptr noundef %53, ptr noundef %54) #4
-  %56 = load ptr, ptr @stdout, align 8, !tbaa !11
-  tail call void @fput_st(ptr noundef %56, ptr noundef nonnull @.str.5) #4
-  %57 = load ptr, ptr @stdout, align 8, !tbaa !11
-  %58 = tail call ptr @lprin1f(ptr noundef %50, ptr noundef %57) #4
-  %59 = icmp eq ptr %55, null
-  br i1 %59, label %68, label %60
+ltrace_fcn_name.exit:                             ; preds = %entry, %cond.false.i, %if.end.i, %if.end6.i, %cond.false11.i, %if.end19.i, %cond.false25.i, %if.end33.i, %if.end39.i, %cond.false45.i, %if.end53.i
+  %retval.0.i = phi ptr [ %16, %if.end53.i ], [ null, %cond.false.i ], [ null, %if.end.i ], [ null, %cond.false11.i ], [ null, %cond.false25.i ], [ null, %if.end33.i ], [ null, %cond.false45.i ], [ null, %entry ], [ null, %if.end6.i ], [ null, %if.end19.i ], [ null, %if.end39.i ]
+  %17 = load ptr, ptr %px, align 8, !tbaa !11
+  %cdr = getelementptr inbounds %struct.obj, ptr %17, i64 0, i32 2, i32 0, i32 1
+  %18 = load ptr, ptr %cdr, align 8, !tbaa !10
+  %19 = load ptr, ptr %penv, align 8, !tbaa !11
+  %call3 = tail call ptr @leval_args(ptr noundef %18, ptr noundef %19) #4
+  %20 = load ptr, ptr @stdout, align 8, !tbaa !11
+  tail call void @fput_st(ptr noundef %20, ptr noundef nonnull @.str.5) #4
+  %21 = load ptr, ptr @stdout, align 8, !tbaa !11
+  %call4 = tail call ptr @lprin1f(ptr noundef %retval.0.i, ptr noundef %21) #4
+  %cmp.not29 = icmp eq ptr %call3, null
+  br i1 %cmp.not29, label %for.end, label %for.body
 
-60:                                               ; preds = %49, %60
-  %61 = phi ptr [ %66, %60 ], [ %55, %49 ]
-  %62 = load ptr, ptr @stdout, align 8, !tbaa !11
-  tail call void @fput_st(ptr noundef %62, ptr noundef nonnull @.str.3) #4
-  %63 = tail call ptr @car(ptr noundef nonnull %61) #4
-  %64 = load ptr, ptr @stdout, align 8, !tbaa !11
-  %65 = tail call ptr @lprin1f(ptr noundef %63, ptr noundef %64) #4
-  %66 = tail call ptr @cdr(ptr noundef nonnull %61) #4
-  %67 = icmp eq ptr %66, null
-  br i1 %67, label %68, label %60, !llvm.loop !18
+for.body:                                         ; preds = %ltrace_fcn_name.exit, %for.body
+  %l.030 = phi ptr [ %call7, %for.body ], [ %call3, %ltrace_fcn_name.exit ]
+  %22 = load ptr, ptr @stdout, align 8, !tbaa !11
+  tail call void @fput_st(ptr noundef %22, ptr noundef nonnull @.str.3) #4
+  %call5 = tail call ptr @car(ptr noundef nonnull %l.030) #4
+  %23 = load ptr, ptr @stdout, align 8, !tbaa !11
+  %call6 = tail call ptr @lprin1f(ptr noundef %call5, ptr noundef %23) #4
+  %call7 = tail call ptr @cdr(ptr noundef nonnull %l.030) #4
+  %cmp.not = icmp eq ptr %call7, null
+  br i1 %cmp.not, label %for.end, label %for.body, !llvm.loop !18
 
-68:                                               ; preds = %60, %49
-  %69 = getelementptr inbounds %struct.obj, ptr %0, i64 0, i32 2
-  %70 = load ptr, ptr @stdout, align 8, !tbaa !11
-  tail call void @fput_st(ptr noundef %70, ptr noundef nonnull @.str.6) #4
-  %71 = load ptr, ptr %4, align 8, !tbaa !10
-  %72 = tail call ptr @car(ptr noundef %71) #4
-  %73 = load ptr, ptr %69, align 8, !tbaa !10
-  %74 = tail call ptr @extend_env(ptr noundef %55, ptr noundef %72, ptr noundef %73) #4
-  %75 = load ptr, ptr %4, align 8, !tbaa !10
-  %76 = tail call ptr @cdr(ptr noundef %75) #4
-  %77 = tail call ptr @leval(ptr noundef %76, ptr noundef %74) #4
-  %78 = load ptr, ptr @stdout, align 8, !tbaa !11
-  tail call void @fput_st(ptr noundef %78, ptr noundef nonnull @.str.7) #4
-  %79 = load ptr, ptr @stdout, align 8, !tbaa !11
-  %80 = tail call ptr @lprin1f(ptr noundef %50, ptr noundef %79) #4
-  %81 = load ptr, ptr @stdout, align 8, !tbaa !11
-  tail call void @fput_st(ptr noundef %81, ptr noundef nonnull @.str.3) #4
-  %82 = load ptr, ptr @stdout, align 8, !tbaa !11
-  %83 = tail call ptr @lprin1f(ptr noundef %77, ptr noundef %82) #4
-  %84 = load ptr, ptr @stdout, align 8, !tbaa !11
-  tail call void @fput_st(ptr noundef %84, ptr noundef nonnull @.str.6) #4
-  store ptr %77, ptr %1, align 8, !tbaa !11
+for.end:                                          ; preds = %for.body, %ltrace_fcn_name.exit
+  %storage_as = getelementptr inbounds %struct.obj, ptr %ct, i64 0, i32 2
+  %24 = load ptr, ptr @stdout, align 8, !tbaa !11
+  tail call void @fput_st(ptr noundef %24, ptr noundef nonnull @.str.6) #4
+  %25 = load ptr, ptr %code, align 8, !tbaa !10
+  %call10 = tail call ptr @car(ptr noundef %25) #4
+  %26 = load ptr, ptr %storage_as, align 8, !tbaa !10
+  %call13 = tail call ptr @extend_env(ptr noundef %call3, ptr noundef %call10, ptr noundef %26) #4
+  %27 = load ptr, ptr %code, align 8, !tbaa !10
+  %call16 = tail call ptr @cdr(ptr noundef %27) #4
+  %call17 = tail call ptr @leval(ptr noundef %call16, ptr noundef %call13) #4
+  %28 = load ptr, ptr @stdout, align 8, !tbaa !11
+  tail call void @fput_st(ptr noundef %28, ptr noundef nonnull @.str.7) #4
+  %29 = load ptr, ptr @stdout, align 8, !tbaa !11
+  %call18 = tail call ptr @lprin1f(ptr noundef %retval.0.i, ptr noundef %29) #4
+  %30 = load ptr, ptr @stdout, align 8, !tbaa !11
+  tail call void @fput_st(ptr noundef %30, ptr noundef nonnull @.str.3) #4
+  %31 = load ptr, ptr @stdout, align 8, !tbaa !11
+  %call19 = tail call ptr @lprin1f(ptr noundef %call17, ptr noundef %31) #4
+  %32 = load ptr, ptr @stdout, align 8, !tbaa !11
+  tail call void @fput_st(ptr noundef %32, ptr noundef nonnull @.str.6) #4
+  store ptr %call17, ptr %px, align 8, !tbaa !11
   ret ptr null
 }
 
@@ -478,26 +485,27 @@ declare ptr @extend_env(ptr noundef, ptr noundef, ptr noundef) local_unnamed_add
 
 ; Function Attrs: nounwind uwtable
 define dso_local void @init_trace() local_unnamed_addr #2 {
-  %1 = alloca i64, align 8
-  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %1) #4
-  %2 = tail call i64 @allocate_user_tc() #4
-  store i64 %2, ptr @tc_closure_traced, align 8, !tbaa !13
-  call void @set_gc_hooks(i64 noundef %2, ptr noundef null, ptr noundef nonnull @ct_gc_mark, ptr noundef nonnull @ct_gc_scan, ptr noundef null, ptr noundef nonnull %1) #4
+entry:
+  %j = alloca i64, align 8
+  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %j) #4
+  %call = tail call i64 @allocate_user_tc() #4
+  store i64 %call, ptr @tc_closure_traced, align 8, !tbaa !13
+  call void @set_gc_hooks(i64 noundef %call, ptr noundef null, ptr noundef nonnull @ct_gc_mark, ptr noundef nonnull @ct_gc_scan, ptr noundef null, ptr noundef nonnull %j) #4
   call void @gc_protect_sym(ptr noundef nonnull @sym_traced, ptr noundef nonnull @.str.8) #4
-  %3 = load ptr, ptr @sym_traced, align 8, !tbaa !11
-  %4 = call ptr @setvar(ptr noundef %3, ptr noundef null, ptr noundef null) #4
+  %0 = load ptr, ptr @sym_traced, align 8, !tbaa !11
+  %call1 = call ptr @setvar(ptr noundef %0, ptr noundef null, ptr noundef null) #4
   call void @gc_protect_sym(ptr noundef nonnull @sym_begin, ptr noundef nonnull @.str.9) #4
   call void @gc_protect_sym(ptr noundef nonnull @sym_quote, ptr noundef nonnull @.str.10) #4
-  %5 = load i64, ptr @tc_closure_traced, align 8, !tbaa !13
-  call void @set_print_hooks(i64 noundef %5, ptr noundef nonnull @ct_prin1) #4
-  %6 = load i64, ptr @tc_closure_traced, align 8, !tbaa !13
-  call void @set_eval_hooks(i64 noundef %6, ptr noundef nonnull @ct_eval) #4
+  %1 = load i64, ptr @tc_closure_traced, align 8, !tbaa !13
+  call void @set_print_hooks(i64 noundef %1, ptr noundef nonnull @ct_prin1) #4
+  %2 = load i64, ptr @tc_closure_traced, align 8, !tbaa !13
+  call void @set_eval_hooks(i64 noundef %2, ptr noundef nonnull @ct_eval) #4
   call void @init_fsubr(ptr noundef nonnull @.str.11, ptr noundef nonnull @ltrace) #4
   call void @init_lsubr(ptr noundef nonnull @.str.12, ptr noundef nonnull @luntrace) #4
-  %7 = call ptr @cintern(ptr noundef nonnull @.str.13) #4
-  %8 = call ptr @cintern(ptr noundef nonnull @.str.14) #4
-  %9 = call ptr @setvar(ptr noundef %7, ptr noundef %8, ptr noundef null) #4
-  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %1) #4
+  %call.i = call ptr @cintern(ptr noundef nonnull @.str.13) #4
+  %call1.i = call ptr @cintern(ptr noundef nonnull @.str.14) #4
+  %call2.i = call ptr @setvar(ptr noundef %call.i, ptr noundef %call1.i, ptr noundef null) #4
+  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %j) #4
   ret void
 }
 
@@ -506,25 +514,27 @@ declare i64 @allocate_user_tc() local_unnamed_addr #3
 declare void @set_gc_hooks(i64 noundef, ptr noundef, ptr noundef, ptr noundef, ptr noundef, ptr noundef) local_unnamed_addr #3
 
 ; Function Attrs: nounwind uwtable
-define internal ptr @ct_gc_mark(ptr nocapture noundef readonly %0) #2 {
-  %2 = getelementptr inbounds %struct.obj, ptr %0, i64 0, i32 2
-  %3 = getelementptr inbounds %struct.obj, ptr %0, i64 0, i32 2, i32 0, i32 1
-  %4 = load ptr, ptr %3, align 8, !tbaa !10
-  tail call void @gc_mark(ptr noundef %4) #4
-  %5 = load ptr, ptr %2, align 8, !tbaa !10
-  ret ptr %5
+define internal ptr @ct_gc_mark(ptr nocapture noundef readonly %ptr) #2 {
+entry:
+  %storage_as = getelementptr inbounds %struct.obj, ptr %ptr, i64 0, i32 2
+  %code = getelementptr inbounds %struct.obj, ptr %ptr, i64 0, i32 2, i32 0, i32 1
+  %0 = load ptr, ptr %code, align 8, !tbaa !10
+  tail call void @gc_mark(ptr noundef %0) #4
+  %1 = load ptr, ptr %storage_as, align 8, !tbaa !10
+  ret ptr %1
 }
 
 ; Function Attrs: nounwind uwtable
-define internal void @ct_gc_scan(ptr nocapture noundef %0) #2 {
-  %2 = getelementptr inbounds %struct.obj, ptr %0, i64 0, i32 2
-  %3 = load ptr, ptr %2, align 8, !tbaa !10
-  %4 = tail call ptr @gc_relocate(ptr noundef %3) #4
-  store ptr %4, ptr %2, align 8, !tbaa !10
-  %5 = getelementptr inbounds %struct.obj, ptr %0, i64 0, i32 2, i32 0, i32 1
-  %6 = load ptr, ptr %5, align 8, !tbaa !10
-  %7 = tail call ptr @gc_relocate(ptr noundef %6) #4
-  store ptr %7, ptr %5, align 8, !tbaa !10
+define internal void @ct_gc_scan(ptr nocapture noundef %ptr) #2 {
+entry:
+  %storage_as = getelementptr inbounds %struct.obj, ptr %ptr, i64 0, i32 2
+  %0 = load ptr, ptr %storage_as, align 8, !tbaa !10
+  %call = tail call ptr @gc_relocate(ptr noundef %0) #4
+  store ptr %call, ptr %storage_as, align 8, !tbaa !10
+  %cdr = getelementptr inbounds %struct.obj, ptr %ptr, i64 0, i32 2, i32 0, i32 1
+  %1 = load ptr, ptr %cdr, align 8, !tbaa !10
+  %call4 = tail call ptr @gc_relocate(ptr noundef %1) #4
+  store ptr %call4, ptr %cdr, align 8, !tbaa !10
   ret void
 }
 

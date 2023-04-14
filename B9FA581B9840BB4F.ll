@@ -120,554 +120,562 @@ $_ZTI14BenchmarkDemo7 = comdat any
 @_ZTI14BenchmarkDemo7 = linkonce_odr dso_local constant { ptr, ptr, ptr } { ptr getelementptr inbounds (ptr, ptr @_ZTVN10__cxxabiv120__si_class_type_infoE, i64 2), ptr @_ZTS14BenchmarkDemo7, ptr @_ZTI13BenchmarkDemo }, comdat, align 8
 
 ; Function Attrs: norecurse uwtable
-define dso_local noundef i32 @main(i32 noundef %0, ptr nocapture noundef readnone %1) local_unnamed_addr #0 personality ptr @__gxx_personality_v0 {
-  %3 = alloca %class.BenchmarkDemo1, align 8
-  %4 = alloca %class.BenchmarkDemo2, align 8
-  %5 = alloca %class.BenchmarkDemo3, align 8
-  %6 = alloca %class.BenchmarkDemo4, align 8
-  %7 = alloca %class.BenchmarkDemo5, align 8
-  %8 = alloca %class.BenchmarkDemo6, align 8
-  %9 = alloca %class.BenchmarkDemo7, align 8
+define dso_local noundef i32 @main(i32 noundef %argc, ptr nocapture noundef readnone %argv) local_unnamed_addr #0 personality ptr @__gxx_personality_v0 {
+invoke.cont10:
+  %benchmarkDemo1 = alloca %class.BenchmarkDemo1, align 8
+  %benchmarkDemo2 = alloca %class.BenchmarkDemo2, align 8
+  %benchmarkDemo3 = alloca %class.BenchmarkDemo3, align 8
+  %benchmarkDemo4 = alloca %class.BenchmarkDemo4, align 8
+  %benchmarkDemo5 = alloca %class.BenchmarkDemo5, align 8
+  %benchmarkDemo6 = alloca %class.BenchmarkDemo6, align 8
+  %benchmarkDemo7 = alloca %class.BenchmarkDemo7, align 8
   store i8 1, ptr @gDisableDeactivation, align 1, !tbaa !5
-  call void @llvm.lifetime.start.p0(i64 136, ptr nonnull %3) #9
-  %10 = getelementptr inbounds %class.BenchmarkDemo, ptr %3, i64 0, i32 1, i32 6
-  store i8 1, ptr %10, align 8, !tbaa !9
-  %11 = getelementptr inbounds %class.BenchmarkDemo, ptr %3, i64 0, i32 1, i32 5
-  store ptr null, ptr %11, align 8, !tbaa !14
-  %12 = getelementptr inbounds %class.BenchmarkDemo, ptr %3, i64 0, i32 1, i32 2
-  store i32 0, ptr %12, align 4, !tbaa !15
-  %13 = getelementptr inbounds %class.BenchmarkDemo, ptr %3, i64 0, i32 1, i32 3
-  store i32 0, ptr %13, align 8, !tbaa !16
-  %14 = getelementptr inbounds %class.BenchmarkDemo, ptr %3, i64 0, i32 2, i32 6
-  store i8 1, ptr %14, align 8, !tbaa !17
-  %15 = getelementptr inbounds %class.BenchmarkDemo, ptr %3, i64 0, i32 2, i32 5
-  store ptr null, ptr %15, align 8, !tbaa !20
-  %16 = getelementptr inbounds %class.BenchmarkDemo, ptr %3, i64 0, i32 2, i32 2
-  store i32 0, ptr %16, align 4, !tbaa !21
-  %17 = getelementptr inbounds %class.BenchmarkDemo, ptr %3, i64 0, i32 2, i32 3
-  store i32 0, ptr %17, align 8, !tbaa !22
-  %18 = getelementptr inbounds %class.BenchmarkDemo, ptr %3, i64 0, i32 7
-  store i32 1, ptr %18, align 8, !tbaa !23
-  store ptr getelementptr inbounds ({ [8 x ptr] }, ptr @_ZTV14BenchmarkDemo1, i64 0, inrange i32 0, i64 2), ptr %3, align 8, !tbaa !26
-  call void @llvm.lifetime.start.p0(i64 136, ptr nonnull %4) #9
-  %19 = getelementptr inbounds %class.BenchmarkDemo, ptr %4, i64 0, i32 1, i32 6
-  store i8 1, ptr %19, align 8, !tbaa !9
-  %20 = getelementptr inbounds %class.BenchmarkDemo, ptr %4, i64 0, i32 1, i32 5
-  store ptr null, ptr %20, align 8, !tbaa !14
-  %21 = getelementptr inbounds %class.BenchmarkDemo, ptr %4, i64 0, i32 1, i32 2
-  store i32 0, ptr %21, align 4, !tbaa !15
-  %22 = getelementptr inbounds %class.BenchmarkDemo, ptr %4, i64 0, i32 1, i32 3
-  store i32 0, ptr %22, align 8, !tbaa !16
-  %23 = getelementptr inbounds %class.BenchmarkDemo, ptr %4, i64 0, i32 2, i32 6
-  store i8 1, ptr %23, align 8, !tbaa !17
-  %24 = getelementptr inbounds %class.BenchmarkDemo, ptr %4, i64 0, i32 2, i32 5
-  store ptr null, ptr %24, align 8, !tbaa !20
-  %25 = getelementptr inbounds %class.BenchmarkDemo, ptr %4, i64 0, i32 2, i32 2
-  store i32 0, ptr %25, align 4, !tbaa !21
-  %26 = getelementptr inbounds %class.BenchmarkDemo, ptr %4, i64 0, i32 2, i32 3
-  store i32 0, ptr %26, align 8, !tbaa !22
-  %27 = getelementptr inbounds %class.BenchmarkDemo, ptr %4, i64 0, i32 7
-  store i32 2, ptr %27, align 8, !tbaa !23
-  store ptr getelementptr inbounds ({ [8 x ptr] }, ptr @_ZTV14BenchmarkDemo2, i64 0, inrange i32 0, i64 2), ptr %4, align 8, !tbaa !26
-  call void @llvm.lifetime.start.p0(i64 136, ptr nonnull %5) #9
-  %28 = getelementptr inbounds %class.BenchmarkDemo, ptr %5, i64 0, i32 1, i32 6
-  store i8 1, ptr %28, align 8, !tbaa !9
-  %29 = getelementptr inbounds %class.BenchmarkDemo, ptr %5, i64 0, i32 1, i32 5
-  store ptr null, ptr %29, align 8, !tbaa !14
-  %30 = getelementptr inbounds %class.BenchmarkDemo, ptr %5, i64 0, i32 1, i32 2
-  store i32 0, ptr %30, align 4, !tbaa !15
-  %31 = getelementptr inbounds %class.BenchmarkDemo, ptr %5, i64 0, i32 1, i32 3
-  store i32 0, ptr %31, align 8, !tbaa !16
-  %32 = getelementptr inbounds %class.BenchmarkDemo, ptr %5, i64 0, i32 2, i32 6
-  store i8 1, ptr %32, align 8, !tbaa !17
-  %33 = getelementptr inbounds %class.BenchmarkDemo, ptr %5, i64 0, i32 2, i32 5
-  store ptr null, ptr %33, align 8, !tbaa !20
-  %34 = getelementptr inbounds %class.BenchmarkDemo, ptr %5, i64 0, i32 2, i32 2
-  store i32 0, ptr %34, align 4, !tbaa !21
-  %35 = getelementptr inbounds %class.BenchmarkDemo, ptr %5, i64 0, i32 2, i32 3
-  store i32 0, ptr %35, align 8, !tbaa !22
-  %36 = getelementptr inbounds %class.BenchmarkDemo, ptr %5, i64 0, i32 7
-  store i32 3, ptr %36, align 8, !tbaa !23
-  store ptr getelementptr inbounds ({ [8 x ptr] }, ptr @_ZTV14BenchmarkDemo3, i64 0, inrange i32 0, i64 2), ptr %5, align 8, !tbaa !26
-  call void @llvm.lifetime.start.p0(i64 136, ptr nonnull %6) #9
-  %37 = getelementptr inbounds %class.BenchmarkDemo, ptr %6, i64 0, i32 1, i32 6
-  store i8 1, ptr %37, align 8, !tbaa !9
-  %38 = getelementptr inbounds %class.BenchmarkDemo, ptr %6, i64 0, i32 1, i32 5
-  store ptr null, ptr %38, align 8, !tbaa !14
-  %39 = getelementptr inbounds %class.BenchmarkDemo, ptr %6, i64 0, i32 1, i32 2
-  store i32 0, ptr %39, align 4, !tbaa !15
-  %40 = getelementptr inbounds %class.BenchmarkDemo, ptr %6, i64 0, i32 1, i32 3
-  store i32 0, ptr %40, align 8, !tbaa !16
-  %41 = getelementptr inbounds %class.BenchmarkDemo, ptr %6, i64 0, i32 2, i32 6
-  store i8 1, ptr %41, align 8, !tbaa !17
-  %42 = getelementptr inbounds %class.BenchmarkDemo, ptr %6, i64 0, i32 2, i32 5
-  store ptr null, ptr %42, align 8, !tbaa !20
-  %43 = getelementptr inbounds %class.BenchmarkDemo, ptr %6, i64 0, i32 2, i32 2
-  store i32 0, ptr %43, align 4, !tbaa !21
-  %44 = getelementptr inbounds %class.BenchmarkDemo, ptr %6, i64 0, i32 2, i32 3
-  store i32 0, ptr %44, align 8, !tbaa !22
-  %45 = getelementptr inbounds %class.BenchmarkDemo, ptr %6, i64 0, i32 7
-  store i32 4, ptr %45, align 8, !tbaa !23
-  store ptr getelementptr inbounds ({ [8 x ptr] }, ptr @_ZTV14BenchmarkDemo4, i64 0, inrange i32 0, i64 2), ptr %6, align 8, !tbaa !26
-  call void @llvm.lifetime.start.p0(i64 136, ptr nonnull %7) #9
-  %46 = getelementptr inbounds %class.BenchmarkDemo, ptr %7, i64 0, i32 1, i32 6
-  store i8 1, ptr %46, align 8, !tbaa !9
-  %47 = getelementptr inbounds %class.BenchmarkDemo, ptr %7, i64 0, i32 1, i32 5
-  store ptr null, ptr %47, align 8, !tbaa !14
-  %48 = getelementptr inbounds %class.BenchmarkDemo, ptr %7, i64 0, i32 1, i32 2
-  store i32 0, ptr %48, align 4, !tbaa !15
-  %49 = getelementptr inbounds %class.BenchmarkDemo, ptr %7, i64 0, i32 1, i32 3
-  store i32 0, ptr %49, align 8, !tbaa !16
-  %50 = getelementptr inbounds %class.BenchmarkDemo, ptr %7, i64 0, i32 2, i32 6
-  store i8 1, ptr %50, align 8, !tbaa !17
-  %51 = getelementptr inbounds %class.BenchmarkDemo, ptr %7, i64 0, i32 2, i32 5
-  store ptr null, ptr %51, align 8, !tbaa !20
-  %52 = getelementptr inbounds %class.BenchmarkDemo, ptr %7, i64 0, i32 2, i32 2
-  store i32 0, ptr %52, align 4, !tbaa !21
-  %53 = getelementptr inbounds %class.BenchmarkDemo, ptr %7, i64 0, i32 2, i32 3
-  store i32 0, ptr %53, align 8, !tbaa !22
-  %54 = getelementptr inbounds %class.BenchmarkDemo, ptr %7, i64 0, i32 7
-  store i32 5, ptr %54, align 8, !tbaa !23
-  store ptr getelementptr inbounds ({ [8 x ptr] }, ptr @_ZTV14BenchmarkDemo5, i64 0, inrange i32 0, i64 2), ptr %7, align 8, !tbaa !26
-  call void @llvm.lifetime.start.p0(i64 136, ptr nonnull %8) #9
-  %55 = getelementptr inbounds %class.BenchmarkDemo, ptr %8, i64 0, i32 1, i32 6
-  store i8 1, ptr %55, align 8, !tbaa !9
-  %56 = getelementptr inbounds %class.BenchmarkDemo, ptr %8, i64 0, i32 1, i32 5
-  store ptr null, ptr %56, align 8, !tbaa !14
-  %57 = getelementptr inbounds %class.BenchmarkDemo, ptr %8, i64 0, i32 1, i32 2
-  store i32 0, ptr %57, align 4, !tbaa !15
-  %58 = getelementptr inbounds %class.BenchmarkDemo, ptr %8, i64 0, i32 1, i32 3
-  store i32 0, ptr %58, align 8, !tbaa !16
-  %59 = getelementptr inbounds %class.BenchmarkDemo, ptr %8, i64 0, i32 2, i32 6
-  store i8 1, ptr %59, align 8, !tbaa !17
-  %60 = getelementptr inbounds %class.BenchmarkDemo, ptr %8, i64 0, i32 2, i32 5
-  store ptr null, ptr %60, align 8, !tbaa !20
-  %61 = getelementptr inbounds %class.BenchmarkDemo, ptr %8, i64 0, i32 2, i32 2
-  store i32 0, ptr %61, align 4, !tbaa !21
-  %62 = getelementptr inbounds %class.BenchmarkDemo, ptr %8, i64 0, i32 2, i32 3
-  store i32 0, ptr %62, align 8, !tbaa !22
-  %63 = getelementptr inbounds %class.BenchmarkDemo, ptr %8, i64 0, i32 7
-  store i32 6, ptr %63, align 8, !tbaa !23
-  store ptr getelementptr inbounds ({ [8 x ptr] }, ptr @_ZTV14BenchmarkDemo6, i64 0, inrange i32 0, i64 2), ptr %8, align 8, !tbaa !26
-  call void @llvm.lifetime.start.p0(i64 136, ptr nonnull %9) #9
-  %64 = getelementptr inbounds %class.BenchmarkDemo, ptr %9, i64 0, i32 1, i32 6
-  store i8 1, ptr %64, align 8, !tbaa !9
-  %65 = getelementptr inbounds %class.BenchmarkDemo, ptr %9, i64 0, i32 1, i32 5
-  store ptr null, ptr %65, align 8, !tbaa !14
-  %66 = getelementptr inbounds %class.BenchmarkDemo, ptr %9, i64 0, i32 1, i32 2
-  store i32 0, ptr %66, align 4, !tbaa !15
-  %67 = getelementptr inbounds %class.BenchmarkDemo, ptr %9, i64 0, i32 1, i32 3
-  store i32 0, ptr %67, align 8, !tbaa !16
-  %68 = getelementptr inbounds %class.BenchmarkDemo, ptr %9, i64 0, i32 2, i32 6
-  store i8 1, ptr %68, align 8, !tbaa !17
-  %69 = getelementptr inbounds %class.BenchmarkDemo, ptr %9, i64 0, i32 2, i32 5
-  store ptr null, ptr %69, align 8, !tbaa !20
-  %70 = getelementptr inbounds %class.BenchmarkDemo, ptr %9, i64 0, i32 2, i32 2
-  store i32 0, ptr %70, align 4, !tbaa !21
-  %71 = getelementptr inbounds %class.BenchmarkDemo, ptr %9, i64 0, i32 2, i32 3
-  store i32 0, ptr %71, align 8, !tbaa !22
-  %72 = getelementptr inbounds %class.BenchmarkDemo, ptr %9, i64 0, i32 7
-  store i32 7, ptr %72, align 8, !tbaa !23
-  store ptr getelementptr inbounds ({ [8 x ptr] }, ptr @_ZTV14BenchmarkDemo7, i64 0, inrange i32 0, i64 2), ptr %9, align 8, !tbaa !26
-  invoke void @_ZN13BenchmarkDemo11initPhysicsEv(ptr noundef nonnull align 8 dereferenceable(136) %3)
-          to label %184 unwind label %182
+  call void @llvm.lifetime.start.p0(i64 136, ptr nonnull %benchmarkDemo1) #9
+  %m_ownsMemory.i.i.i.i = getelementptr inbounds %class.BenchmarkDemo, ptr %benchmarkDemo1, i64 0, i32 1, i32 6
+  store i8 1, ptr %m_ownsMemory.i.i.i.i, align 8, !tbaa !9
+  %m_data.i.i.i.i = getelementptr inbounds %class.BenchmarkDemo, ptr %benchmarkDemo1, i64 0, i32 1, i32 5
+  store ptr null, ptr %m_data.i.i.i.i, align 8, !tbaa !14
+  %m_size.i.i.i.i = getelementptr inbounds %class.BenchmarkDemo, ptr %benchmarkDemo1, i64 0, i32 1, i32 2
+  store i32 0, ptr %m_size.i.i.i.i, align 4, !tbaa !15
+  %m_capacity.i.i.i.i = getelementptr inbounds %class.BenchmarkDemo, ptr %benchmarkDemo1, i64 0, i32 1, i32 3
+  store i32 0, ptr %m_capacity.i.i.i.i, align 8, !tbaa !16
+  %m_ownsMemory.i.i4.i.i = getelementptr inbounds %class.BenchmarkDemo, ptr %benchmarkDemo1, i64 0, i32 2, i32 6
+  store i8 1, ptr %m_ownsMemory.i.i4.i.i, align 8, !tbaa !17
+  %m_data.i.i5.i.i = getelementptr inbounds %class.BenchmarkDemo, ptr %benchmarkDemo1, i64 0, i32 2, i32 5
+  store ptr null, ptr %m_data.i.i5.i.i, align 8, !tbaa !20
+  %m_size.i.i6.i.i = getelementptr inbounds %class.BenchmarkDemo, ptr %benchmarkDemo1, i64 0, i32 2, i32 2
+  store i32 0, ptr %m_size.i.i6.i.i, align 4, !tbaa !21
+  %m_capacity.i.i7.i.i = getelementptr inbounds %class.BenchmarkDemo, ptr %benchmarkDemo1, i64 0, i32 2, i32 3
+  store i32 0, ptr %m_capacity.i.i7.i.i, align 8, !tbaa !22
+  %m_benchmark.i.i = getelementptr inbounds %class.BenchmarkDemo, ptr %benchmarkDemo1, i64 0, i32 7
+  store i32 1, ptr %m_benchmark.i.i, align 8, !tbaa !23
+  store ptr getelementptr inbounds ({ [8 x ptr] }, ptr @_ZTV14BenchmarkDemo1, i64 0, inrange i32 0, i64 2), ptr %benchmarkDemo1, align 8, !tbaa !26
+  call void @llvm.lifetime.start.p0(i64 136, ptr nonnull %benchmarkDemo2) #9
+  %m_ownsMemory.i.i.i.i85 = getelementptr inbounds %class.BenchmarkDemo, ptr %benchmarkDemo2, i64 0, i32 1, i32 6
+  store i8 1, ptr %m_ownsMemory.i.i.i.i85, align 8, !tbaa !9
+  %m_data.i.i.i.i86 = getelementptr inbounds %class.BenchmarkDemo, ptr %benchmarkDemo2, i64 0, i32 1, i32 5
+  store ptr null, ptr %m_data.i.i.i.i86, align 8, !tbaa !14
+  %m_size.i.i.i.i87 = getelementptr inbounds %class.BenchmarkDemo, ptr %benchmarkDemo2, i64 0, i32 1, i32 2
+  store i32 0, ptr %m_size.i.i.i.i87, align 4, !tbaa !15
+  %m_capacity.i.i.i.i88 = getelementptr inbounds %class.BenchmarkDemo, ptr %benchmarkDemo2, i64 0, i32 1, i32 3
+  store i32 0, ptr %m_capacity.i.i.i.i88, align 8, !tbaa !16
+  %m_ownsMemory.i.i4.i.i89 = getelementptr inbounds %class.BenchmarkDemo, ptr %benchmarkDemo2, i64 0, i32 2, i32 6
+  store i8 1, ptr %m_ownsMemory.i.i4.i.i89, align 8, !tbaa !17
+  %m_data.i.i5.i.i90 = getelementptr inbounds %class.BenchmarkDemo, ptr %benchmarkDemo2, i64 0, i32 2, i32 5
+  store ptr null, ptr %m_data.i.i5.i.i90, align 8, !tbaa !20
+  %m_size.i.i6.i.i91 = getelementptr inbounds %class.BenchmarkDemo, ptr %benchmarkDemo2, i64 0, i32 2, i32 2
+  store i32 0, ptr %m_size.i.i6.i.i91, align 4, !tbaa !21
+  %m_capacity.i.i7.i.i92 = getelementptr inbounds %class.BenchmarkDemo, ptr %benchmarkDemo2, i64 0, i32 2, i32 3
+  store i32 0, ptr %m_capacity.i.i7.i.i92, align 8, !tbaa !22
+  %m_benchmark.i.i93 = getelementptr inbounds %class.BenchmarkDemo, ptr %benchmarkDemo2, i64 0, i32 7
+  store i32 2, ptr %m_benchmark.i.i93, align 8, !tbaa !23
+  store ptr getelementptr inbounds ({ [8 x ptr] }, ptr @_ZTV14BenchmarkDemo2, i64 0, inrange i32 0, i64 2), ptr %benchmarkDemo2, align 8, !tbaa !26
+  call void @llvm.lifetime.start.p0(i64 136, ptr nonnull %benchmarkDemo3) #9
+  %m_ownsMemory.i.i.i.i94 = getelementptr inbounds %class.BenchmarkDemo, ptr %benchmarkDemo3, i64 0, i32 1, i32 6
+  store i8 1, ptr %m_ownsMemory.i.i.i.i94, align 8, !tbaa !9
+  %m_data.i.i.i.i95 = getelementptr inbounds %class.BenchmarkDemo, ptr %benchmarkDemo3, i64 0, i32 1, i32 5
+  store ptr null, ptr %m_data.i.i.i.i95, align 8, !tbaa !14
+  %m_size.i.i.i.i96 = getelementptr inbounds %class.BenchmarkDemo, ptr %benchmarkDemo3, i64 0, i32 1, i32 2
+  store i32 0, ptr %m_size.i.i.i.i96, align 4, !tbaa !15
+  %m_capacity.i.i.i.i97 = getelementptr inbounds %class.BenchmarkDemo, ptr %benchmarkDemo3, i64 0, i32 1, i32 3
+  store i32 0, ptr %m_capacity.i.i.i.i97, align 8, !tbaa !16
+  %m_ownsMemory.i.i4.i.i98 = getelementptr inbounds %class.BenchmarkDemo, ptr %benchmarkDemo3, i64 0, i32 2, i32 6
+  store i8 1, ptr %m_ownsMemory.i.i4.i.i98, align 8, !tbaa !17
+  %m_data.i.i5.i.i99 = getelementptr inbounds %class.BenchmarkDemo, ptr %benchmarkDemo3, i64 0, i32 2, i32 5
+  store ptr null, ptr %m_data.i.i5.i.i99, align 8, !tbaa !20
+  %m_size.i.i6.i.i100 = getelementptr inbounds %class.BenchmarkDemo, ptr %benchmarkDemo3, i64 0, i32 2, i32 2
+  store i32 0, ptr %m_size.i.i6.i.i100, align 4, !tbaa !21
+  %m_capacity.i.i7.i.i101 = getelementptr inbounds %class.BenchmarkDemo, ptr %benchmarkDemo3, i64 0, i32 2, i32 3
+  store i32 0, ptr %m_capacity.i.i7.i.i101, align 8, !tbaa !22
+  %m_benchmark.i.i102 = getelementptr inbounds %class.BenchmarkDemo, ptr %benchmarkDemo3, i64 0, i32 7
+  store i32 3, ptr %m_benchmark.i.i102, align 8, !tbaa !23
+  store ptr getelementptr inbounds ({ [8 x ptr] }, ptr @_ZTV14BenchmarkDemo3, i64 0, inrange i32 0, i64 2), ptr %benchmarkDemo3, align 8, !tbaa !26
+  call void @llvm.lifetime.start.p0(i64 136, ptr nonnull %benchmarkDemo4) #9
+  %m_ownsMemory.i.i.i.i103 = getelementptr inbounds %class.BenchmarkDemo, ptr %benchmarkDemo4, i64 0, i32 1, i32 6
+  store i8 1, ptr %m_ownsMemory.i.i.i.i103, align 8, !tbaa !9
+  %m_data.i.i.i.i104 = getelementptr inbounds %class.BenchmarkDemo, ptr %benchmarkDemo4, i64 0, i32 1, i32 5
+  store ptr null, ptr %m_data.i.i.i.i104, align 8, !tbaa !14
+  %m_size.i.i.i.i105 = getelementptr inbounds %class.BenchmarkDemo, ptr %benchmarkDemo4, i64 0, i32 1, i32 2
+  store i32 0, ptr %m_size.i.i.i.i105, align 4, !tbaa !15
+  %m_capacity.i.i.i.i106 = getelementptr inbounds %class.BenchmarkDemo, ptr %benchmarkDemo4, i64 0, i32 1, i32 3
+  store i32 0, ptr %m_capacity.i.i.i.i106, align 8, !tbaa !16
+  %m_ownsMemory.i.i4.i.i107 = getelementptr inbounds %class.BenchmarkDemo, ptr %benchmarkDemo4, i64 0, i32 2, i32 6
+  store i8 1, ptr %m_ownsMemory.i.i4.i.i107, align 8, !tbaa !17
+  %m_data.i.i5.i.i108 = getelementptr inbounds %class.BenchmarkDemo, ptr %benchmarkDemo4, i64 0, i32 2, i32 5
+  store ptr null, ptr %m_data.i.i5.i.i108, align 8, !tbaa !20
+  %m_size.i.i6.i.i109 = getelementptr inbounds %class.BenchmarkDemo, ptr %benchmarkDemo4, i64 0, i32 2, i32 2
+  store i32 0, ptr %m_size.i.i6.i.i109, align 4, !tbaa !21
+  %m_capacity.i.i7.i.i110 = getelementptr inbounds %class.BenchmarkDemo, ptr %benchmarkDemo4, i64 0, i32 2, i32 3
+  store i32 0, ptr %m_capacity.i.i7.i.i110, align 8, !tbaa !22
+  %m_benchmark.i.i111 = getelementptr inbounds %class.BenchmarkDemo, ptr %benchmarkDemo4, i64 0, i32 7
+  store i32 4, ptr %m_benchmark.i.i111, align 8, !tbaa !23
+  store ptr getelementptr inbounds ({ [8 x ptr] }, ptr @_ZTV14BenchmarkDemo4, i64 0, inrange i32 0, i64 2), ptr %benchmarkDemo4, align 8, !tbaa !26
+  call void @llvm.lifetime.start.p0(i64 136, ptr nonnull %benchmarkDemo5) #9
+  %m_ownsMemory.i.i.i.i112 = getelementptr inbounds %class.BenchmarkDemo, ptr %benchmarkDemo5, i64 0, i32 1, i32 6
+  store i8 1, ptr %m_ownsMemory.i.i.i.i112, align 8, !tbaa !9
+  %m_data.i.i.i.i113 = getelementptr inbounds %class.BenchmarkDemo, ptr %benchmarkDemo5, i64 0, i32 1, i32 5
+  store ptr null, ptr %m_data.i.i.i.i113, align 8, !tbaa !14
+  %m_size.i.i.i.i114 = getelementptr inbounds %class.BenchmarkDemo, ptr %benchmarkDemo5, i64 0, i32 1, i32 2
+  store i32 0, ptr %m_size.i.i.i.i114, align 4, !tbaa !15
+  %m_capacity.i.i.i.i115 = getelementptr inbounds %class.BenchmarkDemo, ptr %benchmarkDemo5, i64 0, i32 1, i32 3
+  store i32 0, ptr %m_capacity.i.i.i.i115, align 8, !tbaa !16
+  %m_ownsMemory.i.i4.i.i116 = getelementptr inbounds %class.BenchmarkDemo, ptr %benchmarkDemo5, i64 0, i32 2, i32 6
+  store i8 1, ptr %m_ownsMemory.i.i4.i.i116, align 8, !tbaa !17
+  %m_data.i.i5.i.i117 = getelementptr inbounds %class.BenchmarkDemo, ptr %benchmarkDemo5, i64 0, i32 2, i32 5
+  store ptr null, ptr %m_data.i.i5.i.i117, align 8, !tbaa !20
+  %m_size.i.i6.i.i118 = getelementptr inbounds %class.BenchmarkDemo, ptr %benchmarkDemo5, i64 0, i32 2, i32 2
+  store i32 0, ptr %m_size.i.i6.i.i118, align 4, !tbaa !21
+  %m_capacity.i.i7.i.i119 = getelementptr inbounds %class.BenchmarkDemo, ptr %benchmarkDemo5, i64 0, i32 2, i32 3
+  store i32 0, ptr %m_capacity.i.i7.i.i119, align 8, !tbaa !22
+  %m_benchmark.i.i120 = getelementptr inbounds %class.BenchmarkDemo, ptr %benchmarkDemo5, i64 0, i32 7
+  store i32 5, ptr %m_benchmark.i.i120, align 8, !tbaa !23
+  store ptr getelementptr inbounds ({ [8 x ptr] }, ptr @_ZTV14BenchmarkDemo5, i64 0, inrange i32 0, i64 2), ptr %benchmarkDemo5, align 8, !tbaa !26
+  call void @llvm.lifetime.start.p0(i64 136, ptr nonnull %benchmarkDemo6) #9
+  %m_ownsMemory.i.i.i.i121 = getelementptr inbounds %class.BenchmarkDemo, ptr %benchmarkDemo6, i64 0, i32 1, i32 6
+  store i8 1, ptr %m_ownsMemory.i.i.i.i121, align 8, !tbaa !9
+  %m_data.i.i.i.i122 = getelementptr inbounds %class.BenchmarkDemo, ptr %benchmarkDemo6, i64 0, i32 1, i32 5
+  store ptr null, ptr %m_data.i.i.i.i122, align 8, !tbaa !14
+  %m_size.i.i.i.i123 = getelementptr inbounds %class.BenchmarkDemo, ptr %benchmarkDemo6, i64 0, i32 1, i32 2
+  store i32 0, ptr %m_size.i.i.i.i123, align 4, !tbaa !15
+  %m_capacity.i.i.i.i124 = getelementptr inbounds %class.BenchmarkDemo, ptr %benchmarkDemo6, i64 0, i32 1, i32 3
+  store i32 0, ptr %m_capacity.i.i.i.i124, align 8, !tbaa !16
+  %m_ownsMemory.i.i4.i.i125 = getelementptr inbounds %class.BenchmarkDemo, ptr %benchmarkDemo6, i64 0, i32 2, i32 6
+  store i8 1, ptr %m_ownsMemory.i.i4.i.i125, align 8, !tbaa !17
+  %m_data.i.i5.i.i126 = getelementptr inbounds %class.BenchmarkDemo, ptr %benchmarkDemo6, i64 0, i32 2, i32 5
+  store ptr null, ptr %m_data.i.i5.i.i126, align 8, !tbaa !20
+  %m_size.i.i6.i.i127 = getelementptr inbounds %class.BenchmarkDemo, ptr %benchmarkDemo6, i64 0, i32 2, i32 2
+  store i32 0, ptr %m_size.i.i6.i.i127, align 4, !tbaa !21
+  %m_capacity.i.i7.i.i128 = getelementptr inbounds %class.BenchmarkDemo, ptr %benchmarkDemo6, i64 0, i32 2, i32 3
+  store i32 0, ptr %m_capacity.i.i7.i.i128, align 8, !tbaa !22
+  %m_benchmark.i.i129 = getelementptr inbounds %class.BenchmarkDemo, ptr %benchmarkDemo6, i64 0, i32 7
+  store i32 6, ptr %m_benchmark.i.i129, align 8, !tbaa !23
+  store ptr getelementptr inbounds ({ [8 x ptr] }, ptr @_ZTV14BenchmarkDemo6, i64 0, inrange i32 0, i64 2), ptr %benchmarkDemo6, align 8, !tbaa !26
+  call void @llvm.lifetime.start.p0(i64 136, ptr nonnull %benchmarkDemo7) #9
+  %m_ownsMemory.i.i.i.i130 = getelementptr inbounds %class.BenchmarkDemo, ptr %benchmarkDemo7, i64 0, i32 1, i32 6
+  store i8 1, ptr %m_ownsMemory.i.i.i.i130, align 8, !tbaa !9
+  %m_data.i.i.i.i131 = getelementptr inbounds %class.BenchmarkDemo, ptr %benchmarkDemo7, i64 0, i32 1, i32 5
+  store ptr null, ptr %m_data.i.i.i.i131, align 8, !tbaa !14
+  %m_size.i.i.i.i132 = getelementptr inbounds %class.BenchmarkDemo, ptr %benchmarkDemo7, i64 0, i32 1, i32 2
+  store i32 0, ptr %m_size.i.i.i.i132, align 4, !tbaa !15
+  %m_capacity.i.i.i.i133 = getelementptr inbounds %class.BenchmarkDemo, ptr %benchmarkDemo7, i64 0, i32 1, i32 3
+  store i32 0, ptr %m_capacity.i.i.i.i133, align 8, !tbaa !16
+  %m_ownsMemory.i.i4.i.i134 = getelementptr inbounds %class.BenchmarkDemo, ptr %benchmarkDemo7, i64 0, i32 2, i32 6
+  store i8 1, ptr %m_ownsMemory.i.i4.i.i134, align 8, !tbaa !17
+  %m_data.i.i5.i.i135 = getelementptr inbounds %class.BenchmarkDemo, ptr %benchmarkDemo7, i64 0, i32 2, i32 5
+  store ptr null, ptr %m_data.i.i5.i.i135, align 8, !tbaa !20
+  %m_size.i.i6.i.i136 = getelementptr inbounds %class.BenchmarkDemo, ptr %benchmarkDemo7, i64 0, i32 2, i32 2
+  store i32 0, ptr %m_size.i.i6.i.i136, align 4, !tbaa !21
+  %m_capacity.i.i7.i.i137 = getelementptr inbounds %class.BenchmarkDemo, ptr %benchmarkDemo7, i64 0, i32 2, i32 3
+  store i32 0, ptr %m_capacity.i.i7.i.i137, align 8, !tbaa !22
+  %m_benchmark.i.i138 = getelementptr inbounds %class.BenchmarkDemo, ptr %benchmarkDemo7, i64 0, i32 7
+  store i32 7, ptr %m_benchmark.i.i138, align 8, !tbaa !23
+  store ptr getelementptr inbounds ({ [8 x ptr] }, ptr @_ZTV14BenchmarkDemo7, i64 0, inrange i32 0, i64 2), ptr %benchmarkDemo7, align 8, !tbaa !26
+  invoke void @_ZN13BenchmarkDemo11initPhysicsEv(ptr noundef nonnull align 8 dereferenceable(136) %benchmarkDemo1)
+          to label %for.body20 unwind label %lpad16
 
-73:                                               ; preds = %224
-  invoke void @_ZN13BenchmarkDemo11initPhysicsEv(ptr noundef nonnull align 8 dereferenceable(136) %4)
-          to label %74 unwind label %182
+for.cond.cleanup:                                 ; preds = %if.end
+  invoke void @_ZN13BenchmarkDemo11initPhysicsEv(ptr noundef nonnull align 8 dereferenceable(136) %benchmarkDemo2)
+          to label %for.body20.1 unwind label %lpad16
 
-74:                                               ; preds = %73, %86
-  %75 = phi i32 [ %87, %86 ], [ 0, %73 ]
-  %76 = load ptr, ptr %4, align 8, !tbaa !26
-  %77 = getelementptr inbounds ptr, ptr %76, i64 4
-  %78 = load ptr, ptr %77, align 8
-  invoke void %78(ptr noundef nonnull align 8 dereferenceable(136) %4)
-          to label %79 unwind label %198
+for.body20.1:                                     ; preds = %for.cond.cleanup, %if.end.1
+  %i.0140.1 = phi i32 [ %inc.1, %if.end.1 ], [ 0, %for.cond.cleanup ]
+  %vtable.1 = load ptr, ptr %benchmarkDemo2, align 8, !tbaa !26
+  %vfn.1 = getelementptr inbounds ptr, ptr %vtable.1, i64 4
+  %0 = load ptr, ptr %vfn.1, align 8
+  invoke void %0(ptr noundef nonnull align 8 dereferenceable(136) %benchmarkDemo2)
+          to label %invoke.cont24.1 unwind label %lpad23.loopexit.split-lp.loopexit
 
-79:                                               ; preds = %74
-  %80 = invoke noundef float @_ZN15CProfileManager20Get_Time_Since_ResetEv()
-          to label %81 unwind label %212
+invoke.cont24.1:                                  ; preds = %for.body20.1
+  %call.1 = invoke noundef float @_ZN15CProfileManager20Get_Time_Since_ResetEv()
+          to label %invoke.cont26.1 unwind label %lpad25.loopexit.split-lp.loopexit
 
-81:                                               ; preds = %79
-  %82 = urem i32 %75, 25
-  %83 = icmp eq i32 %82, 0
-  br i1 %83, label %84, label %86
+invoke.cont26.1:                                  ; preds = %invoke.cont24.1
+  %rem.lhs.trunc.1 = trunc i32 %i.0140.1 to i8
+  %rem139.1 = urem i8 %rem.lhs.trunc.1, 25
+  %cmp27.1 = icmp eq i8 %rem139.1, 0
+  br i1 %cmp27.1, label %if.then.1, label %if.end.1
 
-84:                                               ; preds = %81
-  %85 = call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.7, ptr noundef nonnull @.str.1, i32 noundef %75)
-  br label %86
+if.then.1:                                        ; preds = %invoke.cont26.1
+  %call31.1 = call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.7, ptr noundef nonnull @.str.1, i32 noundef %i.0140.1)
+  br label %if.end.1
 
-86:                                               ; preds = %84, %81
-  %87 = add nuw nsw i32 %75, 1
-  %88 = icmp eq i32 %87, 100
-  br i1 %88, label %89, label %74
+if.end.1:                                         ; preds = %if.then.1, %invoke.cont26.1
+  %inc.1 = add nuw nsw i32 %i.0140.1, 1
+  %exitcond.1.not = icmp eq i32 %inc.1, 100
+  br i1 %exitcond.1.not, label %for.cond.cleanup.1, label %for.body20.1
 
-89:                                               ; preds = %86
-  invoke void @_ZN13BenchmarkDemo11initPhysicsEv(ptr noundef nonnull align 8 dereferenceable(136) %5)
-          to label %90 unwind label %182
+for.cond.cleanup.1:                               ; preds = %if.end.1
+  invoke void @_ZN13BenchmarkDemo11initPhysicsEv(ptr noundef nonnull align 8 dereferenceable(136) %benchmarkDemo3)
+          to label %for.body20.2 unwind label %lpad16
 
-90:                                               ; preds = %89, %102
-  %91 = phi i32 [ %103, %102 ], [ 0, %89 ]
-  %92 = load ptr, ptr %5, align 8, !tbaa !26
-  %93 = getelementptr inbounds ptr, ptr %92, i64 4
-  %94 = load ptr, ptr %93, align 8
-  invoke void %94(ptr noundef nonnull align 8 dereferenceable(136) %5)
-          to label %95 unwind label %200
+for.body20.2:                                     ; preds = %for.cond.cleanup.1, %if.end.2
+  %i.0140.2 = phi i32 [ %inc.2, %if.end.2 ], [ 0, %for.cond.cleanup.1 ]
+  %vtable.2 = load ptr, ptr %benchmarkDemo3, align 8, !tbaa !26
+  %vfn.2 = getelementptr inbounds ptr, ptr %vtable.2, i64 4
+  %1 = load ptr, ptr %vfn.2, align 8
+  invoke void %1(ptr noundef nonnull align 8 dereferenceable(136) %benchmarkDemo3)
+          to label %invoke.cont24.2 unwind label %lpad23.loopexit.split-lp.loopexit.split-lp.loopexit
 
-95:                                               ; preds = %90
-  %96 = invoke noundef float @_ZN15CProfileManager20Get_Time_Since_ResetEv()
-          to label %97 unwind label %214
+invoke.cont24.2:                                  ; preds = %for.body20.2
+  %call.2 = invoke noundef float @_ZN15CProfileManager20Get_Time_Since_ResetEv()
+          to label %invoke.cont26.2 unwind label %lpad25.loopexit.split-lp.loopexit.split-lp.loopexit
 
-97:                                               ; preds = %95
-  %98 = urem i32 %91, 25
-  %99 = icmp eq i32 %98, 0
-  br i1 %99, label %100, label %102
+invoke.cont26.2:                                  ; preds = %invoke.cont24.2
+  %rem.lhs.trunc.2 = trunc i32 %i.0140.2 to i8
+  %rem139.2 = urem i8 %rem.lhs.trunc.2, 25
+  %cmp27.2 = icmp eq i8 %rem139.2, 0
+  br i1 %cmp27.2, label %if.then.2, label %if.end.2
 
-100:                                              ; preds = %97
-  %101 = call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.7, ptr noundef nonnull @.str.2, i32 noundef %91)
-  br label %102
+if.then.2:                                        ; preds = %invoke.cont26.2
+  %call31.2 = call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.7, ptr noundef nonnull @.str.2, i32 noundef %i.0140.2)
+  br label %if.end.2
 
-102:                                              ; preds = %100, %97
-  %103 = add nuw nsw i32 %91, 1
-  %104 = icmp eq i32 %103, 100
-  br i1 %104, label %105, label %90
+if.end.2:                                         ; preds = %if.then.2, %invoke.cont26.2
+  %inc.2 = add nuw nsw i32 %i.0140.2, 1
+  %exitcond.2.not = icmp eq i32 %inc.2, 100
+  br i1 %exitcond.2.not, label %for.cond.cleanup.2, label %for.body20.2
 
-105:                                              ; preds = %102
-  invoke void @_ZN13BenchmarkDemo11initPhysicsEv(ptr noundef nonnull align 8 dereferenceable(136) %6)
-          to label %106 unwind label %182
+for.cond.cleanup.2:                               ; preds = %if.end.2
+  invoke void @_ZN13BenchmarkDemo11initPhysicsEv(ptr noundef nonnull align 8 dereferenceable(136) %benchmarkDemo4)
+          to label %for.body20.3 unwind label %lpad16
 
-106:                                              ; preds = %105, %118
-  %107 = phi i32 [ %119, %118 ], [ 0, %105 ]
-  %108 = load ptr, ptr %6, align 8, !tbaa !26
-  %109 = getelementptr inbounds ptr, ptr %108, i64 4
-  %110 = load ptr, ptr %109, align 8
-  invoke void %110(ptr noundef nonnull align 8 dereferenceable(136) %6)
-          to label %111 unwind label %202
+for.body20.3:                                     ; preds = %for.cond.cleanup.2, %if.end.3
+  %i.0140.3 = phi i32 [ %inc.3, %if.end.3 ], [ 0, %for.cond.cleanup.2 ]
+  %vtable.3 = load ptr, ptr %benchmarkDemo4, align 8, !tbaa !26
+  %vfn.3 = getelementptr inbounds ptr, ptr %vtable.3, i64 4
+  %2 = load ptr, ptr %vfn.3, align 8
+  invoke void %2(ptr noundef nonnull align 8 dereferenceable(136) %benchmarkDemo4)
+          to label %invoke.cont24.3 unwind label %lpad23.loopexit.split-lp.loopexit.split-lp.loopexit.split-lp.loopexit
 
-111:                                              ; preds = %106
-  %112 = invoke noundef float @_ZN15CProfileManager20Get_Time_Since_ResetEv()
-          to label %113 unwind label %216
+invoke.cont24.3:                                  ; preds = %for.body20.3
+  %call.3 = invoke noundef float @_ZN15CProfileManager20Get_Time_Since_ResetEv()
+          to label %invoke.cont26.3 unwind label %lpad25.loopexit.split-lp.loopexit.split-lp.loopexit.split-lp.loopexit
 
-113:                                              ; preds = %111
-  %114 = urem i32 %107, 25
-  %115 = icmp eq i32 %114, 0
-  br i1 %115, label %116, label %118
+invoke.cont26.3:                                  ; preds = %invoke.cont24.3
+  %rem.lhs.trunc.3 = trunc i32 %i.0140.3 to i8
+  %rem139.3 = urem i8 %rem.lhs.trunc.3, 25
+  %cmp27.3 = icmp eq i8 %rem139.3, 0
+  br i1 %cmp27.3, label %if.then.3, label %if.end.3
 
-116:                                              ; preds = %113
-  %117 = call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.7, ptr noundef nonnull @.str.3, i32 noundef %107)
-  br label %118
+if.then.3:                                        ; preds = %invoke.cont26.3
+  %call31.3 = call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.7, ptr noundef nonnull @.str.3, i32 noundef %i.0140.3)
+  br label %if.end.3
 
-118:                                              ; preds = %116, %113
-  %119 = add nuw nsw i32 %107, 1
-  %120 = icmp eq i32 %119, 100
-  br i1 %120, label %121, label %106
+if.end.3:                                         ; preds = %if.then.3, %invoke.cont26.3
+  %inc.3 = add nuw nsw i32 %i.0140.3, 1
+  %exitcond.3.not = icmp eq i32 %inc.3, 100
+  br i1 %exitcond.3.not, label %for.cond.cleanup.3, label %for.body20.3
 
-121:                                              ; preds = %118
-  invoke void @_ZN13BenchmarkDemo11initPhysicsEv(ptr noundef nonnull align 8 dereferenceable(136) %7)
-          to label %122 unwind label %182
+for.cond.cleanup.3:                               ; preds = %if.end.3
+  invoke void @_ZN13BenchmarkDemo11initPhysicsEv(ptr noundef nonnull align 8 dereferenceable(136) %benchmarkDemo5)
+          to label %for.body20.4 unwind label %lpad16
 
-122:                                              ; preds = %121, %134
-  %123 = phi i32 [ %135, %134 ], [ 0, %121 ]
-  %124 = load ptr, ptr %7, align 8, !tbaa !26
-  %125 = getelementptr inbounds ptr, ptr %124, i64 4
-  %126 = load ptr, ptr %125, align 8
-  invoke void %126(ptr noundef nonnull align 8 dereferenceable(136) %7)
-          to label %127 unwind label %204
+for.body20.4:                                     ; preds = %for.cond.cleanup.3, %if.end.4
+  %i.0140.4 = phi i32 [ %inc.4, %if.end.4 ], [ 0, %for.cond.cleanup.3 ]
+  %vtable.4 = load ptr, ptr %benchmarkDemo5, align 8, !tbaa !26
+  %vfn.4 = getelementptr inbounds ptr, ptr %vtable.4, i64 4
+  %3 = load ptr, ptr %vfn.4, align 8
+  invoke void %3(ptr noundef nonnull align 8 dereferenceable(136) %benchmarkDemo5)
+          to label %invoke.cont24.4 unwind label %lpad23.loopexit.split-lp.loopexit.split-lp.loopexit.split-lp.loopexit.split-lp.loopexit
 
-127:                                              ; preds = %122
-  %128 = invoke noundef float @_ZN15CProfileManager20Get_Time_Since_ResetEv()
-          to label %129 unwind label %218
+invoke.cont24.4:                                  ; preds = %for.body20.4
+  %call.4 = invoke noundef float @_ZN15CProfileManager20Get_Time_Since_ResetEv()
+          to label %invoke.cont26.4 unwind label %lpad25.loopexit.split-lp.loopexit.split-lp.loopexit.split-lp.loopexit.split-lp.loopexit
 
-129:                                              ; preds = %127
-  %130 = urem i32 %123, 25
-  %131 = icmp eq i32 %130, 0
-  br i1 %131, label %132, label %134
+invoke.cont26.4:                                  ; preds = %invoke.cont24.4
+  %rem.lhs.trunc.4 = trunc i32 %i.0140.4 to i8
+  %rem139.4 = urem i8 %rem.lhs.trunc.4, 25
+  %cmp27.4 = icmp eq i8 %rem139.4, 0
+  br i1 %cmp27.4, label %if.then.4, label %if.end.4
 
-132:                                              ; preds = %129
-  %133 = call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.7, ptr noundef nonnull @.str.4, i32 noundef %123)
-  br label %134
+if.then.4:                                        ; preds = %invoke.cont26.4
+  %call31.4 = call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.7, ptr noundef nonnull @.str.4, i32 noundef %i.0140.4)
+  br label %if.end.4
 
-134:                                              ; preds = %132, %129
-  %135 = add nuw nsw i32 %123, 1
-  %136 = icmp eq i32 %135, 100
-  br i1 %136, label %137, label %122
+if.end.4:                                         ; preds = %if.then.4, %invoke.cont26.4
+  %inc.4 = add nuw nsw i32 %i.0140.4, 1
+  %exitcond.4.not = icmp eq i32 %inc.4, 100
+  br i1 %exitcond.4.not, label %for.cond.cleanup.4, label %for.body20.4
 
-137:                                              ; preds = %134
-  invoke void @_ZN13BenchmarkDemo11initPhysicsEv(ptr noundef nonnull align 8 dereferenceable(136) %8)
-          to label %138 unwind label %182
+for.cond.cleanup.4:                               ; preds = %if.end.4
+  invoke void @_ZN13BenchmarkDemo11initPhysicsEv(ptr noundef nonnull align 8 dereferenceable(136) %benchmarkDemo6)
+          to label %for.body20.5 unwind label %lpad16
 
-138:                                              ; preds = %137, %150
-  %139 = phi i32 [ %151, %150 ], [ 0, %137 ]
-  %140 = load ptr, ptr %8, align 8, !tbaa !26
-  %141 = getelementptr inbounds ptr, ptr %140, i64 4
-  %142 = load ptr, ptr %141, align 8
-  invoke void %142(ptr noundef nonnull align 8 dereferenceable(136) %8)
-          to label %143 unwind label %206
+for.body20.5:                                     ; preds = %for.cond.cleanup.4, %if.end.5
+  %i.0140.5 = phi i32 [ %inc.5, %if.end.5 ], [ 0, %for.cond.cleanup.4 ]
+  %vtable.5 = load ptr, ptr %benchmarkDemo6, align 8, !tbaa !26
+  %vfn.5 = getelementptr inbounds ptr, ptr %vtable.5, i64 4
+  %4 = load ptr, ptr %vfn.5, align 8
+  invoke void %4(ptr noundef nonnull align 8 dereferenceable(136) %benchmarkDemo6)
+          to label %invoke.cont24.5 unwind label %lpad23.loopexit.split-lp.loopexit.split-lp.loopexit.split-lp.loopexit.split-lp.loopexit.split-lp.loopexit
 
-143:                                              ; preds = %138
-  %144 = invoke noundef float @_ZN15CProfileManager20Get_Time_Since_ResetEv()
-          to label %145 unwind label %220
+invoke.cont24.5:                                  ; preds = %for.body20.5
+  %call.5 = invoke noundef float @_ZN15CProfileManager20Get_Time_Since_ResetEv()
+          to label %invoke.cont26.5 unwind label %lpad25.loopexit.split-lp.loopexit.split-lp.loopexit.split-lp.loopexit.split-lp.loopexit.split-lp.loopexit
 
-145:                                              ; preds = %143
-  %146 = urem i32 %139, 25
-  %147 = icmp eq i32 %146, 0
-  br i1 %147, label %148, label %150
+invoke.cont26.5:                                  ; preds = %invoke.cont24.5
+  %rem.lhs.trunc.5 = trunc i32 %i.0140.5 to i8
+  %rem139.5 = urem i8 %rem.lhs.trunc.5, 25
+  %cmp27.5 = icmp eq i8 %rem139.5, 0
+  br i1 %cmp27.5, label %if.then.5, label %if.end.5
 
-148:                                              ; preds = %145
-  %149 = call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.7, ptr noundef nonnull @.str.5, i32 noundef %139)
-  br label %150
+if.then.5:                                        ; preds = %invoke.cont26.5
+  %call31.5 = call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.7, ptr noundef nonnull @.str.5, i32 noundef %i.0140.5)
+  br label %if.end.5
 
-150:                                              ; preds = %148, %145
-  %151 = add nuw nsw i32 %139, 1
-  %152 = icmp eq i32 %151, 100
-  br i1 %152, label %153, label %138
+if.end.5:                                         ; preds = %if.then.5, %invoke.cont26.5
+  %inc.5 = add nuw nsw i32 %i.0140.5, 1
+  %exitcond.5.not = icmp eq i32 %inc.5, 100
+  br i1 %exitcond.5.not, label %for.cond.cleanup.5, label %for.body20.5
 
-153:                                              ; preds = %150
-  invoke void @_ZN13BenchmarkDemo11initPhysicsEv(ptr noundef nonnull align 8 dereferenceable(136) %9)
-          to label %154 unwind label %182
+for.cond.cleanup.5:                               ; preds = %if.end.5
+  invoke void @_ZN13BenchmarkDemo11initPhysicsEv(ptr noundef nonnull align 8 dereferenceable(136) %benchmarkDemo7)
+          to label %for.body20.6 unwind label %lpad16
 
-154:                                              ; preds = %153, %166
-  %155 = phi i32 [ %167, %166 ], [ 0, %153 ]
-  %156 = load ptr, ptr %9, align 8, !tbaa !26
-  %157 = getelementptr inbounds ptr, ptr %156, i64 4
-  %158 = load ptr, ptr %157, align 8
-  invoke void %158(ptr noundef nonnull align 8 dereferenceable(136) %9)
-          to label %159 unwind label %208
+for.body20.6:                                     ; preds = %for.cond.cleanup.5, %if.end.6
+  %i.0140.6 = phi i32 [ %inc.6, %if.end.6 ], [ 0, %for.cond.cleanup.5 ]
+  %vtable.6 = load ptr, ptr %benchmarkDemo7, align 8, !tbaa !26
+  %vfn.6 = getelementptr inbounds ptr, ptr %vtable.6, i64 4
+  %5 = load ptr, ptr %vfn.6, align 8
+  invoke void %5(ptr noundef nonnull align 8 dereferenceable(136) %benchmarkDemo7)
+          to label %invoke.cont24.6 unwind label %lpad23.loopexit.split-lp.loopexit.split-lp.loopexit.split-lp.loopexit.split-lp.loopexit.split-lp.loopexit.split-lp
 
-159:                                              ; preds = %154
-  %160 = invoke noundef float @_ZN15CProfileManager20Get_Time_Since_ResetEv()
-          to label %161 unwind label %222
+invoke.cont24.6:                                  ; preds = %for.body20.6
+  %call.6 = invoke noundef float @_ZN15CProfileManager20Get_Time_Since_ResetEv()
+          to label %invoke.cont26.6 unwind label %lpad25.loopexit.split-lp.loopexit.split-lp.loopexit.split-lp.loopexit.split-lp.loopexit.split-lp.loopexit.split-lp
 
-161:                                              ; preds = %159
-  %162 = urem i32 %155, 25
-  %163 = icmp eq i32 %162, 0
-  br i1 %163, label %164, label %166
+invoke.cont26.6:                                  ; preds = %invoke.cont24.6
+  %rem.lhs.trunc.6 = trunc i32 %i.0140.6 to i8
+  %rem139.6 = urem i8 %rem.lhs.trunc.6, 25
+  %cmp27.6 = icmp eq i8 %rem139.6, 0
+  br i1 %cmp27.6, label %if.then.6, label %if.end.6
 
-164:                                              ; preds = %161
-  %165 = call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.7, ptr noundef nonnull @.str.6, i32 noundef %155)
-  br label %166
+if.then.6:                                        ; preds = %invoke.cont26.6
+  %call31.6 = call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.7, ptr noundef nonnull @.str.6, i32 noundef %i.0140.6)
+  br label %if.end.6
 
-166:                                              ; preds = %164, %161
-  %167 = add nuw nsw i32 %155, 1
-  %168 = icmp eq i32 %167, 100
-  br i1 %168, label %169, label %154
+if.end.6:                                         ; preds = %if.then.6, %invoke.cont26.6
+  %inc.6 = add nuw nsw i32 %i.0140.6, 1
+  %exitcond.6.not = icmp eq i32 %inc.6, 100
+  br i1 %exitcond.6.not, label %for.cond.cleanup.6, label %for.body20.6
 
-169:                                              ; preds = %166
-  invoke void @_ZN13BenchmarkDemoD2Ev(ptr noundef nonnull align 8 dereferenceable(136) %9)
-          to label %229 unwind label %180
+for.cond.cleanup.6:                               ; preds = %if.end.6
+  invoke void @_ZN13BenchmarkDemoD2Ev(ptr noundef nonnull align 8 dereferenceable(136) %benchmarkDemo7)
+          to label %invoke.cont41 unwind label %lpad9
 
-170:                                              ; preds = %241
-  %171 = landingpad { ptr, i32 }
+lpad:                                             ; preds = %invoke.cont57
+  %6 = landingpad { ptr, i32 }
           cleanup
-  br label %245
+  br label %ehcleanup64
 
-172:                                              ; preds = %238
-  %173 = landingpad { ptr, i32 }
+lpad1:                                            ; preds = %invoke.cont53
+  %7 = landingpad { ptr, i32 }
           cleanup
-  br label %242
+  br label %ehcleanup60
 
-174:                                              ; preds = %235
-  %175 = landingpad { ptr, i32 }
+lpad3:                                            ; preds = %invoke.cont49
+  %8 = landingpad { ptr, i32 }
           cleanup
-  br label %239
+  br label %ehcleanup56
 
-176:                                              ; preds = %232
-  %177 = landingpad { ptr, i32 }
+lpad5:                                            ; preds = %invoke.cont45
+  %9 = landingpad { ptr, i32 }
           cleanup
-  br label %236
+  br label %ehcleanup52
 
-178:                                              ; preds = %229
-  %179 = landingpad { ptr, i32 }
+lpad7:                                            ; preds = %invoke.cont41
+  %10 = landingpad { ptr, i32 }
           cleanup
-  br label %233
+  br label %ehcleanup48
 
-180:                                              ; preds = %169
-  %181 = landingpad { ptr, i32 }
+lpad9:                                            ; preds = %for.cond.cleanup.6
+  %11 = landingpad { ptr, i32 }
           cleanup
-  br label %230
+  br label %ehcleanup44
 
-182:                                              ; preds = %153, %137, %121, %105, %89, %73, %2
-  %183 = landingpad { ptr, i32 }
+lpad16:                                           ; preds = %for.cond.cleanup.5, %for.cond.cleanup.4, %for.cond.cleanup.3, %for.cond.cleanup.2, %for.cond.cleanup.1, %for.cond.cleanup, %invoke.cont10
+  %12 = landingpad { ptr, i32 }
           cleanup
-  br label %227
+  br label %ehcleanup37
 
-184:                                              ; preds = %2, %224
-  %185 = phi i32 [ %225, %224 ], [ 0, %2 ]
-  %186 = load ptr, ptr %3, align 8, !tbaa !26
-  %187 = getelementptr inbounds ptr, ptr %186, i64 4
-  %188 = load ptr, ptr %187, align 8
-  invoke void %188(ptr noundef nonnull align 8 dereferenceable(136) %3)
-          to label %189 unwind label %196
+for.body20:                                       ; preds = %invoke.cont10, %if.end
+  %i.0140 = phi i32 [ %inc, %if.end ], [ 0, %invoke.cont10 ]
+  %vtable = load ptr, ptr %benchmarkDemo1, align 8, !tbaa !26
+  %vfn = getelementptr inbounds ptr, ptr %vtable, i64 4
+  %13 = load ptr, ptr %vfn, align 8
+  invoke void %13(ptr noundef nonnull align 8 dereferenceable(136) %benchmarkDemo1)
+          to label %invoke.cont24 unwind label %lpad23.loopexit
 
-189:                                              ; preds = %184
-  %190 = invoke noundef float @_ZN15CProfileManager20Get_Time_Since_ResetEv()
-          to label %191 unwind label %210
+invoke.cont24:                                    ; preds = %for.body20
+  %call = invoke noundef float @_ZN15CProfileManager20Get_Time_Since_ResetEv()
+          to label %invoke.cont26 unwind label %lpad25.loopexit
 
-191:                                              ; preds = %189
-  %192 = urem i32 %185, 25
-  %193 = icmp eq i32 %192, 0
-  br i1 %193, label %194, label %224
+invoke.cont26:                                    ; preds = %invoke.cont24
+  %rem.lhs.trunc = trunc i32 %i.0140 to i8
+  %rem139 = urem i8 %rem.lhs.trunc, 25
+  %cmp27 = icmp eq i8 %rem139, 0
+  br i1 %cmp27, label %if.then, label %if.end
 
-194:                                              ; preds = %191
-  %195 = call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.7, ptr noundef nonnull @.str, i32 noundef %185)
-  br label %224
+if.then:                                          ; preds = %invoke.cont26
+  %call31 = call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.7, ptr noundef nonnull @.str, i32 noundef %i.0140)
+  br label %if.end
 
-196:                                              ; preds = %184
-  %197 = landingpad { ptr, i32 }
+lpad23.loopexit:                                  ; preds = %for.body20
+  %lpad.loopexit = landingpad { ptr, i32 }
           cleanup
-  br label %227
+  br label %ehcleanup37
 
-198:                                              ; preds = %74
-  %199 = landingpad { ptr, i32 }
+lpad23.loopexit.split-lp.loopexit:                ; preds = %for.body20.1
+  %lpad.loopexit147 = landingpad { ptr, i32 }
           cleanup
-  br label %227
+  br label %ehcleanup37
 
-200:                                              ; preds = %90
-  %201 = landingpad { ptr, i32 }
+lpad23.loopexit.split-lp.loopexit.split-lp.loopexit: ; preds = %for.body20.2
+  %lpad.loopexit152 = landingpad { ptr, i32 }
           cleanup
-  br label %227
+  br label %ehcleanup37
 
-202:                                              ; preds = %106
-  %203 = landingpad { ptr, i32 }
+lpad23.loopexit.split-lp.loopexit.split-lp.loopexit.split-lp.loopexit: ; preds = %for.body20.3
+  %lpad.loopexit158 = landingpad { ptr, i32 }
           cleanup
-  br label %227
+  br label %ehcleanup37
 
-204:                                              ; preds = %122
-  %205 = landingpad { ptr, i32 }
+lpad23.loopexit.split-lp.loopexit.split-lp.loopexit.split-lp.loopexit.split-lp.loopexit: ; preds = %for.body20.4
+  %lpad.loopexit163 = landingpad { ptr, i32 }
           cleanup
-  br label %227
+  br label %ehcleanup37
 
-206:                                              ; preds = %138
-  %207 = landingpad { ptr, i32 }
+lpad23.loopexit.split-lp.loopexit.split-lp.loopexit.split-lp.loopexit.split-lp.loopexit.split-lp.loopexit: ; preds = %for.body20.5
+  %lpad.loopexit168 = landingpad { ptr, i32 }
           cleanup
-  br label %227
+  br label %ehcleanup37
 
-208:                                              ; preds = %154
-  %209 = landingpad { ptr, i32 }
+lpad23.loopexit.split-lp.loopexit.split-lp.loopexit.split-lp.loopexit.split-lp.loopexit.split-lp.loopexit.split-lp: ; preds = %for.body20.6
+  %lpad.loopexit.split-lp169 = landingpad { ptr, i32 }
           cleanup
-  br label %227
+  br label %ehcleanup37
 
-210:                                              ; preds = %189
-  %211 = landingpad { ptr, i32 }
+lpad25.loopexit:                                  ; preds = %invoke.cont24
+  %lpad.loopexit144 = landingpad { ptr, i32 }
           cleanup
-  br label %227
+  br label %ehcleanup37
 
-212:                                              ; preds = %79
-  %213 = landingpad { ptr, i32 }
+lpad25.loopexit.split-lp.loopexit:                ; preds = %invoke.cont24.1
+  %lpad.loopexit150 = landingpad { ptr, i32 }
           cleanup
-  br label %227
+  br label %ehcleanup37
 
-214:                                              ; preds = %95
-  %215 = landingpad { ptr, i32 }
+lpad25.loopexit.split-lp.loopexit.split-lp.loopexit: ; preds = %invoke.cont24.2
+  %lpad.loopexit155 = landingpad { ptr, i32 }
           cleanup
-  br label %227
+  br label %ehcleanup37
 
-216:                                              ; preds = %111
-  %217 = landingpad { ptr, i32 }
+lpad25.loopexit.split-lp.loopexit.split-lp.loopexit.split-lp.loopexit: ; preds = %invoke.cont24.3
+  %lpad.loopexit160 = landingpad { ptr, i32 }
           cleanup
-  br label %227
+  br label %ehcleanup37
 
-218:                                              ; preds = %127
-  %219 = landingpad { ptr, i32 }
+lpad25.loopexit.split-lp.loopexit.split-lp.loopexit.split-lp.loopexit.split-lp.loopexit: ; preds = %invoke.cont24.4
+  %lpad.loopexit166 = landingpad { ptr, i32 }
           cleanup
-  br label %227
+  br label %ehcleanup37
 
-220:                                              ; preds = %143
-  %221 = landingpad { ptr, i32 }
+lpad25.loopexit.split-lp.loopexit.split-lp.loopexit.split-lp.loopexit.split-lp.loopexit.split-lp.loopexit: ; preds = %invoke.cont24.5
+  %lpad.loopexit171 = landingpad { ptr, i32 }
           cleanup
-  br label %227
+  br label %ehcleanup37
 
-222:                                              ; preds = %159
-  %223 = landingpad { ptr, i32 }
+lpad25.loopexit.split-lp.loopexit.split-lp.loopexit.split-lp.loopexit.split-lp.loopexit.split-lp.loopexit.split-lp: ; preds = %invoke.cont24.6
+  %lpad.loopexit.split-lp172 = landingpad { ptr, i32 }
           cleanup
-  br label %227
+  br label %ehcleanup37
 
-224:                                              ; preds = %194, %191
-  %225 = add nuw nsw i32 %185, 1
-  %226 = icmp eq i32 %225, 100
-  br i1 %226, label %73, label %184
+if.end:                                           ; preds = %if.then, %invoke.cont26
+  %inc = add nuw nsw i32 %i.0140, 1
+  %exitcond.not = icmp eq i32 %inc, 100
+  br i1 %exitcond.not, label %for.cond.cleanup, label %for.body20
 
-227:                                              ; preds = %210, %214, %218, %222, %220, %216, %212, %196, %200, %204, %208, %206, %202, %198, %182
-  %228 = phi { ptr, i32 } [ %183, %182 ], [ %197, %196 ], [ %199, %198 ], [ %201, %200 ], [ %203, %202 ], [ %205, %204 ], [ %207, %206 ], [ %209, %208 ], [ %211, %210 ], [ %213, %212 ], [ %215, %214 ], [ %217, %216 ], [ %219, %218 ], [ %221, %220 ], [ %223, %222 ]
-  invoke void @_ZN13BenchmarkDemoD2Ev(ptr noundef nonnull align 8 dereferenceable(136) %9)
-          to label %230 unwind label %248
+ehcleanup37:                                      ; preds = %lpad25.loopexit, %lpad25.loopexit.split-lp.loopexit.split-lp.loopexit, %lpad25.loopexit.split-lp.loopexit.split-lp.loopexit.split-lp.loopexit.split-lp.loopexit, %lpad25.loopexit.split-lp.loopexit.split-lp.loopexit.split-lp.loopexit.split-lp.loopexit.split-lp.loopexit.split-lp, %lpad25.loopexit.split-lp.loopexit.split-lp.loopexit.split-lp.loopexit.split-lp.loopexit.split-lp.loopexit, %lpad25.loopexit.split-lp.loopexit.split-lp.loopexit.split-lp.loopexit, %lpad25.loopexit.split-lp.loopexit, %lpad23.loopexit, %lpad23.loopexit.split-lp.loopexit.split-lp.loopexit, %lpad23.loopexit.split-lp.loopexit.split-lp.loopexit.split-lp.loopexit.split-lp.loopexit, %lpad23.loopexit.split-lp.loopexit.split-lp.loopexit.split-lp.loopexit.split-lp.loopexit.split-lp.loopexit.split-lp, %lpad23.loopexit.split-lp.loopexit.split-lp.loopexit.split-lp.loopexit.split-lp.loopexit.split-lp.loopexit, %lpad23.loopexit.split-lp.loopexit.split-lp.loopexit.split-lp.loopexit, %lpad23.loopexit.split-lp.loopexit, %lpad16
+  %.pn.pn = phi { ptr, i32 } [ %12, %lpad16 ], [ %lpad.loopexit, %lpad23.loopexit ], [ %lpad.loopexit147, %lpad23.loopexit.split-lp.loopexit ], [ %lpad.loopexit152, %lpad23.loopexit.split-lp.loopexit.split-lp.loopexit ], [ %lpad.loopexit158, %lpad23.loopexit.split-lp.loopexit.split-lp.loopexit.split-lp.loopexit ], [ %lpad.loopexit163, %lpad23.loopexit.split-lp.loopexit.split-lp.loopexit.split-lp.loopexit.split-lp.loopexit ], [ %lpad.loopexit168, %lpad23.loopexit.split-lp.loopexit.split-lp.loopexit.split-lp.loopexit.split-lp.loopexit.split-lp.loopexit ], [ %lpad.loopexit.split-lp169, %lpad23.loopexit.split-lp.loopexit.split-lp.loopexit.split-lp.loopexit.split-lp.loopexit.split-lp.loopexit.split-lp ], [ %lpad.loopexit144, %lpad25.loopexit ], [ %lpad.loopexit150, %lpad25.loopexit.split-lp.loopexit ], [ %lpad.loopexit155, %lpad25.loopexit.split-lp.loopexit.split-lp.loopexit ], [ %lpad.loopexit160, %lpad25.loopexit.split-lp.loopexit.split-lp.loopexit.split-lp.loopexit ], [ %lpad.loopexit166, %lpad25.loopexit.split-lp.loopexit.split-lp.loopexit.split-lp.loopexit.split-lp.loopexit ], [ %lpad.loopexit171, %lpad25.loopexit.split-lp.loopexit.split-lp.loopexit.split-lp.loopexit.split-lp.loopexit.split-lp.loopexit ], [ %lpad.loopexit.split-lp172, %lpad25.loopexit.split-lp.loopexit.split-lp.loopexit.split-lp.loopexit.split-lp.loopexit.split-lp.loopexit.split-lp ]
+  invoke void @_ZN13BenchmarkDemoD2Ev(ptr noundef nonnull align 8 dereferenceable(136) %benchmarkDemo7)
+          to label %ehcleanup44 unwind label %terminate.lpad
 
-229:                                              ; preds = %169
-  call void @llvm.lifetime.end.p0(i64 136, ptr nonnull %9) #9
-  invoke void @_ZN13BenchmarkDemoD2Ev(ptr noundef nonnull align 8 dereferenceable(136) %8)
-          to label %232 unwind label %178
+invoke.cont41:                                    ; preds = %for.cond.cleanup.6
+  call void @llvm.lifetime.end.p0(i64 136, ptr nonnull %benchmarkDemo7) #9
+  invoke void @_ZN13BenchmarkDemoD2Ev(ptr noundef nonnull align 8 dereferenceable(136) %benchmarkDemo6)
+          to label %invoke.cont45 unwind label %lpad7
 
-230:                                              ; preds = %227, %180
-  %231 = phi { ptr, i32 } [ %228, %227 ], [ %181, %180 ]
-  call void @llvm.lifetime.end.p0(i64 136, ptr nonnull %9) #9
-  invoke void @_ZN13BenchmarkDemoD2Ev(ptr noundef nonnull align 8 dereferenceable(136) %8)
-          to label %233 unwind label %248
+ehcleanup44:                                      ; preds = %ehcleanup37, %lpad9
+  %.pn.pn.pn = phi { ptr, i32 } [ %.pn.pn, %ehcleanup37 ], [ %11, %lpad9 ]
+  call void @llvm.lifetime.end.p0(i64 136, ptr nonnull %benchmarkDemo7) #9
+  invoke void @_ZN13BenchmarkDemoD2Ev(ptr noundef nonnull align 8 dereferenceable(136) %benchmarkDemo6)
+          to label %ehcleanup48 unwind label %terminate.lpad
 
-232:                                              ; preds = %229
-  call void @llvm.lifetime.end.p0(i64 136, ptr nonnull %8) #9
-  invoke void @_ZN13BenchmarkDemoD2Ev(ptr noundef nonnull align 8 dereferenceable(136) %7)
-          to label %235 unwind label %176
+invoke.cont45:                                    ; preds = %invoke.cont41
+  call void @llvm.lifetime.end.p0(i64 136, ptr nonnull %benchmarkDemo6) #9
+  invoke void @_ZN13BenchmarkDemoD2Ev(ptr noundef nonnull align 8 dereferenceable(136) %benchmarkDemo5)
+          to label %invoke.cont49 unwind label %lpad5
 
-233:                                              ; preds = %230, %178
-  %234 = phi { ptr, i32 } [ %231, %230 ], [ %179, %178 ]
-  call void @llvm.lifetime.end.p0(i64 136, ptr nonnull %8) #9
-  invoke void @_ZN13BenchmarkDemoD2Ev(ptr noundef nonnull align 8 dereferenceable(136) %7)
-          to label %236 unwind label %248
+ehcleanup48:                                      ; preds = %ehcleanup44, %lpad7
+  %.pn.pn.pn.pn = phi { ptr, i32 } [ %.pn.pn.pn, %ehcleanup44 ], [ %10, %lpad7 ]
+  call void @llvm.lifetime.end.p0(i64 136, ptr nonnull %benchmarkDemo6) #9
+  invoke void @_ZN13BenchmarkDemoD2Ev(ptr noundef nonnull align 8 dereferenceable(136) %benchmarkDemo5)
+          to label %ehcleanup52 unwind label %terminate.lpad
 
-235:                                              ; preds = %232
-  call void @llvm.lifetime.end.p0(i64 136, ptr nonnull %7) #9
-  invoke void @_ZN13BenchmarkDemoD2Ev(ptr noundef nonnull align 8 dereferenceable(136) %6)
-          to label %238 unwind label %174
+invoke.cont49:                                    ; preds = %invoke.cont45
+  call void @llvm.lifetime.end.p0(i64 136, ptr nonnull %benchmarkDemo5) #9
+  invoke void @_ZN13BenchmarkDemoD2Ev(ptr noundef nonnull align 8 dereferenceable(136) %benchmarkDemo4)
+          to label %invoke.cont53 unwind label %lpad3
 
-236:                                              ; preds = %233, %176
-  %237 = phi { ptr, i32 } [ %234, %233 ], [ %177, %176 ]
-  call void @llvm.lifetime.end.p0(i64 136, ptr nonnull %7) #9
-  invoke void @_ZN13BenchmarkDemoD2Ev(ptr noundef nonnull align 8 dereferenceable(136) %6)
-          to label %239 unwind label %248
+ehcleanup52:                                      ; preds = %ehcleanup48, %lpad5
+  %.pn.pn.pn.pn.pn = phi { ptr, i32 } [ %.pn.pn.pn.pn, %ehcleanup48 ], [ %9, %lpad5 ]
+  call void @llvm.lifetime.end.p0(i64 136, ptr nonnull %benchmarkDemo5) #9
+  invoke void @_ZN13BenchmarkDemoD2Ev(ptr noundef nonnull align 8 dereferenceable(136) %benchmarkDemo4)
+          to label %ehcleanup56 unwind label %terminate.lpad
 
-238:                                              ; preds = %235
-  call void @llvm.lifetime.end.p0(i64 136, ptr nonnull %6) #9
-  invoke void @_ZN13BenchmarkDemoD2Ev(ptr noundef nonnull align 8 dereferenceable(136) %5)
-          to label %241 unwind label %172
+invoke.cont53:                                    ; preds = %invoke.cont49
+  call void @llvm.lifetime.end.p0(i64 136, ptr nonnull %benchmarkDemo4) #9
+  invoke void @_ZN13BenchmarkDemoD2Ev(ptr noundef nonnull align 8 dereferenceable(136) %benchmarkDemo3)
+          to label %invoke.cont57 unwind label %lpad1
 
-239:                                              ; preds = %236, %174
-  %240 = phi { ptr, i32 } [ %237, %236 ], [ %175, %174 ]
-  call void @llvm.lifetime.end.p0(i64 136, ptr nonnull %6) #9
-  invoke void @_ZN13BenchmarkDemoD2Ev(ptr noundef nonnull align 8 dereferenceable(136) %5)
-          to label %242 unwind label %248
+ehcleanup56:                                      ; preds = %ehcleanup52, %lpad3
+  %.pn.pn.pn.pn.pn.pn = phi { ptr, i32 } [ %.pn.pn.pn.pn.pn, %ehcleanup52 ], [ %8, %lpad3 ]
+  call void @llvm.lifetime.end.p0(i64 136, ptr nonnull %benchmarkDemo4) #9
+  invoke void @_ZN13BenchmarkDemoD2Ev(ptr noundef nonnull align 8 dereferenceable(136) %benchmarkDemo3)
+          to label %ehcleanup60 unwind label %terminate.lpad
 
-241:                                              ; preds = %238
-  call void @llvm.lifetime.end.p0(i64 136, ptr nonnull %5) #9
-  invoke void @_ZN13BenchmarkDemoD2Ev(ptr noundef nonnull align 8 dereferenceable(136) %4)
-          to label %244 unwind label %170
+invoke.cont57:                                    ; preds = %invoke.cont53
+  call void @llvm.lifetime.end.p0(i64 136, ptr nonnull %benchmarkDemo3) #9
+  invoke void @_ZN13BenchmarkDemoD2Ev(ptr noundef nonnull align 8 dereferenceable(136) %benchmarkDemo2)
+          to label %invoke.cont61 unwind label %lpad
 
-242:                                              ; preds = %239, %172
-  %243 = phi { ptr, i32 } [ %240, %239 ], [ %173, %172 ]
-  call void @llvm.lifetime.end.p0(i64 136, ptr nonnull %5) #9
-  invoke void @_ZN13BenchmarkDemoD2Ev(ptr noundef nonnull align 8 dereferenceable(136) %4)
-          to label %245 unwind label %248
+ehcleanup60:                                      ; preds = %ehcleanup56, %lpad1
+  %.pn.pn.pn.pn.pn.pn.pn = phi { ptr, i32 } [ %.pn.pn.pn.pn.pn.pn, %ehcleanup56 ], [ %7, %lpad1 ]
+  call void @llvm.lifetime.end.p0(i64 136, ptr nonnull %benchmarkDemo3) #9
+  invoke void @_ZN13BenchmarkDemoD2Ev(ptr noundef nonnull align 8 dereferenceable(136) %benchmarkDemo2)
+          to label %ehcleanup64 unwind label %terminate.lpad
 
-244:                                              ; preds = %241
-  call void @llvm.lifetime.end.p0(i64 136, ptr nonnull %4) #9
-  call void @_ZN13BenchmarkDemoD2Ev(ptr noundef nonnull align 8 dereferenceable(136) %3)
-  call void @llvm.lifetime.end.p0(i64 136, ptr nonnull %3) #9
+invoke.cont61:                                    ; preds = %invoke.cont57
+  call void @llvm.lifetime.end.p0(i64 136, ptr nonnull %benchmarkDemo2) #9
+  call void @_ZN13BenchmarkDemoD2Ev(ptr noundef nonnull align 8 dereferenceable(136) %benchmarkDemo1)
+  call void @llvm.lifetime.end.p0(i64 136, ptr nonnull %benchmarkDemo1) #9
   ret i32 0
 
-245:                                              ; preds = %242, %170
-  %246 = phi { ptr, i32 } [ %243, %242 ], [ %171, %170 ]
-  call void @llvm.lifetime.end.p0(i64 136, ptr nonnull %4) #9
-  invoke void @_ZN13BenchmarkDemoD2Ev(ptr noundef nonnull align 8 dereferenceable(136) %3)
-          to label %247 unwind label %248
+ehcleanup64:                                      ; preds = %ehcleanup60, %lpad
+  %.pn.pn.pn.pn.pn.pn.pn.pn = phi { ptr, i32 } [ %.pn.pn.pn.pn.pn.pn.pn, %ehcleanup60 ], [ %6, %lpad ]
+  call void @llvm.lifetime.end.p0(i64 136, ptr nonnull %benchmarkDemo2) #9
+  invoke void @_ZN13BenchmarkDemoD2Ev(ptr noundef nonnull align 8 dereferenceable(136) %benchmarkDemo1)
+          to label %invoke.cont66 unwind label %terminate.lpad
 
-247:                                              ; preds = %245
-  call void @llvm.lifetime.end.p0(i64 136, ptr nonnull %3) #9
-  resume { ptr, i32 } %246
+invoke.cont66:                                    ; preds = %ehcleanup64
+  call void @llvm.lifetime.end.p0(i64 136, ptr nonnull %benchmarkDemo1) #9
+  resume { ptr, i32 } %.pn.pn.pn.pn.pn.pn.pn.pn
 
-248:                                              ; preds = %245, %242, %239, %236, %233, %230, %227
-  %249 = landingpad { ptr, i32 }
+terminate.lpad:                                   ; preds = %ehcleanup64, %ehcleanup60, %ehcleanup56, %ehcleanup52, %ehcleanup48, %ehcleanup44, %ehcleanup37
+  %14 = landingpad { ptr, i32 }
           catch ptr null
-  %250 = extractvalue { ptr, i32 } %249, 0
-  call void @__clang_call_terminate(ptr %250) #10
+  %15 = extractvalue { ptr, i32 } %14, 0
+  call void @__clang_call_terminate(ptr %15) #10
   unreachable
 }
 
@@ -687,80 +695,81 @@ declare noundef i32 @printf(ptr nocapture noundef readonly, ...) local_unnamed_a
 declare void @llvm.lifetime.end.p0(i64 immarg, ptr nocapture) #1
 
 ; Function Attrs: uwtable
-define linkonce_odr dso_local void @_ZN13BenchmarkDemoD2Ev(ptr noundef nonnull align 8 dereferenceable(136) %0) unnamed_addr #4 comdat align 2 personality ptr @__gxx_personality_v0 {
-  store ptr getelementptr inbounds ({ [8 x ptr] }, ptr @_ZTV13BenchmarkDemo, i64 0, inrange i32 0, i64 2), ptr %0, align 8, !tbaa !26
-  invoke void @_ZN13BenchmarkDemo11exitPhysicsEv(ptr noundef nonnull align 8 dereferenceable(136) %0)
-          to label %2 unwind label %25
+define linkonce_odr dso_local void @_ZN13BenchmarkDemoD2Ev(ptr noundef nonnull align 8 dereferenceable(136) %this) unnamed_addr #4 comdat align 2 personality ptr @__gxx_personality_v0 {
+entry:
+  store ptr getelementptr inbounds ({ [8 x ptr] }, ptr @_ZTV13BenchmarkDemo, i64 0, inrange i32 0, i64 2), ptr %this, align 8, !tbaa !26
+  invoke void @_ZN13BenchmarkDemo11exitPhysicsEv(ptr noundef nonnull align 8 dereferenceable(136) %this)
+          to label %invoke.cont unwind label %lpad
 
-2:                                                ; preds = %1
-  %3 = getelementptr inbounds %class.BenchmarkDemo, ptr %0, i64 0, i32 2, i32 5
-  %4 = load ptr, ptr %3, align 8, !tbaa !20
-  %5 = icmp eq ptr %4, null
-  %6 = getelementptr inbounds %class.BenchmarkDemo, ptr %0, i64 0, i32 2, i32 6
-  %7 = load i8, ptr %6, align 8
-  %8 = icmp eq i8 %7, 0
-  %9 = select i1 %5, i1 true, i1 %8
-  br i1 %9, label %11, label %10
+invoke.cont:                                      ; preds = %entry
+  %m_data.i.i.i = getelementptr inbounds %class.BenchmarkDemo, ptr %this, i64 0, i32 2, i32 5
+  %0 = load ptr, ptr %m_data.i.i.i, align 8, !tbaa !20
+  %tobool.not.i.i.i = icmp eq ptr %0, null
+  %m_ownsMemory.i.i.i = getelementptr inbounds %class.BenchmarkDemo, ptr %this, i64 0, i32 2, i32 6
+  %1 = load i8, ptr %m_ownsMemory.i.i.i, align 8
+  %tobool2.not.i.i.i = icmp eq i8 %1, 0
+  %or.cond.i.i = select i1 %tobool.not.i.i.i, i1 true, i1 %tobool2.not.i.i.i
+  br i1 %or.cond.i.i, label %invoke.cont3, label %if.then3.i.i.i
 
-10:                                               ; preds = %2
-  invoke void @_Z21btAlignedFreeInternalPv(ptr noundef nonnull %4)
-          to label %11 unwind label %28
+if.then3.i.i.i:                                   ; preds = %invoke.cont
+  invoke void @_Z21btAlignedFreeInternalPv(ptr noundef nonnull %0)
+          to label %invoke.cont3 unwind label %lpad2
 
-11:                                               ; preds = %2, %10
-  %12 = getelementptr inbounds %class.BenchmarkDemo, ptr %0, i64 0, i32 2, i32 2
-  store i8 1, ptr %6, align 8, !tbaa !17
-  store ptr null, ptr %3, align 8, !tbaa !20
-  store i32 0, ptr %12, align 4, !tbaa !21
-  %13 = getelementptr inbounds %class.BenchmarkDemo, ptr %0, i64 0, i32 2, i32 3
-  store i32 0, ptr %13, align 8, !tbaa !22
-  %14 = getelementptr inbounds %class.BenchmarkDemo, ptr %0, i64 0, i32 1, i32 5
-  %15 = load ptr, ptr %14, align 8, !tbaa !14
-  %16 = icmp eq ptr %15, null
-  %17 = getelementptr inbounds %class.BenchmarkDemo, ptr %0, i64 0, i32 1, i32 6
-  %18 = load i8, ptr %17, align 8
-  %19 = icmp eq i8 %18, 0
-  %20 = select i1 %16, i1 true, i1 %19
-  br i1 %20, label %22, label %21
+invoke.cont3:                                     ; preds = %invoke.cont, %if.then3.i.i.i
+  %m_size.i.i.i = getelementptr inbounds %class.BenchmarkDemo, ptr %this, i64 0, i32 2, i32 2
+  store i8 1, ptr %m_ownsMemory.i.i.i, align 8, !tbaa !17
+  store ptr null, ptr %m_data.i.i.i, align 8, !tbaa !20
+  store i32 0, ptr %m_size.i.i.i, align 4, !tbaa !21
+  %m_capacity.i.i.i = getelementptr inbounds %class.BenchmarkDemo, ptr %this, i64 0, i32 2, i32 3
+  store i32 0, ptr %m_capacity.i.i.i, align 8, !tbaa !22
+  %m_data.i.i.i10 = getelementptr inbounds %class.BenchmarkDemo, ptr %this, i64 0, i32 1, i32 5
+  %2 = load ptr, ptr %m_data.i.i.i10, align 8, !tbaa !14
+  %tobool.not.i.i.i11 = icmp eq ptr %2, null
+  %m_ownsMemory.i.i.i12 = getelementptr inbounds %class.BenchmarkDemo, ptr %this, i64 0, i32 1, i32 6
+  %3 = load i8, ptr %m_ownsMemory.i.i.i12, align 8
+  %tobool2.not.i.i.i13 = icmp eq i8 %3, 0
+  %or.cond.i.i14 = select i1 %tobool.not.i.i.i11, i1 true, i1 %tobool2.not.i.i.i13
+  br i1 %or.cond.i.i14, label %_ZN20btAlignedObjectArrayIP16btCollisionShapeED2Ev.exit, label %if.then3.i.i.i15
 
-21:                                               ; preds = %11
-  tail call void @_Z21btAlignedFreeInternalPv(ptr noundef nonnull %15)
-  br label %22
+if.then3.i.i.i15:                                 ; preds = %invoke.cont3
+  tail call void @_Z21btAlignedFreeInternalPv(ptr noundef nonnull %2)
+  br label %_ZN20btAlignedObjectArrayIP16btCollisionShapeED2Ev.exit
 
-22:                                               ; preds = %11, %21
-  %23 = getelementptr inbounds %class.BenchmarkDemo, ptr %0, i64 0, i32 1, i32 2
-  store i8 1, ptr %17, align 8, !tbaa !9
-  store ptr null, ptr %14, align 8, !tbaa !14
-  store i32 0, ptr %23, align 4, !tbaa !15
-  %24 = getelementptr inbounds %class.BenchmarkDemo, ptr %0, i64 0, i32 1, i32 3
-  store i32 0, ptr %24, align 8, !tbaa !16
+_ZN20btAlignedObjectArrayIP16btCollisionShapeED2Ev.exit: ; preds = %invoke.cont3, %if.then3.i.i.i15
+  %m_size.i.i.i16 = getelementptr inbounds %class.BenchmarkDemo, ptr %this, i64 0, i32 1, i32 2
+  store i8 1, ptr %m_ownsMemory.i.i.i12, align 8, !tbaa !9
+  store ptr null, ptr %m_data.i.i.i10, align 8, !tbaa !14
+  store i32 0, ptr %m_size.i.i.i16, align 4, !tbaa !15
+  %m_capacity.i.i.i17 = getelementptr inbounds %class.BenchmarkDemo, ptr %this, i64 0, i32 1, i32 3
+  store i32 0, ptr %m_capacity.i.i.i17, align 8, !tbaa !16
   ret void
 
-25:                                               ; preds = %1
-  %26 = landingpad { ptr, i32 }
+lpad:                                             ; preds = %entry
+  %4 = landingpad { ptr, i32 }
           cleanup
-  %27 = getelementptr inbounds %class.BenchmarkDemo, ptr %0, i64 0, i32 2
-  invoke void @_ZN20btAlignedObjectArrayIP7RagDollED2Ev(ptr noundef nonnull align 8 dereferenceable(25) %27)
-          to label %30 unwind label %34
+  %m_ragdolls4 = getelementptr inbounds %class.BenchmarkDemo, ptr %this, i64 0, i32 2
+  invoke void @_ZN20btAlignedObjectArrayIP7RagDollED2Ev(ptr noundef nonnull align 8 dereferenceable(25) %m_ragdolls4)
+          to label %ehcleanup unwind label %terminate.lpad
 
-28:                                               ; preds = %10
-  %29 = landingpad { ptr, i32 }
+lpad2:                                            ; preds = %if.then3.i.i.i
+  %5 = landingpad { ptr, i32 }
           cleanup
-  br label %30
+  br label %ehcleanup
 
-30:                                               ; preds = %25, %28
-  %31 = phi { ptr, i32 } [ %29, %28 ], [ %26, %25 ]
-  %32 = getelementptr inbounds %class.BenchmarkDemo, ptr %0, i64 0, i32 1
-  invoke void @_ZN20btAlignedObjectArrayIP16btCollisionShapeED2Ev(ptr noundef nonnull align 8 dereferenceable(25) %32)
-          to label %33 unwind label %34
+ehcleanup:                                        ; preds = %lpad, %lpad2
+  %.pn = phi { ptr, i32 } [ %5, %lpad2 ], [ %4, %lpad ]
+  %m_collisionShapes6 = getelementptr inbounds %class.BenchmarkDemo, ptr %this, i64 0, i32 1
+  invoke void @_ZN20btAlignedObjectArrayIP16btCollisionShapeED2Ev(ptr noundef nonnull align 8 dereferenceable(25) %m_collisionShapes6)
+          to label %eh.resume unwind label %terminate.lpad
 
-33:                                               ; preds = %30
-  resume { ptr, i32 } %31
+eh.resume:                                        ; preds = %ehcleanup
+  resume { ptr, i32 } %.pn
 
-34:                                               ; preds = %30, %25
-  %35 = landingpad { ptr, i32 }
+terminate.lpad:                                   ; preds = %ehcleanup, %lpad
+  %6 = landingpad { ptr, i32 }
           catch ptr null
-  %36 = extractvalue { ptr, i32 } %35, 0
-  tail call void @__clang_call_terminate(ptr %36) #10
+  %7 = extractvalue { ptr, i32 } %6, 0
+  tail call void @__clang_call_terminate(ptr %7) #10
   unreachable
 }
 
@@ -776,31 +785,34 @@ declare ptr @__cxa_begin_catch(ptr) local_unnamed_addr
 declare void @_ZSt9terminatev() local_unnamed_addr
 
 ; Function Attrs: nounwind uwtable
-define linkonce_odr dso_local void @_ZN15DemoApplication6myinitEv(ptr noundef nonnull align 8 dereferenceable(16) %0) unnamed_addr #6 comdat align 2 {
+define linkonce_odr dso_local void @_ZN15DemoApplication6myinitEv(ptr noundef nonnull align 8 dereferenceable(16) %this) unnamed_addr #6 comdat align 2 {
+entry:
   ret void
 }
 
 ; Function Attrs: nounwind uwtable
-define linkonce_odr dso_local noundef ptr @_ZN15DemoApplication16getDynamicsWorldEv(ptr noundef nonnull align 8 dereferenceable(16) %0) unnamed_addr #6 comdat align 2 {
-  %2 = getelementptr inbounds %class.DemoApplication, ptr %0, i64 0, i32 1
-  %3 = load ptr, ptr %2, align 8, !tbaa !28
-  ret ptr %3
+define linkonce_odr dso_local noundef ptr @_ZN15DemoApplication16getDynamicsWorldEv(ptr noundef nonnull align 8 dereferenceable(16) %this) unnamed_addr #6 comdat align 2 {
+entry:
+  %m_dynamicsWorld = getelementptr inbounds %class.DemoApplication, ptr %this, i64 0, i32 1
+  %0 = load ptr, ptr %m_dynamicsWorld, align 8, !tbaa !28
+  ret ptr %0
 }
 
 ; Function Attrs: inlinehint uwtable
-define linkonce_odr dso_local void @_ZN14BenchmarkDemo1D0Ev(ptr noundef nonnull align 8 dereferenceable(136) %0) unnamed_addr #7 comdat align 2 personality ptr @__gxx_personality_v0 {
-  invoke void @_ZN13BenchmarkDemoD2Ev(ptr noundef nonnull align 8 dereferenceable(136) %0)
-          to label %2 unwind label %3
+define linkonce_odr dso_local void @_ZN14BenchmarkDemo1D0Ev(ptr noundef nonnull align 8 dereferenceable(136) %this) unnamed_addr #7 comdat align 2 personality ptr @__gxx_personality_v0 {
+entry:
+  invoke void @_ZN13BenchmarkDemoD2Ev(ptr noundef nonnull align 8 dereferenceable(136) %this)
+          to label %invoke.cont unwind label %lpad
 
-2:                                                ; preds = %1
-  tail call void @_ZdlPv(ptr noundef nonnull %0) #11
+invoke.cont:                                      ; preds = %entry
+  tail call void @_ZdlPv(ptr noundef nonnull %this) #11
   ret void
 
-3:                                                ; preds = %1
-  %4 = landingpad { ptr, i32 }
+lpad:                                             ; preds = %entry
+  %0 = landingpad { ptr, i32 }
           cleanup
-  tail call void @_ZdlPv(ptr noundef nonnull %0) #11
-  resume { ptr, i32 } %4
+  tail call void @_ZdlPv(ptr noundef nonnull %this) #11
+  resume { ptr, i32 } %0
 }
 
 declare void @_ZN13BenchmarkDemo20clientMoveAndDisplayEv(ptr noundef nonnull align 8 dereferenceable(136)) unnamed_addr #2
@@ -808,27 +820,28 @@ declare void @_ZN13BenchmarkDemo20clientMoveAndDisplayEv(ptr noundef nonnull ali
 declare void @_ZN13BenchmarkDemo15displayCallbackEv(ptr noundef nonnull align 8 dereferenceable(136)) unnamed_addr #2
 
 ; Function Attrs: uwtable
-define linkonce_odr dso_local void @_ZN20btAlignedObjectArrayIP16btCollisionShapeED2Ev(ptr noundef nonnull align 8 dereferenceable(25) %0) unnamed_addr #4 comdat align 2 {
-  %2 = getelementptr inbounds %class.btAlignedObjectArray.0, ptr %0, i64 0, i32 5
-  %3 = load ptr, ptr %2, align 8, !tbaa !14
-  %4 = icmp eq ptr %3, null
-  %5 = getelementptr inbounds %class.btAlignedObjectArray.0, ptr %0, i64 0, i32 6
-  %6 = load i8, ptr %5, align 8
-  %7 = icmp eq i8 %6, 0
-  %8 = select i1 %4, i1 true, i1 %7
-  br i1 %8, label %10, label %9
+define linkonce_odr dso_local void @_ZN20btAlignedObjectArrayIP16btCollisionShapeED2Ev(ptr noundef nonnull align 8 dereferenceable(25) %this) unnamed_addr #4 comdat align 2 {
+entry:
+  %m_data.i.i = getelementptr inbounds %class.btAlignedObjectArray.0, ptr %this, i64 0, i32 5
+  %0 = load ptr, ptr %m_data.i.i, align 8, !tbaa !14
+  %tobool.not.i.i = icmp eq ptr %0, null
+  %m_ownsMemory.i.i = getelementptr inbounds %class.btAlignedObjectArray.0, ptr %this, i64 0, i32 6
+  %1 = load i8, ptr %m_ownsMemory.i.i, align 8
+  %tobool2.not.i.i = icmp eq i8 %1, 0
+  %or.cond.i = select i1 %tobool.not.i.i, i1 true, i1 %tobool2.not.i.i
+  br i1 %or.cond.i, label %_ZN20btAlignedObjectArrayIP16btCollisionShapeE5clearEv.exit, label %if.then3.i.i
 
-9:                                                ; preds = %1
-  tail call void @_Z21btAlignedFreeInternalPv(ptr noundef nonnull %3)
-  br label %10
+if.then3.i.i:                                     ; preds = %entry
+  tail call void @_Z21btAlignedFreeInternalPv(ptr noundef nonnull %0)
+  br label %_ZN20btAlignedObjectArrayIP16btCollisionShapeE5clearEv.exit
 
-10:                                               ; preds = %1, %9
-  %11 = getelementptr inbounds %class.btAlignedObjectArray.0, ptr %0, i64 0, i32 2
-  store i8 1, ptr %5, align 8, !tbaa !9
-  store ptr null, ptr %2, align 8, !tbaa !14
-  store i32 0, ptr %11, align 4, !tbaa !15
-  %12 = getelementptr inbounds %class.btAlignedObjectArray.0, ptr %0, i64 0, i32 3
-  store i32 0, ptr %12, align 8, !tbaa !16
+_ZN20btAlignedObjectArrayIP16btCollisionShapeE5clearEv.exit: ; preds = %entry, %if.then3.i.i
+  %m_size.i.i = getelementptr inbounds %class.btAlignedObjectArray.0, ptr %this, i64 0, i32 2
+  store i8 1, ptr %m_ownsMemory.i.i, align 8, !tbaa !9
+  store ptr null, ptr %m_data.i.i, align 8, !tbaa !14
+  store i32 0, ptr %m_size.i.i, align 4, !tbaa !15
+  %m_capacity.i.i = getelementptr inbounds %class.btAlignedObjectArray.0, ptr %this, i64 0, i32 3
+  store i32 0, ptr %m_capacity.i.i, align 8, !tbaa !16
   ret void
 }
 
@@ -838,125 +851,132 @@ declare void @_Z21btAlignedFreeInternalPv(ptr noundef) local_unnamed_addr #2
 declare void @_ZdlPv(ptr noundef) local_unnamed_addr #8
 
 ; Function Attrs: inlinehint uwtable
-define linkonce_odr dso_local void @_ZN14BenchmarkDemo2D0Ev(ptr noundef nonnull align 8 dereferenceable(136) %0) unnamed_addr #7 comdat align 2 personality ptr @__gxx_personality_v0 {
-  invoke void @_ZN13BenchmarkDemoD2Ev(ptr noundef nonnull align 8 dereferenceable(136) %0)
-          to label %2 unwind label %3
+define linkonce_odr dso_local void @_ZN14BenchmarkDemo2D0Ev(ptr noundef nonnull align 8 dereferenceable(136) %this) unnamed_addr #7 comdat align 2 personality ptr @__gxx_personality_v0 {
+entry:
+  invoke void @_ZN13BenchmarkDemoD2Ev(ptr noundef nonnull align 8 dereferenceable(136) %this)
+          to label %invoke.cont unwind label %lpad
 
-2:                                                ; preds = %1
-  tail call void @_ZdlPv(ptr noundef nonnull %0) #11
+invoke.cont:                                      ; preds = %entry
+  tail call void @_ZdlPv(ptr noundef nonnull %this) #11
   ret void
 
-3:                                                ; preds = %1
-  %4 = landingpad { ptr, i32 }
+lpad:                                             ; preds = %entry
+  %0 = landingpad { ptr, i32 }
           cleanup
-  tail call void @_ZdlPv(ptr noundef nonnull %0) #11
-  resume { ptr, i32 } %4
+  tail call void @_ZdlPv(ptr noundef nonnull %this) #11
+  resume { ptr, i32 } %0
 }
 
 ; Function Attrs: inlinehint uwtable
-define linkonce_odr dso_local void @_ZN14BenchmarkDemo3D0Ev(ptr noundef nonnull align 8 dereferenceable(136) %0) unnamed_addr #7 comdat align 2 personality ptr @__gxx_personality_v0 {
-  invoke void @_ZN13BenchmarkDemoD2Ev(ptr noundef nonnull align 8 dereferenceable(136) %0)
-          to label %2 unwind label %3
+define linkonce_odr dso_local void @_ZN14BenchmarkDemo3D0Ev(ptr noundef nonnull align 8 dereferenceable(136) %this) unnamed_addr #7 comdat align 2 personality ptr @__gxx_personality_v0 {
+entry:
+  invoke void @_ZN13BenchmarkDemoD2Ev(ptr noundef nonnull align 8 dereferenceable(136) %this)
+          to label %invoke.cont unwind label %lpad
 
-2:                                                ; preds = %1
-  tail call void @_ZdlPv(ptr noundef nonnull %0) #11
+invoke.cont:                                      ; preds = %entry
+  tail call void @_ZdlPv(ptr noundef nonnull %this) #11
   ret void
 
-3:                                                ; preds = %1
-  %4 = landingpad { ptr, i32 }
+lpad:                                             ; preds = %entry
+  %0 = landingpad { ptr, i32 }
           cleanup
-  tail call void @_ZdlPv(ptr noundef nonnull %0) #11
-  resume { ptr, i32 } %4
+  tail call void @_ZdlPv(ptr noundef nonnull %this) #11
+  resume { ptr, i32 } %0
 }
 
 ; Function Attrs: inlinehint uwtable
-define linkonce_odr dso_local void @_ZN14BenchmarkDemo4D0Ev(ptr noundef nonnull align 8 dereferenceable(136) %0) unnamed_addr #7 comdat align 2 personality ptr @__gxx_personality_v0 {
-  invoke void @_ZN13BenchmarkDemoD2Ev(ptr noundef nonnull align 8 dereferenceable(136) %0)
-          to label %2 unwind label %3
+define linkonce_odr dso_local void @_ZN14BenchmarkDemo4D0Ev(ptr noundef nonnull align 8 dereferenceable(136) %this) unnamed_addr #7 comdat align 2 personality ptr @__gxx_personality_v0 {
+entry:
+  invoke void @_ZN13BenchmarkDemoD2Ev(ptr noundef nonnull align 8 dereferenceable(136) %this)
+          to label %invoke.cont unwind label %lpad
 
-2:                                                ; preds = %1
-  tail call void @_ZdlPv(ptr noundef nonnull %0) #11
+invoke.cont:                                      ; preds = %entry
+  tail call void @_ZdlPv(ptr noundef nonnull %this) #11
   ret void
 
-3:                                                ; preds = %1
-  %4 = landingpad { ptr, i32 }
+lpad:                                             ; preds = %entry
+  %0 = landingpad { ptr, i32 }
           cleanup
-  tail call void @_ZdlPv(ptr noundef nonnull %0) #11
-  resume { ptr, i32 } %4
+  tail call void @_ZdlPv(ptr noundef nonnull %this) #11
+  resume { ptr, i32 } %0
 }
 
 ; Function Attrs: inlinehint uwtable
-define linkonce_odr dso_local void @_ZN14BenchmarkDemo5D0Ev(ptr noundef nonnull align 8 dereferenceable(136) %0) unnamed_addr #7 comdat align 2 personality ptr @__gxx_personality_v0 {
-  invoke void @_ZN13BenchmarkDemoD2Ev(ptr noundef nonnull align 8 dereferenceable(136) %0)
-          to label %2 unwind label %3
+define linkonce_odr dso_local void @_ZN14BenchmarkDemo5D0Ev(ptr noundef nonnull align 8 dereferenceable(136) %this) unnamed_addr #7 comdat align 2 personality ptr @__gxx_personality_v0 {
+entry:
+  invoke void @_ZN13BenchmarkDemoD2Ev(ptr noundef nonnull align 8 dereferenceable(136) %this)
+          to label %invoke.cont unwind label %lpad
 
-2:                                                ; preds = %1
-  tail call void @_ZdlPv(ptr noundef nonnull %0) #11
+invoke.cont:                                      ; preds = %entry
+  tail call void @_ZdlPv(ptr noundef nonnull %this) #11
   ret void
 
-3:                                                ; preds = %1
-  %4 = landingpad { ptr, i32 }
+lpad:                                             ; preds = %entry
+  %0 = landingpad { ptr, i32 }
           cleanup
-  tail call void @_ZdlPv(ptr noundef nonnull %0) #11
-  resume { ptr, i32 } %4
+  tail call void @_ZdlPv(ptr noundef nonnull %this) #11
+  resume { ptr, i32 } %0
 }
 
 ; Function Attrs: inlinehint uwtable
-define linkonce_odr dso_local void @_ZN14BenchmarkDemo6D0Ev(ptr noundef nonnull align 8 dereferenceable(136) %0) unnamed_addr #7 comdat align 2 personality ptr @__gxx_personality_v0 {
-  invoke void @_ZN13BenchmarkDemoD2Ev(ptr noundef nonnull align 8 dereferenceable(136) %0)
-          to label %2 unwind label %3
+define linkonce_odr dso_local void @_ZN14BenchmarkDemo6D0Ev(ptr noundef nonnull align 8 dereferenceable(136) %this) unnamed_addr #7 comdat align 2 personality ptr @__gxx_personality_v0 {
+entry:
+  invoke void @_ZN13BenchmarkDemoD2Ev(ptr noundef nonnull align 8 dereferenceable(136) %this)
+          to label %invoke.cont unwind label %lpad
 
-2:                                                ; preds = %1
-  tail call void @_ZdlPv(ptr noundef nonnull %0) #11
+invoke.cont:                                      ; preds = %entry
+  tail call void @_ZdlPv(ptr noundef nonnull %this) #11
   ret void
 
-3:                                                ; preds = %1
-  %4 = landingpad { ptr, i32 }
+lpad:                                             ; preds = %entry
+  %0 = landingpad { ptr, i32 }
           cleanup
-  tail call void @_ZdlPv(ptr noundef nonnull %0) #11
-  resume { ptr, i32 } %4
+  tail call void @_ZdlPv(ptr noundef nonnull %this) #11
+  resume { ptr, i32 } %0
 }
 
 ; Function Attrs: inlinehint uwtable
-define linkonce_odr dso_local void @_ZN14BenchmarkDemo7D0Ev(ptr noundef nonnull align 8 dereferenceable(136) %0) unnamed_addr #7 comdat align 2 personality ptr @__gxx_personality_v0 {
-  invoke void @_ZN13BenchmarkDemoD2Ev(ptr noundef nonnull align 8 dereferenceable(136) %0)
-          to label %2 unwind label %3
+define linkonce_odr dso_local void @_ZN14BenchmarkDemo7D0Ev(ptr noundef nonnull align 8 dereferenceable(136) %this) unnamed_addr #7 comdat align 2 personality ptr @__gxx_personality_v0 {
+entry:
+  invoke void @_ZN13BenchmarkDemoD2Ev(ptr noundef nonnull align 8 dereferenceable(136) %this)
+          to label %invoke.cont unwind label %lpad
 
-2:                                                ; preds = %1
-  tail call void @_ZdlPv(ptr noundef nonnull %0) #11
+invoke.cont:                                      ; preds = %entry
+  tail call void @_ZdlPv(ptr noundef nonnull %this) #11
   ret void
 
-3:                                                ; preds = %1
-  %4 = landingpad { ptr, i32 }
+lpad:                                             ; preds = %entry
+  %0 = landingpad { ptr, i32 }
           cleanup
-  tail call void @_ZdlPv(ptr noundef nonnull %0) #11
-  resume { ptr, i32 } %4
+  tail call void @_ZdlPv(ptr noundef nonnull %this) #11
+  resume { ptr, i32 } %0
 }
 
 declare void @_ZN13BenchmarkDemo11exitPhysicsEv(ptr noundef nonnull align 8 dereferenceable(136)) local_unnamed_addr #2
 
 ; Function Attrs: uwtable
-define linkonce_odr dso_local void @_ZN20btAlignedObjectArrayIP7RagDollED2Ev(ptr noundef nonnull align 8 dereferenceable(25) %0) unnamed_addr #4 comdat align 2 {
-  %2 = getelementptr inbounds %class.btAlignedObjectArray.4, ptr %0, i64 0, i32 5
-  %3 = load ptr, ptr %2, align 8, !tbaa !20
-  %4 = icmp eq ptr %3, null
-  %5 = getelementptr inbounds %class.btAlignedObjectArray.4, ptr %0, i64 0, i32 6
-  %6 = load i8, ptr %5, align 8
-  %7 = icmp eq i8 %6, 0
-  %8 = select i1 %4, i1 true, i1 %7
-  br i1 %8, label %10, label %9
+define linkonce_odr dso_local void @_ZN20btAlignedObjectArrayIP7RagDollED2Ev(ptr noundef nonnull align 8 dereferenceable(25) %this) unnamed_addr #4 comdat align 2 {
+entry:
+  %m_data.i.i = getelementptr inbounds %class.btAlignedObjectArray.4, ptr %this, i64 0, i32 5
+  %0 = load ptr, ptr %m_data.i.i, align 8, !tbaa !20
+  %tobool.not.i.i = icmp eq ptr %0, null
+  %m_ownsMemory.i.i = getelementptr inbounds %class.btAlignedObjectArray.4, ptr %this, i64 0, i32 6
+  %1 = load i8, ptr %m_ownsMemory.i.i, align 8
+  %tobool2.not.i.i = icmp eq i8 %1, 0
+  %or.cond.i = select i1 %tobool.not.i.i, i1 true, i1 %tobool2.not.i.i
+  br i1 %or.cond.i, label %_ZN20btAlignedObjectArrayIP7RagDollE5clearEv.exit, label %if.then3.i.i
 
-9:                                                ; preds = %1
-  tail call void @_Z21btAlignedFreeInternalPv(ptr noundef nonnull %3)
-  br label %10
+if.then3.i.i:                                     ; preds = %entry
+  tail call void @_Z21btAlignedFreeInternalPv(ptr noundef nonnull %0)
+  br label %_ZN20btAlignedObjectArrayIP7RagDollE5clearEv.exit
 
-10:                                               ; preds = %1, %9
-  %11 = getelementptr inbounds %class.btAlignedObjectArray.4, ptr %0, i64 0, i32 2
-  store i8 1, ptr %5, align 8, !tbaa !17
-  store ptr null, ptr %2, align 8, !tbaa !20
-  store i32 0, ptr %11, align 4, !tbaa !21
-  %12 = getelementptr inbounds %class.btAlignedObjectArray.4, ptr %0, i64 0, i32 3
-  store i32 0, ptr %12, align 8, !tbaa !22
+_ZN20btAlignedObjectArrayIP7RagDollE5clearEv.exit: ; preds = %entry, %if.then3.i.i
+  %m_size.i.i = getelementptr inbounds %class.btAlignedObjectArray.4, ptr %this, i64 0, i32 2
+  store i8 1, ptr %m_ownsMemory.i.i, align 8, !tbaa !17
+  store ptr null, ptr %m_data.i.i, align 8, !tbaa !20
+  store i32 0, ptr %m_size.i.i, align 4, !tbaa !21
+  %m_capacity.i.i = getelementptr inbounds %class.btAlignedObjectArray.4, ptr %this, i64 0, i32 3
+  store i32 0, ptr %m_capacity.i.i, align 8, !tbaa !22
   ret void
 }
 

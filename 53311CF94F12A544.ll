@@ -24,6 +24,7 @@ target triple = "x86_64-unknown-linux-gnu"
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(write, argmem: none, inaccessiblemem: none) uwtable
 define dso_local void @InitFormatBitStream() local_unnamed_addr #0 {
+entry:
   store i32 0, ptr @BitCount, align 4, !tbaa !5
   store i32 0, ptr @ThisFrameSize, align 4, !tbaa !5
   store i32 0, ptr @BitsRemaining, align 4, !tbaa !5
@@ -31,1589 +32,1591 @@ define dso_local void @InitFormatBitStream() local_unnamed_addr #0 {
 }
 
 ; Function Attrs: nounwind uwtable
-define dso_local void @BF_BitstreamFrame(ptr nocapture noundef readonly %0, ptr nocapture noundef writeonly %1) local_unnamed_addr #1 {
-  %3 = load ptr, ptr @side_queue_free, align 8, !tbaa !9
-  %4 = icmp eq ptr %3, null
-  br i1 %4, label %5, label %79
+define dso_local void @BF_BitstreamFrame(ptr nocapture noundef readonly %frameInfo, ptr nocapture noundef writeonly %results) local_unnamed_addr #1 {
+entry:
+  %0 = load ptr, ptr @side_queue_free, align 8, !tbaa !9
+  %cmp.i = icmp eq ptr %0, null
+  br i1 %cmp.i, label %if.then.i, label %if.else.i
 
-5:                                                ; preds = %2
-  %6 = tail call noalias dereferenceable_or_null(88) ptr @calloc(i64 noundef 1, i64 noundef 88) #11
-  %7 = icmp eq ptr %6, null
-  br i1 %7, label %8, label %11
+if.then.i:                                        ; preds = %entry
+  %call.i = tail call noalias dereferenceable_or_null(88) ptr @calloc(i64 noundef 1, i64 noundef 88) #11
+  %cmp1.i = icmp eq ptr %call.i, null
+  br i1 %cmp1.i, label %if.then2.i, label %if.end.i
 
-8:                                                ; preds = %5
-  %9 = load ptr, ptr @stderr, align 8, !tbaa !9
-  %10 = tail call i64 @fwrite(ptr nonnull @.str, i64 30, i64 1, ptr %9) #12
+if.then2.i:                                       ; preds = %if.then.i
+  %1 = load ptr, ptr @stderr, align 8, !tbaa !9
+  %2 = tail call i64 @fwrite(ptr nonnull @.str, i64 30, i64 1, ptr %1) #12
   tail call void @exit(i32 noundef 1) #13
   unreachable
 
-11:                                               ; preds = %5
-  %12 = getelementptr inbounds %struct.BF_FrameData, ptr %0, i64 0, i32 3
-  %13 = load ptr, ptr %12, align 8, !tbaa !11
-  %14 = load i32, ptr %13, align 8, !tbaa !13
-  %15 = tail call noalias dereferenceable_or_null(16) ptr @calloc(i64 noundef 1, i64 noundef 16) #11
-  store i32 %14, ptr %15, align 8, !tbaa !15
-  %16 = tail call noalias dereferenceable_or_null(16) ptr @calloc(i64 noundef 1, i64 noundef 16) #11
-  %17 = getelementptr inbounds %struct.BF_PartHolder, ptr %15, i64 0, i32 1
-  store ptr %16, ptr %17, align 8, !tbaa !17
-  %18 = sext i32 %14 to i64
-  %19 = tail call noalias ptr @calloc(i64 noundef %18, i64 noundef 8) #11
-  %20 = getelementptr inbounds %struct.BF_BitstreamPart, ptr %16, i64 0, i32 1
-  store ptr %19, ptr %20, align 8, !tbaa !18
-  %21 = getelementptr inbounds %struct.side_info_link, ptr %6, i64 0, i32 1, i32 4
-  store ptr %15, ptr %21, align 8, !tbaa !19
-  %22 = getelementptr inbounds %struct.BF_FrameData, ptr %0, i64 0, i32 4
-  %23 = load ptr, ptr %22, align 8, !tbaa !22
+if.end.i:                                         ; preds = %if.then.i
+  %header.i = getelementptr inbounds %struct.BF_FrameData, ptr %frameInfo, i64 0, i32 3
+  %3 = load ptr, ptr %header.i, align 8, !tbaa !11
+  %4 = load i32, ptr %3, align 8, !tbaa !13
+  %call.i.i = tail call noalias dereferenceable_or_null(16) ptr @calloc(i64 noundef 1, i64 noundef 16) #11
+  store i32 %4, ptr %call.i.i, align 8, !tbaa !15
+  %call2.i.i = tail call noalias dereferenceable_or_null(16) ptr @calloc(i64 noundef 1, i64 noundef 16) #11
+  %part.i.i = getelementptr inbounds %struct.BF_PartHolder, ptr %call.i.i, i64 0, i32 1
+  store ptr %call2.i.i, ptr %part.i.i, align 8, !tbaa !17
+  %conv.i.i = sext i32 %4 to i64
+  %call3.i.i = tail call noalias ptr @calloc(i64 noundef %conv.i.i, i64 noundef 8) #11
+  %element.i.i = getelementptr inbounds %struct.BF_BitstreamPart, ptr %call2.i.i, i64 0, i32 1
+  store ptr %call3.i.i, ptr %element.i.i, align 8, !tbaa !18
+  %headerPH.i = getelementptr inbounds %struct.side_info_link, ptr %call.i, i64 0, i32 1, i32 4
+  store ptr %call.i.i, ptr %headerPH.i, align 8, !tbaa !19
+  %frameSI.i = getelementptr inbounds %struct.BF_FrameData, ptr %frameInfo, i64 0, i32 4
+  %5 = load ptr, ptr %frameSI.i, align 8, !tbaa !22
+  %6 = load i32, ptr %5, align 8, !tbaa !13
+  %call.i218.i = tail call noalias dereferenceable_or_null(16) ptr @calloc(i64 noundef 1, i64 noundef 16) #11
+  store i32 %6, ptr %call.i218.i, align 8, !tbaa !15
+  %call2.i219.i = tail call noalias dereferenceable_or_null(16) ptr @calloc(i64 noundef 1, i64 noundef 16) #11
+  %part.i220.i = getelementptr inbounds %struct.BF_PartHolder, ptr %call.i218.i, i64 0, i32 1
+  store ptr %call2.i219.i, ptr %part.i220.i, align 8, !tbaa !17
+  %conv.i221.i = sext i32 %6 to i64
+  %call3.i222.i = tail call noalias ptr @calloc(i64 noundef %conv.i221.i, i64 noundef 8) #11
+  %element.i223.i = getelementptr inbounds %struct.BF_BitstreamPart, ptr %call2.i219.i, i64 0, i32 1
+  store ptr %call3.i222.i, ptr %element.i223.i, align 8, !tbaa !18
+  %frameSIPH.i = getelementptr inbounds %struct.side_info_link, ptr %call.i, i64 0, i32 1, i32 5
+  store ptr %call.i218.i, ptr %frameSIPH.i, align 8, !tbaa !23
+  %nChannels.i = getelementptr inbounds %struct.BF_FrameData, ptr %frameInfo, i64 0, i32 2
+  %7 = load i32, ptr %nChannels.i, align 8, !tbaa !24
+  %cmp8400.i = icmp sgt i32 %7, 0
+  br i1 %cmp8400.i, label %for.body.preheader.i, label %for.cond14.preheader.thread.i
+
+for.body.preheader.i:                             ; preds = %if.end.i
+  %wide.trip.count.i = zext i32 %7 to i64
+  br label %for.body.i
+
+for.cond14.preheader.i:                           ; preds = %for.body.i
+  %nGranules.i = getelementptr inbounds %struct.BF_FrameData, ptr %frameInfo, i64 0, i32 1
+  %8 = load i32, ptr %nGranules.i, align 4, !tbaa !25
+  %cmp15404.i = icmp sgt i32 %8, 0
+  br i1 %cmp15404.i, label %for.cond17.preheader.us.preheader.i, label %if.end40.i
+
+for.cond14.preheader.thread.i:                    ; preds = %if.end.i
+  %nGranules443.i = getelementptr inbounds %struct.BF_FrameData, ptr %frameInfo, i64 0, i32 1
+  %9 = load i32, ptr %nGranules443.i, align 4, !tbaa !25
+  br label %if.end40.i
+
+for.cond17.preheader.us.preheader.i:              ; preds = %for.cond14.preheader.i
+  %wide.trip.count429.i = zext i32 %8 to i64
+  br label %for.cond17.preheader.us.i
+
+for.cond17.preheader.us.i:                        ; preds = %for.cond17.for.inc35_crit_edge.us.i, %for.cond17.preheader.us.preheader.i
+  %indvars.iv426.i = phi i64 [ 0, %for.cond17.preheader.us.preheader.i ], [ %indvars.iv.next427.i, %for.cond17.for.inc35_crit_edge.us.i ]
+  br label %for.body20.us.i
+
+for.body20.us.i:                                  ; preds = %for.body20.us.i, %for.cond17.preheader.us.i
+  %indvars.iv421.i = phi i64 [ 0, %for.cond17.preheader.us.i ], [ %indvars.iv.next422.i, %for.body20.us.i ]
+  %arrayidx24.us.i = getelementptr inbounds %struct.BF_FrameData, ptr %frameInfo, i64 0, i32 6, i64 %indvars.iv426.i, i64 %indvars.iv421.i
+  %10 = load ptr, ptr %arrayidx24.us.i, align 8, !tbaa !9
+  %11 = load i32, ptr %10, align 8, !tbaa !13
+  %call.i230.us.i = tail call noalias dereferenceable_or_null(16) ptr @calloc(i64 noundef 1, i64 noundef 16) #11
+  store i32 %11, ptr %call.i230.us.i, align 8, !tbaa !15
+  %call2.i231.us.i = tail call noalias dereferenceable_or_null(16) ptr @calloc(i64 noundef 1, i64 noundef 16) #11
+  %part.i232.us.i = getelementptr inbounds %struct.BF_PartHolder, ptr %call.i230.us.i, i64 0, i32 1
+  store ptr %call2.i231.us.i, ptr %part.i232.us.i, align 8, !tbaa !17
+  %conv.i233.us.i = sext i32 %11 to i64
+  %call3.i234.us.i = tail call noalias ptr @calloc(i64 noundef %conv.i233.us.i, i64 noundef 8) #11
+  %element.i235.us.i = getelementptr inbounds %struct.BF_BitstreamPart, ptr %call2.i231.us.i, i64 0, i32 1
+  store ptr %call3.i234.us.i, ptr %element.i235.us.i, align 8, !tbaa !18
+  %arrayidx31.us.i = getelementptr inbounds %struct.side_info_link, ptr %call.i, i64 0, i32 1, i32 7, i64 %indvars.iv426.i, i64 %indvars.iv421.i
+  store ptr %call.i230.us.i, ptr %arrayidx31.us.i, align 8, !tbaa !9
+  %indvars.iv.next422.i = add nuw nsw i64 %indvars.iv421.i, 1
+  %exitcond425.not.i = icmp eq i64 %indvars.iv.next422.i, %wide.trip.count.i
+  br i1 %exitcond425.not.i, label %for.cond17.for.inc35_crit_edge.us.i, label %for.body20.us.i, !llvm.loop !26
+
+for.cond17.for.inc35_crit_edge.us.i:              ; preds = %for.body20.us.i
+  %indvars.iv.next427.i = add nuw nsw i64 %indvars.iv426.i, 1
+  %exitcond430.not.i = icmp eq i64 %indvars.iv.next427.i, %wide.trip.count429.i
+  br i1 %exitcond430.not.i, label %if.end40.i, label %for.cond17.preheader.us.i, !llvm.loop !28
+
+for.body.i:                                       ; preds = %for.body.i, %for.body.preheader.i
+  %indvars.iv.i = phi i64 [ 0, %for.body.preheader.i ], [ %indvars.iv.next.i, %for.body.i ]
+  %arrayidx.i = getelementptr inbounds %struct.BF_FrameData, ptr %frameInfo, i64 0, i32 5, i64 %indvars.iv.i
+  %12 = load ptr, ptr %arrayidx.i, align 8, !tbaa !9
+  %13 = load i32, ptr %12, align 8, !tbaa !13
+  %call.i224.i = tail call noalias dereferenceable_or_null(16) ptr @calloc(i64 noundef 1, i64 noundef 16) #11
+  store i32 %13, ptr %call.i224.i, align 8, !tbaa !15
+  %call2.i225.i = tail call noalias dereferenceable_or_null(16) ptr @calloc(i64 noundef 1, i64 noundef 16) #11
+  %part.i226.i = getelementptr inbounds %struct.BF_PartHolder, ptr %call.i224.i, i64 0, i32 1
+  store ptr %call2.i225.i, ptr %part.i226.i, align 8, !tbaa !17
+  %conv.i227.i = sext i32 %13 to i64
+  %call3.i228.i = tail call noalias ptr @calloc(i64 noundef %conv.i227.i, i64 noundef 8) #11
+  %element.i229.i = getelementptr inbounds %struct.BF_BitstreamPart, ptr %call2.i225.i, i64 0, i32 1
+  store ptr %call3.i228.i, ptr %element.i229.i, align 8, !tbaa !18
+  %arrayidx13.i = getelementptr inbounds %struct.side_info_link, ptr %call.i, i64 0, i32 1, i32 6, i64 %indvars.iv.i
+  store ptr %call.i224.i, ptr %arrayidx13.i, align 8, !tbaa !9
+  %indvars.iv.next.i = add nuw nsw i64 %indvars.iv.i, 1
+  %exitcond.not.i = icmp eq i64 %indvars.iv.next.i, %wide.trip.count.i
+  br i1 %exitcond.not.i, label %for.cond14.preheader.i, label %for.body.i, !llvm.loop !29
+
+if.else.i:                                        ; preds = %entry
+  %14 = load ptr, ptr %0, align 8, !tbaa !30
+  store ptr %14, ptr @side_queue_free, align 8, !tbaa !9
+  store ptr null, ptr %0, align 8, !tbaa !30
+  %nGranules43.phi.trans.insert.i = getelementptr inbounds %struct.BF_FrameData, ptr %frameInfo, i64 0, i32 1
+  %.pre.i = load i32, ptr %nGranules43.phi.trans.insert.i, align 4, !tbaa !25
+  %nChannels46.phi.trans.insert.i = getelementptr inbounds %struct.BF_FrameData, ptr %frameInfo, i64 0, i32 2
+  %.pre440.i = load i32, ptr %nChannels46.phi.trans.insert.i, align 8, !tbaa !24
+  %header51.phi.trans.insert.i = getelementptr inbounds %struct.BF_FrameData, ptr %frameInfo, i64 0, i32 3
+  %.pre441.i = load ptr, ptr %header51.phi.trans.insert.i, align 8, !tbaa !11
+  br label %if.end40.i
+
+if.end40.i:                                       ; preds = %for.cond17.for.inc35_crit_edge.us.i, %if.else.i, %for.cond14.preheader.thread.i, %for.cond14.preheader.i
+  %15 = phi ptr [ %.pre441.i, %if.else.i ], [ %3, %for.cond14.preheader.i ], [ %3, %for.cond14.preheader.thread.i ], [ %3, %for.cond17.for.inc35_crit_edge.us.i ]
+  %16 = phi i32 [ %.pre440.i, %if.else.i ], [ %7, %for.cond14.preheader.i ], [ %7, %for.cond14.preheader.thread.i ], [ %7, %for.cond17.for.inc35_crit_edge.us.i ]
+  %17 = phi i32 [ %.pre.i, %if.else.i ], [ %8, %for.cond14.preheader.i ], [ %9, %for.cond14.preheader.thread.i ], [ %8, %for.cond17.for.inc35_crit_edge.us.i ]
+  %l.0.i = phi ptr [ %0, %if.else.i ], [ %call.i, %for.cond14.preheader.i ], [ %call.i, %for.cond14.preheader.thread.i ], [ %call.i, %for.cond17.for.inc35_crit_edge.us.i ]
+  %18 = load i32, ptr %frameInfo, align 8, !tbaa !31
+  %side_info41.i = getelementptr inbounds %struct.side_info_link, ptr %l.0.i, i64 0, i32 1
+  store i32 %18, ptr %side_info41.i, align 8, !tbaa !32
+  %nGranules43.i = getelementptr inbounds %struct.BF_FrameData, ptr %frameInfo, i64 0, i32 1
+  %nGranules45.i = getelementptr inbounds %struct.side_info_link, ptr %l.0.i, i64 0, i32 1, i32 2
+  store i32 %17, ptr %nGranules45.i, align 8, !tbaa !33
+  %nChannels46.i = getelementptr inbounds %struct.BF_FrameData, ptr %frameInfo, i64 0, i32 2
+  %nChannels48.i = getelementptr inbounds %struct.side_info_link, ptr %l.0.i, i64 0, i32 1, i32 3
+  store i32 %16, ptr %nChannels48.i, align 4, !tbaa !34
+  %headerPH50.i = getelementptr inbounds %struct.side_info_link, ptr %l.0.i, i64 0, i32 1, i32 4
+  %19 = load ptr, ptr %headerPH50.i, align 8, !tbaa !19
+  %header51.i = getelementptr inbounds %struct.BF_FrameData, ptr %frameInfo, i64 0, i32 3
+  %part.i236.i = getelementptr inbounds %struct.BF_PartHolder, ptr %19, i64 0, i32 1
+  %20 = load ptr, ptr %part.i236.i, align 8, !tbaa !17
+  store i32 0, ptr %20, align 8, !tbaa !13
+  %21 = load i32, ptr %15, align 8, !tbaa !13
+  %cmp7.not.i.i = icmp eq i32 %21, 0
+  br i1 %cmp7.not.i.i, label %BF_LoadHolderFromBitstreamPart.exit.i, label %for.body.lr.ph.i.i
+
+for.body.lr.ph.i.i:                               ; preds = %if.end40.i
+  %element.i237.i = getelementptr inbounds %struct.BF_BitstreamPart, ptr %15, i64 0, i32 1
+  br label %for.body.i.i
+
+for.body.i.i:                                     ; preds = %BF_addElement.exit.i.i, %for.body.lr.ph.i.i
+  %indvars.iv.i.i = phi i64 [ 0, %for.body.lr.ph.i.i ], [ %indvars.iv.next.i.i, %BF_addElement.exit.i.i ]
+  %theHolder.addr.08.i.i = phi ptr [ %19, %for.body.lr.ph.i.i ], [ %retPH.0.i.i.i, %BF_addElement.exit.i.i ]
+  %22 = load ptr, ptr %element.i237.i, align 8, !tbaa !18
+  %arrayidx.i.i = getelementptr inbounds %struct.BF_BitstreamElement, ptr %22, i64 %indvars.iv.i.i
+  %part.i.i.i = getelementptr inbounds %struct.BF_PartHolder, ptr %theHolder.addr.08.i.i, i64 0, i32 1
+  %23 = load ptr, ptr %part.i.i.i, align 8, !tbaa !17
   %24 = load i32, ptr %23, align 8, !tbaa !13
-  %25 = tail call noalias dereferenceable_or_null(16) ptr @calloc(i64 noundef 1, i64 noundef 16) #11
-  store i32 %24, ptr %25, align 8, !tbaa !15
-  %26 = tail call noalias dereferenceable_or_null(16) ptr @calloc(i64 noundef 1, i64 noundef 16) #11
-  %27 = getelementptr inbounds %struct.BF_PartHolder, ptr %25, i64 0, i32 1
-  store ptr %26, ptr %27, align 8, !tbaa !17
-  %28 = sext i32 %24 to i64
-  %29 = tail call noalias ptr @calloc(i64 noundef %28, i64 noundef 8) #11
-  %30 = getelementptr inbounds %struct.BF_BitstreamPart, ptr %26, i64 0, i32 1
-  store ptr %29, ptr %30, align 8, !tbaa !18
-  %31 = getelementptr inbounds %struct.side_info_link, ptr %6, i64 0, i32 1, i32 5
-  store ptr %25, ptr %31, align 8, !tbaa !23
-  %32 = getelementptr inbounds %struct.BF_FrameData, ptr %0, i64 0, i32 2
-  %33 = load i32, ptr %32, align 8, !tbaa !24
-  %34 = icmp sgt i32 %33, 0
-  br i1 %34, label %35, label %41
-
-35:                                               ; preds = %11
-  %36 = zext i32 %33 to i64
-  br label %65
-
-37:                                               ; preds = %65
-  %38 = getelementptr inbounds %struct.BF_FrameData, ptr %0, i64 0, i32 1
-  %39 = load i32, ptr %38, align 4, !tbaa !25
-  %40 = icmp sgt i32 %39, 0
-  br i1 %40, label %44, label %87
-
-41:                                               ; preds = %11
-  %42 = getelementptr inbounds %struct.BF_FrameData, ptr %0, i64 0, i32 1
-  %43 = load i32, ptr %42, align 4, !tbaa !25
-  br label %87
-
-44:                                               ; preds = %37
-  %45 = zext i32 %39 to i64
-  br label %46
-
-46:                                               ; preds = %62, %44
-  %47 = phi i64 [ 0, %44 ], [ %63, %62 ]
-  br label %48
-
-48:                                               ; preds = %48, %46
-  %49 = phi i64 [ 0, %46 ], [ %60, %48 ]
-  %50 = getelementptr inbounds %struct.BF_FrameData, ptr %0, i64 0, i32 6, i64 %47, i64 %49
-  %51 = load ptr, ptr %50, align 8, !tbaa !9
-  %52 = load i32, ptr %51, align 8, !tbaa !13
-  %53 = tail call noalias dereferenceable_or_null(16) ptr @calloc(i64 noundef 1, i64 noundef 16) #11
-  store i32 %52, ptr %53, align 8, !tbaa !15
-  %54 = tail call noalias dereferenceable_or_null(16) ptr @calloc(i64 noundef 1, i64 noundef 16) #11
-  %55 = getelementptr inbounds %struct.BF_PartHolder, ptr %53, i64 0, i32 1
-  store ptr %54, ptr %55, align 8, !tbaa !17
-  %56 = sext i32 %52 to i64
-  %57 = tail call noalias ptr @calloc(i64 noundef %56, i64 noundef 8) #11
-  %58 = getelementptr inbounds %struct.BF_BitstreamPart, ptr %54, i64 0, i32 1
-  store ptr %57, ptr %58, align 8, !tbaa !18
-  %59 = getelementptr inbounds %struct.side_info_link, ptr %6, i64 0, i32 1, i32 7, i64 %47, i64 %49
-  store ptr %53, ptr %59, align 8, !tbaa !9
-  %60 = add nuw nsw i64 %49, 1
-  %61 = icmp eq i64 %60, %36
-  br i1 %61, label %62, label %48, !llvm.loop !26
-
-62:                                               ; preds = %48
-  %63 = add nuw nsw i64 %47, 1
-  %64 = icmp eq i64 %63, %45
-  br i1 %64, label %87, label %46, !llvm.loop !28
-
-65:                                               ; preds = %65, %35
-  %66 = phi i64 [ 0, %35 ], [ %77, %65 ]
-  %67 = getelementptr inbounds %struct.BF_FrameData, ptr %0, i64 0, i32 5, i64 %66
-  %68 = load ptr, ptr %67, align 8, !tbaa !9
-  %69 = load i32, ptr %68, align 8, !tbaa !13
-  %70 = tail call noalias dereferenceable_or_null(16) ptr @calloc(i64 noundef 1, i64 noundef 16) #11
-  store i32 %69, ptr %70, align 8, !tbaa !15
-  %71 = tail call noalias dereferenceable_or_null(16) ptr @calloc(i64 noundef 1, i64 noundef 16) #11
-  %72 = getelementptr inbounds %struct.BF_PartHolder, ptr %70, i64 0, i32 1
-  store ptr %71, ptr %72, align 8, !tbaa !17
-  %73 = sext i32 %69 to i64
-  %74 = tail call noalias ptr @calloc(i64 noundef %73, i64 noundef 8) #11
-  %75 = getelementptr inbounds %struct.BF_BitstreamPart, ptr %71, i64 0, i32 1
-  store ptr %74, ptr %75, align 8, !tbaa !18
-  %76 = getelementptr inbounds %struct.side_info_link, ptr %6, i64 0, i32 1, i32 6, i64 %66
-  store ptr %70, ptr %76, align 8, !tbaa !9
-  %77 = add nuw nsw i64 %66, 1
-  %78 = icmp eq i64 %77, %36
-  br i1 %78, label %37, label %65, !llvm.loop !29
-
-79:                                               ; preds = %2
-  %80 = load ptr, ptr %3, align 8, !tbaa !30
-  store ptr %80, ptr @side_queue_free, align 8, !tbaa !9
-  store ptr null, ptr %3, align 8, !tbaa !30
-  %81 = getelementptr inbounds %struct.BF_FrameData, ptr %0, i64 0, i32 1
-  %82 = load i32, ptr %81, align 4, !tbaa !25
-  %83 = getelementptr inbounds %struct.BF_FrameData, ptr %0, i64 0, i32 2
-  %84 = load i32, ptr %83, align 8, !tbaa !24
-  %85 = getelementptr inbounds %struct.BF_FrameData, ptr %0, i64 0, i32 3
-  %86 = load ptr, ptr %85, align 8, !tbaa !11
-  br label %87
-
-87:                                               ; preds = %62, %79, %41, %37
-  %88 = phi ptr [ %86, %79 ], [ %13, %37 ], [ %13, %41 ], [ %13, %62 ]
-  %89 = phi i32 [ %84, %79 ], [ %33, %37 ], [ %33, %41 ], [ %33, %62 ]
-  %90 = phi i32 [ %82, %79 ], [ %39, %37 ], [ %43, %41 ], [ %39, %62 ]
-  %91 = phi ptr [ %3, %79 ], [ %6, %37 ], [ %6, %41 ], [ %6, %62 ]
-  %92 = load i32, ptr %0, align 8, !tbaa !31
-  %93 = getelementptr inbounds %struct.side_info_link, ptr %91, i64 0, i32 1
-  store i32 %92, ptr %93, align 8, !tbaa !32
-  %94 = getelementptr inbounds %struct.BF_FrameData, ptr %0, i64 0, i32 1
-  %95 = getelementptr inbounds %struct.side_info_link, ptr %91, i64 0, i32 1, i32 2
-  store i32 %90, ptr %95, align 8, !tbaa !33
-  %96 = getelementptr inbounds %struct.BF_FrameData, ptr %0, i64 0, i32 2
-  %97 = getelementptr inbounds %struct.side_info_link, ptr %91, i64 0, i32 1, i32 3
-  store i32 %89, ptr %97, align 4, !tbaa !34
-  %98 = getelementptr inbounds %struct.side_info_link, ptr %91, i64 0, i32 1, i32 4
-  %99 = load ptr, ptr %98, align 8, !tbaa !19
-  %100 = getelementptr inbounds %struct.BF_FrameData, ptr %0, i64 0, i32 3
-  %101 = getelementptr inbounds %struct.BF_PartHolder, ptr %99, i64 0, i32 1
-  %102 = load ptr, ptr %101, align 8, !tbaa !17
-  store i32 0, ptr %102, align 8, !tbaa !13
-  %103 = load i32, ptr %88, align 8, !tbaa !13
-  %104 = icmp eq i32 %103, 0
-  br i1 %104, label %139, label %105
-
-105:                                              ; preds = %87
-  %106 = getelementptr inbounds %struct.BF_BitstreamPart, ptr %88, i64 0, i32 1
-  br label %107
-
-107:                                              ; preds = %125, %105
-  %108 = phi i64 [ 0, %105 ], [ %135, %125 ]
-  %109 = phi ptr [ %99, %105 ], [ %129, %125 ]
-  %110 = load ptr, ptr %106, align 8, !tbaa !18
-  %111 = getelementptr inbounds %struct.BF_BitstreamElement, ptr %110, i64 %108
-  %112 = getelementptr inbounds %struct.BF_PartHolder, ptr %109, i64 0, i32 1
-  %113 = load ptr, ptr %112, align 8, !tbaa !17
-  %114 = load i32, ptr %113, align 8, !tbaa !13
-  %115 = add i32 %114, 1
-  %116 = load i32, ptr %109, align 8, !tbaa !15
-  %117 = icmp sgt i32 %115, %116
-  br i1 %117, label %118, label %125
-
-118:                                              ; preds = %107
-  %119 = add i32 %114, 9
-  %120 = tail call ptr @BF_resizePartHolder(ptr noundef nonnull %109, i32 noundef %119)
-  %121 = getelementptr inbounds %struct.BF_PartHolder, ptr %120, i64 0, i32 1
-  %122 = load ptr, ptr %121, align 8, !tbaa !17
-  %123 = load i32, ptr %122, align 8, !tbaa !13
-  %124 = add i32 %123, 1
-  br label %125
-
-125:                                              ; preds = %118, %107
-  %126 = phi i32 [ %124, %118 ], [ %115, %107 ]
-  %127 = phi i32 [ %123, %118 ], [ %114, %107 ]
-  %128 = phi ptr [ %122, %118 ], [ %113, %107 ]
-  %129 = phi ptr [ %120, %118 ], [ %109, %107 ]
-  %130 = getelementptr inbounds %struct.BF_BitstreamPart, ptr %128, i64 0, i32 1
-  %131 = load ptr, ptr %130, align 8, !tbaa !18
-  store i32 %126, ptr %128, align 8, !tbaa !13
-  %132 = zext i32 %127 to i64
-  %133 = getelementptr inbounds %struct.BF_BitstreamElement, ptr %131, i64 %132
-  %134 = load i64, ptr %111, align 4
-  store i64 %134, ptr %133, align 4
-  %135 = add nuw nsw i64 %108, 1
-  %136 = load i32, ptr %88, align 8, !tbaa !13
-  %137 = zext i32 %136 to i64
-  %138 = icmp ult i64 %135, %137
-  br i1 %138, label %107, label %139, !llvm.loop !35
-
-139:                                              ; preds = %125, %87
-  %140 = phi ptr [ %99, %87 ], [ %129, %125 ]
-  store ptr %140, ptr %98, align 8, !tbaa !19
-  %141 = getelementptr inbounds %struct.side_info_link, ptr %91, i64 0, i32 1, i32 5
-  %142 = load ptr, ptr %141, align 8, !tbaa !23
-  %143 = getelementptr inbounds %struct.BF_FrameData, ptr %0, i64 0, i32 4
-  %144 = load ptr, ptr %143, align 8, !tbaa !22
-  %145 = getelementptr inbounds %struct.BF_PartHolder, ptr %142, i64 0, i32 1
-  %146 = load ptr, ptr %145, align 8, !tbaa !17
-  store i32 0, ptr %146, align 8, !tbaa !13
-  %147 = load i32, ptr %144, align 8, !tbaa !13
-  %148 = icmp eq i32 %147, 0
-  br i1 %148, label %183, label %149
-
-149:                                              ; preds = %139
-  %150 = getelementptr inbounds %struct.BF_BitstreamPart, ptr %144, i64 0, i32 1
-  br label %151
-
-151:                                              ; preds = %169, %149
-  %152 = phi i64 [ 0, %149 ], [ %179, %169 ]
-  %153 = phi ptr [ %142, %149 ], [ %173, %169 ]
-  %154 = load ptr, ptr %150, align 8, !tbaa !18
-  %155 = getelementptr inbounds %struct.BF_BitstreamElement, ptr %154, i64 %152
-  %156 = getelementptr inbounds %struct.BF_PartHolder, ptr %153, i64 0, i32 1
-  %157 = load ptr, ptr %156, align 8, !tbaa !17
-  %158 = load i32, ptr %157, align 8, !tbaa !13
-  %159 = add i32 %158, 1
-  %160 = load i32, ptr %153, align 8, !tbaa !15
-  %161 = icmp sgt i32 %159, %160
-  br i1 %161, label %162, label %169
-
-162:                                              ; preds = %151
-  %163 = add i32 %158, 9
-  %164 = tail call ptr @BF_resizePartHolder(ptr noundef nonnull %153, i32 noundef %163)
-  %165 = getelementptr inbounds %struct.BF_PartHolder, ptr %164, i64 0, i32 1
-  %166 = load ptr, ptr %165, align 8, !tbaa !17
-  %167 = load i32, ptr %166, align 8, !tbaa !13
-  %168 = add i32 %167, 1
-  br label %169
-
-169:                                              ; preds = %162, %151
-  %170 = phi i32 [ %168, %162 ], [ %159, %151 ]
-  %171 = phi i32 [ %167, %162 ], [ %158, %151 ]
-  %172 = phi ptr [ %166, %162 ], [ %157, %151 ]
-  %173 = phi ptr [ %164, %162 ], [ %153, %151 ]
-  %174 = getelementptr inbounds %struct.BF_BitstreamPart, ptr %172, i64 0, i32 1
-  %175 = load ptr, ptr %174, align 8, !tbaa !18
-  store i32 %170, ptr %172, align 8, !tbaa !13
-  %176 = zext i32 %171 to i64
-  %177 = getelementptr inbounds %struct.BF_BitstreamElement, ptr %175, i64 %176
-  %178 = load i64, ptr %155, align 4
-  store i64 %178, ptr %177, align 4
-  %179 = add nuw nsw i64 %152, 1
-  %180 = load i32, ptr %144, align 8, !tbaa !13
-  %181 = zext i32 %180 to i64
-  %182 = icmp ult i64 %179, %181
-  br i1 %182, label %151, label %183, !llvm.loop !35
-
-183:                                              ; preds = %169, %139
-  %184 = phi ptr [ %142, %139 ], [ %173, %169 ]
-  store ptr %184, ptr %141, align 8, !tbaa !23
-  %185 = load ptr, ptr %100, align 8, !tbaa !11
-  %186 = load i32, ptr %185, align 8, !tbaa !13
-  %187 = icmp eq i32 %186, 0
-  br i1 %187, label %276, label %188
-
-188:                                              ; preds = %183
-  %189 = getelementptr inbounds %struct.BF_BitstreamPart, ptr %185, i64 0, i32 1
-  %190 = load ptr, ptr %189, align 8, !tbaa !18
-  %191 = icmp ult i32 %186, 9
-  br i1 %191, label %261, label %192
-
-192:                                              ; preds = %188
-  %193 = zext i32 %186 to i64
-  %194 = and i64 %193, 7
-  %195 = icmp eq i64 %194, 0
-  %196 = select i1 %195, i64 8, i64 %194
-  %197 = sub nsw i64 %193, %196
-  %198 = trunc i64 %197 to i32
-  %199 = shl nsw i64 %197, 3
-  %200 = getelementptr i8, ptr %190, i64 %199
-  br label %201
-
-201:                                              ; preds = %201, %192
-  %202 = phi i64 [ 0, %192 ], [ %256, %201 ]
-  %203 = phi <4 x i32> [ zeroinitializer, %192 ], [ %254, %201 ]
-  %204 = phi <4 x i32> [ zeroinitializer, %192 ], [ %255, %201 ]
-  %205 = shl i64 %202, 3
-  %206 = getelementptr i8, ptr %190, i64 %205
-  %207 = shl i64 %202, 3
-  %208 = or i64 %207, 8
-  %209 = getelementptr i8, ptr %190, i64 %208
-  %210 = shl i64 %202, 3
-  %211 = or i64 %210, 16
-  %212 = getelementptr i8, ptr %190, i64 %211
-  %213 = shl i64 %202, 3
-  %214 = or i64 %213, 24
-  %215 = getelementptr i8, ptr %190, i64 %214
-  %216 = shl i64 %202, 3
-  %217 = or i64 %216, 32
-  %218 = getelementptr i8, ptr %190, i64 %217
-  %219 = shl i64 %202, 3
-  %220 = or i64 %219, 40
-  %221 = getelementptr i8, ptr %190, i64 %220
-  %222 = shl i64 %202, 3
-  %223 = or i64 %222, 48
-  %224 = getelementptr i8, ptr %190, i64 %223
-  %225 = shl i64 %202, 3
-  %226 = or i64 %225, 56
-  %227 = getelementptr i8, ptr %190, i64 %226
-  %228 = getelementptr inbounds %struct.BF_BitstreamElement, ptr %206, i64 0, i32 1
-  %229 = getelementptr inbounds %struct.BF_BitstreamElement, ptr %209, i64 0, i32 1
-  %230 = getelementptr inbounds %struct.BF_BitstreamElement, ptr %212, i64 0, i32 1
-  %231 = getelementptr inbounds %struct.BF_BitstreamElement, ptr %215, i64 0, i32 1
-  %232 = getelementptr inbounds %struct.BF_BitstreamElement, ptr %218, i64 0, i32 1
-  %233 = getelementptr inbounds %struct.BF_BitstreamElement, ptr %221, i64 0, i32 1
-  %234 = getelementptr inbounds %struct.BF_BitstreamElement, ptr %224, i64 0, i32 1
-  %235 = getelementptr inbounds %struct.BF_BitstreamElement, ptr %227, i64 0, i32 1
-  %236 = load i16, ptr %228, align 4, !tbaa !36
-  %237 = load i16, ptr %229, align 4, !tbaa !36
-  %238 = load i16, ptr %230, align 4, !tbaa !36
-  %239 = load i16, ptr %231, align 4, !tbaa !36
-  %240 = insertelement <4 x i16> poison, i16 %236, i64 0
-  %241 = insertelement <4 x i16> %240, i16 %237, i64 1
-  %242 = insertelement <4 x i16> %241, i16 %238, i64 2
-  %243 = insertelement <4 x i16> %242, i16 %239, i64 3
-  %244 = load i16, ptr %232, align 4, !tbaa !36
-  %245 = load i16, ptr %233, align 4, !tbaa !36
-  %246 = load i16, ptr %234, align 4, !tbaa !36
-  %247 = load i16, ptr %235, align 4, !tbaa !36
-  %248 = insertelement <4 x i16> poison, i16 %244, i64 0
-  %249 = insertelement <4 x i16> %248, i16 %245, i64 1
-  %250 = insertelement <4 x i16> %249, i16 %246, i64 2
-  %251 = insertelement <4 x i16> %250, i16 %247, i64 3
-  %252 = zext <4 x i16> %243 to <4 x i32>
-  %253 = zext <4 x i16> %251 to <4 x i32>
-  %254 = add <4 x i32> %203, %252
-  %255 = add <4 x i32> %204, %253
-  %256 = add nuw i64 %202, 8
-  %257 = icmp eq i64 %256, %197
-  br i1 %257, label %258, label %201, !llvm.loop !39
-
-258:                                              ; preds = %201
-  %259 = add <4 x i32> %255, %254
-  %260 = tail call i32 @llvm.vector.reduce.add.v4i32(<4 x i32> %259)
-  br label %261
-
-261:                                              ; preds = %188, %258
-  %262 = phi i32 [ 0, %188 ], [ %260, %258 ]
-  %263 = phi i32 [ 0, %188 ], [ %198, %258 ]
-  %264 = phi ptr [ %190, %188 ], [ %200, %258 ]
-  br label %265
-
-265:                                              ; preds = %261, %265
-  %266 = phi i32 [ %272, %265 ], [ %262, %261 ]
-  %267 = phi i32 [ %273, %265 ], [ %263, %261 ]
-  %268 = phi ptr [ %274, %265 ], [ %264, %261 ]
-  %269 = getelementptr inbounds %struct.BF_BitstreamElement, ptr %268, i64 0, i32 1
-  %270 = load i16, ptr %269, align 4, !tbaa !36
-  %271 = zext i16 %270 to i32
-  %272 = add nuw nsw i32 %266, %271
-  %273 = add nuw i32 %267, 1
-  %274 = getelementptr inbounds %struct.BF_BitstreamElement, ptr %268, i64 1
-  %275 = icmp eq i32 %273, %186
-  br i1 %275, label %276, label %265, !llvm.loop !42
-
-276:                                              ; preds = %265, %183
-  %277 = phi i32 [ 0, %183 ], [ %272, %265 ]
-  %278 = load ptr, ptr %143, align 8, !tbaa !22
-  %279 = load i32, ptr %278, align 8, !tbaa !13
-  %280 = icmp eq i32 %279, 0
-  br i1 %280, label %369, label %281
-
-281:                                              ; preds = %276
-  %282 = getelementptr inbounds %struct.BF_BitstreamPart, ptr %278, i64 0, i32 1
-  %283 = load ptr, ptr %282, align 8, !tbaa !18
-  %284 = icmp ult i32 %279, 9
-  br i1 %284, label %354, label %285
-
-285:                                              ; preds = %281
-  %286 = zext i32 %279 to i64
-  %287 = and i64 %286, 7
-  %288 = icmp eq i64 %287, 0
-  %289 = select i1 %288, i64 8, i64 %287
-  %290 = sub nsw i64 %286, %289
-  %291 = trunc i64 %290 to i32
-  %292 = shl nsw i64 %290, 3
-  %293 = getelementptr i8, ptr %283, i64 %292
-  br label %294
-
-294:                                              ; preds = %294, %285
-  %295 = phi i64 [ 0, %285 ], [ %349, %294 ]
-  %296 = phi <4 x i32> [ zeroinitializer, %285 ], [ %347, %294 ]
-  %297 = phi <4 x i32> [ zeroinitializer, %285 ], [ %348, %294 ]
-  %298 = shl i64 %295, 3
-  %299 = getelementptr i8, ptr %283, i64 %298
-  %300 = shl i64 %295, 3
-  %301 = or i64 %300, 8
-  %302 = getelementptr i8, ptr %283, i64 %301
-  %303 = shl i64 %295, 3
-  %304 = or i64 %303, 16
-  %305 = getelementptr i8, ptr %283, i64 %304
-  %306 = shl i64 %295, 3
-  %307 = or i64 %306, 24
-  %308 = getelementptr i8, ptr %283, i64 %307
-  %309 = shl i64 %295, 3
-  %310 = or i64 %309, 32
-  %311 = getelementptr i8, ptr %283, i64 %310
-  %312 = shl i64 %295, 3
-  %313 = or i64 %312, 40
-  %314 = getelementptr i8, ptr %283, i64 %313
-  %315 = shl i64 %295, 3
-  %316 = or i64 %315, 48
-  %317 = getelementptr i8, ptr %283, i64 %316
-  %318 = shl i64 %295, 3
-  %319 = or i64 %318, 56
-  %320 = getelementptr i8, ptr %283, i64 %319
-  %321 = getelementptr inbounds %struct.BF_BitstreamElement, ptr %299, i64 0, i32 1
-  %322 = getelementptr inbounds %struct.BF_BitstreamElement, ptr %302, i64 0, i32 1
-  %323 = getelementptr inbounds %struct.BF_BitstreamElement, ptr %305, i64 0, i32 1
-  %324 = getelementptr inbounds %struct.BF_BitstreamElement, ptr %308, i64 0, i32 1
-  %325 = getelementptr inbounds %struct.BF_BitstreamElement, ptr %311, i64 0, i32 1
-  %326 = getelementptr inbounds %struct.BF_BitstreamElement, ptr %314, i64 0, i32 1
-  %327 = getelementptr inbounds %struct.BF_BitstreamElement, ptr %317, i64 0, i32 1
-  %328 = getelementptr inbounds %struct.BF_BitstreamElement, ptr %320, i64 0, i32 1
-  %329 = load i16, ptr %321, align 4, !tbaa !36
-  %330 = load i16, ptr %322, align 4, !tbaa !36
-  %331 = load i16, ptr %323, align 4, !tbaa !36
-  %332 = load i16, ptr %324, align 4, !tbaa !36
-  %333 = insertelement <4 x i16> poison, i16 %329, i64 0
-  %334 = insertelement <4 x i16> %333, i16 %330, i64 1
-  %335 = insertelement <4 x i16> %334, i16 %331, i64 2
-  %336 = insertelement <4 x i16> %335, i16 %332, i64 3
-  %337 = load i16, ptr %325, align 4, !tbaa !36
-  %338 = load i16, ptr %326, align 4, !tbaa !36
-  %339 = load i16, ptr %327, align 4, !tbaa !36
-  %340 = load i16, ptr %328, align 4, !tbaa !36
-  %341 = insertelement <4 x i16> poison, i16 %337, i64 0
-  %342 = insertelement <4 x i16> %341, i16 %338, i64 1
-  %343 = insertelement <4 x i16> %342, i16 %339, i64 2
-  %344 = insertelement <4 x i16> %343, i16 %340, i64 3
-  %345 = zext <4 x i16> %336 to <4 x i32>
-  %346 = zext <4 x i16> %344 to <4 x i32>
-  %347 = add <4 x i32> %296, %345
-  %348 = add <4 x i32> %297, %346
-  %349 = add nuw i64 %295, 8
-  %350 = icmp eq i64 %349, %290
-  br i1 %350, label %351, label %294, !llvm.loop !43
-
-351:                                              ; preds = %294
-  %352 = add <4 x i32> %348, %347
-  %353 = tail call i32 @llvm.vector.reduce.add.v4i32(<4 x i32> %352)
-  br label %354
-
-354:                                              ; preds = %281, %351
-  %355 = phi i32 [ 0, %281 ], [ %353, %351 ]
-  %356 = phi i32 [ 0, %281 ], [ %291, %351 ]
-  %357 = phi ptr [ %283, %281 ], [ %293, %351 ]
-  br label %358
-
-358:                                              ; preds = %354, %358
-  %359 = phi i32 [ %365, %358 ], [ %355, %354 ]
-  %360 = phi i32 [ %366, %358 ], [ %356, %354 ]
-  %361 = phi ptr [ %367, %358 ], [ %357, %354 ]
-  %362 = getelementptr inbounds %struct.BF_BitstreamElement, ptr %361, i64 0, i32 1
-  %363 = load i16, ptr %362, align 4, !tbaa !36
-  %364 = zext i16 %363 to i32
-  %365 = add nuw nsw i32 %359, %364
-  %366 = add nuw i32 %360, 1
-  %367 = getelementptr inbounds %struct.BF_BitstreamElement, ptr %361, i64 1
-  %368 = icmp eq i32 %366, %279
-  br i1 %368, label %369, label %358, !llvm.loop !44
-
-369:                                              ; preds = %358, %276
-  %370 = phi i32 [ 0, %276 ], [ %365, %358 ]
-  %371 = add nsw i32 %370, %277
-  %372 = load i32, ptr %96, align 8, !tbaa !24
-  %373 = icmp sgt i32 %372, 0
-  br i1 %373, label %379, label %784
-
-374:                                              ; preds = %567
-  %375 = load i32, ptr %94, align 4, !tbaa !25
-  %376 = icmp sgt i32 %375, 0
-  %377 = icmp sgt i32 %571, 0
-  %378 = select i1 %376, i1 %377, i1 false
-  br i1 %378, label %574, label %784
-
-379:                                              ; preds = %369, %567
-  %380 = phi i64 [ %570, %567 ], [ 0, %369 ]
-  %381 = phi i32 [ %569, %567 ], [ %371, %369 ]
-  %382 = getelementptr inbounds %struct.side_info_link, ptr %91, i64 0, i32 1, i32 6, i64 %380
-  %383 = load ptr, ptr %382, align 8, !tbaa !9
-  %384 = getelementptr inbounds %struct.BF_FrameData, ptr %0, i64 0, i32 5, i64 %380
-  %385 = load ptr, ptr %384, align 8, !tbaa !9
-  %386 = getelementptr inbounds %struct.BF_PartHolder, ptr %383, i64 0, i32 1
-  %387 = load ptr, ptr %386, align 8, !tbaa !17
-  store i32 0, ptr %387, align 8, !tbaa !13
-  %388 = load i32, ptr %385, align 8, !tbaa !13
-  %389 = icmp eq i32 %388, 0
-  br i1 %389, label %474, label %390
-
-390:                                              ; preds = %379
-  %391 = getelementptr inbounds %struct.BF_BitstreamPart, ptr %385, i64 0, i32 1
-  br label %392
-
-392:                                              ; preds = %460, %390
-  %393 = phi i64 [ 0, %390 ], [ %470, %460 ]
-  %394 = phi ptr [ %383, %390 ], [ %464, %460 ]
-  %395 = load ptr, ptr %391, align 8, !tbaa !18
-  %396 = getelementptr inbounds %struct.BF_BitstreamElement, ptr %395, i64 %393
-  %397 = getelementptr inbounds %struct.BF_PartHolder, ptr %394, i64 0, i32 1
-  %398 = load ptr, ptr %397, align 8, !tbaa !17
-  %399 = load i32, ptr %398, align 8, !tbaa !13
-  %400 = add i32 %399, 1
-  %401 = load i32, ptr %394, align 8, !tbaa !15
-  %402 = icmp sgt i32 %400, %401
-  br i1 %402, label %403, label %460
-
-403:                                              ; preds = %392
-  %404 = add i32 %399, 9
-  %405 = tail call noalias dereferenceable_or_null(16) ptr @calloc(i64 noundef 1, i64 noundef 16) #11
-  store i32 %404, ptr %405, align 8, !tbaa !15
-  %406 = tail call noalias dereferenceable_or_null(16) ptr @calloc(i64 noundef 1, i64 noundef 16) #11
-  %407 = getelementptr inbounds %struct.BF_PartHolder, ptr %405, i64 0, i32 1
-  store ptr %406, ptr %407, align 8, !tbaa !17
-  %408 = sext i32 %404 to i64
-  %409 = tail call noalias ptr @calloc(i64 noundef %408, i64 noundef 8) #11
-  %410 = getelementptr inbounds %struct.BF_BitstreamPart, ptr %406, i64 0, i32 1
-  store ptr %409, ptr %410, align 8, !tbaa !18
-  %411 = load i32, ptr %394, align 8, !tbaa !15
-  %412 = tail call i32 @llvm.smin.i32(i32 %411, i32 %404)
-  store i32 %412, ptr %406, align 8, !tbaa !13
-  %413 = icmp sgt i32 %412, 0
-  br i1 %413, label %414, label %452
-
-414:                                              ; preds = %403
-  %415 = zext i32 %412 to i64
-  %416 = and i64 %415, 1
-  %417 = icmp eq i32 %412, 1
-  br i1 %417, label %441, label %418
-
-418:                                              ; preds = %414
-  %419 = and i64 %415, 4294967294
-  br label %420
-
-420:                                              ; preds = %420, %418
-  %421 = phi i64 [ 0, %418 ], [ %438, %420 ]
-  %422 = phi i64 [ 0, %418 ], [ %439, %420 ]
-  %423 = load ptr, ptr %410, align 8, !tbaa !18
-  %424 = getelementptr inbounds %struct.BF_BitstreamElement, ptr %423, i64 %421
-  %425 = load ptr, ptr %397, align 8, !tbaa !17
-  %426 = getelementptr inbounds %struct.BF_BitstreamPart, ptr %425, i64 0, i32 1
-  %427 = load ptr, ptr %426, align 8, !tbaa !18
-  %428 = getelementptr inbounds %struct.BF_BitstreamElement, ptr %427, i64 %421
-  %429 = load i64, ptr %428, align 4
-  store i64 %429, ptr %424, align 4
-  %430 = or i64 %421, 1
-  %431 = load ptr, ptr %410, align 8, !tbaa !18
-  %432 = getelementptr inbounds %struct.BF_BitstreamElement, ptr %431, i64 %430
-  %433 = load ptr, ptr %397, align 8, !tbaa !17
-  %434 = getelementptr inbounds %struct.BF_BitstreamPart, ptr %433, i64 0, i32 1
-  %435 = load ptr, ptr %434, align 8, !tbaa !18
-  %436 = getelementptr inbounds %struct.BF_BitstreamElement, ptr %435, i64 %430
-  %437 = load i64, ptr %436, align 4
-  store i64 %437, ptr %432, align 4
-  %438 = add nuw nsw i64 %421, 2
-  %439 = add i64 %422, 2
-  %440 = icmp eq i64 %439, %419
-  br i1 %440, label %441, label %420, !llvm.loop !45
-
-441:                                              ; preds = %420, %414
-  %442 = phi i64 [ 0, %414 ], [ %438, %420 ]
-  %443 = icmp eq i64 %416, 0
-  br i1 %443, label %452, label %444
-
-444:                                              ; preds = %441
-  %445 = load ptr, ptr %410, align 8, !tbaa !18
-  %446 = getelementptr inbounds %struct.BF_BitstreamElement, ptr %445, i64 %442
-  %447 = load ptr, ptr %397, align 8, !tbaa !17
-  %448 = getelementptr inbounds %struct.BF_BitstreamPart, ptr %447, i64 0, i32 1
-  %449 = load ptr, ptr %448, align 8, !tbaa !18
-  %450 = getelementptr inbounds %struct.BF_BitstreamElement, ptr %449, i64 %442
-  %451 = load i64, ptr %450, align 4
-  store i64 %451, ptr %446, align 4
-  br label %452
-
-452:                                              ; preds = %444, %441, %403
-  %453 = load ptr, ptr %397, align 8, !tbaa !17
-  %454 = getelementptr inbounds %struct.BF_BitstreamPart, ptr %453, i64 0, i32 1
-  %455 = load ptr, ptr %454, align 8, !tbaa !18
-  tail call void @free(ptr noundef %455) #14
-  %456 = load ptr, ptr %397, align 8, !tbaa !17
-  tail call void @free(ptr noundef %456) #14
-  tail call void @free(ptr noundef nonnull %394) #14
-  %457 = load ptr, ptr %407, align 8, !tbaa !17
-  %458 = load i32, ptr %457, align 8, !tbaa !13
-  %459 = add i32 %458, 1
-  br label %460
-
-460:                                              ; preds = %452, %392
-  %461 = phi i32 [ %459, %452 ], [ %400, %392 ]
-  %462 = phi i32 [ %458, %452 ], [ %399, %392 ]
-  %463 = phi ptr [ %457, %452 ], [ %398, %392 ]
-  %464 = phi ptr [ %405, %452 ], [ %394, %392 ]
-  %465 = getelementptr inbounds %struct.BF_BitstreamPart, ptr %463, i64 0, i32 1
-  %466 = load ptr, ptr %465, align 8, !tbaa !18
-  store i32 %461, ptr %463, align 8, !tbaa !13
-  %467 = zext i32 %462 to i64
-  %468 = getelementptr inbounds %struct.BF_BitstreamElement, ptr %466, i64 %467
-  %469 = load i64, ptr %396, align 4
-  store i64 %469, ptr %468, align 4
-  %470 = add nuw nsw i64 %393, 1
-  %471 = load i32, ptr %385, align 8, !tbaa !13
-  %472 = zext i32 %471 to i64
-  %473 = icmp ult i64 %470, %472
-  br i1 %473, label %392, label %474, !llvm.loop !35
-
-474:                                              ; preds = %460, %379
-  %475 = phi ptr [ %383, %379 ], [ %464, %460 ]
-  store ptr %475, ptr %382, align 8, !tbaa !9
-  %476 = load ptr, ptr %384, align 8, !tbaa !9
-  %477 = load i32, ptr %476, align 8, !tbaa !13
-  %478 = icmp eq i32 %477, 0
-  br i1 %478, label %567, label %479
-
-479:                                              ; preds = %474
-  %480 = getelementptr inbounds %struct.BF_BitstreamPart, ptr %476, i64 0, i32 1
-  %481 = load ptr, ptr %480, align 8, !tbaa !18
-  %482 = icmp ult i32 %477, 9
-  br i1 %482, label %552, label %483
-
-483:                                              ; preds = %479
-  %484 = zext i32 %477 to i64
-  %485 = and i64 %484, 7
-  %486 = icmp eq i64 %485, 0
-  %487 = select i1 %486, i64 8, i64 %485
-  %488 = sub nsw i64 %484, %487
-  %489 = trunc i64 %488 to i32
-  %490 = shl nsw i64 %488, 3
-  %491 = getelementptr i8, ptr %481, i64 %490
-  br label %492
-
-492:                                              ; preds = %492, %483
-  %493 = phi i64 [ 0, %483 ], [ %547, %492 ]
-  %494 = phi <4 x i32> [ zeroinitializer, %483 ], [ %545, %492 ]
-  %495 = phi <4 x i32> [ zeroinitializer, %483 ], [ %546, %492 ]
-  %496 = shl i64 %493, 3
-  %497 = getelementptr i8, ptr %481, i64 %496
-  %498 = shl i64 %493, 3
-  %499 = or i64 %498, 8
-  %500 = getelementptr i8, ptr %481, i64 %499
-  %501 = shl i64 %493, 3
-  %502 = or i64 %501, 16
-  %503 = getelementptr i8, ptr %481, i64 %502
-  %504 = shl i64 %493, 3
-  %505 = or i64 %504, 24
-  %506 = getelementptr i8, ptr %481, i64 %505
-  %507 = shl i64 %493, 3
-  %508 = or i64 %507, 32
-  %509 = getelementptr i8, ptr %481, i64 %508
-  %510 = shl i64 %493, 3
-  %511 = or i64 %510, 40
-  %512 = getelementptr i8, ptr %481, i64 %511
-  %513 = shl i64 %493, 3
-  %514 = or i64 %513, 48
-  %515 = getelementptr i8, ptr %481, i64 %514
-  %516 = shl i64 %493, 3
-  %517 = or i64 %516, 56
-  %518 = getelementptr i8, ptr %481, i64 %517
-  %519 = getelementptr inbounds %struct.BF_BitstreamElement, ptr %497, i64 0, i32 1
-  %520 = getelementptr inbounds %struct.BF_BitstreamElement, ptr %500, i64 0, i32 1
-  %521 = getelementptr inbounds %struct.BF_BitstreamElement, ptr %503, i64 0, i32 1
-  %522 = getelementptr inbounds %struct.BF_BitstreamElement, ptr %506, i64 0, i32 1
-  %523 = getelementptr inbounds %struct.BF_BitstreamElement, ptr %509, i64 0, i32 1
-  %524 = getelementptr inbounds %struct.BF_BitstreamElement, ptr %512, i64 0, i32 1
-  %525 = getelementptr inbounds %struct.BF_BitstreamElement, ptr %515, i64 0, i32 1
-  %526 = getelementptr inbounds %struct.BF_BitstreamElement, ptr %518, i64 0, i32 1
-  %527 = load i16, ptr %519, align 4, !tbaa !36
-  %528 = load i16, ptr %520, align 4, !tbaa !36
-  %529 = load i16, ptr %521, align 4, !tbaa !36
-  %530 = load i16, ptr %522, align 4, !tbaa !36
-  %531 = insertelement <4 x i16> poison, i16 %527, i64 0
-  %532 = insertelement <4 x i16> %531, i16 %528, i64 1
-  %533 = insertelement <4 x i16> %532, i16 %529, i64 2
-  %534 = insertelement <4 x i16> %533, i16 %530, i64 3
-  %535 = load i16, ptr %523, align 4, !tbaa !36
-  %536 = load i16, ptr %524, align 4, !tbaa !36
-  %537 = load i16, ptr %525, align 4, !tbaa !36
-  %538 = load i16, ptr %526, align 4, !tbaa !36
-  %539 = insertelement <4 x i16> poison, i16 %535, i64 0
-  %540 = insertelement <4 x i16> %539, i16 %536, i64 1
-  %541 = insertelement <4 x i16> %540, i16 %537, i64 2
-  %542 = insertelement <4 x i16> %541, i16 %538, i64 3
-  %543 = zext <4 x i16> %534 to <4 x i32>
-  %544 = zext <4 x i16> %542 to <4 x i32>
-  %545 = add <4 x i32> %494, %543
-  %546 = add <4 x i32> %495, %544
-  %547 = add nuw i64 %493, 8
-  %548 = icmp eq i64 %547, %488
-  br i1 %548, label %549, label %492, !llvm.loop !46
-
-549:                                              ; preds = %492
-  %550 = add <4 x i32> %546, %545
-  %551 = tail call i32 @llvm.vector.reduce.add.v4i32(<4 x i32> %550)
-  br label %552
-
-552:                                              ; preds = %479, %549
-  %553 = phi i32 [ 0, %479 ], [ %551, %549 ]
-  %554 = phi i32 [ 0, %479 ], [ %489, %549 ]
-  %555 = phi ptr [ %481, %479 ], [ %491, %549 ]
-  br label %556
-
-556:                                              ; preds = %552, %556
-  %557 = phi i32 [ %563, %556 ], [ %553, %552 ]
-  %558 = phi i32 [ %564, %556 ], [ %554, %552 ]
-  %559 = phi ptr [ %565, %556 ], [ %555, %552 ]
-  %560 = getelementptr inbounds %struct.BF_BitstreamElement, ptr %559, i64 0, i32 1
-  %561 = load i16, ptr %560, align 4, !tbaa !36
-  %562 = zext i16 %561 to i32
-  %563 = add nuw nsw i32 %557, %562
-  %564 = add nuw i32 %558, 1
-  %565 = getelementptr inbounds %struct.BF_BitstreamElement, ptr %559, i64 1
-  %566 = icmp eq i32 %564, %477
-  br i1 %566, label %567, label %556, !llvm.loop !47
-
-567:                                              ; preds = %556, %474
-  %568 = phi i32 [ 0, %474 ], [ %563, %556 ]
-  %569 = add nsw i32 %568, %381
-  %570 = add nuw nsw i64 %380, 1
-  %571 = load i32, ptr %96, align 8, !tbaa !24
-  %572 = sext i32 %571 to i64
-  %573 = icmp slt i64 %570, %572
-  br i1 %573, label %379, label %374, !llvm.loop !48
-
-574:                                              ; preds = %374, %777
-  %575 = phi i32 [ %778, %777 ], [ %375, %374 ]
-  %576 = phi i32 [ %779, %777 ], [ %571, %374 ]
-  %577 = phi i64 [ %781, %777 ], [ 0, %374 ]
-  %578 = phi i32 [ %780, %777 ], [ %569, %374 ]
-  %579 = icmp sgt i32 %576, 0
-  br i1 %579, label %580, label %777
-
-580:                                              ; preds = %574, %768
-  %581 = phi i64 [ %771, %768 ], [ 0, %574 ]
-  %582 = phi i32 [ %770, %768 ], [ %578, %574 ]
-  %583 = getelementptr inbounds %struct.side_info_link, ptr %91, i64 0, i32 1, i32 7, i64 %577, i64 %581
-  %584 = load ptr, ptr %583, align 8, !tbaa !9
-  %585 = getelementptr inbounds %struct.BF_FrameData, ptr %0, i64 0, i32 6, i64 %577, i64 %581
-  %586 = load ptr, ptr %585, align 8, !tbaa !9
-  %587 = getelementptr inbounds %struct.BF_PartHolder, ptr %584, i64 0, i32 1
-  %588 = load ptr, ptr %587, align 8, !tbaa !17
-  store i32 0, ptr %588, align 8, !tbaa !13
-  %589 = load i32, ptr %586, align 8, !tbaa !13
-  %590 = icmp eq i32 %589, 0
-  br i1 %590, label %675, label %591
-
-591:                                              ; preds = %580
-  %592 = getelementptr inbounds %struct.BF_BitstreamPart, ptr %586, i64 0, i32 1
-  br label %593
-
-593:                                              ; preds = %661, %591
-  %594 = phi i64 [ 0, %591 ], [ %671, %661 ]
-  %595 = phi ptr [ %584, %591 ], [ %665, %661 ]
-  %596 = load ptr, ptr %592, align 8, !tbaa !18
-  %597 = getelementptr inbounds %struct.BF_BitstreamElement, ptr %596, i64 %594
-  %598 = getelementptr inbounds %struct.BF_PartHolder, ptr %595, i64 0, i32 1
-  %599 = load ptr, ptr %598, align 8, !tbaa !17
-  %600 = load i32, ptr %599, align 8, !tbaa !13
-  %601 = add i32 %600, 1
-  %602 = load i32, ptr %595, align 8, !tbaa !15
-  %603 = icmp sgt i32 %601, %602
-  br i1 %603, label %604, label %661
-
-604:                                              ; preds = %593
-  %605 = add i32 %600, 9
-  %606 = tail call noalias dereferenceable_or_null(16) ptr @calloc(i64 noundef 1, i64 noundef 16) #11
-  store i32 %605, ptr %606, align 8, !tbaa !15
-  %607 = tail call noalias dereferenceable_or_null(16) ptr @calloc(i64 noundef 1, i64 noundef 16) #11
-  %608 = getelementptr inbounds %struct.BF_PartHolder, ptr %606, i64 0, i32 1
-  store ptr %607, ptr %608, align 8, !tbaa !17
-  %609 = sext i32 %605 to i64
-  %610 = tail call noalias ptr @calloc(i64 noundef %609, i64 noundef 8) #11
-  %611 = getelementptr inbounds %struct.BF_BitstreamPart, ptr %607, i64 0, i32 1
-  store ptr %610, ptr %611, align 8, !tbaa !18
-  %612 = load i32, ptr %595, align 8, !tbaa !15
-  %613 = tail call i32 @llvm.smin.i32(i32 %612, i32 %605)
-  store i32 %613, ptr %607, align 8, !tbaa !13
-  %614 = icmp sgt i32 %613, 0
-  br i1 %614, label %615, label %653
-
-615:                                              ; preds = %604
-  %616 = zext i32 %613 to i64
-  %617 = and i64 %616, 1
-  %618 = icmp eq i32 %613, 1
-  br i1 %618, label %642, label %619
-
-619:                                              ; preds = %615
-  %620 = and i64 %616, 4294967294
-  br label %621
-
-621:                                              ; preds = %621, %619
-  %622 = phi i64 [ 0, %619 ], [ %639, %621 ]
-  %623 = phi i64 [ 0, %619 ], [ %640, %621 ]
-  %624 = load ptr, ptr %611, align 8, !tbaa !18
-  %625 = getelementptr inbounds %struct.BF_BitstreamElement, ptr %624, i64 %622
-  %626 = load ptr, ptr %598, align 8, !tbaa !17
-  %627 = getelementptr inbounds %struct.BF_BitstreamPart, ptr %626, i64 0, i32 1
-  %628 = load ptr, ptr %627, align 8, !tbaa !18
-  %629 = getelementptr inbounds %struct.BF_BitstreamElement, ptr %628, i64 %622
-  %630 = load i64, ptr %629, align 4
-  store i64 %630, ptr %625, align 4
-  %631 = or i64 %622, 1
-  %632 = load ptr, ptr %611, align 8, !tbaa !18
-  %633 = getelementptr inbounds %struct.BF_BitstreamElement, ptr %632, i64 %631
-  %634 = load ptr, ptr %598, align 8, !tbaa !17
-  %635 = getelementptr inbounds %struct.BF_BitstreamPart, ptr %634, i64 0, i32 1
-  %636 = load ptr, ptr %635, align 8, !tbaa !18
-  %637 = getelementptr inbounds %struct.BF_BitstreamElement, ptr %636, i64 %631
-  %638 = load i64, ptr %637, align 4
-  store i64 %638, ptr %633, align 4
-  %639 = add nuw nsw i64 %622, 2
-  %640 = add i64 %623, 2
-  %641 = icmp eq i64 %640, %620
-  br i1 %641, label %642, label %621, !llvm.loop !45
-
-642:                                              ; preds = %621, %615
-  %643 = phi i64 [ 0, %615 ], [ %639, %621 ]
-  %644 = icmp eq i64 %617, 0
-  br i1 %644, label %653, label %645
-
-645:                                              ; preds = %642
-  %646 = load ptr, ptr %611, align 8, !tbaa !18
-  %647 = getelementptr inbounds %struct.BF_BitstreamElement, ptr %646, i64 %643
-  %648 = load ptr, ptr %598, align 8, !tbaa !17
-  %649 = getelementptr inbounds %struct.BF_BitstreamPart, ptr %648, i64 0, i32 1
-  %650 = load ptr, ptr %649, align 8, !tbaa !18
-  %651 = getelementptr inbounds %struct.BF_BitstreamElement, ptr %650, i64 %643
-  %652 = load i64, ptr %651, align 4
-  store i64 %652, ptr %647, align 4
-  br label %653
-
-653:                                              ; preds = %645, %642, %604
-  %654 = load ptr, ptr %598, align 8, !tbaa !17
-  %655 = getelementptr inbounds %struct.BF_BitstreamPart, ptr %654, i64 0, i32 1
-  %656 = load ptr, ptr %655, align 8, !tbaa !18
-  tail call void @free(ptr noundef %656) #14
-  %657 = load ptr, ptr %598, align 8, !tbaa !17
-  tail call void @free(ptr noundef %657) #14
-  tail call void @free(ptr noundef nonnull %595) #14
-  %658 = load ptr, ptr %608, align 8, !tbaa !17
-  %659 = load i32, ptr %658, align 8, !tbaa !13
-  %660 = add i32 %659, 1
-  br label %661
-
-661:                                              ; preds = %653, %593
-  %662 = phi i32 [ %660, %653 ], [ %601, %593 ]
-  %663 = phi i32 [ %659, %653 ], [ %600, %593 ]
-  %664 = phi ptr [ %658, %653 ], [ %599, %593 ]
-  %665 = phi ptr [ %606, %653 ], [ %595, %593 ]
-  %666 = getelementptr inbounds %struct.BF_BitstreamPart, ptr %664, i64 0, i32 1
-  %667 = load ptr, ptr %666, align 8, !tbaa !18
-  store i32 %662, ptr %664, align 8, !tbaa !13
-  %668 = zext i32 %663 to i64
-  %669 = getelementptr inbounds %struct.BF_BitstreamElement, ptr %667, i64 %668
-  %670 = load i64, ptr %597, align 4
-  store i64 %670, ptr %669, align 4
-  %671 = add nuw nsw i64 %594, 1
-  %672 = load i32, ptr %586, align 8, !tbaa !13
-  %673 = zext i32 %672 to i64
-  %674 = icmp ult i64 %671, %673
-  br i1 %674, label %593, label %675, !llvm.loop !35
-
-675:                                              ; preds = %661, %580
-  %676 = phi ptr [ %584, %580 ], [ %665, %661 ]
-  store ptr %676, ptr %583, align 8, !tbaa !9
-  %677 = load ptr, ptr %585, align 8, !tbaa !9
-  %678 = load i32, ptr %677, align 8, !tbaa !13
-  %679 = icmp eq i32 %678, 0
-  br i1 %679, label %768, label %680
-
-680:                                              ; preds = %675
-  %681 = getelementptr inbounds %struct.BF_BitstreamPart, ptr %677, i64 0, i32 1
-  %682 = load ptr, ptr %681, align 8, !tbaa !18
-  %683 = icmp ult i32 %678, 9
-  br i1 %683, label %753, label %684
-
-684:                                              ; preds = %680
-  %685 = zext i32 %678 to i64
-  %686 = and i64 %685, 7
-  %687 = icmp eq i64 %686, 0
-  %688 = select i1 %687, i64 8, i64 %686
-  %689 = sub nsw i64 %685, %688
-  %690 = trunc i64 %689 to i32
-  %691 = shl nsw i64 %689, 3
-  %692 = getelementptr i8, ptr %682, i64 %691
-  br label %693
-
-693:                                              ; preds = %693, %684
-  %694 = phi i64 [ 0, %684 ], [ %748, %693 ]
-  %695 = phi <4 x i32> [ zeroinitializer, %684 ], [ %746, %693 ]
-  %696 = phi <4 x i32> [ zeroinitializer, %684 ], [ %747, %693 ]
-  %697 = shl i64 %694, 3
-  %698 = getelementptr i8, ptr %682, i64 %697
-  %699 = shl i64 %694, 3
-  %700 = or i64 %699, 8
-  %701 = getelementptr i8, ptr %682, i64 %700
-  %702 = shl i64 %694, 3
-  %703 = or i64 %702, 16
-  %704 = getelementptr i8, ptr %682, i64 %703
-  %705 = shl i64 %694, 3
-  %706 = or i64 %705, 24
-  %707 = getelementptr i8, ptr %682, i64 %706
-  %708 = shl i64 %694, 3
-  %709 = or i64 %708, 32
-  %710 = getelementptr i8, ptr %682, i64 %709
-  %711 = shl i64 %694, 3
-  %712 = or i64 %711, 40
-  %713 = getelementptr i8, ptr %682, i64 %712
-  %714 = shl i64 %694, 3
-  %715 = or i64 %714, 48
-  %716 = getelementptr i8, ptr %682, i64 %715
-  %717 = shl i64 %694, 3
-  %718 = or i64 %717, 56
-  %719 = getelementptr i8, ptr %682, i64 %718
-  %720 = getelementptr inbounds %struct.BF_BitstreamElement, ptr %698, i64 0, i32 1
-  %721 = getelementptr inbounds %struct.BF_BitstreamElement, ptr %701, i64 0, i32 1
-  %722 = getelementptr inbounds %struct.BF_BitstreamElement, ptr %704, i64 0, i32 1
-  %723 = getelementptr inbounds %struct.BF_BitstreamElement, ptr %707, i64 0, i32 1
-  %724 = getelementptr inbounds %struct.BF_BitstreamElement, ptr %710, i64 0, i32 1
-  %725 = getelementptr inbounds %struct.BF_BitstreamElement, ptr %713, i64 0, i32 1
-  %726 = getelementptr inbounds %struct.BF_BitstreamElement, ptr %716, i64 0, i32 1
-  %727 = getelementptr inbounds %struct.BF_BitstreamElement, ptr %719, i64 0, i32 1
-  %728 = load i16, ptr %720, align 4, !tbaa !36
-  %729 = load i16, ptr %721, align 4, !tbaa !36
-  %730 = load i16, ptr %722, align 4, !tbaa !36
-  %731 = load i16, ptr %723, align 4, !tbaa !36
-  %732 = insertelement <4 x i16> poison, i16 %728, i64 0
-  %733 = insertelement <4 x i16> %732, i16 %729, i64 1
-  %734 = insertelement <4 x i16> %733, i16 %730, i64 2
-  %735 = insertelement <4 x i16> %734, i16 %731, i64 3
-  %736 = load i16, ptr %724, align 4, !tbaa !36
-  %737 = load i16, ptr %725, align 4, !tbaa !36
-  %738 = load i16, ptr %726, align 4, !tbaa !36
-  %739 = load i16, ptr %727, align 4, !tbaa !36
-  %740 = insertelement <4 x i16> poison, i16 %736, i64 0
-  %741 = insertelement <4 x i16> %740, i16 %737, i64 1
-  %742 = insertelement <4 x i16> %741, i16 %738, i64 2
-  %743 = insertelement <4 x i16> %742, i16 %739, i64 3
-  %744 = zext <4 x i16> %735 to <4 x i32>
-  %745 = zext <4 x i16> %743 to <4 x i32>
-  %746 = add <4 x i32> %695, %744
-  %747 = add <4 x i32> %696, %745
-  %748 = add nuw i64 %694, 8
-  %749 = icmp eq i64 %748, %689
-  br i1 %749, label %750, label %693, !llvm.loop !49
-
-750:                                              ; preds = %693
-  %751 = add <4 x i32> %747, %746
-  %752 = tail call i32 @llvm.vector.reduce.add.v4i32(<4 x i32> %751)
-  br label %753
-
-753:                                              ; preds = %680, %750
-  %754 = phi i32 [ 0, %680 ], [ %752, %750 ]
-  %755 = phi i32 [ 0, %680 ], [ %690, %750 ]
-  %756 = phi ptr [ %682, %680 ], [ %692, %750 ]
-  br label %757
-
-757:                                              ; preds = %753, %757
-  %758 = phi i32 [ %764, %757 ], [ %754, %753 ]
-  %759 = phi i32 [ %765, %757 ], [ %755, %753 ]
-  %760 = phi ptr [ %766, %757 ], [ %756, %753 ]
-  %761 = getelementptr inbounds %struct.BF_BitstreamElement, ptr %760, i64 0, i32 1
-  %762 = load i16, ptr %761, align 4, !tbaa !36
-  %763 = zext i16 %762 to i32
-  %764 = add nuw nsw i32 %758, %763
-  %765 = add nuw i32 %759, 1
-  %766 = getelementptr inbounds %struct.BF_BitstreamElement, ptr %760, i64 1
-  %767 = icmp eq i32 %765, %678
-  br i1 %767, label %768, label %757, !llvm.loop !50
-
-768:                                              ; preds = %757, %675
-  %769 = phi i32 [ 0, %675 ], [ %764, %757 ]
-  %770 = add nsw i32 %769, %582
-  %771 = add nuw nsw i64 %581, 1
-  %772 = load i32, ptr %96, align 8, !tbaa !24
-  %773 = sext i32 %772 to i64
-  %774 = icmp slt i64 %771, %773
-  br i1 %774, label %580, label %775, !llvm.loop !51
-
-775:                                              ; preds = %768
-  %776 = load i32, ptr %94, align 4, !tbaa !25
-  br label %777
-
-777:                                              ; preds = %775, %574
-  %778 = phi i32 [ %575, %574 ], [ %776, %775 ]
-  %779 = phi i32 [ %576, %574 ], [ %772, %775 ]
-  %780 = phi i32 [ %578, %574 ], [ %770, %775 ]
-  %781 = add nuw nsw i64 %577, 1
-  %782 = sext i32 %778 to i64
-  %783 = icmp slt i64 %781, %782
-  br i1 %783, label %574, label %784, !llvm.loop !52
-
-784:                                              ; preds = %777, %369, %374
-  %785 = phi i32 [ %571, %374 ], [ %372, %369 ], [ %779, %777 ]
-  %786 = phi i32 [ %569, %374 ], [ %371, %369 ], [ %780, %777 ]
-  %787 = getelementptr inbounds %struct.side_info_link, ptr %91, i64 0, i32 1, i32 1
-  store i32 %786, ptr %787, align 4, !tbaa !54
-  %788 = load ptr, ptr @side_queue_head, align 8, !tbaa !9
-  %789 = icmp eq ptr %788, null
-  br i1 %789, label %794, label %790
-
-790:                                              ; preds = %784, %790
-  %791 = phi ptr [ %792, %790 ], [ %788, %784 ]
-  %792 = load ptr, ptr %791, align 8, !tbaa !30
-  %793 = icmp eq ptr %792, null
-  br i1 %793, label %794, label %790, !llvm.loop !55
-
-794:                                              ; preds = %790, %784
-  %795 = phi ptr [ @side_queue_head, %784 ], [ %791, %790 ]
-  store ptr %91, ptr %795, align 8, !tbaa !9
-  store i32 %786, ptr %1, align 4, !tbaa !56
-  %796 = getelementptr inbounds %struct.BF_FrameResults, ptr %1, i64 0, i32 1
-  store i32 0, ptr %796, align 4, !tbaa !58
-  %797 = load i32, ptr %94, align 4, !tbaa !25
-  %798 = icmp sgt i32 %797, 0
-  %799 = icmp sgt i32 %785, 0
-  %800 = select i1 %798, i1 %799, i1 false
-  br i1 %800, label %801, label %988
-
-801:                                              ; preds = %794, %981
-  %802 = phi i32 [ %982, %981 ], [ %797, %794 ]
-  %803 = phi i32 [ %983, %981 ], [ %785, %794 ]
-  %804 = phi i64 [ %985, %981 ], [ 0, %794 ]
-  %805 = phi i32 [ %984, %981 ], [ 0, %794 ]
-  %806 = icmp sgt i32 %803, 0
-  br i1 %806, label %807, label %981
-
-807:                                              ; preds = %801, %972
-  %808 = phi i64 [ %975, %972 ], [ 0, %801 ]
-  %809 = phi i32 [ %974, %972 ], [ %805, %801 ]
-  %810 = getelementptr inbounds %struct.BF_FrameData, ptr %0, i64 0, i32 7, i64 %804, i64 %808
-  %811 = load ptr, ptr %810, align 8, !tbaa !9
-  %812 = load i32, ptr %811, align 8, !tbaa !13
-  %813 = icmp eq i32 %812, 0
-  br i1 %813, label %862, label %814
-
-814:                                              ; preds = %807
-  %815 = getelementptr inbounds %struct.BF_BitstreamPart, ptr %811, i64 0, i32 1
-  %816 = load ptr, ptr %815, align 8, !tbaa !18
-  br label %817
-
-817:                                              ; preds = %854, %814
-  %818 = phi i32 [ %855, %854 ], [ %812, %814 ]
-  %819 = phi i32 [ %858, %854 ], [ 0, %814 ]
-  %820 = phi i32 [ %859, %854 ], [ 0, %814 ]
-  %821 = phi ptr [ %860, %854 ], [ %816, %814 ]
-  %822 = load i32, ptr %821, align 4, !tbaa !59
-  %823 = getelementptr inbounds %struct.BF_BitstreamElement, ptr %821, i64 0, i32 1
-  %824 = load i16, ptr %823, align 4, !tbaa !36
-  %825 = zext i16 %824 to i32
-  %826 = icmp eq i16 %824, 0
-  br i1 %826, label %854, label %827
-
-827:                                              ; preds = %817
-  %828 = load i32, ptr @BitCount, align 4, !tbaa !5
-  %829 = load i32, ptr @ThisFrameSize, align 4, !tbaa !5
-  %830 = icmp eq i32 %828, %829
-  br i1 %830, label %833, label %831
-
-831:                                              ; preds = %827
-  %832 = load i32, ptr @BitsRemaining, align 4, !tbaa !5
-  br label %837
-
-833:                                              ; preds = %827
-  %834 = tail call fastcc i32 @write_side_info()
-  store i32 %834, ptr @BitCount, align 4, !tbaa !5
-  %835 = load i32, ptr @ThisFrameSize, align 4, !tbaa !5
-  %836 = sub nsw i32 %835, %834
-  store i32 %836, ptr @BitsRemaining, align 4, !tbaa !5
-  br label %837
-
-837:                                              ; preds = %833, %831
-  %838 = phi i32 [ %832, %831 ], [ %836, %833 ]
-  %839 = icmp ult i32 %838, %825
-  br i1 %839, label %840, label %846
-
-840:                                              ; preds = %837
-  %841 = sub i32 %825, %838
-  %842 = lshr i32 %822, %841
-  tail call void @putMyBits(i32 noundef %842, i32 noundef %838) #14
-  %843 = tail call fastcc i32 @write_side_info()
-  store i32 %843, ptr @BitCount, align 4, !tbaa !5
-  %844 = load i32, ptr @ThisFrameSize, align 4, !tbaa !5
-  %845 = sub nsw i32 %844, %843
-  store i32 %845, ptr @BitsRemaining, align 4, !tbaa !5
-  br label %846
-
-846:                                              ; preds = %840, %837
-  %847 = phi i32 [ %841, %840 ], [ %825, %837 ]
-  tail call void @putMyBits(i32 noundef %822, i32 noundef %847) #14
-  %848 = load i32, ptr @BitCount, align 4, !tbaa !5
-  %849 = add i32 %848, %847
-  store i32 %849, ptr @BitCount, align 4, !tbaa !5
-  %850 = load i32, ptr @BitsRemaining, align 4, !tbaa !5
-  %851 = sub i32 %850, %847
-  store i32 %851, ptr @BitsRemaining, align 4, !tbaa !5
-  %852 = load i16, ptr %823, align 4, !tbaa !36
-  %853 = load i32, ptr %811, align 8, !tbaa !13
-  br label %854
-
-854:                                              ; preds = %846, %817
-  %855 = phi i32 [ %818, %817 ], [ %853, %846 ]
-  %856 = phi i16 [ 0, %817 ], [ %852, %846 ]
-  %857 = zext i16 %856 to i32
-  %858 = add nuw nsw i32 %819, %857
-  %859 = add nuw i32 %820, 1
-  %860 = getelementptr inbounds %struct.BF_BitstreamElement, ptr %821, i64 1
-  %861 = icmp ult i32 %859, %855
-  br i1 %861, label %817, label %862, !llvm.loop !60
-
-862:                                              ; preds = %854, %807
-  %863 = phi i32 [ 0, %807 ], [ %858, %854 ]
-  %864 = add nsw i32 %863, %809
-  %865 = getelementptr inbounds %struct.BF_FrameData, ptr %0, i64 0, i32 8, i64 %804, i64 %808
-  %866 = load ptr, ptr %865, align 8, !tbaa !9
-  %867 = load i32, ptr %866, align 8, !tbaa !13
-  %868 = icmp eq i32 %867, 0
-  br i1 %868, label %917, label %869
-
-869:                                              ; preds = %862
-  %870 = getelementptr inbounds %struct.BF_BitstreamPart, ptr %866, i64 0, i32 1
-  %871 = load ptr, ptr %870, align 8, !tbaa !18
-  br label %872
-
-872:                                              ; preds = %909, %869
-  %873 = phi i32 [ %910, %909 ], [ %867, %869 ]
-  %874 = phi i32 [ %913, %909 ], [ 0, %869 ]
-  %875 = phi i32 [ %914, %909 ], [ 0, %869 ]
-  %876 = phi ptr [ %915, %909 ], [ %871, %869 ]
-  %877 = load i32, ptr %876, align 4, !tbaa !59
-  %878 = getelementptr inbounds %struct.BF_BitstreamElement, ptr %876, i64 0, i32 1
-  %879 = load i16, ptr %878, align 4, !tbaa !36
-  %880 = zext i16 %879 to i32
-  %881 = icmp eq i16 %879, 0
-  br i1 %881, label %909, label %882
-
-882:                                              ; preds = %872
-  %883 = load i32, ptr @BitCount, align 4, !tbaa !5
-  %884 = load i32, ptr @ThisFrameSize, align 4, !tbaa !5
-  %885 = icmp eq i32 %883, %884
-  br i1 %885, label %888, label %886
-
-886:                                              ; preds = %882
-  %887 = load i32, ptr @BitsRemaining, align 4, !tbaa !5
-  br label %892
-
-888:                                              ; preds = %882
-  %889 = tail call fastcc i32 @write_side_info()
-  store i32 %889, ptr @BitCount, align 4, !tbaa !5
-  %890 = load i32, ptr @ThisFrameSize, align 4, !tbaa !5
-  %891 = sub nsw i32 %890, %889
-  store i32 %891, ptr @BitsRemaining, align 4, !tbaa !5
-  br label %892
-
-892:                                              ; preds = %888, %886
-  %893 = phi i32 [ %887, %886 ], [ %891, %888 ]
-  %894 = icmp ult i32 %893, %880
-  br i1 %894, label %895, label %901
-
-895:                                              ; preds = %892
-  %896 = sub i32 %880, %893
-  %897 = lshr i32 %877, %896
-  tail call void @putMyBits(i32 noundef %897, i32 noundef %893) #14
-  %898 = tail call fastcc i32 @write_side_info()
-  store i32 %898, ptr @BitCount, align 4, !tbaa !5
-  %899 = load i32, ptr @ThisFrameSize, align 4, !tbaa !5
-  %900 = sub nsw i32 %899, %898
-  store i32 %900, ptr @BitsRemaining, align 4, !tbaa !5
-  br label %901
-
-901:                                              ; preds = %895, %892
-  %902 = phi i32 [ %896, %895 ], [ %880, %892 ]
-  tail call void @putMyBits(i32 noundef %877, i32 noundef %902) #14
-  %903 = load i32, ptr @BitCount, align 4, !tbaa !5
-  %904 = add i32 %903, %902
-  store i32 %904, ptr @BitCount, align 4, !tbaa !5
-  %905 = load i32, ptr @BitsRemaining, align 4, !tbaa !5
-  %906 = sub i32 %905, %902
-  store i32 %906, ptr @BitsRemaining, align 4, !tbaa !5
-  %907 = load i16, ptr %878, align 4, !tbaa !36
-  %908 = load i32, ptr %866, align 8, !tbaa !13
-  br label %909
-
-909:                                              ; preds = %901, %872
-  %910 = phi i32 [ %873, %872 ], [ %908, %901 ]
-  %911 = phi i16 [ 0, %872 ], [ %907, %901 ]
-  %912 = zext i16 %911 to i32
-  %913 = add nuw nsw i32 %874, %912
-  %914 = add nuw i32 %875, 1
-  %915 = getelementptr inbounds %struct.BF_BitstreamElement, ptr %876, i64 1
-  %916 = icmp ult i32 %914, %910
-  br i1 %916, label %872, label %917, !llvm.loop !60
-
-917:                                              ; preds = %909, %862
-  %918 = phi i32 [ 0, %862 ], [ %913, %909 ]
-  %919 = add nsw i32 %864, %918
-  %920 = getelementptr inbounds %struct.BF_FrameData, ptr %0, i64 0, i32 9, i64 %804, i64 %808
-  %921 = load ptr, ptr %920, align 8, !tbaa !9
-  %922 = load i32, ptr %921, align 8, !tbaa !13
-  %923 = icmp eq i32 %922, 0
-  br i1 %923, label %972, label %924
-
-924:                                              ; preds = %917
-  %925 = getelementptr inbounds %struct.BF_BitstreamPart, ptr %921, i64 0, i32 1
-  %926 = load ptr, ptr %925, align 8, !tbaa !18
-  br label %927
-
-927:                                              ; preds = %964, %924
-  %928 = phi i32 [ %965, %964 ], [ %922, %924 ]
-  %929 = phi i32 [ %968, %964 ], [ 0, %924 ]
-  %930 = phi i32 [ %969, %964 ], [ 0, %924 ]
-  %931 = phi ptr [ %970, %964 ], [ %926, %924 ]
-  %932 = load i32, ptr %931, align 4, !tbaa !59
-  %933 = getelementptr inbounds %struct.BF_BitstreamElement, ptr %931, i64 0, i32 1
-  %934 = load i16, ptr %933, align 4, !tbaa !36
-  %935 = zext i16 %934 to i32
-  %936 = icmp eq i16 %934, 0
-  br i1 %936, label %964, label %937
-
-937:                                              ; preds = %927
-  %938 = load i32, ptr @BitCount, align 4, !tbaa !5
-  %939 = load i32, ptr @ThisFrameSize, align 4, !tbaa !5
-  %940 = icmp eq i32 %938, %939
-  br i1 %940, label %943, label %941
-
-941:                                              ; preds = %937
-  %942 = load i32, ptr @BitsRemaining, align 4, !tbaa !5
-  br label %947
-
-943:                                              ; preds = %937
-  %944 = tail call fastcc i32 @write_side_info()
-  store i32 %944, ptr @BitCount, align 4, !tbaa !5
-  %945 = load i32, ptr @ThisFrameSize, align 4, !tbaa !5
-  %946 = sub nsw i32 %945, %944
-  store i32 %946, ptr @BitsRemaining, align 4, !tbaa !5
-  br label %947
-
-947:                                              ; preds = %943, %941
-  %948 = phi i32 [ %942, %941 ], [ %946, %943 ]
-  %949 = icmp ult i32 %948, %935
-  br i1 %949, label %950, label %956
-
-950:                                              ; preds = %947
-  %951 = sub i32 %935, %948
-  %952 = lshr i32 %932, %951
-  tail call void @putMyBits(i32 noundef %952, i32 noundef %948) #14
-  %953 = tail call fastcc i32 @write_side_info()
-  store i32 %953, ptr @BitCount, align 4, !tbaa !5
-  %954 = load i32, ptr @ThisFrameSize, align 4, !tbaa !5
-  %955 = sub nsw i32 %954, %953
-  store i32 %955, ptr @BitsRemaining, align 4, !tbaa !5
-  br label %956
-
-956:                                              ; preds = %950, %947
-  %957 = phi i32 [ %951, %950 ], [ %935, %947 ]
-  tail call void @putMyBits(i32 noundef %932, i32 noundef %957) #14
-  %958 = load i32, ptr @BitCount, align 4, !tbaa !5
-  %959 = add i32 %958, %957
-  store i32 %959, ptr @BitCount, align 4, !tbaa !5
-  %960 = load i32, ptr @BitsRemaining, align 4, !tbaa !5
-  %961 = sub i32 %960, %957
-  store i32 %961, ptr @BitsRemaining, align 4, !tbaa !5
-  %962 = load i16, ptr %933, align 4, !tbaa !36
-  %963 = load i32, ptr %921, align 8, !tbaa !13
-  br label %964
-
-964:                                              ; preds = %956, %927
-  %965 = phi i32 [ %928, %927 ], [ %963, %956 ]
-  %966 = phi i16 [ 0, %927 ], [ %962, %956 ]
-  %967 = zext i16 %966 to i32
-  %968 = add nuw nsw i32 %929, %967
-  %969 = add nuw i32 %930, 1
-  %970 = getelementptr inbounds %struct.BF_BitstreamElement, ptr %931, i64 1
-  %971 = icmp ult i32 %969, %965
-  br i1 %971, label %927, label %972, !llvm.loop !60
-
-972:                                              ; preds = %964, %917
-  %973 = phi i32 [ 0, %917 ], [ %968, %964 ]
-  %974 = add nsw i32 %919, %973
-  %975 = add nuw nsw i64 %808, 1
-  %976 = load i32, ptr %96, align 8, !tbaa !24
-  %977 = sext i32 %976 to i64
-  %978 = icmp slt i64 %975, %977
-  br i1 %978, label %807, label %979, !llvm.loop !61
-
-979:                                              ; preds = %972
-  %980 = load i32, ptr %94, align 4, !tbaa !25
-  br label %981
-
-981:                                              ; preds = %979, %801
-  %982 = phi i32 [ %802, %801 ], [ %980, %979 ]
-  %983 = phi i32 [ %803, %801 ], [ %976, %979 ]
-  %984 = phi i32 [ %805, %801 ], [ %974, %979 ]
-  %985 = add nuw nsw i64 %804, 1
-  %986 = sext i32 %982 to i64
-  %987 = icmp slt i64 %985, %986
-  br i1 %987, label %801, label %988, !llvm.loop !62
-
-988:                                              ; preds = %981, %794
-  %989 = phi i32 [ 0, %794 ], [ %984, %981 ]
-  %990 = getelementptr inbounds %struct.BF_FrameData, ptr %0, i64 0, i32 10
-  %991 = load ptr, ptr %990, align 8, !tbaa !63
-  %992 = load i32, ptr %991, align 8, !tbaa !13
-  %993 = icmp eq i32 %992, 0
-  br i1 %993, label %1042, label %994
-
-994:                                              ; preds = %988
-  %995 = getelementptr inbounds %struct.BF_BitstreamPart, ptr %991, i64 0, i32 1
-  %996 = load ptr, ptr %995, align 8, !tbaa !18
-  br label %997
-
-997:                                              ; preds = %1034, %994
-  %998 = phi i32 [ %1035, %1034 ], [ %992, %994 ]
-  %999 = phi i32 [ %1038, %1034 ], [ 0, %994 ]
-  %1000 = phi i32 [ %1039, %1034 ], [ 0, %994 ]
-  %1001 = phi ptr [ %1040, %1034 ], [ %996, %994 ]
-  %1002 = load i32, ptr %1001, align 4, !tbaa !59
-  %1003 = getelementptr inbounds %struct.BF_BitstreamElement, ptr %1001, i64 0, i32 1
-  %1004 = load i16, ptr %1003, align 4, !tbaa !36
-  %1005 = zext i16 %1004 to i32
-  %1006 = icmp eq i16 %1004, 0
-  br i1 %1006, label %1034, label %1007
-
-1007:                                             ; preds = %997
-  %1008 = load i32, ptr @BitCount, align 4, !tbaa !5
-  %1009 = load i32, ptr @ThisFrameSize, align 4, !tbaa !5
-  %1010 = icmp eq i32 %1008, %1009
-  br i1 %1010, label %1013, label %1011
-
-1011:                                             ; preds = %1007
-  %1012 = load i32, ptr @BitsRemaining, align 4, !tbaa !5
-  br label %1017
-
-1013:                                             ; preds = %1007
-  %1014 = tail call fastcc i32 @write_side_info()
-  store i32 %1014, ptr @BitCount, align 4, !tbaa !5
-  %1015 = load i32, ptr @ThisFrameSize, align 4, !tbaa !5
-  %1016 = sub nsw i32 %1015, %1014
-  store i32 %1016, ptr @BitsRemaining, align 4, !tbaa !5
-  br label %1017
-
-1017:                                             ; preds = %1013, %1011
-  %1018 = phi i32 [ %1012, %1011 ], [ %1016, %1013 ]
-  %1019 = icmp ult i32 %1018, %1005
-  br i1 %1019, label %1020, label %1026
-
-1020:                                             ; preds = %1017
-  %1021 = sub i32 %1005, %1018
-  %1022 = lshr i32 %1002, %1021
-  tail call void @putMyBits(i32 noundef %1022, i32 noundef %1018) #14
-  %1023 = tail call fastcc i32 @write_side_info()
-  store i32 %1023, ptr @BitCount, align 4, !tbaa !5
-  %1024 = load i32, ptr @ThisFrameSize, align 4, !tbaa !5
-  %1025 = sub nsw i32 %1024, %1023
-  store i32 %1025, ptr @BitsRemaining, align 4, !tbaa !5
-  br label %1026
-
-1026:                                             ; preds = %1020, %1017
-  %1027 = phi i32 [ %1021, %1020 ], [ %1005, %1017 ]
-  tail call void @putMyBits(i32 noundef %1002, i32 noundef %1027) #14
-  %1028 = load i32, ptr @BitCount, align 4, !tbaa !5
-  %1029 = add i32 %1028, %1027
-  store i32 %1029, ptr @BitCount, align 4, !tbaa !5
-  %1030 = load i32, ptr @BitsRemaining, align 4, !tbaa !5
-  %1031 = sub i32 %1030, %1027
-  store i32 %1031, ptr @BitsRemaining, align 4, !tbaa !5
-  %1032 = load i16, ptr %1003, align 4, !tbaa !36
-  %1033 = load i32, ptr %991, align 8, !tbaa !13
-  br label %1034
-
-1034:                                             ; preds = %1026, %997
-  %1035 = phi i32 [ %998, %997 ], [ %1033, %1026 ]
-  %1036 = phi i16 [ 0, %997 ], [ %1032, %1026 ]
-  %1037 = zext i16 %1036 to i32
-  %1038 = add nuw nsw i32 %999, %1037
-  %1039 = add nuw i32 %1000, 1
-  %1040 = getelementptr inbounds %struct.BF_BitstreamElement, ptr %1001, i64 1
-  %1041 = icmp ult i32 %1039, %1035
-  br i1 %1041, label %997, label %1042, !llvm.loop !60
-
-1042:                                             ; preds = %1034, %988
-  %1043 = phi i32 [ 0, %988 ], [ %1038, %1034 ]
-  %1044 = add nsw i32 %1043, %989
-  store i32 %1044, ptr %796, align 4, !tbaa !58
+  %add.i.i.i = add i32 %24, 1
+  %25 = load i32, ptr %theHolder.addr.08.i.i, align 8, !tbaa !15
+  %cmp.i.i.i = icmp sgt i32 %add.i.i.i, %25
+  br i1 %cmp.i.i.i, label %if.then.i.i.i, label %BF_addElement.exit.i.i
+
+if.then.i.i.i:                                    ; preds = %for.body.i.i
+  %add1.i.i.i = add i32 %24, 9
+  %call.i.i.i = tail call ptr @BF_resizePartHolder(ptr noundef nonnull %theHolder.addr.08.i.i, i32 noundef %add1.i.i.i)
+  %part2.phi.trans.insert.i.i.i = getelementptr inbounds %struct.BF_PartHolder, ptr %call.i.i.i, i64 0, i32 1
+  %.pre.i.i.i = load ptr, ptr %part2.phi.trans.insert.i.i.i, align 8, !tbaa !17
+  %.pre11.i.i.i = load i32, ptr %.pre.i.i.i, align 8, !tbaa !13
+  %.pre12.i.i.i = add i32 %.pre11.i.i.i, 1
+  br label %BF_addElement.exit.i.i
+
+BF_addElement.exit.i.i:                           ; preds = %if.then.i.i.i, %for.body.i.i
+  %inc.pre-phi.i.i.i = phi i32 [ %.pre12.i.i.i, %if.then.i.i.i ], [ %add.i.i.i, %for.body.i.i ]
+  %26 = phi i32 [ %.pre11.i.i.i, %if.then.i.i.i ], [ %24, %for.body.i.i ]
+  %27 = phi ptr [ %.pre.i.i.i, %if.then.i.i.i ], [ %23, %for.body.i.i ]
+  %retPH.0.i.i.i = phi ptr [ %call.i.i.i, %if.then.i.i.i ], [ %theHolder.addr.08.i.i, %for.body.i.i ]
+  %element.i.i.i = getelementptr inbounds %struct.BF_BitstreamPart, ptr %27, i64 0, i32 1
+  %28 = load ptr, ptr %element.i.i.i, align 8, !tbaa !18
+  store i32 %inc.pre-phi.i.i.i, ptr %27, align 8, !tbaa !13
+  %idxprom.i.i.i = zext i32 %26 to i64
+  %arrayidx.i.i.i = getelementptr inbounds %struct.BF_BitstreamElement, ptr %28, i64 %idxprom.i.i.i
+  %29 = load i64, ptr %arrayidx.i.i, align 4
+  store i64 %29, ptr %arrayidx.i.i.i, align 4
+  %indvars.iv.next.i.i = add nuw nsw i64 %indvars.iv.i.i, 1
+  %30 = load i32, ptr %15, align 8, !tbaa !13
+  %31 = zext i32 %30 to i64
+  %cmp.i.i = icmp ult i64 %indvars.iv.next.i.i, %31
+  br i1 %cmp.i.i, label %for.body.i.i, label %BF_LoadHolderFromBitstreamPart.exit.i, !llvm.loop !35
+
+BF_LoadHolderFromBitstreamPart.exit.i:            ; preds = %BF_addElement.exit.i.i, %if.end40.i
+  %theHolder.addr.0.lcssa.i.i = phi ptr [ %19, %if.end40.i ], [ %retPH.0.i.i.i, %BF_addElement.exit.i.i ]
+  store ptr %theHolder.addr.0.lcssa.i.i, ptr %headerPH50.i, align 8, !tbaa !19
+  %frameSIPH56.i = getelementptr inbounds %struct.side_info_link, ptr %l.0.i, i64 0, i32 1, i32 5
+  %32 = load ptr, ptr %frameSIPH56.i, align 8, !tbaa !23
+  %frameSI57.i = getelementptr inbounds %struct.BF_FrameData, ptr %frameInfo, i64 0, i32 4
+  %33 = load ptr, ptr %frameSI57.i, align 8, !tbaa !22
+  %part.i238.i = getelementptr inbounds %struct.BF_PartHolder, ptr %32, i64 0, i32 1
+  %34 = load ptr, ptr %part.i238.i, align 8, !tbaa !17
+  store i32 0, ptr %34, align 8, !tbaa !13
+  %35 = load i32, ptr %33, align 8, !tbaa !13
+  %cmp7.not.i239.i = icmp eq i32 %35, 0
+  br i1 %cmp7.not.i239.i, label %BF_LoadHolderFromBitstreamPart.exit265.i, label %for.body.lr.ph.i241.i
+
+for.body.lr.ph.i241.i:                            ; preds = %BF_LoadHolderFromBitstreamPart.exit.i
+  %element.i240.i = getelementptr inbounds %struct.BF_BitstreamPart, ptr %33, i64 0, i32 1
+  br label %for.body.i248.i
+
+for.body.i248.i:                                  ; preds = %BF_addElement.exit.i263.i, %for.body.lr.ph.i241.i
+  %indvars.iv.i242.i = phi i64 [ 0, %for.body.lr.ph.i241.i ], [ %indvars.iv.next.i261.i, %BF_addElement.exit.i263.i ]
+  %theHolder.addr.08.i243.i = phi ptr [ %32, %for.body.lr.ph.i241.i ], [ %retPH.0.i.i257.i, %BF_addElement.exit.i263.i ]
+  %36 = load ptr, ptr %element.i240.i, align 8, !tbaa !18
+  %arrayidx.i244.i = getelementptr inbounds %struct.BF_BitstreamElement, ptr %36, i64 %indvars.iv.i242.i
+  %part.i.i245.i = getelementptr inbounds %struct.BF_PartHolder, ptr %theHolder.addr.08.i243.i, i64 0, i32 1
+  %37 = load ptr, ptr %part.i.i245.i, align 8, !tbaa !17
+  %38 = load i32, ptr %37, align 8, !tbaa !13
+  %add.i.i246.i = add i32 %38, 1
+  %39 = load i32, ptr %theHolder.addr.08.i243.i, align 8, !tbaa !15
+  %cmp.i.i247.i = icmp sgt i32 %add.i.i246.i, %39
+  br i1 %cmp.i.i247.i, label %if.then.i.i255.i, label %BF_addElement.exit.i263.i
+
+if.then.i.i255.i:                                 ; preds = %for.body.i248.i
+  %add1.i.i249.i = add i32 %38, 9
+  %call.i.i250.i = tail call ptr @BF_resizePartHolder(ptr noundef nonnull %theHolder.addr.08.i243.i, i32 noundef %add1.i.i249.i)
+  %part2.phi.trans.insert.i.i251.i = getelementptr inbounds %struct.BF_PartHolder, ptr %call.i.i250.i, i64 0, i32 1
+  %.pre.i.i252.i = load ptr, ptr %part2.phi.trans.insert.i.i251.i, align 8, !tbaa !17
+  %.pre11.i.i253.i = load i32, ptr %.pre.i.i252.i, align 8, !tbaa !13
+  %.pre12.i.i254.i = add i32 %.pre11.i.i253.i, 1
+  br label %BF_addElement.exit.i263.i
+
+BF_addElement.exit.i263.i:                        ; preds = %if.then.i.i255.i, %for.body.i248.i
+  %inc.pre-phi.i.i256.i = phi i32 [ %.pre12.i.i254.i, %if.then.i.i255.i ], [ %add.i.i246.i, %for.body.i248.i ]
+  %40 = phi i32 [ %.pre11.i.i253.i, %if.then.i.i255.i ], [ %38, %for.body.i248.i ]
+  %41 = phi ptr [ %.pre.i.i252.i, %if.then.i.i255.i ], [ %37, %for.body.i248.i ]
+  %retPH.0.i.i257.i = phi ptr [ %call.i.i250.i, %if.then.i.i255.i ], [ %theHolder.addr.08.i243.i, %for.body.i248.i ]
+  %element.i.i258.i = getelementptr inbounds %struct.BF_BitstreamPart, ptr %41, i64 0, i32 1
+  %42 = load ptr, ptr %element.i.i258.i, align 8, !tbaa !18
+  store i32 %inc.pre-phi.i.i256.i, ptr %41, align 8, !tbaa !13
+  %idxprom.i.i259.i = zext i32 %40 to i64
+  %arrayidx.i.i260.i = getelementptr inbounds %struct.BF_BitstreamElement, ptr %42, i64 %idxprom.i.i259.i
+  %43 = load i64, ptr %arrayidx.i244.i, align 4
+  store i64 %43, ptr %arrayidx.i.i260.i, align 4
+  %indvars.iv.next.i261.i = add nuw nsw i64 %indvars.iv.i242.i, 1
+  %44 = load i32, ptr %33, align 8, !tbaa !13
+  %45 = zext i32 %44 to i64
+  %cmp.i262.i = icmp ult i64 %indvars.iv.next.i261.i, %45
+  br i1 %cmp.i262.i, label %for.body.i248.i, label %BF_LoadHolderFromBitstreamPart.exit265.i, !llvm.loop !35
+
+BF_LoadHolderFromBitstreamPart.exit265.i:         ; preds = %BF_addElement.exit.i263.i, %BF_LoadHolderFromBitstreamPart.exit.i
+  %theHolder.addr.0.lcssa.i264.i = phi ptr [ %32, %BF_LoadHolderFromBitstreamPart.exit.i ], [ %retPH.0.i.i257.i, %BF_addElement.exit.i263.i ]
+  store ptr %theHolder.addr.0.lcssa.i264.i, ptr %frameSIPH56.i, align 8, !tbaa !23
+  %46 = load ptr, ptr %header51.i, align 8, !tbaa !11
+  %47 = load i32, ptr %46, align 8, !tbaa !13
+  %cmp5.not.i.i = icmp eq i32 %47, 0
+  br i1 %cmp5.not.i.i, label %BF_PartLength.exit.i, label %for.body.preheader.i.i
+
+for.body.preheader.i.i:                           ; preds = %BF_LoadHolderFromBitstreamPart.exit265.i
+  %element.i266.i = getelementptr inbounds %struct.BF_BitstreamPart, ptr %46, i64 0, i32 1
+  %48 = load ptr, ptr %element.i266.i, align 8, !tbaa !18
+  %min.iters.check = icmp ult i32 %47, 9
+  br i1 %min.iters.check, label %for.body.i268.i.preheader, label %vector.ph
+
+vector.ph:                                        ; preds = %for.body.preheader.i.i
+  %49 = zext i32 %47 to i64
+  %n.mod.vf = and i64 %49, 7
+  %50 = icmp eq i64 %n.mod.vf, 0
+  %51 = select i1 %50, i64 8, i64 %n.mod.vf
+  %n.vec = sub nsw i64 %49, %51
+  %ind.end = trunc i64 %n.vec to i32
+  %52 = shl nsw i64 %n.vec, 3
+  %ind.end48 = getelementptr i8, ptr %48, i64 %52
+  %invariant.gep = getelementptr %struct.BF_BitstreamElement, ptr %48, i64 0, i32 1
+  %invariant.gep159 = getelementptr %struct.BF_BitstreamElement, ptr %48, i64 0, i32 1
+  %invariant.gep161 = getelementptr %struct.BF_BitstreamElement, ptr %48, i64 0, i32 1
+  %invariant.gep163 = getelementptr %struct.BF_BitstreamElement, ptr %48, i64 0, i32 1
+  %invariant.gep165 = getelementptr %struct.BF_BitstreamElement, ptr %48, i64 0, i32 1
+  %invariant.gep167 = getelementptr %struct.BF_BitstreamElement, ptr %48, i64 0, i32 1
+  %invariant.gep169 = getelementptr %struct.BF_BitstreamElement, ptr %48, i64 0, i32 1
+  %invariant.gep171 = getelementptr %struct.BF_BitstreamElement, ptr %48, i64 0, i32 1
+  br label %vector.body
+
+vector.body:                                      ; preds = %vector.body, %vector.ph
+  %index = phi i64 [ 0, %vector.ph ], [ %index.next, %vector.body ]
+  %vec.phi = phi <4 x i32> [ zeroinitializer, %vector.ph ], [ %86, %vector.body ]
+  %vec.phi50 = phi <4 x i32> [ zeroinitializer, %vector.ph ], [ %87, %vector.body ]
+  %53 = shl i64 %index, 3
+  %54 = shl i64 %index, 3
+  %55 = or i64 %54, 8
+  %56 = shl i64 %index, 3
+  %57 = or i64 %56, 16
+  %58 = shl i64 %index, 3
+  %59 = or i64 %58, 24
+  %60 = shl i64 %index, 3
+  %61 = or i64 %60, 32
+  %62 = shl i64 %index, 3
+  %63 = or i64 %62, 40
+  %64 = shl i64 %index, 3
+  %65 = or i64 %64, 48
+  %66 = shl i64 %index, 3
+  %67 = or i64 %66, 56
+  %gep = getelementptr i8, ptr %invariant.gep, i64 %53
+  %gep160 = getelementptr i8, ptr %invariant.gep159, i64 %55
+  %gep162 = getelementptr i8, ptr %invariant.gep161, i64 %57
+  %gep164 = getelementptr i8, ptr %invariant.gep163, i64 %59
+  %gep166 = getelementptr i8, ptr %invariant.gep165, i64 %61
+  %gep168 = getelementptr i8, ptr %invariant.gep167, i64 %63
+  %gep170 = getelementptr i8, ptr %invariant.gep169, i64 %65
+  %gep172 = getelementptr i8, ptr %invariant.gep171, i64 %67
+  %68 = load i16, ptr %gep, align 4, !tbaa !36
+  %69 = load i16, ptr %gep160, align 4, !tbaa !36
+  %70 = load i16, ptr %gep162, align 4, !tbaa !36
+  %71 = load i16, ptr %gep164, align 4, !tbaa !36
+  %72 = insertelement <4 x i16> poison, i16 %68, i64 0
+  %73 = insertelement <4 x i16> %72, i16 %69, i64 1
+  %74 = insertelement <4 x i16> %73, i16 %70, i64 2
+  %75 = insertelement <4 x i16> %74, i16 %71, i64 3
+  %76 = load i16, ptr %gep166, align 4, !tbaa !36
+  %77 = load i16, ptr %gep168, align 4, !tbaa !36
+  %78 = load i16, ptr %gep170, align 4, !tbaa !36
+  %79 = load i16, ptr %gep172, align 4, !tbaa !36
+  %80 = insertelement <4 x i16> poison, i16 %76, i64 0
+  %81 = insertelement <4 x i16> %80, i16 %77, i64 1
+  %82 = insertelement <4 x i16> %81, i16 %78, i64 2
+  %83 = insertelement <4 x i16> %82, i16 %79, i64 3
+  %84 = zext <4 x i16> %75 to <4 x i32>
+  %85 = zext <4 x i16> %83 to <4 x i32>
+  %86 = add <4 x i32> %vec.phi, %84
+  %87 = add <4 x i32> %vec.phi50, %85
+  %index.next = add nuw i64 %index, 8
+  %88 = icmp eq i64 %index.next, %n.vec
+  br i1 %88, label %middle.block, label %vector.body, !llvm.loop !39
+
+middle.block:                                     ; preds = %vector.body
+  %bin.rdx = add <4 x i32> %87, %86
+  %89 = tail call i32 @llvm.vector.reduce.add.v4i32(<4 x i32> %bin.rdx)
+  br label %for.body.i268.i.preheader
+
+for.body.i268.i.preheader:                        ; preds = %for.body.preheader.i.i, %middle.block
+  %bits.08.i.i.ph = phi i32 [ 0, %for.body.preheader.i.i ], [ %89, %middle.block ]
+  %i.07.i.i.ph = phi i32 [ 0, %for.body.preheader.i.i ], [ %ind.end, %middle.block ]
+  %ep.06.i.i.ph = phi ptr [ %48, %for.body.preheader.i.i ], [ %ind.end48, %middle.block ]
+  br label %for.body.i268.i
+
+for.body.i268.i:                                  ; preds = %for.body.i268.i.preheader, %for.body.i268.i
+  %bits.08.i.i = phi i32 [ %add.i.i, %for.body.i268.i ], [ %bits.08.i.i.ph, %for.body.i268.i.preheader ]
+  %i.07.i.i = phi i32 [ %inc.i.i, %for.body.i268.i ], [ %i.07.i.i.ph, %for.body.i268.i.preheader ]
+  %ep.06.i.i = phi ptr [ %incdec.ptr.i.i, %for.body.i268.i ], [ %ep.06.i.i.ph, %for.body.i268.i.preheader ]
+  %length.i.i = getelementptr inbounds %struct.BF_BitstreamElement, ptr %ep.06.i.i, i64 0, i32 1
+  %90 = load i16, ptr %length.i.i, align 4, !tbaa !36
+  %conv.i267.i = zext i16 %90 to i32
+  %add.i.i = add nuw nsw i32 %bits.08.i.i, %conv.i267.i
+  %inc.i.i = add nuw i32 %i.07.i.i, 1
+  %incdec.ptr.i.i = getelementptr inbounds %struct.BF_BitstreamElement, ptr %ep.06.i.i, i64 1
+  %exitcond.not.i.i = icmp eq i32 %inc.i.i, %47
+  br i1 %exitcond.not.i.i, label %BF_PartLength.exit.i, label %for.body.i268.i, !llvm.loop !42
+
+BF_PartLength.exit.i:                             ; preds = %for.body.i268.i, %BF_LoadHolderFromBitstreamPart.exit265.i
+  %bits.0.lcssa.i.i = phi i32 [ 0, %BF_LoadHolderFromBitstreamPart.exit265.i ], [ %add.i.i, %for.body.i268.i ]
+  %91 = load ptr, ptr %frameSI57.i, align 8, !tbaa !22
+  %92 = load i32, ptr %91, align 8, !tbaa !13
+  %cmp5.not.i269.i = icmp eq i32 %92, 0
+  br i1 %cmp5.not.i269.i, label %BF_PartLength.exit283.i, label %for.body.preheader.i271.i
+
+for.body.preheader.i271.i:                        ; preds = %BF_PartLength.exit.i
+  %element.i270.i = getelementptr inbounds %struct.BF_BitstreamPart, ptr %91, i64 0, i32 1
+  %93 = load ptr, ptr %element.i270.i, align 8, !tbaa !18
+  %min.iters.check60 = icmp ult i32 %92, 9
+  br i1 %min.iters.check60, label %for.body.i281.i.preheader, label %vector.ph61
+
+vector.ph61:                                      ; preds = %for.body.preheader.i271.i
+  %94 = zext i32 %92 to i64
+  %n.mod.vf62 = and i64 %94, 7
+  %95 = icmp eq i64 %n.mod.vf62, 0
+  %96 = select i1 %95, i64 8, i64 %n.mod.vf62
+  %n.vec63 = sub nsw i64 %94, %96
+  %ind.end64 = trunc i64 %n.vec63 to i32
+  %97 = shl nsw i64 %n.vec63, 3
+  %ind.end66 = getelementptr i8, ptr %93, i64 %97
+  %invariant.gep173 = getelementptr %struct.BF_BitstreamElement, ptr %93, i64 0, i32 1
+  %invariant.gep175 = getelementptr %struct.BF_BitstreamElement, ptr %93, i64 0, i32 1
+  %invariant.gep177 = getelementptr %struct.BF_BitstreamElement, ptr %93, i64 0, i32 1
+  %invariant.gep179 = getelementptr %struct.BF_BitstreamElement, ptr %93, i64 0, i32 1
+  %invariant.gep181 = getelementptr %struct.BF_BitstreamElement, ptr %93, i64 0, i32 1
+  %invariant.gep183 = getelementptr %struct.BF_BitstreamElement, ptr %93, i64 0, i32 1
+  %invariant.gep185 = getelementptr %struct.BF_BitstreamElement, ptr %93, i64 0, i32 1
+  %invariant.gep187 = getelementptr %struct.BF_BitstreamElement, ptr %93, i64 0, i32 1
+  br label %vector.body68
+
+vector.body68:                                    ; preds = %vector.body68, %vector.ph61
+  %index69 = phi i64 [ 0, %vector.ph61 ], [ %index.next80, %vector.body68 ]
+  %vec.phi70 = phi <4 x i32> [ zeroinitializer, %vector.ph61 ], [ %131, %vector.body68 ]
+  %vec.phi71 = phi <4 x i32> [ zeroinitializer, %vector.ph61 ], [ %132, %vector.body68 ]
+  %98 = shl i64 %index69, 3
+  %99 = shl i64 %index69, 3
+  %100 = or i64 %99, 8
+  %101 = shl i64 %index69, 3
+  %102 = or i64 %101, 16
+  %103 = shl i64 %index69, 3
+  %104 = or i64 %103, 24
+  %105 = shl i64 %index69, 3
+  %106 = or i64 %105, 32
+  %107 = shl i64 %index69, 3
+  %108 = or i64 %107, 40
+  %109 = shl i64 %index69, 3
+  %110 = or i64 %109, 48
+  %111 = shl i64 %index69, 3
+  %112 = or i64 %111, 56
+  %gep174 = getelementptr i8, ptr %invariant.gep173, i64 %98
+  %gep176 = getelementptr i8, ptr %invariant.gep175, i64 %100
+  %gep178 = getelementptr i8, ptr %invariant.gep177, i64 %102
+  %gep180 = getelementptr i8, ptr %invariant.gep179, i64 %104
+  %gep182 = getelementptr i8, ptr %invariant.gep181, i64 %106
+  %gep184 = getelementptr i8, ptr %invariant.gep183, i64 %108
+  %gep186 = getelementptr i8, ptr %invariant.gep185, i64 %110
+  %gep188 = getelementptr i8, ptr %invariant.gep187, i64 %112
+  %113 = load i16, ptr %gep174, align 4, !tbaa !36
+  %114 = load i16, ptr %gep176, align 4, !tbaa !36
+  %115 = load i16, ptr %gep178, align 4, !tbaa !36
+  %116 = load i16, ptr %gep180, align 4, !tbaa !36
+  %117 = insertelement <4 x i16> poison, i16 %113, i64 0
+  %118 = insertelement <4 x i16> %117, i16 %114, i64 1
+  %119 = insertelement <4 x i16> %118, i16 %115, i64 2
+  %120 = insertelement <4 x i16> %119, i16 %116, i64 3
+  %121 = load i16, ptr %gep182, align 4, !tbaa !36
+  %122 = load i16, ptr %gep184, align 4, !tbaa !36
+  %123 = load i16, ptr %gep186, align 4, !tbaa !36
+  %124 = load i16, ptr %gep188, align 4, !tbaa !36
+  %125 = insertelement <4 x i16> poison, i16 %121, i64 0
+  %126 = insertelement <4 x i16> %125, i16 %122, i64 1
+  %127 = insertelement <4 x i16> %126, i16 %123, i64 2
+  %128 = insertelement <4 x i16> %127, i16 %124, i64 3
+  %129 = zext <4 x i16> %120 to <4 x i32>
+  %130 = zext <4 x i16> %128 to <4 x i32>
+  %131 = add <4 x i32> %vec.phi70, %129
+  %132 = add <4 x i32> %vec.phi71, %130
+  %index.next80 = add nuw i64 %index69, 8
+  %133 = icmp eq i64 %index.next80, %n.vec63
+  br i1 %133, label %middle.block58, label %vector.body68, !llvm.loop !43
+
+middle.block58:                                   ; preds = %vector.body68
+  %bin.rdx81 = add <4 x i32> %132, %131
+  %134 = tail call i32 @llvm.vector.reduce.add.v4i32(<4 x i32> %bin.rdx81)
+  br label %for.body.i281.i.preheader
+
+for.body.i281.i.preheader:                        ; preds = %for.body.preheader.i271.i, %middle.block58
+  %bits.08.i272.i.ph = phi i32 [ 0, %for.body.preheader.i271.i ], [ %134, %middle.block58 ]
+  %i.07.i273.i.ph = phi i32 [ 0, %for.body.preheader.i271.i ], [ %ind.end64, %middle.block58 ]
+  %ep.06.i274.i.ph = phi ptr [ %93, %for.body.preheader.i271.i ], [ %ind.end66, %middle.block58 ]
+  br label %for.body.i281.i
+
+for.body.i281.i:                                  ; preds = %for.body.i281.i.preheader, %for.body.i281.i
+  %bits.08.i272.i = phi i32 [ %add.i277.i, %for.body.i281.i ], [ %bits.08.i272.i.ph, %for.body.i281.i.preheader ]
+  %i.07.i273.i = phi i32 [ %inc.i278.i, %for.body.i281.i ], [ %i.07.i273.i.ph, %for.body.i281.i.preheader ]
+  %ep.06.i274.i = phi ptr [ %incdec.ptr.i279.i, %for.body.i281.i ], [ %ep.06.i274.i.ph, %for.body.i281.i.preheader ]
+  %length.i275.i = getelementptr inbounds %struct.BF_BitstreamElement, ptr %ep.06.i274.i, i64 0, i32 1
+  %135 = load i16, ptr %length.i275.i, align 4, !tbaa !36
+  %conv.i276.i = zext i16 %135 to i32
+  %add.i277.i = add nuw nsw i32 %bits.08.i272.i, %conv.i276.i
+  %inc.i278.i = add nuw i32 %i.07.i273.i, 1
+  %incdec.ptr.i279.i = getelementptr inbounds %struct.BF_BitstreamElement, ptr %ep.06.i274.i, i64 1
+  %exitcond.not.i280.i = icmp eq i32 %inc.i278.i, %92
+  br i1 %exitcond.not.i280.i, label %BF_PartLength.exit283.i, label %for.body.i281.i, !llvm.loop !44
+
+BF_PartLength.exit283.i:                          ; preds = %for.body.i281.i, %BF_PartLength.exit.i
+  %bits.0.lcssa.i282.i = phi i32 [ 0, %BF_PartLength.exit.i ], [ %add.i277.i, %for.body.i281.i ]
+  %add65.i = add nsw i32 %bits.0.lcssa.i282.i, %bits.0.lcssa.i.i
+  %136 = load i32, ptr %nChannels46.i, align 8, !tbaa !24
+  %cmp68406.i = icmp sgt i32 %136, 0
+  br i1 %cmp68406.i, label %for.body69.i, label %for.end128.i
+
+for.cond90.preheader.i:                           ; preds = %BF_PartLength.exit326.i
+  %137 = load i32, ptr %nGranules43.i, align 4, !tbaa !25
+  %cmp92414.i = icmp sgt i32 %137, 0
+  %138 = icmp sgt i32 %215, 0
+  %or.cond.i = select i1 %cmp92414.i, i1 %138, i1 false
+  br i1 %or.cond.i, label %for.cond94.preheader.i, label %for.end128.i
+
+for.body69.i:                                     ; preds = %BF_PartLength.exit283.i, %BF_PartLength.exit326.i
+  %indvars.iv431.i = phi i64 [ %indvars.iv.next432.i, %BF_PartLength.exit326.i ], [ 0, %BF_PartLength.exit283.i ]
+  %bits.0408.i = phi i32 [ %add86.i, %BF_PartLength.exit326.i ], [ %add65.i, %BF_PartLength.exit283.i ]
+  %arrayidx73.i = getelementptr inbounds %struct.side_info_link, ptr %l.0.i, i64 0, i32 1, i32 6, i64 %indvars.iv431.i
+  %139 = load ptr, ptr %arrayidx73.i, align 8, !tbaa !9
+  %arrayidx76.i = getelementptr inbounds %struct.BF_FrameData, ptr %frameInfo, i64 0, i32 5, i64 %indvars.iv431.i
+  %140 = load ptr, ptr %arrayidx76.i, align 8, !tbaa !9
+  %part.i284.i = getelementptr inbounds %struct.BF_PartHolder, ptr %139, i64 0, i32 1
+  %141 = load ptr, ptr %part.i284.i, align 8, !tbaa !17
+  store i32 0, ptr %141, align 8, !tbaa !13
+  %142 = load i32, ptr %140, align 8, !tbaa !13
+  %cmp7.not.i285.i = icmp eq i32 %142, 0
+  br i1 %cmp7.not.i285.i, label %BF_LoadHolderFromBitstreamPart.exit311.i, label %for.body.lr.ph.i287.i
+
+for.body.lr.ph.i287.i:                            ; preds = %for.body69.i
+  %element.i286.i = getelementptr inbounds %struct.BF_BitstreamPart, ptr %140, i64 0, i32 1
+  br label %for.body.i294.i
+
+for.body.i294.i:                                  ; preds = %BF_addElement.exit.i309.i, %for.body.lr.ph.i287.i
+  %indvars.iv.i288.i = phi i64 [ 0, %for.body.lr.ph.i287.i ], [ %indvars.iv.next.i307.i, %BF_addElement.exit.i309.i ]
+  %theHolder.addr.08.i289.i = phi ptr [ %139, %for.body.lr.ph.i287.i ], [ %retPH.0.i.i303.i, %BF_addElement.exit.i309.i ]
+  %143 = load ptr, ptr %element.i286.i, align 8, !tbaa !18
+  %arrayidx.i290.i = getelementptr inbounds %struct.BF_BitstreamElement, ptr %143, i64 %indvars.iv.i288.i
+  %part.i.i291.i = getelementptr inbounds %struct.BF_PartHolder, ptr %theHolder.addr.08.i289.i, i64 0, i32 1
+  %144 = load ptr, ptr %part.i.i291.i, align 8, !tbaa !17
+  %145 = load i32, ptr %144, align 8, !tbaa !13
+  %add.i.i292.i = add i32 %145, 1
+  %146 = load i32, ptr %theHolder.addr.08.i289.i, align 8, !tbaa !15
+  %cmp.i.i293.i = icmp sgt i32 %add.i.i292.i, %146
+  br i1 %cmp.i.i293.i, label %if.then.i.i301.i, label %BF_addElement.exit.i309.i
+
+if.then.i.i301.i:                                 ; preds = %for.body.i294.i
+  %add1.i.i295.i = add i32 %145, 9
+  %call.i.i370.i = tail call noalias dereferenceable_or_null(16) ptr @calloc(i64 noundef 1, i64 noundef 16) #11
+  store i32 %add1.i.i295.i, ptr %call.i.i370.i, align 8, !tbaa !15
+  %call2.i.i.i = tail call noalias dereferenceable_or_null(16) ptr @calloc(i64 noundef 1, i64 noundef 16) #11
+  %part.i.i371.i = getelementptr inbounds %struct.BF_PartHolder, ptr %call.i.i370.i, i64 0, i32 1
+  store ptr %call2.i.i.i, ptr %part.i.i371.i, align 8, !tbaa !17
+  %conv.i.i.i = sext i32 %add1.i.i295.i to i64
+  %call3.i.i.i = tail call noalias ptr @calloc(i64 noundef %conv.i.i.i, i64 noundef 8) #11
+  %element.i.i372.i = getelementptr inbounds %struct.BF_BitstreamPart, ptr %call2.i.i.i, i64 0, i32 1
+  store ptr %call3.i.i.i, ptr %element.i.i372.i, align 8, !tbaa !18
+  %147 = load i32, ptr %theHolder.addr.08.i289.i, align 8, !tbaa !15
+  %max_elements..i.i = tail call i32 @llvm.smin.i32(i32 %147, i32 %add1.i.i295.i)
+  store i32 %max_elements..i.i, ptr %call2.i.i.i, align 8, !tbaa !13
+  %cmp323.i.i = icmp sgt i32 %max_elements..i.i, 0
+  br i1 %cmp323.i.i, label %for.body.lr.ph.i373.i, label %BF_resizePartHolder.exit.i
+
+for.body.lr.ph.i373.i:                            ; preds = %if.then.i.i301.i
+  %wide.trip.count.i.i = zext i32 %max_elements..i.i to i64
+  %xtraiter = and i64 %wide.trip.count.i.i, 1
+  %148 = icmp eq i32 %max_elements..i.i, 1
+  br i1 %148, label %BF_resizePartHolder.exit.i.loopexit.unr-lcssa, label %for.body.lr.ph.i373.i.new
+
+for.body.lr.ph.i373.i.new:                        ; preds = %for.body.lr.ph.i373.i
+  %unroll_iter = and i64 %wide.trip.count.i.i, 4294967294
+  br label %for.body.i378.i
+
+for.body.i378.i:                                  ; preds = %for.body.i378.i, %for.body.lr.ph.i373.i.new
+  %indvars.iv.i374.i = phi i64 [ 0, %for.body.lr.ph.i373.i.new ], [ %indvars.iv.next.i376.i.1, %for.body.i378.i ]
+  %niter = phi i64 [ 0, %for.body.lr.ph.i373.i.new ], [ %niter.next.1, %for.body.i378.i ]
+  %149 = load ptr, ptr %element.i.i372.i, align 8, !tbaa !18
+  %arrayidx.i375.i = getelementptr inbounds %struct.BF_BitstreamElement, ptr %149, i64 %indvars.iv.i374.i
+  %150 = load ptr, ptr %part.i.i291.i, align 8, !tbaa !17
+  %element6.i.i = getelementptr inbounds %struct.BF_BitstreamPart, ptr %150, i64 0, i32 1
+  %151 = load ptr, ptr %element6.i.i, align 8, !tbaa !18
+  %arrayidx8.i.i = getelementptr inbounds %struct.BF_BitstreamElement, ptr %151, i64 %indvars.iv.i374.i
+  %152 = load i64, ptr %arrayidx8.i.i, align 4
+  store i64 %152, ptr %arrayidx.i375.i, align 4
+  %indvars.iv.next.i376.i = or i64 %indvars.iv.i374.i, 1
+  %153 = load ptr, ptr %element.i.i372.i, align 8, !tbaa !18
+  %arrayidx.i375.i.1 = getelementptr inbounds %struct.BF_BitstreamElement, ptr %153, i64 %indvars.iv.next.i376.i
+  %154 = load ptr, ptr %part.i.i291.i, align 8, !tbaa !17
+  %element6.i.i.1 = getelementptr inbounds %struct.BF_BitstreamPart, ptr %154, i64 0, i32 1
+  %155 = load ptr, ptr %element6.i.i.1, align 8, !tbaa !18
+  %arrayidx8.i.i.1 = getelementptr inbounds %struct.BF_BitstreamElement, ptr %155, i64 %indvars.iv.next.i376.i
+  %156 = load i64, ptr %arrayidx8.i.i.1, align 4
+  store i64 %156, ptr %arrayidx.i375.i.1, align 4
+  %indvars.iv.next.i376.i.1 = add nuw nsw i64 %indvars.iv.i374.i, 2
+  %niter.next.1 = add i64 %niter, 2
+  %niter.ncmp.1 = icmp eq i64 %niter.next.1, %unroll_iter
+  br i1 %niter.ncmp.1, label %BF_resizePartHolder.exit.i.loopexit.unr-lcssa, label %for.body.i378.i, !llvm.loop !45
+
+BF_resizePartHolder.exit.i.loopexit.unr-lcssa:    ; preds = %for.body.i378.i, %for.body.lr.ph.i373.i
+  %indvars.iv.i374.i.unr = phi i64 [ 0, %for.body.lr.ph.i373.i ], [ %indvars.iv.next.i376.i.1, %for.body.i378.i ]
+  %lcmp.mod.not = icmp eq i64 %xtraiter, 0
+  br i1 %lcmp.mod.not, label %BF_resizePartHolder.exit.i, label %for.body.i378.i.epil
+
+for.body.i378.i.epil:                             ; preds = %BF_resizePartHolder.exit.i.loopexit.unr-lcssa
+  %157 = load ptr, ptr %element.i.i372.i, align 8, !tbaa !18
+  %arrayidx.i375.i.epil = getelementptr inbounds %struct.BF_BitstreamElement, ptr %157, i64 %indvars.iv.i374.i.unr
+  %158 = load ptr, ptr %part.i.i291.i, align 8, !tbaa !17
+  %element6.i.i.epil = getelementptr inbounds %struct.BF_BitstreamPart, ptr %158, i64 0, i32 1
+  %159 = load ptr, ptr %element6.i.i.epil, align 8, !tbaa !18
+  %arrayidx8.i.i.epil = getelementptr inbounds %struct.BF_BitstreamElement, ptr %159, i64 %indvars.iv.i374.i.unr
+  %160 = load i64, ptr %arrayidx8.i.i.epil, align 4
+  store i64 %160, ptr %arrayidx.i375.i.epil, align 4
+  br label %BF_resizePartHolder.exit.i
+
+BF_resizePartHolder.exit.i:                       ; preds = %for.body.i378.i.epil, %BF_resizePartHolder.exit.i.loopexit.unr-lcssa, %if.then.i.i301.i
+  %161 = load ptr, ptr %part.i.i291.i, align 8, !tbaa !17
+  %element.i22.i.i = getelementptr inbounds %struct.BF_BitstreamPart, ptr %161, i64 0, i32 1
+  %162 = load ptr, ptr %element.i22.i.i, align 8, !tbaa !18
+  tail call void @free(ptr noundef %162) #14
+  %163 = load ptr, ptr %part.i.i291.i, align 8, !tbaa !17
+  tail call void @free(ptr noundef %163) #14
+  tail call void @free(ptr noundef nonnull %theHolder.addr.08.i289.i) #14
+  %.pre.i.i298.i = load ptr, ptr %part.i.i371.i, align 8, !tbaa !17
+  %.pre11.i.i299.i = load i32, ptr %.pre.i.i298.i, align 8, !tbaa !13
+  %.pre12.i.i300.i = add i32 %.pre11.i.i299.i, 1
+  br label %BF_addElement.exit.i309.i
+
+BF_addElement.exit.i309.i:                        ; preds = %BF_resizePartHolder.exit.i, %for.body.i294.i
+  %inc.pre-phi.i.i302.i = phi i32 [ %.pre12.i.i300.i, %BF_resizePartHolder.exit.i ], [ %add.i.i292.i, %for.body.i294.i ]
+  %164 = phi i32 [ %.pre11.i.i299.i, %BF_resizePartHolder.exit.i ], [ %145, %for.body.i294.i ]
+  %165 = phi ptr [ %.pre.i.i298.i, %BF_resizePartHolder.exit.i ], [ %144, %for.body.i294.i ]
+  %retPH.0.i.i303.i = phi ptr [ %call.i.i370.i, %BF_resizePartHolder.exit.i ], [ %theHolder.addr.08.i289.i, %for.body.i294.i ]
+  %element.i.i304.i = getelementptr inbounds %struct.BF_BitstreamPart, ptr %165, i64 0, i32 1
+  %166 = load ptr, ptr %element.i.i304.i, align 8, !tbaa !18
+  store i32 %inc.pre-phi.i.i302.i, ptr %165, align 8, !tbaa !13
+  %idxprom.i.i305.i = zext i32 %164 to i64
+  %arrayidx.i.i306.i = getelementptr inbounds %struct.BF_BitstreamElement, ptr %166, i64 %idxprom.i.i305.i
+  %167 = load i64, ptr %arrayidx.i290.i, align 4
+  store i64 %167, ptr %arrayidx.i.i306.i, align 4
+  %indvars.iv.next.i307.i = add nuw nsw i64 %indvars.iv.i288.i, 1
+  %168 = load i32, ptr %140, align 8, !tbaa !13
+  %169 = zext i32 %168 to i64
+  %cmp.i308.i = icmp ult i64 %indvars.iv.next.i307.i, %169
+  br i1 %cmp.i308.i, label %for.body.i294.i, label %BF_LoadHolderFromBitstreamPart.exit311.i, !llvm.loop !35
+
+BF_LoadHolderFromBitstreamPart.exit311.i:         ; preds = %BF_addElement.exit.i309.i, %for.body69.i
+  %theHolder.addr.0.lcssa.i310.i = phi ptr [ %139, %for.body69.i ], [ %retPH.0.i.i303.i, %BF_addElement.exit.i309.i ]
+  store ptr %theHolder.addr.0.lcssa.i310.i, ptr %arrayidx73.i, align 8, !tbaa !9
+  %170 = load ptr, ptr %arrayidx76.i, align 8, !tbaa !9
+  %171 = load i32, ptr %170, align 8, !tbaa !13
+  %cmp5.not.i312.i = icmp eq i32 %171, 0
+  br i1 %cmp5.not.i312.i, label %BF_PartLength.exit326.i, label %for.body.preheader.i314.i
+
+for.body.preheader.i314.i:                        ; preds = %BF_LoadHolderFromBitstreamPart.exit311.i
+  %element.i313.i = getelementptr inbounds %struct.BF_BitstreamPart, ptr %170, i64 0, i32 1
+  %172 = load ptr, ptr %element.i313.i, align 8, !tbaa !18
+  %min.iters.check85 = icmp ult i32 %171, 9
+  br i1 %min.iters.check85, label %for.body.i324.i.preheader, label %vector.ph86
+
+vector.ph86:                                      ; preds = %for.body.preheader.i314.i
+  %173 = zext i32 %171 to i64
+  %n.mod.vf87 = and i64 %173, 7
+  %174 = icmp eq i64 %n.mod.vf87, 0
+  %175 = select i1 %174, i64 8, i64 %n.mod.vf87
+  %n.vec88 = sub nsw i64 %173, %175
+  %ind.end89 = trunc i64 %n.vec88 to i32
+  %176 = shl nsw i64 %n.vec88, 3
+  %ind.end91 = getelementptr i8, ptr %172, i64 %176
+  %invariant.gep189 = getelementptr %struct.BF_BitstreamElement, ptr %172, i64 0, i32 1
+  %invariant.gep191 = getelementptr %struct.BF_BitstreamElement, ptr %172, i64 0, i32 1
+  %invariant.gep193 = getelementptr %struct.BF_BitstreamElement, ptr %172, i64 0, i32 1
+  %invariant.gep195 = getelementptr %struct.BF_BitstreamElement, ptr %172, i64 0, i32 1
+  %invariant.gep197 = getelementptr %struct.BF_BitstreamElement, ptr %172, i64 0, i32 1
+  %invariant.gep199 = getelementptr %struct.BF_BitstreamElement, ptr %172, i64 0, i32 1
+  %invariant.gep201 = getelementptr %struct.BF_BitstreamElement, ptr %172, i64 0, i32 1
+  %invariant.gep203 = getelementptr %struct.BF_BitstreamElement, ptr %172, i64 0, i32 1
+  br label %vector.body93
+
+vector.body93:                                    ; preds = %vector.body93, %vector.ph86
+  %index94 = phi i64 [ 0, %vector.ph86 ], [ %index.next105, %vector.body93 ]
+  %vec.phi95 = phi <4 x i32> [ zeroinitializer, %vector.ph86 ], [ %210, %vector.body93 ]
+  %vec.phi96 = phi <4 x i32> [ zeroinitializer, %vector.ph86 ], [ %211, %vector.body93 ]
+  %177 = shl i64 %index94, 3
+  %178 = shl i64 %index94, 3
+  %179 = or i64 %178, 8
+  %180 = shl i64 %index94, 3
+  %181 = or i64 %180, 16
+  %182 = shl i64 %index94, 3
+  %183 = or i64 %182, 24
+  %184 = shl i64 %index94, 3
+  %185 = or i64 %184, 32
+  %186 = shl i64 %index94, 3
+  %187 = or i64 %186, 40
+  %188 = shl i64 %index94, 3
+  %189 = or i64 %188, 48
+  %190 = shl i64 %index94, 3
+  %191 = or i64 %190, 56
+  %gep190 = getelementptr i8, ptr %invariant.gep189, i64 %177
+  %gep192 = getelementptr i8, ptr %invariant.gep191, i64 %179
+  %gep194 = getelementptr i8, ptr %invariant.gep193, i64 %181
+  %gep196 = getelementptr i8, ptr %invariant.gep195, i64 %183
+  %gep198 = getelementptr i8, ptr %invariant.gep197, i64 %185
+  %gep200 = getelementptr i8, ptr %invariant.gep199, i64 %187
+  %gep202 = getelementptr i8, ptr %invariant.gep201, i64 %189
+  %gep204 = getelementptr i8, ptr %invariant.gep203, i64 %191
+  %192 = load i16, ptr %gep190, align 4, !tbaa !36
+  %193 = load i16, ptr %gep192, align 4, !tbaa !36
+  %194 = load i16, ptr %gep194, align 4, !tbaa !36
+  %195 = load i16, ptr %gep196, align 4, !tbaa !36
+  %196 = insertelement <4 x i16> poison, i16 %192, i64 0
+  %197 = insertelement <4 x i16> %196, i16 %193, i64 1
+  %198 = insertelement <4 x i16> %197, i16 %194, i64 2
+  %199 = insertelement <4 x i16> %198, i16 %195, i64 3
+  %200 = load i16, ptr %gep198, align 4, !tbaa !36
+  %201 = load i16, ptr %gep200, align 4, !tbaa !36
+  %202 = load i16, ptr %gep202, align 4, !tbaa !36
+  %203 = load i16, ptr %gep204, align 4, !tbaa !36
+  %204 = insertelement <4 x i16> poison, i16 %200, i64 0
+  %205 = insertelement <4 x i16> %204, i16 %201, i64 1
+  %206 = insertelement <4 x i16> %205, i16 %202, i64 2
+  %207 = insertelement <4 x i16> %206, i16 %203, i64 3
+  %208 = zext <4 x i16> %199 to <4 x i32>
+  %209 = zext <4 x i16> %207 to <4 x i32>
+  %210 = add <4 x i32> %vec.phi95, %208
+  %211 = add <4 x i32> %vec.phi96, %209
+  %index.next105 = add nuw i64 %index94, 8
+  %212 = icmp eq i64 %index.next105, %n.vec88
+  br i1 %212, label %middle.block83, label %vector.body93, !llvm.loop !46
+
+middle.block83:                                   ; preds = %vector.body93
+  %bin.rdx106 = add <4 x i32> %211, %210
+  %213 = tail call i32 @llvm.vector.reduce.add.v4i32(<4 x i32> %bin.rdx106)
+  br label %for.body.i324.i.preheader
+
+for.body.i324.i.preheader:                        ; preds = %for.body.preheader.i314.i, %middle.block83
+  %bits.08.i315.i.ph = phi i32 [ 0, %for.body.preheader.i314.i ], [ %213, %middle.block83 ]
+  %i.07.i316.i.ph = phi i32 [ 0, %for.body.preheader.i314.i ], [ %ind.end89, %middle.block83 ]
+  %ep.06.i317.i.ph = phi ptr [ %172, %for.body.preheader.i314.i ], [ %ind.end91, %middle.block83 ]
+  br label %for.body.i324.i
+
+for.body.i324.i:                                  ; preds = %for.body.i324.i.preheader, %for.body.i324.i
+  %bits.08.i315.i = phi i32 [ %add.i320.i, %for.body.i324.i ], [ %bits.08.i315.i.ph, %for.body.i324.i.preheader ]
+  %i.07.i316.i = phi i32 [ %inc.i321.i, %for.body.i324.i ], [ %i.07.i316.i.ph, %for.body.i324.i.preheader ]
+  %ep.06.i317.i = phi ptr [ %incdec.ptr.i322.i, %for.body.i324.i ], [ %ep.06.i317.i.ph, %for.body.i324.i.preheader ]
+  %length.i318.i = getelementptr inbounds %struct.BF_BitstreamElement, ptr %ep.06.i317.i, i64 0, i32 1
+  %214 = load i16, ptr %length.i318.i, align 4, !tbaa !36
+  %conv.i319.i = zext i16 %214 to i32
+  %add.i320.i = add nuw nsw i32 %bits.08.i315.i, %conv.i319.i
+  %inc.i321.i = add nuw i32 %i.07.i316.i, 1
+  %incdec.ptr.i322.i = getelementptr inbounds %struct.BF_BitstreamElement, ptr %ep.06.i317.i, i64 1
+  %exitcond.not.i323.i = icmp eq i32 %inc.i321.i, %171
+  br i1 %exitcond.not.i323.i, label %BF_PartLength.exit326.i, label %for.body.i324.i, !llvm.loop !47
+
+BF_PartLength.exit326.i:                          ; preds = %for.body.i324.i, %BF_LoadHolderFromBitstreamPart.exit311.i
+  %bits.0.lcssa.i325.i = phi i32 [ 0, %BF_LoadHolderFromBitstreamPart.exit311.i ], [ %add.i320.i, %for.body.i324.i ]
+  %add86.i = add nsw i32 %bits.0.lcssa.i325.i, %bits.0408.i
+  %indvars.iv.next432.i = add nuw nsw i64 %indvars.iv431.i, 1
+  %215 = load i32, ptr %nChannels46.i, align 8, !tbaa !24
+  %216 = sext i32 %215 to i64
+  %cmp68.i = icmp slt i64 %indvars.iv.next432.i, %216
+  br i1 %cmp68.i, label %for.body69.i, label %for.cond90.preheader.i, !llvm.loop !48
+
+for.cond94.preheader.i:                           ; preds = %for.cond90.preheader.i, %for.inc126.i
+  %217 = phi i32 [ %297, %for.inc126.i ], [ %137, %for.cond90.preheader.i ]
+  %218 = phi i32 [ %298, %for.inc126.i ], [ %215, %for.cond90.preheader.i ]
+  %indvars.iv437.i = phi i64 [ %indvars.iv.next438.i, %for.inc126.i ], [ 0, %for.cond90.preheader.i ]
+  %bits.1416.i = phi i32 [ %bits.2.lcssa.i, %for.inc126.i ], [ %add86.i, %for.cond90.preheader.i ]
+  %cmp96410.i = icmp sgt i32 %218, 0
+  br i1 %cmp96410.i, label %for.body97.i, label %for.inc126.i
+
+for.body97.i:                                     ; preds = %for.cond94.preheader.i, %BF_PartLength.exit369.i
+  %indvars.iv434.i = phi i64 [ %indvars.iv.next435.i, %BF_PartLength.exit369.i ], [ 0, %for.cond94.preheader.i ]
+  %bits.2412.i = phi i32 [ %add122.i, %BF_PartLength.exit369.i ], [ %bits.1416.i, %for.cond94.preheader.i ]
+  %arrayidx103.i = getelementptr inbounds %struct.side_info_link, ptr %l.0.i, i64 0, i32 1, i32 7, i64 %indvars.iv437.i, i64 %indvars.iv434.i
+  %219 = load ptr, ptr %arrayidx103.i, align 8, !tbaa !9
+  %arrayidx108.i = getelementptr inbounds %struct.BF_FrameData, ptr %frameInfo, i64 0, i32 6, i64 %indvars.iv437.i, i64 %indvars.iv434.i
+  %220 = load ptr, ptr %arrayidx108.i, align 8, !tbaa !9
+  %part.i327.i = getelementptr inbounds %struct.BF_PartHolder, ptr %219, i64 0, i32 1
+  %221 = load ptr, ptr %part.i327.i, align 8, !tbaa !17
+  store i32 0, ptr %221, align 8, !tbaa !13
+  %222 = load i32, ptr %220, align 8, !tbaa !13
+  %cmp7.not.i328.i = icmp eq i32 %222, 0
+  br i1 %cmp7.not.i328.i, label %BF_LoadHolderFromBitstreamPart.exit354.i, label %for.body.lr.ph.i330.i
+
+for.body.lr.ph.i330.i:                            ; preds = %for.body97.i
+  %element.i329.i = getelementptr inbounds %struct.BF_BitstreamPart, ptr %220, i64 0, i32 1
+  br label %for.body.i337.i
+
+for.body.i337.i:                                  ; preds = %BF_addElement.exit.i352.i, %for.body.lr.ph.i330.i
+  %indvars.iv.i331.i = phi i64 [ 0, %for.body.lr.ph.i330.i ], [ %indvars.iv.next.i350.i, %BF_addElement.exit.i352.i ]
+  %theHolder.addr.08.i332.i = phi ptr [ %219, %for.body.lr.ph.i330.i ], [ %retPH.0.i.i346.i, %BF_addElement.exit.i352.i ]
+  %223 = load ptr, ptr %element.i329.i, align 8, !tbaa !18
+  %arrayidx.i333.i = getelementptr inbounds %struct.BF_BitstreamElement, ptr %223, i64 %indvars.iv.i331.i
+  %part.i.i334.i = getelementptr inbounds %struct.BF_PartHolder, ptr %theHolder.addr.08.i332.i, i64 0, i32 1
+  %224 = load ptr, ptr %part.i.i334.i, align 8, !tbaa !17
+  %225 = load i32, ptr %224, align 8, !tbaa !13
+  %add.i.i335.i = add i32 %225, 1
+  %226 = load i32, ptr %theHolder.addr.08.i332.i, align 8, !tbaa !15
+  %cmp.i.i336.i = icmp sgt i32 %add.i.i335.i, %226
+  br i1 %cmp.i.i336.i, label %if.then.i.i344.i, label %BF_addElement.exit.i352.i
+
+if.then.i.i344.i:                                 ; preds = %for.body.i337.i
+  %add1.i.i338.i = add i32 %225, 9
+  %call.i.i379.i = tail call noalias dereferenceable_or_null(16) ptr @calloc(i64 noundef 1, i64 noundef 16) #11
+  store i32 %add1.i.i338.i, ptr %call.i.i379.i, align 8, !tbaa !15
+  %call2.i.i380.i = tail call noalias dereferenceable_or_null(16) ptr @calloc(i64 noundef 1, i64 noundef 16) #11
+  %part.i.i381.i = getelementptr inbounds %struct.BF_PartHolder, ptr %call.i.i379.i, i64 0, i32 1
+  store ptr %call2.i.i380.i, ptr %part.i.i381.i, align 8, !tbaa !17
+  %conv.i.i382.i = sext i32 %add1.i.i338.i to i64
+  %call3.i.i383.i = tail call noalias ptr @calloc(i64 noundef %conv.i.i382.i, i64 noundef 8) #11
+  %element.i.i384.i = getelementptr inbounds %struct.BF_BitstreamPart, ptr %call2.i.i380.i, i64 0, i32 1
+  store ptr %call3.i.i383.i, ptr %element.i.i384.i, align 8, !tbaa !18
+  %227 = load i32, ptr %theHolder.addr.08.i332.i, align 8, !tbaa !15
+  %max_elements..i385.i = tail call i32 @llvm.smin.i32(i32 %227, i32 %add1.i.i338.i)
+  store i32 %max_elements..i385.i, ptr %call2.i.i380.i, align 8, !tbaa !13
+  %cmp323.i386.i = icmp sgt i32 %max_elements..i385.i, 0
+  br i1 %cmp323.i386.i, label %for.body.lr.ph.i389.i, label %BF_resizePartHolder.exit399.i
+
+for.body.lr.ph.i389.i:                            ; preds = %if.then.i.i344.i
+  %wide.trip.count.i388.i = zext i32 %max_elements..i385.i to i64
+  %xtraiter144 = and i64 %wide.trip.count.i388.i, 1
+  %228 = icmp eq i32 %max_elements..i385.i, 1
+  br i1 %228, label %BF_resizePartHolder.exit399.i.loopexit.unr-lcssa, label %for.body.lr.ph.i389.i.new
+
+for.body.lr.ph.i389.i.new:                        ; preds = %for.body.lr.ph.i389.i
+  %unroll_iter146 = and i64 %wide.trip.count.i388.i, 4294967294
+  br label %for.body.i396.i
+
+for.body.i396.i:                                  ; preds = %for.body.i396.i, %for.body.lr.ph.i389.i.new
+  %indvars.iv.i390.i = phi i64 [ 0, %for.body.lr.ph.i389.i.new ], [ %indvars.iv.next.i394.i.1, %for.body.i396.i ]
+  %niter147 = phi i64 [ 0, %for.body.lr.ph.i389.i.new ], [ %niter147.next.1, %for.body.i396.i ]
+  %229 = load ptr, ptr %element.i.i384.i, align 8, !tbaa !18
+  %arrayidx.i391.i = getelementptr inbounds %struct.BF_BitstreamElement, ptr %229, i64 %indvars.iv.i390.i
+  %230 = load ptr, ptr %part.i.i334.i, align 8, !tbaa !17
+  %element6.i392.i = getelementptr inbounds %struct.BF_BitstreamPart, ptr %230, i64 0, i32 1
+  %231 = load ptr, ptr %element6.i392.i, align 8, !tbaa !18
+  %arrayidx8.i393.i = getelementptr inbounds %struct.BF_BitstreamElement, ptr %231, i64 %indvars.iv.i390.i
+  %232 = load i64, ptr %arrayidx8.i393.i, align 4
+  store i64 %232, ptr %arrayidx.i391.i, align 4
+  %indvars.iv.next.i394.i = or i64 %indvars.iv.i390.i, 1
+  %233 = load ptr, ptr %element.i.i384.i, align 8, !tbaa !18
+  %arrayidx.i391.i.1 = getelementptr inbounds %struct.BF_BitstreamElement, ptr %233, i64 %indvars.iv.next.i394.i
+  %234 = load ptr, ptr %part.i.i334.i, align 8, !tbaa !17
+  %element6.i392.i.1 = getelementptr inbounds %struct.BF_BitstreamPart, ptr %234, i64 0, i32 1
+  %235 = load ptr, ptr %element6.i392.i.1, align 8, !tbaa !18
+  %arrayidx8.i393.i.1 = getelementptr inbounds %struct.BF_BitstreamElement, ptr %235, i64 %indvars.iv.next.i394.i
+  %236 = load i64, ptr %arrayidx8.i393.i.1, align 4
+  store i64 %236, ptr %arrayidx.i391.i.1, align 4
+  %indvars.iv.next.i394.i.1 = add nuw nsw i64 %indvars.iv.i390.i, 2
+  %niter147.next.1 = add i64 %niter147, 2
+  %niter147.ncmp.1 = icmp eq i64 %niter147.next.1, %unroll_iter146
+  br i1 %niter147.ncmp.1, label %BF_resizePartHolder.exit399.i.loopexit.unr-lcssa, label %for.body.i396.i, !llvm.loop !45
+
+BF_resizePartHolder.exit399.i.loopexit.unr-lcssa: ; preds = %for.body.i396.i, %for.body.lr.ph.i389.i
+  %indvars.iv.i390.i.unr = phi i64 [ 0, %for.body.lr.ph.i389.i ], [ %indvars.iv.next.i394.i.1, %for.body.i396.i ]
+  %lcmp.mod145.not = icmp eq i64 %xtraiter144, 0
+  br i1 %lcmp.mod145.not, label %BF_resizePartHolder.exit399.i, label %for.body.i396.i.epil
+
+for.body.i396.i.epil:                             ; preds = %BF_resizePartHolder.exit399.i.loopexit.unr-lcssa
+  %237 = load ptr, ptr %element.i.i384.i, align 8, !tbaa !18
+  %arrayidx.i391.i.epil = getelementptr inbounds %struct.BF_BitstreamElement, ptr %237, i64 %indvars.iv.i390.i.unr
+  %238 = load ptr, ptr %part.i.i334.i, align 8, !tbaa !17
+  %element6.i392.i.epil = getelementptr inbounds %struct.BF_BitstreamPart, ptr %238, i64 0, i32 1
+  %239 = load ptr, ptr %element6.i392.i.epil, align 8, !tbaa !18
+  %arrayidx8.i393.i.epil = getelementptr inbounds %struct.BF_BitstreamElement, ptr %239, i64 %indvars.iv.i390.i.unr
+  %240 = load i64, ptr %arrayidx8.i393.i.epil, align 4
+  store i64 %240, ptr %arrayidx.i391.i.epil, align 4
+  br label %BF_resizePartHolder.exit399.i
+
+BF_resizePartHolder.exit399.i:                    ; preds = %for.body.i396.i.epil, %BF_resizePartHolder.exit399.i.loopexit.unr-lcssa, %if.then.i.i344.i
+  %241 = load ptr, ptr %part.i.i334.i, align 8, !tbaa !17
+  %element.i22.i398.i = getelementptr inbounds %struct.BF_BitstreamPart, ptr %241, i64 0, i32 1
+  %242 = load ptr, ptr %element.i22.i398.i, align 8, !tbaa !18
+  tail call void @free(ptr noundef %242) #14
+  %243 = load ptr, ptr %part.i.i334.i, align 8, !tbaa !17
+  tail call void @free(ptr noundef %243) #14
+  tail call void @free(ptr noundef nonnull %theHolder.addr.08.i332.i) #14
+  %.pre.i.i341.i = load ptr, ptr %part.i.i381.i, align 8, !tbaa !17
+  %.pre11.i.i342.i = load i32, ptr %.pre.i.i341.i, align 8, !tbaa !13
+  %.pre12.i.i343.i = add i32 %.pre11.i.i342.i, 1
+  br label %BF_addElement.exit.i352.i
+
+BF_addElement.exit.i352.i:                        ; preds = %BF_resizePartHolder.exit399.i, %for.body.i337.i
+  %inc.pre-phi.i.i345.i = phi i32 [ %.pre12.i.i343.i, %BF_resizePartHolder.exit399.i ], [ %add.i.i335.i, %for.body.i337.i ]
+  %244 = phi i32 [ %.pre11.i.i342.i, %BF_resizePartHolder.exit399.i ], [ %225, %for.body.i337.i ]
+  %245 = phi ptr [ %.pre.i.i341.i, %BF_resizePartHolder.exit399.i ], [ %224, %for.body.i337.i ]
+  %retPH.0.i.i346.i = phi ptr [ %call.i.i379.i, %BF_resizePartHolder.exit399.i ], [ %theHolder.addr.08.i332.i, %for.body.i337.i ]
+  %element.i.i347.i = getelementptr inbounds %struct.BF_BitstreamPart, ptr %245, i64 0, i32 1
+  %246 = load ptr, ptr %element.i.i347.i, align 8, !tbaa !18
+  store i32 %inc.pre-phi.i.i345.i, ptr %245, align 8, !tbaa !13
+  %idxprom.i.i348.i = zext i32 %244 to i64
+  %arrayidx.i.i349.i = getelementptr inbounds %struct.BF_BitstreamElement, ptr %246, i64 %idxprom.i.i348.i
+  %247 = load i64, ptr %arrayidx.i333.i, align 4
+  store i64 %247, ptr %arrayidx.i.i349.i, align 4
+  %indvars.iv.next.i350.i = add nuw nsw i64 %indvars.iv.i331.i, 1
+  %248 = load i32, ptr %220, align 8, !tbaa !13
+  %249 = zext i32 %248 to i64
+  %cmp.i351.i = icmp ult i64 %indvars.iv.next.i350.i, %249
+  br i1 %cmp.i351.i, label %for.body.i337.i, label %BF_LoadHolderFromBitstreamPart.exit354.i, !llvm.loop !35
+
+BF_LoadHolderFromBitstreamPart.exit354.i:         ; preds = %BF_addElement.exit.i352.i, %for.body97.i
+  %theHolder.addr.0.lcssa.i353.i = phi ptr [ %219, %for.body97.i ], [ %retPH.0.i.i346.i, %BF_addElement.exit.i352.i ]
+  store ptr %theHolder.addr.0.lcssa.i353.i, ptr %arrayidx103.i, align 8, !tbaa !9
+  %250 = load ptr, ptr %arrayidx108.i, align 8, !tbaa !9
+  %251 = load i32, ptr %250, align 8, !tbaa !13
+  %cmp5.not.i355.i = icmp eq i32 %251, 0
+  br i1 %cmp5.not.i355.i, label %BF_PartLength.exit369.i, label %for.body.preheader.i357.i
+
+for.body.preheader.i357.i:                        ; preds = %BF_LoadHolderFromBitstreamPart.exit354.i
+  %element.i356.i = getelementptr inbounds %struct.BF_BitstreamPart, ptr %250, i64 0, i32 1
+  %252 = load ptr, ptr %element.i356.i, align 8, !tbaa !18
+  %min.iters.check110 = icmp ult i32 %251, 9
+  br i1 %min.iters.check110, label %for.body.i367.i.preheader, label %vector.ph111
+
+vector.ph111:                                     ; preds = %for.body.preheader.i357.i
+  %253 = zext i32 %251 to i64
+  %n.mod.vf112 = and i64 %253, 7
+  %254 = icmp eq i64 %n.mod.vf112, 0
+  %255 = select i1 %254, i64 8, i64 %n.mod.vf112
+  %n.vec113 = sub nsw i64 %253, %255
+  %ind.end114 = trunc i64 %n.vec113 to i32
+  %256 = shl nsw i64 %n.vec113, 3
+  %ind.end116 = getelementptr i8, ptr %252, i64 %256
+  %invariant.gep205 = getelementptr %struct.BF_BitstreamElement, ptr %252, i64 0, i32 1
+  %invariant.gep207 = getelementptr %struct.BF_BitstreamElement, ptr %252, i64 0, i32 1
+  %invariant.gep209 = getelementptr %struct.BF_BitstreamElement, ptr %252, i64 0, i32 1
+  %invariant.gep211 = getelementptr %struct.BF_BitstreamElement, ptr %252, i64 0, i32 1
+  %invariant.gep213 = getelementptr %struct.BF_BitstreamElement, ptr %252, i64 0, i32 1
+  %invariant.gep215 = getelementptr %struct.BF_BitstreamElement, ptr %252, i64 0, i32 1
+  %invariant.gep217 = getelementptr %struct.BF_BitstreamElement, ptr %252, i64 0, i32 1
+  %invariant.gep219 = getelementptr %struct.BF_BitstreamElement, ptr %252, i64 0, i32 1
+  br label %vector.body118
+
+vector.body118:                                   ; preds = %vector.body118, %vector.ph111
+  %index119 = phi i64 [ 0, %vector.ph111 ], [ %index.next130, %vector.body118 ]
+  %vec.phi120 = phi <4 x i32> [ zeroinitializer, %vector.ph111 ], [ %290, %vector.body118 ]
+  %vec.phi121 = phi <4 x i32> [ zeroinitializer, %vector.ph111 ], [ %291, %vector.body118 ]
+  %257 = shl i64 %index119, 3
+  %258 = shl i64 %index119, 3
+  %259 = or i64 %258, 8
+  %260 = shl i64 %index119, 3
+  %261 = or i64 %260, 16
+  %262 = shl i64 %index119, 3
+  %263 = or i64 %262, 24
+  %264 = shl i64 %index119, 3
+  %265 = or i64 %264, 32
+  %266 = shl i64 %index119, 3
+  %267 = or i64 %266, 40
+  %268 = shl i64 %index119, 3
+  %269 = or i64 %268, 48
+  %270 = shl i64 %index119, 3
+  %271 = or i64 %270, 56
+  %gep206 = getelementptr i8, ptr %invariant.gep205, i64 %257
+  %gep208 = getelementptr i8, ptr %invariant.gep207, i64 %259
+  %gep210 = getelementptr i8, ptr %invariant.gep209, i64 %261
+  %gep212 = getelementptr i8, ptr %invariant.gep211, i64 %263
+  %gep214 = getelementptr i8, ptr %invariant.gep213, i64 %265
+  %gep216 = getelementptr i8, ptr %invariant.gep215, i64 %267
+  %gep218 = getelementptr i8, ptr %invariant.gep217, i64 %269
+  %gep220 = getelementptr i8, ptr %invariant.gep219, i64 %271
+  %272 = load i16, ptr %gep206, align 4, !tbaa !36
+  %273 = load i16, ptr %gep208, align 4, !tbaa !36
+  %274 = load i16, ptr %gep210, align 4, !tbaa !36
+  %275 = load i16, ptr %gep212, align 4, !tbaa !36
+  %276 = insertelement <4 x i16> poison, i16 %272, i64 0
+  %277 = insertelement <4 x i16> %276, i16 %273, i64 1
+  %278 = insertelement <4 x i16> %277, i16 %274, i64 2
+  %279 = insertelement <4 x i16> %278, i16 %275, i64 3
+  %280 = load i16, ptr %gep214, align 4, !tbaa !36
+  %281 = load i16, ptr %gep216, align 4, !tbaa !36
+  %282 = load i16, ptr %gep218, align 4, !tbaa !36
+  %283 = load i16, ptr %gep220, align 4, !tbaa !36
+  %284 = insertelement <4 x i16> poison, i16 %280, i64 0
+  %285 = insertelement <4 x i16> %284, i16 %281, i64 1
+  %286 = insertelement <4 x i16> %285, i16 %282, i64 2
+  %287 = insertelement <4 x i16> %286, i16 %283, i64 3
+  %288 = zext <4 x i16> %279 to <4 x i32>
+  %289 = zext <4 x i16> %287 to <4 x i32>
+  %290 = add <4 x i32> %vec.phi120, %288
+  %291 = add <4 x i32> %vec.phi121, %289
+  %index.next130 = add nuw i64 %index119, 8
+  %292 = icmp eq i64 %index.next130, %n.vec113
+  br i1 %292, label %middle.block108, label %vector.body118, !llvm.loop !49
+
+middle.block108:                                  ; preds = %vector.body118
+  %bin.rdx131 = add <4 x i32> %291, %290
+  %293 = tail call i32 @llvm.vector.reduce.add.v4i32(<4 x i32> %bin.rdx131)
+  br label %for.body.i367.i.preheader
+
+for.body.i367.i.preheader:                        ; preds = %for.body.preheader.i357.i, %middle.block108
+  %bits.08.i358.i.ph = phi i32 [ 0, %for.body.preheader.i357.i ], [ %293, %middle.block108 ]
+  %i.07.i359.i.ph = phi i32 [ 0, %for.body.preheader.i357.i ], [ %ind.end114, %middle.block108 ]
+  %ep.06.i360.i.ph = phi ptr [ %252, %for.body.preheader.i357.i ], [ %ind.end116, %middle.block108 ]
+  br label %for.body.i367.i
+
+for.body.i367.i:                                  ; preds = %for.body.i367.i.preheader, %for.body.i367.i
+  %bits.08.i358.i = phi i32 [ %add.i363.i, %for.body.i367.i ], [ %bits.08.i358.i.ph, %for.body.i367.i.preheader ]
+  %i.07.i359.i = phi i32 [ %inc.i364.i, %for.body.i367.i ], [ %i.07.i359.i.ph, %for.body.i367.i.preheader ]
+  %ep.06.i360.i = phi ptr [ %incdec.ptr.i365.i, %for.body.i367.i ], [ %ep.06.i360.i.ph, %for.body.i367.i.preheader ]
+  %length.i361.i = getelementptr inbounds %struct.BF_BitstreamElement, ptr %ep.06.i360.i, i64 0, i32 1
+  %294 = load i16, ptr %length.i361.i, align 4, !tbaa !36
+  %conv.i362.i = zext i16 %294 to i32
+  %add.i363.i = add nuw nsw i32 %bits.08.i358.i, %conv.i362.i
+  %inc.i364.i = add nuw i32 %i.07.i359.i, 1
+  %incdec.ptr.i365.i = getelementptr inbounds %struct.BF_BitstreamElement, ptr %ep.06.i360.i, i64 1
+  %exitcond.not.i366.i = icmp eq i32 %inc.i364.i, %251
+  br i1 %exitcond.not.i366.i, label %BF_PartLength.exit369.i, label %for.body.i367.i, !llvm.loop !50
+
+BF_PartLength.exit369.i:                          ; preds = %for.body.i367.i, %BF_LoadHolderFromBitstreamPart.exit354.i
+  %bits.0.lcssa.i368.i = phi i32 [ 0, %BF_LoadHolderFromBitstreamPart.exit354.i ], [ %add.i363.i, %for.body.i367.i ]
+  %add122.i = add nsw i32 %bits.0.lcssa.i368.i, %bits.2412.i
+  %indvars.iv.next435.i = add nuw nsw i64 %indvars.iv434.i, 1
+  %295 = load i32, ptr %nChannels46.i, align 8, !tbaa !24
+  %296 = sext i32 %295 to i64
+  %cmp96.i = icmp slt i64 %indvars.iv.next435.i, %296
+  br i1 %cmp96.i, label %for.body97.i, label %for.inc126.loopexit.i, !llvm.loop !51
+
+for.inc126.loopexit.i:                            ; preds = %BF_PartLength.exit369.i
+  %.pre442.i = load i32, ptr %nGranules43.i, align 4, !tbaa !25
+  br label %for.inc126.i
+
+for.inc126.i:                                     ; preds = %for.inc126.loopexit.i, %for.cond94.preheader.i
+  %297 = phi i32 [ %217, %for.cond94.preheader.i ], [ %.pre442.i, %for.inc126.loopexit.i ]
+  %298 = phi i32 [ %218, %for.cond94.preheader.i ], [ %295, %for.inc126.loopexit.i ]
+  %bits.2.lcssa.i = phi i32 [ %bits.1416.i, %for.cond94.preheader.i ], [ %add122.i, %for.inc126.loopexit.i ]
+  %indvars.iv.next438.i = add nuw nsw i64 %indvars.iv437.i, 1
+  %299 = sext i32 %297 to i64
+  %cmp92.i = icmp slt i64 %indvars.iv.next438.i, %299
+  br i1 %cmp92.i, label %for.cond94.preheader.i, label %for.end128.i, !llvm.loop !52
+
+for.end128.i:                                     ; preds = %for.inc126.i, %BF_PartLength.exit283.i, %for.cond90.preheader.i
+  %300 = phi i32 [ %215, %for.cond90.preheader.i ], [ %136, %BF_PartLength.exit283.i ], [ %298, %for.inc126.i ]
+  %bits.1.lcssa.i = phi i32 [ %add86.i, %for.cond90.preheader.i ], [ %add65.i, %BF_PartLength.exit283.i ], [ %bits.2.lcssa.i, %for.inc126.i ]
+  %SILength.i = getelementptr inbounds %struct.side_info_link, ptr %l.0.i, i64 0, i32 1, i32 1
+  store i32 %bits.1.lcssa.i, ptr %SILength.i, align 4, !tbaa !54
+  %301 = load ptr, ptr @side_queue_head, align 8, !tbaa !9
+  %cmp130.i = icmp eq ptr %301, null
+  br i1 %cmp130.i, label %store_side_info.exit, label %while.cond.i
+
+while.cond.i:                                     ; preds = %for.end128.i, %while.cond.i
+  %f.0.i = phi ptr [ %302, %while.cond.i ], [ %301, %for.end128.i ]
+  %302 = load ptr, ptr %f.0.i, align 8, !tbaa !30
+  %tobool.not.i = icmp eq ptr %302, null
+  br i1 %tobool.not.i, label %store_side_info.exit, label %while.cond.i, !llvm.loop !55
+
+store_side_info.exit:                             ; preds = %while.cond.i, %for.end128.i
+  %f.0.lcssa.sink.i = phi ptr [ @side_queue_head, %for.end128.i ], [ %f.0.i, %while.cond.i ]
+  store ptr %l.0.i, ptr %f.0.lcssa.sink.i, align 8, !tbaa !9
+  store i32 %bits.1.lcssa.i, ptr %results, align 4, !tbaa !56
+  %mainDataLength.i = getelementptr inbounds %struct.BF_FrameResults, ptr %results, i64 0, i32 1
+  store i32 0, ptr %mainDataLength.i, align 4, !tbaa !58
+  %303 = load i32, ptr %nGranules43.i, align 4, !tbaa !25
+  %cmp164.i = icmp sgt i32 %303, 0
+  %304 = icmp sgt i32 %300, 0
+  %or.cond = select i1 %cmp164.i, i1 %304, i1 false
+  br i1 %or.cond, label %for.cond1.preheader.i, label %for.end20.i
+
+for.cond1.preheader.i:                            ; preds = %store_side_info.exit, %for.inc18.i
+  %305 = phi i32 [ %354, %for.inc18.i ], [ %303, %store_side_info.exit ]
+  %306 = phi i32 [ %355, %for.inc18.i ], [ %300, %store_side_info.exit ]
+  %indvars.iv170.i = phi i64 [ %indvars.iv.next171.i, %for.inc18.i ], [ 0, %store_side_info.exit ]
+  %bits.0165.i = phi i32 [ %bits.1.lcssa.i28, %for.inc18.i ], [ 0, %store_side_info.exit ]
+  %cmp2161.i = icmp sgt i32 %306, 0
+  br i1 %cmp2161.i, label %for.body3.i, label %for.inc18.i
+
+for.body3.i:                                      ; preds = %for.cond1.preheader.i, %writePartMainData.exit122.i
+  %indvars.iv.i11 = phi i64 [ %indvars.iv.next.i26, %writePartMainData.exit122.i ], [ 0, %for.cond1.preheader.i ]
+  %bits.1163.i = phi i32 [ %add17.i, %writePartMainData.exit122.i ], [ %bits.0165.i, %for.cond1.preheader.i ]
+  %arrayidx5.i = getelementptr inbounds %struct.BF_FrameData, ptr %frameInfo, i64 0, i32 7, i64 %indvars.iv170.i, i64 %indvars.iv.i11
+  %307 = load ptr, ptr %arrayidx5.i, align 8, !tbaa !9
+  %308 = load i32, ptr %307, align 8, !tbaa !13
+  %cmp1.not.i.i = icmp eq i32 %308, 0
+  br i1 %cmp1.not.i.i, label %writePartMainData.exit.i, label %for.body.preheader.i.i13
+
+for.body.preheader.i.i13:                         ; preds = %for.body3.i
+  %element.i.i12 = getelementptr inbounds %struct.BF_BitstreamPart, ptr %307, i64 0, i32 1
+  %309 = load ptr, ptr %element.i.i12, align 8, !tbaa !18
+  br label %for.body.i.i17
+
+for.body.i.i17:                                   ; preds = %WriteMainDataBits.exit.i.i, %for.body.preheader.i.i13
+  %310 = phi i32 [ %320, %WriteMainDataBits.exit.i.i ], [ %308, %for.body.preheader.i.i13 ]
+  %bits.04.i.i = phi i32 [ %add.i.i21, %WriteMainDataBits.exit.i.i ], [ 0, %for.body.preheader.i.i13 ]
+  %i.03.i.i = phi i32 [ %inc.i.i22, %WriteMainDataBits.exit.i.i ], [ 0, %for.body.preheader.i.i13 ]
+  %ep.02.i.i = phi ptr [ %incdec.ptr.i.i23, %WriteMainDataBits.exit.i.i ], [ %309, %for.body.preheader.i.i13 ]
+  %311 = load i32, ptr %ep.02.i.i, align 4, !tbaa !59
+  %length.i.i14 = getelementptr inbounds %struct.BF_BitstreamElement, ptr %ep.02.i.i, i64 0, i32 1
+  %312 = load i16, ptr %length.i.i14, align 4, !tbaa !36
+  %conv.i.i15 = zext i16 %312 to i32
+  %cmp.i.i.i16 = icmp eq i16 %312, 0
+  br i1 %cmp.i.i.i16, label %WriteMainDataBits.exit.i.i, label %if.end.i.i.i
+
+if.end.i.i.i:                                     ; preds = %for.body.i.i17
+  %313 = load i32, ptr @BitCount, align 4, !tbaa !5
+  %314 = load i32, ptr @ThisFrameSize, align 4, !tbaa !5
+  %cmp1.i.i.i = icmp eq i32 %313, %314
+  br i1 %cmp1.i.i.i, label %if.then2.i.i.i, label %if.end.if.end3_crit_edge.i.i.i
+
+if.end.if.end3_crit_edge.i.i.i:                   ; preds = %if.end.i.i.i
+  %.pre.i.i.i18 = load i32, ptr @BitsRemaining, align 4, !tbaa !5
+  br label %if.end3.i.i.i
+
+if.then2.i.i.i:                                   ; preds = %if.end.i.i.i
+  %call.i.i.i19 = tail call fastcc i32 @write_side_info()
+  store i32 %call.i.i.i19, ptr @BitCount, align 4, !tbaa !5
+  %315 = load i32, ptr @ThisFrameSize, align 4, !tbaa !5
+  %sub.i.i.i = sub nsw i32 %315, %call.i.i.i19
+  store i32 %sub.i.i.i, ptr @BitsRemaining, align 4, !tbaa !5
+  br label %if.end3.i.i.i
+
+if.end3.i.i.i:                                    ; preds = %if.then2.i.i.i, %if.end.if.end3_crit_edge.i.i.i
+  %316 = phi i32 [ %.pre.i.i.i18, %if.end.if.end3_crit_edge.i.i.i ], [ %sub.i.i.i, %if.then2.i.i.i ]
+  %cmp4.i.i.i = icmp ult i32 %316, %conv.i.i15
+  br i1 %cmp4.i.i.i, label %if.then5.i.i.i, label %if.end10.i.i.i
+
+if.then5.i.i.i:                                   ; preds = %if.end3.i.i.i
+  %sub6.i.i.i = sub i32 %conv.i.i15, %316
+  %shr.i.i.i = lshr i32 %311, %sub6.i.i.i
+  tail call void @putMyBits(i32 noundef %shr.i.i.i, i32 noundef %316) #14
+  %call8.i.i.i = tail call fastcc i32 @write_side_info()
+  store i32 %call8.i.i.i, ptr @BitCount, align 4, !tbaa !5
+  %317 = load i32, ptr @ThisFrameSize, align 4, !tbaa !5
+  %sub9.i.i.i = sub nsw i32 %317, %call8.i.i.i
+  store i32 %sub9.i.i.i, ptr @BitsRemaining, align 4, !tbaa !5
+  br label %if.end10.i.i.i
+
+if.end10.i.i.i:                                   ; preds = %if.then5.i.i.i, %if.end3.i.i.i
+  %nbits.sink.i.i.i = phi i32 [ %sub6.i.i.i, %if.then5.i.i.i ], [ %conv.i.i15, %if.end3.i.i.i ]
+  tail call void @putMyBits(i32 noundef %311, i32 noundef %nbits.sink.i.i.i) #14
+  %318 = load i32, ptr @BitCount, align 4, !tbaa !5
+  %add.i.i.i20 = add i32 %318, %nbits.sink.i.i.i
+  store i32 %add.i.i.i20, ptr @BitCount, align 4, !tbaa !5
+  %319 = load i32, ptr @BitsRemaining, align 4, !tbaa !5
+  %sub11.i.i.i = sub i32 %319, %nbits.sink.i.i.i
+  store i32 %sub11.i.i.i, ptr @BitsRemaining, align 4, !tbaa !5
+  %.pre.i.i = load i16, ptr %length.i.i14, align 4, !tbaa !36
+  %.pre5.i.i = load i32, ptr %307, align 8, !tbaa !13
+  br label %WriteMainDataBits.exit.i.i
+
+WriteMainDataBits.exit.i.i:                       ; preds = %if.end10.i.i.i, %for.body.i.i17
+  %320 = phi i32 [ %310, %for.body.i.i17 ], [ %.pre5.i.i, %if.end10.i.i.i ]
+  %321 = phi i16 [ 0, %for.body.i.i17 ], [ %.pre.i.i, %if.end10.i.i.i ]
+  %conv2.i.i = zext i16 %321 to i32
+  %add.i.i21 = add nuw nsw i32 %bits.04.i.i, %conv2.i.i
+  %inc.i.i22 = add nuw i32 %i.03.i.i, 1
+  %incdec.ptr.i.i23 = getelementptr inbounds %struct.BF_BitstreamElement, ptr %ep.02.i.i, i64 1
+  %cmp.i.i24 = icmp ult i32 %inc.i.i22, %320
+  br i1 %cmp.i.i24, label %for.body.i.i17, label %writePartMainData.exit.i, !llvm.loop !60
+
+writePartMainData.exit.i:                         ; preds = %WriteMainDataBits.exit.i.i, %for.body3.i
+  %bits.0.lcssa.i.i25 = phi i32 [ 0, %for.body3.i ], [ %add.i.i21, %WriteMainDataBits.exit.i.i ]
+  %add.i = add nsw i32 %bits.0.lcssa.i.i25, %bits.1163.i
+  %arrayidx9.i = getelementptr inbounds %struct.BF_FrameData, ptr %frameInfo, i64 0, i32 8, i64 %indvars.iv170.i, i64 %indvars.iv.i11
+  %322 = load ptr, ptr %arrayidx9.i, align 8, !tbaa !9
+  %323 = load i32, ptr %322, align 8, !tbaa !13
+  %cmp1.not.i47.i = icmp eq i32 %323, 0
+  br i1 %cmp1.not.i47.i, label %writePartMainData.exit84.i, label %for.body.preheader.i49.i
+
+for.body.preheader.i49.i:                         ; preds = %writePartMainData.exit.i
+  %element.i48.i = getelementptr inbounds %struct.BF_BitstreamPart, ptr %322, i64 0, i32 1
+  %324 = load ptr, ptr %element.i48.i, align 8, !tbaa !18
+  br label %for.body.i56.i
+
+for.body.i56.i:                                   ; preds = %WriteMainDataBits.exit.i82.i, %for.body.preheader.i49.i
+  %325 = phi i32 [ %335, %WriteMainDataBits.exit.i82.i ], [ %323, %for.body.preheader.i49.i ]
+  %bits.04.i50.i = phi i32 [ %add.i78.i, %WriteMainDataBits.exit.i82.i ], [ 0, %for.body.preheader.i49.i ]
+  %i.03.i51.i = phi i32 [ %inc.i79.i, %WriteMainDataBits.exit.i82.i ], [ 0, %for.body.preheader.i49.i ]
+  %ep.02.i52.i = phi ptr [ %incdec.ptr.i80.i, %WriteMainDataBits.exit.i82.i ], [ %324, %for.body.preheader.i49.i ]
+  %326 = load i32, ptr %ep.02.i52.i, align 4, !tbaa !59
+  %length.i53.i = getelementptr inbounds %struct.BF_BitstreamElement, ptr %ep.02.i52.i, i64 0, i32 1
+  %327 = load i16, ptr %length.i53.i, align 4, !tbaa !36
+  %conv.i54.i = zext i16 %327 to i32
+  %cmp.i.i55.i = icmp eq i16 %327, 0
+  br i1 %cmp.i.i55.i, label %WriteMainDataBits.exit.i82.i, label %if.end.i.i58.i
+
+if.end.i.i58.i:                                   ; preds = %for.body.i56.i
+  %328 = load i32, ptr @BitCount, align 4, !tbaa !5
+  %329 = load i32, ptr @ThisFrameSize, align 4, !tbaa !5
+  %cmp1.i.i57.i = icmp eq i32 %328, %329
+  br i1 %cmp1.i.i57.i, label %if.then2.i.i63.i, label %if.end.if.end3_crit_edge.i.i60.i
+
+if.end.if.end3_crit_edge.i.i60.i:                 ; preds = %if.end.i.i58.i
+  %.pre.i.i59.i = load i32, ptr @BitsRemaining, align 4, !tbaa !5
+  br label %if.end3.i.i65.i
+
+if.then2.i.i63.i:                                 ; preds = %if.end.i.i58.i
+  %call.i.i61.i = tail call fastcc i32 @write_side_info()
+  store i32 %call.i.i61.i, ptr @BitCount, align 4, !tbaa !5
+  %330 = load i32, ptr @ThisFrameSize, align 4, !tbaa !5
+  %sub.i.i62.i = sub nsw i32 %330, %call.i.i61.i
+  store i32 %sub.i.i62.i, ptr @BitsRemaining, align 4, !tbaa !5
+  br label %if.end3.i.i65.i
+
+if.end3.i.i65.i:                                  ; preds = %if.then2.i.i63.i, %if.end.if.end3_crit_edge.i.i60.i
+  %331 = phi i32 [ %.pre.i.i59.i, %if.end.if.end3_crit_edge.i.i60.i ], [ %sub.i.i62.i, %if.then2.i.i63.i ]
+  %cmp4.i.i64.i = icmp ult i32 %331, %conv.i54.i
+  br i1 %cmp4.i.i64.i, label %if.then5.i.i70.i, label %if.end10.i.i76.i
+
+if.then5.i.i70.i:                                 ; preds = %if.end3.i.i65.i
+  %sub6.i.i66.i = sub i32 %conv.i54.i, %331
+  %shr.i.i67.i = lshr i32 %326, %sub6.i.i66.i
+  tail call void @putMyBits(i32 noundef %shr.i.i67.i, i32 noundef %331) #14
+  %call8.i.i68.i = tail call fastcc i32 @write_side_info()
+  store i32 %call8.i.i68.i, ptr @BitCount, align 4, !tbaa !5
+  %332 = load i32, ptr @ThisFrameSize, align 4, !tbaa !5
+  %sub9.i.i69.i = sub nsw i32 %332, %call8.i.i68.i
+  store i32 %sub9.i.i69.i, ptr @BitsRemaining, align 4, !tbaa !5
+  br label %if.end10.i.i76.i
+
+if.end10.i.i76.i:                                 ; preds = %if.then5.i.i70.i, %if.end3.i.i65.i
+  %nbits.sink.i.i71.i = phi i32 [ %sub6.i.i66.i, %if.then5.i.i70.i ], [ %conv.i54.i, %if.end3.i.i65.i ]
+  tail call void @putMyBits(i32 noundef %326, i32 noundef %nbits.sink.i.i71.i) #14
+  %333 = load i32, ptr @BitCount, align 4, !tbaa !5
+  %add.i.i72.i = add i32 %333, %nbits.sink.i.i71.i
+  store i32 %add.i.i72.i, ptr @BitCount, align 4, !tbaa !5
+  %334 = load i32, ptr @BitsRemaining, align 4, !tbaa !5
+  %sub11.i.i73.i = sub i32 %334, %nbits.sink.i.i71.i
+  store i32 %sub11.i.i73.i, ptr @BitsRemaining, align 4, !tbaa !5
+  %.pre.i74.i = load i16, ptr %length.i53.i, align 4, !tbaa !36
+  %.pre5.i75.i = load i32, ptr %322, align 8, !tbaa !13
+  br label %WriteMainDataBits.exit.i82.i
+
+WriteMainDataBits.exit.i82.i:                     ; preds = %if.end10.i.i76.i, %for.body.i56.i
+  %335 = phi i32 [ %325, %for.body.i56.i ], [ %.pre5.i75.i, %if.end10.i.i76.i ]
+  %336 = phi i16 [ 0, %for.body.i56.i ], [ %.pre.i74.i, %if.end10.i.i76.i ]
+  %conv2.i77.i = zext i16 %336 to i32
+  %add.i78.i = add nuw nsw i32 %bits.04.i50.i, %conv2.i77.i
+  %inc.i79.i = add nuw i32 %i.03.i51.i, 1
+  %incdec.ptr.i80.i = getelementptr inbounds %struct.BF_BitstreamElement, ptr %ep.02.i52.i, i64 1
+  %cmp.i81.i = icmp ult i32 %inc.i79.i, %335
+  br i1 %cmp.i81.i, label %for.body.i56.i, label %writePartMainData.exit84.i, !llvm.loop !60
+
+writePartMainData.exit84.i:                       ; preds = %WriteMainDataBits.exit.i82.i, %writePartMainData.exit.i
+  %bits.0.lcssa.i83.i = phi i32 [ 0, %writePartMainData.exit.i ], [ %add.i78.i, %WriteMainDataBits.exit.i82.i ]
+  %add11.i = add nsw i32 %add.i, %bits.0.lcssa.i83.i
+  %arrayidx15.i = getelementptr inbounds %struct.BF_FrameData, ptr %frameInfo, i64 0, i32 9, i64 %indvars.iv170.i, i64 %indvars.iv.i11
+  %337 = load ptr, ptr %arrayidx15.i, align 8, !tbaa !9
+  %338 = load i32, ptr %337, align 8, !tbaa !13
+  %cmp1.not.i85.i = icmp eq i32 %338, 0
+  br i1 %cmp1.not.i85.i, label %writePartMainData.exit122.i, label %for.body.preheader.i87.i
+
+for.body.preheader.i87.i:                         ; preds = %writePartMainData.exit84.i
+  %element.i86.i = getelementptr inbounds %struct.BF_BitstreamPart, ptr %337, i64 0, i32 1
+  %339 = load ptr, ptr %element.i86.i, align 8, !tbaa !18
+  br label %for.body.i94.i
+
+for.body.i94.i:                                   ; preds = %WriteMainDataBits.exit.i120.i, %for.body.preheader.i87.i
+  %340 = phi i32 [ %350, %WriteMainDataBits.exit.i120.i ], [ %338, %for.body.preheader.i87.i ]
+  %bits.04.i88.i = phi i32 [ %add.i116.i, %WriteMainDataBits.exit.i120.i ], [ 0, %for.body.preheader.i87.i ]
+  %i.03.i89.i = phi i32 [ %inc.i117.i, %WriteMainDataBits.exit.i120.i ], [ 0, %for.body.preheader.i87.i ]
+  %ep.02.i90.i = phi ptr [ %incdec.ptr.i118.i, %WriteMainDataBits.exit.i120.i ], [ %339, %for.body.preheader.i87.i ]
+  %341 = load i32, ptr %ep.02.i90.i, align 4, !tbaa !59
+  %length.i91.i = getelementptr inbounds %struct.BF_BitstreamElement, ptr %ep.02.i90.i, i64 0, i32 1
+  %342 = load i16, ptr %length.i91.i, align 4, !tbaa !36
+  %conv.i92.i = zext i16 %342 to i32
+  %cmp.i.i93.i = icmp eq i16 %342, 0
+  br i1 %cmp.i.i93.i, label %WriteMainDataBits.exit.i120.i, label %if.end.i.i96.i
+
+if.end.i.i96.i:                                   ; preds = %for.body.i94.i
+  %343 = load i32, ptr @BitCount, align 4, !tbaa !5
+  %344 = load i32, ptr @ThisFrameSize, align 4, !tbaa !5
+  %cmp1.i.i95.i = icmp eq i32 %343, %344
+  br i1 %cmp1.i.i95.i, label %if.then2.i.i101.i, label %if.end.if.end3_crit_edge.i.i98.i
+
+if.end.if.end3_crit_edge.i.i98.i:                 ; preds = %if.end.i.i96.i
+  %.pre.i.i97.i = load i32, ptr @BitsRemaining, align 4, !tbaa !5
+  br label %if.end3.i.i103.i
+
+if.then2.i.i101.i:                                ; preds = %if.end.i.i96.i
+  %call.i.i99.i = tail call fastcc i32 @write_side_info()
+  store i32 %call.i.i99.i, ptr @BitCount, align 4, !tbaa !5
+  %345 = load i32, ptr @ThisFrameSize, align 4, !tbaa !5
+  %sub.i.i100.i = sub nsw i32 %345, %call.i.i99.i
+  store i32 %sub.i.i100.i, ptr @BitsRemaining, align 4, !tbaa !5
+  br label %if.end3.i.i103.i
+
+if.end3.i.i103.i:                                 ; preds = %if.then2.i.i101.i, %if.end.if.end3_crit_edge.i.i98.i
+  %346 = phi i32 [ %.pre.i.i97.i, %if.end.if.end3_crit_edge.i.i98.i ], [ %sub.i.i100.i, %if.then2.i.i101.i ]
+  %cmp4.i.i102.i = icmp ult i32 %346, %conv.i92.i
+  br i1 %cmp4.i.i102.i, label %if.then5.i.i108.i, label %if.end10.i.i114.i
+
+if.then5.i.i108.i:                                ; preds = %if.end3.i.i103.i
+  %sub6.i.i104.i = sub i32 %conv.i92.i, %346
+  %shr.i.i105.i = lshr i32 %341, %sub6.i.i104.i
+  tail call void @putMyBits(i32 noundef %shr.i.i105.i, i32 noundef %346) #14
+  %call8.i.i106.i = tail call fastcc i32 @write_side_info()
+  store i32 %call8.i.i106.i, ptr @BitCount, align 4, !tbaa !5
+  %347 = load i32, ptr @ThisFrameSize, align 4, !tbaa !5
+  %sub9.i.i107.i = sub nsw i32 %347, %call8.i.i106.i
+  store i32 %sub9.i.i107.i, ptr @BitsRemaining, align 4, !tbaa !5
+  br label %if.end10.i.i114.i
+
+if.end10.i.i114.i:                                ; preds = %if.then5.i.i108.i, %if.end3.i.i103.i
+  %nbits.sink.i.i109.i = phi i32 [ %sub6.i.i104.i, %if.then5.i.i108.i ], [ %conv.i92.i, %if.end3.i.i103.i ]
+  tail call void @putMyBits(i32 noundef %341, i32 noundef %nbits.sink.i.i109.i) #14
+  %348 = load i32, ptr @BitCount, align 4, !tbaa !5
+  %add.i.i110.i = add i32 %348, %nbits.sink.i.i109.i
+  store i32 %add.i.i110.i, ptr @BitCount, align 4, !tbaa !5
+  %349 = load i32, ptr @BitsRemaining, align 4, !tbaa !5
+  %sub11.i.i111.i = sub i32 %349, %nbits.sink.i.i109.i
+  store i32 %sub11.i.i111.i, ptr @BitsRemaining, align 4, !tbaa !5
+  %.pre.i112.i = load i16, ptr %length.i91.i, align 4, !tbaa !36
+  %.pre5.i113.i = load i32, ptr %337, align 8, !tbaa !13
+  br label %WriteMainDataBits.exit.i120.i
+
+WriteMainDataBits.exit.i120.i:                    ; preds = %if.end10.i.i114.i, %for.body.i94.i
+  %350 = phi i32 [ %340, %for.body.i94.i ], [ %.pre5.i113.i, %if.end10.i.i114.i ]
+  %351 = phi i16 [ 0, %for.body.i94.i ], [ %.pre.i112.i, %if.end10.i.i114.i ]
+  %conv2.i115.i = zext i16 %351 to i32
+  %add.i116.i = add nuw nsw i32 %bits.04.i88.i, %conv2.i115.i
+  %inc.i117.i = add nuw i32 %i.03.i89.i, 1
+  %incdec.ptr.i118.i = getelementptr inbounds %struct.BF_BitstreamElement, ptr %ep.02.i90.i, i64 1
+  %cmp.i119.i = icmp ult i32 %inc.i117.i, %350
+  br i1 %cmp.i119.i, label %for.body.i94.i, label %writePartMainData.exit122.i, !llvm.loop !60
+
+writePartMainData.exit122.i:                      ; preds = %WriteMainDataBits.exit.i120.i, %writePartMainData.exit84.i
+  %bits.0.lcssa.i121.i = phi i32 [ 0, %writePartMainData.exit84.i ], [ %add.i116.i, %WriteMainDataBits.exit.i120.i ]
+  %add17.i = add nsw i32 %add11.i, %bits.0.lcssa.i121.i
+  %indvars.iv.next.i26 = add nuw nsw i64 %indvars.iv.i11, 1
+  %352 = load i32, ptr %nChannels46.i, align 8, !tbaa !24
+  %353 = sext i32 %352 to i64
+  %cmp2.i = icmp slt i64 %indvars.iv.next.i26, %353
+  br i1 %cmp2.i, label %for.body3.i, label %for.inc18.loopexit.i, !llvm.loop !61
+
+for.inc18.loopexit.i:                             ; preds = %writePartMainData.exit122.i
+  %.pre.i27 = load i32, ptr %nGranules43.i, align 4, !tbaa !25
+  br label %for.inc18.i
+
+for.inc18.i:                                      ; preds = %for.inc18.loopexit.i, %for.cond1.preheader.i
+  %354 = phi i32 [ %305, %for.cond1.preheader.i ], [ %.pre.i27, %for.inc18.loopexit.i ]
+  %355 = phi i32 [ %306, %for.cond1.preheader.i ], [ %352, %for.inc18.loopexit.i ]
+  %bits.1.lcssa.i28 = phi i32 [ %bits.0165.i, %for.cond1.preheader.i ], [ %add17.i, %for.inc18.loopexit.i ]
+  %indvars.iv.next171.i = add nuw nsw i64 %indvars.iv170.i, 1
+  %356 = sext i32 %354 to i64
+  %cmp.i29 = icmp slt i64 %indvars.iv.next171.i, %356
+  br i1 %cmp.i29, label %for.cond1.preheader.i, label %for.end20.i, !llvm.loop !62
+
+for.end20.i:                                      ; preds = %for.inc18.i, %store_side_info.exit
+  %bits.0.lcssa.i30 = phi i32 [ 0, %store_side_info.exit ], [ %bits.1.lcssa.i28, %for.inc18.i ]
+  %userFrameData.i = getelementptr inbounds %struct.BF_FrameData, ptr %frameInfo, i64 0, i32 10
+  %357 = load ptr, ptr %userFrameData.i, align 8, !tbaa !63
+  %358 = load i32, ptr %357, align 8, !tbaa !13
+  %cmp1.not.i123.i = icmp eq i32 %358, 0
+  br i1 %cmp1.not.i123.i, label %main_data.exit, label %for.body.preheader.i125.i
+
+for.body.preheader.i125.i:                        ; preds = %for.end20.i
+  %element.i124.i = getelementptr inbounds %struct.BF_BitstreamPart, ptr %357, i64 0, i32 1
+  %359 = load ptr, ptr %element.i124.i, align 8, !tbaa !18
+  br label %for.body.i132.i
+
+for.body.i132.i:                                  ; preds = %WriteMainDataBits.exit.i158.i, %for.body.preheader.i125.i
+  %360 = phi i32 [ %370, %WriteMainDataBits.exit.i158.i ], [ %358, %for.body.preheader.i125.i ]
+  %bits.04.i126.i = phi i32 [ %add.i154.i, %WriteMainDataBits.exit.i158.i ], [ 0, %for.body.preheader.i125.i ]
+  %i.03.i127.i = phi i32 [ %inc.i155.i, %WriteMainDataBits.exit.i158.i ], [ 0, %for.body.preheader.i125.i ]
+  %ep.02.i128.i = phi ptr [ %incdec.ptr.i156.i, %WriteMainDataBits.exit.i158.i ], [ %359, %for.body.preheader.i125.i ]
+  %361 = load i32, ptr %ep.02.i128.i, align 4, !tbaa !59
+  %length.i129.i = getelementptr inbounds %struct.BF_BitstreamElement, ptr %ep.02.i128.i, i64 0, i32 1
+  %362 = load i16, ptr %length.i129.i, align 4, !tbaa !36
+  %conv.i130.i = zext i16 %362 to i32
+  %cmp.i.i131.i = icmp eq i16 %362, 0
+  br i1 %cmp.i.i131.i, label %WriteMainDataBits.exit.i158.i, label %if.end.i.i134.i
+
+if.end.i.i134.i:                                  ; preds = %for.body.i132.i
+  %363 = load i32, ptr @BitCount, align 4, !tbaa !5
+  %364 = load i32, ptr @ThisFrameSize, align 4, !tbaa !5
+  %cmp1.i.i133.i = icmp eq i32 %363, %364
+  br i1 %cmp1.i.i133.i, label %if.then2.i.i139.i, label %if.end.if.end3_crit_edge.i.i136.i
+
+if.end.if.end3_crit_edge.i.i136.i:                ; preds = %if.end.i.i134.i
+  %.pre.i.i135.i = load i32, ptr @BitsRemaining, align 4, !tbaa !5
+  br label %if.end3.i.i141.i
+
+if.then2.i.i139.i:                                ; preds = %if.end.i.i134.i
+  %call.i.i137.i = tail call fastcc i32 @write_side_info()
+  store i32 %call.i.i137.i, ptr @BitCount, align 4, !tbaa !5
+  %365 = load i32, ptr @ThisFrameSize, align 4, !tbaa !5
+  %sub.i.i138.i = sub nsw i32 %365, %call.i.i137.i
+  store i32 %sub.i.i138.i, ptr @BitsRemaining, align 4, !tbaa !5
+  br label %if.end3.i.i141.i
+
+if.end3.i.i141.i:                                 ; preds = %if.then2.i.i139.i, %if.end.if.end3_crit_edge.i.i136.i
+  %366 = phi i32 [ %.pre.i.i135.i, %if.end.if.end3_crit_edge.i.i136.i ], [ %sub.i.i138.i, %if.then2.i.i139.i ]
+  %cmp4.i.i140.i = icmp ult i32 %366, %conv.i130.i
+  br i1 %cmp4.i.i140.i, label %if.then5.i.i146.i, label %if.end10.i.i152.i
+
+if.then5.i.i146.i:                                ; preds = %if.end3.i.i141.i
+  %sub6.i.i142.i = sub i32 %conv.i130.i, %366
+  %shr.i.i143.i = lshr i32 %361, %sub6.i.i142.i
+  tail call void @putMyBits(i32 noundef %shr.i.i143.i, i32 noundef %366) #14
+  %call8.i.i144.i = tail call fastcc i32 @write_side_info()
+  store i32 %call8.i.i144.i, ptr @BitCount, align 4, !tbaa !5
+  %367 = load i32, ptr @ThisFrameSize, align 4, !tbaa !5
+  %sub9.i.i145.i = sub nsw i32 %367, %call8.i.i144.i
+  store i32 %sub9.i.i145.i, ptr @BitsRemaining, align 4, !tbaa !5
+  br label %if.end10.i.i152.i
+
+if.end10.i.i152.i:                                ; preds = %if.then5.i.i146.i, %if.end3.i.i141.i
+  %nbits.sink.i.i147.i = phi i32 [ %sub6.i.i142.i, %if.then5.i.i146.i ], [ %conv.i130.i, %if.end3.i.i141.i ]
+  tail call void @putMyBits(i32 noundef %361, i32 noundef %nbits.sink.i.i147.i) #14
+  %368 = load i32, ptr @BitCount, align 4, !tbaa !5
+  %add.i.i148.i = add i32 %368, %nbits.sink.i.i147.i
+  store i32 %add.i.i148.i, ptr @BitCount, align 4, !tbaa !5
+  %369 = load i32, ptr @BitsRemaining, align 4, !tbaa !5
+  %sub11.i.i149.i = sub i32 %369, %nbits.sink.i.i147.i
+  store i32 %sub11.i.i149.i, ptr @BitsRemaining, align 4, !tbaa !5
+  %.pre.i150.i = load i16, ptr %length.i129.i, align 4, !tbaa !36
+  %.pre5.i151.i = load i32, ptr %357, align 8, !tbaa !13
+  br label %WriteMainDataBits.exit.i158.i
+
+WriteMainDataBits.exit.i158.i:                    ; preds = %if.end10.i.i152.i, %for.body.i132.i
+  %370 = phi i32 [ %360, %for.body.i132.i ], [ %.pre5.i151.i, %if.end10.i.i152.i ]
+  %371 = phi i16 [ 0, %for.body.i132.i ], [ %.pre.i150.i, %if.end10.i.i152.i ]
+  %conv2.i153.i = zext i16 %371 to i32
+  %add.i154.i = add nuw nsw i32 %bits.04.i126.i, %conv2.i153.i
+  %inc.i155.i = add nuw i32 %i.03.i127.i, 1
+  %incdec.ptr.i156.i = getelementptr inbounds %struct.BF_BitstreamElement, ptr %ep.02.i128.i, i64 1
+  %cmp.i157.i = icmp ult i32 %inc.i155.i, %370
+  br i1 %cmp.i157.i, label %for.body.i132.i, label %main_data.exit, !llvm.loop !60
+
+main_data.exit:                                   ; preds = %WriteMainDataBits.exit.i158.i, %for.end20.i
+  %bits.0.lcssa.i159.i = phi i32 [ 0, %for.end20.i ], [ %add.i154.i, %WriteMainDataBits.exit.i158.i ]
+  %add22.i = add nsw i32 %bits.0.lcssa.i159.i, %bits.0.lcssa.i30
+  store i32 %add22.i, ptr %mainDataLength.i, align 4, !tbaa !58
   store i32 0, ptr @forwardFrameLength, align 4, !tbaa !5
-  %1045 = load ptr, ptr @side_queue_head, align 8, !tbaa !9
-  %1046 = icmp eq ptr %1045, null
-  br i1 %1046, label %1063, label %1047
+  %l.01.i = load ptr, ptr @side_queue_head, align 8, !tbaa !9
+  %tobool.not2.i = icmp eq ptr %l.01.i, null
+  br i1 %tobool.not2.i, label %side_queue_elements.exit, label %for.body.i34
 
-1047:                                             ; preds = %1042, %1047
-  %1048 = phi ptr [ %1059, %1047 ], [ %1045, %1042 ]
-  %1049 = phi i32 [ %1052, %1047 ], [ 0, %1042 ]
-  %1050 = phi i32 [ %1058, %1047 ], [ 0, %1042 ]
-  %1051 = phi i32 [ %1055, %1047 ], [ 0, %1042 ]
-  %1052 = add nuw nsw i32 %1049, 1
-  %1053 = getelementptr inbounds %struct.side_info_link, ptr %1048, i64 0, i32 1
-  %1054 = load i32, ptr %1053, align 8, !tbaa !32
-  %1055 = add nsw i32 %1054, %1051
-  %1056 = getelementptr inbounds %struct.side_info_link, ptr %1048, i64 0, i32 1, i32 1
-  %1057 = load i32, ptr %1056, align 4, !tbaa !54
-  %1058 = add nsw i32 %1057, %1050
-  %1059 = load ptr, ptr %1048, align 8, !tbaa !9
-  %1060 = icmp eq ptr %1059, null
-  br i1 %1060, label %1061, label %1047, !llvm.loop !64
+for.body.i34:                                     ; preds = %main_data.exit, %for.body.i34
+  %l.05.i = phi ptr [ %l.0.i32, %for.body.i34 ], [ %l.01.i, %main_data.exit ]
+  %elements.04.i = phi i32 [ %inc.i, %for.body.i34 ], [ 0, %main_data.exit ]
+  %storemerge3.i = phi i32 [ %add4.i, %for.body.i34 ], [ 0, %main_data.exit ]
+  %372 = phi i32 [ %add.i31, %for.body.i34 ], [ 0, %main_data.exit ]
+  %inc.i = add nuw nsw i32 %elements.04.i, 1
+  %side_info.i = getelementptr inbounds %struct.side_info_link, ptr %l.05.i, i64 0, i32 1
+  %373 = load i32, ptr %side_info.i, align 8, !tbaa !32
+  %add.i31 = add nsw i32 %373, %372
+  %SILength3.i = getelementptr inbounds %struct.side_info_link, ptr %l.05.i, i64 0, i32 1, i32 1
+  %374 = load i32, ptr %SILength3.i, align 4, !tbaa !54
+  %add4.i = add nsw i32 %374, %storemerge3.i
+  %l.0.i32 = load ptr, ptr %l.05.i, align 8, !tbaa !9
+  %tobool.not.i33 = icmp eq ptr %l.0.i32, null
+  br i1 %tobool.not.i33, label %for.cond.for.end_crit_edge.i, label %for.body.i34, !llvm.loop !64
 
-1061:                                             ; preds = %1047
-  store i32 %1055, ptr @forwardFrameLength, align 4, !tbaa !5
-  %1062 = sdiv i32 %1055, 8
-  br label %1063
+for.cond.for.end_crit_edge.i:                     ; preds = %for.body.i34
+  store i32 %add.i31, ptr @forwardFrameLength, align 4, !tbaa !5
+  %375 = sdiv i32 %add.i31, 8
+  br label %side_queue_elements.exit
 
-1063:                                             ; preds = %1042, %1061
-  %1064 = phi i32 [ %1062, %1061 ], [ 0, %1042 ]
-  %1065 = phi i32 [ %1058, %1061 ], [ 0, %1042 ]
-  %1066 = phi i32 [ %1052, %1061 ], [ 0, %1042 ]
-  store i32 %1065, ptr @forwardSILength, align 4, !tbaa !5
-  store i32 %1066, ptr @elements, align 4, !tbaa !5
-  %1067 = load i32, ptr @BitsRemaining, align 4, !tbaa !5
-  %1068 = sdiv i32 %1067, 8
-  %1069 = sdiv i32 %1065, -8
-  %1070 = add nsw i32 %1068, %1069
-  %1071 = add nsw i32 %1070, %1064
-  %1072 = getelementptr inbounds %struct.BF_FrameResults, ptr %1, i64 0, i32 2
-  store i32 %1071, ptr %1072, align 4, !tbaa !65
+side_queue_elements.exit:                         ; preds = %main_data.exit, %for.cond.for.end_crit_edge.i
+  %div3 = phi i32 [ %375, %for.cond.for.end_crit_edge.i ], [ 0, %main_data.exit ]
+  %storemerge.lcssa.i = phi i32 [ %add4.i, %for.cond.for.end_crit_edge.i ], [ 0, %main_data.exit ]
+  %elements.0.lcssa.i = phi i32 [ %inc.i, %for.cond.for.end_crit_edge.i ], [ 0, %main_data.exit ]
+  store i32 %storemerge.lcssa.i, ptr @forwardSILength, align 4, !tbaa !5
+  store i32 %elements.0.lcssa.i, ptr @elements, align 4, !tbaa !5
+  %376 = load i32, ptr @BitsRemaining, align 4, !tbaa !5
+  %div = sdiv i32 %376, 8
+  %div4.neg = sdiv i32 %storemerge.lcssa.i, -8
+  %add = add nsw i32 %div, %div4.neg
+  %sub = add nsw i32 %add, %div3
+  %nextBackPtr = getelementptr inbounds %struct.BF_FrameResults, ptr %results, i64 0, i32 2
+  store i32 %sub, ptr %nextBackPtr, align 4, !tbaa !65
   ret void
 }
 
 ; Function Attrs: nounwind uwtable
-define dso_local void @BF_FlushBitstream(ptr nocapture noundef readnone %0, ptr nocapture noundef writeonly %1) local_unnamed_addr #1 {
-  %3 = load i32, ptr @elements, align 4, !tbaa !5
-  %4 = icmp eq i32 %3, 0
-  br i1 %4, label %68, label %5
+define dso_local void @BF_FlushBitstream(ptr nocapture noundef readnone %frameInfo, ptr nocapture noundef writeonly %results) local_unnamed_addr #1 {
+entry:
+  %0 = load i32, ptr @elements, align 4, !tbaa !5
+  %tobool.not = icmp eq i32 %0, 0
+  br i1 %tobool.not, label %if.end, label %if.then
 
-5:                                                ; preds = %2
-  %6 = load i32, ptr @forwardFrameLength, align 4, !tbaa !5
-  %7 = load i32, ptr @forwardSILength, align 4, !tbaa !5
-  %8 = sub nsw i32 %6, %7
-  %9 = add i32 %8, 31
-  %10 = icmp ult i32 %9, 63
-  br i1 %10, label %41, label %11
+if.then:                                          ; preds = %entry
+  %1 = load i32, ptr @forwardFrameLength, align 4, !tbaa !5
+  %2 = load i32, ptr @forwardSILength, align 4, !tbaa !5
+  %sub = sub nsw i32 %1, %2
+  %sub.off = add i32 %sub, 31
+  %tobool1.not24 = icmp ult i32 %sub.off, 63
+  br i1 %tobool1.not24, label %while.end, label %while.body.preheader
 
-11:                                               ; preds = %5
-  %12 = sdiv i32 %8, 32
-  %13 = load i32, ptr @BitCount, align 4, !tbaa !5
-  br label %14
+while.body.preheader:                             ; preds = %if.then
+  %div = sdiv i32 %sub, 32
+  %.pre = load i32, ptr @BitCount, align 4, !tbaa !5
+  br label %while.body
 
-14:                                               ; preds = %11, %34
-  %15 = phi i32 [ %37, %34 ], [ %13, %11 ]
-  %16 = phi i32 [ %17, %34 ], [ %12, %11 ]
-  %17 = add nsw i32 %16, -1
-  %18 = load i32, ptr @ThisFrameSize, align 4, !tbaa !5
-  %19 = icmp eq i32 %15, %18
-  br i1 %19, label %22, label %20
+while.body:                                       ; preds = %while.body.preheader, %WriteMainDataBits.exit
+  %3 = phi i32 [ %add.i, %WriteMainDataBits.exit ], [ %.pre, %while.body.preheader ]
+  %wordsRemaining.025 = phi i32 [ %dec, %WriteMainDataBits.exit ], [ %div, %while.body.preheader ]
+  %dec = add nsw i32 %wordsRemaining.025, -1
+  %4 = load i32, ptr @ThisFrameSize, align 4, !tbaa !5
+  %cmp1.i = icmp eq i32 %3, %4
+  br i1 %cmp1.i, label %if.then2.i, label %if.end.if.end3_crit_edge.i
 
-20:                                               ; preds = %14
-  %21 = load i32, ptr @BitsRemaining, align 4, !tbaa !5
-  br label %26
+if.end.if.end3_crit_edge.i:                       ; preds = %while.body
+  %.pre.i = load i32, ptr @BitsRemaining, align 4, !tbaa !5
+  br label %if.end3.i
 
-22:                                               ; preds = %14
-  %23 = tail call fastcc i32 @write_side_info()
-  store i32 %23, ptr @BitCount, align 4, !tbaa !5
-  %24 = load i32, ptr @ThisFrameSize, align 4, !tbaa !5
-  %25 = sub nsw i32 %24, %23
-  store i32 %25, ptr @BitsRemaining, align 4, !tbaa !5
-  br label %26
+if.then2.i:                                       ; preds = %while.body
+  %call.i = tail call fastcc i32 @write_side_info()
+  store i32 %call.i, ptr @BitCount, align 4, !tbaa !5
+  %5 = load i32, ptr @ThisFrameSize, align 4, !tbaa !5
+  %sub.i = sub nsw i32 %5, %call.i
+  store i32 %sub.i, ptr @BitsRemaining, align 4, !tbaa !5
+  br label %if.end3.i
 
-26:                                               ; preds = %22, %20
-  %27 = phi i32 [ %21, %20 ], [ %25, %22 ]
-  %28 = icmp ult i32 %27, 32
-  br i1 %28, label %29, label %34
+if.end3.i:                                        ; preds = %if.then2.i, %if.end.if.end3_crit_edge.i
+  %6 = phi i32 [ %.pre.i, %if.end.if.end3_crit_edge.i ], [ %sub.i, %if.then2.i ]
+  %cmp4.i = icmp ult i32 %6, 32
+  br i1 %cmp4.i, label %if.then5.i, label %WriteMainDataBits.exit
 
-29:                                               ; preds = %26
-  %30 = sub nuw nsw i32 32, %27
-  tail call void @putMyBits(i32 noundef 0, i32 noundef %27) #14
-  %31 = tail call fastcc i32 @write_side_info()
-  store i32 %31, ptr @BitCount, align 4, !tbaa !5
-  %32 = load i32, ptr @ThisFrameSize, align 4, !tbaa !5
-  %33 = sub nsw i32 %32, %31
-  store i32 %33, ptr @BitsRemaining, align 4, !tbaa !5
-  br label %34
+if.then5.i:                                       ; preds = %if.end3.i
+  %sub6.i = sub nuw nsw i32 32, %6
+  tail call void @putMyBits(i32 noundef 0, i32 noundef %6) #14
+  %call8.i = tail call fastcc i32 @write_side_info()
+  store i32 %call8.i, ptr @BitCount, align 4, !tbaa !5
+  %7 = load i32, ptr @ThisFrameSize, align 4, !tbaa !5
+  %sub9.i = sub nsw i32 %7, %call8.i
+  store i32 %sub9.i, ptr @BitsRemaining, align 4, !tbaa !5
+  br label %WriteMainDataBits.exit
 
-34:                                               ; preds = %26, %29
-  %35 = phi i32 [ %30, %29 ], [ 32, %26 ]
-  tail call void @putMyBits(i32 noundef 0, i32 noundef %35) #14
-  %36 = load i32, ptr @BitCount, align 4, !tbaa !5
-  %37 = add i32 %36, %35
-  store i32 %37, ptr @BitCount, align 4, !tbaa !5
-  %38 = load i32, ptr @BitsRemaining, align 4, !tbaa !5
-  %39 = sub i32 %38, %35
-  store i32 %39, ptr @BitsRemaining, align 4, !tbaa !5
-  %40 = icmp eq i32 %17, 0
-  br i1 %40, label %41, label %14, !llvm.loop !66
+WriteMainDataBits.exit:                           ; preds = %if.end3.i, %if.then5.i
+  %nbits.sink.i = phi i32 [ %sub6.i, %if.then5.i ], [ 32, %if.end3.i ]
+  tail call void @putMyBits(i32 noundef 0, i32 noundef %nbits.sink.i) #14
+  %8 = load i32, ptr @BitCount, align 4, !tbaa !5
+  %add.i = add i32 %8, %nbits.sink.i
+  store i32 %add.i, ptr @BitCount, align 4, !tbaa !5
+  %9 = load i32, ptr @BitsRemaining, align 4, !tbaa !5
+  %sub11.i = sub i32 %9, %nbits.sink.i
+  store i32 %sub11.i, ptr @BitsRemaining, align 4, !tbaa !5
+  %tobool1.not = icmp eq i32 %dec, 0
+  br i1 %tobool1.not, label %while.end, label %while.body, !llvm.loop !66
 
-41:                                               ; preds = %34, %5
-  %42 = srem i32 %8, 32
-  %43 = icmp eq i32 %42, 0
-  br i1 %43, label %68, label %44
+while.end:                                        ; preds = %WriteMainDataBits.exit, %if.then
+  %rem = srem i32 %sub, 32
+  %cmp.i = icmp eq i32 %rem, 0
+  br i1 %cmp.i, label %if.end, label %if.end.i
 
-44:                                               ; preds = %41
-  %45 = load i32, ptr @BitCount, align 4, !tbaa !5
-  %46 = load i32, ptr @ThisFrameSize, align 4, !tbaa !5
-  %47 = icmp eq i32 %45, %46
-  br i1 %47, label %50, label %48
+if.end.i:                                         ; preds = %while.end
+  %10 = load i32, ptr @BitCount, align 4, !tbaa !5
+  %11 = load i32, ptr @ThisFrameSize, align 4, !tbaa !5
+  %cmp1.i8 = icmp eq i32 %10, %11
+  br i1 %cmp1.i8, label %if.then2.i13, label %if.end.if.end3_crit_edge.i10
 
-48:                                               ; preds = %44
-  %49 = load i32, ptr @BitsRemaining, align 4, !tbaa !5
-  br label %54
+if.end.if.end3_crit_edge.i10:                     ; preds = %if.end.i
+  %.pre.i9 = load i32, ptr @BitsRemaining, align 4, !tbaa !5
+  br label %if.end3.i15
 
-50:                                               ; preds = %44
-  %51 = tail call fastcc i32 @write_side_info()
-  store i32 %51, ptr @BitCount, align 4, !tbaa !5
-  %52 = load i32, ptr @ThisFrameSize, align 4, !tbaa !5
-  %53 = sub nsw i32 %52, %51
-  store i32 %53, ptr @BitsRemaining, align 4, !tbaa !5
-  br label %54
+if.then2.i13:                                     ; preds = %if.end.i
+  %call.i11 = tail call fastcc i32 @write_side_info()
+  store i32 %call.i11, ptr @BitCount, align 4, !tbaa !5
+  %12 = load i32, ptr @ThisFrameSize, align 4, !tbaa !5
+  %sub.i12 = sub nsw i32 %12, %call.i11
+  store i32 %sub.i12, ptr @BitsRemaining, align 4, !tbaa !5
+  br label %if.end3.i15
 
-54:                                               ; preds = %50, %48
-  %55 = phi i32 [ %49, %48 ], [ %53, %50 ]
-  %56 = icmp ugt i32 %42, %55
-  br i1 %56, label %57, label %62
+if.end3.i15:                                      ; preds = %if.then2.i13, %if.end.if.end3_crit_edge.i10
+  %13 = phi i32 [ %.pre.i9, %if.end.if.end3_crit_edge.i10 ], [ %sub.i12, %if.then2.i13 ]
+  %cmp4.i14 = icmp ugt i32 %rem, %13
+  br i1 %cmp4.i14, label %if.then5.i19, label %if.end10.i
 
-57:                                               ; preds = %54
-  %58 = sub i32 %42, %55
-  tail call void @putMyBits(i32 noundef 0, i32 noundef %55) #14
-  %59 = tail call fastcc i32 @write_side_info()
-  store i32 %59, ptr @BitCount, align 4, !tbaa !5
-  %60 = load i32, ptr @ThisFrameSize, align 4, !tbaa !5
-  %61 = sub nsw i32 %60, %59
-  store i32 %61, ptr @BitsRemaining, align 4, !tbaa !5
-  br label %62
+if.then5.i19:                                     ; preds = %if.end3.i15
+  %sub6.i16 = sub i32 %rem, %13
+  tail call void @putMyBits(i32 noundef 0, i32 noundef %13) #14
+  %call8.i17 = tail call fastcc i32 @write_side_info()
+  store i32 %call8.i17, ptr @BitCount, align 4, !tbaa !5
+  %14 = load i32, ptr @ThisFrameSize, align 4, !tbaa !5
+  %sub9.i18 = sub nsw i32 %14, %call8.i17
+  store i32 %sub9.i18, ptr @BitsRemaining, align 4, !tbaa !5
+  br label %if.end10.i
 
-62:                                               ; preds = %57, %54
-  %63 = phi i32 [ %58, %57 ], [ %42, %54 ]
-  tail call void @putMyBits(i32 noundef 0, i32 noundef %63) #14
-  %64 = load i32, ptr @BitCount, align 4, !tbaa !5
-  %65 = add i32 %64, %63
-  store i32 %65, ptr @BitCount, align 4, !tbaa !5
-  %66 = load i32, ptr @BitsRemaining, align 4, !tbaa !5
-  %67 = sub i32 %66, %63
-  store i32 %67, ptr @BitsRemaining, align 4, !tbaa !5
-  br label %68
+if.end10.i:                                       ; preds = %if.then5.i19, %if.end3.i15
+  %nbits.sink.i20 = phi i32 [ %sub6.i16, %if.then5.i19 ], [ %rem, %if.end3.i15 ]
+  tail call void @putMyBits(i32 noundef 0, i32 noundef %nbits.sink.i20) #14
+  %15 = load i32, ptr @BitCount, align 4, !tbaa !5
+  %add.i21 = add i32 %15, %nbits.sink.i20
+  store i32 %add.i21, ptr @BitCount, align 4, !tbaa !5
+  %16 = load i32, ptr @BitsRemaining, align 4, !tbaa !5
+  %sub11.i22 = sub i32 %16, %nbits.sink.i20
+  store i32 %sub11.i22, ptr @BitsRemaining, align 4, !tbaa !5
+  br label %if.end
 
-68:                                               ; preds = %62, %41, %2
-  %69 = load i32, ptr @forwardFrameLength, align 4, !tbaa !5
-  %70 = load i32, ptr @forwardSILength, align 4, !tbaa !5
-  %71 = sub nsw i32 %69, %70
-  %72 = getelementptr inbounds %struct.BF_FrameResults, ptr %1, i64 0, i32 1
-  store i32 %71, ptr %72, align 4, !tbaa !58
-  store i32 %70, ptr %1, align 4, !tbaa !56
-  %73 = getelementptr inbounds %struct.BF_FrameResults, ptr %1, i64 0, i32 2
-  store i32 0, ptr %73, align 4, !tbaa !65
-  %74 = load ptr, ptr @side_queue_head, align 8, !tbaa !9
-  %75 = icmp eq ptr %74, null
-  br i1 %75, label %80, label %76
+if.end:                                           ; preds = %if.end10.i, %while.end, %entry
+  %17 = load i32, ptr @forwardFrameLength, align 4, !tbaa !5
+  %18 = load i32, ptr @forwardSILength, align 4, !tbaa !5
+  %sub2 = sub nsw i32 %17, %18
+  %mainDataLength = getelementptr inbounds %struct.BF_FrameResults, ptr %results, i64 0, i32 1
+  store i32 %sub2, ptr %mainDataLength, align 4, !tbaa !58
+  store i32 %18, ptr %results, align 4, !tbaa !56
+  %nextBackPtr = getelementptr inbounds %struct.BF_FrameResults, ptr %results, i64 0, i32 2
+  store i32 0, ptr %nextBackPtr, align 4, !tbaa !65
+  %19 = load ptr, ptr @side_queue_head, align 8, !tbaa !9
+  %tobool.not14.i = icmp eq ptr %19, null
+  br i1 %tobool.not14.i, label %for.end.i, label %for.body.i
 
-76:                                               ; preds = %68, %76
-  %77 = phi ptr [ %78, %76 ], [ %74, %68 ]
-  %78 = load ptr, ptr %77, align 8, !tbaa !30
-  tail call fastcc void @free_side_info_link(ptr noundef nonnull %77)
-  %79 = icmp eq ptr %78, null
-  br i1 %79, label %80, label %76, !llvm.loop !67
+for.body.i:                                       ; preds = %if.end, %for.body.i
+  %l.015.i = phi ptr [ %20, %for.body.i ], [ %19, %if.end ]
+  %20 = load ptr, ptr %l.015.i, align 8, !tbaa !30
+  tail call fastcc void @free_side_info_link(ptr noundef nonnull %l.015.i)
+  %tobool.not.i = icmp eq ptr %20, null
+  br i1 %tobool.not.i, label %for.end.i, label %for.body.i, !llvm.loop !67
 
-80:                                               ; preds = %76, %68
+for.end.i:                                        ; preds = %for.body.i, %if.end
   store ptr null, ptr @side_queue_head, align 8, !tbaa !9
-  %81 = load ptr, ptr @side_queue_free, align 8, !tbaa !9
-  %82 = icmp eq ptr %81, null
-  br i1 %82, label %87, label %83
+  %21 = load ptr, ptr @side_queue_free, align 8, !tbaa !9
+  %tobool3.not16.i = icmp eq ptr %21, null
+  br i1 %tobool3.not16.i, label %free_side_queues.exit, label %for.body4.i
 
-83:                                               ; preds = %80, %83
-  %84 = phi ptr [ %85, %83 ], [ %81, %80 ]
-  %85 = load ptr, ptr %84, align 8, !tbaa !30
-  tail call fastcc void @free_side_info_link(ptr noundef nonnull %84)
-  %86 = icmp eq ptr %85, null
-  br i1 %86, label %87, label %83, !llvm.loop !68
+for.body4.i:                                      ; preds = %for.end.i, %for.body4.i
+  %l.117.i = phi ptr [ %22, %for.body4.i ], [ %21, %for.end.i ]
+  %22 = load ptr, ptr %l.117.i, align 8, !tbaa !30
+  tail call fastcc void @free_side_info_link(ptr noundef nonnull %l.117.i)
+  %tobool3.not.i = icmp eq ptr %22, null
+  br i1 %tobool3.not.i, label %free_side_queues.exit, label %for.body4.i, !llvm.loop !68
 
-87:                                               ; preds = %83, %80
+free_side_queues.exit:                            ; preds = %for.body4.i, %for.end.i
   store ptr null, ptr @side_queue_free, align 8, !tbaa !9
   store i32 0, ptr @BitCount, align 4, !tbaa !5
   store i32 0, ptr @ThisFrameSize, align 4, !tbaa !5
@@ -1622,380 +1625,387 @@ define dso_local void @BF_FlushBitstream(ptr nocapture noundef readnone %0, ptr 
 }
 
 ; Function Attrs: nofree norecurse nosync nounwind memory(read, inaccessiblemem: none) uwtable
-define dso_local i32 @BF_PartLength(ptr nocapture noundef readonly %0) local_unnamed_addr #2 {
-  %2 = load i32, ptr %0, align 8, !tbaa !13
-  %3 = icmp eq i32 %2, 0
-  br i1 %3, label %92, label %4
+define dso_local i32 @BF_PartLength(ptr nocapture noundef readonly %part) local_unnamed_addr #2 {
+entry:
+  %0 = load i32, ptr %part, align 8, !tbaa !13
+  %cmp5.not = icmp eq i32 %0, 0
+  br i1 %cmp5.not, label %for.end, label %for.body.preheader
 
-4:                                                ; preds = %1
-  %5 = getelementptr inbounds %struct.BF_BitstreamPart, ptr %0, i64 0, i32 1
-  %6 = load ptr, ptr %5, align 8, !tbaa !18
-  %7 = icmp ult i32 %2, 9
-  br i1 %7, label %77, label %8
+for.body.preheader:                               ; preds = %entry
+  %element = getelementptr inbounds %struct.BF_BitstreamPart, ptr %part, i64 0, i32 1
+  %1 = load ptr, ptr %element, align 8, !tbaa !18
+  %min.iters.check = icmp ult i32 %0, 9
+  br i1 %min.iters.check, label %for.body.preheader19, label %vector.ph
 
-8:                                                ; preds = %4
-  %9 = zext i32 %2 to i64
-  %10 = and i64 %9, 7
-  %11 = icmp eq i64 %10, 0
-  %12 = select i1 %11, i64 8, i64 %10
-  %13 = sub nsw i64 %9, %12
-  %14 = trunc i64 %13 to i32
-  %15 = shl nsw i64 %13, 3
-  %16 = getelementptr i8, ptr %6, i64 %15
-  br label %17
+vector.ph:                                        ; preds = %for.body.preheader
+  %2 = zext i32 %0 to i64
+  %n.mod.vf = and i64 %2, 7
+  %3 = icmp eq i64 %n.mod.vf, 0
+  %4 = select i1 %3, i64 8, i64 %n.mod.vf
+  %n.vec = sub nsw i64 %2, %4
+  %ind.end = trunc i64 %n.vec to i32
+  %5 = shl nsw i64 %n.vec, 3
+  %ind.end9 = getelementptr i8, ptr %1, i64 %5
+  %invariant.gep = getelementptr %struct.BF_BitstreamElement, ptr %1, i64 0, i32 1
+  %invariant.gep22 = getelementptr %struct.BF_BitstreamElement, ptr %1, i64 0, i32 1
+  %invariant.gep24 = getelementptr %struct.BF_BitstreamElement, ptr %1, i64 0, i32 1
+  %invariant.gep26 = getelementptr %struct.BF_BitstreamElement, ptr %1, i64 0, i32 1
+  %invariant.gep28 = getelementptr %struct.BF_BitstreamElement, ptr %1, i64 0, i32 1
+  %invariant.gep30 = getelementptr %struct.BF_BitstreamElement, ptr %1, i64 0, i32 1
+  %invariant.gep32 = getelementptr %struct.BF_BitstreamElement, ptr %1, i64 0, i32 1
+  %invariant.gep34 = getelementptr %struct.BF_BitstreamElement, ptr %1, i64 0, i32 1
+  br label %vector.body
 
-17:                                               ; preds = %17, %8
-  %18 = phi i64 [ 0, %8 ], [ %72, %17 ]
-  %19 = phi <4 x i32> [ zeroinitializer, %8 ], [ %70, %17 ]
-  %20 = phi <4 x i32> [ zeroinitializer, %8 ], [ %71, %17 ]
-  %21 = shl i64 %18, 3
-  %22 = getelementptr i8, ptr %6, i64 %21
-  %23 = shl i64 %18, 3
-  %24 = or i64 %23, 8
-  %25 = getelementptr i8, ptr %6, i64 %24
-  %26 = shl i64 %18, 3
-  %27 = or i64 %26, 16
-  %28 = getelementptr i8, ptr %6, i64 %27
-  %29 = shl i64 %18, 3
-  %30 = or i64 %29, 24
-  %31 = getelementptr i8, ptr %6, i64 %30
-  %32 = shl i64 %18, 3
-  %33 = or i64 %32, 32
-  %34 = getelementptr i8, ptr %6, i64 %33
-  %35 = shl i64 %18, 3
-  %36 = or i64 %35, 40
-  %37 = getelementptr i8, ptr %6, i64 %36
-  %38 = shl i64 %18, 3
-  %39 = or i64 %38, 48
-  %40 = getelementptr i8, ptr %6, i64 %39
-  %41 = shl i64 %18, 3
-  %42 = or i64 %41, 56
-  %43 = getelementptr i8, ptr %6, i64 %42
-  %44 = getelementptr inbounds %struct.BF_BitstreamElement, ptr %22, i64 0, i32 1
-  %45 = getelementptr inbounds %struct.BF_BitstreamElement, ptr %25, i64 0, i32 1
-  %46 = getelementptr inbounds %struct.BF_BitstreamElement, ptr %28, i64 0, i32 1
-  %47 = getelementptr inbounds %struct.BF_BitstreamElement, ptr %31, i64 0, i32 1
-  %48 = getelementptr inbounds %struct.BF_BitstreamElement, ptr %34, i64 0, i32 1
-  %49 = getelementptr inbounds %struct.BF_BitstreamElement, ptr %37, i64 0, i32 1
-  %50 = getelementptr inbounds %struct.BF_BitstreamElement, ptr %40, i64 0, i32 1
-  %51 = getelementptr inbounds %struct.BF_BitstreamElement, ptr %43, i64 0, i32 1
-  %52 = load i16, ptr %44, align 4, !tbaa !36
-  %53 = load i16, ptr %45, align 4, !tbaa !36
-  %54 = load i16, ptr %46, align 4, !tbaa !36
-  %55 = load i16, ptr %47, align 4, !tbaa !36
-  %56 = insertelement <4 x i16> poison, i16 %52, i64 0
-  %57 = insertelement <4 x i16> %56, i16 %53, i64 1
-  %58 = insertelement <4 x i16> %57, i16 %54, i64 2
-  %59 = insertelement <4 x i16> %58, i16 %55, i64 3
-  %60 = load i16, ptr %48, align 4, !tbaa !36
-  %61 = load i16, ptr %49, align 4, !tbaa !36
-  %62 = load i16, ptr %50, align 4, !tbaa !36
-  %63 = load i16, ptr %51, align 4, !tbaa !36
-  %64 = insertelement <4 x i16> poison, i16 %60, i64 0
-  %65 = insertelement <4 x i16> %64, i16 %61, i64 1
-  %66 = insertelement <4 x i16> %65, i16 %62, i64 2
-  %67 = insertelement <4 x i16> %66, i16 %63, i64 3
-  %68 = zext <4 x i16> %59 to <4 x i32>
-  %69 = zext <4 x i16> %67 to <4 x i32>
-  %70 = add <4 x i32> %19, %68
-  %71 = add <4 x i32> %20, %69
-  %72 = add nuw i64 %18, 8
-  %73 = icmp eq i64 %72, %13
-  br i1 %73, label %74, label %17, !llvm.loop !69
+vector.body:                                      ; preds = %vector.body, %vector.ph
+  %index = phi i64 [ 0, %vector.ph ], [ %index.next, %vector.body ]
+  %vec.phi = phi <4 x i32> [ zeroinitializer, %vector.ph ], [ %39, %vector.body ]
+  %vec.phi11 = phi <4 x i32> [ zeroinitializer, %vector.ph ], [ %40, %vector.body ]
+  %6 = shl i64 %index, 3
+  %7 = shl i64 %index, 3
+  %8 = or i64 %7, 8
+  %9 = shl i64 %index, 3
+  %10 = or i64 %9, 16
+  %11 = shl i64 %index, 3
+  %12 = or i64 %11, 24
+  %13 = shl i64 %index, 3
+  %14 = or i64 %13, 32
+  %15 = shl i64 %index, 3
+  %16 = or i64 %15, 40
+  %17 = shl i64 %index, 3
+  %18 = or i64 %17, 48
+  %19 = shl i64 %index, 3
+  %20 = or i64 %19, 56
+  %gep = getelementptr i8, ptr %invariant.gep, i64 %6
+  %gep23 = getelementptr i8, ptr %invariant.gep22, i64 %8
+  %gep25 = getelementptr i8, ptr %invariant.gep24, i64 %10
+  %gep27 = getelementptr i8, ptr %invariant.gep26, i64 %12
+  %gep29 = getelementptr i8, ptr %invariant.gep28, i64 %14
+  %gep31 = getelementptr i8, ptr %invariant.gep30, i64 %16
+  %gep33 = getelementptr i8, ptr %invariant.gep32, i64 %18
+  %gep35 = getelementptr i8, ptr %invariant.gep34, i64 %20
+  %21 = load i16, ptr %gep, align 4, !tbaa !36
+  %22 = load i16, ptr %gep23, align 4, !tbaa !36
+  %23 = load i16, ptr %gep25, align 4, !tbaa !36
+  %24 = load i16, ptr %gep27, align 4, !tbaa !36
+  %25 = insertelement <4 x i16> poison, i16 %21, i64 0
+  %26 = insertelement <4 x i16> %25, i16 %22, i64 1
+  %27 = insertelement <4 x i16> %26, i16 %23, i64 2
+  %28 = insertelement <4 x i16> %27, i16 %24, i64 3
+  %29 = load i16, ptr %gep29, align 4, !tbaa !36
+  %30 = load i16, ptr %gep31, align 4, !tbaa !36
+  %31 = load i16, ptr %gep33, align 4, !tbaa !36
+  %32 = load i16, ptr %gep35, align 4, !tbaa !36
+  %33 = insertelement <4 x i16> poison, i16 %29, i64 0
+  %34 = insertelement <4 x i16> %33, i16 %30, i64 1
+  %35 = insertelement <4 x i16> %34, i16 %31, i64 2
+  %36 = insertelement <4 x i16> %35, i16 %32, i64 3
+  %37 = zext <4 x i16> %28 to <4 x i32>
+  %38 = zext <4 x i16> %36 to <4 x i32>
+  %39 = add <4 x i32> %vec.phi, %37
+  %40 = add <4 x i32> %vec.phi11, %38
+  %index.next = add nuw i64 %index, 8
+  %41 = icmp eq i64 %index.next, %n.vec
+  br i1 %41, label %middle.block, label %vector.body, !llvm.loop !69
 
-74:                                               ; preds = %17
-  %75 = add <4 x i32> %71, %70
-  %76 = tail call i32 @llvm.vector.reduce.add.v4i32(<4 x i32> %75)
-  br label %77
+middle.block:                                     ; preds = %vector.body
+  %bin.rdx = add <4 x i32> %40, %39
+  %42 = tail call i32 @llvm.vector.reduce.add.v4i32(<4 x i32> %bin.rdx)
+  br label %for.body.preheader19
 
-77:                                               ; preds = %4, %74
-  %78 = phi i32 [ 0, %4 ], [ %76, %74 ]
-  %79 = phi i32 [ 0, %4 ], [ %14, %74 ]
-  %80 = phi ptr [ %6, %4 ], [ %16, %74 ]
-  br label %81
+for.body.preheader19:                             ; preds = %for.body.preheader, %middle.block
+  %bits.08.ph = phi i32 [ 0, %for.body.preheader ], [ %42, %middle.block ]
+  %i.07.ph = phi i32 [ 0, %for.body.preheader ], [ %ind.end, %middle.block ]
+  %ep.06.ph = phi ptr [ %1, %for.body.preheader ], [ %ind.end9, %middle.block ]
+  br label %for.body
 
-81:                                               ; preds = %77, %81
-  %82 = phi i32 [ %88, %81 ], [ %78, %77 ]
-  %83 = phi i32 [ %89, %81 ], [ %79, %77 ]
-  %84 = phi ptr [ %90, %81 ], [ %80, %77 ]
-  %85 = getelementptr inbounds %struct.BF_BitstreamElement, ptr %84, i64 0, i32 1
-  %86 = load i16, ptr %85, align 4, !tbaa !36
-  %87 = zext i16 %86 to i32
-  %88 = add nuw nsw i32 %82, %87
-  %89 = add nuw i32 %83, 1
-  %90 = getelementptr inbounds %struct.BF_BitstreamElement, ptr %84, i64 1
-  %91 = icmp eq i32 %89, %2
-  br i1 %91, label %92, label %81, !llvm.loop !70
+for.body:                                         ; preds = %for.body.preheader19, %for.body
+  %bits.08 = phi i32 [ %add, %for.body ], [ %bits.08.ph, %for.body.preheader19 ]
+  %i.07 = phi i32 [ %inc, %for.body ], [ %i.07.ph, %for.body.preheader19 ]
+  %ep.06 = phi ptr [ %incdec.ptr, %for.body ], [ %ep.06.ph, %for.body.preheader19 ]
+  %length = getelementptr inbounds %struct.BF_BitstreamElement, ptr %ep.06, i64 0, i32 1
+  %43 = load i16, ptr %length, align 4, !tbaa !36
+  %conv = zext i16 %43 to i32
+  %add = add nuw nsw i32 %bits.08, %conv
+  %inc = add nuw i32 %i.07, 1
+  %incdec.ptr = getelementptr inbounds %struct.BF_BitstreamElement, ptr %ep.06, i64 1
+  %exitcond.not = icmp eq i32 %inc, %0
+  br i1 %exitcond.not, label %for.end, label %for.body, !llvm.loop !70
 
-92:                                               ; preds = %81, %1
-  %93 = phi i32 [ 0, %1 ], [ %88, %81 ]
-  ret i32 %93
+for.end:                                          ; preds = %for.body, %entry
+  %bits.0.lcssa = phi i32 [ 0, %entry ], [ %add, %for.body ]
+  ret i32 %bits.0.lcssa
 }
 
 ; Function Attrs: mustprogress nofree nounwind willreturn memory(write, argmem: none, inaccessiblemem: readwrite) uwtable
-define dso_local noalias ptr @BF_newPartHolder(i32 noundef %0) local_unnamed_addr #3 {
-  %2 = tail call noalias dereferenceable_or_null(16) ptr @calloc(i64 noundef 1, i64 noundef 16) #11
-  store i32 %0, ptr %2, align 8, !tbaa !15
-  %3 = tail call noalias dereferenceable_or_null(16) ptr @calloc(i64 noundef 1, i64 noundef 16) #11
-  %4 = getelementptr inbounds %struct.BF_PartHolder, ptr %2, i64 0, i32 1
-  store ptr %3, ptr %4, align 8, !tbaa !17
-  %5 = sext i32 %0 to i64
-  %6 = tail call noalias ptr @calloc(i64 noundef %5, i64 noundef 8) #11
-  %7 = getelementptr inbounds %struct.BF_BitstreamPart, ptr %3, i64 0, i32 1
-  store ptr %6, ptr %7, align 8, !tbaa !18
-  ret ptr %2
+define dso_local noalias ptr @BF_newPartHolder(i32 noundef %max_elements) local_unnamed_addr #3 {
+entry:
+  %call = tail call noalias dereferenceable_or_null(16) ptr @calloc(i64 noundef 1, i64 noundef 16) #11
+  store i32 %max_elements, ptr %call, align 8, !tbaa !15
+  %call2 = tail call noalias dereferenceable_or_null(16) ptr @calloc(i64 noundef 1, i64 noundef 16) #11
+  %part = getelementptr inbounds %struct.BF_PartHolder, ptr %call, i64 0, i32 1
+  store ptr %call2, ptr %part, align 8, !tbaa !17
+  %conv = sext i32 %max_elements to i64
+  %call3 = tail call noalias ptr @calloc(i64 noundef %conv, i64 noundef 8) #11
+  %element = getelementptr inbounds %struct.BF_BitstreamPart, ptr %call2, i64 0, i32 1
+  store ptr %call3, ptr %element, align 8, !tbaa !18
+  ret ptr %call
 }
 
 ; Function Attrs: mustprogress nofree nounwind willreturn allockind("alloc,zeroed") allocsize(0,1) memory(inaccessiblemem: readwrite)
 declare noalias noundef ptr @calloc(i64 noundef, i64 noundef) local_unnamed_addr #4
 
 ; Function Attrs: nounwind uwtable
-define dso_local noalias ptr @BF_NewHolderFromBitstreamPart(ptr nocapture noundef readonly %0) local_unnamed_addr #1 {
-  %2 = load i32, ptr %0, align 8, !tbaa !13
-  %3 = tail call noalias dereferenceable_or_null(16) ptr @calloc(i64 noundef 1, i64 noundef 16) #11
-  store i32 %2, ptr %3, align 8, !tbaa !15
-  %4 = tail call noalias dereferenceable_or_null(16) ptr @calloc(i64 noundef 1, i64 noundef 16) #11
-  %5 = getelementptr inbounds %struct.BF_PartHolder, ptr %3, i64 0, i32 1
-  store ptr %4, ptr %5, align 8, !tbaa !17
-  %6 = sext i32 %2 to i64
-  %7 = tail call noalias ptr @calloc(i64 noundef %6, i64 noundef 8) #11
-  %8 = getelementptr inbounds %struct.BF_BitstreamPart, ptr %4, i64 0, i32 1
-  store ptr %7, ptr %8, align 8, !tbaa !18
-  %9 = icmp eq i32 %2, 0
-  br i1 %9, label %44, label %10
+define dso_local noalias ptr @BF_NewHolderFromBitstreamPart(ptr nocapture noundef readonly %thePart) local_unnamed_addr #1 {
+entry:
+  %0 = load i32, ptr %thePart, align 8, !tbaa !13
+  %call.i = tail call noalias dereferenceable_or_null(16) ptr @calloc(i64 noundef 1, i64 noundef 16) #11
+  store i32 %0, ptr %call.i, align 8, !tbaa !15
+  %call2.i = tail call noalias dereferenceable_or_null(16) ptr @calloc(i64 noundef 1, i64 noundef 16) #11
+  %part.i = getelementptr inbounds %struct.BF_PartHolder, ptr %call.i, i64 0, i32 1
+  store ptr %call2.i, ptr %part.i, align 8, !tbaa !17
+  %conv.i = sext i32 %0 to i64
+  %call3.i = tail call noalias ptr @calloc(i64 noundef %conv.i, i64 noundef 8) #11
+  %element.i = getelementptr inbounds %struct.BF_BitstreamPart, ptr %call2.i, i64 0, i32 1
+  store ptr %call3.i, ptr %element.i, align 8, !tbaa !18
+  %cmp7.not.i = icmp eq i32 %0, 0
+  br i1 %cmp7.not.i, label %BF_LoadHolderFromBitstreamPart.exit, label %for.body.lr.ph.i
 
-10:                                               ; preds = %1
-  %11 = getelementptr inbounds %struct.BF_BitstreamPart, ptr %0, i64 0, i32 1
-  br label %12
+for.body.lr.ph.i:                                 ; preds = %entry
+  %element.i4 = getelementptr inbounds %struct.BF_BitstreamPart, ptr %thePart, i64 0, i32 1
+  br label %for.body.i
 
-12:                                               ; preds = %30, %10
-  %13 = phi i64 [ 0, %10 ], [ %40, %30 ]
-  %14 = phi ptr [ %3, %10 ], [ %34, %30 ]
-  %15 = load ptr, ptr %11, align 8, !tbaa !18
-  %16 = getelementptr inbounds %struct.BF_BitstreamElement, ptr %15, i64 %13
-  %17 = getelementptr inbounds %struct.BF_PartHolder, ptr %14, i64 0, i32 1
-  %18 = load ptr, ptr %17, align 8, !tbaa !17
-  %19 = load i32, ptr %18, align 8, !tbaa !13
-  %20 = add i32 %19, 1
-  %21 = load i32, ptr %14, align 8, !tbaa !15
-  %22 = icmp sgt i32 %20, %21
-  br i1 %22, label %23, label %30
+for.body.i:                                       ; preds = %BF_addElement.exit.i, %for.body.lr.ph.i
+  %indvars.iv.i = phi i64 [ 0, %for.body.lr.ph.i ], [ %indvars.iv.next.i, %BF_addElement.exit.i ]
+  %theHolder.addr.08.i = phi ptr [ %call.i, %for.body.lr.ph.i ], [ %retPH.0.i.i, %BF_addElement.exit.i ]
+  %1 = load ptr, ptr %element.i4, align 8, !tbaa !18
+  %arrayidx.i = getelementptr inbounds %struct.BF_BitstreamElement, ptr %1, i64 %indvars.iv.i
+  %part.i.i = getelementptr inbounds %struct.BF_PartHolder, ptr %theHolder.addr.08.i, i64 0, i32 1
+  %2 = load ptr, ptr %part.i.i, align 8, !tbaa !17
+  %3 = load i32, ptr %2, align 8, !tbaa !13
+  %add.i.i = add i32 %3, 1
+  %4 = load i32, ptr %theHolder.addr.08.i, align 8, !tbaa !15
+  %cmp.i.i = icmp sgt i32 %add.i.i, %4
+  br i1 %cmp.i.i, label %if.then.i.i, label %BF_addElement.exit.i
 
-23:                                               ; preds = %12
-  %24 = add i32 %19, 9
-  %25 = tail call ptr @BF_resizePartHolder(ptr noundef nonnull %14, i32 noundef %24)
-  %26 = getelementptr inbounds %struct.BF_PartHolder, ptr %25, i64 0, i32 1
-  %27 = load ptr, ptr %26, align 8, !tbaa !17
-  %28 = load i32, ptr %27, align 8, !tbaa !13
-  %29 = add i32 %28, 1
-  br label %30
+if.then.i.i:                                      ; preds = %for.body.i
+  %add1.i.i = add i32 %3, 9
+  %call.i.i = tail call ptr @BF_resizePartHolder(ptr noundef nonnull %theHolder.addr.08.i, i32 noundef %add1.i.i)
+  %part2.phi.trans.insert.i.i = getelementptr inbounds %struct.BF_PartHolder, ptr %call.i.i, i64 0, i32 1
+  %.pre.i.i = load ptr, ptr %part2.phi.trans.insert.i.i, align 8, !tbaa !17
+  %.pre11.i.i = load i32, ptr %.pre.i.i, align 8, !tbaa !13
+  %.pre12.i.i = add i32 %.pre11.i.i, 1
+  br label %BF_addElement.exit.i
 
-30:                                               ; preds = %23, %12
-  %31 = phi i32 [ %29, %23 ], [ %20, %12 ]
-  %32 = phi i32 [ %28, %23 ], [ %19, %12 ]
-  %33 = phi ptr [ %27, %23 ], [ %18, %12 ]
-  %34 = phi ptr [ %25, %23 ], [ %14, %12 ]
-  %35 = getelementptr inbounds %struct.BF_BitstreamPart, ptr %33, i64 0, i32 1
-  %36 = load ptr, ptr %35, align 8, !tbaa !18
-  store i32 %31, ptr %33, align 8, !tbaa !13
-  %37 = zext i32 %32 to i64
-  %38 = getelementptr inbounds %struct.BF_BitstreamElement, ptr %36, i64 %37
-  %39 = load i64, ptr %16, align 4
-  store i64 %39, ptr %38, align 4
-  %40 = add nuw nsw i64 %13, 1
-  %41 = load i32, ptr %0, align 8, !tbaa !13
-  %42 = zext i32 %41 to i64
-  %43 = icmp ult i64 %40, %42
-  br i1 %43, label %12, label %44, !llvm.loop !35
+BF_addElement.exit.i:                             ; preds = %if.then.i.i, %for.body.i
+  %inc.pre-phi.i.i = phi i32 [ %.pre12.i.i, %if.then.i.i ], [ %add.i.i, %for.body.i ]
+  %5 = phi i32 [ %.pre11.i.i, %if.then.i.i ], [ %3, %for.body.i ]
+  %6 = phi ptr [ %.pre.i.i, %if.then.i.i ], [ %2, %for.body.i ]
+  %retPH.0.i.i = phi ptr [ %call.i.i, %if.then.i.i ], [ %theHolder.addr.08.i, %for.body.i ]
+  %element.i.i = getelementptr inbounds %struct.BF_BitstreamPart, ptr %6, i64 0, i32 1
+  %7 = load ptr, ptr %element.i.i, align 8, !tbaa !18
+  store i32 %inc.pre-phi.i.i, ptr %6, align 8, !tbaa !13
+  %idxprom.i.i = zext i32 %5 to i64
+  %arrayidx.i.i = getelementptr inbounds %struct.BF_BitstreamElement, ptr %7, i64 %idxprom.i.i
+  %8 = load i64, ptr %arrayidx.i, align 4
+  store i64 %8, ptr %arrayidx.i.i, align 4
+  %indvars.iv.next.i = add nuw nsw i64 %indvars.iv.i, 1
+  %9 = load i32, ptr %thePart, align 8, !tbaa !13
+  %10 = zext i32 %9 to i64
+  %cmp.i = icmp ult i64 %indvars.iv.next.i, %10
+  br i1 %cmp.i, label %for.body.i, label %BF_LoadHolderFromBitstreamPart.exit, !llvm.loop !35
 
-44:                                               ; preds = %30, %1
-  %45 = phi ptr [ %3, %1 ], [ %34, %30 ]
-  ret ptr %45
+BF_LoadHolderFromBitstreamPart.exit:              ; preds = %BF_addElement.exit.i, %entry
+  %theHolder.addr.0.lcssa.i = phi ptr [ %call.i, %entry ], [ %retPH.0.i.i, %BF_addElement.exit.i ]
+  ret ptr %theHolder.addr.0.lcssa.i
 }
 
 ; Function Attrs: nounwind uwtable
-define dso_local ptr @BF_LoadHolderFromBitstreamPart(ptr noundef %0, ptr nocapture noundef readonly %1) local_unnamed_addr #1 {
-  %3 = getelementptr inbounds %struct.BF_PartHolder, ptr %0, i64 0, i32 1
-  %4 = load ptr, ptr %3, align 8, !tbaa !17
-  store i32 0, ptr %4, align 8, !tbaa !13
-  %5 = load i32, ptr %1, align 8, !tbaa !13
-  %6 = icmp eq i32 %5, 0
-  br i1 %6, label %41, label %7
+define dso_local ptr @BF_LoadHolderFromBitstreamPart(ptr noundef %theHolder, ptr nocapture noundef readonly %thePart) local_unnamed_addr #1 {
+entry:
+  %part = getelementptr inbounds %struct.BF_PartHolder, ptr %theHolder, i64 0, i32 1
+  %0 = load ptr, ptr %part, align 8, !tbaa !17
+  store i32 0, ptr %0, align 8, !tbaa !13
+  %1 = load i32, ptr %thePart, align 8, !tbaa !13
+  %cmp7.not = icmp eq i32 %1, 0
+  br i1 %cmp7.not, label %for.end, label %for.body.lr.ph
 
-7:                                                ; preds = %2
-  %8 = getelementptr inbounds %struct.BF_BitstreamPart, ptr %1, i64 0, i32 1
-  br label %9
+for.body.lr.ph:                                   ; preds = %entry
+  %element = getelementptr inbounds %struct.BF_BitstreamPart, ptr %thePart, i64 0, i32 1
+  br label %for.body
 
-9:                                                ; preds = %7, %27
-  %10 = phi i64 [ 0, %7 ], [ %37, %27 ]
-  %11 = phi ptr [ %0, %7 ], [ %31, %27 ]
-  %12 = load ptr, ptr %8, align 8, !tbaa !18
-  %13 = getelementptr inbounds %struct.BF_BitstreamElement, ptr %12, i64 %10
-  %14 = getelementptr inbounds %struct.BF_PartHolder, ptr %11, i64 0, i32 1
-  %15 = load ptr, ptr %14, align 8, !tbaa !17
-  %16 = load i32, ptr %15, align 8, !tbaa !13
-  %17 = add i32 %16, 1
-  %18 = load i32, ptr %11, align 8, !tbaa !15
-  %19 = icmp sgt i32 %17, %18
-  br i1 %19, label %20, label %27
+for.body:                                         ; preds = %for.body.lr.ph, %BF_addElement.exit
+  %indvars.iv = phi i64 [ 0, %for.body.lr.ph ], [ %indvars.iv.next, %BF_addElement.exit ]
+  %theHolder.addr.08 = phi ptr [ %theHolder, %for.body.lr.ph ], [ %retPH.0.i, %BF_addElement.exit ]
+  %2 = load ptr, ptr %element, align 8, !tbaa !18
+  %arrayidx = getelementptr inbounds %struct.BF_BitstreamElement, ptr %2, i64 %indvars.iv
+  %part.i = getelementptr inbounds %struct.BF_PartHolder, ptr %theHolder.addr.08, i64 0, i32 1
+  %3 = load ptr, ptr %part.i, align 8, !tbaa !17
+  %4 = load i32, ptr %3, align 8, !tbaa !13
+  %add.i = add i32 %4, 1
+  %5 = load i32, ptr %theHolder.addr.08, align 8, !tbaa !15
+  %cmp.i = icmp sgt i32 %add.i, %5
+  br i1 %cmp.i, label %if.then.i, label %BF_addElement.exit
 
-20:                                               ; preds = %9
-  %21 = add i32 %16, 9
-  %22 = tail call ptr @BF_resizePartHolder(ptr noundef nonnull %11, i32 noundef %21)
-  %23 = getelementptr inbounds %struct.BF_PartHolder, ptr %22, i64 0, i32 1
-  %24 = load ptr, ptr %23, align 8, !tbaa !17
-  %25 = load i32, ptr %24, align 8, !tbaa !13
-  %26 = add i32 %25, 1
-  br label %27
+if.then.i:                                        ; preds = %for.body
+  %add1.i = add i32 %4, 9
+  %call.i = tail call ptr @BF_resizePartHolder(ptr noundef nonnull %theHolder.addr.08, i32 noundef %add1.i)
+  %part2.phi.trans.insert.i = getelementptr inbounds %struct.BF_PartHolder, ptr %call.i, i64 0, i32 1
+  %.pre.i = load ptr, ptr %part2.phi.trans.insert.i, align 8, !tbaa !17
+  %.pre11.i = load i32, ptr %.pre.i, align 8, !tbaa !13
+  %.pre12.i = add i32 %.pre11.i, 1
+  br label %BF_addElement.exit
 
-27:                                               ; preds = %9, %20
-  %28 = phi i32 [ %26, %20 ], [ %17, %9 ]
-  %29 = phi i32 [ %25, %20 ], [ %16, %9 ]
-  %30 = phi ptr [ %24, %20 ], [ %15, %9 ]
-  %31 = phi ptr [ %22, %20 ], [ %11, %9 ]
-  %32 = getelementptr inbounds %struct.BF_BitstreamPart, ptr %30, i64 0, i32 1
-  %33 = load ptr, ptr %32, align 8, !tbaa !18
-  store i32 %28, ptr %30, align 8, !tbaa !13
-  %34 = zext i32 %29 to i64
-  %35 = getelementptr inbounds %struct.BF_BitstreamElement, ptr %33, i64 %34
-  %36 = load i64, ptr %13, align 4
-  store i64 %36, ptr %35, align 4
-  %37 = add nuw nsw i64 %10, 1
-  %38 = load i32, ptr %1, align 8, !tbaa !13
-  %39 = zext i32 %38 to i64
-  %40 = icmp ult i64 %37, %39
-  br i1 %40, label %9, label %41, !llvm.loop !35
+BF_addElement.exit:                               ; preds = %for.body, %if.then.i
+  %inc.pre-phi.i = phi i32 [ %.pre12.i, %if.then.i ], [ %add.i, %for.body ]
+  %6 = phi i32 [ %.pre11.i, %if.then.i ], [ %4, %for.body ]
+  %7 = phi ptr [ %.pre.i, %if.then.i ], [ %3, %for.body ]
+  %retPH.0.i = phi ptr [ %call.i, %if.then.i ], [ %theHolder.addr.08, %for.body ]
+  %element.i = getelementptr inbounds %struct.BF_BitstreamPart, ptr %7, i64 0, i32 1
+  %8 = load ptr, ptr %element.i, align 8, !tbaa !18
+  store i32 %inc.pre-phi.i, ptr %7, align 8, !tbaa !13
+  %idxprom.i = zext i32 %6 to i64
+  %arrayidx.i = getelementptr inbounds %struct.BF_BitstreamElement, ptr %8, i64 %idxprom.i
+  %9 = load i64, ptr %arrayidx, align 4
+  store i64 %9, ptr %arrayidx.i, align 4
+  %indvars.iv.next = add nuw nsw i64 %indvars.iv, 1
+  %10 = load i32, ptr %thePart, align 8, !tbaa !13
+  %11 = zext i32 %10 to i64
+  %cmp = icmp ult i64 %indvars.iv.next, %11
+  br i1 %cmp, label %for.body, label %for.end, !llvm.loop !35
 
-41:                                               ; preds = %27, %2
-  %42 = phi ptr [ %0, %2 ], [ %31, %27 ]
-  ret ptr %42
+for.end:                                          ; preds = %BF_addElement.exit, %entry
+  %theHolder.addr.0.lcssa = phi ptr [ %theHolder, %entry ], [ %retPH.0.i, %BF_addElement.exit ]
+  ret ptr %theHolder.addr.0.lcssa
 }
 
 ; Function Attrs: nounwind uwtable
-define dso_local ptr @BF_addElement(ptr noundef %0, ptr nocapture noundef readonly %1) local_unnamed_addr #1 {
-  %3 = getelementptr inbounds %struct.BF_PartHolder, ptr %0, i64 0, i32 1
-  %4 = load ptr, ptr %3, align 8, !tbaa !17
-  %5 = load i32, ptr %4, align 8, !tbaa !13
-  %6 = add i32 %5, 1
-  %7 = load i32, ptr %0, align 8, !tbaa !15
-  %8 = icmp sgt i32 %6, %7
-  br i1 %8, label %9, label %16
+define dso_local ptr @BF_addElement(ptr noundef %thePH, ptr nocapture noundef readonly %theElement) local_unnamed_addr #1 {
+entry:
+  %part = getelementptr inbounds %struct.BF_PartHolder, ptr %thePH, i64 0, i32 1
+  %0 = load ptr, ptr %part, align 8, !tbaa !17
+  %1 = load i32, ptr %0, align 8, !tbaa !13
+  %add = add i32 %1, 1
+  %2 = load i32, ptr %thePH, align 8, !tbaa !15
+  %cmp = icmp sgt i32 %add, %2
+  br i1 %cmp, label %if.then, label %if.end
 
-9:                                                ; preds = %2
-  %10 = add i32 %5, 9
-  %11 = tail call ptr @BF_resizePartHolder(ptr noundef nonnull %0, i32 noundef %10)
-  %12 = getelementptr inbounds %struct.BF_PartHolder, ptr %11, i64 0, i32 1
-  %13 = load ptr, ptr %12, align 8, !tbaa !17
-  %14 = load i32, ptr %13, align 8, !tbaa !13
-  %15 = add i32 %14, 1
-  br label %16
+if.then:                                          ; preds = %entry
+  %add1 = add i32 %1, 9
+  %call = tail call ptr @BF_resizePartHolder(ptr noundef nonnull %thePH, i32 noundef %add1)
+  %part2.phi.trans.insert = getelementptr inbounds %struct.BF_PartHolder, ptr %call, i64 0, i32 1
+  %.pre = load ptr, ptr %part2.phi.trans.insert, align 8, !tbaa !17
+  %.pre11 = load i32, ptr %.pre, align 8, !tbaa !13
+  %.pre12 = add i32 %.pre11, 1
+  br label %if.end
 
-16:                                               ; preds = %9, %2
-  %17 = phi i32 [ %15, %9 ], [ %6, %2 ]
-  %18 = phi i32 [ %14, %9 ], [ %5, %2 ]
-  %19 = phi ptr [ %13, %9 ], [ %4, %2 ]
-  %20 = phi ptr [ %11, %9 ], [ %0, %2 ]
-  %21 = getelementptr inbounds %struct.BF_BitstreamPart, ptr %19, i64 0, i32 1
-  %22 = load ptr, ptr %21, align 8, !tbaa !18
-  store i32 %17, ptr %19, align 8, !tbaa !13
-  %23 = zext i32 %18 to i64
-  %24 = getelementptr inbounds %struct.BF_BitstreamElement, ptr %22, i64 %23
-  %25 = load i64, ptr %1, align 4
-  store i64 %25, ptr %24, align 4
-  ret ptr %20
+if.end:                                           ; preds = %if.then, %entry
+  %inc.pre-phi = phi i32 [ %.pre12, %if.then ], [ %add, %entry ]
+  %3 = phi i32 [ %.pre11, %if.then ], [ %1, %entry ]
+  %4 = phi ptr [ %.pre, %if.then ], [ %0, %entry ]
+  %retPH.0 = phi ptr [ %call, %if.then ], [ %thePH, %entry ]
+  %element = getelementptr inbounds %struct.BF_BitstreamPart, ptr %4, i64 0, i32 1
+  %5 = load ptr, ptr %element, align 8, !tbaa !18
+  store i32 %inc.pre-phi, ptr %4, align 8, !tbaa !13
+  %idxprom = zext i32 %3 to i64
+  %arrayidx = getelementptr inbounds %struct.BF_BitstreamElement, ptr %5, i64 %idxprom
+  %6 = load i64, ptr %theElement, align 4
+  store i64 %6, ptr %arrayidx, align 4
+  ret ptr %retPH.0
 }
 
 ; Function Attrs: nounwind uwtable
-define dso_local noalias ptr @BF_resizePartHolder(ptr nocapture noundef %0, i32 noundef %1) local_unnamed_addr #1 {
-  %3 = tail call noalias dereferenceable_or_null(16) ptr @calloc(i64 noundef 1, i64 noundef 16) #11
-  store i32 %1, ptr %3, align 8, !tbaa !15
-  %4 = tail call noalias dereferenceable_or_null(16) ptr @calloc(i64 noundef 1, i64 noundef 16) #11
-  %5 = getelementptr inbounds %struct.BF_PartHolder, ptr %3, i64 0, i32 1
-  store ptr %4, ptr %5, align 8, !tbaa !17
-  %6 = sext i32 %1 to i64
-  %7 = tail call noalias ptr @calloc(i64 noundef %6, i64 noundef 8) #11
-  %8 = getelementptr inbounds %struct.BF_BitstreamPart, ptr %4, i64 0, i32 1
-  store ptr %7, ptr %8, align 8, !tbaa !18
-  %9 = load i32, ptr %0, align 8, !tbaa !15
-  %10 = tail call i32 @llvm.smin.i32(i32 %9, i32 %1)
-  store i32 %10, ptr %4, align 8, !tbaa !13
-  %11 = icmp sgt i32 %10, 0
-  br i1 %11, label %12, label %51
+define dso_local noalias ptr @BF_resizePartHolder(ptr nocapture noundef %oldPH, i32 noundef %max_elements) local_unnamed_addr #1 {
+entry:
+  %call.i = tail call noalias dereferenceable_or_null(16) ptr @calloc(i64 noundef 1, i64 noundef 16) #11
+  store i32 %max_elements, ptr %call.i, align 8, !tbaa !15
+  %call2.i = tail call noalias dereferenceable_or_null(16) ptr @calloc(i64 noundef 1, i64 noundef 16) #11
+  %part.i = getelementptr inbounds %struct.BF_PartHolder, ptr %call.i, i64 0, i32 1
+  store ptr %call2.i, ptr %part.i, align 8, !tbaa !17
+  %conv.i = sext i32 %max_elements to i64
+  %call3.i = tail call noalias ptr @calloc(i64 noundef %conv.i, i64 noundef 8) #11
+  %element.i = getelementptr inbounds %struct.BF_BitstreamPart, ptr %call2.i, i64 0, i32 1
+  store ptr %call3.i, ptr %element.i, align 8, !tbaa !18
+  %0 = load i32, ptr %oldPH, align 8, !tbaa !15
+  %max_elements. = tail call i32 @llvm.smin.i32(i32 %0, i32 %max_elements)
+  store i32 %max_elements., ptr %call2.i, align 8, !tbaa !13
+  %cmp323 = icmp sgt i32 %max_elements., 0
+  br i1 %cmp323, label %for.body.lr.ph, label %for.end
 
-12:                                               ; preds = %2
-  %13 = getelementptr inbounds %struct.BF_PartHolder, ptr %0, i64 0, i32 1
-  %14 = zext i32 %10 to i64
-  %15 = and i64 %14, 1
-  %16 = icmp eq i32 %10, 1
-  br i1 %16, label %40, label %17
+for.body.lr.ph:                                   ; preds = %entry
+  %part5 = getelementptr inbounds %struct.BF_PartHolder, ptr %oldPH, i64 0, i32 1
+  %wide.trip.count = zext i32 %max_elements. to i64
+  %xtraiter = and i64 %wide.trip.count, 1
+  %1 = icmp eq i32 %max_elements., 1
+  br i1 %1, label %for.end.loopexit.unr-lcssa, label %for.body.lr.ph.new
 
-17:                                               ; preds = %12
-  %18 = and i64 %14, 4294967294
-  br label %19
+for.body.lr.ph.new:                               ; preds = %for.body.lr.ph
+  %unroll_iter = and i64 %wide.trip.count, 4294967294
+  br label %for.body
 
-19:                                               ; preds = %19, %17
-  %20 = phi i64 [ 0, %17 ], [ %37, %19 ]
-  %21 = phi i64 [ 0, %17 ], [ %38, %19 ]
-  %22 = load ptr, ptr %8, align 8, !tbaa !18
-  %23 = getelementptr inbounds %struct.BF_BitstreamElement, ptr %22, i64 %20
-  %24 = load ptr, ptr %13, align 8, !tbaa !17
-  %25 = getelementptr inbounds %struct.BF_BitstreamPart, ptr %24, i64 0, i32 1
-  %26 = load ptr, ptr %25, align 8, !tbaa !18
-  %27 = getelementptr inbounds %struct.BF_BitstreamElement, ptr %26, i64 %20
-  %28 = load i64, ptr %27, align 4
-  store i64 %28, ptr %23, align 4
-  %29 = or i64 %20, 1
-  %30 = load ptr, ptr %8, align 8, !tbaa !18
-  %31 = getelementptr inbounds %struct.BF_BitstreamElement, ptr %30, i64 %29
-  %32 = load ptr, ptr %13, align 8, !tbaa !17
-  %33 = getelementptr inbounds %struct.BF_BitstreamPart, ptr %32, i64 0, i32 1
-  %34 = load ptr, ptr %33, align 8, !tbaa !18
-  %35 = getelementptr inbounds %struct.BF_BitstreamElement, ptr %34, i64 %29
-  %36 = load i64, ptr %35, align 4
-  store i64 %36, ptr %31, align 4
-  %37 = add nuw nsw i64 %20, 2
-  %38 = add i64 %21, 2
-  %39 = icmp eq i64 %38, %18
-  br i1 %39, label %40, label %19, !llvm.loop !45
+for.body:                                         ; preds = %for.body, %for.body.lr.ph.new
+  %indvars.iv = phi i64 [ 0, %for.body.lr.ph.new ], [ %indvars.iv.next.1, %for.body ]
+  %niter = phi i64 [ 0, %for.body.lr.ph.new ], [ %niter.next.1, %for.body ]
+  %2 = load ptr, ptr %element.i, align 8, !tbaa !18
+  %arrayidx = getelementptr inbounds %struct.BF_BitstreamElement, ptr %2, i64 %indvars.iv
+  %3 = load ptr, ptr %part5, align 8, !tbaa !17
+  %element6 = getelementptr inbounds %struct.BF_BitstreamPart, ptr %3, i64 0, i32 1
+  %4 = load ptr, ptr %element6, align 8, !tbaa !18
+  %arrayidx8 = getelementptr inbounds %struct.BF_BitstreamElement, ptr %4, i64 %indvars.iv
+  %5 = load i64, ptr %arrayidx8, align 4
+  store i64 %5, ptr %arrayidx, align 4
+  %indvars.iv.next = or i64 %indvars.iv, 1
+  %6 = load ptr, ptr %element.i, align 8, !tbaa !18
+  %arrayidx.1 = getelementptr inbounds %struct.BF_BitstreamElement, ptr %6, i64 %indvars.iv.next
+  %7 = load ptr, ptr %part5, align 8, !tbaa !17
+  %element6.1 = getelementptr inbounds %struct.BF_BitstreamPart, ptr %7, i64 0, i32 1
+  %8 = load ptr, ptr %element6.1, align 8, !tbaa !18
+  %arrayidx8.1 = getelementptr inbounds %struct.BF_BitstreamElement, ptr %8, i64 %indvars.iv.next
+  %9 = load i64, ptr %arrayidx8.1, align 4
+  store i64 %9, ptr %arrayidx.1, align 4
+  %indvars.iv.next.1 = add nuw nsw i64 %indvars.iv, 2
+  %niter.next.1 = add i64 %niter, 2
+  %niter.ncmp.1 = icmp eq i64 %niter.next.1, %unroll_iter
+  br i1 %niter.ncmp.1, label %for.end.loopexit.unr-lcssa, label %for.body, !llvm.loop !45
 
-40:                                               ; preds = %19, %12
-  %41 = phi i64 [ 0, %12 ], [ %37, %19 ]
-  %42 = icmp eq i64 %15, 0
-  br i1 %42, label %51, label %43
+for.end.loopexit.unr-lcssa:                       ; preds = %for.body, %for.body.lr.ph
+  %indvars.iv.unr = phi i64 [ 0, %for.body.lr.ph ], [ %indvars.iv.next.1, %for.body ]
+  %lcmp.mod.not = icmp eq i64 %xtraiter, 0
+  br i1 %lcmp.mod.not, label %for.end, label %for.body.epil
 
-43:                                               ; preds = %40
-  %44 = load ptr, ptr %8, align 8, !tbaa !18
-  %45 = getelementptr inbounds %struct.BF_BitstreamElement, ptr %44, i64 %41
-  %46 = load ptr, ptr %13, align 8, !tbaa !17
-  %47 = getelementptr inbounds %struct.BF_BitstreamPart, ptr %46, i64 0, i32 1
-  %48 = load ptr, ptr %47, align 8, !tbaa !18
-  %49 = getelementptr inbounds %struct.BF_BitstreamElement, ptr %48, i64 %41
-  %50 = load i64, ptr %49, align 4
-  store i64 %50, ptr %45, align 4
-  br label %51
+for.body.epil:                                    ; preds = %for.end.loopexit.unr-lcssa
+  %10 = load ptr, ptr %element.i, align 8, !tbaa !18
+  %arrayidx.epil = getelementptr inbounds %struct.BF_BitstreamElement, ptr %10, i64 %indvars.iv.unr
+  %11 = load ptr, ptr %part5, align 8, !tbaa !17
+  %element6.epil = getelementptr inbounds %struct.BF_BitstreamPart, ptr %11, i64 0, i32 1
+  %12 = load ptr, ptr %element6.epil, align 8, !tbaa !18
+  %arrayidx8.epil = getelementptr inbounds %struct.BF_BitstreamElement, ptr %12, i64 %indvars.iv.unr
+  %13 = load i64, ptr %arrayidx8.epil, align 4
+  store i64 %13, ptr %arrayidx.epil, align 4
+  br label %for.end
 
-51:                                               ; preds = %43, %40, %2
-  %52 = getelementptr inbounds %struct.BF_PartHolder, ptr %0, i64 0, i32 1
-  %53 = load ptr, ptr %52, align 8, !tbaa !17
-  %54 = getelementptr inbounds %struct.BF_BitstreamPart, ptr %53, i64 0, i32 1
-  %55 = load ptr, ptr %54, align 8, !tbaa !18
-  tail call void @free(ptr noundef %55) #14
-  %56 = load ptr, ptr %52, align 8, !tbaa !17
-  tail call void @free(ptr noundef %56) #14
-  tail call void @free(ptr noundef nonnull %0) #14
-  ret ptr %3
+for.end:                                          ; preds = %for.body.epil, %for.end.loopexit.unr-lcssa, %entry
+  %part.i21 = getelementptr inbounds %struct.BF_PartHolder, ptr %oldPH, i64 0, i32 1
+  %14 = load ptr, ptr %part.i21, align 8, !tbaa !17
+  %element.i22 = getelementptr inbounds %struct.BF_BitstreamPart, ptr %14, i64 0, i32 1
+  %15 = load ptr, ptr %element.i22, align 8, !tbaa !18
+  tail call void @free(ptr noundef %15) #14
+  %16 = load ptr, ptr %part.i21, align 8, !tbaa !17
+  tail call void @free(ptr noundef %16) #14
+  tail call void @free(ptr noundef nonnull %oldPH) #14
+  ret ptr %call.i
 }
 
 ; Function Attrs: mustprogress nounwind willreturn uwtable
-define dso_local noalias ptr @BF_freePartHolder(ptr nocapture noundef %0) local_unnamed_addr #5 {
-  %2 = getelementptr inbounds %struct.BF_PartHolder, ptr %0, i64 0, i32 1
-  %3 = load ptr, ptr %2, align 8, !tbaa !17
-  %4 = getelementptr inbounds %struct.BF_BitstreamPart, ptr %3, i64 0, i32 1
-  %5 = load ptr, ptr %4, align 8, !tbaa !18
-  tail call void @free(ptr noundef %5) #14
-  %6 = load ptr, ptr %2, align 8, !tbaa !17
-  tail call void @free(ptr noundef %6) #14
-  tail call void @free(ptr noundef %0) #14
+define dso_local noalias ptr @BF_freePartHolder(ptr nocapture noundef %thePH) local_unnamed_addr #5 {
+entry:
+  %part = getelementptr inbounds %struct.BF_PartHolder, ptr %thePH, i64 0, i32 1
+  %0 = load ptr, ptr %part, align 8, !tbaa !17
+  %element = getelementptr inbounds %struct.BF_BitstreamPart, ptr %0, i64 0, i32 1
+  %1 = load ptr, ptr %element, align 8, !tbaa !18
+  tail call void @free(ptr noundef %1) #14
+  %2 = load ptr, ptr %part, align 8, !tbaa !17
+  tail call void @free(ptr noundef %2) #14
+  tail call void @free(ptr noundef %thePH) #14
   ret ptr null
 }
 
@@ -2003,266 +2013,268 @@ define dso_local noalias ptr @BF_freePartHolder(ptr nocapture noundef %0) local_
 declare void @free(ptr allocptr nocapture noundef) local_unnamed_addr #6
 
 ; Function Attrs: nounwind uwtable
-define dso_local ptr @BF_addEntry(ptr noundef %0, i32 noundef %1, i32 noundef %2) local_unnamed_addr #1 {
-  %4 = icmp eq i32 %2, 0
-  br i1 %4, label %33, label %5
+define dso_local ptr @BF_addEntry(ptr noundef %thePH, i32 noundef %value, i32 noundef %length) local_unnamed_addr #1 {
+entry:
+  %tobool.not = icmp eq i32 %length, 0
+  br i1 %tobool.not, label %cleanup, label %if.then
 
-5:                                                ; preds = %3
-  %6 = getelementptr inbounds %struct.BF_PartHolder, ptr %0, i64 0, i32 1
-  %7 = load ptr, ptr %6, align 8, !tbaa !17
-  %8 = load i32, ptr %7, align 8, !tbaa !13
-  %9 = add i32 %8, 1
-  %10 = load i32, ptr %0, align 8, !tbaa !15
-  %11 = icmp sgt i32 %9, %10
-  br i1 %11, label %12, label %19
+if.then:                                          ; preds = %entry
+  %part.i = getelementptr inbounds %struct.BF_PartHolder, ptr %thePH, i64 0, i32 1
+  %0 = load ptr, ptr %part.i, align 8, !tbaa !17
+  %1 = load i32, ptr %0, align 8, !tbaa !13
+  %add.i = add i32 %1, 1
+  %2 = load i32, ptr %thePH, align 8, !tbaa !15
+  %cmp.i = icmp sgt i32 %add.i, %2
+  br i1 %cmp.i, label %if.then.i, label %BF_addElement.exit
 
-12:                                               ; preds = %5
-  %13 = add i32 %8, 9
-  %14 = tail call ptr @BF_resizePartHolder(ptr noundef nonnull %0, i32 noundef %13)
-  %15 = getelementptr inbounds %struct.BF_PartHolder, ptr %14, i64 0, i32 1
-  %16 = load ptr, ptr %15, align 8, !tbaa !17
-  %17 = load i32, ptr %16, align 8, !tbaa !13
-  %18 = add i32 %17, 1
-  br label %19
+if.then.i:                                        ; preds = %if.then
+  %add1.i = add i32 %1, 9
+  %call.i = tail call ptr @BF_resizePartHolder(ptr noundef nonnull %thePH, i32 noundef %add1.i)
+  %part2.phi.trans.insert.i = getelementptr inbounds %struct.BF_PartHolder, ptr %call.i, i64 0, i32 1
+  %.pre.i = load ptr, ptr %part2.phi.trans.insert.i, align 8, !tbaa !17
+  %.pre11.i = load i32, ptr %.pre.i, align 8, !tbaa !13
+  %.pre12.i = add i32 %.pre11.i, 1
+  br label %BF_addElement.exit
 
-19:                                               ; preds = %5, %12
-  %20 = phi i32 [ %18, %12 ], [ %9, %5 ]
-  %21 = phi i32 [ %17, %12 ], [ %8, %5 ]
-  %22 = phi ptr [ %16, %12 ], [ %7, %5 ]
-  %23 = phi ptr [ %14, %12 ], [ %0, %5 ]
-  %24 = getelementptr inbounds %struct.BF_BitstreamPart, ptr %22, i64 0, i32 1
-  %25 = load ptr, ptr %24, align 8, !tbaa !18
-  store i32 %20, ptr %22, align 8, !tbaa !13
-  %26 = zext i32 %21 to i64
-  %27 = getelementptr inbounds %struct.BF_BitstreamElement, ptr %25, i64 %26
-  %28 = and i32 %2, 65535
-  %29 = zext i32 %28 to i64
-  %30 = shl nuw nsw i64 %29, 32
-  %31 = zext i32 %1 to i64
-  %32 = or i64 %30, %31
-  store i64 %32, ptr %27, align 4
-  br label %33
+BF_addElement.exit:                               ; preds = %if.then, %if.then.i
+  %inc.pre-phi.i = phi i32 [ %.pre12.i, %if.then.i ], [ %add.i, %if.then ]
+  %3 = phi i32 [ %.pre11.i, %if.then.i ], [ %1, %if.then ]
+  %4 = phi ptr [ %.pre.i, %if.then.i ], [ %0, %if.then ]
+  %retPH.0.i = phi ptr [ %call.i, %if.then.i ], [ %thePH, %if.then ]
+  %element.i = getelementptr inbounds %struct.BF_BitstreamPart, ptr %4, i64 0, i32 1
+  %5 = load ptr, ptr %element.i, align 8, !tbaa !18
+  store i32 %inc.pre-phi.i, ptr %4, align 8, !tbaa !13
+  %idxprom.i = zext i32 %3 to i64
+  %arrayidx.i = getelementptr inbounds %struct.BF_BitstreamElement, ptr %5, i64 %idxprom.i
+  %6 = and i32 %length, 65535
+  %myElement.sroa.4.0.insert.ext = zext i32 %6 to i64
+  %myElement.sroa.4.0.insert.shift = shl nuw nsw i64 %myElement.sroa.4.0.insert.ext, 32
+  %myElement.sroa.0.0.insert.ext = zext i32 %value to i64
+  %myElement.sroa.0.0.insert.insert = or i64 %myElement.sroa.4.0.insert.shift, %myElement.sroa.0.0.insert.ext
+  store i64 %myElement.sroa.0.0.insert.insert, ptr %arrayidx.i, align 4
+  br label %cleanup
 
-33:                                               ; preds = %3, %19
-  %34 = phi ptr [ %23, %19 ], [ %0, %3 ]
-  ret ptr %34
+cleanup:                                          ; preds = %entry, %BF_addElement.exit
+  %retval.0 = phi ptr [ %retPH.0.i, %BF_addElement.exit ], [ %thePH, %entry ]
+  ret ptr %retval.0
 }
 
 ; Function Attrs: nounwind uwtable
 define internal fastcc i32 @write_side_info() unnamed_addr #1 {
-  %1 = load ptr, ptr @side_queue_free, align 8, !tbaa !9
-  %2 = load ptr, ptr @side_queue_head, align 8, !tbaa !9
-  %3 = load ptr, ptr %2, align 8, !tbaa !30
-  store ptr %3, ptr @side_queue_head, align 8, !tbaa !9
-  store ptr %2, ptr @side_queue_free, align 8, !tbaa !9
-  store ptr %1, ptr %2, align 8, !tbaa !30
-  %4 = getelementptr inbounds %struct.side_info_link, ptr %2, i64 0, i32 1
-  %5 = load i32, ptr %4, align 8, !tbaa !71
-  store i32 %5, ptr @ThisFrameSize, align 4, !tbaa !5
-  %6 = getelementptr inbounds %struct.side_info_link, ptr %2, i64 0, i32 1, i32 4
-  %7 = load ptr, ptr %6, align 8, !tbaa !72
-  %8 = getelementptr inbounds %struct.BF_PartHolder, ptr %7, i64 0, i32 1
-  %9 = load ptr, ptr %8, align 8, !tbaa !17
-  %10 = load i32, ptr %9, align 8, !tbaa !13
-  %11 = icmp eq i32 %10, 0
-  br i1 %11, label %30, label %12
+entry:
+  %0 = load ptr, ptr @side_queue_free, align 8, !tbaa !9
+  %1 = load ptr, ptr @side_queue_head, align 8, !tbaa !9
+  %2 = load ptr, ptr %1, align 8, !tbaa !30
+  store ptr %2, ptr @side_queue_head, align 8, !tbaa !9
+  store ptr %1, ptr @side_queue_free, align 8, !tbaa !9
+  store ptr %0, ptr %1, align 8, !tbaa !30
+  %side_info.i = getelementptr inbounds %struct.side_info_link, ptr %1, i64 0, i32 1
+  %3 = load i32, ptr %side_info.i, align 8, !tbaa !71
+  store i32 %3, ptr @ThisFrameSize, align 4, !tbaa !5
+  %headerPH = getelementptr inbounds %struct.side_info_link, ptr %1, i64 0, i32 1, i32 4
+  %4 = load ptr, ptr %headerPH, align 8, !tbaa !72
+  %part = getelementptr inbounds %struct.BF_PartHolder, ptr %4, i64 0, i32 1
+  %5 = load ptr, ptr %part, align 8, !tbaa !17
+  %6 = load i32, ptr %5, align 8, !tbaa !13
+  %cmp1.not.i = icmp eq i32 %6, 0
+  br i1 %cmp1.not.i, label %writePartSideInfo.exit, label %for.body.preheader.i
 
-12:                                               ; preds = %0
-  %13 = getelementptr inbounds %struct.BF_BitstreamPart, ptr %9, i64 0, i32 1
-  %14 = load ptr, ptr %13, align 8, !tbaa !18
-  br label %15
+for.body.preheader.i:                             ; preds = %entry
+  %element.i = getelementptr inbounds %struct.BF_BitstreamPart, ptr %5, i64 0, i32 1
+  %7 = load ptr, ptr %element.i, align 8, !tbaa !18
+  br label %for.body.i
 
-15:                                               ; preds = %15, %12
-  %16 = phi i32 [ %25, %15 ], [ 0, %12 ]
-  %17 = phi i32 [ %26, %15 ], [ 0, %12 ]
-  %18 = phi ptr [ %27, %15 ], [ %14, %12 ]
-  %19 = load i32, ptr %18, align 4, !tbaa !59
-  %20 = getelementptr inbounds %struct.BF_BitstreamElement, ptr %18, i64 0, i32 1
-  %21 = load i16, ptr %20, align 4, !tbaa !36
-  %22 = zext i16 %21 to i32
-  tail call void @putMyBits(i32 noundef %19, i32 noundef %22) #14
-  %23 = load i16, ptr %20, align 4, !tbaa !36
-  %24 = zext i16 %23 to i32
-  %25 = add nuw nsw i32 %16, %24
-  %26 = add nuw i32 %17, 1
-  %27 = getelementptr inbounds %struct.BF_BitstreamElement, ptr %18, i64 1
-  %28 = load i32, ptr %9, align 8, !tbaa !13
-  %29 = icmp ult i32 %26, %28
-  br i1 %29, label %15, label %30, !llvm.loop !73
+for.body.i:                                       ; preds = %for.body.i, %for.body.preheader.i
+  %bits.04.i = phi i32 [ %add.i, %for.body.i ], [ 0, %for.body.preheader.i ]
+  %i.03.i = phi i32 [ %inc.i, %for.body.i ], [ 0, %for.body.preheader.i ]
+  %ep.02.i = phi ptr [ %incdec.ptr.i, %for.body.i ], [ %7, %for.body.preheader.i ]
+  %8 = load i32, ptr %ep.02.i, align 4, !tbaa !59
+  %length.i = getelementptr inbounds %struct.BF_BitstreamElement, ptr %ep.02.i, i64 0, i32 1
+  %9 = load i16, ptr %length.i, align 4, !tbaa !36
+  %conv.i = zext i16 %9 to i32
+  tail call void @putMyBits(i32 noundef %8, i32 noundef %conv.i) #14
+  %10 = load i16, ptr %length.i, align 4, !tbaa !36
+  %conv2.i = zext i16 %10 to i32
+  %add.i = add nuw nsw i32 %bits.04.i, %conv2.i
+  %inc.i = add nuw i32 %i.03.i, 1
+  %incdec.ptr.i = getelementptr inbounds %struct.BF_BitstreamElement, ptr %ep.02.i, i64 1
+  %11 = load i32, ptr %5, align 8, !tbaa !13
+  %cmp.i = icmp ult i32 %inc.i, %11
+  br i1 %cmp.i, label %for.body.i, label %writePartSideInfo.exit, !llvm.loop !73
 
-30:                                               ; preds = %15, %0
-  %31 = phi i32 [ 0, %0 ], [ %25, %15 ]
-  %32 = getelementptr inbounds %struct.side_info_link, ptr %2, i64 0, i32 1, i32 5
-  %33 = load ptr, ptr %32, align 8, !tbaa !74
-  %34 = getelementptr inbounds %struct.BF_PartHolder, ptr %33, i64 0, i32 1
-  %35 = load ptr, ptr %34, align 8, !tbaa !17
-  %36 = load i32, ptr %35, align 8, !tbaa !13
-  %37 = icmp eq i32 %36, 0
-  br i1 %37, label %56, label %38
+writePartSideInfo.exit:                           ; preds = %for.body.i, %entry
+  %bits.0.lcssa.i = phi i32 [ 0, %entry ], [ %add.i, %for.body.i ]
+  %frameSIPH = getelementptr inbounds %struct.side_info_link, ptr %1, i64 0, i32 1, i32 5
+  %12 = load ptr, ptr %frameSIPH, align 8, !tbaa !74
+  %part2 = getelementptr inbounds %struct.BF_PartHolder, ptr %12, i64 0, i32 1
+  %13 = load ptr, ptr %part2, align 8, !tbaa !17
+  %14 = load i32, ptr %13, align 8, !tbaa !13
+  %cmp1.not.i49 = icmp eq i32 %14, 0
+  br i1 %cmp1.not.i49, label %writePartSideInfo.exit64, label %for.body.preheader.i51
 
-38:                                               ; preds = %30
-  %39 = getelementptr inbounds %struct.BF_BitstreamPart, ptr %35, i64 0, i32 1
-  %40 = load ptr, ptr %39, align 8, !tbaa !18
-  br label %41
+for.body.preheader.i51:                           ; preds = %writePartSideInfo.exit
+  %element.i50 = getelementptr inbounds %struct.BF_BitstreamPart, ptr %13, i64 0, i32 1
+  %15 = load ptr, ptr %element.i50, align 8, !tbaa !18
+  br label %for.body.i62
 
-41:                                               ; preds = %41, %38
-  %42 = phi i32 [ %51, %41 ], [ 0, %38 ]
-  %43 = phi i32 [ %52, %41 ], [ 0, %38 ]
-  %44 = phi ptr [ %53, %41 ], [ %40, %38 ]
-  %45 = load i32, ptr %44, align 4, !tbaa !59
-  %46 = getelementptr inbounds %struct.BF_BitstreamElement, ptr %44, i64 0, i32 1
-  %47 = load i16, ptr %46, align 4, !tbaa !36
-  %48 = zext i16 %47 to i32
-  tail call void @putMyBits(i32 noundef %45, i32 noundef %48) #14
-  %49 = load i16, ptr %46, align 4, !tbaa !36
-  %50 = zext i16 %49 to i32
-  %51 = add nuw nsw i32 %42, %50
-  %52 = add nuw i32 %43, 1
-  %53 = getelementptr inbounds %struct.BF_BitstreamElement, ptr %44, i64 1
-  %54 = load i32, ptr %35, align 8, !tbaa !13
-  %55 = icmp ult i32 %52, %54
-  br i1 %55, label %41, label %56, !llvm.loop !73
+for.body.i62:                                     ; preds = %for.body.i62, %for.body.preheader.i51
+  %bits.04.i52 = phi i32 [ %add.i58, %for.body.i62 ], [ 0, %for.body.preheader.i51 ]
+  %i.03.i53 = phi i32 [ %inc.i59, %for.body.i62 ], [ 0, %for.body.preheader.i51 ]
+  %ep.02.i54 = phi ptr [ %incdec.ptr.i60, %for.body.i62 ], [ %15, %for.body.preheader.i51 ]
+  %16 = load i32, ptr %ep.02.i54, align 4, !tbaa !59
+  %length.i55 = getelementptr inbounds %struct.BF_BitstreamElement, ptr %ep.02.i54, i64 0, i32 1
+  %17 = load i16, ptr %length.i55, align 4, !tbaa !36
+  %conv.i56 = zext i16 %17 to i32
+  tail call void @putMyBits(i32 noundef %16, i32 noundef %conv.i56) #14
+  %18 = load i16, ptr %length.i55, align 4, !tbaa !36
+  %conv2.i57 = zext i16 %18 to i32
+  %add.i58 = add nuw nsw i32 %bits.04.i52, %conv2.i57
+  %inc.i59 = add nuw i32 %i.03.i53, 1
+  %incdec.ptr.i60 = getelementptr inbounds %struct.BF_BitstreamElement, ptr %ep.02.i54, i64 1
+  %19 = load i32, ptr %13, align 8, !tbaa !13
+  %cmp.i61 = icmp ult i32 %inc.i59, %19
+  br i1 %cmp.i61, label %for.body.i62, label %writePartSideInfo.exit64, !llvm.loop !73
 
-56:                                               ; preds = %41, %30
-  %57 = phi i32 [ 0, %30 ], [ %51, %41 ]
-  %58 = add nsw i32 %57, %31
-  %59 = getelementptr inbounds %struct.side_info_link, ptr %2, i64 0, i32 1, i32 3
-  %60 = load i32, ptr %59, align 4, !tbaa !75
-  %61 = icmp sgt i32 %60, 0
-  br i1 %61, label %70, label %62
+writePartSideInfo.exit64:                         ; preds = %for.body.i62, %writePartSideInfo.exit
+  %bits.0.lcssa.i63 = phi i32 [ 0, %writePartSideInfo.exit ], [ %add.i58, %for.body.i62 ]
+  %add4 = add nsw i32 %bits.0.lcssa.i63, %bits.0.lcssa.i
+  %nChannels = getelementptr inbounds %struct.side_info_link, ptr %1, i64 0, i32 1, i32 3
+  %20 = load i32, ptr %nChannels, align 4, !tbaa !75
+  %cmp97 = icmp sgt i32 %20, 0
+  br i1 %cmp97, label %for.body, label %for.cond8.preheader
 
-62:                                               ; preds = %100, %56
-  %63 = phi i32 [ %60, %56 ], [ %101, %100 ]
-  %64 = phi i32 [ %58, %56 ], [ %103, %100 ]
-  %65 = getelementptr inbounds %struct.side_info_link, ptr %2, i64 0, i32 1, i32 2
-  %66 = load i32, ptr %65, align 8, !tbaa !76
-  %67 = icmp sgt i32 %66, 0
-  %68 = icmp sgt i32 %63, 0
-  %69 = select i1 %67, i1 %68, i1 false
-  br i1 %69, label %107, label %161
+for.cond8.preheader:                              ; preds = %writePartSideInfo.exit80, %writePartSideInfo.exit64
+  %21 = phi i32 [ %20, %writePartSideInfo.exit64 ], [ %33, %writePartSideInfo.exit80 ]
+  %bits.0.lcssa = phi i32 [ %add4, %writePartSideInfo.exit64 ], [ %add7, %writePartSideInfo.exit80 ]
+  %nGranules = getelementptr inbounds %struct.side_info_link, ptr %1, i64 0, i32 1, i32 2
+  %22 = load i32, ptr %nGranules, align 8, !tbaa !76
+  %cmp9104 = icmp sgt i32 %22, 0
+  %23 = icmp sgt i32 %21, 0
+  %or.cond = select i1 %cmp9104, i1 %23, i1 false
+  br i1 %or.cond, label %for.cond11.preheader, label %for.end27
 
-70:                                               ; preds = %56, %100
-  %71 = phi i32 [ %101, %100 ], [ %60, %56 ]
-  %72 = phi i64 [ %104, %100 ], [ 0, %56 ]
-  %73 = phi i32 [ %103, %100 ], [ %58, %56 ]
-  %74 = getelementptr inbounds %struct.side_info_link, ptr %2, i64 0, i32 1, i32 6, i64 %72
-  %75 = load ptr, ptr %74, align 8, !tbaa !9
-  %76 = getelementptr inbounds %struct.BF_PartHolder, ptr %75, i64 0, i32 1
-  %77 = load ptr, ptr %76, align 8, !tbaa !17
-  %78 = load i32, ptr %77, align 8, !tbaa !13
-  %79 = icmp eq i32 %78, 0
-  br i1 %79, label %100, label %80
+for.body:                                         ; preds = %writePartSideInfo.exit64, %writePartSideInfo.exit80
+  %24 = phi i32 [ %33, %writePartSideInfo.exit80 ], [ %20, %writePartSideInfo.exit64 ]
+  %indvars.iv = phi i64 [ %indvars.iv.next, %writePartSideInfo.exit80 ], [ 0, %writePartSideInfo.exit64 ]
+  %bits.099 = phi i32 [ %add7, %writePartSideInfo.exit80 ], [ %add4, %writePartSideInfo.exit64 ]
+  %arrayidx = getelementptr inbounds %struct.side_info_link, ptr %1, i64 0, i32 1, i32 6, i64 %indvars.iv
+  %25 = load ptr, ptr %arrayidx, align 8, !tbaa !9
+  %part5 = getelementptr inbounds %struct.BF_PartHolder, ptr %25, i64 0, i32 1
+  %26 = load ptr, ptr %part5, align 8, !tbaa !17
+  %27 = load i32, ptr %26, align 8, !tbaa !13
+  %cmp1.not.i65 = icmp eq i32 %27, 0
+  br i1 %cmp1.not.i65, label %writePartSideInfo.exit80, label %for.body.preheader.i67
 
-80:                                               ; preds = %70
-  %81 = getelementptr inbounds %struct.BF_BitstreamPart, ptr %77, i64 0, i32 1
-  %82 = load ptr, ptr %81, align 8, !tbaa !18
-  br label %83
+for.body.preheader.i67:                           ; preds = %for.body
+  %element.i66 = getelementptr inbounds %struct.BF_BitstreamPart, ptr %26, i64 0, i32 1
+  %28 = load ptr, ptr %element.i66, align 8, !tbaa !18
+  br label %for.body.i78
 
-83:                                               ; preds = %83, %80
-  %84 = phi i32 [ %93, %83 ], [ 0, %80 ]
-  %85 = phi i32 [ %94, %83 ], [ 0, %80 ]
-  %86 = phi ptr [ %95, %83 ], [ %82, %80 ]
-  %87 = load i32, ptr %86, align 4, !tbaa !59
-  %88 = getelementptr inbounds %struct.BF_BitstreamElement, ptr %86, i64 0, i32 1
-  %89 = load i16, ptr %88, align 4, !tbaa !36
-  %90 = zext i16 %89 to i32
-  tail call void @putMyBits(i32 noundef %87, i32 noundef %90) #14
-  %91 = load i16, ptr %88, align 4, !tbaa !36
-  %92 = zext i16 %91 to i32
-  %93 = add nuw nsw i32 %84, %92
-  %94 = add nuw i32 %85, 1
-  %95 = getelementptr inbounds %struct.BF_BitstreamElement, ptr %86, i64 1
-  %96 = load i32, ptr %77, align 8, !tbaa !13
-  %97 = icmp ult i32 %94, %96
-  br i1 %97, label %83, label %98, !llvm.loop !73
+for.body.i78:                                     ; preds = %for.body.i78, %for.body.preheader.i67
+  %bits.04.i68 = phi i32 [ %add.i74, %for.body.i78 ], [ 0, %for.body.preheader.i67 ]
+  %i.03.i69 = phi i32 [ %inc.i75, %for.body.i78 ], [ 0, %for.body.preheader.i67 ]
+  %ep.02.i70 = phi ptr [ %incdec.ptr.i76, %for.body.i78 ], [ %28, %for.body.preheader.i67 ]
+  %29 = load i32, ptr %ep.02.i70, align 4, !tbaa !59
+  %length.i71 = getelementptr inbounds %struct.BF_BitstreamElement, ptr %ep.02.i70, i64 0, i32 1
+  %30 = load i16, ptr %length.i71, align 4, !tbaa !36
+  %conv.i72 = zext i16 %30 to i32
+  tail call void @putMyBits(i32 noundef %29, i32 noundef %conv.i72) #14
+  %31 = load i16, ptr %length.i71, align 4, !tbaa !36
+  %conv2.i73 = zext i16 %31 to i32
+  %add.i74 = add nuw nsw i32 %bits.04.i68, %conv2.i73
+  %inc.i75 = add nuw i32 %i.03.i69, 1
+  %incdec.ptr.i76 = getelementptr inbounds %struct.BF_BitstreamElement, ptr %ep.02.i70, i64 1
+  %32 = load i32, ptr %26, align 8, !tbaa !13
+  %cmp.i77 = icmp ult i32 %inc.i75, %32
+  br i1 %cmp.i77, label %for.body.i78, label %writePartSideInfo.exit80.loopexit, !llvm.loop !73
 
-98:                                               ; preds = %83
-  %99 = load i32, ptr %59, align 4, !tbaa !75
-  br label %100
+writePartSideInfo.exit80.loopexit:                ; preds = %for.body.i78
+  %.pre = load i32, ptr %nChannels, align 4, !tbaa !75
+  br label %writePartSideInfo.exit80
 
-100:                                              ; preds = %98, %70
-  %101 = phi i32 [ %71, %70 ], [ %99, %98 ]
-  %102 = phi i32 [ 0, %70 ], [ %93, %98 ]
-  %103 = add nsw i32 %102, %73
-  %104 = add nuw nsw i64 %72, 1
-  %105 = sext i32 %101 to i64
-  %106 = icmp slt i64 %104, %105
-  br i1 %106, label %70, label %62, !llvm.loop !77
+writePartSideInfo.exit80:                         ; preds = %writePartSideInfo.exit80.loopexit, %for.body
+  %33 = phi i32 [ %24, %for.body ], [ %.pre, %writePartSideInfo.exit80.loopexit ]
+  %bits.0.lcssa.i79 = phi i32 [ 0, %for.body ], [ %add.i74, %writePartSideInfo.exit80.loopexit ]
+  %add7 = add nsw i32 %bits.0.lcssa.i79, %bits.099
+  %indvars.iv.next = add nuw nsw i64 %indvars.iv, 1
+  %34 = sext i32 %33 to i64
+  %cmp = icmp slt i64 %indvars.iv.next, %34
+  br i1 %cmp, label %for.body, label %for.cond8.preheader, !llvm.loop !77
 
-107:                                              ; preds = %62, %153
-  %108 = phi i32 [ %154, %153 ], [ %66, %62 ]
-  %109 = phi i32 [ %155, %153 ], [ %63, %62 ]
-  %110 = phi i32 [ %156, %153 ], [ %63, %62 ]
-  %111 = phi i64 [ %158, %153 ], [ 0, %62 ]
-  %112 = phi i32 [ %157, %153 ], [ %64, %62 ]
-  %113 = icmp sgt i32 %110, 0
-  br i1 %113, label %114, label %153
+for.cond11.preheader:                             ; preds = %for.cond8.preheader, %for.inc25
+  %35 = phi i32 [ %49, %for.inc25 ], [ %22, %for.cond8.preheader ]
+  %36 = phi i32 [ %50, %for.inc25 ], [ %21, %for.cond8.preheader ]
+  %37 = phi i32 [ %51, %for.inc25 ], [ %21, %for.cond8.preheader ]
+  %indvars.iv113 = phi i64 [ %indvars.iv.next114, %for.inc25 ], [ 0, %for.cond8.preheader ]
+  %bits.1106 = phi i32 [ %bits.2.lcssa, %for.inc25 ], [ %bits.0.lcssa, %for.cond8.preheader ]
+  %cmp13100 = icmp sgt i32 %37, 0
+  br i1 %cmp13100, label %for.body14, label %for.inc25
 
-114:                                              ; preds = %107, %144
-  %115 = phi i32 [ %145, %144 ], [ %109, %107 ]
-  %116 = phi i64 [ %148, %144 ], [ 0, %107 ]
-  %117 = phi i32 [ %147, %144 ], [ %112, %107 ]
-  %118 = getelementptr inbounds %struct.side_info_link, ptr %2, i64 0, i32 1, i32 7, i64 %111, i64 %116
-  %119 = load ptr, ptr %118, align 8, !tbaa !9
-  %120 = getelementptr inbounds %struct.BF_PartHolder, ptr %119, i64 0, i32 1
-  %121 = load ptr, ptr %120, align 8, !tbaa !17
-  %122 = load i32, ptr %121, align 8, !tbaa !13
-  %123 = icmp eq i32 %122, 0
-  br i1 %123, label %144, label %124
+for.body14:                                       ; preds = %for.cond11.preheader, %writePartSideInfo.exit96
+  %38 = phi i32 [ %47, %writePartSideInfo.exit96 ], [ %36, %for.cond11.preheader ]
+  %indvars.iv110 = phi i64 [ %indvars.iv.next111, %writePartSideInfo.exit96 ], [ 0, %for.cond11.preheader ]
+  %bits.2102 = phi i32 [ %add21, %writePartSideInfo.exit96 ], [ %bits.1106, %for.cond11.preheader ]
+  %arrayidx18 = getelementptr inbounds %struct.side_info_link, ptr %1, i64 0, i32 1, i32 7, i64 %indvars.iv113, i64 %indvars.iv110
+  %39 = load ptr, ptr %arrayidx18, align 8, !tbaa !9
+  %part19 = getelementptr inbounds %struct.BF_PartHolder, ptr %39, i64 0, i32 1
+  %40 = load ptr, ptr %part19, align 8, !tbaa !17
+  %41 = load i32, ptr %40, align 8, !tbaa !13
+  %cmp1.not.i81 = icmp eq i32 %41, 0
+  br i1 %cmp1.not.i81, label %writePartSideInfo.exit96, label %for.body.preheader.i83
 
-124:                                              ; preds = %114
-  %125 = getelementptr inbounds %struct.BF_BitstreamPart, ptr %121, i64 0, i32 1
-  %126 = load ptr, ptr %125, align 8, !tbaa !18
-  br label %127
+for.body.preheader.i83:                           ; preds = %for.body14
+  %element.i82 = getelementptr inbounds %struct.BF_BitstreamPart, ptr %40, i64 0, i32 1
+  %42 = load ptr, ptr %element.i82, align 8, !tbaa !18
+  br label %for.body.i94
 
-127:                                              ; preds = %127, %124
-  %128 = phi i32 [ %137, %127 ], [ 0, %124 ]
-  %129 = phi i32 [ %138, %127 ], [ 0, %124 ]
-  %130 = phi ptr [ %139, %127 ], [ %126, %124 ]
-  %131 = load i32, ptr %130, align 4, !tbaa !59
-  %132 = getelementptr inbounds %struct.BF_BitstreamElement, ptr %130, i64 0, i32 1
-  %133 = load i16, ptr %132, align 4, !tbaa !36
-  %134 = zext i16 %133 to i32
-  tail call void @putMyBits(i32 noundef %131, i32 noundef %134) #14
-  %135 = load i16, ptr %132, align 4, !tbaa !36
-  %136 = zext i16 %135 to i32
-  %137 = add nuw nsw i32 %128, %136
-  %138 = add nuw i32 %129, 1
-  %139 = getelementptr inbounds %struct.BF_BitstreamElement, ptr %130, i64 1
-  %140 = load i32, ptr %121, align 8, !tbaa !13
-  %141 = icmp ult i32 %138, %140
-  br i1 %141, label %127, label %142, !llvm.loop !73
+for.body.i94:                                     ; preds = %for.body.i94, %for.body.preheader.i83
+  %bits.04.i84 = phi i32 [ %add.i90, %for.body.i94 ], [ 0, %for.body.preheader.i83 ]
+  %i.03.i85 = phi i32 [ %inc.i91, %for.body.i94 ], [ 0, %for.body.preheader.i83 ]
+  %ep.02.i86 = phi ptr [ %incdec.ptr.i92, %for.body.i94 ], [ %42, %for.body.preheader.i83 ]
+  %43 = load i32, ptr %ep.02.i86, align 4, !tbaa !59
+  %length.i87 = getelementptr inbounds %struct.BF_BitstreamElement, ptr %ep.02.i86, i64 0, i32 1
+  %44 = load i16, ptr %length.i87, align 4, !tbaa !36
+  %conv.i88 = zext i16 %44 to i32
+  tail call void @putMyBits(i32 noundef %43, i32 noundef %conv.i88) #14
+  %45 = load i16, ptr %length.i87, align 4, !tbaa !36
+  %conv2.i89 = zext i16 %45 to i32
+  %add.i90 = add nuw nsw i32 %bits.04.i84, %conv2.i89
+  %inc.i91 = add nuw i32 %i.03.i85, 1
+  %incdec.ptr.i92 = getelementptr inbounds %struct.BF_BitstreamElement, ptr %ep.02.i86, i64 1
+  %46 = load i32, ptr %40, align 8, !tbaa !13
+  %cmp.i93 = icmp ult i32 %inc.i91, %46
+  br i1 %cmp.i93, label %for.body.i94, label %writePartSideInfo.exit96.loopexit, !llvm.loop !73
 
-142:                                              ; preds = %127
-  %143 = load i32, ptr %59, align 4, !tbaa !75
-  br label %144
+writePartSideInfo.exit96.loopexit:                ; preds = %for.body.i94
+  %.pre116 = load i32, ptr %nChannels, align 4, !tbaa !75
+  br label %writePartSideInfo.exit96
 
-144:                                              ; preds = %142, %114
-  %145 = phi i32 [ %115, %114 ], [ %143, %142 ]
-  %146 = phi i32 [ 0, %114 ], [ %137, %142 ]
-  %147 = add nsw i32 %146, %117
-  %148 = add nuw nsw i64 %116, 1
-  %149 = sext i32 %145 to i64
-  %150 = icmp slt i64 %148, %149
-  br i1 %150, label %114, label %151, !llvm.loop !78
+writePartSideInfo.exit96:                         ; preds = %writePartSideInfo.exit96.loopexit, %for.body14
+  %47 = phi i32 [ %38, %for.body14 ], [ %.pre116, %writePartSideInfo.exit96.loopexit ]
+  %bits.0.lcssa.i95 = phi i32 [ 0, %for.body14 ], [ %add.i90, %writePartSideInfo.exit96.loopexit ]
+  %add21 = add nsw i32 %bits.0.lcssa.i95, %bits.2102
+  %indvars.iv.next111 = add nuw nsw i64 %indvars.iv110, 1
+  %48 = sext i32 %47 to i64
+  %cmp13 = icmp slt i64 %indvars.iv.next111, %48
+  br i1 %cmp13, label %for.body14, label %for.inc25.loopexit, !llvm.loop !78
 
-151:                                              ; preds = %144
-  %152 = load i32, ptr %65, align 8, !tbaa !76
-  br label %153
+for.inc25.loopexit:                               ; preds = %writePartSideInfo.exit96
+  %.pre117 = load i32, ptr %nGranules, align 8, !tbaa !76
+  br label %for.inc25
 
-153:                                              ; preds = %151, %107
-  %154 = phi i32 [ %108, %107 ], [ %152, %151 ]
-  %155 = phi i32 [ %109, %107 ], [ %145, %151 ]
-  %156 = phi i32 [ %110, %107 ], [ %145, %151 ]
-  %157 = phi i32 [ %112, %107 ], [ %147, %151 ]
-  %158 = add nuw nsw i64 %111, 1
-  %159 = sext i32 %154 to i64
-  %160 = icmp slt i64 %158, %159
-  br i1 %160, label %107, label %161, !llvm.loop !79
+for.inc25:                                        ; preds = %for.inc25.loopexit, %for.cond11.preheader
+  %49 = phi i32 [ %35, %for.cond11.preheader ], [ %.pre117, %for.inc25.loopexit ]
+  %50 = phi i32 [ %36, %for.cond11.preheader ], [ %47, %for.inc25.loopexit ]
+  %51 = phi i32 [ %37, %for.cond11.preheader ], [ %47, %for.inc25.loopexit ]
+  %bits.2.lcssa = phi i32 [ %bits.1106, %for.cond11.preheader ], [ %add21, %for.inc25.loopexit ]
+  %indvars.iv.next114 = add nuw nsw i64 %indvars.iv113, 1
+  %52 = sext i32 %49 to i64
+  %cmp9 = icmp slt i64 %indvars.iv.next114, %52
+  br i1 %cmp9, label %for.cond11.preheader, label %for.end27, !llvm.loop !79
 
-161:                                              ; preds = %153, %62
-  %162 = phi i32 [ %64, %62 ], [ %157, %153 ]
-  ret i32 %162
+for.end27:                                        ; preds = %for.inc25, %for.cond8.preheader
+  %bits.1.lcssa = phi i32 [ %bits.0.lcssa, %for.cond8.preheader ], [ %bits.2.lcssa, %for.inc25 ]
+  ret i32 %bits.1.lcssa
 }
 
 declare void @putMyBits(i32 noundef, i32 noundef) local_unnamed_addr #7
@@ -2271,113 +2283,114 @@ declare void @putMyBits(i32 noundef, i32 noundef) local_unnamed_addr #7
 declare void @exit(i32 noundef) local_unnamed_addr #8
 
 ; Function Attrs: nounwind uwtable
-define internal fastcc void @free_side_info_link(ptr nocapture noundef %0) unnamed_addr #1 {
-  %2 = getelementptr inbounds %struct.side_info_link, ptr %0, i64 0, i32 1, i32 4
-  %3 = load ptr, ptr %2, align 8, !tbaa !19
-  %4 = getelementptr inbounds %struct.BF_PartHolder, ptr %3, i64 0, i32 1
-  %5 = load ptr, ptr %4, align 8, !tbaa !17
-  %6 = getelementptr inbounds %struct.BF_BitstreamPart, ptr %5, i64 0, i32 1
-  %7 = load ptr, ptr %6, align 8, !tbaa !18
-  tail call void @free(ptr noundef %7) #14
-  %8 = load ptr, ptr %4, align 8, !tbaa !17
-  tail call void @free(ptr noundef %8) #14
+define internal fastcc void @free_side_info_link(ptr nocapture noundef %l) unnamed_addr #1 {
+entry:
+  %headerPH = getelementptr inbounds %struct.side_info_link, ptr %l, i64 0, i32 1, i32 4
+  %0 = load ptr, ptr %headerPH, align 8, !tbaa !19
+  %part.i = getelementptr inbounds %struct.BF_PartHolder, ptr %0, i64 0, i32 1
+  %1 = load ptr, ptr %part.i, align 8, !tbaa !17
+  %element.i = getelementptr inbounds %struct.BF_BitstreamPart, ptr %1, i64 0, i32 1
+  %2 = load ptr, ptr %element.i, align 8, !tbaa !18
+  tail call void @free(ptr noundef %2) #14
+  %3 = load ptr, ptr %part.i, align 8, !tbaa !17
   tail call void @free(ptr noundef %3) #14
-  store ptr null, ptr %2, align 8, !tbaa !19
-  %9 = getelementptr inbounds %struct.side_info_link, ptr %0, i64 0, i32 1, i32 5
-  %10 = load ptr, ptr %9, align 8, !tbaa !23
-  %11 = getelementptr inbounds %struct.BF_PartHolder, ptr %10, i64 0, i32 1
-  %12 = load ptr, ptr %11, align 8, !tbaa !17
-  %13 = getelementptr inbounds %struct.BF_BitstreamPart, ptr %12, i64 0, i32 1
-  %14 = load ptr, ptr %13, align 8, !tbaa !18
+  tail call void @free(ptr noundef %0) #14
+  store ptr null, ptr %headerPH, align 8, !tbaa !19
+  %frameSIPH = getelementptr inbounds %struct.side_info_link, ptr %l, i64 0, i32 1, i32 5
+  %4 = load ptr, ptr %frameSIPH, align 8, !tbaa !23
+  %part.i62 = getelementptr inbounds %struct.BF_PartHolder, ptr %4, i64 0, i32 1
+  %5 = load ptr, ptr %part.i62, align 8, !tbaa !17
+  %element.i63 = getelementptr inbounds %struct.BF_BitstreamPart, ptr %5, i64 0, i32 1
+  %6 = load ptr, ptr %element.i63, align 8, !tbaa !18
+  tail call void @free(ptr noundef %6) #14
+  %7 = load ptr, ptr %part.i62, align 8, !tbaa !17
+  tail call void @free(ptr noundef %7) #14
+  tail call void @free(ptr noundef %4) #14
+  store ptr null, ptr %frameSIPH, align 8, !tbaa !23
+  %nChannels = getelementptr inbounds %struct.side_info_link, ptr %l, i64 0, i32 1, i32 3
+  %8 = load i32, ptr %nChannels, align 4, !tbaa !34
+  %cmp68 = icmp sgt i32 %8, 0
+  br i1 %cmp68, label %for.body, label %for.cond14.preheader
+
+for.cond14.preheader:                             ; preds = %for.body, %entry
+  %9 = phi i32 [ %8, %entry ], [ %16, %for.body ]
+  %nGranules = getelementptr inbounds %struct.side_info_link, ptr %l, i64 0, i32 1, i32 2
+  %10 = load i32, ptr %nGranules, align 8, !tbaa !33
+  %cmp1672 = icmp sgt i32 %10, 0
+  %11 = icmp sgt i32 %9, 0
+  %or.cond = select i1 %cmp1672, i1 %11, i1 false
+  br i1 %or.cond, label %for.cond18.preheader, label %for.end40
+
+for.body:                                         ; preds = %entry, %for.body
+  %indvars.iv = phi i64 [ %indvars.iv.next, %for.body ], [ 0, %entry ]
+  %arrayidx = getelementptr inbounds %struct.side_info_link, ptr %l, i64 0, i32 1, i32 6, i64 %indvars.iv
+  %12 = load ptr, ptr %arrayidx, align 8, !tbaa !9
+  %part.i64 = getelementptr inbounds %struct.BF_PartHolder, ptr %12, i64 0, i32 1
+  %13 = load ptr, ptr %part.i64, align 8, !tbaa !17
+  %element.i65 = getelementptr inbounds %struct.BF_BitstreamPart, ptr %13, i64 0, i32 1
+  %14 = load ptr, ptr %element.i65, align 8, !tbaa !18
   tail call void @free(ptr noundef %14) #14
-  %15 = load ptr, ptr %11, align 8, !tbaa !17
+  %15 = load ptr, ptr %part.i64, align 8, !tbaa !17
   tail call void @free(ptr noundef %15) #14
-  tail call void @free(ptr noundef %10) #14
-  store ptr null, ptr %9, align 8, !tbaa !23
-  %16 = getelementptr inbounds %struct.side_info_link, ptr %0, i64 0, i32 1, i32 3
-  %17 = load i32, ptr %16, align 4, !tbaa !34
-  %18 = icmp sgt i32 %17, 0
-  br i1 %18, label %26, label %19
+  tail call void @free(ptr noundef %12) #14
+  store ptr null, ptr %arrayidx, align 8, !tbaa !9
+  %indvars.iv.next = add nuw nsw i64 %indvars.iv, 1
+  %16 = load i32, ptr %nChannels, align 4, !tbaa !34
+  %17 = sext i32 %16 to i64
+  %cmp = icmp slt i64 %indvars.iv.next, %17
+  br i1 %cmp, label %for.body, label %for.cond14.preheader, !llvm.loop !80
 
-19:                                               ; preds = %26, %1
-  %20 = phi i32 [ %17, %1 ], [ %36, %26 ]
-  %21 = getelementptr inbounds %struct.side_info_link, ptr %0, i64 0, i32 1, i32 2
-  %22 = load i32, ptr %21, align 8, !tbaa !33
-  %23 = icmp sgt i32 %22, 0
-  %24 = icmp sgt i32 %20, 0
-  %25 = select i1 %23, i1 %24, i1 false
-  br i1 %25, label %39, label %65
+for.cond18.preheader:                             ; preds = %for.cond14.preheader, %for.inc38
+  %18 = phi i32 [ %26, %for.inc38 ], [ %10, %for.cond14.preheader ]
+  %19 = phi i32 [ %27, %for.inc38 ], [ %9, %for.cond14.preheader ]
+  %indvars.iv79 = phi i64 [ %indvars.iv.next80, %for.inc38 ], [ 0, %for.cond14.preheader ]
+  %cmp2170 = icmp sgt i32 %19, 0
+  br i1 %cmp2170, label %for.body22, label %for.inc38
 
-26:                                               ; preds = %1, %26
-  %27 = phi i64 [ %35, %26 ], [ 0, %1 ]
-  %28 = getelementptr inbounds %struct.side_info_link, ptr %0, i64 0, i32 1, i32 6, i64 %27
-  %29 = load ptr, ptr %28, align 8, !tbaa !9
-  %30 = getelementptr inbounds %struct.BF_PartHolder, ptr %29, i64 0, i32 1
-  %31 = load ptr, ptr %30, align 8, !tbaa !17
-  %32 = getelementptr inbounds %struct.BF_BitstreamPart, ptr %31, i64 0, i32 1
-  %33 = load ptr, ptr %32, align 8, !tbaa !18
-  tail call void @free(ptr noundef %33) #14
-  %34 = load ptr, ptr %30, align 8, !tbaa !17
-  tail call void @free(ptr noundef %34) #14
-  tail call void @free(ptr noundef %29) #14
-  store ptr null, ptr %28, align 8, !tbaa !9
-  %35 = add nuw nsw i64 %27, 1
-  %36 = load i32, ptr %16, align 4, !tbaa !34
-  %37 = sext i32 %36 to i64
-  %38 = icmp slt i64 %35, %37
-  br i1 %38, label %26, label %19, !llvm.loop !80
+for.body22:                                       ; preds = %for.cond18.preheader, %for.body22
+  %indvars.iv76 = phi i64 [ %indvars.iv.next77, %for.body22 ], [ 0, %for.cond18.preheader ]
+  %arrayidx27 = getelementptr inbounds %struct.side_info_link, ptr %l, i64 0, i32 1, i32 7, i64 %indvars.iv79, i64 %indvars.iv76
+  %20 = load ptr, ptr %arrayidx27, align 8, !tbaa !9
+  %part.i66 = getelementptr inbounds %struct.BF_PartHolder, ptr %20, i64 0, i32 1
+  %21 = load ptr, ptr %part.i66, align 8, !tbaa !17
+  %element.i67 = getelementptr inbounds %struct.BF_BitstreamPart, ptr %21, i64 0, i32 1
+  %22 = load ptr, ptr %element.i67, align 8, !tbaa !18
+  tail call void @free(ptr noundef %22) #14
+  %23 = load ptr, ptr %part.i66, align 8, !tbaa !17
+  tail call void @free(ptr noundef %23) #14
+  tail call void @free(ptr noundef %20) #14
+  store ptr null, ptr %arrayidx27, align 8, !tbaa !9
+  %indvars.iv.next77 = add nuw nsw i64 %indvars.iv76, 1
+  %24 = load i32, ptr %nChannels, align 4, !tbaa !34
+  %25 = sext i32 %24 to i64
+  %cmp21 = icmp slt i64 %indvars.iv.next77, %25
+  br i1 %cmp21, label %for.body22, label %for.inc38.loopexit, !llvm.loop !81
 
-39:                                               ; preds = %19, %59
-  %40 = phi i32 [ %60, %59 ], [ %22, %19 ]
-  %41 = phi i32 [ %61, %59 ], [ %20, %19 ]
-  %42 = phi i64 [ %62, %59 ], [ 0, %19 ]
-  %43 = icmp sgt i32 %41, 0
-  br i1 %43, label %44, label %59
+for.inc38.loopexit:                               ; preds = %for.body22
+  %.pre = load i32, ptr %nGranules, align 8, !tbaa !33
+  br label %for.inc38
 
-44:                                               ; preds = %39, %44
-  %45 = phi i64 [ %53, %44 ], [ 0, %39 ]
-  %46 = getelementptr inbounds %struct.side_info_link, ptr %0, i64 0, i32 1, i32 7, i64 %42, i64 %45
-  %47 = load ptr, ptr %46, align 8, !tbaa !9
-  %48 = getelementptr inbounds %struct.BF_PartHolder, ptr %47, i64 0, i32 1
-  %49 = load ptr, ptr %48, align 8, !tbaa !17
-  %50 = getelementptr inbounds %struct.BF_BitstreamPart, ptr %49, i64 0, i32 1
-  %51 = load ptr, ptr %50, align 8, !tbaa !18
-  tail call void @free(ptr noundef %51) #14
-  %52 = load ptr, ptr %48, align 8, !tbaa !17
-  tail call void @free(ptr noundef %52) #14
-  tail call void @free(ptr noundef %47) #14
-  store ptr null, ptr %46, align 8, !tbaa !9
-  %53 = add nuw nsw i64 %45, 1
-  %54 = load i32, ptr %16, align 4, !tbaa !34
-  %55 = sext i32 %54 to i64
-  %56 = icmp slt i64 %53, %55
-  br i1 %56, label %44, label %57, !llvm.loop !81
+for.inc38:                                        ; preds = %for.inc38.loopexit, %for.cond18.preheader
+  %26 = phi i32 [ %.pre, %for.inc38.loopexit ], [ %18, %for.cond18.preheader ]
+  %27 = phi i32 [ %24, %for.inc38.loopexit ], [ %19, %for.cond18.preheader ]
+  %indvars.iv.next80 = add nuw nsw i64 %indvars.iv79, 1
+  %28 = sext i32 %26 to i64
+  %cmp16 = icmp slt i64 %indvars.iv.next80, %28
+  br i1 %cmp16, label %for.cond18.preheader, label %for.end40, !llvm.loop !82
 
-57:                                               ; preds = %44
-  %58 = load i32, ptr %21, align 8, !tbaa !33
-  br label %59
-
-59:                                               ; preds = %57, %39
-  %60 = phi i32 [ %58, %57 ], [ %40, %39 ]
-  %61 = phi i32 [ %54, %57 ], [ %41, %39 ]
-  %62 = add nuw nsw i64 %42, 1
-  %63 = sext i32 %60 to i64
-  %64 = icmp slt i64 %62, %63
-  br i1 %64, label %39, label %65, !llvm.loop !82
-
-65:                                               ; preds = %59, %19
-  tail call void @free(ptr noundef nonnull %0) #14
+for.end40:                                        ; preds = %for.inc38, %for.cond14.preheader
+  tail call void @free(ptr noundef nonnull %l) #14
   ret void
 }
 
-; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i32 @llvm.smin.i32(i32, i32) #9
-
 ; Function Attrs: nofree nounwind
-declare noundef i64 @fwrite(ptr nocapture noundef, i64 noundef, i64 noundef, ptr nocapture noundef) local_unnamed_addr #10
+declare noundef i64 @fwrite(ptr nocapture noundef, i64 noundef, i64 noundef, ptr nocapture noundef) local_unnamed_addr #9
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i32 @llvm.vector.reduce.add.v4i32(<4 x i32>) #9
+declare i32 @llvm.smin.i32(i32, i32) #10
+
+; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
+declare i32 @llvm.vector.reduce.add.v4i32(<4 x i32>) #10
 
 attributes #0 = { mustprogress nofree norecurse nosync nounwind willreturn memory(write, argmem: none, inaccessiblemem: none) uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #1 = { nounwind uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
@@ -2388,8 +2401,8 @@ attributes #5 = { mustprogress nounwind willreturn uwtable "min-legal-vector-wid
 attributes #6 = { mustprogress nounwind willreturn allockind("free") memory(argmem: readwrite, inaccessiblemem: readwrite) "alloc-family"="malloc" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #7 = { "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #8 = { noreturn nounwind "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
-attributes #9 = { nocallback nofree nosync nounwind speculatable willreturn memory(none) }
-attributes #10 = { nofree nounwind }
+attributes #9 = { nofree nounwind }
+attributes #10 = { nocallback nofree nosync nounwind speculatable willreturn memory(none) }
 attributes #11 = { nounwind allocsize(0,1) }
 attributes #12 = { cold }
 attributes #13 = { noreturn nounwind }

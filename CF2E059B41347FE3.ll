@@ -28,8 +28,8 @@ target triple = "x86_64-unknown-linux-gnu"
 @.str.38 = private unnamed_addr constant [30 x i8] c"XS Lookups:                  \00", align 1
 @.str.39 = private unnamed_addr constant [33 x i8] c"Threads:                     %d\0A\00", align 1
 @.str.40 = private unnamed_addr constant [36 x i8] c"Est. Memory Usage (MB):      %.1lf\0A\00", align 1
-@str = private unnamed_addr constant [81 x i8] c"================================================================================\00", align 1
-@str.41 = private unnamed_addr constant [378 x i8] c"                    _____   _____ ____                  _     \0A                   |  __ \\ / ____|  _ \\                | |    \0A                   | |__) | (___ | |_) | ___ _ __   ___| |__  \0A                   |  _  / \\___ \\|  _ < / _ \\ '_ \\ / __| '_ \\ \0A                   | | \\ \\ ____) | |_) |  __/ | | | (__| | | |\0A                   |_|  \\_\\_____/|____/ \\___|_| |_|\\___|_| |_|\00", align 1
+@str = private unnamed_addr constant [378 x i8] c"                    _____   _____ ____                  _     \0A                   |  __ \\ / ____|  _ \\                | |    \0A                   | |__) | (___ | |_) | ___ _ __   ___| |__  \0A                   |  _  / \\___ \\|  _ < / _ \\ '_ \\ / __| '_ \\ \0A                   | | \\ \\ ____) | |_) |  __/ | | | (__| | | |\0A                   |_|  \\_\\_____/|____/ \\___|_| |_|\\___|_| |_|\00", align 1
+@str.41 = private unnamed_addr constant [81 x i8] c"================================================================================\00", align 1
 @str.42 = private unnamed_addr constant [30 x i8] c"Usage: ./multibench <options>\00", align 1
 @str.43 = private unnamed_addr constant [17 x i8] c"Options include:\00", align 1
 @str.44 = private unnamed_addr constant [51 x i8] c"  -t <threads>     Number of OpenMP threads to run\00", align 1
@@ -47,88 +47,90 @@ target triple = "x86_64-unknown-linux-gnu"
 @str.56 = private unnamed_addr constant [6 x i8] c"Small\00", align 1
 
 ; Function Attrs: nofree nounwind uwtable
-define dso_local void @logo(i32 noundef %0) local_unnamed_addr #0 {
-  %2 = alloca [100 x i8], align 16
-  %3 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str)
-  %4 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.41)
-  %5 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str)
+define dso_local void @logo(i32 noundef %version) local_unnamed_addr #0 {
+entry:
+  %v = alloca [100 x i8], align 16
+  %puts.i = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.41)
+  %puts = tail call i32 @puts(ptr nonnull dereferenceable(1) @str)
+  %puts.i3 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.41)
+  %0 = load ptr, ptr @stdout, align 8, !tbaa !5
+  %fputc7.i = tail call i32 @fputc(i32 32, ptr %0)
+  %1 = load ptr, ptr @stdout, align 8, !tbaa !5
+  %fputc7.i.1 = tail call i32 @fputc(i32 32, ptr %1)
+  %2 = load ptr, ptr @stdout, align 8, !tbaa !5
+  %fputc7.i.2 = tail call i32 @fputc(i32 32, ptr %2)
+  %3 = load ptr, ptr @stdout, align 8, !tbaa !5
+  %fputc7.i.3 = tail call i32 @fputc(i32 32, ptr %3)
+  %4 = load ptr, ptr @stdout, align 8, !tbaa !5
+  %fputc7.i.4 = tail call i32 @fputc(i32 32, ptr %4)
+  %5 = load ptr, ptr @stdout, align 8, !tbaa !5
+  %fputc7.i.5 = tail call i32 @fputc(i32 32, ptr %5)
   %6 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %7 = tail call i32 @fputc(i32 32, ptr %6)
+  %fputc7.i.6 = tail call i32 @fputc(i32 32, ptr %6)
+  %7 = load ptr, ptr @stdout, align 8, !tbaa !5
+  %fputc7.i.7 = tail call i32 @fputc(i32 32, ptr %7)
   %8 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %9 = tail call i32 @fputc(i32 32, ptr %8)
+  %fputc7.i.8 = tail call i32 @fputc(i32 32, ptr %8)
+  %9 = load ptr, ptr @stdout, align 8, !tbaa !5
+  %fputc7.i.9 = tail call i32 @fputc(i32 32, ptr %9)
   %10 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %11 = tail call i32 @fputc(i32 32, ptr %10)
+  %fputc7.i.10 = tail call i32 @fputc(i32 32, ptr %10)
+  %11 = load ptr, ptr @stdout, align 8, !tbaa !5
+  %fputc7.i.11 = tail call i32 @fputc(i32 32, ptr %11)
   %12 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %13 = tail call i32 @fputc(i32 32, ptr %12)
+  %fputc7.i.12 = tail call i32 @fputc(i32 32, ptr %12)
+  %13 = load ptr, ptr @stdout, align 8, !tbaa !5
+  %fputc7.i.13 = tail call i32 @fputc(i32 32, ptr %13)
   %14 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %15 = tail call i32 @fputc(i32 32, ptr %14)
+  %fputc7.i.14 = tail call i32 @fputc(i32 32, ptr %14)
+  %15 = load ptr, ptr @stdout, align 8, !tbaa !5
+  %fputc7.i.15 = tail call i32 @fputc(i32 32, ptr %15)
   %16 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %17 = tail call i32 @fputc(i32 32, ptr %16)
+  %fputc7.i.16 = tail call i32 @fputc(i32 32, ptr %16)
+  %17 = load ptr, ptr @stdout, align 8, !tbaa !5
+  %fputc7.i.17 = tail call i32 @fputc(i32 32, ptr %17)
   %18 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %19 = tail call i32 @fputc(i32 32, ptr %18)
+  %fputc7.i.18 = tail call i32 @fputc(i32 32, ptr %18)
+  %19 = load ptr, ptr @stdout, align 8, !tbaa !5
+  %fputc7.i.19 = tail call i32 @fputc(i32 32, ptr %19)
   %20 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %21 = tail call i32 @fputc(i32 32, ptr %20)
+  %21 = tail call i64 @fwrite(ptr nonnull @.str.1, i64 40, i64 1, ptr %20)
   %22 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %23 = tail call i32 @fputc(i32 32, ptr %22)
+  %fputc.i = tail call i32 @fputc(i32 10, ptr %22)
+  call void @llvm.lifetime.start.p0(i64 100, ptr nonnull %v) #10
+  %call1 = call i32 (ptr, ptr, ...) @sprintf(ptr noundef nonnull dereferenceable(1) %v, ptr noundef nonnull dereferenceable(1) @.str.2, i32 noundef %version) #10
+  %call.i4 = call i64 @strlen(ptr noundef nonnull dereferenceable(1) %v) #11
+  %conv.i5 = trunc i64 %call.i4 to i32
+  %cmp.not8.i7 = icmp sgt i32 %conv.i5, 80
+  br i1 %cmp.not8.i7, label %center_print.exit17, label %for.body.preheader.i9
+
+for.body.preheader.i9:                            ; preds = %entry
+  %sub.i6 = sub nsw i32 79, %conv.i5
+  %div.i8 = sdiv i32 %sub.i6, 2
+  br label %for.body.i14
+
+for.body.i14:                                     ; preds = %for.body.i14, %for.body.preheader.i9
+  %i.09.i10 = phi i32 [ %inc.i12, %for.body.i14 ], [ 0, %for.body.preheader.i9 ]
+  %23 = load ptr, ptr @stdout, align 8, !tbaa !5
+  %fputc7.i11 = tail call i32 @fputc(i32 32, ptr %23)
+  %inc.i12 = add nuw nsw i32 %i.09.i10, 1
+  %exitcond.not.i13 = icmp eq i32 %i.09.i10, %div.i8
+  br i1 %exitcond.not.i13, label %center_print.exit17, label %for.body.i14
+
+center_print.exit17:                              ; preds = %for.body.i14, %entry
   %24 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %25 = tail call i32 @fputc(i32 32, ptr %24)
-  %26 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %27 = tail call i32 @fputc(i32 32, ptr %26)
-  %28 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %29 = tail call i32 @fputc(i32 32, ptr %28)
-  %30 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %31 = tail call i32 @fputc(i32 32, ptr %30)
-  %32 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %33 = tail call i32 @fputc(i32 32, ptr %32)
-  %34 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %35 = tail call i32 @fputc(i32 32, ptr %34)
-  %36 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %37 = tail call i32 @fputc(i32 32, ptr %36)
-  %38 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %39 = tail call i32 @fputc(i32 32, ptr %38)
-  %40 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %41 = tail call i32 @fputc(i32 32, ptr %40)
-  %42 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %43 = tail call i32 @fputc(i32 32, ptr %42)
-  %44 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %45 = tail call i32 @fputc(i32 32, ptr %44)
-  %46 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %47 = tail call i64 @fwrite(ptr nonnull @.str.1, i64 40, i64 1, ptr %46)
-  %48 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %49 = tail call i32 @fputc(i32 10, ptr %48)
-  call void @llvm.lifetime.start.p0(i64 100, ptr nonnull %2) #10
-  %50 = call i32 (ptr, ptr, ...) @sprintf(ptr noundef nonnull dereferenceable(1) %2, ptr noundef nonnull dereferenceable(1) @.str.2, i32 noundef %0) #10
-  %51 = call i64 @strlen(ptr noundef nonnull dereferenceable(1) %2) #11
-  %52 = trunc i64 %51 to i32
-  %53 = icmp sgt i32 %52, 80
-  br i1 %53, label %63, label %54
-
-54:                                               ; preds = %1
-  %55 = sub nsw i32 79, %52
-  %56 = sdiv i32 %55, 2
-  br label %57
-
-57:                                               ; preds = %57, %54
-  %58 = phi i32 [ %61, %57 ], [ 0, %54 ]
-  %59 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %60 = tail call i32 @fputc(i32 32, ptr %59)
-  %61 = add nuw nsw i32 %58, 1
-  %62 = icmp eq i32 %58, %56
-  br i1 %62, label %63, label %57
-
-63:                                               ; preds = %57, %1
-  %64 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %65 = call i32 @fputs(ptr noundef nonnull %2, ptr noundef %64)
-  %66 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %67 = tail call i32 @fputc(i32 10, ptr %66)
-  %68 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str)
-  call void @llvm.lifetime.end.p0(i64 100, ptr nonnull %2) #10
+  %call3.i15 = call i32 @fputs(ptr noundef nonnull %v, ptr noundef %24)
+  %25 = load ptr, ptr @stdout, align 8, !tbaa !5
+  %fputc.i16 = tail call i32 @fputc(i32 10, ptr %25)
+  %puts.i18 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.41)
+  call void @llvm.lifetime.end.p0(i64 100, ptr nonnull %v) #10
   ret void
 }
 
 ; Function Attrs: nofree nounwind uwtable
 define dso_local void @border_print() local_unnamed_addr #0 {
-  %1 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str)
+entry:
+  %puts = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.41)
   ret void
 }
 
@@ -136,30 +138,31 @@ define dso_local void @border_print() local_unnamed_addr #0 {
 declare noundef i32 @printf(ptr nocapture noundef readonly, ...) local_unnamed_addr #1
 
 ; Function Attrs: nofree nounwind uwtable
-define dso_local void @center_print(ptr nocapture noundef readonly %0, i32 noundef %1) local_unnamed_addr #0 {
-  %3 = tail call i64 @strlen(ptr noundef nonnull dereferenceable(1) %0) #11
-  %4 = trunc i64 %3 to i32
-  %5 = sub nsw i32 %1, %4
-  %6 = icmp slt i32 %5, -1
-  br i1 %6, label %15, label %7
+define dso_local void @center_print(ptr nocapture noundef readonly %s, i32 noundef %width) local_unnamed_addr #0 {
+entry:
+  %call = tail call i64 @strlen(ptr noundef nonnull dereferenceable(1) %s) #11
+  %conv = trunc i64 %call to i32
+  %sub = sub nsw i32 %width, %conv
+  %cmp.not8 = icmp slt i32 %sub, -1
+  br i1 %cmp.not8, label %for.end, label %for.body.preheader
 
-7:                                                ; preds = %2
-  %8 = sdiv i32 %5, 2
-  br label %9
+for.body.preheader:                               ; preds = %entry
+  %div = sdiv i32 %sub, 2
+  br label %for.body
 
-9:                                                ; preds = %7, %9
-  %10 = phi i32 [ %13, %9 ], [ 0, %7 ]
-  %11 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %12 = tail call i32 @fputc(i32 32, ptr %11)
-  %13 = add nuw nsw i32 %10, 1
-  %14 = icmp eq i32 %10, %8
-  br i1 %14, label %15, label %9
+for.body:                                         ; preds = %for.body.preheader, %for.body
+  %i.09 = phi i32 [ %inc, %for.body ], [ 0, %for.body.preheader ]
+  %0 = load ptr, ptr @stdout, align 8, !tbaa !5
+  %fputc7 = tail call i32 @fputc(i32 32, ptr %0)
+  %inc = add nuw nsw i32 %i.09, 1
+  %exitcond.not = icmp eq i32 %i.09, %div
+  br i1 %exitcond.not, label %for.end, label %for.body
 
-15:                                               ; preds = %9, %2
-  %16 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %17 = tail call i32 @fputs(ptr noundef %0, ptr noundef %16)
-  %18 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %19 = tail call i32 @fputc(i32 10, ptr %18)
+for.end:                                          ; preds = %for.body, %entry
+  %1 = load ptr, ptr @stdout, align 8, !tbaa !5
+  %call3 = tail call i32 @fputs(ptr noundef %s, ptr noundef %1)
+  %2 = load ptr, ptr @stdout, align 8, !tbaa !5
+  %fputc = tail call i32 @fputc(i32 10, ptr %2)
   ret void
 }
 
@@ -179,431 +182,433 @@ declare i64 @strlen(ptr nocapture noundef) local_unnamed_addr #3
 declare noundef i32 @fputs(ptr nocapture noundef readonly, ptr nocapture noundef) local_unnamed_addr #1
 
 ; Function Attrs: nofree nounwind uwtable
-define dso_local void @fancy_int(i32 noundef %0) local_unnamed_addr #0 {
-  %2 = icmp slt i32 %0, 1000
-  br i1 %2, label %3, label %5
+define dso_local void @fancy_int(i32 noundef %a) local_unnamed_addr #0 {
+entry:
+  %cmp = icmp slt i32 %a, 1000
+  br i1 %cmp, label %if.then, label %if.else
 
-3:                                                ; preds = %1
-  %4 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.6, i32 noundef %0)
-  br label %27
+if.then:                                          ; preds = %entry
+  %call = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.6, i32 noundef %a)
+  br label %if.end29
 
-5:                                                ; preds = %1
-  %6 = icmp ult i32 %0, 1000000
-  br i1 %6, label %7, label %11
+if.else:                                          ; preds = %entry
+  %cmp2 = icmp ult i32 %a, 1000000
+  br i1 %cmp2, label %if.then3, label %if.else5
 
-7:                                                ; preds = %5
-  %8 = udiv i32 %0, 1000
-  %9 = urem i32 %0, 1000
-  %10 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.7, i32 noundef %8, i32 noundef %9)
-  br label %27
+if.then3:                                         ; preds = %if.else
+  %div = udiv i32 %a, 1000
+  %rem = urem i32 %a, 1000
+  %call4 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.7, i32 noundef %div, i32 noundef %rem)
+  br label %if.end29
 
-11:                                               ; preds = %5
-  %12 = icmp ult i32 %0, 1000000000
-  %13 = udiv i32 %0, 1000000
-  %14 = urem i32 %0, 1000000
-  br i1 %12, label %15, label %20
+if.else5:                                         ; preds = %if.else
+  %cmp8 = icmp ult i32 %a, 1000000000
+  %div10 = udiv i32 %a, 1000000
+  %rem21 = urem i32 %a, 1000000
+  br i1 %cmp8, label %if.then9, label %if.then17
 
-15:                                               ; preds = %11
-  %16 = urem i32 %0, 1000000
-  %17 = udiv i32 %16, 1000
-  %18 = urem i32 %0, 1000
-  %19 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.8, i32 noundef %13, i32 noundef %17, i32 noundef %18)
-  br label %27
+if.then9:                                         ; preds = %if.else5
+  %rem11 = urem i32 %a, 1000000
+  %div12 = udiv i32 %rem11, 1000
+  %rem13 = urem i32 %a, 1000
+  %call14 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.8, i32 noundef %div10, i32 noundef %div12, i32 noundef %rem13)
+  br label %if.end29
 
-20:                                               ; preds = %11
-  %21 = udiv i32 %0, 1000000000
-  %22 = urem i32 %0, 1000000000
-  %23 = udiv i32 %22, 1000000
-  %24 = udiv i32 %14, 1000
-  %25 = urem i32 %0, 1000
-  %26 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.9, i32 noundef %21, i32 noundef %23, i32 noundef %24, i32 noundef %25)
-  br label %27
+if.then17:                                        ; preds = %if.else5
+  %div18 = udiv i32 %a, 1000000000
+  %rem19 = urem i32 %a, 1000000000
+  %div20 = udiv i32 %rem19, 1000000
+  %div22 = udiv i32 %rem21, 1000
+  %rem23 = urem i32 %a, 1000
+  %call24 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.9, i32 noundef %div18, i32 noundef %div20, i32 noundef %div22, i32 noundef %rem23)
+  br label %if.end29
 
-27:                                               ; preds = %7, %20, %15, %3
+if.end29:                                         ; preds = %if.then3, %if.then17, %if.then9, %if.then
   ret void
 }
 
 ; Function Attrs: nounwind uwtable
-define dso_local void @read_CLI(ptr noalias nocapture writeonly sret(%struct.Input) align 4 %0, i32 noundef %1, ptr nocapture noundef readonly %2) local_unnamed_addr #4 {
-  %4 = getelementptr inbounds %struct.Input, ptr %0, i64 0, i32 1
-  %5 = getelementptr inbounds %struct.Input, ptr %0, i64 0, i32 2
-  %6 = getelementptr inbounds %struct.Input, ptr %0, i64 0, i32 3
-  store <4 x i32> <i32 1, i32 355, i32 10000000, i32 1>, ptr %0, align 4, !tbaa !9
-  %7 = getelementptr inbounds %struct.Input, ptr %0, i64 0, i32 4
-  %8 = getelementptr inbounds %struct.Input, ptr %0, i64 0, i32 5
-  %9 = getelementptr inbounds %struct.Input, ptr %0, i64 0, i32 7
-  store <4 x i32> <i32 1000, i32 100, i32 4, i32 1>, ptr %7, align 4, !tbaa !10
-  %10 = icmp sgt i32 %1, 1
-  br i1 %10, label %13, label %268
+define dso_local void @read_CLI(ptr noalias nocapture writeonly sret(%struct.Input) align 4 %agg.result, i32 noundef %argc, ptr nocapture noundef readonly %argv) local_unnamed_addr #4 {
+entry:
+  %n_nuclides = getelementptr inbounds %struct.Input, ptr %agg.result, i64 0, i32 1
+  %lookups = getelementptr inbounds %struct.Input, ptr %agg.result, i64 0, i32 2
+  %HM = getelementptr inbounds %struct.Input, ptr %agg.result, i64 0, i32 3
+  store <4 x i32> <i32 1, i32 355, i32 10000000, i32 1>, ptr %agg.result, align 4, !tbaa !9
+  %avg_n_poles = getelementptr inbounds %struct.Input, ptr %agg.result, i64 0, i32 4
+  %avg_n_windows = getelementptr inbounds %struct.Input, ptr %agg.result, i64 0, i32 5
+  %doppler = getelementptr inbounds %struct.Input, ptr %agg.result, i64 0, i32 7
+  store <4 x i32> <i32 1000, i32 100, i32 4, i32 1>, ptr %avg_n_poles, align 4, !tbaa !10
+  %cmp298 = icmp sgt i32 %argc, 1
+  br i1 %cmp298, label %for.body, label %if.end123
 
-11:                                               ; preds = %192
-  %12 = icmp slt i32 %198, 1
-  br i1 %12, label %202, label %213
+for.cond.cleanup:                                 ; preds = %if.end97
+  %cmp100 = icmp slt i32 %18, 1
+  br i1 %cmp100, label %if.then101, label %if.end102
 
-13:                                               ; preds = %3, %192
-  %14 = phi i32 [ %193, %192 ], [ 1, %3 ]
-  %15 = phi i32 [ %194, %192 ], [ 100, %3 ]
-  %16 = phi i32 [ %195, %192 ], [ 1000, %3 ]
-  %17 = phi i32 [ %196, %192 ], [ 10000000, %3 ]
-  %18 = phi i32 [ %197, %192 ], [ 355, %3 ]
-  %19 = phi i32 [ %198, %192 ], [ 1, %3 ]
-  %20 = phi i32 [ %200, %192 ], [ 1, %3 ]
-  %21 = sext i32 %20 to i64
-  %22 = getelementptr inbounds ptr, ptr %2, i64 %21
-  %23 = load ptr, ptr %22, align 8, !tbaa !5
-  %24 = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %23, ptr noundef nonnull dereferenceable(3) @.str.10) #11
-  %25 = icmp eq i32 %24, 0
-  br i1 %25, label %26, label %46
+for.body:                                         ; preds = %entry, %if.end97
+  %0 = phi i32 [ %13, %if.end97 ], [ 1, %entry ]
+  %1 = phi i32 [ %14, %if.end97 ], [ 100, %entry ]
+  %2 = phi i32 [ %15, %if.end97 ], [ 1000, %entry ]
+  %3 = phi i32 [ %16, %if.end97 ], [ 10000000, %entry ]
+  %4 = phi i32 [ %17, %if.end97 ], [ 355, %entry ]
+  %5 = phi i32 [ %18, %if.end97 ], [ 1, %entry ]
+  %i.0299 = phi i32 [ %inc98, %if.end97 ], [ 1, %entry ]
+  %idxprom = sext i32 %i.0299 to i64
+  %arrayidx = getelementptr inbounds ptr, ptr %argv, i64 %idxprom
+  %6 = load ptr, ptr %arrayidx, align 8, !tbaa !5
+  %call = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %6, ptr noundef nonnull dereferenceable(3) @.str.10) #11
+  %cmp1 = icmp eq i32 %call, 0
+  br i1 %cmp1, label %if.then, label %if.else8
 
-26:                                               ; preds = %13
-  %27 = add nsw i32 %20, 1
-  %28 = icmp slt i32 %27, %1
-  br i1 %28, label %29, label %35
+if.then:                                          ; preds = %for.body
+  %inc = add nsw i32 %i.0299, 1
+  %cmp2 = icmp slt i32 %inc, %argc
+  br i1 %cmp2, label %if.then3, label %if.else
 
-29:                                               ; preds = %26
-  %30 = sext i32 %27 to i64
-  %31 = getelementptr inbounds ptr, ptr %2, i64 %30
-  %32 = load ptr, ptr %31, align 8, !tbaa !5
-  %33 = tail call i64 @strtol(ptr nocapture noundef nonnull %32, ptr noundef null, i32 noundef 10) #10
-  %34 = trunc i64 %33 to i32
-  store i32 %34, ptr %0, align 4, !tbaa !12
-  br label %192
+if.then3:                                         ; preds = %if.then
+  %idxprom4 = sext i32 %inc to i64
+  %arrayidx5 = getelementptr inbounds ptr, ptr %argv, i64 %idxprom4
+  %7 = load ptr, ptr %arrayidx5, align 8, !tbaa !5
+  %call.i = tail call i64 @strtol(ptr nocapture noundef nonnull %7, ptr noundef null, i32 noundef 10) #10
+  %conv.i = trunc i64 %call.i to i32
+  store i32 %conv.i, ptr %agg.result, align 4, !tbaa !12
+  br label %if.end97
 
-35:                                               ; preds = %26
-  %36 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.42)
-  %37 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.43)
-  %38 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.44)
-  %39 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.45)
-  %40 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.46)
-  %41 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.47)
-  %42 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.48)
-  %43 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.49)
-  %44 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.50)
-  %45 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.51)
+if.else:                                          ; preds = %if.then
+  %puts.i = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.42)
+  %puts10.i = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.43)
+  %puts11.i = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.44)
+  %puts12.i = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.45)
+  %puts13.i = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.46)
+  %puts14.i = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.47)
+  %puts15.i = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.48)
+  %puts16.i = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.49)
+  %puts17.i = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.50)
+  %puts18.i = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.51)
   tail call void @exit(i32 noundef 4) #12
   unreachable
 
-46:                                               ; preds = %13
-  %47 = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %23, ptr noundef nonnull dereferenceable(3) @.str.11) #11
-  %48 = icmp eq i32 %47, 0
-  br i1 %48, label %49, label %69
+if.else8:                                         ; preds = %for.body
+  %call9 = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %6, ptr noundef nonnull dereferenceable(3) @.str.11) #11
+  %cmp10 = icmp eq i32 %call9, 0
+  br i1 %cmp10, label %if.then11, label %if.else21
 
-49:                                               ; preds = %46
-  %50 = add nsw i32 %20, 1
-  %51 = icmp slt i32 %50, %1
-  br i1 %51, label %52, label %58
+if.then11:                                        ; preds = %if.else8
+  %inc12 = add nsw i32 %i.0299, 1
+  %cmp13 = icmp slt i32 %inc12, %argc
+  br i1 %cmp13, label %if.then14, label %if.else19
 
-52:                                               ; preds = %49
-  %53 = sext i32 %50 to i64
-  %54 = getelementptr inbounds ptr, ptr %2, i64 %53
-  %55 = load ptr, ptr %54, align 8, !tbaa !5
-  %56 = tail call i64 @strtol(ptr nocapture noundef nonnull %55, ptr noundef null, i32 noundef 10) #10
-  %57 = trunc i64 %56 to i32
-  store i32 %57, ptr %5, align 4, !tbaa !14
-  br label %192
+if.then14:                                        ; preds = %if.then11
+  %idxprom15 = sext i32 %inc12 to i64
+  %arrayidx16 = getelementptr inbounds ptr, ptr %argv, i64 %idxprom15
+  %8 = load ptr, ptr %arrayidx16, align 8, !tbaa !5
+  %call.i158 = tail call i64 @strtol(ptr nocapture noundef nonnull %8, ptr noundef null, i32 noundef 10) #10
+  %conv.i159 = trunc i64 %call.i158 to i32
+  store i32 %conv.i159, ptr %lookups, align 4, !tbaa !14
+  br label %if.end97
 
-58:                                               ; preds = %49
-  %59 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.42)
-  %60 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.43)
-  %61 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.44)
-  %62 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.45)
-  %63 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.46)
-  %64 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.47)
-  %65 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.48)
-  %66 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.49)
-  %67 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.50)
-  %68 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.51)
+if.else19:                                        ; preds = %if.then11
+  %puts.i160 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.42)
+  %puts10.i161 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.43)
+  %puts11.i162 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.44)
+  %puts12.i163 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.45)
+  %puts13.i164 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.46)
+  %puts14.i165 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.47)
+  %puts15.i166 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.48)
+  %puts16.i167 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.49)
+  %puts17.i168 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.50)
+  %puts18.i169 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.51)
   tail call void @exit(i32 noundef 4) #12
   unreachable
 
-69:                                               ; preds = %46
-  %70 = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %23, ptr noundef nonnull dereferenceable(3) @.str.12) #11
-  %71 = icmp eq i32 %70, 0
-  br i1 %71, label %72, label %92
+if.else21:                                        ; preds = %if.else8
+  %call22 = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %6, ptr noundef nonnull dereferenceable(3) @.str.12) #11
+  %cmp23 = icmp eq i32 %call22, 0
+  br i1 %cmp23, label %if.then24, label %if.else34
 
-72:                                               ; preds = %69
-  %73 = add nsw i32 %20, 1
-  %74 = icmp slt i32 %73, %1
-  br i1 %74, label %75, label %81
+if.then24:                                        ; preds = %if.else21
+  %inc25 = add nsw i32 %i.0299, 1
+  %cmp26 = icmp slt i32 %inc25, %argc
+  br i1 %cmp26, label %if.then27, label %if.else32
 
-75:                                               ; preds = %72
-  %76 = sext i32 %73 to i64
-  %77 = getelementptr inbounds ptr, ptr %2, i64 %76
-  %78 = load ptr, ptr %77, align 8, !tbaa !5
-  %79 = tail call i64 @strtol(ptr nocapture noundef nonnull %78, ptr noundef null, i32 noundef 10) #10
-  %80 = trunc i64 %79 to i32
-  store i32 %80, ptr %4, align 4, !tbaa !15
-  br label %192
+if.then27:                                        ; preds = %if.then24
+  %idxprom28 = sext i32 %inc25 to i64
+  %arrayidx29 = getelementptr inbounds ptr, ptr %argv, i64 %idxprom28
+  %9 = load ptr, ptr %arrayidx29, align 8, !tbaa !5
+  %call.i171 = tail call i64 @strtol(ptr nocapture noundef nonnull %9, ptr noundef null, i32 noundef 10) #10
+  %conv.i172 = trunc i64 %call.i171 to i32
+  store i32 %conv.i172, ptr %n_nuclides, align 4, !tbaa !15
+  br label %if.end97
 
-81:                                               ; preds = %72
-  %82 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.42)
-  %83 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.43)
-  %84 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.44)
-  %85 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.45)
-  %86 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.46)
-  %87 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.47)
-  %88 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.48)
-  %89 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.49)
-  %90 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.50)
-  %91 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.51)
+if.else32:                                        ; preds = %if.then24
+  %puts.i173 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.42)
+  %puts10.i174 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.43)
+  %puts11.i175 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.44)
+  %puts12.i176 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.45)
+  %puts13.i177 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.46)
+  %puts14.i178 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.47)
+  %puts15.i179 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.48)
+  %puts16.i180 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.49)
+  %puts17.i181 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.50)
+  %puts18.i182 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.51)
   tail call void @exit(i32 noundef 4) #12
   unreachable
 
-92:                                               ; preds = %69
-  %93 = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %23, ptr noundef nonnull dereferenceable(3) @.str.13) #11
-  %94 = icmp eq i32 %93, 0
-  br i1 %94, label %95, label %131
+if.else34:                                        ; preds = %if.else21
+  %call35 = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %6, ptr noundef nonnull dereferenceable(3) @.str.13) #11
+  %cmp36 = icmp eq i32 %call35, 0
+  br i1 %cmp36, label %if.then37, label %if.else59
 
-95:                                               ; preds = %92
-  %96 = add nsw i32 %20, 1
-  %97 = icmp slt i32 %96, %1
-  br i1 %97, label %98, label %120
+if.then37:                                        ; preds = %if.else34
+  %inc38 = add nsw i32 %i.0299, 1
+  %cmp39 = icmp slt i32 %inc38, %argc
+  br i1 %cmp39, label %if.then40, label %if.else57
 
-98:                                               ; preds = %95
-  %99 = sext i32 %96 to i64
-  %100 = getelementptr inbounds ptr, ptr %2, i64 %99
-  %101 = load ptr, ptr %100, align 8, !tbaa !5
-  %102 = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %101, ptr noundef nonnull dereferenceable(6) @.str.14) #11
-  %103 = icmp eq i32 %102, 0
-  br i1 %103, label %104, label %105
+if.then40:                                        ; preds = %if.then37
+  %idxprom41 = sext i32 %inc38 to i64
+  %arrayidx42 = getelementptr inbounds ptr, ptr %argv, i64 %idxprom41
+  %10 = load ptr, ptr %arrayidx42, align 8, !tbaa !5
+  %call43 = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %10, ptr noundef nonnull dereferenceable(6) @.str.14) #11
+  %cmp44 = icmp eq i32 %call43, 0
+  br i1 %cmp44, label %if.then45, label %if.else47
 
-104:                                              ; preds = %98
-  store i32 0, ptr %6, align 4, !tbaa !16
-  br label %192
+if.then45:                                        ; preds = %if.then40
+  store i32 0, ptr %HM, align 4, !tbaa !16
+  br label %if.end97
 
-105:                                              ; preds = %98
-  %106 = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %101, ptr noundef nonnull dereferenceable(6) @.str.15) #11
-  %107 = icmp eq i32 %106, 0
-  br i1 %107, label %108, label %109
+if.else47:                                        ; preds = %if.then40
+  %call50 = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %10, ptr noundef nonnull dereferenceable(6) @.str.15) #11
+  %cmp51 = icmp eq i32 %call50, 0
+  br i1 %cmp51, label %if.then52, label %if.else54
 
-108:                                              ; preds = %105
-  store i32 1, ptr %6, align 4, !tbaa !16
-  br label %192
+if.then52:                                        ; preds = %if.else47
+  store i32 1, ptr %HM, align 4, !tbaa !16
+  br label %if.end97
 
-109:                                              ; preds = %105
-  %110 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.42)
-  %111 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.43)
-  %112 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.44)
-  %113 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.45)
-  %114 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.46)
-  %115 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.47)
-  %116 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.48)
-  %117 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.49)
-  %118 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.50)
-  %119 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.51)
+if.else54:                                        ; preds = %if.else47
+  %puts.i184 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.42)
+  %puts10.i185 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.43)
+  %puts11.i186 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.44)
+  %puts12.i187 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.45)
+  %puts13.i188 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.46)
+  %puts14.i189 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.47)
+  %puts15.i190 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.48)
+  %puts16.i191 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.49)
+  %puts17.i192 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.50)
+  %puts18.i193 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.51)
   tail call void @exit(i32 noundef 4) #12
   unreachable
 
-120:                                              ; preds = %95
-  %121 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.42)
-  %122 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.43)
-  %123 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.44)
-  %124 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.45)
-  %125 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.46)
-  %126 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.47)
-  %127 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.48)
-  %128 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.49)
-  %129 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.50)
-  %130 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.51)
+if.else57:                                        ; preds = %if.then37
+  %puts.i195 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.42)
+  %puts10.i196 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.43)
+  %puts11.i197 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.44)
+  %puts12.i198 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.45)
+  %puts13.i199 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.46)
+  %puts14.i200 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.47)
+  %puts15.i201 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.48)
+  %puts16.i202 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.49)
+  %puts17.i203 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.50)
+  %puts18.i204 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.51)
   tail call void @exit(i32 noundef 4) #12
   unreachable
 
-131:                                              ; preds = %92
-  %132 = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %23, ptr noundef nonnull dereferenceable(3) @.str.16) #11
-  %133 = icmp eq i32 %132, 0
-  br i1 %133, label %134, label %135
+if.else59:                                        ; preds = %if.else34
+  %call60 = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %6, ptr noundef nonnull dereferenceable(3) @.str.16) #11
+  %cmp61 = icmp eq i32 %call60, 0
+  br i1 %cmp61, label %if.then62, label %if.else64
 
-134:                                              ; preds = %131
-  store i32 0, ptr %9, align 4, !tbaa !17
-  br label %192
+if.then62:                                        ; preds = %if.else59
+  store i32 0, ptr %doppler, align 4, !tbaa !17
+  br label %if.end97
 
-135:                                              ; preds = %131
-  %136 = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %23, ptr noundef nonnull dereferenceable(3) @.str.17) #11
-  %137 = icmp eq i32 %136, 0
-  br i1 %137, label %138, label %158
+if.else64:                                        ; preds = %if.else59
+  %call65 = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %6, ptr noundef nonnull dereferenceable(3) @.str.17) #11
+  %cmp66 = icmp eq i32 %call65, 0
+  br i1 %cmp66, label %if.then67, label %if.else77
 
-138:                                              ; preds = %135
-  %139 = add nsw i32 %20, 1
-  %140 = icmp slt i32 %139, %1
-  br i1 %140, label %141, label %147
+if.then67:                                        ; preds = %if.else64
+  %inc68 = add nsw i32 %i.0299, 1
+  %cmp69 = icmp slt i32 %inc68, %argc
+  br i1 %cmp69, label %if.then70, label %if.else75
 
-141:                                              ; preds = %138
-  %142 = sext i32 %139 to i64
-  %143 = getelementptr inbounds ptr, ptr %2, i64 %142
-  %144 = load ptr, ptr %143, align 8, !tbaa !5
-  %145 = tail call i64 @strtol(ptr nocapture noundef nonnull %144, ptr noundef null, i32 noundef 10) #10
-  %146 = trunc i64 %145 to i32
-  store i32 %146, ptr %8, align 4, !tbaa !18
-  br label %192
+if.then70:                                        ; preds = %if.then67
+  %idxprom71 = sext i32 %inc68 to i64
+  %arrayidx72 = getelementptr inbounds ptr, ptr %argv, i64 %idxprom71
+  %11 = load ptr, ptr %arrayidx72, align 8, !tbaa !5
+  %call.i206 = tail call i64 @strtol(ptr nocapture noundef nonnull %11, ptr noundef null, i32 noundef 10) #10
+  %conv.i207 = trunc i64 %call.i206 to i32
+  store i32 %conv.i207, ptr %avg_n_windows, align 4, !tbaa !18
+  br label %if.end97
 
-147:                                              ; preds = %138
-  %148 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.42)
-  %149 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.43)
-  %150 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.44)
-  %151 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.45)
-  %152 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.46)
-  %153 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.47)
-  %154 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.48)
-  %155 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.49)
-  %156 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.50)
-  %157 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.51)
+if.else75:                                        ; preds = %if.then67
+  %puts.i208 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.42)
+  %puts10.i209 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.43)
+  %puts11.i210 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.44)
+  %puts12.i211 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.45)
+  %puts13.i212 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.46)
+  %puts14.i213 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.47)
+  %puts15.i214 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.48)
+  %puts16.i215 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.49)
+  %puts17.i216 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.50)
+  %puts18.i217 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.51)
   tail call void @exit(i32 noundef 4) #12
   unreachable
 
-158:                                              ; preds = %135
-  %159 = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %23, ptr noundef nonnull dereferenceable(3) @.str.18) #11
-  %160 = icmp eq i32 %159, 0
-  br i1 %160, label %161, label %181
+if.else77:                                        ; preds = %if.else64
+  %call78 = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %6, ptr noundef nonnull dereferenceable(3) @.str.18) #11
+  %cmp79 = icmp eq i32 %call78, 0
+  br i1 %cmp79, label %if.then80, label %if.else90
 
-161:                                              ; preds = %158
-  %162 = add nsw i32 %20, 1
-  %163 = icmp slt i32 %162, %1
-  br i1 %163, label %164, label %170
+if.then80:                                        ; preds = %if.else77
+  %inc81 = add nsw i32 %i.0299, 1
+  %cmp82 = icmp slt i32 %inc81, %argc
+  br i1 %cmp82, label %if.then83, label %if.else88
 
-164:                                              ; preds = %161
-  %165 = sext i32 %162 to i64
-  %166 = getelementptr inbounds ptr, ptr %2, i64 %165
-  %167 = load ptr, ptr %166, align 8, !tbaa !5
-  %168 = tail call i64 @strtol(ptr nocapture noundef nonnull %167, ptr noundef null, i32 noundef 10) #10
-  %169 = trunc i64 %168 to i32
-  store i32 %169, ptr %7, align 4, !tbaa !19
-  br label %192
+if.then83:                                        ; preds = %if.then80
+  %idxprom84 = sext i32 %inc81 to i64
+  %arrayidx85 = getelementptr inbounds ptr, ptr %argv, i64 %idxprom84
+  %12 = load ptr, ptr %arrayidx85, align 8, !tbaa !5
+  %call.i219 = tail call i64 @strtol(ptr nocapture noundef nonnull %12, ptr noundef null, i32 noundef 10) #10
+  %conv.i220 = trunc i64 %call.i219 to i32
+  store i32 %conv.i220, ptr %avg_n_poles, align 4, !tbaa !19
+  br label %if.end97
 
-170:                                              ; preds = %161
-  %171 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.42)
-  %172 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.43)
-  %173 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.44)
-  %174 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.45)
-  %175 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.46)
-  %176 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.47)
-  %177 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.48)
-  %178 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.49)
-  %179 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.50)
-  %180 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.51)
+if.else88:                                        ; preds = %if.then80
+  %puts.i221 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.42)
+  %puts10.i222 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.43)
+  %puts11.i223 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.44)
+  %puts12.i224 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.45)
+  %puts13.i225 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.46)
+  %puts14.i226 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.47)
+  %puts15.i227 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.48)
+  %puts16.i228 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.49)
+  %puts17.i229 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.50)
+  %puts18.i230 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.51)
   tail call void @exit(i32 noundef 4) #12
   unreachable
 
-181:                                              ; preds = %158
-  %182 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.42)
-  %183 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.43)
-  %184 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.44)
-  %185 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.45)
-  %186 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.46)
-  %187 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.47)
-  %188 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.48)
-  %189 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.49)
-  %190 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.50)
-  %191 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.51)
+if.else90:                                        ; preds = %if.else77
+  %puts.i232 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.42)
+  %puts10.i233 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.43)
+  %puts11.i234 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.44)
+  %puts12.i235 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.45)
+  %puts13.i236 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.46)
+  %puts14.i237 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.47)
+  %puts15.i238 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.48)
+  %puts16.i239 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.49)
+  %puts17.i240 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.50)
+  %puts18.i241 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.51)
   tail call void @exit(i32 noundef 4) #12
   unreachable
 
-192:                                              ; preds = %52, %104, %108, %141, %164, %134, %75, %29
-  %193 = phi i32 [ %14, %29 ], [ %14, %52 ], [ %14, %75 ], [ 0, %104 ], [ 1, %108 ], [ %14, %134 ], [ %14, %141 ], [ %14, %164 ]
-  %194 = phi i32 [ %15, %29 ], [ %15, %52 ], [ %15, %75 ], [ %15, %104 ], [ %15, %108 ], [ %15, %134 ], [ %146, %141 ], [ %15, %164 ]
-  %195 = phi i32 [ %16, %29 ], [ %16, %52 ], [ %16, %75 ], [ %16, %104 ], [ %16, %108 ], [ %16, %134 ], [ %16, %141 ], [ %169, %164 ]
-  %196 = phi i32 [ %17, %29 ], [ %57, %52 ], [ %17, %75 ], [ %17, %104 ], [ %17, %108 ], [ %17, %134 ], [ %17, %141 ], [ %17, %164 ]
-  %197 = phi i32 [ %18, %29 ], [ %18, %52 ], [ %80, %75 ], [ %18, %104 ], [ %18, %108 ], [ %18, %134 ], [ %18, %141 ], [ %18, %164 ]
-  %198 = phi i32 [ %34, %29 ], [ %19, %52 ], [ %19, %75 ], [ %19, %104 ], [ %19, %108 ], [ %19, %134 ], [ %19, %141 ], [ %19, %164 ]
-  %199 = phi i32 [ %27, %29 ], [ %50, %52 ], [ %73, %75 ], [ %96, %104 ], [ %96, %108 ], [ %20, %134 ], [ %139, %141 ], [ %162, %164 ]
-  %200 = add nsw i32 %199, 1
-  %201 = icmp slt i32 %200, %1
-  br i1 %201, label %13, label %11
+if.end97:                                         ; preds = %if.then14, %if.then45, %if.then52, %if.then70, %if.then83, %if.then62, %if.then27, %if.then3
+  %13 = phi i32 [ %0, %if.then3 ], [ %0, %if.then14 ], [ %0, %if.then27 ], [ 0, %if.then45 ], [ 1, %if.then52 ], [ %0, %if.then62 ], [ %0, %if.then70 ], [ %0, %if.then83 ]
+  %14 = phi i32 [ %1, %if.then3 ], [ %1, %if.then14 ], [ %1, %if.then27 ], [ %1, %if.then45 ], [ %1, %if.then52 ], [ %1, %if.then62 ], [ %conv.i207, %if.then70 ], [ %1, %if.then83 ]
+  %15 = phi i32 [ %2, %if.then3 ], [ %2, %if.then14 ], [ %2, %if.then27 ], [ %2, %if.then45 ], [ %2, %if.then52 ], [ %2, %if.then62 ], [ %2, %if.then70 ], [ %conv.i220, %if.then83 ]
+  %16 = phi i32 [ %3, %if.then3 ], [ %conv.i159, %if.then14 ], [ %3, %if.then27 ], [ %3, %if.then45 ], [ %3, %if.then52 ], [ %3, %if.then62 ], [ %3, %if.then70 ], [ %3, %if.then83 ]
+  %17 = phi i32 [ %4, %if.then3 ], [ %4, %if.then14 ], [ %conv.i172, %if.then27 ], [ %4, %if.then45 ], [ %4, %if.then52 ], [ %4, %if.then62 ], [ %4, %if.then70 ], [ %4, %if.then83 ]
+  %18 = phi i32 [ %conv.i, %if.then3 ], [ %5, %if.then14 ], [ %5, %if.then27 ], [ %5, %if.then45 ], [ %5, %if.then52 ], [ %5, %if.then62 ], [ %5, %if.then70 ], [ %5, %if.then83 ]
+  %i.1 = phi i32 [ %inc, %if.then3 ], [ %inc12, %if.then14 ], [ %inc25, %if.then27 ], [ %inc38, %if.then45 ], [ %inc38, %if.then52 ], [ %i.0299, %if.then62 ], [ %inc68, %if.then70 ], [ %inc81, %if.then83 ]
+  %inc98 = add nsw i32 %i.1, 1
+  %cmp = icmp slt i32 %inc98, %argc
+  br i1 %cmp, label %for.body, label %for.cond.cleanup
 
-202:                                              ; preds = %11
-  %203 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.42)
-  %204 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.43)
-  %205 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.44)
-  %206 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.45)
-  %207 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.46)
-  %208 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.47)
-  %209 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.48)
-  %210 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.49)
-  %211 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.50)
-  %212 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.51)
+if.then101:                                       ; preds = %for.cond.cleanup
+  %puts.i243 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.42)
+  %puts10.i244 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.43)
+  %puts11.i245 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.44)
+  %puts12.i246 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.45)
+  %puts13.i247 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.46)
+  %puts14.i248 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.47)
+  %puts15.i249 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.48)
+  %puts16.i250 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.49)
+  %puts17.i251 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.50)
+  %puts18.i252 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.51)
   tail call void @exit(i32 noundef 4) #12
   unreachable
 
-213:                                              ; preds = %11
-  %214 = icmp slt i32 %197, 1
-  br i1 %214, label %215, label %226
+if.end102:                                        ; preds = %for.cond.cleanup
+  %cmp104 = icmp slt i32 %17, 1
+  br i1 %cmp104, label %if.then105, label %if.end106
 
-215:                                              ; preds = %213
-  %216 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.42)
-  %217 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.43)
-  %218 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.44)
-  %219 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.45)
-  %220 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.46)
-  %221 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.47)
-  %222 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.48)
-  %223 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.49)
-  %224 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.50)
-  %225 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.51)
+if.then105:                                       ; preds = %if.end102
+  %puts.i254 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.42)
+  %puts10.i255 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.43)
+  %puts11.i256 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.44)
+  %puts12.i257 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.45)
+  %puts13.i258 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.46)
+  %puts14.i259 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.47)
+  %puts15.i260 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.48)
+  %puts16.i261 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.49)
+  %puts17.i262 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.50)
+  %puts18.i263 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.51)
   tail call void @exit(i32 noundef 4) #12
   unreachable
 
-226:                                              ; preds = %213
-  %227 = icmp slt i32 %196, 1
-  br i1 %227, label %228, label %239
+if.end106:                                        ; preds = %if.end102
+  %cmp108 = icmp slt i32 %16, 1
+  br i1 %cmp108, label %if.then109, label %if.end110
 
-228:                                              ; preds = %226
-  %229 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.42)
-  %230 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.43)
-  %231 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.44)
-  %232 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.45)
-  %233 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.46)
-  %234 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.47)
-  %235 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.48)
-  %236 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.49)
-  %237 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.50)
-  %238 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.51)
+if.then109:                                       ; preds = %if.end106
+  %puts.i265 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.42)
+  %puts10.i266 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.43)
+  %puts11.i267 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.44)
+  %puts12.i268 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.45)
+  %puts13.i269 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.46)
+  %puts14.i270 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.47)
+  %puts15.i271 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.48)
+  %puts16.i272 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.49)
+  %puts17.i273 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.50)
+  %puts18.i274 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.51)
   tail call void @exit(i32 noundef 4) #12
   unreachable
 
-239:                                              ; preds = %226
-  %240 = icmp slt i32 %195, 1
-  br i1 %240, label %241, label %252
+if.end110:                                        ; preds = %if.end106
+  %cmp112 = icmp slt i32 %15, 1
+  br i1 %cmp112, label %if.then113, label %if.end114
 
-241:                                              ; preds = %239
-  %242 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.42)
-  %243 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.43)
-  %244 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.44)
-  %245 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.45)
-  %246 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.46)
-  %247 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.47)
-  %248 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.48)
-  %249 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.49)
-  %250 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.50)
-  %251 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.51)
+if.then113:                                       ; preds = %if.end110
+  %puts.i276 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.42)
+  %puts10.i277 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.43)
+  %puts11.i278 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.44)
+  %puts12.i279 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.45)
+  %puts13.i280 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.46)
+  %puts14.i281 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.47)
+  %puts15.i282 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.48)
+  %puts16.i283 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.49)
+  %puts17.i284 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.50)
+  %puts18.i285 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.51)
   tail call void @exit(i32 noundef 4) #12
   unreachable
 
-252:                                              ; preds = %239
-  %253 = icmp slt i32 %194, 1
-  br i1 %253, label %254, label %265
+if.end114:                                        ; preds = %if.end110
+  %cmp116 = icmp slt i32 %14, 1
+  br i1 %cmp116, label %if.then117, label %if.end118
 
-254:                                              ; preds = %252
-  %255 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.42)
-  %256 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.43)
-  %257 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.44)
-  %258 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.45)
-  %259 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.46)
-  %260 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.47)
-  %261 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.48)
-  %262 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.49)
-  %263 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.50)
-  %264 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.51)
+if.then117:                                       ; preds = %if.end114
+  %puts.i287 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.42)
+  %puts10.i288 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.43)
+  %puts11.i289 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.44)
+  %puts12.i290 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.45)
+  %puts13.i291 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.46)
+  %puts14.i292 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.47)
+  %puts15.i293 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.48)
+  %puts16.i294 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.49)
+  %puts17.i295 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.50)
+  %puts18.i296 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.51)
   tail call void @exit(i32 noundef 4) #12
   unreachable
 
-265:                                              ; preds = %252
-  %266 = icmp eq i32 %193, 0
-  br i1 %266, label %267, label %268
+if.end118:                                        ; preds = %if.end114
+  %cmp120 = icmp eq i32 %13, 0
+  br i1 %cmp120, label %if.then121, label %if.end123
 
-267:                                              ; preds = %265
-  store i32 68, ptr %4, align 4, !tbaa !15
-  br label %268
+if.then121:                                       ; preds = %if.end118
+  store i32 68, ptr %n_nuclides, align 4, !tbaa !15
+  br label %if.end123
 
-268:                                              ; preds = %3, %267, %265
+if.end123:                                        ; preds = %entry, %if.then121, %if.end118
   ret void
 }
 
@@ -612,16 +617,17 @@ declare i32 @strcmp(ptr nocapture noundef, ptr nocapture noundef) local_unnamed_
 
 ; Function Attrs: noreturn nounwind uwtable
 define dso_local void @print_CLI_error() local_unnamed_addr #5 {
-  %1 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.42)
-  %2 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.43)
-  %3 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.44)
-  %4 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.45)
-  %5 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.46)
-  %6 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.47)
-  %7 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.48)
-  %8 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.49)
-  %9 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.50)
-  %10 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.51)
+entry:
+  %puts = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.42)
+  %puts10 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.43)
+  %puts11 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.44)
+  %puts12 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.45)
+  %puts13 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.46)
+  %puts14 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.47)
+  %puts15 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.48)
+  %puts16 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.49)
+  %puts17 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.50)
+  %puts18 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.51)
   tail call void @exit(i32 noundef 4) #12
   unreachable
 }
@@ -630,158 +636,159 @@ define dso_local void @print_CLI_error() local_unnamed_addr #5 {
 declare void @exit(i32 noundef) local_unnamed_addr #6
 
 ; Function Attrs: nounwind uwtable
-define dso_local void @print_input_summary(ptr noundef byval(%struct.Input) align 8 %0) local_unnamed_addr #4 {
-  %2 = tail call i64 @get_mem_estimate(ptr noundef nonnull byval(%struct.Input) align 8 %0) #10
-  %3 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.52)
-  %4 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.30)
-  %5 = getelementptr inbounds %struct.Input, ptr %0, i64 0, i32 3
-  %6 = load i32, ptr %5, align 4, !tbaa !16
-  %7 = icmp eq i32 %6, 0
-  %8 = select i1 %7, ptr @str.56, ptr @str.53
-  %9 = tail call i32 @puts(ptr nonnull dereferenceable(1) %8)
-  %10 = getelementptr inbounds %struct.Input, ptr %0, i64 0, i32 7
-  %11 = load i32, ptr %10, align 4, !tbaa !17
-  %12 = icmp eq i32 %11, 1
-  %13 = select i1 %12, ptr @str.55, ptr @str.54
-  %14 = tail call i32 @puts(ptr nonnull dereferenceable(1) %13)
-  %15 = getelementptr inbounds %struct.Input, ptr %0, i64 0, i32 1
-  %16 = load i32, ptr %15, align 4, !tbaa !15
-  %17 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.35, i32 noundef %16)
-  %18 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.36)
-  %19 = getelementptr inbounds %struct.Input, ptr %0, i64 0, i32 4
-  %20 = load i32, ptr %19, align 8, !tbaa !19
-  %21 = icmp slt i32 %20, 1000
-  br i1 %21, label %22, label %24
+define dso_local void @print_input_summary(ptr noundef byval(%struct.Input) align 8 %input) local_unnamed_addr #4 {
+entry:
+  %call = tail call i64 @get_mem_estimate(ptr noundef nonnull byval(%struct.Input) align 8 %input) #10
+  %puts = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.52)
+  %call2 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.30)
+  %HM = getelementptr inbounds %struct.Input, ptr %input, i64 0, i32 3
+  %0 = load i32, ptr %HM, align 4, !tbaa !16
+  %cmp = icmp eq i32 %0, 0
+  %str.56.str.53 = select i1 %cmp, ptr @str.56, ptr @str.53
+  %puts18 = tail call i32 @puts(ptr nonnull dereferenceable(1) %str.56.str.53)
+  %doppler = getelementptr inbounds %struct.Input, ptr %input, i64 0, i32 7
+  %1 = load i32, ptr %doppler, align 4, !tbaa !17
+  %cmp5 = icmp eq i32 %1, 1
+  %str.54.sink = select i1 %cmp5, ptr @str.55, ptr @str.54
+  %puts19 = tail call i32 @puts(ptr nonnull dereferenceable(1) %str.54.sink)
+  %n_nuclides = getelementptr inbounds %struct.Input, ptr %input, i64 0, i32 1
+  %2 = load i32, ptr %n_nuclides, align 4, !tbaa !15
+  %call11 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.35, i32 noundef %2)
+  %call12 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.36)
+  %avg_n_poles = getelementptr inbounds %struct.Input, ptr %input, i64 0, i32 4
+  %3 = load i32, ptr %avg_n_poles, align 8, !tbaa !19
+  %cmp.i = icmp slt i32 %3, 1000
+  br i1 %cmp.i, label %if.then.i, label %if.else.i
 
-22:                                               ; preds = %1
-  %23 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.6, i32 noundef %20)
-  br label %46
+if.then.i:                                        ; preds = %entry
+  %call.i = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.6, i32 noundef %3)
+  br label %fancy_int.exit
 
-24:                                               ; preds = %1
-  %25 = icmp ult i32 %20, 1000000
-  br i1 %25, label %26, label %30
+if.else.i:                                        ; preds = %entry
+  %cmp2.i = icmp ult i32 %3, 1000000
+  br i1 %cmp2.i, label %if.then3.i, label %if.else5.i
 
-26:                                               ; preds = %24
-  %27 = udiv i32 %20, 1000
-  %28 = urem i32 %20, 1000
-  %29 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.7, i32 noundef %27, i32 noundef %28)
-  br label %46
+if.then3.i:                                       ; preds = %if.else.i
+  %div.i = udiv i32 %3, 1000
+  %rem.i = urem i32 %3, 1000
+  %call4.i = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.7, i32 noundef %div.i, i32 noundef %rem.i)
+  br label %fancy_int.exit
 
-30:                                               ; preds = %24
-  %31 = icmp ult i32 %20, 1000000000
-  %32 = udiv i32 %20, 1000000
-  %33 = urem i32 %20, 1000000
-  br i1 %31, label %34, label %39
+if.else5.i:                                       ; preds = %if.else.i
+  %cmp8.i = icmp ult i32 %3, 1000000000
+  %div10.i = udiv i32 %3, 1000000
+  %rem21.i = urem i32 %3, 1000000
+  br i1 %cmp8.i, label %if.then9.i, label %if.then17.i
 
-34:                                               ; preds = %30
-  %35 = urem i32 %20, 1000000
-  %36 = udiv i32 %35, 1000
-  %37 = urem i32 %20, 1000
-  %38 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.8, i32 noundef %32, i32 noundef %36, i32 noundef %37)
-  br label %46
+if.then9.i:                                       ; preds = %if.else5.i
+  %rem11.i = urem i32 %3, 1000000
+  %div12.i = udiv i32 %rem11.i, 1000
+  %rem13.i = urem i32 %3, 1000
+  %call14.i = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.8, i32 noundef %div10.i, i32 noundef %div12.i, i32 noundef %rem13.i)
+  br label %fancy_int.exit
 
-39:                                               ; preds = %30
-  %40 = udiv i32 %20, 1000000000
-  %41 = urem i32 %20, 1000000000
-  %42 = udiv i32 %41, 1000000
-  %43 = udiv i32 %33, 1000
-  %44 = urem i32 %20, 1000
-  %45 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.9, i32 noundef %40, i32 noundef %42, i32 noundef %43, i32 noundef %44)
-  br label %46
+if.then17.i:                                      ; preds = %if.else5.i
+  %div18.i = udiv i32 %3, 1000000000
+  %rem19.i = urem i32 %3, 1000000000
+  %div20.i = udiv i32 %rem19.i, 1000000
+  %div22.i = udiv i32 %rem21.i, 1000
+  %rem23.i = urem i32 %3, 1000
+  %call24.i = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.9, i32 noundef %div18.i, i32 noundef %div20.i, i32 noundef %div22.i, i32 noundef %rem23.i)
+  br label %fancy_int.exit
 
-46:                                               ; preds = %22, %26, %34, %39
-  %47 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.37)
-  %48 = getelementptr inbounds %struct.Input, ptr %0, i64 0, i32 5
-  %49 = load i32, ptr %48, align 4, !tbaa !18
-  %50 = icmp slt i32 %49, 1000
-  br i1 %50, label %51, label %53
+fancy_int.exit:                                   ; preds = %if.then.i, %if.then3.i, %if.then9.i, %if.then17.i
+  %call13 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.37)
+  %avg_n_windows = getelementptr inbounds %struct.Input, ptr %input, i64 0, i32 5
+  %4 = load i32, ptr %avg_n_windows, align 4, !tbaa !18
+  %cmp.i22 = icmp slt i32 %4, 1000
+  br i1 %cmp.i22, label %if.then.i24, label %if.else.i26
 
-51:                                               ; preds = %46
-  %52 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.6, i32 noundef %49)
-  br label %75
+if.then.i24:                                      ; preds = %fancy_int.exit
+  %call.i23 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.6, i32 noundef %4)
+  br label %fancy_int.exit47
 
-53:                                               ; preds = %46
-  %54 = icmp ult i32 %49, 1000000
-  br i1 %54, label %55, label %59
+if.else.i26:                                      ; preds = %fancy_int.exit
+  %cmp2.i25 = icmp ult i32 %4, 1000000
+  br i1 %cmp2.i25, label %if.then3.i30, label %if.else5.i32
 
-55:                                               ; preds = %53
-  %56 = udiv i32 %49, 1000
-  %57 = urem i32 %49, 1000
-  %58 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.7, i32 noundef %56, i32 noundef %57)
-  br label %75
+if.then3.i30:                                     ; preds = %if.else.i26
+  %div.i27 = udiv i32 %4, 1000
+  %rem.i28 = urem i32 %4, 1000
+  %call4.i29 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.7, i32 noundef %div.i27, i32 noundef %rem.i28)
+  br label %fancy_int.exit47
 
-59:                                               ; preds = %53
-  %60 = icmp ult i32 %49, 1000000000
-  %61 = udiv i32 %49, 1000000
-  %62 = urem i32 %49, 1000000
-  br i1 %60, label %63, label %68
+if.else5.i32:                                     ; preds = %if.else.i26
+  %cmp8.i31 = icmp ult i32 %4, 1000000000
+  %div10.i33 = udiv i32 %4, 1000000
+  %rem21.i42 = urem i32 %4, 1000000
+  br i1 %cmp8.i31, label %if.then9.i38, label %if.then17.i46
 
-63:                                               ; preds = %59
-  %64 = urem i32 %49, 1000000
-  %65 = udiv i32 %64, 1000
-  %66 = urem i32 %49, 1000
-  %67 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.8, i32 noundef %61, i32 noundef %65, i32 noundef %66)
-  br label %75
+if.then9.i38:                                     ; preds = %if.else5.i32
+  %rem11.i34 = urem i32 %4, 1000000
+  %div12.i35 = udiv i32 %rem11.i34, 1000
+  %rem13.i36 = urem i32 %4, 1000
+  %call14.i37 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.8, i32 noundef %div10.i33, i32 noundef %div12.i35, i32 noundef %rem13.i36)
+  br label %fancy_int.exit47
 
-68:                                               ; preds = %59
-  %69 = udiv i32 %49, 1000000000
-  %70 = urem i32 %49, 1000000000
-  %71 = udiv i32 %70, 1000000
-  %72 = udiv i32 %62, 1000
-  %73 = urem i32 %49, 1000
-  %74 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.9, i32 noundef %69, i32 noundef %71, i32 noundef %72, i32 noundef %73)
-  br label %75
+if.then17.i46:                                    ; preds = %if.else5.i32
+  %div18.i39 = udiv i32 %4, 1000000000
+  %rem19.i40 = urem i32 %4, 1000000000
+  %div20.i41 = udiv i32 %rem19.i40, 1000000
+  %div22.i43 = udiv i32 %rem21.i42, 1000
+  %rem23.i44 = urem i32 %4, 1000
+  %call24.i45 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.9, i32 noundef %div18.i39, i32 noundef %div20.i41, i32 noundef %div22.i43, i32 noundef %rem23.i44)
+  br label %fancy_int.exit47
 
-75:                                               ; preds = %51, %55, %63, %68
-  %76 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.38)
-  %77 = getelementptr inbounds %struct.Input, ptr %0, i64 0, i32 2
-  %78 = load i32, ptr %77, align 8, !tbaa !14
-  %79 = icmp slt i32 %78, 1000
-  br i1 %79, label %80, label %82
+fancy_int.exit47:                                 ; preds = %if.then.i24, %if.then3.i30, %if.then9.i38, %if.then17.i46
+  %call14 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.38)
+  %lookups = getelementptr inbounds %struct.Input, ptr %input, i64 0, i32 2
+  %5 = load i32, ptr %lookups, align 8, !tbaa !14
+  %cmp.i48 = icmp slt i32 %5, 1000
+  br i1 %cmp.i48, label %if.then.i50, label %if.else.i52
 
-80:                                               ; preds = %75
-  %81 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.6, i32 noundef %78)
-  br label %104
+if.then.i50:                                      ; preds = %fancy_int.exit47
+  %call.i49 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.6, i32 noundef %5)
+  br label %fancy_int.exit73
 
-82:                                               ; preds = %75
-  %83 = icmp ult i32 %78, 1000000
-  br i1 %83, label %84, label %88
+if.else.i52:                                      ; preds = %fancy_int.exit47
+  %cmp2.i51 = icmp ult i32 %5, 1000000
+  br i1 %cmp2.i51, label %if.then3.i56, label %if.else5.i58
 
-84:                                               ; preds = %82
-  %85 = udiv i32 %78, 1000
-  %86 = urem i32 %78, 1000
-  %87 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.7, i32 noundef %85, i32 noundef %86)
-  br label %104
+if.then3.i56:                                     ; preds = %if.else.i52
+  %div.i53 = udiv i32 %5, 1000
+  %rem.i54 = urem i32 %5, 1000
+  %call4.i55 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.7, i32 noundef %div.i53, i32 noundef %rem.i54)
+  br label %fancy_int.exit73
 
-88:                                               ; preds = %82
-  %89 = icmp ult i32 %78, 1000000000
-  %90 = udiv i32 %78, 1000000
-  %91 = urem i32 %78, 1000000
-  br i1 %89, label %92, label %97
+if.else5.i58:                                     ; preds = %if.else.i52
+  %cmp8.i57 = icmp ult i32 %5, 1000000000
+  %div10.i59 = udiv i32 %5, 1000000
+  %rem21.i68 = urem i32 %5, 1000000
+  br i1 %cmp8.i57, label %if.then9.i64, label %if.then17.i72
 
-92:                                               ; preds = %88
-  %93 = urem i32 %78, 1000000
-  %94 = udiv i32 %93, 1000
-  %95 = urem i32 %78, 1000
-  %96 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.8, i32 noundef %90, i32 noundef %94, i32 noundef %95)
-  br label %104
+if.then9.i64:                                     ; preds = %if.else5.i58
+  %rem11.i60 = urem i32 %5, 1000000
+  %div12.i61 = udiv i32 %rem11.i60, 1000
+  %rem13.i62 = urem i32 %5, 1000
+  %call14.i63 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.8, i32 noundef %div10.i59, i32 noundef %div12.i61, i32 noundef %rem13.i62)
+  br label %fancy_int.exit73
 
-97:                                               ; preds = %88
-  %98 = udiv i32 %78, 1000000000
-  %99 = urem i32 %78, 1000000000
-  %100 = udiv i32 %99, 1000000
-  %101 = udiv i32 %91, 1000
-  %102 = urem i32 %78, 1000
-  %103 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.9, i32 noundef %98, i32 noundef %100, i32 noundef %101, i32 noundef %102)
-  br label %104
+if.then17.i72:                                    ; preds = %if.else5.i58
+  %div18.i65 = udiv i32 %5, 1000000000
+  %rem19.i66 = urem i32 %5, 1000000000
+  %div20.i67 = udiv i32 %rem19.i66, 1000000
+  %div22.i69 = udiv i32 %rem21.i68, 1000
+  %rem23.i70 = urem i32 %5, 1000
+  %call24.i71 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.9, i32 noundef %div18.i65, i32 noundef %div20.i67, i32 noundef %div22.i69, i32 noundef %rem23.i70)
+  br label %fancy_int.exit73
 
-104:                                              ; preds = %80, %84, %92, %97
-  %105 = load i32, ptr %0, align 8, !tbaa !12
-  %106 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.39, i32 noundef %105)
-  %107 = uitofp i64 %2 to double
-  %108 = fmul double %107, 0x3F50000000000000
-  %109 = fmul double %108, 0x3F50000000000000
-  %110 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.40, double noundef %109)
+fancy_int.exit73:                                 ; preds = %if.then.i50, %if.then3.i56, %if.then9.i64, %if.then17.i72
+  %6 = load i32, ptr %input, align 8, !tbaa !12
+  %call15 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.39, i32 noundef %6)
+  %conv = uitofp i64 %call to double
+  %div = fmul double %conv, 0x3F50000000000000
+  %div16 = fmul double %div, 0x3F50000000000000
+  %call17 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.40, double noundef %div16)
   ret void
 }
 

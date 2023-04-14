@@ -24,49 +24,52 @@ $_ZTI18CInBufferException = comdat any
 @_ZN9CInBufferC1Ev = dso_local unnamed_addr alias void (ptr), ptr @_ZN9CInBufferC2Ev
 
 ; Function Attrs: mustprogress nofree nosync nounwind willreturn memory(argmem: write) uwtable
-define dso_local void @_ZN9CInBufferC2Ev(ptr nocapture noundef nonnull writeonly align 8 dereferenceable(45) %0) unnamed_addr #0 align 2 {
-  %2 = getelementptr inbounds %class.CInBuffer, ptr %0, i64 0, i32 5
-  store i32 0, ptr %2, align 8, !tbaa !5
-  tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(32) %0, i8 0, i64 32, i1 false)
+define dso_local void @_ZN9CInBufferC2Ev(ptr nocapture noundef nonnull writeonly align 8 dereferenceable(45) %this) unnamed_addr #0 align 2 {
+entry:
+  %_bufferSize = getelementptr inbounds %class.CInBuffer, ptr %this, i64 0, i32 5
+  store i32 0, ptr %_bufferSize, align 8, !tbaa !5
+  tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(32) %this, i8 0, i64 32, i1 false)
   ret void
 }
 
 ; Function Attrs: mustprogress uwtable
-define dso_local noundef zeroext i1 @_ZN9CInBuffer6CreateEj(ptr nocapture noundef nonnull align 8 dereferenceable(45) %0, i32 noundef %1) local_unnamed_addr #1 align 2 {
-  %3 = tail call i32 @llvm.umax.i32(i32 %1, i32 1)
-  %4 = getelementptr inbounds %class.CInBuffer, ptr %0, i64 0, i32 2
-  %5 = load ptr, ptr %4, align 8, !tbaa !14
-  %6 = icmp ne ptr %5, null
-  %7 = getelementptr inbounds %class.CInBuffer, ptr %0, i64 0, i32 5
-  %8 = load i32, ptr %7, align 8
-  %9 = icmp eq i32 %8, %3
-  %10 = select i1 %6, i1 %9, i1 false
-  br i1 %10, label %15, label %11
+define dso_local noundef zeroext i1 @_ZN9CInBuffer6CreateEj(ptr nocapture noundef nonnull align 8 dereferenceable(45) %this, i32 noundef %bufferSize) local_unnamed_addr #1 align 2 {
+entry:
+  %spec.store.select = tail call i32 @llvm.umax.i32(i32 %bufferSize, i32 1)
+  %_bufferBase = getelementptr inbounds %class.CInBuffer, ptr %this, i64 0, i32 2
+  %0 = load ptr, ptr %_bufferBase, align 8, !tbaa !14
+  %cmp2.not = icmp ne ptr %0, null
+  %_bufferSize = getelementptr inbounds %class.CInBuffer, ptr %this, i64 0, i32 5
+  %1 = load i32, ptr %_bufferSize, align 8
+  %cmp3 = icmp eq i32 %1, %spec.store.select
+  %or.cond = select i1 %cmp2.not, i1 %cmp3, i1 false
+  br i1 %or.cond, label %cleanup, label %if.end5
 
-11:                                               ; preds = %2
-  tail call void @MidFree(ptr noundef %5)
-  store ptr null, ptr %4, align 8, !tbaa !14
-  store i32 %3, ptr %7, align 8, !tbaa !5
-  %12 = zext i32 %3 to i64
-  %13 = tail call ptr @MidAlloc(i64 noundef %12)
-  store ptr %13, ptr %4, align 8, !tbaa !14
-  %14 = icmp ne ptr %13, null
-  br label %15
+if.end5:                                          ; preds = %entry
+  tail call void @MidFree(ptr noundef %0)
+  store ptr null, ptr %_bufferBase, align 8, !tbaa !14
+  store i32 %spec.store.select, ptr %_bufferSize, align 8, !tbaa !5
+  %conv = zext i32 %spec.store.select to i64
+  %call = tail call ptr @MidAlloc(i64 noundef %conv)
+  store ptr %call, ptr %_bufferBase, align 8, !tbaa !14
+  %cmp9 = icmp ne ptr %call, null
+  br label %cleanup
 
-15:                                               ; preds = %2, %11
-  %16 = phi i1 [ %14, %11 ], [ true, %2 ]
-  ret i1 %16
+cleanup:                                          ; preds = %entry, %if.end5
+  %retval.0 = phi i1 [ %cmp9, %if.end5 ], [ true, %entry ]
+  ret i1 %retval.0
 }
 
 ; Function Attrs: mustprogress nocallback nofree nosync nounwind willreturn memory(argmem: readwrite)
 declare void @llvm.lifetime.start.p0(i64 immarg, ptr nocapture) #2
 
 ; Function Attrs: mustprogress uwtable
-define dso_local void @_ZN9CInBuffer4FreeEv(ptr nocapture noundef nonnull align 8 dereferenceable(45) %0) local_unnamed_addr #1 align 2 {
-  %2 = getelementptr inbounds %class.CInBuffer, ptr %0, i64 0, i32 2
-  %3 = load ptr, ptr %2, align 8, !tbaa !14
-  tail call void @MidFree(ptr noundef %3)
-  store ptr null, ptr %2, align 8, !tbaa !14
+define dso_local void @_ZN9CInBuffer4FreeEv(ptr nocapture noundef nonnull align 8 dereferenceable(45) %this) local_unnamed_addr #1 align 2 {
+entry:
+  %_bufferBase = getelementptr inbounds %class.CInBuffer, ptr %this, i64 0, i32 2
+  %0 = load ptr, ptr %_bufferBase, align 8, !tbaa !14
+  tail call void @MidFree(ptr noundef %0)
+  store ptr null, ptr %_bufferBase, align 8, !tbaa !14
   ret void
 }
 
@@ -78,104 +81,107 @@ declare void @llvm.lifetime.end.p0(i64 immarg, ptr nocapture) #2
 declare void @MidFree(ptr noundef) local_unnamed_addr #3
 
 ; Function Attrs: mustprogress uwtable
-define dso_local void @_ZN9CInBuffer9SetStreamEP19ISequentialInStream(ptr nocapture noundef nonnull align 8 dereferenceable(45) %0, ptr noundef %1) local_unnamed_addr #1 align 2 {
-  %3 = getelementptr inbounds %class.CInBuffer, ptr %0, i64 0, i32 3
-  %4 = icmp eq ptr %1, null
-  br i1 %4, label %10, label %5
+define dso_local void @_ZN9CInBuffer9SetStreamEP19ISequentialInStream(ptr nocapture noundef nonnull align 8 dereferenceable(45) %this, ptr noundef %stream) local_unnamed_addr #1 align 2 {
+entry:
+  %_stream = getelementptr inbounds %class.CInBuffer, ptr %this, i64 0, i32 3
+  %cmp.not.i = icmp eq ptr %stream, null
+  br i1 %cmp.not.i, label %if.end.i, label %if.then.i
 
-5:                                                ; preds = %2
-  %6 = load ptr, ptr %1, align 8, !tbaa !15
-  %7 = getelementptr inbounds ptr, ptr %6, i64 1
-  %8 = load ptr, ptr %7, align 8
-  %9 = tail call noundef i32 %8(ptr noundef nonnull align 8 dereferenceable(8) %1)
-  br label %10
+if.then.i:                                        ; preds = %entry
+  %vtable.i = load ptr, ptr %stream, align 8, !tbaa !15
+  %vfn.i = getelementptr inbounds ptr, ptr %vtable.i, i64 1
+  %0 = load ptr, ptr %vfn.i, align 8
+  %call.i = tail call noundef i32 %0(ptr noundef nonnull align 8 dereferenceable(8) %stream)
+  br label %if.end.i
 
-10:                                               ; preds = %5, %2
-  %11 = load ptr, ptr %3, align 8, !tbaa !17
-  %12 = icmp eq ptr %11, null
-  br i1 %12, label %18, label %13
+if.end.i:                                         ; preds = %if.then.i, %entry
+  %1 = load ptr, ptr %_stream, align 8, !tbaa !17
+  %tobool.not.i = icmp eq ptr %1, null
+  br i1 %tobool.not.i, label %_ZN9CMyComPtrI19ISequentialInStreamEaSEPS0_.exit, label %if.then2.i
 
-13:                                               ; preds = %10
-  %14 = load ptr, ptr %11, align 8, !tbaa !15
-  %15 = getelementptr inbounds ptr, ptr %14, i64 2
-  %16 = load ptr, ptr %15, align 8
-  %17 = tail call noundef i32 %16(ptr noundef nonnull align 8 dereferenceable(8) %11)
-  br label %18
+if.then2.i:                                       ; preds = %if.end.i
+  %vtable4.i = load ptr, ptr %1, align 8, !tbaa !15
+  %vfn5.i = getelementptr inbounds ptr, ptr %vtable4.i, i64 2
+  %2 = load ptr, ptr %vfn5.i, align 8
+  %call6.i = tail call noundef i32 %2(ptr noundef nonnull align 8 dereferenceable(8) %1)
+  br label %_ZN9CMyComPtrI19ISequentialInStreamEaSEPS0_.exit
 
-18:                                               ; preds = %10, %13
-  store ptr %1, ptr %3, align 8, !tbaa !17
+_ZN9CMyComPtrI19ISequentialInStreamEaSEPS0_.exit: ; preds = %if.end.i, %if.then2.i
+  store ptr %stream, ptr %_stream, align 8, !tbaa !17
   ret void
 }
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(argmem: readwrite) uwtable
-define dso_local void @_ZN9CInBuffer4InitEv(ptr nocapture noundef nonnull align 8 dereferenceable(45) %0) local_unnamed_addr #4 align 2 {
-  %2 = getelementptr inbounds %class.CInBuffer, ptr %0, i64 0, i32 4
-  store i64 0, ptr %2, align 8, !tbaa !18
-  %3 = getelementptr inbounds %class.CInBuffer, ptr %0, i64 0, i32 2
-  %4 = load ptr, ptr %3, align 8, !tbaa !14
-  store ptr %4, ptr %0, align 8, !tbaa !19
-  %5 = getelementptr inbounds %class.CInBuffer, ptr %0, i64 0, i32 1
-  store ptr %4, ptr %5, align 8, !tbaa !20
-  %6 = getelementptr inbounds %class.CInBuffer, ptr %0, i64 0, i32 6
-  store i8 0, ptr %6, align 4, !tbaa !21
+define dso_local void @_ZN9CInBuffer4InitEv(ptr nocapture noundef nonnull align 8 dereferenceable(45) %this) local_unnamed_addr #4 align 2 {
+entry:
+  %_processedSize = getelementptr inbounds %class.CInBuffer, ptr %this, i64 0, i32 4
+  store i64 0, ptr %_processedSize, align 8, !tbaa !18
+  %_bufferBase = getelementptr inbounds %class.CInBuffer, ptr %this, i64 0, i32 2
+  %0 = load ptr, ptr %_bufferBase, align 8, !tbaa !19
+  store ptr %0, ptr %this, align 8, !tbaa !20
+  %_bufferLimit = getelementptr inbounds %class.CInBuffer, ptr %this, i64 0, i32 1
+  store ptr %0, ptr %_bufferLimit, align 8, !tbaa !21
+  %_wasFinished = getelementptr inbounds %class.CInBuffer, ptr %this, i64 0, i32 6
+  store i8 0, ptr %_wasFinished, align 4, !tbaa !22
   ret void
 }
 
 ; Function Attrs: uwtable
-define dso_local noundef zeroext i1 @_ZN9CInBuffer9ReadBlockEv(ptr nocapture noundef nonnull align 8 dereferenceable(45) %0) local_unnamed_addr #5 align 2 personality ptr @__gxx_personality_v0 {
-  %2 = alloca i32, align 4
-  %3 = getelementptr inbounds %class.CInBuffer, ptr %0, i64 0, i32 6
-  %4 = load i8, ptr %3, align 4, !tbaa !21, !range !22, !noundef !23
-  %5 = icmp eq i8 %4, 0
-  br i1 %5, label %6, label %36
+define dso_local noundef zeroext i1 @_ZN9CInBuffer9ReadBlockEv(ptr nocapture noundef nonnull align 8 dereferenceable(45) %this) local_unnamed_addr #5 align 2 personality ptr @__gxx_personality_v0 {
+entry:
+  %numProcessedBytes = alloca i32, align 4
+  %_wasFinished = getelementptr inbounds %class.CInBuffer, ptr %this, i64 0, i32 6
+  %0 = load i8, ptr %_wasFinished, align 4, !tbaa !22, !range !23, !noundef !24
+  %tobool.not = icmp eq i8 %0, 0
+  br i1 %tobool.not, label %if.end, label %return
 
-6:                                                ; preds = %1
-  %7 = load ptr, ptr %0, align 8, !tbaa !19
-  %8 = getelementptr inbounds %class.CInBuffer, ptr %0, i64 0, i32 2
-  %9 = load ptr, ptr %8, align 8, !tbaa !14
-  %10 = ptrtoint ptr %7 to i64
-  %11 = ptrtoint ptr %9 to i64
-  %12 = sub i64 %10, %11
-  %13 = getelementptr inbounds %class.CInBuffer, ptr %0, i64 0, i32 4
-  %14 = load i64, ptr %13, align 8, !tbaa !18
-  %15 = add i64 %12, %14
-  store i64 %15, ptr %13, align 8, !tbaa !18
-  call void @llvm.lifetime.start.p0(i64 4, ptr nonnull %2) #8
-  %16 = getelementptr inbounds %class.CInBuffer, ptr %0, i64 0, i32 3
-  %17 = load ptr, ptr %16, align 8, !tbaa !17
-  %18 = getelementptr inbounds %class.CInBuffer, ptr %0, i64 0, i32 5
-  %19 = load i32, ptr %18, align 8, !tbaa !5
-  %20 = load ptr, ptr %17, align 8, !tbaa !15
-  %21 = getelementptr inbounds ptr, ptr %20, i64 5
-  %22 = load ptr, ptr %21, align 8
-  %23 = call noundef i32 %22(ptr noundef nonnull align 8 dereferenceable(8) %17, ptr noundef %9, i32 noundef %19, ptr noundef nonnull %2)
-  %24 = icmp eq i32 %23, 0
-  br i1 %24, label %27, label %25
+if.end:                                           ; preds = %entry
+  %1 = load ptr, ptr %this, align 8, !tbaa !20
+  %_bufferBase = getelementptr inbounds %class.CInBuffer, ptr %this, i64 0, i32 2
+  %2 = load ptr, ptr %_bufferBase, align 8, !tbaa !14
+  %sub.ptr.lhs.cast = ptrtoint ptr %1 to i64
+  %sub.ptr.rhs.cast = ptrtoint ptr %2 to i64
+  %sub.ptr.sub = sub i64 %sub.ptr.lhs.cast, %sub.ptr.rhs.cast
+  %_processedSize = getelementptr inbounds %class.CInBuffer, ptr %this, i64 0, i32 4
+  %3 = load i64, ptr %_processedSize, align 8, !tbaa !18
+  %add = add i64 %sub.ptr.sub, %3
+  store i64 %add, ptr %_processedSize, align 8, !tbaa !18
+  call void @llvm.lifetime.start.p0(i64 4, ptr nonnull %numProcessedBytes) #8
+  %_stream = getelementptr inbounds %class.CInBuffer, ptr %this, i64 0, i32 3
+  %4 = load ptr, ptr %_stream, align 8, !tbaa !17
+  %_bufferSize = getelementptr inbounds %class.CInBuffer, ptr %this, i64 0, i32 5
+  %5 = load i32, ptr %_bufferSize, align 8, !tbaa !5
+  %vtable = load ptr, ptr %4, align 8, !tbaa !15
+  %vfn = getelementptr inbounds ptr, ptr %vtable, i64 5
+  %6 = load ptr, ptr %vfn, align 8
+  %call3 = call noundef i32 %6(ptr noundef nonnull align 8 dereferenceable(8) %4, ptr noundef %2, i32 noundef %5, ptr noundef nonnull %numProcessedBytes)
+  %cmp.not = icmp eq i32 %call3, 0
+  br i1 %cmp.not, label %if.end5, label %invoke.cont
 
-25:                                               ; preds = %6
-  %26 = call ptr @__cxa_allocate_exception(i64 4) #8
-  store i32 %23, ptr %26, align 4, !tbaa !24
-  call void @__cxa_throw(ptr nonnull %26, ptr nonnull @_ZTI18CInBufferException, ptr null) #9
+invoke.cont:                                      ; preds = %if.end
+  %exception = call ptr @__cxa_allocate_exception(i64 4) #8
+  store i32 %call3, ptr %exception, align 4, !tbaa !25
+  call void @__cxa_throw(ptr nonnull %exception, ptr nonnull @_ZTI18CInBufferException, ptr null) #9
   unreachable
 
-27:                                               ; preds = %6
-  %28 = load ptr, ptr %8, align 8, !tbaa !14
-  store ptr %28, ptr %0, align 8, !tbaa !19
-  %29 = load i32, ptr %2, align 4, !tbaa !26
-  %30 = zext i32 %29 to i64
-  %31 = getelementptr inbounds i8, ptr %28, i64 %30
-  %32 = getelementptr inbounds %class.CInBuffer, ptr %0, i64 0, i32 1
-  store ptr %31, ptr %32, align 8, !tbaa !20
-  %33 = icmp eq i32 %29, 0
-  %34 = zext i1 %33 to i8
-  store i8 %34, ptr %3, align 4, !tbaa !21
-  %35 = xor i1 %33, true
-  call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %2) #8
-  br label %36
+if.end5:                                          ; preds = %if.end
+  %7 = load ptr, ptr %_bufferBase, align 8, !tbaa !19
+  store ptr %7, ptr %this, align 8, !tbaa !20
+  %8 = load i32, ptr %numProcessedBytes, align 4, !tbaa !27
+  %idx.ext = zext i32 %8 to i64
+  %add.ptr = getelementptr inbounds i8, ptr %7, i64 %idx.ext
+  %_bufferLimit = getelementptr inbounds %class.CInBuffer, ptr %this, i64 0, i32 1
+  store ptr %add.ptr, ptr %_bufferLimit, align 8, !tbaa !21
+  %cmp9 = icmp eq i32 %8, 0
+  %frombool = zext i1 %cmp9 to i8
+  store i8 %frombool, ptr %_wasFinished, align 4, !tbaa !22
+  %lnot = xor i1 %cmp9, true
+  call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %numProcessedBytes) #8
+  br label %return
 
-36:                                               ; preds = %1, %27
-  %37 = phi i1 [ %35, %27 ], [ false, %1 ]
-  ret i1 %37
+return:                                           ; preds = %entry, %if.end5
+  %retval.0 = phi i1 [ %lnot, %if.end5 ], [ false, %entry ]
+  ret i1 %retval.0
 }
 
 declare ptr @__cxa_allocate_exception(i64) local_unnamed_addr
@@ -185,79 +191,80 @@ declare i32 @__gxx_personality_v0(...)
 declare void @__cxa_throw(ptr, ptr, ptr) local_unnamed_addr
 
 ; Function Attrs: uwtable
-define dso_local noundef zeroext i8 @_ZN9CInBuffer10ReadBlock2Ev(ptr nocapture noundef nonnull align 8 dereferenceable(45) %0) local_unnamed_addr #5 align 2 personality ptr @__gxx_personality_v0 {
-  %2 = alloca i32, align 4
-  %3 = getelementptr inbounds %class.CInBuffer, ptr %0, i64 0, i32 6
-  %4 = load i8, ptr %3, align 4, !tbaa !21, !range !22, !noundef !23
-  %5 = icmp eq i8 %4, 0
-  br i1 %5, label %6, label %35
+define dso_local noundef zeroext i8 @_ZN9CInBuffer10ReadBlock2Ev(ptr nocapture noundef nonnull align 8 dereferenceable(45) %this) local_unnamed_addr #5 align 2 personality ptr @__gxx_personality_v0 {
+entry:
+  %numProcessedBytes.i = alloca i32, align 4
+  %_wasFinished.i = getelementptr inbounds %class.CInBuffer, ptr %this, i64 0, i32 6
+  %0 = load i8, ptr %_wasFinished.i, align 4, !tbaa !22, !range !23, !noundef !24
+  %tobool.not.i = icmp eq i8 %0, 0
+  br i1 %tobool.not.i, label %if.end.i, label %if.then
 
-6:                                                ; preds = %1
-  %7 = load ptr, ptr %0, align 8, !tbaa !19
-  %8 = getelementptr inbounds %class.CInBuffer, ptr %0, i64 0, i32 2
-  %9 = load ptr, ptr %8, align 8, !tbaa !14
-  %10 = ptrtoint ptr %7 to i64
-  %11 = ptrtoint ptr %9 to i64
-  %12 = sub i64 %10, %11
-  %13 = getelementptr inbounds %class.CInBuffer, ptr %0, i64 0, i32 4
-  %14 = load i64, ptr %13, align 8, !tbaa !18
-  %15 = add i64 %12, %14
-  store i64 %15, ptr %13, align 8, !tbaa !18
-  call void @llvm.lifetime.start.p0(i64 4, ptr nonnull %2) #8
-  %16 = getelementptr inbounds %class.CInBuffer, ptr %0, i64 0, i32 3
-  %17 = load ptr, ptr %16, align 8, !tbaa !17
-  %18 = getelementptr inbounds %class.CInBuffer, ptr %0, i64 0, i32 5
-  %19 = load i32, ptr %18, align 8, !tbaa !5
-  %20 = load ptr, ptr %17, align 8, !tbaa !15
-  %21 = getelementptr inbounds ptr, ptr %20, i64 5
-  %22 = load ptr, ptr %21, align 8
-  %23 = call noundef i32 %22(ptr noundef nonnull align 8 dereferenceable(8) %17, ptr noundef %9, i32 noundef %19, ptr noundef nonnull %2)
-  %24 = icmp eq i32 %23, 0
-  br i1 %24, label %27, label %25
+if.end.i:                                         ; preds = %entry
+  %1 = load ptr, ptr %this, align 8, !tbaa !20
+  %_bufferBase.i = getelementptr inbounds %class.CInBuffer, ptr %this, i64 0, i32 2
+  %2 = load ptr, ptr %_bufferBase.i, align 8, !tbaa !14
+  %sub.ptr.lhs.cast.i = ptrtoint ptr %1 to i64
+  %sub.ptr.rhs.cast.i = ptrtoint ptr %2 to i64
+  %sub.ptr.sub.i = sub i64 %sub.ptr.lhs.cast.i, %sub.ptr.rhs.cast.i
+  %_processedSize.i = getelementptr inbounds %class.CInBuffer, ptr %this, i64 0, i32 4
+  %3 = load i64, ptr %_processedSize.i, align 8, !tbaa !18
+  %add.i = add i64 %sub.ptr.sub.i, %3
+  store i64 %add.i, ptr %_processedSize.i, align 8, !tbaa !18
+  call void @llvm.lifetime.start.p0(i64 4, ptr nonnull %numProcessedBytes.i) #8
+  %_stream.i = getelementptr inbounds %class.CInBuffer, ptr %this, i64 0, i32 3
+  %4 = load ptr, ptr %_stream.i, align 8, !tbaa !17
+  %_bufferSize.i = getelementptr inbounds %class.CInBuffer, ptr %this, i64 0, i32 5
+  %5 = load i32, ptr %_bufferSize.i, align 8, !tbaa !5
+  %vtable.i = load ptr, ptr %4, align 8, !tbaa !15
+  %vfn.i = getelementptr inbounds ptr, ptr %vtable.i, i64 5
+  %6 = load ptr, ptr %vfn.i, align 8
+  %call3.i = call noundef i32 %6(ptr noundef nonnull align 8 dereferenceable(8) %4, ptr noundef %2, i32 noundef %5, ptr noundef nonnull %numProcessedBytes.i)
+  %cmp.not.i = icmp eq i32 %call3.i, 0
+  br i1 %cmp.not.i, label %_ZN9CInBuffer9ReadBlockEv.exit, label %invoke.cont.i
 
-25:                                               ; preds = %6
-  %26 = call ptr @__cxa_allocate_exception(i64 4) #8
-  store i32 %23, ptr %26, align 4, !tbaa !24
-  call void @__cxa_throw(ptr nonnull %26, ptr nonnull @_ZTI18CInBufferException, ptr null) #9
+invoke.cont.i:                                    ; preds = %if.end.i
+  %exception.i = call ptr @__cxa_allocate_exception(i64 4) #8
+  store i32 %call3.i, ptr %exception.i, align 4, !tbaa !25
+  call void @__cxa_throw(ptr nonnull %exception.i, ptr nonnull @_ZTI18CInBufferException, ptr null) #9
   unreachable
 
-27:                                               ; preds = %6
-  %28 = load ptr, ptr %8, align 8, !tbaa !14
-  store ptr %28, ptr %0, align 8, !tbaa !19
-  %29 = load i32, ptr %2, align 4, !tbaa !26
-  %30 = zext i32 %29 to i64
-  %31 = getelementptr inbounds i8, ptr %28, i64 %30
-  %32 = getelementptr inbounds %class.CInBuffer, ptr %0, i64 0, i32 1
-  store ptr %31, ptr %32, align 8, !tbaa !20
-  %33 = icmp eq i32 %29, 0
-  %34 = zext i1 %33 to i8
-  store i8 %34, ptr %3, align 4, !tbaa !21
-  call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %2) #8
-  br i1 %33, label %35, label %39
+_ZN9CInBuffer9ReadBlockEv.exit:                   ; preds = %if.end.i
+  %7 = load ptr, ptr %_bufferBase.i, align 8, !tbaa !19
+  store ptr %7, ptr %this, align 8, !tbaa !20
+  %8 = load i32, ptr %numProcessedBytes.i, align 4, !tbaa !27
+  %idx.ext.i = zext i32 %8 to i64
+  %add.ptr.i = getelementptr inbounds i8, ptr %7, i64 %idx.ext.i
+  %_bufferLimit.i = getelementptr inbounds %class.CInBuffer, ptr %this, i64 0, i32 1
+  store ptr %add.ptr.i, ptr %_bufferLimit.i, align 8, !tbaa !21
+  %cmp9.i = icmp eq i32 %8, 0
+  %frombool.i = zext i1 %cmp9.i to i8
+  store i8 %frombool.i, ptr %_wasFinished.i, align 4, !tbaa !22
+  call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %numProcessedBytes.i) #8
+  br i1 %cmp9.i, label %if.then, label %if.end
 
-35:                                               ; preds = %1, %27
-  %36 = getelementptr inbounds %class.CInBuffer, ptr %0, i64 0, i32 4
-  %37 = load i64, ptr %36, align 8, !tbaa !18
-  %38 = add i64 %37, 1
-  store i64 %38, ptr %36, align 8, !tbaa !18
-  br label %42
+if.then:                                          ; preds = %entry, %_ZN9CInBuffer9ReadBlockEv.exit
+  %_processedSize = getelementptr inbounds %class.CInBuffer, ptr %this, i64 0, i32 4
+  %9 = load i64, ptr %_processedSize, align 8, !tbaa !18
+  %inc = add i64 %9, 1
+  store i64 %inc, ptr %_processedSize, align 8, !tbaa !18
+  br label %return
 
-39:                                               ; preds = %27
-  %40 = getelementptr inbounds i8, ptr %28, i64 1
-  store ptr %40, ptr %0, align 8, !tbaa !19
-  %41 = load i8, ptr %28, align 1, !tbaa !27
-  br label %42
+if.end:                                           ; preds = %_ZN9CInBuffer9ReadBlockEv.exit
+  %incdec.ptr = getelementptr inbounds i8, ptr %7, i64 1
+  store ptr %incdec.ptr, ptr %this, align 8, !tbaa !20
+  %10 = load i8, ptr %7, align 1, !tbaa !28
+  br label %return
 
-42:                                               ; preds = %39, %35
-  %43 = phi i8 [ %41, %39 ], [ -1, %35 ]
-  ret i8 %43
+return:                                           ; preds = %if.end, %if.then
+  %retval.0 = phi i8 [ %10, %if.end ], [ -1, %if.then ]
+  ret i8 %retval.0
 }
 
-; Function Attrs: nocallback nofree nounwind willreturn memory(argmem: write)
-declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #6
-
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i32 @llvm.umax.i32(i32, i32) #7
+declare i32 @llvm.umax.i32(i32, i32) #6
+
+; Function Attrs: nocallback nofree nounwind willreturn memory(argmem: write)
+declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #7
 
 attributes #0 = { mustprogress nofree nosync nounwind willreturn memory(argmem: write) uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #1 = { mustprogress uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
@@ -265,8 +272,8 @@ attributes #2 = { mustprogress nocallback nofree nosync nounwind willreturn memo
 attributes #3 = { "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #4 = { mustprogress nofree norecurse nosync nounwind willreturn memory(argmem: readwrite) uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #5 = { uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
-attributes #6 = { nocallback nofree nounwind willreturn memory(argmem: write) }
-attributes #7 = { nocallback nofree nosync nounwind speculatable willreturn memory(none) }
+attributes #6 = { nocallback nofree nosync nounwind speculatable willreturn memory(none) }
+attributes #7 = { nocallback nofree nounwind willreturn memory(argmem: write) }
 attributes #8 = { nounwind }
 attributes #9 = { noreturn }
 
@@ -292,12 +299,13 @@ attributes #9 = { noreturn }
 !16 = !{!"vtable pointer", !9, i64 0}
 !17 = !{!10, !7, i64 0}
 !18 = !{!6, !11, i64 32}
-!19 = !{!6, !7, i64 0}
-!20 = !{!6, !7, i64 8}
-!21 = !{!6, !13, i64 44}
-!22 = !{i8 0, i8 2}
-!23 = !{}
-!24 = !{!25, !12, i64 0}
-!25 = !{!"_ZTS16CSystemException", !12, i64 0}
-!26 = !{!12, !12, i64 0}
-!27 = !{!8, !8, i64 0}
+!19 = !{!7, !7, i64 0}
+!20 = !{!6, !7, i64 0}
+!21 = !{!6, !7, i64 8}
+!22 = !{!6, !13, i64 44}
+!23 = !{i8 0, i8 2}
+!24 = !{}
+!25 = !{!26, !12, i64 0}
+!26 = !{!"_ZTS16CSystemException", !12, i64 0}
+!27 = !{!12, !12, i64 0}
+!28 = !{!8, !8, i64 0}

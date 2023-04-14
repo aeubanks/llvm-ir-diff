@@ -13,116 +13,119 @@ target triple = "x86_64-unknown-linux-gnu"
 @str.3 = private unnamed_addr constant [26 x i8] c"Usage: bmm <size> <block>\00", align 1
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(argmem: readwrite) uwtable
-define dso_local i32 @my_rand_r(ptr nocapture noundef %0) local_unnamed_addr #0 {
-  %2 = load i32, ptr %0, align 4, !tbaa !5
-  %3 = mul i32 %2, 1664525
-  %4 = add i32 %3, 1013904223
-  store i32 %4, ptr %0, align 4, !tbaa !5
-  %5 = lshr i32 %4, 16
-  %6 = and i32 %5, 32767
-  ret i32 %6
+define dso_local i32 @my_rand_r(ptr nocapture noundef %seedp) local_unnamed_addr #0 {
+entry:
+  %0 = load i32, ptr %seedp, align 4, !tbaa !5
+  %mul = mul i32 %0, 1664525
+  %add = add i32 %mul, 1013904223
+  store i32 %add, ptr %seedp, align 4, !tbaa !5
+  %shr = lshr i32 %add, 16
+  %and = and i32 %shr, 32767
+  ret i32 %and
 }
 
 ; Function Attrs: nofree norecurse nosync nounwind memory(write, argmem: none, inaccessiblemem: none) uwtable
 define dso_local void @init() local_unnamed_addr #1 {
-  br label %1
+entry:
+  br label %for.cond1.preheader
 
-1:                                                ; preds = %0, %30
-  %2 = phi i64 [ 0, %0 ], [ %31, %30 ]
-  %3 = phi i32 [ 1, %0 ], [ %19, %30 ]
-  br label %4
+for.cond1.preheader:                              ; preds = %entry, %for.inc15
+  %indvars.iv40 = phi i64 [ 0, %entry ], [ %indvars.iv.next41, %for.inc15 ]
+  %random_seed.035 = phi i32 [ 1, %entry ], [ %add.i29, %for.inc15 ]
+  br label %for.body3
 
-4:                                                ; preds = %1, %4
-  %5 = phi i64 [ 0, %1 ], [ %28, %4 ]
-  %6 = phi i32 [ %3, %1 ], [ %19, %4 ]
-  %7 = mul i32 %6, 1664525
-  %8 = add i32 %7, 1013904223
-  %9 = lshr i32 %8, 16
-  %10 = and i32 %9, 32767
-  %11 = sub nsw i64 %5, %2
-  %12 = trunc i64 %11 to i32
-  %13 = and i32 %12, 31
-  %14 = lshr i32 %10, %13
-  %15 = and i32 %14, 15
-  %16 = uitofp i32 %15 to float
-  %17 = getelementptr inbounds [1024 x [1024 x float]], ptr @a, i64 0, i64 %2, i64 %5
-  store float %16, ptr %17, align 4, !tbaa !9
-  %18 = mul i32 %8, 1664525
-  %19 = add i32 %18, 1013904223
-  %20 = lshr i32 %19, 16
-  %21 = add nuw nsw i64 %5, %2
-  %22 = trunc i64 %21 to i32
-  %23 = and i32 %22, 31
-  %24 = shl i32 %20, %23
-  %25 = and i32 %24, 15
-  %26 = uitofp i32 %25 to float
-  %27 = getelementptr inbounds [1024 x [1024 x float]], ptr @b, i64 0, i64 %2, i64 %5
-  store float %26, ptr %27, align 4, !tbaa !9
-  %28 = add nuw nsw i64 %5, 1
-  %29 = icmp eq i64 %28, 1024
-  br i1 %29, label %30, label %4, !llvm.loop !11
+for.body3:                                        ; preds = %for.cond1.preheader, %for.body3
+  %indvars.iv = phi i64 [ 0, %for.cond1.preheader ], [ %indvars.iv.next, %for.body3 ]
+  %random_seed.133 = phi i32 [ %random_seed.035, %for.cond1.preheader ], [ %add.i29, %for.body3 ]
+  %mul.i = mul i32 %random_seed.133, 1664525
+  %add.i = add i32 %mul.i, 1013904223
+  %shr.i = lshr i32 %add.i, 16
+  %and.i = and i32 %shr.i, 32767
+  %0 = sub nsw i64 %indvars.iv, %indvars.iv40
+  %1 = trunc i64 %0 to i32
+  %and = and i32 %1, 31
+  %shr = lshr i32 %and.i, %and
+  %and4 = and i32 %shr, 15
+  %conv = uitofp i32 %and4 to float
+  %arrayidx6 = getelementptr inbounds [1024 x [1024 x float]], ptr @a, i64 0, i64 %indvars.iv40, i64 %indvars.iv
+  store float %conv, ptr %arrayidx6, align 4, !tbaa !9
+  %mul.i28 = mul i32 %add.i, 1664525
+  %add.i29 = add i32 %mul.i28, 1013904223
+  %shr.i30 = lshr i32 %add.i29, 16
+  %2 = add nuw nsw i64 %indvars.iv, %indvars.iv40
+  %3 = trunc i64 %2 to i32
+  %and8 = and i32 %3, 31
+  %shl = shl i32 %shr.i30, %and8
+  %and9 = and i32 %shl, 15
+  %conv10 = uitofp i32 %and9 to float
+  %arrayidx14 = getelementptr inbounds [1024 x [1024 x float]], ptr @b, i64 0, i64 %indvars.iv40, i64 %indvars.iv
+  store float %conv10, ptr %arrayidx14, align 4, !tbaa !9
+  %indvars.iv.next = add nuw nsw i64 %indvars.iv, 1
+  %exitcond.not = icmp eq i64 %indvars.iv.next, 1024
+  br i1 %exitcond.not, label %for.inc15, label %for.body3, !llvm.loop !11
 
-30:                                               ; preds = %4
-  %31 = add nuw nsw i64 %2, 1
-  %32 = icmp eq i64 %31, 1024
-  br i1 %32, label %33, label %1, !llvm.loop !13
+for.inc15:                                        ; preds = %for.body3
+  %indvars.iv.next41 = add nuw nsw i64 %indvars.iv40, 1
+  %exitcond43.not = icmp eq i64 %indvars.iv.next41, 1024
+  br i1 %exitcond43.not, label %for.end17, label %for.cond1.preheader, !llvm.loop !13
 
-33:                                               ; preds = %30
+for.end17:                                        ; preds = %for.inc15
   ret void
 }
 
 ; Function Attrs: nofree nosync nounwind memory(readwrite, argmem: none, inaccessiblemem: none) uwtable
-define dso_local void @mm_inner(i32 noundef %0, i32 noundef %1, i32 noundef %2) local_unnamed_addr #2 {
-  %4 = load i32, ptr @BLOCK, align 4, !tbaa !5
-  %5 = icmp sgt i32 %4, 0
-  br i1 %5, label %6, label %38
+define dso_local void @mm_inner(i32 noundef %I, i32 noundef %J, i32 noundef %K) local_unnamed_addr #2 {
+entry:
+  %0 = load i32, ptr @BLOCK, align 4, !tbaa !5
+  %cmp41 = icmp sgt i32 %0, 0
+  br i1 %cmp41, label %for.cond1.preheader.us.us.preheader, label %for.end24
 
-6:                                                ; preds = %3
-  %7 = add nsw i32 %4, %0
-  %8 = add nsw i32 %4, %1
-  %9 = add nsw i32 %4, %2
-  %10 = sext i32 %2 to i64
-  %11 = sext i32 %9 to i64
-  %12 = sext i32 %1 to i64
-  %13 = sext i32 %8 to i64
-  %14 = sext i32 %0 to i64
-  %15 = sext i32 %7 to i64
-  br label %16
+for.cond1.preheader.us.us.preheader:              ; preds = %entry
+  %add = add nsw i32 %0, %I
+  %add2 = add nsw i32 %0, %J
+  %add6 = add nsw i32 %0, %K
+  %1 = sext i32 %K to i64
+  %2 = sext i32 %add6 to i64
+  %3 = sext i32 %J to i64
+  %4 = sext i32 %add2 to i64
+  %5 = sext i32 %I to i64
+  %6 = sext i32 %add to i64
+  br label %for.cond1.preheader.us.us
 
-16:                                               ; preds = %6, %35
-  %17 = phi i64 [ %14, %6 ], [ %36, %35 ]
-  br label %18
+for.cond1.preheader.us.us:                        ; preds = %for.cond1.preheader.us.us.preheader, %for.cond1.for.inc22_crit_edge.split.us.us.us
+  %indvars.iv55 = phi i64 [ %5, %for.cond1.preheader.us.us.preheader ], [ %indvars.iv.next56, %for.cond1.for.inc22_crit_edge.split.us.us.us ]
+  br label %for.cond5.preheader.us.us.us
 
-18:                                               ; preds = %32, %16
-  %19 = phi i64 [ %33, %32 ], [ %12, %16 ]
-  %20 = getelementptr inbounds [1024 x [1024 x float]], ptr @c, i64 0, i64 %17, i64 %19
-  %21 = load float, ptr %20, align 4, !tbaa !9
-  br label %22
+for.cond5.preheader.us.us.us:                     ; preds = %for.cond5.for.inc19_crit_edge.us.us.us, %for.cond1.preheader.us.us
+  %indvars.iv52 = phi i64 [ %indvars.iv.next53, %for.cond5.for.inc19_crit_edge.us.us.us ], [ %3, %for.cond1.preheader.us.us ]
+  %arrayidx18.us.us.us = getelementptr inbounds [1024 x [1024 x float]], ptr @c, i64 0, i64 %indvars.iv55, i64 %indvars.iv52
+  %arrayidx18.promoted.us.us.us = load float, ptr %arrayidx18.us.us.us, align 4, !tbaa !9
+  br label %for.body8.us.us.us
 
-22:                                               ; preds = %22, %18
-  %23 = phi i64 [ %30, %22 ], [ %10, %18 ]
-  %24 = phi float [ %29, %22 ], [ %21, %18 ]
-  %25 = getelementptr inbounds [1024 x [1024 x float]], ptr @a, i64 0, i64 %17, i64 %23
-  %26 = load float, ptr %25, align 4, !tbaa !9
-  %27 = getelementptr inbounds [1024 x [1024 x float]], ptr @b, i64 0, i64 %23, i64 %19
-  %28 = load float, ptr %27, align 4, !tbaa !9
-  %29 = tail call float @llvm.fmuladd.f32(float %26, float %28, float %24)
-  %30 = add nsw i64 %23, 1
-  %31 = icmp slt i64 %30, %11
-  br i1 %31, label %22, label %32, !llvm.loop !14
+for.body8.us.us.us:                               ; preds = %for.body8.us.us.us, %for.cond5.preheader.us.us.us
+  %indvars.iv = phi i64 [ %indvars.iv.next, %for.body8.us.us.us ], [ %1, %for.cond5.preheader.us.us.us ]
+  %7 = phi float [ %10, %for.body8.us.us.us ], [ %arrayidx18.promoted.us.us.us, %for.cond5.preheader.us.us.us ]
+  %arrayidx10.us.us.us = getelementptr inbounds [1024 x [1024 x float]], ptr @a, i64 0, i64 %indvars.iv55, i64 %indvars.iv
+  %8 = load float, ptr %arrayidx10.us.us.us, align 4, !tbaa !9
+  %arrayidx14.us.us.us = getelementptr inbounds [1024 x [1024 x float]], ptr @b, i64 0, i64 %indvars.iv, i64 %indvars.iv52
+  %9 = load float, ptr %arrayidx14.us.us.us, align 4, !tbaa !9
+  %10 = tail call float @llvm.fmuladd.f32(float %8, float %9, float %7)
+  %indvars.iv.next = add nsw i64 %indvars.iv, 1
+  %cmp7.us.us.us = icmp slt i64 %indvars.iv.next, %2
+  br i1 %cmp7.us.us.us, label %for.body8.us.us.us, label %for.cond5.for.inc19_crit_edge.us.us.us, !llvm.loop !14
 
-32:                                               ; preds = %22
-  store float %29, ptr %20, align 4, !tbaa !9
-  %33 = add nsw i64 %19, 1
-  %34 = icmp slt i64 %33, %13
-  br i1 %34, label %18, label %35, !llvm.loop !15
+for.cond5.for.inc19_crit_edge.us.us.us:           ; preds = %for.body8.us.us.us
+  store float %10, ptr %arrayidx18.us.us.us, align 4, !tbaa !9
+  %indvars.iv.next53 = add nsw i64 %indvars.iv52, 1
+  %cmp3.us.us.us = icmp slt i64 %indvars.iv.next53, %4
+  br i1 %cmp3.us.us.us, label %for.cond5.preheader.us.us.us, label %for.cond1.for.inc22_crit_edge.split.us.us.us, !llvm.loop !15
 
-35:                                               ; preds = %32
-  %36 = add nsw i64 %17, 1
-  %37 = icmp slt i64 %36, %15
-  br i1 %37, label %16, label %38, !llvm.loop !16
+for.cond1.for.inc22_crit_edge.split.us.us.us:     ; preds = %for.cond5.for.inc19_crit_edge.us.us.us
+  %indvars.iv.next56 = add nsw i64 %indvars.iv55, 1
+  %cmp.us.us = icmp slt i64 %indvars.iv.next56, %6
+  br i1 %cmp.us.us, label %for.cond1.preheader.us.us, label %for.end24, !llvm.loop !16
 
-38:                                               ; preds = %35, %3
+for.end24:                                        ; preds = %for.cond1.for.inc22_crit_edge.split.us.us.us, %entry
   ret void
 }
 
@@ -131,293 +134,296 @@ declare float @llvm.fmuladd.f32(float, float, float) #3
 
 ; Function Attrs: nofree nosync nounwind memory(readwrite, argmem: none, inaccessiblemem: none) uwtable
 define dso_local void @matmult() local_unnamed_addr #2 {
-  %1 = load i32, ptr @NUM, align 4, !tbaa !5
-  %2 = icmp sgt i32 %1, 0
-  br i1 %2, label %3, label %46
+entry:
+  %0 = load i32, ptr @NUM, align 4, !tbaa !5
+  %cmp29 = icmp sgt i32 %0, 0
+  br i1 %cmp29, label %for.cond1.preheader.lr.ph, label %for.end12
 
-3:                                                ; preds = %0
-  %4 = load i32, ptr @BLOCK, align 4
-  %5 = icmp sgt i32 %4, 0
-  br i1 %5, label %6, label %46
+for.cond1.preheader.lr.ph:                        ; preds = %entry
+  %1 = load i32, ptr @BLOCK, align 4
+  %cmp41.i = icmp sgt i32 %1, 0
+  br i1 %cmp41.i, label %for.cond1.preheader.us.us.preheader, label %for.end12
 
-6:                                                ; preds = %3
-  %7 = zext i32 %4 to i64
-  %8 = zext i32 %1 to i64
-  br label %9
+for.cond1.preheader.us.us.preheader:              ; preds = %for.cond1.preheader.lr.ph
+  %2 = zext i32 %1 to i64
+  %3 = zext i32 %0 to i64
+  br label %for.cond1.preheader.us.us
 
-9:                                                ; preds = %6, %44
-  %10 = phi i64 [ 0, %6 ], [ %11, %44 ]
-  %11 = add nuw nsw i64 %10, %7
-  br label %12
+for.cond1.preheader.us.us:                        ; preds = %for.cond1.preheader.us.us.preheader, %for.cond1.for.inc10_crit_edge.split.us.split.us.us.us
+  %indvars.iv42 = phi i64 [ 0, %for.cond1.preheader.us.us.preheader ], [ %indvars.iv.next43, %for.cond1.for.inc10_crit_edge.split.us.split.us.us.us ]
+  %indvars.iv.next43 = add nuw nsw i64 %indvars.iv42, %2
+  br label %for.cond4.preheader.us.us.us.us
 
-12:                                               ; preds = %42, %9
-  %13 = phi i64 [ %14, %42 ], [ 0, %9 ]
-  %14 = add nuw nsw i64 %13, %7
-  br label %15
+for.cond4.preheader.us.us.us.us:                  ; preds = %for.cond4.for.inc7_crit_edge.split.us.us.us.us.us, %for.cond1.preheader.us.us
+  %indvars.iv39 = phi i64 [ %indvars.iv.next40, %for.cond4.for.inc7_crit_edge.split.us.us.us.us.us ], [ 0, %for.cond1.preheader.us.us ]
+  %indvars.iv.next40 = add nuw nsw i64 %indvars.iv39, %2
+  br label %for.body6.us.us.us.us.us
 
-15:                                               ; preds = %40, %12
-  %16 = phi i64 [ %17, %40 ], [ 0, %12 ]
-  %17 = add nuw nsw i64 %16, %7
-  br label %18
+for.body6.us.us.us.us.us:                         ; preds = %mm_inner.exit.loopexit.us.us.us.us.us, %for.cond4.preheader.us.us.us.us
+  %indvars.iv = phi i64 [ %indvars.iv.next, %mm_inner.exit.loopexit.us.us.us.us.us ], [ 0, %for.cond4.preheader.us.us.us.us ]
+  %indvars.iv.next = add nuw nsw i64 %indvars.iv, %2
+  br label %for.cond1.preheader.us.us.i.us.us.us.us.us
 
-18:                                               ; preds = %37, %15
-  %19 = phi i64 [ %10, %15 ], [ %38, %37 ]
-  br label %20
+for.cond1.preheader.us.us.i.us.us.us.us.us:       ; preds = %for.cond1.for.inc22_crit_edge.split.us.us.us.i.us.us.us.us.us, %for.body6.us.us.us.us.us
+  %indvars.iv55.i.us.us.us.us.us = phi i64 [ %indvars.iv42, %for.body6.us.us.us.us.us ], [ %indvars.iv.next56.i.us.us.us.us.us, %for.cond1.for.inc22_crit_edge.split.us.us.us.i.us.us.us.us.us ]
+  br label %for.cond5.preheader.us.us.us.i.us.us.us.us.us
 
-20:                                               ; preds = %34, %18
-  %21 = phi i64 [ %35, %34 ], [ %13, %18 ]
-  %22 = getelementptr inbounds [1024 x [1024 x float]], ptr @c, i64 0, i64 %19, i64 %21
-  %23 = load float, ptr %22, align 4, !tbaa !9
-  br label %24
+for.cond5.preheader.us.us.us.i.us.us.us.us.us:    ; preds = %for.cond5.for.inc19_crit_edge.us.us.us.i.us.us.us.us.us, %for.cond1.preheader.us.us.i.us.us.us.us.us
+  %indvars.iv52.i.us.us.us.us.us = phi i64 [ %indvars.iv.next53.i.us.us.us.us.us, %for.cond5.for.inc19_crit_edge.us.us.us.i.us.us.us.us.us ], [ %indvars.iv39, %for.cond1.preheader.us.us.i.us.us.us.us.us ]
+  %arrayidx18.us.us.us.i.us.us.us.us.us = getelementptr inbounds [1024 x [1024 x float]], ptr @c, i64 0, i64 %indvars.iv55.i.us.us.us.us.us, i64 %indvars.iv52.i.us.us.us.us.us
+  %arrayidx18.promoted.us.us.us.i.us.us.us.us.us = load float, ptr %arrayidx18.us.us.us.i.us.us.us.us.us, align 4, !tbaa !9
+  br label %for.body8.us.us.us.i.us.us.us.us.us
 
-24:                                               ; preds = %24, %20
-  %25 = phi i64 [ %32, %24 ], [ %16, %20 ]
-  %26 = phi float [ %31, %24 ], [ %23, %20 ]
-  %27 = getelementptr inbounds [1024 x [1024 x float]], ptr @a, i64 0, i64 %19, i64 %25
-  %28 = load float, ptr %27, align 4, !tbaa !9
-  %29 = getelementptr inbounds [1024 x [1024 x float]], ptr @b, i64 0, i64 %25, i64 %21
-  %30 = load float, ptr %29, align 4, !tbaa !9
-  %31 = tail call float @llvm.fmuladd.f32(float %28, float %30, float %26)
-  %32 = add nuw nsw i64 %25, 1
-  %33 = icmp ult i64 %32, %17
-  br i1 %33, label %24, label %34, !llvm.loop !14
+for.body8.us.us.us.i.us.us.us.us.us:              ; preds = %for.body8.us.us.us.i.us.us.us.us.us, %for.cond5.preheader.us.us.us.i.us.us.us.us.us
+  %indvars.iv.i.us.us.us.us.us = phi i64 [ %indvars.iv.next.i.us.us.us.us.us, %for.body8.us.us.us.i.us.us.us.us.us ], [ %indvars.iv, %for.cond5.preheader.us.us.us.i.us.us.us.us.us ]
+  %4 = phi float [ %7, %for.body8.us.us.us.i.us.us.us.us.us ], [ %arrayidx18.promoted.us.us.us.i.us.us.us.us.us, %for.cond5.preheader.us.us.us.i.us.us.us.us.us ]
+  %arrayidx10.us.us.us.i.us.us.us.us.us = getelementptr inbounds [1024 x [1024 x float]], ptr @a, i64 0, i64 %indvars.iv55.i.us.us.us.us.us, i64 %indvars.iv.i.us.us.us.us.us
+  %5 = load float, ptr %arrayidx10.us.us.us.i.us.us.us.us.us, align 4, !tbaa !9
+  %arrayidx14.us.us.us.i.us.us.us.us.us = getelementptr inbounds [1024 x [1024 x float]], ptr @b, i64 0, i64 %indvars.iv.i.us.us.us.us.us, i64 %indvars.iv52.i.us.us.us.us.us
+  %6 = load float, ptr %arrayidx14.us.us.us.i.us.us.us.us.us, align 4, !tbaa !9
+  %7 = tail call float @llvm.fmuladd.f32(float %5, float %6, float %4)
+  %indvars.iv.next.i.us.us.us.us.us = add nuw nsw i64 %indvars.iv.i.us.us.us.us.us, 1
+  %cmp7.us.us.us.i.us.us.us.us.us = icmp ult i64 %indvars.iv.next.i.us.us.us.us.us, %indvars.iv.next
+  br i1 %cmp7.us.us.us.i.us.us.us.us.us, label %for.body8.us.us.us.i.us.us.us.us.us, label %for.cond5.for.inc19_crit_edge.us.us.us.i.us.us.us.us.us, !llvm.loop !14
 
-34:                                               ; preds = %24
-  store float %31, ptr %22, align 4, !tbaa !9
-  %35 = add nuw nsw i64 %21, 1
-  %36 = icmp ult i64 %35, %14
-  br i1 %36, label %20, label %37, !llvm.loop !15
+for.cond5.for.inc19_crit_edge.us.us.us.i.us.us.us.us.us: ; preds = %for.body8.us.us.us.i.us.us.us.us.us
+  store float %7, ptr %arrayidx18.us.us.us.i.us.us.us.us.us, align 4, !tbaa !9
+  %indvars.iv.next53.i.us.us.us.us.us = add nuw nsw i64 %indvars.iv52.i.us.us.us.us.us, 1
+  %cmp3.us.us.us.i.us.us.us.us.us = icmp ult i64 %indvars.iv.next53.i.us.us.us.us.us, %indvars.iv.next40
+  br i1 %cmp3.us.us.us.i.us.us.us.us.us, label %for.cond5.preheader.us.us.us.i.us.us.us.us.us, label %for.cond1.for.inc22_crit_edge.split.us.us.us.i.us.us.us.us.us, !llvm.loop !15
 
-37:                                               ; preds = %34
-  %38 = add nuw nsw i64 %19, 1
-  %39 = icmp ult i64 %38, %11
-  br i1 %39, label %18, label %40, !llvm.loop !16
+for.cond1.for.inc22_crit_edge.split.us.us.us.i.us.us.us.us.us: ; preds = %for.cond5.for.inc19_crit_edge.us.us.us.i.us.us.us.us.us
+  %indvars.iv.next56.i.us.us.us.us.us = add nuw nsw i64 %indvars.iv55.i.us.us.us.us.us, 1
+  %cmp.us.us.i.us.us.us.us.us = icmp ult i64 %indvars.iv.next56.i.us.us.us.us.us, %indvars.iv.next43
+  br i1 %cmp.us.us.i.us.us.us.us.us, label %for.cond1.preheader.us.us.i.us.us.us.us.us, label %mm_inner.exit.loopexit.us.us.us.us.us, !llvm.loop !16
 
-40:                                               ; preds = %37
-  %41 = icmp ult i64 %17, %8
-  br i1 %41, label %15, label %42, !llvm.loop !17
+mm_inner.exit.loopexit.us.us.us.us.us:            ; preds = %for.cond1.for.inc22_crit_edge.split.us.us.us.i.us.us.us.us.us
+  %cmp5.us.us.us.us.us = icmp ult i64 %indvars.iv.next, %3
+  br i1 %cmp5.us.us.us.us.us, label %for.body6.us.us.us.us.us, label %for.cond4.for.inc7_crit_edge.split.us.us.us.us.us, !llvm.loop !17
 
-42:                                               ; preds = %40
-  %43 = icmp ult i64 %14, %8
-  br i1 %43, label %12, label %44, !llvm.loop !18
+for.cond4.for.inc7_crit_edge.split.us.us.us.us.us: ; preds = %mm_inner.exit.loopexit.us.us.us.us.us
+  %cmp2.us.us.us.us = icmp ult i64 %indvars.iv.next40, %3
+  br i1 %cmp2.us.us.us.us, label %for.cond4.preheader.us.us.us.us, label %for.cond1.for.inc10_crit_edge.split.us.split.us.us.us, !llvm.loop !18
 
-44:                                               ; preds = %42
-  %45 = icmp ult i64 %11, %8
-  br i1 %45, label %9, label %46, !llvm.loop !19
+for.cond1.for.inc10_crit_edge.split.us.split.us.us.us: ; preds = %for.cond4.for.inc7_crit_edge.split.us.us.us.us.us
+  %cmp.us.us = icmp ult i64 %indvars.iv.next43, %3
+  br i1 %cmp.us.us, label %for.cond1.preheader.us.us, label %for.end12, !llvm.loop !19
 
-46:                                               ; preds = %44, %3, %0
+for.end12:                                        ; preds = %for.cond1.for.inc10_crit_edge.split.us.split.us.us.us, %for.cond1.preheader.lr.ph, %entry
   ret void
 }
 
 ; Function Attrs: nofree norecurse nosync nounwind memory(read, argmem: none, inaccessiblemem: none) uwtable
-define dso_local float @mm_sum(i32 noundef %0, i32 noundef %1) local_unnamed_addr #4 {
-  %3 = load i32, ptr @BLOCK, align 4, !tbaa !5
-  %4 = icmp sgt i32 %3, 0
-  br i1 %4, label %5, label %26
+define dso_local float @mm_sum(i32 noundef %I, i32 noundef %J) local_unnamed_addr #4 {
+entry:
+  %0 = load i32, ptr @BLOCK, align 4, !tbaa !5
+  %cmp21 = icmp sgt i32 %0, 0
+  br i1 %cmp21, label %for.cond1.preheader.us.preheader, label %for.end10
 
-5:                                                ; preds = %2
-  %6 = add nsw i32 %3, %0
-  %7 = add nsw i32 %3, %1
-  %8 = sext i32 %1 to i64
-  %9 = sext i32 %7 to i64
-  %10 = sext i32 %0 to i64
-  %11 = sext i32 %6 to i64
-  br label %12
+for.cond1.preheader.us.preheader:                 ; preds = %entry
+  %add = add nsw i32 %0, %I
+  %add2 = add nsw i32 %0, %J
+  %1 = sext i32 %J to i64
+  %2 = sext i32 %add2 to i64
+  %3 = sext i32 %I to i64
+  %4 = sext i32 %add to i64
+  br label %for.cond1.preheader.us
 
-12:                                               ; preds = %5, %23
-  %13 = phi i64 [ %10, %5 ], [ %24, %23 ]
-  %14 = phi float [ 0.000000e+00, %5 ], [ %20, %23 ]
-  br label %15
+for.cond1.preheader.us:                           ; preds = %for.cond1.preheader.us.preheader, %for.cond1.for.inc8_crit_edge.us
+  %indvars.iv27 = phi i64 [ %3, %for.cond1.preheader.us.preheader ], [ %indvars.iv.next28, %for.cond1.for.inc8_crit_edge.us ]
+  %s.023.us = phi float [ 0.000000e+00, %for.cond1.preheader.us.preheader ], [ %add7.us, %for.cond1.for.inc8_crit_edge.us ]
+  br label %for.body4.us
 
-15:                                               ; preds = %12, %15
-  %16 = phi i64 [ %8, %12 ], [ %21, %15 ]
-  %17 = phi float [ %14, %12 ], [ %20, %15 ]
-  %18 = getelementptr inbounds [1024 x [1024 x float]], ptr @c, i64 0, i64 %13, i64 %16
-  %19 = load float, ptr %18, align 4, !tbaa !9
-  %20 = fadd float %17, %19
-  %21 = add nsw i64 %16, 1
-  %22 = icmp slt i64 %21, %9
-  br i1 %22, label %15, label %23, !llvm.loop !20
+for.body4.us:                                     ; preds = %for.cond1.preheader.us, %for.body4.us
+  %indvars.iv = phi i64 [ %1, %for.cond1.preheader.us ], [ %indvars.iv.next, %for.body4.us ]
+  %s.120.us = phi float [ %s.023.us, %for.cond1.preheader.us ], [ %add7.us, %for.body4.us ]
+  %arrayidx6.us = getelementptr inbounds [1024 x [1024 x float]], ptr @c, i64 0, i64 %indvars.iv27, i64 %indvars.iv
+  %5 = load float, ptr %arrayidx6.us, align 4, !tbaa !9
+  %add7.us = fadd float %s.120.us, %5
+  %indvars.iv.next = add nsw i64 %indvars.iv, 1
+  %cmp3.us = icmp slt i64 %indvars.iv.next, %2
+  br i1 %cmp3.us, label %for.body4.us, label %for.cond1.for.inc8_crit_edge.us, !llvm.loop !20
 
-23:                                               ; preds = %15
-  %24 = add nsw i64 %13, 1
-  %25 = icmp slt i64 %24, %11
-  br i1 %25, label %12, label %26, !llvm.loop !21
+for.cond1.for.inc8_crit_edge.us:                  ; preds = %for.body4.us
+  %indvars.iv.next28 = add nsw i64 %indvars.iv27, 1
+  %cmp.us = icmp slt i64 %indvars.iv.next28, %4
+  br i1 %cmp.us, label %for.cond1.preheader.us, label %for.end10, !llvm.loop !21
 
-26:                                               ; preds = %23, %2
-  %27 = phi float [ 0.000000e+00, %2 ], [ %20, %23 ]
-  ret float %27
+for.end10:                                        ; preds = %for.cond1.for.inc8_crit_edge.us, %entry
+  %s.0.lcssa = phi float [ 0.000000e+00, %entry ], [ %add7.us, %for.cond1.for.inc8_crit_edge.us ]
+  ret float %s.0.lcssa
 }
 
 ; Function Attrs: nofree norecurse nosync nounwind memory(read, argmem: none, inaccessiblemem: none) uwtable
 define dso_local float @sumup() local_unnamed_addr #4 {
-  %1 = load i32, ptr @NUM, align 4, !tbaa !5
-  %2 = icmp sgt i32 %1, 0
-  br i1 %2, label %3, label %85
+entry:
+  %0 = load i32, ptr @NUM, align 4, !tbaa !5
+  %cmp16 = icmp sgt i32 %0, 0
+  br i1 %cmp16, label %for.cond1.preheader.lr.ph, label %for.end7
 
-3:                                                ; preds = %0
-  %4 = load i32, ptr @BLOCK, align 4
-  %5 = icmp sgt i32 %4, 0
-  br i1 %5, label %6, label %85
+for.cond1.preheader.lr.ph:                        ; preds = %entry
+  %1 = load i32, ptr @BLOCK, align 4
+  %cmp21.i = icmp sgt i32 %1, 0
+  br i1 %cmp21.i, label %for.cond1.preheader.us.us.preheader, label %for.end7
 
-6:                                                ; preds = %3
-  %7 = zext i32 %4 to i64
-  %8 = zext i32 %1 to i64
-  %9 = add nsw i64 %8, -1
-  %10 = udiv i64 %9, %7
-  %11 = add i64 %10, 1
-  %12 = and i64 %11, 1
-  %13 = icmp ult i64 %9, %7
-  %14 = and i64 %11, -2
-  %15 = icmp eq i64 %12, 0
-  br label %16
+for.cond1.preheader.us.us.preheader:              ; preds = %for.cond1.preheader.lr.ph
+  %2 = zext i32 %1 to i64
+  %3 = zext i32 %0 to i64
+  %4 = add nsw i64 %3, -1
+  %5 = udiv i64 %4, %2
+  %6 = add i64 %5, 1
+  %xtraiter = and i64 %6, 1
+  %7 = icmp ult i64 %4, %2
+  %unroll_iter = and i64 %6, -2
+  %lcmp.mod.not = icmp eq i64 %xtraiter, 0
+  br label %for.cond1.preheader.us.us
 
-16:                                               ; preds = %6, %82
-  %17 = phi i64 [ 0, %6 ], [ %19, %82 ]
-  %18 = phi float [ 0.000000e+00, %6 ], [ %83, %82 ]
-  %19 = add nuw nsw i64 %17, %7
-  br i1 %13, label %60, label %20
+for.cond1.preheader.us.us:                        ; preds = %for.cond1.preheader.us.us.preheader, %for.cond1.for.inc5_crit_edge.split.us.us.us
+  %indvars.iv32 = phi i64 [ 0, %for.cond1.preheader.us.us.preheader ], [ %indvars.iv.next33, %for.cond1.for.inc5_crit_edge.split.us.us.us ]
+  %s.018.us.us = phi float [ 0.000000e+00, %for.cond1.preheader.us.us.preheader ], [ %add.us.us.us.lcssa, %for.cond1.for.inc5_crit_edge.split.us.us.us ]
+  %indvars.iv.next33 = add nuw nsw i64 %indvars.iv32, %2
+  br i1 %7, label %for.cond1.for.inc5_crit_edge.split.us.us.us.unr-lcssa, label %for.body3.us.us.us
 
-20:                                               ; preds = %16, %56
-  %21 = phi i64 [ %41, %56 ], [ 0, %16 ]
-  %22 = phi float [ %57, %56 ], [ %18, %16 ]
-  %23 = phi i64 [ %58, %56 ], [ 0, %16 ]
-  %24 = add nuw nsw i64 %21, %7
-  br label %25
+for.body3.us.us.us:                               ; preds = %for.cond1.preheader.us.us, %mm_sum.exit.loopexit.us.us.us.1
+  %indvars.iv = phi i64 [ %indvars.iv.next.1, %mm_sum.exit.loopexit.us.us.us.1 ], [ 0, %for.cond1.preheader.us.us ]
+  %s.115.us.us.us = phi float [ %add.us.us.us.1, %mm_sum.exit.loopexit.us.us.us.1 ], [ %s.018.us.us, %for.cond1.preheader.us.us ]
+  %niter = phi i64 [ %niter.next.1, %mm_sum.exit.loopexit.us.us.us.1 ], [ 0, %for.cond1.preheader.us.us ]
+  %indvars.iv.next = add nuw nsw i64 %indvars.iv, %2
+  br label %for.cond1.preheader.us.i.us.us.us
 
-25:                                               ; preds = %36, %20
-  %26 = phi i64 [ %17, %20 ], [ %37, %36 ]
-  %27 = phi float [ 0.000000e+00, %20 ], [ %33, %36 ]
-  br label %28
+for.cond1.preheader.us.i.us.us.us:                ; preds = %for.cond1.for.inc8_crit_edge.us.i.us.us.us, %for.body3.us.us.us
+  %indvars.iv27.i.us.us.us = phi i64 [ %indvars.iv32, %for.body3.us.us.us ], [ %indvars.iv.next28.i.us.us.us, %for.cond1.for.inc8_crit_edge.us.i.us.us.us ]
+  %s.023.us.i.us.us.us = phi float [ 0.000000e+00, %for.body3.us.us.us ], [ %add7.us.i.us.us.us, %for.cond1.for.inc8_crit_edge.us.i.us.us.us ]
+  br label %for.body4.us.i.us.us.us
 
-28:                                               ; preds = %28, %25
-  %29 = phi i64 [ %21, %25 ], [ %34, %28 ]
-  %30 = phi float [ %27, %25 ], [ %33, %28 ]
-  %31 = getelementptr inbounds [1024 x [1024 x float]], ptr @c, i64 0, i64 %26, i64 %29
-  %32 = load float, ptr %31, align 4, !tbaa !9
-  %33 = fadd float %30, %32
-  %34 = add nuw nsw i64 %29, 1
-  %35 = icmp ult i64 %34, %24
-  br i1 %35, label %28, label %36, !llvm.loop !20
+for.body4.us.i.us.us.us:                          ; preds = %for.body4.us.i.us.us.us, %for.cond1.preheader.us.i.us.us.us
+  %indvars.iv.i.us.us.us = phi i64 [ %indvars.iv, %for.cond1.preheader.us.i.us.us.us ], [ %indvars.iv.next.i.us.us.us, %for.body4.us.i.us.us.us ]
+  %s.120.us.i.us.us.us = phi float [ %s.023.us.i.us.us.us, %for.cond1.preheader.us.i.us.us.us ], [ %add7.us.i.us.us.us, %for.body4.us.i.us.us.us ]
+  %arrayidx6.us.i.us.us.us = getelementptr inbounds [1024 x [1024 x float]], ptr @c, i64 0, i64 %indvars.iv27.i.us.us.us, i64 %indvars.iv.i.us.us.us
+  %8 = load float, ptr %arrayidx6.us.i.us.us.us, align 4, !tbaa !9
+  %add7.us.i.us.us.us = fadd float %s.120.us.i.us.us.us, %8
+  %indvars.iv.next.i.us.us.us = add nuw nsw i64 %indvars.iv.i.us.us.us, 1
+  %cmp3.us.i.us.us.us = icmp ult i64 %indvars.iv.next.i.us.us.us, %indvars.iv.next
+  br i1 %cmp3.us.i.us.us.us, label %for.body4.us.i.us.us.us, label %for.cond1.for.inc8_crit_edge.us.i.us.us.us, !llvm.loop !20
 
-36:                                               ; preds = %28
-  %37 = add nuw nsw i64 %26, 1
-  %38 = icmp ult i64 %37, %19
-  br i1 %38, label %25, label %39, !llvm.loop !21
+for.cond1.for.inc8_crit_edge.us.i.us.us.us:       ; preds = %for.body4.us.i.us.us.us
+  %indvars.iv.next28.i.us.us.us = add nuw nsw i64 %indvars.iv27.i.us.us.us, 1
+  %cmp.us.i.us.us.us = icmp ult i64 %indvars.iv.next28.i.us.us.us, %indvars.iv.next33
+  br i1 %cmp.us.i.us.us.us, label %for.cond1.preheader.us.i.us.us.us, label %mm_sum.exit.loopexit.us.us.us, !llvm.loop !21
 
-39:                                               ; preds = %36
-  %40 = fadd float %22, %33
-  %41 = add nuw nsw i64 %24, %7
-  br label %42
+mm_sum.exit.loopexit.us.us.us:                    ; preds = %for.cond1.for.inc8_crit_edge.us.i.us.us.us
+  %add.us.us.us = fadd float %s.115.us.us.us, %add7.us.i.us.us.us
+  %indvars.iv.next.1 = add nuw nsw i64 %indvars.iv.next, %2
+  br label %for.cond1.preheader.us.i.us.us.us.1
 
-42:                                               ; preds = %53, %39
-  %43 = phi i64 [ %17, %39 ], [ %54, %53 ]
-  %44 = phi float [ 0.000000e+00, %39 ], [ %50, %53 ]
-  br label %45
+for.cond1.preheader.us.i.us.us.us.1:              ; preds = %for.cond1.for.inc8_crit_edge.us.i.us.us.us.1, %mm_sum.exit.loopexit.us.us.us
+  %indvars.iv27.i.us.us.us.1 = phi i64 [ %indvars.iv32, %mm_sum.exit.loopexit.us.us.us ], [ %indvars.iv.next28.i.us.us.us.1, %for.cond1.for.inc8_crit_edge.us.i.us.us.us.1 ]
+  %s.023.us.i.us.us.us.1 = phi float [ 0.000000e+00, %mm_sum.exit.loopexit.us.us.us ], [ %add7.us.i.us.us.us.1, %for.cond1.for.inc8_crit_edge.us.i.us.us.us.1 ]
+  br label %for.body4.us.i.us.us.us.1
 
-45:                                               ; preds = %45, %42
-  %46 = phi i64 [ %24, %42 ], [ %51, %45 ]
-  %47 = phi float [ %44, %42 ], [ %50, %45 ]
-  %48 = getelementptr inbounds [1024 x [1024 x float]], ptr @c, i64 0, i64 %43, i64 %46
-  %49 = load float, ptr %48, align 4, !tbaa !9
-  %50 = fadd float %47, %49
-  %51 = add nuw nsw i64 %46, 1
-  %52 = icmp ult i64 %51, %41
-  br i1 %52, label %45, label %53, !llvm.loop !20
+for.body4.us.i.us.us.us.1:                        ; preds = %for.body4.us.i.us.us.us.1, %for.cond1.preheader.us.i.us.us.us.1
+  %indvars.iv.i.us.us.us.1 = phi i64 [ %indvars.iv.next, %for.cond1.preheader.us.i.us.us.us.1 ], [ %indvars.iv.next.i.us.us.us.1, %for.body4.us.i.us.us.us.1 ]
+  %s.120.us.i.us.us.us.1 = phi float [ %s.023.us.i.us.us.us.1, %for.cond1.preheader.us.i.us.us.us.1 ], [ %add7.us.i.us.us.us.1, %for.body4.us.i.us.us.us.1 ]
+  %arrayidx6.us.i.us.us.us.1 = getelementptr inbounds [1024 x [1024 x float]], ptr @c, i64 0, i64 %indvars.iv27.i.us.us.us.1, i64 %indvars.iv.i.us.us.us.1
+  %9 = load float, ptr %arrayidx6.us.i.us.us.us.1, align 4, !tbaa !9
+  %add7.us.i.us.us.us.1 = fadd float %s.120.us.i.us.us.us.1, %9
+  %indvars.iv.next.i.us.us.us.1 = add nuw nsw i64 %indvars.iv.i.us.us.us.1, 1
+  %cmp3.us.i.us.us.us.1 = icmp ult i64 %indvars.iv.next.i.us.us.us.1, %indvars.iv.next.1
+  br i1 %cmp3.us.i.us.us.us.1, label %for.body4.us.i.us.us.us.1, label %for.cond1.for.inc8_crit_edge.us.i.us.us.us.1, !llvm.loop !20
 
-53:                                               ; preds = %45
-  %54 = add nuw nsw i64 %43, 1
-  %55 = icmp ult i64 %54, %19
-  br i1 %55, label %42, label %56, !llvm.loop !21
+for.cond1.for.inc8_crit_edge.us.i.us.us.us.1:     ; preds = %for.body4.us.i.us.us.us.1
+  %indvars.iv.next28.i.us.us.us.1 = add nuw nsw i64 %indvars.iv27.i.us.us.us.1, 1
+  %cmp.us.i.us.us.us.1 = icmp ult i64 %indvars.iv.next28.i.us.us.us.1, %indvars.iv.next33
+  br i1 %cmp.us.i.us.us.us.1, label %for.cond1.preheader.us.i.us.us.us.1, label %mm_sum.exit.loopexit.us.us.us.1, !llvm.loop !21
 
-56:                                               ; preds = %53
-  %57 = fadd float %40, %50
-  %58 = add i64 %23, 2
-  %59 = icmp eq i64 %58, %14
-  br i1 %59, label %60, label %20, !llvm.loop !22
+mm_sum.exit.loopexit.us.us.us.1:                  ; preds = %for.cond1.for.inc8_crit_edge.us.i.us.us.us.1
+  %add.us.us.us.1 = fadd float %add.us.us.us, %add7.us.i.us.us.us.1
+  %niter.next.1 = add i64 %niter, 2
+  %niter.ncmp.1.not = icmp eq i64 %niter.next.1, %unroll_iter
+  br i1 %niter.ncmp.1.not, label %for.cond1.for.inc5_crit_edge.split.us.us.us.unr-lcssa, label %for.body3.us.us.us, !llvm.loop !22
 
-60:                                               ; preds = %56, %16
-  %61 = phi float [ undef, %16 ], [ %57, %56 ]
-  %62 = phi i64 [ 0, %16 ], [ %41, %56 ]
-  %63 = phi float [ %18, %16 ], [ %57, %56 ]
-  br i1 %15, label %82, label %64
+for.cond1.for.inc5_crit_edge.split.us.us.us.unr-lcssa: ; preds = %mm_sum.exit.loopexit.us.us.us.1, %for.cond1.preheader.us.us
+  %add.us.us.us.lcssa.ph = phi float [ undef, %for.cond1.preheader.us.us ], [ %add.us.us.us.1, %mm_sum.exit.loopexit.us.us.us.1 ]
+  %indvars.iv.unr = phi i64 [ 0, %for.cond1.preheader.us.us ], [ %indvars.iv.next.1, %mm_sum.exit.loopexit.us.us.us.1 ]
+  %s.115.us.us.us.unr = phi float [ %s.018.us.us, %for.cond1.preheader.us.us ], [ %add.us.us.us.1, %mm_sum.exit.loopexit.us.us.us.1 ]
+  br i1 %lcmp.mod.not, label %for.cond1.for.inc5_crit_edge.split.us.us.us, label %for.body3.us.us.us.epil
 
-64:                                               ; preds = %60
-  %65 = add nuw nsw i64 %62, %7
-  br label %66
+for.body3.us.us.us.epil:                          ; preds = %for.cond1.for.inc5_crit_edge.split.us.us.us.unr-lcssa
+  %indvars.iv.next.epil = add nuw nsw i64 %indvars.iv.unr, %2
+  br label %for.cond1.preheader.us.i.us.us.us.epil
 
-66:                                               ; preds = %77, %64
-  %67 = phi i64 [ %17, %64 ], [ %78, %77 ]
-  %68 = phi float [ 0.000000e+00, %64 ], [ %74, %77 ]
-  br label %69
+for.cond1.preheader.us.i.us.us.us.epil:           ; preds = %for.cond1.for.inc8_crit_edge.us.i.us.us.us.epil, %for.body3.us.us.us.epil
+  %indvars.iv27.i.us.us.us.epil = phi i64 [ %indvars.iv32, %for.body3.us.us.us.epil ], [ %indvars.iv.next28.i.us.us.us.epil, %for.cond1.for.inc8_crit_edge.us.i.us.us.us.epil ]
+  %s.023.us.i.us.us.us.epil = phi float [ 0.000000e+00, %for.body3.us.us.us.epil ], [ %add7.us.i.us.us.us.epil, %for.cond1.for.inc8_crit_edge.us.i.us.us.us.epil ]
+  br label %for.body4.us.i.us.us.us.epil
 
-69:                                               ; preds = %69, %66
-  %70 = phi i64 [ %62, %66 ], [ %75, %69 ]
-  %71 = phi float [ %68, %66 ], [ %74, %69 ]
-  %72 = getelementptr inbounds [1024 x [1024 x float]], ptr @c, i64 0, i64 %67, i64 %70
-  %73 = load float, ptr %72, align 4, !tbaa !9
-  %74 = fadd float %71, %73
-  %75 = add nuw nsw i64 %70, 1
-  %76 = icmp ult i64 %75, %65
-  br i1 %76, label %69, label %77, !llvm.loop !20
+for.body4.us.i.us.us.us.epil:                     ; preds = %for.body4.us.i.us.us.us.epil, %for.cond1.preheader.us.i.us.us.us.epil
+  %indvars.iv.i.us.us.us.epil = phi i64 [ %indvars.iv.unr, %for.cond1.preheader.us.i.us.us.us.epil ], [ %indvars.iv.next.i.us.us.us.epil, %for.body4.us.i.us.us.us.epil ]
+  %s.120.us.i.us.us.us.epil = phi float [ %s.023.us.i.us.us.us.epil, %for.cond1.preheader.us.i.us.us.us.epil ], [ %add7.us.i.us.us.us.epil, %for.body4.us.i.us.us.us.epil ]
+  %arrayidx6.us.i.us.us.us.epil = getelementptr inbounds [1024 x [1024 x float]], ptr @c, i64 0, i64 %indvars.iv27.i.us.us.us.epil, i64 %indvars.iv.i.us.us.us.epil
+  %10 = load float, ptr %arrayidx6.us.i.us.us.us.epil, align 4, !tbaa !9
+  %add7.us.i.us.us.us.epil = fadd float %s.120.us.i.us.us.us.epil, %10
+  %indvars.iv.next.i.us.us.us.epil = add nuw nsw i64 %indvars.iv.i.us.us.us.epil, 1
+  %cmp3.us.i.us.us.us.epil = icmp ult i64 %indvars.iv.next.i.us.us.us.epil, %indvars.iv.next.epil
+  br i1 %cmp3.us.i.us.us.us.epil, label %for.body4.us.i.us.us.us.epil, label %for.cond1.for.inc8_crit_edge.us.i.us.us.us.epil, !llvm.loop !20
 
-77:                                               ; preds = %69
-  %78 = add nuw nsw i64 %67, 1
-  %79 = icmp ult i64 %78, %19
-  br i1 %79, label %66, label %80, !llvm.loop !21
+for.cond1.for.inc8_crit_edge.us.i.us.us.us.epil:  ; preds = %for.body4.us.i.us.us.us.epil
+  %indvars.iv.next28.i.us.us.us.epil = add nuw nsw i64 %indvars.iv27.i.us.us.us.epil, 1
+  %cmp.us.i.us.us.us.epil = icmp ult i64 %indvars.iv.next28.i.us.us.us.epil, %indvars.iv.next33
+  br i1 %cmp.us.i.us.us.us.epil, label %for.cond1.preheader.us.i.us.us.us.epil, label %mm_sum.exit.loopexit.us.us.us.epil, !llvm.loop !21
 
-80:                                               ; preds = %77
-  %81 = fadd float %63, %74
-  br label %82
+mm_sum.exit.loopexit.us.us.us.epil:               ; preds = %for.cond1.for.inc8_crit_edge.us.i.us.us.us.epil
+  %add.us.us.us.epil = fadd float %s.115.us.us.us.unr, %add7.us.i.us.us.us.epil
+  br label %for.cond1.for.inc5_crit_edge.split.us.us.us
 
-82:                                               ; preds = %60, %80
-  %83 = phi float [ %61, %60 ], [ %81, %80 ]
-  %84 = icmp ult i64 %19, %8
-  br i1 %84, label %16, label %85, !llvm.loop !23
+for.cond1.for.inc5_crit_edge.split.us.us.us:      ; preds = %for.cond1.for.inc5_crit_edge.split.us.us.us.unr-lcssa, %mm_sum.exit.loopexit.us.us.us.epil
+  %add.us.us.us.lcssa = phi float [ %add.us.us.us.lcssa.ph, %for.cond1.for.inc5_crit_edge.split.us.us.us.unr-lcssa ], [ %add.us.us.us.epil, %mm_sum.exit.loopexit.us.us.us.epil ]
+  %cmp.us.us = icmp ult i64 %indvars.iv.next33, %3
+  br i1 %cmp.us.us, label %for.cond1.preheader.us.us, label %for.end7, !llvm.loop !23
 
-85:                                               ; preds = %82, %3, %0
-  %86 = phi float [ 0.000000e+00, %0 ], [ 0.000000e+00, %3 ], [ %83, %82 ]
-  ret float %86
+for.end7:                                         ; preds = %for.cond1.for.inc5_crit_edge.split.us.us.us, %for.cond1.preheader.lr.ph, %entry
+  %s.0.lcssa = phi float [ 0.000000e+00, %entry ], [ 0.000000e+00, %for.cond1.preheader.lr.ph ], [ %add.us.us.us.lcssa, %for.cond1.for.inc5_crit_edge.split.us.us.us ]
+  ret float %s.0.lcssa
 }
 
 ; Function Attrs: noreturn nounwind uwtable
-define dso_local i32 @main(i32 noundef %0, ptr nocapture noundef readonly %1) local_unnamed_addr #5 {
-  %3 = icmp eq i32 %0, 3
-  br i1 %3, label %6, label %4
+define dso_local i32 @main(i32 noundef %argc, ptr nocapture noundef readonly %argv) local_unnamed_addr #5 {
+entry:
+  %cmp.not = icmp eq i32 %argc, 3
+  br i1 %cmp.not, label %if.end, label %if.then
 
-4:                                                ; preds = %2
-  %5 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.3)
+if.then:                                          ; preds = %entry
+  %puts15 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.3)
   tail call void @exit(i32 noundef 1) #10
   unreachable
 
-6:                                                ; preds = %2
-  %7 = getelementptr inbounds ptr, ptr %1, i64 1
-  %8 = load ptr, ptr %7, align 8, !tbaa !24
-  %9 = tail call i64 @strtol(ptr nocapture noundef nonnull %8, ptr noundef null, i32 noundef 10) #11
-  %10 = trunc i64 %9 to i32
-  store i32 %10, ptr @NUM, align 4, !tbaa !5
-  %11 = getelementptr inbounds ptr, ptr %1, i64 2
-  %12 = load ptr, ptr %11, align 8, !tbaa !24
-  %13 = tail call i64 @strtol(ptr nocapture noundef nonnull %12, ptr noundef null, i32 noundef 10) #11
-  %14 = trunc i64 %13 to i32
-  store i32 %14, ptr @BLOCK, align 4, !tbaa !5
-  %15 = load i32, ptr @NUM, align 4, !tbaa !5
-  %16 = icmp ugt i32 %15, 1024
-  %17 = icmp ult i32 %15, %14
-  %18 = or i1 %16, %17
-  br i1 %18, label %19, label %21
+if.end:                                           ; preds = %entry
+  %arrayidx = getelementptr inbounds ptr, ptr %argv, i64 1
+  %0 = load ptr, ptr %arrayidx, align 8, !tbaa !24
+  %call.i = tail call i64 @strtol(ptr nocapture noundef nonnull %0, ptr noundef null, i32 noundef 10) #11
+  %conv.i = trunc i64 %call.i to i32
+  store i32 %conv.i, ptr @NUM, align 4, !tbaa !5
+  %arrayidx2 = getelementptr inbounds ptr, ptr %argv, i64 2
+  %1 = load ptr, ptr %arrayidx2, align 8, !tbaa !24
+  %call.i16 = tail call i64 @strtol(ptr nocapture noundef nonnull %1, ptr noundef null, i32 noundef 10) #11
+  %conv.i17 = trunc i64 %call.i16 to i32
+  store i32 %conv.i17, ptr @BLOCK, align 4, !tbaa !5
+  %cmp4 = icmp ugt i32 %conv.i, 1024
+  %cmp5 = icmp ugt i32 %conv.i17, %conv.i
+  %or14 = or i1 %cmp4, %cmp5
+  br i1 %or14, label %if.then7, label %if.end9
 
-19:                                               ; preds = %6
-  %20 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str)
+if.then7:                                         ; preds = %if.end
+  %puts = tail call i32 @puts(ptr nonnull dereferenceable(1) @str)
   tail call void @exit(i32 noundef 1) #10
   unreachable
 
-21:                                               ; preds = %6
+if.end9:                                          ; preds = %if.end
   tail call void @init()
   tail call void @matmult()
-  %22 = tail call float @sumup()
-  %23 = fpext float %22 to double
-  %24 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.2, double noundef %23)
+  %call10 = tail call float @sumup()
+  %conv11 = fpext float %call10 to double
+  %call12 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.2, double noundef %conv11)
   tail call void @exit(i32 noundef 0) #10
   unreachable
 }

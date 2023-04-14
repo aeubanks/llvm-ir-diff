@@ -11,16 +11,17 @@ target triple = "x86_64-unknown-linux-gnu"
 @_ZL12MonthLengths = internal unnamed_addr constant [2 x [12 x i32]] [[12 x i32] [i32 31, i32 28, i32 31, i32 30, i32 31, i32 30, i32 31, i32 31, i32 30, i32 31, i32 30, i32 31], [12 x i32] [i32 31, i32 29, i32 31, i32 30, i32 31, i32 30, i32 31, i32 31, i32 30, i32 31, i32 30, i32 31]], align 16
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(argmem: write) uwtable
-define dso_local void @_Z29RtlSecondsSince1970ToFileTimejP9_FILETIME(i32 noundef %0, ptr nocapture noundef writeonly %1) local_unnamed_addr #0 {
-  %3 = zext i32 %0 to i64
-  %4 = mul nuw nsw i64 %3, 10000000
-  %5 = add nuw nsw i64 %4, 116444736000000000
-  %6 = trunc i64 %5 to i32
-  store i32 %6, ptr %1, align 4, !tbaa !5
-  %7 = lshr i64 %5, 32
-  %8 = trunc i64 %7 to i32
-  %9 = getelementptr inbounds %struct._FILETIME, ptr %1, i64 0, i32 1
-  store i32 %8, ptr %9, align 4, !tbaa !10
+define dso_local void @_Z29RtlSecondsSince1970ToFileTimejP9_FILETIME(i32 noundef %Seconds, ptr nocapture noundef writeonly %ft) local_unnamed_addr #0 {
+entry:
+  %conv = zext i32 %Seconds to i64
+  %mul = mul nuw nsw i64 %conv, 10000000
+  %add = add nuw nsw i64 %mul, 116444736000000000
+  %conv1 = trunc i64 %add to i32
+  store i32 %conv1, ptr %ft, align 4, !tbaa !5
+  %shr = lshr i64 %add, 32
+  %conv2 = trunc i64 %shr to i32
+  %dwHighDateTime = getelementptr inbounds %struct._FILETIME, ptr %ft, i64 0, i32 1
+  store i32 %conv2, ptr %dwHighDateTime, align 4, !tbaa !10
   ret void
 }
 
@@ -31,46 +32,47 @@ declare void @llvm.lifetime.start.p0(i64 immarg, ptr nocapture) #1
 declare void @llvm.lifetime.end.p0(i64 immarg, ptr nocapture) #1
 
 ; Function Attrs: mustprogress nounwind uwtable
-define dso_local i32 @DosDateTimeToFileTime(i16 noundef zeroext %0, i16 noundef zeroext %1, ptr nocapture noundef writeonly %2) local_unnamed_addr #2 {
-  %4 = alloca %struct.tm, align 8
-  call void @llvm.lifetime.start.p0(i64 56, ptr nonnull %4) #8
-  %5 = zext i16 %1 to i32
-  %6 = shl nuw nsw i32 %5, 1
-  %7 = and i32 %6, 62
-  store i32 %7, ptr %4, align 8, !tbaa !11
-  %8 = lshr i32 %5, 5
-  %9 = and i32 %8, 63
-  %10 = getelementptr inbounds %struct.tm, ptr %4, i64 0, i32 1
-  store i32 %9, ptr %10, align 4, !tbaa !15
-  %11 = lshr i32 %5, 11
-  %12 = getelementptr inbounds %struct.tm, ptr %4, i64 0, i32 2
-  store i32 %11, ptr %12, align 8, !tbaa !16
-  %13 = zext i16 %0 to i32
-  %14 = and i32 %13, 31
-  %15 = getelementptr inbounds %struct.tm, ptr %4, i64 0, i32 3
-  store i32 %14, ptr %15, align 4, !tbaa !17
-  %16 = lshr i32 %13, 5
-  %17 = and i32 %16, 15
-  %18 = add nsw i32 %17, -1
-  %19 = getelementptr inbounds %struct.tm, ptr %4, i64 0, i32 4
-  store i32 %18, ptr %19, align 8, !tbaa !18
-  %20 = lshr i32 %13, 9
-  %21 = add nuw nsw i32 %20, 80
-  %22 = getelementptr inbounds %struct.tm, ptr %4, i64 0, i32 5
-  store i32 %21, ptr %22, align 4, !tbaa !19
-  %23 = getelementptr inbounds %struct.tm, ptr %4, i64 0, i32 8
-  store i32 -1, ptr %23, align 8, !tbaa !20
-  %24 = call i64 @timegm(ptr noundef nonnull %4) #8
-  %25 = and i64 %24, 4294967295
-  %26 = mul nuw nsw i64 %25, 10000000
-  %27 = add nuw nsw i64 %26, 116444736000000000
-  %28 = trunc i64 %27 to i32
-  store i32 %28, ptr %2, align 4, !tbaa !5
-  %29 = lshr i64 %27, 32
-  %30 = trunc i64 %29 to i32
-  %31 = getelementptr inbounds %struct._FILETIME, ptr %2, i64 0, i32 1
-  store i32 %30, ptr %31, align 4, !tbaa !10
-  call void @llvm.lifetime.end.p0(i64 56, ptr nonnull %4) #8
+define dso_local i32 @DosDateTimeToFileTime(i16 noundef zeroext %fatdate, i16 noundef zeroext %fattime, ptr nocapture noundef writeonly %ft) local_unnamed_addr #2 {
+entry:
+  %newtm = alloca %struct.tm, align 8
+  call void @llvm.lifetime.start.p0(i64 56, ptr nonnull %newtm) #8
+  %conv = zext i16 %fattime to i32
+  %and = shl nuw nsw i32 %conv, 1
+  %mul = and i32 %and, 62
+  store i32 %mul, ptr %newtm, align 8, !tbaa !11
+  %shr = lshr i32 %conv, 5
+  %and2 = and i32 %shr, 63
+  %tm_min = getelementptr inbounds %struct.tm, ptr %newtm, i64 0, i32 1
+  store i32 %and2, ptr %tm_min, align 4, !tbaa !15
+  %shr4 = lshr i32 %conv, 11
+  %tm_hour = getelementptr inbounds %struct.tm, ptr %newtm, i64 0, i32 2
+  store i32 %shr4, ptr %tm_hour, align 8, !tbaa !16
+  %conv5 = zext i16 %fatdate to i32
+  %and6 = and i32 %conv5, 31
+  %tm_mday = getelementptr inbounds %struct.tm, ptr %newtm, i64 0, i32 3
+  store i32 %and6, ptr %tm_mday, align 4, !tbaa !17
+  %shr8 = lshr i32 %conv5, 5
+  %and9 = and i32 %shr8, 15
+  %sub = add nsw i32 %and9, -1
+  %tm_mon = getelementptr inbounds %struct.tm, ptr %newtm, i64 0, i32 4
+  store i32 %sub, ptr %tm_mon, align 8, !tbaa !18
+  %shr11 = lshr i32 %conv5, 9
+  %add = add nuw nsw i32 %shr11, 80
+  %tm_year = getelementptr inbounds %struct.tm, ptr %newtm, i64 0, i32 5
+  store i32 %add, ptr %tm_year, align 4, !tbaa !19
+  %tm_isdst = getelementptr inbounds %struct.tm, ptr %newtm, i64 0, i32 8
+  store i32 -1, ptr %tm_isdst, align 8, !tbaa !20
+  %call = call i64 @timegm(ptr noundef nonnull %newtm) #8
+  %conv.i = and i64 %call, 4294967295
+  %mul.i = mul nuw nsw i64 %conv.i, 10000000
+  %add.i = add nuw nsw i64 %mul.i, 116444736000000000
+  %conv1.i = trunc i64 %add.i to i32
+  store i32 %conv1.i, ptr %ft, align 4, !tbaa !5
+  %shr.i = lshr i64 %add.i, 32
+  %conv2.i = trunc i64 %shr.i to i32
+  %dwHighDateTime.i = getelementptr inbounds %struct._FILETIME, ptr %ft, i64 0, i32 1
+  store i32 %conv2.i, ptr %dwHighDateTime.i, align 4, !tbaa !10
+  call void @llvm.lifetime.end.p0(i64 56, ptr nonnull %newtm) #8
   ret i32 1
 }
 
@@ -78,74 +80,76 @@ define dso_local i32 @DosDateTimeToFileTime(i16 noundef zeroext %0, i16 noundef 
 declare i64 @timegm(ptr noundef) local_unnamed_addr #3
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(argmem: readwrite) uwtable
-define dso_local noundef zeroext i8 @_Z25RtlTimeToSecondsSince1970PK13LARGE_INTEGERPj(ptr nocapture noundef readonly %0, ptr nocapture noundef writeonly %1) local_unnamed_addr #4 {
-  %3 = load i64, ptr %0, align 8, !tbaa !21
-  %4 = udiv i64 %3, 10000000
-  %5 = add nsw i64 %4, -11644473600
-  %6 = icmp ugt i64 %5, 4294967295
-  br i1 %6, label %9, label %7
+define dso_local noundef zeroext i8 @_Z25RtlTimeToSecondsSince1970PK13LARGE_INTEGERPj(ptr nocapture noundef readonly %Time, ptr nocapture noundef writeonly %Seconds) local_unnamed_addr #4 {
+entry:
+  %0 = load i64, ptr %Time, align 8, !tbaa !21
+  %div = udiv i64 %0, 10000000
+  %sub = add nsw i64 %div, -11644473600
+  %cmp = icmp ugt i64 %sub, 4294967295
+  br i1 %cmp, label %cleanup, label %if.end
 
-7:                                                ; preds = %2
-  %8 = trunc i64 %5 to i32
-  store i32 %8, ptr %1, align 4, !tbaa !24
-  br label %9
+if.end:                                           ; preds = %entry
+  %conv = trunc i64 %sub to i32
+  store i32 %conv, ptr %Seconds, align 4, !tbaa !24
+  br label %cleanup
 
-9:                                                ; preds = %2, %7
-  %10 = phi i8 [ 1, %7 ], [ 0, %2 ]
-  ret i8 %10
+cleanup:                                          ; preds = %entry, %if.end
+  %retval.0 = phi i8 [ 1, %if.end ], [ 0, %entry ]
+  ret i8 %retval.0
 }
 
 ; Function Attrs: mustprogress nounwind uwtable
-define dso_local i32 @FileTimeToDosDateTime(ptr nocapture noundef readonly %0, ptr noundef writeonly %1, ptr noundef writeonly %2) local_unnamed_addr #2 {
-  %4 = alloca i64, align 8
-  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %4) #8
-  %5 = load i64, ptr %0, align 4
-  %6 = udiv i64 %5, 10000000
-  %7 = add nsw i64 %6, -11644473600
-  %8 = icmp ugt i64 %7, 4294967295
-  %9 = select i1 %8, i64 0, i64 %7
-  store i64 %9, ptr %4, align 8, !tbaa !25
-  %10 = call ptr @gmtime(ptr noundef nonnull %4) #8
-  %11 = getelementptr inbounds %struct.tm, ptr %10, i64 0, i32 5
-  %12 = load i32, ptr %11, align 4, !tbaa !19
-  %13 = shl i32 %12, 9
-  %14 = getelementptr inbounds %struct.tm, ptr %10, i64 0, i32 4
-  %15 = load i32, ptr %14, align 8, !tbaa !18
-  %16 = shl i32 %15, 5
-  %17 = getelementptr inbounds %struct.tm, ptr %10, i64 0, i32 3
-  %18 = load i32, ptr %17, align 4, !tbaa !17
-  %19 = add i32 %13, 24608
-  %20 = add i32 %19, %16
-  %21 = add i32 %20, %18
-  %22 = trunc i32 %21 to i16
-  %23 = icmp eq ptr %2, null
-  br i1 %23, label %36, label %24
+define dso_local i32 @FileTimeToDosDateTime(ptr nocapture noundef readonly %ft, ptr noundef writeonly %fatdate, ptr noundef writeonly %fattime) local_unnamed_addr #2 {
+entry:
+  %unixtime = alloca i64, align 8
+  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %unixtime) #8
+  %0 = load i64, ptr %ft, align 4
+  %div.i = udiv i64 %0, 10000000
+  %sub.i = add nsw i64 %div.i, -11644473600
+  %cmp.i = icmp ugt i64 %sub.i, 4294967295
+  %conv4 = select i1 %cmp.i, i64 0, i64 %sub.i
+  store i64 %conv4, ptr %unixtime, align 8, !tbaa !25
+  %call5 = call ptr @gmtime(ptr noundef nonnull %unixtime) #8
+  %tm_year = getelementptr inbounds %struct.tm, ptr %call5, i64 0, i32 5
+  %1 = load i32, ptr %tm_year, align 4, !tbaa !19
+  %sub = shl i32 %1, 9
+  %tm_mon = getelementptr inbounds %struct.tm, ptr %call5, i64 0, i32 4
+  %2 = load i32, ptr %tm_mon, align 8, !tbaa !18
+  %add11 = shl i32 %2, 5
+  %tm_mday = getelementptr inbounds %struct.tm, ptr %call5, i64 0, i32 3
+  %3 = load i32, ptr %tm_mday, align 4, !tbaa !17
+  %shl12 = add i32 %sub, 24608
+  %add13 = add i32 %shl12, %add11
+  %add14 = add i32 %add13, %3
+  %conv15 = trunc i32 %add14 to i16
+  %tobool.not = icmp eq ptr %fattime, null
+  br i1 %tobool.not, label %if.end, label %if.then
 
-24:                                               ; preds = %3
-  %25 = getelementptr inbounds %struct.tm, ptr %10, i64 0, i32 2
-  %26 = load i32, ptr %25, align 8, !tbaa !16
-  %27 = shl i32 %26, 11
-  %28 = getelementptr inbounds %struct.tm, ptr %10, i64 0, i32 1
-  %29 = load i32, ptr %28, align 4, !tbaa !15
-  %30 = shl i32 %29, 5
-  %31 = add nsw i32 %30, %27
-  %32 = load i32, ptr %10, align 8, !tbaa !11
-  %33 = sdiv i32 %32, 2
-  %34 = add nsw i32 %31, %33
-  %35 = trunc i32 %34 to i16
-  store i16 %35, ptr %2, align 2, !tbaa !26
-  br label %36
+if.then:                                          ; preds = %entry
+  %tm_hour = getelementptr inbounds %struct.tm, ptr %call5, i64 0, i32 2
+  %4 = load i32, ptr %tm_hour, align 8, !tbaa !16
+  %shl6 = shl i32 %4, 11
+  %tm_min = getelementptr inbounds %struct.tm, ptr %call5, i64 0, i32 1
+  %5 = load i32, ptr %tm_min, align 4, !tbaa !15
+  %shl7 = shl i32 %5, 5
+  %add = add nsw i32 %shl7, %shl6
+  %6 = load i32, ptr %call5, align 8, !tbaa !11
+  %div = sdiv i32 %6, 2
+  %add8 = add nsw i32 %add, %div
+  %conv9 = trunc i32 %add8 to i16
+  store i16 %conv9, ptr %fattime, align 2, !tbaa !26
+  br label %if.end
 
-36:                                               ; preds = %24, %3
-  %37 = icmp eq ptr %1, null
-  br i1 %37, label %39, label %38
+if.end:                                           ; preds = %if.then, %entry
+  %tobool16.not = icmp eq ptr %fatdate, null
+  br i1 %tobool16.not, label %if.end18, label %if.then17
 
-38:                                               ; preds = %36
-  store i16 %22, ptr %1, align 2, !tbaa !26
-  br label %39
+if.then17:                                        ; preds = %if.end
+  store i16 %conv15, ptr %fatdate, align 2, !tbaa !26
+  br label %if.end18
 
-39:                                               ; preds = %38, %36
-  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %4) #8
+if.end18:                                         ; preds = %if.then17, %if.end
+  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %unixtime) #8
   ret i32 1
 }
 
@@ -153,222 +157,214 @@ define dso_local i32 @FileTimeToDosDateTime(ptr nocapture noundef readonly %0, p
 declare ptr @gmtime(ptr noundef) local_unnamed_addr #3
 
 ; Function Attrs: mustprogress nounwind uwtable
-define dso_local i32 @FileTimeToLocalFileTime(ptr nocapture noundef readonly %0, ptr nocapture noundef writeonly %1) local_unnamed_addr #2 {
-  %3 = alloca i64, align 8
-  %4 = load i64, ptr %0, align 4
-  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %3) #8
-  %5 = tail call i64 @time(ptr noundef null) #8
-  store i64 %5, ptr %3, align 8, !tbaa !25
-  %6 = call ptr @localtime(ptr noundef nonnull %3) #8
-  %7 = getelementptr inbounds %struct.tm, ptr %6, i64 0, i32 8
-  %8 = load i32, ptr %7, align 8, !tbaa !20
-  %9 = call ptr @gmtime(ptr noundef nonnull %3) #8
-  %10 = getelementptr inbounds %struct.tm, ptr %9, i64 0, i32 8
-  store i32 %8, ptr %10, align 8, !tbaa !20
-  %11 = call i64 @mktime(ptr noundef %9) #8
-  %12 = load i64, ptr %3, align 8, !tbaa !25
-  %13 = sub nsw i64 %11, %12
-  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %3) #8
-  %14 = shl i64 %13, 32
-  %15 = ashr exact i64 %14, 32
-  %16 = mul nsw i64 %15, -10000000
-  %17 = add i64 %16, %4
-  %18 = trunc i64 %17 to i32
-  store i32 %18, ptr %1, align 4, !tbaa !5
-  %19 = lshr i64 %17, 32
-  %20 = trunc i64 %19 to i32
-  %21 = getelementptr inbounds %struct._FILETIME, ptr %1, i64 0, i32 1
-  store i32 %20, ptr %21, align 4, !tbaa !10
+define dso_local i32 @FileTimeToLocalFileTime(ptr nocapture noundef readonly %utcft, ptr nocapture noundef writeonly %localft) local_unnamed_addr #2 {
+entry:
+  %utc.i.i = alloca i64, align 8
+  %0 = load i64, ptr %utcft, align 4
+  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %utc.i.i) #8
+  %call.i.i = tail call i64 @time(ptr noundef null) #8
+  store i64 %call.i.i, ptr %utc.i.i, align 8, !tbaa !25
+  %call1.i.i = call ptr @localtime(ptr noundef nonnull %utc.i.i) #8
+  %tm_isdst.i.i = getelementptr inbounds %struct.tm, ptr %call1.i.i, i64 0, i32 8
+  %1 = load i32, ptr %tm_isdst.i.i, align 8, !tbaa !20
+  %call2.i.i = call ptr @gmtime(ptr noundef nonnull %utc.i.i) #8
+  %tm_isdst3.i.i = getelementptr inbounds %struct.tm, ptr %call2.i.i, i64 0, i32 8
+  store i32 %1, ptr %tm_isdst3.i.i, align 8, !tbaa !20
+  %call4.i.i = call i64 @mktime(ptr noundef %call2.i.i) #8
+  %2 = load i64, ptr %utc.i.i, align 8, !tbaa !25
+  %sub.i.i = sub nsw i64 %call4.i.i, %2
+  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %utc.i.i) #8
+  %sext.i = shl i64 %sub.i.i, 32
+  %conv.i = ashr exact i64 %sext.i, 32
+  %mul.neg.i = mul nsw i64 %conv.i, -10000000
+  %sub.i = add i64 %mul.neg.i, %0
+  %conv5 = trunc i64 %sub.i to i32
+  store i32 %conv5, ptr %localft, align 4, !tbaa !5
+  %3 = lshr i64 %sub.i, 32
+  %conv8 = trunc i64 %3 to i32
+  %dwHighDateTime9 = getelementptr inbounds %struct._FILETIME, ptr %localft, i64 0, i32 1
+  store i32 %conv8, ptr %dwHighDateTime9, align 4, !tbaa !10
   ret i32 1
 }
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(argmem: readwrite) uwtable
-define dso_local i32 @FileTimeToSystemTime(ptr nocapture noundef readonly %0, ptr nocapture noundef writeonly %1) local_unnamed_addr #4 {
-  %3 = getelementptr inbounds %struct._FILETIME, ptr %0, i64 0, i32 1
-  %4 = load i32, ptr %3, align 4, !tbaa !10
-  %5 = zext i32 %4 to i64
-  %6 = shl nuw i64 %5, 32
-  %7 = load i32, ptr %0, align 4, !tbaa !5
-  %8 = zext i32 %7 to i64
-  %9 = or i64 %6, %8
-  %10 = srem i64 %9, 10000000
-  %11 = trunc i64 %10 to i32
-  %12 = sdiv i32 %11, 10000
-  %13 = trunc i32 %12 to i16
-  %14 = sdiv i64 %9, 10000000
-  %15 = sdiv i64 %9, 864000000000
-  %16 = srem i64 %14, 86400
-  %17 = trunc i64 %16 to i32
-  %18 = sdiv i32 %17, 3600
-  %19 = trunc i32 %18 to i16
-  %20 = srem i32 %17, 3600
-  %21 = trunc i32 %20 to i16
-  %22 = sdiv i16 %21, 60
-  %23 = srem i16 %21, 60
-  %24 = trunc i64 %15 to i32
-  %25 = add nsw i32 %24, 1
-  %26 = srem i32 %25, 7
-  %27 = trunc i32 %26 to i16
-  %28 = shl nsw i32 %24, 2
-  %29 = add nsw i32 %28, 1227
-  %30 = sdiv i32 %29, 146097
-  %31 = trunc i32 %30 to i16
-  %32 = mul nsw i16 %31, 3
-  %33 = add i16 %32, 3
-  %34 = sdiv i16 %33, 4
-  %35 = sext i16 %34 to i64
-  %36 = add nsw i64 %15, 28188
-  %37 = add nsw i64 %36, %35
-  %38 = trunc i64 %37 to i32
-  %39 = mul nsw i32 %38, 20
-  %40 = add nsw i32 %39, -2442
-  %41 = sdiv i32 %40, 7305
-  %42 = mul nsw i32 %41, 1461
-  %43 = sdiv i32 %42, 4
-  %44 = zext i32 %43 to i64
-  %45 = sub nsw i64 %37, %44
-  %46 = trunc i64 %45 to i32
-  %47 = shl nsw i32 %46, 6
-  %48 = sdiv i32 %47, 1959
-  %49 = icmp slt i32 %46, 429
-  %50 = trunc i32 %48 to i16
-  %51 = trunc i32 %41 to i16
-  %52 = select i1 %49, i16 -1, i16 -13
-  %53 = select i1 %49, i16 1524, i16 1525
-  %54 = add i16 %52, %50
-  %55 = add nsw i16 %53, %51
-  %56 = mul nsw i32 %48, 1959
-  %57 = sdiv i32 %56, 64
-  %58 = zext i32 %57 to i64
-  %59 = sub nsw i64 %45, %58
-  %60 = trunc i64 %59 to i16
-  store i16 %55, ptr %1, align 2, !tbaa !28
-  %61 = getelementptr inbounds %struct._SYSTEMTIME, ptr %1, i64 0, i32 1
-  store i16 %54, ptr %61, align 2, !tbaa !30
-  %62 = getelementptr inbounds %struct._SYSTEMTIME, ptr %1, i64 0, i32 3
-  store i16 %60, ptr %62, align 2, !tbaa !31
-  %63 = getelementptr inbounds %struct._SYSTEMTIME, ptr %1, i64 0, i32 4
-  store i16 %19, ptr %63, align 2, !tbaa !32
-  %64 = getelementptr inbounds %struct._SYSTEMTIME, ptr %1, i64 0, i32 5
-  store i16 %22, ptr %64, align 2, !tbaa !33
-  %65 = getelementptr inbounds %struct._SYSTEMTIME, ptr %1, i64 0, i32 6
-  store i16 %23, ptr %65, align 2, !tbaa !34
-  %66 = getelementptr inbounds %struct._SYSTEMTIME, ptr %1, i64 0, i32 7
-  store i16 %13, ptr %66, align 2, !tbaa !35
-  %67 = getelementptr inbounds %struct._SYSTEMTIME, ptr %1, i64 0, i32 2
-  store i16 %27, ptr %67, align 2, !tbaa !36
+define dso_local i32 @FileTimeToSystemTime(ptr nocapture noundef readonly %ft, ptr nocapture noundef writeonly %syst) local_unnamed_addr #4 {
+entry:
+  %dwHighDateTime = getelementptr inbounds %struct._FILETIME, ptr %ft, i64 0, i32 1
+  %0 = load i32, ptr %dwHighDateTime, align 4, !tbaa !10
+  %conv = zext i32 %0 to i64
+  %shl = shl nuw i64 %conv, 32
+  %1 = load i32, ptr %ft, align 4, !tbaa !5
+  %conv2 = zext i32 %1 to i64
+  %or = or i64 %shl, %conv2
+  %rem.i = srem i64 %or, 10000000
+  %div.lhs.trunc.i = trunc i64 %rem.i to i32
+  %div1.i = sdiv i32 %div.lhs.trunc.i, 10000
+  %conv.i = trunc i32 %div1.i to i16
+  %div2.i = sdiv i64 %or, 10000000
+  %div3.i = sdiv i64 %or, 864000000000
+  %rem4.i = srem i64 %div2.i, 86400
+  %conv5.i = trunc i64 %rem4.i to i32
+  %div6.i = sdiv i32 %conv5.i, 3600
+  %conv7.i = trunc i32 %div6.i to i16
+  %rem8.i = srem i32 %conv5.i, 3600
+  %div9.lhs.trunc.i = trunc i32 %rem8.i to i16
+  %div92.i = sdiv i16 %div9.lhs.trunc.i, 60
+  %rem113.i = srem i16 %div9.lhs.trunc.i, 60
+  %2 = trunc i64 %div3.i to i32
+  %rem13.lhs.trunc.i = add nsw i32 %2, 1
+  %rem134.i = srem i32 %rem13.lhs.trunc.i, 7
+  %conv14.i = trunc i32 %rem134.i to i16
+  %mul.i = shl nsw i64 %div3.i, 2
+  %add15.i = add nsw i64 %mul.i, 1227
+  %div16.i = sdiv i64 %add15.i, 146097
+  %mul17.i = mul nsw i64 %div16.i, 3
+  %add18.i = add nsw i64 %mul17.i, 3
+  %div19.i = sdiv i64 %add18.i, 4
+  %add20.i = add nsw i64 %div3.i, 28188
+  %add21.i = add nsw i64 %add20.i, %div19.i
+  %mul22.i = mul nsw i64 %add21.i, 20
+  %sub.i = add nsw i64 %mul22.i, -2442
+  %div23.i = sdiv i64 %sub.i, 7305
+  %mul24.i = mul nsw i64 %div23.i, 1461
+  %div25.neg.i = sdiv i64 %mul24.i, -4
+  %sub26.i = add nsw i64 %div25.neg.i, %add21.i
+  %mul27.i = shl nsw i64 %sub26.i, 6
+  %div28.i = sdiv i64 %mul27.i, 1959
+  %cmp.i = icmp slt i64 %sub26.i, 429
+  %3 = trunc i64 %div28.i to i16
+  %4 = trunc i64 %div23.i to i16
+  %..i = select i1 %cmp.i, i16 -1, i16 -13
+  %.6.i = select i1 %cmp.i, i16 1524, i16 1525
+  %conv34.i = add i16 %..i, %3
+  %conv37.i = add i16 %.6.i, %4
+  %mul39.i = mul nsw i64 %div28.i, 1959
+  %div40.neg.i = sdiv i64 %mul39.i, -64
+  %sub41.i = add nsw i64 %div40.neg.i, %sub26.i
+  %conv42.i = trunc i64 %sub41.i to i16
+  store i16 %conv37.i, ptr %syst, align 2, !tbaa !28
+  %wMonth = getelementptr inbounds %struct._SYSTEMTIME, ptr %syst, i64 0, i32 1
+  store i16 %conv34.i, ptr %wMonth, align 2, !tbaa !30
+  %wDay = getelementptr inbounds %struct._SYSTEMTIME, ptr %syst, i64 0, i32 3
+  store i16 %conv42.i, ptr %wDay, align 2, !tbaa !31
+  %wHour = getelementptr inbounds %struct._SYSTEMTIME, ptr %syst, i64 0, i32 4
+  store i16 %conv7.i, ptr %wHour, align 2, !tbaa !32
+  %wMinute = getelementptr inbounds %struct._SYSTEMTIME, ptr %syst, i64 0, i32 5
+  store i16 %div92.i, ptr %wMinute, align 2, !tbaa !33
+  %wSecond = getelementptr inbounds %struct._SYSTEMTIME, ptr %syst, i64 0, i32 6
+  store i16 %rem113.i, ptr %wSecond, align 2, !tbaa !34
+  %wMilliseconds = getelementptr inbounds %struct._SYSTEMTIME, ptr %syst, i64 0, i32 7
+  store i16 %conv.i, ptr %wMilliseconds, align 2, !tbaa !35
+  %wDayOfWeek = getelementptr inbounds %struct._SYSTEMTIME, ptr %syst, i64 0, i32 2
+  store i16 %conv14.i, ptr %wDayOfWeek, align 2, !tbaa !36
   ret i32 1
 }
 
 ; Function Attrs: mustprogress nounwind uwtable
-define dso_local i32 @LocalFileTimeToFileTime(ptr nocapture noundef readonly %0, ptr nocapture noundef writeonly %1) local_unnamed_addr #2 {
-  %3 = alloca i64, align 8
-  %4 = load i64, ptr %0, align 4
-  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %3) #8
-  %5 = tail call i64 @time(ptr noundef null) #8
-  store i64 %5, ptr %3, align 8, !tbaa !25
-  %6 = call ptr @localtime(ptr noundef nonnull %3) #8
-  %7 = getelementptr inbounds %struct.tm, ptr %6, i64 0, i32 8
-  %8 = load i32, ptr %7, align 8, !tbaa !20
-  %9 = call ptr @gmtime(ptr noundef nonnull %3) #8
-  %10 = getelementptr inbounds %struct.tm, ptr %9, i64 0, i32 8
-  store i32 %8, ptr %10, align 8, !tbaa !20
-  %11 = call i64 @mktime(ptr noundef %9) #8
-  %12 = load i64, ptr %3, align 8, !tbaa !25
-  %13 = sub nsw i64 %11, %12
-  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %3) #8
-  %14 = shl i64 %13, 32
-  %15 = ashr exact i64 %14, 32
-  %16 = mul nsw i64 %15, 10000000
-  %17 = add nsw i64 %16, %4
-  %18 = trunc i64 %17 to i32
-  store i32 %18, ptr %1, align 4, !tbaa !5
-  %19 = lshr i64 %17, 32
-  %20 = trunc i64 %19 to i32
-  %21 = getelementptr inbounds %struct._FILETIME, ptr %1, i64 0, i32 1
-  store i32 %20, ptr %21, align 4, !tbaa !10
+define dso_local i32 @LocalFileTimeToFileTime(ptr nocapture noundef readonly %localft, ptr nocapture noundef writeonly %utcft) local_unnamed_addr #2 {
+entry:
+  %utc.i.i = alloca i64, align 8
+  %0 = load i64, ptr %localft, align 4
+  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %utc.i.i) #8
+  %call.i.i = tail call i64 @time(ptr noundef null) #8
+  store i64 %call.i.i, ptr %utc.i.i, align 8, !tbaa !25
+  %call1.i.i = call ptr @localtime(ptr noundef nonnull %utc.i.i) #8
+  %tm_isdst.i.i = getelementptr inbounds %struct.tm, ptr %call1.i.i, i64 0, i32 8
+  %1 = load i32, ptr %tm_isdst.i.i, align 8, !tbaa !20
+  %call2.i.i = call ptr @gmtime(ptr noundef nonnull %utc.i.i) #8
+  %tm_isdst3.i.i = getelementptr inbounds %struct.tm, ptr %call2.i.i, i64 0, i32 8
+  store i32 %1, ptr %tm_isdst3.i.i, align 8, !tbaa !20
+  %call4.i.i = call i64 @mktime(ptr noundef %call2.i.i) #8
+  %2 = load i64, ptr %utc.i.i, align 8, !tbaa !25
+  %sub.i.i = sub nsw i64 %call4.i.i, %2
+  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %utc.i.i) #8
+  %sext.i = shl i64 %sub.i.i, 32
+  %conv.i = ashr exact i64 %sext.i, 32
+  %mul.i = mul nsw i64 %conv.i, 10000000
+  %add.i = add nsw i64 %mul.i, %0
+  %conv5 = trunc i64 %add.i to i32
+  store i32 %conv5, ptr %utcft, align 4, !tbaa !5
+  %3 = lshr i64 %add.i, 32
+  %conv8 = trunc i64 %3 to i32
+  %dwHighDateTime9 = getelementptr inbounds %struct._FILETIME, ptr %utcft, i64 0, i32 1
+  store i32 %conv8, ptr %dwHighDateTime9, align 4, !tbaa !10
   ret i32 1
 }
 
 ; Function Attrs: mustprogress nofree nounwind uwtable
-define dso_local void @GetSystemTime(ptr nocapture noundef writeonly %0) local_unnamed_addr #5 {
-  %2 = alloca %struct.timeval, align 8
-  call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %2) #8
-  %3 = call i32 @gettimeofday(ptr noundef nonnull %2, ptr noundef null) #8
-  %4 = load i64, ptr %2, align 8, !tbaa !37
-  %5 = mul i64 %4, 10000000
-  %6 = add i64 %5, 116444736000000000
-  %7 = getelementptr inbounds %struct.timeval, ptr %2, i64 0, i32 1
-  %8 = load i64, ptr %7, align 8, !tbaa !39
-  %9 = mul nsw i64 %8, 10
-  %10 = add nsw i64 %6, %9
-  %11 = srem i64 %10, 10000000
-  %12 = trunc i64 %11 to i32
-  %13 = sdiv i32 %12, 10000
-  %14 = trunc i32 %13 to i16
-  %15 = sdiv i64 %10, 10000000
-  %16 = sdiv i64 %10, 864000000000
-  %17 = srem i64 %15, 86400
-  %18 = trunc i64 %17 to i32
-  %19 = sdiv i32 %18, 3600
-  %20 = trunc i32 %19 to i16
-  %21 = srem i32 %18, 3600
-  %22 = trunc i32 %21 to i16
-  %23 = sdiv i16 %22, 60
-  %24 = srem i16 %22, 60
-  %25 = trunc i64 %16 to i32
-  %26 = add nsw i32 %25, 1
-  %27 = srem i32 %26, 7
-  %28 = trunc i32 %27 to i16
-  %29 = shl nsw i32 %25, 2
-  %30 = add nsw i32 %29, 1227
-  %31 = sdiv i32 %30, 146097
-  %32 = trunc i32 %31 to i16
-  %33 = mul nsw i16 %32, 3
-  %34 = add i16 %33, 3
-  %35 = sdiv i16 %34, 4
-  %36 = sext i16 %35 to i64
-  %37 = add nsw i64 %16, 28188
-  %38 = add nsw i64 %37, %36
-  %39 = trunc i64 %38 to i32
-  %40 = mul nsw i32 %39, 20
-  %41 = add nsw i32 %40, -2442
-  %42 = sdiv i32 %41, 7305
-  %43 = mul nsw i32 %42, 1461
-  %44 = sdiv i32 %43, 4
-  %45 = zext i32 %44 to i64
-  %46 = sub nsw i64 %38, %45
-  %47 = trunc i64 %46 to i32
-  %48 = shl nsw i32 %47, 6
-  %49 = sdiv i32 %48, 1959
-  %50 = icmp slt i32 %47, 429
-  %51 = trunc i32 %49 to i16
-  %52 = trunc i32 %42 to i16
-  %53 = select i1 %50, i16 -1, i16 -13
-  %54 = select i1 %50, i16 1524, i16 1525
-  %55 = add i16 %53, %51
-  %56 = add nsw i16 %54, %52
-  %57 = mul nsw i32 %49, 1959
-  %58 = sdiv i32 %57, 64
-  %59 = zext i32 %58 to i64
-  %60 = sub nsw i64 %46, %59
-  %61 = trunc i64 %60 to i16
-  store i16 %56, ptr %0, align 2, !tbaa !28
-  %62 = getelementptr inbounds %struct._SYSTEMTIME, ptr %0, i64 0, i32 1
-  store i16 %55, ptr %62, align 2, !tbaa !30
-  %63 = getelementptr inbounds %struct._SYSTEMTIME, ptr %0, i64 0, i32 3
-  store i16 %61, ptr %63, align 2, !tbaa !31
-  %64 = getelementptr inbounds %struct._SYSTEMTIME, ptr %0, i64 0, i32 4
-  store i16 %20, ptr %64, align 2, !tbaa !32
-  %65 = getelementptr inbounds %struct._SYSTEMTIME, ptr %0, i64 0, i32 5
-  store i16 %23, ptr %65, align 2, !tbaa !33
-  %66 = getelementptr inbounds %struct._SYSTEMTIME, ptr %0, i64 0, i32 6
-  store i16 %24, ptr %66, align 2, !tbaa !34
-  %67 = getelementptr inbounds %struct._SYSTEMTIME, ptr %0, i64 0, i32 7
-  store i16 %14, ptr %67, align 2, !tbaa !35
-  %68 = getelementptr inbounds %struct._SYSTEMTIME, ptr %0, i64 0, i32 2
-  store i16 %28, ptr %68, align 2, !tbaa !36
-  call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %2) #8
+define dso_local void @GetSystemTime(ptr nocapture noundef writeonly %systime) local_unnamed_addr #5 {
+entry:
+  %now = alloca %struct.timeval, align 8
+  call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %now) #8
+  %call = call i32 @gettimeofday(ptr noundef nonnull %now, ptr noundef null) #8
+  %0 = load i64, ptr %now, align 8, !tbaa !37
+  %mul = mul i64 %0, 10000000
+  %add = add i64 %mul, 116444736000000000
+  %tv_usec = getelementptr inbounds %struct.timeval, ptr %now, i64 0, i32 1
+  %1 = load i64, ptr %tv_usec, align 8, !tbaa !39
+  %mul1 = mul nsw i64 %1, 10
+  %add3 = add nsw i64 %add, %mul1
+  %rem.i.i = srem i64 %add3, 10000000
+  %div.lhs.trunc.i.i = trunc i64 %rem.i.i to i32
+  %div1.i.i = sdiv i32 %div.lhs.trunc.i.i, 10000
+  %conv.i.i = trunc i32 %div1.i.i to i16
+  %div2.i.i = sdiv i64 %add3, 10000000
+  %div3.i.i = sdiv i64 %add3, 864000000000
+  %rem4.i.i = srem i64 %div2.i.i, 86400
+  %conv5.i.i = trunc i64 %rem4.i.i to i32
+  %div6.i.i = sdiv i32 %conv5.i.i, 3600
+  %conv7.i.i = trunc i32 %div6.i.i to i16
+  %rem8.i.i = srem i32 %conv5.i.i, 3600
+  %div9.lhs.trunc.i.i = trunc i32 %rem8.i.i to i16
+  %div92.i.i = sdiv i16 %div9.lhs.trunc.i.i, 60
+  %rem113.i.i = srem i16 %div9.lhs.trunc.i.i, 60
+  %2 = trunc i64 %div3.i.i to i32
+  %rem13.lhs.trunc.i.i = add nsw i32 %2, 1
+  %rem134.i.i = srem i32 %rem13.lhs.trunc.i.i, 7
+  %conv14.i.i = trunc i32 %rem134.i.i to i16
+  %mul.i.i = shl nsw i64 %div3.i.i, 2
+  %add15.i.i = add nsw i64 %mul.i.i, 1227
+  %div16.i.i = sdiv i64 %add15.i.i, 146097
+  %mul17.i.i = mul nsw i64 %div16.i.i, 3
+  %add18.i.i = add nsw i64 %mul17.i.i, 3
+  %div19.i.i = sdiv i64 %add18.i.i, 4
+  %add20.i.i = add nsw i64 %div3.i.i, 28188
+  %add21.i.i = add nsw i64 %add20.i.i, %div19.i.i
+  %mul22.i.i = mul nsw i64 %add21.i.i, 20
+  %sub.i.i = add nsw i64 %mul22.i.i, -2442
+  %div23.i.i = sdiv i64 %sub.i.i, 7305
+  %mul24.i.i = mul nsw i64 %div23.i.i, 1461
+  %div25.neg.i.i = sdiv i64 %mul24.i.i, -4
+  %sub26.i.i = add nsw i64 %div25.neg.i.i, %add21.i.i
+  %mul27.i.i = shl nsw i64 %sub26.i.i, 6
+  %div28.i.i = sdiv i64 %mul27.i.i, 1959
+  %cmp.i.i = icmp slt i64 %sub26.i.i, 429
+  %3 = trunc i64 %div28.i.i to i16
+  %4 = trunc i64 %div23.i.i to i16
+  %..i.i = select i1 %cmp.i.i, i16 -1, i16 -13
+  %.6.i.i = select i1 %cmp.i.i, i16 1524, i16 1525
+  %conv34.i.i = add i16 %..i.i, %3
+  %conv37.i.i = add i16 %.6.i.i, %4
+  %mul39.i.i = mul nsw i64 %div28.i.i, 1959
+  %div40.neg.i.i = sdiv i64 %mul39.i.i, -64
+  %sub41.i.i = add nsw i64 %div40.neg.i.i, %sub26.i.i
+  %conv42.i.i = trunc i64 %sub41.i.i to i16
+  store i16 %conv37.i.i, ptr %systime, align 2, !tbaa !28
+  %wMonth.i = getelementptr inbounds %struct._SYSTEMTIME, ptr %systime, i64 0, i32 1
+  store i16 %conv34.i.i, ptr %wMonth.i, align 2, !tbaa !30
+  %wDay.i = getelementptr inbounds %struct._SYSTEMTIME, ptr %systime, i64 0, i32 3
+  store i16 %conv42.i.i, ptr %wDay.i, align 2, !tbaa !31
+  %wHour.i = getelementptr inbounds %struct._SYSTEMTIME, ptr %systime, i64 0, i32 4
+  store i16 %conv7.i.i, ptr %wHour.i, align 2, !tbaa !32
+  %wMinute.i = getelementptr inbounds %struct._SYSTEMTIME, ptr %systime, i64 0, i32 5
+  store i16 %div92.i.i, ptr %wMinute.i, align 2, !tbaa !33
+  %wSecond.i = getelementptr inbounds %struct._SYSTEMTIME, ptr %systime, i64 0, i32 6
+  store i16 %rem113.i.i, ptr %wSecond.i, align 2, !tbaa !34
+  %wMilliseconds.i = getelementptr inbounds %struct._SYSTEMTIME, ptr %systime, i64 0, i32 7
+  store i16 %conv.i.i, ptr %wMilliseconds.i, align 2, !tbaa !35
+  %wDayOfWeek.i = getelementptr inbounds %struct._SYSTEMTIME, ptr %systime, i64 0, i32 2
+  store i16 %conv14.i.i, ptr %wDayOfWeek.i, align 2, !tbaa !36
+  call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %now) #8
   ret void
 }
 
@@ -376,110 +372,111 @@ define dso_local void @GetSystemTime(ptr nocapture noundef writeonly %0) local_u
 declare noundef i32 @gettimeofday(ptr nocapture noundef, ptr nocapture noundef) local_unnamed_addr #6
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(argmem: readwrite) uwtable
-define dso_local i32 @SystemTimeToFileTime(ptr nocapture noundef readonly %0, ptr nocapture noundef writeonly %1) local_unnamed_addr #4 {
-  %3 = load i16, ptr %0, align 2, !tbaa !28
-  %4 = getelementptr inbounds %struct._SYSTEMTIME, ptr %0, i64 0, i32 1
-  %5 = load i16, ptr %4, align 2, !tbaa !30
-  %6 = getelementptr inbounds %struct._SYSTEMTIME, ptr %0, i64 0, i32 3
-  %7 = load i16, ptr %6, align 2, !tbaa !31
-  %8 = getelementptr inbounds %struct._SYSTEMTIME, ptr %0, i64 0, i32 4
-  %9 = load <4 x i16>, ptr %8, align 2, !tbaa !26
-  %10 = freeze <4 x i16> %9
-  %11 = icmp ugt <4 x i16> %10, <i16 23, i16 59, i16 59, i16 999>
-  %12 = bitcast <4 x i1> %11 to i4
-  %13 = icmp eq i4 %12, 0
-  br i1 %13, label %14, label %82
+define dso_local i32 @SystemTimeToFileTime(ptr nocapture noundef readonly %syst, ptr nocapture noundef writeonly %ft) local_unnamed_addr #4 {
+entry:
+  %0 = load i16, ptr %syst, align 2, !tbaa !28
+  %wMonth = getelementptr inbounds %struct._SYSTEMTIME, ptr %syst, i64 0, i32 1
+  %1 = load i16, ptr %wMonth, align 2, !tbaa !30
+  %wHour = getelementptr inbounds %struct._SYSTEMTIME, ptr %syst, i64 0, i32 4
+  %2 = load <4 x i16>, ptr %wHour, align 2, !tbaa !26
+  %.fr = freeze <4 x i16> %2
+  %3 = icmp ugt <4 x i16> %.fr, <i16 23, i16 59, i16 59, i16 999>
+  %4 = add i16 %1, -13
+  %or.cond129.i = icmp ult i16 %4, -12
+  %5 = bitcast <4 x i1> %3 to i4
+  %6 = icmp ne i4 %5, 0
+  %op.rdx = select i1 %6, i1 true, i1 %or.cond129.i
+  br i1 %op.rdx, label %_ZL19RtlTimeFieldsToTimeP12_TIME_FIELDSP13LARGE_INTEGER.exit, label %lor.lhs.false32.i
 
-14:                                               ; preds = %2
-  %15 = sext i16 %5 to i64
-  %16 = add i16 %5, -13
-  %17 = icmp ult i16 %16, -12
-  br i1 %17, label %82, label %18
+lor.lhs.false32.i:                                ; preds = %entry
+  %wDay = getelementptr inbounds %struct._SYSTEMTIME, ptr %syst, i64 0, i32 3
+  %7 = load i16, ptr %wDay, align 2, !tbaa !31
+  %conv33.i = sext i16 %7 to i32
+  %cmp34.i = icmp slt i16 %7, 1
+  br i1 %cmp34.i, label %_ZL19RtlTimeFieldsToTimeP12_TIME_FIELDSP13LARGE_INTEGER.exit, label %lor.lhs.false35.i
 
-18:                                               ; preds = %14
-  %19 = sext i16 %7 to i32
-  %20 = icmp slt i16 %7, 1
-  br i1 %20, label %82, label %21
+lor.lhs.false35.i:                                ; preds = %lor.lhs.false32.i
+  %cmp40.i = icmp eq i16 %1, 2
+  br i1 %cmp40.i, label %lor.end.i, label %lor.rhs.i
 
-21:                                               ; preds = %18
-  %22 = icmp eq i16 %5, 2
-  br i1 %22, label %33, label %23
+lor.rhs.i:                                        ; preds = %lor.lhs.false35.i
+  %8 = and i16 %0, 3
+  %cmp.i.i = icmp eq i16 %8, 0
+  br i1 %cmp.i.i, label %land.rhs.i.i, label %lor.end.i
 
-23:                                               ; preds = %21
-  %24 = and i16 %3, 3
-  %25 = icmp eq i16 %24, 0
-  br i1 %25, label %26, label %33
+land.rhs.i.i:                                     ; preds = %lor.rhs.i
+  %rem1.i132.i = srem i16 %0, 100
+  %cmp2.not.i.i = icmp eq i16 %rem1.i132.i, 0
+  br i1 %cmp2.not.i.i, label %lor.rhs.i.i, label %lor.end.i
 
-26:                                               ; preds = %23
-  %27 = srem i16 %3, 100
-  %28 = icmp ne i16 %27, 0
-  %29 = srem i16 %3, 400
-  %30 = icmp eq i16 %29, 0
-  %31 = or i1 %28, %30
-  %32 = zext i1 %31 to i64
-  br label %33
+lor.rhs.i.i:                                      ; preds = %land.rhs.i.i
+  %rem3.i133.i = srem i16 %0, 400
+  %cmp4.i.i = icmp eq i16 %rem3.i133.i, 0
+  %9 = zext i1 %cmp4.i.i to i64
+  br label %lor.end.i
 
-33:                                               ; preds = %26, %23, %21
-  %34 = phi i64 [ 1, %21 ], [ 0, %23 ], [ %32, %26 ]
-  %35 = add nsw i64 %15, 4294967295
-  %36 = and i64 %35, 4294967295
-  %37 = getelementptr inbounds [2 x [12 x i32]], ptr @_ZL12MonthLengths, i64 0, i64 %34, i64 %36
-  %38 = load i32, ptr %37, align 4, !tbaa !24
-  %39 = icmp slt i32 %38, %19
-  %40 = icmp slt i16 %3, 1601
-  %41 = select i1 %39, i1 true, i1 %40
-  br i1 %41, label %82, label %42
+lor.end.i:                                        ; preds = %lor.rhs.i.i, %land.rhs.i.i, %lor.rhs.i, %lor.lhs.false35.i
+  %idxprom.i = phi i64 [ 1, %lor.lhs.false35.i ], [ 0, %lor.rhs.i ], [ 1, %land.rhs.i.i ], [ %9, %lor.rhs.i.i ]
+  %conv43.i = zext i16 %1 to i64
+  %sub.i = add nuw nsw i64 %conv43.i, 4294967295
+  %idxprom44.i = and i64 %sub.i, 4294967295
+  %arrayidx45.i = getelementptr inbounds [2 x [12 x i32]], ptr @_ZL12MonthLengths, i64 0, i64 %idxprom.i, i64 %idxprom44.i
+  %10 = load i32, ptr %arrayidx45.i, align 4, !tbaa !24
+  %cmp46.i = icmp slt i32 %10, %conv33.i
+  %cmp50.i = icmp slt i16 %0, 1601
+  %or.cond14 = select i1 %cmp46.i, i1 true, i1 %cmp50.i
+  br i1 %or.cond14, label %_ZL19RtlTimeFieldsToTimeP12_TIME_FIELDSP13LARGE_INTEGER.exit, label %if.end.i
 
-42:                                               ; preds = %33
-  %43 = zext i16 %3 to i32
-  %44 = icmp ult i16 %5, 3
-  %45 = sext i1 %44 to i32
-  %46 = add nsw i32 %45, %43
-  %47 = select i1 %44, i16 13, i16 1
-  %48 = add nuw nsw i16 %47, %5
-  %49 = trunc i32 %46 to i16
-  %50 = udiv i16 %49, 100
-  %51 = mul nuw nsw i16 %50, 3
-  %52 = add nuw nsw i16 %51, 3
-  %53 = lshr i16 %52, 2
-  %54 = zext i16 %53 to i32
-  %55 = mul nuw nsw i32 %46, 36525
-  %56 = udiv i32 %55, 100
-  %57 = mul nuw i16 %48, 1959
-  %58 = lshr i16 %57, 6
-  %59 = zext i16 %58 to i32
-  %60 = add nsw i32 %19, -584817
-  %61 = add nsw i32 %60, %56
-  %62 = add nsw i32 %61, %59
-  %63 = sub nsw i32 %62, %54
-  %64 = sext i32 %63 to i64
-  %65 = mul nsw i64 %64, 24
-  %66 = extractelement <4 x i16> %10, i64 0
-  %67 = zext i16 %66 to i64
-  %68 = add nsw i64 %65, %67
-  %69 = mul nsw i64 %68, 60
-  %70 = extractelement <4 x i16> %10, i64 1
-  %71 = zext i16 %70 to i64
-  %72 = add nsw i64 %69, %71
-  %73 = mul nsw i64 %72, 60
-  %74 = extractelement <4 x i16> %10, i64 2
-  %75 = zext i16 %74 to i64
-  %76 = add nsw i64 %73, %75
-  %77 = mul nsw i64 %76, 1000
-  %78 = extractelement <4 x i16> %10, i64 3
-  %79 = zext i16 %78 to i64
-  %80 = add nsw i64 %77, %79
-  %81 = mul nsw i64 %80, 10000
-  br label %82
+if.end.i:                                         ; preds = %lor.end.i
+  %conv49.i = zext i16 %0 to i32
+  %cmp53.i = icmp ult i16 %1, 3
+  %sub59.i = sext i1 %cmp53.i to i32
+  %year.0.i = add nsw i32 %sub59.i, %conv49.i
+  %month.0.v.i = select i1 %cmp53.i, i16 13, i16 1
+  %month.0.i = add nuw nsw i16 %month.0.v.i, %1
+  %div.lhs.trunc.i = trunc i32 %year.0.i to i16
+  %div136.i = udiv i16 %div.lhs.trunc.i, 100
+  %narrow.i = mul nuw nsw i16 %div136.i, 3
+  %narrow137.i = add nuw nsw i16 %narrow.i, 3
+  %11 = lshr i16 %narrow137.i, 2
+  %div67125.i = zext i16 %11 to i32
+  %mul68.i = mul nuw nsw i32 %year.0.i, 36525
+  %div69.i = udiv i32 %mul68.i, 100
+  %mul71.i = mul nuw i16 %month.0.i, 1959
+  %div72130131134.i = lshr i16 %mul71.i, 6
+  %div72130.zext.i = zext i16 %div72130131134.i to i32
+  %sub70.i = add nsw i32 %div69.i, -584817
+  %add73.i = add nsw i32 %sub70.i, %div72130.zext.i
+  %add76.i = sub nsw i32 %add73.i, %div67125.i
+  %sub77.i = add nsw i32 %add76.i, %conv33.i
+  %conv78.i = sext i32 %sub77.i to i64
+  %mul79.i = mul nsw i64 %conv78.i, 24
+  %12 = extractelement <4 x i16> %.fr, i64 0
+  %conv81.i = zext i16 %12 to i64
+  %add82.i = add nsw i64 %mul79.i, %conv81.i
+  %mul83.i = mul nsw i64 %add82.i, 60
+  %13 = extractelement <4 x i16> %.fr, i64 1
+  %conv85.i = zext i16 %13 to i64
+  %add86.i = add nsw i64 %mul83.i, %conv85.i
+  %mul87.i = mul nsw i64 %add86.i, 60
+  %14 = extractelement <4 x i16> %.fr, i64 2
+  %conv89.i = zext i16 %14 to i64
+  %add90.i = add nsw i64 %mul87.i, %conv89.i
+  %mul91.i = mul nsw i64 %add90.i, 1000
+  %15 = extractelement <4 x i16> %.fr, i64 3
+  %conv93.i = zext i16 %15 to i64
+  %add94.i = add nsw i64 %mul91.i, %conv93.i
+  %mul95.i = mul nsw i64 %add94.i, 10000
+  br label %_ZL19RtlTimeFieldsToTimeP12_TIME_FIELDSP13LARGE_INTEGER.exit
 
-82:                                               ; preds = %2, %14, %18, %33, %42
-  %83 = phi i64 [ undef, %2 ], [ undef, %14 ], [ undef, %18 ], [ undef, %33 ], [ %81, %42 ]
-  %84 = trunc i64 %83 to i32
-  store i32 %84, ptr %1, align 4, !tbaa !5
-  %85 = lshr i64 %83, 32
-  %86 = trunc i64 %85 to i32
-  %87 = getelementptr inbounds %struct._FILETIME, ptr %1, i64 0, i32 1
-  store i32 %86, ptr %87, align 4, !tbaa !10
+_ZL19RtlTimeFieldsToTimeP12_TIME_FIELDSP13LARGE_INTEGER.exit: ; preds = %entry, %lor.lhs.false32.i, %lor.end.i, %if.end.i
+  %t.sroa.0.0 = phi i64 [ undef, %entry ], [ undef, %lor.lhs.false32.i ], [ undef, %lor.end.i ], [ %mul95.i, %if.end.i ]
+  %conv = trunc i64 %t.sroa.0.0 to i32
+  store i32 %conv, ptr %ft, align 4, !tbaa !5
+  %16 = lshr i64 %t.sroa.0.0, 32
+  %conv2 = trunc i64 %16 to i32
+  %dwHighDateTime = getelementptr inbounds %struct._FILETIME, ptr %ft, i64 0, i32 1
+  store i32 %conv2, ptr %dwHighDateTime, align 4, !tbaa !10
   ret i32 1
 }
 

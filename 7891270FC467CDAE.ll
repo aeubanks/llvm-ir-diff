@@ -143,638 +143,640 @@ target triple = "x86_64-unknown-linux-gnu"
 @.str.52 = private unnamed_addr constant [21 x i8] c"basic_string::append\00", align 1
 
 ; Function Attrs: mustprogress uwtable
-define dso_local noundef ptr @_ZN2kc23mergephylumdeclarationsEPNS_22impl_phylumdeclarationEPNS_23impl_phylumdeclarationsE(ptr noundef %0, ptr noundef %1) local_unnamed_addr #0 {
-  %3 = load ptr, ptr %0, align 8, !tbaa !5
-  %4 = load ptr, ptr %3, align 8
-  %5 = tail call noundef i32 %4(ptr noundef nonnull align 8 dereferenceable(8) %0)
-  %6 = icmp eq i32 %5, 15
-  br i1 %6, label %7, label %268
+define dso_local noundef ptr @_ZN2kc23mergephylumdeclarationsEPNS_22impl_phylumdeclarationEPNS_23impl_phylumdeclarationsE(ptr noundef %pd, ptr noundef %pds) local_unnamed_addr #0 {
+entry:
+  %vtable = load ptr, ptr %pd, align 8, !tbaa !5
+  %0 = load ptr, ptr %vtable, align 8
+  %call1 = tail call noundef i32 %0(ptr noundef nonnull align 8 dereferenceable(8) %pd)
+  %cmp = icmp eq i32 %call1, 15
+  br i1 %cmp, label %if.then, label %if.else304
 
-7:                                                ; preds = %2
-  %8 = getelementptr inbounds %"class.kc::impl_phylumdeclaration_PhylumDeclaration", ptr %0, i64 0, i32 1
-  %9 = load ptr, ptr %8, align 8, !tbaa !8
-  %10 = getelementptr inbounds %"class.kc::impl_phylumdeclaration_PhylumDeclaration", ptr %0, i64 0, i32 2
-  %11 = load ptr, ptr %10, align 8, !tbaa !15
-  %12 = getelementptr inbounds %"class.kc::impl_phylumdeclaration_PhylumDeclaration", ptr %0, i64 0, i32 3
-  %13 = load ptr, ptr %12, align 8, !tbaa !16
-  %14 = getelementptr inbounds %"class.kc::impl_phylumdeclaration_PhylumDeclaration", ptr %0, i64 0, i32 4
-  %15 = load ptr, ptr %14, align 8, !tbaa !17
-  %16 = tail call noundef ptr @_ZN2kc16f_lookupuserdeclEPNS_7impl_IDE(ptr noundef %9)
-  %17 = icmp eq ptr %16, null
-  br i1 %17, label %18, label %20
+if.then:                                          ; preds = %entry
+  %ID_1 = getelementptr inbounds %"class.kc::impl_phylumdeclaration_PhylumDeclaration", ptr %pd, i64 0, i32 1
+  %1 = load ptr, ptr %ID_1, align 8, !tbaa !8
+  %storageoption_1 = getelementptr inbounds %"class.kc::impl_phylumdeclaration_PhylumDeclaration", ptr %pd, i64 0, i32 2
+  %2 = load ptr, ptr %storageoption_1, align 8, !tbaa !15
+  %productionblock_1 = getelementptr inbounds %"class.kc::impl_phylumdeclaration_PhylumDeclaration", ptr %pd, i64 0, i32 3
+  %3 = load ptr, ptr %productionblock_1, align 8, !tbaa !16
+  %Ccode_option_1 = getelementptr inbounds %"class.kc::impl_phylumdeclaration_PhylumDeclaration", ptr %pd, i64 0, i32 4
+  %4 = load ptr, ptr %Ccode_option_1, align 8, !tbaa !17
+  %call6 = tail call noundef ptr @_ZN2kc16f_lookupuserdeclEPNS_7impl_IDE(ptr noundef %1)
+  %tobool.not = icmp eq ptr %call6, null
+  br i1 %tobool.not, label %if.then7, label %if.else
 
-18:                                               ; preds = %7
-  tail call void @_ZN2kc5v_addEPNS_7impl_IDE(ptr noundef %9)
-  %19 = tail call noundef ptr @_ZN2kc22ConsphylumdeclarationsEPNS_22impl_phylumdeclarationEPNS_23impl_phylumdeclarationsE(ptr noundef nonnull %0, ptr noundef %1)
-  br label %269
+if.then7:                                         ; preds = %if.then
+  tail call void @_ZN2kc5v_addEPNS_7impl_IDE(ptr noundef %1)
+  %call8 = tail call noundef ptr @_ZN2kc22ConsphylumdeclarationsEPNS_22impl_phylumdeclarationEPNS_23impl_phylumdeclarationsE(ptr noundef nonnull %pd, ptr noundef %pds)
+  br label %cleanup305
 
-20:                                               ; preds = %7
-  %21 = icmp eq ptr %16, %0
-  br i1 %21, label %22, label %26
+if.else:                                          ; preds = %if.then
+  %cmp9 = icmp eq ptr %call6, %pd
+  br i1 %cmp9, label %if.then10, label %if.end15
 
-22:                                               ; preds = %20
-  %23 = tail call noundef zeroext i1 @_ZN2kc7f_addedEPNS_7impl_IDE(ptr noundef %9)
-  br i1 %23, label %269, label %24
+if.then10:                                        ; preds = %if.else
+  %call11 = tail call noundef zeroext i1 @_ZN2kc7f_addedEPNS_7impl_IDE(ptr noundef %1)
+  br i1 %call11, label %cleanup305, label %if.else13
 
-24:                                               ; preds = %22
-  tail call void @_ZN2kc5v_addEPNS_7impl_IDE(ptr noundef %9)
-  %25 = tail call noundef ptr @_ZN2kc22ConsphylumdeclarationsEPNS_22impl_phylumdeclarationEPNS_23impl_phylumdeclarationsE(ptr noundef nonnull %0, ptr noundef %1)
-  br label %269
+if.else13:                                        ; preds = %if.then10
+  tail call void @_ZN2kc5v_addEPNS_7impl_IDE(ptr noundef %1)
+  %call14 = tail call noundef ptr @_ZN2kc22ConsphylumdeclarationsEPNS_22impl_phylumdeclarationEPNS_23impl_phylumdeclarationsE(ptr noundef nonnull %pd, ptr noundef %pds)
+  br label %cleanup305
 
-26:                                               ; preds = %20
-  %27 = load ptr, ptr %16, align 8, !tbaa !5
-  %28 = load ptr, ptr %27, align 8
-  %29 = tail call noundef i32 %28(ptr noundef nonnull align 8 dereferenceable(8) %16)
-  %30 = icmp eq i32 %29, 15
-  br i1 %30, label %31, label %255
+if.end15:                                         ; preds = %if.else
+  %vtable17 = load ptr, ptr %call6, align 8, !tbaa !5
+  %5 = load ptr, ptr %vtable17, align 8
+  %call19 = tail call noundef i32 %5(ptr noundef nonnull align 8 dereferenceable(8) %call6)
+  %cmp20 = icmp eq i32 %call19, 15
+  br i1 %cmp20, label %if.then21, label %if.else294
 
-31:                                               ; preds = %26
-  %32 = getelementptr inbounds %"class.kc::impl_phylumdeclaration_PhylumDeclaration", ptr %16, i64 0, i32 1
-  %33 = load ptr, ptr %32, align 8, !tbaa !8
-  %34 = getelementptr inbounds %"class.kc::impl_phylumdeclaration_PhylumDeclaration", ptr %16, i64 0, i32 2
-  %35 = load ptr, ptr %34, align 8, !tbaa !15
-  %36 = getelementptr inbounds %"class.kc::impl_phylumdeclaration_PhylumDeclaration", ptr %16, i64 0, i32 3
-  %37 = load ptr, ptr %36, align 8, !tbaa !16
-  %38 = getelementptr inbounds %"class.kc::impl_phylumdeclaration_PhylumDeclaration", ptr %16, i64 0, i32 4
-  %39 = load ptr, ptr %38, align 8, !tbaa !17
-  %40 = load ptr, ptr %11, align 8, !tbaa !5
-  %41 = load ptr, ptr %40, align 8
-  %42 = tail call noundef i32 %41(ptr noundef nonnull align 8 dereferenceable(8) %11)
-  %43 = icmp eq i32 %42, 18
-  br i1 %43, label %44, label %64
+if.then21:                                        ; preds = %if.end15
+  %ID_123 = getelementptr inbounds %"class.kc::impl_phylumdeclaration_PhylumDeclaration", ptr %call6, i64 0, i32 1
+  %6 = load ptr, ptr %ID_123, align 8, !tbaa !8
+  %storageoption_125 = getelementptr inbounds %"class.kc::impl_phylumdeclaration_PhylumDeclaration", ptr %call6, i64 0, i32 2
+  %7 = load ptr, ptr %storageoption_125, align 8, !tbaa !15
+  %productionblock_127 = getelementptr inbounds %"class.kc::impl_phylumdeclaration_PhylumDeclaration", ptr %call6, i64 0, i32 3
+  %8 = load ptr, ptr %productionblock_127, align 8, !tbaa !16
+  %Ccode_option_129 = getelementptr inbounds %"class.kc::impl_phylumdeclaration_PhylumDeclaration", ptr %call6, i64 0, i32 4
+  %9 = load ptr, ptr %Ccode_option_129, align 8, !tbaa !17
+  %vtable32 = load ptr, ptr %2, align 8, !tbaa !5
+  %10 = load ptr, ptr %vtable32, align 8
+  %call34 = tail call noundef i32 %10(ptr noundef nonnull align 8 dereferenceable(8) %2)
+  %cmp35 = icmp eq i32 %call34, 18
+  br i1 %cmp35, label %land.lhs.true, label %if.else52
 
-44:                                               ; preds = %31
-  %45 = load ptr, ptr %35, align 8, !tbaa !5
-  %46 = load ptr, ptr %45, align 8
-  %47 = tail call noundef i32 %46(ptr noundef nonnull align 8 dereferenceable(8) %35)
-  %48 = icmp eq i32 %47, 17
-  br i1 %48, label %49, label %64
+land.lhs.true:                                    ; preds = %if.then21
+  %vtable36 = load ptr, ptr %7, align 8, !tbaa !5
+  %11 = load ptr, ptr %vtable36, align 8
+  %call38 = tail call noundef i32 %11(ptr noundef nonnull align 8 dereferenceable(8) %7)
+  %cmp39 = icmp eq i32 %call38, 17
+  br i1 %cmp39, label %land.lhs.true40, label %if.else52
 
-49:                                               ; preds = %44
-  %50 = getelementptr inbounds %"class.kc::impl_storageoption_NegativeStorageOption", ptr %35, i64 0, i32 1
-  %51 = load ptr, ptr %50, align 8, !tbaa !18
-  %52 = getelementptr inbounds %"class.kc::impl_storageoption_PositiveStorageOption", ptr %11, i64 0, i32 1
-  %53 = load ptr, ptr %52, align 8, !tbaa !21
-  %54 = tail call noundef zeroext i1 @_ZNK2kc20impl_abstract_phylum2eqEPKS0_(ptr noundef nonnull align 8 dereferenceable(8) %51, ptr noundef %53)
-  br i1 %54, label %55, label %64
+land.lhs.true40:                                  ; preds = %land.lhs.true
+  %ID_142 = getelementptr inbounds %"class.kc::impl_storageoption_NegativeStorageOption", ptr %7, i64 0, i32 1
+  %12 = load ptr, ptr %ID_142, align 8, !tbaa !18
+  %ID_144 = getelementptr inbounds %"class.kc::impl_storageoption_PositiveStorageOption", ptr %2, i64 0, i32 1
+  %13 = load ptr, ptr %ID_144, align 8, !tbaa !21
+  %call45 = tail call noundef zeroext i1 @_ZNK2kc20impl_abstract_phylum2eqEPKS0_(ptr noundef nonnull align 8 dereferenceable(8) %12, ptr noundef %13)
+  br i1 %call45, label %if.then46, label %if.else52
 
-55:                                               ; preds = %49
-  %56 = load ptr, ptr %52, align 8, !tbaa !21
-  %57 = getelementptr inbounds %"class.kc::impl_ID", ptr %56, i64 0, i32 4
-  %58 = load ptr, ptr %57, align 8, !tbaa !23
-  %59 = getelementptr inbounds %"class.kc::impl_ID", ptr %56, i64 0, i32 3
-  %60 = load i32, ptr %59, align 8, !tbaa !25
-  %61 = tail call noundef ptr @_ZN2kc8FileLineEPNS_20impl_casestring__StrEi(ptr noundef %58, i32 noundef %60)
-  %62 = tail call noundef ptr @_ZN2kc28Problem1S1storageoption1S1IDEPKcPNS_18impl_storageoptionES1_PNS_7impl_IDE(ptr noundef nonnull @.str, ptr noundef nonnull %35, ptr noundef nonnull @.str.1, ptr noundef %33)
-  %63 = tail call noundef ptr @_ZN2kc8NonFatalEPNS_13impl_filelineEPNS_12impl_problemE(ptr noundef %61, ptr noundef %62)
-  tail call void @_ZN2kc8v_reportEPNS_10impl_errorE(ptr noundef %63)
-  br label %140
+if.then46:                                        ; preds = %land.lhs.true40
+  %14 = load ptr, ptr %ID_144, align 8, !tbaa !21
+  %file = getelementptr inbounds %"class.kc::impl_ID", ptr %14, i64 0, i32 4
+  %15 = load ptr, ptr %file, align 8, !tbaa !23
+  %line = getelementptr inbounds %"class.kc::impl_ID", ptr %14, i64 0, i32 3
+  %16 = load i32, ptr %line, align 8, !tbaa !25
+  %call49 = tail call noundef ptr @_ZN2kc8FileLineEPNS_20impl_casestring__StrEi(ptr noundef %15, i32 noundef %16)
+  %call50 = tail call noundef ptr @_ZN2kc28Problem1S1storageoption1S1IDEPKcPNS_18impl_storageoptionES1_PNS_7impl_IDE(ptr noundef nonnull @.str, ptr noundef nonnull %7, ptr noundef nonnull @.str.1, ptr noundef %6)
+  %call51 = tail call noundef ptr @_ZN2kc8NonFatalEPNS_13impl_filelineEPNS_12impl_problemE(ptr noundef %call49, ptr noundef %call50)
+  tail call void @_ZN2kc8v_reportEPNS_10impl_errorE(ptr noundef %call51)
+  br label %if.end141
 
-64:                                               ; preds = %49, %44, %31
-  %65 = load ptr, ptr %11, align 8, !tbaa !5
-  %66 = load ptr, ptr %65, align 8
-  %67 = tail call noundef i32 %66(ptr noundef nonnull align 8 dereferenceable(8) %11)
-  %68 = icmp eq i32 %67, 17
-  br i1 %68, label %69, label %89
+if.else52:                                        ; preds = %land.lhs.true40, %land.lhs.true, %if.then21
+  %vtable53 = load ptr, ptr %2, align 8, !tbaa !5
+  %17 = load ptr, ptr %vtable53, align 8
+  %call55 = tail call noundef i32 %17(ptr noundef nonnull align 8 dereferenceable(8) %2)
+  %cmp56 = icmp eq i32 %call55, 17
+  br i1 %cmp56, label %land.lhs.true57, label %if.else77
 
-69:                                               ; preds = %64
-  %70 = load ptr, ptr %35, align 8, !tbaa !5
-  %71 = load ptr, ptr %70, align 8
-  %72 = tail call noundef i32 %71(ptr noundef nonnull align 8 dereferenceable(8) %35)
-  %73 = icmp eq i32 %72, 18
-  br i1 %73, label %74, label %89
+land.lhs.true57:                                  ; preds = %if.else52
+  %vtable58 = load ptr, ptr %7, align 8, !tbaa !5
+  %18 = load ptr, ptr %vtable58, align 8
+  %call60 = tail call noundef i32 %18(ptr noundef nonnull align 8 dereferenceable(8) %7)
+  %cmp61 = icmp eq i32 %call60, 18
+  br i1 %cmp61, label %land.lhs.true62, label %if.else77
 
-74:                                               ; preds = %69
-  %75 = getelementptr inbounds %"class.kc::impl_storageoption_PositiveStorageOption", ptr %35, i64 0, i32 1
-  %76 = load ptr, ptr %75, align 8, !tbaa !21
-  %77 = getelementptr inbounds %"class.kc::impl_storageoption_NegativeStorageOption", ptr %11, i64 0, i32 1
-  %78 = load ptr, ptr %77, align 8, !tbaa !18
-  %79 = tail call noundef zeroext i1 @_ZNK2kc20impl_abstract_phylum2eqEPKS0_(ptr noundef nonnull align 8 dereferenceable(8) %76, ptr noundef %78)
-  br i1 %79, label %80, label %89
+land.lhs.true62:                                  ; preds = %land.lhs.true57
+  %ID_164 = getelementptr inbounds %"class.kc::impl_storageoption_PositiveStorageOption", ptr %7, i64 0, i32 1
+  %19 = load ptr, ptr %ID_164, align 8, !tbaa !21
+  %ID_166 = getelementptr inbounds %"class.kc::impl_storageoption_NegativeStorageOption", ptr %2, i64 0, i32 1
+  %20 = load ptr, ptr %ID_166, align 8, !tbaa !18
+  %call67 = tail call noundef zeroext i1 @_ZNK2kc20impl_abstract_phylum2eqEPKS0_(ptr noundef nonnull align 8 dereferenceable(8) %19, ptr noundef %20)
+  br i1 %call67, label %if.then68, label %if.else77
 
-80:                                               ; preds = %74
-  %81 = load ptr, ptr %77, align 8, !tbaa !18
-  %82 = getelementptr inbounds %"class.kc::impl_ID", ptr %81, i64 0, i32 4
-  %83 = load ptr, ptr %82, align 8, !tbaa !23
-  %84 = getelementptr inbounds %"class.kc::impl_ID", ptr %81, i64 0, i32 3
-  %85 = load i32, ptr %84, align 8, !tbaa !25
-  %86 = tail call noundef ptr @_ZN2kc8FileLineEPNS_20impl_casestring__StrEi(ptr noundef %83, i32 noundef %85)
-  %87 = tail call noundef ptr @_ZN2kc28Problem1S1storageoption1S1IDEPKcPNS_18impl_storageoptionES1_PNS_7impl_IDE(ptr noundef nonnull @.str, ptr noundef nonnull %35, ptr noundef nonnull @.str.1, ptr noundef %33)
-  %88 = tail call noundef ptr @_ZN2kc8NonFatalEPNS_13impl_filelineEPNS_12impl_problemE(ptr noundef %86, ptr noundef %87)
-  tail call void @_ZN2kc8v_reportEPNS_10impl_errorE(ptr noundef %88)
-  br label %140
+if.then68:                                        ; preds = %land.lhs.true62
+  %21 = load ptr, ptr %ID_166, align 8, !tbaa !18
+  %file72 = getelementptr inbounds %"class.kc::impl_ID", ptr %21, i64 0, i32 4
+  %22 = load ptr, ptr %file72, align 8, !tbaa !23
+  %line73 = getelementptr inbounds %"class.kc::impl_ID", ptr %21, i64 0, i32 3
+  %23 = load i32, ptr %line73, align 8, !tbaa !25
+  %call74 = tail call noundef ptr @_ZN2kc8FileLineEPNS_20impl_casestring__StrEi(ptr noundef %22, i32 noundef %23)
+  %call75 = tail call noundef ptr @_ZN2kc28Problem1S1storageoption1S1IDEPKcPNS_18impl_storageoptionES1_PNS_7impl_IDE(ptr noundef nonnull @.str, ptr noundef nonnull %7, ptr noundef nonnull @.str.1, ptr noundef %6)
+  %call76 = tail call noundef ptr @_ZN2kc8NonFatalEPNS_13impl_filelineEPNS_12impl_problemE(ptr noundef %call74, ptr noundef %call75)
+  tail call void @_ZN2kc8v_reportEPNS_10impl_errorE(ptr noundef %call76)
+  br label %if.end141
 
-89:                                               ; preds = %74, %69, %64
-  %90 = load ptr, ptr %11, align 8, !tbaa !5
-  %91 = load ptr, ptr %90, align 8
-  %92 = tail call noundef i32 %91(ptr noundef nonnull align 8 dereferenceable(8) %11)
-  %93 = icmp eq i32 %92, 18
-  br i1 %93, label %94, label %105
+if.else77:                                        ; preds = %land.lhs.true62, %land.lhs.true57, %if.else52
+  %vtable78 = load ptr, ptr %2, align 8, !tbaa !5
+  %24 = load ptr, ptr %vtable78, align 8
+  %call80 = tail call noundef i32 %24(ptr noundef nonnull align 8 dereferenceable(8) %2)
+  %cmp81 = icmp eq i32 %call80, 18
+  br i1 %cmp81, label %land.lhs.true82, label %if.else97
 
-94:                                               ; preds = %89
-  %95 = load ptr, ptr %35, align 8, !tbaa !5
-  %96 = load ptr, ptr %95, align 8
-  %97 = tail call noundef i32 %96(ptr noundef nonnull align 8 dereferenceable(8) %35)
-  %98 = icmp eq i32 %97, 18
-  br i1 %98, label %99, label %105
+land.lhs.true82:                                  ; preds = %if.else77
+  %vtable83 = load ptr, ptr %7, align 8, !tbaa !5
+  %25 = load ptr, ptr %vtable83, align 8
+  %call85 = tail call noundef i32 %25(ptr noundef nonnull align 8 dereferenceable(8) %7)
+  %cmp86 = icmp eq i32 %call85, 18
+  br i1 %cmp86, label %land.lhs.true87, label %if.else97
 
-99:                                               ; preds = %94
-  %100 = getelementptr inbounds %"class.kc::impl_storageoption_PositiveStorageOption", ptr %35, i64 0, i32 1
-  %101 = load ptr, ptr %100, align 8, !tbaa !21
-  %102 = getelementptr inbounds %"class.kc::impl_storageoption_PositiveStorageOption", ptr %11, i64 0, i32 1
-  %103 = load ptr, ptr %102, align 8, !tbaa !21
-  %104 = tail call noundef zeroext i1 @_ZNK2kc20impl_abstract_phylum2eqEPKS0_(ptr noundef nonnull align 8 dereferenceable(8) %101, ptr noundef %103)
-  br i1 %104, label %140, label %105
+land.lhs.true87:                                  ; preds = %land.lhs.true82
+  %ID_189 = getelementptr inbounds %"class.kc::impl_storageoption_PositiveStorageOption", ptr %7, i64 0, i32 1
+  %26 = load ptr, ptr %ID_189, align 8, !tbaa !21
+  %ID_191 = getelementptr inbounds %"class.kc::impl_storageoption_PositiveStorageOption", ptr %2, i64 0, i32 1
+  %27 = load ptr, ptr %ID_191, align 8, !tbaa !21
+  %call92 = tail call noundef zeroext i1 @_ZNK2kc20impl_abstract_phylum2eqEPKS0_(ptr noundef nonnull align 8 dereferenceable(8) %26, ptr noundef %27)
+  br i1 %call92, label %if.end141, label %if.else97
 
-105:                                              ; preds = %99, %94, %89
-  %106 = load ptr, ptr %11, align 8, !tbaa !5
-  %107 = load ptr, ptr %106, align 8
-  %108 = tail call noundef i32 %107(ptr noundef nonnull align 8 dereferenceable(8) %11)
-  %109 = icmp eq i32 %108, 17
-  br i1 %109, label %110, label %121
+if.else97:                                        ; preds = %land.lhs.true87, %land.lhs.true82, %if.else77
+  %vtable98 = load ptr, ptr %2, align 8, !tbaa !5
+  %28 = load ptr, ptr %vtable98, align 8
+  %call100 = tail call noundef i32 %28(ptr noundef nonnull align 8 dereferenceable(8) %2)
+  %cmp101 = icmp eq i32 %call100, 17
+  br i1 %cmp101, label %land.lhs.true102, label %if.else117
 
-110:                                              ; preds = %105
-  %111 = load ptr, ptr %35, align 8, !tbaa !5
-  %112 = load ptr, ptr %111, align 8
-  %113 = tail call noundef i32 %112(ptr noundef nonnull align 8 dereferenceable(8) %35)
-  %114 = icmp eq i32 %113, 17
-  br i1 %114, label %115, label %121
+land.lhs.true102:                                 ; preds = %if.else97
+  %vtable103 = load ptr, ptr %7, align 8, !tbaa !5
+  %29 = load ptr, ptr %vtable103, align 8
+  %call105 = tail call noundef i32 %29(ptr noundef nonnull align 8 dereferenceable(8) %7)
+  %cmp106 = icmp eq i32 %call105, 17
+  br i1 %cmp106, label %land.lhs.true107, label %if.else117
 
-115:                                              ; preds = %110
-  %116 = getelementptr inbounds %"class.kc::impl_storageoption_NegativeStorageOption", ptr %35, i64 0, i32 1
-  %117 = load ptr, ptr %116, align 8, !tbaa !18
-  %118 = getelementptr inbounds %"class.kc::impl_storageoption_NegativeStorageOption", ptr %11, i64 0, i32 1
-  %119 = load ptr, ptr %118, align 8, !tbaa !18
-  %120 = tail call noundef zeroext i1 @_ZNK2kc20impl_abstract_phylum2eqEPKS0_(ptr noundef nonnull align 8 dereferenceable(8) %117, ptr noundef %119)
-  br i1 %120, label %140, label %121
+land.lhs.true107:                                 ; preds = %land.lhs.true102
+  %ID_1109 = getelementptr inbounds %"class.kc::impl_storageoption_NegativeStorageOption", ptr %7, i64 0, i32 1
+  %30 = load ptr, ptr %ID_1109, align 8, !tbaa !18
+  %ID_1111 = getelementptr inbounds %"class.kc::impl_storageoption_NegativeStorageOption", ptr %2, i64 0, i32 1
+  %31 = load ptr, ptr %ID_1111, align 8, !tbaa !18
+  %call112 = tail call noundef zeroext i1 @_ZNK2kc20impl_abstract_phylum2eqEPKS0_(ptr noundef nonnull align 8 dereferenceable(8) %30, ptr noundef %31)
+  br i1 %call112, label %if.end141, label %if.else117
 
-121:                                              ; preds = %115, %110, %105
-  %122 = load ptr, ptr %11, align 8, !tbaa !5
-  %123 = load ptr, ptr %122, align 8
-  %124 = tail call noundef i32 %123(ptr noundef nonnull align 8 dereferenceable(8) %11)
-  %125 = icmp eq i32 %124, 16
-  br i1 %125, label %140, label %126
+if.else117:                                       ; preds = %land.lhs.true107, %land.lhs.true102, %if.else97
+  %vtable118 = load ptr, ptr %2, align 8, !tbaa !5
+  %32 = load ptr, ptr %vtable118, align 8
+  %call120 = tail call noundef i32 %32(ptr noundef nonnull align 8 dereferenceable(8) %2)
+  %cmp121 = icmp eq i32 %call120, 16
+  br i1 %cmp121, label %if.end141, label %if.else123
 
-126:                                              ; preds = %121
-  %127 = load ptr, ptr %35, align 8, !tbaa !5
-  %128 = load ptr, ptr %127, align 8
-  %129 = tail call noundef i32 %128(ptr noundef nonnull align 8 dereferenceable(8) %35)
-  %130 = icmp eq i32 %129, 16
-  br i1 %130, label %131, label %132
+if.else123:                                       ; preds = %if.else117
+  %vtable124 = load ptr, ptr %7, align 8, !tbaa !5
+  %33 = load ptr, ptr %vtable124, align 8
+  %call126 = tail call noundef i32 %33(ptr noundef nonnull align 8 dereferenceable(8) %7)
+  %cmp127 = icmp eq i32 %call126, 16
+  br i1 %cmp127, label %if.then128, label %if.else130
 
-131:                                              ; preds = %126
-  store ptr %11, ptr %34, align 8, !tbaa !15
-  br label %140
+if.then128:                                       ; preds = %if.else123
+  store ptr %2, ptr %storageoption_125, align 8, !tbaa !15
+  br label %if.end141
 
-132:                                              ; preds = %126
-  %133 = getelementptr inbounds %"class.kc::impl_ID", ptr %9, i64 0, i32 4
-  %134 = load ptr, ptr %133, align 8, !tbaa !23
-  %135 = getelementptr inbounds %"class.kc::impl_ID", ptr %9, i64 0, i32 3
-  %136 = load i32, ptr %135, align 8, !tbaa !25
-  %137 = tail call noundef ptr @_ZN2kc8FileLineEPNS_20impl_casestring__StrEi(ptr noundef %134, i32 noundef %136)
-  %138 = tail call noundef ptr @_ZN2kc28Problem1S1storageoption1S1IDEPKcPNS_18impl_storageoptionES1_PNS_7impl_IDE(ptr noundef nonnull @.str, ptr noundef nonnull %35, ptr noundef nonnull @.str.1, ptr noundef %33)
-  %139 = tail call noundef ptr @_ZN2kc8NonFatalEPNS_13impl_filelineEPNS_12impl_problemE(ptr noundef %137, ptr noundef %138)
-  tail call void @_ZN2kc8v_reportEPNS_10impl_errorE(ptr noundef %139)
-  br label %140
+if.else130:                                       ; preds = %if.else123
+  %file131 = getelementptr inbounds %"class.kc::impl_ID", ptr %1, i64 0, i32 4
+  %34 = load ptr, ptr %file131, align 8, !tbaa !23
+  %line132 = getelementptr inbounds %"class.kc::impl_ID", ptr %1, i64 0, i32 3
+  %35 = load i32, ptr %line132, align 8, !tbaa !25
+  %call133 = tail call noundef ptr @_ZN2kc8FileLineEPNS_20impl_casestring__StrEi(ptr noundef %34, i32 noundef %35)
+  %call134 = tail call noundef ptr @_ZN2kc28Problem1S1storageoption1S1IDEPKcPNS_18impl_storageoptionES1_PNS_7impl_IDE(ptr noundef nonnull @.str, ptr noundef nonnull %7, ptr noundef nonnull @.str.1, ptr noundef %6)
+  %call135 = tail call noundef ptr @_ZN2kc8NonFatalEPNS_13impl_filelineEPNS_12impl_problemE(ptr noundef %call133, ptr noundef %call134)
+  tail call void @_ZN2kc8v_reportEPNS_10impl_errorE(ptr noundef %call135)
+  br label %if.end141
 
-140:                                              ; preds = %115, %99, %80, %131, %132, %121, %55
-  %141 = load ptr, ptr %13, align 8, !tbaa !5
-  %142 = load ptr, ptr %141, align 8
-  %143 = tail call noundef i32 %142(ptr noundef nonnull align 8 dereferenceable(8) %13)
-  %144 = icmp eq i32 %143, 23
-  br i1 %144, label %145, label %156
+if.end141:                                        ; preds = %land.lhs.true107, %land.lhs.true87, %if.then68, %if.then128, %if.else130, %if.else117, %if.then46
+  %vtable146 = load ptr, ptr %3, align 8, !tbaa !5
+  %36 = load ptr, ptr %vtable146, align 8
+  %call148 = tail call noundef i32 %36(ptr noundef nonnull align 8 dereferenceable(8) %3)
+  %cmp149 = icmp eq i32 %call148, 23
+  br i1 %cmp149, label %land.lhs.true150, label %if.else161
 
-145:                                              ; preds = %140
-  %146 = load ptr, ptr %37, align 8, !tbaa !5
-  %147 = load ptr, ptr %146, align 8
-  %148 = tail call noundef i32 %147(ptr noundef nonnull align 8 dereferenceable(8) %37)
-  %149 = icmp eq i32 %148, 23
-  br i1 %149, label %150, label %156
+land.lhs.true150:                                 ; preds = %if.end141
+  %vtable151 = load ptr, ptr %8, align 8, !tbaa !5
+  %37 = load ptr, ptr %vtable151, align 8
+  %call153 = tail call noundef i32 %37(ptr noundef nonnull align 8 dereferenceable(8) %8)
+  %cmp154 = icmp eq i32 %call153, 23
+  br i1 %cmp154, label %if.then155, label %if.else161
 
-150:                                              ; preds = %145
-  %151 = getelementptr inbounds %"class.kc::impl_productionblock_NonlistAlternatives", ptr %13, i64 0, i32 1
-  %152 = load ptr, ptr %151, align 8, !tbaa !26
-  %153 = getelementptr inbounds %"class.kc::impl_productionblock_NonlistAlternatives", ptr %37, i64 0, i32 1
-  %154 = load ptr, ptr %153, align 8, !tbaa !26
-  %155 = tail call noundef ptr @_ZN2kc6concatEPKNS_17impl_alternativesES2_(ptr noundef %152, ptr noundef %154)
-  store ptr %155, ptr %153, align 8, !tbaa !26
-  br label %244
+if.then155:                                       ; preds = %land.lhs.true150
+  %alternatives_1 = getelementptr inbounds %"class.kc::impl_productionblock_NonlistAlternatives", ptr %3, i64 0, i32 1
+  %38 = load ptr, ptr %alternatives_1, align 8, !tbaa !26
+  %alternatives_1158 = getelementptr inbounds %"class.kc::impl_productionblock_NonlistAlternatives", ptr %8, i64 0, i32 1
+  %39 = load ptr, ptr %alternatives_1158, align 8, !tbaa !26
+  %call159 = tail call noundef ptr @_ZN2kc6concatEPKNS_17impl_alternativesES2_(ptr noundef %38, ptr noundef %39)
+  store ptr %call159, ptr %alternatives_1158, align 8, !tbaa !26
+  br label %cleanup.cont
 
-156:                                              ; preds = %145, %140
-  %157 = load ptr, ptr %13, align 8, !tbaa !5
-  %158 = load ptr, ptr %157, align 8
-  %159 = tail call noundef i32 %158(ptr noundef nonnull align 8 dereferenceable(8) %13)
-  %160 = icmp eq i32 %159, 23
-  br i1 %160, label %161, label %167
+if.else161:                                       ; preds = %land.lhs.true150, %if.end141
+  %vtable162 = load ptr, ptr %3, align 8, !tbaa !5
+  %40 = load ptr, ptr %vtable162, align 8
+  %call164 = tail call noundef i32 %40(ptr noundef nonnull align 8 dereferenceable(8) %3)
+  %cmp165 = icmp eq i32 %call164, 23
+  br i1 %cmp165, label %land.lhs.true166, label %if.else173
 
-161:                                              ; preds = %156
-  %162 = load ptr, ptr %37, align 8, !tbaa !5
-  %163 = load ptr, ptr %162, align 8
-  %164 = tail call noundef i32 %163(ptr noundef nonnull align 8 dereferenceable(8) %37)
-  %165 = icmp eq i32 %164, 21
-  br i1 %165, label %166, label %167
+land.lhs.true166:                                 ; preds = %if.else161
+  %vtable167 = load ptr, ptr %8, align 8, !tbaa !5
+  %41 = load ptr, ptr %vtable167, align 8
+  %call169 = tail call noundef i32 %41(ptr noundef nonnull align 8 dereferenceable(8) %8)
+  %cmp170 = icmp eq i32 %call169, 21
+  br i1 %cmp170, label %if.then171, label %if.else173
 
-166:                                              ; preds = %161
-  store ptr %13, ptr %36, align 8, !tbaa !16
-  br label %244
+if.then171:                                       ; preds = %land.lhs.true166
+  store ptr %3, ptr %productionblock_127, align 8, !tbaa !16
+  br label %cleanup.cont
 
-167:                                              ; preds = %161, %156
-  %168 = load ptr, ptr %13, align 8, !tbaa !5
-  %169 = load ptr, ptr %168, align 8
-  %170 = tail call noundef i32 %169(ptr noundef nonnull align 8 dereferenceable(8) %13)
-  %171 = icmp eq i32 %170, 24
-  br i1 %171, label %172, label %178
+if.else173:                                       ; preds = %land.lhs.true166, %if.else161
+  %vtable174 = load ptr, ptr %3, align 8, !tbaa !5
+  %42 = load ptr, ptr %vtable174, align 8
+  %call176 = tail call noundef i32 %42(ptr noundef nonnull align 8 dereferenceable(8) %3)
+  %cmp177 = icmp eq i32 %call176, 24
+  br i1 %cmp177, label %land.lhs.true178, label %if.else185
 
-172:                                              ; preds = %167
-  %173 = load ptr, ptr %37, align 8, !tbaa !5
-  %174 = load ptr, ptr %173, align 8
-  %175 = tail call noundef i32 %174(ptr noundef nonnull align 8 dereferenceable(8) %37)
-  %176 = icmp eq i32 %175, 21
-  br i1 %176, label %177, label %178
+land.lhs.true178:                                 ; preds = %if.else173
+  %vtable179 = load ptr, ptr %8, align 8, !tbaa !5
+  %43 = load ptr, ptr %vtable179, align 8
+  %call181 = tail call noundef i32 %43(ptr noundef nonnull align 8 dereferenceable(8) %8)
+  %cmp182 = icmp eq i32 %call181, 21
+  br i1 %cmp182, label %if.then183, label %if.else185
 
-177:                                              ; preds = %172
-  store ptr %13, ptr %36, align 8, !tbaa !16
-  br label %244
+if.then183:                                       ; preds = %land.lhs.true178
+  store ptr %3, ptr %productionblock_127, align 8, !tbaa !16
+  br label %cleanup.cont
 
-178:                                              ; preds = %172, %167
-  %179 = load ptr, ptr %13, align 8, !tbaa !5
-  %180 = load ptr, ptr %179, align 8
-  %181 = tail call noundef i32 %180(ptr noundef nonnull align 8 dereferenceable(8) %13)
-  %182 = icmp eq i32 %181, 22
-  br i1 %182, label %183, label %189
+if.else185:                                       ; preds = %land.lhs.true178, %if.else173
+  %vtable186 = load ptr, ptr %3, align 8, !tbaa !5
+  %44 = load ptr, ptr %vtable186, align 8
+  %call188 = tail call noundef i32 %44(ptr noundef nonnull align 8 dereferenceable(8) %3)
+  %cmp189 = icmp eq i32 %call188, 22
+  br i1 %cmp189, label %land.lhs.true190, label %if.else197
 
-183:                                              ; preds = %178
-  %184 = load ptr, ptr %37, align 8, !tbaa !5
-  %185 = load ptr, ptr %184, align 8
-  %186 = tail call noundef i32 %185(ptr noundef nonnull align 8 dereferenceable(8) %37)
-  %187 = icmp eq i32 %186, 21
-  br i1 %187, label %188, label %189
+land.lhs.true190:                                 ; preds = %if.else185
+  %vtable191 = load ptr, ptr %8, align 8, !tbaa !5
+  %45 = load ptr, ptr %vtable191, align 8
+  %call193 = tail call noundef i32 %45(ptr noundef nonnull align 8 dereferenceable(8) %8)
+  %cmp194 = icmp eq i32 %call193, 21
+  br i1 %cmp194, label %if.then195, label %if.else197
 
-188:                                              ; preds = %183
-  store ptr %13, ptr %36, align 8, !tbaa !16
-  br label %244
+if.then195:                                       ; preds = %land.lhs.true190
+  store ptr %3, ptr %productionblock_127, align 8, !tbaa !16
+  br label %cleanup.cont
 
-189:                                              ; preds = %183, %178
-  %190 = load ptr, ptr %13, align 8, !tbaa !5
-  %191 = load ptr, ptr %190, align 8
-  %192 = tail call noundef i32 %191(ptr noundef nonnull align 8 dereferenceable(8) %13)
-  %193 = icmp eq i32 %192, 21
-  br i1 %193, label %194, label %199
+if.else197:                                       ; preds = %land.lhs.true190, %if.else185
+  %vtable198 = load ptr, ptr %3, align 8, !tbaa !5
+  %46 = load ptr, ptr %vtable198, align 8
+  %call200 = tail call noundef i32 %46(ptr noundef nonnull align 8 dereferenceable(8) %3)
+  %cmp201 = icmp eq i32 %call200, 21
+  br i1 %cmp201, label %land.lhs.true202, label %if.else208
 
-194:                                              ; preds = %189
-  %195 = load ptr, ptr %37, align 8, !tbaa !5
-  %196 = load ptr, ptr %195, align 8
-  %197 = tail call noundef i32 %196(ptr noundef nonnull align 8 dereferenceable(8) %37)
-  %198 = icmp eq i32 %197, 21
-  br i1 %198, label %244, label %199
+land.lhs.true202:                                 ; preds = %if.else197
+  %vtable203 = load ptr, ptr %8, align 8, !tbaa !5
+  %47 = load ptr, ptr %vtable203, align 8
+  %call205 = tail call noundef i32 %47(ptr noundef nonnull align 8 dereferenceable(8) %8)
+  %cmp206 = icmp eq i32 %call205, 21
+  br i1 %cmp206, label %cleanup.cont, label %if.else208
 
-199:                                              ; preds = %194, %189
-  %200 = load ptr, ptr %13, align 8, !tbaa !5
-  %201 = load ptr, ptr %200, align 8
-  %202 = tail call noundef i32 %201(ptr noundef nonnull align 8 dereferenceable(8) %13)
-  %203 = icmp eq i32 %202, 23
-  br i1 %203, label %204, label %212
+if.else208:                                       ; preds = %land.lhs.true202, %if.else197
+  %vtable209 = load ptr, ptr %3, align 8, !tbaa !5
+  %48 = load ptr, ptr %vtable209, align 8
+  %call211 = tail call noundef i32 %48(ptr noundef nonnull align 8 dereferenceable(8) %3)
+  %cmp212 = icmp eq i32 %call211, 23
+  br i1 %cmp212, label %if.then213, label %if.else219
 
-204:                                              ; preds = %199
-  %205 = getelementptr inbounds %"class.kc::impl_ID", ptr %9, i64 0, i32 4
-  %206 = load ptr, ptr %205, align 8, !tbaa !23
-  %207 = getelementptr inbounds %"class.kc::impl_ID", ptr %9, i64 0, i32 3
-  %208 = load i32, ptr %207, align 8, !tbaa !25
-  %209 = tail call noundef ptr @_ZN2kc8FileLineEPNS_20impl_casestring__StrEi(ptr noundef %206, i32 noundef %208)
-  %210 = tail call noundef ptr @_ZN2kc12Problem1S1IDEPKcPNS_7impl_IDE(ptr noundef nonnull @.str.2, ptr noundef %9)
-  %211 = tail call noundef ptr @_ZN2kc8NonFatalEPNS_13impl_filelineEPNS_12impl_problemE(ptr noundef %209, ptr noundef %210)
-  tail call void @_ZN2kc8v_reportEPNS_10impl_errorE(ptr noundef %211)
-  br label %244
+if.then213:                                       ; preds = %if.else208
+  %file214 = getelementptr inbounds %"class.kc::impl_ID", ptr %1, i64 0, i32 4
+  %49 = load ptr, ptr %file214, align 8, !tbaa !23
+  %line215 = getelementptr inbounds %"class.kc::impl_ID", ptr %1, i64 0, i32 3
+  %50 = load i32, ptr %line215, align 8, !tbaa !25
+  %call216 = tail call noundef ptr @_ZN2kc8FileLineEPNS_20impl_casestring__StrEi(ptr noundef %49, i32 noundef %50)
+  %call217 = tail call noundef ptr @_ZN2kc12Problem1S1IDEPKcPNS_7impl_IDE(ptr noundef nonnull @.str.2, ptr noundef %1)
+  %call218 = tail call noundef ptr @_ZN2kc8NonFatalEPNS_13impl_filelineEPNS_12impl_problemE(ptr noundef %call216, ptr noundef %call217)
+  tail call void @_ZN2kc8v_reportEPNS_10impl_errorE(ptr noundef %call218)
+  br label %cleanup.cont
 
-212:                                              ; preds = %199
-  %213 = load ptr, ptr %13, align 8, !tbaa !5
-  %214 = load ptr, ptr %213, align 8
-  %215 = tail call noundef i32 %214(ptr noundef nonnull align 8 dereferenceable(8) %13)
-  %216 = icmp eq i32 %215, 24
-  br i1 %216, label %217, label %225
+if.else219:                                       ; preds = %if.else208
+  %vtable220 = load ptr, ptr %3, align 8, !tbaa !5
+  %51 = load ptr, ptr %vtable220, align 8
+  %call222 = tail call noundef i32 %51(ptr noundef nonnull align 8 dereferenceable(8) %3)
+  %cmp223 = icmp eq i32 %call222, 24
+  br i1 %cmp223, label %if.then224, label %if.else230
 
-217:                                              ; preds = %212
-  %218 = getelementptr inbounds %"class.kc::impl_ID", ptr %9, i64 0, i32 4
-  %219 = load ptr, ptr %218, align 8, !tbaa !23
-  %220 = getelementptr inbounds %"class.kc::impl_ID", ptr %9, i64 0, i32 3
-  %221 = load i32, ptr %220, align 8, !tbaa !25
-  %222 = tail call noundef ptr @_ZN2kc8FileLineEPNS_20impl_casestring__StrEi(ptr noundef %219, i32 noundef %221)
-  %223 = tail call noundef ptr @_ZN2kc12Problem1S1IDEPKcPNS_7impl_IDE(ptr noundef nonnull @.str.3, ptr noundef %9)
-  %224 = tail call noundef ptr @_ZN2kc8NonFatalEPNS_13impl_filelineEPNS_12impl_problemE(ptr noundef %222, ptr noundef %223)
-  tail call void @_ZN2kc8v_reportEPNS_10impl_errorE(ptr noundef %224)
-  br label %244
+if.then224:                                       ; preds = %if.else219
+  %file225 = getelementptr inbounds %"class.kc::impl_ID", ptr %1, i64 0, i32 4
+  %52 = load ptr, ptr %file225, align 8, !tbaa !23
+  %line226 = getelementptr inbounds %"class.kc::impl_ID", ptr %1, i64 0, i32 3
+  %53 = load i32, ptr %line226, align 8, !tbaa !25
+  %call227 = tail call noundef ptr @_ZN2kc8FileLineEPNS_20impl_casestring__StrEi(ptr noundef %52, i32 noundef %53)
+  %call228 = tail call noundef ptr @_ZN2kc12Problem1S1IDEPKcPNS_7impl_IDE(ptr noundef nonnull @.str.3, ptr noundef %1)
+  %call229 = tail call noundef ptr @_ZN2kc8NonFatalEPNS_13impl_filelineEPNS_12impl_problemE(ptr noundef %call227, ptr noundef %call228)
+  tail call void @_ZN2kc8v_reportEPNS_10impl_errorE(ptr noundef %call229)
+  br label %cleanup.cont
 
-225:                                              ; preds = %212
-  %226 = load ptr, ptr %13, align 8, !tbaa !5
-  %227 = load ptr, ptr %226, align 8
-  %228 = tail call noundef i32 %227(ptr noundef nonnull align 8 dereferenceable(8) %13)
-  %229 = icmp eq i32 %228, 22
-  br i1 %229, label %230, label %238
+if.else230:                                       ; preds = %if.else219
+  %vtable231 = load ptr, ptr %3, align 8, !tbaa !5
+  %54 = load ptr, ptr %vtable231, align 8
+  %call233 = tail call noundef i32 %54(ptr noundef nonnull align 8 dereferenceable(8) %3)
+  %cmp234 = icmp eq i32 %call233, 22
+  br i1 %cmp234, label %if.then235, label %if.else241
 
-230:                                              ; preds = %225
-  %231 = getelementptr inbounds %"class.kc::impl_ID", ptr %9, i64 0, i32 4
-  %232 = load ptr, ptr %231, align 8, !tbaa !23
-  %233 = getelementptr inbounds %"class.kc::impl_ID", ptr %9, i64 0, i32 3
-  %234 = load i32, ptr %233, align 8, !tbaa !25
-  %235 = tail call noundef ptr @_ZN2kc8FileLineEPNS_20impl_casestring__StrEi(ptr noundef %232, i32 noundef %234)
-  %236 = tail call noundef ptr @_ZN2kc12Problem1S1IDEPKcPNS_7impl_IDE(ptr noundef nonnull @.str.4, ptr noundef %9)
-  %237 = tail call noundef ptr @_ZN2kc8NonFatalEPNS_13impl_filelineEPNS_12impl_problemE(ptr noundef %235, ptr noundef %236)
-  tail call void @_ZN2kc8v_reportEPNS_10impl_errorE(ptr noundef %237)
-  br label %244
+if.then235:                                       ; preds = %if.else230
+  %file236 = getelementptr inbounds %"class.kc::impl_ID", ptr %1, i64 0, i32 4
+  %55 = load ptr, ptr %file236, align 8, !tbaa !23
+  %line237 = getelementptr inbounds %"class.kc::impl_ID", ptr %1, i64 0, i32 3
+  %56 = load i32, ptr %line237, align 8, !tbaa !25
+  %call238 = tail call noundef ptr @_ZN2kc8FileLineEPNS_20impl_casestring__StrEi(ptr noundef %55, i32 noundef %56)
+  %call239 = tail call noundef ptr @_ZN2kc12Problem1S1IDEPKcPNS_7impl_IDE(ptr noundef nonnull @.str.4, ptr noundef %1)
+  %call240 = tail call noundef ptr @_ZN2kc8NonFatalEPNS_13impl_filelineEPNS_12impl_problemE(ptr noundef %call238, ptr noundef %call239)
+  tail call void @_ZN2kc8v_reportEPNS_10impl_errorE(ptr noundef %call240)
+  br label %cleanup.cont
 
-238:                                              ; preds = %225
-  %239 = load ptr, ptr %13, align 8, !tbaa !5
-  %240 = load ptr, ptr %239, align 8
-  %241 = tail call noundef i32 %240(ptr noundef nonnull align 8 dereferenceable(8) %13)
-  %242 = icmp eq i32 %241, 21
-  br i1 %242, label %244, label %243
+if.else241:                                       ; preds = %if.else230
+  %vtable242 = load ptr, ptr %3, align 8, !tbaa !5
+  %57 = load ptr, ptr %vtable242, align 8
+  %call244 = tail call noundef i32 %57(ptr noundef nonnull align 8 dereferenceable(8) %3)
+  %cmp245 = icmp eq i32 %call244, 21
+  br i1 %cmp245, label %cleanup.cont, label %if.else247
 
-243:                                              ; preds = %238
+if.else247:                                       ; preds = %if.else241
   tail call void @_ZN2kc21kc_no_default_in_withEPKciS1_(ptr noundef nonnull @.str.5, i32 noundef 189, ptr noundef nonnull @.str.6)
-  br label %269
+  br label %cleanup305
 
-244:                                              ; preds = %166, %188, %204, %230, %238, %217, %194, %177, %150
-  %245 = load ptr, ptr %15, align 8, !tbaa !5
-  %246 = load ptr, ptr %245, align 8
-  %247 = tail call noundef i32 %246(ptr noundef nonnull align 8 dereferenceable(8) %15)
-  %248 = icmp eq i32 %247, 31
-  br i1 %248, label %249, label %254
+cleanup.cont:                                     ; preds = %if.then171, %if.then195, %if.then213, %if.then235, %if.else241, %if.then224, %land.lhs.true202, %if.then183, %if.then155
+  %vtable262 = load ptr, ptr %4, align 8, !tbaa !5
+  %58 = load ptr, ptr %vtable262, align 8
+  %call264 = tail call noundef i32 %58(ptr noundef nonnull align 8 dereferenceable(8) %4)
+  %cmp265 = icmp eq i32 %call264, 31
+  br i1 %cmp265, label %land.lhs.true266, label %if.else282
 
-249:                                              ; preds = %244
-  %250 = load ptr, ptr %39, align 8, !tbaa !5
-  %251 = load ptr, ptr %250, align 8
-  %252 = tail call noundef i32 %251(ptr noundef nonnull align 8 dereferenceable(8) %39)
-  %253 = icmp eq i32 %252, 31
-  br i1 %253, label %256, label %254
+land.lhs.true266:                                 ; preds = %cleanup.cont
+  %vtable267 = load ptr, ptr %9, align 8, !tbaa !5
+  %59 = load ptr, ptr %vtable267, align 8
+  %call269 = tail call noundef i32 %59(ptr noundef nonnull align 8 dereferenceable(8) %9)
+  %cmp270 = icmp eq i32 %call269, 31
+  br i1 %cmp270, label %60, label %if.else282
 
-254:                                              ; preds = %249, %244
+if.else282:                                       ; preds = %land.lhs.true266, %cleanup.cont
   tail call void @_ZN2kc21kc_no_default_in_withEPKciS1_(ptr noundef nonnull @.str.5, i32 noundef 204, ptr noundef nonnull @.str.6)
-  br label %269
+  br label %cleanup305
 
-255:                                              ; preds = %26
+if.else294:                                       ; preds = %if.end15
   tail call void @_ZN2kc21kc_no_default_in_withEPKciS1_(ptr noundef nonnull @.str.5, i32 noundef 209, ptr noundef nonnull @.str.6)
-  br label %269
+  br label %cleanup305
 
-256:                                              ; preds = %249
-  %257 = getelementptr inbounds %"class.kc::impl_Ccode_option_CcodeOption", ptr %15, i64 0, i32 1
-  %258 = load ptr, ptr %257, align 8, !tbaa !29
-  %259 = getelementptr inbounds %"class.kc::impl_Ccode_option_CcodeOption", ptr %15, i64 0, i32 2
-  %260 = load ptr, ptr %259, align 8, !tbaa !32
-  %261 = getelementptr inbounds %"class.kc::impl_Ccode_option_CcodeOption", ptr %39, i64 0, i32 1
-  %262 = load ptr, ptr %261, align 8, !tbaa !29
-  %263 = getelementptr inbounds %"class.kc::impl_Ccode_option_CcodeOption", ptr %39, i64 0, i32 2
-  %264 = load ptr, ptr %263, align 8, !tbaa !32
-  %265 = tail call noundef ptr @_ZN2kc6concatEPKNS_15impl_attributesES2_(ptr noundef %258, ptr noundef %262)
-  %266 = tail call noundef ptr @_ZN2kc6concatEPKNS_11impl_CtextsES2_(ptr noundef %260, ptr noundef %264)
-  %267 = tail call noundef ptr @_ZN2kc11CcodeOptionEPNS_15impl_attributesEPNS_11impl_CtextsE(ptr noundef %265, ptr noundef %266)
-  store ptr %267, ptr %38, align 8, !tbaa !17
-  br label %269
+60:                                               ; preds = %land.lhs.true266
+  %attributes_1 = getelementptr inbounds %"class.kc::impl_Ccode_option_CcodeOption", ptr %4, i64 0, i32 1
+  %61 = load ptr, ptr %attributes_1, align 8, !tbaa !29
+  %Ctexts_1 = getelementptr inbounds %"class.kc::impl_Ccode_option_CcodeOption", ptr %4, i64 0, i32 2
+  %62 = load ptr, ptr %Ctexts_1, align 8, !tbaa !32
+  %attributes_1275 = getelementptr inbounds %"class.kc::impl_Ccode_option_CcodeOption", ptr %9, i64 0, i32 1
+  %63 = load ptr, ptr %attributes_1275, align 8, !tbaa !29
+  %Ctexts_1277 = getelementptr inbounds %"class.kc::impl_Ccode_option_CcodeOption", ptr %9, i64 0, i32 2
+  %64 = load ptr, ptr %Ctexts_1277, align 8, !tbaa !32
+  %call278 = tail call noundef ptr @_ZN2kc6concatEPKNS_15impl_attributesES2_(ptr noundef %61, ptr noundef %63)
+  %call279 = tail call noundef ptr @_ZN2kc6concatEPKNS_11impl_CtextsES2_(ptr noundef %62, ptr noundef %64)
+  %call280 = tail call noundef ptr @_ZN2kc11CcodeOptionEPNS_15impl_attributesEPNS_11impl_CtextsE(ptr noundef %call278, ptr noundef %call279)
+  store ptr %call280, ptr %Ccode_option_129, align 8, !tbaa !17
+  br label %cleanup305
 
-268:                                              ; preds = %2
+if.else304:                                       ; preds = %entry
   tail call void @_ZN2kc21kc_no_default_in_withEPKciS1_(ptr noundef nonnull @.str.5, i32 noundef 215, ptr noundef nonnull @.str.6)
-  br label %269
+  br label %cleanup305
 
-269:                                              ; preds = %254, %243, %255, %18, %24, %256, %22, %268
-  %270 = phi ptr [ null, %268 ], [ %25, %24 ], [ %1, %256 ], [ %19, %18 ], [ %1, %22 ], [ null, %255 ], [ null, %243 ], [ null, %254 ]
-  ret ptr %270
+cleanup305:                                       ; preds = %if.else282, %if.else247, %if.else294, %60, %if.then7, %if.else13, %if.then10, %if.else304
+  %retval.5 = phi ptr [ null, %if.else304 ], [ %call14, %if.else13 ], [ %call8, %if.then7 ], [ %pds, %if.then10 ], [ %pds, %60 ], [ null, %if.else294 ], [ null, %if.else247 ], [ null, %if.else282 ]
+  ret ptr %retval.5
 }
 
 ; Function Attrs: mustprogress nocallback nofree nosync nounwind willreturn memory(argmem: readwrite)
 declare void @llvm.lifetime.start.p0(i64 immarg, ptr nocapture) #1
 
 ; Function Attrs: mustprogress uwtable
-define dso_local noundef ptr @_ZN2kc16f_lookupuserdeclEPNS_7impl_IDE(ptr noundef %0) local_unnamed_addr #0 {
-  %2 = load ptr, ptr %0, align 8, !tbaa !5
-  %3 = load ptr, ptr %2, align 8
-  %4 = tail call noundef i32 %3(ptr noundef nonnull align 8 dereferenceable(8) %0)
-  %5 = icmp eq i32 %4, 7
-  br i1 %5, label %6, label %162
+define dso_local noundef ptr @_ZN2kc16f_lookupuserdeclEPNS_7impl_IDE(ptr noundef %id) local_unnamed_addr #0 {
+entry:
+  %vtable = load ptr, ptr %id, align 8, !tbaa !5
+  %0 = load ptr, ptr %vtable, align 8
+  %call1 = tail call noundef i32 %0(ptr noundef nonnull align 8 dereferenceable(8) %id)
+  %cmp = icmp eq i32 %call1, 7
+  br i1 %cmp, label %if.then, label %if.else130
 
-6:                                                ; preds = %1
-  %7 = getelementptr inbounds %"class.kc::impl_ID_Id", ptr %0, i64 0, i32 1
-  %8 = load ptr, ptr %7, align 8, !tbaa !33
-  %9 = getelementptr inbounds %"class.kc::impl_uniqID", ptr %8, i64 0, i32 1
-  %10 = load ptr, ptr %9, align 8, !tbaa !35
-  %11 = load ptr, ptr %10, align 8, !tbaa !5
-  %12 = load ptr, ptr %11, align 8
-  %13 = tail call noundef i32 %12(ptr noundef nonnull align 8 dereferenceable(8) %10)
-  %14 = icmp eq i32 %13, 184
-  br i1 %14, label %15, label %23
+if.then:                                          ; preds = %entry
+  %uniqID_1 = getelementptr inbounds %"class.kc::impl_ID_Id", ptr %id, i64 0, i32 1
+  %1 = load ptr, ptr %uniqID_1, align 8, !tbaa !33
+  %type = getelementptr inbounds %"class.kc::impl_uniqID", ptr %1, i64 0, i32 1
+  %2 = load ptr, ptr %type, align 8, !tbaa !35
+  %vtable4 = load ptr, ptr %2, align 8, !tbaa !5
+  %3 = load ptr, ptr %vtable4, align 8
+  %call6 = tail call noundef i32 %3(ptr noundef nonnull align 8 dereferenceable(8) %2)
+  %cmp7 = icmp eq i32 %call6, 184
+  br i1 %cmp7, label %if.then8, label %if.else
 
-15:                                               ; preds = %6
-  %16 = getelementptr inbounds %"class.kc::impl_ID", ptr %0, i64 0, i32 4
-  %17 = load ptr, ptr %16, align 8, !tbaa !23
-  %18 = getelementptr inbounds %"class.kc::impl_ID", ptr %0, i64 0, i32 3
-  %19 = load i32, ptr %18, align 8, !tbaa !25
-  %20 = tail call noundef ptr @_ZN2kc8FileLineEPNS_20impl_casestring__StrEi(ptr noundef %17, i32 noundef %19)
-  %21 = tail call noundef ptr @_ZN2kc12Problem1S1IDEPKcPNS_7impl_IDE(ptr noundef nonnull @.str.10, ptr noundef nonnull %0)
-  %22 = tail call noundef ptr @_ZN2kc8NonFatalEPNS_13impl_filelineEPNS_12impl_problemE(ptr noundef %20, ptr noundef %21)
-  tail call void @_ZN2kc8v_reportEPNS_10impl_errorE(ptr noundef %22)
-  br label %163
+if.then8:                                         ; preds = %if.then
+  %file = getelementptr inbounds %"class.kc::impl_ID", ptr %id, i64 0, i32 4
+  %4 = load ptr, ptr %file, align 8, !tbaa !23
+  %line = getelementptr inbounds %"class.kc::impl_ID", ptr %id, i64 0, i32 3
+  %5 = load i32, ptr %line, align 8, !tbaa !25
+  %call9 = tail call noundef ptr @_ZN2kc8FileLineEPNS_20impl_casestring__StrEi(ptr noundef %4, i32 noundef %5)
+  %call10 = tail call noundef ptr @_ZN2kc12Problem1S1IDEPKcPNS_7impl_IDE(ptr noundef nonnull @.str.10, ptr noundef nonnull %id)
+  %call11 = tail call noundef ptr @_ZN2kc8NonFatalEPNS_13impl_filelineEPNS_12impl_problemE(ptr noundef %call9, ptr noundef %call10)
+  tail call void @_ZN2kc8v_reportEPNS_10impl_errorE(ptr noundef %call11)
+  br label %cleanup131
 
-23:                                               ; preds = %6
-  %24 = load ptr, ptr %10, align 8, !tbaa !5
-  %25 = load ptr, ptr %24, align 8
-  %26 = tail call noundef i32 %25(ptr noundef nonnull align 8 dereferenceable(8) %10)
-  %27 = icmp eq i32 %26, 183
-  br i1 %27, label %28, label %36
+if.else:                                          ; preds = %if.then
+  %vtable12 = load ptr, ptr %2, align 8, !tbaa !5
+  %6 = load ptr, ptr %vtable12, align 8
+  %call14 = tail call noundef i32 %6(ptr noundef nonnull align 8 dereferenceable(8) %2)
+  %cmp15 = icmp eq i32 %call14, 183
+  br i1 %cmp15, label %if.then16, label %if.else22
 
-28:                                               ; preds = %23
-  %29 = getelementptr inbounds %"class.kc::impl_ID", ptr %0, i64 0, i32 4
-  %30 = load ptr, ptr %29, align 8, !tbaa !23
-  %31 = getelementptr inbounds %"class.kc::impl_ID", ptr %0, i64 0, i32 3
-  %32 = load i32, ptr %31, align 8, !tbaa !25
-  %33 = tail call noundef ptr @_ZN2kc8FileLineEPNS_20impl_casestring__StrEi(ptr noundef %30, i32 noundef %32)
-  %34 = tail call noundef ptr @_ZN2kc12Problem1S1IDEPKcPNS_7impl_IDE(ptr noundef nonnull @.str.11, ptr noundef nonnull %0)
-  %35 = tail call noundef ptr @_ZN2kc8NonFatalEPNS_13impl_filelineEPNS_12impl_problemE(ptr noundef %33, ptr noundef %34)
-  tail call void @_ZN2kc8v_reportEPNS_10impl_errorE(ptr noundef %35)
-  br label %163
+if.then16:                                        ; preds = %if.else
+  %file17 = getelementptr inbounds %"class.kc::impl_ID", ptr %id, i64 0, i32 4
+  %7 = load ptr, ptr %file17, align 8, !tbaa !23
+  %line18 = getelementptr inbounds %"class.kc::impl_ID", ptr %id, i64 0, i32 3
+  %8 = load i32, ptr %line18, align 8, !tbaa !25
+  %call19 = tail call noundef ptr @_ZN2kc8FileLineEPNS_20impl_casestring__StrEi(ptr noundef %7, i32 noundef %8)
+  %call20 = tail call noundef ptr @_ZN2kc12Problem1S1IDEPKcPNS_7impl_IDE(ptr noundef nonnull @.str.11, ptr noundef nonnull %id)
+  %call21 = tail call noundef ptr @_ZN2kc8NonFatalEPNS_13impl_filelineEPNS_12impl_problemE(ptr noundef %call19, ptr noundef %call20)
+  tail call void @_ZN2kc8v_reportEPNS_10impl_errorE(ptr noundef %call21)
+  br label %cleanup131
 
-36:                                               ; preds = %23
-  %37 = load ptr, ptr %10, align 8, !tbaa !5
-  %38 = load ptr, ptr %37, align 8
-  %39 = tail call noundef i32 %38(ptr noundef nonnull align 8 dereferenceable(8) %10)
-  %40 = icmp eq i32 %39, 182
-  br i1 %40, label %41, label %49
+if.else22:                                        ; preds = %if.else
+  %vtable23 = load ptr, ptr %2, align 8, !tbaa !5
+  %9 = load ptr, ptr %vtable23, align 8
+  %call25 = tail call noundef i32 %9(ptr noundef nonnull align 8 dereferenceable(8) %2)
+  %cmp26 = icmp eq i32 %call25, 182
+  br i1 %cmp26, label %if.then27, label %if.else33
 
-41:                                               ; preds = %36
-  %42 = getelementptr inbounds %"class.kc::impl_ID", ptr %0, i64 0, i32 4
-  %43 = load ptr, ptr %42, align 8, !tbaa !23
-  %44 = getelementptr inbounds %"class.kc::impl_ID", ptr %0, i64 0, i32 3
-  %45 = load i32, ptr %44, align 8, !tbaa !25
-  %46 = tail call noundef ptr @_ZN2kc8FileLineEPNS_20impl_casestring__StrEi(ptr noundef %43, i32 noundef %45)
-  %47 = tail call noundef ptr @_ZN2kc12Problem1S1IDEPKcPNS_7impl_IDE(ptr noundef nonnull @.str.12, ptr noundef nonnull %0)
-  %48 = tail call noundef ptr @_ZN2kc8NonFatalEPNS_13impl_filelineEPNS_12impl_problemE(ptr noundef %46, ptr noundef %47)
-  tail call void @_ZN2kc8v_reportEPNS_10impl_errorE(ptr noundef %48)
-  br label %163
+if.then27:                                        ; preds = %if.else22
+  %file28 = getelementptr inbounds %"class.kc::impl_ID", ptr %id, i64 0, i32 4
+  %10 = load ptr, ptr %file28, align 8, !tbaa !23
+  %line29 = getelementptr inbounds %"class.kc::impl_ID", ptr %id, i64 0, i32 3
+  %11 = load i32, ptr %line29, align 8, !tbaa !25
+  %call30 = tail call noundef ptr @_ZN2kc8FileLineEPNS_20impl_casestring__StrEi(ptr noundef %10, i32 noundef %11)
+  %call31 = tail call noundef ptr @_ZN2kc12Problem1S1IDEPKcPNS_7impl_IDE(ptr noundef nonnull @.str.12, ptr noundef nonnull %id)
+  %call32 = tail call noundef ptr @_ZN2kc8NonFatalEPNS_13impl_filelineEPNS_12impl_problemE(ptr noundef %call30, ptr noundef %call31)
+  tail call void @_ZN2kc8v_reportEPNS_10impl_errorE(ptr noundef %call32)
+  br label %cleanup131
 
-49:                                               ; preds = %36
-  %50 = load ptr, ptr %10, align 8, !tbaa !5
-  %51 = load ptr, ptr %50, align 8
-  %52 = tail call noundef i32 %51(ptr noundef nonnull align 8 dereferenceable(8) %10)
-  %53 = icmp eq i32 %52, 180
-  br i1 %53, label %54, label %62
+if.else33:                                        ; preds = %if.else22
+  %vtable34 = load ptr, ptr %2, align 8, !tbaa !5
+  %12 = load ptr, ptr %vtable34, align 8
+  %call36 = tail call noundef i32 %12(ptr noundef nonnull align 8 dereferenceable(8) %2)
+  %cmp37 = icmp eq i32 %call36, 180
+  br i1 %cmp37, label %if.then38, label %if.else44
 
-54:                                               ; preds = %49
-  %55 = getelementptr inbounds %"class.kc::impl_ID", ptr %0, i64 0, i32 4
-  %56 = load ptr, ptr %55, align 8, !tbaa !23
-  %57 = getelementptr inbounds %"class.kc::impl_ID", ptr %0, i64 0, i32 3
-  %58 = load i32, ptr %57, align 8, !tbaa !25
-  %59 = tail call noundef ptr @_ZN2kc8FileLineEPNS_20impl_casestring__StrEi(ptr noundef %56, i32 noundef %58)
-  %60 = tail call noundef ptr @_ZN2kc12Problem1S1IDEPKcPNS_7impl_IDE(ptr noundef nonnull @.str.13, ptr noundef nonnull %0)
-  %61 = tail call noundef ptr @_ZN2kc8NonFatalEPNS_13impl_filelineEPNS_12impl_problemE(ptr noundef %59, ptr noundef %60)
-  tail call void @_ZN2kc8v_reportEPNS_10impl_errorE(ptr noundef %61)
-  br label %163
+if.then38:                                        ; preds = %if.else33
+  %file39 = getelementptr inbounds %"class.kc::impl_ID", ptr %id, i64 0, i32 4
+  %13 = load ptr, ptr %file39, align 8, !tbaa !23
+  %line40 = getelementptr inbounds %"class.kc::impl_ID", ptr %id, i64 0, i32 3
+  %14 = load i32, ptr %line40, align 8, !tbaa !25
+  %call41 = tail call noundef ptr @_ZN2kc8FileLineEPNS_20impl_casestring__StrEi(ptr noundef %13, i32 noundef %14)
+  %call42 = tail call noundef ptr @_ZN2kc12Problem1S1IDEPKcPNS_7impl_IDE(ptr noundef nonnull @.str.13, ptr noundef nonnull %id)
+  %call43 = tail call noundef ptr @_ZN2kc8NonFatalEPNS_13impl_filelineEPNS_12impl_problemE(ptr noundef %call41, ptr noundef %call42)
+  tail call void @_ZN2kc8v_reportEPNS_10impl_errorE(ptr noundef %call43)
+  br label %cleanup131
 
-62:                                               ; preds = %49
-  %63 = load ptr, ptr %10, align 8, !tbaa !5
-  %64 = load ptr, ptr %63, align 8
-  %65 = tail call noundef i32 %64(ptr noundef nonnull align 8 dereferenceable(8) %10)
-  %66 = icmp eq i32 %65, 179
-  br i1 %66, label %67, label %75
+if.else44:                                        ; preds = %if.else33
+  %vtable45 = load ptr, ptr %2, align 8, !tbaa !5
+  %15 = load ptr, ptr %vtable45, align 8
+  %call47 = tail call noundef i32 %15(ptr noundef nonnull align 8 dereferenceable(8) %2)
+  %cmp48 = icmp eq i32 %call47, 179
+  br i1 %cmp48, label %if.then49, label %if.else55
 
-67:                                               ; preds = %62
-  %68 = getelementptr inbounds %"class.kc::impl_ID", ptr %0, i64 0, i32 4
-  %69 = load ptr, ptr %68, align 8, !tbaa !23
-  %70 = getelementptr inbounds %"class.kc::impl_ID", ptr %0, i64 0, i32 3
-  %71 = load i32, ptr %70, align 8, !tbaa !25
-  %72 = tail call noundef ptr @_ZN2kc8FileLineEPNS_20impl_casestring__StrEi(ptr noundef %69, i32 noundef %71)
-  %73 = tail call noundef ptr @_ZN2kc12Problem1S1IDEPKcPNS_7impl_IDE(ptr noundef nonnull @.str.14, ptr noundef nonnull %0)
-  %74 = tail call noundef ptr @_ZN2kc8NonFatalEPNS_13impl_filelineEPNS_12impl_problemE(ptr noundef %72, ptr noundef %73)
-  tail call void @_ZN2kc8v_reportEPNS_10impl_errorE(ptr noundef %74)
-  br label %163
+if.then49:                                        ; preds = %if.else44
+  %file50 = getelementptr inbounds %"class.kc::impl_ID", ptr %id, i64 0, i32 4
+  %16 = load ptr, ptr %file50, align 8, !tbaa !23
+  %line51 = getelementptr inbounds %"class.kc::impl_ID", ptr %id, i64 0, i32 3
+  %17 = load i32, ptr %line51, align 8, !tbaa !25
+  %call52 = tail call noundef ptr @_ZN2kc8FileLineEPNS_20impl_casestring__StrEi(ptr noundef %16, i32 noundef %17)
+  %call53 = tail call noundef ptr @_ZN2kc12Problem1S1IDEPKcPNS_7impl_IDE(ptr noundef nonnull @.str.14, ptr noundef nonnull %id)
+  %call54 = tail call noundef ptr @_ZN2kc8NonFatalEPNS_13impl_filelineEPNS_12impl_problemE(ptr noundef %call52, ptr noundef %call53)
+  tail call void @_ZN2kc8v_reportEPNS_10impl_errorE(ptr noundef %call54)
+  br label %cleanup131
 
-75:                                               ; preds = %62
-  %76 = load ptr, ptr %10, align 8, !tbaa !5
-  %77 = load ptr, ptr %76, align 8
-  %78 = tail call noundef i32 %77(ptr noundef nonnull align 8 dereferenceable(8) %10)
-  %79 = icmp eq i32 %78, 178
-  br i1 %79, label %80, label %88
+if.else55:                                        ; preds = %if.else44
+  %vtable56 = load ptr, ptr %2, align 8, !tbaa !5
+  %18 = load ptr, ptr %vtable56, align 8
+  %call58 = tail call noundef i32 %18(ptr noundef nonnull align 8 dereferenceable(8) %2)
+  %cmp59 = icmp eq i32 %call58, 178
+  br i1 %cmp59, label %if.then60, label %if.else66
 
-80:                                               ; preds = %75
-  %81 = getelementptr inbounds %"class.kc::impl_ID", ptr %0, i64 0, i32 4
-  %82 = load ptr, ptr %81, align 8, !tbaa !23
-  %83 = getelementptr inbounds %"class.kc::impl_ID", ptr %0, i64 0, i32 3
-  %84 = load i32, ptr %83, align 8, !tbaa !25
-  %85 = tail call noundef ptr @_ZN2kc8FileLineEPNS_20impl_casestring__StrEi(ptr noundef %82, i32 noundef %84)
-  %86 = tail call noundef ptr @_ZN2kc12Problem1S1IDEPKcPNS_7impl_IDE(ptr noundef nonnull @.str.15, ptr noundef nonnull %0)
-  %87 = tail call noundef ptr @_ZN2kc8NonFatalEPNS_13impl_filelineEPNS_12impl_problemE(ptr noundef %85, ptr noundef %86)
-  tail call void @_ZN2kc8v_reportEPNS_10impl_errorE(ptr noundef %87)
-  br label %163
+if.then60:                                        ; preds = %if.else55
+  %file61 = getelementptr inbounds %"class.kc::impl_ID", ptr %id, i64 0, i32 4
+  %19 = load ptr, ptr %file61, align 8, !tbaa !23
+  %line62 = getelementptr inbounds %"class.kc::impl_ID", ptr %id, i64 0, i32 3
+  %20 = load i32, ptr %line62, align 8, !tbaa !25
+  %call63 = tail call noundef ptr @_ZN2kc8FileLineEPNS_20impl_casestring__StrEi(ptr noundef %19, i32 noundef %20)
+  %call64 = tail call noundef ptr @_ZN2kc12Problem1S1IDEPKcPNS_7impl_IDE(ptr noundef nonnull @.str.15, ptr noundef nonnull %id)
+  %call65 = tail call noundef ptr @_ZN2kc8NonFatalEPNS_13impl_filelineEPNS_12impl_problemE(ptr noundef %call63, ptr noundef %call64)
+  tail call void @_ZN2kc8v_reportEPNS_10impl_errorE(ptr noundef %call65)
+  br label %cleanup131
 
-88:                                               ; preds = %75
-  %89 = load ptr, ptr %10, align 8, !tbaa !5
-  %90 = load ptr, ptr %89, align 8
-  %91 = tail call noundef i32 %90(ptr noundef nonnull align 8 dereferenceable(8) %10)
-  %92 = icmp eq i32 %91, 177
-  br i1 %92, label %93, label %101
+if.else66:                                        ; preds = %if.else55
+  %vtable67 = load ptr, ptr %2, align 8, !tbaa !5
+  %21 = load ptr, ptr %vtable67, align 8
+  %call69 = tail call noundef i32 %21(ptr noundef nonnull align 8 dereferenceable(8) %2)
+  %cmp70 = icmp eq i32 %call69, 177
+  br i1 %cmp70, label %if.then71, label %if.else77
 
-93:                                               ; preds = %88
-  %94 = getelementptr inbounds %"class.kc::impl_ID", ptr %0, i64 0, i32 4
-  %95 = load ptr, ptr %94, align 8, !tbaa !23
-  %96 = getelementptr inbounds %"class.kc::impl_ID", ptr %0, i64 0, i32 3
-  %97 = load i32, ptr %96, align 8, !tbaa !25
-  %98 = tail call noundef ptr @_ZN2kc8FileLineEPNS_20impl_casestring__StrEi(ptr noundef %95, i32 noundef %97)
-  %99 = tail call noundef ptr @_ZN2kc12Problem1S1IDEPKcPNS_7impl_IDE(ptr noundef nonnull @.str.16, ptr noundef nonnull %0)
-  %100 = tail call noundef ptr @_ZN2kc8NonFatalEPNS_13impl_filelineEPNS_12impl_problemE(ptr noundef %98, ptr noundef %99)
-  tail call void @_ZN2kc8v_reportEPNS_10impl_errorE(ptr noundef %100)
-  br label %163
+if.then71:                                        ; preds = %if.else66
+  %file72 = getelementptr inbounds %"class.kc::impl_ID", ptr %id, i64 0, i32 4
+  %22 = load ptr, ptr %file72, align 8, !tbaa !23
+  %line73 = getelementptr inbounds %"class.kc::impl_ID", ptr %id, i64 0, i32 3
+  %23 = load i32, ptr %line73, align 8, !tbaa !25
+  %call74 = tail call noundef ptr @_ZN2kc8FileLineEPNS_20impl_casestring__StrEi(ptr noundef %22, i32 noundef %23)
+  %call75 = tail call noundef ptr @_ZN2kc12Problem1S1IDEPKcPNS_7impl_IDE(ptr noundef nonnull @.str.16, ptr noundef nonnull %id)
+  %call76 = tail call noundef ptr @_ZN2kc8NonFatalEPNS_13impl_filelineEPNS_12impl_problemE(ptr noundef %call74, ptr noundef %call75)
+  tail call void @_ZN2kc8v_reportEPNS_10impl_errorE(ptr noundef %call76)
+  br label %cleanup131
 
-101:                                              ; preds = %88
-  %102 = load ptr, ptr %10, align 8, !tbaa !5
-  %103 = load ptr, ptr %102, align 8
-  %104 = tail call noundef i32 %103(ptr noundef nonnull align 8 dereferenceable(8) %10)
-  %105 = icmp eq i32 %104, 176
-  br i1 %105, label %106, label %114
+if.else77:                                        ; preds = %if.else66
+  %vtable78 = load ptr, ptr %2, align 8, !tbaa !5
+  %24 = load ptr, ptr %vtable78, align 8
+  %call80 = tail call noundef i32 %24(ptr noundef nonnull align 8 dereferenceable(8) %2)
+  %cmp81 = icmp eq i32 %call80, 176
+  br i1 %cmp81, label %if.then82, label %if.else88
 
-106:                                              ; preds = %101
-  %107 = getelementptr inbounds %"class.kc::impl_ID", ptr %0, i64 0, i32 4
-  %108 = load ptr, ptr %107, align 8, !tbaa !23
-  %109 = getelementptr inbounds %"class.kc::impl_ID", ptr %0, i64 0, i32 3
-  %110 = load i32, ptr %109, align 8, !tbaa !25
-  %111 = tail call noundef ptr @_ZN2kc8FileLineEPNS_20impl_casestring__StrEi(ptr noundef %108, i32 noundef %110)
-  %112 = tail call noundef ptr @_ZN2kc12Problem1S1IDEPKcPNS_7impl_IDE(ptr noundef nonnull @.str.17, ptr noundef nonnull %0)
-  %113 = tail call noundef ptr @_ZN2kc8NonFatalEPNS_13impl_filelineEPNS_12impl_problemE(ptr noundef %111, ptr noundef %112)
-  tail call void @_ZN2kc8v_reportEPNS_10impl_errorE(ptr noundef %113)
-  br label %163
+if.then82:                                        ; preds = %if.else77
+  %file83 = getelementptr inbounds %"class.kc::impl_ID", ptr %id, i64 0, i32 4
+  %25 = load ptr, ptr %file83, align 8, !tbaa !23
+  %line84 = getelementptr inbounds %"class.kc::impl_ID", ptr %id, i64 0, i32 3
+  %26 = load i32, ptr %line84, align 8, !tbaa !25
+  %call85 = tail call noundef ptr @_ZN2kc8FileLineEPNS_20impl_casestring__StrEi(ptr noundef %25, i32 noundef %26)
+  %call86 = tail call noundef ptr @_ZN2kc12Problem1S1IDEPKcPNS_7impl_IDE(ptr noundef nonnull @.str.17, ptr noundef nonnull %id)
+  %call87 = tail call noundef ptr @_ZN2kc8NonFatalEPNS_13impl_filelineEPNS_12impl_problemE(ptr noundef %call85, ptr noundef %call86)
+  tail call void @_ZN2kc8v_reportEPNS_10impl_errorE(ptr noundef %call87)
+  br label %cleanup131
 
-114:                                              ; preds = %101
-  %115 = load ptr, ptr %10, align 8, !tbaa !5
-  %116 = load ptr, ptr %115, align 8
-  %117 = tail call noundef i32 %116(ptr noundef nonnull align 8 dereferenceable(8) %10)
-  %118 = icmp eq i32 %117, 175
-  br i1 %118, label %119, label %127
+if.else88:                                        ; preds = %if.else77
+  %vtable89 = load ptr, ptr %2, align 8, !tbaa !5
+  %27 = load ptr, ptr %vtable89, align 8
+  %call91 = tail call noundef i32 %27(ptr noundef nonnull align 8 dereferenceable(8) %2)
+  %cmp92 = icmp eq i32 %call91, 175
+  br i1 %cmp92, label %if.then93, label %if.else99
 
-119:                                              ; preds = %114
-  %120 = getelementptr inbounds %"class.kc::impl_ID", ptr %0, i64 0, i32 4
-  %121 = load ptr, ptr %120, align 8, !tbaa !23
-  %122 = getelementptr inbounds %"class.kc::impl_ID", ptr %0, i64 0, i32 3
-  %123 = load i32, ptr %122, align 8, !tbaa !25
-  %124 = tail call noundef ptr @_ZN2kc8FileLineEPNS_20impl_casestring__StrEi(ptr noundef %121, i32 noundef %123)
-  %125 = tail call noundef ptr @_ZN2kc12Problem1S1IDEPKcPNS_7impl_IDE(ptr noundef nonnull @.str.18, ptr noundef nonnull %0)
-  %126 = tail call noundef ptr @_ZN2kc8NonFatalEPNS_13impl_filelineEPNS_12impl_problemE(ptr noundef %124, ptr noundef %125)
-  tail call void @_ZN2kc8v_reportEPNS_10impl_errorE(ptr noundef %126)
-  br label %163
+if.then93:                                        ; preds = %if.else88
+  %file94 = getelementptr inbounds %"class.kc::impl_ID", ptr %id, i64 0, i32 4
+  %28 = load ptr, ptr %file94, align 8, !tbaa !23
+  %line95 = getelementptr inbounds %"class.kc::impl_ID", ptr %id, i64 0, i32 3
+  %29 = load i32, ptr %line95, align 8, !tbaa !25
+  %call96 = tail call noundef ptr @_ZN2kc8FileLineEPNS_20impl_casestring__StrEi(ptr noundef %28, i32 noundef %29)
+  %call97 = tail call noundef ptr @_ZN2kc12Problem1S1IDEPKcPNS_7impl_IDE(ptr noundef nonnull @.str.18, ptr noundef nonnull %id)
+  %call98 = tail call noundef ptr @_ZN2kc8NonFatalEPNS_13impl_filelineEPNS_12impl_problemE(ptr noundef %call96, ptr noundef %call97)
+  tail call void @_ZN2kc8v_reportEPNS_10impl_errorE(ptr noundef %call98)
+  br label %cleanup131
 
-127:                                              ; preds = %114
-  %128 = load ptr, ptr %10, align 8, !tbaa !5
-  %129 = load ptr, ptr %128, align 8
-  %130 = tail call noundef i32 %129(ptr noundef nonnull align 8 dereferenceable(8) %10)
-  %131 = icmp eq i32 %130, 174
-  br i1 %131, label %132, label %135
+if.else99:                                        ; preds = %if.else88
+  %vtable100 = load ptr, ptr %2, align 8, !tbaa !5
+  %30 = load ptr, ptr %vtable100, align 8
+  %call102 = tail call noundef i32 %30(ptr noundef nonnull align 8 dereferenceable(8) %2)
+  %cmp103 = icmp eq i32 %call102, 174
+  br i1 %cmp103, label %if.then104, label %if.else106
 
-132:                                              ; preds = %127
-  %133 = getelementptr inbounds %"class.kc::impl_IDtype_ITUserPhylum", ptr %10, i64 0, i32 1
-  %134 = load ptr, ptr %133, align 8, !tbaa !37
-  br label %163
+if.then104:                                       ; preds = %if.else99
+  %phylumdeclaration_1 = getelementptr inbounds %"class.kc::impl_IDtype_ITUserPhylum", ptr %2, i64 0, i32 1
+  %31 = load ptr, ptr %phylumdeclaration_1, align 8, !tbaa !37
+  br label %cleanup131
 
-135:                                              ; preds = %127
-  %136 = load ptr, ptr %10, align 8, !tbaa !5
-  %137 = load ptr, ptr %136, align 8
-  %138 = tail call noundef i32 %137(ptr noundef nonnull align 8 dereferenceable(8) %10)
-  %139 = icmp eq i32 %138, 173
-  br i1 %139, label %140, label %148
+if.else106:                                       ; preds = %if.else99
+  %vtable107 = load ptr, ptr %2, align 8, !tbaa !5
+  %32 = load ptr, ptr %vtable107, align 8
+  %call109 = tail call noundef i32 %32(ptr noundef nonnull align 8 dereferenceable(8) %2)
+  %cmp110 = icmp eq i32 %call109, 173
+  br i1 %cmp110, label %if.then111, label %if.else117
 
-140:                                              ; preds = %135
-  %141 = getelementptr inbounds %"class.kc::impl_ID", ptr %0, i64 0, i32 4
-  %142 = load ptr, ptr %141, align 8, !tbaa !23
-  %143 = getelementptr inbounds %"class.kc::impl_ID", ptr %0, i64 0, i32 3
-  %144 = load i32, ptr %143, align 8, !tbaa !25
-  %145 = tail call noundef ptr @_ZN2kc8FileLineEPNS_20impl_casestring__StrEi(ptr noundef %142, i32 noundef %144)
-  %146 = tail call noundef ptr @_ZN2kc12Problem1S1IDEPKcPNS_7impl_IDE(ptr noundef nonnull @.str.19, ptr noundef nonnull %0)
-  %147 = tail call noundef ptr @_ZN2kc8NonFatalEPNS_13impl_filelineEPNS_12impl_problemE(ptr noundef %145, ptr noundef %146)
-  tail call void @_ZN2kc8v_reportEPNS_10impl_errorE(ptr noundef %147)
-  br label %163
+if.then111:                                       ; preds = %if.else106
+  %file112 = getelementptr inbounds %"class.kc::impl_ID", ptr %id, i64 0, i32 4
+  %33 = load ptr, ptr %file112, align 8, !tbaa !23
+  %line113 = getelementptr inbounds %"class.kc::impl_ID", ptr %id, i64 0, i32 3
+  %34 = load i32, ptr %line113, align 8, !tbaa !25
+  %call114 = tail call noundef ptr @_ZN2kc8FileLineEPNS_20impl_casestring__StrEi(ptr noundef %33, i32 noundef %34)
+  %call115 = tail call noundef ptr @_ZN2kc12Problem1S1IDEPKcPNS_7impl_IDE(ptr noundef nonnull @.str.19, ptr noundef nonnull %id)
+  %call116 = tail call noundef ptr @_ZN2kc8NonFatalEPNS_13impl_filelineEPNS_12impl_problemE(ptr noundef %call114, ptr noundef %call115)
+  tail call void @_ZN2kc8v_reportEPNS_10impl_errorE(ptr noundef %call116)
+  br label %cleanup131
 
-148:                                              ; preds = %135
-  %149 = load ptr, ptr %10, align 8, !tbaa !5
-  %150 = load ptr, ptr %149, align 8
-  %151 = tail call noundef i32 %150(ptr noundef nonnull align 8 dereferenceable(8) %10)
-  %152 = icmp eq i32 %151, 172
-  br i1 %152, label %153, label %161
+if.else117:                                       ; preds = %if.else106
+  %vtable118 = load ptr, ptr %2, align 8, !tbaa !5
+  %35 = load ptr, ptr %vtable118, align 8
+  %call120 = tail call noundef i32 %35(ptr noundef nonnull align 8 dereferenceable(8) %2)
+  %cmp121 = icmp eq i32 %call120, 172
+  br i1 %cmp121, label %if.then122, label %if.else128
 
-153:                                              ; preds = %148
-  %154 = getelementptr inbounds %"class.kc::impl_ID", ptr %0, i64 0, i32 4
-  %155 = load ptr, ptr %154, align 8, !tbaa !23
-  %156 = getelementptr inbounds %"class.kc::impl_ID", ptr %0, i64 0, i32 3
-  %157 = load i32, ptr %156, align 8, !tbaa !25
-  %158 = tail call noundef ptr @_ZN2kc8FileLineEPNS_20impl_casestring__StrEi(ptr noundef %155, i32 noundef %157)
-  %159 = tail call noundef ptr @_ZN2kc12Problem1S1IDEPKcPNS_7impl_IDE(ptr noundef nonnull @.str.20, ptr noundef nonnull %0)
-  %160 = tail call noundef ptr @_ZN2kc8NonFatalEPNS_13impl_filelineEPNS_12impl_problemE(ptr noundef %158, ptr noundef %159)
-  tail call void @_ZN2kc8v_reportEPNS_10impl_errorE(ptr noundef %160)
-  br label %163
+if.then122:                                       ; preds = %if.else117
+  %file123 = getelementptr inbounds %"class.kc::impl_ID", ptr %id, i64 0, i32 4
+  %36 = load ptr, ptr %file123, align 8, !tbaa !23
+  %line124 = getelementptr inbounds %"class.kc::impl_ID", ptr %id, i64 0, i32 3
+  %37 = load i32, ptr %line124, align 8, !tbaa !25
+  %call125 = tail call noundef ptr @_ZN2kc8FileLineEPNS_20impl_casestring__StrEi(ptr noundef %36, i32 noundef %37)
+  %call126 = tail call noundef ptr @_ZN2kc12Problem1S1IDEPKcPNS_7impl_IDE(ptr noundef nonnull @.str.20, ptr noundef nonnull %id)
+  %call127 = tail call noundef ptr @_ZN2kc8NonFatalEPNS_13impl_filelineEPNS_12impl_problemE(ptr noundef %call125, ptr noundef %call126)
+  tail call void @_ZN2kc8v_reportEPNS_10impl_errorE(ptr noundef %call127)
+  br label %cleanup131
 
-161:                                              ; preds = %148
+if.else128:                                       ; preds = %if.else117
   tail call void @_ZN2kc21kc_no_default_in_withEPKciS1_(ptr noundef nonnull @.str.21, i32 noundef 330, ptr noundef nonnull @.str.6)
-  br label %163
+  br label %cleanup131
 
-162:                                              ; preds = %1
+if.else130:                                       ; preds = %entry
   tail call void @_ZN2kc21kc_no_default_in_withEPKciS1_(ptr noundef nonnull @.str.21, i32 noundef 335, ptr noundef nonnull @.str.6)
-  br label %163
+  br label %cleanup131
 
-163:                                              ; preds = %15, %28, %41, %54, %67, %80, %93, %106, %119, %132, %140, %153, %161, %162
-  %164 = phi ptr [ null, %162 ], [ null, %15 ], [ null, %28 ], [ null, %41 ], [ null, %54 ], [ null, %67 ], [ null, %80 ], [ null, %93 ], [ null, %106 ], [ null, %119 ], [ %134, %132 ], [ null, %140 ], [ null, %153 ], [ null, %161 ]
-  ret ptr %164
+cleanup131:                                       ; preds = %if.then8, %if.then16, %if.then27, %if.then38, %if.then49, %if.then60, %if.then71, %if.then82, %if.then93, %if.then104, %if.then111, %if.then122, %if.else128, %if.else130
+  %retval.1 = phi ptr [ null, %if.else130 ], [ null, %if.then8 ], [ null, %if.then16 ], [ null, %if.then27 ], [ null, %if.then38 ], [ null, %if.then49 ], [ null, %if.then60 ], [ null, %if.then71 ], [ null, %if.then82 ], [ null, %if.then93 ], [ %31, %if.then104 ], [ null, %if.then111 ], [ null, %if.then122 ], [ null, %if.else128 ]
+  ret ptr %retval.1
 }
 
 declare void @_ZN2kc5v_addEPNS_7impl_IDE(ptr noundef) local_unnamed_addr #2
@@ -809,361 +811,362 @@ declare noundef ptr @_ZN2kc6concatEPKNS_15impl_attributesES2_(ptr noundef, ptr n
 declare noundef ptr @_ZN2kc6concatEPKNS_11impl_CtextsES2_(ptr noundef, ptr noundef) local_unnamed_addr #2
 
 ; Function Attrs: uwtable
-define dso_local noundef ptr @_ZN2kc20makeListAlternativesEPNS_7impl_IDES1_(ptr noundef %0, ptr noundef %1) local_unnamed_addr #3 personality ptr @__gxx_personality_v0 {
-  %3 = alloca %"class.std::__cxx11::basic_string", align 8
-  %4 = alloca %"class.std::__cxx11::basic_string", align 8
-  %5 = alloca %"class.std::__cxx11::basic_string", align 8
-  %6 = alloca %"class.std::__cxx11::basic_string", align 8
-  call void @llvm.lifetime.start.p0(i64 32, ptr nonnull %3) #12
-  call void @llvm.lifetime.start.p0(i64 32, ptr nonnull %4) #12
-  %7 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %4, i64 0, i32 2
-  store ptr %7, ptr %4, align 8, !tbaa !40
-  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(3) %7, ptr noundef nonnull align 1 dereferenceable(3) @.str.7, i64 3, i1 false)
-  %8 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %4, i64 0, i32 1
-  store i64 3, ptr %8, align 8, !tbaa !42
-  %9 = getelementptr inbounds i8, ptr %4, i64 19
-  store i8 0, ptr %9, align 1, !tbaa !45
-  %10 = load ptr, ptr %0, align 8, !tbaa !5
-  %11 = load ptr, ptr %10, align 8
-  %12 = invoke noundef i32 %11(ptr noundef nonnull align 8 dereferenceable(8) %0)
-          to label %13 unwind label %158
+define dso_local noundef ptr @_ZN2kc20makeListAlternativesEPNS_7impl_IDES1_(ptr noundef %listphylum, ptr noundef %elementphylum) local_unnamed_addr #3 personality ptr @__gxx_personality_v0 {
+entry:
+  %ref.tmp = alloca %"class.std::__cxx11::basic_string", align 8
+  %ref.tmp1 = alloca %"class.std::__cxx11::basic_string", align 8
+  %ref.tmp18 = alloca %"class.std::__cxx11::basic_string", align 8
+  %ref.tmp19 = alloca %"class.std::__cxx11::basic_string", align 8
+  call void @llvm.lifetime.start.p0(i64 32, ptr nonnull %ref.tmp) #12
+  call void @llvm.lifetime.start.p0(i64 32, ptr nonnull %ref.tmp1) #12
+  %0 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %ref.tmp1, i64 0, i32 2
+  store ptr %0, ptr %ref.tmp1, align 8, !tbaa !40
+  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(3) %0, ptr noundef nonnull align 1 dereferenceable(3) @.str.7, i64 3, i1 false)
+  %_M_string_length.i.i.i.i = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %ref.tmp1, i64 0, i32 1
+  store i64 3, ptr %_M_string_length.i.i.i.i, align 8, !tbaa !42
+  %arrayidx.i.i.i = getelementptr inbounds i8, ptr %ref.tmp1, i64 19
+  store i8 0, ptr %arrayidx.i.i.i, align 1, !tbaa !45
+  %vtable.i = load ptr, ptr %listphylum, align 8, !tbaa !5
+  %1 = load ptr, ptr %vtable.i, align 8
+  %call1.i86 = invoke noundef i32 %1(ptr noundef nonnull align 8 dereferenceable(8) %listphylum)
+          to label %call1.i.noexc unwind label %lpad3
 
-13:                                               ; preds = %2
-  %14 = icmp eq i32 %12, 7
-  br i1 %14, label %15, label %29
+call1.i.noexc:                                    ; preds = %entry
+  %cmp.i = icmp eq i32 %call1.i86, 7
+  br i1 %cmp.i, label %land.lhs.true.i, label %if.else.i
 
-15:                                               ; preds = %13
-  %16 = getelementptr inbounds %"class.kc::impl_ID_Id", ptr %0, i64 0, i32 1
-  %17 = load ptr, ptr %16, align 8, !tbaa !33
-  %18 = load ptr, ptr %17, align 8, !tbaa !5
-  %19 = load ptr, ptr %18, align 8
-  %20 = invoke noundef i32 %19(ptr noundef nonnull align 8 dereferenceable(8) %17)
-          to label %21 unwind label %158
+land.lhs.true.i:                                  ; preds = %call1.i.noexc
+  %uniqID_1.i = getelementptr inbounds %"class.kc::impl_ID_Id", ptr %listphylum, i64 0, i32 1
+  %2 = load ptr, ptr %uniqID_1.i, align 8, !tbaa !33
+  %vtable3.i = load ptr, ptr %2, align 8, !tbaa !5
+  %3 = load ptr, ptr %vtable3.i, align 8
+  %call5.i87 = invoke noundef i32 %3(ptr noundef nonnull align 8 dereferenceable(8) %2)
+          to label %call5.i.noexc unwind label %lpad3
 
-21:                                               ; preds = %15
-  %22 = icmp eq i32 %20, 6
-  br i1 %22, label %23, label %29
+call5.i.noexc:                                    ; preds = %land.lhs.true.i
+  %cmp6.i = icmp eq i32 %call5.i87, 6
+  br i1 %cmp6.i, label %if.then.i, label %if.else.i
 
-23:                                               ; preds = %21
-  %24 = load ptr, ptr %16, align 8, !tbaa !33
-  %25 = getelementptr inbounds %"class.kc::impl_uniqID_Str", ptr %24, i64 0, i32 1
-  %26 = load ptr, ptr %25, align 8, !tbaa !46
-  %27 = getelementptr inbounds %"class.kc::impl_casestring__Str", ptr %26, i64 0, i32 1
-  %28 = load ptr, ptr %27, align 8, !tbaa !48
-  br label %30
+if.then.i:                                        ; preds = %call5.i.noexc
+  %4 = load ptr, ptr %uniqID_1.i, align 8, !tbaa !33
+  %casestring_1.i = getelementptr inbounds %"class.kc::impl_uniqID_Str", ptr %4, i64 0, i32 1
+  %5 = load ptr, ptr %casestring_1.i, align 8, !tbaa !46
+  %name.i = getelementptr inbounds %"class.kc::impl_casestring__Str", ptr %5, i64 0, i32 1
+  %6 = load ptr, ptr %name.i, align 8, !tbaa !48
+  br label %invoke.cont4
 
-29:                                               ; preds = %21, %13
+if.else.i:                                        ; preds = %call5.i.noexc, %call1.i.noexc
   invoke void @_ZN2kc21kc_no_default_in_withEPKciS1_(ptr noundef nonnull @.str.9, i32 noundef 246, ptr noundef nonnull @.str.6)
-          to label %30 unwind label %158
+          to label %invoke.cont4 unwind label %lpad3
 
-30:                                               ; preds = %23, %29
-  %31 = phi ptr [ %28, %23 ], [ null, %29 ]
+invoke.cont4:                                     ; preds = %if.then.i, %if.else.i
+  %retval.0.i = phi ptr [ %6, %if.then.i ], [ null, %if.else.i ]
   call void @llvm.experimental.noalias.scope.decl(metadata !50)
-  %32 = call i64 @strlen(ptr noundef nonnull dereferenceable(1) %31) #12, !noalias !50
-  %33 = load i64, ptr %8, align 8, !tbaa !42, !noalias !50
-  %34 = sub i64 4611686018427387903, %33
-  %35 = icmp ult i64 %34, %32
-  br i1 %35, label %36, label %38
+  %call.i.i.i = call i64 @strlen(ptr noundef nonnull dereferenceable(1) %retval.0.i) #12, !noalias !50
+  %7 = load i64, ptr %_M_string_length.i.i.i.i, align 8, !tbaa !42, !noalias !50
+  %sub3.i.i.i = sub i64 4611686018427387903, %7
+  %cmp.i.i.i = icmp ult i64 %sub3.i.i.i, %call.i.i.i
+  br i1 %cmp.i.i.i, label %if.then.i.i.i, label %_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE6appendEPKc.exit.i
 
-36:                                               ; preds = %30
+if.then.i.i.i:                                    ; preds = %invoke.cont4
   invoke void @_ZSt20__throw_length_errorPKc(ptr noundef nonnull @.str.52) #13
-          to label %37 unwind label %158
+          to label %.noexc90 unwind label %lpad3
 
-37:                                               ; preds = %36
+.noexc90:                                         ; preds = %if.then.i.i.i
   unreachable
 
-38:                                               ; preds = %30
-  %39 = invoke noundef nonnull align 8 dereferenceable(32) ptr @_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE9_M_appendEPKcm(ptr noundef nonnull align 8 dereferenceable(32) %4, ptr noundef %31, i64 noundef %32)
-          to label %40 unwind label %158
+_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE6appendEPKc.exit.i: ; preds = %invoke.cont4
+  %call2.i.i91 = invoke noundef nonnull align 8 dereferenceable(32) ptr @_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE9_M_appendEPKcm(ptr noundef nonnull align 8 dereferenceable(32) %ref.tmp1, ptr noundef %retval.0.i, i64 noundef %call.i.i.i)
+          to label %call2.i.i.noexc unwind label %lpad3
 
-40:                                               ; preds = %38
-  %41 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %3, i64 0, i32 2
-  store ptr %41, ptr %3, align 8, !tbaa !40, !alias.scope !50
-  %42 = load ptr, ptr %39, align 8, !tbaa !53
-  %43 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %39, i64 0, i32 2
-  %44 = icmp eq ptr %42, %43
-  br i1 %44, label %45, label %51
+call2.i.i.noexc:                                  ; preds = %_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE6appendEPKc.exit.i
+  %8 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %ref.tmp, i64 0, i32 2
+  store ptr %8, ptr %ref.tmp, align 8, !tbaa !40, !alias.scope !50
+  %9 = load ptr, ptr %call2.i.i91, align 8, !tbaa !53
+  %10 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %call2.i.i91, i64 0, i32 2
+  %cmp.i.i1.i = icmp eq ptr %9, %10
+  br i1 %cmp.i.i1.i, label %if.then.i.i89, label %if.else.i.i
 
-45:                                               ; preds = %40
-  %46 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %39, i64 0, i32 1
-  %47 = load i64, ptr %46, align 8, !tbaa !42
-  %48 = add i64 %47, 1
-  %49 = icmp eq i64 %48, 0
-  br i1 %49, label %53, label %50
+if.then.i.i89:                                    ; preds = %call2.i.i.noexc
+  %_M_string_length.i.i.i = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %call2.i.i91, i64 0, i32 1
+  %11 = load i64, ptr %_M_string_length.i.i.i, align 8, !tbaa !42
+  %add.i.i = add i64 %11, 1
+  %cmp.i21.i.i = icmp eq i64 %add.i.i, 0
+  br i1 %cmp.i21.i.i, label %invoke.cont5, label %if.end.i.i.i
 
-50:                                               ; preds = %45
-  call void @llvm.memcpy.p0.p0.i64(ptr nonnull align 8 %41, ptr nonnull align 8 %42, i64 %48, i1 false)
-  br label %53
+if.end.i.i.i:                                     ; preds = %if.then.i.i89
+  call void @llvm.memcpy.p0.p0.i64(ptr nonnull align 8 %8, ptr nonnull align 8 %9, i64 %add.i.i, i1 false)
+  br label %invoke.cont5
 
-51:                                               ; preds = %40
-  store ptr %42, ptr %3, align 8, !tbaa !53, !alias.scope !50
-  %52 = load i64, ptr %43, align 8, !tbaa !45
-  store i64 %52, ptr %41, align 8, !tbaa !45, !alias.scope !50
-  br label %53
+if.else.i.i:                                      ; preds = %call2.i.i.noexc
+  store ptr %9, ptr %ref.tmp, align 8, !tbaa !53, !alias.scope !50
+  %12 = load i64, ptr %10, align 8, !tbaa !45
+  store i64 %12, ptr %8, align 8, !tbaa !45, !alias.scope !50
+  br label %invoke.cont5
 
-53:                                               ; preds = %51, %50, %45
-  %54 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %39, i64 0, i32 1
-  %55 = load i64, ptr %54, align 8, !tbaa !42
-  %56 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %3, i64 0, i32 1
-  store i64 %55, ptr %56, align 8, !tbaa !42, !alias.scope !50
-  store ptr %43, ptr %39, align 8, !tbaa !53
-  store i64 0, ptr %54, align 8, !tbaa !42
-  store i8 0, ptr %43, align 8, !tbaa !45
-  %57 = load ptr, ptr %3, align 8, !tbaa !53
-  %58 = invoke noundef ptr @_ZN2kc12mkcasestringEPKci(ptr noundef %57, i32 noundef -1)
-          to label %59 unwind label %160
+invoke.cont5:                                     ; preds = %if.else.i.i, %if.end.i.i.i, %if.then.i.i89
+  %_M_string_length.i22.i.i = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %call2.i.i91, i64 0, i32 1
+  %13 = load i64, ptr %_M_string_length.i22.i.i, align 8, !tbaa !42
+  %_M_string_length.i23.i.i = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %ref.tmp, i64 0, i32 1
+  store i64 %13, ptr %_M_string_length.i23.i.i, align 8, !tbaa !42, !alias.scope !50
+  store ptr %10, ptr %call2.i.i91, align 8, !tbaa !53
+  store i64 0, ptr %_M_string_length.i22.i.i, align 8, !tbaa !42
+  store i8 0, ptr %10, align 8, !tbaa !45
+  %14 = load ptr, ptr %ref.tmp, align 8, !tbaa !53
+  %call9 = invoke noundef ptr @_ZN2kc12mkcasestringEPKci(ptr noundef %14, i32 noundef -1)
+          to label %invoke.cont8 unwind label %lpad7
 
-59:                                               ; preds = %53
-  %60 = invoke noundef ptr @_ZN2kc3StrEPNS_20impl_casestring__StrE(ptr noundef %58)
-          to label %61 unwind label %160
+invoke.cont8:                                     ; preds = %invoke.cont5
+  %call11 = invoke noundef ptr @_ZN2kc3StrEPNS_20impl_casestring__StrE(ptr noundef %call9)
+          to label %invoke.cont10 unwind label %lpad7
 
-61:                                               ; preds = %59
-  %62 = invoke noundef ptr @_ZN2kc2IdEPNS_11impl_uniqIDE(ptr noundef %60)
-          to label %63 unwind label %160
+invoke.cont10:                                    ; preds = %invoke.cont8
+  %call13 = invoke noundef ptr @_ZN2kc2IdEPNS_11impl_uniqIDE(ptr noundef %call11)
+          to label %invoke.cont12 unwind label %lpad7
 
-63:                                               ; preds = %61
-  %64 = load ptr, ptr %3, align 8, !tbaa !53
-  %65 = icmp eq ptr %64, %41
-  br i1 %65, label %67, label %66
+invoke.cont12:                                    ; preds = %invoke.cont10
+  %15 = load ptr, ptr %ref.tmp, align 8, !tbaa !53
+  %cmp.i.i.i92 = icmp eq ptr %15, %8
+  br i1 %cmp.i.i.i92, label %_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEED2Ev.exit, label %if.then.i.i93
 
-66:                                               ; preds = %63
-  call void @_ZdlPv(ptr noundef %64) #14
-  br label %67
+if.then.i.i93:                                    ; preds = %invoke.cont12
+  call void @_ZdlPv(ptr noundef %15) #14
+  br label %_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEED2Ev.exit
 
-67:                                               ; preds = %63, %66
-  %68 = load ptr, ptr %4, align 8, !tbaa !53
-  %69 = icmp eq ptr %68, %7
-  br i1 %69, label %71, label %70
+_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEED2Ev.exit: ; preds = %invoke.cont12, %if.then.i.i93
+  %16 = load ptr, ptr %ref.tmp1, align 8, !tbaa !53
+  %cmp.i.i.i94 = icmp eq ptr %16, %0
+  br i1 %cmp.i.i.i94, label %_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEED2Ev.exit96, label %if.then.i.i95
 
-70:                                               ; preds = %67
-  call void @_ZdlPv(ptr noundef %68) #14
-  br label %71
+if.then.i.i95:                                    ; preds = %_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEED2Ev.exit
+  call void @_ZdlPv(ptr noundef %16) #14
+  br label %_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEED2Ev.exit96
 
-71:                                               ; preds = %67, %70
-  call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %4) #12
-  call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %3) #12
-  call void @llvm.lifetime.start.p0(i64 32, ptr nonnull %5) #12
-  call void @llvm.lifetime.start.p0(i64 32, ptr nonnull %6) #12
-  %72 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %6, i64 0, i32 2
-  store ptr %72, ptr %6, align 8, !tbaa !40
-  store i32 1936617283, ptr %72, align 8
-  %73 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %6, i64 0, i32 1
-  store i64 4, ptr %73, align 8, !tbaa !42
-  %74 = getelementptr inbounds i8, ptr %6, i64 20
-  store i8 0, ptr %74, align 4, !tbaa !45
-  %75 = load ptr, ptr %0, align 8, !tbaa !5
-  %76 = load ptr, ptr %75, align 8
-  %77 = invoke noundef i32 %76(ptr noundef nonnull align 8 dereferenceable(8) %0)
-          to label %78 unwind label %171
+_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEED2Ev.exit96: ; preds = %_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEED2Ev.exit, %if.then.i.i95
+  call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %ref.tmp1) #12
+  call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %ref.tmp) #12
+  call void @llvm.lifetime.start.p0(i64 32, ptr nonnull %ref.tmp18) #12
+  call void @llvm.lifetime.start.p0(i64 32, ptr nonnull %ref.tmp19) #12
+  %17 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %ref.tmp19, i64 0, i32 2
+  store ptr %17, ptr %ref.tmp19, align 8, !tbaa !40
+  store i32 1936617283, ptr %17, align 8
+  %_M_string_length.i.i.i.i104 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %ref.tmp19, i64 0, i32 1
+  store i64 4, ptr %_M_string_length.i.i.i.i104, align 8, !tbaa !42
+  %arrayidx.i.i.i105 = getelementptr inbounds i8, ptr %ref.tmp19, i64 20
+  store i8 0, ptr %arrayidx.i.i.i105, align 4, !tbaa !45
+  %vtable.i109 = load ptr, ptr %listphylum, align 8, !tbaa !5
+  %18 = load ptr, ptr %vtable.i109, align 8
+  %call1.i121 = invoke noundef i32 %18(ptr noundef nonnull align 8 dereferenceable(8) %listphylum)
+          to label %call1.i.noexc120 unwind label %lpad23
 
-78:                                               ; preds = %71
-  %79 = icmp eq i32 %77, 7
-  br i1 %79, label %80, label %94
+call1.i.noexc120:                                 ; preds = %_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEED2Ev.exit96
+  %cmp.i110 = icmp eq i32 %call1.i121, 7
+  br i1 %cmp.i110, label %land.lhs.true.i114, label %if.else.i118
 
-80:                                               ; preds = %78
-  %81 = getelementptr inbounds %"class.kc::impl_ID_Id", ptr %0, i64 0, i32 1
-  %82 = load ptr, ptr %81, align 8, !tbaa !33
-  %83 = load ptr, ptr %82, align 8, !tbaa !5
-  %84 = load ptr, ptr %83, align 8
-  %85 = invoke noundef i32 %84(ptr noundef nonnull align 8 dereferenceable(8) %82)
-          to label %86 unwind label %171
+land.lhs.true.i114:                               ; preds = %call1.i.noexc120
+  %uniqID_1.i111 = getelementptr inbounds %"class.kc::impl_ID_Id", ptr %listphylum, i64 0, i32 1
+  %19 = load ptr, ptr %uniqID_1.i111, align 8, !tbaa !33
+  %vtable3.i112 = load ptr, ptr %19, align 8, !tbaa !5
+  %20 = load ptr, ptr %vtable3.i112, align 8
+  %call5.i123 = invoke noundef i32 %20(ptr noundef nonnull align 8 dereferenceable(8) %19)
+          to label %call5.i.noexc122 unwind label %lpad23
 
-86:                                               ; preds = %80
-  %87 = icmp eq i32 %85, 6
-  br i1 %87, label %88, label %94
+call5.i.noexc122:                                 ; preds = %land.lhs.true.i114
+  %cmp6.i113 = icmp eq i32 %call5.i123, 6
+  br i1 %cmp6.i113, label %if.then.i117, label %if.else.i118
 
-88:                                               ; preds = %86
-  %89 = load ptr, ptr %81, align 8, !tbaa !33
-  %90 = getelementptr inbounds %"class.kc::impl_uniqID_Str", ptr %89, i64 0, i32 1
-  %91 = load ptr, ptr %90, align 8, !tbaa !46
-  %92 = getelementptr inbounds %"class.kc::impl_casestring__Str", ptr %91, i64 0, i32 1
-  %93 = load ptr, ptr %92, align 8, !tbaa !48
-  br label %95
+if.then.i117:                                     ; preds = %call5.i.noexc122
+  %21 = load ptr, ptr %uniqID_1.i111, align 8, !tbaa !33
+  %casestring_1.i115 = getelementptr inbounds %"class.kc::impl_uniqID_Str", ptr %21, i64 0, i32 1
+  %22 = load ptr, ptr %casestring_1.i115, align 8, !tbaa !46
+  %name.i116 = getelementptr inbounds %"class.kc::impl_casestring__Str", ptr %22, i64 0, i32 1
+  %23 = load ptr, ptr %name.i116, align 8, !tbaa !48
+  br label %invoke.cont24
 
-94:                                               ; preds = %86, %78
+if.else.i118:                                     ; preds = %call5.i.noexc122, %call1.i.noexc120
   invoke void @_ZN2kc21kc_no_default_in_withEPKciS1_(ptr noundef nonnull @.str.9, i32 noundef 246, ptr noundef nonnull @.str.6)
-          to label %95 unwind label %171
+          to label %invoke.cont24 unwind label %lpad23
 
-95:                                               ; preds = %88, %94
-  %96 = phi ptr [ %93, %88 ], [ null, %94 ]
+invoke.cont24:                                    ; preds = %if.then.i117, %if.else.i118
+  %retval.0.i119 = phi ptr [ %23, %if.then.i117 ], [ null, %if.else.i118 ]
   call void @llvm.experimental.noalias.scope.decl(metadata !54)
-  %97 = call i64 @strlen(ptr noundef nonnull dereferenceable(1) %96) #12, !noalias !54
-  %98 = load i64, ptr %73, align 8, !tbaa !42, !noalias !54
-  %99 = sub i64 4611686018427387903, %98
-  %100 = icmp ult i64 %99, %97
-  br i1 %100, label %101, label %103
+  %call.i.i.i126 = call i64 @strlen(ptr noundef nonnull dereferenceable(1) %retval.0.i119) #12, !noalias !54
+  %24 = load i64, ptr %_M_string_length.i.i.i.i104, align 8, !tbaa !42, !noalias !54
+  %sub3.i.i.i128 = sub i64 4611686018427387903, %24
+  %cmp.i.i.i129 = icmp ult i64 %sub3.i.i.i128, %call.i.i.i126
+  br i1 %cmp.i.i.i129, label %if.then.i.i.i130, label %_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE6appendEPKc.exit.i132
 
-101:                                              ; preds = %95
+if.then.i.i.i130:                                 ; preds = %invoke.cont24
   invoke void @_ZSt20__throw_length_errorPKc(ptr noundef nonnull @.str.52) #13
-          to label %102 unwind label %171
+          to label %.noexc141 unwind label %lpad23
 
-102:                                              ; preds = %101
+.noexc141:                                        ; preds = %if.then.i.i.i130
   unreachable
 
-103:                                              ; preds = %95
-  %104 = invoke noundef nonnull align 8 dereferenceable(32) ptr @_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE9_M_appendEPKcm(ptr noundef nonnull align 8 dereferenceable(32) %6, ptr noundef %96, i64 noundef %97)
-          to label %105 unwind label %171
+_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE6appendEPKc.exit.i132: ; preds = %invoke.cont24
+  %call2.i.i143 = invoke noundef nonnull align 8 dereferenceable(32) ptr @_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE9_M_appendEPKcm(ptr noundef nonnull align 8 dereferenceable(32) %ref.tmp19, ptr noundef %retval.0.i119, i64 noundef %call.i.i.i126)
+          to label %call2.i.i.noexc142 unwind label %lpad23
 
-105:                                              ; preds = %103
-  %106 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %5, i64 0, i32 2
-  store ptr %106, ptr %5, align 8, !tbaa !40, !alias.scope !54
-  %107 = load ptr, ptr %104, align 8, !tbaa !53
-  %108 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %104, i64 0, i32 2
-  %109 = icmp eq ptr %107, %108
-  br i1 %109, label %110, label %116
+call2.i.i.noexc142:                               ; preds = %_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE6appendEPKc.exit.i132
+  %25 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %ref.tmp18, i64 0, i32 2
+  store ptr %25, ptr %ref.tmp18, align 8, !tbaa !40, !alias.scope !54
+  %26 = load ptr, ptr %call2.i.i143, align 8, !tbaa !53
+  %27 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %call2.i.i143, i64 0, i32 2
+  %cmp.i.i1.i131 = icmp eq ptr %26, %27
+  br i1 %cmp.i.i1.i131, label %if.then.i.i136, label %if.else.i.i138
 
-110:                                              ; preds = %105
-  %111 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %104, i64 0, i32 1
-  %112 = load i64, ptr %111, align 8, !tbaa !42
-  %113 = add i64 %112, 1
-  %114 = icmp eq i64 %113, 0
-  br i1 %114, label %118, label %115
+if.then.i.i136:                                   ; preds = %call2.i.i.noexc142
+  %_M_string_length.i.i.i133 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %call2.i.i143, i64 0, i32 1
+  %28 = load i64, ptr %_M_string_length.i.i.i133, align 8, !tbaa !42
+  %add.i.i134 = add i64 %28, 1
+  %cmp.i21.i.i135 = icmp eq i64 %add.i.i134, 0
+  br i1 %cmp.i21.i.i135, label %invoke.cont26, label %if.end.i.i.i137
 
-115:                                              ; preds = %110
-  call void @llvm.memcpy.p0.p0.i64(ptr nonnull align 8 %106, ptr nonnull align 8 %107, i64 %113, i1 false)
-  br label %118
+if.end.i.i.i137:                                  ; preds = %if.then.i.i136
+  call void @llvm.memcpy.p0.p0.i64(ptr nonnull align 8 %25, ptr nonnull align 8 %26, i64 %add.i.i134, i1 false)
+  br label %invoke.cont26
 
-116:                                              ; preds = %105
-  store ptr %107, ptr %5, align 8, !tbaa !53, !alias.scope !54
-  %117 = load i64, ptr %108, align 8, !tbaa !45
-  store i64 %117, ptr %106, align 8, !tbaa !45, !alias.scope !54
-  br label %118
+if.else.i.i138:                                   ; preds = %call2.i.i.noexc142
+  store ptr %26, ptr %ref.tmp18, align 8, !tbaa !53, !alias.scope !54
+  %29 = load i64, ptr %27, align 8, !tbaa !45
+  store i64 %29, ptr %25, align 8, !tbaa !45, !alias.scope !54
+  br label %invoke.cont26
 
-118:                                              ; preds = %116, %115, %110
-  %119 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %104, i64 0, i32 1
-  %120 = load i64, ptr %119, align 8, !tbaa !42
-  %121 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %5, i64 0, i32 1
-  store i64 %120, ptr %121, align 8, !tbaa !42, !alias.scope !54
-  store ptr %108, ptr %104, align 8, !tbaa !53
-  store i64 0, ptr %119, align 8, !tbaa !42
-  store i8 0, ptr %108, align 8, !tbaa !45
-  %122 = load ptr, ptr %5, align 8, !tbaa !53
-  %123 = invoke noundef ptr @_ZN2kc12mkcasestringEPKci(ptr noundef %122, i32 noundef -1)
-          to label %124 unwind label %173
+invoke.cont26:                                    ; preds = %if.else.i.i138, %if.end.i.i.i137, %if.then.i.i136
+  %_M_string_length.i22.i.i139 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %call2.i.i143, i64 0, i32 1
+  %30 = load i64, ptr %_M_string_length.i22.i.i139, align 8, !tbaa !42
+  %_M_string_length.i23.i.i140 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %ref.tmp18, i64 0, i32 1
+  store i64 %30, ptr %_M_string_length.i23.i.i140, align 8, !tbaa !42, !alias.scope !54
+  store ptr %27, ptr %call2.i.i143, align 8, !tbaa !53
+  store i64 0, ptr %_M_string_length.i22.i.i139, align 8, !tbaa !42
+  store i8 0, ptr %27, align 8, !tbaa !45
+  %31 = load ptr, ptr %ref.tmp18, align 8, !tbaa !53
+  %call30 = invoke noundef ptr @_ZN2kc12mkcasestringEPKci(ptr noundef %31, i32 noundef -1)
+          to label %invoke.cont29 unwind label %lpad28
 
-124:                                              ; preds = %118
-  %125 = invoke noundef ptr @_ZN2kc3StrEPNS_20impl_casestring__StrE(ptr noundef %123)
-          to label %126 unwind label %173
+invoke.cont29:                                    ; preds = %invoke.cont26
+  %call32 = invoke noundef ptr @_ZN2kc3StrEPNS_20impl_casestring__StrE(ptr noundef %call30)
+          to label %invoke.cont31 unwind label %lpad28
 
-126:                                              ; preds = %124
-  %127 = invoke noundef ptr @_ZN2kc2IdEPNS_11impl_uniqIDE(ptr noundef %125)
-          to label %128 unwind label %173
+invoke.cont31:                                    ; preds = %invoke.cont29
+  %call34 = invoke noundef ptr @_ZN2kc2IdEPNS_11impl_uniqIDE(ptr noundef %call32)
+          to label %invoke.cont33 unwind label %lpad28
 
-128:                                              ; preds = %126
-  %129 = load ptr, ptr %5, align 8, !tbaa !53
-  %130 = icmp eq ptr %129, %106
-  br i1 %130, label %132, label %131
+invoke.cont33:                                    ; preds = %invoke.cont31
+  %32 = load ptr, ptr %ref.tmp18, align 8, !tbaa !53
+  %cmp.i.i.i145 = icmp eq ptr %32, %25
+  br i1 %cmp.i.i.i145, label %_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEED2Ev.exit147, label %if.then.i.i146
 
-131:                                              ; preds = %128
-  call void @_ZdlPv(ptr noundef %129) #14
-  br label %132
+if.then.i.i146:                                   ; preds = %invoke.cont33
+  call void @_ZdlPv(ptr noundef %32) #14
+  br label %_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEED2Ev.exit147
 
-132:                                              ; preds = %128, %131
-  %133 = load ptr, ptr %6, align 8, !tbaa !53
-  %134 = icmp eq ptr %133, %72
-  br i1 %134, label %136, label %135
+_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEED2Ev.exit147: ; preds = %invoke.cont33, %if.then.i.i146
+  %33 = load ptr, ptr %ref.tmp19, align 8, !tbaa !53
+  %cmp.i.i.i148 = icmp eq ptr %33, %17
+  br i1 %cmp.i.i.i148, label %_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEED2Ev.exit150, label %if.then.i.i149
 
-135:                                              ; preds = %132
-  call void @_ZdlPv(ptr noundef %133) #14
-  br label %136
+if.then.i.i149:                                   ; preds = %_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEED2Ev.exit147
+  call void @_ZdlPv(ptr noundef %33) #14
+  br label %_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEED2Ev.exit150
 
-136:                                              ; preds = %132, %135
-  call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %6) #12
-  call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %5) #12
-  %137 = getelementptr inbounds %"class.kc::impl_ID", ptr %1, i64 0, i32 3
-  %138 = load i32, ptr %137, align 8, !tbaa !25
-  %139 = getelementptr inbounds %"class.kc::impl_ID", ptr %62, i64 0, i32 3
-  store i32 %138, ptr %139, align 8, !tbaa !25
-  %140 = getelementptr inbounds %"class.kc::impl_ID", ptr %1, i64 0, i32 4
-  %141 = load ptr, ptr %140, align 8, !tbaa !23
-  %142 = getelementptr inbounds %"class.kc::impl_ID", ptr %62, i64 0, i32 4
-  store ptr %141, ptr %142, align 8, !tbaa !23
-  %143 = load i32, ptr %137, align 8, !tbaa !25
-  %144 = getelementptr inbounds %"class.kc::impl_ID", ptr %127, i64 0, i32 3
-  store i32 %143, ptr %144, align 8, !tbaa !25
-  %145 = load ptr, ptr %140, align 8, !tbaa !23
-  %146 = getelementptr inbounds %"class.kc::impl_ID", ptr %127, i64 0, i32 4
-  store ptr %145, ptr %146, align 8, !tbaa !23
-  %147 = call noundef ptr @_ZN2kc12NilargumentsEv()
-  %148 = call noundef ptr @_ZN2kc11AlternativeEPNS_7impl_IDEPNS_14impl_argumentsE(ptr noundef %62, ptr noundef %147)
-  %149 = call noundef ptr @_ZN2kc12NilargumentsEv()
-  %150 = call noundef ptr @_ZN2kc13ConsargumentsEPNS_7impl_IDEPNS_14impl_argumentsE(ptr noundef %1, ptr noundef %149)
-  %151 = call noundef ptr @_ZN2kc13ConsargumentsEPNS_7impl_IDEPNS_14impl_argumentsE(ptr noundef nonnull %0, ptr noundef %150)
-  %152 = call noundef ptr @_ZN2kc11AlternativeEPNS_7impl_IDEPNS_14impl_argumentsE(ptr noundef %127, ptr noundef %151)
-  %153 = call noundef ptr @_ZN2kc14ITUserOperatorEPNS_16impl_alternativeEPNS_7impl_IDE(ptr noundef %148, ptr noundef nonnull %0)
-  call void @_ZN2kc13v_extendoccurEPNS_7impl_IDEPNS_11impl_IDtypeE(ptr noundef %62, ptr noundef %153)
-  %154 = call noundef ptr @_ZN2kc14ITUserOperatorEPNS_16impl_alternativeEPNS_7impl_IDE(ptr noundef %152, ptr noundef nonnull %0)
-  call void @_ZN2kc13v_extendoccurEPNS_7impl_IDEPNS_11impl_IDtypeE(ptr noundef %127, ptr noundef %154)
-  %155 = call noundef ptr @_ZN2kc15NilalternativesEv()
-  %156 = call noundef ptr @_ZN2kc16ConsalternativesEPNS_16impl_alternativeEPNS_17impl_alternativesE(ptr noundef %148, ptr noundef %155)
-  %157 = call noundef ptr @_ZN2kc16ConsalternativesEPNS_16impl_alternativeEPNS_17impl_alternativesE(ptr noundef %152, ptr noundef %156)
-  ret ptr %157
+_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEED2Ev.exit150: ; preds = %_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEED2Ev.exit147, %if.then.i.i149
+  call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %ref.tmp19) #12
+  call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %ref.tmp18) #12
+  %line = getelementptr inbounds %"class.kc::impl_ID", ptr %elementphylum, i64 0, i32 3
+  %34 = load i32, ptr %line, align 8, !tbaa !25
+  %line41 = getelementptr inbounds %"class.kc::impl_ID", ptr %call13, i64 0, i32 3
+  store i32 %34, ptr %line41, align 8, !tbaa !25
+  %file = getelementptr inbounds %"class.kc::impl_ID", ptr %elementphylum, i64 0, i32 4
+  %35 = load ptr, ptr %file, align 8, !tbaa !23
+  %file42 = getelementptr inbounds %"class.kc::impl_ID", ptr %call13, i64 0, i32 4
+  store ptr %35, ptr %file42, align 8, !tbaa !23
+  %36 = load i32, ptr %line, align 8, !tbaa !25
+  %line44 = getelementptr inbounds %"class.kc::impl_ID", ptr %call34, i64 0, i32 3
+  store i32 %36, ptr %line44, align 8, !tbaa !25
+  %37 = load ptr, ptr %file, align 8, !tbaa !23
+  %file46 = getelementptr inbounds %"class.kc::impl_ID", ptr %call34, i64 0, i32 4
+  store ptr %37, ptr %file46, align 8, !tbaa !23
+  %call47 = call noundef ptr @_ZN2kc12NilargumentsEv()
+  %call48 = call noundef ptr @_ZN2kc11AlternativeEPNS_7impl_IDEPNS_14impl_argumentsE(ptr noundef %call13, ptr noundef %call47)
+  %call49 = call noundef ptr @_ZN2kc12NilargumentsEv()
+  %call50 = call noundef ptr @_ZN2kc13ConsargumentsEPNS_7impl_IDEPNS_14impl_argumentsE(ptr noundef %elementphylum, ptr noundef %call49)
+  %call51 = call noundef ptr @_ZN2kc13ConsargumentsEPNS_7impl_IDEPNS_14impl_argumentsE(ptr noundef nonnull %listphylum, ptr noundef %call50)
+  %call52 = call noundef ptr @_ZN2kc11AlternativeEPNS_7impl_IDEPNS_14impl_argumentsE(ptr noundef %call34, ptr noundef %call51)
+  %call53 = call noundef ptr @_ZN2kc14ITUserOperatorEPNS_16impl_alternativeEPNS_7impl_IDE(ptr noundef %call48, ptr noundef nonnull %listphylum)
+  call void @_ZN2kc13v_extendoccurEPNS_7impl_IDEPNS_11impl_IDtypeE(ptr noundef %call13, ptr noundef %call53)
+  %call54 = call noundef ptr @_ZN2kc14ITUserOperatorEPNS_16impl_alternativeEPNS_7impl_IDE(ptr noundef %call52, ptr noundef nonnull %listphylum)
+  call void @_ZN2kc13v_extendoccurEPNS_7impl_IDEPNS_11impl_IDtypeE(ptr noundef %call34, ptr noundef %call54)
+  %call55 = call noundef ptr @_ZN2kc15NilalternativesEv()
+  %call56 = call noundef ptr @_ZN2kc16ConsalternativesEPNS_16impl_alternativeEPNS_17impl_alternativesE(ptr noundef %call48, ptr noundef %call55)
+  %call57 = call noundef ptr @_ZN2kc16ConsalternativesEPNS_16impl_alternativeEPNS_17impl_alternativesE(ptr noundef %call52, ptr noundef %call56)
+  ret ptr %call57
 
-158:                                              ; preds = %38, %36, %29, %15, %2
-  %159 = landingpad { ptr, i32 }
+lpad3:                                            ; preds = %_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE6appendEPKc.exit.i, %if.then.i.i.i, %if.else.i, %land.lhs.true.i, %entry
+  %38 = landingpad { ptr, i32 }
           cleanup
-  br label %165
+  br label %ehcleanup
 
-160:                                              ; preds = %61, %59, %53
-  %161 = landingpad { ptr, i32 }
+lpad7:                                            ; preds = %invoke.cont10, %invoke.cont8, %invoke.cont5
+  %39 = landingpad { ptr, i32 }
           cleanup
-  %162 = load ptr, ptr %3, align 8, !tbaa !53
-  %163 = icmp eq ptr %162, %41
-  br i1 %163, label %165, label %164
+  %40 = load ptr, ptr %ref.tmp, align 8, !tbaa !53
+  %cmp.i.i.i151 = icmp eq ptr %40, %8
+  br i1 %cmp.i.i.i151, label %ehcleanup, label %if.then.i.i152
 
-164:                                              ; preds = %160
-  call void @_ZdlPv(ptr noundef %162) #14
-  br label %165
+if.then.i.i152:                                   ; preds = %lpad7
+  call void @_ZdlPv(ptr noundef %40) #14
+  br label %ehcleanup
 
-165:                                              ; preds = %164, %160, %158
-  %166 = phi { ptr, i32 } [ %159, %158 ], [ %161, %160 ], [ %161, %164 ]
-  %167 = load ptr, ptr %4, align 8, !tbaa !53
-  %168 = icmp eq ptr %167, %7
-  br i1 %168, label %170, label %169
+ehcleanup:                                        ; preds = %if.then.i.i152, %lpad7, %lpad3
+  %.pn = phi { ptr, i32 } [ %38, %lpad3 ], [ %39, %lpad7 ], [ %39, %if.then.i.i152 ]
+  %41 = load ptr, ptr %ref.tmp1, align 8, !tbaa !53
+  %cmp.i.i.i154 = icmp eq ptr %41, %0
+  br i1 %cmp.i.i.i154, label %ehcleanup14, label %if.then.i.i155
 
-169:                                              ; preds = %165
-  call void @_ZdlPv(ptr noundef %167) #14
-  br label %170
+if.then.i.i155:                                   ; preds = %ehcleanup
+  call void @_ZdlPv(ptr noundef %41) #14
+  br label %ehcleanup14
 
-170:                                              ; preds = %169, %165
-  call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %4) #12
-  call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %3) #12
-  br label %184
+ehcleanup14:                                      ; preds = %if.then.i.i155, %ehcleanup
+  call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %ref.tmp1) #12
+  call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %ref.tmp) #12
+  br label %ehcleanup58
 
-171:                                              ; preds = %103, %101, %94, %80, %71
-  %172 = landingpad { ptr, i32 }
+lpad23:                                           ; preds = %_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE6appendEPKc.exit.i132, %if.then.i.i.i130, %if.else.i118, %land.lhs.true.i114, %_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEED2Ev.exit96
+  %42 = landingpad { ptr, i32 }
           cleanup
-  br label %178
+  br label %ehcleanup36
 
-173:                                              ; preds = %126, %124, %118
-  %174 = landingpad { ptr, i32 }
+lpad28:                                           ; preds = %invoke.cont31, %invoke.cont29, %invoke.cont26
+  %43 = landingpad { ptr, i32 }
           cleanup
-  %175 = load ptr, ptr %5, align 8, !tbaa !53
-  %176 = icmp eq ptr %175, %106
-  br i1 %176, label %178, label %177
+  %44 = load ptr, ptr %ref.tmp18, align 8, !tbaa !53
+  %cmp.i.i.i157 = icmp eq ptr %44, %25
+  br i1 %cmp.i.i.i157, label %ehcleanup36, label %if.then.i.i158
 
-177:                                              ; preds = %173
-  call void @_ZdlPv(ptr noundef %175) #14
-  br label %178
+if.then.i.i158:                                   ; preds = %lpad28
+  call void @_ZdlPv(ptr noundef %44) #14
+  br label %ehcleanup36
 
-178:                                              ; preds = %177, %173, %171
-  %179 = phi { ptr, i32 } [ %172, %171 ], [ %174, %173 ], [ %174, %177 ]
-  %180 = load ptr, ptr %6, align 8, !tbaa !53
-  %181 = icmp eq ptr %180, %72
-  br i1 %181, label %183, label %182
+ehcleanup36:                                      ; preds = %if.then.i.i158, %lpad28, %lpad23
+  %.pn81 = phi { ptr, i32 } [ %42, %lpad23 ], [ %43, %lpad28 ], [ %43, %if.then.i.i158 ]
+  %45 = load ptr, ptr %ref.tmp19, align 8, !tbaa !53
+  %cmp.i.i.i160 = icmp eq ptr %45, %17
+  br i1 %cmp.i.i.i160, label %ehcleanup37, label %if.then.i.i161
 
-182:                                              ; preds = %178
-  call void @_ZdlPv(ptr noundef %180) #14
-  br label %183
+if.then.i.i161:                                   ; preds = %ehcleanup36
+  call void @_ZdlPv(ptr noundef %45) #14
+  br label %ehcleanup37
 
-183:                                              ; preds = %182, %178
-  call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %6) #12
-  call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %5) #12
-  br label %184
+ehcleanup37:                                      ; preds = %if.then.i.i161, %ehcleanup36
+  call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %ref.tmp19) #12
+  call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %ref.tmp18) #12
+  br label %ehcleanup58
 
-184:                                              ; preds = %183, %170
-  %185 = phi { ptr, i32 } [ %179, %183 ], [ %166, %170 ]
-  resume { ptr, i32 } %185
+ehcleanup58:                                      ; preds = %ehcleanup37, %ehcleanup14
+  %.pn81.pn.pn = phi { ptr, i32 } [ %.pn81, %ehcleanup37 ], [ %.pn, %ehcleanup14 ]
+  resume { ptr, i32 } %.pn81.pn.pn
 }
 
 declare noundef ptr @_ZN2kc2IdEPNS_11impl_uniqIDE(ptr noundef) local_unnamed_addr #2
@@ -1175,37 +1178,38 @@ declare noundef ptr @_ZN2kc12mkcasestringEPKci(ptr noundef, i32 noundef) local_u
 declare i32 @__gxx_personality_v0(...)
 
 ; Function Attrs: mustprogress uwtable
-define dso_local noundef ptr @_ZN2kc9f_strofIDEPNS_7impl_IDE(ptr noundef %0) local_unnamed_addr #0 {
-  %2 = load ptr, ptr %0, align 8, !tbaa !5
-  %3 = load ptr, ptr %2, align 8
-  %4 = tail call noundef i32 %3(ptr noundef nonnull align 8 dereferenceable(8) %0)
-  %5 = icmp eq i32 %4, 7
-  br i1 %5, label %6, label %19
+define dso_local noundef ptr @_ZN2kc9f_strofIDEPNS_7impl_IDE(ptr noundef %id) local_unnamed_addr #0 {
+entry:
+  %vtable = load ptr, ptr %id, align 8, !tbaa !5
+  %0 = load ptr, ptr %vtable, align 8
+  %call1 = tail call noundef i32 %0(ptr noundef nonnull align 8 dereferenceable(8) %id)
+  %cmp = icmp eq i32 %call1, 7
+  br i1 %cmp, label %land.lhs.true, label %if.else
 
-6:                                                ; preds = %1
-  %7 = getelementptr inbounds %"class.kc::impl_ID_Id", ptr %0, i64 0, i32 1
-  %8 = load ptr, ptr %7, align 8, !tbaa !33
-  %9 = load ptr, ptr %8, align 8, !tbaa !5
-  %10 = load ptr, ptr %9, align 8
-  %11 = tail call noundef i32 %10(ptr noundef nonnull align 8 dereferenceable(8) %8)
-  %12 = icmp eq i32 %11, 6
-  br i1 %12, label %13, label %19
+land.lhs.true:                                    ; preds = %entry
+  %uniqID_1 = getelementptr inbounds %"class.kc::impl_ID_Id", ptr %id, i64 0, i32 1
+  %1 = load ptr, ptr %uniqID_1, align 8, !tbaa !33
+  %vtable3 = load ptr, ptr %1, align 8, !tbaa !5
+  %2 = load ptr, ptr %vtable3, align 8
+  %call5 = tail call noundef i32 %2(ptr noundef nonnull align 8 dereferenceable(8) %1)
+  %cmp6 = icmp eq i32 %call5, 6
+  br i1 %cmp6, label %if.then, label %if.else
 
-13:                                               ; preds = %6
-  %14 = load ptr, ptr %7, align 8, !tbaa !33
-  %15 = getelementptr inbounds %"class.kc::impl_uniqID_Str", ptr %14, i64 0, i32 1
-  %16 = load ptr, ptr %15, align 8, !tbaa !46
-  %17 = getelementptr inbounds %"class.kc::impl_casestring__Str", ptr %16, i64 0, i32 1
-  %18 = load ptr, ptr %17, align 8, !tbaa !48
-  br label %20
+if.then:                                          ; preds = %land.lhs.true
+  %3 = load ptr, ptr %uniqID_1, align 8, !tbaa !33
+  %casestring_1 = getelementptr inbounds %"class.kc::impl_uniqID_Str", ptr %3, i64 0, i32 1
+  %4 = load ptr, ptr %casestring_1, align 8, !tbaa !46
+  %name = getelementptr inbounds %"class.kc::impl_casestring__Str", ptr %4, i64 0, i32 1
+  %5 = load ptr, ptr %name, align 8, !tbaa !48
+  br label %cleanup
 
-19:                                               ; preds = %6, %1
+if.else:                                          ; preds = %land.lhs.true, %entry
   tail call void @_ZN2kc21kc_no_default_in_withEPKciS1_(ptr noundef nonnull @.str.9, i32 noundef 246, ptr noundef nonnull @.str.6)
-  br label %20
+  br label %cleanup
 
-20:                                               ; preds = %19, %13
-  %21 = phi ptr [ %18, %13 ], [ null, %19 ]
-  ret ptr %21
+cleanup:                                          ; preds = %if.else, %if.then
+  %retval.0 = phi ptr [ %5, %if.then ], [ null, %if.else ]
+  ret ptr %retval.0
 }
 
 declare noundef ptr @_ZN2kc11AlternativeEPNS_7impl_IDEPNS_14impl_argumentsE(ptr noundef, ptr noundef) local_unnamed_addr #2
@@ -1223,285 +1227,287 @@ declare noundef ptr @_ZN2kc16ConsalternativesEPNS_16impl_alternativeEPNS_17impl_
 declare noundef ptr @_ZN2kc15NilalternativesEv() local_unnamed_addr #2
 
 ; Function Attrs: mustprogress uwtable
-define dso_local noundef ptr @_ZN2kc12f_lookupdeclEPNS_7impl_IDE(ptr noundef %0) local_unnamed_addr #0 {
-  %2 = load ptr, ptr %0, align 8, !tbaa !5
-  %3 = load ptr, ptr %2, align 8
-  %4 = tail call noundef i32 %3(ptr noundef nonnull align 8 dereferenceable(8) %0)
-  %5 = icmp eq i32 %4, 7
-  br i1 %5, label %6, label %157
+define dso_local noundef ptr @_ZN2kc12f_lookupdeclEPNS_7impl_IDE(ptr noundef %id) local_unnamed_addr #0 {
+entry:
+  %vtable = load ptr, ptr %id, align 8, !tbaa !5
+  %0 = load ptr, ptr %vtable, align 8
+  %call1 = tail call noundef i32 %0(ptr noundef nonnull align 8 dereferenceable(8) %id)
+  %cmp = icmp eq i32 %call1, 7
+  br i1 %cmp, label %if.then, label %if.else128
 
-6:                                                ; preds = %1
-  %7 = getelementptr inbounds %"class.kc::impl_ID_Id", ptr %0, i64 0, i32 1
-  %8 = load ptr, ptr %7, align 8, !tbaa !33
-  %9 = getelementptr inbounds %"class.kc::impl_uniqID", ptr %8, i64 0, i32 1
-  %10 = load ptr, ptr %9, align 8, !tbaa !35
-  %11 = load ptr, ptr %10, align 8, !tbaa !5
-  %12 = load ptr, ptr %11, align 8
-  %13 = tail call noundef i32 %12(ptr noundef nonnull align 8 dereferenceable(8) %10)
-  %14 = icmp eq i32 %13, 184
-  br i1 %14, label %15, label %23
+if.then:                                          ; preds = %entry
+  %uniqID_1 = getelementptr inbounds %"class.kc::impl_ID_Id", ptr %id, i64 0, i32 1
+  %1 = load ptr, ptr %uniqID_1, align 8, !tbaa !33
+  %type = getelementptr inbounds %"class.kc::impl_uniqID", ptr %1, i64 0, i32 1
+  %2 = load ptr, ptr %type, align 8, !tbaa !35
+  %vtable4 = load ptr, ptr %2, align 8, !tbaa !5
+  %3 = load ptr, ptr %vtable4, align 8
+  %call6 = tail call noundef i32 %3(ptr noundef nonnull align 8 dereferenceable(8) %2)
+  %cmp7 = icmp eq i32 %call6, 184
+  br i1 %cmp7, label %if.then8, label %if.else
 
-15:                                               ; preds = %6
-  %16 = getelementptr inbounds %"class.kc::impl_ID", ptr %0, i64 0, i32 4
-  %17 = load ptr, ptr %16, align 8, !tbaa !23
-  %18 = getelementptr inbounds %"class.kc::impl_ID", ptr %0, i64 0, i32 3
-  %19 = load i32, ptr %18, align 8, !tbaa !25
-  %20 = tail call noundef ptr @_ZN2kc8FileLineEPNS_20impl_casestring__StrEi(ptr noundef %17, i32 noundef %19)
-  %21 = tail call noundef ptr @_ZN2kc12Problem1S1IDEPKcPNS_7impl_IDE(ptr noundef nonnull @.str.10, ptr noundef nonnull %0)
-  %22 = tail call noundef ptr @_ZN2kc8NonFatalEPNS_13impl_filelineEPNS_12impl_problemE(ptr noundef %20, ptr noundef %21)
-  tail call void @_ZN2kc8v_reportEPNS_10impl_errorE(ptr noundef %22)
-  br label %158
+if.then8:                                         ; preds = %if.then
+  %file = getelementptr inbounds %"class.kc::impl_ID", ptr %id, i64 0, i32 4
+  %4 = load ptr, ptr %file, align 8, !tbaa !23
+  %line = getelementptr inbounds %"class.kc::impl_ID", ptr %id, i64 0, i32 3
+  %5 = load i32, ptr %line, align 8, !tbaa !25
+  %call9 = tail call noundef ptr @_ZN2kc8FileLineEPNS_20impl_casestring__StrEi(ptr noundef %4, i32 noundef %5)
+  %call10 = tail call noundef ptr @_ZN2kc12Problem1S1IDEPKcPNS_7impl_IDE(ptr noundef nonnull @.str.10, ptr noundef nonnull %id)
+  %call11 = tail call noundef ptr @_ZN2kc8NonFatalEPNS_13impl_filelineEPNS_12impl_problemE(ptr noundef %call9, ptr noundef %call10)
+  tail call void @_ZN2kc8v_reportEPNS_10impl_errorE(ptr noundef %call11)
+  br label %cleanup129
 
-23:                                               ; preds = %6
-  %24 = load ptr, ptr %10, align 8, !tbaa !5
-  %25 = load ptr, ptr %24, align 8
-  %26 = tail call noundef i32 %25(ptr noundef nonnull align 8 dereferenceable(8) %10)
-  %27 = icmp eq i32 %26, 183
-  br i1 %27, label %28, label %36
+if.else:                                          ; preds = %if.then
+  %vtable12 = load ptr, ptr %2, align 8, !tbaa !5
+  %6 = load ptr, ptr %vtable12, align 8
+  %call14 = tail call noundef i32 %6(ptr noundef nonnull align 8 dereferenceable(8) %2)
+  %cmp15 = icmp eq i32 %call14, 183
+  br i1 %cmp15, label %if.then16, label %if.else22
 
-28:                                               ; preds = %23
-  %29 = getelementptr inbounds %"class.kc::impl_ID", ptr %0, i64 0, i32 4
-  %30 = load ptr, ptr %29, align 8, !tbaa !23
-  %31 = getelementptr inbounds %"class.kc::impl_ID", ptr %0, i64 0, i32 3
-  %32 = load i32, ptr %31, align 8, !tbaa !25
-  %33 = tail call noundef ptr @_ZN2kc8FileLineEPNS_20impl_casestring__StrEi(ptr noundef %30, i32 noundef %32)
-  %34 = tail call noundef ptr @_ZN2kc12Problem1S1IDEPKcPNS_7impl_IDE(ptr noundef nonnull @.str.11, ptr noundef nonnull %0)
-  %35 = tail call noundef ptr @_ZN2kc8NonFatalEPNS_13impl_filelineEPNS_12impl_problemE(ptr noundef %33, ptr noundef %34)
-  tail call void @_ZN2kc8v_reportEPNS_10impl_errorE(ptr noundef %35)
-  br label %158
+if.then16:                                        ; preds = %if.else
+  %file17 = getelementptr inbounds %"class.kc::impl_ID", ptr %id, i64 0, i32 4
+  %7 = load ptr, ptr %file17, align 8, !tbaa !23
+  %line18 = getelementptr inbounds %"class.kc::impl_ID", ptr %id, i64 0, i32 3
+  %8 = load i32, ptr %line18, align 8, !tbaa !25
+  %call19 = tail call noundef ptr @_ZN2kc8FileLineEPNS_20impl_casestring__StrEi(ptr noundef %7, i32 noundef %8)
+  %call20 = tail call noundef ptr @_ZN2kc12Problem1S1IDEPKcPNS_7impl_IDE(ptr noundef nonnull @.str.11, ptr noundef nonnull %id)
+  %call21 = tail call noundef ptr @_ZN2kc8NonFatalEPNS_13impl_filelineEPNS_12impl_problemE(ptr noundef %call19, ptr noundef %call20)
+  tail call void @_ZN2kc8v_reportEPNS_10impl_errorE(ptr noundef %call21)
+  br label %cleanup129
 
-36:                                               ; preds = %23
-  %37 = load ptr, ptr %10, align 8, !tbaa !5
-  %38 = load ptr, ptr %37, align 8
-  %39 = tail call noundef i32 %38(ptr noundef nonnull align 8 dereferenceable(8) %10)
-  %40 = icmp eq i32 %39, 182
-  br i1 %40, label %41, label %49
+if.else22:                                        ; preds = %if.else
+  %vtable23 = load ptr, ptr %2, align 8, !tbaa !5
+  %9 = load ptr, ptr %vtable23, align 8
+  %call25 = tail call noundef i32 %9(ptr noundef nonnull align 8 dereferenceable(8) %2)
+  %cmp26 = icmp eq i32 %call25, 182
+  br i1 %cmp26, label %if.then27, label %if.else33
 
-41:                                               ; preds = %36
-  %42 = getelementptr inbounds %"class.kc::impl_ID", ptr %0, i64 0, i32 4
-  %43 = load ptr, ptr %42, align 8, !tbaa !23
-  %44 = getelementptr inbounds %"class.kc::impl_ID", ptr %0, i64 0, i32 3
-  %45 = load i32, ptr %44, align 8, !tbaa !25
-  %46 = tail call noundef ptr @_ZN2kc8FileLineEPNS_20impl_casestring__StrEi(ptr noundef %43, i32 noundef %45)
-  %47 = tail call noundef ptr @_ZN2kc12Problem1S1IDEPKcPNS_7impl_IDE(ptr noundef nonnull @.str.12, ptr noundef nonnull %0)
-  %48 = tail call noundef ptr @_ZN2kc8NonFatalEPNS_13impl_filelineEPNS_12impl_problemE(ptr noundef %46, ptr noundef %47)
-  tail call void @_ZN2kc8v_reportEPNS_10impl_errorE(ptr noundef %48)
-  br label %158
+if.then27:                                        ; preds = %if.else22
+  %file28 = getelementptr inbounds %"class.kc::impl_ID", ptr %id, i64 0, i32 4
+  %10 = load ptr, ptr %file28, align 8, !tbaa !23
+  %line29 = getelementptr inbounds %"class.kc::impl_ID", ptr %id, i64 0, i32 3
+  %11 = load i32, ptr %line29, align 8, !tbaa !25
+  %call30 = tail call noundef ptr @_ZN2kc8FileLineEPNS_20impl_casestring__StrEi(ptr noundef %10, i32 noundef %11)
+  %call31 = tail call noundef ptr @_ZN2kc12Problem1S1IDEPKcPNS_7impl_IDE(ptr noundef nonnull @.str.12, ptr noundef nonnull %id)
+  %call32 = tail call noundef ptr @_ZN2kc8NonFatalEPNS_13impl_filelineEPNS_12impl_problemE(ptr noundef %call30, ptr noundef %call31)
+  tail call void @_ZN2kc8v_reportEPNS_10impl_errorE(ptr noundef %call32)
+  br label %cleanup129
 
-49:                                               ; preds = %36
-  %50 = load ptr, ptr %10, align 8, !tbaa !5
-  %51 = load ptr, ptr %50, align 8
-  %52 = tail call noundef i32 %51(ptr noundef nonnull align 8 dereferenceable(8) %10)
-  %53 = icmp eq i32 %52, 180
-  br i1 %53, label %54, label %62
+if.else33:                                        ; preds = %if.else22
+  %vtable34 = load ptr, ptr %2, align 8, !tbaa !5
+  %12 = load ptr, ptr %vtable34, align 8
+  %call36 = tail call noundef i32 %12(ptr noundef nonnull align 8 dereferenceable(8) %2)
+  %cmp37 = icmp eq i32 %call36, 180
+  br i1 %cmp37, label %if.then38, label %if.else44
 
-54:                                               ; preds = %49
-  %55 = getelementptr inbounds %"class.kc::impl_ID", ptr %0, i64 0, i32 4
-  %56 = load ptr, ptr %55, align 8, !tbaa !23
-  %57 = getelementptr inbounds %"class.kc::impl_ID", ptr %0, i64 0, i32 3
-  %58 = load i32, ptr %57, align 8, !tbaa !25
-  %59 = tail call noundef ptr @_ZN2kc8FileLineEPNS_20impl_casestring__StrEi(ptr noundef %56, i32 noundef %58)
-  %60 = tail call noundef ptr @_ZN2kc12Problem1S1IDEPKcPNS_7impl_IDE(ptr noundef nonnull @.str.13, ptr noundef nonnull %0)
-  %61 = tail call noundef ptr @_ZN2kc8NonFatalEPNS_13impl_filelineEPNS_12impl_problemE(ptr noundef %59, ptr noundef %60)
-  tail call void @_ZN2kc8v_reportEPNS_10impl_errorE(ptr noundef %61)
-  br label %158
+if.then38:                                        ; preds = %if.else33
+  %file39 = getelementptr inbounds %"class.kc::impl_ID", ptr %id, i64 0, i32 4
+  %13 = load ptr, ptr %file39, align 8, !tbaa !23
+  %line40 = getelementptr inbounds %"class.kc::impl_ID", ptr %id, i64 0, i32 3
+  %14 = load i32, ptr %line40, align 8, !tbaa !25
+  %call41 = tail call noundef ptr @_ZN2kc8FileLineEPNS_20impl_casestring__StrEi(ptr noundef %13, i32 noundef %14)
+  %call42 = tail call noundef ptr @_ZN2kc12Problem1S1IDEPKcPNS_7impl_IDE(ptr noundef nonnull @.str.13, ptr noundef nonnull %id)
+  %call43 = tail call noundef ptr @_ZN2kc8NonFatalEPNS_13impl_filelineEPNS_12impl_problemE(ptr noundef %call41, ptr noundef %call42)
+  tail call void @_ZN2kc8v_reportEPNS_10impl_errorE(ptr noundef %call43)
+  br label %cleanup129
 
-62:                                               ; preds = %49
-  %63 = load ptr, ptr %10, align 8, !tbaa !5
-  %64 = load ptr, ptr %63, align 8
-  %65 = tail call noundef i32 %64(ptr noundef nonnull align 8 dereferenceable(8) %10)
-  %66 = icmp eq i32 %65, 179
-  br i1 %66, label %67, label %75
+if.else44:                                        ; preds = %if.else33
+  %vtable45 = load ptr, ptr %2, align 8, !tbaa !5
+  %15 = load ptr, ptr %vtable45, align 8
+  %call47 = tail call noundef i32 %15(ptr noundef nonnull align 8 dereferenceable(8) %2)
+  %cmp48 = icmp eq i32 %call47, 179
+  br i1 %cmp48, label %if.then49, label %if.else55
 
-67:                                               ; preds = %62
-  %68 = getelementptr inbounds %"class.kc::impl_ID", ptr %0, i64 0, i32 4
-  %69 = load ptr, ptr %68, align 8, !tbaa !23
-  %70 = getelementptr inbounds %"class.kc::impl_ID", ptr %0, i64 0, i32 3
-  %71 = load i32, ptr %70, align 8, !tbaa !25
-  %72 = tail call noundef ptr @_ZN2kc8FileLineEPNS_20impl_casestring__StrEi(ptr noundef %69, i32 noundef %71)
-  %73 = tail call noundef ptr @_ZN2kc12Problem1S1IDEPKcPNS_7impl_IDE(ptr noundef nonnull @.str.14, ptr noundef nonnull %0)
-  %74 = tail call noundef ptr @_ZN2kc8NonFatalEPNS_13impl_filelineEPNS_12impl_problemE(ptr noundef %72, ptr noundef %73)
-  tail call void @_ZN2kc8v_reportEPNS_10impl_errorE(ptr noundef %74)
-  br label %158
+if.then49:                                        ; preds = %if.else44
+  %file50 = getelementptr inbounds %"class.kc::impl_ID", ptr %id, i64 0, i32 4
+  %16 = load ptr, ptr %file50, align 8, !tbaa !23
+  %line51 = getelementptr inbounds %"class.kc::impl_ID", ptr %id, i64 0, i32 3
+  %17 = load i32, ptr %line51, align 8, !tbaa !25
+  %call52 = tail call noundef ptr @_ZN2kc8FileLineEPNS_20impl_casestring__StrEi(ptr noundef %16, i32 noundef %17)
+  %call53 = tail call noundef ptr @_ZN2kc12Problem1S1IDEPKcPNS_7impl_IDE(ptr noundef nonnull @.str.14, ptr noundef nonnull %id)
+  %call54 = tail call noundef ptr @_ZN2kc8NonFatalEPNS_13impl_filelineEPNS_12impl_problemE(ptr noundef %call52, ptr noundef %call53)
+  tail call void @_ZN2kc8v_reportEPNS_10impl_errorE(ptr noundef %call54)
+  br label %cleanup129
 
-75:                                               ; preds = %62
-  %76 = load ptr, ptr %10, align 8, !tbaa !5
-  %77 = load ptr, ptr %76, align 8
-  %78 = tail call noundef i32 %77(ptr noundef nonnull align 8 dereferenceable(8) %10)
-  %79 = icmp eq i32 %78, 178
-  br i1 %79, label %80, label %88
+if.else55:                                        ; preds = %if.else44
+  %vtable56 = load ptr, ptr %2, align 8, !tbaa !5
+  %18 = load ptr, ptr %vtable56, align 8
+  %call58 = tail call noundef i32 %18(ptr noundef nonnull align 8 dereferenceable(8) %2)
+  %cmp59 = icmp eq i32 %call58, 178
+  br i1 %cmp59, label %if.then60, label %if.else66
 
-80:                                               ; preds = %75
-  %81 = getelementptr inbounds %"class.kc::impl_ID", ptr %0, i64 0, i32 4
-  %82 = load ptr, ptr %81, align 8, !tbaa !23
-  %83 = getelementptr inbounds %"class.kc::impl_ID", ptr %0, i64 0, i32 3
-  %84 = load i32, ptr %83, align 8, !tbaa !25
-  %85 = tail call noundef ptr @_ZN2kc8FileLineEPNS_20impl_casestring__StrEi(ptr noundef %82, i32 noundef %84)
-  %86 = tail call noundef ptr @_ZN2kc12Problem1S1IDEPKcPNS_7impl_IDE(ptr noundef nonnull @.str.15, ptr noundef nonnull %0)
-  %87 = tail call noundef ptr @_ZN2kc8NonFatalEPNS_13impl_filelineEPNS_12impl_problemE(ptr noundef %85, ptr noundef %86)
-  tail call void @_ZN2kc8v_reportEPNS_10impl_errorE(ptr noundef %87)
-  br label %158
+if.then60:                                        ; preds = %if.else55
+  %file61 = getelementptr inbounds %"class.kc::impl_ID", ptr %id, i64 0, i32 4
+  %19 = load ptr, ptr %file61, align 8, !tbaa !23
+  %line62 = getelementptr inbounds %"class.kc::impl_ID", ptr %id, i64 0, i32 3
+  %20 = load i32, ptr %line62, align 8, !tbaa !25
+  %call63 = tail call noundef ptr @_ZN2kc8FileLineEPNS_20impl_casestring__StrEi(ptr noundef %19, i32 noundef %20)
+  %call64 = tail call noundef ptr @_ZN2kc12Problem1S1IDEPKcPNS_7impl_IDE(ptr noundef nonnull @.str.15, ptr noundef nonnull %id)
+  %call65 = tail call noundef ptr @_ZN2kc8NonFatalEPNS_13impl_filelineEPNS_12impl_problemE(ptr noundef %call63, ptr noundef %call64)
+  tail call void @_ZN2kc8v_reportEPNS_10impl_errorE(ptr noundef %call65)
+  br label %cleanup129
 
-88:                                               ; preds = %75
-  %89 = load ptr, ptr %10, align 8, !tbaa !5
-  %90 = load ptr, ptr %89, align 8
-  %91 = tail call noundef i32 %90(ptr noundef nonnull align 8 dereferenceable(8) %10)
-  %92 = icmp eq i32 %91, 177
-  br i1 %92, label %93, label %101
+if.else66:                                        ; preds = %if.else55
+  %vtable67 = load ptr, ptr %2, align 8, !tbaa !5
+  %21 = load ptr, ptr %vtable67, align 8
+  %call69 = tail call noundef i32 %21(ptr noundef nonnull align 8 dereferenceable(8) %2)
+  %cmp70 = icmp eq i32 %call69, 177
+  br i1 %cmp70, label %if.then71, label %if.else77
 
-93:                                               ; preds = %88
-  %94 = getelementptr inbounds %"class.kc::impl_ID", ptr %0, i64 0, i32 4
-  %95 = load ptr, ptr %94, align 8, !tbaa !23
-  %96 = getelementptr inbounds %"class.kc::impl_ID", ptr %0, i64 0, i32 3
-  %97 = load i32, ptr %96, align 8, !tbaa !25
-  %98 = tail call noundef ptr @_ZN2kc8FileLineEPNS_20impl_casestring__StrEi(ptr noundef %95, i32 noundef %97)
-  %99 = tail call noundef ptr @_ZN2kc12Problem1S1IDEPKcPNS_7impl_IDE(ptr noundef nonnull @.str.16, ptr noundef nonnull %0)
-  %100 = tail call noundef ptr @_ZN2kc8NonFatalEPNS_13impl_filelineEPNS_12impl_problemE(ptr noundef %98, ptr noundef %99)
-  tail call void @_ZN2kc8v_reportEPNS_10impl_errorE(ptr noundef %100)
-  br label %158
+if.then71:                                        ; preds = %if.else66
+  %file72 = getelementptr inbounds %"class.kc::impl_ID", ptr %id, i64 0, i32 4
+  %22 = load ptr, ptr %file72, align 8, !tbaa !23
+  %line73 = getelementptr inbounds %"class.kc::impl_ID", ptr %id, i64 0, i32 3
+  %23 = load i32, ptr %line73, align 8, !tbaa !25
+  %call74 = tail call noundef ptr @_ZN2kc8FileLineEPNS_20impl_casestring__StrEi(ptr noundef %22, i32 noundef %23)
+  %call75 = tail call noundef ptr @_ZN2kc12Problem1S1IDEPKcPNS_7impl_IDE(ptr noundef nonnull @.str.16, ptr noundef nonnull %id)
+  %call76 = tail call noundef ptr @_ZN2kc8NonFatalEPNS_13impl_filelineEPNS_12impl_problemE(ptr noundef %call74, ptr noundef %call75)
+  tail call void @_ZN2kc8v_reportEPNS_10impl_errorE(ptr noundef %call76)
+  br label %cleanup129
 
-101:                                              ; preds = %88
-  %102 = load ptr, ptr %10, align 8, !tbaa !5
-  %103 = load ptr, ptr %102, align 8
-  %104 = tail call noundef i32 %103(ptr noundef nonnull align 8 dereferenceable(8) %10)
-  %105 = icmp eq i32 %104, 176
-  br i1 %105, label %106, label %114
+if.else77:                                        ; preds = %if.else66
+  %vtable78 = load ptr, ptr %2, align 8, !tbaa !5
+  %24 = load ptr, ptr %vtable78, align 8
+  %call80 = tail call noundef i32 %24(ptr noundef nonnull align 8 dereferenceable(8) %2)
+  %cmp81 = icmp eq i32 %call80, 176
+  br i1 %cmp81, label %if.then82, label %if.else88
 
-106:                                              ; preds = %101
-  %107 = getelementptr inbounds %"class.kc::impl_ID", ptr %0, i64 0, i32 4
-  %108 = load ptr, ptr %107, align 8, !tbaa !23
-  %109 = getelementptr inbounds %"class.kc::impl_ID", ptr %0, i64 0, i32 3
-  %110 = load i32, ptr %109, align 8, !tbaa !25
-  %111 = tail call noundef ptr @_ZN2kc8FileLineEPNS_20impl_casestring__StrEi(ptr noundef %108, i32 noundef %110)
-  %112 = tail call noundef ptr @_ZN2kc12Problem1S1IDEPKcPNS_7impl_IDE(ptr noundef nonnull @.str.17, ptr noundef nonnull %0)
-  %113 = tail call noundef ptr @_ZN2kc8NonFatalEPNS_13impl_filelineEPNS_12impl_problemE(ptr noundef %111, ptr noundef %112)
-  tail call void @_ZN2kc8v_reportEPNS_10impl_errorE(ptr noundef %113)
-  br label %158
+if.then82:                                        ; preds = %if.else77
+  %file83 = getelementptr inbounds %"class.kc::impl_ID", ptr %id, i64 0, i32 4
+  %25 = load ptr, ptr %file83, align 8, !tbaa !23
+  %line84 = getelementptr inbounds %"class.kc::impl_ID", ptr %id, i64 0, i32 3
+  %26 = load i32, ptr %line84, align 8, !tbaa !25
+  %call85 = tail call noundef ptr @_ZN2kc8FileLineEPNS_20impl_casestring__StrEi(ptr noundef %25, i32 noundef %26)
+  %call86 = tail call noundef ptr @_ZN2kc12Problem1S1IDEPKcPNS_7impl_IDE(ptr noundef nonnull @.str.17, ptr noundef nonnull %id)
+  %call87 = tail call noundef ptr @_ZN2kc8NonFatalEPNS_13impl_filelineEPNS_12impl_problemE(ptr noundef %call85, ptr noundef %call86)
+  tail call void @_ZN2kc8v_reportEPNS_10impl_errorE(ptr noundef %call87)
+  br label %cleanup129
 
-114:                                              ; preds = %101
-  %115 = load ptr, ptr %10, align 8, !tbaa !5
-  %116 = load ptr, ptr %115, align 8
-  %117 = tail call noundef i32 %116(ptr noundef nonnull align 8 dereferenceable(8) %10)
-  %118 = icmp eq i32 %117, 175
-  br i1 %118, label %119, label %127
+if.else88:                                        ; preds = %if.else77
+  %vtable89 = load ptr, ptr %2, align 8, !tbaa !5
+  %27 = load ptr, ptr %vtable89, align 8
+  %call91 = tail call noundef i32 %27(ptr noundef nonnull align 8 dereferenceable(8) %2)
+  %cmp92 = icmp eq i32 %call91, 175
+  br i1 %cmp92, label %if.then93, label %if.else99
 
-119:                                              ; preds = %114
-  %120 = getelementptr inbounds %"class.kc::impl_ID", ptr %0, i64 0, i32 4
-  %121 = load ptr, ptr %120, align 8, !tbaa !23
-  %122 = getelementptr inbounds %"class.kc::impl_ID", ptr %0, i64 0, i32 3
-  %123 = load i32, ptr %122, align 8, !tbaa !25
-  %124 = tail call noundef ptr @_ZN2kc8FileLineEPNS_20impl_casestring__StrEi(ptr noundef %121, i32 noundef %123)
-  %125 = tail call noundef ptr @_ZN2kc12Problem1S1IDEPKcPNS_7impl_IDE(ptr noundef nonnull @.str.18, ptr noundef nonnull %0)
-  %126 = tail call noundef ptr @_ZN2kc8NonFatalEPNS_13impl_filelineEPNS_12impl_problemE(ptr noundef %124, ptr noundef %125)
-  tail call void @_ZN2kc8v_reportEPNS_10impl_errorE(ptr noundef %126)
-  br label %158
+if.then93:                                        ; preds = %if.else88
+  %file94 = getelementptr inbounds %"class.kc::impl_ID", ptr %id, i64 0, i32 4
+  %28 = load ptr, ptr %file94, align 8, !tbaa !23
+  %line95 = getelementptr inbounds %"class.kc::impl_ID", ptr %id, i64 0, i32 3
+  %29 = load i32, ptr %line95, align 8, !tbaa !25
+  %call96 = tail call noundef ptr @_ZN2kc8FileLineEPNS_20impl_casestring__StrEi(ptr noundef %28, i32 noundef %29)
+  %call97 = tail call noundef ptr @_ZN2kc12Problem1S1IDEPKcPNS_7impl_IDE(ptr noundef nonnull @.str.18, ptr noundef nonnull %id)
+  %call98 = tail call noundef ptr @_ZN2kc8NonFatalEPNS_13impl_filelineEPNS_12impl_problemE(ptr noundef %call96, ptr noundef %call97)
+  tail call void @_ZN2kc8v_reportEPNS_10impl_errorE(ptr noundef %call98)
+  br label %cleanup129
 
-127:                                              ; preds = %114
-  %128 = load ptr, ptr %10, align 8, !tbaa !5
-  %129 = load ptr, ptr %128, align 8
-  %130 = tail call noundef i32 %129(ptr noundef nonnull align 8 dereferenceable(8) %10)
-  %131 = icmp eq i32 %130, 174
-  br i1 %131, label %132, label %135
+if.else99:                                        ; preds = %if.else88
+  %vtable100 = load ptr, ptr %2, align 8, !tbaa !5
+  %30 = load ptr, ptr %vtable100, align 8
+  %call102 = tail call noundef i32 %30(ptr noundef nonnull align 8 dereferenceable(8) %2)
+  %cmp103 = icmp eq i32 %call102, 174
+  br i1 %cmp103, label %if.then104, label %if.else106
 
-132:                                              ; preds = %127
-  %133 = getelementptr inbounds %"class.kc::impl_IDtype_ITUserPhylum", ptr %10, i64 0, i32 1
-  %134 = load ptr, ptr %133, align 8, !tbaa !37
-  br label %158
+if.then104:                                       ; preds = %if.else99
+  %phylumdeclaration_1 = getelementptr inbounds %"class.kc::impl_IDtype_ITUserPhylum", ptr %2, i64 0, i32 1
+  %31 = load ptr, ptr %phylumdeclaration_1, align 8, !tbaa !37
+  br label %cleanup129
 
-135:                                              ; preds = %127
-  %136 = load ptr, ptr %10, align 8, !tbaa !5
-  %137 = load ptr, ptr %136, align 8
-  %138 = tail call noundef i32 %137(ptr noundef nonnull align 8 dereferenceable(8) %10)
-  %139 = icmp eq i32 %138, 173
-  br i1 %139, label %140, label %143
+if.else106:                                       ; preds = %if.else99
+  %vtable107 = load ptr, ptr %2, align 8, !tbaa !5
+  %32 = load ptr, ptr %vtable107, align 8
+  %call109 = tail call noundef i32 %32(ptr noundef nonnull align 8 dereferenceable(8) %2)
+  %cmp110 = icmp eq i32 %call109, 173
+  br i1 %cmp110, label %if.then111, label %if.else115
 
-140:                                              ; preds = %135
-  %141 = getelementptr inbounds %"class.kc::impl_IDtype_ITPredefinedPhylum", ptr %10, i64 0, i32 1
-  %142 = load ptr, ptr %141, align 8, !tbaa !57
-  br label %158
+if.then111:                                       ; preds = %if.else106
+  %phylumdeclaration_1114 = getelementptr inbounds %"class.kc::impl_IDtype_ITPredefinedPhylum", ptr %2, i64 0, i32 1
+  %33 = load ptr, ptr %phylumdeclaration_1114, align 8, !tbaa !57
+  br label %cleanup129
 
-143:                                              ; preds = %135
-  %144 = load ptr, ptr %10, align 8, !tbaa !5
-  %145 = load ptr, ptr %144, align 8
-  %146 = tail call noundef i32 %145(ptr noundef nonnull align 8 dereferenceable(8) %10)
-  %147 = icmp eq i32 %146, 172
-  br i1 %147, label %148, label %156
+if.else115:                                       ; preds = %if.else106
+  %vtable116 = load ptr, ptr %2, align 8, !tbaa !5
+  %34 = load ptr, ptr %vtable116, align 8
+  %call118 = tail call noundef i32 %34(ptr noundef nonnull align 8 dereferenceable(8) %2)
+  %cmp119 = icmp eq i32 %call118, 172
+  br i1 %cmp119, label %if.then120, label %if.else126
 
-148:                                              ; preds = %143
-  %149 = getelementptr inbounds %"class.kc::impl_ID", ptr %0, i64 0, i32 4
-  %150 = load ptr, ptr %149, align 8, !tbaa !23
-  %151 = getelementptr inbounds %"class.kc::impl_ID", ptr %0, i64 0, i32 3
-  %152 = load i32, ptr %151, align 8, !tbaa !25
-  %153 = tail call noundef ptr @_ZN2kc8FileLineEPNS_20impl_casestring__StrEi(ptr noundef %150, i32 noundef %152)
-  %154 = tail call noundef ptr @_ZN2kc12Problem1S1IDEPKcPNS_7impl_IDE(ptr noundef nonnull @.str.20, ptr noundef nonnull %0)
-  %155 = tail call noundef ptr @_ZN2kc8NonFatalEPNS_13impl_filelineEPNS_12impl_problemE(ptr noundef %153, ptr noundef %154)
-  tail call void @_ZN2kc8v_reportEPNS_10impl_errorE(ptr noundef %155)
-  br label %158
+if.then120:                                       ; preds = %if.else115
+  %file121 = getelementptr inbounds %"class.kc::impl_ID", ptr %id, i64 0, i32 4
+  %35 = load ptr, ptr %file121, align 8, !tbaa !23
+  %line122 = getelementptr inbounds %"class.kc::impl_ID", ptr %id, i64 0, i32 3
+  %36 = load i32, ptr %line122, align 8, !tbaa !25
+  %call123 = tail call noundef ptr @_ZN2kc8FileLineEPNS_20impl_casestring__StrEi(ptr noundef %35, i32 noundef %36)
+  %call124 = tail call noundef ptr @_ZN2kc12Problem1S1IDEPKcPNS_7impl_IDE(ptr noundef nonnull @.str.20, ptr noundef nonnull %id)
+  %call125 = tail call noundef ptr @_ZN2kc8NonFatalEPNS_13impl_filelineEPNS_12impl_problemE(ptr noundef %call123, ptr noundef %call124)
+  tail call void @_ZN2kc8v_reportEPNS_10impl_errorE(ptr noundef %call125)
+  br label %cleanup129
 
-156:                                              ; preds = %143
+if.else126:                                       ; preds = %if.else115
   tail call void @_ZN2kc21kc_no_default_in_withEPKciS1_(ptr noundef nonnull @.str.22, i32 noundef 417, ptr noundef nonnull @.str.6)
-  br label %158
+  br label %cleanup129
 
-157:                                              ; preds = %1
+if.else128:                                       ; preds = %entry
   tail call void @_ZN2kc21kc_no_default_in_withEPKciS1_(ptr noundef nonnull @.str.22, i32 noundef 422, ptr noundef nonnull @.str.6)
-  br label %158
+  br label %cleanup129
 
-158:                                              ; preds = %15, %28, %41, %54, %67, %80, %93, %106, %119, %132, %140, %148, %156, %157
-  %159 = phi ptr [ null, %157 ], [ null, %15 ], [ null, %28 ], [ null, %41 ], [ null, %54 ], [ null, %67 ], [ null, %80 ], [ null, %93 ], [ null, %106 ], [ null, %119 ], [ %134, %132 ], [ %142, %140 ], [ null, %148 ], [ null, %156 ]
-  ret ptr %159
+cleanup129:                                       ; preds = %if.then8, %if.then16, %if.then27, %if.then38, %if.then49, %if.then60, %if.then71, %if.then82, %if.then93, %if.then104, %if.then111, %if.then120, %if.else126, %if.else128
+  %retval.1 = phi ptr [ null, %if.else128 ], [ null, %if.then8 ], [ null, %if.then16 ], [ null, %if.then27 ], [ null, %if.then38 ], [ null, %if.then49 ], [ null, %if.then60 ], [ null, %if.then71 ], [ null, %if.then82 ], [ null, %if.then93 ], [ %31, %if.then104 ], [ %33, %if.then111 ], [ null, %if.then120 ], [ null, %if.else126 ]
+  ret ptr %retval.1
 }
 
 ; Function Attrs: mustprogress uwtable
-define dso_local noundef ptr @_ZN2kc21insert_in_argsnumbersEiPNS_16impl_argsnumbersE(i32 noundef %0, ptr noundef %1) local_unnamed_addr #0 {
-  %3 = load ptr, ptr %1, align 8, !tbaa !5
-  %4 = load ptr, ptr %3, align 8
-  %5 = tail call noundef i32 %4(ptr noundef nonnull align 8 dereferenceable(24) %1)
-  %6 = icmp eq i32 %5, 216
-  br i1 %6, label %7, label %25
+define dso_local noundef ptr @_ZN2kc21insert_in_argsnumbersEiPNS_16impl_argsnumbersE(i32 noundef %i, ptr noundef %a) local_unnamed_addr #0 {
+entry:
+  %vtable = load ptr, ptr %a, align 8, !tbaa !5
+  %0 = load ptr, ptr %vtable, align 8
+  %call1 = tail call noundef i32 %0(ptr noundef nonnull align 8 dereferenceable(24) %a)
+  %cmp = icmp eq i32 %call1, 216
+  br i1 %cmp, label %if.then, label %if.else13
 
-7:                                                ; preds = %2
-  %8 = getelementptr inbounds %"class.kc::impl_argsnumbers", ptr %1, i64 0, i32 1
-  %9 = load ptr, ptr %8, align 8, !tbaa !59
-  %10 = getelementptr inbounds %"class.kc::impl_argsnumbers", ptr %1, i64 0, i32 2
-  %11 = load ptr, ptr %10, align 8, !tbaa !62
-  %12 = getelementptr inbounds %"class.kc::impl_integer__Int", ptr %9, i64 0, i32 1
-  %13 = load i32, ptr %12, align 8, !tbaa !63
-  %14 = icmp sgt i32 %13, %0
-  br i1 %14, label %15, label %18
+if.then:                                          ; preds = %entry
+  %integer_1 = getelementptr inbounds %"class.kc::impl_argsnumbers", ptr %a, i64 0, i32 1
+  %1 = load ptr, ptr %integer_1, align 8, !tbaa !59
+  %argsnumbers_1 = getelementptr inbounds %"class.kc::impl_argsnumbers", ptr %a, i64 0, i32 2
+  %2 = load ptr, ptr %argsnumbers_1, align 8, !tbaa !62
+  %value = getelementptr inbounds %"class.kc::impl_integer__Int", ptr %1, i64 0, i32 1
+  %3 = load i32, ptr %value, align 8, !tbaa !63
+  %cmp2 = icmp sgt i32 %3, %i
+  br i1 %cmp2, label %if.then3, label %if.else
 
-15:                                               ; preds = %7
-  %16 = tail call noundef ptr @_ZN2kc9mkintegerEi(i32 noundef %0)
-  %17 = tail call noundef ptr @_ZN2kc15ConsargsnumbersEPNS_17impl_integer__IntEPNS_16impl_argsnumbersE(ptr noundef %16, ptr noundef nonnull %1)
-  br label %20
+if.then3:                                         ; preds = %if.then
+  %call4 = tail call noundef ptr @_ZN2kc9mkintegerEi(i32 noundef %i)
+  %call5 = tail call noundef ptr @_ZN2kc15ConsargsnumbersEPNS_17impl_integer__IntEPNS_16impl_argsnumbersE(ptr noundef %call4, ptr noundef nonnull %a)
+  br label %common.ret35
 
-18:                                               ; preds = %7
-  %19 = icmp eq i32 %13, %0
-  br i1 %19, label %20, label %22
+if.else:                                          ; preds = %if.then
+  %cmp7 = icmp eq i32 %3, %i
+  br i1 %cmp7, label %common.ret35, label %if.else9
 
-20:                                               ; preds = %15, %18, %33, %30, %22
-  %21 = phi ptr [ %24, %22 ], [ %32, %30 ], [ null, %33 ], [ %17, %15 ], [ %1, %18 ]
-  ret ptr %21
+common.ret35:                                     ; preds = %if.then3, %if.else, %if.else21, %if.then18, %if.else9
+  %common.ret35.op = phi ptr [ %call11, %if.else9 ], [ %call20, %if.then18 ], [ null, %if.else21 ], [ %call5, %if.then3 ], [ %a, %if.else ]
+  ret ptr %common.ret35.op
 
-22:                                               ; preds = %18
-  %23 = tail call noundef ptr @_ZN2kc21insert_in_argsnumbersEiPNS_16impl_argsnumbersE(i32 noundef %0, ptr noundef %11)
-  %24 = tail call noundef ptr @_ZN2kc15ConsargsnumbersEPNS_17impl_integer__IntEPNS_16impl_argsnumbersE(ptr noundef nonnull %9, ptr noundef %23)
-  br label %20
+if.else9:                                         ; preds = %if.else
+  %call10 = tail call noundef ptr @_ZN2kc21insert_in_argsnumbersEiPNS_16impl_argsnumbersE(i32 noundef %i, ptr noundef %2)
+  %call11 = tail call noundef ptr @_ZN2kc15ConsargsnumbersEPNS_17impl_integer__IntEPNS_16impl_argsnumbersE(ptr noundef nonnull %1, ptr noundef %call10)
+  br label %common.ret35
 
-25:                                               ; preds = %2
-  %26 = load ptr, ptr %1, align 8, !tbaa !5
-  %27 = load ptr, ptr %26, align 8
-  %28 = tail call noundef i32 %27(ptr noundef nonnull align 8 dereferenceable(24) %1)
-  %29 = icmp eq i32 %28, 215
-  br i1 %29, label %30, label %33
+if.else13:                                        ; preds = %entry
+  %vtable14 = load ptr, ptr %a, align 8, !tbaa !5
+  %4 = load ptr, ptr %vtable14, align 8
+  %call16 = tail call noundef i32 %4(ptr noundef nonnull align 8 dereferenceable(24) %a)
+  %cmp17 = icmp eq i32 %call16, 215
+  br i1 %cmp17, label %if.then18, label %if.else21
 
-30:                                               ; preds = %25
-  %31 = tail call noundef ptr @_ZN2kc9mkintegerEi(i32 noundef %0)
-  %32 = tail call noundef ptr @_ZN2kc15ConsargsnumbersEPNS_17impl_integer__IntEPNS_16impl_argsnumbersE(ptr noundef %31, ptr noundef nonnull %1)
-  br label %20
+if.then18:                                        ; preds = %if.else13
+  %call19 = tail call noundef ptr @_ZN2kc9mkintegerEi(i32 noundef %i)
+  %call20 = tail call noundef ptr @_ZN2kc15ConsargsnumbersEPNS_17impl_integer__IntEPNS_16impl_argsnumbersE(ptr noundef %call19, ptr noundef nonnull %a)
+  br label %common.ret35
 
-33:                                               ; preds = %25
+if.else21:                                        ; preds = %if.else13
   tail call void @_ZN2kc21kc_no_default_in_withEPKciS1_(ptr noundef nonnull @.str.23, i32 noundef 446, ptr noundef nonnull @.str.6)
-  br label %20
+  br label %common.ret35
 }
 
 declare noundef ptr @_ZN2kc15ConsargsnumbersEPNS_17impl_integer__IntEPNS_16impl_argsnumbersE(ptr noundef, ptr noundef) local_unnamed_addr #2
@@ -1509,93 +1515,95 @@ declare noundef ptr @_ZN2kc15ConsargsnumbersEPNS_17impl_integer__IntEPNS_16impl_
 declare noundef ptr @_ZN2kc9mkintegerEi(i32 noundef) local_unnamed_addr #2
 
 ; Function Attrs: mustprogress uwtable
-define dso_local void @_ZN2kc16set_includefilesEPNS_17impl_includefilesEPNS_23impl_includedeclarationE(ptr noundef %0, ptr noundef %1) local_unnamed_addr #0 {
-  %3 = load ptr, ptr %0, align 8, !tbaa !5
-  %4 = load ptr, ptr %3, align 8
-  %5 = tail call noundef i32 %4(ptr noundef nonnull align 8 dereferenceable(24) %0)
-  %6 = icmp eq i32 %5, 60
-  br i1 %6, label %7, label %28
+define dso_local void @_ZN2kc16set_includefilesEPNS_17impl_includefilesEPNS_23impl_includedeclarationE(ptr noundef %ifs, ptr noundef %i) local_unnamed_addr #0 {
+entry:
+  %vtable14 = load ptr, ptr %ifs, align 8, !tbaa !5
+  %0 = load ptr, ptr %vtable14, align 8
+  %call15 = tail call noundef i32 %0(ptr noundef nonnull align 8 dereferenceable(24) %ifs)
+  %cmp16 = icmp eq i32 %call15, 60
+  br i1 %cmp16, label %while.body, label %while.end
 
-7:                                                ; preds = %2, %7
-  %8 = phi ptr [ %23, %7 ], [ %0, %2 ]
-  %9 = getelementptr inbounds %"class.kc::impl_includefiles", ptr %8, i64 0, i32 1
-  %10 = load ptr, ptr %9, align 8, !tbaa !65
-  %11 = getelementptr inbounds %"class.kc::impl_includefile", ptr %10, i64 0, i32 2
-  %12 = getelementptr inbounds %"class.kc::impl_includefile", ptr %10, i64 0, i32 1
-  %13 = load i32, ptr %12, align 8, !tbaa !67
-  %14 = icmp eq i32 %13, 0
-  %15 = getelementptr inbounds %"class.kc::impl_includefile", ptr %10, i64 0, i32 2, i32 1
-  %16 = select i1 %14, ptr %11, ptr %15
-  %17 = load ptr, ptr %16, align 8, !tbaa !71
-  %18 = tail call noundef ptr @_ZN2kc23ConsincludedeclarationsEPNS_23impl_includedeclarationEPNS_24impl_includedeclarationsE(ptr noundef %1, ptr noundef %17)
-  %19 = load i32, ptr %12, align 8, !tbaa !67
-  %20 = icmp eq i32 %19, 0
-  %21 = select i1 %20, ptr %11, ptr %15
-  store ptr %18, ptr %21, align 8, !tbaa !71
-  %22 = getelementptr inbounds %"class.kc::impl_includefiles", ptr %8, i64 0, i32 2
-  %23 = load ptr, ptr %22, align 8, !tbaa !72
-  %24 = load ptr, ptr %23, align 8, !tbaa !5
-  %25 = load ptr, ptr %24, align 8
-  %26 = tail call noundef i32 %25(ptr noundef nonnull align 8 dereferenceable(24) %23)
-  %27 = icmp eq i32 %26, 60
-  br i1 %27, label %7, label %28, !llvm.loop !73
+while.body:                                       ; preds = %entry, %while.body
+  %kc_fe_selvar_1.017 = phi ptr [ %5, %while.body ], [ %ifs, %entry ]
+  %includefile_1 = getelementptr inbounds %"class.kc::impl_includefiles", ptr %kc_fe_selvar_1.017, i64 0, i32 1
+  %1 = load ptr, ptr %includefile_1, align 8, !tbaa !65
+  %inc = getelementptr inbounds %"class.kc::impl_includefile", ptr %1, i64 0, i32 2
+  %inc_type = getelementptr inbounds %"class.kc::impl_includefile", ptr %1, i64 0, i32 1
+  %2 = load i32, ptr %inc_type, align 8, !tbaa !67
+  %cmp.i = icmp eq i32 %2, 0
+  %inc2.i = getelementptr inbounds %"class.kc::impl_includefile", ptr %1, i64 0, i32 2, i32 1
+  %cond-lvalue.i = select i1 %cmp.i, ptr %inc, ptr %inc2.i
+  %3 = load ptr, ptr %cond-lvalue.i, align 8, !tbaa !71
+  %call2 = tail call noundef ptr @_ZN2kc23ConsincludedeclarationsEPNS_23impl_includedeclarationEPNS_24impl_includedeclarationsE(ptr noundef %i, ptr noundef %3)
+  %4 = load i32, ptr %inc_type, align 8, !tbaa !67
+  %cmp.i11 = icmp eq i32 %4, 0
+  %cond-lvalue.i13 = select i1 %cmp.i11, ptr %inc, ptr %inc2.i
+  store ptr %call2, ptr %cond-lvalue.i13, align 8, !tbaa !71
+  %includefiles_1 = getelementptr inbounds %"class.kc::impl_includefiles", ptr %kc_fe_selvar_1.017, i64 0, i32 2
+  %5 = load ptr, ptr %includefiles_1, align 8, !tbaa !72
+  %vtable = load ptr, ptr %5, align 8, !tbaa !5
+  %6 = load ptr, ptr %vtable, align 8
+  %call = tail call noundef i32 %6(ptr noundef nonnull align 8 dereferenceable(24) %5)
+  %cmp = icmp eq i32 %call, 60
+  br i1 %cmp, label %while.body, label %while.end, !llvm.loop !73
 
-28:                                               ; preds = %7, %2
+while.end:                                        ; preds = %while.body, %entry
   ret void
 }
 
 declare noundef ptr @_ZN2kc23ConsincludedeclarationsEPNS_23impl_includedeclarationEPNS_24impl_includedeclarationsE(ptr noundef, ptr noundef) local_unnamed_addr #2
 
 ; Function Attrs: mustprogress uwtable
-define dso_local noundef ptr @_ZN2kc19merge_languagenamesEPNS_18impl_languagenamesES1_(ptr noundef %0, ptr noundef %1) local_unnamed_addr #0 {
-  %3 = load ptr, ptr %0, align 8, !tbaa !5
-  %4 = load ptr, ptr %3, align 8
-  %5 = tail call noundef i32 %4(ptr noundef nonnull align 8 dereferenceable(24) %0)
-  %6 = icmp eq i32 %5, 165
-  br i1 %6, label %7, label %37
+define dso_local noundef ptr @_ZN2kc19merge_languagenamesEPNS_18impl_languagenamesES1_(ptr noundef %names, ptr noundef %name_list) local_unnamed_addr #0 {
+entry:
+  %vtable22 = load ptr, ptr %names, align 8, !tbaa !5
+  %0 = load ptr, ptr %vtable22, align 8
+  %call23 = tail call noundef i32 %0(ptr noundef nonnull align 8 dereferenceable(24) %names)
+  %cmp24 = icmp eq i32 %call23, 165
+  br i1 %cmp24, label %while.body, label %while.end
 
-7:                                                ; preds = %2, %29
-  %8 = phi ptr [ %30, %29 ], [ %1, %2 ]
-  %9 = phi ptr [ %32, %29 ], [ %0, %2 ]
-  %10 = getelementptr inbounds %"class.kc::impl_languagenames", ptr %9, i64 0, i32 1
-  %11 = load ptr, ptr %10, align 8, !tbaa !75
-  %12 = load ptr, ptr %11, align 8, !tbaa !5
-  %13 = load ptr, ptr %12, align 8
-  %14 = tail call noundef i32 %13(ptr noundef nonnull align 8 dereferenceable(8) %11)
-  %15 = icmp eq i32 %14, 7
-  br i1 %15, label %16, label %29
+while.body:                                       ; preds = %entry, %if.end14
+  %res.026 = phi ptr [ %res.2, %if.end14 ], [ %name_list, %entry ]
+  %kc_fe_selvar_1.025 = phi ptr [ %5, %if.end14 ], [ %names, %entry ]
+  %ID_1 = getelementptr inbounds %"class.kc::impl_languagenames", ptr %kc_fe_selvar_1.025, i64 0, i32 1
+  %1 = load ptr, ptr %ID_1, align 8, !tbaa !75
+  %vtable1 = load ptr, ptr %1, align 8, !tbaa !5
+  %2 = load ptr, ptr %vtable1, align 8
+  %call3 = tail call noundef i32 %2(ptr noundef nonnull align 8 dereferenceable(8) %1)
+  %cmp4 = icmp eq i32 %call3, 7
+  br i1 %cmp4, label %if.then, label %if.end14
 
-16:                                               ; preds = %7
-  %17 = getelementptr inbounds %"class.kc::impl_ID_Id", ptr %11, i64 0, i32 1
-  %18 = load ptr, ptr %17, align 8, !tbaa !33
-  %19 = getelementptr inbounds %"class.kc::impl_uniqID", ptr %18, i64 0, i32 1
-  %20 = load ptr, ptr %19, align 8, !tbaa !35
-  %21 = tail call noundef ptr @_ZN2kc9ITUnknownEv()
-  %22 = tail call noundef zeroext i1 @_ZNK2kc20impl_abstract_phylum2eqEPKS0_(ptr noundef nonnull align 8 dereferenceable(8) %20, ptr noundef %21)
-  br i1 %22, label %23, label %29
+if.then:                                          ; preds = %while.body
+  %uniqID_1 = getelementptr inbounds %"class.kc::impl_ID_Id", ptr %1, i64 0, i32 1
+  %3 = load ptr, ptr %uniqID_1, align 8, !tbaa !33
+  %type = getelementptr inbounds %"class.kc::impl_uniqID", ptr %3, i64 0, i32 1
+  %4 = load ptr, ptr %type, align 8, !tbaa !35
+  %call6 = tail call noundef ptr @_ZN2kc9ITUnknownEv()
+  %call7 = tail call noundef zeroext i1 @_ZNK2kc20impl_abstract_phylum2eqEPKS0_(ptr noundef nonnull align 8 dereferenceable(8) %4, ptr noundef %call6)
+  br i1 %call7, label %if.then8, label %if.end14
 
-23:                                               ; preds = %16
-  %24 = tail call noundef ptr @_ZN2kc17ConslanguagenamesEPNS_7impl_IDEPNS_18impl_languagenamesE(ptr noundef nonnull %11, ptr noundef %8)
-  %25 = tail call noundef i32 @_ZNK2kc18impl_abstract_list6lengthEv(ptr noundef nonnull align 8 dereferenceable(8) %24)
-  %26 = add nsw i32 %25, -1
-  %27 = tail call noundef ptr @_ZN2kc9mkintegerEi(i32 noundef %26)
-  %28 = tail call noundef ptr @_ZN2kc14ITLanguageNameEPNS_17impl_integer__IntE(ptr noundef %27)
-  store ptr %28, ptr %19, align 8, !tbaa !35
-  br label %29
+if.then8:                                         ; preds = %if.then
+  %call9 = tail call noundef ptr @_ZN2kc17ConslanguagenamesEPNS_7impl_IDEPNS_18impl_languagenamesE(ptr noundef nonnull %1, ptr noundef %res.026)
+  %call10 = tail call noundef i32 @_ZNK2kc18impl_abstract_list6lengthEv(ptr noundef nonnull align 8 dereferenceable(8) %call9)
+  %sub = add nsw i32 %call10, -1
+  %call11 = tail call noundef ptr @_ZN2kc9mkintegerEi(i32 noundef %sub)
+  %call12 = tail call noundef ptr @_ZN2kc14ITLanguageNameEPNS_17impl_integer__IntE(ptr noundef %call11)
+  store ptr %call12, ptr %type, align 8, !tbaa !35
+  br label %if.end14
 
-29:                                               ; preds = %16, %23, %7
-  %30 = phi ptr [ %8, %7 ], [ %24, %23 ], [ %8, %16 ]
-  %31 = getelementptr inbounds %"class.kc::impl_languagenames", ptr %9, i64 0, i32 2
-  %32 = load ptr, ptr %31, align 8, !tbaa !77
-  %33 = load ptr, ptr %32, align 8, !tbaa !5
-  %34 = load ptr, ptr %33, align 8
-  %35 = tail call noundef i32 %34(ptr noundef nonnull align 8 dereferenceable(24) %32)
-  %36 = icmp eq i32 %35, 165
-  br i1 %36, label %7, label %37, !llvm.loop !78
+if.end14:                                         ; preds = %if.then, %if.then8, %while.body
+  %res.2 = phi ptr [ %res.026, %while.body ], [ %call9, %if.then8 ], [ %res.026, %if.then ]
+  %languagenames_1 = getelementptr inbounds %"class.kc::impl_languagenames", ptr %kc_fe_selvar_1.025, i64 0, i32 2
+  %5 = load ptr, ptr %languagenames_1, align 8, !tbaa !77
+  %vtable = load ptr, ptr %5, align 8, !tbaa !5
+  %6 = load ptr, ptr %vtable, align 8
+  %call = tail call noundef i32 %6(ptr noundef nonnull align 8 dereferenceable(24) %5)
+  %cmp = icmp eq i32 %call, 165
+  br i1 %cmp, label %while.body, label %while.end, !llvm.loop !78
 
-37:                                               ; preds = %29, %2
-  %38 = phi ptr [ %1, %2 ], [ %30, %29 ]
-  ret ptr %38
+while.end:                                        ; preds = %if.end14, %entry
+  %res.0.lcssa = phi ptr [ %name_list, %entry ], [ %res.2, %if.end14 ]
+  ret ptr %res.0.lcssa
 }
 
 declare noundef ptr @_ZN2kc9ITUnknownEv() local_unnamed_addr #2
@@ -1608,496 +1616,504 @@ declare noundef i32 @_ZNK2kc18impl_abstract_list6lengthEv(ptr noundef nonnull al
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(readwrite, argmem: none, inaccessiblemem: none) uwtable
 define dso_local noundef i64 @_ZN2kc11get_text_nrEv() local_unnamed_addr #4 {
+entry:
   store i1 true, ptr @_ZL21language_text_nr_used, align 1
-  %1 = load i64, ptr @_ZL16language_text_nr, align 8, !tbaa !79
-  ret i64 %1
+  %0 = load i64, ptr @_ZL16language_text_nr, align 8, !tbaa !79
+  ret i64 %0
 }
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(readwrite, argmem: none, inaccessiblemem: none) uwtable
 define dso_local void @_ZN2kc11inc_text_nrEv() local_unnamed_addr #4 {
-  %1 = load i1, ptr @_ZL21language_text_nr_used, align 1
-  br i1 %1, label %2, label %5
+entry:
+  %.b1 = load i1, ptr @_ZL21language_text_nr_used, align 1
+  br i1 %.b1, label %if.then, label %if.end
 
-2:                                                ; preds = %0
-  %3 = load i64, ptr @_ZL16language_text_nr, align 8, !tbaa !79
-  %4 = add nsw i64 %3, 1
-  store i64 %4, ptr @_ZL16language_text_nr, align 8, !tbaa !79
+if.then:                                          ; preds = %entry
+  %0 = load i64, ptr @_ZL16language_text_nr, align 8, !tbaa !79
+  %inc = add nsw i64 %0, 1
+  store i64 %inc, ptr @_ZL16language_text_nr, align 8, !tbaa !79
   store i1 false, ptr @_ZL21language_text_nr_used, align 1
-  br label %5
+  br label %if.end
 
-5:                                                ; preds = %2, %0
+if.end:                                           ; preds = %if.then, %entry
   ret void
 }
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(read, argmem: none, inaccessiblemem: none) uwtable
 define dso_local noundef i64 @_ZN2kc12last_text_nrEv() local_unnamed_addr #5 {
-  %1 = load i1, ptr @_ZL21language_text_nr_used, align 1
-  %2 = load i64, ptr @_ZL16language_text_nr, align 8
-  %3 = xor i1 %1, true
-  %4 = sext i1 %3 to i64
-  %5 = add nsw i64 %2, %4
-  ret i64 %5
+entry:
+  %.b1 = load i1, ptr @_ZL21language_text_nr_used, align 1
+  %0 = load i64, ptr @_ZL16language_text_nr, align 8
+  %not..b1 = xor i1 %.b1, true
+  %sub = sext i1 %not..b1 to i64
+  %retval.0 = add nsw i64 %0, %sub
+  ret i64 %retval.0
 }
 
 ; Function Attrs: mustprogress uwtable
-define dso_local noundef ptr @_ZN2kc18f_ID_of_declaratorEPNS_18impl_ac_declaratorE(ptr noundef %0) local_unnamed_addr #0 {
-  %2 = load ptr, ptr %0, align 8, !tbaa !5
-  %3 = load ptr, ptr %2, align 8
-  %4 = tail call noundef i32 %3(ptr noundef nonnull align 8 dereferenceable(8) %0)
-  %5 = icmp eq i32 %4, 254
-  br i1 %5, label %6, label %58
+define dso_local noundef ptr @_ZN2kc18f_ID_of_declaratorEPNS_18impl_ac_declaratorE(ptr noundef %d) local_unnamed_addr #0 {
+entry:
+  %vtable = load ptr, ptr %d, align 8, !tbaa !5
+  %0 = load ptr, ptr %vtable, align 8
+  %call1 = tail call noundef i32 %0(ptr noundef nonnull align 8 dereferenceable(8) %d)
+  %cmp = icmp eq i32 %call1, 254
+  br i1 %cmp, label %if.then, label %if.else
 
-6:                                                ; preds = %1
-  %7 = getelementptr inbounds %"class.kc::impl_ac_declarator_AcDeclarator", ptr %0, i64 0, i32 3
-  br label %8
+if.then:                                          ; preds = %entry
+  %ac_direct_declarator_1 = getelementptr inbounds %"class.kc::impl_ac_declarator_AcDeclarator", ptr %d, i64 0, i32 3
+  br label %tailrecurse.i
 
-8:                                                ; preds = %45, %6
-  %9 = phi ptr [ %7, %6 ], [ %46, %45 ]
-  %10 = load ptr, ptr %9, align 8, !tbaa !71
-  %11 = load ptr, ptr %10, align 8, !tbaa !5
-  %12 = load ptr, ptr %11, align 8
-  %13 = tail call noundef i32 %12(ptr noundef nonnull align 8 dereferenceable(8) %10)
-  %14 = icmp eq i32 %13, 259
-  br i1 %14, label %15, label %17
+tailrecurse.i:                                    ; preds = %tailrecurse.i.backedge, %if.then
+  %d.tr.i.in = phi ptr [ %ac_direct_declarator_1, %if.then ], [ %d.tr.i.in.be, %tailrecurse.i.backedge ]
+  %d.tr.i = load ptr, ptr %d.tr.i.in, align 8, !tbaa !71
+  %vtable.i = load ptr, ptr %d.tr.i, align 8, !tbaa !5
+  %1 = load ptr, ptr %vtable.i, align 8
+  %call1.i = tail call noundef i32 %1(ptr noundef nonnull align 8 dereferenceable(8) %d.tr.i)
+  %cmp.i = icmp eq i32 %call1.i, 259
+  br i1 %cmp.i, label %if.then.i, label %if.else.i
 
-15:                                               ; preds = %8
-  %16 = getelementptr inbounds %"class.kc::impl_ac_direct_declarator_AcQualifiedDeclProto", ptr %10, i64 0, i32 2
-  br label %45
+if.then.i:                                        ; preds = %tailrecurse.i
+  %ac_direct_declarator_1.i = getelementptr inbounds %"class.kc::impl_ac_direct_declarator_AcQualifiedDeclProto", ptr %d.tr.i, i64 0, i32 2
+  br label %tailrecurse.i.backedge
 
-17:                                               ; preds = %8
-  %18 = load ptr, ptr %10, align 8, !tbaa !5
-  %19 = load ptr, ptr %18, align 8
-  %20 = tail call noundef i32 %19(ptr noundef nonnull align 8 dereferenceable(8) %10)
-  %21 = icmp eq i32 %20, 258
-  br i1 %21, label %22, label %24
+if.else.i:                                        ; preds = %tailrecurse.i
+  %vtable4.i = load ptr, ptr %d.tr.i, align 8, !tbaa !5
+  %2 = load ptr, ptr %vtable4.i, align 8
+  %call6.i = tail call noundef i32 %2(ptr noundef nonnull align 8 dereferenceable(8) %d.tr.i)
+  %cmp7.i = icmp eq i32 %call6.i, 258
+  br i1 %cmp7.i, label %if.then8.i, label %if.else13.i
 
-22:                                               ; preds = %17
-  %23 = getelementptr inbounds %"class.kc::impl_ac_direct_declarator_AcDirectDeclProto", ptr %10, i64 0, i32 1
-  br label %45
+if.then8.i:                                       ; preds = %if.else.i
+  %ac_direct_declarator_111.i = getelementptr inbounds %"class.kc::impl_ac_direct_declarator_AcDirectDeclProto", ptr %d.tr.i, i64 0, i32 1
+  br label %tailrecurse.i.backedge
 
-24:                                               ; preds = %17
-  %25 = load ptr, ptr %10, align 8, !tbaa !5
-  %26 = load ptr, ptr %25, align 8
-  %27 = tail call noundef i32 %26(ptr noundef nonnull align 8 dereferenceable(8) %10)
-  %28 = icmp eq i32 %27, 257
-  br i1 %28, label %29, label %31
+if.else13.i:                                      ; preds = %if.else.i
+  %vtable14.i = load ptr, ptr %d.tr.i, align 8, !tbaa !5
+  %3 = load ptr, ptr %vtable14.i, align 8
+  %call16.i = tail call noundef i32 %3(ptr noundef nonnull align 8 dereferenceable(8) %d.tr.i)
+  %cmp17.i = icmp eq i32 %call16.i, 257
+  br i1 %cmp17.i, label %if.then18.i, label %if.else23.i
 
-29:                                               ; preds = %24
-  %30 = getelementptr inbounds %"class.kc::impl_ac_direct_declarator_AcDirectDeclArray", ptr %10, i64 0, i32 1
-  br label %45
+if.then18.i:                                      ; preds = %if.else13.i
+  %ac_direct_declarator_121.i = getelementptr inbounds %"class.kc::impl_ac_direct_declarator_AcDirectDeclArray", ptr %d.tr.i, i64 0, i32 1
+  br label %tailrecurse.i.backedge
 
-31:                                               ; preds = %24
-  %32 = load ptr, ptr %10, align 8, !tbaa !5
-  %33 = load ptr, ptr %32, align 8
-  %34 = tail call noundef i32 %33(ptr noundef nonnull align 8 dereferenceable(8) %10)
-  %35 = icmp eq i32 %34, 256
-  br i1 %35, label %36, label %48
+if.else23.i:                                      ; preds = %if.else13.i
+  %vtable24.i = load ptr, ptr %d.tr.i, align 8, !tbaa !5
+  %4 = load ptr, ptr %vtable24.i, align 8
+  %call26.i = tail call noundef i32 %4(ptr noundef nonnull align 8 dereferenceable(8) %d.tr.i)
+  %cmp27.i = icmp eq i32 %call26.i, 256
+  br i1 %cmp27.i, label %if.then28.i, label %if.else32.i
 
-36:                                               ; preds = %31
-  %37 = getelementptr inbounds %"class.kc::impl_ac_direct_declarator_AcDirectDeclPack", ptr %10, i64 0, i32 1
-  %38 = load ptr, ptr %37, align 8, !tbaa !80
-  %39 = load ptr, ptr %38, align 8, !tbaa !5
-  %40 = load ptr, ptr %39, align 8
-  %41 = tail call noundef i32 %40(ptr noundef nonnull align 8 dereferenceable(8) %38)
-  %42 = icmp eq i32 %41, 254
-  br i1 %42, label %43, label %47
+if.then28.i:                                      ; preds = %if.else23.i
+  %ac_declarator_1.i = getelementptr inbounds %"class.kc::impl_ac_direct_declarator_AcDirectDeclPack", ptr %d.tr.i, i64 0, i32 1
+  %5 = load ptr, ptr %ac_declarator_1.i, align 8, !tbaa !80
+  %vtable.i.i = load ptr, ptr %5, align 8, !tbaa !5
+  %6 = load ptr, ptr %vtable.i.i, align 8
+  %call1.i.i = tail call noundef i32 %6(ptr noundef nonnull align 8 dereferenceable(8) %5)
+  %cmp.i.i = icmp eq i32 %call1.i.i, 254
+  br i1 %cmp.i.i, label %if.then.i.i, label %if.else.i.i
 
-43:                                               ; preds = %36
-  %44 = getelementptr inbounds %"class.kc::impl_ac_declarator_AcDeclarator", ptr %38, i64 0, i32 3
-  br label %45
+if.then.i.i:                                      ; preds = %if.then28.i
+  %ac_direct_declarator_1.i.i = getelementptr inbounds %"class.kc::impl_ac_declarator_AcDeclarator", ptr %5, i64 0, i32 3
+  br label %tailrecurse.i.backedge
 
-45:                                               ; preds = %43, %29, %22, %15
-  %46 = phi ptr [ %16, %15 ], [ %23, %22 ], [ %30, %29 ], [ %44, %43 ]
-  br label %8
+tailrecurse.i.backedge:                           ; preds = %if.then.i.i, %if.then18.i, %if.then8.i, %if.then.i
+  %d.tr.i.in.be = phi ptr [ %ac_direct_declarator_1.i, %if.then.i ], [ %ac_direct_declarator_111.i, %if.then8.i ], [ %ac_direct_declarator_121.i, %if.then18.i ], [ %ac_direct_declarator_1.i.i, %if.then.i.i ]
+  br label %tailrecurse.i
 
-47:                                               ; preds = %36
+if.else.i.i:                                      ; preds = %if.then28.i
   tail call void @_ZN2kc21kc_no_default_in_withEPKciS1_(ptr noundef nonnull @.str.24, i32 noundef 550, ptr noundef nonnull @.str.6)
-  br label %59
+  br label %cleanup
 
-48:                                               ; preds = %31
-  %49 = load ptr, ptr %10, align 8, !tbaa !5
-  %50 = load ptr, ptr %49, align 8
-  %51 = tail call noundef i32 %50(ptr noundef nonnull align 8 dereferenceable(8) %10)
-  %52 = icmp eq i32 %51, 255
-  br i1 %52, label %53, label %56
+if.else32.i:                                      ; preds = %if.else23.i
+  %vtable33.i = load ptr, ptr %d.tr.i, align 8, !tbaa !5
+  %7 = load ptr, ptr %vtable33.i, align 8
+  %call35.i = tail call noundef i32 %7(ptr noundef nonnull align 8 dereferenceable(8) %d.tr.i)
+  %cmp36.i = icmp eq i32 %call35.i, 255
+  br i1 %cmp36.i, label %if.then37.i, label %if.else39.i
 
-53:                                               ; preds = %48
-  %54 = getelementptr inbounds %"class.kc::impl_ac_direct_declarator_AcDirectDeclId", ptr %10, i64 0, i32 1
-  %55 = load ptr, ptr %54, align 8, !tbaa !83
-  br label %59
+if.then37.i:                                      ; preds = %if.else32.i
+  %ID_1.i = getelementptr inbounds %"class.kc::impl_ac_direct_declarator_AcDirectDeclId", ptr %d.tr.i, i64 0, i32 1
+  %8 = load ptr, ptr %ID_1.i, align 8, !tbaa !83
+  br label %cleanup
 
-56:                                               ; preds = %48
-  %57 = tail call noundef ptr @_ZN2kc9f_emptyIdEv()
-  br label %59
+if.else39.i:                                      ; preds = %if.else32.i
+  %call40.i = tail call noundef ptr @_ZN2kc9f_emptyIdEv()
+  br label %cleanup
 
-58:                                               ; preds = %1
+if.else:                                          ; preds = %entry
   tail call void @_ZN2kc21kc_no_default_in_withEPKciS1_(ptr noundef nonnull @.str.24, i32 noundef 550, ptr noundef nonnull @.str.6)
-  br label %59
+  br label %cleanup
 
-59:                                               ; preds = %56, %53, %47, %58
-  %60 = phi ptr [ null, %58 ], [ %55, %53 ], [ %57, %56 ], [ null, %47 ]
-  ret ptr %60
+cleanup:                                          ; preds = %if.else39.i, %if.then37.i, %if.else.i.i, %if.else
+  %retval.0 = phi ptr [ null, %if.else ], [ %8, %if.then37.i ], [ %call40.i, %if.else39.i ], [ null, %if.else.i.i ]
+  ret ptr %retval.0
 }
 
 ; Function Attrs: mustprogress uwtable
-define dso_local noundef ptr @_ZN2kc21f_ID_of_fn_declaratorEPNS_18impl_ac_declaratorEPNS_12impl_fnclassE(ptr noundef %0, ptr noundef %1) local_unnamed_addr #0 {
-  %3 = alloca [30 x i8], align 16
-  %4 = alloca [30 x i8], align 16
-  %5 = load ptr, ptr %0, align 8, !tbaa !5
-  %6 = load ptr, ptr %5, align 8
-  %7 = tail call noundef i32 %6(ptr noundef nonnull align 8 dereferenceable(8) %0)
-  %8 = icmp eq i32 %7, 254
-  br i1 %8, label %9, label %98
+define dso_local noundef ptr @_ZN2kc21f_ID_of_fn_declaratorEPNS_18impl_ac_declaratorEPNS_12impl_fnclassE(ptr noundef %d, ptr noundef %fnc) local_unnamed_addr #0 {
+entry:
+  %buf = alloca [30 x i8], align 16
+  %buf22 = alloca [30 x i8], align 16
+  %vtable = load ptr, ptr %d, align 8, !tbaa !5
+  %0 = load ptr, ptr %vtable, align 8
+  %call1 = tail call noundef i32 %0(ptr noundef nonnull align 8 dereferenceable(8) %d)
+  %cmp = icmp eq i32 %call1, 254
+  br i1 %cmp, label %if.then, label %if.else38
 
-9:                                                ; preds = %2
-  %10 = getelementptr inbounds %"class.kc::impl_ac_declarator_AcDeclarator", ptr %0, i64 0, i32 3
-  br label %11
+if.then:                                          ; preds = %entry
+  %ac_direct_declarator_1 = getelementptr inbounds %"class.kc::impl_ac_declarator_AcDeclarator", ptr %d, i64 0, i32 3
+  br label %tailrecurse.i
 
-11:                                               ; preds = %48, %9
-  %12 = phi ptr [ %10, %9 ], [ %49, %48 ]
-  %13 = load ptr, ptr %12, align 8, !tbaa !71
-  %14 = load ptr, ptr %13, align 8, !tbaa !5
-  %15 = load ptr, ptr %14, align 8
-  %16 = tail call noundef i32 %15(ptr noundef nonnull align 8 dereferenceable(8) %13)
-  %17 = icmp eq i32 %16, 259
-  br i1 %17, label %18, label %20
+tailrecurse.i:                                    ; preds = %tailrecurse.i.backedge, %if.then
+  %d.tr.i.in = phi ptr [ %ac_direct_declarator_1, %if.then ], [ %d.tr.i.in.be, %tailrecurse.i.backedge ]
+  %d.tr.i = load ptr, ptr %d.tr.i.in, align 8, !tbaa !71
+  %vtable.i = load ptr, ptr %d.tr.i, align 8, !tbaa !5
+  %1 = load ptr, ptr %vtable.i, align 8
+  %call1.i = tail call noundef i32 %1(ptr noundef nonnull align 8 dereferenceable(8) %d.tr.i)
+  %cmp.i = icmp eq i32 %call1.i, 259
+  br i1 %cmp.i, label %if.then.i, label %if.else.i
 
-18:                                               ; preds = %11
-  %19 = getelementptr inbounds %"class.kc::impl_ac_direct_declarator_AcQualifiedDeclProto", ptr %13, i64 0, i32 2
-  br label %48
+if.then.i:                                        ; preds = %tailrecurse.i
+  %ac_direct_declarator_1.i = getelementptr inbounds %"class.kc::impl_ac_direct_declarator_AcQualifiedDeclProto", ptr %d.tr.i, i64 0, i32 2
+  br label %tailrecurse.i.backedge
 
-20:                                               ; preds = %11
-  %21 = load ptr, ptr %13, align 8, !tbaa !5
-  %22 = load ptr, ptr %21, align 8
-  %23 = tail call noundef i32 %22(ptr noundef nonnull align 8 dereferenceable(8) %13)
-  %24 = icmp eq i32 %23, 258
-  br i1 %24, label %25, label %27
+if.else.i:                                        ; preds = %tailrecurse.i
+  %vtable4.i = load ptr, ptr %d.tr.i, align 8, !tbaa !5
+  %2 = load ptr, ptr %vtable4.i, align 8
+  %call6.i = tail call noundef i32 %2(ptr noundef nonnull align 8 dereferenceable(8) %d.tr.i)
+  %cmp7.i = icmp eq i32 %call6.i, 258
+  br i1 %cmp7.i, label %if.then8.i, label %if.else13.i
 
-25:                                               ; preds = %20
-  %26 = getelementptr inbounds %"class.kc::impl_ac_direct_declarator_AcDirectDeclProto", ptr %13, i64 0, i32 1
-  br label %48
+if.then8.i:                                       ; preds = %if.else.i
+  %ac_direct_declarator_111.i = getelementptr inbounds %"class.kc::impl_ac_direct_declarator_AcDirectDeclProto", ptr %d.tr.i, i64 0, i32 1
+  br label %tailrecurse.i.backedge
 
-27:                                               ; preds = %20
-  %28 = load ptr, ptr %13, align 8, !tbaa !5
-  %29 = load ptr, ptr %28, align 8
-  %30 = tail call noundef i32 %29(ptr noundef nonnull align 8 dereferenceable(8) %13)
-  %31 = icmp eq i32 %30, 257
-  br i1 %31, label %32, label %34
+if.else13.i:                                      ; preds = %if.else.i
+  %vtable14.i = load ptr, ptr %d.tr.i, align 8, !tbaa !5
+  %3 = load ptr, ptr %vtable14.i, align 8
+  %call16.i = tail call noundef i32 %3(ptr noundef nonnull align 8 dereferenceable(8) %d.tr.i)
+  %cmp17.i = icmp eq i32 %call16.i, 257
+  br i1 %cmp17.i, label %if.then18.i, label %if.else23.i
 
-32:                                               ; preds = %27
-  %33 = getelementptr inbounds %"class.kc::impl_ac_direct_declarator_AcDirectDeclArray", ptr %13, i64 0, i32 1
-  br label %48
+if.then18.i:                                      ; preds = %if.else13.i
+  %ac_direct_declarator_121.i = getelementptr inbounds %"class.kc::impl_ac_direct_declarator_AcDirectDeclArray", ptr %d.tr.i, i64 0, i32 1
+  br label %tailrecurse.i.backedge
 
-34:                                               ; preds = %27
-  %35 = load ptr, ptr %13, align 8, !tbaa !5
-  %36 = load ptr, ptr %35, align 8
-  %37 = tail call noundef i32 %36(ptr noundef nonnull align 8 dereferenceable(8) %13)
-  %38 = icmp eq i32 %37, 256
-  br i1 %38, label %39, label %51
+if.else23.i:                                      ; preds = %if.else13.i
+  %vtable24.i = load ptr, ptr %d.tr.i, align 8, !tbaa !5
+  %4 = load ptr, ptr %vtable24.i, align 8
+  %call26.i = tail call noundef i32 %4(ptr noundef nonnull align 8 dereferenceable(8) %d.tr.i)
+  %cmp27.i = icmp eq i32 %call26.i, 256
+  br i1 %cmp27.i, label %if.then28.i, label %if.else32.i
 
-39:                                               ; preds = %34
-  %40 = getelementptr inbounds %"class.kc::impl_ac_direct_declarator_AcDirectDeclPack", ptr %13, i64 0, i32 1
-  %41 = load ptr, ptr %40, align 8, !tbaa !80
-  %42 = load ptr, ptr %41, align 8, !tbaa !5
-  %43 = load ptr, ptr %42, align 8
-  %44 = tail call noundef i32 %43(ptr noundef nonnull align 8 dereferenceable(8) %41)
-  %45 = icmp eq i32 %44, 254
-  br i1 %45, label %46, label %50
+if.then28.i:                                      ; preds = %if.else23.i
+  %ac_declarator_1.i = getelementptr inbounds %"class.kc::impl_ac_direct_declarator_AcDirectDeclPack", ptr %d.tr.i, i64 0, i32 1
+  %5 = load ptr, ptr %ac_declarator_1.i, align 8, !tbaa !80
+  %vtable.i.i = load ptr, ptr %5, align 8, !tbaa !5
+  %6 = load ptr, ptr %vtable.i.i, align 8
+  %call1.i.i = tail call noundef i32 %6(ptr noundef nonnull align 8 dereferenceable(8) %5)
+  %cmp.i.i = icmp eq i32 %call1.i.i, 254
+  br i1 %cmp.i.i, label %if.then.i.i, label %if.else.i.i
 
-46:                                               ; preds = %39
-  %47 = getelementptr inbounds %"class.kc::impl_ac_declarator_AcDeclarator", ptr %41, i64 0, i32 3
-  br label %48
+if.then.i.i:                                      ; preds = %if.then28.i
+  %ac_direct_declarator_1.i.i = getelementptr inbounds %"class.kc::impl_ac_declarator_AcDeclarator", ptr %5, i64 0, i32 3
+  br label %tailrecurse.i.backedge
 
-48:                                               ; preds = %46, %32, %25, %18
-  %49 = phi ptr [ %19, %18 ], [ %26, %25 ], [ %33, %32 ], [ %47, %46 ]
-  br label %11
+tailrecurse.i.backedge:                           ; preds = %if.then.i.i, %if.then18.i, %if.then8.i, %if.then.i
+  %d.tr.i.in.be = phi ptr [ %ac_direct_declarator_1.i, %if.then.i ], [ %ac_direct_declarator_111.i, %if.then8.i ], [ %ac_direct_declarator_121.i, %if.then18.i ], [ %ac_direct_declarator_1.i.i, %if.then.i.i ]
+  br label %tailrecurse.i
 
-50:                                               ; preds = %39
+if.else.i.i:                                      ; preds = %if.then28.i
   tail call void @_ZN2kc21kc_no_default_in_withEPKciS1_(ptr noundef nonnull @.str.24, i32 noundef 550, ptr noundef nonnull @.str.6)
-  br label %61
+  br label %_ZN2kcL19f_ID_of_direct_declEPNS_25impl_ac_direct_declaratorE.exit
 
-51:                                               ; preds = %34
-  %52 = load ptr, ptr %13, align 8, !tbaa !5
-  %53 = load ptr, ptr %52, align 8
-  %54 = tail call noundef i32 %53(ptr noundef nonnull align 8 dereferenceable(8) %13)
-  %55 = icmp eq i32 %54, 255
-  br i1 %55, label %56, label %59
+if.else32.i:                                      ; preds = %if.else23.i
+  %vtable33.i = load ptr, ptr %d.tr.i, align 8, !tbaa !5
+  %7 = load ptr, ptr %vtable33.i, align 8
+  %call35.i = tail call noundef i32 %7(ptr noundef nonnull align 8 dereferenceable(8) %d.tr.i)
+  %cmp36.i = icmp eq i32 %call35.i, 255
+  br i1 %cmp36.i, label %if.then37.i, label %if.else39.i
 
-56:                                               ; preds = %51
-  %57 = getelementptr inbounds %"class.kc::impl_ac_direct_declarator_AcDirectDeclId", ptr %13, i64 0, i32 1
-  %58 = load ptr, ptr %57, align 8, !tbaa !83
-  br label %61
+if.then37.i:                                      ; preds = %if.else32.i
+  %ID_1.i = getelementptr inbounds %"class.kc::impl_ac_direct_declarator_AcDirectDeclId", ptr %d.tr.i, i64 0, i32 1
+  %8 = load ptr, ptr %ID_1.i, align 8, !tbaa !83
+  br label %_ZN2kcL19f_ID_of_direct_declEPNS_25impl_ac_direct_declaratorE.exit
 
-59:                                               ; preds = %51
-  %60 = tail call noundef ptr @_ZN2kc9f_emptyIdEv()
-  br label %61
+if.else39.i:                                      ; preds = %if.else32.i
+  %call40.i = tail call noundef ptr @_ZN2kc9f_emptyIdEv()
+  br label %_ZN2kcL19f_ID_of_direct_declEPNS_25impl_ac_direct_declaratorE.exit
 
-61:                                               ; preds = %50, %56, %59
-  %62 = phi ptr [ %58, %56 ], [ %60, %59 ], [ null, %50 ]
-  %63 = load ptr, ptr %1, align 8, !tbaa !5
-  %64 = load ptr, ptr %63, align 8
-  %65 = tail call noundef i32 %64(ptr noundef nonnull align 8 dereferenceable(8) %1)
-  %66 = icmp eq i32 %65, 115
-  br i1 %66, label %67, label %80
+_ZN2kcL19f_ID_of_direct_declEPNS_25impl_ac_direct_declaratorE.exit: ; preds = %if.else.i.i, %if.then37.i, %if.else39.i
+  %retval.0.i = phi ptr [ %8, %if.then37.i ], [ %call40.i, %if.else39.i ], [ null, %if.else.i.i ]
+  %vtable5 = load ptr, ptr %fnc, align 8, !tbaa !5
+  %9 = load ptr, ptr %vtable5, align 8
+  %call7 = tail call noundef i32 %9(ptr noundef nonnull align 8 dereferenceable(8) %fnc)
+  %cmp8 = icmp eq i32 %call7, 115
+  br i1 %cmp8, label %if.then9, label %if.else
 
-67:                                               ; preds = %61
-  call void @llvm.lifetime.start.p0(i64 30, ptr nonnull %3) #12
-  %68 = load i32, ptr @_ZZN2kc21f_ID_of_fn_declaratorEPNS_18impl_ac_declaratorEPNS_12impl_fnclassEE7dtor_nr, align 4, !tbaa !85
-  %69 = add nsw i32 %68, 1
-  store i32 %69, ptr @_ZZN2kc21f_ID_of_fn_declaratorEPNS_18impl_ac_declaratorEPNS_12impl_fnclassEE7dtor_nr, align 4, !tbaa !85
-  %70 = call i32 (ptr, ptr, ...) @sprintf(ptr noundef nonnull dereferenceable(1) %3, ptr noundef nonnull dereferenceable(1) @.str.25, i32 noundef %69) #12
-  %71 = call noundef ptr @_ZN2kc12mkcasestringEPKci(ptr noundef nonnull %3, i32 noundef -1)
-  %72 = call noundef ptr @_ZN2kc3StrEPNS_20impl_casestring__StrE(ptr noundef %71)
-  %73 = call noundef ptr @_ZN2kc2IdEPNS_11impl_uniqIDE(ptr noundef %72)
-  %74 = getelementptr inbounds %"class.kc::impl_ID", ptr %62, i64 0, i32 4
-  %75 = load ptr, ptr %74, align 8, !tbaa !23
-  %76 = getelementptr inbounds %"class.kc::impl_ID", ptr %73, i64 0, i32 4
-  store ptr %75, ptr %76, align 8, !tbaa !23
-  %77 = getelementptr inbounds %"class.kc::impl_ID", ptr %62, i64 0, i32 3
-  %78 = load i32, ptr %77, align 8, !tbaa !25
-  %79 = getelementptr inbounds %"class.kc::impl_ID", ptr %73, i64 0, i32 3
-  store i32 %78, ptr %79, align 8, !tbaa !25
-  call void @llvm.lifetime.end.p0(i64 30, ptr nonnull %3) #12
-  br label %99
+if.then9:                                         ; preds = %_ZN2kcL19f_ID_of_direct_declEPNS_25impl_ac_direct_declaratorE.exit
+  call void @llvm.lifetime.start.p0(i64 30, ptr nonnull %buf) #12
+  %10 = load i32, ptr @_ZZN2kc21f_ID_of_fn_declaratorEPNS_18impl_ac_declaratorEPNS_12impl_fnclassEE7dtor_nr, align 4, !tbaa !85
+  %inc = add nsw i32 %10, 1
+  store i32 %inc, ptr @_ZZN2kc21f_ID_of_fn_declaratorEPNS_18impl_ac_declaratorEPNS_12impl_fnclassEE7dtor_nr, align 4, !tbaa !85
+  %call10 = call i32 (ptr, ptr, ...) @sprintf(ptr noundef nonnull dereferenceable(1) %buf, ptr noundef nonnull dereferenceable(1) @.str.25, i32 noundef %inc) #12
+  %call12 = call noundef ptr @_ZN2kc12mkcasestringEPKci(ptr noundef nonnull %buf, i32 noundef -1)
+  %call13 = call noundef ptr @_ZN2kc3StrEPNS_20impl_casestring__StrE(ptr noundef %call12)
+  %call14 = call noundef ptr @_ZN2kc2IdEPNS_11impl_uniqIDE(ptr noundef %call13)
+  %file = getelementptr inbounds %"class.kc::impl_ID", ptr %retval.0.i, i64 0, i32 4
+  %11 = load ptr, ptr %file, align 8, !tbaa !23
+  %file15 = getelementptr inbounds %"class.kc::impl_ID", ptr %call14, i64 0, i32 4
+  store ptr %11, ptr %file15, align 8, !tbaa !23
+  %line = getelementptr inbounds %"class.kc::impl_ID", ptr %retval.0.i, i64 0, i32 3
+  %12 = load i32, ptr %line, align 8, !tbaa !25
+  %line16 = getelementptr inbounds %"class.kc::impl_ID", ptr %call14, i64 0, i32 3
+  store i32 %12, ptr %line16, align 8, !tbaa !25
+  call void @llvm.lifetime.end.p0(i64 30, ptr nonnull %buf) #12
+  br label %cleanup39
 
-80:                                               ; preds = %61
-  %81 = load ptr, ptr %1, align 8, !tbaa !5
-  %82 = load ptr, ptr %81, align 8
-  %83 = tail call noundef i32 %82(ptr noundef nonnull align 8 dereferenceable(8) %1)
-  %84 = icmp eq i32 %83, 114
-  br i1 %84, label %85, label %99
+if.else:                                          ; preds = %_ZN2kcL19f_ID_of_direct_declEPNS_25impl_ac_direct_declaratorE.exit
+  %vtable17 = load ptr, ptr %fnc, align 8, !tbaa !5
+  %13 = load ptr, ptr %vtable17, align 8
+  %call19 = tail call noundef i32 %13(ptr noundef nonnull align 8 dereferenceable(8) %fnc)
+  %cmp20 = icmp eq i32 %call19, 114
+  br i1 %cmp20, label %if.then21, label %cleanup39
 
-85:                                               ; preds = %80
-  call void @llvm.lifetime.start.p0(i64 30, ptr nonnull %4) #12
-  %86 = load i32, ptr @_ZZN2kc21f_ID_of_fn_declaratorEPNS_18impl_ac_declaratorEPNS_12impl_fnclassEE7ctor_nr, align 4, !tbaa !85
-  %87 = add nsw i32 %86, 1
-  store i32 %87, ptr @_ZZN2kc21f_ID_of_fn_declaratorEPNS_18impl_ac_declaratorEPNS_12impl_fnclassEE7ctor_nr, align 4, !tbaa !85
-  %88 = call i32 (ptr, ptr, ...) @sprintf(ptr noundef nonnull dereferenceable(1) %4, ptr noundef nonnull dereferenceable(1) @.str.26, i32 noundef %87) #12
-  %89 = call noundef ptr @_ZN2kc12mkcasestringEPKci(ptr noundef nonnull %4, i32 noundef -1)
-  %90 = call noundef ptr @_ZN2kc3StrEPNS_20impl_casestring__StrE(ptr noundef %89)
-  %91 = call noundef ptr @_ZN2kc2IdEPNS_11impl_uniqIDE(ptr noundef %90)
-  %92 = getelementptr inbounds %"class.kc::impl_ID", ptr %62, i64 0, i32 4
-  %93 = load ptr, ptr %92, align 8, !tbaa !23
-  %94 = getelementptr inbounds %"class.kc::impl_ID", ptr %91, i64 0, i32 4
-  store ptr %93, ptr %94, align 8, !tbaa !23
-  %95 = getelementptr inbounds %"class.kc::impl_ID", ptr %62, i64 0, i32 3
-  %96 = load i32, ptr %95, align 8, !tbaa !25
-  %97 = getelementptr inbounds %"class.kc::impl_ID", ptr %91, i64 0, i32 3
-  store i32 %96, ptr %97, align 8, !tbaa !25
-  call void @llvm.lifetime.end.p0(i64 30, ptr nonnull %4) #12
-  br label %99
+if.then21:                                        ; preds = %if.else
+  call void @llvm.lifetime.start.p0(i64 30, ptr nonnull %buf22) #12
+  %14 = load i32, ptr @_ZZN2kc21f_ID_of_fn_declaratorEPNS_18impl_ac_declaratorEPNS_12impl_fnclassEE7ctor_nr, align 4, !tbaa !85
+  %inc24 = add nsw i32 %14, 1
+  store i32 %inc24, ptr @_ZZN2kc21f_ID_of_fn_declaratorEPNS_18impl_ac_declaratorEPNS_12impl_fnclassEE7ctor_nr, align 4, !tbaa !85
+  %call25 = call i32 (ptr, ptr, ...) @sprintf(ptr noundef nonnull dereferenceable(1) %buf22, ptr noundef nonnull dereferenceable(1) @.str.26, i32 noundef %inc24) #12
+  %call28 = call noundef ptr @_ZN2kc12mkcasestringEPKci(ptr noundef nonnull %buf22, i32 noundef -1)
+  %call29 = call noundef ptr @_ZN2kc3StrEPNS_20impl_casestring__StrE(ptr noundef %call28)
+  %call30 = call noundef ptr @_ZN2kc2IdEPNS_11impl_uniqIDE(ptr noundef %call29)
+  %file31 = getelementptr inbounds %"class.kc::impl_ID", ptr %retval.0.i, i64 0, i32 4
+  %15 = load ptr, ptr %file31, align 8, !tbaa !23
+  %file32 = getelementptr inbounds %"class.kc::impl_ID", ptr %call30, i64 0, i32 4
+  store ptr %15, ptr %file32, align 8, !tbaa !23
+  %line33 = getelementptr inbounds %"class.kc::impl_ID", ptr %retval.0.i, i64 0, i32 3
+  %16 = load i32, ptr %line33, align 8, !tbaa !25
+  %line34 = getelementptr inbounds %"class.kc::impl_ID", ptr %call30, i64 0, i32 3
+  store i32 %16, ptr %line34, align 8, !tbaa !25
+  call void @llvm.lifetime.end.p0(i64 30, ptr nonnull %buf22) #12
+  br label %cleanup39
 
-98:                                               ; preds = %2
+if.else38:                                        ; preds = %entry
   tail call void @_ZN2kc21kc_no_default_in_withEPKciS1_(ptr noundef nonnull @.str.27, i32 noundef 593, ptr noundef nonnull @.str.6)
-  br label %99
+  br label %cleanup39
 
-99:                                               ; preds = %67, %85, %80, %98
-  %100 = phi ptr [ null, %98 ], [ %73, %67 ], [ %91, %85 ], [ %62, %80 ]
-  ret ptr %100
+cleanup39:                                        ; preds = %if.then9, %if.then21, %if.else, %if.else38
+  %retval.1 = phi ptr [ null, %if.else38 ], [ %call14, %if.then9 ], [ %call30, %if.then21 ], [ %retval.0.i, %if.else ]
+  ret ptr %retval.1
 }
 
 ; Function Attrs: nofree nounwind
 declare noundef i32 @sprintf(ptr noalias nocapture noundef writeonly, ptr nocapture noundef readonly, ...) local_unnamed_addr #6
 
 ; Function Attrs: mustprogress uwtable
-define dso_local noundef i32 @_ZN2kc21f_stars_of_declaratorEPNS_18impl_ac_declaratorE(ptr noundef %0) local_unnamed_addr #0 {
-  %2 = load ptr, ptr %0, align 8, !tbaa !5
-  %3 = load ptr, ptr %2, align 8
-  %4 = tail call noundef i32 %3(ptr noundef nonnull align 8 dereferenceable(8) %0)
-  %5 = icmp eq i32 %4, 254
-  br i1 %5, label %6, label %32
+define dso_local noundef i32 @_ZN2kc21f_stars_of_declaratorEPNS_18impl_ac_declaratorE(ptr noundef %d) local_unnamed_addr #0 {
+entry:
+  %vtable = load ptr, ptr %d, align 8, !tbaa !5
+  %0 = load ptr, ptr %vtable, align 8
+  %call1 = tail call noundef i32 %0(ptr noundef nonnull align 8 dereferenceable(8) %d)
+  %cmp = icmp eq i32 %call1, 254
+  br i1 %cmp, label %if.then, label %cleanup
 
-6:                                                ; preds = %1
-  %7 = getelementptr inbounds %"class.kc::impl_ac_declarator_AcDeclarator", ptr %0, i64 0, i32 1
-  %8 = load ptr, ptr %7, align 8, !tbaa !86
-  %9 = load ptr, ptr %8, align 8, !tbaa !5
-  %10 = load ptr, ptr %9, align 8
-  %11 = tail call noundef i32 %10(ptr noundef nonnull align 8 dereferenceable(8) %8)
-  %12 = icmp eq i32 %11, 264
-  br i1 %12, label %13, label %32
+if.then:                                          ; preds = %entry
+  %ac_pointer_option_1 = getelementptr inbounds %"class.kc::impl_ac_declarator_AcDeclarator", ptr %d, i64 0, i32 1
+  %1 = load ptr, ptr %ac_pointer_option_1, align 8, !tbaa !86
+  %vtable.i = load ptr, ptr %1, align 8, !tbaa !5
+  %2 = load ptr, ptr %vtable.i, align 8
+  %call1.i = tail call noundef i32 %2(ptr noundef nonnull align 8 dereferenceable(8) %1)
+  %cmp.i = icmp eq i32 %call1.i, 264
+  br i1 %cmp.i, label %if.then.i, label %cleanup
 
-13:                                               ; preds = %6
-  %14 = getelementptr inbounds %"class.kc::impl_ac_pointer_option_Yespointer", ptr %8, i64 0, i32 1
-  %15 = load ptr, ptr %14, align 8, !tbaa !89
-  %16 = load ptr, ptr %15, align 8, !tbaa !5
-  %17 = load ptr, ptr %16, align 8
-  %18 = tail call noundef i32 %17(ptr noundef nonnull align 8 dereferenceable(8) %15)
-  %19 = icmp eq i32 %18, 266
-  br i1 %19, label %20, label %32
+if.then.i:                                        ; preds = %if.then
+  %ac_pointer_1.i = getelementptr inbounds %"class.kc::impl_ac_pointer_option_Yespointer", ptr %1, i64 0, i32 1
+  %3 = load ptr, ptr %ac_pointer_1.i, align 8, !tbaa !89
+  %vtable5.i.i = load ptr, ptr %3, align 8, !tbaa !5
+  %4 = load ptr, ptr %vtable5.i.i, align 8
+  %call16.i.i = tail call noundef i32 %4(ptr noundef nonnull align 8 dereferenceable(8) %3)
+  %cmp7.i.i = icmp eq i32 %call16.i.i, 266
+  br i1 %cmp7.i.i, label %if.then.i.i, label %cleanup
 
-20:                                               ; preds = %13, %20
-  %21 = phi ptr [ %24, %20 ], [ %15, %13 ]
-  %22 = phi i32 [ %25, %20 ], [ 0, %13 ]
-  %23 = getelementptr inbounds %"class.kc::impl_ac_pointer_AcPointerCons", ptr %21, i64 0, i32 2
-  %24 = load ptr, ptr %23, align 8, !tbaa !92
-  %25 = add nuw nsw i32 %22, 1
-  %26 = load ptr, ptr %24, align 8, !tbaa !5
-  %27 = load ptr, ptr %26, align 8
-  %28 = tail call noundef i32 %27(ptr noundef nonnull align 8 dereferenceable(8) %24)
-  %29 = icmp eq i32 %28, 266
-  br i1 %29, label %20, label %30
+if.then.i.i:                                      ; preds = %if.then.i, %if.then.i.i
+  %d.tr9.i.i = phi ptr [ %5, %if.then.i.i ], [ %3, %if.then.i ]
+  %accumulator.tr8.i.i = phi i32 [ %add.i.i, %if.then.i.i ], [ 0, %if.then.i ]
+  %ac_pointer_1.i.i = getelementptr inbounds %"class.kc::impl_ac_pointer_AcPointerCons", ptr %d.tr9.i.i, i64 0, i32 2
+  %5 = load ptr, ptr %ac_pointer_1.i.i, align 8, !tbaa !92
+  %add.i.i = add nuw nsw i32 %accumulator.tr8.i.i, 1
+  %vtable.i.i = load ptr, ptr %5, align 8, !tbaa !5
+  %6 = load ptr, ptr %vtable.i.i, align 8
+  %call1.i.i = tail call noundef i32 %6(ptr noundef nonnull align 8 dereferenceable(8) %5)
+  %cmp.i.i = icmp eq i32 %call1.i.i, 266
+  br i1 %cmp.i.i, label %if.then.i.i, label %cleanup.loopexit.i.i
 
-30:                                               ; preds = %20
-  %31 = add nuw nsw i32 %22, 2
-  br label %32
+cleanup.loopexit.i.i:                             ; preds = %if.then.i.i
+  %7 = add nuw nsw i32 %accumulator.tr8.i.i, 2
+  br label %cleanup
 
-32:                                               ; preds = %1, %30, %13, %6
-  %33 = phi i32 [ 1, %13 ], [ %31, %30 ], [ 0, %6 ], [ 0, %1 ]
-  ret i32 %33
+cleanup:                                          ; preds = %cleanup.loopexit.i.i, %if.then.i, %if.then, %entry
+  %retval.0 = phi i32 [ 0, %entry ], [ 0, %if.then ], [ 1, %if.then.i ], [ %7, %cleanup.loopexit.i.i ]
+  ret i32 %retval.0
 }
 
 ; Function Attrs: mustprogress uwtable
-define dso_local noundef ptr @_ZN2kc14f_fnclass_infoEPNS_30impl_ac_declaration_specifiersEPNS_20impl_casestring__StrEPNS_18impl_ac_declaratorE(ptr noundef %0, ptr noundef %1, ptr noundef %2) local_unnamed_addr #0 {
-  %4 = load ptr, ptr %0, align 8, !tbaa !5
-  %5 = load ptr, ptr %4, align 8
-  %6 = tail call noundef i32 %5(ptr noundef nonnull align 8 dereferenceable(24) %0)
-  %7 = icmp eq i32 %6, 236
-  br i1 %7, label %8, label %45
+define dso_local noundef ptr @_ZN2kc14f_fnclass_infoEPNS_30impl_ac_declaration_specifiersEPNS_20impl_casestring__StrEPNS_18impl_ac_declaratorE(ptr noundef %ds, ptr noundef %fn, ptr noundef %dec) local_unnamed_addr #0 {
+entry:
+  %vtable26 = load ptr, ptr %ds, align 8, !tbaa !5
+  %0 = load ptr, ptr %vtable26, align 8
+  %call127 = tail call noundef i32 %0(ptr noundef nonnull align 8 dereferenceable(24) %ds)
+  %cmp28 = icmp eq i32 %call127, 236
+  br i1 %cmp28, label %if.then.lr.ph, label %if.else9
 
-8:                                                ; preds = %3
-  %9 = getelementptr inbounds %"class.kc::impl_ac_declarator_AcDeclarator", ptr %2, i64 0, i32 3
-  br label %10
+if.then.lr.ph:                                    ; preds = %entry
+  %ac_direct_declarator_1.i = getelementptr inbounds %"class.kc::impl_ac_declarator_AcDeclarator", ptr %dec, i64 0, i32 3
+  br label %if.then
 
-10:                                               ; preds = %8, %40
-  %11 = phi ptr [ %0, %8 ], [ %15, %40 ]
-  %12 = getelementptr inbounds %"class.kc::impl_ac_declaration_specifiers", ptr %11, i64 0, i32 1
-  %13 = load ptr, ptr %12, align 8, !tbaa !95
-  %14 = getelementptr inbounds %"class.kc::impl_ac_declaration_specifiers", ptr %11, i64 0, i32 2
-  %15 = load ptr, ptr %14, align 8, !tbaa !97
-  %16 = tail call fastcc noundef zeroext i1 @_ZN2kcL24f_static_in_ac_decl_specEPNS_29impl_ac_declaration_specifierE(ptr noundef %13)
-  br i1 %16, label %17, label %19
+if.then:                                          ; preds = %if.then.lr.ph, %cond.false
+  %ds.tr29 = phi ptr [ %ds, %if.then.lr.ph ], [ %2, %cond.false ]
+  %ac_declaration_specifier_1 = getelementptr inbounds %"class.kc::impl_ac_declaration_specifiers", ptr %ds.tr29, i64 0, i32 1
+  %1 = load ptr, ptr %ac_declaration_specifier_1, align 8, !tbaa !95
+  %ac_declaration_specifiers_1 = getelementptr inbounds %"class.kc::impl_ac_declaration_specifiers", ptr %ds.tr29, i64 0, i32 2
+  %2 = load ptr, ptr %ac_declaration_specifiers_1, align 8, !tbaa !97
+  %call2 = tail call fastcc noundef zeroext i1 @_ZN2kcL24f_static_in_ac_decl_specEPNS_29impl_ac_declaration_specifierE(ptr noundef %1)
+  br i1 %call2, label %if.then3, label %if.else
 
-17:                                               ; preds = %10
-  %18 = tail call noundef ptr @_ZN2kc8StaticFnEPNS_20impl_casestring__StrE(ptr noundef %1)
-  br label %54
+if.then3:                                         ; preds = %if.then
+  %call4 = tail call noundef ptr @_ZN2kc8StaticFnEPNS_20impl_casestring__StrE(ptr noundef %fn)
+  br label %cleanup17
 
-19:                                               ; preds = %10
-  %20 = load ptr, ptr %2, align 8, !tbaa !5
-  %21 = load ptr, ptr %20, align 8
-  %22 = tail call noundef i32 %21(ptr noundef nonnull align 8 dereferenceable(8) %2)
-  %23 = icmp eq i32 %22, 254
-  br i1 %23, label %24, label %40
+if.else:                                          ; preds = %if.then
+  %vtable.i = load ptr, ptr %dec, align 8, !tbaa !5
+  %3 = load ptr, ptr %vtable.i, align 8
+  %call1.i = tail call noundef i32 %3(ptr noundef nonnull align 8 dereferenceable(8) %dec)
+  %cmp.i = icmp eq i32 %call1.i, 254
+  br i1 %cmp.i, label %land.lhs.true.i, label %cond.false
 
-24:                                               ; preds = %19
-  %25 = load ptr, ptr %9, align 8, !tbaa !98
-  %26 = load ptr, ptr %25, align 8, !tbaa !5
-  %27 = load ptr, ptr %26, align 8
-  %28 = tail call noundef i32 %27(ptr noundef nonnull align 8 dereferenceable(8) %25)
-  %29 = icmp eq i32 %28, 259
-  br i1 %29, label %30, label %40
+land.lhs.true.i:                                  ; preds = %if.else
+  %4 = load ptr, ptr %ac_direct_declarator_1.i, align 8, !tbaa !98
+  %vtable3.i = load ptr, ptr %4, align 8, !tbaa !5
+  %5 = load ptr, ptr %vtable3.i, align 8
+  %call5.i = tail call noundef i32 %5(ptr noundef nonnull align 8 dereferenceable(8) %4)
+  %cmp6.i = icmp eq i32 %call5.i, 259
+  br i1 %cmp6.i, label %land.lhs.true7.i, label %cond.false
 
-30:                                               ; preds = %24
-  %31 = load ptr, ptr %9, align 8, !tbaa !98
-  %32 = getelementptr inbounds %"class.kc::impl_ac_direct_declarator_AcQualifiedDeclProto", ptr %31, i64 0, i32 1
-  %33 = load ptr, ptr %32, align 8, !tbaa !99
-  %34 = load ptr, ptr %33, align 8, !tbaa !5
-  %35 = load ptr, ptr %34, align 8
-  %36 = tail call noundef i32 %35(ptr noundef nonnull align 8 dereferenceable(24) %33)
-  %37 = icmp eq i32 %36, 273
-  br i1 %37, label %38, label %40
+land.lhs.true7.i:                                 ; preds = %land.lhs.true.i
+  %6 = load ptr, ptr %ac_direct_declarator_1.i, align 8, !tbaa !98
+  %ac_class_qualifier_list_1.i = getelementptr inbounds %"class.kc::impl_ac_direct_declarator_AcQualifiedDeclProto", ptr %6, i64 0, i32 1
+  %7 = load ptr, ptr %ac_class_qualifier_list_1.i, align 8, !tbaa !99
+  %vtable11.i = load ptr, ptr %7, align 8, !tbaa !5
+  %8 = load ptr, ptr %vtable11.i, align 8
+  %call13.i = tail call noundef i32 %8(ptr noundef nonnull align 8 dereferenceable(24) %7)
+  %cmp14.i = icmp eq i32 %call13.i, 273
+  br i1 %cmp14.i, label %cond.true, label %cond.false
 
-38:                                               ; preds = %30
-  %39 = tail call noundef ptr @_ZN2kc8MemberFnEv()
-  br label %54
+cond.true:                                        ; preds = %land.lhs.true7.i
+  %call6 = tail call noundef ptr @_ZN2kc8MemberFnEv()
+  br label %cleanup17
 
-40:                                               ; preds = %30, %24, %19
-  %41 = load ptr, ptr %15, align 8, !tbaa !5
-  %42 = load ptr, ptr %41, align 8
-  %43 = tail call noundef i32 %42(ptr noundef nonnull align 8 dereferenceable(24) %15)
-  %44 = icmp eq i32 %43, 236
-  br i1 %44, label %10, label %45
+cond.false:                                       ; preds = %land.lhs.true7.i, %land.lhs.true.i, %if.else
+  %vtable = load ptr, ptr %2, align 8, !tbaa !5
+  %9 = load ptr, ptr %vtable, align 8
+  %call1 = tail call noundef i32 %9(ptr noundef nonnull align 8 dereferenceable(24) %2)
+  %cmp = icmp eq i32 %call1, 236
+  br i1 %cmp, label %if.then, label %if.else9
 
-45:                                               ; preds = %40, %3
-  %46 = phi ptr [ %0, %3 ], [ %15, %40 ]
-  %47 = load ptr, ptr %46, align 8, !tbaa !5
-  %48 = load ptr, ptr %47, align 8
-  %49 = tail call noundef i32 %48(ptr noundef nonnull align 8 dereferenceable(24) %46)
-  %50 = icmp eq i32 %49, 235
-  br i1 %50, label %51, label %53
+if.else9:                                         ; preds = %cond.false, %entry
+  %ds.tr.lcssa = phi ptr [ %ds, %entry ], [ %2, %cond.false ]
+  %vtable10 = load ptr, ptr %ds.tr.lcssa, align 8, !tbaa !5
+  %10 = load ptr, ptr %vtable10, align 8
+  %call12 = tail call noundef i32 %10(ptr noundef nonnull align 8 dereferenceable(24) %ds.tr.lcssa)
+  %cmp13 = icmp eq i32 %call12, 235
+  br i1 %cmp13, label %if.then14, label %if.else16
 
-51:                                               ; preds = %45
-  %52 = tail call noundef ptr @_ZN2kc8GlobalFnEv()
-  br label %54
+if.then14:                                        ; preds = %if.else9
+  %call15 = tail call noundef ptr @_ZN2kc8GlobalFnEv()
+  br label %cleanup17
 
-53:                                               ; preds = %45
+if.else16:                                        ; preds = %if.else9
   tail call void @_ZN2kc21kc_no_default_in_withEPKciS1_(ptr noundef nonnull @.str.28, i32 noundef 705, ptr noundef nonnull @.str.6)
-  br label %54
+  br label %cleanup17
 
-54:                                               ; preds = %17, %38, %53, %51
-  %55 = phi ptr [ %52, %51 ], [ null, %53 ], [ %18, %17 ], [ %39, %38 ]
-  ret ptr %55
+cleanup17:                                        ; preds = %if.then3, %cond.true, %if.else16, %if.then14
+  %retval.1 = phi ptr [ %call15, %if.then14 ], [ null, %if.else16 ], [ %call4, %if.then3 ], [ %call6, %cond.true ]
+  ret ptr %retval.1
 }
 
 ; Function Attrs: mustprogress uwtable
-define internal fastcc noundef zeroext i1 @_ZN2kcL24f_static_in_ac_decl_specEPNS_29impl_ac_declaration_specifierE(ptr noundef %0) unnamed_addr #0 {
-  %2 = load ptr, ptr %0, align 8, !tbaa !5
-  %3 = load ptr, ptr %2, align 8
-  %4 = tail call noundef i32 %3(ptr noundef nonnull align 8 dereferenceable(8) %0)
-  %5 = icmp eq i32 %4, 239
-  br i1 %5, label %45, label %6
+define internal fastcc noundef zeroext i1 @_ZN2kcL24f_static_in_ac_decl_specEPNS_29impl_ac_declaration_specifierE(ptr noundef %ds) unnamed_addr #0 {
+entry:
+  %vtable = load ptr, ptr %ds, align 8, !tbaa !5
+  %0 = load ptr, ptr %vtable, align 8
+  %call1 = tail call noundef i32 %0(ptr noundef nonnull align 8 dereferenceable(8) %ds)
+  %cmp = icmp eq i32 %call1, 239
+  br i1 %cmp, label %cleanup, label %if.else
 
-6:                                                ; preds = %1
-  %7 = load ptr, ptr %0, align 8, !tbaa !5
-  %8 = load ptr, ptr %7, align 8
-  %9 = tail call noundef i32 %8(ptr noundef nonnull align 8 dereferenceable(8) %0)
-  %10 = icmp eq i32 %9, 238
-  br i1 %10, label %45, label %11
+if.else:                                          ; preds = %entry
+  %vtable2 = load ptr, ptr %ds, align 8, !tbaa !5
+  %1 = load ptr, ptr %vtable2, align 8
+  %call4 = tail call noundef i32 %1(ptr noundef nonnull align 8 dereferenceable(8) %ds)
+  %cmp5 = icmp eq i32 %call4, 238
+  br i1 %cmp5, label %cleanup, label %if.else7
 
-11:                                               ; preds = %6
-  %12 = load ptr, ptr %0, align 8, !tbaa !5
-  %13 = load ptr, ptr %12, align 8
-  %14 = tail call noundef i32 %13(ptr noundef nonnull align 8 dereferenceable(8) %0)
-  %15 = icmp eq i32 %14, 237
-  br i1 %15, label %16, label %44
+if.else7:                                         ; preds = %if.else
+  %vtable8 = load ptr, ptr %ds, align 8, !tbaa !5
+  %2 = load ptr, ptr %vtable8, align 8
+  %call10 = tail call noundef i32 %2(ptr noundef nonnull align 8 dereferenceable(8) %ds)
+  %cmp11 = icmp eq i32 %call10, 237
+  br i1 %cmp11, label %if.then12, label %if.else15
 
-16:                                               ; preds = %11
-  %17 = getelementptr inbounds %"class.kc::impl_ac_declaration_specifier_AcDeclSpecStorageSpec", ptr %0, i64 0, i32 1
-  %18 = load ptr, ptr %17, align 8, !tbaa !101
-  %19 = load ptr, ptr %18, align 8, !tbaa !5
-  %20 = load ptr, ptr %19, align 8
-  %21 = tail call noundef i32 %20(ptr noundef nonnull align 8 dereferenceable(8) %18)
-  %22 = icmp eq i32 %21, 244
-  br i1 %22, label %45, label %23
+if.then12:                                        ; preds = %if.else7
+  %ac_storage_class_specifier_1 = getelementptr inbounds %"class.kc::impl_ac_declaration_specifier_AcDeclSpecStorageSpec", ptr %ds, i64 0, i32 1
+  %3 = load ptr, ptr %ac_storage_class_specifier_1, align 8, !tbaa !101
+  %vtable.i = load ptr, ptr %3, align 8, !tbaa !5
+  %4 = load ptr, ptr %vtable.i, align 8
+  %call1.i = tail call noundef i32 %4(ptr noundef nonnull align 8 dereferenceable(8) %3)
+  %cmp.i = icmp eq i32 %call1.i, 244
+  br i1 %cmp.i, label %cleanup, label %if.else.i
 
-23:                                               ; preds = %16
-  %24 = load ptr, ptr %18, align 8, !tbaa !5
-  %25 = load ptr, ptr %24, align 8
-  %26 = tail call noundef i32 %25(ptr noundef nonnull align 8 dereferenceable(8) %18)
-  %27 = icmp eq i32 %26, 243
-  br i1 %27, label %45, label %28
+if.else.i:                                        ; preds = %if.then12
+  %vtable2.i = load ptr, ptr %3, align 8, !tbaa !5
+  %5 = load ptr, ptr %vtable2.i, align 8
+  %call4.i = tail call noundef i32 %5(ptr noundef nonnull align 8 dereferenceable(8) %3)
+  %cmp5.i = icmp eq i32 %call4.i, 243
+  br i1 %cmp5.i, label %cleanup, label %if.else7.i
 
-28:                                               ; preds = %23
-  %29 = load ptr, ptr %18, align 8, !tbaa !5
-  %30 = load ptr, ptr %29, align 8
-  %31 = tail call noundef i32 %30(ptr noundef nonnull align 8 dereferenceable(8) %18)
-  %32 = icmp eq i32 %31, 242
-  br i1 %32, label %45, label %33
+if.else7.i:                                       ; preds = %if.else.i
+  %vtable8.i = load ptr, ptr %3, align 8, !tbaa !5
+  %6 = load ptr, ptr %vtable8.i, align 8
+  %call10.i = tail call noundef i32 %6(ptr noundef nonnull align 8 dereferenceable(8) %3)
+  %cmp11.i = icmp eq i32 %call10.i, 242
+  br i1 %cmp11.i, label %cleanup, label %if.else13.i
 
-33:                                               ; preds = %28
-  %34 = load ptr, ptr %18, align 8, !tbaa !5
-  %35 = load ptr, ptr %34, align 8
-  %36 = tail call noundef i32 %35(ptr noundef nonnull align 8 dereferenceable(8) %18)
-  %37 = icmp eq i32 %36, 241
-  br i1 %37, label %45, label %38
+if.else13.i:                                      ; preds = %if.else7.i
+  %vtable14.i = load ptr, ptr %3, align 8, !tbaa !5
+  %7 = load ptr, ptr %vtable14.i, align 8
+  %call16.i = tail call noundef i32 %7(ptr noundef nonnull align 8 dereferenceable(8) %3)
+  %cmp17.i = icmp eq i32 %call16.i, 241
+  br i1 %cmp17.i, label %cleanup, label %if.else19.i
 
-38:                                               ; preds = %33
-  %39 = load ptr, ptr %18, align 8, !tbaa !5
-  %40 = load ptr, ptr %39, align 8
-  %41 = tail call noundef i32 %40(ptr noundef nonnull align 8 dereferenceable(8) %18)
-  %42 = icmp eq i32 %41, 240
-  br i1 %42, label %45, label %43
+if.else19.i:                                      ; preds = %if.else13.i
+  %vtable20.i = load ptr, ptr %3, align 8, !tbaa !5
+  %8 = load ptr, ptr %vtable20.i, align 8
+  %call22.i = tail call noundef i32 %8(ptr noundef nonnull align 8 dereferenceable(8) %3)
+  %cmp23.i = icmp eq i32 %call22.i, 240
+  br i1 %cmp23.i, label %cleanup, label %if.else25.i
 
-43:                                               ; preds = %38
+if.else25.i:                                      ; preds = %if.else19.i
   tail call void @_ZN2kc21kc_no_default_in_withEPKciS1_(ptr noundef nonnull @.str.48, i32 noundef 790, ptr noundef nonnull @.str.6)
-  br label %45
+  br label %cleanup
 
-44:                                               ; preds = %11
+if.else15:                                        ; preds = %if.else7
   tail call void @_ZN2kc21kc_no_default_in_withEPKciS1_(ptr noundef nonnull @.str.47, i32 noundef 766, ptr noundef nonnull @.str.6)
-  br label %45
+  br label %cleanup
 
-45:                                               ; preds = %43, %38, %33, %28, %23, %16, %6, %1, %44
-  %46 = phi i1 [ false, %44 ], [ false, %1 ], [ false, %6 ], [ false, %43 ], [ false, %16 ], [ false, %23 ], [ true, %28 ], [ false, %33 ], [ false, %38 ]
-  ret i1 %46
+cleanup:                                          ; preds = %if.else25.i, %if.else19.i, %if.else13.i, %if.else7.i, %if.else.i, %if.then12, %if.else, %entry, %if.else15
+  %retval.0 = phi i1 [ false, %if.else15 ], [ false, %entry ], [ false, %if.else ], [ false, %if.else25.i ], [ false, %if.then12 ], [ false, %if.else.i ], [ true, %if.else7.i ], [ false, %if.else13.i ], [ false, %if.else19.i ]
+  ret i1 %retval.0
 }
 
 declare noundef ptr @_ZN2kc8StaticFnEPNS_20impl_casestring__StrE(ptr noundef) local_unnamed_addr #2
@@ -2107,554 +2123,566 @@ declare noundef ptr @_ZN2kc8MemberFnEv() local_unnamed_addr #2
 declare noundef ptr @_ZN2kc8GlobalFnEv() local_unnamed_addr #2
 
 ; Function Attrs: mustprogress uwtable
-define dso_local noundef ptr @_ZN2kc19f_member_class_infoEPNS_30impl_ac_declaration_specifiersEPNS_20impl_casestring__StrE(ptr noundef %0, ptr noundef %1) local_unnamed_addr #0 {
-  br label %3
+define dso_local noundef ptr @_ZN2kc19f_member_class_infoEPNS_30impl_ac_declaration_specifiersEPNS_20impl_casestring__StrE(ptr noundef %ds, ptr noundef %fn) local_unnamed_addr #0 {
+entry:
+  br label %tailrecurse
 
-3:                                                ; preds = %9, %2
-  %4 = phi ptr [ %0, %2 ], [ %13, %9 ]
-  %5 = load ptr, ptr %4, align 8, !tbaa !5
-  %6 = load ptr, ptr %5, align 8
-  %7 = tail call noundef i32 %6(ptr noundef nonnull align 8 dereferenceable(24) %4)
-  %8 = icmp eq i32 %7, 236
-  br i1 %8, label %9, label %17
+tailrecurse:                                      ; preds = %if.then, %entry
+  %ds.tr = phi ptr [ %ds, %entry ], [ %2, %if.then ]
+  %vtable = load ptr, ptr %ds.tr, align 8, !tbaa !5
+  %0 = load ptr, ptr %vtable, align 8
+  %call1 = tail call noundef i32 %0(ptr noundef nonnull align 8 dereferenceable(24) %ds.tr)
+  %cmp = icmp eq i32 %call1, 236
+  br i1 %cmp, label %if.then, label %if.else7
 
-9:                                                ; preds = %3
-  %10 = getelementptr inbounds %"class.kc::impl_ac_declaration_specifiers", ptr %4, i64 0, i32 1
-  %11 = load ptr, ptr %10, align 8, !tbaa !95
-  %12 = getelementptr inbounds %"class.kc::impl_ac_declaration_specifiers", ptr %4, i64 0, i32 2
-  %13 = load ptr, ptr %12, align 8, !tbaa !97
-  %14 = tail call fastcc noundef zeroext i1 @_ZN2kcL24f_static_in_ac_decl_specEPNS_29impl_ac_declaration_specifierE(ptr noundef %11)
-  br i1 %14, label %15, label %3
+if.then:                                          ; preds = %tailrecurse
+  %ac_declaration_specifier_1 = getelementptr inbounds %"class.kc::impl_ac_declaration_specifiers", ptr %ds.tr, i64 0, i32 1
+  %1 = load ptr, ptr %ac_declaration_specifier_1, align 8, !tbaa !95
+  %ac_declaration_specifiers_1 = getelementptr inbounds %"class.kc::impl_ac_declaration_specifiers", ptr %ds.tr, i64 0, i32 2
+  %2 = load ptr, ptr %ac_declaration_specifiers_1, align 8, !tbaa !97
+  %call2 = tail call fastcc noundef zeroext i1 @_ZN2kcL24f_static_in_ac_decl_specEPNS_29impl_ac_declaration_specifierE(ptr noundef %1)
+  br i1 %call2, label %if.then3, label %tailrecurse
 
-15:                                               ; preds = %9
-  %16 = tail call noundef ptr @_ZN2kc8StaticFnEPNS_20impl_casestring__StrE(ptr noundef %1)
-  br label %25
+if.then3:                                         ; preds = %if.then
+  %call4 = tail call noundef ptr @_ZN2kc8StaticFnEPNS_20impl_casestring__StrE(ptr noundef %fn)
+  br label %cleanup15
 
-17:                                               ; preds = %3
-  %18 = load ptr, ptr %4, align 8, !tbaa !5
-  %19 = load ptr, ptr %18, align 8
-  %20 = tail call noundef i32 %19(ptr noundef nonnull align 8 dereferenceable(24) %4)
-  %21 = icmp eq i32 %20, 235
-  br i1 %21, label %22, label %24
+if.else7:                                         ; preds = %tailrecurse
+  %vtable8 = load ptr, ptr %ds.tr, align 8, !tbaa !5
+  %3 = load ptr, ptr %vtable8, align 8
+  %call10 = tail call noundef i32 %3(ptr noundef nonnull align 8 dereferenceable(24) %ds.tr)
+  %cmp11 = icmp eq i32 %call10, 235
+  br i1 %cmp11, label %if.then12, label %if.else14
 
-22:                                               ; preds = %17
-  %23 = tail call noundef ptr @_ZN2kc8MemberFnEv()
-  br label %25
+if.then12:                                        ; preds = %if.else7
+  %call13 = tail call noundef ptr @_ZN2kc8MemberFnEv()
+  br label %cleanup15
 
-24:                                               ; preds = %17
+if.else14:                                        ; preds = %if.else7
   tail call void @_ZN2kc21kc_no_default_in_withEPKciS1_(ptr noundef nonnull @.str.29, i32 noundef 728, ptr noundef nonnull @.str.6)
-  br label %25
+  br label %cleanup15
 
-25:                                               ; preds = %15, %24, %22
-  %26 = phi ptr [ %23, %22 ], [ null, %24 ], [ %16, %15 ]
-  ret ptr %26
+cleanup15:                                        ; preds = %if.then3, %if.else14, %if.then12
+  %retval.1 = phi ptr [ %call13, %if.then12 ], [ null, %if.else14 ], [ %call4, %if.then3 ]
+  ret ptr %retval.1
 }
 
 ; Function Attrs: mustprogress uwtable
-define dso_local noundef zeroext i1 @_ZN2kc25f_static_in_ac_decl_specsEPNS_30impl_ac_declaration_specifiersE(ptr noundef %0) local_unnamed_addr #0 {
-  br label %2
+define dso_local noundef zeroext i1 @_ZN2kc25f_static_in_ac_decl_specsEPNS_30impl_ac_declaration_specifiersE(ptr noundef %ds) local_unnamed_addr #0 {
+entry:
+  br label %tailrecurse
 
-2:                                                ; preds = %13, %1
-  %3 = phi ptr [ %0, %1 ], [ %17, %13 ]
-  %4 = load ptr, ptr %3, align 8, !tbaa !5
-  %5 = load ptr, ptr %4, align 8
-  %6 = tail call noundef i32 %5(ptr noundef nonnull align 8 dereferenceable(24) %3)
-  %7 = icmp ne i32 %6, 235
-  br i1 %7, label %8, label %20
+tailrecurse:                                      ; preds = %if.then6, %entry
+  %ds.tr = phi ptr [ %ds, %entry ], [ %3, %if.then6 ]
+  %vtable = load ptr, ptr %ds.tr, align 8, !tbaa !5
+  %0 = load ptr, ptr %vtable, align 8
+  %call1 = tail call noundef i32 %0(ptr noundef nonnull align 8 dereferenceable(24) %ds.tr)
+  %cmp.not = icmp ne i32 %call1, 235
+  br i1 %cmp.not, label %if.else, label %cleanup
 
-8:                                                ; preds = %2
-  %9 = load ptr, ptr %3, align 8, !tbaa !5
-  %10 = load ptr, ptr %9, align 8
-  %11 = tail call noundef i32 %10(ptr noundef nonnull align 8 dereferenceable(24) %3)
-  %12 = icmp eq i32 %11, 236
-  br i1 %12, label %13, label %19
+if.else:                                          ; preds = %tailrecurse
+  %vtable2 = load ptr, ptr %ds.tr, align 8, !tbaa !5
+  %1 = load ptr, ptr %vtable2, align 8
+  %call4 = tail call noundef i32 %1(ptr noundef nonnull align 8 dereferenceable(24) %ds.tr)
+  %cmp5 = icmp eq i32 %call4, 236
+  br i1 %cmp5, label %if.then6, label %if.else9
 
-13:                                               ; preds = %8
-  %14 = getelementptr inbounds %"class.kc::impl_ac_declaration_specifiers", ptr %3, i64 0, i32 1
-  %15 = load ptr, ptr %14, align 8, !tbaa !95
-  %16 = getelementptr inbounds %"class.kc::impl_ac_declaration_specifiers", ptr %3, i64 0, i32 2
-  %17 = load ptr, ptr %16, align 8, !tbaa !97
-  %18 = tail call fastcc noundef zeroext i1 @_ZN2kcL24f_static_in_ac_decl_specEPNS_29impl_ac_declaration_specifierE(ptr noundef %15)
-  br i1 %18, label %20, label %2
+if.then6:                                         ; preds = %if.else
+  %ac_declaration_specifier_1 = getelementptr inbounds %"class.kc::impl_ac_declaration_specifiers", ptr %ds.tr, i64 0, i32 1
+  %2 = load ptr, ptr %ac_declaration_specifier_1, align 8, !tbaa !95
+  %ac_declaration_specifiers_1 = getelementptr inbounds %"class.kc::impl_ac_declaration_specifiers", ptr %ds.tr, i64 0, i32 2
+  %3 = load ptr, ptr %ac_declaration_specifiers_1, align 8, !tbaa !97
+  %call7 = tail call fastcc noundef zeroext i1 @_ZN2kcL24f_static_in_ac_decl_specEPNS_29impl_ac_declaration_specifierE(ptr noundef %2)
+  br i1 %call7, label %cleanup, label %tailrecurse
 
-19:                                               ; preds = %8
+if.else9:                                         ; preds = %if.else
   tail call void @_ZN2kc21kc_no_default_in_withEPKciS1_(ptr noundef nonnull @.str.30, i32 noundef 747, ptr noundef nonnull @.str.6)
-  br label %20
+  br label %cleanup
 
-20:                                               ; preds = %13, %2, %19
-  %21 = phi i1 [ false, %19 ], [ %7, %2 ], [ %7, %13 ]
-  ret i1 %21
+cleanup:                                          ; preds = %if.then6, %tailrecurse, %if.else9
+  %retval.0 = phi i1 [ false, %if.else9 ], [ %cmp.not, %tailrecurse ], [ %cmp.not, %if.then6 ]
+  ret i1 %retval.0
 }
 
 ; Function Attrs: mustprogress uwtable
-define dso_local noundef ptr @_ZN2kc33f_ID_of_ac_declaration_specifiersEPNS_30impl_ac_declaration_specifiersE(ptr noundef %0) local_unnamed_addr #0 {
-  %2 = load ptr, ptr %0, align 8, !tbaa !5
-  %3 = load ptr, ptr %2, align 8
-  %4 = tail call noundef i32 %3(ptr noundef nonnull align 8 dereferenceable(24) %0)
-  %5 = icmp eq i32 %4, 236
-  br i1 %5, label %6, label %44
+define dso_local noundef ptr @_ZN2kc33f_ID_of_ac_declaration_specifiersEPNS_30impl_ac_declaration_specifiersE(ptr noundef %d) local_unnamed_addr #0 {
+entry:
+  %vtable22 = load ptr, ptr %d, align 8, !tbaa !5
+  %0 = load ptr, ptr %vtable22, align 8
+  %call123 = tail call noundef i32 %0(ptr noundef nonnull align 8 dereferenceable(24) %d)
+  %cmp24 = icmp eq i32 %call123, 236
+  br i1 %cmp24, label %if.then, label %if.else7
 
-6:                                                ; preds = %1, %39
-  %7 = phi ptr [ %11, %39 ], [ %0, %1 ]
-  %8 = getelementptr inbounds %"class.kc::impl_ac_declaration_specifiers", ptr %7, i64 0, i32 1
-  %9 = load ptr, ptr %8, align 8, !tbaa !95
-  %10 = getelementptr inbounds %"class.kc::impl_ac_declaration_specifiers", ptr %7, i64 0, i32 2
-  %11 = load ptr, ptr %10, align 8, !tbaa !97
-  %12 = load ptr, ptr %9, align 8, !tbaa !5
-  %13 = load ptr, ptr %12, align 8
-  %14 = tail call noundef i32 %13(ptr noundef nonnull align 8 dereferenceable(8) %9)
-  %15 = icmp eq i32 %14, 238
-  br i1 %15, label %16, label %24
+if.then:                                          ; preds = %entry, %if.else
+  %d.tr25 = phi ptr [ %2, %if.else ], [ %d, %entry ]
+  %ac_declaration_specifier_1 = getelementptr inbounds %"class.kc::impl_ac_declaration_specifiers", ptr %d.tr25, i64 0, i32 1
+  %1 = load ptr, ptr %ac_declaration_specifier_1, align 8, !tbaa !95
+  %ac_declaration_specifiers_1 = getelementptr inbounds %"class.kc::impl_ac_declaration_specifiers", ptr %d.tr25, i64 0, i32 2
+  %2 = load ptr, ptr %ac_declaration_specifiers_1, align 8, !tbaa !97
+  %vtable.i = load ptr, ptr %1, align 8, !tbaa !5
+  %3 = load ptr, ptr %vtable.i, align 8
+  %call1.i = tail call noundef i32 %3(ptr noundef nonnull align 8 dereferenceable(8) %1)
+  %cmp.i = icmp eq i32 %call1.i, 238
+  br i1 %cmp.i, label %if.then.i, label %if.else.i
 
-16:                                               ; preds = %6
-  %17 = getelementptr inbounds %"class.kc::impl_ac_declaration_specifier_AcDeclSpecTypeSpec", ptr %9, i64 0, i32 1
-  %18 = load ptr, ptr %17, align 8, !tbaa !104
-  %19 = load ptr, ptr %18, align 8, !tbaa !5
-  %20 = load ptr, ptr %19, align 8
-  %21 = tail call noundef i32 %20(ptr noundef nonnull align 8 dereferenceable(8) %18)
-  %22 = icmp eq i32 %21, 246
-  br i1 %22, label %35, label %23
+if.then.i:                                        ; preds = %if.then
+  %ac_type_specifier_1.i = getelementptr inbounds %"class.kc::impl_ac_declaration_specifier_AcDeclSpecTypeSpec", ptr %1, i64 0, i32 1
+  %4 = load ptr, ptr %ac_type_specifier_1.i, align 8, !tbaa !104
+  %vtable.i.i = load ptr, ptr %4, align 8, !tbaa !5
+  %5 = load ptr, ptr %vtable.i.i, align 8
+  %call1.i.i = tail call noundef i32 %5(ptr noundef nonnull align 8 dereferenceable(8) %4)
+  %cmp.i.i = icmp eq i32 %call1.i.i, 246
+  br i1 %cmp.i.i, label %_ZN2kcL32f_ID_of_ac_declaration_specifierEPNS_29impl_ac_declaration_specifierE.exit, label %if.else.i.i
 
-23:                                               ; preds = %16
+if.else.i.i:                                      ; preds = %if.then.i
   tail call void @_ZN2kc21kc_no_default_in_withEPKciS1_(ptr noundef nonnull @.str.50, i32 noundef 847, ptr noundef nonnull @.str.6)
-  br label %39
+  br label %if.else
 
-24:                                               ; preds = %6
-  %25 = load ptr, ptr %9, align 8, !tbaa !5
-  %26 = load ptr, ptr %25, align 8
-  %27 = tail call noundef i32 %26(ptr noundef nonnull align 8 dereferenceable(8) %9)
-  %28 = icmp eq i32 %27, 239
-  br i1 %28, label %39, label %29
+if.else.i:                                        ; preds = %if.then
+  %vtable4.i = load ptr, ptr %1, align 8, !tbaa !5
+  %6 = load ptr, ptr %vtable4.i, align 8
+  %call6.i = tail call noundef i32 %6(ptr noundef nonnull align 8 dereferenceable(8) %1)
+  %cmp7.i = icmp eq i32 %call6.i, 239
+  br i1 %cmp7.i, label %if.else, label %if.else9.i
 
-29:                                               ; preds = %24
-  %30 = load ptr, ptr %9, align 8, !tbaa !5
-  %31 = load ptr, ptr %30, align 8
-  %32 = tail call noundef i32 %31(ptr noundef nonnull align 8 dereferenceable(8) %9)
-  %33 = icmp eq i32 %32, 237
-  br i1 %33, label %39, label %34
+if.else9.i:                                       ; preds = %if.else.i
+  %vtable10.i = load ptr, ptr %1, align 8, !tbaa !5
+  %7 = load ptr, ptr %vtable10.i, align 8
+  %call12.i = tail call noundef i32 %7(ptr noundef nonnull align 8 dereferenceable(8) %1)
+  %cmp13.i = icmp eq i32 %call12.i, 237
+  br i1 %cmp13.i, label %if.else, label %if.else15.i
 
-34:                                               ; preds = %29
+if.else15.i:                                      ; preds = %if.else9.i
   tail call void @_ZN2kc21kc_no_default_in_withEPKciS1_(ptr noundef nonnull @.str.49, i32 noundef 834, ptr noundef nonnull @.str.6)
-  br label %39
+  br label %if.else
 
-35:                                               ; preds = %16
-  %36 = getelementptr inbounds %"class.kc::impl_ac_type_specifier_AcTypeSpec", ptr %18, i64 0, i32 1
-  %37 = load ptr, ptr %36, align 8, !tbaa !106
-  %38 = icmp eq ptr %37, null
-  br i1 %38, label %39, label %51
+_ZN2kcL32f_ID_of_ac_declaration_specifierEPNS_29impl_ac_declaration_specifierE.exit: ; preds = %if.then.i
+  %ID_1.i.i = getelementptr inbounds %"class.kc::impl_ac_type_specifier_AcTypeSpec", ptr %4, i64 0, i32 1
+  %8 = load ptr, ptr %ID_1.i.i, align 8, !tbaa !106
+  %tobool.not = icmp eq ptr %8, null
+  br i1 %tobool.not, label %if.else, label %cleanup14
 
-39:                                               ; preds = %29, %24, %23, %34, %35
-  %40 = load ptr, ptr %11, align 8, !tbaa !5
-  %41 = load ptr, ptr %40, align 8
-  %42 = tail call noundef i32 %41(ptr noundef nonnull align 8 dereferenceable(24) %11)
-  %43 = icmp eq i32 %42, 236
-  br i1 %43, label %6, label %44
+if.else:                                          ; preds = %if.else.i.i, %if.else9.i, %if.else.i, %if.else15.i, %_ZN2kcL32f_ID_of_ac_declaration_specifierEPNS_29impl_ac_declaration_specifierE.exit
+  %vtable = load ptr, ptr %2, align 8, !tbaa !5
+  %9 = load ptr, ptr %vtable, align 8
+  %call1 = tail call noundef i32 %9(ptr noundef nonnull align 8 dereferenceable(24) %2)
+  %cmp = icmp eq i32 %call1, 236
+  br i1 %cmp, label %if.then, label %if.else7
 
-44:                                               ; preds = %39, %1
-  %45 = phi ptr [ %0, %1 ], [ %11, %39 ]
-  %46 = load ptr, ptr %45, align 8, !tbaa !5
-  %47 = load ptr, ptr %46, align 8
-  %48 = tail call noundef i32 %47(ptr noundef nonnull align 8 dereferenceable(24) %45)
-  %49 = icmp eq i32 %48, 235
-  br i1 %49, label %51, label %50
+if.else7:                                         ; preds = %if.else, %entry
+  %d.tr.lcssa = phi ptr [ %d, %entry ], [ %2, %if.else ]
+  %vtable8 = load ptr, ptr %d.tr.lcssa, align 8, !tbaa !5
+  %10 = load ptr, ptr %vtable8, align 8
+  %call10 = tail call noundef i32 %10(ptr noundef nonnull align 8 dereferenceable(24) %d.tr.lcssa)
+  %cmp11 = icmp eq i32 %call10, 235
+  br i1 %cmp11, label %cleanup14, label %if.else13
 
-50:                                               ; preds = %44
+if.else13:                                        ; preds = %if.else7
   tail call void @_ZN2kc21kc_no_default_in_withEPKciS1_(ptr noundef nonnull @.str.31, i32 noundef 813, ptr noundef nonnull @.str.6)
-  br label %51
+  br label %cleanup14
 
-51:                                               ; preds = %35, %44, %50
-  %52 = phi ptr [ null, %50 ], [ null, %44 ], [ %37, %35 ]
-  ret ptr %52
+cleanup14:                                        ; preds = %_ZN2kcL32f_ID_of_ac_declaration_specifierEPNS_29impl_ac_declaration_specifierE.exit, %if.else7, %if.else13
+  %retval.1 = phi ptr [ null, %if.else13 ], [ null, %if.else7 ], [ %8, %_ZN2kcL32f_ID_of_ac_declaration_specifierEPNS_29impl_ac_declaration_specifierE.exit ]
+  ret ptr %retval.1
 }
 
 ; Function Attrs: mustprogress uwtable
-define dso_local void @_ZN2kc42check_no_patternchaingroup_in_patternchainEPNS_20impl_casestring__StrEiPNS_17impl_patternchainEPKc(ptr noundef %0, i32 noundef %1, ptr noundef %2, ptr noundef %3) local_unnamed_addr #0 {
-  %5 = load ptr, ptr %2, align 8, !tbaa !5
-  %6 = load ptr, ptr %5, align 8
-  %7 = tail call noundef i32 %6(ptr noundef nonnull align 8 dereferenceable(40) %2)
-  %8 = icmp eq i32 %7, 73
-  br i1 %8, label %39, label %9
+define dso_local void @_ZN2kc42check_no_patternchaingroup_in_patternchainEPNS_20impl_casestring__StrEiPNS_17impl_patternchainEPKc(ptr noundef %f, i32 noundef %l, ptr noundef %a_patternchain, ptr noundef %ctxt) local_unnamed_addr #0 {
+entry:
+  %vtable = load ptr, ptr %a_patternchain, align 8, !tbaa !5
+  %0 = load ptr, ptr %vtable, align 8
+  %call1 = tail call noundef i32 %0(ptr noundef nonnull align 8 dereferenceable(40) %a_patternchain)
+  %cmp = icmp eq i32 %call1, 73
+  br i1 %cmp, label %if.end33, label %if.else
 
-9:                                                ; preds = %4
-  %10 = load ptr, ptr %2, align 8, !tbaa !5
-  %11 = load ptr, ptr %10, align 8
-  %12 = tail call noundef i32 %11(ptr noundef nonnull align 8 dereferenceable(40) %2)
-  %13 = icmp eq i32 %12, 74
-  br i1 %13, label %14, label %38
+if.else:                                          ; preds = %entry
+  %vtable2 = load ptr, ptr %a_patternchain, align 8, !tbaa !5
+  %1 = load ptr, ptr %vtable2, align 8
+  %call4 = tail call noundef i32 %1(ptr noundef nonnull align 8 dereferenceable(40) %a_patternchain)
+  %cmp5 = icmp eq i32 %call4, 74
+  br i1 %cmp5, label %if.then6, label %if.else31
 
-14:                                               ; preds = %9
-  %15 = getelementptr inbounds %"class.kc::impl_patternchain", ptr %2, i64 0, i32 3
-  %16 = load ptr, ptr %15, align 8, !tbaa !109
-  %17 = getelementptr inbounds %"class.kc::impl_patternchain", ptr %2, i64 0, i32 4
-  %18 = load ptr, ptr %17, align 8, !tbaa !111
-  tail call void @_ZN2kc42check_no_patternchaingroup_in_patternchainEPNS_20impl_casestring__StrEiPNS_17impl_patternchainEPKc(ptr noundef %0, i32 noundef %1, ptr noundef %18, ptr noundef %3)
-  %19 = load ptr, ptr %16, align 8, !tbaa !5
-  %20 = load ptr, ptr %19, align 8
-  %21 = tail call noundef i32 %20(ptr noundef nonnull align 8 dereferenceable(8) %16)
-  %22 = icmp eq i32 %21, 78
-  br i1 %22, label %23, label %27
+if.then6:                                         ; preds = %if.else
+  %patternchainitem_1 = getelementptr inbounds %"class.kc::impl_patternchain", ptr %a_patternchain, i64 0, i32 3
+  %2 = load ptr, ptr %patternchainitem_1, align 8, !tbaa !109
+  %patternchain_1 = getelementptr inbounds %"class.kc::impl_patternchain", ptr %a_patternchain, i64 0, i32 4
+  %3 = load ptr, ptr %patternchain_1, align 8, !tbaa !111
+  tail call void @_ZN2kc42check_no_patternchaingroup_in_patternchainEPNS_20impl_casestring__StrEiPNS_17impl_patternchainEPKc(ptr noundef %f, i32 noundef %l, ptr noundef %3, ptr noundef %ctxt)
+  %vtable8 = load ptr, ptr %2, align 8, !tbaa !5
+  %4 = load ptr, ptr %vtable8, align 8
+  %call10 = tail call noundef i32 %4(ptr noundef nonnull align 8 dereferenceable(8) %2)
+  %cmp11 = icmp eq i32 %call10, 78
+  br i1 %cmp11, label %if.then12, label %if.else16
 
-23:                                               ; preds = %14
-  %24 = tail call noundef ptr @_ZN2kc8FileLineEPNS_20impl_casestring__StrEi(ptr noundef %0, i32 noundef %1)
-  %25 = tail call noundef ptr @_ZN2kc9Problem3SEPKcS1_S1_(ptr noundef nonnull @.str.32, ptr noundef %3, ptr noundef nonnull @.str.33)
-  %26 = tail call noundef ptr @_ZN2kc8NonFatalEPNS_13impl_filelineEPNS_12impl_problemE(ptr noundef %24, ptr noundef %25)
-  tail call void @_ZN2kc8v_reportEPNS_10impl_errorE(ptr noundef %26)
-  br label %39
+if.then12:                                        ; preds = %if.then6
+  %call13 = tail call noundef ptr @_ZN2kc8FileLineEPNS_20impl_casestring__StrEi(ptr noundef %f, i32 noundef %l)
+  %call14 = tail call noundef ptr @_ZN2kc9Problem3SEPKcS1_S1_(ptr noundef nonnull @.str.32, ptr noundef %ctxt, ptr noundef nonnull @.str.33)
+  %call15 = tail call noundef ptr @_ZN2kc8NonFatalEPNS_13impl_filelineEPNS_12impl_problemE(ptr noundef %call13, ptr noundef %call14)
+  tail call void @_ZN2kc8v_reportEPNS_10impl_errorE(ptr noundef %call15)
+  br label %if.end33
 
-27:                                               ; preds = %14
-  %28 = load ptr, ptr %16, align 8, !tbaa !5
-  %29 = load ptr, ptr %28, align 8
-  %30 = tail call noundef i32 %29(ptr noundef nonnull align 8 dereferenceable(8) %16)
-  %31 = icmp eq i32 %30, 79
-  br i1 %31, label %39, label %32
+if.else16:                                        ; preds = %if.then6
+  %vtable17 = load ptr, ptr %2, align 8, !tbaa !5
+  %5 = load ptr, ptr %vtable17, align 8
+  %call19 = tail call noundef i32 %5(ptr noundef nonnull align 8 dereferenceable(8) %2)
+  %cmp20 = icmp eq i32 %call19, 79
+  br i1 %cmp20, label %if.end33, label %if.else22
 
-32:                                               ; preds = %27
-  %33 = load ptr, ptr %16, align 8, !tbaa !5
-  %34 = load ptr, ptr %33, align 8
-  %35 = tail call noundef i32 %34(ptr noundef nonnull align 8 dereferenceable(8) %16)
-  %36 = icmp eq i32 %35, 77
-  br i1 %36, label %39, label %37
+if.else22:                                        ; preds = %if.else16
+  %vtable23 = load ptr, ptr %2, align 8, !tbaa !5
+  %6 = load ptr, ptr %vtable23, align 8
+  %call25 = tail call noundef i32 %6(ptr noundef nonnull align 8 dereferenceable(8) %2)
+  %cmp26 = icmp eq i32 %call25, 77
+  br i1 %cmp26, label %if.end33, label %if.else28
 
-37:                                               ; preds = %32
+if.else28:                                        ; preds = %if.else22
   tail call void @_ZN2kc21kc_no_default_in_withEPKciS1_(ptr noundef nonnull @.str.34, i32 noundef 877, ptr noundef nonnull @.str.6)
-  br label %39
+  br label %if.end33
 
-38:                                               ; preds = %9
+if.else31:                                        ; preds = %if.else
   tail call void @_ZN2kc21kc_no_default_in_withEPKciS1_(ptr noundef nonnull @.str.34, i32 noundef 881, ptr noundef nonnull @.str.6)
-  br label %39
+  br label %if.end33
 
-39:                                               ; preds = %23, %37, %32, %27, %38, %4
+if.end33:                                         ; preds = %if.then12, %if.else28, %if.else22, %if.else16, %if.else31, %entry
   ret void
 }
 
 declare noundef ptr @_ZN2kc9Problem3SEPKcS1_S1_(ptr noundef, ptr noundef, ptr noundef) local_unnamed_addr #2
 
 ; Function Attrs: mustprogress uwtable
-define dso_local void @_ZN2kc43check_no_patternchaingroup_in_patternchainsEPNS_20impl_casestring__StrEiPNS_18impl_patternchainsEPKc(ptr noundef %0, i32 noundef %1, ptr noundef %2, ptr noundef %3) local_unnamed_addr #0 {
-  %5 = load ptr, ptr %2, align 8, !tbaa !5
-  %6 = load ptr, ptr %5, align 8
-  %7 = tail call noundef i32 %6(ptr noundef nonnull align 8 dereferenceable(40) %2)
-  %8 = icmp eq i32 %7, 71
-  br i1 %8, label %14, label %9
+define dso_local void @_ZN2kc43check_no_patternchaingroup_in_patternchainsEPNS_20impl_casestring__StrEiPNS_18impl_patternchainsEPKc(ptr noundef %f, i32 noundef %l, ptr noundef %a_patternchains, ptr noundef %ctxt) local_unnamed_addr #0 {
+entry:
+  %vtable = load ptr, ptr %a_patternchains, align 8, !tbaa !5
+  %0 = load ptr, ptr %vtable, align 8
+  %call1 = tail call noundef i32 %0(ptr noundef nonnull align 8 dereferenceable(40) %a_patternchains)
+  %cmp = icmp eq i32 %call1, 71
+  br i1 %cmp, label %common.ret15, label %if.else
 
-9:                                                ; preds = %4
-  %10 = load ptr, ptr %2, align 8, !tbaa !5
-  %11 = load ptr, ptr %10, align 8
-  %12 = tail call noundef i32 %11(ptr noundef nonnull align 8 dereferenceable(40) %2)
-  %13 = icmp eq i32 %12, 72
-  br i1 %13, label %15, label %20
+if.else:                                          ; preds = %entry
+  %vtable2 = load ptr, ptr %a_patternchains, align 8, !tbaa !5
+  %1 = load ptr, ptr %vtable2, align 8
+  %call4 = tail call noundef i32 %1(ptr noundef nonnull align 8 dereferenceable(40) %a_patternchains)
+  %cmp5 = icmp eq i32 %call4, 72
+  br i1 %cmp5, label %if.then6, label %if.else7
 
-14:                                               ; preds = %20, %4, %15
+common.ret15:                                     ; preds = %if.else7, %entry, %if.then6
   ret void
 
-15:                                               ; preds = %9
-  %16 = getelementptr inbounds %"class.kc::impl_patternchains", ptr %2, i64 0, i32 3
-  %17 = load ptr, ptr %16, align 8, !tbaa !112
-  %18 = getelementptr inbounds %"class.kc::impl_patternchains", ptr %2, i64 0, i32 4
-  %19 = load ptr, ptr %18, align 8, !tbaa !114
-  tail call void @_ZN2kc43check_no_patternchaingroup_in_patternchainsEPNS_20impl_casestring__StrEiPNS_18impl_patternchainsEPKc(ptr noundef %0, i32 noundef %1, ptr noundef %19, ptr noundef %3)
-  tail call void @_ZN2kc42check_no_patternchaingroup_in_patternchainEPNS_20impl_casestring__StrEiPNS_17impl_patternchainEPKc(ptr noundef %0, i32 noundef %1, ptr noundef %17, ptr noundef %3)
-  br label %14
+if.then6:                                         ; preds = %if.else
+  %patternchain_1 = getelementptr inbounds %"class.kc::impl_patternchains", ptr %a_patternchains, i64 0, i32 3
+  %2 = load ptr, ptr %patternchain_1, align 8, !tbaa !112
+  %patternchains_1 = getelementptr inbounds %"class.kc::impl_patternchains", ptr %a_patternchains, i64 0, i32 4
+  %3 = load ptr, ptr %patternchains_1, align 8, !tbaa !114
+  tail call void @_ZN2kc43check_no_patternchaingroup_in_patternchainsEPNS_20impl_casestring__StrEiPNS_18impl_patternchainsEPKc(ptr noundef %f, i32 noundef %l, ptr noundef %3, ptr noundef %ctxt)
+  tail call void @_ZN2kc42check_no_patternchaingroup_in_patternchainEPNS_20impl_casestring__StrEiPNS_17impl_patternchainEPKc(ptr noundef %f, i32 noundef %l, ptr noundef %2, ptr noundef %ctxt)
+  br label %common.ret15
 
-20:                                               ; preds = %9
+if.else7:                                         ; preds = %if.else
   tail call void @_ZN2kc21kc_no_default_in_withEPKciS1_(ptr noundef nonnull @.str.35, i32 noundef 900, ptr noundef nonnull @.str.6)
-  br label %14
+  br label %common.ret15
 }
 
 ; Function Attrs: mustprogress uwtable
-define dso_local void @_ZN2kc53check_no_patternchaingroup_or_pattern_in_patternchainEPNS_20impl_casestring__StrEiPNS_17impl_patternchainEPKc(ptr noundef %0, i32 noundef %1, ptr noundef %2, ptr noundef %3) local_unnamed_addr #0 {
-  %5 = load ptr, ptr %2, align 8, !tbaa !5
-  %6 = load ptr, ptr %5, align 8
-  %7 = tail call noundef i32 %6(ptr noundef nonnull align 8 dereferenceable(40) %2)
-  %8 = icmp eq i32 %7, 73
-  br i1 %8, label %39, label %9
+define dso_local void @_ZN2kc53check_no_patternchaingroup_or_pattern_in_patternchainEPNS_20impl_casestring__StrEiPNS_17impl_patternchainEPKc(ptr noundef %f, i32 noundef %l, ptr noundef %a_patternchain, ptr noundef %ctxt) local_unnamed_addr #0 {
+entry:
+  %vtable = load ptr, ptr %a_patternchain, align 8, !tbaa !5
+  %0 = load ptr, ptr %vtable, align 8
+  %call1 = tail call noundef i32 %0(ptr noundef nonnull align 8 dereferenceable(40) %a_patternchain)
+  %cmp = icmp eq i32 %call1, 73
+  br i1 %cmp, label %if.end34, label %if.else
 
-9:                                                ; preds = %4
-  %10 = load ptr, ptr %2, align 8, !tbaa !5
-  %11 = load ptr, ptr %10, align 8
-  %12 = tail call noundef i32 %11(ptr noundef nonnull align 8 dereferenceable(40) %2)
-  %13 = icmp eq i32 %12, 74
-  br i1 %13, label %14, label %38
+if.else:                                          ; preds = %entry
+  %vtable2 = load ptr, ptr %a_patternchain, align 8, !tbaa !5
+  %1 = load ptr, ptr %vtable2, align 8
+  %call4 = tail call noundef i32 %1(ptr noundef nonnull align 8 dereferenceable(40) %a_patternchain)
+  %cmp5 = icmp eq i32 %call4, 74
+  br i1 %cmp5, label %if.then6, label %if.else32
 
-14:                                               ; preds = %9
-  %15 = getelementptr inbounds %"class.kc::impl_patternchain", ptr %2, i64 0, i32 3
-  %16 = load ptr, ptr %15, align 8, !tbaa !109
-  %17 = getelementptr inbounds %"class.kc::impl_patternchain", ptr %2, i64 0, i32 4
-  %18 = load ptr, ptr %17, align 8, !tbaa !111
-  tail call void @_ZN2kc53check_no_patternchaingroup_or_pattern_in_patternchainEPNS_20impl_casestring__StrEiPNS_17impl_patternchainEPKc(ptr noundef %0, i32 noundef %1, ptr noundef %18, ptr noundef %3)
-  %19 = load ptr, ptr %16, align 8, !tbaa !5
-  %20 = load ptr, ptr %19, align 8
-  %21 = tail call noundef i32 %20(ptr noundef nonnull align 8 dereferenceable(8) %16)
-  %22 = icmp eq i32 %21, 78
-  br i1 %22, label %23, label %27
+if.then6:                                         ; preds = %if.else
+  %patternchainitem_1 = getelementptr inbounds %"class.kc::impl_patternchain", ptr %a_patternchain, i64 0, i32 3
+  %2 = load ptr, ptr %patternchainitem_1, align 8, !tbaa !109
+  %patternchain_1 = getelementptr inbounds %"class.kc::impl_patternchain", ptr %a_patternchain, i64 0, i32 4
+  %3 = load ptr, ptr %patternchain_1, align 8, !tbaa !111
+  tail call void @_ZN2kc53check_no_patternchaingroup_or_pattern_in_patternchainEPNS_20impl_casestring__StrEiPNS_17impl_patternchainEPKc(ptr noundef %f, i32 noundef %l, ptr noundef %3, ptr noundef %ctxt)
+  %vtable8 = load ptr, ptr %2, align 8, !tbaa !5
+  %4 = load ptr, ptr %vtable8, align 8
+  %call10 = tail call noundef i32 %4(ptr noundef nonnull align 8 dereferenceable(8) %2)
+  %cmp11 = icmp eq i32 %call10, 78
+  br i1 %cmp11, label %if.then12, label %if.else16
 
-23:                                               ; preds = %14
-  %24 = tail call noundef ptr @_ZN2kc8FileLineEPNS_20impl_casestring__StrEi(ptr noundef %0, i32 noundef %1)
-  %25 = tail call noundef ptr @_ZN2kc9Problem3SEPKcS1_S1_(ptr noundef nonnull @.str.32, ptr noundef %3, ptr noundef nonnull @.str.33)
-  %26 = tail call noundef ptr @_ZN2kc8NonFatalEPNS_13impl_filelineEPNS_12impl_problemE(ptr noundef %24, ptr noundef %25)
-  tail call void @_ZN2kc8v_reportEPNS_10impl_errorE(ptr noundef %26)
-  br label %39
+if.then12:                                        ; preds = %if.then6
+  %call13 = tail call noundef ptr @_ZN2kc8FileLineEPNS_20impl_casestring__StrEi(ptr noundef %f, i32 noundef %l)
+  %call14 = tail call noundef ptr @_ZN2kc9Problem3SEPKcS1_S1_(ptr noundef nonnull @.str.32, ptr noundef %ctxt, ptr noundef nonnull @.str.33)
+  %call15 = tail call noundef ptr @_ZN2kc8NonFatalEPNS_13impl_filelineEPNS_12impl_problemE(ptr noundef %call13, ptr noundef %call14)
+  tail call void @_ZN2kc8v_reportEPNS_10impl_errorE(ptr noundef %call15)
+  br label %if.end34
 
-27:                                               ; preds = %14
-  %28 = load ptr, ptr %16, align 8, !tbaa !5
-  %29 = load ptr, ptr %28, align 8
-  %30 = tail call noundef i32 %29(ptr noundef nonnull align 8 dereferenceable(8) %16)
-  %31 = icmp eq i32 %30, 79
-  br i1 %31, label %39, label %32
+if.else16:                                        ; preds = %if.then6
+  %vtable17 = load ptr, ptr %2, align 8, !tbaa !5
+  %5 = load ptr, ptr %vtable17, align 8
+  %call19 = tail call noundef i32 %5(ptr noundef nonnull align 8 dereferenceable(8) %2)
+  %cmp20 = icmp eq i32 %call19, 79
+  br i1 %cmp20, label %if.end34, label %if.else22
 
-32:                                               ; preds = %27
-  %33 = load ptr, ptr %16, align 8, !tbaa !5
-  %34 = load ptr, ptr %33, align 8
-  %35 = tail call noundef i32 %34(ptr noundef nonnull align 8 dereferenceable(8) %16)
-  %36 = icmp eq i32 %35, 77
-  br i1 %36, label %39, label %37
+if.else22:                                        ; preds = %if.else16
+  %vtable23 = load ptr, ptr %2, align 8, !tbaa !5
+  %6 = load ptr, ptr %vtable23, align 8
+  %call25 = tail call noundef i32 %6(ptr noundef nonnull align 8 dereferenceable(8) %2)
+  %cmp26 = icmp eq i32 %call25, 77
+  br i1 %cmp26, label %if.end34, label %if.else29
 
-37:                                               ; preds = %32
+if.else29:                                        ; preds = %if.else22
   tail call void @_ZN2kc21kc_no_default_in_withEPKciS1_(ptr noundef nonnull @.str.36, i32 noundef 932, ptr noundef nonnull @.str.6)
-  br label %39
+  br label %if.end34
 
-38:                                               ; preds = %9
+if.else32:                                        ; preds = %if.else
   tail call void @_ZN2kc21kc_no_default_in_withEPKciS1_(ptr noundef nonnull @.str.36, i32 noundef 936, ptr noundef nonnull @.str.6)
-  br label %39
+  br label %if.end34
 
-39:                                               ; preds = %23, %37, %27, %32, %38, %4
+if.end34:                                         ; preds = %if.else22, %if.then12, %if.else29, %if.else16, %if.else32, %entry
   ret void
 }
 
 ; Function Attrs: mustprogress uwtable
-define dso_local void @_ZN2kc54check_no_patternchaingroup_or_pattern_in_patternchainsEPNS_20impl_casestring__StrEiPNS_18impl_patternchainsEPKc(ptr noundef %0, i32 noundef %1, ptr noundef %2, ptr noundef %3) local_unnamed_addr #0 {
-  %5 = load ptr, ptr %2, align 8, !tbaa !5
-  %6 = load ptr, ptr %5, align 8
-  %7 = tail call noundef i32 %6(ptr noundef nonnull align 8 dereferenceable(40) %2)
-  %8 = icmp eq i32 %7, 71
-  br i1 %8, label %14, label %9
+define dso_local void @_ZN2kc54check_no_patternchaingroup_or_pattern_in_patternchainsEPNS_20impl_casestring__StrEiPNS_18impl_patternchainsEPKc(ptr noundef %f, i32 noundef %l, ptr noundef %a_patternchains, ptr noundef %ctxt) local_unnamed_addr #0 {
+entry:
+  %vtable = load ptr, ptr %a_patternchains, align 8, !tbaa !5
+  %0 = load ptr, ptr %vtable, align 8
+  %call1 = tail call noundef i32 %0(ptr noundef nonnull align 8 dereferenceable(40) %a_patternchains)
+  %cmp = icmp eq i32 %call1, 71
+  br i1 %cmp, label %common.ret15, label %if.else
 
-9:                                                ; preds = %4
-  %10 = load ptr, ptr %2, align 8, !tbaa !5
-  %11 = load ptr, ptr %10, align 8
-  %12 = tail call noundef i32 %11(ptr noundef nonnull align 8 dereferenceable(40) %2)
-  %13 = icmp eq i32 %12, 72
-  br i1 %13, label %15, label %20
+if.else:                                          ; preds = %entry
+  %vtable2 = load ptr, ptr %a_patternchains, align 8, !tbaa !5
+  %1 = load ptr, ptr %vtable2, align 8
+  %call4 = tail call noundef i32 %1(ptr noundef nonnull align 8 dereferenceable(40) %a_patternchains)
+  %cmp5 = icmp eq i32 %call4, 72
+  br i1 %cmp5, label %if.then6, label %if.else7
 
-14:                                               ; preds = %20, %4, %15
+common.ret15:                                     ; preds = %if.else7, %entry, %if.then6
   ret void
 
-15:                                               ; preds = %9
-  %16 = getelementptr inbounds %"class.kc::impl_patternchains", ptr %2, i64 0, i32 3
-  %17 = load ptr, ptr %16, align 8, !tbaa !112
-  %18 = getelementptr inbounds %"class.kc::impl_patternchains", ptr %2, i64 0, i32 4
-  %19 = load ptr, ptr %18, align 8, !tbaa !114
-  tail call void @_ZN2kc54check_no_patternchaingroup_or_pattern_in_patternchainsEPNS_20impl_casestring__StrEiPNS_18impl_patternchainsEPKc(ptr noundef %0, i32 noundef %1, ptr noundef %19, ptr noundef %3)
-  tail call void @_ZN2kc53check_no_patternchaingroup_or_pattern_in_patternchainEPNS_20impl_casestring__StrEiPNS_17impl_patternchainEPKc(ptr noundef %0, i32 noundef %1, ptr noundef %17, ptr noundef %3)
-  br label %14
+if.then6:                                         ; preds = %if.else
+  %patternchain_1 = getelementptr inbounds %"class.kc::impl_patternchains", ptr %a_patternchains, i64 0, i32 3
+  %2 = load ptr, ptr %patternchain_1, align 8, !tbaa !112
+  %patternchains_1 = getelementptr inbounds %"class.kc::impl_patternchains", ptr %a_patternchains, i64 0, i32 4
+  %3 = load ptr, ptr %patternchains_1, align 8, !tbaa !114
+  tail call void @_ZN2kc54check_no_patternchaingroup_or_pattern_in_patternchainsEPNS_20impl_casestring__StrEiPNS_18impl_patternchainsEPKc(ptr noundef %f, i32 noundef %l, ptr noundef %3, ptr noundef %ctxt)
+  tail call void @_ZN2kc53check_no_patternchaingroup_or_pattern_in_patternchainEPNS_20impl_casestring__StrEiPNS_17impl_patternchainEPKc(ptr noundef %f, i32 noundef %l, ptr noundef %2, ptr noundef %ctxt)
+  br label %common.ret15
 
-20:                                               ; preds = %9
+if.else7:                                         ; preds = %if.else
   tail call void @_ZN2kc21kc_no_default_in_withEPKciS1_(ptr noundef nonnull @.str.37, i32 noundef 955, ptr noundef nonnull @.str.6)
-  br label %14
+  br label %common.ret15
 }
 
 ; Function Attrs: mustprogress uwtable
-define dso_local noundef ptr @_ZN2kc26syn_patternchains_filelineEPNS_18impl_patternchainsEPNS_20impl_casestring__StrEi(ptr noundef %0, ptr noundef %1, i32 noundef %2) local_unnamed_addr #0 {
-  %4 = load ptr, ptr %0, align 8, !tbaa !5
-  %5 = load ptr, ptr %4, align 8
-  %6 = tail call noundef i32 %5(ptr noundef nonnull align 8 dereferenceable(40) %0)
-  %7 = icmp eq i32 %6, 71
-  br i1 %7, label %8, label %11
+define dso_local noundef ptr @_ZN2kc26syn_patternchains_filelineEPNS_18impl_patternchainsEPNS_20impl_casestring__StrEi(ptr noundef %a_patternchains, ptr noundef %a_file, i32 noundef %a_line) local_unnamed_addr #0 {
+entry:
+  %vtable = load ptr, ptr %a_patternchains, align 8, !tbaa !5
+  %0 = load ptr, ptr %vtable, align 8
+  %call1 = tail call noundef i32 %0(ptr noundef nonnull align 8 dereferenceable(40) %a_patternchains)
+  %cmp = icmp eq i32 %call1, 71
+  br i1 %cmp, label %if.then, label %if.else
 
-8:                                                ; preds = %3
-  %9 = getelementptr inbounds %"class.kc::impl_patternchains", ptr %0, i64 0, i32 2
-  store ptr %1, ptr %9, align 8, !tbaa !115
-  %10 = getelementptr inbounds %"class.kc::impl_patternchains", ptr %0, i64 0, i32 1
-  store i32 %2, ptr %10, align 8, !tbaa !116
-  br label %16
+if.then:                                          ; preds = %entry
+  %file = getelementptr inbounds %"class.kc::impl_patternchains", ptr %a_patternchains, i64 0, i32 2
+  store ptr %a_file, ptr %file, align 8, !tbaa !115
+  %line = getelementptr inbounds %"class.kc::impl_patternchains", ptr %a_patternchains, i64 0, i32 1
+  store i32 %a_line, ptr %line, align 8, !tbaa !116
+  br label %common.ret31
 
-11:                                               ; preds = %3
-  %12 = load ptr, ptr %0, align 8, !tbaa !5
-  %13 = load ptr, ptr %12, align 8
-  %14 = tail call noundef i32 %13(ptr noundef nonnull align 8 dereferenceable(40) %0)
-  %15 = icmp eq i32 %14, 72
-  br i1 %15, label %18, label %35
+if.else:                                          ; preds = %entry
+  %vtable2 = load ptr, ptr %a_patternchains, align 8, !tbaa !5
+  %1 = load ptr, ptr %vtable2, align 8
+  %call4 = tail call noundef i32 %1(ptr noundef nonnull align 8 dereferenceable(40) %a_patternchains)
+  %cmp5 = icmp eq i32 %call4, 72
+  br i1 %cmp5, label %if.then6, label %if.else15
 
-16:                                               ; preds = %35, %8, %18
-  %17 = phi ptr [ %0, %18 ], [ %0, %8 ], [ null, %35 ]
-  ret ptr %17
+common.ret31:                                     ; preds = %if.else15, %if.then, %if.then6
+  %common.ret31.op = phi ptr [ %a_patternchains, %if.then6 ], [ %a_patternchains, %if.then ], [ null, %if.else15 ]
+  ret ptr %common.ret31.op
 
-18:                                               ; preds = %11
-  %19 = getelementptr inbounds %"class.kc::impl_patternchains", ptr %0, i64 0, i32 3
-  %20 = load ptr, ptr %19, align 8, !tbaa !112
-  %21 = getelementptr inbounds %"class.kc::impl_patternchains", ptr %0, i64 0, i32 4
-  %22 = load ptr, ptr %21, align 8, !tbaa !114
-  %23 = tail call noundef ptr @_ZN2kc26syn_patternchains_filelineEPNS_18impl_patternchainsEPNS_20impl_casestring__StrEi(ptr noundef %22, ptr noundef %1, i32 noundef %2)
-  %24 = getelementptr inbounds %"class.kc::impl_patternchains", ptr %22, i64 0, i32 2
-  %25 = load ptr, ptr %24, align 8, !tbaa !115
-  %26 = getelementptr inbounds %"class.kc::impl_patternchains", ptr %22, i64 0, i32 1
-  %27 = load i32, ptr %26, align 8, !tbaa !116
-  %28 = tail call noundef ptr @_ZN2kc25syn_patternchain_filelineEPNS_17impl_patternchainEPNS_20impl_casestring__StrEi(ptr noundef %20, ptr noundef %25, i32 noundef %27)
-  %29 = getelementptr inbounds %"class.kc::impl_patternchain", ptr %20, i64 0, i32 2
-  %30 = load ptr, ptr %29, align 8, !tbaa !117
-  %31 = getelementptr inbounds %"class.kc::impl_patternchains", ptr %0, i64 0, i32 2
-  store ptr %30, ptr %31, align 8, !tbaa !115
-  %32 = getelementptr inbounds %"class.kc::impl_patternchain", ptr %20, i64 0, i32 1
-  %33 = load i32, ptr %32, align 8, !tbaa !118
-  %34 = getelementptr inbounds %"class.kc::impl_patternchains", ptr %0, i64 0, i32 1
-  store i32 %33, ptr %34, align 8, !tbaa !116
-  br label %16
+if.then6:                                         ; preds = %if.else
+  %patternchain_1 = getelementptr inbounds %"class.kc::impl_patternchains", ptr %a_patternchains, i64 0, i32 3
+  %2 = load ptr, ptr %patternchain_1, align 8, !tbaa !112
+  %patternchains_1 = getelementptr inbounds %"class.kc::impl_patternchains", ptr %a_patternchains, i64 0, i32 4
+  %3 = load ptr, ptr %patternchains_1, align 8, !tbaa !114
+  %call7 = tail call noundef ptr @_ZN2kc26syn_patternchains_filelineEPNS_18impl_patternchainsEPNS_20impl_casestring__StrEi(ptr noundef %3, ptr noundef %a_file, i32 noundef %a_line)
+  %file8 = getelementptr inbounds %"class.kc::impl_patternchains", ptr %3, i64 0, i32 2
+  %4 = load ptr, ptr %file8, align 8, !tbaa !115
+  %line9 = getelementptr inbounds %"class.kc::impl_patternchains", ptr %3, i64 0, i32 1
+  %5 = load i32, ptr %line9, align 8, !tbaa !116
+  %call10 = tail call noundef ptr @_ZN2kc25syn_patternchain_filelineEPNS_17impl_patternchainEPNS_20impl_casestring__StrEi(ptr noundef %2, ptr noundef %4, i32 noundef %5)
+  %file11 = getelementptr inbounds %"class.kc::impl_patternchain", ptr %2, i64 0, i32 2
+  %6 = load ptr, ptr %file11, align 8, !tbaa !117
+  %file12 = getelementptr inbounds %"class.kc::impl_patternchains", ptr %a_patternchains, i64 0, i32 2
+  store ptr %6, ptr %file12, align 8, !tbaa !115
+  %line13 = getelementptr inbounds %"class.kc::impl_patternchain", ptr %2, i64 0, i32 1
+  %7 = load i32, ptr %line13, align 8, !tbaa !118
+  %line14 = getelementptr inbounds %"class.kc::impl_patternchains", ptr %a_patternchains, i64 0, i32 1
+  store i32 %7, ptr %line14, align 8, !tbaa !116
+  br label %common.ret31
 
-35:                                               ; preds = %11
+if.else15:                                        ; preds = %if.else
   tail call void @_ZN2kc21kc_no_default_in_withEPKciS1_(ptr noundef nonnull @.str.38, i32 noundef 981, ptr noundef nonnull @.str.6)
-  br label %16
+  br label %common.ret31
 }
 
 ; Function Attrs: mustprogress uwtable
-define dso_local noundef ptr @_ZN2kc25syn_patternchain_filelineEPNS_17impl_patternchainEPNS_20impl_casestring__StrEi(ptr noundef %0, ptr noundef %1, i32 noundef %2) local_unnamed_addr #0 {
-  %4 = load ptr, ptr %0, align 8, !tbaa !5
-  %5 = load ptr, ptr %4, align 8
-  %6 = tail call noundef i32 %5(ptr noundef nonnull align 8 dereferenceable(40) %0)
-  %7 = icmp eq i32 %6, 73
-  br i1 %7, label %8, label %11
+define dso_local noundef ptr @_ZN2kc25syn_patternchain_filelineEPNS_17impl_patternchainEPNS_20impl_casestring__StrEi(ptr noundef %a_patternchain, ptr noundef %a_file, i32 noundef %a_line) local_unnamed_addr #0 {
+entry:
+  %vtable = load ptr, ptr %a_patternchain, align 8, !tbaa !5
+  %0 = load ptr, ptr %vtable, align 8
+  %call1 = tail call noundef i32 %0(ptr noundef nonnull align 8 dereferenceable(40) %a_patternchain)
+  %cmp = icmp eq i32 %call1, 73
+  br i1 %cmp, label %if.then, label %if.else
 
-8:                                                ; preds = %3
-  %9 = getelementptr inbounds %"class.kc::impl_patternchain", ptr %0, i64 0, i32 2
-  store ptr %1, ptr %9, align 8, !tbaa !117
-  %10 = getelementptr inbounds %"class.kc::impl_patternchain", ptr %0, i64 0, i32 1
-  store i32 %2, ptr %10, align 8, !tbaa !118
-  br label %16
+if.then:                                          ; preds = %entry
+  %file = getelementptr inbounds %"class.kc::impl_patternchain", ptr %a_patternchain, i64 0, i32 2
+  store ptr %a_file, ptr %file, align 8, !tbaa !117
+  %line = getelementptr inbounds %"class.kc::impl_patternchain", ptr %a_patternchain, i64 0, i32 1
+  store i32 %a_line, ptr %line, align 8, !tbaa !118
+  br label %common.ret25
 
-11:                                               ; preds = %3
-  %12 = load ptr, ptr %0, align 8, !tbaa !5
-  %13 = load ptr, ptr %12, align 8
-  %14 = tail call noundef i32 %13(ptr noundef nonnull align 8 dereferenceable(40) %0)
-  %15 = icmp eq i32 %14, 74
-  br i1 %15, label %18, label %30
+if.else:                                          ; preds = %entry
+  %vtable2 = load ptr, ptr %a_patternchain, align 8, !tbaa !5
+  %1 = load ptr, ptr %vtable2, align 8
+  %call4 = tail call noundef i32 %1(ptr noundef nonnull align 8 dereferenceable(40) %a_patternchain)
+  %cmp5 = icmp eq i32 %call4, 74
+  br i1 %cmp5, label %if.then6, label %if.else12
 
-16:                                               ; preds = %30, %8, %18
-  %17 = phi ptr [ %0, %18 ], [ %0, %8 ], [ null, %30 ]
-  ret ptr %17
+common.ret25:                                     ; preds = %if.else12, %if.then, %if.then6
+  %common.ret25.op = phi ptr [ %a_patternchain, %if.then6 ], [ %a_patternchain, %if.then ], [ null, %if.else12 ]
+  ret ptr %common.ret25.op
 
-18:                                               ; preds = %11
-  %19 = getelementptr inbounds %"class.kc::impl_patternchain", ptr %0, i64 0, i32 3
-  %20 = load ptr, ptr %19, align 8, !tbaa !109
-  %21 = getelementptr inbounds %"class.kc::impl_patternchain", ptr %0, i64 0, i32 4
-  %22 = load ptr, ptr %21, align 8, !tbaa !111
-  %23 = tail call noundef ptr @_ZN2kc25syn_patternchain_filelineEPNS_17impl_patternchainEPNS_20impl_casestring__StrEi(ptr noundef %22, ptr noundef %1, i32 noundef %2)
-  %24 = getelementptr inbounds %"class.kc::impl_patternchainitem", ptr %20, i64 0, i32 2
-  %25 = load ptr, ptr %24, align 8, !tbaa !119
-  %26 = getelementptr inbounds %"class.kc::impl_patternchain", ptr %0, i64 0, i32 2
-  store ptr %25, ptr %26, align 8, !tbaa !117
-  %27 = getelementptr inbounds %"class.kc::impl_patternchainitem", ptr %20, i64 0, i32 1
-  %28 = load i32, ptr %27, align 8, !tbaa !121
-  %29 = getelementptr inbounds %"class.kc::impl_patternchain", ptr %0, i64 0, i32 1
-  store i32 %28, ptr %29, align 8, !tbaa !118
-  br label %16
+if.then6:                                         ; preds = %if.else
+  %patternchainitem_1 = getelementptr inbounds %"class.kc::impl_patternchain", ptr %a_patternchain, i64 0, i32 3
+  %2 = load ptr, ptr %patternchainitem_1, align 8, !tbaa !109
+  %patternchain_1 = getelementptr inbounds %"class.kc::impl_patternchain", ptr %a_patternchain, i64 0, i32 4
+  %3 = load ptr, ptr %patternchain_1, align 8, !tbaa !111
+  %call7 = tail call noundef ptr @_ZN2kc25syn_patternchain_filelineEPNS_17impl_patternchainEPNS_20impl_casestring__StrEi(ptr noundef %3, ptr noundef %a_file, i32 noundef %a_line)
+  %file8 = getelementptr inbounds %"class.kc::impl_patternchainitem", ptr %2, i64 0, i32 2
+  %4 = load ptr, ptr %file8, align 8, !tbaa !119
+  %file9 = getelementptr inbounds %"class.kc::impl_patternchain", ptr %a_patternchain, i64 0, i32 2
+  store ptr %4, ptr %file9, align 8, !tbaa !117
+  %line10 = getelementptr inbounds %"class.kc::impl_patternchainitem", ptr %2, i64 0, i32 1
+  %5 = load i32, ptr %line10, align 8, !tbaa !121
+  %line11 = getelementptr inbounds %"class.kc::impl_patternchain", ptr %a_patternchain, i64 0, i32 1
+  store i32 %5, ptr %line11, align 8, !tbaa !118
+  br label %common.ret25
 
-30:                                               ; preds = %11
+if.else12:                                        ; preds = %if.else
   tail call void @_ZN2kc21kc_no_default_in_withEPKciS1_(ptr noundef nonnull @.str.39, i32 noundef 1007, ptr noundef nonnull @.str.6)
-  br label %16
+  br label %common.ret25
 }
 
 ; Function Attrs: mustprogress uwtable
-define dso_local noundef ptr @_ZN2kc23pf_gen_foreachwith_varsEPNS_19impl_idCexpressionsE(ptr noundef nonnull %0) local_unnamed_addr #0 {
-  %2 = load i32, ptr @_ZZN2kc23pf_gen_foreachwith_varsEPNS_19impl_idCexpressionsEE16nrof_foreach_occ, align 4, !tbaa !85
-  %3 = add nsw i32 %2, 1
-  store i32 %3, ptr @_ZZN2kc23pf_gen_foreachwith_varsEPNS_19impl_idCexpressionsEE16nrof_foreach_occ, align 4, !tbaa !85
-  %4 = tail call noundef i32 @_ZNK2kc18impl_abstract_list6lengthEv(ptr noundef nonnull align 8 dereferenceable(8) %0)
-  %5 = tail call noundef ptr @_ZN2kc25t_pf_gen_foreachwith_varsEPNS_19impl_idCexpressionsEiib(ptr noundef nonnull %0, i32 noundef %3, i32 noundef %4, i1 noundef zeroext false)
-  ret ptr %5
+define dso_local noundef ptr @_ZN2kc23pf_gen_foreachwith_varsEPNS_19impl_idCexpressionsE(ptr noundef nonnull %a_idCexpressions) local_unnamed_addr #0 {
+entry:
+  %0 = load i32, ptr @_ZZN2kc23pf_gen_foreachwith_varsEPNS_19impl_idCexpressionsEE16nrof_foreach_occ, align 4, !tbaa !85
+  %inc = add nsw i32 %0, 1
+  store i32 %inc, ptr @_ZZN2kc23pf_gen_foreachwith_varsEPNS_19impl_idCexpressionsEE16nrof_foreach_occ, align 4, !tbaa !85
+  %call = tail call noundef i32 @_ZNK2kc18impl_abstract_list6lengthEv(ptr noundef nonnull align 8 dereferenceable(8) %a_idCexpressions)
+  %call1 = tail call noundef ptr @_ZN2kc25t_pf_gen_foreachwith_varsEPNS_19impl_idCexpressionsEiib(ptr noundef nonnull %a_idCexpressions, i32 noundef %inc, i32 noundef %call, i1 noundef zeroext false)
+  ret ptr %call1
 }
 
 ; Function Attrs: mustprogress uwtable
-define dso_local noundef ptr @_ZN2kc25t_pf_gen_foreachwith_varsEPNS_19impl_idCexpressionsEiib(ptr noundef %0, i32 noundef %1, i32 noundef %2, i1 noundef zeroext %3) local_unnamed_addr #0 {
-  %5 = alloca [8192 x i8], align 16
-  %6 = load ptr, ptr %0, align 8, !tbaa !5
-  %7 = load ptr, ptr %6, align 8
-  %8 = tail call noundef i32 %7(ptr noundef nonnull align 8 dereferenceable(24) %0)
-  %9 = icmp eq i32 %8, 55
-  br i1 %9, label %10, label %50
+define dso_local noundef ptr @_ZN2kc25t_pf_gen_foreachwith_varsEPNS_19impl_idCexpressionsEiib(ptr noundef %a_idCexpressions, i32 noundef %occ, i32 noundef %nr, i1 noundef zeroext %listvars) local_unnamed_addr #0 {
+entry:
+  %tmp = alloca [8192 x i8], align 16
+  %vtable = load ptr, ptr %a_idCexpressions, align 8, !tbaa !5
+  %0 = load ptr, ptr %vtable, align 8
+  %call1 = tail call noundef i32 %0(ptr noundef nonnull align 8 dereferenceable(24) %a_idCexpressions)
+  %cmp = icmp eq i32 %call1, 55
+  br i1 %cmp, label %land.lhs.true, label %if.else32
 
-10:                                               ; preds = %4
-  %11 = getelementptr inbounds %"class.kc::impl_idCexpressions", ptr %0, i64 0, i32 1
-  %12 = load ptr, ptr %11, align 8, !tbaa !122
-  %13 = load ptr, ptr %12, align 8, !tbaa !5
-  %14 = load ptr, ptr %13, align 8
-  %15 = tail call noundef i32 %14(ptr noundef nonnull align 8 dereferenceable(8) %12)
-  %16 = icmp eq i32 %15, 56
-  br i1 %16, label %17, label %50
+land.lhs.true:                                    ; preds = %entry
+  %idCexpression_1 = getelementptr inbounds %"class.kc::impl_idCexpressions", ptr %a_idCexpressions, i64 0, i32 1
+  %1 = load ptr, ptr %idCexpression_1, align 8, !tbaa !122
+  %vtable2 = load ptr, ptr %1, align 8, !tbaa !5
+  %2 = load ptr, ptr %vtable2, align 8
+  %call4 = tail call noundef i32 %2(ptr noundef nonnull align 8 dereferenceable(8) %1)
+  %cmp5 = icmp eq i32 %call4, 56
+  br i1 %cmp5, label %if.then, label %if.else32
 
-17:                                               ; preds = %10
-  %18 = load ptr, ptr %11, align 8, !tbaa !122
-  %19 = getelementptr inbounds %"class.kc::impl_idCexpression_IdCexpression", ptr %18, i64 0, i32 1
-  %20 = load ptr, ptr %19, align 8, !tbaa !124
-  %21 = getelementptr inbounds %"class.kc::impl_idCexpression_IdCexpression", ptr %18, i64 0, i32 2
-  %22 = load ptr, ptr %21, align 8, !tbaa !127
-  %23 = getelementptr inbounds %"class.kc::impl_idCexpressions", ptr %0, i64 0, i32 2
-  %24 = load ptr, ptr %23, align 8, !tbaa !128
-  call void @llvm.lifetime.start.p0(i64 8192, ptr nonnull %5) #12
-  %25 = select i1 %3, ptr @.str.40, ptr @.str.41
-  %26 = call i32 (ptr, ptr, ...) @sprintf(ptr noundef nonnull dereferenceable(1) %5, ptr noundef nonnull dereferenceable(1) %25, i32 noundef %1, i32 noundef %2) #12
-  %27 = call noundef ptr @_ZN2kc12mkcasestringEPKci(ptr noundef nonnull %5, i32 noundef -1)
-  %28 = call noundef ptr @_ZN2kc3StrEPNS_20impl_casestring__StrE(ptr noundef %27)
-  %29 = call noundef ptr @_ZN2kc2IdEPNS_11impl_uniqIDE(ptr noundef %28)
-  %30 = call noundef ptr @_ZN2kc10WEVariableEPNS_7impl_IDE(ptr noundef %29)
-  br i1 %3, label %33, label %31
+if.then:                                          ; preds = %land.lhs.true
+  %3 = load ptr, ptr %idCexpression_1, align 8, !tbaa !122
+  %ID_1 = getelementptr inbounds %"class.kc::impl_idCexpression_IdCexpression", ptr %3, i64 0, i32 1
+  %4 = load ptr, ptr %ID_1, align 8, !tbaa !124
+  %Cexpression_1 = getelementptr inbounds %"class.kc::impl_idCexpression_IdCexpression", ptr %3, i64 0, i32 2
+  %5 = load ptr, ptr %Cexpression_1, align 8, !tbaa !127
+  %idCexpressions_1 = getelementptr inbounds %"class.kc::impl_idCexpressions", ptr %a_idCexpressions, i64 0, i32 2
+  %6 = load ptr, ptr %idCexpressions_1, align 8, !tbaa !128
+  call void @llvm.lifetime.start.p0(i64 8192, ptr nonnull %tmp) #12
+  %.str.40..str.41 = select i1 %listvars, ptr @.str.40, ptr @.str.41
+  %call14 = call i32 (ptr, ptr, ...) @sprintf(ptr noundef nonnull dereferenceable(1) %tmp, ptr noundef nonnull dereferenceable(1) %.str.40..str.41, i32 noundef %occ, i32 noundef %nr) #12
+  %call16 = call noundef ptr @_ZN2kc12mkcasestringEPKci(ptr noundef nonnull %tmp, i32 noundef -1)
+  %call17 = call noundef ptr @_ZN2kc3StrEPNS_20impl_casestring__StrE(ptr noundef %call16)
+  %call18 = call noundef ptr @_ZN2kc2IdEPNS_11impl_uniqIDE(ptr noundef %call17)
+  %call19 = call noundef ptr @_ZN2kc10WEVariableEPNS_7impl_IDE(ptr noundef %call18)
+  br i1 %listvars, label %cond.end, label %cond.false
 
-31:                                               ; preds = %17
-  %32 = call noundef ptr @_ZN2kc19f_listelementphylumEPNS_7impl_IDE(ptr noundef %20)
-  br label %33
+cond.false:                                       ; preds = %if.then
+  %call21 = call noundef ptr @_ZN2kc19f_listelementphylumEPNS_7impl_IDE(ptr noundef %4)
+  br label %cond.end
 
-33:                                               ; preds = %17, %31
-  %34 = phi ptr [ %32, %31 ], [ %20, %17 ]
-  %35 = getelementptr inbounds %"class.kc::impl_withexpression", ptr %30, i64 0, i32 1
-  store ptr %34, ptr %35, align 8, !tbaa !129
-  %36 = getelementptr inbounds %"class.kc::impl_Cexpression", ptr %22, i64 0, i32 2
-  %37 = load ptr, ptr %36, align 8, !tbaa !131
-  %38 = getelementptr inbounds %"class.kc::impl_withexpression", ptr %30, i64 0, i32 3
-  store ptr %37, ptr %38, align 8, !tbaa !133
-  %39 = getelementptr inbounds %"class.kc::impl_Cexpression", ptr %22, i64 0, i32 1
-  %40 = load i32, ptr %39, align 8, !tbaa !134
-  %41 = getelementptr inbounds %"class.kc::impl_withexpression", ptr %30, i64 0, i32 2
-  store i32 %40, ptr %41, align 8, !tbaa !135
-  %42 = getelementptr inbounds %"class.kc::impl_idCexpression", ptr %18, i64 0, i32 1
-  store ptr %29, ptr %42, align 8, !tbaa !136
-  %43 = add nsw i32 %2, -1
-  %44 = call noundef ptr @_ZN2kc25t_pf_gen_foreachwith_varsEPNS_19impl_idCexpressionsEiib(ptr noundef %24, i32 noundef %1, i32 noundef %43, i1 noundef zeroext %3)
-  %45 = call noundef ptr @_ZN2kc19ConswithexpressionsEPNS_19impl_withexpressionEPNS_20impl_withexpressionsE(ptr noundef %30, ptr noundef %44)
-  %46 = load ptr, ptr %38, align 8, !tbaa !133
-  %47 = getelementptr inbounds %"class.kc::impl_withexpressions", ptr %45, i64 0, i32 3
-  store ptr %46, ptr %47, align 8, !tbaa !137
-  %48 = load i32, ptr %41, align 8, !tbaa !135
-  %49 = getelementptr inbounds %"class.kc::impl_withexpressions", ptr %45, i64 0, i32 2
-  store i32 %48, ptr %49, align 8, !tbaa !139
-  call void @llvm.lifetime.end.p0(i64 8192, ptr nonnull %5) #12
-  br label %58
+cond.end:                                         ; preds = %if.then, %cond.false
+  %cond = phi ptr [ %call21, %cond.false ], [ %4, %if.then ]
+  %type = getelementptr inbounds %"class.kc::impl_withexpression", ptr %call19, i64 0, i32 1
+  store ptr %cond, ptr %type, align 8, !tbaa !129
+  %file = getelementptr inbounds %"class.kc::impl_Cexpression", ptr %5, i64 0, i32 2
+  %7 = load ptr, ptr %file, align 8, !tbaa !131
+  %file22 = getelementptr inbounds %"class.kc::impl_withexpression", ptr %call19, i64 0, i32 3
+  store ptr %7, ptr %file22, align 8, !tbaa !133
+  %line = getelementptr inbounds %"class.kc::impl_Cexpression", ptr %5, i64 0, i32 1
+  %8 = load i32, ptr %line, align 8, !tbaa !134
+  %line23 = getelementptr inbounds %"class.kc::impl_withexpression", ptr %call19, i64 0, i32 2
+  store i32 %8, ptr %line23, align 8, !tbaa !135
+  %id24 = getelementptr inbounds %"class.kc::impl_idCexpression", ptr %3, i64 0, i32 1
+  store ptr %call18, ptr %id24, align 8, !tbaa !136
+  %sub = add nsw i32 %nr, -1
+  %call26 = call noundef ptr @_ZN2kc25t_pf_gen_foreachwith_varsEPNS_19impl_idCexpressionsEiib(ptr noundef %6, i32 noundef %occ, i32 noundef %sub, i1 noundef zeroext %listvars)
+  %call27 = call noundef ptr @_ZN2kc19ConswithexpressionsEPNS_19impl_withexpressionEPNS_20impl_withexpressionsE(ptr noundef %call19, ptr noundef %call26)
+  %9 = load ptr, ptr %file22, align 8, !tbaa !133
+  %file29 = getelementptr inbounds %"class.kc::impl_withexpressions", ptr %call27, i64 0, i32 3
+  store ptr %9, ptr %file29, align 8, !tbaa !137
+  %10 = load i32, ptr %line23, align 8, !tbaa !135
+  %line31 = getelementptr inbounds %"class.kc::impl_withexpressions", ptr %call27, i64 0, i32 2
+  store i32 %10, ptr %line31, align 8, !tbaa !139
+  call void @llvm.lifetime.end.p0(i64 8192, ptr nonnull %tmp) #12
+  br label %cleanup
 
-50:                                               ; preds = %10, %4
-  %51 = load ptr, ptr %0, align 8, !tbaa !5
-  %52 = load ptr, ptr %51, align 8
-  %53 = tail call noundef i32 %52(ptr noundef nonnull align 8 dereferenceable(24) %0)
-  %54 = icmp eq i32 %53, 54
-  br i1 %54, label %55, label %57
+if.else32:                                        ; preds = %land.lhs.true, %entry
+  %vtable33 = load ptr, ptr %a_idCexpressions, align 8, !tbaa !5
+  %11 = load ptr, ptr %vtable33, align 8
+  %call35 = tail call noundef i32 %11(ptr noundef nonnull align 8 dereferenceable(24) %a_idCexpressions)
+  %cmp36 = icmp eq i32 %call35, 54
+  br i1 %cmp36, label %if.then37, label %if.else39
 
-55:                                               ; preds = %50
-  %56 = tail call noundef ptr @_ZN2kc18NilwithexpressionsEv()
-  br label %58
+if.then37:                                        ; preds = %if.else32
+  %call38 = tail call noundef ptr @_ZN2kc18NilwithexpressionsEv()
+  br label %cleanup
 
-57:                                               ; preds = %50
+if.else39:                                        ; preds = %if.else32
   tail call void @_ZN2kc21kc_no_default_in_withEPKciS1_(ptr noundef nonnull @.str.42, i32 noundef 1063, ptr noundef nonnull @.str.6)
-  br label %58
+  br label %cleanup
 
-58:                                               ; preds = %57, %55, %33
-  %59 = phi ptr [ %45, %33 ], [ %56, %55 ], [ null, %57 ]
-  ret ptr %59
+cleanup:                                          ; preds = %if.else39, %if.then37, %cond.end
+  %retval.0 = phi ptr [ %call27, %cond.end ], [ %call38, %if.then37 ], [ null, %if.else39 ]
+  ret ptr %retval.0
 }
 
 ; Function Attrs: mustprogress uwtable
-define dso_local noundef ptr @_ZN2kc27pf_gen_foreachwith_listvarsEPNS_19impl_idCexpressionsE(ptr noundef nonnull %0) local_unnamed_addr #0 {
-  %2 = load i32, ptr @_ZZN2kc27pf_gen_foreachwith_listvarsEPNS_19impl_idCexpressionsEE16nrof_foreach_occ, align 4, !tbaa !85
-  %3 = add nsw i32 %2, 1
-  store i32 %3, ptr @_ZZN2kc27pf_gen_foreachwith_listvarsEPNS_19impl_idCexpressionsEE16nrof_foreach_occ, align 4, !tbaa !85
-  %4 = tail call noundef i32 @_ZNK2kc18impl_abstract_list6lengthEv(ptr noundef nonnull align 8 dereferenceable(8) %0)
-  %5 = tail call noundef ptr @_ZN2kc25t_pf_gen_foreachwith_varsEPNS_19impl_idCexpressionsEiib(ptr noundef nonnull %0, i32 noundef %3, i32 noundef %4, i1 noundef zeroext true)
-  ret ptr %5
+define dso_local noundef ptr @_ZN2kc27pf_gen_foreachwith_listvarsEPNS_19impl_idCexpressionsE(ptr noundef nonnull %a_idCexpressions) local_unnamed_addr #0 {
+entry:
+  %0 = load i32, ptr @_ZZN2kc27pf_gen_foreachwith_listvarsEPNS_19impl_idCexpressionsEE16nrof_foreach_occ, align 4, !tbaa !85
+  %inc = add nsw i32 %0, 1
+  store i32 %inc, ptr @_ZZN2kc27pf_gen_foreachwith_listvarsEPNS_19impl_idCexpressionsEE16nrof_foreach_occ, align 4, !tbaa !85
+  %call = tail call noundef i32 @_ZNK2kc18impl_abstract_list6lengthEv(ptr noundef nonnull align 8 dereferenceable(8) %a_idCexpressions)
+  %call1 = tail call noundef ptr @_ZN2kc25t_pf_gen_foreachwith_varsEPNS_19impl_idCexpressionsEiib(ptr noundef nonnull %a_idCexpressions, i32 noundef %inc, i32 noundef %call, i1 noundef zeroext true)
+  ret ptr %call1
 }
 
 declare noundef ptr @_ZN2kc10WEVariableEPNS_7impl_IDE(ptr noundef) local_unnamed_addr #2
@@ -2666,95 +2694,96 @@ declare noundef ptr @_ZN2kc19ConswithexpressionsEPNS_19impl_withexpressionEPNS_2
 declare noundef ptr @_ZN2kc18NilwithexpressionsEv() local_unnamed_addr #2
 
 ; Function Attrs: mustprogress uwtable
-define dso_local noundef ptr @_ZN2kc28f_check_build_qualifier_tailEPNS_33impl_ac_class_qualifier_help_listE(ptr noundef %0) local_unnamed_addr #0 {
-  %2 = load ptr, ptr %0, align 8, !tbaa !5
-  %3 = load ptr, ptr %2, align 8
-  %4 = tail call noundef i32 %3(ptr noundef nonnull align 8 dereferenceable(24) %0)
-  %5 = icmp eq i32 %4, 271
-  br i1 %5, label %6, label %37
+define dso_local noundef ptr @_ZN2kc28f_check_build_qualifier_tailEPNS_33impl_ac_class_qualifier_help_listE(ptr noundef %qh_list) local_unnamed_addr #0 {
+entry:
+  %vtable = load ptr, ptr %qh_list, align 8, !tbaa !5
+  %0 = load ptr, ptr %vtable, align 8
+  %call1 = tail call noundef i32 %0(ptr noundef nonnull align 8 dereferenceable(24) %qh_list)
+  %cmp = icmp eq i32 %call1, 271
+  br i1 %cmp, label %land.lhs.true, label %if.else
 
-6:                                                ; preds = %1
-  %7 = getelementptr inbounds %"class.kc::impl_ac_class_qualifier_help_list", ptr %0, i64 0, i32 1
-  %8 = load ptr, ptr %7, align 8, !tbaa !140
-  %9 = load ptr, ptr %8, align 8, !tbaa !5
-  %10 = load ptr, ptr %9, align 8
-  %11 = tail call noundef i32 %10(ptr noundef nonnull align 8 dereferenceable(8) %8)
-  %12 = icmp eq i32 %11, 262
-  br i1 %12, label %13, label %37
+land.lhs.true:                                    ; preds = %entry
+  %ac_direct_declarator_1 = getelementptr inbounds %"class.kc::impl_ac_class_qualifier_help_list", ptr %qh_list, i64 0, i32 1
+  %1 = load ptr, ptr %ac_direct_declarator_1, align 8, !tbaa !140
+  %vtable2 = load ptr, ptr %1, align 8, !tbaa !5
+  %2 = load ptr, ptr %vtable2, align 8
+  %call4 = tail call noundef i32 %2(ptr noundef nonnull align 8 dereferenceable(8) %1)
+  %cmp5 = icmp eq i32 %call4, 262
+  br i1 %cmp5, label %land.lhs.true6, label %if.else
 
-13:                                               ; preds = %6
-  %14 = load ptr, ptr %7, align 8, !tbaa !140
-  %15 = getelementptr inbounds %"class.kc::impl_ac_direct_declarator_AcOperatorDeclId", ptr %14, i64 0, i32 1
-  %16 = load ptr, ptr %15, align 8, !tbaa !142
-  %17 = load ptr, ptr %16, align 8, !tbaa !5
-  %18 = load ptr, ptr %17, align 8
-  %19 = tail call noundef i32 %18(ptr noundef nonnull align 8 dereferenceable(8) %16)
-  %20 = icmp eq i32 %19, 269
-  br i1 %20, label %21, label %37
+land.lhs.true6:                                   ; preds = %land.lhs.true
+  %3 = load ptr, ptr %ac_direct_declarator_1, align 8, !tbaa !140
+  %ac_operator_name_1 = getelementptr inbounds %"class.kc::impl_ac_direct_declarator_AcOperatorDeclId", ptr %3, i64 0, i32 1
+  %4 = load ptr, ptr %ac_operator_name_1, align 8, !tbaa !142
+  %vtable9 = load ptr, ptr %4, align 8, !tbaa !5
+  %5 = load ptr, ptr %vtable9, align 8
+  %call11 = tail call noundef i32 %5(ptr noundef nonnull align 8 dereferenceable(8) %4)
+  %cmp12 = icmp eq i32 %call11, 269
+  br i1 %cmp12, label %if.then, label %if.else
 
-21:                                               ; preds = %13
-  %22 = load ptr, ptr %7, align 8, !tbaa !140
-  %23 = getelementptr inbounds %"class.kc::impl_ac_direct_declarator_AcOperatorDeclId", ptr %22, i64 0, i32 1
-  %24 = load ptr, ptr %23, align 8, !tbaa !142
-  %25 = getelementptr inbounds %"class.kc::impl_ac_operator_name_AcOperatorName", ptr %24, i64 0, i32 1
-  %26 = load ptr, ptr %25, align 8, !tbaa !144
-  %27 = getelementptr inbounds %"class.kc::impl_ac_operator_name", ptr %24, i64 0, i32 2
-  %28 = load ptr, ptr %27, align 8, !tbaa !147
-  %29 = getelementptr inbounds %"class.kc::impl_ac_operator_name", ptr %24, i64 0, i32 1
-  %30 = load i32, ptr %29, align 8, !tbaa !148
-  %31 = tail call noundef ptr @_ZN2kc8FileLineEPNS_20impl_casestring__StrEi(ptr noundef %28, i32 noundef %30)
-  %32 = getelementptr inbounds %"class.kc::impl_casestring__Str", ptr %26, i64 0, i32 1
-  %33 = load ptr, ptr %32, align 8, !tbaa !48
-  %34 = tail call noundef ptr @_ZN2kc9Problem3SEPKcS1_S1_(ptr noundef nonnull @.str.43, ptr noundef %33, ptr noundef nonnull @.str.44)
-  %35 = tail call noundef ptr @_ZN2kc8NonFatalEPNS_13impl_filelineEPNS_12impl_problemE(ptr noundef %31, ptr noundef %34)
-  tail call void @_ZN2kc8v_reportEPNS_10impl_errorE(ptr noundef %35)
-  %36 = tail call noundef ptr @_ZN2kc26Nilac_class_qualifier_listEv()
-  br label %49
+if.then:                                          ; preds = %land.lhs.true6
+  %6 = load ptr, ptr %ac_direct_declarator_1, align 8, !tbaa !140
+  %ac_operator_name_115 = getelementptr inbounds %"class.kc::impl_ac_direct_declarator_AcOperatorDeclId", ptr %6, i64 0, i32 1
+  %7 = load ptr, ptr %ac_operator_name_115, align 8, !tbaa !142
+  %casestring_1 = getelementptr inbounds %"class.kc::impl_ac_operator_name_AcOperatorName", ptr %7, i64 0, i32 1
+  %8 = load ptr, ptr %casestring_1, align 8, !tbaa !144
+  %file = getelementptr inbounds %"class.kc::impl_ac_operator_name", ptr %7, i64 0, i32 2
+  %9 = load ptr, ptr %file, align 8, !tbaa !147
+  %line = getelementptr inbounds %"class.kc::impl_ac_operator_name", ptr %7, i64 0, i32 1
+  %10 = load i32, ptr %line, align 8, !tbaa !148
+  %call20 = tail call noundef ptr @_ZN2kc8FileLineEPNS_20impl_casestring__StrEi(ptr noundef %9, i32 noundef %10)
+  %name = getelementptr inbounds %"class.kc::impl_casestring__Str", ptr %8, i64 0, i32 1
+  %11 = load ptr, ptr %name, align 8, !tbaa !48
+  %call21 = tail call noundef ptr @_ZN2kc9Problem3SEPKcS1_S1_(ptr noundef nonnull @.str.43, ptr noundef %11, ptr noundef nonnull @.str.44)
+  %call22 = tail call noundef ptr @_ZN2kc8NonFatalEPNS_13impl_filelineEPNS_12impl_problemE(ptr noundef %call20, ptr noundef %call21)
+  tail call void @_ZN2kc8v_reportEPNS_10impl_errorE(ptr noundef %call22)
+  %call23 = tail call noundef ptr @_ZN2kc26Nilac_class_qualifier_listEv()
+  br label %common.ret57
 
-37:                                               ; preds = %13, %6, %1
-  %38 = load ptr, ptr %0, align 8, !tbaa !5
-  %39 = load ptr, ptr %38, align 8
-  %40 = tail call noundef i32 %39(ptr noundef nonnull align 8 dereferenceable(24) %0)
-  %41 = icmp eq i32 %40, 271
-  br i1 %41, label %42, label %59
+if.else:                                          ; preds = %land.lhs.true6, %land.lhs.true, %entry
+  %vtable24 = load ptr, ptr %qh_list, align 8, !tbaa !5
+  %12 = load ptr, ptr %vtable24, align 8
+  %call26 = tail call noundef i32 %12(ptr noundef nonnull align 8 dereferenceable(24) %qh_list)
+  %cmp27 = icmp eq i32 %call26, 271
+  br i1 %cmp27, label %land.lhs.true28, label %if.else39
 
-42:                                               ; preds = %37
-  %43 = getelementptr inbounds %"class.kc::impl_ac_class_qualifier_help_list", ptr %0, i64 0, i32 1
-  %44 = load ptr, ptr %43, align 8, !tbaa !140
-  %45 = load ptr, ptr %44, align 8, !tbaa !5
-  %46 = load ptr, ptr %45, align 8
-  %47 = tail call noundef i32 %46(ptr noundef nonnull align 8 dereferenceable(8) %44)
-  %48 = icmp eq i32 %47, 255
-  br i1 %48, label %51, label %59
+land.lhs.true28:                                  ; preds = %if.else
+  %ac_direct_declarator_129 = getelementptr inbounds %"class.kc::impl_ac_class_qualifier_help_list", ptr %qh_list, i64 0, i32 1
+  %13 = load ptr, ptr %ac_direct_declarator_129, align 8, !tbaa !140
+  %vtable30 = load ptr, ptr %13, align 8, !tbaa !5
+  %14 = load ptr, ptr %vtable30, align 8
+  %call32 = tail call noundef i32 %14(ptr noundef nonnull align 8 dereferenceable(8) %13)
+  %cmp33 = icmp eq i32 %call32, 255
+  br i1 %cmp33, label %if.then34, label %if.else39
 
-49:                                               ; preds = %66, %64, %21, %51
-  %50 = phi ptr [ %58, %51 ], [ %36, %21 ], [ %65, %64 ], [ null, %66 ]
-  ret ptr %50
+common.ret57:                                     ; preds = %if.else46, %if.then44, %if.then, %if.then34
+  %common.ret57.op = phi ptr [ %call38, %if.then34 ], [ %call23, %if.then ], [ %call45, %if.then44 ], [ null, %if.else46 ]
+  ret ptr %common.ret57.op
 
-51:                                               ; preds = %42
-  %52 = load ptr, ptr %43, align 8, !tbaa !140
-  %53 = getelementptr inbounds %"class.kc::impl_ac_direct_declarator_AcDirectDeclId", ptr %52, i64 0, i32 1
-  %54 = load ptr, ptr %53, align 8, !tbaa !83
-  %55 = getelementptr inbounds %"class.kc::impl_ac_class_qualifier_help_list", ptr %0, i64 0, i32 2
-  %56 = load ptr, ptr %55, align 8, !tbaa !149
-  %57 = tail call noundef ptr @_ZN2kc28f_check_build_qualifier_tailEPNS_33impl_ac_class_qualifier_help_listE(ptr noundef %56)
-  %58 = tail call noundef ptr @_ZN2kc27Consac_class_qualifier_listEPNS_7impl_IDEPNS_28impl_ac_class_qualifier_listE(ptr noundef %54, ptr noundef %57)
-  br label %49
+if.then34:                                        ; preds = %land.lhs.true28
+  %15 = load ptr, ptr %ac_direct_declarator_129, align 8, !tbaa !140
+  %ID_1 = getelementptr inbounds %"class.kc::impl_ac_direct_declarator_AcDirectDeclId", ptr %15, i64 0, i32 1
+  %16 = load ptr, ptr %ID_1, align 8, !tbaa !83
+  %ac_class_qualifier_help_list_1 = getelementptr inbounds %"class.kc::impl_ac_class_qualifier_help_list", ptr %qh_list, i64 0, i32 2
+  %17 = load ptr, ptr %ac_class_qualifier_help_list_1, align 8, !tbaa !149
+  %call37 = tail call noundef ptr @_ZN2kc28f_check_build_qualifier_tailEPNS_33impl_ac_class_qualifier_help_listE(ptr noundef %17)
+  %call38 = tail call noundef ptr @_ZN2kc27Consac_class_qualifier_listEPNS_7impl_IDEPNS_28impl_ac_class_qualifier_listE(ptr noundef %16, ptr noundef %call37)
+  br label %common.ret57
 
-59:                                               ; preds = %42, %37
-  %60 = load ptr, ptr %0, align 8, !tbaa !5
-  %61 = load ptr, ptr %60, align 8
-  %62 = tail call noundef i32 %61(ptr noundef nonnull align 8 dereferenceable(24) %0)
-  %63 = icmp eq i32 %62, 270
-  br i1 %63, label %64, label %66
+if.else39:                                        ; preds = %land.lhs.true28, %if.else
+  %vtable40 = load ptr, ptr %qh_list, align 8, !tbaa !5
+  %18 = load ptr, ptr %vtable40, align 8
+  %call42 = tail call noundef i32 %18(ptr noundef nonnull align 8 dereferenceable(24) %qh_list)
+  %cmp43 = icmp eq i32 %call42, 270
+  br i1 %cmp43, label %if.then44, label %if.else46
 
-64:                                               ; preds = %59
-  %65 = tail call noundef ptr @_ZN2kc26Nilac_class_qualifier_listEv()
-  br label %49
+if.then44:                                        ; preds = %if.else39
+  %call45 = tail call noundef ptr @_ZN2kc26Nilac_class_qualifier_listEv()
+  br label %common.ret57
 
-66:                                               ; preds = %59
+if.else46:                                        ; preds = %if.else39
   tail call void @_ZN2kc21kc_no_default_in_withEPKciS1_(ptr noundef nonnull @.str.45, i32 noundef 1090, ptr noundef nonnull @.str.6)
-  br label %49
+  br label %common.ret57
 }
 
 declare noundef ptr @_ZN2kc26Nilac_class_qualifier_listEv() local_unnamed_addr #2
@@ -2762,71 +2791,73 @@ declare noundef ptr @_ZN2kc26Nilac_class_qualifier_listEv() local_unnamed_addr #
 declare noundef ptr @_ZN2kc27Consac_class_qualifier_listEPNS_7impl_IDEPNS_28impl_ac_class_qualifier_listE(ptr noundef, ptr noundef) local_unnamed_addr #2
 
 ; Function Attrs: mustprogress uwtable
-define dso_local noundef ptr @_ZN2kc23f_check_build_qualifierEPNS_33impl_ac_class_qualifier_help_listERPNS_25impl_ac_direct_declaratorE(ptr noundef %0, ptr nocapture noundef nonnull writeonly align 8 dereferenceable(8) %1) local_unnamed_addr #0 {
-  %3 = load ptr, ptr %0, align 8, !tbaa !5
-  %4 = load ptr, ptr %3, align 8
-  %5 = tail call noundef i32 %4(ptr noundef nonnull align 8 dereferenceable(24) %0)
-  %6 = icmp eq i32 %5, 271
-  br i1 %6, label %7, label %13
+define dso_local noundef ptr @_ZN2kc23f_check_build_qualifierEPNS_33impl_ac_class_qualifier_help_listERPNS_25impl_ac_direct_declaratorE(ptr noundef %qh_list, ptr nocapture noundef nonnull writeonly align 8 dereferenceable(8) %decl) local_unnamed_addr #0 {
+entry:
+  %vtable = load ptr, ptr %qh_list, align 8, !tbaa !5
+  %0 = load ptr, ptr %vtable, align 8
+  %call1 = tail call noundef i32 %0(ptr noundef nonnull align 8 dereferenceable(24) %qh_list)
+  %cmp = icmp eq i32 %call1, 271
+  br i1 %cmp, label %if.then, label %cleanup
 
-7:                                                ; preds = %2
-  %8 = getelementptr inbounds %"class.kc::impl_ac_class_qualifier_help_list", ptr %0, i64 0, i32 1
-  %9 = load ptr, ptr %8, align 8, !tbaa !140
-  %10 = getelementptr inbounds %"class.kc::impl_ac_class_qualifier_help_list", ptr %0, i64 0, i32 2
-  %11 = load ptr, ptr %10, align 8, !tbaa !149
-  store ptr %9, ptr %1, align 8, !tbaa !71
-  %12 = tail call noundef ptr @_ZN2kc28f_check_build_qualifier_tailEPNS_33impl_ac_class_qualifier_help_listE(ptr noundef %11)
-  br label %13
+if.then:                                          ; preds = %entry
+  %ac_direct_declarator_1 = getelementptr inbounds %"class.kc::impl_ac_class_qualifier_help_list", ptr %qh_list, i64 0, i32 1
+  %1 = load ptr, ptr %ac_direct_declarator_1, align 8, !tbaa !140
+  %ac_class_qualifier_help_list_1 = getelementptr inbounds %"class.kc::impl_ac_class_qualifier_help_list", ptr %qh_list, i64 0, i32 2
+  %2 = load ptr, ptr %ac_class_qualifier_help_list_1, align 8, !tbaa !149
+  store ptr %1, ptr %decl, align 8, !tbaa !71
+  %call2 = tail call noundef ptr @_ZN2kc28f_check_build_qualifier_tailEPNS_33impl_ac_class_qualifier_help_listE(ptr noundef %2)
+  br label %cleanup
 
-13:                                               ; preds = %2, %7
-  %14 = phi ptr [ %12, %7 ], [ null, %2 ]
-  ret ptr %14
+cleanup:                                          ; preds = %entry, %if.then
+  %retval.0 = phi ptr [ %call2, %if.then ], [ null, %entry ]
+  ret ptr %retval.0
 }
 
 ; Function Attrs: mustprogress uwtable
-define dso_local noundef ptr @_ZN2kc10subst_nameEPNS_7impl_IDEPNS_20impl_casestring__StrES3_(ptr noundef %0, ptr noundef %1, ptr noundef %2) local_unnamed_addr #0 {
-  %4 = load ptr, ptr %0, align 8, !tbaa !5
-  %5 = load ptr, ptr %4, align 8
-  %6 = tail call noundef i32 %5(ptr noundef nonnull align 8 dereferenceable(8) %0)
-  %7 = icmp eq i32 %6, 7
-  br i1 %7, label %8, label %29
+define dso_local noundef ptr @_ZN2kc10subst_nameEPNS_7impl_IDEPNS_20impl_casestring__StrES3_(ptr noundef %n, ptr noundef %oldname, ptr noundef %newname) local_unnamed_addr #0 {
+entry:
+  %vtable = load ptr, ptr %n, align 8, !tbaa !5
+  %0 = load ptr, ptr %vtable, align 8
+  %call1 = tail call noundef i32 %0(ptr noundef nonnull align 8 dereferenceable(8) %n)
+  %cmp = icmp eq i32 %call1, 7
+  br i1 %cmp, label %land.lhs.true, label %if.else16
 
-8:                                                ; preds = %3
-  %9 = getelementptr inbounds %"class.kc::impl_ID_Id", ptr %0, i64 0, i32 1
-  %10 = load ptr, ptr %9, align 8, !tbaa !33
-  %11 = load ptr, ptr %10, align 8, !tbaa !5
-  %12 = load ptr, ptr %11, align 8
-  %13 = tail call noundef i32 %12(ptr noundef nonnull align 8 dereferenceable(8) %10)
-  %14 = icmp eq i32 %13, 6
-  br i1 %14, label %15, label %29
+land.lhs.true:                                    ; preds = %entry
+  %uniqID_1 = getelementptr inbounds %"class.kc::impl_ID_Id", ptr %n, i64 0, i32 1
+  %1 = load ptr, ptr %uniqID_1, align 8, !tbaa !33
+  %vtable3 = load ptr, ptr %1, align 8, !tbaa !5
+  %2 = load ptr, ptr %vtable3, align 8
+  %call5 = tail call noundef i32 %2(ptr noundef nonnull align 8 dereferenceable(8) %1)
+  %cmp6 = icmp eq i32 %call5, 6
+  br i1 %cmp6, label %if.then, label %if.else16
 
-15:                                               ; preds = %8
-  %16 = load ptr, ptr %9, align 8, !tbaa !33
-  %17 = getelementptr inbounds %"class.kc::impl_uniqID_Str", ptr %16, i64 0, i32 1
-  %18 = load ptr, ptr %17, align 8, !tbaa !46
-  %19 = tail call noundef zeroext i1 @_ZNK2kc20impl_abstract_phylum2eqEPKS0_(ptr noundef nonnull align 8 dereferenceable(8) %18, ptr noundef %1)
-  br i1 %19, label %20, label %30
+if.then:                                          ; preds = %land.lhs.true
+  %3 = load ptr, ptr %uniqID_1, align 8, !tbaa !33
+  %casestring_1 = getelementptr inbounds %"class.kc::impl_uniqID_Str", ptr %3, i64 0, i32 1
+  %4 = load ptr, ptr %casestring_1, align 8, !tbaa !46
+  %call10 = tail call noundef zeroext i1 @_ZNK2kc20impl_abstract_phylum2eqEPKS0_(ptr noundef nonnull align 8 dereferenceable(8) %4, ptr noundef %oldname)
+  br i1 %call10, label %if.then11, label %cleanup17
 
-20:                                               ; preds = %15
-  %21 = tail call noundef ptr @_ZN2kc3StrEPNS_20impl_casestring__StrE(ptr noundef %2)
-  %22 = tail call noundef ptr @_ZN2kc2IdEPNS_11impl_uniqIDE(ptr noundef %21)
-  %23 = getelementptr inbounds %"class.kc::impl_ID", ptr %0, i64 0, i32 4
-  %24 = load ptr, ptr %23, align 8, !tbaa !23
-  %25 = getelementptr inbounds %"class.kc::impl_ID", ptr %22, i64 0, i32 4
-  store ptr %24, ptr %25, align 8, !tbaa !23
-  %26 = getelementptr inbounds %"class.kc::impl_ID", ptr %0, i64 0, i32 3
-  %27 = load i32, ptr %26, align 8, !tbaa !25
-  %28 = getelementptr inbounds %"class.kc::impl_ID", ptr %22, i64 0, i32 3
-  store i32 %27, ptr %28, align 8, !tbaa !25
-  br label %30
+if.then11:                                        ; preds = %if.then
+  %call12 = tail call noundef ptr @_ZN2kc3StrEPNS_20impl_casestring__StrE(ptr noundef %newname)
+  %call13 = tail call noundef ptr @_ZN2kc2IdEPNS_11impl_uniqIDE(ptr noundef %call12)
+  %file = getelementptr inbounds %"class.kc::impl_ID", ptr %n, i64 0, i32 4
+  %5 = load ptr, ptr %file, align 8, !tbaa !23
+  %file14 = getelementptr inbounds %"class.kc::impl_ID", ptr %call13, i64 0, i32 4
+  store ptr %5, ptr %file14, align 8, !tbaa !23
+  %line = getelementptr inbounds %"class.kc::impl_ID", ptr %n, i64 0, i32 3
+  %6 = load i32, ptr %line, align 8, !tbaa !25
+  %line15 = getelementptr inbounds %"class.kc::impl_ID", ptr %call13, i64 0, i32 3
+  store i32 %6, ptr %line15, align 8, !tbaa !25
+  br label %cleanup17
 
-29:                                               ; preds = %8, %3
+if.else16:                                        ; preds = %land.lhs.true, %entry
   tail call void @_ZN2kc21kc_no_default_in_withEPKciS1_(ptr noundef nonnull @.str.46, i32 noundef 1129, ptr noundef nonnull @.str.6)
-  br label %30
+  br label %cleanup17
 
-30:                                               ; preds = %20, %15, %29
-  %31 = phi ptr [ null, %29 ], [ %22, %20 ], [ %0, %15 ]
-  ret ptr %31
+cleanup17:                                        ; preds = %if.then11, %if.then, %if.else16
+  %retval.1 = phi ptr [ null, %if.else16 ], [ %call13, %if.then11 ], [ %n, %if.then ]
+  ret ptr %retval.1
 }
 
 declare noundef ptr @_ZN2kc9f_emptyIdEv() local_unnamed_addr #2
@@ -2918,11 +2949,11 @@ attributes #14 = { builtin nounwind }
 !48 = !{!49, !14, i64 8}
 !49 = !{!"_ZTSN2kc20impl_casestring__StrE", !11, i64 0, !14, i64 8}
 !50 = !{!51}
-!51 = distinct !{!51, !52, !"_ZStplIcSt11char_traitsIcESaIcEENSt7__cxx1112basic_stringIT_T0_T1_EEOS8_PKS5_: argument 0"}
+!51 = distinct !{!51, !52, !"_ZStplIcSt11char_traitsIcESaIcEENSt7__cxx1112basic_stringIT_T0_T1_EEOS8_PKS5_: %agg.result"}
 !52 = distinct !{!52, !"_ZStplIcSt11char_traitsIcESaIcEENSt7__cxx1112basic_stringIT_T0_T1_EEOS8_PKS5_"}
 !53 = !{!43, !14, i64 0}
 !54 = !{!55}
-!55 = distinct !{!55, !56, !"_ZStplIcSt11char_traitsIcESaIcEENSt7__cxx1112basic_stringIT_T0_T1_EEOS8_PKS5_: argument 0"}
+!55 = distinct !{!55, !56, !"_ZStplIcSt11char_traitsIcESaIcEENSt7__cxx1112basic_stringIT_T0_T1_EEOS8_PKS5_: %agg.result"}
 !56 = distinct !{!56, !"_ZStplIcSt11char_traitsIcESaIcEENSt7__cxx1112basic_stringIT_T0_T1_EEOS8_PKS5_"}
 !57 = !{!58, !14, i64 8}
 !58 = !{!"_ZTSN2kc30impl_IDtype_ITPredefinedPhylumE", !39, i64 0, !14, i64 8}

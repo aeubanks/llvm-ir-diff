@@ -33,94 +33,95 @@ target triple = "x86_64-unknown-linux-gnu"
 @.str.9 = private unnamed_addr constant [31 x i8] c"MonteCarlo:     Mflops: %8.2f\0A\00", align 1
 @.str.10 = private unnamed_addr constant [48 x i8] c"Sparse matmult  Mflops: %8.2f    (N=%d, nz=%d)\0A\00", align 1
 @.str.11 = private unnamed_addr constant [47 x i8] c"LU              Mflops: %8.2f    (M=%d, N=%d)\0A\00", align 1
-@str.15 = private unnamed_addr constant [67 x i8] c"** SciMark2 Numeric Benchmark, see http://math.nist.gov/scimark **\00", align 1
-@str.16 = private unnamed_addr constant [67 x i8] c"** for details. (Results can be submitted to pozo@nist.gov)     **\00", align 1
-@str.17 = private unnamed_addr constant [67 x i8] c"**                                                              **\00", align 1
-@str.18 = private unnamed_addr constant [59 x i8] c"NOTE!!! All Mflops disabled to prevent diffs from failing!\00", align 1
+@str = private unnamed_addr constant [59 x i8] c"NOTE!!! All Mflops disabled to prevent diffs from failing!\00", align 1
+@str.16 = private unnamed_addr constant [67 x i8] c"** SciMark2 Numeric Benchmark, see http://math.nist.gov/scimark **\00", align 1
+@str.17 = private unnamed_addr constant [67 x i8] c"** for details. (Results can be submitted to pozo@nist.gov)     **\00", align 1
+@str.18 = private unnamed_addr constant [67 x i8] c"**                                                              **\00", align 1
 
 ; Function Attrs: nounwind uwtable
-define dso_local i32 @main(i32 noundef %0, ptr nocapture noundef readonly %1) local_unnamed_addr #0 {
-  %3 = tail call ptr @new_Random_seed(i32 noundef 101010) #8
-  %4 = icmp sgt i32 %0, 1
-  br i1 %4, label %5, label %32
+define dso_local i32 @main(i32 noundef %argc, ptr nocapture noundef readonly %argv) local_unnamed_addr #0 {
+entry:
+  %call = tail call ptr @new_Random_seed(i32 noundef 101010) #8
+  %cmp = icmp sgt i32 %argc, 1
+  br i1 %cmp, label %if.then, label %if.end18
 
-5:                                                ; preds = %2
-  %6 = getelementptr inbounds ptr, ptr %1, i64 1
-  %7 = load ptr, ptr %6, align 8, !tbaa !5
-  %8 = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %7, ptr noundef nonnull dereferenceable(6) @.str) #9
-  %9 = icmp eq i32 %8, 0
-  br i1 %9, label %13, label %10
+if.then:                                          ; preds = %entry
+  %arrayidx = getelementptr inbounds ptr, ptr %argv, i64 1
+  %0 = load ptr, ptr %arrayidx, align 8, !tbaa !5
+  %call1 = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %0, ptr noundef nonnull dereferenceable(6) @.str) #9
+  %cmp2 = icmp eq i32 %call1, 0
+  br i1 %cmp2, label %if.then6, label %lor.lhs.false
 
-10:                                               ; preds = %5
-  %11 = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %7, ptr noundef nonnull dereferenceable(3) @.str.1) #9
-  %12 = icmp eq i32 %11, 0
-  br i1 %12, label %13, label %16
+lor.lhs.false:                                    ; preds = %if.then
+  %call4 = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %0, ptr noundef nonnull dereferenceable(3) @.str.1) #9
+  %cmp5 = icmp eq i32 %call4, 0
+  br i1 %cmp5, label %if.then6, label %if.end
 
-13:                                               ; preds = %10, %5
-  %14 = load ptr, ptr @stderr, align 8, !tbaa !5
-  %15 = tail call i64 @fwrite(ptr nonnull @.str.2, i64 31, i64 1, ptr %14) #10
+if.then6:                                         ; preds = %lor.lhs.false, %if.then
+  %1 = load ptr, ptr @stderr, align 8, !tbaa !5
+  %2 = tail call i64 @fwrite(ptr nonnull @.str.2, i64 31, i64 1, ptr %1) #10
   tail call void @exit(i32 noundef 0) #11
   unreachable
 
-16:                                               ; preds = %10
-  %17 = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %7, ptr noundef nonnull dereferenceable(7) @.str.3) #9
-  %18 = icmp eq i32 %17, 0
-  br i1 %18, label %19, label %20
+if.end:                                           ; preds = %lor.lhs.false
+  %call9 = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %0, ptr noundef nonnull dereferenceable(7) @.str.3) #9
+  %cmp10 = icmp eq i32 %call9, 0
+  br i1 %cmp10, label %if.then11, label %if.end12
 
-19:                                               ; preds = %16
-  br label %20
+if.then11:                                        ; preds = %if.end
+  br label %if.end12
 
-20:                                               ; preds = %19, %16
-  %21 = phi i32 [ 1000, %19 ], [ 100, %16 ]
-  %22 = phi i32 [ 100000, %19 ], [ 1000, %16 ]
-  %23 = phi i32 [ 1000000, %19 ], [ 5000, %16 ]
-  %24 = phi i32 [ 1048576, %19 ], [ 1024, %16 ]
-  %25 = phi i32 [ 2, %19 ], [ 1, %16 ]
-  %26 = icmp ult i32 %25, %0
-  br i1 %26, label %27, label %32
+if.end12:                                         ; preds = %if.then11, %if.end
+  %Sparse_size_M.0 = phi i32 [ 100000, %if.then11 ], [ 1000, %if.end ]
+  %Sparse_size_nz.0 = phi i32 [ 1000000, %if.then11 ], [ 5000, %if.end ]
+  %LU_size.0 = phi i32 [ 1000, %if.then11 ], [ 100, %if.end ]
+  %FFT_size.0 = phi i32 [ 1048576, %if.then11 ], [ 1024, %if.end ]
+  %current_arg.0 = phi i32 [ 2, %if.then11 ], [ 1, %if.end ]
+  %cmp13 = icmp ult i32 %current_arg.0, %argc
+  br i1 %cmp13, label %if.then14, label %if.end18
 
-27:                                               ; preds = %20
-  %28 = zext i32 %25 to i64
-  %29 = getelementptr inbounds ptr, ptr %1, i64 %28
-  %30 = load ptr, ptr %29, align 8, !tbaa !5
-  %31 = tail call double @strtod(ptr nocapture noundef nonnull %30, ptr noundef null) #8
-  br label %32
+if.then14:                                        ; preds = %if.end12
+  %idxprom = zext i32 %current_arg.0 to i64
+  %arrayidx15 = getelementptr inbounds ptr, ptr %argv, i64 %idxprom
+  %3 = load ptr, ptr %arrayidx15, align 8, !tbaa !5
+  %call.i = tail call double @strtod(ptr nocapture noundef nonnull %3, ptr noundef null) #8
+  br label %if.end18
 
-32:                                               ; preds = %20, %27, %2
-  %33 = phi i32 [ 100, %2 ], [ %21, %27 ], [ %21, %20 ]
-  %34 = phi i32 [ 1000, %2 ], [ %22, %27 ], [ %22, %20 ]
-  %35 = phi i32 [ 5000, %2 ], [ %23, %27 ], [ %23, %20 ]
-  %36 = phi i32 [ 1024, %2 ], [ %24, %27 ], [ %24, %20 ]
-  %37 = phi double [ 2.000000e+00, %2 ], [ %31, %27 ], [ 2.000000e+00, %20 ]
-  %38 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.17)
-  %39 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.15)
-  %40 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.16)
-  %41 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.17)
-  %42 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.4, double noundef %37)
-  %43 = tail call double @kernel_measureFFT(i32 noundef %36, double noundef %37, ptr noundef %3) #8
-  %44 = tail call double @kernel_measureSOR(i32 noundef %33, double noundef %37, ptr noundef %3) #8
-  %45 = tail call double @kernel_measureMonteCarlo(double noundef %37, ptr noundef %3) #8
-  %46 = tail call double @kernel_measureSparseMatMult(i32 noundef %34, i32 noundef %35, double noundef %37, ptr noundef %3) #8
-  %47 = tail call double @kernel_measureLU(i32 noundef %33, double noundef %37, ptr noundef %3) #8
-  %48 = fadd double %43, %44
-  %49 = fadd double %48, %45
-  %50 = fadd double %49, %46
-  %51 = fadd double %50, %47
-  %52 = fdiv double %51, 5.000000e+00
-  %53 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.18)
-  %54 = fdiv double %52, 1.000000e+07
-  %55 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.6, double noundef %54)
-  %56 = fdiv double %43, 1.000000e+07
-  %57 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.7, double noundef %56, i32 noundef %36)
-  %58 = fdiv double %44, 1.000000e+07
-  %59 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.8, double noundef %58, i32 noundef %33, i32 noundef %33)
-  %60 = fdiv double %45, 1.000000e+07
-  %61 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.9, double noundef %60)
-  %62 = fdiv double %46, 1.000000e+07
-  %63 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.10, double noundef %62, i32 noundef %34, i32 noundef %35)
-  %64 = fdiv double %47, 1.000000e+07
-  %65 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.11, double noundef %64, i32 noundef %33, i32 noundef %33)
-  tail call void @Random_delete(ptr noundef %3) #8
+if.end18:                                         ; preds = %if.end12, %if.then14, %entry
+  %Sparse_size_M.1 = phi i32 [ 1000, %entry ], [ %Sparse_size_M.0, %if.then14 ], [ %Sparse_size_M.0, %if.end12 ]
+  %Sparse_size_nz.1 = phi i32 [ 5000, %entry ], [ %Sparse_size_nz.0, %if.then14 ], [ %Sparse_size_nz.0, %if.end12 ]
+  %LU_size.1 = phi i32 [ 100, %entry ], [ %LU_size.0, %if.then14 ], [ %LU_size.0, %if.end12 ]
+  %FFT_size.1 = phi i32 [ 1024, %entry ], [ %FFT_size.0, %if.then14 ], [ %FFT_size.0, %if.end12 ]
+  %min_time.1 = phi double [ 2.000000e+00, %entry ], [ %call.i, %if.then14 ], [ 2.000000e+00, %if.end12 ]
+  %puts.i = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.18)
+  %puts4.i = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.16)
+  %puts5.i = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.17)
+  %puts6.i = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.18)
+  %call19 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.4, double noundef %min_time.1)
+  %call20 = tail call double @kernel_measureFFT(i32 noundef %FFT_size.1, double noundef %min_time.1, ptr noundef %call) #8
+  %call22 = tail call double @kernel_measureSOR(i32 noundef %LU_size.1, double noundef %min_time.1, ptr noundef %call) #8
+  %call24 = tail call double @kernel_measureMonteCarlo(double noundef %min_time.1, ptr noundef %call) #8
+  %call26 = tail call double @kernel_measureSparseMatMult(i32 noundef %Sparse_size_M.1, i32 noundef %Sparse_size_nz.1, double noundef %min_time.1, ptr noundef %call) #8
+  %call28 = tail call double @kernel_measureLU(i32 noundef %LU_size.1, double noundef %min_time.1, ptr noundef %call) #8
+  %add = fadd double %call20, %call22
+  %add33 = fadd double %add, %call24
+  %add35 = fadd double %add33, %call26
+  %add37 = fadd double %add35, %call28
+  %div = fdiv double %add37, 5.000000e+00
+  %puts = tail call i32 @puts(ptr nonnull dereferenceable(1) @str)
+  %div41 = fdiv double %div, 1.000000e+07
+  %call42 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.6, double noundef %div41)
+  %div45 = fdiv double %call20, 1.000000e+07
+  %call46 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.7, double noundef %div45, i32 noundef %FFT_size.1)
+  %div49 = fdiv double %call22, 1.000000e+07
+  %call50 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.8, double noundef %div49, i32 noundef %LU_size.1, i32 noundef %LU_size.1)
+  %div53 = fdiv double %call24, 1.000000e+07
+  %call54 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.9, double noundef %div53)
+  %div57 = fdiv double %call26, 1.000000e+07
+  %call58 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.10, double noundef %div57, i32 noundef %Sparse_size_M.1, i32 noundef %Sparse_size_nz.1)
+  %div61 = fdiv double %call28, 1.000000e+07
+  %call62 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.11, double noundef %div61, i32 noundef %LU_size.1, i32 noundef %LU_size.1)
+  tail call void @Random_delete(ptr noundef %call) #8
   ret i32 0
 }
 
@@ -134,10 +135,11 @@ declare void @exit(i32 noundef) local_unnamed_addr #3
 
 ; Function Attrs: nofree nounwind uwtable
 define dso_local void @print_banner() local_unnamed_addr #4 {
-  %1 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.17)
-  %2 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.15)
-  %3 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.16)
-  %4 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.17)
+entry:
+  %puts = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.18)
+  %puts4 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.16)
+  %puts5 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.17)
+  %puts6 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.18)
   ret void
 }
 

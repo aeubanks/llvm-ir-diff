@@ -56,118 +56,119 @@ $_ZTI10GrandChild = comdat any
 
 ; Function Attrs: norecurse uwtable
 define dso_local noundef i32 @main() local_unnamed_addr #0 personality ptr @__gxx_personality_v0 {
-  %1 = alloca %class.Child, align 8
-  %2 = alloca %class.GrandChild, align 8
-  %3 = tail call noalias noundef nonnull dereferenceable(100) ptr @_Znam(i64 noundef 100) #11
-  tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 1 dereferenceable(6) %3, ptr noundef nonnull align 1 dereferenceable(6) @.str, i64 6, i1 false) #12
-  call void @llvm.lifetime.start.p0(i64 24, ptr nonnull %1) #12
-  %4 = invoke noalias noundef nonnull dereferenceable(100) ptr @_Znam(i64 noundef 100) #11
-          to label %5 unwind label %34
+entry:
+  %c = alloca %class.Child, align 8
+  %g = alloca %class.GrandChild, align 8
+  %call2.i = tail call noalias noundef nonnull dereferenceable(100) ptr @_Znam(i64 noundef 100) #11
+  tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 1 dereferenceable(6) %call2.i, ptr noundef nonnull align 1 dereferenceable(6) @.str, i64 6, i1 false) #12
+  call void @llvm.lifetime.start.p0(i64 24, ptr nonnull %c) #12
+  %call2.i.i20 = invoke noalias noundef nonnull dereferenceable(100) ptr @_Znam(i64 noundef 100) #11
+          to label %call2.i.i.noexc unwind label %lpad
 
-5:                                                ; preds = %0
-  %6 = getelementptr inbounds %class.Parent, ptr %1, i64 0, i32 1
-  store ptr %4, ptr %6, align 8, !tbaa !5
-  tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 1 dereferenceable(6) %4, ptr noundef nonnull align 1 dereferenceable(6) @.str, i64 6, i1 false) #12
-  store ptr getelementptr inbounds ({ [3 x ptr] }, ptr @_ZTV5Child, i64 0, inrange i32 0, i64 2), ptr %1, align 8, !tbaa !10
-  %7 = invoke noalias noundef nonnull dereferenceable(100) ptr @_Znam(i64 noundef 100) #11
-          to label %10 unwind label %8
+call2.i.i.noexc:                                  ; preds = %entry
+  %lastName.i.i = getelementptr inbounds %class.Parent, ptr %c, i64 0, i32 1
+  store ptr %call2.i.i20, ptr %lastName.i.i, align 8, !tbaa !5
+  tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 1 dereferenceable(6) %call2.i.i20, ptr noundef nonnull align 1 dereferenceable(6) @.str, i64 6, i1 false) #12
+  store ptr getelementptr inbounds ({ [3 x ptr] }, ptr @_ZTV5Child, i64 0, inrange i32 0, i64 2), ptr %c, align 8, !tbaa !10
+  %call2.i18 = invoke noalias noundef nonnull dereferenceable(100) ptr @_Znam(i64 noundef 100) #11
+          to label %invoke.cont unwind label %_ZN6ParentD2Ev.exit.i
 
-8:                                                ; preds = %5
-  %9 = landingpad { ptr, i32 }
+_ZN6ParentD2Ev.exit.i:                            ; preds = %call2.i.i.noexc
+  %0 = landingpad { ptr, i32 }
           cleanup
-  tail call void @_ZdaPv(ptr noundef nonnull %4) #13
-  br label %40
+  tail call void @_ZdaPv(ptr noundef nonnull %call2.i.i20) #13
+  br label %ehcleanup12.thread
 
-10:                                               ; preds = %5
-  %11 = getelementptr inbounds %class.Child, ptr %1, i64 0, i32 1
-  store ptr %7, ptr %11, align 8, !tbaa !12
-  tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 1 dereferenceable(6) %7, ptr noundef nonnull align 1 dereferenceable(6) @.str.1, i64 6, i1 false) #12
-  call void @llvm.lifetime.start.p0(i64 32, ptr nonnull %2) #12
-  invoke void @_ZN10GrandChildC2EPcS0_S0_(ptr noundef nonnull align 8 dereferenceable(32) %2, ptr noundef nonnull @.str, ptr noundef nonnull @.str.2, ptr noundef nonnull @.str.3)
-          to label %12 unwind label %36
+invoke.cont:                                      ; preds = %call2.i.i.noexc
+  %firstName.i = getelementptr inbounds %class.Child, ptr %c, i64 0, i32 1
+  store ptr %call2.i18, ptr %firstName.i, align 8, !tbaa !12
+  tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 1 dereferenceable(6) %call2.i18, ptr noundef nonnull align 1 dereferenceable(6) @.str.1, i64 6, i1 false) #12
+  call void @llvm.lifetime.start.p0(i64 32, ptr nonnull %g) #12
+  invoke void @_ZN10GrandChildC2EPcS0_S0_(ptr noundef nonnull align 8 dereferenceable(32) %g, ptr noundef nonnull @.str, ptr noundef nonnull @.str.2, ptr noundef nonnull @.str.3)
+          to label %invoke.cont4 unwind label %lpad1
 
-12:                                               ; preds = %10
-  %13 = call i32 @puts(ptr nonnull dereferenceable(1) %3)
-  %14 = load ptr, ptr %2, align 8, !tbaa !10
-  %15 = load ptr, ptr %14, align 8
-  invoke void %15(ptr noundef nonnull align 8 dereferenceable(16) %2)
-          to label %16 unwind label %38
+invoke.cont4:                                     ; preds = %invoke.cont
+  %puts.i = call i32 @puts(ptr nonnull dereferenceable(1) %call2.i)
+  %vtable5 = load ptr, ptr %g, align 8, !tbaa !10
+  %1 = load ptr, ptr %vtable5, align 8
+  invoke void %1(ptr noundef nonnull align 8 dereferenceable(16) %g)
+          to label %invoke.cont10 unwind label %lpad3
 
-16:                                               ; preds = %12
-  %17 = call i32 @puts(ptr nonnull dereferenceable(1) %4)
-  %18 = call i32 @puts(ptr nonnull dereferenceable(1) %7)
-  store ptr getelementptr inbounds ({ [3 x ptr] }, ptr @_ZTV10GrandChild, i64 0, inrange i32 0, i64 2), ptr %2, align 8, !tbaa !10
-  %19 = getelementptr inbounds %class.GrandChild, ptr %2, i64 0, i32 1
-  %20 = load ptr, ptr %19, align 8, !tbaa !14
-  %21 = icmp eq ptr %20, null
-  br i1 %21, label %23, label %22
+invoke.cont10:                                    ; preds = %invoke.cont4
+  %puts.i.i = call i32 @puts(ptr nonnull dereferenceable(1) %call2.i.i20)
+  %puts.i45 = call i32 @puts(ptr nonnull dereferenceable(1) %call2.i18)
+  store ptr getelementptr inbounds ({ [3 x ptr] }, ptr @_ZTV10GrandChild, i64 0, inrange i32 0, i64 2), ptr %g, align 8, !tbaa !10
+  %grandFatherName.i = getelementptr inbounds %class.GrandChild, ptr %g, i64 0, i32 1
+  %2 = load ptr, ptr %grandFatherName.i, align 8, !tbaa !14
+  %isnull.i = icmp eq ptr %2, null
+  br i1 %isnull.i, label %delete.end.i, label %delete.notnull.i
 
-22:                                               ; preds = %16
-  call void @_ZdaPv(ptr noundef nonnull %20) #13
-  br label %23
+delete.notnull.i:                                 ; preds = %invoke.cont10
+  call void @_ZdaPv(ptr noundef nonnull %2) #13
+  br label %delete.end.i
 
-23:                                               ; preds = %22, %16
-  store ptr getelementptr inbounds ({ [3 x ptr] }, ptr @_ZTV5Child, i64 0, inrange i32 0, i64 2), ptr %2, align 8, !tbaa !10
-  %24 = getelementptr inbounds %class.Child, ptr %2, i64 0, i32 1
-  %25 = load ptr, ptr %24, align 8, !tbaa !12
-  %26 = icmp eq ptr %25, null
-  br i1 %26, label %28, label %27
+delete.end.i:                                     ; preds = %delete.notnull.i, %invoke.cont10
+  store ptr getelementptr inbounds ({ [3 x ptr] }, ptr @_ZTV5Child, i64 0, inrange i32 0, i64 2), ptr %g, align 8, !tbaa !10
+  %firstName.i.i = getelementptr inbounds %class.Child, ptr %g, i64 0, i32 1
+  %3 = load ptr, ptr %firstName.i.i, align 8, !tbaa !12
+  %isnull.i.i = icmp eq ptr %3, null
+  br i1 %isnull.i.i, label %delete.end.i.i, label %delete.notnull.i.i
 
-27:                                               ; preds = %23
-  call void @_ZdaPv(ptr noundef nonnull %25) #13
-  br label %28
-
-28:                                               ; preds = %27, %23
-  store ptr getelementptr inbounds ({ [3 x ptr] }, ptr @_ZTV6Parent, i64 0, inrange i32 0, i64 2), ptr %2, align 8, !tbaa !10
-  %29 = getelementptr inbounds %class.Parent, ptr %2, i64 0, i32 1
-  %30 = load ptr, ptr %29, align 8, !tbaa !5
-  %31 = icmp eq ptr %30, null
-  br i1 %31, label %33, label %32
-
-32:                                               ; preds = %28
-  call void @_ZdaPv(ptr noundef nonnull %30) #13
-  br label %33
-
-33:                                               ; preds = %28, %32
-  call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %2) #12
-  call void @_ZdaPv(ptr noundef nonnull %7) #13
-  call void @_ZdaPv(ptr noundef nonnull %4) #13
-  call void @llvm.lifetime.end.p0(i64 24, ptr nonnull %1) #12
+delete.notnull.i.i:                               ; preds = %delete.end.i
   call void @_ZdaPv(ptr noundef nonnull %3) #13
+  br label %delete.end.i.i
+
+delete.end.i.i:                                   ; preds = %delete.notnull.i.i, %delete.end.i
+  store ptr getelementptr inbounds ({ [3 x ptr] }, ptr @_ZTV6Parent, i64 0, inrange i32 0, i64 2), ptr %g, align 8, !tbaa !10
+  %lastName.i.i.i = getelementptr inbounds %class.Parent, ptr %g, i64 0, i32 1
+  %4 = load ptr, ptr %lastName.i.i.i, align 8, !tbaa !5
+  %isnull.i.i.i = icmp eq ptr %4, null
+  br i1 %isnull.i.i.i, label %_ZN6ParentD2Ev.exit, label %delete.notnull.i.i.i
+
+delete.notnull.i.i.i:                             ; preds = %delete.end.i.i
+  call void @_ZdaPv(ptr noundef nonnull %4) #13
+  br label %_ZN6ParentD2Ev.exit
+
+_ZN6ParentD2Ev.exit:                              ; preds = %delete.end.i.i, %delete.notnull.i.i.i
+  call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %g) #12
+  call void @_ZdaPv(ptr noundef nonnull %call2.i18) #13
+  call void @_ZdaPv(ptr noundef nonnull %call2.i.i20) #13
+  call void @llvm.lifetime.end.p0(i64 24, ptr nonnull %c) #12
+  call void @_ZdaPv(ptr noundef nonnull %call2.i) #13
   ret i32 0
 
-34:                                               ; preds = %0
-  %35 = landingpad { ptr, i32 }
+lpad:                                             ; preds = %entry
+  %5 = landingpad { ptr, i32 }
           cleanup
-  br label %40
+  br label %ehcleanup12.thread
 
-36:                                               ; preds = %10
-  %37 = landingpad { ptr, i32 }
+lpad1:                                            ; preds = %invoke.cont
+  %6 = landingpad { ptr, i32 }
           cleanup
-  br label %42
+  br label %ehcleanup12
 
-38:                                               ; preds = %12
-  %39 = landingpad { ptr, i32 }
+lpad3:                                            ; preds = %invoke.cont4
+  %7 = landingpad { ptr, i32 }
           cleanup
-  call void @_ZN10GrandChildD2Ev(ptr noundef nonnull align 8 dereferenceable(32) %2) #12
-  br label %42
+  call void @_ZN10GrandChildD2Ev(ptr noundef nonnull align 8 dereferenceable(32) %g) #12
+  br label %ehcleanup12
 
-40:                                               ; preds = %34, %8
-  %41 = phi { ptr, i32 } [ %9, %8 ], [ %35, %34 ]
-  call void @llvm.lifetime.end.p0(i64 24, ptr nonnull %1) #12
-  br label %44
+ehcleanup12.thread:                               ; preds = %lpad, %_ZN6ParentD2Ev.exit.i
+  %.pn.pn.ph = phi { ptr, i32 } [ %0, %_ZN6ParentD2Ev.exit.i ], [ %5, %lpad ]
+  call void @llvm.lifetime.end.p0(i64 24, ptr nonnull %c) #12
+  br label %_ZN6ParentD2Ev.exit37
 
-42:                                               ; preds = %36, %38
-  %43 = phi { ptr, i32 } [ %39, %38 ], [ %37, %36 ]
-  call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %2) #12
-  call void @_ZN5ChildD2Ev(ptr noundef nonnull align 8 dereferenceable(24) %1) #12
-  call void @llvm.lifetime.end.p0(i64 24, ptr nonnull %1) #12
-  br label %44
+ehcleanup12:                                      ; preds = %lpad1, %lpad3
+  %.pn = phi { ptr, i32 } [ %7, %lpad3 ], [ %6, %lpad1 ]
+  call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %g) #12
+  call void @_ZN5ChildD2Ev(ptr noundef nonnull align 8 dereferenceable(24) %c) #12
+  call void @llvm.lifetime.end.p0(i64 24, ptr nonnull %c) #12
+  br label %_ZN6ParentD2Ev.exit37
 
-44:                                               ; preds = %40, %42
-  %45 = phi { ptr, i32 } [ %41, %40 ], [ %43, %42 ]
-  call void @_ZdaPv(ptr noundef nonnull %3) #13
-  resume { ptr, i32 } %45
+_ZN6ParentD2Ev.exit37:                            ; preds = %ehcleanup12.thread, %ehcleanup12
+  %.pn.pn40 = phi { ptr, i32 } [ %.pn.pn.ph, %ehcleanup12.thread ], [ %.pn, %ehcleanup12 ]
+  call void @_ZdaPv(ptr noundef nonnull %call2.i) #13
+  resume { ptr, i32 } %.pn.pn40
 }
 
 ; Function Attrs: mustprogress nocallback nofree nosync nounwind willreturn memory(argmem: readwrite)
@@ -176,113 +177,116 @@ declare void @llvm.lifetime.start.p0(i64 immarg, ptr nocapture) #1
 declare i32 @__gxx_personality_v0(...)
 
 ; Function Attrs: uwtable
-define linkonce_odr dso_local void @_ZN10GrandChildC2EPcS0_S0_(ptr noundef nonnull align 8 dereferenceable(32) %0, ptr noundef %1, ptr noundef %2, ptr noundef %3) unnamed_addr #2 comdat align 2 personality ptr @__gxx_personality_v0 {
-  store ptr getelementptr inbounds ({ [3 x ptr] }, ptr @_ZTV6Parent, i64 0, inrange i32 0, i64 2), ptr %0, align 8, !tbaa !10
-  %5 = tail call noalias noundef nonnull dereferenceable(100) ptr @_Znam(i64 noundef 100) #11
-  %6 = getelementptr inbounds %class.Parent, ptr %0, i64 0, i32 1
-  store ptr %5, ptr %6, align 8, !tbaa !5
-  %7 = tail call ptr @strcpy(ptr noundef nonnull dereferenceable(1) %5, ptr noundef nonnull dereferenceable(1) %1) #12
-  store ptr getelementptr inbounds ({ [3 x ptr] }, ptr @_ZTV5Child, i64 0, inrange i32 0, i64 2), ptr %0, align 8, !tbaa !10
-  %8 = invoke noalias noundef nonnull dereferenceable(100) ptr @_Znam(i64 noundef 100) #11
-          to label %13 unwind label %11
+define linkonce_odr dso_local void @_ZN10GrandChildC2EPcS0_S0_(ptr noundef nonnull align 8 dereferenceable(32) %this, ptr noundef %aLastName, ptr noundef %aFirstName, ptr noundef %aGrandFatherName) unnamed_addr #2 comdat align 2 personality ptr @__gxx_personality_v0 {
+entry:
+  store ptr getelementptr inbounds ({ [3 x ptr] }, ptr @_ZTV6Parent, i64 0, inrange i32 0, i64 2), ptr %this, align 8, !tbaa !10
+  %call2.i.i = tail call noalias noundef nonnull dereferenceable(100) ptr @_Znam(i64 noundef 100) #11
+  %lastName.i.i = getelementptr inbounds %class.Parent, ptr %this, i64 0, i32 1
+  store ptr %call2.i.i, ptr %lastName.i.i, align 8, !tbaa !5
+  %call4.i.i = tail call ptr @strcpy(ptr noundef nonnull dereferenceable(1) %call2.i.i, ptr noundef nonnull dereferenceable(1) %aLastName) #12
+  store ptr getelementptr inbounds ({ [3 x ptr] }, ptr @_ZTV5Child, i64 0, inrange i32 0, i64 2), ptr %this, align 8, !tbaa !10
+  %call2.i = invoke noalias noundef nonnull dereferenceable(100) ptr @_Znam(i64 noundef 100) #11
+          to label %_ZN5ChildC2EPcS0_.exit unwind label %_ZN6ParentD2Ev.exit.i
 
-9:                                                ; preds = %20, %11
-  %10 = phi { ptr, i32 } [ %12, %11 ], [ %21, %20 ]
-  resume { ptr, i32 } %10
+common.resume:                                    ; preds = %lpad, %_ZN6ParentD2Ev.exit.i
+  %common.resume.op = phi { ptr, i32 } [ %0, %_ZN6ParentD2Ev.exit.i ], [ %1, %lpad ]
+  resume { ptr, i32 } %common.resume.op
 
-11:                                               ; preds = %4
-  %12 = landingpad { ptr, i32 }
+_ZN6ParentD2Ev.exit.i:                            ; preds = %entry
+  %0 = landingpad { ptr, i32 }
           cleanup
-  store ptr getelementptr inbounds ({ [3 x ptr] }, ptr @_ZTV6Parent, i64 0, inrange i32 0, i64 2), ptr %0, align 8, !tbaa !10
-  tail call void @_ZdaPv(ptr noundef nonnull %5) #13
-  br label %9
+  store ptr getelementptr inbounds ({ [3 x ptr] }, ptr @_ZTV6Parent, i64 0, inrange i32 0, i64 2), ptr %this, align 8, !tbaa !10
+  tail call void @_ZdaPv(ptr noundef nonnull %call2.i.i) #13
+  br label %common.resume
 
-13:                                               ; preds = %4
-  %14 = getelementptr inbounds %class.Child, ptr %0, i64 0, i32 1
-  store ptr %8, ptr %14, align 8, !tbaa !12
-  %15 = tail call ptr @strcpy(ptr noundef nonnull dereferenceable(1) %8, ptr noundef nonnull dereferenceable(1) %2) #12
-  store ptr getelementptr inbounds ({ [3 x ptr] }, ptr @_ZTV10GrandChild, i64 0, inrange i32 0, i64 2), ptr %0, align 8, !tbaa !10
-  %16 = invoke noalias noundef nonnull dereferenceable(100) ptr @_Znam(i64 noundef 100) #11
-          to label %17 unwind label %20
+_ZN5ChildC2EPcS0_.exit:                           ; preds = %entry
+  %firstName.i = getelementptr inbounds %class.Child, ptr %this, i64 0, i32 1
+  store ptr %call2.i, ptr %firstName.i, align 8, !tbaa !12
+  %call4.i = tail call ptr @strcpy(ptr noundef nonnull dereferenceable(1) %call2.i, ptr noundef nonnull dereferenceable(1) %aFirstName) #12
+  store ptr getelementptr inbounds ({ [3 x ptr] }, ptr @_ZTV10GrandChild, i64 0, inrange i32 0, i64 2), ptr %this, align 8, !tbaa !10
+  %call2 = invoke noalias noundef nonnull dereferenceable(100) ptr @_Znam(i64 noundef 100) #11
+          to label %invoke.cont unwind label %lpad
 
-17:                                               ; preds = %13
-  %18 = getelementptr inbounds %class.GrandChild, ptr %0, i64 0, i32 1
-  store ptr %16, ptr %18, align 8, !tbaa !14
-  %19 = tail call ptr @strcpy(ptr noundef nonnull dereferenceable(1) %16, ptr noundef nonnull dereferenceable(1) %3) #12
+invoke.cont:                                      ; preds = %_ZN5ChildC2EPcS0_.exit
+  %grandFatherName = getelementptr inbounds %class.GrandChild, ptr %this, i64 0, i32 1
+  store ptr %call2, ptr %grandFatherName, align 8, !tbaa !14
+  %call4 = tail call ptr @strcpy(ptr noundef nonnull dereferenceable(1) %call2, ptr noundef nonnull dereferenceable(1) %aGrandFatherName) #12
   ret void
 
-20:                                               ; preds = %13
-  %21 = landingpad { ptr, i32 }
+lpad:                                             ; preds = %_ZN5ChildC2EPcS0_.exit
+  %1 = landingpad { ptr, i32 }
           cleanup
-  tail call void @_ZN5ChildD2Ev(ptr noundef nonnull align 8 dereferenceable(24) %0) #12
-  br label %9
+  tail call void @_ZN5ChildD2Ev(ptr noundef nonnull align 8 dereferenceable(24) %this) #12
+  br label %common.resume
 }
 
 ; Function Attrs: mustprogress nocallback nofree nosync nounwind willreturn memory(argmem: readwrite)
 declare void @llvm.lifetime.end.p0(i64 immarg, ptr nocapture) #1
 
 ; Function Attrs: nounwind uwtable
-define linkonce_odr dso_local void @_ZN10GrandChildD2Ev(ptr noundef nonnull align 8 dereferenceable(32) %0) unnamed_addr #3 comdat align 2 {
-  store ptr getelementptr inbounds ({ [3 x ptr] }, ptr @_ZTV10GrandChild, i64 0, inrange i32 0, i64 2), ptr %0, align 8, !tbaa !10
-  %2 = getelementptr inbounds %class.GrandChild, ptr %0, i64 0, i32 1
-  %3 = load ptr, ptr %2, align 8, !tbaa !14
-  %4 = icmp eq ptr %3, null
-  br i1 %4, label %6, label %5
+define linkonce_odr dso_local void @_ZN10GrandChildD2Ev(ptr noundef nonnull align 8 dereferenceable(32) %this) unnamed_addr #3 comdat align 2 {
+entry:
+  store ptr getelementptr inbounds ({ [3 x ptr] }, ptr @_ZTV10GrandChild, i64 0, inrange i32 0, i64 2), ptr %this, align 8, !tbaa !10
+  %grandFatherName = getelementptr inbounds %class.GrandChild, ptr %this, i64 0, i32 1
+  %0 = load ptr, ptr %grandFatherName, align 8, !tbaa !14
+  %isnull = icmp eq ptr %0, null
+  br i1 %isnull, label %delete.end, label %delete.notnull
 
-5:                                                ; preds = %1
-  tail call void @_ZdaPv(ptr noundef nonnull %3) #13
-  br label %6
+delete.notnull:                                   ; preds = %entry
+  tail call void @_ZdaPv(ptr noundef nonnull %0) #13
+  br label %delete.end
 
-6:                                                ; preds = %5, %1
-  store ptr getelementptr inbounds ({ [3 x ptr] }, ptr @_ZTV5Child, i64 0, inrange i32 0, i64 2), ptr %0, align 8, !tbaa !10
-  %7 = getelementptr inbounds %class.Child, ptr %0, i64 0, i32 1
-  %8 = load ptr, ptr %7, align 8, !tbaa !12
-  %9 = icmp eq ptr %8, null
-  br i1 %9, label %11, label %10
+delete.end:                                       ; preds = %delete.notnull, %entry
+  store ptr getelementptr inbounds ({ [3 x ptr] }, ptr @_ZTV5Child, i64 0, inrange i32 0, i64 2), ptr %this, align 8, !tbaa !10
+  %firstName.i = getelementptr inbounds %class.Child, ptr %this, i64 0, i32 1
+  %1 = load ptr, ptr %firstName.i, align 8, !tbaa !12
+  %isnull.i = icmp eq ptr %1, null
+  br i1 %isnull.i, label %delete.end.i, label %delete.notnull.i
 
-10:                                               ; preds = %6
-  tail call void @_ZdaPv(ptr noundef nonnull %8) #13
-  br label %11
+delete.notnull.i:                                 ; preds = %delete.end
+  tail call void @_ZdaPv(ptr noundef nonnull %1) #13
+  br label %delete.end.i
 
-11:                                               ; preds = %10, %6
-  store ptr getelementptr inbounds ({ [3 x ptr] }, ptr @_ZTV6Parent, i64 0, inrange i32 0, i64 2), ptr %0, align 8, !tbaa !10
-  %12 = getelementptr inbounds %class.Parent, ptr %0, i64 0, i32 1
-  %13 = load ptr, ptr %12, align 8, !tbaa !5
-  %14 = icmp eq ptr %13, null
-  br i1 %14, label %16, label %15
+delete.end.i:                                     ; preds = %delete.notnull.i, %delete.end
+  store ptr getelementptr inbounds ({ [3 x ptr] }, ptr @_ZTV6Parent, i64 0, inrange i32 0, i64 2), ptr %this, align 8, !tbaa !10
+  %lastName.i.i = getelementptr inbounds %class.Parent, ptr %this, i64 0, i32 1
+  %2 = load ptr, ptr %lastName.i.i, align 8, !tbaa !5
+  %isnull.i.i = icmp eq ptr %2, null
+  br i1 %isnull.i.i, label %_ZN5ChildD2Ev.exit, label %delete.notnull.i.i
 
-15:                                               ; preds = %11
-  tail call void @_ZdaPv(ptr noundef nonnull %13) #13
-  br label %16
+delete.notnull.i.i:                               ; preds = %delete.end.i
+  tail call void @_ZdaPv(ptr noundef nonnull %2) #13
+  br label %_ZN5ChildD2Ev.exit
 
-16:                                               ; preds = %11, %15
+_ZN5ChildD2Ev.exit:                               ; preds = %delete.end.i, %delete.notnull.i.i
   ret void
 }
 
 ; Function Attrs: nounwind uwtable
-define linkonce_odr dso_local void @_ZN5ChildD2Ev(ptr noundef nonnull align 8 dereferenceable(24) %0) unnamed_addr #3 comdat align 2 {
-  store ptr getelementptr inbounds ({ [3 x ptr] }, ptr @_ZTV5Child, i64 0, inrange i32 0, i64 2), ptr %0, align 8, !tbaa !10
-  %2 = getelementptr inbounds %class.Child, ptr %0, i64 0, i32 1
-  %3 = load ptr, ptr %2, align 8, !tbaa !12
-  %4 = icmp eq ptr %3, null
-  br i1 %4, label %6, label %5
+define linkonce_odr dso_local void @_ZN5ChildD2Ev(ptr noundef nonnull align 8 dereferenceable(24) %this) unnamed_addr #3 comdat align 2 {
+entry:
+  store ptr getelementptr inbounds ({ [3 x ptr] }, ptr @_ZTV5Child, i64 0, inrange i32 0, i64 2), ptr %this, align 8, !tbaa !10
+  %firstName = getelementptr inbounds %class.Child, ptr %this, i64 0, i32 1
+  %0 = load ptr, ptr %firstName, align 8, !tbaa !12
+  %isnull = icmp eq ptr %0, null
+  br i1 %isnull, label %delete.end, label %delete.notnull
 
-5:                                                ; preds = %1
-  tail call void @_ZdaPv(ptr noundef nonnull %3) #13
-  br label %6
+delete.notnull:                                   ; preds = %entry
+  tail call void @_ZdaPv(ptr noundef nonnull %0) #13
+  br label %delete.end
 
-6:                                                ; preds = %5, %1
-  store ptr getelementptr inbounds ({ [3 x ptr] }, ptr @_ZTV6Parent, i64 0, inrange i32 0, i64 2), ptr %0, align 8, !tbaa !10
-  %7 = getelementptr inbounds %class.Parent, ptr %0, i64 0, i32 1
-  %8 = load ptr, ptr %7, align 8, !tbaa !5
-  %9 = icmp eq ptr %8, null
-  br i1 %9, label %11, label %10
+delete.end:                                       ; preds = %delete.notnull, %entry
+  store ptr getelementptr inbounds ({ [3 x ptr] }, ptr @_ZTV6Parent, i64 0, inrange i32 0, i64 2), ptr %this, align 8, !tbaa !10
+  %lastName.i = getelementptr inbounds %class.Parent, ptr %this, i64 0, i32 1
+  %1 = load ptr, ptr %lastName.i, align 8, !tbaa !5
+  %isnull.i = icmp eq ptr %1, null
+  br i1 %isnull.i, label %_ZN6ParentD2Ev.exit, label %delete.notnull.i
 
-10:                                               ; preds = %6
-  tail call void @_ZdaPv(ptr noundef nonnull %8) #13
-  br label %11
+delete.notnull.i:                                 ; preds = %delete.end
+  tail call void @_ZdaPv(ptr noundef nonnull %1) #13
+  br label %_ZN6ParentD2Ev.exit
 
-11:                                               ; preds = %6, %10
+_ZN6ParentD2Ev.exit:                              ; preds = %delete.end, %delete.notnull.i
   ret void
 }
 
@@ -293,10 +297,11 @@ declare noundef nonnull ptr @_Znam(i64 noundef) local_unnamed_addr #4
 declare ptr @strcpy(ptr noalias noundef returned writeonly, ptr noalias nocapture noundef readonly) local_unnamed_addr #5
 
 ; Function Attrs: mustprogress uwtable
-define linkonce_odr dso_local void @_ZN6Parent10answerNameEv(ptr noundef nonnull align 8 dereferenceable(16) %0) unnamed_addr #6 comdat align 2 {
-  %2 = getelementptr inbounds %class.Parent, ptr %0, i64 0, i32 1
-  %3 = load ptr, ptr %2, align 8, !tbaa !5
-  %4 = tail call i32 @puts(ptr nonnull dereferenceable(1) %3)
+define linkonce_odr dso_local void @_ZN6Parent10answerNameEv(ptr noundef nonnull align 8 dereferenceable(16) %this) unnamed_addr #6 comdat align 2 {
+entry:
+  %lastName = getelementptr inbounds %class.Parent, ptr %this, i64 0, i32 1
+  %0 = load ptr, ptr %lastName, align 8, !tbaa !5
+  %puts = tail call i32 @puts(ptr nonnull dereferenceable(1) %0)
   ret void
 }
 
@@ -304,13 +309,14 @@ define linkonce_odr dso_local void @_ZN6Parent10answerNameEv(ptr noundef nonnull
 declare noundef i32 @printf(ptr nocapture noundef readonly, ...) local_unnamed_addr #7
 
 ; Function Attrs: mustprogress uwtable
-define linkonce_odr dso_local void @_ZN5Child10answerNameEv(ptr noundef nonnull align 8 dereferenceable(24) %0) unnamed_addr #6 comdat align 2 {
-  %2 = getelementptr inbounds %class.Parent, ptr %0, i64 0, i32 1
-  %3 = load ptr, ptr %2, align 8, !tbaa !5
-  %4 = tail call i32 @puts(ptr nonnull dereferenceable(1) %3)
-  %5 = getelementptr inbounds %class.Child, ptr %0, i64 0, i32 1
-  %6 = load ptr, ptr %5, align 8, !tbaa !12
-  %7 = tail call i32 @puts(ptr nonnull dereferenceable(1) %6)
+define linkonce_odr dso_local void @_ZN5Child10answerNameEv(ptr noundef nonnull align 8 dereferenceable(24) %this) unnamed_addr #6 comdat align 2 {
+entry:
+  %lastName.i = getelementptr inbounds %class.Parent, ptr %this, i64 0, i32 1
+  %0 = load ptr, ptr %lastName.i, align 8, !tbaa !5
+  %puts.i = tail call i32 @puts(ptr nonnull dereferenceable(1) %0)
+  %firstName = getelementptr inbounds %class.Child, ptr %this, i64 0, i32 1
+  %1 = load ptr, ptr %firstName, align 8, !tbaa !12
+  %puts = tail call i32 @puts(ptr nonnull dereferenceable(1) %1)
   ret void
 }
 
@@ -318,16 +324,17 @@ define linkonce_odr dso_local void @_ZN5Child10answerNameEv(ptr noundef nonnull 
 declare void @_ZdaPv(ptr noundef) local_unnamed_addr #8
 
 ; Function Attrs: mustprogress uwtable
-define linkonce_odr dso_local void @_ZN10GrandChild10answerNameEv(ptr noundef nonnull align 8 dereferenceable(32) %0) unnamed_addr #6 comdat align 2 {
-  %2 = getelementptr inbounds %class.Parent, ptr %0, i64 0, i32 1
-  %3 = load ptr, ptr %2, align 8, !tbaa !5
-  %4 = tail call i32 @puts(ptr nonnull dereferenceable(1) %3)
-  %5 = getelementptr inbounds %class.Child, ptr %0, i64 0, i32 1
-  %6 = load ptr, ptr %5, align 8, !tbaa !12
-  %7 = tail call i32 @puts(ptr nonnull dereferenceable(1) %6)
-  %8 = getelementptr inbounds %class.GrandChild, ptr %0, i64 0, i32 1
-  %9 = load ptr, ptr %8, align 8, !tbaa !14
-  %10 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.5, ptr noundef %9)
+define linkonce_odr dso_local void @_ZN10GrandChild10answerNameEv(ptr noundef nonnull align 8 dereferenceable(32) %this) unnamed_addr #6 comdat align 2 {
+entry:
+  %lastName.i.i = getelementptr inbounds %class.Parent, ptr %this, i64 0, i32 1
+  %0 = load ptr, ptr %lastName.i.i, align 8, !tbaa !5
+  %puts.i.i = tail call i32 @puts(ptr nonnull dereferenceable(1) %0)
+  %firstName.i = getelementptr inbounds %class.Child, ptr %this, i64 0, i32 1
+  %1 = load ptr, ptr %firstName.i, align 8, !tbaa !12
+  %puts.i = tail call i32 @puts(ptr nonnull dereferenceable(1) %1)
+  %grandFatherName = getelementptr inbounds %class.GrandChild, ptr %this, i64 0, i32 1
+  %2 = load ptr, ptr %grandFatherName, align 8, !tbaa !14
+  %call = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.5, ptr noundef %2)
   ret void
 }
 

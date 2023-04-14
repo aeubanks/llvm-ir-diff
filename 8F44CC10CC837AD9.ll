@@ -45,559 +45,560 @@ declare void @llvm.lifetime.end.p0(i64 immarg, ptr nocapture) #3
 declare ptr @llvm.invariant.start.p0(i64 immarg, ptr nocapture) #3
 
 ; Function Attrs: norecurse uwtable
-define dso_local noundef i32 @main(i32 noundef %0, ptr nocapture noundef readonly %1) local_unnamed_addr #4 personality ptr @__gxx_personality_v0 {
-  %3 = alloca [4 x %struct.v_t], align 16
-  %4 = alloca %struct.v_t, align 8
-  %5 = alloca %struct.v_t, align 8
-  %6 = icmp eq i32 %0, 2
-  br i1 %6, label %7, label %14
+define dso_local noundef i32 @main(i32 noundef %argc, ptr nocapture noundef readonly %argv) local_unnamed_addr #4 personality ptr @__gxx_personality_v0 {
+entry:
+  %rgss.i = alloca [4 x %struct.v_t], align 16
+  %agg.tmp = alloca %struct.v_t, align 8
+  %agg.tmp6 = alloca %struct.v_t, align 8
+  %cmp = icmp eq i32 %argc, 2
+  br i1 %cmp, label %cond.end, label %while.body.preheader
 
-7:                                                ; preds = %2
-  %8 = getelementptr inbounds ptr, ptr %1, i64 1
-  %9 = load ptr, ptr %8, align 8, !tbaa !5
-  %10 = tail call i64 @strtol(ptr nocapture noundef nonnull %9, ptr noundef null, i32 noundef 10) #14
-  %11 = trunc i64 %10 to i32
-  %12 = tail call i32 @llvm.smax.i32(i32 %11, i32 2)
-  %13 = icmp ugt i32 %12, 2
-  br i1 %13, label %14, label %25
+cond.end:                                         ; preds = %entry
+  %arrayidx = getelementptr inbounds ptr, ptr %argv, i64 1
+  %0 = load ptr, ptr %arrayidx, align 8, !tbaa !5
+  %call.i = tail call i64 @strtol(ptr nocapture noundef nonnull %0, ptr noundef null, i32 noundef 10) #14
+  %conv.i = trunc i64 %call.i to i32
+  %.sroa.speculated = tail call i32 @llvm.smax.i32(i32 %conv.i, i32 2)
+  %cmp428 = icmp ugt i32 %.sroa.speculated, 2
+  br i1 %cmp428, label %while.body.preheader, label %while.end
 
-14:                                               ; preds = %2, %7
-  %15 = phi i32 [ %12, %7 ], [ 6, %2 ]
-  br label %16
+while.body.preheader:                             ; preds = %entry, %cond.end
+  %cond34 = phi i32 [ %.sroa.speculated, %cond.end ], [ 6, %entry ]
+  br label %while.body
 
-16:                                               ; preds = %14, %16
-  %17 = phi i32 [ %21, %16 ], [ 9, %14 ]
-  %18 = phi i32 [ %19, %16 ], [ %15, %14 ]
-  %19 = add nsw i32 %18, -1
-  %20 = mul nsw i32 %17, 9
-  %21 = add nsw i32 %20, 9
-  %22 = icmp ugt i32 %18, 3
-  br i1 %22, label %16, label %23, !llvm.loop !9
+while.body:                                       ; preds = %while.body.preheader, %while.body
+  %count.030 = phi i32 [ %add, %while.body ], [ 9, %while.body.preheader ]
+  %dec.029 = phi i32 [ %dec3, %while.body ], [ %cond34, %while.body.preheader ]
+  %dec3 = add nsw i32 %dec.029, -1
+  %mul = mul nsw i32 %count.030, 9
+  %add = add nsw i32 %mul, 9
+  %cmp4 = icmp ugt i32 %dec.029, 3
+  br i1 %cmp4, label %while.body, label %while.end.loopexit, !llvm.loop !9
 
-23:                                               ; preds = %16
-  %24 = add nsw i32 %20, 10
-  br label %25
+while.end.loopexit:                               ; preds = %while.body
+  %1 = add nsw i32 %mul, 10
+  br label %while.end
 
-25:                                               ; preds = %23, %7
-  %26 = phi i32 [ 2, %7 ], [ %15, %23 ]
-  %27 = phi i32 [ 10, %7 ], [ %24, %23 ]
-  %28 = sext i32 %27 to i64
-  %29 = tail call { i64, i1 } @llvm.umul.with.overflow.i64(i64 %28, i64 72)
-  %30 = extractvalue { i64, i1 } %29, 1
-  %31 = extractvalue { i64, i1 } %29, 0
-  %32 = select i1 %30, i64 -1, i64 %31
-  %33 = tail call noalias noundef nonnull ptr @_Znam(i64 noundef %32) #15
-  %34 = getelementptr inbounds %struct.node_t, ptr %33, i64 %28
-  call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(24) %4, i8 0, i64 24, i1 false)
-  br label %35
+while.end:                                        ; preds = %while.end.loopexit, %cond.end
+  %cond33 = phi i32 [ 2, %cond.end ], [ %cond34, %while.end.loopexit ]
+  %count.0.lcssa = phi i32 [ 10, %cond.end ], [ %1, %while.end.loopexit ]
+  %conv = sext i32 %count.0.lcssa to i64
+  %2 = tail call { i64, i1 } @llvm.umul.with.overflow.i64(i64 %conv, i64 72)
+  %3 = extractvalue { i64, i1 } %2, 1
+  %4 = extractvalue { i64, i1 } %2, 0
+  %5 = select i1 %3, i64 -1, i64 %4
+  %call5 = tail call noalias noundef nonnull ptr @_Znam(i64 noundef %5) #15
+  %add.ptr = getelementptr inbounds %struct.node_t, ptr %call5, i64 %conv
+  call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(24) %agg.tmp, i8 0, i64 24, i1 false)
+  br label %while.body.i.i
 
-35:                                               ; preds = %25, %35
-  %36 = phi i32 [ %45, %35 ], [ 100, %25 ]
-  %37 = phi double [ %40, %35 ], [ 1.000000e+00, %25 ]
-  %38 = fdiv double 1.312500e+00, %37
-  %39 = fadd double %37, %38
-  %40 = fmul double %39, 5.000000e-01
-  %41 = fsub double %40, %37
-  %42 = fcmp ule double %41, 0x3D719799812DEA11
-  %43 = fcmp uge double %41, 0xBD719799812DEA11
-  %44 = and i1 %42, %43
-  %45 = add nsw i32 %36, -1
-  %46 = icmp eq i32 %45, 0
-  %47 = select i1 %44, i1 true, i1 %46
-  br i1 %47, label %48, label %35, !llvm.loop !11
+while.body.i.i:                                   ; preds = %while.end, %while.body.i.i
+  %it.014.i.i = phi i32 [ %dec.i.i, %while.body.i.i ], [ 100, %while.end ]
+  %xk.013.i.i = phi double [ %div1.i.i, %while.body.i.i ], [ 1.000000e+00, %while.end ]
+  %div.i.i = fdiv double 1.312500e+00, %xk.013.i.i
+  %add.i.i = fadd double %xk.013.i.i, %div.i.i
+  %div1.i.i = fmul double %add.i.i, 5.000000e-01
+  %sub.i.i.i = fsub double %div1.i.i, %xk.013.i.i
+  %cmp.i.i.i = fcmp ule double %sub.i.i.i, 0x3D719799812DEA11
+  %cmp1.i.i.i = fcmp uge double %sub.i.i.i, 0xBD719799812DEA11
+  %.not.i.i = and i1 %cmp.i.i.i, %cmp1.i.i.i
+  %dec.i.i = add nsw i32 %it.014.i.i, -1
+  %tobool.not.i.i = icmp eq i32 %dec.i.i, 0
+  %or.cond.i.i = select i1 %.not.i.i, i1 true, i1 %tobool.not.i.i
+  br i1 %or.cond.i.i, label %_ZNK3v_t4normEv.exit, label %while.body.i.i, !llvm.loop !11
 
-48:                                               ; preds = %35
-  %49 = fdiv double 1.000000e+00, %40
-  %50 = fmul double %49, 2.500000e-01
-  %51 = fmul double %49, -5.000000e-01
-  store double %50, ptr %5, align 8, !tbaa !12, !alias.scope !15
-  %52 = getelementptr inbounds %struct.v_t, ptr %5, i64 0, i32 1
-  store double %49, ptr %52, align 8, !tbaa !20, !alias.scope !15
-  %53 = getelementptr inbounds %struct.v_t, ptr %5, i64 0, i32 2
-  store double %51, ptr %53, align 8, !tbaa !21, !alias.scope !15
-  %54 = tail call fastcc noundef ptr @_ZL6createP6node_tii3v_tS1_d(ptr noundef nonnull %33, i32 noundef %26, i32 noundef %27, ptr noundef nonnull byval(%struct.v_t) align 8 %4, ptr noundef nonnull byval(%struct.v_t) align 8 %5, double noundef 1.000000e+00)
-  %55 = tail call noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cout, ptr noundef nonnull @.str, i64 noundef 3)
-  %56 = tail call noundef nonnull align 8 dereferenceable(8) ptr @_ZNSolsEi(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cout, i32 noundef 1024)
-  %57 = tail call noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) %56, ptr noundef nonnull @.str.2, i64 noundef 1)
-  %58 = tail call noundef nonnull align 8 dereferenceable(8) ptr @_ZNSolsEi(ptr noundef nonnull align 8 dereferenceable(8) %56, i32 noundef 1024)
-  %59 = tail call noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) %58, ptr noundef nonnull @.str.3, i64 noundef 5)
-  call void @llvm.lifetime.start.p0(i64 96, ptr nonnull %3) #14
-  store <2 x double> <double -5.125000e+02, double 0xC080015555555555>, ptr %3, align 16
-  %60 = getelementptr inbounds i8, ptr %3, i64 16
-  store <2 x double> <double 0.000000e+00, double 0xC07FFD5555555555>, ptr %60, align 16
-  %61 = getelementptr inbounds [4 x %struct.v_t], ptr %3, i64 0, i64 1, i32 1
-  store <2 x double> <double -5.125000e+02, double 0.000000e+00>, ptr %61, align 16
-  %62 = getelementptr inbounds [4 x %struct.v_t], ptr %3, i64 0, i64 2
-  store <2 x double> <double 0xC080015555555555, double -5.115000e+02>, ptr %62, align 16
-  %63 = getelementptr inbounds [4 x %struct.v_t], ptr %3, i64 0, i64 2, i32 2
-  store <2 x double> <double 0.000000e+00, double -5.115000e+02>, ptr %63, align 16
-  %64 = getelementptr inbounds [4 x %struct.v_t], ptr %3, i64 0, i64 3, i32 1
-  store <2 x double> <double 0xC07FFD5555555555, double 0.000000e+00>, ptr %64, align 16
-  %65 = icmp sgt i32 %27, 0
-  br label %66
+_ZNK3v_t4normEv.exit:                             ; preds = %while.body.i.i
+  %div.i = fdiv double 1.000000e+00, %div1.i.i
+  %mul.i.i = fmul double %div.i, 2.500000e-01
+  %mul3.i.i = fmul double %div.i, -5.000000e-01
+  store double %mul.i.i, ptr %agg.tmp6, align 8, !tbaa !12, !alias.scope !15
+  %y.i.i3.i = getelementptr inbounds %struct.v_t, ptr %agg.tmp6, i64 0, i32 1
+  store double %div.i, ptr %y.i.i3.i, align 8, !tbaa !20, !alias.scope !15
+  %z.i.i4.i = getelementptr inbounds %struct.v_t, ptr %agg.tmp6, i64 0, i32 2
+  store double %mul3.i.i, ptr %z.i.i4.i, align 8, !tbaa !21, !alias.scope !15
+  %call8 = tail call fastcc noundef ptr @_ZL6createP6node_tii3v_tS1_d(ptr noundef nonnull %call5, i32 noundef %cond33, i32 noundef %count.0.lcssa, ptr noundef nonnull byval(%struct.v_t) align 8 %agg.tmp, ptr noundef nonnull byval(%struct.v_t) align 8 %agg.tmp6, double noundef 1.000000e+00)
+  %call1.i = tail call noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cout, ptr noundef nonnull @.str, i64 noundef 3)
+  %call10 = tail call noundef nonnull align 8 dereferenceable(8) ptr @_ZNSolsEi(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cout, i32 noundef 1024)
+  %call1.i23 = tail call noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) %call10, ptr noundef nonnull @.str.2, i64 noundef 1)
+  %call12 = tail call noundef nonnull align 8 dereferenceable(8) ptr @_ZNSolsEi(ptr noundef nonnull align 8 dereferenceable(8) %call10, i32 noundef 1024)
+  %call1.i25 = tail call noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) %call12, ptr noundef nonnull @.str.3, i64 noundef 5)
+  call void @llvm.lifetime.start.p0(i64 96, ptr nonnull %rgss.i) #14
+  store <2 x double> <double -5.125000e+02, double 0xC080015555555555>, ptr %rgss.i, align 16
+  %ref.tmp2.sroa.5.0.arrayidx11.sroa_idx.i = getelementptr inbounds i8, ptr %rgss.i, i64 16
+  store <2 x double> <double 0.000000e+00, double 0xC07FFD5555555555>, ptr %ref.tmp2.sroa.5.0.arrayidx11.sroa_idx.i, align 16
+  %ref.tmp2.sroa.4.0.arrayidx11.sroa_idx.1.i = getelementptr inbounds [4 x %struct.v_t], ptr %rgss.i, i64 0, i64 1, i32 1
+  store <2 x double> <double -5.125000e+02, double 0.000000e+00>, ptr %ref.tmp2.sroa.4.0.arrayidx11.sroa_idx.1.i, align 16
+  %arrayidx11.2.i = getelementptr inbounds [4 x %struct.v_t], ptr %rgss.i, i64 0, i64 2
+  store <2 x double> <double 0xC080015555555555, double -5.115000e+02>, ptr %arrayidx11.2.i, align 16
+  %ref.tmp2.sroa.5.0.arrayidx11.sroa_idx.2.i = getelementptr inbounds [4 x %struct.v_t], ptr %rgss.i, i64 0, i64 2, i32 2
+  store <2 x double> <double 0.000000e+00, double -5.115000e+02>, ptr %ref.tmp2.sroa.5.0.arrayidx11.sroa_idx.2.i, align 16
+  %ref.tmp2.sroa.4.0.arrayidx11.sroa_idx.3.i = getelementptr inbounds [4 x %struct.v_t], ptr %rgss.i, i64 0, i64 3, i32 1
+  store <2 x double> <double 0xC07FFD5555555555, double 0.000000e+00>, ptr %ref.tmp2.sroa.4.0.arrayidx11.sroa_idx.3.i, align 16
+  %cmp96.i.i = icmp sgt i32 %count.0.lcssa, 0
+  br label %for.cond17.preheader.i
 
-66:                                               ; preds = %420, %48
-  %67 = phi i32 [ %422, %420 ], [ 1024, %48 ]
-  %68 = phi double [ %421, %420 ], [ 1.023000e+03, %48 ]
-  br label %90
+for.cond17.preheader.i:                           ; preds = %for.cond.cleanup19.i, %_ZNK3v_t4normEv.exit
+  %i13.0188.i = phi i32 [ %dec43.i, %for.cond.cleanup19.i ], [ 1024, %_ZNK3v_t4normEv.exit ]
+  %scan.sroa.7.0187.i = phi double [ %sub41.i, %for.cond.cleanup19.i ], [ 1.023000e+03, %_ZNK3v_t4normEv.exit ]
+  br label %for.cond21.preheader.i
 
-69:                                               ; preds = %420
-  %70 = load ptr, ptr @_ZSt4cout, align 8, !tbaa !22
-  %71 = getelementptr i8, ptr %70, i64 -24
-  %72 = load i64, ptr %71, align 8
-  %73 = getelementptr inbounds i8, ptr @_ZSt4cout, i64 %72
-  %74 = getelementptr inbounds %"class.std::basic_ios", ptr %73, i64 0, i32 5
-  %75 = load ptr, ptr %74, align 8, !tbaa !24
-  %76 = icmp eq ptr %75, null
-  br i1 %76, label %77, label %78
+for.cond.cleanup15.i:                             ; preds = %for.cond.cleanup19.i
+  %vtable.i.i = load ptr, ptr @_ZSt4cout, align 8, !tbaa !22
+  %vbase.offset.ptr.i.i = getelementptr i8, ptr %vtable.i.i, i64 -24
+  %vbase.offset.i.i = load i64, ptr %vbase.offset.ptr.i.i, align 8
+  %add.ptr.i.i = getelementptr inbounds i8, ptr @_ZSt4cout, i64 %vbase.offset.i.i
+  %_M_ctype.i.i.i = getelementptr inbounds %"class.std::basic_ios", ptr %add.ptr.i.i, i64 0, i32 5
+  %6 = load ptr, ptr %_M_ctype.i.i.i, align 8, !tbaa !24
+  %tobool.not.i.i.i.i = icmp eq ptr %6, null
+  br i1 %tobool.not.i.i.i.i, label %if.then.i.i.i.i, label %_ZSt13__check_facetISt5ctypeIcEERKT_PS3_.exit.i.i.i
 
-77:                                               ; preds = %69
+if.then.i.i.i.i:                                  ; preds = %for.cond.cleanup15.i
   tail call void @_ZSt16__throw_bad_castv() #16
   unreachable
 
-78:                                               ; preds = %69
-  %79 = getelementptr inbounds %"class.std::ctype", ptr %75, i64 0, i32 8
-  %80 = load i8, ptr %79, align 8, !tbaa !34
-  %81 = icmp eq i8 %80, 0
-  br i1 %81, label %85, label %82
+_ZSt13__check_facetISt5ctypeIcEERKT_PS3_.exit.i.i.i: ; preds = %for.cond.cleanup15.i
+  %_M_widen_ok.i.i.i.i = getelementptr inbounds %"class.std::ctype", ptr %6, i64 0, i32 8
+  %7 = load i8, ptr %_M_widen_ok.i.i.i.i, align 8, !tbaa !34
+  %tobool.not.i3.i.i.i = icmp eq i8 %7, 0
+  br i1 %tobool.not.i3.i.i.i, label %if.end.i.i.i.i, label %if.then.i4.i.i.i
 
-82:                                               ; preds = %78
-  %83 = getelementptr inbounds %"class.std::ctype", ptr %75, i64 0, i32 9, i64 10
-  %84 = load i8, ptr %83, align 1, !tbaa !37
-  br label %433
+if.then.i4.i.i.i:                                 ; preds = %_ZSt13__check_facetISt5ctypeIcEERKT_PS3_.exit.i.i.i
+  %arrayidx.i.i.i.i = getelementptr inbounds %"class.std::ctype", ptr %6, i64 0, i32 9, i64 10
+  %8 = load i8, ptr %arrayidx.i.i.i.i, align 1, !tbaa !37
+  br label %_ZL10trace_rgssii.exit
 
-85:                                               ; preds = %78
-  tail call void @_ZNKSt5ctypeIcE13_M_widen_initEv(ptr noundef nonnull align 8 dereferenceable(570) %75)
-  %86 = load ptr, ptr %75, align 8, !tbaa !22
-  %87 = getelementptr inbounds ptr, ptr %86, i64 6
-  %88 = load ptr, ptr %87, align 8
-  %89 = tail call noundef signext i8 %88(ptr noundef nonnull align 8 dereferenceable(570) %75, i8 noundef signext 10)
-  br label %433
+if.end.i.i.i.i:                                   ; preds = %_ZSt13__check_facetISt5ctypeIcEERKT_PS3_.exit.i.i.i
+  tail call void @_ZNKSt5ctypeIcE13_M_widen_initEv(ptr noundef nonnull align 8 dereferenceable(570) %6)
+  %vtable.i.i.i.i = load ptr, ptr %6, align 8, !tbaa !22
+  %vfn.i.i.i.i = getelementptr inbounds ptr, ptr %vtable.i.i.i.i, i64 6
+  %9 = load ptr, ptr %vfn.i.i.i.i, align 8
+  %call.i.i.i.i = tail call noundef signext i8 %9(ptr noundef nonnull align 8 dereferenceable(570) %6, i8 noundef signext 10)
+  br label %_ZL10trace_rgssii.exit
 
-90:                                               ; preds = %424, %66
-  %91 = phi i32 [ 1024, %66 ], [ %431, %424 ]
-  %92 = phi double [ 0.000000e+00, %66 ], [ %430, %424 ]
-  %93 = load double, ptr getelementptr inbounds (%struct.v_t, ptr @_ZL5light, i64 0, i32 1), align 8
-  %94 = load <2 x double>, ptr @_ZL5light, align 16
-  %95 = load double, ptr getelementptr inbounds (%struct.v_t, ptr @_ZL5light, i64 0, i32 2), align 16
-  %96 = fneg double %93
-  br i1 %65, label %97, label %424
+for.cond21.preheader.i:                           ; preds = %for.cond.cleanup23.i, %for.cond17.preheader.i
+  %j.0186.i = phi i32 [ 1024, %for.cond17.preheader.i ], [ %dec.i, %for.cond.cleanup23.i ]
+  %scan.sroa.0.1185.i = phi double [ 0.000000e+00, %for.cond17.preheader.i ], [ %add37.i, %for.cond.cleanup23.i ]
+  %10 = load double, ptr getelementptr inbounds (%struct.v_t, ptr @_ZL5light, i64 0, i32 1), align 8
+  %11 = load <2 x double>, ptr @_ZL5light, align 16
+  %12 = load double, ptr getelementptr inbounds (%struct.v_t, ptr @_ZL5light, i64 0, i32 2), align 16
+  %fneg2.i.i.i = fneg double %10
+  br i1 %cmp96.i.i, label %for.body24.us.i.preheader, label %for.cond.cleanup23.i
 
-97:                                               ; preds = %90
-  %98 = insertelement <2 x double> <double poison, double 1.024000e+03>, double %92, i64 0
-  %99 = insertelement <2 x double> %94, double %95, i64 1
-  br label %100
+for.body24.us.i.preheader:                        ; preds = %for.cond21.preheader.i
+  %13 = insertelement <2 x double> <double poison, double 1.024000e+03>, double %scan.sroa.0.1185.i, i64 0
+  %14 = insertelement <2 x double> %11, double %12, i64 1
+  br label %for.body24.us.i
 
-100:                                              ; preds = %97, %411
-  %101 = phi i64 [ %414, %411 ], [ 0, %97 ]
-  %102 = phi double [ %413, %411 ], [ 0.000000e+00, %97 ]
-  %103 = getelementptr inbounds [4 x %struct.v_t], ptr %3, i64 0, i64 %101
-  %104 = getelementptr inbounds [4 x %struct.v_t], ptr %3, i64 0, i64 %101, i32 1
-  %105 = load double, ptr %104, align 8, !tbaa !20, !noalias !38
-  %106 = fadd double %68, %105
-  %107 = getelementptr inbounds [4 x %struct.v_t], ptr %3, i64 0, i64 %101, i32 2
-  %108 = load double, ptr %103, align 8, !tbaa !12, !noalias !38
-  %109 = load double, ptr %107, align 8, !tbaa !21, !noalias !38
-  %110 = insertelement <2 x double> poison, double %108, i64 0
-  %111 = insertelement <2 x double> %110, double %109, i64 1
-  %112 = fadd <2 x double> %98, %111
-  %113 = fmul double %106, %106
-  %114 = fmul <2 x double> %112, %112
-  %115 = extractelement <2 x double> %114, i64 0
-  %116 = fadd double %115, %113
-  %117 = extractelement <2 x double> %114, i64 1
-  %118 = fadd double %116, %117
-  %119 = fcmp oeq double %118, 0x7FF0000000000000
-  br i1 %119, label %133, label %120
+for.body24.us.i:                                  ; preds = %for.body24.us.i.preheader, %_ZL9ray_tracePK6node_tRK5ray_t.exit.us.i
+  %indvars.iv.i = phi i64 [ %indvars.iv.next.i, %_ZL9ray_tracePK6node_tRK5ray_t.exit.us.i ], [ 0, %for.body24.us.i.preheader ]
+  %g.0180.us.i = phi double [ %add.us.i, %_ZL9ray_tracePK6node_tRK5ray_t.exit.us.i ], [ 0.000000e+00, %for.body24.us.i.preheader ]
+  %arrayidx28.us.i = getelementptr inbounds [4 x %struct.v_t], ptr %rgss.i, i64 0, i64 %indvars.iv.i
+  %y3.i.us.i = getelementptr inbounds [4 x %struct.v_t], ptr %rgss.i, i64 0, i64 %indvars.iv.i, i32 1
+  %15 = load double, ptr %y3.i.us.i, align 8, !tbaa !20, !noalias !38
+  %add4.i.us.i = fadd double %scan.sroa.7.0187.i, %15
+  %z5.i.us.i = getelementptr inbounds [4 x %struct.v_t], ptr %rgss.i, i64 0, i64 %indvars.iv.i, i32 2
+  %16 = load double, ptr %arrayidx28.us.i, align 8, !tbaa !12, !noalias !38
+  %17 = load double, ptr %z5.i.us.i, align 8, !tbaa !21, !noalias !38
+  %18 = insertelement <2 x double> poison, double %16, i64 0
+  %19 = insertelement <2 x double> %18, double %17, i64 1
+  %20 = fadd <2 x double> %13, %19
+  %mul4.i.i.i.us.i = fmul double %add4.i.us.i, %add4.i.us.i
+  %21 = fmul <2 x double> %20, %20
+  %22 = extractelement <2 x double> %21, i64 0
+  %add.i.i.i.us.i = fadd double %22, %mul4.i.i.i.us.i
+  %23 = extractelement <2 x double> %21, i64 1
+  %add7.i.i.i.us.i = fadd double %add.i.i.i.us.i, %23
+  %cmp.i.i.us.i = fcmp oeq double %add7.i.i.i.us.i, 0x7FF0000000000000
+  br i1 %cmp.i.i.us.i, label %_ZNK3v_t4normEv.exit.us.i, label %while.body.i.i.us.i
 
-120:                                              ; preds = %100, %120
-  %121 = phi i32 [ %130, %120 ], [ 100, %100 ]
-  %122 = phi double [ %125, %120 ], [ 1.000000e+00, %100 ]
-  %123 = fdiv double %118, %122
-  %124 = fadd double %122, %123
-  %125 = fmul double %124, 5.000000e-01
-  %126 = fsub double %125, %122
-  %127 = fcmp ule double %126, 0x3D719799812DEA11
-  %128 = fcmp uge double %126, 0xBD719799812DEA11
-  %129 = and i1 %127, %128
-  %130 = add nsw i32 %121, -1
-  %131 = icmp eq i32 %130, 0
-  %132 = select i1 %129, i1 true, i1 %131
-  br i1 %132, label %133, label %120, !llvm.loop !11
+while.body.i.i.us.i:                              ; preds = %for.body24.us.i, %while.body.i.i.us.i
+  %it.014.i.i.us.i = phi i32 [ %dec.i.i.us.i, %while.body.i.i.us.i ], [ 100, %for.body24.us.i ]
+  %xk.013.i.i.us.i = phi double [ %div1.i.i.us.i, %while.body.i.i.us.i ], [ 1.000000e+00, %for.body24.us.i ]
+  %div.i.i.us.i = fdiv double %add7.i.i.i.us.i, %xk.013.i.i.us.i
+  %add.i.i.us.i = fadd double %xk.013.i.i.us.i, %div.i.i.us.i
+  %div1.i.i.us.i = fmul double %add.i.i.us.i, 5.000000e-01
+  %sub.i.i.i.us.i = fsub double %div1.i.i.us.i, %xk.013.i.i.us.i
+  %cmp.i.i.i.us.i = fcmp ule double %sub.i.i.i.us.i, 0x3D719799812DEA11
+  %cmp1.i.i.i.us.i = fcmp uge double %sub.i.i.i.us.i, 0xBD719799812DEA11
+  %.not.i.i.us.i = and i1 %cmp.i.i.i.us.i, %cmp1.i.i.i.us.i
+  %dec.i.i.us.i = add nsw i32 %it.014.i.i.us.i, -1
+  %tobool.not.i.i.us.i = icmp eq i32 %dec.i.i.us.i, 0
+  %or.cond.i.i.us.i = select i1 %.not.i.i.us.i, i1 true, i1 %tobool.not.i.i.us.i
+  br i1 %or.cond.i.i.us.i, label %_ZNK3v_t4normEv.exit.us.i, label %while.body.i.i.us.i, !llvm.loop !11
 
-133:                                              ; preds = %120, %100
-  %134 = phi double [ 0x7FF0000000000000, %100 ], [ %125, %120 ]
-  %135 = fdiv double 1.000000e+00, %134
-  %136 = fmul double %106, %135
-  %137 = insertelement <2 x double> poison, double %135, i64 0
-  %138 = shufflevector <2 x double> %137, <2 x double> poison, <2 x i32> zeroinitializer
-  %139 = fmul <2 x double> %112, %138
-  br label %140
+_ZNK3v_t4normEv.exit.us.i:                        ; preds = %while.body.i.i.us.i, %for.body24.us.i
+  %retval.1.i.i.us.i = phi double [ 0x7FF0000000000000, %for.body24.us.i ], [ %div1.i.i.us.i, %while.body.i.i.us.i ]
+  %div.i.us.i = fdiv double 1.000000e+00, %retval.1.i.i.us.i
+  %mul2.i.i.us.i = fmul double %add4.i.us.i, %div.i.us.i
+  %24 = insertelement <2 x double> poison, double %div.i.us.i, i64 0
+  %25 = shufflevector <2 x double> %24, <2 x double> poison, <2 x i32> zeroinitializer
+  %26 = fmul <2 x double> %20, %25
+  br label %while.body.i117.us.i
 
-140:                                              ; preds = %266, %133
-  %141 = phi double [ %267, %266 ], [ 0x7FF0000000000000, %133 ]
-  %142 = phi double [ %268, %266 ], [ 0.000000e+00, %133 ]
-  %143 = phi double [ %270, %266 ], [ 0x7FF0000000000000, %133 ]
-  %144 = phi ptr [ %272, %266 ], [ %33, %133 ]
-  %145 = phi <2 x double> [ %271, %266 ], [ zeroinitializer, %133 ]
-  %146 = getelementptr inbounds %struct.v_t, ptr %144, i64 0, i32 2
-  %147 = load double, ptr %146, align 8, !tbaa !21, !noalias !41
-  %148 = fadd double %147, 4.500000e+00
-  %149 = load <2 x double>, ptr %144, align 8, !tbaa !44, !noalias !41
-  %150 = extractelement <2 x double> %149, i64 1
-  %151 = fmul double %136, %150
-  %152 = insertelement <2 x double> %149, double %148, i64 1
-  %153 = fmul <2 x double> %139, %152
-  %154 = extractelement <2 x double> %153, i64 0
-  %155 = fadd double %154, %151
-  %156 = extractelement <2 x double> %153, i64 1
-  %157 = fadd double %155, %156
-  %158 = fmul double %157, %157
-  %159 = fmul <2 x double> %149, %149
-  %160 = shufflevector <2 x double> %159, <2 x double> poison, <2 x i32> <i32 1, i32 undef>
-  %161 = fadd <2 x double> %159, %160
-  %162 = extractelement <2 x double> %161, i64 0
-  %163 = fmul double %148, %148
-  %164 = fadd double %162, %163
-  %165 = fsub double %158, %164
-  %166 = getelementptr inbounds %struct.sphere_t, ptr %144, i64 0, i32 1
-  %167 = load double, ptr %166, align 8, !tbaa !45
-  %168 = fmul double %167, %167
-  %169 = fadd double %168, %165
-  %170 = fcmp olt double %169, 0.000000e+00
-  br i1 %170, label %194, label %171
+while.body.i117.us.i:                             ; preds = %if.end11.i.us.i, %_ZNK3v_t4normEv.exit.us.i
+  %hit.i.sroa.9.0.us.i = phi double [ %hit.i.sroa.9.1.us.i, %if.end11.i.us.i ], [ 0x7FF0000000000000, %_ZNK3v_t4normEv.exit.us.i ]
+  %hit.i.sroa.5.3.us.i = phi double [ %hit.i.sroa.5.4.us.i, %if.end11.i.us.i ], [ 0.000000e+00, %_ZNK3v_t4normEv.exit.us.i ]
+  %cond.i73100.i.us.i = phi double [ %cond.i7398.i.us.i, %if.end11.i.us.i ], [ 0x7FF0000000000000, %_ZNK3v_t4normEv.exit.us.i ]
+  %p.097.i.us.i = phi ptr [ %incdec.ptr.i155.us.i, %if.end11.i.us.i ], [ %call5, %_ZNK3v_t4normEv.exit.us.i ]
+  %27 = phi <2 x double> [ %58, %if.end11.i.us.i ], [ zeroinitializer, %_ZNK3v_t4normEv.exit.us.i ]
+  %z.i.i.i99.us.i = getelementptr inbounds %struct.v_t, ptr %p.097.i.us.i, i64 0, i32 2
+  %28 = load double, ptr %z.i.i.i99.us.i, align 8, !tbaa !21, !noalias !41
+  %sub6.i.i.i100.us.i = fadd double %28, 4.500000e+00
+  %29 = load <2 x double>, ptr %p.097.i.us.i, align 8, !tbaa !44, !noalias !41
+  %30 = extractelement <2 x double> %29, i64 1
+  %mul4.i.i.i102.us.i = fmul double %mul2.i.i.us.i, %30
+  %31 = insertelement <2 x double> %29, double %sub6.i.i.i100.us.i, i64 1
+  %32 = fmul <2 x double> %26, %31
+  %33 = extractelement <2 x double> %32, i64 0
+  %add.i.i.i103.us.i = fadd double %33, %mul4.i.i.i102.us.i
+  %34 = extractelement <2 x double> %32, i64 1
+  %add7.i.i.i105.us.i = fadd double %add.i.i.i103.us.i, %34
+  %mul.i.i106.us.i = fmul double %add7.i.i.i105.us.i, %add7.i.i.i105.us.i
+  %35 = fmul <2 x double> %29, %29
+  %shift = shufflevector <2 x double> %35, <2 x double> poison, <2 x i32> <i32 1, i32 undef>
+  %36 = fadd <2 x double> %35, %shift
+  %add.i.i.i.i109.us.i = extractelement <2 x double> %36, i64 0
+  %mul6.i.i.i.i110.us.i = fmul double %sub6.i.i.i100.us.i, %sub6.i.i.i100.us.i
+  %add7.i.i.i.i111.us.i = fadd double %add.i.i.i.i109.us.i, %mul6.i.i.i.i110.us.i
+  %sub.i.i112.us.i = fsub double %mul.i.i106.us.i, %add7.i.i.i.i111.us.i
+  %r.i.i113.us.i = getelementptr inbounds %struct.sphere_t, ptr %p.097.i.us.i, i64 0, i32 1
+  %37 = load double, ptr %r.i.i113.us.i, align 8, !tbaa !45
+  %mul5.i.i114.us.i = fmul double %37, %37
+  %add.i.i115.us.i = fadd double %mul5.i.i114.us.i, %sub.i.i112.us.i
+  %cmp.i.i116.us.i = fcmp olt double %add.i.i115.us.i, 0.000000e+00
+  br i1 %cmp.i.i116.us.i, label %_ZNK8sphere_t9intersectERK5ray_t.exit.i143.us.i, label %if.end.i.i119.us.i
 
-171:                                              ; preds = %140
-  %172 = fcmp oeq double %169, 0x7FF0000000000000
-  br i1 %172, label %186, label %173
+if.end.i.i119.us.i:                               ; preds = %while.body.i117.us.i
+  %cmp.i.i.i118.us.i = fcmp oeq double %add.i.i115.us.i, 0x7FF0000000000000
+  br i1 %cmp.i.i.i118.us.i, label %_ZL8LLVMsqrtd.exit.i.i136.us.i, label %while.body.i.i.i132.us.i
 
-173:                                              ; preds = %171, %173
-  %174 = phi i32 [ %183, %173 ], [ 100, %171 ]
-  %175 = phi double [ %178, %173 ], [ 1.000000e+00, %171 ]
-  %176 = fdiv double %169, %175
-  %177 = fadd double %175, %176
-  %178 = fmul double %177, 5.000000e-01
-  %179 = fsub double %178, %175
-  %180 = fcmp ule double %179, 0x3D719799812DEA11
-  %181 = fcmp uge double %179, 0xBD719799812DEA11
-  %182 = and i1 %180, %181
-  %183 = add nsw i32 %174, -1
-  %184 = icmp eq i32 %183, 0
-  %185 = select i1 %182, i1 true, i1 %184
-  br i1 %185, label %186, label %173, !llvm.loop !11
+while.body.i.i.i132.us.i:                         ; preds = %if.end.i.i119.us.i, %while.body.i.i.i132.us.i
+  %it.014.i.i.i120.us.i = phi i32 [ %dec.i.i.i129.us.i, %while.body.i.i.i132.us.i ], [ 100, %if.end.i.i119.us.i ]
+  %xk.013.i.i.i121.us.i = phi double [ %div1.i.i.i124.us.i, %while.body.i.i.i132.us.i ], [ 1.000000e+00, %if.end.i.i119.us.i ]
+  %div.i.i.i122.us.i = fdiv double %add.i.i115.us.i, %xk.013.i.i.i121.us.i
+  %add.i32.i.i123.us.i = fadd double %xk.013.i.i.i121.us.i, %div.i.i.i122.us.i
+  %div1.i.i.i124.us.i = fmul double %add.i32.i.i123.us.i, 5.000000e-01
+  %sub.i.i.i.i125.us.i = fsub double %div1.i.i.i124.us.i, %xk.013.i.i.i121.us.i
+  %cmp.i.i.i.i126.us.i = fcmp ule double %sub.i.i.i.i125.us.i, 0x3D719799812DEA11
+  %cmp1.i.i.i.i127.us.i = fcmp uge double %sub.i.i.i.i125.us.i, 0xBD719799812DEA11
+  %.not.i.i.i128.us.i = and i1 %cmp.i.i.i.i126.us.i, %cmp1.i.i.i.i127.us.i
+  %dec.i.i.i129.us.i = add nsw i32 %it.014.i.i.i120.us.i, -1
+  %tobool.not.i.i.i130.us.i = icmp eq i32 %dec.i.i.i129.us.i, 0
+  %or.cond.i.i.i131.us.i = select i1 %.not.i.i.i128.us.i, i1 true, i1 %tobool.not.i.i.i130.us.i
+  br i1 %or.cond.i.i.i131.us.i, label %_ZL8LLVMsqrtd.exit.i.i136.us.i, label %while.body.i.i.i132.us.i, !llvm.loop !11
 
-186:                                              ; preds = %173, %171
-  %187 = phi double [ 0x7FF0000000000000, %171 ], [ %178, %173 ]
-  %188 = fadd double %157, %187
-  %189 = fcmp olt double %188, 0.000000e+00
-  br i1 %189, label %194, label %190
+_ZL8LLVMsqrtd.exit.i.i136.us.i:                   ; preds = %while.body.i.i.i132.us.i, %if.end.i.i119.us.i
+  %retval.1.i.i.i133.us.i = phi double [ 0x7FF0000000000000, %if.end.i.i119.us.i ], [ %div1.i.i.i124.us.i, %while.body.i.i.i132.us.i ]
+  %add8.i.i134.us.i = fadd double %add7.i.i.i105.us.i, %retval.1.i.i.i133.us.i
+  %cmp10.i.i135.us.i = fcmp olt double %add8.i.i134.us.i, 0.000000e+00
+  br i1 %cmp10.i.i135.us.i, label %_ZNK8sphere_t9intersectERK5ray_t.exit.i143.us.i, label %if.else.i.i140.us.i
 
-190:                                              ; preds = %186
-  %191 = fsub double %157, %187
-  %192 = fcmp ogt double %191, 0.000000e+00
-  %193 = select i1 %192, double %191, double %188
-  br label %194
+if.else.i.i140.us.i:                              ; preds = %_ZL8LLVMsqrtd.exit.i.i136.us.i
+  %sub9.i.i137.us.i = fsub double %add7.i.i.i105.us.i, %retval.1.i.i.i133.us.i
+  %cmp12.i.i138.us.i = fcmp ogt double %sub9.i.i137.us.i, 0.000000e+00
+  %cond.i.i139.us.i = select i1 %cmp12.i.i138.us.i, double %sub9.i.i137.us.i, double %add8.i.i134.us.i
+  br label %_ZNK8sphere_t9intersectERK5ray_t.exit.i143.us.i
 
-194:                                              ; preds = %190, %186, %140
-  %195 = phi double [ 0x7FF0000000000000, %140 ], [ %193, %190 ], [ 0x7FF0000000000000, %186 ]
-  %196 = fcmp ult double %195, %143
-  br i1 %196, label %200, label %197
+_ZNK8sphere_t9intersectERK5ray_t.exit.i143.us.i:  ; preds = %if.else.i.i140.us.i, %_ZL8LLVMsqrtd.exit.i.i136.us.i, %while.body.i117.us.i
+  %retval.1.i.i141.us.i = phi double [ 0x7FF0000000000000, %while.body.i117.us.i ], [ %cond.i.i139.us.i, %if.else.i.i140.us.i ], [ 0x7FF0000000000000, %_ZL8LLVMsqrtd.exit.i.i136.us.i ]
+  %cmp1.i142.us.i = fcmp ult double %retval.1.i.i141.us.i, %cond.i73100.i.us.i
+  br i1 %cmp1.i142.us.i, label %if.else.i147.us.i, label %if.then.i145.us.i
 
-197:                                              ; preds = %194
-  %198 = getelementptr inbounds %struct.node_t, ptr %144, i64 0, i32 2
-  %199 = load i64, ptr %198, align 8, !tbaa !47
-  br label %266
+if.then.i145.us.i:                                ; preds = %_ZNK8sphere_t9intersectERK5ray_t.exit.i143.us.i
+  %diff.i144.us.i = getelementptr inbounds %struct.node_t, ptr %p.097.i.us.i, i64 0, i32 2
+  %38 = load i64, ptr %diff.i144.us.i, align 8, !tbaa !47
+  br label %if.end11.i.us.i
 
-200:                                              ; preds = %194
-  %201 = getelementptr inbounds %struct.node_t, ptr %144, i64 0, i32 1
-  %202 = getelementptr inbounds %struct.node_t, ptr %144, i64 0, i32 1, i32 0, i32 2
-  %203 = load double, ptr %202, align 8, !tbaa !21, !noalias !49
-  %204 = fadd double %203, 4.500000e+00
-  %205 = load <2 x double>, ptr %201, align 8, !tbaa !44, !noalias !49
-  %206 = extractelement <2 x double> %205, i64 1
-  %207 = fmul double %136, %206
-  %208 = insertelement <2 x double> %205, double %204, i64 1
-  %209 = fmul <2 x double> %139, %208
-  %210 = extractelement <2 x double> %209, i64 0
-  %211 = fadd double %210, %207
-  %212 = extractelement <2 x double> %209, i64 1
-  %213 = fadd double %211, %212
-  %214 = fmul double %213, %213
-  %215 = fmul <2 x double> %205, %205
-  %216 = shufflevector <2 x double> %215, <2 x double> poison, <2 x i32> <i32 1, i32 undef>
-  %217 = fadd <2 x double> %215, %216
-  %218 = extractelement <2 x double> %217, i64 0
-  %219 = fmul double %204, %204
-  %220 = fadd double %218, %219
-  %221 = fsub double %214, %220
-  %222 = getelementptr inbounds %struct.node_t, ptr %144, i64 0, i32 1, i32 1
-  %223 = load double, ptr %222, align 8, !tbaa !45
-  %224 = fmul double %223, %223
-  %225 = fadd double %224, %221
-  %226 = fcmp olt double %225, 0.000000e+00
-  br i1 %226, label %266, label %227
+if.else.i147.us.i:                                ; preds = %_ZNK8sphere_t9intersectERK5ray_t.exit.i143.us.i
+  %leaf.i146.us.i = getelementptr inbounds %struct.node_t, ptr %p.097.i.us.i, i64 0, i32 1
+  %z.i.i30.i.us.i = getelementptr inbounds %struct.node_t, ptr %p.097.i.us.i, i64 0, i32 1, i32 0, i32 2
+  %39 = load double, ptr %z.i.i30.i.us.i, align 8, !tbaa !21, !noalias !49
+  %sub6.i.i32.i.us.i = fadd double %39, 4.500000e+00
+  %40 = load <2 x double>, ptr %leaf.i146.us.i, align 8, !tbaa !44, !noalias !49
+  %41 = extractelement <2 x double> %40, i64 1
+  %mul4.i.i36.i.us.i = fmul double %mul2.i.i.us.i, %41
+  %42 = insertelement <2 x double> %40, double %sub6.i.i32.i.us.i, i64 1
+  %43 = fmul <2 x double> %26, %42
+  %44 = extractelement <2 x double> %43, i64 0
+  %add.i.i37.i.us.i = fadd double %44, %mul4.i.i36.i.us.i
+  %45 = extractelement <2 x double> %43, i64 1
+  %add7.i.i40.i.us.i = fadd double %add.i.i37.i.us.i, %45
+  %mul.i41.i.us.i = fmul double %add7.i.i40.i.us.i, %add7.i.i40.i.us.i
+  %46 = fmul <2 x double> %40, %40
+  %shift35 = shufflevector <2 x double> %46, <2 x double> poison, <2 x i32> <i32 1, i32 undef>
+  %47 = fadd <2 x double> %46, %shift35
+  %add.i.i.i44.i.us.i = extractelement <2 x double> %47, i64 0
+  %mul6.i.i.i45.i.us.i = fmul double %sub6.i.i32.i.us.i, %sub6.i.i32.i.us.i
+  %add7.i.i.i46.i.us.i = fadd double %add.i.i.i44.i.us.i, %mul6.i.i.i45.i.us.i
+  %sub.i47.i.us.i = fsub double %mul.i41.i.us.i, %add7.i.i.i46.i.us.i
+  %r.i48.i.us.i = getelementptr inbounds %struct.node_t, ptr %p.097.i.us.i, i64 0, i32 1, i32 1
+  %48 = load double, ptr %r.i48.i.us.i, align 8, !tbaa !45
+  %mul5.i49.i.us.i = fmul double %48, %48
+  %add.i50.i.us.i = fadd double %mul5.i49.i.us.i, %sub.i47.i.us.i
+  %cmp.i51.i.us.i = fcmp olt double %add.i50.i.us.i, 0.000000e+00
+  br i1 %cmp.i51.i.us.i, label %if.end11.i.us.i, label %if.end.i53.i.us.i
 
-227:                                              ; preds = %200
-  %228 = fcmp oeq double %225, 0x7FF0000000000000
-  br i1 %228, label %242, label %229
+if.end.i53.i.us.i:                                ; preds = %if.else.i147.us.i
+  %cmp.i.i52.i.us.i = fcmp oeq double %add.i50.i.us.i, 0x7FF0000000000000
+  br i1 %cmp.i.i52.i.us.i, label %_ZL8LLVMsqrtd.exit.i70.i.us.i, label %while.body.i.i66.i.us.i
 
-229:                                              ; preds = %227, %229
-  %230 = phi i32 [ %239, %229 ], [ 100, %227 ]
-  %231 = phi double [ %234, %229 ], [ 1.000000e+00, %227 ]
-  %232 = fdiv double %225, %231
-  %233 = fadd double %231, %232
-  %234 = fmul double %233, 5.000000e-01
-  %235 = fsub double %234, %231
-  %236 = fcmp ule double %235, 0x3D719799812DEA11
-  %237 = fcmp uge double %235, 0xBD719799812DEA11
-  %238 = and i1 %236, %237
-  %239 = add nsw i32 %230, -1
-  %240 = icmp eq i32 %239, 0
-  %241 = select i1 %238, i1 true, i1 %240
-  br i1 %241, label %242, label %229, !llvm.loop !11
+while.body.i.i66.i.us.i:                          ; preds = %if.end.i53.i.us.i, %while.body.i.i66.i.us.i
+  %it.014.i.i54.i.us.i = phi i32 [ %dec.i.i63.i.us.i, %while.body.i.i66.i.us.i ], [ 100, %if.end.i53.i.us.i ]
+  %xk.013.i.i55.i.us.i = phi double [ %div1.i.i58.i.us.i, %while.body.i.i66.i.us.i ], [ 1.000000e+00, %if.end.i53.i.us.i ]
+  %div.i.i56.i.us.i = fdiv double %add.i50.i.us.i, %xk.013.i.i55.i.us.i
+  %add.i32.i57.i.us.i = fadd double %xk.013.i.i55.i.us.i, %div.i.i56.i.us.i
+  %div1.i.i58.i.us.i = fmul double %add.i32.i57.i.us.i, 5.000000e-01
+  %sub.i.i.i59.i.us.i = fsub double %div1.i.i58.i.us.i, %xk.013.i.i55.i.us.i
+  %cmp.i.i.i60.i.us.i = fcmp ule double %sub.i.i.i59.i.us.i, 0x3D719799812DEA11
+  %cmp1.i.i.i61.i.us.i = fcmp uge double %sub.i.i.i59.i.us.i, 0xBD719799812DEA11
+  %.not.i.i62.i.us.i = and i1 %cmp.i.i.i60.i.us.i, %cmp1.i.i.i61.i.us.i
+  %dec.i.i63.i.us.i = add nsw i32 %it.014.i.i54.i.us.i, -1
+  %tobool.not.i.i64.i.us.i = icmp eq i32 %dec.i.i63.i.us.i, 0
+  %or.cond.i.i65.i.us.i = select i1 %.not.i.i62.i.us.i, i1 true, i1 %tobool.not.i.i64.i.us.i
+  br i1 %or.cond.i.i65.i.us.i, label %_ZL8LLVMsqrtd.exit.i70.i.us.i, label %while.body.i.i66.i.us.i, !llvm.loop !11
 
-242:                                              ; preds = %229, %227
-  %243 = phi double [ 0x7FF0000000000000, %227 ], [ %234, %229 ]
-  %244 = fadd double %213, %243
-  %245 = fcmp olt double %244, 0.000000e+00
-  br i1 %245, label %266, label %246
+_ZL8LLVMsqrtd.exit.i70.i.us.i:                    ; preds = %while.body.i.i66.i.us.i, %if.end.i53.i.us.i
+  %retval.1.i.i67.i.us.i = phi double [ 0x7FF0000000000000, %if.end.i53.i.us.i ], [ %div1.i.i58.i.us.i, %while.body.i.i66.i.us.i ]
+  %add8.i68.i.us.i = fadd double %add7.i.i40.i.us.i, %retval.1.i.i67.i.us.i
+  %cmp10.i69.i.us.i = fcmp olt double %add8.i68.i.us.i, 0.000000e+00
+  br i1 %cmp10.i69.i.us.i, label %if.end11.i.us.i, label %_ZNK8sphere_t9intersectERK5ray_t.exit76.i.us.i
 
-246:                                              ; preds = %242
-  %247 = fsub double %213, %243
-  %248 = fcmp ogt double %247, 0.000000e+00
-  %249 = select i1 %248, double %247, double %244
-  %250 = fcmp olt double %249, %143
-  br i1 %250, label %251, label %266
+_ZNK8sphere_t9intersectERK5ray_t.exit76.i.us.i:   ; preds = %_ZL8LLVMsqrtd.exit.i70.i.us.i
+  %sub9.i71.i.us.i = fsub double %add7.i.i40.i.us.i, %retval.1.i.i67.i.us.i
+  %cmp12.i72.i.us.i = fcmp ogt double %sub9.i71.i.us.i, 0.000000e+00
+  %cond.i73.i.us.i = select i1 %cmp12.i72.i.us.i, double %sub9.i71.i.us.i, double %add8.i68.i.us.i
+  %cmp5.i148.us.i = fcmp olt double %cond.i73.i.us.i, %cond.i73100.i.us.i
+  br i1 %cmp5.i148.us.i, label %if.then6.i.us.i, label %if.end11.i.us.i
 
-251:                                              ; preds = %246
-  %252 = insertelement <2 x double> poison, double %249, i64 0
-  %253 = shufflevector <2 x double> %252, <2 x double> poison, <2 x i32> zeroinitializer
-  %254 = fmul <2 x double> %139, %253
-  %255 = fmul double %136, %249
-  %256 = fadd double %255, 0.000000e+00
-  %257 = fsub double %256, %206
-  %258 = fadd <2 x double> %254, <double 0.000000e+00, double -4.500000e+00>
-  %259 = insertelement <2 x double> %205, double %203, i64 1
-  %260 = fsub <2 x double> %258, %259
-  %261 = fdiv double 1.000000e+00, %223
-  %262 = fmul double %261, %257
-  %263 = insertelement <2 x double> poison, double %261, i64 0
-  %264 = shufflevector <2 x double> %263, <2 x double> poison, <2 x i32> zeroinitializer
-  %265 = fmul <2 x double> %264, %260
-  br label %266
+if.then6.i.us.i:                                  ; preds = %_ZNK8sphere_t9intersectERK5ray_t.exit76.i.us.i
+  %49 = insertelement <2 x double> poison, double %cond.i73.i.us.i, i64 0
+  %50 = shufflevector <2 x double> %49, <2 x double> poison, <2 x i32> zeroinitializer
+  %51 = fmul <2 x double> %26, %50
+  %mul2.i.i149.us.i = fmul double %mul2.i.i.us.i, %cond.i73.i.us.i
+  %add4.i.i151.us.i = fadd double %mul2.i.i149.us.i, 0.000000e+00
+  %sub4.i.i88.i.us.i = fsub double %add4.i.i151.us.i, %41
+  %52 = fadd <2 x double> %51, <double 0.000000e+00, double -4.500000e+00>
+  %53 = insertelement <2 x double> %40, double %39, i64 1
+  %54 = fsub <2 x double> %52, %53
+  %div.i.i153.us.i = fdiv double 1.000000e+00, %48
+  %mul2.i.i.i.us.i = fmul double %div.i.i153.us.i, %sub4.i.i88.i.us.i
+  %55 = insertelement <2 x double> poison, double %div.i.i153.us.i, i64 0
+  %56 = shufflevector <2 x double> %55, <2 x double> poison, <2 x i32> zeroinitializer
+  %57 = fmul <2 x double> %56, %54
+  br label %if.end11.i.us.i
 
-266:                                              ; preds = %251, %246, %242, %200, %197
-  %267 = phi double [ %141, %200 ], [ %141, %242 ], [ %249, %251 ], [ %141, %246 ], [ %141, %197 ]
-  %268 = phi double [ %142, %200 ], [ %142, %242 ], [ %262, %251 ], [ %142, %246 ], [ %142, %197 ]
-  %269 = phi i64 [ 1, %200 ], [ 1, %242 ], [ 1, %251 ], [ 1, %246 ], [ %199, %197 ]
-  %270 = phi double [ %143, %200 ], [ %143, %242 ], [ %249, %251 ], [ %143, %246 ], [ %143, %197 ]
-  %271 = phi <2 x double> [ %145, %200 ], [ %145, %242 ], [ %265, %251 ], [ %145, %246 ], [ %145, %197 ]
-  %272 = getelementptr inbounds %struct.node_t, ptr %144, i64 %269
-  %273 = icmp ult ptr %272, %34
-  br i1 %273, label %140, label %274, !llvm.loop !52
+if.end11.i.us.i:                                  ; preds = %if.then6.i.us.i, %_ZNK8sphere_t9intersectERK5ray_t.exit76.i.us.i, %_ZL8LLVMsqrtd.exit.i70.i.us.i, %if.else.i147.us.i, %if.then.i145.us.i
+  %hit.i.sroa.9.1.us.i = phi double [ %hit.i.sroa.9.0.us.i, %if.else.i147.us.i ], [ %hit.i.sroa.9.0.us.i, %_ZL8LLVMsqrtd.exit.i70.i.us.i ], [ %cond.i73.i.us.i, %if.then6.i.us.i ], [ %hit.i.sroa.9.0.us.i, %_ZNK8sphere_t9intersectERK5ray_t.exit76.i.us.i ], [ %hit.i.sroa.9.0.us.i, %if.then.i145.us.i ]
+  %hit.i.sroa.5.4.us.i = phi double [ %hit.i.sroa.5.3.us.i, %if.else.i147.us.i ], [ %hit.i.sroa.5.3.us.i, %_ZL8LLVMsqrtd.exit.i70.i.us.i ], [ %mul2.i.i.i.us.i, %if.then6.i.us.i ], [ %hit.i.sroa.5.3.us.i, %_ZNK8sphere_t9intersectERK5ray_t.exit76.i.us.i ], [ %hit.i.sroa.5.3.us.i, %if.then.i145.us.i ]
+  %.sink.i154.us.i = phi i64 [ 1, %if.else.i147.us.i ], [ 1, %_ZL8LLVMsqrtd.exit.i70.i.us.i ], [ 1, %if.then6.i.us.i ], [ 1, %_ZNK8sphere_t9intersectERK5ray_t.exit76.i.us.i ], [ %38, %if.then.i145.us.i ]
+  %cond.i7398.i.us.i = phi double [ %cond.i73100.i.us.i, %if.else.i147.us.i ], [ %cond.i73100.i.us.i, %_ZL8LLVMsqrtd.exit.i70.i.us.i ], [ %cond.i73.i.us.i, %if.then6.i.us.i ], [ %cond.i73100.i.us.i, %_ZNK8sphere_t9intersectERK5ray_t.exit76.i.us.i ], [ %cond.i73100.i.us.i, %if.then.i145.us.i ]
+  %58 = phi <2 x double> [ %27, %if.else.i147.us.i ], [ %27, %_ZL8LLVMsqrtd.exit.i70.i.us.i ], [ %57, %if.then6.i.us.i ], [ %27, %_ZNK8sphere_t9intersectERK5ray_t.exit76.i.us.i ], [ %27, %if.then.i145.us.i ]
+  %incdec.ptr.i155.us.i = getelementptr inbounds %struct.node_t, ptr %p.097.i.us.i, i64 %.sink.i154.us.i
+  %cmp.i156.us.i = icmp ult ptr %incdec.ptr.i155.us.i, %add.ptr
+  br i1 %cmp.i156.us.i, label %while.body.i117.us.i, label %_ZN6node_t9intersectILb0EEEvRK5ray_tR5hit_t.exit.us.i, !llvm.loop !50
 
-274:                                              ; preds = %266
-  %275 = fcmp oeq double %267, 0x7FF0000000000000
-  br i1 %275, label %411, label %276
+_ZN6node_t9intersectILb0EEEvRK5ray_tR5hit_t.exit.us.i: ; preds = %if.end11.i.us.i
+  %cmp.i63.us.i = fcmp oeq double %hit.i.sroa.9.1.us.i, 0x7FF0000000000000
+  br i1 %cmp.i63.us.i, label %_ZL9ray_tracePK6node_tRK5ray_t.exit.us.i, label %cond.end.i.us.i
 
-276:                                              ; preds = %274
-  %277 = fmul double %93, %268
-  %278 = fmul <2 x double> %99, %271
-  %279 = extractelement <2 x double> %278, i64 0
-  %280 = fadd double %277, %279
-  %281 = extractelement <2 x double> %278, i64 1
-  %282 = fadd double %281, %280
-  %283 = fcmp ult double %282, 0.000000e+00
-  br i1 %283, label %284, label %411
+cond.end.i.us.i:                                  ; preds = %_ZN6node_t9intersectILb0EEEvRK5ray_tR5hit_t.exit.us.i
+  %mul4.i.i.us.i = fmul double %10, %hit.i.sroa.5.4.us.i
+  %59 = fmul <2 x double> %14, %58
+  %60 = extractelement <2 x double> %59, i64 0
+  %add.i.i66.us.i = fadd double %mul4.i.i.us.i, %60
+  %61 = extractelement <2 x double> %59, i64 1
+  %add7.i.i.us.i = fadd double %61, %add.i.i66.us.i
+  %cmp1.i.us.i = fcmp ult double %add7.i.i.us.i, 0.000000e+00
+  br i1 %cmp1.i.us.i, label %if.end.i.us.i, label %_ZL9ray_tracePK6node_tRK5ray_t.exit.us.i
 
-284:                                              ; preds = %276
-  %285 = fneg double %282
-  %286 = insertelement <2 x double> poison, double %267, i64 0
-  %287 = shufflevector <2 x double> %286, <2 x double> poison, <2 x i32> zeroinitializer
-  %288 = fmul <2 x double> %139, %287
-  %289 = fmul double %136, %267
-  %290 = fadd double %289, 0.000000e+00
-  %291 = fadd <2 x double> %288, <double 0.000000e+00, double -4.500000e+00>
-  %292 = fmul <2 x double> %271, <double 0x3D719799812DEA11, double 0x3D719799812DEA11>
-  %293 = fmul double %268, 0x3D719799812DEA11
-  %294 = fadd double %290, %293
-  %295 = fadd <2 x double> %291, %292
-  br label %296
+if.end.i.us.i:                                    ; preds = %cond.end.i.us.i
+  %fneg.i.us.i = fneg double %add7.i.i.us.i
+  %62 = insertelement <2 x double> poison, double %hit.i.sroa.9.1.us.i, i64 0
+  %63 = shufflevector <2 x double> %62, <2 x double> poison, <2 x i32> zeroinitializer
+  %64 = fmul <2 x double> %26, %63
+  %mul2.i.i68.us.i = fmul double %mul2.i.i.us.i, %hit.i.sroa.9.1.us.i
+  %add4.i.i.us.i = fadd double %mul2.i.i68.us.i, 0.000000e+00
+  %65 = fadd <2 x double> %64, <double 0.000000e+00, double -4.500000e+00>
+  %66 = fmul <2 x double> %58, <double 0x3D719799812DEA11, double 0x3D719799812DEA11>
+  %mul2.i29.i.us.i = fmul double %hit.i.sroa.5.4.us.i, 0x3D719799812DEA11
+  %add4.i37.i.us.i = fadd double %add4.i.i.us.i, %mul2.i29.i.us.i
+  %67 = fadd <2 x double> %65, %66
+  br label %while.body.i.us.i
 
-296:                                              ; preds = %407, %284
-  %297 = phi ptr [ %409, %407 ], [ %33, %284 ]
-  %298 = getelementptr inbounds %struct.v_t, ptr %297, i64 0, i32 1
-  %299 = load double, ptr %298, align 8, !tbaa !20, !noalias !53
-  %300 = fsub double %299, %294
-  %301 = getelementptr inbounds %struct.v_t, ptr %297, i64 0, i32 2
-  %302 = fmul double %300, %96
-  %303 = fmul double %300, %300
-  %304 = load double, ptr %297, align 8, !tbaa !12, !noalias !53
-  %305 = load double, ptr %301, align 8, !tbaa !21, !noalias !53
-  %306 = insertelement <2 x double> poison, double %304, i64 0
-  %307 = insertelement <2 x double> %306, double %305, i64 1
-  %308 = fsub <2 x double> %307, %295
-  %309 = fmul <2 x double> %99, %308
-  %310 = extractelement <2 x double> %309, i64 0
-  %311 = fsub double %302, %310
-  %312 = extractelement <2 x double> %309, i64 1
-  %313 = fsub double %311, %312
-  %314 = fmul double %313, %313
-  %315 = fmul <2 x double> %308, %308
-  %316 = extractelement <2 x double> %315, i64 0
-  %317 = fadd double %316, %303
-  %318 = extractelement <2 x double> %315, i64 1
-  %319 = fadd double %317, %318
-  %320 = fsub double %314, %319
-  %321 = getelementptr inbounds %struct.sphere_t, ptr %297, i64 0, i32 1
-  %322 = load double, ptr %321, align 8, !tbaa !45
-  %323 = fmul double %322, %322
-  %324 = fadd double %323, %320
-  %325 = fcmp olt double %324, 0.000000e+00
-  br i1 %325, label %404, label %326
+while.body.i.us.i:                                ; preds = %if.end8.i.us.i, %if.end.i.us.i
+  %p.075.i.us.i = phi ptr [ %incdec.ptr.i.us.i, %if.end8.i.us.i ], [ %call5, %if.end.i.us.i ]
+  %y.i.i.i74.us.i = getelementptr inbounds %struct.v_t, ptr %p.075.i.us.i, i64 0, i32 1
+  %68 = load double, ptr %y.i.i.i74.us.i, align 8, !tbaa !20, !noalias !51
+  %sub4.i.i.i.us.i = fsub double %68, %add4.i37.i.us.i
+  %z.i.i.i75.us.i = getelementptr inbounds %struct.v_t, ptr %p.075.i.us.i, i64 0, i32 2
+  %mul4.i.i.i77.us.i = fmul double %sub4.i.i.i.us.i, %fneg2.i.i.i
+  %mul4.i.i.i.i.us.i = fmul double %sub4.i.i.i.us.i, %sub4.i.i.i.us.i
+  %69 = load double, ptr %p.075.i.us.i, align 8, !tbaa !12, !noalias !51
+  %70 = load double, ptr %z.i.i.i75.us.i, align 8, !tbaa !21, !noalias !51
+  %71 = insertelement <2 x double> poison, double %69, i64 0
+  %72 = insertelement <2 x double> %71, double %70, i64 1
+  %73 = fsub <2 x double> %72, %67
+  %74 = fmul <2 x double> %14, %73
+  %75 = extractelement <2 x double> %74, i64 0
+  %add.i.i.i78.us.i = fsub double %mul4.i.i.i77.us.i, %75
+  %76 = extractelement <2 x double> %74, i64 1
+  %add7.i.i.i80.us.i = fsub double %add.i.i.i78.us.i, %76
+  %mul.i.i81.us.i = fmul double %add7.i.i.i80.us.i, %add7.i.i.i80.us.i
+  %77 = fmul <2 x double> %73, %73
+  %78 = extractelement <2 x double> %77, i64 0
+  %add.i.i.i.i.us.i = fadd double %78, %mul4.i.i.i.i.us.i
+  %79 = extractelement <2 x double> %77, i64 1
+  %add7.i.i.i.i.us.i = fadd double %add.i.i.i.i.us.i, %79
+  %sub.i.i.us.i = fsub double %mul.i.i81.us.i, %add7.i.i.i.i.us.i
+  %r.i.i.us.i = getelementptr inbounds %struct.sphere_t, ptr %p.075.i.us.i, i64 0, i32 1
+  %80 = load double, ptr %r.i.i.us.i, align 8, !tbaa !45
+  %mul5.i.i.us.i = fmul double %80, %80
+  %add.i.i82.us.i = fadd double %mul5.i.i.us.i, %sub.i.i.us.i
+  %cmp.i.i83.us.i = fcmp olt double %add.i.i82.us.i, 0.000000e+00
+  br i1 %cmp.i.i83.us.i, label %if.then.i.us.i, label %if.end.i.i.us.i
 
-326:                                              ; preds = %296
-  %327 = fcmp oeq double %324, 0x7FF0000000000000
-  br i1 %327, label %341, label %328
+if.end.i.i.us.i:                                  ; preds = %while.body.i.us.i
+  %cmp.i.i.i84.us.i = fcmp oeq double %add.i.i82.us.i, 0x7FF0000000000000
+  br i1 %cmp.i.i.i84.us.i, label %_ZL8LLVMsqrtd.exit.i.i.us.i, label %while.body.i.i.i.us.i
 
-328:                                              ; preds = %326, %328
-  %329 = phi i32 [ %338, %328 ], [ 100, %326 ]
-  %330 = phi double [ %333, %328 ], [ 1.000000e+00, %326 ]
-  %331 = fdiv double %324, %330
-  %332 = fadd double %330, %331
-  %333 = fmul double %332, 5.000000e-01
-  %334 = fsub double %333, %330
-  %335 = fcmp ule double %334, 0x3D719799812DEA11
-  %336 = fcmp uge double %334, 0xBD719799812DEA11
-  %337 = and i1 %335, %336
-  %338 = add nsw i32 %329, -1
-  %339 = icmp eq i32 %338, 0
-  %340 = select i1 %337, i1 true, i1 %339
-  br i1 %340, label %341, label %328, !llvm.loop !11
+while.body.i.i.i.us.i:                            ; preds = %if.end.i.i.us.i, %while.body.i.i.i.us.i
+  %it.014.i.i.i.us.i = phi i32 [ %dec.i.i.i.us.i, %while.body.i.i.i.us.i ], [ 100, %if.end.i.i.us.i ]
+  %xk.013.i.i.i.us.i = phi double [ %div1.i.i.i.us.i, %while.body.i.i.i.us.i ], [ 1.000000e+00, %if.end.i.i.us.i ]
+  %div.i.i.i.us.i = fdiv double %add.i.i82.us.i, %xk.013.i.i.i.us.i
+  %add.i32.i.i.us.i = fadd double %xk.013.i.i.i.us.i, %div.i.i.i.us.i
+  %div1.i.i.i.us.i = fmul double %add.i32.i.i.us.i, 5.000000e-01
+  %sub.i.i.i.i.us.i = fsub double %div1.i.i.i.us.i, %xk.013.i.i.i.us.i
+  %cmp.i.i.i.i.us.i = fcmp ule double %sub.i.i.i.i.us.i, 0x3D719799812DEA11
+  %cmp1.i.i.i.i.us.i = fcmp uge double %sub.i.i.i.i.us.i, 0xBD719799812DEA11
+  %.not.i.i.i.us.i = and i1 %cmp.i.i.i.i.us.i, %cmp1.i.i.i.i.us.i
+  %dec.i.i.i.us.i = add nsw i32 %it.014.i.i.i.us.i, -1
+  %tobool.not.i.i.i85.us.i = icmp eq i32 %dec.i.i.i.us.i, 0
+  %or.cond.i.i.i.us.i = select i1 %.not.i.i.i.us.i, i1 true, i1 %tobool.not.i.i.i85.us.i
+  br i1 %or.cond.i.i.i.us.i, label %_ZL8LLVMsqrtd.exit.i.i.us.i, label %while.body.i.i.i.us.i, !llvm.loop !11
 
-341:                                              ; preds = %328, %326
-  %342 = phi double [ 0x7FF0000000000000, %326 ], [ %333, %328 ]
-  %343 = fadd double %313, %342
-  %344 = fcmp olt double %343, 0.000000e+00
-  br i1 %344, label %404, label %345
+_ZL8LLVMsqrtd.exit.i.i.us.i:                      ; preds = %while.body.i.i.i.us.i, %if.end.i.i.us.i
+  %retval.1.i.i.i.us.i = phi double [ 0x7FF0000000000000, %if.end.i.i.us.i ], [ %div1.i.i.i.us.i, %while.body.i.i.i.us.i ]
+  %add8.i.i.us.i = fadd double %add7.i.i.i80.us.i, %retval.1.i.i.i.us.i
+  %cmp10.i.i.us.i = fcmp olt double %add8.i.i.us.i, 0.000000e+00
+  br i1 %cmp10.i.i.us.i, label %if.then.i.us.i, label %_ZNK8sphere_t9intersectERK5ray_t.exit.i.us.i
 
-345:                                              ; preds = %341
-  %346 = fsub double %313, %342
-  %347 = fcmp ogt double %346, 0.000000e+00
-  %348 = select i1 %347, double %346, double %343
-  %349 = fcmp ult double %348, 0x7FF0000000000000
-  br i1 %349, label %350, label %404
+_ZNK8sphere_t9intersectERK5ray_t.exit.i.us.i:     ; preds = %_ZL8LLVMsqrtd.exit.i.i.us.i
+  %sub9.i.i.us.i = fsub double %add7.i.i.i80.us.i, %retval.1.i.i.i.us.i
+  %cmp12.i.i.us.i = fcmp ogt double %sub9.i.i.us.i, 0.000000e+00
+  %cond.i.i.us.i = select i1 %cmp12.i.i.us.i, double %sub9.i.i.us.i, double %add8.i.i.us.i
+  %cmp1.i87.us.i = fcmp ult double %cond.i.i.us.i, 0x7FF0000000000000
+  br i1 %cmp1.i87.us.i, label %if.else.i.us.i, label %if.then.i.us.i
 
-350:                                              ; preds = %345
-  %351 = getelementptr inbounds %struct.node_t, ptr %297, i64 0, i32 1
-  %352 = getelementptr inbounds %struct.node_t, ptr %297, i64 0, i32 1, i32 0, i32 1
-  %353 = load double, ptr %352, align 8, !tbaa !20, !noalias !56
-  %354 = fsub double %353, %294
-  %355 = getelementptr inbounds %struct.node_t, ptr %297, i64 0, i32 1, i32 0, i32 2
-  %356 = fmul double %354, %96
-  %357 = fmul double %354, %354
-  %358 = load double, ptr %351, align 8, !tbaa !12, !noalias !56
-  %359 = load double, ptr %355, align 8, !tbaa !21, !noalias !56
-  %360 = insertelement <2 x double> poison, double %358, i64 0
-  %361 = insertelement <2 x double> %360, double %359, i64 1
-  %362 = fsub <2 x double> %361, %295
-  %363 = fmul <2 x double> %99, %362
-  %364 = extractelement <2 x double> %363, i64 0
-  %365 = fsub double %356, %364
-  %366 = extractelement <2 x double> %363, i64 1
-  %367 = fsub double %365, %366
-  %368 = fmul double %367, %367
-  %369 = fmul <2 x double> %362, %362
-  %370 = extractelement <2 x double> %369, i64 0
-  %371 = fadd double %370, %357
-  %372 = extractelement <2 x double> %369, i64 1
-  %373 = fadd double %371, %372
-  %374 = fsub double %368, %373
-  %375 = getelementptr inbounds %struct.node_t, ptr %297, i64 0, i32 1, i32 1
-  %376 = load double, ptr %375, align 8, !tbaa !45
-  %377 = fmul double %376, %376
-  %378 = fadd double %377, %374
-  %379 = fcmp olt double %378, 0.000000e+00
-  br i1 %379, label %407, label %380
+if.else.i.us.i:                                   ; preds = %_ZNK8sphere_t9intersectERK5ray_t.exit.i.us.i
+  %leaf.i.us.i = getelementptr inbounds %struct.node_t, ptr %p.075.i.us.i, i64 0, i32 1
+  %y.i.i19.i.us.i = getelementptr inbounds %struct.node_t, ptr %p.075.i.us.i, i64 0, i32 1, i32 0, i32 1
+  %81 = load double, ptr %y.i.i19.i.us.i, align 8, !tbaa !20, !noalias !54
+  %sub4.i.i21.i.us.i = fsub double %81, %add4.i37.i.us.i
+  %z.i.i22.i.us.i = getelementptr inbounds %struct.node_t, ptr %p.075.i.us.i, i64 0, i32 1, i32 0, i32 2
+  %mul4.i.i28.i.us.i = fmul double %sub4.i.i21.i.us.i, %fneg2.i.i.i
+  %mul4.i.i.i35.i.us.i = fmul double %sub4.i.i21.i.us.i, %sub4.i.i21.i.us.i
+  %82 = load double, ptr %leaf.i.us.i, align 8, !tbaa !12, !noalias !54
+  %83 = load double, ptr %z.i.i22.i.us.i, align 8, !tbaa !21, !noalias !54
+  %84 = insertelement <2 x double> poison, double %82, i64 0
+  %85 = insertelement <2 x double> %84, double %83, i64 1
+  %86 = fsub <2 x double> %85, %67
+  %87 = fmul <2 x double> %14, %86
+  %88 = extractelement <2 x double> %87, i64 0
+  %add.i.i29.i.us.i = fsub double %mul4.i.i28.i.us.i, %88
+  %89 = extractelement <2 x double> %87, i64 1
+  %add7.i.i32.i.us.i = fsub double %add.i.i29.i.us.i, %89
+  %mul.i33.i.us.i = fmul double %add7.i.i32.i.us.i, %add7.i.i32.i.us.i
+  %90 = fmul <2 x double> %86, %86
+  %91 = extractelement <2 x double> %90, i64 0
+  %add.i.i.i36.i.us.i = fadd double %91, %mul4.i.i.i35.i.us.i
+  %92 = extractelement <2 x double> %90, i64 1
+  %add7.i.i.i38.i.us.i = fadd double %add.i.i.i36.i.us.i, %92
+  %sub.i39.i.us.i = fsub double %mul.i33.i.us.i, %add7.i.i.i38.i.us.i
+  %r.i40.i.us.i = getelementptr inbounds %struct.node_t, ptr %p.075.i.us.i, i64 0, i32 1, i32 1
+  %93 = load double, ptr %r.i40.i.us.i, align 8, !tbaa !45
+  %mul5.i41.i.us.i = fmul double %93, %93
+  %add.i42.i.us.i = fadd double %mul5.i41.i.us.i, %sub.i39.i.us.i
+  %cmp.i43.i.us.i = fcmp olt double %add.i42.i.us.i, 0.000000e+00
+  br i1 %cmp.i43.i.us.i, label %if.end8.i.us.i, label %if.end.i45.i.us.i
 
-380:                                              ; preds = %350
-  %381 = fcmp oeq double %378, 0x7FF0000000000000
-  br i1 %381, label %395, label %382
+if.end.i45.i.us.i:                                ; preds = %if.else.i.us.i
+  %cmp.i.i44.i.us.i = fcmp oeq double %add.i42.i.us.i, 0x7FF0000000000000
+  br i1 %cmp.i.i44.i.us.i, label %_ZL8LLVMsqrtd.exit.i62.i.us.i, label %while.body.i.i58.i.us.i
 
-382:                                              ; preds = %380, %382
-  %383 = phi i32 [ %392, %382 ], [ 100, %380 ]
-  %384 = phi double [ %387, %382 ], [ 1.000000e+00, %380 ]
-  %385 = fdiv double %378, %384
-  %386 = fadd double %384, %385
-  %387 = fmul double %386, 5.000000e-01
-  %388 = fsub double %387, %384
-  %389 = fcmp ule double %388, 0x3D719799812DEA11
-  %390 = fcmp uge double %388, 0xBD719799812DEA11
-  %391 = and i1 %389, %390
-  %392 = add nsw i32 %383, -1
-  %393 = icmp eq i32 %392, 0
-  %394 = select i1 %391, i1 true, i1 %393
-  br i1 %394, label %395, label %382, !llvm.loop !11
+while.body.i.i58.i.us.i:                          ; preds = %if.end.i45.i.us.i, %while.body.i.i58.i.us.i
+  %it.014.i.i46.i.us.i = phi i32 [ %dec.i.i55.i.us.i, %while.body.i.i58.i.us.i ], [ 100, %if.end.i45.i.us.i ]
+  %xk.013.i.i47.i.us.i = phi double [ %div1.i.i50.i.us.i, %while.body.i.i58.i.us.i ], [ 1.000000e+00, %if.end.i45.i.us.i ]
+  %div.i.i48.i.us.i = fdiv double %add.i42.i.us.i, %xk.013.i.i47.i.us.i
+  %add.i32.i49.i.us.i = fadd double %xk.013.i.i47.i.us.i, %div.i.i48.i.us.i
+  %div1.i.i50.i.us.i = fmul double %add.i32.i49.i.us.i, 5.000000e-01
+  %sub.i.i.i51.i.us.i = fsub double %div1.i.i50.i.us.i, %xk.013.i.i47.i.us.i
+  %cmp.i.i.i52.i.us.i = fcmp ule double %sub.i.i.i51.i.us.i, 0x3D719799812DEA11
+  %cmp1.i.i.i53.i.us.i = fcmp uge double %sub.i.i.i51.i.us.i, 0xBD719799812DEA11
+  %.not.i.i54.i.us.i = and i1 %cmp.i.i.i52.i.us.i, %cmp1.i.i.i53.i.us.i
+  %dec.i.i55.i.us.i = add nsw i32 %it.014.i.i46.i.us.i, -1
+  %tobool.not.i.i56.i.us.i = icmp eq i32 %dec.i.i55.i.us.i, 0
+  %or.cond.i.i57.i.us.i = select i1 %.not.i.i54.i.us.i, i1 true, i1 %tobool.not.i.i56.i.us.i
+  br i1 %or.cond.i.i57.i.us.i, label %_ZL8LLVMsqrtd.exit.i62.i.us.i, label %while.body.i.i58.i.us.i, !llvm.loop !11
 
-395:                                              ; preds = %382, %380
-  %396 = phi double [ 0x7FF0000000000000, %380 ], [ %387, %382 ]
-  %397 = fadd double %367, %396
-  %398 = fcmp olt double %397, 0.000000e+00
-  br i1 %398, label %407, label %399
+_ZL8LLVMsqrtd.exit.i62.i.us.i:                    ; preds = %while.body.i.i58.i.us.i, %if.end.i45.i.us.i
+  %retval.1.i.i59.i.us.i = phi double [ 0x7FF0000000000000, %if.end.i45.i.us.i ], [ %div1.i.i50.i.us.i, %while.body.i.i58.i.us.i ]
+  %add8.i60.i.us.i = fadd double %add7.i.i32.i.us.i, %retval.1.i.i59.i.us.i
+  %cmp10.i61.i.us.i = fcmp olt double %add8.i60.i.us.i, 0.000000e+00
+  br i1 %cmp10.i61.i.us.i, label %if.end8.i.us.i, label %_ZNK8sphere_t9intersectERK5ray_t.exit68.i.us.i
 
-399:                                              ; preds = %395
-  %400 = fsub double %367, %396
-  %401 = fcmp ogt double %400, 0.000000e+00
-  %402 = select i1 %401, double %400, double %397
-  %403 = fcmp olt double %402, 0x7FF0000000000000
-  br i1 %403, label %416, label %407
+_ZNK8sphere_t9intersectERK5ray_t.exit68.i.us.i:   ; preds = %_ZL8LLVMsqrtd.exit.i62.i.us.i
+  %sub9.i63.i.us.i = fsub double %add7.i.i32.i.us.i, %retval.1.i.i59.i.us.i
+  %cmp12.i64.i.us.i = fcmp ogt double %sub9.i63.i.us.i, 0.000000e+00
+  %cond.i65.i.us.i = select i1 %cmp12.i64.i.us.i, double %sub9.i63.i.us.i, double %add8.i60.i.us.i
+  %cmp5.i.us.i = fcmp olt double %cond.i65.i.us.i, 0x7FF0000000000000
+  br i1 %cmp5.i.us.i, label %_ZN6node_t9intersectILb1EEEvRK5ray_tR5hit_t.exit.loopexit.us.i, label %if.end8.i.us.i
 
-404:                                              ; preds = %345, %341, %296
-  %405 = getelementptr inbounds %struct.node_t, ptr %297, i64 0, i32 2
-  %406 = load i64, ptr %405, align 8, !tbaa !47
-  br label %407
+if.then.i.us.i:                                   ; preds = %_ZNK8sphere_t9intersectERK5ray_t.exit.i.us.i, %_ZL8LLVMsqrtd.exit.i.i.us.i, %while.body.i.us.i
+  %diff.i.us.i = getelementptr inbounds %struct.node_t, ptr %p.075.i.us.i, i64 0, i32 2
+  %94 = load i64, ptr %diff.i.us.i, align 8, !tbaa !47
+  br label %if.end8.i.us.i
 
-407:                                              ; preds = %404, %399, %395, %350
-  %408 = phi i64 [ %406, %404 ], [ 1, %399 ], [ 1, %350 ], [ 1, %395 ]
-  %409 = getelementptr inbounds %struct.node_t, ptr %297, i64 %408
-  %410 = icmp ult ptr %409, %34
-  br i1 %410, label %296, label %416, !llvm.loop !59
+if.end8.i.us.i:                                   ; preds = %if.then.i.us.i, %_ZNK8sphere_t9intersectERK5ray_t.exit68.i.us.i, %_ZL8LLVMsqrtd.exit.i62.i.us.i, %if.else.i.us.i
+  %.sink.i.us.i = phi i64 [ %94, %if.then.i.us.i ], [ 1, %_ZNK8sphere_t9intersectERK5ray_t.exit68.i.us.i ], [ 1, %if.else.i.us.i ], [ 1, %_ZL8LLVMsqrtd.exit.i62.i.us.i ]
+  %incdec.ptr.i.us.i = getelementptr inbounds %struct.node_t, ptr %p.075.i.us.i, i64 %.sink.i.us.i
+  %cmp.i88.us.i = icmp ult ptr %incdec.ptr.i.us.i, %add.ptr
+  br i1 %cmp.i88.us.i, label %while.body.i.us.i, label %_ZN6node_t9intersectILb1EEEvRK5ray_tR5hit_t.exit.loopexit.us.i, !llvm.loop !57
 
-411:                                              ; preds = %416, %276, %274
-  %412 = phi double [ %419, %416 ], [ 0.000000e+00, %276 ], [ 0.000000e+00, %274 ]
-  %413 = fadd double %102, %412
-  %414 = add nuw nsw i64 %101, 1
-  %415 = icmp eq i64 %414, 4
-  br i1 %415, label %424, label %100, !llvm.loop !60
+_ZL9ray_tracePK6node_tRK5ray_t.exit.us.i:         ; preds = %_ZN6node_t9intersectILb1EEEvRK5ray_tR5hit_t.exit.loopexit.us.i, %cond.end.i.us.i, %_ZN6node_t9intersectILb0EEEvRK5ray_tR5hit_t.exit.us.i
+  %retval.0.i.us.i = phi double [ %cond13.i.us.i, %_ZN6node_t9intersectILb1EEEvRK5ray_tR5hit_t.exit.loopexit.us.i ], [ 0.000000e+00, %cond.end.i.us.i ], [ 0.000000e+00, %_ZN6node_t9intersectILb0EEEvRK5ray_tR5hit_t.exit.us.i ]
+  %add.us.i = fadd double %g.0180.us.i, %retval.0.i.us.i
+  %indvars.iv.next.i = add nuw nsw i64 %indvars.iv.i, 1
+  %exitcond.not.i = icmp eq i64 %indvars.iv.next.i, 4
+  br i1 %exitcond.not.i, label %for.cond.cleanup23.i, label %for.body24.us.i, !llvm.loop !58
 
-416:                                              ; preds = %407, %399
-  %417 = phi double [ %402, %399 ], [ 0x7FF0000000000000, %407 ]
-  %418 = fcmp oeq double %417, 0x7FF0000000000000
-  %419 = select i1 %418, double %285, double 0.000000e+00
-  br label %411
+_ZN6node_t9intersectILb1EEEvRK5ray_tR5hit_t.exit.loopexit.us.i: ; preds = %if.end8.i.us.i, %_ZNK8sphere_t9intersectERK5ray_t.exit68.i.us.i
+  %shit.i.sroa.3.0.ph.us.i = phi double [ %cond.i65.i.us.i, %_ZNK8sphere_t9intersectERK5ray_t.exit68.i.us.i ], [ 0x7FF0000000000000, %if.end8.i.us.i ]
+  %cmp9.i.us.i = fcmp oeq double %shit.i.sroa.3.0.ph.us.i, 0x7FF0000000000000
+  %cond13.i.us.i = select i1 %cmp9.i.us.i, double %fneg.i.us.i, double 0.000000e+00
+  br label %_ZL9ray_tracePK6node_tRK5ray_t.exit.us.i
 
-420:                                              ; preds = %424
-  %421 = fadd double %68, -1.000000e+00
-  %422 = add nsw i32 %67, -1
-  %423 = icmp eq i32 %422, 0
-  br i1 %423, label %69, label %66, !llvm.loop !61
+for.cond.cleanup19.i:                             ; preds = %for.cond.cleanup23.i
+  %sub41.i = fadd double %scan.sroa.7.0187.i, -1.000000e+00
+  %dec43.i = add nsw i32 %i13.0188.i, -1
+  %tobool.not.i = icmp eq i32 %dec43.i, 0
+  br i1 %tobool.not.i, label %for.cond.cleanup15.i, label %for.cond17.preheader.i, !llvm.loop !59
 
-424:                                              ; preds = %411, %90
-  %425 = phi double [ 0.000000e+00, %90 ], [ %413, %411 ]
-  %426 = fmul double %425, 6.400000e+01
-  %427 = fptosi double %426 to i32
-  %428 = tail call noundef nonnull align 8 dereferenceable(8) ptr @_ZNSolsEi(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cout, i32 noundef %427)
-  %429 = tail call noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) %428, ptr noundef nonnull @.str.2, i64 noundef 1)
-  %430 = fadd double %92, 1.000000e+00
-  %431 = add nsw i32 %91, -1
-  %432 = icmp eq i32 %431, 0
-  br i1 %432, label %420, label %90, !llvm.loop !62
+for.cond.cleanup23.i:                             ; preds = %_ZL9ray_tracePK6node_tRK5ray_t.exit.us.i, %for.cond21.preheader.i
+  %.us-phi184.i = phi double [ 0.000000e+00, %for.cond21.preheader.i ], [ %add.us.i, %_ZL9ray_tracePK6node_tRK5ray_t.exit.us.i ]
+  %mul33.i = fmul double %.us-phi184.i, 6.400000e+01
+  %conv34.i = fptosi double %mul33.i to i32
+  %call35.i = tail call noundef nonnull align 8 dereferenceable(8) ptr @_ZNSolsEi(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cout, i32 noundef %conv34.i)
+  %call1.i.i = tail call noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) %call35.i, ptr noundef nonnull @.str.2, i64 noundef 1)
+  %add37.i = fadd double %scan.sroa.0.1185.i, 1.000000e+00
+  %dec.i = add nsw i32 %j.0186.i, -1
+  %tobool18.not.i = icmp eq i32 %dec.i, 0
+  br i1 %tobool18.not.i, label %for.cond.cleanup19.i, label %for.cond21.preheader.i, !llvm.loop !60
 
-433:                                              ; preds = %82, %85
-  %434 = phi i8 [ %84, %82 ], [ %89, %85 ]
-  %435 = tail call noundef nonnull align 8 dereferenceable(8) ptr @_ZNSo3putEc(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cout, i8 noundef signext %434)
-  %436 = tail call noundef nonnull align 8 dereferenceable(8) ptr @_ZNSo5flushEv(ptr noundef nonnull align 8 dereferenceable(8) %435)
-  call void @llvm.lifetime.end.p0(i64 96, ptr nonnull %3) #14
+_ZL10trace_rgssii.exit:                           ; preds = %if.then.i4.i.i.i, %if.end.i.i.i.i
+  %retval.0.i.i.i.i = phi i8 [ %8, %if.then.i4.i.i.i ], [ %call.i.i.i.i, %if.end.i.i.i.i ]
+  %call1.i70.i = tail call noundef nonnull align 8 dereferenceable(8) ptr @_ZNSo3putEc(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cout, i8 noundef signext %retval.0.i.i.i.i)
+  %call.i.i71.i = tail call noundef nonnull align 8 dereferenceable(8) ptr @_ZNSo5flushEv(ptr noundef nonnull align 8 dereferenceable(8) %call1.i70.i)
+  call void @llvm.lifetime.end.p0(i64 96, ptr nonnull %rgss.i) #14
   ret i32 0
 }
 
@@ -610,494 +611,471 @@ declare noundef nonnull ptr @_Znam(i64 noundef) local_unnamed_addr #6
 declare i32 @__gxx_personality_v0(...)
 
 ; Function Attrs: uwtable
-define internal fastcc noundef nonnull ptr @_ZL6createP6node_tii3v_tS1_d(ptr noundef %0, i32 noundef %1, i32 noundef %2, ptr nocapture noundef readonly byval(%struct.v_t) align 8 %3, ptr noundef byval(%struct.v_t) align 8 %4, double noundef %5) unnamed_addr #7 {
-  %7 = alloca %struct.basis_t, align 8
-  %8 = alloca %struct.v_t, align 16
-  %9 = alloca %struct.v_t, align 16
-  %10 = alloca %struct.v_t, align 16
-  %11 = alloca %struct.v_t, align 16
-  %12 = fmul double %5, 2.000000e+00
-  %13 = icmp sgt i32 %1, 1
-  %14 = select i1 %13, i32 %2, i32 1
-  %15 = sext i32 %14 to i64
-  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(24) %0, ptr noundef nonnull align 8 dereferenceable(24) %3, i64 24, i1 false)
-  %16 = getelementptr inbounds i8, ptr %0, i64 24
-  store double %12, ptr %16, align 8, !tbaa.struct !63
-  %17 = getelementptr inbounds %struct.node_t, ptr %0, i64 0, i32 1
-  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(24) %17, ptr noundef nonnull align 8 dereferenceable(24) %3, i64 24, i1 false)
-  %18 = getelementptr inbounds %struct.node_t, ptr %0, i64 0, i32 1, i32 1
-  store double %5, ptr %18, align 8, !tbaa.struct !63
-  %19 = getelementptr inbounds %struct.node_t, ptr %0, i64 0, i32 2
-  store i64 %15, ptr %19, align 8, !tbaa !47
-  %20 = getelementptr inbounds %struct.node_t, ptr %0, i64 1
-  %21 = icmp slt i32 %1, 2
-  br i1 %21, label %350, label %22
+define internal fastcc noundef nonnull ptr @_ZL6createP6node_tii3v_tS1_d(ptr noundef %n, i32 noundef %lvl, i32 noundef %dist, ptr nocapture noundef readonly byval(%struct.v_t) align 8 %c, ptr noundef byval(%struct.v_t) align 8 %d, double noundef %r) unnamed_addr #7 {
+entry:
+  %b = alloca %struct.basis_t, align 8
+  %agg.tmp = alloca %struct.v_t, align 16
+  %agg.tmp17 = alloca %struct.v_t, align 16
+  %agg.tmp37 = alloca %struct.v_t, align 16
+  %agg.tmp40 = alloca %struct.v_t, align 16
+  %mul = fmul double %r, 2.000000e+00
+  %cmp = icmp sgt i32 %lvl, 1
+  %cond = select i1 %cmp, i32 %dist, i32 1
+  %conv = sext i32 %cond to i64
+  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(24) %n, ptr noundef nonnull align 8 dereferenceable(24) %c, i64 24, i1 false)
+  %ref.tmp.sroa.4.0.n.sroa_idx = getelementptr inbounds i8, ptr %n, i64 24
+  store double %mul, ptr %ref.tmp.sroa.4.0.n.sroa_idx, align 8, !tbaa.struct !61
+  %leaf.i = getelementptr inbounds %struct.node_t, ptr %n, i64 0, i32 1
+  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(24) %leaf.i, ptr noundef nonnull align 8 dereferenceable(24) %c, i64 24, i1 false)
+  %ref.tmp1.sroa.4.0.leaf.i.sroa_idx = getelementptr inbounds %struct.node_t, ptr %n, i64 0, i32 1, i32 1
+  store double %r, ptr %ref.tmp1.sroa.4.0.leaf.i.sroa_idx, align 8, !tbaa.struct !61
+  %diff.i = getelementptr inbounds %struct.node_t, ptr %n, i64 0, i32 2
+  store i64 %conv, ptr %diff.i, align 8, !tbaa !47
+  %add.ptr = getelementptr inbounds %struct.node_t, ptr %n, i64 1
+  %cmp2 = icmp slt i32 %lvl, 2
+  br i1 %cmp2, label %return, label %if.end
 
-22:                                               ; preds = %6
-  %23 = add nsw i32 %2, -9
-  %24 = sdiv i32 %23, 9
-  %25 = tail call i32 @llvm.smax.i32(i32 %24, i32 1)
-  call void @llvm.lifetime.start.p0(i64 72, ptr nonnull %7) #14
-  call void @_ZN7basis_tC2ERK3v_t(ptr noundef nonnull align 8 dereferenceable(72) %7, ptr noundef nonnull align 8 dereferenceable(24) %4)
-  %26 = fdiv double %5, 3.000000e+00
-  %27 = getelementptr inbounds %struct.v_t, ptr %4, i64 0, i32 2
-  %28 = getelementptr inbounds %struct.basis_t, ptr %7, i64 0, i32 1
-  %29 = getelementptr inbounds %struct.basis_t, ptr %7, i64 0, i32 1, i32 2
-  %30 = getelementptr inbounds %struct.basis_t, ptr %7, i64 0, i32 2
-  %31 = getelementptr inbounds %struct.basis_t, ptr %7, i64 0, i32 2, i32 2
-  %32 = add nsw i32 %1, -1
-  %33 = fadd double %26, %5
-  %34 = load <2 x double>, ptr %3, align 8, !tbaa !44, !noalias !64
-  %35 = getelementptr inbounds %struct.v_t, ptr %3, i64 0, i32 2
-  %36 = load double, ptr %35, align 8, !tbaa !21, !noalias !64
-  %37 = getelementptr inbounds %struct.v_t, ptr %8, i64 0, i32 2
-  %38 = getelementptr inbounds i8, ptr %9, i64 16
-  %39 = insertelement <2 x double> poison, double %33, i64 0
-  %40 = shufflevector <2 x double> %39, <2 x double> poison, <2 x i32> zeroinitializer
-  br label %45
+if.end:                                           ; preds = %entry
+  %sub = add nsw i32 %dist, -9
+  %div = sdiv i32 %sub, 9
+  %.sroa.speculated = tail call i32 @llvm.smax.i32(i32 %div, i32 1)
+  call void @llvm.lifetime.start.p0(i64 72, ptr nonnull %b) #14
+  call void @_ZN7basis_tC2ERK3v_t(ptr noundef nonnull align 8 dereferenceable(72) %b, ptr noundef nonnull align 8 dereferenceable(24) %d)
+  %div6 = fdiv double %r, 3.000000e+00
+  %z.i = getelementptr inbounds %struct.v_t, ptr %d, i64 0, i32 2
+  %b1 = getelementptr inbounds %struct.basis_t, ptr %b, i64 0, i32 1
+  %z.i77 = getelementptr inbounds %struct.basis_t, ptr %b, i64 0, i32 1, i32 2
+  %b2 = getelementptr inbounds %struct.basis_t, ptr %b, i64 0, i32 2
+  %z.i91 = getelementptr inbounds %struct.basis_t, ptr %b, i64 0, i32 2, i32 2
+  %sub15 = add nsw i32 %lvl, -1
+  %add = fadd double %div6, %r
+  %0 = load <2 x double>, ptr %c, align 8, !tbaa !44, !noalias !62
+  %z.i122 = getelementptr inbounds %struct.v_t, ptr %c, i64 0, i32 2
+  %1 = load double, ptr %z.i122, align 8, !tbaa !21, !noalias !62
+  %z.i.i126 = getelementptr inbounds %struct.v_t, ptr %agg.tmp, i64 0, i32 2
+  %ndir.sroa.7.0.agg.tmp17.sroa_idx = getelementptr inbounds i8, ptr %agg.tmp17, i64 16
+  %2 = insertelement <2 x double> poison, double %add, i64 0
+  %3 = shufflevector <2 x double> %2, <2 x double> poison, <2 x i32> zeroinitializer
+  br label %for.body
 
-41:                                               ; preds = %182
-  %42 = fadd double %194, 0xBFD657184AE74487
-  %43 = getelementptr inbounds %struct.v_t, ptr %10, i64 0, i32 2
-  %44 = getelementptr inbounds i8, ptr %11, i64 16
-  br label %198
+for.cond.cleanup:                                 ; preds = %_ZNK3v_t4normEv.exit
+  %sub20 = fadd double %add19, 0xBFD657184AE74487
+  %z.i.i293 = getelementptr inbounds %struct.v_t, ptr %agg.tmp37, i64 0, i32 2
+  %ndir26.sroa.7.0.agg.tmp40.sroa_idx = getelementptr inbounds i8, ptr %agg.tmp40, i64 16
+  br label %for.body25
 
-45:                                               ; preds = %22, %182
-  %46 = phi i32 [ 0, %22 ], [ %195, %182 ]
-  %47 = phi double [ 0.000000e+00, %22 ], [ %194, %182 ]
-  %48 = phi ptr [ %20, %22 ], [ %193, %182 ]
-  %49 = load <2 x double>, ptr %4, align 8, !tbaa !44, !noalias !67
-  %50 = fmul <2 x double> %49, <double 2.000000e-01, double 2.000000e-01>
-  %51 = load double, ptr %27, align 8, !tbaa !21, !noalias !67
-  %52 = fmul double %51, 2.000000e-01
-  %53 = fcmp olt double %47, 0.000000e+00
-  br i1 %53, label %57, label %54
+for.body:                                         ; preds = %if.end, %_ZNK3v_t4normEv.exit
+  %i.0298 = phi i32 [ 0, %if.end ], [ %inc, %_ZNK3v_t4normEv.exit ]
+  %a.0297 = phi double [ 0.000000e+00, %if.end ], [ %add19, %_ZNK3v_t4normEv.exit ]
+  %n.addr.0296 = phi ptr [ %add.ptr, %if.end ], [ %call18, %_ZNK3v_t4normEv.exit ]
+  %4 = load <2 x double>, ptr %d, align 8, !tbaa !44, !noalias !65
+  %5 = fmul <2 x double> %4, <double 2.000000e-01, double 2.000000e-01>
+  %6 = load double, ptr %z.i, align 8, !tbaa !21, !noalias !65
+  %mul3.i = fmul double %6, 2.000000e-01
+  %cmp48.i = fcmp olt double %a.0297, 0.000000e+00
+  br i1 %cmp48.i, label %while.body.i, label %while.cond1.preheader.i
 
-54:                                               ; preds = %57, %45
-  %55 = phi double [ %47, %45 ], [ %59, %57 ]
-  %56 = fcmp ogt double %55, 0x401921FB54411744
-  br i1 %56, label %61, label %65
+while.cond1.preheader.i:                          ; preds = %while.body.i, %for.body
+  %d.addr.0.lcssa.i = phi double [ %a.0297, %for.body ], [ %add.i, %while.body.i ]
+  %cmp250.i = fcmp ogt double %d.addr.0.lcssa.i, 0x401921FB54411744
+  br i1 %cmp250.i, label %while.body3.i, label %while.end4.i
 
-57:                                               ; preds = %45, %57
-  %58 = phi double [ %59, %57 ], [ %47, %45 ]
-  %59 = fadd double %58, 0x401921FB54411744
-  %60 = fcmp olt double %59, 0.000000e+00
-  br i1 %60, label %57, label %54, !llvm.loop !70
+while.body.i:                                     ; preds = %for.body, %while.body.i
+  %d.addr.049.i = phi double [ %add.i, %while.body.i ], [ %a.0297, %for.body ]
+  %add.i = fadd double %d.addr.049.i, 0x401921FB54411744
+  %cmp.i72 = fcmp olt double %add.i, 0.000000e+00
+  br i1 %cmp.i72, label %while.body.i, label %while.cond1.preheader.i, !llvm.loop !68
 
-61:                                               ; preds = %54, %61
-  %62 = phi double [ %63, %61 ], [ %55, %54 ]
-  %63 = fadd double %62, 0xC01921FB54411744
-  %64 = fcmp ogt double %63, 0x401921FB54411744
-  br i1 %64, label %61, label %65, !llvm.loop !71
+while.body3.i:                                    ; preds = %while.cond1.preheader.i, %while.body3.i
+  %d.addr.151.i = phi double [ %sub.i, %while.body3.i ], [ %d.addr.0.lcssa.i, %while.cond1.preheader.i ]
+  %sub.i = fadd double %d.addr.151.i, 0xC01921FB54411744
+  %cmp2.i = fcmp ogt double %sub.i, 0x401921FB54411744
+  br i1 %cmp2.i, label %while.body3.i, label %while.end4.i, !llvm.loop !69
 
-65:                                               ; preds = %61, %54
-  %66 = phi double [ %55, %54 ], [ %63, %61 ]
-  %67 = fcmp ogt double %66, 0x4012D97C7F713E20
-  br i1 %67, label %68, label %70
+while.end4.i:                                     ; preds = %while.body3.i, %while.cond1.preheader.i
+  %d.addr.1.lcssa.i = phi double [ %d.addr.0.lcssa.i, %while.cond1.preheader.i ], [ %sub.i, %while.body3.i ]
+  %cmp5.i = fcmp ogt double %d.addr.1.lcssa.i, 0x4012D97C7F713E20
+  br i1 %cmp5.i, label %if.then.i, label %if.else.i
 
-68:                                               ; preds = %65
-  %69 = fsub double 0x401921FB54411744, %66
-  br label %78
+if.then.i:                                        ; preds = %while.end4.i
+  %sub6.i = fsub double 0x401921FB54411744, %d.addr.1.lcssa.i
+  br label %_ZL7LLVMsind.exit
 
-70:                                               ; preds = %65
-  %71 = fcmp ogt double %66, 0x400921FB5496FD7F
-  br i1 %71, label %72, label %74
+if.else.i:                                        ; preds = %while.end4.i
+  %cmp7.i = fcmp ogt double %d.addr.1.lcssa.i, 0x400921FB5496FD7F
+  br i1 %cmp7.i, label %if.then8.i, label %if.else10.i
 
-72:                                               ; preds = %70
-  %73 = fadd double %66, 0xC00921FB5496FD7F
-  br label %78
+if.then8.i:                                       ; preds = %if.else.i
+  %sub9.i = fadd double %d.addr.1.lcssa.i, 0xC00921FB5496FD7F
+  br label %_ZL7LLVMsind.exit
 
-74:                                               ; preds = %70
-  %75 = fcmp ogt double %66, 0x3FF921FB54524550
-  br i1 %75, label %76, label %78
+if.else10.i:                                      ; preds = %if.else.i
+  %cmp11.i = fcmp ogt double %d.addr.1.lcssa.i, 0x3FF921FB54524550
+  br i1 %cmp11.i, label %if.then12.i, label %_ZL7LLVMsind.exit
 
-76:                                               ; preds = %74
-  %77 = fsub double 0x400921FB5496FD7F, %66
-  br label %78
+if.then12.i:                                      ; preds = %if.else10.i
+  %sub13.i = fsub double 0x400921FB5496FD7F, %d.addr.1.lcssa.i
+  br label %_ZL7LLVMsind.exit
 
-78:                                               ; preds = %76, %74, %72, %68
-  %79 = phi double [ -1.000000e+00, %68 ], [ -1.000000e+00, %72 ], [ 1.000000e+00, %76 ], [ 1.000000e+00, %74 ]
-  %80 = phi double [ %69, %68 ], [ %73, %72 ], [ %77, %76 ], [ %66, %74 ]
-  %81 = fmul double %80, %80
-  %82 = fmul double %80, %81
-  %83 = fmul double %80, %82
-  %84 = fmul double %80, %83
-  %85 = insertelement <2 x double> poison, double %82, i64 0
-  %86 = insertelement <2 x double> %85, double %84, i64 1
-  %87 = fdiv <2 x double> %86, <double 6.000000e+00, double 1.200000e+02>
-  %88 = extractelement <2 x double> %87, i64 0
-  %89 = fsub double %80, %88
-  %90 = extractelement <2 x double> %87, i64 1
-  %91 = fadd double %89, %90
-  %92 = fmul double %79, %91
-  %93 = fcmp ogt double %92, 1.000000e+00
-  br i1 %93, label %97, label %94
+_ZL7LLVMsind.exit:                                ; preds = %if.then.i, %if.then8.i, %if.else10.i, %if.then12.i
+  %sign.0.i = phi double [ -1.000000e+00, %if.then.i ], [ -1.000000e+00, %if.then8.i ], [ 1.000000e+00, %if.then12.i ], [ 1.000000e+00, %if.else10.i ]
+  %d.addr.2.i = phi double [ %sub6.i, %if.then.i ], [ %sub9.i, %if.then8.i ], [ %sub13.i, %if.then12.i ], [ %d.addr.1.lcssa.i, %if.else10.i ]
+  %mul.i.i = fmul double %d.addr.2.i, %d.addr.2.i
+  %mul.i43.1.i = fmul double %d.addr.2.i, %mul.i.i
+  %mul.i43.2.i = fmul double %d.addr.2.i, %mul.i43.1.i
+  %mul.i43.3.i = fmul double %d.addr.2.i, %mul.i43.2.i
+  %7 = insertelement <2 x double> poison, double %mul.i43.1.i, i64 0
+  %8 = insertelement <2 x double> %7, double %mul.i43.3.i, i64 1
+  %9 = fdiv <2 x double> %8, <double 6.000000e+00, double 1.200000e+02>
+  %10 = extractelement <2 x double> %9, i64 0
+  %sub18.i = fsub double %d.addr.2.i, %10
+  %11 = extractelement <2 x double> %9, i64 1
+  %add19.i = fadd double %sub18.i, %11
+  %mul.i73 = fmul double %sign.0.i, %add19.i
+  %cmp20.i = fcmp ogt double %mul.i73, 1.000000e+00
+  %d.addr.3.i = select i1 %cmp20.i, double 1.000000e+00, double %mul.i73
+  %cmp23.i = fcmp olt double %d.addr.3.i, -1.000000e+00
+  %d.addr.4.i = select i1 %cmp23.i, double -1.000000e+00, double %d.addr.3.i
+  %12 = load <2 x double>, ptr %b1, align 8, !tbaa !44, !noalias !70
+  %13 = insertelement <2 x double> poison, double %d.addr.4.i, i64 0
+  %14 = shufflevector <2 x double> %13, <2 x double> poison, <2 x i32> zeroinitializer
+  %15 = fmul <2 x double> %12, %14
+  %16 = load double, ptr %z.i77, align 8, !tbaa !21, !noalias !70
+  %mul3.i78 = fmul double %16, %d.addr.4.i
+  %17 = fsub <2 x double> %15, %5
+  %18 = fsub double %mul3.i78, %mul3.i
+  %add.i86 = fadd double %a.0297, 0x3FF921FB54524550
+  %cmp48.i.i = fcmp olt double %add.i86, 0.000000e+00
+  br i1 %cmp48.i.i, label %while.body.i.i, label %while.cond1.preheader.i.i
 
-94:                                               ; preds = %78
-  %95 = fcmp olt double %92, -1.000000e+00
-  br i1 %95, label %96, label %97
+while.cond1.preheader.i.i:                        ; preds = %while.body.i.i, %_ZL7LLVMsind.exit
+  %d.addr.0.lcssa.i.i = phi double [ %add.i86, %_ZL7LLVMsind.exit ], [ %add.i.i, %while.body.i.i ]
+  %cmp250.i.i = fcmp ogt double %d.addr.0.lcssa.i.i, 0x401921FB54411744
+  br i1 %cmp250.i.i, label %while.body3.i.i, label %while.end4.i.i
 
-96:                                               ; preds = %94
-  br label %97
+while.body.i.i:                                   ; preds = %_ZL7LLVMsind.exit, %while.body.i.i
+  %d.addr.049.i.i = phi double [ %add.i.i, %while.body.i.i ], [ %add.i86, %_ZL7LLVMsind.exit ]
+  %add.i.i = fadd double %d.addr.049.i.i, 0x401921FB54411744
+  %cmp.i.i = fcmp olt double %add.i.i, 0.000000e+00
+  br i1 %cmp.i.i, label %while.body.i.i, label %while.cond1.preheader.i.i, !llvm.loop !68
 
-97:                                               ; preds = %78, %94, %96
-  %98 = phi double [ -1.000000e+00, %96 ], [ %92, %94 ], [ 1.000000e+00, %78 ]
-  %99 = load <2 x double>, ptr %28, align 8, !tbaa !44, !noalias !72
-  %100 = insertelement <2 x double> poison, double %98, i64 0
-  %101 = shufflevector <2 x double> %100, <2 x double> poison, <2 x i32> zeroinitializer
-  %102 = fmul <2 x double> %101, %99
-  %103 = load double, ptr %29, align 8, !tbaa !21, !noalias !72
-  %104 = fmul double %98, %103
-  %105 = fsub <2 x double> %102, %50
-  %106 = fsub double %104, %52
-  %107 = fadd double %47, 0x3FF921FB54524550
-  %108 = fcmp olt double %107, 0.000000e+00
-  br i1 %108, label %112, label %109
+while.body3.i.i:                                  ; preds = %while.cond1.preheader.i.i, %while.body3.i.i
+  %d.addr.151.i.i = phi double [ %sub.i.i, %while.body3.i.i ], [ %d.addr.0.lcssa.i.i, %while.cond1.preheader.i.i ]
+  %sub.i.i = fadd double %d.addr.151.i.i, 0xC01921FB54411744
+  %cmp2.i.i = fcmp ogt double %sub.i.i, 0x401921FB54411744
+  br i1 %cmp2.i.i, label %while.body3.i.i, label %while.end4.i.i, !llvm.loop !69
 
-109:                                              ; preds = %112, %97
-  %110 = phi double [ %107, %97 ], [ %114, %112 ]
-  %111 = fcmp ogt double %110, 0x401921FB54411744
-  br i1 %111, label %116, label %120
+while.end4.i.i:                                   ; preds = %while.body3.i.i, %while.cond1.preheader.i.i
+  %d.addr.1.lcssa.i.i = phi double [ %d.addr.0.lcssa.i.i, %while.cond1.preheader.i.i ], [ %sub.i.i, %while.body3.i.i ]
+  %cmp5.i.i = fcmp ogt double %d.addr.1.lcssa.i.i, 0x4012D97C7F713E20
+  br i1 %cmp5.i.i, label %if.then.i.i, label %if.else.i.i
 
-112:                                              ; preds = %97, %112
-  %113 = phi double [ %114, %112 ], [ %107, %97 ]
-  %114 = fadd double %113, 0x401921FB54411744
-  %115 = fcmp olt double %114, 0.000000e+00
-  br i1 %115, label %112, label %109, !llvm.loop !70
+if.then.i.i:                                      ; preds = %while.end4.i.i
+  %sub6.i.i = fsub double 0x401921FB54411744, %d.addr.1.lcssa.i.i
+  br label %_ZL7LLVMcosd.exit
 
-116:                                              ; preds = %109, %116
-  %117 = phi double [ %118, %116 ], [ %110, %109 ]
-  %118 = fadd double %117, 0xC01921FB54411744
-  %119 = fcmp ogt double %118, 0x401921FB54411744
-  br i1 %119, label %116, label %120, !llvm.loop !71
+if.else.i.i:                                      ; preds = %while.end4.i.i
+  %cmp7.i.i = fcmp ogt double %d.addr.1.lcssa.i.i, 0x400921FB5496FD7F
+  br i1 %cmp7.i.i, label %if.then8.i.i, label %if.else10.i.i
 
-120:                                              ; preds = %116, %109
-  %121 = phi double [ %110, %109 ], [ %118, %116 ]
-  %122 = fcmp ogt double %121, 0x4012D97C7F713E20
-  br i1 %122, label %123, label %125
+if.then8.i.i:                                     ; preds = %if.else.i.i
+  %sub9.i.i = fadd double %d.addr.1.lcssa.i.i, 0xC00921FB5496FD7F
+  br label %_ZL7LLVMcosd.exit
 
-123:                                              ; preds = %120
-  %124 = fsub double 0x401921FB54411744, %121
-  br label %133
+if.else10.i.i:                                    ; preds = %if.else.i.i
+  %cmp11.i.i = fcmp ogt double %d.addr.1.lcssa.i.i, 0x3FF921FB54524550
+  br i1 %cmp11.i.i, label %if.then12.i.i, label %_ZL7LLVMcosd.exit
 
-125:                                              ; preds = %120
-  %126 = fcmp ogt double %121, 0x400921FB5496FD7F
-  br i1 %126, label %127, label %129
+if.then12.i.i:                                    ; preds = %if.else10.i.i
+  %sub13.i.i = fsub double 0x400921FB5496FD7F, %d.addr.1.lcssa.i.i
+  br label %_ZL7LLVMcosd.exit
 
-127:                                              ; preds = %125
-  %128 = fadd double %121, 0xC00921FB5496FD7F
-  br label %133
+_ZL7LLVMcosd.exit:                                ; preds = %if.then.i.i, %if.then8.i.i, %if.else10.i.i, %if.then12.i.i
+  %sign.0.i.i = phi double [ -1.000000e+00, %if.then.i.i ], [ -1.000000e+00, %if.then8.i.i ], [ 1.000000e+00, %if.then12.i.i ], [ 1.000000e+00, %if.else10.i.i ]
+  %d.addr.2.i.i = phi double [ %sub6.i.i, %if.then.i.i ], [ %sub9.i.i, %if.then8.i.i ], [ %sub13.i.i, %if.then12.i.i ], [ %d.addr.1.lcssa.i.i, %if.else10.i.i ]
+  %mul.i.i.i = fmul double %d.addr.2.i.i, %d.addr.2.i.i
+  %mul.i43.1.i.i = fmul double %d.addr.2.i.i, %mul.i.i.i
+  %mul.i43.2.i.i = fmul double %d.addr.2.i.i, %mul.i43.1.i.i
+  %mul.i43.3.i.i = fmul double %d.addr.2.i.i, %mul.i43.2.i.i
+  %19 = insertelement <2 x double> poison, double %mul.i43.1.i.i, i64 0
+  %20 = insertelement <2 x double> %19, double %mul.i43.3.i.i, i64 1
+  %21 = fdiv <2 x double> %20, <double 6.000000e+00, double 1.200000e+02>
+  %22 = extractelement <2 x double> %21, i64 0
+  %sub18.i.i = fsub double %d.addr.2.i.i, %22
+  %23 = extractelement <2 x double> %21, i64 1
+  %add19.i.i = fadd double %sub18.i.i, %23
+  %mul.i.i87 = fmul double %sign.0.i.i, %add19.i.i
+  %cmp20.i.i = fcmp ogt double %mul.i.i87, 1.000000e+00
+  %d.addr.3.i.i = select i1 %cmp20.i.i, double 1.000000e+00, double %mul.i.i87
+  %cmp23.i.i = fcmp olt double %d.addr.3.i.i, -1.000000e+00
+  %d.addr.4.i.i = select i1 %cmp23.i.i, double -1.000000e+00, double %d.addr.3.i.i
+  %24 = load double, ptr %z.i91, align 8, !tbaa !21, !noalias !73
+  %25 = load <2 x double>, ptr %b2, align 8, !tbaa !44, !noalias !73
+  %26 = insertelement <2 x double> poison, double %d.addr.4.i.i, i64 0
+  %27 = shufflevector <2 x double> %26, <2 x double> poison, <2 x i32> zeroinitializer
+  %28 = fmul <2 x double> %25, %27
+  %29 = fadd <2 x double> %17, %28
+  %30 = fmul <2 x double> %29, %29
+  %31 = shufflevector <2 x double> %29, <2 x double> poison, <2 x i32> <i32 undef, i32 0>
+  %32 = insertelement <2 x double> %31, double %24, i64 0
+  %33 = insertelement <2 x double> %31, double %d.addr.4.i.i, i64 0
+  %34 = fmul <2 x double> %32, %33
+  %35 = insertelement <2 x double> %30, double %18, i64 0
+  %36 = fadd <2 x double> %35, %34
+  %37 = extractelement <2 x double> %36, i64 0
+  %38 = fmul <2 x double> %36, %36
+  %shift = shufflevector <2 x double> %36, <2 x double> poison, <2 x i32> <i32 1, i32 undef>
+  %39 = fadd <2 x double> %38, %shift
+  %add7.i.i.i = extractelement <2 x double> %39, i64 0
+  %cmp.i.i105 = fcmp oeq double %add7.i.i.i, 0x7FF0000000000000
+  br i1 %cmp.i.i105, label %_ZNK3v_t4normEv.exit, label %while.body.i.i108
 
-129:                                              ; preds = %125
-  %130 = fcmp ogt double %121, 0x3FF921FB54524550
-  br i1 %130, label %131, label %133
+while.body.i.i108:                                ; preds = %_ZL7LLVMcosd.exit, %while.body.i.i108
+  %it.014.i.i = phi i32 [ %dec.i.i, %while.body.i.i108 ], [ 100, %_ZL7LLVMcosd.exit ]
+  %xk.013.i.i = phi double [ %div1.i.i, %while.body.i.i108 ], [ 1.000000e+00, %_ZL7LLVMcosd.exit ]
+  %div.i.i106 = fdiv double %add7.i.i.i, %xk.013.i.i
+  %add.i.i107 = fadd double %xk.013.i.i, %div.i.i106
+  %div1.i.i = fmul double %add.i.i107, 5.000000e-01
+  %sub.i.i.i = fsub double %div1.i.i, %xk.013.i.i
+  %cmp.i.i.i = fcmp ule double %sub.i.i.i, 0x3D719799812DEA11
+  %cmp1.i.i.i = fcmp uge double %sub.i.i.i, 0xBD719799812DEA11
+  %.not.i.i = and i1 %cmp.i.i.i, %cmp1.i.i.i
+  %dec.i.i = add nsw i32 %it.014.i.i, -1
+  %tobool.not.i.i = icmp eq i32 %dec.i.i, 0
+  %or.cond.i.i = select i1 %.not.i.i, i1 true, i1 %tobool.not.i.i
+  br i1 %or.cond.i.i, label %_ZNK3v_t4normEv.exit, label %while.body.i.i108, !llvm.loop !11
 
-131:                                              ; preds = %129
-  %132 = fsub double 0x400921FB5496FD7F, %121
-  br label %133
+_ZNK3v_t4normEv.exit:                             ; preds = %while.body.i.i108, %_ZL7LLVMcosd.exit
+  %retval.1.i.i = phi double [ 0x7FF0000000000000, %_ZL7LLVMcosd.exit ], [ %div1.i.i, %while.body.i.i108 ]
+  %div.i109 = fdiv double 1.000000e+00, %retval.1.i.i
+  %mul3.i.i = fmul double %37, %div.i109
+  %mul3.i115 = fmul double %add, %mul3.i.i
+  call void @llvm.experimental.noalias.scope.decl(metadata !62)
+  %add6.i124 = fadd double %mul3.i115, %1
+  %40 = insertelement <2 x double> poison, double %div.i109, i64 0
+  %41 = shufflevector <2 x double> %40, <2 x double> poison, <2 x i32> zeroinitializer
+  %42 = fmul <2 x double> %29, %41
+  %43 = fmul <2 x double> %3, %42
+  %44 = fadd <2 x double> %0, %43
+  store <2 x double> %44, ptr %agg.tmp, align 16, !tbaa !44, !alias.scope !62
+  store double %add6.i124, ptr %z.i.i126, align 16, !tbaa !21, !alias.scope !62
+  store <2 x double> %42, ptr %agg.tmp17, align 16
+  store double %mul3.i.i, ptr %ndir.sroa.7.0.agg.tmp17.sroa_idx, align 16, !tbaa.struct !61
+  %call18 = call fastcc noundef ptr @_ZL6createP6node_tii3v_tS1_d(ptr noundef nonnull %n.addr.0296, i32 noundef %sub15, i32 noundef %.sroa.speculated, ptr noundef nonnull byval(%struct.v_t) align 8 %agg.tmp, ptr noundef nonnull byval(%struct.v_t) align 8 %agg.tmp17, double noundef %div6)
+  %add19 = fadd double %a.0297, 0x3FF0C152382D7365
+  %inc = add nuw nsw i32 %i.0298, 1
+  %exitcond.not = icmp eq i32 %inc, 6
+  br i1 %exitcond.not, label %for.cond.cleanup, label %for.body, !llvm.loop !76
 
-133:                                              ; preds = %131, %129, %127, %123
-  %134 = phi double [ -1.000000e+00, %123 ], [ -1.000000e+00, %127 ], [ 1.000000e+00, %131 ], [ 1.000000e+00, %129 ]
-  %135 = phi double [ %124, %123 ], [ %128, %127 ], [ %132, %131 ], [ %121, %129 ]
-  %136 = fmul double %135, %135
-  %137 = fmul double %135, %136
-  %138 = fmul double %135, %137
-  %139 = fmul double %135, %138
-  %140 = insertelement <2 x double> poison, double %137, i64 0
-  %141 = insertelement <2 x double> %140, double %139, i64 1
-  %142 = fdiv <2 x double> %141, <double 6.000000e+00, double 1.200000e+02>
-  %143 = extractelement <2 x double> %142, i64 0
-  %144 = fsub double %135, %143
-  %145 = extractelement <2 x double> %142, i64 1
-  %146 = fadd double %144, %145
-  %147 = fmul double %134, %146
-  %148 = fcmp ogt double %147, 1.000000e+00
-  br i1 %148, label %152, label %149
+for.cond.cleanup24:                               ; preds = %_ZNK3v_t4normEv.exit277
+  call void @llvm.lifetime.end.p0(i64 72, ptr nonnull %b) #14
+  br label %return
 
-149:                                              ; preds = %133
-  %150 = fcmp olt double %147, -1.000000e+00
-  br i1 %150, label %151, label %152
+for.body25:                                       ; preds = %for.cond.cleanup, %_ZNK3v_t4normEv.exit277
+  %i21.0301 = phi i32 [ 0, %for.cond.cleanup ], [ %inc44, %_ZNK3v_t4normEv.exit277 ]
+  %a.1300 = phi double [ %sub20, %for.cond.cleanup ], [ %add42, %_ZNK3v_t4normEv.exit277 ]
+  %n.addr.1299 = phi ptr [ %call18, %for.cond.cleanup ], [ %call41, %_ZNK3v_t4normEv.exit277 ]
+  %45 = load <2 x double>, ptr %d, align 8, !tbaa !44, !noalias !77
+  %46 = fmul <2 x double> %45, <double 6.000000e-01, double 6.000000e-01>
+  %47 = load double, ptr %z.i, align 8, !tbaa !21, !noalias !77
+  %mul3.i131 = fmul double %47, 6.000000e-01
+  %cmp48.i134 = fcmp olt double %a.1300, 0.000000e+00
+  br i1 %cmp48.i134, label %while.body.i141, label %while.cond1.preheader.i137
 
-151:                                              ; preds = %149
-  br label %152
+while.cond1.preheader.i137:                       ; preds = %while.body.i141, %for.body25
+  %d.addr.0.lcssa.i135 = phi double [ %a.1300, %for.body25 ], [ %add.i139, %while.body.i141 ]
+  %cmp250.i136 = fcmp ogt double %d.addr.0.lcssa.i135, 0x401921FB54411744
+  br i1 %cmp250.i136, label %while.body3.i145, label %while.end4.i148
 
-152:                                              ; preds = %133, %149, %151
-  %153 = phi double [ -1.000000e+00, %151 ], [ %147, %149 ], [ 1.000000e+00, %133 ]
-  %154 = load double, ptr %31, align 8, !tbaa !21, !noalias !75
-  %155 = fmul double %153, %154
-  %156 = load <2 x double>, ptr %30, align 8, !tbaa !44, !noalias !75
-  %157 = insertelement <2 x double> poison, double %153, i64 0
-  %158 = shufflevector <2 x double> %157, <2 x double> poison, <2 x i32> zeroinitializer
-  %159 = fmul <2 x double> %158, %156
-  %160 = fadd <2 x double> %105, %159
-  %161 = fadd double %106, %155
-  %162 = fmul <2 x double> %160, %160
-  %163 = shufflevector <2 x double> %162, <2 x double> poison, <2 x i32> <i32 1, i32 undef>
-  %164 = fadd <2 x double> %162, %163
-  %165 = extractelement <2 x double> %164, i64 0
-  %166 = fmul double %161, %161
-  %167 = fadd double %165, %166
-  %168 = fcmp oeq double %167, 0x7FF0000000000000
-  br i1 %168, label %182, label %169
+while.body.i141:                                  ; preds = %for.body25, %while.body.i141
+  %d.addr.049.i138 = phi double [ %add.i139, %while.body.i141 ], [ %a.1300, %for.body25 ]
+  %add.i139 = fadd double %d.addr.049.i138, 0x401921FB54411744
+  %cmp.i140 = fcmp olt double %add.i139, 0.000000e+00
+  br i1 %cmp.i140, label %while.body.i141, label %while.cond1.preheader.i137, !llvm.loop !68
 
-169:                                              ; preds = %152, %169
-  %170 = phi i32 [ %179, %169 ], [ 100, %152 ]
-  %171 = phi double [ %174, %169 ], [ 1.000000e+00, %152 ]
-  %172 = fdiv double %167, %171
-  %173 = fadd double %171, %172
-  %174 = fmul double %173, 5.000000e-01
-  %175 = fsub double %174, %171
-  %176 = fcmp ule double %175, 0x3D719799812DEA11
-  %177 = fcmp uge double %175, 0xBD719799812DEA11
-  %178 = and i1 %176, %177
-  %179 = add nsw i32 %170, -1
-  %180 = icmp eq i32 %179, 0
-  %181 = select i1 %178, i1 true, i1 %180
-  br i1 %181, label %182, label %169, !llvm.loop !11
+while.body3.i145:                                 ; preds = %while.cond1.preheader.i137, %while.body3.i145
+  %d.addr.151.i142 = phi double [ %sub.i143, %while.body3.i145 ], [ %d.addr.0.lcssa.i135, %while.cond1.preheader.i137 ]
+  %sub.i143 = fadd double %d.addr.151.i142, 0xC01921FB54411744
+  %cmp2.i144 = fcmp ogt double %sub.i143, 0x401921FB54411744
+  br i1 %cmp2.i144, label %while.body3.i145, label %while.end4.i148, !llvm.loop !69
 
-182:                                              ; preds = %169, %152
-  %183 = phi double [ 0x7FF0000000000000, %152 ], [ %174, %169 ]
-  %184 = fdiv double 1.000000e+00, %183
-  %185 = fmul double %161, %184
-  %186 = fmul double %33, %185
-  call void @llvm.experimental.noalias.scope.decl(metadata !64)
-  %187 = fadd double %186, %36
-  %188 = insertelement <2 x double> poison, double %184, i64 0
-  %189 = shufflevector <2 x double> %188, <2 x double> poison, <2 x i32> zeroinitializer
-  %190 = fmul <2 x double> %160, %189
-  %191 = fmul <2 x double> %40, %190
-  %192 = fadd <2 x double> %34, %191
-  store <2 x double> %192, ptr %8, align 16, !tbaa !44, !alias.scope !64
-  store double %187, ptr %37, align 16, !tbaa !21, !alias.scope !64
-  store <2 x double> %190, ptr %9, align 16
-  store double %185, ptr %38, align 16, !tbaa.struct !63
-  %193 = call fastcc noundef ptr @_ZL6createP6node_tii3v_tS1_d(ptr noundef nonnull %48, i32 noundef %32, i32 noundef %25, ptr noundef nonnull byval(%struct.v_t) align 8 %8, ptr noundef nonnull byval(%struct.v_t) align 8 %9, double noundef %26)
-  %194 = fadd double %47, 0x3FF0C152382D7365
-  %195 = add nuw nsw i32 %46, 1
-  %196 = icmp eq i32 %195, 6
-  br i1 %196, label %41, label %45, !llvm.loop !78
+while.end4.i148:                                  ; preds = %while.body3.i145, %while.cond1.preheader.i137
+  %d.addr.1.lcssa.i146 = phi double [ %d.addr.0.lcssa.i135, %while.cond1.preheader.i137 ], [ %sub.i143, %while.body3.i145 ]
+  %cmp5.i147 = fcmp ogt double %d.addr.1.lcssa.i146, 0x4012D97C7F713E20
+  br i1 %cmp5.i147, label %if.then.i150, label %if.else.i152
 
-197:                                              ; preds = %335
-  call void @llvm.lifetime.end.p0(i64 72, ptr nonnull %7) #14
-  br label %350
+if.then.i150:                                     ; preds = %while.end4.i148
+  %sub6.i149 = fsub double 0x401921FB54411744, %d.addr.1.lcssa.i146
+  br label %_ZL7LLVMsind.exit174
 
-198:                                              ; preds = %41, %335
-  %199 = phi i32 [ 0, %41 ], [ %348, %335 ]
-  %200 = phi double [ %42, %41 ], [ %347, %335 ]
-  %201 = phi ptr [ %193, %41 ], [ %346, %335 ]
-  %202 = load <2 x double>, ptr %4, align 8, !tbaa !44, !noalias !79
-  %203 = fmul <2 x double> %202, <double 6.000000e-01, double 6.000000e-01>
-  %204 = load double, ptr %27, align 8, !tbaa !21, !noalias !79
-  %205 = fmul double %204, 6.000000e-01
-  %206 = fcmp olt double %200, 0.000000e+00
-  br i1 %206, label %210, label %207
+if.else.i152:                                     ; preds = %while.end4.i148
+  %cmp7.i151 = fcmp ogt double %d.addr.1.lcssa.i146, 0x400921FB5496FD7F
+  br i1 %cmp7.i151, label %if.then8.i154, label %if.else10.i156
 
-207:                                              ; preds = %210, %198
-  %208 = phi double [ %200, %198 ], [ %212, %210 ]
-  %209 = fcmp ogt double %208, 0x401921FB54411744
-  br i1 %209, label %214, label %218
+if.then8.i154:                                    ; preds = %if.else.i152
+  %sub9.i153 = fadd double %d.addr.1.lcssa.i146, 0xC00921FB5496FD7F
+  br label %_ZL7LLVMsind.exit174
 
-210:                                              ; preds = %198, %210
-  %211 = phi double [ %212, %210 ], [ %200, %198 ]
-  %212 = fadd double %211, 0x401921FB54411744
-  %213 = fcmp olt double %212, 0.000000e+00
-  br i1 %213, label %210, label %207, !llvm.loop !70
+if.else10.i156:                                   ; preds = %if.else.i152
+  %cmp11.i155 = fcmp ogt double %d.addr.1.lcssa.i146, 0x3FF921FB54524550
+  br i1 %cmp11.i155, label %if.then12.i158, label %_ZL7LLVMsind.exit174
 
-214:                                              ; preds = %207, %214
-  %215 = phi double [ %216, %214 ], [ %208, %207 ]
-  %216 = fadd double %215, 0xC01921FB54411744
-  %217 = fcmp ogt double %216, 0x401921FB54411744
-  br i1 %217, label %214, label %218, !llvm.loop !71
+if.then12.i158:                                   ; preds = %if.else10.i156
+  %sub13.i157 = fsub double 0x400921FB5496FD7F, %d.addr.1.lcssa.i146
+  br label %_ZL7LLVMsind.exit174
 
-218:                                              ; preds = %214, %207
-  %219 = phi double [ %208, %207 ], [ %216, %214 ]
-  %220 = fcmp ogt double %219, 0x4012D97C7F713E20
-  br i1 %220, label %221, label %223
+_ZL7LLVMsind.exit174:                             ; preds = %if.then.i150, %if.then8.i154, %if.else10.i156, %if.then12.i158
+  %sign.0.i159 = phi double [ -1.000000e+00, %if.then.i150 ], [ -1.000000e+00, %if.then8.i154 ], [ 1.000000e+00, %if.then12.i158 ], [ 1.000000e+00, %if.else10.i156 ]
+  %d.addr.2.i160 = phi double [ %sub6.i149, %if.then.i150 ], [ %sub9.i153, %if.then8.i154 ], [ %sub13.i157, %if.then12.i158 ], [ %d.addr.1.lcssa.i146, %if.else10.i156 ]
+  %mul.i.i161 = fmul double %d.addr.2.i160, %d.addr.2.i160
+  %mul.i43.1.i162 = fmul double %d.addr.2.i160, %mul.i.i161
+  %mul.i43.2.i163 = fmul double %d.addr.2.i160, %mul.i43.1.i162
+  %mul.i43.3.i164 = fmul double %d.addr.2.i160, %mul.i43.2.i163
+  %48 = insertelement <2 x double> poison, double %mul.i43.1.i162, i64 0
+  %49 = insertelement <2 x double> %48, double %mul.i43.3.i164, i64 1
+  %50 = fdiv <2 x double> %49, <double 6.000000e+00, double 1.200000e+02>
+  %51 = extractelement <2 x double> %50, i64 0
+  %sub18.i167 = fsub double %d.addr.2.i160, %51
+  %52 = extractelement <2 x double> %50, i64 1
+  %add19.i168 = fadd double %sub18.i167, %52
+  %mul.i169 = fmul double %sign.0.i159, %add19.i168
+  %cmp20.i170 = fcmp ogt double %mul.i169, 1.000000e+00
+  %d.addr.3.i171 = select i1 %cmp20.i170, double 1.000000e+00, double %mul.i169
+  %cmp23.i172 = fcmp olt double %d.addr.3.i171, -1.000000e+00
+  %d.addr.4.i173 = select i1 %cmp23.i172, double -1.000000e+00, double %d.addr.3.i171
+  %53 = load <2 x double>, ptr %b1, align 8, !tbaa !44, !noalias !80
+  %54 = insertelement <2 x double> poison, double %d.addr.4.i173, i64 0
+  %55 = shufflevector <2 x double> %54, <2 x double> poison, <2 x i32> zeroinitializer
+  %56 = fmul <2 x double> %53, %55
+  %57 = load double, ptr %z.i77, align 8, !tbaa !21, !noalias !80
+  %mul3.i179 = fmul double %57, %d.addr.4.i173
+  %58 = fadd <2 x double> %46, %56
+  %add6.i188 = fadd double %mul3.i131, %mul3.i179
+  %add.i191 = fadd double %a.1300, 0x3FF921FB54524550
+  %cmp48.i.i192 = fcmp olt double %add.i191, 0.000000e+00
+  br i1 %cmp48.i.i192, label %while.body.i.i199, label %while.cond1.preheader.i.i195
 
-221:                                              ; preds = %218
-  %222 = fsub double 0x401921FB54411744, %219
-  br label %231
+while.cond1.preheader.i.i195:                     ; preds = %while.body.i.i199, %_ZL7LLVMsind.exit174
+  %d.addr.0.lcssa.i.i193 = phi double [ %add.i191, %_ZL7LLVMsind.exit174 ], [ %add.i.i197, %while.body.i.i199 ]
+  %cmp250.i.i194 = fcmp ogt double %d.addr.0.lcssa.i.i193, 0x401921FB54411744
+  br i1 %cmp250.i.i194, label %while.body3.i.i203, label %while.end4.i.i206
 
-223:                                              ; preds = %218
-  %224 = fcmp ogt double %219, 0x400921FB5496FD7F
-  br i1 %224, label %225, label %227
+while.body.i.i199:                                ; preds = %_ZL7LLVMsind.exit174, %while.body.i.i199
+  %d.addr.049.i.i196 = phi double [ %add.i.i197, %while.body.i.i199 ], [ %add.i191, %_ZL7LLVMsind.exit174 ]
+  %add.i.i197 = fadd double %d.addr.049.i.i196, 0x401921FB54411744
+  %cmp.i.i198 = fcmp olt double %add.i.i197, 0.000000e+00
+  br i1 %cmp.i.i198, label %while.body.i.i199, label %while.cond1.preheader.i.i195, !llvm.loop !68
 
-225:                                              ; preds = %223
-  %226 = fadd double %219, 0xC00921FB5496FD7F
-  br label %231
+while.body3.i.i203:                               ; preds = %while.cond1.preheader.i.i195, %while.body3.i.i203
+  %d.addr.151.i.i200 = phi double [ %sub.i.i201, %while.body3.i.i203 ], [ %d.addr.0.lcssa.i.i193, %while.cond1.preheader.i.i195 ]
+  %sub.i.i201 = fadd double %d.addr.151.i.i200, 0xC01921FB54411744
+  %cmp2.i.i202 = fcmp ogt double %sub.i.i201, 0x401921FB54411744
+  br i1 %cmp2.i.i202, label %while.body3.i.i203, label %while.end4.i.i206, !llvm.loop !69
 
-227:                                              ; preds = %223
-  %228 = fcmp ogt double %219, 0x3FF921FB54524550
-  br i1 %228, label %229, label %231
+while.end4.i.i206:                                ; preds = %while.body3.i.i203, %while.cond1.preheader.i.i195
+  %d.addr.1.lcssa.i.i204 = phi double [ %d.addr.0.lcssa.i.i193, %while.cond1.preheader.i.i195 ], [ %sub.i.i201, %while.body3.i.i203 ]
+  %cmp5.i.i205 = fcmp ogt double %d.addr.1.lcssa.i.i204, 0x4012D97C7F713E20
+  br i1 %cmp5.i.i205, label %if.then.i.i208, label %if.else.i.i210
 
-229:                                              ; preds = %227
-  %230 = fsub double 0x400921FB5496FD7F, %219
-  br label %231
+if.then.i.i208:                                   ; preds = %while.end4.i.i206
+  %sub6.i.i207 = fsub double 0x401921FB54411744, %d.addr.1.lcssa.i.i204
+  br label %_ZL7LLVMcosd.exit232
 
-231:                                              ; preds = %229, %227, %225, %221
-  %232 = phi double [ -1.000000e+00, %221 ], [ -1.000000e+00, %225 ], [ 1.000000e+00, %229 ], [ 1.000000e+00, %227 ]
-  %233 = phi double [ %222, %221 ], [ %226, %225 ], [ %230, %229 ], [ %219, %227 ]
-  %234 = fmul double %233, %233
-  %235 = fmul double %233, %234
-  %236 = fmul double %233, %235
-  %237 = fmul double %233, %236
-  %238 = insertelement <2 x double> poison, double %235, i64 0
-  %239 = insertelement <2 x double> %238, double %237, i64 1
-  %240 = fdiv <2 x double> %239, <double 6.000000e+00, double 1.200000e+02>
-  %241 = extractelement <2 x double> %240, i64 0
-  %242 = fsub double %233, %241
-  %243 = extractelement <2 x double> %240, i64 1
-  %244 = fadd double %242, %243
-  %245 = fmul double %232, %244
-  %246 = fcmp ogt double %245, 1.000000e+00
-  br i1 %246, label %250, label %247
+if.else.i.i210:                                   ; preds = %while.end4.i.i206
+  %cmp7.i.i209 = fcmp ogt double %d.addr.1.lcssa.i.i204, 0x400921FB5496FD7F
+  br i1 %cmp7.i.i209, label %if.then8.i.i212, label %if.else10.i.i214
 
-247:                                              ; preds = %231
-  %248 = fcmp olt double %245, -1.000000e+00
-  br i1 %248, label %249, label %250
+if.then8.i.i212:                                  ; preds = %if.else.i.i210
+  %sub9.i.i211 = fadd double %d.addr.1.lcssa.i.i204, 0xC00921FB5496FD7F
+  br label %_ZL7LLVMcosd.exit232
 
-249:                                              ; preds = %247
-  br label %250
+if.else10.i.i214:                                 ; preds = %if.else.i.i210
+  %cmp11.i.i213 = fcmp ogt double %d.addr.1.lcssa.i.i204, 0x3FF921FB54524550
+  br i1 %cmp11.i.i213, label %if.then12.i.i216, label %_ZL7LLVMcosd.exit232
 
-250:                                              ; preds = %231, %247, %249
-  %251 = phi double [ -1.000000e+00, %249 ], [ %245, %247 ], [ 1.000000e+00, %231 ]
-  %252 = load <2 x double>, ptr %28, align 8, !tbaa !44, !noalias !82
-  %253 = insertelement <2 x double> poison, double %251, i64 0
-  %254 = shufflevector <2 x double> %253, <2 x double> poison, <2 x i32> zeroinitializer
-  %255 = fmul <2 x double> %254, %252
-  %256 = load double, ptr %29, align 8, !tbaa !21, !noalias !82
-  %257 = fmul double %251, %256
-  %258 = fadd <2 x double> %203, %255
-  %259 = fadd double %205, %257
-  %260 = fadd double %200, 0x3FF921FB54524550
-  %261 = fcmp olt double %260, 0.000000e+00
-  br i1 %261, label %265, label %262
+if.then12.i.i216:                                 ; preds = %if.else10.i.i214
+  %sub13.i.i215 = fsub double 0x400921FB5496FD7F, %d.addr.1.lcssa.i.i204
+  br label %_ZL7LLVMcosd.exit232
 
-262:                                              ; preds = %265, %250
-  %263 = phi double [ %260, %250 ], [ %267, %265 ]
-  %264 = fcmp ogt double %263, 0x401921FB54411744
-  br i1 %264, label %269, label %273
+_ZL7LLVMcosd.exit232:                             ; preds = %if.then.i.i208, %if.then8.i.i212, %if.else10.i.i214, %if.then12.i.i216
+  %sign.0.i.i217 = phi double [ -1.000000e+00, %if.then.i.i208 ], [ -1.000000e+00, %if.then8.i.i212 ], [ 1.000000e+00, %if.then12.i.i216 ], [ 1.000000e+00, %if.else10.i.i214 ]
+  %d.addr.2.i.i218 = phi double [ %sub6.i.i207, %if.then.i.i208 ], [ %sub9.i.i211, %if.then8.i.i212 ], [ %sub13.i.i215, %if.then12.i.i216 ], [ %d.addr.1.lcssa.i.i204, %if.else10.i.i214 ]
+  %mul.i.i.i219 = fmul double %d.addr.2.i.i218, %d.addr.2.i.i218
+  %mul.i43.1.i.i220 = fmul double %d.addr.2.i.i218, %mul.i.i.i219
+  %mul.i43.2.i.i221 = fmul double %d.addr.2.i.i218, %mul.i43.1.i.i220
+  %mul.i43.3.i.i222 = fmul double %d.addr.2.i.i218, %mul.i43.2.i.i221
+  %59 = insertelement <2 x double> poison, double %mul.i43.1.i.i220, i64 0
+  %60 = insertelement <2 x double> %59, double %mul.i43.3.i.i222, i64 1
+  %61 = fdiv <2 x double> %60, <double 6.000000e+00, double 1.200000e+02>
+  %62 = extractelement <2 x double> %61, i64 0
+  %sub18.i.i225 = fsub double %d.addr.2.i.i218, %62
+  %63 = extractelement <2 x double> %61, i64 1
+  %add19.i.i226 = fadd double %sub18.i.i225, %63
+  %mul.i.i227 = fmul double %sign.0.i.i217, %add19.i.i226
+  %cmp20.i.i228 = fcmp ogt double %mul.i.i227, 1.000000e+00
+  %d.addr.3.i.i229 = select i1 %cmp20.i.i228, double 1.000000e+00, double %mul.i.i227
+  %cmp23.i.i230 = fcmp olt double %d.addr.3.i.i229, -1.000000e+00
+  %d.addr.4.i.i231 = select i1 %cmp23.i.i230, double -1.000000e+00, double %d.addr.3.i.i229
+  %64 = load double, ptr %z.i91, align 8, !tbaa !21, !noalias !83
+  %65 = load <2 x double>, ptr %b2, align 8, !tbaa !44, !noalias !83
+  %66 = insertelement <2 x double> poison, double %d.addr.4.i.i231, i64 0
+  %67 = shufflevector <2 x double> %66, <2 x double> poison, <2 x i32> zeroinitializer
+  %68 = fmul <2 x double> %65, %67
+  %69 = fadd <2 x double> %58, %68
+  %70 = fmul <2 x double> %69, %69
+  %71 = shufflevector <2 x double> %69, <2 x double> poison, <2 x i32> <i32 undef, i32 0>
+  %72 = insertelement <2 x double> %71, double %64, i64 0
+  %73 = insertelement <2 x double> %71, double %d.addr.4.i.i231, i64 0
+  %74 = fmul <2 x double> %72, %73
+  %75 = insertelement <2 x double> %70, double %add6.i188, i64 0
+  %76 = fadd <2 x double> %75, %74
+  %77 = extractelement <2 x double> %76, i64 0
+  %78 = fmul <2 x double> %76, %76
+  %shift303 = shufflevector <2 x double> %76, <2 x double> poison, <2 x i32> <i32 1, i32 undef>
+  %79 = fadd <2 x double> %78, %shift303
+  %add7.i.i.i255 = extractelement <2 x double> %79, i64 0
+  %cmp.i.i256 = fcmp oeq double %add7.i.i.i255, 0x7FF0000000000000
+  br i1 %cmp.i.i256, label %_ZNK3v_t4normEv.exit277, label %while.body.i.i269
 
-265:                                              ; preds = %250, %265
-  %266 = phi double [ %267, %265 ], [ %260, %250 ]
-  %267 = fadd double %266, 0x401921FB54411744
-  %268 = fcmp olt double %267, 0.000000e+00
-  br i1 %268, label %265, label %262, !llvm.loop !70
+while.body.i.i269:                                ; preds = %_ZL7LLVMcosd.exit232, %while.body.i.i269
+  %it.014.i.i257 = phi i32 [ %dec.i.i266, %while.body.i.i269 ], [ 100, %_ZL7LLVMcosd.exit232 ]
+  %xk.013.i.i258 = phi double [ %div1.i.i261, %while.body.i.i269 ], [ 1.000000e+00, %_ZL7LLVMcosd.exit232 ]
+  %div.i.i259 = fdiv double %add7.i.i.i255, %xk.013.i.i258
+  %add.i.i260 = fadd double %xk.013.i.i258, %div.i.i259
+  %div1.i.i261 = fmul double %add.i.i260, 5.000000e-01
+  %sub.i.i.i262 = fsub double %div1.i.i261, %xk.013.i.i258
+  %cmp.i.i.i263 = fcmp ule double %sub.i.i.i262, 0x3D719799812DEA11
+  %cmp1.i.i.i264 = fcmp uge double %sub.i.i.i262, 0xBD719799812DEA11
+  %.not.i.i265 = and i1 %cmp.i.i.i263, %cmp1.i.i.i264
+  %dec.i.i266 = add nsw i32 %it.014.i.i257, -1
+  %tobool.not.i.i267 = icmp eq i32 %dec.i.i266, 0
+  %or.cond.i.i268 = select i1 %.not.i.i265, i1 true, i1 %tobool.not.i.i267
+  br i1 %or.cond.i.i268, label %_ZNK3v_t4normEv.exit277, label %while.body.i.i269, !llvm.loop !11
 
-269:                                              ; preds = %262, %269
-  %270 = phi double [ %271, %269 ], [ %263, %262 ]
-  %271 = fadd double %270, 0xC01921FB54411744
-  %272 = fcmp ogt double %271, 0x401921FB54411744
-  br i1 %272, label %269, label %273, !llvm.loop !71
+_ZNK3v_t4normEv.exit277:                          ; preds = %while.body.i.i269, %_ZL7LLVMcosd.exit232
+  %retval.1.i.i270 = phi double [ 0x7FF0000000000000, %_ZL7LLVMcosd.exit232 ], [ %div1.i.i261, %while.body.i.i269 ]
+  %div.i271 = fdiv double 1.000000e+00, %retval.1.i.i270
+  %mul3.i.i274 = fmul double %77, %div.i271
+  %mul3.i282 = fmul double %add, %mul3.i.i274
+  %add6.i291 = fadd double %mul3.i282, %1
+  %80 = insertelement <2 x double> poison, double %div.i271, i64 0
+  %81 = shufflevector <2 x double> %80, <2 x double> poison, <2 x i32> zeroinitializer
+  %82 = fmul <2 x double> %69, %81
+  %83 = fmul <2 x double> %3, %82
+  %84 = fadd <2 x double> %0, %83
+  store <2 x double> %84, ptr %agg.tmp37, align 16, !tbaa !44, !alias.scope !86
+  store double %add6.i291, ptr %z.i.i293, align 16, !tbaa !21, !alias.scope !86
+  store <2 x double> %82, ptr %agg.tmp40, align 16
+  store double %mul3.i.i274, ptr %ndir26.sroa.7.0.agg.tmp40.sroa_idx, align 16, !tbaa.struct !61
+  %call41 = call fastcc noundef ptr @_ZL6createP6node_tii3v_tS1_d(ptr noundef nonnull %n.addr.1299, i32 noundef %sub15, i32 noundef %.sroa.speculated, ptr noundef nonnull byval(%struct.v_t) align 8 %agg.tmp37, ptr noundef nonnull byval(%struct.v_t) align 8 %agg.tmp40, double noundef %div6)
+  %add42 = fadd double %a.1300, 0x4000C152382D7365
+  %inc44 = add nuw nsw i32 %i21.0301, 1
+  %exitcond302.not = icmp eq i32 %inc44, 3
+  br i1 %exitcond302.not, label %for.cond.cleanup24, label %for.body25, !llvm.loop !89
 
-273:                                              ; preds = %269, %262
-  %274 = phi double [ %263, %262 ], [ %271, %269 ]
-  %275 = fcmp ogt double %274, 0x4012D97C7F713E20
-  br i1 %275, label %276, label %278
-
-276:                                              ; preds = %273
-  %277 = fsub double 0x401921FB54411744, %274
-  br label %286
-
-278:                                              ; preds = %273
-  %279 = fcmp ogt double %274, 0x400921FB5496FD7F
-  br i1 %279, label %280, label %282
-
-280:                                              ; preds = %278
-  %281 = fadd double %274, 0xC00921FB5496FD7F
-  br label %286
-
-282:                                              ; preds = %278
-  %283 = fcmp ogt double %274, 0x3FF921FB54524550
-  br i1 %283, label %284, label %286
-
-284:                                              ; preds = %282
-  %285 = fsub double 0x400921FB5496FD7F, %274
-  br label %286
-
-286:                                              ; preds = %284, %282, %280, %276
-  %287 = phi double [ -1.000000e+00, %276 ], [ -1.000000e+00, %280 ], [ 1.000000e+00, %284 ], [ 1.000000e+00, %282 ]
-  %288 = phi double [ %277, %276 ], [ %281, %280 ], [ %285, %284 ], [ %274, %282 ]
-  %289 = fmul double %288, %288
-  %290 = fmul double %288, %289
-  %291 = fmul double %288, %290
-  %292 = fmul double %288, %291
-  %293 = insertelement <2 x double> poison, double %290, i64 0
-  %294 = insertelement <2 x double> %293, double %292, i64 1
-  %295 = fdiv <2 x double> %294, <double 6.000000e+00, double 1.200000e+02>
-  %296 = extractelement <2 x double> %295, i64 0
-  %297 = fsub double %288, %296
-  %298 = extractelement <2 x double> %295, i64 1
-  %299 = fadd double %297, %298
-  %300 = fmul double %287, %299
-  %301 = fcmp ogt double %300, 1.000000e+00
-  br i1 %301, label %305, label %302
-
-302:                                              ; preds = %286
-  %303 = fcmp olt double %300, -1.000000e+00
-  br i1 %303, label %304, label %305
-
-304:                                              ; preds = %302
-  br label %305
-
-305:                                              ; preds = %286, %302, %304
-  %306 = phi double [ -1.000000e+00, %304 ], [ %300, %302 ], [ 1.000000e+00, %286 ]
-  %307 = load double, ptr %31, align 8, !tbaa !21, !noalias !85
-  %308 = fmul double %306, %307
-  %309 = load <2 x double>, ptr %30, align 8, !tbaa !44, !noalias !85
-  %310 = insertelement <2 x double> poison, double %306, i64 0
-  %311 = shufflevector <2 x double> %310, <2 x double> poison, <2 x i32> zeroinitializer
-  %312 = fmul <2 x double> %311, %309
-  %313 = fadd <2 x double> %258, %312
-  %314 = fadd double %259, %308
-  %315 = fmul <2 x double> %313, %313
-  %316 = shufflevector <2 x double> %315, <2 x double> poison, <2 x i32> <i32 1, i32 undef>
-  %317 = fadd <2 x double> %315, %316
-  %318 = extractelement <2 x double> %317, i64 0
-  %319 = fmul double %314, %314
-  %320 = fadd double %318, %319
-  %321 = fcmp oeq double %320, 0x7FF0000000000000
-  br i1 %321, label %335, label %322
-
-322:                                              ; preds = %305, %322
-  %323 = phi i32 [ %332, %322 ], [ 100, %305 ]
-  %324 = phi double [ %327, %322 ], [ 1.000000e+00, %305 ]
-  %325 = fdiv double %320, %324
-  %326 = fadd double %324, %325
-  %327 = fmul double %326, 5.000000e-01
-  %328 = fsub double %327, %324
-  %329 = fcmp ule double %328, 0x3D719799812DEA11
-  %330 = fcmp uge double %328, 0xBD719799812DEA11
-  %331 = and i1 %329, %330
-  %332 = add nsw i32 %323, -1
-  %333 = icmp eq i32 %332, 0
-  %334 = select i1 %331, i1 true, i1 %333
-  br i1 %334, label %335, label %322, !llvm.loop !11
-
-335:                                              ; preds = %322, %305
-  %336 = phi double [ 0x7FF0000000000000, %305 ], [ %327, %322 ]
-  %337 = fdiv double 1.000000e+00, %336
-  %338 = fmul double %314, %337
-  %339 = fmul double %33, %338
-  %340 = fadd double %339, %36
-  %341 = insertelement <2 x double> poison, double %337, i64 0
-  %342 = shufflevector <2 x double> %341, <2 x double> poison, <2 x i32> zeroinitializer
-  %343 = fmul <2 x double> %313, %342
-  %344 = fmul <2 x double> %40, %343
-  %345 = fadd <2 x double> %34, %344
-  store <2 x double> %345, ptr %10, align 16, !tbaa !44, !alias.scope !88
-  store double %340, ptr %43, align 16, !tbaa !21, !alias.scope !88
-  store <2 x double> %343, ptr %11, align 16
-  store double %338, ptr %44, align 16, !tbaa.struct !63
-  %346 = call fastcc noundef ptr @_ZL6createP6node_tii3v_tS1_d(ptr noundef nonnull %201, i32 noundef %32, i32 noundef %25, ptr noundef nonnull byval(%struct.v_t) align 8 %10, ptr noundef nonnull byval(%struct.v_t) align 8 %11, double noundef %26)
-  %347 = fadd double %200, 0x4000C152382D7365
-  %348 = add nuw nsw i32 %199, 1
-  %349 = icmp eq i32 %348, 3
-  br i1 %349, label %197, label %198, !llvm.loop !91
-
-350:                                              ; preds = %6, %197
-  %351 = phi ptr [ %346, %197 ], [ %20, %6 ]
-  ret ptr %351
+return:                                           ; preds = %entry, %for.cond.cleanup24
+  %retval.0 = phi ptr [ %call41, %for.cond.cleanup24 ], [ %add.ptr, %entry ]
+  ret ptr %retval.0
 }
 
 declare noundef nonnull align 8 dereferenceable(8) ptr @_ZNSolsEi(ptr noundef nonnull align 8 dereferenceable(8), i32 noundef) local_unnamed_addr #0
@@ -1106,123 +1084,137 @@ declare noundef nonnull align 8 dereferenceable(8) ptr @_ZNSolsEi(ptr noundef no
 declare i64 @strtol(ptr noundef readonly, ptr nocapture noundef, i32 noundef) local_unnamed_addr #8
 
 ; Function Attrs: uwtable
-define linkonce_odr dso_local void @_ZN7basis_tC2ERK3v_t(ptr noundef nonnull align 8 dereferenceable(72) %0, ptr noundef nonnull align 8 dereferenceable(24) %1) unnamed_addr #7 comdat align 2 {
-  %3 = load <2 x double>, ptr %1, align 8, !tbaa !44, !noalias !92
-  %4 = fmul <2 x double> %3, %3
-  %5 = shufflevector <2 x double> %4, <2 x double> poison, <2 x i32> <i32 1, i32 undef>
-  %6 = fadd <2 x double> %4, %5
+define linkonce_odr dso_local void @_ZN7basis_tC2ERK3v_t(ptr noundef nonnull align 8 dereferenceable(72) %this, ptr noundef nonnull align 8 dereferenceable(24) %v) unnamed_addr #7 comdat align 2 {
+entry:
+  %0 = load <2 x double>, ptr %v, align 8, !tbaa !44, !noalias !90
+  %1 = fmul <2 x double> %0, %0
+  %shift = shufflevector <2 x double> %1, <2 x double> poison, <2 x i32> <i32 1, i32 undef>
+  %2 = fadd <2 x double> %1, %shift
+  %add.i.i.i = extractelement <2 x double> %2, i64 0
+  %z.i.i.i = getelementptr inbounds %struct.v_t, ptr %v, i64 0, i32 2
+  %3 = load double, ptr %z.i.i.i, align 8, !tbaa !21, !noalias !90
+  %mul6.i.i.i = fmul double %3, %3
+  %add7.i.i.i = fadd double %add.i.i.i, %mul6.i.i.i
+  %cmp.i.i = fcmp oeq double %add7.i.i.i, 0x7FF0000000000000
+  br i1 %cmp.i.i, label %_ZNK3v_t4normEv.exit, label %while.body.i.i
+
+while.body.i.i:                                   ; preds = %entry, %while.body.i.i
+  %it.014.i.i = phi i32 [ %dec.i.i, %while.body.i.i ], [ 100, %entry ]
+  %xk.013.i.i = phi double [ %div1.i.i, %while.body.i.i ], [ 1.000000e+00, %entry ]
+  %div.i.i = fdiv double %add7.i.i.i, %xk.013.i.i
+  %add.i.i = fadd double %xk.013.i.i, %div.i.i
+  %div1.i.i = fmul double %add.i.i, 5.000000e-01
+  %sub.i.i.i = fsub double %div1.i.i, %xk.013.i.i
+  %cmp.i.i.i = fcmp ule double %sub.i.i.i, 0x3D719799812DEA11
+  %cmp1.i.i.i = fcmp uge double %sub.i.i.i, 0xBD719799812DEA11
+  %.not.i.i = and i1 %cmp.i.i.i, %cmp1.i.i.i
+  %dec.i.i = add nsw i32 %it.014.i.i, -1
+  %tobool.not.i.i = icmp eq i32 %dec.i.i, 0
+  %or.cond.i.i = select i1 %.not.i.i, i1 true, i1 %tobool.not.i.i
+  br i1 %or.cond.i.i, label %_ZNK3v_t4normEv.exit, label %while.body.i.i, !llvm.loop !11
+
+_ZNK3v_t4normEv.exit:                             ; preds = %while.body.i.i, %entry
+  %retval.1.i.i = phi double [ 0x7FF0000000000000, %entry ], [ %div1.i.i, %while.body.i.i ]
+  %div.i = fdiv double 1.000000e+00, %retval.1.i.i
+  %4 = insertelement <2 x double> poison, double %div.i, i64 0
+  %5 = shufflevector <2 x double> %4, <2 x double> poison, <2 x i32> zeroinitializer
+  %6 = fmul <2 x double> %0, %5
+  %mul3.i.i = fmul double %3, %div.i
   %7 = extractelement <2 x double> %6, i64 0
-  %8 = getelementptr inbounds %struct.v_t, ptr %1, i64 0, i32 2
-  %9 = load double, ptr %8, align 8, !tbaa !21, !noalias !92
-  %10 = fmul double %9, %9
-  %11 = fadd double %7, %10
-  %12 = fcmp oeq double %11, 0x7FF0000000000000
-  br i1 %12, label %26, label %13
+  %8 = fmul <2 x double> %6, %6
+  %mul = extractelement <2 x double> %8, i64 0
+  %cmp = fcmp une double %mul, 1.000000e+00
+  %9 = extractelement <2 x double> %6, i64 1
+  %10 = insertelement <2 x double> %6, double %mul3.i.i, i64 0
+  %11 = insertelement <2 x double> %6, double %mul3.i.i, i64 0
+  %12 = fmul <2 x double> %10, %11
+  %13 = fcmp une <2 x double> %12, <double 1.000000e+00, double 1.000000e+00>
+  %14 = extractelement <2 x i1> %13, i64 1
+  %and75 = and i1 %cmp, %14
+  %15 = extractelement <2 x i1> %13, i64 0
+  %and1176 = and i1 %15, %and75
+  br i1 %and1176, label %if.then, label %if.end65
 
-13:                                               ; preds = %2, %13
-  %14 = phi i32 [ %23, %13 ], [ 100, %2 ]
-  %15 = phi double [ %18, %13 ], [ 1.000000e+00, %2 ]
-  %16 = fdiv double %11, %15
-  %17 = fadd double %15, %16
-  %18 = fmul double %17, 5.000000e-01
-  %19 = fsub double %18, %15
-  %20 = fcmp ule double %19, 0x3D719799812DEA11
-  %21 = fcmp uge double %19, 0xBD719799812DEA11
-  %22 = and i1 %20, %21
-  %23 = add nsw i32 %14, -1
-  %24 = icmp eq i32 %23, 0
-  %25 = select i1 %22, i1 true, i1 %24
-  br i1 %25, label %26, label %13, !llvm.loop !11
+if.then:                                          ; preds = %_ZNK3v_t4normEv.exit
+  %16 = extractelement <2 x double> %12, i64 1
+  %cmp19 = fcmp ogt double %16, %mul
+  br i1 %cmp19, label %if.then20, label %if.else38
 
-26:                                               ; preds = %13, %2
-  %27 = phi double [ 0x7FF0000000000000, %2 ], [ %18, %13 ]
-  %28 = fdiv double 1.000000e+00, %27
-  %29 = insertelement <2 x double> poison, double %28, i64 0
-  %30 = shufflevector <2 x double> %29, <2 x double> poison, <2 x i32> zeroinitializer
-  %31 = fmul <2 x double> %3, %30
-  %32 = fmul double %9, %28
-  %33 = extractelement <2 x double> %31, i64 0
-  %34 = fmul <2 x double> %31, %31
-  %35 = extractelement <2 x double> %34, i64 0
-  %36 = fcmp une double %35, 1.000000e+00
-  %37 = extractelement <2 x double> %31, i64 1
-  %38 = fmul double %37, %37
-  %39 = fcmp une double %38, 1.000000e+00
-  %40 = and i1 %36, %39
-  %41 = fmul double %32, %32
-  %42 = fcmp une double %41, 1.000000e+00
-  %43 = and i1 %42, %40
-  %44 = shufflevector <2 x double> %31, <2 x double> poison, <2 x i32> <i32 undef, i32 0>
-  %45 = insertelement <2 x double> %44, double %32, i64 0
-  br i1 %43, label %46, label %62
+if.then20:                                        ; preds = %if.then
+  %17 = extractelement <2 x double> %12, i64 0
+  %cmp27 = fcmp ogt double %16, %17
+  br i1 %cmp27, label %if.then28, label %if.else
 
-46:                                               ; preds = %26
-  %47 = fcmp ogt double %38, %35
-  br i1 %47, label %48, label %55
+if.then28:                                        ; preds = %if.then20
+  %fneg = fneg double %9
+  %18 = insertelement <2 x double> poison, double %fneg, i64 0
+  %19 = insertelement <2 x double> %18, double %mul3.i.i, i64 1
+  br label %if.end65
 
-48:                                               ; preds = %46
-  %49 = fcmp ogt double %38, %41
-  br i1 %49, label %50, label %53
+if.else:                                          ; preds = %if.then20
+  %fneg35 = fneg double %mul3.i.i
+  %20 = shufflevector <2 x double> %6, <2 x double> poison, <2 x i32> <i32 1, i32 undef>
+  %21 = insertelement <2 x double> %20, double %fneg35, i64 1
+  br label %if.end65
 
-50:                                               ; preds = %48
-  %51 = fneg <2 x double> %31
-  %52 = shufflevector <2 x double> %31, <2 x double> %51, <2 x i32> <i32 0, i32 3>
-  br label %62
+if.else38:                                        ; preds = %if.then
+  %22 = extractelement <2 x double> %12, i64 0
+  %cmp45 = fcmp ogt double %22, %mul
+  br i1 %cmp45, label %if.then46, label %if.else52
 
-53:                                               ; preds = %48
-  %54 = fneg double %32
-  br label %62
+if.then46:                                        ; preds = %if.else38
+  %fneg49 = fneg double %mul3.i.i
+  %23 = shufflevector <2 x double> %6, <2 x double> poison, <2 x i32> <i32 1, i32 undef>
+  %24 = insertelement <2 x double> %23, double %fneg49, i64 1
+  br label %if.end65
 
-55:                                               ; preds = %46
-  %56 = fcmp ogt double %41, %35
-  br i1 %56, label %57, label %59
+if.else52:                                        ; preds = %if.else38
+  %fneg55 = fneg double %7
+  %25 = shufflevector <2 x double> %6, <2 x double> poison, <2 x i32> <i32 1, i32 undef>
+  %26 = insertelement <2 x double> %25, double %mul3.i.i, i64 1
+  br label %if.end65
 
-57:                                               ; preds = %55
-  %58 = fneg double %32
-  br label %62
-
-59:                                               ; preds = %55
-  %60 = fneg double %33
-  %61 = insertelement <2 x double> %31, double %60, i64 0
-  br label %62
-
-62:                                               ; preds = %26, %53, %50, %59, %57
-  %63 = phi double [ %54, %53 ], [ %32, %50 ], [ %32, %59 ], [ %58, %57 ], [ %37, %26 ]
-  %64 = phi <2 x double> [ %31, %53 ], [ %52, %50 ], [ %61, %59 ], [ %31, %57 ], [ %45, %26 ]
-  %65 = getelementptr inbounds %struct.basis_t, ptr %0, i64 0, i32 1
-  %66 = getelementptr inbounds %struct.basis_t, ptr %0, i64 0, i32 2
-  store <2 x double> %31, ptr %0, align 8
-  %67 = getelementptr inbounds i8, ptr %0, i64 16
-  store double %32, ptr %67, align 8, !tbaa.struct !63
-  %68 = getelementptr inbounds %struct.basis_t, ptr %0, i64 0, i32 1, i32 2
-  %69 = fmul double %37, %63
-  %70 = getelementptr inbounds %struct.basis_t, ptr %0, i64 0, i32 1, i32 1
-  %71 = extractelement <2 x double> %64, i64 1
-  %72 = fmul double %32, %71
-  %73 = fsub double %69, %72
-  store double %73, ptr %66, align 8, !tbaa.struct !95
-  %74 = getelementptr inbounds %struct.basis_t, ptr %0, i64 0, i32 2, i32 1
-  %75 = fmul <2 x double> %45, %64
-  %76 = shufflevector <2 x double> %64, <2 x double> poison, <2 x i32> <i32 undef, i32 0>
-  %77 = insertelement <2 x double> %76, double %63, i64 0
-  %78 = fmul <2 x double> %31, %77
-  %79 = fsub <2 x double> %75, %78
-  store <2 x double> %79, ptr %74, align 8
-  %80 = extractelement <2 x double> %79, i64 1
-  %81 = fmul double %37, %80
-  %82 = extractelement <2 x double> %79, i64 0
-  %83 = fmul double %32, %82
-  %84 = fsub double %81, %83
-  %85 = fmul double %32, %73
-  %86 = fmul double %33, %80
-  %87 = fsub double %85, %86
-  %88 = fmul <2 x double> %31, %79
-  %89 = extractelement <2 x double> %88, i64 0
-  %90 = fmul double %37, %73
-  %91 = fsub double %89, %90
-  store double %84, ptr %65, align 8, !tbaa.struct !95
-  store double %87, ptr %70, align 8, !tbaa.struct !96
-  store double %91, ptr %68, align 8, !tbaa.struct !63
+if.end65:                                         ; preds = %_ZNK3v_t4normEv.exit, %if.else, %if.then28, %if.else52, %if.then46
+  %27 = phi double [ %7, %if.else ], [ %7, %if.then28 ], [ %fneg55, %if.else52 ], [ %7, %if.then46 ], [ %mul3.i.i, %_ZNK3v_t4normEv.exit ]
+  %28 = phi <2 x double> [ %21, %if.else ], [ %19, %if.then28 ], [ %26, %if.else52 ], [ %24, %if.then46 ], [ %6, %_ZNK3v_t4normEv.exit ]
+  %b1 = getelementptr inbounds %struct.basis_t, ptr %this, i64 0, i32 1
+  %b2 = getelementptr inbounds %struct.basis_t, ptr %this, i64 0, i32 2
+  store <2 x double> %6, ptr %this, align 8
+  %n.sroa.12.0.this.sroa_idx = getelementptr inbounds i8, ptr %this, i64 16
+  store double %mul3.i.i, ptr %n.sroa.12.0.this.sroa_idx, align 8, !tbaa.struct !61
+  %z.i78 = getelementptr inbounds %struct.basis_t, ptr %this, i64 0, i32 1, i32 2
+  %29 = shufflevector <2 x double> %6, <2 x double> poison, <2 x i32> <i32 1, i32 0>
+  %30 = insertelement <2 x double> %29, double %mul3.i.i, i64 0
+  %31 = insertelement <2 x double> %28, double %27, i64 0
+  %32 = fmul <2 x double> %30, %31
+  %shift104 = shufflevector <2 x double> %32, <2 x double> poison, <2 x i32> <i32 1, i32 undef>
+  %33 = fsub <2 x double> %32, %shift104
+  %sub10.i = extractelement <2 x double> %33, i64 0
+  %ref.tmp67.sroa.4.0.b2.sroa_idx = getelementptr inbounds %struct.basis_t, ptr %this, i64 0, i32 2, i32 1
+  store double %sub10.i, ptr %ref.tmp67.sroa.4.0.b2.sroa_idx, align 8, !tbaa.struct !93
+  %ref.tmp67.sroa.5.0.b2.sroa_idx = getelementptr inbounds %struct.basis_t, ptr %this, i64 0, i32 2, i32 2
+  %34 = fmul <2 x double> %6, %33
+  %mul13.i89 = extractelement <2 x double> %34, i64 0
+  %35 = fmul <2 x double> %6, %28
+  %36 = insertelement <2 x double> %28, double %27, i64 1
+  %37 = fmul <2 x double> %10, %36
+  %38 = shufflevector <2 x double> %37, <2 x double> poison, <2 x i32> <i32 1, i32 0>
+  %39 = fsub <2 x double> %35, %38
+  %40 = extractelement <2 x double> %39, i64 1
+  store double %40, ptr %b2, align 8, !tbaa.struct !94
+  %41 = extractelement <2 x double> %39, i64 0
+  store double %41, ptr %ref.tmp67.sroa.5.0.b2.sroa_idx, align 8, !tbaa.struct !61
+  %42 = insertelement <2 x double> %29, double %mul3.i.i, i64 1
+  %43 = fmul <2 x double> %42, %39
+  %44 = insertelement <2 x double> %6, double %mul3.i.i, i64 1
+  %45 = shufflevector <2 x double> %39, <2 x double> %33, <2 x i32> <i32 0, i32 2>
+  %46 = fmul <2 x double> %44, %45
+  %47 = shufflevector <2 x double> %46, <2 x double> poison, <2 x i32> <i32 1, i32 0>
+  %48 = fsub <2 x double> %43, %47
+  %mul16.i90 = fmul double %9, %40
+  %sub17.i91 = fsub double %mul13.i89, %mul16.i90
+  store <2 x double> %48, ptr %b1, align 8
+  store double %sub17.i91, ptr %z.i78, align 8, !tbaa.struct !61
   ret void
 }
 
@@ -1242,34 +1234,35 @@ declare noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIc
 
 ; Function Attrs: uwtable
 define internal void @_GLOBAL__sub_I_sphereflake.cpp() #7 section ".text.startup" {
+entry:
   tail call void @_ZNSt8ios_base4InitC1Ev(ptr noundef nonnull align 1 dereferenceable(1) @_ZStL8__ioinit)
-  %1 = tail call i32 @__cxa_atexit(ptr nonnull @_ZNSt8ios_base4InitD1Ev, ptr nonnull @_ZStL8__ioinit, ptr nonnull @__dso_handle) #14
-  br label %2
+  %0 = tail call i32 @__cxa_atexit(ptr nonnull @_ZNSt8ios_base4InitD1Ev, ptr nonnull @_ZStL8__ioinit, ptr nonnull @__dso_handle) #14
+  br label %while.body.i.i.i
 
-2:                                                ; preds = %2, %0
-  %3 = phi i32 [ %12, %2 ], [ 100, %0 ]
-  %4 = phi double [ %7, %2 ], [ 1.000000e+00, %0 ]
-  %5 = fdiv double 0x3FF7B851EB851EB9, %4
-  %6 = fadd double %4, %5
-  %7 = fmul double %6, 5.000000e-01
-  %8 = fsub double %7, %4
-  %9 = fcmp ule double %8, 0x3D719799812DEA11
-  %10 = fcmp uge double %8, 0xBD719799812DEA11
-  %11 = and i1 %9, %10
-  %12 = add nsw i32 %3, -1
-  %13 = icmp eq i32 %12, 0
-  %14 = select i1 %11, i1 true, i1 %13
-  br i1 %14, label %15, label %2, !llvm.loop !11
+while.body.i.i.i:                                 ; preds = %while.body.i.i.i, %entry
+  %it.014.i.i.i = phi i32 [ %dec.i.i.i, %while.body.i.i.i ], [ 100, %entry ]
+  %xk.013.i.i.i = phi double [ %div1.i.i.i, %while.body.i.i.i ], [ 1.000000e+00, %entry ]
+  %div.i.i.i = fdiv double 0x3FF7B851EB851EB9, %xk.013.i.i.i
+  %add.i.i.i = fadd double %xk.013.i.i.i, %div.i.i.i
+  %div1.i.i.i = fmul double %add.i.i.i, 5.000000e-01
+  %sub.i.i.i.i = fsub double %div1.i.i.i, %xk.013.i.i.i
+  %cmp.i.i.i.i = fcmp ule double %sub.i.i.i.i, 0x3D719799812DEA11
+  %cmp1.i.i.i.i = fcmp uge double %sub.i.i.i.i, 0xBD719799812DEA11
+  %.not.i.i.i = and i1 %cmp.i.i.i.i, %cmp1.i.i.i.i
+  %dec.i.i.i = add nsw i32 %it.014.i.i.i, -1
+  %tobool.not.i.i.i = icmp eq i32 %dec.i.i.i, 0
+  %or.cond.i.i.i = select i1 %.not.i.i.i, i1 true, i1 %tobool.not.i.i.i
+  br i1 %or.cond.i.i.i, label %__cxx_global_var_init.1.exit, label %while.body.i.i.i, !llvm.loop !11
 
-15:                                               ; preds = %2
-  %16 = fdiv double 1.000000e+00, %7
-  %17 = fmul double %16, 9.000000e-01
-  %18 = insertelement <2 x double> poison, double %16, i64 0
-  %19 = shufflevector <2 x double> %18, <2 x double> poison, <2 x i32> zeroinitializer
-  %20 = fmul <2 x double> %19, <double -5.000000e-01, double -6.500000e-01>
-  store <2 x double> %20, ptr @_ZL5light, align 16, !tbaa !44, !alias.scope !97
-  store double %17, ptr getelementptr inbounds (%struct.v_t, ptr @_ZL5light, i64 0, i32 2), align 16, !tbaa !21, !alias.scope !97
-  %21 = tail call ptr @llvm.invariant.start.p0(i64 24, ptr nonnull @_ZL5light)
+__cxx_global_var_init.1.exit:                     ; preds = %while.body.i.i.i
+  %div.i.i = fdiv double 1.000000e+00, %div1.i.i.i
+  %mul3.i.i.i = fmul double %div.i.i, 9.000000e-01
+  %1 = insertelement <2 x double> poison, double %div.i.i, i64 0
+  %2 = shufflevector <2 x double> %1, <2 x double> poison, <2 x i32> zeroinitializer
+  %3 = fmul <2 x double> %2, <double -5.000000e-01, double -6.500000e-01>
+  store <2 x double> %3, ptr @_ZL5light, align 16, !tbaa !44, !alias.scope !95
+  store double %mul3.i.i.i, ptr getelementptr inbounds (%struct.v_t, ptr @_ZL5light, i64 0, i32 2), align 16, !tbaa !21, !alias.scope !95
+  %4 = tail call ptr @llvm.invariant.start.p0(i64 24, ptr nonnull @_ZL5light)
   ret void
 }
 
@@ -1319,9 +1312,9 @@ attributes #16 = { noreturn }
 !13 = !{!"_ZTS3v_t", !14, i64 0, !14, i64 8, !14, i64 16}
 !14 = !{!"double", !7, i64 0}
 !15 = !{!16, !18}
-!16 = distinct !{!16, !17, !"_ZNK3v_tmlEd: argument 0"}
+!16 = distinct !{!16, !17, !"_ZNK3v_tmlEd: %agg.result"}
 !17 = distinct !{!17, !"_ZNK3v_tmlEd"}
-!18 = distinct !{!18, !19, !"_ZNK3v_t4normEv: argument 0"}
+!18 = distinct !{!18, !19, !"_ZNK3v_t4normEv: %agg.result"}
 !19 = distinct !{!19, !"_ZNK3v_t4normEv"}
 !20 = !{!13, !14, i64 8}
 !21 = !{!13, !14, i64 16}
@@ -1342,66 +1335,64 @@ attributes #16 = { noreturn }
 !36 = !{!"_ZTSNSt6locale5facetE", !31, i64 8}
 !37 = !{!7, !7, i64 0}
 !38 = !{!39}
-!39 = distinct !{!39, !40, !"_ZNK3v_tplERKS_: argument 0"}
+!39 = distinct !{!39, !40, !"_ZNK3v_tplERKS_: %agg.result"}
 !40 = distinct !{!40, !"_ZNK3v_tplERKS_"}
 !41 = !{!42}
-!42 = distinct !{!42, !43, !"_ZNK3v_tmiERKS_: argument 0"}
+!42 = distinct !{!42, !43, !"_ZNK3v_tmiERKS_: %agg.result"}
 !43 = distinct !{!43, !"_ZNK3v_tmiERKS_"}
 !44 = !{!14, !14, i64 0}
 !45 = !{!46, !14, i64 24}
 !46 = !{!"_ZTS8sphere_t", !13, i64 0, !14, i64 24}
 !47 = !{!48, !27, i64 64}
 !48 = !{!"_ZTS6node_t", !46, i64 0, !46, i64 32, !27, i64 64}
-!49 = !{!50}
-!50 = distinct !{!50, !51, !"_ZNK3v_tmiERKS_: argument 0"}
-!51 = distinct !{!51, !"_ZNK3v_tmiERKS_"}
-!52 = distinct !{!52, !10}
-!53 = !{!54}
-!54 = distinct !{!54, !55, !"_ZNK3v_tmiERKS_: argument 0"}
-!55 = distinct !{!55, !"_ZNK3v_tmiERKS_"}
-!56 = !{!57}
-!57 = distinct !{!57, !58, !"_ZNK3v_tmiERKS_: argument 0"}
-!58 = distinct !{!58, !"_ZNK3v_tmiERKS_"}
+!49 = !{}
+!50 = distinct !{!50, !10}
+!51 = !{!52}
+!52 = distinct !{!52, !53, !"_ZNK3v_tmiERKS_: %agg.result"}
+!53 = distinct !{!53, !"_ZNK3v_tmiERKS_"}
+!54 = !{!55}
+!55 = distinct !{!55, !56, !"_ZNK3v_tmiERKS_: %agg.result"}
+!56 = distinct !{!56, !"_ZNK3v_tmiERKS_"}
+!57 = distinct !{!57, !10}
+!58 = distinct !{!58, !10}
 !59 = distinct !{!59, !10}
 !60 = distinct !{!60, !10}
-!61 = distinct !{!61, !10}
-!62 = distinct !{!62, !10}
-!63 = !{i64 0, i64 8, !44}
-!64 = !{!65}
-!65 = distinct !{!65, !66, !"_ZNK3v_tplERKS_: argument 0"}
-!66 = distinct !{!66, !"_ZNK3v_tplERKS_"}
-!67 = !{!68}
-!68 = distinct !{!68, !69, !"_ZNK3v_tmlEd: argument 0"}
-!69 = distinct !{!69, !"_ZNK3v_tmlEd"}
-!70 = distinct !{!70, !10}
-!71 = distinct !{!71, !10}
-!72 = !{!73}
-!73 = distinct !{!73, !74, !"_ZNK3v_tmlEd: argument 0"}
-!74 = distinct !{!74, !"_ZNK3v_tmlEd"}
-!75 = !{!76}
-!76 = distinct !{!76, !77, !"_ZNK3v_tmlEd: argument 0"}
-!77 = distinct !{!77, !"_ZNK3v_tmlEd"}
-!78 = distinct !{!78, !10}
-!79 = !{!80}
-!80 = distinct !{!80, !81, !"_ZNK3v_tmlEd: argument 0"}
-!81 = distinct !{!81, !"_ZNK3v_tmlEd"}
-!82 = !{!83}
-!83 = distinct !{!83, !84, !"_ZNK3v_tmlEd: argument 0"}
-!84 = distinct !{!84, !"_ZNK3v_tmlEd"}
-!85 = !{!86}
-!86 = distinct !{!86, !87, !"_ZNK3v_tmlEd: argument 0"}
-!87 = distinct !{!87, !"_ZNK3v_tmlEd"}
-!88 = !{!89}
-!89 = distinct !{!89, !90, !"_ZNK3v_tplERKS_: argument 0"}
-!90 = distinct !{!90, !"_ZNK3v_tplERKS_"}
-!91 = distinct !{!91, !10}
-!92 = !{!93}
-!93 = distinct !{!93, !94, !"_ZNK3v_t4normEv: argument 0"}
-!94 = distinct !{!94, !"_ZNK3v_t4normEv"}
-!95 = !{i64 0, i64 8, !44, i64 8, i64 8, !44, i64 16, i64 8, !44}
-!96 = !{i64 0, i64 8, !44, i64 8, i64 8, !44}
-!97 = !{!98, !100}
-!98 = distinct !{!98, !99, !"_ZNK3v_tmlEd: argument 0"}
-!99 = distinct !{!99, !"_ZNK3v_tmlEd"}
-!100 = distinct !{!100, !101, !"_ZNK3v_t4normEv: argument 0"}
-!101 = distinct !{!101, !"_ZNK3v_t4normEv"}
+!61 = !{i64 0, i64 8, !44}
+!62 = !{!63}
+!63 = distinct !{!63, !64, !"_ZNK3v_tplERKS_: %agg.result"}
+!64 = distinct !{!64, !"_ZNK3v_tplERKS_"}
+!65 = !{!66}
+!66 = distinct !{!66, !67, !"_ZNK3v_tmlEd: %agg.result"}
+!67 = distinct !{!67, !"_ZNK3v_tmlEd"}
+!68 = distinct !{!68, !10}
+!69 = distinct !{!69, !10}
+!70 = !{!71}
+!71 = distinct !{!71, !72, !"_ZNK3v_tmlEd: %agg.result"}
+!72 = distinct !{!72, !"_ZNK3v_tmlEd"}
+!73 = !{!74}
+!74 = distinct !{!74, !75, !"_ZNK3v_tmlEd: %agg.result"}
+!75 = distinct !{!75, !"_ZNK3v_tmlEd"}
+!76 = distinct !{!76, !10}
+!77 = !{!78}
+!78 = distinct !{!78, !79, !"_ZNK3v_tmlEd: %agg.result"}
+!79 = distinct !{!79, !"_ZNK3v_tmlEd"}
+!80 = !{!81}
+!81 = distinct !{!81, !82, !"_ZNK3v_tmlEd: %agg.result"}
+!82 = distinct !{!82, !"_ZNK3v_tmlEd"}
+!83 = !{!84}
+!84 = distinct !{!84, !85, !"_ZNK3v_tmlEd: %agg.result"}
+!85 = distinct !{!85, !"_ZNK3v_tmlEd"}
+!86 = !{!87}
+!87 = distinct !{!87, !88, !"_ZNK3v_tplERKS_: %agg.result"}
+!88 = distinct !{!88, !"_ZNK3v_tplERKS_"}
+!89 = distinct !{!89, !10}
+!90 = !{!91}
+!91 = distinct !{!91, !92, !"_ZNK3v_t4normEv: %agg.result"}
+!92 = distinct !{!92, !"_ZNK3v_t4normEv"}
+!93 = !{i64 0, i64 8, !44, i64 8, i64 8, !44}
+!94 = !{i64 0, i64 8, !44, i64 8, i64 8, !44, i64 16, i64 8, !44}
+!95 = !{!96, !98}
+!96 = distinct !{!96, !97, !"_ZNK3v_tmlEd: %agg.result"}
+!97 = distinct !{!97, !"_ZNK3v_tmlEd"}
+!98 = distinct !{!98, !99, !"_ZNK3v_t4normEv: %agg.result"}
+!99 = distinct !{!99, !"_ZNK3v_t4normEv"}

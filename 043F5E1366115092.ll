@@ -13,638 +13,645 @@ target triple = "x86_64-unknown-linux-gnu"
 @.str.3 = private unnamed_addr constant [12 x i8] c" %d(%d)[%d]\00", align 1
 
 ; Function Attrs: nounwind uwtable
-define dso_local ptr @GenGraph(i32 noundef %0, i32 noundef %1) local_unnamed_addr #0 {
-  %3 = tail call ptr @GenTree(i32 noundef %0)
-  %4 = sub nsw i32 %1, %0
-  %5 = icmp sgt i32 %4, -1
-  br i1 %5, label %6, label %116
+define dso_local ptr @GenGraph(i32 noundef %nVertex, i32 noundef %nEdge) local_unnamed_addr #0 {
+entry:
+  %call = tail call ptr @GenTree(i32 noundef %nVertex)
+  %sub = sub nsw i32 %nEdge, %nVertex
+  %cmp33.i = icmp sgt i32 %sub, -1
+  br i1 %cmp33.i, label %do.body.preheader.lr.ph.i, label %AddEdges.exit
 
-6:                                                ; preds = %2
-  %7 = sext i32 %0 to i64
-  br label %8
+do.body.preheader.lr.ph.i:                        ; preds = %entry
+  %conv.i = sext i32 %nVertex to i64
+  br label %do.body.preheader.i
 
-8:                                                ; preds = %113, %6
-  %9 = phi i32 [ 0, %6 ], [ %114, %113 ]
-  br label %10
+do.body.preheader.i:                              ; preds = %do.end.i, %do.body.preheader.lr.ph.i
+  %i.034.i = phi i32 [ 0, %do.body.preheader.lr.ph.i ], [ %inc.i, %do.end.i ]
+  br label %do.body.i
 
-10:                                               ; preds = %108, %8
-  %11 = tail call i64 @random() #9
-  %12 = srem i64 %11, %7
-  %13 = trunc i64 %12 to i32
-  %14 = icmp sgt i32 %13, 0
-  br i1 %14, label %15, label %52
+do.body.i:                                        ; preds = %while.body.i.i, %do.body.preheader.i
+  %call.i = tail call i64 @random() #9
+  %rem.i = srem i64 %call.i, %conv.i
+  %conv1.i = trunc i64 %rem.i to i32
+  %cmp3.i.i = icmp sgt i32 %conv1.i, 0
+  br i1 %cmp3.i.i, label %for.body.i.i.preheader, label %PickVertex.exit.i
 
-15:                                               ; preds = %10
-  %16 = and i32 %13, 7
-  %17 = icmp ult i32 %13, 8
-  br i1 %17, label %41, label %18
+for.body.i.i.preheader:                           ; preds = %do.body.i
+  %xtraiter = and i32 %conv1.i, 7
+  %0 = icmp ult i32 %conv1.i, 8
+  br i1 %0, label %PickVertex.exit.i.loopexit.unr-lcssa, label %for.body.i.i.preheader.new
 
-18:                                               ; preds = %15
-  %19 = and i32 %13, -8
-  br label %20
+for.body.i.i.preheader.new:                       ; preds = %for.body.i.i.preheader
+  %unroll_iter = and i32 %conv1.i, -8
+  br label %for.body.i.i
 
-20:                                               ; preds = %20, %18
-  %21 = phi ptr [ %3, %18 ], [ %38, %20 ]
-  %22 = phi i32 [ 0, %18 ], [ %39, %20 ]
-  %23 = getelementptr inbounds %struct._Vertices, ptr %21, i64 0, i32 2
-  %24 = load ptr, ptr %23, align 8, !tbaa !5
-  %25 = getelementptr inbounds %struct._Vertices, ptr %24, i64 0, i32 2
-  %26 = load ptr, ptr %25, align 8, !tbaa !5
-  %27 = getelementptr inbounds %struct._Vertices, ptr %26, i64 0, i32 2
-  %28 = load ptr, ptr %27, align 8, !tbaa !5
-  %29 = getelementptr inbounds %struct._Vertices, ptr %28, i64 0, i32 2
-  %30 = load ptr, ptr %29, align 8, !tbaa !5
-  %31 = getelementptr inbounds %struct._Vertices, ptr %30, i64 0, i32 2
-  %32 = load ptr, ptr %31, align 8, !tbaa !5
-  %33 = getelementptr inbounds %struct._Vertices, ptr %32, i64 0, i32 2
-  %34 = load ptr, ptr %33, align 8, !tbaa !5
-  %35 = getelementptr inbounds %struct._Vertices, ptr %34, i64 0, i32 2
-  %36 = load ptr, ptr %35, align 8, !tbaa !5
-  %37 = getelementptr inbounds %struct._Vertices, ptr %36, i64 0, i32 2
-  %38 = load ptr, ptr %37, align 8, !tbaa !5
-  %39 = add i32 %22, 8
-  %40 = icmp eq i32 %39, %19
-  br i1 %40, label %41, label %20, !llvm.loop !11
+for.body.i.i:                                     ; preds = %for.body.i.i, %for.body.i.i.preheader.new
+  %graph.addr.04.i.i = phi ptr [ %call, %for.body.i.i.preheader.new ], [ %8, %for.body.i.i ]
+  %niter = phi i32 [ 0, %for.body.i.i.preheader.new ], [ %niter.next.7, %for.body.i.i ]
+  %next.i.i = getelementptr inbounds %struct._Vertices, ptr %graph.addr.04.i.i, i64 0, i32 2
+  %1 = load ptr, ptr %next.i.i, align 8, !tbaa !5
+  %next.i.i.1 = getelementptr inbounds %struct._Vertices, ptr %1, i64 0, i32 2
+  %2 = load ptr, ptr %next.i.i.1, align 8, !tbaa !5
+  %next.i.i.2 = getelementptr inbounds %struct._Vertices, ptr %2, i64 0, i32 2
+  %3 = load ptr, ptr %next.i.i.2, align 8, !tbaa !5
+  %next.i.i.3 = getelementptr inbounds %struct._Vertices, ptr %3, i64 0, i32 2
+  %4 = load ptr, ptr %next.i.i.3, align 8, !tbaa !5
+  %next.i.i.4 = getelementptr inbounds %struct._Vertices, ptr %4, i64 0, i32 2
+  %5 = load ptr, ptr %next.i.i.4, align 8, !tbaa !5
+  %next.i.i.5 = getelementptr inbounds %struct._Vertices, ptr %5, i64 0, i32 2
+  %6 = load ptr, ptr %next.i.i.5, align 8, !tbaa !5
+  %next.i.i.6 = getelementptr inbounds %struct._Vertices, ptr %6, i64 0, i32 2
+  %7 = load ptr, ptr %next.i.i.6, align 8, !tbaa !5
+  %next.i.i.7 = getelementptr inbounds %struct._Vertices, ptr %7, i64 0, i32 2
+  %8 = load ptr, ptr %next.i.i.7, align 8, !tbaa !5
+  %niter.next.7 = add i32 %niter, 8
+  %niter.ncmp.7 = icmp eq i32 %niter.next.7, %unroll_iter
+  br i1 %niter.ncmp.7, label %PickVertex.exit.i.loopexit.unr-lcssa, label %for.body.i.i, !llvm.loop !11
 
-41:                                               ; preds = %20, %15
-  %42 = phi ptr [ undef, %15 ], [ %38, %20 ]
-  %43 = phi ptr [ %3, %15 ], [ %38, %20 ]
-  %44 = icmp eq i32 %16, 0
-  br i1 %44, label %52, label %45
+PickVertex.exit.i.loopexit.unr-lcssa:             ; preds = %for.body.i.i, %for.body.i.i.preheader
+  %.lcssa.ph = phi ptr [ undef, %for.body.i.i.preheader ], [ %8, %for.body.i.i ]
+  %graph.addr.04.i.i.unr = phi ptr [ %call, %for.body.i.i.preheader ], [ %8, %for.body.i.i ]
+  %lcmp.mod.not = icmp eq i32 %xtraiter, 0
+  br i1 %lcmp.mod.not, label %PickVertex.exit.i, label %for.body.i.i.epil
 
-45:                                               ; preds = %41, %45
-  %46 = phi ptr [ %49, %45 ], [ %43, %41 ]
-  %47 = phi i32 [ %50, %45 ], [ 0, %41 ]
-  %48 = getelementptr inbounds %struct._Vertices, ptr %46, i64 0, i32 2
-  %49 = load ptr, ptr %48, align 8, !tbaa !5
-  %50 = add i32 %47, 1
-  %51 = icmp eq i32 %50, %16
-  br i1 %51, label %52, label %45, !llvm.loop !13
+for.body.i.i.epil:                                ; preds = %PickVertex.exit.i.loopexit.unr-lcssa, %for.body.i.i.epil
+  %graph.addr.04.i.i.epil = phi ptr [ %9, %for.body.i.i.epil ], [ %graph.addr.04.i.i.unr, %PickVertex.exit.i.loopexit.unr-lcssa ]
+  %epil.iter = phi i32 [ %epil.iter.next, %for.body.i.i.epil ], [ 0, %PickVertex.exit.i.loopexit.unr-lcssa ]
+  %next.i.i.epil = getelementptr inbounds %struct._Vertices, ptr %graph.addr.04.i.i.epil, i64 0, i32 2
+  %9 = load ptr, ptr %next.i.i.epil, align 8, !tbaa !5
+  %epil.iter.next = add i32 %epil.iter, 1
+  %epil.iter.cmp.not = icmp eq i32 %epil.iter.next, %xtraiter
+  br i1 %epil.iter.cmp.not, label %PickVertex.exit.i, label %for.body.i.i.epil, !llvm.loop !13
 
-52:                                               ; preds = %41, %45, %10
-  %53 = phi ptr [ %3, %10 ], [ %42, %41 ], [ %49, %45 ]
-  %54 = getelementptr inbounds %struct._Vertices, ptr %53, i64 0, i32 2
-  %55 = load ptr, ptr %54, align 8, !tbaa !5
-  %56 = tail call i64 @random() #9
-  %57 = srem i64 %56, %7
-  %58 = trunc i64 %57 to i32
-  %59 = icmp sgt i32 %58, 1
-  br i1 %59, label %60, label %99
+PickVertex.exit.i:                                ; preds = %PickVertex.exit.i.loopexit.unr-lcssa, %for.body.i.i.epil, %do.body.i
+  %graph.addr.0.lcssa.i.i = phi ptr [ %call, %do.body.i ], [ %.lcssa.ph, %PickVertex.exit.i.loopexit.unr-lcssa ], [ %9, %for.body.i.i.epil ]
+  %next.i = getelementptr inbounds %struct._Vertices, ptr %graph.addr.0.lcssa.i.i, i64 0, i32 2
+  %10 = load ptr, ptr %next.i, align 8, !tbaa !5
+  %call3.i = tail call i64 @random() #9
+  %rem5.i = srem i64 %call3.i, %conv.i
+  %11 = trunc i64 %rem5.i to i32
+  %cmp3.i15.i = icmp sgt i32 %11, 1
+  br i1 %cmp3.i15.i, label %for.body.i21.preheader.i, label %PickVertex.exit23.i
 
-60:                                               ; preds = %52
-  %61 = add nsw i32 %58, -2
-  %62 = add i32 %58, -1
-  %63 = and i32 %62, 7
-  %64 = icmp ult i32 %61, 7
-  br i1 %64, label %88, label %65
+for.body.i21.preheader.i:                         ; preds = %PickVertex.exit.i
+  %12 = add nsw i32 %11, -2
+  %13 = add i32 %11, -1
+  %xtraiter36 = and i32 %13, 7
+  %14 = icmp ult i32 %12, 7
+  br i1 %14, label %PickVertex.exit23.i.loopexit.unr-lcssa, label %for.body.i21.preheader.i.new
 
-65:                                               ; preds = %60
-  %66 = and i32 %62, -8
-  br label %67
+for.body.i21.preheader.i.new:                     ; preds = %for.body.i21.preheader.i
+  %unroll_iter40 = and i32 %13, -8
+  br label %for.body.i21.i
 
-67:                                               ; preds = %67, %65
-  %68 = phi ptr [ %55, %65 ], [ %85, %67 ]
-  %69 = phi i32 [ 0, %65 ], [ %86, %67 ]
-  %70 = getelementptr inbounds %struct._Vertices, ptr %68, i64 0, i32 2
-  %71 = load ptr, ptr %70, align 8, !tbaa !5
-  %72 = getelementptr inbounds %struct._Vertices, ptr %71, i64 0, i32 2
-  %73 = load ptr, ptr %72, align 8, !tbaa !5
-  %74 = getelementptr inbounds %struct._Vertices, ptr %73, i64 0, i32 2
-  %75 = load ptr, ptr %74, align 8, !tbaa !5
-  %76 = getelementptr inbounds %struct._Vertices, ptr %75, i64 0, i32 2
-  %77 = load ptr, ptr %76, align 8, !tbaa !5
-  %78 = getelementptr inbounds %struct._Vertices, ptr %77, i64 0, i32 2
-  %79 = load ptr, ptr %78, align 8, !tbaa !5
-  %80 = getelementptr inbounds %struct._Vertices, ptr %79, i64 0, i32 2
-  %81 = load ptr, ptr %80, align 8, !tbaa !5
-  %82 = getelementptr inbounds %struct._Vertices, ptr %81, i64 0, i32 2
-  %83 = load ptr, ptr %82, align 8, !tbaa !5
-  %84 = getelementptr inbounds %struct._Vertices, ptr %83, i64 0, i32 2
-  %85 = load ptr, ptr %84, align 8, !tbaa !5
-  %86 = add i32 %69, 8
-  %87 = icmp eq i32 %86, %66
-  br i1 %87, label %88, label %67, !llvm.loop !11
+for.body.i21.i:                                   ; preds = %for.body.i21.i, %for.body.i21.preheader.i.new
+  %graph.addr.04.i17.i = phi ptr [ %10, %for.body.i21.preheader.i.new ], [ %22, %for.body.i21.i ]
+  %niter41 = phi i32 [ 0, %for.body.i21.preheader.i.new ], [ %niter41.next.7, %for.body.i21.i ]
+  %next.i18.i = getelementptr inbounds %struct._Vertices, ptr %graph.addr.04.i17.i, i64 0, i32 2
+  %15 = load ptr, ptr %next.i18.i, align 8, !tbaa !5
+  %next.i18.i.1 = getelementptr inbounds %struct._Vertices, ptr %15, i64 0, i32 2
+  %16 = load ptr, ptr %next.i18.i.1, align 8, !tbaa !5
+  %next.i18.i.2 = getelementptr inbounds %struct._Vertices, ptr %16, i64 0, i32 2
+  %17 = load ptr, ptr %next.i18.i.2, align 8, !tbaa !5
+  %next.i18.i.3 = getelementptr inbounds %struct._Vertices, ptr %17, i64 0, i32 2
+  %18 = load ptr, ptr %next.i18.i.3, align 8, !tbaa !5
+  %next.i18.i.4 = getelementptr inbounds %struct._Vertices, ptr %18, i64 0, i32 2
+  %19 = load ptr, ptr %next.i18.i.4, align 8, !tbaa !5
+  %next.i18.i.5 = getelementptr inbounds %struct._Vertices, ptr %19, i64 0, i32 2
+  %20 = load ptr, ptr %next.i18.i.5, align 8, !tbaa !5
+  %next.i18.i.6 = getelementptr inbounds %struct._Vertices, ptr %20, i64 0, i32 2
+  %21 = load ptr, ptr %next.i18.i.6, align 8, !tbaa !5
+  %next.i18.i.7 = getelementptr inbounds %struct._Vertices, ptr %21, i64 0, i32 2
+  %22 = load ptr, ptr %next.i18.i.7, align 8, !tbaa !5
+  %niter41.next.7 = add i32 %niter41, 8
+  %niter41.ncmp.7 = icmp eq i32 %niter41.next.7, %unroll_iter40
+  br i1 %niter41.ncmp.7, label %PickVertex.exit23.i.loopexit.unr-lcssa, label %for.body.i21.i, !llvm.loop !11
 
-88:                                               ; preds = %67, %60
-  %89 = phi ptr [ undef, %60 ], [ %85, %67 ]
-  %90 = phi ptr [ %55, %60 ], [ %85, %67 ]
-  %91 = icmp eq i32 %63, 0
-  br i1 %91, label %99, label %92
+PickVertex.exit23.i.loopexit.unr-lcssa:           ; preds = %for.body.i21.i, %for.body.i21.preheader.i
+  %.lcssa30.ph = phi ptr [ undef, %for.body.i21.preheader.i ], [ %22, %for.body.i21.i ]
+  %graph.addr.04.i17.i.unr = phi ptr [ %10, %for.body.i21.preheader.i ], [ %22, %for.body.i21.i ]
+  %lcmp.mod38.not = icmp eq i32 %xtraiter36, 0
+  br i1 %lcmp.mod38.not, label %PickVertex.exit23.i, label %for.body.i21.i.epil
 
-92:                                               ; preds = %88, %92
-  %93 = phi ptr [ %96, %92 ], [ %90, %88 ]
-  %94 = phi i32 [ %97, %92 ], [ 0, %88 ]
-  %95 = getelementptr inbounds %struct._Vertices, ptr %93, i64 0, i32 2
-  %96 = load ptr, ptr %95, align 8, !tbaa !5
-  %97 = add i32 %94, 1
-  %98 = icmp eq i32 %97, %63
-  br i1 %98, label %99, label %92, !llvm.loop !15
+for.body.i21.i.epil:                              ; preds = %PickVertex.exit23.i.loopexit.unr-lcssa, %for.body.i21.i.epil
+  %graph.addr.04.i17.i.epil = phi ptr [ %23, %for.body.i21.i.epil ], [ %graph.addr.04.i17.i.unr, %PickVertex.exit23.i.loopexit.unr-lcssa ]
+  %epil.iter37 = phi i32 [ %epil.iter37.next, %for.body.i21.i.epil ], [ 0, %PickVertex.exit23.i.loopexit.unr-lcssa ]
+  %next.i18.i.epil = getelementptr inbounds %struct._Vertices, ptr %graph.addr.04.i17.i.epil, i64 0, i32 2
+  %23 = load ptr, ptr %next.i18.i.epil, align 8, !tbaa !5
+  %epil.iter37.next = add i32 %epil.iter37, 1
+  %epil.iter37.cmp.not = icmp eq i32 %epil.iter37.next, %xtraiter36
+  br i1 %epil.iter37.cmp.not, label %PickVertex.exit23.i, label %for.body.i21.i.epil, !llvm.loop !15
 
-99:                                               ; preds = %88, %92, %52
-  %100 = phi ptr [ %55, %52 ], [ %89, %88 ], [ %96, %92 ]
-  %101 = getelementptr inbounds %struct._Vertices, ptr %53, i64 0, i32 1
-  %102 = load ptr, ptr %101, align 8, !tbaa !16
-  %103 = icmp eq ptr %102, null
-  br i1 %103, label %113, label %108
+PickVertex.exit23.i:                              ; preds = %PickVertex.exit23.i.loopexit.unr-lcssa, %for.body.i21.i.epil, %PickVertex.exit.i
+  %graph.addr.0.lcssa.i22.i = phi ptr [ %10, %PickVertex.exit.i ], [ %.lcssa30.ph, %PickVertex.exit23.i.loopexit.unr-lcssa ], [ %23, %for.body.i21.i.epil ]
+  %edges.i.i = getelementptr inbounds %struct._Vertices, ptr %graph.addr.0.lcssa.i.i, i64 0, i32 1
+  %edge.04.i.i = load ptr, ptr %edges.i.i, align 8, !tbaa !16
+  %cmp.not5.i.i = icmp eq ptr %edge.04.i.i, null
+  br i1 %cmp.not5.i.i, label %do.end.i, label %while.body.i.i
 
-104:                                              ; preds = %108
-  %105 = getelementptr inbounds %struct._Edges, ptr %109, i64 0, i32 3
-  %106 = load ptr, ptr %105, align 8, !tbaa !16
-  %107 = icmp eq ptr %106, null
-  br i1 %107, label %113, label %108, !llvm.loop !17
+while.cond.i.i:                                   ; preds = %while.body.i.i
+  %next.i24.i = getelementptr inbounds %struct._Edges, ptr %edge.06.i.i, i64 0, i32 3
+  %edge.0.i.i = load ptr, ptr %next.i24.i, align 8, !tbaa !16
+  %cmp.not.i.i = icmp eq ptr %edge.0.i.i, null
+  br i1 %cmp.not.i.i, label %do.end.i, label %while.body.i.i, !llvm.loop !17
 
-108:                                              ; preds = %99, %104
-  %109 = phi ptr [ %106, %104 ], [ %102, %99 ]
-  %110 = getelementptr inbounds %struct._Edges, ptr %109, i64 0, i32 2
-  %111 = load ptr, ptr %110, align 8, !tbaa !18
-  %112 = icmp eq ptr %111, %100
-  br i1 %112, label %10, label %104, !llvm.loop !20
+while.body.i.i:                                   ; preds = %PickVertex.exit23.i, %while.cond.i.i
+  %edge.06.i.i = phi ptr [ %edge.0.i.i, %while.cond.i.i ], [ %edge.04.i.i, %PickVertex.exit23.i ]
+  %vertex.i.i = getelementptr inbounds %struct._Edges, ptr %edge.06.i.i, i64 0, i32 2
+  %24 = load ptr, ptr %vertex.i.i, align 8, !tbaa !18
+  %cmp1.i.i = icmp eq ptr %24, %graph.addr.0.lcssa.i22.i
+  br i1 %cmp1.i.i, label %do.body.i, label %while.cond.i.i, !llvm.loop !20
 
-113:                                              ; preds = %99, %104
-  tail call void @Connect(ptr noundef %53, ptr noundef %100)
-  %114 = add nuw nsw i32 %9, 1
-  %115 = icmp eq i32 %9, %4
-  br i1 %115, label %116, label %8, !llvm.loop !21
+do.end.i:                                         ; preds = %PickVertex.exit23.i, %while.cond.i.i
+  tail call void @Connect(ptr noundef %graph.addr.0.lcssa.i.i, ptr noundef %graph.addr.0.lcssa.i22.i)
+  %inc.i = add nuw nsw i32 %i.034.i, 1
+  %exitcond.not.i = icmp eq i32 %i.034.i, %sub
+  br i1 %exitcond.not.i, label %AddEdges.exit, label %do.body.preheader.i, !llvm.loop !21
 
-116:                                              ; preds = %113, %2
-  ret ptr %3
+AddEdges.exit:                                    ; preds = %do.end.i, %entry
+  ret ptr %call
 }
 
 ; Function Attrs: nounwind uwtable
-define dso_local ptr @GenTree(i32 noundef %0) local_unnamed_addr #0 {
-  %2 = tail call noalias dereferenceable_or_null(40) ptr @malloc(i64 noundef 40) #10
-  %3 = icmp eq ptr %2, null
-  br i1 %3, label %4, label %7
+define dso_local ptr @GenTree(i32 noundef %nVertex) local_unnamed_addr #0 {
+entry:
+  %call.i = tail call noalias dereferenceable_or_null(40) ptr @malloc(i64 noundef 40) #10
+  %cmp.i = icmp eq ptr %call.i, null
+  br i1 %cmp.i, label %if.then.i, label %NewVertex.exit
 
-4:                                                ; preds = %1
-  %5 = load ptr, ptr @stderr, align 8, !tbaa !16
-  %6 = tail call i64 @fwrite(ptr nonnull @.str, i64 17, i64 1, ptr %5) #11
+if.then.i:                                        ; preds = %entry
+  %0 = load ptr, ptr @stderr, align 8, !tbaa !16
+  %1 = tail call i64 @fwrite(ptr nonnull @.str, i64 17, i64 1, ptr %0) #11
   tail call void @exit(i32 noundef 1) #12
   unreachable
 
-7:                                                ; preds = %1
-  %8 = load i32, ptr @id, align 4, !tbaa !22
-  %9 = add nsw i32 %8, 1
-  store i32 %9, ptr @id, align 4, !tbaa !22
-  store i32 %8, ptr %2, align 8, !tbaa !23
-  %10 = getelementptr inbounds %struct._Vertices, ptr %2, i64 0, i32 1
-  store i64 0, ptr %10, align 8
-  %11 = getelementptr inbounds %struct._Vertices, ptr %2, i64 0, i32 2
-  store ptr %2, ptr %11, align 8, !tbaa !5
-  %12 = icmp sgt i32 %0, 1
-  br i1 %12, label %13, label %100
+NewVertex.exit:                                   ; preds = %entry
+  %2 = load i32, ptr @id, align 4, !tbaa !22
+  %inc.i = add nsw i32 %2, 1
+  store i32 %inc.i, ptr @id, align 4, !tbaa !22
+  store i32 %2, ptr %call.i, align 8, !tbaa !23
+  %edges.i = getelementptr inbounds %struct._Vertices, ptr %call.i, i64 0, i32 1
+  store i64 0, ptr %edges.i, align 8
+  %next = getelementptr inbounds %struct._Vertices, ptr %call.i, i64 0, i32 2
+  store ptr %call.i, ptr %next, align 8, !tbaa !5
+  %cmp65 = icmp sgt i32 %nVertex, 1
+  br i1 %cmp65, label %for.body.preheader, label %for.end
 
-13:                                               ; preds = %7
-  %14 = zext i32 %0 to i64
-  br label %15
+for.body.preheader:                               ; preds = %NewVertex.exit
+  %wide.trip.count = zext i32 %nVertex to i64
+  br label %for.body
 
-15:                                               ; preds = %13, %88
-  %16 = phi i64 [ 1, %13 ], [ %98, %88 ]
-  %17 = tail call noalias dereferenceable_or_null(40) ptr @malloc(i64 noundef 40) #10
-  %18 = icmp eq ptr %17, null
-  br i1 %18, label %19, label %22
+for.body:                                         ; preds = %for.body.preheader, %NewEdge.exit64
+  %indvars.iv = phi i64 [ 1, %for.body.preheader ], [ %indvars.iv.next, %NewEdge.exit64 ]
+  %call.i50 = tail call noalias dereferenceable_or_null(40) ptr @malloc(i64 noundef 40) #10
+  %cmp.i51 = icmp eq ptr %call.i50, null
+  br i1 %cmp.i51, label %if.then.i52, label %NewVertex.exit55
 
-19:                                               ; preds = %15
-  %20 = load ptr, ptr @stderr, align 8, !tbaa !16
-  %21 = tail call i64 @fwrite(ptr nonnull @.str, i64 17, i64 1, ptr %20) #11
+if.then.i52:                                      ; preds = %for.body
+  %3 = load ptr, ptr @stderr, align 8, !tbaa !16
+  %4 = tail call i64 @fwrite(ptr nonnull @.str, i64 17, i64 1, ptr %3) #11
   tail call void @exit(i32 noundef 1) #12
   unreachable
 
-22:                                               ; preds = %15
-  %23 = load i32, ptr @id, align 4, !tbaa !22
-  %24 = add nsw i32 %23, 1
-  store i32 %24, ptr @id, align 4, !tbaa !22
-  store i32 %23, ptr %17, align 8, !tbaa !23
-  %25 = getelementptr inbounds %struct._Vertices, ptr %17, i64 0, i32 1
-  tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %25, i8 0, i64 16, i1 false)
-  %26 = tail call noalias dereferenceable_or_null(32) ptr @malloc(i64 noundef 32) #10
-  %27 = icmp eq ptr %26, null
-  br i1 %27, label %28, label %31
+NewVertex.exit55:                                 ; preds = %for.body
+  %5 = load i32, ptr @id, align 4, !tbaa !22
+  %inc.i53 = add nsw i32 %5, 1
+  store i32 %inc.i53, ptr @id, align 4, !tbaa !22
+  store i32 %5, ptr %call.i50, align 8, !tbaa !23
+  %edges.i54 = getelementptr inbounds %struct._Vertices, ptr %call.i50, i64 0, i32 1
+  tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %edges.i54, i8 0, i64 16, i1 false)
+  %call.i56 = tail call noalias dereferenceable_or_null(32) ptr @malloc(i64 noundef 32) #10
+  %cmp.i57 = icmp eq ptr %call.i56, null
+  br i1 %cmp.i57, label %if.then.i58, label %NewEdge.exit
 
-28:                                               ; preds = %22
-  %29 = load ptr, ptr @stderr, align 8, !tbaa !16
-  %30 = tail call i64 @fwrite(ptr nonnull @.str, i64 17, i64 1, ptr %29) #11
+if.then.i58:                                      ; preds = %NewVertex.exit55
+  %6 = load ptr, ptr @stderr, align 8, !tbaa !16
+  %7 = tail call i64 @fwrite(ptr nonnull @.str, i64 17, i64 1, ptr %6) #11
   tail call void @exit(i32 noundef 1) #12
   unreachable
 
-31:                                               ; preds = %22
-  store i32 0, ptr %26, align 8, !tbaa !24
-  %32 = getelementptr inbounds %struct._Edges, ptr %26, i64 0, i32 2
-  tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %32, i8 0, i64 16, i1 false)
-  store ptr %26, ptr %25, align 8, !tbaa !25
-  %33 = tail call i64 @random() #9
-  %34 = srem i64 %33, %16
-  %35 = trunc i64 %34 to i32
-  %36 = icmp sgt i32 %35, 0
-  br i1 %36, label %37, label %74
+NewEdge.exit:                                     ; preds = %NewVertex.exit55
+  store i32 0, ptr %call.i56, align 8, !tbaa !24
+  %vertex.i = getelementptr inbounds %struct._Edges, ptr %call.i56, i64 0, i32 2
+  tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %vertex.i, i8 0, i64 16, i1 false)
+  store ptr %call.i56, ptr %edges.i54, align 8, !tbaa !25
+  %call3 = tail call i64 @random() #9
+  %rem = srem i64 %call3, %indvars.iv
+  %conv4 = trunc i64 %rem to i32
+  %cmp3.i = icmp sgt i32 %conv4, 0
+  br i1 %cmp3.i, label %for.body.i.preheader, label %PickVertex.exit
 
-37:                                               ; preds = %31
-  %38 = and i32 %35, 7
-  %39 = icmp ult i32 %35, 8
-  br i1 %39, label %63, label %40
+for.body.i.preheader:                             ; preds = %NewEdge.exit
+  %xtraiter = and i32 %conv4, 7
+  %8 = icmp ult i32 %conv4, 8
+  br i1 %8, label %PickVertex.exit.loopexit.unr-lcssa, label %for.body.i.preheader.new
 
-40:                                               ; preds = %37
-  %41 = and i32 %35, -8
-  br label %42
+for.body.i.preheader.new:                         ; preds = %for.body.i.preheader
+  %unroll_iter = and i32 %conv4, -8
+  br label %for.body.i
 
-42:                                               ; preds = %42, %40
-  %43 = phi ptr [ %2, %40 ], [ %60, %42 ]
-  %44 = phi i32 [ 0, %40 ], [ %61, %42 ]
-  %45 = getelementptr inbounds %struct._Vertices, ptr %43, i64 0, i32 2
-  %46 = load ptr, ptr %45, align 8, !tbaa !5
-  %47 = getelementptr inbounds %struct._Vertices, ptr %46, i64 0, i32 2
-  %48 = load ptr, ptr %47, align 8, !tbaa !5
-  %49 = getelementptr inbounds %struct._Vertices, ptr %48, i64 0, i32 2
-  %50 = load ptr, ptr %49, align 8, !tbaa !5
-  %51 = getelementptr inbounds %struct._Vertices, ptr %50, i64 0, i32 2
-  %52 = load ptr, ptr %51, align 8, !tbaa !5
-  %53 = getelementptr inbounds %struct._Vertices, ptr %52, i64 0, i32 2
-  %54 = load ptr, ptr %53, align 8, !tbaa !5
-  %55 = getelementptr inbounds %struct._Vertices, ptr %54, i64 0, i32 2
-  %56 = load ptr, ptr %55, align 8, !tbaa !5
-  %57 = getelementptr inbounds %struct._Vertices, ptr %56, i64 0, i32 2
-  %58 = load ptr, ptr %57, align 8, !tbaa !5
-  %59 = getelementptr inbounds %struct._Vertices, ptr %58, i64 0, i32 2
-  %60 = load ptr, ptr %59, align 8, !tbaa !5
-  %61 = add i32 %44, 8
-  %62 = icmp eq i32 %61, %41
-  br i1 %62, label %63, label %42, !llvm.loop !11
+for.body.i:                                       ; preds = %for.body.i, %for.body.i.preheader.new
+  %graph.addr.04.i = phi ptr [ %call.i, %for.body.i.preheader.new ], [ %16, %for.body.i ]
+  %niter = phi i32 [ 0, %for.body.i.preheader.new ], [ %niter.next.7, %for.body.i ]
+  %next.i = getelementptr inbounds %struct._Vertices, ptr %graph.addr.04.i, i64 0, i32 2
+  %9 = load ptr, ptr %next.i, align 8, !tbaa !5
+  %next.i.1 = getelementptr inbounds %struct._Vertices, ptr %9, i64 0, i32 2
+  %10 = load ptr, ptr %next.i.1, align 8, !tbaa !5
+  %next.i.2 = getelementptr inbounds %struct._Vertices, ptr %10, i64 0, i32 2
+  %11 = load ptr, ptr %next.i.2, align 8, !tbaa !5
+  %next.i.3 = getelementptr inbounds %struct._Vertices, ptr %11, i64 0, i32 2
+  %12 = load ptr, ptr %next.i.3, align 8, !tbaa !5
+  %next.i.4 = getelementptr inbounds %struct._Vertices, ptr %12, i64 0, i32 2
+  %13 = load ptr, ptr %next.i.4, align 8, !tbaa !5
+  %next.i.5 = getelementptr inbounds %struct._Vertices, ptr %13, i64 0, i32 2
+  %14 = load ptr, ptr %next.i.5, align 8, !tbaa !5
+  %next.i.6 = getelementptr inbounds %struct._Vertices, ptr %14, i64 0, i32 2
+  %15 = load ptr, ptr %next.i.6, align 8, !tbaa !5
+  %next.i.7 = getelementptr inbounds %struct._Vertices, ptr %15, i64 0, i32 2
+  %16 = load ptr, ptr %next.i.7, align 8, !tbaa !5
+  %niter.next.7 = add i32 %niter, 8
+  %niter.ncmp.7 = icmp eq i32 %niter.next.7, %unroll_iter
+  br i1 %niter.ncmp.7, label %PickVertex.exit.loopexit.unr-lcssa, label %for.body.i, !llvm.loop !11
 
-63:                                               ; preds = %42, %37
-  %64 = phi ptr [ undef, %37 ], [ %60, %42 ]
-  %65 = phi ptr [ %2, %37 ], [ %60, %42 ]
-  %66 = icmp eq i32 %38, 0
-  br i1 %66, label %74, label %67
+PickVertex.exit.loopexit.unr-lcssa:               ; preds = %for.body.i, %for.body.i.preheader
+  %.lcssa.ph = phi ptr [ undef, %for.body.i.preheader ], [ %16, %for.body.i ]
+  %graph.addr.04.i.unr = phi ptr [ %call.i, %for.body.i.preheader ], [ %16, %for.body.i ]
+  %lcmp.mod.not = icmp eq i32 %xtraiter, 0
+  br i1 %lcmp.mod.not, label %PickVertex.exit, label %for.body.i.epil
 
-67:                                               ; preds = %63, %67
-  %68 = phi ptr [ %71, %67 ], [ %65, %63 ]
-  %69 = phi i32 [ %72, %67 ], [ 0, %63 ]
-  %70 = getelementptr inbounds %struct._Vertices, ptr %68, i64 0, i32 2
-  %71 = load ptr, ptr %70, align 8, !tbaa !5
-  %72 = add i32 %69, 1
-  %73 = icmp eq i32 %72, %38
-  br i1 %73, label %74, label %67, !llvm.loop !26
+for.body.i.epil:                                  ; preds = %PickVertex.exit.loopexit.unr-lcssa, %for.body.i.epil
+  %graph.addr.04.i.epil = phi ptr [ %17, %for.body.i.epil ], [ %graph.addr.04.i.unr, %PickVertex.exit.loopexit.unr-lcssa ]
+  %epil.iter = phi i32 [ %epil.iter.next, %for.body.i.epil ], [ 0, %PickVertex.exit.loopexit.unr-lcssa ]
+  %next.i.epil = getelementptr inbounds %struct._Vertices, ptr %graph.addr.04.i.epil, i64 0, i32 2
+  %17 = load ptr, ptr %next.i.epil, align 8, !tbaa !5
+  %epil.iter.next = add i32 %epil.iter, 1
+  %epil.iter.cmp.not = icmp eq i32 %epil.iter.next, %xtraiter
+  br i1 %epil.iter.cmp.not, label %PickVertex.exit, label %for.body.i.epil, !llvm.loop !26
 
-74:                                               ; preds = %63, %67, %31
-  %75 = phi ptr [ %2, %31 ], [ %64, %63 ], [ %71, %67 ]
-  store ptr %75, ptr %32, align 8, !tbaa !18
-  %76 = tail call i64 @random() #9
-  %77 = add nsw i64 %76, 1
-  %78 = srem i64 %77, 100
-  %79 = trunc i64 %78 to i32
-  store i32 %79, ptr %26, align 8, !tbaa !24
-  %80 = getelementptr inbounds %struct._Edges, ptr %26, i64 0, i32 1
-  store ptr %17, ptr %80, align 8, !tbaa !27
-  %81 = load ptr, ptr %11, align 8, !tbaa !5
-  %82 = getelementptr inbounds %struct._Vertices, ptr %17, i64 0, i32 2
-  store ptr %81, ptr %82, align 8, !tbaa !5
-  store ptr %17, ptr %11, align 8, !tbaa !5
-  %83 = tail call noalias dereferenceable_or_null(32) ptr @malloc(i64 noundef 32) #10
-  %84 = icmp eq ptr %83, null
-  br i1 %84, label %85, label %88
+PickVertex.exit:                                  ; preds = %PickVertex.exit.loopexit.unr-lcssa, %for.body.i.epil, %NewEdge.exit
+  %graph.addr.0.lcssa.i = phi ptr [ %call.i, %NewEdge.exit ], [ %.lcssa.ph, %PickVertex.exit.loopexit.unr-lcssa ], [ %17, %for.body.i.epil ]
+  store ptr %graph.addr.0.lcssa.i, ptr %vertex.i, align 8, !tbaa !18
+  %call7 = tail call i64 @random() #9
+  %add = add nsw i64 %call7, 1
+  %rem8 = srem i64 %add, 100
+  %conv9 = trunc i64 %rem8 to i32
+  store i32 %conv9, ptr %call.i56, align 8, !tbaa !24
+  %source = getelementptr inbounds %struct._Edges, ptr %call.i56, i64 0, i32 1
+  store ptr %call.i50, ptr %source, align 8, !tbaa !27
+  %18 = load ptr, ptr %next, align 8, !tbaa !5
+  %next12 = getelementptr inbounds %struct._Vertices, ptr %call.i50, i64 0, i32 2
+  store ptr %18, ptr %next12, align 8, !tbaa !5
+  store ptr %call.i50, ptr %next, align 8, !tbaa !5
+  %call.i60 = tail call noalias dereferenceable_or_null(32) ptr @malloc(i64 noundef 32) #10
+  %cmp.i61 = icmp eq ptr %call.i60, null
+  br i1 %cmp.i61, label %if.then.i62, label %NewEdge.exit64
 
-85:                                               ; preds = %74
-  %86 = load ptr, ptr @stderr, align 8, !tbaa !16
-  %87 = tail call i64 @fwrite(ptr nonnull @.str, i64 17, i64 1, ptr %86) #11
+if.then.i62:                                      ; preds = %PickVertex.exit
+  %19 = load ptr, ptr @stderr, align 8, !tbaa !16
+  %20 = tail call i64 @fwrite(ptr nonnull @.str, i64 17, i64 1, ptr %19) #11
   tail call void @exit(i32 noundef 1) #12
   unreachable
 
-88:                                               ; preds = %74
-  %89 = getelementptr inbounds %struct._Edges, ptr %83, i64 0, i32 2
-  tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %89, i8 0, i64 16, i1 false)
-  store i32 %79, ptr %83, align 8, !tbaa !24
-  %90 = load ptr, ptr %25, align 8, !tbaa !25
-  %91 = getelementptr inbounds %struct._Edges, ptr %90, i64 0, i32 2
-  %92 = load ptr, ptr %91, align 8, !tbaa !18
-  %93 = getelementptr inbounds %struct._Edges, ptr %83, i64 0, i32 1
-  store ptr %92, ptr %93, align 8, !tbaa !27
-  store ptr %17, ptr %89, align 8, !tbaa !18
-  %94 = load ptr, ptr %91, align 8, !tbaa !18
-  %95 = getelementptr inbounds %struct._Vertices, ptr %94, i64 0, i32 1
-  %96 = load ptr, ptr %95, align 8, !tbaa !25
-  %97 = getelementptr inbounds %struct._Edges, ptr %83, i64 0, i32 3
-  store ptr %96, ptr %97, align 8, !tbaa !28
-  store ptr %83, ptr %95, align 8, !tbaa !25
-  %98 = add nuw nsw i64 %16, 1
-  %99 = icmp eq i64 %98, %14
-  br i1 %99, label %100, label %15, !llvm.loop !29
+NewEdge.exit64:                                   ; preds = %PickVertex.exit
+  %vertex.i63 = getelementptr inbounds %struct._Edges, ptr %call.i60, i64 0, i32 2
+  tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %vertex.i63, i8 0, i64 16, i1 false)
+  store i32 %conv9, ptr %call.i60, align 8, !tbaa !24
+  %21 = load ptr, ptr %edges.i54, align 8, !tbaa !25
+  %vertex17 = getelementptr inbounds %struct._Edges, ptr %21, i64 0, i32 2
+  %22 = load ptr, ptr %vertex17, align 8, !tbaa !18
+  %source18 = getelementptr inbounds %struct._Edges, ptr %call.i60, i64 0, i32 1
+  store ptr %22, ptr %source18, align 8, !tbaa !27
+  store ptr %call.i50, ptr %vertex.i63, align 8, !tbaa !18
+  %23 = load ptr, ptr %vertex17, align 8, !tbaa !18
+  %edges22 = getelementptr inbounds %struct._Vertices, ptr %23, i64 0, i32 1
+  %24 = load ptr, ptr %edges22, align 8, !tbaa !25
+  %next23 = getelementptr inbounds %struct._Edges, ptr %call.i60, i64 0, i32 3
+  store ptr %24, ptr %next23, align 8, !tbaa !28
+  store ptr %call.i60, ptr %edges22, align 8, !tbaa !25
+  %indvars.iv.next = add nuw nsw i64 %indvars.iv, 1
+  %exitcond.not = icmp eq i64 %indvars.iv.next, %wide.trip.count
+  br i1 %exitcond.not, label %for.end, label %for.body, !llvm.loop !29
 
-100:                                              ; preds = %88, %7
-  ret ptr %2
+for.end:                                          ; preds = %NewEdge.exit64, %NewVertex.exit
+  ret ptr %call.i
 }
 
 ; Function Attrs: nounwind uwtable
-define dso_local ptr @AddEdges(ptr noundef returned %0, i32 noundef %1, i32 noundef %2) local_unnamed_addr #0 {
-  %4 = icmp sgt i32 %2, 0
-  br i1 %4, label %5, label %115
+define dso_local ptr @AddEdges(ptr noundef returned %graph, i32 noundef %nVertex, i32 noundef %nEdge) local_unnamed_addr #0 {
+entry:
+  %cmp33 = icmp sgt i32 %nEdge, 0
+  br i1 %cmp33, label %do.body.preheader.lr.ph, label %for.end
 
-5:                                                ; preds = %3
-  %6 = sext i32 %1 to i64
-  br label %7
+do.body.preheader.lr.ph:                          ; preds = %entry
+  %conv = sext i32 %nVertex to i64
+  br label %do.body.preheader
 
-7:                                                ; preds = %5, %112
-  %8 = phi i32 [ 0, %5 ], [ %113, %112 ]
-  br label %9
+do.body.preheader:                                ; preds = %do.body.preheader.lr.ph, %do.end
+  %i.034 = phi i32 [ 0, %do.body.preheader.lr.ph ], [ %inc, %do.end ]
+  br label %do.body
 
-9:                                                ; preds = %107, %7
-  %10 = tail call i64 @random() #9
-  %11 = srem i64 %10, %6
-  %12 = trunc i64 %11 to i32
-  %13 = icmp sgt i32 %12, 0
-  br i1 %13, label %14, label %51
+do.body:                                          ; preds = %while.body.i, %do.body.preheader
+  %call = tail call i64 @random() #9
+  %rem = srem i64 %call, %conv
+  %conv1 = trunc i64 %rem to i32
+  %cmp3.i = icmp sgt i32 %conv1, 0
+  br i1 %cmp3.i, label %for.body.i.preheader, label %PickVertex.exit
 
-14:                                               ; preds = %9
-  %15 = and i32 %12, 7
-  %16 = icmp ult i32 %12, 8
-  br i1 %16, label %40, label %17
+for.body.i.preheader:                             ; preds = %do.body
+  %xtraiter = and i32 %conv1, 7
+  %0 = icmp ult i32 %conv1, 8
+  br i1 %0, label %PickVertex.exit.loopexit.unr-lcssa, label %for.body.i.preheader.new
 
-17:                                               ; preds = %14
-  %18 = and i32 %12, -8
-  br label %19
+for.body.i.preheader.new:                         ; preds = %for.body.i.preheader
+  %unroll_iter = and i32 %conv1, -8
+  br label %for.body.i
 
-19:                                               ; preds = %19, %17
-  %20 = phi ptr [ %0, %17 ], [ %37, %19 ]
-  %21 = phi i32 [ 0, %17 ], [ %38, %19 ]
-  %22 = getelementptr inbounds %struct._Vertices, ptr %20, i64 0, i32 2
-  %23 = load ptr, ptr %22, align 8, !tbaa !5
-  %24 = getelementptr inbounds %struct._Vertices, ptr %23, i64 0, i32 2
-  %25 = load ptr, ptr %24, align 8, !tbaa !5
-  %26 = getelementptr inbounds %struct._Vertices, ptr %25, i64 0, i32 2
-  %27 = load ptr, ptr %26, align 8, !tbaa !5
-  %28 = getelementptr inbounds %struct._Vertices, ptr %27, i64 0, i32 2
-  %29 = load ptr, ptr %28, align 8, !tbaa !5
-  %30 = getelementptr inbounds %struct._Vertices, ptr %29, i64 0, i32 2
-  %31 = load ptr, ptr %30, align 8, !tbaa !5
-  %32 = getelementptr inbounds %struct._Vertices, ptr %31, i64 0, i32 2
-  %33 = load ptr, ptr %32, align 8, !tbaa !5
-  %34 = getelementptr inbounds %struct._Vertices, ptr %33, i64 0, i32 2
-  %35 = load ptr, ptr %34, align 8, !tbaa !5
-  %36 = getelementptr inbounds %struct._Vertices, ptr %35, i64 0, i32 2
-  %37 = load ptr, ptr %36, align 8, !tbaa !5
-  %38 = add i32 %21, 8
-  %39 = icmp eq i32 %38, %18
-  br i1 %39, label %40, label %19, !llvm.loop !11
+for.body.i:                                       ; preds = %for.body.i, %for.body.i.preheader.new
+  %graph.addr.04.i = phi ptr [ %graph, %for.body.i.preheader.new ], [ %8, %for.body.i ]
+  %niter = phi i32 [ 0, %for.body.i.preheader.new ], [ %niter.next.7, %for.body.i ]
+  %next.i = getelementptr inbounds %struct._Vertices, ptr %graph.addr.04.i, i64 0, i32 2
+  %1 = load ptr, ptr %next.i, align 8, !tbaa !5
+  %next.i.1 = getelementptr inbounds %struct._Vertices, ptr %1, i64 0, i32 2
+  %2 = load ptr, ptr %next.i.1, align 8, !tbaa !5
+  %next.i.2 = getelementptr inbounds %struct._Vertices, ptr %2, i64 0, i32 2
+  %3 = load ptr, ptr %next.i.2, align 8, !tbaa !5
+  %next.i.3 = getelementptr inbounds %struct._Vertices, ptr %3, i64 0, i32 2
+  %4 = load ptr, ptr %next.i.3, align 8, !tbaa !5
+  %next.i.4 = getelementptr inbounds %struct._Vertices, ptr %4, i64 0, i32 2
+  %5 = load ptr, ptr %next.i.4, align 8, !tbaa !5
+  %next.i.5 = getelementptr inbounds %struct._Vertices, ptr %5, i64 0, i32 2
+  %6 = load ptr, ptr %next.i.5, align 8, !tbaa !5
+  %next.i.6 = getelementptr inbounds %struct._Vertices, ptr %6, i64 0, i32 2
+  %7 = load ptr, ptr %next.i.6, align 8, !tbaa !5
+  %next.i.7 = getelementptr inbounds %struct._Vertices, ptr %7, i64 0, i32 2
+  %8 = load ptr, ptr %next.i.7, align 8, !tbaa !5
+  %niter.next.7 = add i32 %niter, 8
+  %niter.ncmp.7 = icmp eq i32 %niter.next.7, %unroll_iter
+  br i1 %niter.ncmp.7, label %PickVertex.exit.loopexit.unr-lcssa, label %for.body.i, !llvm.loop !11
 
-40:                                               ; preds = %19, %14
-  %41 = phi ptr [ undef, %14 ], [ %37, %19 ]
-  %42 = phi ptr [ %0, %14 ], [ %37, %19 ]
-  %43 = icmp eq i32 %15, 0
-  br i1 %43, label %51, label %44
+PickVertex.exit.loopexit.unr-lcssa:               ; preds = %for.body.i, %for.body.i.preheader
+  %.lcssa.ph = phi ptr [ undef, %for.body.i.preheader ], [ %8, %for.body.i ]
+  %graph.addr.04.i.unr = phi ptr [ %graph, %for.body.i.preheader ], [ %8, %for.body.i ]
+  %lcmp.mod.not = icmp eq i32 %xtraiter, 0
+  br i1 %lcmp.mod.not, label %PickVertex.exit, label %for.body.i.epil
 
-44:                                               ; preds = %40, %44
-  %45 = phi ptr [ %48, %44 ], [ %42, %40 ]
-  %46 = phi i32 [ %49, %44 ], [ 0, %40 ]
-  %47 = getelementptr inbounds %struct._Vertices, ptr %45, i64 0, i32 2
-  %48 = load ptr, ptr %47, align 8, !tbaa !5
-  %49 = add i32 %46, 1
-  %50 = icmp eq i32 %49, %15
-  br i1 %50, label %51, label %44, !llvm.loop !30
+for.body.i.epil:                                  ; preds = %PickVertex.exit.loopexit.unr-lcssa, %for.body.i.epil
+  %graph.addr.04.i.epil = phi ptr [ %9, %for.body.i.epil ], [ %graph.addr.04.i.unr, %PickVertex.exit.loopexit.unr-lcssa ]
+  %epil.iter = phi i32 [ %epil.iter.next, %for.body.i.epil ], [ 0, %PickVertex.exit.loopexit.unr-lcssa ]
+  %next.i.epil = getelementptr inbounds %struct._Vertices, ptr %graph.addr.04.i.epil, i64 0, i32 2
+  %9 = load ptr, ptr %next.i.epil, align 8, !tbaa !5
+  %epil.iter.next = add i32 %epil.iter, 1
+  %epil.iter.cmp.not = icmp eq i32 %epil.iter.next, %xtraiter
+  br i1 %epil.iter.cmp.not, label %PickVertex.exit, label %for.body.i.epil, !llvm.loop !30
 
-51:                                               ; preds = %40, %44, %9
-  %52 = phi ptr [ %0, %9 ], [ %41, %40 ], [ %48, %44 ]
-  %53 = getelementptr inbounds %struct._Vertices, ptr %52, i64 0, i32 2
-  %54 = load ptr, ptr %53, align 8, !tbaa !5
-  %55 = tail call i64 @random() #9
-  %56 = srem i64 %55, %6
-  %57 = trunc i64 %56 to i32
-  %58 = icmp sgt i32 %57, 1
-  br i1 %58, label %59, label %98
+PickVertex.exit:                                  ; preds = %PickVertex.exit.loopexit.unr-lcssa, %for.body.i.epil, %do.body
+  %graph.addr.0.lcssa.i = phi ptr [ %graph, %do.body ], [ %.lcssa.ph, %PickVertex.exit.loopexit.unr-lcssa ], [ %9, %for.body.i.epil ]
+  %next = getelementptr inbounds %struct._Vertices, ptr %graph.addr.0.lcssa.i, i64 0, i32 2
+  %10 = load ptr, ptr %next, align 8, !tbaa !5
+  %call3 = tail call i64 @random() #9
+  %rem5 = srem i64 %call3, %conv
+  %11 = trunc i64 %rem5 to i32
+  %cmp3.i15 = icmp sgt i32 %11, 1
+  br i1 %cmp3.i15, label %for.body.i21.preheader, label %PickVertex.exit23
 
-59:                                               ; preds = %51
-  %60 = add i32 %57, -2
-  %61 = add i32 %57, -1
-  %62 = and i32 %61, 7
-  %63 = icmp ult i32 %60, 7
-  br i1 %63, label %87, label %64
+for.body.i21.preheader:                           ; preds = %PickVertex.exit
+  %12 = add i32 %11, -2
+  %13 = add i32 %11, -1
+  %xtraiter60 = and i32 %13, 7
+  %14 = icmp ult i32 %12, 7
+  br i1 %14, label %PickVertex.exit23.loopexit.unr-lcssa, label %for.body.i21.preheader.new
 
-64:                                               ; preds = %59
-  %65 = and i32 %61, -8
-  br label %66
+for.body.i21.preheader.new:                       ; preds = %for.body.i21.preheader
+  %unroll_iter64 = and i32 %13, -8
+  br label %for.body.i21
 
-66:                                               ; preds = %66, %64
-  %67 = phi ptr [ %54, %64 ], [ %84, %66 ]
-  %68 = phi i32 [ 0, %64 ], [ %85, %66 ]
-  %69 = getelementptr inbounds %struct._Vertices, ptr %67, i64 0, i32 2
-  %70 = load ptr, ptr %69, align 8, !tbaa !5
-  %71 = getelementptr inbounds %struct._Vertices, ptr %70, i64 0, i32 2
-  %72 = load ptr, ptr %71, align 8, !tbaa !5
-  %73 = getelementptr inbounds %struct._Vertices, ptr %72, i64 0, i32 2
-  %74 = load ptr, ptr %73, align 8, !tbaa !5
-  %75 = getelementptr inbounds %struct._Vertices, ptr %74, i64 0, i32 2
-  %76 = load ptr, ptr %75, align 8, !tbaa !5
-  %77 = getelementptr inbounds %struct._Vertices, ptr %76, i64 0, i32 2
-  %78 = load ptr, ptr %77, align 8, !tbaa !5
-  %79 = getelementptr inbounds %struct._Vertices, ptr %78, i64 0, i32 2
-  %80 = load ptr, ptr %79, align 8, !tbaa !5
-  %81 = getelementptr inbounds %struct._Vertices, ptr %80, i64 0, i32 2
-  %82 = load ptr, ptr %81, align 8, !tbaa !5
-  %83 = getelementptr inbounds %struct._Vertices, ptr %82, i64 0, i32 2
-  %84 = load ptr, ptr %83, align 8, !tbaa !5
-  %85 = add i32 %68, 8
-  %86 = icmp eq i32 %85, %65
-  br i1 %86, label %87, label %66, !llvm.loop !11
+for.body.i21:                                     ; preds = %for.body.i21, %for.body.i21.preheader.new
+  %graph.addr.04.i17 = phi ptr [ %10, %for.body.i21.preheader.new ], [ %22, %for.body.i21 ]
+  %niter65 = phi i32 [ 0, %for.body.i21.preheader.new ], [ %niter65.next.7, %for.body.i21 ]
+  %next.i18 = getelementptr inbounds %struct._Vertices, ptr %graph.addr.04.i17, i64 0, i32 2
+  %15 = load ptr, ptr %next.i18, align 8, !tbaa !5
+  %next.i18.1 = getelementptr inbounds %struct._Vertices, ptr %15, i64 0, i32 2
+  %16 = load ptr, ptr %next.i18.1, align 8, !tbaa !5
+  %next.i18.2 = getelementptr inbounds %struct._Vertices, ptr %16, i64 0, i32 2
+  %17 = load ptr, ptr %next.i18.2, align 8, !tbaa !5
+  %next.i18.3 = getelementptr inbounds %struct._Vertices, ptr %17, i64 0, i32 2
+  %18 = load ptr, ptr %next.i18.3, align 8, !tbaa !5
+  %next.i18.4 = getelementptr inbounds %struct._Vertices, ptr %18, i64 0, i32 2
+  %19 = load ptr, ptr %next.i18.4, align 8, !tbaa !5
+  %next.i18.5 = getelementptr inbounds %struct._Vertices, ptr %19, i64 0, i32 2
+  %20 = load ptr, ptr %next.i18.5, align 8, !tbaa !5
+  %next.i18.6 = getelementptr inbounds %struct._Vertices, ptr %20, i64 0, i32 2
+  %21 = load ptr, ptr %next.i18.6, align 8, !tbaa !5
+  %next.i18.7 = getelementptr inbounds %struct._Vertices, ptr %21, i64 0, i32 2
+  %22 = load ptr, ptr %next.i18.7, align 8, !tbaa !5
+  %niter65.next.7 = add i32 %niter65, 8
+  %niter65.ncmp.7 = icmp eq i32 %niter65.next.7, %unroll_iter64
+  br i1 %niter65.ncmp.7, label %PickVertex.exit23.loopexit.unr-lcssa, label %for.body.i21, !llvm.loop !11
 
-87:                                               ; preds = %66, %59
-  %88 = phi ptr [ undef, %59 ], [ %84, %66 ]
-  %89 = phi ptr [ %54, %59 ], [ %84, %66 ]
-  %90 = icmp eq i32 %62, 0
-  br i1 %90, label %98, label %91
+PickVertex.exit23.loopexit.unr-lcssa:             ; preds = %for.body.i21, %for.body.i21.preheader
+  %.lcssa54.ph = phi ptr [ undef, %for.body.i21.preheader ], [ %22, %for.body.i21 ]
+  %graph.addr.04.i17.unr = phi ptr [ %10, %for.body.i21.preheader ], [ %22, %for.body.i21 ]
+  %lcmp.mod62.not = icmp eq i32 %xtraiter60, 0
+  br i1 %lcmp.mod62.not, label %PickVertex.exit23, label %for.body.i21.epil
 
-91:                                               ; preds = %87, %91
-  %92 = phi ptr [ %95, %91 ], [ %89, %87 ]
-  %93 = phi i32 [ %96, %91 ], [ 0, %87 ]
-  %94 = getelementptr inbounds %struct._Vertices, ptr %92, i64 0, i32 2
-  %95 = load ptr, ptr %94, align 8, !tbaa !5
-  %96 = add i32 %93, 1
-  %97 = icmp eq i32 %96, %62
-  br i1 %97, label %98, label %91, !llvm.loop !31
+for.body.i21.epil:                                ; preds = %PickVertex.exit23.loopexit.unr-lcssa, %for.body.i21.epil
+  %graph.addr.04.i17.epil = phi ptr [ %23, %for.body.i21.epil ], [ %graph.addr.04.i17.unr, %PickVertex.exit23.loopexit.unr-lcssa ]
+  %epil.iter61 = phi i32 [ %epil.iter61.next, %for.body.i21.epil ], [ 0, %PickVertex.exit23.loopexit.unr-lcssa ]
+  %next.i18.epil = getelementptr inbounds %struct._Vertices, ptr %graph.addr.04.i17.epil, i64 0, i32 2
+  %23 = load ptr, ptr %next.i18.epil, align 8, !tbaa !5
+  %epil.iter61.next = add i32 %epil.iter61, 1
+  %epil.iter61.cmp.not = icmp eq i32 %epil.iter61.next, %xtraiter60
+  br i1 %epil.iter61.cmp.not, label %PickVertex.exit23, label %for.body.i21.epil, !llvm.loop !31
 
-98:                                               ; preds = %87, %91, %51
-  %99 = phi ptr [ %54, %51 ], [ %88, %87 ], [ %95, %91 ]
-  %100 = getelementptr inbounds %struct._Vertices, ptr %52, i64 0, i32 1
-  %101 = load ptr, ptr %100, align 8, !tbaa !16
-  %102 = icmp eq ptr %101, null
-  br i1 %102, label %112, label %107
+PickVertex.exit23:                                ; preds = %PickVertex.exit23.loopexit.unr-lcssa, %for.body.i21.epil, %PickVertex.exit
+  %graph.addr.0.lcssa.i22 = phi ptr [ %10, %PickVertex.exit ], [ %.lcssa54.ph, %PickVertex.exit23.loopexit.unr-lcssa ], [ %23, %for.body.i21.epil ]
+  %edges.i = getelementptr inbounds %struct._Vertices, ptr %graph.addr.0.lcssa.i, i64 0, i32 1
+  %edge.04.i = load ptr, ptr %edges.i, align 8, !tbaa !16
+  %cmp.not5.i = icmp eq ptr %edge.04.i, null
+  br i1 %cmp.not5.i, label %do.end, label %while.body.i
 
-103:                                              ; preds = %107
-  %104 = getelementptr inbounds %struct._Edges, ptr %108, i64 0, i32 3
-  %105 = load ptr, ptr %104, align 8, !tbaa !16
-  %106 = icmp eq ptr %105, null
-  br i1 %106, label %112, label %107, !llvm.loop !17
+while.cond.i:                                     ; preds = %while.body.i
+  %next.i24 = getelementptr inbounds %struct._Edges, ptr %edge.06.i, i64 0, i32 3
+  %edge.0.i = load ptr, ptr %next.i24, align 8, !tbaa !16
+  %cmp.not.i = icmp eq ptr %edge.0.i, null
+  br i1 %cmp.not.i, label %do.end, label %while.body.i, !llvm.loop !17
 
-107:                                              ; preds = %98, %103
-  %108 = phi ptr [ %105, %103 ], [ %101, %98 ]
-  %109 = getelementptr inbounds %struct._Edges, ptr %108, i64 0, i32 2
-  %110 = load ptr, ptr %109, align 8, !tbaa !18
-  %111 = icmp eq ptr %110, %99
-  br i1 %111, label %9, label %103, !llvm.loop !20
+while.body.i:                                     ; preds = %PickVertex.exit23, %while.cond.i
+  %edge.06.i = phi ptr [ %edge.0.i, %while.cond.i ], [ %edge.04.i, %PickVertex.exit23 ]
+  %vertex.i = getelementptr inbounds %struct._Edges, ptr %edge.06.i, i64 0, i32 2
+  %24 = load ptr, ptr %vertex.i, align 8, !tbaa !18
+  %cmp1.i = icmp eq ptr %24, %graph.addr.0.lcssa.i22
+  br i1 %cmp1.i, label %do.body, label %while.cond.i, !llvm.loop !20
 
-112:                                              ; preds = %98, %103
-  tail call void @Connect(ptr noundef %52, ptr noundef %99)
-  %113 = add nuw nsw i32 %8, 1
-  %114 = icmp eq i32 %113, %2
-  br i1 %114, label %115, label %7, !llvm.loop !21
+do.end:                                           ; preds = %PickVertex.exit23, %while.cond.i
+  tail call void @Connect(ptr noundef %graph.addr.0.lcssa.i, ptr noundef %graph.addr.0.lcssa.i22)
+  %inc = add nuw nsw i32 %i.034, 1
+  %exitcond.not = icmp eq i32 %inc, %nEdge
+  br i1 %exitcond.not, label %for.end, label %do.body.preheader, !llvm.loop !21
 
-115:                                              ; preds = %112, %3
-  ret ptr %0
+for.end:                                          ; preds = %do.end, %entry
+  ret ptr %graph
 }
 
 ; Function Attrs: nofree norecurse nosync nounwind memory(read, inaccessiblemem: none) uwtable
-define dso_local ptr @PickVertex(ptr noundef readonly %0, i32 noundef %1) local_unnamed_addr #1 {
-  %3 = icmp sgt i32 %1, 0
-  br i1 %3, label %4, label %41
+define dso_local ptr @PickVertex(ptr noundef readonly %graph, i32 noundef %whichVertex) local_unnamed_addr #1 {
+entry:
+  %cmp3 = icmp sgt i32 %whichVertex, 0
+  br i1 %cmp3, label %for.body.preheader, label %for.end
 
-4:                                                ; preds = %2
-  %5 = and i32 %1, 7
-  %6 = icmp ult i32 %1, 8
-  br i1 %6, label %30, label %7
+for.body.preheader:                               ; preds = %entry
+  %xtraiter = and i32 %whichVertex, 7
+  %0 = icmp ult i32 %whichVertex, 8
+  br i1 %0, label %for.end.loopexit.unr-lcssa, label %for.body.preheader.new
 
-7:                                                ; preds = %4
-  %8 = and i32 %1, -8
-  br label %9
+for.body.preheader.new:                           ; preds = %for.body.preheader
+  %unroll_iter = and i32 %whichVertex, -8
+  br label %for.body
 
-9:                                                ; preds = %9, %7
-  %10 = phi ptr [ %0, %7 ], [ %27, %9 ]
-  %11 = phi i32 [ 0, %7 ], [ %28, %9 ]
-  %12 = getelementptr inbounds %struct._Vertices, ptr %10, i64 0, i32 2
-  %13 = load ptr, ptr %12, align 8, !tbaa !5
-  %14 = getelementptr inbounds %struct._Vertices, ptr %13, i64 0, i32 2
-  %15 = load ptr, ptr %14, align 8, !tbaa !5
-  %16 = getelementptr inbounds %struct._Vertices, ptr %15, i64 0, i32 2
-  %17 = load ptr, ptr %16, align 8, !tbaa !5
-  %18 = getelementptr inbounds %struct._Vertices, ptr %17, i64 0, i32 2
-  %19 = load ptr, ptr %18, align 8, !tbaa !5
-  %20 = getelementptr inbounds %struct._Vertices, ptr %19, i64 0, i32 2
-  %21 = load ptr, ptr %20, align 8, !tbaa !5
-  %22 = getelementptr inbounds %struct._Vertices, ptr %21, i64 0, i32 2
-  %23 = load ptr, ptr %22, align 8, !tbaa !5
-  %24 = getelementptr inbounds %struct._Vertices, ptr %23, i64 0, i32 2
-  %25 = load ptr, ptr %24, align 8, !tbaa !5
-  %26 = getelementptr inbounds %struct._Vertices, ptr %25, i64 0, i32 2
-  %27 = load ptr, ptr %26, align 8, !tbaa !5
-  %28 = add i32 %11, 8
-  %29 = icmp eq i32 %28, %8
-  br i1 %29, label %30, label %9, !llvm.loop !11
+for.body:                                         ; preds = %for.body, %for.body.preheader.new
+  %graph.addr.04 = phi ptr [ %graph, %for.body.preheader.new ], [ %8, %for.body ]
+  %niter = phi i32 [ 0, %for.body.preheader.new ], [ %niter.next.7, %for.body ]
+  %next = getelementptr inbounds %struct._Vertices, ptr %graph.addr.04, i64 0, i32 2
+  %1 = load ptr, ptr %next, align 8, !tbaa !5
+  %next.1 = getelementptr inbounds %struct._Vertices, ptr %1, i64 0, i32 2
+  %2 = load ptr, ptr %next.1, align 8, !tbaa !5
+  %next.2 = getelementptr inbounds %struct._Vertices, ptr %2, i64 0, i32 2
+  %3 = load ptr, ptr %next.2, align 8, !tbaa !5
+  %next.3 = getelementptr inbounds %struct._Vertices, ptr %3, i64 0, i32 2
+  %4 = load ptr, ptr %next.3, align 8, !tbaa !5
+  %next.4 = getelementptr inbounds %struct._Vertices, ptr %4, i64 0, i32 2
+  %5 = load ptr, ptr %next.4, align 8, !tbaa !5
+  %next.5 = getelementptr inbounds %struct._Vertices, ptr %5, i64 0, i32 2
+  %6 = load ptr, ptr %next.5, align 8, !tbaa !5
+  %next.6 = getelementptr inbounds %struct._Vertices, ptr %6, i64 0, i32 2
+  %7 = load ptr, ptr %next.6, align 8, !tbaa !5
+  %next.7 = getelementptr inbounds %struct._Vertices, ptr %7, i64 0, i32 2
+  %8 = load ptr, ptr %next.7, align 8, !tbaa !5
+  %niter.next.7 = add i32 %niter, 8
+  %niter.ncmp.7 = icmp eq i32 %niter.next.7, %unroll_iter
+  br i1 %niter.ncmp.7, label %for.end.loopexit.unr-lcssa, label %for.body, !llvm.loop !11
 
-30:                                               ; preds = %9, %4
-  %31 = phi ptr [ undef, %4 ], [ %27, %9 ]
-  %32 = phi ptr [ %0, %4 ], [ %27, %9 ]
-  %33 = icmp eq i32 %5, 0
-  br i1 %33, label %41, label %34
+for.end.loopexit.unr-lcssa:                       ; preds = %for.body, %for.body.preheader
+  %.lcssa.ph = phi ptr [ undef, %for.body.preheader ], [ %8, %for.body ]
+  %graph.addr.04.unr = phi ptr [ %graph, %for.body.preheader ], [ %8, %for.body ]
+  %lcmp.mod.not = icmp eq i32 %xtraiter, 0
+  br i1 %lcmp.mod.not, label %for.end, label %for.body.epil
 
-34:                                               ; preds = %30, %34
-  %35 = phi ptr [ %38, %34 ], [ %32, %30 ]
-  %36 = phi i32 [ %39, %34 ], [ 0, %30 ]
-  %37 = getelementptr inbounds %struct._Vertices, ptr %35, i64 0, i32 2
-  %38 = load ptr, ptr %37, align 8, !tbaa !5
-  %39 = add i32 %36, 1
-  %40 = icmp eq i32 %39, %5
-  br i1 %40, label %41, label %34, !llvm.loop !32
+for.body.epil:                                    ; preds = %for.end.loopexit.unr-lcssa, %for.body.epil
+  %graph.addr.04.epil = phi ptr [ %9, %for.body.epil ], [ %graph.addr.04.unr, %for.end.loopexit.unr-lcssa ]
+  %epil.iter = phi i32 [ %epil.iter.next, %for.body.epil ], [ 0, %for.end.loopexit.unr-lcssa ]
+  %next.epil = getelementptr inbounds %struct._Vertices, ptr %graph.addr.04.epil, i64 0, i32 2
+  %9 = load ptr, ptr %next.epil, align 8, !tbaa !5
+  %epil.iter.next = add i32 %epil.iter, 1
+  %epil.iter.cmp.not = icmp eq i32 %epil.iter.next, %xtraiter
+  br i1 %epil.iter.cmp.not, label %for.end, label %for.body.epil, !llvm.loop !32
 
-41:                                               ; preds = %30, %34, %2
-  %42 = phi ptr [ %0, %2 ], [ %31, %30 ], [ %38, %34 ]
-  ret ptr %42
+for.end:                                          ; preds = %for.end.loopexit.unr-lcssa, %for.body.epil, %entry
+  %graph.addr.0.lcssa = phi ptr [ %graph, %entry ], [ %.lcssa.ph, %for.end.loopexit.unr-lcssa ], [ %9, %for.body.epil ]
+  ret ptr %graph.addr.0.lcssa
 }
 
 ; Function Attrs: nounwind
 declare i64 @random() local_unnamed_addr #2
 
 ; Function Attrs: nofree norecurse nosync nounwind memory(read, inaccessiblemem: none) uwtable
-define dso_local i32 @Duplicate(ptr nocapture noundef readonly %0, ptr noundef readnone %1) local_unnamed_addr #1 {
-  %3 = getelementptr inbounds %struct._Vertices, ptr %0, i64 0, i32 1
-  %4 = load ptr, ptr %3, align 8, !tbaa !16
-  %5 = icmp eq ptr %4, null
-  br i1 %5, label %15, label %10
+define dso_local i32 @Duplicate(ptr nocapture noundef readonly %vertex1, ptr noundef readnone %vertex2) local_unnamed_addr #1 {
+entry:
+  %edges = getelementptr inbounds %struct._Vertices, ptr %vertex1, i64 0, i32 1
+  %edge.04 = load ptr, ptr %edges, align 8, !tbaa !16
+  %cmp.not5 = icmp eq ptr %edge.04, null
+  br i1 %cmp.not5, label %cleanup, label %while.body
 
-6:                                                ; preds = %10
-  %7 = getelementptr inbounds %struct._Edges, ptr %11, i64 0, i32 3
-  %8 = load ptr, ptr %7, align 8, !tbaa !16
-  %9 = icmp eq ptr %8, null
-  br i1 %9, label %15, label %10, !llvm.loop !17
+while.cond:                                       ; preds = %while.body
+  %next = getelementptr inbounds %struct._Edges, ptr %edge.06, i64 0, i32 3
+  %edge.0 = load ptr, ptr %next, align 8, !tbaa !16
+  %cmp.not = icmp eq ptr %edge.0, null
+  br i1 %cmp.not, label %cleanup, label %while.body, !llvm.loop !17
 
-10:                                               ; preds = %2, %6
-  %11 = phi ptr [ %8, %6 ], [ %4, %2 ]
-  %12 = getelementptr inbounds %struct._Edges, ptr %11, i64 0, i32 2
-  %13 = load ptr, ptr %12, align 8, !tbaa !18
-  %14 = icmp eq ptr %13, %1
-  br i1 %14, label %15, label %6
+while.body:                                       ; preds = %entry, %while.cond
+  %edge.06 = phi ptr [ %edge.0, %while.cond ], [ %edge.04, %entry ]
+  %vertex = getelementptr inbounds %struct._Edges, ptr %edge.06, i64 0, i32 2
+  %0 = load ptr, ptr %vertex, align 8, !tbaa !18
+  %cmp1 = icmp eq ptr %0, %vertex2
+  br i1 %cmp1, label %cleanup, label %while.cond
 
-15:                                               ; preds = %10, %6, %2
-  %16 = phi i32 [ 0, %2 ], [ 0, %6 ], [ 1, %10 ]
-  ret i32 %16
+cleanup:                                          ; preds = %while.body, %while.cond, %entry
+  %retval.0 = phi i32 [ 0, %entry ], [ 0, %while.cond ], [ 1, %while.body ]
+  ret i32 %retval.0
 }
 
 ; Function Attrs: nounwind uwtable
-define dso_local void @Connect(ptr noundef %0, ptr noundef %1) local_unnamed_addr #0 {
-  %3 = tail call i64 @random() #9
-  %4 = add nsw i64 %3, 1
-  %5 = srem i64 %4, 100
-  %6 = trunc i64 %5 to i32
-  %7 = tail call noalias dereferenceable_or_null(32) ptr @malloc(i64 noundef 32) #10
-  %8 = icmp eq ptr %7, null
-  br i1 %8, label %9, label %12
+define dso_local void @Connect(ptr noundef %vertex1, ptr noundef %vertex2) local_unnamed_addr #0 {
+entry:
+  %call = tail call i64 @random() #9
+  %add = add nsw i64 %call, 1
+  %rem = srem i64 %add, 100
+  %conv = trunc i64 %rem to i32
+  %call.i = tail call noalias dereferenceable_or_null(32) ptr @malloc(i64 noundef 32) #10
+  %cmp.i = icmp eq ptr %call.i, null
+  br i1 %cmp.i, label %if.then.i, label %NewEdge.exit
 
-9:                                                ; preds = %2
-  %10 = load ptr, ptr @stderr, align 8, !tbaa !16
-  %11 = tail call i64 @fwrite(ptr nonnull @.str, i64 17, i64 1, ptr %10) #11
+if.then.i:                                        ; preds = %entry
+  %0 = load ptr, ptr @stderr, align 8, !tbaa !16
+  %1 = tail call i64 @fwrite(ptr nonnull @.str, i64 17, i64 1, ptr %0) #11
   tail call void @exit(i32 noundef 1) #12
   unreachable
 
-12:                                               ; preds = %2
-  %13 = getelementptr inbounds %struct._Edges, ptr %7, i64 0, i32 2
-  store i32 %6, ptr %7, align 8, !tbaa !24
-  %14 = getelementptr inbounds %struct._Edges, ptr %7, i64 0, i32 1
-  store ptr %0, ptr %14, align 8, !tbaa !27
-  store ptr %1, ptr %13, align 8, !tbaa !18
-  %15 = getelementptr inbounds %struct._Vertices, ptr %0, i64 0, i32 1
-  %16 = load ptr, ptr %15, align 8, !tbaa !25
-  %17 = getelementptr inbounds %struct._Edges, ptr %7, i64 0, i32 3
-  store ptr %16, ptr %17, align 8, !tbaa !28
-  store ptr %7, ptr %15, align 8, !tbaa !25
-  %18 = tail call noalias dereferenceable_or_null(32) ptr @malloc(i64 noundef 32) #10
-  %19 = icmp eq ptr %18, null
-  br i1 %19, label %20, label %23
+NewEdge.exit:                                     ; preds = %entry
+  %vertex.i = getelementptr inbounds %struct._Edges, ptr %call.i, i64 0, i32 2
+  store i32 %conv, ptr %call.i, align 8, !tbaa !24
+  %source = getelementptr inbounds %struct._Edges, ptr %call.i, i64 0, i32 1
+  store ptr %vertex1, ptr %source, align 8, !tbaa !27
+  store ptr %vertex2, ptr %vertex.i, align 8, !tbaa !18
+  %edges = getelementptr inbounds %struct._Vertices, ptr %vertex1, i64 0, i32 1
+  %2 = load ptr, ptr %edges, align 8, !tbaa !25
+  %next = getelementptr inbounds %struct._Edges, ptr %call.i, i64 0, i32 3
+  store ptr %2, ptr %next, align 8, !tbaa !28
+  store ptr %call.i, ptr %edges, align 8, !tbaa !25
+  %call.i27 = tail call noalias dereferenceable_or_null(32) ptr @malloc(i64 noundef 32) #10
+  %cmp.i28 = icmp eq ptr %call.i27, null
+  br i1 %cmp.i28, label %if.then.i29, label %NewEdge.exit31
 
-20:                                               ; preds = %12
-  %21 = load ptr, ptr @stderr, align 8, !tbaa !16
-  %22 = tail call i64 @fwrite(ptr nonnull @.str, i64 17, i64 1, ptr %21) #11
+if.then.i29:                                      ; preds = %NewEdge.exit
+  %3 = load ptr, ptr @stderr, align 8, !tbaa !16
+  %4 = tail call i64 @fwrite(ptr nonnull @.str, i64 17, i64 1, ptr %3) #11
   tail call void @exit(i32 noundef 1) #12
   unreachable
 
-23:                                               ; preds = %12
-  %24 = getelementptr inbounds %struct._Edges, ptr %18, i64 0, i32 2
-  store i32 %6, ptr %18, align 8, !tbaa !24
-  %25 = getelementptr inbounds %struct._Edges, ptr %18, i64 0, i32 1
-  store ptr %1, ptr %25, align 8, !tbaa !27
-  store ptr %0, ptr %24, align 8, !tbaa !18
-  %26 = getelementptr inbounds %struct._Vertices, ptr %1, i64 0, i32 1
-  %27 = load ptr, ptr %26, align 8, !tbaa !25
-  %28 = getelementptr inbounds %struct._Edges, ptr %18, i64 0, i32 3
-  store ptr %27, ptr %28, align 8, !tbaa !28
-  store ptr %18, ptr %26, align 8, !tbaa !25
+NewEdge.exit31:                                   ; preds = %NewEdge.exit
+  %vertex.i30 = getelementptr inbounds %struct._Edges, ptr %call.i27, i64 0, i32 2
+  store i32 %conv, ptr %call.i27, align 8, !tbaa !24
+  %source6 = getelementptr inbounds %struct._Edges, ptr %call.i27, i64 0, i32 1
+  store ptr %vertex2, ptr %source6, align 8, !tbaa !27
+  store ptr %vertex1, ptr %vertex.i30, align 8, !tbaa !18
+  %edges8 = getelementptr inbounds %struct._Vertices, ptr %vertex2, i64 0, i32 1
+  %5 = load ptr, ptr %edges8, align 8, !tbaa !25
+  %next9 = getelementptr inbounds %struct._Edges, ptr %call.i27, i64 0, i32 3
+  store ptr %5, ptr %next9, align 8, !tbaa !28
+  store ptr %call.i27, ptr %edges8, align 8, !tbaa !25
   ret void
 }
 
 ; Function Attrs: nounwind uwtable
 define dso_local noalias ptr @NewVertex() local_unnamed_addr #0 {
-  %1 = tail call noalias dereferenceable_or_null(40) ptr @malloc(i64 noundef 40) #10
-  %2 = icmp eq ptr %1, null
-  br i1 %2, label %3, label %6
+entry:
+  %call = tail call noalias dereferenceable_or_null(40) ptr @malloc(i64 noundef 40) #10
+  %cmp = icmp eq ptr %call, null
+  br i1 %cmp, label %if.then, label %if.end
 
-3:                                                ; preds = %0
-  %4 = load ptr, ptr @stderr, align 8, !tbaa !16
-  %5 = tail call i64 @fwrite(ptr nonnull @.str, i64 17, i64 1, ptr %4) #11
+if.then:                                          ; preds = %entry
+  %0 = load ptr, ptr @stderr, align 8, !tbaa !16
+  %1 = tail call i64 @fwrite(ptr nonnull @.str, i64 17, i64 1, ptr %0) #11
   tail call void @exit(i32 noundef 1) #12
   unreachable
 
-6:                                                ; preds = %0
-  %7 = load i32, ptr @id, align 4, !tbaa !22
-  %8 = add nsw i32 %7, 1
-  store i32 %8, ptr @id, align 4, !tbaa !22
-  store i32 %7, ptr %1, align 8, !tbaa !23
-  %9 = getelementptr inbounds %struct._Vertices, ptr %1, i64 0, i32 1
-  tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %9, i8 0, i64 16, i1 false)
-  ret ptr %1
+if.end:                                           ; preds = %entry
+  %2 = load i32, ptr @id, align 4, !tbaa !22
+  %inc = add nsw i32 %2, 1
+  store i32 %inc, ptr @id, align 4, !tbaa !22
+  store i32 %2, ptr %call, align 8, !tbaa !23
+  %edges = getelementptr inbounds %struct._Vertices, ptr %call, i64 0, i32 1
+  tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %edges, i8 0, i64 16, i1 false)
+  ret ptr %call
 }
 
 ; Function Attrs: mustprogress nofree nounwind willreturn allockind("alloc,uninitialized") allocsize(0) memory(inaccessiblemem: readwrite)
@@ -655,59 +662,61 @@ declare void @exit(i32 noundef) local_unnamed_addr #4
 
 ; Function Attrs: nounwind uwtable
 define dso_local noalias ptr @NewEdge() local_unnamed_addr #0 {
-  %1 = tail call noalias dereferenceable_or_null(32) ptr @malloc(i64 noundef 32) #10
-  %2 = icmp eq ptr %1, null
-  br i1 %2, label %3, label %6
+entry:
+  %call = tail call noalias dereferenceable_or_null(32) ptr @malloc(i64 noundef 32) #10
+  %cmp = icmp eq ptr %call, null
+  br i1 %cmp, label %if.then, label %if.end
 
-3:                                                ; preds = %0
-  %4 = load ptr, ptr @stderr, align 8, !tbaa !16
-  %5 = tail call i64 @fwrite(ptr nonnull @.str, i64 17, i64 1, ptr %4) #11
+if.then:                                          ; preds = %entry
+  %0 = load ptr, ptr @stderr, align 8, !tbaa !16
+  %1 = tail call i64 @fwrite(ptr nonnull @.str, i64 17, i64 1, ptr %0) #11
   tail call void @exit(i32 noundef 1) #12
   unreachable
 
-6:                                                ; preds = %0
-  store i32 0, ptr %1, align 8, !tbaa !24
-  %7 = getelementptr inbounds %struct._Edges, ptr %1, i64 0, i32 2
-  tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %7, i8 0, i64 16, i1 false)
-  ret ptr %1
+if.end:                                           ; preds = %entry
+  store i32 0, ptr %call, align 8, !tbaa !24
+  %vertex = getelementptr inbounds %struct._Edges, ptr %call, i64 0, i32 2
+  tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %vertex, i8 0, i64 16, i1 false)
+  ret ptr %call
 }
 
 ; Function Attrs: nofree nounwind uwtable
-define dso_local void @PrintGraph(ptr noundef readonly %0) local_unnamed_addr #5 {
-  br label %2
+define dso_local void @PrintGraph(ptr noundef readonly %graph) local_unnamed_addr #5 {
+entry:
+  br label %do.body
 
-2:                                                ; preds = %22, %1
-  %3 = phi ptr [ %0, %1 ], [ %25, %22 ]
-  %4 = load i32, ptr %3, align 8, !tbaa !23
-  %5 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.1, i32 noundef %4)
-  %6 = getelementptr inbounds %struct._Vertices, ptr %3, i64 0, i32 1
-  %7 = load ptr, ptr %6, align 8, !tbaa !16
-  %8 = icmp eq ptr %7, null
-  br i1 %8, label %22, label %9
+do.body:                                          ; preds = %PrintNeighbors.exit, %entry
+  %vertex.0 = phi ptr [ %graph, %entry ], [ %6, %PrintNeighbors.exit ]
+  %0 = load i32, ptr %vertex.0, align 8, !tbaa !23
+  %call = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.1, i32 noundef %0)
+  %edges.i = getelementptr inbounds %struct._Vertices, ptr %vertex.0, i64 0, i32 1
+  %edge.07.i = load ptr, ptr %edges.i, align 8, !tbaa !16
+  %cmp.not8.i = icmp eq ptr %edge.07.i, null
+  br i1 %cmp.not8.i, label %PrintNeighbors.exit, label %while.body.i
 
-9:                                                ; preds = %2, %9
-  %10 = phi ptr [ %20, %9 ], [ %7, %2 ]
-  %11 = getelementptr inbounds %struct._Edges, ptr %10, i64 0, i32 2
-  %12 = load ptr, ptr %11, align 8, !tbaa !18
-  %13 = load i32, ptr %12, align 8, !tbaa !23
-  %14 = load i32, ptr %10, align 8, !tbaa !24
-  %15 = getelementptr inbounds %struct._Edges, ptr %10, i64 0, i32 1
-  %16 = load ptr, ptr %15, align 8, !tbaa !27
-  %17 = load i32, ptr %16, align 8, !tbaa !23
-  %18 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.3, i32 noundef %13, i32 noundef %14, i32 noundef %17)
-  %19 = getelementptr inbounds %struct._Edges, ptr %10, i64 0, i32 3
-  %20 = load ptr, ptr %19, align 8, !tbaa !16
-  %21 = icmp eq ptr %20, null
-  br i1 %21, label %22, label %9, !llvm.loop !33
+while.body.i:                                     ; preds = %do.body, %while.body.i
+  %edge.09.i = phi ptr [ %edge.0.i, %while.body.i ], [ %edge.07.i, %do.body ]
+  %vertex1.i = getelementptr inbounds %struct._Edges, ptr %edge.09.i, i64 0, i32 2
+  %1 = load ptr, ptr %vertex1.i, align 8, !tbaa !18
+  %2 = load i32, ptr %1, align 8, !tbaa !23
+  %3 = load i32, ptr %edge.09.i, align 8, !tbaa !24
+  %source.i = getelementptr inbounds %struct._Edges, ptr %edge.09.i, i64 0, i32 1
+  %4 = load ptr, ptr %source.i, align 8, !tbaa !27
+  %5 = load i32, ptr %4, align 8, !tbaa !23
+  %call.i = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.3, i32 noundef %2, i32 noundef %3, i32 noundef %5)
+  %next.i = getelementptr inbounds %struct._Edges, ptr %edge.09.i, i64 0, i32 3
+  %edge.0.i = load ptr, ptr %next.i, align 8, !tbaa !16
+  %cmp.not.i = icmp eq ptr %edge.0.i, null
+  br i1 %cmp.not.i, label %PrintNeighbors.exit, label %while.body.i, !llvm.loop !33
 
-22:                                               ; preds = %9, %2
-  %23 = tail call i32 @putchar(i32 10)
-  %24 = getelementptr inbounds %struct._Vertices, ptr %3, i64 0, i32 2
-  %25 = load ptr, ptr %24, align 8, !tbaa !5
-  %26 = icmp eq ptr %25, %0
-  br i1 %26, label %27, label %2, !llvm.loop !34
+PrintNeighbors.exit:                              ; preds = %while.body.i, %do.body
+  %putchar = tail call i32 @putchar(i32 10)
+  %next = getelementptr inbounds %struct._Vertices, ptr %vertex.0, i64 0, i32 2
+  %6 = load ptr, ptr %next, align 8, !tbaa !5
+  %cmp.not = icmp eq ptr %6, %graph
+  br i1 %cmp.not, label %do.end, label %do.body, !llvm.loop !34
 
-27:                                               ; preds = %22
+do.end:                                           ; preds = %PrintNeighbors.exit
   ret void
 }
 
@@ -715,39 +724,40 @@ define dso_local void @PrintGraph(ptr noundef readonly %0) local_unnamed_addr #5
 declare noundef i32 @printf(ptr nocapture noundef readonly, ...) local_unnamed_addr #6
 
 ; Function Attrs: nofree nounwind uwtable
-define dso_local void @PrintNeighbors(ptr nocapture noundef readonly %0) local_unnamed_addr #5 {
-  %2 = getelementptr inbounds %struct._Vertices, ptr %0, i64 0, i32 1
-  %3 = load ptr, ptr %2, align 8, !tbaa !16
-  %4 = icmp eq ptr %3, null
-  br i1 %4, label %18, label %5
+define dso_local void @PrintNeighbors(ptr nocapture noundef readonly %vertex) local_unnamed_addr #5 {
+entry:
+  %edges = getelementptr inbounds %struct._Vertices, ptr %vertex, i64 0, i32 1
+  %edge.07 = load ptr, ptr %edges, align 8, !tbaa !16
+  %cmp.not8 = icmp eq ptr %edge.07, null
+  br i1 %cmp.not8, label %while.end, label %while.body
 
-5:                                                ; preds = %1, %5
-  %6 = phi ptr [ %16, %5 ], [ %3, %1 ]
-  %7 = getelementptr inbounds %struct._Edges, ptr %6, i64 0, i32 2
-  %8 = load ptr, ptr %7, align 8, !tbaa !18
-  %9 = load i32, ptr %8, align 8, !tbaa !23
-  %10 = load i32, ptr %6, align 8, !tbaa !24
-  %11 = getelementptr inbounds %struct._Edges, ptr %6, i64 0, i32 1
-  %12 = load ptr, ptr %11, align 8, !tbaa !27
-  %13 = load i32, ptr %12, align 8, !tbaa !23
-  %14 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.3, i32 noundef %9, i32 noundef %10, i32 noundef %13)
-  %15 = getelementptr inbounds %struct._Edges, ptr %6, i64 0, i32 3
-  %16 = load ptr, ptr %15, align 8, !tbaa !16
-  %17 = icmp eq ptr %16, null
-  br i1 %17, label %18, label %5, !llvm.loop !33
+while.body:                                       ; preds = %entry, %while.body
+  %edge.09 = phi ptr [ %edge.0, %while.body ], [ %edge.07, %entry ]
+  %vertex1 = getelementptr inbounds %struct._Edges, ptr %edge.09, i64 0, i32 2
+  %0 = load ptr, ptr %vertex1, align 8, !tbaa !18
+  %1 = load i32, ptr %0, align 8, !tbaa !23
+  %2 = load i32, ptr %edge.09, align 8, !tbaa !24
+  %source = getelementptr inbounds %struct._Edges, ptr %edge.09, i64 0, i32 1
+  %3 = load ptr, ptr %source, align 8, !tbaa !27
+  %4 = load i32, ptr %3, align 8, !tbaa !23
+  %call = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.3, i32 noundef %1, i32 noundef %2, i32 noundef %4)
+  %next = getelementptr inbounds %struct._Edges, ptr %edge.09, i64 0, i32 3
+  %edge.0 = load ptr, ptr %next, align 8, !tbaa !16
+  %cmp.not = icmp eq ptr %edge.0, null
+  br i1 %cmp.not, label %while.end, label %while.body, !llvm.loop !33
 
-18:                                               ; preds = %5, %1
+while.end:                                        ; preds = %while.body, %entry
   ret void
 }
 
 ; Function Attrs: nofree nounwind
 declare noundef i64 @fwrite(ptr nocapture noundef, i64 noundef, i64 noundef, ptr nocapture noundef) local_unnamed_addr #7
 
-; Function Attrs: nocallback nofree nounwind willreturn memory(argmem: write)
-declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #8
-
 ; Function Attrs: nofree nounwind
 declare noundef i32 @putchar(i32 noundef) local_unnamed_addr #7
+
+; Function Attrs: nocallback nofree nounwind willreturn memory(argmem: write)
+declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #8
 
 attributes #0 = { nounwind uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #1 = { nofree norecurse nosync nounwind memory(read, inaccessiblemem: none) uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }

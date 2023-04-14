@@ -8,189 +8,191 @@ target triple = "x86_64-unknown-linux-gnu"
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(readwrite, argmem: none, inaccessiblemem: none) uwtable
 define dso_local i32 @glibc_compat_rand() local_unnamed_addr #0 {
-  %1 = load i32, ptr @next, align 4, !tbaa !5
-  %2 = icmp slt i32 %1, 3
-  %3 = icmp slt i32 %1, 31
-  %4 = select i1 %3, i32 313, i32 -31
-  %5 = select i1 %2, i32 341, i32 -3
-  %6 = add nsw i32 %1, %5
-  %7 = add nsw i32 %1, %4
-  %8 = sext i32 %6 to i64
-  %9 = getelementptr inbounds [344 x i32], ptr @table, i64 0, i64 %8
-  %10 = load i32, ptr %9, align 4, !tbaa !5
-  %11 = sext i32 %7 to i64
-  %12 = getelementptr inbounds [344 x i32], ptr @table, i64 0, i64 %11
-  %13 = load i32, ptr %12, align 4, !tbaa !5
-  %14 = add i32 %13, %10
-  %15 = sext i32 %1 to i64
-  %16 = getelementptr inbounds [344 x i32], ptr @table, i64 0, i64 %15
-  store i32 %14, ptr %16, align 4, !tbaa !5
-  %17 = lshr i32 %14, 1
-  %18 = add nsw i32 %1, 1
-  %19 = icmp sgt i32 %1, 342
-  %20 = select i1 %19, i32 0, i32 %18
-  store i32 %20, ptr @next, align 4
-  ret i32 %17
+entry:
+  %0 = load i32, ptr @next, align 4, !tbaa !5
+  %cmp = icmp slt i32 %0, 3
+  %cond.v = select i1 %cmp, i32 341, i32 -3
+  %cond = add nsw i32 %cond.v, %0
+  %cmp2 = icmp slt i32 %0, 31
+  %cond9.v = select i1 %cmp2, i32 313, i32 -31
+  %cond9 = add nsw i32 %cond9.v, %0
+  %idxprom = sext i32 %cond to i64
+  %arrayidx = getelementptr inbounds [344 x i32], ptr @table, i64 0, i64 %idxprom
+  %1 = load i32, ptr %arrayidx, align 4, !tbaa !5
+  %idxprom10 = sext i32 %cond9 to i64
+  %arrayidx11 = getelementptr inbounds [344 x i32], ptr @table, i64 0, i64 %idxprom10
+  %2 = load i32, ptr %arrayidx11, align 4, !tbaa !5
+  %add12 = add i32 %2, %1
+  %idxprom13 = sext i32 %0 to i64
+  %arrayidx14 = getelementptr inbounds [344 x i32], ptr @table, i64 0, i64 %idxprom13
+  store i32 %add12, ptr %arrayidx14, align 4, !tbaa !5
+  %shr = lshr i32 %add12, 1
+  %inc = add nsw i32 %0, 1
+  %cmp17 = icmp sgt i32 %0, 342
+  %spec.store.select = select i1 %cmp17, i32 0, i32 %inc
+  store i32 %spec.store.select, ptr @next, align 4
+  ret i32 %shr
 }
 
 ; Function Attrs: nofree nosync nounwind memory(readwrite, argmem: none, inaccessiblemem: none) uwtable
-define dso_local void @glibc_compat_srand(i32 noundef %0) local_unnamed_addr #1 {
-  %2 = tail call i32 @llvm.umax.i32(i32 %0, i32 1)
-  store i32 %2, ptr @table, align 16, !tbaa !5
-  %3 = zext i32 %2 to i64
-  %4 = mul nuw nsw i64 %3, 16807
-  %5 = urem i64 %4, 2147483647
-  %6 = trunc i64 %5 to i32
-  store i32 %6, ptr getelementptr inbounds ([344 x i32], ptr @table, i64 0, i64 1), align 4, !tbaa !5
-  %7 = mul nuw nsw i64 %5, 16807
-  %8 = urem i64 %7, 2147483647
-  %9 = trunc i64 %8 to i32
-  store i32 %9, ptr getelementptr inbounds ([344 x i32], ptr @table, i64 0, i64 2), align 8, !tbaa !5
-  %10 = mul nuw nsw i64 %8, 16807
-  %11 = urem i64 %10, 2147483647
-  %12 = trunc i64 %11 to i32
-  store i32 %12, ptr getelementptr inbounds ([344 x i32], ptr @table, i64 0, i64 3), align 4, !tbaa !5
-  %13 = mul nuw nsw i64 %11, 16807
-  %14 = urem i64 %13, 2147483647
-  %15 = trunc i64 %14 to i32
-  store i32 %15, ptr getelementptr inbounds ([344 x i32], ptr @table, i64 0, i64 4), align 16, !tbaa !5
-  %16 = mul nuw nsw i64 %14, 16807
-  %17 = urem i64 %16, 2147483647
-  %18 = trunc i64 %17 to i32
-  store i32 %18, ptr getelementptr inbounds ([344 x i32], ptr @table, i64 0, i64 5), align 4, !tbaa !5
-  %19 = mul nuw nsw i64 %17, 16807
-  %20 = urem i64 %19, 2147483647
-  %21 = trunc i64 %20 to i32
-  store i32 %21, ptr getelementptr inbounds ([344 x i32], ptr @table, i64 0, i64 6), align 8, !tbaa !5
-  %22 = mul nuw nsw i64 %20, 16807
-  %23 = urem i64 %22, 2147483647
-  %24 = trunc i64 %23 to i32
-  store i32 %24, ptr getelementptr inbounds ([344 x i32], ptr @table, i64 0, i64 7), align 4, !tbaa !5
-  %25 = mul nuw nsw i64 %23, 16807
-  %26 = urem i64 %25, 2147483647
-  %27 = trunc i64 %26 to i32
-  store i32 %27, ptr getelementptr inbounds ([344 x i32], ptr @table, i64 0, i64 8), align 16, !tbaa !5
-  %28 = mul nuw nsw i64 %26, 16807
-  %29 = urem i64 %28, 2147483647
-  %30 = trunc i64 %29 to i32
-  store i32 %30, ptr getelementptr inbounds ([344 x i32], ptr @table, i64 0, i64 9), align 4, !tbaa !5
-  %31 = mul nuw nsw i64 %29, 16807
-  %32 = urem i64 %31, 2147483647
-  %33 = trunc i64 %32 to i32
-  store i32 %33, ptr getelementptr inbounds ([344 x i32], ptr @table, i64 0, i64 10), align 8, !tbaa !5
-  %34 = mul nuw nsw i64 %32, 16807
-  %35 = urem i64 %34, 2147483647
-  %36 = trunc i64 %35 to i32
-  store i32 %36, ptr getelementptr inbounds ([344 x i32], ptr @table, i64 0, i64 11), align 4, !tbaa !5
-  %37 = mul nuw nsw i64 %35, 16807
-  %38 = urem i64 %37, 2147483647
-  %39 = trunc i64 %38 to i32
-  store i32 %39, ptr getelementptr inbounds ([344 x i32], ptr @table, i64 0, i64 12), align 16, !tbaa !5
-  %40 = mul nuw nsw i64 %38, 16807
-  %41 = urem i64 %40, 2147483647
-  %42 = trunc i64 %41 to i32
-  store i32 %42, ptr getelementptr inbounds ([344 x i32], ptr @table, i64 0, i64 13), align 4, !tbaa !5
-  %43 = mul nuw nsw i64 %41, 16807
-  %44 = urem i64 %43, 2147483647
-  %45 = trunc i64 %44 to i32
-  store i32 %45, ptr getelementptr inbounds ([344 x i32], ptr @table, i64 0, i64 14), align 8, !tbaa !5
-  %46 = mul nuw nsw i64 %44, 16807
-  %47 = urem i64 %46, 2147483647
-  %48 = trunc i64 %47 to i32
-  store i32 %48, ptr getelementptr inbounds ([344 x i32], ptr @table, i64 0, i64 15), align 4, !tbaa !5
-  %49 = mul nuw nsw i64 %47, 16807
-  %50 = urem i64 %49, 2147483647
-  %51 = trunc i64 %50 to i32
-  store i32 %51, ptr getelementptr inbounds ([344 x i32], ptr @table, i64 0, i64 16), align 16, !tbaa !5
-  %52 = mul nuw nsw i64 %50, 16807
-  %53 = urem i64 %52, 2147483647
-  %54 = trunc i64 %53 to i32
-  store i32 %54, ptr getelementptr inbounds ([344 x i32], ptr @table, i64 0, i64 17), align 4, !tbaa !5
-  %55 = mul nuw nsw i64 %53, 16807
-  %56 = urem i64 %55, 2147483647
-  %57 = trunc i64 %56 to i32
-  store i32 %57, ptr getelementptr inbounds ([344 x i32], ptr @table, i64 0, i64 18), align 8, !tbaa !5
-  %58 = mul nuw nsw i64 %56, 16807
-  %59 = urem i64 %58, 2147483647
-  %60 = trunc i64 %59 to i32
-  store i32 %60, ptr getelementptr inbounds ([344 x i32], ptr @table, i64 0, i64 19), align 4, !tbaa !5
-  %61 = mul nuw nsw i64 %59, 16807
-  %62 = urem i64 %61, 2147483647
-  %63 = trunc i64 %62 to i32
-  store i32 %63, ptr getelementptr inbounds ([344 x i32], ptr @table, i64 0, i64 20), align 16, !tbaa !5
-  %64 = mul nuw nsw i64 %62, 16807
-  %65 = urem i64 %64, 2147483647
-  %66 = trunc i64 %65 to i32
-  store i32 %66, ptr getelementptr inbounds ([344 x i32], ptr @table, i64 0, i64 21), align 4, !tbaa !5
-  %67 = mul nuw nsw i64 %65, 16807
-  %68 = urem i64 %67, 2147483647
-  %69 = trunc i64 %68 to i32
-  store i32 %69, ptr getelementptr inbounds ([344 x i32], ptr @table, i64 0, i64 22), align 8, !tbaa !5
-  %70 = mul nuw nsw i64 %68, 16807
-  %71 = urem i64 %70, 2147483647
-  %72 = trunc i64 %71 to i32
-  store i32 %72, ptr getelementptr inbounds ([344 x i32], ptr @table, i64 0, i64 23), align 4, !tbaa !5
-  %73 = mul nuw nsw i64 %71, 16807
-  %74 = urem i64 %73, 2147483647
-  %75 = trunc i64 %74 to i32
-  store i32 %75, ptr getelementptr inbounds ([344 x i32], ptr @table, i64 0, i64 24), align 16, !tbaa !5
-  %76 = mul nuw nsw i64 %74, 16807
-  %77 = urem i64 %76, 2147483647
-  %78 = trunc i64 %77 to i32
-  store i32 %78, ptr getelementptr inbounds ([344 x i32], ptr @table, i64 0, i64 25), align 4, !tbaa !5
-  %79 = mul nuw nsw i64 %77, 16807
-  %80 = urem i64 %79, 2147483647
-  %81 = trunc i64 %80 to i32
-  store i32 %81, ptr getelementptr inbounds ([344 x i32], ptr @table, i64 0, i64 26), align 8, !tbaa !5
-  %82 = mul nuw nsw i64 %80, 16807
-  %83 = urem i64 %82, 2147483647
-  %84 = trunc i64 %83 to i32
-  store i32 %84, ptr getelementptr inbounds ([344 x i32], ptr @table, i64 0, i64 27), align 4, !tbaa !5
-  %85 = mul nuw nsw i64 %83, 16807
-  %86 = urem i64 %85, 2147483647
-  %87 = trunc i64 %86 to i32
-  store i32 %87, ptr getelementptr inbounds ([344 x i32], ptr @table, i64 0, i64 28), align 16, !tbaa !5
-  %88 = mul nuw nsw i64 %86, 16807
-  %89 = urem i64 %88, 2147483647
-  %90 = trunc i64 %89 to i32
-  store i32 %90, ptr getelementptr inbounds ([344 x i32], ptr @table, i64 0, i64 29), align 4, !tbaa !5
-  %91 = mul nuw nsw i64 %89, 16807
-  %92 = urem i64 %91, 2147483647
-  %93 = trunc i64 %92 to i32
-  store i32 %93, ptr getelementptr inbounds ([344 x i32], ptr @table, i64 0, i64 30), align 8, !tbaa !5
-  store i32 %2, ptr getelementptr inbounds ([344 x i32], ptr @table, i64 0, i64 31), align 4, !tbaa !5
-  %94 = load <2 x i32>, ptr getelementptr inbounds ([344 x i32], ptr @table, i64 0, i64 1), align 4, !tbaa !5
-  store <2 x i32> %94, ptr getelementptr inbounds ([344 x i32], ptr @table, i64 0, i64 32), align 16, !tbaa !5
-  br label %96
+define dso_local void @glibc_compat_srand(i32 noundef %seed) local_unnamed_addr #1 {
+entry:
+  %spec.store.select = tail call i32 @llvm.umax.i32(i32 %seed, i32 1)
+  store i32 %spec.store.select, ptr @table, align 16, !tbaa !5
+  %conv = zext i32 %spec.store.select to i64
+  %mul = mul nuw nsw i64 %conv, 16807
+  %rem = urem i64 %mul, 2147483647
+  %conv2 = trunc i64 %rem to i32
+  store i32 %conv2, ptr getelementptr inbounds ([344 x i32], ptr @table, i64 0, i64 1), align 4, !tbaa !5
+  %mul.1 = mul nuw nsw i64 %rem, 16807
+  %rem.1 = urem i64 %mul.1, 2147483647
+  %conv2.1 = trunc i64 %rem.1 to i32
+  store i32 %conv2.1, ptr getelementptr inbounds ([344 x i32], ptr @table, i64 0, i64 2), align 8, !tbaa !5
+  %mul.2 = mul nuw nsw i64 %rem.1, 16807
+  %rem.2 = urem i64 %mul.2, 2147483647
+  %conv2.2 = trunc i64 %rem.2 to i32
+  store i32 %conv2.2, ptr getelementptr inbounds ([344 x i32], ptr @table, i64 0, i64 3), align 4, !tbaa !5
+  %mul.3 = mul nuw nsw i64 %rem.2, 16807
+  %rem.3 = urem i64 %mul.3, 2147483647
+  %conv2.3 = trunc i64 %rem.3 to i32
+  store i32 %conv2.3, ptr getelementptr inbounds ([344 x i32], ptr @table, i64 0, i64 4), align 16, !tbaa !5
+  %mul.4 = mul nuw nsw i64 %rem.3, 16807
+  %rem.4 = urem i64 %mul.4, 2147483647
+  %conv2.4 = trunc i64 %rem.4 to i32
+  store i32 %conv2.4, ptr getelementptr inbounds ([344 x i32], ptr @table, i64 0, i64 5), align 4, !tbaa !5
+  %mul.5 = mul nuw nsw i64 %rem.4, 16807
+  %rem.5 = urem i64 %mul.5, 2147483647
+  %conv2.5 = trunc i64 %rem.5 to i32
+  store i32 %conv2.5, ptr getelementptr inbounds ([344 x i32], ptr @table, i64 0, i64 6), align 8, !tbaa !5
+  %mul.6 = mul nuw nsw i64 %rem.5, 16807
+  %rem.6 = urem i64 %mul.6, 2147483647
+  %conv2.6 = trunc i64 %rem.6 to i32
+  store i32 %conv2.6, ptr getelementptr inbounds ([344 x i32], ptr @table, i64 0, i64 7), align 4, !tbaa !5
+  %mul.7 = mul nuw nsw i64 %rem.6, 16807
+  %rem.7 = urem i64 %mul.7, 2147483647
+  %conv2.7 = trunc i64 %rem.7 to i32
+  store i32 %conv2.7, ptr getelementptr inbounds ([344 x i32], ptr @table, i64 0, i64 8), align 16, !tbaa !5
+  %mul.8 = mul nuw nsw i64 %rem.7, 16807
+  %rem.8 = urem i64 %mul.8, 2147483647
+  %conv2.8 = trunc i64 %rem.8 to i32
+  store i32 %conv2.8, ptr getelementptr inbounds ([344 x i32], ptr @table, i64 0, i64 9), align 4, !tbaa !5
+  %mul.9 = mul nuw nsw i64 %rem.8, 16807
+  %rem.9 = urem i64 %mul.9, 2147483647
+  %conv2.9 = trunc i64 %rem.9 to i32
+  store i32 %conv2.9, ptr getelementptr inbounds ([344 x i32], ptr @table, i64 0, i64 10), align 8, !tbaa !5
+  %mul.10 = mul nuw nsw i64 %rem.9, 16807
+  %rem.10 = urem i64 %mul.10, 2147483647
+  %conv2.10 = trunc i64 %rem.10 to i32
+  store i32 %conv2.10, ptr getelementptr inbounds ([344 x i32], ptr @table, i64 0, i64 11), align 4, !tbaa !5
+  %mul.11 = mul nuw nsw i64 %rem.10, 16807
+  %rem.11 = urem i64 %mul.11, 2147483647
+  %conv2.11 = trunc i64 %rem.11 to i32
+  store i32 %conv2.11, ptr getelementptr inbounds ([344 x i32], ptr @table, i64 0, i64 12), align 16, !tbaa !5
+  %mul.12 = mul nuw nsw i64 %rem.11, 16807
+  %rem.12 = urem i64 %mul.12, 2147483647
+  %conv2.12 = trunc i64 %rem.12 to i32
+  store i32 %conv2.12, ptr getelementptr inbounds ([344 x i32], ptr @table, i64 0, i64 13), align 4, !tbaa !5
+  %mul.13 = mul nuw nsw i64 %rem.12, 16807
+  %rem.13 = urem i64 %mul.13, 2147483647
+  %conv2.13 = trunc i64 %rem.13 to i32
+  store i32 %conv2.13, ptr getelementptr inbounds ([344 x i32], ptr @table, i64 0, i64 14), align 8, !tbaa !5
+  %mul.14 = mul nuw nsw i64 %rem.13, 16807
+  %rem.14 = urem i64 %mul.14, 2147483647
+  %conv2.14 = trunc i64 %rem.14 to i32
+  store i32 %conv2.14, ptr getelementptr inbounds ([344 x i32], ptr @table, i64 0, i64 15), align 4, !tbaa !5
+  %mul.15 = mul nuw nsw i64 %rem.14, 16807
+  %rem.15 = urem i64 %mul.15, 2147483647
+  %conv2.15 = trunc i64 %rem.15 to i32
+  store i32 %conv2.15, ptr getelementptr inbounds ([344 x i32], ptr @table, i64 0, i64 16), align 16, !tbaa !5
+  %mul.16 = mul nuw nsw i64 %rem.15, 16807
+  %rem.16 = urem i64 %mul.16, 2147483647
+  %conv2.16 = trunc i64 %rem.16 to i32
+  store i32 %conv2.16, ptr getelementptr inbounds ([344 x i32], ptr @table, i64 0, i64 17), align 4, !tbaa !5
+  %mul.17 = mul nuw nsw i64 %rem.16, 16807
+  %rem.17 = urem i64 %mul.17, 2147483647
+  %conv2.17 = trunc i64 %rem.17 to i32
+  store i32 %conv2.17, ptr getelementptr inbounds ([344 x i32], ptr @table, i64 0, i64 18), align 8, !tbaa !5
+  %mul.18 = mul nuw nsw i64 %rem.17, 16807
+  %rem.18 = urem i64 %mul.18, 2147483647
+  %conv2.18 = trunc i64 %rem.18 to i32
+  store i32 %conv2.18, ptr getelementptr inbounds ([344 x i32], ptr @table, i64 0, i64 19), align 4, !tbaa !5
+  %mul.19 = mul nuw nsw i64 %rem.18, 16807
+  %rem.19 = urem i64 %mul.19, 2147483647
+  %conv2.19 = trunc i64 %rem.19 to i32
+  store i32 %conv2.19, ptr getelementptr inbounds ([344 x i32], ptr @table, i64 0, i64 20), align 16, !tbaa !5
+  %mul.20 = mul nuw nsw i64 %rem.19, 16807
+  %rem.20 = urem i64 %mul.20, 2147483647
+  %conv2.20 = trunc i64 %rem.20 to i32
+  store i32 %conv2.20, ptr getelementptr inbounds ([344 x i32], ptr @table, i64 0, i64 21), align 4, !tbaa !5
+  %mul.21 = mul nuw nsw i64 %rem.20, 16807
+  %rem.21 = urem i64 %mul.21, 2147483647
+  %conv2.21 = trunc i64 %rem.21 to i32
+  store i32 %conv2.21, ptr getelementptr inbounds ([344 x i32], ptr @table, i64 0, i64 22), align 8, !tbaa !5
+  %mul.22 = mul nuw nsw i64 %rem.21, 16807
+  %rem.22 = urem i64 %mul.22, 2147483647
+  %conv2.22 = trunc i64 %rem.22 to i32
+  store i32 %conv2.22, ptr getelementptr inbounds ([344 x i32], ptr @table, i64 0, i64 23), align 4, !tbaa !5
+  %mul.23 = mul nuw nsw i64 %rem.22, 16807
+  %rem.23 = urem i64 %mul.23, 2147483647
+  %conv2.23 = trunc i64 %rem.23 to i32
+  store i32 %conv2.23, ptr getelementptr inbounds ([344 x i32], ptr @table, i64 0, i64 24), align 16, !tbaa !5
+  %mul.24 = mul nuw nsw i64 %rem.23, 16807
+  %rem.24 = urem i64 %mul.24, 2147483647
+  %conv2.24 = trunc i64 %rem.24 to i32
+  store i32 %conv2.24, ptr getelementptr inbounds ([344 x i32], ptr @table, i64 0, i64 25), align 4, !tbaa !5
+  %mul.25 = mul nuw nsw i64 %rem.24, 16807
+  %rem.25 = urem i64 %mul.25, 2147483647
+  %conv2.25 = trunc i64 %rem.25 to i32
+  store i32 %conv2.25, ptr getelementptr inbounds ([344 x i32], ptr @table, i64 0, i64 26), align 8, !tbaa !5
+  %mul.26 = mul nuw nsw i64 %rem.25, 16807
+  %rem.26 = urem i64 %mul.26, 2147483647
+  %conv2.26 = trunc i64 %rem.26 to i32
+  store i32 %conv2.26, ptr getelementptr inbounds ([344 x i32], ptr @table, i64 0, i64 27), align 4, !tbaa !5
+  %mul.27 = mul nuw nsw i64 %rem.26, 16807
+  %rem.27 = urem i64 %mul.27, 2147483647
+  %conv2.27 = trunc i64 %rem.27 to i32
+  store i32 %conv2.27, ptr getelementptr inbounds ([344 x i32], ptr @table, i64 0, i64 28), align 16, !tbaa !5
+  %mul.28 = mul nuw nsw i64 %rem.27, 16807
+  %rem.28 = urem i64 %mul.28, 2147483647
+  %conv2.28 = trunc i64 %rem.28 to i32
+  store i32 %conv2.28, ptr getelementptr inbounds ([344 x i32], ptr @table, i64 0, i64 29), align 4, !tbaa !5
+  %mul.29 = mul nuw nsw i64 %rem.28, 16807
+  %rem.29 = urem i64 %mul.29, 2147483647
+  %conv2.29 = trunc i64 %rem.29 to i32
+  store i32 %conv2.29, ptr getelementptr inbounds ([344 x i32], ptr @table, i64 0, i64 30), align 8, !tbaa !5
+  store i32 %spec.store.select, ptr getelementptr inbounds ([344 x i32], ptr @table, i64 0, i64 31), align 4, !tbaa !5
+  %0 = load <2 x i32>, ptr getelementptr inbounds ([344 x i32], ptr @table, i64 0, i64 1), align 4, !tbaa !5
+  store <2 x i32> %0, ptr getelementptr inbounds ([344 x i32], ptr @table, i64 0, i64 32), align 16, !tbaa !5
+  br label %for.body28
 
-95:                                               ; preds = %96
+for.cond.cleanup27:                               ; preds = %for.body28
   store i32 0, ptr @next, align 4, !tbaa !5
   ret void
 
-96:                                               ; preds = %96, %1
-  %97 = phi i64 [ 34, %1 ], [ %115, %96 ]
-  %98 = add nsw i64 %97, -31
-  %99 = getelementptr inbounds [344 x i32], ptr @table, i64 0, i64 %98
-  %100 = load i32, ptr %99, align 4, !tbaa !5
-  %101 = add nsw i64 %97, -3
-  %102 = getelementptr inbounds [344 x i32], ptr @table, i64 0, i64 %101
-  %103 = load i32, ptr %102, align 4, !tbaa !5
-  %104 = add i32 %103, %100
-  %105 = getelementptr inbounds [344 x i32], ptr @table, i64 0, i64 %97
-  store i32 %104, ptr %105, align 8, !tbaa !5
-  %106 = or i64 %97, 1
-  %107 = add nsw i64 %97, -30
-  %108 = getelementptr inbounds [344 x i32], ptr @table, i64 0, i64 %107
-  %109 = load i32, ptr %108, align 8, !tbaa !5
-  %110 = add nsw i64 %97, -2
-  %111 = getelementptr inbounds [344 x i32], ptr @table, i64 0, i64 %110
-  %112 = load i32, ptr %111, align 8, !tbaa !5
-  %113 = add i32 %112, %109
-  %114 = getelementptr inbounds [344 x i32], ptr @table, i64 0, i64 %106
-  store i32 %113, ptr %114, align 4, !tbaa !5
-  %115 = add nuw nsw i64 %97, 2
-  %116 = icmp eq i64 %115, 344
-  br i1 %116, label %95, label %96
+for.body28:                                       ; preds = %for.body28, %entry
+  %indvars.iv64 = phi i64 [ 34, %entry ], [ %indvars.iv.next65.1, %for.body28 ]
+  %1 = add nsw i64 %indvars.iv64, -31
+  %arrayidx31 = getelementptr inbounds [344 x i32], ptr @table, i64 0, i64 %1
+  %2 = load i32, ptr %arrayidx31, align 4, !tbaa !5
+  %3 = add nsw i64 %indvars.iv64, -3
+  %arrayidx34 = getelementptr inbounds [344 x i32], ptr @table, i64 0, i64 %3
+  %4 = load i32, ptr %arrayidx34, align 4, !tbaa !5
+  %add35 = add i32 %4, %2
+  %arrayidx37 = getelementptr inbounds [344 x i32], ptr @table, i64 0, i64 %indvars.iv64
+  store i32 %add35, ptr %arrayidx37, align 8, !tbaa !5
+  %indvars.iv.next65 = or i64 %indvars.iv64, 1
+  %5 = add nsw i64 %indvars.iv64, -30
+  %arrayidx31.1 = getelementptr inbounds [344 x i32], ptr @table, i64 0, i64 %5
+  %6 = load i32, ptr %arrayidx31.1, align 8, !tbaa !5
+  %7 = add nsw i64 %indvars.iv64, -2
+  %arrayidx34.1 = getelementptr inbounds [344 x i32], ptr @table, i64 0, i64 %7
+  %8 = load i32, ptr %arrayidx34.1, align 8, !tbaa !5
+  %add35.1 = add i32 %8, %6
+  %arrayidx37.1 = getelementptr inbounds [344 x i32], ptr @table, i64 0, i64 %indvars.iv.next65
+  store i32 %add35.1, ptr %arrayidx37.1, align 4, !tbaa !5
+  %indvars.iv.next65.1 = add nuw nsw i64 %indvars.iv64, 2
+  %exitcond69.not.1 = icmp eq i64 %indvars.iv.next65.1, 344
+  br i1 %exitcond69.not.1, label %for.cond.cleanup27, label %for.body28
 }
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)

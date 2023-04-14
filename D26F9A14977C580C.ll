@@ -9,217 +9,219 @@ target triple = "x86_64-unknown-linux-gnu"
 @indexTable = internal unnamed_addr constant [16 x i32] [i32 -1, i32 -1, i32 -1, i32 -1, i32 2, i32 4, i32 6, i32 8, i32 -1, i32 -1, i32 -1, i32 -1, i32 2, i32 4, i32 6, i32 8], align 16
 
 ; Function Attrs: nofree nosync nounwind memory(readwrite, inaccessiblemem: none) uwtable
-define dso_local void @adpcm_coder(ptr nocapture noundef readonly %0, ptr nocapture noundef writeonly %1, i32 noundef %2, ptr nocapture noundef %3) local_unnamed_addr #0 {
-  %5 = load i16, ptr %3, align 2, !tbaa !5
-  %6 = getelementptr inbounds %struct.adpcm_state, ptr %3, i64 0, i32 1
-  %7 = load i8, ptr %6, align 2, !tbaa !10
-  %8 = icmp sgt i32 %2, 0
-  br i1 %8, label %9, label %86
+define dso_local void @adpcm_coder(ptr nocapture noundef readonly %indata, ptr nocapture noundef writeonly %outdata, i32 noundef %len, ptr nocapture noundef %state) local_unnamed_addr #0 {
+entry:
+  %0 = load i16, ptr %state, align 2, !tbaa !5
+  %index1 = getelementptr inbounds %struct.adpcm_state, ptr %state, i64 0, i32 1
+  %1 = load i8, ptr %index1, align 2, !tbaa !10
+  %cmp120 = icmp sgt i32 %len, 0
+  br i1 %cmp120, label %for.body.preheader, label %if.end68
 
-9:                                                ; preds = %4
-  %10 = sext i8 %7 to i32
-  %11 = sext i16 %5 to i32
-  %12 = sext i8 %7 to i64
-  %13 = getelementptr inbounds [89 x i32], ptr @stepsizeTable, i64 0, i64 %12
-  %14 = load i32, ptr %13, align 4, !tbaa !11
-  br label %15
+for.body.preheader:                               ; preds = %entry
+  %conv2 = sext i8 %1 to i32
+  %conv = sext i16 %0 to i32
+  %idxprom = sext i8 %1 to i64
+  %arrayidx = getelementptr inbounds [89 x i32], ptr @stepsizeTable, i64 0, i64 %idxprom
+  %2 = load i32, ptr %arrayidx, align 4, !tbaa !11
+  br label %for.body
 
-15:                                               ; preds = %9, %74
-  %16 = phi i32 [ %77, %74 ], [ 1, %9 ]
-  %17 = phi i32 [ %76, %74 ], [ undef, %9 ]
-  %18 = phi i32 [ %62, %74 ], [ %10, %9 ]
-  %19 = phi i32 [ %54, %74 ], [ %11, %9 ]
-  %20 = phi i32 [ %65, %74 ], [ %14, %9 ]
-  %21 = phi i32 [ %78, %74 ], [ %2, %9 ]
-  %22 = phi ptr [ %24, %74 ], [ %0, %9 ]
-  %23 = phi ptr [ %75, %74 ], [ %1, %9 ]
-  %24 = getelementptr inbounds i16, ptr %22, i64 1
-  %25 = load i16, ptr %22, align 2, !tbaa !13
-  %26 = sext i16 %25 to i32
-  %27 = sub nsw i32 %26, %19
-  %28 = icmp slt i32 %27, 0
-  %29 = lshr i32 %27, 28
-  %30 = and i32 %29, 8
-  %31 = tail call i32 @llvm.abs.i32(i32 %27, i1 true)
-  %32 = ashr i32 %20, 3
-  %33 = icmp slt i32 %31, %20
-  %34 = select i1 %33, i32 0, i32 4
-  %35 = select i1 %33, i32 0, i32 %20
-  %36 = sub nsw i32 %31, %35
-  %37 = add nsw i32 %35, %32
-  %38 = ashr i32 %20, 1
-  %39 = icmp slt i32 %36, %38
-  %40 = or i32 %34, 2
-  %41 = select i1 %39, i32 %34, i32 %40
-  %42 = select i1 %39, i32 0, i32 %38
-  %43 = sub nsw i32 %36, %42
-  %44 = add nsw i32 %37, %42
-  %45 = ashr i32 %20, 2
-  %46 = icmp sge i32 %43, %45
-  %47 = zext i1 %46 to i32
-  %48 = select i1 %46, i32 %45, i32 0
-  %49 = add nsw i32 %44, %48
-  %50 = sub i32 0, %49
-  %51 = select i1 %28, i32 %50, i32 %49
-  %52 = add i32 %51, %19
-  %53 = tail call i32 @llvm.smax.i32(i32 %52, i32 -32768)
-  %54 = tail call i32 @llvm.smin.i32(i32 %53, i32 32767)
-  %55 = or i32 %41, %30
-  %56 = or i32 %55, %47
-  %57 = zext i32 %56 to i64
-  %58 = getelementptr inbounds [16 x i32], ptr @indexTable, i64 0, i64 %57
-  %59 = load i32, ptr %58, align 4, !tbaa !11
-  %60 = add nsw i32 %59, %18
-  %61 = tail call i32 @llvm.smax.i32(i32 %60, i32 0)
-  %62 = tail call i32 @llvm.umin.i32(i32 %61, i32 88)
-  %63 = zext i32 %62 to i64
-  %64 = getelementptr inbounds [89 x i32], ptr @stepsizeTable, i64 0, i64 %63
-  %65 = load i32, ptr %64, align 4, !tbaa !11
-  %66 = icmp eq i32 %16, 0
-  br i1 %66, label %70, label %67
+for.body:                                         ; preds = %for.body.preheader, %if.end62
+  %bufferstep.0128 = phi i32 [ %lnot.ext, %if.end62 ], [ 1, %for.body.preheader ]
+  %outputbuffer.0127 = phi i32 [ %outputbuffer.1, %if.end62 ], [ undef, %for.body.preheader ]
+  %index.0126 = phi i32 [ %spec.store.select74, %if.end62 ], [ %conv2, %for.body.preheader ]
+  %valpred.0125 = phi i32 [ %valpred.2, %if.end62 ], [ %conv, %for.body.preheader ]
+  %step.0124 = phi i32 [ %7, %if.end62 ], [ %2, %for.body.preheader ]
+  %len.addr.0123 = phi i32 [ %dec, %if.end62 ], [ %len, %for.body.preheader ]
+  %inp.0122 = phi ptr [ %incdec.ptr, %if.end62 ], [ %indata, %for.body.preheader ]
+  %outp.0121 = phi ptr [ %outp.1, %if.end62 ], [ %outdata, %for.body.preheader ]
+  %incdec.ptr = getelementptr inbounds i16, ptr %inp.0122, i64 1
+  %3 = load i16, ptr %inp.0122, align 2, !tbaa !13
+  %conv4 = sext i16 %3 to i32
+  %sub = sub nsw i32 %conv4, %valpred.0125
+  %cmp5 = icmp slt i32 %sub, 0
+  %4 = lshr i32 %sub, 28
+  %cond = and i32 %4, 8
+  %spec.select = tail call i32 @llvm.abs.i32(i32 %sub, i1 true)
+  %shr = ashr i32 %step.0124, 3
+  %cmp8.not = icmp slt i32 %spec.select, %step.0124
+  %delta.0 = select i1 %cmp8.not, i32 0, i32 4
+  %sub11 = select i1 %cmp8.not, i32 0, i32 %step.0124
+  %diff.1 = sub nsw i32 %spec.select, %sub11
+  %vpdiff.0 = add nsw i32 %sub11, %shr
+  %shr13 = ashr i32 %step.0124, 1
+  %cmp14.not = icmp slt i32 %diff.1, %shr13
+  %or = or i32 %delta.0, 2
+  %delta.1 = select i1 %cmp14.not, i32 %delta.0, i32 %or
+  %sub17 = select i1 %cmp14.not, i32 0, i32 %shr13
+  %diff.2 = sub nsw i32 %diff.1, %sub17
+  %vpdiff.1 = add nsw i32 %vpdiff.0, %sub17
+  %shr20 = ashr i32 %step.0124, 2
+  %cmp21.not = icmp sge i32 %diff.2, %shr20
+  %or24 = zext i1 %cmp21.not to i32
+  %add25 = select i1 %cmp21.not, i32 %shr20, i32 0
+  %vpdiff.2 = add nsw i32 %vpdiff.1, %add25
+  %5 = sub i32 0, %vpdiff.2
+  %valpred.1.p = select i1 %cmp5, i32 %5, i32 %vpdiff.2
+  %valpred.1 = add i32 %valpred.1.p, %valpred.0125
+  %spec.store.select = tail call i32 @llvm.smax.i32(i32 %valpred.1, i32 -32768)
+  %valpred.2 = tail call i32 @llvm.smin.i32(i32 %spec.store.select, i32 32767)
+  %delta.2 = or i32 %delta.1, %cond
+  %or41 = or i32 %delta.2, %or24
+  %idxprom42 = zext i32 %or41 to i64
+  %arrayidx43 = getelementptr inbounds [16 x i32], ptr @indexTable, i64 0, i64 %idxprom42
+  %6 = load i32, ptr %arrayidx43, align 4, !tbaa !11
+  %add44 = add nsw i32 %6, %index.0126
+  %spec.store.select73 = tail call i32 @llvm.smax.i32(i32 %add44, i32 0)
+  %spec.store.select74 = tail call i32 @llvm.umin.i32(i32 %spec.store.select73, i32 88)
+  %idxprom53 = zext i32 %spec.store.select74 to i64
+  %arrayidx54 = getelementptr inbounds [89 x i32], ptr @stepsizeTable, i64 0, i64 %idxprom53
+  %7 = load i32, ptr %arrayidx54, align 4, !tbaa !11
+  %tobool55.not = icmp eq i32 %bufferstep.0128, 0
+  br i1 %tobool55.not, label %if.else57, label %if.then56
 
-67:                                               ; preds = %15
-  %68 = shl nuw nsw i32 %56, 4
-  %69 = and i32 %68, 240
-  br label %74
+if.then56:                                        ; preds = %for.body
+  %shl = shl nuw nsw i32 %or41, 4
+  %and = and i32 %shl, 240
+  br label %if.end62
 
-70:                                               ; preds = %15
-  %71 = or i32 %56, %17
-  %72 = trunc i32 %71 to i8
-  %73 = getelementptr inbounds i8, ptr %23, i64 1
-  store i8 %72, ptr %23, align 1, !tbaa !14
-  br label %74
+if.else57:                                        ; preds = %for.body
+  %or59 = or i32 %or41, %outputbuffer.0127
+  %conv60 = trunc i32 %or59 to i8
+  %incdec.ptr61 = getelementptr inbounds i8, ptr %outp.0121, i64 1
+  store i8 %conv60, ptr %outp.0121, align 1, !tbaa !14
+  br label %if.end62
 
-74:                                               ; preds = %70, %67
-  %75 = phi ptr [ %23, %67 ], [ %73, %70 ]
-  %76 = phi i32 [ %69, %67 ], [ %17, %70 ]
-  %77 = xor i32 %16, 1
-  %78 = add nsw i32 %21, -1
-  %79 = icmp sgt i32 %21, 1
-  br i1 %79, label %15, label %80, !llvm.loop !15
+if.end62:                                         ; preds = %if.else57, %if.then56
+  %outp.1 = phi ptr [ %outp.0121, %if.then56 ], [ %incdec.ptr61, %if.else57 ]
+  %outputbuffer.1 = phi i32 [ %and, %if.then56 ], [ %outputbuffer.0127, %if.else57 ]
+  %lnot.ext = xor i32 %bufferstep.0128, 1
+  %dec = add nsw i32 %len.addr.0123, -1
+  %cmp = icmp sgt i32 %len.addr.0123, 1
+  br i1 %cmp, label %for.body, label %for.end, !llvm.loop !15
 
-80:                                               ; preds = %74
-  %81 = icmp eq i32 %77, 0
-  %82 = trunc i32 %54 to i16
-  %83 = trunc i32 %62 to i8
-  br i1 %81, label %84, label %86
+for.end:                                          ; preds = %if.end62
+  %8 = icmp eq i32 %lnot.ext, 0
+  %9 = trunc i32 %valpred.2 to i16
+  %10 = trunc i32 %spec.store.select74 to i8
+  br i1 %8, label %if.then65, label %if.end68
 
-84:                                               ; preds = %80
-  %85 = trunc i32 %76 to i8
-  store i8 %85, ptr %75, align 1, !tbaa !14
-  br label %86
+if.then65:                                        ; preds = %for.end
+  %conv66 = trunc i32 %outputbuffer.1 to i8
+  store i8 %conv66, ptr %outp.1, align 1, !tbaa !14
+  br label %if.end68
 
-86:                                               ; preds = %4, %84, %80
-  %87 = phi i8 [ %83, %84 ], [ %83, %80 ], [ %7, %4 ]
-  %88 = phi i16 [ %82, %84 ], [ %82, %80 ], [ %5, %4 ]
-  store i16 %88, ptr %3, align 2, !tbaa !5
-  store i8 %87, ptr %6, align 2, !tbaa !10
+if.end68:                                         ; preds = %entry, %if.then65, %for.end
+  %index.0.lcssa139 = phi i8 [ %10, %if.then65 ], [ %10, %for.end ], [ %1, %entry ]
+  %valpred.0.lcssa138 = phi i16 [ %9, %if.then65 ], [ %9, %for.end ], [ %0, %entry ]
+  store i16 %valpred.0.lcssa138, ptr %state, align 2, !tbaa !5
+  store i8 %index.0.lcssa139, ptr %index1, align 2, !tbaa !10
   ret void
 }
 
 ; Function Attrs: nofree nosync nounwind memory(readwrite, inaccessiblemem: none) uwtable
-define dso_local void @adpcm_decoder(ptr nocapture noundef readonly %0, ptr nocapture noundef writeonly %1, i32 noundef %2, ptr nocapture noundef %3) local_unnamed_addr #0 {
-  %5 = load i16, ptr %3, align 2, !tbaa !5
-  %6 = getelementptr inbounds %struct.adpcm_state, ptr %3, i64 0, i32 1
-  %7 = load i8, ptr %6, align 2, !tbaa !10
-  %8 = icmp sgt i32 %2, 0
-  br i1 %8, label %9, label %74
+define dso_local void @adpcm_decoder(ptr nocapture noundef readonly %indata, ptr nocapture noundef writeonly %outdata, i32 noundef %len, ptr nocapture noundef %state) local_unnamed_addr #0 {
+entry:
+  %0 = load i16, ptr %state, align 2, !tbaa !5
+  %index1 = getelementptr inbounds %struct.adpcm_state, ptr %state, i64 0, i32 1
+  %1 = load i8, ptr %index1, align 2, !tbaa !10
+  %cmp89 = icmp sgt i32 %len, 0
+  br i1 %cmp89, label %for.body.preheader, label %for.end
 
-9:                                                ; preds = %4
-  %10 = sext i8 %7 to i32
-  %11 = sext i16 %5 to i32
-  %12 = sext i8 %7 to i64
-  %13 = getelementptr inbounds [89 x i32], ptr @stepsizeTable, i64 0, i64 %12
-  %14 = load i32, ptr %13, align 4, !tbaa !11
-  br label %15
+for.body.preheader:                               ; preds = %entry
+  %conv2 = sext i8 %1 to i32
+  %conv = sext i16 %0 to i32
+  %idxprom = sext i8 %1 to i64
+  %arrayidx = getelementptr inbounds [89 x i32], ptr @stepsizeTable, i64 0, i64 %idxprom
+  %2 = load i32, ptr %arrayidx, align 4, !tbaa !11
+  br label %for.body
 
-15:                                               ; preds = %9, %30
-  %16 = phi i32 [ %35, %30 ], [ 0, %9 ]
-  %17 = phi i32 [ %33, %30 ], [ undef, %9 ]
-  %18 = phi i32 [ %41, %30 ], [ %10, %9 ]
-  %19 = phi i32 [ %63, %30 ], [ %11, %9 ]
-  %20 = phi i32 [ %66, %30 ], [ %14, %9 ]
-  %21 = phi i32 [ %69, %30 ], [ %2, %9 ]
-  %22 = phi ptr [ %68, %30 ], [ %1, %9 ]
-  %23 = phi ptr [ %31, %30 ], [ %0, %9 ]
-  %24 = icmp eq i32 %16, 0
-  br i1 %24, label %25, label %30
+for.body:                                         ; preds = %for.body.preheader, %if.end
+  %bufferstep.097 = phi i32 [ %lnot.ext, %if.end ], [ 0, %for.body.preheader ]
+  %inputbuffer.096 = phi i32 [ %inputbuffer.1, %if.end ], [ undef, %for.body.preheader ]
+  %index.095 = phi i32 [ %spec.store.select60, %if.end ], [ %conv2, %for.body.preheader ]
+  %valpred.094 = phi i32 [ %valpred.2, %if.end ], [ %conv, %for.body.preheader ]
+  %step.093 = phi i32 [ %7, %if.end ], [ %2, %for.body.preheader ]
+  %len.addr.092 = phi i32 [ %dec, %if.end ], [ %len, %for.body.preheader ]
+  %outp.091 = phi ptr [ %incdec.ptr54, %if.end ], [ %outdata, %for.body.preheader ]
+  %inp.090 = phi ptr [ %inp.1, %if.end ], [ %indata, %for.body.preheader ]
+  %tobool.not = icmp eq i32 %bufferstep.097, 0
+  br i1 %tobool.not, label %if.else, label %if.end
 
-25:                                               ; preds = %15
-  %26 = getelementptr inbounds i8, ptr %23, i64 1
-  %27 = load i8, ptr %23, align 1, !tbaa !14
-  %28 = zext i8 %27 to i32
-  %29 = lshr i32 %28, 4
-  br label %30
+if.else:                                          ; preds = %for.body
+  %incdec.ptr = getelementptr inbounds i8, ptr %inp.090, i64 1
+  %3 = load i8, ptr %inp.090, align 1, !tbaa !14
+  %conv499 = zext i8 %3 to i32
+  %4 = lshr i32 %conv499, 4
+  br label %if.end
 
-30:                                               ; preds = %15, %25
-  %31 = phi ptr [ %26, %25 ], [ %23, %15 ]
-  %32 = phi i32 [ %29, %25 ], [ %17, %15 ]
-  %33 = phi i32 [ %28, %25 ], [ %17, %15 ]
-  %34 = and i32 %32, 15
-  %35 = xor i32 %16, 1
-  %36 = zext i32 %34 to i64
-  %37 = getelementptr inbounds [16 x i32], ptr @indexTable, i64 0, i64 %36
-  %38 = load i32, ptr %37, align 4, !tbaa !11
-  %39 = add nsw i32 %38, %18
-  %40 = tail call i32 @llvm.smax.i32(i32 %39, i32 0)
-  %41 = tail call i32 @llvm.umin.i32(i32 %40, i32 88)
-  %42 = and i32 %32, 8
-  %43 = ashr i32 %20, 3
-  %44 = and i32 %32, 4
-  %45 = icmp eq i32 %44, 0
-  %46 = select i1 %45, i32 0, i32 %20
-  %47 = add nsw i32 %46, %43
-  %48 = and i32 %32, 2
-  %49 = icmp eq i32 %48, 0
-  %50 = ashr i32 %20, 1
-  %51 = select i1 %49, i32 0, i32 %50
-  %52 = add nsw i32 %47, %51
-  %53 = and i32 %32, 1
-  %54 = icmp eq i32 %53, 0
-  %55 = ashr i32 %20, 2
-  %56 = select i1 %54, i32 0, i32 %55
-  %57 = add nsw i32 %52, %56
-  %58 = icmp eq i32 %42, 0
-  %59 = sub i32 0, %57
-  %60 = select i1 %58, i32 %57, i32 %59
-  %61 = add i32 %60, %19
-  %62 = tail call i32 @llvm.smax.i32(i32 %61, i32 -32768)
-  %63 = tail call i32 @llvm.smin.i32(i32 %62, i32 32767)
-  %64 = zext i32 %41 to i64
-  %65 = getelementptr inbounds [89 x i32], ptr @stepsizeTable, i64 0, i64 %64
-  %66 = load i32, ptr %65, align 4, !tbaa !11
-  %67 = trunc i32 %63 to i16
-  %68 = getelementptr inbounds i16, ptr %22, i64 1
-  store i16 %67, ptr %22, align 2, !tbaa !13
-  %69 = add nsw i32 %21, -1
-  %70 = icmp sgt i32 %21, 1
-  br i1 %70, label %15, label %71, !llvm.loop !17
+if.end:                                           ; preds = %for.body, %if.else
+  %inp.1 = phi ptr [ %incdec.ptr, %if.else ], [ %inp.090, %for.body ]
+  %delta.0.in = phi i32 [ %4, %if.else ], [ %inputbuffer.096, %for.body ]
+  %inputbuffer.1 = phi i32 [ %conv499, %if.else ], [ %inputbuffer.096, %for.body ]
+  %delta.0 = and i32 %delta.0.in, 15
+  %lnot.ext = xor i32 %bufferstep.097, 1
+  %idxprom7 = zext i32 %delta.0 to i64
+  %arrayidx8 = getelementptr inbounds [16 x i32], ptr @indexTable, i64 0, i64 %idxprom7
+  %5 = load i32, ptr %arrayidx8, align 4, !tbaa !11
+  %add = add nsw i32 %5, %index.095
+  %spec.store.select = tail call i32 @llvm.smax.i32(i32 %add, i32 0)
+  %spec.store.select60 = tail call i32 @llvm.umin.i32(i32 %spec.store.select, i32 88)
+  %and17 = and i32 %delta.0.in, 8
+  %shr19 = ashr i32 %step.093, 3
+  %and20 = and i32 %delta.0.in, 4
+  %tobool21.not = icmp eq i32 %and20, 0
+  %add23 = select i1 %tobool21.not, i32 0, i32 %step.093
+  %spec.select = add nsw i32 %add23, %shr19
+  %and25 = and i32 %delta.0.in, 2
+  %tobool26.not = icmp eq i32 %and25, 0
+  %shr28 = ashr i32 %step.093, 1
+  %add29 = select i1 %tobool26.not, i32 0, i32 %shr28
+  %vpdiff.1 = add nsw i32 %spec.select, %add29
+  %and31 = and i32 %delta.0.in, 1
+  %tobool32.not = icmp eq i32 %and31, 0
+  %shr34 = ashr i32 %step.093, 2
+  %add35 = select i1 %tobool32.not, i32 0, i32 %shr34
+  %vpdiff.2 = add nsw i32 %vpdiff.1, %add35
+  %tobool37.not = icmp eq i32 %and17, 0
+  %6 = sub i32 0, %vpdiff.2
+  %valpred.1.p = select i1 %tobool37.not, i32 %vpdiff.2, i32 %6
+  %valpred.1 = add i32 %valpred.1.p, %valpred.094
+  %spec.store.select59 = tail call i32 @llvm.smax.i32(i32 %valpred.1, i32 -32768)
+  %valpred.2 = tail call i32 @llvm.smin.i32(i32 %spec.store.select59, i32 32767)
+  %idxprom51 = zext i32 %spec.store.select60 to i64
+  %arrayidx52 = getelementptr inbounds [89 x i32], ptr @stepsizeTable, i64 0, i64 %idxprom51
+  %7 = load i32, ptr %arrayidx52, align 4, !tbaa !11
+  %conv53 = trunc i32 %valpred.2 to i16
+  %incdec.ptr54 = getelementptr inbounds i16, ptr %outp.091, i64 1
+  store i16 %conv53, ptr %outp.091, align 2, !tbaa !13
+  %dec = add nsw i32 %len.addr.092, -1
+  %cmp = icmp sgt i32 %len.addr.092, 1
+  br i1 %cmp, label %for.body, label %for.end.loopexit, !llvm.loop !17
 
-71:                                               ; preds = %30
-  %72 = trunc i32 %63 to i16
-  %73 = trunc i32 %41 to i8
-  br label %74
+for.end.loopexit:                                 ; preds = %if.end
+  %conv53.le = trunc i32 %valpred.2 to i16
+  %8 = trunc i32 %spec.store.select60 to i8
+  br label %for.end
 
-74:                                               ; preds = %4, %71
-  %75 = phi i16 [ %72, %71 ], [ %5, %4 ]
-  %76 = phi i8 [ %73, %71 ], [ %7, %4 ]
-  store i16 %75, ptr %3, align 2, !tbaa !5
-  store i8 %76, ptr %6, align 2, !tbaa !10
+for.end:                                          ; preds = %entry, %for.end.loopexit
+  %conv55.pre-phi = phi i16 [ %conv53.le, %for.end.loopexit ], [ %0, %entry ]
+  %index.0.lcssa = phi i8 [ %8, %for.end.loopexit ], [ %1, %entry ]
+  store i16 %conv55.pre-phi, ptr %state, align 2, !tbaa !5
+  store i8 %index.0.lcssa, ptr %index1, align 2, !tbaa !10
   ret void
 }
-
-; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i32 @llvm.abs.i32(i32, i1 immarg) #1
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
 declare i32 @llvm.smax.i32(i32, i32) #1
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i32 @llvm.smin.i32(i32, i32) #1
+declare i32 @llvm.umin.i32(i32, i32) #1
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i32 @llvm.umin.i32(i32, i32) #1
+declare i32 @llvm.abs.i32(i32, i1 immarg) #1
+
+; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
+declare i32 @llvm.smin.i32(i32, i32) #1
 
 attributes #0 = { nofree nosync nounwind memory(readwrite, inaccessiblemem: none) uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #1 = { nocallback nofree nosync nounwind speculatable willreturn memory(none) }

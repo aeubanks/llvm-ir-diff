@@ -38,594 +38,596 @@ target triple = "x86_64-unknown-linux-gnu"
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(write, argmem: none, inaccessiblemem: none) uwtable
 define dso_local void @dp_Init() local_unnamed_addr #0 {
+entry:
   store i32 0, ptr @dp_DEPTH, align 4
   ret void
 }
 
 ; Function Attrs: nounwind uwtable
-define dso_local ptr @dp_PrintProof(ptr noundef %0, ptr noundef %1, ptr noundef %2) local_unnamed_addr #1 {
-  %4 = getelementptr i8, ptr %0, i64 112
-  %5 = load ptr, ptr %4, align 8
-  %6 = tail call ptr @pcheck_ConvertParentsInSPASSProof(ptr noundef %0, ptr noundef %1) #7
-  %7 = icmp eq ptr %6, null
-  br i1 %7, label %30, label %8
-
-8:                                                ; preds = %3
-  %9 = tail call i32 @puts(ptr noundef nonnull dereferenceable(1) @.str)
-  br label %10
-
-10:                                               ; preds = %8, %10
-  %11 = phi ptr [ %6, %8 ], [ %17, %10 ]
-  %12 = getelementptr i8, ptr %11, i64 8
-  %13 = load ptr, ptr %12, align 8
-  %14 = ptrtoint ptr %13 to i64
-  %15 = trunc i64 %14 to i32
-  %16 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.1, i32 noundef %15)
-  %17 = load ptr, ptr %11, align 8
-  %18 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
-  %19 = getelementptr inbounds %struct.MEMORY_RESOURCEHELP, ptr %18, i64 0, i32 4
-  %20 = load i32, ptr %19, align 8
-  %21 = sext i32 %20 to i64
-  %22 = load i64, ptr @memory_FREEDBYTES, align 8
-  %23 = add i64 %22, %21
-  store i64 %23, ptr @memory_FREEDBYTES, align 8
-  %24 = load ptr, ptr %18, align 8
-  store ptr %24, ptr %11, align 8
-  %25 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
-  store ptr %11, ptr %25, align 8
-  %26 = icmp eq ptr %17, null
-  br i1 %26, label %27, label %10, !llvm.loop !5
-
-27:                                               ; preds = %10
-  %28 = load ptr, ptr @stdout, align 8
-  %29 = tail call i32 @putc(i32 noundef 10, ptr noundef %28)
-  br label %30
-
-30:                                               ; preds = %27, %3
-  %31 = tail call ptr @list_Copy(ptr noundef %1) #7
-  %32 = getelementptr i8, ptr %0, i64 96
-  %33 = load ptr, ptr %32, align 8
-  %34 = tail call ptr @list_Copy(ptr noundef %33) #7
-  %35 = getelementptr i8, ptr %0, i64 56
-  %36 = load ptr, ptr %35, align 8
-  %37 = tail call ptr @list_Copy(ptr noundef %36) #7
-  %38 = getelementptr i8, ptr %0, i64 40
-  %39 = load ptr, ptr %38, align 8
-  %40 = tail call ptr @list_Copy(ptr noundef %39) #7
-  %41 = icmp eq ptr %37, null
-  br i1 %41, label %49, label %42
-
-42:                                               ; preds = %30
-  %43 = icmp eq ptr %40, null
-  br i1 %43, label %49, label %44
-
-44:                                               ; preds = %42, %44
-  %45 = phi ptr [ %46, %44 ], [ %37, %42 ]
-  %46 = load ptr, ptr %45, align 8
-  %47 = icmp eq ptr %46, null
-  br i1 %47, label %48, label %44, !llvm.loop !7
-
-48:                                               ; preds = %44
-  store ptr %40, ptr %45, align 8
-  br label %49
-
-49:                                               ; preds = %30, %42, %48
-  %50 = phi ptr [ %37, %48 ], [ %40, %30 ], [ %37, %42 ]
-  %51 = icmp eq ptr %34, null
-  br i1 %51, label %59, label %52
-
-52:                                               ; preds = %49
-  %53 = icmp eq ptr %50, null
-  br i1 %53, label %62, label %54
-
-54:                                               ; preds = %52, %54
-  %55 = phi ptr [ %56, %54 ], [ %34, %52 ]
-  %56 = load ptr, ptr %55, align 8
-  %57 = icmp eq ptr %56, null
-  br i1 %57, label %58, label %54, !llvm.loop !7
-
-58:                                               ; preds = %54
-  store ptr %50, ptr %55, align 8
-  br label %59
-
-59:                                               ; preds = %49, %58
-  %60 = phi ptr [ %34, %58 ], [ %50, %49 ]
-  %61 = icmp eq ptr %60, null
-  br i1 %61, label %79, label %62
-
-62:                                               ; preds = %52, %59
-  %63 = phi ptr [ %60, %59 ], [ %34, %52 ]
-  br label %64
-
-64:                                               ; preds = %62, %75
-  %65 = phi ptr [ %76, %75 ], [ null, %62 ]
-  %66 = phi ptr [ %77, %75 ], [ %63, %62 ]
-  %67 = getelementptr i8, ptr %66, i64 8
-  %68 = load ptr, ptr %67, align 8
-  %69 = getelementptr i8, ptr %68, i64 76
-  %70 = load i32, ptr %69, align 4
-  %71 = icmp eq i32 %70, 15
-  br i1 %71, label %72, label %75
-
-72:                                               ; preds = %64
-  %73 = tail call ptr @memory_Malloc(i32 noundef 16) #7
-  %74 = getelementptr inbounds %struct.LIST_HELP, ptr %73, i64 0, i32 1
-  store ptr %68, ptr %74, align 8
-  store ptr %65, ptr %73, align 8
-  br label %75
-
-75:                                               ; preds = %64, %72
-  %76 = phi ptr [ %73, %72 ], [ %65, %64 ]
-  %77 = load ptr, ptr %66, align 8
-  %78 = icmp eq ptr %77, null
-  br i1 %78, label %79, label %64, !llvm.loop !8
-
-79:                                               ; preds = %75, %59
-  %80 = phi i1 [ true, %59 ], [ false, %75 ]
-  %81 = phi ptr [ null, %59 ], [ %63, %75 ]
-  %82 = phi ptr [ null, %59 ], [ %76, %75 ]
-  tail call void @pcheck_ClauseListRemoveFlag(ptr noundef %31, i32 noundef 64) #7
-  tail call void @pcheck_ClauseListRemoveFlag(ptr noundef %81, i32 noundef 64) #7
-  tail call void @pcheck_MarkRecursive(ptr noundef %31) #7
-  tail call void @pcheck_MarkRecursive(ptr noundef %82) #7
-  br i1 %80, label %83, label %85
-
-83:                                               ; preds = %79
-  %84 = tail call ptr @list_Copy(ptr noundef %31) #7
-  br label %111
-
-85:                                               ; preds = %79, %97
-  %86 = phi ptr [ %98, %97 ], [ null, %79 ]
-  %87 = phi ptr [ %99, %97 ], [ %81, %79 ]
-  %88 = getelementptr i8, ptr %87, i64 8
-  %89 = load ptr, ptr %88, align 8
-  %90 = getelementptr i8, ptr %89, i64 48
-  %91 = load i32, ptr %90, align 8
-  %92 = and i32 %91, 64
-  %93 = icmp eq i32 %92, 0
-  br i1 %93, label %97, label %94
-
-94:                                               ; preds = %85
-  %95 = tail call ptr @memory_Malloc(i32 noundef 16) #7
-  %96 = getelementptr inbounds %struct.LIST_HELP, ptr %95, i64 0, i32 1
-  store ptr %89, ptr %96, align 8
-  store ptr %86, ptr %95, align 8
-  br label %97
-
-97:                                               ; preds = %85, %94
-  %98 = phi ptr [ %95, %94 ], [ %86, %85 ]
-  %99 = load ptr, ptr %87, align 8
-  %100 = icmp eq ptr %99, null
-  br i1 %100, label %101, label %85, !llvm.loop !9
-
-101:                                              ; preds = %97
-  %102 = tail call ptr @list_Copy(ptr noundef %31) #7
-  %103 = icmp eq ptr %98, null
-  br i1 %103, label %111, label %104
-
-104:                                              ; preds = %101
-  %105 = icmp eq ptr %102, null
-  br i1 %105, label %111, label %106
-
-106:                                              ; preds = %104, %106
-  %107 = phi ptr [ %108, %106 ], [ %98, %104 ]
-  %108 = load ptr, ptr %107, align 8
-  %109 = icmp eq ptr %108, null
-  br i1 %109, label %110, label %106, !llvm.loop !7
-
-110:                                              ; preds = %106
-  store ptr %102, ptr %107, align 8
-  br label %111
-
-111:                                              ; preds = %83, %101, %104, %110
-  %112 = phi ptr [ %98, %110 ], [ %102, %101 ], [ %98, %104 ], [ %84, %83 ]
-  %113 = tail call ptr @pcheck_ClauseNumberMergeSort(ptr noundef %112) #7
-  %114 = tail call ptr @pcheck_ReduceSPASSProof(ptr noundef %113) #7
-  %115 = tail call i32 @pcheck_SeqProofDepth(ptr noundef %114) #7
-  store i32 %115, ptr @dp_DEPTH, align 4
-  %116 = tail call ptr @pcheck_ParentPointersToParentNumbers(ptr noundef %81) #7
-  %117 = tail call ptr @pcheck_ParentPointersToParentNumbers(ptr noundef %1) #7
-  %118 = icmp eq ptr %114, null
-  br i1 %118, label %150, label %119
-
-119:                                              ; preds = %111, %131
-  %120 = phi ptr [ %132, %131 ], [ null, %111 ]
-  %121 = phi ptr [ %133, %131 ], [ %114, %111 ]
-  %122 = getelementptr i8, ptr %121, i64 8
-  %123 = load ptr, ptr %122, align 8
-  %124 = getelementptr i8, ptr %123, i64 48
-  %125 = load i32, ptr %124, align 8
-  %126 = and i32 %125, 128
-  %127 = icmp eq i32 %126, 0
-  br i1 %127, label %131, label %128
-
-128:                                              ; preds = %119
-  %129 = tail call ptr @memory_Malloc(i32 noundef 16) #7
-  %130 = getelementptr inbounds %struct.LIST_HELP, ptr %129, i64 0, i32 1
-  store ptr %123, ptr %130, align 8
-  store ptr %120, ptr %129, align 8
-  br label %131
-
-131:                                              ; preds = %119, %128
-  %132 = phi ptr [ %129, %128 ], [ %120, %119 ]
-  %133 = load ptr, ptr %121, align 8
-  %134 = icmp eq ptr %133, null
-  br i1 %134, label %135, label %119, !llvm.loop !10
-
-135:                                              ; preds = %131
-  %136 = icmp eq ptr %132, null
-  br i1 %136, label %150, label %137
-
-137:                                              ; preds = %135
-  %138 = tail call i32 @puts(ptr noundef nonnull dereferenceable(1) @.str.2)
-  br label %139
-
-139:                                              ; preds = %137, %139
-  %140 = phi ptr [ %132, %137 ], [ %145, %139 ]
-  %141 = getelementptr i8, ptr %140, i64 8
-  %142 = load ptr, ptr %141, align 8
-  %143 = load i32, ptr %142, align 8
-  %144 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.1, i32 noundef %143)
-  %145 = load ptr, ptr %140, align 8
-  %146 = icmp eq ptr %145, null
-  br i1 %146, label %147, label %139, !llvm.loop !11
-
-147:                                              ; preds = %139
-  %148 = load ptr, ptr @stdout, align 8
-  %149 = tail call i32 @putc(i32 noundef 10, ptr noundef %148)
-  br label %150
-
-150:                                              ; preds = %111, %147, %135
-  %151 = phi i1 [ %136, %147 ], [ true, %135 ], [ true, %111 ]
-  %152 = phi ptr [ %132, %147 ], [ null, %135 ], [ null, %111 ]
-  %153 = load i32, ptr @dp_DEPTH, align 4
-  %154 = tail call i32 @list_Length(ptr noundef %114) #7
-  %155 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.3, i32 noundef %153, i32 noundef %154)
-  tail call void @clause_ListPrint(ptr noundef %114) #7
-  %156 = getelementptr i8, ptr %5, i64 124
-  %157 = load i32, ptr %156, align 4
-  %158 = icmp eq i32 %157, 0
-  br i1 %158, label %321, label %159
-
-159:                                              ; preds = %150
-  %160 = getelementptr i8, ptr %0, i64 104
-  %161 = load ptr, ptr %160, align 8
-  %162 = tail call i64 @strlen(ptr noundef nonnull dereferenceable(1) %2) #8
-  %163 = trunc i64 %162 to i32
-  %164 = add i32 %163, 5
-  %165 = tail call ptr @memory_Malloc(i32 noundef %164) #7
-  %166 = tail call i32 (ptr, ptr, ...) @sprintf(ptr noundef nonnull dereferenceable(1) %165, ptr noundef nonnull dereferenceable(1) @.str.4, ptr noundef %2) #7
-  %167 = tail call ptr @misc_OpenFile(ptr noundef %165, ptr noundef nonnull @.str.5) #7
-  %168 = tail call i64 @fwrite(ptr nonnull @.str.6, i64 25, i64 1, ptr %167)
-  %169 = tail call i64 @fwrite(ptr nonnull @.str.7, i64 22, i64 1, ptr %167)
-  %170 = tail call i64 @fwrite(ptr nonnull @.str.8, i64 7, i64 1, ptr %167)
-  %171 = tail call i32 @fputs(ptr noundef %2, ptr noundef %167)
-  %172 = tail call i64 @fwrite(ptr nonnull @.str.9, i64 5, i64 1, ptr %167)
-  %173 = tail call i64 @fwrite(ptr nonnull @.str.10, i64 15, i64 1, ptr %167)
-  %174 = tail call i64 @fwrite(ptr nonnull @.str.11, i64 5, i64 1, ptr %167)
-  %175 = tail call i64 @fwrite(ptr nonnull @.str.9, i64 5, i64 1, ptr %167)
-  %176 = tail call i64 @fwrite(ptr nonnull @.str.12, i64 23, i64 1, ptr %167)
-  %177 = tail call i64 @fwrite(ptr nonnull @.str.13, i64 62, i64 1, ptr %167)
-  %178 = tail call i64 @fwrite(ptr nonnull @.str.14, i64 14, i64 1, ptr %167)
-  %179 = tail call i64 @fwrite(ptr nonnull @.str.15, i64 17, i64 1, ptr %167)
-  tail call void @fol_FPrintDFGSignature(ptr noundef %167) #7
-  %180 = tail call i64 @fwrite(ptr nonnull @.str.14, i64 14, i64 1, ptr %167)
-  br i1 %118, label %209, label %181
-
-181:                                              ; preds = %159, %203
-  %182 = phi ptr [ %206, %203 ], [ null, %159 ]
-  %183 = phi ptr [ %207, %203 ], [ %114, %159 ]
-  %184 = phi ptr [ %205, %203 ], [ null, %159 ]
-  %185 = phi ptr [ %204, %203 ], [ null, %159 ]
-  %186 = getelementptr i8, ptr %183, i64 8
-  %187 = load ptr, ptr %186, align 8
-  %188 = getelementptr i8, ptr %187, i64 76
-  %189 = load i32, ptr %188, align 4
-  %190 = icmp eq i32 %189, 16
-  br i1 %190, label %191, label %200
-
-191:                                              ; preds = %181
-  %192 = getelementptr i8, ptr %187, i64 48
-  %193 = load i32, ptr %192, align 8
-  %194 = and i32 %193, 8
-  %195 = icmp eq i32 %194, 0
-  %196 = tail call ptr @memory_Malloc(i32 noundef 16) #7
-  %197 = getelementptr inbounds %struct.LIST_HELP, ptr %196, i64 0, i32 1
-  store ptr %187, ptr %197, align 8
-  br i1 %195, label %199, label %198
-
-198:                                              ; preds = %191
-  store ptr %185, ptr %196, align 8
-  br label %203
-
-199:                                              ; preds = %191
-  store ptr %182, ptr %196, align 8
-  br label %203
-
-200:                                              ; preds = %181
-  %201 = tail call ptr @memory_Malloc(i32 noundef 16) #7
-  %202 = getelementptr inbounds %struct.LIST_HELP, ptr %201, i64 0, i32 1
-  store ptr %187, ptr %202, align 8
-  store ptr %184, ptr %201, align 8
-  br label %203
-
-203:                                              ; preds = %200, %199, %198
-  %204 = phi ptr [ %196, %198 ], [ %185, %199 ], [ %185, %200 ]
-  %205 = phi ptr [ %184, %198 ], [ %184, %199 ], [ %201, %200 ]
-  %206 = phi ptr [ %182, %198 ], [ %196, %199 ], [ %182, %200 ]
-  %207 = load ptr, ptr %183, align 8
-  %208 = icmp eq ptr %207, null
-  br i1 %208, label %209, label %181, !llvm.loop !12
-
-209:                                              ; preds = %203, %159
-  %210 = phi ptr [ null, %159 ], [ %204, %203 ]
-  %211 = phi ptr [ null, %159 ], [ %205, %203 ]
-  %212 = phi ptr [ null, %159 ], [ %206, %203 ]
-  %213 = tail call ptr @list_NReverse(ptr noundef %210) #7
-  %214 = tail call ptr @list_NReverse(ptr noundef %212) #7
-  %215 = tail call ptr @list_NReverse(ptr noundef %211) #7
-  tail call void @clause_FPrintCnfDFG(ptr noundef %167, i32 noundef 0, ptr noundef %214, ptr noundef %213, ptr noundef %5, ptr noundef %161) #7
-  %216 = tail call i64 @fwrite(ptr nonnull @.str.16, i64 23, i64 1, ptr %167)
-  %217 = icmp eq ptr %215, null
-  br i1 %217, label %224, label %218
-
-218:                                              ; preds = %209, %218
-  %219 = phi ptr [ %222, %218 ], [ %215, %209 ]
-  %220 = getelementptr i8, ptr %219, i64 8
-  %221 = load ptr, ptr %220, align 8
-  tail call void @clause_FPrintDFGStep(ptr noundef %167, ptr noundef %221, i32 noundef 1) #7
-  %222 = load ptr, ptr %219, align 8
-  %223 = icmp eq ptr %222, null
-  br i1 %223, label %224, label %218, !llvm.loop !13
-
-224:                                              ; preds = %218, %209
-  %225 = tail call i64 @fwrite(ptr nonnull @.str.14, i64 14, i64 1, ptr %167)
-  %226 = tail call i64 @fwrite(ptr nonnull @.str.17, i64 14, i64 1, ptr %167)
-  tail call void @misc_CloseFile(ptr noundef %167, ptr noundef %165) #7
-  %227 = load ptr, ptr @stdout, align 8
-  %228 = tail call i64 @fwrite(ptr nonnull @.str.18, i64 23, i64 1, ptr %227)
-  %229 = tail call i32 @puts(ptr noundef nonnull dereferenceable(1) %165)
-  %230 = icmp eq ptr %213, null
-  br i1 %230, label %243, label %231
-
-231:                                              ; preds = %224, %231
-  %232 = phi ptr [ %233, %231 ], [ %213, %224 ]
-  %233 = load ptr, ptr %232, align 8
-  %234 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
-  %235 = getelementptr inbounds %struct.MEMORY_RESOURCEHELP, ptr %234, i64 0, i32 4
-  %236 = load i32, ptr %235, align 8
-  %237 = sext i32 %236 to i64
-  %238 = load i64, ptr @memory_FREEDBYTES, align 8
-  %239 = add i64 %238, %237
-  store i64 %239, ptr @memory_FREEDBYTES, align 8
-  %240 = load ptr, ptr %234, align 8
-  store ptr %240, ptr %232, align 8
-  %241 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
-  store ptr %232, ptr %241, align 8
-  %242 = icmp eq ptr %233, null
-  br i1 %242, label %243, label %231, !llvm.loop !14
-
-243:                                              ; preds = %231, %224
-  %244 = icmp eq ptr %214, null
-  br i1 %244, label %257, label %245
-
-245:                                              ; preds = %243, %245
-  %246 = phi ptr [ %247, %245 ], [ %214, %243 ]
-  %247 = load ptr, ptr %246, align 8
-  %248 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
-  %249 = getelementptr inbounds %struct.MEMORY_RESOURCEHELP, ptr %248, i64 0, i32 4
-  %250 = load i32, ptr %249, align 8
-  %251 = sext i32 %250 to i64
-  %252 = load i64, ptr @memory_FREEDBYTES, align 8
-  %253 = add i64 %252, %251
-  store i64 %253, ptr @memory_FREEDBYTES, align 8
-  %254 = load ptr, ptr %248, align 8
-  store ptr %254, ptr %246, align 8
-  %255 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
-  store ptr %246, ptr %255, align 8
-  %256 = icmp eq ptr %247, null
-  br i1 %256, label %257, label %245, !llvm.loop !14
-
-257:                                              ; preds = %245, %243
-  br i1 %217, label %270, label %258
-
-258:                                              ; preds = %257, %258
-  %259 = phi ptr [ %260, %258 ], [ %215, %257 ]
-  %260 = load ptr, ptr %259, align 8
-  %261 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
-  %262 = getelementptr inbounds %struct.MEMORY_RESOURCEHELP, ptr %261, i64 0, i32 4
-  %263 = load i32, ptr %262, align 8
-  %264 = sext i32 %263 to i64
-  %265 = load i64, ptr @memory_FREEDBYTES, align 8
-  %266 = add i64 %265, %264
-  store i64 %266, ptr @memory_FREEDBYTES, align 8
-  %267 = load ptr, ptr %261, align 8
-  store ptr %267, ptr %259, align 8
-  %268 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
-  store ptr %259, ptr %268, align 8
-  %269 = icmp eq ptr %260, null
-  br i1 %269, label %270, label %258, !llvm.loop !14
-
-270:                                              ; preds = %258, %257
-  %271 = tail call i64 @strlen(ptr noundef nonnull dereferenceable(1) %2) #8
-  %272 = trunc i64 %271 to i32
-  %273 = add i32 %272, 5
-  %274 = icmp ult i32 %273, 1024
-  br i1 %274, label %310, label %275
-
-275:                                              ; preds = %270
-  %276 = load i32, ptr @memory_ALIGN, align 4
-  %277 = urem i32 %273, %276
-  %278 = icmp eq i32 %277, 0
-  %279 = sub i32 %276, %277
-  %280 = select i1 %278, i32 0, i32 %279
-  %281 = add i32 %280, %273
-  %282 = load i32, ptr @memory_OFFSET, align 4
-  %283 = zext i32 %282 to i64
-  %284 = sub nsw i64 0, %283
-  %285 = getelementptr inbounds i8, ptr %165, i64 %284
-  %286 = getelementptr inbounds i8, ptr %285, i64 -16
-  %287 = load ptr, ptr %286, align 8
-  %288 = icmp eq ptr %287, null
-  %289 = getelementptr inbounds %struct.MEMORY_BIGBLOCKHEADERHELP, ptr %286, i64 0, i32 1
-  %290 = load ptr, ptr %289, align 8
-  %291 = getelementptr inbounds %struct.MEMORY_BIGBLOCKHEADERHELP, ptr %287, i64 0, i32 1
-  %292 = select i1 %288, ptr @memory_BIGBLOCKS, ptr %291
-  store ptr %290, ptr %292, align 8
-  %293 = load ptr, ptr %289, align 8
-  %294 = icmp eq ptr %293, null
-  br i1 %294, label %297, label %295
-
-295:                                              ; preds = %275
-  %296 = load ptr, ptr %286, align 8
-  store ptr %296, ptr %293, align 8
-  br label %297
-
-297:                                              ; preds = %295, %275
-  %298 = load i32, ptr @memory_MARKSIZE, align 4
-  %299 = add i32 %281, %298
-  %300 = zext i32 %299 to i64
-  %301 = add nuw nsw i64 %300, 16
-  %302 = load i64, ptr @memory_FREEDBYTES, align 8
-  %303 = add i64 %301, %302
-  store i64 %303, ptr @memory_FREEDBYTES, align 8
-  %304 = load i64, ptr @memory_MAXMEM, align 8
-  %305 = icmp sgt i64 %304, -1
-  br i1 %305, label %306, label %308
-
-306:                                              ; preds = %297
-  %307 = add nuw i64 %304, %301
-  store i64 %307, ptr @memory_MAXMEM, align 8
-  br label %308
-
-308:                                              ; preds = %306, %297
-  %309 = getelementptr inbounds i8, ptr %165, i64 -16
-  tail call void @free(ptr noundef nonnull %309) #7
-  br label %321
-
-310:                                              ; preds = %270
-  %311 = zext i32 %273 to i64
-  %312 = getelementptr inbounds [0 x ptr], ptr @memory_ARRAY, i64 0, i64 %311
-  %313 = load ptr, ptr %312, align 8
-  %314 = getelementptr inbounds %struct.MEMORY_RESOURCEHELP, ptr %313, i64 0, i32 4
-  %315 = load i32, ptr %314, align 8
-  %316 = sext i32 %315 to i64
-  %317 = load i64, ptr @memory_FREEDBYTES, align 8
-  %318 = add i64 %317, %316
-  store i64 %318, ptr @memory_FREEDBYTES, align 8
-  %319 = load ptr, ptr %313, align 8
-  store ptr %319, ptr %165, align 8
-  %320 = load ptr, ptr %312, align 8
-  store ptr %165, ptr %320, align 8
-  br label %321
-
-321:                                              ; preds = %310, %308, %150
-  %322 = load ptr, ptr @stdout, align 8
-  %323 = tail call i32 @fflush(ptr noundef %322)
-  %324 = icmp eq ptr %31, null
-  br i1 %324, label %337, label %325
-
-325:                                              ; preds = %321, %325
-  %326 = phi ptr [ %327, %325 ], [ %31, %321 ]
-  %327 = load ptr, ptr %326, align 8
-  %328 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
-  %329 = getelementptr inbounds %struct.MEMORY_RESOURCEHELP, ptr %328, i64 0, i32 4
-  %330 = load i32, ptr %329, align 8
-  %331 = sext i32 %330 to i64
-  %332 = load i64, ptr @memory_FREEDBYTES, align 8
-  %333 = add i64 %332, %331
-  store i64 %333, ptr @memory_FREEDBYTES, align 8
-  %334 = load ptr, ptr %328, align 8
-  store ptr %334, ptr %326, align 8
-  %335 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
-  store ptr %326, ptr %335, align 8
-  %336 = icmp eq ptr %327, null
-  br i1 %336, label %337, label %325, !llvm.loop !14
-
-337:                                              ; preds = %325, %321
-  br i1 %80, label %350, label %338
-
-338:                                              ; preds = %337, %338
-  %339 = phi ptr [ %340, %338 ], [ %81, %337 ]
-  %340 = load ptr, ptr %339, align 8
-  %341 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
-  %342 = getelementptr inbounds %struct.MEMORY_RESOURCEHELP, ptr %341, i64 0, i32 4
-  %343 = load i32, ptr %342, align 8
-  %344 = sext i32 %343 to i64
-  %345 = load i64, ptr @memory_FREEDBYTES, align 8
-  %346 = add i64 %345, %344
-  store i64 %346, ptr @memory_FREEDBYTES, align 8
-  %347 = load ptr, ptr %341, align 8
-  store ptr %347, ptr %339, align 8
-  %348 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
-  store ptr %339, ptr %348, align 8
-  %349 = icmp eq ptr %340, null
-  br i1 %349, label %350, label %338, !llvm.loop !14
-
-350:                                              ; preds = %338, %337
-  %351 = icmp eq ptr %113, null
-  br i1 %351, label %364, label %352
-
-352:                                              ; preds = %350, %352
-  %353 = phi ptr [ %354, %352 ], [ %113, %350 ]
-  %354 = load ptr, ptr %353, align 8
-  %355 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
-  %356 = getelementptr inbounds %struct.MEMORY_RESOURCEHELP, ptr %355, i64 0, i32 4
-  %357 = load i32, ptr %356, align 8
-  %358 = sext i32 %357 to i64
-  %359 = load i64, ptr @memory_FREEDBYTES, align 8
-  %360 = add i64 %359, %358
-  store i64 %360, ptr @memory_FREEDBYTES, align 8
-  %361 = load ptr, ptr %355, align 8
-  store ptr %361, ptr %353, align 8
-  %362 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
-  store ptr %353, ptr %362, align 8
-  %363 = icmp eq ptr %354, null
-  br i1 %363, label %364, label %352, !llvm.loop !14
-
-364:                                              ; preds = %352, %350
-  %365 = icmp eq ptr %82, null
-  br i1 %365, label %378, label %366
-
-366:                                              ; preds = %364, %366
-  %367 = phi ptr [ %368, %366 ], [ %82, %364 ]
-  %368 = load ptr, ptr %367, align 8
-  %369 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
-  %370 = getelementptr inbounds %struct.MEMORY_RESOURCEHELP, ptr %369, i64 0, i32 4
-  %371 = load i32, ptr %370, align 8
-  %372 = sext i32 %371 to i64
-  %373 = load i64, ptr @memory_FREEDBYTES, align 8
-  %374 = add i64 %373, %372
-  store i64 %374, ptr @memory_FREEDBYTES, align 8
-  %375 = load ptr, ptr %369, align 8
-  store ptr %375, ptr %367, align 8
-  %376 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
-  store ptr %367, ptr %376, align 8
-  %377 = icmp eq ptr %368, null
-  br i1 %377, label %378, label %366, !llvm.loop !14
-
-378:                                              ; preds = %366, %364
-  br i1 %151, label %391, label %379
-
-379:                                              ; preds = %378, %379
-  %380 = phi ptr [ %381, %379 ], [ %152, %378 ]
-  %381 = load ptr, ptr %380, align 8
-  %382 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
-  %383 = getelementptr inbounds %struct.MEMORY_RESOURCEHELP, ptr %382, i64 0, i32 4
-  %384 = load i32, ptr %383, align 8
-  %385 = sext i32 %384 to i64
-  %386 = load i64, ptr @memory_FREEDBYTES, align 8
-  %387 = add i64 %386, %385
-  store i64 %387, ptr @memory_FREEDBYTES, align 8
-  %388 = load ptr, ptr %382, align 8
-  store ptr %388, ptr %380, align 8
-  %389 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
-  store ptr %380, ptr %389, align 8
-  %390 = icmp eq ptr %381, null
-  br i1 %390, label %391, label %379, !llvm.loop !14
-
-391:                                              ; preds = %379, %378
-  ret ptr %114
+define dso_local ptr @dp_PrintProof(ptr noundef %Search, ptr noundef %Clauses, ptr noundef %FilePrefix) local_unnamed_addr #1 {
+entry:
+  %0 = getelementptr i8, ptr %Search, i64 112
+  %Search.val = load ptr, ptr %0, align 8
+  %call1 = tail call ptr @pcheck_ConvertParentsInSPASSProof(ptr noundef %Search, ptr noundef %Clauses) #7
+  %cmp.i.not = icmp eq ptr %call1, null
+  br i1 %cmp.i.not, label %if.end, label %if.then
+
+if.then:                                          ; preds = %entry
+  %call3 = tail call i32 @puts(ptr noundef nonnull dereferenceable(1) @.str)
+  br label %for.body
+
+for.body:                                         ; preds = %if.then, %for.body
+  %Missing.0247 = phi ptr [ %call1, %if.then ], [ %L.val.i, %for.body ]
+  %1 = getelementptr i8, ptr %Missing.0247, i64 8
+  %Missing.0.val = load ptr, ptr %1, align 8
+  %2 = ptrtoint ptr %Missing.0.val to i64
+  %3 = trunc i64 %2 to i32
+  %call7 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.1, i32 noundef %3)
+  %L.val.i = load ptr, ptr %Missing.0247, align 8
+  %4 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
+  %total_size.i.i.i = getelementptr inbounds %struct.MEMORY_RESOURCEHELP, ptr %4, i64 0, i32 4
+  %5 = load i32, ptr %total_size.i.i.i, align 8
+  %conv26.i.i.i = sext i32 %5 to i64
+  %6 = load i64, ptr @memory_FREEDBYTES, align 8
+  %add27.i.i.i = add i64 %6, %conv26.i.i.i
+  store i64 %add27.i.i.i, ptr @memory_FREEDBYTES, align 8
+  %7 = load ptr, ptr %4, align 8
+  store ptr %7, ptr %Missing.0247, align 8
+  %8 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
+  store ptr %Missing.0247, ptr %8, align 8
+  %cmp.i158.not = icmp eq ptr %L.val.i, null
+  br i1 %cmp.i158.not, label %for.end, label %for.body, !llvm.loop !5
+
+for.end:                                          ; preds = %for.body
+  %9 = load ptr, ptr @stdout, align 8
+  %call.i = tail call i32 @putc(i32 noundef 10, ptr noundef %9)
+  br label %if.end
+
+if.end:                                           ; preds = %for.end, %entry
+  %call10 = tail call ptr @list_Copy(ptr noundef %Clauses) #7
+  %10 = getelementptr i8, ptr %Search, i64 96
+  %Search.val154 = load ptr, ptr %10, align 8
+  %call13 = tail call ptr @list_Copy(ptr noundef %Search.val154) #7
+  %11 = getelementptr i8, ptr %Search, i64 56
+  %Search.val155 = load ptr, ptr %11, align 8
+  %call15 = tail call ptr @list_Copy(ptr noundef %Search.val155) #7
+  %12 = getelementptr i8, ptr %Search, i64 40
+  %Search.val156 = load ptr, ptr %12, align 8
+  %call17 = tail call ptr @list_Copy(ptr noundef %Search.val156) #7
+  %cmp.i.not.i = icmp eq ptr %call15, null
+  br i1 %cmp.i.not.i, label %list_Nconc.exit, label %if.end.i
+
+if.end.i:                                         ; preds = %if.end
+  %cmp.i18.not.i = icmp eq ptr %call17, null
+  br i1 %cmp.i18.not.i, label %list_Nconc.exit, label %for.cond.i
+
+for.cond.i:                                       ; preds = %if.end.i, %for.cond.i
+  %List1.addr.0.i = phi ptr [ %List1.addr.0.val17.i, %for.cond.i ], [ %call15, %if.end.i ]
+  %List1.addr.0.val17.i = load ptr, ptr %List1.addr.0.i, align 8
+  %cmp.i20.not.i = icmp eq ptr %List1.addr.0.val17.i, null
+  br i1 %cmp.i20.not.i, label %for.end.i, label %for.cond.i, !llvm.loop !7
+
+for.end.i:                                        ; preds = %for.cond.i
+  store ptr %call17, ptr %List1.addr.0.i, align 8
+  br label %list_Nconc.exit
+
+list_Nconc.exit:                                  ; preds = %if.end, %if.end.i, %for.end.i
+  %retval.0.i = phi ptr [ %call15, %for.end.i ], [ %call17, %if.end ], [ %call15, %if.end.i ]
+  %cmp.i.not.i160 = icmp eq ptr %call13, null
+  br i1 %cmp.i.not.i160, label %list_Nconc.exit169, label %if.end.i162
+
+if.end.i162:                                      ; preds = %list_Nconc.exit
+  %cmp.i18.not.i161 = icmp eq ptr %retval.0.i, null
+  br i1 %cmp.i18.not.i161, label %for.body25.preheader, label %for.cond.i166
+
+for.cond.i166:                                    ; preds = %if.end.i162, %for.cond.i166
+  %List1.addr.0.i163 = phi ptr [ %List1.addr.0.val17.i164, %for.cond.i166 ], [ %call13, %if.end.i162 ]
+  %List1.addr.0.val17.i164 = load ptr, ptr %List1.addr.0.i163, align 8
+  %cmp.i20.not.i165 = icmp eq ptr %List1.addr.0.val17.i164, null
+  br i1 %cmp.i20.not.i165, label %for.end.i167, label %for.cond.i166, !llvm.loop !7
+
+for.end.i167:                                     ; preds = %for.cond.i166
+  store ptr %retval.0.i, ptr %List1.addr.0.i163, align 8
+  br label %list_Nconc.exit169
+
+list_Nconc.exit169:                               ; preds = %list_Nconc.exit, %for.end.i167
+  %retval.0.i168 = phi ptr [ %call13, %for.end.i167 ], [ %retval.0.i, %list_Nconc.exit ]
+  %cmp.i170.not248 = icmp eq ptr %retval.0.i168, null
+  br i1 %cmp.i170.not248, label %for.end35, label %for.body25.preheader
+
+for.body25.preheader:                             ; preds = %if.end.i162, %list_Nconc.exit169
+  %retval.0.i168263 = phi ptr [ %retval.0.i168, %list_Nconc.exit169 ], [ %call13, %if.end.i162 ]
+  br label %for.body25
+
+for.body25:                                       ; preds = %for.body25.preheader, %for.inc33
+  %SplitClauses.0250 = phi ptr [ %SplitClauses.1, %for.inc33 ], [ null, %for.body25.preheader ]
+  %Scan.0249 = phi ptr [ %Scan.0.val153, %for.inc33 ], [ %retval.0.i168263, %for.body25.preheader ]
+  %13 = getelementptr i8, ptr %Scan.0249, i64 8
+  %Scan.0.val149 = load ptr, ptr %13, align 8
+  %14 = getelementptr i8, ptr %Scan.0.val149, i64 76
+  %call26.val = load i32, ptr %14, align 4
+  %cmp.i172.not = icmp eq i32 %call26.val, 15
+  br i1 %cmp.i172.not, label %if.then29, label %for.inc33
+
+if.then29:                                        ; preds = %for.body25
+  %call.i174 = tail call ptr @memory_Malloc(i32 noundef 16) #7
+  %car.i = getelementptr inbounds %struct.LIST_HELP, ptr %call.i174, i64 0, i32 1
+  store ptr %Scan.0.val149, ptr %car.i, align 8
+  store ptr %SplitClauses.0250, ptr %call.i174, align 8
+  br label %for.inc33
+
+for.inc33:                                        ; preds = %for.body25, %if.then29
+  %SplitClauses.1 = phi ptr [ %call.i174, %if.then29 ], [ %SplitClauses.0250, %for.body25 ]
+  %Scan.0.val153 = load ptr, ptr %Scan.0249, align 8
+  %cmp.i170.not = icmp eq ptr %Scan.0.val153, null
+  br i1 %cmp.i170.not, label %for.end35, label %for.body25, !llvm.loop !8
+
+for.end35:                                        ; preds = %for.inc33, %list_Nconc.exit169
+  %cmp.i170.not248266 = phi i1 [ true, %list_Nconc.exit169 ], [ false, %for.inc33 ]
+  %retval.0.i168264 = phi ptr [ null, %list_Nconc.exit169 ], [ %retval.0.i168263, %for.inc33 ]
+  %SplitClauses.0.lcssa = phi ptr [ null, %list_Nconc.exit169 ], [ %SplitClauses.1, %for.inc33 ]
+  tail call void @pcheck_ClauseListRemoveFlag(ptr noundef %call10, i32 noundef 64) #7
+  tail call void @pcheck_ClauseListRemoveFlag(ptr noundef %retval.0.i168264, i32 noundef 64) #7
+  tail call void @pcheck_MarkRecursive(ptr noundef %call10) #7
+  tail call void @pcheck_MarkRecursive(ptr noundef %SplitClauses.0.lcssa) #7
+  br i1 %cmp.i170.not248266, label %for.end51.thread, label %for.body41
+
+for.end51.thread:                                 ; preds = %for.end35
+  %call52268 = tail call ptr @list_Copy(ptr noundef %call10) #7
+  br label %list_Nconc.exit190
+
+for.body41:                                       ; preds = %for.end35, %for.inc49
+  %ProofClauses.0253 = phi ptr [ %ProofClauses.1, %for.inc49 ], [ null, %for.end35 ]
+  %Scan.1252 = phi ptr [ %Scan.1.val152, %for.inc49 ], [ %retval.0.i168264, %for.end35 ]
+  %15 = getelementptr i8, ptr %Scan.1252, i64 8
+  %Scan.1.val148 = load ptr, ptr %15, align 8
+  %16 = getelementptr i8, ptr %Scan.1.val148, i64 48
+  %call42.val = load i32, ptr %16, align 8
+  %17 = and i32 %call42.val, 64
+  %tobool44.not = icmp eq i32 %17, 0
+  br i1 %tobool44.not, label %for.inc49, label %if.then45
+
+if.then45:                                        ; preds = %for.body41
+  %call.i179 = tail call ptr @memory_Malloc(i32 noundef 16) #7
+  %car.i180 = getelementptr inbounds %struct.LIST_HELP, ptr %call.i179, i64 0, i32 1
+  store ptr %Scan.1.val148, ptr %car.i180, align 8
+  store ptr %ProofClauses.0253, ptr %call.i179, align 8
+  br label %for.inc49
+
+for.inc49:                                        ; preds = %for.body41, %if.then45
+  %ProofClauses.1 = phi ptr [ %call.i179, %if.then45 ], [ %ProofClauses.0253, %for.body41 ]
+  %Scan.1.val152 = load ptr, ptr %Scan.1252, align 8
+  %cmp.i175.not = icmp eq ptr %Scan.1.val152, null
+  br i1 %cmp.i175.not, label %for.end51, label %for.body41, !llvm.loop !9
+
+for.end51:                                        ; preds = %for.inc49
+  %call52 = tail call ptr @list_Copy(ptr noundef %call10) #7
+  %cmp.i.not.i181 = icmp eq ptr %ProofClauses.1, null
+  br i1 %cmp.i.not.i181, label %list_Nconc.exit190, label %if.end.i183
+
+if.end.i183:                                      ; preds = %for.end51
+  %cmp.i18.not.i182 = icmp eq ptr %call52, null
+  br i1 %cmp.i18.not.i182, label %list_Nconc.exit190, label %for.cond.i187
+
+for.cond.i187:                                    ; preds = %if.end.i183, %for.cond.i187
+  %List1.addr.0.i184 = phi ptr [ %List1.addr.0.val17.i185, %for.cond.i187 ], [ %ProofClauses.1, %if.end.i183 ]
+  %List1.addr.0.val17.i185 = load ptr, ptr %List1.addr.0.i184, align 8
+  %cmp.i20.not.i186 = icmp eq ptr %List1.addr.0.val17.i185, null
+  br i1 %cmp.i20.not.i186, label %for.end.i188, label %for.cond.i187, !llvm.loop !7
+
+for.end.i188:                                     ; preds = %for.cond.i187
+  store ptr %call52, ptr %List1.addr.0.i184, align 8
+  br label %list_Nconc.exit190
+
+list_Nconc.exit190:                               ; preds = %for.end51.thread, %for.end51, %if.end.i183, %for.end.i188
+  %retval.0.i189 = phi ptr [ %ProofClauses.1, %for.end.i188 ], [ %call52, %for.end51 ], [ %ProofClauses.1, %if.end.i183 ], [ %call52268, %for.end51.thread ]
+  %call54 = tail call ptr @pcheck_ClauseNumberMergeSort(ptr noundef %retval.0.i189) #7
+  %call55 = tail call ptr @pcheck_ReduceSPASSProof(ptr noundef %call54) #7
+  %call56 = tail call i32 @pcheck_SeqProofDepth(ptr noundef %call55) #7
+  store i32 %call56, ptr @dp_DEPTH, align 4
+  %call57 = tail call ptr @pcheck_ParentPointersToParentNumbers(ptr noundef %retval.0.i168264) #7
+  %call58 = tail call ptr @pcheck_ParentPointersToParentNumbers(ptr noundef %Clauses) #7
+  %cmp.i191.not255 = icmp eq ptr %call55, null
+  br i1 %cmp.i191.not255, label %if.end91, label %for.body64
+
+for.body64:                                       ; preds = %list_Nconc.exit190, %for.inc72
+  %Incomplete.0257 = phi ptr [ %Incomplete.1, %for.inc72 ], [ null, %list_Nconc.exit190 ]
+  %Scan.2256 = phi ptr [ %Scan.2.val151, %for.inc72 ], [ %call55, %list_Nconc.exit190 ]
+  %18 = getelementptr i8, ptr %Scan.2256, i64 8
+  %Scan.2.val147 = load ptr, ptr %18, align 8
+  %19 = getelementptr i8, ptr %Scan.2.val147, i64 48
+  %call65.val = load i32, ptr %19, align 8
+  %20 = and i32 %call65.val, 128
+  %tobool67.not = icmp eq i32 %20, 0
+  br i1 %tobool67.not, label %for.inc72, label %if.then68
+
+if.then68:                                        ; preds = %for.body64
+  %call.i196 = tail call ptr @memory_Malloc(i32 noundef 16) #7
+  %car.i197 = getelementptr inbounds %struct.LIST_HELP, ptr %call.i196, i64 0, i32 1
+  store ptr %Scan.2.val147, ptr %car.i197, align 8
+  store ptr %Incomplete.0257, ptr %call.i196, align 8
+  br label %for.inc72
+
+for.inc72:                                        ; preds = %for.body64, %if.then68
+  %Incomplete.1 = phi ptr [ %call.i196, %if.then68 ], [ %Incomplete.0257, %for.body64 ]
+  %Scan.2.val151 = load ptr, ptr %Scan.2256, align 8
+  %cmp.i191.not = icmp eq ptr %Scan.2.val151, null
+  br i1 %cmp.i191.not, label %for.end74, label %for.body64, !llvm.loop !10
+
+for.end74:                                        ; preds = %for.inc72
+  %cmp.i198.not = icmp eq ptr %Incomplete.1, null
+  br i1 %cmp.i198.not, label %if.end91, label %if.then77
+
+if.then77:                                        ; preds = %for.end74
+  %call78 = tail call i32 @puts(ptr noundef nonnull dereferenceable(1) @.str.2)
+  br label %for.body83
+
+for.body83:                                       ; preds = %if.then77, %for.body83
+  %Scan.3260 = phi ptr [ %Incomplete.1, %if.then77 ], [ %Scan.3.val150, %for.body83 ]
+  %21 = getelementptr i8, ptr %Scan.3260, i64 8
+  %Scan.3.val = load ptr, ptr %21, align 8
+  %call84.val = load i32, ptr %Scan.3.val, align 8
+  %call86 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.1, i32 noundef %call84.val)
+  %Scan.3.val150 = load ptr, ptr %Scan.3260, align 8
+  %cmp.i200.not = icmp eq ptr %Scan.3.val150, null
+  br i1 %cmp.i200.not, label %for.end89, label %for.body83, !llvm.loop !11
+
+for.end89:                                        ; preds = %for.body83
+  %22 = load ptr, ptr @stdout, align 8
+  %call.i202 = tail call i32 @putc(i32 noundef 10, ptr noundef %22)
+  br label %if.end91
+
+if.end91:                                         ; preds = %list_Nconc.exit190, %for.end89, %for.end74
+  %cmp.i198.not273 = phi i1 [ %cmp.i198.not, %for.end89 ], [ true, %for.end74 ], [ true, %list_Nconc.exit190 ]
+  %Incomplete.0.lcssa272 = phi ptr [ %Incomplete.1, %for.end89 ], [ null, %for.end74 ], [ null, %list_Nconc.exit190 ]
+  %23 = load i32, ptr @dp_DEPTH, align 4
+  %call93 = tail call i32 @list_Length(ptr noundef %call55) #7
+  %call94 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.3, i32 noundef %23, i32 noundef %call93)
+  tail call void @clause_ListPrint(ptr noundef %call55) #7
+  %24 = getelementptr i8, ptr %Search.val, i64 124
+  %call.val = load i32, ptr %24, align 4
+  %tobool96.not = icmp eq i32 %call.val, 0
+  br i1 %tobool96.not, label %if.end99, label %if.then97
+
+if.then97:                                        ; preds = %if.end91
+  %25 = getelementptr i8, ptr %Search, i64 104
+  %Search.val157 = load ptr, ptr %25, align 8
+  %call1.i = tail call i64 @strlen(ptr noundef nonnull dereferenceable(1) %FilePrefix) #8
+  %26 = trunc i64 %call1.i to i32
+  %conv.i203 = add i32 %26, 5
+  %call2.i = tail call ptr @memory_Malloc(i32 noundef %conv.i203) #7
+  %call3.i = tail call i32 (ptr, ptr, ...) @sprintf(ptr noundef nonnull dereferenceable(1) %call2.i, ptr noundef nonnull dereferenceable(1) @.str.4, ptr noundef %FilePrefix) #7
+  %call4.i = tail call ptr @misc_OpenFile(ptr noundef %call2.i, ptr noundef nonnull @.str.5) #7
+  %27 = tail call i64 @fwrite(ptr nonnull @.str.6, i64 25, i64 1, ptr %call4.i)
+  %28 = tail call i64 @fwrite(ptr nonnull @.str.7, i64 22, i64 1, ptr %call4.i)
+  %29 = tail call i64 @fwrite(ptr nonnull @.str.8, i64 7, i64 1, ptr %call4.i)
+  %call8.i = tail call i32 @fputs(ptr noundef %FilePrefix, ptr noundef %call4.i)
+  %30 = tail call i64 @fwrite(ptr nonnull @.str.9, i64 5, i64 1, ptr %call4.i)
+  %31 = tail call i64 @fwrite(ptr nonnull @.str.10, i64 15, i64 1, ptr %call4.i)
+  %32 = tail call i64 @fwrite(ptr nonnull @.str.11, i64 5, i64 1, ptr %call4.i)
+  %33 = tail call i64 @fwrite(ptr nonnull @.str.9, i64 5, i64 1, ptr %call4.i)
+  %34 = tail call i64 @fwrite(ptr nonnull @.str.12, i64 23, i64 1, ptr %call4.i)
+  %35 = tail call i64 @fwrite(ptr nonnull @.str.13, i64 62, i64 1, ptr %call4.i)
+  %36 = tail call i64 @fwrite(ptr nonnull @.str.14, i64 14, i64 1, ptr %call4.i)
+  %37 = tail call i64 @fwrite(ptr nonnull @.str.15, i64 17, i64 1, ptr %call4.i)
+  tail call void @fol_FPrintDFGSignature(ptr noundef %call4.i) #7
+  %38 = tail call i64 @fwrite(ptr nonnull @.str.14, i64 14, i64 1, ptr %call4.i)
+  br i1 %cmp.i191.not255, label %for.end.i205, label %for.body.i
+
+for.body.i:                                       ; preds = %if.then97, %for.inc.i
+  %AxClauses.0132.i = phi ptr [ %AxClauses.1.i, %for.inc.i ], [ null, %if.then97 ]
+  %Scan.0131.i = phi ptr [ %Scan.0.val97.i, %for.inc.i ], [ %call55, %if.then97 ]
+  %ProofClauses.0130.i = phi ptr [ %ProofClauses.1.i, %for.inc.i ], [ null, %if.then97 ]
+  %ConClauses.0129.i = phi ptr [ %ConClauses.1.i, %for.inc.i ], [ null, %if.then97 ]
+  %39 = getelementptr i8, ptr %Scan.0131.i, i64 8
+  %Scan.0.val.i = load ptr, ptr %39, align 8
+  %40 = getelementptr i8, ptr %Scan.0.val.i, i64 76
+  %call19.val98.i = load i32, ptr %40, align 4
+  %cmp.i99.not.i = icmp eq i32 %call19.val98.i, 16
+  br i1 %cmp.i99.not.i, label %if.then.i, label %if.else27.i
+
+if.then.i:                                        ; preds = %for.body.i
+  %41 = getelementptr i8, ptr %Scan.0.val.i, i64 48
+  %call19.val.i = load i32, ptr %41, align 8
+  %42 = and i32 %call19.val.i, 8
+  %tobool23.not.i = icmp eq i32 %42, 0
+  %call.i103.i = tail call ptr @memory_Malloc(i32 noundef 16) #7
+  %car.i104.i = getelementptr inbounds %struct.LIST_HELP, ptr %call.i103.i, i64 0, i32 1
+  store ptr %Scan.0.val.i, ptr %car.i104.i, align 8
+  br i1 %tobool23.not.i, label %if.else.i, label %if.then24.i
+
+if.then24.i:                                      ; preds = %if.then.i
+  store ptr %ConClauses.0129.i, ptr %call.i103.i, align 8
+  br label %for.inc.i
+
+if.else.i:                                        ; preds = %if.then.i
+  store ptr %AxClauses.0132.i, ptr %call.i103.i, align 8
+  br label %for.inc.i
+
+if.else27.i:                                      ; preds = %for.body.i
+  %call.i105.i = tail call ptr @memory_Malloc(i32 noundef 16) #7
+  %car.i106.i = getelementptr inbounds %struct.LIST_HELP, ptr %call.i105.i, i64 0, i32 1
+  store ptr %Scan.0.val.i, ptr %car.i106.i, align 8
+  store ptr %ProofClauses.0130.i, ptr %call.i105.i, align 8
+  br label %for.inc.i
+
+for.inc.i:                                        ; preds = %if.else27.i, %if.else.i, %if.then24.i
+  %ConClauses.1.i = phi ptr [ %call.i103.i, %if.then24.i ], [ %ConClauses.0129.i, %if.else.i ], [ %ConClauses.0129.i, %if.else27.i ]
+  %ProofClauses.1.i = phi ptr [ %ProofClauses.0130.i, %if.then24.i ], [ %ProofClauses.0130.i, %if.else.i ], [ %call.i105.i, %if.else27.i ]
+  %AxClauses.1.i = phi ptr [ %AxClauses.0132.i, %if.then24.i ], [ %call.i103.i, %if.else.i ], [ %AxClauses.0132.i, %if.else27.i ]
+  %Scan.0.val97.i = load ptr, ptr %Scan.0131.i, align 8
+  %cmp.i.not.i204 = icmp eq ptr %Scan.0.val97.i, null
+  br i1 %cmp.i.not.i204, label %for.end.i205, label %for.body.i, !llvm.loop !12
+
+for.end.i205:                                     ; preds = %for.inc.i, %if.then97
+  %ConClauses.0.lcssa.i = phi ptr [ null, %if.then97 ], [ %ConClauses.1.i, %for.inc.i ]
+  %ProofClauses.0.lcssa.i = phi ptr [ null, %if.then97 ], [ %ProofClauses.1.i, %for.inc.i ]
+  %AxClauses.0.lcssa.i = phi ptr [ null, %if.then97 ], [ %AxClauses.1.i, %for.inc.i ]
+  %call31.i = tail call ptr @list_NReverse(ptr noundef %ConClauses.0.lcssa.i) #7
+  %call32.i = tail call ptr @list_NReverse(ptr noundef %AxClauses.0.lcssa.i) #7
+  %call33.i = tail call ptr @list_NReverse(ptr noundef %ProofClauses.0.lcssa.i) #7
+  tail call void @clause_FPrintCnfDFG(ptr noundef %call4.i, i32 noundef 0, ptr noundef %call32.i, ptr noundef %call31.i, ptr noundef %Search.val, ptr noundef %Search.val157) #7
+  %43 = tail call i64 @fwrite(ptr nonnull @.str.16, i64 23, i64 1, ptr %call4.i)
+  %cmp.i107.not135.i = icmp eq ptr %call33.i, null
+  br i1 %cmp.i107.not135.i, label %for.end43.i, label %for.body39.i
+
+for.body39.i:                                     ; preds = %for.end.i205, %for.body39.i
+  %Scan.1136.i = phi ptr [ %Scan.1.val96.i, %for.body39.i ], [ %call33.i, %for.end.i205 ]
+  %44 = getelementptr i8, ptr %Scan.1136.i, i64 8
+  %Scan.1.val.i = load ptr, ptr %44, align 8
+  tail call void @clause_FPrintDFGStep(ptr noundef %call4.i, ptr noundef %Scan.1.val.i, i32 noundef 1) #7
+  %Scan.1.val96.i = load ptr, ptr %Scan.1136.i, align 8
+  %cmp.i107.not.i = icmp eq ptr %Scan.1.val96.i, null
+  br i1 %cmp.i107.not.i, label %for.end43.i, label %for.body39.i, !llvm.loop !13
+
+for.end43.i:                                      ; preds = %for.body39.i, %for.end.i205
+  %45 = tail call i64 @fwrite(ptr nonnull @.str.14, i64 14, i64 1, ptr %call4.i)
+  %46 = tail call i64 @fwrite(ptr nonnull @.str.17, i64 14, i64 1, ptr %call4.i)
+  tail call void @misc_CloseFile(ptr noundef %call4.i, ptr noundef %call2.i) #7
+  %47 = load ptr, ptr @stdout, align 8
+  %48 = tail call i64 @fwrite(ptr nonnull @.str.18, i64 23, i64 1, ptr %47)
+  %call47.i = tail call i32 @puts(ptr noundef nonnull dereferenceable(1) %call2.i)
+  %cmp.i.not5.i.i = icmp eq ptr %call31.i, null
+  br i1 %cmp.i.not5.i.i, label %list_Delete.exit.i, label %while.body.i.i
+
+while.body.i.i:                                   ; preds = %for.end43.i, %while.body.i.i
+  %Current.06.i.i = phi ptr [ %Current.0.val.i.i, %while.body.i.i ], [ %call31.i, %for.end43.i ]
+  %Current.0.val.i.i = load ptr, ptr %Current.06.i.i, align 8
+  %49 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
+  %total_size.i.i.i.i = getelementptr inbounds %struct.MEMORY_RESOURCEHELP, ptr %49, i64 0, i32 4
+  %50 = load i32, ptr %total_size.i.i.i.i, align 8
+  %conv26.i.i.i.i = sext i32 %50 to i64
+  %51 = load i64, ptr @memory_FREEDBYTES, align 8
+  %add27.i.i.i.i = add i64 %51, %conv26.i.i.i.i
+  store i64 %add27.i.i.i.i, ptr @memory_FREEDBYTES, align 8
+  %52 = load ptr, ptr %49, align 8
+  store ptr %52, ptr %Current.06.i.i, align 8
+  %53 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
+  store ptr %Current.06.i.i, ptr %53, align 8
+  %cmp.i.not.i.i = icmp eq ptr %Current.0.val.i.i, null
+  br i1 %cmp.i.not.i.i, label %list_Delete.exit.i, label %while.body.i.i, !llvm.loop !14
+
+list_Delete.exit.i:                               ; preds = %while.body.i.i, %for.end43.i
+  %cmp.i.not5.i109.i = icmp eq ptr %call32.i, null
+  br i1 %cmp.i.not5.i109.i, label %list_Delete.exit117.i, label %while.body.i116.i
+
+while.body.i116.i:                                ; preds = %list_Delete.exit.i, %while.body.i116.i
+  %Current.06.i110.i = phi ptr [ %Current.0.val.i111.i, %while.body.i116.i ], [ %call32.i, %list_Delete.exit.i ]
+  %Current.0.val.i111.i = load ptr, ptr %Current.06.i110.i, align 8
+  %54 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
+  %total_size.i.i.i112.i = getelementptr inbounds %struct.MEMORY_RESOURCEHELP, ptr %54, i64 0, i32 4
+  %55 = load i32, ptr %total_size.i.i.i112.i, align 8
+  %conv26.i.i.i113.i = sext i32 %55 to i64
+  %56 = load i64, ptr @memory_FREEDBYTES, align 8
+  %add27.i.i.i114.i = add i64 %56, %conv26.i.i.i113.i
+  store i64 %add27.i.i.i114.i, ptr @memory_FREEDBYTES, align 8
+  %57 = load ptr, ptr %54, align 8
+  store ptr %57, ptr %Current.06.i110.i, align 8
+  %58 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
+  store ptr %Current.06.i110.i, ptr %58, align 8
+  %cmp.i.not.i115.i = icmp eq ptr %Current.0.val.i111.i, null
+  br i1 %cmp.i.not.i115.i, label %list_Delete.exit117.i, label %while.body.i116.i, !llvm.loop !14
+
+list_Delete.exit117.i:                            ; preds = %while.body.i116.i, %list_Delete.exit.i
+  br i1 %cmp.i107.not135.i, label %list_Delete.exit126.i, label %while.body.i125.i
+
+while.body.i125.i:                                ; preds = %list_Delete.exit117.i, %while.body.i125.i
+  %Current.06.i119.i = phi ptr [ %Current.0.val.i120.i, %while.body.i125.i ], [ %call33.i, %list_Delete.exit117.i ]
+  %Current.0.val.i120.i = load ptr, ptr %Current.06.i119.i, align 8
+  %59 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
+  %total_size.i.i.i121.i = getelementptr inbounds %struct.MEMORY_RESOURCEHELP, ptr %59, i64 0, i32 4
+  %60 = load i32, ptr %total_size.i.i.i121.i, align 8
+  %conv26.i.i.i122.i = sext i32 %60 to i64
+  %61 = load i64, ptr @memory_FREEDBYTES, align 8
+  %add27.i.i.i123.i = add i64 %61, %conv26.i.i.i122.i
+  store i64 %add27.i.i.i123.i, ptr @memory_FREEDBYTES, align 8
+  %62 = load ptr, ptr %59, align 8
+  store ptr %62, ptr %Current.06.i119.i, align 8
+  %63 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
+  store ptr %Current.06.i119.i, ptr %63, align 8
+  %cmp.i.not.i124.i = icmp eq ptr %Current.0.val.i120.i, null
+  br i1 %cmp.i.not.i124.i, label %list_Delete.exit126.i, label %while.body.i125.i, !llvm.loop !14
+
+list_Delete.exit126.i:                            ; preds = %while.body.i125.i, %list_Delete.exit117.i
+  %call48.i = tail call i64 @strlen(ptr noundef nonnull dereferenceable(1) %FilePrefix) #8
+  %64 = trunc i64 %call48.i to i32
+  %conv51.i = add i32 %64, 5
+  %cmp.i.i.i = icmp ult i32 %conv51.i, 1024
+  br i1 %cmp.i.i.i, label %if.else25.i.i, label %if.then.i.i
+
+if.then.i.i:                                      ; preds = %list_Delete.exit126.i
+  %65 = load i32, ptr @memory_ALIGN, align 4
+  %rem2.i.i.i.i = urem i32 %conv51.i, %65
+  %tobool3.not.i.i.i.i = icmp eq i32 %rem2.i.i.i.i, 0
+  %sub6.i.i.i.i = sub i32 %65, %rem2.i.i.i.i
+  %add7.i.i.i.i = select i1 %tobool3.not.i.i.i.i, i32 0, i32 %sub6.i.i.i.i
+  %RealSize.1.i.i.i.i = add i32 %add7.i.i.i.i, %conv51.i
+  %66 = load i32, ptr @memory_OFFSET, align 4
+  %idx.ext.i.i = zext i32 %66 to i64
+  %idx.neg.i.i = sub nsw i64 0, %idx.ext.i.i
+  %add.ptr.i.i = getelementptr inbounds i8, ptr %call2.i, i64 %idx.neg.i.i
+  %add.ptr1.i.i = getelementptr inbounds i8, ptr %add.ptr.i.i, i64 -16
+  %67 = load ptr, ptr %add.ptr1.i.i, align 8
+  %cmp2.not.i.i = icmp eq ptr %67, null
+  %next6.i.i = getelementptr inbounds %struct.MEMORY_BIGBLOCKHEADERHELP, ptr %add.ptr1.i.i, i64 0, i32 1
+  %68 = load ptr, ptr %next6.i.i, align 8
+  %next5.i.i = getelementptr inbounds %struct.MEMORY_BIGBLOCKHEADERHELP, ptr %67, i64 0, i32 1
+  %memory_BIGBLOCKS.sink.i.i = select i1 %cmp2.not.i.i, ptr @memory_BIGBLOCKS, ptr %next5.i.i
+  store ptr %68, ptr %memory_BIGBLOCKS.sink.i.i, align 8
+  %69 = load ptr, ptr %next6.i.i, align 8
+  %cmp8.not.i.i = icmp eq ptr %69, null
+  br i1 %cmp8.not.i.i, label %if.end13.i.i, label %if.then9.i.i
+
+if.then9.i.i:                                     ; preds = %if.then.i.i
+  %70 = load ptr, ptr %add.ptr1.i.i, align 8
+  store ptr %70, ptr %69, align 8
+  br label %if.end13.i.i
+
+if.end13.i.i:                                     ; preds = %if.then9.i.i, %if.then.i.i
+  %71 = load i32, ptr @memory_MARKSIZE, align 4
+  %add.i.i = add i32 %RealSize.1.i.i.i.i, %71
+  %conv.i127.i = zext i32 %add.i.i to i64
+  %add14.i.i = add nuw nsw i64 %conv.i127.i, 16
+  %72 = load i64, ptr @memory_FREEDBYTES, align 8
+  %add15.i.i = add i64 %add14.i.i, %72
+  store i64 %add15.i.i, ptr @memory_FREEDBYTES, align 8
+  %73 = load i64, ptr @memory_MAXMEM, align 8
+  %cmp16.i.i = icmp sgt i64 %73, -1
+  br i1 %cmp16.i.i, label %if.then18.i.i, label %if.end23.i.i
+
+if.then18.i.i:                                    ; preds = %if.end13.i.i
+  %add22.i.i = add nuw i64 %73, %add14.i.i
+  store i64 %add22.i.i, ptr @memory_MAXMEM, align 8
+  br label %if.end23.i.i
+
+if.end23.i.i:                                     ; preds = %if.then18.i.i, %if.end13.i.i
+  %add.ptr24.i.i = getelementptr inbounds i8, ptr %call2.i, i64 -16
+  tail call void @free(ptr noundef nonnull %add.ptr24.i.i) #7
+  br label %if.end99
+
+if.else25.i.i:                                    ; preds = %list_Delete.exit126.i
+  %idxprom.i.i = zext i32 %conv51.i to i64
+  %arrayidx.i.i = getelementptr inbounds [0 x ptr], ptr @memory_ARRAY, i64 0, i64 %idxprom.i.i
+  %74 = load ptr, ptr %arrayidx.i.i, align 8
+  %total_size.i.i = getelementptr inbounds %struct.MEMORY_RESOURCEHELP, ptr %74, i64 0, i32 4
+  %75 = load i32, ptr %total_size.i.i, align 8
+  %conv26.i.i = sext i32 %75 to i64
+  %76 = load i64, ptr @memory_FREEDBYTES, align 8
+  %add27.i.i = add i64 %76, %conv26.i.i
+  store i64 %add27.i.i, ptr @memory_FREEDBYTES, align 8
+  %77 = load ptr, ptr %74, align 8
+  store ptr %77, ptr %call2.i, align 8
+  %78 = load ptr, ptr %arrayidx.i.i, align 8
+  store ptr %call2.i, ptr %78, align 8
+  br label %if.end99
+
+if.end99:                                         ; preds = %if.else25.i.i, %if.end23.i.i, %if.end91
+  %79 = load ptr, ptr @stdout, align 8
+  %call100 = tail call i32 @fflush(ptr noundef %79)
+  %cmp.i.not5.i = icmp eq ptr %call10, null
+  br i1 %cmp.i.not5.i, label %list_Delete.exit, label %while.body.i
+
+while.body.i:                                     ; preds = %if.end99, %while.body.i
+  %Current.06.i = phi ptr [ %Current.0.val.i, %while.body.i ], [ %call10, %if.end99 ]
+  %Current.0.val.i = load ptr, ptr %Current.06.i, align 8
+  %80 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
+  %total_size.i.i.i206 = getelementptr inbounds %struct.MEMORY_RESOURCEHELP, ptr %80, i64 0, i32 4
+  %81 = load i32, ptr %total_size.i.i.i206, align 8
+  %conv26.i.i.i207 = sext i32 %81 to i64
+  %82 = load i64, ptr @memory_FREEDBYTES, align 8
+  %add27.i.i.i208 = add i64 %82, %conv26.i.i.i207
+  store i64 %add27.i.i.i208, ptr @memory_FREEDBYTES, align 8
+  %83 = load ptr, ptr %80, align 8
+  store ptr %83, ptr %Current.06.i, align 8
+  %84 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
+  store ptr %Current.06.i, ptr %84, align 8
+  %cmp.i.not.i209 = icmp eq ptr %Current.0.val.i, null
+  br i1 %cmp.i.not.i209, label %list_Delete.exit, label %while.body.i, !llvm.loop !14
+
+list_Delete.exit:                                 ; preds = %while.body.i, %if.end99
+  br i1 %cmp.i170.not248266, label %list_Delete.exit218, label %while.body.i217
+
+while.body.i217:                                  ; preds = %list_Delete.exit, %while.body.i217
+  %Current.06.i211 = phi ptr [ %Current.0.val.i212, %while.body.i217 ], [ %retval.0.i168264, %list_Delete.exit ]
+  %Current.0.val.i212 = load ptr, ptr %Current.06.i211, align 8
+  %85 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
+  %total_size.i.i.i213 = getelementptr inbounds %struct.MEMORY_RESOURCEHELP, ptr %85, i64 0, i32 4
+  %86 = load i32, ptr %total_size.i.i.i213, align 8
+  %conv26.i.i.i214 = sext i32 %86 to i64
+  %87 = load i64, ptr @memory_FREEDBYTES, align 8
+  %add27.i.i.i215 = add i64 %87, %conv26.i.i.i214
+  store i64 %add27.i.i.i215, ptr @memory_FREEDBYTES, align 8
+  %88 = load ptr, ptr %85, align 8
+  store ptr %88, ptr %Current.06.i211, align 8
+  %89 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
+  store ptr %Current.06.i211, ptr %89, align 8
+  %cmp.i.not.i216 = icmp eq ptr %Current.0.val.i212, null
+  br i1 %cmp.i.not.i216, label %list_Delete.exit218, label %while.body.i217, !llvm.loop !14
+
+list_Delete.exit218:                              ; preds = %while.body.i217, %list_Delete.exit
+  %cmp.i.not5.i219 = icmp eq ptr %call54, null
+  br i1 %cmp.i.not5.i219, label %list_Delete.exit227, label %while.body.i226
+
+while.body.i226:                                  ; preds = %list_Delete.exit218, %while.body.i226
+  %Current.06.i220 = phi ptr [ %Current.0.val.i221, %while.body.i226 ], [ %call54, %list_Delete.exit218 ]
+  %Current.0.val.i221 = load ptr, ptr %Current.06.i220, align 8
+  %90 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
+  %total_size.i.i.i222 = getelementptr inbounds %struct.MEMORY_RESOURCEHELP, ptr %90, i64 0, i32 4
+  %91 = load i32, ptr %total_size.i.i.i222, align 8
+  %conv26.i.i.i223 = sext i32 %91 to i64
+  %92 = load i64, ptr @memory_FREEDBYTES, align 8
+  %add27.i.i.i224 = add i64 %92, %conv26.i.i.i223
+  store i64 %add27.i.i.i224, ptr @memory_FREEDBYTES, align 8
+  %93 = load ptr, ptr %90, align 8
+  store ptr %93, ptr %Current.06.i220, align 8
+  %94 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
+  store ptr %Current.06.i220, ptr %94, align 8
+  %cmp.i.not.i225 = icmp eq ptr %Current.0.val.i221, null
+  br i1 %cmp.i.not.i225, label %list_Delete.exit227, label %while.body.i226, !llvm.loop !14
+
+list_Delete.exit227:                              ; preds = %while.body.i226, %list_Delete.exit218
+  %cmp.i.not5.i228 = icmp eq ptr %SplitClauses.0.lcssa, null
+  br i1 %cmp.i.not5.i228, label %list_Delete.exit236, label %while.body.i235
+
+while.body.i235:                                  ; preds = %list_Delete.exit227, %while.body.i235
+  %Current.06.i229 = phi ptr [ %Current.0.val.i230, %while.body.i235 ], [ %SplitClauses.0.lcssa, %list_Delete.exit227 ]
+  %Current.0.val.i230 = load ptr, ptr %Current.06.i229, align 8
+  %95 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
+  %total_size.i.i.i231 = getelementptr inbounds %struct.MEMORY_RESOURCEHELP, ptr %95, i64 0, i32 4
+  %96 = load i32, ptr %total_size.i.i.i231, align 8
+  %conv26.i.i.i232 = sext i32 %96 to i64
+  %97 = load i64, ptr @memory_FREEDBYTES, align 8
+  %add27.i.i.i233 = add i64 %97, %conv26.i.i.i232
+  store i64 %add27.i.i.i233, ptr @memory_FREEDBYTES, align 8
+  %98 = load ptr, ptr %95, align 8
+  store ptr %98, ptr %Current.06.i229, align 8
+  %99 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
+  store ptr %Current.06.i229, ptr %99, align 8
+  %cmp.i.not.i234 = icmp eq ptr %Current.0.val.i230, null
+  br i1 %cmp.i.not.i234, label %list_Delete.exit236, label %while.body.i235, !llvm.loop !14
+
+list_Delete.exit236:                              ; preds = %while.body.i235, %list_Delete.exit227
+  br i1 %cmp.i198.not273, label %list_Delete.exit245, label %while.body.i244
+
+while.body.i244:                                  ; preds = %list_Delete.exit236, %while.body.i244
+  %Current.06.i238 = phi ptr [ %Current.0.val.i239, %while.body.i244 ], [ %Incomplete.0.lcssa272, %list_Delete.exit236 ]
+  %Current.0.val.i239 = load ptr, ptr %Current.06.i238, align 8
+  %100 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
+  %total_size.i.i.i240 = getelementptr inbounds %struct.MEMORY_RESOURCEHELP, ptr %100, i64 0, i32 4
+  %101 = load i32, ptr %total_size.i.i.i240, align 8
+  %conv26.i.i.i241 = sext i32 %101 to i64
+  %102 = load i64, ptr @memory_FREEDBYTES, align 8
+  %add27.i.i.i242 = add i64 %102, %conv26.i.i.i241
+  store i64 %add27.i.i.i242, ptr @memory_FREEDBYTES, align 8
+  %103 = load ptr, ptr %100, align 8
+  store ptr %103, ptr %Current.06.i238, align 8
+  %104 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
+  store ptr %Current.06.i238, ptr %104, align 8
+  %cmp.i.not.i243 = icmp eq ptr %Current.0.val.i239, null
+  br i1 %cmp.i.not.i243, label %list_Delete.exit245, label %while.body.i244, !llvm.loop !14
+
+list_Delete.exit245:                              ; preds = %while.body.i244, %list_Delete.exit236
+  ret ptr %call55
 }
 
 declare ptr @pcheck_ConvertParentsInSPASSProof(ptr noundef, ptr noundef) local_unnamed_addr #2

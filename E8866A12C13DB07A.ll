@@ -21,373 +21,380 @@ target triple = "x86_64-unknown-linux-gnu"
 @.str.5 = private unnamed_addr constant [24 x i8] c"(gs)free_state_contents\00", align 1
 
 ; Function Attrs: nounwind uwtable
-define dso_local ptr @gs_state_alloc(ptr noundef %0, ptr noundef %1) local_unnamed_addr #0 {
-  %3 = tail call ptr %0(i32 noundef 1, i32 noundef 464, ptr noundef nonnull @.str) #7
-  %4 = icmp eq ptr %3, null
-  br i1 %4, label %51, label %5
+define dso_local ptr @gs_state_alloc(ptr noundef %palloc, ptr noundef %pfree) local_unnamed_addr #0 {
+entry:
+  %call = tail call ptr %palloc(i32 noundef 1, i32 noundef 464, ptr noundef nonnull @.str) #7
+  %cmp = icmp eq ptr %call, null
+  br i1 %cmp, label %cleanup, label %if.end
 
-5:                                                ; preds = %2
-  %6 = tail call ptr %0(i32 noundef 1, i32 noundef 144, ptr noundef nonnull @.str.4) #7
-  %7 = icmp eq ptr %6, null
-  br i1 %7, label %51, label %8
+if.end:                                           ; preds = %entry
+  %call.i = tail call ptr %palloc(i32 noundef 1, i32 noundef 144, ptr noundef nonnull @.str.4) #7
+  %cmp.i = icmp eq ptr %call.i, null
+  br i1 %cmp.i, label %cleanup, label %if.end.i
 
-8:                                                ; preds = %5
-  %9 = getelementptr inbounds %struct.gs_state_s, ptr %3, i64 0, i32 7
-  store ptr %6, ptr %9, align 8, !tbaa !5
-  %10 = tail call ptr %0(i32 noundef 1, i32 noundef 144, ptr noundef nonnull @.str.4) #7
-  %11 = icmp eq ptr %10, null
-  br i1 %11, label %51, label %12
+if.end.i:                                         ; preds = %if.end
+  %path.i = getelementptr inbounds %struct.gs_state_s, ptr %call, i64 0, i32 7
+  store ptr %call.i, ptr %path.i, align 8, !tbaa !5
+  %call1.i = tail call ptr %palloc(i32 noundef 1, i32 noundef 144, ptr noundef nonnull @.str.4) #7
+  %cmp2.i = icmp eq ptr %call1.i, null
+  br i1 %cmp2.i, label %cleanup, label %if.end4.i
 
-12:                                               ; preds = %8
-  %13 = getelementptr inbounds %struct.gs_state_s, ptr %3, i64 0, i32 8
-  store ptr %10, ptr %13, align 8, !tbaa !16
-  %14 = tail call ptr %0(i32 noundef 1, i32 noundef 56, ptr noundef nonnull @.str.4) #7
-  %15 = icmp eq ptr %14, null
-  br i1 %15, label %51, label %16
+if.end4.i:                                        ; preds = %if.end.i
+  %clip_path.i = getelementptr inbounds %struct.gs_state_s, ptr %call, i64 0, i32 8
+  store ptr %call1.i, ptr %clip_path.i, align 8, !tbaa !16
+  %call5.i = tail call ptr %palloc(i32 noundef 1, i32 noundef 56, ptr noundef nonnull @.str.4) #7
+  %cmp6.i = icmp eq ptr %call5.i, null
+  br i1 %cmp6.i, label %cleanup, label %if.end8.i
 
-16:                                               ; preds = %12
-  %17 = getelementptr inbounds %struct.gs_state_s, ptr %3, i64 0, i32 10
-  store ptr %14, ptr %17, align 8, !tbaa !17
-  %18 = tail call ptr %0(i32 noundef 1, i32 noundef 32, ptr noundef nonnull @.str.4) #7
-  %19 = icmp eq ptr %18, null
-  br i1 %19, label %51, label %20
+if.end8.i:                                        ; preds = %if.end4.i
+  %line_params.i = getelementptr inbounds %struct.gs_state_s, ptr %call, i64 0, i32 10
+  store ptr %call5.i, ptr %line_params.i, align 8, !tbaa !17
+  %call9.i = tail call ptr %palloc(i32 noundef 1, i32 noundef 32, ptr noundef nonnull @.str.4) #7
+  %cmp10.i = icmp eq ptr %call9.i, null
+  br i1 %cmp10.i, label %cleanup, label %if.end12.i
 
-20:                                               ; preds = %16
-  %21 = getelementptr inbounds %struct.gs_state_s, ptr %3, i64 0, i32 11
-  store ptr %18, ptr %21, align 8, !tbaa !18
-  %22 = tail call ptr %0(i32 noundef 1, i32 noundef 10, ptr noundef nonnull @.str.4) #7
-  %23 = icmp eq ptr %22, null
-  br i1 %23, label %51, label %24
+if.end12.i:                                       ; preds = %if.end8.i
+  %halftone.i = getelementptr inbounds %struct.gs_state_s, ptr %call, i64 0, i32 11
+  store ptr %call9.i, ptr %halftone.i, align 8, !tbaa !18
+  %call13.i = tail call ptr %palloc(i32 noundef 1, i32 noundef 10, ptr noundef nonnull @.str.4) #7
+  %cmp14.i = icmp eq ptr %call13.i, null
+  br i1 %cmp14.i, label %cleanup, label %if.end16.i
 
-24:                                               ; preds = %20
-  %25 = getelementptr inbounds %struct.gs_state_s, ptr %3, i64 0, i32 13
-  store ptr %22, ptr %25, align 8, !tbaa !19
-  %26 = tail call ptr %0(i32 noundef 1, i32 noundef 32, ptr noundef nonnull @.str.4) #7
-  %27 = icmp eq ptr %26, null
-  br i1 %27, label %51, label %28
+if.end16.i:                                       ; preds = %if.end12.i
+  %color.i = getelementptr inbounds %struct.gs_state_s, ptr %call, i64 0, i32 13
+  store ptr %call13.i, ptr %color.i, align 8, !tbaa !19
+  %call17.i = tail call ptr %palloc(i32 noundef 1, i32 noundef 32, ptr noundef nonnull @.str.4) #7
+  %cmp18.i = icmp eq ptr %call17.i, null
+  br i1 %cmp18.i, label %cleanup, label %if.end20.i
 
-28:                                               ; preds = %24
-  %29 = getelementptr inbounds %struct.gs_state_s, ptr %3, i64 0, i32 14
-  store ptr %26, ptr %29, align 8, !tbaa !20
-  %30 = tail call ptr %0(i32 noundef 1, i32 noundef 32, ptr noundef nonnull @.str.4) #7
-  %31 = icmp eq ptr %30, null
-  br i1 %31, label %51, label %32
+if.end20.i:                                       ; preds = %if.end16.i
+  %dev_color.i = getelementptr inbounds %struct.gs_state_s, ptr %call, i64 0, i32 14
+  store ptr %call17.i, ptr %dev_color.i, align 8, !tbaa !20
+  %call21.i = tail call ptr %palloc(i32 noundef 1, i32 noundef 32, ptr noundef nonnull @.str.4) #7
+  %cmp22.i = icmp eq ptr %call21.i, null
+  br i1 %cmp22.i, label %cleanup, label %if.end4
 
-32:                                               ; preds = %28
-  %33 = getelementptr inbounds %struct.gs_state_s, ptr %3, i64 0, i32 22
-  store ptr %30, ptr %33, align 8, !tbaa !21
-  %34 = getelementptr inbounds %struct.gs_state_s, ptr %3, i64 0, i32 23
-  store i32 0, ptr %34, align 8, !tbaa !22
-  store ptr null, ptr %3, align 8, !tbaa !23
-  %35 = getelementptr inbounds %struct.gs_state_s, ptr %3, i64 0, i32 1
-  store ptr %0, ptr %35, align 8, !tbaa !24
-  %36 = getelementptr inbounds %struct.gs_state_s, ptr %3, i64 0, i32 1, i32 1
-  store ptr %1, ptr %36, align 8, !tbaa !25
-  %37 = load ptr, ptr %9, align 8, !tbaa !5
-  %38 = getelementptr inbounds %struct.gx_path_s, ptr %37, i64 0, i32 4
-  store ptr null, ptr %38, align 8, !tbaa !26
-  %39 = load ptr, ptr %13, align 8, !tbaa !16
-  %40 = getelementptr inbounds %struct.gx_path_s, ptr %39, i64 0, i32 4
-  store ptr null, ptr %40, align 8, !tbaa !26
-  %41 = load ptr, ptr %21, align 8, !tbaa !18
-  %42 = getelementptr inbounds %struct.halftone_s, ptr %41, i64 0, i32 5
-  store i32 0, ptr %42, align 8, !tbaa !30
-  %43 = getelementptr inbounds %struct.halftone_s, ptr %41, i64 0, i32 3
-  store i32 0, ptr %43, align 4, !tbaa !32
-  %44 = getelementptr inbounds %struct.halftone_s, ptr %41, i64 0, i32 2
-  store i32 0, ptr %44, align 8, !tbaa !33
-  tail call void @gs_nulldevice(ptr noundef nonnull %3) #7
-  %45 = getelementptr inbounds %struct.gs_state_s, ptr %3, i64 0, i32 21
-  store float 1.000000e+00, ptr %45, align 8, !tbaa !34
-  %46 = getelementptr inbounds %struct.gs_state_s, ptr %3, i64 0, i32 20
-  store i8 0, ptr %46, align 1, !tbaa !35
-  %47 = getelementptr inbounds %struct.gs_state_s, ptr %3, i64 0, i32 19
-  store i8 0, ptr %47, align 4, !tbaa !36
-  %48 = tail call i32 @gs_initgraphics(ptr noundef nonnull %3), !range !37
-  %49 = icmp slt i32 %48, 0
-  %50 = select i1 %49, ptr null, ptr %3
-  br label %51
+if.end4:                                          ; preds = %if.end20.i
+  %device.i = getelementptr inbounds %struct.gs_state_s, ptr %call, i64 0, i32 22
+  store ptr %call21.i, ptr %device.i, align 8, !tbaa !21
+  %device_is_shared.i = getelementptr inbounds %struct.gs_state_s, ptr %call, i64 0, i32 23
+  store i32 0, ptr %device_is_shared.i, align 8, !tbaa !22
+  store ptr null, ptr %call, align 8, !tbaa !23
+  %memory_procs = getelementptr inbounds %struct.gs_state_s, ptr %call, i64 0, i32 1
+  store ptr %palloc, ptr %memory_procs, align 8, !tbaa !24
+  %free = getelementptr inbounds %struct.gs_state_s, ptr %call, i64 0, i32 1, i32 1
+  store ptr %pfree, ptr %free, align 8, !tbaa !25
+  %0 = load ptr, ptr %path.i, align 8, !tbaa !5
+  %first_subpath = getelementptr inbounds %struct.gx_path_s, ptr %0, i64 0, i32 4
+  store ptr null, ptr %first_subpath, align 8, !tbaa !26
+  %1 = load ptr, ptr %clip_path.i, align 8, !tbaa !16
+  %first_subpath6 = getelementptr inbounds %struct.gx_path_s, ptr %1, i64 0, i32 4
+  store ptr null, ptr %first_subpath6, align 8, !tbaa !26
+  %2 = load ptr, ptr %halftone.i, align 8, !tbaa !18
+  %order_size = getelementptr inbounds %struct.halftone_s, ptr %2, i64 0, i32 5
+  store i32 0, ptr %order_size, align 8, !tbaa !30
+  %height = getelementptr inbounds %struct.halftone_s, ptr %2, i64 0, i32 3
+  store i32 0, ptr %height, align 4, !tbaa !32
+  %width = getelementptr inbounds %struct.halftone_s, ptr %2, i64 0, i32 2
+  store i32 0, ptr %width, align 8, !tbaa !33
+  tail call void @gs_nulldevice(ptr noundef nonnull %call) #7
+  %flatness.i = getelementptr inbounds %struct.gs_state_s, ptr %call, i64 0, i32 21
+  store float 1.000000e+00, ptr %flatness.i, align 8, !tbaa !34
+  %in_charpath = getelementptr inbounds %struct.gs_state_s, ptr %call, i64 0, i32 20
+  store i8 0, ptr %in_charpath, align 1, !tbaa !35
+  %in_cachedevice = getelementptr inbounds %struct.gs_state_s, ptr %call, i64 0, i32 19
+  store i8 0, ptr %in_cachedevice, align 4, !tbaa !36
+  %call10 = tail call i32 @gs_initgraphics(ptr noundef nonnull %call), !range !37
+  %cmp11 = icmp slt i32 %call10, 0
+  %.call = select i1 %cmp11, ptr null, ptr %call
+  br label %cleanup
 
-51:                                               ; preds = %32, %28, %24, %20, %16, %12, %8, %5, %2
-  %52 = phi ptr [ null, %2 ], [ null, %5 ], [ null, %8 ], [ null, %12 ], [ null, %16 ], [ null, %20 ], [ null, %24 ], [ null, %28 ], [ %50, %32 ]
-  ret ptr %52
+cleanup:                                          ; preds = %if.end20.i, %if.end16.i, %if.end12.i, %if.end8.i, %if.end4.i, %if.end.i, %if.end, %if.end4, %entry
+  %retval.0 = phi ptr [ null, %entry ], [ %.call, %if.end4 ], [ null, %if.end ], [ null, %if.end.i ], [ null, %if.end4.i ], [ null, %if.end8.i ], [ null, %if.end12.i ], [ null, %if.end16.i ], [ null, %if.end20.i ]
+  ret ptr %retval.0
 }
 
 ; Function Attrs: nounwind uwtable
-define dso_local i32 @alloc_state_contents(ptr nocapture noundef writeonly %0, ptr nocapture noundef readonly %1) local_unnamed_addr #0 {
-  %3 = tail call ptr %1(i32 noundef 1, i32 noundef 144, ptr noundef nonnull @.str.4) #7
-  %4 = icmp eq ptr %3, null
-  br i1 %4, label %32, label %5
+define dso_local i32 @alloc_state_contents(ptr nocapture noundef writeonly %pgs, ptr nocapture noundef readonly %palloc) local_unnamed_addr #0 {
+entry:
+  %call = tail call ptr %palloc(i32 noundef 1, i32 noundef 144, ptr noundef nonnull @.str.4) #7
+  %cmp = icmp eq ptr %call, null
+  br i1 %cmp, label %cleanup, label %if.end
 
-5:                                                ; preds = %2
-  %6 = getelementptr inbounds %struct.gs_state_s, ptr %0, i64 0, i32 7
-  store ptr %3, ptr %6, align 8, !tbaa !5
-  %7 = tail call ptr %1(i32 noundef 1, i32 noundef 144, ptr noundef nonnull @.str.4) #7
-  %8 = icmp eq ptr %7, null
-  br i1 %8, label %32, label %9
+if.end:                                           ; preds = %entry
+  %path = getelementptr inbounds %struct.gs_state_s, ptr %pgs, i64 0, i32 7
+  store ptr %call, ptr %path, align 8, !tbaa !5
+  %call1 = tail call ptr %palloc(i32 noundef 1, i32 noundef 144, ptr noundef nonnull @.str.4) #7
+  %cmp2 = icmp eq ptr %call1, null
+  br i1 %cmp2, label %cleanup, label %if.end4
 
-9:                                                ; preds = %5
-  %10 = getelementptr inbounds %struct.gs_state_s, ptr %0, i64 0, i32 8
-  store ptr %7, ptr %10, align 8, !tbaa !16
-  %11 = tail call ptr %1(i32 noundef 1, i32 noundef 56, ptr noundef nonnull @.str.4) #7
-  %12 = icmp eq ptr %11, null
-  br i1 %12, label %32, label %13
+if.end4:                                          ; preds = %if.end
+  %clip_path = getelementptr inbounds %struct.gs_state_s, ptr %pgs, i64 0, i32 8
+  store ptr %call1, ptr %clip_path, align 8, !tbaa !16
+  %call5 = tail call ptr %palloc(i32 noundef 1, i32 noundef 56, ptr noundef nonnull @.str.4) #7
+  %cmp6 = icmp eq ptr %call5, null
+  br i1 %cmp6, label %cleanup, label %if.end8
 
-13:                                               ; preds = %9
-  %14 = getelementptr inbounds %struct.gs_state_s, ptr %0, i64 0, i32 10
-  store ptr %11, ptr %14, align 8, !tbaa !17
-  %15 = tail call ptr %1(i32 noundef 1, i32 noundef 32, ptr noundef nonnull @.str.4) #7
-  %16 = icmp eq ptr %15, null
-  br i1 %16, label %32, label %17
+if.end8:                                          ; preds = %if.end4
+  %line_params = getelementptr inbounds %struct.gs_state_s, ptr %pgs, i64 0, i32 10
+  store ptr %call5, ptr %line_params, align 8, !tbaa !17
+  %call9 = tail call ptr %palloc(i32 noundef 1, i32 noundef 32, ptr noundef nonnull @.str.4) #7
+  %cmp10 = icmp eq ptr %call9, null
+  br i1 %cmp10, label %cleanup, label %if.end12
 
-17:                                               ; preds = %13
-  %18 = getelementptr inbounds %struct.gs_state_s, ptr %0, i64 0, i32 11
-  store ptr %15, ptr %18, align 8, !tbaa !18
-  %19 = tail call ptr %1(i32 noundef 1, i32 noundef 10, ptr noundef nonnull @.str.4) #7
-  %20 = icmp eq ptr %19, null
-  br i1 %20, label %32, label %21
+if.end12:                                         ; preds = %if.end8
+  %halftone = getelementptr inbounds %struct.gs_state_s, ptr %pgs, i64 0, i32 11
+  store ptr %call9, ptr %halftone, align 8, !tbaa !18
+  %call13 = tail call ptr %palloc(i32 noundef 1, i32 noundef 10, ptr noundef nonnull @.str.4) #7
+  %cmp14 = icmp eq ptr %call13, null
+  br i1 %cmp14, label %cleanup, label %if.end16
 
-21:                                               ; preds = %17
-  %22 = getelementptr inbounds %struct.gs_state_s, ptr %0, i64 0, i32 13
-  store ptr %19, ptr %22, align 8, !tbaa !19
-  %23 = tail call ptr %1(i32 noundef 1, i32 noundef 32, ptr noundef nonnull @.str.4) #7
-  %24 = icmp eq ptr %23, null
-  br i1 %24, label %32, label %25
+if.end16:                                         ; preds = %if.end12
+  %color = getelementptr inbounds %struct.gs_state_s, ptr %pgs, i64 0, i32 13
+  store ptr %call13, ptr %color, align 8, !tbaa !19
+  %call17 = tail call ptr %palloc(i32 noundef 1, i32 noundef 32, ptr noundef nonnull @.str.4) #7
+  %cmp18 = icmp eq ptr %call17, null
+  br i1 %cmp18, label %cleanup, label %if.end20
 
-25:                                               ; preds = %21
-  %26 = getelementptr inbounds %struct.gs_state_s, ptr %0, i64 0, i32 14
-  store ptr %23, ptr %26, align 8, !tbaa !20
-  %27 = tail call ptr %1(i32 noundef 1, i32 noundef 32, ptr noundef nonnull @.str.4) #7
-  %28 = icmp eq ptr %27, null
-  br i1 %28, label %32, label %29
+if.end20:                                         ; preds = %if.end16
+  %dev_color = getelementptr inbounds %struct.gs_state_s, ptr %pgs, i64 0, i32 14
+  store ptr %call17, ptr %dev_color, align 8, !tbaa !20
+  %call21 = tail call ptr %palloc(i32 noundef 1, i32 noundef 32, ptr noundef nonnull @.str.4) #7
+  %cmp22 = icmp eq ptr %call21, null
+  br i1 %cmp22, label %cleanup, label %if.end24
 
-29:                                               ; preds = %25
-  %30 = getelementptr inbounds %struct.gs_state_s, ptr %0, i64 0, i32 22
-  store ptr %27, ptr %30, align 8, !tbaa !21
-  %31 = getelementptr inbounds %struct.gs_state_s, ptr %0, i64 0, i32 23
-  store i32 0, ptr %31, align 8, !tbaa !22
-  br label %32
+if.end24:                                         ; preds = %if.end20
+  %device = getelementptr inbounds %struct.gs_state_s, ptr %pgs, i64 0, i32 22
+  store ptr %call21, ptr %device, align 8, !tbaa !21
+  %device_is_shared = getelementptr inbounds %struct.gs_state_s, ptr %pgs, i64 0, i32 23
+  store i32 0, ptr %device_is_shared, align 8, !tbaa !22
+  br label %cleanup
 
-32:                                               ; preds = %25, %21, %17, %13, %9, %5, %2, %29
-  %33 = phi i32 [ 0, %29 ], [ -1, %2 ], [ -1, %5 ], [ -1, %9 ], [ -1, %13 ], [ -1, %17 ], [ -1, %21 ], [ -1, %25 ]
-  ret i32 %33
+cleanup:                                          ; preds = %if.end20, %if.end16, %if.end12, %if.end8, %if.end4, %if.end, %entry, %if.end24
+  %retval.0 = phi i32 [ 0, %if.end24 ], [ -1, %entry ], [ -1, %if.end ], [ -1, %if.end4 ], [ -1, %if.end8 ], [ -1, %if.end12 ], [ -1, %if.end16 ], [ -1, %if.end20 ]
+  ret i32 %retval.0
 }
 
 declare void @gs_nulldevice(ptr noundef) local_unnamed_addr #1
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(argmem: write) uwtable
-define dso_local i32 @gs_setflat(ptr nocapture noundef writeonly %0, double noundef %1) local_unnamed_addr #2 {
-  %3 = fcmp ugt double %1, 0.000000e+00
-  br i1 %3, label %4, label %7
+define dso_local i32 @gs_setflat(ptr nocapture noundef writeonly %pgs, double noundef %flat) local_unnamed_addr #2 {
+entry:
+  %cmp = fcmp ugt double %flat, 0.000000e+00
+  br i1 %cmp, label %if.end, label %return
 
-4:                                                ; preds = %2
-  %5 = fptrunc double %1 to float
-  %6 = getelementptr inbounds %struct.gs_state_s, ptr %0, i64 0, i32 21
-  store float %5, ptr %6, align 8, !tbaa !34
-  br label %7
+if.end:                                           ; preds = %entry
+  %conv = fptrunc double %flat to float
+  %flatness = getelementptr inbounds %struct.gs_state_s, ptr %pgs, i64 0, i32 21
+  store float %conv, ptr %flatness, align 8, !tbaa !34
+  br label %return
 
-7:                                                ; preds = %2, %4
-  %8 = phi i32 [ 0, %4 ], [ -15, %2 ]
-  ret i32 %8
+return:                                           ; preds = %entry, %if.end
+  %retval.0 = phi i32 [ 0, %if.end ], [ -15, %entry ]
+  ret i32 %retval.0
 }
 
 ; Function Attrs: nounwind uwtable
-define dso_local i32 @gs_initgraphics(ptr noundef %0) local_unnamed_addr #0 {
-  %2 = tail call i32 (ptr, ...) @gs_initmatrix(ptr noundef %0) #7
-  %3 = tail call i32 (ptr, ...) @gs_newpath(ptr noundef %0) #7
-  %4 = icmp slt i32 %3, 0
-  br i1 %4, label %26, label %5
+define dso_local i32 @gs_initgraphics(ptr noundef %pgs) local_unnamed_addr #0 {
+entry:
+  %call = tail call i32 (ptr, ...) @gs_initmatrix(ptr noundef %pgs) #7
+  %call1 = tail call i32 (ptr, ...) @gs_newpath(ptr noundef %pgs) #7
+  %cmp = icmp slt i32 %call1, 0
+  br i1 %cmp, label %cleanup, label %lor.lhs.false
 
-5:                                                ; preds = %1
-  %6 = tail call i32 (ptr, ...) @gs_initclip(ptr noundef %0) #7
-  %7 = icmp slt i32 %6, 0
-  br i1 %7, label %26, label %8
+lor.lhs.false:                                    ; preds = %entry
+  %call2 = tail call i32 (ptr, ...) @gs_initclip(ptr noundef %pgs) #7
+  %cmp3 = icmp slt i32 %call2, 0
+  br i1 %cmp3, label %cleanup, label %lor.lhs.false4
 
-8:                                                ; preds = %5
-  %9 = tail call i32 @gs_setlinewidth(ptr noundef %0, double noundef 1.000000e+00) #7
-  %10 = icmp slt i32 %9, 0
-  br i1 %10, label %26, label %11
+lor.lhs.false4:                                   ; preds = %lor.lhs.false
+  %call5 = tail call i32 @gs_setlinewidth(ptr noundef %pgs, double noundef 1.000000e+00) #7
+  %cmp6 = icmp slt i32 %call5, 0
+  br i1 %cmp6, label %cleanup, label %lor.lhs.false7
 
-11:                                               ; preds = %8
-  %12 = tail call i32 @gs_setlinecap(ptr noundef %0, i32 noundef 0) #7
-  %13 = icmp slt i32 %12, 0
-  br i1 %13, label %26, label %14
+lor.lhs.false7:                                   ; preds = %lor.lhs.false4
+  %call8 = tail call i32 @gs_setlinecap(ptr noundef %pgs, i32 noundef 0) #7
+  %cmp9 = icmp slt i32 %call8, 0
+  br i1 %cmp9, label %cleanup, label %lor.lhs.false10
 
-14:                                               ; preds = %11
-  %15 = tail call i32 @gs_setlinejoin(ptr noundef %0, i32 noundef 0) #7
-  %16 = icmp slt i32 %15, 0
-  br i1 %16, label %26, label %17
+lor.lhs.false10:                                  ; preds = %lor.lhs.false7
+  %call11 = tail call i32 @gs_setlinejoin(ptr noundef %pgs, i32 noundef 0) #7
+  %cmp12 = icmp slt i32 %call11, 0
+  br i1 %cmp12, label %cleanup, label %lor.lhs.false13
 
-17:                                               ; preds = %14
-  %18 = tail call i32 @gs_setdash(ptr noundef %0, ptr noundef null, i32 noundef 0, double noundef 0.000000e+00) #7
-  %19 = icmp slt i32 %18, 0
-  br i1 %19, label %26, label %20
+lor.lhs.false13:                                  ; preds = %lor.lhs.false10
+  %call14 = tail call i32 @gs_setdash(ptr noundef %pgs, ptr noundef null, i32 noundef 0, double noundef 0.000000e+00) #7
+  %cmp15 = icmp slt i32 %call14, 0
+  br i1 %cmp15, label %cleanup, label %lor.lhs.false16
 
-20:                                               ; preds = %17
-  %21 = tail call i32 @gs_setgray(ptr noundef %0, double noundef 0.000000e+00) #7
-  %22 = icmp slt i32 %21, 0
-  br i1 %22, label %26, label %23
+lor.lhs.false16:                                  ; preds = %lor.lhs.false13
+  %call17 = tail call i32 @gs_setgray(ptr noundef %pgs, double noundef 0.000000e+00) #7
+  %cmp18 = icmp slt i32 %call17, 0
+  br i1 %cmp18, label %cleanup, label %lor.lhs.false19
 
-23:                                               ; preds = %20
-  %24 = tail call i32 @gs_setmiterlimit(ptr noundef %0, double noundef 1.000000e+01) #7
-  %25 = tail call i32 @llvm.smin.i32(i32 %24, i32 0)
-  br label %26
+lor.lhs.false19:                                  ; preds = %lor.lhs.false16
+  %call20 = tail call i32 @gs_setmiterlimit(ptr noundef %pgs, double noundef 1.000000e+01) #7
+  %spec.select = tail call i32 @llvm.smin.i32(i32 %call20, i32 0)
+  br label %cleanup
 
-26:                                               ; preds = %23, %1, %5, %8, %11, %14, %17, %20
-  %27 = phi i32 [ %3, %1 ], [ %6, %5 ], [ %9, %8 ], [ %12, %11 ], [ %15, %14 ], [ %18, %17 ], [ %21, %20 ], [ %25, %23 ]
-  ret i32 %27
+cleanup:                                          ; preds = %lor.lhs.false19, %entry, %lor.lhs.false, %lor.lhs.false4, %lor.lhs.false7, %lor.lhs.false10, %lor.lhs.false13, %lor.lhs.false16
+  %retval.0 = phi i32 [ %call1, %entry ], [ %call2, %lor.lhs.false ], [ %call5, %lor.lhs.false4 ], [ %call8, %lor.lhs.false7 ], [ %call11, %lor.lhs.false10 ], [ %call14, %lor.lhs.false13 ], [ %call17, %lor.lhs.false16 ], [ %spec.select, %lor.lhs.false19 ]
+  ret i32 %retval.0
 }
 
 ; Function Attrs: nounwind uwtable
-define dso_local i32 @gs_state_free(ptr noundef %0) local_unnamed_addr #0 {
-  tail call void @free_state_contents(ptr noundef %0)
-  %2 = getelementptr inbounds %struct.gs_state_s, ptr %0, i64 0, i32 1, i32 1
-  %3 = load ptr, ptr %2, align 8, !tbaa !25
-  tail call void %3(ptr noundef %0, i32 noundef 1, i32 noundef 464, ptr noundef nonnull @.str.1) #7
+define dso_local i32 @gs_state_free(ptr noundef %pgs) local_unnamed_addr #0 {
+entry:
+  tail call void @free_state_contents(ptr noundef %pgs)
+  %free = getelementptr inbounds %struct.gs_state_s, ptr %pgs, i64 0, i32 1, i32 1
+  %0 = load ptr, ptr %free, align 8, !tbaa !25
+  tail call void %0(ptr noundef %pgs, i32 noundef 1, i32 noundef 464, ptr noundef nonnull @.str.1) #7
   ret i32 0
 }
 
 ; Function Attrs: nounwind uwtable
-define dso_local void @free_state_contents(ptr nocapture noundef readonly %0) local_unnamed_addr #0 {
-  %2 = getelementptr inbounds %struct.gs_state_s, ptr %0, i64 0, i32 1, i32 1
-  %3 = load ptr, ptr %2, align 8, !tbaa !25
-  %4 = getelementptr inbounds %struct.gs_state_s, ptr %0, i64 0, i32 8
-  %5 = load ptr, ptr %4, align 8, !tbaa !16
-  tail call void @gx_path_release(ptr noundef %5) #7
-  %6 = getelementptr inbounds %struct.gs_state_s, ptr %0, i64 0, i32 7
-  %7 = load ptr, ptr %6, align 8, !tbaa !5
-  tail call void @gx_path_release(ptr noundef %7) #7
-  %8 = getelementptr inbounds %struct.gs_state_s, ptr %0, i64 0, i32 23
-  %9 = load i32, ptr %8, align 8, !tbaa !22
-  %10 = icmp eq i32 %9, 0
-  br i1 %10, label %11, label %14
+define dso_local void @free_state_contents(ptr nocapture noundef readonly %pgs) local_unnamed_addr #0 {
+entry:
+  %free = getelementptr inbounds %struct.gs_state_s, ptr %pgs, i64 0, i32 1, i32 1
+  %0 = load ptr, ptr %free, align 8, !tbaa !25
+  %clip_path = getelementptr inbounds %struct.gs_state_s, ptr %pgs, i64 0, i32 8
+  %1 = load ptr, ptr %clip_path, align 8, !tbaa !16
+  tail call void @gx_path_release(ptr noundef %1) #7
+  %path = getelementptr inbounds %struct.gs_state_s, ptr %pgs, i64 0, i32 7
+  %2 = load ptr, ptr %path, align 8, !tbaa !5
+  tail call void @gx_path_release(ptr noundef %2) #7
+  %device_is_shared = getelementptr inbounds %struct.gs_state_s, ptr %pgs, i64 0, i32 23
+  %3 = load i32, ptr %device_is_shared, align 8, !tbaa !22
+  %tobool.not = icmp eq i32 %3, 0
+  br i1 %tobool.not, label %if.then, label %if.end
 
-11:                                               ; preds = %1
-  %12 = getelementptr inbounds %struct.gs_state_s, ptr %0, i64 0, i32 22
-  %13 = load ptr, ptr %12, align 8, !tbaa !21
-  tail call void %3(ptr noundef %13, i32 noundef 1, i32 noundef 32, ptr noundef nonnull @.str.5) #7
-  br label %14
+if.then:                                          ; preds = %entry
+  %device = getelementptr inbounds %struct.gs_state_s, ptr %pgs, i64 0, i32 22
+  %4 = load ptr, ptr %device, align 8, !tbaa !21
+  tail call void %0(ptr noundef %4, i32 noundef 1, i32 noundef 32, ptr noundef nonnull @.str.5) #7
+  br label %if.end
 
-14:                                               ; preds = %11, %1
-  %15 = getelementptr inbounds %struct.gs_state_s, ptr %0, i64 0, i32 14
-  %16 = load ptr, ptr %15, align 8, !tbaa !20
-  tail call void %3(ptr noundef %16, i32 noundef 1, i32 noundef 32, ptr noundef nonnull @.str.5) #7
-  %17 = getelementptr inbounds %struct.gs_state_s, ptr %0, i64 0, i32 13
-  %18 = load ptr, ptr %17, align 8, !tbaa !19
-  tail call void %3(ptr noundef %18, i32 noundef 1, i32 noundef 10, ptr noundef nonnull @.str.5) #7
-  %19 = getelementptr inbounds %struct.gs_state_s, ptr %0, i64 0, i32 11
-  %20 = load ptr, ptr %19, align 8, !tbaa !18
-  tail call void %3(ptr noundef %20, i32 noundef 1, i32 noundef 32, ptr noundef nonnull @.str.5) #7
-  %21 = getelementptr inbounds %struct.gs_state_s, ptr %0, i64 0, i32 10
-  %22 = load ptr, ptr %21, align 8, !tbaa !17
-  tail call void %3(ptr noundef %22, i32 noundef 1, i32 noundef 56, ptr noundef nonnull @.str.5) #7
-  %23 = load ptr, ptr %4, align 8, !tbaa !16
-  tail call void %3(ptr noundef %23, i32 noundef 1, i32 noundef 144, ptr noundef nonnull @.str.5) #7
-  %24 = load ptr, ptr %6, align 8, !tbaa !5
-  tail call void %3(ptr noundef %24, i32 noundef 1, i32 noundef 144, ptr noundef nonnull @.str.5) #7
+if.end:                                           ; preds = %if.then, %entry
+  %dev_color = getelementptr inbounds %struct.gs_state_s, ptr %pgs, i64 0, i32 14
+  %5 = load ptr, ptr %dev_color, align 8, !tbaa !20
+  tail call void %0(ptr noundef %5, i32 noundef 1, i32 noundef 32, ptr noundef nonnull @.str.5) #7
+  %color = getelementptr inbounds %struct.gs_state_s, ptr %pgs, i64 0, i32 13
+  %6 = load ptr, ptr %color, align 8, !tbaa !19
+  tail call void %0(ptr noundef %6, i32 noundef 1, i32 noundef 10, ptr noundef nonnull @.str.5) #7
+  %halftone = getelementptr inbounds %struct.gs_state_s, ptr %pgs, i64 0, i32 11
+  %7 = load ptr, ptr %halftone, align 8, !tbaa !18
+  tail call void %0(ptr noundef %7, i32 noundef 1, i32 noundef 32, ptr noundef nonnull @.str.5) #7
+  %line_params = getelementptr inbounds %struct.gs_state_s, ptr %pgs, i64 0, i32 10
+  %8 = load ptr, ptr %line_params, align 8, !tbaa !17
+  tail call void %0(ptr noundef %8, i32 noundef 1, i32 noundef 56, ptr noundef nonnull @.str.5) #7
+  %9 = load ptr, ptr %clip_path, align 8, !tbaa !16
+  tail call void %0(ptr noundef %9, i32 noundef 1, i32 noundef 144, ptr noundef nonnull @.str.5) #7
+  %10 = load ptr, ptr %path, align 8, !tbaa !5
+  tail call void %0(ptr noundef %10, i32 noundef 1, i32 noundef 144, ptr noundef nonnull @.str.5) #7
   ret void
 }
 
 ; Function Attrs: nounwind uwtable
-define dso_local i32 @gs_gsave(ptr nocapture noundef %0) local_unnamed_addr #0 {
-  %2 = getelementptr inbounds %struct.gs_state_s, ptr %0, i64 0, i32 1
-  %3 = load ptr, ptr %2, align 8, !tbaa !24
-  %4 = tail call ptr %3(i32 noundef 1, i32 noundef 464, ptr noundef nonnull @.str.2) #7
-  %5 = icmp eq ptr %4, null
-  br i1 %5, label %60, label %6
+define dso_local i32 @gs_gsave(ptr nocapture noundef %pgs) local_unnamed_addr #0 {
+entry:
+  %memory_procs = getelementptr inbounds %struct.gs_state_s, ptr %pgs, i64 0, i32 1
+  %0 = load ptr, ptr %memory_procs, align 8, !tbaa !24
+  %call = tail call ptr %0(i32 noundef 1, i32 noundef 464, ptr noundef nonnull @.str.2) #7
+  %cmp = icmp eq ptr %call, null
+  br i1 %cmp, label %cleanup, label %if.end
 
-6:                                                ; preds = %1
-  tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(464) %4, ptr noundef nonnull align 8 dereferenceable(464) %0, i64 464, i1 false), !tbaa.struct !38
-  %7 = load ptr, ptr %2, align 8, !tbaa !24
-  %8 = tail call ptr %7(i32 noundef 1, i32 noundef 144, ptr noundef nonnull @.str.4) #7
-  %9 = icmp eq ptr %8, null
-  br i1 %9, label %60, label %10
+if.end:                                           ; preds = %entry
+  tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(464) %call, ptr noundef nonnull align 8 dereferenceable(464) %pgs, i64 464, i1 false), !tbaa.struct !38
+  %1 = load ptr, ptr %memory_procs, align 8, !tbaa !24
+  %call.i = tail call ptr %1(i32 noundef 1, i32 noundef 144, ptr noundef nonnull @.str.4) #7
+  %cmp.i = icmp eq ptr %call.i, null
+  br i1 %cmp.i, label %cleanup, label %if.end.i
 
-10:                                               ; preds = %6
-  %11 = getelementptr inbounds %struct.gs_state_s, ptr %0, i64 0, i32 7
-  store ptr %8, ptr %11, align 8, !tbaa !5
-  %12 = tail call ptr %7(i32 noundef 1, i32 noundef 144, ptr noundef nonnull @.str.4) #7
-  %13 = icmp eq ptr %12, null
-  br i1 %13, label %60, label %14
+if.end.i:                                         ; preds = %if.end
+  %path.i = getelementptr inbounds %struct.gs_state_s, ptr %pgs, i64 0, i32 7
+  store ptr %call.i, ptr %path.i, align 8, !tbaa !5
+  %call1.i = tail call ptr %1(i32 noundef 1, i32 noundef 144, ptr noundef nonnull @.str.4) #7
+  %cmp2.i = icmp eq ptr %call1.i, null
+  br i1 %cmp2.i, label %cleanup, label %if.end4.i
 
-14:                                               ; preds = %10
-  %15 = getelementptr inbounds %struct.gs_state_s, ptr %0, i64 0, i32 8
-  store ptr %12, ptr %15, align 8, !tbaa !16
-  %16 = tail call ptr %7(i32 noundef 1, i32 noundef 56, ptr noundef nonnull @.str.4) #7
-  %17 = icmp eq ptr %16, null
-  br i1 %17, label %60, label %18
+if.end4.i:                                        ; preds = %if.end.i
+  %clip_path.i = getelementptr inbounds %struct.gs_state_s, ptr %pgs, i64 0, i32 8
+  store ptr %call1.i, ptr %clip_path.i, align 8, !tbaa !16
+  %call5.i = tail call ptr %1(i32 noundef 1, i32 noundef 56, ptr noundef nonnull @.str.4) #7
+  %cmp6.i = icmp eq ptr %call5.i, null
+  br i1 %cmp6.i, label %cleanup, label %if.end8.i
 
-18:                                               ; preds = %14
-  %19 = getelementptr inbounds %struct.gs_state_s, ptr %0, i64 0, i32 10
-  store ptr %16, ptr %19, align 8, !tbaa !17
-  %20 = tail call ptr %7(i32 noundef 1, i32 noundef 32, ptr noundef nonnull @.str.4) #7
-  %21 = icmp eq ptr %20, null
-  br i1 %21, label %60, label %22
+if.end8.i:                                        ; preds = %if.end4.i
+  %line_params.i = getelementptr inbounds %struct.gs_state_s, ptr %pgs, i64 0, i32 10
+  store ptr %call5.i, ptr %line_params.i, align 8, !tbaa !17
+  %call9.i = tail call ptr %1(i32 noundef 1, i32 noundef 32, ptr noundef nonnull @.str.4) #7
+  %cmp10.i = icmp eq ptr %call9.i, null
+  br i1 %cmp10.i, label %cleanup, label %if.end12.i
 
-22:                                               ; preds = %18
-  %23 = getelementptr inbounds %struct.gs_state_s, ptr %0, i64 0, i32 11
-  store ptr %20, ptr %23, align 8, !tbaa !18
-  %24 = tail call ptr %7(i32 noundef 1, i32 noundef 10, ptr noundef nonnull @.str.4) #7
-  %25 = icmp eq ptr %24, null
-  br i1 %25, label %60, label %26
+if.end12.i:                                       ; preds = %if.end8.i
+  %halftone.i = getelementptr inbounds %struct.gs_state_s, ptr %pgs, i64 0, i32 11
+  store ptr %call9.i, ptr %halftone.i, align 8, !tbaa !18
+  %call13.i = tail call ptr %1(i32 noundef 1, i32 noundef 10, ptr noundef nonnull @.str.4) #7
+  %cmp14.i = icmp eq ptr %call13.i, null
+  br i1 %cmp14.i, label %cleanup, label %if.end16.i
 
-26:                                               ; preds = %22
-  %27 = getelementptr inbounds %struct.gs_state_s, ptr %0, i64 0, i32 13
-  store ptr %24, ptr %27, align 8, !tbaa !19
-  %28 = tail call ptr %7(i32 noundef 1, i32 noundef 32, ptr noundef nonnull @.str.4) #7
-  %29 = icmp eq ptr %28, null
-  br i1 %29, label %60, label %30
+if.end16.i:                                       ; preds = %if.end12.i
+  %color.i = getelementptr inbounds %struct.gs_state_s, ptr %pgs, i64 0, i32 13
+  store ptr %call13.i, ptr %color.i, align 8, !tbaa !19
+  %call17.i = tail call ptr %1(i32 noundef 1, i32 noundef 32, ptr noundef nonnull @.str.4) #7
+  %cmp18.i = icmp eq ptr %call17.i, null
+  br i1 %cmp18.i, label %cleanup, label %if.end20.i
 
-30:                                               ; preds = %26
-  %31 = getelementptr inbounds %struct.gs_state_s, ptr %0, i64 0, i32 14
-  store ptr %28, ptr %31, align 8, !tbaa !20
-  %32 = tail call ptr %7(i32 noundef 1, i32 noundef 32, ptr noundef nonnull @.str.4) #7
-  %33 = icmp eq ptr %32, null
-  br i1 %33, label %60, label %34
+if.end20.i:                                       ; preds = %if.end16.i
+  %dev_color.i = getelementptr inbounds %struct.gs_state_s, ptr %pgs, i64 0, i32 14
+  store ptr %call17.i, ptr %dev_color.i, align 8, !tbaa !20
+  %call21.i = tail call ptr %1(i32 noundef 1, i32 noundef 32, ptr noundef nonnull @.str.4) #7
+  %cmp22.i = icmp eq ptr %call21.i, null
+  br i1 %cmp22.i, label %cleanup, label %if.end6
 
-34:                                               ; preds = %30
-  %35 = getelementptr inbounds %struct.gs_state_s, ptr %0, i64 0, i32 22
-  store ptr %32, ptr %35, align 8, !tbaa !21
-  %36 = getelementptr inbounds %struct.gs_state_s, ptr %0, i64 0, i32 23
-  store i32 0, ptr %36, align 8, !tbaa !22
-  %37 = load ptr, ptr %11, align 8, !tbaa !5
-  %38 = getelementptr inbounds %struct.gs_state_s, ptr %4, i64 0, i32 7
-  %39 = load ptr, ptr %38, align 8, !tbaa !5
-  tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(144) %37, ptr noundef nonnull align 8 dereferenceable(144) %39, i64 144, i1 false), !tbaa.struct !44
-  %40 = load ptr, ptr %15, align 8, !tbaa !16
-  %41 = getelementptr inbounds %struct.gs_state_s, ptr %4, i64 0, i32 8
-  %42 = load ptr, ptr %41, align 8, !tbaa !16
-  tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(144) %40, ptr noundef nonnull align 8 dereferenceable(144) %42, i64 144, i1 false), !tbaa.struct !44
-  %43 = load ptr, ptr %19, align 8, !tbaa !17
-  %44 = getelementptr inbounds %struct.gs_state_s, ptr %4, i64 0, i32 10
-  %45 = load ptr, ptr %44, align 8, !tbaa !17
-  tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(56) %43, ptr noundef nonnull align 8 dereferenceable(56) %45, i64 56, i1 false), !tbaa.struct !45
-  %46 = load ptr, ptr %23, align 8, !tbaa !18
-  %47 = getelementptr inbounds %struct.gs_state_s, ptr %4, i64 0, i32 11
-  %48 = load ptr, ptr %47, align 8, !tbaa !18
-  tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(32) %46, ptr noundef nonnull align 8 dereferenceable(32) %48, i64 32, i1 false), !tbaa.struct !46
-  %49 = load ptr, ptr %27, align 8, !tbaa !19
-  %50 = getelementptr inbounds %struct.gs_state_s, ptr %4, i64 0, i32 13
-  %51 = load ptr, ptr %50, align 8, !tbaa !19
-  tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 2 dereferenceable(10) %49, ptr noundef nonnull align 2 dereferenceable(10) %51, i64 10, i1 false), !tbaa.struct !47
-  %52 = load ptr, ptr %31, align 8, !tbaa !20
-  %53 = getelementptr inbounds %struct.gs_state_s, ptr %4, i64 0, i32 14
-  %54 = load ptr, ptr %53, align 8, !tbaa !20
-  tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(32) %52, ptr noundef nonnull align 8 dereferenceable(32) %54, i64 32, i1 false), !tbaa.struct !50
-  %55 = load ptr, ptr %35, align 8, !tbaa !21
-  %56 = getelementptr inbounds %struct.gs_state_s, ptr %4, i64 0, i32 22
-  %57 = load ptr, ptr %56, align 8, !tbaa !21
-  tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(32) %55, ptr noundef nonnull align 8 dereferenceable(32) %57, i64 32, i1 false), !tbaa.struct !51
-  %58 = load ptr, ptr %11, align 8, !tbaa !5
-  tail call void @gx_path_share(ptr noundef %58) #7
-  %59 = load ptr, ptr %15, align 8, !tbaa !16
-  tail call void @gx_path_share(ptr noundef %59) #7
-  store ptr %4, ptr %0, align 8, !tbaa !23
-  br label %60
+if.end6:                                          ; preds = %if.end20.i
+  %device.i = getelementptr inbounds %struct.gs_state_s, ptr %pgs, i64 0, i32 22
+  store ptr %call21.i, ptr %device.i, align 8, !tbaa !21
+  %device_is_shared.i = getelementptr inbounds %struct.gs_state_s, ptr %pgs, i64 0, i32 23
+  store i32 0, ptr %device_is_shared.i, align 8, !tbaa !22
+  %2 = load ptr, ptr %path.i, align 8, !tbaa !5
+  %path7 = getelementptr inbounds %struct.gs_state_s, ptr %call, i64 0, i32 7
+  %3 = load ptr, ptr %path7, align 8, !tbaa !5
+  tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(144) %2, ptr noundef nonnull align 8 dereferenceable(144) %3, i64 144, i1 false), !tbaa.struct !44
+  %4 = load ptr, ptr %clip_path.i, align 8, !tbaa !16
+  %clip_path8 = getelementptr inbounds %struct.gs_state_s, ptr %call, i64 0, i32 8
+  %5 = load ptr, ptr %clip_path8, align 8, !tbaa !16
+  tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(144) %4, ptr noundef nonnull align 8 dereferenceable(144) %5, i64 144, i1 false), !tbaa.struct !44
+  %6 = load ptr, ptr %line_params.i, align 8, !tbaa !17
+  %line_params9 = getelementptr inbounds %struct.gs_state_s, ptr %call, i64 0, i32 10
+  %7 = load ptr, ptr %line_params9, align 8, !tbaa !17
+  tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(56) %6, ptr noundef nonnull align 8 dereferenceable(56) %7, i64 56, i1 false), !tbaa.struct !45
+  %8 = load ptr, ptr %halftone.i, align 8, !tbaa !18
+  %halftone10 = getelementptr inbounds %struct.gs_state_s, ptr %call, i64 0, i32 11
+  %9 = load ptr, ptr %halftone10, align 8, !tbaa !18
+  tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(32) %8, ptr noundef nonnull align 8 dereferenceable(32) %9, i64 32, i1 false), !tbaa.struct !46
+  %10 = load ptr, ptr %color.i, align 8, !tbaa !19
+  %color11 = getelementptr inbounds %struct.gs_state_s, ptr %call, i64 0, i32 13
+  %11 = load ptr, ptr %color11, align 8, !tbaa !19
+  tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 2 dereferenceable(10) %10, ptr noundef nonnull align 2 dereferenceable(10) %11, i64 10, i1 false), !tbaa.struct !47
+  %12 = load ptr, ptr %dev_color.i, align 8, !tbaa !20
+  %dev_color12 = getelementptr inbounds %struct.gs_state_s, ptr %call, i64 0, i32 14
+  %13 = load ptr, ptr %dev_color12, align 8, !tbaa !20
+  tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(32) %12, ptr noundef nonnull align 8 dereferenceable(32) %13, i64 32, i1 false), !tbaa.struct !50
+  %14 = load ptr, ptr %device.i, align 8, !tbaa !21
+  %device13 = getelementptr inbounds %struct.gs_state_s, ptr %call, i64 0, i32 22
+  %15 = load ptr, ptr %device13, align 8, !tbaa !21
+  tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(32) %14, ptr noundef nonnull align 8 dereferenceable(32) %15, i64 32, i1 false), !tbaa.struct !51
+  %16 = load ptr, ptr %path.i, align 8, !tbaa !5
+  tail call void @gx_path_share(ptr noundef %16) #7
+  %17 = load ptr, ptr %clip_path.i, align 8, !tbaa !16
+  tail call void @gx_path_share(ptr noundef %17) #7
+  store ptr %call, ptr %pgs, align 8, !tbaa !23
+  br label %cleanup
 
-60:                                               ; preds = %30, %26, %22, %18, %14, %10, %6, %1, %34
-  %61 = phi i32 [ 0, %34 ], [ -25, %1 ], [ -25, %6 ], [ -25, %10 ], [ -25, %14 ], [ -25, %18 ], [ -25, %22 ], [ -25, %26 ], [ -25, %30 ]
-  ret i32 %61
+cleanup:                                          ; preds = %if.end20.i, %if.end16.i, %if.end12.i, %if.end8.i, %if.end4.i, %if.end.i, %if.end, %entry, %if.end6
+  %retval.0 = phi i32 [ 0, %if.end6 ], [ -25, %entry ], [ -25, %if.end ], [ -25, %if.end.i ], [ -25, %if.end4.i ], [ -25, %if.end8.i ], [ -25, %if.end12.i ], [ -25, %if.end16.i ], [ -25, %if.end20.i ]
+  ret i32 %retval.0
 }
 
 ; Function Attrs: mustprogress nocallback nofree nounwind willreturn memory(argmem: readwrite)
@@ -396,53 +403,56 @@ declare void @llvm.memcpy.p0.p0.i64(ptr noalias nocapture writeonly, ptr noalias
 declare void @gx_path_share(ptr noundef) local_unnamed_addr #1
 
 ; Function Attrs: nounwind uwtable
-define dso_local i32 @gs_grestore(ptr nocapture noundef %0) local_unnamed_addr #0 {
-  %2 = load ptr, ptr %0, align 8, !tbaa !23
-  %3 = icmp eq ptr %2, null
-  br i1 %3, label %7, label %4
+define dso_local i32 @gs_grestore(ptr nocapture noundef %pgs) local_unnamed_addr #0 {
+entry:
+  %0 = load ptr, ptr %pgs, align 8, !tbaa !23
+  %cmp = icmp eq ptr %0, null
+  br i1 %cmp, label %cleanup, label %if.end
 
-4:                                                ; preds = %1
-  tail call void @free_state_contents(ptr noundef nonnull %0)
-  tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(464) %0, ptr noundef nonnull align 8 dereferenceable(464) %2, i64 464, i1 false), !tbaa.struct !38
-  %5 = getelementptr inbounds %struct.gs_state_s, ptr %0, i64 0, i32 1, i32 1
-  %6 = load ptr, ptr %5, align 8, !tbaa !25
-  tail call void %6(ptr noundef nonnull %2, i32 noundef 1, i32 noundef 464, ptr noundef nonnull @.str.3) #7
-  br label %7
+if.end:                                           ; preds = %entry
+  tail call void @free_state_contents(ptr noundef nonnull %pgs)
+  tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(464) %pgs, ptr noundef nonnull align 8 dereferenceable(464) %0, i64 464, i1 false), !tbaa.struct !38
+  %free = getelementptr inbounds %struct.gs_state_s, ptr %pgs, i64 0, i32 1, i32 1
+  %1 = load ptr, ptr %free, align 8, !tbaa !25
+  tail call void %1(ptr noundef nonnull %0, i32 noundef 1, i32 noundef 464, ptr noundef nonnull @.str.3) #7
+  br label %cleanup
 
-7:                                                ; preds = %1, %4
-  %8 = phi i32 [ 0, %4 ], [ -23, %1 ]
-  ret i32 %8
+cleanup:                                          ; preds = %entry, %if.end
+  %retval.0 = phi i32 [ 0, %if.end ], [ -23, %entry ]
+  ret i32 %retval.0
 }
 
 ; Function Attrs: nounwind uwtable
-define dso_local i32 @gs_grestoreall(ptr nocapture noundef %0) local_unnamed_addr #0 {
-  %2 = load ptr, ptr %0, align 8, !tbaa !23
-  %3 = icmp eq ptr %2, null
-  br i1 %3, label %11, label %4
+define dso_local i32 @gs_grestoreall(ptr nocapture noundef %pgs) local_unnamed_addr #0 {
+entry:
+  %0 = load ptr, ptr %pgs, align 8, !tbaa !23
+  %cmp.i3 = icmp eq ptr %0, null
+  br i1 %cmp.i3, label %while.end, label %gs_grestore.exit.lr.ph
 
-4:                                                ; preds = %1
-  %5 = getelementptr inbounds %struct.gs_state_s, ptr %0, i64 0, i32 1, i32 1
-  br label %6
+gs_grestore.exit.lr.ph:                           ; preds = %entry
+  %free.i = getelementptr inbounds %struct.gs_state_s, ptr %pgs, i64 0, i32 1, i32 1
+  br label %gs_grestore.exit
 
-6:                                                ; preds = %4, %6
-  %7 = phi ptr [ %2, %4 ], [ %9, %6 ]
-  tail call void @free_state_contents(ptr noundef nonnull %0)
-  tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(464) %0, ptr noundef nonnull align 8 dereferenceable(464) %7, i64 464, i1 false), !tbaa.struct !38
-  %8 = load ptr, ptr %5, align 8, !tbaa !25
-  tail call void %8(ptr noundef nonnull %7, i32 noundef 1, i32 noundef 464, ptr noundef nonnull @.str.3) #7
-  %9 = load ptr, ptr %0, align 8, !tbaa !23
-  %10 = icmp eq ptr %9, null
-  br i1 %10, label %11, label %6, !llvm.loop !52
+gs_grestore.exit:                                 ; preds = %gs_grestore.exit.lr.ph, %gs_grestore.exit
+  %1 = phi ptr [ %0, %gs_grestore.exit.lr.ph ], [ %3, %gs_grestore.exit ]
+  tail call void @free_state_contents(ptr noundef nonnull %pgs)
+  tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(464) %pgs, ptr noundef nonnull align 8 dereferenceable(464) %1, i64 464, i1 false), !tbaa.struct !38
+  %2 = load ptr, ptr %free.i, align 8, !tbaa !25
+  tail call void %2(ptr noundef nonnull %1, i32 noundef 1, i32 noundef 464, ptr noundef nonnull @.str.3) #7
+  %3 = load ptr, ptr %pgs, align 8, !tbaa !23
+  %cmp.i = icmp eq ptr %3, null
+  br i1 %cmp.i, label %while.end, label %gs_grestore.exit, !llvm.loop !52
 
-11:                                               ; preds = %6, %1
+while.end:                                        ; preds = %gs_grestore.exit, %entry
   ret i32 0
 }
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(argmem: readwrite) uwtable
-define dso_local ptr @gs_state_swap_saved(ptr nocapture noundef %0, ptr noundef %1) local_unnamed_addr #4 {
-  %3 = load ptr, ptr %0, align 8, !tbaa !23
-  store ptr %1, ptr %0, align 8, !tbaa !23
-  ret ptr %3
+define dso_local ptr @gs_state_swap_saved(ptr nocapture noundef %pgs, ptr noundef %new_saved) local_unnamed_addr #4 {
+entry:
+  %0 = load ptr, ptr %pgs, align 8, !tbaa !23
+  store ptr %new_saved, ptr %pgs, align 8, !tbaa !23
+  ret ptr %0
 }
 
 declare i32 @gs_initmatrix(...) local_unnamed_addr #1
@@ -464,10 +474,11 @@ declare i32 @gs_setgray(ptr noundef, double noundef) local_unnamed_addr #1
 declare i32 @gs_setmiterlimit(ptr noundef, double noundef) local_unnamed_addr #1
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(argmem: read) uwtable
-define dso_local float @gs_currentflat(ptr nocapture noundef readonly %0) local_unnamed_addr #5 {
-  %2 = getelementptr inbounds %struct.gs_state_s, ptr %0, i64 0, i32 21
-  %3 = load float, ptr %2, align 8, !tbaa !34
-  ret float %3
+define dso_local float @gs_currentflat(ptr nocapture noundef readonly %pgs) local_unnamed_addr #5 {
+entry:
+  %flatness = getelementptr inbounds %struct.gs_state_s, ptr %pgs, i64 0, i32 21
+  %0 = load float, ptr %flatness, align 8, !tbaa !34
+  ret float %0
 }
 
 declare void @gx_path_release(ptr noundef) local_unnamed_addr #1

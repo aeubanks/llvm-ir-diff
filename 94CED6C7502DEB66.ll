@@ -9,57 +9,64 @@ target triple = "x86_64-unknown-linux-gnu"
 
 ; Function Attrs: mustprogress nofree nosync nounwind willreturn memory(write, argmem: none, inaccessiblemem: none) uwtable
 define dso_local void @clock_Init() local_unnamed_addr #0 {
+entry:
   tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 16 dereferenceable(24) @clock_Akku, i8 0, i64 24, i1 false)
   ret void
 }
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(write, argmem: none, inaccessiblemem: none) uwtable
-define dso_local void @clock_InitCounter(i32 noundef %0) local_unnamed_addr #1 {
-  %2 = zext i32 %0 to i64
-  %3 = getelementptr inbounds [6 x float], ptr @clock_Akku, i64 0, i64 %2
-  store float 0.000000e+00, ptr %3, align 4
+define dso_local void @clock_InitCounter(i32 noundef %ClockCounter) local_unnamed_addr #1 {
+entry:
+  %idxprom = zext i32 %ClockCounter to i64
+  %arrayidx = getelementptr inbounds [6 x float], ptr @clock_Akku, i64 0, i64 %idxprom
+  store float 0.000000e+00, ptr %arrayidx, align 4
   ret void
 }
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(none) uwtable
-define dso_local void @clock_StartCounter(i32 noundef %0) local_unnamed_addr #2 {
+define dso_local void @clock_StartCounter(i32 noundef %ClockCounter) local_unnamed_addr #2 {
+entry:
   ret void
 }
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(none) uwtable
-define dso_local void @clock_StopPassedTime(i32 noundef %0) local_unnamed_addr #2 {
+define dso_local void @clock_StopPassedTime(i32 noundef %ClockCounter) local_unnamed_addr #2 {
+entry:
   ret void
 }
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(none) uwtable
-define dso_local void @clock_StopAddPassedTime(i32 noundef %0) local_unnamed_addr #2 {
+define dso_local void @clock_StopAddPassedTime(i32 noundef %ClockCounter) local_unnamed_addr #2 {
+entry:
   ret void
 }
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(none) uwtable
-define dso_local float @clock_GetSeconds(i32 noundef %0) local_unnamed_addr #2 {
+define dso_local float @clock_GetSeconds(i32 noundef %ClockCounter) local_unnamed_addr #2 {
+entry:
   ret float 0.000000e+00
 }
 
 ; Function Attrs: nofree nounwind uwtable
-define dso_local void @clock_PrintTime(i32 noundef %0) local_unnamed_addr #3 {
-  %2 = load ptr, ptr @stdout, align 8
-  %3 = tail call i64 @fwrite(ptr nonnull @.str, i64 28, i64 1, ptr %2)
+define dso_local void @clock_PrintTime(i32 noundef %ClockCounter) local_unnamed_addr #3 {
+entry:
+  %0 = load ptr, ptr @stdout, align 8
+  %1 = tail call i64 @fwrite(ptr nonnull @.str, i64 28, i64 1, ptr %0)
   ret void
 }
 
-; Function Attrs: nocallback nofree nounwind willreturn memory(argmem: write)
-declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #4
-
 ; Function Attrs: nofree nounwind
-declare noundef i64 @fwrite(ptr nocapture noundef, i64 noundef, i64 noundef, ptr nocapture noundef) local_unnamed_addr #5
+declare noundef i64 @fwrite(ptr nocapture noundef, i64 noundef, i64 noundef, ptr nocapture noundef) local_unnamed_addr #4
+
+; Function Attrs: nocallback nofree nounwind willreturn memory(argmem: write)
+declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #5
 
 attributes #0 = { mustprogress nofree nosync nounwind willreturn memory(write, argmem: none, inaccessiblemem: none) uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #1 = { mustprogress nofree norecurse nosync nounwind willreturn memory(write, argmem: none, inaccessiblemem: none) uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #2 = { mustprogress nofree norecurse nosync nounwind willreturn memory(none) uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #3 = { nofree nounwind uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
-attributes #4 = { nocallback nofree nounwind willreturn memory(argmem: write) }
-attributes #5 = { nofree nounwind }
+attributes #4 = { nofree nounwind }
+attributes #5 = { nocallback nofree nounwind willreturn memory(argmem: write) }
 
 !llvm.module.flags = !{!0, !1, !2, !3}
 !llvm.ident = !{!4}

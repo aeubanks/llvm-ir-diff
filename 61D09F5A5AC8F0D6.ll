@@ -6,56 +6,60 @@ target triple = "x86_64-unknown-linux-gnu"
 @f3.x = internal unnamed_addr global i32 0, align 4
 
 ; Function Attrs: nounwind uwtable
-define dso_local void @ff(i32 noundef %0, i32 noundef %1, i32 noundef %2) local_unnamed_addr #0 {
-  %4 = icmp ne i32 %0, 0
-  %5 = icmp ne i32 %2, 0
-  %6 = and i1 %4, %5
-  br i1 %6, label %10, label %7
+define dso_local void @ff(i32 noundef %fname, i32 noundef %part, i32 noundef %nparts) local_unnamed_addr #0 {
+entry:
+  %tobool.not = icmp eq i32 %fname, 0
+  %tobool1.not = icmp eq i32 %nparts, 0
+  %or.cond = or i1 %tobool.not, %tobool1.not
+  br i1 %or.cond, label %while.cond.preheader, label %if.then2
 
-7:                                                ; preds = %3
-  %8 = icmp eq i32 %2, 0
-  br i1 %8, label %9, label %11, !llvm.loop !5
+while.cond.preheader:                             ; preds = %entry
+  br i1 %tobool1.not, label %while.cond.us, label %while.cond, !llvm.loop !5
 
-9:                                                ; preds = %7
+while.cond.us:                                    ; preds = %while.cond.preheader
   store i32 0, ptr @f3.x, align 4, !tbaa !7
   ret void
 
-10:                                               ; preds = %3
+if.then2:                                         ; preds = %entry
   tail call void @abort() #5
   unreachable
 
-11:                                               ; preds = %7
-  %12 = load i32, ptr @f3.x, align 4, !tbaa !7
-  %13 = icmp eq i32 %12, 0
-  %14 = zext i1 %13 to i32
-  store i32 %14, ptr @f3.x, align 4, !tbaa !7
+while.cond:                                       ; preds = %while.cond.preheader
+  %f3.x.promoted = load i32, ptr @f3.x, align 4, !tbaa !7
+  %0 = icmp eq i32 %f3.x.promoted, 0
+  %lnot.ext.i = zext i1 %0 to i32
+  store i32 %lnot.ext.i, ptr @f3.x, align 4, !tbaa !7
   tail call void @abort() #5
   unreachable
 }
 
 ; Function Attrs: noreturn nounwind uwtable
 define dso_local void @f1() local_unnamed_addr #1 {
+entry:
   tail call void @abort() #5
   unreachable
 }
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(readwrite, argmem: none, inaccessiblemem: none) uwtable
 define dso_local i32 @f3() local_unnamed_addr #2 {
-  %1 = load i32, ptr @f3.x, align 4, !tbaa !7
-  %2 = icmp eq i32 %1, 0
-  %3 = zext i1 %2 to i32
-  store i32 %3, ptr @f3.x, align 4, !tbaa !7
-  ret i32 %3
+entry:
+  %0 = load i32, ptr @f3.x, align 4, !tbaa !7
+  %tobool.not = icmp eq i32 %0, 0
+  %lnot.ext = zext i1 %tobool.not to i32
+  store i32 %lnot.ext, ptr @f3.x, align 4, !tbaa !7
+  ret i32 %lnot.ext
 }
 
 ; Function Attrs: noreturn nounwind uwtable
 define dso_local i32 @f2() local_unnamed_addr #1 {
+entry:
   tail call void @abort() #5
   unreachable
 }
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(write, argmem: none, inaccessiblemem: none) uwtable
 define dso_local i32 @main() local_unnamed_addr #3 {
+entry:
   store i32 0, ptr @f3.x, align 4, !tbaa !7
   ret i32 0
 }

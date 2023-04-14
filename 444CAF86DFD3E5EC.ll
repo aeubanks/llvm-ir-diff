@@ -94,20 +94,21 @@ declare void @_ZNSt8ios_base4InitD1Ev(ptr noundef nonnull align 1 dereferenceabl
 declare i32 @__cxa_atexit(ptr, ptr, ptr) local_unnamed_addr #2
 
 ; Function Attrs: uwtable
-define dso_local void @_ZN8EmployeeC2EPKcS1_(ptr nocapture noundef nonnull writeonly align 8 dereferenceable(28) %0, ptr nocapture noundef readonly %1, ptr nocapture noundef readonly %2) unnamed_addr #3 align 2 {
-  store ptr getelementptr inbounds ({ [8 x ptr] }, ptr @_ZTV8Employee, i64 0, inrange i32 0, i64 2), ptr %0, align 8, !tbaa !5
-  %4 = tail call i64 @strlen(ptr noundef nonnull dereferenceable(1) %1) #25
-  %5 = add i64 %4, 1
-  %6 = tail call noalias noundef nonnull ptr @_Znam(i64 noundef %5) #26
-  %7 = getelementptr inbounds %class.Employee, ptr %0, i64 0, i32 1
-  store ptr %6, ptr %7, align 8, !tbaa !8
-  %8 = tail call ptr @strcpy(ptr noundef nonnull dereferenceable(1) %6, ptr noundef nonnull dereferenceable(1) %1) #27
-  %9 = tail call i64 @strlen(ptr noundef nonnull dereferenceable(1) %2) #25
-  %10 = add i64 %9, 1
-  %11 = tail call noalias noundef nonnull ptr @_Znam(i64 noundef %10) #26
-  %12 = getelementptr inbounds %class.Employee, ptr %0, i64 0, i32 2
-  store ptr %11, ptr %12, align 8, !tbaa !13
-  %13 = tail call ptr @strcpy(ptr noundef nonnull dereferenceable(1) %11, ptr noundef nonnull dereferenceable(1) %2) #27
+define dso_local void @_ZN8EmployeeC2EPKcS1_(ptr nocapture noundef nonnull writeonly align 8 dereferenceable(28) %this, ptr nocapture noundef readonly %first, ptr nocapture noundef readonly %last) unnamed_addr #3 align 2 {
+entry:
+  store ptr getelementptr inbounds ({ [8 x ptr] }, ptr @_ZTV8Employee, i64 0, inrange i32 0, i64 2), ptr %this, align 8, !tbaa !5
+  %call = tail call i64 @strlen(ptr noundef nonnull dereferenceable(1) %first) #25
+  %add = add i64 %call, 1
+  %call2 = tail call noalias noundef nonnull ptr @_Znam(i64 noundef %add) #26
+  %firstName = getelementptr inbounds %class.Employee, ptr %this, i64 0, i32 1
+  store ptr %call2, ptr %firstName, align 8, !tbaa !8
+  %call4 = tail call ptr @strcpy(ptr noundef nonnull dereferenceable(1) %call2, ptr noundef nonnull dereferenceable(1) %first) #27
+  %call5 = tail call i64 @strlen(ptr noundef nonnull dereferenceable(1) %last) #25
+  %add6 = add i64 %call5, 1
+  %call7 = tail call noalias noundef nonnull ptr @_Znam(i64 noundef %add6) #26
+  %lastName = getelementptr inbounds %class.Employee, ptr %this, i64 0, i32 2
+  store ptr %call7, ptr %lastName, align 8, !tbaa !13
+  %call9 = tail call ptr @strcpy(ptr noundef nonnull dereferenceable(1) %call7, ptr noundef nonnull dereferenceable(1) %last) #27
   ret void
 }
 
@@ -124,7 +125,8 @@ declare ptr @strcpy(ptr noalias noundef returned writeonly, ptr noalias nocaptur
 declare void @_ZdaPv(ptr noundef) local_unnamed_addr #7
 
 ; Function Attrs: noreturn nounwind uwtable
-define dso_local void @_ZN8EmployeeD0Ev(ptr nocapture nonnull readnone align 8 %0) unnamed_addr #8 align 2 {
+define dso_local void @_ZN8EmployeeD0Ev(ptr nocapture nonnull readnone align 8 %this) unnamed_addr #8 align 2 {
+entry:
   tail call void @llvm.trap() #28
   unreachable
 }
@@ -133,97 +135,105 @@ define dso_local void @_ZN8EmployeeD0Ev(ptr nocapture nonnull readnone align 8 %
 declare void @llvm.trap() #9
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(argmem: read) uwtable
-define dso_local noundef ptr @_ZN8Employee9FirstNameEv(ptr nocapture noundef nonnull readonly align 8 dereferenceable(28) %0) local_unnamed_addr #10 align 2 {
-  %2 = getelementptr inbounds %class.Employee, ptr %0, i64 0, i32 1
-  %3 = load ptr, ptr %2, align 8, !tbaa !8
-  ret ptr %3
+define dso_local noundef ptr @_ZN8Employee9FirstNameEv(ptr nocapture noundef nonnull readonly align 8 dereferenceable(28) %this) local_unnamed_addr #10 align 2 {
+entry:
+  %firstName = getelementptr inbounds %class.Employee, ptr %this, i64 0, i32 1
+  %0 = load ptr, ptr %firstName, align 8, !tbaa !8
+  ret ptr %0
 }
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(argmem: read) uwtable
-define dso_local noundef ptr @_ZN8Employee8LastNameEv(ptr nocapture noundef nonnull readonly align 8 dereferenceable(28) %0) local_unnamed_addr #10 align 2 {
-  %2 = getelementptr inbounds %class.Employee, ptr %0, i64 0, i32 2
-  %3 = load ptr, ptr %2, align 8, !tbaa !13
-  ret ptr %3
+define dso_local noundef ptr @_ZN8Employee8LastNameEv(ptr nocapture noundef nonnull readonly align 8 dereferenceable(28) %this) local_unnamed_addr #10 align 2 {
+entry:
+  %lastName = getelementptr inbounds %class.Employee, ptr %this, i64 0, i32 2
+  %0 = load ptr, ptr %lastName, align 8, !tbaa !13
+  ret ptr %0
 }
 
 ; Function Attrs: mustprogress uwtable
-define dso_local void @_ZN8Employee17PrintWithEarningsEi(ptr noundef nonnull align 8 dereferenceable(28) %0, i32 noundef %1) local_unnamed_addr #11 align 2 {
-  %3 = alloca i8, align 1
-  %4 = load ptr, ptr %0, align 8, !tbaa !5
-  %5 = getelementptr inbounds ptr, ptr %4, i64 3
-  %6 = load ptr, ptr %5, align 8
-  tail call void %6(ptr noundef nonnull align 8 dereferenceable(28) %0)
-  %7 = tail call noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cout, ptr noundef nonnull @.str, i64 noundef 9)
-  %8 = load ptr, ptr %0, align 8, !tbaa !5
-  %9 = getelementptr inbounds ptr, ptr %8, i64 2
-  %10 = load ptr, ptr %9, align 8
-  %11 = tail call noundef float %10(ptr noundef nonnull align 8 dereferenceable(28) %0)
-  %12 = fpext float %11 to double
-  %13 = tail call noundef nonnull align 8 dereferenceable(8) ptr @_ZNSo9_M_insertIdEERSoT_(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cout, double noundef %12)
-  %14 = tail call noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) %13, ptr noundef nonnull @.str.1, i64 noundef 9)
-  %15 = tail call noundef nonnull align 8 dereferenceable(8) ptr @_ZNSolsEi(ptr noundef nonnull align 8 dereferenceable(8) %13, i32 noundef %1)
-  call void @llvm.lifetime.start.p0(i64 1, ptr nonnull %3)
-  store i8 10, ptr %3, align 1, !tbaa !14
-  %16 = load ptr, ptr %15, align 8, !tbaa !5
-  %17 = getelementptr i8, ptr %16, i64 -24
-  %18 = load i64, ptr %17, align 8
-  %19 = getelementptr inbounds i8, ptr %15, i64 %18
-  %20 = getelementptr inbounds %"class.std::ios_base", ptr %19, i64 0, i32 2
-  %21 = load i64, ptr %20, align 8, !tbaa !15
-  %22 = icmp eq i64 %21, 0
-  br i1 %22, label %25, label %23
+define dso_local void @_ZN8Employee17PrintWithEarningsEi(ptr noundef nonnull align 8 dereferenceable(28) %this, i32 noundef %weekNumber) local_unnamed_addr #11 align 2 {
+entry:
+  %__c.addr.i = alloca i8, align 1
+  %vtable = load ptr, ptr %this, align 8, !tbaa !5
+  %vfn = getelementptr inbounds ptr, ptr %vtable, i64 3
+  %0 = load ptr, ptr %vfn, align 8
+  tail call void %0(ptr noundef nonnull align 8 dereferenceable(28) %this)
+  %call1.i = tail call noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cout, ptr noundef nonnull @.str, i64 noundef 9)
+  %vtable2 = load ptr, ptr %this, align 8, !tbaa !5
+  %vfn3 = getelementptr inbounds ptr, ptr %vtable2, i64 2
+  %1 = load ptr, ptr %vfn3, align 8
+  %call4 = tail call noundef float %1(ptr noundef nonnull align 8 dereferenceable(28) %this)
+  %conv.i = fpext float %call4 to double
+  %call.i = tail call noundef nonnull align 8 dereferenceable(8) ptr @_ZNSo9_M_insertIdEERSoT_(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cout, double noundef %conv.i)
+  %call1.i10 = tail call noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) %call.i, ptr noundef nonnull @.str.1, i64 noundef 9)
+  %call7 = tail call noundef nonnull align 8 dereferenceable(8) ptr @_ZNSolsEi(ptr noundef nonnull align 8 dereferenceable(8) %call.i, i32 noundef %weekNumber)
+  call void @llvm.lifetime.start.p0(i64 1, ptr nonnull %__c.addr.i)
+  store i8 10, ptr %__c.addr.i, align 1, !tbaa !14
+  %vtable.i = load ptr, ptr %call7, align 8, !tbaa !5
+  %vbase.offset.ptr.i = getelementptr i8, ptr %vtable.i, i64 -24
+  %vbase.offset.i = load i64, ptr %vbase.offset.ptr.i, align 8
+  %add.ptr.i = getelementptr inbounds i8, ptr %call7, i64 %vbase.offset.i
+  %_M_width.i.i = getelementptr inbounds %"class.std::ios_base", ptr %add.ptr.i, i64 0, i32 2
+  %2 = load i64, ptr %_M_width.i.i, align 8, !tbaa !15
+  %cmp.not.i = icmp eq i64 %2, 0
+  br i1 %cmp.not.i, label %if.end.i, label %if.then.i
 
-23:                                               ; preds = %2
-  %24 = call noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) %15, ptr noundef nonnull %3, i64 noundef 1)
-  br label %27
+if.then.i:                                        ; preds = %entry
+  %call1.i11 = call noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) %call7, ptr noundef nonnull %__c.addr.i, i64 noundef 1)
+  br label %_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_c.exit
 
-25:                                               ; preds = %2
-  %26 = tail call noundef nonnull align 8 dereferenceable(8) ptr @_ZNSo3putEc(ptr noundef nonnull align 8 dereferenceable(8) %15, i8 noundef signext 10)
-  br label %27
+if.end.i:                                         ; preds = %entry
+  %call2.i = tail call noundef nonnull align 8 dereferenceable(8) ptr @_ZNSo3putEc(ptr noundef nonnull align 8 dereferenceable(8) %call7, i8 noundef signext 10)
+  br label %_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_c.exit
 
-27:                                               ; preds = %23, %25
-  call void @llvm.lifetime.end.p0(i64 1, ptr nonnull %3)
+_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_c.exit: ; preds = %if.then.i, %if.end.i
+  call void @llvm.lifetime.end.p0(i64 1, ptr nonnull %__c.addr.i)
   ret void
 }
 
 declare noundef nonnull align 8 dereferenceable(8) ptr @_ZNSolsEi(ptr noundef nonnull align 8 dereferenceable(8), i32 noundef) local_unnamed_addr #0
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(argmem: write) uwtable
-define dso_local void @_ZN12EmployeeNodeC2EP8EmployeePS_(ptr nocapture noundef nonnull writeonly align 8 dereferenceable(16) %0, ptr noundef %1, ptr noundef %2) unnamed_addr #12 align 2 {
-  store ptr %1, ptr %0, align 8, !tbaa !23
-  %4 = getelementptr inbounds %class.EmployeeNode, ptr %0, i64 0, i32 1
-  store ptr %2, ptr %4, align 8, !tbaa !25
+define dso_local void @_ZN12EmployeeNodeC2EP8EmployeePS_(ptr nocapture noundef nonnull writeonly align 8 dereferenceable(16) %this, ptr noundef %e, ptr noundef %n) unnamed_addr #12 align 2 {
+entry:
+  store ptr %e, ptr %this, align 8, !tbaa !23
+  %next = getelementptr inbounds %class.EmployeeNode, ptr %this, i64 0, i32 1
+  store ptr %n, ptr %next, align 8, !tbaa !25
   ret void
 }
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(argmem: read) uwtable
-define dso_local noundef ptr @_ZN12EmployeeNode4NextEv(ptr nocapture noundef nonnull readonly align 8 dereferenceable(16) %0) local_unnamed_addr #10 align 2 {
-  %2 = getelementptr inbounds %class.EmployeeNode, ptr %0, i64 0, i32 1
-  %3 = load ptr, ptr %2, align 8, !tbaa !25
-  ret ptr %3
+define dso_local noundef ptr @_ZN12EmployeeNode4NextEv(ptr nocapture noundef nonnull readonly align 8 dereferenceable(16) %this) local_unnamed_addr #10 align 2 {
+entry:
+  %next = getelementptr inbounds %class.EmployeeNode, ptr %this, i64 0, i32 1
+  %0 = load ptr, ptr %next, align 8, !tbaa !25
+  ret ptr %0
 }
 
 ; Function Attrs: mustprogress nofree nosync nounwind willreturn memory(argmem: write) uwtable
-define dso_local void @_ZN7CompanyC2Ev(ptr nocapture noundef nonnull writeonly align 8 dereferenceable(16) %0) unnamed_addr #13 align 2 {
-  tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %0, i8 0, i64 16, i1 false)
+define dso_local void @_ZN7CompanyC2Ev(ptr nocapture noundef nonnull writeonly align 8 dereferenceable(16) %this) unnamed_addr #13 align 2 {
+entry:
+  tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %this, i8 0, i64 16, i1 false)
   ret void
 }
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(argmem: read) uwtable
-define dso_local noundef i32 @_ZN7Company13EmployeeCountEv(ptr nocapture noundef nonnull readonly align 8 dereferenceable(16) %0) local_unnamed_addr #10 align 2 {
-  %2 = getelementptr inbounds %class.Company, ptr %0, i64 0, i32 1
-  %3 = load i32, ptr %2, align 8, !tbaa !26
-  ret i32 %3
+define dso_local noundef i32 @_ZN7Company13EmployeeCountEv(ptr nocapture noundef nonnull readonly align 8 dereferenceable(16) %this) local_unnamed_addr #10 align 2 {
+entry:
+  %employeeCount = getelementptr inbounds %class.Company, ptr %this, i64 0, i32 1
+  %0 = load i32, ptr %employeeCount, align 8, !tbaa !26
+  ret i32 %0
 }
 
 ; Function Attrs: mustprogress uwtable
-define dso_local void @_ZN7Company11AddEmployeeEP8Employee(ptr nocapture noundef nonnull align 8 dereferenceable(16) %0, ptr noundef %1) local_unnamed_addr #11 align 2 personality ptr @__gxx_personality_v0 {
-  %3 = tail call noalias noundef nonnull dereferenceable(16) ptr @_Znwm(i64 noundef 16) #26
-  %4 = load ptr, ptr %0, align 8, !tbaa !28
-  store ptr %1, ptr %3, align 8, !tbaa !23
-  %5 = getelementptr inbounds %class.EmployeeNode, ptr %3, i64 0, i32 1
-  store ptr %4, ptr %5, align 8, !tbaa !25
-  store ptr %3, ptr %0, align 8, !tbaa !28
+define dso_local void @_ZN7Company11AddEmployeeEP8Employee(ptr nocapture noundef nonnull align 8 dereferenceable(16) %this, ptr noundef %e) local_unnamed_addr #11 align 2 personality ptr @__gxx_personality_v0 {
+entry:
+  %call = tail call noalias noundef nonnull dereferenceable(16) ptr @_Znwm(i64 noundef 16) #26
+  %0 = load ptr, ptr %this, align 8, !tbaa !28
+  store ptr %e, ptr %call, align 8, !tbaa !23
+  %next.i = getelementptr inbounds %class.EmployeeNode, ptr %call, i64 0, i32 1
+  store ptr %0, ptr %next.i, align 8, !tbaa !25
+  store ptr %call, ptr %this, align 8, !tbaa !28
   ret void
 }
 
@@ -242,207 +252,215 @@ declare void @_ZdlPv(ptr noundef) local_unnamed_addr #7
 declare void @llvm.lifetime.end.p0(i64 immarg, ptr nocapture) #14
 
 ; Function Attrs: mustprogress uwtable
-define dso_local void @_ZN7Company17PrintWithEarningsEv(ptr nocapture noundef nonnull readonly align 8 dereferenceable(16) %0) local_unnamed_addr #11 align 2 {
-  %2 = load ptr, ptr %0, align 8, !tbaa !29
-  %3 = icmp eq ptr %2, null
-  br i1 %3, label %13, label %4
+define dso_local void @_ZN7Company17PrintWithEarningsEv(ptr nocapture noundef nonnull readonly align 8 dereferenceable(16) %this) local_unnamed_addr #11 align 2 {
+entry:
+  %curE.05 = load ptr, ptr %this, align 8, !tbaa !29
+  %cmp.not6 = icmp eq ptr %curE.05, null
+  br i1 %cmp.not6, label %for.end, label %for.body.lr.ph
 
-4:                                                ; preds = %1
-  %5 = getelementptr inbounds %class.Company, ptr %0, i64 0, i32 2
-  br label %6
+for.body.lr.ph:                                   ; preds = %entry
+  %currentWeek = getelementptr inbounds %class.Company, ptr %this, i64 0, i32 2
+  br label %for.body
 
-6:                                                ; preds = %4, %6
-  %7 = phi ptr [ %2, %4 ], [ %11, %6 ]
-  %8 = load ptr, ptr %7, align 8, !tbaa !23
-  %9 = load i32, ptr %5, align 4, !tbaa !30
-  tail call void @_ZN8Employee17PrintWithEarningsEi(ptr noundef nonnull align 8 dereferenceable(28) %8, i32 noundef %9)
-  %10 = getelementptr inbounds %class.EmployeeNode, ptr %7, i64 0, i32 1
-  %11 = load ptr, ptr %10, align 8, !tbaa !29
-  %12 = icmp eq ptr %11, null
-  br i1 %12, label %13, label %6, !llvm.loop !31
+for.body:                                         ; preds = %for.body.lr.ph, %for.body
+  %curE.07 = phi ptr [ %curE.05, %for.body.lr.ph ], [ %curE.0, %for.body ]
+  %0 = load ptr, ptr %curE.07, align 8, !tbaa !23
+  %1 = load i32, ptr %currentWeek, align 4, !tbaa !30
+  tail call void @_ZN8Employee17PrintWithEarningsEi(ptr noundef nonnull align 8 dereferenceable(28) %0, i32 noundef %1)
+  %next.i = getelementptr inbounds %class.EmployeeNode, ptr %curE.07, i64 0, i32 1
+  %curE.0 = load ptr, ptr %next.i, align 8, !tbaa !29
+  %cmp.not = icmp eq ptr %curE.0, null
+  br i1 %cmp.not, label %for.end, label %for.body, !llvm.loop !31
 
-13:                                               ; preds = %6, %1
+for.end:                                          ; preds = %for.body, %entry
   ret void
 }
 
 ; Function Attrs: mustprogress uwtable
-define dso_local void @_ZN7Company7NewWeekEv(ptr nocapture noundef nonnull align 8 dereferenceable(16) %0) local_unnamed_addr #11 align 2 {
-  %2 = getelementptr inbounds %class.Company, ptr %0, i64 0, i32 2
-  %3 = load i32, ptr %2, align 4, !tbaa !30
-  %4 = add nsw i32 %3, 1
-  store i32 %4, ptr %2, align 4, !tbaa !30
-  %5 = load ptr, ptr %0, align 8, !tbaa !29
-  %6 = icmp eq ptr %5, null
-  br i1 %6, label %16, label %7
+define dso_local void @_ZN7Company7NewWeekEv(ptr nocapture noundef nonnull align 8 dereferenceable(16) %this) local_unnamed_addr #11 align 2 {
+entry:
+  %currentWeek = getelementptr inbounds %class.Company, ptr %this, i64 0, i32 2
+  %0 = load i32, ptr %currentWeek, align 4, !tbaa !30
+  %inc = add nsw i32 %0, 1
+  store i32 %inc, ptr %currentWeek, align 4, !tbaa !30
+  %curE.05 = load ptr, ptr %this, align 8, !tbaa !29
+  %cmp.not6 = icmp eq ptr %curE.05, null
+  br i1 %cmp.not6, label %for.end, label %for.body
 
-7:                                                ; preds = %1, %7
-  %8 = phi ptr [ %14, %7 ], [ %5, %1 ]
-  %9 = load ptr, ptr %8, align 8, !tbaa !23
-  %10 = load ptr, ptr %9, align 8, !tbaa !5
-  %11 = getelementptr inbounds ptr, ptr %10, i64 5
-  %12 = load ptr, ptr %11, align 8
-  tail call void %12(ptr noundef nonnull align 8 dereferenceable(28) %9)
-  %13 = getelementptr inbounds %class.EmployeeNode, ptr %8, i64 0, i32 1
-  %14 = load ptr, ptr %13, align 8, !tbaa !29
-  %15 = icmp eq ptr %14, null
-  br i1 %15, label %16, label %7, !llvm.loop !33
+for.body:                                         ; preds = %entry, %for.body
+  %curE.07 = phi ptr [ %curE.0, %for.body ], [ %curE.05, %entry ]
+  %1 = load ptr, ptr %curE.07, align 8, !tbaa !23
+  %vtable = load ptr, ptr %1, align 8, !tbaa !5
+  %vfn = getelementptr inbounds ptr, ptr %vtable, i64 5
+  %2 = load ptr, ptr %vfn, align 8
+  tail call void %2(ptr noundef nonnull align 8 dereferenceable(28) %1)
+  %next.i = getelementptr inbounds %class.EmployeeNode, ptr %curE.07, i64 0, i32 1
+  %curE.0 = load ptr, ptr %next.i, align 8, !tbaa !29
+  %cmp.not = icmp eq ptr %curE.0, null
+  br i1 %cmp.not, label %for.end, label %for.body, !llvm.loop !33
 
-16:                                               ; preds = %7, %1
+for.end:                                          ; preds = %for.body, %entry
   ret void
 }
 
 ; Function Attrs: mustprogress uwtable
-define dso_local void @_ZN7Company19AcrossTheBoardRaiseEi(ptr nocapture noundef nonnull readonly align 8 dereferenceable(16) %0, i32 noundef %1) local_unnamed_addr #11 align 2 {
-  %3 = load ptr, ptr %0, align 8, !tbaa !29
-  %4 = icmp eq ptr %3, null
-  br i1 %4, label %14, label %5
+define dso_local void @_ZN7Company19AcrossTheBoardRaiseEi(ptr nocapture noundef nonnull readonly align 8 dereferenceable(16) %this, i32 noundef %units) local_unnamed_addr #11 align 2 {
+entry:
+  %curE.05 = load ptr, ptr %this, align 8, !tbaa !29
+  %cmp.not6 = icmp eq ptr %curE.05, null
+  br i1 %cmp.not6, label %for.end, label %for.body
 
-5:                                                ; preds = %2, %5
-  %6 = phi ptr [ %12, %5 ], [ %3, %2 ]
-  %7 = load ptr, ptr %6, align 8, !tbaa !23
-  %8 = load ptr, ptr %7, align 8, !tbaa !5
-  %9 = getelementptr inbounds ptr, ptr %8, i64 4
-  %10 = load ptr, ptr %9, align 8
-  tail call void %10(ptr noundef nonnull align 8 dereferenceable(28) %7, i32 noundef %1)
-  %11 = getelementptr inbounds %class.EmployeeNode, ptr %6, i64 0, i32 1
-  %12 = load ptr, ptr %11, align 8, !tbaa !29
-  %13 = icmp eq ptr %12, null
-  br i1 %13, label %14, label %5, !llvm.loop !34
+for.body:                                         ; preds = %entry, %for.body
+  %curE.07 = phi ptr [ %curE.0, %for.body ], [ %curE.05, %entry ]
+  %0 = load ptr, ptr %curE.07, align 8, !tbaa !23
+  %vtable = load ptr, ptr %0, align 8, !tbaa !5
+  %vfn = getelementptr inbounds ptr, ptr %vtable, i64 4
+  %1 = load ptr, ptr %vfn, align 8
+  tail call void %1(ptr noundef nonnull align 8 dereferenceable(28) %0, i32 noundef %units)
+  %next.i = getelementptr inbounds %class.EmployeeNode, ptr %curE.07, i64 0, i32 1
+  %curE.0 = load ptr, ptr %next.i, align 8, !tbaa !29
+  %cmp.not = icmp eq ptr %curE.0, null
+  br i1 %cmp.not, label %for.end, label %for.body, !llvm.loop !34
 
-14:                                               ; preds = %5, %2
+for.end:                                          ; preds = %for.body, %entry
   ret void
 }
 
 ; Function Attrs: uwtable
-define dso_local void @_ZN4BossC2EPKcS1_f(ptr nocapture noundef nonnull writeonly align 8 dereferenceable(32) %0, ptr nocapture noundef readonly %1, ptr nocapture noundef readonly %2, float noundef %3) unnamed_addr #3 align 2 personality ptr @__gxx_personality_v0 {
-  store ptr getelementptr inbounds ({ [8 x ptr] }, ptr @_ZTV8Employee, i64 0, inrange i32 0, i64 2), ptr %0, align 8, !tbaa !5
-  %5 = tail call i64 @strlen(ptr noundef nonnull dereferenceable(1) %1) #25
-  %6 = add i64 %5, 1
-  %7 = tail call noalias noundef nonnull ptr @_Znam(i64 noundef %6) #26
-  %8 = getelementptr inbounds %class.Employee, ptr %0, i64 0, i32 1
-  store ptr %7, ptr %8, align 8, !tbaa !8
-  %9 = tail call ptr @strcpy(ptr noundef nonnull dereferenceable(1) %7, ptr noundef nonnull dereferenceable(1) %1) #27
-  %10 = tail call i64 @strlen(ptr noundef nonnull dereferenceable(1) %2) #25
-  %11 = add i64 %10, 1
-  %12 = tail call noalias noundef nonnull ptr @_Znam(i64 noundef %11) #26
-  %13 = getelementptr inbounds %class.Employee, ptr %0, i64 0, i32 2
-  store ptr %12, ptr %13, align 8, !tbaa !13
-  %14 = tail call ptr @strcpy(ptr noundef nonnull dereferenceable(1) %12, ptr noundef nonnull dereferenceable(1) %2) #27
-  store ptr getelementptr inbounds ({ [8 x ptr] }, ptr @_ZTV4Boss, i64 0, inrange i32 0, i64 2), ptr %0, align 8, !tbaa !5
-  %15 = fcmp ogt float %3, 0.000000e+00
-  %16 = select i1 %15, float %3, float 0.000000e+00
-  %17 = getelementptr inbounds %class.Boss, ptr %0, i64 0, i32 1
-  store float %16, ptr %17, align 4, !tbaa !35
-  %18 = getelementptr inbounds %class.Employee, ptr %0, i64 0, i32 3
-  store float 1.000000e+02, ptr %18, align 8, !tbaa !37
+define dso_local void @_ZN4BossC2EPKcS1_f(ptr nocapture noundef nonnull writeonly align 8 dereferenceable(32) %this, ptr nocapture noundef readonly %first, ptr nocapture noundef readonly %last, float noundef %startSalary) unnamed_addr #3 align 2 personality ptr @__gxx_personality_v0 {
+entry:
+  store ptr getelementptr inbounds ({ [8 x ptr] }, ptr @_ZTV8Employee, i64 0, inrange i32 0, i64 2), ptr %this, align 8, !tbaa !5
+  %call.i = tail call i64 @strlen(ptr noundef nonnull dereferenceable(1) %first) #25
+  %add.i = add i64 %call.i, 1
+  %call2.i = tail call noalias noundef nonnull ptr @_Znam(i64 noundef %add.i) #26
+  %firstName.i = getelementptr inbounds %class.Employee, ptr %this, i64 0, i32 1
+  store ptr %call2.i, ptr %firstName.i, align 8, !tbaa !8
+  %call4.i = tail call ptr @strcpy(ptr noundef nonnull dereferenceable(1) %call2.i, ptr noundef nonnull dereferenceable(1) %first) #27
+  %call5.i = tail call i64 @strlen(ptr noundef nonnull dereferenceable(1) %last) #25
+  %add6.i = add i64 %call5.i, 1
+  %call7.i = tail call noalias noundef nonnull ptr @_Znam(i64 noundef %add6.i) #26
+  %lastName.i = getelementptr inbounds %class.Employee, ptr %this, i64 0, i32 2
+  store ptr %call7.i, ptr %lastName.i, align 8, !tbaa !13
+  %call9.i = tail call ptr @strcpy(ptr noundef nonnull dereferenceable(1) %call7.i, ptr noundef nonnull dereferenceable(1) %last) #27
+  store ptr getelementptr inbounds ({ [8 x ptr] }, ptr @_ZTV4Boss, i64 0, inrange i32 0, i64 2), ptr %this, align 8, !tbaa !5
+  %cmp.i = fcmp ogt float %startSalary, 0.000000e+00
+  %narrow.sel.i = select i1 %cmp.i, float %startSalary, float 0.000000e+00
+  %weeklySalary.i = getelementptr inbounds %class.Boss, ptr %this, i64 0, i32 1
+  store float %narrow.sel.i, ptr %weeklySalary.i, align 4, !tbaa !35
+  %dollarsToRaise = getelementptr inbounds %class.Employee, ptr %this, i64 0, i32 3
+  store float 1.000000e+02, ptr %dollarsToRaise, align 8, !tbaa !37
   ret void
 }
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(argmem: write) uwtable
-define dso_local void @_ZN4Boss15SetWeeklySalaryEf(ptr nocapture noundef nonnull writeonly align 8 dereferenceable(32) %0, float noundef %1) local_unnamed_addr #12 align 2 {
-  %3 = fcmp ogt float %1, 0.000000e+00
-  %4 = select i1 %3, float %1, float 0.000000e+00
-  %5 = getelementptr inbounds %class.Boss, ptr %0, i64 0, i32 1
-  store float %4, ptr %5, align 4, !tbaa !35
+define dso_local void @_ZN4Boss15SetWeeklySalaryEf(ptr nocapture noundef nonnull writeonly align 8 dereferenceable(32) %this, float noundef %newSalary) local_unnamed_addr #12 align 2 {
+entry:
+  %cmp = fcmp ogt float %newSalary, 0.000000e+00
+  %narrow.sel = select i1 %cmp, float %newSalary, float 0.000000e+00
+  %weeklySalary = getelementptr inbounds %class.Boss, ptr %this, i64 0, i32 1
+  store float %narrow.sel, ptr %weeklySalary, align 4, !tbaa !35
   ret void
 }
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(argmem: read) uwtable
-define dso_local noundef float @_ZN4Boss8EarningsEv(ptr nocapture noundef nonnull readonly align 8 dereferenceable(32) %0) unnamed_addr #10 align 2 {
-  %2 = getelementptr inbounds %class.Boss, ptr %0, i64 0, i32 1
-  %3 = load float, ptr %2, align 4, !tbaa !35
-  ret float %3
+define dso_local noundef float @_ZN4Boss8EarningsEv(ptr nocapture noundef nonnull readonly align 8 dereferenceable(32) %this) unnamed_addr #10 align 2 {
+entry:
+  %weeklySalary = getelementptr inbounds %class.Boss, ptr %this, i64 0, i32 1
+  %0 = load float, ptr %weeklySalary, align 4, !tbaa !35
+  ret float %0
 }
 
 ; Function Attrs: mustprogress uwtable
-define dso_local void @_ZN4Boss5PrintEv(ptr nocapture noundef nonnull readonly align 8 dereferenceable(32) %0) unnamed_addr #11 align 2 {
-  %2 = alloca i8, align 1
-  %3 = tail call noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cout, ptr noundef nonnull @.str.2, i64 noundef 21)
-  %4 = getelementptr inbounds %class.Employee, ptr %0, i64 0, i32 1
-  %5 = load ptr, ptr %4, align 8, !tbaa !8
-  %6 = icmp eq ptr %5, null
-  br i1 %6, label %7, label %15
+define dso_local void @_ZN4Boss5PrintEv(ptr nocapture noundef nonnull readonly align 8 dereferenceable(32) %this) unnamed_addr #11 align 2 {
+entry:
+  %__c.addr.i = alloca i8, align 1
+  %call1.i = tail call noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cout, ptr noundef nonnull @.str.2, i64 noundef 21)
+  %firstName.i = getelementptr inbounds %class.Employee, ptr %this, i64 0, i32 1
+  %0 = load ptr, ptr %firstName.i, align 8, !tbaa !8
+  %tobool.not.i = icmp eq ptr %0, null
+  br i1 %tobool.not.i, label %if.then.i, label %if.else.i
 
-7:                                                ; preds = %1
-  %8 = load ptr, ptr @_ZSt4cout, align 8, !tbaa !5
-  %9 = getelementptr i8, ptr %8, i64 -24
-  %10 = load i64, ptr %9, align 8
-  %11 = getelementptr inbounds i8, ptr @_ZSt4cout, i64 %10
-  %12 = getelementptr inbounds %"class.std::ios_base", ptr %11, i64 0, i32 5
-  %13 = load i32, ptr %12, align 8, !tbaa !38
-  %14 = or i32 %13, 1
-  tail call void @_ZNSt9basic_iosIcSt11char_traitsIcEE5clearESt12_Ios_Iostate(ptr noundef nonnull align 8 dereferenceable(264) %11, i32 noundef %14)
-  br label %18
+if.then.i:                                        ; preds = %entry
+  %vtable.i = load ptr, ptr @_ZSt4cout, align 8, !tbaa !5
+  %vbase.offset.ptr.i = getelementptr i8, ptr %vtable.i, i64 -24
+  %vbase.offset.i = load i64, ptr %vbase.offset.ptr.i, align 8
+  %add.ptr.i = getelementptr inbounds i8, ptr @_ZSt4cout, i64 %vbase.offset.i
+  %_M_streambuf_state.i.i.i = getelementptr inbounds %"class.std::ios_base", ptr %add.ptr.i, i64 0, i32 5
+  %1 = load i32, ptr %_M_streambuf_state.i.i.i, align 8, !tbaa !38
+  %or.i.i.i = or i32 %1, 1
+  tail call void @_ZNSt9basic_iosIcSt11char_traitsIcEE5clearESt12_Ios_Iostate(ptr noundef nonnull align 8 dereferenceable(264) %add.ptr.i, i32 noundef %or.i.i.i)
+  br label %_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_PKc.exit
 
-15:                                               ; preds = %1
-  %16 = tail call i64 @strlen(ptr noundef nonnull dereferenceable(1) %5) #27
-  %17 = tail call noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cout, ptr noundef nonnull %5, i64 noundef %16)
-  br label %18
+if.else.i:                                        ; preds = %entry
+  %call.i.i7 = tail call i64 @strlen(ptr noundef nonnull dereferenceable(1) %0) #27
+  %call1.i8 = tail call noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cout, ptr noundef nonnull %0, i64 noundef %call.i.i7)
+  br label %_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_PKc.exit
 
-18:                                               ; preds = %7, %15
-  call void @llvm.lifetime.start.p0(i64 1, ptr nonnull %2)
-  store i8 32, ptr %2, align 1, !tbaa !14
-  %19 = load ptr, ptr @_ZSt4cout, align 8, !tbaa !5
-  %20 = getelementptr i8, ptr %19, i64 -24
-  %21 = load i64, ptr %20, align 8
-  %22 = getelementptr inbounds i8, ptr @_ZSt4cout, i64 %21
-  %23 = getelementptr inbounds %"class.std::ios_base", ptr %22, i64 0, i32 2
-  %24 = load i64, ptr %23, align 8, !tbaa !15
-  %25 = icmp eq i64 %24, 0
-  br i1 %25, label %28, label %26
+_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_PKc.exit: ; preds = %if.then.i, %if.else.i
+  call void @llvm.lifetime.start.p0(i64 1, ptr nonnull %__c.addr.i)
+  store i8 32, ptr %__c.addr.i, align 1, !tbaa !14
+  %vtable.i9 = load ptr, ptr @_ZSt4cout, align 8, !tbaa !5
+  %vbase.offset.ptr.i10 = getelementptr i8, ptr %vtable.i9, i64 -24
+  %vbase.offset.i11 = load i64, ptr %vbase.offset.ptr.i10, align 8
+  %add.ptr.i12 = getelementptr inbounds i8, ptr @_ZSt4cout, i64 %vbase.offset.i11
+  %_M_width.i.i = getelementptr inbounds %"class.std::ios_base", ptr %add.ptr.i12, i64 0, i32 2
+  %2 = load i64, ptr %_M_width.i.i, align 8, !tbaa !15
+  %cmp.not.i = icmp eq i64 %2, 0
+  br i1 %cmp.not.i, label %if.end.i, label %if.then.i14
 
-26:                                               ; preds = %18
-  %27 = call noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cout, ptr noundef nonnull %2, i64 noundef 1)
-  br label %30
+if.then.i14:                                      ; preds = %_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_PKc.exit
+  %call1.i13 = call noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cout, ptr noundef nonnull %__c.addr.i, i64 noundef 1)
+  br label %_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_c.exit
 
-28:                                               ; preds = %18
-  %29 = tail call noundef nonnull align 8 dereferenceable(8) ptr @_ZNSo3putEc(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cout, i8 noundef signext 32)
-  br label %30
+if.end.i:                                         ; preds = %_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_PKc.exit
+  %call2.i = tail call noundef nonnull align 8 dereferenceable(8) ptr @_ZNSo3putEc(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cout, i8 noundef signext 32)
+  br label %_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_c.exit
 
-30:                                               ; preds = %26, %28
-  %31 = phi ptr [ %27, %26 ], [ @_ZSt4cout, %28 ]
-  call void @llvm.lifetime.end.p0(i64 1, ptr nonnull %2)
-  %32 = getelementptr inbounds %class.Employee, ptr %0, i64 0, i32 2
-  %33 = load ptr, ptr %32, align 8, !tbaa !13
-  %34 = icmp eq ptr %33, null
-  br i1 %34, label %35, label %43
+_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_c.exit: ; preds = %if.then.i14, %if.end.i
+  %retval.0.i = phi ptr [ %call1.i13, %if.then.i14 ], [ @_ZSt4cout, %if.end.i ]
+  call void @llvm.lifetime.end.p0(i64 1, ptr nonnull %__c.addr.i)
+  %lastName.i = getelementptr inbounds %class.Employee, ptr %this, i64 0, i32 2
+  %3 = load ptr, ptr %lastName.i, align 8, !tbaa !13
+  %tobool.not.i15 = icmp eq ptr %3, null
+  br i1 %tobool.not.i15, label %if.then.i22, label %if.else.i25
 
-35:                                               ; preds = %30
-  %36 = load ptr, ptr %31, align 8, !tbaa !5
-  %37 = getelementptr i8, ptr %36, i64 -24
-  %38 = load i64, ptr %37, align 8
-  %39 = getelementptr inbounds i8, ptr %31, i64 %38
-  %40 = getelementptr inbounds %"class.std::ios_base", ptr %39, i64 0, i32 5
-  %41 = load i32, ptr %40, align 8, !tbaa !38
-  %42 = or i32 %41, 1
-  call void @_ZNSt9basic_iosIcSt11char_traitsIcEE5clearESt12_Ios_Iostate(ptr noundef nonnull align 8 dereferenceable(264) %39, i32 noundef %42)
-  br label %46
+if.then.i22:                                      ; preds = %_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_c.exit
+  %vtable.i16 = load ptr, ptr %retval.0.i, align 8, !tbaa !5
+  %vbase.offset.ptr.i17 = getelementptr i8, ptr %vtable.i16, i64 -24
+  %vbase.offset.i18 = load i64, ptr %vbase.offset.ptr.i17, align 8
+  %add.ptr.i19 = getelementptr inbounds i8, ptr %retval.0.i, i64 %vbase.offset.i18
+  %_M_streambuf_state.i.i.i20 = getelementptr inbounds %"class.std::ios_base", ptr %add.ptr.i19, i64 0, i32 5
+  %4 = load i32, ptr %_M_streambuf_state.i.i.i20, align 8, !tbaa !38
+  %or.i.i.i21 = or i32 %4, 1
+  call void @_ZNSt9basic_iosIcSt11char_traitsIcEE5clearESt12_Ios_Iostate(ptr noundef nonnull align 8 dereferenceable(264) %add.ptr.i19, i32 noundef %or.i.i.i21)
+  br label %_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_PKc.exit27
 
-43:                                               ; preds = %30
-  %44 = call i64 @strlen(ptr noundef nonnull dereferenceable(1) %33) #27
-  %45 = call noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) %31, ptr noundef nonnull %33, i64 noundef %44)
-  br label %46
+if.else.i25:                                      ; preds = %_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_c.exit
+  %call.i.i23 = call i64 @strlen(ptr noundef nonnull dereferenceable(1) %3) #27
+  %call1.i24 = call noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) %retval.0.i, ptr noundef nonnull %3, i64 noundef %call.i.i23)
+  br label %_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_PKc.exit27
 
-46:                                               ; preds = %35, %43
+_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_PKc.exit27: ; preds = %if.then.i22, %if.else.i25
   ret void
 }
 
 ; Function Attrs: mustprogress nofree nosync nounwind willreturn memory(argmem: readwrite) uwtable
-define dso_local void @_ZN4Boss5RaiseEi(ptr nocapture noundef nonnull align 8 dereferenceable(32) %0, i32 noundef %1) unnamed_addr #15 align 2 {
-  %3 = icmp sgt i32 %1, 0
-  br i1 %3, label %4, label %11
+define dso_local void @_ZN4Boss5RaiseEi(ptr nocapture noundef nonnull align 8 dereferenceable(32) %this, i32 noundef %units) unnamed_addr #15 align 2 {
+entry:
+  %cmp = icmp sgt i32 %units, 0
+  br i1 %cmp, label %if.then, label %if.end
 
-4:                                                ; preds = %2
-  %5 = sitofp i32 %1 to float
-  %6 = getelementptr inbounds %class.Employee, ptr %0, i64 0, i32 3
-  %7 = load float, ptr %6, align 8, !tbaa !37
-  %8 = getelementptr inbounds %class.Boss, ptr %0, i64 0, i32 1
-  %9 = load float, ptr %8, align 4, !tbaa !35
-  %10 = tail call float @llvm.fmuladd.f32(float %5, float %7, float %9)
-  store float %10, ptr %8, align 4, !tbaa !35
-  br label %11
+if.then:                                          ; preds = %entry
+  %conv = sitofp i32 %units to float
+  %dollarsToRaise = getelementptr inbounds %class.Employee, ptr %this, i64 0, i32 3
+  %0 = load float, ptr %dollarsToRaise, align 8, !tbaa !37
+  %weeklySalary = getelementptr inbounds %class.Boss, ptr %this, i64 0, i32 1
+  %1 = load float, ptr %weeklySalary, align 4, !tbaa !35
+  %2 = tail call float @llvm.fmuladd.f32(float %conv, float %0, float %1)
+  store float %2, ptr %weeklySalary, align 4, !tbaa !35
+  br label %if.end
 
-11:                                               ; preds = %4, %2
+if.end:                                           ; preds = %if.then, %entry
   ret void
 }
 
@@ -450,965 +468,993 @@ define dso_local void @_ZN4Boss5RaiseEi(ptr nocapture noundef nonnull align 8 de
 declare float @llvm.fmuladd.f32(float, float, float) #16
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(none) uwtable
-define dso_local void @_ZN4Boss7NewWeekEv(ptr nocapture nonnull align 8 %0) unnamed_addr #17 align 2 {
+define dso_local void @_ZN4Boss7NewWeekEv(ptr nocapture nonnull align 8 %this) unnamed_addr #17 align 2 {
+entry:
   ret void
 }
 
 ; Function Attrs: uwtable
-define dso_local void @_ZN18CommissionedWorkerC2EPKcS1_ff(ptr nocapture noundef nonnull writeonly align 8 dereferenceable(40) %0, ptr nocapture noundef readonly %1, ptr nocapture noundef readonly %2, float noundef %3, float noundef %4) unnamed_addr #3 align 2 personality ptr @__gxx_personality_v0 {
-  store ptr getelementptr inbounds ({ [8 x ptr] }, ptr @_ZTV8Employee, i64 0, inrange i32 0, i64 2), ptr %0, align 8, !tbaa !5
-  %6 = tail call i64 @strlen(ptr noundef nonnull dereferenceable(1) %1) #25
-  %7 = add i64 %6, 1
-  %8 = tail call noalias noundef nonnull ptr @_Znam(i64 noundef %7) #26
-  %9 = getelementptr inbounds %class.Employee, ptr %0, i64 0, i32 1
-  store ptr %8, ptr %9, align 8, !tbaa !8
-  %10 = tail call ptr @strcpy(ptr noundef nonnull dereferenceable(1) %8, ptr noundef nonnull dereferenceable(1) %1) #27
-  %11 = tail call i64 @strlen(ptr noundef nonnull dereferenceable(1) %2) #25
-  %12 = add i64 %11, 1
-  %13 = tail call noalias noundef nonnull ptr @_Znam(i64 noundef %12) #26
-  %14 = getelementptr inbounds %class.Employee, ptr %0, i64 0, i32 2
-  store ptr %13, ptr %14, align 8, !tbaa !13
-  %15 = tail call ptr @strcpy(ptr noundef nonnull dereferenceable(1) %13, ptr noundef nonnull dereferenceable(1) %2) #27
-  store ptr getelementptr inbounds ({ [8 x ptr] }, ptr @_ZTV18CommissionedWorker, i64 0, inrange i32 0, i64 2), ptr %0, align 8, !tbaa !5
-  %16 = getelementptr inbounds %class.CommissionedWorker, ptr %0, i64 0, i32 3
-  store float 0.000000e+00, ptr %16, align 4, !tbaa !39
-  %17 = fcmp ogt float %3, 0.000000e+00
-  %18 = select i1 %17, float %3, float 0.000000e+00
-  %19 = getelementptr inbounds %class.CommissionedWorker, ptr %0, i64 0, i32 1
-  store float %18, ptr %19, align 4, !tbaa !41
-  %20 = fcmp olt float %4, 0.000000e+00
-  br i1 %20, label %21, label %23
+define dso_local void @_ZN18CommissionedWorkerC2EPKcS1_ff(ptr nocapture noundef nonnull writeonly align 8 dereferenceable(40) %this, ptr nocapture noundef readonly %first, ptr nocapture noundef readonly %last, float noundef %startSalary, float noundef %startCommission) unnamed_addr #3 align 2 personality ptr @__gxx_personality_v0 {
+entry:
+  store ptr getelementptr inbounds ({ [8 x ptr] }, ptr @_ZTV8Employee, i64 0, inrange i32 0, i64 2), ptr %this, align 8, !tbaa !5
+  %call.i = tail call i64 @strlen(ptr noundef nonnull dereferenceable(1) %first) #25
+  %add.i = add i64 %call.i, 1
+  %call2.i = tail call noalias noundef nonnull ptr @_Znam(i64 noundef %add.i) #26
+  %firstName.i = getelementptr inbounds %class.Employee, ptr %this, i64 0, i32 1
+  store ptr %call2.i, ptr %firstName.i, align 8, !tbaa !8
+  %call4.i = tail call ptr @strcpy(ptr noundef nonnull dereferenceable(1) %call2.i, ptr noundef nonnull dereferenceable(1) %first) #27
+  %call5.i = tail call i64 @strlen(ptr noundef nonnull dereferenceable(1) %last) #25
+  %add6.i = add i64 %call5.i, 1
+  %call7.i = tail call noalias noundef nonnull ptr @_Znam(i64 noundef %add6.i) #26
+  %lastName.i = getelementptr inbounds %class.Employee, ptr %this, i64 0, i32 2
+  store ptr %call7.i, ptr %lastName.i, align 8, !tbaa !13
+  %call9.i = tail call ptr @strcpy(ptr noundef nonnull dereferenceable(1) %call7.i, ptr noundef nonnull dereferenceable(1) %last) #27
+  store ptr getelementptr inbounds ({ [8 x ptr] }, ptr @_ZTV18CommissionedWorker, i64 0, inrange i32 0, i64 2), ptr %this, align 8, !tbaa !5
+  %thisWeekSales = getelementptr inbounds %class.CommissionedWorker, ptr %this, i64 0, i32 3
+  store float 0.000000e+00, ptr %thisWeekSales, align 4, !tbaa !39
+  %cmp.i = fcmp ogt float %startSalary, 0.000000e+00
+  %narrow.sel.i = select i1 %cmp.i, float %startSalary, float 0.000000e+00
+  %weeklySalary.i = getelementptr inbounds %class.CommissionedWorker, ptr %this, i64 0, i32 1
+  store float %narrow.sel.i, ptr %weeklySalary.i, align 4, !tbaa !41
+  %cmp.i4 = fcmp olt float %startCommission, 0.000000e+00
+  br i1 %cmp.i4, label %if.then.i, label %if.else.i
 
-21:                                               ; preds = %5
-  %22 = getelementptr inbounds %class.CommissionedWorker, ptr %0, i64 0, i32 2
-  store float 0.000000e+00, ptr %22, align 8, !tbaa !42
-  br label %28
+if.then.i:                                        ; preds = %entry
+  %commissionRate.i = getelementptr inbounds %class.CommissionedWorker, ptr %this, i64 0, i32 2
+  store float 0.000000e+00, ptr %commissionRate.i, align 8, !tbaa !42
+  br label %_ZN18CommissionedWorker17SetCommissionRateEf.exit
 
-23:                                               ; preds = %5
-  %24 = fcmp ogt float %4, 6.000000e+01
-  %25 = getelementptr inbounds %class.CommissionedWorker, ptr %0, i64 0, i32 2
-  br i1 %24, label %26, label %27
+if.else.i:                                        ; preds = %entry
+  %cmp3.i = fcmp ogt float %startCommission, 6.000000e+01
+  %commissionRate5.i = getelementptr inbounds %class.CommissionedWorker, ptr %this, i64 0, i32 2
+  br i1 %cmp3.i, label %if.then4.i, label %if.else6.i
 
-26:                                               ; preds = %23
-  store float 6.000000e+01, ptr %25, align 8, !tbaa !42
-  br label %28
+if.then4.i:                                       ; preds = %if.else.i
+  store float 6.000000e+01, ptr %commissionRate5.i, align 8, !tbaa !42
+  br label %_ZN18CommissionedWorker17SetCommissionRateEf.exit
 
-27:                                               ; preds = %23
-  store float %4, ptr %25, align 8, !tbaa !42
-  br label %28
+if.else6.i:                                       ; preds = %if.else.i
+  store float %startCommission, ptr %commissionRate5.i, align 8, !tbaa !42
+  br label %_ZN18CommissionedWorker17SetCommissionRateEf.exit
 
-28:                                               ; preds = %21, %26, %27
-  %29 = getelementptr inbounds %class.Employee, ptr %0, i64 0, i32 3
-  store float 1.000000e+01, ptr %29, align 8, !tbaa !37
+_ZN18CommissionedWorker17SetCommissionRateEf.exit: ; preds = %if.then.i, %if.then4.i, %if.else6.i
+  %dollarsToRaise = getelementptr inbounds %class.Employee, ptr %this, i64 0, i32 3
+  store float 1.000000e+01, ptr %dollarsToRaise, align 8, !tbaa !37
   ret void
 }
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(argmem: write) uwtable
-define dso_local void @_ZN18CommissionedWorker15SetWeeklySalaryEf(ptr nocapture noundef nonnull writeonly align 8 dereferenceable(40) %0, float noundef %1) local_unnamed_addr #12 align 2 {
-  %3 = fcmp ogt float %1, 0.000000e+00
-  %4 = select i1 %3, float %1, float 0.000000e+00
-  %5 = getelementptr inbounds %class.CommissionedWorker, ptr %0, i64 0, i32 1
-  store float %4, ptr %5, align 4, !tbaa !41
+define dso_local void @_ZN18CommissionedWorker15SetWeeklySalaryEf(ptr nocapture noundef nonnull writeonly align 8 dereferenceable(40) %this, float noundef %newSalary) local_unnamed_addr #12 align 2 {
+entry:
+  %cmp = fcmp ogt float %newSalary, 0.000000e+00
+  %narrow.sel = select i1 %cmp, float %newSalary, float 0.000000e+00
+  %weeklySalary = getelementptr inbounds %class.CommissionedWorker, ptr %this, i64 0, i32 1
+  store float %narrow.sel, ptr %weeklySalary, align 4, !tbaa !41
   ret void
 }
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(argmem: write) uwtable
-define dso_local void @_ZN18CommissionedWorker17SetCommissionRateEf(ptr nocapture noundef nonnull writeonly align 8 dereferenceable(40) %0, float noundef %1) local_unnamed_addr #12 align 2 {
-  %3 = fcmp olt float %1, 0.000000e+00
-  br i1 %3, label %4, label %6
+define dso_local void @_ZN18CommissionedWorker17SetCommissionRateEf(ptr nocapture noundef nonnull writeonly align 8 dereferenceable(40) %this, float noundef %newRate) local_unnamed_addr #12 align 2 {
+entry:
+  %cmp = fcmp olt float %newRate, 0.000000e+00
+  br i1 %cmp, label %if.then, label %if.else
 
-4:                                                ; preds = %2
-  %5 = getelementptr inbounds %class.CommissionedWorker, ptr %0, i64 0, i32 2
-  store float 0.000000e+00, ptr %5, align 8, !tbaa !42
-  br label %11
+if.then:                                          ; preds = %entry
+  %commissionRate = getelementptr inbounds %class.CommissionedWorker, ptr %this, i64 0, i32 2
+  store float 0.000000e+00, ptr %commissionRate, align 8, !tbaa !42
+  br label %if.end8
 
-6:                                                ; preds = %2
-  %7 = fcmp ogt float %1, 6.000000e+01
-  %8 = getelementptr inbounds %class.CommissionedWorker, ptr %0, i64 0, i32 2
-  br i1 %7, label %9, label %10
+if.else:                                          ; preds = %entry
+  %cmp3 = fcmp ogt float %newRate, 6.000000e+01
+  %commissionRate5 = getelementptr inbounds %class.CommissionedWorker, ptr %this, i64 0, i32 2
+  br i1 %cmp3, label %if.then4, label %if.else6
 
-9:                                                ; preds = %6
-  store float 6.000000e+01, ptr %8, align 8, !tbaa !42
-  br label %11
+if.then4:                                         ; preds = %if.else
+  store float 6.000000e+01, ptr %commissionRate5, align 8, !tbaa !42
+  br label %if.end8
 
-10:                                               ; preds = %6
-  store float %1, ptr %8, align 8, !tbaa !42
-  br label %11
+if.else6:                                         ; preds = %if.else
+  store float %newRate, ptr %commissionRate5, align 8, !tbaa !42
+  br label %if.end8
 
-11:                                               ; preds = %9, %10, %4
+if.end8:                                          ; preds = %if.then4, %if.else6, %if.then
   ret void
 }
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(argmem: write) uwtable
-define dso_local void @_ZN18CommissionedWorker13SalesThisWeekEf(ptr nocapture noundef nonnull writeonly align 8 dereferenceable(40) %0, float noundef %1) local_unnamed_addr #12 align 2 {
-  %3 = getelementptr inbounds %class.CommissionedWorker, ptr %0, i64 0, i32 3
-  store float %1, ptr %3, align 4, !tbaa !39
+define dso_local void @_ZN18CommissionedWorker13SalesThisWeekEf(ptr nocapture noundef nonnull writeonly align 8 dereferenceable(40) %this, float noundef %sales) local_unnamed_addr #12 align 2 {
+entry:
+  %thisWeekSales = getelementptr inbounds %class.CommissionedWorker, ptr %this, i64 0, i32 3
+  store float %sales, ptr %thisWeekSales, align 4, !tbaa !39
   ret void
 }
 
 ; Function Attrs: mustprogress nofree nosync nounwind willreturn memory(argmem: read) uwtable
-define dso_local noundef float @_ZN18CommissionedWorker8EarningsEv(ptr nocapture noundef nonnull readonly align 8 dereferenceable(40) %0) unnamed_addr #18 align 2 {
-  %2 = getelementptr inbounds %class.CommissionedWorker, ptr %0, i64 0, i32 1
-  %3 = load float, ptr %2, align 4, !tbaa !41
-  %4 = fpext float %3 to double
-  %5 = getelementptr inbounds %class.CommissionedWorker, ptr %0, i64 0, i32 2
-  %6 = load float, ptr %5, align 8, !tbaa !42
-  %7 = fpext float %6 to double
-  %8 = fdiv double %7, 1.000000e+02
-  %9 = getelementptr inbounds %class.CommissionedWorker, ptr %0, i64 0, i32 3
-  %10 = load float, ptr %9, align 4, !tbaa !39
-  %11 = fpext float %10 to double
-  %12 = tail call double @llvm.fmuladd.f64(double %8, double %11, double %4)
-  %13 = fptrunc double %12 to float
-  ret float %13
+define dso_local noundef float @_ZN18CommissionedWorker8EarningsEv(ptr nocapture noundef nonnull readonly align 8 dereferenceable(40) %this) unnamed_addr #18 align 2 {
+entry:
+  %weeklySalary = getelementptr inbounds %class.CommissionedWorker, ptr %this, i64 0, i32 1
+  %0 = load float, ptr %weeklySalary, align 4, !tbaa !41
+  %conv = fpext float %0 to double
+  %commissionRate = getelementptr inbounds %class.CommissionedWorker, ptr %this, i64 0, i32 2
+  %1 = load float, ptr %commissionRate, align 8, !tbaa !42
+  %conv2 = fpext float %1 to double
+  %div = fdiv double %conv2, 1.000000e+02
+  %thisWeekSales = getelementptr inbounds %class.CommissionedWorker, ptr %this, i64 0, i32 3
+  %2 = load float, ptr %thisWeekSales, align 4, !tbaa !39
+  %conv3 = fpext float %2 to double
+  %3 = tail call double @llvm.fmuladd.f64(double %div, double %conv3, double %conv)
+  %conv4 = fptrunc double %3 to float
+  ret float %conv4
 }
 
 ; Function Attrs: mustprogress nocallback nofree nosync nounwind speculatable willreturn memory(none)
 declare double @llvm.fmuladd.f64(double, double, double) #16
 
 ; Function Attrs: mustprogress uwtable
-define dso_local void @_ZN18CommissionedWorker5PrintEv(ptr nocapture noundef nonnull readonly align 8 dereferenceable(40) %0) unnamed_addr #11 align 2 {
-  %2 = alloca i8, align 1
-  %3 = tail call noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cout, ptr noundef nonnull @.str.3, i64 noundef 21)
-  %4 = getelementptr inbounds %class.Employee, ptr %0, i64 0, i32 1
-  %5 = load ptr, ptr %4, align 8, !tbaa !8
-  %6 = icmp eq ptr %5, null
-  br i1 %6, label %7, label %15
+define dso_local void @_ZN18CommissionedWorker5PrintEv(ptr nocapture noundef nonnull readonly align 8 dereferenceable(40) %this) unnamed_addr #11 align 2 {
+entry:
+  %__c.addr.i = alloca i8, align 1
+  %call1.i = tail call noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cout, ptr noundef nonnull @.str.3, i64 noundef 21)
+  %firstName.i = getelementptr inbounds %class.Employee, ptr %this, i64 0, i32 1
+  %0 = load ptr, ptr %firstName.i, align 8, !tbaa !8
+  %tobool.not.i = icmp eq ptr %0, null
+  br i1 %tobool.not.i, label %if.then.i, label %if.else.i
 
-7:                                                ; preds = %1
-  %8 = load ptr, ptr @_ZSt4cout, align 8, !tbaa !5
-  %9 = getelementptr i8, ptr %8, i64 -24
-  %10 = load i64, ptr %9, align 8
-  %11 = getelementptr inbounds i8, ptr @_ZSt4cout, i64 %10
-  %12 = getelementptr inbounds %"class.std::ios_base", ptr %11, i64 0, i32 5
-  %13 = load i32, ptr %12, align 8, !tbaa !38
-  %14 = or i32 %13, 1
-  tail call void @_ZNSt9basic_iosIcSt11char_traitsIcEE5clearESt12_Ios_Iostate(ptr noundef nonnull align 8 dereferenceable(264) %11, i32 noundef %14)
-  br label %18
+if.then.i:                                        ; preds = %entry
+  %vtable.i = load ptr, ptr @_ZSt4cout, align 8, !tbaa !5
+  %vbase.offset.ptr.i = getelementptr i8, ptr %vtable.i, i64 -24
+  %vbase.offset.i = load i64, ptr %vbase.offset.ptr.i, align 8
+  %add.ptr.i = getelementptr inbounds i8, ptr @_ZSt4cout, i64 %vbase.offset.i
+  %_M_streambuf_state.i.i.i = getelementptr inbounds %"class.std::ios_base", ptr %add.ptr.i, i64 0, i32 5
+  %1 = load i32, ptr %_M_streambuf_state.i.i.i, align 8, !tbaa !38
+  %or.i.i.i = or i32 %1, 1
+  tail call void @_ZNSt9basic_iosIcSt11char_traitsIcEE5clearESt12_Ios_Iostate(ptr noundef nonnull align 8 dereferenceable(264) %add.ptr.i, i32 noundef %or.i.i.i)
+  br label %_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_PKc.exit
 
-15:                                               ; preds = %1
-  %16 = tail call i64 @strlen(ptr noundef nonnull dereferenceable(1) %5) #27
-  %17 = tail call noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cout, ptr noundef nonnull %5, i64 noundef %16)
-  br label %18
+if.else.i:                                        ; preds = %entry
+  %call.i.i7 = tail call i64 @strlen(ptr noundef nonnull dereferenceable(1) %0) #27
+  %call1.i8 = tail call noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cout, ptr noundef nonnull %0, i64 noundef %call.i.i7)
+  br label %_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_PKc.exit
 
-18:                                               ; preds = %7, %15
-  call void @llvm.lifetime.start.p0(i64 1, ptr nonnull %2)
-  store i8 32, ptr %2, align 1, !tbaa !14
-  %19 = load ptr, ptr @_ZSt4cout, align 8, !tbaa !5
-  %20 = getelementptr i8, ptr %19, i64 -24
-  %21 = load i64, ptr %20, align 8
-  %22 = getelementptr inbounds i8, ptr @_ZSt4cout, i64 %21
-  %23 = getelementptr inbounds %"class.std::ios_base", ptr %22, i64 0, i32 2
-  %24 = load i64, ptr %23, align 8, !tbaa !15
-  %25 = icmp eq i64 %24, 0
-  br i1 %25, label %28, label %26
+_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_PKc.exit: ; preds = %if.then.i, %if.else.i
+  call void @llvm.lifetime.start.p0(i64 1, ptr nonnull %__c.addr.i)
+  store i8 32, ptr %__c.addr.i, align 1, !tbaa !14
+  %vtable.i9 = load ptr, ptr @_ZSt4cout, align 8, !tbaa !5
+  %vbase.offset.ptr.i10 = getelementptr i8, ptr %vtable.i9, i64 -24
+  %vbase.offset.i11 = load i64, ptr %vbase.offset.ptr.i10, align 8
+  %add.ptr.i12 = getelementptr inbounds i8, ptr @_ZSt4cout, i64 %vbase.offset.i11
+  %_M_width.i.i = getelementptr inbounds %"class.std::ios_base", ptr %add.ptr.i12, i64 0, i32 2
+  %2 = load i64, ptr %_M_width.i.i, align 8, !tbaa !15
+  %cmp.not.i = icmp eq i64 %2, 0
+  br i1 %cmp.not.i, label %if.end.i, label %if.then.i14
 
-26:                                               ; preds = %18
-  %27 = call noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cout, ptr noundef nonnull %2, i64 noundef 1)
-  br label %30
+if.then.i14:                                      ; preds = %_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_PKc.exit
+  %call1.i13 = call noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cout, ptr noundef nonnull %__c.addr.i, i64 noundef 1)
+  br label %_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_c.exit
 
-28:                                               ; preds = %18
-  %29 = tail call noundef nonnull align 8 dereferenceable(8) ptr @_ZNSo3putEc(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cout, i8 noundef signext 32)
-  br label %30
+if.end.i:                                         ; preds = %_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_PKc.exit
+  %call2.i = tail call noundef nonnull align 8 dereferenceable(8) ptr @_ZNSo3putEc(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cout, i8 noundef signext 32)
+  br label %_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_c.exit
 
-30:                                               ; preds = %26, %28
-  %31 = phi ptr [ %27, %26 ], [ @_ZSt4cout, %28 ]
-  call void @llvm.lifetime.end.p0(i64 1, ptr nonnull %2)
-  %32 = getelementptr inbounds %class.Employee, ptr %0, i64 0, i32 2
-  %33 = load ptr, ptr %32, align 8, !tbaa !13
-  %34 = icmp eq ptr %33, null
-  br i1 %34, label %35, label %43
+_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_c.exit: ; preds = %if.then.i14, %if.end.i
+  %retval.0.i = phi ptr [ %call1.i13, %if.then.i14 ], [ @_ZSt4cout, %if.end.i ]
+  call void @llvm.lifetime.end.p0(i64 1, ptr nonnull %__c.addr.i)
+  %lastName.i = getelementptr inbounds %class.Employee, ptr %this, i64 0, i32 2
+  %3 = load ptr, ptr %lastName.i, align 8, !tbaa !13
+  %tobool.not.i15 = icmp eq ptr %3, null
+  br i1 %tobool.not.i15, label %if.then.i22, label %if.else.i25
 
-35:                                               ; preds = %30
-  %36 = load ptr, ptr %31, align 8, !tbaa !5
-  %37 = getelementptr i8, ptr %36, i64 -24
-  %38 = load i64, ptr %37, align 8
-  %39 = getelementptr inbounds i8, ptr %31, i64 %38
-  %40 = getelementptr inbounds %"class.std::ios_base", ptr %39, i64 0, i32 5
-  %41 = load i32, ptr %40, align 8, !tbaa !38
-  %42 = or i32 %41, 1
-  call void @_ZNSt9basic_iosIcSt11char_traitsIcEE5clearESt12_Ios_Iostate(ptr noundef nonnull align 8 dereferenceable(264) %39, i32 noundef %42)
-  br label %46
+if.then.i22:                                      ; preds = %_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_c.exit
+  %vtable.i16 = load ptr, ptr %retval.0.i, align 8, !tbaa !5
+  %vbase.offset.ptr.i17 = getelementptr i8, ptr %vtable.i16, i64 -24
+  %vbase.offset.i18 = load i64, ptr %vbase.offset.ptr.i17, align 8
+  %add.ptr.i19 = getelementptr inbounds i8, ptr %retval.0.i, i64 %vbase.offset.i18
+  %_M_streambuf_state.i.i.i20 = getelementptr inbounds %"class.std::ios_base", ptr %add.ptr.i19, i64 0, i32 5
+  %4 = load i32, ptr %_M_streambuf_state.i.i.i20, align 8, !tbaa !38
+  %or.i.i.i21 = or i32 %4, 1
+  call void @_ZNSt9basic_iosIcSt11char_traitsIcEE5clearESt12_Ios_Iostate(ptr noundef nonnull align 8 dereferenceable(264) %add.ptr.i19, i32 noundef %or.i.i.i21)
+  br label %_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_PKc.exit27
 
-43:                                               ; preds = %30
-  %44 = call i64 @strlen(ptr noundef nonnull dereferenceable(1) %33) #27
-  %45 = call noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) %31, ptr noundef nonnull %33, i64 noundef %44)
-  br label %46
+if.else.i25:                                      ; preds = %_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_c.exit
+  %call.i.i23 = call i64 @strlen(ptr noundef nonnull dereferenceable(1) %3) #27
+  %call1.i24 = call noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) %retval.0.i, ptr noundef nonnull %3, i64 noundef %call.i.i23)
+  br label %_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_PKc.exit27
 
-46:                                               ; preds = %35, %43
+_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_PKc.exit27: ; preds = %if.then.i22, %if.else.i25
   ret void
 }
 
 ; Function Attrs: mustprogress nofree nosync nounwind willreturn memory(argmem: readwrite) uwtable
-define dso_local void @_ZN18CommissionedWorker5RaiseEi(ptr nocapture noundef nonnull align 8 dereferenceable(40) %0, i32 noundef %1) unnamed_addr #15 align 2 {
-  %3 = icmp sgt i32 %1, 0
-  br i1 %3, label %4, label %18
+define dso_local void @_ZN18CommissionedWorker5RaiseEi(ptr nocapture noundef nonnull align 8 dereferenceable(40) %this, i32 noundef %units) unnamed_addr #15 align 2 {
+entry:
+  %cmp = icmp sgt i32 %units, 0
+  br i1 %cmp, label %if.then, label %if.end
 
-4:                                                ; preds = %2
-  %5 = getelementptr inbounds %class.CommissionedWorker, ptr %0, i64 0, i32 2
-  %6 = load float, ptr %5, align 8, !tbaa !42
-  %7 = sitofp i32 %1 to float
-  %8 = fadd float %6, %7
-  %9 = fcmp olt float %8, 0.000000e+00
-  %10 = fcmp ogt float %8, 6.000000e+01
-  %11 = select i1 %10, float 6.000000e+01, float %8
-  %12 = select i1 %9, float 0.000000e+00, float %11
-  store float %12, ptr %5, align 8, !tbaa !42
-  %13 = getelementptr inbounds %class.Employee, ptr %0, i64 0, i32 3
-  %14 = load float, ptr %13, align 8, !tbaa !37
-  %15 = getelementptr inbounds %class.CommissionedWorker, ptr %0, i64 0, i32 1
-  %16 = load float, ptr %15, align 4, !tbaa !41
-  %17 = tail call float @llvm.fmuladd.f32(float %7, float %14, float %16)
-  store float %17, ptr %15, align 4, !tbaa !41
-  br label %18
+if.then:                                          ; preds = %entry
+  %commissionRate = getelementptr inbounds %class.CommissionedWorker, ptr %this, i64 0, i32 2
+  %0 = load float, ptr %commissionRate, align 8, !tbaa !42
+  %conv = sitofp i32 %units to float
+  %add = fadd float %0, %conv
+  %cmp.i = fcmp olt float %add, 0.000000e+00
+  %cmp3.i = fcmp ogt float %add, 6.000000e+01
+  %.add = select i1 %cmp3.i, float 6.000000e+01, float %add
+  %.sink = select i1 %cmp.i, float 0.000000e+00, float %.add
+  store float %.sink, ptr %commissionRate, align 8, !tbaa !42
+  %dollarsToRaise = getelementptr inbounds %class.Employee, ptr %this, i64 0, i32 3
+  %1 = load float, ptr %dollarsToRaise, align 8, !tbaa !37
+  %weeklySalary = getelementptr inbounds %class.CommissionedWorker, ptr %this, i64 0, i32 1
+  %2 = load float, ptr %weeklySalary, align 4, !tbaa !41
+  %3 = tail call float @llvm.fmuladd.f32(float %conv, float %1, float %2)
+  store float %3, ptr %weeklySalary, align 4, !tbaa !41
+  br label %if.end
 
-18:                                               ; preds = %4, %2
+if.end:                                           ; preds = %if.then, %entry
   ret void
 }
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(argmem: write) uwtable
-define dso_local void @_ZN18CommissionedWorker7NewWeekEv(ptr nocapture noundef nonnull writeonly align 8 dereferenceable(40) %0) unnamed_addr #12 align 2 {
-  %2 = getelementptr inbounds %class.CommissionedWorker, ptr %0, i64 0, i32 3
-  store float 2.500000e+04, ptr %2, align 4, !tbaa !39
+define dso_local void @_ZN18CommissionedWorker7NewWeekEv(ptr nocapture noundef nonnull writeonly align 8 dereferenceable(40) %this) unnamed_addr #12 align 2 {
+entry:
+  %thisWeekSales.i = getelementptr inbounds %class.CommissionedWorker, ptr %this, i64 0, i32 3
+  store float 2.500000e+04, ptr %thisWeekSales.i, align 4, !tbaa !39
   ret void
 }
 
 ; Function Attrs: uwtable
-define dso_local void @_ZN10WageWorkerC2EPKcS1_f(ptr nocapture noundef nonnull writeonly align 8 dereferenceable(32) %0, ptr nocapture noundef readonly %1, ptr nocapture noundef readonly %2, float noundef %3) unnamed_addr #3 align 2 personality ptr @__gxx_personality_v0 {
-  store ptr getelementptr inbounds ({ [8 x ptr] }, ptr @_ZTV8Employee, i64 0, inrange i32 0, i64 2), ptr %0, align 8, !tbaa !5
-  %5 = tail call i64 @strlen(ptr noundef nonnull dereferenceable(1) %1) #25
-  %6 = add i64 %5, 1
-  %7 = tail call noalias noundef nonnull ptr @_Znam(i64 noundef %6) #26
-  %8 = getelementptr inbounds %class.Employee, ptr %0, i64 0, i32 1
-  store ptr %7, ptr %8, align 8, !tbaa !8
-  %9 = tail call ptr @strcpy(ptr noundef nonnull dereferenceable(1) %7, ptr noundef nonnull dereferenceable(1) %1) #27
-  %10 = tail call i64 @strlen(ptr noundef nonnull dereferenceable(1) %2) #25
-  %11 = add i64 %10, 1
-  %12 = tail call noalias noundef nonnull ptr @_Znam(i64 noundef %11) #26
-  %13 = getelementptr inbounds %class.Employee, ptr %0, i64 0, i32 2
-  store ptr %12, ptr %13, align 8, !tbaa !13
-  %14 = tail call ptr @strcpy(ptr noundef nonnull dereferenceable(1) %12, ptr noundef nonnull dereferenceable(1) %2) #27
-  store ptr getelementptr inbounds ({ [8 x ptr] }, ptr @_ZTV10WageWorker, i64 0, inrange i32 0, i64 2), ptr %0, align 8, !tbaa !5
-  %15 = fcmp ogt float %3, 0.000000e+00
-  %16 = select i1 %15, float %3, float 0.000000e+00
-  %17 = getelementptr inbounds %class.WageWorker, ptr %0, i64 0, i32 1
-  store float %16, ptr %17, align 4, !tbaa !43
+define dso_local void @_ZN10WageWorkerC2EPKcS1_f(ptr nocapture noundef nonnull writeonly align 8 dereferenceable(32) %this, ptr nocapture noundef readonly %first, ptr nocapture noundef readonly %last, float noundef %startWage) unnamed_addr #3 align 2 personality ptr @__gxx_personality_v0 {
+entry:
+  store ptr getelementptr inbounds ({ [8 x ptr] }, ptr @_ZTV8Employee, i64 0, inrange i32 0, i64 2), ptr %this, align 8, !tbaa !5
+  %call.i = tail call i64 @strlen(ptr noundef nonnull dereferenceable(1) %first) #25
+  %add.i = add i64 %call.i, 1
+  %call2.i = tail call noalias noundef nonnull ptr @_Znam(i64 noundef %add.i) #26
+  %firstName.i = getelementptr inbounds %class.Employee, ptr %this, i64 0, i32 1
+  store ptr %call2.i, ptr %firstName.i, align 8, !tbaa !8
+  %call4.i = tail call ptr @strcpy(ptr noundef nonnull dereferenceable(1) %call2.i, ptr noundef nonnull dereferenceable(1) %first) #27
+  %call5.i = tail call i64 @strlen(ptr noundef nonnull dereferenceable(1) %last) #25
+  %add6.i = add i64 %call5.i, 1
+  %call7.i = tail call noalias noundef nonnull ptr @_Znam(i64 noundef %add6.i) #26
+  %lastName.i = getelementptr inbounds %class.Employee, ptr %this, i64 0, i32 2
+  store ptr %call7.i, ptr %lastName.i, align 8, !tbaa !13
+  %call9.i = tail call ptr @strcpy(ptr noundef nonnull dereferenceable(1) %call7.i, ptr noundef nonnull dereferenceable(1) %last) #27
+  store ptr getelementptr inbounds ({ [8 x ptr] }, ptr @_ZTV10WageWorker, i64 0, inrange i32 0, i64 2), ptr %this, align 8, !tbaa !5
+  %cmp.i = fcmp ogt float %startWage, 0.000000e+00
+  %narrow.sel.i = select i1 %cmp.i, float %startWage, float 0.000000e+00
+  %wage.i = getelementptr inbounds %class.WageWorker, ptr %this, i64 0, i32 1
+  store float %narrow.sel.i, ptr %wage.i, align 4, !tbaa !43
   ret void
 }
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(argmem: write) uwtable
-define dso_local void @_ZN10WageWorker7SetWageEf(ptr nocapture noundef nonnull writeonly align 8 dereferenceable(32) %0, float noundef %1) local_unnamed_addr #12 align 2 {
-  %3 = fcmp ogt float %1, 0.000000e+00
-  %4 = select i1 %3, float %1, float 0.000000e+00
-  %5 = getelementptr inbounds %class.WageWorker, ptr %0, i64 0, i32 1
-  store float %4, ptr %5, align 4, !tbaa !43
+define dso_local void @_ZN10WageWorker7SetWageEf(ptr nocapture noundef nonnull writeonly align 8 dereferenceable(32) %this, float noundef %newWage) local_unnamed_addr #12 align 2 {
+entry:
+  %cmp = fcmp ogt float %newWage, 0.000000e+00
+  %narrow.sel = select i1 %cmp, float %newWage, float 0.000000e+00
+  %wage = getelementptr inbounds %class.WageWorker, ptr %this, i64 0, i32 1
+  store float %narrow.sel, ptr %wage, align 4, !tbaa !43
   ret void
 }
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(argmem: read) uwtable
-define dso_local noundef float @_ZN10WageWorker4WageEv(ptr nocapture noundef nonnull readonly align 8 dereferenceable(32) %0) local_unnamed_addr #10 align 2 {
-  %2 = getelementptr inbounds %class.WageWorker, ptr %0, i64 0, i32 1
-  %3 = load float, ptr %2, align 4, !tbaa !43
-  ret float %3
+define dso_local noundef float @_ZN10WageWorker4WageEv(ptr nocapture noundef nonnull readonly align 8 dereferenceable(32) %this) local_unnamed_addr #10 align 2 {
+entry:
+  %wage = getelementptr inbounds %class.WageWorker, ptr %this, i64 0, i32 1
+  %0 = load float, ptr %wage, align 4, !tbaa !43
+  ret float %0
 }
 
 ; Function Attrs: mustprogress nofree nosync nounwind willreturn memory(argmem: readwrite) uwtable
-define dso_local void @_ZN10WageWorker5RaiseEi(ptr nocapture noundef nonnull align 8 dereferenceable(32) %0, i32 noundef %1) unnamed_addr #15 align 2 {
-  %3 = icmp sgt i32 %1, 0
-  br i1 %3, label %4, label %11
+define dso_local void @_ZN10WageWorker5RaiseEi(ptr nocapture noundef nonnull align 8 dereferenceable(32) %this, i32 noundef %units) unnamed_addr #15 align 2 {
+entry:
+  %cmp = icmp sgt i32 %units, 0
+  br i1 %cmp, label %if.then, label %if.end
 
-4:                                                ; preds = %2
-  %5 = sitofp i32 %1 to float
-  %6 = getelementptr inbounds %class.Employee, ptr %0, i64 0, i32 3
-  %7 = load float, ptr %6, align 8, !tbaa !37
-  %8 = getelementptr inbounds %class.WageWorker, ptr %0, i64 0, i32 1
-  %9 = load float, ptr %8, align 4, !tbaa !43
-  %10 = tail call float @llvm.fmuladd.f32(float %5, float %7, float %9)
-  store float %10, ptr %8, align 4, !tbaa !43
-  br label %11
+if.then:                                          ; preds = %entry
+  %conv = sitofp i32 %units to float
+  %dollarsToRaise = getelementptr inbounds %class.Employee, ptr %this, i64 0, i32 3
+  %0 = load float, ptr %dollarsToRaise, align 8, !tbaa !37
+  %wage = getelementptr inbounds %class.WageWorker, ptr %this, i64 0, i32 1
+  %1 = load float, ptr %wage, align 4, !tbaa !43
+  %2 = tail call float @llvm.fmuladd.f32(float %conv, float %0, float %1)
+  store float %2, ptr %wage, align 4, !tbaa !43
+  br label %if.end
 
-11:                                               ; preds = %4, %2
+if.end:                                           ; preds = %if.then, %entry
   ret void
 }
 
 ; Function Attrs: uwtable
-define dso_local void @_ZN11PieceWorkerC2EPKcS1_f(ptr nocapture noundef nonnull writeonly align 8 dereferenceable(36) %0, ptr nocapture noundef readonly %1, ptr nocapture noundef readonly %2, float noundef %3) unnamed_addr #3 align 2 personality ptr @__gxx_personality_v0 {
-  store ptr getelementptr inbounds ({ [8 x ptr] }, ptr @_ZTV8Employee, i64 0, inrange i32 0, i64 2), ptr %0, align 8, !tbaa !5
-  %5 = tail call i64 @strlen(ptr noundef nonnull dereferenceable(1) %1) #25
-  %6 = add i64 %5, 1
-  %7 = tail call noalias noundef nonnull ptr @_Znam(i64 noundef %6) #26
-  %8 = getelementptr inbounds %class.Employee, ptr %0, i64 0, i32 1
-  store ptr %7, ptr %8, align 8, !tbaa !8
-  %9 = tail call ptr @strcpy(ptr noundef nonnull dereferenceable(1) %7, ptr noundef nonnull dereferenceable(1) %1) #27
-  %10 = tail call i64 @strlen(ptr noundef nonnull dereferenceable(1) %2) #25
-  %11 = add i64 %10, 1
-  %12 = tail call noalias noundef nonnull ptr @_Znam(i64 noundef %11) #26
-  %13 = getelementptr inbounds %class.Employee, ptr %0, i64 0, i32 2
-  store ptr %12, ptr %13, align 8, !tbaa !13
-  %14 = tail call ptr @strcpy(ptr noundef nonnull dereferenceable(1) %12, ptr noundef nonnull dereferenceable(1) %2) #27
-  %15 = fcmp ogt float %3, 0.000000e+00
-  %16 = select i1 %15, float %3, float 0.000000e+00
-  %17 = getelementptr inbounds %class.WageWorker, ptr %0, i64 0, i32 1
-  store float %16, ptr %17, align 4, !tbaa !43
-  store ptr getelementptr inbounds ({ [8 x ptr] }, ptr @_ZTV11PieceWorker, i64 0, inrange i32 0, i64 2), ptr %0, align 8, !tbaa !5
-  %18 = getelementptr inbounds %class.Employee, ptr %0, i64 0, i32 3
-  store float 1.500000e+01, ptr %18, align 8, !tbaa !37
+define dso_local void @_ZN11PieceWorkerC2EPKcS1_f(ptr nocapture noundef nonnull writeonly align 8 dereferenceable(36) %this, ptr nocapture noundef readonly %first, ptr nocapture noundef readonly %last, float noundef %startWage) unnamed_addr #3 align 2 personality ptr @__gxx_personality_v0 {
+entry:
+  store ptr getelementptr inbounds ({ [8 x ptr] }, ptr @_ZTV8Employee, i64 0, inrange i32 0, i64 2), ptr %this, align 8, !tbaa !5
+  %call.i.i = tail call i64 @strlen(ptr noundef nonnull dereferenceable(1) %first) #25
+  %add.i.i = add i64 %call.i.i, 1
+  %call2.i.i = tail call noalias noundef nonnull ptr @_Znam(i64 noundef %add.i.i) #26
+  %firstName.i.i = getelementptr inbounds %class.Employee, ptr %this, i64 0, i32 1
+  store ptr %call2.i.i, ptr %firstName.i.i, align 8, !tbaa !8
+  %call4.i.i = tail call ptr @strcpy(ptr noundef nonnull dereferenceable(1) %call2.i.i, ptr noundef nonnull dereferenceable(1) %first) #27
+  %call5.i.i = tail call i64 @strlen(ptr noundef nonnull dereferenceable(1) %last) #25
+  %add6.i.i = add i64 %call5.i.i, 1
+  %call7.i.i = tail call noalias noundef nonnull ptr @_Znam(i64 noundef %add6.i.i) #26
+  %lastName.i.i = getelementptr inbounds %class.Employee, ptr %this, i64 0, i32 2
+  store ptr %call7.i.i, ptr %lastName.i.i, align 8, !tbaa !13
+  %call9.i.i = tail call ptr @strcpy(ptr noundef nonnull dereferenceable(1) %call7.i.i, ptr noundef nonnull dereferenceable(1) %last) #27
+  %cmp.i.i = fcmp ogt float %startWage, 0.000000e+00
+  %narrow.sel.i.i = select i1 %cmp.i.i, float %startWage, float 0.000000e+00
+  %wage.i.i = getelementptr inbounds %class.WageWorker, ptr %this, i64 0, i32 1
+  store float %narrow.sel.i.i, ptr %wage.i.i, align 4, !tbaa !43
+  store ptr getelementptr inbounds ({ [8 x ptr] }, ptr @_ZTV11PieceWorker, i64 0, inrange i32 0, i64 2), ptr %this, align 8, !tbaa !5
+  %dollarsToRaise = getelementptr inbounds %class.Employee, ptr %this, i64 0, i32 3
+  store float 1.500000e+01, ptr %dollarsToRaise, align 8, !tbaa !37
   ret void
 }
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(argmem: write) uwtable
-define dso_local void @_ZN11PieceWorker16ProducedThisWeekEi(ptr nocapture noundef nonnull writeonly align 8 dereferenceable(36) %0, i32 noundef %1) local_unnamed_addr #12 align 2 {
-  %3 = getelementptr inbounds %class.PieceWorker, ptr %0, i64 0, i32 1
-  store i32 %1, ptr %3, align 8, !tbaa !45
+define dso_local void @_ZN11PieceWorker16ProducedThisWeekEi(ptr nocapture noundef nonnull writeonly align 8 dereferenceable(36) %this, i32 noundef %total) local_unnamed_addr #12 align 2 {
+entry:
+  %thisWeekTotal = getelementptr inbounds %class.PieceWorker, ptr %this, i64 0, i32 1
+  store i32 %total, ptr %thisWeekTotal, align 8, !tbaa !45
   ret void
 }
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(argmem: read) uwtable
-define dso_local noundef float @_ZN11PieceWorker8EarningsEv(ptr nocapture noundef nonnull readonly align 8 dereferenceable(36) %0) unnamed_addr #10 align 2 {
-  %2 = getelementptr inbounds %class.WageWorker, ptr %0, i64 0, i32 1
-  %3 = load float, ptr %2, align 4, !tbaa !43
-  %4 = getelementptr inbounds %class.PieceWorker, ptr %0, i64 0, i32 1
-  %5 = load i32, ptr %4, align 8, !tbaa !45
-  %6 = sitofp i32 %5 to float
-  %7 = fmul float %3, %6
-  ret float %7
+define dso_local noundef float @_ZN11PieceWorker8EarningsEv(ptr nocapture noundef nonnull readonly align 8 dereferenceable(36) %this) unnamed_addr #10 align 2 {
+entry:
+  %wage.i = getelementptr inbounds %class.WageWorker, ptr %this, i64 0, i32 1
+  %0 = load float, ptr %wage.i, align 4, !tbaa !43
+  %thisWeekTotal = getelementptr inbounds %class.PieceWorker, ptr %this, i64 0, i32 1
+  %1 = load i32, ptr %thisWeekTotal, align 8, !tbaa !45
+  %conv = sitofp i32 %1 to float
+  %mul = fmul float %0, %conv
+  ret float %mul
 }
 
 ; Function Attrs: mustprogress uwtable
-define dso_local void @_ZN11PieceWorker5PrintEv(ptr nocapture noundef nonnull readonly align 8 dereferenceable(36) %0) unnamed_addr #11 align 2 {
-  %2 = alloca i8, align 1
-  %3 = tail call noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cout, ptr noundef nonnull @.str.4, i64 noundef 21)
-  %4 = getelementptr inbounds %class.Employee, ptr %0, i64 0, i32 1
-  %5 = load ptr, ptr %4, align 8, !tbaa !8
-  %6 = icmp eq ptr %5, null
-  br i1 %6, label %7, label %15
+define dso_local void @_ZN11PieceWorker5PrintEv(ptr nocapture noundef nonnull readonly align 8 dereferenceable(36) %this) unnamed_addr #11 align 2 {
+entry:
+  %__c.addr.i = alloca i8, align 1
+  %call1.i = tail call noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cout, ptr noundef nonnull @.str.4, i64 noundef 21)
+  %firstName.i = getelementptr inbounds %class.Employee, ptr %this, i64 0, i32 1
+  %0 = load ptr, ptr %firstName.i, align 8, !tbaa !8
+  %tobool.not.i = icmp eq ptr %0, null
+  br i1 %tobool.not.i, label %if.then.i, label %if.else.i
 
-7:                                                ; preds = %1
-  %8 = load ptr, ptr @_ZSt4cout, align 8, !tbaa !5
-  %9 = getelementptr i8, ptr %8, i64 -24
-  %10 = load i64, ptr %9, align 8
-  %11 = getelementptr inbounds i8, ptr @_ZSt4cout, i64 %10
-  %12 = getelementptr inbounds %"class.std::ios_base", ptr %11, i64 0, i32 5
-  %13 = load i32, ptr %12, align 8, !tbaa !38
-  %14 = or i32 %13, 1
-  tail call void @_ZNSt9basic_iosIcSt11char_traitsIcEE5clearESt12_Ios_Iostate(ptr noundef nonnull align 8 dereferenceable(264) %11, i32 noundef %14)
-  br label %18
+if.then.i:                                        ; preds = %entry
+  %vtable.i = load ptr, ptr @_ZSt4cout, align 8, !tbaa !5
+  %vbase.offset.ptr.i = getelementptr i8, ptr %vtable.i, i64 -24
+  %vbase.offset.i = load i64, ptr %vbase.offset.ptr.i, align 8
+  %add.ptr.i = getelementptr inbounds i8, ptr @_ZSt4cout, i64 %vbase.offset.i
+  %_M_streambuf_state.i.i.i = getelementptr inbounds %"class.std::ios_base", ptr %add.ptr.i, i64 0, i32 5
+  %1 = load i32, ptr %_M_streambuf_state.i.i.i, align 8, !tbaa !38
+  %or.i.i.i = or i32 %1, 1
+  tail call void @_ZNSt9basic_iosIcSt11char_traitsIcEE5clearESt12_Ios_Iostate(ptr noundef nonnull align 8 dereferenceable(264) %add.ptr.i, i32 noundef %or.i.i.i)
+  br label %_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_PKc.exit
 
-15:                                               ; preds = %1
-  %16 = tail call i64 @strlen(ptr noundef nonnull dereferenceable(1) %5) #27
-  %17 = tail call noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cout, ptr noundef nonnull %5, i64 noundef %16)
-  br label %18
+if.else.i:                                        ; preds = %entry
+  %call.i.i7 = tail call i64 @strlen(ptr noundef nonnull dereferenceable(1) %0) #27
+  %call1.i8 = tail call noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cout, ptr noundef nonnull %0, i64 noundef %call.i.i7)
+  br label %_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_PKc.exit
 
-18:                                               ; preds = %7, %15
-  call void @llvm.lifetime.start.p0(i64 1, ptr nonnull %2)
-  store i8 32, ptr %2, align 1, !tbaa !14
-  %19 = load ptr, ptr @_ZSt4cout, align 8, !tbaa !5
-  %20 = getelementptr i8, ptr %19, i64 -24
-  %21 = load i64, ptr %20, align 8
-  %22 = getelementptr inbounds i8, ptr @_ZSt4cout, i64 %21
-  %23 = getelementptr inbounds %"class.std::ios_base", ptr %22, i64 0, i32 2
-  %24 = load i64, ptr %23, align 8, !tbaa !15
-  %25 = icmp eq i64 %24, 0
-  br i1 %25, label %28, label %26
+_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_PKc.exit: ; preds = %if.then.i, %if.else.i
+  call void @llvm.lifetime.start.p0(i64 1, ptr nonnull %__c.addr.i)
+  store i8 32, ptr %__c.addr.i, align 1, !tbaa !14
+  %vtable.i9 = load ptr, ptr @_ZSt4cout, align 8, !tbaa !5
+  %vbase.offset.ptr.i10 = getelementptr i8, ptr %vtable.i9, i64 -24
+  %vbase.offset.i11 = load i64, ptr %vbase.offset.ptr.i10, align 8
+  %add.ptr.i12 = getelementptr inbounds i8, ptr @_ZSt4cout, i64 %vbase.offset.i11
+  %_M_width.i.i = getelementptr inbounds %"class.std::ios_base", ptr %add.ptr.i12, i64 0, i32 2
+  %2 = load i64, ptr %_M_width.i.i, align 8, !tbaa !15
+  %cmp.not.i = icmp eq i64 %2, 0
+  br i1 %cmp.not.i, label %if.end.i, label %if.then.i14
 
-26:                                               ; preds = %18
-  %27 = call noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cout, ptr noundef nonnull %2, i64 noundef 1)
-  br label %30
+if.then.i14:                                      ; preds = %_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_PKc.exit
+  %call1.i13 = call noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cout, ptr noundef nonnull %__c.addr.i, i64 noundef 1)
+  br label %_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_c.exit
 
-28:                                               ; preds = %18
-  %29 = tail call noundef nonnull align 8 dereferenceable(8) ptr @_ZNSo3putEc(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cout, i8 noundef signext 32)
-  br label %30
+if.end.i:                                         ; preds = %_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_PKc.exit
+  %call2.i = tail call noundef nonnull align 8 dereferenceable(8) ptr @_ZNSo3putEc(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cout, i8 noundef signext 32)
+  br label %_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_c.exit
 
-30:                                               ; preds = %26, %28
-  %31 = phi ptr [ %27, %26 ], [ @_ZSt4cout, %28 ]
-  call void @llvm.lifetime.end.p0(i64 1, ptr nonnull %2)
-  %32 = getelementptr inbounds %class.Employee, ptr %0, i64 0, i32 2
-  %33 = load ptr, ptr %32, align 8, !tbaa !13
-  %34 = icmp eq ptr %33, null
-  br i1 %34, label %35, label %43
+_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_c.exit: ; preds = %if.then.i14, %if.end.i
+  %retval.0.i = phi ptr [ %call1.i13, %if.then.i14 ], [ @_ZSt4cout, %if.end.i ]
+  call void @llvm.lifetime.end.p0(i64 1, ptr nonnull %__c.addr.i)
+  %lastName.i = getelementptr inbounds %class.Employee, ptr %this, i64 0, i32 2
+  %3 = load ptr, ptr %lastName.i, align 8, !tbaa !13
+  %tobool.not.i15 = icmp eq ptr %3, null
+  br i1 %tobool.not.i15, label %if.then.i22, label %if.else.i25
 
-35:                                               ; preds = %30
-  %36 = load ptr, ptr %31, align 8, !tbaa !5
-  %37 = getelementptr i8, ptr %36, i64 -24
-  %38 = load i64, ptr %37, align 8
-  %39 = getelementptr inbounds i8, ptr %31, i64 %38
-  %40 = getelementptr inbounds %"class.std::ios_base", ptr %39, i64 0, i32 5
-  %41 = load i32, ptr %40, align 8, !tbaa !38
-  %42 = or i32 %41, 1
-  call void @_ZNSt9basic_iosIcSt11char_traitsIcEE5clearESt12_Ios_Iostate(ptr noundef nonnull align 8 dereferenceable(264) %39, i32 noundef %42)
-  br label %46
+if.then.i22:                                      ; preds = %_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_c.exit
+  %vtable.i16 = load ptr, ptr %retval.0.i, align 8, !tbaa !5
+  %vbase.offset.ptr.i17 = getelementptr i8, ptr %vtable.i16, i64 -24
+  %vbase.offset.i18 = load i64, ptr %vbase.offset.ptr.i17, align 8
+  %add.ptr.i19 = getelementptr inbounds i8, ptr %retval.0.i, i64 %vbase.offset.i18
+  %_M_streambuf_state.i.i.i20 = getelementptr inbounds %"class.std::ios_base", ptr %add.ptr.i19, i64 0, i32 5
+  %4 = load i32, ptr %_M_streambuf_state.i.i.i20, align 8, !tbaa !38
+  %or.i.i.i21 = or i32 %4, 1
+  call void @_ZNSt9basic_iosIcSt11char_traitsIcEE5clearESt12_Ios_Iostate(ptr noundef nonnull align 8 dereferenceable(264) %add.ptr.i19, i32 noundef %or.i.i.i21)
+  br label %_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_PKc.exit27
 
-43:                                               ; preds = %30
-  %44 = call i64 @strlen(ptr noundef nonnull dereferenceable(1) %33) #27
-  %45 = call noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) %31, ptr noundef nonnull %33, i64 noundef %44)
-  br label %46
+if.else.i25:                                      ; preds = %_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_c.exit
+  %call.i.i23 = call i64 @strlen(ptr noundef nonnull dereferenceable(1) %3) #27
+  %call1.i24 = call noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) %retval.0.i, ptr noundef nonnull %3, i64 noundef %call.i.i23)
+  br label %_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_PKc.exit27
 
-46:                                               ; preds = %35, %43
+_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_PKc.exit27: ; preds = %if.then.i22, %if.else.i25
   ret void
 }
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(argmem: write) uwtable
-define dso_local void @_ZN11PieceWorker7NewWeekEv(ptr nocapture noundef nonnull writeonly align 8 dereferenceable(36) %0) unnamed_addr #12 align 2 {
-  %2 = getelementptr inbounds %class.PieceWorker, ptr %0, i64 0, i32 1
-  store i32 3, ptr %2, align 8, !tbaa !45
+define dso_local void @_ZN11PieceWorker7NewWeekEv(ptr nocapture noundef nonnull writeonly align 8 dereferenceable(36) %this) unnamed_addr #12 align 2 {
+entry:
+  %thisWeekTotal.i = getelementptr inbounds %class.PieceWorker, ptr %this, i64 0, i32 1
+  store i32 3, ptr %thisWeekTotal.i, align 8, !tbaa !45
   ret void
 }
 
 ; Function Attrs: uwtable
-define dso_local void @_ZN12HourlyWorkerC2EPKcS1_f(ptr nocapture noundef nonnull writeonly align 8 dereferenceable(36) %0, ptr nocapture noundef readonly %1, ptr nocapture noundef readonly %2, float noundef %3) unnamed_addr #3 align 2 personality ptr @__gxx_personality_v0 {
-  store ptr getelementptr inbounds ({ [8 x ptr] }, ptr @_ZTV8Employee, i64 0, inrange i32 0, i64 2), ptr %0, align 8, !tbaa !5
-  %5 = tail call i64 @strlen(ptr noundef nonnull dereferenceable(1) %1) #25
-  %6 = add i64 %5, 1
-  %7 = tail call noalias noundef nonnull ptr @_Znam(i64 noundef %6) #26
-  %8 = getelementptr inbounds %class.Employee, ptr %0, i64 0, i32 1
-  store ptr %7, ptr %8, align 8, !tbaa !8
-  %9 = tail call ptr @strcpy(ptr noundef nonnull dereferenceable(1) %7, ptr noundef nonnull dereferenceable(1) %1) #27
-  %10 = tail call i64 @strlen(ptr noundef nonnull dereferenceable(1) %2) #25
-  %11 = add i64 %10, 1
-  %12 = tail call noalias noundef nonnull ptr @_Znam(i64 noundef %11) #26
-  %13 = getelementptr inbounds %class.Employee, ptr %0, i64 0, i32 2
-  store ptr %12, ptr %13, align 8, !tbaa !13
-  %14 = tail call ptr @strcpy(ptr noundef nonnull dereferenceable(1) %12, ptr noundef nonnull dereferenceable(1) %2) #27
-  %15 = fcmp ogt float %3, 0.000000e+00
-  %16 = select i1 %15, float %3, float 0.000000e+00
-  %17 = getelementptr inbounds %class.WageWorker, ptr %0, i64 0, i32 1
-  store float %16, ptr %17, align 4, !tbaa !43
-  store ptr getelementptr inbounds ({ [8 x ptr] }, ptr @_ZTV12HourlyWorker, i64 0, inrange i32 0, i64 2), ptr %0, align 8, !tbaa !5
-  %18 = getelementptr inbounds %class.Employee, ptr %0, i64 0, i32 3
-  store float 5.000000e-01, ptr %18, align 8, !tbaa !37
-  %19 = getelementptr inbounds %class.HourlyWorker, ptr %0, i64 0, i32 1
-  store float 0.000000e+00, ptr %19, align 8, !tbaa !47
+define dso_local void @_ZN12HourlyWorkerC2EPKcS1_f(ptr nocapture noundef nonnull writeonly align 8 dereferenceable(36) %this, ptr nocapture noundef readonly %first, ptr nocapture noundef readonly %last, float noundef %startWage) unnamed_addr #3 align 2 personality ptr @__gxx_personality_v0 {
+entry:
+  store ptr getelementptr inbounds ({ [8 x ptr] }, ptr @_ZTV8Employee, i64 0, inrange i32 0, i64 2), ptr %this, align 8, !tbaa !5
+  %call.i.i = tail call i64 @strlen(ptr noundef nonnull dereferenceable(1) %first) #25
+  %add.i.i = add i64 %call.i.i, 1
+  %call2.i.i = tail call noalias noundef nonnull ptr @_Znam(i64 noundef %add.i.i) #26
+  %firstName.i.i = getelementptr inbounds %class.Employee, ptr %this, i64 0, i32 1
+  store ptr %call2.i.i, ptr %firstName.i.i, align 8, !tbaa !8
+  %call4.i.i = tail call ptr @strcpy(ptr noundef nonnull dereferenceable(1) %call2.i.i, ptr noundef nonnull dereferenceable(1) %first) #27
+  %call5.i.i = tail call i64 @strlen(ptr noundef nonnull dereferenceable(1) %last) #25
+  %add6.i.i = add i64 %call5.i.i, 1
+  %call7.i.i = tail call noalias noundef nonnull ptr @_Znam(i64 noundef %add6.i.i) #26
+  %lastName.i.i = getelementptr inbounds %class.Employee, ptr %this, i64 0, i32 2
+  store ptr %call7.i.i, ptr %lastName.i.i, align 8, !tbaa !13
+  %call9.i.i = tail call ptr @strcpy(ptr noundef nonnull dereferenceable(1) %call7.i.i, ptr noundef nonnull dereferenceable(1) %last) #27
+  %cmp.i.i = fcmp ogt float %startWage, 0.000000e+00
+  %narrow.sel.i.i = select i1 %cmp.i.i, float %startWage, float 0.000000e+00
+  %wage.i.i = getelementptr inbounds %class.WageWorker, ptr %this, i64 0, i32 1
+  store float %narrow.sel.i.i, ptr %wage.i.i, align 4, !tbaa !43
+  store ptr getelementptr inbounds ({ [8 x ptr] }, ptr @_ZTV12HourlyWorker, i64 0, inrange i32 0, i64 2), ptr %this, align 8, !tbaa !5
+  %dollarsToRaise = getelementptr inbounds %class.Employee, ptr %this, i64 0, i32 3
+  store float 5.000000e-01, ptr %dollarsToRaise, align 8, !tbaa !37
+  %thisWeekHours = getelementptr inbounds %class.HourlyWorker, ptr %this, i64 0, i32 1
+  store float 0.000000e+00, ptr %thisWeekHours, align 8, !tbaa !47
   ret void
 }
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(argmem: write) uwtable
-define dso_local void @_ZN12HourlyWorker16SetThisWeekHoursEf(ptr nocapture noundef nonnull writeonly align 8 dereferenceable(36) %0, float noundef %1) local_unnamed_addr #12 align 2 {
-  %3 = getelementptr inbounds %class.HourlyWorker, ptr %0, i64 0, i32 1
-  store float %1, ptr %3, align 8, !tbaa !47
+define dso_local void @_ZN12HourlyWorker16SetThisWeekHoursEf(ptr nocapture noundef nonnull writeonly align 8 dereferenceable(36) %this, float noundef %hours) local_unnamed_addr #12 align 2 {
+entry:
+  %thisWeekHours = getelementptr inbounds %class.HourlyWorker, ptr %this, i64 0, i32 1
+  store float %hours, ptr %thisWeekHours, align 8, !tbaa !47
   ret void
 }
 
 ; Function Attrs: mustprogress uwtable
-define dso_local void @_ZN12HourlyWorker5PrintEv(ptr nocapture noundef nonnull readonly align 8 dereferenceable(36) %0) unnamed_addr #11 align 2 {
-  %2 = alloca i8, align 1
-  %3 = tail call noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cout, ptr noundef nonnull @.str.5, i64 noundef 21)
-  %4 = getelementptr inbounds %class.Employee, ptr %0, i64 0, i32 1
-  %5 = load ptr, ptr %4, align 8, !tbaa !8
-  %6 = icmp eq ptr %5, null
-  br i1 %6, label %7, label %15
+define dso_local void @_ZN12HourlyWorker5PrintEv(ptr nocapture noundef nonnull readonly align 8 dereferenceable(36) %this) unnamed_addr #11 align 2 {
+entry:
+  %__c.addr.i = alloca i8, align 1
+  %call1.i = tail call noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cout, ptr noundef nonnull @.str.5, i64 noundef 21)
+  %firstName.i = getelementptr inbounds %class.Employee, ptr %this, i64 0, i32 1
+  %0 = load ptr, ptr %firstName.i, align 8, !tbaa !8
+  %tobool.not.i = icmp eq ptr %0, null
+  br i1 %tobool.not.i, label %if.then.i, label %if.else.i
 
-7:                                                ; preds = %1
-  %8 = load ptr, ptr @_ZSt4cout, align 8, !tbaa !5
-  %9 = getelementptr i8, ptr %8, i64 -24
-  %10 = load i64, ptr %9, align 8
-  %11 = getelementptr inbounds i8, ptr @_ZSt4cout, i64 %10
-  %12 = getelementptr inbounds %"class.std::ios_base", ptr %11, i64 0, i32 5
-  %13 = load i32, ptr %12, align 8, !tbaa !38
-  %14 = or i32 %13, 1
-  tail call void @_ZNSt9basic_iosIcSt11char_traitsIcEE5clearESt12_Ios_Iostate(ptr noundef nonnull align 8 dereferenceable(264) %11, i32 noundef %14)
-  br label %18
+if.then.i:                                        ; preds = %entry
+  %vtable.i = load ptr, ptr @_ZSt4cout, align 8, !tbaa !5
+  %vbase.offset.ptr.i = getelementptr i8, ptr %vtable.i, i64 -24
+  %vbase.offset.i = load i64, ptr %vbase.offset.ptr.i, align 8
+  %add.ptr.i = getelementptr inbounds i8, ptr @_ZSt4cout, i64 %vbase.offset.i
+  %_M_streambuf_state.i.i.i = getelementptr inbounds %"class.std::ios_base", ptr %add.ptr.i, i64 0, i32 5
+  %1 = load i32, ptr %_M_streambuf_state.i.i.i, align 8, !tbaa !38
+  %or.i.i.i = or i32 %1, 1
+  tail call void @_ZNSt9basic_iosIcSt11char_traitsIcEE5clearESt12_Ios_Iostate(ptr noundef nonnull align 8 dereferenceable(264) %add.ptr.i, i32 noundef %or.i.i.i)
+  br label %_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_PKc.exit
 
-15:                                               ; preds = %1
-  %16 = tail call i64 @strlen(ptr noundef nonnull dereferenceable(1) %5) #27
-  %17 = tail call noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cout, ptr noundef nonnull %5, i64 noundef %16)
-  br label %18
+if.else.i:                                        ; preds = %entry
+  %call.i.i7 = tail call i64 @strlen(ptr noundef nonnull dereferenceable(1) %0) #27
+  %call1.i8 = tail call noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cout, ptr noundef nonnull %0, i64 noundef %call.i.i7)
+  br label %_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_PKc.exit
 
-18:                                               ; preds = %7, %15
-  call void @llvm.lifetime.start.p0(i64 1, ptr nonnull %2)
-  store i8 32, ptr %2, align 1, !tbaa !14
-  %19 = load ptr, ptr @_ZSt4cout, align 8, !tbaa !5
-  %20 = getelementptr i8, ptr %19, i64 -24
-  %21 = load i64, ptr %20, align 8
-  %22 = getelementptr inbounds i8, ptr @_ZSt4cout, i64 %21
-  %23 = getelementptr inbounds %"class.std::ios_base", ptr %22, i64 0, i32 2
-  %24 = load i64, ptr %23, align 8, !tbaa !15
-  %25 = icmp eq i64 %24, 0
-  br i1 %25, label %28, label %26
+_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_PKc.exit: ; preds = %if.then.i, %if.else.i
+  call void @llvm.lifetime.start.p0(i64 1, ptr nonnull %__c.addr.i)
+  store i8 32, ptr %__c.addr.i, align 1, !tbaa !14
+  %vtable.i9 = load ptr, ptr @_ZSt4cout, align 8, !tbaa !5
+  %vbase.offset.ptr.i10 = getelementptr i8, ptr %vtable.i9, i64 -24
+  %vbase.offset.i11 = load i64, ptr %vbase.offset.ptr.i10, align 8
+  %add.ptr.i12 = getelementptr inbounds i8, ptr @_ZSt4cout, i64 %vbase.offset.i11
+  %_M_width.i.i = getelementptr inbounds %"class.std::ios_base", ptr %add.ptr.i12, i64 0, i32 2
+  %2 = load i64, ptr %_M_width.i.i, align 8, !tbaa !15
+  %cmp.not.i = icmp eq i64 %2, 0
+  br i1 %cmp.not.i, label %if.end.i, label %if.then.i14
 
-26:                                               ; preds = %18
-  %27 = call noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cout, ptr noundef nonnull %2, i64 noundef 1)
-  br label %30
+if.then.i14:                                      ; preds = %_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_PKc.exit
+  %call1.i13 = call noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cout, ptr noundef nonnull %__c.addr.i, i64 noundef 1)
+  br label %_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_c.exit
 
-28:                                               ; preds = %18
-  %29 = tail call noundef nonnull align 8 dereferenceable(8) ptr @_ZNSo3putEc(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cout, i8 noundef signext 32)
-  br label %30
+if.end.i:                                         ; preds = %_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_PKc.exit
+  %call2.i = tail call noundef nonnull align 8 dereferenceable(8) ptr @_ZNSo3putEc(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cout, i8 noundef signext 32)
+  br label %_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_c.exit
 
-30:                                               ; preds = %26, %28
-  %31 = phi ptr [ %27, %26 ], [ @_ZSt4cout, %28 ]
-  call void @llvm.lifetime.end.p0(i64 1, ptr nonnull %2)
-  %32 = getelementptr inbounds %class.Employee, ptr %0, i64 0, i32 2
-  %33 = load ptr, ptr %32, align 8, !tbaa !13
-  %34 = icmp eq ptr %33, null
-  br i1 %34, label %35, label %43
+_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_c.exit: ; preds = %if.then.i14, %if.end.i
+  %retval.0.i = phi ptr [ %call1.i13, %if.then.i14 ], [ @_ZSt4cout, %if.end.i ]
+  call void @llvm.lifetime.end.p0(i64 1, ptr nonnull %__c.addr.i)
+  %lastName.i = getelementptr inbounds %class.Employee, ptr %this, i64 0, i32 2
+  %3 = load ptr, ptr %lastName.i, align 8, !tbaa !13
+  %tobool.not.i15 = icmp eq ptr %3, null
+  br i1 %tobool.not.i15, label %if.then.i22, label %if.else.i25
 
-35:                                               ; preds = %30
-  %36 = load ptr, ptr %31, align 8, !tbaa !5
-  %37 = getelementptr i8, ptr %36, i64 -24
-  %38 = load i64, ptr %37, align 8
-  %39 = getelementptr inbounds i8, ptr %31, i64 %38
-  %40 = getelementptr inbounds %"class.std::ios_base", ptr %39, i64 0, i32 5
-  %41 = load i32, ptr %40, align 8, !tbaa !38
-  %42 = or i32 %41, 1
-  call void @_ZNSt9basic_iosIcSt11char_traitsIcEE5clearESt12_Ios_Iostate(ptr noundef nonnull align 8 dereferenceable(264) %39, i32 noundef %42)
-  br label %46
+if.then.i22:                                      ; preds = %_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_c.exit
+  %vtable.i16 = load ptr, ptr %retval.0.i, align 8, !tbaa !5
+  %vbase.offset.ptr.i17 = getelementptr i8, ptr %vtable.i16, i64 -24
+  %vbase.offset.i18 = load i64, ptr %vbase.offset.ptr.i17, align 8
+  %add.ptr.i19 = getelementptr inbounds i8, ptr %retval.0.i, i64 %vbase.offset.i18
+  %_M_streambuf_state.i.i.i20 = getelementptr inbounds %"class.std::ios_base", ptr %add.ptr.i19, i64 0, i32 5
+  %4 = load i32, ptr %_M_streambuf_state.i.i.i20, align 8, !tbaa !38
+  %or.i.i.i21 = or i32 %4, 1
+  call void @_ZNSt9basic_iosIcSt11char_traitsIcEE5clearESt12_Ios_Iostate(ptr noundef nonnull align 8 dereferenceable(264) %add.ptr.i19, i32 noundef %or.i.i.i21)
+  br label %_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_PKc.exit27
 
-43:                                               ; preds = %30
-  %44 = call i64 @strlen(ptr noundef nonnull dereferenceable(1) %33) #27
-  %45 = call noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) %31, ptr noundef nonnull %33, i64 noundef %44)
-  br label %46
+if.else.i25:                                      ; preds = %_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_c.exit
+  %call.i.i23 = call i64 @strlen(ptr noundef nonnull dereferenceable(1) %3) #27
+  %call1.i24 = call noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) %retval.0.i, ptr noundef nonnull %3, i64 noundef %call.i.i23)
+  br label %_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_PKc.exit27
 
-46:                                               ; preds = %35, %43
+_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_PKc.exit27: ; preds = %if.then.i22, %if.else.i25
   ret void
 }
 
 ; Function Attrs: mustprogress nofree nosync nounwind willreturn memory(argmem: readwrite) uwtable
-define dso_local void @_ZN12HourlyWorker5RaiseEi(ptr nocapture noundef nonnull align 8 dereferenceable(36) %0, i32 noundef %1) unnamed_addr #15 align 2 {
-  %3 = icmp sgt i32 %1, 0
-  br i1 %3, label %4, label %13
+define dso_local void @_ZN12HourlyWorker5RaiseEi(ptr nocapture noundef nonnull align 8 dereferenceable(36) %this, i32 noundef %units) unnamed_addr #15 align 2 {
+entry:
+  %cmp = icmp sgt i32 %units, 0
+  br i1 %cmp, label %if.then, label %if.end
 
-4:                                                ; preds = %2
-  %5 = getelementptr inbounds %class.WageWorker, ptr %0, i64 0, i32 1
-  %6 = load float, ptr %5, align 4, !tbaa !43
-  %7 = sitofp i32 %1 to float
-  %8 = getelementptr inbounds %class.Employee, ptr %0, i64 0, i32 3
-  %9 = load float, ptr %8, align 8, !tbaa !37
-  %10 = tail call float @llvm.fmuladd.f32(float %7, float %9, float %6)
-  %11 = fcmp ogt float %10, 0.000000e+00
-  %12 = select i1 %11, float %10, float 0.000000e+00
-  store float %12, ptr %5, align 4, !tbaa !43
-  br label %13
+if.then:                                          ; preds = %entry
+  %wage.i = getelementptr inbounds %class.WageWorker, ptr %this, i64 0, i32 1
+  %0 = load float, ptr %wage.i, align 4, !tbaa !43
+  %conv = sitofp i32 %units to float
+  %dollarsToRaise = getelementptr inbounds %class.Employee, ptr %this, i64 0, i32 3
+  %1 = load float, ptr %dollarsToRaise, align 8, !tbaa !37
+  %2 = tail call float @llvm.fmuladd.f32(float %conv, float %1, float %0)
+  %cmp.i = fcmp ogt float %2, 0.000000e+00
+  %narrow.sel.i = select i1 %cmp.i, float %2, float 0.000000e+00
+  store float %narrow.sel.i, ptr %wage.i, align 4, !tbaa !43
+  br label %if.end
 
-13:                                               ; preds = %4, %2
+if.end:                                           ; preds = %if.then, %entry
   ret void
 }
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(argmem: write) uwtable
-define dso_local void @_ZN12HourlyWorker7NewWeekEv(ptr nocapture noundef nonnull writeonly align 8 dereferenceable(36) %0) unnamed_addr #12 align 2 {
-  %2 = getelementptr inbounds %class.HourlyWorker, ptr %0, i64 0, i32 1
-  store float 4.400000e+01, ptr %2, align 8, !tbaa !47
+define dso_local void @_ZN12HourlyWorker7NewWeekEv(ptr nocapture noundef nonnull writeonly align 8 dereferenceable(36) %this) unnamed_addr #12 align 2 {
+entry:
+  %thisWeekHours.i = getelementptr inbounds %class.HourlyWorker, ptr %this, i64 0, i32 1
+  store float 4.400000e+01, ptr %thisWeekHours.i, align 8, !tbaa !47
   ret void
 }
 
 ; Function Attrs: uwtable
-define dso_local void @_ZN22HourlyWorkerNoOvertimeC2EPKcS1_f(ptr nocapture noundef nonnull writeonly align 8 dereferenceable(36) %0, ptr nocapture noundef readonly %1, ptr nocapture noundef readonly %2, float noundef %3) unnamed_addr #3 align 2 personality ptr @__gxx_personality_v0 {
-  store ptr getelementptr inbounds ({ [8 x ptr] }, ptr @_ZTV8Employee, i64 0, inrange i32 0, i64 2), ptr %0, align 8, !tbaa !5
-  %5 = tail call i64 @strlen(ptr noundef nonnull dereferenceable(1) %1) #25
-  %6 = add i64 %5, 1
-  %7 = tail call noalias noundef nonnull ptr @_Znam(i64 noundef %6) #26
-  %8 = getelementptr inbounds %class.Employee, ptr %0, i64 0, i32 1
-  store ptr %7, ptr %8, align 8, !tbaa !8
-  %9 = tail call ptr @strcpy(ptr noundef nonnull dereferenceable(1) %7, ptr noundef nonnull dereferenceable(1) %1) #27
-  %10 = tail call i64 @strlen(ptr noundef nonnull dereferenceable(1) %2) #25
-  %11 = add i64 %10, 1
-  %12 = tail call noalias noundef nonnull ptr @_Znam(i64 noundef %11) #26
-  %13 = getelementptr inbounds %class.Employee, ptr %0, i64 0, i32 2
-  store ptr %12, ptr %13, align 8, !tbaa !13
-  %14 = tail call ptr @strcpy(ptr noundef nonnull dereferenceable(1) %12, ptr noundef nonnull dereferenceable(1) %2) #27
-  %15 = fcmp ogt float %3, 0.000000e+00
-  %16 = select i1 %15, float %3, float 0.000000e+00
-  %17 = getelementptr inbounds %class.WageWorker, ptr %0, i64 0, i32 1
-  store float %16, ptr %17, align 4, !tbaa !43
-  %18 = getelementptr inbounds %class.Employee, ptr %0, i64 0, i32 3
-  store float 5.000000e-01, ptr %18, align 8, !tbaa !37
-  %19 = getelementptr inbounds %class.HourlyWorker, ptr %0, i64 0, i32 1
-  store float 0.000000e+00, ptr %19, align 8, !tbaa !47
-  store ptr getelementptr inbounds ({ [8 x ptr] }, ptr @_ZTV22HourlyWorkerNoOvertime, i64 0, inrange i32 0, i64 2), ptr %0, align 8, !tbaa !5
+define dso_local void @_ZN22HourlyWorkerNoOvertimeC2EPKcS1_f(ptr nocapture noundef nonnull writeonly align 8 dereferenceable(36) %this, ptr nocapture noundef readonly %first, ptr nocapture noundef readonly %last, float noundef %startWage) unnamed_addr #3 align 2 personality ptr @__gxx_personality_v0 {
+entry:
+  store ptr getelementptr inbounds ({ [8 x ptr] }, ptr @_ZTV8Employee, i64 0, inrange i32 0, i64 2), ptr %this, align 8, !tbaa !5
+  %call.i.i.i = tail call i64 @strlen(ptr noundef nonnull dereferenceable(1) %first) #25
+  %add.i.i.i = add i64 %call.i.i.i, 1
+  %call2.i.i.i = tail call noalias noundef nonnull ptr @_Znam(i64 noundef %add.i.i.i) #26
+  %firstName.i.i.i = getelementptr inbounds %class.Employee, ptr %this, i64 0, i32 1
+  store ptr %call2.i.i.i, ptr %firstName.i.i.i, align 8, !tbaa !8
+  %call4.i.i.i = tail call ptr @strcpy(ptr noundef nonnull dereferenceable(1) %call2.i.i.i, ptr noundef nonnull dereferenceable(1) %first) #27
+  %call5.i.i.i = tail call i64 @strlen(ptr noundef nonnull dereferenceable(1) %last) #25
+  %add6.i.i.i = add i64 %call5.i.i.i, 1
+  %call7.i.i.i = tail call noalias noundef nonnull ptr @_Znam(i64 noundef %add6.i.i.i) #26
+  %lastName.i.i.i = getelementptr inbounds %class.Employee, ptr %this, i64 0, i32 2
+  store ptr %call7.i.i.i, ptr %lastName.i.i.i, align 8, !tbaa !13
+  %call9.i.i.i = tail call ptr @strcpy(ptr noundef nonnull dereferenceable(1) %call7.i.i.i, ptr noundef nonnull dereferenceable(1) %last) #27
+  %cmp.i.i.i = fcmp ogt float %startWage, 0.000000e+00
+  %narrow.sel.i.i.i = select i1 %cmp.i.i.i, float %startWage, float 0.000000e+00
+  %wage.i.i.i = getelementptr inbounds %class.WageWorker, ptr %this, i64 0, i32 1
+  store float %narrow.sel.i.i.i, ptr %wage.i.i.i, align 4, !tbaa !43
+  %dollarsToRaise.i = getelementptr inbounds %class.Employee, ptr %this, i64 0, i32 3
+  store float 5.000000e-01, ptr %dollarsToRaise.i, align 8, !tbaa !37
+  %thisWeekHours.i = getelementptr inbounds %class.HourlyWorker, ptr %this, i64 0, i32 1
+  store float 0.000000e+00, ptr %thisWeekHours.i, align 8, !tbaa !47
+  store ptr getelementptr inbounds ({ [8 x ptr] }, ptr @_ZTV22HourlyWorkerNoOvertime, i64 0, inrange i32 0, i64 2), ptr %this, align 8, !tbaa !5
   ret void
 }
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(argmem: read) uwtable
-define dso_local noundef float @_ZN22HourlyWorkerNoOvertime8EarningsEv(ptr nocapture noundef nonnull readonly align 8 dereferenceable(36) %0) unnamed_addr #10 align 2 {
-  %2 = getelementptr inbounds %class.WageWorker, ptr %0, i64 0, i32 1
-  %3 = load float, ptr %2, align 4, !tbaa !43
-  %4 = getelementptr inbounds %class.HourlyWorker, ptr %0, i64 0, i32 1
-  %5 = load float, ptr %4, align 8, !tbaa !47
-  %6 = fmul float %3, %5
-  ret float %6
+define dso_local noundef float @_ZN22HourlyWorkerNoOvertime8EarningsEv(ptr nocapture noundef nonnull readonly align 8 dereferenceable(36) %this) unnamed_addr #10 align 2 {
+entry:
+  %wage.i = getelementptr inbounds %class.WageWorker, ptr %this, i64 0, i32 1
+  %0 = load float, ptr %wage.i, align 4, !tbaa !43
+  %thisWeekHours.i = getelementptr inbounds %class.HourlyWorker, ptr %this, i64 0, i32 1
+  %1 = load float, ptr %thisWeekHours.i, align 8, !tbaa !47
+  %mul = fmul float %0, %1
+  ret float %mul
 }
 
 ; Function Attrs: uwtable
-define dso_local void @_ZN20HourlyWorkerOvertimeC2EPKcS1_f(ptr nocapture noundef nonnull writeonly align 8 dereferenceable(36) %0, ptr nocapture noundef readonly %1, ptr nocapture noundef readonly %2, float noundef %3) unnamed_addr #3 align 2 personality ptr @__gxx_personality_v0 {
-  store ptr getelementptr inbounds ({ [8 x ptr] }, ptr @_ZTV8Employee, i64 0, inrange i32 0, i64 2), ptr %0, align 8, !tbaa !5
-  %5 = tail call i64 @strlen(ptr noundef nonnull dereferenceable(1) %1) #25
-  %6 = add i64 %5, 1
-  %7 = tail call noalias noundef nonnull ptr @_Znam(i64 noundef %6) #26
-  %8 = getelementptr inbounds %class.Employee, ptr %0, i64 0, i32 1
-  store ptr %7, ptr %8, align 8, !tbaa !8
-  %9 = tail call ptr @strcpy(ptr noundef nonnull dereferenceable(1) %7, ptr noundef nonnull dereferenceable(1) %1) #27
-  %10 = tail call i64 @strlen(ptr noundef nonnull dereferenceable(1) %2) #25
-  %11 = add i64 %10, 1
-  %12 = tail call noalias noundef nonnull ptr @_Znam(i64 noundef %11) #26
-  %13 = getelementptr inbounds %class.Employee, ptr %0, i64 0, i32 2
-  store ptr %12, ptr %13, align 8, !tbaa !13
-  %14 = tail call ptr @strcpy(ptr noundef nonnull dereferenceable(1) %12, ptr noundef nonnull dereferenceable(1) %2) #27
-  %15 = fcmp ogt float %3, 0.000000e+00
-  %16 = select i1 %15, float %3, float 0.000000e+00
-  %17 = getelementptr inbounds %class.WageWorker, ptr %0, i64 0, i32 1
-  store float %16, ptr %17, align 4, !tbaa !43
-  %18 = getelementptr inbounds %class.Employee, ptr %0, i64 0, i32 3
-  store float 5.000000e-01, ptr %18, align 8, !tbaa !37
-  %19 = getelementptr inbounds %class.HourlyWorker, ptr %0, i64 0, i32 1
-  store float 0.000000e+00, ptr %19, align 8, !tbaa !47
-  store ptr getelementptr inbounds ({ [8 x ptr] }, ptr @_ZTV20HourlyWorkerOvertime, i64 0, inrange i32 0, i64 2), ptr %0, align 8, !tbaa !5
+define dso_local void @_ZN20HourlyWorkerOvertimeC2EPKcS1_f(ptr nocapture noundef nonnull writeonly align 8 dereferenceable(36) %this, ptr nocapture noundef readonly %first, ptr nocapture noundef readonly %last, float noundef %startWage) unnamed_addr #3 align 2 personality ptr @__gxx_personality_v0 {
+entry:
+  store ptr getelementptr inbounds ({ [8 x ptr] }, ptr @_ZTV8Employee, i64 0, inrange i32 0, i64 2), ptr %this, align 8, !tbaa !5
+  %call.i.i.i = tail call i64 @strlen(ptr noundef nonnull dereferenceable(1) %first) #25
+  %add.i.i.i = add i64 %call.i.i.i, 1
+  %call2.i.i.i = tail call noalias noundef nonnull ptr @_Znam(i64 noundef %add.i.i.i) #26
+  %firstName.i.i.i = getelementptr inbounds %class.Employee, ptr %this, i64 0, i32 1
+  store ptr %call2.i.i.i, ptr %firstName.i.i.i, align 8, !tbaa !8
+  %call4.i.i.i = tail call ptr @strcpy(ptr noundef nonnull dereferenceable(1) %call2.i.i.i, ptr noundef nonnull dereferenceable(1) %first) #27
+  %call5.i.i.i = tail call i64 @strlen(ptr noundef nonnull dereferenceable(1) %last) #25
+  %add6.i.i.i = add i64 %call5.i.i.i, 1
+  %call7.i.i.i = tail call noalias noundef nonnull ptr @_Znam(i64 noundef %add6.i.i.i) #26
+  %lastName.i.i.i = getelementptr inbounds %class.Employee, ptr %this, i64 0, i32 2
+  store ptr %call7.i.i.i, ptr %lastName.i.i.i, align 8, !tbaa !13
+  %call9.i.i.i = tail call ptr @strcpy(ptr noundef nonnull dereferenceable(1) %call7.i.i.i, ptr noundef nonnull dereferenceable(1) %last) #27
+  %cmp.i.i.i = fcmp ogt float %startWage, 0.000000e+00
+  %narrow.sel.i.i.i = select i1 %cmp.i.i.i, float %startWage, float 0.000000e+00
+  %wage.i.i.i = getelementptr inbounds %class.WageWorker, ptr %this, i64 0, i32 1
+  store float %narrow.sel.i.i.i, ptr %wage.i.i.i, align 4, !tbaa !43
+  %dollarsToRaise.i = getelementptr inbounds %class.Employee, ptr %this, i64 0, i32 3
+  store float 5.000000e-01, ptr %dollarsToRaise.i, align 8, !tbaa !37
+  %thisWeekHours.i = getelementptr inbounds %class.HourlyWorker, ptr %this, i64 0, i32 1
+  store float 0.000000e+00, ptr %thisWeekHours.i, align 8, !tbaa !47
+  store ptr getelementptr inbounds ({ [8 x ptr] }, ptr @_ZTV20HourlyWorkerOvertime, i64 0, inrange i32 0, i64 2), ptr %this, align 8, !tbaa !5
   ret void
 }
 
 ; Function Attrs: mustprogress nofree nosync nounwind willreturn memory(argmem: read) uwtable
-define dso_local noundef float @_ZN20HourlyWorkerOvertime8EarningsEv(ptr nocapture noundef nonnull readonly align 8 dereferenceable(36) %0) unnamed_addr #18 align 2 {
-  %2 = getelementptr inbounds %class.HourlyWorker, ptr %0, i64 0, i32 1
-  %3 = load float, ptr %2, align 8, !tbaa !47
-  %4 = fcmp ogt float %3, 4.000000e+01
-  %5 = fadd float %3, -4.000000e+01
-  %6 = select i1 %4, float %5, float 0.000000e+00
-  %7 = getelementptr inbounds %class.WageWorker, ptr %0, i64 0, i32 1
-  %8 = load float, ptr %7, align 4, !tbaa !43
-  %9 = fmul float %3, %8
-  %10 = fpext float %9 to double
-  %11 = fpext float %8 to double
-  %12 = fmul double %11, 5.000000e-01
-  %13 = fpext float %6 to double
-  %14 = tail call double @llvm.fmuladd.f64(double %12, double %13, double %10)
-  %15 = fptrunc double %14 to float
-  ret float %15
+define dso_local noundef float @_ZN20HourlyWorkerOvertime8EarningsEv(ptr nocapture noundef nonnull readonly align 8 dereferenceable(36) %this) unnamed_addr #18 align 2 {
+entry:
+  %thisWeekHours.i = getelementptr inbounds %class.HourlyWorker, ptr %this, i64 0, i32 1
+  %0 = load float, ptr %thisWeekHours.i, align 8, !tbaa !47
+  %cmp = fcmp ogt float %0, 4.000000e+01
+  %conv3 = fadd float %0, -4.000000e+01
+  %1 = fpext float %conv3 to double
+  %overHours.0 = select i1 %cmp, double %1, double 0.000000e+00
+  %wage.i = getelementptr inbounds %class.WageWorker, ptr %this, i64 0, i32 1
+  %2 = load float, ptr %wage.i, align 4, !tbaa !43
+  %mul = fmul float %0, %2
+  %conv5 = fpext float %mul to double
+  %conv7 = fpext float %2 to double
+  %div = fmul double %conv7, 5.000000e-01
+  %3 = tail call double @llvm.fmuladd.f64(double %div, double %overHours.0, double %conv5)
+  %conv10 = fptrunc double %3 to float
+  ret float %conv10
 }
 
 ; Function Attrs: norecurse uwtable
-define dso_local noundef i32 @main(i32 noundef %0, ptr nocapture noundef readonly %1) local_unnamed_addr #19 personality ptr @__gxx_personality_v0 {
-  %3 = alloca i8, align 1
-  %4 = alloca i32, align 4
-  %5 = alloca [80 x i8], align 16
-  %6 = alloca [80 x i8], align 16
-  %7 = alloca float, align 4
-  %8 = alloca float, align 4
-  call void @llvm.lifetime.start.p0(i64 4, ptr nonnull %4) #27
-  call void @llvm.lifetime.start.p0(i64 80, ptr nonnull %5) #27
-  call void @llvm.lifetime.start.p0(i64 80, ptr nonnull %6) #27
-  call void @llvm.lifetime.start.p0(i64 4, ptr nonnull %7) #27
-  call void @llvm.lifetime.start.p0(i64 4, ptr nonnull %8) #27
-  %9 = icmp eq i32 %0, 2
-  br i1 %9, label %13, label %10
+define dso_local noundef i32 @main(i32 noundef %argc, ptr nocapture noundef readonly %argv) local_unnamed_addr #19 personality ptr @__gxx_personality_v0 {
+entry:
+  %__c.addr.i.i = alloca i8, align 1
+  %classCode = alloca i32, align 4
+  %first = alloca [80 x i8], align 16
+  %last = alloca [80 x i8], align 16
+  %firstArg = alloca float, align 4
+  %secondArg = alloca float, align 4
+  call void @llvm.lifetime.start.p0(i64 4, ptr nonnull %classCode) #27
+  call void @llvm.lifetime.start.p0(i64 80, ptr nonnull %first) #27
+  call void @llvm.lifetime.start.p0(i64 80, ptr nonnull %last) #27
+  call void @llvm.lifetime.start.p0(i64 4, ptr nonnull %firstArg) #27
+  call void @llvm.lifetime.start.p0(i64 4, ptr nonnull %secondArg) #27
+  %cmp.not = icmp eq i32 %argc, 2
+  br i1 %cmp.not, label %if.end, label %if.then
 
-10:                                               ; preds = %2
-  %11 = load ptr, ptr @stderr, align 8, !tbaa !29
-  %12 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %11, ptr noundef nonnull @.str.6, ptr noundef nonnull @.str.7) #29
-  br label %196
+if.then:                                          ; preds = %entry
+  %0 = load ptr, ptr @stderr, align 8, !tbaa !29
+  %call = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %0, ptr noundef nonnull @.str.6, ptr noundef nonnull @.str.7) #29
+  br label %cleanup
 
-13:                                               ; preds = %2
-  %14 = load ptr, ptr @_ZSt4cout, align 8, !tbaa !5
-  %15 = getelementptr i8, ptr %14, i64 -24
-  %16 = load i64, ptr %15, align 8
-  %17 = getelementptr inbounds i8, ptr @_ZSt4cout, i64 %16
-  %18 = getelementptr inbounds %"class.std::ios_base", ptr %17, i64 0, i32 3
-  %19 = load i32, ptr %18, align 8, !tbaa !49
-  %20 = or i32 %19, 1028
-  store i32 %20, ptr %18, align 8, !tbaa !50
-  %21 = load i64, ptr %15, align 8
-  %22 = getelementptr inbounds i8, ptr @_ZSt4cout, i64 %21
-  %23 = getelementptr inbounds %"class.std::ios_base", ptr %22, i64 0, i32 1
-  store i64 2, ptr %23, align 8, !tbaa !51
-  %24 = getelementptr inbounds ptr, ptr %1, i64 1
-  %25 = load ptr, ptr %24, align 8, !tbaa !29
-  %26 = tail call i64 @strtol(ptr nocapture noundef nonnull %25, ptr noundef null, i32 noundef 10) #27
-  %27 = trunc i64 %26 to i32
-  %28 = call i32 (ptr, ...) @__isoc99_scanf(ptr noundef nonnull @.str.8, ptr noundef nonnull %4, ptr noundef nonnull %5, ptr noundef nonnull %6, ptr noundef nonnull %7)
-  %29 = icmp eq i32 %28, 4
-  br i1 %29, label %32, label %196
+if.end:                                           ; preds = %entry
+  %vtable.i = load ptr, ptr @_ZSt4cout, align 8, !tbaa !5
+  %vbase.offset.ptr.i = getelementptr i8, ptr %vtable.i, i64 -24
+  %vbase.offset.i = load i64, ptr %vbase.offset.ptr.i, align 8
+  %add.ptr.i = getelementptr inbounds i8, ptr @_ZSt4cout, i64 %vbase.offset.i
+  %_M_flags.i.i = getelementptr inbounds %"class.std::ios_base", ptr %add.ptr.i, i64 0, i32 3
+  %1 = load i32, ptr %_M_flags.i.i, align 8, !tbaa !49
+  %or.i.i.i.i = or i32 %1, 1028
+  store i32 %or.i.i.i.i, ptr %_M_flags.i.i, align 8, !tbaa !49
+  %vbase.offset.i75 = load i64, ptr %vbase.offset.ptr.i, align 8
+  %add.ptr.i76 = getelementptr inbounds i8, ptr @_ZSt4cout, i64 %vbase.offset.i75
+  %_M_precision.i.i = getelementptr inbounds %"class.std::ios_base", ptr %add.ptr.i76, i64 0, i32 1
+  store i64 2, ptr %_M_precision.i.i, align 8, !tbaa !50
+  %arrayidx = getelementptr inbounds ptr, ptr %argv, i64 1
+  %2 = load ptr, ptr %arrayidx, align 8, !tbaa !29
+  %call.i = tail call i64 @strtol(ptr nocapture noundef nonnull %2, ptr noundef null, i32 noundef 10) #27
+  %conv.i = trunc i64 %call.i to i32
+  %call13128 = call i32 (ptr, ...) @__isoc99_scanf(ptr noundef nonnull @.str.8, ptr noundef nonnull %classCode, ptr noundef nonnull %first, ptr noundef nonnull %last, ptr noundef nonnull %firstArg)
+  %cmp14129 = icmp eq i32 %call13128, 4
+  br i1 %cmp14129, label %while.body, label %cleanup
 
-30:                                               ; preds = %131
-  %31 = icmp sgt i32 %27, 0
-  br i1 %31, label %137, label %196
+for.cond.preheader:                               ; preds = %sw.epilog
+  %cmp46130 = icmp sgt i32 %conv.i, 0
+  br i1 %cmp46130, label %for.body, label %cleanup
 
-32:                                               ; preds = %13, %131
-  %33 = phi ptr [ %133, %131 ], [ null, %13 ]
-  %34 = load i32, ptr %4, align 4, !tbaa !52
-  switch i32 %34, label %128 [
-    i32 1, label %35
-    i32 7, label %56
-    i32 6, label %78
-    i32 4, label %100
-    i32 2, label %121
+while.body:                                       ; preds = %if.end, %sw.epilog
+  %3 = phi ptr [ %call.i100, %sw.epilog ], [ null, %if.end ]
+  %4 = load i32, ptr %classCode, align 4, !tbaa !51
+  switch i32 %4, label %sw.default [
+    i32 1, label %sw.bb
+    i32 7, label %sw.bb20
+    i32 6, label %sw.bb26
+    i32 4, label %sw.bb32
+    i32 2, label %sw.bb38
   ]
 
-35:                                               ; preds = %32
-  %36 = call noalias noundef nonnull dereferenceable(32) ptr @_Znwm(i64 noundef 32) #26
-  %37 = load float, ptr %7, align 4, !tbaa !53
-  store ptr getelementptr inbounds ({ [8 x ptr] }, ptr @_ZTV8Employee, i64 0, inrange i32 0, i64 2), ptr %36, align 8, !tbaa !5
-  %38 = call i64 @strlen(ptr noundef nonnull dereferenceable(1) %5) #25
-  %39 = add i64 %38, 1
-  %40 = invoke noalias noundef nonnull ptr @_Znam(i64 noundef %39) #26
-          to label %41 unwind label %54
+sw.bb:                                            ; preds = %while.body
+  %call15 = call noalias noundef nonnull dereferenceable(32) ptr @_Znwm(i64 noundef 32) #26
+  %5 = load float, ptr %firstArg, align 4, !tbaa !52
+  store ptr getelementptr inbounds ({ [8 x ptr] }, ptr @_ZTV8Employee, i64 0, inrange i32 0, i64 2), ptr %call15, align 8, !tbaa !5
+  %call.i.i = call i64 @strlen(ptr noundef nonnull dereferenceable(1) %first) #25
+  %add.i.i = add i64 %call.i.i, 1
+  %call2.i.i77 = invoke noalias noundef nonnull ptr @_Znam(i64 noundef %add.i.i) #26
+          to label %call2.i.i.noexc unwind label %lpad18
 
-41:                                               ; preds = %35
-  %42 = getelementptr inbounds %class.Employee, ptr %36, i64 0, i32 1
-  store ptr %40, ptr %42, align 8, !tbaa !8
-  %43 = call ptr @strcpy(ptr noundef nonnull dereferenceable(1) %40, ptr noundef nonnull dereferenceable(1) %5) #27
-  %44 = call i64 @strlen(ptr noundef nonnull dereferenceable(1) %6) #25
-  %45 = add i64 %44, 1
-  %46 = invoke noalias noundef nonnull ptr @_Znam(i64 noundef %45) #26
-          to label %47 unwind label %54
+call2.i.i.noexc:                                  ; preds = %sw.bb
+  %firstName.i.i = getelementptr inbounds %class.Employee, ptr %call15, i64 0, i32 1
+  store ptr %call2.i.i77, ptr %firstName.i.i, align 8, !tbaa !8
+  %call4.i.i = call ptr @strcpy(ptr noundef nonnull dereferenceable(1) %call2.i.i77, ptr noundef nonnull dereferenceable(1) %first) #27
+  %call5.i.i = call i64 @strlen(ptr noundef nonnull dereferenceable(1) %last) #25
+  %add6.i.i = add i64 %call5.i.i, 1
+  %call7.i.i78 = invoke noalias noundef nonnull ptr @_Znam(i64 noundef %add6.i.i) #26
+          to label %_ZN4BossC2EPKcS1_f.exit unwind label %lpad18
 
-47:                                               ; preds = %41
-  %48 = getelementptr inbounds %class.Employee, ptr %36, i64 0, i32 2
-  store ptr %46, ptr %48, align 8, !tbaa !13
-  %49 = call ptr @strcpy(ptr noundef nonnull dereferenceable(1) %46, ptr noundef nonnull dereferenceable(1) %6) #27
-  store ptr getelementptr inbounds ({ [8 x ptr] }, ptr @_ZTV4Boss, i64 0, inrange i32 0, i64 2), ptr %36, align 8, !tbaa !5
-  %50 = fcmp ogt float %37, 0.000000e+00
-  %51 = select i1 %50, float %37, float 0.000000e+00
-  %52 = getelementptr inbounds %class.Boss, ptr %36, i64 0, i32 1
-  store float %51, ptr %52, align 4, !tbaa !35
-  %53 = getelementptr inbounds %class.Employee, ptr %36, i64 0, i32 3
-  store float 1.000000e+02, ptr %53, align 8, !tbaa !37
-  br label %131
+_ZN4BossC2EPKcS1_f.exit:                          ; preds = %call2.i.i.noexc
+  %lastName.i.i = getelementptr inbounds %class.Employee, ptr %call15, i64 0, i32 2
+  store ptr %call7.i.i78, ptr %lastName.i.i, align 8, !tbaa !13
+  %call9.i.i = call ptr @strcpy(ptr noundef nonnull dereferenceable(1) %call7.i.i78, ptr noundef nonnull dereferenceable(1) %last) #27
+  store ptr getelementptr inbounds ({ [8 x ptr] }, ptr @_ZTV4Boss, i64 0, inrange i32 0, i64 2), ptr %call15, align 8, !tbaa !5
+  %cmp.i.i = fcmp ogt float %5, 0.000000e+00
+  %narrow.sel.i.i = select i1 %cmp.i.i, float %5, float 0.000000e+00
+  %weeklySalary.i.i = getelementptr inbounds %class.Boss, ptr %call15, i64 0, i32 1
+  store float %narrow.sel.i.i, ptr %weeklySalary.i.i, align 4, !tbaa !35
+  %dollarsToRaise.i = getelementptr inbounds %class.Employee, ptr %call15, i64 0, i32 3
+  store float 1.000000e+02, ptr %dollarsToRaise.i, align 8, !tbaa !37
+  br label %sw.epilog
 
-54:                                               ; preds = %41, %35
-  %55 = landingpad { ptr, i32 }
+lpad18:                                           ; preds = %call2.i.i.noexc, %sw.bb
+  %6 = landingpad { ptr, i32 }
           cleanup
-  br label %198
+  br label %ehcleanup
 
-56:                                               ; preds = %32
-  %57 = call noalias noundef nonnull dereferenceable(40) ptr @_Znwm(i64 noundef 40) #26
-  %58 = load float, ptr %7, align 4, !tbaa !53
-  store ptr getelementptr inbounds ({ [8 x ptr] }, ptr @_ZTV8Employee, i64 0, inrange i32 0, i64 2), ptr %57, align 8, !tbaa !5
-  %59 = call i64 @strlen(ptr noundef nonnull dereferenceable(1) %5) #25
-  %60 = add i64 %59, 1
-  %61 = invoke noalias noundef nonnull ptr @_Znam(i64 noundef %60) #26
-          to label %62 unwind label %76
+sw.bb20:                                          ; preds = %while.body
+  %call21 = call noalias noundef nonnull dereferenceable(40) ptr @_Znwm(i64 noundef 40) #26
+  %7 = load float, ptr %firstArg, align 4, !tbaa !52
+  store ptr getelementptr inbounds ({ [8 x ptr] }, ptr @_ZTV8Employee, i64 0, inrange i32 0, i64 2), ptr %call21, align 8, !tbaa !5
+  %call.i.i.i.i = call i64 @strlen(ptr noundef nonnull dereferenceable(1) %first) #25
+  %add.i.i.i.i = add i64 %call.i.i.i.i, 1
+  %call2.i.i.i.i79 = invoke noalias noundef nonnull ptr @_Znam(i64 noundef %add.i.i.i.i) #26
+          to label %call2.i.i.i.i.noexc unwind label %lpad24
 
-62:                                               ; preds = %56
-  %63 = getelementptr inbounds %class.Employee, ptr %57, i64 0, i32 1
-  store ptr %61, ptr %63, align 8, !tbaa !8
-  %64 = call ptr @strcpy(ptr noundef nonnull dereferenceable(1) %61, ptr noundef nonnull dereferenceable(1) %5) #27
-  %65 = call i64 @strlen(ptr noundef nonnull dereferenceable(1) %6) #25
-  %66 = add i64 %65, 1
-  %67 = invoke noalias noundef nonnull ptr @_Znam(i64 noundef %66) #26
-          to label %68 unwind label %76
+call2.i.i.i.i.noexc:                              ; preds = %sw.bb20
+  %firstName.i.i.i.i = getelementptr inbounds %class.Employee, ptr %call21, i64 0, i32 1
+  store ptr %call2.i.i.i.i79, ptr %firstName.i.i.i.i, align 8, !tbaa !8
+  %call4.i.i.i.i = call ptr @strcpy(ptr noundef nonnull dereferenceable(1) %call2.i.i.i.i79, ptr noundef nonnull dereferenceable(1) %first) #27
+  %call5.i.i.i.i = call i64 @strlen(ptr noundef nonnull dereferenceable(1) %last) #25
+  %add6.i.i.i.i = add i64 %call5.i.i.i.i, 1
+  %call7.i.i.i.i80 = invoke noalias noundef nonnull ptr @_Znam(i64 noundef %add6.i.i.i.i) #26
+          to label %_ZN22HourlyWorkerNoOvertimeC2EPKcS1_f.exit unwind label %lpad24
 
-68:                                               ; preds = %62
-  %69 = getelementptr inbounds %class.Employee, ptr %57, i64 0, i32 2
-  store ptr %67, ptr %69, align 8, !tbaa !13
-  %70 = call ptr @strcpy(ptr noundef nonnull dereferenceable(1) %67, ptr noundef nonnull dereferenceable(1) %6) #27
-  %71 = fcmp ogt float %58, 0.000000e+00
-  %72 = select i1 %71, float %58, float 0.000000e+00
-  %73 = getelementptr inbounds %class.WageWorker, ptr %57, i64 0, i32 1
-  store float %72, ptr %73, align 4, !tbaa !43
-  %74 = getelementptr inbounds %class.Employee, ptr %57, i64 0, i32 3
-  store float 5.000000e-01, ptr %74, align 8, !tbaa !37
-  %75 = getelementptr inbounds %class.HourlyWorker, ptr %57, i64 0, i32 1
-  store float 0.000000e+00, ptr %75, align 8, !tbaa !47
-  store ptr getelementptr inbounds ({ [8 x ptr] }, ptr @_ZTV22HourlyWorkerNoOvertime, i64 0, inrange i32 0, i64 2), ptr %57, align 8, !tbaa !5
-  br label %131
+_ZN22HourlyWorkerNoOvertimeC2EPKcS1_f.exit:       ; preds = %call2.i.i.i.i.noexc
+  %lastName.i.i.i.i = getelementptr inbounds %class.Employee, ptr %call21, i64 0, i32 2
+  store ptr %call7.i.i.i.i80, ptr %lastName.i.i.i.i, align 8, !tbaa !13
+  %call9.i.i.i.i = call ptr @strcpy(ptr noundef nonnull dereferenceable(1) %call7.i.i.i.i80, ptr noundef nonnull dereferenceable(1) %last) #27
+  %cmp.i.i.i.i = fcmp ogt float %7, 0.000000e+00
+  %narrow.sel.i.i.i.i = select i1 %cmp.i.i.i.i, float %7, float 0.000000e+00
+  %wage.i.i.i.i = getelementptr inbounds %class.WageWorker, ptr %call21, i64 0, i32 1
+  store float %narrow.sel.i.i.i.i, ptr %wage.i.i.i.i, align 4, !tbaa !43
+  %dollarsToRaise.i.i = getelementptr inbounds %class.Employee, ptr %call21, i64 0, i32 3
+  store float 5.000000e-01, ptr %dollarsToRaise.i.i, align 8, !tbaa !37
+  %thisWeekHours.i.i = getelementptr inbounds %class.HourlyWorker, ptr %call21, i64 0, i32 1
+  store float 0.000000e+00, ptr %thisWeekHours.i.i, align 8, !tbaa !47
+  store ptr getelementptr inbounds ({ [8 x ptr] }, ptr @_ZTV22HourlyWorkerNoOvertime, i64 0, inrange i32 0, i64 2), ptr %call21, align 8, !tbaa !5
+  br label %sw.epilog
 
-76:                                               ; preds = %62, %56
-  %77 = landingpad { ptr, i32 }
+lpad24:                                           ; preds = %call2.i.i.i.i.noexc, %sw.bb20
+  %8 = landingpad { ptr, i32 }
           cleanup
-  br label %198
+  br label %ehcleanup
 
-78:                                               ; preds = %32
-  %79 = call noalias noundef nonnull dereferenceable(40) ptr @_Znwm(i64 noundef 40) #26
-  %80 = load float, ptr %7, align 4, !tbaa !53
-  store ptr getelementptr inbounds ({ [8 x ptr] }, ptr @_ZTV8Employee, i64 0, inrange i32 0, i64 2), ptr %79, align 8, !tbaa !5
-  %81 = call i64 @strlen(ptr noundef nonnull dereferenceable(1) %5) #25
-  %82 = add i64 %81, 1
-  %83 = invoke noalias noundef nonnull ptr @_Znam(i64 noundef %82) #26
-          to label %84 unwind label %98
+sw.bb26:                                          ; preds = %while.body
+  %call27 = call noalias noundef nonnull dereferenceable(40) ptr @_Znwm(i64 noundef 40) #26
+  %9 = load float, ptr %firstArg, align 4, !tbaa !52
+  store ptr getelementptr inbounds ({ [8 x ptr] }, ptr @_ZTV8Employee, i64 0, inrange i32 0, i64 2), ptr %call27, align 8, !tbaa !5
+  %call.i.i.i.i81 = call i64 @strlen(ptr noundef nonnull dereferenceable(1) %first) #25
+  %add.i.i.i.i82 = add i64 %call.i.i.i.i81, 1
+  %call2.i.i.i.i95 = invoke noalias noundef nonnull ptr @_Znam(i64 noundef %add.i.i.i.i82) #26
+          to label %call2.i.i.i.i.noexc94 unwind label %lpad30
 
-84:                                               ; preds = %78
-  %85 = getelementptr inbounds %class.Employee, ptr %79, i64 0, i32 1
-  store ptr %83, ptr %85, align 8, !tbaa !8
-  %86 = call ptr @strcpy(ptr noundef nonnull dereferenceable(1) %83, ptr noundef nonnull dereferenceable(1) %5) #27
-  %87 = call i64 @strlen(ptr noundef nonnull dereferenceable(1) %6) #25
-  %88 = add i64 %87, 1
-  %89 = invoke noalias noundef nonnull ptr @_Znam(i64 noundef %88) #26
-          to label %90 unwind label %98
+call2.i.i.i.i.noexc94:                            ; preds = %sw.bb26
+  %firstName.i.i.i.i83 = getelementptr inbounds %class.Employee, ptr %call27, i64 0, i32 1
+  store ptr %call2.i.i.i.i95, ptr %firstName.i.i.i.i83, align 8, !tbaa !8
+  %call4.i.i.i.i84 = call ptr @strcpy(ptr noundef nonnull dereferenceable(1) %call2.i.i.i.i95, ptr noundef nonnull dereferenceable(1) %first) #27
+  %call5.i.i.i.i85 = call i64 @strlen(ptr noundef nonnull dereferenceable(1) %last) #25
+  %add6.i.i.i.i86 = add i64 %call5.i.i.i.i85, 1
+  %call7.i.i.i.i96 = invoke noalias noundef nonnull ptr @_Znam(i64 noundef %add6.i.i.i.i86) #26
+          to label %_ZN20HourlyWorkerOvertimeC2EPKcS1_f.exit unwind label %lpad30
 
-90:                                               ; preds = %84
-  %91 = getelementptr inbounds %class.Employee, ptr %79, i64 0, i32 2
-  store ptr %89, ptr %91, align 8, !tbaa !13
-  %92 = call ptr @strcpy(ptr noundef nonnull dereferenceable(1) %89, ptr noundef nonnull dereferenceable(1) %6) #27
-  %93 = fcmp ogt float %80, 0.000000e+00
-  %94 = select i1 %93, float %80, float 0.000000e+00
-  %95 = getelementptr inbounds %class.WageWorker, ptr %79, i64 0, i32 1
-  store float %94, ptr %95, align 4, !tbaa !43
-  %96 = getelementptr inbounds %class.Employee, ptr %79, i64 0, i32 3
-  store float 5.000000e-01, ptr %96, align 8, !tbaa !37
-  %97 = getelementptr inbounds %class.HourlyWorker, ptr %79, i64 0, i32 1
-  store float 0.000000e+00, ptr %97, align 8, !tbaa !47
-  store ptr getelementptr inbounds ({ [8 x ptr] }, ptr @_ZTV20HourlyWorkerOvertime, i64 0, inrange i32 0, i64 2), ptr %79, align 8, !tbaa !5
-  br label %131
+_ZN20HourlyWorkerOvertimeC2EPKcS1_f.exit:         ; preds = %call2.i.i.i.i.noexc94
+  %lastName.i.i.i.i87 = getelementptr inbounds %class.Employee, ptr %call27, i64 0, i32 2
+  store ptr %call7.i.i.i.i96, ptr %lastName.i.i.i.i87, align 8, !tbaa !13
+  %call9.i.i.i.i88 = call ptr @strcpy(ptr noundef nonnull dereferenceable(1) %call7.i.i.i.i96, ptr noundef nonnull dereferenceable(1) %last) #27
+  %cmp.i.i.i.i89 = fcmp ogt float %9, 0.000000e+00
+  %narrow.sel.i.i.i.i90 = select i1 %cmp.i.i.i.i89, float %9, float 0.000000e+00
+  %wage.i.i.i.i91 = getelementptr inbounds %class.WageWorker, ptr %call27, i64 0, i32 1
+  store float %narrow.sel.i.i.i.i90, ptr %wage.i.i.i.i91, align 4, !tbaa !43
+  %dollarsToRaise.i.i92 = getelementptr inbounds %class.Employee, ptr %call27, i64 0, i32 3
+  store float 5.000000e-01, ptr %dollarsToRaise.i.i92, align 8, !tbaa !37
+  %thisWeekHours.i.i93 = getelementptr inbounds %class.HourlyWorker, ptr %call27, i64 0, i32 1
+  store float 0.000000e+00, ptr %thisWeekHours.i.i93, align 8, !tbaa !47
+  store ptr getelementptr inbounds ({ [8 x ptr] }, ptr @_ZTV20HourlyWorkerOvertime, i64 0, inrange i32 0, i64 2), ptr %call27, align 8, !tbaa !5
+  br label %sw.epilog
 
-98:                                               ; preds = %84, %78
-  %99 = landingpad { ptr, i32 }
+lpad30:                                           ; preds = %call2.i.i.i.i.noexc94, %sw.bb26
+  %10 = landingpad { ptr, i32 }
           cleanup
-  br label %198
+  br label %ehcleanup
 
-100:                                              ; preds = %32
-  %101 = call noalias noundef nonnull dereferenceable(40) ptr @_Znwm(i64 noundef 40) #26
-  %102 = load float, ptr %7, align 4, !tbaa !53
-  store ptr getelementptr inbounds ({ [8 x ptr] }, ptr @_ZTV8Employee, i64 0, inrange i32 0, i64 2), ptr %101, align 8, !tbaa !5
-  %103 = call i64 @strlen(ptr noundef nonnull dereferenceable(1) %5) #25
-  %104 = add i64 %103, 1
-  %105 = invoke noalias noundef nonnull ptr @_Znam(i64 noundef %104) #26
-          to label %106 unwind label %119
+sw.bb32:                                          ; preds = %while.body
+  %call33 = call noalias noundef nonnull dereferenceable(40) ptr @_Znwm(i64 noundef 40) #26
+  %11 = load float, ptr %firstArg, align 4, !tbaa !52
+  store ptr getelementptr inbounds ({ [8 x ptr] }, ptr @_ZTV8Employee, i64 0, inrange i32 0, i64 2), ptr %call33, align 8, !tbaa !5
+  %call.i.i.i = call i64 @strlen(ptr noundef nonnull dereferenceable(1) %first) #25
+  %add.i.i.i = add i64 %call.i.i.i, 1
+  %call2.i.i.i98 = invoke noalias noundef nonnull ptr @_Znam(i64 noundef %add.i.i.i) #26
+          to label %call2.i.i.i.noexc unwind label %lpad36
 
-106:                                              ; preds = %100
-  %107 = getelementptr inbounds %class.Employee, ptr %101, i64 0, i32 1
-  store ptr %105, ptr %107, align 8, !tbaa !8
-  %108 = call ptr @strcpy(ptr noundef nonnull dereferenceable(1) %105, ptr noundef nonnull dereferenceable(1) %5) #27
-  %109 = call i64 @strlen(ptr noundef nonnull dereferenceable(1) %6) #25
-  %110 = add i64 %109, 1
-  %111 = invoke noalias noundef nonnull ptr @_Znam(i64 noundef %110) #26
-          to label %112 unwind label %119
+call2.i.i.i.noexc:                                ; preds = %sw.bb32
+  %firstName.i.i.i = getelementptr inbounds %class.Employee, ptr %call33, i64 0, i32 1
+  store ptr %call2.i.i.i98, ptr %firstName.i.i.i, align 8, !tbaa !8
+  %call4.i.i.i = call ptr @strcpy(ptr noundef nonnull dereferenceable(1) %call2.i.i.i98, ptr noundef nonnull dereferenceable(1) %first) #27
+  %call5.i.i.i = call i64 @strlen(ptr noundef nonnull dereferenceable(1) %last) #25
+  %add6.i.i.i = add i64 %call5.i.i.i, 1
+  %call7.i.i.i99 = invoke noalias noundef nonnull ptr @_Znam(i64 noundef %add6.i.i.i) #26
+          to label %_ZN11PieceWorkerC2EPKcS1_f.exit unwind label %lpad36
 
-112:                                              ; preds = %106
-  %113 = getelementptr inbounds %class.Employee, ptr %101, i64 0, i32 2
-  store ptr %111, ptr %113, align 8, !tbaa !13
-  %114 = call ptr @strcpy(ptr noundef nonnull dereferenceable(1) %111, ptr noundef nonnull dereferenceable(1) %6) #27
-  %115 = fcmp ogt float %102, 0.000000e+00
-  %116 = select i1 %115, float %102, float 0.000000e+00
-  %117 = getelementptr inbounds %class.WageWorker, ptr %101, i64 0, i32 1
-  store float %116, ptr %117, align 4, !tbaa !43
-  store ptr getelementptr inbounds ({ [8 x ptr] }, ptr @_ZTV11PieceWorker, i64 0, inrange i32 0, i64 2), ptr %101, align 8, !tbaa !5
-  %118 = getelementptr inbounds %class.Employee, ptr %101, i64 0, i32 3
-  store float 1.500000e+01, ptr %118, align 8, !tbaa !37
-  br label %131
+_ZN11PieceWorkerC2EPKcS1_f.exit:                  ; preds = %call2.i.i.i.noexc
+  %lastName.i.i.i = getelementptr inbounds %class.Employee, ptr %call33, i64 0, i32 2
+  store ptr %call7.i.i.i99, ptr %lastName.i.i.i, align 8, !tbaa !13
+  %call9.i.i.i = call ptr @strcpy(ptr noundef nonnull dereferenceable(1) %call7.i.i.i99, ptr noundef nonnull dereferenceable(1) %last) #27
+  %cmp.i.i.i = fcmp ogt float %11, 0.000000e+00
+  %narrow.sel.i.i.i = select i1 %cmp.i.i.i, float %11, float 0.000000e+00
+  %wage.i.i.i = getelementptr inbounds %class.WageWorker, ptr %call33, i64 0, i32 1
+  store float %narrow.sel.i.i.i, ptr %wage.i.i.i, align 4, !tbaa !43
+  store ptr getelementptr inbounds ({ [8 x ptr] }, ptr @_ZTV11PieceWorker, i64 0, inrange i32 0, i64 2), ptr %call33, align 8, !tbaa !5
+  %dollarsToRaise.i97 = getelementptr inbounds %class.Employee, ptr %call33, i64 0, i32 3
+  store float 1.500000e+01, ptr %dollarsToRaise.i97, align 8, !tbaa !37
+  br label %sw.epilog
 
-119:                                              ; preds = %106, %100
-  %120 = landingpad { ptr, i32 }
+lpad36:                                           ; preds = %call2.i.i.i.noexc, %sw.bb32
+  %12 = landingpad { ptr, i32 }
           cleanup
-  br label %198
+  br label %ehcleanup
 
-121:                                              ; preds = %32
-  %122 = call i32 (ptr, ...) @__isoc99_scanf(ptr noundef nonnull @.str.9, ptr noundef nonnull %8)
-  %123 = call noalias noundef nonnull dereferenceable(40) ptr @_Znwm(i64 noundef 40) #26
-  %124 = load float, ptr %7, align 4, !tbaa !53
-  %125 = load float, ptr %8, align 4, !tbaa !53
-  invoke void @_ZN18CommissionedWorkerC2EPKcS1_ff(ptr noundef nonnull align 8 dereferenceable(40) %123, ptr noundef nonnull %5, ptr noundef nonnull %6, float noundef %124, float noundef %125)
-          to label %131 unwind label %126
+sw.bb38:                                          ; preds = %while.body
+  %call39 = call i32 (ptr, ...) @__isoc99_scanf(ptr noundef nonnull @.str.9, ptr noundef nonnull %secondArg)
+  %call40 = call noalias noundef nonnull dereferenceable(40) ptr @_Znwm(i64 noundef 40) #26
+  %13 = load float, ptr %firstArg, align 4, !tbaa !52
+  %14 = load float, ptr %secondArg, align 4, !tbaa !52
+  invoke void @_ZN18CommissionedWorkerC2EPKcS1_ff(ptr noundef nonnull align 8 dereferenceable(40) %call40, ptr noundef nonnull %first, ptr noundef nonnull %last, float noundef %13, float noundef %14)
+          to label %sw.epilog unwind label %lpad43
 
-126:                                              ; preds = %121
-  %127 = landingpad { ptr, i32 }
+lpad43:                                           ; preds = %sw.bb38
+  %15 = landingpad { ptr, i32 }
           cleanup
-  br label %198
+  br label %ehcleanup
 
-128:                                              ; preds = %32
-  %129 = load ptr, ptr @stderr, align 8, !tbaa !29
-  %130 = call i32 (ptr, ptr, ...) @fprintf(ptr noundef %129, ptr noundef nonnull @.str.10, i32 noundef %34) #29
-  br label %196
+sw.default:                                       ; preds = %while.body
+  %16 = load ptr, ptr @stderr, align 8, !tbaa !29
+  %call45 = call i32 (ptr, ptr, ...) @fprintf(ptr noundef %16, ptr noundef nonnull @.str.10, i32 noundef %4) #29
+  br label %cleanup
 
-131:                                              ; preds = %121, %112, %90, %68, %47
-  %132 = phi ptr [ %101, %112 ], [ %79, %90 ], [ %57, %68 ], [ %36, %47 ], [ %123, %121 ]
-  %133 = call noalias noundef nonnull dereferenceable(16) ptr @_Znwm(i64 noundef 16) #26
-  store ptr %132, ptr %133, align 8, !tbaa !23
-  %134 = getelementptr inbounds %class.EmployeeNode, ptr %133, i64 0, i32 1
-  store ptr %33, ptr %134, align 8, !tbaa !25
-  %135 = call i32 (ptr, ...) @__isoc99_scanf(ptr noundef nonnull @.str.8, ptr noundef nonnull %4, ptr noundef nonnull %5, ptr noundef nonnull %6, ptr noundef nonnull %7)
-  %136 = icmp eq i32 %135, 4
-  br i1 %136, label %32, label %30, !llvm.loop !54
+sw.epilog:                                        ; preds = %_ZN11PieceWorkerC2EPKcS1_f.exit, %_ZN20HourlyWorkerOvertimeC2EPKcS1_f.exit, %_ZN22HourlyWorkerNoOvertimeC2EPKcS1_f.exit, %_ZN4BossC2EPKcS1_f.exit, %sw.bb38
+  %e.0 = phi ptr [ %call15, %_ZN4BossC2EPKcS1_f.exit ], [ %call21, %_ZN22HourlyWorkerNoOvertimeC2EPKcS1_f.exit ], [ %call27, %_ZN20HourlyWorkerOvertimeC2EPKcS1_f.exit ], [ %call33, %_ZN11PieceWorkerC2EPKcS1_f.exit ], [ %call40, %sw.bb38 ]
+  %call.i100 = call noalias noundef nonnull dereferenceable(16) ptr @_Znwm(i64 noundef 16) #26
+  store ptr %e.0, ptr %call.i100, align 8, !tbaa !23
+  %next.i.i = getelementptr inbounds %class.EmployeeNode, ptr %call.i100, i64 0, i32 1
+  store ptr %3, ptr %next.i.i, align 8, !tbaa !25
+  %call13 = call i32 (ptr, ...) @__isoc99_scanf(ptr noundef nonnull @.str.8, ptr noundef nonnull %classCode, ptr noundef nonnull %first, ptr noundef nonnull %last, ptr noundef nonnull %firstArg)
+  %cmp14 = icmp eq i32 %call13, 4
+  br i1 %cmp14, label %while.body, label %for.cond.preheader, !llvm.loop !53
 
-137:                                              ; preds = %30, %193
-  %138 = phi i32 [ %150, %193 ], [ 0, %30 ]
-  %139 = phi i32 [ %194, %193 ], [ 0, %30 ]
-  br label %140
+for.body:                                         ; preds = %for.cond.preheader, %for.inc
+  %inc.i132 = phi i32 [ %inc.i, %for.inc ], [ 0, %for.cond.preheader ]
+  %ii.0131 = phi i32 [ %inc, %for.inc ], [ 0, %for.cond.preheader ]
+  br label %for.body.i
 
-140:                                              ; preds = %137, %140
-  %141 = phi ptr [ %147, %140 ], [ %133, %137 ]
-  %142 = load ptr, ptr %141, align 8, !tbaa !23
-  %143 = load ptr, ptr %142, align 8, !tbaa !5
-  %144 = getelementptr inbounds ptr, ptr %143, i64 5
-  %145 = load ptr, ptr %144, align 8
-  call void %145(ptr noundef nonnull align 8 dereferenceable(28) %142)
-  %146 = getelementptr inbounds %class.EmployeeNode, ptr %141, i64 0, i32 1
-  %147 = load ptr, ptr %146, align 8, !tbaa !29
-  %148 = icmp eq ptr %147, null
-  br i1 %148, label %149, label %140, !llvm.loop !33
+for.body.i:                                       ; preds = %for.body, %for.body.i
+  %curE.07.i = phi ptr [ %curE.0.i, %for.body.i ], [ %call.i100, %for.body ]
+  %17 = load ptr, ptr %curE.07.i, align 8, !tbaa !23
+  %vtable.i101 = load ptr, ptr %17, align 8, !tbaa !5
+  %vfn.i = getelementptr inbounds ptr, ptr %vtable.i101, i64 5
+  %18 = load ptr, ptr %vfn.i, align 8
+  call void %18(ptr noundef nonnull align 8 dereferenceable(28) %17)
+  %next.i.i102 = getelementptr inbounds %class.EmployeeNode, ptr %curE.07.i, i64 0, i32 1
+  %curE.0.i = load ptr, ptr %next.i.i102, align 8, !tbaa !29
+  %cmp.not.i = icmp eq ptr %curE.0.i, null
+  br i1 %cmp.not.i, label %for.body.i110.preheader, label %for.body.i, !llvm.loop !33
 
-149:                                              ; preds = %140
-  %150 = add nuw nsw i32 %138, 1
-  br label %151
+for.body.i110.preheader:                          ; preds = %for.body.i
+  %inc.i = add nuw nsw i32 %inc.i132, 1
+  br label %for.body.i110
 
-151:                                              ; preds = %149, %177
-  %152 = phi ptr [ %179, %177 ], [ %133, %149 ]
-  %153 = load ptr, ptr %152, align 8, !tbaa !23
-  %154 = load ptr, ptr %153, align 8, !tbaa !5
-  %155 = getelementptr inbounds ptr, ptr %154, i64 3
-  %156 = load ptr, ptr %155, align 8
-  call void %156(ptr noundef nonnull align 8 dereferenceable(28) %153)
-  %157 = call noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cout, ptr noundef nonnull @.str, i64 noundef 9)
-  %158 = load ptr, ptr %153, align 8, !tbaa !5
-  %159 = getelementptr inbounds ptr, ptr %158, i64 2
-  %160 = load ptr, ptr %159, align 8
-  %161 = call noundef float %160(ptr noundef nonnull align 8 dereferenceable(28) %153)
-  %162 = fpext float %161 to double
-  %163 = call noundef nonnull align 8 dereferenceable(8) ptr @_ZNSo9_M_insertIdEERSoT_(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cout, double noundef %162)
-  %164 = call noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) %163, ptr noundef nonnull @.str.1, i64 noundef 9)
-  %165 = call noundef nonnull align 8 dereferenceable(8) ptr @_ZNSolsEi(ptr noundef nonnull align 8 dereferenceable(8) %163, i32 noundef %150)
-  call void @llvm.lifetime.start.p0(i64 1, ptr nonnull %3)
-  store i8 10, ptr %3, align 1, !tbaa !14
-  %166 = load ptr, ptr %165, align 8, !tbaa !5
-  %167 = getelementptr i8, ptr %166, i64 -24
-  %168 = load i64, ptr %167, align 8
-  %169 = getelementptr inbounds i8, ptr %165, i64 %168
-  %170 = getelementptr inbounds %"class.std::ios_base", ptr %169, i64 0, i32 2
-  %171 = load i64, ptr %170, align 8, !tbaa !15
-  %172 = icmp eq i64 %171, 0
-  br i1 %172, label %175, label %173
+for.body.i110:                                    ; preds = %for.body.i110.preheader, %_ZN8Employee17PrintWithEarningsEi.exit
+  %curE.07.i106 = phi ptr [ %curE.0.i108, %_ZN8Employee17PrintWithEarningsEi.exit ], [ %call.i100, %for.body.i110.preheader ]
+  %19 = load ptr, ptr %curE.07.i106, align 8, !tbaa !23
+  %vtable.i120 = load ptr, ptr %19, align 8, !tbaa !5
+  %vfn.i121 = getelementptr inbounds ptr, ptr %vtable.i120, i64 3
+  %20 = load ptr, ptr %vfn.i121, align 8
+  call void %20(ptr noundef nonnull align 8 dereferenceable(28) %19)
+  %call1.i.i = call noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cout, ptr noundef nonnull @.str, i64 noundef 9)
+  %vtable2.i = load ptr, ptr %19, align 8, !tbaa !5
+  %vfn3.i = getelementptr inbounds ptr, ptr %vtable2.i, i64 2
+  %21 = load ptr, ptr %vfn3.i, align 8
+  %call4.i = call noundef float %21(ptr noundef nonnull align 8 dereferenceable(28) %19)
+  %conv.i.i = fpext float %call4.i to double
+  %call.i.i122 = call noundef nonnull align 8 dereferenceable(8) ptr @_ZNSo9_M_insertIdEERSoT_(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cout, double noundef %conv.i.i)
+  %call1.i10.i = call noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) %call.i.i122, ptr noundef nonnull @.str.1, i64 noundef 9)
+  %call7.i = call noundef nonnull align 8 dereferenceable(8) ptr @_ZNSolsEi(ptr noundef nonnull align 8 dereferenceable(8) %call.i.i122, i32 noundef %inc.i)
+  call void @llvm.lifetime.start.p0(i64 1, ptr nonnull %__c.addr.i.i)
+  store i8 10, ptr %__c.addr.i.i, align 1, !tbaa !14
+  %vtable.i.i = load ptr, ptr %call7.i, align 8, !tbaa !5
+  %vbase.offset.ptr.i.i = getelementptr i8, ptr %vtable.i.i, i64 -24
+  %vbase.offset.i.i = load i64, ptr %vbase.offset.ptr.i.i, align 8
+  %add.ptr.i.i = getelementptr inbounds i8, ptr %call7.i, i64 %vbase.offset.i.i
+  %_M_width.i.i.i = getelementptr inbounds %"class.std::ios_base", ptr %add.ptr.i.i, i64 0, i32 2
+  %22 = load i64, ptr %_M_width.i.i.i, align 8, !tbaa !15
+  %cmp.not.i.i = icmp eq i64 %22, 0
+  br i1 %cmp.not.i.i, label %if.end.i.i, label %if.then.i.i
 
-173:                                              ; preds = %151
-  %174 = call noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) %165, ptr noundef nonnull %3, i64 noundef 1)
-  br label %177
+if.then.i.i:                                      ; preds = %for.body.i110
+  %call1.i11.i = call noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) %call7.i, ptr noundef nonnull %__c.addr.i.i, i64 noundef 1)
+  br label %_ZN8Employee17PrintWithEarningsEi.exit
 
-175:                                              ; preds = %151
-  %176 = call noundef nonnull align 8 dereferenceable(8) ptr @_ZNSo3putEc(ptr noundef nonnull align 8 dereferenceable(8) %165, i8 noundef signext 10)
-  br label %177
+if.end.i.i:                                       ; preds = %for.body.i110
+  %call2.i.i = call noundef nonnull align 8 dereferenceable(8) ptr @_ZNSo3putEc(ptr noundef nonnull align 8 dereferenceable(8) %call7.i, i8 noundef signext 10)
+  br label %_ZN8Employee17PrintWithEarningsEi.exit
 
-177:                                              ; preds = %173, %175
-  call void @llvm.lifetime.end.p0(i64 1, ptr nonnull %3)
-  %178 = getelementptr inbounds %class.EmployeeNode, ptr %152, i64 0, i32 1
-  %179 = load ptr, ptr %178, align 8, !tbaa !29
-  %180 = icmp eq ptr %179, null
-  br i1 %180, label %181, label %151, !llvm.loop !31
+_ZN8Employee17PrintWithEarningsEi.exit:           ; preds = %if.then.i.i, %if.end.i.i
+  call void @llvm.lifetime.end.p0(i64 1, ptr nonnull %__c.addr.i.i)
+  %next.i.i107 = getelementptr inbounds %class.EmployeeNode, ptr %curE.07.i106, i64 0, i32 1
+  %curE.0.i108 = load ptr, ptr %next.i.i107, align 8, !tbaa !29
+  %cmp.not.i109 = icmp eq ptr %curE.0.i108, null
+  br i1 %cmp.not.i109, label %_ZN7Company17PrintWithEarningsEv.exit.loopexit, label %for.body.i110, !llvm.loop !31
 
-181:                                              ; preds = %177
-  %182 = urem i32 %139, 10
-  %183 = icmp eq i32 %182, 0
-  br i1 %183, label %184, label %193
+_ZN7Company17PrintWithEarningsEv.exit.loopexit:   ; preds = %_ZN8Employee17PrintWithEarningsEi.exit
+  %rem = urem i32 %ii.0131, 10
+  %cmp47.not = icmp eq i32 %rem, 0
+  br i1 %cmp47.not, label %for.body.i119, label %for.inc
 
-184:                                              ; preds = %181, %184
-  %185 = phi ptr [ %191, %184 ], [ %133, %181 ]
-  %186 = load ptr, ptr %185, align 8, !tbaa !23
-  %187 = load ptr, ptr %186, align 8, !tbaa !5
-  %188 = getelementptr inbounds ptr, ptr %187, i64 4
-  %189 = load ptr, ptr %188, align 8
-  call void %189(ptr noundef nonnull align 8 dereferenceable(28) %186, i32 noundef 1)
-  %190 = getelementptr inbounds %class.EmployeeNode, ptr %185, i64 0, i32 1
-  %191 = load ptr, ptr %190, align 8, !tbaa !29
-  %192 = icmp eq ptr %191, null
-  br i1 %192, label %193, label %184, !llvm.loop !34
+for.body.i119:                                    ; preds = %_ZN7Company17PrintWithEarningsEv.exit.loopexit, %for.body.i119
+  %curE.07.i113 = phi ptr [ %curE.0.i117, %for.body.i119 ], [ %call.i100, %_ZN7Company17PrintWithEarningsEv.exit.loopexit ]
+  %23 = load ptr, ptr %curE.07.i113, align 8, !tbaa !23
+  %vtable.i114 = load ptr, ptr %23, align 8, !tbaa !5
+  %vfn.i115 = getelementptr inbounds ptr, ptr %vtable.i114, i64 4
+  %24 = load ptr, ptr %vfn.i115, align 8
+  call void %24(ptr noundef nonnull align 8 dereferenceable(28) %23, i32 noundef 1)
+  %next.i.i116 = getelementptr inbounds %class.EmployeeNode, ptr %curE.07.i113, i64 0, i32 1
+  %curE.0.i117 = load ptr, ptr %next.i.i116, align 8, !tbaa !29
+  %cmp.not.i118 = icmp eq ptr %curE.0.i117, null
+  br i1 %cmp.not.i118, label %for.inc, label %for.body.i119, !llvm.loop !34
 
-193:                                              ; preds = %184, %181
-  %194 = add nuw nsw i32 %139, 1
-  %195 = icmp eq i32 %194, %27
-  br i1 %195, label %196, label %137, !llvm.loop !55
+for.inc:                                          ; preds = %for.body.i119, %_ZN7Company17PrintWithEarningsEv.exit.loopexit
+  %inc = add nuw nsw i32 %ii.0131, 1
+  %exitcond.not = icmp eq i32 %inc, %conv.i
+  br i1 %exitcond.not, label %cleanup, label %for.body, !llvm.loop !54
 
-196:                                              ; preds = %193, %13, %30, %128, %10
-  %197 = phi i32 [ 1, %10 ], [ -1, %128 ], [ 0, %30 ], [ 0, %13 ], [ 0, %193 ]
-  call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %8) #27
-  call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %7) #27
-  call void @llvm.lifetime.end.p0(i64 80, ptr nonnull %6) #27
-  call void @llvm.lifetime.end.p0(i64 80, ptr nonnull %5) #27
-  call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %4) #27
-  ret i32 %197
+cleanup:                                          ; preds = %for.inc, %if.end, %for.cond.preheader, %sw.default, %if.then
+  %retval.0 = phi i32 [ 1, %if.then ], [ -1, %sw.default ], [ 0, %for.cond.preheader ], [ 0, %if.end ], [ 0, %for.inc ]
+  call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %secondArg) #27
+  call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %firstArg) #27
+  call void @llvm.lifetime.end.p0(i64 80, ptr nonnull %last) #27
+  call void @llvm.lifetime.end.p0(i64 80, ptr nonnull %first) #27
+  call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %classCode) #27
+  ret i32 %retval.0
 
-198:                                              ; preds = %126, %119, %98, %76, %54
-  %199 = phi ptr [ %123, %126 ], [ %101, %119 ], [ %79, %98 ], [ %57, %76 ], [ %36, %54 ]
-  %200 = phi { ptr, i32 } [ %127, %126 ], [ %120, %119 ], [ %99, %98 ], [ %77, %76 ], [ %55, %54 ]
-  call void @_ZdlPv(ptr noundef nonnull %199) #30
-  call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %8) #27
-  call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %7) #27
-  call void @llvm.lifetime.end.p0(i64 80, ptr nonnull %6) #27
-  call void @llvm.lifetime.end.p0(i64 80, ptr nonnull %5) #27
-  call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %4) #27
-  resume { ptr, i32 } %200
+ehcleanup:                                        ; preds = %lpad43, %lpad36, %lpad30, %lpad24, %lpad18
+  %call40.lcssa.sink = phi ptr [ %call40, %lpad43 ], [ %call33, %lpad36 ], [ %call27, %lpad30 ], [ %call21, %lpad24 ], [ %call15, %lpad18 ]
+  %.pn = phi { ptr, i32 } [ %15, %lpad43 ], [ %12, %lpad36 ], [ %10, %lpad30 ], [ %8, %lpad24 ], [ %6, %lpad18 ]
+  call void @_ZdlPv(ptr noundef nonnull %call40.lcssa.sink) #30
+  call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %secondArg) #27
+  call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %firstArg) #27
+  call void @llvm.lifetime.end.p0(i64 80, ptr nonnull %last) #27
+  call void @llvm.lifetime.end.p0(i64 80, ptr nonnull %first) #27
+  call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %classCode) #27
+  resume { ptr, i32 } %.pn
 }
 
 ; Function Attrs: nofree nounwind
@@ -1420,175 +1466,183 @@ declare noundef i32 @__isoc99_scanf(ptr nocapture noundef readonly, ...) local_u
 declare void @__cxa_pure_virtual() unnamed_addr
 
 ; Function Attrs: inlinehint nounwind uwtable
-define linkonce_odr dso_local void @_ZN4BossD0Ev(ptr noundef nonnull align 8 dereferenceable(32) %0) unnamed_addr #21 comdat align 2 {
-  store ptr getelementptr inbounds ({ [8 x ptr] }, ptr @_ZTV8Employee, i64 0, inrange i32 0, i64 2), ptr %0, align 8, !tbaa !5
-  %2 = getelementptr inbounds %class.Employee, ptr %0, i64 0, i32 1
-  %3 = load ptr, ptr %2, align 8, !tbaa !8
-  %4 = icmp eq ptr %3, null
-  br i1 %4, label %6, label %5
+define linkonce_odr dso_local void @_ZN4BossD0Ev(ptr noundef nonnull align 8 dereferenceable(32) %this) unnamed_addr #21 comdat align 2 {
+entry:
+  store ptr getelementptr inbounds ({ [8 x ptr] }, ptr @_ZTV8Employee, i64 0, inrange i32 0, i64 2), ptr %this, align 8, !tbaa !5
+  %firstName.i = getelementptr inbounds %class.Employee, ptr %this, i64 0, i32 1
+  %0 = load ptr, ptr %firstName.i, align 8, !tbaa !8
+  %isnull.i = icmp eq ptr %0, null
+  br i1 %isnull.i, label %delete.end.i, label %delete.notnull.i
 
-5:                                                ; preds = %1
-  tail call void @_ZdaPv(ptr noundef nonnull %3) #30
-  br label %6
+delete.notnull.i:                                 ; preds = %entry
+  tail call void @_ZdaPv(ptr noundef nonnull %0) #30
+  br label %delete.end.i
 
-6:                                                ; preds = %5, %1
-  %7 = getelementptr inbounds %class.Employee, ptr %0, i64 0, i32 2
-  %8 = load ptr, ptr %7, align 8, !tbaa !13
-  %9 = icmp eq ptr %8, null
-  br i1 %9, label %11, label %10
+delete.end.i:                                     ; preds = %delete.notnull.i, %entry
+  %lastName.i = getelementptr inbounds %class.Employee, ptr %this, i64 0, i32 2
+  %1 = load ptr, ptr %lastName.i, align 8, !tbaa !13
+  %isnull2.i = icmp eq ptr %1, null
+  br i1 %isnull2.i, label %_ZN8EmployeeD2Ev.exit, label %delete.notnull3.i
 
-10:                                               ; preds = %6
-  tail call void @_ZdaPv(ptr noundef nonnull %8) #30
-  br label %11
+delete.notnull3.i:                                ; preds = %delete.end.i
+  tail call void @_ZdaPv(ptr noundef nonnull %1) #30
+  br label %_ZN8EmployeeD2Ev.exit
 
-11:                                               ; preds = %6, %10
-  tail call void @_ZdlPv(ptr noundef nonnull %0) #30
+_ZN8EmployeeD2Ev.exit:                            ; preds = %delete.end.i, %delete.notnull3.i
+  tail call void @_ZdlPv(ptr noundef nonnull %this) #30
   ret void
 }
 
 ; Function Attrs: inlinehint nounwind uwtable
-define linkonce_odr dso_local void @_ZN18CommissionedWorkerD0Ev(ptr noundef nonnull align 8 dereferenceable(40) %0) unnamed_addr #21 comdat align 2 {
-  store ptr getelementptr inbounds ({ [8 x ptr] }, ptr @_ZTV8Employee, i64 0, inrange i32 0, i64 2), ptr %0, align 8, !tbaa !5
-  %2 = getelementptr inbounds %class.Employee, ptr %0, i64 0, i32 1
-  %3 = load ptr, ptr %2, align 8, !tbaa !8
-  %4 = icmp eq ptr %3, null
-  br i1 %4, label %6, label %5
+define linkonce_odr dso_local void @_ZN18CommissionedWorkerD0Ev(ptr noundef nonnull align 8 dereferenceable(40) %this) unnamed_addr #21 comdat align 2 {
+entry:
+  store ptr getelementptr inbounds ({ [8 x ptr] }, ptr @_ZTV8Employee, i64 0, inrange i32 0, i64 2), ptr %this, align 8, !tbaa !5
+  %firstName.i = getelementptr inbounds %class.Employee, ptr %this, i64 0, i32 1
+  %0 = load ptr, ptr %firstName.i, align 8, !tbaa !8
+  %isnull.i = icmp eq ptr %0, null
+  br i1 %isnull.i, label %delete.end.i, label %delete.notnull.i
 
-5:                                                ; preds = %1
-  tail call void @_ZdaPv(ptr noundef nonnull %3) #30
-  br label %6
+delete.notnull.i:                                 ; preds = %entry
+  tail call void @_ZdaPv(ptr noundef nonnull %0) #30
+  br label %delete.end.i
 
-6:                                                ; preds = %5, %1
-  %7 = getelementptr inbounds %class.Employee, ptr %0, i64 0, i32 2
-  %8 = load ptr, ptr %7, align 8, !tbaa !13
-  %9 = icmp eq ptr %8, null
-  br i1 %9, label %11, label %10
+delete.end.i:                                     ; preds = %delete.notnull.i, %entry
+  %lastName.i = getelementptr inbounds %class.Employee, ptr %this, i64 0, i32 2
+  %1 = load ptr, ptr %lastName.i, align 8, !tbaa !13
+  %isnull2.i = icmp eq ptr %1, null
+  br i1 %isnull2.i, label %_ZN8EmployeeD2Ev.exit, label %delete.notnull3.i
 
-10:                                               ; preds = %6
-  tail call void @_ZdaPv(ptr noundef nonnull %8) #30
-  br label %11
+delete.notnull3.i:                                ; preds = %delete.end.i
+  tail call void @_ZdaPv(ptr noundef nonnull %1) #30
+  br label %_ZN8EmployeeD2Ev.exit
 
-11:                                               ; preds = %6, %10
-  tail call void @_ZdlPv(ptr noundef nonnull %0) #30
+_ZN8EmployeeD2Ev.exit:                            ; preds = %delete.end.i, %delete.notnull3.i
+  tail call void @_ZdlPv(ptr noundef nonnull %this) #30
   ret void
 }
 
 ; Function Attrs: inlinehint nounwind uwtable
-define linkonce_odr dso_local void @_ZN10WageWorkerD0Ev(ptr noundef nonnull align 8 dereferenceable(32) %0) unnamed_addr #21 comdat align 2 {
+define linkonce_odr dso_local void @_ZN10WageWorkerD0Ev(ptr noundef nonnull align 8 dereferenceable(32) %this) unnamed_addr #21 comdat align 2 {
+entry:
   tail call void @llvm.trap() #28
   unreachable
 }
 
 ; Function Attrs: inlinehint nounwind uwtable
-define linkonce_odr dso_local void @_ZN11PieceWorkerD0Ev(ptr noundef nonnull align 8 dereferenceable(36) %0) unnamed_addr #21 comdat align 2 {
-  store ptr getelementptr inbounds ({ [8 x ptr] }, ptr @_ZTV8Employee, i64 0, inrange i32 0, i64 2), ptr %0, align 8, !tbaa !5
-  %2 = getelementptr inbounds %class.Employee, ptr %0, i64 0, i32 1
-  %3 = load ptr, ptr %2, align 8, !tbaa !8
-  %4 = icmp eq ptr %3, null
-  br i1 %4, label %6, label %5
+define linkonce_odr dso_local void @_ZN11PieceWorkerD0Ev(ptr noundef nonnull align 8 dereferenceable(36) %this) unnamed_addr #21 comdat align 2 {
+entry:
+  store ptr getelementptr inbounds ({ [8 x ptr] }, ptr @_ZTV8Employee, i64 0, inrange i32 0, i64 2), ptr %this, align 8, !tbaa !5
+  %firstName.i = getelementptr inbounds %class.Employee, ptr %this, i64 0, i32 1
+  %0 = load ptr, ptr %firstName.i, align 8, !tbaa !8
+  %isnull.i = icmp eq ptr %0, null
+  br i1 %isnull.i, label %delete.end.i, label %delete.notnull.i
 
-5:                                                ; preds = %1
-  tail call void @_ZdaPv(ptr noundef nonnull %3) #30
-  br label %6
+delete.notnull.i:                                 ; preds = %entry
+  tail call void @_ZdaPv(ptr noundef nonnull %0) #30
+  br label %delete.end.i
 
-6:                                                ; preds = %5, %1
-  %7 = getelementptr inbounds %class.Employee, ptr %0, i64 0, i32 2
-  %8 = load ptr, ptr %7, align 8, !tbaa !13
-  %9 = icmp eq ptr %8, null
-  br i1 %9, label %11, label %10
+delete.end.i:                                     ; preds = %delete.notnull.i, %entry
+  %lastName.i = getelementptr inbounds %class.Employee, ptr %this, i64 0, i32 2
+  %1 = load ptr, ptr %lastName.i, align 8, !tbaa !13
+  %isnull2.i = icmp eq ptr %1, null
+  br i1 %isnull2.i, label %_ZN8EmployeeD2Ev.exit, label %delete.notnull3.i
 
-10:                                               ; preds = %6
-  tail call void @_ZdaPv(ptr noundef nonnull %8) #30
-  br label %11
+delete.notnull3.i:                                ; preds = %delete.end.i
+  tail call void @_ZdaPv(ptr noundef nonnull %1) #30
+  br label %_ZN8EmployeeD2Ev.exit
 
-11:                                               ; preds = %6, %10
-  tail call void @_ZdlPv(ptr noundef nonnull %0) #30
+_ZN8EmployeeD2Ev.exit:                            ; preds = %delete.end.i, %delete.notnull3.i
+  tail call void @_ZdlPv(ptr noundef nonnull %this) #30
   ret void
 }
 
 ; Function Attrs: inlinehint nounwind uwtable
-define linkonce_odr dso_local void @_ZN12HourlyWorkerD0Ev(ptr noundef nonnull align 8 dereferenceable(36) %0) unnamed_addr #21 comdat align 2 {
+define linkonce_odr dso_local void @_ZN12HourlyWorkerD0Ev(ptr noundef nonnull align 8 dereferenceable(36) %this) unnamed_addr #21 comdat align 2 {
+entry:
   tail call void @llvm.trap() #28
   unreachable
 }
 
 ; Function Attrs: nounwind uwtable
-define dso_local void @_ZN8EmployeeD2Ev(ptr nocapture noundef nonnull align 8 dereferenceable(28) %0) unnamed_addr #22 align 2 {
-  store ptr getelementptr inbounds ({ [8 x ptr] }, ptr @_ZTV8Employee, i64 0, inrange i32 0, i64 2), ptr %0, align 8, !tbaa !5
-  %2 = getelementptr inbounds %class.Employee, ptr %0, i64 0, i32 1
-  %3 = load ptr, ptr %2, align 8, !tbaa !8
-  %4 = icmp eq ptr %3, null
-  br i1 %4, label %6, label %5
+define dso_local void @_ZN8EmployeeD2Ev(ptr nocapture noundef nonnull align 8 dereferenceable(28) %this) unnamed_addr #22 align 2 {
+entry:
+  store ptr getelementptr inbounds ({ [8 x ptr] }, ptr @_ZTV8Employee, i64 0, inrange i32 0, i64 2), ptr %this, align 8, !tbaa !5
+  %firstName = getelementptr inbounds %class.Employee, ptr %this, i64 0, i32 1
+  %0 = load ptr, ptr %firstName, align 8, !tbaa !8
+  %isnull = icmp eq ptr %0, null
+  br i1 %isnull, label %delete.end, label %delete.notnull
 
-5:                                                ; preds = %1
-  tail call void @_ZdaPv(ptr noundef nonnull %3) #30
-  br label %6
+delete.notnull:                                   ; preds = %entry
+  tail call void @_ZdaPv(ptr noundef nonnull %0) #30
+  br label %delete.end
 
-6:                                                ; preds = %5, %1
-  %7 = getelementptr inbounds %class.Employee, ptr %0, i64 0, i32 2
-  %8 = load ptr, ptr %7, align 8, !tbaa !13
-  %9 = icmp eq ptr %8, null
-  br i1 %9, label %11, label %10
+delete.end:                                       ; preds = %delete.notnull, %entry
+  %lastName = getelementptr inbounds %class.Employee, ptr %this, i64 0, i32 2
+  %1 = load ptr, ptr %lastName, align 8, !tbaa !13
+  %isnull2 = icmp eq ptr %1, null
+  br i1 %isnull2, label %delete.end4, label %delete.notnull3
 
-10:                                               ; preds = %6
-  tail call void @_ZdaPv(ptr noundef nonnull %8) #30
-  br label %11
+delete.notnull3:                                  ; preds = %delete.end
+  tail call void @_ZdaPv(ptr noundef nonnull %1) #30
+  br label %delete.end4
 
-11:                                               ; preds = %10, %6
+delete.end4:                                      ; preds = %delete.notnull3, %delete.end
   ret void
 }
 
 ; Function Attrs: inlinehint nounwind uwtable
-define linkonce_odr dso_local void @_ZN22HourlyWorkerNoOvertimeD0Ev(ptr noundef nonnull align 8 dereferenceable(36) %0) unnamed_addr #21 comdat align 2 {
-  store ptr getelementptr inbounds ({ [8 x ptr] }, ptr @_ZTV8Employee, i64 0, inrange i32 0, i64 2), ptr %0, align 8, !tbaa !5
-  %2 = getelementptr inbounds %class.Employee, ptr %0, i64 0, i32 1
-  %3 = load ptr, ptr %2, align 8, !tbaa !8
-  %4 = icmp eq ptr %3, null
-  br i1 %4, label %6, label %5
+define linkonce_odr dso_local void @_ZN22HourlyWorkerNoOvertimeD0Ev(ptr noundef nonnull align 8 dereferenceable(36) %this) unnamed_addr #21 comdat align 2 {
+entry:
+  store ptr getelementptr inbounds ({ [8 x ptr] }, ptr @_ZTV8Employee, i64 0, inrange i32 0, i64 2), ptr %this, align 8, !tbaa !5
+  %firstName.i = getelementptr inbounds %class.Employee, ptr %this, i64 0, i32 1
+  %0 = load ptr, ptr %firstName.i, align 8, !tbaa !8
+  %isnull.i = icmp eq ptr %0, null
+  br i1 %isnull.i, label %delete.end.i, label %delete.notnull.i
 
-5:                                                ; preds = %1
-  tail call void @_ZdaPv(ptr noundef nonnull %3) #30
-  br label %6
+delete.notnull.i:                                 ; preds = %entry
+  tail call void @_ZdaPv(ptr noundef nonnull %0) #30
+  br label %delete.end.i
 
-6:                                                ; preds = %5, %1
-  %7 = getelementptr inbounds %class.Employee, ptr %0, i64 0, i32 2
-  %8 = load ptr, ptr %7, align 8, !tbaa !13
-  %9 = icmp eq ptr %8, null
-  br i1 %9, label %11, label %10
+delete.end.i:                                     ; preds = %delete.notnull.i, %entry
+  %lastName.i = getelementptr inbounds %class.Employee, ptr %this, i64 0, i32 2
+  %1 = load ptr, ptr %lastName.i, align 8, !tbaa !13
+  %isnull2.i = icmp eq ptr %1, null
+  br i1 %isnull2.i, label %_ZN8EmployeeD2Ev.exit, label %delete.notnull3.i
 
-10:                                               ; preds = %6
-  tail call void @_ZdaPv(ptr noundef nonnull %8) #30
-  br label %11
+delete.notnull3.i:                                ; preds = %delete.end.i
+  tail call void @_ZdaPv(ptr noundef nonnull %1) #30
+  br label %_ZN8EmployeeD2Ev.exit
 
-11:                                               ; preds = %6, %10
-  tail call void @_ZdlPv(ptr noundef nonnull %0) #30
+_ZN8EmployeeD2Ev.exit:                            ; preds = %delete.end.i, %delete.notnull3.i
+  tail call void @_ZdlPv(ptr noundef nonnull %this) #30
   ret void
 }
 
 ; Function Attrs: inlinehint nounwind uwtable
-define linkonce_odr dso_local void @_ZN20HourlyWorkerOvertimeD0Ev(ptr noundef nonnull align 8 dereferenceable(36) %0) unnamed_addr #21 comdat align 2 {
-  store ptr getelementptr inbounds ({ [8 x ptr] }, ptr @_ZTV8Employee, i64 0, inrange i32 0, i64 2), ptr %0, align 8, !tbaa !5
-  %2 = getelementptr inbounds %class.Employee, ptr %0, i64 0, i32 1
-  %3 = load ptr, ptr %2, align 8, !tbaa !8
-  %4 = icmp eq ptr %3, null
-  br i1 %4, label %6, label %5
+define linkonce_odr dso_local void @_ZN20HourlyWorkerOvertimeD0Ev(ptr noundef nonnull align 8 dereferenceable(36) %this) unnamed_addr #21 comdat align 2 {
+entry:
+  store ptr getelementptr inbounds ({ [8 x ptr] }, ptr @_ZTV8Employee, i64 0, inrange i32 0, i64 2), ptr %this, align 8, !tbaa !5
+  %firstName.i = getelementptr inbounds %class.Employee, ptr %this, i64 0, i32 1
+  %0 = load ptr, ptr %firstName.i, align 8, !tbaa !8
+  %isnull.i = icmp eq ptr %0, null
+  br i1 %isnull.i, label %delete.end.i, label %delete.notnull.i
 
-5:                                                ; preds = %1
-  tail call void @_ZdaPv(ptr noundef nonnull %3) #30
-  br label %6
+delete.notnull.i:                                 ; preds = %entry
+  tail call void @_ZdaPv(ptr noundef nonnull %0) #30
+  br label %delete.end.i
 
-6:                                                ; preds = %5, %1
-  %7 = getelementptr inbounds %class.Employee, ptr %0, i64 0, i32 2
-  %8 = load ptr, ptr %7, align 8, !tbaa !13
-  %9 = icmp eq ptr %8, null
-  br i1 %9, label %11, label %10
+delete.end.i:                                     ; preds = %delete.notnull.i, %entry
+  %lastName.i = getelementptr inbounds %class.Employee, ptr %this, i64 0, i32 2
+  %1 = load ptr, ptr %lastName.i, align 8, !tbaa !13
+  %isnull2.i = icmp eq ptr %1, null
+  br i1 %isnull2.i, label %_ZN8EmployeeD2Ev.exit, label %delete.notnull3.i
 
-10:                                               ; preds = %6
-  tail call void @_ZdaPv(ptr noundef nonnull %8) #30
-  br label %11
+delete.notnull3.i:                                ; preds = %delete.end.i
+  tail call void @_ZdaPv(ptr noundef nonnull %1) #30
+  br label %_ZN8EmployeeD2Ev.exit
 
-11:                                               ; preds = %6, %10
-  tail call void @_ZdlPv(ptr noundef nonnull %0) #30
+_ZN8EmployeeD2Ev.exit:                            ; preds = %delete.end.i, %delete.notnull3.i
+  tail call void @_ZdlPv(ptr noundef nonnull %this) #30
   ret void
 }
 
@@ -1605,8 +1659,9 @@ declare noundef nonnull align 8 dereferenceable(8) ptr @_ZNSo3putEc(ptr noundef 
 
 ; Function Attrs: uwtable
 define internal void @_GLOBAL__sub_I_driver.cpp() #3 section ".text.startup" {
+entry:
   tail call void @_ZNSt8ios_base4InitC1Ev(ptr noundef nonnull align 1 dereferenceable(1) @_ZStL8__ioinit)
-  %1 = tail call i32 @__cxa_atexit(ptr nonnull @_ZNSt8ios_base4InitD1Ev, ptr nonnull @_ZStL8__ioinit, ptr nonnull @__dso_handle) #27
+  %0 = tail call i32 @__cxa_atexit(ptr nonnull @_ZNSt8ios_base4InitD1Ev, ptr nonnull @_ZStL8__ioinit, ptr nonnull @__dso_handle) #27
   ret void
 }
 
@@ -1697,10 +1752,9 @@ attributes #30 = { builtin nounwind }
 !46 = !{!"_ZTS11PieceWorker", !44, i64 0, !21, i64 32}
 !47 = !{!48, !12, i64 32}
 !48 = !{!"_ZTS12HourlyWorker", !44, i64 0, !12, i64 32}
-!49 = !{!16, !18, i64 24}
-!50 = !{!18, !18, i64 0}
-!51 = !{!16, !17, i64 8}
-!52 = !{!21, !21, i64 0}
-!53 = !{!12, !12, i64 0}
+!49 = !{!18, !18, i64 0}
+!50 = !{!16, !17, i64 8}
+!51 = !{!21, !21, i64 0}
+!52 = !{!12, !12, i64 0}
+!53 = distinct !{!53, !32}
 !54 = distinct !{!54, !32}
-!55 = distinct !{!55, !32}

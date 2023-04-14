@@ -29,290 +29,300 @@ declare void @_ZNSt8ios_base4InitD1Ev(ptr noundef nonnull align 1 dereferenceabl
 declare i32 @__cxa_atexit(ptr, ptr, ptr) local_unnamed_addr #2
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(argmem: read) uwtable
-define dso_local i64 @_ZN10BitBoard64coEv(ptr nocapture noundef nonnull readonly align 4 dereferenceable(8) %0) local_unnamed_addr #3 align 2 {
-  %2 = load i32, ptr %0, align 4, !tbaa !5
-  %3 = xor i32 %2, -1
-  %4 = getelementptr inbounds %class.BitBoard64, ptr %0, i64 0, i32 1
-  %5 = load i32, ptr %4, align 4, !tbaa !10
-  %6 = xor i32 %5, -1
-  %7 = zext i32 %6 to i64
-  %8 = shl nuw i64 %7, 32
-  %9 = zext i32 %3 to i64
-  %10 = or i64 %8, %9
-  ret i64 %10
+define dso_local i64 @_ZN10BitBoard64coEv(ptr nocapture noundef nonnull readonly align 4 dereferenceable(8) %this) local_unnamed_addr #3 align 2 {
+entry:
+  %0 = load i32, ptr %this, align 4, !tbaa !5
+  %not = xor i32 %0, -1
+  %highbits = getelementptr inbounds %class.BitBoard64, ptr %this, i64 0, i32 1
+  %1 = load i32, ptr %highbits, align 4, !tbaa !10
+  %not2 = xor i32 %1, -1
+  %retval.sroa.2.0.insert.ext = zext i32 %not2 to i64
+  %retval.sroa.2.0.insert.shift = shl nuw i64 %retval.sroa.2.0.insert.ext, 32
+  %retval.sroa.0.0.insert.ext = zext i32 %not to i64
+  %retval.sroa.0.0.insert.insert = or i64 %retval.sroa.2.0.insert.shift, %retval.sroa.0.0.insert.ext
+  ret i64 %retval.sroa.0.0.insert.insert
 }
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(argmem: read) uwtable
-define dso_local i64 @_ZN10BitBoard64anERKS_(ptr nocapture noundef nonnull readonly align 4 dereferenceable(8) %0, ptr nocapture noundef nonnull readonly align 4 dereferenceable(8) %1) local_unnamed_addr #3 align 2 {
-  %3 = load i32, ptr %0, align 4, !tbaa !5
-  %4 = load i32, ptr %1, align 4, !tbaa !5
-  %5 = and i32 %4, %3
-  %6 = getelementptr inbounds %class.BitBoard64, ptr %0, i64 0, i32 1
-  %7 = load i32, ptr %6, align 4, !tbaa !10
-  %8 = getelementptr inbounds %class.BitBoard64, ptr %1, i64 0, i32 1
-  %9 = load i32, ptr %8, align 4, !tbaa !10
-  %10 = and i32 %9, %7
-  %11 = zext i32 %10 to i64
-  %12 = shl nuw i64 %11, 32
-  %13 = zext i32 %5 to i64
-  %14 = or i64 %12, %13
-  ret i64 %14
+define dso_local i64 @_ZN10BitBoard64anERKS_(ptr nocapture noundef nonnull readonly align 4 dereferenceable(8) %this, ptr nocapture noundef nonnull readonly align 4 dereferenceable(8) %right) local_unnamed_addr #3 align 2 {
+entry:
+  %0 = load i32, ptr %this, align 4, !tbaa !5
+  %1 = load i32, ptr %right, align 4, !tbaa !5
+  %and = and i32 %1, %0
+  %highbits = getelementptr inbounds %class.BitBoard64, ptr %this, i64 0, i32 1
+  %2 = load i32, ptr %highbits, align 4, !tbaa !10
+  %highbits3 = getelementptr inbounds %class.BitBoard64, ptr %right, i64 0, i32 1
+  %3 = load i32, ptr %highbits3, align 4, !tbaa !10
+  %and4 = and i32 %3, %2
+  %retval.sroa.2.0.insert.ext = zext i32 %and4 to i64
+  %retval.sroa.2.0.insert.shift = shl nuw i64 %retval.sroa.2.0.insert.ext, 32
+  %retval.sroa.0.0.insert.ext = zext i32 %and to i64
+  %retval.sroa.0.0.insert.insert = or i64 %retval.sroa.2.0.insert.shift, %retval.sroa.0.0.insert.ext
+  ret i64 %retval.sroa.0.0.insert.insert
 }
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(argmem: read) uwtable
-define dso_local i64 @_ZN10BitBoard64orERKS_(ptr nocapture noundef nonnull readonly align 4 dereferenceable(8) %0, ptr nocapture noundef nonnull readonly align 4 dereferenceable(8) %1) local_unnamed_addr #3 align 2 {
-  %3 = load i32, ptr %0, align 4, !tbaa !5
-  %4 = load i32, ptr %1, align 4, !tbaa !5
-  %5 = or i32 %4, %3
-  %6 = getelementptr inbounds %class.BitBoard64, ptr %0, i64 0, i32 1
-  %7 = load i32, ptr %6, align 4, !tbaa !10
-  %8 = getelementptr inbounds %class.BitBoard64, ptr %1, i64 0, i32 1
-  %9 = load i32, ptr %8, align 4, !tbaa !10
-  %10 = or i32 %9, %7
-  %11 = zext i32 %10 to i64
-  %12 = shl nuw i64 %11, 32
-  %13 = zext i32 %5 to i64
-  %14 = or i64 %12, %13
-  ret i64 %14
+define dso_local i64 @_ZN10BitBoard64orERKS_(ptr nocapture noundef nonnull readonly align 4 dereferenceable(8) %this, ptr nocapture noundef nonnull readonly align 4 dereferenceable(8) %right) local_unnamed_addr #3 align 2 {
+entry:
+  %0 = load i32, ptr %this, align 4, !tbaa !5
+  %1 = load i32, ptr %right, align 4, !tbaa !5
+  %or = or i32 %1, %0
+  %highbits = getelementptr inbounds %class.BitBoard64, ptr %this, i64 0, i32 1
+  %2 = load i32, ptr %highbits, align 4, !tbaa !10
+  %highbits3 = getelementptr inbounds %class.BitBoard64, ptr %right, i64 0, i32 1
+  %3 = load i32, ptr %highbits3, align 4, !tbaa !10
+  %or4 = or i32 %3, %2
+  %retval.sroa.2.0.insert.ext = zext i32 %or4 to i64
+  %retval.sroa.2.0.insert.shift = shl nuw i64 %retval.sroa.2.0.insert.ext, 32
+  %retval.sroa.0.0.insert.ext = zext i32 %or to i64
+  %retval.sroa.0.0.insert.insert = or i64 %retval.sroa.2.0.insert.shift, %retval.sroa.0.0.insert.ext
+  ret i64 %retval.sroa.0.0.insert.insert
 }
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(argmem: readwrite) uwtable
-define dso_local i64 @_ZN10BitBoard64aSERKS_(ptr nocapture noundef nonnull align 4 dereferenceable(8) %0, ptr nocapture noundef nonnull readonly align 4 dereferenceable(8) %1) local_unnamed_addr #4 align 2 {
-  %3 = load <2 x i32>, ptr %1, align 4, !tbaa !11
-  store <2 x i32> %3, ptr %0, align 4, !tbaa !11
-  %4 = bitcast <2 x i32> %3 to i64
-  ret i64 %4
+define dso_local i64 @_ZN10BitBoard64aSERKS_(ptr nocapture noundef nonnull align 4 dereferenceable(8) %this, ptr nocapture noundef nonnull readonly align 4 dereferenceable(8) %right) local_unnamed_addr #4 align 2 {
+entry:
+  %0 = load <2 x i32>, ptr %right, align 4, !tbaa !11
+  store <2 x i32> %0, ptr %this, align 4, !tbaa !11
+  %retval.sroa.0.0.copyload.cast = bitcast <2 x i32> %0 to i64
+  ret i64 %retval.sroa.0.0.copyload.cast
 }
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(argmem: read) uwtable
-define dso_local i64 @_ZN10BitBoard64eoERKS_(ptr nocapture noundef nonnull readonly align 4 dereferenceable(8) %0, ptr nocapture noundef nonnull readonly align 4 dereferenceable(8) %1) local_unnamed_addr #3 align 2 {
-  %3 = load i32, ptr %0, align 4, !tbaa !5
-  %4 = load i32, ptr %1, align 4, !tbaa !5
-  %5 = xor i32 %4, %3
-  %6 = getelementptr inbounds %class.BitBoard64, ptr %0, i64 0, i32 1
-  %7 = load i32, ptr %6, align 4, !tbaa !10
-  %8 = getelementptr inbounds %class.BitBoard64, ptr %1, i64 0, i32 1
-  %9 = load i32, ptr %8, align 4, !tbaa !10
-  %10 = xor i32 %9, %7
-  %11 = zext i32 %10 to i64
-  %12 = shl nuw i64 %11, 32
-  %13 = zext i32 %5 to i64
-  %14 = or i64 %12, %13
-  ret i64 %14
+define dso_local i64 @_ZN10BitBoard64eoERKS_(ptr nocapture noundef nonnull readonly align 4 dereferenceable(8) %this, ptr nocapture noundef nonnull readonly align 4 dereferenceable(8) %right) local_unnamed_addr #3 align 2 {
+entry:
+  %0 = load i32, ptr %this, align 4, !tbaa !5
+  %1 = load i32, ptr %right, align 4, !tbaa !5
+  %xor = xor i32 %1, %0
+  %highbits = getelementptr inbounds %class.BitBoard64, ptr %this, i64 0, i32 1
+  %2 = load i32, ptr %highbits, align 4, !tbaa !10
+  %highbits3 = getelementptr inbounds %class.BitBoard64, ptr %right, i64 0, i32 1
+  %3 = load i32, ptr %highbits3, align 4, !tbaa !10
+  %xor4 = xor i32 %3, %2
+  %retval.sroa.2.0.insert.ext = zext i32 %xor4 to i64
+  %retval.sroa.2.0.insert.shift = shl nuw i64 %retval.sroa.2.0.insert.ext, 32
+  %retval.sroa.0.0.insert.ext = zext i32 %xor to i64
+  %retval.sroa.0.0.insert.insert = or i64 %retval.sroa.2.0.insert.shift, %retval.sroa.0.0.insert.ext
+  ret i64 %retval.sroa.0.0.insert.insert
 }
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(argmem: read) uwtable
-define dso_local noundef zeroext i1 @_ZN10BitBoard64cvbEv(ptr nocapture noundef nonnull readonly align 4 dereferenceable(8) %0) local_unnamed_addr #3 align 2 {
-  %2 = load i32, ptr %0, align 4, !tbaa !5
-  %3 = icmp ne i32 %2, 0
-  %4 = getelementptr inbounds %class.BitBoard64, ptr %0, i64 0, i32 1
-  %5 = load i32, ptr %4, align 4
-  %6 = icmp ne i32 %5, 0
-  %7 = select i1 %3, i1 true, i1 %6
-  ret i1 %7
+define dso_local noundef zeroext i1 @_ZN10BitBoard64cvbEv(ptr nocapture noundef nonnull readonly align 4 dereferenceable(8) %this) local_unnamed_addr #3 align 2 {
+entry:
+  %0 = load i32, ptr %this, align 4, !tbaa !5
+  %tobool.not = icmp ne i32 %0, 0
+  %highbits = getelementptr inbounds %class.BitBoard64, ptr %this, i64 0, i32 1
+  %1 = load i32, ptr %highbits, align 4
+  %tobool2 = icmp ne i32 %1, 0
+  %2 = select i1 %tobool.not, i1 true, i1 %tobool2
+  ret i1 %2
 }
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(readwrite, inaccessiblemem: none) uwtable
-define dso_local void @_ZN10BitBoard646setBitEi(ptr nocapture noundef nonnull align 4 dereferenceable(8) %0, i32 noundef %1) local_unnamed_addr #5 align 2 {
-  %3 = icmp ugt i32 %1, 63
-  br i1 %3, label %13, label %4
+define dso_local void @_ZN10BitBoard646setBitEi(ptr nocapture noundef nonnull align 4 dereferenceable(8) %this, i32 noundef %bit) local_unnamed_addr #5 align 2 {
+entry:
+  %or.cond = icmp ugt i32 %bit, 63
+  br i1 %or.cond, label %if.end7, label %if.end
 
-4:                                                ; preds = %2
-  %5 = icmp ult i32 %1, 32
-  %6 = add nsw i32 %1, -32
-  %7 = getelementptr inbounds %class.BitBoard64, ptr %0, i64 0, i32 1
-  %8 = select i1 %5, ptr %0, ptr %7
-  %9 = select i1 %5, i32 %1, i32 %6
-  %10 = shl nuw i32 1, %9
-  %11 = load i32, ptr %8, align 4, !tbaa !11
-  %12 = or i32 %11, %10
-  store i32 %12, ptr %8, align 4, !tbaa !11
-  br label %13
+if.end:                                           ; preds = %entry
+  %cmp3 = icmp ult i32 %bit, 32
+  %sub = add nsw i32 %bit, -32
+  %highbits = getelementptr inbounds %class.BitBoard64, ptr %this, i64 0, i32 1
+  %highbits.sink12 = select i1 %cmp3, ptr %this, ptr %highbits
+  %shl5.sink.v = select i1 %cmp3, i32 %bit, i32 %sub
+  %shl5.sink = shl nuw i32 1, %shl5.sink.v
+  %0 = load i32, ptr %highbits.sink12, align 4, !tbaa !11
+  %or6 = or i32 %0, %shl5.sink
+  store i32 %or6, ptr %highbits.sink12, align 4, !tbaa !11
+  br label %if.end7
 
-13:                                               ; preds = %4, %2
+if.end7:                                          ; preds = %if.end, %entry
   ret void
 }
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(readwrite, inaccessiblemem: none) uwtable
-define dso_local void @_ZN10BitBoard648unSetBitEi(ptr nocapture noundef nonnull align 4 dereferenceable(8) %0, i32 noundef %1) local_unnamed_addr #5 align 2 {
-  %3 = icmp ugt i32 %1, 63
-  br i1 %3, label %14, label %4
+define dso_local void @_ZN10BitBoard648unSetBitEi(ptr nocapture noundef nonnull align 4 dereferenceable(8) %this, i32 noundef %bit) local_unnamed_addr #5 align 2 {
+entry:
+  %or.cond = icmp ugt i32 %bit, 63
+  br i1 %or.cond, label %if.end8, label %if.end
 
-4:                                                ; preds = %2
-  %5 = icmp ult i32 %1, 32
-  %6 = add nsw i32 %1, -32
-  %7 = getelementptr inbounds %class.BitBoard64, ptr %0, i64 0, i32 1
-  %8 = select i1 %5, ptr %0, ptr %7
-  %9 = select i1 %5, i32 %1, i32 %6
-  %10 = shl nuw i32 1, %9
-  %11 = xor i32 %10, -1
-  %12 = load i32, ptr %8, align 4, !tbaa !11
-  %13 = and i32 %12, %11
-  store i32 %13, ptr %8, align 4, !tbaa !11
-  br label %14
+if.end:                                           ; preds = %entry
+  %cmp3 = icmp ult i32 %bit, 32
+  %sub = add nsw i32 %bit, -32
+  %highbits = getelementptr inbounds %class.BitBoard64, ptr %this, i64 0, i32 1
+  %highbits.sink13 = select i1 %cmp3, ptr %this, ptr %highbits
+  %sub.pn = select i1 %cmp3, i32 %bit, i32 %sub
+  %not6.sink.in = shl nuw i32 1, %sub.pn
+  %not6.sink = xor i32 %not6.sink.in, -1
+  %0 = load i32, ptr %highbits.sink13, align 4, !tbaa !11
+  %and7 = and i32 %0, %not6.sink
+  store i32 %and7, ptr %highbits.sink13, align 4, !tbaa !11
+  br label %if.end8
 
-14:                                               ; preds = %4, %2
+if.end8:                                          ; preds = %if.end, %entry
   ret void
 }
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(argmem: read) uwtable
-define dso_local noundef i32 @_ZN10BitBoard646getBitEi(ptr nocapture noundef nonnull readonly align 4 dereferenceable(8) %0, i32 noundef %1) local_unnamed_addr #3 align 2 {
-  %3 = icmp ugt i32 %1, 63
-  br i1 %3, label %16, label %4
+define dso_local noundef i32 @_ZN10BitBoard646getBitEi(ptr nocapture noundef nonnull readonly align 4 dereferenceable(8) %this, i32 noundef %bit) local_unnamed_addr #3 align 2 {
+entry:
+  %or.cond = icmp ugt i32 %bit, 63
+  br i1 %or.cond, label %return, label %if.end
 
-4:                                                ; preds = %2
-  %5 = icmp ult i32 %1, 32
-  br i1 %5, label %6, label %10
+if.end:                                           ; preds = %entry
+  %cmp3 = icmp ult i32 %bit, 32
+  br i1 %cmp3, label %if.then4, label %if.else
 
-6:                                                ; preds = %4
-  %7 = load i32, ptr %0, align 4, !tbaa !5
-  %8 = shl nuw i32 1, %1
-  %9 = and i32 %7, %8
-  br label %16
+if.then4:                                         ; preds = %if.end
+  %0 = load i32, ptr %this, align 4, !tbaa !5
+  %shl = shl nuw i32 1, %bit
+  %and = and i32 %0, %shl
+  br label %return
 
-10:                                               ; preds = %4
-  %11 = getelementptr inbounds %class.BitBoard64, ptr %0, i64 0, i32 1
-  %12 = load i32, ptr %11, align 4, !tbaa !10
-  %13 = add nsw i32 %1, -32
-  %14 = shl nuw i32 1, %13
-  %15 = and i32 %12, %14
-  br label %16
+if.else:                                          ; preds = %if.end
+  %highbits = getelementptr inbounds %class.BitBoard64, ptr %this, i64 0, i32 1
+  %1 = load i32, ptr %highbits, align 4, !tbaa !10
+  %sub = add nsw i32 %bit, -32
+  %shl5 = shl nuw i32 1, %sub
+  %and6 = and i32 %1, %shl5
+  br label %return
 
-16:                                               ; preds = %2, %10, %6
-  %17 = phi i32 [ %9, %6 ], [ %15, %10 ], [ -1, %2 ]
-  ret i32 %17
+return:                                           ; preds = %entry, %if.else, %if.then4
+  %retval.0 = phi i32 [ %and, %if.then4 ], [ %and6, %if.else ], [ -1, %entry ]
+  ret i32 %retval.0
 }
 
 ; Function Attrs: mustprogress nofree nounwind uwtable
-define dso_local noundef i32 @_ZN10BitBoard6412readFromFileEP8_IO_FILE(ptr nocapture noundef nonnull align 4 dereferenceable(8) %0, ptr nocapture noundef %1) local_unnamed_addr #6 align 2 {
-  %3 = alloca i8, align 1
-  %4 = alloca i8, align 1
-  store i32 0, ptr %0, align 4, !tbaa !5
-  %5 = getelementptr inbounds %class.BitBoard64, ptr %0, i64 0, i32 1
-  store i32 0, ptr %5, align 4, !tbaa !10
-  call void @llvm.lifetime.start.p0(i64 1, ptr nonnull %3) #13
-  store i8 0, ptr %3, align 1, !tbaa !12
-  %6 = call i64 @fread(ptr noundef nonnull %3, i64 noundef 1, i64 noundef 1, ptr noundef %1)
-  %7 = icmp eq i64 %6, 1
-  br i1 %7, label %8, label %39
+define dso_local noundef i32 @_ZN10BitBoard6412readFromFileEP8_IO_FILE(ptr nocapture noundef nonnull align 4 dereferenceable(8) %this, ptr nocapture noundef %file) local_unnamed_addr #6 align 2 {
+entry:
+  %byte = alloca i8, align 1
+  %byte11 = alloca i8, align 1
+  store i32 0, ptr %this, align 4, !tbaa !5
+  %highbits = getelementptr inbounds %class.BitBoard64, ptr %this, i64 0, i32 1
+  store i32 0, ptr %highbits, align 4, !tbaa !10
+  call void @llvm.lifetime.start.p0(i64 1, ptr nonnull %byte) #13
+  store i8 0, ptr %byte, align 1, !tbaa !12
+  %call = call i64 @fread(ptr noundef nonnull %byte, i64 noundef 1, i64 noundef 1, ptr noundef %file)
+  %cmp2.not = icmp eq i64 %call, 1
+  br i1 %cmp2.not, label %if.end, label %cleanup4.thread
 
-8:                                                ; preds = %2
-  %9 = load i8, ptr %3, align 1, !tbaa !12
-  %10 = zext i8 %9 to i32
-  %11 = load i32, ptr %0, align 4, !tbaa !5
-  %12 = or i32 %11, %10
-  store i32 %12, ptr %0, align 4, !tbaa !5
-  call void @llvm.lifetime.end.p0(i64 1, ptr nonnull %3) #13
-  call void @llvm.lifetime.start.p0(i64 1, ptr nonnull %3) #13
-  store i8 0, ptr %3, align 1, !tbaa !12
-  %13 = call i64 @fread(ptr noundef nonnull %3, i64 noundef 1, i64 noundef 1, ptr noundef %1)
-  %14 = icmp eq i64 %13, 1
-  br i1 %14, label %15, label %39
+if.end:                                           ; preds = %entry
+  %0 = load i8, ptr %byte, align 1, !tbaa !12
+  %conv = zext i8 %0 to i32
+  %1 = load i32, ptr %this, align 4, !tbaa !5
+  %or = or i32 %1, %conv
+  store i32 %or, ptr %this, align 4, !tbaa !5
+  call void @llvm.lifetime.end.p0(i64 1, ptr nonnull %byte) #13
+  call void @llvm.lifetime.start.p0(i64 1, ptr nonnull %byte) #13
+  store i8 0, ptr %byte, align 1, !tbaa !12
+  %call.1 = call i64 @fread(ptr noundef nonnull %byte, i64 noundef 1, i64 noundef 1, ptr noundef %file)
+  %cmp2.not.1 = icmp eq i64 %call.1, 1
+  br i1 %cmp2.not.1, label %if.end.1, label %cleanup4.thread
 
-15:                                               ; preds = %8
-  %16 = load i8, ptr %3, align 1, !tbaa !12
-  %17 = zext i8 %16 to i32
-  %18 = shl nuw nsw i32 %17, 8
-  %19 = load i32, ptr %0, align 4, !tbaa !5
-  %20 = or i32 %18, %19
-  store i32 %20, ptr %0, align 4, !tbaa !5
-  call void @llvm.lifetime.end.p0(i64 1, ptr nonnull %3) #13
-  call void @llvm.lifetime.start.p0(i64 1, ptr nonnull %3) #13
-  store i8 0, ptr %3, align 1, !tbaa !12
-  %21 = call i64 @fread(ptr noundef nonnull %3, i64 noundef 1, i64 noundef 1, ptr noundef %1)
-  %22 = icmp eq i64 %21, 1
-  br i1 %22, label %23, label %39
+if.end.1:                                         ; preds = %if.end
+  %2 = load i8, ptr %byte, align 1, !tbaa !12
+  %conv.1 = zext i8 %2 to i32
+  %shl.1 = shl nuw nsw i32 %conv.1, 8
+  %3 = load i32, ptr %this, align 4, !tbaa !5
+  %or.1 = or i32 %shl.1, %3
+  store i32 %or.1, ptr %this, align 4, !tbaa !5
+  call void @llvm.lifetime.end.p0(i64 1, ptr nonnull %byte) #13
+  call void @llvm.lifetime.start.p0(i64 1, ptr nonnull %byte) #13
+  store i8 0, ptr %byte, align 1, !tbaa !12
+  %call.2 = call i64 @fread(ptr noundef nonnull %byte, i64 noundef 1, i64 noundef 1, ptr noundef %file)
+  %cmp2.not.2 = icmp eq i64 %call.2, 1
+  br i1 %cmp2.not.2, label %if.end.2, label %cleanup4.thread
 
-23:                                               ; preds = %15
-  %24 = load i8, ptr %3, align 1, !tbaa !12
-  %25 = zext i8 %24 to i32
-  %26 = shl nuw nsw i32 %25, 16
-  %27 = load i32, ptr %0, align 4, !tbaa !5
-  %28 = or i32 %26, %27
-  store i32 %28, ptr %0, align 4, !tbaa !5
-  call void @llvm.lifetime.end.p0(i64 1, ptr nonnull %3) #13
-  call void @llvm.lifetime.start.p0(i64 1, ptr nonnull %3) #13
-  store i8 0, ptr %3, align 1, !tbaa !12
-  %29 = call i64 @fread(ptr noundef nonnull %3, i64 noundef 1, i64 noundef 1, ptr noundef %1)
-  %30 = icmp eq i64 %29, 1
-  br i1 %30, label %31, label %39
+if.end.2:                                         ; preds = %if.end.1
+  %4 = load i8, ptr %byte, align 1, !tbaa !12
+  %conv.2 = zext i8 %4 to i32
+  %shl.2 = shl nuw nsw i32 %conv.2, 16
+  %5 = load i32, ptr %this, align 4, !tbaa !5
+  %or.2 = or i32 %shl.2, %5
+  store i32 %or.2, ptr %this, align 4, !tbaa !5
+  call void @llvm.lifetime.end.p0(i64 1, ptr nonnull %byte) #13
+  call void @llvm.lifetime.start.p0(i64 1, ptr nonnull %byte) #13
+  store i8 0, ptr %byte, align 1, !tbaa !12
+  %call.3 = call i64 @fread(ptr noundef nonnull %byte, i64 noundef 1, i64 noundef 1, ptr noundef %file)
+  %cmp2.not.3 = icmp eq i64 %call.3, 1
+  br i1 %cmp2.not.3, label %if.end.3, label %cleanup4.thread
 
-31:                                               ; preds = %23
-  %32 = load i8, ptr %3, align 1, !tbaa !12
-  %33 = zext i8 %32 to i32
-  %34 = shl nuw i32 %33, 24
-  %35 = load i32, ptr %0, align 4, !tbaa !5
-  %36 = or i32 %34, %35
-  store i32 %36, ptr %0, align 4, !tbaa !5
-  call void @llvm.lifetime.end.p0(i64 1, ptr nonnull %3) #13
-  call void @llvm.lifetime.start.p0(i64 1, ptr nonnull %4) #13
-  store i8 0, ptr %4, align 1, !tbaa !12
-  %37 = call i64 @fread(ptr noundef nonnull %4, i64 noundef 1, i64 noundef 1, ptr noundef %1)
-  %38 = icmp eq i64 %37, 1
-  br i1 %38, label %40, label %69
+if.end.3:                                         ; preds = %if.end.2
+  %6 = load i8, ptr %byte, align 1, !tbaa !12
+  %conv.3 = zext i8 %6 to i32
+  %shl.3 = shl nuw i32 %conv.3, 24
+  %7 = load i32, ptr %this, align 4, !tbaa !5
+  %or.3 = or i32 %shl.3, %7
+  store i32 %or.3, ptr %this, align 4, !tbaa !5
+  call void @llvm.lifetime.end.p0(i64 1, ptr nonnull %byte) #13
+  call void @llvm.lifetime.start.p0(i64 1, ptr nonnull %byte11) #13
+  store i8 0, ptr %byte11, align 1, !tbaa !12
+  %call12 = call i64 @fread(ptr noundef nonnull %byte11, i64 noundef 1, i64 noundef 1, ptr noundef %file)
+  %cmp13.not = icmp eq i64 %call12, 1
+  br i1 %cmp13.not, label %if.end15, label %cleanup26.critedge
 
-39:                                               ; preds = %23, %15, %8, %2
-  call void @llvm.lifetime.end.p0(i64 1, ptr nonnull %3) #13
-  br label %70
+cleanup4.thread:                                  ; preds = %if.end.2, %if.end.1, %if.end, %entry
+  call void @llvm.lifetime.end.p0(i64 1, ptr nonnull %byte) #13
+  br label %return
 
-40:                                               ; preds = %31
-  %41 = load i8, ptr %4, align 1, !tbaa !12
-  %42 = zext i8 %41 to i32
-  %43 = load i32, ptr %5, align 4, !tbaa !10
-  %44 = or i32 %43, %42
-  store i32 %44, ptr %5, align 4, !tbaa !10
-  call void @llvm.lifetime.end.p0(i64 1, ptr nonnull %4) #13
-  call void @llvm.lifetime.start.p0(i64 1, ptr nonnull %4) #13
-  store i8 0, ptr %4, align 1, !tbaa !12
-  %45 = call i64 @fread(ptr noundef nonnull %4, i64 noundef 1, i64 noundef 1, ptr noundef %1)
-  %46 = icmp eq i64 %45, 1
-  br i1 %46, label %47, label %69
+if.end15:                                         ; preds = %if.end.3
+  %8 = load i8, ptr %byte11, align 1, !tbaa !12
+  %conv16 = zext i8 %8 to i32
+  %9 = load i32, ptr %highbits, align 4, !tbaa !10
+  %or20 = or i32 %9, %conv16
+  store i32 %or20, ptr %highbits, align 4, !tbaa !10
+  call void @llvm.lifetime.end.p0(i64 1, ptr nonnull %byte11) #13
+  call void @llvm.lifetime.start.p0(i64 1, ptr nonnull %byte11) #13
+  store i8 0, ptr %byte11, align 1, !tbaa !12
+  %call12.1 = call i64 @fread(ptr noundef nonnull %byte11, i64 noundef 1, i64 noundef 1, ptr noundef %file)
+  %cmp13.not.1 = icmp eq i64 %call12.1, 1
+  br i1 %cmp13.not.1, label %if.end15.1, label %cleanup26.critedge
 
-47:                                               ; preds = %40
-  %48 = load i8, ptr %4, align 1, !tbaa !12
-  %49 = zext i8 %48 to i32
-  %50 = shl nuw nsw i32 %49, 8
-  %51 = load i32, ptr %5, align 4, !tbaa !10
-  %52 = or i32 %50, %51
-  store i32 %52, ptr %5, align 4, !tbaa !10
-  call void @llvm.lifetime.end.p0(i64 1, ptr nonnull %4) #13
-  call void @llvm.lifetime.start.p0(i64 1, ptr nonnull %4) #13
-  store i8 0, ptr %4, align 1, !tbaa !12
-  %53 = call i64 @fread(ptr noundef nonnull %4, i64 noundef 1, i64 noundef 1, ptr noundef %1)
-  %54 = icmp eq i64 %53, 1
-  br i1 %54, label %55, label %69
+if.end15.1:                                       ; preds = %if.end15
+  %10 = load i8, ptr %byte11, align 1, !tbaa !12
+  %conv16.1 = zext i8 %10 to i32
+  %shl18.1 = shl nuw nsw i32 %conv16.1, 8
+  %11 = load i32, ptr %highbits, align 4, !tbaa !10
+  %or20.1 = or i32 %shl18.1, %11
+  store i32 %or20.1, ptr %highbits, align 4, !tbaa !10
+  call void @llvm.lifetime.end.p0(i64 1, ptr nonnull %byte11) #13
+  call void @llvm.lifetime.start.p0(i64 1, ptr nonnull %byte11) #13
+  store i8 0, ptr %byte11, align 1, !tbaa !12
+  %call12.2 = call i64 @fread(ptr noundef nonnull %byte11, i64 noundef 1, i64 noundef 1, ptr noundef %file)
+  %cmp13.not.2 = icmp eq i64 %call12.2, 1
+  br i1 %cmp13.not.2, label %if.end15.2, label %cleanup26.critedge
 
-55:                                               ; preds = %47
-  %56 = load i8, ptr %4, align 1, !tbaa !12
-  %57 = zext i8 %56 to i32
-  %58 = shl nuw nsw i32 %57, 16
-  %59 = load i32, ptr %5, align 4, !tbaa !10
-  %60 = or i32 %58, %59
-  store i32 %60, ptr %5, align 4, !tbaa !10
-  call void @llvm.lifetime.end.p0(i64 1, ptr nonnull %4) #13
-  call void @llvm.lifetime.start.p0(i64 1, ptr nonnull %4) #13
-  store i8 0, ptr %4, align 1, !tbaa !12
-  %61 = call i64 @fread(ptr noundef nonnull %4, i64 noundef 1, i64 noundef 1, ptr noundef %1)
-  %62 = icmp eq i64 %61, 1
-  br i1 %62, label %63, label %69
+if.end15.2:                                       ; preds = %if.end15.1
+  %12 = load i8, ptr %byte11, align 1, !tbaa !12
+  %conv16.2 = zext i8 %12 to i32
+  %shl18.2 = shl nuw nsw i32 %conv16.2, 16
+  %13 = load i32, ptr %highbits, align 4, !tbaa !10
+  %or20.2 = or i32 %shl18.2, %13
+  store i32 %or20.2, ptr %highbits, align 4, !tbaa !10
+  call void @llvm.lifetime.end.p0(i64 1, ptr nonnull %byte11) #13
+  call void @llvm.lifetime.start.p0(i64 1, ptr nonnull %byte11) #13
+  store i8 0, ptr %byte11, align 1, !tbaa !12
+  %call12.3 = call i64 @fread(ptr noundef nonnull %byte11, i64 noundef 1, i64 noundef 1, ptr noundef %file)
+  %cmp13.not.3 = icmp eq i64 %call12.3, 1
+  br i1 %cmp13.not.3, label %if.end15.3, label %cleanup26.critedge
 
-63:                                               ; preds = %55
-  %64 = load i8, ptr %4, align 1, !tbaa !12
-  %65 = zext i8 %64 to i32
-  %66 = shl nuw i32 %65, 24
-  %67 = load i32, ptr %5, align 4, !tbaa !10
-  %68 = or i32 %66, %67
-  store i32 %68, ptr %5, align 4, !tbaa !10
-  call void @llvm.lifetime.end.p0(i64 1, ptr nonnull %4) #13
-  br label %70
+if.end15.3:                                       ; preds = %if.end15.2
+  %14 = load i8, ptr %byte11, align 1, !tbaa !12
+  %conv16.3 = zext i8 %14 to i32
+  %shl18.3 = shl nuw i32 %conv16.3, 24
+  %15 = load i32, ptr %highbits, align 4, !tbaa !10
+  %or20.3 = or i32 %shl18.3, %15
+  store i32 %or20.3, ptr %highbits, align 4, !tbaa !10
+  call void @llvm.lifetime.end.p0(i64 1, ptr nonnull %byte11) #13
+  br label %return
 
-69:                                               ; preds = %55, %47, %40, %31
-  call void @llvm.lifetime.end.p0(i64 1, ptr nonnull %4) #13
-  br label %70
+cleanup26.critedge:                               ; preds = %if.end15.2, %if.end15.1, %if.end15, %if.end.3
+  call void @llvm.lifetime.end.p0(i64 1, ptr nonnull %byte11) #13
+  br label %return
 
-70:                                               ; preds = %63, %69, %39
-  %71 = phi i32 [ -1, %39 ], [ -1, %69 ], [ 0, %63 ]
-  ret i32 %71
+return:                                           ; preds = %cleanup26.critedge, %if.end15.3, %cleanup4.thread
+  %retval.6 = phi i32 [ -1, %cleanup4.thread ], [ -1, %cleanup26.critedge ], [ 0, %if.end15.3 ]
+  ret i32 %retval.6
 }
 
 ; Function Attrs: mustprogress nocallback nofree nosync nounwind willreturn memory(argmem: readwrite)
@@ -325,294 +335,268 @@ declare noundef i64 @fread(ptr nocapture noundef, i64 noundef, i64 noundef, ptr 
 declare void @llvm.lifetime.end.p0(i64 immarg, ptr nocapture) #7
 
 ; Function Attrs: mustprogress nofree nounwind uwtable
-define dso_local noundef i32 @_ZN10BitBoard6411writeToFileEP8_IO_FILE(ptr nocapture noundef nonnull readonly align 4 dereferenceable(8) %0, ptr nocapture noundef %1) local_unnamed_addr #6 align 2 {
-  %3 = alloca i8, align 1
-  %4 = alloca i8, align 1
-  call void @llvm.lifetime.start.p0(i64 1, ptr nonnull %3) #13
-  %5 = load i32, ptr %0, align 4, !tbaa !5
-  %6 = trunc i32 %5 to i8
-  store i8 %6, ptr %3, align 1, !tbaa !12
-  %7 = call i64 @fwrite(ptr noundef nonnull %3, i64 noundef 1, i64 noundef 1, ptr noundef %1)
-  %8 = icmp eq i64 %7, 1
-  br i1 %8, label %9, label %33
+define dso_local noundef i32 @_ZN10BitBoard6411writeToFileEP8_IO_FILE(ptr nocapture noundef nonnull readonly align 4 dereferenceable(8) %this, ptr nocapture noundef %file) local_unnamed_addr #6 align 2 {
+entry:
+  %byte = alloca i8, align 1
+  %byte10 = alloca i8, align 1
+  call void @llvm.lifetime.start.p0(i64 1, ptr nonnull %byte) #13
+  %0 = load i32, ptr %this, align 4, !tbaa !5
+  %conv = trunc i32 %0 to i8
+  store i8 %conv, ptr %byte, align 1, !tbaa !12
+  %call = call i64 @fwrite(ptr noundef nonnull %byte, i64 noundef 1, i64 noundef 1, ptr noundef %file)
+  %cmp2.not = icmp eq i64 %call, 1
+  call void @llvm.lifetime.end.p0(i64 1, ptr nonnull %byte) #13
+  br i1 %cmp2.not, label %for.cond, label %return
 
-9:                                                ; preds = %2
-  call void @llvm.lifetime.end.p0(i64 1, ptr nonnull %3) #13
-  call void @llvm.lifetime.start.p0(i64 1, ptr nonnull %3) #13
-  %10 = load i32, ptr %0, align 4, !tbaa !5
-  %11 = lshr i32 %10, 8
-  %12 = trunc i32 %11 to i8
-  store i8 %12, ptr %3, align 1, !tbaa !12
-  %13 = call i64 @fwrite(ptr noundef nonnull %3, i64 noundef 1, i64 noundef 1, ptr noundef %1)
-  %14 = icmp eq i64 %13, 1
-  br i1 %14, label %15, label %33
+for.cond:                                         ; preds = %entry
+  call void @llvm.lifetime.start.p0(i64 1, ptr nonnull %byte) #13
+  %1 = load i32, ptr %this, align 4, !tbaa !5
+  %shr.1 = lshr i32 %1, 8
+  %conv.1 = trunc i32 %shr.1 to i8
+  store i8 %conv.1, ptr %byte, align 1, !tbaa !12
+  %call.1 = call i64 @fwrite(ptr noundef nonnull %byte, i64 noundef 1, i64 noundef 1, ptr noundef %file)
+  %cmp2.not.1 = icmp eq i64 %call.1, 1
+  call void @llvm.lifetime.end.p0(i64 1, ptr nonnull %byte) #13
+  br i1 %cmp2.not.1, label %for.cond.1, label %return
 
-15:                                               ; preds = %9
-  call void @llvm.lifetime.end.p0(i64 1, ptr nonnull %3) #13
-  call void @llvm.lifetime.start.p0(i64 1, ptr nonnull %3) #13
-  %16 = load i32, ptr %0, align 4, !tbaa !5
-  %17 = lshr i32 %16, 16
-  %18 = trunc i32 %17 to i8
-  store i8 %18, ptr %3, align 1, !tbaa !12
-  %19 = call i64 @fwrite(ptr noundef nonnull %3, i64 noundef 1, i64 noundef 1, ptr noundef %1)
-  %20 = icmp eq i64 %19, 1
-  br i1 %20, label %21, label %33
+for.cond.1:                                       ; preds = %for.cond
+  call void @llvm.lifetime.start.p0(i64 1, ptr nonnull %byte) #13
+  %2 = load i32, ptr %this, align 4, !tbaa !5
+  %shr.2 = lshr i32 %2, 16
+  %conv.2 = trunc i32 %shr.2 to i8
+  store i8 %conv.2, ptr %byte, align 1, !tbaa !12
+  %call.2 = call i64 @fwrite(ptr noundef nonnull %byte, i64 noundef 1, i64 noundef 1, ptr noundef %file)
+  %cmp2.not.2 = icmp eq i64 %call.2, 1
+  call void @llvm.lifetime.end.p0(i64 1, ptr nonnull %byte) #13
+  br i1 %cmp2.not.2, label %for.cond.2, label %return
 
-21:                                               ; preds = %15
-  call void @llvm.lifetime.end.p0(i64 1, ptr nonnull %3) #13
-  call void @llvm.lifetime.start.p0(i64 1, ptr nonnull %3) #13
-  %22 = load i32, ptr %0, align 4, !tbaa !5
-  %23 = lshr i32 %22, 24
-  %24 = trunc i32 %23 to i8
-  store i8 %24, ptr %3, align 1, !tbaa !12
-  %25 = call i64 @fwrite(ptr noundef nonnull %3, i64 noundef 1, i64 noundef 1, ptr noundef %1)
-  %26 = icmp eq i64 %25, 1
-  br i1 %26, label %27, label %33
+for.cond.2:                                       ; preds = %for.cond.1
+  call void @llvm.lifetime.start.p0(i64 1, ptr nonnull %byte) #13
+  %3 = load i32, ptr %this, align 4, !tbaa !5
+  %shr.3 = lshr i32 %3, 24
+  %conv.3 = trunc i32 %shr.3 to i8
+  store i8 %conv.3, ptr %byte, align 1, !tbaa !12
+  %call.3 = call i64 @fwrite(ptr noundef nonnull %byte, i64 noundef 1, i64 noundef 1, ptr noundef %file)
+  %cmp2.not.3 = icmp eq i64 %call.3, 1
+  call void @llvm.lifetime.end.p0(i64 1, ptr nonnull %byte) #13
+  br i1 %cmp2.not.3, label %for.cond.3, label %return
 
-27:                                               ; preds = %21
-  call void @llvm.lifetime.end.p0(i64 1, ptr nonnull %3) #13
-  %28 = getelementptr inbounds %class.BitBoard64, ptr %0, i64 0, i32 1
-  call void @llvm.lifetime.start.p0(i64 1, ptr nonnull %4) #13
-  %29 = load i32, ptr %28, align 4, !tbaa !10
-  %30 = trunc i32 %29 to i8
-  store i8 %30, ptr %4, align 1, !tbaa !12
-  %31 = call i64 @fwrite(ptr noundef nonnull %4, i64 noundef 1, i64 noundef 1, ptr noundef %1)
-  %32 = icmp eq i64 %31, 1
-  br i1 %32, label %34, label %53
+for.cond.3:                                       ; preds = %for.cond.2
+  %highbits = getelementptr inbounds %class.BitBoard64, ptr %this, i64 0, i32 1
+  call void @llvm.lifetime.start.p0(i64 1, ptr nonnull %byte10) #13
+  %4 = load i32, ptr %highbits, align 4, !tbaa !10
+  %conv14 = trunc i32 %4 to i8
+  store i8 %conv14, ptr %byte10, align 1, !tbaa !12
+  %call15 = call i64 @fwrite(ptr noundef nonnull %byte10, i64 noundef 1, i64 noundef 1, ptr noundef %file)
+  %cmp16.not = icmp eq i64 %call15, 1
+  call void @llvm.lifetime.end.p0(i64 1, ptr nonnull %byte10) #13
+  br i1 %cmp16.not, label %for.cond6, label %return
 
-33:                                               ; preds = %21, %15, %9, %2
-  call void @llvm.lifetime.end.p0(i64 1, ptr nonnull %3) #13
-  br label %54
+for.cond6:                                        ; preds = %for.cond.3
+  call void @llvm.lifetime.start.p0(i64 1, ptr nonnull %byte10) #13
+  %5 = load i32, ptr %highbits, align 4, !tbaa !10
+  %shr12.1 = lshr i32 %5, 8
+  %conv14.1 = trunc i32 %shr12.1 to i8
+  store i8 %conv14.1, ptr %byte10, align 1, !tbaa !12
+  %call15.1 = call i64 @fwrite(ptr noundef nonnull %byte10, i64 noundef 1, i64 noundef 1, ptr noundef %file)
+  %cmp16.not.1 = icmp eq i64 %call15.1, 1
+  call void @llvm.lifetime.end.p0(i64 1, ptr nonnull %byte10) #13
+  br i1 %cmp16.not.1, label %for.cond6.1, label %return
 
-34:                                               ; preds = %27
-  call void @llvm.lifetime.end.p0(i64 1, ptr nonnull %4) #13
-  call void @llvm.lifetime.start.p0(i64 1, ptr nonnull %4) #13
-  %35 = load i32, ptr %28, align 4, !tbaa !10
-  %36 = lshr i32 %35, 8
-  %37 = trunc i32 %36 to i8
-  store i8 %37, ptr %4, align 1, !tbaa !12
-  %38 = call i64 @fwrite(ptr noundef nonnull %4, i64 noundef 1, i64 noundef 1, ptr noundef %1)
-  %39 = icmp eq i64 %38, 1
-  br i1 %39, label %40, label %53
+for.cond6.1:                                      ; preds = %for.cond6
+  call void @llvm.lifetime.start.p0(i64 1, ptr nonnull %byte10) #13
+  %6 = load i32, ptr %highbits, align 4, !tbaa !10
+  %shr12.2 = lshr i32 %6, 16
+  %conv14.2 = trunc i32 %shr12.2 to i8
+  store i8 %conv14.2, ptr %byte10, align 1, !tbaa !12
+  %call15.2 = call i64 @fwrite(ptr noundef nonnull %byte10, i64 noundef 1, i64 noundef 1, ptr noundef %file)
+  %cmp16.not.2 = icmp eq i64 %call15.2, 1
+  call void @llvm.lifetime.end.p0(i64 1, ptr nonnull %byte10) #13
+  br i1 %cmp16.not.2, label %for.cond6.2, label %return
 
-40:                                               ; preds = %34
-  call void @llvm.lifetime.end.p0(i64 1, ptr nonnull %4) #13
-  call void @llvm.lifetime.start.p0(i64 1, ptr nonnull %4) #13
-  %41 = load i32, ptr %28, align 4, !tbaa !10
-  %42 = lshr i32 %41, 16
-  %43 = trunc i32 %42 to i8
-  store i8 %43, ptr %4, align 1, !tbaa !12
-  %44 = call i64 @fwrite(ptr noundef nonnull %4, i64 noundef 1, i64 noundef 1, ptr noundef %1)
-  %45 = icmp eq i64 %44, 1
-  br i1 %45, label %46, label %53
+for.cond6.2:                                      ; preds = %for.cond6.1
+  call void @llvm.lifetime.start.p0(i64 1, ptr nonnull %byte10) #13
+  %7 = load i32, ptr %highbits, align 4, !tbaa !10
+  %shr12.3 = lshr i32 %7, 24
+  %conv14.3 = trunc i32 %shr12.3 to i8
+  store i8 %conv14.3, ptr %byte10, align 1, !tbaa !12
+  %call15.3 = call i64 @fwrite(ptr noundef nonnull %byte10, i64 noundef 1, i64 noundef 1, ptr noundef %file)
+  %cmp16.not.3 = icmp ne i64 %call15.3, 1
+  call void @llvm.lifetime.end.p0(i64 1, ptr nonnull %byte10) #13
+  %spec.select = sext i1 %cmp16.not.3 to i32
+  br label %return
 
-46:                                               ; preds = %40
-  call void @llvm.lifetime.end.p0(i64 1, ptr nonnull %4) #13
-  call void @llvm.lifetime.start.p0(i64 1, ptr nonnull %4) #13
-  %47 = load i32, ptr %28, align 4, !tbaa !10
-  %48 = lshr i32 %47, 24
-  %49 = trunc i32 %48 to i8
-  store i8 %49, ptr %4, align 1, !tbaa !12
-  %50 = call i64 @fwrite(ptr noundef nonnull %4, i64 noundef 1, i64 noundef 1, ptr noundef %1)
-  %51 = icmp eq i64 %50, 1
-  br i1 %51, label %52, label %53
-
-52:                                               ; preds = %46
-  call void @llvm.lifetime.end.p0(i64 1, ptr nonnull %4) #13
-  br label %54
-
-53:                                               ; preds = %46, %40, %34, %27
-  call void @llvm.lifetime.end.p0(i64 1, ptr nonnull %4) #13
-  br label %54
-
-54:                                               ; preds = %52, %53, %33
-  %55 = phi i32 [ -1, %33 ], [ -1, %53 ], [ 0, %52 ]
-  ret i32 %55
+return:                                           ; preds = %for.cond6.2, %entry, %for.cond, %for.cond.1, %for.cond.2, %for.cond.3, %for.cond6, %for.cond6.1
+  %retval.6 = phi i32 [ -1, %for.cond.3 ], [ -1, %for.cond6 ], [ -1, %for.cond6.1 ], [ -1, %for.cond.2 ], [ -1, %for.cond.1 ], [ -1, %for.cond ], [ -1, %entry ], [ %spec.select, %for.cond6.2 ]
+  ret i32 %retval.6
 }
 
 ; Function Attrs: nofree nounwind
 declare noundef i64 @fwrite(ptr nocapture noundef, i64 noundef, i64 noundef, ptr nocapture noundef) local_unnamed_addr #8
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(none) uwtable
-define dso_local noundef i32 @_Z6getBFPii(i32 noundef %0, i32 noundef %1) local_unnamed_addr #9 {
-  %3 = add i32 %0, -1
-  %4 = icmp ult i32 %3, 9
-  %5 = add i32 %1, -1
-  %6 = icmp ult i32 %5, 9
-  %7 = and i1 %4, %6
-  br i1 %7, label %8, label %44
+define dso_local noundef i32 @_Z6getBFPii(i32 noundef %x, i32 noundef %y) local_unnamed_addr #9 {
+entry:
+  %0 = add i32 %x, -1
+  %or.cond = icmp ult i32 %0, 9
+  %1 = add i32 %y, -1
+  %2 = icmp ult i32 %1, 9
+  %or.cond54 = and i1 %or.cond, %2
+  br i1 %or.cond54, label %if.then, label %cleanup
 
-8:                                                ; preds = %2
-  %9 = icmp ult i32 %1, 5
-  br i1 %9, label %10, label %13
+if.then:                                          ; preds = %entry
+  %cmp6 = icmp ult i32 %y, 5
+  %sub8 = add nuw nsw i32 %y, 4
+  %cmp9 = icmp ult i32 %sub8, %x
+  %or.cond81 = and i1 %cmp6, %cmp9
+  br i1 %or.cond81, label %cleanup, label %if.end11
 
-10:                                               ; preds = %8
-  %11 = add nuw nsw i32 %1, 4
-  %12 = icmp ult i32 %11, %0
-  br i1 %12, label %44, label %18
+if.end11:                                         ; preds = %if.then
+  %cmp12 = icmp ult i32 %y, 6
+  %sub14 = add nsw i32 %y, -5
+  %cmp15.not = icmp slt i32 %sub14, %x
+  %or.cond82 = select i1 %cmp12, i1 true, i1 %cmp15.not
+  br i1 %or.cond82, label %if.end18, label %cleanup
 
-13:                                               ; preds = %8
-  %14 = icmp ne i32 %1, 5
-  %15 = add nsw i32 %1, -5
-  %16 = icmp uge i32 %15, %0
-  %17 = select i1 %14, i1 %16, i1 false
-  br i1 %17, label %44, label %30
+if.end18:                                         ; preds = %if.end11
+  %mul = mul nuw nsw i32 %y, 9
+  %add = add nuw nsw i32 %mul, %x
+  %cmp20 = icmp ugt i32 %y, 1
+  %spec.select.v = select i1 %cmp20, i32 -14, i32 -10
+  %spec.select = add nsw i32 %add, %spec.select.v
+  %cmp24 = icmp ugt i32 %y, 2
+  %sub26 = add nsw i32 %spec.select, -3
+  %no.1 = select i1 %cmp24, i32 %sub26, i32 %spec.select
+  %cmp28 = icmp ugt i32 %y, 3
+  %sub30 = add nsw i32 %no.1, -2
+  %no.2 = select i1 %cmp28, i32 %sub30, i32 %no.1
+  %cmp32 = icmp ugt i32 %y, 4
+  %sub34 = sext i1 %cmp32 to i32
+  %not.cmp12 = xor i1 %cmp12, true
+  %sub38 = sext i1 %not.cmp12 to i32
+  %no.3 = add nsw i32 %sub38, %sub34
+  %no.4 = add nsw i32 %no.3, %no.2
+  %cmp40 = icmp ugt i32 %y, 6
+  %sub42 = add nsw i32 %no.4, -2
+  %no.5 = select i1 %cmp40, i32 %sub42, i32 %no.4
+  %cmp44 = icmp ugt i32 %y, 7
+  %sub46 = add nsw i32 %no.5, -3
+  %no.6 = select i1 %cmp44, i32 %sub46, i32 %no.5
+  %cmp48 = icmp ugt i32 %y, 8
+  %sub50 = add nsw i32 %no.6, -4
+  %no.7 = select i1 %cmp48, i32 %sub50, i32 %no.6
+  br label %cleanup
 
-18:                                               ; preds = %10
-  %19 = mul nuw nsw i32 %1, 9
-  %20 = add nuw nsw i32 %19, %0
-  %21 = add nsw i32 %20, -10
-  %22 = icmp ugt i32 %1, 1
-  br i1 %22, label %23, label %44
-
-23:                                               ; preds = %18
-  %24 = add nsw i32 %20, -14
-  %25 = icmp eq i32 %1, 2
-  br i1 %25, label %44, label %26
-
-26:                                               ; preds = %23
-  %27 = icmp ugt i32 %1, 3
-  %28 = select i1 %27, i32 -19, i32 -17
-  %29 = add nsw i32 %20, %28
-  br label %44
-
-30:                                               ; preds = %13
-  %31 = mul nuw nsw i32 %1, 9
-  %32 = add nuw nsw i32 %31, %0
-  %33 = add nsw i32 %32, -20
-  br i1 %14, label %34, label %44
-
-34:                                               ; preds = %30
-  %35 = add nsw i32 %32, -21
-  %36 = icmp ugt i32 %1, 6
-  br i1 %36, label %37, label %44
-
-37:                                               ; preds = %34
-  %38 = add nsw i32 %32, -23
-  %39 = icmp eq i32 %1, 7
-  br i1 %39, label %44, label %40
-
-40:                                               ; preds = %37
-  %41 = icmp ugt i32 %1, 8
-  %42 = select i1 %41, i32 -30, i32 -26
-  %43 = add nsw i32 %32, %42
-  br label %44
-
-44:                                               ; preds = %26, %40, %18, %23, %13, %30, %34, %37, %2, %10
-  %45 = phi i32 [ -1, %10 ], [ -1, %2 ], [ %38, %37 ], [ %35, %34 ], [ %33, %30 ], [ -1, %13 ], [ %24, %23 ], [ %21, %18 ], [ %43, %40 ], [ %29, %26 ]
-  ret i32 %45
+cleanup:                                          ; preds = %entry, %if.end11, %if.then, %if.end18
+  %retval.0 = phi i32 [ %no.7, %if.end18 ], [ -1, %if.then ], [ -1, %if.end11 ], [ -1, %entry ]
+  ret i32 %retval.0
 }
 
 ; Function Attrs: mustprogress uwtable
-define dso_local void @_ZN10BitBoard645printEv(ptr nocapture noundef nonnull readonly align 4 dereferenceable(8) %0) local_unnamed_addr #10 align 2 {
-  %2 = getelementptr inbounds %class.BitBoard64, ptr %0, i64 0, i32 1
-  br label %3
+define dso_local void @_ZN10BitBoard645printEv(ptr nocapture noundef nonnull readonly align 4 dereferenceable(8) %this) local_unnamed_addr #10 align 2 {
+entry:
+  %highbits.i = getelementptr inbounds %class.BitBoard64, ptr %this, i64 0, i32 1
+  br label %for.body
 
-3:                                                ; preds = %1, %70
-  %4 = phi i32 [ 4, %1 ], [ %73, %70 ]
-  %5 = phi i32 [ 1, %1 ], [ %72, %70 ]
-  %6 = tail call i32 @llvm.smax.i32(i32 %4, i32 1)
-  %7 = icmp ult i32 %5, 5
-  br i1 %7, label %8, label %13
+for.body:                                         ; preds = %entry, %for.end22
+  %indvars.iv = phi i32 [ 4, %entry ], [ %indvars.iv.next, %for.end22 ]
+  %y.058 = phi i32 [ 1, %entry ], [ %inc25, %for.end22 ]
+  %smax = tail call i32 @llvm.smax.i32(i32 %indvars.iv, i32 1)
+  %cmp2 = icmp ugt i32 %y.058, 4
+  br i1 %cmp2, label %if.end, label %for.body5
 
-8:                                                ; preds = %3, %8
-  %9 = phi i32 [ %11, %8 ], [ 0, %3 ]
-  %10 = tail call noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cout, ptr noundef nonnull @.str, i64 noundef 1)
-  %11 = add nuw nsw i32 %9, 1
-  %12 = icmp eq i32 %11, %6
-  br i1 %12, label %13, label %8, !llvm.loop !13
+for.body5:                                        ; preds = %for.body, %for.body5
+  %off.055 = phi i32 [ %inc, %for.body5 ], [ 0, %for.body ]
+  %call1.i = tail call noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cout, ptr noundef nonnull @.str, i64 noundef 1)
+  %inc = add nuw nsw i32 %off.055, 1
+  %exitcond.not = icmp eq i32 %inc, %smax
+  br i1 %exitcond.not, label %if.end, label %for.body5, !llvm.loop !13
 
-13:                                               ; preds = %8, %3
-  %14 = icmp ne i32 %5, 5
-  %15 = add nsw i32 %5, -5
-  %16 = mul nuw nsw i32 %5, 9
-  %17 = icmp ugt i32 %5, 6
-  %18 = icmp eq i32 %5, 7
-  %19 = icmp ugt i32 %5, 8
-  %20 = select i1 %19, i32 -30, i32 -26
-  %21 = add nuw nsw i32 %5, 4
-  %22 = icmp ugt i32 %5, 1
-  %23 = icmp eq i32 %5, 2
-  %24 = icmp ugt i32 %5, 3
-  %25 = select i1 %24, i32 -19, i32 -17
-  %26 = select i1 %23, i32 -14, i32 %25
-  %27 = select i1 %18, i32 -23, i32 %20
-  %28 = select i1 %17, i32 %27, i32 -21
-  br label %29
+if.end:                                           ; preds = %for.body5, %for.body
+  %sub8.i = add nuw nsw i32 %y.058, 4
+  %cmp12.i = icmp ult i32 %y.058, 6
+  %sub14.i = add nsw i32 %y.058, -5
+  %mul.i = mul nuw nsw i32 %y.058, 9
+  %cmp20.i = icmp ugt i32 %y.058, 1
+  %spec.select.v.i = select i1 %cmp20.i, i32 -14, i32 -10
+  %add.i = add nsw i32 %spec.select.v.i, %mul.i
+  %cmp24.i = icmp ugt i32 %y.058, 2
+  %cmp28.i = icmp ugt i32 %y.058, 3
+  %sub34.i = sext i1 %cmp2 to i32
+  %not.cmp12.i = xor i1 %cmp12.i, true
+  %sub38.i = sext i1 %not.cmp12.i to i32
+  %no.3.i = add nsw i32 %sub38.i, %sub34.i
+  %cmp40.i = icmp ugt i32 %y.058, 6
+  %cmp44.i = icmp ugt i32 %y.058, 7
+  %cmp48.i = icmp ugt i32 %y.058, 8
+  br label %for.body8
 
-29:                                               ; preds = %13, %67
-  %30 = phi i32 [ 1, %13 ], [ %68, %67 ]
-  br i1 %7, label %31, label %33
+for.body8:                                        ; preds = %if.end, %for.inc20
+  %x.056 = phi i32 [ 1, %if.end ], [ %inc21, %for.inc20 ]
+  %cmp9.i = icmp uge i32 %sub8.i, %x.056
+  %or.cond81.i.not59 = or i1 %cmp2, %cmp9.i
+  %cmp15.not.i = icmp slt i32 %sub14.i, %x.056
+  %or.cond82.i = select i1 %cmp12.i, i1 true, i1 %cmp15.not.i
+  %or.cond = select i1 %or.cond81.i.not59, i1 %or.cond82.i, i1 false
+  br i1 %or.cond, label %_Z6getBFPii.exit, label %if.then11
 
-31:                                               ; preds = %29
-  %32 = icmp ult i32 %21, %30
-  br i1 %32, label %47, label %36
+_Z6getBFPii.exit:                                 ; preds = %for.body8
+  %spec.select.i = add i32 %add.i, %x.056
+  %sub26.i = add nsw i32 %spec.select.i, -3
+  %no.1.i = select i1 %cmp24.i, i32 %sub26.i, i32 %spec.select.i
+  %sub30.i = add nsw i32 %no.1.i, -2
+  %no.2.i = select i1 %cmp28.i, i32 %sub30.i, i32 %no.1.i
+  %no.4.i = add nsw i32 %no.3.i, %no.2.i
+  %sub42.i = add nsw i32 %no.4.i, -2
+  %no.5.i = select i1 %cmp40.i, i32 %sub42.i, i32 %no.4.i
+  %sub46.i = add nsw i32 %no.5.i, -3
+  %no.6.i = select i1 %cmp44.i, i32 %sub46.i, i32 %no.5.i
+  %sub50.i = add nsw i32 %no.6.i, -4
+  %no.7.i = select i1 %cmp48.i, i32 %sub50.i, i32 %no.6.i
+  %cmp10 = icmp eq i32 %no.7.i, -1
+  br i1 %cmp10, label %if.then11, label %if.else
 
-33:                                               ; preds = %29
-  %34 = icmp uge i32 %15, %30
-  %35 = select i1 %14, i1 %34, i1 false
-  br i1 %35, label %47, label %42
+if.then11:                                        ; preds = %for.body8, %_Z6getBFPii.exit
+  %call1.i35 = tail call noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cout, ptr noundef nonnull @.str, i64 noundef 1)
+  br label %for.inc20
 
-36:                                               ; preds = %31
-  %37 = add nuw nsw i32 %30, %16
-  %38 = add nsw i32 %37, -10
-  br i1 %22, label %39, label %52
+if.else:                                          ; preds = %_Z6getBFPii.exit
+  %or.cond.i36 = icmp ugt i32 %no.7.i, 63
+  br i1 %or.cond.i36, label %if.then14, label %if.end.i
 
-39:                                               ; preds = %36
-  %40 = add nsw i32 %37, %26
-  %41 = icmp eq i32 %40, -1
-  br i1 %41, label %47, label %49
+if.end.i:                                         ; preds = %if.else
+  %cmp3.i = icmp ult i32 %no.7.i, 32
+  %0 = load i32, ptr %this, align 4
+  %1 = load i32, ptr %highbits.i, align 4
+  %sub.i = add nsw i32 %no.7.i, -32
+  %no.7.i.sink = select i1 %cmp3.i, i32 %no.7.i, i32 %sub.i
+  %.sink = select i1 %cmp3.i, i32 %0, i32 %1
+  %shl.i = shl nuw i32 1, %no.7.i.sink
+  %and.i = and i32 %.sink, %shl.i
+  %tobool.not = icmp eq i32 %and.i, 0
+  br i1 %tobool.not, label %if.else16, label %if.then14
 
-42:                                               ; preds = %33
-  %43 = add nuw nsw i32 %30, %16
-  %44 = add nsw i32 %43, -20
-  %45 = add nsw i32 %43, %28
-  %46 = select i1 %14, i32 %45, i32 %44
-  br label %49
+if.then14:                                        ; preds = %if.else, %if.end.i
+  %call1.i39 = tail call noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cout, ptr noundef nonnull @.str.1, i64 noundef 2)
+  br label %for.inc20
 
-47:                                               ; preds = %33, %31, %39
-  %48 = tail call noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cout, ptr noundef nonnull @.str, i64 noundef 1)
-  br label %67
+if.else16:                                        ; preds = %if.end.i
+  %call1.i43 = tail call noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cout, ptr noundef nonnull @.str.2, i64 noundef 2)
+  br label %for.inc20
 
-49:                                               ; preds = %42, %39
-  %50 = phi i32 [ %40, %39 ], [ %46, %42 ]
-  %51 = icmp ugt i32 %50, 63
-  br i1 %51, label %63, label %52
+for.inc20:                                        ; preds = %if.then11, %if.else16, %if.then14
+  %inc21 = add nuw nsw i32 %x.056, 1
+  %exitcond60.not = icmp eq i32 %inc21, 10
+  br i1 %exitcond60.not, label %for.end22, label %for.body8, !llvm.loop !15
 
-52:                                               ; preds = %36, %49
-  %53 = phi i32 [ %50, %49 ], [ %38, %36 ]
-  %54 = icmp ult i32 %53, 32
-  %55 = load i32, ptr %0, align 4
-  %56 = load i32, ptr %2, align 4
-  %57 = add nsw i32 %53, -32
-  %58 = select i1 %54, i32 %53, i32 %57
-  %59 = select i1 %54, i32 %55, i32 %56
-  %60 = shl nuw i32 1, %58
-  %61 = and i32 %59, %60
-  %62 = icmp eq i32 %61, 0
-  br i1 %62, label %65, label %63
+for.end22:                                        ; preds = %for.inc20
+  %call1.i47 = tail call noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cout, ptr noundef nonnull @.str.3, i64 noundef 1)
+  %inc25 = add nuw nsw i32 %y.058, 1
+  %indvars.iv.next = add nsw i32 %indvars.iv, -1
+  %exitcond61.not = icmp eq i32 %inc25, 10
+  br i1 %exitcond61.not, label %for.end26, label %for.body, !llvm.loop !16
 
-63:                                               ; preds = %49, %52
-  %64 = tail call noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cout, ptr noundef nonnull @.str.1, i64 noundef 2)
-  br label %67
-
-65:                                               ; preds = %52
-  %66 = tail call noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cout, ptr noundef nonnull @.str.2, i64 noundef 2)
-  br label %67
-
-67:                                               ; preds = %47, %65, %63
-  %68 = add nuw nsw i32 %30, 1
-  %69 = icmp eq i32 %68, 10
-  br i1 %69, label %70, label %29, !llvm.loop !15
-
-70:                                               ; preds = %67
-  %71 = tail call noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cout, ptr noundef nonnull @.str.3, i64 noundef 1)
-  %72 = add nuw nsw i32 %5, 1
-  %73 = add nsw i32 %4, -1
-  %74 = icmp eq i32 %72, 10
-  br i1 %74, label %75, label %3, !llvm.loop !16
-
-75:                                               ; preds = %70
+for.end26:                                        ; preds = %for.end22
   ret void
 }
 
@@ -620,8 +604,9 @@ declare noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIc
 
 ; Function Attrs: uwtable
 define internal void @_GLOBAL__sub_I_bitboard64.cpp() #11 section ".text.startup" {
+entry:
   tail call void @_ZNSt8ios_base4InitC1Ev(ptr noundef nonnull align 1 dereferenceable(1) @_ZStL8__ioinit)
-  %1 = tail call i32 @__cxa_atexit(ptr nonnull @_ZNSt8ios_base4InitD1Ev, ptr nonnull @_ZStL8__ioinit, ptr nonnull @__dso_handle) #13
+  %0 = tail call i32 @__cxa_atexit(ptr nonnull @_ZNSt8ios_base4InitD1Ev, ptr nonnull @_ZStL8__ioinit, ptr nonnull @__dso_handle) #13
   ret void
 }
 

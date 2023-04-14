@@ -4,229 +4,233 @@ target datalayout = "e-m:e-p270:32:32-p271:32:32-p272:64:64-i64:64-f80:128-n8:16
 target triple = "x86_64-unknown-linux-gnu"
 
 ; Function Attrs: nofree norecurse nosync nounwind memory(read, inaccessiblemem: none) uwtable
-define dso_local i64 @str2llu(ptr nocapture noundef readonly %0) local_unnamed_addr #0 {
-  %2 = load i8, ptr %0, align 1, !tbaa !5
-  %3 = sext i8 %2 to i64
-  %4 = add nsw i64 %3, -48
-  %5 = getelementptr inbounds i8, ptr %0, i64 1
-  %6 = load i8, ptr %5, align 1, !tbaa !5
-  %7 = icmp eq i8 %6, 0
-  br i1 %7, label %19, label %8
+define dso_local i64 @str2llu(ptr nocapture noundef readonly %str) local_unnamed_addr #0 {
+entry:
+  %0 = load i8, ptr %str, align 1, !tbaa !5
+  %conv = sext i8 %0 to i64
+  %sub = add nsw i64 %conv, -48
+  %str.addr.011 = getelementptr inbounds i8, ptr %str, i64 1
+  %1 = load i8, ptr %str.addr.011, align 1, !tbaa !5
+  %cmp12 = icmp eq i8 %1, 0
+  br i1 %cmp12, label %for.end, label %if.end
 
-8:                                                ; preds = %1, %8
-  %9 = phi i8 [ %17, %8 ], [ %6, %1 ]
-  %10 = phi ptr [ %16, %8 ], [ %5, %1 ]
-  %11 = phi i64 [ %15, %8 ], [ %4, %1 ]
-  %12 = sext i8 %9 to i64
-  %13 = mul i64 %11, 10
-  %14 = add i64 %13, -48
-  %15 = add i64 %14, %12
-  %16 = getelementptr inbounds i8, ptr %10, i64 1
-  %17 = load i8, ptr %16, align 1, !tbaa !5
-  %18 = icmp eq i8 %17, 0
-  br i1 %18, label %19, label %8
+if.end:                                           ; preds = %entry, %if.end
+  %2 = phi i8 [ %3, %if.end ], [ %1, %entry ]
+  %str.addr.014 = phi ptr [ %str.addr.0, %if.end ], [ %str.addr.011, %entry ]
+  %acc.013 = phi i64 [ %add, %if.end ], [ %sub, %entry ]
+  %conv3 = sext i8 %2 to i64
+  %mul = mul i64 %acc.013, 10
+  %sub5 = add i64 %mul, -48
+  %add = add i64 %sub5, %conv3
+  %str.addr.0 = getelementptr inbounds i8, ptr %str.addr.014, i64 1
+  %3 = load i8, ptr %str.addr.0, align 1, !tbaa !5
+  %cmp = icmp eq i8 %3, 0
+  br i1 %cmp, label %for.end, label %if.end
 
-19:                                               ; preds = %8, %1
-  %20 = phi i64 [ %4, %1 ], [ %15, %8 ]
-  ret i64 %20
+for.end:                                          ; preds = %if.end, %entry
+  %acc.0.lcssa = phi i64 [ %sub, %entry ], [ %add, %if.end ]
+  ret i64 %acc.0.lcssa
 }
 
 ; Function Attrs: mustprogress nocallback nofree nosync nounwind willreturn memory(argmem: readwrite)
 declare void @llvm.lifetime.start.p0(i64 immarg, ptr nocapture) #1
 
 ; Function Attrs: nofree norecurse nosync nounwind memory(none) uwtable
-define dso_local i64 @sqrtllu(i64 noundef %0) local_unnamed_addr #2 {
-  br label %2
+define dso_local i64 @sqrtllu(i64 noundef %t) local_unnamed_addr #2 {
+entry:
+  br label %for.cond
 
-2:                                                ; preds = %2, %1
-  %3 = phi i64 [ %0, %1 ], [ %6, %2 ]
-  %4 = phi i64 [ 0, %1 ], [ %5, %2 ]
-  %5 = add nuw nsw i64 %4, 1
-  %6 = lshr i64 %3, 1
-  %7 = icmp ult i64 %3, 2
-  br i1 %7, label %8, label %2, !llvm.loop !8
+for.cond:                                         ; preds = %for.cond, %entry
+  %s.0 = phi i64 [ %t, %entry ], [ %shr, %for.cond ]
+  %b.0 = phi i64 [ 0, %entry ], [ %inc, %for.cond ]
+  %inc = add nuw nsw i64 %b.0, 1
+  %shr = lshr i64 %s.0, 1
+  %cmp.not = icmp ult i64 %s.0, 2
+  br i1 %cmp.not, label %for.end, label %for.cond, !llvm.loop !8
 
-8:                                                ; preds = %2
-  %9 = lshr i64 %5, 1
-  %10 = shl nuw i64 1, %9
-  %11 = and i64 %5, 1
-  %12 = icmp eq i64 %11, 0
-  %13 = lshr i64 %10, 1
-  %14 = select i1 %12, i64 0, i64 %13
-  %15 = add nuw i64 %14, %10
-  br label %16
+for.end:                                          ; preds = %for.cond
+  %shr1 = lshr i64 %inc, 1
+  %shl = shl nuw i64 1, %shr1
+  %and = and i64 %inc, 1
+  %tobool.not = icmp eq i64 %and, 0
+  %shr2 = lshr i64 %shl, 1
+  %add = select i1 %tobool.not, i64 0, i64 %shr2
+  %s.1 = add nuw i64 %add, %shl
+  br label %do.body
 
-16:                                               ; preds = %16, %8
-  %17 = phi i64 [ %15, %8 ], [ %20, %16 ]
-  %18 = udiv i64 %0, %17
-  %19 = add i64 %18, %17
-  %20 = lshr i64 %19, 1
-  %21 = icmp ult i64 %18, %20
-  br i1 %21, label %16, label %22, !llvm.loop !10
+do.body:                                          ; preds = %do.body, %for.end
+  %s.2 = phi i64 [ %s.1, %for.end ], [ %shr4, %do.body ]
+  %div = udiv i64 %t, %s.2
+  %add3 = add i64 %div, %s.2
+  %shr4 = lshr i64 %add3, 1
+  %cmp5 = icmp ult i64 %div, %shr4
+  br i1 %cmp5, label %do.body, label %do.end, !llvm.loop !10
 
-22:                                               ; preds = %16
-  ret i64 %20
+do.end:                                           ; preds = %do.body
+  ret i64 %shr4
 }
 
 ; Function Attrs: nofree norecurse nosync nounwind memory(write, inaccessiblemem: none) uwtable
-define dso_local i32 @plist(i64 noundef %0, i64 noundef %1, ptr noundef %2) local_unnamed_addr #3 {
-  %4 = icmp ugt i64 %0, %1
-  br i1 %4, label %43, label %5
+define dso_local i32 @plist(i64 noundef %p0, i64 noundef %p1, ptr noundef %tab) local_unnamed_addr #3 {
+entry:
+  %cmp.not23 = icmp ugt i64 %p0, %p1
+  br i1 %cmp.not23, label %for.end7, label %for.cond.i.preheader
 
-5:                                                ; preds = %3, %39
-  %6 = phi ptr [ %40, %39 ], [ %2, %3 ]
-  %7 = phi i64 [ %41, %39 ], [ %0, %3 ]
-  br label %8
+for.cond.i.preheader:                             ; preds = %entry, %for.inc5
+  %xp.026 = phi ptr [ %xp.1, %for.inc5 ], [ %tab, %entry ]
+  %p.024 = phi i64 [ %add6, %for.inc5 ], [ %p0, %entry ]
+  br label %for.cond.i
 
-8:                                                ; preds = %5, %8
-  %9 = phi i64 [ %12, %8 ], [ %7, %5 ]
-  %10 = phi i64 [ %11, %8 ], [ 0, %5 ]
-  %11 = add nuw nsw i64 %10, 1
-  %12 = lshr i64 %9, 1
-  %13 = icmp ult i64 %9, 2
-  br i1 %13, label %14, label %8, !llvm.loop !8
+for.cond.i:                                       ; preds = %for.cond.i.preheader, %for.cond.i
+  %s.0.i = phi i64 [ %shr.i, %for.cond.i ], [ %p.024, %for.cond.i.preheader ]
+  %b.0.i = phi i64 [ %inc.i, %for.cond.i ], [ 0, %for.cond.i.preheader ]
+  %inc.i = add nuw nsw i64 %b.0.i, 1
+  %shr.i = lshr i64 %s.0.i, 1
+  %cmp.not.i = icmp ult i64 %s.0.i, 2
+  br i1 %cmp.not.i, label %for.end.i, label %for.cond.i, !llvm.loop !8
 
-14:                                               ; preds = %8
-  %15 = lshr i64 %11, 1
-  %16 = shl nuw i64 1, %15
-  %17 = and i64 %11, 1
-  %18 = icmp eq i64 %17, 0
-  %19 = lshr i64 %16, 1
-  %20 = select i1 %18, i64 0, i64 %19
-  %21 = add nuw i64 %20, %16
-  br label %22
+for.end.i:                                        ; preds = %for.cond.i
+  %shr1.i = lshr i64 %inc.i, 1
+  %shl.i = shl nuw i64 1, %shr1.i
+  %and.i = and i64 %inc.i, 1
+  %tobool.not.i = icmp eq i64 %and.i, 0
+  %shr2.i = lshr i64 %shl.i, 1
+  %add.i = select i1 %tobool.not.i, i64 0, i64 %shr2.i
+  %s.1.i = add nuw i64 %add.i, %shl.i
+  br label %do.body.i
 
-22:                                               ; preds = %22, %14
-  %23 = phi i64 [ %21, %14 ], [ %26, %22 ]
-  %24 = udiv i64 %7, %23
-  %25 = add i64 %24, %23
-  %26 = lshr i64 %25, 1
-  %27 = icmp ult i64 %24, %26
-  br i1 %27, label %22, label %28, !llvm.loop !10
+do.body.i:                                        ; preds = %do.body.i, %for.end.i
+  %s.2.i = phi i64 [ %s.1.i, %for.end.i ], [ %shr4.i, %do.body.i ]
+  %div.i = udiv i64 %p.024, %s.2.i
+  %add3.i = add i64 %div.i, %s.2.i
+  %shr4.i = lshr i64 %add3.i, 1
+  %cmp5.i = icmp ult i64 %div.i, %shr4.i
+  br i1 %cmp5.i, label %do.body.i, label %for.cond1.preheader, !llvm.loop !10
 
-28:                                               ; preds = %22
-  %29 = icmp ult i64 %25, 6
-  br i1 %29, label %37, label %33
+for.cond1.preheader:                              ; preds = %do.body.i
+  %cmp2.not21 = icmp ult i64 %add3.i, 6
+  br i1 %cmp2.not21, label %for.end, label %for.body3
 
-30:                                               ; preds = %33
-  %31 = add nuw i64 %34, 2
-  %32 = icmp ugt i64 %31, %26
-  br i1 %32, label %37, label %33, !llvm.loop !11
+for.cond1:                                        ; preds = %for.body3
+  %add = add nuw i64 %d.022, 2
+  %cmp2.not = icmp ugt i64 %add, %shr4.i
+  br i1 %cmp2.not, label %for.end, label %for.body3, !llvm.loop !11
 
-33:                                               ; preds = %28, %30
-  %34 = phi i64 [ %31, %30 ], [ 3, %28 ]
-  %35 = urem i64 %7, %34
-  %36 = icmp eq i64 %35, 0
-  br i1 %36, label %39, label %30
+for.body3:                                        ; preds = %for.cond1.preheader, %for.cond1
+  %d.022 = phi i64 [ %add, %for.cond1 ], [ 3, %for.cond1.preheader ]
+  %rem = urem i64 %p.024, %d.022
+  %cmp4 = icmp eq i64 %rem, 0
+  br i1 %cmp4, label %for.inc5, label %for.cond1
 
-37:                                               ; preds = %30, %28
-  %38 = getelementptr inbounds i64, ptr %6, i64 1
-  store i64 %7, ptr %6, align 8, !tbaa !12
-  br label %39
+for.end:                                          ; preds = %for.cond1, %for.cond1.preheader
+  %incdec.ptr = getelementptr inbounds i64, ptr %xp.026, i64 1
+  store i64 %p.024, ptr %xp.026, align 8, !tbaa !12
+  br label %for.inc5
 
-39:                                               ; preds = %33, %37
-  %40 = phi ptr [ %38, %37 ], [ %6, %33 ]
-  %41 = add i64 %7, 2
-  %42 = icmp ugt i64 %41, %1
-  br i1 %42, label %43, label %5, !llvm.loop !14
+for.inc5:                                         ; preds = %for.body3, %for.end
+  %xp.1 = phi ptr [ %incdec.ptr, %for.end ], [ %xp.026, %for.body3 ]
+  %add6 = add i64 %p.024, 2
+  %cmp.not = icmp ugt i64 %add6, %p1
+  br i1 %cmp.not, label %for.end7, label %for.cond.i.preheader, !llvm.loop !14
 
-43:                                               ; preds = %39, %3
-  %44 = phi ptr [ %2, %3 ], [ %40, %39 ]
-  store i64 0, ptr %44, align 8, !tbaa !12
-  %45 = ptrtoint ptr %44 to i64
-  %46 = ptrtoint ptr %2 to i64
-  %47 = sub i64 %45, %46
-  %48 = lshr exact i64 %47, 3
-  %49 = trunc i64 %48 to i32
-  ret i32 %49
+for.end7:                                         ; preds = %for.inc5, %entry
+  %xp.0.lcssa = phi ptr [ %tab, %entry ], [ %xp.1, %for.inc5 ]
+  store i64 0, ptr %xp.0.lcssa, align 8, !tbaa !12
+  %sub.ptr.lhs.cast = ptrtoint ptr %xp.0.lcssa to i64
+  %sub.ptr.rhs.cast = ptrtoint ptr %tab to i64
+  %sub.ptr.sub = sub i64 %sub.ptr.lhs.cast, %sub.ptr.rhs.cast
+  %0 = lshr exact i64 %sub.ptr.sub, 3
+  %conv = trunc i64 %0 to i32
+  ret i32 %conv
 }
 
 ; Function Attrs: noreturn nounwind uwtable
-define dso_local i32 @main(i32 noundef %0, ptr nocapture noundef readnone %1) local_unnamed_addr #4 {
-  %3 = alloca [10 x i64], align 16
-  call void @llvm.lifetime.start.p0(i64 80, ptr nonnull %3) #6
-  br label %4
+define dso_local i32 @main(i32 noundef %argc, ptr nocapture noundef readnone %argv) local_unnamed_addr #4 {
+for.cond.i.preheader.i.preheader:
+  %tab = alloca [10 x i64], align 16
+  call void @llvm.lifetime.start.p0(i64 80, ptr nonnull %tab) #6
+  br label %for.cond.i.preheader.i
 
-4:                                                ; preds = %2, %38
-  %5 = phi ptr [ %39, %38 ], [ %3, %2 ]
-  %6 = phi i64 [ %40, %38 ], [ 1234111111, %2 ]
-  br label %7
+for.cond.i.preheader.i:                           ; preds = %for.cond.i.preheader.i.preheader, %for.inc5.i
+  %xp.026.i = phi ptr [ %xp.1.i, %for.inc5.i ], [ %tab, %for.cond.i.preheader.i.preheader ]
+  %p.024.i = phi i64 [ %add6.i, %for.inc5.i ], [ 1234111111, %for.cond.i.preheader.i.preheader ]
+  br label %for.cond.i.i
 
-7:                                                ; preds = %7, %4
-  %8 = phi i64 [ %11, %7 ], [ %6, %4 ]
-  %9 = phi i64 [ %10, %7 ], [ 0, %4 ]
-  %10 = add nuw nsw i64 %9, 1
-  %11 = lshr i64 %8, 1
-  %12 = icmp ult i64 %8, 2
-  br i1 %12, label %13, label %7, !llvm.loop !8
+for.cond.i.i:                                     ; preds = %for.cond.i.i, %for.cond.i.preheader.i
+  %s.0.i.i = phi i64 [ %shr.i.i, %for.cond.i.i ], [ %p.024.i, %for.cond.i.preheader.i ]
+  %b.0.i.i = phi i64 [ %inc.i.i, %for.cond.i.i ], [ 0, %for.cond.i.preheader.i ]
+  %inc.i.i = add nuw nsw i64 %b.0.i.i, 1
+  %shr.i.i = lshr i64 %s.0.i.i, 1
+  %cmp.not.i.i = icmp ult i64 %s.0.i.i, 2
+  br i1 %cmp.not.i.i, label %for.end.i.i, label %for.cond.i.i, !llvm.loop !8
 
-13:                                               ; preds = %7
-  %14 = lshr i64 %10, 1
-  %15 = shl nuw i64 1, %14
-  %16 = and i64 %10, 1
-  %17 = icmp eq i64 %16, 0
-  %18 = lshr i64 %15, 1
-  %19 = select i1 %17, i64 0, i64 %18
-  %20 = add nuw i64 %19, %15
-  br label %21
+for.end.i.i:                                      ; preds = %for.cond.i.i
+  %shr1.i.i = lshr i64 %inc.i.i, 1
+  %shl.i.i = shl nuw i64 1, %shr1.i.i
+  %and.i.i = and i64 %inc.i.i, 1
+  %tobool.not.i.i = icmp eq i64 %and.i.i, 0
+  %shr2.i.i = lshr i64 %shl.i.i, 1
+  %add.i.i = select i1 %tobool.not.i.i, i64 0, i64 %shr2.i.i
+  %s.1.i.i = add nuw i64 %add.i.i, %shl.i.i
+  br label %do.body.i.i
 
-21:                                               ; preds = %21, %13
-  %22 = phi i64 [ %20, %13 ], [ %25, %21 ]
-  %23 = udiv i64 %6, %22
-  %24 = add i64 %23, %22
-  %25 = lshr i64 %24, 1
-  %26 = icmp ult i64 %23, %25
-  br i1 %26, label %21, label %27, !llvm.loop !10
+do.body.i.i:                                      ; preds = %do.body.i.i, %for.end.i.i
+  %s.2.i.i = phi i64 [ %s.1.i.i, %for.end.i.i ], [ %shr4.i.i, %do.body.i.i ]
+  %div.i.i = udiv i64 %p.024.i, %s.2.i.i
+  %add3.i.i = add i64 %div.i.i, %s.2.i.i
+  %shr4.i.i = lshr i64 %add3.i.i, 1
+  %cmp5.i.i = icmp ult i64 %div.i.i, %shr4.i.i
+  br i1 %cmp5.i.i, label %do.body.i.i, label %for.cond1.preheader.i, !llvm.loop !10
 
-27:                                               ; preds = %21
-  %28 = icmp ult i64 %24, 6
-  br i1 %28, label %36, label %32
+for.cond1.preheader.i:                            ; preds = %do.body.i.i
+  %cmp2.not21.i = icmp ult i64 %add3.i.i, 6
+  br i1 %cmp2.not21.i, label %for.end.i, label %for.body3.i
 
-29:                                               ; preds = %32
-  %30 = add nuw i64 %33, 2
-  %31 = icmp ugt i64 %30, %25
-  br i1 %31, label %36, label %32, !llvm.loop !11
+for.cond1.i:                                      ; preds = %for.body3.i
+  %add.i23 = add nuw i64 %d.022.i, 2
+  %cmp2.not.i = icmp ugt i64 %add.i23, %shr4.i.i
+  br i1 %cmp2.not.i, label %for.end.i, label %for.body3.i, !llvm.loop !11
 
-32:                                               ; preds = %27, %29
-  %33 = phi i64 [ %30, %29 ], [ 3, %27 ]
-  %34 = urem i64 %6, %33
-  %35 = icmp eq i64 %34, 0
-  br i1 %35, label %38, label %29
+for.body3.i:                                      ; preds = %for.cond1.preheader.i, %for.cond1.i
+  %d.022.i = phi i64 [ %add.i23, %for.cond1.i ], [ 3, %for.cond1.preheader.i ]
+  %rem.i = urem i64 %p.024.i, %d.022.i
+  %cmp4.i = icmp eq i64 %rem.i, 0
+  br i1 %cmp4.i, label %for.inc5.i, label %for.cond1.i
 
-36:                                               ; preds = %29, %27
-  %37 = getelementptr inbounds i64, ptr %5, i64 1
-  store i64 %6, ptr %5, align 8, !tbaa !12
-  br label %38
+for.end.i:                                        ; preds = %for.cond1.i, %for.cond1.preheader.i
+  %incdec.ptr.i = getelementptr inbounds i64, ptr %xp.026.i, i64 1
+  store i64 %p.024.i, ptr %xp.026.i, align 8, !tbaa !12
+  br label %for.inc5.i
 
-38:                                               ; preds = %32, %36
-  %39 = phi ptr [ %37, %36 ], [ %5, %32 ]
-  %40 = add nuw nsw i64 %6, 2
-  %41 = icmp ugt i64 %6, 1234111125
-  br i1 %41, label %42, label %4, !llvm.loop !14
+for.inc5.i:                                       ; preds = %for.body3.i, %for.end.i
+  %xp.1.i = phi ptr [ %incdec.ptr.i, %for.end.i ], [ %xp.026.i, %for.body3.i ]
+  %add6.i = add nuw nsw i64 %p.024.i, 2
+  %cmp.not.i = icmp ugt i64 %p.024.i, 1234111125
+  br i1 %cmp.not.i, label %plist.exit, label %for.cond.i.preheader.i, !llvm.loop !14
 
-42:                                               ; preds = %38
-  store i64 0, ptr %39, align 8, !tbaa !12
-  %43 = load i64, ptr %3, align 16, !tbaa !12
-  %44 = icmp ne i64 %43, 1234111117
-  %45 = getelementptr inbounds [10 x i64], ptr %3, i64 0, i64 1
-  %46 = load i64, ptr %45, align 8
-  %47 = icmp ne i64 %46, 1234111121
-  %48 = select i1 %44, i1 true, i1 %47
-  %49 = getelementptr inbounds [10 x i64], ptr %3, i64 0, i64 2
-  %50 = load i64, ptr %49, align 16
-  %51 = icmp ne i64 %50, 1234111127
-  %52 = select i1 %48, i1 true, i1 %51
-  %53 = getelementptr inbounds [10 x i64], ptr %3, i64 0, i64 3
-  %54 = load i64, ptr %53, align 8
-  %55 = icmp ne i64 %54, 0
-  %56 = select i1 %52, i1 true, i1 %55
-  br i1 %56, label %57, label %58
+plist.exit:                                       ; preds = %for.inc5.i
+  store i64 0, ptr %xp.1.i, align 8, !tbaa !12
+  %0 = load i64, ptr %tab, align 16, !tbaa !12
+  %cmp = icmp ne i64 %0, 1234111117
+  %arrayidx3 = getelementptr inbounds [10 x i64], ptr %tab, i64 0, i64 1
+  %1 = load i64, ptr %arrayidx3, align 8
+  %cmp4 = icmp ne i64 %1, 1234111121
+  %or.cond = select i1 %cmp, i1 true, i1 %cmp4
+  %arrayidx6 = getelementptr inbounds [10 x i64], ptr %tab, i64 0, i64 2
+  %2 = load i64, ptr %arrayidx6, align 16
+  %cmp7 = icmp ne i64 %2, 1234111127
+  %or.cond11 = select i1 %or.cond, i1 true, i1 %cmp7
+  %arrayidx9 = getelementptr inbounds [10 x i64], ptr %tab, i64 0, i64 3
+  %3 = load i64, ptr %arrayidx9, align 8
+  %cmp10 = icmp ne i64 %3, 0
+  %or.cond12 = select i1 %or.cond11, i1 true, i1 %cmp10
+  br i1 %or.cond12, label %if.then, label %if.end
 
-57:                                               ; preds = %42
+if.then:                                          ; preds = %plist.exit
   tail call void @abort() #7
   unreachable
 
-58:                                               ; preds = %42
+if.end:                                           ; preds = %plist.exit
   tail call void @exit(i32 noundef 0) #7
   unreachable
 }

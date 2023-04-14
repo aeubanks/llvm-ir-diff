@@ -29,15 +29,16 @@ target triple = "x86_64-unknown-linux-gnu"
 @numProbes = external local_unnamed_addr global i32, align 4
 
 ; Function Attrs: nounwind uwtable
-define dso_local void @readgeo(ptr noundef %0) local_unnamed_addr #0 {
-  %2 = alloca [32 x i8], align 16
-  %3 = alloca i32, align 4
-  %4 = alloca i32, align 4
-  %5 = alloca i32, align 4
-  call void @llvm.lifetime.start.p0(i64 32, ptr nonnull %2) #12
-  call void @llvm.lifetime.start.p0(i64 4, ptr nonnull %3) #12
-  call void @llvm.lifetime.start.p0(i64 4, ptr nonnull %4) #12
-  call void @llvm.lifetime.start.p0(i64 4, ptr nonnull %5) #12
+define dso_local void @readgeo(ptr noundef %fp) local_unnamed_addr #0 {
+entry:
+  %input = alloca [32 x i8], align 16
+  %vertices = alloca i32, align 4
+  %vx = alloca i32, align 4
+  %vy = alloca i32, align 4
+  call void @llvm.lifetime.start.p0(i64 32, ptr nonnull %input) #12
+  call void @llvm.lifetime.start.p0(i64 4, ptr nonnull %vertices) #12
+  call void @llvm.lifetime.start.p0(i64 4, ptr nonnull %vx) #12
+  call void @llvm.lifetime.start.p0(i64 4, ptr nonnull %vy) #12
   store i32 0, ptr @bbr, align 4, !tbaa !5
   store i32 0, ptr @bbt, align 4, !tbaa !5
   store i32 10000000, ptr @bbl, align 4, !tbaa !5
@@ -47,659 +48,659 @@ define dso_local void @readgeo(ptr noundef %0) local_unnamed_addr #0 {
   store ptr null, ptr @vFixedEdgeRoot, align 8, !tbaa !9
   store ptr null, ptr @hEdgeRoot, align 8, !tbaa !9
   store ptr null, ptr @vEdgeRoot, align 8, !tbaa !9
-  %6 = tail call noalias dereferenceable_or_null(16040) ptr @malloc(i64 noundef 16040) #13
-  store ptr %6, ptr @edgeList, align 8, !tbaa !9
-  %7 = tail call noalias dereferenceable_or_null(400) ptr @malloc(i64 noundef 400) #13
-  store ptr %7, ptr @cellList, align 8, !tbaa !9
-  %8 = getelementptr inbounds ptr, ptr %7, i64 1
-  tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(392) %8, i8 0, i64 392, i1 false)
-  %9 = call i32 (ptr, ptr, ...) @__isoc99_fscanf(ptr noundef %0, ptr noundef nonnull @.str, ptr noundef nonnull %2) #12
-  %10 = icmp eq i32 %9, 1
-  br i1 %10, label %11, label %377
+  %call = tail call noalias dereferenceable_or_null(16040) ptr @malloc(i64 noundef 16040) #13
+  store ptr %call, ptr @edgeList, align 8, !tbaa !9
+  %call1 = tail call noalias dereferenceable_or_null(400) ptr @malloc(i64 noundef 400) #13
+  store ptr %call1, ptr @cellList, align 8, !tbaa !9
+  %arrayidx = getelementptr inbounds ptr, ptr %call1, i64 1
+  tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(392) %arrayidx, i8 0, i64 392, i1 false)
+  %call2466 = call i32 (ptr, ptr, ...) @__isoc99_fscanf(ptr noundef %fp, ptr noundef nonnull @.str, ptr noundef nonnull %input) #12
+  %cmp3467 = icmp eq i32 %call2466, 1
+  br i1 %cmp3467, label %while.body, label %while.end
 
-11:                                               ; preds = %1, %318
-  %12 = phi i64 [ %22, %318 ], [ 0, %1 ]
-  %13 = phi i64 [ %366, %318 ], [ 1, %1 ]
-  %14 = phi i32 [ %321, %318 ], [ 0, %1 ]
-  %15 = phi i32 [ %293, %318 ], [ undef, %1 ]
-  %16 = phi i32 [ %292, %318 ], [ undef, %1 ]
-  %17 = phi i32 [ %291, %318 ], [ undef, %1 ]
-  %18 = phi i32 [ %290, %318 ], [ undef, %1 ]
-  %19 = call i32 @bcmp(ptr noundef nonnull dereferenceable(5) %2, ptr noundef nonnull dereferenceable(5) @.str.1, i64 5)
-  %20 = icmp eq i32 %19, 0
-  br i1 %20, label %21, label %367
+while.body:                                       ; preds = %entry, %if.end185
+  %indvars.iv482 = phi i64 [ %indvars.iv.next483, %if.end185 ], [ 0, %entry ]
+  %indvars.iv = phi i64 [ %indvars.iv.next, %if.end185 ], [ 1, %entry ]
+  %rippleCount.0472 = phi i32 [ %rippleCount.4, %if.end185 ], [ 0, %entry ]
+  %uy0.0471 = phi i32 [ %uy0.2, %if.end185 ], [ undef, %entry ]
+  %ux0.0470 = phi i32 [ %ux0.2, %if.end185 ], [ undef, %entry ]
+  %uy.0469 = phi i32 [ %uy.2, %if.end185 ], [ undef, %entry ]
+  %ux.0468 = phi i32 [ %ux.2, %if.end185 ], [ undef, %entry ]
+  %bcmp = call i32 @bcmp(ptr noundef nonnull dereferenceable(5) %input, ptr noundef nonnull dereferenceable(5) @.str.1, i64 5)
+  %cmp6 = icmp eq i32 %bcmp, 0
+  br i1 %cmp6, label %if.then, label %if.else239
 
-21:                                               ; preds = %11
-  %22 = add nuw i64 %12, 1
-  %23 = trunc i64 %22 to i32
-  %24 = urem i32 %23, 50
-  %25 = icmp eq i32 %24, 0
-  br i1 %25, label %26, label %147
+if.then:                                          ; preds = %while.body
+  %indvars.iv.next483 = add nuw i64 %indvars.iv482, 1
+  %0 = trunc i64 %indvars.iv.next483 to i32
+  %rem = urem i32 %0, 50
+  %cmp8 = icmp eq i32 %rem, 0
+  br i1 %cmp8, label %if.then9, label %if.end
 
-26:                                               ; preds = %21
-  %27 = load ptr, ptr @cellList, align 8, !tbaa !9
-  %28 = shl i64 %12, 3
-  %29 = add i64 %28, 408
-  %30 = call ptr @realloc(ptr noundef %27, i64 noundef %29) #14
-  store ptr %30, ptr @cellList, align 8, !tbaa !9
-  %31 = getelementptr inbounds ptr, ptr %30, i64 %13
-  store ptr null, ptr %31, align 8, !tbaa !9
-  %32 = add nuw i64 %13, 1
-  %33 = getelementptr inbounds ptr, ptr %30, i64 %32
-  store ptr null, ptr %33, align 8, !tbaa !9
-  %34 = add i64 %13, 2
-  %35 = getelementptr inbounds ptr, ptr %30, i64 %34
-  store ptr null, ptr %35, align 8, !tbaa !9
-  %36 = add i64 %13, 3
-  %37 = getelementptr inbounds ptr, ptr %30, i64 %36
-  store ptr null, ptr %37, align 8, !tbaa !9
-  %38 = add i64 %13, 4
-  %39 = getelementptr inbounds ptr, ptr %30, i64 %38
-  store ptr null, ptr %39, align 8, !tbaa !9
-  %40 = add i64 %13, 5
-  %41 = getelementptr inbounds ptr, ptr %30, i64 %40
-  store ptr null, ptr %41, align 8, !tbaa !9
-  %42 = add i64 %13, 6
-  %43 = getelementptr inbounds ptr, ptr %30, i64 %42
-  store ptr null, ptr %43, align 8, !tbaa !9
-  %44 = add i64 %13, 7
-  %45 = getelementptr inbounds ptr, ptr %30, i64 %44
-  store ptr null, ptr %45, align 8, !tbaa !9
-  %46 = add i64 %13, 8
-  %47 = getelementptr inbounds ptr, ptr %30, i64 %46
-  store ptr null, ptr %47, align 8, !tbaa !9
-  %48 = add i64 %13, 9
-  %49 = getelementptr inbounds ptr, ptr %30, i64 %48
-  store ptr null, ptr %49, align 8, !tbaa !9
-  %50 = add i64 %13, 10
-  %51 = getelementptr inbounds ptr, ptr %30, i64 %50
-  store ptr null, ptr %51, align 8, !tbaa !9
-  %52 = add i64 %13, 11
-  %53 = getelementptr inbounds ptr, ptr %30, i64 %52
-  store ptr null, ptr %53, align 8, !tbaa !9
-  %54 = add i64 %13, 12
-  %55 = getelementptr inbounds ptr, ptr %30, i64 %54
-  store ptr null, ptr %55, align 8, !tbaa !9
-  %56 = add i64 %13, 13
-  %57 = getelementptr inbounds ptr, ptr %30, i64 %56
-  store ptr null, ptr %57, align 8, !tbaa !9
-  %58 = add i64 %13, 14
-  %59 = getelementptr inbounds ptr, ptr %30, i64 %58
-  store ptr null, ptr %59, align 8, !tbaa !9
-  %60 = add i64 %13, 15
-  %61 = getelementptr inbounds ptr, ptr %30, i64 %60
-  store ptr null, ptr %61, align 8, !tbaa !9
-  %62 = add i64 %13, 16
-  %63 = getelementptr inbounds ptr, ptr %30, i64 %62
-  store ptr null, ptr %63, align 8, !tbaa !9
-  %64 = add i64 %13, 17
-  %65 = getelementptr inbounds ptr, ptr %30, i64 %64
-  store ptr null, ptr %65, align 8, !tbaa !9
-  %66 = add i64 %13, 18
-  %67 = getelementptr inbounds ptr, ptr %30, i64 %66
-  store ptr null, ptr %67, align 8, !tbaa !9
-  %68 = add i64 %13, 19
-  %69 = getelementptr inbounds ptr, ptr %30, i64 %68
-  store ptr null, ptr %69, align 8, !tbaa !9
-  %70 = add i64 %13, 20
-  %71 = getelementptr inbounds ptr, ptr %30, i64 %70
-  store ptr null, ptr %71, align 8, !tbaa !9
-  %72 = add i64 %13, 21
-  %73 = getelementptr inbounds ptr, ptr %30, i64 %72
-  store ptr null, ptr %73, align 8, !tbaa !9
-  %74 = add i64 %13, 22
-  %75 = getelementptr inbounds ptr, ptr %30, i64 %74
-  store ptr null, ptr %75, align 8, !tbaa !9
-  %76 = add i64 %13, 23
-  %77 = getelementptr inbounds ptr, ptr %30, i64 %76
-  store ptr null, ptr %77, align 8, !tbaa !9
-  %78 = add i64 %13, 24
-  %79 = getelementptr inbounds ptr, ptr %30, i64 %78
-  store ptr null, ptr %79, align 8, !tbaa !9
-  %80 = add i64 %13, 25
-  %81 = getelementptr inbounds ptr, ptr %30, i64 %80
-  store ptr null, ptr %81, align 8, !tbaa !9
-  %82 = add i64 %13, 26
-  %83 = getelementptr inbounds ptr, ptr %30, i64 %82
-  store ptr null, ptr %83, align 8, !tbaa !9
-  %84 = add i64 %13, 27
-  %85 = getelementptr inbounds ptr, ptr %30, i64 %84
-  store ptr null, ptr %85, align 8, !tbaa !9
-  %86 = add i64 %13, 28
-  %87 = getelementptr inbounds ptr, ptr %30, i64 %86
-  store ptr null, ptr %87, align 8, !tbaa !9
-  %88 = add i64 %13, 29
-  %89 = getelementptr inbounds ptr, ptr %30, i64 %88
-  store ptr null, ptr %89, align 8, !tbaa !9
-  %90 = add i64 %13, 30
-  %91 = getelementptr inbounds ptr, ptr %30, i64 %90
-  store ptr null, ptr %91, align 8, !tbaa !9
-  %92 = add i64 %13, 31
-  %93 = getelementptr inbounds ptr, ptr %30, i64 %92
-  store ptr null, ptr %93, align 8, !tbaa !9
-  %94 = add i64 %13, 32
-  %95 = getelementptr inbounds ptr, ptr %30, i64 %94
-  store ptr null, ptr %95, align 8, !tbaa !9
-  %96 = add i64 %13, 33
-  %97 = load ptr, ptr @cellList, align 8, !tbaa !9
-  %98 = getelementptr inbounds ptr, ptr %97, i64 %96
-  store ptr null, ptr %98, align 8, !tbaa !9
-  %99 = add i64 %13, 34
-  %100 = load ptr, ptr @cellList, align 8, !tbaa !9
-  %101 = getelementptr inbounds ptr, ptr %100, i64 %99
-  store ptr null, ptr %101, align 8, !tbaa !9
-  %102 = add i64 %13, 35
-  %103 = load ptr, ptr @cellList, align 8, !tbaa !9
-  %104 = getelementptr inbounds ptr, ptr %103, i64 %102
-  store ptr null, ptr %104, align 8, !tbaa !9
-  %105 = add i64 %13, 36
-  %106 = load ptr, ptr @cellList, align 8, !tbaa !9
-  %107 = getelementptr inbounds ptr, ptr %106, i64 %105
-  store ptr null, ptr %107, align 8, !tbaa !9
-  %108 = add i64 %13, 37
-  %109 = load ptr, ptr @cellList, align 8, !tbaa !9
-  %110 = getelementptr inbounds ptr, ptr %109, i64 %108
-  store ptr null, ptr %110, align 8, !tbaa !9
-  %111 = add i64 %13, 38
-  %112 = load ptr, ptr @cellList, align 8, !tbaa !9
-  %113 = getelementptr inbounds ptr, ptr %112, i64 %111
-  store ptr null, ptr %113, align 8, !tbaa !9
-  %114 = add i64 %13, 39
-  %115 = load ptr, ptr @cellList, align 8, !tbaa !9
-  %116 = getelementptr inbounds ptr, ptr %115, i64 %114
-  store ptr null, ptr %116, align 8, !tbaa !9
-  %117 = add i64 %13, 40
-  %118 = load ptr, ptr @cellList, align 8, !tbaa !9
-  %119 = getelementptr inbounds ptr, ptr %118, i64 %117
-  store ptr null, ptr %119, align 8, !tbaa !9
-  %120 = add i64 %13, 41
-  %121 = load ptr, ptr @cellList, align 8, !tbaa !9
-  %122 = getelementptr inbounds ptr, ptr %121, i64 %120
-  store ptr null, ptr %122, align 8, !tbaa !9
-  %123 = add i64 %13, 42
-  %124 = load ptr, ptr @cellList, align 8, !tbaa !9
-  %125 = getelementptr inbounds ptr, ptr %124, i64 %123
-  store ptr null, ptr %125, align 8, !tbaa !9
-  %126 = add i64 %13, 43
-  %127 = load ptr, ptr @cellList, align 8, !tbaa !9
-  %128 = getelementptr inbounds ptr, ptr %127, i64 %126
-  store ptr null, ptr %128, align 8, !tbaa !9
-  %129 = add i64 %13, 44
-  %130 = load ptr, ptr @cellList, align 8, !tbaa !9
-  %131 = getelementptr inbounds ptr, ptr %130, i64 %129
-  store ptr null, ptr %131, align 8, !tbaa !9
-  %132 = add i64 %13, 45
-  %133 = load ptr, ptr @cellList, align 8, !tbaa !9
-  %134 = getelementptr inbounds ptr, ptr %133, i64 %132
-  store ptr null, ptr %134, align 8, !tbaa !9
-  %135 = add i64 %13, 46
-  %136 = load ptr, ptr @cellList, align 8, !tbaa !9
-  %137 = getelementptr inbounds ptr, ptr %136, i64 %135
-  store ptr null, ptr %137, align 8, !tbaa !9
-  %138 = add i64 %13, 47
-  %139 = load ptr, ptr @cellList, align 8, !tbaa !9
-  %140 = getelementptr inbounds ptr, ptr %139, i64 %138
-  store ptr null, ptr %140, align 8, !tbaa !9
-  %141 = add i64 %13, 48
-  %142 = load ptr, ptr @cellList, align 8, !tbaa !9
-  %143 = getelementptr inbounds ptr, ptr %142, i64 %141
-  store ptr null, ptr %143, align 8, !tbaa !9
-  %144 = add i64 %13, 49
-  %145 = load ptr, ptr @cellList, align 8, !tbaa !9
-  %146 = getelementptr inbounds ptr, ptr %145, i64 %144
-  store ptr null, ptr %146, align 8, !tbaa !9
-  br label %147
+if.then9:                                         ; preds = %if.then
+  %1 = load ptr, ptr @cellList, align 8, !tbaa !9
+  %2 = shl i64 %indvars.iv482, 3
+  %mul = add i64 %2, 408
+  %call10 = call ptr @realloc(ptr noundef %1, i64 noundef %mul) #14
+  store ptr %call10, ptr @cellList, align 8, !tbaa !9
+  %arrayidx17 = getelementptr inbounds ptr, ptr %call10, i64 %indvars.iv
+  store ptr null, ptr %arrayidx17, align 8, !tbaa !9
+  %indvars.iv.next478 = add nuw i64 %indvars.iv, 1
+  %arrayidx17.1 = getelementptr inbounds ptr, ptr %call10, i64 %indvars.iv.next478
+  store ptr null, ptr %arrayidx17.1, align 8, !tbaa !9
+  %indvars.iv.next478.1 = add i64 %indvars.iv, 2
+  %arrayidx17.2 = getelementptr inbounds ptr, ptr %call10, i64 %indvars.iv.next478.1
+  store ptr null, ptr %arrayidx17.2, align 8, !tbaa !9
+  %indvars.iv.next478.2 = add i64 %indvars.iv, 3
+  %arrayidx17.3 = getelementptr inbounds ptr, ptr %call10, i64 %indvars.iv.next478.2
+  store ptr null, ptr %arrayidx17.3, align 8, !tbaa !9
+  %indvars.iv.next478.3 = add i64 %indvars.iv, 4
+  %arrayidx17.4 = getelementptr inbounds ptr, ptr %call10, i64 %indvars.iv.next478.3
+  store ptr null, ptr %arrayidx17.4, align 8, !tbaa !9
+  %indvars.iv.next478.4 = add i64 %indvars.iv, 5
+  %arrayidx17.5 = getelementptr inbounds ptr, ptr %call10, i64 %indvars.iv.next478.4
+  store ptr null, ptr %arrayidx17.5, align 8, !tbaa !9
+  %indvars.iv.next478.5 = add i64 %indvars.iv, 6
+  %arrayidx17.6 = getelementptr inbounds ptr, ptr %call10, i64 %indvars.iv.next478.5
+  store ptr null, ptr %arrayidx17.6, align 8, !tbaa !9
+  %indvars.iv.next478.6 = add i64 %indvars.iv, 7
+  %arrayidx17.7 = getelementptr inbounds ptr, ptr %call10, i64 %indvars.iv.next478.6
+  store ptr null, ptr %arrayidx17.7, align 8, !tbaa !9
+  %indvars.iv.next478.7 = add i64 %indvars.iv, 8
+  %arrayidx17.8 = getelementptr inbounds ptr, ptr %call10, i64 %indvars.iv.next478.7
+  store ptr null, ptr %arrayidx17.8, align 8, !tbaa !9
+  %indvars.iv.next478.8 = add i64 %indvars.iv, 9
+  %arrayidx17.9 = getelementptr inbounds ptr, ptr %call10, i64 %indvars.iv.next478.8
+  store ptr null, ptr %arrayidx17.9, align 8, !tbaa !9
+  %indvars.iv.next478.9 = add i64 %indvars.iv, 10
+  %arrayidx17.10 = getelementptr inbounds ptr, ptr %call10, i64 %indvars.iv.next478.9
+  store ptr null, ptr %arrayidx17.10, align 8, !tbaa !9
+  %indvars.iv.next478.10 = add i64 %indvars.iv, 11
+  %arrayidx17.11 = getelementptr inbounds ptr, ptr %call10, i64 %indvars.iv.next478.10
+  store ptr null, ptr %arrayidx17.11, align 8, !tbaa !9
+  %indvars.iv.next478.11 = add i64 %indvars.iv, 12
+  %arrayidx17.12 = getelementptr inbounds ptr, ptr %call10, i64 %indvars.iv.next478.11
+  store ptr null, ptr %arrayidx17.12, align 8, !tbaa !9
+  %indvars.iv.next478.12 = add i64 %indvars.iv, 13
+  %arrayidx17.13 = getelementptr inbounds ptr, ptr %call10, i64 %indvars.iv.next478.12
+  store ptr null, ptr %arrayidx17.13, align 8, !tbaa !9
+  %indvars.iv.next478.13 = add i64 %indvars.iv, 14
+  %arrayidx17.14 = getelementptr inbounds ptr, ptr %call10, i64 %indvars.iv.next478.13
+  store ptr null, ptr %arrayidx17.14, align 8, !tbaa !9
+  %indvars.iv.next478.14 = add i64 %indvars.iv, 15
+  %arrayidx17.15 = getelementptr inbounds ptr, ptr %call10, i64 %indvars.iv.next478.14
+  store ptr null, ptr %arrayidx17.15, align 8, !tbaa !9
+  %indvars.iv.next478.15 = add i64 %indvars.iv, 16
+  %arrayidx17.16 = getelementptr inbounds ptr, ptr %call10, i64 %indvars.iv.next478.15
+  store ptr null, ptr %arrayidx17.16, align 8, !tbaa !9
+  %indvars.iv.next478.16 = add i64 %indvars.iv, 17
+  %arrayidx17.17 = getelementptr inbounds ptr, ptr %call10, i64 %indvars.iv.next478.16
+  store ptr null, ptr %arrayidx17.17, align 8, !tbaa !9
+  %indvars.iv.next478.17 = add i64 %indvars.iv, 18
+  %arrayidx17.18 = getelementptr inbounds ptr, ptr %call10, i64 %indvars.iv.next478.17
+  store ptr null, ptr %arrayidx17.18, align 8, !tbaa !9
+  %indvars.iv.next478.18 = add i64 %indvars.iv, 19
+  %arrayidx17.19 = getelementptr inbounds ptr, ptr %call10, i64 %indvars.iv.next478.18
+  store ptr null, ptr %arrayidx17.19, align 8, !tbaa !9
+  %indvars.iv.next478.19 = add i64 %indvars.iv, 20
+  %arrayidx17.20 = getelementptr inbounds ptr, ptr %call10, i64 %indvars.iv.next478.19
+  store ptr null, ptr %arrayidx17.20, align 8, !tbaa !9
+  %indvars.iv.next478.20 = add i64 %indvars.iv, 21
+  %arrayidx17.21 = getelementptr inbounds ptr, ptr %call10, i64 %indvars.iv.next478.20
+  store ptr null, ptr %arrayidx17.21, align 8, !tbaa !9
+  %indvars.iv.next478.21 = add i64 %indvars.iv, 22
+  %arrayidx17.22 = getelementptr inbounds ptr, ptr %call10, i64 %indvars.iv.next478.21
+  store ptr null, ptr %arrayidx17.22, align 8, !tbaa !9
+  %indvars.iv.next478.22 = add i64 %indvars.iv, 23
+  %arrayidx17.23 = getelementptr inbounds ptr, ptr %call10, i64 %indvars.iv.next478.22
+  store ptr null, ptr %arrayidx17.23, align 8, !tbaa !9
+  %indvars.iv.next478.23 = add i64 %indvars.iv, 24
+  %arrayidx17.24 = getelementptr inbounds ptr, ptr %call10, i64 %indvars.iv.next478.23
+  store ptr null, ptr %arrayidx17.24, align 8, !tbaa !9
+  %indvars.iv.next478.24 = add i64 %indvars.iv, 25
+  %arrayidx17.25 = getelementptr inbounds ptr, ptr %call10, i64 %indvars.iv.next478.24
+  store ptr null, ptr %arrayidx17.25, align 8, !tbaa !9
+  %indvars.iv.next478.25 = add i64 %indvars.iv, 26
+  %arrayidx17.26 = getelementptr inbounds ptr, ptr %call10, i64 %indvars.iv.next478.25
+  store ptr null, ptr %arrayidx17.26, align 8, !tbaa !9
+  %indvars.iv.next478.26 = add i64 %indvars.iv, 27
+  %arrayidx17.27 = getelementptr inbounds ptr, ptr %call10, i64 %indvars.iv.next478.26
+  store ptr null, ptr %arrayidx17.27, align 8, !tbaa !9
+  %indvars.iv.next478.27 = add i64 %indvars.iv, 28
+  %arrayidx17.28 = getelementptr inbounds ptr, ptr %call10, i64 %indvars.iv.next478.27
+  store ptr null, ptr %arrayidx17.28, align 8, !tbaa !9
+  %indvars.iv.next478.28 = add i64 %indvars.iv, 29
+  %arrayidx17.29 = getelementptr inbounds ptr, ptr %call10, i64 %indvars.iv.next478.28
+  store ptr null, ptr %arrayidx17.29, align 8, !tbaa !9
+  %indvars.iv.next478.29 = add i64 %indvars.iv, 30
+  %arrayidx17.30 = getelementptr inbounds ptr, ptr %call10, i64 %indvars.iv.next478.29
+  store ptr null, ptr %arrayidx17.30, align 8, !tbaa !9
+  %indvars.iv.next478.30 = add i64 %indvars.iv, 31
+  %arrayidx17.31 = getelementptr inbounds ptr, ptr %call10, i64 %indvars.iv.next478.30
+  store ptr null, ptr %arrayidx17.31, align 8, !tbaa !9
+  %indvars.iv.next478.31 = add i64 %indvars.iv, 32
+  %arrayidx17.32 = getelementptr inbounds ptr, ptr %call10, i64 %indvars.iv.next478.31
+  store ptr null, ptr %arrayidx17.32, align 8, !tbaa !9
+  %indvars.iv.next478.32 = add i64 %indvars.iv, 33
+  %3 = load ptr, ptr @cellList, align 8, !tbaa !9
+  %arrayidx17.33 = getelementptr inbounds ptr, ptr %3, i64 %indvars.iv.next478.32
+  store ptr null, ptr %arrayidx17.33, align 8, !tbaa !9
+  %indvars.iv.next478.33 = add i64 %indvars.iv, 34
+  %4 = load ptr, ptr @cellList, align 8, !tbaa !9
+  %arrayidx17.34 = getelementptr inbounds ptr, ptr %4, i64 %indvars.iv.next478.33
+  store ptr null, ptr %arrayidx17.34, align 8, !tbaa !9
+  %indvars.iv.next478.34 = add i64 %indvars.iv, 35
+  %5 = load ptr, ptr @cellList, align 8, !tbaa !9
+  %arrayidx17.35 = getelementptr inbounds ptr, ptr %5, i64 %indvars.iv.next478.34
+  store ptr null, ptr %arrayidx17.35, align 8, !tbaa !9
+  %indvars.iv.next478.35 = add i64 %indvars.iv, 36
+  %6 = load ptr, ptr @cellList, align 8, !tbaa !9
+  %arrayidx17.36 = getelementptr inbounds ptr, ptr %6, i64 %indvars.iv.next478.35
+  store ptr null, ptr %arrayidx17.36, align 8, !tbaa !9
+  %indvars.iv.next478.36 = add i64 %indvars.iv, 37
+  %7 = load ptr, ptr @cellList, align 8, !tbaa !9
+  %arrayidx17.37 = getelementptr inbounds ptr, ptr %7, i64 %indvars.iv.next478.36
+  store ptr null, ptr %arrayidx17.37, align 8, !tbaa !9
+  %indvars.iv.next478.37 = add i64 %indvars.iv, 38
+  %8 = load ptr, ptr @cellList, align 8, !tbaa !9
+  %arrayidx17.38 = getelementptr inbounds ptr, ptr %8, i64 %indvars.iv.next478.37
+  store ptr null, ptr %arrayidx17.38, align 8, !tbaa !9
+  %indvars.iv.next478.38 = add i64 %indvars.iv, 39
+  %9 = load ptr, ptr @cellList, align 8, !tbaa !9
+  %arrayidx17.39 = getelementptr inbounds ptr, ptr %9, i64 %indvars.iv.next478.38
+  store ptr null, ptr %arrayidx17.39, align 8, !tbaa !9
+  %indvars.iv.next478.39 = add i64 %indvars.iv, 40
+  %10 = load ptr, ptr @cellList, align 8, !tbaa !9
+  %arrayidx17.40 = getelementptr inbounds ptr, ptr %10, i64 %indvars.iv.next478.39
+  store ptr null, ptr %arrayidx17.40, align 8, !tbaa !9
+  %indvars.iv.next478.40 = add i64 %indvars.iv, 41
+  %11 = load ptr, ptr @cellList, align 8, !tbaa !9
+  %arrayidx17.41 = getelementptr inbounds ptr, ptr %11, i64 %indvars.iv.next478.40
+  store ptr null, ptr %arrayidx17.41, align 8, !tbaa !9
+  %indvars.iv.next478.41 = add i64 %indvars.iv, 42
+  %12 = load ptr, ptr @cellList, align 8, !tbaa !9
+  %arrayidx17.42 = getelementptr inbounds ptr, ptr %12, i64 %indvars.iv.next478.41
+  store ptr null, ptr %arrayidx17.42, align 8, !tbaa !9
+  %indvars.iv.next478.42 = add i64 %indvars.iv, 43
+  %13 = load ptr, ptr @cellList, align 8, !tbaa !9
+  %arrayidx17.43 = getelementptr inbounds ptr, ptr %13, i64 %indvars.iv.next478.42
+  store ptr null, ptr %arrayidx17.43, align 8, !tbaa !9
+  %indvars.iv.next478.43 = add i64 %indvars.iv, 44
+  %14 = load ptr, ptr @cellList, align 8, !tbaa !9
+  %arrayidx17.44 = getelementptr inbounds ptr, ptr %14, i64 %indvars.iv.next478.43
+  store ptr null, ptr %arrayidx17.44, align 8, !tbaa !9
+  %indvars.iv.next478.44 = add i64 %indvars.iv, 45
+  %15 = load ptr, ptr @cellList, align 8, !tbaa !9
+  %arrayidx17.45 = getelementptr inbounds ptr, ptr %15, i64 %indvars.iv.next478.44
+  store ptr null, ptr %arrayidx17.45, align 8, !tbaa !9
+  %indvars.iv.next478.45 = add i64 %indvars.iv, 46
+  %16 = load ptr, ptr @cellList, align 8, !tbaa !9
+  %arrayidx17.46 = getelementptr inbounds ptr, ptr %16, i64 %indvars.iv.next478.45
+  store ptr null, ptr %arrayidx17.46, align 8, !tbaa !9
+  %indvars.iv.next478.46 = add i64 %indvars.iv, 47
+  %17 = load ptr, ptr @cellList, align 8, !tbaa !9
+  %arrayidx17.47 = getelementptr inbounds ptr, ptr %17, i64 %indvars.iv.next478.46
+  store ptr null, ptr %arrayidx17.47, align 8, !tbaa !9
+  %indvars.iv.next478.47 = add i64 %indvars.iv, 48
+  %18 = load ptr, ptr @cellList, align 8, !tbaa !9
+  %arrayidx17.48 = getelementptr inbounds ptr, ptr %18, i64 %indvars.iv.next478.47
+  store ptr null, ptr %arrayidx17.48, align 8, !tbaa !9
+  %indvars.iv.next478.48 = add i64 %indvars.iv, 49
+  %19 = load ptr, ptr @cellList, align 8, !tbaa !9
+  %arrayidx17.49 = getelementptr inbounds ptr, ptr %19, i64 %indvars.iv.next478.48
+  store ptr null, ptr %arrayidx17.49, align 8, !tbaa !9
+  br label %if.end
 
-147:                                              ; preds = %26, %21
-  %148 = call i32 (ptr, ptr, ...) @__isoc99_fscanf(ptr noundef %0, ptr noundef nonnull @.str, ptr noundef nonnull %2) #12
-  %149 = call i32 (ptr, ptr, ...) @__isoc99_fscanf(ptr noundef %0, ptr noundef nonnull @.str.2, ptr noundef nonnull %3) #12
-  %150 = call i32 (ptr, ptr, ...) @__isoc99_fscanf(ptr noundef %0, ptr noundef nonnull @.str, ptr noundef nonnull %2) #12
-  %151 = load i32, ptr %3, align 4, !tbaa !5
-  %152 = icmp sgt i32 %151, 0
-  call void @llvm.assume(i1 %152)
-  br label %153
+if.end:                                           ; preds = %if.then9, %if.then
+  %call22 = call i32 (ptr, ptr, ...) @__isoc99_fscanf(ptr noundef %fp, ptr noundef nonnull @.str, ptr noundef nonnull %input) #12
+  %call23 = call i32 (ptr, ptr, ...) @__isoc99_fscanf(ptr noundef %fp, ptr noundef nonnull @.str.2, ptr noundef nonnull %vertices) #12
+  %call25 = call i32 (ptr, ptr, ...) @__isoc99_fscanf(ptr noundef %fp, ptr noundef nonnull @.str, ptr noundef nonnull %input) #12
+  %20 = load i32, ptr %vertices, align 4, !tbaa !5
+  %cmp27.not453 = icmp sgt i32 %20, 0
+  call void @llvm.assume(i1 %cmp27.not453)
+  br label %for.body29
 
-153:                                              ; preds = %147, %289
-  %154 = phi ptr [ null, %147 ], [ %295, %289 ]
-  %155 = phi i32 [ %14, %147 ], [ %294, %289 ]
-  %156 = phi i32 [ %15, %147 ], [ %293, %289 ]
-  %157 = phi i32 [ %16, %147 ], [ %292, %289 ]
-  %158 = phi i32 [ %17, %147 ], [ %291, %289 ]
-  %159 = phi i32 [ %18, %147 ], [ %290, %289 ]
-  %160 = phi i32 [ 1, %147 ], [ %296, %289 ]
-  %161 = call i32 (ptr, ptr, ...) @__isoc99_fscanf(ptr noundef %0, ptr noundef nonnull @.str.3, ptr noundef nonnull %4, ptr noundef nonnull %5) #12
-  %162 = load i32, ptr %4, align 4, !tbaa !5
-  %163 = load i32, ptr @bbr, align 4, !tbaa !5
-  %164 = icmp sgt i32 %162, %163
-  br i1 %164, label %165, label %166
+for.body29:                                       ; preds = %if.end, %for.inc167
+  %clptr.0460 = phi ptr [ null, %if.end ], [ %clptr.2, %for.inc167 ]
+  %rippleCount.1459 = phi i32 [ %rippleCount.0472, %if.end ], [ %rippleCount.3, %for.inc167 ]
+  %uy0.1458 = phi i32 [ %uy0.0471, %if.end ], [ %uy0.2, %for.inc167 ]
+  %ux0.1457 = phi i32 [ %ux0.0470, %if.end ], [ %ux0.2, %for.inc167 ]
+  %uy.1456 = phi i32 [ %uy.0469, %if.end ], [ %uy.2, %for.inc167 ]
+  %ux.1455 = phi i32 [ %ux.0468, %if.end ], [ %ux.2, %for.inc167 ]
+  %v.0454 = phi i32 [ 1, %if.end ], [ %inc168, %for.inc167 ]
+  %call30 = call i32 (ptr, ptr, ...) @__isoc99_fscanf(ptr noundef %fp, ptr noundef nonnull @.str.3, ptr noundef nonnull %vx, ptr noundef nonnull %vy) #12
+  %21 = load i32, ptr %vx, align 4, !tbaa !5
+  %22 = load i32, ptr @bbr, align 4, !tbaa !5
+  %cmp31 = icmp sgt i32 %21, %22
+  br i1 %cmp31, label %if.then33, label %if.end34
 
-165:                                              ; preds = %153
-  store i32 %162, ptr @bbr, align 4, !tbaa !5
-  br label %166
+if.then33:                                        ; preds = %for.body29
+  store i32 %21, ptr @bbr, align 4, !tbaa !5
+  br label %if.end34
 
-166:                                              ; preds = %165, %153
-  %167 = load i32, ptr @bbl, align 4, !tbaa !5
-  %168 = icmp slt i32 %162, %167
-  br i1 %168, label %169, label %170
+if.end34:                                         ; preds = %if.then33, %for.body29
+  %23 = load i32, ptr @bbl, align 4, !tbaa !5
+  %cmp35 = icmp slt i32 %21, %23
+  br i1 %cmp35, label %if.then37, label %if.end38
 
-169:                                              ; preds = %166
-  store i32 %162, ptr @bbl, align 4, !tbaa !5
-  br label %170
+if.then37:                                        ; preds = %if.end34
+  store i32 %21, ptr @bbl, align 4, !tbaa !5
+  br label %if.end38
 
-170:                                              ; preds = %169, %166
-  %171 = load i32, ptr %5, align 4, !tbaa !5
-  %172 = load i32, ptr @bbt, align 4, !tbaa !5
-  %173 = icmp sgt i32 %171, %172
-  br i1 %173, label %174, label %175
+if.end38:                                         ; preds = %if.then37, %if.end34
+  %24 = load i32, ptr %vy, align 4, !tbaa !5
+  %25 = load i32, ptr @bbt, align 4, !tbaa !5
+  %cmp39 = icmp sgt i32 %24, %25
+  br i1 %cmp39, label %if.then41, label %if.end42
 
-174:                                              ; preds = %170
-  store i32 %171, ptr @bbt, align 4, !tbaa !5
-  br label %175
+if.then41:                                        ; preds = %if.end38
+  store i32 %24, ptr @bbt, align 4, !tbaa !5
+  br label %if.end42
 
-175:                                              ; preds = %174, %170
-  %176 = load i32, ptr @bbb, align 4, !tbaa !5
-  %177 = icmp slt i32 %171, %176
-  br i1 %177, label %178, label %179
+if.end42:                                         ; preds = %if.then41, %if.end38
+  %26 = load i32, ptr @bbb, align 4, !tbaa !5
+  %cmp43 = icmp slt i32 %24, %26
+  br i1 %cmp43, label %if.then45, label %if.end46
 
-178:                                              ; preds = %175
-  store i32 %171, ptr @bbb, align 4, !tbaa !5
-  br label %179
+if.then45:                                        ; preds = %if.end42
+  store i32 %24, ptr @bbb, align 4, !tbaa !5
+  br label %if.end46
 
-179:                                              ; preds = %178, %175
-  %180 = icmp eq i32 %160, 1
-  br i1 %180, label %289, label %181
+if.end46:                                         ; preds = %if.then45, %if.end42
+  %cmp47 = icmp eq i32 %v.0454, 1
+  br i1 %cmp47, label %for.inc167, label %if.else
 
-181:                                              ; preds = %179
-  %182 = load i32, ptr @edgeCount, align 4, !tbaa !5
-  %183 = add nsw i32 %182, 1
-  store i32 %183, ptr @edgeCount, align 4, !tbaa !5
-  %184 = icmp eq ptr %154, null
-  %185 = call noalias dereferenceable_or_null(40) ptr @malloc(i64 noundef 40) #13
-  br i1 %184, label %186, label %192
+if.else:                                          ; preds = %if.end46
+  %27 = load i32, ptr @edgeCount, align 4, !tbaa !5
+  %inc50 = add nsw i32 %27, 1
+  store i32 %inc50, ptr @edgeCount, align 4, !tbaa !5
+  %cmp51 = icmp eq ptr %clptr.0460, null
+  %call54 = call noalias dereferenceable_or_null(40) ptr @malloc(i64 noundef 40) #13
+  br i1 %cmp51, label %if.then53, label %if.else59
 
-186:                                              ; preds = %181
-  %187 = load ptr, ptr @cellList, align 8, !tbaa !9
-  %188 = getelementptr inbounds ptr, ptr %187, i64 %22
-  store ptr %185, ptr %188, align 8, !tbaa !9
-  %189 = load ptr, ptr @cellList, align 8, !tbaa !9
-  %190 = getelementptr inbounds ptr, ptr %189, i64 %22
-  %191 = load ptr, ptr %190, align 8, !tbaa !9
-  br label %194
+if.then53:                                        ; preds = %if.else
+  %28 = load ptr, ptr @cellList, align 8, !tbaa !9
+  %arrayidx56 = getelementptr inbounds ptr, ptr %28, i64 %indvars.iv.next483
+  store ptr %call54, ptr %arrayidx56, align 8, !tbaa !9
+  %29 = load ptr, ptr @cellList, align 8, !tbaa !9
+  %arrayidx58 = getelementptr inbounds ptr, ptr %29, i64 %indvars.iv.next483
+  %30 = load ptr, ptr %arrayidx58, align 8, !tbaa !9
+  br label %if.end62
 
-192:                                              ; preds = %181
-  %193 = getelementptr inbounds %struct.clbox, ptr %154, i64 0, i32 7
-  store ptr %185, ptr %193, align 8, !tbaa !11
-  br label %194
+if.else59:                                        ; preds = %if.else
+  %next = getelementptr inbounds %struct.clbox, ptr %clptr.0460, i64 0, i32 7
+  store ptr %call54, ptr %next, align 8, !tbaa !11
+  br label %if.end62
 
-194:                                              ; preds = %192, %186
-  %195 = phi ptr [ %191, %186 ], [ %185, %192 ]
-  %196 = getelementptr inbounds %struct.clbox, ptr %195, i64 0, i32 7
-  store ptr null, ptr %196, align 8, !tbaa !11
-  store i32 %183, ptr %195, align 8, !tbaa !13
-  %197 = getelementptr inbounds %struct.clbox, ptr %195, i64 0, i32 1
-  store i32 0, ptr %197, align 4, !tbaa !14
-  %198 = getelementptr inbounds %struct.clbox, ptr %195, i64 0, i32 6
-  store i32 1000000, ptr %198, align 8, !tbaa !15
-  %199 = add nsw i32 %155, 1
-  %200 = icmp sgt i32 %155, 399
-  br i1 %200, label %201, label %208
+if.end62:                                         ; preds = %if.else59, %if.then53
+  %clptr.1 = phi ptr [ %30, %if.then53 ], [ %call54, %if.else59 ]
+  %next63 = getelementptr inbounds %struct.clbox, ptr %clptr.1, i64 0, i32 7
+  store ptr null, ptr %next63, align 8, !tbaa !11
+  store i32 %inc50, ptr %clptr.1, align 8, !tbaa !13
+  %extraSpace = getelementptr inbounds %struct.clbox, ptr %clptr.1, i64 0, i32 1
+  store i32 0, ptr %extraSpace, align 4, !tbaa !14
+  %compact = getelementptr inbounds %struct.clbox, ptr %clptr.1, i64 0, i32 6
+  store i32 1000000, ptr %compact, align 8, !tbaa !15
+  %inc64 = add nsw i32 %rippleCount.1459, 1
+  %cmp65 = icmp sgt i32 %rippleCount.1459, 399
+  br i1 %cmp65, label %if.then67, label %if.end72
 
-201:                                              ; preds = %194
-  %202 = load ptr, ptr @edgeList, align 8, !tbaa !9
-  %203 = load i32, ptr @edgeCount, align 4, !tbaa !5
-  %204 = add nsw i32 %203, 400
-  %205 = sext i32 %204 to i64
-  %206 = mul nsw i64 %205, 40
-  %207 = call ptr @realloc(ptr noundef %202, i64 noundef %206) #14
-  store ptr %207, ptr @edgeList, align 8, !tbaa !9
-  br label %208
+if.then67:                                        ; preds = %if.end62
+  %31 = load ptr, ptr @edgeList, align 8, !tbaa !9
+  %32 = load i32, ptr @edgeCount, align 4, !tbaa !5
+  %add68 = add nsw i32 %32, 400
+  %conv69 = sext i32 %add68 to i64
+  %mul70 = mul nsw i64 %conv69, 40
+  %call71 = call ptr @realloc(ptr noundef %31, i64 noundef %mul70) #14
+  store ptr %call71, ptr @edgeList, align 8, !tbaa !9
+  br label %if.end72
 
-208:                                              ; preds = %201, %194
-  %209 = phi i32 [ 1, %201 ], [ %199, %194 ]
-  %210 = and i32 %160, 1
-  %211 = icmp eq i32 %210, 0
-  %212 = load ptr, ptr @edgeList, align 8, !tbaa !9
-  %213 = load i32, ptr @edgeCount, align 4, !tbaa !5
-  %214 = sext i32 %213 to i64
-  %215 = getelementptr inbounds %struct.edgebox, ptr %212, i64 %214, i32 1
-  br i1 %211, label %216, label %241
+if.end72:                                         ; preds = %if.then67, %if.end62
+  %rippleCount.2 = phi i32 [ 1, %if.then67 ], [ %inc64, %if.end62 ]
+  %rem73 = and i32 %v.0454, 1
+  %cmp74 = icmp eq i32 %rem73, 0
+  %33 = load ptr, ptr @edgeList, align 8, !tbaa !9
+  %34 = load i32, ptr @edgeCount, align 4, !tbaa !5
+  %idxprom79 = sext i32 %34 to i64
+  %start = getelementptr inbounds %struct.edgebox, ptr %33, i64 %idxprom79, i32 1
+  br i1 %cmp74, label %if.then76, label %if.else105
 
-216:                                              ; preds = %208
-  %217 = load i32, ptr %5, align 4, !tbaa !5
-  %218 = call i32 @llvm.smin.i32(i32 %158, i32 %217)
-  store i32 %218, ptr %215, align 4, !tbaa !16
-  %219 = load i32, ptr %5, align 4, !tbaa !5
-  %220 = call i32 @llvm.smax.i32(i32 %158, i32 %219)
-  %221 = load i32, ptr @edgeCount, align 4, !tbaa !5
-  %222 = sext i32 %221 to i64
-  %223 = getelementptr inbounds %struct.edgebox, ptr %212, i64 %222, i32 2
-  store i32 %220, ptr %223, align 4, !tbaa !18
-  %224 = load i32, ptr @edgeCount, align 4, !tbaa !5
-  %225 = sext i32 %224 to i64
-  %226 = getelementptr inbounds %struct.edgebox, ptr %212, i64 %225, i32 3
-  store i32 %159, ptr %226, align 4, !tbaa !19
-  %227 = load i32, ptr %5, align 4, !tbaa !5
-  %228 = sub nsw i32 %158, %227
-  %229 = call i32 @llvm.abs.i32(i32 %228, i1 true)
-  %230 = load i32, ptr @edgeCount, align 4, !tbaa !5
-  %231 = sext i32 %230 to i64
-  %232 = getelementptr inbounds %struct.edgebox, ptr %212, i64 %231, i32 4
-  store i32 %229, ptr %232, align 4, !tbaa !20
-  %233 = load i32, ptr %5, align 4, !tbaa !5
-  %234 = icmp sgt i32 %158, %233
-  %235 = select i1 %234, i32 -1, i32 1
-  %236 = load i32, ptr @edgeCount, align 4, !tbaa !5
-  %237 = sext i32 %236 to i64
-  %238 = getelementptr inbounds %struct.edgebox, ptr %212, i64 %237, i32 5
-  store i32 %235, ptr %238, align 4, !tbaa !21
-  %239 = load i32, ptr @edgeCount, align 4, !tbaa !5
-  call void @tinsert(ptr noundef nonnull @vFixedEdgeRoot, i32 noundef %159, i32 noundef %239) #12
-  %240 = load i32, ptr @edgeCount, align 4, !tbaa !5
-  call void @tinsert(ptr noundef nonnull @vEdgeRoot, i32 noundef %159, i32 noundef %240) #12
-  br label %266
+if.then76:                                        ; preds = %if.end72
+  %35 = load i32, ptr %vy, align 4
+  %cond = call i32 @llvm.smin.i32(i32 %uy.1456, i32 %35)
+  store i32 %cond, ptr %start, align 4, !tbaa !16
+  %36 = load i32, ptr %vy, align 4
+  %cond86 = call i32 @llvm.smax.i32(i32 %uy.1456, i32 %36)
+  %37 = load i32, ptr @edgeCount, align 4, !tbaa !5
+  %idxprom87 = sext i32 %37 to i64
+  %end = getelementptr inbounds %struct.edgebox, ptr %33, i64 %idxprom87, i32 2
+  store i32 %cond86, ptr %end, align 4, !tbaa !18
+  %38 = load i32, ptr @edgeCount, align 4, !tbaa !5
+  %idxprom89 = sext i32 %38 to i64
+  %loc = getelementptr inbounds %struct.edgebox, ptr %33, i64 %idxprom89, i32 3
+  store i32 %ux.1455, ptr %loc, align 4, !tbaa !19
+  %39 = load i32, ptr %vy, align 4, !tbaa !5
+  %sub95 = sub nsw i32 %uy.1456, %39
+  %cond97 = call i32 @llvm.abs.i32(i32 %sub95, i1 true)
+  %40 = load i32, ptr @edgeCount, align 4, !tbaa !5
+  %idxprom98 = sext i32 %40 to i64
+  %length = getelementptr inbounds %struct.edgebox, ptr %33, i64 %idxprom98, i32 4
+  store i32 %cond97, ptr %length, align 4, !tbaa !20
+  %41 = load i32, ptr %vy, align 4, !tbaa !5
+  %cmp100.not = icmp sgt i32 %uy.1456, %41
+  %cond102 = select i1 %cmp100.not, i32 -1, i32 1
+  %42 = load i32, ptr @edgeCount, align 4, !tbaa !5
+  %idxprom103 = sext i32 %42 to i64
+  %UorR = getelementptr inbounds %struct.edgebox, ptr %33, i64 %idxprom103, i32 5
+  store i32 %cond102, ptr %UorR, align 4, !tbaa !21
+  %43 = load i32, ptr @edgeCount, align 4, !tbaa !5
+  call void @tinsert(ptr noundef nonnull @vFixedEdgeRoot, i32 noundef %ux.1455, i32 noundef %43) #12
+  %44 = load i32, ptr @edgeCount, align 4, !tbaa !5
+  call void @tinsert(ptr noundef nonnull @vEdgeRoot, i32 noundef %ux.1455, i32 noundef %44) #12
+  br label %if.end144
 
-241:                                              ; preds = %208
-  %242 = load i32, ptr %4, align 4, !tbaa !5
-  %243 = call i32 @llvm.smin.i32(i32 %159, i32 %242)
-  store i32 %243, ptr %215, align 4, !tbaa !16
-  %244 = load i32, ptr %4, align 4, !tbaa !5
-  %245 = call i32 @llvm.smax.i32(i32 %159, i32 %244)
-  %246 = load i32, ptr @edgeCount, align 4, !tbaa !5
-  %247 = sext i32 %246 to i64
-  %248 = getelementptr inbounds %struct.edgebox, ptr %212, i64 %247, i32 2
-  store i32 %245, ptr %248, align 4, !tbaa !18
-  %249 = load i32, ptr @edgeCount, align 4, !tbaa !5
-  %250 = sext i32 %249 to i64
-  %251 = getelementptr inbounds %struct.edgebox, ptr %212, i64 %250, i32 3
-  store i32 %158, ptr %251, align 4, !tbaa !19
-  %252 = load i32, ptr %4, align 4, !tbaa !5
-  %253 = sub nsw i32 %159, %252
-  %254 = call i32 @llvm.abs.i32(i32 %253, i1 true)
-  %255 = load i32, ptr @edgeCount, align 4, !tbaa !5
-  %256 = sext i32 %255 to i64
-  %257 = getelementptr inbounds %struct.edgebox, ptr %212, i64 %256, i32 4
-  store i32 %254, ptr %257, align 4, !tbaa !20
-  %258 = load i32, ptr %4, align 4, !tbaa !5
-  %259 = icmp sgt i32 %159, %258
-  %260 = select i1 %259, i32 -1, i32 1
-  %261 = load i32, ptr @edgeCount, align 4, !tbaa !5
-  %262 = sext i32 %261 to i64
-  %263 = getelementptr inbounds %struct.edgebox, ptr %212, i64 %262, i32 5
-  store i32 %260, ptr %263, align 4, !tbaa !21
-  %264 = load i32, ptr @edgeCount, align 4, !tbaa !5
-  call void @tinsert(ptr noundef nonnull @hFixedEdgeRoot, i32 noundef %158, i32 noundef %264) #12
-  %265 = load i32, ptr @edgeCount, align 4, !tbaa !5
-  call void @tinsert(ptr noundef nonnull @hEdgeRoot, i32 noundef %158, i32 noundef %265) #12
-  br label %266
+if.else105:                                       ; preds = %if.end72
+  %45 = load i32, ptr %vx, align 4
+  %cond111 = call i32 @llvm.smin.i32(i32 %ux.1455, i32 %45)
+  store i32 %cond111, ptr %start, align 4, !tbaa !16
+  %46 = load i32, ptr %vx, align 4
+  %cond120 = call i32 @llvm.smax.i32(i32 %ux.1455, i32 %46)
+  %47 = load i32, ptr @edgeCount, align 4, !tbaa !5
+  %idxprom121 = sext i32 %47 to i64
+  %end123 = getelementptr inbounds %struct.edgebox, ptr %33, i64 %idxprom121, i32 2
+  store i32 %cond120, ptr %end123, align 4, !tbaa !18
+  %48 = load i32, ptr @edgeCount, align 4, !tbaa !5
+  %idxprom124 = sext i32 %48 to i64
+  %loc126 = getelementptr inbounds %struct.edgebox, ptr %33, i64 %idxprom124, i32 3
+  store i32 %uy.1456, ptr %loc126, align 4, !tbaa !19
+  %49 = load i32, ptr %vx, align 4, !tbaa !5
+  %sub132 = sub nsw i32 %ux.1455, %49
+  %cond134 = call i32 @llvm.abs.i32(i32 %sub132, i1 true)
+  %50 = load i32, ptr @edgeCount, align 4, !tbaa !5
+  %idxprom135 = sext i32 %50 to i64
+  %length137 = getelementptr inbounds %struct.edgebox, ptr %33, i64 %idxprom135, i32 4
+  store i32 %cond134, ptr %length137, align 4, !tbaa !20
+  %51 = load i32, ptr %vx, align 4, !tbaa !5
+  %cmp138.not = icmp sgt i32 %ux.1455, %51
+  %cond140 = select i1 %cmp138.not, i32 -1, i32 1
+  %52 = load i32, ptr @edgeCount, align 4, !tbaa !5
+  %idxprom141 = sext i32 %52 to i64
+  %UorR143 = getelementptr inbounds %struct.edgebox, ptr %33, i64 %idxprom141, i32 5
+  store i32 %cond140, ptr %UorR143, align 4, !tbaa !21
+  %53 = load i32, ptr @edgeCount, align 4, !tbaa !5
+  call void @tinsert(ptr noundef nonnull @hFixedEdgeRoot, i32 noundef %uy.1456, i32 noundef %53) #12
+  %54 = load i32, ptr @edgeCount, align 4, !tbaa !5
+  call void @tinsert(ptr noundef nonnull @hEdgeRoot, i32 noundef %uy.1456, i32 noundef %54) #12
+  br label %if.end144
 
-266:                                              ; preds = %241, %216
-  %267 = load ptr, ptr @edgeList, align 8, !tbaa !9
-  %268 = load i32, ptr @edgeCount, align 4, !tbaa !5
-  %269 = sext i32 %268 to i64
-  %270 = getelementptr inbounds %struct.edgebox, ptr %267, i64 %269
-  store i32 %23, ptr %270, align 4, !tbaa !22
-  %271 = load i32, ptr @edgeCount, align 4, !tbaa !5
-  %272 = sext i32 %271 to i64
-  %273 = getelementptr inbounds %struct.edgebox, ptr %267, i64 %272, i32 6
-  store i32 1, ptr %273, align 4, !tbaa !23
-  %274 = load i32, ptr @edgeCount, align 4, !tbaa !5
-  %275 = add nsw i32 %274, 1
-  %276 = sext i32 %274 to i64
-  %277 = getelementptr inbounds %struct.edgebox, ptr %267, i64 %276, i32 8
-  store i32 %275, ptr %277, align 4, !tbaa !24
-  %278 = icmp eq i32 %160, 2
-  %279 = load i32, ptr @edgeCount, align 4, !tbaa !5
-  %280 = add nsw i32 %279, -1
-  %281 = load i32, ptr %3, align 4
-  %282 = add i32 %279, -1
-  %283 = add i32 %282, %281
-  %284 = select i1 %278, i32 %283, i32 %280
-  %285 = sext i32 %279 to i64
-  %286 = getelementptr inbounds %struct.edgebox, ptr %267, i64 %285, i32 7
-  store i32 %284, ptr %286, align 4, !tbaa !25
-  %287 = load i32, ptr %4, align 4, !tbaa !5
-  %288 = load i32, ptr %5, align 4, !tbaa !5
-  br label %289
+if.end144:                                        ; preds = %if.else105, %if.then76
+  %55 = load ptr, ptr @edgeList, align 8, !tbaa !9
+  %56 = load i32, ptr @edgeCount, align 4, !tbaa !5
+  %idxprom145 = sext i32 %56 to i64
+  %arrayidx146 = getelementptr inbounds %struct.edgebox, ptr %55, i64 %idxprom145
+  store i32 %0, ptr %arrayidx146, align 4, !tbaa !22
+  %57 = load i32, ptr @edgeCount, align 4, !tbaa !5
+  %idxprom148 = sext i32 %57 to i64
+  %fixed = getelementptr inbounds %struct.edgebox, ptr %55, i64 %idxprom148, i32 6
+  store i32 1, ptr %fixed, align 4, !tbaa !23
+  %58 = load i32, ptr @edgeCount, align 4, !tbaa !5
+  %add150 = add nsw i32 %58, 1
+  %idxprom151 = sext i32 %58 to i64
+  %nextEdge = getelementptr inbounds %struct.edgebox, ptr %55, i64 %idxprom151, i32 8
+  store i32 %add150, ptr %nextEdge, align 4, !tbaa !24
+  %cmp153 = icmp eq i32 %v.0454, 2
+  %59 = load i32, ptr @edgeCount, align 4, !tbaa !5
+  %sub161 = add nsw i32 %59, -1
+  %60 = load i32, ptr %vertices, align 4
+  %add156 = add i32 %59, -1
+  %sub157 = add i32 %add156, %60
+  %sub161.sink = select i1 %cmp153, i32 %sub157, i32 %sub161
+  %idxprom162 = sext i32 %59 to i64
+  %prevEdge164 = getelementptr inbounds %struct.edgebox, ptr %55, i64 %idxprom162, i32 7
+  store i32 %sub161.sink, ptr %prevEdge164, align 4, !tbaa !25
+  %61 = load i32, ptr %vx, align 4, !tbaa !5
+  %62 = load i32, ptr %vy, align 4, !tbaa !5
+  br label %for.inc167
 
-289:                                              ; preds = %179, %266
-  %290 = phi i32 [ %287, %266 ], [ %162, %179 ]
-  %291 = phi i32 [ %288, %266 ], [ %171, %179 ]
-  %292 = phi i32 [ %157, %266 ], [ %162, %179 ]
-  %293 = phi i32 [ %156, %266 ], [ %171, %179 ]
-  %294 = phi i32 [ %209, %266 ], [ %155, %179 ]
-  %295 = phi ptr [ %195, %266 ], [ %154, %179 ]
-  %296 = add nuw nsw i32 %160, 1
-  %297 = load i32, ptr %3, align 4, !tbaa !5
-  %298 = icmp slt i32 %160, %297
-  br i1 %298, label %153, label %299, !llvm.loop !26
+for.inc167:                                       ; preds = %if.end46, %if.end144
+  %ux.2 = phi i32 [ %61, %if.end144 ], [ %21, %if.end46 ]
+  %uy.2 = phi i32 [ %62, %if.end144 ], [ %24, %if.end46 ]
+  %ux0.2 = phi i32 [ %ux0.1457, %if.end144 ], [ %21, %if.end46 ]
+  %uy0.2 = phi i32 [ %uy0.1458, %if.end144 ], [ %24, %if.end46 ]
+  %rippleCount.3 = phi i32 [ %rippleCount.2, %if.end144 ], [ %rippleCount.1459, %if.end46 ]
+  %clptr.2 = phi ptr [ %clptr.1, %if.end144 ], [ %clptr.0460, %if.end46 ]
+  %inc168 = add nuw nsw i32 %v.0454, 1
+  %63 = load i32, ptr %vertices, align 4, !tbaa !5
+  %cmp27.not.not = icmp slt i32 %v.0454, %63
+  br i1 %cmp27.not.not, label %for.body29, label %for.end169, !llvm.loop !26
 
-299:                                              ; preds = %289
-  store i32 %292, ptr %4, align 4, !tbaa !5
-  store i32 %293, ptr %5, align 4, !tbaa !5
-  %300 = load i32, ptr @edgeCount, align 4, !tbaa !5
-  %301 = add nsw i32 %300, 1
-  store i32 %301, ptr @edgeCount, align 4, !tbaa !5
-  %302 = call noalias dereferenceable_or_null(40) ptr @malloc(i64 noundef 40) #13
-  %303 = getelementptr inbounds %struct.clbox, ptr %295, i64 0, i32 7
-  store ptr %302, ptr %303, align 8, !tbaa !11
-  %304 = getelementptr inbounds %struct.clbox, ptr %302, i64 0, i32 7
-  store ptr null, ptr %304, align 8, !tbaa !11
-  store i32 %301, ptr %302, align 8, !tbaa !13
-  %305 = getelementptr inbounds %struct.clbox, ptr %302, i64 0, i32 1
-  store i32 0, ptr %305, align 4, !tbaa !14
-  %306 = getelementptr inbounds %struct.clbox, ptr %302, i64 0, i32 6
-  store i32 1000000, ptr %306, align 8, !tbaa !15
-  %307 = icmp sgt i32 %294, 399
-  br i1 %307, label %311, label %308
+for.end169:                                       ; preds = %for.inc167
+  store i32 %ux0.2, ptr %vx, align 4, !tbaa !5
+  store i32 %uy0.2, ptr %vy, align 4, !tbaa !5
+  %64 = load i32, ptr @edgeCount, align 4, !tbaa !5
+  %inc170 = add nsw i32 %64, 1
+  store i32 %inc170, ptr @edgeCount, align 4, !tbaa !5
+  %call171 = call noalias dereferenceable_or_null(40) ptr @malloc(i64 noundef 40) #13
+  %next172 = getelementptr inbounds %struct.clbox, ptr %clptr.2, i64 0, i32 7
+  store ptr %call171, ptr %next172, align 8, !tbaa !11
+  %next173 = getelementptr inbounds %struct.clbox, ptr %call171, i64 0, i32 7
+  store ptr null, ptr %next173, align 8, !tbaa !11
+  store i32 %inc170, ptr %call171, align 8, !tbaa !13
+  %extraSpace175 = getelementptr inbounds %struct.clbox, ptr %call171, i64 0, i32 1
+  store i32 0, ptr %extraSpace175, align 4, !tbaa !14
+  %compact176 = getelementptr inbounds %struct.clbox, ptr %call171, i64 0, i32 6
+  store i32 1000000, ptr %compact176, align 8, !tbaa !15
+  %cmp178 = icmp sgt i32 %rippleCount.3, 399
+  br i1 %cmp178, label %if.then180, label %for.end169.if.end185_crit_edge
 
-308:                                              ; preds = %299
-  %309 = add nsw i32 %294, 1
-  %310 = load ptr, ptr @edgeList, align 8, !tbaa !9
-  br label %318
+for.end169.if.end185_crit_edge:                   ; preds = %for.end169
+  %inc177 = add nsw i32 %rippleCount.3, 1
+  %.pre = load ptr, ptr @edgeList, align 8, !tbaa !9
+  br label %if.end185
 
-311:                                              ; preds = %299
-  %312 = load ptr, ptr @edgeList, align 8, !tbaa !9
-  %313 = add nsw i32 %300, 401
-  %314 = sext i32 %313 to i64
-  %315 = mul nsw i64 %314, 40
-  %316 = call ptr @realloc(ptr noundef %312, i64 noundef %315) #14
-  store ptr %316, ptr @edgeList, align 8, !tbaa !9
-  %317 = load i32, ptr @edgeCount, align 4, !tbaa !5
-  br label %318
+if.then180:                                       ; preds = %for.end169
+  %65 = load ptr, ptr @edgeList, align 8, !tbaa !9
+  %add181 = add nsw i32 %64, 401
+  %conv182 = sext i32 %add181 to i64
+  %mul183 = mul nsw i64 %conv182, 40
+  %call184 = call ptr @realloc(ptr noundef %65, i64 noundef %mul183) #14
+  store ptr %call184, ptr @edgeList, align 8, !tbaa !9
+  %.pre486 = load i32, ptr @edgeCount, align 4, !tbaa !5
+  br label %if.end185
 
-318:                                              ; preds = %308, %311
-  %319 = phi i32 [ %317, %311 ], [ %301, %308 ]
-  %320 = phi ptr [ %316, %311 ], [ %310, %308 ]
-  %321 = phi i32 [ 1, %311 ], [ %309, %308 ]
-  %322 = sext i32 %319 to i64
-  %323 = getelementptr inbounds %struct.edgebox, ptr %320, i64 %322
-  store i32 %23, ptr %323, align 4, !tbaa !22
-  %324 = load i32, ptr %4, align 4, !tbaa !5
-  %325 = call i32 @llvm.smin.i32(i32 %290, i32 %324)
-  %326 = load i32, ptr @edgeCount, align 4, !tbaa !5
-  %327 = sext i32 %326 to i64
-  %328 = getelementptr inbounds %struct.edgebox, ptr %320, i64 %327, i32 1
-  store i32 %325, ptr %328, align 4, !tbaa !16
-  %329 = load i32, ptr %4, align 4, !tbaa !5
-  %330 = call i32 @llvm.smax.i32(i32 %290, i32 %329)
-  %331 = load i32, ptr @edgeCount, align 4, !tbaa !5
-  %332 = sext i32 %331 to i64
-  %333 = getelementptr inbounds %struct.edgebox, ptr %320, i64 %332, i32 2
-  store i32 %330, ptr %333, align 4, !tbaa !18
-  %334 = load i32, ptr @edgeCount, align 4, !tbaa !5
-  %335 = sext i32 %334 to i64
-  %336 = getelementptr inbounds %struct.edgebox, ptr %320, i64 %335, i32 3
-  store i32 %291, ptr %336, align 4, !tbaa !19
-  %337 = load i32, ptr %4, align 4, !tbaa !5
-  %338 = sub nsw i32 %290, %337
-  %339 = call i32 @llvm.abs.i32(i32 %338, i1 true)
-  %340 = load i32, ptr @edgeCount, align 4, !tbaa !5
-  %341 = sext i32 %340 to i64
-  %342 = getelementptr inbounds %struct.edgebox, ptr %320, i64 %341, i32 4
-  store i32 %339, ptr %342, align 4, !tbaa !20
-  %343 = load i32, ptr %4, align 4, !tbaa !5
-  %344 = icmp sgt i32 %290, %343
-  %345 = select i1 %344, i32 -1, i32 1
-  %346 = load i32, ptr @edgeCount, align 4, !tbaa !5
-  %347 = sext i32 %346 to i64
-  %348 = getelementptr inbounds %struct.edgebox, ptr %320, i64 %347, i32 5
-  store i32 %345, ptr %348, align 4, !tbaa !21
-  %349 = load i32, ptr @edgeCount, align 4, !tbaa !5
-  %350 = add nsw i32 %349, -1
-  %351 = sext i32 %349 to i64
-  %352 = getelementptr inbounds %struct.edgebox, ptr %320, i64 %351, i32 7
-  store i32 %350, ptr %352, align 4, !tbaa !25
-  %353 = load i32, ptr @edgeCount, align 4, !tbaa !5
-  %354 = load i32, ptr %3, align 4, !tbaa !5
-  %355 = add i32 %353, 1
-  %356 = sub i32 %355, %354
-  %357 = sext i32 %353 to i64
-  %358 = getelementptr inbounds %struct.edgebox, ptr %320, i64 %357, i32 8
-  store i32 %356, ptr %358, align 4, !tbaa !24
-  %359 = load i32, ptr @edgeCount, align 4, !tbaa !5
-  %360 = sext i32 %359 to i64
-  %361 = getelementptr inbounds %struct.edgebox, ptr %320, i64 %360, i32 6
-  store i32 1, ptr %361, align 4, !tbaa !23
-  %362 = load i32, ptr @edgeCount, align 4, !tbaa !5
-  call void @tinsert(ptr noundef nonnull @hFixedEdgeRoot, i32 noundef %291, i32 noundef %362) #12
-  %363 = load i32, ptr @edgeCount, align 4, !tbaa !5
-  call void @tinsert(ptr noundef nonnull @hEdgeRoot, i32 noundef %291, i32 noundef %363) #12
-  %364 = call i32 (ptr, ptr, ...) @__isoc99_fscanf(ptr noundef %0, ptr noundef nonnull @.str, ptr noundef nonnull %2) #12
-  %365 = icmp eq i32 %364, 1
-  %366 = add nuw i64 %13, 1
-  br i1 %365, label %11, label %375, !llvm.loop !28
+if.end185:                                        ; preds = %for.end169.if.end185_crit_edge, %if.then180
+  %66 = phi i32 [ %.pre486, %if.then180 ], [ %inc170, %for.end169.if.end185_crit_edge ]
+  %67 = phi ptr [ %call184, %if.then180 ], [ %.pre, %for.end169.if.end185_crit_edge ]
+  %rippleCount.4 = phi i32 [ 1, %if.then180 ], [ %inc177, %for.end169.if.end185_crit_edge ]
+  %idxprom186 = sext i32 %66 to i64
+  %arrayidx187 = getelementptr inbounds %struct.edgebox, ptr %67, i64 %idxprom186
+  store i32 %0, ptr %arrayidx187, align 4, !tbaa !22
+  %68 = load i32, ptr %vx, align 4
+  %cond194 = call i32 @llvm.smin.i32(i32 %ux.2, i32 %68)
+  %69 = load i32, ptr @edgeCount, align 4, !tbaa !5
+  %idxprom195 = sext i32 %69 to i64
+  %start197 = getelementptr inbounds %struct.edgebox, ptr %67, i64 %idxprom195, i32 1
+  store i32 %cond194, ptr %start197, align 4, !tbaa !16
+  %70 = load i32, ptr %vx, align 4
+  %cond203 = call i32 @llvm.smax.i32(i32 %ux.2, i32 %70)
+  %71 = load i32, ptr @edgeCount, align 4, !tbaa !5
+  %idxprom204 = sext i32 %71 to i64
+  %end206 = getelementptr inbounds %struct.edgebox, ptr %67, i64 %idxprom204, i32 2
+  store i32 %cond203, ptr %end206, align 4, !tbaa !18
+  %72 = load i32, ptr @edgeCount, align 4, !tbaa !5
+  %idxprom207 = sext i32 %72 to i64
+  %loc209 = getelementptr inbounds %struct.edgebox, ptr %67, i64 %idxprom207, i32 3
+  store i32 %uy.2, ptr %loc209, align 4, !tbaa !19
+  %73 = load i32, ptr %vx, align 4, !tbaa !5
+  %sub215 = sub nsw i32 %ux.2, %73
+  %cond217 = call i32 @llvm.abs.i32(i32 %sub215, i1 true)
+  %74 = load i32, ptr @edgeCount, align 4, !tbaa !5
+  %idxprom218 = sext i32 %74 to i64
+  %length220 = getelementptr inbounds %struct.edgebox, ptr %67, i64 %idxprom218, i32 4
+  store i32 %cond217, ptr %length220, align 4, !tbaa !20
+  %75 = load i32, ptr %vx, align 4, !tbaa !5
+  %cmp221.not = icmp sgt i32 %ux.2, %75
+  %cond223 = select i1 %cmp221.not, i32 -1, i32 1
+  %76 = load i32, ptr @edgeCount, align 4, !tbaa !5
+  %idxprom224 = sext i32 %76 to i64
+  %UorR226 = getelementptr inbounds %struct.edgebox, ptr %67, i64 %idxprom224, i32 5
+  store i32 %cond223, ptr %UorR226, align 4, !tbaa !21
+  %77 = load i32, ptr @edgeCount, align 4, !tbaa !5
+  %sub227 = add nsw i32 %77, -1
+  %idxprom228 = sext i32 %77 to i64
+  %prevEdge230 = getelementptr inbounds %struct.edgebox, ptr %67, i64 %idxprom228, i32 7
+  store i32 %sub227, ptr %prevEdge230, align 4, !tbaa !25
+  %78 = load i32, ptr @edgeCount, align 4, !tbaa !5
+  %79 = load i32, ptr %vertices, align 4, !tbaa !5
+  %sub231.neg = add i32 %78, 1
+  %sub232 = sub i32 %sub231.neg, %79
+  %idxprom233 = sext i32 %78 to i64
+  %nextEdge235 = getelementptr inbounds %struct.edgebox, ptr %67, i64 %idxprom233, i32 8
+  store i32 %sub232, ptr %nextEdge235, align 4, !tbaa !24
+  %80 = load i32, ptr @edgeCount, align 4, !tbaa !5
+  %idxprom236 = sext i32 %80 to i64
+  %fixed238 = getelementptr inbounds %struct.edgebox, ptr %67, i64 %idxprom236, i32 6
+  store i32 1, ptr %fixed238, align 4, !tbaa !23
+  %81 = load i32, ptr @edgeCount, align 4, !tbaa !5
+  call void @tinsert(ptr noundef nonnull @hFixedEdgeRoot, i32 noundef %uy.2, i32 noundef %81) #12
+  %82 = load i32, ptr @edgeCount, align 4, !tbaa !5
+  call void @tinsert(ptr noundef nonnull @hEdgeRoot, i32 noundef %uy.2, i32 noundef %82) #12
+  %call2 = call i32 (ptr, ptr, ...) @__isoc99_fscanf(ptr noundef %fp, ptr noundef nonnull @.str, ptr noundef nonnull %input) #12
+  %cmp3 = icmp eq i32 %call2, 1
+  %indvars.iv.next = add nuw i64 %indvars.iv, 1
+  br i1 %cmp3, label %while.body, label %while.end.loopexit, !llvm.loop !28
 
-367:                                              ; preds = %11
-  %368 = trunc i64 %12 to i32
-  %369 = load ptr, ptr @fpdebug, align 8, !tbaa !9
-  %370 = call i32 (ptr, ptr, ...) @fprintf(ptr noundef %369, ptr noundef nonnull @.str.4, ptr noundef nonnull %2)
-  %371 = load ptr, ptr @fpdebug, align 8, !tbaa !9
-  %372 = call i64 @fwrite(ptr nonnull @.str.5, i64 14, i64 1, ptr %371)
-  %373 = load ptr, ptr @fpdebug, align 8, !tbaa !9
-  %374 = call i32 (ptr, ptr, ...) @fprintf(ptr noundef %373, ptr noundef nonnull @.str.6, i32 noundef %368)
+if.else239:                                       ; preds = %while.body
+  %83 = trunc i64 %indvars.iv482 to i32
+  %84 = load ptr, ptr @fpdebug, align 8, !tbaa !9
+  %call241 = call i32 (ptr, ptr, ...) @fprintf(ptr noundef %84, ptr noundef nonnull @.str.4, ptr noundef nonnull %input)
+  %85 = load ptr, ptr @fpdebug, align 8, !tbaa !9
+  %86 = call i64 @fwrite(ptr nonnull @.str.5, i64 14, i64 1, ptr %85)
+  %87 = load ptr, ptr @fpdebug, align 8, !tbaa !9
+  %call243 = call i32 (ptr, ptr, ...) @fprintf(ptr noundef %87, ptr noundef nonnull @.str.6, i32 noundef %83)
   call void @exit(i32 noundef 0) #15
   unreachable
 
-375:                                              ; preds = %318
-  %376 = trunc i64 %22 to i32
-  br label %377
+while.end.loopexit:                               ; preds = %if.end185
+  %88 = trunc i64 %indvars.iv.next483 to i32
+  br label %while.end
 
-377:                                              ; preds = %375, %1
-  %378 = phi i32 [ 0, %1 ], [ %376, %375 ]
-  store i32 %378, ptr @numberCells, align 4, !tbaa !5
-  %379 = load i32, ptr @bbb, align 4, !tbaa !5
-  %380 = add nsw i32 %379, -1
-  store i32 %380, ptr @bbb, align 4, !tbaa !5
-  %381 = load i32, ptr @bbt, align 4, !tbaa !5
-  %382 = add nsw i32 %381, 1
-  store i32 %382, ptr @bbt, align 4, !tbaa !5
-  %383 = load i32, ptr @bbl, align 4, !tbaa !5
-  %384 = add nsw i32 %383, -1
-  store i32 %384, ptr @bbl, align 4, !tbaa !5
-  %385 = load i32, ptr @bbr, align 4, !tbaa !5
-  %386 = add nsw i32 %385, 1
-  store i32 %386, ptr @bbr, align 4, !tbaa !5
-  %387 = load ptr, ptr @edgeList, align 8, !tbaa !9
-  %388 = load i32, ptr @edgeCount, align 4, !tbaa !5
-  %389 = mul nsw i32 %388, 3
-  %390 = add nsw i32 %389, 5
-  %391 = sext i32 %390 to i64
-  %392 = mul nsw i64 %391, 40
-  %393 = call ptr @realloc(ptr noundef %387, i64 noundef %392) #14
-  store ptr %393, ptr @edgeList, align 8, !tbaa !9
-  %394 = load i32, ptr @bbb, align 4, !tbaa !5
-  %395 = load i32, ptr @edgeCount, align 4, !tbaa !5
-  %396 = add nsw i32 %395, 1
-  %397 = sext i32 %396 to i64
-  %398 = getelementptr inbounds %struct.edgebox, ptr %393, i64 %397
-  %399 = getelementptr inbounds %struct.edgebox, ptr %393, i64 %397, i32 1
-  store i32 %394, ptr %399, align 4, !tbaa !16
-  %400 = load i32, ptr @bbt, align 4, !tbaa !5
-  %401 = getelementptr inbounds %struct.edgebox, ptr %393, i64 %397, i32 2
-  store i32 %400, ptr %401, align 4, !tbaa !18
-  %402 = load i32, ptr @bbl, align 4, !tbaa !5
-  %403 = getelementptr inbounds %struct.edgebox, ptr %393, i64 %397, i32 3
-  store i32 %402, ptr %403, align 4, !tbaa !19
-  %404 = sub nsw i32 %400, %394
-  %405 = getelementptr inbounds %struct.edgebox, ptr %393, i64 %397, i32 4
-  store i32 %404, ptr %405, align 4, !tbaa !20
-  %406 = getelementptr inbounds %struct.edgebox, ptr %393, i64 %397, i32 6
-  store i32 1, ptr %406, align 4, !tbaa !23
-  %407 = getelementptr inbounds %struct.edgebox, ptr %393, i64 %397, i32 5
-  store i32 -1, ptr %407, align 4, !tbaa !21
-  %408 = add nsw i32 %395, 2
-  %409 = getelementptr inbounds %struct.edgebox, ptr %393, i64 %397, i32 7
-  store i32 %408, ptr %409, align 4, !tbaa !25
-  %410 = add nsw i32 %395, 4
-  %411 = getelementptr inbounds %struct.edgebox, ptr %393, i64 %397, i32 8
-  store i32 %410, ptr %411, align 4, !tbaa !24
-  store i32 -1, ptr %398, align 4, !tbaa !22
-  %412 = sext i32 %408 to i64
-  %413 = getelementptr inbounds %struct.edgebox, ptr %393, i64 %412
-  %414 = getelementptr inbounds %struct.edgebox, ptr %393, i64 %412, i32 1
-  store i32 %402, ptr %414, align 4, !tbaa !16
-  %415 = load i32, ptr @bbr, align 4, !tbaa !5
-  %416 = getelementptr inbounds %struct.edgebox, ptr %393, i64 %412, i32 2
-  store i32 %415, ptr %416, align 4, !tbaa !18
-  %417 = getelementptr inbounds %struct.edgebox, ptr %393, i64 %412, i32 3
-  store i32 %400, ptr %417, align 4, !tbaa !19
-  %418 = sub nsw i32 %415, %402
-  %419 = getelementptr inbounds %struct.edgebox, ptr %393, i64 %412, i32 4
-  store i32 %418, ptr %419, align 4, !tbaa !20
-  %420 = getelementptr inbounds %struct.edgebox, ptr %393, i64 %412, i32 6
-  store i32 1, ptr %420, align 4, !tbaa !23
-  %421 = getelementptr inbounds %struct.edgebox, ptr %393, i64 %412, i32 5
-  store i32 -1, ptr %421, align 4, !tbaa !21
-  %422 = add nsw i32 %395, 3
-  %423 = getelementptr inbounds %struct.edgebox, ptr %393, i64 %412, i32 7
-  store i32 %422, ptr %423, align 4, !tbaa !25
-  %424 = getelementptr inbounds %struct.edgebox, ptr %393, i64 %412, i32 8
-  store i32 %396, ptr %424, align 4, !tbaa !24
-  store i32 -1, ptr %413, align 4, !tbaa !22
-  %425 = sext i32 %422 to i64
-  %426 = getelementptr inbounds %struct.edgebox, ptr %393, i64 %425
-  %427 = getelementptr inbounds %struct.edgebox, ptr %393, i64 %425, i32 1
-  store i32 %394, ptr %427, align 4, !tbaa !16
-  %428 = getelementptr inbounds %struct.edgebox, ptr %393, i64 %425, i32 2
-  store i32 %400, ptr %428, align 4, !tbaa !18
-  %429 = getelementptr inbounds %struct.edgebox, ptr %393, i64 %425, i32 3
-  store i32 %415, ptr %429, align 4, !tbaa !19
-  %430 = getelementptr inbounds %struct.edgebox, ptr %393, i64 %425, i32 4
-  store i32 %404, ptr %430, align 4, !tbaa !20
-  %431 = getelementptr inbounds %struct.edgebox, ptr %393, i64 %425, i32 6
-  store i32 1, ptr %431, align 4, !tbaa !23
-  %432 = getelementptr inbounds %struct.edgebox, ptr %393, i64 %425, i32 5
-  store i32 1, ptr %432, align 4, !tbaa !21
-  %433 = getelementptr inbounds %struct.edgebox, ptr %393, i64 %425, i32 7
-  store i32 %410, ptr %433, align 4, !tbaa !25
-  %434 = getelementptr inbounds %struct.edgebox, ptr %393, i64 %425, i32 8
-  store i32 %408, ptr %434, align 4, !tbaa !24
-  store i32 -1, ptr %426, align 4, !tbaa !22
-  store i32 %410, ptr @edgeCount, align 4, !tbaa !5
-  %435 = sext i32 %410 to i64
-  %436 = getelementptr inbounds %struct.edgebox, ptr %393, i64 %435
-  %437 = getelementptr inbounds %struct.edgebox, ptr %393, i64 %435, i32 1
-  store i32 %402, ptr %437, align 4, !tbaa !16
-  %438 = getelementptr inbounds %struct.edgebox, ptr %393, i64 %435, i32 2
-  store i32 %415, ptr %438, align 4, !tbaa !18
-  %439 = getelementptr inbounds %struct.edgebox, ptr %393, i64 %435, i32 3
-  store i32 %394, ptr %439, align 4, !tbaa !19
-  %440 = getelementptr inbounds %struct.edgebox, ptr %393, i64 %435, i32 4
-  store i32 %418, ptr %440, align 4, !tbaa !20
-  %441 = getelementptr inbounds %struct.edgebox, ptr %393, i64 %435, i32 6
-  store i32 1, ptr %441, align 4, !tbaa !23
-  %442 = getelementptr inbounds %struct.edgebox, ptr %393, i64 %435, i32 5
-  store i32 1, ptr %442, align 4, !tbaa !21
-  %443 = getelementptr inbounds %struct.edgebox, ptr %393, i64 %435, i32 7
-  store i32 %396, ptr %443, align 4, !tbaa !25
-  %444 = getelementptr inbounds %struct.edgebox, ptr %393, i64 %435, i32 8
-  store i32 %422, ptr %444, align 4, !tbaa !24
-  store i32 -1, ptr %436, align 4, !tbaa !22
+while.end:                                        ; preds = %while.end.loopexit, %entry
+  %cell.0.lcssa = phi i32 [ 0, %entry ], [ %88, %while.end.loopexit ]
+  store i32 %cell.0.lcssa, ptr @numberCells, align 4, !tbaa !5
+  %89 = load i32, ptr @bbb, align 4, !tbaa !5
+  %dec = add nsw i32 %89, -1
+  store i32 %dec, ptr @bbb, align 4, !tbaa !5
+  %90 = load i32, ptr @bbt, align 4, !tbaa !5
+  %inc245 = add nsw i32 %90, 1
+  store i32 %inc245, ptr @bbt, align 4, !tbaa !5
+  %91 = load i32, ptr @bbl, align 4, !tbaa !5
+  %dec246 = add nsw i32 %91, -1
+  store i32 %dec246, ptr @bbl, align 4, !tbaa !5
+  %92 = load i32, ptr @bbr, align 4, !tbaa !5
+  %inc247 = add nsw i32 %92, 1
+  store i32 %inc247, ptr @bbr, align 4, !tbaa !5
+  %93 = load ptr, ptr @edgeList, align 8, !tbaa !9
+  %94 = load i32, ptr @edgeCount, align 4, !tbaa !5
+  %mul248 = mul nsw i32 %94, 3
+  %add249 = add nsw i32 %mul248, 5
+  %conv250 = sext i32 %add249 to i64
+  %mul251 = mul nsw i64 %conv250, 40
+  %call252 = call ptr @realloc(ptr noundef %93, i64 noundef %mul251) #14
+  store ptr %call252, ptr @edgeList, align 8, !tbaa !9
+  %95 = load i32, ptr @bbb, align 4, !tbaa !5
+  %96 = load i32, ptr @edgeCount, align 4, !tbaa !5
+  %inc253 = add nsw i32 %96, 1
+  %idxprom254 = sext i32 %inc253 to i64
+  %start256 = getelementptr inbounds %struct.edgebox, ptr %call252, i64 %idxprom254, i32 1
+  store i32 %95, ptr %start256, align 4, !tbaa !16
+  %97 = load i32, ptr @bbt, align 4, !tbaa !5
+  %end259 = getelementptr inbounds %struct.edgebox, ptr %call252, i64 %idxprom254, i32 2
+  store i32 %97, ptr %end259, align 4, !tbaa !18
+  %98 = load i32, ptr @bbl, align 4, !tbaa !5
+  %loc262 = getelementptr inbounds %struct.edgebox, ptr %call252, i64 %idxprom254, i32 3
+  store i32 %98, ptr %loc262, align 4, !tbaa !19
+  %sub263 = sub nsw i32 %97, %95
+  %length266 = getelementptr inbounds %struct.edgebox, ptr %call252, i64 %idxprom254, i32 4
+  store i32 %sub263, ptr %length266, align 4, !tbaa !20
+  %fixed269 = getelementptr inbounds %struct.edgebox, ptr %call252, i64 %idxprom254, i32 6
+  store i32 1, ptr %fixed269, align 4, !tbaa !23
+  %UorR272 = getelementptr inbounds %struct.edgebox, ptr %call252, i64 %idxprom254, i32 5
+  store i32 -1, ptr %UorR272, align 4, !tbaa !21
+  %add273 = add nsw i32 %96, 2
+  %prevEdge276 = getelementptr inbounds %struct.edgebox, ptr %call252, i64 %idxprom254, i32 7
+  store i32 %add273, ptr %prevEdge276, align 4, !tbaa !25
+  %add277 = add nsw i32 %96, 4
+  %nextEdge280 = getelementptr inbounds %struct.edgebox, ptr %call252, i64 %idxprom254, i32 8
+  store i32 %add277, ptr %nextEdge280, align 4, !tbaa !24
+  %arrayidx282 = getelementptr inbounds %struct.edgebox, ptr %call252, i64 %idxprom254
+  store i32 -1, ptr %arrayidx282, align 4, !tbaa !22
+  %idxprom285 = sext i32 %add273 to i64
+  %start287 = getelementptr inbounds %struct.edgebox, ptr %call252, i64 %idxprom285, i32 1
+  store i32 %98, ptr %start287, align 4, !tbaa !16
+  %99 = load i32, ptr @bbr, align 4, !tbaa !5
+  %end290 = getelementptr inbounds %struct.edgebox, ptr %call252, i64 %idxprom285, i32 2
+  store i32 %99, ptr %end290, align 4, !tbaa !18
+  %loc293 = getelementptr inbounds %struct.edgebox, ptr %call252, i64 %idxprom285, i32 3
+  store i32 %97, ptr %loc293, align 4, !tbaa !19
+  %sub294 = sub nsw i32 %99, %98
+  %length297 = getelementptr inbounds %struct.edgebox, ptr %call252, i64 %idxprom285, i32 4
+  store i32 %sub294, ptr %length297, align 4, !tbaa !20
+  %fixed300 = getelementptr inbounds %struct.edgebox, ptr %call252, i64 %idxprom285, i32 6
+  store i32 1, ptr %fixed300, align 4, !tbaa !23
+  %UorR303 = getelementptr inbounds %struct.edgebox, ptr %call252, i64 %idxprom285, i32 5
+  store i32 -1, ptr %UorR303, align 4, !tbaa !21
+  %add304 = add nsw i32 %96, 3
+  %prevEdge307 = getelementptr inbounds %struct.edgebox, ptr %call252, i64 %idxprom285, i32 7
+  store i32 %add304, ptr %prevEdge307, align 4, !tbaa !25
+  %nextEdge311 = getelementptr inbounds %struct.edgebox, ptr %call252, i64 %idxprom285, i32 8
+  store i32 %inc253, ptr %nextEdge311, align 4, !tbaa !24
+  %arrayidx313 = getelementptr inbounds %struct.edgebox, ptr %call252, i64 %idxprom285
+  store i32 -1, ptr %arrayidx313, align 4, !tbaa !22
+  %idxprom316 = sext i32 %add304 to i64
+  %start318 = getelementptr inbounds %struct.edgebox, ptr %call252, i64 %idxprom316, i32 1
+  store i32 %95, ptr %start318, align 4, !tbaa !16
+  %end321 = getelementptr inbounds %struct.edgebox, ptr %call252, i64 %idxprom316, i32 2
+  store i32 %97, ptr %end321, align 4, !tbaa !18
+  %loc324 = getelementptr inbounds %struct.edgebox, ptr %call252, i64 %idxprom316, i32 3
+  store i32 %99, ptr %loc324, align 4, !tbaa !19
+  %length328 = getelementptr inbounds %struct.edgebox, ptr %call252, i64 %idxprom316, i32 4
+  store i32 %sub263, ptr %length328, align 4, !tbaa !20
+  %fixed331 = getelementptr inbounds %struct.edgebox, ptr %call252, i64 %idxprom316, i32 6
+  store i32 1, ptr %fixed331, align 4, !tbaa !23
+  %UorR334 = getelementptr inbounds %struct.edgebox, ptr %call252, i64 %idxprom316, i32 5
+  store i32 1, ptr %UorR334, align 4, !tbaa !21
+  %prevEdge338 = getelementptr inbounds %struct.edgebox, ptr %call252, i64 %idxprom316, i32 7
+  store i32 %add277, ptr %prevEdge338, align 4, !tbaa !25
+  %nextEdge342 = getelementptr inbounds %struct.edgebox, ptr %call252, i64 %idxprom316, i32 8
+  store i32 %add273, ptr %nextEdge342, align 4, !tbaa !24
+  %arrayidx344 = getelementptr inbounds %struct.edgebox, ptr %call252, i64 %idxprom316
+  store i32 -1, ptr %arrayidx344, align 4, !tbaa !22
+  store i32 %add277, ptr @edgeCount, align 4, !tbaa !5
+  %idxprom347 = sext i32 %add277 to i64
+  %start349 = getelementptr inbounds %struct.edgebox, ptr %call252, i64 %idxprom347, i32 1
+  store i32 %98, ptr %start349, align 4, !tbaa !16
+  %end352 = getelementptr inbounds %struct.edgebox, ptr %call252, i64 %idxprom347, i32 2
+  store i32 %99, ptr %end352, align 4, !tbaa !18
+  %loc355 = getelementptr inbounds %struct.edgebox, ptr %call252, i64 %idxprom347, i32 3
+  store i32 %95, ptr %loc355, align 4, !tbaa !19
+  %length359 = getelementptr inbounds %struct.edgebox, ptr %call252, i64 %idxprom347, i32 4
+  store i32 %sub294, ptr %length359, align 4, !tbaa !20
+  %fixed362 = getelementptr inbounds %struct.edgebox, ptr %call252, i64 %idxprom347, i32 6
+  store i32 1, ptr %fixed362, align 4, !tbaa !23
+  %UorR365 = getelementptr inbounds %struct.edgebox, ptr %call252, i64 %idxprom347, i32 5
+  store i32 1, ptr %UorR365, align 4, !tbaa !21
+  %prevEdge369 = getelementptr inbounds %struct.edgebox, ptr %call252, i64 %idxprom347, i32 7
+  store i32 %inc253, ptr %prevEdge369, align 4, !tbaa !25
+  %nextEdge373 = getelementptr inbounds %struct.edgebox, ptr %call252, i64 %idxprom347, i32 8
+  store i32 %add304, ptr %nextEdge373, align 4, !tbaa !24
+  %arrayidx375 = getelementptr inbounds %struct.edgebox, ptr %call252, i64 %idxprom347
+  store i32 -1, ptr %arrayidx375, align 4, !tbaa !22
   store i32 0, ptr @numProbes, align 4, !tbaa !5
-  call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %5) #12
-  call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %4) #12
-  call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %3) #12
-  call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %2) #12
+  call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %vy) #12
+  call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %vx) #12
+  call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %vertices) #12
+  call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %input) #12
   ret void
 }
 

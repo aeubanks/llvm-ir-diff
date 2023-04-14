@@ -8,323 +8,317 @@ target triple = "x86_64-unknown-linux-gnu"
 %struct.hypre_BoxArrayArray_struct = type { ptr, i32 }
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(argmem: readwrite) uwtable
-define dso_local i32 @hypre_ProjectBox(ptr nocapture noundef %0, ptr nocapture noundef readonly %1, ptr nocapture noundef readonly %2) local_unnamed_addr #0 {
-  %4 = load i32, ptr %1, align 4, !tbaa !5
-  %5 = load i32, ptr %2, align 4, !tbaa !5
-  %6 = load i32, ptr %0, align 4, !tbaa !5
-  %7 = sub nsw i32 %6, %4
-  %8 = getelementptr inbounds %struct.hypre_Box_struct, ptr %0, i64 0, i32 1, i64 0
-  %9 = load i32, ptr %8, align 4, !tbaa !5
-  %10 = sub nsw i32 %9, %4
-  %11 = add nsw i32 %5, -1
-  %12 = icmp sgt i32 %7, 0
-  %13 = select i1 %12, i32 %11, i32 0
-  %14 = add nsw i32 %7, %13
-  %15 = sub i32 %10, %5
-  %16 = add i32 %15, 1
-  %17 = icmp slt i32 %10, 0
-  %18 = select i1 %17, i32 %16, i32 %10
-  %19 = freeze i32 %14
-  %20 = srem i32 %19, %5
-  %21 = sub i32 %4, %20
-  %22 = add i32 %21, %19
-  store i32 %22, ptr %0, align 4, !tbaa !5
-  %23 = freeze i32 %18
-  %24 = srem i32 %23, %5
-  %25 = sub i32 %4, %24
-  %26 = add i32 %25, %23
-  store i32 %26, ptr %8, align 4, !tbaa !5
-  %27 = getelementptr inbounds i32, ptr %1, i64 1
-  %28 = load i32, ptr %27, align 4, !tbaa !5
-  %29 = getelementptr inbounds i32, ptr %2, i64 1
-  %30 = load i32, ptr %29, align 4, !tbaa !5
-  %31 = getelementptr inbounds [3 x i32], ptr %0, i64 0, i64 1
-  %32 = load i32, ptr %31, align 4, !tbaa !5
-  %33 = sub nsw i32 %32, %28
-  %34 = getelementptr inbounds %struct.hypre_Box_struct, ptr %0, i64 0, i32 1, i64 1
-  %35 = load i32, ptr %34, align 4, !tbaa !5
-  %36 = sub nsw i32 %35, %28
-  %37 = add nsw i32 %30, -1
-  %38 = icmp sgt i32 %33, 0
-  %39 = select i1 %38, i32 %37, i32 0
-  %40 = add nsw i32 %33, %39
-  %41 = sub i32 %36, %30
-  %42 = add i32 %41, 1
-  %43 = icmp slt i32 %36, 0
-  %44 = select i1 %43, i32 %42, i32 %36
-  %45 = freeze i32 %40
-  %46 = srem i32 %45, %30
-  %47 = sub i32 %28, %46
-  %48 = add i32 %47, %45
-  store i32 %48, ptr %31, align 4, !tbaa !5
-  %49 = freeze i32 %44
-  %50 = srem i32 %49, %30
-  %51 = sub i32 %28, %50
-  %52 = add i32 %51, %49
-  store i32 %52, ptr %34, align 4, !tbaa !5
-  %53 = getelementptr inbounds i32, ptr %1, i64 2
-  %54 = load i32, ptr %53, align 4, !tbaa !5
-  %55 = getelementptr inbounds i32, ptr %2, i64 2
-  %56 = load i32, ptr %55, align 4, !tbaa !5
-  %57 = getelementptr inbounds [3 x i32], ptr %0, i64 0, i64 2
-  %58 = load i32, ptr %57, align 4, !tbaa !5
-  %59 = sub nsw i32 %58, %54
-  %60 = getelementptr inbounds %struct.hypre_Box_struct, ptr %0, i64 0, i32 1, i64 2
-  %61 = load i32, ptr %60, align 4, !tbaa !5
-  %62 = sub nsw i32 %61, %54
-  %63 = add nsw i32 %56, -1
-  %64 = icmp sgt i32 %59, 0
-  %65 = select i1 %64, i32 %63, i32 0
-  %66 = add nsw i32 %59, %65
-  %67 = sub i32 %62, %56
-  %68 = add i32 %67, 1
-  %69 = icmp slt i32 %62, 0
-  %70 = select i1 %69, i32 %68, i32 %62
-  %71 = freeze i32 %66
-  %72 = srem i32 %71, %56
-  %73 = sub i32 %54, %72
-  %74 = add i32 %73, %71
-  store i32 %74, ptr %57, align 4, !tbaa !5
-  %75 = freeze i32 %70
-  %76 = srem i32 %75, %56
-  %77 = sub i32 %54, %76
-  %78 = add i32 %77, %75
-  store i32 %78, ptr %60, align 4, !tbaa !5
+define dso_local i32 @hypre_ProjectBox(ptr nocapture noundef %box, ptr nocapture noundef readonly %index, ptr nocapture noundef readonly %stride) local_unnamed_addr #0 {
+entry:
+  %0 = load i32, ptr %index, align 4, !tbaa !5
+  %1 = load i32, ptr %stride, align 4, !tbaa !5
+  %2 = load i32, ptr %box, align 4, !tbaa !5
+  %sub = sub nsw i32 %2, %0
+  %arrayidx6 = getelementptr inbounds %struct.hypre_Box_struct, ptr %box, i64 0, i32 1, i64 0
+  %3 = load i32, ptr %arrayidx6, align 4, !tbaa !5
+  %sub7 = sub nsw i32 %3, %0
+  %sub9 = add nsw i32 %1, -1
+  %cmp8.inv = icmp sgt i32 %sub, 0
+  %add = select i1 %cmp8.inv, i32 %sub9, i32 0
+  %sub.pn = add nsw i32 %add, %sub
+  %cmp1152 = icmp slt i32 %sub7, 0
+  %sub16 = select i1 %cmp1152, i32 %sub9, i32 0
+  %sub7.pn = sub nsw i32 %sub7, %sub16
+  %sub.pn.fr = freeze i32 %sub.pn
+  %4 = srem i32 %sub.pn.fr, %1
+  %mul = sub i32 %0, %4
+  %add19 = add i32 %mul, %sub.pn.fr
+  store i32 %add19, ptr %box, align 4, !tbaa !5
+  %sub7.pn.fr = freeze i32 %sub7.pn
+  %5 = srem i32 %sub7.pn.fr, %1
+  %mul23 = sub i32 %0, %5
+  %add24 = add i32 %mul23, %sub7.pn.fr
+  store i32 %add24, ptr %arrayidx6, align 4, !tbaa !5
+  %arrayidx.1 = getelementptr inbounds i32, ptr %index, i64 1
+  %6 = load i32, ptr %arrayidx.1, align 4, !tbaa !5
+  %arrayidx2.1 = getelementptr inbounds i32, ptr %stride, i64 1
+  %7 = load i32, ptr %arrayidx2.1, align 4, !tbaa !5
+  %arrayidx4.1 = getelementptr inbounds [3 x i32], ptr %box, i64 0, i64 1
+  %8 = load i32, ptr %arrayidx4.1, align 4, !tbaa !5
+  %sub.1 = sub nsw i32 %8, %6
+  %arrayidx6.1 = getelementptr inbounds %struct.hypre_Box_struct, ptr %box, i64 0, i32 1, i64 1
+  %9 = load i32, ptr %arrayidx6.1, align 4, !tbaa !5
+  %sub7.1 = sub nsw i32 %9, %6
+  %sub9.1 = add nsw i32 %7, -1
+  %cmp8.inv.1 = icmp sgt i32 %sub.1, 0
+  %add.1 = select i1 %cmp8.inv.1, i32 %sub9.1, i32 0
+  %sub.pn.1 = add nsw i32 %add.1, %sub.1
+  %cmp1152.1 = icmp slt i32 %sub7.1, 0
+  %sub16.1 = select i1 %cmp1152.1, i32 %sub9.1, i32 0
+  %sub7.pn.1 = sub nsw i32 %sub7.1, %sub16.1
+  %sub.pn.fr.1 = freeze i32 %sub.pn.1
+  %10 = srem i32 %sub.pn.fr.1, %7
+  %mul.1 = sub i32 %6, %10
+  %add19.1 = add i32 %mul.1, %sub.pn.fr.1
+  store i32 %add19.1, ptr %arrayidx4.1, align 4, !tbaa !5
+  %sub7.pn.fr.1 = freeze i32 %sub7.pn.1
+  %11 = srem i32 %sub7.pn.fr.1, %7
+  %mul23.1 = sub i32 %6, %11
+  %add24.1 = add i32 %mul23.1, %sub7.pn.fr.1
+  store i32 %add24.1, ptr %arrayidx6.1, align 4, !tbaa !5
+  %arrayidx.2 = getelementptr inbounds i32, ptr %index, i64 2
+  %12 = load i32, ptr %arrayidx.2, align 4, !tbaa !5
+  %arrayidx2.2 = getelementptr inbounds i32, ptr %stride, i64 2
+  %13 = load i32, ptr %arrayidx2.2, align 4, !tbaa !5
+  %arrayidx4.2 = getelementptr inbounds [3 x i32], ptr %box, i64 0, i64 2
+  %14 = load i32, ptr %arrayidx4.2, align 4, !tbaa !5
+  %sub.2 = sub nsw i32 %14, %12
+  %arrayidx6.2 = getelementptr inbounds %struct.hypre_Box_struct, ptr %box, i64 0, i32 1, i64 2
+  %15 = load i32, ptr %arrayidx6.2, align 4, !tbaa !5
+  %sub7.2 = sub nsw i32 %15, %12
+  %sub9.2 = add nsw i32 %13, -1
+  %cmp8.inv.2 = icmp sgt i32 %sub.2, 0
+  %add.2 = select i1 %cmp8.inv.2, i32 %sub9.2, i32 0
+  %sub.pn.2 = add nsw i32 %add.2, %sub.2
+  %cmp1152.2 = icmp slt i32 %sub7.2, 0
+  %sub16.2 = select i1 %cmp1152.2, i32 %sub9.2, i32 0
+  %sub7.pn.2 = sub nsw i32 %sub7.2, %sub16.2
+  %sub.pn.fr.2 = freeze i32 %sub.pn.2
+  %16 = srem i32 %sub.pn.fr.2, %13
+  %mul.2 = sub i32 %12, %16
+  %add19.2 = add i32 %mul.2, %sub.pn.fr.2
+  store i32 %add19.2, ptr %arrayidx4.2, align 4, !tbaa !5
+  %sub7.pn.fr.2 = freeze i32 %sub7.pn.2
+  %17 = srem i32 %sub7.pn.fr.2, %13
+  %mul23.2 = sub i32 %12, %17
+  %add24.2 = add i32 %mul23.2, %sub7.pn.fr.2
+  store i32 %add24.2, ptr %arrayidx6.2, align 4, !tbaa !5
   ret i32 0
 }
 
 ; Function Attrs: nofree norecurse nosync nounwind memory(readwrite, inaccessiblemem: none) uwtable
-define dso_local i32 @hypre_ProjectBoxArray(ptr nocapture noundef readonly %0, ptr nocapture noundef readonly %1, ptr nocapture noundef readonly %2) local_unnamed_addr #1 {
-  %4 = getelementptr inbounds %struct.hypre_BoxArray_struct, ptr %0, i64 0, i32 1
-  %5 = load i32, ptr %4, align 8, !tbaa !9
-  %6 = icmp sgt i32 %5, 0
-  br i1 %6, label %7, label %91
+define dso_local i32 @hypre_ProjectBoxArray(ptr nocapture noundef readonly %box_array, ptr nocapture noundef readonly %index, ptr nocapture noundef readonly %stride) local_unnamed_addr #1 {
+entry:
+  %size = getelementptr inbounds %struct.hypre_BoxArray_struct, ptr %box_array, i64 0, i32 1
+  %0 = load i32, ptr %size, align 8, !tbaa !9
+  %cmp9 = icmp sgt i32 %0, 0
+  br i1 %cmp9, label %for.body.lr.ph, label %for.end
 
-7:                                                ; preds = %3
-  %8 = load ptr, ptr %0, align 8, !tbaa !12
-  %9 = getelementptr inbounds i32, ptr %1, i64 1
-  %10 = getelementptr inbounds i32, ptr %2, i64 1
-  %11 = getelementptr inbounds i32, ptr %1, i64 2
-  %12 = getelementptr inbounds i32, ptr %2, i64 2
-  br label %13
+for.body.lr.ph:                                   ; preds = %entry
+  %1 = load ptr, ptr %box_array, align 8, !tbaa !12
+  %arrayidx.1.i = getelementptr inbounds i32, ptr %index, i64 1
+  %arrayidx2.1.i = getelementptr inbounds i32, ptr %stride, i64 1
+  %arrayidx.2.i = getelementptr inbounds i32, ptr %index, i64 2
+  %arrayidx2.2.i = getelementptr inbounds i32, ptr %stride, i64 2
+  br label %for.body
 
-13:                                               ; preds = %7, %13
-  %14 = phi i64 [ 0, %7 ], [ %87, %13 ]
-  %15 = getelementptr inbounds %struct.hypre_Box_struct, ptr %8, i64 %14
-  %16 = load i32, ptr %1, align 4, !tbaa !5
-  %17 = load i32, ptr %2, align 4, !tbaa !5
-  %18 = load i32, ptr %15, align 4, !tbaa !5
-  %19 = sub nsw i32 %18, %16
-  %20 = getelementptr inbounds %struct.hypre_Box_struct, ptr %8, i64 %14, i32 1, i64 0
-  %21 = load i32, ptr %20, align 4, !tbaa !5
-  %22 = sub nsw i32 %21, %16
-  %23 = add nsw i32 %17, -1
-  %24 = icmp sgt i32 %19, 0
-  %25 = select i1 %24, i32 %23, i32 0
-  %26 = add nsw i32 %25, %19
-  %27 = sub i32 %22, %17
-  %28 = add i32 %27, 1
-  %29 = icmp slt i32 %22, 0
-  %30 = select i1 %29, i32 %28, i32 %22
-  %31 = freeze i32 %26
-  %32 = srem i32 %31, %17
-  %33 = sub i32 %16, %32
-  %34 = add i32 %33, %31
-  store i32 %34, ptr %15, align 4, !tbaa !5
-  %35 = freeze i32 %30
-  %36 = srem i32 %35, %17
-  %37 = sub i32 %16, %36
-  %38 = add i32 %37, %35
-  store i32 %38, ptr %20, align 4, !tbaa !5
-  %39 = load i32, ptr %9, align 4, !tbaa !5
-  %40 = load i32, ptr %10, align 4, !tbaa !5
-  %41 = getelementptr inbounds [3 x i32], ptr %15, i64 0, i64 1
-  %42 = load i32, ptr %41, align 4, !tbaa !5
-  %43 = sub nsw i32 %42, %39
-  %44 = getelementptr inbounds %struct.hypre_Box_struct, ptr %8, i64 %14, i32 1, i64 1
-  %45 = load i32, ptr %44, align 4, !tbaa !5
-  %46 = sub nsw i32 %45, %39
-  %47 = add nsw i32 %40, -1
-  %48 = icmp sgt i32 %43, 0
-  %49 = select i1 %48, i32 %47, i32 0
-  %50 = add nsw i32 %49, %43
-  %51 = sub i32 %46, %40
-  %52 = add i32 %51, 1
-  %53 = icmp slt i32 %46, 0
-  %54 = select i1 %53, i32 %52, i32 %46
-  %55 = freeze i32 %50
-  %56 = srem i32 %55, %40
-  %57 = sub i32 %39, %56
-  %58 = add i32 %57, %55
-  store i32 %58, ptr %41, align 4, !tbaa !5
-  %59 = freeze i32 %54
-  %60 = srem i32 %59, %40
-  %61 = sub i32 %39, %60
-  %62 = add i32 %61, %59
-  store i32 %62, ptr %44, align 4, !tbaa !5
-  %63 = load i32, ptr %11, align 4, !tbaa !5
-  %64 = load i32, ptr %12, align 4, !tbaa !5
-  %65 = getelementptr inbounds [3 x i32], ptr %15, i64 0, i64 2
-  %66 = load i32, ptr %65, align 4, !tbaa !5
-  %67 = sub nsw i32 %66, %63
-  %68 = getelementptr inbounds %struct.hypre_Box_struct, ptr %8, i64 %14, i32 1, i64 2
-  %69 = load i32, ptr %68, align 4, !tbaa !5
-  %70 = sub nsw i32 %69, %63
-  %71 = add nsw i32 %64, -1
-  %72 = icmp sgt i32 %67, 0
-  %73 = select i1 %72, i32 %71, i32 0
-  %74 = add nsw i32 %73, %67
-  %75 = sub i32 %70, %64
-  %76 = add i32 %75, 1
-  %77 = icmp slt i32 %70, 0
-  %78 = select i1 %77, i32 %76, i32 %70
-  %79 = freeze i32 %74
-  %80 = srem i32 %79, %64
-  %81 = sub i32 %63, %80
-  %82 = add i32 %81, %79
-  store i32 %82, ptr %65, align 4, !tbaa !5
-  %83 = freeze i32 %78
-  %84 = srem i32 %83, %64
-  %85 = sub i32 %63, %84
-  %86 = add i32 %85, %83
-  store i32 %86, ptr %68, align 4, !tbaa !5
-  %87 = add nuw nsw i64 %14, 1
-  %88 = load i32, ptr %4, align 8, !tbaa !9
-  %89 = sext i32 %88 to i64
-  %90 = icmp slt i64 %87, %89
-  br i1 %90, label %13, label %91, !llvm.loop !13
+for.body:                                         ; preds = %for.body.lr.ph, %for.body
+  %indvars.iv = phi i64 [ 0, %for.body.lr.ph ], [ %indvars.iv.next, %for.body ]
+  %arrayidx = getelementptr inbounds %struct.hypre_Box_struct, ptr %1, i64 %indvars.iv
+  %2 = load i32, ptr %index, align 4, !tbaa !5
+  %3 = load i32, ptr %stride, align 4, !tbaa !5
+  %4 = load i32, ptr %arrayidx, align 4, !tbaa !5
+  %sub.i = sub nsw i32 %4, %2
+  %arrayidx6.i = getelementptr inbounds %struct.hypre_Box_struct, ptr %1, i64 %indvars.iv, i32 1, i64 0
+  %5 = load i32, ptr %arrayidx6.i, align 4, !tbaa !5
+  %sub7.i = sub nsw i32 %5, %2
+  %sub9.i = add nsw i32 %3, -1
+  %cmp8.inv.i = icmp sgt i32 %sub.i, 0
+  %add.i = select i1 %cmp8.inv.i, i32 %sub9.i, i32 0
+  %sub.pn.i = add nsw i32 %add.i, %sub.i
+  %cmp1152.i = icmp slt i32 %sub7.i, 0
+  %sub16.i = select i1 %cmp1152.i, i32 %sub9.i, i32 0
+  %sub7.pn.i = sub nsw i32 %sub7.i, %sub16.i
+  %sub.pn.fr.i = freeze i32 %sub.pn.i
+  %6 = srem i32 %sub.pn.fr.i, %3
+  %mul.i = sub i32 %2, %6
+  %add19.i = add i32 %mul.i, %sub.pn.fr.i
+  store i32 %add19.i, ptr %arrayidx, align 4, !tbaa !5
+  %sub7.pn.fr.i = freeze i32 %sub7.pn.i
+  %7 = srem i32 %sub7.pn.fr.i, %3
+  %mul23.i = sub i32 %2, %7
+  %add24.i = add i32 %mul23.i, %sub7.pn.fr.i
+  store i32 %add24.i, ptr %arrayidx6.i, align 4, !tbaa !5
+  %8 = load i32, ptr %arrayidx.1.i, align 4, !tbaa !5
+  %9 = load i32, ptr %arrayidx2.1.i, align 4, !tbaa !5
+  %arrayidx4.1.i = getelementptr inbounds [3 x i32], ptr %arrayidx, i64 0, i64 1
+  %10 = load i32, ptr %arrayidx4.1.i, align 4, !tbaa !5
+  %sub.1.i = sub nsw i32 %10, %8
+  %arrayidx6.1.i = getelementptr inbounds %struct.hypre_Box_struct, ptr %1, i64 %indvars.iv, i32 1, i64 1
+  %11 = load i32, ptr %arrayidx6.1.i, align 4, !tbaa !5
+  %sub7.1.i = sub nsw i32 %11, %8
+  %sub9.1.i = add nsw i32 %9, -1
+  %cmp8.inv.1.i = icmp sgt i32 %sub.1.i, 0
+  %add.1.i = select i1 %cmp8.inv.1.i, i32 %sub9.1.i, i32 0
+  %sub.pn.1.i = add nsw i32 %add.1.i, %sub.1.i
+  %cmp1152.1.i = icmp slt i32 %sub7.1.i, 0
+  %sub16.1.i = select i1 %cmp1152.1.i, i32 %sub9.1.i, i32 0
+  %sub7.pn.1.i = sub nsw i32 %sub7.1.i, %sub16.1.i
+  %sub.pn.fr.1.i = freeze i32 %sub.pn.1.i
+  %12 = srem i32 %sub.pn.fr.1.i, %9
+  %mul.1.i = sub i32 %8, %12
+  %add19.1.i = add i32 %mul.1.i, %sub.pn.fr.1.i
+  store i32 %add19.1.i, ptr %arrayidx4.1.i, align 4, !tbaa !5
+  %sub7.pn.fr.1.i = freeze i32 %sub7.pn.1.i
+  %13 = srem i32 %sub7.pn.fr.1.i, %9
+  %mul23.1.i = sub i32 %8, %13
+  %add24.1.i = add i32 %mul23.1.i, %sub7.pn.fr.1.i
+  store i32 %add24.1.i, ptr %arrayidx6.1.i, align 4, !tbaa !5
+  %14 = load i32, ptr %arrayidx.2.i, align 4, !tbaa !5
+  %15 = load i32, ptr %arrayidx2.2.i, align 4, !tbaa !5
+  %arrayidx4.2.i = getelementptr inbounds [3 x i32], ptr %arrayidx, i64 0, i64 2
+  %16 = load i32, ptr %arrayidx4.2.i, align 4, !tbaa !5
+  %sub.2.i = sub nsw i32 %16, %14
+  %arrayidx6.2.i = getelementptr inbounds %struct.hypre_Box_struct, ptr %1, i64 %indvars.iv, i32 1, i64 2
+  %17 = load i32, ptr %arrayidx6.2.i, align 4, !tbaa !5
+  %sub7.2.i = sub nsw i32 %17, %14
+  %sub9.2.i = add nsw i32 %15, -1
+  %cmp8.inv.2.i = icmp sgt i32 %sub.2.i, 0
+  %add.2.i = select i1 %cmp8.inv.2.i, i32 %sub9.2.i, i32 0
+  %sub.pn.2.i = add nsw i32 %add.2.i, %sub.2.i
+  %cmp1152.2.i = icmp slt i32 %sub7.2.i, 0
+  %sub16.2.i = select i1 %cmp1152.2.i, i32 %sub9.2.i, i32 0
+  %sub7.pn.2.i = sub nsw i32 %sub7.2.i, %sub16.2.i
+  %sub.pn.fr.2.i = freeze i32 %sub.pn.2.i
+  %18 = srem i32 %sub.pn.fr.2.i, %15
+  %mul.2.i = sub i32 %14, %18
+  %add19.2.i = add i32 %mul.2.i, %sub.pn.fr.2.i
+  store i32 %add19.2.i, ptr %arrayidx4.2.i, align 4, !tbaa !5
+  %sub7.pn.fr.2.i = freeze i32 %sub7.pn.2.i
+  %19 = srem i32 %sub7.pn.fr.2.i, %15
+  %mul23.2.i = sub i32 %14, %19
+  %add24.2.i = add i32 %mul23.2.i, %sub7.pn.fr.2.i
+  store i32 %add24.2.i, ptr %arrayidx6.2.i, align 4, !tbaa !5
+  %indvars.iv.next = add nuw nsw i64 %indvars.iv, 1
+  %20 = load i32, ptr %size, align 8, !tbaa !9
+  %21 = sext i32 %20 to i64
+  %cmp = icmp slt i64 %indvars.iv.next, %21
+  br i1 %cmp, label %for.body, label %for.end, !llvm.loop !13
 
-91:                                               ; preds = %13, %3
+for.end:                                          ; preds = %for.body, %entry
   ret i32 0
 }
 
 ; Function Attrs: nofree norecurse nosync nounwind memory(readwrite, inaccessiblemem: none) uwtable
-define dso_local i32 @hypre_ProjectBoxArrayArray(ptr nocapture noundef readonly %0, ptr nocapture noundef readonly %1, ptr nocapture noundef readonly %2) local_unnamed_addr #1 {
-  %4 = getelementptr inbounds %struct.hypre_BoxArrayArray_struct, ptr %0, i64 0, i32 1
-  %5 = load i32, ptr %4, align 8, !tbaa !15
-  %6 = icmp sgt i32 %5, 0
-  br i1 %6, label %7, label %108
+define dso_local i32 @hypre_ProjectBoxArrayArray(ptr nocapture noundef readonly %box_array_array, ptr nocapture noundef readonly %index, ptr nocapture noundef readonly %stride) local_unnamed_addr #1 {
+entry:
+  %size = getelementptr inbounds %struct.hypre_BoxArrayArray_struct, ptr %box_array_array, i64 0, i32 1
+  %0 = load i32, ptr %size, align 8, !tbaa !15
+  %cmp23 = icmp sgt i32 %0, 0
+  br i1 %cmp23, label %for.body.lr.ph, label %for.end9
 
-7:                                                ; preds = %3
-  %8 = load ptr, ptr %0, align 8, !tbaa !17
-  %9 = getelementptr inbounds i32, ptr %1, i64 1
-  %10 = getelementptr inbounds i32, ptr %2, i64 1
-  %11 = getelementptr inbounds i32, ptr %1, i64 2
-  %12 = getelementptr inbounds i32, ptr %2, i64 2
-  br label %13
+for.body.lr.ph:                                   ; preds = %entry
+  %1 = load ptr, ptr %box_array_array, align 8, !tbaa !17
+  %arrayidx.1.i = getelementptr inbounds i32, ptr %index, i64 1
+  %arrayidx2.1.i = getelementptr inbounds i32, ptr %stride, i64 1
+  %arrayidx.2.i = getelementptr inbounds i32, ptr %index, i64 2
+  %arrayidx2.2.i = getelementptr inbounds i32, ptr %stride, i64 2
+  br label %for.body
 
-13:                                               ; preds = %7, %103
-  %14 = phi i32 [ %5, %7 ], [ %104, %103 ]
-  %15 = phi i64 [ 0, %7 ], [ %105, %103 ]
-  %16 = getelementptr inbounds ptr, ptr %8, i64 %15
-  %17 = load ptr, ptr %16, align 8, !tbaa !18
-  %18 = getelementptr inbounds %struct.hypre_BoxArray_struct, ptr %17, i64 0, i32 1
-  %19 = load i32, ptr %18, align 8, !tbaa !9
-  %20 = icmp sgt i32 %19, 0
-  br i1 %20, label %21, label %103
+for.body:                                         ; preds = %for.body.lr.ph, %for.inc7
+  %2 = phi i32 [ %0, %for.body.lr.ph ], [ %26, %for.inc7 ]
+  %indvars.iv26 = phi i64 [ 0, %for.body.lr.ph ], [ %indvars.iv.next27, %for.inc7 ]
+  %arrayidx = getelementptr inbounds ptr, ptr %1, i64 %indvars.iv26
+  %3 = load ptr, ptr %arrayidx, align 8, !tbaa !18
+  %size2 = getelementptr inbounds %struct.hypre_BoxArray_struct, ptr %3, i64 0, i32 1
+  %4 = load i32, ptr %size2, align 8, !tbaa !9
+  %cmp321 = icmp sgt i32 %4, 0
+  br i1 %cmp321, label %for.body4.lr.ph, label %for.inc7
 
-21:                                               ; preds = %13
-  %22 = load ptr, ptr %17, align 8, !tbaa !12
-  br label %23
+for.body4.lr.ph:                                  ; preds = %for.body
+  %5 = load ptr, ptr %3, align 8, !tbaa !12
+  br label %for.body4
 
-23:                                               ; preds = %21, %23
-  %24 = phi i64 [ 0, %21 ], [ %97, %23 ]
-  %25 = getelementptr inbounds %struct.hypre_Box_struct, ptr %22, i64 %24
-  %26 = load i32, ptr %1, align 4, !tbaa !5
-  %27 = load i32, ptr %2, align 4, !tbaa !5
-  %28 = load i32, ptr %25, align 4, !tbaa !5
-  %29 = sub nsw i32 %28, %26
-  %30 = getelementptr inbounds %struct.hypre_Box_struct, ptr %22, i64 %24, i32 1, i64 0
-  %31 = load i32, ptr %30, align 4, !tbaa !5
-  %32 = sub nsw i32 %31, %26
-  %33 = add nsw i32 %27, -1
-  %34 = icmp sgt i32 %29, 0
-  %35 = select i1 %34, i32 %33, i32 0
-  %36 = add nsw i32 %35, %29
-  %37 = sub i32 %32, %27
-  %38 = add i32 %37, 1
-  %39 = icmp slt i32 %32, 0
-  %40 = select i1 %39, i32 %38, i32 %32
-  %41 = freeze i32 %36
-  %42 = srem i32 %41, %27
-  %43 = sub i32 %26, %42
-  %44 = add i32 %43, %41
-  store i32 %44, ptr %25, align 4, !tbaa !5
-  %45 = freeze i32 %40
-  %46 = srem i32 %45, %27
-  %47 = sub i32 %26, %46
-  %48 = add i32 %47, %45
-  store i32 %48, ptr %30, align 4, !tbaa !5
-  %49 = load i32, ptr %9, align 4, !tbaa !5
-  %50 = load i32, ptr %10, align 4, !tbaa !5
-  %51 = getelementptr inbounds [3 x i32], ptr %25, i64 0, i64 1
-  %52 = load i32, ptr %51, align 4, !tbaa !5
-  %53 = sub nsw i32 %52, %49
-  %54 = getelementptr inbounds %struct.hypre_Box_struct, ptr %22, i64 %24, i32 1, i64 1
-  %55 = load i32, ptr %54, align 4, !tbaa !5
-  %56 = sub nsw i32 %55, %49
-  %57 = add nsw i32 %50, -1
-  %58 = icmp sgt i32 %53, 0
-  %59 = select i1 %58, i32 %57, i32 0
-  %60 = add nsw i32 %59, %53
-  %61 = sub i32 %56, %50
-  %62 = add i32 %61, 1
-  %63 = icmp slt i32 %56, 0
-  %64 = select i1 %63, i32 %62, i32 %56
-  %65 = freeze i32 %60
-  %66 = srem i32 %65, %50
-  %67 = sub i32 %49, %66
-  %68 = add i32 %67, %65
-  store i32 %68, ptr %51, align 4, !tbaa !5
-  %69 = freeze i32 %64
-  %70 = srem i32 %69, %50
-  %71 = sub i32 %49, %70
-  %72 = add i32 %71, %69
-  store i32 %72, ptr %54, align 4, !tbaa !5
-  %73 = load i32, ptr %11, align 4, !tbaa !5
-  %74 = load i32, ptr %12, align 4, !tbaa !5
-  %75 = getelementptr inbounds [3 x i32], ptr %25, i64 0, i64 2
-  %76 = load i32, ptr %75, align 4, !tbaa !5
-  %77 = sub nsw i32 %76, %73
-  %78 = getelementptr inbounds %struct.hypre_Box_struct, ptr %22, i64 %24, i32 1, i64 2
-  %79 = load i32, ptr %78, align 4, !tbaa !5
-  %80 = sub nsw i32 %79, %73
-  %81 = add nsw i32 %74, -1
-  %82 = icmp sgt i32 %77, 0
-  %83 = select i1 %82, i32 %81, i32 0
-  %84 = add nsw i32 %83, %77
-  %85 = sub i32 %80, %74
-  %86 = add i32 %85, 1
-  %87 = icmp slt i32 %80, 0
-  %88 = select i1 %87, i32 %86, i32 %80
-  %89 = freeze i32 %84
-  %90 = srem i32 %89, %74
-  %91 = sub i32 %73, %90
-  %92 = add i32 %91, %89
-  store i32 %92, ptr %75, align 4, !tbaa !5
-  %93 = freeze i32 %88
-  %94 = srem i32 %93, %74
-  %95 = sub i32 %73, %94
-  %96 = add i32 %95, %93
-  store i32 %96, ptr %78, align 4, !tbaa !5
-  %97 = add nuw nsw i64 %24, 1
-  %98 = load i32, ptr %18, align 8, !tbaa !9
-  %99 = sext i32 %98 to i64
-  %100 = icmp slt i64 %97, %99
-  br i1 %100, label %23, label %101, !llvm.loop !19
+for.body4:                                        ; preds = %for.body4.lr.ph, %for.body4
+  %indvars.iv = phi i64 [ 0, %for.body4.lr.ph ], [ %indvars.iv.next, %for.body4 ]
+  %arrayidx6 = getelementptr inbounds %struct.hypre_Box_struct, ptr %5, i64 %indvars.iv
+  %6 = load i32, ptr %index, align 4, !tbaa !5
+  %7 = load i32, ptr %stride, align 4, !tbaa !5
+  %8 = load i32, ptr %arrayidx6, align 4, !tbaa !5
+  %sub.i = sub nsw i32 %8, %6
+  %arrayidx6.i = getelementptr inbounds %struct.hypre_Box_struct, ptr %5, i64 %indvars.iv, i32 1, i64 0
+  %9 = load i32, ptr %arrayidx6.i, align 4, !tbaa !5
+  %sub7.i = sub nsw i32 %9, %6
+  %sub9.i = add nsw i32 %7, -1
+  %cmp8.inv.i = icmp sgt i32 %sub.i, 0
+  %add.i = select i1 %cmp8.inv.i, i32 %sub9.i, i32 0
+  %sub.pn.i = add nsw i32 %add.i, %sub.i
+  %cmp1152.i = icmp slt i32 %sub7.i, 0
+  %sub16.i = select i1 %cmp1152.i, i32 %sub9.i, i32 0
+  %sub7.pn.i = sub nsw i32 %sub7.i, %sub16.i
+  %sub.pn.fr.i = freeze i32 %sub.pn.i
+  %10 = srem i32 %sub.pn.fr.i, %7
+  %mul.i = sub i32 %6, %10
+  %add19.i = add i32 %mul.i, %sub.pn.fr.i
+  store i32 %add19.i, ptr %arrayidx6, align 4, !tbaa !5
+  %sub7.pn.fr.i = freeze i32 %sub7.pn.i
+  %11 = srem i32 %sub7.pn.fr.i, %7
+  %mul23.i = sub i32 %6, %11
+  %add24.i = add i32 %mul23.i, %sub7.pn.fr.i
+  store i32 %add24.i, ptr %arrayidx6.i, align 4, !tbaa !5
+  %12 = load i32, ptr %arrayidx.1.i, align 4, !tbaa !5
+  %13 = load i32, ptr %arrayidx2.1.i, align 4, !tbaa !5
+  %arrayidx4.1.i = getelementptr inbounds [3 x i32], ptr %arrayidx6, i64 0, i64 1
+  %14 = load i32, ptr %arrayidx4.1.i, align 4, !tbaa !5
+  %sub.1.i = sub nsw i32 %14, %12
+  %arrayidx6.1.i = getelementptr inbounds %struct.hypre_Box_struct, ptr %5, i64 %indvars.iv, i32 1, i64 1
+  %15 = load i32, ptr %arrayidx6.1.i, align 4, !tbaa !5
+  %sub7.1.i = sub nsw i32 %15, %12
+  %sub9.1.i = add nsw i32 %13, -1
+  %cmp8.inv.1.i = icmp sgt i32 %sub.1.i, 0
+  %add.1.i = select i1 %cmp8.inv.1.i, i32 %sub9.1.i, i32 0
+  %sub.pn.1.i = add nsw i32 %add.1.i, %sub.1.i
+  %cmp1152.1.i = icmp slt i32 %sub7.1.i, 0
+  %sub16.1.i = select i1 %cmp1152.1.i, i32 %sub9.1.i, i32 0
+  %sub7.pn.1.i = sub nsw i32 %sub7.1.i, %sub16.1.i
+  %sub.pn.fr.1.i = freeze i32 %sub.pn.1.i
+  %16 = srem i32 %sub.pn.fr.1.i, %13
+  %mul.1.i = sub i32 %12, %16
+  %add19.1.i = add i32 %mul.1.i, %sub.pn.fr.1.i
+  store i32 %add19.1.i, ptr %arrayidx4.1.i, align 4, !tbaa !5
+  %sub7.pn.fr.1.i = freeze i32 %sub7.pn.1.i
+  %17 = srem i32 %sub7.pn.fr.1.i, %13
+  %mul23.1.i = sub i32 %12, %17
+  %add24.1.i = add i32 %mul23.1.i, %sub7.pn.fr.1.i
+  store i32 %add24.1.i, ptr %arrayidx6.1.i, align 4, !tbaa !5
+  %18 = load i32, ptr %arrayidx.2.i, align 4, !tbaa !5
+  %19 = load i32, ptr %arrayidx2.2.i, align 4, !tbaa !5
+  %arrayidx4.2.i = getelementptr inbounds [3 x i32], ptr %arrayidx6, i64 0, i64 2
+  %20 = load i32, ptr %arrayidx4.2.i, align 4, !tbaa !5
+  %sub.2.i = sub nsw i32 %20, %18
+  %arrayidx6.2.i = getelementptr inbounds %struct.hypre_Box_struct, ptr %5, i64 %indvars.iv, i32 1, i64 2
+  %21 = load i32, ptr %arrayidx6.2.i, align 4, !tbaa !5
+  %sub7.2.i = sub nsw i32 %21, %18
+  %sub9.2.i = add nsw i32 %19, -1
+  %cmp8.inv.2.i = icmp sgt i32 %sub.2.i, 0
+  %add.2.i = select i1 %cmp8.inv.2.i, i32 %sub9.2.i, i32 0
+  %sub.pn.2.i = add nsw i32 %add.2.i, %sub.2.i
+  %cmp1152.2.i = icmp slt i32 %sub7.2.i, 0
+  %sub16.2.i = select i1 %cmp1152.2.i, i32 %sub9.2.i, i32 0
+  %sub7.pn.2.i = sub nsw i32 %sub7.2.i, %sub16.2.i
+  %sub.pn.fr.2.i = freeze i32 %sub.pn.2.i
+  %22 = srem i32 %sub.pn.fr.2.i, %19
+  %mul.2.i = sub i32 %18, %22
+  %add19.2.i = add i32 %mul.2.i, %sub.pn.fr.2.i
+  store i32 %add19.2.i, ptr %arrayidx4.2.i, align 4, !tbaa !5
+  %sub7.pn.fr.2.i = freeze i32 %sub7.pn.2.i
+  %23 = srem i32 %sub7.pn.fr.2.i, %19
+  %mul23.2.i = sub i32 %18, %23
+  %add24.2.i = add i32 %mul23.2.i, %sub7.pn.fr.2.i
+  store i32 %add24.2.i, ptr %arrayidx6.2.i, align 4, !tbaa !5
+  %indvars.iv.next = add nuw nsw i64 %indvars.iv, 1
+  %24 = load i32, ptr %size2, align 8, !tbaa !9
+  %25 = sext i32 %24 to i64
+  %cmp3 = icmp slt i64 %indvars.iv.next, %25
+  br i1 %cmp3, label %for.body4, label %for.inc7.loopexit, !llvm.loop !19
 
-101:                                              ; preds = %23
-  %102 = load i32, ptr %4, align 8, !tbaa !15
-  br label %103
+for.inc7.loopexit:                                ; preds = %for.body4
+  %.pre = load i32, ptr %size, align 8, !tbaa !15
+  br label %for.inc7
 
-103:                                              ; preds = %101, %13
-  %104 = phi i32 [ %102, %101 ], [ %14, %13 ]
-  %105 = add nuw nsw i64 %15, 1
-  %106 = sext i32 %104 to i64
-  %107 = icmp slt i64 %105, %106
-  br i1 %107, label %13, label %108, !llvm.loop !20
+for.inc7:                                         ; preds = %for.inc7.loopexit, %for.body
+  %26 = phi i32 [ %.pre, %for.inc7.loopexit ], [ %2, %for.body ]
+  %indvars.iv.next27 = add nuw nsw i64 %indvars.iv26, 1
+  %27 = sext i32 %26 to i64
+  %cmp = icmp slt i64 %indvars.iv.next27, %27
+  br i1 %cmp, label %for.body, label %for.end9, !llvm.loop !20
 
-108:                                              ; preds = %103, %3
+for.end9:                                         ; preds = %for.inc7, %entry
   ret i32 0
 }
 

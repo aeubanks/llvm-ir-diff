@@ -20,164 +20,167 @@ target triple = "x86_64-unknown-linux-gnu"
 @str.9 = private unnamed_addr constant [16 x i8] c"Getting Results\00", align 1
 @str.10 = private unnamed_addr constant [7 x i8] c"Done.\0A\00", align 1
 
-; Function Attrs: nofree nounwind memory(readwrite, argmem: write) uwtable
-define dso_local ptr @alloc_tree(i32 noundef %0, i32 noundef %1, ptr noundef %2) local_unnamed_addr #0 {
-  %4 = icmp eq i32 %0, 0
-  br i1 %4, label %5, label %7
+; Function Attrs: nofree nounwind uwtable
+define dso_local ptr @alloc_tree(i32 noundef %level, i32 noundef %label, ptr noundef %back) local_unnamed_addr #0 {
+entry:
+  %cmp = icmp eq i32 %level, 0
+  br i1 %cmp, label %common.ret, label %if.else
 
-5:                                                ; preds = %3, %7
-  %6 = phi ptr [ %8, %7 ], [ null, %3 ]
-  ret ptr %6
+common.ret:                                       ; preds = %entry, %if.else
+  %common.ret.op = phi ptr [ %call, %if.else ], [ null, %entry ]
+  ret ptr %common.ret.op
 
-7:                                                ; preds = %3
-  %8 = tail call noalias dereferenceable_or_null(192) ptr @malloc(i64 noundef 192) #10
-  %9 = add nsw i32 %0, -1
-  %10 = shl nsw i32 %1, 2
-  %11 = or i32 %10, 1
-  %12 = add i32 %10, 4
-  %13 = tail call ptr @alloc_tree(i32 noundef %9, i32 noundef %12, ptr noundef %8)
-  %14 = or i32 %10, 3
-  %15 = tail call ptr @alloc_tree(i32 noundef %9, i32 noundef %14, ptr noundef %8)
-  %16 = or i32 %10, 2
-  %17 = tail call ptr @alloc_tree(i32 noundef %9, i32 noundef %16, ptr noundef %8)
-  %18 = tail call ptr @alloc_tree(i32 noundef %9, i32 noundef %11, ptr noundef %8)
-  %19 = getelementptr inbounds %struct.Village, ptr %8, i64 0, i32 1
-  store ptr %2, ptr %19, align 8, !tbaa !5
-  %20 = getelementptr inbounds %struct.Village, ptr %8, i64 0, i32 4
-  store i32 %1, ptr %20, align 8, !tbaa !14
-  %21 = sext i32 %1 to i64
-  %22 = load i64, ptr @seed, align 8, !tbaa !15
-  %23 = add nsw i64 %22, 127773
-  %24 = mul nsw i64 %23, %21
-  %25 = getelementptr inbounds %struct.Village, ptr %8, i64 0, i32 5
-  store i64 %24, ptr %25, align 8, !tbaa !16
-  %26 = tail call double @ldexp(double 1.000000e+00, i32 %9) #11
-  %27 = fptosi double %26 to i32
-  %28 = getelementptr inbounds %struct.Village, ptr %8, i64 0, i32 3
-  store i32 %27, ptr %28, align 8, !tbaa !17
-  %29 = getelementptr inbounds %struct.Village, ptr %8, i64 0, i32 3, i32 1
-  store i32 %27, ptr %29, align 4, !tbaa !18
-  %30 = getelementptr inbounds %struct.Village, ptr %8, i64 0, i32 3, i32 2
-  store i32 0, ptr %30, align 8, !tbaa !19
-  %31 = getelementptr inbounds %struct.Village, ptr %8, i64 0, i32 3, i32 3
-  %32 = getelementptr inbounds %struct.Village, ptr %8, i64 0, i32 2
-  %33 = getelementptr inbounds %struct.Village, ptr %8, i64 0, i32 2, i32 2
-  store ptr null, ptr %33, align 8, !tbaa !20
-  store ptr null, ptr %32, align 8, !tbaa !21
-  tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(96) %31, i8 0, i64 96, i1 false)
-  store ptr %18, ptr %8, align 8, !tbaa !22
-  %34 = getelementptr inbounds i8, ptr %8, i64 8
-  store ptr %17, ptr %34, align 8, !tbaa !22
-  %35 = getelementptr inbounds i8, ptr %8, i64 16
-  store ptr %15, ptr %35, align 8, !tbaa !22
-  %36 = getelementptr inbounds i8, ptr %8, i64 24
-  store ptr %13, ptr %36, align 8, !tbaa !22
-  br label %5
+if.else:                                          ; preds = %entry
+  %call = tail call noalias dereferenceable_or_null(192) ptr @malloc(i64 noundef 192) #10
+  %sub = add nsw i32 %level, -1
+  %mul = shl nsw i32 %label, 2
+  %add = or i32 %mul, 1
+  %add2 = add i32 %mul, 4
+  %call3 = tail call ptr @alloc_tree(i32 noundef %sub, i32 noundef %add2, ptr noundef %call)
+  %add2.1 = or i32 %mul, 3
+  %call3.1 = tail call ptr @alloc_tree(i32 noundef %sub, i32 noundef %add2.1, ptr noundef %call)
+  %add2.2 = or i32 %mul, 2
+  %call3.2 = tail call ptr @alloc_tree(i32 noundef %sub, i32 noundef %add2.2, ptr noundef %call)
+  %call3.3 = tail call ptr @alloc_tree(i32 noundef %sub, i32 noundef %add, ptr noundef %call)
+  %back4 = getelementptr inbounds %struct.Village, ptr %call, i64 0, i32 1
+  store ptr %back, ptr %back4, align 8, !tbaa !5
+  %label5 = getelementptr inbounds %struct.Village, ptr %call, i64 0, i32 4
+  store i32 %label, ptr %label5, align 8, !tbaa !14
+  %conv = sext i32 %label to i64
+  %0 = load i64, ptr @seed, align 8, !tbaa !15
+  %add6 = add nsw i64 %0, 127773
+  %mul7 = mul nsw i64 %add6, %conv
+  %seed = getelementptr inbounds %struct.Village, ptr %call, i64 0, i32 5
+  store i64 %mul7, ptr %seed, align 8, !tbaa !16
+  %ldexp = tail call double @ldexp(double 1.000000e+00, i32 %sub) #11
+  %conv11 = fptosi double %ldexp to i32
+  %hosp = getelementptr inbounds %struct.Village, ptr %call, i64 0, i32 3
+  store i32 %conv11, ptr %hosp, align 8, !tbaa !17
+  %free_personnel = getelementptr inbounds %struct.Village, ptr %call, i64 0, i32 3, i32 1
+  store i32 %conv11, ptr %free_personnel, align 4, !tbaa !18
+  %num_waiting_patients = getelementptr inbounds %struct.Village, ptr %call, i64 0, i32 3, i32 2
+  store i32 0, ptr %num_waiting_patients, align 8, !tbaa !19
+  %waiting = getelementptr inbounds %struct.Village, ptr %call, i64 0, i32 3, i32 3
+  %returned = getelementptr inbounds %struct.Village, ptr %call, i64 0, i32 2
+  %back46 = getelementptr inbounds %struct.Village, ptr %call, i64 0, i32 2, i32 2
+  store ptr null, ptr %back46, align 8, !tbaa !20
+  store ptr null, ptr %returned, align 8, !tbaa !21
+  tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(96) %waiting, i8 0, i64 96, i1 false)
+  store ptr %call3.3, ptr %call, align 8, !tbaa !22
+  %fval.sroa.4.0.call.sroa_idx = getelementptr inbounds i8, ptr %call, i64 8
+  store ptr %call3.2, ptr %fval.sroa.4.0.call.sroa_idx, align 8, !tbaa !22
+  %fval.sroa.5.0.call.sroa_idx = getelementptr inbounds i8, ptr %call, i64 16
+  store ptr %call3.1, ptr %fval.sroa.5.0.call.sroa_idx, align 8, !tbaa !22
+  %fval.sroa.6.0.call.sroa_idx = getelementptr inbounds i8, ptr %call, i64 24
+  store ptr %call3, ptr %fval.sroa.6.0.call.sroa_idx, align 8, !tbaa !22
+  br label %common.ret
 }
 
 ; Function Attrs: mustprogress nofree nounwind willreturn allockind("alloc,uninitialized") allocsize(0) memory(inaccessiblemem: readwrite)
 declare noalias noundef ptr @malloc(i64 noundef) local_unnamed_addr #1
 
 ; Function Attrs: nofree nosync nounwind memory(read, inaccessiblemem: none) uwtable
-define dso_local { <2 x float>, float } @get_results(ptr noundef readonly %0) local_unnamed_addr #2 {
-  %2 = icmp eq ptr %0, null
-  br i1 %2, label %50, label %3
+define dso_local { <2 x float>, float } @get_results(ptr noundef readonly %village) local_unnamed_addr #2 {
+entry:
+  %cmp = icmp eq ptr %village, null
+  br i1 %cmp, label %cleanup, label %for.body.preheader
 
-3:                                                ; preds = %1
-  %4 = getelementptr inbounds [4 x ptr], ptr %0, i64 0, i64 3
-  %5 = load ptr, ptr %4, align 8, !tbaa !22
-  %6 = tail call { <2 x float>, float } @get_results(ptr noundef %5)
-  %7 = extractvalue { <2 x float>, float } %6, 0
-  %8 = extractvalue { <2 x float>, float } %6, 1
-  %9 = getelementptr inbounds [4 x ptr], ptr %0, i64 0, i64 2
-  %10 = load ptr, ptr %9, align 8, !tbaa !22
-  %11 = tail call { <2 x float>, float } @get_results(ptr noundef %10)
-  %12 = extractvalue { <2 x float>, float } %11, 0
-  %13 = extractvalue { <2 x float>, float } %11, 1
-  %14 = getelementptr inbounds [4 x ptr], ptr %0, i64 0, i64 1
-  %15 = load ptr, ptr %14, align 8, !tbaa !22
-  %16 = tail call { <2 x float>, float } @get_results(ptr noundef %15)
-  %17 = extractvalue { <2 x float>, float } %16, 0
-  %18 = extractvalue { <2 x float>, float } %16, 1
-  %19 = load ptr, ptr %0, align 8, !tbaa !22
-  %20 = tail call { <2 x float>, float } @get_results(ptr noundef %19)
-  %21 = extractvalue { <2 x float>, float } %20, 0
-  %22 = extractvalue { <2 x float>, float } %20, 1
-  %23 = fadd float %8, 0.000000e+00
-  %24 = fadd float %23, %13
-  %25 = fadd float %24, %18
-  %26 = fadd float %25, %22
-  %27 = fadd <2 x float> %7, zeroinitializer
-  %28 = fadd <2 x float> %27, %12
-  %29 = fadd <2 x float> %28, %17
-  %30 = fadd <2 x float> %29, %21
-  %31 = getelementptr inbounds %struct.Village, ptr %0, i64 0, i32 2
-  %32 = load ptr, ptr %31, align 8, !tbaa !23
-  %33 = icmp eq ptr %32, null
-  br i1 %33, label %50, label %34
+for.body.preheader:                               ; preds = %entry
+  %arrayidx = getelementptr inbounds [4 x ptr], ptr %village, i64 0, i64 3
+  %0 = load ptr, ptr %arrayidx, align 8, !tbaa !22
+  %call = tail call { <2 x float>, float } @get_results(ptr noundef %0)
+  %call.fca.0.extract = extractvalue { <2 x float>, float } %call, 0
+  %call.fca.1.extract = extractvalue { <2 x float>, float } %call, 1
+  %arrayidx.1 = getelementptr inbounds [4 x ptr], ptr %village, i64 0, i64 2
+  %1 = load ptr, ptr %arrayidx.1, align 8, !tbaa !22
+  %call.1 = tail call { <2 x float>, float } @get_results(ptr noundef %1)
+  %call.fca.0.extract.1 = extractvalue { <2 x float>, float } %call.1, 0
+  %call.fca.1.extract.1 = extractvalue { <2 x float>, float } %call.1, 1
+  %arrayidx.2 = getelementptr inbounds [4 x ptr], ptr %village, i64 0, i64 1
+  %2 = load ptr, ptr %arrayidx.2, align 8, !tbaa !22
+  %call.2 = tail call { <2 x float>, float } @get_results(ptr noundef %2)
+  %call.fca.0.extract.2 = extractvalue { <2 x float>, float } %call.2, 0
+  %call.fca.1.extract.2 = extractvalue { <2 x float>, float } %call.2, 1
+  %3 = load ptr, ptr %village, align 8, !tbaa !22
+  %call8 = tail call { <2 x float>, float } @get_results(ptr noundef %3)
+  %call8.fca.0.extract = extractvalue { <2 x float>, float } %call8, 0
+  %call8.fca.1.extract = extractvalue { <2 x float>, float } %call8, 1
+  %add = fadd float %call.fca.1.extract, 0.000000e+00
+  %add.1 = fadd float %add, %call.fca.1.extract.1
+  %add.2 = fadd float %add.1, %call.fca.1.extract.2
+  %add.3 = fadd float %add.2, %call8.fca.1.extract
+  %4 = fadd <2 x float> %call.fca.0.extract, zeroinitializer
+  %5 = fadd <2 x float> %4, %call.fca.0.extract.1
+  %6 = fadd <2 x float> %5, %call.fca.0.extract.2
+  %7 = fadd <2 x float> %6, %call8.fca.0.extract
+  %returned = getelementptr inbounds %struct.Village, ptr %village, i64 0, i32 2
+  %list.079 = load ptr, ptr %returned, align 8, !tbaa !23
+  %cmp31.not80 = icmp eq ptr %list.079, null
+  br i1 %cmp31.not80, label %cleanup, label %while.body
 
-34:                                               ; preds = %3, %34
-  %35 = phi ptr [ %48, %34 ], [ %32, %3 ]
-  %36 = phi float [ %42, %34 ], [ %26, %3 ]
-  %37 = phi <2 x float> [ %47, %34 ], [ %30, %3 ]
-  %38 = getelementptr inbounds %struct.List, ptr %35, i64 0, i32 1
-  %39 = load ptr, ptr %38, align 8, !tbaa !24
-  %40 = load i32, ptr %39, align 8, !tbaa !25
-  %41 = sitofp i32 %40 to float
-  %42 = fadd float %36, %41
-  %43 = getelementptr inbounds %struct.Patient, ptr %39, i64 0, i32 1
-  %44 = load i32, ptr %43, align 4, !tbaa !27
-  %45 = sitofp i32 %44 to float
-  %46 = insertelement <2 x float> <float 1.000000e+00, float poison>, float %45, i64 1
-  %47 = fadd <2 x float> %37, %46
-  %48 = load ptr, ptr %35, align 8, !tbaa !23
-  %49 = icmp eq ptr %48, null
-  br i1 %49, label %50, label %34, !llvm.loop !28
+while.body:                                       ; preds = %for.body.preheader, %while.body
+  %list.083 = phi ptr [ %list.0, %while.body ], [ %list.079, %for.body.preheader ]
+  %retval.sroa.11.182 = phi float [ %add33, %while.body ], [ %add.3, %for.body.preheader ]
+  %retval.sroa.0.181 = phi <2 x float> [ %12, %while.body ], [ %7, %for.body.preheader ]
+  %patient = getelementptr inbounds %struct.List, ptr %list.083, i64 0, i32 1
+  %8 = load ptr, ptr %patient, align 8, !tbaa !24
+  %9 = load i32, ptr %8, align 8, !tbaa !25
+  %conv = sitofp i32 %9 to float
+  %add33 = fadd float %retval.sroa.11.182, %conv
+  %time = getelementptr inbounds %struct.Patient, ptr %8, i64 0, i32 1
+  %10 = load i32, ptr %time, align 4, !tbaa !27
+  %conv34 = sitofp i32 %10 to float
+  %11 = insertelement <2 x float> <float 1.000000e+00, float poison>, float %conv34, i64 1
+  %12 = fadd <2 x float> %retval.sroa.0.181, %11
+  %list.0 = load ptr, ptr %list.083, align 8, !tbaa !23
+  %cmp31.not = icmp eq ptr %list.0, null
+  br i1 %cmp31.not, label %cleanup, label %while.body, !llvm.loop !28
 
-50:                                               ; preds = %34, %3, %1
-  %51 = phi <2 x float> [ zeroinitializer, %1 ], [ %30, %3 ], [ %47, %34 ]
-  %52 = phi float [ 0.000000e+00, %1 ], [ %26, %3 ], [ %42, %34 ]
-  %53 = insertvalue { <2 x float>, float } poison, <2 x float> %51, 0
-  %54 = insertvalue { <2 x float>, float } %53, float %52, 1
-  ret { <2 x float>, float } %54
+cleanup:                                          ; preds = %while.body, %for.body.preheader, %entry
+  %retval.sroa.0.2 = phi <2 x float> [ zeroinitializer, %entry ], [ %7, %for.body.preheader ], [ %12, %while.body ]
+  %retval.sroa.11.2 = phi float [ 0.000000e+00, %entry ], [ %add.3, %for.body.preheader ], [ %add33, %while.body ]
+  %.fca.0.insert = insertvalue { <2 x float>, float } poison, <2 x float> %retval.sroa.0.2, 0
+  %.fca.1.insert = insertvalue { <2 x float>, float } %.fca.0.insert, float %retval.sroa.11.2, 1
+  ret { <2 x float>, float } %.fca.1.insert
 }
 
 ; Function Attrs: nounwind uwtable
-define dso_local void @check_patients_inside(ptr noundef %0, ptr noundef readonly %1) local_unnamed_addr #3 {
-  %3 = icmp eq ptr %1, null
-  br i1 %3, label %22, label %4
+define dso_local void @check_patients_inside(ptr noundef %village, ptr noundef readonly %list) local_unnamed_addr #3 {
+entry:
+  %cmp.not18 = icmp eq ptr %list, null
+  br i1 %cmp.not18, label %while.end, label %while.body.lr.ph
 
-4:                                                ; preds = %2
-  %5 = getelementptr inbounds %struct.Village, ptr %0, i64 0, i32 3, i32 1
-  %6 = getelementptr inbounds %struct.Village, ptr %0, i64 0, i32 3, i32 5
-  %7 = getelementptr inbounds %struct.Village, ptr %0, i64 0, i32 2
-  br label %8
+while.body.lr.ph:                                 ; preds = %entry
+  %free_personnel = getelementptr inbounds %struct.Village, ptr %village, i64 0, i32 3, i32 1
+  %inside = getelementptr inbounds %struct.Village, ptr %village, i64 0, i32 3, i32 5
+  %returned = getelementptr inbounds %struct.Village, ptr %village, i64 0, i32 2
+  br label %while.body
 
-8:                                                ; preds = %4, %19
-  %9 = phi ptr [ %1, %4 ], [ %20, %19 ]
-  %10 = getelementptr inbounds %struct.List, ptr %9, i64 0, i32 1
-  %11 = load ptr, ptr %10, align 8, !tbaa !24
-  %12 = getelementptr inbounds %struct.Patient, ptr %11, i64 0, i32 2
-  %13 = load i32, ptr %12, align 8, !tbaa !30
-  %14 = add nsw i32 %13, -1
-  store i32 %14, ptr %12, align 8, !tbaa !30
-  %15 = icmp eq i32 %14, 0
-  br i1 %15, label %16, label %19
+while.body:                                       ; preds = %while.body.lr.ph, %if.end
+  %list.addr.019 = phi ptr [ %list, %while.body.lr.ph ], [ %3, %if.end ]
+  %patient = getelementptr inbounds %struct.List, ptr %list.addr.019, i64 0, i32 1
+  %0 = load ptr, ptr %patient, align 8, !tbaa !24
+  %time_left = getelementptr inbounds %struct.Patient, ptr %0, i64 0, i32 2
+  %1 = load i32, ptr %time_left, align 8, !tbaa !30
+  %sub = add nsw i32 %1, -1
+  store i32 %sub, ptr %time_left, align 8, !tbaa !30
+  %cmp3 = icmp eq i32 %sub, 0
+  br i1 %cmp3, label %if.then, label %if.end
 
-16:                                               ; preds = %8
-  %17 = load i32, ptr %5, align 4, !tbaa !18
-  %18 = add nsw i32 %17, 1
-  store i32 %18, ptr %5, align 4, !tbaa !18
-  tail call void @removeList(ptr noundef nonnull %6, ptr noundef nonnull %11) #11
-  tail call void @addList(ptr noundef nonnull %7, ptr noundef nonnull %11) #11
-  br label %19
+if.then:                                          ; preds = %while.body
+  %2 = load i32, ptr %free_personnel, align 4, !tbaa !18
+  %add = add nsw i32 %2, 1
+  store i32 %add, ptr %free_personnel, align 4, !tbaa !18
+  tail call void @removeList(ptr noundef nonnull %inside, ptr noundef nonnull %0) #11
+  tail call void @addList(ptr noundef nonnull %returned, ptr noundef nonnull %0) #11
+  br label %if.end
 
-19:                                               ; preds = %16, %8
-  %20 = load ptr, ptr %9, align 8, !tbaa !23
-  %21 = icmp eq ptr %20, null
-  br i1 %21, label %22, label %8, !llvm.loop !31
+if.end:                                           ; preds = %if.then, %while.body
+  %3 = load ptr, ptr %list.addr.019, align 8, !tbaa !23
+  %cmp.not = icmp eq ptr %3, null
+  br i1 %cmp.not, label %while.end, label %while.body, !llvm.loop !31
 
-22:                                               ; preds = %19, %2
+while.end:                                        ; preds = %if.end, %entry
   ret void
 }
 
@@ -186,246 +189,251 @@ declare void @removeList(ptr noundef, ptr noundef) local_unnamed_addr #4
 declare void @addList(ptr noundef, ptr noundef) local_unnamed_addr #4
 
 ; Function Attrs: nounwind uwtable
-define dso_local ptr @check_patients_assess(ptr noundef %0, ptr noundef readonly %1) local_unnamed_addr #3 {
-  %3 = icmp eq ptr %1, null
-  br i1 %3, label %41, label %4
+define dso_local ptr @check_patients_assess(ptr noundef %village, ptr noundef readonly %list) local_unnamed_addr #3 {
+entry:
+  %cmp.not49 = icmp eq ptr %list, null
+  br i1 %cmp.not49, label %while.end, label %while.body.lr.ph
 
-4:                                                ; preds = %2
-  %5 = getelementptr inbounds %struct.Village, ptr %0, i64 0, i32 4
-  %6 = getelementptr inbounds %struct.Village, ptr %0, i64 0, i32 5
-  %7 = getelementptr inbounds %struct.Village, ptr %0, i64 0, i32 3, i32 1
-  %8 = getelementptr inbounds %struct.Village, ptr %0, i64 0, i32 3, i32 4
-  %9 = getelementptr inbounds %struct.Village, ptr %0, i64 0, i32 3, i32 6
-  %10 = getelementptr inbounds %struct.Village, ptr %0, i64 0, i32 3, i32 5
-  br label %11
+while.body.lr.ph:                                 ; preds = %entry
+  %label2 = getelementptr inbounds %struct.Village, ptr %village, i64 0, i32 4
+  %seed = getelementptr inbounds %struct.Village, ptr %village, i64 0, i32 5
+  %free_personnel = getelementptr inbounds %struct.Village, ptr %village, i64 0, i32 3, i32 1
+  %assess21 = getelementptr inbounds %struct.Village, ptr %village, i64 0, i32 3, i32 4
+  %up23 = getelementptr inbounds %struct.Village, ptr %village, i64 0, i32 3, i32 6
+  %inside = getelementptr inbounds %struct.Village, ptr %village, i64 0, i32 3, i32 5
+  br label %while.body
 
-11:                                               ; preds = %4, %37
-  %12 = phi ptr [ %1, %4 ], [ %39, %37 ]
-  %13 = phi ptr [ null, %4 ], [ %38, %37 ]
-  %14 = getelementptr inbounds %struct.List, ptr %12, i64 0, i32 1
-  %15 = load ptr, ptr %14, align 8, !tbaa !24
-  %16 = getelementptr inbounds %struct.Patient, ptr %15, i64 0, i32 2
-  %17 = load i32, ptr %16, align 8, !tbaa !30
-  %18 = add nsw i32 %17, -1
-  store i32 %18, ptr %16, align 8, !tbaa !30
-  %19 = icmp eq i32 %18, 0
-  br i1 %19, label %20, label %37
+while.body:                                       ; preds = %while.body.lr.ph, %if.end24
+  %list.addr.051 = phi ptr [ %list, %while.body.lr.ph ], [ %6, %if.end24 ]
+  %up.050 = phi ptr [ null, %while.body.lr.ph ], [ %up.1, %if.end24 ]
+  %patient = getelementptr inbounds %struct.List, ptr %list.addr.051, i64 0, i32 1
+  %0 = load ptr, ptr %patient, align 8, !tbaa !24
+  %time_left = getelementptr inbounds %struct.Patient, ptr %0, i64 0, i32 2
+  %1 = load i32, ptr %time_left, align 8, !tbaa !30
+  %sub = add nsw i32 %1, -1
+  store i32 %sub, ptr %time_left, align 8, !tbaa !30
+  %cmp4 = icmp eq i32 %sub, 0
+  br i1 %cmp4, label %if.then, label %if.end24
 
-20:                                               ; preds = %11
-  %21 = load i64, ptr %6, align 8, !tbaa !16
-  %22 = tail call float @my_rand(i64 noundef %21) #11
-  %23 = fmul float %22, 0x41E0000000000000
-  %24 = fptosi float %23 to i64
-  store i64 %24, ptr %6, align 8, !tbaa !16
-  %25 = load i32, ptr %5, align 8, !tbaa !14
-  %26 = fpext float %22 to double
-  %27 = fcmp ogt double %26, 1.000000e-01
-  %28 = icmp eq i32 %25, 0
-  %29 = select i1 %27, i1 true, i1 %28
-  br i1 %29, label %30, label %34
+if.then:                                          ; preds = %while.body
+  %2 = load i64, ptr %seed, align 8, !tbaa !16
+  %call = tail call float @my_rand(i64 noundef %2) #11
+  %mul = fmul float %call, 0x41E0000000000000
+  %conv = fptosi float %mul to i64
+  store i64 %conv, ptr %seed, align 8, !tbaa !16
+  %3 = load i32, ptr %label2, align 8, !tbaa !14
+  %conv7 = fpext float %call to double
+  %cmp8 = fcmp ogt double %conv7, 1.000000e-01
+  %cmp10 = icmp eq i32 %3, 0
+  %or.cond = select i1 %cmp8, i1 true, i1 %cmp10
+  br i1 %or.cond, label %if.then12, label %if.else
 
-30:                                               ; preds = %20
-  tail call void @removeList(ptr noundef nonnull %8, ptr noundef nonnull %15) #11
-  tail call void @addList(ptr noundef nonnull %10, ptr noundef nonnull %15) #11
-  store i32 10, ptr %16, align 8, !tbaa !30
-  %31 = getelementptr inbounds %struct.Patient, ptr %15, i64 0, i32 1
-  %32 = load i32, ptr %31, align 4, !tbaa !27
-  %33 = add nsw i32 %32, 10
-  store i32 %33, ptr %31, align 4, !tbaa !27
-  br label %37
+if.then12:                                        ; preds = %if.then
+  tail call void @removeList(ptr noundef nonnull %assess21, ptr noundef nonnull %0) #11
+  tail call void @addList(ptr noundef nonnull %inside, ptr noundef nonnull %0) #11
+  store i32 10, ptr %time_left, align 8, !tbaa !30
+  %time = getelementptr inbounds %struct.Patient, ptr %0, i64 0, i32 1
+  %4 = load i32, ptr %time, align 4, !tbaa !27
+  %add = add nsw i32 %4, 10
+  store i32 %add, ptr %time, align 4, !tbaa !27
+  br label %if.end24
 
-34:                                               ; preds = %20
-  %35 = load i32, ptr %7, align 4, !tbaa !18
-  %36 = add nsw i32 %35, 1
-  store i32 %36, ptr %7, align 4, !tbaa !18
-  tail call void @removeList(ptr noundef nonnull %8, ptr noundef nonnull %15) #11
-  tail call void @addList(ptr noundef nonnull %9, ptr noundef nonnull %15) #11
-  br label %37
+if.else:                                          ; preds = %if.then
+  %5 = load i32, ptr %free_personnel, align 4, !tbaa !18
+  %add17 = add nsw i32 %5, 1
+  store i32 %add17, ptr %free_personnel, align 4, !tbaa !18
+  tail call void @removeList(ptr noundef nonnull %assess21, ptr noundef nonnull %0) #11
+  tail call void @addList(ptr noundef nonnull %up23, ptr noundef nonnull %0) #11
+  br label %if.end24
 
-37:                                               ; preds = %30, %34, %11
-  %38 = phi ptr [ %13, %30 ], [ %9, %34 ], [ %13, %11 ]
-  %39 = load ptr, ptr %12, align 8, !tbaa !23
-  %40 = icmp eq ptr %39, null
-  br i1 %40, label %41, label %11, !llvm.loop !32
+if.end24:                                         ; preds = %if.then12, %if.else, %while.body
+  %up.1 = phi ptr [ %up.050, %if.then12 ], [ %up23, %if.else ], [ %up.050, %while.body ]
+  %6 = load ptr, ptr %list.addr.051, align 8, !tbaa !23
+  %cmp.not = icmp eq ptr %6, null
+  br i1 %cmp.not, label %while.end, label %while.body, !llvm.loop !32
 
-41:                                               ; preds = %37, %2
-  %42 = phi ptr [ null, %2 ], [ %38, %37 ]
-  ret ptr %42
+while.end:                                        ; preds = %if.end24, %entry
+  %up.0.lcssa = phi ptr [ null, %entry ], [ %up.1, %if.end24 ]
+  ret ptr %up.0.lcssa
 }
 
 declare float @my_rand(i64 noundef) local_unnamed_addr #4
 
 ; Function Attrs: nounwind uwtable
-define dso_local void @check_patients_waiting(ptr noundef %0, ptr noundef readonly %1) local_unnamed_addr #3 {
-  %3 = icmp eq ptr %1, null
-  br i1 %3, label %40, label %4
+define dso_local void @check_patients_waiting(ptr noundef %village, ptr noundef readonly %list) local_unnamed_addr #3 {
+entry:
+  %cmp.not26 = icmp eq ptr %list, null
+  br i1 %cmp.not26, label %while.end, label %while.body.lr.ph
 
-4:                                                ; preds = %2
-  %5 = getelementptr inbounds %struct.Village, ptr %0, i64 0, i32 3, i32 1
-  %6 = getelementptr inbounds %struct.Village, ptr %0, i64 0, i32 3, i32 3
-  %7 = getelementptr inbounds %struct.Village, ptr %0, i64 0, i32 3, i32 4
-  %8 = load i32, ptr %5, align 4, !tbaa !18
-  %9 = icmp sgt i32 %8, 0
-  br i1 %9, label %21, label %10
+while.body.lr.ph:                                 ; preds = %entry
+  %free_personnel = getelementptr inbounds %struct.Village, ptr %village, i64 0, i32 3, i32 1
+  %waiting = getelementptr inbounds %struct.Village, ptr %village, i64 0, i32 3, i32 3
+  %assess = getelementptr inbounds %struct.Village, ptr %village, i64 0, i32 3, i32 4
+  %0 = load i32, ptr %free_personnel, align 4, !tbaa !18
+  %1 = icmp sgt i32 %0, 0
+  br i1 %1, label %while.body, label %while.body.us
 
-10:                                               ; preds = %4, %10
-  %11 = phi ptr [ %17, %10 ], [ %1, %4 ]
-  %12 = getelementptr inbounds %struct.List, ptr %11, i64 0, i32 1
-  %13 = load ptr, ptr %12, align 8, !tbaa !24
-  %14 = getelementptr inbounds %struct.Patient, ptr %13, i64 0, i32 1
-  %15 = load i32, ptr %14, align 4, !tbaa !27
-  %16 = add nsw i32 %15, 1
-  store i32 %16, ptr %14, align 4, !tbaa !27
-  %17 = load ptr, ptr %11, align 8, !tbaa !23
-  %18 = icmp eq ptr %17, null
-  br i1 %18, label %40, label %10, !llvm.loop !33
+while.body.us:                                    ; preds = %while.body.lr.ph, %while.body.us
+  %list.addr.027.us = phi ptr [ %4, %while.body.us ], [ %list, %while.body.lr.ph ]
+  %patient.us = getelementptr inbounds %struct.List, ptr %list.addr.027.us, i64 0, i32 1
+  %2 = load ptr, ptr %patient.us, align 8, !tbaa !24
+  %time9.us = getelementptr inbounds %struct.Patient, ptr %2, i64 0, i32 1
+  %3 = load i32, ptr %time9.us, align 4, !tbaa !27
+  %add10.us = add nsw i32 %3, 1
+  store i32 %add10.us, ptr %time9.us, align 4, !tbaa !27
+  %4 = load ptr, ptr %list.addr.027.us, align 8, !tbaa !23
+  %cmp.not.us = icmp eq ptr %4, null
+  br i1 %cmp.not.us, label %while.end, label %while.body.us, !llvm.loop !33
 
-19:                                               ; preds = %37
-  %20 = load i32, ptr %5, align 4, !tbaa !18
-  br label %21
+while.bodythread-pre-split:                       ; preds = %if.end
+  %.pr = load i32, ptr %free_personnel, align 4, !tbaa !18
+  br label %while.body
 
-21:                                               ; preds = %4, %19
-  %22 = phi i32 [ %20, %19 ], [ %8, %4 ]
-  %23 = phi ptr [ %38, %19 ], [ %1, %4 ]
-  %24 = getelementptr inbounds %struct.List, ptr %23, i64 0, i32 1
-  %25 = load ptr, ptr %24, align 8, !tbaa !24
-  %26 = icmp sgt i32 %22, 0
-  br i1 %26, label %27, label %33
+while.body:                                       ; preds = %while.body.lr.ph, %while.bodythread-pre-split
+  %5 = phi i32 [ %.pr, %while.bodythread-pre-split ], [ %0, %while.body.lr.ph ]
+  %list.addr.027 = phi ptr [ %9, %while.bodythread-pre-split ], [ %list, %while.body.lr.ph ]
+  %patient = getelementptr inbounds %struct.List, ptr %list.addr.027, i64 0, i32 1
+  %6 = load ptr, ptr %patient, align 8, !tbaa !24
+  %cmp1 = icmp sgt i32 %5, 0
+  br i1 %cmp1, label %if.then, label %if.else
 
-27:                                               ; preds = %21
-  %28 = add nsw i32 %22, -1
-  store i32 %28, ptr %5, align 4, !tbaa !18
-  %29 = getelementptr inbounds %struct.Patient, ptr %25, i64 0, i32 2
-  store i32 3, ptr %29, align 8, !tbaa !30
-  %30 = getelementptr inbounds %struct.Patient, ptr %25, i64 0, i32 1
-  %31 = load i32, ptr %30, align 4, !tbaa !27
-  %32 = add nsw i32 %31, 3
-  store i32 %32, ptr %30, align 4, !tbaa !27
-  tail call void @removeList(ptr noundef nonnull %6, ptr noundef %25) #11
-  tail call void @addList(ptr noundef nonnull %7, ptr noundef %25) #11
-  br label %37
+if.then:                                          ; preds = %while.body
+  %sub = add nsw i32 %5, -1
+  store i32 %sub, ptr %free_personnel, align 4, !tbaa !18
+  %time_left = getelementptr inbounds %struct.Patient, ptr %6, i64 0, i32 2
+  store i32 3, ptr %time_left, align 8, !tbaa !30
+  %time = getelementptr inbounds %struct.Patient, ptr %6, i64 0, i32 1
+  %7 = load i32, ptr %time, align 4, !tbaa !27
+  %add = add nsw i32 %7, 3
+  store i32 %add, ptr %time, align 4, !tbaa !27
+  tail call void @removeList(ptr noundef nonnull %waiting, ptr noundef %6) #11
+  tail call void @addList(ptr noundef nonnull %assess, ptr noundef %6) #11
+  br label %if.end
 
-33:                                               ; preds = %21
-  %34 = getelementptr inbounds %struct.Patient, ptr %25, i64 0, i32 1
-  %35 = load i32, ptr %34, align 4, !tbaa !27
-  %36 = add nsw i32 %35, 1
-  store i32 %36, ptr %34, align 4, !tbaa !27
-  br label %37
+if.else:                                          ; preds = %while.body
+  %time9 = getelementptr inbounds %struct.Patient, ptr %6, i64 0, i32 1
+  %8 = load i32, ptr %time9, align 4, !tbaa !27
+  %add10 = add nsw i32 %8, 1
+  store i32 %add10, ptr %time9, align 4, !tbaa !27
+  br label %if.end
 
-37:                                               ; preds = %33, %27
-  %38 = load ptr, ptr %23, align 8, !tbaa !23
-  %39 = icmp eq ptr %38, null
-  br i1 %39, label %40, label %19, !llvm.loop !34
+if.end:                                           ; preds = %if.else, %if.then
+  %9 = load ptr, ptr %list.addr.027, align 8, !tbaa !23
+  %cmp.not = icmp eq ptr %9, null
+  br i1 %cmp.not, label %while.end, label %while.bodythread-pre-split, !llvm.loop !34
 
-40:                                               ; preds = %10, %37, %2
+while.end:                                        ; preds = %while.body.us, %if.end, %entry
   ret void
 }
 
 ; Function Attrs: nounwind uwtable
-define dso_local void @put_in_hosp(ptr noundef %0, ptr noundef %1) local_unnamed_addr #3 {
-  %3 = load i32, ptr %1, align 8, !tbaa !25
-  %4 = add nsw i32 %3, 1
-  store i32 %4, ptr %1, align 8, !tbaa !25
-  %5 = getelementptr inbounds %struct.Hosp, ptr %0, i64 0, i32 1
-  %6 = load i32, ptr %5, align 4, !tbaa !36
-  %7 = icmp sgt i32 %6, 0
-  br i1 %7, label %8, label %15
+define dso_local void @put_in_hosp(ptr noundef %hosp, ptr noundef %patient) local_unnamed_addr #3 {
+entry:
+  %0 = load i32, ptr %patient, align 8, !tbaa !25
+  %add = add nsw i32 %0, 1
+  store i32 %add, ptr %patient, align 8, !tbaa !25
+  %free_personnel = getelementptr inbounds %struct.Hosp, ptr %hosp, i64 0, i32 1
+  %1 = load i32, ptr %free_personnel, align 4, !tbaa !36
+  %cmp = icmp sgt i32 %1, 0
+  br i1 %cmp, label %if.then, label %if.else
 
-8:                                                ; preds = %2
-  %9 = add nsw i32 %6, -1
-  store i32 %9, ptr %5, align 4, !tbaa !36
-  %10 = getelementptr inbounds %struct.Hosp, ptr %0, i64 0, i32 4
-  tail call void @addList(ptr noundef nonnull %10, ptr noundef nonnull %1) #11
-  %11 = getelementptr inbounds %struct.Patient, ptr %1, i64 0, i32 2
-  store i32 3, ptr %11, align 8, !tbaa !30
-  %12 = getelementptr inbounds %struct.Patient, ptr %1, i64 0, i32 1
-  %13 = load i32, ptr %12, align 4, !tbaa !27
-  %14 = add nsw i32 %13, 3
-  store i32 %14, ptr %12, align 4, !tbaa !27
-  br label %17
+if.then:                                          ; preds = %entry
+  %sub = add nsw i32 %1, -1
+  store i32 %sub, ptr %free_personnel, align 4, !tbaa !36
+  %assess = getelementptr inbounds %struct.Hosp, ptr %hosp, i64 0, i32 4
+  tail call void @addList(ptr noundef nonnull %assess, ptr noundef nonnull %patient) #11
+  %time_left = getelementptr inbounds %struct.Patient, ptr %patient, i64 0, i32 2
+  store i32 3, ptr %time_left, align 8, !tbaa !30
+  %time = getelementptr inbounds %struct.Patient, ptr %patient, i64 0, i32 1
+  %2 = load i32, ptr %time, align 4, !tbaa !27
+  %add4 = add nsw i32 %2, 3
+  store i32 %add4, ptr %time, align 4, !tbaa !27
+  br label %if.end
 
-15:                                               ; preds = %2
-  %16 = getelementptr inbounds %struct.Hosp, ptr %0, i64 0, i32 3
-  tail call void @addList(ptr noundef nonnull %16, ptr noundef nonnull %1) #11
-  br label %17
+if.else:                                          ; preds = %entry
+  %waiting = getelementptr inbounds %struct.Hosp, ptr %hosp, i64 0, i32 3
+  tail call void @addList(ptr noundef nonnull %waiting, ptr noundef nonnull %patient) #11
+  br label %if.end
 
-17:                                               ; preds = %15, %8
+if.end:                                           ; preds = %if.else, %if.then
   ret void
 }
 
 ; Function Attrs: nounwind uwtable
-define dso_local noalias ptr @generate_patient(ptr noundef %0) local_unnamed_addr #3 {
-  %2 = getelementptr inbounds %struct.Village, ptr %0, i64 0, i32 5
-  %3 = load i64, ptr %2, align 8, !tbaa !16
-  %4 = tail call float @my_rand(i64 noundef %3) #11
-  %5 = fmul float %4, 0x41E0000000000000
-  %6 = fptosi float %5 to i64
-  store i64 %6, ptr %2, align 8, !tbaa !16
-  %7 = fpext float %4 to double
-  %8 = fcmp ogt double %7, 6.660000e-01
-  br i1 %8, label %9, label %14
+define dso_local noalias ptr @generate_patient(ptr noundef %village) local_unnamed_addr #3 {
+entry:
+  %seed = getelementptr inbounds %struct.Village, ptr %village, i64 0, i32 5
+  %0 = load i64, ptr %seed, align 8, !tbaa !16
+  %call = tail call float @my_rand(i64 noundef %0) #11
+  %mul = fmul float %call, 0x41E0000000000000
+  %conv = fptosi float %mul to i64
+  store i64 %conv, ptr %seed, align 8, !tbaa !16
+  %conv4 = fpext float %call to double
+  %cmp = fcmp ogt double %conv4, 6.660000e-01
+  br i1 %cmp, label %if.then, label %cleanup
 
-9:                                                ; preds = %1
-  %10 = tail call noalias dereferenceable_or_null(24) ptr @malloc(i64 noundef 24) #10
-  store i32 0, ptr %10, align 8, !tbaa !25
-  %11 = getelementptr inbounds %struct.Patient, ptr %10, i64 0, i32 1
-  store i32 0, ptr %11, align 4, !tbaa !27
-  %12 = getelementptr inbounds %struct.Patient, ptr %10, i64 0, i32 2
-  store i32 0, ptr %12, align 8, !tbaa !30
-  %13 = getelementptr inbounds %struct.Patient, ptr %10, i64 0, i32 3
-  store ptr %0, ptr %13, align 8, !tbaa !37
-  br label %14
+if.then:                                          ; preds = %entry
+  %call6 = tail call noalias dereferenceable_or_null(24) ptr @malloc(i64 noundef 24) #10
+  store i32 0, ptr %call6, align 8, !tbaa !25
+  %time = getelementptr inbounds %struct.Patient, ptr %call6, i64 0, i32 1
+  store i32 0, ptr %time, align 4, !tbaa !27
+  %time_left = getelementptr inbounds %struct.Patient, ptr %call6, i64 0, i32 2
+  store i32 0, ptr %time_left, align 8, !tbaa !30
+  %home_village = getelementptr inbounds %struct.Patient, ptr %call6, i64 0, i32 3
+  store ptr %village, ptr %home_village, align 8, !tbaa !37
+  br label %cleanup
 
-14:                                               ; preds = %1, %9
-  %15 = phi ptr [ %10, %9 ], [ null, %1 ]
-  ret ptr %15
+cleanup:                                          ; preds = %entry, %if.then
+  %retval.0 = phi ptr [ %call6, %if.then ], [ null, %entry ]
+  ret ptr %retval.0
 }
 
 ; Function Attrs: nounwind uwtable
-define dso_local i32 @main(i32 noundef %0, ptr noundef %1) local_unnamed_addr #5 {
-  tail call void @dealwithargs(i32 noundef %0, ptr noundef %1) #11
-  %3 = load i32, ptr @max_level, align 4, !tbaa !38
-  %4 = tail call ptr @alloc_tree(i32 noundef %3, i32 noundef 0, ptr noundef null)
-  %5 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str)
-  %6 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.8)
-  %7 = load i64, ptr @max_time, align 8, !tbaa !39
-  %8 = icmp sgt i64 %7, 0
-  br i1 %8, label %9, label %21
+define dso_local i32 @main(i32 noundef %argc, ptr noundef %argv) local_unnamed_addr #5 {
+entry:
+  tail call void @dealwithargs(i32 noundef %argc, ptr noundef %argv) #11
+  %0 = load i32, ptr @max_level, align 4, !tbaa !38
+  %call = tail call ptr @alloc_tree(i32 noundef %0, i32 noundef 0, ptr noundef null)
+  %puts = tail call i32 @puts(ptr nonnull dereferenceable(1) @str)
+  %puts28 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.8)
+  %1 = load i64, ptr @max_time, align 8, !tbaa !39
+  %cmp31 = icmp sgt i64 %1, 0
+  br i1 %cmp31, label %for.body, label %for.end
 
-9:                                                ; preds = %2, %16
-  %10 = phi i64 [ %18, %16 ], [ 0, %2 ]
-  %11 = trunc i64 %10 to i32
-  %12 = urem i32 %11, 50
-  %13 = icmp eq i32 %12, 0
-  br i1 %13, label %14, label %16
+for.body:                                         ; preds = %entry, %if.end
+  %indvars.iv = phi i64 [ %indvars.iv.next, %if.end ], [ 0, %entry ]
+  %2 = trunc i64 %indvars.iv to i32
+  %rem = urem i32 %2, 50
+  %cmp4 = icmp eq i32 %rem, 0
+  br i1 %cmp4, label %if.then, label %if.end
 
-14:                                               ; preds = %9
-  %15 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.2, i32 noundef %11)
-  br label %16
+if.then:                                          ; preds = %for.body
+  %call6 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.2, i32 noundef %2)
+  br label %if.end
 
-16:                                               ; preds = %14, %9
-  %17 = tail call ptr @sim(ptr noundef %4)
-  %18 = add nuw nsw i64 %10, 1
-  %19 = load i64, ptr @max_time, align 8, !tbaa !39
-  %20 = icmp sgt i64 %19, %18
-  br i1 %20, label %9, label %21, !llvm.loop !41
+if.end:                                           ; preds = %if.then, %for.body
+  %call7 = tail call ptr @sim(ptr noundef %call)
+  %indvars.iv.next = add nuw nsw i64 %indvars.iv, 1
+  %3 = load i64, ptr @max_time, align 8, !tbaa !39
+  %cmp = icmp sgt i64 %3, %indvars.iv.next
+  br i1 %cmp, label %for.body, label %for.end, !llvm.loop !41
 
-21:                                               ; preds = %16, %2
-  %22 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.9)
-  %23 = tail call { <2 x float>, float } @get_results(ptr noundef %4)
-  %24 = extractvalue { <2 x float>, float } %23, 0
-  %25 = extractvalue { <2 x float>, float } %23, 1
-  %26 = extractelement <2 x float> %24, i64 0
-  %27 = extractelement <2 x float> %24, i64 1
-  %28 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.10)
-  %29 = fpext float %26 to double
-  %30 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.5, double noundef %29)
-  %31 = fdiv float %27, %26
-  %32 = fpext float %31 to double
-  %33 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.6, double noundef %32)
-  %34 = fdiv float %25, %26
-  %35 = fpext float %34 to double
-  %36 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.7, double noundef %35)
+for.end:                                          ; preds = %if.end, %entry
+  %puts29 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.9)
+  %call9 = tail call { <2 x float>, float } @get_results(ptr noundef %call)
+  %call9.fca.0.extract = extractvalue { <2 x float>, float } %call9, 0
+  %call9.fca.1.extract = extractvalue { <2 x float>, float } %call9, 1
+  %results.sroa.0.0.vec.extract = extractelement <2 x float> %call9.fca.0.extract, i64 0
+  %results.sroa.0.4.vec.extract = extractelement <2 x float> %call9.fca.0.extract, i64 1
+  %puts30 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.10)
+  %conv14 = fpext float %results.sroa.0.0.vec.extract to double
+  %call15 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.5, double noundef %conv14)
+  %div = fdiv float %results.sroa.0.4.vec.extract, %results.sroa.0.0.vec.extract
+  %conv16 = fpext float %div to double
+  %call17 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.6, double noundef %conv16)
+  %div18 = fdiv float %call9.fca.1.extract, %results.sroa.0.0.vec.extract
+  %conv19 = fpext float %div18 to double
+  %call20 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.7, double noundef %conv19)
   ret i32 0
 }
 
@@ -435,344 +443,345 @@ declare void @dealwithargs(i32 noundef, ptr noundef) local_unnamed_addr #4
 declare noundef i32 @printf(ptr nocapture noundef readonly, ...) local_unnamed_addr #6
 
 ; Function Attrs: nounwind uwtable
-define dso_local ptr @sim(ptr noundef %0) local_unnamed_addr #3 {
-  %2 = icmp eq ptr %0, null
-  br i1 %2, label %191, label %3
+define dso_local ptr @sim(ptr noundef %village) local_unnamed_addr #3 {
+entry:
+  %cmp = icmp eq ptr %village, null
+  br i1 %cmp, label %cleanup, label %for.body.preheader
 
-3:                                                ; preds = %1
-  %4 = getelementptr inbounds [4 x ptr], ptr %0, i64 0, i64 3
-  %5 = load ptr, ptr %4, align 8, !tbaa !22
-  %6 = tail call ptr @sim(ptr noundef %5)
-  %7 = getelementptr inbounds [4 x ptr], ptr %0, i64 0, i64 2
-  %8 = load ptr, ptr %7, align 8, !tbaa !22
-  %9 = tail call ptr @sim(ptr noundef %8)
-  %10 = getelementptr inbounds [4 x ptr], ptr %0, i64 0, i64 1
-  %11 = load ptr, ptr %10, align 8, !tbaa !22
-  %12 = tail call ptr @sim(ptr noundef %11)
-  %13 = load ptr, ptr %0, align 8, !tbaa !22
-  %14 = tail call ptr @sim(ptr noundef %13)
-  %15 = getelementptr inbounds %struct.Village, ptr %0, i64 0, i32 3, i32 1
-  %16 = getelementptr inbounds %struct.Village, ptr %0, i64 0, i32 3, i32 3
-  %17 = getelementptr inbounds %struct.Village, ptr %0, i64 0, i32 3, i32 4
-  %18 = icmp eq ptr %6, null
-  br i1 %18, label %41, label %19
+for.body.preheader:                               ; preds = %entry
+  %arrayidx = getelementptr inbounds [4 x ptr], ptr %village, i64 0, i64 3
+  %0 = load ptr, ptr %arrayidx, align 8, !tbaa !22
+  %call = tail call ptr @sim(ptr noundef %0)
+  %arrayidx.1 = getelementptr inbounds [4 x ptr], ptr %village, i64 0, i64 2
+  %1 = load ptr, ptr %arrayidx.1, align 8, !tbaa !22
+  %call.1 = tail call ptr @sim(ptr noundef %1)
+  %arrayidx.2 = getelementptr inbounds [4 x ptr], ptr %village, i64 0, i64 1
+  %2 = load ptr, ptr %arrayidx.2, align 8, !tbaa !22
+  %call.2 = tail call ptr @sim(ptr noundef %2)
+  %3 = load ptr, ptr %village, align 8, !tbaa !22
+  %call7 = tail call ptr @sim(ptr noundef %3)
+  %free_personnel.i = getelementptr inbounds %struct.Village, ptr %village, i64 0, i32 3, i32 1
+  %waiting.i = getelementptr inbounds %struct.Village, ptr %village, i64 0, i32 3, i32 3
+  %assess.i = getelementptr inbounds %struct.Village, ptr %village, i64 0, i32 3, i32 4
+  %cmp14.not = icmp eq ptr %call, null
+  br i1 %cmp14.not, label %if.end21, label %while.cond.preheader
 
-19:                                               ; preds = %3
-  %20 = load ptr, ptr %6, align 8, !tbaa !23
-  %21 = icmp eq ptr %20, null
-  br i1 %21, label %41, label %22
+while.cond.preheader:                             ; preds = %for.body.preheader
+  %l.0108 = load ptr, ptr %call, align 8, !tbaa !23
+  %cmp17.not109 = icmp eq ptr %l.0108, null
+  br i1 %cmp17.not109, label %if.end21, label %while.body
 
-22:                                               ; preds = %19, %37
-  %23 = phi ptr [ %39, %37 ], [ %20, %19 ]
-  %24 = getelementptr inbounds %struct.List, ptr %23, i64 0, i32 1
-  %25 = load ptr, ptr %24, align 8, !tbaa !24
-  %26 = load i32, ptr %25, align 8, !tbaa !25
-  %27 = add nsw i32 %26, 1
-  store i32 %27, ptr %25, align 8, !tbaa !25
-  %28 = load i32, ptr %15, align 4, !tbaa !36
-  %29 = icmp sgt i32 %28, 0
-  br i1 %29, label %30, label %36
+while.body:                                       ; preds = %while.cond.preheader, %put_in_hosp.exit
+  %l.0110 = phi ptr [ %l.0, %put_in_hosp.exit ], [ %l.0108, %while.cond.preheader ]
+  %patient18 = getelementptr inbounds %struct.List, ptr %l.0110, i64 0, i32 1
+  %4 = load ptr, ptr %patient18, align 8, !tbaa !24
+  %5 = load i32, ptr %4, align 8, !tbaa !25
+  %add.i = add nsw i32 %5, 1
+  store i32 %add.i, ptr %4, align 8, !tbaa !25
+  %6 = load i32, ptr %free_personnel.i, align 4, !tbaa !36
+  %cmp.i = icmp sgt i32 %6, 0
+  br i1 %cmp.i, label %if.then.i, label %if.else.i
 
-30:                                               ; preds = %22
-  %31 = add nsw i32 %28, -1
-  store i32 %31, ptr %15, align 4, !tbaa !36
-  tail call void @addList(ptr noundef nonnull %17, ptr noundef nonnull %25) #11
-  %32 = getelementptr inbounds %struct.Patient, ptr %25, i64 0, i32 2
-  store i32 3, ptr %32, align 8, !tbaa !30
-  %33 = getelementptr inbounds %struct.Patient, ptr %25, i64 0, i32 1
-  %34 = load i32, ptr %33, align 4, !tbaa !27
-  %35 = add nsw i32 %34, 3
-  store i32 %35, ptr %33, align 4, !tbaa !27
-  br label %37
+if.then.i:                                        ; preds = %while.body
+  %sub.i = add nsw i32 %6, -1
+  store i32 %sub.i, ptr %free_personnel.i, align 4, !tbaa !36
+  tail call void @addList(ptr noundef nonnull %assess.i, ptr noundef nonnull %4) #11
+  %time_left.i = getelementptr inbounds %struct.Patient, ptr %4, i64 0, i32 2
+  store i32 3, ptr %time_left.i, align 8, !tbaa !30
+  %time.i = getelementptr inbounds %struct.Patient, ptr %4, i64 0, i32 1
+  %7 = load i32, ptr %time.i, align 4, !tbaa !27
+  %add4.i = add nsw i32 %7, 3
+  store i32 %add4.i, ptr %time.i, align 4, !tbaa !27
+  br label %put_in_hosp.exit
 
-36:                                               ; preds = %22
-  tail call void @addList(ptr noundef nonnull %16, ptr noundef nonnull %25) #11
-  br label %37
+if.else.i:                                        ; preds = %while.body
+  tail call void @addList(ptr noundef nonnull %waiting.i, ptr noundef nonnull %4) #11
+  br label %put_in_hosp.exit
 
-37:                                               ; preds = %30, %36
-  %38 = load ptr, ptr %24, align 8, !tbaa !24
-  tail call void @removeList(ptr noundef nonnull %6, ptr noundef %38) #11
-  %39 = load ptr, ptr %23, align 8, !tbaa !23
-  %40 = icmp eq ptr %39, null
-  br i1 %40, label %41, label %22, !llvm.loop !42
+put_in_hosp.exit:                                 ; preds = %if.then.i, %if.else.i
+  %8 = load ptr, ptr %patient18, align 8, !tbaa !24
+  tail call void @removeList(ptr noundef nonnull %call, ptr noundef %8) #11
+  %l.0 = load ptr, ptr %l.0110, align 8, !tbaa !23
+  %cmp17.not = icmp eq ptr %l.0, null
+  br i1 %cmp17.not, label %if.end21, label %while.body, !llvm.loop !42
 
-41:                                               ; preds = %37, %19, %3
-  %42 = icmp eq ptr %9, null
-  br i1 %42, label %65, label %43
+if.end21:                                         ; preds = %put_in_hosp.exit, %while.cond.preheader, %for.body.preheader
+  %cmp14.not.1 = icmp eq ptr %call.1, null
+  br i1 %cmp14.not.1, label %if.end21.1, label %while.cond.preheader.1
 
-43:                                               ; preds = %41
-  %44 = load ptr, ptr %9, align 8, !tbaa !23
-  %45 = icmp eq ptr %44, null
-  br i1 %45, label %65, label %46
+while.cond.preheader.1:                           ; preds = %if.end21
+  %l.0108.1 = load ptr, ptr %call.1, align 8, !tbaa !23
+  %cmp17.not109.1 = icmp eq ptr %l.0108.1, null
+  br i1 %cmp17.not109.1, label %if.end21.1, label %while.body.1
 
-46:                                               ; preds = %43, %61
-  %47 = phi ptr [ %63, %61 ], [ %44, %43 ]
-  %48 = getelementptr inbounds %struct.List, ptr %47, i64 0, i32 1
-  %49 = load ptr, ptr %48, align 8, !tbaa !24
-  %50 = load i32, ptr %49, align 8, !tbaa !25
-  %51 = add nsw i32 %50, 1
-  store i32 %51, ptr %49, align 8, !tbaa !25
-  %52 = load i32, ptr %15, align 4, !tbaa !36
-  %53 = icmp sgt i32 %52, 0
-  br i1 %53, label %55, label %54
+while.body.1:                                     ; preds = %while.cond.preheader.1, %put_in_hosp.exit.1
+  %l.0110.1 = phi ptr [ %l.0.1, %put_in_hosp.exit.1 ], [ %l.0108.1, %while.cond.preheader.1 ]
+  %patient18.1 = getelementptr inbounds %struct.List, ptr %l.0110.1, i64 0, i32 1
+  %9 = load ptr, ptr %patient18.1, align 8, !tbaa !24
+  %10 = load i32, ptr %9, align 8, !tbaa !25
+  %add.i.1 = add nsw i32 %10, 1
+  store i32 %add.i.1, ptr %9, align 8, !tbaa !25
+  %11 = load i32, ptr %free_personnel.i, align 4, !tbaa !36
+  %cmp.i.1 = icmp sgt i32 %11, 0
+  br i1 %cmp.i.1, label %if.then.i.1, label %if.else.i.1
 
-54:                                               ; preds = %46
-  tail call void @addList(ptr noundef nonnull %16, ptr noundef nonnull %49) #11
-  br label %61
+if.else.i.1:                                      ; preds = %while.body.1
+  tail call void @addList(ptr noundef nonnull %waiting.i, ptr noundef nonnull %9) #11
+  br label %put_in_hosp.exit.1
 
-55:                                               ; preds = %46
-  %56 = add nsw i32 %52, -1
-  store i32 %56, ptr %15, align 4, !tbaa !36
-  tail call void @addList(ptr noundef nonnull %17, ptr noundef nonnull %49) #11
-  %57 = getelementptr inbounds %struct.Patient, ptr %49, i64 0, i32 2
-  store i32 3, ptr %57, align 8, !tbaa !30
-  %58 = getelementptr inbounds %struct.Patient, ptr %49, i64 0, i32 1
-  %59 = load i32, ptr %58, align 4, !tbaa !27
-  %60 = add nsw i32 %59, 3
-  store i32 %60, ptr %58, align 4, !tbaa !27
-  br label %61
+if.then.i.1:                                      ; preds = %while.body.1
+  %sub.i.1 = add nsw i32 %11, -1
+  store i32 %sub.i.1, ptr %free_personnel.i, align 4, !tbaa !36
+  tail call void @addList(ptr noundef nonnull %assess.i, ptr noundef nonnull %9) #11
+  %time_left.i.1 = getelementptr inbounds %struct.Patient, ptr %9, i64 0, i32 2
+  store i32 3, ptr %time_left.i.1, align 8, !tbaa !30
+  %time.i.1 = getelementptr inbounds %struct.Patient, ptr %9, i64 0, i32 1
+  %12 = load i32, ptr %time.i.1, align 4, !tbaa !27
+  %add4.i.1 = add nsw i32 %12, 3
+  store i32 %add4.i.1, ptr %time.i.1, align 4, !tbaa !27
+  br label %put_in_hosp.exit.1
 
-61:                                               ; preds = %55, %54
-  %62 = load ptr, ptr %48, align 8, !tbaa !24
-  tail call void @removeList(ptr noundef nonnull %9, ptr noundef %62) #11
-  %63 = load ptr, ptr %47, align 8, !tbaa !23
-  %64 = icmp eq ptr %63, null
-  br i1 %64, label %65, label %46, !llvm.loop !42
+put_in_hosp.exit.1:                               ; preds = %if.then.i.1, %if.else.i.1
+  %13 = load ptr, ptr %patient18.1, align 8, !tbaa !24
+  tail call void @removeList(ptr noundef nonnull %call.1, ptr noundef %13) #11
+  %l.0.1 = load ptr, ptr %l.0110.1, align 8, !tbaa !23
+  %cmp17.not.1 = icmp eq ptr %l.0.1, null
+  br i1 %cmp17.not.1, label %if.end21.1, label %while.body.1, !llvm.loop !42
 
-65:                                               ; preds = %61, %43, %41
-  %66 = icmp eq ptr %12, null
-  br i1 %66, label %89, label %67
+if.end21.1:                                       ; preds = %put_in_hosp.exit.1, %while.cond.preheader.1, %if.end21
+  %cmp14.not.2 = icmp eq ptr %call.2, null
+  br i1 %cmp14.not.2, label %if.end21.2, label %while.cond.preheader.2
 
-67:                                               ; preds = %65
-  %68 = load ptr, ptr %12, align 8, !tbaa !23
-  %69 = icmp eq ptr %68, null
-  br i1 %69, label %89, label %70
+while.cond.preheader.2:                           ; preds = %if.end21.1
+  %l.0108.2 = load ptr, ptr %call.2, align 8, !tbaa !23
+  %cmp17.not109.2 = icmp eq ptr %l.0108.2, null
+  br i1 %cmp17.not109.2, label %if.end21.2, label %while.body.2
 
-70:                                               ; preds = %67, %85
-  %71 = phi ptr [ %87, %85 ], [ %68, %67 ]
-  %72 = getelementptr inbounds %struct.List, ptr %71, i64 0, i32 1
-  %73 = load ptr, ptr %72, align 8, !tbaa !24
-  %74 = load i32, ptr %73, align 8, !tbaa !25
-  %75 = add nsw i32 %74, 1
-  store i32 %75, ptr %73, align 8, !tbaa !25
-  %76 = load i32, ptr %15, align 4, !tbaa !36
-  %77 = icmp sgt i32 %76, 0
-  br i1 %77, label %79, label %78
+while.body.2:                                     ; preds = %while.cond.preheader.2, %put_in_hosp.exit.2
+  %l.0110.2 = phi ptr [ %l.0.2, %put_in_hosp.exit.2 ], [ %l.0108.2, %while.cond.preheader.2 ]
+  %patient18.2 = getelementptr inbounds %struct.List, ptr %l.0110.2, i64 0, i32 1
+  %14 = load ptr, ptr %patient18.2, align 8, !tbaa !24
+  %15 = load i32, ptr %14, align 8, !tbaa !25
+  %add.i.2 = add nsw i32 %15, 1
+  store i32 %add.i.2, ptr %14, align 8, !tbaa !25
+  %16 = load i32, ptr %free_personnel.i, align 4, !tbaa !36
+  %cmp.i.2 = icmp sgt i32 %16, 0
+  br i1 %cmp.i.2, label %if.then.i.2, label %if.else.i.2
 
-78:                                               ; preds = %70
-  tail call void @addList(ptr noundef nonnull %16, ptr noundef nonnull %73) #11
-  br label %85
+if.else.i.2:                                      ; preds = %while.body.2
+  tail call void @addList(ptr noundef nonnull %waiting.i, ptr noundef nonnull %14) #11
+  br label %put_in_hosp.exit.2
 
-79:                                               ; preds = %70
-  %80 = add nsw i32 %76, -1
-  store i32 %80, ptr %15, align 4, !tbaa !36
-  tail call void @addList(ptr noundef nonnull %17, ptr noundef nonnull %73) #11
-  %81 = getelementptr inbounds %struct.Patient, ptr %73, i64 0, i32 2
-  store i32 3, ptr %81, align 8, !tbaa !30
-  %82 = getelementptr inbounds %struct.Patient, ptr %73, i64 0, i32 1
-  %83 = load i32, ptr %82, align 4, !tbaa !27
-  %84 = add nsw i32 %83, 3
-  store i32 %84, ptr %82, align 4, !tbaa !27
-  br label %85
+if.then.i.2:                                      ; preds = %while.body.2
+  %sub.i.2 = add nsw i32 %16, -1
+  store i32 %sub.i.2, ptr %free_personnel.i, align 4, !tbaa !36
+  tail call void @addList(ptr noundef nonnull %assess.i, ptr noundef nonnull %14) #11
+  %time_left.i.2 = getelementptr inbounds %struct.Patient, ptr %14, i64 0, i32 2
+  store i32 3, ptr %time_left.i.2, align 8, !tbaa !30
+  %time.i.2 = getelementptr inbounds %struct.Patient, ptr %14, i64 0, i32 1
+  %17 = load i32, ptr %time.i.2, align 4, !tbaa !27
+  %add4.i.2 = add nsw i32 %17, 3
+  store i32 %add4.i.2, ptr %time.i.2, align 4, !tbaa !27
+  br label %put_in_hosp.exit.2
 
-85:                                               ; preds = %79, %78
-  %86 = load ptr, ptr %72, align 8, !tbaa !24
-  tail call void @removeList(ptr noundef nonnull %12, ptr noundef %86) #11
-  %87 = load ptr, ptr %71, align 8, !tbaa !23
-  %88 = icmp eq ptr %87, null
-  br i1 %88, label %89, label %70, !llvm.loop !42
+put_in_hosp.exit.2:                               ; preds = %if.then.i.2, %if.else.i.2
+  %18 = load ptr, ptr %patient18.2, align 8, !tbaa !24
+  tail call void @removeList(ptr noundef nonnull %call.2, ptr noundef %18) #11
+  %l.0.2 = load ptr, ptr %l.0110.2, align 8, !tbaa !23
+  %cmp17.not.2 = icmp eq ptr %l.0.2, null
+  br i1 %cmp17.not.2, label %if.end21.2, label %while.body.2, !llvm.loop !42
 
-89:                                               ; preds = %85, %67, %65
-  %90 = icmp eq ptr %14, null
-  br i1 %90, label %113, label %91
+if.end21.2:                                       ; preds = %put_in_hosp.exit.2, %while.cond.preheader.2, %if.end21.1
+  %cmp14.not.3 = icmp eq ptr %call7, null
+  br i1 %cmp14.not.3, label %if.end21.3, label %while.cond.preheader.3
 
-91:                                               ; preds = %89
-  %92 = load ptr, ptr %14, align 8, !tbaa !23
-  %93 = icmp eq ptr %92, null
-  br i1 %93, label %113, label %94
+while.cond.preheader.3:                           ; preds = %if.end21.2
+  %l.0108.3 = load ptr, ptr %call7, align 8, !tbaa !23
+  %cmp17.not109.3 = icmp eq ptr %l.0108.3, null
+  br i1 %cmp17.not109.3, label %if.end21.3, label %while.body.3
 
-94:                                               ; preds = %91, %109
-  %95 = phi ptr [ %111, %109 ], [ %92, %91 ]
-  %96 = getelementptr inbounds %struct.List, ptr %95, i64 0, i32 1
-  %97 = load ptr, ptr %96, align 8, !tbaa !24
-  %98 = load i32, ptr %97, align 8, !tbaa !25
-  %99 = add nsw i32 %98, 1
-  store i32 %99, ptr %97, align 8, !tbaa !25
-  %100 = load i32, ptr %15, align 4, !tbaa !36
-  %101 = icmp sgt i32 %100, 0
-  br i1 %101, label %103, label %102
+while.body.3:                                     ; preds = %while.cond.preheader.3, %put_in_hosp.exit.3
+  %l.0110.3 = phi ptr [ %l.0.3, %put_in_hosp.exit.3 ], [ %l.0108.3, %while.cond.preheader.3 ]
+  %patient18.3 = getelementptr inbounds %struct.List, ptr %l.0110.3, i64 0, i32 1
+  %19 = load ptr, ptr %patient18.3, align 8, !tbaa !24
+  %20 = load i32, ptr %19, align 8, !tbaa !25
+  %add.i.3 = add nsw i32 %20, 1
+  store i32 %add.i.3, ptr %19, align 8, !tbaa !25
+  %21 = load i32, ptr %free_personnel.i, align 4, !tbaa !36
+  %cmp.i.3 = icmp sgt i32 %21, 0
+  br i1 %cmp.i.3, label %if.then.i.3, label %if.else.i.3
 
-102:                                              ; preds = %94
-  tail call void @addList(ptr noundef nonnull %16, ptr noundef nonnull %97) #11
-  br label %109
+if.else.i.3:                                      ; preds = %while.body.3
+  tail call void @addList(ptr noundef nonnull %waiting.i, ptr noundef nonnull %19) #11
+  br label %put_in_hosp.exit.3
 
-103:                                              ; preds = %94
-  %104 = add nsw i32 %100, -1
-  store i32 %104, ptr %15, align 4, !tbaa !36
-  tail call void @addList(ptr noundef nonnull %17, ptr noundef nonnull %97) #11
-  %105 = getelementptr inbounds %struct.Patient, ptr %97, i64 0, i32 2
-  store i32 3, ptr %105, align 8, !tbaa !30
-  %106 = getelementptr inbounds %struct.Patient, ptr %97, i64 0, i32 1
-  %107 = load i32, ptr %106, align 4, !tbaa !27
-  %108 = add nsw i32 %107, 3
-  store i32 %108, ptr %106, align 4, !tbaa !27
-  br label %109
+if.then.i.3:                                      ; preds = %while.body.3
+  %sub.i.3 = add nsw i32 %21, -1
+  store i32 %sub.i.3, ptr %free_personnel.i, align 4, !tbaa !36
+  tail call void @addList(ptr noundef nonnull %assess.i, ptr noundef nonnull %19) #11
+  %time_left.i.3 = getelementptr inbounds %struct.Patient, ptr %19, i64 0, i32 2
+  store i32 3, ptr %time_left.i.3, align 8, !tbaa !30
+  %time.i.3 = getelementptr inbounds %struct.Patient, ptr %19, i64 0, i32 1
+  %22 = load i32, ptr %time.i.3, align 4, !tbaa !27
+  %add4.i.3 = add nsw i32 %22, 3
+  store i32 %add4.i.3, ptr %time.i.3, align 4, !tbaa !27
+  br label %put_in_hosp.exit.3
 
-109:                                              ; preds = %103, %102
-  %110 = load ptr, ptr %96, align 8, !tbaa !24
-  tail call void @removeList(ptr noundef nonnull %14, ptr noundef %110) #11
-  %111 = load ptr, ptr %95, align 8, !tbaa !23
-  %112 = icmp eq ptr %111, null
-  br i1 %112, label %113, label %94, !llvm.loop !42
+put_in_hosp.exit.3:                               ; preds = %if.then.i.3, %if.else.i.3
+  %23 = load ptr, ptr %patient18.3, align 8, !tbaa !24
+  tail call void @removeList(ptr noundef nonnull %call7, ptr noundef %23) #11
+  %l.0.3 = load ptr, ptr %l.0110.3, align 8, !tbaa !23
+  %cmp17.not.3 = icmp eq ptr %l.0.3, null
+  br i1 %cmp17.not.3, label %if.end21.3, label %while.body.3, !llvm.loop !42
 
-113:                                              ; preds = %109, %91, %89
-  %114 = getelementptr inbounds %struct.Village, ptr %0, i64 0, i32 3, i32 5
-  %115 = load ptr, ptr %114, align 8, !tbaa !43
-  %116 = icmp eq ptr %115, null
-  br i1 %116, label %133, label %117
+if.end21.3:                                       ; preds = %put_in_hosp.exit.3, %while.cond.preheader.3, %if.end21.2
+  %inside = getelementptr inbounds %struct.Village, ptr %village, i64 0, i32 3, i32 5
+  %24 = load ptr, ptr %inside, align 8, !tbaa !43
+  %cmp.not18.i = icmp eq ptr %24, null
+  br i1 %cmp.not18.i, label %check_patients_inside.exit, label %while.body.lr.ph.i
 
-117:                                              ; preds = %113
-  %118 = getelementptr inbounds %struct.Village, ptr %0, i64 0, i32 2
-  br label %119
+while.body.lr.ph.i:                               ; preds = %if.end21.3
+  %returned.i = getelementptr inbounds %struct.Village, ptr %village, i64 0, i32 2
+  br label %while.body.i
 
-119:                                              ; preds = %130, %117
-  %120 = phi ptr [ %115, %117 ], [ %131, %130 ]
-  %121 = getelementptr inbounds %struct.List, ptr %120, i64 0, i32 1
-  %122 = load ptr, ptr %121, align 8, !tbaa !24
-  %123 = getelementptr inbounds %struct.Patient, ptr %122, i64 0, i32 2
-  %124 = load i32, ptr %123, align 8, !tbaa !30
-  %125 = add nsw i32 %124, -1
-  store i32 %125, ptr %123, align 8, !tbaa !30
-  %126 = icmp eq i32 %125, 0
-  br i1 %126, label %127, label %130
+while.body.i:                                     ; preds = %if.end.i, %while.body.lr.ph.i
+  %list.addr.019.i = phi ptr [ %24, %while.body.lr.ph.i ], [ %28, %if.end.i ]
+  %patient.i = getelementptr inbounds %struct.List, ptr %list.addr.019.i, i64 0, i32 1
+  %25 = load ptr, ptr %patient.i, align 8, !tbaa !24
+  %time_left.i69 = getelementptr inbounds %struct.Patient, ptr %25, i64 0, i32 2
+  %26 = load i32, ptr %time_left.i69, align 8, !tbaa !30
+  %sub.i70 = add nsw i32 %26, -1
+  store i32 %sub.i70, ptr %time_left.i69, align 8, !tbaa !30
+  %cmp3.i = icmp eq i32 %sub.i70, 0
+  br i1 %cmp3.i, label %if.then.i72, label %if.end.i
 
-127:                                              ; preds = %119
-  %128 = load i32, ptr %15, align 4, !tbaa !18
-  %129 = add nsw i32 %128, 1
-  store i32 %129, ptr %15, align 4, !tbaa !18
-  tail call void @removeList(ptr noundef nonnull %114, ptr noundef nonnull %122) #11
-  tail call void @addList(ptr noundef nonnull %118, ptr noundef nonnull %122) #11
-  br label %130
+if.then.i72:                                      ; preds = %while.body.i
+  %27 = load i32, ptr %free_personnel.i, align 4, !tbaa !18
+  %add.i71 = add nsw i32 %27, 1
+  store i32 %add.i71, ptr %free_personnel.i, align 4, !tbaa !18
+  tail call void @removeList(ptr noundef nonnull %inside, ptr noundef nonnull %25) #11
+  tail call void @addList(ptr noundef nonnull %returned.i, ptr noundef nonnull %25) #11
+  br label %if.end.i
 
-130:                                              ; preds = %127, %119
-  %131 = load ptr, ptr %120, align 8, !tbaa !23
-  %132 = icmp eq ptr %131, null
-  br i1 %132, label %133, label %119, !llvm.loop !31
+if.end.i:                                         ; preds = %if.then.i72, %while.body.i
+  %28 = load ptr, ptr %list.addr.019.i, align 8, !tbaa !23
+  %cmp.not.i = icmp eq ptr %28, null
+  br i1 %cmp.not.i, label %check_patients_inside.exit, label %while.body.i, !llvm.loop !31
 
-133:                                              ; preds = %130, %113
-  %134 = load ptr, ptr %17, align 8, !tbaa !44
-  %135 = tail call ptr @check_patients_assess(ptr noundef nonnull %0, ptr noundef %134)
-  %136 = load ptr, ptr %16, align 8, !tbaa !45
-  %137 = icmp eq ptr %136, null
-  br i1 %137, label %171, label %138
+check_patients_inside.exit:                       ; preds = %if.end.i, %if.end21.3
+  %29 = load ptr, ptr %assess.i, align 8, !tbaa !44
+  %call29 = tail call ptr @check_patients_assess(ptr noundef nonnull %village, ptr noundef %29)
+  %30 = load ptr, ptr %waiting.i, align 8, !tbaa !45
+  %cmp.not26.i = icmp eq ptr %30, null
+  br i1 %cmp.not26.i, label %check_patients_waiting.exit, label %while.body.lr.ph.i76
 
-138:                                              ; preds = %133
-  %139 = load i32, ptr %15, align 4, !tbaa !18
-  %140 = icmp sgt i32 %139, 0
-  br i1 %140, label %152, label %141
+while.body.lr.ph.i76:                             ; preds = %check_patients_inside.exit
+  %31 = load i32, ptr %free_personnel.i, align 4, !tbaa !18
+  %32 = icmp sgt i32 %31, 0
+  br i1 %32, label %while.body.i78, label %while.body.us.i
 
-141:                                              ; preds = %138, %141
-  %142 = phi ptr [ %148, %141 ], [ %136, %138 ]
-  %143 = getelementptr inbounds %struct.List, ptr %142, i64 0, i32 1
-  %144 = load ptr, ptr %143, align 8, !tbaa !24
-  %145 = getelementptr inbounds %struct.Patient, ptr %144, i64 0, i32 1
-  %146 = load i32, ptr %145, align 4, !tbaa !27
-  %147 = add nsw i32 %146, 1
-  store i32 %147, ptr %145, align 4, !tbaa !27
-  %148 = load ptr, ptr %142, align 8, !tbaa !23
-  %149 = icmp eq ptr %148, null
-  br i1 %149, label %171, label %141, !llvm.loop !33
+while.body.us.i:                                  ; preds = %while.body.lr.ph.i76, %while.body.us.i
+  %list.addr.027.us.i = phi ptr [ %35, %while.body.us.i ], [ %30, %while.body.lr.ph.i76 ]
+  %patient.us.i = getelementptr inbounds %struct.List, ptr %list.addr.027.us.i, i64 0, i32 1
+  %33 = load ptr, ptr %patient.us.i, align 8, !tbaa !24
+  %time9.us.i = getelementptr inbounds %struct.Patient, ptr %33, i64 0, i32 1
+  %34 = load i32, ptr %time9.us.i, align 4, !tbaa !27
+  %add10.us.i = add nsw i32 %34, 1
+  store i32 %add10.us.i, ptr %time9.us.i, align 4, !tbaa !27
+  %35 = load ptr, ptr %list.addr.027.us.i, align 8, !tbaa !23
+  %cmp.not.us.i = icmp eq ptr %35, null
+  br i1 %cmp.not.us.i, label %check_patients_waiting.exit, label %while.body.us.i, !llvm.loop !33
 
-150:                                              ; preds = %168
-  %151 = load i32, ptr %15, align 4, !tbaa !18
-  br label %152
+while.bodythread-pre-split.i:                     ; preds = %if.end.i86
+  %.pr.i = load i32, ptr %free_personnel.i, align 4, !tbaa !18
+  br label %while.body.i78
 
-152:                                              ; preds = %138, %150
-  %153 = phi i32 [ %151, %150 ], [ %139, %138 ]
-  %154 = phi ptr [ %169, %150 ], [ %136, %138 ]
-  %155 = getelementptr inbounds %struct.List, ptr %154, i64 0, i32 1
-  %156 = load ptr, ptr %155, align 8, !tbaa !24
-  %157 = icmp sgt i32 %153, 0
-  br i1 %157, label %158, label %164
+while.body.i78:                                   ; preds = %while.body.lr.ph.i76, %while.bodythread-pre-split.i
+  %36 = phi i32 [ %.pr.i, %while.bodythread-pre-split.i ], [ %31, %while.body.lr.ph.i76 ]
+  %list.addr.027.i = phi ptr [ %40, %while.bodythread-pre-split.i ], [ %30, %while.body.lr.ph.i76 ]
+  %patient.i77 = getelementptr inbounds %struct.List, ptr %list.addr.027.i, i64 0, i32 1
+  %37 = load ptr, ptr %patient.i77, align 8, !tbaa !24
+  %cmp1.i = icmp sgt i32 %36, 0
+  br i1 %cmp1.i, label %if.then.i83, label %if.else.i84
 
-158:                                              ; preds = %152
-  %159 = add nsw i32 %153, -1
-  store i32 %159, ptr %15, align 4, !tbaa !18
-  %160 = getelementptr inbounds %struct.Patient, ptr %156, i64 0, i32 2
-  store i32 3, ptr %160, align 8, !tbaa !30
-  %161 = getelementptr inbounds %struct.Patient, ptr %156, i64 0, i32 1
-  %162 = load i32, ptr %161, align 4, !tbaa !27
-  %163 = add nsw i32 %162, 3
-  store i32 %163, ptr %161, align 4, !tbaa !27
-  tail call void @removeList(ptr noundef nonnull %16, ptr noundef %156) #11
-  tail call void @addList(ptr noundef nonnull %17, ptr noundef %156) #11
-  br label %168
+if.then.i83:                                      ; preds = %while.body.i78
+  %sub.i79 = add nsw i32 %36, -1
+  store i32 %sub.i79, ptr %free_personnel.i, align 4, !tbaa !18
+  %time_left.i80 = getelementptr inbounds %struct.Patient, ptr %37, i64 0, i32 2
+  store i32 3, ptr %time_left.i80, align 8, !tbaa !30
+  %time.i81 = getelementptr inbounds %struct.Patient, ptr %37, i64 0, i32 1
+  %38 = load i32, ptr %time.i81, align 4, !tbaa !27
+  %add.i82 = add nsw i32 %38, 3
+  store i32 %add.i82, ptr %time.i81, align 4, !tbaa !27
+  tail call void @removeList(ptr noundef nonnull %waiting.i, ptr noundef %37) #11
+  tail call void @addList(ptr noundef nonnull %assess.i, ptr noundef %37) #11
+  br label %if.end.i86
 
-164:                                              ; preds = %152
-  %165 = getelementptr inbounds %struct.Patient, ptr %156, i64 0, i32 1
-  %166 = load i32, ptr %165, align 4, !tbaa !27
-  %167 = add nsw i32 %166, 1
-  store i32 %167, ptr %165, align 4, !tbaa !27
-  br label %168
+if.else.i84:                                      ; preds = %while.body.i78
+  %time9.i = getelementptr inbounds %struct.Patient, ptr %37, i64 0, i32 1
+  %39 = load i32, ptr %time9.i, align 4, !tbaa !27
+  %add10.i = add nsw i32 %39, 1
+  store i32 %add10.i, ptr %time9.i, align 4, !tbaa !27
+  br label %if.end.i86
 
-168:                                              ; preds = %164, %158
-  %169 = load ptr, ptr %154, align 8, !tbaa !23
-  %170 = icmp eq ptr %169, null
-  br i1 %170, label %171, label %150, !llvm.loop !34
+if.end.i86:                                       ; preds = %if.else.i84, %if.then.i83
+  %40 = load ptr, ptr %list.addr.027.i, align 8, !tbaa !23
+  %cmp.not.i85 = icmp eq ptr %40, null
+  br i1 %cmp.not.i85, label %check_patients_waiting.exit, label %while.bodythread-pre-split.i, !llvm.loop !34
 
-171:                                              ; preds = %141, %168, %133
-  %172 = getelementptr inbounds %struct.Village, ptr %0, i64 0, i32 5
-  %173 = load i64, ptr %172, align 8, !tbaa !16
-  %174 = tail call float @my_rand(i64 noundef %173) #11
-  %175 = fmul float %174, 0x41E0000000000000
-  %176 = fptosi float %175 to i64
-  store i64 %176, ptr %172, align 8, !tbaa !16
-  %177 = fpext float %174 to double
-  %178 = fcmp ogt double %177, 6.660000e-01
-  br i1 %178, label %179, label %191
+check_patients_waiting.exit:                      ; preds = %while.body.us.i, %if.end.i86, %check_patients_inside.exit
+  %seed.i = getelementptr inbounds %struct.Village, ptr %village, i64 0, i32 5
+  %41 = load i64, ptr %seed.i, align 8, !tbaa !16
+  %call.i = tail call float @my_rand(i64 noundef %41) #11
+  %mul.i = fmul float %call.i, 0x41E0000000000000
+  %conv.i = fptosi float %mul.i to i64
+  store i64 %conv.i, ptr %seed.i, align 8, !tbaa !16
+  %conv4.i = fpext float %call.i to double
+  %cmp.i87 = fcmp ogt double %conv4.i, 6.660000e-01
+  br i1 %cmp.i87, label %generate_patient.exit, label %cleanup
 
-179:                                              ; preds = %171
-  %180 = tail call noalias dereferenceable_or_null(24) ptr @malloc(i64 noundef 24) #10
-  %181 = getelementptr inbounds %struct.Patient, ptr %180, i64 0, i32 1
-  store i32 0, ptr %181, align 4, !tbaa !27
-  %182 = getelementptr inbounds %struct.Patient, ptr %180, i64 0, i32 2
-  store i32 0, ptr %182, align 8, !tbaa !30
-  %183 = getelementptr inbounds %struct.Patient, ptr %180, i64 0, i32 3
-  store ptr %0, ptr %183, align 8, !tbaa !37
-  store i32 1, ptr %180, align 8, !tbaa !25
-  %184 = load i32, ptr %15, align 4, !tbaa !36
-  %185 = icmp sgt i32 %184, 0
-  br i1 %185, label %186, label %190
+generate_patient.exit:                            ; preds = %check_patients_waiting.exit
+  %call6.i = tail call noalias dereferenceable_or_null(24) ptr @malloc(i64 noundef 24) #10
+  %time.i88 = getelementptr inbounds %struct.Patient, ptr %call6.i, i64 0, i32 1
+  store i32 0, ptr %time.i88, align 4, !tbaa !27
+  %time_left.i89 = getelementptr inbounds %struct.Patient, ptr %call6.i, i64 0, i32 2
+  store i32 0, ptr %time_left.i89, align 8, !tbaa !30
+  %home_village.i = getelementptr inbounds %struct.Patient, ptr %call6.i, i64 0, i32 3
+  store ptr %village, ptr %home_village.i, align 8, !tbaa !37
+  store i32 1, ptr %call6.i, align 8, !tbaa !25
+  %42 = load i32, ptr %free_personnel.i, align 4, !tbaa !36
+  %cmp.i93 = icmp sgt i32 %42, 0
+  br i1 %cmp.i93, label %if.then.i99, label %if.else.i101
 
-186:                                              ; preds = %179
-  %187 = add nsw i32 %184, -1
-  store i32 %187, ptr %15, align 4, !tbaa !36
-  tail call void @addList(ptr noundef nonnull %17, ptr noundef nonnull %180) #11
-  store i32 3, ptr %182, align 8, !tbaa !30
-  %188 = load i32, ptr %181, align 4, !tbaa !27
-  %189 = add nsw i32 %188, 3
-  store i32 %189, ptr %181, align 4, !tbaa !27
-  br label %191
+if.then.i99:                                      ; preds = %generate_patient.exit
+  %sub.i94 = add nsw i32 %42, -1
+  store i32 %sub.i94, ptr %free_personnel.i, align 4, !tbaa !36
+  tail call void @addList(ptr noundef nonnull %assess.i, ptr noundef nonnull %call6.i) #11
+  store i32 3, ptr %time_left.i89, align 8, !tbaa !30
+  %43 = load i32, ptr %time.i88, align 4, !tbaa !27
+  %add4.i98 = add nsw i32 %43, 3
+  store i32 %add4.i98, ptr %time.i88, align 4, !tbaa !27
+  br label %cleanup
 
-190:                                              ; preds = %179
-  tail call void @addList(ptr noundef nonnull %16, ptr noundef nonnull %180) #11
-  br label %191
+if.else.i101:                                     ; preds = %generate_patient.exit
+  tail call void @addList(ptr noundef nonnull %waiting.i, ptr noundef nonnull %call6.i) #11
+  br label %cleanup
 
-191:                                              ; preds = %171, %186, %190, %1
-  %192 = phi ptr [ null, %1 ], [ %135, %190 ], [ %135, %186 ], [ %135, %171 ]
-  ret ptr %192
+cleanup:                                          ; preds = %check_patients_waiting.exit, %if.else.i101, %if.then.i99, %entry
+  %retval.0 = phi ptr [ null, %entry ], [ %call29, %if.then.i99 ], [ %call29, %if.else.i101 ], [ %call29, %check_patients_waiting.exit ]
+  ret ptr %retval.0
 }
 
 ; Function Attrs: nofree willreturn
 declare double @ldexp(double, i32) local_unnamed_addr #7
 
-; Function Attrs: nocallback nofree nounwind willreturn memory(argmem: write)
-declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #8
-
 ; Function Attrs: nofree nounwind
-declare noundef i32 @puts(ptr nocapture noundef readonly) local_unnamed_addr #9
+declare noundef i32 @puts(ptr nocapture noundef readonly) local_unnamed_addr #8
 
-attributes #0 = { nofree nounwind memory(readwrite, argmem: write) uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
+; Function Attrs: nocallback nofree nounwind willreturn memory(argmem: write)
+declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #9
+
+attributes #0 = { nofree nounwind uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #1 = { mustprogress nofree nounwind willreturn allockind("alloc,uninitialized") allocsize(0) memory(inaccessiblemem: readwrite) "alloc-family"="malloc" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #2 = { nofree nosync nounwind memory(read, inaccessiblemem: none) uwtable "min-legal-vector-width"="64" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #3 = { nounwind uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
@@ -780,8 +789,8 @@ attributes #4 = { "no-trapping-math"="true" "stack-protector-buffer-size"="8" "t
 attributes #5 = { nounwind uwtable "min-legal-vector-width"="64" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #6 = { nofree nounwind "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #7 = { nofree willreturn }
-attributes #8 = { nocallback nofree nounwind willreturn memory(argmem: write) }
-attributes #9 = { nofree nounwind }
+attributes #8 = { nofree nounwind }
+attributes #9 = { nocallback nofree nounwind willreturn memory(argmem: write) }
 attributes #10 = { nounwind allocsize(0) }
 attributes #11 = { nounwind }
 

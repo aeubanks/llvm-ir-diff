@@ -19,23 +19,25 @@ target triple = "x86_64-unknown-linux-gnu"
 %struct.ISzAlloc = type { ptr, ptr }
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(argmem: write) uwtable
-define dso_local void @LoopThread_Construct(ptr nocapture noundef writeonly %0) local_unnamed_addr #0 {
-  %2 = getelementptr inbounds %struct._CThread, ptr %0, i64 0, i32 1
-  store i32 0, ptr %2, align 8, !tbaa !5
-  %3 = getelementptr inbounds %struct.CLoopThread, ptr %0, i64 0, i32 1
-  store i32 0, ptr %3, align 8, !tbaa !14
-  %4 = getelementptr inbounds %struct.CLoopThread, ptr %0, i64 0, i32 2
-  store i32 0, ptr %4, align 8, !tbaa !15
+define dso_local void @LoopThread_Construct(ptr nocapture noundef writeonly %p) local_unnamed_addr #0 {
+entry:
+  %_created = getelementptr inbounds %struct._CThread, ptr %p, i64 0, i32 1
+  store i32 0, ptr %_created, align 8, !tbaa !5
+  %startEvent = getelementptr inbounds %struct.CLoopThread, ptr %p, i64 0, i32 1
+  store i32 0, ptr %startEvent, align 8, !tbaa !14
+  %finishedEvent = getelementptr inbounds %struct.CLoopThread, ptr %p, i64 0, i32 2
+  store i32 0, ptr %finishedEvent, align 8, !tbaa !15
   ret void
 }
 
 ; Function Attrs: nounwind uwtable
-define dso_local void @LoopThread_Close(ptr noundef %0) local_unnamed_addr #1 {
-  %2 = tail call i32 @Thread_Close(ptr noundef %0) #6
-  %3 = getelementptr inbounds %struct.CLoopThread, ptr %0, i64 0, i32 1
-  %4 = tail call i32 @Event_Close(ptr noundef nonnull %3) #6
-  %5 = getelementptr inbounds %struct.CLoopThread, ptr %0, i64 0, i32 2
-  %6 = tail call i32 @Event_Close(ptr noundef nonnull %5) #6
+define dso_local void @LoopThread_Close(ptr noundef %p) local_unnamed_addr #1 {
+entry:
+  %call = tail call i32 @Thread_Close(ptr noundef %p) #6
+  %startEvent = getelementptr inbounds %struct.CLoopThread, ptr %p, i64 0, i32 1
+  %call1 = tail call i32 @Event_Close(ptr noundef nonnull %startEvent) #6
+  %finishedEvent = getelementptr inbounds %struct.CLoopThread, ptr %p, i64 0, i32 2
+  %call2 = tail call i32 @Event_Close(ptr noundef nonnull %finishedEvent) #6
   ret void
 }
 
@@ -44,27 +46,28 @@ declare i32 @Thread_Close(ptr noundef) local_unnamed_addr #2
 declare i32 @Event_Close(ptr noundef) local_unnamed_addr #2
 
 ; Function Attrs: nounwind uwtable
-define dso_local i32 @LoopThread_Create(ptr noundef %0) local_unnamed_addr #1 {
-  %2 = getelementptr inbounds %struct.CLoopThread, ptr %0, i64 0, i32 3
-  store i32 0, ptr %2, align 8, !tbaa !16
-  %3 = getelementptr inbounds %struct.CLoopThread, ptr %0, i64 0, i32 1
-  %4 = tail call i32 @AutoResetEvent_CreateNotSignaled(ptr noundef nonnull %3) #6
-  %5 = icmp eq i32 %4, 0
-  br i1 %5, label %6, label %12
+define dso_local i32 @LoopThread_Create(ptr noundef %p) local_unnamed_addr #1 {
+entry:
+  %stop = getelementptr inbounds %struct.CLoopThread, ptr %p, i64 0, i32 3
+  store i32 0, ptr %stop, align 8, !tbaa !16
+  %startEvent = getelementptr inbounds %struct.CLoopThread, ptr %p, i64 0, i32 1
+  %call = tail call i32 @AutoResetEvent_CreateNotSignaled(ptr noundef nonnull %startEvent) #6
+  %cmp.not.not = icmp eq i32 %call, 0
+  br i1 %cmp.not.not, label %cleanup.cont, label %return
 
-6:                                                ; preds = %1
-  %7 = getelementptr inbounds %struct.CLoopThread, ptr %0, i64 0, i32 2
-  %8 = tail call i32 @AutoResetEvent_CreateNotSignaled(ptr noundef nonnull %7) #6
-  %9 = icmp eq i32 %8, 0
-  br i1 %9, label %10, label %12
+cleanup.cont:                                     ; preds = %entry
+  %finishedEvent = getelementptr inbounds %struct.CLoopThread, ptr %p, i64 0, i32 2
+  %call2 = tail call i32 @AutoResetEvent_CreateNotSignaled(ptr noundef nonnull %finishedEvent) #6
+  %cmp3.not.not = icmp eq i32 %call2, 0
+  br i1 %cmp3.not.not, label %cleanup.cont8, label %return
 
-10:                                               ; preds = %6
-  %11 = tail call i32 @Thread_Create(ptr noundef nonnull %0, ptr noundef nonnull @LoopThreadFunc, ptr noundef nonnull %0) #6
-  br label %12
+cleanup.cont8:                                    ; preds = %cleanup.cont
+  %call9 = tail call i32 @Thread_Create(ptr noundef nonnull %p, ptr noundef nonnull @LoopThreadFunc, ptr noundef nonnull %p) #6
+  br label %return
 
-12:                                               ; preds = %6, %1, %10
-  %13 = phi i32 [ %11, %10 ], [ %4, %1 ], [ %8, %6 ]
-  ret i32 %13
+return:                                           ; preds = %cleanup.cont, %entry, %cleanup.cont8
+  %retval.2 = phi i32 [ %call, %entry ], [ %call2, %cleanup.cont ], [ %call9, %cleanup.cont8 ]
+  ret i32 %retval.2
 }
 
 ; Function Attrs: mustprogress nocallback nofree nosync nounwind willreturn memory(argmem: readwrite)
@@ -78,55 +81,57 @@ declare void @llvm.lifetime.end.p0(i64 immarg, ptr nocapture) #3
 declare i32 @Thread_Create(ptr noundef, ptr noundef, ptr noundef) local_unnamed_addr #2
 
 ; Function Attrs: nounwind uwtable
-define internal i32 @LoopThreadFunc(ptr noundef %0) #1 {
-  %2 = getelementptr inbounds %struct.CLoopThread, ptr %0, i64 0, i32 3
-  %3 = getelementptr inbounds %struct.CLoopThread, ptr %0, i64 0, i32 4
-  %4 = getelementptr inbounds %struct.CLoopThread, ptr %0, i64 0, i32 1
-  %5 = getelementptr inbounds %struct.CLoopThread, ptr %0, i64 0, i32 5
-  %6 = getelementptr inbounds %struct.CLoopThread, ptr %0, i64 0, i32 6
-  %7 = getelementptr inbounds %struct.CLoopThread, ptr %0, i64 0, i32 2
-  br label %8
+define internal i32 @LoopThreadFunc(ptr noundef %pp) #1 {
+entry:
+  %stop = getelementptr inbounds %struct.CLoopThread, ptr %pp, i64 0, i32 3
+  %func = getelementptr inbounds %struct.CLoopThread, ptr %pp, i64 0, i32 4
+  %startEvent = getelementptr inbounds %struct.CLoopThread, ptr %pp, i64 0, i32 1
+  %param = getelementptr inbounds %struct.CLoopThread, ptr %pp, i64 0, i32 5
+  %res = getelementptr inbounds %struct.CLoopThread, ptr %pp, i64 0, i32 6
+  %finishedEvent = getelementptr inbounds %struct.CLoopThread, ptr %pp, i64 0, i32 2
+  br label %for.cond
 
-8:                                                ; preds = %14, %1
-  %9 = tail call i32 @Event_Wait(ptr noundef nonnull %4) #6
-  %10 = icmp eq i32 %9, 0
-  br i1 %10, label %11, label %20
+for.cond:                                         ; preds = %if.end2, %entry
+  %call = tail call i32 @Event_Wait(ptr noundef nonnull %startEvent) #6
+  %cmp.not = icmp eq i32 %call, 0
+  br i1 %cmp.not, label %if.end, label %cleanup
 
-11:                                               ; preds = %8
-  %12 = load i32, ptr %2, align 8, !tbaa !16
-  %13 = icmp eq i32 %12, 0
-  br i1 %13, label %14, label %20
+if.end:                                           ; preds = %for.cond
+  %0 = load i32, ptr %stop, align 8, !tbaa !16
+  %tobool.not = icmp eq i32 %0, 0
+  br i1 %tobool.not, label %if.end2, label %cleanup
 
-14:                                               ; preds = %11
-  %15 = load ptr, ptr %3, align 8, !tbaa !17
-  %16 = load ptr, ptr %5, align 8, !tbaa !18
-  %17 = tail call i32 %15(ptr noundef %16) #6
-  store i32 %17, ptr %6, align 8, !tbaa !19
-  %18 = tail call i32 @Event_Set(ptr noundef nonnull %7) #6
-  %19 = icmp eq i32 %18, 0
-  br i1 %19, label %8, label %20
+if.end2:                                          ; preds = %if.end
+  %1 = load ptr, ptr %func, align 8, !tbaa !17
+  %2 = load ptr, ptr %param, align 8, !tbaa !18
+  %call3 = tail call i32 %1(ptr noundef %2) #6
+  store i32 %call3, ptr %res, align 8, !tbaa !19
+  %call4 = tail call i32 @Event_Set(ptr noundef nonnull %finishedEvent) #6
+  %cmp5.not = icmp eq i32 %call4, 0
+  br i1 %cmp5.not, label %for.cond, label %cleanup
 
-20:                                               ; preds = %14, %11, %8
-  %21 = phi i32 [ 12, %8 ], [ 0, %11 ], [ 12, %14 ]
-  ret i32 %21
+cleanup:                                          ; preds = %if.end2, %if.end, %for.cond
+  %retval.0 = phi i32 [ 12, %for.cond ], [ 0, %if.end ], [ 12, %if.end2 ]
+  ret i32 %retval.0
 }
 
 ; Function Attrs: nounwind uwtable
-define dso_local i32 @LoopThread_StopAndWait(ptr noundef %0) local_unnamed_addr #1 {
-  %2 = getelementptr inbounds %struct.CLoopThread, ptr %0, i64 0, i32 3
-  store i32 1, ptr %2, align 8, !tbaa !16
-  %3 = getelementptr inbounds %struct.CLoopThread, ptr %0, i64 0, i32 1
-  %4 = tail call i32 @Event_Set(ptr noundef nonnull %3) #6
-  %5 = icmp eq i32 %4, 0
-  br i1 %5, label %6, label %8
+define dso_local i32 @LoopThread_StopAndWait(ptr noundef %p) local_unnamed_addr #1 {
+entry:
+  %stop = getelementptr inbounds %struct.CLoopThread, ptr %p, i64 0, i32 3
+  store i32 1, ptr %stop, align 8, !tbaa !16
+  %startEvent = getelementptr inbounds %struct.CLoopThread, ptr %p, i64 0, i32 1
+  %call = tail call i32 @Event_Set(ptr noundef nonnull %startEvent) #6
+  %cmp.not = icmp eq i32 %call, 0
+  br i1 %cmp.not, label %if.end, label %return
 
-6:                                                ; preds = %1
-  %7 = tail call i32 @Thread_Wait(ptr noundef nonnull %0) #6
-  br label %8
+if.end:                                           ; preds = %entry
+  %call1 = tail call i32 @Thread_Wait(ptr noundef nonnull %p) #6
+  br label %return
 
-8:                                                ; preds = %1, %6
-  %9 = phi i32 [ %7, %6 ], [ 12, %1 ]
-  ret i32 %9
+return:                                           ; preds = %entry, %if.end
+  %retval.0 = phi i32 [ %call1, %if.end ], [ 12, %entry ]
+  ret i32 %retval.0
 }
 
 declare i32 @Event_Set(ptr noundef) local_unnamed_addr #2
@@ -134,87 +139,89 @@ declare i32 @Event_Set(ptr noundef) local_unnamed_addr #2
 declare i32 @Thread_Wait(ptr noundef) local_unnamed_addr #2
 
 ; Function Attrs: nounwind uwtable
-define dso_local i32 @LoopThread_StartSubThread(ptr noundef %0) local_unnamed_addr #1 {
-  %2 = getelementptr inbounds %struct.CLoopThread, ptr %0, i64 0, i32 1
-  %3 = tail call i32 @Event_Set(ptr noundef nonnull %2) #6
-  ret i32 %3
+define dso_local i32 @LoopThread_StartSubThread(ptr noundef %p) local_unnamed_addr #1 {
+entry:
+  %startEvent = getelementptr inbounds %struct.CLoopThread, ptr %p, i64 0, i32 1
+  %call = tail call i32 @Event_Set(ptr noundef nonnull %startEvent) #6
+  ret i32 %call
 }
 
 ; Function Attrs: nounwind uwtable
-define dso_local i32 @LoopThread_WaitSubThread(ptr noundef %0) local_unnamed_addr #1 {
-  %2 = getelementptr inbounds %struct.CLoopThread, ptr %0, i64 0, i32 2
-  %3 = tail call i32 @Event_Wait(ptr noundef nonnull %2) #6
-  ret i32 %3
+define dso_local i32 @LoopThread_WaitSubThread(ptr noundef %p) local_unnamed_addr #1 {
+entry:
+  %finishedEvent = getelementptr inbounds %struct.CLoopThread, ptr %p, i64 0, i32 2
+  %call = tail call i32 @Event_Wait(ptr noundef nonnull %finishedEvent) #6
+  ret i32 %call
 }
 
 declare i32 @Event_Wait(ptr noundef) local_unnamed_addr #2
 
 ; Function Attrs: nounwind uwtable
-define dso_local i32 @MtProgress_Set(ptr noundef %0, i32 noundef %1, i64 noundef %2, i64 noundef %3) local_unnamed_addr #1 {
-  %5 = getelementptr inbounds %struct.CMtProgress, ptr %0, i64 0, i32 4
-  %6 = tail call i32 @pthread_mutex_lock(ptr noundef nonnull %5) #6
-  %7 = icmp eq i64 %2, -1
-  br i1 %7, label %15, label %8
+define dso_local i32 @MtProgress_Set(ptr noundef %p, i32 noundef %index, i64 noundef %inSize, i64 noundef %outSize) local_unnamed_addr #1 {
+entry:
+  %cs = getelementptr inbounds %struct.CMtProgress, ptr %p, i64 0, i32 4
+  %call = tail call i32 @pthread_mutex_lock(ptr noundef nonnull %cs) #6
+  %cmp.not = icmp eq i64 %inSize, -1
+  br i1 %cmp.not, label %if.end, label %if.then
 
-8:                                                ; preds = %4
-  %9 = zext i32 %1 to i64
-  %10 = getelementptr inbounds %struct.CMtProgress, ptr %0, i64 0, i32 5, i64 %9
-  %11 = load i64, ptr %10, align 8, !tbaa !20
-  %12 = sub i64 %2, %11
-  %13 = load i64, ptr %0, align 8, !tbaa !22
-  %14 = add i64 %12, %13
-  store i64 %14, ptr %0, align 8, !tbaa !22
-  store i64 %2, ptr %10, align 8, !tbaa !20
-  br label %15
+if.then:                                          ; preds = %entry
+  %idxprom = zext i32 %index to i64
+  %arrayidx = getelementptr inbounds %struct.CMtProgress, ptr %p, i64 0, i32 5, i64 %idxprom
+  %0 = load i64, ptr %arrayidx, align 8, !tbaa !20
+  %sub = sub i64 %inSize, %0
+  %1 = load i64, ptr %p, align 8, !tbaa !22
+  %add = add i64 %sub, %1
+  store i64 %add, ptr %p, align 8, !tbaa !22
+  store i64 %inSize, ptr %arrayidx, align 8, !tbaa !20
+  br label %if.end
 
-15:                                               ; preds = %8, %4
-  %16 = icmp eq i64 %3, -1
-  br i1 %16, label %25, label %17
+if.end:                                           ; preds = %if.then, %entry
+  %cmp4.not = icmp eq i64 %outSize, -1
+  br i1 %cmp4.not, label %if.end13, label %if.then5
 
-17:                                               ; preds = %15
-  %18 = zext i32 %1 to i64
-  %19 = getelementptr inbounds %struct.CMtProgress, ptr %0, i64 0, i32 6, i64 %18
-  %20 = load i64, ptr %19, align 8, !tbaa !20
-  %21 = sub i64 %3, %20
-  %22 = getelementptr inbounds %struct.CMtProgress, ptr %0, i64 0, i32 1
-  %23 = load i64, ptr %22, align 8, !tbaa !25
-  %24 = add i64 %21, %23
-  store i64 %24, ptr %22, align 8, !tbaa !25
-  store i64 %3, ptr %19, align 8, !tbaa !20
-  br label %25
+if.then5:                                         ; preds = %if.end
+  %idxprom6 = zext i32 %index to i64
+  %arrayidx7 = getelementptr inbounds %struct.CMtProgress, ptr %p, i64 0, i32 6, i64 %idxprom6
+  %2 = load i64, ptr %arrayidx7, align 8, !tbaa !20
+  %sub8 = sub i64 %outSize, %2
+  %totalOutSize = getelementptr inbounds %struct.CMtProgress, ptr %p, i64 0, i32 1
+  %3 = load i64, ptr %totalOutSize, align 8, !tbaa !25
+  %add9 = add i64 %sub8, %3
+  store i64 %add9, ptr %totalOutSize, align 8, !tbaa !25
+  store i64 %outSize, ptr %arrayidx7, align 8, !tbaa !20
+  br label %if.end13
 
-25:                                               ; preds = %17, %15
-  %26 = getelementptr inbounds %struct.CMtProgress, ptr %0, i64 0, i32 3
-  %27 = load i32, ptr %26, align 8, !tbaa !26
-  %28 = icmp eq i32 %27, 0
-  br i1 %28, label %29, label %44
+if.end13:                                         ; preds = %if.then5, %if.end
+  %res14 = getelementptr inbounds %struct.CMtProgress, ptr %p, i64 0, i32 3
+  %4 = load i32, ptr %res14, align 8, !tbaa !26
+  %cmp15 = icmp eq i32 %4, 0
+  br i1 %cmp15, label %if.then16, label %if.end21
 
-29:                                               ; preds = %25
-  %30 = getelementptr inbounds %struct.CMtProgress, ptr %0, i64 0, i32 2
-  %31 = load ptr, ptr %30, align 8, !tbaa !27
-  %32 = icmp eq ptr %31, null
-  br i1 %32, label %42, label %33
+if.then16:                                        ; preds = %if.end13
+  %progress = getelementptr inbounds %struct.CMtProgress, ptr %p, i64 0, i32 2
+  %5 = load ptr, ptr %progress, align 8, !tbaa !27
+  %tobool.not.i = icmp eq ptr %5, null
+  br i1 %tobool.not.i, label %Progress.exit, label %land.rhs.i
 
-33:                                               ; preds = %29
-  %34 = getelementptr inbounds %struct.CMtProgress, ptr %0, i64 0, i32 1
-  %35 = load i64, ptr %34, align 8, !tbaa !25
-  %36 = load i64, ptr %0, align 8, !tbaa !22
-  %37 = load ptr, ptr %31, align 8, !tbaa !28
-  %38 = tail call i32 %37(ptr noundef nonnull %31, i64 noundef %36, i64 noundef %35) #6
-  %39 = freeze i32 %38
-  %40 = icmp eq i32 %39, 0
-  %41 = select i1 %40, i32 0, i32 10
-  br label %42
+land.rhs.i:                                       ; preds = %if.then16
+  %totalOutSize18 = getelementptr inbounds %struct.CMtProgress, ptr %p, i64 0, i32 1
+  %6 = load i64, ptr %totalOutSize18, align 8, !tbaa !25
+  %7 = load i64, ptr %p, align 8, !tbaa !22
+  %8 = load ptr, ptr %5, align 8, !tbaa !28
+  %call.i = tail call i32 %8(ptr noundef nonnull %5, i64 noundef %7, i64 noundef %6) #6
+  %cmp.not.i = icmp eq i32 %call.i, 0
+  %9 = select i1 %cmp.not.i, i32 0, i32 10
+  br label %Progress.exit
 
-42:                                               ; preds = %29, %33
-  %43 = phi i32 [ 0, %29 ], [ %41, %33 ]
-  store i32 %43, ptr %26, align 8, !tbaa !26
-  br label %44
+Progress.exit:                                    ; preds = %if.then16, %land.rhs.i
+  %cond.i = phi i32 [ 0, %if.then16 ], [ %9, %land.rhs.i ]
+  store i32 %cond.i, ptr %res14, align 8, !tbaa !26
+  br label %if.end21
 
-44:                                               ; preds = %42, %25
-  %45 = phi i32 [ %43, %42 ], [ %27, %25 ]
-  %46 = tail call i32 @pthread_mutex_unlock(ptr noundef nonnull %5) #6
-  ret i32 %45
+if.end21:                                         ; preds = %Progress.exit, %if.end13
+  %10 = phi i32 [ %cond.i, %Progress.exit ], [ %4, %if.end13 ]
+  %call25 = tail call i32 @pthread_mutex_unlock(ptr noundef nonnull %cs) #6
+  ret i32 %10
 }
 
 ; Function Attrs: nounwind
@@ -224,147 +231,150 @@ declare i32 @pthread_mutex_lock(ptr noundef) local_unnamed_addr #4
 declare i32 @pthread_mutex_unlock(ptr noundef) local_unnamed_addr #4
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(argmem: write) uwtable
-define dso_local void @CMtThread_Construct(ptr nocapture noundef writeonly %0, ptr noundef %1) local_unnamed_addr #0 {
-  store ptr %1, ptr %0, align 8, !tbaa !30
-  %3 = getelementptr inbounds %struct.CMtThread, ptr %0, i64 0, i32 1
-  store ptr null, ptr %3, align 8, !tbaa !32
-  %4 = getelementptr inbounds %struct.CMtThread, ptr %0, i64 0, i32 3
-  store ptr null, ptr %4, align 8, !tbaa !33
-  %5 = getelementptr inbounds %struct.CMtThread, ptr %0, i64 0, i32 9
-  store i32 0, ptr %5, align 8, !tbaa !34
-  %6 = getelementptr inbounds %struct.CMtThread, ptr %0, i64 0, i32 10
-  store i32 0, ptr %6, align 8, !tbaa !35
-  %7 = getelementptr inbounds %struct.CMtThread, ptr %0, i64 0, i32 6, i32 0, i32 1
-  store i32 0, ptr %7, align 8, !tbaa !5
-  %8 = getelementptr inbounds %struct.CMtThread, ptr %0, i64 0, i32 6, i32 1
-  store i32 0, ptr %8, align 8, !tbaa !14
-  %9 = getelementptr inbounds %struct.CMtThread, ptr %0, i64 0, i32 6, i32 2
-  store i32 0, ptr %9, align 8, !tbaa !15
+define dso_local void @CMtThread_Construct(ptr nocapture noundef writeonly %p, ptr noundef %mtCoder) local_unnamed_addr #0 {
+entry:
+  store ptr %mtCoder, ptr %p, align 8, !tbaa !30
+  %outBuf = getelementptr inbounds %struct.CMtThread, ptr %p, i64 0, i32 1
+  store ptr null, ptr %outBuf, align 8, !tbaa !32
+  %inBuf = getelementptr inbounds %struct.CMtThread, ptr %p, i64 0, i32 3
+  store ptr null, ptr %inBuf, align 8, !tbaa !33
+  %canRead = getelementptr inbounds %struct.CMtThread, ptr %p, i64 0, i32 9
+  store i32 0, ptr %canRead, align 8, !tbaa !34
+  %canWrite = getelementptr inbounds %struct.CMtThread, ptr %p, i64 0, i32 10
+  store i32 0, ptr %canWrite, align 8, !tbaa !35
+  %_created.i = getelementptr inbounds %struct.CMtThread, ptr %p, i64 0, i32 6, i32 0, i32 1
+  store i32 0, ptr %_created.i, align 8, !tbaa !5
+  %startEvent.i = getelementptr inbounds %struct.CMtThread, ptr %p, i64 0, i32 6, i32 1
+  store i32 0, ptr %startEvent.i, align 8, !tbaa !14
+  %finishedEvent.i = getelementptr inbounds %struct.CMtThread, ptr %p, i64 0, i32 6, i32 2
+  store i32 0, ptr %finishedEvent.i, align 8, !tbaa !15
   ret void
 }
 
 ; Function Attrs: nounwind uwtable
-define dso_local void @MtCoder_Construct(ptr noundef %0) local_unnamed_addr #1 {
-  %2 = getelementptr inbounds %struct._CMtCoder, ptr %0, i64 0, i32 6
-  store ptr null, ptr %2, align 8, !tbaa !36
-  br label %3
+define dso_local void @MtCoder_Construct(ptr noundef %p) local_unnamed_addr #1 {
+entry:
+  %alloc = getelementptr inbounds %struct._CMtCoder, ptr %p, i64 0, i32 6
+  store ptr null, ptr %alloc, align 8, !tbaa !36
+  br label %for.body
 
-3:                                                ; preds = %1, %3
-  %4 = phi i64 [ 0, %1 ], [ %15, %3 ]
-  %5 = getelementptr inbounds %struct._CMtCoder, ptr %0, i64 0, i32 11, i64 %4
-  %6 = getelementptr inbounds %struct._CMtCoder, ptr %0, i64 0, i32 11, i64 %4, i32 5
-  %7 = trunc i64 %4 to i32
-  store i32 %7, ptr %6, align 8, !tbaa !38
-  store ptr %0, ptr %5, align 8, !tbaa !30
-  %8 = getelementptr inbounds %struct._CMtCoder, ptr %0, i64 0, i32 11, i64 %4, i32 1
-  store ptr null, ptr %8, align 8, !tbaa !32
-  %9 = getelementptr inbounds %struct._CMtCoder, ptr %0, i64 0, i32 11, i64 %4, i32 3
-  store ptr null, ptr %9, align 8, !tbaa !33
-  %10 = getelementptr inbounds %struct._CMtCoder, ptr %0, i64 0, i32 11, i64 %4, i32 9
-  store i32 0, ptr %10, align 8, !tbaa !34
-  %11 = getelementptr inbounds %struct._CMtCoder, ptr %0, i64 0, i32 11, i64 %4, i32 10
-  store i32 0, ptr %11, align 8, !tbaa !35
-  %12 = getelementptr inbounds %struct._CMtCoder, ptr %0, i64 0, i32 11, i64 %4, i32 6, i32 0, i32 1
-  store i32 0, ptr %12, align 8, !tbaa !5
-  %13 = getelementptr inbounds %struct._CMtCoder, ptr %0, i64 0, i32 11, i64 %4, i32 6, i32 1
-  store i32 0, ptr %13, align 8, !tbaa !14
-  %14 = getelementptr inbounds %struct._CMtCoder, ptr %0, i64 0, i32 11, i64 %4, i32 6, i32 2
-  store i32 0, ptr %14, align 8, !tbaa !15
-  %15 = add nuw nsw i64 %4, 1
-  %16 = icmp eq i64 %15, 32
-  br i1 %16, label %17, label %3, !llvm.loop !39
+for.body:                                         ; preds = %entry, %for.body
+  %indvars.iv = phi i64 [ 0, %entry ], [ %indvars.iv.next, %for.body ]
+  %arrayidx = getelementptr inbounds %struct._CMtCoder, ptr %p, i64 0, i32 11, i64 %indvars.iv
+  %index = getelementptr inbounds %struct._CMtCoder, ptr %p, i64 0, i32 11, i64 %indvars.iv, i32 5
+  %0 = trunc i64 %indvars.iv to i32
+  store i32 %0, ptr %index, align 8, !tbaa !38
+  store ptr %p, ptr %arrayidx, align 8, !tbaa !30
+  %outBuf.i = getelementptr inbounds %struct._CMtCoder, ptr %p, i64 0, i32 11, i64 %indvars.iv, i32 1
+  store ptr null, ptr %outBuf.i, align 8, !tbaa !32
+  %inBuf.i = getelementptr inbounds %struct._CMtCoder, ptr %p, i64 0, i32 11, i64 %indvars.iv, i32 3
+  store ptr null, ptr %inBuf.i, align 8, !tbaa !33
+  %canRead.i = getelementptr inbounds %struct._CMtCoder, ptr %p, i64 0, i32 11, i64 %indvars.iv, i32 9
+  store i32 0, ptr %canRead.i, align 8, !tbaa !34
+  %canWrite.i = getelementptr inbounds %struct._CMtCoder, ptr %p, i64 0, i32 11, i64 %indvars.iv, i32 10
+  store i32 0, ptr %canWrite.i, align 8, !tbaa !35
+  %_created.i.i = getelementptr inbounds %struct._CMtCoder, ptr %p, i64 0, i32 11, i64 %indvars.iv, i32 6, i32 0, i32 1
+  store i32 0, ptr %_created.i.i, align 8, !tbaa !5
+  %startEvent.i.i = getelementptr inbounds %struct._CMtCoder, ptr %p, i64 0, i32 11, i64 %indvars.iv, i32 6, i32 1
+  store i32 0, ptr %startEvent.i.i, align 8, !tbaa !14
+  %finishedEvent.i.i = getelementptr inbounds %struct._CMtCoder, ptr %p, i64 0, i32 11, i64 %indvars.iv, i32 6, i32 2
+  store i32 0, ptr %finishedEvent.i.i, align 8, !tbaa !15
+  %indvars.iv.next = add nuw nsw i64 %indvars.iv, 1
+  %exitcond.not = icmp eq i64 %indvars.iv.next, 32
+  br i1 %exitcond.not, label %for.end, label %for.body, !llvm.loop !39
 
-17:                                               ; preds = %3
-  %18 = getelementptr inbounds %struct._CMtCoder, ptr %0, i64 0, i32 8
-  %19 = tail call i32 @CriticalSection_Init(ptr noundef nonnull %18) #6
-  %20 = getelementptr inbounds %struct._CMtCoder, ptr %0, i64 0, i32 10, i32 4
-  %21 = tail call i32 @CriticalSection_Init(ptr noundef nonnull %20) #6
+for.end:                                          ; preds = %for.body
+  %cs = getelementptr inbounds %struct._CMtCoder, ptr %p, i64 0, i32 8
+  %call = tail call i32 @CriticalSection_Init(ptr noundef nonnull %cs) #6
+  %cs1 = getelementptr inbounds %struct._CMtCoder, ptr %p, i64 0, i32 10, i32 4
+  %call2 = tail call i32 @CriticalSection_Init(ptr noundef nonnull %cs1) #6
   ret void
 }
 
 declare i32 @CriticalSection_Init(ptr noundef) local_unnamed_addr #2
 
 ; Function Attrs: nounwind uwtable
-define dso_local void @MtCoder_Destruct(ptr noundef %0) local_unnamed_addr #1 {
-  br label %2
+define dso_local void @MtCoder_Destruct(ptr noundef %p) local_unnamed_addr #1 {
+entry:
+  br label %for.body
 
-2:                                                ; preds = %1, %46
-  %3 = phi i64 [ 0, %1 ], [ %48, %46 ]
-  %4 = getelementptr inbounds %struct._CMtCoder, ptr %0, i64 0, i32 11, i64 %3
-  %5 = getelementptr inbounds %struct._CMtCoder, ptr %0, i64 0, i32 11, i64 %3, i32 9
-  %6 = tail call i32 @Event_Close(ptr noundef nonnull %5) #6
-  %7 = getelementptr inbounds %struct._CMtCoder, ptr %0, i64 0, i32 11, i64 %3, i32 10
-  %8 = tail call i32 @Event_Close(ptr noundef nonnull %7) #6
-  %9 = getelementptr inbounds %struct._CMtCoder, ptr %0, i64 0, i32 11, i64 %3, i32 6
-  %10 = getelementptr inbounds %struct._CMtCoder, ptr %0, i64 0, i32 11, i64 %3, i32 6, i32 0, i32 1
-  %11 = load i32, ptr %10, align 8, !tbaa !41
-  %12 = icmp eq i32 %11, 0
-  br i1 %12, label %25, label %13
+for.body:                                         ; preds = %entry, %CMtThread_Destruct.exit
+  %indvars.iv = phi i64 [ 0, %entry ], [ %indvars.iv.next, %CMtThread_Destruct.exit ]
+  %arrayidx = getelementptr inbounds %struct._CMtCoder, ptr %p, i64 0, i32 11, i64 %indvars.iv
+  %canRead.i.i = getelementptr inbounds %struct._CMtCoder, ptr %p, i64 0, i32 11, i64 %indvars.iv, i32 9
+  %call.i.i = tail call i32 @Event_Close(ptr noundef nonnull %canRead.i.i) #6
+  %canWrite.i.i = getelementptr inbounds %struct._CMtCoder, ptr %p, i64 0, i32 11, i64 %indvars.iv, i32 10
+  %call1.i.i = tail call i32 @Event_Close(ptr noundef nonnull %canWrite.i.i) #6
+  %_created.i = getelementptr inbounds %struct._CMtCoder, ptr %p, i64 0, i32 11, i64 %indvars.iv, i32 6, i32 0, i32 1
+  %0 = load i32, ptr %_created.i, align 8, !tbaa !41
+  %cmp.not.i = icmp eq i32 %0, 0
+  br i1 %cmp.not.i, label %if.end.i, label %if.then.i
 
-13:                                               ; preds = %2
-  %14 = getelementptr inbounds %struct._CMtCoder, ptr %0, i64 0, i32 11, i64 %3, i32 6, i32 3
-  store i32 1, ptr %14, align 8, !tbaa !16
-  %15 = getelementptr inbounds %struct._CMtCoder, ptr %0, i64 0, i32 11, i64 %3, i32 6, i32 1
-  %16 = tail call i32 @Event_Set(ptr noundef nonnull %15) #6
-  %17 = icmp eq i32 %16, 0
-  br i1 %17, label %18, label %20
+if.then.i:                                        ; preds = %for.body
+  %thread.i = getelementptr inbounds %struct._CMtCoder, ptr %p, i64 0, i32 11, i64 %indvars.iv, i32 6
+  %stop.i.i = getelementptr inbounds %struct._CMtCoder, ptr %p, i64 0, i32 11, i64 %indvars.iv, i32 6, i32 3
+  store i32 1, ptr %stop.i.i, align 8, !tbaa !16
+  %startEvent.i.i = getelementptr inbounds %struct._CMtCoder, ptr %p, i64 0, i32 11, i64 %indvars.iv, i32 6, i32 1
+  %call.i36.i = tail call i32 @Event_Set(ptr noundef nonnull %startEvent.i.i) #6
+  %cmp.not.i.i = icmp eq i32 %call.i36.i, 0
+  br i1 %cmp.not.i.i, label %if.end.i.i, label %LoopThread_StopAndWait.exit.i
 
-18:                                               ; preds = %13
-  %19 = tail call i32 @Thread_Wait(ptr noundef nonnull %9) #6
-  br label %20
+if.end.i.i:                                       ; preds = %if.then.i
+  %call1.i37.i = tail call i32 @Thread_Wait(ptr noundef nonnull %thread.i) #6
+  br label %LoopThread_StopAndWait.exit.i
 
-20:                                               ; preds = %18, %13
-  %21 = tail call i32 @Thread_Close(ptr noundef nonnull %9) #6
-  %22 = tail call i32 @Event_Close(ptr noundef nonnull %15) #6
-  %23 = getelementptr inbounds %struct._CMtCoder, ptr %0, i64 0, i32 11, i64 %3, i32 6, i32 2
-  %24 = tail call i32 @Event_Close(ptr noundef nonnull %23) #6
-  br label %25
+LoopThread_StopAndWait.exit.i:                    ; preds = %if.end.i.i, %if.then.i
+  %call.i38.i = tail call i32 @Thread_Close(ptr noundef nonnull %thread.i) #6
+  %call1.i40.i = tail call i32 @Event_Close(ptr noundef nonnull %startEvent.i.i) #6
+  %finishedEvent.i.i = getelementptr inbounds %struct._CMtCoder, ptr %p, i64 0, i32 11, i64 %indvars.iv, i32 6, i32 2
+  %call2.i.i = tail call i32 @Event_Close(ptr noundef nonnull %finishedEvent.i.i) #6
+  br label %if.end.i
 
-25:                                               ; preds = %20, %2
-  %26 = load ptr, ptr %4, align 8, !tbaa !30
-  %27 = getelementptr inbounds %struct._CMtCoder, ptr %26, i64 0, i32 6
-  %28 = load ptr, ptr %27, align 8, !tbaa !36
-  %29 = icmp eq ptr %28, null
-  br i1 %29, label %30, label %32
+if.end.i:                                         ; preds = %LoopThread_StopAndWait.exit.i, %for.body
+  %1 = load ptr, ptr %arrayidx, align 8, !tbaa !30
+  %alloc.i = getelementptr inbounds %struct._CMtCoder, ptr %1, i64 0, i32 6
+  %2 = load ptr, ptr %alloc.i, align 8, !tbaa !36
+  %tobool.not.i = icmp eq ptr %2, null
+  br i1 %tobool.not.i, label %if.end9.thread.i, label %if.end9.i
 
-30:                                               ; preds = %25
-  %31 = getelementptr inbounds %struct._CMtCoder, ptr %0, i64 0, i32 11, i64 %3, i32 1
-  store ptr null, ptr %31, align 8, !tbaa !32
-  br label %46
+if.end9.thread.i:                                 ; preds = %if.end.i
+  %outBuf1042.i = getelementptr inbounds %struct._CMtCoder, ptr %p, i64 0, i32 11, i64 %indvars.iv, i32 1
+  store ptr null, ptr %outBuf1042.i, align 8, !tbaa !32
+  br label %CMtThread_Destruct.exit
 
-32:                                               ; preds = %25
-  %33 = getelementptr inbounds %struct.ISzAlloc, ptr %28, i64 0, i32 1
-  %34 = load ptr, ptr %33, align 8, !tbaa !42
-  %35 = getelementptr inbounds %struct._CMtCoder, ptr %0, i64 0, i32 11, i64 %3, i32 1
-  %36 = load ptr, ptr %35, align 8, !tbaa !32
-  tail call void %34(ptr noundef nonnull %28, ptr noundef %36) #6
-  %37 = load ptr, ptr %4, align 8, !tbaa !30
-  %38 = getelementptr inbounds %struct._CMtCoder, ptr %37, i64 0, i32 6
-  %39 = load ptr, ptr %38, align 8, !tbaa !36
-  store ptr null, ptr %35, align 8, !tbaa !32
-  %40 = icmp eq ptr %39, null
-  br i1 %40, label %46, label %41
+if.end9.i:                                        ; preds = %if.end.i
+  %Free.i = getelementptr inbounds %struct.ISzAlloc, ptr %2, i64 0, i32 1
+  %3 = load ptr, ptr %Free.i, align 8, !tbaa !42
+  %outBuf.i = getelementptr inbounds %struct._CMtCoder, ptr %p, i64 0, i32 11, i64 %indvars.iv, i32 1
+  %4 = load ptr, ptr %outBuf.i, align 8, !tbaa !32
+  tail call void %3(ptr noundef nonnull %2, ptr noundef %4) #6
+  %.pre.i = load ptr, ptr %arrayidx, align 8, !tbaa !30
+  %alloc12.phi.trans.insert.i = getelementptr inbounds %struct._CMtCoder, ptr %.pre.i, i64 0, i32 6
+  %.pre41.i = load ptr, ptr %alloc12.phi.trans.insert.i, align 8, !tbaa !36
+  store ptr null, ptr %outBuf.i, align 8, !tbaa !32
+  %tobool13.not.i = icmp eq ptr %.pre41.i, null
+  br i1 %tobool13.not.i, label %CMtThread_Destruct.exit, label %if.then14.i
 
-41:                                               ; preds = %32
-  %42 = getelementptr inbounds %struct.ISzAlloc, ptr %39, i64 0, i32 1
-  %43 = load ptr, ptr %42, align 8, !tbaa !42
-  %44 = getelementptr inbounds %struct._CMtCoder, ptr %0, i64 0, i32 11, i64 %3, i32 3
-  %45 = load ptr, ptr %44, align 8, !tbaa !33
-  tail call void %43(ptr noundef nonnull %39, ptr noundef %45) #6
-  br label %46
+if.then14.i:                                      ; preds = %if.end9.i
+  %Free17.i = getelementptr inbounds %struct.ISzAlloc, ptr %.pre41.i, i64 0, i32 1
+  %5 = load ptr, ptr %Free17.i, align 8, !tbaa !42
+  %inBuf.i = getelementptr inbounds %struct._CMtCoder, ptr %p, i64 0, i32 11, i64 %indvars.iv, i32 3
+  %6 = load ptr, ptr %inBuf.i, align 8, !tbaa !33
+  tail call void %5(ptr noundef nonnull %.pre41.i, ptr noundef %6) #6
+  br label %CMtThread_Destruct.exit
 
-46:                                               ; preds = %30, %32, %41
-  %47 = getelementptr inbounds %struct._CMtCoder, ptr %0, i64 0, i32 11, i64 %3, i32 3
-  store ptr null, ptr %47, align 8, !tbaa !33
-  %48 = add nuw nsw i64 %3, 1
-  %49 = icmp eq i64 %48, 32
-  br i1 %49, label %50, label %2, !llvm.loop !44
+CMtThread_Destruct.exit:                          ; preds = %if.end9.thread.i, %if.end9.i, %if.then14.i
+  %inBuf21.i = getelementptr inbounds %struct._CMtCoder, ptr %p, i64 0, i32 11, i64 %indvars.iv, i32 3
+  store ptr null, ptr %inBuf21.i, align 8, !tbaa !33
+  %indvars.iv.next = add nuw nsw i64 %indvars.iv, 1
+  %exitcond.not = icmp eq i64 %indvars.iv.next, 32
+  br i1 %exitcond.not, label %for.end, label %for.body, !llvm.loop !44
 
-50:                                               ; preds = %46
-  %51 = getelementptr inbounds %struct._CMtCoder, ptr %0, i64 0, i32 8
-  %52 = tail call i32 @pthread_mutex_destroy(ptr noundef nonnull %51) #6
-  %53 = getelementptr inbounds %struct._CMtCoder, ptr %0, i64 0, i32 10, i32 4
-  %54 = tail call i32 @pthread_mutex_destroy(ptr noundef nonnull %53) #6
+for.end:                                          ; preds = %CMtThread_Destruct.exit
+  %cs = getelementptr inbounds %struct._CMtCoder, ptr %p, i64 0, i32 8
+  %call = tail call i32 @pthread_mutex_destroy(ptr noundef nonnull %cs) #6
+  %cs1 = getelementptr inbounds %struct._CMtCoder, ptr %p, i64 0, i32 10, i32 4
+  %call3 = tail call i32 @pthread_mutex_destroy(ptr noundef nonnull %cs1) #6
   ret void
 }
 
@@ -372,465 +382,466 @@ define dso_local void @MtCoder_Destruct(ptr noundef %0) local_unnamed_addr #1 {
 declare i32 @pthread_mutex_destroy(ptr noundef) local_unnamed_addr #4
 
 ; Function Attrs: nounwind uwtable
-define dso_local i32 @MtCoder_Code(ptr noundef %0) local_unnamed_addr #1 {
-  %2 = getelementptr inbounds %struct._CMtCoder, ptr %0, i64 0, i32 2
-  %3 = load i32, ptr %2, align 8, !tbaa !45
-  %4 = getelementptr inbounds %struct._CMtCoder, ptr %0, i64 0, i32 9
-  store i32 0, ptr %4, align 8, !tbaa !46
-  %5 = getelementptr inbounds %struct._CMtCoder, ptr %0, i64 0, i32 10
-  %6 = getelementptr inbounds %struct._CMtCoder, ptr %0, i64 0, i32 5
-  %7 = load ptr, ptr %6, align 8, !tbaa !47
-  %8 = getelementptr %struct._CMtCoder, ptr %0, i64 0, i32 10, i32 5
-  %9 = getelementptr inbounds %struct._CMtCoder, ptr %0, i64 0, i32 10, i32 2
-  tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %5, i8 0, i64 16, i1 false)
-  tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(512) %8, i8 0, i64 512, i1 false)
-  store ptr %7, ptr %9, align 8, !tbaa !27
-  %10 = getelementptr inbounds %struct._CMtCoder, ptr %0, i64 0, i32 10, i32 3
-  store i32 0, ptr %10, align 8, !tbaa !26
-  %11 = icmp eq i32 %3, 0
-  br i1 %11, label %124, label %12
+define dso_local i32 @MtCoder_Code(ptr noundef %p) local_unnamed_addr #1 {
+entry:
+  %numThreads1 = getelementptr inbounds %struct._CMtCoder, ptr %p, i64 0, i32 2
+  %0 = load i32, ptr %numThreads1, align 8, !tbaa !45
+  %res2 = getelementptr inbounds %struct._CMtCoder, ptr %p, i64 0, i32 9
+  store i32 0, ptr %res2, align 8, !tbaa !46
+  %mtProgress = getelementptr inbounds %struct._CMtCoder, ptr %p, i64 0, i32 10
+  %progress = getelementptr inbounds %struct._CMtCoder, ptr %p, i64 0, i32 5
+  %1 = load ptr, ptr %progress, align 8, !tbaa !47
+  %scevgep.i = getelementptr %struct._CMtCoder, ptr %p, i64 0, i32 10, i32 5
+  %progress3.i = getelementptr inbounds %struct._CMtCoder, ptr %p, i64 0, i32 10, i32 2
+  tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %mtProgress, i8 0, i64 16, i1 false)
+  tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(512) %scevgep.i, i8 0, i64 512, i1 false)
+  store ptr %1, ptr %progress3.i, align 8, !tbaa !27
+  %res.i = getelementptr inbounds %struct._CMtCoder, ptr %p, i64 0, i32 10, i32 3
+  store i32 0, ptr %res.i, align 8, !tbaa !26
+  %cmp144.not = icmp eq i32 %0, 0
+  br i1 %cmp144.not, label %for.end46, label %for.body.preheader
 
-12:                                               ; preds = %1
-  %13 = zext i32 %3 to i64
-  br label %20
+for.body.preheader:                               ; preds = %entry
+  %wide.trip.count = zext i32 %0 to i64
+  br label %for.body
 
-14:                                               ; preds = %82
-  %15 = add nuw nsw i64 %21, 1
-  %16 = icmp eq i64 %15, %13
-  br i1 %16, label %17, label %20, !llvm.loop !48
+for.cond:                                         ; preds = %if.end49.i
+  %indvars.iv.next = add nuw nsw i64 %indvars.iv, 1
+  %exitcond.not = icmp eq i64 %indvars.iv.next, %wide.trip.count
+  br i1 %exitcond.not, label %for.cond4.preheader, label %for.body, !llvm.loop !48
 
-17:                                               ; preds = %14
-  br i1 %11, label %124, label %18
+for.cond4.preheader:                              ; preds = %for.cond
+  br i1 %cmp144.not, label %for.end46, label %for.body6.preheader
 
-18:                                               ; preds = %17
-  %19 = zext i32 %3 to i64
-  br label %89
+for.body6.preheader:                              ; preds = %for.cond4.preheader
+  %wide.trip.count160 = zext i32 %0 to i64
+  br label %for.body6
 
-20:                                               ; preds = %12, %14
-  %21 = phi i64 [ 0, %12 ], [ %15, %14 ]
-  %22 = getelementptr inbounds %struct._CMtCoder, ptr %0, i64 0, i32 11, i64 %21
-  %23 = getelementptr inbounds %struct._CMtCoder, ptr %0, i64 0, i32 11, i64 %21, i32 3
-  %24 = load ptr, ptr %23, align 8, !tbaa !33
-  %25 = icmp eq ptr %24, null
-  br i1 %25, label %26, label %28
+for.body:                                         ; preds = %for.body.preheader, %for.cond
+  %indvars.iv = phi i64 [ 0, %for.body.preheader ], [ %indvars.iv.next, %for.cond ]
+  %arrayidx = getelementptr inbounds %struct._CMtCoder, ptr %p, i64 0, i32 11, i64 %indvars.iv
+  %inBuf.i = getelementptr inbounds %struct._CMtCoder, ptr %p, i64 0, i32 11, i64 %indvars.iv, i32 3
+  %2 = load ptr, ptr %inBuf.i, align 8, !tbaa !33
+  %cmp.i = icmp eq ptr %2, null
+  br i1 %cmp.i, label %entry.if.then_crit_edge.i, label %lor.lhs.false.i
 
-26:                                               ; preds = %20
-  %27 = load ptr, ptr %22, align 8, !tbaa !30
-  br label %34
+entry.if.then_crit_edge.i:                        ; preds = %for.body
+  %.pre.i = load ptr, ptr %arrayidx, align 8, !tbaa !30
+  br label %if.then.i
 
-28:                                               ; preds = %20
-  %29 = getelementptr inbounds %struct._CMtCoder, ptr %0, i64 0, i32 11, i64 %21, i32 4
-  %30 = load i64, ptr %29, align 8, !tbaa !49
-  %31 = load ptr, ptr %22, align 8, !tbaa !30
-  %32 = load i64, ptr %31, align 8, !tbaa !50
-  %33 = icmp eq i64 %30, %32
-  br i1 %33, label %48, label %34
+lor.lhs.false.i:                                  ; preds = %for.body
+  %inBufSize.i = getelementptr inbounds %struct._CMtCoder, ptr %p, i64 0, i32 11, i64 %indvars.iv, i32 4
+  %3 = load i64, ptr %inBufSize.i, align 8, !tbaa !49
+  %4 = load ptr, ptr %arrayidx, align 8, !tbaa !30
+  %5 = load i64, ptr %4, align 8, !tbaa !50
+  %cmp1.not.i = icmp eq i64 %3, %5
+  br i1 %cmp1.not.i, label %if.end18.i, label %if.then.i
 
-34:                                               ; preds = %28, %26
-  %35 = phi ptr [ %27, %26 ], [ %31, %28 ]
-  %36 = getelementptr inbounds %struct._CMtCoder, ptr %35, i64 0, i32 6
-  %37 = load ptr, ptr %36, align 8, !tbaa !36
-  %38 = getelementptr inbounds %struct.ISzAlloc, ptr %37, i64 0, i32 1
-  %39 = load ptr, ptr %38, align 8, !tbaa !42
-  tail call void %39(ptr noundef %37, ptr noundef %24) #6
-  %40 = load ptr, ptr %22, align 8, !tbaa !30
-  %41 = load i64, ptr %40, align 8, !tbaa !50
-  %42 = getelementptr inbounds %struct._CMtCoder, ptr %0, i64 0, i32 11, i64 %21, i32 4
-  store i64 %41, ptr %42, align 8, !tbaa !49
-  %43 = getelementptr inbounds %struct._CMtCoder, ptr %40, i64 0, i32 6
-  %44 = load ptr, ptr %43, align 8, !tbaa !36
-  %45 = load ptr, ptr %44, align 8, !tbaa !51
-  %46 = tail call ptr %45(ptr noundef nonnull %44, i64 noundef %41) #6
-  store ptr %46, ptr %23, align 8, !tbaa !33
-  %47 = icmp eq ptr %46, null
-  br i1 %47, label %156, label %48
+if.then.i:                                        ; preds = %lor.lhs.false.i, %entry.if.then_crit_edge.i
+  %6 = phi ptr [ %.pre.i, %entry.if.then_crit_edge.i ], [ %4, %lor.lhs.false.i ]
+  %alloc.i = getelementptr inbounds %struct._CMtCoder, ptr %6, i64 0, i32 6
+  %7 = load ptr, ptr %alloc.i, align 8, !tbaa !36
+  %Free.i = getelementptr inbounds %struct.ISzAlloc, ptr %7, i64 0, i32 1
+  %8 = load ptr, ptr %Free.i, align 8, !tbaa !42
+  tail call void %8(ptr noundef %7, ptr noundef %2) #6
+  %9 = load ptr, ptr %arrayidx, align 8, !tbaa !30
+  %10 = load i64, ptr %9, align 8, !tbaa !51
+  %inBufSize8.i = getelementptr inbounds %struct._CMtCoder, ptr %p, i64 0, i32 11, i64 %indvars.iv, i32 4
+  store i64 %10, ptr %inBufSize8.i, align 8, !tbaa !49
+  %alloc10.i = getelementptr inbounds %struct._CMtCoder, ptr %9, i64 0, i32 6
+  %11 = load ptr, ptr %alloc10.i, align 8, !tbaa !36
+  %12 = load ptr, ptr %11, align 8, !tbaa !52
+  %call.i = tail call ptr %12(ptr noundef nonnull %11, i64 noundef %10) #6
+  store ptr %call.i, ptr %inBuf.i, align 8, !tbaa !33
+  %cmp16.i = icmp eq ptr %call.i, null
+  br i1 %cmp16.i, label %cleanup76, label %if.end18.i
 
-48:                                               ; preds = %34, %28
-  %49 = getelementptr inbounds %struct._CMtCoder, ptr %0, i64 0, i32 11, i64 %21, i32 1
-  %50 = load ptr, ptr %49, align 8, !tbaa !32
-  %51 = icmp eq ptr %50, null
-  br i1 %51, label %52, label %54
+if.end18.i:                                       ; preds = %if.then.i, %lor.lhs.false.i
+  %outBuf.i = getelementptr inbounds %struct._CMtCoder, ptr %p, i64 0, i32 11, i64 %indvars.iv, i32 1
+  %13 = load ptr, ptr %outBuf.i, align 8, !tbaa !32
+  %cmp19.i = icmp eq ptr %13, null
+  br i1 %cmp19.i, label %if.end18.if.then23_crit_edge.i, label %lor.lhs.false20.i
 
-52:                                               ; preds = %48
-  %53 = load ptr, ptr %22, align 8, !tbaa !30
-  br label %61
+if.end18.if.then23_crit_edge.i:                   ; preds = %if.end18.i
+  %.pre83.i = load ptr, ptr %arrayidx, align 8, !tbaa !30
+  br label %if.then23.i
 
-54:                                               ; preds = %48
-  %55 = getelementptr inbounds %struct._CMtCoder, ptr %0, i64 0, i32 11, i64 %21, i32 2
-  %56 = load i64, ptr %55, align 8, !tbaa !52
-  %57 = load ptr, ptr %22, align 8, !tbaa !30
-  %58 = getelementptr inbounds %struct._CMtCoder, ptr %57, i64 0, i32 1
-  %59 = load i64, ptr %58, align 8, !tbaa !53
-  %60 = icmp eq i64 %56, %59
-  br i1 %60, label %76, label %61
+lor.lhs.false20.i:                                ; preds = %if.end18.i
+  %outBufSize.i = getelementptr inbounds %struct._CMtCoder, ptr %p, i64 0, i32 11, i64 %indvars.iv, i32 2
+  %14 = load i64, ptr %outBufSize.i, align 8, !tbaa !53
+  %15 = load ptr, ptr %arrayidx, align 8, !tbaa !30
+  %destBlockSize.i = getelementptr inbounds %struct._CMtCoder, ptr %15, i64 0, i32 1
+  %16 = load i64, ptr %destBlockSize.i, align 8, !tbaa !54
+  %cmp22.not.i = icmp eq i64 %14, %16
+  br i1 %cmp22.not.i, label %if.end45.i, label %if.then23.i
 
-61:                                               ; preds = %54, %52
-  %62 = phi ptr [ %53, %52 ], [ %57, %54 ]
-  %63 = getelementptr inbounds %struct._CMtCoder, ptr %62, i64 0, i32 6
-  %64 = load ptr, ptr %63, align 8, !tbaa !36
-  %65 = getelementptr inbounds %struct.ISzAlloc, ptr %64, i64 0, i32 1
-  %66 = load ptr, ptr %65, align 8, !tbaa !42
-  tail call void %66(ptr noundef %64, ptr noundef %50) #6
-  %67 = load ptr, ptr %22, align 8, !tbaa !30
-  %68 = getelementptr inbounds %struct._CMtCoder, ptr %67, i64 0, i32 1
-  %69 = load i64, ptr %68, align 8, !tbaa !53
-  %70 = getelementptr inbounds %struct._CMtCoder, ptr %0, i64 0, i32 11, i64 %21, i32 2
-  store i64 %69, ptr %70, align 8, !tbaa !52
-  %71 = getelementptr inbounds %struct._CMtCoder, ptr %67, i64 0, i32 6
-  %72 = load ptr, ptr %71, align 8, !tbaa !36
-  %73 = load ptr, ptr %72, align 8, !tbaa !51
-  %74 = tail call ptr %73(ptr noundef nonnull %72, i64 noundef %69) #6
-  store ptr %74, ptr %49, align 8, !tbaa !32
-  %75 = icmp eq ptr %74, null
-  br i1 %75, label %156, label %76
+if.then23.i:                                      ; preds = %lor.lhs.false20.i, %if.end18.if.then23_crit_edge.i
+  %17 = phi ptr [ %.pre83.i, %if.end18.if.then23_crit_edge.i ], [ %15, %lor.lhs.false20.i ]
+  %alloc25.i = getelementptr inbounds %struct._CMtCoder, ptr %17, i64 0, i32 6
+  %18 = load ptr, ptr %alloc25.i, align 8, !tbaa !36
+  %Free26.i = getelementptr inbounds %struct.ISzAlloc, ptr %18, i64 0, i32 1
+  %19 = load ptr, ptr %Free26.i, align 8, !tbaa !42
+  tail call void %19(ptr noundef %18, ptr noundef %13) #6
+  %20 = load ptr, ptr %arrayidx, align 8, !tbaa !30
+  %destBlockSize31.i = getelementptr inbounds %struct._CMtCoder, ptr %20, i64 0, i32 1
+  %21 = load i64, ptr %destBlockSize31.i, align 8, !tbaa !51
+  %outBufSize32.i = getelementptr inbounds %struct._CMtCoder, ptr %p, i64 0, i32 11, i64 %indvars.iv, i32 2
+  store i64 %21, ptr %outBufSize32.i, align 8, !tbaa !53
+  %alloc34.i = getelementptr inbounds %struct._CMtCoder, ptr %20, i64 0, i32 6
+  %22 = load ptr, ptr %alloc34.i, align 8, !tbaa !36
+  %23 = load ptr, ptr %22, align 8, !tbaa !52
+  %call39.i = tail call ptr %23(ptr noundef nonnull %22, i64 noundef %21) #6
+  store ptr %call39.i, ptr %outBuf.i, align 8, !tbaa !32
+  %cmp42.i = icmp eq ptr %call39.i, null
+  br i1 %cmp42.i, label %cleanup76, label %if.end45.i
 
-76:                                               ; preds = %61, %54
-  %77 = getelementptr inbounds %struct._CMtCoder, ptr %0, i64 0, i32 11, i64 %21, i32 7
-  store i32 0, ptr %77, align 8, !tbaa !54
-  %78 = getelementptr inbounds %struct._CMtCoder, ptr %0, i64 0, i32 11, i64 %21, i32 8
-  store i32 0, ptr %78, align 4, !tbaa !55
-  %79 = getelementptr inbounds %struct._CMtCoder, ptr %0, i64 0, i32 11, i64 %21, i32 9
-  %80 = tail call i32 @AutoResetEvent_CreateNotSignaled(ptr noundef nonnull %79) #6
-  %81 = icmp eq i32 %80, 0
-  br i1 %81, label %82, label %156
+if.end45.i:                                       ; preds = %if.then23.i, %lor.lhs.false20.i
+  %stopReading.i = getelementptr inbounds %struct._CMtCoder, ptr %p, i64 0, i32 11, i64 %indvars.iv, i32 7
+  store i32 0, ptr %stopReading.i, align 8, !tbaa !55
+  %stopWriting.i = getelementptr inbounds %struct._CMtCoder, ptr %p, i64 0, i32 11, i64 %indvars.iv, i32 8
+  store i32 0, ptr %stopWriting.i, align 4, !tbaa !56
+  %canRead.i = getelementptr inbounds %struct._CMtCoder, ptr %p, i64 0, i32 11, i64 %indvars.iv, i32 9
+  %call46.i = tail call i32 @AutoResetEvent_CreateNotSignaled(ptr noundef nonnull %canRead.i) #6
+  %cmp47.not.i = icmp eq i32 %call46.i, 0
+  br i1 %cmp47.not.i, label %if.end49.i, label %cleanup76
 
-82:                                               ; preds = %76
-  %83 = getelementptr inbounds %struct._CMtCoder, ptr %0, i64 0, i32 11, i64 %21, i32 10
-  %84 = tail call i32 @AutoResetEvent_CreateNotSignaled(ptr noundef nonnull %83) #6
-  %85 = icmp eq i32 %84, 0
-  br i1 %85, label %14, label %156
+if.end49.i:                                       ; preds = %if.end45.i
+  %canWrite.i = getelementptr inbounds %struct._CMtCoder, ptr %p, i64 0, i32 11, i64 %indvars.iv, i32 10
+  %call50.i = tail call i32 @AutoResetEvent_CreateNotSignaled(ptr noundef nonnull %canWrite.i) #6
+  %cmp51.not.i = icmp eq i32 %call50.i, 0
+  br i1 %cmp51.not.i, label %for.cond, label %cleanup76
 
-86:                                               ; preds = %110
-  br i1 %11, label %124, label %87
+for.cond27.preheader:                             ; preds = %for.inc22
+  br i1 %cmp144.not, label %for.end46, label %for.body29.preheader
 
-87:                                               ; preds = %86
-  %88 = zext i32 %3 to i64
-  br label %113
+for.body29.preheader:                             ; preds = %for.cond27.preheader
+  %wide.trip.count165 = zext i32 %0 to i64
+  br label %for.body29
 
-89:                                               ; preds = %18, %110
-  %90 = phi i64 [ 0, %18 ], [ %111, %110 ]
-  %91 = getelementptr inbounds %struct._CMtCoder, ptr %0, i64 0, i32 11, i64 %90, i32 6
-  %92 = getelementptr inbounds %struct._CThread, ptr %91, i64 0, i32 1
-  %93 = load i32, ptr %92, align 8, !tbaa !5
-  %94 = icmp eq i32 %93, 0
-  br i1 %94, label %95, label %110
+for.body6:                                        ; preds = %for.body6.preheader, %for.inc22
+  %indvars.iv157 = phi i64 [ 0, %for.body6.preheader ], [ %indvars.iv.next158, %for.inc22 ]
+  %thread = getelementptr inbounds %struct._CMtCoder, ptr %p, i64 0, i32 11, i64 %indvars.iv157, i32 6
+  %_created = getelementptr inbounds %struct._CThread, ptr %thread, i64 0, i32 1
+  %24 = load i32, ptr %_created, align 8, !tbaa !5
+  %cmp11.not = icmp eq i32 %24, 0
+  br i1 %cmp11.not, label %if.then12, label %for.inc22
 
-95:                                               ; preds = %89
-  %96 = getelementptr inbounds %struct._CMtCoder, ptr %0, i64 0, i32 11, i64 %90
-  %97 = getelementptr inbounds %struct._CMtCoder, ptr %0, i64 0, i32 11, i64 %90, i32 6, i32 4
-  store ptr @ThreadFunc, ptr %97, align 8, !tbaa !17
-  %98 = getelementptr inbounds %struct._CMtCoder, ptr %0, i64 0, i32 11, i64 %90, i32 6, i32 5
-  store ptr %96, ptr %98, align 8, !tbaa !18
-  %99 = getelementptr inbounds %struct._CMtCoder, ptr %0, i64 0, i32 11, i64 %90, i32 6, i32 3
-  store i32 0, ptr %99, align 8, !tbaa !16
-  %100 = getelementptr inbounds %struct._CMtCoder, ptr %0, i64 0, i32 11, i64 %90, i32 6, i32 1
-  %101 = tail call i32 @AutoResetEvent_CreateNotSignaled(ptr noundef nonnull %100) #6
-  %102 = icmp eq i32 %101, 0
-  br i1 %102, label %103, label %140
+if.then12:                                        ; preds = %for.body6
+  %arrayidx9 = getelementptr inbounds %struct._CMtCoder, ptr %p, i64 0, i32 11, i64 %indvars.iv157
+  %func = getelementptr inbounds %struct._CMtCoder, ptr %p, i64 0, i32 11, i64 %indvars.iv157, i32 6, i32 4
+  store ptr @ThreadFunc, ptr %func, align 8, !tbaa !17
+  %param = getelementptr inbounds %struct._CMtCoder, ptr %p, i64 0, i32 11, i64 %indvars.iv157, i32 6, i32 5
+  store ptr %arrayidx9, ptr %param, align 8, !tbaa !18
+  %stop.i = getelementptr inbounds %struct._CMtCoder, ptr %p, i64 0, i32 11, i64 %indvars.iv157, i32 6, i32 3
+  store i32 0, ptr %stop.i, align 8, !tbaa !16
+  %startEvent.i = getelementptr inbounds %struct._CMtCoder, ptr %p, i64 0, i32 11, i64 %indvars.iv157, i32 6, i32 1
+  %call.i119 = tail call i32 @AutoResetEvent_CreateNotSignaled(ptr noundef nonnull %startEvent.i) #6
+  %cmp.not.not.i = icmp eq i32 %call.i119, 0
+  br i1 %cmp.not.not.i, label %cleanup.cont.i, label %if.end64
 
-103:                                              ; preds = %95
-  %104 = getelementptr inbounds %struct._CMtCoder, ptr %0, i64 0, i32 11, i64 %90, i32 6, i32 2
-  %105 = tail call i32 @AutoResetEvent_CreateNotSignaled(ptr noundef nonnull %104) #6
-  %106 = icmp eq i32 %105, 0
-  br i1 %106, label %107, label %140
+cleanup.cont.i:                                   ; preds = %if.then12
+  %finishedEvent.i = getelementptr inbounds %struct._CMtCoder, ptr %p, i64 0, i32 11, i64 %indvars.iv157, i32 6, i32 2
+  %call2.i = tail call i32 @AutoResetEvent_CreateNotSignaled(ptr noundef nonnull %finishedEvent.i) #6
+  %cmp3.not.not.i = icmp eq i32 %call2.i, 0
+  br i1 %cmp3.not.not.i, label %LoopThread_Create.exit, label %if.end64
 
-107:                                              ; preds = %103
-  %108 = tail call i32 @Thread_Create(ptr noundef nonnull %91, ptr noundef nonnull @LoopThreadFunc, ptr noundef nonnull %91) #6
-  %109 = icmp eq i32 %108, 0
-  br i1 %109, label %110, label %140
+LoopThread_Create.exit:                           ; preds = %cleanup.cont.i
+  %call9.i = tail call i32 @Thread_Create(ptr noundef nonnull %thread, ptr noundef nonnull @LoopThreadFunc, ptr noundef nonnull %thread) #6
+  %cmp14.not = icmp eq i32 %call9.i, 0
+  br i1 %cmp14.not, label %for.inc22, label %if.end64
 
-110:                                              ; preds = %107, %89
-  %111 = add nuw nsw i64 %90, 1
-  %112 = icmp eq i64 %111, %19
-  br i1 %112, label %86, label %89, !llvm.loop !56
+for.inc22:                                        ; preds = %LoopThread_Create.exit, %for.body6
+  %indvars.iv.next158 = add nuw nsw i64 %indvars.iv157, 1
+  %exitcond161.not = icmp eq i64 %indvars.iv.next158, %wide.trip.count160
+  br i1 %exitcond161.not, label %for.cond27.preheader, label %for.body6, !llvm.loop !57
 
-113:                                              ; preds = %87, %121
-  %114 = phi i64 [ 0, %87 ], [ %122, %121 ]
-  %115 = getelementptr inbounds %struct._CMtCoder, ptr %0, i64 0, i32 11, i64 %114, i32 6, i32 1
-  %116 = tail call i32 @Event_Set(ptr noundef nonnull %115) #6
-  %117 = icmp eq i32 %116, 0
-  br i1 %117, label %121, label %118
+for.body29:                                       ; preds = %for.body29.preheader, %for.inc44
+  %indvars.iv162 = phi i64 [ 0, %for.body29.preheader ], [ %indvars.iv.next163, %for.inc44 ]
+  %startEvent.i120 = getelementptr inbounds %struct._CMtCoder, ptr %p, i64 0, i32 11, i64 %indvars.iv162, i32 6, i32 1
+  %call.i121 = tail call i32 @Event_Set(ptr noundef nonnull %startEvent.i120) #6
+  %cmp36.not = icmp eq i32 %call.i121, 0
+  br i1 %cmp36.not, label %for.inc44, label %cleanup41
 
-118:                                              ; preds = %113
-  %119 = trunc i64 %114 to i32
-  %120 = getelementptr inbounds %struct._CMtCoder, ptr %0, i64 0, i32 11, i64 0, i32 7
-  store i32 1, ptr %120, align 8, !tbaa !54
-  br label %124
+cleanup41:                                        ; preds = %for.body29
+  %25 = trunc i64 %indvars.iv162 to i32
+  %stopReading = getelementptr inbounds %struct._CMtCoder, ptr %p, i64 0, i32 11, i64 0, i32 7
+  store i32 1, ptr %stopReading, align 8, !tbaa !55
+  br label %for.end46
 
-121:                                              ; preds = %113
-  %122 = add nuw nsw i64 %114, 1
-  %123 = icmp eq i64 %122, %88
-  br i1 %123, label %124, label %113, !llvm.loop !57
+for.inc44:                                        ; preds = %for.body29
+  %indvars.iv.next163 = add nuw nsw i64 %indvars.iv162, 1
+  %exitcond166.not = icmp eq i64 %indvars.iv.next163, %wide.trip.count165
+  br i1 %exitcond166.not, label %for.end46, label %for.body29, !llvm.loop !58
 
-124:                                              ; preds = %121, %1, %17, %86, %118
-  %125 = phi i32 [ %119, %118 ], [ 0, %86 ], [ 0, %17 ], [ 0, %1 ], [ %3, %121 ]
-  %126 = phi i32 [ 12, %118 ], [ 0, %86 ], [ 0, %17 ], [ 0, %1 ], [ 0, %121 ]
-  %127 = getelementptr inbounds %struct._CMtCoder, ptr %0, i64 0, i32 11, i64 0, i32 10
-  %128 = tail call i32 @Event_Set(ptr noundef nonnull %127) #6
-  %129 = getelementptr inbounds %struct._CMtCoder, ptr %0, i64 0, i32 11, i64 0, i32 9
-  %130 = tail call i32 @Event_Set(ptr noundef nonnull %129) #6
-  %131 = icmp eq i32 %125, 0
-  br i1 %131, label %140, label %132
+for.end46:                                        ; preds = %for.inc44, %entry, %for.cond4.preheader, %for.cond27.preheader, %cleanup41
+  %i.2143 = phi i32 [ %25, %cleanup41 ], [ 0, %for.cond27.preheader ], [ 0, %for.cond4.preheader ], [ 0, %entry ], [ %0, %for.inc44 ]
+  %res.5 = phi i32 [ 12, %cleanup41 ], [ 0, %for.cond27.preheader ], [ 0, %for.cond4.preheader ], [ 0, %entry ], [ 0, %for.inc44 ]
+  %canWrite = getelementptr inbounds %struct._CMtCoder, ptr %p, i64 0, i32 11, i64 0, i32 10
+  %call49 = tail call i32 @Event_Set(ptr noundef nonnull %canWrite) #6
+  %canRead = getelementptr inbounds %struct._CMtCoder, ptr %p, i64 0, i32 11, i64 0, i32 9
+  %call52 = tail call i32 @Event_Set(ptr noundef nonnull %canRead) #6
+  %cmp54150.not = icmp eq i32 %i.2143, 0
+  br i1 %cmp54150.not, label %if.end64, label %for.body55.preheader
 
-132:                                              ; preds = %124
-  %133 = zext i32 %125 to i64
-  br label %134
+for.body55.preheader:                             ; preds = %for.end46
+  %wide.trip.count170 = zext i32 %i.2143 to i64
+  br label %for.body55
 
-134:                                              ; preds = %132, %134
-  %135 = phi i64 [ 0, %132 ], [ %138, %134 ]
-  %136 = getelementptr inbounds %struct._CMtCoder, ptr %0, i64 0, i32 11, i64 %135, i32 6, i32 2
-  %137 = tail call i32 @Event_Wait(ptr noundef nonnull %136) #6
-  %138 = add nuw nsw i64 %135, 1
-  %139 = icmp eq i64 %138, %133
-  br i1 %139, label %140, label %134, !llvm.loop !58
+for.body55:                                       ; preds = %for.body55.preheader, %for.body55
+  %indvars.iv167 = phi i64 [ 0, %for.body55.preheader ], [ %indvars.iv.next168, %for.body55 ]
+  %finishedEvent.i122 = getelementptr inbounds %struct._CMtCoder, ptr %p, i64 0, i32 11, i64 %indvars.iv167, i32 6, i32 2
+  %call.i123 = tail call i32 @Event_Wait(ptr noundef nonnull %finishedEvent.i122) #6
+  %indvars.iv.next168 = add nuw nsw i64 %indvars.iv167, 1
+  %exitcond171.not = icmp eq i64 %indvars.iv.next168, %wide.trip.count170
+  br i1 %exitcond171.not, label %if.end64, label %for.body55, !llvm.loop !59
 
-140:                                              ; preds = %103, %95, %107, %134, %124
-  %141 = phi i32 [ %126, %124 ], [ %126, %134 ], [ 12, %107 ], [ 12, %95 ], [ 12, %103 ]
-  br i1 %11, label %152, label %142
+if.end64:                                         ; preds = %LoopThread_Create.exit, %if.then12, %cleanup.cont.i, %for.body55, %for.end46
+  %res.6 = phi i32 [ %res.5, %for.end46 ], [ %res.5, %for.body55 ], [ 12, %cleanup.cont.i ], [ 12, %if.then12 ], [ 12, %LoopThread_Create.exit ]
+  br i1 %cmp144.not, label %for.end73, label %for.body67.preheader
 
-142:                                              ; preds = %140
-  %143 = zext i32 %3 to i64
-  br label %144
+for.body67.preheader:                             ; preds = %if.end64
+  %wide.trip.count175 = zext i32 %0 to i64
+  br label %for.body67
 
-144:                                              ; preds = %142, %144
-  %145 = phi i64 [ 0, %142 ], [ %150, %144 ]
-  %146 = getelementptr inbounds %struct._CMtCoder, ptr %0, i64 0, i32 11, i64 %145, i32 9
-  %147 = tail call i32 @Event_Close(ptr noundef nonnull %146) #6
-  %148 = getelementptr inbounds %struct._CMtCoder, ptr %0, i64 0, i32 11, i64 %145, i32 10
-  %149 = tail call i32 @Event_Close(ptr noundef nonnull %148) #6
-  %150 = add nuw nsw i64 %145, 1
-  %151 = icmp eq i64 %150, %143
-  br i1 %151, label %152, label %144, !llvm.loop !59
+for.body67:                                       ; preds = %for.body67.preheader, %for.body67
+  %indvars.iv172 = phi i64 [ 0, %for.body67.preheader ], [ %indvars.iv.next173, %for.body67 ]
+  %canRead.i124 = getelementptr inbounds %struct._CMtCoder, ptr %p, i64 0, i32 11, i64 %indvars.iv172, i32 9
+  %call.i125 = tail call i32 @Event_Close(ptr noundef nonnull %canRead.i124) #6
+  %canWrite.i126 = getelementptr inbounds %struct._CMtCoder, ptr %p, i64 0, i32 11, i64 %indvars.iv172, i32 10
+  %call1.i = tail call i32 @Event_Close(ptr noundef nonnull %canWrite.i126) #6
+  %indvars.iv.next173 = add nuw nsw i64 %indvars.iv172, 1
+  %exitcond176.not = icmp eq i64 %indvars.iv.next173, %wide.trip.count175
+  br i1 %exitcond176.not, label %for.end73, label %for.body67, !llvm.loop !60
 
-152:                                              ; preds = %144, %140
-  %153 = icmp eq i32 %141, 0
-  br i1 %153, label %154, label %156
+for.end73:                                        ; preds = %for.body67, %if.end64
+  %cmp74 = icmp eq i32 %res.6, 0
+  br i1 %cmp74, label %cond.true, label %cleanup76
 
-154:                                              ; preds = %152
-  %155 = load i32, ptr %4, align 8, !tbaa !46
-  br label %156
+cond.true:                                        ; preds = %for.end73
+  %26 = load i32, ptr %res2, align 8, !tbaa !46
+  br label %cleanup76
 
-156:                                              ; preds = %82, %76, %61, %34, %154, %152
-  %157 = phi i32 [ %155, %154 ], [ %141, %152 ], [ 12, %82 ], [ 12, %76 ], [ 2, %61 ], [ 2, %34 ]
-  ret i32 %157
+cleanup76:                                        ; preds = %if.end49.i, %if.end45.i, %if.then23.i, %if.then.i, %cond.true, %for.end73
+  %retval.2 = phi i32 [ %26, %cond.true ], [ %res.6, %for.end73 ], [ 2, %if.then.i ], [ 2, %if.then23.i ], [ 12, %if.end45.i ], [ 12, %if.end49.i ]
+  ret i32 %retval.2
 }
 
 ; Function Attrs: nounwind uwtable
-define internal i32 @ThreadFunc(ptr noundef %0) #1 {
-  %2 = alloca i64, align 8
-  %3 = alloca i64, align 8
-  %4 = getelementptr inbounds %struct.CMtThread, ptr %0, i64 0, i32 5
-  %5 = getelementptr inbounds %struct.CMtThread, ptr %0, i64 0, i32 9
-  %6 = getelementptr inbounds %struct.CMtThread, ptr %0, i64 0, i32 7
-  %7 = getelementptr inbounds %struct.CMtThread, ptr %0, i64 0, i32 2
-  %8 = getelementptr inbounds %struct.CMtThread, ptr %0, i64 0, i32 3
-  %9 = getelementptr inbounds %struct.CMtThread, ptr %0, i64 0, i32 1
-  %10 = getelementptr inbounds %struct.CMtThread, ptr %0, i64 0, i32 10
-  %11 = getelementptr inbounds %struct.CMtThread, ptr %0, i64 0, i32 8
-  br label %12
+define internal i32 @ThreadFunc(ptr noundef %pp) #1 {
+entry:
+  %curSize.i.i = alloca i64, align 8
+  %destSize.i = alloca i64, align 8
+  %index = getelementptr inbounds %struct.CMtThread, ptr %pp, i64 0, i32 5
+  %canRead.i = getelementptr inbounds %struct.CMtThread, ptr %pp, i64 0, i32 9
+  %stopReading.i = getelementptr inbounds %struct.CMtThread, ptr %pp, i64 0, i32 7
+  %outBufSize.i = getelementptr inbounds %struct.CMtThread, ptr %pp, i64 0, i32 2
+  %inBuf.i = getelementptr inbounds %struct.CMtThread, ptr %pp, i64 0, i32 3
+  %outBuf.i = getelementptr inbounds %struct.CMtThread, ptr %pp, i64 0, i32 1
+  %canWrite.i = getelementptr inbounds %struct.CMtThread, ptr %pp, i64 0, i32 10
+  %stopWriting.i = getelementptr inbounds %struct.CMtThread, ptr %pp, i64 0, i32 8
+  br label %for.cond
 
-12:                                               ; preds = %150, %1
-  %13 = load ptr, ptr %0, align 8, !tbaa !30
-  %14 = load i32, ptr %4, align 8, !tbaa !38
-  %15 = getelementptr inbounds %struct._CMtCoder, ptr %13, i64 0, i32 2
-  %16 = load i32, ptr %15, align 8, !tbaa !45
-  %17 = call i32 @Event_Wait(ptr noundef nonnull %5) #6
-  %18 = icmp eq i32 %17, 0
-  br i1 %18, label %19, label %117
+for.cond:                                         ; preds = %cleanup, %entry
+  %0 = load ptr, ptr %pp, align 8, !tbaa !30
+  %1 = load i32, ptr %index, align 8, !tbaa !38
+  %numThreads = getelementptr inbounds %struct._CMtCoder, ptr %0, i64 0, i32 2
+  %2 = load i32, ptr %numThreads, align 8, !tbaa !45
+  %call.i = call i32 @Event_Wait(ptr noundef nonnull %canRead.i) #6
+  %cmp.not.i = icmp eq i32 %call.i, 0
+  br i1 %cmp.not.i, label %if.end.i, label %if.then.loopexit
 
-19:                                               ; preds = %12
-  %20 = load ptr, ptr %0, align 8, !tbaa !30
-  %21 = load i32, ptr %4, align 8, !tbaa !38
-  %22 = getelementptr inbounds %struct._CMtCoder, ptr %20, i64 0, i32 2
-  %23 = load i32, ptr %22, align 8, !tbaa !45
-  %24 = add i32 %23, -1
-  %25 = icmp eq i32 %21, %24
-  %26 = add i32 %21, 1
-  %27 = select i1 %25, i32 0, i32 %26
-  %28 = zext i32 %27 to i64
-  %29 = load i32, ptr %6, align 8, !tbaa !54
-  %30 = icmp eq i32 %29, 0
-  br i1 %30, label %41, label %31
+if.end.i:                                         ; preds = %for.cond
+  %3 = load ptr, ptr %pp, align 8, !tbaa !30
+  %4 = load i32, ptr %index, align 8, !tbaa !38
+  %numThreads.i = getelementptr inbounds %struct._CMtCoder, ptr %3, i64 0, i32 2
+  %5 = load i32, ptr %numThreads.i, align 8, !tbaa !45
+  %sub.i = add i32 %5, -1
+  %cmp2.i = icmp eq i32 %4, %sub.i
+  %add.i = add i32 %4, 1
+  %narrow.i = select i1 %cmp2.i, i32 0, i32 %add.i
+  %cond.i = zext i32 %narrow.i to i64
+  %6 = load i32, ptr %stopReading.i, align 8, !tbaa !55
+  %tobool.not.i = icmp eq i32 %6, 0
+  br i1 %tobool.not.i, label %if.end10.i, label %if.then4.i
 
-31:                                               ; preds = %19
-  %32 = zext i32 %27 to i64
-  %33 = add i32 %16, -1
-  %34 = icmp eq i32 %14, %33
-  %35 = add i32 %14, 1
-  %36 = select i1 %34, i32 0, i32 %35
-  %37 = getelementptr inbounds %struct._CMtCoder, ptr %20, i64 0, i32 11, i64 %32, i32 7
-  store i32 1, ptr %37, align 8, !tbaa !54
-  %38 = getelementptr inbounds %struct._CMtCoder, ptr %20, i64 0, i32 11, i64 %32, i32 9
-  %39 = call i32 @Event_Set(ptr noundef nonnull %38) #6
-  %40 = icmp eq i32 %39, 0
-  br i1 %40, label %151, label %122
+if.then4.i:                                       ; preds = %if.end.i
+  %cond.i.le = zext i32 %narrow.i to i64
+  %sub.le90 = add i32 %2, -1
+  %cmp.le83 = icmp eq i32 %1, %sub.le90
+  %add.le78 = add i32 %1, 1
+  %spec.select.le71 = select i1 %cmp.le83, i32 0, i32 %add.le78
+  %stopReading5.i = getelementptr inbounds %struct._CMtCoder, ptr %3, i64 0, i32 11, i64 %cond.i.le, i32 7
+  store i32 1, ptr %stopReading5.i, align 8, !tbaa !55
+  %canRead6.i = getelementptr inbounds %struct._CMtCoder, ptr %3, i64 0, i32 11, i64 %cond.i.le, i32 9
+  %call7.i = call i32 @Event_Set(ptr noundef nonnull %canRead6.i) #6
+  %cmp8.i = icmp eq i32 %call7.i, 0
+  br i1 %cmp8.i, label %cleanup12, label %if.then
 
-41:                                               ; preds = %19
-  %42 = load i64, ptr %20, align 8, !tbaa !50
-  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %3) #6
-  %43 = load i64, ptr %7, align 8, !tbaa !52
-  store i64 %43, ptr %3, align 8, !tbaa !60
-  %44 = getelementptr inbounds %struct._CMtCoder, ptr %20, i64 0, i32 3
-  %45 = load ptr, ptr %44, align 8, !tbaa !61
-  %46 = icmp eq i64 %42, 0
-  br i1 %46, label %66, label %47
+if.end10.i:                                       ; preds = %if.end.i
+  %7 = load i64, ptr %3, align 8, !tbaa !50
+  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %destSize.i) #6
+  %8 = load i64, ptr %outBufSize.i, align 8, !tbaa !53
+  store i64 %8, ptr %destSize.i, align 8, !tbaa !51
+  %inStream.i = getelementptr inbounds %struct._CMtCoder, ptr %3, i64 0, i32 3
+  %9 = load ptr, ptr %inStream.i, align 8, !tbaa !61
+  %10 = load ptr, ptr %inBuf.i, align 8, !tbaa !33
+  br label %while.cond.i.i
 
-47:                                               ; preds = %41
-  %48 = load ptr, ptr %8, align 8, !tbaa !33
-  br label %49
+while.cond.i.i:                                   ; preds = %while.body.i.i, %if.end10.i
+  %size.0.i = phi i64 [ 0, %if.end10.i ], [ %add.i.i, %while.body.i.i ]
+  %size.0.i.i = phi i64 [ %7, %if.end10.i ], [ %sub.i.i, %while.body.i.i ]
+  %data.addr.0.i.i = phi ptr [ %10, %if.end10.i ], [ %add.ptr.i.i, %while.body.i.i ]
+  %retval.0.i.i = phi i32 [ undef, %if.end10.i ], [ %retval.2.i.i, %while.body.i.i ]
+  %cmp.not.i.i = icmp eq i64 %size.0.i.i, 0
+  br i1 %cmp.not.i.i, label %cleanup.cont.i, label %while.body.i.i
 
-49:                                               ; preds = %60, %47
-  %50 = phi i64 [ %56, %60 ], [ 0, %47 ]
-  %51 = phi ptr [ %62, %60 ], [ %48, %47 ]
-  %52 = phi i64 [ %61, %60 ], [ %42, %47 ]
-  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %2) #6
-  store i64 %52, ptr %2, align 8, !tbaa !60
-  %53 = load ptr, ptr %45, align 8, !tbaa !28
-  %54 = call i32 %53(ptr noundef nonnull %45, ptr noundef %51, ptr noundef nonnull %2) #6
-  %55 = load i64, ptr %2, align 8, !tbaa !60
-  %56 = add i64 %55, %50
-  %57 = icmp ne i32 %54, 0
-  %58 = icmp eq i64 %55, 0
-  %59 = select i1 %57, i1 true, i1 %58
-  br i1 %59, label %64, label %60
+while.body.i.i:                                   ; preds = %while.cond.i.i
+  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %curSize.i.i) #6
+  store i64 %size.0.i.i, ptr %curSize.i.i, align 8, !tbaa !51
+  %11 = load ptr, ptr %9, align 8, !tbaa !28
+  %call.i.i = call i32 %11(ptr noundef nonnull %9, ptr noundef %data.addr.0.i.i, ptr noundef nonnull %curSize.i.i) #6
+  %12 = load i64, ptr %curSize.i.i, align 8
+  %add.i.i = add i64 %12, %size.0.i
+  %add.ptr.i.i = getelementptr inbounds i8, ptr %data.addr.0.i.i, i64 %12
+  %sub.i.i = sub i64 %size.0.i.i, %12
+  %cmp1.not.i.i = icmp eq i32 %call.i.i, 0
+  %cmp2.i.i = icmp ne i64 %12, 0
+  %13 = select i1 %cmp2.i.i, i1 %cmp1.not.i.i, i1 false
+  %.retval.0.call.i.i = select i1 %13, i32 %retval.0.i.i, i32 0
+  %retval.2.i.i = select i1 %cmp1.not.i.i, i32 %.retval.0.call.i.i, i32 %call.i.i
+  %cond10.i.i = select i1 %cmp1.not.i.i, i1 %cmp2.i.i, i1 false
+  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %curSize.i.i) #6
+  br i1 %cond10.i.i, label %while.cond.i.i, label %FullRead.exit.i, !llvm.loop !62
 
-60:                                               ; preds = %49
-  %61 = sub i64 %52, %55
-  %62 = getelementptr inbounds i8, ptr %51, i64 %55
-  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %2) #6
-  %63 = icmp eq i64 %61, 0
-  br i1 %63, label %66, label %49, !llvm.loop !62
+FullRead.exit.i:                                  ; preds = %while.body.i.i
+  %cmp14.not.i = icmp eq i32 %retval.2.i.i, 0
+  br i1 %cmp14.not.i, label %cleanup.cont.i, label %MtThread_Process.exit.thread47
 
-64:                                               ; preds = %49
-  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %2) #6
-  %65 = icmp eq i32 %54, 0
-  br i1 %65, label %66, label %111
+cleanup.cont.i:                                   ; preds = %while.cond.i.i, %FullRead.exit.i
+  %size.1107.i = phi i64 [ %add.i.i, %FullRead.exit.i ], [ %size.0.i, %while.cond.i.i ]
+  %14 = load ptr, ptr %pp, align 8, !tbaa !30
+  %15 = load i64, ptr %14, align 8, !tbaa !50
+  %cmp19.i = icmp ne i64 %size.1107.i, %15
+  %conv.i = zext i1 %cmp19.i to i32
+  %stopReading20.i = getelementptr inbounds %struct._CMtCoder, ptr %3, i64 0, i32 11, i64 %cond.i, i32 7
+  store i32 %conv.i, ptr %stopReading20.i, align 8, !tbaa !55
+  %canRead21.i = getelementptr inbounds %struct._CMtCoder, ptr %3, i64 0, i32 11, i64 %cond.i, i32 9
+  %call22.i = call i32 @Event_Set(ptr noundef nonnull %canRead21.i) #6
+  %cmp23.not.i = icmp eq i32 %call22.i, 0
+  br i1 %cmp23.not.i, label %if.end26.i, label %MtThread_Process.exit.thread47
 
-66:                                               ; preds = %60, %64, %41
-  %67 = phi i64 [ %56, %64 ], [ 0, %41 ], [ %56, %60 ]
-  %68 = load ptr, ptr %0, align 8, !tbaa !30
-  %69 = load i64, ptr %68, align 8, !tbaa !50
-  %70 = icmp ne i64 %67, %69
-  %71 = zext i1 %70 to i32
-  %72 = getelementptr inbounds %struct._CMtCoder, ptr %20, i64 0, i32 11, i64 %28, i32 7
-  store i32 %71, ptr %72, align 8, !tbaa !54
-  %73 = getelementptr inbounds %struct._CMtCoder, ptr %20, i64 0, i32 11, i64 %28, i32 9
-  %74 = call i32 @Event_Set(ptr noundef nonnull %73) #6
-  %75 = icmp eq i32 %74, 0
-  br i1 %75, label %76, label %111
+if.end26.i:                                       ; preds = %cleanup.cont.i
+  %16 = load ptr, ptr %pp, align 8, !tbaa !30
+  %mtCallback.i = getelementptr inbounds %struct._CMtCoder, ptr %16, i64 0, i32 7
+  %17 = load ptr, ptr %mtCallback.i, align 8, !tbaa !63
+  %18 = load ptr, ptr %17, align 8, !tbaa !28
+  %19 = load i32, ptr %index, align 8, !tbaa !38
+  %20 = load ptr, ptr %outBuf.i, align 8, !tbaa !32
+  %21 = load ptr, ptr %inBuf.i, align 8, !tbaa !33
+  %call33.i = call i32 %18(ptr noundef nonnull %17, i32 noundef %19, ptr noundef %20, ptr noundef nonnull %destSize.i, ptr noundef %21, i64 noundef %size.1107.i, i32 noundef %conv.i) #6
+  %cmp34.not.i = icmp eq i32 %call33.i, 0
+  br i1 %cmp34.not.i, label %cleanup.cont40.i, label %MtThread_Process.exit.thread47
 
-76:                                               ; preds = %66
-  %77 = load ptr, ptr %0, align 8, !tbaa !30
-  %78 = getelementptr inbounds %struct._CMtCoder, ptr %77, i64 0, i32 7
-  %79 = load ptr, ptr %78, align 8, !tbaa !63
-  %80 = load ptr, ptr %79, align 8, !tbaa !28
-  %81 = load i32, ptr %4, align 8, !tbaa !38
-  %82 = load ptr, ptr %9, align 8, !tbaa !32
-  %83 = load ptr, ptr %8, align 8, !tbaa !33
-  %84 = call i32 %80(ptr noundef nonnull %79, i32 noundef %81, ptr noundef %82, ptr noundef nonnull %3, ptr noundef %83, i64 noundef %67, i32 noundef %71) #6
-  %85 = icmp eq i32 %84, 0
-  br i1 %85, label %86, label %111
+cleanup.cont40.i:                                 ; preds = %if.end26.i
+  %22 = load ptr, ptr %pp, align 8, !tbaa !30
+  %23 = load i32, ptr %index, align 8, !tbaa !38
+  %idxprom.i.i = zext i32 %23 to i64
+  %arrayidx.i.i = getelementptr inbounds %struct._CMtCoder, ptr %22, i64 0, i32 10, i32 5, i64 %idxprom.i.i
+  store i64 0, ptr %arrayidx.i.i, align 8, !tbaa !20
+  %arrayidx2.i.i = getelementptr inbounds %struct._CMtCoder, ptr %22, i64 0, i32 10, i32 6, i64 %idxprom.i.i
+  store i64 0, ptr %arrayidx2.i.i, align 8, !tbaa !20
+  %call43.i = call i32 @Event_Wait(ptr noundef nonnull %canWrite.i) #6
+  %cmp44.not.i = icmp eq i32 %call43.i, 0
+  br i1 %cmp44.not.i, label %if.end47.i, label %MtThread_Process.exit.thread47
 
-86:                                               ; preds = %76
-  %87 = load ptr, ptr %0, align 8, !tbaa !30
-  %88 = load i32, ptr %4, align 8, !tbaa !38
-  %89 = zext i32 %88 to i64
-  %90 = getelementptr inbounds %struct._CMtCoder, ptr %87, i64 0, i32 10, i32 5, i64 %89
-  store i64 0, ptr %90, align 8, !tbaa !20
-  %91 = getelementptr inbounds %struct._CMtCoder, ptr %87, i64 0, i32 10, i32 6, i64 %89
-  store i64 0, ptr %91, align 8, !tbaa !20
-  %92 = call i32 @Event_Wait(ptr noundef nonnull %10) #6
-  %93 = icmp eq i32 %92, 0
-  br i1 %93, label %94, label %111
+if.end47.i:                                       ; preds = %cleanup.cont40.i
+  %24 = load i32, ptr %stopWriting.i, align 4, !tbaa !56
+  %tobool48.not.i = icmp eq i32 %24, 0
+  br i1 %tobool48.not.i, label %if.end50.i, label %MtThread_Process.exit.thread47
 
-94:                                               ; preds = %86
-  %95 = load i32, ptr %11, align 4, !tbaa !55
-  %96 = icmp eq i32 %95, 0
-  br i1 %96, label %97, label %111
+if.end50.i:                                       ; preds = %if.end47.i
+  %25 = load ptr, ptr %pp, align 8, !tbaa !30
+  %outStream.i = getelementptr inbounds %struct._CMtCoder, ptr %25, i64 0, i32 4
+  %26 = load ptr, ptr %outStream.i, align 8, !tbaa !64
+  %27 = load ptr, ptr %26, align 8, !tbaa !28
+  %28 = load ptr, ptr %outBuf.i, align 8, !tbaa !32
+  %29 = load i64, ptr %destSize.i, align 8, !tbaa !51
+  %call55.i = call i64 %27(ptr noundef nonnull %26, ptr noundef %28, i64 noundef %29) #6
+  %30 = load i64, ptr %destSize.i, align 8, !tbaa !51
+  %cmp56.not.i = icmp eq i64 %call55.i, %30
+  br i1 %cmp56.not.i, label %if.end59.i, label %MtThread_Process.exit.thread47
 
-97:                                               ; preds = %94
-  %98 = load ptr, ptr %0, align 8, !tbaa !30
-  %99 = getelementptr inbounds %struct._CMtCoder, ptr %98, i64 0, i32 4
-  %100 = load ptr, ptr %99, align 8, !tbaa !64
-  %101 = load ptr, ptr %100, align 8, !tbaa !28
-  %102 = load ptr, ptr %9, align 8, !tbaa !32
-  %103 = load i64, ptr %3, align 8, !tbaa !60
-  %104 = call i64 %101(ptr noundef nonnull %100, ptr noundef %102, i64 noundef %103) #6
-  %105 = load i64, ptr %3, align 8, !tbaa !60
-  %106 = icmp eq i64 %104, %105
-  br i1 %106, label %107, label %111
+if.end59.i:                                       ; preds = %if.end50.i
+  %canWrite60.i = getelementptr inbounds %struct._CMtCoder, ptr %3, i64 0, i32 11, i64 %cond.i, i32 10
+  %call61.i = call i32 @Event_Set(ptr noundef nonnull %canWrite60.i) #6
+  %cmp62.i = icmp eq i32 %call61.i, 0
+  br i1 %cmp62.i, label %cleanup, label %MtThread_Process.exit.thread47
 
-107:                                              ; preds = %97
-  %108 = getelementptr inbounds %struct._CMtCoder, ptr %20, i64 0, i32 11, i64 %28, i32 10
-  %109 = call i32 @Event_Set(ptr noundef nonnull %108) #6
-  %110 = icmp eq i32 %109, 0
-  br i1 %110, label %150, label %111
+MtThread_Process.exit.thread47:                   ; preds = %if.end59.i, %if.end26.i, %FullRead.exit.i, %cleanup.cont.i, %cleanup.cont40.i, %if.end47.i, %if.end50.i
+  %retval.2.i.ph = phi i32 [ 9, %if.end50.i ], [ 11, %if.end47.i ], [ 12, %cleanup.cont40.i ], [ 12, %cleanup.cont.i ], [ %retval.2.i.i, %FullRead.exit.i ], [ %call33.i, %if.end26.i ], [ 12, %if.end59.i ]
+  %sub.le = add i32 %2, -1
+  %cmp.le86 = icmp eq i32 %1, %sub.le
+  %add.le80 = add i32 %1, 1
+  %spec.select.le = select i1 %cmp.le86, i32 0, i32 %add.le80
+  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %destSize.i) #6
+  br label %if.then
 
-111:                                              ; preds = %107, %64, %66, %76, %86, %94, %97
-  %112 = phi i32 [ 9, %97 ], [ 11, %94 ], [ 12, %86 ], [ %84, %76 ], [ 12, %66 ], [ %54, %64 ], [ 12, %107 ]
-  %113 = add i32 %16, -1
-  %114 = icmp eq i32 %14, %113
-  %115 = add i32 %14, 1
-  %116 = select i1 %114, i32 0, i32 %115
-  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %3) #6
-  br label %122
+if.then.loopexit:                                 ; preds = %for.cond
+  %sub.le92 = add i32 %2, -1
+  %cmp.le = icmp eq i32 %1, %sub.le92
+  %add.le = add i32 %1, 1
+  %spec.select.le74 = select i1 %cmp.le, i32 0, i32 %add.le
+  br label %if.then
 
-117:                                              ; preds = %12
-  %118 = add i32 %16, -1
-  %119 = icmp eq i32 %14, %118
-  %120 = add i32 %14, 1
-  %121 = select i1 %119, i32 0, i32 %120
-  br label %122
+if.then:                                          ; preds = %if.then.loopexit, %if.then4.i, %MtThread_Process.exit.thread47
+  %spec.select62 = phi i32 [ %spec.select.le, %MtThread_Process.exit.thread47 ], [ %spec.select.le71, %if.then4.i ], [ %spec.select.le74, %if.then.loopexit ]
+  %retval.3.i39 = phi i32 [ %retval.2.i.ph, %MtThread_Process.exit.thread47 ], [ 12, %if.then4.i ], [ 12, %if.then.loopexit ]
+  %idxprom = zext i32 %spec.select62 to i64
+  %31 = load ptr, ptr %pp, align 8, !tbaa !30
+  %cs.i = getelementptr inbounds %struct._CMtCoder, ptr %31, i64 0, i32 8
+  %call.i26 = call i32 @pthread_mutex_lock(ptr noundef nonnull %cs.i) #6
+  %res1.i = getelementptr inbounds %struct._CMtCoder, ptr %31, i64 0, i32 9
+  %32 = load i32, ptr %res1.i, align 8, !tbaa !46
+  %cmp.i = icmp eq i32 %32, 0
+  br i1 %cmp.i, label %if.then.i, label %MtCoder_SetError.exit
 
-122:                                              ; preds = %117, %31, %111
-  %123 = phi i32 [ %116, %111 ], [ %36, %31 ], [ %121, %117 ]
-  %124 = phi i32 [ %112, %111 ], [ 12, %31 ], [ 12, %117 ]
-  %125 = zext i32 %123 to i64
-  %126 = load ptr, ptr %0, align 8, !tbaa !30
-  %127 = getelementptr inbounds %struct._CMtCoder, ptr %126, i64 0, i32 8
-  %128 = call i32 @pthread_mutex_lock(ptr noundef nonnull %127) #6
-  %129 = getelementptr inbounds %struct._CMtCoder, ptr %126, i64 0, i32 9
-  %130 = load i32, ptr %129, align 8, !tbaa !46
-  %131 = icmp eq i32 %130, 0
-  br i1 %131, label %132, label %133
+if.then.i:                                        ; preds = %if.then
+  store i32 %retval.3.i39, ptr %res1.i, align 8, !tbaa !46
+  br label %MtCoder_SetError.exit
 
-132:                                              ; preds = %122
-  store i32 %124, ptr %129, align 8, !tbaa !46
-  br label %133
+MtCoder_SetError.exit:                            ; preds = %if.then, %if.then.i
+  %call5.i = call i32 @pthread_mutex_unlock(ptr noundef nonnull %cs.i) #6
+  %33 = load ptr, ptr %pp, align 8, !tbaa !30
+  %cs.i28 = getelementptr inbounds %struct._CMtCoder, ptr %33, i64 0, i32 10, i32 4
+  %call.i29 = call i32 @pthread_mutex_lock(ptr noundef nonnull %cs.i28) #6
+  %res1.i30 = getelementptr inbounds %struct._CMtCoder, ptr %33, i64 0, i32 10, i32 3
+  %34 = load i32, ptr %res1.i30, align 8, !tbaa !26
+  %cmp.i31 = icmp eq i32 %34, 0
+  br i1 %cmp.i31, label %if.then.i32, label %cleanup.thread
 
-133:                                              ; preds = %122, %132
-  %134 = call i32 @pthread_mutex_unlock(ptr noundef nonnull %127) #6
-  %135 = load ptr, ptr %0, align 8, !tbaa !30
-  %136 = getelementptr inbounds %struct._CMtCoder, ptr %135, i64 0, i32 10, i32 4
-  %137 = call i32 @pthread_mutex_lock(ptr noundef nonnull %136) #6
-  %138 = getelementptr inbounds %struct._CMtCoder, ptr %135, i64 0, i32 10, i32 3
-  %139 = load i32, ptr %138, align 8, !tbaa !26
-  %140 = icmp eq i32 %139, 0
-  br i1 %140, label %141, label %142
+if.then.i32:                                      ; preds = %MtCoder_SetError.exit
+  store i32 %retval.3.i39, ptr %res1.i30, align 8, !tbaa !26
+  br label %cleanup.thread
 
-141:                                              ; preds = %133
-  store i32 %124, ptr %138, align 8, !tbaa !26
-  br label %142
+cleanup.thread:                                   ; preds = %if.then.i32, %MtCoder_SetError.exit
+  %call5.i33 = call i32 @pthread_mutex_unlock(ptr noundef nonnull %cs.i28) #6
+  %stopReading = getelementptr inbounds %struct._CMtCoder, ptr %0, i64 0, i32 11, i64 %idxprom, i32 7
+  store i32 1, ptr %stopReading, align 8, !tbaa !55
+  %stopWriting = getelementptr inbounds %struct._CMtCoder, ptr %0, i64 0, i32 11, i64 %idxprom, i32 8
+  store i32 1, ptr %stopWriting, align 4, !tbaa !56
+  %canRead = getelementptr inbounds %struct._CMtCoder, ptr %0, i64 0, i32 11, i64 %idxprom, i32 9
+  %call6 = call i32 @Event_Set(ptr noundef nonnull %canRead) #6
+  %canWrite = getelementptr inbounds %struct._CMtCoder, ptr %0, i64 0, i32 11, i64 %idxprom, i32 10
+  %call7 = call i32 @Event_Set(ptr noundef nonnull %canWrite) #6
+  br label %cleanup12
 
-142:                                              ; preds = %133, %141
-  %143 = call i32 @pthread_mutex_unlock(ptr noundef nonnull %136) #6
-  %144 = getelementptr inbounds %struct._CMtCoder, ptr %13, i64 0, i32 11, i64 %125, i32 7
-  store i32 1, ptr %144, align 8, !tbaa !54
-  %145 = getelementptr inbounds %struct._CMtCoder, ptr %13, i64 0, i32 11, i64 %125, i32 8
-  store i32 1, ptr %145, align 4, !tbaa !55
-  %146 = getelementptr inbounds %struct._CMtCoder, ptr %13, i64 0, i32 11, i64 %125, i32 9
-  %147 = call i32 @Event_Set(ptr noundef nonnull %146) #6
-  %148 = getelementptr inbounds %struct._CMtCoder, ptr %13, i64 0, i32 11, i64 %125, i32 10
-  %149 = call i32 @Event_Set(ptr noundef nonnull %148) #6
-  br label %151
+cleanup:                                          ; preds = %if.end59.i
+  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %destSize.i) #6
+  br i1 %cmp19.i, label %cleanup12, label %for.cond
 
-150:                                              ; preds = %107
-  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %3) #6
-  br i1 %70, label %151, label %12
-
-151:                                              ; preds = %150, %31, %142
-  %152 = phi i32 [ %124, %142 ], [ 0, %31 ], [ 0, %150 ]
-  ret i32 %152
+cleanup12:                                        ; preds = %cleanup, %if.then4.i, %cleanup.thread
+  %retval.153 = phi i32 [ %retval.3.i39, %cleanup.thread ], [ 0, %if.then4.i ], [ 0, %cleanup ]
+  ret i32 %retval.153
 }
 
 ; Function Attrs: nocallback nofree nounwind willreturn memory(argmem: write)
@@ -898,16 +909,16 @@ attributes #6 = { nounwind }
 !48 = distinct !{!48, !40}
 !49 = !{!31, !8, i64 32}
 !50 = !{!37, !8, i64 0}
-!51 = !{!43, !13, i64 0}
-!52 = !{!31, !8, i64 16}
-!53 = !{!37, !8, i64 8}
-!54 = !{!31, !11, i64 304}
-!55 = !{!31, !11, i64 308}
-!56 = distinct !{!56, !40}
+!51 = !{!8, !8, i64 0}
+!52 = !{!43, !13, i64 0}
+!53 = !{!31, !8, i64 16}
+!54 = !{!37, !8, i64 8}
+!55 = !{!31, !11, i64 304}
+!56 = !{!31, !11, i64 308}
 !57 = distinct !{!57, !40}
 !58 = distinct !{!58, !40}
 !59 = distinct !{!59, !40}
-!60 = !{!8, !8, i64 0}
+!60 = distinct !{!60, !40}
 !61 = !{!37, !13, i64 24}
 !62 = distinct !{!62, !40}
 !63 = !{!37, !13, i64 56}

@@ -13,12 +13,13 @@ target triple = "x86_64-unknown-linux-gnu"
 @str = private unnamed_addr constant [23 x i8] c"Usage: five11 [infile]\00", align 1
 
 ; Function Attrs: mustprogress nofree nounwind willreturn memory(write, argmem: none, inaccessiblemem: readwrite) uwtable
-define dso_local noalias ptr @cons1(i32 noundef %0, ptr noundef %1) local_unnamed_addr #0 {
-  %3 = tail call noalias dereferenceable_or_null(16) ptr @malloc(i64 noundef 16) #14
-  store i32 %0, ptr %3, align 8, !tbaa !5
-  %4 = getelementptr inbounds %struct.linked_list_int, ptr %3, i64 0, i32 1
-  store ptr %1, ptr %4, align 8, !tbaa !11
-  ret ptr %3
+define dso_local noalias ptr @cons1(i32 noundef %hd, ptr noundef %tl) local_unnamed_addr #0 {
+entry:
+  %call = tail call noalias dereferenceable_or_null(16) ptr @malloc(i64 noundef 16) #14
+  store i32 %hd, ptr %call, align 8, !tbaa !5
+  %cdr = getelementptr inbounds %struct.linked_list_int, ptr %call, i64 0, i32 1
+  store ptr %tl, ptr %cdr, align 8, !tbaa !11
+  ret ptr %call
 }
 
 ; Function Attrs: mustprogress nocallback nofree nosync nounwind willreturn memory(argmem: readwrite)
@@ -28,28 +29,30 @@ declare void @llvm.lifetime.start.p0(i64 immarg, ptr nocapture) #1
 declare noalias noundef ptr @malloc(i64 noundef) local_unnamed_addr #2
 
 ; Function Attrs: mustprogress nofree nounwind willreturn memory(write, argmem: none, inaccessiblemem: readwrite) uwtable
-define dso_local noalias ptr @cons2(ptr noundef %0, ptr noundef %1) local_unnamed_addr #0 {
-  %3 = tail call noalias dereferenceable_or_null(16) ptr @malloc(i64 noundef 16) #14
-  store ptr %0, ptr %3, align 8, !tbaa !12
-  %4 = getelementptr inbounds %struct.linked_list_lli, ptr %3, i64 0, i32 1
-  store ptr %1, ptr %4, align 8, !tbaa !14
-  ret ptr %3
+define dso_local noalias ptr @cons2(ptr noundef %hd, ptr noundef %tl) local_unnamed_addr #0 {
+entry:
+  %call = tail call noalias dereferenceable_or_null(16) ptr @malloc(i64 noundef 16) #14
+  store ptr %hd, ptr %call, align 8, !tbaa !12
+  %cdr = getelementptr inbounds %struct.linked_list_lli, ptr %call, i64 0, i32 1
+  store ptr %tl, ptr %cdr, align 8, !tbaa !14
+  ret ptr %call
 }
 
 ; Function Attrs: nounwind uwtable
-define dso_local void @free_list1(ptr noundef %0) local_unnamed_addr #3 {
-  %2 = icmp eq ptr %0, null
-  br i1 %2, label %8, label %3
+define dso_local void @free_list1(ptr noundef %list) local_unnamed_addr #3 {
+entry:
+  %cmp.not3 = icmp eq ptr %list, null
+  br i1 %cmp.not3, label %while.end, label %while.body
 
-3:                                                ; preds = %1, %3
-  %4 = phi ptr [ %6, %3 ], [ %0, %1 ]
-  %5 = getelementptr inbounds %struct.linked_list_int, ptr %4, i64 0, i32 1
-  %6 = load ptr, ptr %5, align 8, !tbaa !11
-  tail call void @free(ptr noundef nonnull %4) #15
-  %7 = icmp eq ptr %6, null
-  br i1 %7, label %8, label %3, !llvm.loop !15
+while.body:                                       ; preds = %entry, %while.body
+  %list.addr.04 = phi ptr [ %0, %while.body ], [ %list, %entry ]
+  %cdr = getelementptr inbounds %struct.linked_list_int, ptr %list.addr.04, i64 0, i32 1
+  %0 = load ptr, ptr %cdr, align 8, !tbaa !11
+  tail call void @free(ptr noundef nonnull %list.addr.04) #15
+  %cmp.not = icmp eq ptr %0, null
+  br i1 %cmp.not, label %while.end, label %while.body, !llvm.loop !15
 
-8:                                                ; preds = %3, %1
+while.end:                                        ; preds = %while.body, %entry
   ret void
 }
 
@@ -57,564 +60,572 @@ define dso_local void @free_list1(ptr noundef %0) local_unnamed_addr #3 {
 declare void @free(ptr allocptr nocapture noundef) local_unnamed_addr #4
 
 ; Function Attrs: nounwind uwtable
-define dso_local void @free_list2(ptr noundef %0) local_unnamed_addr #3 {
-  %2 = icmp eq ptr %0, null
-  br i1 %2, label %16, label %3
+define dso_local void @free_list2(ptr noundef %list) local_unnamed_addr #3 {
+entry:
+  %cmp.not4 = icmp eq ptr %list, null
+  br i1 %cmp.not4, label %while.end, label %while.body
 
-3:                                                ; preds = %1, %14
-  %4 = phi ptr [ %6, %14 ], [ %0, %1 ]
-  %5 = getelementptr inbounds %struct.linked_list_lli, ptr %4, i64 0, i32 1
-  %6 = load ptr, ptr %5, align 8, !tbaa !14
-  %7 = load ptr, ptr %4, align 8, !tbaa !12
-  %8 = icmp eq ptr %7, null
-  br i1 %8, label %14, label %9
+while.body:                                       ; preds = %entry, %free_list1.exit
+  %list.addr.05 = phi ptr [ %0, %free_list1.exit ], [ %list, %entry ]
+  %cdr = getelementptr inbounds %struct.linked_list_lli, ptr %list.addr.05, i64 0, i32 1
+  %0 = load ptr, ptr %cdr, align 8, !tbaa !14
+  %1 = load ptr, ptr %list.addr.05, align 8, !tbaa !12
+  %cmp.not3.i = icmp eq ptr %1, null
+  br i1 %cmp.not3.i, label %free_list1.exit, label %while.body.i
 
-9:                                                ; preds = %3, %9
-  %10 = phi ptr [ %12, %9 ], [ %7, %3 ]
-  %11 = getelementptr inbounds %struct.linked_list_int, ptr %10, i64 0, i32 1
-  %12 = load ptr, ptr %11, align 8, !tbaa !11
-  tail call void @free(ptr noundef nonnull %10) #15
-  %13 = icmp eq ptr %12, null
-  br i1 %13, label %14, label %9, !llvm.loop !15
+while.body.i:                                     ; preds = %while.body, %while.body.i
+  %list.addr.04.i = phi ptr [ %2, %while.body.i ], [ %1, %while.body ]
+  %cdr.i = getelementptr inbounds %struct.linked_list_int, ptr %list.addr.04.i, i64 0, i32 1
+  %2 = load ptr, ptr %cdr.i, align 8, !tbaa !11
+  tail call void @free(ptr noundef nonnull %list.addr.04.i) #15
+  %cmp.not.i = icmp eq ptr %2, null
+  br i1 %cmp.not.i, label %free_list1.exit, label %while.body.i, !llvm.loop !15
 
-14:                                               ; preds = %9, %3
-  tail call void @free(ptr noundef %4) #15
-  %15 = icmp eq ptr %6, null
-  br i1 %15, label %16, label %3, !llvm.loop !17
+free_list1.exit:                                  ; preds = %while.body.i, %while.body
+  tail call void @free(ptr noundef %list.addr.05) #15
+  %cmp.not = icmp eq ptr %0, null
+  br i1 %cmp.not, label %while.end, label %while.body, !llvm.loop !17
 
-16:                                               ; preds = %14, %1
+while.end:                                        ; preds = %free_list1.exit, %entry
   ret void
 }
 
 ; Function Attrs: nofree norecurse nosync nounwind memory(argmem: read) uwtable
-define dso_local i32 @read_x_bits(ptr nocapture noundef readonly %0, i32 noundef %1, i32 noundef %2) local_unnamed_addr #5 {
-  %4 = ashr i32 %1, 3
-  %5 = and i32 %1, 7
-  %6 = sub nuw nsw i32 8, %5
-  %7 = sext i32 %4 to i64
-  %8 = getelementptr inbounds i8, ptr %0, i64 %7
-  %9 = load i8, ptr %8, align 1, !tbaa !18
-  %10 = zext i8 %9 to i32
-  %11 = shl nsw i32 -1, %6
-  %12 = xor i32 %11, -1
-  %13 = and i32 %10, %12
-  %14 = icmp slt i32 %6, %2
-  br i1 %14, label %15, label %70
+define dso_local i32 @read_x_bits(ptr nocapture noundef readonly %buf, i32 noundef %offset, i32 noundef %x) local_unnamed_addr #5 {
+entry:
+  %shr = ashr i32 %offset, 3
+  %and = and i32 %offset, 7
+  %sub = sub nuw nsw i32 8, %and
+  %idxprom = sext i32 %shr to i64
+  %arrayidx = getelementptr inbounds i8, ptr %buf, i64 %idxprom
+  %0 = load i8, ptr %arrayidx, align 1, !tbaa !18
+  %conv = zext i8 %0 to i32
+  %notmask = shl nsw i32 -1, %sub
+  %sub2 = xor i32 %notmask, -1
+  %and3 = and i32 %conv, %sub2
+  %cmp22 = icmp slt i32 %sub, %x
+  br i1 %cmp22, label %while.body.preheader, label %while.end
 
-15:                                               ; preds = %3
-  %16 = add i32 %5, %2
-  %17 = add i32 %16, -9
-  %18 = lshr i32 %17, 3
-  %19 = add nuw nsw i32 %18, 1
-  %20 = and i32 %19, 3
-  %21 = icmp eq i32 %20, 0
-  br i1 %21, label %36, label %22
+while.body.preheader:                             ; preds = %entry
+  %1 = add i32 %and, %x
+  %2 = add i32 %1, -9
+  %3 = lshr i32 %2, 3
+  %4 = add nuw nsw i32 %3, 1
+  %xtraiter = and i32 %4, 3
+  %lcmp.mod.not = icmp eq i32 %xtraiter, 0
+  br i1 %lcmp.mod.not, label %while.body.prol.loopexit, label %while.body.prol
 
-22:                                               ; preds = %15, %22
-  %23 = phi i64 [ %27, %22 ], [ %7, %15 ]
-  %24 = phi i32 [ %32, %22 ], [ %13, %15 ]
-  %25 = phi i32 [ %33, %22 ], [ %6, %15 ]
-  %26 = phi i32 [ %34, %22 ], [ 0, %15 ]
-  %27 = add nsw i64 %23, 1
-  %28 = getelementptr inbounds i8, ptr %0, i64 %27
-  %29 = load i8, ptr %28, align 1, !tbaa !18
-  %30 = zext i8 %29 to i32
-  %31 = shl i32 %24, 8
-  %32 = or i32 %31, %30
-  %33 = add nuw nsw i32 %25, 8
-  %34 = add i32 %26, 1
-  %35 = icmp eq i32 %34, %20
-  br i1 %35, label %36, label %22, !llvm.loop !19
+while.body.prol:                                  ; preds = %while.body.preheader, %while.body.prol
+  %indvars.iv.prol = phi i64 [ %indvars.iv.next.prol, %while.body.prol ], [ %idxprom, %while.body.preheader ]
+  %res.025.prol = phi i32 [ %or.prol, %while.body.prol ], [ %and3, %while.body.preheader ]
+  %initbits.024.prol = phi i32 [ %add.prol, %while.body.prol ], [ %sub, %while.body.preheader ]
+  %prol.iter = phi i32 [ %prol.iter.next, %while.body.prol ], [ 0, %while.body.preheader ]
+  %indvars.iv.next.prol = add nsw i64 %indvars.iv.prol, 1
+  %arrayidx6.prol = getelementptr inbounds i8, ptr %buf, i64 %indvars.iv.next.prol
+  %5 = load i8, ptr %arrayidx6.prol, align 1, !tbaa !18
+  %conv7.prol = zext i8 %5 to i32
+  %shl9.prol = shl i32 %res.025.prol, 8
+  %or.prol = or i32 %shl9.prol, %conv7.prol
+  %add.prol = add nuw nsw i32 %initbits.024.prol, 8
+  %prol.iter.next = add i32 %prol.iter, 1
+  %prol.iter.cmp.not = icmp eq i32 %prol.iter.next, %xtraiter
+  br i1 %prol.iter.cmp.not, label %while.body.prol.loopexit, label %while.body.prol, !llvm.loop !19
 
-36:                                               ; preds = %22, %15
-  %37 = phi i64 [ %7, %15 ], [ %27, %22 ]
-  %38 = phi i32 [ %6, %15 ], [ %33, %22 ]
-  %39 = phi i32 [ undef, %15 ], [ %32, %22 ]
-  %40 = phi i32 [ undef, %15 ], [ %33, %22 ]
-  %41 = icmp ult i32 %17, 24
-  br i1 %41, label %70, label %42
+while.body.prol.loopexit:                         ; preds = %while.body.prol, %while.body.preheader
+  %indvars.iv.unr = phi i64 [ %idxprom, %while.body.preheader ], [ %indvars.iv.next.prol, %while.body.prol ]
+  %initbits.024.unr = phi i32 [ %sub, %while.body.preheader ], [ %add.prol, %while.body.prol ]
+  %or.lcssa.unr = phi i32 [ undef, %while.body.preheader ], [ %or.prol, %while.body.prol ]
+  %add.lcssa.unr = phi i32 [ undef, %while.body.preheader ], [ %add.prol, %while.body.prol ]
+  %6 = icmp ult i32 %2, 24
+  br i1 %6, label %while.end, label %while.body
 
-42:                                               ; preds = %36, %42
-  %43 = phi i64 [ %45, %42 ], [ %37, %36 ]
-  %44 = phi i32 [ %46, %42 ], [ %38, %36 ]
-  %45 = add nsw i64 %43, 4
-  %46 = add nuw nsw i32 %44, 32
-  %47 = icmp slt i32 %46, %2
-  br i1 %47, label %42, label %48, !llvm.loop !21
+while.body:                                       ; preds = %while.body.prol.loopexit, %while.body
+  %indvars.iv = phi i64 [ %indvars.iv.next.3, %while.body ], [ %indvars.iv.unr, %while.body.prol.loopexit ]
+  %initbits.024 = phi i32 [ %add.3, %while.body ], [ %initbits.024.unr, %while.body.prol.loopexit ]
+  %indvars.iv.next.3 = add nsw i64 %indvars.iv, 4
+  %add.3 = add nuw nsw i32 %initbits.024, 32
+  %cmp.3 = icmp slt i32 %add.3, %x
+  br i1 %cmp.3, label %while.body, label %while.end.loopexit.unr-lcssa, !llvm.loop !21
 
-48:                                               ; preds = %42
-  %49 = add nsw i64 %43, 1
-  %50 = getelementptr inbounds i8, ptr %0, i64 %49
-  %51 = load i8, ptr %50, align 1, !tbaa !18
-  %52 = zext i8 %51 to i32
-  %53 = shl nuw nsw i32 %52, 16
-  %54 = add nsw i64 %43, 2
-  %55 = getelementptr inbounds i8, ptr %0, i64 %54
-  %56 = load i8, ptr %55, align 1, !tbaa !18
-  %57 = zext i8 %56 to i32
-  %58 = shl nuw nsw i32 %57, 8
-  %59 = or i32 %53, %58
-  %60 = add nsw i64 %43, 3
-  %61 = getelementptr inbounds i8, ptr %0, i64 %60
-  %62 = load i8, ptr %61, align 1, !tbaa !18
-  %63 = zext i8 %62 to i32
-  %64 = or i32 %59, %63
-  %65 = shl nuw i32 %64, 8
-  %66 = getelementptr inbounds i8, ptr %0, i64 %45
-  %67 = load i8, ptr %66, align 1, !tbaa !18
-  %68 = zext i8 %67 to i32
-  %69 = or i32 %65, %68
-  br label %70
+while.end.loopexit.unr-lcssa:                     ; preds = %while.body
+  %indvars.iv.next = add nsw i64 %indvars.iv, 1
+  %arrayidx6 = getelementptr inbounds i8, ptr %buf, i64 %indvars.iv.next
+  %7 = load i8, ptr %arrayidx6, align 1, !tbaa !18
+  %conv7 = zext i8 %7 to i32
+  %8 = shl nuw nsw i32 %conv7, 16
+  %indvars.iv.next.1 = add nsw i64 %indvars.iv, 2
+  %arrayidx6.1 = getelementptr inbounds i8, ptr %buf, i64 %indvars.iv.next.1
+  %9 = load i8, ptr %arrayidx6.1, align 1, !tbaa !18
+  %conv7.1 = zext i8 %9 to i32
+  %10 = shl nuw nsw i32 %conv7.1, 8
+  %shl9.2 = or i32 %8, %10
+  %indvars.iv.next.2 = add nsw i64 %indvars.iv, 3
+  %arrayidx6.2 = getelementptr inbounds i8, ptr %buf, i64 %indvars.iv.next.2
+  %11 = load i8, ptr %arrayidx6.2, align 1, !tbaa !18
+  %conv7.2 = zext i8 %11 to i32
+  %or.2 = or i32 %shl9.2, %conv7.2
+  %shl9.3 = shl nuw i32 %or.2, 8
+  %arrayidx6.3 = getelementptr inbounds i8, ptr %buf, i64 %indvars.iv.next.3
+  %12 = load i8, ptr %arrayidx6.3, align 1, !tbaa !18
+  %conv7.3 = zext i8 %12 to i32
+  %or.3 = or i32 %shl9.3, %conv7.3
+  br label %while.end
 
-70:                                               ; preds = %48, %36, %3
-  %71 = phi i32 [ %6, %3 ], [ %40, %36 ], [ %46, %48 ]
-  %72 = phi i32 [ %13, %3 ], [ %39, %36 ], [ %69, %48 ]
-  %73 = sub nsw i32 %71, %2
-  %74 = ashr i32 %72, %73
-  ret i32 %74
+while.end:                                        ; preds = %while.end.loopexit.unr-lcssa, %while.body.prol.loopexit, %entry
+  %initbits.0.lcssa = phi i32 [ %sub, %entry ], [ %add.lcssa.unr, %while.body.prol.loopexit ], [ %add.3, %while.end.loopexit.unr-lcssa ]
+  %res.0.lcssa = phi i32 [ %and3, %entry ], [ %or.lcssa.unr, %while.body.prol.loopexit ], [ %or.3, %while.end.loopexit.unr-lcssa ]
+  %sub10 = sub nsw i32 %initbits.0.lcssa, %x
+  %shr11 = ashr i32 %res.0.lcssa, %sub10
+  ret i32 %shr11
 }
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(argmem: read) uwtable
-define dso_local i32 @read_11_bits(ptr nocapture noundef readonly %0, i32 noundef %1) local_unnamed_addr #6 {
-  %3 = ashr i32 %1, 3
-  %4 = and i32 %1, 7
-  %5 = sext i32 %3 to i64
-  %6 = getelementptr inbounds i8, ptr %0, i64 %5
-  %7 = load i8, ptr %6, align 1, !tbaa !18
-  %8 = add nsw i32 %3, 1
-  %9 = sext i32 %8 to i64
-  %10 = getelementptr inbounds i8, ptr %0, i64 %9
-  %11 = load i8, ptr %10, align 1, !tbaa !18
-  %12 = zext i8 %11 to i32
-  %13 = icmp ult i32 %4, 6
-  br i1 %13, label %14, label %17
+define dso_local i32 @read_11_bits(ptr nocapture noundef readonly %buf, i32 noundef %offset) local_unnamed_addr #6 {
+entry:
+  %shr = ashr i32 %offset, 3
+  %and = and i32 %offset, 7
+  %idxprom = sext i32 %shr to i64
+  %arrayidx = getelementptr inbounds i8, ptr %buf, i64 %idxprom
+  %0 = load i8, ptr %arrayidx, align 1, !tbaa !18
+  %add = add nsw i32 %shr, 1
+  %idxprom2 = sext i32 %add to i64
+  %arrayidx3 = getelementptr inbounds i8, ptr %buf, i64 %idxprom2
+  %1 = load i8, ptr %arrayidx3, align 1, !tbaa !18
+  %conv4 = zext i8 %1 to i32
+  %cmp = icmp ult i32 %and, 6
+  br i1 %cmp, label %if.then, label %if.else
 
-14:                                               ; preds = %2
-  %15 = sub nuw nsw i32 5, %4
-  %16 = lshr i32 %12, %15
-  br label %28
+if.then:                                          ; preds = %entry
+  %sub8 = sub nuw nsw i32 5, %and
+  %shr9 = lshr i32 %conv4, %sub8
+  br label %cleanup
 
-17:                                               ; preds = %2
-  %18 = add nsw i32 %3, 2
-  %19 = sext i32 %18 to i64
-  %20 = getelementptr inbounds i8, ptr %0, i64 %19
-  %21 = load i8, ptr %20, align 1, !tbaa !18
-  %22 = zext i8 %21 to i32
-  %23 = add nsw i32 %4, -5
-  %24 = shl nuw nsw i32 %12, %23
-  %25 = sub nuw nsw i32 13, %4
-  %26 = lshr i32 %22, %25
-  %27 = or i32 %24, %26
-  br label %28
+if.else:                                          ; preds = %entry
+  %add11 = add nsw i32 %shr, 2
+  %idxprom12 = sext i32 %add11 to i64
+  %arrayidx13 = getelementptr inbounds i8, ptr %buf, i64 %idxprom12
+  %2 = load i8, ptr %arrayidx13, align 1, !tbaa !18
+  %conv14 = zext i8 %2 to i32
+  %sub16 = add nsw i32 %and, -5
+  %shl17 = shl nuw nsw i32 %conv4, %sub16
+  %add19 = sub nuw nsw i32 13, %and
+  %shr20 = lshr i32 %conv14, %add19
+  %3 = or i32 %shl17, %shr20
+  br label %cleanup
 
-28:                                               ; preds = %17, %14
-  %29 = phi i32 [ %16, %14 ], [ %27, %17 ]
-  %30 = zext i8 %7 to i32
-  %31 = add nuw nsw i32 %4, 3
-  %32 = shl nuw nsw i32 %30, %31
-  %33 = or i32 %29, %32
-  %34 = and i32 %33, 2047
-  ret i32 %34
+cleanup:                                          ; preds = %if.else, %if.then
+  %shr9.pn = phi i32 [ %shr9, %if.then ], [ %3, %if.else ]
+  %conv = zext i8 %0 to i32
+  %sub6 = add nuw nsw i32 %and, 3
+  %shl = shl nuw nsw i32 %conv, %sub6
+  %retval.0.in = or i32 %shr9.pn, %shl
+  %retval.0 = and i32 %retval.0.in, 2047
+  ret i32 %retval.0
 }
 
 ; Function Attrs: nofree nounwind memory(write, argmem: read, inaccessiblemem: readwrite) uwtable
-define dso_local ptr @five11(ptr nocapture noundef readonly %0) local_unnamed_addr #7 {
-  %2 = load i8, ptr %0, align 1, !tbaa !18
-  %3 = zext i8 %2 to i32
-  %4 = getelementptr inbounds i8, ptr %0, i64 1
-  %5 = load i8, ptr %4, align 1, !tbaa !18
-  %6 = zext i8 %5 to i32
-  %7 = shl nuw nsw i32 %3, 8
-  %8 = or i32 %7, %6
-  %9 = icmp eq i32 %8, 0
-  br i1 %9, label %92, label %10
+define dso_local ptr @five11(ptr nocapture noundef readonly %inbuf) local_unnamed_addr #7 {
+entry:
+  %0 = load i8, ptr %inbuf, align 1, !tbaa !18
+  %conv.i = zext i8 %0 to i32
+  %arrayidx6.i = getelementptr inbounds i8, ptr %inbuf, i64 1
+  %1 = load i8, ptr %arrayidx6.i, align 1, !tbaa !18
+  %conv7.i = zext i8 %1 to i32
+  %shl9.i = shl nuw nsw i32 %conv.i, 8
+  %or.i = or i32 %shl9.i, %conv7.i
+  %cmp59.not = icmp eq i32 %or.i, 0
+  br i1 %cmp59.not, label %for.end14, label %for.body
 
-10:                                               ; preds = %1, %81
-  %11 = phi ptr [ %88, %81 ], [ null, %1 ]
-  %12 = phi i32 [ %87, %81 ], [ 16, %1 ]
-  %13 = phi i32 [ %90, %81 ], [ 0, %1 ]
-  %14 = ashr i32 %12, 3
-  %15 = and i32 %12, 7
-  %16 = sub nuw nsw i32 8, %15
-  %17 = sext i32 %14 to i64
-  %18 = getelementptr inbounds i8, ptr %0, i64 %17
-  %19 = load i8, ptr %18, align 1, !tbaa !18
-  %20 = zext i8 %19 to i32
-  %21 = shl nsw i32 -1, %16
-  %22 = xor i32 %21, -1
-  %23 = and i32 %20, %22
-  %24 = icmp ugt i32 %15, 3
-  br i1 %24, label %25, label %33
+for.body:                                         ; preds = %entry, %for.end
+  %res.062 = phi ptr [ %call.i52, %for.end ], [ null, %entry ]
+  %offset.061 = phi i32 [ %add10, %for.end ], [ 16, %entry ]
+  %i.060 = phi i32 [ %inc13, %for.end ], [ 0, %entry ]
+  %shr.i = ashr i32 %offset.061, 3
+  %and.i = and i32 %offset.061, 7
+  %sub.i = sub nuw nsw i32 8, %and.i
+  %idxprom.i = sext i32 %shr.i to i64
+  %arrayidx.i = getelementptr inbounds i8, ptr %inbuf, i64 %idxprom.i
+  %2 = load i8, ptr %arrayidx.i, align 1, !tbaa !18
+  %conv.i28 = zext i8 %2 to i32
+  %notmask.i = shl nsw i32 -1, %sub.i
+  %sub2.i = xor i32 %notmask.i, -1
+  %and3.i29 = and i32 %conv.i28, %sub2.i
+  %cmp22.i = icmp ugt i32 %and.i, 3
+  br i1 %cmp22.i, label %while.body.i40, label %read_x_bits.exit43
 
-25:                                               ; preds = %10
-  %26 = add nsw i64 %17, 1
-  %27 = getelementptr inbounds i8, ptr %0, i64 %26
-  %28 = load i8, ptr %27, align 1, !tbaa !18
-  %29 = zext i8 %28 to i32
-  %30 = shl nuw nsw i32 %23, 8
-  %31 = or i32 %30, %29
-  %32 = sub nuw nsw i32 16, %15
-  br label %33, !llvm.loop !21
+while.body.i40:                                   ; preds = %for.body
+  %indvars.iv.next.i33 = add nsw i64 %idxprom.i, 1
+  %arrayidx6.i34 = getelementptr inbounds i8, ptr %inbuf, i64 %indvars.iv.next.i33
+  %3 = load i8, ptr %arrayidx6.i34, align 1, !tbaa !18
+  %conv7.i35 = zext i8 %3 to i32
+  %shl9.i36 = shl nuw nsw i32 %and3.i29, 8
+  %or.i37 = or i32 %shl9.i36, %conv7.i35
+  %add.i38 = sub nuw nsw i32 16, %and.i
+  br label %read_x_bits.exit43, !llvm.loop !21
 
-33:                                               ; preds = %25, %10
-  %34 = phi i32 [ %16, %10 ], [ %32, %25 ]
-  %35 = phi i32 [ %23, %10 ], [ %31, %25 ]
-  %36 = add nsw i32 %34, -5
-  %37 = lshr i32 %35, %36
-  %38 = add nsw i32 %12, 5
-  %39 = icmp eq i32 %37, 0
-  br i1 %39, label %81, label %40
+read_x_bits.exit43:                               ; preds = %while.body.i40, %for.body
+  %initbits.0.lcssa.i = phi i32 [ %sub.i, %for.body ], [ %add.i38, %while.body.i40 ]
+  %res.0.lcssa.i = phi i32 [ %and3.i29, %for.body ], [ %or.i37, %while.body.i40 ]
+  %sub10.i41 = add nsw i32 %initbits.0.lcssa.i, -5
+  %shr11.i42 = lshr i32 %res.0.lcssa.i, %sub10.i41
+  %add2 = add nsw i32 %offset.061, 5
+  %cmp454.not = icmp eq i32 %shr11.i42, 0
+  br i1 %cmp454.not, label %for.end, label %for.body5
 
-40:                                               ; preds = %33, %69
-  %41 = phi ptr [ %77, %69 ], [ null, %33 ]
-  %42 = phi i32 [ %76, %69 ], [ %38, %33 ]
-  %43 = phi i32 [ %79, %69 ], [ 0, %33 ]
-  %44 = ashr i32 %42, 3
-  %45 = and i32 %42, 7
-  %46 = sext i32 %44 to i64
-  %47 = getelementptr inbounds i8, ptr %0, i64 %46
-  %48 = load i8, ptr %47, align 1, !tbaa !18
-  %49 = add nsw i32 %44, 1
-  %50 = sext i32 %49 to i64
-  %51 = getelementptr inbounds i8, ptr %0, i64 %50
-  %52 = load i8, ptr %51, align 1, !tbaa !18
-  %53 = zext i8 %52 to i32
-  %54 = icmp ult i32 %45, 6
-  br i1 %54, label %55, label %58
+for.body5:                                        ; preds = %read_x_bits.exit43, %read_11_bits.exit
+  %packet.157 = phi ptr [ %call.i, %read_11_bits.exit ], [ null, %read_x_bits.exit43 ]
+  %offset.156 = phi i32 [ %add7, %read_11_bits.exit ], [ %add2, %read_x_bits.exit43 ]
+  %j.055 = phi i32 [ %inc, %read_11_bits.exit ], [ 0, %read_x_bits.exit43 ]
+  %shr.i44 = ashr i32 %offset.156, 3
+  %and.i45 = and i32 %offset.156, 7
+  %idxprom.i46 = sext i32 %shr.i44 to i64
+  %arrayidx.i47 = getelementptr inbounds i8, ptr %inbuf, i64 %idxprom.i46
+  %4 = load i8, ptr %arrayidx.i47, align 1, !tbaa !18
+  %add.i48 = add nsw i32 %shr.i44, 1
+  %idxprom2.i = sext i32 %add.i48 to i64
+  %arrayidx3.i = getelementptr inbounds i8, ptr %inbuf, i64 %idxprom2.i
+  %5 = load i8, ptr %arrayidx3.i, align 1, !tbaa !18
+  %conv4.i = zext i8 %5 to i32
+  %cmp.i49 = icmp ult i32 %and.i45, 6
+  br i1 %cmp.i49, label %if.then.i, label %if.else.i
 
-55:                                               ; preds = %40
-  %56 = sub nuw nsw i32 5, %45
-  %57 = lshr i32 %53, %56
-  br label %69
+if.then.i:                                        ; preds = %for.body5
+  %sub8.i = sub nuw nsw i32 5, %and.i45
+  %shr9.i = lshr i32 %conv4.i, %sub8.i
+  br label %read_11_bits.exit
 
-58:                                               ; preds = %40
-  %59 = add nsw i32 %44, 2
-  %60 = sext i32 %59 to i64
-  %61 = getelementptr inbounds i8, ptr %0, i64 %60
-  %62 = load i8, ptr %61, align 1, !tbaa !18
-  %63 = zext i8 %62 to i32
-  %64 = add nsw i32 %45, -5
-  %65 = shl nuw nsw i32 %53, %64
-  %66 = sub nuw nsw i32 13, %45
-  %67 = lshr i32 %63, %66
-  %68 = or i32 %67, %65
-  br label %69
+if.else.i:                                        ; preds = %for.body5
+  %add11.i = add nsw i32 %shr.i44, 2
+  %idxprom12.i = sext i32 %add11.i to i64
+  %arrayidx13.i = getelementptr inbounds i8, ptr %inbuf, i64 %idxprom12.i
+  %6 = load i8, ptr %arrayidx13.i, align 1, !tbaa !18
+  %conv14.i = zext i8 %6 to i32
+  %sub16.i = add nsw i32 %and.i45, -5
+  %shl17.i = shl nuw nsw i32 %conv4.i, %sub16.i
+  %add19.i = sub nuw nsw i32 13, %and.i45
+  %shr20.i = lshr i32 %conv14.i, %add19.i
+  %7 = or i32 %shr20.i, %shl17.i
+  br label %read_11_bits.exit
 
-69:                                               ; preds = %55, %58
-  %70 = phi i32 [ %57, %55 ], [ %68, %58 ]
-  %71 = zext i8 %48 to i32
-  %72 = add nuw nsw i32 %45, 3
-  %73 = shl nuw nsw i32 %71, %72
-  %74 = or i32 %70, %73
-  %75 = and i32 %74, 2047
-  %76 = add nsw i32 %42, 11
-  %77 = tail call noalias dereferenceable_or_null(16) ptr @malloc(i64 noundef 16) #14
-  store i32 %75, ptr %77, align 8, !tbaa !5
-  %78 = getelementptr inbounds %struct.linked_list_int, ptr %77, i64 0, i32 1
-  store ptr %41, ptr %78, align 8, !tbaa !11
-  %79 = add nuw nsw i32 %43, 1
-  %80 = icmp eq i32 %79, %37
-  br i1 %80, label %81, label %40, !llvm.loop !22
+read_11_bits.exit:                                ; preds = %if.then.i, %if.else.i
+  %shr9.pn.i = phi i32 [ %shr9.i, %if.then.i ], [ %7, %if.else.i ]
+  %conv.i50 = zext i8 %4 to i32
+  %sub6.i = add nuw nsw i32 %and.i45, 3
+  %shl.i = shl nuw nsw i32 %conv.i50, %sub6.i
+  %retval.0.in.i = or i32 %shr9.pn.i, %shl.i
+  %retval.0.i = and i32 %retval.0.in.i, 2047
+  %add7 = add nsw i32 %offset.156, 11
+  %call.i = tail call noalias dereferenceable_or_null(16) ptr @malloc(i64 noundef 16) #14
+  store i32 %retval.0.i, ptr %call.i, align 8, !tbaa !5
+  %cdr.i = getelementptr inbounds %struct.linked_list_int, ptr %call.i, i64 0, i32 1
+  store ptr %packet.157, ptr %cdr.i, align 8, !tbaa !11
+  %inc = add nuw nsw i32 %j.055, 1
+  %exitcond.not = icmp eq i32 %inc, %shr11.i42
+  br i1 %exitcond.not, label %for.end, label %for.body5, !llvm.loop !22
 
-81:                                               ; preds = %69, %33
-  %82 = phi i32 [ %38, %33 ], [ %76, %69 ]
-  %83 = phi ptr [ null, %33 ], [ %77, %69 ]
-  %84 = mul nsw i32 %37, 5
-  %85 = add nuw nsw i32 %84, 3
-  %86 = and i32 %85, 7
-  %87 = add nsw i32 %82, %86
-  %88 = tail call noalias dereferenceable_or_null(16) ptr @malloc(i64 noundef 16) #14
-  store ptr %83, ptr %88, align 8, !tbaa !12
-  %89 = getelementptr inbounds %struct.linked_list_lli, ptr %88, i64 0, i32 1
-  store ptr %11, ptr %89, align 8, !tbaa !14
-  %90 = add nuw nsw i32 %13, 1
-  %91 = icmp eq i32 %90, %8
-  br i1 %91, label %92, label %10, !llvm.loop !23
+for.end:                                          ; preds = %read_11_bits.exit, %read_x_bits.exit43
+  %offset.1.lcssa = phi i32 [ %add2, %read_x_bits.exit43 ], [ %add7, %read_11_bits.exit ]
+  %packet.1.lcssa = phi ptr [ null, %read_x_bits.exit43 ], [ %call.i, %read_11_bits.exit ]
+  %mul.neg.i = mul nsw i32 %shr11.i42, 5
+  %sub.i51 = add nuw nsw i32 %mul.neg.i, 3
+  %and1.i = and i32 %sub.i51, 7
+  %add10 = add nsw i32 %offset.1.lcssa, %and1.i
+  %call.i52 = tail call noalias dereferenceable_or_null(16) ptr @malloc(i64 noundef 16) #14
+  store ptr %packet.1.lcssa, ptr %call.i52, align 8, !tbaa !12
+  %cdr.i53 = getelementptr inbounds %struct.linked_list_lli, ptr %call.i52, i64 0, i32 1
+  store ptr %res.062, ptr %cdr.i53, align 8, !tbaa !14
+  %inc13 = add nuw nsw i32 %i.060, 1
+  %exitcond64.not = icmp eq i32 %inc13, %or.i
+  br i1 %exitcond64.not, label %for.end14, label %for.body, !llvm.loop !23
 
-92:                                               ; preds = %81, %1
-  %93 = phi ptr [ null, %1 ], [ %88, %81 ]
-  ret ptr %93
+for.end14:                                        ; preds = %for.end, %entry
+  %res.0.lcssa = phi ptr [ null, %entry ], [ %call.i52, %for.end ]
+  ret ptr %res.0.lcssa
 }
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(none) uwtable
-define dso_local i32 @pad_size(i32 noundef %0) local_unnamed_addr #8 {
-  %2 = mul i32 %0, 5
-  %3 = add i32 %2, 3
-  %4 = and i32 %3, 7
-  ret i32 %4
+define dso_local i32 @pad_size(i32 noundef %nof_channels) local_unnamed_addr #8 {
+entry:
+  %mul.neg = mul i32 %nof_channels, 5
+  %sub = add i32 %mul.neg, 3
+  %and1 = and i32 %sub, 7
+  ret i32 %and1
 }
 
 ; Function Attrs: nofree norecurse nosync nounwind memory(read, inaccessiblemem: none) uwtable
-define dso_local i32 @calc_sum2(ptr noundef readonly %0) local_unnamed_addr #9 {
-  %2 = icmp eq ptr %0, null
-  br i1 %2, label %22, label %3
+define dso_local i32 @calc_sum2(ptr noundef readonly %list) local_unnamed_addr #9 {
+entry:
+  %cmp.not4 = icmp eq ptr %list, null
+  br i1 %cmp.not4, label %while.end, label %while.body
 
-3:                                                ; preds = %1, %18
-  %4 = phi i32 [ %20, %18 ], [ 0, %1 ]
-  %5 = phi ptr [ %7, %18 ], [ %0, %1 ]
-  %6 = getelementptr inbounds %struct.linked_list_lli, ptr %5, i64 0, i32 1
-  %7 = load ptr, ptr %6, align 8, !tbaa !14
-  %8 = load ptr, ptr %5, align 8, !tbaa !12
-  %9 = icmp eq ptr %8, null
-  br i1 %9, label %18, label %10
+while.body:                                       ; preds = %entry, %calc_sum1.exit
+  %res.06 = phi i32 [ %add, %calc_sum1.exit ], [ 0, %entry ]
+  %list.addr.05 = phi ptr [ %0, %calc_sum1.exit ], [ %list, %entry ]
+  %cdr = getelementptr inbounds %struct.linked_list_lli, ptr %list.addr.05, i64 0, i32 1
+  %0 = load ptr, ptr %cdr, align 8, !tbaa !14
+  %1 = load ptr, ptr %list.addr.05, align 8, !tbaa !12
+  %cmp.not4.i = icmp eq ptr %1, null
+  br i1 %cmp.not4.i, label %calc_sum1.exit, label %while.body.i
 
-10:                                               ; preds = %3, %10
-  %11 = phi i32 [ %16, %10 ], [ 0, %3 ]
-  %12 = phi ptr [ %14, %10 ], [ %8, %3 ]
-  %13 = getelementptr inbounds %struct.linked_list_int, ptr %12, i64 0, i32 1
-  %14 = load ptr, ptr %13, align 8, !tbaa !11
-  %15 = load i32, ptr %12, align 8, !tbaa !5
-  %16 = add nsw i32 %15, %11
-  %17 = icmp eq ptr %14, null
-  br i1 %17, label %18, label %10, !llvm.loop !24
+while.body.i:                                     ; preds = %while.body, %while.body.i
+  %res.06.i = phi i32 [ %add.i, %while.body.i ], [ 0, %while.body ]
+  %list.addr.05.i = phi ptr [ %2, %while.body.i ], [ %1, %while.body ]
+  %cdr.i = getelementptr inbounds %struct.linked_list_int, ptr %list.addr.05.i, i64 0, i32 1
+  %2 = load ptr, ptr %cdr.i, align 8, !tbaa !11
+  %3 = load i32, ptr %list.addr.05.i, align 8, !tbaa !5
+  %add.i = add nsw i32 %3, %res.06.i
+  %cmp.not.i = icmp eq ptr %2, null
+  br i1 %cmp.not.i, label %calc_sum1.exit, label %while.body.i, !llvm.loop !24
 
-18:                                               ; preds = %10, %3
-  %19 = phi i32 [ 0, %3 ], [ %16, %10 ]
-  %20 = add nsw i32 %19, %4
-  %21 = icmp eq ptr %7, null
-  br i1 %21, label %22, label %3, !llvm.loop !25
+calc_sum1.exit:                                   ; preds = %while.body.i, %while.body
+  %res.0.lcssa.i = phi i32 [ 0, %while.body ], [ %add.i, %while.body.i ]
+  %add = add nsw i32 %res.0.lcssa.i, %res.06
+  %cmp.not = icmp eq ptr %0, null
+  br i1 %cmp.not, label %while.end, label %while.body, !llvm.loop !25
 
-22:                                               ; preds = %18, %1
-  %23 = phi i32 [ 0, %1 ], [ %20, %18 ]
-  ret i32 %23
+while.end:                                        ; preds = %calc_sum1.exit, %entry
+  %res.0.lcssa = phi i32 [ 0, %entry ], [ %add, %calc_sum1.exit ]
+  ret i32 %res.0.lcssa
 }
 
 ; Function Attrs: nofree norecurse nosync nounwind memory(read, inaccessiblemem: none) uwtable
-define dso_local i32 @calc_sum1(ptr noundef readonly %0) local_unnamed_addr #9 {
-  %2 = icmp eq ptr %0, null
-  br i1 %2, label %11, label %3
+define dso_local i32 @calc_sum1(ptr noundef readonly %list) local_unnamed_addr #9 {
+entry:
+  %cmp.not4 = icmp eq ptr %list, null
+  br i1 %cmp.not4, label %while.end, label %while.body
 
-3:                                                ; preds = %1, %3
-  %4 = phi i32 [ %9, %3 ], [ 0, %1 ]
-  %5 = phi ptr [ %7, %3 ], [ %0, %1 ]
-  %6 = getelementptr inbounds %struct.linked_list_int, ptr %5, i64 0, i32 1
-  %7 = load ptr, ptr %6, align 8, !tbaa !11
-  %8 = load i32, ptr %5, align 8, !tbaa !5
-  %9 = add nsw i32 %8, %4
-  %10 = icmp eq ptr %7, null
-  br i1 %10, label %11, label %3, !llvm.loop !24
+while.body:                                       ; preds = %entry, %while.body
+  %res.06 = phi i32 [ %add, %while.body ], [ 0, %entry ]
+  %list.addr.05 = phi ptr [ %0, %while.body ], [ %list, %entry ]
+  %cdr = getelementptr inbounds %struct.linked_list_int, ptr %list.addr.05, i64 0, i32 1
+  %0 = load ptr, ptr %cdr, align 8, !tbaa !11
+  %1 = load i32, ptr %list.addr.05, align 8, !tbaa !5
+  %add = add nsw i32 %1, %res.06
+  %cmp.not = icmp eq ptr %0, null
+  br i1 %cmp.not, label %while.end, label %while.body, !llvm.loop !24
 
-11:                                               ; preds = %3, %1
-  %12 = phi i32 [ 0, %1 ], [ %9, %3 ]
-  ret i32 %12
+while.end:                                        ; preds = %while.body, %entry
+  %res.0.lcssa = phi i32 [ 0, %entry ], [ %add, %while.body ]
+  ret i32 %res.0.lcssa
 }
 
 ; Function Attrs: noreturn nounwind uwtable
-define dso_local i32 @main(i32 noundef %0, ptr nocapture noundef readonly %1) local_unnamed_addr #10 {
-  %3 = alloca %struct.timeval, align 8
-  %4 = alloca %struct.timeval, align 8
-  call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %3) #15
-  call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %4) #15
-  %5 = tail call noalias dereferenceable_or_null(150000) ptr @malloc(i64 noundef 150000) #14
-  %6 = icmp sgt i32 %0, 1
-  br i1 %6, label %7, label %16
+define dso_local i32 @main(i32 noundef %argc, ptr nocapture noundef readonly %argv) local_unnamed_addr #10 {
+entry:
+  %pre = alloca %struct.timeval, align 8
+  %post = alloca %struct.timeval, align 8
+  call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %pre) #15
+  call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %post) #15
+  %call = tail call noalias dereferenceable_or_null(150000) ptr @malloc(i64 noundef 150000) #14
+  %cmp = icmp sgt i32 %argc, 1
+  br i1 %cmp, label %if.then, label %if.else
 
-7:                                                ; preds = %2
-  %8 = getelementptr inbounds ptr, ptr %1, i64 1
-  %9 = load ptr, ptr %8, align 8, !tbaa !26
-  %10 = tail call noalias ptr @fopen(ptr noundef %9, ptr noundef nonnull @.str)
-  %11 = icmp eq ptr %10, null
-  br i1 %11, label %12, label %14
+if.then:                                          ; preds = %entry
+  %arrayidx = getelementptr inbounds ptr, ptr %argv, i64 1
+  %0 = load ptr, ptr %arrayidx, align 8, !tbaa !26
+  %call1 = tail call noalias ptr @fopen(ptr noundef %0, ptr noundef nonnull @.str)
+  %cmp2 = icmp eq ptr %call1, null
+  br i1 %cmp2, label %if.then3, label %if.end
 
-12:                                               ; preds = %7
-  %13 = load ptr, ptr %8, align 8, !tbaa !26
-  tail call void @perror(ptr noundef %13) #16
+if.then3:                                         ; preds = %if.then
+  %1 = load ptr, ptr %arrayidx, align 8, !tbaa !26
+  tail call void @perror(ptr noundef %1) #16
   tail call void @exit(i32 noundef 1) #17
   unreachable
 
-14:                                               ; preds = %7
-  %15 = add nsw i32 %0, -1
-  br label %18
+if.end:                                           ; preds = %if.then
+  %dec = add nsw i32 %argc, -1
+  br label %if.end5
 
-16:                                               ; preds = %2
-  %17 = load ptr, ptr @stdin, align 8, !tbaa !26
-  br label %18
+if.else:                                          ; preds = %entry
+  %2 = load ptr, ptr @stdin, align 8, !tbaa !26
+  br label %if.end5
 
-18:                                               ; preds = %16, %14
-  %19 = phi ptr [ %10, %14 ], [ %17, %16 ]
-  %20 = phi i32 [ %15, %14 ], [ %0, %16 ]
-  %21 = icmp eq i32 %20, 1
-  br i1 %21, label %24, label %22
+if.end5:                                          ; preds = %if.else, %if.end
+  %in.0 = phi ptr [ %call1, %if.end ], [ %2, %if.else ]
+  %argc.addr.0 = phi i32 [ %dec, %if.end ], [ %argc, %if.else ]
+  %cmp6.not = icmp eq i32 %argc.addr.0, 1
+  br i1 %cmp6.not, label %if.end9, label %if.then7
 
-22:                                               ; preds = %18
-  %23 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str)
+if.then7:                                         ; preds = %if.end5
+  %puts = tail call i32 @puts(ptr nonnull dereferenceable(1) @str)
   tail call void @exit(i32 noundef 2) #17
   unreachable
 
-24:                                               ; preds = %18
-  %25 = tail call i64 @fread(ptr noundef %5, i64 noundef 1, i64 noundef 150000, ptr noundef %19)
-  %26 = call i32 @gettimeofday(ptr noundef nonnull %3, ptr noundef null) #15
-  %27 = getelementptr inbounds i8, ptr %5, i64 1
-  %28 = load i8, ptr %5, align 1, !tbaa !18
-  %29 = zext i8 %28 to i32
-  %30 = load i8, ptr %27, align 1, !tbaa !18
-  %31 = zext i8 %30 to i32
-  %32 = shl nuw nsw i32 %29, 8
-  %33 = or i32 %32, %31
-  %34 = icmp eq i32 %33, 0
-  br label %35
+if.end9:                                          ; preds = %if.end5
+  %call.i = tail call i64 @fread(ptr noundef %call, i64 noundef 1, i64 noundef 150000, ptr noundef %in.0)
+  %call11 = call i32 @gettimeofday(ptr noundef nonnull %pre, ptr noundef null) #15
+  %arrayidx6.i.i = getelementptr inbounds i8, ptr %call, i64 1
+  %3 = load i8, ptr %call, align 1, !tbaa !18
+  %conv.i.i = zext i8 %3 to i32
+  %4 = load i8, ptr %arrayidx6.i.i, align 1, !tbaa !18
+  %conv7.i.i = zext i8 %4 to i32
+  %shl9.i.i = shl nuw nsw i32 %conv.i.i, 8
+  %or.i.i = or i32 %shl9.i.i, %conv7.i.i
+  %cmp59.not.i = icmp eq i32 %or.i.i, 0
+  br label %for.body
 
-35:                                               ; preds = %24, %151
-  %36 = phi i32 [ 0, %24 ], [ %153, %151 ]
-  br i1 %34, label %151, label %37
+for.body:                                         ; preds = %if.end9, %free_list2.exit
+  %i.043 = phi i32 [ 0, %if.end9 ], [ %inc, %free_list2.exit ]
+  br i1 %cmp59.not.i, label %free_list2.exit, label %for.body.i
 
-37:                                               ; preds = %35, %108
-  %38 = phi ptr [ %115, %108 ], [ null, %35 ]
-  %39 = phi i32 [ %114, %108 ], [ 16, %35 ]
-  %40 = phi i32 [ %117, %108 ], [ 0, %35 ]
-  %41 = ashr i32 %39, 3
-  %42 = and i32 %39, 7
-  %43 = sub nuw nsw i32 8, %42
-  %44 = sext i32 %41 to i64
-  %45 = getelementptr inbounds i8, ptr %5, i64 %44
-  %46 = load i8, ptr %45, align 1, !tbaa !18
-  %47 = zext i8 %46 to i32
-  %48 = shl nsw i32 -1, %43
-  %49 = xor i32 %48, -1
-  %50 = and i32 %47, %49
-  %51 = icmp ugt i32 %42, 3
-  br i1 %51, label %52, label %60
+for.body.i:                                       ; preds = %for.body, %for.end.i
+  %res.062.i = phi ptr [ %call.i52.i, %for.end.i ], [ null, %for.body ]
+  %offset.061.i = phi i32 [ %add10.i, %for.end.i ], [ 16, %for.body ]
+  %i.060.i = phi i32 [ %inc13.i, %for.end.i ], [ 0, %for.body ]
+  %shr.i.i = ashr i32 %offset.061.i, 3
+  %and.i.i = and i32 %offset.061.i, 7
+  %sub.i.i = sub nuw nsw i32 8, %and.i.i
+  %idxprom.i.i = sext i32 %shr.i.i to i64
+  %arrayidx.i.i = getelementptr inbounds i8, ptr %call, i64 %idxprom.i.i
+  %5 = load i8, ptr %arrayidx.i.i, align 1, !tbaa !18
+  %conv.i28.i = zext i8 %5 to i32
+  %notmask.i.i = shl nsw i32 -1, %sub.i.i
+  %sub2.i.i = xor i32 %notmask.i.i, -1
+  %and3.i29.i = and i32 %conv.i28.i, %sub2.i.i
+  %cmp22.i.i = icmp ugt i32 %and.i.i, 3
+  br i1 %cmp22.i.i, label %while.body.i40.i, label %read_x_bits.exit43.i
 
-52:                                               ; preds = %37
-  %53 = add nsw i64 %44, 1
-  %54 = getelementptr inbounds i8, ptr %5, i64 %53
-  %55 = load i8, ptr %54, align 1, !tbaa !18
-  %56 = zext i8 %55 to i32
-  %57 = shl nuw nsw i32 %50, 8
-  %58 = or i32 %57, %56
-  %59 = sub nuw nsw i32 16, %42
-  br label %60, !llvm.loop !21
+while.body.i40.i:                                 ; preds = %for.body.i
+  %indvars.iv.next.i33.i = add nsw i64 %idxprom.i.i, 1
+  %arrayidx6.i34.i = getelementptr inbounds i8, ptr %call, i64 %indvars.iv.next.i33.i
+  %6 = load i8, ptr %arrayidx6.i34.i, align 1, !tbaa !18
+  %conv7.i35.i = zext i8 %6 to i32
+  %shl9.i36.i = shl nuw nsw i32 %and3.i29.i, 8
+  %or.i37.i = or i32 %shl9.i36.i, %conv7.i35.i
+  %add.i38.i = sub nuw nsw i32 16, %and.i.i
+  br label %read_x_bits.exit43.i, !llvm.loop !21
 
-60:                                               ; preds = %52, %37
-  %61 = phi i32 [ %43, %37 ], [ %59, %52 ]
-  %62 = phi i32 [ %50, %37 ], [ %58, %52 ]
-  %63 = add nsw i32 %61, -5
-  %64 = lshr i32 %62, %63
-  %65 = add nsw i32 %39, 5
-  %66 = icmp eq i32 %64, 0
-  br i1 %66, label %108, label %67
+read_x_bits.exit43.i:                             ; preds = %while.body.i40.i, %for.body.i
+  %initbits.0.lcssa.i.i = phi i32 [ %sub.i.i, %for.body.i ], [ %add.i38.i, %while.body.i40.i ]
+  %res.0.lcssa.i.i = phi i32 [ %and3.i29.i, %for.body.i ], [ %or.i37.i, %while.body.i40.i ]
+  %sub10.i41.i = add nsw i32 %initbits.0.lcssa.i.i, -5
+  %shr11.i42.i = lshr i32 %res.0.lcssa.i.i, %sub10.i41.i
+  %add2.i = add nsw i32 %offset.061.i, 5
+  %cmp454.not.i = icmp eq i32 %shr11.i42.i, 0
+  br i1 %cmp454.not.i, label %for.end.i, label %for.body5.i
 
-67:                                               ; preds = %60, %96
-  %68 = phi ptr [ %104, %96 ], [ null, %60 ]
-  %69 = phi i32 [ %103, %96 ], [ %65, %60 ]
-  %70 = phi i32 [ %106, %96 ], [ 0, %60 ]
-  %71 = ashr i32 %69, 3
-  %72 = and i32 %69, 7
-  %73 = sext i32 %71 to i64
-  %74 = getelementptr inbounds i8, ptr %5, i64 %73
-  %75 = load i8, ptr %74, align 1, !tbaa !18
-  %76 = add nsw i32 %71, 1
-  %77 = sext i32 %76 to i64
-  %78 = getelementptr inbounds i8, ptr %5, i64 %77
-  %79 = load i8, ptr %78, align 1, !tbaa !18
-  %80 = zext i8 %79 to i32
-  %81 = icmp ult i32 %72, 6
-  br i1 %81, label %82, label %85
+for.body5.i:                                      ; preds = %read_x_bits.exit43.i, %read_11_bits.exit.i
+  %packet.157.i = phi ptr [ %call.i.i, %read_11_bits.exit.i ], [ null, %read_x_bits.exit43.i ]
+  %offset.156.i = phi i32 [ %add7.i, %read_11_bits.exit.i ], [ %add2.i, %read_x_bits.exit43.i ]
+  %j.055.i = phi i32 [ %inc.i, %read_11_bits.exit.i ], [ 0, %read_x_bits.exit43.i ]
+  %shr.i44.i = ashr i32 %offset.156.i, 3
+  %and.i45.i = and i32 %offset.156.i, 7
+  %idxprom.i46.i = sext i32 %shr.i44.i to i64
+  %arrayidx.i47.i = getelementptr inbounds i8, ptr %call, i64 %idxprom.i46.i
+  %7 = load i8, ptr %arrayidx.i47.i, align 1, !tbaa !18
+  %add.i48.i = add nsw i32 %shr.i44.i, 1
+  %idxprom2.i.i = sext i32 %add.i48.i to i64
+  %arrayidx3.i.i = getelementptr inbounds i8, ptr %call, i64 %idxprom2.i.i
+  %8 = load i8, ptr %arrayidx3.i.i, align 1, !tbaa !18
+  %conv4.i.i = zext i8 %8 to i32
+  %cmp.i49.i = icmp ult i32 %and.i45.i, 6
+  br i1 %cmp.i49.i, label %if.then.i.i, label %if.else.i.i
 
-82:                                               ; preds = %67
-  %83 = sub nuw nsw i32 5, %72
-  %84 = lshr i32 %80, %83
-  br label %96
+if.then.i.i:                                      ; preds = %for.body5.i
+  %sub8.i.i = sub nuw nsw i32 5, %and.i45.i
+  %shr9.i.i = lshr i32 %conv4.i.i, %sub8.i.i
+  br label %read_11_bits.exit.i
 
-85:                                               ; preds = %67
-  %86 = add nsw i32 %71, 2
-  %87 = sext i32 %86 to i64
-  %88 = getelementptr inbounds i8, ptr %5, i64 %87
-  %89 = load i8, ptr %88, align 1, !tbaa !18
-  %90 = zext i8 %89 to i32
-  %91 = add nsw i32 %72, -5
-  %92 = shl nuw nsw i32 %80, %91
-  %93 = sub nuw nsw i32 13, %72
-  %94 = lshr i32 %90, %93
-  %95 = or i32 %94, %92
-  br label %96
+if.else.i.i:                                      ; preds = %for.body5.i
+  %add11.i.i = add nsw i32 %shr.i44.i, 2
+  %idxprom12.i.i = sext i32 %add11.i.i to i64
+  %arrayidx13.i.i = getelementptr inbounds i8, ptr %call, i64 %idxprom12.i.i
+  %9 = load i8, ptr %arrayidx13.i.i, align 1, !tbaa !18
+  %conv14.i.i = zext i8 %9 to i32
+  %sub16.i.i = add nsw i32 %and.i45.i, -5
+  %shl17.i.i = shl nuw nsw i32 %conv4.i.i, %sub16.i.i
+  %add19.i.i = sub nuw nsw i32 13, %and.i45.i
+  %shr20.i.i = lshr i32 %conv14.i.i, %add19.i.i
+  %10 = or i32 %shr20.i.i, %shl17.i.i
+  br label %read_11_bits.exit.i
 
-96:                                               ; preds = %85, %82
-  %97 = phi i32 [ %84, %82 ], [ %95, %85 ]
-  %98 = zext i8 %75 to i32
-  %99 = add nuw nsw i32 %72, 3
-  %100 = shl nuw nsw i32 %98, %99
-  %101 = or i32 %97, %100
-  %102 = and i32 %101, 2047
-  %103 = add nsw i32 %69, 11
-  %104 = tail call noalias dereferenceable_or_null(16) ptr @malloc(i64 noundef 16) #14
-  store i32 %102, ptr %104, align 8, !tbaa !5
-  %105 = getelementptr inbounds %struct.linked_list_int, ptr %104, i64 0, i32 1
-  store ptr %68, ptr %105, align 8, !tbaa !11
-  %106 = add nuw nsw i32 %70, 1
-  %107 = icmp eq i32 %106, %64
-  br i1 %107, label %108, label %67, !llvm.loop !22
+read_11_bits.exit.i:                              ; preds = %if.else.i.i, %if.then.i.i
+  %shr9.pn.i.i = phi i32 [ %shr9.i.i, %if.then.i.i ], [ %10, %if.else.i.i ]
+  %conv.i50.i = zext i8 %7 to i32
+  %sub6.i.i = add nuw nsw i32 %and.i45.i, 3
+  %shl.i.i = shl nuw nsw i32 %conv.i50.i, %sub6.i.i
+  %retval.0.in.i.i = or i32 %shr9.pn.i.i, %shl.i.i
+  %retval.0.i.i = and i32 %retval.0.in.i.i, 2047
+  %add7.i = add nsw i32 %offset.156.i, 11
+  %call.i.i = tail call noalias dereferenceable_or_null(16) ptr @malloc(i64 noundef 16) #14
+  store i32 %retval.0.i.i, ptr %call.i.i, align 8, !tbaa !5
+  %cdr.i.i = getelementptr inbounds %struct.linked_list_int, ptr %call.i.i, i64 0, i32 1
+  store ptr %packet.157.i, ptr %cdr.i.i, align 8, !tbaa !11
+  %inc.i = add nuw nsw i32 %j.055.i, 1
+  %exitcond.not.i = icmp eq i32 %inc.i, %shr11.i42.i
+  br i1 %exitcond.not.i, label %for.end.i, label %for.body5.i, !llvm.loop !22
 
-108:                                              ; preds = %96, %60
-  %109 = phi i32 [ %65, %60 ], [ %103, %96 ]
-  %110 = phi ptr [ null, %60 ], [ %104, %96 ]
-  %111 = mul nuw nsw i32 %64, 5
-  %112 = add nuw nsw i32 %111, 3
-  %113 = and i32 %112, 7
-  %114 = add nsw i32 %109, %113
-  %115 = tail call noalias dereferenceable_or_null(16) ptr @malloc(i64 noundef 16) #14
-  store ptr %110, ptr %115, align 8, !tbaa !12
-  %116 = getelementptr inbounds %struct.linked_list_lli, ptr %115, i64 0, i32 1
-  store ptr %38, ptr %116, align 8, !tbaa !14
-  %117 = add nuw nsw i32 %40, 1
-  %118 = icmp eq i32 %117, %33
-  br i1 %118, label %119, label %37, !llvm.loop !23
+for.end.i:                                        ; preds = %read_11_bits.exit.i, %read_x_bits.exit43.i
+  %offset.1.lcssa.i = phi i32 [ %add2.i, %read_x_bits.exit43.i ], [ %add7.i, %read_11_bits.exit.i ]
+  %packet.1.lcssa.i = phi ptr [ null, %read_x_bits.exit43.i ], [ %call.i.i, %read_11_bits.exit.i ]
+  %mul.neg.i.i = mul nuw nsw i32 %shr11.i42.i, 5
+  %sub.i51.i = add nuw nsw i32 %mul.neg.i.i, 3
+  %and1.i.i = and i32 %sub.i51.i, 7
+  %add10.i = add nsw i32 %offset.1.lcssa.i, %and1.i.i
+  %call.i52.i = tail call noalias dereferenceable_or_null(16) ptr @malloc(i64 noundef 16) #14
+  store ptr %packet.1.lcssa.i, ptr %call.i52.i, align 8, !tbaa !12
+  %cdr.i53.i = getelementptr inbounds %struct.linked_list_lli, ptr %call.i52.i, i64 0, i32 1
+  store ptr %res.062.i, ptr %cdr.i53.i, align 8, !tbaa !14
+  %inc13.i = add nuw nsw i32 %i.060.i, 1
+  %exitcond64.not.i = icmp eq i32 %inc13.i, %or.i.i
+  br i1 %exitcond64.not.i, label %while.body.i, label %for.body.i, !llvm.loop !23
 
-119:                                              ; preds = %108, %134
-  %120 = phi i32 [ %136, %134 ], [ 0, %108 ]
-  %121 = phi ptr [ %123, %134 ], [ %115, %108 ]
-  %122 = getelementptr inbounds %struct.linked_list_lli, ptr %121, i64 0, i32 1
-  %123 = load ptr, ptr %122, align 8, !tbaa !14
-  %124 = load ptr, ptr %121, align 8, !tbaa !12
-  %125 = icmp eq ptr %124, null
-  br i1 %125, label %134, label %126
+while.body.i:                                     ; preds = %for.end.i, %calc_sum1.exit.i
+  %res.06.i = phi i32 [ %add.i, %calc_sum1.exit.i ], [ 0, %for.end.i ]
+  %list.addr.05.i = phi ptr [ %11, %calc_sum1.exit.i ], [ %call.i52.i, %for.end.i ]
+  %cdr.i = getelementptr inbounds %struct.linked_list_lli, ptr %list.addr.05.i, i64 0, i32 1
+  %11 = load ptr, ptr %cdr.i, align 8, !tbaa !14
+  %12 = load ptr, ptr %list.addr.05.i, align 8, !tbaa !12
+  %cmp.not4.i.i = icmp eq ptr %12, null
+  br i1 %cmp.not4.i.i, label %calc_sum1.exit.i, label %while.body.i.i
 
-126:                                              ; preds = %119, %126
-  %127 = phi i32 [ %132, %126 ], [ 0, %119 ]
-  %128 = phi ptr [ %130, %126 ], [ %124, %119 ]
-  %129 = getelementptr inbounds %struct.linked_list_int, ptr %128, i64 0, i32 1
-  %130 = load ptr, ptr %129, align 8, !tbaa !11
-  %131 = load i32, ptr %128, align 8, !tbaa !5
-  %132 = add nsw i32 %131, %127
-  %133 = icmp eq ptr %130, null
-  br i1 %133, label %134, label %126, !llvm.loop !24
+while.body.i.i:                                   ; preds = %while.body.i, %while.body.i.i
+  %res.06.i.i = phi i32 [ %add.i.i, %while.body.i.i ], [ 0, %while.body.i ]
+  %list.addr.05.i.i = phi ptr [ %13, %while.body.i.i ], [ %12, %while.body.i ]
+  %cdr.i.i24 = getelementptr inbounds %struct.linked_list_int, ptr %list.addr.05.i.i, i64 0, i32 1
+  %13 = load ptr, ptr %cdr.i.i24, align 8, !tbaa !11
+  %14 = load i32, ptr %list.addr.05.i.i, align 8, !tbaa !5
+  %add.i.i = add nsw i32 %14, %res.06.i.i
+  %cmp.not.i.i = icmp eq ptr %13, null
+  br i1 %cmp.not.i.i, label %calc_sum1.exit.i, label %while.body.i.i, !llvm.loop !24
 
-134:                                              ; preds = %126, %119
-  %135 = phi i32 [ 0, %119 ], [ %132, %126 ]
-  %136 = add nsw i32 %135, %120
-  %137 = icmp eq ptr %123, null
-  br i1 %137, label %138, label %119, !llvm.loop !25
+calc_sum1.exit.i:                                 ; preds = %while.body.i.i, %while.body.i
+  %res.0.lcssa.i.i25 = phi i32 [ 0, %while.body.i ], [ %add.i.i, %while.body.i.i ]
+  %add.i = add nsw i32 %res.0.lcssa.i.i25, %res.06.i
+  %cmp.not.i = icmp eq ptr %11, null
+  br i1 %cmp.not.i, label %while.body.i30, label %while.body.i, !llvm.loop !25
 
-138:                                              ; preds = %134, %149
-  %139 = phi ptr [ %141, %149 ], [ %115, %134 ]
-  %140 = getelementptr inbounds %struct.linked_list_lli, ptr %139, i64 0, i32 1
-  %141 = load ptr, ptr %140, align 8, !tbaa !14
-  %142 = load ptr, ptr %139, align 8, !tbaa !12
-  %143 = icmp eq ptr %142, null
-  br i1 %143, label %149, label %144
+while.body.i30:                                   ; preds = %calc_sum1.exit.i, %free_list1.exit.i
+  %list.addr.05.i28 = phi ptr [ %15, %free_list1.exit.i ], [ %call.i52.i, %calc_sum1.exit.i ]
+  %cdr.i29 = getelementptr inbounds %struct.linked_list_lli, ptr %list.addr.05.i28, i64 0, i32 1
+  %15 = load ptr, ptr %cdr.i29, align 8, !tbaa !14
+  %16 = load ptr, ptr %list.addr.05.i28, align 8, !tbaa !12
+  %cmp.not3.i.i = icmp eq ptr %16, null
+  br i1 %cmp.not3.i.i, label %free_list1.exit.i, label %while.body.i.i33
 
-144:                                              ; preds = %138, %144
-  %145 = phi ptr [ %147, %144 ], [ %142, %138 ]
-  %146 = getelementptr inbounds %struct.linked_list_int, ptr %145, i64 0, i32 1
-  %147 = load ptr, ptr %146, align 8, !tbaa !11
-  tail call void @free(ptr noundef nonnull %145) #15
-  %148 = icmp eq ptr %147, null
-  br i1 %148, label %149, label %144, !llvm.loop !15
+while.body.i.i33:                                 ; preds = %while.body.i30, %while.body.i.i33
+  %list.addr.04.i.i = phi ptr [ %17, %while.body.i.i33 ], [ %16, %while.body.i30 ]
+  %cdr.i.i31 = getelementptr inbounds %struct.linked_list_int, ptr %list.addr.04.i.i, i64 0, i32 1
+  %17 = load ptr, ptr %cdr.i.i31, align 8, !tbaa !11
+  tail call void @free(ptr noundef nonnull %list.addr.04.i.i) #15
+  %cmp.not.i.i32 = icmp eq ptr %17, null
+  br i1 %cmp.not.i.i32, label %free_list1.exit.i, label %while.body.i.i33, !llvm.loop !15
 
-149:                                              ; preds = %144, %138
-  tail call void @free(ptr noundef %139) #15
-  %150 = icmp eq ptr %141, null
-  br i1 %150, label %151, label %138, !llvm.loop !17
+free_list1.exit.i:                                ; preds = %while.body.i.i33, %while.body.i30
+  tail call void @free(ptr noundef %list.addr.05.i28) #15
+  %cmp.not.i34 = icmp eq ptr %15, null
+  br i1 %cmp.not.i34, label %free_list2.exit, label %while.body.i30, !llvm.loop !17
 
-151:                                              ; preds = %149, %35
-  %152 = phi i32 [ 0, %35 ], [ %136, %149 ]
-  %153 = add nuw nsw i32 %36, 1
-  %154 = icmp eq i32 %153, 10000
-  br i1 %154, label %155, label %35, !llvm.loop !27
+free_list2.exit:                                  ; preds = %free_list1.exit.i, %for.body
+  %res.0.lcssa.i2642 = phi i32 [ 0, %for.body ], [ %add.i, %free_list1.exit.i ]
+  %inc = add nuw nsw i32 %i.043, 1
+  %exitcond.not = icmp eq i32 %inc, 10000
+  br i1 %exitcond.not, label %for.end, label %for.body, !llvm.loop !27
 
-155:                                              ; preds = %151
-  %156 = call i32 @gettimeofday(ptr noundef nonnull %4, ptr noundef null) #15
-  %157 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.2, i32 noundef %152)
+for.end:                                          ; preds = %free_list2.exit
+  %call15 = call i32 @gettimeofday(ptr noundef nonnull %post, ptr noundef null) #15
+  %call16 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.2, i32 noundef %res.0.lcssa.i2642)
   tail call void @exit(i32 noundef 0) #17
   unreachable
 }

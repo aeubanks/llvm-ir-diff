@@ -17,13 +17,14 @@ target triple = "x86_64-unknown-linux-gnu"
 @memory_ARRAY = external local_unnamed_addr global [0 x ptr], align 8
 
 ; Function Attrs: nofree nounwind uwtable
-define dso_local void @graph_NodePrint(ptr nocapture noundef readonly %0) local_unnamed_addr #0 {
-  %2 = load i32, ptr %0, align 8
-  %3 = getelementptr i8, ptr %0, i64 4
-  %4 = load i32, ptr %3, align 4
-  %5 = getelementptr i8, ptr %0, i64 8
-  %6 = load i32, ptr %5, align 8
-  %7 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str, i32 noundef %2, i32 noundef %4, i32 noundef %6)
+define dso_local void @graph_NodePrint(ptr nocapture noundef readonly %Node) local_unnamed_addr #0 {
+entry:
+  %Node.val = load i32, ptr %Node, align 8
+  %0 = getelementptr i8, ptr %Node, i64 4
+  %Node.val6 = load i32, ptr %0, align 4
+  %1 = getelementptr i8, ptr %Node, i64 8
+  %Node.val7 = load i32, ptr %1, align 8
+  %call3 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str, i32 noundef %Node.val, i32 noundef %Node.val6, i32 noundef %Node.val7)
   ret void
 }
 
@@ -32,468 +33,479 @@ declare noundef i32 @printf(ptr nocapture noundef readonly, ...) local_unnamed_a
 
 ; Function Attrs: nounwind uwtable
 define dso_local ptr @graph_Create() local_unnamed_addr #2 {
-  %1 = tail call ptr @memory_Malloc(i32 noundef 24) #7
-  store i32 0, ptr %1, align 8
-  %2 = getelementptr inbounds %struct.GRAPH_STRUCT, ptr %1, i64 0, i32 1
-  tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %2, i8 0, i64 16, i1 false)
-  ret ptr %1
+entry:
+  %call = tail call ptr @memory_Malloc(i32 noundef 24) #7
+  store i32 0, ptr %call, align 8
+  %nodes = getelementptr inbounds %struct.GRAPH_STRUCT, ptr %call, i64 0, i32 1
+  tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %nodes, i8 0, i64 16, i1 false)
+  ret ptr %call
 }
 
 declare ptr @memory_Malloc(i32 noundef) local_unnamed_addr #3
 
 ; Function Attrs: nofree norecurse nosync nounwind memory(readwrite, inaccessiblemem: none) uwtable
-define dso_local void @graph_Delete(ptr noundef %0) local_unnamed_addr #4 {
-  %2 = getelementptr inbounds %struct.GRAPH_STRUCT, ptr %0, i64 0, i32 1
-  %3 = load ptr, ptr %2, align 8
-  %4 = icmp eq ptr %3, null
-  br i1 %4, label %49, label %5
+define dso_local void @graph_Delete(ptr noundef %Graph) local_unnamed_addr #4 {
+entry:
+  %nodes = getelementptr inbounds %struct.GRAPH_STRUCT, ptr %Graph, i64 0, i32 1
+  %0 = load ptr, ptr %nodes, align 8
+  %cmp.i.not21 = icmp eq ptr %0, null
+  br i1 %cmp.i.not21, label %for.end, label %for.body
 
-5:                                                ; preds = %1, %28
-  %6 = phi ptr [ %39, %28 ], [ %3, %1 ]
-  %7 = getelementptr i8, ptr %6, i64 8
-  %8 = load ptr, ptr %7, align 8
-  %9 = getelementptr i8, ptr %8, i64 24
-  %10 = load ptr, ptr %9, align 8
-  %11 = icmp eq ptr %10, null
-  br i1 %11, label %28, label %12
+for.body:                                         ; preds = %entry, %list_Delete.exit
+  %1 = phi ptr [ %L.val.i, %list_Delete.exit ], [ %0, %entry ]
+  %2 = getelementptr i8, ptr %1, i64 8
+  %.val14 = load ptr, ptr %2, align 8
+  %3 = getelementptr i8, ptr %.val14, i64 24
+  %call2.val = load ptr, ptr %3, align 8
+  %cmp.i.not5.i = icmp eq ptr %call2.val, null
+  br i1 %cmp.i.not5.i, label %list_Delete.exit, label %while.body.i
 
-12:                                               ; preds = %5, %12
-  %13 = phi ptr [ %14, %12 ], [ %10, %5 ]
-  %14 = load ptr, ptr %13, align 8
+while.body.i:                                     ; preds = %for.body, %while.body.i
+  %Current.06.i = phi ptr [ %Current.0.val.i, %while.body.i ], [ %call2.val, %for.body ]
+  %Current.0.val.i = load ptr, ptr %Current.06.i, align 8
+  %4 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
+  %total_size.i.i.i = getelementptr inbounds %struct.MEMORY_RESOURCEHELP, ptr %4, i64 0, i32 4
+  %5 = load i32, ptr %total_size.i.i.i, align 8
+  %conv26.i.i.i = sext i32 %5 to i64
+  %6 = load i64, ptr @memory_FREEDBYTES, align 8
+  %add27.i.i.i = add i64 %6, %conv26.i.i.i
+  store i64 %add27.i.i.i, ptr @memory_FREEDBYTES, align 8
+  %7 = load ptr, ptr %4, align 8
+  store ptr %7, ptr %Current.06.i, align 8
+  %8 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
+  store ptr %Current.06.i, ptr %8, align 8
+  %cmp.i.not.i = icmp eq ptr %Current.0.val.i, null
+  br i1 %cmp.i.not.i, label %list_Delete.exit.loopexit, label %while.body.i, !llvm.loop !5
+
+list_Delete.exit.loopexit:                        ; preds = %while.body.i
+  %.pre = load ptr, ptr %nodes, align 8
+  %.phi.trans.insert = getelementptr i8, ptr %.pre, i64 8
+  %.val.pre = load ptr, ptr %.phi.trans.insert, align 8
+  br label %list_Delete.exit
+
+list_Delete.exit:                                 ; preds = %list_Delete.exit.loopexit, %for.body
+  %.val = phi ptr [ %.val.pre, %list_Delete.exit.loopexit ], [ %.val14, %for.body ]
+  %9 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 32), align 8
+  %total_size.i = getelementptr inbounds %struct.MEMORY_RESOURCEHELP, ptr %9, i64 0, i32 4
+  %10 = load i32, ptr %total_size.i, align 8
+  %conv26.i = sext i32 %10 to i64
+  %11 = load i64, ptr @memory_FREEDBYTES, align 8
+  %add27.i = add i64 %11, %conv26.i
+  store i64 %add27.i, ptr @memory_FREEDBYTES, align 8
+  %12 = load ptr, ptr %9, align 8
+  store ptr %12, ptr %.val, align 8
+  %13 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 32), align 8
+  store ptr %.val, ptr %13, align 8
+  %14 = load ptr, ptr %nodes, align 8
+  %L.val.i = load ptr, ptr %14, align 8
   %15 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
-  %16 = getelementptr inbounds %struct.MEMORY_RESOURCEHELP, ptr %15, i64 0, i32 4
-  %17 = load i32, ptr %16, align 8
-  %18 = sext i32 %17 to i64
-  %19 = load i64, ptr @memory_FREEDBYTES, align 8
-  %20 = add i64 %19, %18
-  store i64 %20, ptr @memory_FREEDBYTES, align 8
-  %21 = load ptr, ptr %15, align 8
-  store ptr %21, ptr %13, align 8
-  %22 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
-  store ptr %13, ptr %22, align 8
-  %23 = icmp eq ptr %14, null
-  br i1 %23, label %24, label %12, !llvm.loop !5
+  %total_size.i.i.i15 = getelementptr inbounds %struct.MEMORY_RESOURCEHELP, ptr %15, i64 0, i32 4
+  %16 = load i32, ptr %total_size.i.i.i15, align 8
+  %conv26.i.i.i16 = sext i32 %16 to i64
+  %17 = load i64, ptr @memory_FREEDBYTES, align 8
+  %add27.i.i.i17 = add i64 %17, %conv26.i.i.i16
+  store i64 %add27.i.i.i17, ptr @memory_FREEDBYTES, align 8
+  %18 = load ptr, ptr %15, align 8
+  store ptr %18, ptr %14, align 8
+  %19 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
+  store ptr %14, ptr %19, align 8
+  store ptr %L.val.i, ptr %nodes, align 8
+  %cmp.i.not = icmp eq ptr %L.val.i, null
+  br i1 %cmp.i.not, label %for.end, label %for.body, !llvm.loop !7
 
-24:                                               ; preds = %12
-  %25 = load ptr, ptr %2, align 8
-  %26 = getelementptr i8, ptr %25, i64 8
-  %27 = load ptr, ptr %26, align 8
-  br label %28
-
-28:                                               ; preds = %24, %5
-  %29 = phi ptr [ %27, %24 ], [ %8, %5 ]
-  %30 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 32), align 8
-  %31 = getelementptr inbounds %struct.MEMORY_RESOURCEHELP, ptr %30, i64 0, i32 4
-  %32 = load i32, ptr %31, align 8
-  %33 = sext i32 %32 to i64
-  %34 = load i64, ptr @memory_FREEDBYTES, align 8
-  %35 = add i64 %34, %33
-  store i64 %35, ptr @memory_FREEDBYTES, align 8
-  %36 = load ptr, ptr %30, align 8
-  store ptr %36, ptr %29, align 8
-  %37 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 32), align 8
-  store ptr %29, ptr %37, align 8
-  %38 = load ptr, ptr %2, align 8
-  %39 = load ptr, ptr %38, align 8
-  %40 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
-  %41 = getelementptr inbounds %struct.MEMORY_RESOURCEHELP, ptr %40, i64 0, i32 4
-  %42 = load i32, ptr %41, align 8
-  %43 = sext i32 %42 to i64
-  %44 = load i64, ptr @memory_FREEDBYTES, align 8
-  %45 = add i64 %44, %43
-  store i64 %45, ptr @memory_FREEDBYTES, align 8
-  %46 = load ptr, ptr %40, align 8
-  store ptr %46, ptr %38, align 8
-  %47 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
-  store ptr %38, ptr %47, align 8
-  store ptr %39, ptr %2, align 8
-  %48 = icmp eq ptr %39, null
-  br i1 %48, label %49, label %5, !llvm.loop !7
-
-49:                                               ; preds = %28, %1
-  %50 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 24), align 8
-  %51 = getelementptr inbounds %struct.MEMORY_RESOURCEHELP, ptr %50, i64 0, i32 4
-  %52 = load i32, ptr %51, align 8
-  %53 = sext i32 %52 to i64
-  %54 = load i64, ptr @memory_FREEDBYTES, align 8
-  %55 = add i64 %54, %53
-  store i64 %55, ptr @memory_FREEDBYTES, align 8
-  %56 = load ptr, ptr %50, align 8
-  store ptr %56, ptr %0, align 8
-  %57 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 24), align 8
-  store ptr %0, ptr %57, align 8
+for.end:                                          ; preds = %list_Delete.exit, %entry
+  %20 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 24), align 8
+  %total_size.i18 = getelementptr inbounds %struct.MEMORY_RESOURCEHELP, ptr %20, i64 0, i32 4
+  %21 = load i32, ptr %total_size.i18, align 8
+  %conv26.i19 = sext i32 %21 to i64
+  %22 = load i64, ptr @memory_FREEDBYTES, align 8
+  %add27.i20 = add i64 %22, %conv26.i19
+  store i64 %add27.i20, ptr @memory_FREEDBYTES, align 8
+  %23 = load ptr, ptr %20, align 8
+  store ptr %23, ptr %Graph, align 8
+  %24 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 24), align 8
+  store ptr %Graph, ptr %24, align 8
   ret void
 }
 
 ; Function Attrs: nofree norecurse nosync nounwind memory(read, inaccessiblemem: none) uwtable
-define dso_local ptr @graph_GetNode(ptr nocapture noundef readonly %0, i32 noundef %1) local_unnamed_addr #5 {
-  %3 = getelementptr inbounds %struct.GRAPH_STRUCT, ptr %0, i64 0, i32 1
-  br label %4
+define dso_local ptr @graph_GetNode(ptr nocapture noundef readonly %Graph, i32 noundef %Number) local_unnamed_addr #5 {
+entry:
+  %nodes = getelementptr inbounds %struct.GRAPH_STRUCT, ptr %Graph, i64 0, i32 1
+  br label %for.cond
 
-4:                                                ; preds = %8, %2
-  %5 = phi ptr [ %3, %2 ], [ %6, %8 ]
-  %6 = load ptr, ptr %5, align 8
-  %7 = icmp eq ptr %6, null
-  br i1 %7, label %13, label %8
+for.cond:                                         ; preds = %for.body, %entry
+  %scan.0.in = phi ptr [ %nodes, %entry ], [ %scan.0, %for.body ]
+  %scan.0 = load ptr, ptr %scan.0.in, align 8
+  %cmp.i.not = icmp eq ptr %scan.0, null
+  br i1 %cmp.i.not, label %cleanup, label %for.body
 
-8:                                                ; preds = %4
-  %9 = getelementptr i8, ptr %6, i64 8
-  %10 = load ptr, ptr %9, align 8
-  %11 = load i32, ptr %10, align 8
-  %12 = icmp eq i32 %11, %1
-  br i1 %12, label %13, label %4, !llvm.loop !8
+for.body:                                         ; preds = %for.cond
+  %0 = getelementptr i8, ptr %scan.0, i64 8
+  %scan.0.val8 = load ptr, ptr %0, align 8
+  %call1.val = load i32, ptr %scan.0.val8, align 8
+  %cmp = icmp eq i32 %call1.val, %Number
+  br i1 %cmp, label %cleanup, label %for.cond, !llvm.loop !8
 
-13:                                               ; preds = %4, %8
-  %14 = phi ptr [ %10, %8 ], [ null, %4 ]
-  ret ptr %14
+cleanup:                                          ; preds = %for.body, %for.cond
+  %retval.0 = phi ptr [ null, %for.cond ], [ %scan.0.val8, %for.body ]
+  ret ptr %retval.0
 }
 
 ; Function Attrs: nounwind uwtable
-define dso_local ptr @graph_AddNode(ptr nocapture noundef %0, i32 noundef %1) local_unnamed_addr #2 {
-  %3 = getelementptr inbounds %struct.GRAPH_STRUCT, ptr %0, i64 0, i32 1
-  br label %4
+define dso_local ptr @graph_AddNode(ptr nocapture noundef %Graph, i32 noundef %Number) local_unnamed_addr #2 {
+entry:
+  %nodes.i = getelementptr inbounds %struct.GRAPH_STRUCT, ptr %Graph, i64 0, i32 1
+  br label %for.cond.i
 
-4:                                                ; preds = %8, %2
-  %5 = phi ptr [ %3, %2 ], [ %6, %8 ]
-  %6 = load ptr, ptr %5, align 8
-  %7 = icmp eq ptr %6, null
-  br i1 %7, label %13, label %8
+for.cond.i:                                       ; preds = %for.body.i, %entry
+  %scan.0.in.i = phi ptr [ %nodes.i, %entry ], [ %scan.0.i, %for.body.i ]
+  %scan.0.i = load ptr, ptr %scan.0.in.i, align 8
+  %cmp.i.not.i = icmp eq ptr %scan.0.i, null
+  br i1 %cmp.i.not.i, label %if.then, label %for.body.i
 
-8:                                                ; preds = %4
-  %9 = getelementptr i8, ptr %6, i64 8
-  %10 = load ptr, ptr %9, align 8
-  %11 = load i32, ptr %10, align 8
-  %12 = icmp eq i32 %11, %1
-  br i1 %12, label %21, label %4, !llvm.loop !8
+for.body.i:                                       ; preds = %for.cond.i
+  %0 = getelementptr i8, ptr %scan.0.i, i64 8
+  %scan.0.val8.i = load ptr, ptr %0, align 8
+  %call1.val.i = load i32, ptr %scan.0.val8.i, align 8
+  %cmp.i = icmp eq i32 %call1.val.i, %Number
+  br i1 %cmp.i, label %if.end, label %for.cond.i, !llvm.loop !8
 
-13:                                               ; preds = %4
-  %14 = tail call ptr @memory_Malloc(i32 noundef 32) #7
-  %15 = load ptr, ptr %3, align 8
-  %16 = tail call ptr @memory_Malloc(i32 noundef 16) #7
-  %17 = getelementptr inbounds %struct.LIST_HELP, ptr %16, i64 0, i32 1
-  store ptr %14, ptr %17, align 8
-  store ptr %15, ptr %16, align 8
-  store ptr %16, ptr %3, align 8
-  store i32 %1, ptr %14, align 8
-  %18 = getelementptr inbounds %struct.GRAPHNODE_STRUCT, ptr %14, i64 0, i32 1
-  store i32 -1, ptr %18, align 4
-  %19 = getelementptr inbounds %struct.GRAPHNODE_STRUCT, ptr %14, i64 0, i32 2
-  store i32 -1, ptr %19, align 8
-  %20 = getelementptr inbounds %struct.GRAPHNODE_STRUCT, ptr %14, i64 0, i32 3
-  tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %20, i8 0, i64 16, i1 false)
-  br label %21
+if.then:                                          ; preds = %for.cond.i
+  %call1 = tail call ptr @memory_Malloc(i32 noundef 32) #7
+  %1 = load ptr, ptr %nodes.i, align 8
+  %call.i = tail call ptr @memory_Malloc(i32 noundef 16) #7
+  %car.i = getelementptr inbounds %struct.LIST_HELP, ptr %call.i, i64 0, i32 1
+  store ptr %call1, ptr %car.i, align 8
+  store ptr %1, ptr %call.i, align 8
+  store ptr %call.i, ptr %nodes.i, align 8
+  store i32 %Number, ptr %call1, align 8
+  %dfs_num = getelementptr inbounds %struct.GRAPHNODE_STRUCT, ptr %call1, i64 0, i32 1
+  store i32 -1, ptr %dfs_num, align 4
+  %comp_num = getelementptr inbounds %struct.GRAPHNODE_STRUCT, ptr %call1, i64 0, i32 2
+  store i32 -1, ptr %comp_num, align 8
+  %info = getelementptr inbounds %struct.GRAPHNODE_STRUCT, ptr %call1, i64 0, i32 3
+  tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %info, i8 0, i64 16, i1 false)
+  br label %if.end
 
-21:                                               ; preds = %8, %13
-  %22 = phi ptr [ %14, %13 ], [ %10, %8 ]
-  ret ptr %22
+if.end:                                           ; preds = %for.body.i, %if.then
+  %result.0 = phi ptr [ %call1, %if.then ], [ %scan.0.val8.i, %for.body.i ]
+  ret ptr %result.0
 }
 
 ; Function Attrs: nounwind uwtable
-define dso_local void @graph_AddEdge(ptr nocapture noundef %0, ptr noundef %1) local_unnamed_addr #2 {
-  %3 = getelementptr inbounds %struct.GRAPHNODE_STRUCT, ptr %0, i64 0, i32 4
-  %4 = load ptr, ptr %3, align 8
-  %5 = tail call ptr @memory_Malloc(i32 noundef 16) #7
-  %6 = getelementptr inbounds %struct.LIST_HELP, ptr %5, i64 0, i32 1
-  store ptr %1, ptr %6, align 8
-  store ptr %4, ptr %5, align 8
-  store ptr %5, ptr %3, align 8
+define dso_local void @graph_AddEdge(ptr nocapture noundef %From, ptr noundef %To) local_unnamed_addr #2 {
+entry:
+  %neighbors = getelementptr inbounds %struct.GRAPHNODE_STRUCT, ptr %From, i64 0, i32 4
+  %0 = load ptr, ptr %neighbors, align 8
+  %call.i = tail call ptr @memory_Malloc(i32 noundef 16) #7
+  %car.i = getelementptr inbounds %struct.LIST_HELP, ptr %call.i, i64 0, i32 1
+  store ptr %To, ptr %car.i, align 8
+  store ptr %0, ptr %call.i, align 8
+  store ptr %call.i, ptr %neighbors, align 8
   ret void
 }
 
 ; Function Attrs: nounwind uwtable
-define dso_local void @graph_DeleteEdge(ptr nocapture noundef %0, ptr noundef %1) local_unnamed_addr #2 {
-  %3 = getelementptr inbounds %struct.GRAPHNODE_STRUCT, ptr %0, i64 0, i32 4
-  %4 = load ptr, ptr %3, align 8
-  %5 = tail call ptr @list_PointerDeleteElement(ptr noundef %4, ptr noundef %1) #7
-  store ptr %5, ptr %3, align 8
+define dso_local void @graph_DeleteEdge(ptr nocapture noundef %From, ptr noundef %To) local_unnamed_addr #2 {
+entry:
+  %neighbors = getelementptr inbounds %struct.GRAPHNODE_STRUCT, ptr %From, i64 0, i32 4
+  %0 = load ptr, ptr %neighbors, align 8
+  %call = tail call ptr @list_PointerDeleteElement(ptr noundef %0, ptr noundef %To) #7
+  store ptr %call, ptr %neighbors, align 8
   ret void
 }
 
 declare ptr @list_PointerDeleteElement(ptr noundef, ptr noundef) local_unnamed_addr #3
 
 ; Function Attrs: nounwind uwtable
-define dso_local void @graph_DeleteDuplicateEdges(ptr nocapture noundef readonly %0) local_unnamed_addr #2 {
-  %2 = getelementptr i8, ptr %0, i64 8
-  %3 = load ptr, ptr %2, align 8
-  %4 = icmp eq ptr %3, null
-  br i1 %4, label %14, label %5
+define dso_local void @graph_DeleteDuplicateEdges(ptr nocapture noundef readonly %Graph) local_unnamed_addr #2 {
+entry:
+  %0 = getelementptr i8, ptr %Graph, i64 8
+  %scan.010 = load ptr, ptr %0, align 8
+  %cmp.i.not11 = icmp eq ptr %scan.010, null
+  br i1 %cmp.i.not11, label %for.end, label %for.body
 
-5:                                                ; preds = %1, %5
-  %6 = phi ptr [ %12, %5 ], [ %3, %1 ]
-  %7 = getelementptr i8, ptr %6, i64 8
-  %8 = load ptr, ptr %7, align 8
-  %9 = getelementptr inbounds %struct.GRAPHNODE_STRUCT, ptr %8, i64 0, i32 4
-  %10 = load ptr, ptr %9, align 8
-  %11 = tail call ptr @list_PointerDeleteDuplicates(ptr noundef %10) #7
-  store ptr %11, ptr %9, align 8
-  %12 = load ptr, ptr %6, align 8
-  %13 = icmp eq ptr %12, null
-  br i1 %13, label %14, label %5, !llvm.loop !9
+for.body:                                         ; preds = %entry, %for.body
+  %scan.012 = phi ptr [ %scan.0, %for.body ], [ %scan.010, %entry ]
+  %1 = getelementptr i8, ptr %scan.012, i64 8
+  %scan.0.val = load ptr, ptr %1, align 8
+  %neighbors = getelementptr inbounds %struct.GRAPHNODE_STRUCT, ptr %scan.0.val, i64 0, i32 4
+  %2 = load ptr, ptr %neighbors, align 8
+  %call3 = tail call ptr @list_PointerDeleteDuplicates(ptr noundef %2) #7
+  store ptr %call3, ptr %neighbors, align 8
+  %scan.0 = load ptr, ptr %scan.012, align 8
+  %cmp.i.not = icmp eq ptr %scan.0, null
+  br i1 %cmp.i.not, label %for.end, label %for.body, !llvm.loop !9
 
-14:                                               ; preds = %5, %1
+for.end:                                          ; preds = %for.body, %entry
   ret void
 }
 
 declare ptr @list_PointerDeleteDuplicates(ptr noundef) local_unnamed_addr #3
 
 ; Function Attrs: nounwind uwtable
-define dso_local void @graph_SortNodes(ptr nocapture noundef %0, ptr noundef %1) local_unnamed_addr #2 {
-  %3 = getelementptr i8, ptr %0, i64 8
-  %4 = load ptr, ptr %3, align 8
-  %5 = tail call ptr @list_Sort(ptr noundef %4, ptr noundef %1) #7
-  store ptr %5, ptr %3, align 8
+define dso_local void @graph_SortNodes(ptr nocapture noundef %Graph, ptr noundef %SortFunction) local_unnamed_addr #2 {
+entry:
+  %0 = getelementptr i8, ptr %Graph, i64 8
+  %Graph.val = load ptr, ptr %0, align 8
+  %call1 = tail call ptr @list_Sort(ptr noundef %Graph.val, ptr noundef %SortFunction) #7
+  store ptr %call1, ptr %0, align 8
   ret void
 }
 
 declare ptr @list_Sort(ptr noundef, ptr noundef) local_unnamed_addr #3
 
 ; Function Attrs: nounwind uwtable
-define dso_local i32 @graph_StronglyConnectedComponents(ptr nocapture noundef %0) local_unnamed_addr #2 {
-  %2 = getelementptr inbounds %struct.GRAPH_STRUCT, ptr %0, i64 0, i32 2
-  %3 = load i32, ptr %2, align 8
-  %4 = icmp eq i32 %3, 0
-  br i1 %4, label %19, label %5
+define dso_local i32 @graph_StronglyConnectedComponents(ptr nocapture noundef %Graph) local_unnamed_addr #2 {
+entry:
+  %dfscount = getelementptr inbounds %struct.GRAPH_STRUCT, ptr %Graph, i64 0, i32 2
+  %0 = load i32, ptr %dfscount, align 8
+  %cmp.not = icmp eq i32 %0, 0
+  br i1 %cmp.not, label %if.end, label %if.then
 
-5:                                                ; preds = %1
-  store i32 0, ptr %2, align 8
-  %6 = getelementptr inbounds %struct.GRAPH_STRUCT, ptr %0, i64 0, i32 3
-  store i32 0, ptr %6, align 4
-  %7 = getelementptr i8, ptr %0, i64 8
-  %8 = load ptr, ptr %7, align 8
-  %9 = icmp eq ptr %8, null
-  br i1 %9, label %19, label %10
+if.then:                                          ; preds = %entry
+  store i32 0, ptr %dfscount, align 8
+  %compcount.i = getelementptr inbounds %struct.GRAPH_STRUCT, ptr %Graph, i64 0, i32 3
+  store i32 0, ptr %compcount.i, align 4
+  %1 = getelementptr i8, ptr %Graph, i64 8
+  %scan.012.i = load ptr, ptr %1, align 8
+  %cmp.i.not13.i = icmp eq ptr %scan.012.i, null
+  br i1 %cmp.i.not13.i, label %if.end, label %for.body.i
 
-10:                                               ; preds = %5, %10
-  %11 = phi ptr [ %17, %10 ], [ %8, %5 ]
-  %12 = getelementptr i8, ptr %11, i64 8
-  %13 = load ptr, ptr %12, align 8
-  %14 = getelementptr inbounds %struct.GRAPHNODE_STRUCT, ptr %13, i64 0, i32 1
-  store i32 -1, ptr %14, align 4
-  %15 = load ptr, ptr %12, align 8
-  %16 = getelementptr inbounds %struct.GRAPHNODE_STRUCT, ptr %15, i64 0, i32 2
-  store i32 -1, ptr %16, align 8
-  %17 = load ptr, ptr %11, align 8
-  %18 = icmp eq ptr %17, null
-  br i1 %18, label %19, label %10, !llvm.loop !10
+for.body.i:                                       ; preds = %if.then, %for.body.i
+  %scan.014.i = phi ptr [ %scan.0.i, %for.body.i ], [ %scan.012.i, %if.then ]
+  %2 = getelementptr i8, ptr %scan.014.i, i64 8
+  %scan.0.val10.i = load ptr, ptr %2, align 8
+  %dfs_num.i.i = getelementptr inbounds %struct.GRAPHNODE_STRUCT, ptr %scan.0.val10.i, i64 0, i32 1
+  store i32 -1, ptr %dfs_num.i.i, align 4
+  %scan.0.val.i = load ptr, ptr %2, align 8
+  %comp_num.i.i = getelementptr inbounds %struct.GRAPHNODE_STRUCT, ptr %scan.0.val.i, i64 0, i32 2
+  store i32 -1, ptr %comp_num.i.i, align 8
+  %scan.0.i = load ptr, ptr %scan.014.i, align 8
+  %cmp.i.not.i = icmp eq ptr %scan.0.i, null
+  br i1 %cmp.i.not.i, label %if.end, label %for.body.i, !llvm.loop !10
 
-19:                                               ; preds = %10, %5, %1
+if.end:                                           ; preds = %for.body.i, %if.then, %entry
   store ptr null, ptr @graph_ROOTS, align 8
   store ptr null, ptr @graph_UNFINISHED, align 8
-  %20 = getelementptr i8, ptr %0, i64 8
-  %21 = load ptr, ptr %20, align 8
-  %22 = icmp eq ptr %21, null
-  br i1 %22, label %34, label %23
+  %3 = getelementptr i8, ptr %Graph, i64 8
+  %scan.022 = load ptr, ptr %3, align 8
+  %cmp.i.not23 = icmp eq ptr %scan.022, null
+  br i1 %cmp.i.not23, label %for.end, label %for.body
 
-23:                                               ; preds = %19, %31
-  %24 = phi ptr [ %32, %31 ], [ %21, %19 ]
-  %25 = getelementptr i8, ptr %24, i64 8
-  %26 = load ptr, ptr %25, align 8
-  %27 = getelementptr i8, ptr %26, i64 4
-  %28 = load i32, ptr %27, align 4
-  %29 = icmp sgt i32 %28, -1
-  br i1 %29, label %31, label %30
+for.body:                                         ; preds = %if.end, %for.inc
+  %scan.024 = phi ptr [ %scan.0, %for.inc ], [ %scan.022, %if.end ]
+  %4 = getelementptr i8, ptr %scan.024, i64 8
+  %scan.0.val18 = load ptr, ptr %4, align 8
+  %5 = getelementptr i8, ptr %scan.0.val18, i64 4
+  %call4.val = load i32, ptr %5, align 4
+  %cmp.i20 = icmp slt i32 %call4.val, 0
+  br i1 %cmp.i20, label %if.then7, label %for.inc
 
-30:                                               ; preds = %23
-  tail call fastcc void @graph_InternSCC(ptr noundef %0, ptr noundef nonnull %26)
-  br label %31
+if.then7:                                         ; preds = %for.body
+  tail call fastcc void @graph_InternSCC(ptr noundef %Graph, ptr noundef nonnull %scan.0.val18)
+  br label %for.inc
 
-31:                                               ; preds = %23, %30
-  %32 = load ptr, ptr %24, align 8
-  %33 = icmp eq ptr %32, null
-  br i1 %33, label %34, label %23, !llvm.loop !11
+for.inc:                                          ; preds = %for.body, %if.then7
+  %scan.0 = load ptr, ptr %scan.024, align 8
+  %cmp.i.not = icmp eq ptr %scan.0, null
+  br i1 %cmp.i.not, label %for.end, label %for.body, !llvm.loop !11
 
-34:                                               ; preds = %31, %19
-  %35 = getelementptr inbounds %struct.GRAPH_STRUCT, ptr %0, i64 0, i32 3
-  %36 = load i32, ptr %35, align 4
-  ret i32 %36
+for.end:                                          ; preds = %for.inc, %if.end
+  %compcount = getelementptr inbounds %struct.GRAPH_STRUCT, ptr %Graph, i64 0, i32 3
+  %6 = load i32, ptr %compcount, align 4
+  ret i32 %6
 }
 
 ; Function Attrs: nounwind uwtable
-define internal fastcc void @graph_InternSCC(ptr nocapture noundef %0, ptr noundef %1) unnamed_addr #2 {
-  %3 = getelementptr inbounds %struct.GRAPH_STRUCT, ptr %0, i64 0, i32 2
-  %4 = load i32, ptr %3, align 8
-  %5 = add i32 %4, 1
-  store i32 %5, ptr %3, align 8
-  %6 = getelementptr inbounds %struct.GRAPHNODE_STRUCT, ptr %1, i64 0, i32 1
-  store i32 %4, ptr %6, align 4
-  %7 = load ptr, ptr @graph_UNFINISHED, align 8
-  %8 = tail call ptr @memory_Malloc(i32 noundef 16) #7
-  %9 = getelementptr inbounds %struct.LIST_HELP, ptr %8, i64 0, i32 1
-  store ptr %1, ptr %9, align 8
-  store ptr %7, ptr %8, align 8
-  store ptr %8, ptr @graph_UNFINISHED, align 8
-  %10 = load ptr, ptr @graph_ROOTS, align 8
-  %11 = tail call ptr @memory_Malloc(i32 noundef 16) #7
-  %12 = getelementptr inbounds %struct.LIST_HELP, ptr %11, i64 0, i32 1
-  store ptr %1, ptr %12, align 8
-  store ptr %10, ptr %11, align 8
-  store ptr %11, ptr @graph_ROOTS, align 8
-  %13 = getelementptr i8, ptr %1, i64 24
-  %14 = load ptr, ptr %13, align 8
-  %15 = icmp eq ptr %14, null
-  br i1 %15, label %54, label %16
+define internal fastcc void @graph_InternSCC(ptr nocapture noundef %Graph, ptr noundef %Node) unnamed_addr #2 {
+entry:
+  %dfscount = getelementptr inbounds %struct.GRAPH_STRUCT, ptr %Graph, i64 0, i32 2
+  %0 = load i32, ptr %dfscount, align 8
+  %inc = add i32 %0, 1
+  store i32 %inc, ptr %dfscount, align 8
+  %dfs_num.i = getelementptr inbounds %struct.GRAPHNODE_STRUCT, ptr %Node, i64 0, i32 1
+  store i32 %0, ptr %dfs_num.i, align 4
+  %1 = load ptr, ptr @graph_UNFINISHED, align 8
+  %call.i.i = tail call ptr @memory_Malloc(i32 noundef 16) #7
+  %car.i.i = getelementptr inbounds %struct.LIST_HELP, ptr %call.i.i, i64 0, i32 1
+  store ptr %Node, ptr %car.i.i, align 8
+  store ptr %1, ptr %call.i.i, align 8
+  store ptr %call.i.i, ptr @graph_UNFINISHED, align 8
+  %2 = load ptr, ptr @graph_ROOTS, align 8
+  %call.i.i57 = tail call ptr @memory_Malloc(i32 noundef 16) #7
+  %car.i.i58 = getelementptr inbounds %struct.LIST_HELP, ptr %call.i.i57, i64 0, i32 1
+  store ptr %Node, ptr %car.i.i58, align 8
+  store ptr %2, ptr %call.i.i57, align 8
+  store ptr %call.i.i57, ptr @graph_ROOTS, align 8
+  %3 = getelementptr i8, ptr %Node, i64 24
+  %scan.076 = load ptr, ptr %3, align 8
+  %cmp.i.not77 = icmp eq ptr %scan.076, null
+  br i1 %cmp.i.not77, label %for.end, label %for.body
 
-16:                                               ; preds = %2, %49
-  %17 = phi ptr [ %50, %49 ], [ %14, %2 ]
-  %18 = getelementptr i8, ptr %17, i64 8
-  %19 = load ptr, ptr %18, align 8
-  %20 = getelementptr i8, ptr %19, i64 4
-  %21 = load i32, ptr %20, align 4
-  %22 = icmp sgt i32 %21, -1
-  br i1 %22, label %24, label %23
+for.body:                                         ; preds = %entry, %for.inc
+  %scan.078 = phi ptr [ %scan.0, %for.inc ], [ %scan.076, %entry ]
+  %4 = getelementptr i8, ptr %scan.078, i64 8
+  %scan.0.val = load ptr, ptr %4, align 8
+  %5 = getelementptr i8, ptr %scan.0.val, i64 4
+  %call4.val52 = load i32, ptr %5, align 4
+  %cmp.i59 = icmp slt i32 %call4.val52, 0
+  br i1 %cmp.i59, label %if.then, label %if.else
 
-23:                                               ; preds = %16
-  tail call fastcc void @graph_InternSCC(ptr noundef %0, ptr noundef nonnull %19)
-  br label %49
+if.then:                                          ; preds = %for.body
+  tail call fastcc void @graph_InternSCC(ptr noundef %Graph, ptr noundef nonnull %scan.0.val)
+  br label %for.inc
 
-24:                                               ; preds = %16
-  %25 = getelementptr i8, ptr %19, i64 8
-  %26 = load i32, ptr %25, align 8
-  %27 = icmp sgt i32 %26, -1
-  %28 = load ptr, ptr @graph_ROOTS, align 8
-  %29 = icmp eq ptr %28, null
-  %30 = select i1 %27, i1 true, i1 %29
-  br i1 %30, label %49, label %31
+if.else:                                          ; preds = %for.body
+  %6 = getelementptr i8, ptr %scan.0.val, i64 8
+  %call4.val53 = load i32, ptr %6, align 8
+  %cmp.i61 = icmp sgt i32 %call4.val53, -1
+  %graph_ROOTS.promoted = load ptr, ptr @graph_ROOTS, align 8
+  %cmp.i.i.not74 = icmp eq ptr %graph_ROOTS.promoted, null
+  %or.cond = select i1 %cmp.i61, i1 true, i1 %cmp.i.i.not74
+  br i1 %or.cond, label %for.inc, label %land.rhs
 
-31:                                               ; preds = %24, %38
-  %32 = phi ptr [ %39, %38 ], [ %28, %24 ]
-  %33 = getelementptr i8, ptr %32, i64 8
-  %34 = load ptr, ptr %33, align 8
-  %35 = getelementptr i8, ptr %34, i64 4
-  %36 = load i32, ptr %35, align 4
-  %37 = icmp ugt i32 %36, %21
-  br i1 %37, label %38, label %49
+land.rhs:                                         ; preds = %if.else, %while.body
+  %L.val.i7375 = phi ptr [ %L.val.i, %while.body ], [ %graph_ROOTS.promoted, %if.else ]
+  %7 = getelementptr i8, ptr %L.val.i7375, i64 8
+  %.val56 = load ptr, ptr %7, align 8
+  %8 = getelementptr i8, ptr %.val56, i64 4
+  %call13.val = load i32, ptr %8, align 4
+  %cmp = icmp ugt i32 %call13.val, %call4.val52
+  br i1 %cmp, label %while.body, label %for.inc
 
-38:                                               ; preds = %31
-  %39 = load ptr, ptr %32, align 8
-  %40 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
-  %41 = getelementptr inbounds %struct.MEMORY_RESOURCEHELP, ptr %40, i64 0, i32 4
-  %42 = load i32, ptr %41, align 8
-  %43 = sext i32 %42 to i64
-  %44 = load i64, ptr @memory_FREEDBYTES, align 8
-  %45 = add i64 %44, %43
-  store i64 %45, ptr @memory_FREEDBYTES, align 8
-  %46 = load ptr, ptr %40, align 8
-  store ptr %46, ptr %32, align 8
-  %47 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
-  store ptr %32, ptr %47, align 8
-  store ptr %39, ptr @graph_ROOTS, align 8
-  %48 = icmp eq ptr %39, null
-  br i1 %48, label %49, label %31, !llvm.loop !12
+while.body:                                       ; preds = %land.rhs
+  %L.val.i = load ptr, ptr %L.val.i7375, align 8
+  %9 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
+  %total_size.i.i.i = getelementptr inbounds %struct.MEMORY_RESOURCEHELP, ptr %9, i64 0, i32 4
+  %10 = load i32, ptr %total_size.i.i.i, align 8
+  %conv26.i.i.i = sext i32 %10 to i64
+  %11 = load i64, ptr @memory_FREEDBYTES, align 8
+  %add27.i.i.i = add i64 %11, %conv26.i.i.i
+  store i64 %add27.i.i.i, ptr @memory_FREEDBYTES, align 8
+  %12 = load ptr, ptr %9, align 8
+  store ptr %12, ptr %L.val.i7375, align 8
+  %13 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
+  store ptr %L.val.i7375, ptr %13, align 8
+  store ptr %L.val.i, ptr @graph_ROOTS, align 8
+  %cmp.i.i.not = icmp eq ptr %L.val.i, null
+  br i1 %cmp.i.i.not, label %for.inc, label %land.rhs, !llvm.loop !12
 
-49:                                               ; preds = %38, %31, %23, %24
-  %50 = load ptr, ptr %17, align 8
-  %51 = icmp eq ptr %50, null
-  br i1 %51, label %52, label %16, !llvm.loop !13
+for.inc:                                          ; preds = %while.body, %land.rhs, %if.then, %if.else
+  %scan.0 = load ptr, ptr %scan.078, align 8
+  %cmp.i.not = icmp eq ptr %scan.0, null
+  br i1 %cmp.i.not, label %for.end.loopexit, label %for.body, !llvm.loop !13
 
-52:                                               ; preds = %49
-  %53 = load ptr, ptr @graph_ROOTS, align 8
-  br label %54
+for.end.loopexit:                                 ; preds = %for.inc
+  %.pre = load ptr, ptr @graph_ROOTS, align 8
+  br label %for.end
 
-54:                                               ; preds = %52, %2
-  %55 = phi ptr [ %53, %52 ], [ %11, %2 ]
-  %56 = getelementptr i8, ptr %55, i64 8
-  %57 = load ptr, ptr %56, align 8
-  %58 = icmp eq ptr %57, %1
-  br i1 %58, label %59, label %97
+for.end:                                          ; preds = %for.end.loopexit, %entry
+  %14 = phi ptr [ %.pre, %for.end.loopexit ], [ %call.i.i57, %entry ]
+  %15 = getelementptr i8, ptr %14, i64 8
+  %.val55 = load ptr, ptr %15, align 8
+  %cmp19 = icmp eq ptr %.val55, %Node
+  br i1 %cmp19, label %while.cond21.preheader, label %if.end36
 
-59:                                               ; preds = %54
-  %60 = load ptr, ptr @graph_UNFINISHED, align 8
-  %61 = icmp eq ptr %60, null
-  br i1 %61, label %84, label %62
+while.cond21.preheader:                           ; preds = %for.end
+  %graph_UNFINISHED.promoted = load ptr, ptr @graph_UNFINISHED, align 8
+  %cmp.i.i63.not80 = icmp eq ptr %graph_UNFINISHED.promoted, null
+  br i1 %cmp.i.i63.not80, label %while.end32, label %land.rhs24.lr.ph
 
-62:                                               ; preds = %59
-  %63 = getelementptr inbounds %struct.GRAPH_STRUCT, ptr %0, i64 0, i32 3
-  br label %64
+land.rhs24.lr.ph:                                 ; preds = %while.cond21.preheader
+  %compcount = getelementptr inbounds %struct.GRAPH_STRUCT, ptr %Graph, i64 0, i32 3
+  br label %land.rhs24
 
-64:                                               ; preds = %62, %71
-  %65 = phi ptr [ %60, %62 ], [ %72, %71 ]
-  %66 = getelementptr i8, ptr %65, i64 8
-  %67 = load ptr, ptr %66, align 8
-  %68 = getelementptr i8, ptr %67, i64 4
-  %69 = load i32, ptr %68, align 4
-  %70 = icmp ult i32 %69, %4
-  br i1 %70, label %84, label %71
+land.rhs24:                                       ; preds = %land.rhs24.lr.ph, %while.body29
+  %L.val.i657981 = phi ptr [ %graph_UNFINISHED.promoted, %land.rhs24.lr.ph ], [ %L.val.i65, %while.body29 ]
+  %16 = getelementptr i8, ptr %L.val.i657981, i64 8
+  %.val54 = load ptr, ptr %16, align 8
+  %17 = getelementptr i8, ptr %.val54, i64 4
+  %call25.val = load i32, ptr %17, align 4
+  %cmp27.not = icmp ult i32 %call25.val, %0
+  br i1 %cmp27.not, label %while.end32, label %while.body29
 
-71:                                               ; preds = %64
-  %72 = load ptr, ptr %65, align 8
-  %73 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
-  %74 = getelementptr inbounds %struct.MEMORY_RESOURCEHELP, ptr %73, i64 0, i32 4
-  %75 = load i32, ptr %74, align 8
-  %76 = sext i32 %75 to i64
-  %77 = load i64, ptr @memory_FREEDBYTES, align 8
-  %78 = add i64 %77, %76
-  store i64 %78, ptr @memory_FREEDBYTES, align 8
-  %79 = load ptr, ptr %73, align 8
-  store ptr %79, ptr %65, align 8
-  %80 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
-  store ptr %65, ptr %80, align 8
-  store ptr %72, ptr @graph_UNFINISHED, align 8
-  %81 = load i32, ptr %63, align 4
-  %82 = getelementptr inbounds %struct.GRAPHNODE_STRUCT, ptr %67, i64 0, i32 2
-  store i32 %81, ptr %82, align 8
-  %83 = icmp eq ptr %72, null
-  br i1 %83, label %84, label %64, !llvm.loop !14
+while.body29:                                     ; preds = %land.rhs24
+  %L.val.i65 = load ptr, ptr %L.val.i657981, align 8
+  %18 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
+  %total_size.i.i.i66 = getelementptr inbounds %struct.MEMORY_RESOURCEHELP, ptr %18, i64 0, i32 4
+  %19 = load i32, ptr %total_size.i.i.i66, align 8
+  %conv26.i.i.i67 = sext i32 %19 to i64
+  %20 = load i64, ptr @memory_FREEDBYTES, align 8
+  %add27.i.i.i68 = add i64 %20, %conv26.i.i.i67
+  store i64 %add27.i.i.i68, ptr @memory_FREEDBYTES, align 8
+  %21 = load ptr, ptr %18, align 8
+  store ptr %21, ptr %L.val.i657981, align 8
+  %22 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
+  store ptr %L.val.i657981, ptr %22, align 8
+  store ptr %L.val.i65, ptr @graph_UNFINISHED, align 8
+  %23 = load i32, ptr %compcount, align 4
+  %comp_num.i = getelementptr inbounds %struct.GRAPHNODE_STRUCT, ptr %.val54, i64 0, i32 2
+  store i32 %23, ptr %comp_num.i, align 8
+  %cmp.i.i63.not = icmp eq ptr %L.val.i65, null
+  br i1 %cmp.i.i63.not, label %while.end32, label %land.rhs24, !llvm.loop !14
 
-84:                                               ; preds = %64, %71, %59
-  %85 = getelementptr inbounds %struct.GRAPH_STRUCT, ptr %0, i64 0, i32 3
-  %86 = load i32, ptr %85, align 4
-  %87 = add i32 %86, 1
-  store i32 %87, ptr %85, align 4
-  %88 = load ptr, ptr %55, align 8
-  %89 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
-  %90 = getelementptr inbounds %struct.MEMORY_RESOURCEHELP, ptr %89, i64 0, i32 4
-  %91 = load i32, ptr %90, align 8
-  %92 = sext i32 %91 to i64
-  %93 = load i64, ptr @memory_FREEDBYTES, align 8
-  %94 = add i64 %93, %92
-  store i64 %94, ptr @memory_FREEDBYTES, align 8
-  %95 = load ptr, ptr %89, align 8
-  store ptr %95, ptr %55, align 8
-  %96 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
-  store ptr %55, ptr %96, align 8
-  store ptr %88, ptr @graph_ROOTS, align 8
-  br label %97
+while.end32:                                      ; preds = %land.rhs24, %while.body29, %while.cond21.preheader
+  %compcount33 = getelementptr inbounds %struct.GRAPH_STRUCT, ptr %Graph, i64 0, i32 3
+  %24 = load i32, ptr %compcount33, align 4
+  %inc34 = add i32 %24, 1
+  store i32 %inc34, ptr %compcount33, align 4
+  %L.val.i69 = load ptr, ptr %14, align 8
+  %25 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
+  %total_size.i.i.i70 = getelementptr inbounds %struct.MEMORY_RESOURCEHELP, ptr %25, i64 0, i32 4
+  %26 = load i32, ptr %total_size.i.i.i70, align 8
+  %conv26.i.i.i71 = sext i32 %26 to i64
+  %27 = load i64, ptr @memory_FREEDBYTES, align 8
+  %add27.i.i.i72 = add i64 %27, %conv26.i.i.i71
+  store i64 %add27.i.i.i72, ptr @memory_FREEDBYTES, align 8
+  %28 = load ptr, ptr %25, align 8
+  store ptr %28, ptr %14, align 8
+  %29 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
+  store ptr %14, ptr %29, align 8
+  store ptr %L.val.i69, ptr @graph_ROOTS, align 8
+  br label %if.end36
 
-97:                                               ; preds = %84, %54
+if.end36:                                         ; preds = %while.end32, %for.end
   ret void
 }
 
 ; Function Attrs: nofree nounwind uwtable
-define dso_local void @graph_Print(ptr nocapture noundef readonly %0) local_unnamed_addr #0 {
-  %2 = getelementptr i8, ptr %0, i64 8
-  %3 = load ptr, ptr %2, align 8
-  %4 = icmp eq ptr %3, null
-  br i1 %4, label %26, label %8
+define dso_local void @graph_Print(ptr nocapture noundef readonly %Graph) local_unnamed_addr #0 {
+entry:
+  %0 = getelementptr i8, ptr %Graph, i64 8
+  %scan1.032 = load ptr, ptr %0, align 8
+  %cmp.i.not33 = icmp eq ptr %scan1.032, null
+  br i1 %cmp.i.not33, label %for.end18, label %for.body
 
-5:                                                ; preds = %18, %8
-  %6 = load ptr, ptr %9, align 8
-  %7 = icmp eq ptr %6, null
-  br i1 %7, label %26, label %8, !llvm.loop !15
+for.cond.loopexit:                                ; preds = %for.body11, %for.body
+  %scan1.0 = load ptr, ptr %scan1.034, align 8
+  %cmp.i.not = icmp eq ptr %scan1.0, null
+  br i1 %cmp.i.not, label %for.end18, label %for.body, !llvm.loop !15
 
-8:                                                ; preds = %1, %5
-  %9 = phi ptr [ %6, %5 ], [ %3, %1 ]
-  %10 = getelementptr i8, ptr %9, i64 8
-  %11 = load ptr, ptr %10, align 8
-  %12 = load i32, ptr %11, align 8
-  %13 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.1, i32 noundef %12)
-  %14 = load ptr, ptr %10, align 8
-  %15 = getelementptr i8, ptr %14, i64 24
-  %16 = load ptr, ptr %15, align 8
-  %17 = icmp eq ptr %16, null
-  br i1 %17, label %5, label %18
+for.body:                                         ; preds = %entry, %for.cond.loopexit
+  %scan1.034 = phi ptr [ %scan1.0, %for.cond.loopexit ], [ %scan1.032, %entry ]
+  %1 = getelementptr i8, ptr %scan1.034, i64 8
+  %scan1.0.val24 = load ptr, ptr %1, align 8
+  %call2.val = load i32, ptr %scan1.0.val24, align 8
+  %call4 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.1, i32 noundef %call2.val)
+  %scan1.0.val = load ptr, ptr %1, align 8
+  %2 = getelementptr i8, ptr %scan1.0.val, i64 24
+  %scan2.029 = load ptr, ptr %2, align 8
+  %cmp.i27.not30 = icmp eq ptr %scan2.029, null
+  br i1 %cmp.i27.not30, label %for.cond.loopexit, label %for.body11
 
-18:                                               ; preds = %8, %18
-  %19 = phi ptr [ %24, %18 ], [ %16, %8 ]
-  %20 = getelementptr i8, ptr %19, i64 8
-  %21 = load ptr, ptr %20, align 8
-  %22 = load i32, ptr %21, align 8
-  %23 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.2, i32 noundef %22)
-  %24 = load ptr, ptr %19, align 8
-  %25 = icmp eq ptr %24, null
-  br i1 %25, label %5, label %18, !llvm.loop !16
+for.body11:                                       ; preds = %for.body, %for.body11
+  %scan2.031 = phi ptr [ %scan2.0, %for.body11 ], [ %scan2.029, %for.body ]
+  %3 = getelementptr i8, ptr %scan2.031, i64 8
+  %scan2.0.val = load ptr, ptr %3, align 8
+  %call12.val = load i32, ptr %scan2.0.val, align 8
+  %call14 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.2, i32 noundef %call12.val)
+  %scan2.0 = load ptr, ptr %scan2.031, align 8
+  %cmp.i27.not = icmp eq ptr %scan2.0, null
+  br i1 %cmp.i27.not, label %for.cond.loopexit, label %for.body11, !llvm.loop !16
 
-26:                                               ; preds = %5, %1
+for.end18:                                        ; preds = %for.cond.loopexit, %entry
   ret void
 }
 

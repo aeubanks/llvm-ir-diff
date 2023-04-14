@@ -13,171 +13,177 @@ target triple = "x86_64-unknown-linux-gnu"
 @.str.9 = private unnamed_addr constant [42 x i8] c"li2 first value wrong, wanted %d, got %d\0A\00", align 1
 @.str.12 = private unnamed_addr constant [4 x i8] c"%d\0A\00", align 1
 @str = private unnamed_addr constant [33 x i8] c"[last entry points to list head]\00", align 1
-@str.17 = private unnamed_addr constant [26 x i8] c"li2 and li1 are not equal\00", align 1
-@str.18 = private unnamed_addr constant [26 x i8] c"li1 and li2 are not equal\00", align 1
+@str.13 = private unnamed_addr constant [26 x i8] c"li2 and li1 are not equal\00", align 1
+@str.16 = private unnamed_addr constant [26 x i8] c"li1 and li2 are not equal\00", align 1
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(write, argmem: readwrite, inaccessiblemem: none) uwtable
-define dso_local void @list_push_tail(ptr noundef %0, ptr noundef %1) local_unnamed_addr #0 {
-  %3 = getelementptr inbounds %struct.DLL, ptr %0, i64 0, i32 2
-  %4 = load ptr, ptr %3, align 8, !tbaa !5
-  %5 = getelementptr inbounds %struct.DLL, ptr %4, i64 0, i32 1
-  store ptr %1, ptr %5, align 8, !tbaa !11
-  %6 = getelementptr inbounds %struct.DLL, ptr %1, i64 0, i32 1
-  store ptr %0, ptr %6, align 8, !tbaa !11
-  store ptr %1, ptr %3, align 8, !tbaa !5
-  %7 = getelementptr inbounds %struct.DLL, ptr %1, i64 0, i32 2
-  store ptr %4, ptr %7, align 8, !tbaa !5
-  %8 = load i32, ptr %0, align 8, !tbaa !12
-  %9 = add nsw i32 %8, 1
-  store i32 %9, ptr %0, align 8, !tbaa !12
+define dso_local void @list_push_tail(ptr noundef %head, ptr noundef %item) local_unnamed_addr #0 {
+entry:
+  %prev = getelementptr inbounds %struct.DLL, ptr %head, i64 0, i32 2
+  %0 = load ptr, ptr %prev, align 8, !tbaa !5
+  %next = getelementptr inbounds %struct.DLL, ptr %0, i64 0, i32 1
+  store ptr %item, ptr %next, align 8, !tbaa !11
+  %next1 = getelementptr inbounds %struct.DLL, ptr %item, i64 0, i32 1
+  store ptr %head, ptr %next1, align 8, !tbaa !11
+  store ptr %item, ptr %prev, align 8, !tbaa !5
+  %prev3 = getelementptr inbounds %struct.DLL, ptr %item, i64 0, i32 2
+  store ptr %0, ptr %prev3, align 8, !tbaa !5
+  %1 = load i32, ptr %head, align 8, !tbaa !12
+  %inc = add nsw i32 %1, 1
+  store i32 %inc, ptr %head, align 8, !tbaa !12
   ret void
 }
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(readwrite, inaccessiblemem: none) uwtable
-define dso_local ptr @list_pop_tail(ptr noundef %0) local_unnamed_addr #1 {
-  %2 = load i32, ptr %0, align 8, !tbaa !12
-  %3 = icmp eq i32 %2, 0
-  br i1 %3, label %11, label %4
+define dso_local ptr @list_pop_tail(ptr noundef %head) local_unnamed_addr #1 {
+entry:
+  %head.val = load i32, ptr %head, align 8, !tbaa !12
+  %cmp.i.not = icmp eq i32 %head.val, 0
+  br i1 %cmp.i.not, label %cleanup, label %if.end
 
-4:                                                ; preds = %1
-  %5 = getelementptr inbounds %struct.DLL, ptr %0, i64 0, i32 2
-  %6 = load ptr, ptr %5, align 8, !tbaa !5
-  %7 = getelementptr inbounds %struct.DLL, ptr %6, i64 0, i32 2
-  %8 = load ptr, ptr %7, align 8, !tbaa !5
-  %9 = getelementptr inbounds %struct.DLL, ptr %8, i64 0, i32 1
-  store ptr %0, ptr %9, align 8, !tbaa !11
-  store ptr %8, ptr %5, align 8, !tbaa !5
-  %10 = add nsw i32 %2, -1
-  store i32 %10, ptr %0, align 8, !tbaa !12
-  br label %11
+if.end:                                           ; preds = %entry
+  %prev1 = getelementptr inbounds %struct.DLL, ptr %head, i64 0, i32 2
+  %0 = load ptr, ptr %prev1, align 8, !tbaa !5
+  %prev2 = getelementptr inbounds %struct.DLL, ptr %0, i64 0, i32 2
+  %1 = load ptr, ptr %prev2, align 8, !tbaa !5
+  %next = getelementptr inbounds %struct.DLL, ptr %1, i64 0, i32 1
+  store ptr %head, ptr %next, align 8, !tbaa !11
+  store ptr %1, ptr %prev1, align 8, !tbaa !5
+  %dec = add nsw i32 %head.val, -1
+  store i32 %dec, ptr %head, align 8, !tbaa !12
+  br label %cleanup
 
-11:                                               ; preds = %1, %4
-  %12 = phi ptr [ %6, %4 ], [ null, %1 ]
-  ret ptr %12
+cleanup:                                          ; preds = %entry, %if.end
+  %retval.0 = phi ptr [ %0, %if.end ], [ null, %entry ]
+  ret ptr %retval.0
 }
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(write, argmem: readwrite, inaccessiblemem: none) uwtable
-define dso_local void @list_push_head(ptr noundef %0, ptr noundef %1) local_unnamed_addr #0 {
-  %3 = getelementptr inbounds %struct.DLL, ptr %0, i64 0, i32 1
-  %4 = load ptr, ptr %3, align 8, !tbaa !11
-  store ptr %1, ptr %3, align 8, !tbaa !11
-  %5 = getelementptr inbounds %struct.DLL, ptr %4, i64 0, i32 2
-  store ptr %1, ptr %5, align 8, !tbaa !5
-  %6 = getelementptr inbounds %struct.DLL, ptr %1, i64 0, i32 1
-  store ptr %4, ptr %6, align 8, !tbaa !11
-  %7 = getelementptr inbounds %struct.DLL, ptr %1, i64 0, i32 2
-  store ptr %0, ptr %7, align 8, !tbaa !5
-  %8 = load i32, ptr %0, align 8, !tbaa !12
-  %9 = add nsw i32 %8, 1
-  store i32 %9, ptr %0, align 8, !tbaa !12
+define dso_local void @list_push_head(ptr noundef %head, ptr noundef %item) local_unnamed_addr #0 {
+entry:
+  %next1 = getelementptr inbounds %struct.DLL, ptr %head, i64 0, i32 1
+  %0 = load ptr, ptr %next1, align 8, !tbaa !11
+  store ptr %item, ptr %next1, align 8, !tbaa !11
+  %prev = getelementptr inbounds %struct.DLL, ptr %0, i64 0, i32 2
+  store ptr %item, ptr %prev, align 8, !tbaa !5
+  %next3 = getelementptr inbounds %struct.DLL, ptr %item, i64 0, i32 1
+  store ptr %0, ptr %next3, align 8, !tbaa !11
+  %prev4 = getelementptr inbounds %struct.DLL, ptr %item, i64 0, i32 2
+  store ptr %head, ptr %prev4, align 8, !tbaa !5
+  %1 = load i32, ptr %head, align 8, !tbaa !12
+  %inc = add nsw i32 %1, 1
+  store i32 %inc, ptr %head, align 8, !tbaa !12
   ret void
 }
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(readwrite, inaccessiblemem: none) uwtable
-define dso_local ptr @list_pop_head(ptr noundef %0) local_unnamed_addr #1 {
-  %2 = load i32, ptr %0, align 8, !tbaa !12
-  %3 = icmp eq i32 %2, 0
-  br i1 %3, label %12, label %4
+define dso_local ptr @list_pop_head(ptr noundef %head) local_unnamed_addr #1 {
+entry:
+  %head.val = load i32, ptr %head, align 8, !tbaa !12
+  %cmp.i.not = icmp eq i32 %head.val, 0
+  br i1 %cmp.i.not, label %cleanup, label %if.end
 
-4:                                                ; preds = %1
-  %5 = getelementptr inbounds %struct.DLL, ptr %0, i64 0, i32 1
-  %6 = load ptr, ptr %5, align 8, !tbaa !11
-  %7 = getelementptr inbounds %struct.DLL, ptr %6, i64 0, i32 1
-  %8 = load ptr, ptr %7, align 8, !tbaa !11
-  store ptr %8, ptr %5, align 8, !tbaa !11
-  %9 = load ptr, ptr %7, align 8, !tbaa !11
-  %10 = getelementptr inbounds %struct.DLL, ptr %9, i64 0, i32 2
-  store ptr %0, ptr %10, align 8, !tbaa !5
-  %11 = add nsw i32 %2, -1
-  store i32 %11, ptr %0, align 8, !tbaa !12
-  br label %12
+if.end:                                           ; preds = %entry
+  %next1 = getelementptr inbounds %struct.DLL, ptr %head, i64 0, i32 1
+  %0 = load ptr, ptr %next1, align 8, !tbaa !11
+  %next2 = getelementptr inbounds %struct.DLL, ptr %0, i64 0, i32 1
+  %1 = load ptr, ptr %next2, align 8, !tbaa !11
+  store ptr %1, ptr %next1, align 8, !tbaa !11
+  %2 = load ptr, ptr %next2, align 8, !tbaa !11
+  %prev = getelementptr inbounds %struct.DLL, ptr %2, i64 0, i32 2
+  store ptr %head, ptr %prev, align 8, !tbaa !5
+  %dec = add nsw i32 %head.val, -1
+  store i32 %dec, ptr %head, align 8, !tbaa !12
+  br label %cleanup
 
-12:                                               ; preds = %1, %4
-  %13 = phi ptr [ %6, %4 ], [ null, %1 ]
-  ret ptr %13
+cleanup:                                          ; preds = %entry, %if.end
+  %retval.0 = phi ptr [ %0, %if.end ], [ null, %entry ]
+  ret ptr %retval.0
 }
 
 ; Function Attrs: nofree norecurse nosync nounwind memory(read, inaccessiblemem: none) uwtable
-define dso_local i32 @list_equal(ptr noundef readonly %0, ptr noundef readonly %1) local_unnamed_addr #2 {
-  %3 = getelementptr inbounds %struct.DLL, ptr %0, i64 0, i32 1
-  %4 = load ptr, ptr %3, align 8, !tbaa !11
-  %5 = icmp eq ptr %4, %0
-  br i1 %5, label %19, label %6
+define dso_local i32 @list_equal(ptr noundef readonly %x, ptr noundef readonly %y) local_unnamed_addr #2 {
+entry:
+  %next23 = getelementptr inbounds %struct.DLL, ptr %x, i64 0, i32 1
+  %0 = load ptr, ptr %next23, align 8, !tbaa !11
+  %cmp.not24 = icmp eq ptr %0, %x
+  br i1 %cmp.not24, label %for.end, label %for.body
 
-6:                                                ; preds = %2, %13
-  %7 = phi ptr [ %17, %13 ], [ %4, %2 ]
-  %8 = phi ptr [ %15, %13 ], [ %1, %2 ]
-  %9 = phi ptr [ %7, %13 ], [ %0, %2 ]
-  %10 = load i32, ptr %9, align 8, !tbaa !12
-  %11 = load i32, ptr %8, align 8, !tbaa !12
-  %12 = icmp eq i32 %10, %11
-  br i1 %12, label %13, label %30
+for.body:                                         ; preds = %entry, %for.inc
+  %1 = phi ptr [ %5, %for.inc ], [ %0, %entry ]
+  %yp.026 = phi ptr [ %4, %for.inc ], [ %y, %entry ]
+  %xp.025 = phi ptr [ %1, %for.inc ], [ %x, %entry ]
+  %2 = load i32, ptr %xp.025, align 8, !tbaa !12
+  %3 = load i32, ptr %yp.026, align 8, !tbaa !12
+  %cmp2.not = icmp eq i32 %2, %3
+  br i1 %cmp2.not, label %for.inc, label %cleanup
 
-13:                                               ; preds = %6
-  %14 = getelementptr inbounds %struct.DLL, ptr %8, i64 0, i32 1
-  %15 = load ptr, ptr %14, align 8, !tbaa !11
-  %16 = getelementptr inbounds %struct.DLL, ptr %7, i64 0, i32 1
-  %17 = load ptr, ptr %16, align 8, !tbaa !11
-  %18 = icmp eq ptr %17, %0
-  br i1 %18, label %19, label %6, !llvm.loop !13
+for.inc:                                          ; preds = %for.body
+  %next4 = getelementptr inbounds %struct.DLL, ptr %yp.026, i64 0, i32 1
+  %4 = load ptr, ptr %next4, align 8, !tbaa !11
+  %next = getelementptr inbounds %struct.DLL, ptr %1, i64 0, i32 1
+  %5 = load ptr, ptr %next, align 8, !tbaa !11
+  %cmp.not = icmp eq ptr %5, %x
+  br i1 %cmp.not, label %for.end, label %for.body, !llvm.loop !13
 
-19:                                               ; preds = %13, %2
-  %20 = phi ptr [ %0, %2 ], [ %7, %13 ]
-  %21 = phi ptr [ %1, %2 ], [ %15, %13 ]
-  %22 = load i32, ptr %20, align 8, !tbaa !12
-  %23 = load i32, ptr %21, align 8, !tbaa !12
-  %24 = icmp eq i32 %22, %23
-  br i1 %24, label %25, label %30
+for.end:                                          ; preds = %for.inc, %entry
+  %xp.0.lcssa = phi ptr [ %x, %entry ], [ %1, %for.inc ]
+  %yp.0.lcssa = phi ptr [ %y, %entry ], [ %4, %for.inc ]
+  %6 = load i32, ptr %xp.0.lcssa, align 8, !tbaa !12
+  %7 = load i32, ptr %yp.0.lcssa, align 8, !tbaa !12
+  %cmp7.not = icmp eq i32 %6, %7
+  br i1 %cmp7.not, label %if.end9, label %cleanup
 
-25:                                               ; preds = %19
-  %26 = getelementptr inbounds %struct.DLL, ptr %21, i64 0, i32 1
-  %27 = load ptr, ptr %26, align 8, !tbaa !11
-  %28 = icmp eq ptr %27, %1
-  %29 = zext i1 %28 to i32
-  br label %30
+if.end9:                                          ; preds = %for.end
+  %next10 = getelementptr inbounds %struct.DLL, ptr %yp.0.lcssa, i64 0, i32 1
+  %8 = load ptr, ptr %next10, align 8, !tbaa !11
+  %cmp11 = icmp eq ptr %8, %y
+  %conv = zext i1 %cmp11 to i32
+  br label %cleanup
 
-30:                                               ; preds = %6, %19, %25
-  %31 = phi i32 [ %29, %25 ], [ 0, %19 ], [ 0, %6 ]
-  ret i32 %31
+cleanup:                                          ; preds = %for.body, %for.end, %if.end9
+  %retval.0 = phi i32 [ %conv, %if.end9 ], [ 0, %for.end ], [ 0, %for.body ]
+  ret i32 %retval.0
 }
 
 ; Function Attrs: nofree nounwind uwtable
-define dso_local void @list_print(ptr nocapture noundef readonly %0, ptr nocapture noundef readonly %1) local_unnamed_addr #3 {
-  %3 = getelementptr inbounds %struct.DLL, ptr %1, i64 0, i32 1
-  %4 = load ptr, ptr %3, align 8, !tbaa !11
-  %5 = tail call i32 @puts(ptr noundef nonnull dereferenceable(1) %0)
-  %6 = load i32, ptr %1, align 8, !tbaa !12
-  %7 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str, i32 noundef %6)
-  %8 = load ptr, ptr %3, align 8, !tbaa !11
-  %9 = getelementptr inbounds %struct.DLL, ptr %8, i64 0, i32 1
-  %10 = load ptr, ptr %9, align 8, !tbaa !11
-  %11 = icmp eq ptr %10, %4
-  br i1 %11, label %28, label %12
+define dso_local void @list_print(ptr nocapture noundef readonly %msg, ptr nocapture noundef readonly %x) local_unnamed_addr #3 {
+entry:
+  %next = getelementptr inbounds %struct.DLL, ptr %x, i64 0, i32 1
+  %0 = load ptr, ptr %next, align 8, !tbaa !11
+  %call = tail call i32 @puts(ptr noundef nonnull dereferenceable(1) %msg)
+  %x.val = load i32, ptr %x, align 8, !tbaa !12
+  %call2 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str, i32 noundef %x.val)
+  %xp.021 = load ptr, ptr %next, align 8, !tbaa !11
+  %next422 = getelementptr inbounds %struct.DLL, ptr %xp.021, i64 0, i32 1
+  %1 = load ptr, ptr %next422, align 8, !tbaa !11
+  %cmp.not23 = icmp eq ptr %1, %0
+  br i1 %cmp.not23, label %for.end, label %for.body
 
-12:                                               ; preds = %2, %12
-  %13 = phi ptr [ %26, %12 ], [ %10, %2 ]
-  %14 = phi ptr [ %25, %12 ], [ %9, %2 ]
-  %15 = phi ptr [ %24, %12 ], [ %8, %2 ]
-  %16 = phi i32 [ %17, %12 ], [ 0, %2 ]
-  %17 = add nuw nsw i32 %16, 1
-  %18 = load i32, ptr %15, align 8, !tbaa !12
-  %19 = load i32, ptr %13, align 8, !tbaa !12
-  %20 = getelementptr inbounds %struct.DLL, ptr %15, i64 0, i32 2
-  %21 = load ptr, ptr %20, align 8, !tbaa !5
-  %22 = load i32, ptr %21, align 8, !tbaa !12
-  %23 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.1, i32 noundef %17, i32 noundef %18, i32 noundef %19, i32 noundef %22)
-  %24 = load ptr, ptr %14, align 8, !tbaa !11
-  %25 = getelementptr inbounds %struct.DLL, ptr %24, i64 0, i32 1
-  %26 = load ptr, ptr %25, align 8, !tbaa !11
-  %27 = icmp eq ptr %26, %4
-  br i1 %27, label %28, label %12, !llvm.loop !15
+for.body:                                         ; preds = %entry, %for.body
+  %2 = phi ptr [ %7, %for.body ], [ %1, %entry ]
+  %next426 = phi ptr [ %next4, %for.body ], [ %next422, %entry ]
+  %xp.025 = phi ptr [ %xp.0, %for.body ], [ %xp.021, %entry ]
+  %i.024 = phi i32 [ %inc, %for.body ], [ 0, %entry ]
+  %inc = add nuw nsw i32 %i.024, 1
+  %3 = load i32, ptr %xp.025, align 8, !tbaa !12
+  %4 = load i32, ptr %2, align 8, !tbaa !12
+  %prev = getelementptr inbounds %struct.DLL, ptr %xp.025, i64 0, i32 2
+  %5 = load ptr, ptr %prev, align 8, !tbaa !5
+  %6 = load i32, ptr %5, align 8, !tbaa !12
+  %call8 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.1, i32 noundef %inc, i32 noundef %3, i32 noundef %4, i32 noundef %6)
+  %xp.0 = load ptr, ptr %next426, align 8, !tbaa !11
+  %next4 = getelementptr inbounds %struct.DLL, ptr %xp.0, i64 0, i32 1
+  %7 = load ptr, ptr %next4, align 8, !tbaa !11
+  %cmp.not = icmp eq ptr %7, %0
+  br i1 %cmp.not, label %for.end, label %for.body, !llvm.loop !15
 
-28:                                               ; preds = %12, %2
-  %29 = phi ptr [ %9, %2 ], [ %25, %12 ]
-  %30 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str)
-  %31 = load ptr, ptr %29, align 8, !tbaa !11
-  %32 = load i32, ptr %31, align 8, !tbaa !12
-  %33 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.3, i32 noundef %32)
+for.end:                                          ; preds = %for.body, %entry
+  %next4.lcssa = phi ptr [ %next422, %entry ], [ %next4, %for.body ]
+  %puts = tail call i32 @puts(ptr nonnull dereferenceable(1) @str)
+  %8 = load ptr, ptr %next4.lcssa, align 8, !tbaa !11
+  %9 = load i32, ptr %8, align 8, !tbaa !12
+  %call13 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.3, i32 noundef %9)
   ret void
 }
 
@@ -189,495 +195,500 @@ declare noundef i32 @printf(ptr nocapture noundef readonly, ...) local_unnamed_a
 
 ; Function Attrs: mustprogress nofree nounwind willreturn memory(write, argmem: none, inaccessiblemem: readwrite) uwtable
 define dso_local ptr @list_new() local_unnamed_addr #5 {
-  %1 = tail call noalias dereferenceable_or_null(24) ptr @malloc(i64 noundef 24) #15
-  %2 = getelementptr inbounds %struct.DLL, ptr %1, i64 0, i32 1
-  store ptr %1, ptr %2, align 8, !tbaa !11
-  %3 = getelementptr inbounds %struct.DLL, ptr %1, i64 0, i32 2
-  store ptr %1, ptr %3, align 8, !tbaa !5
-  store i32 0, ptr %1, align 8, !tbaa !12
-  ret ptr %1
+entry:
+  %call = tail call noalias dereferenceable_or_null(24) ptr @malloc(i64 noundef 24) #15
+  %next = getelementptr inbounds %struct.DLL, ptr %call, i64 0, i32 1
+  store ptr %call, ptr %next, align 8, !tbaa !11
+  %prev = getelementptr inbounds %struct.DLL, ptr %call, i64 0, i32 2
+  store ptr %call, ptr %prev, align 8, !tbaa !5
+  store i32 0, ptr %call, align 8, !tbaa !12
+  ret ptr %call
 }
 
 ; Function Attrs: mustprogress nofree nounwind willreturn allockind("alloc,uninitialized") allocsize(0) memory(inaccessiblemem: readwrite)
 declare noalias noundef ptr @malloc(i64 noundef) local_unnamed_addr #6
 
 ; Function Attrs: nofree nounwind memory(write, argmem: none, inaccessiblemem: readwrite) uwtable
-define dso_local ptr @list_sequence(i32 noundef %0, i32 noundef %1) local_unnamed_addr #7 {
-  %3 = tail call i32 @llvm.smax.i32(i32 %0, i32 %1)
-  %4 = tail call i32 @llvm.smin.i32(i32 %0, i32 %1)
-  %5 = sub nsw i32 %3, %4
-  %6 = add nsw i32 %5, 2
-  %7 = sext i32 %6 to i64
-  %8 = mul nsw i64 %7, 24
-  %9 = tail call noalias ptr @malloc(i64 noundef %8) #15
-  %10 = add nsw i32 %4, -1
-  %11 = icmp slt i32 %5, 0
-  br i1 %11, label %30, label %12
+define dso_local ptr @list_sequence(i32 noundef %from, i32 noundef %to) local_unnamed_addr #7 {
+entry:
+  %spec.select = tail call i32 @llvm.smax.i32(i32 %from, i32 %to)
+  %spec.select68 = tail call i32 @llvm.smin.i32(i32 %from, i32 %to)
+  %sub = sub nsw i32 %spec.select, %spec.select68
+  %add1 = add nsw i32 %sub, 2
+  %conv = sext i32 %add1 to i64
+  %mul = mul nsw i64 %conv, 24
+  %call = tail call noalias ptr @malloc(i64 noundef %mul) #15
+  %dec = add nsw i32 %spec.select68, -1
+  %cmp2.not69 = icmp slt i32 %sub, 0
+  br i1 %cmp2.not69, label %for.end, label %for.body.preheader
 
-12:                                               ; preds = %2
-  %13 = add i32 %3, 1
-  %14 = sub i32 %13, %4
-  %15 = zext i32 %14 to i64
-  br label %16
+for.body.preheader:                               ; preds = %entry
+  %0 = add i32 %spec.select, 1
+  %1 = sub i32 %0, %spec.select68
+  %wide.trip.count = zext i32 %1 to i64
+  br label %for.body
 
-16:                                               ; preds = %12, %16
-  %17 = phi i64 [ 0, %12 ], [ %20, %16 ]
-  %18 = phi i64 [ 1, %12 ], [ %28, %16 ]
-  %19 = phi i32 [ %10, %12 ], [ %27, %16 ]
-  %20 = add nuw nsw i64 %17, 1
-  %21 = getelementptr inbounds %struct.DLL, ptr %9, i64 %20
-  %22 = getelementptr inbounds %struct.DLL, ptr %9, i64 %17
-  %23 = getelementptr inbounds %struct.DLL, ptr %9, i64 %17, i32 1
-  store ptr %21, ptr %23, align 8, !tbaa !11
-  %24 = add nsw i64 %18, -1
-  %25 = getelementptr inbounds %struct.DLL, ptr %9, i64 %24
-  %26 = getelementptr inbounds %struct.DLL, ptr %9, i64 %18, i32 2
-  store ptr %25, ptr %26, align 8, !tbaa !5
-  %27 = add nsw i32 %19, 1
-  store i32 %19, ptr %22, align 8, !tbaa !12
-  %28 = add nuw nsw i64 %18, 1
-  %29 = icmp eq i64 %20, %15
-  br i1 %29, label %30, label %16, !llvm.loop !16
+for.body:                                         ; preds = %for.body.preheader, %for.body
+  %indvars.iv74 = phi i64 [ 0, %for.body.preheader ], [ %indvars.iv.next75, %for.body ]
+  %indvars.iv = phi i64 [ 1, %for.body.preheader ], [ %indvars.iv.next, %for.body ]
+  %from.addr.172 = phi i32 [ %dec, %for.body.preheader ], [ %inc, %for.body ]
+  %indvars.iv.next75 = add nuw nsw i64 %indvars.iv74, 1
+  %arrayidx = getelementptr inbounds %struct.DLL, ptr %call, i64 %indvars.iv.next75
+  %arrayidx6 = getelementptr inbounds %struct.DLL, ptr %call, i64 %indvars.iv74
+  %next = getelementptr inbounds %struct.DLL, ptr %call, i64 %indvars.iv74, i32 1
+  store ptr %arrayidx, ptr %next, align 8, !tbaa !11
+  %2 = add nsw i64 %indvars.iv, -1
+  %arrayidx9 = getelementptr inbounds %struct.DLL, ptr %call, i64 %2
+  %prev = getelementptr inbounds %struct.DLL, ptr %call, i64 %indvars.iv, i32 2
+  store ptr %arrayidx9, ptr %prev, align 8, !tbaa !5
+  %inc = add nsw i32 %from.addr.172, 1
+  store i32 %from.addr.172, ptr %arrayidx6, align 8, !tbaa !12
+  %indvars.iv.next = add nuw nsw i64 %indvars.iv, 1
+  %exitcond.not = icmp eq i64 %indvars.iv.next75, %wide.trip.count
+  br i1 %exitcond.not, label %for.end, label %for.body, !llvm.loop !16
 
-30:                                               ; preds = %16, %2
-  %31 = phi i32 [ %10, %2 ], [ %27, %16 ]
-  %32 = add nsw i32 %5, 1
-  %33 = sext i32 %32 to i64
-  %34 = getelementptr inbounds %struct.DLL, ptr %9, i64 %33
-  %35 = getelementptr inbounds %struct.DLL, ptr %9, i64 0, i32 2
-  store ptr %34, ptr %35, align 8, !tbaa !5
-  %36 = getelementptr inbounds %struct.DLL, ptr %9, i64 %33, i32 1
-  store ptr %9, ptr %36, align 8, !tbaa !11
-  %37 = sext i32 %5 to i64
-  %38 = getelementptr inbounds %struct.DLL, ptr %9, i64 %37
-  %39 = getelementptr inbounds %struct.DLL, ptr %9, i64 %33, i32 2
-  store ptr %38, ptr %39, align 8, !tbaa !5
-  store i32 %31, ptr %34, align 8, !tbaa !12
-  store i32 %32, ptr %9, align 8, !tbaa !12
-  ret ptr %9
+for.end:                                          ; preds = %for.body, %entry
+  %from.addr.1.lcssa = phi i32 [ %dec, %entry ], [ %inc, %for.body ]
+  %add = add nsw i32 %sub, 1
+  %idxprom16 = sext i32 %add to i64
+  %arrayidx17 = getelementptr inbounds %struct.DLL, ptr %call, i64 %idxprom16
+  %prev19 = getelementptr inbounds %struct.DLL, ptr %call, i64 0, i32 2
+  store ptr %arrayidx17, ptr %prev19, align 8, !tbaa !5
+  %next23 = getelementptr inbounds %struct.DLL, ptr %call, i64 %idxprom16, i32 1
+  store ptr %call, ptr %next23, align 8, !tbaa !11
+  %idxprom25 = sext i32 %sub to i64
+  %arrayidx26 = getelementptr inbounds %struct.DLL, ptr %call, i64 %idxprom25
+  %prev29 = getelementptr inbounds %struct.DLL, ptr %call, i64 %idxprom16, i32 2
+  store ptr %arrayidx26, ptr %prev29, align 8, !tbaa !5
+  store i32 %from.addr.1.lcssa, ptr %arrayidx17, align 8, !tbaa !12
+  store i32 %add, ptr %call, align 8, !tbaa !12
+  ret ptr %call
 }
 
 ; Function Attrs: nofree nounwind memory(readwrite, argmem: read) uwtable
-define dso_local ptr @list_copy(ptr nocapture noundef readonly %0) local_unnamed_addr #8 {
-  %2 = load i32, ptr %0, align 8, !tbaa !12
-  %3 = add nsw i32 %2, 1
-  %4 = sext i32 %3 to i64
-  %5 = mul nsw i64 %4, 24
-  %6 = tail call noalias ptr @malloc(i64 noundef %5) #15
-  %7 = icmp sgt i32 %2, 0
-  br i1 %7, label %8, label %24
+define dso_local ptr @list_copy(ptr nocapture noundef readonly %x) local_unnamed_addr #8 {
+entry:
+  %x.val = load i32, ptr %x, align 8, !tbaa !12
+  %add = add nsw i32 %x.val, 1
+  %conv = sext i32 %add to i64
+  %mul = mul nsw i64 %conv, 24
+  %call1 = tail call noalias ptr @malloc(i64 noundef %mul) #15
+  %cmp51 = icmp sgt i32 %x.val, 0
+  br i1 %cmp51, label %for.body.preheader, label %for.end
 
-8:                                                ; preds = %1
-  %9 = zext i32 %2 to i64
-  br label %10
+for.body.preheader:                               ; preds = %entry
+  %wide.trip.count = zext i32 %x.val to i64
+  br label %for.body
 
-10:                                               ; preds = %8, %10
-  %11 = phi i64 [ 1, %8 ], [ %20, %10 ]
-  %12 = phi i64 [ 0, %8 ], [ %19, %10 ]
-  %13 = phi ptr [ %0, %8 ], [ %22, %10 ]
-  %14 = getelementptr inbounds %struct.DLL, ptr %6, i64 %11
-  %15 = getelementptr inbounds %struct.DLL, ptr %6, i64 %12
-  %16 = getelementptr inbounds %struct.DLL, ptr %6, i64 %12, i32 1
-  store ptr %14, ptr %16, align 8, !tbaa !11
-  %17 = getelementptr inbounds %struct.DLL, ptr %6, i64 %11, i32 2
-  store ptr %15, ptr %17, align 8, !tbaa !5
-  %18 = load i32, ptr %13, align 8, !tbaa !12
-  store i32 %18, ptr %15, align 8, !tbaa !12
-  %19 = add nuw nsw i64 %12, 1
-  %20 = add nuw nsw i64 %11, 1
-  %21 = getelementptr inbounds %struct.DLL, ptr %13, i64 0, i32 1
-  %22 = load ptr, ptr %21, align 8, !tbaa !11
-  %23 = icmp eq i64 %19, %9
-  br i1 %23, label %24, label %10, !llvm.loop !17
+for.body:                                         ; preds = %for.body.preheader, %for.body
+  %indvars.iv55 = phi i64 [ 1, %for.body.preheader ], [ %indvars.iv.next56, %for.body ]
+  %indvars.iv = phi i64 [ 0, %for.body.preheader ], [ %indvars.iv.next, %for.body ]
+  %xp.053 = phi ptr [ %x, %for.body.preheader ], [ %1, %for.body ]
+  %arrayidx = getelementptr inbounds %struct.DLL, ptr %call1, i64 %indvars.iv55
+  %arrayidx4 = getelementptr inbounds %struct.DLL, ptr %call1, i64 %indvars.iv
+  %next = getelementptr inbounds %struct.DLL, ptr %call1, i64 %indvars.iv, i32 1
+  store ptr %arrayidx, ptr %next, align 8, !tbaa !11
+  %prev = getelementptr inbounds %struct.DLL, ptr %call1, i64 %indvars.iv55, i32 2
+  store ptr %arrayidx4, ptr %prev, align 8, !tbaa !5
+  %0 = load i32, ptr %xp.053, align 8, !tbaa !12
+  store i32 %0, ptr %arrayidx4, align 8, !tbaa !12
+  %indvars.iv.next = add nuw nsw i64 %indvars.iv, 1
+  %indvars.iv.next56 = add nuw nsw i64 %indvars.iv55, 1
+  %next13 = getelementptr inbounds %struct.DLL, ptr %xp.053, i64 0, i32 1
+  %1 = load ptr, ptr %next13, align 8, !tbaa !11
+  %exitcond.not = icmp eq i64 %indvars.iv.next, %wide.trip.count
+  br i1 %exitcond.not, label %for.end, label %for.body, !llvm.loop !17
 
-24:                                               ; preds = %10, %1
-  %25 = sext i32 %2 to i64
-  %26 = getelementptr inbounds %struct.DLL, ptr %6, i64 %25
-  %27 = getelementptr inbounds %struct.DLL, ptr %6, i64 0, i32 2
-  store ptr %26, ptr %27, align 8, !tbaa !5
-  %28 = getelementptr inbounds %struct.DLL, ptr %6, i64 %25, i32 1
-  store ptr %6, ptr %28, align 8, !tbaa !11
-  %29 = getelementptr i8, ptr %0, i64 16
-  %30 = load ptr, ptr %29, align 8, !tbaa !5
-  %31 = load i32, ptr %30, align 8, !tbaa !12
-  store i32 %31, ptr %26, align 8, !tbaa !12
-  ret ptr %6
+for.end:                                          ; preds = %for.body, %entry
+  %idxprom14 = sext i32 %x.val to i64
+  %arrayidx15 = getelementptr inbounds %struct.DLL, ptr %call1, i64 %idxprom14
+  %prev17 = getelementptr inbounds %struct.DLL, ptr %call1, i64 0, i32 2
+  store ptr %arrayidx15, ptr %prev17, align 8, !tbaa !5
+  %next21 = getelementptr inbounds %struct.DLL, ptr %call1, i64 %idxprom14, i32 1
+  store ptr %call1, ptr %next21, align 8, !tbaa !11
+  %2 = getelementptr i8, ptr %x, i64 16
+  %x.val50 = load ptr, ptr %2, align 8, !tbaa !5
+  %3 = load i32, ptr %x.val50, align 8, !tbaa !12
+  store i32 %3, ptr %arrayidx15, align 8, !tbaa !12
+  ret ptr %call1
 }
 
 ; Function Attrs: nofree norecurse nosync nounwind memory(readwrite, inaccessiblemem: none) uwtable
-define dso_local void @list_reverse(ptr noundef %0) local_unnamed_addr #9 {
-  br label %2
+define dso_local void @list_reverse(ptr noundef %head) local_unnamed_addr #9 {
+entry:
+  br label %do.body
 
-2:                                                ; preds = %2, %1
-  %3 = phi ptr [ %0, %1 ], [ %5, %2 ]
-  %4 = getelementptr inbounds %struct.DLL, ptr %3, i64 0, i32 1
-  %5 = load ptr, ptr %4, align 8, !tbaa !11
-  %6 = getelementptr inbounds %struct.DLL, ptr %3, i64 0, i32 2
-  %7 = load ptr, ptr %6, align 8, !tbaa !5
-  store ptr %7, ptr %4, align 8, !tbaa !11
-  store ptr %5, ptr %6, align 8, !tbaa !5
-  %8 = icmp eq ptr %5, %0
-  br i1 %8, label %9, label %2, !llvm.loop !18
+do.body:                                          ; preds = %do.body, %entry
+  %p.0 = phi ptr [ %head, %entry ], [ %0, %do.body ]
+  %next = getelementptr inbounds %struct.DLL, ptr %p.0, i64 0, i32 1
+  %0 = load ptr, ptr %next, align 8, !tbaa !11
+  %prev = getelementptr inbounds %struct.DLL, ptr %p.0, i64 0, i32 2
+  %1 = load ptr, ptr %prev, align 8, !tbaa !5
+  store ptr %1, ptr %next, align 8, !tbaa !11
+  store ptr %0, ptr %prev, align 8, !tbaa !5
+  %cmp.not = icmp eq ptr %0, %head
+  br i1 %cmp.not, label %do.end, label %do.body, !llvm.loop !18
 
-9:                                                ; preds = %2
+do.end:                                           ; preds = %do.body
   ret void
 }
 
 ; Function Attrs: nounwind uwtable
 define dso_local i32 @test_lists() local_unnamed_addr #10 {
-  %1 = tail call noalias dereferenceable_or_null(2424) ptr @malloc(i64 noundef 2424) #15
-  br label %2
+entry:
+  %call.i = tail call noalias dereferenceable_or_null(2424) ptr @malloc(i64 noundef 2424) #15
+  br label %for.body.i
 
-2:                                                ; preds = %2, %0
-  %3 = phi i64 [ 0, %0 ], [ %6, %2 ]
-  %4 = phi i64 [ 1, %0 ], [ %13, %2 ]
-  %5 = trunc i64 %3 to i32
-  %6 = add nuw nsw i64 %3, 1
-  %7 = getelementptr inbounds %struct.DLL, ptr %1, i64 %6
-  %8 = getelementptr inbounds %struct.DLL, ptr %1, i64 %3
-  %9 = getelementptr inbounds %struct.DLL, ptr %1, i64 %3, i32 1
-  store ptr %7, ptr %9, align 8, !tbaa !11
-  %10 = add nsw i64 %4, -1
-  %11 = getelementptr inbounds %struct.DLL, ptr %1, i64 %10
-  %12 = getelementptr inbounds %struct.DLL, ptr %1, i64 %4, i32 2
-  store ptr %11, ptr %12, align 8, !tbaa !5
-  store i32 %5, ptr %8, align 8, !tbaa !12
-  %13 = add nuw nsw i64 %4, 1
-  %14 = icmp eq i64 %6, 100
-  br i1 %14, label %15, label %2, !llvm.loop !16
+for.body.i:                                       ; preds = %for.body.i, %entry
+  %indvars.iv74.i = phi i64 [ 0, %entry ], [ %indvars.iv.next75.i, %for.body.i ]
+  %indvars.iv.i = phi i64 [ 1, %entry ], [ %indvars.iv.next.i, %for.body.i ]
+  %indvars192 = trunc i64 %indvars.iv74.i to i32
+  %indvars.iv.next75.i = add nuw nsw i64 %indvars.iv74.i, 1
+  %arrayidx.i = getelementptr inbounds %struct.DLL, ptr %call.i, i64 %indvars.iv.next75.i
+  %arrayidx6.i = getelementptr inbounds %struct.DLL, ptr %call.i, i64 %indvars.iv74.i
+  %next.i = getelementptr inbounds %struct.DLL, ptr %call.i, i64 %indvars.iv74.i, i32 1
+  store ptr %arrayidx.i, ptr %next.i, align 8, !tbaa !11
+  %0 = add nsw i64 %indvars.iv.i, -1
+  %arrayidx9.i = getelementptr inbounds %struct.DLL, ptr %call.i, i64 %0
+  %prev.i = getelementptr inbounds %struct.DLL, ptr %call.i, i64 %indvars.iv.i, i32 2
+  store ptr %arrayidx9.i, ptr %prev.i, align 8, !tbaa !5
+  store i32 %indvars192, ptr %arrayidx6.i, align 8, !tbaa !12
+  %indvars.iv.next.i = add nuw nsw i64 %indvars.iv.i, 1
+  %exitcond.not.i = icmp eq i64 %indvars.iv.next75.i, 100
+  br i1 %exitcond.not.i, label %for.body.preheader.i, label %for.body.i, !llvm.loop !16
 
-15:                                               ; preds = %2
-  %16 = getelementptr inbounds %struct.DLL, ptr %1, i64 100
-  %17 = getelementptr %struct.DLL, ptr %1, i64 0, i32 2
-  store ptr %16, ptr %17, align 8, !tbaa !5
-  %18 = getelementptr inbounds %struct.DLL, ptr %1, i64 100, i32 1
-  store ptr %1, ptr %18, align 8, !tbaa !11
-  %19 = getelementptr inbounds %struct.DLL, ptr %1, i64 99
-  %20 = getelementptr inbounds %struct.DLL, ptr %1, i64 100, i32 2
-  store ptr %19, ptr %20, align 8, !tbaa !5
-  store i32 100, ptr %16, align 8, !tbaa !12
-  store i32 100, ptr %1, align 8, !tbaa !12
-  %21 = tail call noalias dereferenceable_or_null(2424) ptr @malloc(i64 noundef 2424) #15
-  br label %22
+for.body.preheader.i:                             ; preds = %for.body.i
+  %arrayidx17.i = getelementptr inbounds %struct.DLL, ptr %call.i, i64 100
+  %prev19.i = getelementptr %struct.DLL, ptr %call.i, i64 0, i32 2
+  store ptr %arrayidx17.i, ptr %prev19.i, align 8, !tbaa !5
+  %next23.i = getelementptr inbounds %struct.DLL, ptr %call.i, i64 100, i32 1
+  store ptr %call.i, ptr %next23.i, align 8, !tbaa !11
+  %arrayidx26.i = getelementptr inbounds %struct.DLL, ptr %call.i, i64 99
+  %prev29.i = getelementptr inbounds %struct.DLL, ptr %call.i, i64 100, i32 2
+  store ptr %arrayidx26.i, ptr %prev29.i, align 8, !tbaa !5
+  store i32 100, ptr %arrayidx17.i, align 8, !tbaa !12
+  store i32 100, ptr %call.i, align 8, !tbaa !12
+  %call1.i = tail call noalias dereferenceable_or_null(2424) ptr @malloc(i64 noundef 2424) #15
+  br label %for.body.i113
 
-22:                                               ; preds = %22, %15
-  %23 = phi i64 [ 1, %15 ], [ %32, %22 ]
-  %24 = phi i64 [ 0, %15 ], [ %31, %22 ]
-  %25 = phi ptr [ %1, %15 ], [ %34, %22 ]
-  %26 = getelementptr inbounds %struct.DLL, ptr %21, i64 %23
-  %27 = getelementptr inbounds %struct.DLL, ptr %21, i64 %24
-  %28 = getelementptr inbounds %struct.DLL, ptr %21, i64 %24, i32 1
-  store ptr %26, ptr %28, align 8, !tbaa !11
-  %29 = getelementptr inbounds %struct.DLL, ptr %21, i64 %23, i32 2
-  store ptr %27, ptr %29, align 8, !tbaa !5
-  %30 = load i32, ptr %25, align 8, !tbaa !12
-  store i32 %30, ptr %27, align 8, !tbaa !12
-  %31 = add nuw nsw i64 %24, 1
-  %32 = add nuw nsw i64 %23, 1
-  %33 = getelementptr inbounds %struct.DLL, ptr %25, i64 0, i32 1
-  %34 = load ptr, ptr %33, align 8, !tbaa !11
-  %35 = icmp eq i64 %31, 100
-  br i1 %35, label %36, label %22, !llvm.loop !17
+for.body.i113:                                    ; preds = %for.body.i113, %for.body.preheader.i
+  %indvars.iv55.i = phi i64 [ 1, %for.body.preheader.i ], [ %indvars.iv.next56.i, %for.body.i113 ]
+  %indvars.iv.i107 = phi i64 [ 0, %for.body.preheader.i ], [ %indvars.iv.next.i111, %for.body.i113 ]
+  %xp.053.i = phi ptr [ %call.i, %for.body.preheader.i ], [ %2, %for.body.i113 ]
+  %arrayidx.i108 = getelementptr inbounds %struct.DLL, ptr %call1.i, i64 %indvars.iv55.i
+  %arrayidx4.i = getelementptr inbounds %struct.DLL, ptr %call1.i, i64 %indvars.iv.i107
+  %next.i109 = getelementptr inbounds %struct.DLL, ptr %call1.i, i64 %indvars.iv.i107, i32 1
+  store ptr %arrayidx.i108, ptr %next.i109, align 8, !tbaa !11
+  %prev.i110 = getelementptr inbounds %struct.DLL, ptr %call1.i, i64 %indvars.iv55.i, i32 2
+  store ptr %arrayidx4.i, ptr %prev.i110, align 8, !tbaa !5
+  %1 = load i32, ptr %xp.053.i, align 8, !tbaa !12
+  store i32 %1, ptr %arrayidx4.i, align 8, !tbaa !12
+  %indvars.iv.next.i111 = add nuw nsw i64 %indvars.iv.i107, 1
+  %indvars.iv.next56.i = add nuw nsw i64 %indvars.iv55.i, 1
+  %next13.i = getelementptr inbounds %struct.DLL, ptr %xp.053.i, i64 0, i32 1
+  %2 = load ptr, ptr %next13.i, align 8, !tbaa !11
+  %exitcond.not.i112 = icmp eq i64 %indvars.iv.next.i111, 100
+  br i1 %exitcond.not.i112, label %list_copy.exit, label %for.body.i113, !llvm.loop !17
 
-36:                                               ; preds = %22
-  %37 = getelementptr inbounds %struct.DLL, ptr %21, i64 100
-  %38 = getelementptr %struct.DLL, ptr %21, i64 0, i32 2
-  store ptr %37, ptr %38, align 8, !tbaa !5
-  %39 = getelementptr inbounds %struct.DLL, ptr %21, i64 100, i32 1
-  store ptr %21, ptr %39, align 8, !tbaa !11
-  store i32 100, ptr %37, align 8, !tbaa !12
-  %40 = tail call noalias dereferenceable_or_null(24) ptr @malloc(i64 noundef 24) #15
-  %41 = getelementptr inbounds %struct.DLL, ptr %40, i64 0, i32 1
-  store ptr %40, ptr %41, align 8, !tbaa !11
-  %42 = getelementptr inbounds %struct.DLL, ptr %40, i64 0, i32 2
-  store ptr %40, ptr %42, align 8, !tbaa !5
-  store i32 0, ptr %40, align 8, !tbaa !12
-  %43 = getelementptr %struct.DLL, ptr %21, i64 0, i32 1
-  %44 = load ptr, ptr %43, align 8, !tbaa !11
-  %45 = icmp eq ptr %44, %21
-  br i1 %45, label %61, label %46
+list_copy.exit:                                   ; preds = %for.body.i113
+  %arrayidx15.i = getelementptr inbounds %struct.DLL, ptr %call1.i, i64 100
+  %prev17.i = getelementptr %struct.DLL, ptr %call1.i, i64 0, i32 2
+  store ptr %arrayidx15.i, ptr %prev17.i, align 8, !tbaa !5
+  %next21.i = getelementptr inbounds %struct.DLL, ptr %call1.i, i64 100, i32 1
+  store ptr %call1.i, ptr %next21.i, align 8, !tbaa !11
+  store i32 100, ptr %arrayidx15.i, align 8, !tbaa !12
+  %call.i114 = tail call noalias dereferenceable_or_null(24) ptr @malloc(i64 noundef 24) #15
+  %next.i115 = getelementptr inbounds %struct.DLL, ptr %call.i114, i64 0, i32 1
+  store ptr %call.i114, ptr %next.i115, align 8, !tbaa !11
+  %prev.i116 = getelementptr inbounds %struct.DLL, ptr %call.i114, i64 0, i32 2
+  store ptr %call.i114, ptr %prev.i116, align 8, !tbaa !5
+  store i32 0, ptr %call.i114, align 8, !tbaa !12
+  %next23.i117 = getelementptr %struct.DLL, ptr %call1.i, i64 0, i32 1
+  %3 = load ptr, ptr %next23.i117, align 8, !tbaa !11
+  %cmp.not24.i = icmp eq ptr %3, %call1.i
+  br i1 %cmp.not24.i, label %for.end.i, label %for.body.i118
 
-46:                                               ; preds = %36, %53
-  %47 = phi ptr [ %57, %53 ], [ %44, %36 ]
-  %48 = phi ptr [ %55, %53 ], [ %1, %36 ]
-  %49 = phi ptr [ %47, %53 ], [ %21, %36 ]
-  %50 = load i32, ptr %49, align 8, !tbaa !12
-  %51 = load i32, ptr %48, align 8, !tbaa !12
-  %52 = icmp eq i32 %50, %51
-  br i1 %52, label %53, label %91
+for.body.i118:                                    ; preds = %list_copy.exit, %for.inc.i
+  %4 = phi ptr [ %8, %for.inc.i ], [ %3, %list_copy.exit ]
+  %yp.026.i = phi ptr [ %7, %for.inc.i ], [ %call.i, %list_copy.exit ]
+  %xp.025.i = phi ptr [ %4, %for.inc.i ], [ %call1.i, %list_copy.exit ]
+  %5 = load i32, ptr %xp.025.i, align 8, !tbaa !12
+  %6 = load i32, ptr %yp.026.i, align 8, !tbaa !12
+  %cmp2.not.i = icmp eq i32 %5, %6
+  br i1 %cmp2.not.i, label %for.inc.i, label %if.then
 
-53:                                               ; preds = %46
-  %54 = getelementptr inbounds %struct.DLL, ptr %48, i64 0, i32 1
-  %55 = load ptr, ptr %54, align 8, !tbaa !11
-  %56 = getelementptr inbounds %struct.DLL, ptr %47, i64 0, i32 1
-  %57 = load ptr, ptr %56, align 8, !tbaa !11
-  %58 = icmp eq ptr %57, %21
-  br i1 %58, label %59, label %46, !llvm.loop !13
+for.inc.i:                                        ; preds = %for.body.i118
+  %next4.i = getelementptr inbounds %struct.DLL, ptr %yp.026.i, i64 0, i32 1
+  %7 = load ptr, ptr %next4.i, align 8, !tbaa !11
+  %next.i119 = getelementptr inbounds %struct.DLL, ptr %4, i64 0, i32 1
+  %8 = load ptr, ptr %next.i119, align 8, !tbaa !11
+  %cmp.not.i = icmp eq ptr %8, %call1.i
+  br i1 %cmp.not.i, label %for.end.i.loopexit, label %for.body.i118, !llvm.loop !13
 
-59:                                               ; preds = %53
-  %60 = load i32, ptr %55, align 8, !tbaa !12
-  br label %61
+for.end.i.loopexit:                               ; preds = %for.inc.i
+  %.pre = load i32, ptr %7, align 8, !tbaa !12
+  br label %for.end.i
 
-61:                                               ; preds = %59, %36
-  %62 = phi i32 [ 100, %36 ], [ %60, %59 ]
-  %63 = phi ptr [ %21, %36 ], [ %47, %59 ]
-  %64 = phi ptr [ %1, %36 ], [ %55, %59 ]
-  %65 = load i32, ptr %63, align 8, !tbaa !12
-  %66 = icmp eq i32 %65, %62
-  br i1 %66, label %67, label %91
+for.end.i:                                        ; preds = %for.end.i.loopexit, %list_copy.exit
+  %9 = phi i32 [ 100, %list_copy.exit ], [ %.pre, %for.end.i.loopexit ]
+  %xp.0.lcssa.i = phi ptr [ %call1.i, %list_copy.exit ], [ %4, %for.end.i.loopexit ]
+  %yp.0.lcssa.i = phi ptr [ %call.i, %list_copy.exit ], [ %7, %for.end.i.loopexit ]
+  %10 = load i32, ptr %xp.0.lcssa.i, align 8, !tbaa !12
+  %cmp7.not.i = icmp eq i32 %10, %9
+  br i1 %cmp7.not.i, label %list_equal.exit, label %if.then
 
-67:                                               ; preds = %61
-  %68 = getelementptr inbounds %struct.DLL, ptr %64, i64 0, i32 1
-  %69 = load ptr, ptr %68, align 8, !tbaa !11
-  %70 = icmp eq ptr %69, %1
-  br i1 %70, label %71, label %91
+list_equal.exit:                                  ; preds = %for.end.i
+  %next10.i = getelementptr inbounds %struct.DLL, ptr %yp.0.lcssa.i, i64 0, i32 1
+  %11 = load ptr, ptr %next10.i, align 8, !tbaa !11
+  %cmp11.i.not = icmp eq ptr %11, %call.i
+  br i1 %cmp11.i.not, label %while.cond.preheader, label %if.then
 
-71:                                               ; preds = %67
-  %72 = load i32, ptr %21, align 8, !tbaa !12
-  %73 = icmp eq i32 %72, 0
-  br i1 %73, label %129, label %74
+while.cond.preheader:                             ; preds = %list_equal.exit
+  %call1.i.promoted = load i32, ptr %call1.i, align 8, !tbaa !12
+  %cmp.i177.not = icmp eq i32 %call1.i.promoted, 0
+  br i1 %cmp.i177.not, label %do.body.i.preheader, label %while.body.preheader
 
-74:                                               ; preds = %71
-  %75 = add i32 %72, -1
-  %76 = and i32 %72, 1
-  %77 = icmp eq i32 %76, 0
-  br i1 %77, label %88, label %78
+while.body.preheader:                             ; preds = %while.cond.preheader
+  %12 = add i32 %call1.i.promoted, -1
+  %xtraiter = and i32 %call1.i.promoted, 1
+  %lcmp.mod.not = icmp eq i32 %xtraiter, 0
+  br i1 %lcmp.mod.not, label %while.body.prol.loopexit, label %while.body.prol
 
-78:                                               ; preds = %74
-  %79 = load ptr, ptr %43, align 8, !tbaa !11
-  %80 = getelementptr inbounds %struct.DLL, ptr %79, i64 0, i32 1
-  %81 = load ptr, ptr %80, align 8, !tbaa !11
-  store ptr %81, ptr %43, align 8, !tbaa !11
-  %82 = load ptr, ptr %80, align 8, !tbaa !11
-  %83 = getelementptr inbounds %struct.DLL, ptr %82, i64 0, i32 2
-  store ptr %21, ptr %83, align 8, !tbaa !5
-  %84 = add nsw i32 %72, -1
-  %85 = load ptr, ptr %42, align 8, !tbaa !5
-  %86 = getelementptr inbounds %struct.DLL, ptr %85, i64 0, i32 1
-  store ptr %79, ptr %86, align 8, !tbaa !11
-  store ptr %40, ptr %80, align 8, !tbaa !11
-  store ptr %79, ptr %42, align 8, !tbaa !5
-  %87 = getelementptr inbounds %struct.DLL, ptr %79, i64 0, i32 2
-  store ptr %85, ptr %87, align 8, !tbaa !5
-  br label %88
+while.body.prol:                                  ; preds = %while.body.preheader
+  %13 = load ptr, ptr %next23.i117, align 8, !tbaa !11
+  %next2.i.prol = getelementptr inbounds %struct.DLL, ptr %13, i64 0, i32 1
+  %14 = load ptr, ptr %next2.i.prol, align 8, !tbaa !11
+  store ptr %14, ptr %next23.i117, align 8, !tbaa !11
+  %15 = load ptr, ptr %next2.i.prol, align 8, !tbaa !11
+  %prev.i122.prol = getelementptr inbounds %struct.DLL, ptr %15, i64 0, i32 2
+  store ptr %call1.i, ptr %prev.i122.prol, align 8, !tbaa !5
+  %dec.i.prol = add nsw i32 %call1.i.promoted, -1
+  %16 = load ptr, ptr %prev.i116, align 8, !tbaa !5
+  %next.i125.prol = getelementptr inbounds %struct.DLL, ptr %16, i64 0, i32 1
+  store ptr %13, ptr %next.i125.prol, align 8, !tbaa !11
+  store ptr %call.i114, ptr %next2.i.prol, align 8, !tbaa !11
+  store ptr %13, ptr %prev.i116, align 8, !tbaa !5
+  %prev3.i.prol = getelementptr inbounds %struct.DLL, ptr %13, i64 0, i32 2
+  store ptr %16, ptr %prev3.i.prol, align 8, !tbaa !5
+  br label %while.body.prol.loopexit
 
-88:                                               ; preds = %78, %74
-  %89 = phi i32 [ %72, %74 ], [ %84, %78 ]
-  %90 = icmp eq i32 %75, 0
-  br i1 %90, label %93, label %108
+while.body.prol.loopexit:                         ; preds = %while.body.prol, %while.body.preheader
+  %dec.i176178.unr = phi i32 [ %call1.i.promoted, %while.body.preheader ], [ %dec.i.prol, %while.body.prol ]
+  %17 = icmp eq i32 %12, 0
+  br i1 %17, label %while.cond13.preheader, label %while.body
 
-91:                                               ; preds = %46, %61, %67
-  %92 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.17)
+if.then:                                          ; preds = %for.body.i118, %for.end.i, %list_equal.exit
+  %puts = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.13)
   tail call void @exit(i32 noundef 1) #16
   unreachable
 
-93:                                               ; preds = %108, %88
-  store i32 0, ptr %21, align 8, !tbaa !12
-  store i32 %72, ptr %40, align 8, !tbaa !12
-  %94 = and i32 %72, 1
-  %95 = icmp eq i32 %94, 0
-  br i1 %95, label %105, label %96
+while.cond13.preheader:                           ; preds = %while.body, %while.body.prol.loopexit
+  store i32 0, ptr %call1.i, align 8, !tbaa !12
+  store i32 %call1.i.promoted, ptr %call.i114, align 8, !tbaa !12
+  %xtraiter211 = and i32 %call1.i.promoted, 1
+  %lcmp.mod212.not = icmp eq i32 %xtraiter211, 0
+  br i1 %lcmp.mod212.not, label %while.body17.prol.loopexit, label %while.body17.prol
 
-96:                                               ; preds = %93
-  %97 = load ptr, ptr %42, align 8, !tbaa !5
-  %98 = getelementptr inbounds %struct.DLL, ptr %97, i64 0, i32 2
-  %99 = load ptr, ptr %98, align 8, !tbaa !5
-  %100 = getelementptr inbounds %struct.DLL, ptr %99, i64 0, i32 1
-  store ptr %40, ptr %100, align 8, !tbaa !11
-  store ptr %99, ptr %42, align 8, !tbaa !5
-  %101 = add nsw i32 %72, -1
-  %102 = load ptr, ptr %38, align 8, !tbaa !5
-  %103 = getelementptr inbounds %struct.DLL, ptr %102, i64 0, i32 1
-  store ptr %97, ptr %103, align 8, !tbaa !11
-  %104 = getelementptr inbounds %struct.DLL, ptr %97, i64 0, i32 1
-  store ptr %21, ptr %104, align 8, !tbaa !11
-  store ptr %97, ptr %38, align 8, !tbaa !5
-  store ptr %102, ptr %98, align 8, !tbaa !5
-  br label %105
+while.body17.prol:                                ; preds = %while.cond13.preheader
+  %18 = load ptr, ptr %prev.i116, align 8, !tbaa !5
+  %prev2.i.prol = getelementptr inbounds %struct.DLL, ptr %18, i64 0, i32 2
+  %19 = load ptr, ptr %prev2.i.prol, align 8, !tbaa !5
+  %next.i134.prol = getelementptr inbounds %struct.DLL, ptr %19, i64 0, i32 1
+  store ptr %call.i114, ptr %next.i134.prol, align 8, !tbaa !11
+  store ptr %19, ptr %prev.i116, align 8, !tbaa !5
+  %dec.i135.prol = add nsw i32 %call1.i.promoted, -1
+  %20 = load ptr, ptr %prev17.i, align 8, !tbaa !5
+  %next.i139.prol = getelementptr inbounds %struct.DLL, ptr %20, i64 0, i32 1
+  store ptr %18, ptr %next.i139.prol, align 8, !tbaa !11
+  %next1.i140.prol = getelementptr inbounds %struct.DLL, ptr %18, i64 0, i32 1
+  store ptr %call1.i, ptr %next1.i140.prol, align 8, !tbaa !11
+  store ptr %18, ptr %prev17.i, align 8, !tbaa !5
+  store ptr %20, ptr %prev2.i.prol, align 8, !tbaa !5
+  br label %while.body17.prol.loopexit
 
-105:                                              ; preds = %96, %93
-  %106 = phi i32 [ %72, %93 ], [ %101, %96 ]
-  %107 = icmp eq i32 %75, 0
-  br i1 %107, label %128, label %130
+while.body17.prol.loopexit:                       ; preds = %while.body17.prol, %while.cond13.preheader
+  %dec.i135182184.unr = phi i32 [ %call1.i.promoted, %while.cond13.preheader ], [ %dec.i135.prol, %while.body17.prol ]
+  %21 = icmp eq i32 %12, 0
+  br i1 %21, label %while.cond13.do.body.i.preheader_crit_edge, label %while.body17
 
-108:                                              ; preds = %88, %108
-  %109 = phi i32 [ %123, %108 ], [ %89, %88 ]
-  %110 = load ptr, ptr %43, align 8, !tbaa !11
-  %111 = getelementptr inbounds %struct.DLL, ptr %110, i64 0, i32 1
-  %112 = load ptr, ptr %111, align 8, !tbaa !11
-  store ptr %112, ptr %43, align 8, !tbaa !11
-  %113 = load ptr, ptr %111, align 8, !tbaa !11
-  %114 = getelementptr inbounds %struct.DLL, ptr %113, i64 0, i32 2
-  store ptr %21, ptr %114, align 8, !tbaa !5
-  %115 = load ptr, ptr %42, align 8, !tbaa !5
-  %116 = getelementptr inbounds %struct.DLL, ptr %115, i64 0, i32 1
-  store ptr %110, ptr %116, align 8, !tbaa !11
-  store ptr %40, ptr %111, align 8, !tbaa !11
-  store ptr %110, ptr %42, align 8, !tbaa !5
-  %117 = getelementptr inbounds %struct.DLL, ptr %110, i64 0, i32 2
-  store ptr %115, ptr %117, align 8, !tbaa !5
-  %118 = load ptr, ptr %43, align 8, !tbaa !11
-  %119 = getelementptr inbounds %struct.DLL, ptr %118, i64 0, i32 1
-  %120 = load ptr, ptr %119, align 8, !tbaa !11
-  store ptr %120, ptr %43, align 8, !tbaa !11
-  %121 = load ptr, ptr %119, align 8, !tbaa !11
-  %122 = getelementptr inbounds %struct.DLL, ptr %121, i64 0, i32 2
-  store ptr %21, ptr %122, align 8, !tbaa !5
-  %123 = add nsw i32 %109, -2
-  %124 = load ptr, ptr %42, align 8, !tbaa !5
-  %125 = getelementptr inbounds %struct.DLL, ptr %124, i64 0, i32 1
-  store ptr %118, ptr %125, align 8, !tbaa !11
-  store ptr %40, ptr %119, align 8, !tbaa !11
-  store ptr %118, ptr %42, align 8, !tbaa !5
-  %126 = getelementptr inbounds %struct.DLL, ptr %118, i64 0, i32 2
-  store ptr %124, ptr %126, align 8, !tbaa !5
-  %127 = icmp eq i32 %123, 0
-  br i1 %127, label %93, label %108, !llvm.loop !19
+while.body:                                       ; preds = %while.body.prol.loopexit, %while.body
+  %dec.i176178 = phi i32 [ %dec.i.1, %while.body ], [ %dec.i176178.unr, %while.body.prol.loopexit ]
+  %22 = load ptr, ptr %next23.i117, align 8, !tbaa !11
+  %next2.i = getelementptr inbounds %struct.DLL, ptr %22, i64 0, i32 1
+  %23 = load ptr, ptr %next2.i, align 8, !tbaa !11
+  store ptr %23, ptr %next23.i117, align 8, !tbaa !11
+  %24 = load ptr, ptr %next2.i, align 8, !tbaa !11
+  %prev.i122 = getelementptr inbounds %struct.DLL, ptr %24, i64 0, i32 2
+  store ptr %call1.i, ptr %prev.i122, align 8, !tbaa !5
+  %25 = load ptr, ptr %prev.i116, align 8, !tbaa !5
+  %next.i125 = getelementptr inbounds %struct.DLL, ptr %25, i64 0, i32 1
+  store ptr %22, ptr %next.i125, align 8, !tbaa !11
+  store ptr %call.i114, ptr %next2.i, align 8, !tbaa !11
+  store ptr %22, ptr %prev.i116, align 8, !tbaa !5
+  %prev3.i = getelementptr inbounds %struct.DLL, ptr %22, i64 0, i32 2
+  store ptr %25, ptr %prev3.i, align 8, !tbaa !5
+  %26 = load ptr, ptr %next23.i117, align 8, !tbaa !11
+  %next2.i.1 = getelementptr inbounds %struct.DLL, ptr %26, i64 0, i32 1
+  %27 = load ptr, ptr %next2.i.1, align 8, !tbaa !11
+  store ptr %27, ptr %next23.i117, align 8, !tbaa !11
+  %28 = load ptr, ptr %next2.i.1, align 8, !tbaa !11
+  %prev.i122.1 = getelementptr inbounds %struct.DLL, ptr %28, i64 0, i32 2
+  store ptr %call1.i, ptr %prev.i122.1, align 8, !tbaa !5
+  %dec.i.1 = add nsw i32 %dec.i176178, -2
+  %29 = load ptr, ptr %prev.i116, align 8, !tbaa !5
+  %next.i125.1 = getelementptr inbounds %struct.DLL, ptr %29, i64 0, i32 1
+  store ptr %26, ptr %next.i125.1, align 8, !tbaa !11
+  store ptr %call.i114, ptr %next2.i.1, align 8, !tbaa !11
+  store ptr %26, ptr %prev.i116, align 8, !tbaa !5
+  %prev3.i.1 = getelementptr inbounds %struct.DLL, ptr %26, i64 0, i32 2
+  store ptr %29, ptr %prev3.i.1, align 8, !tbaa !5
+  %cmp.i.not.1 = icmp eq i32 %dec.i.1, 0
+  br i1 %cmp.i.not.1, label %while.cond13.preheader, label %while.body, !llvm.loop !19
 
-128:                                              ; preds = %130, %105
-  store i32 0, ptr %40, align 8, !tbaa !12
-  store i32 %72, ptr %21, align 8, !tbaa !12
-  br label %129
+while.cond13.do.body.i.preheader_crit_edge:       ; preds = %while.body17, %while.body17.prol.loopexit
+  store i32 0, ptr %call.i114, align 8, !tbaa !12
+  store i32 %call1.i.promoted, ptr %call1.i, align 8, !tbaa !12
+  br label %do.body.i.preheader
 
-129:                                              ; preds = %71, %128
-  br label %148
+do.body.i.preheader:                              ; preds = %while.cond.preheader, %while.cond13.do.body.i.preheader_crit_edge
+  br label %do.body.i
 
-130:                                              ; preds = %105, %130
-  %131 = phi i32 [ %143, %130 ], [ %106, %105 ]
-  %132 = load ptr, ptr %42, align 8, !tbaa !5
-  %133 = getelementptr inbounds %struct.DLL, ptr %132, i64 0, i32 2
-  %134 = load ptr, ptr %133, align 8, !tbaa !5
-  %135 = getelementptr inbounds %struct.DLL, ptr %134, i64 0, i32 1
-  store ptr %40, ptr %135, align 8, !tbaa !11
-  store ptr %134, ptr %42, align 8, !tbaa !5
-  %136 = load ptr, ptr %38, align 8, !tbaa !5
-  %137 = getelementptr inbounds %struct.DLL, ptr %136, i64 0, i32 1
-  store ptr %132, ptr %137, align 8, !tbaa !11
-  %138 = getelementptr inbounds %struct.DLL, ptr %132, i64 0, i32 1
-  store ptr %21, ptr %138, align 8, !tbaa !11
-  store ptr %132, ptr %38, align 8, !tbaa !5
-  store ptr %136, ptr %133, align 8, !tbaa !5
-  %139 = load ptr, ptr %42, align 8, !tbaa !5
-  %140 = getelementptr inbounds %struct.DLL, ptr %139, i64 0, i32 2
-  %141 = load ptr, ptr %140, align 8, !tbaa !5
-  %142 = getelementptr inbounds %struct.DLL, ptr %141, i64 0, i32 1
-  store ptr %40, ptr %142, align 8, !tbaa !11
-  store ptr %141, ptr %42, align 8, !tbaa !5
-  %143 = add nsw i32 %131, -2
-  %144 = load ptr, ptr %38, align 8, !tbaa !5
-  %145 = getelementptr inbounds %struct.DLL, ptr %144, i64 0, i32 1
-  store ptr %139, ptr %145, align 8, !tbaa !11
-  %146 = getelementptr inbounds %struct.DLL, ptr %139, i64 0, i32 1
-  store ptr %21, ptr %146, align 8, !tbaa !11
-  store ptr %139, ptr %38, align 8, !tbaa !5
-  store ptr %144, ptr %140, align 8, !tbaa !5
-  %147 = icmp eq i32 %143, 0
-  br i1 %147, label %128, label %130, !llvm.loop !20
+while.body17:                                     ; preds = %while.body17.prol.loopexit, %while.body17
+  %dec.i135182184 = phi i32 [ %dec.i135.1, %while.body17 ], [ %dec.i135182184.unr, %while.body17.prol.loopexit ]
+  %30 = load ptr, ptr %prev.i116, align 8, !tbaa !5
+  %prev2.i = getelementptr inbounds %struct.DLL, ptr %30, i64 0, i32 2
+  %31 = load ptr, ptr %prev2.i, align 8, !tbaa !5
+  %next.i134 = getelementptr inbounds %struct.DLL, ptr %31, i64 0, i32 1
+  store ptr %call.i114, ptr %next.i134, align 8, !tbaa !11
+  store ptr %31, ptr %prev.i116, align 8, !tbaa !5
+  %32 = load ptr, ptr %prev17.i, align 8, !tbaa !5
+  %next.i139 = getelementptr inbounds %struct.DLL, ptr %32, i64 0, i32 1
+  store ptr %30, ptr %next.i139, align 8, !tbaa !11
+  %next1.i140 = getelementptr inbounds %struct.DLL, ptr %30, i64 0, i32 1
+  store ptr %call1.i, ptr %next1.i140, align 8, !tbaa !11
+  store ptr %30, ptr %prev17.i, align 8, !tbaa !5
+  store ptr %32, ptr %prev2.i, align 8, !tbaa !5
+  %33 = load ptr, ptr %prev.i116, align 8, !tbaa !5
+  %prev2.i.1 = getelementptr inbounds %struct.DLL, ptr %33, i64 0, i32 2
+  %34 = load ptr, ptr %prev2.i.1, align 8, !tbaa !5
+  %next.i134.1 = getelementptr inbounds %struct.DLL, ptr %34, i64 0, i32 1
+  store ptr %call.i114, ptr %next.i134.1, align 8, !tbaa !11
+  store ptr %34, ptr %prev.i116, align 8, !tbaa !5
+  %dec.i135.1 = add nsw i32 %dec.i135182184, -2
+  %35 = load ptr, ptr %prev17.i, align 8, !tbaa !5
+  %next.i139.1 = getelementptr inbounds %struct.DLL, ptr %35, i64 0, i32 1
+  store ptr %33, ptr %next.i139.1, align 8, !tbaa !11
+  %next1.i140.1 = getelementptr inbounds %struct.DLL, ptr %33, i64 0, i32 1
+  store ptr %call1.i, ptr %next1.i140.1, align 8, !tbaa !11
+  store ptr %33, ptr %prev17.i, align 8, !tbaa !5
+  store ptr %35, ptr %prev2.i.1, align 8, !tbaa !5
+  %cmp.i130.not.1 = icmp eq i32 %dec.i135.1, 0
+  br i1 %cmp.i130.not.1, label %while.cond13.do.body.i.preheader_crit_edge, label %while.body17, !llvm.loop !20
 
-148:                                              ; preds = %129, %148
-  %149 = phi ptr [ %151, %148 ], [ %1, %129 ]
-  %150 = getelementptr inbounds %struct.DLL, ptr %149, i64 0, i32 1
-  %151 = load ptr, ptr %150, align 8, !tbaa !11
-  %152 = getelementptr inbounds %struct.DLL, ptr %149, i64 0, i32 2
-  %153 = load ptr, ptr %152, align 8, !tbaa !5
-  store ptr %153, ptr %150, align 8, !tbaa !11
-  store ptr %151, ptr %152, align 8, !tbaa !5
-  %154 = icmp eq ptr %151, %1
-  br i1 %154, label %155, label %148, !llvm.loop !18
+do.body.i:                                        ; preds = %do.body.i.preheader, %do.body.i
+  %p.0.i = phi ptr [ %36, %do.body.i ], [ %call.i, %do.body.i.preheader ]
+  %next.i145 = getelementptr inbounds %struct.DLL, ptr %p.0.i, i64 0, i32 1
+  %36 = load ptr, ptr %next.i145, align 8, !tbaa !11
+  %prev.i146 = getelementptr inbounds %struct.DLL, ptr %p.0.i, i64 0, i32 2
+  %37 = load ptr, ptr %prev.i146, align 8, !tbaa !5
+  store ptr %37, ptr %next.i145, align 8, !tbaa !11
+  store ptr %36, ptr %prev.i146, align 8, !tbaa !5
+  %cmp.not.i147 = icmp eq ptr %36, %call.i
+  br i1 %cmp.not.i147, label %list_reverse.exit, label %do.body.i, !llvm.loop !18
 
-155:                                              ; preds = %148
-  %156 = getelementptr i8, ptr %1, i64 8
-  %157 = load ptr, ptr %156, align 8, !tbaa !11
-  %158 = load i32, ptr %157, align 8, !tbaa !12
-  %159 = icmp eq i32 %158, 100
-  br i1 %159, label %162, label %160
+list_reverse.exit:                                ; preds = %do.body.i
+  %38 = getelementptr i8, ptr %call.i, i64 8
+  %call.val106 = load ptr, ptr %38, align 8, !tbaa !11
+  %39 = load i32, ptr %call.val106, align 8, !tbaa !12
+  %cmp.not = icmp eq i32 %39, 100
+  br i1 %cmp.not, label %if.end30, label %if.then26
 
-160:                                              ; preds = %155
-  %161 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.7, i32 noundef 100, i32 noundef %158)
+if.then26:                                        ; preds = %list_reverse.exit
+  %call29 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.7, i32 noundef 100, i32 noundef %39)
   tail call void @exit(i32 noundef 1) #16
   unreachable
 
-162:                                              ; preds = %155
-  %163 = load ptr, ptr %17, align 8, !tbaa !5
-  %164 = load i32, ptr %163, align 8, !tbaa !12
-  %165 = icmp eq i32 %164, 1
-  br i1 %165, label %168, label %166
+if.end30:                                         ; preds = %list_reverse.exit
+  %call.val102 = load ptr, ptr %prev19.i, align 8, !tbaa !5
+  %40 = load i32, ptr %call.val102, align 8, !tbaa !12
+  %cmp33.not = icmp eq i32 %40, 1
+  br i1 %cmp33.not, label %if.end38, label %if.then34
 
-166:                                              ; preds = %162
-  %167 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.8, i32 noundef 100, i32 noundef %164)
+if.then34:                                        ; preds = %if.end30
+  %call37 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.8, i32 noundef 100, i32 noundef %40)
   tail call void @exit(i32 noundef 1) #16
   unreachable
 
-168:                                              ; preds = %162
-  %169 = load ptr, ptr %43, align 8, !tbaa !11
-  %170 = load i32, ptr %169, align 8, !tbaa !12
-  %171 = icmp eq i32 %170, 100
-  br i1 %171, label %174, label %172
+if.end38:                                         ; preds = %if.end30
+  %call1.val104 = load ptr, ptr %next23.i117, align 8, !tbaa !11
+  %41 = load i32, ptr %call1.val104, align 8, !tbaa !12
+  %cmp41.not = icmp eq i32 %41, 100
+  br i1 %cmp41.not, label %if.end46, label %if.then42
 
-172:                                              ; preds = %168
-  %173 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.9, i32 noundef 100, i32 noundef %170)
+if.then42:                                        ; preds = %if.end38
+  %call45 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.9, i32 noundef 100, i32 noundef %41)
   tail call void @exit(i32 noundef 1) #16
   unreachable
 
-174:                                              ; preds = %168
-  %175 = load ptr, ptr %38, align 8, !tbaa !5
-  %176 = load i32, ptr %175, align 8, !tbaa !12
-  %177 = icmp eq i32 %176, 1
-  br i1 %177, label %180, label %178
+if.end46:                                         ; preds = %if.end38
+  %call1.val100 = load ptr, ptr %prev17.i, align 8, !tbaa !5
+  %42 = load i32, ptr %call1.val100, align 8, !tbaa !12
+  %cmp49.not = icmp eq i32 %42, 1
+  br i1 %cmp49.not, label %if.end60, label %if.then50
 
-178:                                              ; preds = %174
-  %179 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.8, i32 noundef 100, i32 noundef %176)
+if.then50:                                        ; preds = %if.end46
+  %call53 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.8, i32 noundef 100, i32 noundef %42)
   tail call void @exit(i32 noundef 1) #16
   unreachable
 
-180:                                              ; preds = %174
-  %181 = icmp eq ptr %157, %1
-  br i1 %181, label %198, label %182
+if.end60:                                         ; preds = %if.end46
+  %cmp.not24.i149 = icmp eq ptr %call.val106, %call.i
+  br i1 %cmp.not24.i149, label %for.end.i161, label %for.body.i153
 
-182:                                              ; preds = %180, %189
-  %183 = phi ptr [ %193, %189 ], [ %157, %180 ]
-  %184 = phi ptr [ %191, %189 ], [ %21, %180 ]
-  %185 = phi ptr [ %183, %189 ], [ %1, %180 ]
-  %186 = load i32, ptr %185, align 8, !tbaa !12
-  %187 = load i32, ptr %184, align 8, !tbaa !12
-  %188 = icmp eq i32 %186, %187
-  br i1 %188, label %189, label %207
+for.body.i153:                                    ; preds = %if.end60, %for.inc.i157
+  %43 = phi ptr [ %47, %for.inc.i157 ], [ %call.val106, %if.end60 ]
+  %yp.026.i150 = phi ptr [ %46, %for.inc.i157 ], [ %call1.i, %if.end60 ]
+  %xp.025.i151 = phi ptr [ %43, %for.inc.i157 ], [ %call.i, %if.end60 ]
+  %44 = load i32, ptr %xp.025.i151, align 8, !tbaa !12
+  %45 = load i32, ptr %yp.026.i150, align 8, !tbaa !12
+  %cmp2.not.i152 = icmp eq i32 %44, %45
+  br i1 %cmp2.not.i152, label %for.inc.i157, label %if.then63
 
-189:                                              ; preds = %182
-  %190 = getelementptr inbounds %struct.DLL, ptr %184, i64 0, i32 1
-  %191 = load ptr, ptr %190, align 8, !tbaa !11
-  %192 = getelementptr inbounds %struct.DLL, ptr %183, i64 0, i32 1
-  %193 = load ptr, ptr %192, align 8, !tbaa !11
-  %194 = icmp eq ptr %193, %1
-  br i1 %194, label %195, label %182, !llvm.loop !13
+for.inc.i157:                                     ; preds = %for.body.i153
+  %next4.i154 = getelementptr inbounds %struct.DLL, ptr %yp.026.i150, i64 0, i32 1
+  %46 = load ptr, ptr %next4.i154, align 8, !tbaa !11
+  %next.i155 = getelementptr inbounds %struct.DLL, ptr %43, i64 0, i32 1
+  %47 = load ptr, ptr %next.i155, align 8, !tbaa !11
+  %cmp.not.i156 = icmp eq ptr %47, %call.i
+  br i1 %cmp.not.i156, label %for.end.i161.loopexit, label %for.body.i153, !llvm.loop !13
 
-195:                                              ; preds = %189
-  %196 = load i32, ptr %183, align 8, !tbaa !12
-  %197 = load i32, ptr %191, align 8, !tbaa !12
-  br label %198
+for.end.i161.loopexit:                            ; preds = %for.inc.i157
+  %.pre195 = load i32, ptr %43, align 8, !tbaa !12
+  %.pre196 = load i32, ptr %46, align 8, !tbaa !12
+  br label %for.end.i161
 
-198:                                              ; preds = %195, %180
-  %199 = phi i32 [ %72, %180 ], [ %197, %195 ]
-  %200 = phi i32 [ 100, %180 ], [ %196, %195 ]
-  %201 = phi ptr [ %21, %180 ], [ %191, %195 ]
-  %202 = icmp eq i32 %200, %199
-  br i1 %202, label %203, label %207
+for.end.i161:                                     ; preds = %for.end.i161.loopexit, %if.end60
+  %48 = phi i32 [ %call1.i.promoted, %if.end60 ], [ %.pre196, %for.end.i161.loopexit ]
+  %49 = phi i32 [ 100, %if.end60 ], [ %.pre195, %for.end.i161.loopexit ]
+  %yp.0.lcssa.i159 = phi ptr [ %call1.i, %if.end60 ], [ %46, %for.end.i161.loopexit ]
+  %cmp7.not.i160 = icmp eq i32 %49, %48
+  br i1 %cmp7.not.i160, label %list_equal.exit167, label %if.then63
 
-203:                                              ; preds = %198
-  %204 = getelementptr inbounds %struct.DLL, ptr %201, i64 0, i32 1
-  %205 = load ptr, ptr %204, align 8, !tbaa !11
-  %206 = icmp eq ptr %205, %21
-  br i1 %206, label %209, label %207
+list_equal.exit167:                               ; preds = %for.end.i161
+  %next10.i162 = getelementptr inbounds %struct.DLL, ptr %yp.0.lcssa.i159, i64 0, i32 1
+  %50 = load ptr, ptr %next10.i162, align 8, !tbaa !11
+  %cmp11.i163.not = icmp eq ptr %50, %call1.i
+  br i1 %cmp11.i163.not, label %if.end65, label %if.then63
 
-207:                                              ; preds = %182, %198, %203
-  %208 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.18)
+if.then63:                                        ; preds = %for.body.i153, %for.end.i161, %list_equal.exit167
+  %puts94 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.16)
   tail call void @exit(i32 noundef 1) #16
   unreachable
 
-209:                                              ; preds = %203
-  tail call void @free(ptr noundef %1) #17
-  tail call void @free(ptr noundef %21) #17
-  tail call void @free(ptr noundef %40) #17
+if.end65:                                         ; preds = %list_equal.exit167
+  tail call void @free(ptr noundef %call.i) #17
+  tail call void @free(ptr noundef %call1.i) #17
+  tail call void @free(ptr noundef %call.i114) #17
   ret i32 100
 }
 
@@ -688,32 +699,33 @@ declare void @exit(i32 noundef) local_unnamed_addr #11
 declare void @free(ptr allocptr nocapture noundef) local_unnamed_addr #12
 
 ; Function Attrs: nounwind uwtable
-define dso_local i32 @main(i32 noundef %0, ptr nocapture noundef readonly %1) local_unnamed_addr #10 {
-  %3 = icmp eq i32 %0, 2
-  br i1 %3, label %4, label %10
+define dso_local i32 @main(i32 noundef %argc, ptr nocapture noundef readonly %argv) local_unnamed_addr #10 {
+entry:
+  %cmp = icmp eq i32 %argc, 2
+  br i1 %cmp, label %cond.end, label %while.body.preheader
 
-4:                                                ; preds = %2
-  %5 = getelementptr inbounds ptr, ptr %1, i64 1
-  %6 = load ptr, ptr %5, align 8, !tbaa !21
-  %7 = tail call i64 @strtol(ptr nocapture noundef nonnull %6, ptr noundef null, i32 noundef 10) #17
-  %8 = trunc i64 %7 to i32
-  %9 = icmp eq i32 %8, 0
-  br i1 %9, label %17, label %10
+cond.end:                                         ; preds = %entry
+  %arrayidx = getelementptr inbounds ptr, ptr %argv, i64 1
+  %0 = load ptr, ptr %arrayidx, align 8, !tbaa !21
+  %call.i = tail call i64 @strtol(ptr nocapture noundef nonnull %0, ptr noundef null, i32 noundef 10) #17
+  %conv.i = trunc i64 %call.i to i32
+  %tobool.not3 = icmp eq i32 %conv.i, 0
+  br i1 %tobool.not3, label %while.end, label %while.body.preheader
 
-10:                                               ; preds = %2, %4
-  %11 = phi i32 [ 3000000, %2 ], [ %8, %4 ]
-  br label %12
+while.body.preheader:                             ; preds = %entry, %cond.end
+  %n.04.ph = phi i32 [ 3000000, %entry ], [ %conv.i, %cond.end ]
+  br label %while.body
 
-12:                                               ; preds = %10, %12
-  %13 = phi i32 [ %14, %12 ], [ %11, %10 ]
-  %14 = add nsw i32 %13, -1
-  %15 = tail call i32 @test_lists()
-  %16 = icmp eq i32 %14, 0
-  br i1 %16, label %17, label %12, !llvm.loop !22
+while.body:                                       ; preds = %while.body.preheader, %while.body
+  %n.04 = phi i32 [ %dec, %while.body ], [ %n.04.ph, %while.body.preheader ]
+  %dec = add nsw i32 %n.04, -1
+  %call1 = tail call i32 @test_lists()
+  %tobool.not = icmp eq i32 %dec, 0
+  br i1 %tobool.not, label %while.end, label %while.body, !llvm.loop !22
 
-17:                                               ; preds = %12, %4
-  %18 = phi i32 [ 0, %4 ], [ %15, %12 ]
-  %19 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.12, i32 noundef %18)
+while.end:                                        ; preds = %while.body, %cond.end
+  %result.0.lcssa = phi i32 [ 0, %cond.end ], [ %call1, %while.body ]
+  %call2 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.12, i32 noundef %result.0.lcssa)
   ret i32 0
 }
 

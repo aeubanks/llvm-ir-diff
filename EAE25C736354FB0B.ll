@@ -7,36 +7,37 @@ target triple = "x86_64-unknown-linux-gnu"
 %struct.Mbuffer = type { ptr, i64, i64 }
 
 ; Function Attrs: nounwind uwtable
-define hidden i32 @luaZ_fill(ptr nocapture noundef %0) local_unnamed_addr #0 {
-  %2 = alloca i64, align 8
-  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %2) #7
-  %3 = getelementptr inbounds %struct.Zio, ptr %0, i64 0, i32 4
-  %4 = load ptr, ptr %3, align 8, !tbaa !5
-  %5 = getelementptr inbounds %struct.Zio, ptr %0, i64 0, i32 2
-  %6 = load ptr, ptr %5, align 8, !tbaa !11
-  %7 = getelementptr inbounds %struct.Zio, ptr %0, i64 0, i32 3
-  %8 = load ptr, ptr %7, align 8, !tbaa !12
-  %9 = call ptr %6(ptr noundef %4, ptr noundef %8, ptr noundef nonnull %2) #7
-  %10 = icmp eq ptr %9, null
-  %11 = load i64, ptr %2, align 8
-  %12 = icmp eq i64 %11, 0
-  %13 = select i1 %10, i1 true, i1 %12
-  br i1 %13, label %20, label %14
+define hidden i32 @luaZ_fill(ptr nocapture noundef %z) local_unnamed_addr #0 {
+entry:
+  %size = alloca i64, align 8
+  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %size) #7
+  %L1 = getelementptr inbounds %struct.Zio, ptr %z, i64 0, i32 4
+  %0 = load ptr, ptr %L1, align 8, !tbaa !5
+  %reader = getelementptr inbounds %struct.Zio, ptr %z, i64 0, i32 2
+  %1 = load ptr, ptr %reader, align 8, !tbaa !11
+  %data = getelementptr inbounds %struct.Zio, ptr %z, i64 0, i32 3
+  %2 = load ptr, ptr %data, align 8, !tbaa !12
+  %call = call ptr %1(ptr noundef %0, ptr noundef %2, ptr noundef nonnull %size) #7
+  %cmp = icmp eq ptr %call, null
+  %3 = load i64, ptr %size, align 8
+  %cmp2 = icmp eq i64 %3, 0
+  %or.cond = select i1 %cmp, i1 true, i1 %cmp2
+  br i1 %or.cond, label %cleanup, label %if.end
 
-14:                                               ; preds = %1
-  %15 = add i64 %11, -1
-  store i64 %15, ptr %0, align 8, !tbaa !13
-  %16 = getelementptr inbounds %struct.Zio, ptr %0, i64 0, i32 1
-  %17 = getelementptr inbounds i8, ptr %9, i64 1
-  store ptr %17, ptr %16, align 8, !tbaa !14
-  %18 = load i8, ptr %9, align 1, !tbaa !15
-  %19 = zext i8 %18 to i32
-  br label %20
+if.end:                                           ; preds = %entry
+  %sub = add i64 %3, -1
+  store i64 %sub, ptr %z, align 8, !tbaa !13
+  %p = getelementptr inbounds %struct.Zio, ptr %z, i64 0, i32 1
+  %incdec.ptr = getelementptr inbounds i8, ptr %call, i64 1
+  store ptr %incdec.ptr, ptr %p, align 8, !tbaa !14
+  %4 = load i8, ptr %call, align 1, !tbaa !15
+  %conv = zext i8 %4 to i32
+  br label %cleanup
 
-20:                                               ; preds = %1, %14
-  %21 = phi i32 [ %19, %14 ], [ -1, %1 ]
-  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %2) #7
-  ret i32 %21
+cleanup:                                          ; preds = %entry, %if.end
+  %retval.0 = phi i32 [ %conv, %if.end ], [ -1, %entry ]
+  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %size) #7
+  ret i32 %retval.0
 }
 
 ; Function Attrs: mustprogress nocallback nofree nosync nounwind willreturn memory(argmem: readwrite)
@@ -46,190 +47,194 @@ declare void @llvm.lifetime.start.p0(i64 immarg, ptr nocapture) #1
 declare void @llvm.lifetime.end.p0(i64 immarg, ptr nocapture) #1
 
 ; Function Attrs: nounwind uwtable
-define hidden i32 @luaZ_lookahead(ptr nocapture noundef %0) local_unnamed_addr #0 {
-  %2 = alloca i64, align 8
-  %3 = load i64, ptr %0, align 8, !tbaa !13
-  %4 = icmp eq i64 %3, 0
-  br i1 %4, label %8, label %5
+define hidden i32 @luaZ_lookahead(ptr nocapture noundef %z) local_unnamed_addr #0 {
+entry:
+  %size.i = alloca i64, align 8
+  %0 = load i64, ptr %z, align 8, !tbaa !13
+  %cmp = icmp eq i64 %0, 0
+  br i1 %cmp, label %if.then, label %entry.if.end4_crit_edge
 
-5:                                                ; preds = %1
-  %6 = getelementptr inbounds %struct.Zio, ptr %0, i64 0, i32 1
-  %7 = load ptr, ptr %6, align 8, !tbaa !14
-  br label %23
+entry.if.end4_crit_edge:                          ; preds = %entry
+  %p5.phi.trans.insert = getelementptr inbounds %struct.Zio, ptr %z, i64 0, i32 1
+  %.pre = load ptr, ptr %p5.phi.trans.insert, align 8, !tbaa !14
+  br label %if.end4
 
-8:                                                ; preds = %1
-  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %2) #7
-  %9 = getelementptr inbounds %struct.Zio, ptr %0, i64 0, i32 4
-  %10 = load ptr, ptr %9, align 8, !tbaa !5
-  %11 = getelementptr inbounds %struct.Zio, ptr %0, i64 0, i32 2
-  %12 = load ptr, ptr %11, align 8, !tbaa !11
-  %13 = getelementptr inbounds %struct.Zio, ptr %0, i64 0, i32 3
-  %14 = load ptr, ptr %13, align 8, !tbaa !12
-  %15 = call ptr %12(ptr noundef %10, ptr noundef %14, ptr noundef nonnull %2) #7
-  %16 = icmp eq ptr %15, null
-  %17 = load i64, ptr %2, align 8
-  %18 = icmp eq i64 %17, 0
-  %19 = select i1 %16, i1 true, i1 %18
-  br i1 %19, label %20, label %21
+if.then:                                          ; preds = %entry
+  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %size.i) #7
+  %L1.i = getelementptr inbounds %struct.Zio, ptr %z, i64 0, i32 4
+  %1 = load ptr, ptr %L1.i, align 8, !tbaa !5
+  %reader.i = getelementptr inbounds %struct.Zio, ptr %z, i64 0, i32 2
+  %2 = load ptr, ptr %reader.i, align 8, !tbaa !11
+  %data.i = getelementptr inbounds %struct.Zio, ptr %z, i64 0, i32 3
+  %3 = load ptr, ptr %data.i, align 8, !tbaa !12
+  %call.i = call ptr %2(ptr noundef %1, ptr noundef %3, ptr noundef nonnull %size.i) #7
+  %cmp.i = icmp eq ptr %call.i, null
+  %4 = load i64, ptr %size.i, align 8
+  %cmp2.i = icmp eq i64 %4, 0
+  %or.cond.i = select i1 %cmp.i, i1 true, i1 %cmp2.i
+  br i1 %or.cond.i, label %luaZ_fill.exit.thread, label %luaZ_fill.exit
 
-20:                                               ; preds = %8
-  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %2) #7
-  br label %27
+luaZ_fill.exit.thread:                            ; preds = %if.then
+  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %size.i) #7
+  br label %return
 
-21:                                               ; preds = %8
-  %22 = getelementptr inbounds %struct.Zio, ptr %0, i64 0, i32 1
-  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %2) #7
-  store i64 %17, ptr %0, align 8, !tbaa !13
-  store ptr %15, ptr %22, align 8, !tbaa !14
-  br label %23
+luaZ_fill.exit:                                   ; preds = %if.then
+  %p.i = getelementptr inbounds %struct.Zio, ptr %z, i64 0, i32 1
+  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %size.i) #7
+  store i64 %4, ptr %z, align 8, !tbaa !13
+  store ptr %call.i, ptr %p.i, align 8, !tbaa !14
+  br label %if.end4
 
-23:                                               ; preds = %5, %21
-  %24 = phi ptr [ %7, %5 ], [ %15, %21 ]
-  %25 = load i8, ptr %24, align 1, !tbaa !15
-  %26 = zext i8 %25 to i32
-  br label %27
+if.end4:                                          ; preds = %entry.if.end4_crit_edge, %luaZ_fill.exit
+  %5 = phi ptr [ %.pre, %entry.if.end4_crit_edge ], [ %call.i, %luaZ_fill.exit ]
+  %6 = load i8, ptr %5, align 1, !tbaa !15
+  %conv = zext i8 %6 to i32
+  br label %return
 
-27:                                               ; preds = %20, %23
-  %28 = phi i32 [ %26, %23 ], [ -1, %20 ]
-  ret i32 %28
+return:                                           ; preds = %luaZ_fill.exit.thread, %if.end4
+  %retval.0 = phi i32 [ %conv, %if.end4 ], [ -1, %luaZ_fill.exit.thread ]
+  ret i32 %retval.0
 }
 
 ; Function Attrs: mustprogress nofree nosync nounwind willreturn memory(argmem: write) uwtable
-define hidden void @luaZ_init(ptr noundef %0, ptr nocapture noundef writeonly %1, ptr noundef %2, ptr noundef %3) local_unnamed_addr #2 {
-  %5 = getelementptr inbounds %struct.Zio, ptr %1, i64 0, i32 4
-  store ptr %0, ptr %5, align 8, !tbaa !5
-  %6 = getelementptr inbounds %struct.Zio, ptr %1, i64 0, i32 2
-  store ptr %2, ptr %6, align 8, !tbaa !11
-  %7 = getelementptr inbounds %struct.Zio, ptr %1, i64 0, i32 3
-  store ptr %3, ptr %7, align 8, !tbaa !12
-  tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %1, i8 0, i64 16, i1 false)
+define hidden void @luaZ_init(ptr noundef %L, ptr nocapture noundef writeonly %z, ptr noundef %reader, ptr noundef %data) local_unnamed_addr #2 {
+entry:
+  %L1 = getelementptr inbounds %struct.Zio, ptr %z, i64 0, i32 4
+  store ptr %L, ptr %L1, align 8, !tbaa !5
+  %reader2 = getelementptr inbounds %struct.Zio, ptr %z, i64 0, i32 2
+  store ptr %reader, ptr %reader2, align 8, !tbaa !11
+  %data3 = getelementptr inbounds %struct.Zio, ptr %z, i64 0, i32 3
+  store ptr %data, ptr %data3, align 8, !tbaa !12
+  tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %z, i8 0, i64 16, i1 false)
   ret void
 }
 
 ; Function Attrs: nounwind uwtable
-define hidden i64 @luaZ_read(ptr nocapture noundef %0, ptr nocapture noundef writeonly %1, i64 noundef %2) local_unnamed_addr #0 {
-  %4 = alloca i64, align 8
-  %5 = icmp eq i64 %2, 0
-  br i1 %5, label %40, label %6
+define hidden i64 @luaZ_read(ptr nocapture noundef %z, ptr nocapture noundef writeonly %b, i64 noundef %n) local_unnamed_addr #0 {
+entry:
+  %size.i.i = alloca i64, align 8
+  %tobool.not32 = icmp eq i64 %n, 0
+  br i1 %tobool.not32, label %return, label %while.body.lr.ph
 
-6:                                                ; preds = %3
-  %7 = getelementptr inbounds %struct.Zio, ptr %0, i64 0, i32 4
-  %8 = getelementptr inbounds %struct.Zio, ptr %0, i64 0, i32 2
-  %9 = getelementptr inbounds %struct.Zio, ptr %0, i64 0, i32 3
-  %10 = getelementptr inbounds %struct.Zio, ptr %0, i64 0, i32 1
-  %11 = load i64, ptr %0, align 8, !tbaa !13
-  br label %12
+while.body.lr.ph:                                 ; preds = %entry
+  %L1.i.i = getelementptr inbounds %struct.Zio, ptr %z, i64 0, i32 4
+  %reader.i.i = getelementptr inbounds %struct.Zio, ptr %z, i64 0, i32 2
+  %data.i.i = getelementptr inbounds %struct.Zio, ptr %z, i64 0, i32 3
+  %p.i.i = getelementptr inbounds %struct.Zio, ptr %z, i64 0, i32 1
+  %.pre = load i64, ptr %z, align 8, !tbaa !13
+  br label %while.body
 
-12:                                               ; preds = %6, %29
-  %13 = phi i64 [ %11, %6 ], [ %34, %29 ]
-  %14 = phi i64 [ %2, %6 ], [ %38, %29 ]
-  %15 = phi ptr [ %1, %6 ], [ %37, %29 ]
-  %16 = icmp eq i64 %13, 0
-  br i1 %16, label %19, label %17
+while.body:                                       ; preds = %while.body.lr.ph, %luaZ_lookahead.exit
+  %0 = phi i64 [ %.pre, %while.body.lr.ph ], [ %sub, %luaZ_lookahead.exit ]
+  %n.addr.034 = phi i64 [ %n, %while.body.lr.ph ], [ %sub7, %luaZ_lookahead.exit ]
+  %b.addr.033 = phi ptr [ %b, %while.body.lr.ph ], [ %add.ptr6, %luaZ_lookahead.exit ]
+  %cmp.i = icmp eq i64 %0, 0
+  br i1 %cmp.i, label %if.then.i, label %while.body.luaZ_lookahead.exit_crit_edge
 
-17:                                               ; preds = %12
-  %18 = load ptr, ptr %10, align 8, !tbaa !14
-  br label %29
+while.body.luaZ_lookahead.exit_crit_edge:         ; preds = %while.body
+  %.pre36 = load ptr, ptr %p.i.i, align 8, !tbaa !14
+  br label %luaZ_lookahead.exit
 
-19:                                               ; preds = %12
-  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %4) #7
-  %20 = load ptr, ptr %7, align 8, !tbaa !5
-  %21 = load ptr, ptr %8, align 8, !tbaa !11
-  %22 = load ptr, ptr %9, align 8, !tbaa !12
-  %23 = call ptr %21(ptr noundef %20, ptr noundef %22, ptr noundef nonnull %4) #7
-  %24 = icmp eq ptr %23, null
-  %25 = load i64, ptr %4, align 8
-  %26 = icmp eq i64 %25, 0
-  %27 = select i1 %24, i1 true, i1 %26
-  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %4) #7
-  br i1 %27, label %40, label %28
+if.then.i:                                        ; preds = %while.body
+  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %size.i.i) #7
+  %1 = load ptr, ptr %L1.i.i, align 8, !tbaa !5
+  %2 = load ptr, ptr %reader.i.i, align 8, !tbaa !11
+  %3 = load ptr, ptr %data.i.i, align 8, !tbaa !12
+  %call.i.i = call ptr %2(ptr noundef %1, ptr noundef %3, ptr noundef nonnull %size.i.i) #7
+  %cmp.i.i = icmp eq ptr %call.i.i, null
+  %4 = load i64, ptr %size.i.i, align 8
+  %cmp2.i.i = icmp eq i64 %4, 0
+  %or.cond.i.i = select i1 %cmp.i.i, i1 true, i1 %cmp2.i.i
+  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %size.i.i) #7
+  br i1 %or.cond.i.i, label %return, label %luaZ_fill.exit.i
 
-28:                                               ; preds = %19
-  store i64 %25, ptr %0, align 8, !tbaa !13
-  store ptr %23, ptr %10, align 8, !tbaa !14
-  br label %29
+luaZ_fill.exit.i:                                 ; preds = %if.then.i
+  store i64 %4, ptr %z, align 8, !tbaa !13
+  store ptr %call.i.i, ptr %p.i.i, align 8, !tbaa !14
+  br label %luaZ_lookahead.exit
 
-29:                                               ; preds = %17, %28
-  %30 = phi ptr [ %18, %17 ], [ %23, %28 ]
-  %31 = phi i64 [ %13, %17 ], [ %25, %28 ]
-  %32 = call i64 @llvm.umin.i64(i64 %14, i64 %31)
-  call void @llvm.memcpy.p0.p0.i64(ptr align 1 %15, ptr align 1 %30, i64 %32, i1 false)
-  %33 = load i64, ptr %0, align 8, !tbaa !13
-  %34 = sub i64 %33, %32
-  store i64 %34, ptr %0, align 8, !tbaa !13
-  %35 = load ptr, ptr %10, align 8, !tbaa !14
-  %36 = getelementptr inbounds i8, ptr %35, i64 %32
-  store ptr %36, ptr %10, align 8, !tbaa !14
-  %37 = getelementptr inbounds i8, ptr %15, i64 %32
-  %38 = sub i64 %14, %32
-  %39 = icmp eq i64 %38, 0
-  br i1 %39, label %40, label %12
+luaZ_lookahead.exit:                              ; preds = %while.body.luaZ_lookahead.exit_crit_edge, %luaZ_fill.exit.i
+  %5 = phi ptr [ %.pre36, %while.body.luaZ_lookahead.exit_crit_edge ], [ %call.i.i, %luaZ_fill.exit.i ]
+  %6 = phi i64 [ %0, %while.body.luaZ_lookahead.exit_crit_edge ], [ %4, %luaZ_fill.exit.i ]
+  %.n.addr.0 = call i64 @llvm.umin.i64(i64 %n.addr.034, i64 %6)
+  call void @llvm.memcpy.p0.p0.i64(ptr align 1 %b.addr.033, ptr align 1 %5, i64 %.n.addr.0, i1 false)
+  %7 = load i64, ptr %z, align 8, !tbaa !13
+  %sub = sub i64 %7, %.n.addr.0
+  store i64 %sub, ptr %z, align 8, !tbaa !13
+  %8 = load ptr, ptr %p.i.i, align 8, !tbaa !14
+  %add.ptr = getelementptr inbounds i8, ptr %8, i64 %.n.addr.0
+  store ptr %add.ptr, ptr %p.i.i, align 8, !tbaa !14
+  %add.ptr6 = getelementptr inbounds i8, ptr %b.addr.033, i64 %.n.addr.0
+  %sub7 = sub i64 %n.addr.034, %.n.addr.0
+  %tobool.not = icmp eq i64 %sub7, 0
+  br i1 %tobool.not, label %return, label %while.body
 
-40:                                               ; preds = %29, %19, %3
-  %41 = phi i64 [ 0, %3 ], [ 0, %29 ], [ %14, %19 ]
-  ret i64 %41
+return:                                           ; preds = %luaZ_lookahead.exit, %if.then.i, %entry
+  %n.addr.031 = phi i64 [ 0, %entry ], [ 0, %luaZ_lookahead.exit ], [ %n.addr.034, %if.then.i ]
+  ret i64 %n.addr.031
 }
 
 ; Function Attrs: mustprogress nocallback nofree nounwind willreturn memory(argmem: readwrite)
 declare void @llvm.memcpy.p0.p0.i64(ptr noalias nocapture writeonly, ptr noalias nocapture readonly, i64, i1 immarg) #3
 
 ; Function Attrs: nounwind uwtable
-define hidden ptr @luaZ_openspace(ptr noundef %0, ptr nocapture noundef %1, i64 noundef %2) local_unnamed_addr #0 {
-  %4 = getelementptr inbounds %struct.Mbuffer, ptr %1, i64 0, i32 2
-  %5 = load i64, ptr %4, align 8, !tbaa !16
-  %6 = icmp ult i64 %5, %2
-  br i1 %6, label %9, label %7
+define hidden ptr @luaZ_openspace(ptr noundef %L, ptr nocapture noundef %buff, i64 noundef %n) local_unnamed_addr #0 {
+entry:
+  %buffsize = getelementptr inbounds %struct.Mbuffer, ptr %buff, i64 0, i32 2
+  %0 = load i64, ptr %buffsize, align 8, !tbaa !16
+  %cmp = icmp ult i64 %0, %n
+  br i1 %cmp, label %if.then, label %entry.if.end9_crit_edge
 
-7:                                                ; preds = %3
-  %8 = load ptr, ptr %1, align 8, !tbaa !18
-  br label %20
+entry.if.end9_crit_edge:                          ; preds = %entry
+  %.pre = load ptr, ptr %buff, align 8, !tbaa !18
+  br label %if.end9
 
-9:                                                ; preds = %3
-  %10 = tail call i64 @llvm.umax.i64(i64 %2, i64 32)
-  %11 = add i64 %10, 1
-  %12 = icmp ult i64 %11, -2
-  br i1 %12, label %13, label %16
+if.then:                                          ; preds = %entry
+  %spec.store.select = tail call i64 @llvm.umax.i64(i64 %n, i64 32)
+  %add = add i64 %spec.store.select, 1
+  %cmp3 = icmp ult i64 %add, -2
+  br i1 %cmp3, label %cond.true, label %cond.false
 
-13:                                               ; preds = %9
-  %14 = load ptr, ptr %1, align 8, !tbaa !18
-  %15 = tail call ptr @luaM_realloc_(ptr noundef %0, ptr noundef %14, i64 noundef %5, i64 noundef %10) #7
-  br label %18
+cond.true:                                        ; preds = %if.then
+  %1 = load ptr, ptr %buff, align 8, !tbaa !18
+  %call = tail call ptr @luaM_realloc_(ptr noundef %L, ptr noundef %1, i64 noundef %0, i64 noundef %spec.store.select) #7
+  br label %cond.end
 
-16:                                               ; preds = %9
-  %17 = tail call ptr @luaM_toobig(ptr noundef %0) #7
-  br label %18
+cond.false:                                       ; preds = %if.then
+  %call6 = tail call ptr @luaM_toobig(ptr noundef %L) #7
+  br label %cond.end
 
-18:                                               ; preds = %16, %13
-  %19 = phi ptr [ %15, %13 ], [ %17, %16 ]
-  store ptr %19, ptr %1, align 8, !tbaa !18
-  store i64 %10, ptr %4, align 8, !tbaa !16
-  br label %20
+cond.end:                                         ; preds = %cond.false, %cond.true
+  %cond = phi ptr [ %call, %cond.true ], [ %call6, %cond.false ]
+  store ptr %cond, ptr %buff, align 8, !tbaa !18
+  store i64 %spec.store.select, ptr %buffsize, align 8, !tbaa !16
+  br label %if.end9
 
-20:                                               ; preds = %7, %18
-  %21 = phi ptr [ %8, %7 ], [ %19, %18 ]
-  ret ptr %21
+if.end9:                                          ; preds = %entry.if.end9_crit_edge, %cond.end
+  %2 = phi ptr [ %.pre, %entry.if.end9_crit_edge ], [ %cond, %cond.end ]
+  ret ptr %2
 }
 
 declare hidden ptr @luaM_realloc_(ptr noundef, ptr noundef, i64 noundef, i64 noundef) local_unnamed_addr #4
 
 declare hidden ptr @luaM_toobig(ptr noundef) local_unnamed_addr #4
 
+; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
+declare i64 @llvm.umax.i64(i64, i64) #5
+
 ; Function Attrs: nocallback nofree nounwind willreturn memory(argmem: write)
-declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #5
+declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #6
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i64 @llvm.umin.i64(i64, i64) #6
-
-; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i64 @llvm.umax.i64(i64, i64) #6
+declare i64 @llvm.umin.i64(i64, i64) #5
 
 attributes #0 = { nounwind uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #1 = { mustprogress nocallback nofree nosync nounwind willreturn memory(argmem: readwrite) }
 attributes #2 = { mustprogress nofree nosync nounwind willreturn memory(argmem: write) uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #3 = { mustprogress nocallback nofree nounwind willreturn memory(argmem: readwrite) }
 attributes #4 = { "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
-attributes #5 = { nocallback nofree nounwind willreturn memory(argmem: write) }
-attributes #6 = { nocallback nofree nosync nounwind speculatable willreturn memory(none) }
+attributes #5 = { nocallback nofree nosync nounwind speculatable willreturn memory(none) }
+attributes #6 = { nocallback nofree nounwind willreturn memory(argmem: write) }
 attributes #7 = { nounwind }
 
 !llvm.module.flags = !{!0, !1, !2, !3}

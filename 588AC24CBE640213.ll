@@ -44,37 +44,38 @@ declare i32 @__cxa_atexit(ptr, ptr, ptr) local_unnamed_addr #2
 declare i64 @random() local_unnamed_addr #1
 
 ; Function Attrs: mustprogress uwtable
-define dso_local noundef nonnull align 8 dereferenceable(8) ptr @_ZlsRSo7vehicle(ptr noundef nonnull returned align 8 dereferenceable(8) %0, ptr nocapture noundef readonly byval(%class.vehicle) align 8 %1) local_unnamed_addr #3 {
-  %3 = getelementptr inbounds %class.vehicle, ptr %1, i64 0, i32 1
-  %4 = load ptr, ptr %3, align 8, !tbaa !5
-  %5 = icmp eq ptr %4, null
-  br i1 %5, label %6, label %14
+define dso_local noundef nonnull align 8 dereferenceable(8) ptr @_ZlsRSo7vehicle(ptr noundef nonnull returned align 8 dereferenceable(8) %o, ptr nocapture noundef readonly byval(%class.vehicle) align 8 %v) local_unnamed_addr #3 {
+entry:
+  %name = getelementptr inbounds %class.vehicle, ptr %v, i64 0, i32 1
+  %0 = load ptr, ptr %name, align 8, !tbaa !5
+  %tobool.not.i = icmp eq ptr %0, null
+  br i1 %tobool.not.i, label %if.then.i, label %if.else.i
 
-6:                                                ; preds = %2
-  %7 = load ptr, ptr %0, align 8, !tbaa !12
-  %8 = getelementptr i8, ptr %7, i64 -24
-  %9 = load i64, ptr %8, align 8
-  %10 = getelementptr inbounds i8, ptr %0, i64 %9
-  %11 = getelementptr inbounds %"class.std::ios_base", ptr %10, i64 0, i32 5
-  %12 = load i32, ptr %11, align 8, !tbaa !14
-  %13 = or i32 %12, 1
-  tail call void @_ZNSt9basic_iosIcSt11char_traitsIcEE5clearESt12_Ios_Iostate(ptr noundef nonnull align 8 dereferenceable(264) %10, i32 noundef %13)
-  br label %17
+if.then.i:                                        ; preds = %entry
+  %vtable.i = load ptr, ptr %o, align 8, !tbaa !12
+  %vbase.offset.ptr.i = getelementptr i8, ptr %vtable.i, i64 -24
+  %vbase.offset.i = load i64, ptr %vbase.offset.ptr.i, align 8
+  %add.ptr.i = getelementptr inbounds i8, ptr %o, i64 %vbase.offset.i
+  %_M_streambuf_state.i.i.i = getelementptr inbounds %"class.std::ios_base", ptr %add.ptr.i, i64 0, i32 5
+  %1 = load i32, ptr %_M_streambuf_state.i.i.i, align 8, !tbaa !14
+  %or.i.i.i = or i32 %1, 1
+  tail call void @_ZNSt9basic_iosIcSt11char_traitsIcEE5clearESt12_Ios_Iostate(ptr noundef nonnull align 8 dereferenceable(264) %add.ptr.i, i32 noundef %or.i.i.i)
+  br label %_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_PKc.exit
 
-14:                                               ; preds = %2
-  %15 = tail call i64 @strlen(ptr noundef nonnull dereferenceable(1) %4) #8
-  %16 = tail call noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) %0, ptr noundef nonnull %4, i64 noundef %15)
-  br label %17
+if.else.i:                                        ; preds = %entry
+  %call.i.i = tail call i64 @strlen(ptr noundef nonnull dereferenceable(1) %0) #8
+  %call1.i = tail call noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) %o, ptr noundef nonnull %0, i64 noundef %call.i.i)
+  br label %_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_PKc.exit
 
-17:                                               ; preds = %6, %14
-  %18 = tail call noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) %0, ptr noundef nonnull @.str, i64 noundef 4)
-  %19 = load ptr, ptr %1, align 8, !tbaa !21
-  %20 = tail call noundef nonnull align 8 dereferenceable(8) ptr @_ZlsRSo7roadlet(ptr noundef nonnull align 8 dereferenceable(8) %0, ptr noundef nonnull byval(%class.roadlet) align 8 %19)
-  %21 = tail call noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) %20, ptr noundef nonnull @.str.1, i64 noundef 7)
-  %22 = getelementptr inbounds %class.vehicle, ptr %1, i64 0, i32 4
-  %23 = load i32, ptr %22, align 8, !tbaa.struct !22
-  %24 = tail call noundef nonnull align 8 dereferenceable(8) ptr @_ZlsRSo9direction(ptr noundef nonnull align 8 dereferenceable(8) %20, i32 %23)
-  ret ptr %0
+_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_PKc.exit: ; preds = %if.then.i, %if.else.i
+  %call1.i10 = tail call noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) %o, ptr noundef nonnull @.str, i64 noundef 4)
+  %2 = load ptr, ptr %v, align 8, !tbaa !21
+  %call2 = tail call noundef nonnull align 8 dereferenceable(8) ptr @_ZlsRSo7roadlet(ptr noundef nonnull align 8 dereferenceable(8) %o, ptr noundef nonnull byval(%class.roadlet) align 8 %2)
+  %call1.i13 = tail call noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) %call2, ptr noundef nonnull @.str.1, i64 noundef 7)
+  %dir.i = getelementptr inbounds %class.vehicle, ptr %v, i64 0, i32 4
+  %retval.sroa.0.0.copyload.i = load i32, ptr %dir.i, align 8, !tbaa.struct !22
+  %call7 = tail call noundef nonnull align 8 dereferenceable(8) ptr @_ZlsRSo9direction(ptr noundef nonnull align 8 dereferenceable(8) %call2, i32 %retval.sroa.0.0.copyload.i)
+  ret ptr %o
 }
 
 declare noundef nonnull align 8 dereferenceable(8) ptr @_ZlsRSo9direction(ptr noundef nonnull align 8 dereferenceable(8), i32) local_unnamed_addr #0
@@ -82,171 +83,173 @@ declare noundef nonnull align 8 dereferenceable(8) ptr @_ZlsRSo9direction(ptr no
 declare noundef nonnull align 8 dereferenceable(8) ptr @_ZlsRSo7roadlet(ptr noundef nonnull align 8 dereferenceable(8), ptr noundef byval(%class.roadlet) align 8) local_unnamed_addr #0
 
 ; Function Attrs: mustprogress uwtable
-define dso_local void @_ZN7vehicle4tickEv(ptr noundef nonnull align 8 dereferenceable(32) %0) local_unnamed_addr #3 align 2 {
-  %2 = getelementptr inbounds %class.vehicle, ptr %0, i64 0, i32 3
-  %3 = load i32, ptr %2, align 4, !tbaa !24
-  %4 = add nsw i32 %3, 100
-  %5 = getelementptr inbounds %class.vehicle, ptr %0, i64 0, i32 2
-  store i32 %4, ptr %2, align 4, !tbaa !24
-  %6 = load i32, ptr %5, align 8, !tbaa !25
-  %7 = icmp slt i32 %4, %6
-  br i1 %7, label %13, label %8
+define dso_local void @_ZN7vehicle4tickEv(ptr noundef nonnull align 8 dereferenceable(32) %this) local_unnamed_addr #3 align 2 {
+entry:
+  %move_points = getelementptr inbounds %class.vehicle, ptr %this, i64 0, i32 3
+  %0 = load i32, ptr %move_points, align 4, !tbaa !24
+  %add = add nsw i32 %0, 100
+  %speed = getelementptr inbounds %class.vehicle, ptr %this, i64 0, i32 2
+  store i32 %add, ptr %move_points, align 4, !tbaa !24
+  %1 = load i32, ptr %speed, align 8, !tbaa !25
+  %cmp.not7 = icmp slt i32 %add, %1
+  br i1 %cmp.not7, label %while.end, label %while.body
 
-8:                                                ; preds = %1, %8
-  tail call void @_ZN7vehicle4moveEv(ptr noundef nonnull align 8 dereferenceable(32) %0)
-  %9 = load i32, ptr %2, align 4, !tbaa !24
-  %10 = load i32, ptr %5, align 8, !tbaa !25
-  %11 = sub nsw i32 %9, %10
-  store i32 %11, ptr %2, align 4, !tbaa !24
-  %12 = icmp slt i32 %11, %10
-  br i1 %12, label %13, label %8, !llvm.loop !26
+while.body:                                       ; preds = %entry, %while.body
+  tail call void @_ZN7vehicle4moveEv(ptr noundef nonnull align 8 dereferenceable(32) %this)
+  %2 = load i32, ptr %move_points, align 4, !tbaa !24
+  %3 = load i32, ptr %speed, align 8, !tbaa !25
+  %sub = sub nsw i32 %2, %3
+  store i32 %sub, ptr %move_points, align 4, !tbaa !24
+  %cmp.not = icmp slt i32 %sub, %3
+  br i1 %cmp.not, label %while.end, label %while.body, !llvm.loop !26
 
-13:                                               ; preds = %8, %1
+while.end:                                        ; preds = %while.body, %entry
   ret void
 }
 
 ; Function Attrs: uwtable
-define dso_local void @_ZN7vehicle4moveEv(ptr noundef nonnull align 8 dereferenceable(32) %0) local_unnamed_addr #4 align 2 {
-  %2 = alloca [8 x %class.direction], align 16
-  %3 = getelementptr inbounds %class.vehicle, ptr %0, i64 0, i32 5
-  %4 = load i32, ptr %3, align 4, !tbaa !28
-  %5 = icmp eq i32 %4, -1
-  br i1 %5, label %27, label %6
+define dso_local void @_ZN7vehicle4moveEv(ptr noundef nonnull align 8 dereferenceable(32) %this) local_unnamed_addr #4 align 2 {
+entry:
+  %move_to_the.i = alloca [8 x %class.direction], align 16
+  %plan = getelementptr inbounds %class.vehicle, ptr %this, i64 0, i32 5
+  %0 = load i32, ptr %plan, align 4, !tbaa !28
+  %cmp.not = icmp eq i32 %0, -1
+  br i1 %cmp.not, label %if.else, label %if.then
 
-6:                                                ; preds = %1
-  %7 = load i32, ptr @NO_DIRECTION, align 4, !tbaa.struct !22
-  %8 = tail call noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cout, ptr noundef nonnull @.str.2, i64 noundef 17)
-  %9 = load i32, ptr %3, align 4, !tbaa !28
-  %10 = tail call noundef nonnull align 8 dereferenceable(8) ptr @_ZNSolsEi(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cout, i32 noundef %9)
-  %11 = tail call noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) %10, ptr noundef nonnull @.str.3, i64 noundef 2)
-  %12 = load ptr, ptr %0, align 8, !tbaa !21
-  %13 = getelementptr inbounds %class.roadlet, ptr %12, i64 0, i32 3
-  %14 = load i32, ptr %3, align 4, !tbaa !28
-  %15 = sext i32 %14 to i64
-  %16 = getelementptr inbounds ptr, ptr %13, i64 %15
-  %17 = load ptr, ptr %16, align 8, !tbaa !29
-  %18 = srem i32 %14, 9
-  %19 = sext i32 %18 to i64
-  %20 = getelementptr inbounds %class.roadlet, ptr %12, i64 0, i32 2, i64 %19
-  %21 = load ptr, ptr %20, align 8, !tbaa !29
-  %22 = tail call noundef ptr %17(ptr noundef %21, ptr noundef nonnull %0, i32 %18)
-  %23 = icmp eq ptr %22, null
-  br i1 %23, label %69, label %24
+if.then:                                          ; preds = %entry
+  %d.sroa.0.0.copyload = load i32, ptr @NO_DIRECTION, align 4, !tbaa.struct !22
+  %call1.i = tail call noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cout, ptr noundef nonnull @.str.2, i64 noundef 17)
+  %1 = load i32, ptr %plan, align 4, !tbaa !28
+  %call3 = tail call noundef nonnull align 8 dereferenceable(8) ptr @_ZNSolsEi(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cout, i32 noundef %1)
+  %call1.i73 = tail call noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) %call3, ptr noundef nonnull @.str.3, i64 noundef 2)
+  %2 = load ptr, ptr %this, align 8, !tbaa !21
+  %the_moves.i = getelementptr inbounds %class.roadlet, ptr %2, i64 0, i32 3
+  %3 = load i32, ptr %plan, align 4, !tbaa !28
+  %idxprom = sext i32 %3 to i64
+  %arrayidx = getelementptr inbounds ptr, ptr %the_moves.i, i64 %idxprom
+  %4 = load ptr, ptr %arrayidx, align 8, !tbaa !29
+  %rem.i = srem i32 %3, 9
+  %idxprom.i = sext i32 %rem.i to i64
+  %arrayidx.i = getelementptr inbounds %class.roadlet, ptr %2, i64 0, i32 2, i64 %idxprom.i
+  %5 = load ptr, ptr %arrayidx.i, align 8, !tbaa !29
+  %call13 = tail call noundef ptr %4(ptr noundef %5, ptr noundef nonnull %this, i32 %rem.i)
+  %cmp14.not = icmp eq ptr %call13, null
+  br i1 %cmp14.not, label %if.end21, label %if.then15
 
-24:                                               ; preds = %6
-  %25 = load i32, ptr %3, align 4, !tbaa !28
-  %26 = srem i32 %25, 9
-  store i32 -1, ptr %3, align 4, !tbaa !28
-  br label %69
+if.then15:                                        ; preds = %if.then
+  %6 = load i32, ptr %plan, align 4, !tbaa !28
+  %rem.i75 = srem i32 %6, 9
+  store i32 -1, ptr %plan, align 4, !tbaa !28
+  br label %if.end21
 
-27:                                               ; preds = %1
-  call void @llvm.lifetime.start.p0(i64 32, ptr nonnull %2) #8
-  call void @llvm.memset.p0.i64(ptr noundef nonnull align 16 dereferenceable(32) %2, i8 0, i64 32, i1 false), !tbaa !30
-  %28 = load ptr, ptr %0, align 8, !tbaa !21
-  %29 = getelementptr inbounds %class.roadlet, ptr %28, i64 0, i32 3
-  %30 = load i32, ptr @N, align 4, !tbaa.struct !22
-  %31 = load i32, ptr @NW, align 4, !tbaa.struct !22
-  %32 = tail call noundef i32 @_Zle9directionS_(i32 %30, i32 %31)
-  %33 = icmp eq i32 %32, 0
-  br i1 %33, label %66, label %34
+if.else:                                          ; preds = %entry
+  call void @llvm.lifetime.start.p0(i64 32, ptr nonnull %move_to_the.i) #8
+  call void @llvm.memset.p0.i64(ptr noundef nonnull align 16 dereferenceable(32) %move_to_the.i, i8 0, i64 32, i1 false), !tbaa !30
+  %7 = load ptr, ptr %this, align 8, !tbaa !21
+  %the_moves.i.i = getelementptr inbounds %class.roadlet, ptr %7, i64 0, i32 3
+  %8 = load i32, ptr @N, align 4, !tbaa !23
+  %agg.tmp2.sroa.0.0.copyload35.i = load i32, ptr @NW, align 4, !tbaa.struct !22
+  %call436.i = tail call noundef i32 @_Zle9directionS_(i32 %8, i32 %agg.tmp2.sroa.0.0.copyload35.i)
+  %tobool.not37.i = icmp eq i32 %call436.i, 0
+  br i1 %tobool.not37.i, label %_ZN7vehicle11select_moveEv.exit, label %for.body.preheader.i
 
-34:                                               ; preds = %27
-  %35 = sext i32 %30 to i64
-  br label %36
+for.body.preheader.i:                             ; preds = %if.else
+  %9 = sext i32 %8 to i64
+  br label %for.body.i
 
-36:                                               ; preds = %51, %34
-  %37 = phi i64 [ %35, %34 ], [ %53, %51 ]
-  %38 = phi i32 [ 0, %34 ], [ %52, %51 ]
-  %39 = getelementptr inbounds ptr, ptr %29, i64 %37
-  %40 = load ptr, ptr %39, align 8, !tbaa !29
-  %41 = load ptr, ptr %0, align 8, !tbaa !21
-  %42 = getelementptr inbounds %class.roadlet, ptr %41, i64 0, i32 2, i64 %37
-  %43 = load ptr, ptr %42, align 8, !tbaa !29
-  %44 = trunc i64 %37 to i32
-  %45 = tail call noundef ptr %40(ptr noundef %43, ptr noundef nonnull %0, i32 %44)
-  %46 = icmp eq ptr %45, null
-  br i1 %46, label %51, label %47
+for.body.i:                                       ; preds = %for.inc.i, %for.body.preheader.i
+  %indvars.iv.i = phi i64 [ %9, %for.body.preheader.i ], [ %indvars.iv.next.i, %for.inc.i ]
+  %used.039.i = phi i32 [ 0, %for.body.preheader.i ], [ %used.1.i, %for.inc.i ]
+  %arrayidx.i76 = getelementptr inbounds ptr, ptr %the_moves.i.i, i64 %indvars.iv.i
+  %10 = load ptr, ptr %arrayidx.i76, align 8, !tbaa !29
+  %11 = load ptr, ptr %this, align 8, !tbaa !21
+  %arrayidx.i.i = getelementptr inbounds %class.roadlet, ptr %11, i64 0, i32 2, i64 %indvars.iv.i
+  %12 = load ptr, ptr %arrayidx.i.i, align 8, !tbaa !29
+  %13 = trunc i64 %indvars.iv.i to i32
+  %call12.i = tail call noundef ptr %10(ptr noundef %12, ptr noundef nonnull %this, i32 %13)
+  %cmp.not.i = icmp eq ptr %call12.i, null
+  br i1 %cmp.not.i, label %for.inc.i, label %if.then.i
 
-47:                                               ; preds = %36
-  %48 = sext i32 %38 to i64
-  %49 = getelementptr inbounds [8 x %class.direction], ptr %2, i64 0, i64 %48
-  store i32 %44, ptr %49, align 4, !tbaa.struct !22
-  %50 = add nsw i32 %38, 1
-  br label %51
+if.then.i:                                        ; preds = %for.body.i
+  %idxprom13.i = sext i32 %used.039.i to i64
+  %arrayidx14.i = getelementptr inbounds [8 x %class.direction], ptr %move_to_the.i, i64 0, i64 %idxprom13.i
+  store i32 %13, ptr %arrayidx14.i, align 4, !tbaa !23
+  %inc.i = add nsw i32 %used.039.i, 1
+  br label %for.inc.i
 
-51:                                               ; preds = %47, %36
-  %52 = phi i32 [ %50, %47 ], [ %38, %36 ]
-  %53 = add i64 %37, 1
-  %54 = load i32, ptr @NW, align 4, !tbaa.struct !22
-  %55 = trunc i64 %53 to i32
-  %56 = tail call noundef i32 @_Zle9directionS_(i32 %55, i32 %54)
-  %57 = icmp eq i32 %56, 0
-  br i1 %57, label %58, label %36, !llvm.loop !31
+for.inc.i:                                        ; preds = %if.then.i, %for.body.i
+  %used.1.i = phi i32 [ %inc.i, %if.then.i ], [ %used.039.i, %for.body.i ]
+  %indvars.iv.next.i = add i64 %indvars.iv.i, 1
+  %agg.tmp2.sroa.0.0.copyload.i = load i32, ptr @NW, align 4, !tbaa.struct !22
+  %14 = trunc i64 %indvars.iv.next.i to i32
+  %call4.i = tail call noundef i32 @_Zle9directionS_(i32 %14, i32 %agg.tmp2.sroa.0.0.copyload.i)
+  %tobool.not.i = icmp eq i32 %call4.i, 0
+  br i1 %tobool.not.i, label %for.end.i, label %for.body.i, !llvm.loop !31
 
-58:                                               ; preds = %51
-  %59 = icmp eq i32 %52, 0
-  br i1 %59, label %66, label %60
+for.end.i:                                        ; preds = %for.inc.i
+  %cmp17.i = icmp eq i32 %used.1.i, 0
+  br i1 %cmp17.i, label %_ZN7vehicle11select_moveEv.exit, label %if.else.i
 
-60:                                               ; preds = %58
-  %61 = tail call i64 @random() #8
-  %62 = trunc i64 %61 to i32
-  %63 = srem i32 %62, %52
-  %64 = sext i32 %63 to i64
-  %65 = getelementptr inbounds [8 x %class.direction], ptr %2, i64 0, i64 %64
-  br label %66
+if.else.i:                                        ; preds = %for.end.i
+  %call19.i = tail call i64 @random() #8
+  %conv.i = trunc i64 %call19.i to i32
+  %rem.i77 = srem i32 %conv.i, %used.1.i
+  %idxprom20.i = sext i32 %rem.i77 to i64
+  %arrayidx21.i = getelementptr inbounds [8 x %class.direction], ptr %move_to_the.i, i64 0, i64 %idxprom20.i
+  br label %_ZN7vehicle11select_moveEv.exit
 
-66:                                               ; preds = %27, %58, %60
-  %67 = phi ptr [ %65, %60 ], [ @NO_DIRECTION, %58 ], [ @NO_DIRECTION, %27 ]
-  %68 = load i32, ptr %67, align 4
-  call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %2) #8
-  br label %69
+_ZN7vehicle11select_moveEv.exit:                  ; preds = %if.else, %for.end.i, %if.else.i
+  %retval.sroa.0.0.in.i = phi ptr [ %arrayidx21.i, %if.else.i ], [ @NO_DIRECTION, %for.end.i ], [ @NO_DIRECTION, %if.else ]
+  %retval.sroa.0.0.i = load i32, ptr %retval.sroa.0.0.in.i, align 4
+  call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %move_to_the.i) #8
+  br label %if.end21
 
-69:                                               ; preds = %6, %24, %66
-  %70 = phi i32 [ %26, %24 ], [ %7, %6 ], [ %68, %66 ]
-  %71 = load i32, ptr @NO_DIRECTION, align 4, !tbaa.struct !22
-  %72 = tail call noundef i32 @_Zne9directionS_(i32 %70, i32 %71)
-  %73 = icmp eq i32 %72, 0
-  br i1 %73, label %98, label %74
+if.end21:                                         ; preds = %if.then, %if.then15, %_ZN7vehicle11select_moveEv.exit
+  %d.sroa.0.0 = phi i32 [ %rem.i75, %if.then15 ], [ %d.sroa.0.0.copyload, %if.then ], [ %retval.sroa.0.0.i, %_ZN7vehicle11select_moveEv.exit ]
+  %agg.tmp23.sroa.0.0.copyload = load i32, ptr @NO_DIRECTION, align 4, !tbaa.struct !22
+  %call26 = tail call noundef i32 @_Zne9directionS_(i32 %d.sroa.0.0, i32 %agg.tmp23.sroa.0.0.copyload)
+  %tobool.not = icmp eq i32 %call26, 0
+  br i1 %tobool.not, label %if.end63, label %if.then27
 
-74:                                               ; preds = %69
-  %75 = load ptr, ptr %0, align 8, !tbaa !21
-  %76 = getelementptr inbounds %class.roadlet, ptr %75, i64 0, i32 1
-  store ptr null, ptr %76, align 8, !tbaa !32
-  %77 = sext i32 %70 to i64
-  %78 = getelementptr inbounds %class.roadlet, ptr %75, i64 0, i32 2, i64 %77
-  %79 = load ptr, ptr %78, align 8, !tbaa !29
-  %80 = getelementptr inbounds %class.roadlet, ptr %79, i64 0, i32 1
-  store ptr %0, ptr %80, align 8, !tbaa !32
-  store ptr %79, ptr %0, align 8, !tbaa !21
-  %81 = load i32, ptr @N, align 4, !tbaa.struct !22
-  %82 = tail call noundef i32 @_Zeq9directionS_(i32 %70, i32 %81)
-  %83 = icmp eq i32 %82, 0
-  br i1 %83, label %84, label %96
+if.then27:                                        ; preds = %if.end21
+  %15 = load ptr, ptr %this, align 8, !tbaa !21
+  %occupant.i = getelementptr inbounds %class.roadlet, ptr %15, i64 0, i32 1
+  store ptr null, ptr %occupant.i, align 8, !tbaa !32
+  %idxprom.i78 = sext i32 %d.sroa.0.0 to i64
+  %arrayidx.i79 = getelementptr inbounds %class.roadlet, ptr %15, i64 0, i32 2, i64 %idxprom.i78
+  %16 = load ptr, ptr %arrayidx.i79, align 8, !tbaa !29
+  %occupant.i80 = getelementptr inbounds %class.roadlet, ptr %16, i64 0, i32 1
+  store ptr %this, ptr %occupant.i80, align 8, !tbaa !32
+  store ptr %16, ptr %this, align 8, !tbaa !21
+  %agg.tmp36.sroa.0.0.copyload = load i32, ptr @N, align 4, !tbaa.struct !22
+  %call39 = tail call noundef i32 @_Zeq9directionS_(i32 %d.sroa.0.0, i32 %agg.tmp36.sroa.0.0.copyload)
+  %tobool40.not = icmp eq i32 %call39, 0
+  br i1 %tobool40.not, label %lor.lhs.false, label %if.then61
 
-84:                                               ; preds = %74
-  %85 = load i32, ptr @S, align 4, !tbaa.struct !22
-  %86 = tail call noundef i32 @_Zeq9directionS_(i32 %70, i32 %85)
-  %87 = icmp eq i32 %86, 0
-  br i1 %87, label %88, label %96
+lor.lhs.false:                                    ; preds = %if.then27
+  %agg.tmp42.sroa.0.0.copyload = load i32, ptr @S, align 4, !tbaa.struct !22
+  %call45 = tail call noundef i32 @_Zeq9directionS_(i32 %d.sroa.0.0, i32 %agg.tmp42.sroa.0.0.copyload)
+  %tobool46.not = icmp eq i32 %call45, 0
+  br i1 %tobool46.not, label %lor.lhs.false47, label %if.then61
 
-88:                                               ; preds = %84
-  %89 = load i32, ptr @E, align 4, !tbaa.struct !22
-  %90 = tail call noundef i32 @_Zeq9directionS_(i32 %70, i32 %89)
-  %91 = icmp eq i32 %90, 0
-  br i1 %91, label %92, label %96
+lor.lhs.false47:                                  ; preds = %lor.lhs.false
+  %agg.tmp49.sroa.0.0.copyload = load i32, ptr @E, align 4, !tbaa.struct !22
+  %call52 = tail call noundef i32 @_Zeq9directionS_(i32 %d.sroa.0.0, i32 %agg.tmp49.sroa.0.0.copyload)
+  %tobool53.not = icmp eq i32 %call52, 0
+  br i1 %tobool53.not, label %lor.lhs.false54, label %if.then61
 
-92:                                               ; preds = %88
-  %93 = load i32, ptr @W, align 4, !tbaa.struct !22
-  %94 = tail call noundef i32 @_Zeq9directionS_(i32 %70, i32 %93)
-  %95 = icmp eq i32 %94, 0
-  br i1 %95, label %98, label %96
+lor.lhs.false54:                                  ; preds = %lor.lhs.false47
+  %agg.tmp56.sroa.0.0.copyload = load i32, ptr @W, align 4, !tbaa.struct !22
+  %call59 = tail call noundef i32 @_Zeq9directionS_(i32 %d.sroa.0.0, i32 %agg.tmp56.sroa.0.0.copyload)
+  %tobool60.not = icmp eq i32 %call59, 0
+  br i1 %tobool60.not, label %if.end63, label %if.then61
 
-96:                                               ; preds = %92, %88, %84, %74
-  %97 = getelementptr inbounds %class.vehicle, ptr %0, i64 0, i32 4
-  store i32 %70, ptr %97, align 8, !tbaa.struct !22
-  br label %98
+if.then61:                                        ; preds = %lor.lhs.false54, %lor.lhs.false47, %lor.lhs.false, %if.then27
+  %dir = getelementptr inbounds %class.vehicle, ptr %this, i64 0, i32 4
+  store i32 %d.sroa.0.0, ptr %dir, align 8, !tbaa.struct !22
+  br label %if.end63
 
-98:                                               ; preds = %92, %96, %69
+if.end63:                                         ; preds = %lor.lhs.false54, %if.then61, %if.end21
   ret void
 }
 
@@ -259,68 +262,69 @@ declare noundef nonnull align 8 dereferenceable(8) ptr @_ZNSolsEi(ptr noundef no
 declare void @llvm.lifetime.end.p0(i64 immarg, ptr nocapture) #5
 
 ; Function Attrs: uwtable
-define dso_local i32 @_ZN7vehicle11select_moveEv(ptr noundef nonnull align 8 dereferenceable(32) %0) local_unnamed_addr #4 align 2 {
-  %2 = alloca [8 x %class.direction], align 16
-  call void @llvm.lifetime.start.p0(i64 32, ptr nonnull %2) #8
-  call void @llvm.memset.p0.i64(ptr noundef nonnull align 16 dereferenceable(32) %2, i8 0, i64 32, i1 false), !tbaa !30
-  %3 = load ptr, ptr %0, align 8, !tbaa !21
-  %4 = getelementptr inbounds %class.roadlet, ptr %3, i64 0, i32 3
-  %5 = load i32, ptr @N, align 4, !tbaa.struct !22
-  %6 = load i32, ptr @NW, align 4, !tbaa.struct !22
-  %7 = tail call noundef i32 @_Zle9directionS_(i32 %5, i32 %6)
-  %8 = icmp eq i32 %7, 0
-  br i1 %8, label %41, label %9
+define dso_local i32 @_ZN7vehicle11select_moveEv(ptr noundef nonnull align 8 dereferenceable(32) %this) local_unnamed_addr #4 align 2 {
+entry:
+  %move_to_the = alloca [8 x %class.direction], align 16
+  call void @llvm.lifetime.start.p0(i64 32, ptr nonnull %move_to_the) #8
+  call void @llvm.memset.p0.i64(ptr noundef nonnull align 16 dereferenceable(32) %move_to_the, i8 0, i64 32, i1 false), !tbaa !30
+  %0 = load ptr, ptr %this, align 8, !tbaa !21
+  %the_moves.i = getelementptr inbounds %class.roadlet, ptr %0, i64 0, i32 3
+  %1 = load i32, ptr @N, align 4, !tbaa !23
+  %agg.tmp2.sroa.0.0.copyload35 = load i32, ptr @NW, align 4, !tbaa.struct !22
+  %call436 = tail call noundef i32 @_Zle9directionS_(i32 %1, i32 %agg.tmp2.sroa.0.0.copyload35)
+  %tobool.not37 = icmp eq i32 %call436, 0
+  br i1 %tobool.not37, label %cleanup, label %for.body.preheader
 
-9:                                                ; preds = %1
-  %10 = sext i32 %5 to i64
-  br label %11
+for.body.preheader:                               ; preds = %entry
+  %2 = sext i32 %1 to i64
+  br label %for.body
 
-11:                                               ; preds = %9, %26
-  %12 = phi i64 [ %10, %9 ], [ %28, %26 ]
-  %13 = phi i32 [ 0, %9 ], [ %27, %26 ]
-  %14 = getelementptr inbounds ptr, ptr %4, i64 %12
-  %15 = load ptr, ptr %14, align 8, !tbaa !29
-  %16 = load ptr, ptr %0, align 8, !tbaa !21
-  %17 = getelementptr inbounds %class.roadlet, ptr %16, i64 0, i32 2, i64 %12
-  %18 = load ptr, ptr %17, align 8, !tbaa !29
-  %19 = trunc i64 %12 to i32
-  %20 = tail call noundef ptr %15(ptr noundef %18, ptr noundef nonnull %0, i32 %19)
-  %21 = icmp eq ptr %20, null
-  br i1 %21, label %26, label %22
+for.body:                                         ; preds = %for.body.preheader, %for.inc
+  %indvars.iv = phi i64 [ %2, %for.body.preheader ], [ %indvars.iv.next, %for.inc ]
+  %used.039 = phi i32 [ 0, %for.body.preheader ], [ %used.1, %for.inc ]
+  %arrayidx = getelementptr inbounds ptr, ptr %the_moves.i, i64 %indvars.iv
+  %3 = load ptr, ptr %arrayidx, align 8, !tbaa !29
+  %4 = load ptr, ptr %this, align 8, !tbaa !21
+  %arrayidx.i = getelementptr inbounds %class.roadlet, ptr %4, i64 0, i32 2, i64 %indvars.iv
+  %5 = load ptr, ptr %arrayidx.i, align 8, !tbaa !29
+  %6 = trunc i64 %indvars.iv to i32
+  %call12 = tail call noundef ptr %3(ptr noundef %5, ptr noundef nonnull %this, i32 %6)
+  %cmp.not = icmp eq ptr %call12, null
+  br i1 %cmp.not, label %for.inc, label %if.then
 
-22:                                               ; preds = %11
-  %23 = sext i32 %13 to i64
-  %24 = getelementptr inbounds [8 x %class.direction], ptr %2, i64 0, i64 %23
-  store i32 %19, ptr %24, align 4, !tbaa.struct !22
-  %25 = add nsw i32 %13, 1
-  br label %26
+if.then:                                          ; preds = %for.body
+  %idxprom13 = sext i32 %used.039 to i64
+  %arrayidx14 = getelementptr inbounds [8 x %class.direction], ptr %move_to_the, i64 0, i64 %idxprom13
+  store i32 %6, ptr %arrayidx14, align 4, !tbaa !23
+  %inc = add nsw i32 %used.039, 1
+  br label %for.inc
 
-26:                                               ; preds = %11, %22
-  %27 = phi i32 [ %25, %22 ], [ %13, %11 ]
-  %28 = add i64 %12, 1
-  %29 = load i32, ptr @NW, align 4, !tbaa.struct !22
-  %30 = trunc i64 %28 to i32
-  %31 = tail call noundef i32 @_Zle9directionS_(i32 %30, i32 %29)
-  %32 = icmp eq i32 %31, 0
-  br i1 %32, label %33, label %11, !llvm.loop !31
+for.inc:                                          ; preds = %for.body, %if.then
+  %used.1 = phi i32 [ %inc, %if.then ], [ %used.039, %for.body ]
+  %indvars.iv.next = add i64 %indvars.iv, 1
+  %agg.tmp2.sroa.0.0.copyload = load i32, ptr @NW, align 4, !tbaa.struct !22
+  %7 = trunc i64 %indvars.iv.next to i32
+  %call4 = tail call noundef i32 @_Zle9directionS_(i32 %7, i32 %agg.tmp2.sroa.0.0.copyload)
+  %tobool.not = icmp eq i32 %call4, 0
+  br i1 %tobool.not, label %for.end, label %for.body, !llvm.loop !31
 
-33:                                               ; preds = %26
-  %34 = icmp eq i32 %27, 0
-  br i1 %34, label %41, label %35
+for.end:                                          ; preds = %for.inc
+  %cmp17 = icmp eq i32 %used.1, 0
+  br i1 %cmp17, label %cleanup, label %if.else
 
-35:                                               ; preds = %33
-  %36 = tail call i64 @random() #8
-  %37 = trunc i64 %36 to i32
-  %38 = srem i32 %37, %27
-  %39 = sext i32 %38 to i64
-  %40 = getelementptr inbounds [8 x %class.direction], ptr %2, i64 0, i64 %39
-  br label %41
+if.else:                                          ; preds = %for.end
+  %call19 = tail call i64 @random() #8
+  %conv = trunc i64 %call19 to i32
+  %rem = srem i32 %conv, %used.1
+  %idxprom20 = sext i32 %rem to i64
+  %arrayidx21 = getelementptr inbounds [8 x %class.direction], ptr %move_to_the, i64 0, i64 %idxprom20
+  br label %cleanup
 
-41:                                               ; preds = %1, %33, %35
-  %42 = phi ptr [ %40, %35 ], [ @NO_DIRECTION, %33 ], [ @NO_DIRECTION, %1 ]
-  %43 = load i32, ptr %42, align 4
-  call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %2) #8
-  ret i32 %43
+cleanup:                                          ; preds = %entry, %for.end, %if.else
+  %retval.sroa.0.0.in = phi ptr [ %arrayidx21, %if.else ], [ @NO_DIRECTION, %for.end ], [ @NO_DIRECTION, %entry ]
+  %retval.sroa.0.0 = load i32, ptr %retval.sroa.0.0.in, align 4
+  call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %move_to_the) #8
+  ret i32 %retval.sroa.0.0
 }
 
 declare noundef i32 @_Zne9directionS_(i32, i32) local_unnamed_addr #0
@@ -330,73 +334,75 @@ declare noundef i32 @_Zeq9directionS_(i32, i32) local_unnamed_addr #0
 declare noundef i32 @_Zle9directionS_(i32, i32) local_unnamed_addr #0
 
 ; Function Attrs: mustprogress uwtable
-define dso_local noundef nonnull align 8 dereferenceable(8) ptr @_ZlsRSo3car(ptr noundef nonnull returned align 8 dereferenceable(8) %0, ptr nocapture noundef readonly byval(%class.car) align 8 %1) local_unnamed_addr #3 {
-  %3 = tail call noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) %0, ptr noundef nonnull @.str.4, i64 noundef 4)
-  %4 = load ptr, ptr %1, align 8, !tbaa.struct !34
-  %5 = getelementptr inbounds i8, ptr %1, i64 8
-  %6 = load ptr, ptr %5, align 8, !tbaa.struct !35
-  %7 = getelementptr inbounds i8, ptr %1, i64 24
-  %8 = load i32, ptr %7, align 8, !tbaa.struct !36
-  %9 = icmp eq ptr %6, null
-  br i1 %9, label %10, label %18
+define dso_local noundef nonnull align 8 dereferenceable(8) ptr @_ZlsRSo3car(ptr noundef nonnull returned align 8 dereferenceable(8) %o, ptr nocapture noundef readonly byval(%class.car) align 8 %c) local_unnamed_addr #3 {
+entry:
+  %call1.i = tail call noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) %o, ptr noundef nonnull @.str.4, i64 noundef 4)
+  %agg.tmp.sroa.0.0.copyload = load ptr, ptr %c, align 8, !tbaa.struct !34
+  %agg.tmp.sroa.2.0.c.sroa_idx = getelementptr inbounds i8, ptr %c, i64 8
+  %agg.tmp.sroa.2.0.copyload = load ptr, ptr %agg.tmp.sroa.2.0.c.sroa_idx, align 8, !tbaa.struct !35
+  %agg.tmp.sroa.4.0.c.sroa_idx = getelementptr inbounds i8, ptr %c, i64 24
+  %agg.tmp.sroa.4.0.copyload = load i32, ptr %agg.tmp.sroa.4.0.c.sroa_idx, align 8, !tbaa.struct !36
+  %tobool.not.i.i = icmp eq ptr %agg.tmp.sroa.2.0.copyload, null
+  br i1 %tobool.not.i.i, label %if.then.i.i, label %if.else.i.i
 
-10:                                               ; preds = %2
-  %11 = load ptr, ptr %0, align 8, !tbaa !12
-  %12 = getelementptr i8, ptr %11, i64 -24
-  %13 = load i64, ptr %12, align 8
-  %14 = getelementptr inbounds i8, ptr %0, i64 %13
-  %15 = getelementptr inbounds %"class.std::ios_base", ptr %14, i64 0, i32 5
-  %16 = load i32, ptr %15, align 8, !tbaa !14
-  %17 = or i32 %16, 1
-  tail call void @_ZNSt9basic_iosIcSt11char_traitsIcEE5clearESt12_Ios_Iostate(ptr noundef nonnull align 8 dereferenceable(264) %14, i32 noundef %17)
-  br label %21
+if.then.i.i:                                      ; preds = %entry
+  %vtable.i.i = load ptr, ptr %o, align 8, !tbaa !12
+  %vbase.offset.ptr.i.i = getelementptr i8, ptr %vtable.i.i, i64 -24
+  %vbase.offset.i.i = load i64, ptr %vbase.offset.ptr.i.i, align 8
+  %add.ptr.i.i = getelementptr inbounds i8, ptr %o, i64 %vbase.offset.i.i
+  %_M_streambuf_state.i.i.i.i = getelementptr inbounds %"class.std::ios_base", ptr %add.ptr.i.i, i64 0, i32 5
+  %0 = load i32, ptr %_M_streambuf_state.i.i.i.i, align 8, !tbaa !14
+  %or.i.i.i.i = or i32 %0, 1
+  tail call void @_ZNSt9basic_iosIcSt11char_traitsIcEE5clearESt12_Ios_Iostate(ptr noundef nonnull align 8 dereferenceable(264) %add.ptr.i.i, i32 noundef %or.i.i.i.i)
+  br label %_ZlsRSo7vehicle.exit
 
-18:                                               ; preds = %2
-  %19 = tail call i64 @strlen(ptr noundef nonnull dereferenceable(1) %6) #8
-  %20 = tail call noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) %0, ptr noundef nonnull %6, i64 noundef %19)
-  br label %21
+if.else.i.i:                                      ; preds = %entry
+  %call.i.i.i = tail call i64 @strlen(ptr noundef nonnull dereferenceable(1) %agg.tmp.sroa.2.0.copyload) #8
+  %call1.i.i = tail call noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) %o, ptr noundef nonnull %agg.tmp.sroa.2.0.copyload, i64 noundef %call.i.i.i)
+  br label %_ZlsRSo7vehicle.exit
 
-21:                                               ; preds = %10, %18
-  %22 = tail call noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) %0, ptr noundef nonnull @.str, i64 noundef 4)
-  %23 = tail call noundef nonnull align 8 dereferenceable(8) ptr @_ZlsRSo7roadlet(ptr noundef nonnull align 8 dereferenceable(8) %0, ptr noundef nonnull byval(%class.roadlet) align 8 %4)
-  %24 = tail call noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) %23, ptr noundef nonnull @.str.1, i64 noundef 7)
-  %25 = tail call noundef nonnull align 8 dereferenceable(8) ptr @_ZlsRSo9direction(ptr noundef nonnull align 8 dereferenceable(8) %23, i32 %8)
-  ret ptr %0
+_ZlsRSo7vehicle.exit:                             ; preds = %if.then.i.i, %if.else.i.i
+  %call1.i10.i = tail call noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) %o, ptr noundef nonnull @.str, i64 noundef 4)
+  %call2.i = tail call noundef nonnull align 8 dereferenceable(8) ptr @_ZlsRSo7roadlet(ptr noundef nonnull align 8 dereferenceable(8) %o, ptr noundef nonnull byval(%class.roadlet) align 8 %agg.tmp.sroa.0.0.copyload)
+  %call1.i13.i = tail call noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) %call2.i, ptr noundef nonnull @.str.1, i64 noundef 7)
+  %call7.i = tail call noundef nonnull align 8 dereferenceable(8) ptr @_ZlsRSo9direction(ptr noundef nonnull align 8 dereferenceable(8) %call2.i, i32 %agg.tmp.sroa.4.0.copyload)
+  ret ptr %o
 }
 
 ; Function Attrs: mustprogress uwtable
-define dso_local noundef nonnull align 8 dereferenceable(8) ptr @_ZlsRSo5truck(ptr noundef nonnull returned align 8 dereferenceable(8) %0, ptr nocapture noundef readonly byval(%class.truck) align 8 %1) local_unnamed_addr #3 {
-  %3 = tail call noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) %0, ptr noundef nonnull @.str.5, i64 noundef 6)
-  %4 = load ptr, ptr %1, align 8, !tbaa.struct !34
-  %5 = getelementptr inbounds i8, ptr %1, i64 8
-  %6 = load ptr, ptr %5, align 8, !tbaa.struct !35
-  %7 = getelementptr inbounds i8, ptr %1, i64 24
-  %8 = load i32, ptr %7, align 8, !tbaa.struct !36
-  %9 = icmp eq ptr %6, null
-  br i1 %9, label %10, label %18
+define dso_local noundef nonnull align 8 dereferenceable(8) ptr @_ZlsRSo5truck(ptr noundef nonnull returned align 8 dereferenceable(8) %o, ptr nocapture noundef readonly byval(%class.truck) align 8 %t) local_unnamed_addr #3 {
+entry:
+  %call1.i = tail call noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) %o, ptr noundef nonnull @.str.5, i64 noundef 6)
+  %agg.tmp.sroa.0.0.copyload = load ptr, ptr %t, align 8, !tbaa.struct !34
+  %agg.tmp.sroa.2.0.t.sroa_idx = getelementptr inbounds i8, ptr %t, i64 8
+  %agg.tmp.sroa.2.0.copyload = load ptr, ptr %agg.tmp.sroa.2.0.t.sroa_idx, align 8, !tbaa.struct !35
+  %agg.tmp.sroa.4.0.t.sroa_idx = getelementptr inbounds i8, ptr %t, i64 24
+  %agg.tmp.sroa.4.0.copyload = load i32, ptr %agg.tmp.sroa.4.0.t.sroa_idx, align 8, !tbaa.struct !36
+  %tobool.not.i.i = icmp eq ptr %agg.tmp.sroa.2.0.copyload, null
+  br i1 %tobool.not.i.i, label %if.then.i.i, label %if.else.i.i
 
-10:                                               ; preds = %2
-  %11 = load ptr, ptr %0, align 8, !tbaa !12
-  %12 = getelementptr i8, ptr %11, i64 -24
-  %13 = load i64, ptr %12, align 8
-  %14 = getelementptr inbounds i8, ptr %0, i64 %13
-  %15 = getelementptr inbounds %"class.std::ios_base", ptr %14, i64 0, i32 5
-  %16 = load i32, ptr %15, align 8, !tbaa !14
-  %17 = or i32 %16, 1
-  tail call void @_ZNSt9basic_iosIcSt11char_traitsIcEE5clearESt12_Ios_Iostate(ptr noundef nonnull align 8 dereferenceable(264) %14, i32 noundef %17)
-  br label %21
+if.then.i.i:                                      ; preds = %entry
+  %vtable.i.i = load ptr, ptr %o, align 8, !tbaa !12
+  %vbase.offset.ptr.i.i = getelementptr i8, ptr %vtable.i.i, i64 -24
+  %vbase.offset.i.i = load i64, ptr %vbase.offset.ptr.i.i, align 8
+  %add.ptr.i.i = getelementptr inbounds i8, ptr %o, i64 %vbase.offset.i.i
+  %_M_streambuf_state.i.i.i.i = getelementptr inbounds %"class.std::ios_base", ptr %add.ptr.i.i, i64 0, i32 5
+  %0 = load i32, ptr %_M_streambuf_state.i.i.i.i, align 8, !tbaa !14
+  %or.i.i.i.i = or i32 %0, 1
+  tail call void @_ZNSt9basic_iosIcSt11char_traitsIcEE5clearESt12_Ios_Iostate(ptr noundef nonnull align 8 dereferenceable(264) %add.ptr.i.i, i32 noundef %or.i.i.i.i)
+  br label %_ZlsRSo7vehicle.exit
 
-18:                                               ; preds = %2
-  %19 = tail call i64 @strlen(ptr noundef nonnull dereferenceable(1) %6) #8
-  %20 = tail call noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) %0, ptr noundef nonnull %6, i64 noundef %19)
-  br label %21
+if.else.i.i:                                      ; preds = %entry
+  %call.i.i.i = tail call i64 @strlen(ptr noundef nonnull dereferenceable(1) %agg.tmp.sroa.2.0.copyload) #8
+  %call1.i.i = tail call noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) %o, ptr noundef nonnull %agg.tmp.sroa.2.0.copyload, i64 noundef %call.i.i.i)
+  br label %_ZlsRSo7vehicle.exit
 
-21:                                               ; preds = %10, %18
-  %22 = tail call noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) %0, ptr noundef nonnull @.str, i64 noundef 4)
-  %23 = tail call noundef nonnull align 8 dereferenceable(8) ptr @_ZlsRSo7roadlet(ptr noundef nonnull align 8 dereferenceable(8) %0, ptr noundef nonnull byval(%class.roadlet) align 8 %4)
-  %24 = tail call noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) %23, ptr noundef nonnull @.str.1, i64 noundef 7)
-  %25 = tail call noundef nonnull align 8 dereferenceable(8) ptr @_ZlsRSo9direction(ptr noundef nonnull align 8 dereferenceable(8) %23, i32 %8)
-  ret ptr %0
+_ZlsRSo7vehicle.exit:                             ; preds = %if.then.i.i, %if.else.i.i
+  %call1.i10.i = tail call noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) %o, ptr noundef nonnull @.str, i64 noundef 4)
+  %call2.i = tail call noundef nonnull align 8 dereferenceable(8) ptr @_ZlsRSo7roadlet(ptr noundef nonnull align 8 dereferenceable(8) %o, ptr noundef nonnull byval(%class.roadlet) align 8 %agg.tmp.sroa.0.0.copyload)
+  %call1.i13.i = tail call noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) %call2.i, ptr noundef nonnull @.str.1, i64 noundef 7)
+  %call7.i = tail call noundef nonnull align 8 dereferenceable(8) ptr @_ZlsRSo9direction(ptr noundef nonnull align 8 dereferenceable(8) %call2.i, i32 %agg.tmp.sroa.4.0.copyload)
+  ret ptr %o
 }
 
 declare noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8), ptr noundef, i64 noundef) local_unnamed_addr #0
@@ -408,8 +414,9 @@ declare i64 @strlen(ptr nocapture noundef) local_unnamed_addr #6
 
 ; Function Attrs: uwtable
 define internal void @_GLOBAL__sub_I_vehicle.cpp() #4 section ".text.startup" {
+entry:
   tail call void @_ZNSt8ios_base4InitC1Ev(ptr noundef nonnull align 1 dereferenceable(1) @_ZStL8__ioinit)
-  %1 = tail call i32 @__cxa_atexit(ptr nonnull @_ZNSt8ios_base4InitD1Ev, ptr nonnull @_ZStL8__ioinit, ptr nonnull @__dso_handle) #8
+  %0 = tail call i32 @__cxa_atexit(ptr nonnull @_ZNSt8ios_base4InitD1Ev, ptr nonnull @_ZStL8__ioinit, ptr nonnull @__dso_handle) #8
   ret void
 }
 

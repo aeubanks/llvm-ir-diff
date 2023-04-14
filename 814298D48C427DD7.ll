@@ -16,31 +16,32 @@ target triple = "x86_64-unknown-linux-gnu"
 @.str.3 = private unnamed_addr constant [6 x i8] c"%ld: \00", align 1
 
 ; Function Attrs: nofree nounwind uwtable
-define dso_local void @TreeCCError(ptr noundef %0, ptr nocapture noundef readonly %1, ...) local_unnamed_addr #0 {
-  %3 = alloca [1 x %struct.__va_list_tag], align 16
-  call void @llvm.lifetime.start.p0(i64 24, ptr nonnull %3) #8
-  call void @llvm.va_start(ptr nonnull %3)
-  %4 = icmp eq ptr %0, null
-  br i1 %4, label %5, label %6
+define dso_local void @TreeCCError(ptr noundef %input, ptr nocapture noundef readonly %format, ...) local_unnamed_addr #0 {
+entry:
+  %va = alloca [1 x %struct.__va_list_tag], align 16
+  call void @llvm.lifetime.start.p0(i64 24, ptr nonnull %va) #9
+  call void @llvm.va_start(ptr nonnull %va)
+  %tobool.not = icmp eq ptr %input, null
+  br i1 %tobool.not, label %if.end.critedge, label %cond.true2
 
-5:                                                ; preds = %2
-  call fastcc void @ReportError(ptr noundef null, i64 noundef 0, ptr noundef %1, ptr noundef nonnull %3)
-  call void @llvm.va_end(ptr nonnull %3)
-  br label %12
+cond.true2:                                       ; preds = %entry
+  %filename = getelementptr inbounds %struct.TreeCCInput, ptr %input, i64 0, i32 4
+  %0 = load ptr, ptr %filename, align 8, !tbaa !5
+  %linenum = getelementptr inbounds %struct.TreeCCInput, ptr %input, i64 0, i32 5
+  %1 = load i64, ptr %linenum, align 8, !tbaa !12
+  call fastcc void @ReportError(ptr noundef %0, i64 noundef %1, ptr noundef %format, ptr noundef nonnull %va)
+  call void @llvm.va_end(ptr nonnull %va)
+  %errors = getelementptr inbounds %struct.TreeCCInput, ptr %input, i64 0, i32 7
+  store i32 1, ptr %errors, align 8, !tbaa !13
+  br label %if.end
 
-6:                                                ; preds = %2
-  %7 = getelementptr inbounds %struct.TreeCCInput, ptr %0, i64 0, i32 4
-  %8 = load ptr, ptr %7, align 8, !tbaa !5
-  %9 = getelementptr inbounds %struct.TreeCCInput, ptr %0, i64 0, i32 5
-  %10 = load i64, ptr %9, align 8, !tbaa !12
-  call fastcc void @ReportError(ptr noundef %8, i64 noundef %10, ptr noundef %1, ptr noundef nonnull %3)
-  call void @llvm.va_end(ptr nonnull %3)
-  %11 = getelementptr inbounds %struct.TreeCCInput, ptr %0, i64 0, i32 7
-  store i32 1, ptr %11, align 8, !tbaa !13
-  br label %12
+if.end.critedge:                                  ; preds = %entry
+  call fastcc void @ReportError(ptr noundef null, i64 noundef 0, ptr noundef %format, ptr noundef nonnull %va)
+  call void @llvm.va_end(ptr nonnull %va)
+  br label %if.end
 
-12:                                               ; preds = %5, %6
-  call void @llvm.lifetime.end.p0(i64 24, ptr nonnull %3) #8
+if.end:                                           ; preds = %if.end.critedge, %cond.true2
+  call void @llvm.lifetime.end.p0(i64 24, ptr nonnull %va) #9
   ret void
 }
 
@@ -51,77 +52,76 @@ declare void @llvm.lifetime.start.p0(i64 immarg, ptr nocapture) #1
 declare void @llvm.va_start(ptr) #2
 
 ; Function Attrs: nofree nounwind uwtable
-define internal fastcc void @ReportError(ptr noundef readonly %0, i64 noundef %1, ptr nocapture noundef readonly %2, ptr noundef %3) unnamed_addr #0 {
-  %5 = load ptr, ptr @TreeCCErrorFile, align 8, !tbaa !14
-  %6 = icmp eq ptr %5, null
-  br i1 %6, label %7, label %9
+define internal fastcc void @ReportError(ptr noundef readonly %filename, i64 noundef %linenum, ptr nocapture noundef readonly %format, ptr noundef %va) unnamed_addr #0 {
+entry:
+  %0 = load ptr, ptr @TreeCCErrorFile, align 8, !tbaa !14
+  %tobool.not = icmp eq ptr %0, null
+  br i1 %tobool.not, label %if.then, label %if.end
 
-7:                                                ; preds = %4
-  %8 = load ptr, ptr @stderr, align 8, !tbaa !14
-  store ptr %8, ptr @TreeCCErrorFile, align 8, !tbaa !14
-  br label %9
+if.then:                                          ; preds = %entry
+  %1 = load ptr, ptr @stderr, align 8, !tbaa !14
+  store ptr %1, ptr @TreeCCErrorFile, align 8, !tbaa !14
+  br label %if.end
 
-9:                                                ; preds = %7, %4
-  %10 = phi ptr [ %8, %7 ], [ %5, %4 ]
-  %11 = icmp eq ptr %0, null
-  br i1 %11, label %42, label %12
+if.end:                                           ; preds = %if.then, %entry
+  %2 = phi ptr [ %1, %if.then ], [ %0, %entry ]
+  %tobool1.not = icmp eq ptr %filename, null
+  br i1 %tobool1.not, label %if.end18, label %if.then2
 
-12:                                               ; preds = %9
-  %13 = load i32, ptr @TreeCCErrorStripPath, align 4, !tbaa !15
-  %14 = icmp eq i32 %13, 0
-  br i1 %14, label %36, label %15
+if.then2:                                         ; preds = %if.end
+  %3 = load i32, ptr @TreeCCErrorStripPath, align 4, !tbaa !15
+  %tobool3.not = icmp eq i32 %3, 0
+  br i1 %tobool3.not, label %if.end15, label %if.then4
 
-15:                                               ; preds = %12
-  %16 = tail call i64 @strlen(ptr noundef nonnull dereferenceable(1) %0) #9
-  %17 = trunc i64 %16 to i32
-  %18 = icmp sgt i32 %17, 0
-  br i1 %18, label %19, label %31
+if.then4:                                         ; preds = %if.then2
+  %call = tail call i64 @strlen(ptr noundef nonnull dereferenceable(1) %filename) #10
+  %conv = trunc i64 %call to i32
+  %4 = and i64 %call, 4294967295
+  %smin = tail call i32 @llvm.smin.i32(i32 %conv, i32 0)
+  br label %while.cond
 
-19:                                               ; preds = %15
-  %20 = and i64 %16, 4294967295
-  br label %21
+while.cond:                                       ; preds = %land.lhs.true, %if.then4
+  %indvars.iv = phi i64 [ %6, %land.lhs.true ], [ %4, %if.then4 ]
+  %5 = trunc i64 %indvars.iv to i32
+  %cmp = icmp sgt i32 %5, 0
+  br i1 %cmp, label %land.lhs.true, label %while.end
 
-21:                                               ; preds = %19, %28
-  %22 = phi i64 [ %20, %19 ], [ %29, %28 ]
-  %23 = add nuw i64 %22, 4294967295
-  %24 = and i64 %23, 4294967295
-  %25 = getelementptr inbounds i8, ptr %0, i64 %24
-  %26 = load i8, ptr %25, align 1, !tbaa !16
-  %27 = sext i8 %26 to i32
-  switch i32 %27, label %28 [
-    i32 47, label %31
-    i32 92, label %31
-  ]
+land.lhs.true:                                    ; preds = %while.cond
+  %6 = add nsw i64 %indvars.iv, -1
+  %arrayidx = getelementptr inbounds i8, ptr %filename, i64 %6
+  %7 = load i8, ptr %arrayidx, align 1, !tbaa !16
+  switch i8 %7, label %while.cond [
+    i8 47, label %while.end.split.loop.exit
+    i8 92, label %while.end.split.loop.exit
+  ], !llvm.loop !17
 
-28:                                               ; preds = %21
-  %29 = add nsw i64 %22, -1
-  %30 = icmp sgt i64 %22, 1
-  br i1 %30, label %21, label %31, !llvm.loop !17
+while.end.split.loop.exit:                        ; preds = %land.lhs.true, %land.lhs.true
+  %8 = trunc i64 %indvars.iv to i32
+  br label %while.end
 
-31:                                               ; preds = %28, %21, %21, %15
-  %32 = phi i64 [ %16, %15 ], [ %22, %21 ], [ %22, %21 ], [ 0, %28 ]
-  %33 = shl i64 %32, 32
-  %34 = ashr exact i64 %33, 32
-  %35 = getelementptr inbounds i8, ptr %0, i64 %34
-  br label %36
+while.end:                                        ; preds = %while.cond, %while.end.split.loop.exit
+  %len.0.lcssa = phi i32 [ %8, %while.end.split.loop.exit ], [ %smin, %while.cond ]
+  %idx.ext = sext i32 %len.0.lcssa to i64
+  %add.ptr = getelementptr inbounds i8, ptr %filename, i64 %idx.ext
+  br label %if.end15
 
-36:                                               ; preds = %31, %12
-  %37 = phi ptr [ %35, %31 ], [ %0, %12 ]
-  %38 = tail call i32 @fputs(ptr noundef %37, ptr noundef %10)
-  %39 = load ptr, ptr @TreeCCErrorFile, align 8, !tbaa !14
-  %40 = tail call i32 @putc(i32 noundef 58, ptr noundef %39)
-  %41 = load ptr, ptr @TreeCCErrorFile, align 8, !tbaa !14
-  br label %42
+if.end15:                                         ; preds = %while.end, %if.then2
+  %filename.addr.0 = phi ptr [ %add.ptr, %while.end ], [ %filename, %if.then2 ]
+  %call16 = tail call i32 @fputs(ptr noundef %filename.addr.0, ptr noundef %2)
+  %9 = load ptr, ptr @TreeCCErrorFile, align 8, !tbaa !14
+  %call17 = tail call i32 @putc(i32 noundef 58, ptr noundef %9)
+  %.pre = load ptr, ptr @TreeCCErrorFile, align 8, !tbaa !14
+  br label %if.end18
 
-42:                                               ; preds = %36, %9
-  %43 = phi ptr [ %41, %36 ], [ %10, %9 ]
-  %44 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %43, ptr noundef nonnull @.str.3, i64 noundef %1)
-  %45 = load ptr, ptr @TreeCCErrorFile, align 8, !tbaa !14
-  %46 = tail call i32 @vfprintf(ptr noundef %45, ptr noundef %2, ptr noundef %3)
-  %47 = load ptr, ptr @TreeCCErrorFile, align 8, !tbaa !14
-  %48 = tail call i32 @putc(i32 noundef 10, ptr noundef %47)
-  %49 = load ptr, ptr @TreeCCErrorFile, align 8, !tbaa !14
-  %50 = tail call i32 @fflush(ptr noundef %49)
+if.end18:                                         ; preds = %if.end15, %if.end
+  %10 = phi ptr [ %.pre, %if.end15 ], [ %2, %if.end ]
+  %call19 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %10, ptr noundef nonnull @.str.3, i64 noundef %linenum)
+  %11 = load ptr, ptr @TreeCCErrorFile, align 8, !tbaa !14
+  %call20 = tail call i32 @vfprintf(ptr noundef %11, ptr noundef %format, ptr noundef %va)
+  %12 = load ptr, ptr @TreeCCErrorFile, align 8, !tbaa !14
+  %call21 = tail call i32 @putc(i32 noundef 10, ptr noundef %12)
+  %13 = load ptr, ptr @TreeCCErrorFile, align 8, !tbaa !14
+  %call22 = tail call i32 @fflush(ptr noundef %13)
   ret void
 }
 
@@ -132,46 +132,48 @@ declare void @llvm.va_end(ptr) #2
 declare void @llvm.lifetime.end.p0(i64 immarg, ptr nocapture) #1
 
 ; Function Attrs: nofree nounwind uwtable
-define dso_local void @TreeCCErrorOnLine(ptr noundef writeonly %0, ptr noundef %1, i64 noundef %2, ptr nocapture noundef readonly %3, ...) local_unnamed_addr #0 {
-  %5 = alloca [1 x %struct.__va_list_tag], align 16
-  call void @llvm.lifetime.start.p0(i64 24, ptr nonnull %5) #8
-  call void @llvm.va_start(ptr nonnull %5)
-  call fastcc void @ReportError(ptr noundef %1, i64 noundef %2, ptr noundef %3, ptr noundef nonnull %5)
-  call void @llvm.va_end(ptr nonnull %5)
-  %6 = icmp eq ptr %0, null
-  br i1 %6, label %9, label %7
+define dso_local void @TreeCCErrorOnLine(ptr noundef writeonly %input, ptr noundef %filename, i64 noundef %linenum, ptr nocapture noundef readonly %format, ...) local_unnamed_addr #0 {
+entry:
+  %va = alloca [1 x %struct.__va_list_tag], align 16
+  call void @llvm.lifetime.start.p0(i64 24, ptr nonnull %va) #9
+  call void @llvm.va_start(ptr nonnull %va)
+  call fastcc void @ReportError(ptr noundef %filename, i64 noundef %linenum, ptr noundef %format, ptr noundef nonnull %va)
+  call void @llvm.va_end(ptr nonnull %va)
+  %tobool.not = icmp eq ptr %input, null
+  br i1 %tobool.not, label %if.end, label %if.then
 
-7:                                                ; preds = %4
-  %8 = getelementptr inbounds %struct.TreeCCInput, ptr %0, i64 0, i32 7
-  store i32 1, ptr %8, align 8, !tbaa !13
-  br label %9
+if.then:                                          ; preds = %entry
+  %errors = getelementptr inbounds %struct.TreeCCInput, ptr %input, i64 0, i32 7
+  store i32 1, ptr %errors, align 8, !tbaa !13
+  br label %if.end
 
-9:                                                ; preds = %7, %4
-  call void @llvm.lifetime.end.p0(i64 24, ptr nonnull %5) #8
+if.end:                                           ; preds = %if.then, %entry
+  call void @llvm.lifetime.end.p0(i64 24, ptr nonnull %va) #9
   ret void
 }
 
 ; Function Attrs: noreturn nounwind uwtable
-define dso_local void @TreeCCAbort(ptr noundef readonly %0, ptr nocapture noundef readonly %1, ...) local_unnamed_addr #3 {
-  %3 = alloca [1 x %struct.__va_list_tag], align 16
-  call void @llvm.lifetime.start.p0(i64 24, ptr nonnull %3) #8
-  call void @llvm.va_start(ptr nonnull %3)
-  %4 = icmp eq ptr %0, null
-  br i1 %4, label %10, label %5
+define dso_local void @TreeCCAbort(ptr noundef readonly %input, ptr nocapture noundef readonly %format, ...) local_unnamed_addr #3 {
+entry:
+  %va = alloca [1 x %struct.__va_list_tag], align 16
+  call void @llvm.lifetime.start.p0(i64 24, ptr nonnull %va) #9
+  call void @llvm.va_start(ptr nonnull %va)
+  %tobool.not = icmp eq ptr %input, null
+  br i1 %tobool.not, label %cond.end4, label %cond.true2
 
-5:                                                ; preds = %2
-  %6 = getelementptr inbounds %struct.TreeCCInput, ptr %0, i64 0, i32 4
-  %7 = load ptr, ptr %6, align 8, !tbaa !5
-  %8 = getelementptr inbounds %struct.TreeCCInput, ptr %0, i64 0, i32 5
-  %9 = load i64, ptr %8, align 8, !tbaa !12
-  br label %10
+cond.true2:                                       ; preds = %entry
+  %filename = getelementptr inbounds %struct.TreeCCInput, ptr %input, i64 0, i32 4
+  %0 = load ptr, ptr %filename, align 8, !tbaa !5
+  %linenum = getelementptr inbounds %struct.TreeCCInput, ptr %input, i64 0, i32 5
+  %1 = load i64, ptr %linenum, align 8, !tbaa !12
+  br label %cond.end4
 
-10:                                               ; preds = %2, %5
-  %11 = phi ptr [ %7, %5 ], [ null, %2 ]
-  %12 = phi i64 [ %9, %5 ], [ 0, %2 ]
-  call fastcc void @ReportError(ptr noundef %11, i64 noundef %12, ptr noundef %1, ptr noundef nonnull %3)
-  call void @llvm.va_end(ptr nonnull %3)
-  call void @exit(i32 noundef 1) #10
+cond.end4:                                        ; preds = %entry, %cond.true2
+  %cond12 = phi ptr [ %0, %cond.true2 ], [ null, %entry ]
+  %cond5 = phi i64 [ %1, %cond.true2 ], [ 0, %entry ]
+  call fastcc void @ReportError(ptr noundef %cond12, i64 noundef %cond5, ptr noundef %format, ptr noundef nonnull %va)
+  call void @llvm.va_end(ptr nonnull %va)
+  call void @exit(i32 noundef 1) #11
   unreachable
 }
 
@@ -179,19 +181,20 @@ define dso_local void @TreeCCAbort(ptr noundef readonly %0, ptr nocapture nounde
 declare void @exit(i32 noundef) local_unnamed_addr #4
 
 ; Function Attrs: nofree nounwind uwtable
-define dso_local void @TreeCCDebug(i64 noundef %0, ptr nocapture noundef readonly %1, ...) local_unnamed_addr #0 {
-  %3 = alloca [1 x %struct.__va_list_tag], align 16
-  call void @llvm.lifetime.start.p0(i64 24, ptr nonnull %3) #8
-  call void @llvm.va_start(ptr nonnull %3)
-  %4 = call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str, i64 noundef %0)
-  %5 = load ptr, ptr @stdout, align 8, !tbaa !14
-  %6 = call i32 @vfprintf(ptr noundef %5, ptr noundef %1, ptr noundef nonnull %3)
-  %7 = load ptr, ptr @stdout, align 8, !tbaa !14
-  %8 = call i32 @putc(i32 noundef 10, ptr noundef %7)
-  call void @llvm.va_end(ptr nonnull %3)
-  %9 = load ptr, ptr @stdout, align 8, !tbaa !14
-  %10 = call i32 @fflush(ptr noundef %9)
-  call void @llvm.lifetime.end.p0(i64 24, ptr nonnull %3) #8
+define dso_local void @TreeCCDebug(i64 noundef %linenum, ptr nocapture noundef readonly %format, ...) local_unnamed_addr #0 {
+entry:
+  %va = alloca [1 x %struct.__va_list_tag], align 16
+  call void @llvm.lifetime.start.p0(i64 24, ptr nonnull %va) #9
+  call void @llvm.va_start(ptr nonnull %va)
+  %call = call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str, i64 noundef %linenum)
+  %0 = load ptr, ptr @stdout, align 8, !tbaa !14
+  %call2 = call i32 @vfprintf(ptr noundef %0, ptr noundef %format, ptr noundef nonnull %va)
+  %1 = load ptr, ptr @stdout, align 8, !tbaa !14
+  %call3 = call i32 @putc(i32 noundef 10, ptr noundef %1)
+  call void @llvm.va_end(ptr nonnull %va)
+  %2 = load ptr, ptr @stdout, align 8, !tbaa !14
+  %call5 = call i32 @fflush(ptr noundef %2)
+  call void @llvm.lifetime.end.p0(i64 24, ptr nonnull %va) #9
   ret void
 }
 
@@ -208,27 +211,28 @@ declare noundef i32 @putc(i32 noundef, ptr nocapture noundef) local_unnamed_addr
 declare noundef i32 @fflush(ptr nocapture noundef) local_unnamed_addr #5
 
 ; Function Attrs: noreturn nounwind uwtable
-define dso_local void @TreeCCOutOfMemory(ptr noundef readonly %0) local_unnamed_addr #3 {
-  %2 = icmp eq ptr %0, null
-  br i1 %2, label %12, label %3
+define dso_local void @TreeCCOutOfMemory(ptr noundef readonly %input) local_unnamed_addr #3 {
+entry:
+  %tobool.not = icmp eq ptr %input, null
+  br i1 %tobool.not, label %if.end, label %land.lhs.true
 
-3:                                                ; preds = %1
-  %4 = getelementptr inbounds %struct.TreeCCInput, ptr %0, i64 0, i32 2
-  %5 = load ptr, ptr %4, align 8, !tbaa !19
-  %6 = icmp eq ptr %5, null
-  br i1 %6, label %12, label %7
+land.lhs.true:                                    ; preds = %entry
+  %progname = getelementptr inbounds %struct.TreeCCInput, ptr %input, i64 0, i32 2
+  %0 = load ptr, ptr %progname, align 8, !tbaa !19
+  %tobool1.not = icmp eq ptr %0, null
+  br i1 %tobool1.not, label %if.end, label %if.then
 
-7:                                                ; preds = %3
-  %8 = load ptr, ptr @stderr, align 8, !tbaa !14
-  %9 = tail call i32 @fputs(ptr noundef nonnull %5, ptr noundef %8) #11
-  %10 = load ptr, ptr @stderr, align 8, !tbaa !14
-  %11 = tail call i64 @fwrite(ptr nonnull @.str.1, i64 2, i64 1, ptr %10) #11
-  br label %12
+if.then:                                          ; preds = %land.lhs.true
+  %1 = load ptr, ptr @stderr, align 8, !tbaa !14
+  %call = tail call i32 @fputs(ptr noundef nonnull %0, ptr noundef %1) #12
+  %2 = load ptr, ptr @stderr, align 8, !tbaa !14
+  %3 = tail call i64 @fwrite(ptr nonnull @.str.1, i64 2, i64 1, ptr %2) #12
+  br label %if.end
 
-12:                                               ; preds = %7, %3, %1
-  %13 = load ptr, ptr @stderr, align 8, !tbaa !14
-  %14 = tail call i64 @fwrite(ptr nonnull @.str.2, i64 25, i64 1, ptr %13) #11
-  tail call void @exit(i32 noundef 1) #10
+if.end:                                           ; preds = %if.then, %land.lhs.true, %entry
+  %4 = load ptr, ptr @stderr, align 8, !tbaa !14
+  %5 = tail call i64 @fwrite(ptr nonnull @.str.2, i64 25, i64 1, ptr %4) #12
+  tail call void @exit(i32 noundef 1) #11
   unreachable
 }
 
@@ -244,6 +248,9 @@ declare noundef i32 @fprintf(ptr nocapture noundef, ptr nocapture noundef readon
 ; Function Attrs: nofree nounwind
 declare noundef i64 @fwrite(ptr nocapture noundef, i64 noundef, i64 noundef, ptr nocapture noundef) local_unnamed_addr #7
 
+; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
+declare i32 @llvm.smin.i32(i32, i32) #8
+
 attributes #0 = { nofree nounwind uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #1 = { mustprogress nocallback nofree nosync nounwind willreturn memory(argmem: readwrite) }
 attributes #2 = { mustprogress nocallback nofree nosync nounwind willreturn }
@@ -252,10 +259,11 @@ attributes #4 = { noreturn nounwind "no-trapping-math"="true" "stack-protector-b
 attributes #5 = { nofree nounwind "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #6 = { mustprogress nofree nounwind willreturn memory(argmem: read) "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #7 = { nofree nounwind }
-attributes #8 = { nounwind }
-attributes #9 = { nounwind willreturn memory(read) }
-attributes #10 = { noreturn nounwind }
-attributes #11 = { cold }
+attributes #8 = { nocallback nofree nosync nounwind speculatable willreturn memory(none) }
+attributes #9 = { nounwind }
+attributes #10 = { nounwind willreturn memory(read) }
+attributes #11 = { noreturn nounwind }
+attributes #12 = { cold }
 
 !llvm.module.flags = !{!0, !1, !2, !3}
 !llvm.ident = !{!4}

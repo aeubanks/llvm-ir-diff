@@ -54,108 +54,109 @@ target triple = "x86_64-unknown-linux-gnu"
 @_ZN4CruxD1Ev = dso_local unnamed_addr alias void (ptr), ptr @_ZN4CruxD2Ev
 
 ; Function Attrs: nofree nounwind uwtable
-define dso_local void @_ZN4CruxC2Eiib(ptr nocapture noundef nonnull align 4 dereferenceable(12) %0, i32 noundef %1, i32 noundef %2, i1 noundef zeroext %3) unnamed_addr #0 align 2 {
-  %5 = alloca %struct.stat, align 8
-  %6 = alloca [60 x i8], align 16
-  store i32 %2, ptr %0, align 4, !tbaa !5
-  %7 = getelementptr inbounds %class.Crux, ptr %0, i64 0, i32 1
-  store i32 %1, ptr %7, align 4, !tbaa !10
-  %8 = getelementptr inbounds %class.Crux, ptr %0, i64 0, i32 2
-  store i32 0, ptr %8, align 4, !tbaa !11
-  %9 = icmp ne i32 %1, 0
-  %10 = or i1 %9, %3
-  br i1 %10, label %11, label %18
+define dso_local void @_ZN4CruxC2Eiib(ptr nocapture noundef nonnull align 4 dereferenceable(12) %this, i32 noundef %crux_type_in, i32 noundef %num_of_rollback_states_in, i1 noundef zeroext %restart) unnamed_addr #0 align 2 {
+entry:
+  %stat_descriptor = alloca %struct.stat, align 8
+  %checkpointtimelog = alloca [60 x i8], align 16
+  store i32 %num_of_rollback_states_in, ptr %this, align 4, !tbaa !5
+  %crux_type = getelementptr inbounds %class.Crux, ptr %this, i64 0, i32 1
+  store i32 %crux_type_in, ptr %crux_type, align 4, !tbaa !10
+  %checkpoint_counter = getelementptr inbounds %class.Crux, ptr %this, i64 0, i32 2
+  store i32 0, ptr %checkpoint_counter, align 4, !tbaa !11
+  %cmp.not = icmp ne i32 %crux_type_in, 0
+  %brmerge = or i1 %cmp.not, %restart
+  br i1 %brmerge, label %if.then, label %if.end6
 
-11:                                               ; preds = %4
+if.then:                                          ; preds = %entry
   store i8 1, ptr @do_crux_timing, align 1, !tbaa !12
-  call void @llvm.lifetime.start.p0(i64 144, ptr nonnull %5) #15
-  %12 = call i32 @stat(ptr noundef nonnull @checkpoint_directory, ptr noundef nonnull %5) #15
-  %13 = icmp eq i32 %12, -1
-  br i1 %13, label %14, label %16
+  call void @llvm.lifetime.start.p0(i64 144, ptr nonnull %stat_descriptor) #15
+  %call = call i32 @stat(ptr noundef nonnull @checkpoint_directory, ptr noundef nonnull %stat_descriptor) #15
+  %cmp3 = icmp eq i32 %call, -1
+  br i1 %cmp3, label %if.then4, label %if.end
 
-14:                                               ; preds = %11
-  %15 = tail call i32 @mkdir(ptr noundef nonnull @checkpoint_directory, i32 noundef 511) #15
-  br label %16
+if.then4:                                         ; preds = %if.then
+  %call5 = tail call i32 @mkdir(ptr noundef nonnull @checkpoint_directory, i32 noundef 511) #15
+  br label %if.end
 
-16:                                               ; preds = %14, %11
-  call void @llvm.lifetime.end.p0(i64 144, ptr nonnull %5) #15
-  %17 = load i32, ptr %0, align 4, !tbaa !5
-  br label %18
+if.end:                                           ; preds = %if.then4, %if.then
+  call void @llvm.lifetime.end.p0(i64 144, ptr nonnull %stat_descriptor) #15
+  %.pre = load i32, ptr %this, align 4, !tbaa !5
+  br label %if.end6
 
-18:                                               ; preds = %4, %16
-  %19 = phi i32 [ %2, %4 ], [ %17, %16 ]
-  %20 = sext i32 %19 to i64
-  %21 = shl nsw i64 %20, 3
-  %22 = tail call noalias ptr @malloc(i64 noundef %21) #16
-  store ptr %22, ptr @crux_data, align 8, !tbaa !14
-  %23 = icmp sgt i32 %19, 0
-  br i1 %23, label %24, label %41
+if.end6:                                          ; preds = %entry, %if.end
+  %0 = phi i32 [ %num_of_rollback_states_in, %entry ], [ %.pre, %if.end ]
+  %conv = sext i32 %0 to i64
+  %mul = shl nsw i64 %conv, 3
+  %call8 = tail call noalias ptr @malloc(i64 noundef %mul) #16
+  store ptr %call8, ptr @crux_data, align 8, !tbaa !14
+  %cmp1023 = icmp sgt i32 %0, 0
+  br i1 %cmp1023, label %for.body.preheader, label %for.cond.cleanup
 
-24:                                               ; preds = %18
-  %25 = zext i32 %19 to i64
-  %26 = and i64 %25, 3
-  %27 = icmp ult i32 %19, 4
-  br i1 %27, label %30, label %28
+for.body.preheader:                               ; preds = %if.end6
+  %wide.trip.count = zext i32 %0 to i64
+  %xtraiter = and i64 %wide.trip.count, 3
+  %1 = icmp ult i32 %0, 4
+  br i1 %1, label %for.cond.cleanup.loopexit.unr-lcssa, label %for.body.preheader.new
 
-28:                                               ; preds = %24
-  %29 = and i64 %25, 4294967292
-  br label %45
+for.body.preheader.new:                           ; preds = %for.body.preheader
+  %unroll_iter = and i64 %wide.trip.count, 4294967292
+  br label %for.body
 
-30:                                               ; preds = %45, %24
-  %31 = phi i64 [ 0, %24 ], [ %59, %45 ]
-  %32 = icmp eq i64 %26, 0
-  br i1 %32, label %41, label %33
+for.cond.cleanup.loopexit.unr-lcssa:              ; preds = %for.body, %for.body.preheader
+  %indvars.iv.unr = phi i64 [ 0, %for.body.preheader ], [ %indvars.iv.next.3, %for.body ]
+  %lcmp.mod.not = icmp eq i64 %xtraiter, 0
+  br i1 %lcmp.mod.not, label %for.cond.cleanup, label %for.body.epil
 
-33:                                               ; preds = %30, %33
-  %34 = phi i64 [ %38, %33 ], [ %31, %30 ]
-  %35 = phi i64 [ %39, %33 ], [ 0, %30 ]
-  %36 = load ptr, ptr @crux_data, align 8, !tbaa !14
-  %37 = getelementptr inbounds ptr, ptr %36, i64 %34
-  store ptr null, ptr %37, align 8, !tbaa !14
-  %38 = add nuw nsw i64 %34, 1
-  %39 = add i64 %35, 1
-  %40 = icmp eq i64 %39, %26
-  br i1 %40, label %41, label %33, !llvm.loop !16
+for.body.epil:                                    ; preds = %for.cond.cleanup.loopexit.unr-lcssa, %for.body.epil
+  %indvars.iv.epil = phi i64 [ %indvars.iv.next.epil, %for.body.epil ], [ %indvars.iv.unr, %for.cond.cleanup.loopexit.unr-lcssa ]
+  %epil.iter = phi i64 [ %epil.iter.next, %for.body.epil ], [ 0, %for.cond.cleanup.loopexit.unr-lcssa ]
+  %2 = load ptr, ptr @crux_data, align 8, !tbaa !14
+  %arrayidx.epil = getelementptr inbounds ptr, ptr %2, i64 %indvars.iv.epil
+  store ptr null, ptr %arrayidx.epil, align 8, !tbaa !14
+  %indvars.iv.next.epil = add nuw nsw i64 %indvars.iv.epil, 1
+  %epil.iter.next = add i64 %epil.iter, 1
+  %epil.iter.cmp.not = icmp eq i64 %epil.iter.next, %xtraiter
+  br i1 %epil.iter.cmp.not, label %for.cond.cleanup, label %for.body.epil, !llvm.loop !16
 
-41:                                               ; preds = %30, %33, %18
-  %42 = tail call noalias ptr @malloc(i64 noundef %21) #16
-  store ptr %42, ptr @crux_data_size, align 8, !tbaa !14
-  %43 = load i8, ptr @do_crux_timing, align 1, !tbaa !12, !range !18, !noundef !19
-  %44 = icmp eq i8 %43, 0
-  br i1 %44, label %65, label %62
+for.cond.cleanup:                                 ; preds = %for.cond.cleanup.loopexit.unr-lcssa, %for.body.epil, %if.end6
+  %call14 = tail call noalias ptr @malloc(i64 noundef %mul) #16
+  store ptr %call14, ptr @crux_data_size, align 8, !tbaa !14
+  %3 = load i8, ptr @do_crux_timing, align 1, !tbaa !12, !range !18, !noundef !19
+  %tobool15.not = icmp eq i8 %3, 0
+  br i1 %tobool15.not, label %if.end20, label %if.then16
 
-45:                                               ; preds = %45, %28
-  %46 = phi i64 [ 0, %28 ], [ %59, %45 ]
-  %47 = phi i64 [ 0, %28 ], [ %60, %45 ]
-  %48 = load ptr, ptr @crux_data, align 8, !tbaa !14
-  %49 = getelementptr inbounds ptr, ptr %48, i64 %46
-  store ptr null, ptr %49, align 8, !tbaa !14
-  %50 = or i64 %46, 1
-  %51 = load ptr, ptr @crux_data, align 8, !tbaa !14
-  %52 = getelementptr inbounds ptr, ptr %51, i64 %50
-  store ptr null, ptr %52, align 8, !tbaa !14
-  %53 = or i64 %46, 2
-  %54 = load ptr, ptr @crux_data, align 8, !tbaa !14
-  %55 = getelementptr inbounds ptr, ptr %54, i64 %53
-  store ptr null, ptr %55, align 8, !tbaa !14
-  %56 = or i64 %46, 3
-  %57 = load ptr, ptr @crux_data, align 8, !tbaa !14
-  %58 = getelementptr inbounds ptr, ptr %57, i64 %56
-  store ptr null, ptr %58, align 8, !tbaa !14
-  %59 = add nuw nsw i64 %46, 4
-  %60 = add i64 %47, 4
-  %61 = icmp eq i64 %60, %29
-  br i1 %61, label %30, label %45, !llvm.loop !20
+for.body:                                         ; preds = %for.body, %for.body.preheader.new
+  %indvars.iv = phi i64 [ 0, %for.body.preheader.new ], [ %indvars.iv.next.3, %for.body ]
+  %niter = phi i64 [ 0, %for.body.preheader.new ], [ %niter.next.3, %for.body ]
+  %4 = load ptr, ptr @crux_data, align 8, !tbaa !14
+  %arrayidx = getelementptr inbounds ptr, ptr %4, i64 %indvars.iv
+  store ptr null, ptr %arrayidx, align 8, !tbaa !14
+  %indvars.iv.next = or i64 %indvars.iv, 1
+  %5 = load ptr, ptr @crux_data, align 8, !tbaa !14
+  %arrayidx.1 = getelementptr inbounds ptr, ptr %5, i64 %indvars.iv.next
+  store ptr null, ptr %arrayidx.1, align 8, !tbaa !14
+  %indvars.iv.next.1 = or i64 %indvars.iv, 2
+  %6 = load ptr, ptr @crux_data, align 8, !tbaa !14
+  %arrayidx.2 = getelementptr inbounds ptr, ptr %6, i64 %indvars.iv.next.1
+  store ptr null, ptr %arrayidx.2, align 8, !tbaa !14
+  %indvars.iv.next.2 = or i64 %indvars.iv, 3
+  %7 = load ptr, ptr @crux_data, align 8, !tbaa !14
+  %arrayidx.3 = getelementptr inbounds ptr, ptr %7, i64 %indvars.iv.next.2
+  store ptr null, ptr %arrayidx.3, align 8, !tbaa !14
+  %indvars.iv.next.3 = add nuw nsw i64 %indvars.iv, 4
+  %niter.next.3 = add i64 %niter, 4
+  %niter.ncmp.3 = icmp eq i64 %niter.next.3, %unroll_iter
+  br i1 %niter.ncmp.3, label %for.cond.cleanup.loopexit.unr-lcssa, label %for.body, !llvm.loop !20
 
-62:                                               ; preds = %41
-  call void @llvm.lifetime.start.p0(i64 60, ptr nonnull %6) #15
-  %63 = call i32 (ptr, ptr, ...) @sprintf(ptr noundef nonnull dereferenceable(1) %6, ptr noundef nonnull dereferenceable(1) @.str, ptr noundef nonnull @checkpoint_directory) #15
-  %64 = call noalias ptr @fopen(ptr noundef nonnull %6, ptr noundef nonnull @.str.1)
-  store ptr %64, ptr @crux_time_fp, align 8, !tbaa !14
-  call void @llvm.lifetime.end.p0(i64 60, ptr nonnull %6) #15
-  br label %65
+if.then16:                                        ; preds = %for.cond.cleanup
+  call void @llvm.lifetime.start.p0(i64 60, ptr nonnull %checkpointtimelog) #15
+  %call17 = call i32 (ptr, ptr, ...) @sprintf(ptr noundef nonnull dereferenceable(1) %checkpointtimelog, ptr noundef nonnull dereferenceable(1) @.str, ptr noundef nonnull @checkpoint_directory) #15
+  %call19 = call noalias ptr @fopen(ptr noundef nonnull %checkpointtimelog, ptr noundef nonnull @.str.1)
+  store ptr %call19, ptr @crux_time_fp, align 8, !tbaa !14
+  call void @llvm.lifetime.end.p0(i64 60, ptr nonnull %checkpointtimelog) #15
+  br label %if.end20
 
-65:                                               ; preds = %62, %41
+if.end20:                                         ; preds = %if.then16, %for.cond.cleanup
   ret void
 }
 
@@ -181,63 +182,64 @@ declare noundef i32 @sprintf(ptr noalias nocapture noundef writeonly, ptr nocapt
 declare noalias noundef ptr @fopen(ptr nocapture noundef readonly, ptr nocapture noundef readonly) local_unnamed_addr #2
 
 ; Function Attrs: nounwind uwtable
-define dso_local void @_ZN4CruxD2Ev(ptr nocapture noundef nonnull readonly align 4 dereferenceable(12) %0) unnamed_addr #4 align 2 personality ptr @__gxx_personality_v0 {
-  %2 = load i32, ptr %0, align 4, !tbaa !5
-  %3 = icmp sgt i32 %2, 0
-  br i1 %3, label %12, label %4
+define dso_local void @_ZN4CruxD2Ev(ptr nocapture noundef nonnull readonly align 4 dereferenceable(12) %this) unnamed_addr #4 align 2 personality ptr @__gxx_personality_v0 {
+entry:
+  %0 = load i32, ptr %this, align 4, !tbaa !5
+  %cmp22 = icmp sgt i32 %0, 0
+  br i1 %cmp22, label %for.body, label %for.cond.cleanup
 
-4:                                                ; preds = %12, %1
+for.cond.cleanup:                                 ; preds = %for.body, %entry
+  %1 = load ptr, ptr @crux_data, align 8, !tbaa !14
+  tail call void @free(ptr noundef %1) #15
+  %2 = load ptr, ptr @crux_data_size, align 8, !tbaa !14
+  tail call void @free(ptr noundef %2) #15
+  %3 = load i8, ptr @do_crux_timing, align 1, !tbaa !12, !range !18, !noundef !19
+  %tobool = icmp ne i8 %3, 0
+  %4 = load i32, ptr @checkpoint_timing_count, align 4
+  %cmp2 = icmp sgt i32 %4, 0
+  %or.cond = select i1 %tobool, i1 %cmp2, i1 false
+  br i1 %or.cond, label %if.then3, label %if.end19
+
+for.body:                                         ; preds = %entry, %for.body
+  %indvars.iv = phi i64 [ %indvars.iv.next, %for.body ], [ 0, %entry ]
   %5 = load ptr, ptr @crux_data, align 8, !tbaa !14
-  tail call void @free(ptr noundef %5) #15
-  %6 = load ptr, ptr @crux_data_size, align 8, !tbaa !14
+  %arrayidx = getelementptr inbounds ptr, ptr %5, i64 %indvars.iv
+  %6 = load ptr, ptr %arrayidx, align 8, !tbaa !14
   tail call void @free(ptr noundef %6) #15
-  %7 = load i8, ptr @do_crux_timing, align 1, !tbaa !12, !range !18, !noundef !19
-  %8 = icmp ne i8 %7, 0
-  %9 = load i32, ptr @checkpoint_timing_count, align 4
-  %10 = icmp sgt i32 %9, 0
-  %11 = select i1 %8, i1 %10, i1 false
-  br i1 %11, label %21, label %46
+  %indvars.iv.next = add nuw nsw i64 %indvars.iv, 1
+  %7 = load i32, ptr %this, align 4, !tbaa !5
+  %8 = sext i32 %7 to i64
+  %cmp = icmp slt i64 %indvars.iv.next, %8
+  br i1 %cmp, label %for.body, label %for.cond.cleanup, !llvm.loop !22
 
-12:                                               ; preds = %1, %12
-  %13 = phi i64 [ %17, %12 ], [ 0, %1 ]
-  %14 = load ptr, ptr @crux_data, align 8, !tbaa !14
-  %15 = getelementptr inbounds ptr, ptr %14, i64 %13
-  %16 = load ptr, ptr %15, align 8, !tbaa !14
-  tail call void @free(ptr noundef %16) #15
-  %17 = add nuw nsw i64 %13, 1
-  %18 = load i32, ptr %0, align 4, !tbaa !5
-  %19 = sext i32 %18 to i64
-  %20 = icmp slt i64 %17, %19
-  br i1 %20, label %12, label %4, !llvm.loop !22
+if.then3:                                         ; preds = %for.cond.cleanup
+  %9 = load float, ptr @checkpoint_timing_sum, align 4, !tbaa !23
+  %conv = sitofp i32 %4 to float
+  %div = fdiv float %9, %conv
+  %conv4 = fpext float %div to double
+  %mul = fmul double %conv4, 1.000000e+03
+  %10 = load float, ptr @checkpoint_timing_size, align 4, !tbaa !23
+  %div5 = fdiv float %10, %9
+  %conv6 = fpext float %div5 to double
+  %mul7 = fmul double %conv6, 0x3EB0C6F7A0B5ED8D
+  %call = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.2, double noundef %mul, double noundef %mul7)
+  %11 = load ptr, ptr @crux_time_fp, align 8, !tbaa !14
+  %12 = load float, ptr @checkpoint_timing_sum, align 4, !tbaa !23
+  %13 = load i32, ptr @checkpoint_timing_count, align 4, !tbaa !25
+  %conv8 = sitofp i32 %13 to float
+  %div9 = fdiv float %12, %conv8
+  %conv10 = fpext float %div9 to double
+  %mul11 = fmul double %conv10, 1.000000e+03
+  %14 = load float, ptr @checkpoint_timing_size, align 4, !tbaa !23
+  %div12 = fdiv float %14, %12
+  %conv13 = fpext float %div12 to double
+  %mul14 = fmul double %conv13, 0x3EB0C6F7A0B5ED8D
+  %call16 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %11, ptr noundef nonnull @.str.2, double noundef %mul11, double noundef %mul14)
+  %15 = load ptr, ptr @crux_time_fp, align 8, !tbaa !14
+  %call18 = tail call i32 @fclose(ptr noundef %15)
+  br label %if.end19
 
-21:                                               ; preds = %4
-  %22 = load float, ptr @checkpoint_timing_sum, align 4, !tbaa !23
-  %23 = sitofp i32 %9 to float
-  %24 = fdiv float %22, %23
-  %25 = fpext float %24 to double
-  %26 = fmul double %25, 1.000000e+03
-  %27 = load float, ptr @checkpoint_timing_size, align 4, !tbaa !23
-  %28 = fdiv float %27, %22
-  %29 = fpext float %28 to double
-  %30 = fmul double %29, 0x3EB0C6F7A0B5ED8D
-  %31 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.2, double noundef %26, double noundef %30)
-  %32 = load ptr, ptr @crux_time_fp, align 8, !tbaa !14
-  %33 = load float, ptr @checkpoint_timing_sum, align 4, !tbaa !23
-  %34 = load i32, ptr @checkpoint_timing_count, align 4, !tbaa !25
-  %35 = sitofp i32 %34 to float
-  %36 = fdiv float %33, %35
-  %37 = fpext float %36 to double
-  %38 = fmul double %37, 1.000000e+03
-  %39 = load float, ptr @checkpoint_timing_size, align 4, !tbaa !23
-  %40 = fdiv float %39, %33
-  %41 = fpext float %40 to double
-  %42 = fmul double %41, 0x3EB0C6F7A0B5ED8D
-  %43 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %32, ptr noundef nonnull @.str.2, double noundef %38, double noundef %42)
-  %44 = load ptr, ptr @crux_time_fp, align 8, !tbaa !14
-  %45 = tail call i32 @fclose(ptr noundef %44)
-  br label %46
-
-46:                                               ; preds = %21, %4
+if.end19:                                         ; preds = %if.then3, %for.cond.cleanup
   ret void
 }
 
@@ -256,66 +258,67 @@ declare noundef i32 @fprintf(ptr nocapture noundef, ptr nocapture noundef readon
 declare noundef i32 @fclose(ptr nocapture noundef) local_unnamed_addr #2
 
 ; Function Attrs: mustprogress uwtable
-define dso_local void @_ZN4Crux16store_MallocPlusE10MallocPlus(ptr nocapture noundef nonnull readnone align 4 dereferenceable(12) %0, ptr noundef nonnull %1) local_unnamed_addr #6 align 2 {
-  %3 = tail call noundef ptr @_ZN10MallocPlus26memory_entry_by_name_beginEv(ptr noundef nonnull align 8 dereferenceable(96) %1)
-  %4 = tail call noundef ptr @_ZN10MallocPlus24memory_entry_by_name_endEv(ptr noundef nonnull align 8 dereferenceable(96) %1)
-  %5 = icmp eq ptr %3, %4
-  br i1 %5, label %47, label %6
+define dso_local void @_ZN4Crux16store_MallocPlusE10MallocPlus(ptr nocapture noundef nonnull readnone align 4 dereferenceable(12) %this, ptr noundef nonnull %memory) local_unnamed_addr #6 align 2 {
+entry:
+  %call = tail call noundef ptr @_ZN10MallocPlus26memory_entry_by_name_beginEv(ptr noundef nonnull align 8 dereferenceable(96) %memory)
+  %call256 = tail call noundef ptr @_ZN10MallocPlus24memory_entry_by_name_endEv(ptr noundef nonnull align 8 dereferenceable(96) %memory)
+  %cmp.not57 = icmp eq ptr %call, %call256
+  br i1 %cmp.not57, label %for.end29, label %for.body
 
-6:                                                ; preds = %2, %43
-  %7 = phi ptr [ %44, %43 ], [ %3, %2 ]
-  %8 = load ptr, ptr %7, align 8, !tbaa !26
-  %9 = getelementptr inbounds %struct.malloc_plus_memory_entry, ptr %7, i64 0, i32 5
-  %10 = load i32, ptr %9, align 8, !tbaa !29
-  %11 = and i32 %10, 16
-  %12 = icmp eq i32 %11, 0
-  br i1 %12, label %43, label %13
+for.body:                                         ; preds = %entry, %cleanup
+  %memory_item.058 = phi ptr [ %call28, %cleanup ], [ %call, %entry ]
+  %0 = load ptr, ptr %memory_item.058, align 8, !tbaa !26
+  %mem_flags = getelementptr inbounds %struct.malloc_plus_memory_entry, ptr %memory_item.058, i64 0, i32 5
+  %1 = load i32, ptr %mem_flags, align 8, !tbaa !29
+  %and = and i32 %1, 16
+  %cmp4 = icmp eq i32 %and, 0
+  br i1 %cmp4, label %cleanup, label %for.cond5.preheader
 
-13:                                               ; preds = %6
-  %14 = getelementptr inbounds %struct.malloc_plus_memory_entry, ptr %7, i64 0, i32 3
-  %15 = load i64, ptr %14, align 8, !tbaa !30
-  %16 = icmp eq i64 %15, 0
-  br i1 %16, label %20, label %17
+for.cond5.preheader:                              ; preds = %for.body
+  %mem_ndims = getelementptr inbounds %struct.malloc_plus_memory_entry, ptr %memory_item.058, i64 0, i32 3
+  %2 = load i64, ptr %mem_ndims, align 8, !tbaa !30
+  %cmp652.not = icmp eq i64 %2, 0
+  br i1 %cmp652.not, label %for.cond.cleanup, label %for.body7.lr.ph
 
-17:                                               ; preds = %13
-  %18 = getelementptr inbounds %struct.malloc_plus_memory_entry, ptr %7, i64 0, i32 2
-  %19 = load ptr, ptr %18, align 8, !tbaa !31
-  br label %33
+for.body7.lr.ph:                                  ; preds = %for.cond5.preheader
+  %mem_nelem = getelementptr inbounds %struct.malloc_plus_memory_entry, ptr %memory_item.058, i64 0, i32 2
+  %3 = load ptr, ptr %mem_nelem, align 8, !tbaa !31
+  br label %for.body7
 
-20:                                               ; preds = %33, %13
-  %21 = phi i32 [ 1, %13 ], [ %39, %33 ]
-  %22 = getelementptr inbounds %struct.malloc_plus_memory_entry, ptr %7, i64 0, i32 6
-  %23 = load ptr, ptr %22, align 8, !tbaa !32
-  %24 = load ptr, ptr @store_fp, align 8, !tbaa !14
-  %25 = tail call i64 @fwrite(ptr noundef %23, i64 noundef 1, i64 noundef 30, ptr noundef %24)
-  %26 = getelementptr inbounds %struct.malloc_plus_memory_entry, ptr %7, i64 0, i32 4
-  %27 = load i64, ptr %26, align 8, !tbaa !33
-  %28 = icmp eq i64 %27, 4
-  %29 = sext i32 %21 to i64
-  %30 = load ptr, ptr @store_fp, align 8, !tbaa !14
-  %31 = select i1 %28, i64 4, i64 8
-  %32 = tail call i64 @fwrite(ptr noundef %8, i64 noundef %31, i64 noundef %29, ptr noundef %30)
-  br label %43
+for.cond.cleanup:                                 ; preds = %for.body7, %for.cond5.preheader
+  %num_elements.0.lcssa = phi i32 [ 1, %for.cond5.preheader ], [ %conv9, %for.body7 ]
+  %mem_name = getelementptr inbounds %struct.malloc_plus_memory_entry, ptr %memory_item.058, i64 0, i32 6
+  %4 = load ptr, ptr %mem_name, align 8, !tbaa !32
+  %5 = load ptr, ptr @store_fp, align 8, !tbaa !14
+  %call.i = tail call i64 @fwrite(ptr noundef %4, i64 noundef 1, i64 noundef 30, ptr noundef %5)
+  %mem_elsize19 = getelementptr inbounds %struct.malloc_plus_memory_entry, ptr %memory_item.058, i64 0, i32 4
+  %6 = load i64, ptr %mem_elsize19, align 8, !tbaa !33
+  %cmp20 = icmp eq i64 %6, 4
+  %conv22 = sext i32 %num_elements.0.lcssa to i64
+  %7 = load ptr, ptr @store_fp, align 8, !tbaa !14
+  %.59 = select i1 %cmp20, i64 4, i64 8
+  %call.i49 = tail call i64 @fwrite(ptr noundef %0, i64 noundef %.59, i64 noundef %conv22, ptr noundef %7)
+  br label %cleanup
 
-33:                                               ; preds = %17, %33
-  %34 = phi i64 [ 0, %17 ], [ %41, %33 ]
-  %35 = phi i32 [ 1, %17 ], [ %39, %33 ]
-  %36 = getelementptr inbounds i64, ptr %19, i64 %34
-  %37 = load i64, ptr %36, align 8, !tbaa !34
-  %38 = trunc i64 %37 to i32
-  %39 = mul i32 %35, %38
-  %40 = add nuw nsw i64 %34, 1
-  %41 = and i64 %40, 4294967295
-  %42 = icmp ugt i64 %15, %41
-  br i1 %42, label %33, label %20, !llvm.loop !35
+for.body7:                                        ; preds = %for.body7.lr.ph, %for.body7
+  %conv55 = phi i64 [ 0, %for.body7.lr.ph ], [ %conv, %for.body7 ]
+  %num_elements.053 = phi i32 [ 1, %for.body7.lr.ph ], [ %conv9, %for.body7 ]
+  %arrayidx = getelementptr inbounds i64, ptr %3, i64 %conv55
+  %8 = load i64, ptr %arrayidx, align 8, !tbaa !34
+  %9 = trunc i64 %8 to i32
+  %conv9 = mul i32 %num_elements.053, %9
+  %inc = add nuw nsw i64 %conv55, 1
+  %conv = and i64 %inc, 4294967295
+  %cmp6 = icmp ugt i64 %2, %conv
+  br i1 %cmp6, label %for.body7, label %for.cond.cleanup, !llvm.loop !35
 
-43:                                               ; preds = %20, %6
-  %44 = tail call noundef ptr @_ZN10MallocPlus25memory_entry_by_name_nextEv(ptr noundef nonnull align 8 dereferenceable(96) %1)
-  %45 = tail call noundef ptr @_ZN10MallocPlus24memory_entry_by_name_endEv(ptr noundef nonnull align 8 dereferenceable(96) %1)
-  %46 = icmp eq ptr %44, %45
-  br i1 %46, label %47, label %6, !llvm.loop !36
+cleanup:                                          ; preds = %for.cond.cleanup, %for.body
+  %call28 = tail call noundef ptr @_ZN10MallocPlus25memory_entry_by_name_nextEv(ptr noundef nonnull align 8 dereferenceable(96) %memory)
+  %call2 = tail call noundef ptr @_ZN10MallocPlus24memory_entry_by_name_endEv(ptr noundef nonnull align 8 dereferenceable(96) %memory)
+  %cmp.not = icmp eq ptr %call28, %call2
+  br i1 %cmp.not, label %for.end29, label %for.body, !llvm.loop !36
 
-47:                                               ; preds = %43, %2
+for.end29:                                        ; preds = %cleanup, %entry
   ret void
 }
 
@@ -324,131 +327,137 @@ declare noundef ptr @_ZN10MallocPlus26memory_entry_by_name_beginEv(ptr noundef n
 declare noundef ptr @_ZN10MallocPlus24memory_entry_by_name_endEv(ptr noundef nonnull align 8 dereferenceable(96)) local_unnamed_addr #7
 
 ; Function Attrs: mustprogress nofree nounwind uwtable
-define dso_local void @_ZN4Crux18store_field_headerEPKci(ptr nocapture noundef nonnull readnone align 4 dereferenceable(12) %0, ptr nocapture noundef %1, i32 noundef %2) local_unnamed_addr #8 align 2 {
-  %4 = sext i32 %2 to i64
-  %5 = load ptr, ptr @store_fp, align 8, !tbaa !14
-  %6 = tail call i64 @fwrite(ptr noundef %1, i64 noundef 1, i64 noundef %4, ptr noundef %5)
+define dso_local void @_ZN4Crux18store_field_headerEPKci(ptr nocapture noundef nonnull readnone align 4 dereferenceable(12) %this, ptr nocapture noundef %name, i32 noundef %name_size) local_unnamed_addr #8 align 2 {
+entry:
+  %conv = sext i32 %name_size to i64
+  %0 = load ptr, ptr @store_fp, align 8, !tbaa !14
+  %call = tail call i64 @fwrite(ptr noundef %name, i64 noundef 1, i64 noundef %conv, ptr noundef %0)
   ret void
 }
 
 ; Function Attrs: mustprogress nofree nounwind uwtable
-define dso_local void @_ZN4Crux26store_replicated_int_arrayEPim(ptr nocapture noundef nonnull readnone align 4 dereferenceable(12) %0, ptr nocapture noundef %1, i64 noundef %2) local_unnamed_addr #8 align 2 {
-  %4 = load ptr, ptr @store_fp, align 8, !tbaa !14
-  %5 = tail call i64 @fwrite(ptr noundef %1, i64 noundef 4, i64 noundef %2, ptr noundef %4)
+define dso_local void @_ZN4Crux26store_replicated_int_arrayEPim(ptr nocapture noundef nonnull readnone align 4 dereferenceable(12) %this, ptr nocapture noundef %int_array, i64 noundef %nelem) local_unnamed_addr #8 align 2 {
+entry:
+  %0 = load ptr, ptr @store_fp, align 8, !tbaa !14
+  %call = tail call i64 @fwrite(ptr noundef %int_array, i64 noundef 4, i64 noundef %nelem, ptr noundef %0)
   ret void
 }
 
 ; Function Attrs: mustprogress nofree nounwind uwtable
-define dso_local void @_ZN4Crux29store_replicated_double_arrayEPdm(ptr nocapture noundef nonnull readnone align 4 dereferenceable(12) %0, ptr nocapture noundef %1, i64 noundef %2) local_unnamed_addr #8 align 2 {
-  %4 = load ptr, ptr @store_fp, align 8, !tbaa !14
-  %5 = tail call i64 @fwrite(ptr noundef %1, i64 noundef 8, i64 noundef %2, ptr noundef %4)
+define dso_local void @_ZN4Crux29store_replicated_double_arrayEPdm(ptr nocapture noundef nonnull readnone align 4 dereferenceable(12) %this, ptr nocapture noundef %double_array, i64 noundef %nelem) local_unnamed_addr #8 align 2 {
+entry:
+  %0 = load ptr, ptr @store_fp, align 8, !tbaa !14
+  %call = tail call i64 @fwrite(ptr noundef %double_array, i64 noundef 8, i64 noundef %nelem, ptr noundef %0)
   ret void
 }
 
 ; Function Attrs: mustprogress nofree nounwind uwtable
-define dso_local void @_ZN4Crux15store_int_arrayEPim(ptr nocapture noundef nonnull readnone align 4 dereferenceable(12) %0, ptr nocapture noundef %1, i64 noundef %2) local_unnamed_addr #8 align 2 {
-  %4 = load ptr, ptr @store_fp, align 8, !tbaa !14
-  %5 = tail call i64 @fwrite(ptr noundef %1, i64 noundef 4, i64 noundef %2, ptr noundef %4)
+define dso_local void @_ZN4Crux15store_int_arrayEPim(ptr nocapture noundef nonnull readnone align 4 dereferenceable(12) %this, ptr nocapture noundef %int_array, i64 noundef %nelem) local_unnamed_addr #8 align 2 {
+entry:
+  %0 = load ptr, ptr @store_fp, align 8, !tbaa !14
+  %call = tail call i64 @fwrite(ptr noundef %int_array, i64 noundef 4, i64 noundef %nelem, ptr noundef %0)
   ret void
 }
 
 ; Function Attrs: mustprogress nofree nounwind uwtable
-define dso_local void @_ZN4Crux18store_double_arrayEPdm(ptr nocapture noundef nonnull readnone align 4 dereferenceable(12) %0, ptr nocapture noundef %1, i64 noundef %2) local_unnamed_addr #8 align 2 {
-  %4 = load ptr, ptr @store_fp, align 8, !tbaa !14
-  %5 = tail call i64 @fwrite(ptr noundef %1, i64 noundef 8, i64 noundef %2, ptr noundef %4)
+define dso_local void @_ZN4Crux18store_double_arrayEPdm(ptr nocapture noundef nonnull readnone align 4 dereferenceable(12) %this, ptr nocapture noundef %double_array, i64 noundef %nelem) local_unnamed_addr #8 align 2 {
+entry:
+  %0 = load ptr, ptr @store_fp, align 8, !tbaa !14
+  %call = tail call i64 @fwrite(ptr noundef %double_array, i64 noundef 8, i64 noundef %nelem, ptr noundef %0)
   ret void
 }
 
 declare noundef ptr @_ZN10MallocPlus25memory_entry_by_name_nextEv(ptr noundef nonnull align 8 dereferenceable(96)) local_unnamed_addr #7
 
 ; Function Attrs: mustprogress uwtable
-define dso_local void @_ZN4Crux11store_beginEmi(ptr nocapture noundef nonnull readonly align 4 dereferenceable(12) %0, i64 noundef %1, i32 noundef %2) local_unnamed_addr #6 align 2 {
-  %4 = alloca [60 x i8], align 16
-  %5 = alloca [40 x i8], align 16
-  %6 = alloca [60 x i8], align 16
-  %7 = getelementptr inbounds %class.Crux, ptr %0, i64 0, i32 2
-  %8 = load i32, ptr %7, align 4, !tbaa !11
-  %9 = load i32, ptr %0, align 4, !tbaa !5
-  %10 = srem i32 %8, %9
-  store i32 %10, ptr @cp_num, align 4, !tbaa !25
+define dso_local void @_ZN4Crux11store_beginEmi(ptr nocapture noundef nonnull readonly align 4 dereferenceable(12) %this, i64 noundef %nsize, i32 noundef %ncycle) local_unnamed_addr #6 align 2 {
+entry:
+  %backup_file_w_dir = alloca [60 x i8], align 16
+  %backup_file = alloca [40 x i8], align 16
+  %symlink_file = alloca [60 x i8], align 16
+  %checkpoint_counter = getelementptr inbounds %class.Crux, ptr %this, i64 0, i32 2
+  %0 = load i32, ptr %checkpoint_counter, align 4, !tbaa !11
+  %1 = load i32, ptr %this, align 4, !tbaa !5
+  %rem = srem i32 %0, %1
+  store i32 %rem, ptr @cp_num, align 4, !tbaa !25
   tail call void @cpu_timer_start(ptr noundef nonnull @tcheckpoint_time)
-  %11 = getelementptr inbounds %class.Crux, ptr %0, i64 0, i32 1
-  %12 = load i32, ptr %11, align 4, !tbaa !10
-  switch i32 %12, label %47 [
-    i32 2, label %13
-    i32 1, label %35
+  %crux_type = getelementptr inbounds %class.Crux, ptr %this, i64 0, i32 1
+  %2 = load i32, ptr %crux_type, align 4, !tbaa !10
+  switch i32 %2, label %if.end36 [
+    i32 2, label %if.then
+    i32 1, label %if.then15
   ]
 
-13:                                               ; preds = %3
-  %14 = load ptr, ptr @crux_data, align 8, !tbaa !14
-  %15 = load i32, ptr @cp_num, align 4, !tbaa !25
-  %16 = sext i32 %15 to i64
-  %17 = getelementptr inbounds ptr, ptr %14, i64 %16
-  %18 = load ptr, ptr %17, align 8, !tbaa !14
-  %19 = icmp eq ptr %18, null
-  br i1 %19, label %24, label %20
+if.then:                                          ; preds = %entry
+  %3 = load ptr, ptr @crux_data, align 8, !tbaa !14
+  %4 = load i32, ptr @cp_num, align 4, !tbaa !25
+  %idxprom = sext i32 %4 to i64
+  %arrayidx = getelementptr inbounds ptr, ptr %3, i64 %idxprom
+  %5 = load ptr, ptr %arrayidx, align 8, !tbaa !14
+  %cmp2.not = icmp eq ptr %5, null
+  br i1 %cmp2.not, label %if.end, label %if.then3
 
-20:                                               ; preds = %13
-  tail call void @free(ptr noundef nonnull %18) #15
-  %21 = load ptr, ptr @crux_data, align 8, !tbaa !14
-  %22 = load i32, ptr @cp_num, align 4, !tbaa !25
-  %23 = sext i32 %22 to i64
-  br label %24
+if.then3:                                         ; preds = %if.then
+  tail call void @free(ptr noundef nonnull %5) #15
+  %.pre = load ptr, ptr @crux_data, align 8, !tbaa !14
+  %.pre46 = load i32, ptr @cp_num, align 4, !tbaa !25
+  %.pre47 = sext i32 %.pre46 to i64
+  br label %if.end
 
-24:                                               ; preds = %20, %13
-  %25 = phi i64 [ %23, %20 ], [ %16, %13 ]
-  %26 = phi ptr [ %21, %20 ], [ %14, %13 ]
-  %27 = tail call noalias ptr @malloc(i64 noundef %1) #16
-  %28 = getelementptr inbounds ptr, ptr %26, i64 %25
-  store ptr %27, ptr %28, align 8, !tbaa !14
-  %29 = load ptr, ptr @crux_data_size, align 8, !tbaa !14
-  %30 = getelementptr inbounds i64, ptr %29, i64 %25
-  store i64 %1, ptr %30, align 8, !tbaa !34
-  %31 = load ptr, ptr @crux_data, align 8, !tbaa !14
-  %32 = getelementptr inbounds ptr, ptr %31, i64 %25
-  %33 = load ptr, ptr %32, align 8, !tbaa !14
-  %34 = tail call noalias ptr @fmemopen(ptr noundef %33, i64 noundef %1, ptr noundef nonnull @.str.1) #15
-  store ptr %34, ptr @store_fp, align 8, !tbaa !14
-  br label %47
+if.end:                                           ; preds = %if.then3, %if.then
+  %idxprom6.pre-phi = phi i64 [ %.pre47, %if.then3 ], [ %idxprom, %if.then ]
+  %6 = phi ptr [ %.pre, %if.then3 ], [ %3, %if.then ]
+  %call = tail call noalias ptr @malloc(i64 noundef %nsize) #16
+  %arrayidx7 = getelementptr inbounds ptr, ptr %6, i64 %idxprom6.pre-phi
+  store ptr %call, ptr %arrayidx7, align 8, !tbaa !14
+  %7 = load ptr, ptr @crux_data_size, align 8, !tbaa !14
+  %arrayidx9 = getelementptr inbounds i64, ptr %7, i64 %idxprom6.pre-phi
+  store i64 %nsize, ptr %arrayidx9, align 8, !tbaa !34
+  %8 = load ptr, ptr @crux_data, align 8, !tbaa !14
+  %arrayidx11 = getelementptr inbounds ptr, ptr %8, i64 %idxprom6.pre-phi
+  %9 = load ptr, ptr %arrayidx11, align 8, !tbaa !14
+  %call12 = tail call noalias ptr @fmemopen(ptr noundef %9, i64 noundef %nsize, ptr noundef nonnull @.str.1) #15
+  store ptr %call12, ptr @store_fp, align 8, !tbaa !14
+  br label %if.end36
 
-35:                                               ; preds = %3
-  call void @llvm.lifetime.start.p0(i64 60, ptr nonnull %4) #15
-  call void @llvm.lifetime.start.p0(i64 40, ptr nonnull %5) #15
-  %36 = call i32 (ptr, ptr, ...) @sprintf(ptr noundef nonnull dereferenceable(1) %4, ptr noundef nonnull dereferenceable(1) @.str.3, ptr noundef nonnull @checkpoint_directory, i32 noundef %2) #15
-  %37 = call i32 (ptr, ptr, ...) @sprintf(ptr noundef nonnull dereferenceable(1) %5, ptr noundef nonnull dereferenceable(1) @.str.4, i32 noundef %2) #15
-  %38 = call noalias ptr @fopen(ptr noundef nonnull %4, ptr noundef nonnull @.str.1)
-  store ptr %38, ptr @store_fp, align 8, !tbaa !14
-  %39 = icmp eq ptr %38, null
-  br i1 %39, label %40, label %42
+if.then15:                                        ; preds = %entry
+  call void @llvm.lifetime.start.p0(i64 60, ptr nonnull %backup_file_w_dir) #15
+  call void @llvm.lifetime.start.p0(i64 40, ptr nonnull %backup_file) #15
+  %call16 = call i32 (ptr, ptr, ...) @sprintf(ptr noundef nonnull dereferenceable(1) %backup_file_w_dir, ptr noundef nonnull dereferenceable(1) @.str.3, ptr noundef nonnull @checkpoint_directory, i32 noundef %ncycle) #15
+  %call18 = call i32 (ptr, ptr, ...) @sprintf(ptr noundef nonnull dereferenceable(1) %backup_file, ptr noundef nonnull dereferenceable(1) @.str.4, i32 noundef %ncycle) #15
+  %call20 = call noalias ptr @fopen(ptr noundef nonnull %backup_file_w_dir, ptr noundef nonnull @.str.1)
+  store ptr %call20, ptr @store_fp, align 8, !tbaa !14
+  %tobool.not = icmp eq ptr %call20, null
+  br i1 %tobool.not, label %if.then21, label %if.then26
 
-40:                                               ; preds = %35
-  %41 = call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.5, ptr noundef nonnull %4, i32 noundef %2)
-  br label %42
+if.then21:                                        ; preds = %if.then15
+  %call23 = call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.5, ptr noundef nonnull %backup_file_w_dir, i32 noundef %ncycle)
+  br label %if.then26
 
-42:                                               ; preds = %40, %35
-  call void @llvm.lifetime.start.p0(i64 60, ptr nonnull %6) #15
-  %43 = load i32, ptr @cp_num, align 4, !tbaa !25
-  %44 = call i32 (ptr, ptr, ...) @sprintf(ptr noundef nonnull dereferenceable(1) %6, ptr noundef nonnull dereferenceable(1) @.str.6, ptr noundef nonnull @checkpoint_directory, i32 noundef %43) #15
-  %45 = call i32 @unlink(ptr noundef nonnull %6) #15
-  %46 = call i32 @symlink(ptr noundef nonnull %5, ptr noundef nonnull %6) #15
-  call void @llvm.lifetime.end.p0(i64 60, ptr nonnull %6) #15
-  call void @llvm.lifetime.end.p0(i64 40, ptr nonnull %5) #15
-  call void @llvm.lifetime.end.p0(i64 60, ptr nonnull %4) #15
-  br label %47
+if.then26:                                        ; preds = %if.then15, %if.then21
+  call void @llvm.lifetime.start.p0(i64 60, ptr nonnull %symlink_file) #15
+  %10 = load i32, ptr @cp_num, align 4, !tbaa !25
+  %call28 = call i32 (ptr, ptr, ...) @sprintf(ptr noundef nonnull dereferenceable(1) %symlink_file, ptr noundef nonnull dereferenceable(1) @.str.6, ptr noundef nonnull @checkpoint_directory, i32 noundef %10) #15
+  %call30 = call i32 @unlink(ptr noundef nonnull %symlink_file) #15
+  %call33 = call i32 @symlink(ptr noundef nonnull %backup_file, ptr noundef nonnull %symlink_file) #15
+  call void @llvm.lifetime.end.p0(i64 60, ptr nonnull %symlink_file) #15
+  call void @llvm.lifetime.end.p0(i64 40, ptr nonnull %backup_file) #15
+  call void @llvm.lifetime.end.p0(i64 60, ptr nonnull %backup_file_w_dir) #15
+  br label %if.end36
 
-47:                                               ; preds = %3, %42, %24
-  %48 = load i8, ptr @do_crux_timing, align 1, !tbaa !12, !range !18, !noundef !19
-  %49 = icmp eq i8 %48, 0
-  br i1 %49, label %54, label %50
+if.end36:                                         ; preds = %entry, %if.then26, %if.end
+  %11 = load i8, ptr @do_crux_timing, align 1, !tbaa !12, !range !18, !noundef !19
+  %tobool37.not = icmp eq i8 %11, 0
+  br i1 %tobool37.not, label %if.end39, label %if.then38
 
-50:                                               ; preds = %47
-  %51 = uitofp i64 %1 to float
-  %52 = load float, ptr @checkpoint_timing_size, align 4, !tbaa !23
-  %53 = fadd float %52, %51
-  store float %53, ptr @checkpoint_timing_size, align 4, !tbaa !23
-  br label %54
+if.then38:                                        ; preds = %if.end36
+  %conv = uitofp i64 %nsize to float
+  %12 = load float, ptr @checkpoint_timing_size, align 4, !tbaa !23
+  %add = fadd float %12, %conv
+  store float %add, ptr @checkpoint_timing_size, align 4, !tbaa !23
+  br label %if.end39
 
-54:                                               ; preds = %50, %47
+if.end39:                                         ; preds = %if.then38, %if.end36
   ret void
 }
 
@@ -467,275 +476,288 @@ declare i32 @symlink(ptr noundef, ptr noundef) local_unnamed_addr #9
 declare noundef i64 @fwrite(ptr nocapture noundef, i64 noundef, i64 noundef, ptr nocapture noundef) local_unnamed_addr #2
 
 ; Function Attrs: mustprogress nofree nounwind uwtable
-define dso_local void @_ZN4Crux16store_named_intsEPKciPim(ptr nocapture noundef nonnull readnone align 4 dereferenceable(12) %0, ptr nocapture noundef %1, i32 noundef %2, ptr nocapture noundef %3, i64 noundef %4) local_unnamed_addr #8 align 2 {
-  %6 = sext i32 %2 to i64
-  %7 = load ptr, ptr @store_fp, align 8, !tbaa !14
-  %8 = tail call i64 @fwrite(ptr noundef %1, i64 noundef 1, i64 noundef %6, ptr noundef %7)
-  %9 = load ptr, ptr @store_fp, align 8, !tbaa !14
-  %10 = tail call i64 @fwrite(ptr noundef %3, i64 noundef 4, i64 noundef %4, ptr noundef %9)
+define dso_local void @_ZN4Crux16store_named_intsEPKciPim(ptr nocapture noundef nonnull readnone align 4 dereferenceable(12) %this, ptr nocapture noundef %name, i32 noundef %name_size, ptr nocapture noundef %int_vals, i64 noundef %nelem) local_unnamed_addr #8 align 2 {
+entry:
+  %conv.i = sext i32 %name_size to i64
+  %0 = load ptr, ptr @store_fp, align 8, !tbaa !14
+  %call.i = tail call i64 @fwrite(ptr noundef %name, i64 noundef 1, i64 noundef %conv.i, ptr noundef %0)
+  %1 = load ptr, ptr @store_fp, align 8, !tbaa !14
+  %call.i2 = tail call i64 @fwrite(ptr noundef %int_vals, i64 noundef 4, i64 noundef %nelem, ptr noundef %1)
   ret void
 }
 
 ; Function Attrs: mustprogress nofree nounwind uwtable
-define dso_local void @_ZN4Crux18restore_named_intsEPKciPim(ptr nocapture noundef nonnull readnone align 4 dereferenceable(12) %0, ptr nocapture noundef readnone %1, i32 noundef %2, ptr nocapture noundef %3, i64 noundef %4) local_unnamed_addr #8 align 2 {
-  %6 = alloca [512 x i8], align 16
-  call void @llvm.lifetime.start.p0(i64 512, ptr nonnull %6) #15
-  %7 = sext i32 %2 to i64
-  %8 = load ptr, ptr @restore_fp, align 8, !tbaa !14
-  %9 = call i64 @fread(ptr noundef nonnull %6, i64 noundef 1, i64 noundef %7, ptr noundef %8)
-  %10 = trunc i64 %9 to i32
-  %11 = icmp eq i32 %10, %2
-  br i1 %11, label %14, label %12
+define dso_local void @_ZN4Crux18restore_named_intsEPKciPim(ptr nocapture noundef nonnull readnone align 4 dereferenceable(12) %this, ptr nocapture noundef readnone %name, i32 noundef %name_size, ptr nocapture noundef %int_vals, i64 noundef %nelem) local_unnamed_addr #8 align 2 {
+entry:
+  %fname = alloca [512 x i8], align 16
+  call void @llvm.lifetime.start.p0(i64 512, ptr nonnull %fname) #15
+  %conv.i = sext i32 %name_size to i64
+  %0 = load ptr, ptr @restore_fp, align 8, !tbaa !14
+  %call.i = call i64 @fread(ptr noundef nonnull %fname, i64 noundef 1, i64 noundef %conv.i, ptr noundef %0)
+  %conv2.i = trunc i64 %call.i to i32
+  %cmp.not.i = icmp eq i32 %conv2.i, %name_size
+  br i1 %cmp.not.i, label %_ZN4Crux20restore_field_headerEPci.exit, label %if.then.i
 
-12:                                               ; preds = %5
-  %13 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.18, i32 noundef %10, i32 noundef %2)
-  br label %14
+if.then.i:                                        ; preds = %entry
+  %call3.i = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.18, i32 noundef %conv2.i, i32 noundef %name_size)
+  br label %_ZN4Crux20restore_field_headerEPci.exit
 
-14:                                               ; preds = %5, %12
-  %15 = load ptr, ptr @restore_fp, align 8, !tbaa !14
-  %16 = tail call i64 @fread(ptr noundef %3, i64 noundef 4, i64 noundef %4, ptr noundef %15)
-  %17 = icmp eq i64 %16, %4
-  br i1 %17, label %20, label %18
+_ZN4Crux20restore_field_headerEPci.exit:          ; preds = %entry, %if.then.i
+  %1 = load ptr, ptr @restore_fp, align 8, !tbaa !14
+  %call.i2 = tail call i64 @fread(ptr noundef %int_vals, i64 noundef 4, i64 noundef %nelem, ptr noundef %1)
+  %cmp.not.i3 = icmp eq i64 %call.i2, %nelem
+  br i1 %cmp.not.i3, label %_ZN4Crux17restore_int_arrayEPim.exit, label %if.then.i4
 
-18:                                               ; preds = %14
-  %19 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.19, i64 noundef %16, i64 noundef %4)
-  br label %20
+if.then.i4:                                       ; preds = %_ZN4Crux20restore_field_headerEPci.exit
+  %call2.i = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.19, i64 noundef %call.i2, i64 noundef %nelem)
+  br label %_ZN4Crux17restore_int_arrayEPim.exit
 
-20:                                               ; preds = %14, %18
-  call void @llvm.lifetime.end.p0(i64 512, ptr nonnull %6) #15
+_ZN4Crux17restore_int_arrayEPim.exit:             ; preds = %_ZN4Crux20restore_field_headerEPci.exit, %if.then.i4
+  call void @llvm.lifetime.end.p0(i64 512, ptr nonnull %fname) #15
   ret void
 }
 
 ; Function Attrs: mustprogress nofree nounwind uwtable
-define dso_local void @_ZN4Crux20restore_field_headerEPci(ptr nocapture noundef nonnull readnone align 4 dereferenceable(12) %0, ptr nocapture noundef %1, i32 noundef %2) local_unnamed_addr #8 align 2 {
-  %4 = sext i32 %2 to i64
-  %5 = load ptr, ptr @restore_fp, align 8, !tbaa !14
-  %6 = tail call i64 @fread(ptr noundef %1, i64 noundef 1, i64 noundef %4, ptr noundef %5)
-  %7 = trunc i64 %6 to i32
-  %8 = icmp eq i32 %7, %2
-  br i1 %8, label %11, label %9
+define dso_local void @_ZN4Crux20restore_field_headerEPci(ptr nocapture noundef nonnull readnone align 4 dereferenceable(12) %this, ptr nocapture noundef %name, i32 noundef %name_size) local_unnamed_addr #8 align 2 {
+entry:
+  %conv = sext i32 %name_size to i64
+  %0 = load ptr, ptr @restore_fp, align 8, !tbaa !14
+  %call = tail call i64 @fread(ptr noundef %name, i64 noundef 1, i64 noundef %conv, ptr noundef %0)
+  %conv2 = trunc i64 %call to i32
+  %cmp.not = icmp eq i32 %conv2, %name_size
+  br i1 %cmp.not, label %if.end, label %if.then
 
-9:                                                ; preds = %3
-  %10 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.18, i32 noundef %7, i32 noundef %2)
-  br label %11
+if.then:                                          ; preds = %entry
+  %call3 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.18, i32 noundef %conv2, i32 noundef %name_size)
+  br label %if.end
 
-11:                                               ; preds = %9, %3
+if.end:                                           ; preds = %if.then, %entry
   ret void
 }
 
 ; Function Attrs: mustprogress nofree nounwind uwtable
-define dso_local noundef ptr @_ZN4Crux17restore_int_arrayEPim(ptr nocapture noundef nonnull readnone align 4 dereferenceable(12) %0, ptr noundef returned %1, i64 noundef %2) local_unnamed_addr #8 align 2 {
-  %4 = load ptr, ptr @restore_fp, align 8, !tbaa !14
-  %5 = tail call i64 @fread(ptr noundef %1, i64 noundef 4, i64 noundef %2, ptr noundef %4)
-  %6 = icmp eq i64 %5, %2
-  br i1 %6, label %9, label %7
+define dso_local noundef ptr @_ZN4Crux17restore_int_arrayEPim(ptr nocapture noundef nonnull readnone align 4 dereferenceable(12) %this, ptr noundef returned %int_array, i64 noundef %nelem) local_unnamed_addr #8 align 2 {
+entry:
+  %0 = load ptr, ptr @restore_fp, align 8, !tbaa !14
+  %call = tail call i64 @fread(ptr noundef %int_array, i64 noundef 4, i64 noundef %nelem, ptr noundef %0)
+  %cmp.not = icmp eq i64 %call, %nelem
+  br i1 %cmp.not, label %if.end, label %if.then
 
-7:                                                ; preds = %3
-  %8 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.19, i64 noundef %5, i64 noundef %2)
-  br label %9
+if.then:                                          ; preds = %entry
+  %call2 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.19, i64 noundef %call, i64 noundef %nelem)
+  br label %if.end
 
-9:                                                ; preds = %7, %3
-  ret ptr %1
+if.end:                                           ; preds = %if.then, %entry
+  ret ptr %int_array
 }
 
 ; Function Attrs: mustprogress nofree nounwind uwtable
-define dso_local void @_ZN4Crux11store_boolsEPbm(ptr nocapture noundef nonnull readnone align 4 dereferenceable(12) %0, ptr nocapture noundef %1, i64 noundef %2) local_unnamed_addr #8 align 2 {
-  %4 = load ptr, ptr @store_fp, align 8, !tbaa !14
-  %5 = tail call i64 @fwrite(ptr noundef %1, i64 noundef 1, i64 noundef %2, ptr noundef %4)
+define dso_local void @_ZN4Crux11store_boolsEPbm(ptr nocapture noundef nonnull readnone align 4 dereferenceable(12) %this, ptr nocapture noundef %bool_vals, i64 noundef %nelem) local_unnamed_addr #8 align 2 {
+entry:
+  %0 = load ptr, ptr @store_fp, align 8, !tbaa !14
+  %call = tail call i64 @fwrite(ptr noundef %bool_vals, i64 noundef 1, i64 noundef %nelem, ptr noundef %0)
   ret void
 }
 
 ; Function Attrs: mustprogress nofree nounwind uwtable
-define dso_local void @_ZN4Crux10store_intsEPim(ptr nocapture noundef nonnull readnone align 4 dereferenceable(12) %0, ptr nocapture noundef %1, i64 noundef %2) local_unnamed_addr #8 align 2 {
-  %4 = load ptr, ptr @store_fp, align 8, !tbaa !14
-  %5 = tail call i64 @fwrite(ptr noundef %1, i64 noundef 4, i64 noundef %2, ptr noundef %4)
+define dso_local void @_ZN4Crux10store_intsEPim(ptr nocapture noundef nonnull readnone align 4 dereferenceable(12) %this, ptr nocapture noundef %int_vals, i64 noundef %nelem) local_unnamed_addr #8 align 2 {
+entry:
+  %0 = load ptr, ptr @store_fp, align 8, !tbaa !14
+  %call = tail call i64 @fwrite(ptr noundef %int_vals, i64 noundef 4, i64 noundef %nelem, ptr noundef %0)
   ret void
 }
 
 ; Function Attrs: mustprogress nofree nounwind uwtable
-define dso_local void @_ZN4Crux11store_longsEPxm(ptr nocapture noundef nonnull readnone align 4 dereferenceable(12) %0, ptr nocapture noundef %1, i64 noundef %2) local_unnamed_addr #8 align 2 {
-  %4 = load ptr, ptr @store_fp, align 8, !tbaa !14
-  %5 = tail call i64 @fwrite(ptr noundef %1, i64 noundef 8, i64 noundef %2, ptr noundef %4)
+define dso_local void @_ZN4Crux11store_longsEPxm(ptr nocapture noundef nonnull readnone align 4 dereferenceable(12) %this, ptr nocapture noundef %long_vals, i64 noundef %nelem) local_unnamed_addr #8 align 2 {
+entry:
+  %0 = load ptr, ptr @store_fp, align 8, !tbaa !14
+  %call = tail call i64 @fwrite(ptr noundef %long_vals, i64 noundef 8, i64 noundef %nelem, ptr noundef %0)
   ret void
 }
 
 ; Function Attrs: mustprogress nofree nounwind uwtable
-define dso_local void @_ZN4Crux12store_sizetsEPmm(ptr nocapture noundef nonnull readnone align 4 dereferenceable(12) %0, ptr nocapture noundef %1, i64 noundef %2) local_unnamed_addr #8 align 2 {
-  %4 = load ptr, ptr @store_fp, align 8, !tbaa !14
-  %5 = tail call i64 @fwrite(ptr noundef %1, i64 noundef 8, i64 noundef %2, ptr noundef %4)
+define dso_local void @_ZN4Crux12store_sizetsEPmm(ptr nocapture noundef nonnull readnone align 4 dereferenceable(12) %this, ptr nocapture noundef %size_t_vals, i64 noundef %nelem) local_unnamed_addr #8 align 2 {
+entry:
+  %0 = load ptr, ptr @store_fp, align 8, !tbaa !14
+  %call = tail call i64 @fwrite(ptr noundef %size_t_vals, i64 noundef 8, i64 noundef %nelem, ptr noundef %0)
   ret void
 }
 
 ; Function Attrs: mustprogress nofree nounwind uwtable
-define dso_local void @_ZN4Crux13store_doublesEPdm(ptr nocapture noundef nonnull readnone align 4 dereferenceable(12) %0, ptr nocapture noundef %1, i64 noundef %2) local_unnamed_addr #8 align 2 {
-  %4 = load ptr, ptr @store_fp, align 8, !tbaa !14
-  %5 = tail call i64 @fwrite(ptr noundef %1, i64 noundef 8, i64 noundef %2, ptr noundef %4)
+define dso_local void @_ZN4Crux13store_doublesEPdm(ptr nocapture noundef nonnull readnone align 4 dereferenceable(12) %this, ptr nocapture noundef %double_vals, i64 noundef %nelem) local_unnamed_addr #8 align 2 {
+entry:
+  %0 = load ptr, ptr @store_fp, align 8, !tbaa !14
+  %call = tail call i64 @fwrite(ptr noundef %double_vals, i64 noundef 8, i64 noundef %nelem, ptr noundef %0)
   ret void
 }
 
 ; Function Attrs: mustprogress nofree nounwind uwtable
-define dso_local void @_ZN4Crux16store_long_arrayEPxm(ptr nocapture noundef nonnull readnone align 4 dereferenceable(12) %0, ptr nocapture noundef %1, i64 noundef %2) local_unnamed_addr #8 align 2 {
-  %4 = load ptr, ptr @store_fp, align 8, !tbaa !14
-  %5 = tail call i64 @fwrite(ptr noundef %1, i64 noundef 8, i64 noundef %2, ptr noundef %4)
+define dso_local void @_ZN4Crux16store_long_arrayEPxm(ptr nocapture noundef nonnull readnone align 4 dereferenceable(12) %this, ptr nocapture noundef %long_array, i64 noundef %nelem) local_unnamed_addr #8 align 2 {
+entry:
+  %0 = load ptr, ptr @store_fp, align 8, !tbaa !14
+  %call = tail call i64 @fwrite(ptr noundef %long_array, i64 noundef 8, i64 noundef %nelem, ptr noundef %0)
   ret void
 }
 
 ; Function Attrs: mustprogress nofree nounwind uwtable
-define dso_local void @_ZN4Crux17store_float_arrayEPfm(ptr nocapture noundef nonnull readnone align 4 dereferenceable(12) %0, ptr nocapture noundef %1, i64 noundef %2) local_unnamed_addr #8 align 2 {
-  %4 = load ptr, ptr @store_fp, align 8, !tbaa !14
-  %5 = tail call i64 @fwrite(ptr noundef %1, i64 noundef 4, i64 noundef %2, ptr noundef %4)
+define dso_local void @_ZN4Crux17store_float_arrayEPfm(ptr nocapture noundef nonnull readnone align 4 dereferenceable(12) %this, ptr nocapture noundef %float_array, i64 noundef %nelem) local_unnamed_addr #8 align 2 {
+entry:
+  %0 = load ptr, ptr @store_fp, align 8, !tbaa !14
+  %call = tail call i64 @fwrite(ptr noundef %float_array, i64 noundef 4, i64 noundef %nelem, ptr noundef %0)
   ret void
 }
 
 ; Function Attrs: mustprogress uwtable
-define dso_local void @_ZN4Crux9store_endEv(ptr nocapture noundef nonnull align 4 dereferenceable(12) %0) local_unnamed_addr #6 align 2 {
-  %2 = load ptr, ptr @store_fp, align 8, !tbaa !14
-  %3 = tail call i32 @fclose(ptr noundef %2)
-  %4 = load i64, ptr @tcheckpoint_time, align 8, !tbaa.struct !37
-  %5 = load i64, ptr getelementptr inbounds (%struct.timeval, ptr @tcheckpoint_time, i64 0, i32 1), align 8, !tbaa.struct !38
-  %6 = tail call double @cpu_timer_stop(i64 %4, i64 %5)
-  %7 = load i8, ptr @do_crux_timing, align 1, !tbaa !12, !range !18, !noundef !19
-  %8 = icmp eq i8 %7, 0
-  br i1 %8, label %18, label %9
+define dso_local void @_ZN4Crux9store_endEv(ptr nocapture noundef nonnull align 4 dereferenceable(12) %this) local_unnamed_addr #6 align 2 {
+entry:
+  %0 = load ptr, ptr @store_fp, align 8, !tbaa !14
+  %call = tail call i32 @fclose(ptr noundef %0)
+  %agg.tmp.sroa.0.0.copyload = load i64, ptr @tcheckpoint_time, align 8, !tbaa.struct !37
+  %agg.tmp.sroa.2.0.copyload = load i64, ptr getelementptr inbounds (%struct.timeval, ptr @tcheckpoint_time, i64 0, i32 1), align 8, !tbaa.struct !38
+  %call2 = tail call double @cpu_timer_stop(i64 %agg.tmp.sroa.0.0.copyload, i64 %agg.tmp.sroa.2.0.copyload)
+  %1 = load i8, ptr @do_crux_timing, align 1, !tbaa !12, !range !18, !noundef !19
+  %tobool.not = icmp eq i8 %1, 0
+  br i1 %tobool.not, label %if.end, label %if.then
 
-9:                                                ; preds = %1
-  %10 = load ptr, ptr @crux_time_fp, align 8, !tbaa !14
-  %11 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %10, ptr noundef nonnull @.str.7, double noundef %6)
-  %12 = load i32, ptr @checkpoint_timing_count, align 4, !tbaa !25
-  %13 = add nsw i32 %12, 1
-  store i32 %13, ptr @checkpoint_timing_count, align 4, !tbaa !25
-  %14 = load float, ptr @checkpoint_timing_sum, align 4, !tbaa !23
-  %15 = fpext float %14 to double
-  %16 = fadd double %6, %15
-  %17 = fptrunc double %16 to float
-  store float %17, ptr @checkpoint_timing_sum, align 4, !tbaa !23
-  br label %18
+if.then:                                          ; preds = %entry
+  %2 = load ptr, ptr @crux_time_fp, align 8, !tbaa !14
+  %call3 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %2, ptr noundef nonnull @.str.7, double noundef %call2)
+  %3 = load i32, ptr @checkpoint_timing_count, align 4, !tbaa !25
+  %inc = add nsw i32 %3, 1
+  store i32 %inc, ptr @checkpoint_timing_count, align 4, !tbaa !25
+  %4 = load float, ptr @checkpoint_timing_sum, align 4, !tbaa !23
+  %conv = fpext float %4 to double
+  %add = fadd double %call2, %conv
+  %conv4 = fptrunc double %add to float
+  store float %conv4, ptr @checkpoint_timing_sum, align 4, !tbaa !23
+  br label %if.end
 
-18:                                               ; preds = %9, %1
-  %19 = getelementptr inbounds %class.Crux, ptr %0, i64 0, i32 2
-  %20 = load i32, ptr %19, align 4, !tbaa !11
-  %21 = add nsw i32 %20, 1
-  store i32 %21, ptr %19, align 4, !tbaa !11
+if.end:                                           ; preds = %if.then, %entry
+  %checkpoint_counter = getelementptr inbounds %class.Crux, ptr %this, i64 0, i32 2
+  %5 = load i32, ptr %checkpoint_counter, align 4, !tbaa !11
+  %inc5 = add nsw i32 %5, 1
+  store i32 %inc5, ptr %checkpoint_counter, align 4, !tbaa !11
   ret void
 }
 
 declare double @cpu_timer_stop(i64, i64) local_unnamed_addr #7
 
 ; Function Attrs: mustprogress uwtable
-define dso_local void @_ZN4Crux18restore_MallocPlusE10MallocPlus(ptr nocapture noundef nonnull readnone align 4 dereferenceable(12) %0, ptr noundef nonnull %1) local_unnamed_addr #6 align 2 {
-  %3 = alloca [34 x i8], align 16
-  call void @llvm.lifetime.start.p0(i64 34, ptr nonnull %3) #15
-  %4 = tail call noundef ptr @_ZN10MallocPlus26memory_entry_by_name_beginEv(ptr noundef nonnull align 8 dereferenceable(96) %1)
-  %5 = tail call noundef ptr @_ZN10MallocPlus24memory_entry_by_name_endEv(ptr noundef nonnull align 8 dereferenceable(96) %1)
-  %6 = icmp eq ptr %4, %5
-  br i1 %6, label %76, label %7
+define dso_local void @_ZN4Crux18restore_MallocPlusE10MallocPlus(ptr nocapture noundef nonnull readnone align 4 dereferenceable(12) %this, ptr noundef nonnull %memory) local_unnamed_addr #6 align 2 {
+entry:
+  %test_name = alloca [34 x i8], align 16
+  call void @llvm.lifetime.start.p0(i64 34, ptr nonnull %test_name) #15
+  %call = tail call noundef ptr @_ZN10MallocPlus26memory_entry_by_name_beginEv(ptr noundef nonnull align 8 dereferenceable(96) %memory)
+  %call280 = tail call noundef ptr @_ZN10MallocPlus24memory_entry_by_name_endEv(ptr noundef nonnull align 8 dereferenceable(96) %memory)
+  %cmp.not81 = icmp eq ptr %call, %call280
+  br i1 %cmp.not81, label %for.end41, label %for.body
 
-7:                                                ; preds = %2, %72
-  %8 = phi ptr [ %73, %72 ], [ %4, %2 ]
-  %9 = load ptr, ptr %8, align 8, !tbaa !26
-  %10 = getelementptr inbounds %struct.malloc_plus_memory_entry, ptr %8, i64 0, i32 5
-  %11 = load i32, ptr %10, align 8, !tbaa !29
-  %12 = and i32 %11, 16
-  %13 = icmp eq i32 %12, 0
-  br i1 %13, label %72, label %14
+for.body:                                         ; preds = %entry, %cleanup
+  %memory_item.082 = phi ptr [ %call40, %cleanup ], [ %call, %entry ]
+  %0 = load ptr, ptr %memory_item.082, align 8, !tbaa !26
+  %mem_flags = getelementptr inbounds %struct.malloc_plus_memory_entry, ptr %memory_item.082, i64 0, i32 5
+  %1 = load i32, ptr %mem_flags, align 8, !tbaa !29
+  %and = and i32 %1, 16
+  %cmp4 = icmp eq i32 %and, 0
+  br i1 %cmp4, label %cleanup, label %for.cond5.preheader
 
-14:                                               ; preds = %7
-  %15 = getelementptr inbounds %struct.malloc_plus_memory_entry, ptr %8, i64 0, i32 3
-  %16 = load i64, ptr %15, align 8, !tbaa !30
-  %17 = icmp eq i64 %16, 0
-  br i1 %17, label %21, label %18
+for.cond5.preheader:                              ; preds = %for.body
+  %mem_ndims = getelementptr inbounds %struct.malloc_plus_memory_entry, ptr %memory_item.082, i64 0, i32 3
+  %2 = load i64, ptr %mem_ndims, align 8, !tbaa !30
+  %cmp676.not = icmp eq i64 %2, 0
+  br i1 %cmp676.not, label %for.cond.cleanup, label %for.body7.lr.ph
 
-18:                                               ; preds = %14
-  %19 = getelementptr inbounds %struct.malloc_plus_memory_entry, ptr %8, i64 0, i32 2
-  %20 = load ptr, ptr %19, align 8, !tbaa !31
-  br label %34
+for.body7.lr.ph:                                  ; preds = %for.cond5.preheader
+  %mem_nelem = getelementptr inbounds %struct.malloc_plus_memory_entry, ptr %memory_item.082, i64 0, i32 2
+  %3 = load ptr, ptr %mem_nelem, align 8, !tbaa !31
+  br label %for.body7
 
-21:                                               ; preds = %34, %14
-  %22 = phi i32 [ 1, %14 ], [ %40, %34 ]
-  %23 = load ptr, ptr @restore_fp, align 8, !tbaa !14
-  %24 = call i64 @fread(ptr noundef nonnull %3, i64 noundef 1, i64 noundef 30, ptr noundef %23)
-  %25 = trunc i64 %24 to i32
-  %26 = icmp eq i32 %25, 30
-  br i1 %26, label %29, label %27
+for.cond.cleanup:                                 ; preds = %for.body7, %for.cond5.preheader
+  %num_elements.0.lcssa = phi i32 [ 1, %for.cond5.preheader ], [ %conv9, %for.body7 ]
+  %4 = load ptr, ptr @restore_fp, align 8, !tbaa !14
+  %call.i = call i64 @fread(ptr noundef nonnull %test_name, i64 noundef 1, i64 noundef 30, ptr noundef %4)
+  %conv2.i = trunc i64 %call.i to i32
+  %cmp.not.i = icmp eq i32 %conv2.i, 30
+  br i1 %cmp.not.i, label %_ZN4Crux20restore_field_headerEPci.exit, label %if.then.i
 
-27:                                               ; preds = %21
-  %28 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.18, i32 noundef %25, i32 noundef 30)
-  br label %29
+if.then.i:                                        ; preds = %for.cond.cleanup
+  %call3.i = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.18, i32 noundef %conv2.i, i32 noundef 30)
+  br label %_ZN4Crux20restore_field_headerEPci.exit
 
-29:                                               ; preds = %21, %27
-  %30 = getelementptr inbounds %struct.malloc_plus_memory_entry, ptr %8, i64 0, i32 6
-  %31 = load ptr, ptr %30, align 8, !tbaa !32
-  %32 = call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %3, ptr noundef nonnull dereferenceable(1) %31) #17
-  %33 = icmp eq i32 %32, 0
-  br i1 %33, label %46, label %44
+_ZN4Crux20restore_field_headerEPci.exit:          ; preds = %for.cond.cleanup, %if.then.i
+  %mem_name = getelementptr inbounds %struct.malloc_plus_memory_entry, ptr %memory_item.082, i64 0, i32 6
+  %5 = load ptr, ptr %mem_name, align 8, !tbaa !32
+  %call11 = call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %test_name, ptr noundef nonnull dereferenceable(1) %5) #17
+  %cmp12.not = icmp eq i32 %call11, 0
+  br i1 %cmp12.not, label %if.end17, label %if.then13
 
-34:                                               ; preds = %18, %34
-  %35 = phi i64 [ 0, %18 ], [ %42, %34 ]
-  %36 = phi i32 [ 1, %18 ], [ %40, %34 ]
-  %37 = getelementptr inbounds i64, ptr %20, i64 %35
-  %38 = load i64, ptr %37, align 8, !tbaa !34
-  %39 = trunc i64 %38 to i32
-  %40 = mul i32 %36, %39
-  %41 = add nuw nsw i64 %35, 1
-  %42 = and i64 %41, 4294967295
-  %43 = icmp ugt i64 %16, %42
-  br i1 %43, label %34, label %21, !llvm.loop !39
+for.body7:                                        ; preds = %for.body7.lr.ph, %for.body7
+  %conv79 = phi i64 [ 0, %for.body7.lr.ph ], [ %conv, %for.body7 ]
+  %num_elements.077 = phi i32 [ 1, %for.body7.lr.ph ], [ %conv9, %for.body7 ]
+  %arrayidx = getelementptr inbounds i64, ptr %3, i64 %conv79
+  %6 = load i64, ptr %arrayidx, align 8, !tbaa !34
+  %7 = trunc i64 %6 to i32
+  %conv9 = mul i32 %num_elements.077, %7
+  %inc = add nuw nsw i64 %conv79, 1
+  %conv = and i64 %inc, 4294967295
+  %cmp6 = icmp ugt i64 %2, %conv
+  br i1 %cmp6, label %for.body7, label %for.cond.cleanup, !llvm.loop !39
 
-44:                                               ; preds = %29
-  %45 = call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.8, ptr noundef nonnull %3, ptr noundef %31)
+if.then13:                                        ; preds = %_ZN4Crux20restore_field_headerEPci.exit
+  %call16 = call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.8, ptr noundef nonnull %test_name, ptr noundef %5)
   call void @exit(i32 noundef -1) #18
   unreachable
 
-46:                                               ; preds = %29
-  %47 = load i32, ptr %10, align 8, !tbaa !29
-  %48 = and i32 %47, 32
-  %49 = icmp eq i32 %48, 0
-  %50 = getelementptr inbounds %struct.malloc_plus_memory_entry, ptr %8, i64 0, i32 4
-  %51 = load i64, ptr %50, align 8, !tbaa !33
-  %52 = icmp eq i64 %51, 4
-  %53 = sext i32 %22 to i64
-  %54 = load ptr, ptr @restore_fp, align 8, !tbaa !14
-  br i1 %49, label %62, label %55
+if.end17:                                         ; preds = %_ZN4Crux20restore_field_headerEPci.exit
+  %8 = load i32, ptr %mem_flags, align 8, !tbaa !29
+  %and19 = and i32 %8, 32
+  %tobool.not = icmp eq i32 %and19, 0
+  %mem_elsize29 = getelementptr inbounds %struct.malloc_plus_memory_entry, ptr %memory_item.082, i64 0, i32 4
+  %9 = load i64, ptr %mem_elsize29, align 8, !tbaa !33
+  %cmp30 = icmp eq i64 %9, 4
+  %conv32 = sext i32 %num_elements.0.lcssa to i64
+  %10 = load ptr, ptr @restore_fp, align 8, !tbaa !14
+  br i1 %tobool.not, label %if.else28, label %if.then20
 
-55:                                               ; preds = %46
-  br i1 %52, label %56, label %59
+if.then20:                                        ; preds = %if.end17
+  br i1 %cmp30, label %if.then22, label %if.else
 
-56:                                               ; preds = %55
-  %57 = tail call i64 @fread(ptr noundef %9, i64 noundef 4, i64 noundef %53, ptr noundef %54)
-  %58 = icmp eq i64 %57, %53
-  br i1 %58, label %72, label %69
+if.then22:                                        ; preds = %if.then20
+  %call.i61 = tail call i64 @fread(ptr noundef %0, i64 noundef 4, i64 noundef %conv32, ptr noundef %10)
+  %cmp.not.i62 = icmp eq i64 %call.i61, %conv32
+  br i1 %cmp.not.i62, label %cleanup, label %cleanup.sink.split
 
-59:                                               ; preds = %55
-  %60 = tail call i64 @fread(ptr noundef %9, i64 noundef 8, i64 noundef %53, ptr noundef %54)
-  %61 = icmp eq i64 %60, %53
-  br i1 %61, label %72, label %69
+if.else:                                          ; preds = %if.then20
+  %call.i64 = tail call i64 @fread(ptr noundef %0, i64 noundef 8, i64 noundef %conv32, ptr noundef %10)
+  %cmp.not.i65 = icmp eq i64 %call.i64, %conv32
+  br i1 %cmp.not.i65, label %cleanup, label %cleanup.sink.split
 
-62:                                               ; preds = %46
-  br i1 %52, label %63, label %66
+if.else28:                                        ; preds = %if.end17
+  br i1 %cmp30, label %if.then31, label %if.else34
 
-63:                                               ; preds = %62
-  %64 = tail call i64 @fread(ptr noundef %9, i64 noundef 4, i64 noundef %53, ptr noundef %54)
-  %65 = icmp eq i64 %64, %53
-  br i1 %65, label %72, label %69
+if.then31:                                        ; preds = %if.else28
+  %call.i68 = tail call i64 @fread(ptr noundef %0, i64 noundef 4, i64 noundef %conv32, ptr noundef %10)
+  %cmp.not.i69 = icmp eq i64 %call.i68, %conv32
+  br i1 %cmp.not.i69, label %cleanup, label %cleanup.sink.split
 
-66:                                               ; preds = %62
-  %67 = tail call i64 @fread(ptr noundef %9, i64 noundef 8, i64 noundef %53, ptr noundef %54)
-  %68 = icmp eq i64 %67, %53
-  br i1 %68, label %72, label %69
+if.else34:                                        ; preds = %if.else28
+  %call.i72 = tail call i64 @fread(ptr noundef %0, i64 noundef 8, i64 noundef %conv32, ptr noundef %10)
+  %cmp.not.i73 = icmp eq i64 %call.i72, %conv32
+  br i1 %cmp.not.i73, label %cleanup, label %cleanup.sink.split
 
-69:                                               ; preds = %66, %63, %59, %56
-  %70 = phi i64 [ %57, %56 ], [ %60, %59 ], [ %64, %63 ], [ %67, %66 ]
-  %71 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.19, i64 noundef %70, i64 noundef %53)
-  br label %72
+cleanup.sink.split:                               ; preds = %if.else34, %if.then31, %if.else, %if.then22
+  %call.i72.sink = phi i64 [ %call.i61, %if.then22 ], [ %call.i64, %if.else ], [ %call.i68, %if.then31 ], [ %call.i72, %if.else34 ]
+  %call2.i74 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.19, i64 noundef %call.i72.sink, i64 noundef %conv32)
+  br label %cleanup
 
-72:                                               ; preds = %69, %56, %59, %63, %66, %7
-  %73 = tail call noundef ptr @_ZN10MallocPlus25memory_entry_by_name_nextEv(ptr noundef nonnull align 8 dereferenceable(96) %1)
-  %74 = tail call noundef ptr @_ZN10MallocPlus24memory_entry_by_name_endEv(ptr noundef nonnull align 8 dereferenceable(96) %1)
-  %75 = icmp eq ptr %73, %74
-  br i1 %75, label %76, label %7, !llvm.loop !40
+cleanup:                                          ; preds = %cleanup.sink.split, %if.else34, %if.then31, %if.else, %if.then22, %for.body
+  %call40 = tail call noundef ptr @_ZN10MallocPlus25memory_entry_by_name_nextEv(ptr noundef nonnull align 8 dereferenceable(96) %memory)
+  %call2 = tail call noundef ptr @_ZN10MallocPlus24memory_entry_by_name_endEv(ptr noundef nonnull align 8 dereferenceable(96) %memory)
+  %cmp.not = icmp eq ptr %call40, %call2
+  br i1 %cmp.not, label %for.end41, label %for.body, !llvm.loop !40
 
-76:                                               ; preds = %72, %2
-  call void @llvm.lifetime.end.p0(i64 34, ptr nonnull %3) #15
+for.end41:                                        ; preds = %cleanup, %entry
+  call void @llvm.lifetime.end.p0(i64 34, ptr nonnull %test_name) #15
   ret void
 }
 
@@ -746,121 +768,125 @@ declare i32 @strcmp(ptr nocapture noundef, ptr nocapture noundef) local_unnamed_
 declare void @exit(i32 noundef) local_unnamed_addr #11
 
 ; Function Attrs: mustprogress nofree nounwind uwtable
-define dso_local noundef ptr @_ZN4Crux28restore_replicated_int_arrayEPim(ptr nocapture noundef nonnull readnone align 4 dereferenceable(12) %0, ptr noundef returned %1, i64 noundef %2) local_unnamed_addr #8 align 2 {
-  %4 = load ptr, ptr @restore_fp, align 8, !tbaa !14
-  %5 = tail call i64 @fread(ptr noundef %1, i64 noundef 4, i64 noundef %2, ptr noundef %4)
-  %6 = icmp eq i64 %5, %2
-  br i1 %6, label %9, label %7
+define dso_local noundef ptr @_ZN4Crux28restore_replicated_int_arrayEPim(ptr nocapture noundef nonnull readnone align 4 dereferenceable(12) %this, ptr noundef returned %int_array, i64 noundef %nelem) local_unnamed_addr #8 align 2 {
+entry:
+  %0 = load ptr, ptr @restore_fp, align 8, !tbaa !14
+  %call = tail call i64 @fread(ptr noundef %int_array, i64 noundef 4, i64 noundef %nelem, ptr noundef %0)
+  %cmp.not = icmp eq i64 %call, %nelem
+  br i1 %cmp.not, label %if.end, label %if.then
 
-7:                                                ; preds = %3
-  %8 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.19, i64 noundef %5, i64 noundef %2)
-  br label %9
+if.then:                                          ; preds = %entry
+  %call2 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.19, i64 noundef %call, i64 noundef %nelem)
+  br label %if.end
 
-9:                                                ; preds = %7, %3
-  ret ptr %1
+if.end:                                           ; preds = %if.then, %entry
+  ret ptr %int_array
 }
 
 ; Function Attrs: mustprogress nofree nounwind uwtable
-define dso_local noundef ptr @_ZN4Crux31restore_replicated_double_arrayEPdm(ptr nocapture noundef nonnull readnone align 4 dereferenceable(12) %0, ptr noundef returned %1, i64 noundef %2) local_unnamed_addr #8 align 2 {
-  %4 = load ptr, ptr @restore_fp, align 8, !tbaa !14
-  %5 = tail call i64 @fread(ptr noundef %1, i64 noundef 8, i64 noundef %2, ptr noundef %4)
-  %6 = icmp eq i64 %5, %2
-  br i1 %6, label %9, label %7
+define dso_local noundef ptr @_ZN4Crux31restore_replicated_double_arrayEPdm(ptr nocapture noundef nonnull readnone align 4 dereferenceable(12) %this, ptr noundef returned %double_array, i64 noundef %nelem) local_unnamed_addr #8 align 2 {
+entry:
+  %0 = load ptr, ptr @restore_fp, align 8, !tbaa !14
+  %call = tail call i64 @fread(ptr noundef %double_array, i64 noundef 8, i64 noundef %nelem, ptr noundef %0)
+  %cmp.not = icmp eq i64 %call, %nelem
+  br i1 %cmp.not, label %if.end, label %if.then
 
-7:                                                ; preds = %3
-  %8 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.19, i64 noundef %5, i64 noundef %2)
-  br label %9
+if.then:                                          ; preds = %entry
+  %call2 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.19, i64 noundef %call, i64 noundef %nelem)
+  br label %if.end
 
-9:                                                ; preds = %7, %3
-  ret ptr %1
+if.end:                                           ; preds = %if.then, %entry
+  ret ptr %double_array
 }
 
 ; Function Attrs: mustprogress nofree nounwind uwtable
-define dso_local noundef ptr @_ZN4Crux20restore_double_arrayEPdm(ptr nocapture noundef nonnull readnone align 4 dereferenceable(12) %0, ptr noundef returned %1, i64 noundef %2) local_unnamed_addr #8 align 2 {
-  %4 = load ptr, ptr @restore_fp, align 8, !tbaa !14
-  %5 = tail call i64 @fread(ptr noundef %1, i64 noundef 8, i64 noundef %2, ptr noundef %4)
-  %6 = icmp eq i64 %5, %2
-  br i1 %6, label %9, label %7
+define dso_local noundef ptr @_ZN4Crux20restore_double_arrayEPdm(ptr nocapture noundef nonnull readnone align 4 dereferenceable(12) %this, ptr noundef returned %double_array, i64 noundef %nelem) local_unnamed_addr #8 align 2 {
+entry:
+  %0 = load ptr, ptr @restore_fp, align 8, !tbaa !14
+  %call = tail call i64 @fread(ptr noundef %double_array, i64 noundef 8, i64 noundef %nelem, ptr noundef %0)
+  %cmp.not = icmp eq i64 %call, %nelem
+  br i1 %cmp.not, label %if.end, label %if.then
 
-7:                                                ; preds = %3
-  %8 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.19, i64 noundef %5, i64 noundef %2)
-  br label %9
+if.then:                                          ; preds = %entry
+  %call2 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.19, i64 noundef %call, i64 noundef %nelem)
+  br label %if.end
 
-9:                                                ; preds = %7, %3
-  ret ptr %1
+if.end:                                           ; preds = %if.then, %entry
+  ret ptr %double_array
 }
 
 ; Function Attrs: mustprogress uwtable
-define dso_local void @_ZN4Crux13restore_beginEPci(ptr nocapture noundef nonnull readonly align 4 dereferenceable(12) %0, ptr noundef %1, i32 noundef %2) local_unnamed_addr #6 align 2 {
-  %4 = alloca [60 x i8], align 16
-  %5 = load i32, ptr %0, align 4, !tbaa !5
-  %6 = srem i32 %2, %5
-  store i32 %6, ptr @rs_num, align 4, !tbaa !25
+define dso_local void @_ZN4Crux13restore_beginEPci(ptr nocapture noundef nonnull readonly align 4 dereferenceable(12) %this, ptr noundef %restart_file, i32 noundef %rollback_counter) local_unnamed_addr #6 align 2 {
+entry:
+  %backup_file_w_dir = alloca [60 x i8], align 16
+  %0 = load i32, ptr %this, align 4, !tbaa !5
+  %rem = srem i32 %rollback_counter, %0
+  store i32 %rem, ptr @rs_num, align 4, !tbaa !25
   tail call void @cpu_timer_start(ptr noundef nonnull @trestore_time)
-  %7 = icmp eq ptr %1, null
-  br i1 %7, label %17, label %8
+  %cmp.not = icmp eq ptr %restart_file, null
+  br i1 %cmp.not, label %if.else, label %if.then3
 
-8:                                                ; preds = %3
-  %9 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str)
-  %10 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.10, ptr noundef nonnull %1)
-  %11 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.22)
-  %12 = tail call noalias ptr @fopen(ptr noundef nonnull %1, ptr noundef nonnull @.str.12)
-  store ptr %12, ptr @restore_fp, align 8, !tbaa !14
-  %13 = icmp eq ptr %12, null
-  br i1 %13, label %14, label %16
+if.then3:                                         ; preds = %entry
+  %puts = tail call i32 @puts(ptr nonnull dereferenceable(1) @str)
+  %call4 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.10, ptr noundef nonnull %restart_file)
+  %puts38 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.22)
+  %call6 = tail call noalias ptr @fopen(ptr noundef nonnull %restart_file, ptr noundef nonnull @.str.12)
+  store ptr %call6, ptr @restore_fp, align 8, !tbaa !14
+  %tobool.not = icmp eq ptr %call6, null
+  br i1 %tobool.not, label %if.then7, label %if.end9
 
-14:                                               ; preds = %8
-  %15 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.13, ptr noundef nonnull %1)
-  br label %16
+if.then7:                                         ; preds = %if.then3
+  %call8 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.13, ptr noundef nonnull %restart_file)
+  br label %if.end9
 
-16:                                               ; preds = %14, %8
+if.end9:                                          ; preds = %if.then7, %if.then3
   store i32 1, ptr @restore_type, align 4, !tbaa !25
-  br label %41
+  br label %if.end32
 
-17:                                               ; preds = %3
-  %18 = getelementptr inbounds %class.Crux, ptr %0, i64 0, i32 1
-  %19 = load i32, ptr %18, align 4, !tbaa !10
-  switch i32 %19, label %41 [
-    i32 2, label %20
-    i32 1, label %32
+if.else:                                          ; preds = %entry
+  %crux_type = getelementptr inbounds %class.Crux, ptr %this, i64 0, i32 1
+  %1 = load i32, ptr %crux_type, align 4, !tbaa !10
+  switch i32 %1, label %if.end32 [
+    i32 2, label %if.then11
+    i32 1, label %if.then19
   ]
 
-20:                                               ; preds = %17
-  %21 = load i32, ptr @rs_num, align 4, !tbaa !25
-  %22 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.14, i32 noundef %21, i32 noundef %2)
-  %23 = load ptr, ptr @crux_data, align 8, !tbaa !14
-  %24 = load i32, ptr @rs_num, align 4, !tbaa !25
-  %25 = sext i32 %24 to i64
-  %26 = getelementptr inbounds ptr, ptr %23, i64 %25
-  %27 = load ptr, ptr %26, align 8, !tbaa !14
-  %28 = load ptr, ptr @crux_data_size, align 8, !tbaa !14
-  %29 = getelementptr inbounds i64, ptr %28, i64 %25
-  %30 = load i64, ptr %29, align 8, !tbaa !34
-  %31 = tail call noalias ptr @fmemopen(ptr noundef %27, i64 noundef %30, ptr noundef nonnull @.str.12) #15
-  store ptr %31, ptr @restore_fp, align 8, !tbaa !14
+if.then11:                                        ; preds = %if.else
+  %2 = load i32, ptr @rs_num, align 4, !tbaa !25
+  %call12 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.14, i32 noundef %2, i32 noundef %rollback_counter)
+  %3 = load ptr, ptr @crux_data, align 8, !tbaa !14
+  %4 = load i32, ptr @rs_num, align 4, !tbaa !25
+  %idxprom = sext i32 %4 to i64
+  %arrayidx = getelementptr inbounds ptr, ptr %3, i64 %idxprom
+  %5 = load ptr, ptr %arrayidx, align 8, !tbaa !14
+  %6 = load ptr, ptr @crux_data_size, align 8, !tbaa !14
+  %arrayidx14 = getelementptr inbounds i64, ptr %6, i64 %idxprom
+  %7 = load i64, ptr %arrayidx14, align 8, !tbaa !34
+  %call15 = tail call noalias ptr @fmemopen(ptr noundef %5, i64 noundef %7, ptr noundef nonnull @.str.12) #15
+  store ptr %call15, ptr @restore_fp, align 8, !tbaa !14
   store i32 2, ptr @restore_type, align 4, !tbaa !25
-  br label %41
+  br label %if.end32
 
-32:                                               ; preds = %17
-  call void @llvm.lifetime.start.p0(i64 60, ptr nonnull %4) #15
-  %33 = load i32, ptr @rs_num, align 4, !tbaa !25
-  %34 = call i32 (ptr, ptr, ...) @sprintf(ptr noundef nonnull dereferenceable(1) %4, ptr noundef nonnull dereferenceable(1) @.str.15, ptr noundef nonnull @checkpoint_directory, i32 noundef %33) #15
-  %35 = call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.16, ptr noundef nonnull %4, i32 noundef %2)
-  %36 = call noalias ptr @fopen(ptr noundef nonnull %4, ptr noundef nonnull @.str.12)
-  store ptr %36, ptr @restore_fp, align 8, !tbaa !14
-  %37 = icmp eq ptr %36, null
-  br i1 %37, label %38, label %40
+if.then19:                                        ; preds = %if.else
+  call void @llvm.lifetime.start.p0(i64 60, ptr nonnull %backup_file_w_dir) #15
+  %8 = load i32, ptr @rs_num, align 4, !tbaa !25
+  %call20 = call i32 (ptr, ptr, ...) @sprintf(ptr noundef nonnull dereferenceable(1) %backup_file_w_dir, ptr noundef nonnull dereferenceable(1) @.str.15, ptr noundef nonnull @checkpoint_directory, i32 noundef %8) #15
+  %call22 = call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.16, ptr noundef nonnull %backup_file_w_dir, i32 noundef %rollback_counter)
+  %call24 = call noalias ptr @fopen(ptr noundef nonnull %backup_file_w_dir, ptr noundef nonnull @.str.12)
+  store ptr %call24, ptr @restore_fp, align 8, !tbaa !14
+  %tobool25.not = icmp eq ptr %call24, null
+  br i1 %tobool25.not, label %if.then26, label %if.end29
 
-38:                                               ; preds = %32
-  %39 = call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.17, ptr noundef nonnull %4)
-  br label %40
+if.then26:                                        ; preds = %if.then19
+  %call28 = call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.17, ptr noundef nonnull %backup_file_w_dir)
+  br label %if.end29
 
-40:                                               ; preds = %38, %32
+if.end29:                                         ; preds = %if.then26, %if.then19
   store i32 2, ptr @restore_type, align 4, !tbaa !25
-  call void @llvm.lifetime.end.p0(i64 60, ptr nonnull %4) #15
-  br label %41
+  call void @llvm.lifetime.end.p0(i64 60, ptr nonnull %backup_file_w_dir) #15
+  br label %if.end32
 
-41:                                               ; preds = %17, %20, %40, %16
+if.end32:                                         ; preds = %if.else, %if.then11, %if.end29, %if.end9
   ret void
 }
 
@@ -868,159 +894,169 @@ define dso_local void @_ZN4Crux13restore_beginEPci(ptr nocapture noundef nonnull
 declare noundef i64 @fread(ptr nocapture noundef, i64 noundef, i64 noundef, ptr nocapture noundef) local_unnamed_addr #2
 
 ; Function Attrs: mustprogress nofree nounwind uwtable
-define dso_local void @_ZN4Crux13restore_boolsEPbm(ptr nocapture noundef nonnull readnone align 4 dereferenceable(12) %0, ptr nocapture noundef %1, i64 noundef %2) local_unnamed_addr #8 align 2 {
-  %4 = load ptr, ptr @restore_fp, align 8, !tbaa !14
-  %5 = tail call i64 @fread(ptr noundef %1, i64 noundef 1, i64 noundef %2, ptr noundef %4)
-  %6 = icmp eq i64 %5, %2
-  br i1 %6, label %9, label %7
+define dso_local void @_ZN4Crux13restore_boolsEPbm(ptr nocapture noundef nonnull readnone align 4 dereferenceable(12) %this, ptr nocapture noundef %bool_vals, i64 noundef %nelem) local_unnamed_addr #8 align 2 {
+entry:
+  %0 = load ptr, ptr @restore_fp, align 8, !tbaa !14
+  %call = tail call i64 @fread(ptr noundef %bool_vals, i64 noundef 1, i64 noundef %nelem, ptr noundef %0)
+  %cmp.not = icmp eq i64 %call, %nelem
+  br i1 %cmp.not, label %if.end, label %if.then
 
-7:                                                ; preds = %3
-  %8 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.19, i64 noundef %5, i64 noundef %2)
-  br label %9
+if.then:                                          ; preds = %entry
+  %call2 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.19, i64 noundef %call, i64 noundef %nelem)
+  br label %if.end
 
-9:                                                ; preds = %7, %3
+if.end:                                           ; preds = %if.then, %entry
   ret void
 }
 
 ; Function Attrs: mustprogress nofree nounwind uwtable
-define dso_local void @_ZN4Crux12restore_intsEPim(ptr nocapture noundef nonnull readnone align 4 dereferenceable(12) %0, ptr nocapture noundef %1, i64 noundef %2) local_unnamed_addr #8 align 2 {
-  %4 = load ptr, ptr @restore_fp, align 8, !tbaa !14
-  %5 = tail call i64 @fread(ptr noundef %1, i64 noundef 4, i64 noundef %2, ptr noundef %4)
-  %6 = icmp eq i64 %5, %2
-  br i1 %6, label %9, label %7
+define dso_local void @_ZN4Crux12restore_intsEPim(ptr nocapture noundef nonnull readnone align 4 dereferenceable(12) %this, ptr nocapture noundef %int_vals, i64 noundef %nelem) local_unnamed_addr #8 align 2 {
+entry:
+  %0 = load ptr, ptr @restore_fp, align 8, !tbaa !14
+  %call = tail call i64 @fread(ptr noundef %int_vals, i64 noundef 4, i64 noundef %nelem, ptr noundef %0)
+  %cmp.not = icmp eq i64 %call, %nelem
+  br i1 %cmp.not, label %if.end, label %if.then
 
-7:                                                ; preds = %3
-  %8 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.19, i64 noundef %5, i64 noundef %2)
-  br label %9
+if.then:                                          ; preds = %entry
+  %call2 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.19, i64 noundef %call, i64 noundef %nelem)
+  br label %if.end
 
-9:                                                ; preds = %7, %3
+if.end:                                           ; preds = %if.then, %entry
   ret void
 }
 
 ; Function Attrs: mustprogress nofree nounwind uwtable
-define dso_local void @_ZN4Crux13restore_longsEPxm(ptr nocapture noundef nonnull readnone align 4 dereferenceable(12) %0, ptr nocapture noundef %1, i64 noundef %2) local_unnamed_addr #8 align 2 {
-  %4 = load ptr, ptr @restore_fp, align 8, !tbaa !14
-  %5 = tail call i64 @fread(ptr noundef %1, i64 noundef 8, i64 noundef %2, ptr noundef %4)
-  %6 = icmp eq i64 %5, %2
-  br i1 %6, label %9, label %7
+define dso_local void @_ZN4Crux13restore_longsEPxm(ptr nocapture noundef nonnull readnone align 4 dereferenceable(12) %this, ptr nocapture noundef %long_vals, i64 noundef %nelem) local_unnamed_addr #8 align 2 {
+entry:
+  %0 = load ptr, ptr @restore_fp, align 8, !tbaa !14
+  %call = tail call i64 @fread(ptr noundef %long_vals, i64 noundef 8, i64 noundef %nelem, ptr noundef %0)
+  %cmp.not = icmp eq i64 %call, %nelem
+  br i1 %cmp.not, label %if.end, label %if.then
 
-7:                                                ; preds = %3
-  %8 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.19, i64 noundef %5, i64 noundef %2)
-  br label %9
+if.then:                                          ; preds = %entry
+  %call2 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.19, i64 noundef %call, i64 noundef %nelem)
+  br label %if.end
 
-9:                                                ; preds = %7, %3
+if.end:                                           ; preds = %if.then, %entry
   ret void
 }
 
 ; Function Attrs: mustprogress nofree nounwind uwtable
-define dso_local void @_ZN4Crux14restore_sizetsEPmm(ptr nocapture noundef nonnull readnone align 4 dereferenceable(12) %0, ptr nocapture noundef %1, i64 noundef %2) local_unnamed_addr #8 align 2 {
-  %4 = load ptr, ptr @restore_fp, align 8, !tbaa !14
-  %5 = tail call i64 @fread(ptr noundef %1, i64 noundef 8, i64 noundef %2, ptr noundef %4)
-  %6 = icmp eq i64 %5, %2
-  br i1 %6, label %9, label %7
+define dso_local void @_ZN4Crux14restore_sizetsEPmm(ptr nocapture noundef nonnull readnone align 4 dereferenceable(12) %this, ptr nocapture noundef %size_t_vals, i64 noundef %nelem) local_unnamed_addr #8 align 2 {
+entry:
+  %0 = load ptr, ptr @restore_fp, align 8, !tbaa !14
+  %call = tail call i64 @fread(ptr noundef %size_t_vals, i64 noundef 8, i64 noundef %nelem, ptr noundef %0)
+  %cmp.not = icmp eq i64 %call, %nelem
+  br i1 %cmp.not, label %if.end, label %if.then
 
-7:                                                ; preds = %3
-  %8 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.19, i64 noundef %5, i64 noundef %2)
-  br label %9
+if.then:                                          ; preds = %entry
+  %call2 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.19, i64 noundef %call, i64 noundef %nelem)
+  br label %if.end
 
-9:                                                ; preds = %7, %3
+if.end:                                           ; preds = %if.then, %entry
   ret void
 }
 
 ; Function Attrs: mustprogress nofree nounwind uwtable
-define dso_local void @_ZN4Crux15restore_doublesEPdm(ptr nocapture noundef nonnull readnone align 4 dereferenceable(12) %0, ptr nocapture noundef %1, i64 noundef %2) local_unnamed_addr #8 align 2 {
-  %4 = load ptr, ptr @restore_fp, align 8, !tbaa !14
-  %5 = tail call i64 @fread(ptr noundef %1, i64 noundef 8, i64 noundef %2, ptr noundef %4)
-  %6 = icmp eq i64 %5, %2
-  br i1 %6, label %9, label %7
+define dso_local void @_ZN4Crux15restore_doublesEPdm(ptr nocapture noundef nonnull readnone align 4 dereferenceable(12) %this, ptr nocapture noundef %double_vals, i64 noundef %nelem) local_unnamed_addr #8 align 2 {
+entry:
+  %0 = load ptr, ptr @restore_fp, align 8, !tbaa !14
+  %call = tail call i64 @fread(ptr noundef %double_vals, i64 noundef 8, i64 noundef %nelem, ptr noundef %0)
+  %cmp.not = icmp eq i64 %call, %nelem
+  br i1 %cmp.not, label %if.end, label %if.then
 
-7:                                                ; preds = %3
-  %8 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.19, i64 noundef %5, i64 noundef %2)
-  br label %9
+if.then:                                          ; preds = %entry
+  %call2 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.19, i64 noundef %call, i64 noundef %nelem)
+  br label %if.end
 
-9:                                                ; preds = %7, %3
+if.end:                                           ; preds = %if.then, %entry
   ret void
 }
 
 ; Function Attrs: mustprogress nofree nounwind uwtable
-define dso_local noundef ptr @_ZN4Crux18restore_long_arrayEPxm(ptr nocapture noundef nonnull readnone align 4 dereferenceable(12) %0, ptr noundef returned %1, i64 noundef %2) local_unnamed_addr #8 align 2 {
-  %4 = load ptr, ptr @restore_fp, align 8, !tbaa !14
-  %5 = tail call i64 @fread(ptr noundef %1, i64 noundef 8, i64 noundef %2, ptr noundef %4)
-  %6 = icmp eq i64 %5, %2
-  br i1 %6, label %9, label %7
+define dso_local noundef ptr @_ZN4Crux18restore_long_arrayEPxm(ptr nocapture noundef nonnull readnone align 4 dereferenceable(12) %this, ptr noundef returned %long_array, i64 noundef %nelem) local_unnamed_addr #8 align 2 {
+entry:
+  %0 = load ptr, ptr @restore_fp, align 8, !tbaa !14
+  %call = tail call i64 @fread(ptr noundef %long_array, i64 noundef 8, i64 noundef %nelem, ptr noundef %0)
+  %cmp.not = icmp eq i64 %call, %nelem
+  br i1 %cmp.not, label %if.end, label %if.then
 
-7:                                                ; preds = %3
-  %8 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.19, i64 noundef %5, i64 noundef %2)
-  br label %9
+if.then:                                          ; preds = %entry
+  %call2 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.19, i64 noundef %call, i64 noundef %nelem)
+  br label %if.end
 
-9:                                                ; preds = %7, %3
-  ret ptr %1
+if.end:                                           ; preds = %if.then, %entry
+  ret ptr %long_array
 }
 
 ; Function Attrs: mustprogress nofree nounwind uwtable
-define dso_local noundef ptr @_ZN4Crux19restore_float_arrayEPfm(ptr nocapture noundef nonnull readnone align 4 dereferenceable(12) %0, ptr noundef returned %1, i64 noundef %2) local_unnamed_addr #8 align 2 {
-  %4 = load ptr, ptr @restore_fp, align 8, !tbaa !14
-  %5 = tail call i64 @fread(ptr noundef %1, i64 noundef 4, i64 noundef %2, ptr noundef %4)
-  %6 = icmp eq i64 %5, %2
-  br i1 %6, label %9, label %7
+define dso_local noundef ptr @_ZN4Crux19restore_float_arrayEPfm(ptr nocapture noundef nonnull readnone align 4 dereferenceable(12) %this, ptr noundef returned %float_array, i64 noundef %nelem) local_unnamed_addr #8 align 2 {
+entry:
+  %0 = load ptr, ptr @restore_fp, align 8, !tbaa !14
+  %call = tail call i64 @fread(ptr noundef %float_array, i64 noundef 4, i64 noundef %nelem, ptr noundef %0)
+  %cmp.not = icmp eq i64 %call, %nelem
+  br i1 %cmp.not, label %if.end, label %if.then
 
-7:                                                ; preds = %3
-  %8 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.19, i64 noundef %5, i64 noundef %2)
-  br label %9
+if.then:                                          ; preds = %entry
+  %call2 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.19, i64 noundef %call, i64 noundef %nelem)
+  br label %if.end
 
-9:                                                ; preds = %7, %3
-  ret ptr %1
+if.end:                                           ; preds = %if.then, %entry
+  ret ptr %float_array
 }
 
 ; Function Attrs: mustprogress uwtable
-define dso_local void @_ZN4Crux11restore_endEv(ptr nocapture noundef nonnull readnone align 4 dereferenceable(12) %0) local_unnamed_addr #6 align 2 {
-  %2 = load i64, ptr @trestore_time, align 8, !tbaa.struct !37
-  %3 = load i64, ptr getelementptr inbounds (%struct.timeval, ptr @trestore_time, i64 0, i32 1), align 8, !tbaa.struct !38
-  %4 = tail call double @cpu_timer_stop(i64 %2, i64 %3)
-  %5 = load i8, ptr @do_crux_timing, align 1, !tbaa !12, !range !18, !noundef !19
-  %6 = icmp eq i8 %5, 0
-  br i1 %6, label %16, label %7
+define dso_local void @_ZN4Crux11restore_endEv(ptr nocapture noundef nonnull readnone align 4 dereferenceable(12) %this) local_unnamed_addr #6 align 2 {
+entry:
+  %agg.tmp.sroa.0.0.copyload = load i64, ptr @trestore_time, align 8, !tbaa.struct !37
+  %agg.tmp.sroa.2.0.copyload = load i64, ptr getelementptr inbounds (%struct.timeval, ptr @trestore_time, i64 0, i32 1), align 8, !tbaa.struct !38
+  %call = tail call double @cpu_timer_stop(i64 %agg.tmp.sroa.0.0.copyload, i64 %agg.tmp.sroa.2.0.copyload)
+  %0 = load i8, ptr @do_crux_timing, align 1, !tbaa !12, !range !18, !noundef !19
+  %tobool.not = icmp eq i8 %0, 0
+  br i1 %tobool.not, label %if.end8, label %if.then
 
-7:                                                ; preds = %1
-  %8 = load i32, ptr @restore_type, align 4, !tbaa !25
-  switch i32 %8, label %16 [
-    i32 1, label %9
-    i32 2, label %12
+if.then:                                          ; preds = %entry
+  %1 = load i32, ptr @restore_type, align 4, !tbaa !25
+  switch i32 %1, label %if.end8 [
+    i32 1, label %if.then2
+    i32 2, label %if.then5
   ]
 
-9:                                                ; preds = %7
-  %10 = load ptr, ptr @crux_time_fp, align 8, !tbaa !14
-  %11 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %10, ptr noundef nonnull @.str.20, double noundef %4)
-  br label %16
+if.then2:                                         ; preds = %if.then
+  %2 = load ptr, ptr @crux_time_fp, align 8, !tbaa !14
+  %call3 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %2, ptr noundef nonnull @.str.20, double noundef %call)
+  br label %if.end8
 
-12:                                               ; preds = %7
-  %13 = load ptr, ptr @crux_time_fp, align 8, !tbaa !14
-  %14 = load i32, ptr @rollback_attempt, align 4, !tbaa !25
-  %15 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %13, ptr noundef nonnull @.str.21, i32 noundef %14, double noundef %4)
-  br label %16
+if.then5:                                         ; preds = %if.then
+  %3 = load ptr, ptr @crux_time_fp, align 8, !tbaa !14
+  %4 = load i32, ptr @rollback_attempt, align 4, !tbaa !25
+  %call6 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %3, ptr noundef nonnull @.str.21, i32 noundef %4, double noundef %call)
+  br label %if.end8
 
-16:                                               ; preds = %7, %9, %12, %1
-  %17 = load ptr, ptr @restore_fp, align 8, !tbaa !14
-  %18 = tail call i32 @fclose(ptr noundef %17)
+if.end8:                                          ; preds = %if.then, %if.then2, %if.then5, %entry
+  %5 = load ptr, ptr @restore_fp, align 8, !tbaa !14
+  %call9 = tail call i32 @fclose(ptr noundef %5)
   ret void
 }
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(readwrite, argmem: read, inaccessiblemem: none) uwtable
-define dso_local noundef i32 @_ZN4Crux19get_rollback_numberEv(ptr nocapture noundef nonnull readonly align 4 dereferenceable(12) %0) local_unnamed_addr #12 align 2 {
-  %2 = load i32, ptr @rollback_attempt, align 4, !tbaa !25
-  %3 = add nsw i32 %2, 1
-  store i32 %3, ptr @rollback_attempt, align 4, !tbaa !25
-  %4 = getelementptr inbounds %class.Crux, ptr %0, i64 0, i32 2
-  %5 = load i32, ptr %4, align 4, !tbaa !11
-  %6 = load i32, ptr %0, align 4, !tbaa !5
-  %7 = srem i32 %5, %6
-  ret i32 %7
+define dso_local noundef i32 @_ZN4Crux19get_rollback_numberEv(ptr nocapture noundef nonnull readonly align 4 dereferenceable(12) %this) local_unnamed_addr #12 align 2 {
+entry:
+  %0 = load i32, ptr @rollback_attempt, align 4, !tbaa !25
+  %inc = add nsw i32 %0, 1
+  store i32 %inc, ptr @rollback_attempt, align 4, !tbaa !25
+  %checkpoint_counter = getelementptr inbounds %class.Crux, ptr %this, i64 0, i32 2
+  %1 = load i32, ptr %checkpoint_counter, align 4, !tbaa !11
+  %2 = load i32, ptr %this, align 4, !tbaa !5
+  %rem = srem i32 %1, %2
+  ret i32 %rem
 }
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(argmem: write) uwtable
-define dso_local void @_ZN4Crux13set_crux_typeEi(ptr nocapture noundef nonnull writeonly align 4 dereferenceable(12) %0, i32 noundef %1) local_unnamed_addr #13 align 2 {
-  %3 = getelementptr inbounds %class.Crux, ptr %0, i64 0, i32 1
-  store i32 %1, ptr %3, align 4, !tbaa !10
+define dso_local void @_ZN4Crux13set_crux_typeEi(ptr nocapture noundef nonnull writeonly align 4 dereferenceable(12) %this, i32 noundef %crux_type_in) local_unnamed_addr #13 align 2 {
+entry:
+  %crux_type = getelementptr inbounds %class.Crux, ptr %this, i64 0, i32 1
+  store i32 %crux_type_in, ptr %crux_type, align 4, !tbaa !10
   ret void
 }
 

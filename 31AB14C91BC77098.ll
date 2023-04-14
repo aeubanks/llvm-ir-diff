@@ -7,36 +7,38 @@ target triple = "x86_64-unknown-linux-gnu"
 @d = dso_local local_unnamed_addr global i32 0, align 4
 
 ; Function Attrs: mustprogress nofree nosync nounwind willreturn memory(none) uwtable
-define dso_local signext i16 @fn2(i32 noundef %0, i32 noundef %1) local_unnamed_addr #0 {
-  %3 = tail call i32 @llvm.smin.i32(i32 %1, i32 0)
-  %4 = shl nuw nsw i32 %0, %3
-  %5 = trunc i32 %4 to i16
-  ret i16 %5
+define dso_local signext i16 @fn2(i32 noundef %p1, i32 noundef %p2) local_unnamed_addr #0 {
+entry:
+  %shl = tail call i32 @llvm.smin.i32(i32 %p2, i32 0)
+  %cond = shl nuw nsw i32 %p1, %shl
+  %conv = trunc i32 %cond to i16
+  ret i16 %conv
 }
 
 ; Function Attrs: nounwind uwtable
 define dso_local i32 @main() local_unnamed_addr #1 {
-  %1 = load i32, ptr @g, align 4, !tbaa !5
-  %2 = icmp eq i32 %1, 0
-  br i1 %2, label %3, label %7
+entry:
+  %0 = load i32, ptr @g, align 4, !tbaa !5
+  %tobool.not = icmp eq i32 %0, 0
+  br i1 %tobool.not, label %entry.split, label %for.cond.preheader
 
-3:                                                ; preds = %0
-  %4 = load i32, ptr @d, align 4, !tbaa !5
-  %5 = icmp eq i32 %4, 0
-  br i1 %5, label %9, label %6
+entry.split:                                      ; preds = %entry
+  %1 = load i32, ptr @d, align 4
+  %tobool6.not = icmp eq i32 %1, 0
+  br i1 %tobool6.not, label %if.then13, label %lbl_2582
 
-6:                                                ; preds = %3, %6
-  br label %6
+lbl_2582:                                         ; preds = %entry.split, %lbl_2582
+  br label %lbl_2582
 
-7:                                                ; preds = %0
-  %8 = icmp sgt i32 %1, -1
-  br i1 %8, label %10, label %9
+for.cond.preheader:                               ; preds = %entry
+  %cmp11.not = icmp sgt i32 %0, -1
+  br i1 %cmp11.not, label %if.end14, label %if.then13
 
-9:                                                ; preds = %3, %7
+if.then13:                                        ; preds = %entry.split, %for.cond.preheader
   tail call void @abort() #4
   unreachable
 
-10:                                               ; preds = %7
+if.end14:                                         ; preds = %for.cond.preheader
   ret i32 0
 }
 

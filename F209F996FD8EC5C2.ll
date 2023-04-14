@@ -9,74 +9,75 @@ target triple = "x86_64-unknown-linux-gnu"
 @_fitab = internal unnamed_addr constant [16 x i16] [i16 0, i16 0, i16 0, i16 512, i16 512, i16 512, i16 1536, i16 3584, i16 3584, i16 1536, i16 512, i16 512, i16 512, i16 0, i16 0, i16 0], align 16
 
 ; Function Attrs: nounwind uwtable
-define dso_local i32 @g721_encoder(i32 noundef %0, i32 noundef %1, ptr noundef %2) local_unnamed_addr #0 {
-  switch i32 %1, label %55 [
-    i32 2, label %4
-    i32 1, label %6
-    i32 3, label %8
+define dso_local i32 @g721_encoder(i32 noundef %sl, i32 noundef %in_coding, ptr noundef %state_ptr) local_unnamed_addr #0 {
+entry:
+  switch i32 %in_coding, label %cleanup [
+    i32 2, label %sw.bb
+    i32 1, label %sw.bb1
+    i32 3, label %sw.epilog
   ]
 
-4:                                                ; preds = %3
-  %5 = tail call i32 (i32, ...) @alaw2linear(i32 noundef %0) #2
-  br label %8
+sw.bb:                                            ; preds = %entry
+  %call = tail call i32 (i32, ...) @alaw2linear(i32 noundef %sl) #2
+  br label %sw.epilog
 
-6:                                                ; preds = %3
-  %7 = tail call i32 (i32, ...) @ulaw2linear(i32 noundef %0) #2
-  br label %8
+sw.bb1:                                           ; preds = %entry
+  %call2 = tail call i32 (i32, ...) @ulaw2linear(i32 noundef %sl) #2
+  br label %sw.epilog
 
-8:                                                ; preds = %3, %6, %4
-  %9 = phi i32 [ %7, %6 ], [ %5, %4 ], [ %0, %3 ]
-  %10 = lshr i32 %9, 2
-  %11 = tail call i32 (ptr, ...) @predictor_zero(ptr noundef %2) #2
-  %12 = shl i32 %11, 16
-  %13 = ashr exact i32 %12, 16
-  %14 = ashr i32 %12, 17
-  %15 = tail call i32 (ptr, ...) @predictor_pole(ptr noundef %2) #2
-  %16 = add nsw i32 %13, %15
-  %17 = shl i32 %16, 15
-  %18 = ashr i32 %17, 16
-  %19 = sub nsw i32 %10, %18
-  %20 = tail call i32 (ptr, ...) @step_size(ptr noundef %2) #2
-  %21 = shl i32 %19, 16
-  %22 = ashr exact i32 %21, 16
-  %23 = shl i32 %20, 16
-  %24 = ashr exact i32 %23, 16
-  %25 = tail call i32 (i32, i32, ptr, i32, ...) @quantize(i32 noundef %22, i32 noundef %24, ptr noundef nonnull @qtab_721, i32 noundef 7) #2
-  %26 = zext i32 %25 to i64
-  %27 = shl i32 %25, 16
-  %28 = ashr exact i32 %27, 16
-  %29 = and i32 %25, 8
-  %30 = shl i64 %26, 48
-  %31 = ashr exact i64 %30, 48
-  %32 = getelementptr inbounds [16 x i16], ptr @_dqlntab, i64 0, i64 %31
-  %33 = load i16, ptr %32, align 2, !tbaa !5
-  %34 = sext i16 %33 to i32
-  %35 = tail call i32 (i32, i32, i32, ...) @reconstruct(i32 noundef %29, i32 noundef %34, i32 noundef %24) #2
-  %36 = shl i32 %35, 16
-  %37 = ashr exact i32 %36, 16
-  %38 = icmp slt i32 %36, 0
-  %39 = and i32 %35, 16383
-  %40 = sub nsw i32 0, %39
-  %41 = select i1 %38, i32 %40, i32 %35
-  %42 = add i32 %41, %18
-  %43 = shl i32 %42, 16
-  %44 = ashr exact i32 %43, 16
-  %45 = add i32 %41, %14
-  %46 = getelementptr inbounds [16 x i16], ptr @_witab, i64 0, i64 %31
-  %47 = load i16, ptr %46, align 2, !tbaa !5
-  %48 = sext i16 %47 to i32
-  %49 = shl nsw i32 %48, 5
-  %50 = getelementptr inbounds [16 x i16], ptr @_fitab, i64 0, i64 %31
-  %51 = load i16, ptr %50, align 2, !tbaa !5
-  %52 = sext i16 %51 to i32
-  %53 = shl i32 %45, 16
-  %54 = ashr exact i32 %53, 16
-  tail call void (i32, i32, i32, i32, i32, i32, i32, ptr, ...) @update(i32 noundef 4, i32 noundef %24, i32 noundef %49, i32 noundef %52, i32 noundef %37, i32 noundef %44, i32 noundef %54, ptr noundef %2) #2
-  br label %55
+sw.epilog:                                        ; preds = %entry, %sw.bb1, %sw.bb
+  %sl.addr.0.in = phi i32 [ %call2, %sw.bb1 ], [ %call, %sw.bb ], [ %sl, %entry ]
+  %0 = lshr i32 %sl.addr.0.in, 2
+  %call6 = tail call i32 (ptr, ...) @predictor_zero(ptr noundef %state_ptr) #2
+  %sext = shl i32 %call6, 16
+  %conv7 = ashr exact i32 %sext, 16
+  %shr8 = ashr i32 %sext, 17
+  %call11 = tail call i32 (ptr, ...) @predictor_pole(ptr noundef %state_ptr) #2
+  %add = add nsw i32 %conv7, %call11
+  %1 = shl i32 %add, 15
+  %conv14 = ashr i32 %1, 16
+  %sub = sub nsw i32 %0, %conv14
+  %call16 = tail call i32 (ptr, ...) @step_size(ptr noundef %state_ptr) #2
+  %sext83 = shl i32 %sub, 16
+  %conv18 = ashr exact i32 %sext83, 16
+  %sext84 = shl i32 %call16, 16
+  %conv19 = ashr exact i32 %sext84, 16
+  %call20 = tail call i32 (i32, i32, ptr, i32, ...) @quantize(i32 noundef %conv18, i32 noundef %conv19, ptr noundef nonnull @qtab_721, i32 noundef 7) #2
+  %conv21 = zext i32 %call20 to i64
+  %sext85 = shl i32 %call20, 16
+  %conv22 = ashr exact i32 %sext85, 16
+  %and = and i32 %call20, 8
+  %sext86 = shl i64 %conv21, 48
+  %idxprom = ashr exact i64 %sext86, 48
+  %arrayidx = getelementptr inbounds [16 x i16], ptr @_dqlntab, i64 0, i64 %idxprom
+  %2 = load i16, ptr %arrayidx, align 2, !tbaa !5
+  %conv23 = sext i16 %2 to i32
+  %call25 = tail call i32 (i32, i32, i32, ...) @reconstruct(i32 noundef %and, i32 noundef %conv23, i32 noundef %conv19) #2
+  %sext87 = shl i32 %call25, 16
+  %conv27 = ashr exact i32 %sext87, 16
+  %cmp = icmp slt i32 %sext87, 0
+  %and31 = and i32 %call25, 16383
+  %3 = sub nsw i32 0, %and31
+  %cond.p = select i1 %cmp, i32 %3, i32 %conv27
+  %cond = add nsw i32 %cond.p, %conv14
+  %sext88 = shl i32 %cond, 16
+  %conv37 = ashr exact i32 %sext88, 16
+  %sub41 = add nsw i32 %cond.p, %shr8
+  %arrayidx45 = getelementptr inbounds [16 x i16], ptr @_witab, i64 0, i64 %idxprom
+  %4 = load i16, ptr %arrayidx45, align 2, !tbaa !5
+  %conv46 = sext i16 %4 to i32
+  %shl = shl nsw i32 %conv46, 5
+  %arrayidx48 = getelementptr inbounds [16 x i16], ptr @_fitab, i64 0, i64 %idxprom
+  %5 = load i16, ptr %arrayidx48, align 2, !tbaa !5
+  %conv49 = sext i16 %5 to i32
+  %sext89 = shl i32 %sub41, 16
+  %conv52 = ashr exact i32 %sext89, 16
+  tail call void (i32, i32, i32, i32, i32, i32, i32, ptr, ...) @update(i32 noundef 4, i32 noundef %conv19, i32 noundef %shl, i32 noundef %conv49, i32 noundef %conv27, i32 noundef %conv37, i32 noundef %conv52, ptr noundef %state_ptr) #2
+  br label %cleanup
 
-55:                                               ; preds = %3, %8
-  %56 = phi i32 [ %28, %8 ], [ -1, %3 ]
-  ret i32 %56
+cleanup:                                          ; preds = %entry, %sw.epilog
+  %retval.0 = phi i32 [ %conv22, %sw.epilog ], [ -1, %entry ]
+  ret i32 %retval.0
 }
 
 declare i32 @alaw2linear(...) local_unnamed_addr #1
@@ -96,65 +97,66 @@ declare i32 @reconstruct(...) local_unnamed_addr #1
 declare void @update(...) local_unnamed_addr #1
 
 ; Function Attrs: nounwind uwtable
-define dso_local i32 @g721_decoder(i32 noundef %0, i32 noundef %1, ptr noundef %2) local_unnamed_addr #0 {
-  %4 = and i32 %0, 15
-  %5 = tail call i32 (ptr, ...) @predictor_zero(ptr noundef %2) #2
-  %6 = shl i32 %5, 16
-  %7 = ashr i32 %6, 17
-  %8 = tail call i32 (ptr, ...) @predictor_pole(ptr noundef %2) #2
-  %9 = add i32 %8, %5
-  %10 = shl i32 %9, 16
-  %11 = ashr i32 %10, 17
-  %12 = tail call i32 (ptr, ...) @step_size(ptr noundef %2) #2
-  %13 = and i32 %0, 8
-  %14 = zext i32 %4 to i64
-  %15 = getelementptr inbounds [16 x i16], ptr @_dqlntab, i64 0, i64 %14
-  %16 = load i16, ptr %15, align 2, !tbaa !5
-  %17 = sext i16 %16 to i32
-  %18 = shl i32 %12, 16
-  %19 = ashr exact i32 %18, 16
-  %20 = tail call i32 (i32, i32, i32, ...) @reconstruct(i32 noundef %13, i32 noundef %17, i32 noundef %19) #2
-  %21 = shl i32 %20, 16
-  %22 = ashr exact i32 %21, 16
-  %23 = icmp slt i32 %21, 0
-  %24 = and i32 %20, 16383
-  %25 = sub nsw i32 0, %24
-  %26 = select i1 %23, i32 %25, i32 %22
-  %27 = add nsw i32 %11, %26
-  %28 = shl i32 %27, 16
-  %29 = ashr exact i32 %28, 16
-  %30 = add nsw i32 %7, %26
-  %31 = getelementptr inbounds [16 x i16], ptr @_witab, i64 0, i64 %14
-  %32 = load i16, ptr %31, align 2, !tbaa !5
-  %33 = sext i16 %32 to i32
-  %34 = shl nsw i32 %33, 5
-  %35 = getelementptr inbounds [16 x i16], ptr @_fitab, i64 0, i64 %14
-  %36 = load i16, ptr %35, align 2, !tbaa !5
-  %37 = sext i16 %36 to i32
-  %38 = shl i32 %30, 16
-  %39 = ashr exact i32 %38, 16
-  tail call void (i32, i32, i32, i32, i32, i32, i32, ptr, ...) @update(i32 noundef 4, i32 noundef %19, i32 noundef %34, i32 noundef %37, i32 noundef %22, i32 noundef %29, i32 noundef %39, ptr noundef %2) #2
-  switch i32 %1, label %46 [
-    i32 2, label %40
-    i32 1, label %42
-    i32 3, label %44
+define dso_local i32 @g721_decoder(i32 noundef %i, i32 noundef %out_coding, ptr noundef %state_ptr) local_unnamed_addr #0 {
+entry:
+  %and = and i32 %i, 15
+  %call = tail call i32 (ptr, ...) @predictor_zero(ptr noundef %state_ptr) #2
+  %sext = shl i32 %call, 16
+  %shr = ashr i32 %sext, 17
+  %call4 = tail call i32 (ptr, ...) @predictor_pole(ptr noundef %state_ptr) #2
+  %add = add i32 %call4, %call
+  %sext84 = shl i32 %add, 16
+  %shr7 = ashr i32 %sext84, 17
+  %call9 = tail call i32 (ptr, ...) @step_size(ptr noundef %state_ptr) #2
+  %and11 = and i32 %i, 8
+  %idxprom = zext i32 %and to i64
+  %arrayidx = getelementptr inbounds [16 x i16], ptr @_dqlntab, i64 0, i64 %idxprom
+  %0 = load i16, ptr %arrayidx, align 2, !tbaa !5
+  %conv12 = sext i16 %0 to i32
+  %sext85 = shl i32 %call9, 16
+  %conv13 = ashr exact i32 %sext85, 16
+  %call14 = tail call i32 (i32, i32, i32, ...) @reconstruct(i32 noundef %and11, i32 noundef %conv12, i32 noundef %conv13) #2
+  %sext86 = shl i32 %call14, 16
+  %conv16 = ashr exact i32 %sext86, 16
+  %cmp = icmp slt i32 %sext86, 0
+  %and20 = and i32 %call14, 16383
+  %1 = sub nsw i32 0, %and20
+  %cond.p = select i1 %cmp, i32 %1, i32 %conv16
+  %cond = add nsw i32 %cond.p, %shr7
+  %sext87 = shl i32 %cond, 16
+  %conv25 = ashr exact i32 %sext87, 16
+  %add29 = add nsw i32 %cond.p, %shr
+  %arrayidx33 = getelementptr inbounds [16 x i16], ptr @_witab, i64 0, i64 %idxprom
+  %2 = load i16, ptr %arrayidx33, align 2, !tbaa !5
+  %conv34 = sext i16 %2 to i32
+  %shl = shl nsw i32 %conv34, 5
+  %arrayidx36 = getelementptr inbounds [16 x i16], ptr @_fitab, i64 0, i64 %idxprom
+  %3 = load i16, ptr %arrayidx36, align 2, !tbaa !5
+  %conv37 = sext i16 %3 to i32
+  %sext88 = shl i32 %add29, 16
+  %conv40 = ashr exact i32 %sext88, 16
+  tail call void (i32, i32, i32, i32, i32, i32, i32, ptr, ...) @update(i32 noundef 4, i32 noundef %conv13, i32 noundef %shl, i32 noundef %conv37, i32 noundef %conv16, i32 noundef %conv25, i32 noundef %conv40, ptr noundef %state_ptr) #2
+  switch i32 %out_coding, label %cleanup [
+    i32 2, label %sw.bb
+    i32 1, label %sw.bb45
+    i32 3, label %sw.bb50
   ]
 
-40:                                               ; preds = %3
-  %41 = tail call i32 (i32, i32, i32, i32, i32, ptr, ...) @tandem_adjust_alaw(i32 noundef %29, i32 noundef %11, i32 noundef %19, i32 noundef %4, i32 noundef 8, ptr noundef nonnull @qtab_721) #2
-  br label %46
+sw.bb:                                            ; preds = %entry
+  %call44 = tail call i32 (i32, i32, i32, i32, i32, ptr, ...) @tandem_adjust_alaw(i32 noundef %conv25, i32 noundef %shr7, i32 noundef %conv13, i32 noundef %and, i32 noundef 8, ptr noundef nonnull @qtab_721) #2
+  br label %cleanup
 
-42:                                               ; preds = %3
-  %43 = tail call i32 (i32, i32, i32, i32, i32, ptr, ...) @tandem_adjust_ulaw(i32 noundef %29, i32 noundef %11, i32 noundef %19, i32 noundef %4, i32 noundef 8, ptr noundef nonnull @qtab_721) #2
-  br label %46
+sw.bb45:                                          ; preds = %entry
+  %call49 = tail call i32 (i32, i32, i32, i32, i32, ptr, ...) @tandem_adjust_ulaw(i32 noundef %conv25, i32 noundef %shr7, i32 noundef %conv13, i32 noundef %and, i32 noundef 8, ptr noundef nonnull @qtab_721) #2
+  br label %cleanup
 
-44:                                               ; preds = %3
-  %45 = ashr exact i32 %28, 14
-  br label %46
+sw.bb50:                                          ; preds = %entry
+  %shl52 = ashr exact i32 %sext87, 14
+  br label %cleanup
 
-46:                                               ; preds = %3, %44, %42, %40
-  %47 = phi i32 [ %45, %44 ], [ %43, %42 ], [ %41, %40 ], [ -1, %3 ]
-  ret i32 %47
+cleanup:                                          ; preds = %entry, %sw.bb50, %sw.bb45, %sw.bb
+  %retval.0 = phi i32 [ %shl52, %sw.bb50 ], [ %call49, %sw.bb45 ], [ %call44, %sw.bb ], [ -1, %entry ]
+  ret i32 %retval.0
 }
 
 declare i32 @tandem_adjust_alaw(...) local_unnamed_addr #1

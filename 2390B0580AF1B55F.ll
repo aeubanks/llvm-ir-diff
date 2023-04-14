@@ -28,94 +28,95 @@ target triple = "x86_64-unknown-linux-gnu"
 
 ; Function Attrs: nounwind uwtable
 define dso_local void @YAMLOpen() local_unnamed_addr #0 {
-  %1 = alloca i64, align 8
-  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %1) #6
-  %2 = tail call noalias dereferenceable_or_null(200) ptr @calloc(i64 noundef 200, i64 noundef 1) #7
-  %3 = tail call noalias dereferenceable_or_null(200) ptr @calloc(i64 noundef 200, i64 noundef 1) #7
-  %4 = call i64 @time(ptr noundef nonnull %1) #6
-  %5 = call ptr @localtime(ptr noundef nonnull %1) #6
-  %6 = load ptr, ptr @output, align 8, !tbaa !5
-  %7 = icmp ne ptr %6, null
-  %8 = icmp eq ptr %2, null
-  %9 = or i1 %8, %7
-  %10 = icmp eq ptr %3, null
-  %11 = or i1 %10, %9
-  %12 = icmp eq ptr %5, null
-  %13 = select i1 %11, i1 true, i1 %12
-  br i1 %13, label %67, label %14
+entry:
+  %rawTime = alloca i64, align 8
+  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %rawTime) #6
+  %call = tail call noalias dereferenceable_or_null(200) ptr @calloc(i64 noundef 200, i64 noundef 1) #7
+  %call1 = tail call noalias dereferenceable_or_null(200) ptr @calloc(i64 noundef 200, i64 noundef 1) #7
+  %call2 = call i64 @time(ptr noundef nonnull %rawTime) #6
+  %call3 = call ptr @localtime(ptr noundef nonnull %rawTime) #6
+  %0 = load ptr, ptr @output, align 8, !tbaa !5
+  %cmp = icmp ne ptr %0, null
+  %cmp4 = icmp eq ptr %call, null
+  %or.cond = or i1 %cmp4, %cmp
+  %cmp6 = icmp eq ptr %call1, null
+  %or.cond28 = or i1 %cmp6, %or.cond
+  %cmp8 = icmp eq ptr %call3, null
+  %or.cond29 = select i1 %or.cond28, i1 true, i1 %cmp8
+  br i1 %or.cond29, label %cleanup, label %if.end
 
-14:                                               ; preds = %0
-  %15 = getelementptr inbounds %struct.tm, ptr %5, i64 0, i32 5
-  %16 = load i32, ptr %15, align 4, !tbaa !9
-  %17 = add nsw i32 %16, 1900
-  %18 = getelementptr inbounds %struct.tm, ptr %5, i64 0, i32 4
-  %19 = load i32, ptr %18, align 8, !tbaa !13
-  %20 = add nsw i32 %19, 1
-  %21 = getelementptr inbounds %struct.tm, ptr %5, i64 0, i32 3
-  %22 = load i32, ptr %21, align 4, !tbaa !14
-  %23 = getelementptr inbounds %struct.tm, ptr %5, i64 0, i32 2
-  %24 = load i32, ptr %23, align 8, !tbaa !15
-  %25 = getelementptr inbounds %struct.tm, ptr %5, i64 0, i32 1
-  %26 = load i32, ptr %25, align 4, !tbaa !16
-  %27 = load i32, ptr %5, align 8, !tbaa !17
-  %28 = call i32 (ptr, ptr, ...) @sprintf(ptr noundef nonnull dereferenceable(1) %2, ptr noundef nonnull dereferenceable(1) @.str, i32 noundef %17, i32 noundef %20, i32 noundef %22, i32 noundef %24, i32 noundef %26, i32 noundef %27) #6
-  %29 = load i32, ptr %15, align 4, !tbaa !9
-  %30 = add nsw i32 %29, 1900
-  %31 = load i32, ptr %18, align 8, !tbaa !13
-  %32 = add nsw i32 %31, 1
-  %33 = load i32, ptr %21, align 4, !tbaa !14
-  %34 = load i32, ptr %23, align 8, !tbaa !15
-  %35 = load i32, ptr %25, align 4, !tbaa !16
-  %36 = load i32, ptr %5, align 8, !tbaa !17
-  %37 = call i32 (ptr, ptr, ...) @sprintf(ptr noundef nonnull dereferenceable(1) %3, ptr noundef nonnull dereferenceable(1) @.str.1, i32 noundef %30, i32 noundef %32, i32 noundef %33, i32 noundef %34, i32 noundef %35, i32 noundef %36) #6
-  %38 = call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.2, ptr noundef nonnull %2)
-  %39 = call noalias ptr @fopen(ptr noundef nonnull %2, ptr noundef nonnull @.str.3)
-  store ptr %39, ptr @output, align 8, !tbaa !5
-  %40 = icmp eq ptr %39, null
-  br i1 %40, label %67, label %41
+if.end:                                           ; preds = %entry
+  %tm_year = getelementptr inbounds %struct.tm, ptr %call3, i64 0, i32 5
+  %1 = load i32, ptr %tm_year, align 4, !tbaa !9
+  %add = add nsw i32 %1, 1900
+  %tm_mon = getelementptr inbounds %struct.tm, ptr %call3, i64 0, i32 4
+  %2 = load i32, ptr %tm_mon, align 8, !tbaa !13
+  %add9 = add nsw i32 %2, 1
+  %tm_mday = getelementptr inbounds %struct.tm, ptr %call3, i64 0, i32 3
+  %3 = load i32, ptr %tm_mday, align 4, !tbaa !14
+  %tm_hour = getelementptr inbounds %struct.tm, ptr %call3, i64 0, i32 2
+  %4 = load i32, ptr %tm_hour, align 8, !tbaa !15
+  %tm_min = getelementptr inbounds %struct.tm, ptr %call3, i64 0, i32 1
+  %5 = load i32, ptr %tm_min, align 4, !tbaa !16
+  %6 = load i32, ptr %call3, align 8, !tbaa !17
+  %call10 = call i32 (ptr, ptr, ...) @sprintf(ptr noundef nonnull dereferenceable(1) %call, ptr noundef nonnull dereferenceable(1) @.str, i32 noundef %add, i32 noundef %add9, i32 noundef %3, i32 noundef %4, i32 noundef %5, i32 noundef %6) #6
+  %7 = load i32, ptr %tm_year, align 4, !tbaa !9
+  %add12 = add nsw i32 %7, 1900
+  %8 = load i32, ptr %tm_mon, align 8, !tbaa !13
+  %add14 = add nsw i32 %8, 1
+  %9 = load i32, ptr %tm_mday, align 4, !tbaa !14
+  %10 = load i32, ptr %tm_hour, align 8, !tbaa !15
+  %11 = load i32, ptr %tm_min, align 4, !tbaa !16
+  %12 = load i32, ptr %call3, align 8, !tbaa !17
+  %call19 = call i32 (ptr, ptr, ...) @sprintf(ptr noundef nonnull dereferenceable(1) %call1, ptr noundef nonnull dereferenceable(1) @.str.1, i32 noundef %add12, i32 noundef %add14, i32 noundef %9, i32 noundef %10, i32 noundef %11, i32 noundef %12) #6
+  %call20 = call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.2, ptr noundef nonnull %call)
+  %call21 = call noalias ptr @fopen(ptr noundef nonnull %call, ptr noundef nonnull @.str.3)
+  store ptr %call21, ptr @output, align 8, !tbaa !5
+  %cmp22.not = icmp eq ptr %call21, null
+  br i1 %cmp22.not, label %cleanup, label %YAMLWriteString.exit
 
-41:                                               ; preds = %14
-  %42 = call i32 (ptr, ptr, ...) @fprintf(ptr noundef nonnull %39, ptr noundef nonnull @.str.15, ptr noundef nonnull @.str.4, ptr noundef nonnull @.str.5)
-  %43 = load ptr, ptr @output, align 8, !tbaa !5
-  %44 = icmp eq ptr %43, null
-  br i1 %44, label %67, label %45
+YAMLWriteString.exit:                             ; preds = %if.end
+  %call.i = call i32 (ptr, ptr, ...) @fprintf(ptr noundef nonnull %call21, ptr noundef nonnull @.str.15, ptr noundef nonnull @.str.4, ptr noundef nonnull @.str.5)
+  %13 = load ptr, ptr @output, align 8, !tbaa !5
+  %cmp.not.i47 = icmp eq ptr %13, null
+  br i1 %cmp.not.i47, label %cleanup, label %YAMLWriteString.exit50
 
-45:                                               ; preds = %41
-  %46 = call i32 (ptr, ptr, ...) @fprintf(ptr noundef nonnull %43, ptr noundef nonnull @.str.15, ptr noundef nonnull @.str.6, ptr noundef nonnull @.str.7)
-  %47 = load ptr, ptr @output, align 8, !tbaa !5
-  %48 = icmp eq ptr %47, null
-  br i1 %48, label %67, label %49
+YAMLWriteString.exit50:                           ; preds = %YAMLWriteString.exit
+  %call.i48 = call i32 (ptr, ptr, ...) @fprintf(ptr noundef nonnull %13, ptr noundef nonnull @.str.15, ptr noundef nonnull @.str.6, ptr noundef nonnull @.str.7)
+  %.pr = load ptr, ptr @output, align 8, !tbaa !5
+  %cmp.not.i51 = icmp eq ptr %.pr, null
+  br i1 %cmp.not.i51, label %cleanup, label %YAMLWriteString.exit54
 
-49:                                               ; preds = %45
-  %50 = call i32 (ptr, ptr, ...) @fprintf(ptr noundef nonnull %47, ptr noundef nonnull @.str.15, ptr noundef nonnull @.str.8, ptr noundef nonnull %3)
-  %51 = load ptr, ptr @output, align 8, !tbaa !5
-  %52 = icmp eq ptr %51, null
-  br i1 %52, label %67, label %53
+YAMLWriteString.exit54:                           ; preds = %YAMLWriteString.exit50
+  %call.i52 = call i32 (ptr, ptr, ...) @fprintf(ptr noundef nonnull %.pr, ptr noundef nonnull @.str.15, ptr noundef nonnull @.str.8, ptr noundef nonnull %call1)
+  %.pr72 = load ptr, ptr @output, align 8, !tbaa !5
+  %cmp.not.i55 = icmp eq ptr %.pr72, null
+  br i1 %cmp.not.i55, label %cleanup, label %YAMLWriteString.exit58
 
-53:                                               ; preds = %49
-  %54 = call i32 (ptr, ptr, ...) @fprintf(ptr noundef nonnull %51, ptr noundef nonnull @.str.15, ptr noundef nonnull @.str.9, ptr noundef nonnull @.str.10)
-  %55 = load ptr, ptr @output, align 8, !tbaa !5
-  %56 = icmp eq ptr %55, null
-  br i1 %56, label %67, label %57
+YAMLWriteString.exit58:                           ; preds = %YAMLWriteString.exit54
+  %call.i56 = call i32 (ptr, ptr, ...) @fprintf(ptr noundef nonnull %.pr72, ptr noundef nonnull @.str.15, ptr noundef nonnull @.str.9, ptr noundef nonnull @.str.10)
+  %.pr74.pr = load ptr, ptr @output, align 8, !tbaa !5
+  %cmp.not.i59 = icmp eq ptr %.pr74.pr, null
+  br i1 %cmp.not.i59, label %cleanup, label %YAMLWriteString.exit62
 
-57:                                               ; preds = %53
-  %58 = call i32 (ptr, ptr, ...) @fprintf(ptr noundef nonnull %55, ptr noundef nonnull @.str.15, ptr noundef nonnull @.str.11, ptr noundef nonnull @.str.10)
-  %59 = load ptr, ptr @output, align 8, !tbaa !5
-  %60 = icmp eq ptr %59, null
-  br i1 %60, label %67, label %61
+YAMLWriteString.exit62:                           ; preds = %YAMLWriteString.exit58
+  %call.i60 = call i32 (ptr, ptr, ...) @fprintf(ptr noundef nonnull %.pr74.pr, ptr noundef nonnull @.str.15, ptr noundef nonnull @.str.11, ptr noundef nonnull @.str.10)
+  %.pr76 = load ptr, ptr @output, align 8, !tbaa !5
+  %cmp.not.i63 = icmp eq ptr %.pr76, null
+  br i1 %cmp.not.i63, label %cleanup, label %YAMLWriteString.exit66
 
-61:                                               ; preds = %57
-  %62 = call i32 (ptr, ptr, ...) @fprintf(ptr noundef nonnull %59, ptr noundef nonnull @.str.15, ptr noundef nonnull @.str.12, ptr noundef nonnull @.str.13)
-  %63 = load ptr, ptr @output, align 8, !tbaa !5
-  %64 = icmp eq ptr %63, null
-  br i1 %64, label %67, label %65
+YAMLWriteString.exit66:                           ; preds = %YAMLWriteString.exit62
+  %call.i64 = call i32 (ptr, ptr, ...) @fprintf(ptr noundef nonnull %.pr76, ptr noundef nonnull @.str.15, ptr noundef nonnull @.str.12, ptr noundef nonnull @.str.13)
+  %.pr78.pr.pr = load ptr, ptr @output, align 8, !tbaa !5
+  %cmp.not.i67 = icmp eq ptr %.pr78.pr.pr, null
+  br i1 %cmp.not.i67, label %cleanup, label %if.then.i69
 
-65:                                               ; preds = %61
-  %66 = call i32 (ptr, ptr, ...) @fprintf(ptr noundef nonnull %63, ptr noundef nonnull @.str.15, ptr noundef nonnull @.str.14, ptr noundef nonnull @.str.13)
-  br label %67
+if.then.i69:                                      ; preds = %YAMLWriteString.exit66
+  %call.i68 = call i32 (ptr, ptr, ...) @fprintf(ptr noundef nonnull %.pr78.pr.pr, ptr noundef nonnull @.str.15, ptr noundef nonnull @.str.14, ptr noundef nonnull @.str.13)
+  br label %cleanup
 
-67:                                               ; preds = %41, %45, %53, %49, %57, %14, %61, %65, %0
-  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %1) #6
+cleanup:                                          ; preds = %YAMLWriteString.exit, %YAMLWriteString.exit50, %YAMLWriteString.exit58, %YAMLWriteString.exit54, %YAMLWriteString.exit62, %if.then.i69, %YAMLWriteString.exit66, %if.end, %entry
+  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %rawTime) #6
   ret void
 }
 
@@ -141,16 +142,17 @@ declare noundef i32 @printf(ptr nocapture noundef readonly, ...) local_unnamed_a
 declare noalias noundef ptr @fopen(ptr nocapture noundef readonly, ptr nocapture noundef readonly) local_unnamed_addr #4
 
 ; Function Attrs: nofree nounwind uwtable
-define dso_local void @YAMLWriteString(ptr noundef %0, ptr noundef %1) local_unnamed_addr #5 {
-  %3 = load ptr, ptr @output, align 8, !tbaa !5
-  %4 = icmp eq ptr %3, null
-  br i1 %4, label %7, label %5
+define dso_local void @YAMLWriteString(ptr noundef %tag, ptr noundef %data) local_unnamed_addr #5 {
+entry:
+  %0 = load ptr, ptr @output, align 8, !tbaa !5
+  %cmp.not = icmp eq ptr %0, null
+  br i1 %cmp.not, label %if.end, label %if.then
 
-5:                                                ; preds = %2
-  %6 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef nonnull %3, ptr noundef nonnull @.str.15, ptr noundef %0, ptr noundef %1)
-  br label %7
+if.then:                                          ; preds = %entry
+  %call = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef nonnull %0, ptr noundef nonnull @.str.15, ptr noundef %tag, ptr noundef %data)
+  br label %if.end
 
-7:                                                ; preds = %5, %2
+if.end:                                           ; preds = %if.then, %entry
   ret void
 }
 
@@ -159,15 +161,16 @@ declare void @llvm.lifetime.end.p0(i64 immarg, ptr nocapture) #1
 
 ; Function Attrs: nofree nounwind uwtable
 define dso_local void @YAMLClose() local_unnamed_addr #5 {
-  %1 = load ptr, ptr @output, align 8, !tbaa !5
-  %2 = icmp eq ptr %1, null
-  br i1 %2, label %5, label %3
+entry:
+  %0 = load ptr, ptr @output, align 8, !tbaa !5
+  %cmp.not = icmp eq ptr %0, null
+  br i1 %cmp.not, label %if.end, label %if.then
 
-3:                                                ; preds = %0
-  %4 = tail call i32 @fclose(ptr noundef nonnull %1)
-  br label %5
+if.then:                                          ; preds = %entry
+  %call = tail call i32 @fclose(ptr noundef nonnull %0)
+  br label %if.end
 
-5:                                                ; preds = %3, %0
+if.end:                                           ; preds = %if.then, %entry
   ret void
 }
 
@@ -178,45 +181,48 @@ declare noundef i32 @fclose(ptr nocapture noundef) local_unnamed_addr #4
 declare noundef i32 @fprintf(ptr nocapture noundef, ptr nocapture noundef readonly, ...) local_unnamed_addr #4
 
 ; Function Attrs: nofree nounwind uwtable
-define dso_local void @YAMLWriteInt(ptr noundef %0, i32 noundef %1) local_unnamed_addr #5 {
-  %3 = load ptr, ptr @output, align 8, !tbaa !5
-  %4 = icmp eq ptr %3, null
-  br i1 %4, label %7, label %5
+define dso_local void @YAMLWriteInt(ptr noundef %tag, i32 noundef %data) local_unnamed_addr #5 {
+entry:
+  %0 = load ptr, ptr @output, align 8, !tbaa !5
+  %cmp.not = icmp eq ptr %0, null
+  br i1 %cmp.not, label %if.end, label %if.then
 
-5:                                                ; preds = %2
-  %6 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef nonnull %3, ptr noundef nonnull @.str.16, ptr noundef %0, i32 noundef %1)
-  br label %7
+if.then:                                          ; preds = %entry
+  %call = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef nonnull %0, ptr noundef nonnull @.str.16, ptr noundef %tag, i32 noundef %data)
+  br label %if.end
 
-7:                                                ; preds = %5, %2
+if.end:                                           ; preds = %if.then, %entry
   ret void
 }
 
 ; Function Attrs: nofree nounwind uwtable
-define dso_local void @YAMLWriteDouble(ptr noundef %0, double noundef %1) local_unnamed_addr #5 {
-  %3 = load ptr, ptr @output, align 8, !tbaa !5
-  %4 = icmp eq ptr %3, null
-  br i1 %4, label %7, label %5
+define dso_local void @YAMLWriteDouble(ptr noundef %tag, double noundef %data) local_unnamed_addr #5 {
+entry:
+  %0 = load ptr, ptr @output, align 8, !tbaa !5
+  %cmp.not = icmp eq ptr %0, null
+  br i1 %cmp.not, label %if.end, label %if.then
 
-5:                                                ; preds = %2
-  %6 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef nonnull %3, ptr noundef nonnull @.str.17, ptr noundef %0, double noundef %1)
-  br label %7
+if.then:                                          ; preds = %entry
+  %call = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef nonnull %0, ptr noundef nonnull @.str.17, ptr noundef %tag, double noundef %data)
+  br label %if.end
 
-7:                                                ; preds = %5, %2
+if.end:                                           ; preds = %if.then, %entry
   ret void
 }
 
 ; Function Attrs: nofree nounwind uwtable
-define dso_local void @YAMLWriteFloat(ptr noundef %0, float noundef %1) local_unnamed_addr #5 {
-  %3 = load ptr, ptr @output, align 8, !tbaa !5
-  %4 = icmp eq ptr %3, null
-  br i1 %4, label %8, label %5
+define dso_local void @YAMLWriteFloat(ptr noundef %tag, float noundef %data) local_unnamed_addr #5 {
+entry:
+  %0 = load ptr, ptr @output, align 8, !tbaa !5
+  %cmp.not = icmp eq ptr %0, null
+  br i1 %cmp.not, label %if.end, label %if.then
 
-5:                                                ; preds = %2
-  %6 = fpext float %1 to double
-  %7 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef nonnull %3, ptr noundef nonnull @.str.18, ptr noundef %0, double noundef %6)
-  br label %8
+if.then:                                          ; preds = %entry
+  %conv = fpext float %data to double
+  %call = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef nonnull %0, ptr noundef nonnull @.str.18, ptr noundef %tag, double noundef %conv)
+  br label %if.end
 
-8:                                                ; preds = %5, %2
+if.end:                                           ; preds = %if.then, %entry
   ret void
 }
 

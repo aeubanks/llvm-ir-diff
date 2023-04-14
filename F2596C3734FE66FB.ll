@@ -4,308 +4,316 @@ target datalayout = "e-m:e-p270:32:32-p271:32:32-p272:64:64-i64:64-f80:128-n8:16
 target triple = "x86_64-unknown-linux-gnu"
 
 ; Function Attrs: nofree norecurse nosync nounwind memory(argmem: readwrite) uwtable
-define dso_local i64 @ARM_Convert(ptr nocapture noundef %0, i64 noundef %1, i32 noundef %2, i32 noundef %3) local_unnamed_addr #0 {
-  %5 = icmp ult i64 %1, 4
-  br i1 %5, label %46, label %6
+define dso_local i64 @ARM_Convert(ptr nocapture noundef %data, i64 noundef %size, i32 noundef %ip, i32 noundef %encoding) local_unnamed_addr #0 {
+entry:
+  %cmp = icmp ult i64 %size, 4
+  br i1 %cmp, label %cleanup, label %if.end
 
-6:                                                ; preds = %4
-  %7 = add i64 %1, -4
-  %8 = add i32 %2, 8
-  %9 = icmp eq i32 %3, 0
-  br label %10
+if.end:                                           ; preds = %entry
+  %sub = add i64 %size, -4
+  %add = add i32 %ip, 8
+  %tobool.not = icmp eq i32 %encoding, 0
+  br label %for.body
 
-10:                                               ; preds = %6, %43
-  %11 = phi i64 [ 0, %6 ], [ %44, %43 ]
-  %12 = or i64 %11, 3
-  %13 = getelementptr inbounds i8, ptr %0, i64 %12
-  %14 = load i8, ptr %13, align 1, !tbaa !5
-  %15 = icmp eq i8 %14, -21
-  br i1 %15, label %16, label %43
+for.body:                                         ; preds = %if.end, %for.inc
+  %i.065 = phi i64 [ 0, %if.end ], [ %add38, %for.inc ]
+  %add2 = or i64 %i.065, 3
+  %arrayidx = getelementptr inbounds i8, ptr %data, i64 %add2
+  %0 = load i8, ptr %arrayidx, align 1, !tbaa !5
+  %cmp3 = icmp eq i8 %0, -21
+  br i1 %cmp3, label %if.then5, label %for.inc
 
-16:                                               ; preds = %10
-  %17 = or i64 %11, 2
-  %18 = getelementptr inbounds i8, ptr %0, i64 %17
-  %19 = load i8, ptr %18, align 1, !tbaa !5
-  %20 = zext i8 %19 to i32
-  %21 = shl nuw nsw i32 %20, 16
-  %22 = or i64 %11, 1
-  %23 = getelementptr inbounds i8, ptr %0, i64 %22
-  %24 = load i8, ptr %23, align 1, !tbaa !5
-  %25 = zext i8 %24 to i32
-  %26 = shl nuw nsw i32 %25, 8
-  %27 = or i32 %26, %21
-  %28 = getelementptr inbounds i8, ptr %0, i64 %11
-  %29 = load i8, ptr %28, align 1, !tbaa !5
-  %30 = zext i8 %29 to i32
-  %31 = or i32 %27, %30
-  %32 = trunc i64 %11 to i32
-  %33 = add i32 %8, %32
-  %34 = sub i32 0, %33
-  %35 = select i1 %9, i32 %34, i32 %33
-  %36 = lshr i32 %35, 2
-  %37 = add nuw nsw i32 %31, %36
-  %38 = lshr i32 %37, 16
-  %39 = trunc i32 %38 to i8
-  store i8 %39, ptr %18, align 1, !tbaa !5
-  %40 = lshr i32 %37, 8
-  %41 = trunc i32 %40 to i8
-  store i8 %41, ptr %23, align 1, !tbaa !5
-  %42 = trunc i32 %37 to i8
-  store i8 %42, ptr %28, align 1, !tbaa !5
-  br label %43
+if.then5:                                         ; preds = %for.body
+  %add6 = or i64 %i.065, 2
+  %arrayidx7 = getelementptr inbounds i8, ptr %data, i64 %add6
+  %1 = load i8, ptr %arrayidx7, align 1, !tbaa !5
+  %conv8 = zext i8 %1 to i32
+  %shl = shl nuw nsw i32 %conv8, 16
+  %add9 = or i64 %i.065, 1
+  %arrayidx10 = getelementptr inbounds i8, ptr %data, i64 %add9
+  %2 = load i8, ptr %arrayidx10, align 1, !tbaa !5
+  %conv11 = zext i8 %2 to i32
+  %shl12 = shl nuw nsw i32 %conv11, 8
+  %or = or i32 %shl12, %shl
+  %arrayidx14 = getelementptr inbounds i8, ptr %data, i64 %i.065
+  %3 = load i8, ptr %arrayidx14, align 1, !tbaa !5
+  %conv15 = zext i8 %3 to i32
+  %or16 = or i32 %or, %conv15
+  %shl17 = shl nuw nsw i32 %or16, 2
+  %conv19 = trunc i64 %i.065 to i32
+  %add20 = add i32 %add, %conv19
+  %4 = sub i32 0, %add20
+  %dest.0.p = select i1 %tobool.not, i32 %4, i32 %add20
+  %dest.0 = add i32 %shl17, %dest.0.p
+  %shr = lshr i32 %dest.0, 2
+  %shr26 = lshr i32 %dest.0, 18
+  %conv27 = trunc i32 %shr26 to i8
+  store i8 %conv27, ptr %arrayidx7, align 1, !tbaa !5
+  %shr30 = lshr i32 %dest.0, 10
+  %conv31 = trunc i32 %shr30 to i8
+  store i8 %conv31, ptr %arrayidx10, align 1, !tbaa !5
+  %conv34 = trunc i32 %shr to i8
+  store i8 %conv34, ptr %arrayidx14, align 1, !tbaa !5
+  br label %for.inc
 
-43:                                               ; preds = %10, %16
-  %44 = add nuw i64 %11, 4
-  %45 = icmp ugt i64 %44, %7
-  br i1 %45, label %46, label %10, !llvm.loop !8
+for.inc:                                          ; preds = %for.body, %if.then5
+  %add38 = add nuw i64 %i.065, 4
+  %cmp1.not = icmp ugt i64 %add38, %sub
+  br i1 %cmp1.not, label %cleanup, label %for.body, !llvm.loop !8
 
-46:                                               ; preds = %43, %4
-  %47 = phi i64 [ 0, %4 ], [ %44, %43 ]
-  ret i64 %47
+cleanup:                                          ; preds = %for.inc, %entry
+  %retval.0 = phi i64 [ 0, %entry ], [ %add38, %for.inc ]
+  ret i64 %retval.0
 }
 
 ; Function Attrs: nofree norecurse nosync nounwind memory(argmem: readwrite) uwtable
-define dso_local i64 @ARMT_Convert(ptr nocapture noundef %0, i64 noundef %1, i32 noundef %2, i32 noundef %3) local_unnamed_addr #0 {
-  %5 = icmp ult i64 %1, 4
-  br i1 %5, label %61, label %6
+define dso_local i64 @ARMT_Convert(ptr nocapture noundef %data, i64 noundef %size, i32 noundef %ip, i32 noundef %encoding) local_unnamed_addr #0 {
+entry:
+  %cmp = icmp ult i64 %size, 4
+  br i1 %cmp, label %cleanup, label %if.end
 
-6:                                                ; preds = %4
-  %7 = add i64 %1, -4
-  %8 = add i32 %2, 4
-  %9 = icmp eq i32 %3, 0
-  br label %10
+if.end:                                           ; preds = %entry
+  %sub = add i64 %size, -4
+  %add = add i32 %ip, 4
+  %tobool.not = icmp eq i32 %encoding, 0
+  br label %for.body
 
-10:                                               ; preds = %6, %57
-  %11 = phi i64 [ 0, %6 ], [ %59, %57 ]
-  %12 = add nuw i64 %11, 1
-  %13 = getelementptr inbounds i8, ptr %0, i64 %12
-  %14 = load i8, ptr %13, align 1, !tbaa !5
-  %15 = zext i8 %14 to i32
-  %16 = and i32 %15, 248
-  %17 = icmp eq i32 %16, 240
-  br i1 %17, label %18, label %57
+for.body:                                         ; preds = %if.end, %for.inc
+  %i.095 = phi i64 [ 0, %if.end ], [ %add60, %for.inc ]
+  %add2 = add nuw i64 %i.095, 1
+  %arrayidx = getelementptr inbounds i8, ptr %data, i64 %add2
+  %0 = load i8, ptr %arrayidx, align 1, !tbaa !5
+  %conv = zext i8 %0 to i32
+  %and = and i32 %conv, 248
+  %cmp3 = icmp eq i32 %and, 240
+  br i1 %cmp3, label %land.lhs.true, label %for.inc
 
-18:                                               ; preds = %10
-  %19 = add nuw i64 %11, 3
-  %20 = getelementptr inbounds i8, ptr %0, i64 %19
-  %21 = load i8, ptr %20, align 1, !tbaa !5
-  %22 = zext i8 %21 to i32
-  %23 = and i32 %22, 248
-  %24 = icmp eq i32 %23, 248
-  br i1 %24, label %25, label %57
+land.lhs.true:                                    ; preds = %for.body
+  %add5 = add nuw i64 %i.095, 3
+  %arrayidx6 = getelementptr inbounds i8, ptr %data, i64 %add5
+  %1 = load i8, ptr %arrayidx6, align 1, !tbaa !5
+  %conv7 = zext i8 %1 to i32
+  %and8 = and i32 %conv7, 248
+  %cmp9 = icmp eq i32 %and8, 248
+  br i1 %cmp9, label %if.then11, label %for.inc
 
-25:                                               ; preds = %18
-  %26 = shl nuw nsw i32 %15, 19
-  %27 = and i32 %26, 3670016
-  %28 = getelementptr inbounds i8, ptr %0, i64 %11
-  %29 = load i8, ptr %28, align 1, !tbaa !5
-  %30 = zext i8 %29 to i32
-  %31 = shl nuw nsw i32 %30, 11
-  %32 = shl nuw nsw i32 %22, 8
-  %33 = and i32 %32, 1792
-  %34 = add nuw i64 %11, 2
-  %35 = getelementptr inbounds i8, ptr %0, i64 %34
-  %36 = load i8, ptr %35, align 1, !tbaa !5
-  %37 = zext i8 %36 to i32
-  %38 = trunc i64 %11 to i32
-  %39 = add i32 %8, %38
-  %40 = sub i32 0, %39
-  %41 = select i1 %9, i32 %40, i32 %39
-  %42 = lshr i32 %41, 1
-  %43 = add nuw i32 %27, %42
-  %44 = add nuw i32 %43, %33
-  %45 = add nuw i32 %44, %31
-  %46 = add nuw i32 %45, %37
-  %47 = lshr i32 %46, 19
-  %48 = trunc i32 %47 to i8
-  %49 = and i8 %48, 7
-  %50 = or i8 %49, -16
-  store i8 %50, ptr %13, align 1, !tbaa !5
-  %51 = lshr i32 %46, 11
-  %52 = trunc i32 %51 to i8
-  store i8 %52, ptr %28, align 1, !tbaa !5
-  %53 = lshr i32 %46, 8
-  %54 = trunc i32 %53 to i8
-  %55 = or i8 %54, -8
-  store i8 %55, ptr %20, align 1, !tbaa !5
-  %56 = trunc i32 %46 to i8
-  store i8 %56, ptr %35, align 1, !tbaa !5
-  br label %57
+if.then11:                                        ; preds = %land.lhs.true
+  %and15 = shl nuw nsw i32 %conv, 19
+  %shl = and i32 %and15, 3670016
+  %arrayidx17 = getelementptr inbounds i8, ptr %data, i64 %i.095
+  %2 = load i8, ptr %arrayidx17, align 1, !tbaa !5
+  %conv18 = zext i8 %2 to i32
+  %shl19 = shl nuw nsw i32 %conv18, 11
+  %or = or i32 %shl19, %shl
+  %and23 = shl nuw nsw i32 %conv7, 8
+  %shl24 = and i32 %and23, 1792
+  %or25 = or i32 %or, %shl24
+  %add26 = add nuw i64 %i.095, 2
+  %arrayidx27 = getelementptr inbounds i8, ptr %data, i64 %add26
+  %3 = load i8, ptr %arrayidx27, align 1, !tbaa !5
+  %conv28 = zext i8 %3 to i32
+  %or29 = or i32 %or25, %conv28
+  %shl30 = shl nuw nsw i32 %or29, 1
+  %conv32 = trunc i64 %i.095 to i32
+  %add33 = add i32 %add, %conv32
+  %4 = sub i32 0, %add33
+  %dest.0.p = select i1 %tobool.not, i32 %4, i32 %add33
+  %dest.0 = add i32 %shl30, %dest.0.p
+  %shr = lshr i32 %dest.0, 1
+  %shr39 = lshr i32 %dest.0, 20
+  %5 = trunc i32 %shr39 to i8
+  %6 = and i8 %5, 7
+  %conv42 = or i8 %6, -16
+  store i8 %conv42, ptr %arrayidx, align 1, !tbaa !5
+  %shr45 = lshr i32 %dest.0, 12
+  %conv46 = trunc i32 %shr45 to i8
+  store i8 %conv46, ptr %arrayidx17, align 1, !tbaa !5
+  %shr49 = lshr i32 %dest.0, 9
+  %7 = trunc i32 %shr49 to i8
+  %conv52 = or i8 %7, -8
+  store i8 %conv52, ptr %arrayidx6, align 1, !tbaa !5
+  %conv55 = trunc i32 %shr to i8
+  store i8 %conv55, ptr %arrayidx27, align 1, !tbaa !5
+  br label %for.inc
 
-57:                                               ; preds = %10, %18, %25
-  %58 = phi i64 [ %34, %25 ], [ %11, %18 ], [ %11, %10 ]
-  %59 = add i64 %58, 2
-  %60 = icmp ugt i64 %59, %7
-  br i1 %60, label %61, label %10, !llvm.loop !10
+for.inc:                                          ; preds = %for.body, %land.lhs.true, %if.then11
+  %i.1 = phi i64 [ %add26, %if.then11 ], [ %i.095, %land.lhs.true ], [ %i.095, %for.body ]
+  %add60 = add i64 %i.1, 2
+  %cmp1.not = icmp ugt i64 %add60, %sub
+  br i1 %cmp1.not, label %cleanup, label %for.body, !llvm.loop !10
 
-61:                                               ; preds = %57, %4
-  %62 = phi i64 [ 0, %4 ], [ %59, %57 ]
-  ret i64 %62
+cleanup:                                          ; preds = %for.inc, %entry
+  %retval.0 = phi i64 [ 0, %entry ], [ %add60, %for.inc ]
+  ret i64 %retval.0
 }
 
 ; Function Attrs: nofree norecurse nosync nounwind memory(argmem: readwrite) uwtable
-define dso_local i64 @PPC_Convert(ptr nocapture noundef %0, i64 noundef %1, i32 noundef %2, i32 noundef %3) local_unnamed_addr #0 {
-  %5 = icmp ult i64 %1, 4
-  br i1 %5, label %58, label %6
+define dso_local i64 @PPC_Convert(ptr nocapture noundef %data, i64 noundef %size, i32 noundef %ip, i32 noundef %encoding) local_unnamed_addr #0 {
+entry:
+  %cmp = icmp ult i64 %size, 4
+  br i1 %cmp, label %cleanup, label %if.end
 
-6:                                                ; preds = %4
-  %7 = add i64 %1, -4
-  %8 = icmp eq i32 %3, 0
-  br label %9
+if.end:                                           ; preds = %entry
+  %sub = add i64 %size, -4
+  %tobool.not = icmp eq i32 %encoding, 0
+  br label %for.body
 
-9:                                                ; preds = %6, %55
-  %10 = phi i64 [ 0, %6 ], [ %56, %55 ]
-  %11 = getelementptr inbounds i8, ptr %0, i64 %10
-  %12 = load i8, ptr %11, align 1, !tbaa !5
-  %13 = zext i8 %12 to i32
-  %14 = and i32 %13, 252
-  %15 = icmp eq i32 %14, 72
-  br i1 %15, label %16, label %55
+for.body:                                         ; preds = %if.end, %for.inc
+  %i.093 = phi i64 [ 0, %if.end ], [ %add60, %for.inc ]
+  %arrayidx = getelementptr inbounds i8, ptr %data, i64 %i.093
+  %0 = load i8, ptr %arrayidx, align 1, !tbaa !5
+  %conv = zext i8 %0 to i32
+  %shr.mask = and i32 %conv, 252
+  %cmp2 = icmp eq i32 %shr.mask, 72
+  br i1 %cmp2, label %land.lhs.true, label %for.inc
 
-16:                                               ; preds = %9
-  %17 = or i64 %10, 3
-  %18 = getelementptr inbounds i8, ptr %0, i64 %17
-  %19 = load i8, ptr %18, align 1, !tbaa !5
-  %20 = zext i8 %19 to i32
-  %21 = and i32 %20, 3
-  %22 = icmp eq i32 %21, 1
-  br i1 %22, label %23, label %55
+land.lhs.true:                                    ; preds = %for.body
+  %add = or i64 %i.093, 3
+  %arrayidx4 = getelementptr inbounds i8, ptr %data, i64 %add
+  %1 = load i8, ptr %arrayidx4, align 1, !tbaa !5
+  %conv5 = zext i8 %1 to i32
+  %and = and i32 %conv5, 3
+  %cmp6 = icmp eq i32 %and, 1
+  br i1 %cmp6, label %if.then8, label %for.inc
 
-23:                                               ; preds = %16
-  %24 = shl nuw i32 %13, 24
-  %25 = and i32 %24, 50331648
-  %26 = or i64 %10, 1
-  %27 = getelementptr inbounds i8, ptr %0, i64 %26
-  %28 = load i8, ptr %27, align 1, !tbaa !5
-  %29 = zext i8 %28 to i32
-  %30 = shl nuw nsw i32 %29, 16
-  %31 = or i64 %10, 2
-  %32 = getelementptr inbounds i8, ptr %0, i64 %31
-  %33 = load i8, ptr %32, align 1, !tbaa !5
-  %34 = zext i8 %33 to i32
-  %35 = shl nuw nsw i32 %34, 8
-  %36 = and i32 %20, 252
-  %37 = trunc i64 %10 to i32
-  %38 = add i32 %37, %2
-  %39 = sub i32 0, %38
-  %40 = select i1 %8, i32 %39, i32 %38
-  %41 = add i32 %25, %40
-  %42 = add i32 %41, %36
-  %43 = add i32 %42, %30
-  %44 = add i32 %43, %35
-  %45 = lshr i32 %44, 24
-  %46 = trunc i32 %45 to i8
-  %47 = and i8 %46, 3
-  %48 = or i8 %47, 72
-  store i8 %48, ptr %11, align 1, !tbaa !5
-  %49 = lshr i32 %44, 16
-  %50 = trunc i32 %49 to i8
-  store i8 %50, ptr %27, align 1, !tbaa !5
-  %51 = lshr i32 %44, 8
-  %52 = trunc i32 %51 to i8
-  store i8 %52, ptr %32, align 1, !tbaa !5
-  %53 = trunc i32 %42 to i8
-  %54 = or i8 %53, 1
-  store i8 %54, ptr %18, align 1, !tbaa !5
-  br label %55
+if.then8:                                         ; preds = %land.lhs.true
+  %and12 = shl nuw i32 %conv, 24
+  %shl = and i32 %and12, 50331648
+  %add13 = or i64 %i.093, 1
+  %arrayidx14 = getelementptr inbounds i8, ptr %data, i64 %add13
+  %2 = load i8, ptr %arrayidx14, align 1, !tbaa !5
+  %conv15 = zext i8 %2 to i32
+  %shl16 = shl nuw nsw i32 %conv15, 16
+  %add17 = or i64 %i.093, 2
+  %arrayidx18 = getelementptr inbounds i8, ptr %data, i64 %add17
+  %3 = load i8, ptr %arrayidx18, align 1, !tbaa !5
+  %conv19 = zext i8 %3 to i32
+  %shl20 = shl nuw nsw i32 %conv19, 8
+  %and25 = and i32 %conv5, 252
+  %conv28 = trunc i64 %i.093 to i32
+  %add29 = add i32 %conv28, %ip
+  %4 = sub i32 0, %add29
+  %dest.0.p = select i1 %tobool.not, i32 %4, i32 %add29
+  %or26 = add i32 %shl, %dest.0.p
+  %or = add i32 %or26, %and25
+  %or21 = add i32 %or, %shl16
+  %dest.0 = add i32 %or21, %shl20
+  %shr35 = lshr i32 %dest.0, 24
+  %5 = trunc i32 %shr35 to i8
+  %6 = and i8 %5, 3
+  %conv38 = or i8 %6, 72
+  store i8 %conv38, ptr %arrayidx, align 1, !tbaa !5
+  %shr41 = lshr i32 %dest.0, 16
+  %conv42 = trunc i32 %shr41 to i8
+  store i8 %conv42, ptr %arrayidx14, align 1, !tbaa !5
+  %shr45 = lshr i32 %dest.0, 8
+  %conv46 = trunc i32 %shr45 to i8
+  store i8 %conv46, ptr %arrayidx18, align 1, !tbaa !5
+  %7 = and i8 %1, 3
+  %8 = trunc i32 %or to i8
+  %conv58 = or i8 %7, %8
+  store i8 %conv58, ptr %arrayidx4, align 1, !tbaa !5
+  br label %for.inc
 
-55:                                               ; preds = %9, %16, %23
-  %56 = add nuw i64 %10, 4
-  %57 = icmp ugt i64 %56, %7
-  br i1 %57, label %58, label %9, !llvm.loop !11
+for.inc:                                          ; preds = %for.body, %land.lhs.true, %if.then8
+  %add60 = add nuw i64 %i.093, 4
+  %cmp1.not = icmp ugt i64 %add60, %sub
+  br i1 %cmp1.not, label %cleanup, label %for.body, !llvm.loop !11
 
-58:                                               ; preds = %55, %4
-  %59 = phi i64 [ 0, %4 ], [ %56, %55 ]
-  ret i64 %59
+cleanup:                                          ; preds = %for.inc, %entry
+  %retval.0 = phi i64 [ 0, %entry ], [ %add60, %for.inc ]
+  ret i64 %retval.0
 }
 
 ; Function Attrs: nofree norecurse nosync nounwind memory(argmem: readwrite) uwtable
-define dso_local i64 @SPARC_Convert(ptr nocapture noundef %0, i64 noundef %1, i32 noundef %2, i32 noundef %3) local_unnamed_addr #0 {
-  %5 = icmp ult i64 %1, 4
-  br i1 %5, label %66, label %6
+define dso_local i64 @SPARC_Convert(ptr nocapture noundef %data, i64 noundef %size, i32 noundef %ip, i32 noundef %encoding) local_unnamed_addr #0 {
+entry:
+  %cmp = icmp ult i64 %size, 4
+  br i1 %cmp, label %cleanup, label %if.end
 
-6:                                                ; preds = %4
-  %7 = add i64 %1, -4
-  %8 = icmp eq i32 %3, 0
-  br label %9
+if.end:                                           ; preds = %entry
+  %sub = add i64 %size, -4
+  %tobool.not = icmp eq i32 %encoding, 0
+  br label %for.body
 
-9:                                                ; preds = %6, %62
-  %10 = phi i64 [ 0, %6 ], [ %64, %62 ]
-  %11 = trunc i64 %10 to i32
-  %12 = getelementptr inbounds i8, ptr %0, i64 %10
-  %13 = load i8, ptr %12, align 1, !tbaa !5
-  %14 = zext i8 %13 to i32
-  switch i8 %13, label %62 [
-    i8 64, label %15
-    i8 127, label %20
+for.body:                                         ; preds = %if.end, %for.inc
+  %conv122 = phi i64 [ 0, %if.end ], [ %conv, %for.inc ]
+  %indvars = trunc i64 %conv122 to i32
+  %arrayidx = getelementptr inbounds i8, ptr %data, i64 %conv122
+  %0 = load i8, ptr %arrayidx, align 1, !tbaa !5
+  switch i8 %0, label %for.inc [
+    i8 64, label %land.lhs.true
+    i8 127, label %land.lhs.true16
   ]
 
-15:                                               ; preds = %9
-  %16 = or i64 %10, 1
-  %17 = getelementptr inbounds i8, ptr %0, i64 %16
-  %18 = load i8, ptr %17, align 1, !tbaa !5
-  %19 = icmp ult i8 %18, 64
-  br i1 %19, label %25, label %62
+land.lhs.true:                                    ; preds = %for.body
+  %add = or i64 %conv122, 1
+  %arrayidx7 = getelementptr inbounds i8, ptr %data, i64 %add
+  %1 = load i8, ptr %arrayidx7, align 1, !tbaa !5
+  %cmp9 = icmp ult i8 %1, 64
+  br i1 %cmp9, label %if.then24, label %for.inc
 
-20:                                               ; preds = %9
-  %21 = or i64 %10, 1
-  %22 = getelementptr inbounds i8, ptr %0, i64 %21
-  %23 = load i8, ptr %22, align 1, !tbaa !5
-  %24 = icmp ugt i8 %23, -65
-  br i1 %24, label %25, label %62
+land.lhs.true16:                                  ; preds = %for.body
+  %add17 = or i64 %conv122, 1
+  %arrayidx19 = getelementptr inbounds i8, ptr %data, i64 %add17
+  %2 = load i8, ptr %arrayidx19, align 1, !tbaa !5
+  %cmp22 = icmp ugt i8 %2, -65
+  br i1 %cmp22, label %if.then24, label %for.inc
 
-25:                                               ; preds = %20, %15
-  %26 = phi i8 [ %23, %20 ], [ %18, %15 ]
-  %27 = phi i64 [ %21, %20 ], [ %16, %15 ]
-  %28 = shl nuw nsw i32 %14, 24
-  %29 = getelementptr inbounds i8, ptr %0, i64 %27
-  %30 = zext i8 %26 to i32
-  %31 = shl nuw nsw i32 %30, 16
-  %32 = or i32 %31, %28
-  %33 = or i64 %10, 2
-  %34 = getelementptr inbounds i8, ptr %0, i64 %33
-  %35 = load i8, ptr %34, align 1, !tbaa !5
-  %36 = zext i8 %35 to i32
-  %37 = shl nuw nsw i32 %36, 8
-  %38 = or i32 %32, %37
-  %39 = or i64 %10, 3
-  %40 = getelementptr inbounds i8, ptr %0, i64 %39
-  %41 = load i8, ptr %40, align 1, !tbaa !5
-  %42 = zext i8 %41 to i32
-  %43 = or i32 %38, %42
-  %44 = add i32 %11, %2
-  %45 = sub i32 0, %44
-  %46 = select i1 %8, i32 %45, i32 %44
-  %47 = lshr i32 %46, 2
-  %48 = add nuw i32 %43, %47
-  %49 = shl i32 %48, 9
-  %50 = ashr exact i32 %49, 9
-  %51 = and i32 %50, 1069547520
-  %52 = and i32 %48, 4128768
-  %53 = or i32 %51, %52
-  %54 = lshr i32 %51, 24
-  %55 = trunc i32 %54 to i8
-  %56 = or i8 %55, 64
-  store i8 %56, ptr %12, align 1, !tbaa !5
-  %57 = lshr exact i32 %53, 16
-  %58 = trunc i32 %57 to i8
-  store i8 %58, ptr %29, align 1, !tbaa !5
-  %59 = lshr i32 %48, 8
-  %60 = trunc i32 %59 to i8
-  store i8 %60, ptr %34, align 1, !tbaa !5
-  %61 = trunc i32 %48 to i8
-  store i8 %61, ptr %40, align 1, !tbaa !5
-  br label %62
+if.then24:                                        ; preds = %land.lhs.true16, %land.lhs.true
+  %3 = phi i8 [ %2, %land.lhs.true16 ], [ %1, %land.lhs.true ]
+  %idxprom30.pre-phi = phi i64 [ %add17, %land.lhs.true16 ], [ %add, %land.lhs.true ]
+  %conv28 = zext i8 %0 to i32
+  %shl = shl nuw nsw i32 %conv28, 24
+  %arrayidx31 = getelementptr inbounds i8, ptr %data, i64 %idxprom30.pre-phi
+  %conv32 = zext i8 %3 to i32
+  %shl33 = shl nuw nsw i32 %conv32, 16
+  %or = or i32 %shl33, %shl
+  %add34 = or i64 %conv122, 2
+  %arrayidx36 = getelementptr inbounds i8, ptr %data, i64 %add34
+  %4 = load i8, ptr %arrayidx36, align 1, !tbaa !5
+  %conv37 = zext i8 %4 to i32
+  %shl38 = shl nuw nsw i32 %conv37, 8
+  %or39 = or i32 %or, %shl38
+  %add40 = or i64 %conv122, 3
+  %arrayidx42 = getelementptr inbounds i8, ptr %data, i64 %add40
+  %5 = load i8, ptr %arrayidx42, align 1, !tbaa !5
+  %conv43 = zext i8 %5 to i32
+  %or44 = or i32 %or39, %conv43
+  %shl45 = shl i32 %or44, 2
+  %add47 = add i32 %indvars, %ip
+  %6 = sub i32 0, %add47
+  %dest.0.p = select i1 %tobool.not, i32 %6, i32 %add47
+  %dest.0 = add i32 %shl45, %dest.0.p
+  %shr = lshr i32 %dest.0, 2
+  %7 = shl i32 %dest.0, 7
+  %8 = ashr i32 %7, 9
+  %and56 = and i32 %8, 1069547520
+  %and57 = and i32 %shr, 4128768
+  %or58 = or i32 %and56, %and57
+  %or59 = lshr i32 %and56, 24
+  %9 = trunc i32 %or59 to i8
+  %conv61 = or i8 %9, 64
+  store i8 %conv61, ptr %arrayidx, align 1, !tbaa !5
+  %shr65 = lshr exact i32 %or58, 16
+  %conv66 = trunc i32 %shr65 to i8
+  store i8 %conv66, ptr %arrayidx31, align 1, !tbaa !5
+  %shr70 = lshr i32 %dest.0, 10
+  %conv71 = trunc i32 %shr70 to i8
+  store i8 %conv71, ptr %arrayidx36, align 1, !tbaa !5
+  %conv75 = trunc i32 %shr to i8
+  store i8 %conv75, ptr %arrayidx42, align 1, !tbaa !5
+  br label %for.inc
 
-62:                                               ; preds = %9, %15, %20, %25
-  %63 = add nuw nsw i64 %10, 4
-  %64 = and i64 %63, 4294967295
-  %65 = icmp ult i64 %7, %64
-  br i1 %65, label %66, label %9, !llvm.loop !12
+for.inc:                                          ; preds = %for.body, %land.lhs.true, %land.lhs.true16, %if.then24
+  %add80 = add nuw nsw i64 %conv122, 4
+  %conv = and i64 %add80, 4294967295
+  %cmp1.not = icmp ult i64 %sub, %conv
+  br i1 %cmp1.not, label %cleanup, label %for.body, !llvm.loop !12
 
-66:                                               ; preds = %62, %4
-  %67 = phi i64 [ 0, %4 ], [ %64, %62 ]
-  ret i64 %67
+cleanup:                                          ; preds = %for.inc, %entry
+  %retval.0 = phi i64 [ 0, %entry ], [ %conv, %for.inc ]
+  ret i64 %retval.0
 }
 
 attributes #0 = { nofree norecurse nosync nounwind memory(argmem: readwrite) uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }

@@ -8,22 +8,23 @@ target triple = "x86_64-unknown-linux-gnu"
 @reg_class_contents = dso_local local_unnamed_addr global [2 x [2 x i64]] zeroinitializer, align 16
 
 ; Function Attrs: noinline nounwind uwtable
-define dso_local void @merge_overlapping_regs(ptr nocapture noundef readonly %0) local_unnamed_addr #0 {
-  %2 = load i64, ptr %0, align 8, !tbaa !5
-  %3 = icmp eq i64 %2, -1
-  br i1 %3, label %4, label %8
+define dso_local void @merge_overlapping_regs(ptr nocapture noundef readonly %p) local_unnamed_addr #0 {
+entry:
+  %0 = load i64, ptr %p, align 8, !tbaa !5
+  %cmp.not = icmp eq i64 %0, -1
+  br i1 %cmp.not, label %lor.lhs.false, label %if.then
 
-4:                                                ; preds = %1
-  %5 = getelementptr inbounds [2 x i64], ptr %0, i64 0, i64 1
-  %6 = load i64, ptr %5, align 8, !tbaa !5
-  %7 = icmp eq i64 %6, -1
-  br i1 %7, label %9, label %8
+lor.lhs.false:                                    ; preds = %entry
+  %arrayidx1 = getelementptr inbounds [2 x i64], ptr %p, i64 0, i64 1
+  %1 = load i64, ptr %arrayidx1, align 8, !tbaa !5
+  %cmp2.not = icmp eq i64 %1, -1
+  br i1 %cmp2.not, label %if.end, label %if.then
 
-8:                                                ; preds = %4, %1
+if.then:                                          ; preds = %lor.lhs.false, %entry
   tail call void @abort() #5
   unreachable
 
-9:                                                ; preds = %4
+if.end:                                           ; preds = %lor.lhs.false
   ret void
 }
 
@@ -31,45 +32,46 @@ define dso_local void @merge_overlapping_regs(ptr nocapture noundef readonly %0)
 declare void @abort() local_unnamed_addr #1
 
 ; Function Attrs: noinline nounwind uwtable
-define dso_local void @regrename_optimize(ptr nocapture noundef readonly %0) local_unnamed_addr #0 {
-  %2 = alloca [2 x i64], align 16
-  call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %2) #6
-  %3 = load ptr, ptr %0, align 8, !tbaa !9
-  %4 = icmp eq ptr %3, null
-  br i1 %4, label %27, label %5
+define dso_local void @regrename_optimize(ptr nocapture noundef readonly %this) local_unnamed_addr #0 {
+entry:
+  %this_unavailable = alloca [2 x i64], align 16
+  call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %this_unavailable) #6
+  %0 = load ptr, ptr %this, align 8, !tbaa !9
+  %tobool.not32 = icmp eq ptr %0, null
+  br i1 %tobool.not32, label %cleanup, label %for.body
 
-5:                                                ; preds = %1, %5
-  %6 = phi ptr [ %16, %5 ], [ %3, %1 ]
-  %7 = phi ptr [ %6, %5 ], [ %0, %1 ]
-  %8 = phi <2 x i64> [ %15, %5 ], [ zeroinitializer, %1 ]
-  %9 = getelementptr inbounds %struct.du_chain, ptr %7, i64 0, i32 1
-  %10 = load i32, ptr %9, align 8, !tbaa !13
-  %11 = sext i32 %10 to i64
-  %12 = getelementptr inbounds [2 x [2 x i64]], ptr @reg_class_contents, i64 0, i64 %11
-  %13 = load <2 x i64>, ptr %12, align 16, !tbaa !5
-  %14 = xor <2 x i64> %13, <i64 -1, i64 -1>
-  %15 = or <2 x i64> %8, %14
-  %16 = load ptr, ptr %6, align 8, !tbaa !9
-  %17 = icmp eq ptr %16, null
-  br i1 %17, label %18, label %5, !llvm.loop !14
+for.body:                                         ; preds = %entry, %for.body
+  %1 = phi ptr [ %7, %for.body ], [ %0, %entry ]
+  %last.035 = phi ptr [ %1, %for.body ], [ %this, %entry ]
+  %2 = phi <2 x i64> [ %6, %for.body ], [ zeroinitializer, %entry ]
+  %cl = getelementptr inbounds %struct.du_chain, ptr %last.035, i64 0, i32 1
+  %3 = load i32, ptr %cl, align 8, !tbaa !13
+  %idxprom = sext i32 %3 to i64
+  %arrayidx2 = getelementptr inbounds [2 x [2 x i64]], ptr @reg_class_contents, i64 0, i64 %idxprom
+  %4 = load <2 x i64>, ptr %arrayidx2, align 16, !tbaa !5
+  %5 = xor <2 x i64> %4, <i64 -1, i64 -1>
+  %6 = or <2 x i64> %2, %5
+  %7 = load ptr, ptr %1, align 8, !tbaa !9
+  %tobool.not = icmp eq ptr %7, null
+  br i1 %tobool.not, label %for.end, label %for.body, !llvm.loop !14
 
-18:                                               ; preds = %5
-  br i1 %4, label %27, label %19
+for.end:                                          ; preds = %for.body
+  br i1 %tobool.not32, label %cleanup, label %if.end
 
-19:                                               ; preds = %18
-  %20 = getelementptr inbounds %struct.du_chain, ptr %6, i64 0, i32 1
-  %21 = load i32, ptr %20, align 8, !tbaa !13
-  %22 = sext i32 %21 to i64
-  %23 = getelementptr inbounds [2 x [2 x i64]], ptr @reg_class_contents, i64 0, i64 %22
-  %24 = load <2 x i64>, ptr %23, align 16, !tbaa !5
-  %25 = xor <2 x i64> %24, <i64 -1, i64 -1>
-  %26 = or <2 x i64> %15, %25
-  store <2 x i64> %26, ptr %2, align 16, !tbaa !5
-  call void @merge_overlapping_regs(ptr noundef nonnull %2)
-  br label %27
+if.end:                                           ; preds = %for.end
+  %cl10 = getelementptr inbounds %struct.du_chain, ptr %1, i64 0, i32 1
+  %8 = load i32, ptr %cl10, align 8, !tbaa !13
+  %idxprom11 = sext i32 %8 to i64
+  %arrayidx12 = getelementptr inbounds [2 x [2 x i64]], ptr @reg_class_contents, i64 0, i64 %idxprom11
+  %9 = load <2 x i64>, ptr %arrayidx12, align 16, !tbaa !5
+  %10 = xor <2 x i64> %9, <i64 -1, i64 -1>
+  %11 = or <2 x i64> %6, %10
+  store <2 x i64> %11, ptr %this_unavailable, align 16, !tbaa !5
+  call void @merge_overlapping_regs(ptr noundef nonnull %this_unavailable)
+  br label %cleanup
 
-27:                                               ; preds = %1, %18, %19
-  call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %2) #6
+cleanup:                                          ; preds = %entry, %for.end, %if.end
+  call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %this_unavailable) #6
   ret void
 }
 
@@ -81,19 +83,20 @@ declare void @llvm.lifetime.end.p0(i64 immarg, ptr nocapture) #2
 
 ; Function Attrs: nounwind uwtable
 define dso_local i32 @main() local_unnamed_addr #3 {
-  %1 = alloca %struct.du_chain, align 8
-  %2 = alloca %struct.du_chain, align 8
-  call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %1) #6
-  call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %1, i8 0, i64 16, i1 false)
-  call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %2) #6
-  store ptr %1, ptr %2, align 8, !tbaa !9
-  %3 = getelementptr inbounds %struct.du_chain, ptr %2, i64 0, i32 1
-  store i32 1, ptr %3, align 8, !tbaa !13
+entry:
+  %du1 = alloca %struct.du_chain, align 8
+  %du0 = alloca %struct.du_chain, align 8
+  call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %du1) #6
+  call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %du1, i8 0, i64 16, i1 false)
+  call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %du0) #6
+  store ptr %du1, ptr %du0, align 8, !tbaa !9
+  %cl = getelementptr inbounds %struct.du_chain, ptr %du0, i64 0, i32 1
+  store i32 1, ptr %cl, align 8, !tbaa !13
   call void @llvm.memset.p0.i64(ptr noundef nonnull align 16 dereferenceable(16) @reg_class_contents, i8 -1, i64 16, i1 false)
   call void @llvm.memset.p0.i64(ptr noundef nonnull align 16 dereferenceable(16) getelementptr inbounds ([2 x [2 x i64]], ptr @reg_class_contents, i64 0, i64 1), i8 0, i64 16, i1 false)
-  call void @regrename_optimize(ptr noundef nonnull %2)
-  call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %2) #6
-  call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %1) #6
+  call void @regrename_optimize(ptr noundef nonnull %du0)
+  call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %du0) #6
+  call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %du1) #6
   ret i32 0
 }
 

@@ -17,714 +17,722 @@ target triple = "x86_64-unknown-linux-gnu"
 @_ZN20btPersistentManifoldC1Ev = dso_local unnamed_addr alias void (ptr), ptr @_ZN20btPersistentManifoldC2Ev
 
 ; Function Attrs: mustprogress nofree nosync nounwind willreturn memory(argmem: write) uwtable
-define dso_local void @_ZN20btPersistentManifoldC2Ev(ptr nocapture noundef nonnull writeonly align 8 dereferenceable(744) %0) unnamed_addr #0 align 2 {
-  store i32 1, ptr %0, align 8, !tbaa !5
-  %2 = getelementptr inbounds %class.btPersistentManifold, ptr %0, i64 0, i32 2, i64 0, i32 13
-  store ptr null, ptr %2, align 8, !tbaa !10
-  %3 = getelementptr inbounds %class.btPersistentManifold, ptr %0, i64 0, i32 2, i64 0, i32 14
-  store float 0.000000e+00, ptr %3, align 8, !tbaa !16
-  %4 = getelementptr inbounds %class.btPersistentManifold, ptr %0, i64 0, i32 2, i64 0, i32 15
-  store i8 0, ptr %4, align 4, !tbaa !17
-  %5 = getelementptr inbounds %class.btPersistentManifold, ptr %0, i64 0, i32 2, i64 0, i32 17
-  store <2 x float> zeroinitializer, ptr %5, align 8, !tbaa !18
-  %6 = getelementptr inbounds %class.btPersistentManifold, ptr %0, i64 0, i32 2, i64 0, i32 19
-  store i32 0, ptr %6, align 8, !tbaa !19
-  %7 = getelementptr inbounds %class.btPersistentManifold, ptr %0, i64 0, i32 2, i64 1, i32 13
-  store ptr null, ptr %7, align 8, !tbaa !10
-  %8 = getelementptr inbounds %class.btPersistentManifold, ptr %0, i64 0, i32 2, i64 1, i32 14
-  store float 0.000000e+00, ptr %8, align 8, !tbaa !16
-  %9 = getelementptr inbounds %class.btPersistentManifold, ptr %0, i64 0, i32 2, i64 1, i32 15
-  store i8 0, ptr %9, align 4, !tbaa !17
-  %10 = getelementptr inbounds %class.btPersistentManifold, ptr %0, i64 0, i32 2, i64 1, i32 17
-  store <2 x float> zeroinitializer, ptr %10, align 8, !tbaa !18
-  %11 = getelementptr inbounds %class.btPersistentManifold, ptr %0, i64 0, i32 2, i64 1, i32 19
-  store i32 0, ptr %11, align 8, !tbaa !19
-  %12 = getelementptr inbounds %class.btPersistentManifold, ptr %0, i64 0, i32 2, i64 2, i32 13
-  store ptr null, ptr %12, align 8, !tbaa !10
-  %13 = getelementptr inbounds %class.btPersistentManifold, ptr %0, i64 0, i32 2, i64 2, i32 14
-  store float 0.000000e+00, ptr %13, align 8, !tbaa !16
-  %14 = getelementptr inbounds %class.btPersistentManifold, ptr %0, i64 0, i32 2, i64 2, i32 15
-  store i8 0, ptr %14, align 4, !tbaa !17
-  %15 = getelementptr inbounds %class.btPersistentManifold, ptr %0, i64 0, i32 2, i64 2, i32 17
-  store <2 x float> zeroinitializer, ptr %15, align 8, !tbaa !18
-  %16 = getelementptr inbounds %class.btPersistentManifold, ptr %0, i64 0, i32 2, i64 2, i32 19
-  store i32 0, ptr %16, align 8, !tbaa !19
-  %17 = getelementptr inbounds %class.btPersistentManifold, ptr %0, i64 0, i32 2, i64 3, i32 13
-  store ptr null, ptr %17, align 8, !tbaa !10
-  %18 = getelementptr inbounds %class.btPersistentManifold, ptr %0, i64 0, i32 2, i64 3, i32 14
-  store float 0.000000e+00, ptr %18, align 8, !tbaa !16
-  %19 = getelementptr inbounds %class.btPersistentManifold, ptr %0, i64 0, i32 2, i64 3, i32 15
-  store i8 0, ptr %19, align 4, !tbaa !17
-  %20 = getelementptr inbounds %class.btPersistentManifold, ptr %0, i64 0, i32 2, i64 3, i32 17
-  store <2 x float> zeroinitializer, ptr %20, align 8, !tbaa !18
-  %21 = getelementptr inbounds %class.btPersistentManifold, ptr %0, i64 0, i32 2, i64 3, i32 19
-  store i32 0, ptr %21, align 8, !tbaa !19
-  %22 = getelementptr inbounds %class.btPersistentManifold, ptr %0, i64 0, i32 3
-  %23 = getelementptr inbounds %class.btPersistentManifold, ptr %0, i64 0, i32 8
-  store i32 0, ptr %23, align 4, !tbaa !20
-  tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(20) %22, i8 0, i64 20, i1 false)
+define dso_local void @_ZN20btPersistentManifoldC2Ev(ptr nocapture noundef nonnull writeonly align 8 dereferenceable(744) %this) unnamed_addr #0 align 2 {
+entry:
+  store i32 1, ptr %this, align 8, !tbaa !5
+  %arrayctor.end = getelementptr inbounds %class.btPersistentManifold, ptr %this, i64 0, i32 3
+  %m_userPersistentData.i = getelementptr inbounds %class.btPersistentManifold, ptr %this, i64 0, i32 2, i64 0, i32 13
+  store ptr null, ptr %m_userPersistentData.i, align 8, !tbaa !10
+  %m_appliedImpulse.i = getelementptr inbounds %class.btPersistentManifold, ptr %this, i64 0, i32 2, i64 0, i32 14
+  store float 0.000000e+00, ptr %m_appliedImpulse.i, align 8, !tbaa !16
+  %m_lateralFrictionInitialized.i = getelementptr inbounds %class.btPersistentManifold, ptr %this, i64 0, i32 2, i64 0, i32 15
+  store i8 0, ptr %m_lateralFrictionInitialized.i, align 4, !tbaa !17
+  %m_appliedImpulseLateral1.i = getelementptr inbounds %class.btPersistentManifold, ptr %this, i64 0, i32 2, i64 0, i32 17
+  store <2 x float> zeroinitializer, ptr %m_appliedImpulseLateral1.i, align 8, !tbaa !18
+  %m_lifeTime.i = getelementptr inbounds %class.btPersistentManifold, ptr %this, i64 0, i32 2, i64 0, i32 19
+  store i32 0, ptr %m_lifeTime.i, align 8, !tbaa !19
+  %m_userPersistentData.i.1 = getelementptr inbounds %class.btPersistentManifold, ptr %this, i64 0, i32 2, i64 1, i32 13
+  store ptr null, ptr %m_userPersistentData.i.1, align 8, !tbaa !10
+  %m_appliedImpulse.i.1 = getelementptr inbounds %class.btPersistentManifold, ptr %this, i64 0, i32 2, i64 1, i32 14
+  store float 0.000000e+00, ptr %m_appliedImpulse.i.1, align 8, !tbaa !16
+  %m_lateralFrictionInitialized.i.1 = getelementptr inbounds %class.btPersistentManifold, ptr %this, i64 0, i32 2, i64 1, i32 15
+  store i8 0, ptr %m_lateralFrictionInitialized.i.1, align 4, !tbaa !17
+  %m_appliedImpulseLateral1.i.1 = getelementptr inbounds %class.btPersistentManifold, ptr %this, i64 0, i32 2, i64 1, i32 17
+  store <2 x float> zeroinitializer, ptr %m_appliedImpulseLateral1.i.1, align 8, !tbaa !18
+  %m_lifeTime.i.1 = getelementptr inbounds %class.btPersistentManifold, ptr %this, i64 0, i32 2, i64 1, i32 19
+  store i32 0, ptr %m_lifeTime.i.1, align 8, !tbaa !19
+  %m_userPersistentData.i.2 = getelementptr inbounds %class.btPersistentManifold, ptr %this, i64 0, i32 2, i64 2, i32 13
+  store ptr null, ptr %m_userPersistentData.i.2, align 8, !tbaa !10
+  %m_appliedImpulse.i.2 = getelementptr inbounds %class.btPersistentManifold, ptr %this, i64 0, i32 2, i64 2, i32 14
+  store float 0.000000e+00, ptr %m_appliedImpulse.i.2, align 8, !tbaa !16
+  %m_lateralFrictionInitialized.i.2 = getelementptr inbounds %class.btPersistentManifold, ptr %this, i64 0, i32 2, i64 2, i32 15
+  store i8 0, ptr %m_lateralFrictionInitialized.i.2, align 4, !tbaa !17
+  %m_appliedImpulseLateral1.i.2 = getelementptr inbounds %class.btPersistentManifold, ptr %this, i64 0, i32 2, i64 2, i32 17
+  store <2 x float> zeroinitializer, ptr %m_appliedImpulseLateral1.i.2, align 8, !tbaa !18
+  %m_lifeTime.i.2 = getelementptr inbounds %class.btPersistentManifold, ptr %this, i64 0, i32 2, i64 2, i32 19
+  store i32 0, ptr %m_lifeTime.i.2, align 8, !tbaa !19
+  %m_userPersistentData.i.3 = getelementptr inbounds %class.btPersistentManifold, ptr %this, i64 0, i32 2, i64 3, i32 13
+  store ptr null, ptr %m_userPersistentData.i.3, align 8, !tbaa !10
+  %m_appliedImpulse.i.3 = getelementptr inbounds %class.btPersistentManifold, ptr %this, i64 0, i32 2, i64 3, i32 14
+  store float 0.000000e+00, ptr %m_appliedImpulse.i.3, align 8, !tbaa !16
+  %m_lateralFrictionInitialized.i.3 = getelementptr inbounds %class.btPersistentManifold, ptr %this, i64 0, i32 2, i64 3, i32 15
+  store i8 0, ptr %m_lateralFrictionInitialized.i.3, align 4, !tbaa !17
+  %m_appliedImpulseLateral1.i.3 = getelementptr inbounds %class.btPersistentManifold, ptr %this, i64 0, i32 2, i64 3, i32 17
+  store <2 x float> zeroinitializer, ptr %m_appliedImpulseLateral1.i.3, align 8, !tbaa !18
+  %m_lifeTime.i.3 = getelementptr inbounds %class.btPersistentManifold, ptr %this, i64 0, i32 2, i64 3, i32 19
+  store i32 0, ptr %m_lifeTime.i.3, align 8, !tbaa !19
+  %m_index1a = getelementptr inbounds %class.btPersistentManifold, ptr %this, i64 0, i32 8
+  store i32 0, ptr %m_index1a, align 4, !tbaa !20
+  tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(20) %arrayctor.end, i8 0, i64 20, i1 false)
   ret void
 }
 
 ; Function Attrs: uwtable
-define dso_local void @_ZN20btPersistentManifold14clearUserCacheER15btManifoldPoint(ptr nocapture noundef nonnull readnone align 8 dereferenceable(744) %0, ptr nocapture noundef nonnull align 8 dereferenceable(172) %1) local_unnamed_addr #1 align 2 {
-  %3 = getelementptr inbounds %class.btManifoldPoint, ptr %1, i64 0, i32 13
-  %4 = load ptr, ptr %3, align 8, !tbaa !10
-  %5 = icmp eq ptr %4, null
-  br i1 %5, label %11, label %6
+define dso_local void @_ZN20btPersistentManifold14clearUserCacheER15btManifoldPoint(ptr nocapture noundef nonnull readnone align 8 dereferenceable(744) %this, ptr nocapture noundef nonnull align 8 dereferenceable(172) %pt) local_unnamed_addr #1 align 2 {
+entry:
+  %m_userPersistentData = getelementptr inbounds %class.btManifoldPoint, ptr %pt, i64 0, i32 13
+  %0 = load ptr, ptr %m_userPersistentData, align 8, !tbaa !10
+  %tobool.not = icmp eq ptr %0, null
+  br i1 %tobool.not, label %if.end8, label %if.then
 
-6:                                                ; preds = %2
-  %7 = load ptr, ptr @gContactDestroyedCallback, align 8
-  %8 = icmp eq ptr %7, null
-  br i1 %8, label %11, label %9
+if.then:                                          ; preds = %entry
+  %1 = load ptr, ptr @gContactDestroyedCallback, align 8
+  %tobool4.not = icmp eq ptr %1, null
+  br i1 %tobool4.not, label %if.end8, label %if.then5
 
-9:                                                ; preds = %6
-  %10 = tail call noundef zeroext i1 %7(ptr noundef nonnull %4)
-  store ptr null, ptr %3, align 8, !tbaa !10
-  br label %11
+if.then5:                                         ; preds = %if.then
+  %call = tail call noundef zeroext i1 %1(ptr noundef nonnull %0)
+  store ptr null, ptr %m_userPersistentData, align 8, !tbaa !10
+  br label %if.end8
 
-11:                                               ; preds = %6, %9, %2
+if.end8:                                          ; preds = %if.then, %if.then5, %entry
   ret void
 }
 
 ; Function Attrs: mustprogress nofree nosync nounwind willreturn memory(argmem: read) uwtable
-define dso_local noundef i32 @_ZN20btPersistentManifold16sortCachedPointsERK15btManifoldPoint(ptr nocapture noundef nonnull readonly align 8 dereferenceable(744) %0, ptr nocapture noundef nonnull readonly align 8 dereferenceable(172) %1) local_unnamed_addr #2 align 2 {
-  %3 = getelementptr inbounds %class.btManifoldPoint, ptr %1, i64 0, i32 5
-  %4 = load float, ptr %3, align 8, !tbaa !22
-  %5 = getelementptr inbounds %class.btPersistentManifold, ptr %0, i64 0, i32 2, i64 0, i32 5
-  %6 = load float, ptr %5, align 8, !tbaa !22
-  %7 = fcmp uge float %6, %4
-  %8 = select i1 %7, float %4, float %6
-  %9 = sext i1 %7 to i32
-  %10 = getelementptr inbounds %class.btPersistentManifold, ptr %0, i64 0, i32 2, i64 1, i32 5
-  %11 = load float, ptr %10, align 8, !tbaa !22
-  %12 = fcmp olt float %11, %8
-  %13 = select i1 %12, float %11, float %8
-  %14 = select i1 %12, i32 1, i32 %9
-  %15 = getelementptr inbounds %class.btPersistentManifold, ptr %0, i64 0, i32 2, i64 2, i32 5
-  %16 = load float, ptr %15, align 8, !tbaa !22
-  %17 = fcmp olt float %16, %13
-  %18 = select i1 %17, float %16, float %13
-  %19 = select i1 %17, i32 2, i32 %14
-  %20 = getelementptr inbounds %class.btPersistentManifold, ptr %0, i64 0, i32 2, i64 3, i32 5
-  %21 = load float, ptr %20, align 8, !tbaa !22
-  %22 = fcmp uge float %21, %18
-  %23 = select i1 %22, i32 %19, i32 3
-  %24 = icmp eq i32 %23, 0
-  br i1 %24, label %25, label %43
+define dso_local noundef i32 @_ZN20btPersistentManifold16sortCachedPointsERK15btManifoldPoint(ptr nocapture noundef nonnull readonly align 8 dereferenceable(744) %this, ptr nocapture noundef nonnull readonly align 8 dereferenceable(172) %pt) local_unnamed_addr #2 align 2 {
+entry:
+  %m_distance1.i = getelementptr inbounds %class.btManifoldPoint, ptr %pt, i64 0, i32 5
+  %0 = load float, ptr %m_distance1.i, align 8, !tbaa !22
+  %m_distance1.i103 = getelementptr inbounds %class.btPersistentManifold, ptr %this, i64 0, i32 2, i64 0, i32 5
+  %1 = load float, ptr %m_distance1.i103, align 8, !tbaa !22
+  %cmp3 = fcmp uge float %1, %0
+  %maxPenetration.1 = select i1 %cmp3, float %0, float %1
+  %maxPenetrationIndex.1 = sext i1 %cmp3 to i32
+  %m_distance1.i103.1 = getelementptr inbounds %class.btPersistentManifold, ptr %this, i64 0, i32 2, i64 1, i32 5
+  %2 = load float, ptr %m_distance1.i103.1, align 8, !tbaa !22
+  %cmp3.1 = fcmp olt float %2, %maxPenetration.1
+  %maxPenetration.1.1 = select i1 %cmp3.1, float %2, float %maxPenetration.1
+  %maxPenetrationIndex.1.1 = select i1 %cmp3.1, i32 1, i32 %maxPenetrationIndex.1
+  %m_distance1.i103.2 = getelementptr inbounds %class.btPersistentManifold, ptr %this, i64 0, i32 2, i64 2, i32 5
+  %3 = load float, ptr %m_distance1.i103.2, align 8, !tbaa !22
+  %cmp3.2 = fcmp olt float %3, %maxPenetration.1.1
+  %maxPenetration.1.2 = select i1 %cmp3.2, float %3, float %maxPenetration.1.1
+  %maxPenetrationIndex.1.2 = select i1 %cmp3.2, i32 2, i32 %maxPenetrationIndex.1.1
+  %m_distance1.i103.3 = getelementptr inbounds %class.btPersistentManifold, ptr %this, i64 0, i32 2, i64 3, i32 5
+  %4 = load float, ptr %m_distance1.i103.3, align 8, !tbaa !22
+  %cmp3.3 = fcmp uge float %4, %maxPenetration.1.2
+  %maxPenetrationIndex.1.3 = select i1 %cmp3.3, i32 %maxPenetrationIndex.1.2, i32 3
+  %cond = icmp eq i32 %maxPenetrationIndex.1.3, 0
+  br i1 %cond, label %entry.if.then27_crit_edge, label %if.then9
 
-25:                                               ; preds = %2
-  %26 = load <2 x float>, ptr %1, align 8, !tbaa !18
-  %27 = getelementptr inbounds [4 x float], ptr %1, i64 0, i64 2
-  %28 = load float, ptr %27, align 8, !tbaa !18
-  %29 = getelementptr inbounds %class.btPersistentManifold, ptr %0, i64 0, i32 2, i64 3
-  %30 = getelementptr inbounds %class.btPersistentManifold, ptr %0, i64 0, i32 2, i64 2
-  %31 = load <2 x float>, ptr %29, align 8, !tbaa !18
-  %32 = load <2 x float>, ptr %30, align 8, !tbaa !18
-  %33 = getelementptr inbounds %class.btPersistentManifold, ptr %0, i64 0, i32 2, i64 3, i32 0, i32 0, i64 2
-  %34 = load float, ptr %33, align 8, !tbaa !18
-  %35 = getelementptr inbounds %class.btPersistentManifold, ptr %0, i64 0, i32 2, i64 2, i32 0, i32 0, i64 2
-  %36 = load float, ptr %35, align 8, !tbaa !18
-  %37 = fsub <2 x float> %31, %32
-  %38 = fsub float %34, %36
-  %39 = extractelement <2 x float> %31, i64 0
-  %40 = extractelement <2 x float> %31, i64 1
-  %41 = extractelement <2 x float> %32, i64 0
-  %42 = extractelement <2 x float> %32, i64 1
-  br label %99
+entry.if.then27_crit_edge:                        ; preds = %entry
+  %5 = load <2 x float>, ptr %pt, align 8, !tbaa !18
+  %arrayidx11.i128.phi.trans.insert = getelementptr inbounds [4 x float], ptr %pt, i64 0, i64 2
+  %.pre247 = load float, ptr %arrayidx11.i128.phi.trans.insert, align 8, !tbaa !18
+  %arrayidx35.phi.trans.insert = getelementptr inbounds %class.btPersistentManifold, ptr %this, i64 0, i32 2, i64 3
+  %arrayidx38.phi.trans.insert = getelementptr inbounds %class.btPersistentManifold, ptr %this, i64 0, i32 2, i64 2
+  %6 = load <2 x float>, ptr %arrayidx35.phi.trans.insert, align 8, !tbaa !18
+  %7 = load <2 x float>, ptr %arrayidx38.phi.trans.insert, align 8, !tbaa !18
+  %arrayidx11.i140.phi.trans.insert = getelementptr inbounds %class.btPersistentManifold, ptr %this, i64 0, i32 2, i64 3, i32 0, i32 0, i64 2
+  %.pre252 = load float, ptr %arrayidx11.i140.phi.trans.insert, align 8, !tbaa !18
+  %arrayidx13.i141.phi.trans.insert = getelementptr inbounds %class.btPersistentManifold, ptr %this, i64 0, i32 2, i64 2, i32 0, i32 0, i64 2
+  %.pre253 = load float, ptr %arrayidx13.i141.phi.trans.insert, align 8, !tbaa !18
+  %8 = fsub <2 x float> %6, %7
+  %.pre265 = fsub float %.pre252, %.pre253
+  %9 = extractelement <2 x float> %6, i64 0
+  %10 = extractelement <2 x float> %6, i64 1
+  %11 = extractelement <2 x float> %7, i64 0
+  %12 = extractelement <2 x float> %7, i64 1
+  br label %if.then27
 
-43:                                               ; preds = %2
-  %44 = getelementptr inbounds %class.btPersistentManifold, ptr %0, i64 0, i32 2, i64 1
-  %45 = load float, ptr %44, align 8, !tbaa !18
-  %46 = load <2 x float>, ptr %1, align 8, !tbaa !18
-  %47 = extractelement <2 x float> %46, i64 0
-  %48 = fsub float %47, %45
-  %49 = getelementptr inbounds %class.btPersistentManifold, ptr %0, i64 0, i32 2, i64 1, i32 0, i32 0, i64 1
-  %50 = load float, ptr %49, align 4, !tbaa !18
-  %51 = extractelement <2 x float> %46, i64 1
-  %52 = fsub float %51, %50
-  %53 = getelementptr inbounds [4 x float], ptr %1, i64 0, i64 2
-  %54 = load float, ptr %53, align 8, !tbaa !18
-  %55 = getelementptr inbounds %class.btPersistentManifold, ptr %0, i64 0, i32 2, i64 1, i32 0, i32 0, i64 2
-  %56 = load float, ptr %55, align 8, !tbaa !18
-  %57 = fsub float %54, %56
-  %58 = getelementptr inbounds %class.btPersistentManifold, ptr %0, i64 0, i32 2, i64 3
-  %59 = getelementptr inbounds %class.btPersistentManifold, ptr %0, i64 0, i32 2, i64 2
-  %60 = load <2 x float>, ptr %58, align 8, !tbaa !18
-  %61 = load <2 x float>, ptr %59, align 8, !tbaa !18
-  %62 = fsub <2 x float> %60, %61
-  %63 = getelementptr inbounds %class.btPersistentManifold, ptr %0, i64 0, i32 2, i64 3, i32 0, i32 0, i64 2
-  %64 = load float, ptr %63, align 8, !tbaa !18
-  %65 = getelementptr inbounds %class.btPersistentManifold, ptr %0, i64 0, i32 2, i64 2, i32 0, i32 0, i64 2
-  %66 = load float, ptr %65, align 8, !tbaa !18
-  %67 = fsub float %64, %66
-  %68 = fneg float %57
-  %69 = extractelement <2 x float> %62, i64 1
-  %70 = fmul float %69, %68
-  %71 = tail call float @llvm.fmuladd.f32(float %52, float %67, float %70)
-  %72 = fneg float %48
-  %73 = fmul float %67, %72
-  %74 = extractelement <2 x float> %62, i64 0
-  %75 = tail call float @llvm.fmuladd.f32(float %57, float %74, float %73)
-  %76 = fneg float %52
-  %77 = fmul float %74, %76
-  %78 = tail call float @llvm.fmuladd.f32(float %48, float %69, float %77)
-  %79 = fmul float %75, %75
-  %80 = tail call float @llvm.fmuladd.f32(float %71, float %71, float %79)
-  %81 = tail call float @llvm.fmuladd.f32(float %78, float %78, float %80)
-  %82 = icmp eq i32 %23, 1
-  %83 = extractelement <2 x float> %60, i64 0
-  %84 = extractelement <2 x float> %60, i64 1
-  %85 = extractelement <2 x float> %61, i64 0
-  %86 = extractelement <2 x float> %61, i64 1
-  br i1 %82, label %87, label %99
+if.then9:                                         ; preds = %entry
+  %arrayidx11 = getelementptr inbounds %class.btPersistentManifold, ptr %this, i64 0, i32 2, i64 1
+  %13 = load float, ptr %arrayidx11, align 8, !tbaa !18
+  %14 = load <2 x float>, ptr %pt, align 8, !tbaa !18
+  %15 = extractelement <2 x float> %14, i64 0
+  %sub.i = fsub float %15, %13
+  %arrayidx7.i = getelementptr inbounds %class.btPersistentManifold, ptr %this, i64 0, i32 2, i64 1, i32 0, i32 0, i64 1
+  %16 = load float, ptr %arrayidx7.i, align 4, !tbaa !18
+  %17 = extractelement <2 x float> %14, i64 1
+  %sub8.i = fsub float %17, %16
+  %arrayidx11.i = getelementptr inbounds [4 x float], ptr %pt, i64 0, i64 2
+  %18 = load float, ptr %arrayidx11.i, align 8, !tbaa !18
+  %arrayidx13.i = getelementptr inbounds %class.btPersistentManifold, ptr %this, i64 0, i32 2, i64 1, i32 0, i32 0, i64 2
+  %19 = load float, ptr %arrayidx13.i, align 8, !tbaa !18
+  %sub14.i = fsub float %18, %19
+  %arrayidx15 = getelementptr inbounds %class.btPersistentManifold, ptr %this, i64 0, i32 2, i64 3
+  %arrayidx18 = getelementptr inbounds %class.btPersistentManifold, ptr %this, i64 0, i32 2, i64 2
+  %20 = load <2 x float>, ptr %arrayidx15, align 8, !tbaa !18
+  %21 = load <2 x float>, ptr %arrayidx18, align 8, !tbaa !18
+  %22 = fsub <2 x float> %20, %21
+  %arrayidx11.i109 = getelementptr inbounds %class.btPersistentManifold, ptr %this, i64 0, i32 2, i64 3, i32 0, i32 0, i64 2
+  %23 = load float, ptr %arrayidx11.i109, align 8, !tbaa !18
+  %arrayidx13.i110 = getelementptr inbounds %class.btPersistentManifold, ptr %this, i64 0, i32 2, i64 2, i32 0, i32 0, i64 2
+  %24 = load float, ptr %arrayidx13.i110, align 8, !tbaa !18
+  %sub14.i111 = fsub float %23, %24
+  %25 = fneg float %sub14.i
+  %26 = extractelement <2 x float> %22, i64 1
+  %neg.i = fmul float %26, %25
+  %27 = tail call float @llvm.fmuladd.f32(float %sub8.i, float %sub14.i111, float %neg.i)
+  %28 = fneg float %sub.i
+  %neg19.i = fmul float %sub14.i111, %28
+  %29 = extractelement <2 x float> %22, i64 0
+  %30 = tail call float @llvm.fmuladd.f32(float %sub14.i, float %29, float %neg19.i)
+  %31 = fneg float %sub8.i
+  %neg30.i = fmul float %29, %31
+  %32 = tail call float @llvm.fmuladd.f32(float %sub.i, float %26, float %neg30.i)
+  %mul8.i.i = fmul float %30, %30
+  %33 = tail call float @llvm.fmuladd.f32(float %27, float %27, float %mul8.i.i)
+  %34 = tail call float @llvm.fmuladd.f32(float %32, float %32, float %33)
+  %cond101 = icmp eq i32 %maxPenetrationIndex.1.3, 1
+  %35 = extractelement <2 x float> %20, i64 0
+  %36 = extractelement <2 x float> %20, i64 1
+  %37 = extractelement <2 x float> %21, i64 0
+  %38 = extractelement <2 x float> %21, i64 1
+  br i1 %cond101, label %if.then9.if.then48_crit_edge, label %if.then27
 
-87:                                               ; preds = %43
-  %88 = getelementptr inbounds %class.btPersistentManifold, ptr %0, i64 0, i32 2
-  %89 = getelementptr inbounds %class.btPersistentManifold, ptr %0, i64 0, i32 2, i64 0, i32 0, i32 0, i64 2
-  %90 = load float, ptr %89, align 8, !tbaa !18
-  %91 = load <2 x float>, ptr %88, align 8, !tbaa !18
-  %92 = fsub <2 x float> %46, %91
-  %93 = fsub float %54, %90
-  %94 = fneg float %93
-  %95 = extractelement <2 x float> %92, i64 0
-  %96 = fneg float %95
-  %97 = extractelement <2 x float> %92, i64 1
-  %98 = fneg float %97
-  br label %140
+if.then9.if.then48_crit_edge:                     ; preds = %if.then9
+  %m_pointCache50.phi.trans.insert = getelementptr inbounds %class.btPersistentManifold, ptr %this, i64 0, i32 2
+  %arrayidx13.i168.phi.trans.insert = getelementptr inbounds %class.btPersistentManifold, ptr %this, i64 0, i32 2, i64 0, i32 0, i32 0, i64 2
+  %.pre256 = load float, ptr %arrayidx13.i168.phi.trans.insert, align 8, !tbaa !18
+  %39 = load <2 x float>, ptr %m_pointCache50.phi.trans.insert, align 8, !tbaa !18
+  %40 = fsub <2 x float> %14, %39
+  %.pre270 = fsub float %18, %.pre256
+  %.pre271 = fneg float %.pre270
+  %41 = extractelement <2 x float> %40, i64 0
+  %.pre273 = fneg float %41
+  %42 = extractelement <2 x float> %40, i64 1
+  %.pre275 = fneg float %42
+  br label %if.then48
 
-99:                                               ; preds = %25, %43
-  %100 = phi float [ %38, %25 ], [ %67, %43 ]
-  %101 = phi float [ %36, %25 ], [ %66, %43 ]
-  %102 = phi float [ %34, %25 ], [ %64, %43 ]
-  %103 = phi float [ %42, %25 ], [ %86, %43 ]
-  %104 = phi float [ %40, %25 ], [ %84, %43 ]
-  %105 = phi float [ %41, %25 ], [ %85, %43 ]
-  %106 = phi float [ %39, %25 ], [ %83, %43 ]
-  %107 = phi float [ %28, %25 ], [ %54, %43 ]
-  %108 = phi float [ 0.000000e+00, %25 ], [ %81, %43 ]
-  %109 = phi <2 x float> [ %26, %25 ], [ %46, %43 ]
-  %110 = phi <2 x float> [ %37, %25 ], [ %62, %43 ]
-  %111 = getelementptr inbounds %class.btPersistentManifold, ptr %0, i64 0, i32 2
-  %112 = load <2 x float>, ptr %111, align 8, !tbaa !18
-  %113 = fsub <2 x float> %109, %112
-  %114 = getelementptr inbounds %class.btPersistentManifold, ptr %0, i64 0, i32 2, i64 0, i32 0, i32 0, i64 2
-  %115 = load float, ptr %114, align 8, !tbaa !18
-  %116 = fsub float %107, %115
-  %117 = fneg float %116
-  %118 = extractelement <2 x float> %110, i64 1
-  %119 = fmul float %118, %117
-  %120 = extractelement <2 x float> %113, i64 1
-  %121 = tail call float @llvm.fmuladd.f32(float %120, float %100, float %119)
-  %122 = extractelement <2 x float> %113, i64 0
-  %123 = fneg float %122
-  %124 = fmul float %100, %123
-  %125 = extractelement <2 x float> %110, i64 0
-  %126 = tail call float @llvm.fmuladd.f32(float %116, float %125, float %124)
-  %127 = fneg float %120
-  %128 = fmul float %125, %127
-  %129 = tail call float @llvm.fmuladd.f32(float %122, float %118, float %128)
-  %130 = fmul float %126, %126
-  %131 = tail call float @llvm.fmuladd.f32(float %121, float %121, float %130)
-  %132 = tail call float @llvm.fmuladd.f32(float %129, float %129, float %131)
-  %133 = and i1 %22, %17
-  %134 = getelementptr inbounds %class.btPersistentManifold, ptr %0, i64 0, i32 2, i64 1
-  %135 = load float, ptr %134, align 8, !tbaa !18
-  %136 = getelementptr inbounds %class.btPersistentManifold, ptr %0, i64 0, i32 2, i64 1, i32 0, i32 0, i64 1
-  %137 = load float, ptr %136, align 4, !tbaa !18
-  %138 = getelementptr inbounds %class.btPersistentManifold, ptr %0, i64 0, i32 2, i64 1, i32 0, i32 0, i64 2
-  %139 = load float, ptr %138, align 8, !tbaa !18
-  br i1 %133, label %171, label %140
+if.then27:                                        ; preds = %entry.if.then27_crit_edge, %if.then9
+  %sub14.i142.pre-phi = phi float [ %.pre265, %entry.if.then27_crit_edge ], [ %sub14.i111, %if.then9 ]
+  %43 = phi float [ %.pre253, %entry.if.then27_crit_edge ], [ %24, %if.then9 ]
+  %44 = phi float [ %.pre252, %entry.if.then27_crit_edge ], [ %23, %if.then9 ]
+  %45 = phi float [ %12, %entry.if.then27_crit_edge ], [ %38, %if.then9 ]
+  %46 = phi float [ %10, %entry.if.then27_crit_edge ], [ %36, %if.then9 ]
+  %47 = phi float [ %11, %entry.if.then27_crit_edge ], [ %37, %if.then9 ]
+  %48 = phi float [ %9, %entry.if.then27_crit_edge ], [ %35, %if.then9 ]
+  %49 = phi float [ %.pre247, %entry.if.then27_crit_edge ], [ %18, %if.then9 ]
+  %res0.0 = phi float [ 0.000000e+00, %entry.if.then27_crit_edge ], [ %34, %if.then9 ]
+  %50 = phi <2 x float> [ %5, %entry.if.then27_crit_edge ], [ %14, %if.then9 ]
+  %51 = phi <2 x float> [ %8, %entry.if.then27_crit_edge ], [ %22, %if.then9 ]
+  %m_pointCache29 = getelementptr inbounds %class.btPersistentManifold, ptr %this, i64 0, i32 2
+  %52 = load <2 x float>, ptr %m_pointCache29, align 8, !tbaa !18
+  %53 = fsub <2 x float> %50, %52
+  %arrayidx13.i129 = getelementptr inbounds %class.btPersistentManifold, ptr %this, i64 0, i32 2, i64 0, i32 0, i32 0, i64 2
+  %54 = load float, ptr %arrayidx13.i129, align 8, !tbaa !18
+  %sub14.i130 = fsub float %49, %54
+  %55 = fneg float %sub14.i130
+  %56 = extractelement <2 x float> %51, i64 1
+  %neg.i152 = fmul float %56, %55
+  %57 = extractelement <2 x float> %53, i64 1
+  %58 = tail call float @llvm.fmuladd.f32(float %57, float %sub14.i142.pre-phi, float %neg.i152)
+  %59 = extractelement <2 x float> %53, i64 0
+  %60 = fneg float %59
+  %neg19.i153 = fmul float %sub14.i142.pre-phi, %60
+  %61 = extractelement <2 x float> %51, i64 0
+  %62 = tail call float @llvm.fmuladd.f32(float %sub14.i130, float %61, float %neg19.i153)
+  %63 = fneg float %57
+  %neg30.i154 = fmul float %61, %63
+  %64 = tail call float @llvm.fmuladd.f32(float %59, float %56, float %neg30.i154)
+  %mul8.i.i161 = fmul float %62, %62
+  %65 = tail call float @llvm.fmuladd.f32(float %58, float %58, float %mul8.i.i161)
+  %66 = tail call float @llvm.fmuladd.f32(float %64, float %64, float %65)
+  %cond102 = and i1 %cmp3.3, %cmp3.2
+  %arrayidx80.phi.trans.insert = getelementptr inbounds %class.btPersistentManifold, ptr %this, i64 0, i32 2, i64 1
+  %.pre260 = load float, ptr %arrayidx80.phi.trans.insert, align 8, !tbaa !18
+  %arrayidx7.i216.phi.trans.insert = getelementptr inbounds %class.btPersistentManifold, ptr %this, i64 0, i32 2, i64 1, i32 0, i32 0, i64 1
+  %.pre261 = load float, ptr %arrayidx7.i216.phi.trans.insert, align 4, !tbaa !18
+  %arrayidx13.i219.phi.trans.insert = getelementptr inbounds %class.btPersistentManifold, ptr %this, i64 0, i32 2, i64 1, i32 0, i32 0, i64 2
+  %.pre262 = load float, ptr %arrayidx13.i219.phi.trans.insert, align 8, !tbaa !18
+  br i1 %cond102, label %if.then69, label %if.then48
 
-140:                                              ; preds = %99, %87
-  %141 = phi float [ %98, %87 ], [ %127, %99 ]
-  %142 = phi float [ %96, %87 ], [ %123, %99 ]
-  %143 = phi float [ %94, %87 ], [ %117, %99 ]
-  %144 = phi float [ %93, %87 ], [ %116, %99 ]
-  %145 = phi float [ %66, %87 ], [ %101, %99 ]
-  %146 = phi float [ %86, %87 ], [ %103, %99 ]
-  %147 = phi float [ %85, %87 ], [ %105, %99 ]
-  %148 = phi float [ %56, %87 ], [ %139, %99 ]
-  %149 = phi float [ %64, %87 ], [ %102, %99 ]
-  %150 = phi float [ %50, %87 ], [ %137, %99 ]
-  %151 = phi float [ %84, %87 ], [ %104, %99 ]
-  %152 = phi float [ %45, %87 ], [ %135, %99 ]
-  %153 = phi float [ %83, %87 ], [ %106, %99 ]
-  %154 = phi float [ 0.000000e+00, %87 ], [ %132, %99 ]
-  %155 = phi float [ %81, %87 ], [ %108, %99 ]
-  %156 = phi <2 x float> [ %92, %87 ], [ %113, %99 ]
-  %157 = fsub float %153, %152
-  %158 = fsub float %151, %150
-  %159 = fsub float %149, %148
-  %160 = fmul float %158, %143
-  %161 = extractelement <2 x float> %156, i64 1
-  %162 = tail call float @llvm.fmuladd.f32(float %161, float %159, float %160)
-  %163 = fmul float %159, %142
-  %164 = tail call float @llvm.fmuladd.f32(float %144, float %157, float %163)
-  %165 = fmul float %157, %141
-  %166 = extractelement <2 x float> %156, i64 0
-  %167 = tail call float @llvm.fmuladd.f32(float %166, float %158, float %165)
-  %168 = fmul float %164, %164
-  %169 = tail call float @llvm.fmuladd.f32(float %162, float %162, float %168)
-  %170 = tail call float @llvm.fmuladd.f32(float %167, float %167, float %169)
-  br i1 %22, label %171, label %200
+if.then48:                                        ; preds = %if.then27, %if.then9.if.then48_crit_edge
+  %.pre-phi276 = phi float [ %.pre275, %if.then9.if.then48_crit_edge ], [ %63, %if.then27 ]
+  %.pre-phi274 = phi float [ %.pre273, %if.then9.if.then48_crit_edge ], [ %60, %if.then27 ]
+  %.pre-phi272 = phi float [ %.pre271, %if.then9.if.then48_crit_edge ], [ %55, %if.then27 ]
+  %sub14.i169.pre-phi = phi float [ %.pre270, %if.then9.if.then48_crit_edge ], [ %sub14.i130, %if.then27 ]
+  %67 = phi float [ %24, %if.then9.if.then48_crit_edge ], [ %43, %if.then27 ]
+  %68 = phi float [ %38, %if.then9.if.then48_crit_edge ], [ %45, %if.then27 ]
+  %69 = phi float [ %37, %if.then9.if.then48_crit_edge ], [ %47, %if.then27 ]
+  %70 = phi float [ %19, %if.then9.if.then48_crit_edge ], [ %.pre262, %if.then27 ]
+  %71 = phi float [ %23, %if.then9.if.then48_crit_edge ], [ %44, %if.then27 ]
+  %72 = phi float [ %16, %if.then9.if.then48_crit_edge ], [ %.pre261, %if.then27 ]
+  %73 = phi float [ %36, %if.then9.if.then48_crit_edge ], [ %46, %if.then27 ]
+  %74 = phi float [ %13, %if.then9.if.then48_crit_edge ], [ %.pre260, %if.then27 ]
+  %75 = phi float [ %35, %if.then9.if.then48_crit_edge ], [ %48, %if.then27 ]
+  %res1.0 = phi float [ 0.000000e+00, %if.then9.if.then48_crit_edge ], [ %66, %if.then27 ]
+  %res0.1 = phi float [ %34, %if.then9.if.then48_crit_edge ], [ %res0.0, %if.then27 ]
+  %76 = phi <2 x float> [ %40, %if.then9.if.then48_crit_edge ], [ %53, %if.then27 ]
+  %sub.i175 = fsub float %75, %74
+  %sub8.i178 = fsub float %73, %72
+  %sub14.i181 = fsub float %71, %70
+  %neg.i191 = fmul float %sub8.i178, %.pre-phi272
+  %77 = extractelement <2 x float> %76, i64 1
+  %78 = tail call float @llvm.fmuladd.f32(float %77, float %sub14.i181, float %neg.i191)
+  %neg19.i192 = fmul float %sub14.i181, %.pre-phi274
+  %79 = tail call float @llvm.fmuladd.f32(float %sub14.i169.pre-phi, float %sub.i175, float %neg19.i192)
+  %neg30.i193 = fmul float %sub.i175, %.pre-phi276
+  %80 = extractelement <2 x float> %76, i64 0
+  %81 = tail call float @llvm.fmuladd.f32(float %80, float %sub8.i178, float %neg30.i193)
+  %mul8.i.i200 = fmul float %79, %79
+  %82 = tail call float @llvm.fmuladd.f32(float %78, float %78, float %mul8.i.i200)
+  %83 = tail call float @llvm.fmuladd.f32(float %81, float %81, float %82)
+  br i1 %cmp3.3, label %if.then69, label %if.end88
 
-171:                                              ; preds = %99, %140
-  %172 = phi float [ %141, %140 ], [ %127, %99 ]
-  %173 = phi float [ %142, %140 ], [ %123, %99 ]
-  %174 = phi float [ %143, %140 ], [ %117, %99 ]
-  %175 = phi float [ %144, %140 ], [ %116, %99 ]
-  %176 = phi float [ %148, %140 ], [ %139, %99 ]
-  %177 = phi float [ %145, %140 ], [ %101, %99 ]
-  %178 = phi float [ %150, %140 ], [ %137, %99 ]
-  %179 = phi float [ %146, %140 ], [ %103, %99 ]
-  %180 = phi float [ %152, %140 ], [ %135, %99 ]
-  %181 = phi float [ %147, %140 ], [ %105, %99 ]
-  %182 = phi float [ %170, %140 ], [ 0.000000e+00, %99 ]
-  %183 = phi float [ %155, %140 ], [ %108, %99 ]
-  %184 = phi float [ %154, %140 ], [ %132, %99 ]
-  %185 = phi <2 x float> [ %156, %140 ], [ %113, %99 ]
-  %186 = fsub float %181, %180
-  %187 = fsub float %179, %178
-  %188 = fsub float %177, %176
-  %189 = fmul float %187, %174
-  %190 = extractelement <2 x float> %185, i64 1
-  %191 = tail call float @llvm.fmuladd.f32(float %190, float %188, float %189)
-  %192 = fmul float %188, %173
-  %193 = tail call float @llvm.fmuladd.f32(float %175, float %186, float %192)
-  %194 = fmul float %186, %172
-  %195 = extractelement <2 x float> %185, i64 0
-  %196 = tail call float @llvm.fmuladd.f32(float %195, float %187, float %194)
-  %197 = fmul float %193, %193
-  %198 = tail call float @llvm.fmuladd.f32(float %191, float %191, float %197)
-  %199 = tail call float @llvm.fmuladd.f32(float %196, float %196, float %198)
-  br label %200
+if.then69:                                        ; preds = %if.then27, %if.then48
+  %.pre-phi267 = phi float [ %.pre-phi276, %if.then48 ], [ %63, %if.then27 ]
+  %.pre-phi266 = phi float [ %.pre-phi274, %if.then48 ], [ %60, %if.then27 ]
+  %.pre-phi = phi float [ %.pre-phi272, %if.then48 ], [ %55, %if.then27 ]
+  %sub14.i208.pre-phi = phi float [ %sub14.i169.pre-phi, %if.then48 ], [ %sub14.i130, %if.then27 ]
+  %84 = phi float [ %70, %if.then48 ], [ %.pre262, %if.then27 ]
+  %85 = phi float [ %67, %if.then48 ], [ %43, %if.then27 ]
+  %86 = phi float [ %72, %if.then48 ], [ %.pre261, %if.then27 ]
+  %87 = phi float [ %68, %if.then48 ], [ %45, %if.then27 ]
+  %88 = phi float [ %74, %if.then48 ], [ %.pre260, %if.then27 ]
+  %89 = phi float [ %69, %if.then48 ], [ %47, %if.then27 ]
+  %res2.0 = phi float [ %83, %if.then48 ], [ 0.000000e+00, %if.then27 ]
+  %res1.1 = phi float [ %res1.0, %if.then48 ], [ %66, %if.then27 ]
+  %res0.2 = phi float [ %res0.1, %if.then48 ], [ %res0.0, %if.then27 ]
+  %90 = phi <2 x float> [ %76, %if.then48 ], [ %53, %if.then27 ]
+  %sub.i214 = fsub float %89, %88
+  %sub8.i217 = fsub float %87, %86
+  %sub14.i220 = fsub float %85, %84
+  %neg.i230 = fmul float %sub8.i217, %.pre-phi
+  %91 = extractelement <2 x float> %90, i64 1
+  %92 = tail call float @llvm.fmuladd.f32(float %91, float %sub14.i220, float %neg.i230)
+  %neg19.i231 = fmul float %sub14.i220, %.pre-phi266
+  %93 = tail call float @llvm.fmuladd.f32(float %sub14.i208.pre-phi, float %sub.i214, float %neg19.i231)
+  %neg30.i232 = fmul float %sub.i214, %.pre-phi267
+  %94 = extractelement <2 x float> %90, i64 0
+  %95 = tail call float @llvm.fmuladd.f32(float %94, float %sub8.i217, float %neg30.i232)
+  %mul8.i.i239 = fmul float %93, %93
+  %96 = tail call float @llvm.fmuladd.f32(float %92, float %92, float %mul8.i.i239)
+  %97 = tail call float @llvm.fmuladd.f32(float %95, float %95, float %96)
+  br label %if.end88
 
-200:                                              ; preds = %171, %140
-  %201 = phi float [ %182, %171 ], [ %170, %140 ]
-  %202 = phi float [ %183, %171 ], [ %155, %140 ]
-  %203 = phi float [ %184, %171 ], [ %154, %140 ]
-  %204 = phi float [ %199, %171 ], [ 0.000000e+00, %140 ]
-  %205 = tail call float @llvm.fabs.f32(float %202)
-  %206 = tail call float @llvm.fabs.f32(float %203)
-  %207 = tail call float @llvm.fabs.f32(float %201)
-  %208 = tail call float @llvm.fabs.f32(float %204)
-  %209 = fcmp ule float %205, 0xC3ABC16D60000000
-  %210 = sext i1 %209 to i32
-  %211 = select i1 %209, float 0xC3ABC16D60000000, float %205
-  %212 = fcmp ogt float %206, %211
-  %213 = select i1 %212, i32 1, i32 %210
-  %214 = select i1 %212, float %206, float %211
-  %215 = fcmp ogt float %207, %214
-  %216 = select i1 %215, i32 2, i32 %213
-  %217 = select i1 %215, float %207, float %214
-  %218 = fcmp ogt float %208, %217
-  %219 = select i1 %218, i32 3, i32 %216
-  ret i32 %219
+if.end88:                                         ; preds = %if.then69, %if.then48
+  %res3.0 = phi float [ %97, %if.then69 ], [ 0.000000e+00, %if.then48 ]
+  %res2.1 = phi float [ %res2.0, %if.then69 ], [ %83, %if.then48 ]
+  %res1.2 = phi float [ %res1.1, %if.then69 ], [ %res1.0, %if.then48 ]
+  %res0.3 = phi float [ %res0.2, %if.then69 ], [ %res0.1, %if.then48 ]
+  %98 = tail call float @llvm.fabs.f32(float %res0.3)
+  %99 = tail call float @llvm.fabs.f32(float %res1.2)
+  %100 = tail call float @llvm.fabs.f32(float %res2.1)
+  %101 = tail call float @llvm.fabs.f32(float %res3.0)
+  %cmp.i.i = fcmp ule float %98, 0xC3ABC16D60000000
+  %maxIndex.0.i.i = sext i1 %cmp.i.i to i32
+  %maxVal.0.i.i = select i1 %cmp.i.i, float 0xC3ABC16D60000000, float %98
+  %cmp6.i.i = fcmp ogt float %99, %maxVal.0.i.i
+  %maxIndex.1.i.i = select i1 %cmp6.i.i, i32 1, i32 %maxIndex.0.i.i
+  %maxVal.1.i.i = select i1 %cmp6.i.i, float %99, float %maxVal.0.i.i
+  %cmp13.i.i = fcmp ogt float %100, %maxVal.1.i.i
+  %maxIndex.2.i.i = select i1 %cmp13.i.i, i32 2, i32 %maxIndex.1.i.i
+  %maxVal.2.i.i = select i1 %cmp13.i.i, float %100, float %maxVal.1.i.i
+  %cmp20.i.i = fcmp ogt float %101, %maxVal.2.i.i
+  %maxIndex.3.i.i = select i1 %cmp20.i.i, i32 3, i32 %maxIndex.2.i.i
+  ret i32 %maxIndex.3.i.i
 }
 
 ; Function Attrs: nofree nosync nounwind memory(argmem: read) uwtable
-define dso_local noundef i32 @_ZNK20btPersistentManifold13getCacheEntryERK15btManifoldPoint(ptr nocapture noundef nonnull readonly align 8 dereferenceable(744) %0, ptr nocapture noundef nonnull readonly align 8 dereferenceable(172) %1) local_unnamed_addr #3 align 2 {
-  %3 = getelementptr inbounds %class.btPersistentManifold, ptr %0, i64 0, i32 5
-  %4 = load i32, ptr %3, align 8, !tbaa !23
-  %5 = icmp sgt i32 %4, 0
-  br i1 %5, label %6, label %16
+define dso_local noundef i32 @_ZNK20btPersistentManifold13getCacheEntryERK15btManifoldPoint(ptr nocapture noundef nonnull readonly align 8 dereferenceable(744) %this, ptr nocapture noundef nonnull readonly align 8 dereferenceable(172) %newPoint) local_unnamed_addr #3 align 2 {
+entry:
+  %m_cachedPoints.i = getelementptr inbounds %class.btPersistentManifold, ptr %this, i64 0, i32 5
+  %0 = load i32, ptr %m_cachedPoints.i, align 8, !tbaa !23
+  %cmp21 = icmp sgt i32 %0, 0
+  br i1 %cmp21, label %for.body.lr.ph, label %for.cond.cleanup
 
-6:                                                ; preds = %2
-  %7 = getelementptr inbounds %class.btPersistentManifold, ptr %0, i64 0, i32 6
-  %8 = load float, ptr %7, align 4, !tbaa !24
-  %9 = fmul float %8, %8
-  %10 = load float, ptr %1, align 8, !tbaa !18
-  %11 = getelementptr inbounds [4 x float], ptr %1, i64 0, i64 1
-  %12 = load float, ptr %11, align 4, !tbaa !18
-  %13 = getelementptr inbounds [4 x float], ptr %1, i64 0, i64 2
-  %14 = load float, ptr %13, align 8, !tbaa !18
-  %15 = zext i32 %4 to i64
-  br label %18
+for.body.lr.ph:                                   ; preds = %entry
+  %m_contactBreakingThreshold.i = getelementptr inbounds %class.btPersistentManifold, ptr %this, i64 0, i32 6
+  %1 = load float, ptr %m_contactBreakingThreshold.i, align 4, !tbaa !24
+  %mul = fmul float %1, %1
+  %2 = load float, ptr %newPoint, align 8, !tbaa !18
+  %arrayidx7.i = getelementptr inbounds [4 x float], ptr %newPoint, i64 0, i64 1
+  %3 = load float, ptr %arrayidx7.i, align 4, !tbaa !18
+  %arrayidx13.i = getelementptr inbounds [4 x float], ptr %newPoint, i64 0, i64 2
+  %4 = load float, ptr %arrayidx13.i, align 8, !tbaa !18
+  %wide.trip.count = zext i32 %0 to i64
+  br label %for.body
 
-16:                                               ; preds = %18, %2
-  %17 = phi i32 [ -1, %2 ], [ %36, %18 ]
-  ret i32 %17
+for.cond.cleanup:                                 ; preds = %for.body, %entry
+  %nearestPoint.0.lcssa = phi i32 [ -1, %entry ], [ %nearestPoint.1, %for.body ]
+  ret i32 %nearestPoint.0.lcssa
 
-18:                                               ; preds = %6, %18
-  %19 = phi i64 [ 0, %6 ], [ %38, %18 ]
-  %20 = phi float [ %9, %6 ], [ %37, %18 ]
-  %21 = phi i32 [ -1, %6 ], [ %36, %18 ]
-  %22 = getelementptr inbounds %class.btPersistentManifold, ptr %0, i64 0, i32 2, i64 %19
-  %23 = load float, ptr %22, align 8, !tbaa !18
-  %24 = fsub float %23, %10
-  %25 = getelementptr inbounds [4 x float], ptr %22, i64 0, i64 1
-  %26 = load float, ptr %25, align 4, !tbaa !18
-  %27 = fsub float %26, %12
-  %28 = getelementptr inbounds [4 x float], ptr %22, i64 0, i64 2
-  %29 = load float, ptr %28, align 8, !tbaa !18
-  %30 = fsub float %29, %14
-  %31 = fmul float %27, %27
-  %32 = tail call float @llvm.fmuladd.f32(float %24, float %24, float %31)
-  %33 = tail call float @llvm.fmuladd.f32(float %30, float %30, float %32)
-  %34 = fcmp olt float %33, %20
-  %35 = trunc i64 %19 to i32
-  %36 = select i1 %34, i32 %35, i32 %21
-  %37 = select i1 %34, float %33, float %20
-  %38 = add nuw nsw i64 %19, 1
-  %39 = icmp eq i64 %38, %15
-  br i1 %39, label %16, label %18
+for.body:                                         ; preds = %for.body.lr.ph, %for.body
+  %indvars.iv = phi i64 [ 0, %for.body.lr.ph ], [ %indvars.iv.next, %for.body ]
+  %shortestDist.024 = phi float [ %mul, %for.body.lr.ph ], [ %shortestDist.1, %for.body ]
+  %nearestPoint.023 = phi i32 [ -1, %for.body.lr.ph ], [ %nearestPoint.1, %for.body ]
+  %arrayidx = getelementptr inbounds %class.btPersistentManifold, ptr %this, i64 0, i32 2, i64 %indvars.iv
+  %5 = load float, ptr %arrayidx, align 8, !tbaa !18
+  %sub.i = fsub float %5, %2
+  %arrayidx5.i = getelementptr inbounds [4 x float], ptr %arrayidx, i64 0, i64 1
+  %6 = load float, ptr %arrayidx5.i, align 4, !tbaa !18
+  %sub8.i = fsub float %6, %3
+  %arrayidx11.i = getelementptr inbounds [4 x float], ptr %arrayidx, i64 0, i64 2
+  %7 = load float, ptr %arrayidx11.i, align 8, !tbaa !18
+  %sub14.i = fsub float %7, %4
+  %mul8.i = fmul float %sub8.i, %sub8.i
+  %8 = tail call float @llvm.fmuladd.f32(float %sub.i, float %sub.i, float %mul8.i)
+  %9 = tail call float @llvm.fmuladd.f32(float %sub14.i, float %sub14.i, float %8)
+  %cmp7 = fcmp olt float %9, %shortestDist.024
+  %10 = trunc i64 %indvars.iv to i32
+  %nearestPoint.1 = select i1 %cmp7, i32 %10, i32 %nearestPoint.023
+  %shortestDist.1 = select i1 %cmp7, float %9, float %shortestDist.024
+  %indvars.iv.next = add nuw nsw i64 %indvars.iv, 1
+  %exitcond.not = icmp eq i64 %indvars.iv.next, %wide.trip.count
+  br i1 %exitcond.not, label %for.cond.cleanup, label %for.body
 }
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(argmem: read) uwtable
-define dso_local noundef float @_ZNK20btPersistentManifold27getContactBreakingThresholdEv(ptr nocapture noundef nonnull readonly align 8 dereferenceable(744) %0) local_unnamed_addr #4 align 2 {
-  %2 = getelementptr inbounds %class.btPersistentManifold, ptr %0, i64 0, i32 6
-  %3 = load float, ptr %2, align 4, !tbaa !24
-  ret float %3
+define dso_local noundef float @_ZNK20btPersistentManifold27getContactBreakingThresholdEv(ptr nocapture noundef nonnull readonly align 8 dereferenceable(744) %this) local_unnamed_addr #4 align 2 {
+entry:
+  %m_contactBreakingThreshold = getelementptr inbounds %class.btPersistentManifold, ptr %this, i64 0, i32 6
+  %0 = load float, ptr %m_contactBreakingThreshold, align 4, !tbaa !24
+  ret float %0
 }
 
 ; Function Attrs: uwtable
-define dso_local noundef i32 @_ZN20btPersistentManifold16addManifoldPointERK15btManifoldPoint(ptr nocapture noundef nonnull align 8 dereferenceable(744) %0, ptr nocapture noundef nonnull readonly align 8 dereferenceable(172) %1) local_unnamed_addr #1 align 2 {
-  %3 = getelementptr inbounds %class.btPersistentManifold, ptr %0, i64 0, i32 5
-  %4 = load i32, ptr %3, align 8, !tbaa !23
-  %5 = icmp eq i32 %4, 4
-  br i1 %5, label %6, label %17
+define dso_local noundef i32 @_ZN20btPersistentManifold16addManifoldPointERK15btManifoldPoint(ptr nocapture noundef nonnull align 8 dereferenceable(744) %this, ptr nocapture noundef nonnull readonly align 8 dereferenceable(172) %newPoint) local_unnamed_addr #1 align 2 {
+entry:
+  %m_cachedPoints.i = getelementptr inbounds %class.btPersistentManifold, ptr %this, i64 0, i32 5
+  %0 = load i32, ptr %m_cachedPoints.i, align 8, !tbaa !23
+  %cmp = icmp eq i32 %0, 4
+  br i1 %cmp, label %if.then, label %if.else
 
-6:                                                ; preds = %2
-  %7 = tail call noundef i32 @_ZN20btPersistentManifold16sortCachedPointsERK15btManifoldPoint(ptr noundef nonnull align 8 dereferenceable(744) %0, ptr noundef nonnull align 8 dereferenceable(172) %1)
-  %8 = sext i32 %7 to i64
-  %9 = getelementptr inbounds %class.btPersistentManifold, ptr %0, i64 0, i32 2, i64 %8, i32 13
-  %10 = load ptr, ptr %9, align 8, !tbaa !10
-  %11 = icmp eq ptr %10, null
-  br i1 %11, label %19, label %12
+if.then:                                          ; preds = %entry
+  %call2 = tail call noundef i32 @_ZN20btPersistentManifold16sortCachedPointsERK15btManifoldPoint(ptr noundef nonnull align 8 dereferenceable(744) %this, ptr noundef nonnull align 8 dereferenceable(172) %newPoint)
+  %idxprom = sext i32 %call2 to i64
+  %m_userPersistentData.i = getelementptr inbounds %class.btPersistentManifold, ptr %this, i64 0, i32 2, i64 %idxprom, i32 13
+  %1 = load ptr, ptr %m_userPersistentData.i, align 8, !tbaa !10
+  %tobool.not.i = icmp eq ptr %1, null
+  br i1 %tobool.not.i, label %if.end, label %if.then.i
 
-12:                                               ; preds = %6
-  %13 = load ptr, ptr @gContactDestroyedCallback, align 8
-  %14 = icmp eq ptr %13, null
-  br i1 %14, label %19, label %15
+if.then.i:                                        ; preds = %if.then
+  %2 = load ptr, ptr @gContactDestroyedCallback, align 8
+  %tobool4.not.i = icmp eq ptr %2, null
+  br i1 %tobool4.not.i, label %if.end, label %if.then5.i
 
-15:                                               ; preds = %12
-  %16 = tail call noundef zeroext i1 %13(ptr noundef nonnull %10)
-  store ptr null, ptr %9, align 8, !tbaa !10
-  br label %19
+if.then5.i:                                       ; preds = %if.then.i
+  %call.i = tail call noundef zeroext i1 %2(ptr noundef nonnull %1)
+  store ptr null, ptr %m_userPersistentData.i, align 8, !tbaa !10
+  br label %if.end
 
-17:                                               ; preds = %2
-  %18 = add nsw i32 %4, 1
-  store i32 %18, ptr %3, align 8, !tbaa !23
-  br label %19
+if.else:                                          ; preds = %entry
+  %inc = add nsw i32 %0, 1
+  store i32 %inc, ptr %m_cachedPoints.i, align 8, !tbaa !23
+  br label %if.end
 
-19:                                               ; preds = %15, %12, %6, %17
-  %20 = phi i32 [ %4, %17 ], [ %7, %6 ], [ %7, %12 ], [ %7, %15 ]
-  %21 = tail call i32 @llvm.smax.i32(i32 %20, i32 0)
-  %22 = zext i32 %21 to i64
-  %23 = getelementptr inbounds %class.btPersistentManifold, ptr %0, i64 0, i32 2, i64 %22
-  tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(172) %23, ptr noundef nonnull align 8 dereferenceable(172) %1, i64 172, i1 false), !tbaa.struct !25
-  ret i32 %21
+if.end:                                           ; preds = %if.then5.i, %if.then.i, %if.then, %if.else
+  %insertIndex.0 = phi i32 [ %0, %if.else ], [ %call2, %if.then ], [ %call2, %if.then.i ], [ %call2, %if.then5.i ]
+  %spec.store.select = tail call i32 @llvm.smax.i32(i32 %insertIndex.0, i32 0)
+  %idxprom7 = zext i32 %spec.store.select to i64
+  %arrayidx8 = getelementptr inbounds %class.btPersistentManifold, ptr %this, i64 0, i32 2, i64 %idxprom7
+  tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(172) %arrayidx8, ptr noundef nonnull align 8 dereferenceable(172) %newPoint, i64 172, i1 false), !tbaa.struct !25
+  ret i32 %spec.store.select
 }
 
 ; Function Attrs: mustprogress nocallback nofree nounwind willreturn memory(argmem: readwrite)
 declare void @llvm.memcpy.p0.p0.i64(ptr noalias nocapture writeonly, ptr noalias nocapture readonly, i64, i1 immarg) #5
 
 ; Function Attrs: uwtable
-define dso_local void @_ZN20btPersistentManifold20refreshContactPointsERK11btTransformS2_(ptr noundef nonnull align 8 dereferenceable(744) %0, ptr nocapture noundef nonnull readonly align 4 dereferenceable(64) %1, ptr nocapture noundef nonnull readonly align 4 dereferenceable(64) %2) local_unnamed_addr #6 align 2 {
-  %4 = getelementptr inbounds %class.btPersistentManifold, ptr %0, i64 0, i32 5
-  %5 = load i32, ptr %4, align 8, !tbaa !23
-  %6 = add i32 %5, -1
-  %7 = icmp sgt i32 %5, 0
-  br i1 %7, label %8, label %240
+define dso_local void @_ZN20btPersistentManifold20refreshContactPointsERK11btTransformS2_(ptr noundef nonnull align 8 dereferenceable(744) %this, ptr nocapture noundef nonnull readonly align 4 dereferenceable(64) %trA, ptr nocapture noundef nonnull readonly align 4 dereferenceable(64) %trB) local_unnamed_addr #6 align 2 {
+entry:
+  %m_cachedPoints.i = getelementptr inbounds %class.btPersistentManifold, ptr %this, i64 0, i32 5
+  %0 = load i32, ptr %m_cachedPoints.i, align 8, !tbaa !23
+  %cmp169 = icmp sgt i32 %0, 0
+  br i1 %cmp169, label %for.body.lr.ph, label %for.end47
 
-8:                                                ; preds = %3
-  %9 = getelementptr inbounds [4 x float], ptr %1, i64 0, i64 1
-  %10 = getelementptr inbounds [4 x float], ptr %1, i64 0, i64 2
-  %11 = getelementptr inbounds %class.btTransform, ptr %1, i64 0, i32 1
-  %12 = getelementptr inbounds [3 x %class.btVector3], ptr %1, i64 0, i64 1
-  %13 = getelementptr inbounds [3 x %class.btVector3], ptr %1, i64 0, i64 1, i32 0, i64 1
-  %14 = getelementptr inbounds [3 x %class.btVector3], ptr %1, i64 0, i64 1, i32 0, i64 2
-  %15 = getelementptr inbounds [3 x %class.btVector3], ptr %1, i64 0, i64 2
-  %16 = getelementptr inbounds [3 x %class.btVector3], ptr %1, i64 0, i64 2, i32 0, i64 1
-  %17 = getelementptr inbounds [3 x %class.btVector3], ptr %1, i64 0, i64 2, i32 0, i64 2
-  %18 = getelementptr inbounds %class.btTransform, ptr %1, i64 0, i32 1, i32 0, i64 2
-  %19 = getelementptr inbounds [4 x float], ptr %2, i64 0, i64 1
-  %20 = getelementptr inbounds [4 x float], ptr %2, i64 0, i64 2
-  %21 = getelementptr inbounds %class.btTransform, ptr %2, i64 0, i32 1
-  %22 = getelementptr inbounds [3 x %class.btVector3], ptr %2, i64 0, i64 1
-  %23 = getelementptr inbounds [3 x %class.btVector3], ptr %2, i64 0, i64 1, i32 0, i64 1
-  %24 = getelementptr inbounds [3 x %class.btVector3], ptr %2, i64 0, i64 1, i32 0, i64 2
-  %25 = getelementptr inbounds [3 x %class.btVector3], ptr %2, i64 0, i64 2
-  %26 = getelementptr inbounds [3 x %class.btVector3], ptr %2, i64 0, i64 2, i32 0, i64 1
-  %27 = getelementptr inbounds [3 x %class.btVector3], ptr %2, i64 0, i64 2, i32 0, i64 2
-  %28 = getelementptr inbounds %class.btTransform, ptr %2, i64 0, i32 1, i32 0, i64 2
-  %29 = zext i32 %6 to i64
-  br label %36
+for.body.lr.ph:                                   ; preds = %entry
+  %arrayidx5.i.i = getelementptr inbounds [4 x float], ptr %trA, i64 0, i64 1
+  %arrayidx10.i.i = getelementptr inbounds [4 x float], ptr %trA, i64 0, i64 2
+  %m_origin.i = getelementptr inbounds %class.btTransform, ptr %trA, i64 0, i32 1
+  %arrayidx.i.i = getelementptr inbounds [3 x %class.btVector3], ptr %trA, i64 0, i64 1
+  %arrayidx5.i20.i = getelementptr inbounds [3 x %class.btVector3], ptr %trA, i64 0, i64 1, i32 0, i64 1
+  %arrayidx10.i23.i = getelementptr inbounds [3 x %class.btVector3], ptr %trA, i64 0, i64 1, i32 0, i64 2
+  %arrayidx.i26.i = getelementptr inbounds [3 x %class.btVector3], ptr %trA, i64 0, i64 2
+  %arrayidx5.i27.i = getelementptr inbounds [3 x %class.btVector3], ptr %trA, i64 0, i64 2, i32 0, i64 1
+  %arrayidx10.i30.i = getelementptr inbounds [3 x %class.btVector3], ptr %trA, i64 0, i64 2, i32 0, i64 2
+  %arrayidx.i32.i = getelementptr inbounds %class.btTransform, ptr %trA, i64 0, i32 1, i32 0, i64 2
+  %arrayidx5.i.i68 = getelementptr inbounds [4 x float], ptr %trB, i64 0, i64 1
+  %arrayidx10.i.i71 = getelementptr inbounds [4 x float], ptr %trB, i64 0, i64 2
+  %m_origin.i73 = getelementptr inbounds %class.btTransform, ptr %trB, i64 0, i32 1
+  %arrayidx.i.i75 = getelementptr inbounds [3 x %class.btVector3], ptr %trB, i64 0, i64 1
+  %arrayidx5.i20.i76 = getelementptr inbounds [3 x %class.btVector3], ptr %trB, i64 0, i64 1, i32 0, i64 1
+  %arrayidx10.i23.i78 = getelementptr inbounds [3 x %class.btVector3], ptr %trB, i64 0, i64 1, i32 0, i64 2
+  %arrayidx.i26.i81 = getelementptr inbounds [3 x %class.btVector3], ptr %trB, i64 0, i64 2
+  %arrayidx5.i27.i82 = getelementptr inbounds [3 x %class.btVector3], ptr %trB, i64 0, i64 2, i32 0, i64 1
+  %arrayidx10.i30.i84 = getelementptr inbounds [3 x %class.btVector3], ptr %trB, i64 0, i64 2, i32 0, i64 2
+  %arrayidx.i32.i85 = getelementptr inbounds %class.btTransform, ptr %trB, i64 0, i32 1, i32 0, i64 2
+  %1 = zext i32 %0 to i64
+  br label %for.body
 
-30:                                               ; preds = %36
-  br i1 %7, label %31, label %240
+for.cond14.preheader:                             ; preds = %for.body
+  br i1 %cmp169, label %for.body16.lr.ph, label %for.end47
 
-31:                                               ; preds = %30
-  %32 = getelementptr inbounds %class.btPersistentManifold, ptr %0, i64 0, i32 6
-  %33 = getelementptr inbounds %class.btPersistentManifold, ptr %0, i64 0, i32 3
-  %34 = getelementptr inbounds %class.btPersistentManifold, ptr %0, i64 0, i32 4
-  %35 = zext i32 %6 to i64
-  br label %138
+for.body16.lr.ph:                                 ; preds = %for.cond14.preheader
+  %m_contactBreakingThreshold.i.i = getelementptr inbounds %class.btPersistentManifold, ptr %this, i64 0, i32 6
+  %m_body0 = getelementptr inbounds %class.btPersistentManifold, ptr %this, i64 0, i32 3
+  %m_body1 = getelementptr inbounds %class.btPersistentManifold, ptr %this, i64 0, i32 4
+  %2 = zext i32 %0 to i64
+  br label %for.body16
 
-36:                                               ; preds = %8, %36
-  %37 = phi i64 [ %29, %8 ], [ %136, %36 ]
-  %38 = getelementptr inbounds %class.btPersistentManifold, ptr %0, i64 0, i32 2, i64 %37
-  %39 = load float, ptr %38, align 8, !tbaa !18
-  %40 = getelementptr inbounds [4 x float], ptr %38, i64 0, i64 1
-  %41 = load float, ptr %40, align 4, !tbaa !18
-  %42 = getelementptr inbounds [4 x float], ptr %38, i64 0, i64 2
-  %43 = load float, ptr %42, align 8, !tbaa !18
-  %44 = load <4 x float>, ptr %1, align 4
-  %45 = shufflevector <4 x float> %44, <4 x float> poison, <2 x i32> <i32 0, i32 undef>
-  %46 = load <4 x float>, ptr %9, align 4
-  %47 = shufflevector <4 x float> %46, <4 x float> poison, <2 x i32> <i32 0, i32 undef>
-  %48 = load <4 x float>, ptr %10, align 4
-  %49 = shufflevector <4 x float> %48, <4 x float> poison, <2 x i32> <i32 0, i32 undef>
-  %50 = load float, ptr %12, align 4, !tbaa !18
-  %51 = load float, ptr %13, align 4, !tbaa !18
-  %52 = insertelement <2 x float> poison, float %41, i64 0
-  %53 = shufflevector <2 x float> %52, <2 x float> poison, <2 x i32> zeroinitializer
-  %54 = insertelement <2 x float> %47, float %51, i64 1
-  %55 = fmul <2 x float> %53, %54
-  %56 = insertelement <2 x float> %45, float %50, i64 1
-  %57 = insertelement <2 x float> poison, float %39, i64 0
-  %58 = shufflevector <2 x float> %57, <2 x float> poison, <2 x i32> zeroinitializer
-  %59 = tail call <2 x float> @llvm.fmuladd.v2f32(<2 x float> %56, <2 x float> %58, <2 x float> %55)
-  %60 = load float, ptr %14, align 4, !tbaa !18
-  %61 = insertelement <2 x float> %49, float %60, i64 1
-  %62 = insertelement <2 x float> poison, float %43, i64 0
-  %63 = shufflevector <2 x float> %62, <2 x float> poison, <2 x i32> zeroinitializer
-  %64 = tail call <2 x float> @llvm.fmuladd.v2f32(<2 x float> %61, <2 x float> %63, <2 x float> %59)
-  %65 = load <2 x float>, ptr %11, align 4, !tbaa !18
-  %66 = fadd <2 x float> %64, %65
-  %67 = load float, ptr %15, align 4, !tbaa !18
-  %68 = load float, ptr %16, align 4, !tbaa !18
-  %69 = fmul float %41, %68
-  %70 = tail call float @llvm.fmuladd.f32(float %67, float %39, float %69)
-  %71 = load float, ptr %17, align 4, !tbaa !18
-  %72 = tail call float @llvm.fmuladd.f32(float %71, float %43, float %70)
-  %73 = load float, ptr %18, align 4, !tbaa !18
-  %74 = fadd float %73, %72
-  %75 = insertelement <2 x float> <float poison, float 0.000000e+00>, float %74, i64 0
-  %76 = getelementptr inbounds %class.btPersistentManifold, ptr %0, i64 0, i32 2, i64 %37, i32 3
-  store <2 x float> %66, ptr %76, align 8, !tbaa.struct !30
-  %77 = getelementptr inbounds i8, ptr %76, i64 8
-  store <2 x float> %75, ptr %77, align 8, !tbaa.struct !31
-  %78 = getelementptr inbounds %class.btPersistentManifold, ptr %0, i64 0, i32 2, i64 %37, i32 1
-  %79 = load float, ptr %78, align 8, !tbaa !18
-  %80 = getelementptr inbounds [4 x float], ptr %78, i64 0, i64 1
-  %81 = load float, ptr %80, align 4, !tbaa !18
-  %82 = getelementptr inbounds [4 x float], ptr %78, i64 0, i64 2
-  %83 = load float, ptr %82, align 8, !tbaa !18
-  %84 = load <4 x float>, ptr %2, align 4
-  %85 = shufflevector <4 x float> %84, <4 x float> poison, <2 x i32> <i32 0, i32 undef>
-  %86 = load <4 x float>, ptr %19, align 4
-  %87 = shufflevector <4 x float> %86, <4 x float> poison, <2 x i32> <i32 0, i32 undef>
-  %88 = load <4 x float>, ptr %20, align 4
-  %89 = shufflevector <4 x float> %88, <4 x float> poison, <2 x i32> <i32 0, i32 undef>
-  %90 = load float, ptr %22, align 4, !tbaa !18
-  %91 = load float, ptr %23, align 4, !tbaa !18
-  %92 = insertelement <2 x float> poison, float %81, i64 0
-  %93 = shufflevector <2 x float> %92, <2 x float> poison, <2 x i32> zeroinitializer
-  %94 = insertelement <2 x float> %87, float %91, i64 1
-  %95 = fmul <2 x float> %93, %94
-  %96 = insertelement <2 x float> %85, float %90, i64 1
-  %97 = insertelement <2 x float> poison, float %79, i64 0
-  %98 = shufflevector <2 x float> %97, <2 x float> poison, <2 x i32> zeroinitializer
-  %99 = tail call <2 x float> @llvm.fmuladd.v2f32(<2 x float> %96, <2 x float> %98, <2 x float> %95)
-  %100 = load float, ptr %24, align 4, !tbaa !18
-  %101 = insertelement <2 x float> %89, float %100, i64 1
-  %102 = insertelement <2 x float> poison, float %83, i64 0
-  %103 = shufflevector <2 x float> %102, <2 x float> poison, <2 x i32> zeroinitializer
-  %104 = tail call <2 x float> @llvm.fmuladd.v2f32(<2 x float> %101, <2 x float> %103, <2 x float> %99)
-  %105 = load <2 x float>, ptr %21, align 4, !tbaa !18
-  %106 = fadd <2 x float> %104, %105
-  %107 = load float, ptr %25, align 4, !tbaa !18
-  %108 = load float, ptr %26, align 4, !tbaa !18
-  %109 = fmul float %81, %108
-  %110 = tail call float @llvm.fmuladd.f32(float %107, float %79, float %109)
-  %111 = load float, ptr %27, align 4, !tbaa !18
-  %112 = tail call float @llvm.fmuladd.f32(float %111, float %83, float %110)
-  %113 = load float, ptr %28, align 4, !tbaa !18
-  %114 = fadd float %113, %112
-  %115 = insertelement <2 x float> <float poison, float 0.000000e+00>, float %114, i64 0
-  %116 = getelementptr inbounds %class.btPersistentManifold, ptr %0, i64 0, i32 2, i64 %37, i32 2
-  store <2 x float> %106, ptr %116, align 8, !tbaa.struct !30
-  %117 = getelementptr inbounds i8, ptr %116, i64 8
-  store <2 x float> %115, ptr %117, align 8, !tbaa.struct !31
-  %118 = fsub <2 x float> %66, %106
-  %119 = extractelement <2 x float> %118, i64 0
-  %120 = fsub <2 x float> %66, %106
-  %121 = extractelement <2 x float> %120, i64 1
-  %122 = fsub float %74, %114
-  %123 = getelementptr inbounds %class.btPersistentManifold, ptr %0, i64 0, i32 2, i64 %37, i32 4
-  %124 = load float, ptr %123, align 8, !tbaa !18
-  %125 = getelementptr inbounds [4 x float], ptr %123, i64 0, i64 1
-  %126 = load float, ptr %125, align 4, !tbaa !18
-  %127 = fmul float %121, %126
-  %128 = tail call float @llvm.fmuladd.f32(float %119, float %124, float %127)
-  %129 = getelementptr inbounds [4 x float], ptr %123, i64 0, i64 2
-  %130 = load float, ptr %129, align 8, !tbaa !18
-  %131 = tail call float @llvm.fmuladd.f32(float %122, float %130, float %128)
-  %132 = getelementptr inbounds %class.btPersistentManifold, ptr %0, i64 0, i32 2, i64 %37, i32 5
-  store float %131, ptr %132, align 8, !tbaa !22
-  %133 = getelementptr inbounds %class.btPersistentManifold, ptr %0, i64 0, i32 2, i64 %37, i32 19
-  %134 = load i32, ptr %133, align 8, !tbaa !19
-  %135 = add nsw i32 %134, 1
-  store i32 %135, ptr %133, align 8, !tbaa !19
-  %136 = add nsw i64 %37, -1
-  %137 = icmp eq i64 %37, 0
-  br i1 %137, label %30, label %36
+for.body:                                         ; preds = %for.body.lr.ph, %for.body
+  %indvars.iv = phi i64 [ %1, %for.body.lr.ph ], [ %indvars.iv.next, %for.body ]
+  %indvars.iv.next = add nsw i64 %indvars.iv, -1
+  %idxprom = and i64 %indvars.iv.next, 4294967295
+  %arrayidx = getelementptr inbounds %class.btPersistentManifold, ptr %this, i64 0, i32 2, i64 %idxprom
+  %3 = load float, ptr %arrayidx, align 8, !tbaa !18
+  %arrayidx7.i.i = getelementptr inbounds [4 x float], ptr %arrayidx, i64 0, i64 1
+  %4 = load float, ptr %arrayidx7.i.i, align 4, !tbaa !18
+  %arrayidx12.i.i = getelementptr inbounds [4 x float], ptr %arrayidx, i64 0, i64 2
+  %5 = load float, ptr %arrayidx12.i.i, align 8, !tbaa !18
+  %6 = load <4 x float>, ptr %trA, align 4
+  %7 = shufflevector <4 x float> %6, <4 x float> poison, <2 x i32> <i32 0, i32 undef>
+  %8 = load <4 x float>, ptr %arrayidx5.i.i, align 4
+  %9 = shufflevector <4 x float> %8, <4 x float> poison, <2 x i32> <i32 0, i32 undef>
+  %10 = load <4 x float>, ptr %arrayidx10.i.i, align 4
+  %11 = shufflevector <4 x float> %10, <4 x float> poison, <2 x i32> <i32 0, i32 undef>
+  %12 = load float, ptr %arrayidx.i.i, align 4, !tbaa !18
+  %13 = load float, ptr %arrayidx5.i20.i, align 4, !tbaa !18
+  %14 = insertelement <2 x float> poison, float %4, i64 0
+  %15 = shufflevector <2 x float> %14, <2 x float> poison, <2 x i32> zeroinitializer
+  %16 = insertelement <2 x float> %9, float %13, i64 1
+  %17 = fmul <2 x float> %15, %16
+  %18 = insertelement <2 x float> %7, float %12, i64 1
+  %19 = insertelement <2 x float> poison, float %3, i64 0
+  %20 = shufflevector <2 x float> %19, <2 x float> poison, <2 x i32> zeroinitializer
+  %21 = tail call <2 x float> @llvm.fmuladd.v2f32(<2 x float> %18, <2 x float> %20, <2 x float> %17)
+  %22 = load float, ptr %arrayidx10.i23.i, align 4, !tbaa !18
+  %23 = insertelement <2 x float> %11, float %22, i64 1
+  %24 = insertelement <2 x float> poison, float %5, i64 0
+  %25 = shufflevector <2 x float> %24, <2 x float> poison, <2 x i32> zeroinitializer
+  %26 = tail call <2 x float> @llvm.fmuladd.v2f32(<2 x float> %23, <2 x float> %25, <2 x float> %21)
+  %27 = load <2 x float>, ptr %m_origin.i, align 4, !tbaa !18
+  %28 = fadd <2 x float> %26, %27
+  %29 = load float, ptr %arrayidx.i26.i, align 4, !tbaa !18
+  %30 = load float, ptr %arrayidx5.i27.i, align 4, !tbaa !18
+  %mul8.i29.i = fmul float %4, %30
+  %31 = tail call float @llvm.fmuladd.f32(float %29, float %3, float %mul8.i29.i)
+  %32 = load float, ptr %arrayidx10.i30.i, align 4, !tbaa !18
+  %33 = tail call float @llvm.fmuladd.f32(float %32, float %5, float %31)
+  %34 = load float, ptr %arrayidx.i32.i, align 4, !tbaa !18
+  %add17.i = fadd float %34, %33
+  %retval.sroa.3.12.vec.insert.i = insertelement <2 x float> <float poison, float 0.000000e+00>, float %add17.i, i64 0
+  %m_positionWorldOnA = getelementptr inbounds %class.btPersistentManifold, ptr %this, i64 0, i32 2, i64 %idxprom, i32 3
+  store <2 x float> %28, ptr %m_positionWorldOnA, align 8, !tbaa.struct !30
+  %ref.tmp.sroa.4.0.m_positionWorldOnA.sroa_idx = getelementptr inbounds i8, ptr %m_positionWorldOnA, i64 8
+  store <2 x float> %retval.sroa.3.12.vec.insert.i, ptr %ref.tmp.sroa.4.0.m_positionWorldOnA.sroa_idx, align 8, !tbaa.struct !31
+  %m_localPointB = getelementptr inbounds %class.btPersistentManifold, ptr %this, i64 0, i32 2, i64 %idxprom, i32 1
+  %35 = load float, ptr %m_localPointB, align 8, !tbaa !18
+  %arrayidx7.i.i69 = getelementptr inbounds [4 x float], ptr %m_localPointB, i64 0, i64 1
+  %36 = load float, ptr %arrayidx7.i.i69, align 4, !tbaa !18
+  %arrayidx12.i.i72 = getelementptr inbounds [4 x float], ptr %m_localPointB, i64 0, i64 2
+  %37 = load float, ptr %arrayidx12.i.i72, align 8, !tbaa !18
+  %38 = load <4 x float>, ptr %trB, align 4
+  %39 = shufflevector <4 x float> %38, <4 x float> poison, <2 x i32> <i32 0, i32 undef>
+  %40 = load <4 x float>, ptr %arrayidx5.i.i68, align 4
+  %41 = shufflevector <4 x float> %40, <4 x float> poison, <2 x i32> <i32 0, i32 undef>
+  %42 = load <4 x float>, ptr %arrayidx10.i.i71, align 4
+  %43 = shufflevector <4 x float> %42, <4 x float> poison, <2 x i32> <i32 0, i32 undef>
+  %44 = load float, ptr %arrayidx.i.i75, align 4, !tbaa !18
+  %45 = load float, ptr %arrayidx5.i20.i76, align 4, !tbaa !18
+  %46 = insertelement <2 x float> poison, float %36, i64 0
+  %47 = shufflevector <2 x float> %46, <2 x float> poison, <2 x i32> zeroinitializer
+  %48 = insertelement <2 x float> %41, float %45, i64 1
+  %49 = fmul <2 x float> %47, %48
+  %50 = insertelement <2 x float> %39, float %44, i64 1
+  %51 = insertelement <2 x float> poison, float %35, i64 0
+  %52 = shufflevector <2 x float> %51, <2 x float> poison, <2 x i32> zeroinitializer
+  %53 = tail call <2 x float> @llvm.fmuladd.v2f32(<2 x float> %50, <2 x float> %52, <2 x float> %49)
+  %54 = load float, ptr %arrayidx10.i23.i78, align 4, !tbaa !18
+  %55 = insertelement <2 x float> %43, float %54, i64 1
+  %56 = insertelement <2 x float> poison, float %37, i64 0
+  %57 = shufflevector <2 x float> %56, <2 x float> poison, <2 x i32> zeroinitializer
+  %58 = tail call <2 x float> @llvm.fmuladd.v2f32(<2 x float> %55, <2 x float> %57, <2 x float> %53)
+  %59 = load <2 x float>, ptr %m_origin.i73, align 4, !tbaa !18
+  %60 = fadd <2 x float> %58, %59
+  %61 = load float, ptr %arrayidx.i26.i81, align 4, !tbaa !18
+  %62 = load float, ptr %arrayidx5.i27.i82, align 4, !tbaa !18
+  %mul8.i29.i83 = fmul float %36, %62
+  %63 = tail call float @llvm.fmuladd.f32(float %61, float %35, float %mul8.i29.i83)
+  %64 = load float, ptr %arrayidx10.i30.i84, align 4, !tbaa !18
+  %65 = tail call float @llvm.fmuladd.f32(float %64, float %37, float %63)
+  %66 = load float, ptr %arrayidx.i32.i85, align 4, !tbaa !18
+  %add17.i86 = fadd float %66, %65
+  %retval.sroa.3.12.vec.insert.i89 = insertelement <2 x float> <float poison, float 0.000000e+00>, float %add17.i86, i64 0
+  %m_positionWorldOnB = getelementptr inbounds %class.btPersistentManifold, ptr %this, i64 0, i32 2, i64 %idxprom, i32 2
+  store <2 x float> %60, ptr %m_positionWorldOnB, align 8, !tbaa.struct !30
+  %ref.tmp3.sroa.4.0.m_positionWorldOnB.sroa_idx = getelementptr inbounds i8, ptr %m_positionWorldOnB, i64 8
+  store <2 x float> %retval.sroa.3.12.vec.insert.i89, ptr %ref.tmp3.sroa.4.0.m_positionWorldOnB.sroa_idx, align 8, !tbaa.struct !31
+  %67 = fsub <2 x float> %28, %60
+  %sub.i = extractelement <2 x float> %67, i64 0
+  %68 = fsub <2 x float> %28, %60
+  %sub8.i = extractelement <2 x float> %68, i64 1
+  %sub14.i = fsub float %add17.i, %add17.i86
+  %m_normalWorldOnB = getelementptr inbounds %class.btPersistentManifold, ptr %this, i64 0, i32 2, i64 %idxprom, i32 4
+  %69 = load float, ptr %m_normalWorldOnB, align 8, !tbaa !18
+  %arrayidx7.i98 = getelementptr inbounds [4 x float], ptr %m_normalWorldOnB, i64 0, i64 1
+  %70 = load float, ptr %arrayidx7.i98, align 4, !tbaa !18
+  %mul8.i = fmul float %sub8.i, %70
+  %71 = tail call float @llvm.fmuladd.f32(float %sub.i, float %69, float %mul8.i)
+  %arrayidx12.i = getelementptr inbounds [4 x float], ptr %m_normalWorldOnB, i64 0, i64 2
+  %72 = load float, ptr %arrayidx12.i, align 8, !tbaa !18
+  %73 = tail call float @llvm.fmuladd.f32(float %sub14.i, float %72, float %71)
+  %m_distance1 = getelementptr inbounds %class.btPersistentManifold, ptr %this, i64 0, i32 2, i64 %idxprom, i32 5
+  store float %73, ptr %m_distance1, align 8, !tbaa !22
+  %m_lifeTime = getelementptr inbounds %class.btPersistentManifold, ptr %this, i64 0, i32 2, i64 %idxprom, i32 19
+  %74 = load i32, ptr %m_lifeTime, align 8, !tbaa !19
+  %inc = add nsw i32 %74, 1
+  store i32 %inc, ptr %m_lifeTime, align 8, !tbaa !19
+  %cmp = icmp ugt i64 %indvars.iv, 1
+  br i1 %cmp, label %for.body, label %for.cond14.preheader
 
-138:                                              ; preds = %31, %237
-  %139 = phi i64 [ %35, %31 ], [ %238, %237 ]
-  %140 = getelementptr inbounds %class.btPersistentManifold, ptr %0, i64 0, i32 2, i64 %139
-  %141 = getelementptr inbounds %class.btPersistentManifold, ptr %0, i64 0, i32 2, i64 %139, i32 5
-  %142 = load float, ptr %141, align 8, !tbaa !22
-  %143 = load float, ptr %32, align 4, !tbaa !24
-  %144 = fcmp ugt float %142, %143
-  br i1 %144, label %145, label %171
+for.body16:                                       ; preds = %for.body16.lr.ph, %if.end44
+  %indvars.iv176 = phi i64 [ %2, %for.body16.lr.ph ], [ %indvars.iv.next177, %if.end44 ]
+  %indvars.iv.next177 = add nsw i64 %indvars.iv176, -1
+  %idxprom19 = and i64 %indvars.iv.next177, 4294967295
+  %arrayidx20 = getelementptr inbounds %class.btPersistentManifold, ptr %this, i64 0, i32 2, i64 %idxprom19
+  %m_distance1.i = getelementptr inbounds %class.btPersistentManifold, ptr %this, i64 0, i32 2, i64 %idxprom19, i32 5
+  %75 = load float, ptr %m_distance1.i, align 8, !tbaa !22
+  %76 = load float, ptr %m_contactBreakingThreshold.i.i, align 4, !tbaa !24
+  %cmp.i = fcmp ugt float %75, %76
+  br i1 %cmp.i, label %if.then, label %if.else
 
-145:                                              ; preds = %138
-  %146 = getelementptr inbounds %class.btPersistentManifold, ptr %0, i64 0, i32 2, i64 %139, i32 13
-  %147 = load ptr, ptr %146, align 8, !tbaa !10
-  %148 = icmp eq ptr %147, null
-  br i1 %148, label %154, label %149
+if.then:                                          ; preds = %for.body16
+  %m_userPersistentData.i.i = getelementptr inbounds %class.btPersistentManifold, ptr %this, i64 0, i32 2, i64 %idxprom19, i32 13
+  %77 = load ptr, ptr %m_userPersistentData.i.i, align 8, !tbaa !10
+  %tobool.not.i.i = icmp eq ptr %77, null
+  br i1 %tobool.not.i.i, label %_ZN20btPersistentManifold14clearUserCacheER15btManifoldPoint.exit.i, label %if.then.i.i
 
-149:                                              ; preds = %145
-  %150 = load ptr, ptr @gContactDestroyedCallback, align 8
-  %151 = icmp eq ptr %150, null
-  br i1 %151, label %154, label %152
+if.then.i.i:                                      ; preds = %if.then
+  %78 = load ptr, ptr @gContactDestroyedCallback, align 8
+  %tobool4.not.i.i = icmp eq ptr %78, null
+  br i1 %tobool4.not.i.i, label %_ZN20btPersistentManifold14clearUserCacheER15btManifoldPoint.exit.i, label %if.then5.i.i
 
-152:                                              ; preds = %149
-  %153 = tail call noundef zeroext i1 %150(ptr noundef nonnull %147)
-  store ptr null, ptr %146, align 8, !tbaa !10
-  br label %154
+if.then5.i.i:                                     ; preds = %if.then.i.i
+  %call.i.i = tail call noundef zeroext i1 %78(ptr noundef nonnull %77)
+  store ptr null, ptr %m_userPersistentData.i.i, align 8, !tbaa !10
+  br label %_ZN20btPersistentManifold14clearUserCacheER15btManifoldPoint.exit.i
 
-154:                                              ; preds = %152, %149, %145
-  %155 = load i32, ptr %4, align 8, !tbaa !23
-  %156 = add nsw i32 %155, -1
-  %157 = zext i32 %156 to i64
-  %158 = icmp eq i64 %139, %157
-  br i1 %158, label %169, label %159
+_ZN20btPersistentManifold14clearUserCacheER15btManifoldPoint.exit.i: ; preds = %if.then5.i.i, %if.then.i.i, %if.then
+  %79 = load i32, ptr %m_cachedPoints.i, align 8, !tbaa !23
+  %sub.i100 = add nsw i32 %79, -1
+  %80 = zext i32 %79 to i64
+  %cmp.not.i = icmp eq i64 %indvars.iv176, %80
+  br i1 %cmp.not.i, label %_ZN20btPersistentManifold18removeContactPointEi.exit, label %if.then.i
 
-159:                                              ; preds = %154
-  %160 = sext i32 %156 to i64
-  %161 = getelementptr inbounds %class.btPersistentManifold, ptr %0, i64 0, i32 2, i64 %160
-  tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(172) %140, ptr noundef nonnull align 8 dereferenceable(172) %161, i64 172, i1 false), !tbaa.struct !25
-  %162 = getelementptr inbounds %class.btPersistentManifold, ptr %0, i64 0, i32 2, i64 %160, i32 13
-  store ptr null, ptr %162, align 8, !tbaa !10
-  %163 = getelementptr inbounds %class.btPersistentManifold, ptr %0, i64 0, i32 2, i64 %160, i32 14
-  store float 0.000000e+00, ptr %163, align 8, !tbaa !16
-  %164 = getelementptr inbounds %class.btPersistentManifold, ptr %0, i64 0, i32 2, i64 %160, i32 15
-  store i8 0, ptr %164, align 4, !tbaa !17
-  %165 = getelementptr inbounds %class.btPersistentManifold, ptr %0, i64 0, i32 2, i64 %160, i32 17
-  store <2 x float> zeroinitializer, ptr %165, align 8, !tbaa !18
-  %166 = getelementptr inbounds %class.btPersistentManifold, ptr %0, i64 0, i32 2, i64 %160, i32 19
-  store i32 0, ptr %166, align 8, !tbaa !19
-  %167 = load i32, ptr %4, align 8, !tbaa !23
-  %168 = add nsw i32 %167, -1
-  br label %169
+if.then.i:                                        ; preds = %_ZN20btPersistentManifold14clearUserCacheER15btManifoldPoint.exit.i
+  %idxprom3.i = sext i32 %sub.i100 to i64
+  %arrayidx4.i = getelementptr inbounds %class.btPersistentManifold, ptr %this, i64 0, i32 2, i64 %idxprom3.i
+  tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(172) %arrayidx20, ptr noundef nonnull align 8 dereferenceable(172) %arrayidx4.i, i64 172, i1 false), !tbaa.struct !25
+  %m_userPersistentData.i = getelementptr inbounds %class.btPersistentManifold, ptr %this, i64 0, i32 2, i64 %idxprom3.i, i32 13
+  store ptr null, ptr %m_userPersistentData.i, align 8, !tbaa !10
+  %m_appliedImpulse.i = getelementptr inbounds %class.btPersistentManifold, ptr %this, i64 0, i32 2, i64 %idxprom3.i, i32 14
+  store float 0.000000e+00, ptr %m_appliedImpulse.i, align 8, !tbaa !16
+  %m_lateralFrictionInitialized.i = getelementptr inbounds %class.btPersistentManifold, ptr %this, i64 0, i32 2, i64 %idxprom3.i, i32 15
+  store i8 0, ptr %m_lateralFrictionInitialized.i, align 4, !tbaa !17
+  %m_appliedImpulseLateral1.i = getelementptr inbounds %class.btPersistentManifold, ptr %this, i64 0, i32 2, i64 %idxprom3.i, i32 17
+  store <2 x float> zeroinitializer, ptr %m_appliedImpulseLateral1.i, align 8, !tbaa !18
+  %m_lifeTime.i = getelementptr inbounds %class.btPersistentManifold, ptr %this, i64 0, i32 2, i64 %idxprom3.i, i32 19
+  store i32 0, ptr %m_lifeTime.i, align 8, !tbaa !19
+  %.pre.i = load i32, ptr %m_cachedPoints.i, align 8, !tbaa !23
+  %.pre35.i = add nsw i32 %.pre.i, -1
+  br label %_ZN20btPersistentManifold18removeContactPointEi.exit
 
-169:                                              ; preds = %154, %159
-  %170 = phi i32 [ %168, %159 ], [ %156, %154 ]
-  store i32 %170, ptr %4, align 8, !tbaa !23
-  br label %237
+_ZN20btPersistentManifold18removeContactPointEi.exit: ; preds = %_ZN20btPersistentManifold14clearUserCacheER15btManifoldPoint.exit.i, %if.then.i
+  %dec.pre-phi.i = phi i32 [ %.pre35.i, %if.then.i ], [ %sub.i100, %_ZN20btPersistentManifold14clearUserCacheER15btManifoldPoint.exit.i ]
+  store i32 %dec.pre-phi.i, ptr %m_cachedPoints.i, align 8, !tbaa !23
+  br label %if.end44
 
-171:                                              ; preds = %138
-  %172 = getelementptr inbounds %class.btPersistentManifold, ptr %0, i64 0, i32 2, i64 %139, i32 3
-  %173 = getelementptr inbounds %class.btPersistentManifold, ptr %0, i64 0, i32 2, i64 %139, i32 4
-  %174 = load float, ptr %173, align 8, !tbaa !18
-  %175 = fmul float %174, %142
-  %176 = getelementptr inbounds [4 x float], ptr %173, i64 0, i64 1
-  %177 = load float, ptr %176, align 4, !tbaa !18
-  %178 = fmul float %142, %177
-  %179 = getelementptr inbounds [4 x float], ptr %173, i64 0, i64 2
-  %180 = load float, ptr %179, align 8, !tbaa !18
-  %181 = fmul float %142, %180
-  %182 = load float, ptr %172, align 8, !tbaa !18
-  %183 = fsub float %182, %175
-  %184 = getelementptr inbounds [4 x float], ptr %172, i64 0, i64 1
-  %185 = load float, ptr %184, align 4, !tbaa !18
-  %186 = fsub float %185, %178
-  %187 = getelementptr inbounds [4 x float], ptr %172, i64 0, i64 2
-  %188 = load float, ptr %187, align 8, !tbaa !18
-  %189 = fsub float %188, %181
-  %190 = getelementptr inbounds %class.btPersistentManifold, ptr %0, i64 0, i32 2, i64 %139, i32 2
-  %191 = load float, ptr %190, align 8, !tbaa !18
-  %192 = fsub float %191, %183
-  %193 = getelementptr inbounds [4 x float], ptr %190, i64 0, i64 1
-  %194 = load float, ptr %193, align 4, !tbaa !18
-  %195 = fsub float %194, %186
-  %196 = getelementptr inbounds [4 x float], ptr %190, i64 0, i64 2
-  %197 = load float, ptr %196, align 8, !tbaa !18
-  %198 = fsub float %197, %189
-  %199 = fmul float %195, %195
-  %200 = tail call float @llvm.fmuladd.f32(float %192, float %192, float %199)
-  %201 = tail call float @llvm.fmuladd.f32(float %198, float %198, float %200)
-  %202 = fmul float %143, %143
-  %203 = fcmp ogt float %201, %202
-  br i1 %203, label %204, label %230
+if.else:                                          ; preds = %for.body16
+  %m_positionWorldOnA23 = getelementptr inbounds %class.btPersistentManifold, ptr %this, i64 0, i32 2, i64 %idxprom19, i32 3
+  %m_normalWorldOnB25 = getelementptr inbounds %class.btPersistentManifold, ptr %this, i64 0, i32 2, i64 %idxprom19, i32 4
+  %81 = load float, ptr %m_normalWorldOnB25, align 8, !tbaa !18
+  %mul.i = fmul float %81, %75
+  %arrayidx3.i = getelementptr inbounds [4 x float], ptr %m_normalWorldOnB25, i64 0, i64 1
+  %82 = load float, ptr %arrayidx3.i, align 4, !tbaa !18
+  %mul4.i = fmul float %75, %82
+  %arrayidx7.i101 = getelementptr inbounds [4 x float], ptr %m_normalWorldOnB25, i64 0, i64 2
+  %83 = load float, ptr %arrayidx7.i101, align 8, !tbaa !18
+  %mul8.i102 = fmul float %75, %83
+  %84 = load float, ptr %m_positionWorldOnA23, align 8, !tbaa !18
+  %sub.i108 = fsub float %84, %mul.i
+  %arrayidx5.i109 = getelementptr inbounds [4 x float], ptr %m_positionWorldOnA23, i64 0, i64 1
+  %85 = load float, ptr %arrayidx5.i109, align 4, !tbaa !18
+  %sub8.i111 = fsub float %85, %mul4.i
+  %arrayidx11.i112 = getelementptr inbounds [4 x float], ptr %m_positionWorldOnA23, i64 0, i64 2
+  %86 = load float, ptr %arrayidx11.i112, align 8, !tbaa !18
+  %sub14.i114 = fsub float %86, %mul8.i102
+  %m_positionWorldOnB32 = getelementptr inbounds %class.btPersistentManifold, ptr %this, i64 0, i32 2, i64 %idxprom19, i32 2
+  %87 = load float, ptr %m_positionWorldOnB32, align 8, !tbaa !18
+  %sub.i120 = fsub float %87, %sub.i108
+  %arrayidx5.i121 = getelementptr inbounds [4 x float], ptr %m_positionWorldOnB32, i64 0, i64 1
+  %88 = load float, ptr %arrayidx5.i121, align 4, !tbaa !18
+  %sub8.i123 = fsub float %88, %sub8.i111
+  %arrayidx11.i124 = getelementptr inbounds [4 x float], ptr %m_positionWorldOnB32, i64 0, i64 2
+  %89 = load float, ptr %arrayidx11.i124, align 8, !tbaa !18
+  %sub14.i126 = fsub float %89, %sub14.i114
+  %mul8.i134 = fmul float %sub8.i123, %sub8.i123
+  %90 = tail call float @llvm.fmuladd.f32(float %sub.i120, float %sub.i120, float %mul8.i134)
+  %91 = tail call float @llvm.fmuladd.f32(float %sub14.i126, float %sub14.i126, float %90)
+  %mul = fmul float %76, %76
+  %cmp38 = fcmp ogt float %91, %mul
+  br i1 %cmp38, label %if.then39, label %if.else40
 
-204:                                              ; preds = %171
-  %205 = getelementptr inbounds %class.btPersistentManifold, ptr %0, i64 0, i32 2, i64 %139, i32 13
-  %206 = load ptr, ptr %205, align 8, !tbaa !10
-  %207 = icmp eq ptr %206, null
-  br i1 %207, label %213, label %208
+if.then39:                                        ; preds = %if.else
+  %m_userPersistentData.i.i140 = getelementptr inbounds %class.btPersistentManifold, ptr %this, i64 0, i32 2, i64 %idxprom19, i32 13
+  %92 = load ptr, ptr %m_userPersistentData.i.i140, align 8, !tbaa !10
+  %tobool.not.i.i141 = icmp eq ptr %92, null
+  br i1 %tobool.not.i.i141, label %_ZN20btPersistentManifold14clearUserCacheER15btManifoldPoint.exit.i149, label %if.then.i.i143
 
-208:                                              ; preds = %204
-  %209 = load ptr, ptr @gContactDestroyedCallback, align 8
-  %210 = icmp eq ptr %209, null
-  br i1 %210, label %213, label %211
+if.then.i.i143:                                   ; preds = %if.then39
+  %93 = load ptr, ptr @gContactDestroyedCallback, align 8
+  %tobool4.not.i.i142 = icmp eq ptr %93, null
+  br i1 %tobool4.not.i.i142, label %_ZN20btPersistentManifold14clearUserCacheER15btManifoldPoint.exit.i149, label %if.then5.i.i145
 
-211:                                              ; preds = %208
-  %212 = tail call noundef zeroext i1 %209(ptr noundef nonnull %206)
-  store ptr null, ptr %205, align 8, !tbaa !10
-  br label %213
+if.then5.i.i145:                                  ; preds = %if.then.i.i143
+  %call.i.i144 = tail call noundef zeroext i1 %93(ptr noundef nonnull %92)
+  store ptr null, ptr %m_userPersistentData.i.i140, align 8, !tbaa !10
+  br label %_ZN20btPersistentManifold14clearUserCacheER15btManifoldPoint.exit.i149
 
-213:                                              ; preds = %211, %208, %204
-  %214 = load i32, ptr %4, align 8, !tbaa !23
-  %215 = add nsw i32 %214, -1
-  %216 = zext i32 %215 to i64
-  %217 = icmp eq i64 %139, %216
-  br i1 %217, label %228, label %218
+_ZN20btPersistentManifold14clearUserCacheER15btManifoldPoint.exit.i149: ; preds = %if.then5.i.i145, %if.then.i.i143, %if.then39
+  %94 = load i32, ptr %m_cachedPoints.i, align 8, !tbaa !23
+  %sub.i147 = add nsw i32 %94, -1
+  %95 = zext i32 %94 to i64
+  %cmp.not.i148 = icmp eq i64 %indvars.iv176, %95
+  br i1 %cmp.not.i148, label %_ZN20btPersistentManifold18removeContactPointEi.exit162, label %if.then.i160
 
-218:                                              ; preds = %213
-  %219 = sext i32 %215 to i64
-  %220 = getelementptr inbounds %class.btPersistentManifold, ptr %0, i64 0, i32 2, i64 %219
-  tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(172) %140, ptr noundef nonnull align 8 dereferenceable(172) %220, i64 172, i1 false), !tbaa.struct !25
-  %221 = getelementptr inbounds %class.btPersistentManifold, ptr %0, i64 0, i32 2, i64 %219, i32 13
-  store ptr null, ptr %221, align 8, !tbaa !10
-  %222 = getelementptr inbounds %class.btPersistentManifold, ptr %0, i64 0, i32 2, i64 %219, i32 14
-  store float 0.000000e+00, ptr %222, align 8, !tbaa !16
-  %223 = getelementptr inbounds %class.btPersistentManifold, ptr %0, i64 0, i32 2, i64 %219, i32 15
-  store i8 0, ptr %223, align 4, !tbaa !17
-  %224 = getelementptr inbounds %class.btPersistentManifold, ptr %0, i64 0, i32 2, i64 %219, i32 17
-  store <2 x float> zeroinitializer, ptr %224, align 8, !tbaa !18
-  %225 = getelementptr inbounds %class.btPersistentManifold, ptr %0, i64 0, i32 2, i64 %219, i32 19
-  store i32 0, ptr %225, align 8, !tbaa !19
-  %226 = load i32, ptr %4, align 8, !tbaa !23
-  %227 = add nsw i32 %226, -1
-  br label %228
+if.then.i160:                                     ; preds = %_ZN20btPersistentManifold14clearUserCacheER15btManifoldPoint.exit.i149
+  %idxprom3.i150 = sext i32 %sub.i147 to i64
+  %arrayidx4.i151 = getelementptr inbounds %class.btPersistentManifold, ptr %this, i64 0, i32 2, i64 %idxprom3.i150
+  tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(172) %arrayidx20, ptr noundef nonnull align 8 dereferenceable(172) %arrayidx4.i151, i64 172, i1 false), !tbaa.struct !25
+  %m_userPersistentData.i152 = getelementptr inbounds %class.btPersistentManifold, ptr %this, i64 0, i32 2, i64 %idxprom3.i150, i32 13
+  store ptr null, ptr %m_userPersistentData.i152, align 8, !tbaa !10
+  %m_appliedImpulse.i153 = getelementptr inbounds %class.btPersistentManifold, ptr %this, i64 0, i32 2, i64 %idxprom3.i150, i32 14
+  store float 0.000000e+00, ptr %m_appliedImpulse.i153, align 8, !tbaa !16
+  %m_lateralFrictionInitialized.i154 = getelementptr inbounds %class.btPersistentManifold, ptr %this, i64 0, i32 2, i64 %idxprom3.i150, i32 15
+  store i8 0, ptr %m_lateralFrictionInitialized.i154, align 4, !tbaa !17
+  %m_appliedImpulseLateral1.i155 = getelementptr inbounds %class.btPersistentManifold, ptr %this, i64 0, i32 2, i64 %idxprom3.i150, i32 17
+  store <2 x float> zeroinitializer, ptr %m_appliedImpulseLateral1.i155, align 8, !tbaa !18
+  %m_lifeTime.i157 = getelementptr inbounds %class.btPersistentManifold, ptr %this, i64 0, i32 2, i64 %idxprom3.i150, i32 19
+  store i32 0, ptr %m_lifeTime.i157, align 8, !tbaa !19
+  %.pre.i158 = load i32, ptr %m_cachedPoints.i, align 8, !tbaa !23
+  %.pre35.i159 = add nsw i32 %.pre.i158, -1
+  br label %_ZN20btPersistentManifold18removeContactPointEi.exit162
 
-228:                                              ; preds = %213, %218
-  %229 = phi i32 [ %227, %218 ], [ %215, %213 ]
-  store i32 %229, ptr %4, align 8, !tbaa !23
-  br label %237
+_ZN20btPersistentManifold18removeContactPointEi.exit162: ; preds = %_ZN20btPersistentManifold14clearUserCacheER15btManifoldPoint.exit.i149, %if.then.i160
+  %dec.pre-phi.i161 = phi i32 [ %.pre35.i159, %if.then.i160 ], [ %sub.i147, %_ZN20btPersistentManifold14clearUserCacheER15btManifoldPoint.exit.i149 ]
+  store i32 %dec.pre-phi.i161, ptr %m_cachedPoints.i, align 8, !tbaa !23
+  br label %if.end44
 
-230:                                              ; preds = %171
-  %231 = load ptr, ptr @gContactProcessedCallback, align 8, !tbaa !28
-  %232 = icmp eq ptr %231, null
-  br i1 %232, label %237, label %233
+if.else40:                                        ; preds = %if.else
+  %96 = load ptr, ptr @gContactProcessedCallback, align 8, !tbaa !28
+  %tobool.not = icmp eq ptr %96, null
+  br i1 %tobool.not, label %if.end44, label %if.then41
 
-233:                                              ; preds = %230
-  %234 = load ptr, ptr %33, align 8, !tbaa !32
-  %235 = load ptr, ptr %34, align 8, !tbaa !33
-  %236 = tail call noundef zeroext i1 %231(ptr noundef nonnull align 8 dereferenceable(172) %140, ptr noundef %234, ptr noundef %235)
-  br label %237
+if.then41:                                        ; preds = %if.else40
+  %97 = load ptr, ptr %m_body0, align 8, !tbaa !32
+  %98 = load ptr, ptr %m_body1, align 8, !tbaa !33
+  %call42 = tail call noundef zeroext i1 %96(ptr noundef nonnull align 8 dereferenceable(172) %arrayidx20, ptr noundef %97, ptr noundef %98)
+  br label %if.end44
 
-237:                                              ; preds = %228, %233, %230, %169
-  %238 = add nsw i64 %139, -1
-  %239 = icmp sgt i64 %139, 0
-  br i1 %239, label %138, label %240
+if.end44:                                         ; preds = %_ZN20btPersistentManifold18removeContactPointEi.exit162, %if.then41, %if.else40, %_ZN20btPersistentManifold18removeContactPointEi.exit
+  %cmp15 = icmp ugt i64 %indvars.iv176, 1
+  br i1 %cmp15, label %for.body16, label %for.end47
 
-240:                                              ; preds = %237, %3, %30
+for.end47:                                        ; preds = %if.end44, %entry, %for.cond14.preheader
   ret void
 }
 
@@ -734,14 +742,14 @@ declare float @llvm.fmuladd.f32(float, float, float) #7
 ; Function Attrs: mustprogress nocallback nofree nosync nounwind speculatable willreturn memory(none)
 declare float @llvm.fabs.f32(float) #7
 
+; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
+declare i32 @llvm.smax.i32(i32, i32) #8
+
 ; Function Attrs: nocallback nofree nounwind willreturn memory(argmem: write)
-declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #8
+declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #9
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i32 @llvm.smax.i32(i32, i32) #9
-
-; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare <2 x float> @llvm.fmuladd.v2f32(<2 x float>, <2 x float>, <2 x float>) #9
+declare <2 x float> @llvm.fmuladd.v2f32(<2 x float>, <2 x float>, <2 x float>) #8
 
 attributes #0 = { mustprogress nofree nosync nounwind willreturn memory(argmem: write) uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #1 = { uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
@@ -751,8 +759,8 @@ attributes #4 = { mustprogress nofree norecurse nosync nounwind willreturn memor
 attributes #5 = { mustprogress nocallback nofree nounwind willreturn memory(argmem: readwrite) }
 attributes #6 = { uwtable "min-legal-vector-width"="64" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #7 = { mustprogress nocallback nofree nosync nounwind speculatable willreturn memory(none) }
-attributes #8 = { nocallback nofree nounwind willreturn memory(argmem: write) }
-attributes #9 = { nocallback nofree nosync nounwind speculatable willreturn memory(none) }
+attributes #8 = { nocallback nofree nosync nounwind speculatable willreturn memory(none) }
+attributes #9 = { nocallback nofree nounwind willreturn memory(argmem: write) }
 
 !llvm.module.flags = !{!0, !1, !2, !3}
 !llvm.ident = !{!4}

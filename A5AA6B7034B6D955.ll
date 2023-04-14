@@ -20,104 +20,104 @@ target triple = "x86_64-unknown-linux-gnu"
 @t = dso_local local_unnamed_addr global i32 0, align 4
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(none) uwtable
-define dso_local i32 @fn1(i32 noundef returned %0) local_unnamed_addr #0 {
-  ret i32 %0
+define dso_local i32 @fn1(i32 noundef returned %p1) local_unnamed_addr #0 {
+entry:
+  ret i32 %p1
 }
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(none) uwtable
-define dso_local zeroext i8 @fn2(i8 noundef zeroext %0, i32 noundef %1) local_unnamed_addr #0 {
-  %3 = icmp sgt i32 %1, 1
-  %4 = zext i8 %0 to i32
-  %5 = select i1 %3, i32 0, i32 %1
-  %6 = lshr i32 %4, %5
-  %7 = trunc i32 %6 to i8
-  ret i8 %7
+define dso_local zeroext i8 @fn2(i8 noundef zeroext %p1, i32 noundef %p2) local_unnamed_addr #0 {
+entry:
+  %cmp = icmp sgt i32 %p2, 1
+  %conv = zext i8 %p1 to i32
+  %shr = select i1 %cmp, i32 0, i32 %p2
+  %cond = lshr i32 %conv, %shr
+  %conv2 = trunc i32 %cond to i8
+  ret i8 %conv2
 }
 
 ; Function Attrs: nounwind uwtable
 define dso_local i32 @main() local_unnamed_addr #1 {
-  %1 = load i32, ptr @p, align 4, !tbaa !5
-  %2 = icmp slt i32 %1, 31
-  br i1 %2, label %3, label %48
+entry:
+  %.pr.i = load i32, ptr @p, align 4, !tbaa !5
+  %cmp58.i = icmp slt i32 %.pr.i, 31
+  br i1 %cmp58.i, label %for.body.i, label %fn3.exit
 
-3:                                                ; preds = %0, %42
-  %4 = phi i32 [ %45, %42 ], [ 0, %0 ]
-  %5 = phi i32 [ %46, %42 ], [ %1, %0 ]
-  %6 = load i8, ptr @c, align 1, !tbaa !9
-  %7 = sext i8 %6 to i32
-  %8 = icmp ne i8 %6, 0
-  %9 = zext i1 %8 to i32
-  %10 = icmp eq i32 %9, %7
-  %11 = zext i1 %10 to i32
-  %12 = or i32 %11, %7
-  store i32 %12, ptr @s, align 4, !tbaa !5
-  %13 = icmp ugt i32 %4, 1
-  %14 = and i32 %12, 255
-  %15 = select i1 %13, i32 0, i32 %4
-  %16 = lshr i32 %14, %15
-  store i32 %16, ptr @t, align 4, !tbaa !5
-  store i32 %16, ptr @m, align 4, !tbaa !5
-  %17 = icmp eq i32 %16, %5
-  %18 = zext i1 %17 to i32
-  store i32 %18, ptr @o, align 4, !tbaa !5
+for.body.i:                                       ; preds = %entry, %for.inc53.i
+  %x.059.i = phi i32 [ %conv42.i, %for.inc53.i ], [ 0, %entry ]
+  %0 = phi i32 [ %inc54.i, %for.inc53.i ], [ %.pr.i, %entry ]
+  %1 = load i8, ptr @c, align 1, !tbaa !9
+  %conv.i = sext i8 %1 to i32
+  %tobool.i = icmp ne i8 %1, 0
+  %land.ext.i = zext i1 %tobool.i to i32
+  %cmp3.i = icmp eq i32 %land.ext.i, %conv.i
+  %conv4.i = zext i1 %cmp3.i to i32
+  %or.i = or i32 %conv4.i, %conv.i
+  store i32 %or.i, ptr @s, align 4, !tbaa !5
+  %cmp.i.i = icmp ugt i32 %x.059.i, 1
+  %conv.i.i = and i32 %or.i, 255
+  %shr.i.i = select i1 %cmp.i.i, i32 0, i32 %x.059.i
+  %cond.i.i = lshr i32 %conv.i.i, %shr.i.i
+  store i32 %cond.i.i, ptr @t, align 4, !tbaa !5
+  store i32 %cond.i.i, ptr @m, align 4, !tbaa !5
+  %cmp11.i = icmp eq i32 %0, %cond.i.i
+  %conv12.i = zext i1 %cmp11.i to i32
+  store i32 %conv12.i, ptr @o, align 4, !tbaa !5
   store i8 0, ptr @c, align 1, !tbaa !9
   store i8 0, ptr @e, align 1, !tbaa !9
   store i8 0, ptr @y, align 1, !tbaa !9
   store i16 0, ptr @d, align 2, !tbaa !10
-  %19 = icmp eq i32 %16, 0
-  br i1 %19, label %28, label %20
+  %2 = icmp eq i32 %cond.i.i, 0
+  br i1 %2, label %for.cond35.i, label %for.end.split.us.i
 
-20:                                               ; preds = %3
-  %21 = load i32, ptr @b, align 4, !tbaa !5
-  %22 = icmp eq i32 %21, 0
-  br i1 %22, label %24, label %23
-
-23:                                               ; preds = %20, %23
-  br label %23
-
-24:                                               ; preds = %20
-  %25 = load i32, ptr @i, align 4, !tbaa !5
-  %26 = trunc i32 %25 to i8
-  %27 = or i8 %26, 7
-  store i8 %27, ptr @e, align 1, !tbaa !9
+for.end.split.us.i:                               ; preds = %for.body.i
+  %3 = load i32, ptr @i, align 4, !tbaa !5
+  %4 = trunc i32 %3 to i8
+  %conv41.us.i = or i8 %4, 7
+  store i8 %conv41.us.i, ptr @e, align 1, !tbaa !9
   store i8 0, ptr @q, align 1, !tbaa !9
-  br label %42
+  %5 = load i32, ptr @b, align 4, !tbaa !5
+  %cmp46.us.i = icmp eq i32 %5, 0
+  br i1 %cmp46.us.i, label %for.inc53.i, label %for.cond35.us.i
 
-28:                                               ; preds = %3, %33
-  %29 = phi i32 [ %34, %33 ], [ 0, %3 ]
-  %30 = icmp eq i32 %29, 0
-  br i1 %30, label %31, label %33
+for.cond35.us.i:                                  ; preds = %for.end.split.us.i, %for.cond35.us.i
+  br label %for.cond35.us.i
 
-31:                                               ; preds = %28
+for.cond35.i:                                     ; preds = %for.body.i, %if.end.i
+  %6 = phi i32 [ %7, %if.end.i ], [ 0, %for.body.i ]
+  %tobool36.not.i = icmp eq i32 %6, 0
+  br i1 %tobool36.not.i, label %if.then.i, label %if.end.i
+
+if.then.i:                                        ; preds = %for.cond35.i
   tail call void (...) @abort() #3
-  %32 = load i32, ptr @m, align 4, !tbaa !5
-  br label %33
+  %.pre.i = load i32, ptr @m, align 4, !tbaa !5
+  br label %if.end.i
 
-33:                                               ; preds = %31, %28
-  %34 = phi i32 [ %32, %31 ], [ %29, %28 ]
-  %35 = load i32, ptr @i, align 4, !tbaa !5
-  %36 = trunc i32 %35 to i8
-  %37 = or i8 %36, 7
-  store i8 %37, ptr @e, align 1, !tbaa !9
+if.end.i:                                         ; preds = %if.then.i, %for.cond35.i
+  %7 = phi i32 [ %.pre.i, %if.then.i ], [ %6, %for.cond35.i ]
+  %8 = load i32, ptr @i, align 4, !tbaa !5
+  %9 = trunc i32 %8 to i8
+  %conv41.i = or i8 %9, 7
+  store i8 %conv41.i, ptr @e, align 1, !tbaa !9
   store i8 0, ptr @q, align 1, !tbaa !9
-  %38 = load i32, ptr @b, align 4, !tbaa !5
-  %39 = icmp eq i32 %38, 0
-  br i1 %39, label %40, label %28, !llvm.loop !12
+  %10 = load i32, ptr @b, align 4, !tbaa !5
+  %cmp46.i = icmp eq i32 %10, 0
+  br i1 %cmp46.i, label %for.inc53.loopexit.i, label %for.cond35.i, !llvm.loop !12
 
-40:                                               ; preds = %33
-  %41 = load i32, ptr @p, align 4, !tbaa !5
-  br label %42
+for.inc53.loopexit.i:                             ; preds = %if.end.i
+  %.pre61.i = load i32, ptr @p, align 4, !tbaa !5
+  br label %for.inc53.i
 
-42:                                               ; preds = %40, %24
-  %43 = phi i32 [ %5, %24 ], [ %41, %40 ]
-  %44 = phi i8 [ %27, %24 ], [ %37, %40 ]
-  %45 = zext i8 %44 to i32
-  %46 = add nsw i32 %43, 1
-  store i32 %46, ptr @p, align 4, !tbaa !5
-  %47 = icmp slt i32 %43, 30
-  br i1 %47, label %3, label %48, !llvm.loop !14
+for.inc53.i:                                      ; preds = %for.inc53.loopexit.i, %for.end.split.us.i
+  %11 = phi i32 [ %0, %for.end.split.us.i ], [ %.pre61.i, %for.inc53.loopexit.i ]
+  %.us-phi.i = phi i8 [ %conv41.us.i, %for.end.split.us.i ], [ %conv41.i, %for.inc53.loopexit.i ]
+  %conv42.i = zext i8 %.us-phi.i to i32
+  %inc54.i = add nsw i32 %11, 1
+  store i32 %inc54.i, ptr @p, align 4, !tbaa !5
+  %cmp.i = icmp slt i32 %11, 30
+  br i1 %cmp.i, label %for.body.i, label %fn3.exit, !llvm.loop !14
 
-48:                                               ; preds = %42, %0
+fn3.exit:                                         ; preds = %for.inc53.i, %entry
   ret i32 0
 }
 

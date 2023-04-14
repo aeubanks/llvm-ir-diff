@@ -7,42 +7,45 @@ target triple = "x86_64-unknown-linux-gnu"
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(read, argmem: none, inaccessiblemem: none) uwtable
 define dso_local i32 @foo() local_unnamed_addr #0 {
-  %1 = load i8, ptr @a, align 1, !tbaa !5
-  %2 = sext i8 %1 to i32
-  %3 = lshr i32 %2, 1
-  ret i32 %3
+entry:
+  %0 = load i8, ptr @a, align 1, !tbaa !5
+  %1 = sext i8 %0 to i32
+  %conv2 = lshr i32 %1, 1
+  ret i32 %conv2
 }
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(read, argmem: none, inaccessiblemem: none) uwtable
 define dso_local i32 @bar() local_unnamed_addr #0 {
-  %1 = load i8, ptr @a, align 1, !tbaa !5
-  %2 = sext i8 %1 to i32
-  %3 = urem i32 %2, 5
-  ret i32 %3
+entry:
+  %0 = load i8, ptr @a, align 1, !tbaa !5
+  %conv = sext i8 %0 to i32
+  %rem = urem i32 %conv, 5
+  ret i32 %rem
 }
 
 ; Function Attrs: noreturn nounwind uwtable
 define dso_local i32 @main() local_unnamed_addr #1 {
-  %1 = load i8, ptr @a, align 1, !tbaa !5
-  %2 = sext i8 %1 to i32
-  %3 = and i32 %2, -2
-  %4 = icmp eq i32 %3, -4
-  br i1 %4, label %6, label %5
+entry:
+  %0 = load i8, ptr @a, align 1, !tbaa !5
+  %1 = sext i8 %0 to i32
+  %conv2.i.mask = and i32 %1, -2
+  %cmp.not = icmp eq i32 %conv2.i.mask, -4
+  br i1 %cmp.not, label %if.end, label %if.then
 
-5:                                                ; preds = %0
+if.then:                                          ; preds = %entry
   tail call void @abort() #3
   unreachable
 
-6:                                                ; preds = %0
-  %7 = urem i32 %2, 5
-  %8 = icmp eq i32 %7, 2
-  br i1 %8, label %10, label %9
+if.end:                                           ; preds = %entry
+  %rem.i = urem i32 %1, 5
+  %cmp4.not = icmp eq i32 %rem.i, 2
+  br i1 %cmp4.not, label %if.end7, label %if.then6
 
-9:                                                ; preds = %6
+if.then6:                                         ; preds = %if.end
   tail call void @abort() #3
   unreachable
 
-10:                                               ; preds = %6
+if.end7:                                          ; preds = %if.end
   tail call void @exit(i32 noundef 0) #3
   unreachable
 }

@@ -58,28 +58,31 @@ $_ZTI4Node = comdat any
 @_ZN8RealNodeC1EfPc = dso_local unnamed_addr alias void (ptr, float, ptr), ptr @_ZN8RealNodeC2EfPc
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(argmem: readwrite) uwtable
-define dso_local void @_Z6strcpyPcS_(ptr nocapture noundef writeonly %0, ptr nocapture noundef readonly %1) local_unnamed_addr #0 {
-  %3 = load i8, ptr %1, align 1, !tbaa !5
-  store i8 %3, ptr %0, align 1, !tbaa !5
+define dso_local void @_Z6strcpyPcS_(ptr nocapture noundef writeonly %nam1, ptr nocapture noundef readonly %nam2) local_unnamed_addr #0 {
+entry:
+  %0 = load i8, ptr %nam2, align 1, !tbaa !5
+  store i8 %0, ptr %nam1, align 1, !tbaa !5
   ret void
 }
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(none) uwtable
-define dso_local noundef i32 @_Z6strlenPc(ptr nocapture noundef readnone %0) local_unnamed_addr #1 {
+define dso_local noundef i32 @_Z6strlenPc(ptr nocapture noundef readnone %nam) local_unnamed_addr #1 {
+entry:
   ret i32 0
 }
 
 ; Function Attrs: uwtable
-define dso_local void @_ZN4TreeC2Ef(ptr nocapture noundef nonnull writeonly align 8 dereferenceable(8) %0, float noundef %1) unnamed_addr #2 align 2 personality ptr @__gxx_personality_v0 {
-  %3 = tail call noalias noundef nonnull dereferenceable(24) ptr @_Znwm(i64 noundef 24) #13
-  %4 = getelementptr inbounds %class.Node, ptr %3, i64 0, i32 1
-  store i32 1, ptr %4, align 8, !tbaa !8
-  store ptr getelementptr inbounds ({ [5 x ptr] }, ptr @_ZTV8RealNode, i64 0, inrange i32 0, i64 2), ptr %3, align 8, !tbaa !11
-  %5 = getelementptr inbounds %class.RealNode, ptr %3, i64 0, i32 2
-  store ptr null, ptr %5, align 8, !tbaa !13
-  %6 = getelementptr inbounds %class.RealNode, ptr %3, i64 0, i32 1
-  store float %1, ptr %6, align 4, !tbaa !17
-  store ptr %3, ptr %0, align 8, !tbaa !18
+define dso_local void @_ZN4TreeC2Ef(ptr nocapture noundef nonnull writeonly align 8 dereferenceable(8) %this, float noundef %n) unnamed_addr #2 align 2 personality ptr @__gxx_personality_v0 {
+invoke.cont:
+  %call = tail call noalias noundef nonnull dereferenceable(24) ptr @_Znwm(i64 noundef 24) #13
+  %use.i.i = getelementptr inbounds %class.Node, ptr %call, i64 0, i32 1
+  store i32 1, ptr %use.i.i, align 8, !tbaa !8
+  store ptr getelementptr inbounds ({ [5 x ptr] }, ptr @_ZTV8RealNode, i64 0, inrange i32 0, i64 2), ptr %call, align 8, !tbaa !11
+  %symbol.i = getelementptr inbounds %class.RealNode, ptr %call, i64 0, i32 2
+  store ptr null, ptr %symbol.i, align 8, !tbaa !13
+  %n.i = getelementptr inbounds %class.RealNode, ptr %call, i64 0, i32 1
+  store float %n, ptr %n.i, align 4, !tbaa !17
+  store ptr %call, ptr %this, align 8, !tbaa !18
   ret void
 }
 
@@ -92,346 +95,356 @@ declare i32 @__gxx_personality_v0(...)
 declare void @_ZdlPv(ptr noundef) local_unnamed_addr #4
 
 ; Function Attrs: uwtable
-define dso_local void @_ZN4TreeC2EPc(ptr nocapture noundef nonnull writeonly align 8 dereferenceable(8) %0, ptr noundef readonly %1) unnamed_addr #2 align 2 personality ptr @__gxx_personality_v0 {
-  %3 = tail call noalias noundef nonnull dereferenceable(24) ptr @_Znwm(i64 noundef 24) #13
-  %4 = getelementptr inbounds %class.Node, ptr %3, i64 0, i32 1
-  store i32 1, ptr %4, align 8, !tbaa !8
-  store ptr getelementptr inbounds ({ [5 x ptr] }, ptr @_ZTV8RealNode, i64 0, inrange i32 0, i64 2), ptr %3, align 8, !tbaa !11
-  %5 = getelementptr inbounds %class.RealNode, ptr %3, i64 0, i32 2
-  store ptr null, ptr %5, align 8, !tbaa !13
-  %6 = getelementptr inbounds %class.RealNode, ptr %3, i64 0, i32 1
-  store float 0.000000e+00, ptr %6, align 4, !tbaa !17
-  %7 = icmp eq ptr %1, null
-  br i1 %7, label %12, label %8
+define dso_local void @_ZN4TreeC2EPc(ptr nocapture noundef nonnull writeonly align 8 dereferenceable(8) %this, ptr noundef readonly %ch) unnamed_addr #2 align 2 personality ptr @__gxx_personality_v0 {
+entry:
+  %call = tail call noalias noundef nonnull dereferenceable(24) ptr @_Znwm(i64 noundef 24) #13
+  %use.i.i = getelementptr inbounds %class.Node, ptr %call, i64 0, i32 1
+  store i32 1, ptr %use.i.i, align 8, !tbaa !8
+  store ptr getelementptr inbounds ({ [5 x ptr] }, ptr @_ZTV8RealNode, i64 0, inrange i32 0, i64 2), ptr %call, align 8, !tbaa !11
+  %symbol.i = getelementptr inbounds %class.RealNode, ptr %call, i64 0, i32 2
+  store ptr null, ptr %symbol.i, align 8, !tbaa !13
+  %n.i = getelementptr inbounds %class.RealNode, ptr %call, i64 0, i32 1
+  store float 0.000000e+00, ptr %n.i, align 4, !tbaa !17
+  %tobool.not.i = icmp eq ptr %ch, null
+  br i1 %tobool.not.i, label %invoke.cont, label %if.then.i
 
-8:                                                ; preds = %2
-  %9 = invoke noalias noundef nonnull dereferenceable(1) ptr @_Znwm(i64 noundef 1) #13
-          to label %10 unwind label %13
+if.then.i:                                        ; preds = %entry
+  %call2.i3 = invoke noalias noundef nonnull dereferenceable(1) ptr @_Znwm(i64 noundef 1) #13
+          to label %call2.i.noexc unwind label %lpad
 
-10:                                               ; preds = %8
-  store ptr %9, ptr %5, align 8, !tbaa !13
-  %11 = load i8, ptr %1, align 1, !tbaa !5
-  store i8 %11, ptr %9, align 1, !tbaa !5
-  br label %12
+call2.i.noexc:                                    ; preds = %if.then.i
+  store ptr %call2.i3, ptr %symbol.i, align 8, !tbaa !13
+  %0 = load i8, ptr %ch, align 1, !tbaa !5
+  store i8 %0, ptr %call2.i3, align 1, !tbaa !5
+  br label %invoke.cont
 
-12:                                               ; preds = %10, %2
-  store ptr %3, ptr %0, align 8, !tbaa !18
+invoke.cont:                                      ; preds = %call2.i.noexc, %entry
+  store ptr %call, ptr %this, align 8, !tbaa !18
   ret void
 
-13:                                               ; preds = %8
-  %14 = landingpad { ptr, i32 }
+lpad:                                             ; preds = %if.then.i
+  %1 = landingpad { ptr, i32 }
           cleanup
-  tail call void @_ZdlPv(ptr noundef nonnull %3) #14
-  resume { ptr, i32 } %14
+  tail call void @_ZdlPv(ptr noundef nonnull %call) #14
+  resume { ptr, i32 } %1
 }
 
 ; Function Attrs: uwtable
-define dso_local void @_ZN4TreeC2EPcS_(ptr nocapture noundef nonnull writeonly align 8 dereferenceable(8) %0, ptr nocapture noundef readonly %1, ptr nocapture noundef readonly %2) unnamed_addr #2 align 2 personality ptr @__gxx_personality_v0 {
-  %4 = tail call noalias noundef nonnull dereferenceable(32) ptr @_Znwm(i64 noundef 32) #13
-  %5 = load ptr, ptr %2, align 8, !tbaa !18
-  %6 = getelementptr inbounds %class.Node, ptr %5, i64 0, i32 1
-  %7 = load i32, ptr %6, align 8, !tbaa !8
-  %8 = add nsw i32 %7, 1
-  store i32 %8, ptr %6, align 8, !tbaa !8
-  %9 = getelementptr inbounds %class.Node, ptr %4, i64 0, i32 1
-  store i32 1, ptr %9, align 8, !tbaa !8
-  store ptr getelementptr inbounds ({ [5 x ptr] }, ptr @_ZTV9UnaryNode, i64 0, inrange i32 0, i64 2), ptr %4, align 8, !tbaa !11
-  %10 = invoke noalias noundef nonnull dereferenceable(8) ptr @_Znwm(i64 noundef 8) #13
-          to label %11 unwind label %25
+define dso_local void @_ZN4TreeC2EPcS_(ptr nocapture noundef nonnull writeonly align 8 dereferenceable(8) %this, ptr nocapture noundef readonly %op, ptr nocapture noundef readonly %t) unnamed_addr #2 align 2 personality ptr @__gxx_personality_v0 {
+entry:
+  %call = tail call noalias noundef nonnull dereferenceable(32) ptr @_Znwm(i64 noundef 32) #13
+  %0 = load ptr, ptr %t, align 8, !tbaa !18
+  %use.i = getelementptr inbounds %class.Node, ptr %0, i64 0, i32 1
+  %1 = load i32, ptr %use.i, align 8, !tbaa !8
+  %inc.i = add nsw i32 %1, 1
+  store i32 %inc.i, ptr %use.i, align 8, !tbaa !8
+  %use.i.i = getelementptr inbounds %class.Node, ptr %call, i64 0, i32 1
+  store i32 1, ptr %use.i.i, align 8, !tbaa !8
+  store ptr getelementptr inbounds ({ [5 x ptr] }, ptr @_ZTV9UnaryNode, i64 0, inrange i32 0, i64 2), ptr %call, align 8, !tbaa !11
+  %call.i5 = invoke noalias noundef nonnull dereferenceable(8) ptr @_Znwm(i64 noundef 8) #13
+          to label %call.i.noexc unwind label %lpad2
 
-11:                                               ; preds = %3
-  store ptr %5, ptr %10, align 8, !tbaa !18
-  %12 = load i32, ptr %6, align 8, !tbaa !8
-  %13 = add nsw i32 %12, 1
-  store i32 %13, ptr %6, align 8, !tbaa !8
-  %14 = getelementptr inbounds %class.UnaryNode, ptr %4, i64 0, i32 2
-  store ptr %10, ptr %14, align 8, !tbaa !20
-  %15 = invoke noalias noundef nonnull dereferenceable(1) ptr @_Znwm(i64 noundef 1) #13
-          to label %16 unwind label %25
+call.i.noexc:                                     ; preds = %entry
+  store ptr %0, ptr %call.i5, align 8, !tbaa !18
+  %2 = load i32, ptr %use.i, align 8, !tbaa !8
+  %inc.i.i = add nsw i32 %2, 1
+  store i32 %inc.i.i, ptr %use.i, align 8, !tbaa !8
+  %opnd.i = getelementptr inbounds %class.UnaryNode, ptr %call, i64 0, i32 2
+  store ptr %call.i5, ptr %opnd.i, align 8, !tbaa !20
+  %call6.i6 = invoke noalias noundef nonnull dereferenceable(1) ptr @_Znwm(i64 noundef 1) #13
+          to label %invoke.cont3 unwind label %lpad2
 
-16:                                               ; preds = %11
-  %17 = getelementptr inbounds %class.UnaryNode, ptr %4, i64 0, i32 1
-  store ptr %15, ptr %17, align 8, !tbaa !22
-  %18 = load i8, ptr %1, align 1, !tbaa !5
-  store i8 %18, ptr %15, align 1, !tbaa !5
-  store ptr %4, ptr %0, align 8, !tbaa !18
-  store i32 %12, ptr %6, align 8, !tbaa !8
-  %19 = icmp eq i32 %12, 0
-  br i1 %19, label %20, label %24
+invoke.cont3:                                     ; preds = %call.i.noexc
+  %op.i = getelementptr inbounds %class.UnaryNode, ptr %call, i64 0, i32 1
+  store ptr %call6.i6, ptr %op.i, align 8, !tbaa !22
+  %3 = load i8, ptr %op, align 1, !tbaa !5
+  store i8 %3, ptr %call6.i6, align 1, !tbaa !5
+  store ptr %call, ptr %this, align 8, !tbaa !18
+  store i32 %2, ptr %use.i, align 8, !tbaa !8
+  %cmp.i = icmp eq i32 %2, 0
+  br i1 %cmp.i, label %delete.notnull.i, label %_ZN4TreeD2Ev.exit
 
-20:                                               ; preds = %16
-  %21 = load ptr, ptr %5, align 8, !tbaa !11
-  %22 = getelementptr inbounds ptr, ptr %21, i64 2
-  %23 = load ptr, ptr %22, align 8
-  tail call void %23(ptr noundef nonnull align 8 dereferenceable(12) %5) #15
-  br label %24
+delete.notnull.i:                                 ; preds = %invoke.cont3
+  %vtable.i = load ptr, ptr %0, align 8, !tbaa !11
+  %vfn.i = getelementptr inbounds ptr, ptr %vtable.i, i64 2
+  %4 = load ptr, ptr %vfn.i, align 8
+  tail call void %4(ptr noundef nonnull align 8 dereferenceable(12) %0) #15
+  br label %_ZN4TreeD2Ev.exit
 
-24:                                               ; preds = %16, %20
+_ZN4TreeD2Ev.exit:                                ; preds = %invoke.cont3, %delete.notnull.i
   ret void
 
-25:                                               ; preds = %11, %3
-  %26 = landingpad { ptr, i32 }
+lpad2:                                            ; preds = %call.i.noexc, %entry
+  %5 = landingpad { ptr, i32 }
           cleanup
-  %27 = load i32, ptr %6, align 8, !tbaa !8
-  %28 = add nsw i32 %27, -1
-  store i32 %28, ptr %6, align 8, !tbaa !8
-  %29 = icmp eq i32 %28, 0
-  br i1 %29, label %30, label %34
+  %6 = load i32, ptr %use.i, align 8, !tbaa !8
+  %dec.i9 = add nsw i32 %6, -1
+  store i32 %dec.i9, ptr %use.i, align 8, !tbaa !8
+  %cmp.i10 = icmp eq i32 %dec.i9, 0
+  br i1 %cmp.i10, label %delete.notnull.i13, label %_ZN4TreeD2Ev.exit14
 
-30:                                               ; preds = %25
-  %31 = load ptr, ptr %5, align 8, !tbaa !11
-  %32 = getelementptr inbounds ptr, ptr %31, i64 2
-  %33 = load ptr, ptr %32, align 8
-  tail call void %33(ptr noundef nonnull align 8 dereferenceable(12) %5) #15
-  br label %34
+delete.notnull.i13:                               ; preds = %lpad2
+  %vtable.i11 = load ptr, ptr %0, align 8, !tbaa !11
+  %vfn.i12 = getelementptr inbounds ptr, ptr %vtable.i11, i64 2
+  %7 = load ptr, ptr %vfn.i12, align 8
+  tail call void %7(ptr noundef nonnull align 8 dereferenceable(12) %0) #15
+  br label %_ZN4TreeD2Ev.exit14
 
-34:                                               ; preds = %30, %25
-  tail call void @_ZdlPv(ptr noundef nonnull %4) #14
-  resume { ptr, i32 } %26
+_ZN4TreeD2Ev.exit14:                              ; preds = %lpad2, %delete.notnull.i13
+  tail call void @_ZdlPv(ptr noundef nonnull %call) #14
+  resume { ptr, i32 } %5
 }
 
 ; Function Attrs: uwtable
-define dso_local void @_ZN4TreeC2ES_PcS_(ptr nocapture noundef nonnull writeonly align 8 dereferenceable(8) %0, ptr nocapture noundef readonly %1, ptr nocapture noundef readonly %2, ptr nocapture noundef readonly %3) unnamed_addr #2 align 2 personality ptr @__gxx_personality_v0 {
-  %5 = tail call noalias noundef nonnull dereferenceable(40) ptr @_Znwm(i64 noundef 40) #13
-  %6 = load ptr, ptr %1, align 8, !tbaa !18
-  %7 = getelementptr inbounds %class.Node, ptr %6, i64 0, i32 1
-  %8 = load i32, ptr %7, align 8, !tbaa !8
-  %9 = add nsw i32 %8, 1
-  store i32 %9, ptr %7, align 8, !tbaa !8
-  %10 = load ptr, ptr %3, align 8, !tbaa !18
-  %11 = getelementptr inbounds %class.Node, ptr %10, i64 0, i32 1
-  %12 = load i32, ptr %11, align 8, !tbaa !8
-  %13 = add nsw i32 %12, 1
-  store i32 %13, ptr %11, align 8, !tbaa !8
-  %14 = getelementptr inbounds %class.Node, ptr %5, i64 0, i32 1
-  store i32 1, ptr %14, align 8, !tbaa !8
-  store ptr getelementptr inbounds ({ [5 x ptr] }, ptr @_ZTV10BinaryNode, i64 0, inrange i32 0, i64 2), ptr %5, align 8, !tbaa !11
-  %15 = invoke noalias noundef nonnull dereferenceable(8) ptr @_Znwm(i64 noundef 8) #13
-          to label %16 unwind label %43
+define dso_local void @_ZN4TreeC2ES_PcS_(ptr nocapture noundef nonnull writeonly align 8 dereferenceable(8) %this, ptr nocapture noundef readonly %left, ptr nocapture noundef readonly %op, ptr nocapture noundef readonly %right) unnamed_addr #2 align 2 personality ptr @__gxx_personality_v0 {
+entry:
+  %call = tail call noalias noundef nonnull dereferenceable(40) ptr @_Znwm(i64 noundef 40) #13
+  %0 = load ptr, ptr %left, align 8, !tbaa !18
+  %use.i = getelementptr inbounds %class.Node, ptr %0, i64 0, i32 1
+  %1 = load i32, ptr %use.i, align 8, !tbaa !8
+  %inc.i = add nsw i32 %1, 1
+  store i32 %inc.i, ptr %use.i, align 8, !tbaa !8
+  %2 = load ptr, ptr %right, align 8, !tbaa !18
+  %use.i9 = getelementptr inbounds %class.Node, ptr %2, i64 0, i32 1
+  %3 = load i32, ptr %use.i9, align 8, !tbaa !8
+  %inc.i10 = add nsw i32 %3, 1
+  store i32 %inc.i10, ptr %use.i9, align 8, !tbaa !8
+  %use.i.i = getelementptr inbounds %class.Node, ptr %call, i64 0, i32 1
+  store i32 1, ptr %use.i.i, align 8, !tbaa !8
+  store ptr getelementptr inbounds ({ [5 x ptr] }, ptr @_ZTV10BinaryNode, i64 0, inrange i32 0, i64 2), ptr %call, align 8, !tbaa !11
+  %call.i11 = invoke noalias noundef nonnull dereferenceable(8) ptr @_Znwm(i64 noundef 8) #13
+          to label %call.i.noexc unwind label %lpad5
 
-16:                                               ; preds = %4
-  store ptr %6, ptr %15, align 8, !tbaa !18
-  %17 = load i32, ptr %7, align 8, !tbaa !8
-  %18 = add nsw i32 %17, 1
-  store i32 %18, ptr %7, align 8, !tbaa !8
-  %19 = getelementptr inbounds %class.BinaryNode, ptr %5, i64 0, i32 2
-  store ptr %15, ptr %19, align 8, !tbaa !23
-  %20 = invoke noalias noundef nonnull dereferenceable(8) ptr @_Znwm(i64 noundef 8) #13
-          to label %21 unwind label %43
+call.i.noexc:                                     ; preds = %entry
+  store ptr %0, ptr %call.i11, align 8, !tbaa !18
+  %4 = load i32, ptr %use.i, align 8, !tbaa !8
+  %inc.i.i = add nsw i32 %4, 1
+  store i32 %inc.i.i, ptr %use.i, align 8, !tbaa !8
+  %left.i = getelementptr inbounds %class.BinaryNode, ptr %call, i64 0, i32 2
+  store ptr %call.i11, ptr %left.i, align 8, !tbaa !23
+  %call5.i12 = invoke noalias noundef nonnull dereferenceable(8) ptr @_Znwm(i64 noundef 8) #13
+          to label %call5.i.noexc unwind label %lpad5
 
-21:                                               ; preds = %16
-  store ptr %10, ptr %20, align 8, !tbaa !18
-  %22 = load i32, ptr %11, align 8, !tbaa !8
-  %23 = add nsw i32 %22, 1
-  store i32 %23, ptr %11, align 8, !tbaa !8
-  %24 = getelementptr inbounds %class.BinaryNode, ptr %5, i64 0, i32 3
-  store ptr %20, ptr %24, align 8, !tbaa !25
-  %25 = invoke noalias noundef nonnull dereferenceable(1) ptr @_Znwm(i64 noundef 1) #13
-          to label %26 unwind label %43
+call5.i.noexc:                                    ; preds = %call.i.noexc
+  store ptr %2, ptr %call5.i12, align 8, !tbaa !18
+  %5 = load i32, ptr %use.i9, align 8, !tbaa !8
+  %inc.i16.i = add nsw i32 %5, 1
+  store i32 %inc.i16.i, ptr %use.i9, align 8, !tbaa !8
+  %right.i = getelementptr inbounds %class.BinaryNode, ptr %call, i64 0, i32 3
+  store ptr %call5.i12, ptr %right.i, align 8, !tbaa !25
+  %call10.i13 = invoke noalias noundef nonnull dereferenceable(1) ptr @_Znwm(i64 noundef 1) #13
+          to label %invoke.cont6 unwind label %lpad5
 
-26:                                               ; preds = %21
-  %27 = getelementptr inbounds %class.BinaryNode, ptr %5, i64 0, i32 1
-  store ptr %25, ptr %27, align 8, !tbaa !26
-  %28 = load i8, ptr %2, align 1, !tbaa !5
-  store i8 %28, ptr %25, align 1, !tbaa !5
-  store ptr %5, ptr %0, align 8, !tbaa !18
-  store i32 %22, ptr %11, align 8, !tbaa !8
-  %29 = icmp eq i32 %22, 0
-  br i1 %29, label %30, label %34
+invoke.cont6:                                     ; preds = %call5.i.noexc
+  %op.i = getelementptr inbounds %class.BinaryNode, ptr %call, i64 0, i32 1
+  store ptr %call10.i13, ptr %op.i, align 8, !tbaa !26
+  %6 = load i8, ptr %op, align 1, !tbaa !5
+  store i8 %6, ptr %call10.i13, align 1, !tbaa !5
+  store ptr %call, ptr %this, align 8, !tbaa !18
+  store i32 %5, ptr %use.i9, align 8, !tbaa !8
+  %cmp.i = icmp eq i32 %5, 0
+  br i1 %cmp.i, label %delete.notnull.i, label %_ZN4TreeD2Ev.exit
 
-30:                                               ; preds = %26
-  %31 = load ptr, ptr %10, align 8, !tbaa !11
-  %32 = getelementptr inbounds ptr, ptr %31, i64 2
-  %33 = load ptr, ptr %32, align 8
-  tail call void %33(ptr noundef nonnull align 8 dereferenceable(12) %10) #15
-  br label %34
+delete.notnull.i:                                 ; preds = %invoke.cont6
+  %vtable.i = load ptr, ptr %2, align 8, !tbaa !11
+  %vfn.i = getelementptr inbounds ptr, ptr %vtable.i, i64 2
+  %7 = load ptr, ptr %vfn.i, align 8
+  tail call void %7(ptr noundef nonnull align 8 dereferenceable(12) %2) #15
+  br label %_ZN4TreeD2Ev.exit
 
-34:                                               ; preds = %26, %30
-  %35 = load i32, ptr %7, align 8, !tbaa !8
-  %36 = add nsw i32 %35, -1
-  store i32 %36, ptr %7, align 8, !tbaa !8
-  %37 = icmp eq i32 %36, 0
-  br i1 %37, label %38, label %42
+_ZN4TreeD2Ev.exit:                                ; preds = %invoke.cont6, %delete.notnull.i
+  %8 = load i32, ptr %use.i, align 8, !tbaa !8
+  %dec.i16 = add nsw i32 %8, -1
+  store i32 %dec.i16, ptr %use.i, align 8, !tbaa !8
+  %cmp.i17 = icmp eq i32 %dec.i16, 0
+  br i1 %cmp.i17, label %delete.notnull.i20, label %_ZN4TreeD2Ev.exit21
 
-38:                                               ; preds = %34
-  %39 = load ptr, ptr %6, align 8, !tbaa !11
-  %40 = getelementptr inbounds ptr, ptr %39, i64 2
-  %41 = load ptr, ptr %40, align 8
-  tail call void %41(ptr noundef nonnull align 8 dereferenceable(12) %6) #15
-  br label %42
+delete.notnull.i20:                               ; preds = %_ZN4TreeD2Ev.exit
+  %vtable.i18 = load ptr, ptr %0, align 8, !tbaa !11
+  %vfn.i19 = getelementptr inbounds ptr, ptr %vtable.i18, i64 2
+  %9 = load ptr, ptr %vfn.i19, align 8
+  tail call void %9(ptr noundef nonnull align 8 dereferenceable(12) %0) #15
+  br label %_ZN4TreeD2Ev.exit21
 
-42:                                               ; preds = %34, %38
+_ZN4TreeD2Ev.exit21:                              ; preds = %_ZN4TreeD2Ev.exit, %delete.notnull.i20
   ret void
 
-43:                                               ; preds = %21, %16, %4
-  %44 = landingpad { ptr, i32 }
+lpad5:                                            ; preds = %call5.i.noexc, %call.i.noexc, %entry
+  %10 = landingpad { ptr, i32 }
           cleanup
-  %45 = load i32, ptr %11, align 8, !tbaa !8
-  %46 = add nsw i32 %45, -1
-  store i32 %46, ptr %11, align 8, !tbaa !8
-  %47 = icmp eq i32 %46, 0
-  br i1 %47, label %48, label %52
+  %11 = load i32, ptr %use.i9, align 8, !tbaa !8
+  %dec.i23 = add nsw i32 %11, -1
+  store i32 %dec.i23, ptr %use.i9, align 8, !tbaa !8
+  %cmp.i24 = icmp eq i32 %dec.i23, 0
+  br i1 %cmp.i24, label %delete.notnull.i27, label %_ZN4TreeD2Ev.exit28
 
-48:                                               ; preds = %43
-  %49 = load ptr, ptr %10, align 8, !tbaa !11
-  %50 = getelementptr inbounds ptr, ptr %49, i64 2
-  %51 = load ptr, ptr %50, align 8
-  tail call void %51(ptr noundef nonnull align 8 dereferenceable(12) %10) #15
-  br label %52
+delete.notnull.i27:                               ; preds = %lpad5
+  %vtable.i25 = load ptr, ptr %2, align 8, !tbaa !11
+  %vfn.i26 = getelementptr inbounds ptr, ptr %vtable.i25, i64 2
+  %12 = load ptr, ptr %vfn.i26, align 8
+  tail call void %12(ptr noundef nonnull align 8 dereferenceable(12) %2) #15
+  br label %_ZN4TreeD2Ev.exit28
 
-52:                                               ; preds = %48, %43
-  %53 = load i32, ptr %7, align 8, !tbaa !8
-  %54 = add nsw i32 %53, -1
-  store i32 %54, ptr %7, align 8, !tbaa !8
-  %55 = icmp eq i32 %54, 0
-  br i1 %55, label %56, label %60
+_ZN4TreeD2Ev.exit28:                              ; preds = %lpad5, %delete.notnull.i27
+  %13 = load i32, ptr %use.i, align 8, !tbaa !8
+  %dec.i30 = add nsw i32 %13, -1
+  store i32 %dec.i30, ptr %use.i, align 8, !tbaa !8
+  %cmp.i31 = icmp eq i32 %dec.i30, 0
+  br i1 %cmp.i31, label %delete.notnull.i34, label %_ZN4TreeD2Ev.exit35
 
-56:                                               ; preds = %52
-  %57 = load ptr, ptr %6, align 8, !tbaa !11
-  %58 = getelementptr inbounds ptr, ptr %57, i64 2
-  %59 = load ptr, ptr %58, align 8
-  tail call void %59(ptr noundef nonnull align 8 dereferenceable(12) %6) #15
-  br label %60
+delete.notnull.i34:                               ; preds = %_ZN4TreeD2Ev.exit28
+  %vtable.i32 = load ptr, ptr %0, align 8, !tbaa !11
+  %vfn.i33 = getelementptr inbounds ptr, ptr %vtable.i32, i64 2
+  %14 = load ptr, ptr %vfn.i33, align 8
+  tail call void %14(ptr noundef nonnull align 8 dereferenceable(12) %0) #15
+  br label %_ZN4TreeD2Ev.exit35
 
-60:                                               ; preds = %56, %52
-  tail call void @_ZdlPv(ptr noundef nonnull %5) #14
-  resume { ptr, i32 } %44
+_ZN4TreeD2Ev.exit35:                              ; preds = %_ZN4TreeD2Ev.exit28, %delete.notnull.i34
+  tail call void @_ZdlPv(ptr noundef nonnull %call) #14
+  resume { ptr, i32 } %10
 }
 
 ; Function Attrs: nounwind uwtable
-define dso_local void @_ZN4TreeD2Ev(ptr nocapture noundef nonnull readonly align 8 dereferenceable(8) %0) unnamed_addr #5 align 2 {
-  %2 = load ptr, ptr %0, align 8, !tbaa !18
-  %3 = getelementptr inbounds %class.Node, ptr %2, i64 0, i32 1
-  %4 = load i32, ptr %3, align 8, !tbaa !8
-  %5 = add nsw i32 %4, -1
-  store i32 %5, ptr %3, align 8, !tbaa !8
-  %6 = icmp eq i32 %5, 0
-  br i1 %6, label %7, label %11
+define dso_local void @_ZN4TreeD2Ev(ptr nocapture noundef nonnull readonly align 8 dereferenceable(8) %this) unnamed_addr #5 align 2 {
+entry:
+  %0 = load ptr, ptr %this, align 8, !tbaa !18
+  %use = getelementptr inbounds %class.Node, ptr %0, i64 0, i32 1
+  %1 = load i32, ptr %use, align 8, !tbaa !8
+  %dec = add nsw i32 %1, -1
+  store i32 %dec, ptr %use, align 8, !tbaa !8
+  %cmp = icmp eq i32 %dec, 0
+  br i1 %cmp, label %delete.notnull, label %if.end
 
-7:                                                ; preds = %1
-  %8 = load ptr, ptr %2, align 8, !tbaa !11
-  %9 = getelementptr inbounds ptr, ptr %8, i64 2
-  %10 = load ptr, ptr %9, align 8
-  tail call void %10(ptr noundef nonnull align 8 dereferenceable(12) %2) #15
-  br label %11
+delete.notnull:                                   ; preds = %entry
+  %vtable = load ptr, ptr %0, align 8, !tbaa !11
+  %vfn = getelementptr inbounds ptr, ptr %vtable, i64 2
+  %2 = load ptr, ptr %vfn, align 8
+  tail call void %2(ptr noundef nonnull align 8 dereferenceable(12) %0) #15
+  br label %if.end
 
-11:                                               ; preds = %7, %1
+if.end:                                           ; preds = %delete.notnull, %entry
   ret void
 }
 
 ; Function Attrs: mustprogress nounwind uwtable
-define dso_local void @_ZN4TreeaSERKS_(ptr nocapture noundef nonnull align 8 dereferenceable(8) %0, ptr nocapture noundef nonnull readonly align 8 dereferenceable(8) %1) local_unnamed_addr #6 align 2 {
-  %3 = load ptr, ptr %1, align 8, !tbaa !18
-  %4 = getelementptr inbounds %class.Node, ptr %3, i64 0, i32 1
-  %5 = load i32, ptr %4, align 8, !tbaa !8
-  %6 = add nsw i32 %5, 1
-  store i32 %6, ptr %4, align 8, !tbaa !8
-  %7 = load ptr, ptr %0, align 8, !tbaa !18
-  %8 = getelementptr inbounds %class.Node, ptr %7, i64 0, i32 1
-  %9 = load i32, ptr %8, align 8, !tbaa !8
-  %10 = add nsw i32 %9, -1
-  store i32 %10, ptr %8, align 8, !tbaa !8
-  %11 = icmp eq i32 %10, 0
-  br i1 %11, label %12, label %17
+define dso_local void @_ZN4TreeaSERKS_(ptr nocapture noundef nonnull align 8 dereferenceable(8) %this, ptr nocapture noundef nonnull readonly align 8 dereferenceable(8) %t) local_unnamed_addr #6 align 2 {
+entry:
+  %0 = load ptr, ptr %t, align 8, !tbaa !18
+  %use = getelementptr inbounds %class.Node, ptr %0, i64 0, i32 1
+  %1 = load i32, ptr %use, align 8, !tbaa !8
+  %inc = add nsw i32 %1, 1
+  store i32 %inc, ptr %use, align 8, !tbaa !8
+  %2 = load ptr, ptr %this, align 8, !tbaa !18
+  %use3 = getelementptr inbounds %class.Node, ptr %2, i64 0, i32 1
+  %3 = load i32, ptr %use3, align 8, !tbaa !8
+  %dec = add nsw i32 %3, -1
+  store i32 %dec, ptr %use3, align 8, !tbaa !8
+  %cmp = icmp eq i32 %dec, 0
+  br i1 %cmp, label %delete.notnull, label %if.end
 
-12:                                               ; preds = %2
-  %13 = load ptr, ptr %7, align 8, !tbaa !11
-  %14 = getelementptr inbounds ptr, ptr %13, i64 2
-  %15 = load ptr, ptr %14, align 8
-  tail call void %15(ptr noundef nonnull align 8 dereferenceable(12) %7) #15
-  %16 = load ptr, ptr %1, align 8, !tbaa !18
-  br label %17
+delete.notnull:                                   ; preds = %entry
+  %vtable = load ptr, ptr %2, align 8, !tbaa !11
+  %vfn = getelementptr inbounds ptr, ptr %vtable, i64 2
+  %4 = load ptr, ptr %vfn, align 8
+  tail call void %4(ptr noundef nonnull align 8 dereferenceable(12) %2) #15
+  %.pre = load ptr, ptr %t, align 8, !tbaa !18
+  br label %if.end
 
-17:                                               ; preds = %12, %2
-  %18 = phi ptr [ %16, %12 ], [ %3, %2 ]
-  store ptr %18, ptr %0, align 8, !tbaa !18
+if.end:                                           ; preds = %delete.notnull, %entry
+  %5 = phi ptr [ %.pre, %delete.notnull ], [ %0, %entry ]
+  store ptr %5, ptr %this, align 8, !tbaa !18
   ret void
 }
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(readwrite, inaccessiblemem: none) uwtable
-define dso_local void @_ZN4TreeC2ERKS_(ptr nocapture noundef nonnull writeonly align 8 dereferenceable(8) %0, ptr nocapture noundef nonnull readonly align 8 dereferenceable(8) %1) unnamed_addr #7 align 2 {
-  %3 = load ptr, ptr %1, align 8, !tbaa !18
-  store ptr %3, ptr %0, align 8, !tbaa !18
-  %4 = getelementptr inbounds %class.Node, ptr %3, i64 0, i32 1
-  %5 = load i32, ptr %4, align 8, !tbaa !8
-  %6 = add nsw i32 %5, 1
-  store i32 %6, ptr %4, align 8, !tbaa !8
+define dso_local void @_ZN4TreeC2ERKS_(ptr nocapture noundef nonnull writeonly align 8 dereferenceable(8) %this, ptr nocapture noundef nonnull readonly align 8 dereferenceable(8) %t) unnamed_addr #7 align 2 {
+entry:
+  %0 = load ptr, ptr %t, align 8, !tbaa !18
+  store ptr %0, ptr %this, align 8, !tbaa !18
+  %use = getelementptr inbounds %class.Node, ptr %0, i64 0, i32 1
+  %1 = load i32, ptr %use, align 8, !tbaa !8
+  %inc = add nsw i32 %1, 1
+  store i32 %inc, ptr %use, align 8, !tbaa !8
   ret void
 }
 
 ; Function Attrs: mustprogress uwtable
-define dso_local noundef float @_ZN4Tree5valueEv(ptr nocapture noundef nonnull readonly align 8 dereferenceable(8) %0) local_unnamed_addr #8 align 2 {
-  %2 = load ptr, ptr %0, align 8, !tbaa !18
-  %3 = load ptr, ptr %2, align 8, !tbaa !11
-  %4 = load ptr, ptr %3, align 8
-  %5 = tail call noundef float %4(ptr noundef nonnull align 8 dereferenceable(12) %2)
-  ret float %5
+define dso_local noundef float @_ZN4Tree5valueEv(ptr nocapture noundef nonnull readonly align 8 dereferenceable(8) %this) local_unnamed_addr #8 align 2 {
+entry:
+  %0 = load ptr, ptr %this, align 8, !tbaa !18
+  %vtable = load ptr, ptr %0, align 8, !tbaa !11
+  %1 = load ptr, ptr %vtable, align 8
+  %call = tail call noundef float %1(ptr noundef nonnull align 8 dereferenceable(12) %0)
+  ret float %call
 }
 
 ; Function Attrs: mustprogress uwtable
-define dso_local noundef float @_ZN4TreeclEfff(ptr nocapture noundef nonnull readonly align 8 dereferenceable(8) %0, float noundef %1, float noundef %2, float noundef %3) local_unnamed_addr #8 align 2 {
-  store float %1, ptr @values0, align 4, !tbaa !27
-  store float %2, ptr @values1, align 4, !tbaa !27
-  store float %3, ptr @values2, align 4, !tbaa !27
-  %5 = load ptr, ptr %0, align 8, !tbaa !18
-  %6 = load ptr, ptr %5, align 8, !tbaa !11
-  %7 = load ptr, ptr %6, align 8
-  %8 = tail call noundef float %7(ptr noundef nonnull align 8 dereferenceable(12) %5)
-  ret float %8
+define dso_local noundef float @_ZN4TreeclEfff(ptr nocapture noundef nonnull readonly align 8 dereferenceable(8) %this, float noundef %x, float noundef %y, float noundef %z) local_unnamed_addr #8 align 2 {
+entry:
+  store float %x, ptr @values0, align 4, !tbaa !27
+  store float %y, ptr @values1, align 4, !tbaa !27
+  store float %z, ptr @values2, align 4, !tbaa !27
+  %0 = load ptr, ptr %this, align 8, !tbaa !18
+  %vtable.i = load ptr, ptr %0, align 8, !tbaa !11
+  %1 = load ptr, ptr %vtable.i, align 8
+  %call.i = tail call noundef float %1(ptr noundef nonnull align 8 dereferenceable(12) %0)
+  ret float %call.i
 }
 
 ; Function Attrs: uwtable
-define dso_local void @_ZN10BinaryNodeC2EPc4TreeS1_(ptr nocapture noundef nonnull writeonly align 8 dereferenceable(40) %0, ptr nocapture noundef readonly %1, ptr nocapture noundef readonly %2, ptr nocapture noundef readonly %3) unnamed_addr #2 align 2 personality ptr @__gxx_personality_v0 {
-  %5 = getelementptr inbounds %class.Node, ptr %0, i64 0, i32 1
-  store i32 1, ptr %5, align 8, !tbaa !8
-  store ptr getelementptr inbounds ({ [5 x ptr] }, ptr @_ZTV10BinaryNode, i64 0, inrange i32 0, i64 2), ptr %0, align 8, !tbaa !11
-  %6 = tail call noalias noundef nonnull dereferenceable(8) ptr @_Znwm(i64 noundef 8) #13
-  %7 = load ptr, ptr %2, align 8, !tbaa !18
-  store ptr %7, ptr %6, align 8, !tbaa !18
-  %8 = getelementptr inbounds %class.Node, ptr %7, i64 0, i32 1
-  %9 = load i32, ptr %8, align 8, !tbaa !8
-  %10 = add nsw i32 %9, 1
-  store i32 %10, ptr %8, align 8, !tbaa !8
-  %11 = getelementptr inbounds %class.BinaryNode, ptr %0, i64 0, i32 2
-  store ptr %6, ptr %11, align 8, !tbaa !23
-  %12 = tail call noalias noundef nonnull dereferenceable(8) ptr @_Znwm(i64 noundef 8) #13
-  %13 = load ptr, ptr %3, align 8, !tbaa !18
-  store ptr %13, ptr %12, align 8, !tbaa !18
-  %14 = getelementptr inbounds %class.Node, ptr %13, i64 0, i32 1
-  %15 = load i32, ptr %14, align 8, !tbaa !8
-  %16 = add nsw i32 %15, 1
-  store i32 %16, ptr %14, align 8, !tbaa !8
-  %17 = getelementptr inbounds %class.BinaryNode, ptr %0, i64 0, i32 3
-  store ptr %12, ptr %17, align 8, !tbaa !25
-  %18 = tail call noalias noundef nonnull dereferenceable(1) ptr @_Znwm(i64 noundef 1) #13
-  %19 = getelementptr inbounds %class.BinaryNode, ptr %0, i64 0, i32 1
-  store ptr %18, ptr %19, align 8, !tbaa !26
-  %20 = load i8, ptr %1, align 1, !tbaa !5
-  store i8 %20, ptr %18, align 1, !tbaa !5
+define dso_local void @_ZN10BinaryNodeC2EPc4TreeS1_(ptr nocapture noundef nonnull writeonly align 8 dereferenceable(40) %this, ptr nocapture noundef readonly %a, ptr nocapture noundef readonly %b, ptr nocapture noundef readonly %c) unnamed_addr #2 align 2 personality ptr @__gxx_personality_v0 {
+entry:
+  %use.i = getelementptr inbounds %class.Node, ptr %this, i64 0, i32 1
+  store i32 1, ptr %use.i, align 8, !tbaa !8
+  store ptr getelementptr inbounds ({ [5 x ptr] }, ptr @_ZTV10BinaryNode, i64 0, inrange i32 0, i64 2), ptr %this, align 8, !tbaa !11
+  %call = tail call noalias noundef nonnull dereferenceable(8) ptr @_Znwm(i64 noundef 8) #13
+  %0 = load ptr, ptr %b, align 8, !tbaa !18
+  store ptr %0, ptr %call, align 8, !tbaa !18
+  %use.i14 = getelementptr inbounds %class.Node, ptr %0, i64 0, i32 1
+  %1 = load i32, ptr %use.i14, align 8, !tbaa !8
+  %inc.i = add nsw i32 %1, 1
+  store i32 %inc.i, ptr %use.i14, align 8, !tbaa !8
+  %left = getelementptr inbounds %class.BinaryNode, ptr %this, i64 0, i32 2
+  store ptr %call, ptr %left, align 8, !tbaa !23
+  %call5 = tail call noalias noundef nonnull dereferenceable(8) ptr @_Znwm(i64 noundef 8) #13
+  %2 = load ptr, ptr %c, align 8, !tbaa !18
+  store ptr %2, ptr %call5, align 8, !tbaa !18
+  %use.i15 = getelementptr inbounds %class.Node, ptr %2, i64 0, i32 1
+  %3 = load i32, ptr %use.i15, align 8, !tbaa !8
+  %inc.i16 = add nsw i32 %3, 1
+  store i32 %inc.i16, ptr %use.i15, align 8, !tbaa !8
+  %right = getelementptr inbounds %class.BinaryNode, ptr %this, i64 0, i32 3
+  store ptr %call5, ptr %right, align 8, !tbaa !25
+  %call10 = tail call noalias noundef nonnull dereferenceable(1) ptr @_Znwm(i64 noundef 1) #13
+  %op = getelementptr inbounds %class.BinaryNode, ptr %this, i64 0, i32 1
+  store ptr %call10, ptr %op, align 8, !tbaa !26
+  %4 = load i8, ptr %a, align 1, !tbaa !5
+  store i8 %4, ptr %call10, align 1, !tbaa !5
   ret void
 }
 
 ; Function Attrs: mustprogress uwtable
-define dso_local noundef float @_ZN10BinaryNode9nodeValueEv(ptr nocapture noundef nonnull readonly align 8 dereferenceable(40) %0) unnamed_addr #8 align 2 {
-  %2 = getelementptr inbounds %class.BinaryNode, ptr %0, i64 0, i32 1
-  %3 = load ptr, ptr %2, align 8, !tbaa !26
-  %4 = load i8, ptr %3, align 1, !tbaa !5
-  %5 = icmp eq i8 %4, 43
-  %6 = getelementptr inbounds %class.BinaryNode, ptr %0, i64 0, i32 2
-  %7 = load ptr, ptr %6, align 8, !tbaa !23
-  %8 = load ptr, ptr %7, align 8, !tbaa !18
-  %9 = load ptr, ptr %8, align 8, !tbaa !11
-  %10 = load ptr, ptr %9, align 8
-  %11 = tail call noundef float %10(ptr noundef nonnull align 8 dereferenceable(12) %8)
-  %12 = getelementptr inbounds %class.BinaryNode, ptr %0, i64 0, i32 3
-  %13 = load ptr, ptr %12, align 8, !tbaa !25
-  %14 = load ptr, ptr %13, align 8, !tbaa !18
-  %15 = load ptr, ptr %14, align 8, !tbaa !11
-  %16 = load ptr, ptr %15, align 8
-  %17 = tail call noundef float %16(ptr noundef nonnull align 8 dereferenceable(12) %14)
-  %18 = fadd float %11, %17
-  %19 = select i1 %5, float %18, float 0x416312CFE0000000
-  ret float %19
+define dso_local noundef float @_ZN10BinaryNode9nodeValueEv(ptr nocapture noundef nonnull readonly align 8 dereferenceable(40) %this) unnamed_addr #8 align 2 {
+entry:
+  %op = getelementptr inbounds %class.BinaryNode, ptr %this, i64 0, i32 1
+  %0 = load ptr, ptr %op, align 8, !tbaa !26
+  %1 = load i8, ptr %0, align 1, !tbaa !5
+  %cmp = icmp eq i8 %1, 43
+  %left = getelementptr inbounds %class.BinaryNode, ptr %this, i64 0, i32 2
+  %2 = load ptr, ptr %left, align 8, !tbaa !23
+  %3 = load ptr, ptr %2, align 8, !tbaa !18
+  %vtable.i = load ptr, ptr %3, align 8, !tbaa !11
+  %4 = load ptr, ptr %vtable.i, align 8
+  %call.i = tail call noundef float %4(ptr noundef nonnull align 8 dereferenceable(12) %3)
+  %right = getelementptr inbounds %class.BinaryNode, ptr %this, i64 0, i32 3
+  %5 = load ptr, ptr %right, align 8, !tbaa !25
+  %6 = load ptr, ptr %5, align 8, !tbaa !18
+  %vtable.i8 = load ptr, ptr %6, align 8, !tbaa !11
+  %7 = load ptr, ptr %vtable.i8, align 8
+  %call.i9 = tail call noundef float %7(ptr noundef nonnull align 8 dereferenceable(12) %6)
+  %add = fadd float %call.i, %call.i9
+  %retval.0 = select i1 %cmp, float %add, float 0x416312CFE0000000
+  ret float %retval.0
 }
 
 ; Function Attrs: mustprogress nocallback nofree nosync nounwind willreturn memory(argmem: readwrite)
@@ -441,935 +454,946 @@ declare void @llvm.lifetime.start.p0(i64 immarg, ptr nocapture) #9
 declare void @llvm.lifetime.end.p0(i64 immarg, ptr nocapture) #9
 
 ; Function Attrs: uwtable
-define dso_local void @_ZN9UnaryNodeC2EPc4Tree(ptr nocapture noundef nonnull writeonly align 8 dereferenceable(32) %0, ptr nocapture noundef readonly %1, ptr nocapture noundef readonly %2) unnamed_addr #2 align 2 personality ptr @__gxx_personality_v0 {
-  %4 = getelementptr inbounds %class.Node, ptr %0, i64 0, i32 1
-  store i32 1, ptr %4, align 8, !tbaa !8
-  store ptr getelementptr inbounds ({ [5 x ptr] }, ptr @_ZTV9UnaryNode, i64 0, inrange i32 0, i64 2), ptr %0, align 8, !tbaa !11
-  %5 = tail call noalias noundef nonnull dereferenceable(8) ptr @_Znwm(i64 noundef 8) #13
-  %6 = load ptr, ptr %2, align 8, !tbaa !18
-  store ptr %6, ptr %5, align 8, !tbaa !18
-  %7 = getelementptr inbounds %class.Node, ptr %6, i64 0, i32 1
-  %8 = load i32, ptr %7, align 8, !tbaa !8
-  %9 = add nsw i32 %8, 1
-  store i32 %9, ptr %7, align 8, !tbaa !8
-  %10 = getelementptr inbounds %class.UnaryNode, ptr %0, i64 0, i32 2
-  store ptr %5, ptr %10, align 8, !tbaa !20
-  %11 = tail call noalias noundef nonnull dereferenceable(1) ptr @_Znwm(i64 noundef 1) #13
-  %12 = getelementptr inbounds %class.UnaryNode, ptr %0, i64 0, i32 1
-  store ptr %11, ptr %12, align 8, !tbaa !22
-  %13 = load i8, ptr %1, align 1, !tbaa !5
-  store i8 %13, ptr %11, align 1, !tbaa !5
+define dso_local void @_ZN9UnaryNodeC2EPc4Tree(ptr nocapture noundef nonnull writeonly align 8 dereferenceable(32) %this, ptr nocapture noundef readonly %a, ptr nocapture noundef readonly %b) unnamed_addr #2 align 2 personality ptr @__gxx_personality_v0 {
+entry:
+  %use.i = getelementptr inbounds %class.Node, ptr %this, i64 0, i32 1
+  store i32 1, ptr %use.i, align 8, !tbaa !8
+  store ptr getelementptr inbounds ({ [5 x ptr] }, ptr @_ZTV9UnaryNode, i64 0, inrange i32 0, i64 2), ptr %this, align 8, !tbaa !11
+  %call = tail call noalias noundef nonnull dereferenceable(8) ptr @_Znwm(i64 noundef 8) #13
+  %0 = load ptr, ptr %b, align 8, !tbaa !18
+  store ptr %0, ptr %call, align 8, !tbaa !18
+  %use.i10 = getelementptr inbounds %class.Node, ptr %0, i64 0, i32 1
+  %1 = load i32, ptr %use.i10, align 8, !tbaa !8
+  %inc.i = add nsw i32 %1, 1
+  store i32 %inc.i, ptr %use.i10, align 8, !tbaa !8
+  %opnd = getelementptr inbounds %class.UnaryNode, ptr %this, i64 0, i32 2
+  store ptr %call, ptr %opnd, align 8, !tbaa !20
+  %call6 = tail call noalias noundef nonnull dereferenceable(1) ptr @_Znwm(i64 noundef 1) #13
+  %op = getelementptr inbounds %class.UnaryNode, ptr %this, i64 0, i32 1
+  store ptr %call6, ptr %op, align 8, !tbaa !22
+  %2 = load i8, ptr %a, align 1, !tbaa !5
+  store i8 %2, ptr %call6, align 1, !tbaa !5
   ret void
 }
 
 ; Function Attrs: mustprogress uwtable
-define dso_local noundef float @_ZN9UnaryNode9nodeValueEv(ptr nocapture noundef nonnull readonly align 8 dereferenceable(32) %0) unnamed_addr #8 align 2 {
-  %2 = getelementptr inbounds %class.UnaryNode, ptr %0, i64 0, i32 1
-  %3 = load ptr, ptr %2, align 8, !tbaa !22
-  %4 = load i8, ptr %3, align 1, !tbaa !5
-  %5 = icmp eq i8 %4, 45
-  br i1 %5, label %6, label %14
+define dso_local noundef float @_ZN9UnaryNode9nodeValueEv(ptr nocapture noundef nonnull readonly align 8 dereferenceable(32) %this) unnamed_addr #8 align 2 {
+entry:
+  %op = getelementptr inbounds %class.UnaryNode, ptr %this, i64 0, i32 1
+  %0 = load ptr, ptr %op, align 8, !tbaa !22
+  %1 = load i8, ptr %0, align 1, !tbaa !5
+  %cmp = icmp eq i8 %1, 45
+  br i1 %cmp, label %if.then, label %if.else
 
-6:                                                ; preds = %1
-  %7 = getelementptr inbounds %class.UnaryNode, ptr %0, i64 0, i32 2
-  %8 = load ptr, ptr %7, align 8, !tbaa !20
-  %9 = load ptr, ptr %8, align 8, !tbaa !18
-  %10 = load ptr, ptr %9, align 8, !tbaa !11
-  %11 = load ptr, ptr %10, align 8
-  %12 = tail call noundef float %11(ptr noundef nonnull align 8 dereferenceable(12) %9)
-  %13 = fneg float %12
-  br label %22
+if.then:                                          ; preds = %entry
+  %opnd = getelementptr inbounds %class.UnaryNode, ptr %this, i64 0, i32 2
+  %2 = load ptr, ptr %opnd, align 8, !tbaa !20
+  %3 = load ptr, ptr %2, align 8, !tbaa !18
+  %vtable.i = load ptr, ptr %3, align 8, !tbaa !11
+  %4 = load ptr, ptr %vtable.i, align 8
+  %call.i = tail call noundef float %4(ptr noundef nonnull align 8 dereferenceable(12) %3)
+  %fneg = fneg float %call.i
+  br label %return
 
-14:                                               ; preds = %1
-  %15 = icmp eq i8 %4, 43
-  tail call void @llvm.assume(i1 %15)
-  %16 = getelementptr inbounds %class.UnaryNode, ptr %0, i64 0, i32 2
-  %17 = load ptr, ptr %16, align 8, !tbaa !20
-  %18 = load ptr, ptr %17, align 8, !tbaa !18
-  %19 = load ptr, ptr %18, align 8, !tbaa !11
-  %20 = load ptr, ptr %19, align 8
-  %21 = tail call noundef float %20(ptr noundef nonnull align 8 dereferenceable(12) %18)
-  br label %22
+if.else:                                          ; preds = %entry
+  %cmp4 = icmp eq i8 %1, 43
+  tail call void @llvm.assume(i1 %cmp4)
+  %opnd6 = getelementptr inbounds %class.UnaryNode, ptr %this, i64 0, i32 2
+  %5 = load ptr, ptr %opnd6, align 8, !tbaa !20
+  %6 = load ptr, ptr %5, align 8, !tbaa !18
+  %vtable.i9 = load ptr, ptr %6, align 8, !tbaa !11
+  %7 = load ptr, ptr %vtable.i9, align 8
+  %call.i10 = tail call noundef float %7(ptr noundef nonnull align 8 dereferenceable(12) %6)
+  br label %return
 
-22:                                               ; preds = %14, %6
-  %23 = phi float [ %13, %6 ], [ %21, %14 ]
-  ret float %23
+return:                                           ; preds = %if.else, %if.then
+  %retval.0 = phi float [ %fneg, %if.then ], [ %call.i10, %if.else ]
+  ret float %retval.0
 }
 
 ; Function Attrs: uwtable
-define dso_local void @_ZN8RealNodeC2EfPc(ptr nocapture noundef nonnull writeonly align 8 dereferenceable(24) %0, float noundef %1, ptr noundef readonly %2) unnamed_addr #2 align 2 personality ptr @__gxx_personality_v0 {
-  %4 = getelementptr inbounds %class.Node, ptr %0, i64 0, i32 1
-  store i32 1, ptr %4, align 8, !tbaa !8
-  store ptr getelementptr inbounds ({ [5 x ptr] }, ptr @_ZTV8RealNode, i64 0, inrange i32 0, i64 2), ptr %0, align 8, !tbaa !11
-  %5 = getelementptr inbounds %class.RealNode, ptr %0, i64 0, i32 2
-  store ptr null, ptr %5, align 8, !tbaa !13
-  %6 = getelementptr inbounds %class.RealNode, ptr %0, i64 0, i32 1
-  store float %1, ptr %6, align 4, !tbaa !17
-  %7 = icmp eq ptr %2, null
-  br i1 %7, label %11, label %8
+define dso_local void @_ZN8RealNodeC2EfPc(ptr nocapture noundef nonnull writeonly align 8 dereferenceable(24) %this, float noundef %k, ptr noundef readonly %ch) unnamed_addr #2 align 2 personality ptr @__gxx_personality_v0 {
+entry:
+  %use.i = getelementptr inbounds %class.Node, ptr %this, i64 0, i32 1
+  store i32 1, ptr %use.i, align 8, !tbaa !8
+  store ptr getelementptr inbounds ({ [5 x ptr] }, ptr @_ZTV8RealNode, i64 0, inrange i32 0, i64 2), ptr %this, align 8, !tbaa !11
+  %symbol = getelementptr inbounds %class.RealNode, ptr %this, i64 0, i32 2
+  store ptr null, ptr %symbol, align 8, !tbaa !13
+  %n = getelementptr inbounds %class.RealNode, ptr %this, i64 0, i32 1
+  store float %k, ptr %n, align 4, !tbaa !17
+  %tobool.not = icmp eq ptr %ch, null
+  br i1 %tobool.not, label %if.end, label %if.then
 
-8:                                                ; preds = %3
-  %9 = tail call noalias noundef nonnull dereferenceable(1) ptr @_Znwm(i64 noundef 1) #13
-  store ptr %9, ptr %5, align 8, !tbaa !13
-  %10 = load i8, ptr %2, align 1, !tbaa !5
-  store i8 %10, ptr %9, align 1, !tbaa !5
-  br label %11
+if.then:                                          ; preds = %entry
+  %call2 = tail call noalias noundef nonnull dereferenceable(1) ptr @_Znwm(i64 noundef 1) #13
+  store ptr %call2, ptr %symbol, align 8, !tbaa !13
+  %0 = load i8, ptr %ch, align 1, !tbaa !5
+  store i8 %0, ptr %call2, align 1, !tbaa !5
+  br label %if.end
 
-11:                                               ; preds = %8, %3
+if.end:                                           ; preds = %if.then, %entry
   ret void
 }
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(read, inaccessiblemem: none) uwtable
-define dso_local noundef float @_ZN8RealNode9nodeValueEv(ptr nocapture noundef nonnull readonly align 8 dereferenceable(24) %0) unnamed_addr #10 align 2 {
-  %2 = getelementptr inbounds %class.RealNode, ptr %0, i64 0, i32 2
-  %3 = load ptr, ptr %2, align 8, !tbaa !13
-  %4 = icmp eq ptr %3, null
-  br i1 %4, label %5, label %7
+define dso_local noundef float @_ZN8RealNode9nodeValueEv(ptr nocapture noundef nonnull readonly align 8 dereferenceable(24) %this) unnamed_addr #10 align 2 {
+entry:
+  %symbol = getelementptr inbounds %class.RealNode, ptr %this, i64 0, i32 2
+  %0 = load ptr, ptr %symbol, align 8, !tbaa !13
+  %cmp = icmp eq ptr %0, null
+  br i1 %cmp, label %if.then, label %if.else
 
-5:                                                ; preds = %1
-  %6 = getelementptr inbounds %class.RealNode, ptr %0, i64 0, i32 1
-  br label %13
+if.then:                                          ; preds = %entry
+  %n = getelementptr inbounds %class.RealNode, ptr %this, i64 0, i32 1
+  br label %return
 
-7:                                                ; preds = %1
-  %8 = load i8, ptr %3, align 1, !tbaa !5
-  %9 = icmp eq i8 %8, 121
-  %10 = select i1 %9, ptr @values1, ptr @values2
-  %11 = icmp eq i8 %8, 120
-  %12 = select i1 %11, ptr @values0, ptr %10
-  br label %13
+if.else:                                          ; preds = %entry
+  %1 = load i8, ptr %0, align 1, !tbaa !5
+  %switch.selectcmp = icmp eq i8 %1, 121
+  %switch.select = select i1 %switch.selectcmp, ptr @values1, ptr @values2
+  %switch.selectcmp11 = icmp eq i8 %1, 120
+  %switch.select12 = select i1 %switch.selectcmp11, ptr @values0, ptr %switch.select
+  br label %return
 
-13:                                               ; preds = %7, %5
-  %14 = phi ptr [ %6, %5 ], [ %12, %7 ]
-  %15 = load float, ptr %14, align 4, !tbaa !27
-  ret float %15
+return:                                           ; preds = %if.else, %if.then
+  %retval.0.in = phi ptr [ %n, %if.then ], [ %switch.select12, %if.else ]
+  %retval.0 = load float, ptr %retval.0.in, align 4, !tbaa !27
+  ret float %retval.0
 }
 
 ; Function Attrs: norecurse uwtable
 define dso_local noundef i32 @main() local_unnamed_addr #11 personality ptr @__gxx_personality_v0 {
-  %1 = alloca %class.Tree, align 8
-  %2 = alloca %class.Tree, align 8
-  %3 = alloca %class.Tree, align 8
-  %4 = alloca %class.Tree, align 8
-  %5 = alloca %class.Tree, align 8
-  %6 = alloca %class.Tree, align 8
-  %7 = alloca %class.Tree, align 8
-  %8 = alloca %class.Tree, align 8
-  %9 = alloca %class.Tree, align 8
-  %10 = alloca %class.Tree, align 8
-  %11 = alloca %class.Tree, align 8
-  %12 = tail call noalias noundef nonnull dereferenceable(24) ptr @_Znwm(i64 noundef 24) #13
-  %13 = getelementptr inbounds %class.Node, ptr %12, i64 0, i32 1
-  store i32 1, ptr %13, align 8, !tbaa !8
-  store ptr getelementptr inbounds ({ [5 x ptr] }, ptr @_ZTV8RealNode, i64 0, inrange i32 0, i64 2), ptr %12, align 8, !tbaa !11
-  %14 = getelementptr inbounds %class.RealNode, ptr %12, i64 0, i32 2
-  store ptr null, ptr %14, align 8, !tbaa !13
-  %15 = getelementptr inbounds %class.RealNode, ptr %12, i64 0, i32 1
-  store float 1.000000e+00, ptr %15, align 4, !tbaa !17
-  %16 = invoke noalias noundef nonnull dereferenceable(24) ptr @_Znwm(i64 noundef 24) #13
-          to label %17 unwind label %180
+entry:
+  %t4 = alloca %class.Tree, align 8
+  %agg.tmp = alloca %class.Tree, align 8
+  %agg.tmp5 = alloca %class.Tree, align 8
+  %t5 = alloca %class.Tree, align 8
+  %agg.tmp10 = alloca %class.Tree, align 8
+  %t6 = alloca %class.Tree, align 8
+  %agg.tmp20 = alloca %class.Tree, align 8
+  %agg.tmp23 = alloca %class.Tree, align 8
+  %t7 = alloca %class.Tree, align 8
+  %agg.tmp33 = alloca %class.Tree, align 8
+  %agg.tmp36 = alloca %class.Tree, align 8
+  %call.i = tail call noalias noundef nonnull dereferenceable(24) ptr @_Znwm(i64 noundef 24) #13
+  %use.i.i.i = getelementptr inbounds %class.Node, ptr %call.i, i64 0, i32 1
+  store i32 1, ptr %use.i.i.i, align 8, !tbaa !8
+  store ptr getelementptr inbounds ({ [5 x ptr] }, ptr @_ZTV8RealNode, i64 0, inrange i32 0, i64 2), ptr %call.i, align 8, !tbaa !11
+  %symbol.i.i = getelementptr inbounds %class.RealNode, ptr %call.i, i64 0, i32 2
+  store ptr null, ptr %symbol.i.i, align 8, !tbaa !13
+  %n.i.i = getelementptr inbounds %class.RealNode, ptr %call.i, i64 0, i32 1
+  store float 1.000000e+00, ptr %n.i.i, align 4, !tbaa !17
+  %call.i6973 = invoke noalias noundef nonnull dereferenceable(24) ptr @_Znwm(i64 noundef 24) #13
+          to label %call.i69.noexc unwind label %lpad
 
-17:                                               ; preds = %0
-  %18 = getelementptr inbounds %class.Node, ptr %16, i64 0, i32 1
-  store i32 1, ptr %18, align 8, !tbaa !8
-  store ptr getelementptr inbounds ({ [5 x ptr] }, ptr @_ZTV8RealNode, i64 0, inrange i32 0, i64 2), ptr %16, align 8, !tbaa !11
-  %19 = getelementptr inbounds %class.RealNode, ptr %16, i64 0, i32 2
-  store ptr null, ptr %19, align 8, !tbaa !13
-  %20 = getelementptr inbounds %class.RealNode, ptr %16, i64 0, i32 1
-  store float 0.000000e+00, ptr %20, align 4, !tbaa !17
-  %21 = invoke noalias noundef nonnull dereferenceable(1) ptr @_Znwm(i64 noundef 1) #13
-          to label %24 unwind label %22
+call.i69.noexc:                                   ; preds = %entry
+  %use.i.i.i70 = getelementptr inbounds %class.Node, ptr %call.i6973, i64 0, i32 1
+  store i32 1, ptr %use.i.i.i70, align 8, !tbaa !8
+  store ptr getelementptr inbounds ({ [5 x ptr] }, ptr @_ZTV8RealNode, i64 0, inrange i32 0, i64 2), ptr %call.i6973, align 8, !tbaa !11
+  %symbol.i.i71 = getelementptr inbounds %class.RealNode, ptr %call.i6973, i64 0, i32 2
+  store ptr null, ptr %symbol.i.i71, align 8, !tbaa !13
+  %n.i.i72 = getelementptr inbounds %class.RealNode, ptr %call.i6973, i64 0, i32 1
+  store float 0.000000e+00, ptr %n.i.i72, align 4, !tbaa !17
+  %call2.i3.i = invoke noalias noundef nonnull dereferenceable(1) ptr @_Znwm(i64 noundef 1) #13
+          to label %invoke.cont unwind label %lpad.i
 
-22:                                               ; preds = %17
-  %23 = landingpad { ptr, i32 }
+lpad.i:                                           ; preds = %call.i69.noexc
+  %0 = landingpad { ptr, i32 }
           cleanup
-  tail call void @_ZdlPv(ptr noundef nonnull %16) #14
-  br label %305
+  tail call void @_ZdlPv(ptr noundef nonnull %call.i6973) #14
+  br label %ehcleanup57
 
-24:                                               ; preds = %17
-  store ptr %21, ptr %19, align 8, !tbaa !13
-  store i8 117, ptr %21, align 1, !tbaa !5
-  %25 = invoke noalias noundef nonnull dereferenceable(24) ptr @_Znwm(i64 noundef 24) #13
-          to label %26 unwind label %182
+invoke.cont:                                      ; preds = %call.i69.noexc
+  store ptr %call2.i3.i, ptr %symbol.i.i71, align 8, !tbaa !13
+  store i8 117, ptr %call2.i3.i, align 1, !tbaa !5
+  %call.i7478 = invoke noalias noundef nonnull dereferenceable(24) ptr @_Znwm(i64 noundef 24) #13
+          to label %invoke.cont2 unwind label %lpad1
 
-26:                                               ; preds = %24
-  %27 = getelementptr inbounds %class.Node, ptr %25, i64 0, i32 1
-  store i32 1, ptr %27, align 8, !tbaa !8
-  store ptr getelementptr inbounds ({ [5 x ptr] }, ptr @_ZTV8RealNode, i64 0, inrange i32 0, i64 2), ptr %25, align 8, !tbaa !11
-  %28 = getelementptr inbounds %class.RealNode, ptr %25, i64 0, i32 2
-  store ptr null, ptr %28, align 8, !tbaa !13
-  %29 = getelementptr inbounds %class.RealNode, ptr %25, i64 0, i32 1
-  store float 5.000000e+00, ptr %29, align 4, !tbaa !17
-  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %1) #15
-  store ptr %12, ptr %2, align 8, !tbaa !18
-  store i32 2, ptr %13, align 8, !tbaa !8
-  store ptr %16, ptr %3, align 8, !tbaa !18
-  store i32 2, ptr %18, align 8, !tbaa !8
-  invoke void @_ZN4TreeC2ES_PcS_(ptr noundef nonnull align 8 dereferenceable(8) %1, ptr noundef nonnull %2, ptr noundef nonnull @.str.1, ptr noundef nonnull %3)
-          to label %30 unwind label %184
+invoke.cont2:                                     ; preds = %invoke.cont
+  %use.i.i.i75 = getelementptr inbounds %class.Node, ptr %call.i7478, i64 0, i32 1
+  store i32 1, ptr %use.i.i.i75, align 8, !tbaa !8
+  store ptr getelementptr inbounds ({ [5 x ptr] }, ptr @_ZTV8RealNode, i64 0, inrange i32 0, i64 2), ptr %call.i7478, align 8, !tbaa !11
+  %symbol.i.i76 = getelementptr inbounds %class.RealNode, ptr %call.i7478, i64 0, i32 2
+  store ptr null, ptr %symbol.i.i76, align 8, !tbaa !13
+  %n.i.i77 = getelementptr inbounds %class.RealNode, ptr %call.i7478, i64 0, i32 1
+  store float 5.000000e+00, ptr %n.i.i77, align 4, !tbaa !17
+  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %t4) #15
+  store ptr %call.i, ptr %agg.tmp, align 8, !tbaa !18
+  store i32 2, ptr %use.i.i.i, align 8, !tbaa !8
+  store ptr %call.i6973, ptr %agg.tmp5, align 8, !tbaa !18
+  store i32 2, ptr %use.i.i.i70, align 8, !tbaa !8
+  invoke void @_ZN4TreeC2ES_PcS_(ptr noundef nonnull align 8 dereferenceable(8) %t4, ptr noundef nonnull %agg.tmp, ptr noundef nonnull @.str.1, ptr noundef nonnull %agg.tmp5)
+          to label %invoke.cont9 unwind label %lpad8
 
-30:                                               ; preds = %26
-  %31 = load i32, ptr %18, align 8, !tbaa !8
-  %32 = add nsw i32 %31, -1
-  store i32 %32, ptr %18, align 8, !tbaa !8
-  %33 = icmp eq i32 %32, 0
-  br i1 %33, label %34, label %38
+invoke.cont9:                                     ; preds = %invoke.cont2
+  %1 = load i32, ptr %use.i.i.i70, align 8, !tbaa !8
+  %dec.i = add nsw i32 %1, -1
+  store i32 %dec.i, ptr %use.i.i.i70, align 8, !tbaa !8
+  %cmp.i = icmp eq i32 %dec.i, 0
+  br i1 %cmp.i, label %delete.notnull.i, label %_ZN4TreeD2Ev.exit
 
-34:                                               ; preds = %30
-  %35 = load ptr, ptr %16, align 8, !tbaa !11
-  %36 = getelementptr inbounds ptr, ptr %35, i64 2
-  %37 = load ptr, ptr %36, align 8
-  tail call void %37(ptr noundef nonnull align 8 dereferenceable(12) %16) #15
-  br label %38
+delete.notnull.i:                                 ; preds = %invoke.cont9
+  %vtable.i = load ptr, ptr %call.i6973, align 8, !tbaa !11
+  %vfn.i = getelementptr inbounds ptr, ptr %vtable.i, i64 2
+  %2 = load ptr, ptr %vfn.i, align 8
+  tail call void %2(ptr noundef nonnull align 8 dereferenceable(12) %call.i6973) #15
+  br label %_ZN4TreeD2Ev.exit
 
-38:                                               ; preds = %30, %34
-  %39 = load i32, ptr %13, align 8, !tbaa !8
-  %40 = add nsw i32 %39, -1
-  store i32 %40, ptr %13, align 8, !tbaa !8
-  %41 = icmp eq i32 %40, 0
-  br i1 %41, label %42, label %46
+_ZN4TreeD2Ev.exit:                                ; preds = %invoke.cont9, %delete.notnull.i
+  %3 = load i32, ptr %use.i.i.i, align 8, !tbaa !8
+  %dec.i83 = add nsw i32 %3, -1
+  store i32 %dec.i83, ptr %use.i.i.i, align 8, !tbaa !8
+  %cmp.i84 = icmp eq i32 %dec.i83, 0
+  br i1 %cmp.i84, label %delete.notnull.i87, label %_ZN4TreeD2Ev.exit88
 
-42:                                               ; preds = %38
-  %43 = load ptr, ptr %12, align 8, !tbaa !11
-  %44 = getelementptr inbounds ptr, ptr %43, i64 2
-  %45 = load ptr, ptr %44, align 8
-  tail call void %45(ptr noundef nonnull align 8 dereferenceable(12) %12) #15
-  br label %46
+delete.notnull.i87:                               ; preds = %_ZN4TreeD2Ev.exit
+  %vtable.i85 = load ptr, ptr %call.i, align 8, !tbaa !11
+  %vfn.i86 = getelementptr inbounds ptr, ptr %vtable.i85, i64 2
+  %4 = load ptr, ptr %vfn.i86, align 8
+  tail call void %4(ptr noundef nonnull align 8 dereferenceable(12) %call.i) #15
+  br label %_ZN4TreeD2Ev.exit88
 
-46:                                               ; preds = %42, %38
-  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %4) #15
-  store ptr %25, ptr %5, align 8, !tbaa !18
-  %47 = load i32, ptr %27, align 8, !tbaa !8
-  %48 = add nsw i32 %47, 1
-  store i32 %48, ptr %27, align 8, !tbaa !8
-  invoke void @_ZN4TreeC2EPcS_(ptr noundef nonnull align 8 dereferenceable(8) %4, ptr noundef nonnull @.str.2, ptr noundef nonnull %5)
-          to label %49 unwind label %197
+_ZN4TreeD2Ev.exit88:                              ; preds = %_ZN4TreeD2Ev.exit, %delete.notnull.i87
+  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %t5) #15
+  store ptr %call.i7478, ptr %agg.tmp10, align 8, !tbaa !18
+  %5 = load i32, ptr %use.i.i.i75, align 8, !tbaa !8
+  %inc.i90 = add nsw i32 %5, 1
+  store i32 %inc.i90, ptr %use.i.i.i75, align 8, !tbaa !8
+  invoke void @_ZN4TreeC2EPcS_(ptr noundef nonnull align 8 dereferenceable(8) %t5, ptr noundef nonnull @.str.2, ptr noundef nonnull %agg.tmp10)
+          to label %invoke.cont14 unwind label %lpad13
 
-49:                                               ; preds = %46
-  %50 = load i32, ptr %27, align 8, !tbaa !8
-  %51 = add nsw i32 %50, -1
-  store i32 %51, ptr %27, align 8, !tbaa !8
-  %52 = icmp eq i32 %51, 0
-  br i1 %52, label %53, label %57
+invoke.cont14:                                    ; preds = %_ZN4TreeD2Ev.exit88
+  %6 = load i32, ptr %use.i.i.i75, align 8, !tbaa !8
+  %dec.i92 = add nsw i32 %6, -1
+  store i32 %dec.i92, ptr %use.i.i.i75, align 8, !tbaa !8
+  %cmp.i93 = icmp eq i32 %dec.i92, 0
+  br i1 %cmp.i93, label %delete.notnull.i96, label %_ZN4TreeD2Ev.exit97
 
-53:                                               ; preds = %49
-  %54 = load ptr, ptr %25, align 8, !tbaa !11
-  %55 = getelementptr inbounds ptr, ptr %54, i64 2
-  %56 = load ptr, ptr %55, align 8
-  tail call void %56(ptr noundef nonnull align 8 dereferenceable(12) %25) #15
-  br label %57
+delete.notnull.i96:                               ; preds = %invoke.cont14
+  %vtable.i94 = load ptr, ptr %call.i7478, align 8, !tbaa !11
+  %vfn.i95 = getelementptr inbounds ptr, ptr %vtable.i94, i64 2
+  %7 = load ptr, ptr %vfn.i95, align 8
+  tail call void %7(ptr noundef nonnull align 8 dereferenceable(12) %call.i7478) #15
+  br label %_ZN4TreeD2Ev.exit97
 
-57:                                               ; preds = %49, %53
+_ZN4TreeD2Ev.exit97:                              ; preds = %invoke.cont14, %delete.notnull.i96
   store float 1.200000e+01, ptr @values0, align 4, !tbaa !27
   store float 0.000000e+00, ptr @values1, align 4, !tbaa !27
   store float 0.000000e+00, ptr @values2, align 4, !tbaa !27
-  %58 = load ptr, ptr %1, align 8, !tbaa !18
-  %59 = load ptr, ptr %58, align 8, !tbaa !11
-  %60 = load ptr, ptr %59, align 8
-  %61 = invoke noundef float %60(ptr noundef nonnull align 8 dereferenceable(12) %58)
-          to label %62 unwind label %202
+  %8 = load ptr, ptr %t4, align 8, !tbaa !18
+  %vtable.i.i = load ptr, ptr %8, align 8, !tbaa !11
+  %9 = load ptr, ptr %vtable.i.i, align 8
+  %call.i.i98 = invoke noundef float %9(ptr noundef nonnull align 8 dereferenceable(12) %8)
+          to label %invoke.cont17 unwind label %lpad16
 
-62:                                               ; preds = %57
-  %63 = load ptr, ptr %4, align 8, !tbaa !18
-  %64 = load ptr, ptr %63, align 8, !tbaa !11
-  %65 = load ptr, ptr %64, align 8
-  %66 = invoke noundef float %65(ptr noundef nonnull align 8 dereferenceable(12) %63)
-          to label %67 unwind label %202
+invoke.cont17:                                    ; preds = %_ZN4TreeD2Ev.exit97
+  %10 = load ptr, ptr %t5, align 8, !tbaa !18
+  %vtable.i99 = load ptr, ptr %10, align 8, !tbaa !11
+  %11 = load ptr, ptr %vtable.i99, align 8
+  %call.i100101 = invoke noundef float %11(ptr noundef nonnull align 8 dereferenceable(12) %10)
+          to label %invoke.cont18 unwind label %lpad16
 
-67:                                               ; preds = %62
-  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %6) #15
-  store ptr %12, ptr %7, align 8, !tbaa !18
-  %68 = load i32, ptr %13, align 8, !tbaa !8
-  %69 = add nsw i32 %68, 1
-  store i32 %69, ptr %13, align 8, !tbaa !8
-  store ptr %25, ptr %8, align 8, !tbaa !18
-  %70 = load i32, ptr %27, align 8, !tbaa !8
-  %71 = add nsw i32 %70, 1
-  store i32 %71, ptr %27, align 8, !tbaa !8
-  invoke void @_ZN4TreeC2ES_PcS_(ptr noundef nonnull align 8 dereferenceable(8) %6, ptr noundef nonnull %7, ptr noundef nonnull @.str.3, ptr noundef nonnull %8)
-          to label %72 unwind label %205
+invoke.cont18:                                    ; preds = %invoke.cont17
+  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %t6) #15
+  store ptr %call.i, ptr %agg.tmp20, align 8, !tbaa !18
+  %12 = load i32, ptr %use.i.i.i, align 8, !tbaa !8
+  %inc.i103 = add nsw i32 %12, 1
+  store i32 %inc.i103, ptr %use.i.i.i, align 8, !tbaa !8
+  store ptr %call.i7478, ptr %agg.tmp23, align 8, !tbaa !18
+  %13 = load i32, ptr %use.i.i.i75, align 8, !tbaa !8
+  %inc.i105 = add nsw i32 %13, 1
+  store i32 %inc.i105, ptr %use.i.i.i75, align 8, !tbaa !8
+  invoke void @_ZN4TreeC2ES_PcS_(ptr noundef nonnull align 8 dereferenceable(8) %t6, ptr noundef nonnull %agg.tmp20, ptr noundef nonnull @.str.3, ptr noundef nonnull %agg.tmp23)
+          to label %invoke.cont27 unwind label %lpad26
 
-72:                                               ; preds = %67
-  %73 = load i32, ptr %27, align 8, !tbaa !8
-  %74 = add nsw i32 %73, -1
-  store i32 %74, ptr %27, align 8, !tbaa !8
-  %75 = icmp eq i32 %74, 0
-  br i1 %75, label %76, label %80
+invoke.cont27:                                    ; preds = %invoke.cont18
+  %14 = load i32, ptr %use.i.i.i75, align 8, !tbaa !8
+  %dec.i107 = add nsw i32 %14, -1
+  store i32 %dec.i107, ptr %use.i.i.i75, align 8, !tbaa !8
+  %cmp.i108 = icmp eq i32 %dec.i107, 0
+  br i1 %cmp.i108, label %delete.notnull.i111, label %_ZN4TreeD2Ev.exit112
 
-76:                                               ; preds = %72
-  %77 = load ptr, ptr %25, align 8, !tbaa !11
-  %78 = getelementptr inbounds ptr, ptr %77, i64 2
-  %79 = load ptr, ptr %78, align 8
-  tail call void %79(ptr noundef nonnull align 8 dereferenceable(12) %25) #15
-  br label %80
+delete.notnull.i111:                              ; preds = %invoke.cont27
+  %vtable.i109 = load ptr, ptr %call.i7478, align 8, !tbaa !11
+  %vfn.i110 = getelementptr inbounds ptr, ptr %vtable.i109, i64 2
+  %15 = load ptr, ptr %vfn.i110, align 8
+  tail call void %15(ptr noundef nonnull align 8 dereferenceable(12) %call.i7478) #15
+  br label %_ZN4TreeD2Ev.exit112
 
-80:                                               ; preds = %72, %76
-  %81 = load i32, ptr %13, align 8, !tbaa !8
-  %82 = add nsw i32 %81, -1
-  store i32 %82, ptr %13, align 8, !tbaa !8
-  %83 = icmp eq i32 %82, 0
-  br i1 %83, label %84, label %88
+_ZN4TreeD2Ev.exit112:                             ; preds = %invoke.cont27, %delete.notnull.i111
+  %16 = load i32, ptr %use.i.i.i, align 8, !tbaa !8
+  %dec.i114 = add nsw i32 %16, -1
+  store i32 %dec.i114, ptr %use.i.i.i, align 8, !tbaa !8
+  %cmp.i115 = icmp eq i32 %dec.i114, 0
+  br i1 %cmp.i115, label %delete.notnull.i118, label %_ZN4TreeD2Ev.exit119
 
-84:                                               ; preds = %80
-  %85 = load ptr, ptr %12, align 8, !tbaa !11
-  %86 = getelementptr inbounds ptr, ptr %85, i64 2
-  %87 = load ptr, ptr %86, align 8
-  tail call void %87(ptr noundef nonnull align 8 dereferenceable(12) %12) #15
-  br label %88
+delete.notnull.i118:                              ; preds = %_ZN4TreeD2Ev.exit112
+  %vtable.i116 = load ptr, ptr %call.i, align 8, !tbaa !11
+  %vfn.i117 = getelementptr inbounds ptr, ptr %vtable.i116, i64 2
+  %17 = load ptr, ptr %vfn.i117, align 8
+  tail call void %17(ptr noundef nonnull align 8 dereferenceable(12) %call.i) #15
+  br label %_ZN4TreeD2Ev.exit119
 
-88:                                               ; preds = %80, %84
+_ZN4TreeD2Ev.exit119:                             ; preds = %_ZN4TreeD2Ev.exit112, %delete.notnull.i118
   store float 0x40283D70A0000000, ptr @values0, align 4, !tbaa !27
   store float 0.000000e+00, ptr @values1, align 4, !tbaa !27
   store float 0.000000e+00, ptr @values2, align 4, !tbaa !27
-  %89 = load ptr, ptr %6, align 8, !tbaa !18
-  %90 = load ptr, ptr %89, align 8, !tbaa !11
-  %91 = load ptr, ptr %90, align 8
-  %92 = invoke noundef float %91(ptr noundef nonnull align 8 dereferenceable(12) %89)
-          to label %93 unwind label %218
+  %18 = load ptr, ptr %t6, align 8, !tbaa !18
+  %vtable.i.i120 = load ptr, ptr %18, align 8, !tbaa !11
+  %19 = load ptr, ptr %vtable.i.i120, align 8
+  %call.i.i121 = invoke noundef float %19(ptr noundef nonnull align 8 dereferenceable(12) %18)
+          to label %invoke.cont31 unwind label %lpad30
 
-93:                                               ; preds = %88
-  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %9) #15
-  store ptr %12, ptr %10, align 8, !tbaa !18
-  %94 = load i32, ptr %13, align 8, !tbaa !8
-  %95 = add nsw i32 %94, 1
-  store i32 %95, ptr %13, align 8, !tbaa !8
-  store ptr %63, ptr %11, align 8, !tbaa !18
-  %96 = getelementptr inbounds %class.Node, ptr %63, i64 0, i32 1
-  %97 = load i32, ptr %96, align 8, !tbaa !8
-  %98 = add nsw i32 %97, 1
-  store i32 %98, ptr %96, align 8, !tbaa !8
-  invoke void @_ZN4TreeC2ES_PcS_(ptr noundef nonnull align 8 dereferenceable(8) %9, ptr noundef nonnull %10, ptr noundef nonnull @.str.4, ptr noundef nonnull %11)
-          to label %99 unwind label %220
+invoke.cont31:                                    ; preds = %_ZN4TreeD2Ev.exit119
+  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %t7) #15
+  store ptr %call.i, ptr %agg.tmp33, align 8, !tbaa !18
+  %20 = load i32, ptr %use.i.i.i, align 8, !tbaa !8
+  %inc.i124 = add nsw i32 %20, 1
+  store i32 %inc.i124, ptr %use.i.i.i, align 8, !tbaa !8
+  store ptr %10, ptr %agg.tmp36, align 8, !tbaa !18
+  %use.i125 = getelementptr inbounds %class.Node, ptr %10, i64 0, i32 1
+  %21 = load i32, ptr %use.i125, align 8, !tbaa !8
+  %inc.i126 = add nsw i32 %21, 1
+  store i32 %inc.i126, ptr %use.i125, align 8, !tbaa !8
+  invoke void @_ZN4TreeC2ES_PcS_(ptr noundef nonnull align 8 dereferenceable(8) %t7, ptr noundef nonnull %agg.tmp33, ptr noundef nonnull @.str.4, ptr noundef nonnull %agg.tmp36)
+          to label %invoke.cont40 unwind label %lpad39
 
-99:                                               ; preds = %93
-  %100 = load i32, ptr %96, align 8, !tbaa !8
-  %101 = add nsw i32 %100, -1
-  store i32 %101, ptr %96, align 8, !tbaa !8
-  %102 = icmp eq i32 %101, 0
-  br i1 %102, label %103, label %107
+invoke.cont40:                                    ; preds = %invoke.cont31
+  %22 = load i32, ptr %use.i125, align 8, !tbaa !8
+  %dec.i128 = add nsw i32 %22, -1
+  store i32 %dec.i128, ptr %use.i125, align 8, !tbaa !8
+  %cmp.i129 = icmp eq i32 %dec.i128, 0
+  br i1 %cmp.i129, label %delete.notnull.i132, label %_ZN4TreeD2Ev.exit133
 
-103:                                              ; preds = %99
-  %104 = load ptr, ptr %63, align 8, !tbaa !11
-  %105 = getelementptr inbounds ptr, ptr %104, i64 2
-  %106 = load ptr, ptr %105, align 8
-  tail call void %106(ptr noundef nonnull align 8 dereferenceable(12) %63) #15
-  br label %107
+delete.notnull.i132:                              ; preds = %invoke.cont40
+  %vtable.i130 = load ptr, ptr %10, align 8, !tbaa !11
+  %vfn.i131 = getelementptr inbounds ptr, ptr %vtable.i130, i64 2
+  %23 = load ptr, ptr %vfn.i131, align 8
+  tail call void %23(ptr noundef nonnull align 8 dereferenceable(12) %10) #15
+  br label %_ZN4TreeD2Ev.exit133
 
-107:                                              ; preds = %99, %103
-  %108 = load i32, ptr %13, align 8, !tbaa !8
-  %109 = add nsw i32 %108, -1
-  store i32 %109, ptr %13, align 8, !tbaa !8
-  %110 = icmp eq i32 %109, 0
-  br i1 %110, label %111, label %115
+_ZN4TreeD2Ev.exit133:                             ; preds = %invoke.cont40, %delete.notnull.i132
+  %24 = load i32, ptr %use.i.i.i, align 8, !tbaa !8
+  %dec.i135 = add nsw i32 %24, -1
+  store i32 %dec.i135, ptr %use.i.i.i, align 8, !tbaa !8
+  %cmp.i136 = icmp eq i32 %dec.i135, 0
+  br i1 %cmp.i136, label %delete.notnull.i139, label %_ZN4TreeD2Ev.exit140
 
-111:                                              ; preds = %107
-  %112 = load ptr, ptr %12, align 8, !tbaa !11
-  %113 = getelementptr inbounds ptr, ptr %112, i64 2
-  %114 = load ptr, ptr %113, align 8
-  tail call void %114(ptr noundef nonnull align 8 dereferenceable(12) %12) #15
-  br label %115
+delete.notnull.i139:                              ; preds = %_ZN4TreeD2Ev.exit133
+  %vtable.i137 = load ptr, ptr %call.i, align 8, !tbaa !11
+  %vfn.i138 = getelementptr inbounds ptr, ptr %vtable.i137, i64 2
+  %25 = load ptr, ptr %vfn.i138, align 8
+  tail call void %25(ptr noundef nonnull align 8 dereferenceable(12) %call.i) #15
+  br label %_ZN4TreeD2Ev.exit140
 
-115:                                              ; preds = %107, %111
-  %116 = load ptr, ptr %9, align 8, !tbaa !18
-  %117 = load ptr, ptr %116, align 8, !tbaa !11
-  %118 = load ptr, ptr %117, align 8
-  %119 = invoke noundef float %118(ptr noundef nonnull align 8 dereferenceable(12) %116)
-          to label %120 unwind label %233
+_ZN4TreeD2Ev.exit140:                             ; preds = %_ZN4TreeD2Ev.exit133, %delete.notnull.i139
+  %26 = load ptr, ptr %t7, align 8, !tbaa !18
+  %vtable.i141 = load ptr, ptr %26, align 8, !tbaa !11
+  %27 = load ptr, ptr %vtable.i141, align 8
+  %call.i142143 = invoke noundef float %27(ptr noundef nonnull align 8 dereferenceable(12) %26)
+          to label %invoke.cont44 unwind label %lpad43
 
-120:                                              ; preds = %115
-  %121 = getelementptr inbounds %class.Node, ptr %116, i64 0, i32 1
-  %122 = load i32, ptr %121, align 8, !tbaa !8
-  %123 = add nsw i32 %122, -1
-  store i32 %123, ptr %121, align 8, !tbaa !8
-  %124 = icmp eq i32 %123, 0
-  br i1 %124, label %125, label %129
+invoke.cont44:                                    ; preds = %_ZN4TreeD2Ev.exit140
+  %use.i145 = getelementptr inbounds %class.Node, ptr %26, i64 0, i32 1
+  %28 = load i32, ptr %use.i145, align 8, !tbaa !8
+  %dec.i146 = add nsw i32 %28, -1
+  store i32 %dec.i146, ptr %use.i145, align 8, !tbaa !8
+  %cmp.i147 = icmp eq i32 %dec.i146, 0
+  br i1 %cmp.i147, label %delete.notnull.i150, label %_ZN4TreeD2Ev.exit151
 
-125:                                              ; preds = %120
-  %126 = load ptr, ptr %116, align 8, !tbaa !11
-  %127 = getelementptr inbounds ptr, ptr %126, i64 2
-  %128 = load ptr, ptr %127, align 8
-  tail call void %128(ptr noundef nonnull align 8 dereferenceable(12) %116) #15
-  br label %129
+delete.notnull.i150:                              ; preds = %invoke.cont44
+  %vtable.i148 = load ptr, ptr %26, align 8, !tbaa !11
+  %vfn.i149 = getelementptr inbounds ptr, ptr %vtable.i148, i64 2
+  %29 = load ptr, ptr %vfn.i149, align 8
+  tail call void %29(ptr noundef nonnull align 8 dereferenceable(12) %26) #15
+  br label %_ZN4TreeD2Ev.exit151
 
-129:                                              ; preds = %120, %125
-  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %9) #15
-  %130 = getelementptr inbounds %class.Node, ptr %89, i64 0, i32 1
-  %131 = load i32, ptr %130, align 8, !tbaa !8
-  %132 = add nsw i32 %131, -1
-  store i32 %132, ptr %130, align 8, !tbaa !8
-  %133 = icmp eq i32 %132, 0
-  br i1 %133, label %134, label %138
+_ZN4TreeD2Ev.exit151:                             ; preds = %invoke.cont44, %delete.notnull.i150
+  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %t7) #15
+  %use.i152 = getelementptr inbounds %class.Node, ptr %18, i64 0, i32 1
+  %30 = load i32, ptr %use.i152, align 8, !tbaa !8
+  %dec.i153 = add nsw i32 %30, -1
+  store i32 %dec.i153, ptr %use.i152, align 8, !tbaa !8
+  %cmp.i154 = icmp eq i32 %dec.i153, 0
+  br i1 %cmp.i154, label %delete.notnull.i157, label %_ZN4TreeD2Ev.exit158
 
-134:                                              ; preds = %129
-  %135 = load ptr, ptr %89, align 8, !tbaa !11
-  %136 = getelementptr inbounds ptr, ptr %135, i64 2
-  %137 = load ptr, ptr %136, align 8
-  tail call void %137(ptr noundef nonnull align 8 dereferenceable(12) %89) #15
-  br label %138
+delete.notnull.i157:                              ; preds = %_ZN4TreeD2Ev.exit151
+  %vtable.i155 = load ptr, ptr %18, align 8, !tbaa !11
+  %vfn.i156 = getelementptr inbounds ptr, ptr %vtable.i155, i64 2
+  %31 = load ptr, ptr %vfn.i156, align 8
+  tail call void %31(ptr noundef nonnull align 8 dereferenceable(12) %18) #15
+  br label %_ZN4TreeD2Ev.exit158
 
-138:                                              ; preds = %129, %134
-  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %6) #15
-  %139 = load i32, ptr %96, align 8, !tbaa !8
-  %140 = add nsw i32 %139, -1
-  store i32 %140, ptr %96, align 8, !tbaa !8
-  %141 = icmp eq i32 %140, 0
-  br i1 %141, label %142, label %146
+_ZN4TreeD2Ev.exit158:                             ; preds = %_ZN4TreeD2Ev.exit151, %delete.notnull.i157
+  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %t6) #15
+  %32 = load i32, ptr %use.i125, align 8, !tbaa !8
+  %dec.i160 = add nsw i32 %32, -1
+  store i32 %dec.i160, ptr %use.i125, align 8, !tbaa !8
+  %cmp.i161 = icmp eq i32 %dec.i160, 0
+  br i1 %cmp.i161, label %delete.notnull.i164, label %_ZN4TreeD2Ev.exit165
 
-142:                                              ; preds = %138
-  %143 = load ptr, ptr %63, align 8, !tbaa !11
-  %144 = getelementptr inbounds ptr, ptr %143, i64 2
-  %145 = load ptr, ptr %144, align 8
-  tail call void %145(ptr noundef nonnull align 8 dereferenceable(12) %63) #15
-  br label %146
+delete.notnull.i164:                              ; preds = %_ZN4TreeD2Ev.exit158
+  %vtable.i162 = load ptr, ptr %10, align 8, !tbaa !11
+  %vfn.i163 = getelementptr inbounds ptr, ptr %vtable.i162, i64 2
+  %33 = load ptr, ptr %vfn.i163, align 8
+  tail call void %33(ptr noundef nonnull align 8 dereferenceable(12) %10) #15
+  br label %_ZN4TreeD2Ev.exit165
 
-146:                                              ; preds = %138, %142
-  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %4) #15
-  %147 = getelementptr inbounds %class.Node, ptr %58, i64 0, i32 1
-  %148 = load i32, ptr %147, align 8, !tbaa !8
-  %149 = add nsw i32 %148, -1
-  store i32 %149, ptr %147, align 8, !tbaa !8
-  %150 = icmp eq i32 %149, 0
-  br i1 %150, label %151, label %155
+_ZN4TreeD2Ev.exit165:                             ; preds = %_ZN4TreeD2Ev.exit158, %delete.notnull.i164
+  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %t5) #15
+  %use.i166 = getelementptr inbounds %class.Node, ptr %8, i64 0, i32 1
+  %34 = load i32, ptr %use.i166, align 8, !tbaa !8
+  %dec.i167 = add nsw i32 %34, -1
+  store i32 %dec.i167, ptr %use.i166, align 8, !tbaa !8
+  %cmp.i168 = icmp eq i32 %dec.i167, 0
+  br i1 %cmp.i168, label %delete.notnull.i171, label %_ZN4TreeD2Ev.exit172
 
-151:                                              ; preds = %146
-  %152 = load ptr, ptr %58, align 8, !tbaa !11
-  %153 = getelementptr inbounds ptr, ptr %152, i64 2
-  %154 = load ptr, ptr %153, align 8
-  tail call void %154(ptr noundef nonnull align 8 dereferenceable(12) %58) #15
-  br label %155
+delete.notnull.i171:                              ; preds = %_ZN4TreeD2Ev.exit165
+  %vtable.i169 = load ptr, ptr %8, align 8, !tbaa !11
+  %vfn.i170 = getelementptr inbounds ptr, ptr %vtable.i169, i64 2
+  %35 = load ptr, ptr %vfn.i170, align 8
+  tail call void %35(ptr noundef nonnull align 8 dereferenceable(12) %8) #15
+  br label %_ZN4TreeD2Ev.exit172
 
-155:                                              ; preds = %146, %151
-  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %1) #15
-  %156 = load i32, ptr %27, align 8, !tbaa !8
-  %157 = add nsw i32 %156, -1
-  store i32 %157, ptr %27, align 8, !tbaa !8
-  %158 = icmp eq i32 %157, 0
-  br i1 %158, label %159, label %163
+_ZN4TreeD2Ev.exit172:                             ; preds = %_ZN4TreeD2Ev.exit165, %delete.notnull.i171
+  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %t4) #15
+  %36 = load i32, ptr %use.i.i.i75, align 8, !tbaa !8
+  %dec.i174 = add nsw i32 %36, -1
+  store i32 %dec.i174, ptr %use.i.i.i75, align 8, !tbaa !8
+  %cmp.i175 = icmp eq i32 %dec.i174, 0
+  br i1 %cmp.i175, label %delete.notnull.i178, label %_ZN4TreeD2Ev.exit179
 
-159:                                              ; preds = %155
-  %160 = load ptr, ptr %25, align 8, !tbaa !11
-  %161 = getelementptr inbounds ptr, ptr %160, i64 2
-  %162 = load ptr, ptr %161, align 8
-  tail call void %162(ptr noundef nonnull align 8 dereferenceable(12) %25) #15
-  br label %163
+delete.notnull.i178:                              ; preds = %_ZN4TreeD2Ev.exit172
+  %vtable.i176 = load ptr, ptr %call.i7478, align 8, !tbaa !11
+  %vfn.i177 = getelementptr inbounds ptr, ptr %vtable.i176, i64 2
+  %37 = load ptr, ptr %vfn.i177, align 8
+  tail call void %37(ptr noundef nonnull align 8 dereferenceable(12) %call.i7478) #15
+  br label %_ZN4TreeD2Ev.exit179
 
-163:                                              ; preds = %155, %159
-  %164 = load i32, ptr %18, align 8, !tbaa !8
-  %165 = add nsw i32 %164, -1
-  store i32 %165, ptr %18, align 8, !tbaa !8
-  %166 = icmp eq i32 %165, 0
-  br i1 %166, label %167, label %171
+_ZN4TreeD2Ev.exit179:                             ; preds = %_ZN4TreeD2Ev.exit172, %delete.notnull.i178
+  %38 = load i32, ptr %use.i.i.i70, align 8, !tbaa !8
+  %dec.i181 = add nsw i32 %38, -1
+  store i32 %dec.i181, ptr %use.i.i.i70, align 8, !tbaa !8
+  %cmp.i182 = icmp eq i32 %dec.i181, 0
+  br i1 %cmp.i182, label %delete.notnull.i185, label %_ZN4TreeD2Ev.exit186
 
-167:                                              ; preds = %163
-  %168 = load ptr, ptr %16, align 8, !tbaa !11
-  %169 = getelementptr inbounds ptr, ptr %168, i64 2
-  %170 = load ptr, ptr %169, align 8
-  tail call void %170(ptr noundef nonnull align 8 dereferenceable(12) %16) #15
-  br label %171
+delete.notnull.i185:                              ; preds = %_ZN4TreeD2Ev.exit179
+  %vtable.i183 = load ptr, ptr %call.i6973, align 8, !tbaa !11
+  %vfn.i184 = getelementptr inbounds ptr, ptr %vtable.i183, i64 2
+  %39 = load ptr, ptr %vfn.i184, align 8
+  tail call void %39(ptr noundef nonnull align 8 dereferenceable(12) %call.i6973) #15
+  br label %_ZN4TreeD2Ev.exit186
 
-171:                                              ; preds = %163, %167
-  %172 = load i32, ptr %13, align 8, !tbaa !8
-  %173 = add nsw i32 %172, -1
-  store i32 %173, ptr %13, align 8, !tbaa !8
-  %174 = icmp eq i32 %173, 0
-  br i1 %174, label %175, label %179
+_ZN4TreeD2Ev.exit186:                             ; preds = %_ZN4TreeD2Ev.exit179, %delete.notnull.i185
+  %40 = load i32, ptr %use.i.i.i, align 8, !tbaa !8
+  %dec.i188 = add nsw i32 %40, -1
+  store i32 %dec.i188, ptr %use.i.i.i, align 8, !tbaa !8
+  %cmp.i189 = icmp eq i32 %dec.i188, 0
+  br i1 %cmp.i189, label %delete.notnull.i192, label %_ZN4TreeD2Ev.exit193
 
-175:                                              ; preds = %171
-  %176 = load ptr, ptr %12, align 8, !tbaa !11
-  %177 = getelementptr inbounds ptr, ptr %176, i64 2
-  %178 = load ptr, ptr %177, align 8
-  tail call void %178(ptr noundef nonnull align 8 dereferenceable(12) %12) #15
-  br label %179
+delete.notnull.i192:                              ; preds = %_ZN4TreeD2Ev.exit186
+  %vtable.i190 = load ptr, ptr %call.i, align 8, !tbaa !11
+  %vfn.i191 = getelementptr inbounds ptr, ptr %vtable.i190, i64 2
+  %41 = load ptr, ptr %vfn.i191, align 8
+  tail call void %41(ptr noundef nonnull align 8 dereferenceable(12) %call.i) #15
+  br label %_ZN4TreeD2Ev.exit193
 
-179:                                              ; preds = %171, %175
+_ZN4TreeD2Ev.exit193:                             ; preds = %_ZN4TreeD2Ev.exit186, %delete.notnull.i192
   ret i32 0
 
-180:                                              ; preds = %0
-  %181 = landingpad { ptr, i32 }
+lpad:                                             ; preds = %entry
+  %42 = landingpad { ptr, i32 }
           cleanup
-  br label %305
+  br label %ehcleanup57
 
-182:                                              ; preds = %24
-  %183 = landingpad { ptr, i32 }
+lpad1:                                            ; preds = %invoke.cont
+  %43 = landingpad { ptr, i32 }
           cleanup
-  br label %296
+  br label %ehcleanup55
 
-184:                                              ; preds = %26
-  %185 = landingpad { ptr, i32 }
+lpad8:                                            ; preds = %invoke.cont2
+  %44 = landingpad { ptr, i32 }
           cleanup
-  %186 = load i32, ptr %18, align 8, !tbaa !8
-  %187 = add nsw i32 %186, -1
-  store i32 %187, ptr %18, align 8, !tbaa !8
-  %188 = icmp eq i32 %187, 0
-  br i1 %188, label %189, label %193
+  %45 = load i32, ptr %use.i.i.i70, align 8, !tbaa !8
+  %dec.i195 = add nsw i32 %45, -1
+  store i32 %dec.i195, ptr %use.i.i.i70, align 8, !tbaa !8
+  %cmp.i196 = icmp eq i32 %dec.i195, 0
+  br i1 %cmp.i196, label %delete.notnull.i199, label %_ZN4TreeD2Ev.exit200
 
-189:                                              ; preds = %184
-  %190 = load ptr, ptr %16, align 8, !tbaa !11
-  %191 = getelementptr inbounds ptr, ptr %190, i64 2
-  %192 = load ptr, ptr %191, align 8
-  tail call void %192(ptr noundef nonnull align 8 dereferenceable(12) %16) #15
-  br label %193
+delete.notnull.i199:                              ; preds = %lpad8
+  %vtable.i197 = load ptr, ptr %call.i6973, align 8, !tbaa !11
+  %vfn.i198 = getelementptr inbounds ptr, ptr %vtable.i197, i64 2
+  %46 = load ptr, ptr %vfn.i198, align 8
+  tail call void %46(ptr noundef nonnull align 8 dereferenceable(12) %call.i6973) #15
+  br label %_ZN4TreeD2Ev.exit200
 
-193:                                              ; preds = %189, %184
-  %194 = load i32, ptr %13, align 8, !tbaa !8
-  %195 = add nsw i32 %194, -1
-  store i32 %195, ptr %13, align 8, !tbaa !8
-  %196 = icmp eq i32 %195, 0
-  br i1 %196, label %281, label %287
+_ZN4TreeD2Ev.exit200:                             ; preds = %lpad8, %delete.notnull.i199
+  %47 = load i32, ptr %use.i.i.i, align 8, !tbaa !8
+  %dec.i202 = add nsw i32 %47, -1
+  store i32 %dec.i202, ptr %use.i.i.i, align 8, !tbaa !8
+  %cmp.i203 = icmp eq i32 %dec.i202, 0
+  br i1 %cmp.i203, label %ehcleanup53.sink.split, label %ehcleanup53
 
-197:                                              ; preds = %46
-  %198 = landingpad { ptr, i32 }
+lpad13:                                           ; preds = %_ZN4TreeD2Ev.exit88
+  %48 = landingpad { ptr, i32 }
           cleanup
-  %199 = load i32, ptr %27, align 8, !tbaa !8
-  %200 = add nsw i32 %199, -1
-  store i32 %200, ptr %27, align 8, !tbaa !8
-  %201 = icmp eq i32 %200, 0
-  br i1 %201, label %268, label %274
+  %49 = load i32, ptr %use.i.i.i75, align 8, !tbaa !8
+  %dec.i209 = add nsw i32 %49, -1
+  store i32 %dec.i209, ptr %use.i.i.i75, align 8, !tbaa !8
+  %cmp.i210 = icmp eq i32 %dec.i209, 0
+  br i1 %cmp.i210, label %ehcleanup51.sink.split, label %ehcleanup51
 
-202:                                              ; preds = %62, %57
-  %203 = landingpad { ptr, i32 }
+lpad16:                                           ; preds = %invoke.cont17, %_ZN4TreeD2Ev.exit97
+  %50 = landingpad { ptr, i32 }
           cleanup
-  %204 = load ptr, ptr %4, align 8, !tbaa !18
-  br label %261
+  %.pre = load ptr, ptr %t5, align 8, !tbaa !18
+  br label %ehcleanup50
 
-205:                                              ; preds = %67
-  %206 = landingpad { ptr, i32 }
+lpad26:                                           ; preds = %invoke.cont18
+  %51 = landingpad { ptr, i32 }
           cleanup
-  %207 = load i32, ptr %27, align 8, !tbaa !8
-  %208 = add nsw i32 %207, -1
-  store i32 %208, ptr %27, align 8, !tbaa !8
-  %209 = icmp eq i32 %208, 0
-  br i1 %209, label %210, label %214
+  %52 = load i32, ptr %use.i.i.i75, align 8, !tbaa !8
+  %dec.i216 = add nsw i32 %52, -1
+  store i32 %dec.i216, ptr %use.i.i.i75, align 8, !tbaa !8
+  %cmp.i217 = icmp eq i32 %dec.i216, 0
+  br i1 %cmp.i217, label %delete.notnull.i220, label %_ZN4TreeD2Ev.exit221
 
-210:                                              ; preds = %205
-  %211 = load ptr, ptr %25, align 8, !tbaa !11
-  %212 = getelementptr inbounds ptr, ptr %211, i64 2
-  %213 = load ptr, ptr %212, align 8
-  tail call void %213(ptr noundef nonnull align 8 dereferenceable(12) %25) #15
-  br label %214
+delete.notnull.i220:                              ; preds = %lpad26
+  %vtable.i218 = load ptr, ptr %call.i7478, align 8, !tbaa !11
+  %vfn.i219 = getelementptr inbounds ptr, ptr %vtable.i218, i64 2
+  %53 = load ptr, ptr %vfn.i219, align 8
+  tail call void %53(ptr noundef nonnull align 8 dereferenceable(12) %call.i7478) #15
+  br label %_ZN4TreeD2Ev.exit221
 
-214:                                              ; preds = %210, %205
-  %215 = load i32, ptr %13, align 8, !tbaa !8
-  %216 = add nsw i32 %215, -1
-  store i32 %216, ptr %13, align 8, !tbaa !8
-  %217 = icmp eq i32 %216, 0
-  br i1 %217, label %253, label %259
+_ZN4TreeD2Ev.exit221:                             ; preds = %lpad26, %delete.notnull.i220
+  %54 = load i32, ptr %use.i.i.i, align 8, !tbaa !8
+  %dec.i223 = add nsw i32 %54, -1
+  store i32 %dec.i223, ptr %use.i.i.i, align 8, !tbaa !8
+  %cmp.i224 = icmp eq i32 %dec.i223, 0
+  br i1 %cmp.i224, label %ehcleanup49.sink.split, label %ehcleanup49
 
-218:                                              ; preds = %88
-  %219 = landingpad { ptr, i32 }
+lpad30:                                           ; preds = %_ZN4TreeD2Ev.exit119
+  %55 = landingpad { ptr, i32 }
           cleanup
-  br label %247
+  br label %ehcleanup48
 
-220:                                              ; preds = %93
-  %221 = landingpad { ptr, i32 }
+lpad39:                                           ; preds = %invoke.cont31
+  %56 = landingpad { ptr, i32 }
           cleanup
-  %222 = load i32, ptr %96, align 8, !tbaa !8
-  %223 = add nsw i32 %222, -1
-  store i32 %223, ptr %96, align 8, !tbaa !8
-  %224 = icmp eq i32 %223, 0
-  br i1 %224, label %225, label %229
+  %57 = load i32, ptr %use.i125, align 8, !tbaa !8
+  %dec.i230 = add nsw i32 %57, -1
+  store i32 %dec.i230, ptr %use.i125, align 8, !tbaa !8
+  %cmp.i231 = icmp eq i32 %dec.i230, 0
+  br i1 %cmp.i231, label %delete.notnull.i234, label %_ZN4TreeD2Ev.exit235
 
-225:                                              ; preds = %220
-  %226 = load ptr, ptr %63, align 8, !tbaa !11
-  %227 = getelementptr inbounds ptr, ptr %226, i64 2
-  %228 = load ptr, ptr %227, align 8
-  tail call void %228(ptr noundef nonnull align 8 dereferenceable(12) %63) #15
-  br label %229
+delete.notnull.i234:                              ; preds = %lpad39
+  %vtable.i232 = load ptr, ptr %10, align 8, !tbaa !11
+  %vfn.i233 = getelementptr inbounds ptr, ptr %vtable.i232, i64 2
+  %58 = load ptr, ptr %vfn.i233, align 8
+  tail call void %58(ptr noundef nonnull align 8 dereferenceable(12) %10) #15
+  br label %_ZN4TreeD2Ev.exit235
 
-229:                                              ; preds = %225, %220
-  %230 = load i32, ptr %13, align 8, !tbaa !8
-  %231 = add nsw i32 %230, -1
-  store i32 %231, ptr %13, align 8, !tbaa !8
-  %232 = icmp eq i32 %231, 0
-  br i1 %232, label %239, label %245
+_ZN4TreeD2Ev.exit235:                             ; preds = %lpad39, %delete.notnull.i234
+  %59 = load i32, ptr %use.i.i.i, align 8, !tbaa !8
+  %dec.i237 = add nsw i32 %59, -1
+  store i32 %dec.i237, ptr %use.i.i.i, align 8, !tbaa !8
+  %cmp.i238 = icmp eq i32 %dec.i237, 0
+  br i1 %cmp.i238, label %ehcleanup47.sink.split, label %ehcleanup47
 
-233:                                              ; preds = %115
-  %234 = landingpad { ptr, i32 }
+lpad43:                                           ; preds = %_ZN4TreeD2Ev.exit140
+  %60 = landingpad { ptr, i32 }
           cleanup
-  %235 = getelementptr inbounds %class.Node, ptr %116, i64 0, i32 1
-  %236 = load i32, ptr %235, align 8, !tbaa !8
-  %237 = add nsw i32 %236, -1
-  store i32 %237, ptr %235, align 8, !tbaa !8
-  %238 = icmp eq i32 %237, 0
-  br i1 %238, label %239, label %245
+  %use.i243 = getelementptr inbounds %class.Node, ptr %26, i64 0, i32 1
+  %61 = load i32, ptr %use.i243, align 8, !tbaa !8
+  %dec.i244 = add nsw i32 %61, -1
+  store i32 %dec.i244, ptr %use.i243, align 8, !tbaa !8
+  %cmp.i245 = icmp eq i32 %dec.i244, 0
+  br i1 %cmp.i245, label %ehcleanup47.sink.split, label %ehcleanup47
 
-239:                                              ; preds = %233, %229
-  %240 = phi ptr [ %12, %229 ], [ %116, %233 ]
-  %241 = phi { ptr, i32 } [ %221, %229 ], [ %234, %233 ]
-  %242 = load ptr, ptr %240, align 8, !tbaa !11
-  %243 = getelementptr inbounds ptr, ptr %242, i64 2
-  %244 = load ptr, ptr %243, align 8
-  tail call void %244(ptr noundef nonnull align 8 dereferenceable(12) %240) #15
-  br label %245
+ehcleanup47.sink.split:                           ; preds = %lpad43, %_ZN4TreeD2Ev.exit235
+  %.sink302 = phi ptr [ %call.i, %_ZN4TreeD2Ev.exit235 ], [ %26, %lpad43 ]
+  %.pn.ph = phi { ptr, i32 } [ %56, %_ZN4TreeD2Ev.exit235 ], [ %60, %lpad43 ]
+  %vtable.i246 = load ptr, ptr %.sink302, align 8, !tbaa !11
+  %vfn.i247 = getelementptr inbounds ptr, ptr %vtable.i246, i64 2
+  %62 = load ptr, ptr %vfn.i247, align 8
+  tail call void %62(ptr noundef nonnull align 8 dereferenceable(12) %.sink302) #15
+  br label %ehcleanup47
 
-245:                                              ; preds = %239, %233, %229
-  %246 = phi { ptr, i32 } [ %221, %229 ], [ %234, %233 ], [ %241, %239 ]
-  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %9) #15
-  br label %247
+ehcleanup47:                                      ; preds = %ehcleanup47.sink.split, %lpad43, %_ZN4TreeD2Ev.exit235
+  %.pn = phi { ptr, i32 } [ %56, %_ZN4TreeD2Ev.exit235 ], [ %60, %lpad43 ], [ %.pn.ph, %ehcleanup47.sink.split ]
+  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %t7) #15
+  br label %ehcleanup48
 
-247:                                              ; preds = %245, %218
-  %248 = phi { ptr, i32 } [ %246, %245 ], [ %219, %218 ]
-  %249 = getelementptr inbounds %class.Node, ptr %89, i64 0, i32 1
-  %250 = load i32, ptr %249, align 8, !tbaa !8
-  %251 = add nsw i32 %250, -1
-  store i32 %251, ptr %249, align 8, !tbaa !8
-  %252 = icmp eq i32 %251, 0
-  br i1 %252, label %253, label %259
+ehcleanup48:                                      ; preds = %ehcleanup47, %lpad30
+  %.pn.pn = phi { ptr, i32 } [ %.pn, %ehcleanup47 ], [ %55, %lpad30 ]
+  %use.i250 = getelementptr inbounds %class.Node, ptr %18, i64 0, i32 1
+  %63 = load i32, ptr %use.i250, align 8, !tbaa !8
+  %dec.i251 = add nsw i32 %63, -1
+  store i32 %dec.i251, ptr %use.i250, align 8, !tbaa !8
+  %cmp.i252 = icmp eq i32 %dec.i251, 0
+  br i1 %cmp.i252, label %ehcleanup49.sink.split, label %ehcleanup49
 
-253:                                              ; preds = %247, %214
-  %254 = phi ptr [ %12, %214 ], [ %89, %247 ]
-  %255 = phi { ptr, i32 } [ %206, %214 ], [ %248, %247 ]
-  %256 = load ptr, ptr %254, align 8, !tbaa !11
-  %257 = getelementptr inbounds ptr, ptr %256, i64 2
-  %258 = load ptr, ptr %257, align 8
-  tail call void %258(ptr noundef nonnull align 8 dereferenceable(12) %254) #15
-  br label %259
+ehcleanup49.sink.split:                           ; preds = %ehcleanup48, %_ZN4TreeD2Ev.exit221
+  %.sink305 = phi ptr [ %call.i, %_ZN4TreeD2Ev.exit221 ], [ %18, %ehcleanup48 ]
+  %.pn.pn.pn.ph = phi { ptr, i32 } [ %51, %_ZN4TreeD2Ev.exit221 ], [ %.pn.pn, %ehcleanup48 ]
+  %vtable.i253 = load ptr, ptr %.sink305, align 8, !tbaa !11
+  %vfn.i254 = getelementptr inbounds ptr, ptr %vtable.i253, i64 2
+  %64 = load ptr, ptr %vfn.i254, align 8
+  tail call void %64(ptr noundef nonnull align 8 dereferenceable(12) %.sink305) #15
+  br label %ehcleanup49
 
-259:                                              ; preds = %253, %247, %214
-  %260 = phi { ptr, i32 } [ %206, %214 ], [ %248, %247 ], [ %255, %253 ]
-  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %6) #15
-  br label %261
+ehcleanup49:                                      ; preds = %ehcleanup49.sink.split, %ehcleanup48, %_ZN4TreeD2Ev.exit221
+  %.pn.pn.pn = phi { ptr, i32 } [ %51, %_ZN4TreeD2Ev.exit221 ], [ %.pn.pn, %ehcleanup48 ], [ %.pn.pn.pn.ph, %ehcleanup49.sink.split ]
+  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %t6) #15
+  br label %ehcleanup50
 
-261:                                              ; preds = %259, %202
-  %262 = phi ptr [ %63, %259 ], [ %204, %202 ]
-  %263 = phi { ptr, i32 } [ %260, %259 ], [ %203, %202 ]
-  %264 = getelementptr inbounds %class.Node, ptr %262, i64 0, i32 1
-  %265 = load i32, ptr %264, align 8, !tbaa !8
-  %266 = add nsw i32 %265, -1
-  store i32 %266, ptr %264, align 8, !tbaa !8
-  %267 = icmp eq i32 %266, 0
-  br i1 %267, label %268, label %274
+ehcleanup50:                                      ; preds = %ehcleanup49, %lpad16
+  %65 = phi ptr [ %10, %ehcleanup49 ], [ %.pre, %lpad16 ]
+  %.pn.pn.pn.pn = phi { ptr, i32 } [ %.pn.pn.pn, %ehcleanup49 ], [ %50, %lpad16 ]
+  %use.i257 = getelementptr inbounds %class.Node, ptr %65, i64 0, i32 1
+  %66 = load i32, ptr %use.i257, align 8, !tbaa !8
+  %dec.i258 = add nsw i32 %66, -1
+  store i32 %dec.i258, ptr %use.i257, align 8, !tbaa !8
+  %cmp.i259 = icmp eq i32 %dec.i258, 0
+  br i1 %cmp.i259, label %ehcleanup51.sink.split, label %ehcleanup51
 
-268:                                              ; preds = %261, %197
-  %269 = phi ptr [ %25, %197 ], [ %262, %261 ]
-  %270 = phi { ptr, i32 } [ %198, %197 ], [ %263, %261 ]
-  %271 = load ptr, ptr %269, align 8, !tbaa !11
-  %272 = getelementptr inbounds ptr, ptr %271, i64 2
-  %273 = load ptr, ptr %272, align 8
-  tail call void %273(ptr noundef nonnull align 8 dereferenceable(12) %269) #15
-  br label %274
+ehcleanup51.sink.split:                           ; preds = %ehcleanup50, %lpad13
+  %.sink308 = phi ptr [ %call.i7478, %lpad13 ], [ %65, %ehcleanup50 ]
+  %.pn.pn.pn.pn.pn.ph = phi { ptr, i32 } [ %48, %lpad13 ], [ %.pn.pn.pn.pn, %ehcleanup50 ]
+  %vtable.i260 = load ptr, ptr %.sink308, align 8, !tbaa !11
+  %vfn.i261 = getelementptr inbounds ptr, ptr %vtable.i260, i64 2
+  %67 = load ptr, ptr %vfn.i261, align 8
+  tail call void %67(ptr noundef nonnull align 8 dereferenceable(12) %.sink308) #15
+  br label %ehcleanup51
 
-274:                                              ; preds = %268, %261, %197
-  %275 = phi { ptr, i32 } [ %198, %197 ], [ %263, %261 ], [ %270, %268 ]
-  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %4) #15
-  %276 = load ptr, ptr %1, align 8, !tbaa !18
-  %277 = getelementptr inbounds %class.Node, ptr %276, i64 0, i32 1
-  %278 = load i32, ptr %277, align 8, !tbaa !8
-  %279 = add nsw i32 %278, -1
-  store i32 %279, ptr %277, align 8, !tbaa !8
-  %280 = icmp eq i32 %279, 0
-  br i1 %280, label %281, label %287
+ehcleanup51:                                      ; preds = %ehcleanup51.sink.split, %ehcleanup50, %lpad13
+  %.pn.pn.pn.pn.pn = phi { ptr, i32 } [ %48, %lpad13 ], [ %.pn.pn.pn.pn, %ehcleanup50 ], [ %.pn.pn.pn.pn.pn.ph, %ehcleanup51.sink.split ]
+  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %t5) #15
+  %68 = load ptr, ptr %t4, align 8, !tbaa !18
+  %use.i264 = getelementptr inbounds %class.Node, ptr %68, i64 0, i32 1
+  %69 = load i32, ptr %use.i264, align 8, !tbaa !8
+  %dec.i265 = add nsw i32 %69, -1
+  store i32 %dec.i265, ptr %use.i264, align 8, !tbaa !8
+  %cmp.i266 = icmp eq i32 %dec.i265, 0
+  br i1 %cmp.i266, label %ehcleanup53.sink.split, label %ehcleanup53
 
-281:                                              ; preds = %274, %193
-  %282 = phi ptr [ %12, %193 ], [ %276, %274 ]
-  %283 = phi { ptr, i32 } [ %185, %193 ], [ %275, %274 ]
-  %284 = load ptr, ptr %282, align 8, !tbaa !11
-  %285 = getelementptr inbounds ptr, ptr %284, i64 2
-  %286 = load ptr, ptr %285, align 8
-  tail call void %286(ptr noundef nonnull align 8 dereferenceable(12) %282) #15
-  br label %287
+ehcleanup53.sink.split:                           ; preds = %ehcleanup51, %_ZN4TreeD2Ev.exit200
+  %.sink311 = phi ptr [ %call.i, %_ZN4TreeD2Ev.exit200 ], [ %68, %ehcleanup51 ]
+  %.pn.pn.pn.pn.pn.pn.ph = phi { ptr, i32 } [ %44, %_ZN4TreeD2Ev.exit200 ], [ %.pn.pn.pn.pn.pn, %ehcleanup51 ]
+  %vtable.i267 = load ptr, ptr %.sink311, align 8, !tbaa !11
+  %vfn.i268 = getelementptr inbounds ptr, ptr %vtable.i267, i64 2
+  %70 = load ptr, ptr %vfn.i268, align 8
+  tail call void %70(ptr noundef nonnull align 8 dereferenceable(12) %.sink311) #15
+  br label %ehcleanup53
 
-287:                                              ; preds = %281, %274, %193
-  %288 = phi { ptr, i32 } [ %185, %193 ], [ %275, %274 ], [ %283, %281 ]
-  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %1) #15
-  %289 = load i32, ptr %27, align 8, !tbaa !8
-  %290 = add nsw i32 %289, -1
-  store i32 %290, ptr %27, align 8, !tbaa !8
-  %291 = icmp eq i32 %290, 0
-  br i1 %291, label %292, label %296
+ehcleanup53:                                      ; preds = %ehcleanup53.sink.split, %ehcleanup51, %_ZN4TreeD2Ev.exit200
+  %.pn.pn.pn.pn.pn.pn = phi { ptr, i32 } [ %44, %_ZN4TreeD2Ev.exit200 ], [ %.pn.pn.pn.pn.pn, %ehcleanup51 ], [ %.pn.pn.pn.pn.pn.pn.ph, %ehcleanup53.sink.split ]
+  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %t4) #15
+  %71 = load i32, ptr %use.i.i.i75, align 8, !tbaa !8
+  %dec.i272 = add nsw i32 %71, -1
+  store i32 %dec.i272, ptr %use.i.i.i75, align 8, !tbaa !8
+  %cmp.i273 = icmp eq i32 %dec.i272, 0
+  br i1 %cmp.i273, label %delete.notnull.i276, label %ehcleanup55
 
-292:                                              ; preds = %287
-  %293 = load ptr, ptr %25, align 8, !tbaa !11
-  %294 = getelementptr inbounds ptr, ptr %293, i64 2
-  %295 = load ptr, ptr %294, align 8
-  tail call void %295(ptr noundef nonnull align 8 dereferenceable(12) %25) #15
-  br label %296
+delete.notnull.i276:                              ; preds = %ehcleanup53
+  %vtable.i274 = load ptr, ptr %call.i7478, align 8, !tbaa !11
+  %vfn.i275 = getelementptr inbounds ptr, ptr %vtable.i274, i64 2
+  %72 = load ptr, ptr %vfn.i275, align 8
+  tail call void %72(ptr noundef nonnull align 8 dereferenceable(12) %call.i7478) #15
+  br label %ehcleanup55
 
-296:                                              ; preds = %292, %287, %182
-  %297 = phi { ptr, i32 } [ %183, %182 ], [ %288, %287 ], [ %288, %292 ]
-  %298 = load i32, ptr %18, align 8, !tbaa !8
-  %299 = add nsw i32 %298, -1
-  store i32 %299, ptr %18, align 8, !tbaa !8
-  %300 = icmp eq i32 %299, 0
-  br i1 %300, label %301, label %305
+ehcleanup55:                                      ; preds = %delete.notnull.i276, %ehcleanup53, %lpad1
+  %.pn.pn.pn.pn.pn.pn.pn = phi { ptr, i32 } [ %43, %lpad1 ], [ %.pn.pn.pn.pn.pn.pn, %ehcleanup53 ], [ %.pn.pn.pn.pn.pn.pn, %delete.notnull.i276 ]
+  %73 = load i32, ptr %use.i.i.i70, align 8, !tbaa !8
+  %dec.i279 = add nsw i32 %73, -1
+  store i32 %dec.i279, ptr %use.i.i.i70, align 8, !tbaa !8
+  %cmp.i280 = icmp eq i32 %dec.i279, 0
+  br i1 %cmp.i280, label %delete.notnull.i283, label %ehcleanup57
 
-301:                                              ; preds = %296
-  %302 = load ptr, ptr %16, align 8, !tbaa !11
-  %303 = getelementptr inbounds ptr, ptr %302, i64 2
-  %304 = load ptr, ptr %303, align 8
-  tail call void %304(ptr noundef nonnull align 8 dereferenceable(12) %16) #15
-  br label %305
+delete.notnull.i283:                              ; preds = %ehcleanup55
+  %vtable.i281 = load ptr, ptr %call.i6973, align 8, !tbaa !11
+  %vfn.i282 = getelementptr inbounds ptr, ptr %vtable.i281, i64 2
+  %74 = load ptr, ptr %vfn.i282, align 8
+  tail call void %74(ptr noundef nonnull align 8 dereferenceable(12) %call.i6973) #15
+  br label %ehcleanup57
 
-305:                                              ; preds = %180, %22, %301, %296
-  %306 = phi { ptr, i32 } [ %297, %296 ], [ %297, %301 ], [ %181, %180 ], [ %23, %22 ]
-  %307 = load i32, ptr %13, align 8, !tbaa !8
-  %308 = add nsw i32 %307, -1
-  store i32 %308, ptr %13, align 8, !tbaa !8
-  %309 = icmp eq i32 %308, 0
-  br i1 %309, label %310, label %314
+ehcleanup57:                                      ; preds = %delete.notnull.i283, %ehcleanup55, %lpad, %lpad.i
+  %.pn.pn.pn.pn.pn.pn.pn.pn = phi { ptr, i32 } [ %42, %lpad ], [ %0, %lpad.i ], [ %.pn.pn.pn.pn.pn.pn.pn, %ehcleanup55 ], [ %.pn.pn.pn.pn.pn.pn.pn, %delete.notnull.i283 ]
+  %75 = load i32, ptr %use.i.i.i, align 8, !tbaa !8
+  %dec.i286 = add nsw i32 %75, -1
+  store i32 %dec.i286, ptr %use.i.i.i, align 8, !tbaa !8
+  %cmp.i287 = icmp eq i32 %dec.i286, 0
+  br i1 %cmp.i287, label %delete.notnull.i290, label %_ZN4TreeD2Ev.exit291
 
-310:                                              ; preds = %305
-  %311 = load ptr, ptr %12, align 8, !tbaa !11
-  %312 = getelementptr inbounds ptr, ptr %311, i64 2
-  %313 = load ptr, ptr %312, align 8
-  tail call void %313(ptr noundef nonnull align 8 dereferenceable(12) %12) #15
-  br label %314
+delete.notnull.i290:                              ; preds = %ehcleanup57
+  %vtable.i288 = load ptr, ptr %call.i, align 8, !tbaa !11
+  %vfn.i289 = getelementptr inbounds ptr, ptr %vtable.i288, i64 2
+  %76 = load ptr, ptr %vfn.i289, align 8
+  tail call void %76(ptr noundef nonnull align 8 dereferenceable(12) %call.i) #15
+  br label %_ZN4TreeD2Ev.exit291
 
-314:                                              ; preds = %305, %310
-  resume { ptr, i32 } %306
+_ZN4TreeD2Ev.exit291:                             ; preds = %ehcleanup57, %delete.notnull.i290
+  resume { ptr, i32 } %.pn.pn.pn.pn.pn.pn.pn.pn
 }
 
 ; Function Attrs: nounwind uwtable
-define linkonce_odr dso_local void @_ZN8RealNodeD2Ev(ptr noundef nonnull align 8 dereferenceable(24) %0) unnamed_addr #5 comdat align 2 {
-  store ptr getelementptr inbounds ({ [5 x ptr] }, ptr @_ZTV8RealNode, i64 0, inrange i32 0, i64 2), ptr %0, align 8, !tbaa !11
-  %2 = getelementptr inbounds %class.RealNode, ptr %0, i64 0, i32 2
-  %3 = load ptr, ptr %2, align 8, !tbaa !13
-  %4 = icmp eq ptr %3, null
-  br i1 %4, label %6, label %5
+define linkonce_odr dso_local void @_ZN8RealNodeD2Ev(ptr noundef nonnull align 8 dereferenceable(24) %this) unnamed_addr #5 comdat align 2 {
+entry:
+  store ptr getelementptr inbounds ({ [5 x ptr] }, ptr @_ZTV8RealNode, i64 0, inrange i32 0, i64 2), ptr %this, align 8, !tbaa !11
+  %symbol = getelementptr inbounds %class.RealNode, ptr %this, i64 0, i32 2
+  %0 = load ptr, ptr %symbol, align 8, !tbaa !13
+  %isnull = icmp eq ptr %0, null
+  br i1 %isnull, label %delete.end, label %delete.notnull
 
-5:                                                ; preds = %1
-  tail call void @_ZdlPv(ptr noundef nonnull %3) #14
-  br label %6
-
-6:                                                ; preds = %5, %1
-  ret void
-}
-
-; Function Attrs: nounwind uwtable
-define linkonce_odr dso_local void @_ZN8RealNodeD0Ev(ptr noundef nonnull align 8 dereferenceable(24) %0) unnamed_addr #5 comdat align 2 {
-  store ptr getelementptr inbounds ({ [5 x ptr] }, ptr @_ZTV8RealNode, i64 0, inrange i32 0, i64 2), ptr %0, align 8, !tbaa !11
-  %2 = getelementptr inbounds %class.RealNode, ptr %0, i64 0, i32 2
-  %3 = load ptr, ptr %2, align 8, !tbaa !13
-  %4 = icmp eq ptr %3, null
-  br i1 %4, label %6, label %5
-
-5:                                                ; preds = %1
-  tail call void @_ZdlPv(ptr noundef nonnull %3) #14
-  br label %6
-
-6:                                                ; preds = %1, %5
+delete.notnull:                                   ; preds = %entry
   tail call void @_ZdlPv(ptr noundef nonnull %0) #14
+  br label %delete.end
+
+delete.end:                                       ; preds = %delete.notnull, %entry
   ret void
 }
 
 ; Function Attrs: nounwind uwtable
-define linkonce_odr dso_local void @_ZN9UnaryNodeD2Ev(ptr noundef nonnull align 8 dereferenceable(32) %0) unnamed_addr #5 comdat align 2 {
-  store ptr getelementptr inbounds ({ [5 x ptr] }, ptr @_ZTV9UnaryNode, i64 0, inrange i32 0, i64 2), ptr %0, align 8, !tbaa !11
-  %2 = getelementptr inbounds %class.UnaryNode, ptr %0, i64 0, i32 1
-  %3 = load ptr, ptr %2, align 8, !tbaa !22
-  %4 = icmp eq ptr %3, null
-  br i1 %4, label %6, label %5
+define linkonce_odr dso_local void @_ZN8RealNodeD0Ev(ptr noundef nonnull align 8 dereferenceable(24) %this) unnamed_addr #5 comdat align 2 {
+entry:
+  store ptr getelementptr inbounds ({ [5 x ptr] }, ptr @_ZTV8RealNode, i64 0, inrange i32 0, i64 2), ptr %this, align 8, !tbaa !11
+  %symbol.i = getelementptr inbounds %class.RealNode, ptr %this, i64 0, i32 2
+  %0 = load ptr, ptr %symbol.i, align 8, !tbaa !13
+  %isnull.i = icmp eq ptr %0, null
+  br i1 %isnull.i, label %_ZN8RealNodeD2Ev.exit, label %delete.notnull.i
 
-5:                                                ; preds = %1
-  tail call void @_ZdlPv(ptr noundef nonnull %3) #14
-  br label %6
-
-6:                                                ; preds = %5, %1
-  %7 = getelementptr inbounds %class.UnaryNode, ptr %0, i64 0, i32 2
-  %8 = load ptr, ptr %7, align 8, !tbaa !20
-  %9 = icmp eq ptr %8, null
-  br i1 %9, label %21, label %10
-
-10:                                               ; preds = %6
-  %11 = load ptr, ptr %8, align 8, !tbaa !18
-  %12 = getelementptr inbounds %class.Node, ptr %11, i64 0, i32 1
-  %13 = load i32, ptr %12, align 8, !tbaa !8
-  %14 = add nsw i32 %13, -1
-  store i32 %14, ptr %12, align 8, !tbaa !8
-  %15 = icmp eq i32 %14, 0
-  br i1 %15, label %16, label %20
-
-16:                                               ; preds = %10
-  %17 = load ptr, ptr %11, align 8, !tbaa !11
-  %18 = getelementptr inbounds ptr, ptr %17, i64 2
-  %19 = load ptr, ptr %18, align 8
-  tail call void %19(ptr noundef nonnull align 8 dereferenceable(12) %11) #15
-  br label %20
-
-20:                                               ; preds = %10, %16
-  tail call void @_ZdlPv(ptr noundef nonnull %8) #14
-  br label %21
-
-21:                                               ; preds = %20, %6
-  ret void
-}
-
-; Function Attrs: nounwind uwtable
-define linkonce_odr dso_local void @_ZN9UnaryNodeD0Ev(ptr noundef nonnull align 8 dereferenceable(32) %0) unnamed_addr #5 comdat align 2 {
-  store ptr getelementptr inbounds ({ [5 x ptr] }, ptr @_ZTV9UnaryNode, i64 0, inrange i32 0, i64 2), ptr %0, align 8, !tbaa !11
-  %2 = getelementptr inbounds %class.UnaryNode, ptr %0, i64 0, i32 1
-  %3 = load ptr, ptr %2, align 8, !tbaa !22
-  %4 = icmp eq ptr %3, null
-  br i1 %4, label %6, label %5
-
-5:                                                ; preds = %1
-  tail call void @_ZdlPv(ptr noundef nonnull %3) #14
-  br label %6
-
-6:                                                ; preds = %5, %1
-  %7 = getelementptr inbounds %class.UnaryNode, ptr %0, i64 0, i32 2
-  %8 = load ptr, ptr %7, align 8, !tbaa !20
-  %9 = icmp eq ptr %8, null
-  br i1 %9, label %21, label %10
-
-10:                                               ; preds = %6
-  %11 = load ptr, ptr %8, align 8, !tbaa !18
-  %12 = getelementptr inbounds %class.Node, ptr %11, i64 0, i32 1
-  %13 = load i32, ptr %12, align 8, !tbaa !8
-  %14 = add nsw i32 %13, -1
-  store i32 %14, ptr %12, align 8, !tbaa !8
-  %15 = icmp eq i32 %14, 0
-  br i1 %15, label %16, label %20
-
-16:                                               ; preds = %10
-  %17 = load ptr, ptr %11, align 8, !tbaa !11
-  %18 = getelementptr inbounds ptr, ptr %17, i64 2
-  %19 = load ptr, ptr %18, align 8
-  tail call void %19(ptr noundef nonnull align 8 dereferenceable(12) %11) #15
-  br label %20
-
-20:                                               ; preds = %16, %10
-  tail call void @_ZdlPv(ptr noundef nonnull %8) #14
-  br label %21
-
-21:                                               ; preds = %6, %20
+delete.notnull.i:                                 ; preds = %entry
   tail call void @_ZdlPv(ptr noundef nonnull %0) #14
+  br label %_ZN8RealNodeD2Ev.exit
+
+_ZN8RealNodeD2Ev.exit:                            ; preds = %entry, %delete.notnull.i
+  tail call void @_ZdlPv(ptr noundef nonnull %this) #14
   ret void
 }
 
 ; Function Attrs: nounwind uwtable
-define linkonce_odr dso_local void @_ZN10BinaryNodeD2Ev(ptr noundef nonnull align 8 dereferenceable(40) %0) unnamed_addr #5 comdat align 2 {
-  store ptr getelementptr inbounds ({ [5 x ptr] }, ptr @_ZTV10BinaryNode, i64 0, inrange i32 0, i64 2), ptr %0, align 8, !tbaa !11
-  %2 = getelementptr inbounds %class.BinaryNode, ptr %0, i64 0, i32 1
-  %3 = load ptr, ptr %2, align 8, !tbaa !26
-  %4 = icmp eq ptr %3, null
-  br i1 %4, label %6, label %5
+define linkonce_odr dso_local void @_ZN9UnaryNodeD2Ev(ptr noundef nonnull align 8 dereferenceable(32) %this) unnamed_addr #5 comdat align 2 {
+entry:
+  store ptr getelementptr inbounds ({ [5 x ptr] }, ptr @_ZTV9UnaryNode, i64 0, inrange i32 0, i64 2), ptr %this, align 8, !tbaa !11
+  %op = getelementptr inbounds %class.UnaryNode, ptr %this, i64 0, i32 1
+  %0 = load ptr, ptr %op, align 8, !tbaa !22
+  %isnull = icmp eq ptr %0, null
+  br i1 %isnull, label %delete.end, label %delete.notnull
 
-5:                                                ; preds = %1
-  tail call void @_ZdlPv(ptr noundef nonnull %3) #14
-  br label %6
-
-6:                                                ; preds = %5, %1
-  %7 = getelementptr inbounds %class.BinaryNode, ptr %0, i64 0, i32 2
-  %8 = load ptr, ptr %7, align 8, !tbaa !23
-  %9 = icmp eq ptr %8, null
-  br i1 %9, label %21, label %10
-
-10:                                               ; preds = %6
-  %11 = load ptr, ptr %8, align 8, !tbaa !18
-  %12 = getelementptr inbounds %class.Node, ptr %11, i64 0, i32 1
-  %13 = load i32, ptr %12, align 8, !tbaa !8
-  %14 = add nsw i32 %13, -1
-  store i32 %14, ptr %12, align 8, !tbaa !8
-  %15 = icmp eq i32 %14, 0
-  br i1 %15, label %16, label %20
-
-16:                                               ; preds = %10
-  %17 = load ptr, ptr %11, align 8, !tbaa !11
-  %18 = getelementptr inbounds ptr, ptr %17, i64 2
-  %19 = load ptr, ptr %18, align 8
-  tail call void %19(ptr noundef nonnull align 8 dereferenceable(12) %11) #15
-  br label %20
-
-20:                                               ; preds = %10, %16
-  tail call void @_ZdlPv(ptr noundef nonnull %8) #14
-  br label %21
-
-21:                                               ; preds = %20, %6
-  %22 = getelementptr inbounds %class.BinaryNode, ptr %0, i64 0, i32 3
-  %23 = load ptr, ptr %22, align 8, !tbaa !25
-  %24 = icmp eq ptr %23, null
-  br i1 %24, label %36, label %25
-
-25:                                               ; preds = %21
-  %26 = load ptr, ptr %23, align 8, !tbaa !18
-  %27 = getelementptr inbounds %class.Node, ptr %26, i64 0, i32 1
-  %28 = load i32, ptr %27, align 8, !tbaa !8
-  %29 = add nsw i32 %28, -1
-  store i32 %29, ptr %27, align 8, !tbaa !8
-  %30 = icmp eq i32 %29, 0
-  br i1 %30, label %31, label %35
-
-31:                                               ; preds = %25
-  %32 = load ptr, ptr %26, align 8, !tbaa !11
-  %33 = getelementptr inbounds ptr, ptr %32, i64 2
-  %34 = load ptr, ptr %33, align 8
-  tail call void %34(ptr noundef nonnull align 8 dereferenceable(12) %26) #15
-  br label %35
-
-35:                                               ; preds = %25, %31
-  tail call void @_ZdlPv(ptr noundef nonnull %23) #14
-  br label %36
-
-36:                                               ; preds = %35, %21
-  ret void
-}
-
-; Function Attrs: nounwind uwtable
-define linkonce_odr dso_local void @_ZN10BinaryNodeD0Ev(ptr noundef nonnull align 8 dereferenceable(40) %0) unnamed_addr #5 comdat align 2 {
-  store ptr getelementptr inbounds ({ [5 x ptr] }, ptr @_ZTV10BinaryNode, i64 0, inrange i32 0, i64 2), ptr %0, align 8, !tbaa !11
-  %2 = getelementptr inbounds %class.BinaryNode, ptr %0, i64 0, i32 1
-  %3 = load ptr, ptr %2, align 8, !tbaa !26
-  %4 = icmp eq ptr %3, null
-  br i1 %4, label %6, label %5
-
-5:                                                ; preds = %1
-  tail call void @_ZdlPv(ptr noundef nonnull %3) #14
-  br label %6
-
-6:                                                ; preds = %5, %1
-  %7 = getelementptr inbounds %class.BinaryNode, ptr %0, i64 0, i32 2
-  %8 = load ptr, ptr %7, align 8, !tbaa !23
-  %9 = icmp eq ptr %8, null
-  br i1 %9, label %21, label %10
-
-10:                                               ; preds = %6
-  %11 = load ptr, ptr %8, align 8, !tbaa !18
-  %12 = getelementptr inbounds %class.Node, ptr %11, i64 0, i32 1
-  %13 = load i32, ptr %12, align 8, !tbaa !8
-  %14 = add nsw i32 %13, -1
-  store i32 %14, ptr %12, align 8, !tbaa !8
-  %15 = icmp eq i32 %14, 0
-  br i1 %15, label %16, label %20
-
-16:                                               ; preds = %10
-  %17 = load ptr, ptr %11, align 8, !tbaa !11
-  %18 = getelementptr inbounds ptr, ptr %17, i64 2
-  %19 = load ptr, ptr %18, align 8
-  tail call void %19(ptr noundef nonnull align 8 dereferenceable(12) %11) #15
-  br label %20
-
-20:                                               ; preds = %16, %10
-  tail call void @_ZdlPv(ptr noundef nonnull %8) #14
-  br label %21
-
-21:                                               ; preds = %20, %6
-  %22 = getelementptr inbounds %class.BinaryNode, ptr %0, i64 0, i32 3
-  %23 = load ptr, ptr %22, align 8, !tbaa !25
-  %24 = icmp eq ptr %23, null
-  br i1 %24, label %36, label %25
-
-25:                                               ; preds = %21
-  %26 = load ptr, ptr %23, align 8, !tbaa !18
-  %27 = getelementptr inbounds %class.Node, ptr %26, i64 0, i32 1
-  %28 = load i32, ptr %27, align 8, !tbaa !8
-  %29 = add nsw i32 %28, -1
-  store i32 %29, ptr %27, align 8, !tbaa !8
-  %30 = icmp eq i32 %29, 0
-  br i1 %30, label %31, label %35
-
-31:                                               ; preds = %25
-  %32 = load ptr, ptr %26, align 8, !tbaa !11
-  %33 = getelementptr inbounds ptr, ptr %32, i64 2
-  %34 = load ptr, ptr %33, align 8
-  tail call void %34(ptr noundef nonnull align 8 dereferenceable(12) %26) #15
-  br label %35
-
-35:                                               ; preds = %31, %25
-  tail call void @_ZdlPv(ptr noundef nonnull %23) #14
-  br label %36
-
-36:                                               ; preds = %21, %35
+delete.notnull:                                   ; preds = %entry
   tail call void @_ZdlPv(ptr noundef nonnull %0) #14
+  br label %delete.end
+
+delete.end:                                       ; preds = %delete.notnull, %entry
+  %opnd = getelementptr inbounds %class.UnaryNode, ptr %this, i64 0, i32 2
+  %1 = load ptr, ptr %opnd, align 8, !tbaa !20
+  %isnull2 = icmp eq ptr %1, null
+  br i1 %isnull2, label %delete.end4, label %delete.notnull3
+
+delete.notnull3:                                  ; preds = %delete.end
+  %2 = load ptr, ptr %1, align 8, !tbaa !18
+  %use.i = getelementptr inbounds %class.Node, ptr %2, i64 0, i32 1
+  %3 = load i32, ptr %use.i, align 8, !tbaa !8
+  %dec.i = add nsw i32 %3, -1
+  store i32 %dec.i, ptr %use.i, align 8, !tbaa !8
+  %cmp.i = icmp eq i32 %dec.i, 0
+  br i1 %cmp.i, label %delete.notnull.i, label %_ZN4TreeD2Ev.exit
+
+delete.notnull.i:                                 ; preds = %delete.notnull3
+  %vtable.i = load ptr, ptr %2, align 8, !tbaa !11
+  %vfn.i = getelementptr inbounds ptr, ptr %vtable.i, i64 2
+  %4 = load ptr, ptr %vfn.i, align 8
+  tail call void %4(ptr noundef nonnull align 8 dereferenceable(12) %2) #15
+  br label %_ZN4TreeD2Ev.exit
+
+_ZN4TreeD2Ev.exit:                                ; preds = %delete.notnull3, %delete.notnull.i
+  tail call void @_ZdlPv(ptr noundef nonnull %1) #14
+  br label %delete.end4
+
+delete.end4:                                      ; preds = %_ZN4TreeD2Ev.exit, %delete.end
+  ret void
+}
+
+; Function Attrs: nounwind uwtable
+define linkonce_odr dso_local void @_ZN9UnaryNodeD0Ev(ptr noundef nonnull align 8 dereferenceable(32) %this) unnamed_addr #5 comdat align 2 {
+entry:
+  store ptr getelementptr inbounds ({ [5 x ptr] }, ptr @_ZTV9UnaryNode, i64 0, inrange i32 0, i64 2), ptr %this, align 8, !tbaa !11
+  %op.i = getelementptr inbounds %class.UnaryNode, ptr %this, i64 0, i32 1
+  %0 = load ptr, ptr %op.i, align 8, !tbaa !22
+  %isnull.i = icmp eq ptr %0, null
+  br i1 %isnull.i, label %delete.end.i, label %delete.notnull.i
+
+delete.notnull.i:                                 ; preds = %entry
+  tail call void @_ZdlPv(ptr noundef nonnull %0) #14
+  br label %delete.end.i
+
+delete.end.i:                                     ; preds = %delete.notnull.i, %entry
+  %opnd.i = getelementptr inbounds %class.UnaryNode, ptr %this, i64 0, i32 2
+  %1 = load ptr, ptr %opnd.i, align 8, !tbaa !20
+  %isnull2.i = icmp eq ptr %1, null
+  br i1 %isnull2.i, label %_ZN9UnaryNodeD2Ev.exit, label %delete.notnull3.i
+
+delete.notnull3.i:                                ; preds = %delete.end.i
+  %2 = load ptr, ptr %1, align 8, !tbaa !18
+  %use.i.i = getelementptr inbounds %class.Node, ptr %2, i64 0, i32 1
+  %3 = load i32, ptr %use.i.i, align 8, !tbaa !8
+  %dec.i.i = add nsw i32 %3, -1
+  store i32 %dec.i.i, ptr %use.i.i, align 8, !tbaa !8
+  %cmp.i.i = icmp eq i32 %dec.i.i, 0
+  br i1 %cmp.i.i, label %delete.notnull.i.i, label %_ZN4TreeD2Ev.exit.i
+
+delete.notnull.i.i:                               ; preds = %delete.notnull3.i
+  %vtable.i.i = load ptr, ptr %2, align 8, !tbaa !11
+  %vfn.i.i = getelementptr inbounds ptr, ptr %vtable.i.i, i64 2
+  %4 = load ptr, ptr %vfn.i.i, align 8
+  tail call void %4(ptr noundef nonnull align 8 dereferenceable(12) %2) #15
+  br label %_ZN4TreeD2Ev.exit.i
+
+_ZN4TreeD2Ev.exit.i:                              ; preds = %delete.notnull.i.i, %delete.notnull3.i
+  tail call void @_ZdlPv(ptr noundef nonnull %1) #14
+  br label %_ZN9UnaryNodeD2Ev.exit
+
+_ZN9UnaryNodeD2Ev.exit:                           ; preds = %delete.end.i, %_ZN4TreeD2Ev.exit.i
+  tail call void @_ZdlPv(ptr noundef nonnull %this) #14
+  ret void
+}
+
+; Function Attrs: nounwind uwtable
+define linkonce_odr dso_local void @_ZN10BinaryNodeD2Ev(ptr noundef nonnull align 8 dereferenceable(40) %this) unnamed_addr #5 comdat align 2 {
+entry:
+  store ptr getelementptr inbounds ({ [5 x ptr] }, ptr @_ZTV10BinaryNode, i64 0, inrange i32 0, i64 2), ptr %this, align 8, !tbaa !11
+  %op = getelementptr inbounds %class.BinaryNode, ptr %this, i64 0, i32 1
+  %0 = load ptr, ptr %op, align 8, !tbaa !26
+  %isnull = icmp eq ptr %0, null
+  br i1 %isnull, label %delete.end, label %delete.notnull
+
+delete.notnull:                                   ; preds = %entry
+  tail call void @_ZdlPv(ptr noundef nonnull %0) #14
+  br label %delete.end
+
+delete.end:                                       ; preds = %delete.notnull, %entry
+  %left = getelementptr inbounds %class.BinaryNode, ptr %this, i64 0, i32 2
+  %1 = load ptr, ptr %left, align 8, !tbaa !23
+  %isnull2 = icmp eq ptr %1, null
+  br i1 %isnull2, label %delete.end4, label %delete.notnull3
+
+delete.notnull3:                                  ; preds = %delete.end
+  %2 = load ptr, ptr %1, align 8, !tbaa !18
+  %use.i = getelementptr inbounds %class.Node, ptr %2, i64 0, i32 1
+  %3 = load i32, ptr %use.i, align 8, !tbaa !8
+  %dec.i = add nsw i32 %3, -1
+  store i32 %dec.i, ptr %use.i, align 8, !tbaa !8
+  %cmp.i = icmp eq i32 %dec.i, 0
+  br i1 %cmp.i, label %delete.notnull.i, label %_ZN4TreeD2Ev.exit
+
+delete.notnull.i:                                 ; preds = %delete.notnull3
+  %vtable.i = load ptr, ptr %2, align 8, !tbaa !11
+  %vfn.i = getelementptr inbounds ptr, ptr %vtable.i, i64 2
+  %4 = load ptr, ptr %vfn.i, align 8
+  tail call void %4(ptr noundef nonnull align 8 dereferenceable(12) %2) #15
+  br label %_ZN4TreeD2Ev.exit
+
+_ZN4TreeD2Ev.exit:                                ; preds = %delete.notnull3, %delete.notnull.i
+  tail call void @_ZdlPv(ptr noundef nonnull %1) #14
+  br label %delete.end4
+
+delete.end4:                                      ; preds = %_ZN4TreeD2Ev.exit, %delete.end
+  %right = getelementptr inbounds %class.BinaryNode, ptr %this, i64 0, i32 3
+  %5 = load ptr, ptr %right, align 8, !tbaa !25
+  %isnull5 = icmp eq ptr %5, null
+  br i1 %isnull5, label %delete.end7, label %delete.notnull6
+
+delete.notnull6:                                  ; preds = %delete.end4
+  %6 = load ptr, ptr %5, align 8, !tbaa !18
+  %use.i10 = getelementptr inbounds %class.Node, ptr %6, i64 0, i32 1
+  %7 = load i32, ptr %use.i10, align 8, !tbaa !8
+  %dec.i11 = add nsw i32 %7, -1
+  store i32 %dec.i11, ptr %use.i10, align 8, !tbaa !8
+  %cmp.i12 = icmp eq i32 %dec.i11, 0
+  br i1 %cmp.i12, label %delete.notnull.i15, label %_ZN4TreeD2Ev.exit16
+
+delete.notnull.i15:                               ; preds = %delete.notnull6
+  %vtable.i13 = load ptr, ptr %6, align 8, !tbaa !11
+  %vfn.i14 = getelementptr inbounds ptr, ptr %vtable.i13, i64 2
+  %8 = load ptr, ptr %vfn.i14, align 8
+  tail call void %8(ptr noundef nonnull align 8 dereferenceable(12) %6) #15
+  br label %_ZN4TreeD2Ev.exit16
+
+_ZN4TreeD2Ev.exit16:                              ; preds = %delete.notnull6, %delete.notnull.i15
+  tail call void @_ZdlPv(ptr noundef nonnull %5) #14
+  br label %delete.end7
+
+delete.end7:                                      ; preds = %_ZN4TreeD2Ev.exit16, %delete.end4
+  ret void
+}
+
+; Function Attrs: nounwind uwtable
+define linkonce_odr dso_local void @_ZN10BinaryNodeD0Ev(ptr noundef nonnull align 8 dereferenceable(40) %this) unnamed_addr #5 comdat align 2 {
+entry:
+  store ptr getelementptr inbounds ({ [5 x ptr] }, ptr @_ZTV10BinaryNode, i64 0, inrange i32 0, i64 2), ptr %this, align 8, !tbaa !11
+  %op.i = getelementptr inbounds %class.BinaryNode, ptr %this, i64 0, i32 1
+  %0 = load ptr, ptr %op.i, align 8, !tbaa !26
+  %isnull.i = icmp eq ptr %0, null
+  br i1 %isnull.i, label %delete.end.i, label %delete.notnull.i
+
+delete.notnull.i:                                 ; preds = %entry
+  tail call void @_ZdlPv(ptr noundef nonnull %0) #14
+  br label %delete.end.i
+
+delete.end.i:                                     ; preds = %delete.notnull.i, %entry
+  %left.i = getelementptr inbounds %class.BinaryNode, ptr %this, i64 0, i32 2
+  %1 = load ptr, ptr %left.i, align 8, !tbaa !23
+  %isnull2.i = icmp eq ptr %1, null
+  br i1 %isnull2.i, label %delete.end4.i, label %delete.notnull3.i
+
+delete.notnull3.i:                                ; preds = %delete.end.i
+  %2 = load ptr, ptr %1, align 8, !tbaa !18
+  %use.i.i = getelementptr inbounds %class.Node, ptr %2, i64 0, i32 1
+  %3 = load i32, ptr %use.i.i, align 8, !tbaa !8
+  %dec.i.i = add nsw i32 %3, -1
+  store i32 %dec.i.i, ptr %use.i.i, align 8, !tbaa !8
+  %cmp.i.i = icmp eq i32 %dec.i.i, 0
+  br i1 %cmp.i.i, label %delete.notnull.i.i, label %_ZN4TreeD2Ev.exit.i
+
+delete.notnull.i.i:                               ; preds = %delete.notnull3.i
+  %vtable.i.i = load ptr, ptr %2, align 8, !tbaa !11
+  %vfn.i.i = getelementptr inbounds ptr, ptr %vtable.i.i, i64 2
+  %4 = load ptr, ptr %vfn.i.i, align 8
+  tail call void %4(ptr noundef nonnull align 8 dereferenceable(12) %2) #15
+  br label %_ZN4TreeD2Ev.exit.i
+
+_ZN4TreeD2Ev.exit.i:                              ; preds = %delete.notnull.i.i, %delete.notnull3.i
+  tail call void @_ZdlPv(ptr noundef nonnull %1) #14
+  br label %delete.end4.i
+
+delete.end4.i:                                    ; preds = %_ZN4TreeD2Ev.exit.i, %delete.end.i
+  %right.i = getelementptr inbounds %class.BinaryNode, ptr %this, i64 0, i32 3
+  %5 = load ptr, ptr %right.i, align 8, !tbaa !25
+  %isnull5.i = icmp eq ptr %5, null
+  br i1 %isnull5.i, label %_ZN10BinaryNodeD2Ev.exit, label %delete.notnull6.i
+
+delete.notnull6.i:                                ; preds = %delete.end4.i
+  %6 = load ptr, ptr %5, align 8, !tbaa !18
+  %use.i10.i = getelementptr inbounds %class.Node, ptr %6, i64 0, i32 1
+  %7 = load i32, ptr %use.i10.i, align 8, !tbaa !8
+  %dec.i11.i = add nsw i32 %7, -1
+  store i32 %dec.i11.i, ptr %use.i10.i, align 8, !tbaa !8
+  %cmp.i12.i = icmp eq i32 %dec.i11.i, 0
+  br i1 %cmp.i12.i, label %delete.notnull.i15.i, label %_ZN4TreeD2Ev.exit16.i
+
+delete.notnull.i15.i:                             ; preds = %delete.notnull6.i
+  %vtable.i13.i = load ptr, ptr %6, align 8, !tbaa !11
+  %vfn.i14.i = getelementptr inbounds ptr, ptr %vtable.i13.i, i64 2
+  %8 = load ptr, ptr %vfn.i14.i, align 8
+  tail call void %8(ptr noundef nonnull align 8 dereferenceable(12) %6) #15
+  br label %_ZN4TreeD2Ev.exit16.i
+
+_ZN4TreeD2Ev.exit16.i:                            ; preds = %delete.notnull.i15.i, %delete.notnull6.i
+  tail call void @_ZdlPv(ptr noundef nonnull %5) #14
+  br label %_ZN10BinaryNodeD2Ev.exit
+
+_ZN10BinaryNodeD2Ev.exit:                         ; preds = %delete.end4.i, %_ZN4TreeD2Ev.exit16.i
+  tail call void @_ZdlPv(ptr noundef nonnull %this) #14
   ret void
 }
 

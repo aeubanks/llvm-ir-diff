@@ -28,450 +28,456 @@ target triple = "x86_64-unknown-linux-gnu"
 @switch.table.gs_image_init.2 = private unnamed_addr constant [9 x i32] [i32 4, i32 3, i32 1, i32 1, i32 1, i32 1, i32 1, i32 1, i32 1], align 4
 
 ; Function Attrs: nounwind uwtable
-define dso_local i32 @gs_image_init(ptr nocapture noundef writeonly %0, ptr noundef %1, i32 noundef %2, i32 noundef %3, i32 noundef %4, i32 noundef %5, ptr noundef %6) local_unnamed_addr #0 {
-  %8 = getelementptr inbounds %struct.gs_state_s, ptr %1, i64 0, i32 19
-  %9 = load i8, ptr %8, align 4, !tbaa !5
-  %10 = icmp eq i8 %9, 0
-  br i1 %10, label %11, label %44
+define dso_local i32 @gs_image_init(ptr noundef %penum, ptr noundef %pgs, i32 noundef %width, i32 noundef %height, i32 noundef %bps, i32 noundef %spp, ptr noundef %pmat) local_unnamed_addr #0 {
+entry:
+  %in_cachedevice = getelementptr inbounds %struct.gs_state_s, ptr %pgs, i64 0, i32 19
+  %0 = load i8, ptr %in_cachedevice, align 4, !tbaa !5
+  %tobool.not = icmp eq i8 %0, 0
+  br i1 %tobool.not, label %if.end, label %cleanup
 
-11:                                               ; preds = %7
-  %12 = add i32 %4, -1
-  %13 = icmp ult i32 %12, 8
-  br i1 %13, label %14, label %44
+if.end:                                           ; preds = %entry
+  %switch.tableidx = add i32 %bps, -1
+  %1 = icmp ult i32 %switch.tableidx, 8
+  br i1 %1, label %switch.hole_check, label %cleanup
 
-14:                                               ; preds = %11
-  %15 = trunc i32 %12 to i8
-  %16 = lshr i8 -117, %15
-  %17 = and i8 %16, 1
-  %18 = icmp eq i8 %17, 0
-  br i1 %18, label %44, label %19
+switch.hole_check:                                ; preds = %if.end
+  %switch.maskindex = trunc i32 %switch.tableidx to i8
+  %switch.shifted = lshr i8 -117, %switch.maskindex
+  %2 = and i8 %switch.shifted, 1
+  %switch.lobit.not = icmp eq i8 %2, 0
+  br i1 %switch.lobit.not, label %cleanup, label %switch.lookup
 
-19:                                               ; preds = %14
-  %20 = sext i32 %12 to i64
-  %21 = getelementptr inbounds [8 x i32], ptr @switch.table.gs_image_init, i64 0, i64 %20
-  %22 = load i32, ptr %21, align 4
-  %23 = add i32 %5, 4
-  %24 = icmp ult i32 %23, 9
-  br i1 %24, label %25, label %44
+switch.lookup:                                    ; preds = %switch.hole_check
+  %3 = sext i32 %switch.tableidx to i64
+  %switch.gep = getelementptr inbounds [8 x i32], ptr @switch.table.gs_image_init, i64 0, i64 %3
+  %switch.load = load i32, ptr %switch.gep, align 4
+  %switch.tableidx16 = add i32 %spp, 4
+  %4 = icmp ult i32 %switch.tableidx16, 9
+  br i1 %4, label %switch.hole_check17, label %cleanup
 
-25:                                               ; preds = %19
-  %26 = trunc i32 %23 to i16
-  %27 = lshr i16 419, %26
-  %28 = and i16 %27, 1
-  %29 = icmp eq i16 %28, 0
-  br i1 %29, label %44, label %30
+switch.hole_check17:                              ; preds = %switch.lookup
+  %switch.maskindex19 = trunc i32 %switch.tableidx16 to i16
+  %switch.shifted20 = lshr i16 419, %switch.maskindex19
+  %5 = and i16 %switch.shifted20, 1
+  %switch.lobit21.not = icmp eq i16 %5, 0
+  br i1 %switch.lobit21.not, label %cleanup, label %switch.lookup18
 
-30:                                               ; preds = %25
-  %31 = sext i32 %23 to i64
-  %32 = getelementptr inbounds [9 x i32], ptr @switch.table.gs_image_init.1, i64 0, i64 %31
-  %33 = load i32, ptr %32, align 4
-  %34 = sext i32 %23 to i64
-  %35 = getelementptr inbounds [9 x i32], ptr @switch.table.gs_image_init.2, i64 0, i64 %34
-  %36 = load i32, ptr %35, align 4
-  %37 = getelementptr inbounds %struct.gs_state_s, ptr %1, i64 0, i32 22
-  %38 = load ptr, ptr %37, align 8, !tbaa !16
-  %39 = getelementptr inbounds %struct.device_s, ptr %38, i64 0, i32 3
-  %40 = load i64, ptr %39, align 8, !tbaa !17
-  %41 = getelementptr inbounds %struct.device_s, ptr %38, i64 0, i32 2
-  %42 = load i64, ptr %41, align 8, !tbaa !19
-  %43 = tail call i32 @image_init(ptr noundef %0, i32 noundef %2, i32 noundef %3, i32 noundef %22, i32 noundef %33, i32 noundef %36, ptr noundef %6, ptr noundef nonnull %1, i64 noundef %40, i64 noundef %42), !range !20
-  br label %44
+switch.lookup18:                                  ; preds = %switch.hole_check17
+  %6 = sext i32 %switch.tableidx16 to i64
+  %switch.gep22 = getelementptr inbounds [9 x i32], ptr @switch.table.gs_image_init.1, i64 0, i64 %6
+  %switch.load23 = load i32, ptr %switch.gep22, align 4
+  %7 = sext i32 %switch.tableidx16 to i64
+  %switch.gep24 = getelementptr inbounds [9 x i32], ptr @switch.table.gs_image_init.2, i64 0, i64 %7
+  %switch.load25 = load i32, ptr %switch.gep24, align 4
+  %device = getelementptr inbounds %struct.gs_state_s, ptr %pgs, i64 0, i32 22
+  %8 = load ptr, ptr %device, align 8, !tbaa !16
+  %black = getelementptr inbounds %struct.device_s, ptr %8, i64 0, i32 3
+  %9 = load i64, ptr %black, align 8, !tbaa !17
+  %white = getelementptr inbounds %struct.device_s, ptr %8, i64 0, i32 2
+  %10 = load i64, ptr %white, align 8, !tbaa !19
+  %call = tail call i32 @image_init(ptr noundef %penum, i32 noundef %width, i32 noundef %height, i32 noundef %switch.load, i32 noundef %switch.load23, i32 noundef %switch.load25, ptr noundef %pmat, ptr noundef nonnull %pgs, i64 noundef %9, i64 noundef %10), !range !20
+  br label %cleanup
 
-44:                                               ; preds = %25, %19, %14, %11, %7, %30
-  %45 = phi i32 [ %43, %30 ], [ -21, %7 ], [ -15, %11 ], [ -15, %19 ], [ -15, %14 ], [ -15, %25 ]
-  ret i32 %45
+cleanup:                                          ; preds = %switch.hole_check17, %switch.lookup, %switch.hole_check, %if.end, %entry, %switch.lookup18
+  %retval.0 = phi i32 [ %call, %switch.lookup18 ], [ -21, %entry ], [ -15, %if.end ], [ -15, %switch.lookup ], [ -15, %switch.hole_check ], [ -15, %switch.hole_check17 ]
+  ret i32 %retval.0
 }
 
 ; Function Attrs: mustprogress nocallback nofree nosync nounwind willreturn memory(argmem: readwrite)
 declare void @llvm.lifetime.start.p0(i64 immarg, ptr nocapture) #1
 
 ; Function Attrs: nounwind uwtable
-define dso_local i32 @image_init(ptr nocapture noundef writeonly %0, i32 noundef %1, i32 noundef %2, i32 noundef %3, i32 noundef %4, i32 noundef %5, ptr noundef %6, ptr noundef %7, i64 noundef %8, i64 noundef %9) local_unnamed_addr #0 {
-  %11 = alloca %struct.gs_matrix_s, align 8
-  call void @llvm.lifetime.start.p0(i64 96, ptr nonnull %11) #8
-  %12 = add nsw i32 %1, 8
-  %13 = mul nsw i32 %12, %4
-  %14 = icmp slt i32 %1, 1
-  %15 = icmp slt i32 %2, 0
-  %16 = or i1 %14, %15
-  br i1 %16, label %241, label %17
+define dso_local i32 @image_init(ptr noundef writeonly %penum, i32 noundef %width, i32 noundef %height, i32 noundef %log2_bps, i32 noundef %spp, i32 noundef %spread, ptr noundef %pmat, ptr noundef %pgs, i64 noundef %color0, i64 noundef %color1) local_unnamed_addr #0 {
+entry:
+  %mat = alloca %struct.gs_matrix_s, align 8
+  call void @llvm.lifetime.start.p0(i64 96, ptr nonnull %mat) #8
+  %add = add nsw i32 %width, 8
+  %mul = mul nsw i32 %add, %spp
+  %cmp = icmp slt i32 %width, 1
+  %cmp1 = icmp slt i32 %height, 0
+  %or.cond = or i1 %cmp, %cmp1
+  br i1 %or.cond, label %cleanup, label %if.end
 
-17:                                               ; preds = %10
-  %18 = icmp eq i32 %2, 0
-  br i1 %18, label %241, label %19
+if.end:                                           ; preds = %entry
+  %cmp2 = icmp eq i32 %height, 0
+  br i1 %cmp2, label %cleanup, label %if.end4
 
-19:                                               ; preds = %17
-  %20 = call i32 @gs_matrix_invert(ptr noundef %6, ptr noundef nonnull %11) #8
-  %21 = icmp slt i32 %20, 0
-  br i1 %21, label %241, label %22
+if.end4:                                          ; preds = %if.end
+  %call = call i32 @gs_matrix_invert(ptr noundef %pmat, ptr noundef nonnull %mat) #8
+  %cmp5 = icmp slt i32 %call, 0
+  br i1 %cmp5, label %cleanup, label %lor.lhs.false6
 
-22:                                               ; preds = %19
-  %23 = getelementptr inbounds %struct.gs_state_s, ptr %7, i64 0, i32 2
-  %24 = call i32 @gs_matrix_multiply(ptr noundef nonnull %11, ptr noundef nonnull %23, ptr noundef nonnull %11) #8
-  %25 = icmp slt i32 %24, 0
-  br i1 %25, label %241, label %26
+lor.lhs.false6:                                   ; preds = %if.end4
+  %ctm = getelementptr inbounds %struct.gs_state_s, ptr %pgs, i64 0, i32 2
+  %call7 = call i32 @gs_matrix_multiply(ptr noundef nonnull %mat, ptr noundef nonnull %ctm, ptr noundef nonnull %mat) #8
+  %cmp8 = icmp slt i32 %call7, 0
+  br i1 %cmp8, label %cleanup, label %if.end10
 
-26:                                               ; preds = %22
-  %27 = call ptr @gs_malloc(i32 noundef 1, i32 noundef %13, ptr noundef nonnull @.str) #8
-  %28 = icmp eq ptr %27, null
-  br i1 %28, label %241, label %29
+if.end10:                                         ; preds = %lor.lhs.false6
+  %call11 = call ptr @gs_malloc(i32 noundef 1, i32 noundef %mul, ptr noundef nonnull @.str) #8
+  %cmp12 = icmp eq ptr %call11, null
+  br i1 %cmp12, label %cleanup, label %if.end14
 
-29:                                               ; preds = %26
-  store i32 %1, ptr %0, align 8, !tbaa !21
-  %30 = getelementptr inbounds %struct.gs_image_enum_s, ptr %0, i64 0, i32 1
-  store i32 %2, ptr %30, align 4, !tbaa !23
-  %31 = getelementptr inbounds %struct.gs_image_enum_s, ptr %0, i64 0, i32 2
-  store i32 %3, ptr %31, align 8, !tbaa !24
-  %32 = getelementptr inbounds %struct.gs_image_enum_s, ptr %0, i64 0, i32 3
-  store i32 %4, ptr %32, align 4, !tbaa !25
-  %33 = getelementptr inbounds %struct.gs_image_enum_s, ptr %0, i64 0, i32 4
-  store i32 %5, ptr %33, align 8, !tbaa !26
-  %34 = load float, ptr %11, align 8, !tbaa !27
-  %35 = fmul float %34, 4.096000e+03
-  %36 = fptosi float %35 to i64
-  %37 = getelementptr inbounds %struct.gs_image_enum_s, ptr %0, i64 0, i32 5
-  store i64 %36, ptr %37, align 8, !tbaa !28
-  %38 = getelementptr inbounds %struct.gs_matrix_s, ptr %11, i64 0, i32 6
-  %39 = load float, ptr %38, align 8, !tbaa !29
-  %40 = fmul float %39, 4.096000e+03
-  %41 = fptosi float %40 to i64
-  %42 = getelementptr inbounds %struct.gs_image_enum_s, ptr %0, i64 0, i32 8
-  store i64 %41, ptr %42, align 8, !tbaa !30
-  %43 = getelementptr inbounds %struct.gs_matrix_s, ptr %11, i64 0, i32 2
-  %44 = load i64, ptr %43, align 8, !tbaa !31
-  %45 = getelementptr inbounds %struct.gs_matrix_s, ptr %11, i64 0, i32 4
-  %46 = load i64, ptr %45, align 8, !tbaa !31
-  %47 = or i64 %46, %44
-  %48 = and i64 %47, 9223372036854775807
-  %49 = icmp ne i64 %48, 0
-  %50 = zext i1 %49 to i32
-  %51 = getelementptr inbounds %struct.gs_image_enum_s, ptr %0, i64 0, i32 16
-  store i32 %50, ptr %51, align 4, !tbaa !32
-  %52 = trunc i64 %44 to i32
-  %53 = bitcast i32 %52 to float
-  %54 = trunc i64 %46 to i32
-  %55 = bitcast i32 %54 to float
-  %56 = fmul float %53, 4.096000e+03
-  %57 = fptosi float %56 to i64
-  %58 = fmul float %55, 4.096000e+03
-  %59 = fptosi float %58 to i64
-  %60 = select i1 %49, i64 %57, i64 0
-  %61 = select i1 %49, i64 %59, i64 0
-  %62 = getelementptr inbounds %struct.gs_image_enum_s, ptr %0, i64 0, i32 6
-  store i64 %60, ptr %62, align 8
-  %63 = getelementptr inbounds %struct.gs_image_enum_s, ptr %0, i64 0, i32 7
-  store i64 %61, ptr %63, align 8
-  %64 = getelementptr inbounds %struct.gs_matrix_s, ptr %11, i64 0, i32 8
-  %65 = load float, ptr %64, align 8, !tbaa !33
-  %66 = fmul float %65, 4.096000e+03
-  %67 = fptosi float %66 to i64
-  %68 = getelementptr inbounds %struct.gs_image_enum_s, ptr %0, i64 0, i32 22
-  store i64 %67, ptr %68, align 8, !tbaa !34
-  %69 = getelementptr inbounds %struct.gs_matrix_s, ptr %11, i64 0, i32 10
-  %70 = load float, ptr %69, align 8, !tbaa !35
-  %71 = fmul float %70, 4.096000e+03
-  %72 = fptosi float %71 to i64
-  %73 = getelementptr inbounds %struct.gs_image_enum_s, ptr %0, i64 0, i32 23
-  store i64 %72, ptr %73, align 8, !tbaa !36
-  %74 = getelementptr inbounds %struct.gs_image_enum_s, ptr %0, i64 0, i32 11
-  store ptr %7, ptr %74, align 8, !tbaa !37
-  %75 = getelementptr inbounds %struct.gs_image_enum_s, ptr %0, i64 0, i32 12
-  store ptr %27, ptr %75, align 8, !tbaa !38
-  %76 = getelementptr inbounds %struct.gs_image_enum_s, ptr %0, i64 0, i32 13
-  store i32 %13, ptr %76, align 8, !tbaa !39
-  %77 = zext i32 %1 to i64
-  %78 = zext i32 %3 to i64
-  %79 = shl i64 %77, %78
-  %80 = sext i32 %4 to i64
-  %81 = mul i64 %79, %80
-  %82 = sext i32 %5 to i64
-  %83 = udiv i64 %81, %82
-  %84 = add i64 %83, 7
-  %85 = lshr i64 %84, 3
-  %86 = trunc i64 %85 to i32
-  %87 = getelementptr inbounds %struct.gs_image_enum_s, ptr %0, i64 0, i32 14
-  store i32 %86, ptr %87, align 4, !tbaa !40
-  %88 = icmp eq i32 %4, 1
-  br i1 %88, label %89, label %135
+if.end14:                                         ; preds = %if.end10
+  store i32 %width, ptr %penum, align 8, !tbaa !21
+  %height16 = getelementptr inbounds %struct.gs_image_enum_s, ptr %penum, i64 0, i32 1
+  store i32 %height, ptr %height16, align 4, !tbaa !23
+  %log2_bps17 = getelementptr inbounds %struct.gs_image_enum_s, ptr %penum, i64 0, i32 2
+  store i32 %log2_bps, ptr %log2_bps17, align 8, !tbaa !24
+  %spp18 = getelementptr inbounds %struct.gs_image_enum_s, ptr %penum, i64 0, i32 3
+  store i32 %spp, ptr %spp18, align 4, !tbaa !25
+  %spread19 = getelementptr inbounds %struct.gs_image_enum_s, ptr %penum, i64 0, i32 4
+  store i32 %spread, ptr %spread19, align 8, !tbaa !26
+  %0 = load float, ptr %mat, align 8, !tbaa !27
+  %mul20 = fmul float %0, 4.096000e+03
+  %conv = fptosi float %mul20 to i64
+  %fxx = getelementptr inbounds %struct.gs_image_enum_s, ptr %penum, i64 0, i32 5
+  store i64 %conv, ptr %fxx, align 8, !tbaa !28
+  %yy = getelementptr inbounds %struct.gs_matrix_s, ptr %mat, i64 0, i32 6
+  %1 = load float, ptr %yy, align 8, !tbaa !29
+  %mul21 = fmul float %1, 4.096000e+03
+  %conv22 = fptosi float %mul21 to i64
+  %fyy = getelementptr inbounds %struct.gs_image_enum_s, ptr %penum, i64 0, i32 8
+  store i64 %conv22, ptr %fyy, align 8, !tbaa !30
+  %xy = getelementptr inbounds %struct.gs_matrix_s, ptr %mat, i64 0, i32 2
+  %2 = load i64, ptr %xy, align 8, !tbaa !31
+  %yx = getelementptr inbounds %struct.gs_matrix_s, ptr %mat, i64 0, i32 4
+  %3 = load i64, ptr %yx, align 8, !tbaa !31
+  %or = or i64 %3, %2
+  %shl.mask = and i64 %or, 9223372036854775807
+  %cmp23 = icmp ne i64 %shl.mask, 0
+  %lnot.ext = zext i1 %cmp23 to i32
+  %skewed = getelementptr inbounds %struct.gs_image_enum_s, ptr %penum, i64 0, i32 16
+  store i32 %lnot.ext, ptr %skewed, align 4, !tbaa !32
+  %4 = trunc i64 %2 to i32
+  %5 = bitcast i32 %4 to float
+  %6 = trunc i64 %3 to i32
+  %7 = bitcast i32 %6 to float
+  %mul27 = fmul float %5, 4.096000e+03
+  %conv28 = fptosi float %mul27 to i64
+  %mul30 = fmul float %7, 4.096000e+03
+  %conv31 = fptosi float %mul30 to i64
+  %.sink372 = select i1 %cmp23, i64 %conv28, i64 0
+  %.sink = select i1 %cmp23, i64 %conv31, i64 0
+  %8 = getelementptr inbounds %struct.gs_image_enum_s, ptr %penum, i64 0, i32 6
+  store i64 %.sink372, ptr %8, align 8
+  %9 = getelementptr inbounds %struct.gs_image_enum_s, ptr %penum, i64 0, i32 7
+  store i64 %.sink, ptr %9, align 8
+  %tx = getelementptr inbounds %struct.gs_matrix_s, ptr %mat, i64 0, i32 8
+  %10 = load float, ptr %tx, align 8, !tbaa !33
+  %mul35 = fmul float %10, 4.096000e+03
+  %conv36 = fptosi float %mul35 to i64
+  %xcur = getelementptr inbounds %struct.gs_image_enum_s, ptr %penum, i64 0, i32 22
+  store i64 %conv36, ptr %xcur, align 8, !tbaa !34
+  %ty = getelementptr inbounds %struct.gs_matrix_s, ptr %mat, i64 0, i32 10
+  %11 = load float, ptr %ty, align 8, !tbaa !35
+  %mul37 = fmul float %11, 4.096000e+03
+  %conv38 = fptosi float %mul37 to i64
+  %ycur = getelementptr inbounds %struct.gs_image_enum_s, ptr %penum, i64 0, i32 23
+  store i64 %conv38, ptr %ycur, align 8, !tbaa !36
+  %pgs39 = getelementptr inbounds %struct.gs_image_enum_s, ptr %penum, i64 0, i32 11
+  store ptr %pgs, ptr %pgs39, align 8, !tbaa !37
+  %buffer40 = getelementptr inbounds %struct.gs_image_enum_s, ptr %penum, i64 0, i32 12
+  store ptr %call11, ptr %buffer40, align 8, !tbaa !38
+  %buffer_size = getelementptr inbounds %struct.gs_image_enum_s, ptr %penum, i64 0, i32 13
+  store i32 %mul, ptr %buffer_size, align 8, !tbaa !39
+  %conv41 = zext i32 %width to i64
+  %sh_prom = zext i32 %log2_bps to i64
+  %shl42 = shl i64 %conv41, %sh_prom
+  %conv43 = sext i32 %spp to i64
+  %mul44 = mul i64 %shl42, %conv43
+  %conv45 = sext i32 %spread to i64
+  %div = udiv i64 %mul44, %conv45
+  %add46 = add i64 %div, 7
+  %shr = lshr i64 %add46, 3
+  %conv47 = trunc i64 %shr to i32
+  %bytes_per_row = getelementptr inbounds %struct.gs_image_enum_s, ptr %penum, i64 0, i32 14
+  store i32 %conv47, ptr %bytes_per_row, align 4, !tbaa !40
+  %cmp48 = icmp eq i32 %spp, 1
+  br i1 %cmp48, label %if.then50, label %if.end116
 
-89:                                               ; preds = %29
-  switch i32 %3, label %130 [
-    i32 3, label %90
-    i32 2, label %114
-    i32 1, label %127
+if.then50:                                        ; preds = %if.end14
+  switch i32 %log2_bps, label %sw.epilog [
+    i32 3, label %sw.bb
+    i32 2, label %sw.bb60
+    i32 1, label %sw.bb97
   ]
 
-90:                                               ; preds = %89
-  %91 = getelementptr inbounds %struct.gs_image_enum_s, ptr %0, i64 0, i32 25
-  br label %92
+sw.bb:                                            ; preds = %if.then50
+  %dev_colors = getelementptr inbounds %struct.gs_image_enum_s, ptr %penum, i64 0, i32 25
+  br label %do.body
 
-92:                                               ; preds = %92, %90
-  %93 = phi i32 [ 64, %90 ], [ %112, %92 ]
-  %94 = phi ptr [ %91, %90 ], [ %111, %92 ]
-  %95 = getelementptr inbounds %struct.gx_device_color_s, ptr %94, i64 3, i32 2
-  store i32 -1, ptr %95, align 8, !tbaa !41
-  %96 = getelementptr inbounds %struct.gx_device_color_s, ptr %94, i64 2, i32 2
-  store i32 -1, ptr %96, align 8, !tbaa !41
-  %97 = getelementptr inbounds %struct.gx_device_color_s, ptr %94, i64 1, i32 2
-  store i32 -1, ptr %97, align 8, !tbaa !41
-  %98 = getelementptr inbounds %struct.gx_device_color_s, ptr %94, i64 0, i32 2
-  store i32 -1, ptr %98, align 8, !tbaa !41
-  %99 = getelementptr inbounds %struct.gx_device_color_s, ptr %94, i64 7, i32 2
-  store i32 -1, ptr %99, align 8, !tbaa !41
-  %100 = getelementptr inbounds %struct.gx_device_color_s, ptr %94, i64 6, i32 2
-  store i32 -1, ptr %100, align 8, !tbaa !41
-  %101 = getelementptr inbounds %struct.gx_device_color_s, ptr %94, i64 5, i32 2
-  store i32 -1, ptr %101, align 8, !tbaa !41
-  %102 = getelementptr inbounds %struct.gx_device_color_s, ptr %94, i64 4, i32 2
-  store i32 -1, ptr %102, align 8, !tbaa !41
-  %103 = getelementptr inbounds %struct.gx_device_color_s, ptr %94, i64 11, i32 2
-  store i32 -1, ptr %103, align 8, !tbaa !41
-  %104 = getelementptr inbounds %struct.gx_device_color_s, ptr %94, i64 10, i32 2
-  store i32 -1, ptr %104, align 8, !tbaa !41
-  %105 = getelementptr inbounds %struct.gx_device_color_s, ptr %94, i64 9, i32 2
-  store i32 -1, ptr %105, align 8, !tbaa !41
-  %106 = getelementptr inbounds %struct.gx_device_color_s, ptr %94, i64 8, i32 2
-  store i32 -1, ptr %106, align 8, !tbaa !41
-  %107 = getelementptr inbounds %struct.gx_device_color_s, ptr %94, i64 15, i32 2
-  store i32 -1, ptr %107, align 8, !tbaa !41
-  %108 = getelementptr inbounds %struct.gx_device_color_s, ptr %94, i64 14, i32 2
-  store i32 -1, ptr %108, align 8, !tbaa !41
-  %109 = getelementptr inbounds %struct.gx_device_color_s, ptr %94, i64 13, i32 2
-  store i32 -1, ptr %109, align 8, !tbaa !41
-  %110 = getelementptr inbounds %struct.gx_device_color_s, ptr %94, i64 12, i32 2
-  store i32 -1, ptr %110, align 8, !tbaa !41
-  %111 = getelementptr inbounds %struct.gx_device_color_s, ptr %94, i64 16
-  %112 = add nsw i32 %93, -4
-  %113 = icmp eq i32 %112, 0
-  br i1 %113, label %130, label %92, !llvm.loop !43
+do.body:                                          ; preds = %do.body, %sw.bb
+  %n.0 = phi i32 [ 64, %sw.bb ], [ %dec.3, %do.body ]
+  %pcht.0 = phi ptr [ %dev_colors, %sw.bb ], [ %add.ptr.3, %do.body ]
+  %halftone_level = getelementptr inbounds %struct.gx_device_color_s, ptr %pcht.0, i64 3, i32 2
+  store i32 -1, ptr %halftone_level, align 8, !tbaa !41
+  %halftone_level53 = getelementptr inbounds %struct.gx_device_color_s, ptr %pcht.0, i64 2, i32 2
+  store i32 -1, ptr %halftone_level53, align 8, !tbaa !41
+  %halftone_level55 = getelementptr inbounds %struct.gx_device_color_s, ptr %pcht.0, i64 1, i32 2
+  store i32 -1, ptr %halftone_level55, align 8, !tbaa !41
+  %halftone_level57 = getelementptr inbounds %struct.gx_device_color_s, ptr %pcht.0, i64 0, i32 2
+  store i32 -1, ptr %halftone_level57, align 8, !tbaa !41
+  %halftone_level.1 = getelementptr inbounds %struct.gx_device_color_s, ptr %pcht.0, i64 7, i32 2
+  store i32 -1, ptr %halftone_level.1, align 8, !tbaa !41
+  %halftone_level53.1 = getelementptr inbounds %struct.gx_device_color_s, ptr %pcht.0, i64 6, i32 2
+  store i32 -1, ptr %halftone_level53.1, align 8, !tbaa !41
+  %halftone_level55.1 = getelementptr inbounds %struct.gx_device_color_s, ptr %pcht.0, i64 5, i32 2
+  store i32 -1, ptr %halftone_level55.1, align 8, !tbaa !41
+  %halftone_level57.1 = getelementptr inbounds %struct.gx_device_color_s, ptr %pcht.0, i64 4, i32 2
+  store i32 -1, ptr %halftone_level57.1, align 8, !tbaa !41
+  %halftone_level.2 = getelementptr inbounds %struct.gx_device_color_s, ptr %pcht.0, i64 11, i32 2
+  store i32 -1, ptr %halftone_level.2, align 8, !tbaa !41
+  %halftone_level53.2 = getelementptr inbounds %struct.gx_device_color_s, ptr %pcht.0, i64 10, i32 2
+  store i32 -1, ptr %halftone_level53.2, align 8, !tbaa !41
+  %halftone_level55.2 = getelementptr inbounds %struct.gx_device_color_s, ptr %pcht.0, i64 9, i32 2
+  store i32 -1, ptr %halftone_level55.2, align 8, !tbaa !41
+  %halftone_level57.2 = getelementptr inbounds %struct.gx_device_color_s, ptr %pcht.0, i64 8, i32 2
+  store i32 -1, ptr %halftone_level57.2, align 8, !tbaa !41
+  %halftone_level.3 = getelementptr inbounds %struct.gx_device_color_s, ptr %pcht.0, i64 15, i32 2
+  store i32 -1, ptr %halftone_level.3, align 8, !tbaa !41
+  %halftone_level53.3 = getelementptr inbounds %struct.gx_device_color_s, ptr %pcht.0, i64 14, i32 2
+  store i32 -1, ptr %halftone_level53.3, align 8, !tbaa !41
+  %halftone_level55.3 = getelementptr inbounds %struct.gx_device_color_s, ptr %pcht.0, i64 13, i32 2
+  store i32 -1, ptr %halftone_level55.3, align 8, !tbaa !41
+  %halftone_level57.3 = getelementptr inbounds %struct.gx_device_color_s, ptr %pcht.0, i64 12, i32 2
+  store i32 -1, ptr %halftone_level57.3, align 8, !tbaa !41
+  %add.ptr.3 = getelementptr inbounds %struct.gx_device_color_s, ptr %pcht.0, i64 16
+  %dec.3 = add nsw i32 %n.0, -4
+  %cmp58.3.not = icmp eq i32 %n.0, 4
+  br i1 %cmp58.3.not, label %sw.epilog, label %do.body, !llvm.loop !43
 
-114:                                              ; preds = %89
-  %115 = getelementptr inbounds %struct.gs_image_enum_s, ptr %0, i64 0, i32 25, i64 238, i32 2
-  store i32 -1, ptr %115, align 8, !tbaa !41
-  %116 = getelementptr inbounds %struct.gs_image_enum_s, ptr %0, i64 0, i32 25, i64 221, i32 2
-  store i32 -1, ptr %116, align 8, !tbaa !41
-  %117 = getelementptr inbounds %struct.gs_image_enum_s, ptr %0, i64 0, i32 25, i64 204, i32 2
-  store i32 -1, ptr %117, align 8, !tbaa !41
-  %118 = getelementptr inbounds %struct.gs_image_enum_s, ptr %0, i64 0, i32 25, i64 187, i32 2
-  store i32 -1, ptr %118, align 8, !tbaa !41
-  %119 = getelementptr inbounds %struct.gs_image_enum_s, ptr %0, i64 0, i32 25, i64 153, i32 2
-  store i32 -1, ptr %119, align 8, !tbaa !41
-  %120 = getelementptr inbounds %struct.gs_image_enum_s, ptr %0, i64 0, i32 25, i64 136, i32 2
-  store i32 -1, ptr %120, align 8, !tbaa !41
-  %121 = getelementptr inbounds %struct.gs_image_enum_s, ptr %0, i64 0, i32 25, i64 119, i32 2
-  store i32 -1, ptr %121, align 8, !tbaa !41
-  %122 = getelementptr inbounds %struct.gs_image_enum_s, ptr %0, i64 0, i32 25, i64 102, i32 2
-  store i32 -1, ptr %122, align 8, !tbaa !41
-  %123 = getelementptr inbounds %struct.gs_image_enum_s, ptr %0, i64 0, i32 25, i64 68, i32 2
-  store i32 -1, ptr %123, align 8, !tbaa !41
-  %124 = getelementptr inbounds %struct.gs_image_enum_s, ptr %0, i64 0, i32 25, i64 51, i32 2
-  store i32 -1, ptr %124, align 8, !tbaa !41
-  %125 = getelementptr inbounds %struct.gs_image_enum_s, ptr %0, i64 0, i32 25, i64 34, i32 2
-  store i32 -1, ptr %125, align 8, !tbaa !41
-  %126 = getelementptr inbounds %struct.gs_image_enum_s, ptr %0, i64 0, i32 25, i64 17, i32 2
-  store i32 -1, ptr %126, align 8, !tbaa !41
-  br label %127
+sw.bb60:                                          ; preds = %if.then50
+  %halftone_level63 = getelementptr inbounds %struct.gs_image_enum_s, ptr %penum, i64 0, i32 25, i64 238, i32 2
+  store i32 -1, ptr %halftone_level63, align 8, !tbaa !41
+  %halftone_level66 = getelementptr inbounds %struct.gs_image_enum_s, ptr %penum, i64 0, i32 25, i64 221, i32 2
+  store i32 -1, ptr %halftone_level66, align 8, !tbaa !41
+  %halftone_level69 = getelementptr inbounds %struct.gs_image_enum_s, ptr %penum, i64 0, i32 25, i64 204, i32 2
+  store i32 -1, ptr %halftone_level69, align 8, !tbaa !41
+  %halftone_level72 = getelementptr inbounds %struct.gs_image_enum_s, ptr %penum, i64 0, i32 25, i64 187, i32 2
+  store i32 -1, ptr %halftone_level72, align 8, !tbaa !41
+  %halftone_level75 = getelementptr inbounds %struct.gs_image_enum_s, ptr %penum, i64 0, i32 25, i64 153, i32 2
+  store i32 -1, ptr %halftone_level75, align 8, !tbaa !41
+  %halftone_level78 = getelementptr inbounds %struct.gs_image_enum_s, ptr %penum, i64 0, i32 25, i64 136, i32 2
+  store i32 -1, ptr %halftone_level78, align 8, !tbaa !41
+  %halftone_level81 = getelementptr inbounds %struct.gs_image_enum_s, ptr %penum, i64 0, i32 25, i64 119, i32 2
+  store i32 -1, ptr %halftone_level81, align 8, !tbaa !41
+  %halftone_level84 = getelementptr inbounds %struct.gs_image_enum_s, ptr %penum, i64 0, i32 25, i64 102, i32 2
+  store i32 -1, ptr %halftone_level84, align 8, !tbaa !41
+  %halftone_level87 = getelementptr inbounds %struct.gs_image_enum_s, ptr %penum, i64 0, i32 25, i64 68, i32 2
+  store i32 -1, ptr %halftone_level87, align 8, !tbaa !41
+  %halftone_level90 = getelementptr inbounds %struct.gs_image_enum_s, ptr %penum, i64 0, i32 25, i64 51, i32 2
+  store i32 -1, ptr %halftone_level90, align 8, !tbaa !41
+  %halftone_level93 = getelementptr inbounds %struct.gs_image_enum_s, ptr %penum, i64 0, i32 25, i64 34, i32 2
+  store i32 -1, ptr %halftone_level93, align 8, !tbaa !41
+  %halftone_level96 = getelementptr inbounds %struct.gs_image_enum_s, ptr %penum, i64 0, i32 25, i64 17, i32 2
+  store i32 -1, ptr %halftone_level96, align 8, !tbaa !41
+  br label %sw.bb97
 
-127:                                              ; preds = %89, %114
-  %128 = getelementptr inbounds %struct.gs_image_enum_s, ptr %0, i64 0, i32 25, i64 170, i32 2
-  store i32 -1, ptr %128, align 8, !tbaa !41
-  %129 = getelementptr inbounds %struct.gs_image_enum_s, ptr %0, i64 0, i32 25, i64 85, i32 2
-  store i32 -1, ptr %129, align 8, !tbaa !41
-  br label %130
+sw.bb97:                                          ; preds = %if.then50, %sw.bb60
+  %halftone_level100 = getelementptr inbounds %struct.gs_image_enum_s, ptr %penum, i64 0, i32 25, i64 170, i32 2
+  store i32 -1, ptr %halftone_level100, align 8, !tbaa !41
+  %halftone_level103 = getelementptr inbounds %struct.gs_image_enum_s, ptr %penum, i64 0, i32 25, i64 85, i32 2
+  store i32 -1, ptr %halftone_level103, align 8, !tbaa !41
+  br label %sw.epilog
 
-130:                                              ; preds = %92, %127, %89
-  %131 = getelementptr inbounds %struct.gs_image_enum_s, ptr %0, i64 0, i32 25
-  store i64 %8, ptr %131, align 8, !tbaa !45
-  %132 = getelementptr inbounds %struct.gs_image_enum_s, ptr %0, i64 0, i32 25, i64 0, i32 2
-  store i32 0, ptr %132, align 8, !tbaa !41
-  %133 = getelementptr inbounds %struct.gs_image_enum_s, ptr %0, i64 0, i32 25, i64 255
-  store i64 %9, ptr %133, align 8, !tbaa !45
-  %134 = getelementptr inbounds %struct.gs_image_enum_s, ptr %0, i64 0, i32 25, i64 255, i32 2
-  store i32 0, ptr %134, align 8, !tbaa !41
-  br label %135
+sw.epilog:                                        ; preds = %do.body, %sw.bb97, %if.then50
+  %dev_colors104 = getelementptr inbounds %struct.gs_image_enum_s, ptr %penum, i64 0, i32 25
+  store i64 %color0, ptr %dev_colors104, align 8, !tbaa !45
+  %halftone_level109 = getelementptr inbounds %struct.gs_image_enum_s, ptr %penum, i64 0, i32 25, i64 0, i32 2
+  store i32 0, ptr %halftone_level109, align 8, !tbaa !41
+  %arrayidx111 = getelementptr inbounds %struct.gs_image_enum_s, ptr %penum, i64 0, i32 25, i64 255
+  store i64 %color1, ptr %arrayidx111, align 8, !tbaa !45
+  %halftone_level115 = getelementptr inbounds %struct.gs_image_enum_s, ptr %penum, i64 0, i32 25, i64 255, i32 2
+  store i32 0, ptr %halftone_level115, align 8, !tbaa !41
+  br label %if.end116
 
-135:                                              ; preds = %130, %29
-  %136 = getelementptr inbounds %struct.gs_state_s, ptr %7, i64 0, i32 8
-  %137 = load ptr, ptr %136, align 8, !tbaa !46
-  %138 = getelementptr inbounds %struct.gx_path_s, ptr %137, i64 0, i32 3
-  %139 = load i64, ptr %138, align 8, !tbaa !47
-  %140 = getelementptr inbounds %struct.gx_path_s, ptr %137, i64 0, i32 3, i32 0, i32 1
-  %141 = load i64, ptr %140, align 8, !tbaa !51
-  %142 = getelementptr inbounds %struct.gx_path_s, ptr %137, i64 0, i32 3, i32 1
-  %143 = load i64, ptr %142, align 8, !tbaa !52
-  %144 = getelementptr inbounds %struct.gx_path_s, ptr %137, i64 0, i32 3, i32 1, i32 1
-  %145 = load i64, ptr %144, align 8, !tbaa !53
-  %146 = mul nsw i64 %36, %77
-  %147 = zext i32 %2 to i64
-  %148 = mul nsw i64 %41, %147
-  br i1 %49, label %149, label %158
+if.end116:                                        ; preds = %sw.epilog, %if.end14
+  %clip_path = getelementptr inbounds %struct.gs_state_s, ptr %pgs, i64 0, i32 8
+  %12 = load ptr, ptr %clip_path, align 8, !tbaa !46
+  %cbox = getelementptr inbounds %struct.gx_path_s, ptr %12, i64 0, i32 3
+  %13 = load i64, ptr %cbox, align 8, !tbaa !47
+  %y = getelementptr inbounds %struct.gx_path_s, ptr %12, i64 0, i32 3, i32 0, i32 1
+  %14 = load i64, ptr %y, align 8, !tbaa !51
+  %q = getelementptr inbounds %struct.gx_path_s, ptr %12, i64 0, i32 3, i32 1
+  %15 = load i64, ptr %q, align 8, !tbaa !52
+  %y123 = getelementptr inbounds %struct.gx_path_s, ptr %12, i64 0, i32 3, i32 1, i32 1
+  %16 = load i64, ptr %y123, align 8, !tbaa !53
+  %mul128 = mul nsw i64 %conv, %conv41
+  %conv132 = zext i32 %height to i64
+  %mul133 = mul nsw i64 %conv22, %conv132
+  br i1 %cmp23, label %if.then135, label %if.end148
 
-149:                                              ; preds = %135
-  %150 = fmul float %55, 4.096000e+03
-  %151 = fptosi float %150 to i64
-  %152 = mul nsw i64 %151, %147
-  %153 = add nsw i64 %152, %146
-  %154 = fmul float %53, 4.096000e+03
-  %155 = fptosi float %154 to i64
-  %156 = mul nsw i64 %155, %77
-  %157 = add nsw i64 %156, %148
-  br label %158
+if.then135:                                       ; preds = %if.end116
+  %mul137 = fmul float %7, 4.096000e+03
+  %conv138 = fptosi float %mul137 to i64
+  %mul140 = mul nsw i64 %conv138, %conv132
+  %add141 = add nsw i64 %mul140, %mul128
+  %mul143 = fmul float %5, 4.096000e+03
+  %conv144 = fptosi float %mul143 to i64
+  %mul146 = mul nsw i64 %conv144, %conv41
+  %add147 = add nsw i64 %mul146, %mul133
+  br label %if.end148
 
-158:                                              ; preds = %149, %135
-  %159 = phi i64 [ %153, %149 ], [ %146, %135 ]
-  %160 = phi i64 [ %157, %149 ], [ %148, %135 ]
-  %161 = icmp slt i64 %159, 0
-  br i1 %161, label %162, label %167
+if.end148:                                        ; preds = %if.then135, %if.end116
+  %mdx.0 = phi i64 [ %add141, %if.then135 ], [ %mul128, %if.end116 ]
+  %mdy.0 = phi i64 [ %add147, %if.then135 ], [ %mul133, %if.end116 ]
+  %cmp149 = icmp slt i64 %mdx.0, 0
+  br i1 %cmp149, label %cond.true, label %cond.false
 
-162:                                              ; preds = %158
-  %163 = add nsw i64 %159, %67
-  %164 = icmp sge i64 %163, %139
-  %165 = icmp sge i64 %143, %67
-  %166 = select i1 %164, i1 %165, i1 false
-  br i1 %166, label %172, label %184
+cond.true:                                        ; preds = %if.end148
+  %add151 = add nsw i64 %mdx.0, %conv36
+  %cmp152.not = icmp slt i64 %add151, %13
+  %cmp154.not = icmp slt i64 %15, %conv36
+  %or.cond361 = select i1 %cmp152.not, i1 true, i1 %cmp154.not
+  br i1 %or.cond361, label %lor.end.critedge, label %land.rhs
 
-167:                                              ; preds = %158
-  %168 = icmp sle i64 %139, %67
-  %169 = add nsw i64 %159, %67
-  %170 = icmp sle i64 %169, %143
-  %171 = select i1 %168, i1 %170, i1 false
-  br i1 %171, label %172, label %184
+cond.false:                                       ; preds = %if.end148
+  %cmp156.not = icmp sgt i64 %13, %conv36
+  %add159 = add nsw i64 %mdx.0, %conv36
+  %cmp160.not = icmp sgt i64 %add159, %15
+  %or.cond362 = select i1 %cmp156.not, i1 true, i1 %cmp160.not
+  br i1 %or.cond362, label %lor.end.critedge, label %land.rhs
 
-172:                                              ; preds = %167, %162
-  %173 = icmp slt i64 %160, 0
-  br i1 %173, label %174, label %179
+land.rhs:                                         ; preds = %cond.false, %cond.true
+  %cmp162 = icmp slt i64 %mdy.0, 0
+  br i1 %cmp162, label %cond.true164, label %cond.false171
 
-174:                                              ; preds = %172
-  %175 = add nsw i64 %160, %72
-  %176 = icmp sge i64 %175, %141
-  %177 = icmp sge i64 %145, %72
-  %178 = select i1 %176, i1 %177, i1 false
-  br label %186
+cond.true164:                                     ; preds = %land.rhs
+  %add165 = add nsw i64 %mdy.0, %conv38
+  %cmp166 = icmp sge i64 %add165, %14
+  %cmp169 = icmp sge i64 %16, %conv38
+  %17 = select i1 %cmp166, i1 %cmp169, i1 false
+  br label %cond.end
 
-179:                                              ; preds = %172
-  %180 = icmp sle i64 %141, %72
-  %181 = add nsw i64 %160, %72
-  %182 = icmp sle i64 %181, %145
-  %183 = select i1 %180, i1 %182, i1 false
-  br label %186
+cond.false171:                                    ; preds = %land.rhs
+  %cmp172.not = icmp sgt i64 %14, %conv38
+  %add175 = add nsw i64 %mdy.0, %conv38
+  %cmp176 = icmp sle i64 %add175, %16
+  br i1 %cmp172.not, label %cond.end.thread, label %cond.end
 
-184:                                              ; preds = %167, %162
-  %185 = getelementptr inbounds %struct.gs_image_enum_s, ptr %0, i64 0, i32 15
-  store i32 0, ptr %185, align 8, !tbaa !54
-  br label %202
+cond.end.thread:                                  ; preds = %cond.false171
+  %never_clip366 = getelementptr inbounds %struct.gs_image_enum_s, ptr %penum, i64 0, i32 15
+  store i32 0, ptr %never_clip366, align 8, !tbaa !54
+  br label %lor.end
 
-186:                                              ; preds = %174, %179
-  %187 = phi i1 [ %178, %174 ], [ %183, %179 ]
-  %188 = zext i1 %187 to i32
-  %189 = getelementptr inbounds %struct.gs_image_enum_s, ptr %0, i64 0, i32 15
-  store i32 %188, ptr %189, align 8, !tbaa !54
-  %190 = xor i1 %187, true
-  %191 = or i1 %49, %190
-  br i1 %191, label %202, label %192
+cond.end:                                         ; preds = %cond.false171, %cond.true164
+  %cond.in = phi i1 [ %17, %cond.true164 ], [ %cmp176, %cond.false171 ]
+  %land.ext182 = zext i1 %cond.in to i32
+  %never_clip = getelementptr inbounds %struct.gs_image_enum_s, ptr %penum, i64 0, i32 15
+  store i32 %land.ext182, ptr %never_clip, align 8, !tbaa !54
+  %tobool180.not = xor i1 %cond.in, true
+  %brmerge371 = or i1 %cmp23, %tobool180.not
+  br i1 %brmerge371, label %lor.end, label %lor.rhs
 
-192:                                              ; preds = %186
-  %193 = icmp eq i64 %8, -1
-  %194 = icmp eq i64 %9, -1
-  %195 = or i1 %193, %194
-  br i1 %195, label %196, label %202
+lor.rhs:                                          ; preds = %cond.end
+  %cmp188 = icmp eq i64 %color0, -1
+  %cmp191 = icmp eq i64 %color1, -1
+  %or.cond254 = or i1 %cmp188, %cmp191
+  br i1 %or.cond254, label %land.rhs193, label %lor.end
 
-196:                                              ; preds = %192
-  %197 = getelementptr inbounds %struct.gs_state_s, ptr %7, i64 0, i32 14
-  %198 = load ptr, ptr %197, align 8, !tbaa !55
-  %199 = getelementptr inbounds %struct.gx_device_color_s, ptr %198, i64 0, i32 2
-  %200 = load i32, ptr %199, align 8, !tbaa !41
-  %201 = icmp ne i32 %200, 0
-  br label %202
+land.rhs193:                                      ; preds = %lor.rhs
+  %dev_color = getelementptr inbounds %struct.gs_state_s, ptr %pgs, i64 0, i32 14
+  %18 = load ptr, ptr %dev_color, align 8, !tbaa !55
+  %halftone_level194 = getelementptr inbounds %struct.gx_device_color_s, ptr %18, i64 0, i32 2
+  %19 = load i32, ptr %halftone_level194, align 8, !tbaa !41
+  %cmp195 = icmp ne i32 %19, 0
+  br label %lor.end
 
-202:                                              ; preds = %186, %184, %196, %192
-  %203 = phi i1 [ true, %186 ], [ %201, %196 ], [ false, %192 ], [ true, %184 ]
-  %204 = zext i1 %203 to i32
-  %205 = getelementptr inbounds %struct.gs_image_enum_s, ptr %0, i64 0, i32 17
-  store i32 %204, ptr %205, align 8, !tbaa !56
-  %206 = getelementptr inbounds %struct.gs_state_s, ptr %7, i64 0, i32 20
-  %207 = load i8, ptr %206, align 1, !tbaa !57
-  %208 = icmp eq i8 %207, 0
-  br i1 %208, label %209, label %225
+lor.end.critedge:                                 ; preds = %cond.true, %cond.false
+  %never_clip.c = getelementptr inbounds %struct.gs_image_enum_s, ptr %penum, i64 0, i32 15
+  store i32 0, ptr %never_clip.c, align 8, !tbaa !54
+  br label %lor.end
 
-209:                                              ; preds = %202
-  %210 = icmp sgt i32 %4, 1
-  br i1 %210, label %225, label %211
+lor.end:                                          ; preds = %cond.end, %cond.end.thread, %lor.end.critedge, %land.rhs193, %lor.rhs
+  %20 = phi i1 [ true, %cond.end ], [ %cmp195, %land.rhs193 ], [ false, %lor.rhs ], [ true, %lor.end.critedge ], [ true, %cond.end.thread ]
+  %lor.ext = zext i1 %20 to i32
+  %slow_loop = getelementptr inbounds %struct.gs_image_enum_s, ptr %penum, i64 0, i32 17
+  store i32 %lor.ext, ptr %slow_loop, align 8, !tbaa !56
+  %in_charpath = getelementptr inbounds %struct.gs_state_s, ptr %pgs, i64 0, i32 20
+  %21 = load i8, ptr %in_charpath, align 1, !tbaa !57
+  %tobool202.not = icmp eq i8 %21, 0
+  br i1 %tobool202.not, label %cond.false204, label %if.else236
 
-211:                                              ; preds = %209
-  %212 = icmp ne i32 %3, 0
-  %213 = select i1 %212, i1 true, i1 %203
-  br i1 %213, label %225, label %214
+cond.false204:                                    ; preds = %lor.end
+  %cmp205 = icmp sgt i32 %spp, 1
+  br i1 %cmp205, label %if.else236, label %cond.false208
 
-214:                                              ; preds = %211
-  %215 = add i64 %146, 2048
-  %216 = add i64 %215, %67
-  %217 = ashr i64 %216, 12
-  %218 = ashr i64 %67, 12
-  %219 = sub nsw i64 %217, %218
-  %220 = freeze i64 %219
-  %221 = icmp eq i64 %220, %77
-  br i1 %221, label %222, label %225
+cond.false208:                                    ; preds = %cond.false204
+  %cmp209 = icmp ne i32 %log2_bps, 0
+  %brmerge = select i1 %cmp209, i1 true, i1 %20
+  br i1 %brmerge, label %if.else236, label %land.rhs214
 
-222:                                              ; preds = %214
-  %223 = getelementptr inbounds %struct.gs_image_enum_s, ptr %0, i64 0, i32 10
-  store ptr @image_render_direct, ptr %223, align 8, !tbaa !58
-  %224 = getelementptr inbounds %struct.gs_image_enum_s, ptr %0, i64 0, i32 9
-  store ptr @image_unpack_3, ptr %224, align 8, !tbaa !59
-  br label %237
+land.rhs214:                                      ; preds = %cond.false208
+  %add218 = add i64 %mul128, 2048
+  %add219 = add i64 %add218, %conv36
+  %shr220 = ashr i64 %add219, 12
+  %shr221 = ashr i64 %conv36, 12
+  %sub = sub nsw i64 %shr220, %shr221
+  %cmp223 = icmp eq i64 %sub, %conv41
+  br i1 %cmp223, label %if.then235, label %if.else236
 
-225:                                              ; preds = %211, %202, %209, %214
-  %226 = phi ptr [ @image_render_mono, %214 ], [ @image_render_color, %209 ], [ @image_render_skip, %202 ], [ @image_render_mono, %211 ]
-  %227 = getelementptr inbounds %struct.gs_image_enum_s, ptr %0, i64 0, i32 10
-  store ptr %226, ptr %227, align 8, !tbaa !58
-  %228 = icmp eq i32 %5, 1
-  %229 = sext i32 %3 to i64
-  %230 = getelementptr inbounds %struct.gs_image_enum_s, ptr %0, i64 0, i32 9
-  br i1 %228, label %234, label %231
+if.then235:                                       ; preds = %land.rhs214
+  %render = getelementptr inbounds %struct.gs_image_enum_s, ptr %penum, i64 0, i32 10
+  store ptr @image_render_direct, ptr %render, align 8, !tbaa !58
+  %unpack = getelementptr inbounds %struct.gs_image_enum_s, ptr %penum, i64 0, i32 9
+  store ptr @image_unpack_3, ptr %unpack, align 8, !tbaa !59
+  br label %if.end247
 
-231:                                              ; preds = %225
-  %232 = getelementptr inbounds [4 x ptr], ptr @image_init.spread_procs, i64 0, i64 %229
-  %233 = load ptr, ptr %232, align 8, !tbaa !60
-  store ptr %233, ptr %230, align 8, !tbaa !59
-  br label %237
+if.else236:                                       ; preds = %lor.end, %cond.false204, %cond.false208, %land.rhs214
+  %cond231.ph = phi ptr [ @image_render_mono, %land.rhs214 ], [ @image_render_mono, %cond.false208 ], [ @image_render_color, %cond.false204 ], [ @image_render_skip, %lor.end ]
+  %render369 = getelementptr inbounds %struct.gs_image_enum_s, ptr %penum, i64 0, i32 10
+  store ptr %cond231.ph, ptr %render369, align 8, !tbaa !58
+  %cmp237.not = icmp eq i32 %spread, 1
+  %idxprom243 = sext i32 %log2_bps to i64
+  %unpack245 = getelementptr inbounds %struct.gs_image_enum_s, ptr %penum, i64 0, i32 9
+  br i1 %cmp237.not, label %if.else242, label %if.then239
 
-234:                                              ; preds = %225
-  %235 = getelementptr inbounds [4 x ptr], ptr @image_init.procs, i64 0, i64 %229
-  %236 = load ptr, ptr %235, align 8, !tbaa !60
-  store ptr %236, ptr %230, align 8, !tbaa !59
-  br label %237
+if.then239:                                       ; preds = %if.else236
+  %arrayidx240 = getelementptr inbounds [4 x ptr], ptr @image_init.spread_procs, i64 0, i64 %idxprom243
+  %22 = load ptr, ptr %arrayidx240, align 8, !tbaa !60
+  store ptr %22, ptr %unpack245, align 8, !tbaa !59
+  br label %if.end247
 
-237:                                              ; preds = %231, %234, %222
-  %238 = getelementptr inbounds %struct.gs_image_enum_s, ptr %0, i64 0, i32 19
-  store i32 0, ptr %238, align 8, !tbaa !61
-  %239 = getelementptr inbounds %struct.gs_image_enum_s, ptr %0, i64 0, i32 21
-  store i32 0, ptr %239, align 8, !tbaa !62
-  %240 = getelementptr inbounds %struct.gs_image_enum_s, ptr %0, i64 0, i32 24
-  store i32 0, ptr %240, align 8, !tbaa !63
-  br label %241
+if.else242:                                       ; preds = %if.else236
+  %arrayidx244 = getelementptr inbounds [4 x ptr], ptr @image_init.procs, i64 0, i64 %idxprom243
+  %23 = load ptr, ptr %arrayidx244, align 8, !tbaa !60
+  store ptr %23, ptr %unpack245, align 8, !tbaa !59
+  br label %if.end247
 
-241:                                              ; preds = %26, %19, %22, %17, %10, %237
-  %242 = phi i32 [ 0, %237 ], [ -23, %10 ], [ 0, %17 ], [ %20, %19 ], [ %24, %22 ], [ -25, %26 ]
-  call void @llvm.lifetime.end.p0(i64 96, ptr nonnull %11) #8
-  ret i32 %242
+if.end247:                                        ; preds = %if.then239, %if.else242, %if.then235
+  %plane_index = getelementptr inbounds %struct.gs_image_enum_s, ptr %penum, i64 0, i32 19
+  store i32 0, ptr %plane_index, align 8, !tbaa !61
+  %byte_in_row = getelementptr inbounds %struct.gs_image_enum_s, ptr %penum, i64 0, i32 21
+  store i32 0, ptr %byte_in_row, align 8, !tbaa !62
+  %y248 = getelementptr inbounds %struct.gs_image_enum_s, ptr %penum, i64 0, i32 24
+  store i32 0, ptr %y248, align 8, !tbaa !63
+  br label %cleanup
+
+cleanup:                                          ; preds = %if.end10, %if.end4, %lor.lhs.false6, %if.end, %entry, %if.end247
+  %retval.0 = phi i32 [ 0, %if.end247 ], [ -23, %entry ], [ 0, %if.end ], [ %call, %if.end4 ], [ %call7, %lor.lhs.false6 ], [ -25, %if.end10 ]
+  call void @llvm.lifetime.end.p0(i64 96, ptr nonnull %mat) #8
+  ret i32 %retval.0
 }
 
 ; Function Attrs: mustprogress nocallback nofree nosync nounwind willreturn memory(argmem: readwrite)
 declare void @llvm.lifetime.end.p0(i64 immarg, ptr nocapture) #1
 
 ; Function Attrs: nounwind uwtable
-define dso_local i32 @gs_imagemask_init(ptr nocapture noundef writeonly %0, ptr noundef %1, i32 noundef %2, i32 noundef %3, i32 noundef %4, ptr noundef %5) local_unnamed_addr #0 {
-  %7 = getelementptr inbounds %struct.gs_state_s, ptr %1, i64 0, i32 13
-  %8 = load ptr, ptr %7, align 8, !tbaa !64
-  %9 = getelementptr inbounds %struct.gs_state_s, ptr %1, i64 0, i32 14
-  %10 = load ptr, ptr %9, align 8, !tbaa !55
-  %11 = tail call i32 (ptr, ptr, ptr, ...) @gx_color_render(ptr noundef %8, ptr noundef %10, ptr noundef %1) #8
-  %12 = icmp eq i32 %4, 0
-  %13 = load ptr, ptr %9, align 8, !tbaa !55
-  %14 = load i64, ptr %13, align 8, !tbaa !45
-  %15 = select i1 %12, i64 %14, i64 -1
-  %16 = select i1 %12, i64 -1, i64 %14
-  %17 = tail call i32 @image_init(ptr noundef %0, i32 noundef %2, i32 noundef %3, i32 noundef 0, i32 noundef 1, i32 noundef 1, ptr noundef %5, ptr noundef nonnull %1, i64 noundef %15, i64 noundef %16), !range !20
-  ret i32 %17
+define dso_local i32 @gs_imagemask_init(ptr noundef %penum, ptr noundef %pgs, i32 noundef %width, i32 noundef %height, i32 noundef %invert, ptr noundef %pmat) local_unnamed_addr #0 {
+entry:
+  %color = getelementptr inbounds %struct.gs_state_s, ptr %pgs, i64 0, i32 13
+  %0 = load ptr, ptr %color, align 8, !tbaa !64
+  %dev_color = getelementptr inbounds %struct.gs_state_s, ptr %pgs, i64 0, i32 14
+  %1 = load ptr, ptr %dev_color, align 8, !tbaa !55
+  %call = tail call i32 (ptr, ptr, ptr, ...) @gx_color_render(ptr noundef %0, ptr noundef %1, ptr noundef %pgs) #8
+  %tobool.not = icmp eq i32 %invert, 0
+  %2 = load ptr, ptr %dev_color, align 8, !tbaa !55
+  %3 = load i64, ptr %2, align 8, !tbaa !45
+  %. = select i1 %tobool.not, i64 %3, i64 -1
+  %.11 = select i1 %tobool.not, i64 -1, i64 %3
+  %call5 = tail call i32 @image_init(ptr noundef %penum, i32 noundef %width, i32 noundef %height, i32 noundef 0, i32 noundef 1, i32 noundef 1, ptr noundef %pmat, ptr noundef nonnull %pgs, i64 noundef %., i64 noundef %.11), !range !20
+  ret i32 %call5
 }
 
 declare i32 @gx_color_render(...) local_unnamed_addr #2
@@ -483,1263 +489,1272 @@ declare i32 @gs_matrix_multiply(ptr noundef, ptr noundef, ptr noundef) local_unn
 declare ptr @gs_malloc(i32 noundef, i32 noundef, ptr noundef) local_unnamed_addr #2
 
 ; Function Attrs: nofree norecurse nosync nounwind memory(readwrite, inaccessiblemem: none) uwtable
-define dso_local void @image_unpack_0(ptr nocapture readnone %0, ptr nocapture noundef writeonly %1, ptr nocapture noundef readonly %2, i32 noundef %3) #3 {
-  %5 = icmp eq i32 %3, 0
-  br i1 %5, label %61, label %6
+define dso_local void @image_unpack_0(ptr nocapture readnone %penum, ptr nocapture noundef writeonly %bptr, ptr nocapture noundef readonly %data, i32 noundef %dsize) #3 {
+entry:
+  %tobool.not7 = icmp eq i32 %dsize, 0
+  br i1 %tobool.not7, label %while.end, label %while.body.preheader
 
-6:                                                ; preds = %4
-  %7 = and i32 %3, 1
-  %8 = icmp eq i32 %7, 0
-  br i1 %8, label %24, label %9
+while.body.preheader:                             ; preds = %entry
+  %xtraiter = and i32 %dsize, 1
+  %lcmp.mod.not = icmp eq i32 %xtraiter, 0
+  br i1 %lcmp.mod.not, label %while.body.prol.loopexit, label %while.body.prol
 
-9:                                                ; preds = %6
-  %10 = add nsw i32 %3, -1
-  %11 = getelementptr inbounds i8, ptr %2, i64 1
-  %12 = load i8, ptr %2, align 1, !tbaa !65
-  %13 = zext i8 %12 to i32
-  %14 = lshr i32 %13, 4
-  %15 = zext i32 %14 to i64
-  %16 = getelementptr inbounds [16 x i32], ptr @map_4_to_32, i64 0, i64 %15
-  %17 = load i32, ptr %16, align 4, !tbaa !66
-  %18 = getelementptr inbounds i32, ptr %1, i64 1
-  store i32 %17, ptr %1, align 4, !tbaa !66
-  %19 = and i32 %13, 15
-  %20 = zext i32 %19 to i64
-  %21 = getelementptr inbounds [16 x i32], ptr @map_4_to_32, i64 0, i64 %20
-  %22 = load i32, ptr %21, align 4, !tbaa !66
-  %23 = getelementptr inbounds i32, ptr %1, i64 2
-  store i32 %22, ptr %18, align 4, !tbaa !66
-  br label %24
+while.body.prol:                                  ; preds = %while.body.preheader
+  %dec.prol = add nsw i32 %dsize, -1
+  %incdec.ptr.prol = getelementptr inbounds i8, ptr %data, i64 1
+  %0 = load i8, ptr %data, align 1, !tbaa !65
+  %conv.prol = zext i8 %0 to i32
+  %shr.prol = lshr i32 %conv.prol, 4
+  %idxprom.prol = zext i32 %shr.prol to i64
+  %arrayidx.prol = getelementptr inbounds [16 x i32], ptr @map_4_to_32, i64 0, i64 %idxprom.prol
+  %1 = load i32, ptr %arrayidx.prol, align 4, !tbaa !66
+  %incdec.ptr1.prol = getelementptr inbounds i32, ptr %bptr, i64 1
+  store i32 %1, ptr %bptr, align 4, !tbaa !66
+  %and.prol = and i32 %conv.prol, 15
+  %idxprom2.prol = zext i32 %and.prol to i64
+  %arrayidx3.prol = getelementptr inbounds [16 x i32], ptr @map_4_to_32, i64 0, i64 %idxprom2.prol
+  %2 = load i32, ptr %arrayidx3.prol, align 4, !tbaa !66
+  %incdec.ptr4.prol = getelementptr inbounds i32, ptr %bptr, i64 2
+  store i32 %2, ptr %incdec.ptr1.prol, align 4, !tbaa !66
+  br label %while.body.prol.loopexit
 
-24:                                               ; preds = %9, %6
-  %25 = phi ptr [ %2, %6 ], [ %11, %9 ]
-  %26 = phi i32 [ %3, %6 ], [ %10, %9 ]
-  %27 = phi ptr [ %1, %6 ], [ %23, %9 ]
-  %28 = icmp eq i32 %3, 1
-  br i1 %28, label %61, label %29
+while.body.prol.loopexit:                         ; preds = %while.body.prol, %while.body.preheader
+  %data.addr.010.unr = phi ptr [ %data, %while.body.preheader ], [ %incdec.ptr.prol, %while.body.prol ]
+  %left.09.unr = phi i32 [ %dsize, %while.body.preheader ], [ %dec.prol, %while.body.prol ]
+  %bufp.08.unr = phi ptr [ %bptr, %while.body.preheader ], [ %incdec.ptr4.prol, %while.body.prol ]
+  %3 = icmp eq i32 %dsize, 1
+  br i1 %3, label %while.end, label %while.body
 
-29:                                               ; preds = %24, %29
-  %30 = phi ptr [ %47, %29 ], [ %25, %24 ]
-  %31 = phi i32 [ %46, %29 ], [ %26, %24 ]
-  %32 = phi ptr [ %59, %29 ], [ %27, %24 ]
-  %33 = getelementptr inbounds i8, ptr %30, i64 1
-  %34 = load i8, ptr %30, align 1, !tbaa !65
-  %35 = zext i8 %34 to i32
-  %36 = lshr i32 %35, 4
-  %37 = zext i32 %36 to i64
-  %38 = getelementptr inbounds [16 x i32], ptr @map_4_to_32, i64 0, i64 %37
-  %39 = load i32, ptr %38, align 4, !tbaa !66
-  %40 = getelementptr inbounds i32, ptr %32, i64 1
-  store i32 %39, ptr %32, align 4, !tbaa !66
-  %41 = and i32 %35, 15
-  %42 = zext i32 %41 to i64
-  %43 = getelementptr inbounds [16 x i32], ptr @map_4_to_32, i64 0, i64 %42
-  %44 = load i32, ptr %43, align 4, !tbaa !66
-  %45 = getelementptr inbounds i32, ptr %32, i64 2
-  store i32 %44, ptr %40, align 4, !tbaa !66
-  %46 = add nsw i32 %31, -2
-  %47 = getelementptr inbounds i8, ptr %30, i64 2
-  %48 = load i8, ptr %33, align 1, !tbaa !65
-  %49 = zext i8 %48 to i32
-  %50 = lshr i32 %49, 4
-  %51 = zext i32 %50 to i64
-  %52 = getelementptr inbounds [16 x i32], ptr @map_4_to_32, i64 0, i64 %51
-  %53 = load i32, ptr %52, align 4, !tbaa !66
-  %54 = getelementptr inbounds i32, ptr %32, i64 3
-  store i32 %53, ptr %45, align 4, !tbaa !66
-  %55 = and i32 %49, 15
-  %56 = zext i32 %55 to i64
-  %57 = getelementptr inbounds [16 x i32], ptr @map_4_to_32, i64 0, i64 %56
-  %58 = load i32, ptr %57, align 4, !tbaa !66
-  %59 = getelementptr inbounds i32, ptr %32, i64 4
-  store i32 %58, ptr %54, align 4, !tbaa !66
-  %60 = icmp eq i32 %46, 0
-  br i1 %60, label %61, label %29, !llvm.loop !67
+while.body:                                       ; preds = %while.body.prol.loopexit, %while.body
+  %data.addr.010 = phi ptr [ %incdec.ptr.1, %while.body ], [ %data.addr.010.unr, %while.body.prol.loopexit ]
+  %left.09 = phi i32 [ %dec.1, %while.body ], [ %left.09.unr, %while.body.prol.loopexit ]
+  %bufp.08 = phi ptr [ %incdec.ptr4.1, %while.body ], [ %bufp.08.unr, %while.body.prol.loopexit ]
+  %incdec.ptr = getelementptr inbounds i8, ptr %data.addr.010, i64 1
+  %4 = load i8, ptr %data.addr.010, align 1, !tbaa !65
+  %conv = zext i8 %4 to i32
+  %shr = lshr i32 %conv, 4
+  %idxprom = zext i32 %shr to i64
+  %arrayidx = getelementptr inbounds [16 x i32], ptr @map_4_to_32, i64 0, i64 %idxprom
+  %5 = load i32, ptr %arrayidx, align 4, !tbaa !66
+  %incdec.ptr1 = getelementptr inbounds i32, ptr %bufp.08, i64 1
+  store i32 %5, ptr %bufp.08, align 4, !tbaa !66
+  %and = and i32 %conv, 15
+  %idxprom2 = zext i32 %and to i64
+  %arrayidx3 = getelementptr inbounds [16 x i32], ptr @map_4_to_32, i64 0, i64 %idxprom2
+  %6 = load i32, ptr %arrayidx3, align 4, !tbaa !66
+  %incdec.ptr4 = getelementptr inbounds i32, ptr %bufp.08, i64 2
+  store i32 %6, ptr %incdec.ptr1, align 4, !tbaa !66
+  %dec.1 = add nsw i32 %left.09, -2
+  %incdec.ptr.1 = getelementptr inbounds i8, ptr %data.addr.010, i64 2
+  %7 = load i8, ptr %incdec.ptr, align 1, !tbaa !65
+  %conv.1 = zext i8 %7 to i32
+  %shr.1 = lshr i32 %conv.1, 4
+  %idxprom.1 = zext i32 %shr.1 to i64
+  %arrayidx.1 = getelementptr inbounds [16 x i32], ptr @map_4_to_32, i64 0, i64 %idxprom.1
+  %8 = load i32, ptr %arrayidx.1, align 4, !tbaa !66
+  %incdec.ptr1.1 = getelementptr inbounds i32, ptr %bufp.08, i64 3
+  store i32 %8, ptr %incdec.ptr4, align 4, !tbaa !66
+  %and.1 = and i32 %conv.1, 15
+  %idxprom2.1 = zext i32 %and.1 to i64
+  %arrayidx3.1 = getelementptr inbounds [16 x i32], ptr @map_4_to_32, i64 0, i64 %idxprom2.1
+  %9 = load i32, ptr %arrayidx3.1, align 4, !tbaa !66
+  %incdec.ptr4.1 = getelementptr inbounds i32, ptr %bufp.08, i64 4
+  store i32 %9, ptr %incdec.ptr1.1, align 4, !tbaa !66
+  %tobool.not.1 = icmp eq i32 %dec.1, 0
+  br i1 %tobool.not.1, label %while.end, label %while.body, !llvm.loop !67
 
-61:                                               ; preds = %24, %29, %4
+while.end:                                        ; preds = %while.body.prol.loopexit, %while.body, %entry
   ret void
 }
 
 ; Function Attrs: nofree norecurse nosync nounwind memory(readwrite, inaccessiblemem: none) uwtable
-define dso_local void @image_unpack_1(ptr nocapture readnone %0, ptr nocapture noundef writeonly %1, ptr nocapture noundef readonly %2, i32 noundef %3) #3 {
-  %5 = icmp eq i32 %3, 0
-  br i1 %5, label %61, label %6
+define dso_local void @image_unpack_1(ptr nocapture readnone %penum, ptr nocapture noundef writeonly %bptr, ptr nocapture noundef readonly %data, i32 noundef %dsize) #3 {
+entry:
+  %tobool.not7 = icmp eq i32 %dsize, 0
+  br i1 %tobool.not7, label %while.end, label %while.body.preheader
 
-6:                                                ; preds = %4
-  %7 = and i32 %3, 1
-  %8 = icmp eq i32 %7, 0
-  br i1 %8, label %24, label %9
+while.body.preheader:                             ; preds = %entry
+  %xtraiter = and i32 %dsize, 1
+  %lcmp.mod.not = icmp eq i32 %xtraiter, 0
+  br i1 %lcmp.mod.not, label %while.body.prol.loopexit, label %while.body.prol
 
-9:                                                ; preds = %6
-  %10 = add nsw i32 %3, -1
-  %11 = getelementptr inbounds i8, ptr %2, i64 1
-  %12 = load i8, ptr %2, align 1, !tbaa !65
-  %13 = zext i8 %12 to i32
-  %14 = lshr i32 %13, 4
-  %15 = zext i32 %14 to i64
-  %16 = getelementptr inbounds [16 x i16], ptr @map_4_to_16, i64 0, i64 %15
-  %17 = load i16, ptr %16, align 2, !tbaa !68
-  %18 = getelementptr inbounds i16, ptr %1, i64 1
-  store i16 %17, ptr %1, align 2, !tbaa !68
-  %19 = and i32 %13, 15
-  %20 = zext i32 %19 to i64
-  %21 = getelementptr inbounds [16 x i16], ptr @map_4_to_16, i64 0, i64 %20
-  %22 = load i16, ptr %21, align 2, !tbaa !68
-  %23 = getelementptr inbounds i16, ptr %1, i64 2
-  store i16 %22, ptr %18, align 2, !tbaa !68
-  br label %24
+while.body.prol:                                  ; preds = %while.body.preheader
+  %dec.prol = add nsw i32 %dsize, -1
+  %incdec.ptr.prol = getelementptr inbounds i8, ptr %data, i64 1
+  %0 = load i8, ptr %data, align 1, !tbaa !65
+  %conv.prol = zext i8 %0 to i32
+  %shr.prol = lshr i32 %conv.prol, 4
+  %idxprom.prol = zext i32 %shr.prol to i64
+  %arrayidx.prol = getelementptr inbounds [16 x i16], ptr @map_4_to_16, i64 0, i64 %idxprom.prol
+  %1 = load i16, ptr %arrayidx.prol, align 2, !tbaa !68
+  %incdec.ptr1.prol = getelementptr inbounds i16, ptr %bptr, i64 1
+  store i16 %1, ptr %bptr, align 2, !tbaa !68
+  %and.prol = and i32 %conv.prol, 15
+  %idxprom2.prol = zext i32 %and.prol to i64
+  %arrayidx3.prol = getelementptr inbounds [16 x i16], ptr @map_4_to_16, i64 0, i64 %idxprom2.prol
+  %2 = load i16, ptr %arrayidx3.prol, align 2, !tbaa !68
+  %incdec.ptr4.prol = getelementptr inbounds i16, ptr %bptr, i64 2
+  store i16 %2, ptr %incdec.ptr1.prol, align 2, !tbaa !68
+  br label %while.body.prol.loopexit
 
-24:                                               ; preds = %9, %6
-  %25 = phi ptr [ %2, %6 ], [ %11, %9 ]
-  %26 = phi i32 [ %3, %6 ], [ %10, %9 ]
-  %27 = phi ptr [ %1, %6 ], [ %23, %9 ]
-  %28 = icmp eq i32 %3, 1
-  br i1 %28, label %61, label %29
+while.body.prol.loopexit:                         ; preds = %while.body.prol, %while.body.preheader
+  %data.addr.010.unr = phi ptr [ %data, %while.body.preheader ], [ %incdec.ptr.prol, %while.body.prol ]
+  %left.09.unr = phi i32 [ %dsize, %while.body.preheader ], [ %dec.prol, %while.body.prol ]
+  %bufp.08.unr = phi ptr [ %bptr, %while.body.preheader ], [ %incdec.ptr4.prol, %while.body.prol ]
+  %3 = icmp eq i32 %dsize, 1
+  br i1 %3, label %while.end, label %while.body
 
-29:                                               ; preds = %24, %29
-  %30 = phi ptr [ %47, %29 ], [ %25, %24 ]
-  %31 = phi i32 [ %46, %29 ], [ %26, %24 ]
-  %32 = phi ptr [ %59, %29 ], [ %27, %24 ]
-  %33 = getelementptr inbounds i8, ptr %30, i64 1
-  %34 = load i8, ptr %30, align 1, !tbaa !65
-  %35 = zext i8 %34 to i32
-  %36 = lshr i32 %35, 4
-  %37 = zext i32 %36 to i64
-  %38 = getelementptr inbounds [16 x i16], ptr @map_4_to_16, i64 0, i64 %37
-  %39 = load i16, ptr %38, align 2, !tbaa !68
-  %40 = getelementptr inbounds i16, ptr %32, i64 1
-  store i16 %39, ptr %32, align 2, !tbaa !68
-  %41 = and i32 %35, 15
-  %42 = zext i32 %41 to i64
-  %43 = getelementptr inbounds [16 x i16], ptr @map_4_to_16, i64 0, i64 %42
-  %44 = load i16, ptr %43, align 2, !tbaa !68
-  %45 = getelementptr inbounds i16, ptr %32, i64 2
-  store i16 %44, ptr %40, align 2, !tbaa !68
-  %46 = add nsw i32 %31, -2
-  %47 = getelementptr inbounds i8, ptr %30, i64 2
-  %48 = load i8, ptr %33, align 1, !tbaa !65
-  %49 = zext i8 %48 to i32
-  %50 = lshr i32 %49, 4
-  %51 = zext i32 %50 to i64
-  %52 = getelementptr inbounds [16 x i16], ptr @map_4_to_16, i64 0, i64 %51
-  %53 = load i16, ptr %52, align 2, !tbaa !68
-  %54 = getelementptr inbounds i16, ptr %32, i64 3
-  store i16 %53, ptr %45, align 2, !tbaa !68
-  %55 = and i32 %49, 15
-  %56 = zext i32 %55 to i64
-  %57 = getelementptr inbounds [16 x i16], ptr @map_4_to_16, i64 0, i64 %56
-  %58 = load i16, ptr %57, align 2, !tbaa !68
-  %59 = getelementptr inbounds i16, ptr %32, i64 4
-  store i16 %58, ptr %54, align 2, !tbaa !68
-  %60 = icmp eq i32 %46, 0
-  br i1 %60, label %61, label %29, !llvm.loop !70
+while.body:                                       ; preds = %while.body.prol.loopexit, %while.body
+  %data.addr.010 = phi ptr [ %incdec.ptr.1, %while.body ], [ %data.addr.010.unr, %while.body.prol.loopexit ]
+  %left.09 = phi i32 [ %dec.1, %while.body ], [ %left.09.unr, %while.body.prol.loopexit ]
+  %bufp.08 = phi ptr [ %incdec.ptr4.1, %while.body ], [ %bufp.08.unr, %while.body.prol.loopexit ]
+  %incdec.ptr = getelementptr inbounds i8, ptr %data.addr.010, i64 1
+  %4 = load i8, ptr %data.addr.010, align 1, !tbaa !65
+  %conv = zext i8 %4 to i32
+  %shr = lshr i32 %conv, 4
+  %idxprom = zext i32 %shr to i64
+  %arrayidx = getelementptr inbounds [16 x i16], ptr @map_4_to_16, i64 0, i64 %idxprom
+  %5 = load i16, ptr %arrayidx, align 2, !tbaa !68
+  %incdec.ptr1 = getelementptr inbounds i16, ptr %bufp.08, i64 1
+  store i16 %5, ptr %bufp.08, align 2, !tbaa !68
+  %and = and i32 %conv, 15
+  %idxprom2 = zext i32 %and to i64
+  %arrayidx3 = getelementptr inbounds [16 x i16], ptr @map_4_to_16, i64 0, i64 %idxprom2
+  %6 = load i16, ptr %arrayidx3, align 2, !tbaa !68
+  %incdec.ptr4 = getelementptr inbounds i16, ptr %bufp.08, i64 2
+  store i16 %6, ptr %incdec.ptr1, align 2, !tbaa !68
+  %dec.1 = add nsw i32 %left.09, -2
+  %incdec.ptr.1 = getelementptr inbounds i8, ptr %data.addr.010, i64 2
+  %7 = load i8, ptr %incdec.ptr, align 1, !tbaa !65
+  %conv.1 = zext i8 %7 to i32
+  %shr.1 = lshr i32 %conv.1, 4
+  %idxprom.1 = zext i32 %shr.1 to i64
+  %arrayidx.1 = getelementptr inbounds [16 x i16], ptr @map_4_to_16, i64 0, i64 %idxprom.1
+  %8 = load i16, ptr %arrayidx.1, align 2, !tbaa !68
+  %incdec.ptr1.1 = getelementptr inbounds i16, ptr %bufp.08, i64 3
+  store i16 %8, ptr %incdec.ptr4, align 2, !tbaa !68
+  %and.1 = and i32 %conv.1, 15
+  %idxprom2.1 = zext i32 %and.1 to i64
+  %arrayidx3.1 = getelementptr inbounds [16 x i16], ptr @map_4_to_16, i64 0, i64 %idxprom2.1
+  %9 = load i16, ptr %arrayidx3.1, align 2, !tbaa !68
+  %incdec.ptr4.1 = getelementptr inbounds i16, ptr %bufp.08, i64 4
+  store i16 %9, ptr %incdec.ptr1.1, align 2, !tbaa !68
+  %tobool.not.1 = icmp eq i32 %dec.1, 0
+  br i1 %tobool.not.1, label %while.end, label %while.body, !llvm.loop !70
 
-61:                                               ; preds = %24, %29, %4
+while.end:                                        ; preds = %while.body.prol.loopexit, %while.body, %entry
   ret void
 }
 
 ; Function Attrs: nofree norecurse nosync nounwind memory(readwrite, inaccessiblemem: none) uwtable
-define dso_local void @image_unpack_2(ptr nocapture noundef readonly %0, ptr nocapture noundef writeonly %1, ptr nocapture noundef readonly %2, i32 noundef %3) #3 {
-  %5 = icmp eq i32 %3, 0
-  br i1 %5, label %52, label %6
+define dso_local void @image_unpack_2(ptr nocapture noundef readonly %penum, ptr nocapture noundef writeonly %bufp, ptr nocapture noundef readonly %data, i32 noundef %dsize) #3 {
+entry:
+  %tobool.not16 = icmp eq i32 %dsize, 0
+  br i1 %tobool.not16, label %while.end, label %while.body.lr.ph
 
-6:                                                ; preds = %4
-  %7 = getelementptr inbounds %struct.gs_image_enum_s, ptr %0, i64 0, i32 4
-  %8 = load i32, ptr %7, align 8, !tbaa !26
-  %9 = sext i32 %8 to i64
-  %10 = and i32 %3, 1
-  %11 = icmp eq i32 %10, 0
-  br i1 %11, label %23, label %12
+while.body.lr.ph:                                 ; preds = %entry
+  %spread1 = getelementptr inbounds %struct.gs_image_enum_s, ptr %penum, i64 0, i32 4
+  %0 = load i32, ptr %spread1, align 8, !tbaa !26
+  %idx.ext = sext i32 %0 to i64
+  %xtraiter = and i32 %dsize, 1
+  %lcmp.mod.not = icmp eq i32 %xtraiter, 0
+  br i1 %lcmp.mod.not, label %while.body.prol.loopexit, label %while.body.prol
 
-12:                                               ; preds = %6
-  %13 = add nsw i32 %3, -1
-  %14 = getelementptr inbounds i8, ptr %2, i64 1
-  %15 = load i8, ptr %2, align 1, !tbaa !65
-  %16 = and i8 %15, -16
-  %17 = lshr i8 %15, 4
-  %18 = or i8 %16, %17
-  store i8 %18, ptr %1, align 1, !tbaa !65
-  %19 = getelementptr inbounds i8, ptr %1, i64 %9
-  %20 = and i8 %15, 15
-  %21 = mul nuw i8 %20, 17
-  store i8 %21, ptr %19, align 1, !tbaa !65
-  %22 = getelementptr inbounds i8, ptr %19, i64 %9
-  br label %23
+while.body.prol:                                  ; preds = %while.body.lr.ph
+  %dec.prol = add nsw i32 %dsize, -1
+  %incdec.ptr.prol = getelementptr inbounds i8, ptr %data, i64 1
+  %1 = load i8, ptr %data, align 1, !tbaa !65
+  %and.prol = and i8 %1, -16
+  %shr.prol = lshr i8 %1, 4
+  %add.prol = or i8 %and.prol, %shr.prol
+  store i8 %add.prol, ptr %bufp, align 1, !tbaa !65
+  %add.ptr.prol = getelementptr inbounds i8, ptr %bufp, i64 %idx.ext
+  %2 = and i8 %1, 15
+  %narrow.prol = mul nuw i8 %2, 17
+  store i8 %narrow.prol, ptr %add.ptr.prol, align 1, !tbaa !65
+  %add.ptr7.prol = getelementptr inbounds i8, ptr %add.ptr.prol, i64 %idx.ext
+  br label %while.body.prol.loopexit
 
-23:                                               ; preds = %12, %6
-  %24 = phi ptr [ %1, %6 ], [ %22, %12 ]
-  %25 = phi i32 [ %3, %6 ], [ %13, %12 ]
-  %26 = phi ptr [ %2, %6 ], [ %14, %12 ]
-  %27 = icmp eq i32 %3, 1
-  br i1 %27, label %52, label %28
+while.body.prol.loopexit:                         ; preds = %while.body.prol, %while.body.lr.ph
+  %bufp.addr.019.unr = phi ptr [ %bufp, %while.body.lr.ph ], [ %add.ptr7.prol, %while.body.prol ]
+  %left.018.unr = phi i32 [ %dsize, %while.body.lr.ph ], [ %dec.prol, %while.body.prol ]
+  %data.addr.017.unr = phi ptr [ %data, %while.body.lr.ph ], [ %incdec.ptr.prol, %while.body.prol ]
+  %3 = icmp eq i32 %dsize, 1
+  br i1 %3, label %while.end, label %while.body
 
-28:                                               ; preds = %23, %28
-  %29 = phi ptr [ %50, %28 ], [ %24, %23 ]
-  %30 = phi i32 [ %41, %28 ], [ %25, %23 ]
-  %31 = phi ptr [ %42, %28 ], [ %26, %23 ]
-  %32 = getelementptr inbounds i8, ptr %31, i64 1
-  %33 = load i8, ptr %31, align 1, !tbaa !65
-  %34 = and i8 %33, -16
-  %35 = lshr i8 %33, 4
-  %36 = or i8 %34, %35
-  store i8 %36, ptr %29, align 1, !tbaa !65
-  %37 = getelementptr inbounds i8, ptr %29, i64 %9
-  %38 = and i8 %33, 15
-  %39 = mul nuw i8 %38, 17
-  store i8 %39, ptr %37, align 1, !tbaa !65
-  %40 = getelementptr inbounds i8, ptr %37, i64 %9
-  %41 = add nsw i32 %30, -2
-  %42 = getelementptr inbounds i8, ptr %31, i64 2
-  %43 = load i8, ptr %32, align 1, !tbaa !65
-  %44 = and i8 %43, -16
-  %45 = lshr i8 %43, 4
-  %46 = or i8 %44, %45
-  store i8 %46, ptr %40, align 1, !tbaa !65
-  %47 = getelementptr inbounds i8, ptr %40, i64 %9
-  %48 = and i8 %43, 15
-  %49 = mul nuw i8 %48, 17
-  store i8 %49, ptr %47, align 1, !tbaa !65
-  %50 = getelementptr inbounds i8, ptr %47, i64 %9
-  %51 = icmp eq i32 %41, 0
-  br i1 %51, label %52, label %28, !llvm.loop !71
+while.body:                                       ; preds = %while.body.prol.loopexit, %while.body
+  %bufp.addr.019 = phi ptr [ %add.ptr7.1, %while.body ], [ %bufp.addr.019.unr, %while.body.prol.loopexit ]
+  %left.018 = phi i32 [ %dec.1, %while.body ], [ %left.018.unr, %while.body.prol.loopexit ]
+  %data.addr.017 = phi ptr [ %incdec.ptr.1, %while.body ], [ %data.addr.017.unr, %while.body.prol.loopexit ]
+  %incdec.ptr = getelementptr inbounds i8, ptr %data.addr.017, i64 1
+  %4 = load i8, ptr %data.addr.017, align 1, !tbaa !65
+  %and = and i8 %4, -16
+  %shr = lshr i8 %4, 4
+  %add = or i8 %and, %shr
+  store i8 %add, ptr %bufp.addr.019, align 1, !tbaa !65
+  %add.ptr = getelementptr inbounds i8, ptr %bufp.addr.019, i64 %idx.ext
+  %5 = and i8 %4, 15
+  %narrow = mul nuw i8 %5, 17
+  store i8 %narrow, ptr %add.ptr, align 1, !tbaa !65
+  %add.ptr7 = getelementptr inbounds i8, ptr %add.ptr, i64 %idx.ext
+  %dec.1 = add nsw i32 %left.018, -2
+  %incdec.ptr.1 = getelementptr inbounds i8, ptr %data.addr.017, i64 2
+  %6 = load i8, ptr %incdec.ptr, align 1, !tbaa !65
+  %and.1 = and i8 %6, -16
+  %shr.1 = lshr i8 %6, 4
+  %add.1 = or i8 %and.1, %shr.1
+  store i8 %add.1, ptr %add.ptr7, align 1, !tbaa !65
+  %add.ptr.1 = getelementptr inbounds i8, ptr %add.ptr7, i64 %idx.ext
+  %7 = and i8 %6, 15
+  %narrow.1 = mul nuw i8 %7, 17
+  store i8 %narrow.1, ptr %add.ptr.1, align 1, !tbaa !65
+  %add.ptr7.1 = getelementptr inbounds i8, ptr %add.ptr.1, i64 %idx.ext
+  %tobool.not.1 = icmp eq i32 %dec.1, 0
+  br i1 %tobool.not.1, label %while.end, label %while.body, !llvm.loop !71
 
-52:                                               ; preds = %23, %28, %4
+while.end:                                        ; preds = %while.body.prol.loopexit, %while.body, %entry
   ret void
 }
 
 ; Function Attrs: mustprogress nofree nosync nounwind willreturn memory(argmem: readwrite) uwtable
-define dso_local void @image_unpack_3(ptr nocapture readnone %0, ptr noundef writeonly %1, ptr noundef readonly %2, i32 noundef %3) #4 {
-  %5 = icmp eq ptr %2, %1
-  br i1 %5, label %8, label %6
+define dso_local void @image_unpack_3(ptr nocapture readnone %penum, ptr noundef writeonly %bufp, ptr noundef readonly %data, i32 noundef %dsize) #4 {
+entry:
+  %cmp.not = icmp eq ptr %data, %bufp
+  br i1 %cmp.not, label %if.end, label %if.then
 
-6:                                                ; preds = %4
-  %7 = zext i32 %3 to i64
-  tail call void @llvm.memcpy.p0.p0.i64(ptr align 1 %1, ptr align 1 %2, i64 %7, i1 false)
-  br label %8
+if.then:                                          ; preds = %entry
+  %conv = zext i32 %dsize to i64
+  tail call void @llvm.memcpy.p0.p0.i64(ptr align 1 %bufp, ptr align 1 %data, i64 %conv, i1 false)
+  br label %if.end
 
-8:                                                ; preds = %6, %4
+if.end:                                           ; preds = %if.then, %entry
   ret void
 }
 
 ; Function Attrs: nofree norecurse nosync nounwind memory(readwrite, inaccessiblemem: none) uwtable
-define dso_local void @image_unpack_0_spread(ptr nocapture noundef readonly %0, ptr nocapture noundef writeonly %1, ptr nocapture noundef readonly %2, i32 noundef %3) #3 {
-  %5 = icmp eq i32 %3, 0
-  br i1 %5, label %48, label %6
+define dso_local void @image_unpack_0_spread(ptr nocapture noundef readonly %penum, ptr nocapture noundef writeonly %bufp, ptr nocapture noundef readonly %data, i32 noundef %dsize) #3 {
+entry:
+  %tobool.not72 = icmp eq i32 %dsize, 0
+  br i1 %tobool.not72, label %while.end, label %while.body.lr.ph
 
-6:                                                ; preds = %4
-  %7 = getelementptr inbounds %struct.gs_image_enum_s, ptr %0, i64 0, i32 4
-  %8 = load i32, ptr %7, align 8, !tbaa !26
-  %9 = sext i32 %8 to i64
-  br label %10
+while.body.lr.ph:                                 ; preds = %entry
+  %spread1 = getelementptr inbounds %struct.gs_image_enum_s, ptr %penum, i64 0, i32 4
+  %0 = load i32, ptr %spread1, align 8, !tbaa !26
+  %idx.ext = sext i32 %0 to i64
+  br label %while.body
 
-10:                                               ; preds = %6, %10
-  %11 = phi ptr [ %1, %6 ], [ %46, %10 ]
-  %12 = phi i32 [ %3, %6 ], [ %14, %10 ]
-  %13 = phi ptr [ %2, %6 ], [ %15, %10 ]
-  %14 = add nsw i32 %12, -1
-  %15 = getelementptr inbounds i8, ptr %13, i64 1
-  %16 = load i8, ptr %13, align 1, !tbaa !65
-  %17 = zext i8 %16 to i32
-  %18 = ashr i8 %16, 7
-  store i8 %18, ptr %11, align 1, !tbaa !65
-  %19 = getelementptr inbounds i8, ptr %11, i64 %9
-  %20 = shl i32 %17, 25
-  %21 = ashr i32 %20, 31
-  %22 = trunc i32 %21 to i8
-  store i8 %22, ptr %19, align 1, !tbaa !65
-  %23 = getelementptr inbounds i8, ptr %19, i64 %9
-  %24 = shl i32 %17, 26
-  %25 = ashr i32 %24, 31
-  %26 = trunc i32 %25 to i8
-  store i8 %26, ptr %23, align 1, !tbaa !65
-  %27 = getelementptr inbounds i8, ptr %23, i64 %9
-  %28 = shl i32 %17, 27
-  %29 = ashr i32 %28, 31
-  %30 = trunc i32 %29 to i8
-  store i8 %30, ptr %27, align 1, !tbaa !65
-  %31 = getelementptr inbounds i8, ptr %27, i64 %9
-  %32 = shl i32 %17, 28
-  %33 = ashr i32 %32, 31
-  %34 = trunc i32 %33 to i8
-  store i8 %34, ptr %31, align 1, !tbaa !65
-  %35 = getelementptr inbounds i8, ptr %31, i64 %9
-  %36 = shl i32 %17, 29
-  %37 = ashr i32 %36, 31
-  %38 = trunc i32 %37 to i8
-  store i8 %38, ptr %35, align 1, !tbaa !65
-  %39 = getelementptr inbounds i8, ptr %35, i64 %9
-  %40 = shl i32 %17, 30
-  %41 = ashr i32 %40, 31
-  %42 = trunc i32 %41 to i8
-  store i8 %42, ptr %39, align 1, !tbaa !65
-  %43 = getelementptr inbounds i8, ptr %39, i64 %9
-  %44 = and i8 %16, 1
-  %45 = sub nsw i8 0, %44
-  store i8 %45, ptr %43, align 1, !tbaa !65
-  %46 = getelementptr inbounds i8, ptr %43, i64 %9
-  %47 = icmp eq i32 %14, 0
-  br i1 %47, label %48, label %10, !llvm.loop !72
+while.body:                                       ; preds = %while.body.lr.ph, %while.body
+  %bufp.addr.075 = phi ptr [ %bufp, %while.body.lr.ph ], [ %add.ptr42, %while.body ]
+  %left.074 = phi i32 [ %dsize, %while.body.lr.ph ], [ %dec, %while.body ]
+  %data.addr.073 = phi ptr [ %data, %while.body.lr.ph ], [ %incdec.ptr, %while.body ]
+  %dec = add nsw i32 %left.074, -1
+  %incdec.ptr = getelementptr inbounds i8, ptr %data.addr.073, i64 1
+  %1 = load i8, ptr %data.addr.073, align 1, !tbaa !65
+  %conv = zext i8 %1 to i32
+  %shr.neg = ashr i8 %1, 7
+  store i8 %shr.neg, ptr %bufp.addr.075, align 1, !tbaa !65
+  %add.ptr = getelementptr inbounds i8, ptr %bufp.addr.075, i64 %idx.ext
+  %2 = shl i32 %conv, 25
+  %3 = ashr i32 %2, 31
+  %conv5 = trunc i32 %3 to i8
+  store i8 %conv5, ptr %add.ptr, align 1, !tbaa !65
+  %add.ptr7 = getelementptr inbounds i8, ptr %add.ptr, i64 %idx.ext
+  %4 = shl i32 %conv, 26
+  %5 = ashr i32 %4, 31
+  %conv11 = trunc i32 %5 to i8
+  store i8 %conv11, ptr %add.ptr7, align 1, !tbaa !65
+  %add.ptr13 = getelementptr inbounds i8, ptr %add.ptr7, i64 %idx.ext
+  %6 = shl i32 %conv, 27
+  %7 = ashr i32 %6, 31
+  %conv17 = trunc i32 %7 to i8
+  store i8 %conv17, ptr %add.ptr13, align 1, !tbaa !65
+  %add.ptr19 = getelementptr inbounds i8, ptr %add.ptr13, i64 %idx.ext
+  %8 = shl i32 %conv, 28
+  %9 = ashr i32 %8, 31
+  %conv23 = trunc i32 %9 to i8
+  store i8 %conv23, ptr %add.ptr19, align 1, !tbaa !65
+  %add.ptr25 = getelementptr inbounds i8, ptr %add.ptr19, i64 %idx.ext
+  %10 = shl i32 %conv, 29
+  %11 = ashr i32 %10, 31
+  %conv29 = trunc i32 %11 to i8
+  store i8 %conv29, ptr %add.ptr25, align 1, !tbaa !65
+  %add.ptr31 = getelementptr inbounds i8, ptr %add.ptr25, i64 %idx.ext
+  %12 = shl i32 %conv, 30
+  %13 = ashr i32 %12, 31
+  %conv35 = trunc i32 %13 to i8
+  store i8 %conv35, ptr %add.ptr31, align 1, !tbaa !65
+  %add.ptr37 = getelementptr inbounds i8, ptr %add.ptr31, i64 %idx.ext
+  %and38 = and i8 %1, 1
+  %sub39 = sub nsw i8 0, %and38
+  store i8 %sub39, ptr %add.ptr37, align 1, !tbaa !65
+  %add.ptr42 = getelementptr inbounds i8, ptr %add.ptr37, i64 %idx.ext
+  %tobool.not = icmp eq i32 %dec, 0
+  br i1 %tobool.not, label %while.end, label %while.body, !llvm.loop !72
 
-48:                                               ; preds = %10, %4
+while.end:                                        ; preds = %while.body, %entry
   ret void
 }
 
 ; Function Attrs: nofree norecurse nosync nounwind memory(readwrite, inaccessiblemem: none) uwtable
-define dso_local void @image_unpack_1_spread(ptr nocapture noundef readonly %0, ptr nocapture noundef writeonly %1, ptr nocapture noundef readonly %2, i32 noundef %3) #3 {
-  %5 = icmp eq i32 %3, 0
-  br i1 %5, label %37, label %6
+define dso_local void @image_unpack_1_spread(ptr nocapture noundef readonly %penum, ptr nocapture noundef writeonly %bufp, ptr nocapture noundef readonly %data, i32 noundef %dsize) #3 {
+entry:
+  %tobool.not32 = icmp eq i32 %dsize, 0
+  br i1 %tobool.not32, label %while.end, label %while.body.lr.ph
 
-6:                                                ; preds = %4
-  %7 = getelementptr inbounds %struct.gs_image_enum_s, ptr %0, i64 0, i32 4
-  %8 = load i32, ptr %7, align 8, !tbaa !26
-  %9 = sext i32 %8 to i64
-  br label %10
+while.body.lr.ph:                                 ; preds = %entry
+  %spread1 = getelementptr inbounds %struct.gs_image_enum_s, ptr %penum, i64 0, i32 4
+  %0 = load i32, ptr %spread1, align 8, !tbaa !26
+  %idx.ext = sext i32 %0 to i64
+  br label %while.body
 
-10:                                               ; preds = %6, %10
-  %11 = phi ptr [ %1, %6 ], [ %35, %10 ]
-  %12 = phi ptr [ %2, %6 ], [ %15, %10 ]
-  %13 = phi i32 [ %3, %6 ], [ %14, %10 ]
-  %14 = add nsw i32 %13, -1
-  %15 = getelementptr inbounds i8, ptr %12, i64 1
-  %16 = load i8, ptr %12, align 1, !tbaa !65
-  %17 = zext i8 %16 to i32
-  %18 = lshr i32 %17, 4
-  %19 = zext i32 %18 to i64
-  %20 = getelementptr inbounds [16 x i16], ptr @map_4_to_16, i64 0, i64 %19
-  %21 = load i16, ptr %20, align 2, !tbaa !68
-  %22 = lshr i16 %21, 8
-  %23 = trunc i16 %22 to i8
-  store i8 %23, ptr %11, align 1, !tbaa !65
-  %24 = getelementptr inbounds i8, ptr %11, i64 %9
-  %25 = trunc i16 %21 to i8
-  store i8 %25, ptr %24, align 1, !tbaa !65
-  %26 = getelementptr inbounds i8, ptr %24, i64 %9
-  %27 = and i32 %17, 15
-  %28 = zext i32 %27 to i64
-  %29 = getelementptr inbounds [16 x i16], ptr @map_4_to_16, i64 0, i64 %28
-  %30 = load i16, ptr %29, align 2, !tbaa !68
-  %31 = lshr i16 %30, 8
-  %32 = trunc i16 %31 to i8
-  store i8 %32, ptr %26, align 1, !tbaa !65
-  %33 = getelementptr inbounds i8, ptr %26, i64 %9
-  %34 = trunc i16 %30 to i8
-  store i8 %34, ptr %33, align 1, !tbaa !65
-  %35 = getelementptr inbounds i8, ptr %33, i64 %9
-  %36 = icmp eq i32 %14, 0
-  br i1 %36, label %37, label %10, !llvm.loop !73
+while.body:                                       ; preds = %while.body.lr.ph, %while.body
+  %bufp.addr.035 = phi ptr [ %bufp, %while.body.lr.ph ], [ %add.ptr17, %while.body ]
+  %data.addr.034 = phi ptr [ %data, %while.body.lr.ph ], [ %incdec.ptr, %while.body ]
+  %left.033 = phi i32 [ %dsize, %while.body.lr.ph ], [ %dec, %while.body ]
+  %dec = add nsw i32 %left.033, -1
+  %incdec.ptr = getelementptr inbounds i8, ptr %data.addr.034, i64 1
+  %1 = load i8, ptr %data.addr.034, align 1, !tbaa !65
+  %conv = zext i8 %1 to i32
+  %shr = lshr i32 %conv, 4
+  %idxprom = zext i32 %shr to i64
+  %arrayidx = getelementptr inbounds [16 x i16], ptr @map_4_to_16, i64 0, i64 %idxprom
+  %2 = load i16, ptr %arrayidx, align 2, !tbaa !68
+  %3 = lshr i16 %2, 8
+  %conv4 = trunc i16 %3 to i8
+  store i8 %conv4, ptr %bufp.addr.035, align 1, !tbaa !65
+  %add.ptr = getelementptr inbounds i8, ptr %bufp.addr.035, i64 %idx.ext
+  %conv5 = trunc i16 %2 to i8
+  store i8 %conv5, ptr %add.ptr, align 1, !tbaa !65
+  %add.ptr7 = getelementptr inbounds i8, ptr %add.ptr, i64 %idx.ext
+  %and = and i32 %conv, 15
+  %idxprom8 = zext i32 %and to i64
+  %arrayidx9 = getelementptr inbounds [16 x i16], ptr @map_4_to_16, i64 0, i64 %idxprom8
+  %4 = load i16, ptr %arrayidx9, align 2, !tbaa !68
+  %5 = lshr i16 %4, 8
+  %conv12 = trunc i16 %5 to i8
+  store i8 %conv12, ptr %add.ptr7, align 1, !tbaa !65
+  %add.ptr14 = getelementptr inbounds i8, ptr %add.ptr7, i64 %idx.ext
+  %conv15 = trunc i16 %4 to i8
+  store i8 %conv15, ptr %add.ptr14, align 1, !tbaa !65
+  %add.ptr17 = getelementptr inbounds i8, ptr %add.ptr14, i64 %idx.ext
+  %tobool.not = icmp eq i32 %dec, 0
+  br i1 %tobool.not, label %while.end, label %while.body, !llvm.loop !73
 
-37:                                               ; preds = %10, %4
+while.end:                                        ; preds = %while.body, %entry
   ret void
 }
 
 ; Function Attrs: nofree norecurse nosync nounwind memory(readwrite, inaccessiblemem: none) uwtable
-define dso_local void @image_unpack_3_spread(ptr nocapture noundef readonly %0, ptr nocapture noundef writeonly %1, ptr nocapture noundef readonly %2, i32 noundef %3) #3 {
-  %5 = icmp eq i32 %3, 0
-  br i1 %5, label %58, label %6
+define dso_local void @image_unpack_3_spread(ptr nocapture noundef readonly %penum, ptr nocapture noundef writeonly %bufp, ptr nocapture noundef readonly %data, i32 noundef %dsize) #3 {
+entry:
+  %tobool.not3 = icmp eq i32 %dsize, 0
+  br i1 %tobool.not3, label %while.end, label %while.body.lr.ph
 
-6:                                                ; preds = %4
-  %7 = getelementptr inbounds %struct.gs_image_enum_s, ptr %0, i64 0, i32 4
-  %8 = load i32, ptr %7, align 8, !tbaa !26
-  %9 = sext i32 %8 to i64
-  %10 = and i32 %3, 7
-  %11 = icmp eq i32 %10, 0
-  br i1 %11, label %23, label %12
+while.body.lr.ph:                                 ; preds = %entry
+  %spread1 = getelementptr inbounds %struct.gs_image_enum_s, ptr %penum, i64 0, i32 4
+  %0 = load i32, ptr %spread1, align 8, !tbaa !26
+  %idx.ext = sext i32 %0 to i64
+  %xtraiter = and i32 %dsize, 7
+  %lcmp.mod.not = icmp eq i32 %xtraiter, 0
+  br i1 %lcmp.mod.not, label %while.body.prol.loopexit, label %while.body.prol
 
-12:                                               ; preds = %6, %12
-  %13 = phi i32 [ %17, %12 ], [ %3, %6 ]
-  %14 = phi ptr [ %20, %12 ], [ %1, %6 ]
-  %15 = phi ptr [ %18, %12 ], [ %2, %6 ]
-  %16 = phi i32 [ %21, %12 ], [ 0, %6 ]
-  %17 = add nsw i32 %13, -1
-  %18 = getelementptr inbounds i8, ptr %15, i64 1
-  %19 = load i8, ptr %15, align 1, !tbaa !65
-  store i8 %19, ptr %14, align 1, !tbaa !65
-  %20 = getelementptr inbounds i8, ptr %14, i64 %9
-  %21 = add i32 %16, 1
-  %22 = icmp eq i32 %21, %10
-  br i1 %22, label %23, label %12, !llvm.loop !74
+while.body.prol:                                  ; preds = %while.body.lr.ph, %while.body.prol
+  %left.06.prol = phi i32 [ %dec.prol, %while.body.prol ], [ %dsize, %while.body.lr.ph ]
+  %bufp.addr.05.prol = phi ptr [ %add.ptr.prol, %while.body.prol ], [ %bufp, %while.body.lr.ph ]
+  %data.addr.04.prol = phi ptr [ %incdec.ptr.prol, %while.body.prol ], [ %data, %while.body.lr.ph ]
+  %prol.iter = phi i32 [ %prol.iter.next, %while.body.prol ], [ 0, %while.body.lr.ph ]
+  %dec.prol = add nsw i32 %left.06.prol, -1
+  %incdec.ptr.prol = getelementptr inbounds i8, ptr %data.addr.04.prol, i64 1
+  %1 = load i8, ptr %data.addr.04.prol, align 1, !tbaa !65
+  store i8 %1, ptr %bufp.addr.05.prol, align 1, !tbaa !65
+  %add.ptr.prol = getelementptr inbounds i8, ptr %bufp.addr.05.prol, i64 %idx.ext
+  %prol.iter.next = add i32 %prol.iter, 1
+  %prol.iter.cmp.not = icmp eq i32 %prol.iter.next, %xtraiter
+  br i1 %prol.iter.cmp.not, label %while.body.prol.loopexit, label %while.body.prol, !llvm.loop !74
 
-23:                                               ; preds = %12, %6
-  %24 = phi i32 [ %3, %6 ], [ %17, %12 ]
-  %25 = phi ptr [ %1, %6 ], [ %20, %12 ]
-  %26 = phi ptr [ %2, %6 ], [ %18, %12 ]
-  %27 = icmp ult i32 %3, 8
-  br i1 %27, label %58, label %28
+while.body.prol.loopexit:                         ; preds = %while.body.prol, %while.body.lr.ph
+  %left.06.unr = phi i32 [ %dsize, %while.body.lr.ph ], [ %dec.prol, %while.body.prol ]
+  %bufp.addr.05.unr = phi ptr [ %bufp, %while.body.lr.ph ], [ %add.ptr.prol, %while.body.prol ]
+  %data.addr.04.unr = phi ptr [ %data, %while.body.lr.ph ], [ %incdec.ptr.prol, %while.body.prol ]
+  %2 = icmp ult i32 %dsize, 8
+  br i1 %2, label %while.end, label %while.body
 
-28:                                               ; preds = %23, %28
-  %29 = phi i32 [ %53, %28 ], [ %24, %23 ]
-  %30 = phi ptr [ %56, %28 ], [ %25, %23 ]
-  %31 = phi ptr [ %54, %28 ], [ %26, %23 ]
-  %32 = getelementptr inbounds i8, ptr %31, i64 1
-  %33 = load i8, ptr %31, align 1, !tbaa !65
-  store i8 %33, ptr %30, align 1, !tbaa !65
-  %34 = getelementptr inbounds i8, ptr %30, i64 %9
-  %35 = getelementptr inbounds i8, ptr %31, i64 2
-  %36 = load i8, ptr %32, align 1, !tbaa !65
-  store i8 %36, ptr %34, align 1, !tbaa !65
-  %37 = getelementptr inbounds i8, ptr %34, i64 %9
-  %38 = getelementptr inbounds i8, ptr %31, i64 3
-  %39 = load i8, ptr %35, align 1, !tbaa !65
-  store i8 %39, ptr %37, align 1, !tbaa !65
-  %40 = getelementptr inbounds i8, ptr %37, i64 %9
-  %41 = getelementptr inbounds i8, ptr %31, i64 4
-  %42 = load i8, ptr %38, align 1, !tbaa !65
-  store i8 %42, ptr %40, align 1, !tbaa !65
-  %43 = getelementptr inbounds i8, ptr %40, i64 %9
-  %44 = getelementptr inbounds i8, ptr %31, i64 5
-  %45 = load i8, ptr %41, align 1, !tbaa !65
-  store i8 %45, ptr %43, align 1, !tbaa !65
-  %46 = getelementptr inbounds i8, ptr %43, i64 %9
-  %47 = getelementptr inbounds i8, ptr %31, i64 6
-  %48 = load i8, ptr %44, align 1, !tbaa !65
-  store i8 %48, ptr %46, align 1, !tbaa !65
-  %49 = getelementptr inbounds i8, ptr %46, i64 %9
-  %50 = getelementptr inbounds i8, ptr %31, i64 7
-  %51 = load i8, ptr %47, align 1, !tbaa !65
-  store i8 %51, ptr %49, align 1, !tbaa !65
-  %52 = getelementptr inbounds i8, ptr %49, i64 %9
-  %53 = add nsw i32 %29, -8
-  %54 = getelementptr inbounds i8, ptr %31, i64 8
-  %55 = load i8, ptr %50, align 1, !tbaa !65
-  store i8 %55, ptr %52, align 1, !tbaa !65
-  %56 = getelementptr inbounds i8, ptr %52, i64 %9
-  %57 = icmp eq i32 %53, 0
-  br i1 %57, label %58, label %28, !llvm.loop !76
+while.body:                                       ; preds = %while.body.prol.loopexit, %while.body
+  %left.06 = phi i32 [ %dec.7, %while.body ], [ %left.06.unr, %while.body.prol.loopexit ]
+  %bufp.addr.05 = phi ptr [ %add.ptr.7, %while.body ], [ %bufp.addr.05.unr, %while.body.prol.loopexit ]
+  %data.addr.04 = phi ptr [ %incdec.ptr.7, %while.body ], [ %data.addr.04.unr, %while.body.prol.loopexit ]
+  %incdec.ptr = getelementptr inbounds i8, ptr %data.addr.04, i64 1
+  %3 = load i8, ptr %data.addr.04, align 1, !tbaa !65
+  store i8 %3, ptr %bufp.addr.05, align 1, !tbaa !65
+  %add.ptr = getelementptr inbounds i8, ptr %bufp.addr.05, i64 %idx.ext
+  %incdec.ptr.1 = getelementptr inbounds i8, ptr %data.addr.04, i64 2
+  %4 = load i8, ptr %incdec.ptr, align 1, !tbaa !65
+  store i8 %4, ptr %add.ptr, align 1, !tbaa !65
+  %add.ptr.1 = getelementptr inbounds i8, ptr %add.ptr, i64 %idx.ext
+  %incdec.ptr.2 = getelementptr inbounds i8, ptr %data.addr.04, i64 3
+  %5 = load i8, ptr %incdec.ptr.1, align 1, !tbaa !65
+  store i8 %5, ptr %add.ptr.1, align 1, !tbaa !65
+  %add.ptr.2 = getelementptr inbounds i8, ptr %add.ptr.1, i64 %idx.ext
+  %incdec.ptr.3 = getelementptr inbounds i8, ptr %data.addr.04, i64 4
+  %6 = load i8, ptr %incdec.ptr.2, align 1, !tbaa !65
+  store i8 %6, ptr %add.ptr.2, align 1, !tbaa !65
+  %add.ptr.3 = getelementptr inbounds i8, ptr %add.ptr.2, i64 %idx.ext
+  %incdec.ptr.4 = getelementptr inbounds i8, ptr %data.addr.04, i64 5
+  %7 = load i8, ptr %incdec.ptr.3, align 1, !tbaa !65
+  store i8 %7, ptr %add.ptr.3, align 1, !tbaa !65
+  %add.ptr.4 = getelementptr inbounds i8, ptr %add.ptr.3, i64 %idx.ext
+  %incdec.ptr.5 = getelementptr inbounds i8, ptr %data.addr.04, i64 6
+  %8 = load i8, ptr %incdec.ptr.4, align 1, !tbaa !65
+  store i8 %8, ptr %add.ptr.4, align 1, !tbaa !65
+  %add.ptr.5 = getelementptr inbounds i8, ptr %add.ptr.4, i64 %idx.ext
+  %incdec.ptr.6 = getelementptr inbounds i8, ptr %data.addr.04, i64 7
+  %9 = load i8, ptr %incdec.ptr.5, align 1, !tbaa !65
+  store i8 %9, ptr %add.ptr.5, align 1, !tbaa !65
+  %add.ptr.6 = getelementptr inbounds i8, ptr %add.ptr.5, i64 %idx.ext
+  %dec.7 = add nsw i32 %left.06, -8
+  %incdec.ptr.7 = getelementptr inbounds i8, ptr %data.addr.04, i64 8
+  %10 = load i8, ptr %incdec.ptr.6, align 1, !tbaa !65
+  store i8 %10, ptr %add.ptr.6, align 1, !tbaa !65
+  %add.ptr.7 = getelementptr inbounds i8, ptr %add.ptr.6, i64 %idx.ext
+  %tobool.not.7 = icmp eq i32 %dec.7, 0
+  br i1 %tobool.not.7, label %while.end, label %while.body, !llvm.loop !76
 
-58:                                               ; preds = %23, %28, %4
+while.end:                                        ; preds = %while.body.prol.loopexit, %while.body, %entry
   ret void
 }
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(none) uwtable
-define dso_local i32 @image_render_skip(ptr nocapture readnone %0, ptr nocapture readnone %1, i32 %2, i32 noundef returned %3) #5 {
-  ret i32 %3
+define dso_local i32 @image_render_skip(ptr nocapture readnone %penum, ptr nocapture readnone %data, i32 %w, i32 noundef returned %h) #5 {
+entry:
+  ret i32 %h
 }
 
 ; Function Attrs: nounwind uwtable
-define dso_local i32 @image_render_color(ptr nocapture noundef readonly %0, ptr noundef %1, i32 noundef %2, i32 %3) #0 {
-  %5 = alloca %struct.gs_color_s, align 2
-  %6 = alloca %struct.gx_device_color_s, align 8
-  %7 = alloca %struct.gx_device_color_s, align 8
-  %8 = alloca %struct.gx_path_s, align 8
-  %9 = getelementptr inbounds %struct.gs_image_enum_s, ptr %0, i64 0, i32 11
-  %10 = load ptr, ptr %9, align 8, !tbaa !37
-  %11 = getelementptr inbounds %struct.gs_image_enum_s, ptr %0, i64 0, i32 5
-  %12 = load i64, ptr %11, align 8, !tbaa !28
-  %13 = getelementptr inbounds %struct.gs_image_enum_s, ptr %0, i64 0, i32 6
-  %14 = load i64, ptr %13, align 8, !tbaa !77
-  %15 = getelementptr inbounds %struct.gs_image_enum_s, ptr %0, i64 0, i32 7
-  %16 = load i64, ptr %15, align 8, !tbaa !78
-  %17 = getelementptr inbounds %struct.gs_image_enum_s, ptr %0, i64 0, i32 8
-  %18 = load i64, ptr %17, align 8, !tbaa !30
-  %19 = getelementptr inbounds %struct.gs_image_enum_s, ptr %0, i64 0, i32 16
-  %20 = load i32, ptr %19, align 4, !tbaa !32
-  %21 = getelementptr inbounds %struct.gs_image_enum_s, ptr %0, i64 0, i32 22
-  %22 = load i64, ptr %21, align 8, !tbaa !34
-  %23 = getelementptr inbounds %struct.gs_image_enum_s, ptr %0, i64 0, i32 23
-  %24 = load i64, ptr %23, align 8, !tbaa !36
-  call void @llvm.lifetime.start.p0(i64 10, ptr nonnull %5) #8
-  call void @llvm.lifetime.start.p0(i64 32, ptr nonnull %6) #8
-  call void @llvm.lifetime.start.p0(i64 32, ptr nonnull %7) #8
-  %25 = getelementptr inbounds %struct.gs_image_enum_s, ptr %0, i64 0, i32 3
-  %26 = load i32, ptr %25, align 4, !tbaa !25
-  %27 = zext i32 %2 to i64
-  %28 = getelementptr inbounds i8, ptr %1, i64 %27
-  %29 = sub nsw i32 0, %26
-  %30 = sext i32 %29 to i64
-  %31 = getelementptr inbounds i8, ptr %28, i64 %30
-  %32 = load i8, ptr %31, align 1, !tbaa !65
-  %33 = xor i8 %32, -1
-  store i8 %33, ptr %28, align 1, !tbaa !65
-  %34 = icmp eq i32 %20, 0
-  br i1 %34, label %35, label %45
+define dso_local i32 @image_render_color(ptr nocapture noundef readonly %penum, ptr noundef %buffer, i32 noundef %w, i32 %h) #0 {
+entry:
+  %rcolor = alloca %struct.gs_color_s, align 2
+  %devc1 = alloca %struct.gx_device_color_s, align 8
+  %devc2 = alloca %struct.gx_device_color_s, align 8
+  %ipath = alloca %struct.gx_path_s, align 8
+  %pgs1 = getelementptr inbounds %struct.gs_image_enum_s, ptr %penum, i64 0, i32 11
+  %0 = load ptr, ptr %pgs1, align 8, !tbaa !37
+  %fxx = getelementptr inbounds %struct.gs_image_enum_s, ptr %penum, i64 0, i32 5
+  %1 = load i64, ptr %fxx, align 8, !tbaa !28
+  %fxy = getelementptr inbounds %struct.gs_image_enum_s, ptr %penum, i64 0, i32 6
+  %2 = load i64, ptr %fxy, align 8, !tbaa !77
+  %fyx = getelementptr inbounds %struct.gs_image_enum_s, ptr %penum, i64 0, i32 7
+  %3 = load i64, ptr %fyx, align 8, !tbaa !78
+  %fyy = getelementptr inbounds %struct.gs_image_enum_s, ptr %penum, i64 0, i32 8
+  %4 = load i64, ptr %fyy, align 8, !tbaa !30
+  %skewed = getelementptr inbounds %struct.gs_image_enum_s, ptr %penum, i64 0, i32 16
+  %5 = load i32, ptr %skewed, align 4, !tbaa !32
+  %xcur = getelementptr inbounds %struct.gs_image_enum_s, ptr %penum, i64 0, i32 22
+  %6 = load i64, ptr %xcur, align 8, !tbaa !34
+  %ycur = getelementptr inbounds %struct.gs_image_enum_s, ptr %penum, i64 0, i32 23
+  %7 = load i64, ptr %ycur, align 8, !tbaa !36
+  call void @llvm.lifetime.start.p0(i64 10, ptr nonnull %rcolor) #8
+  call void @llvm.lifetime.start.p0(i64 32, ptr nonnull %devc1) #8
+  call void @llvm.lifetime.start.p0(i64 32, ptr nonnull %devc2) #8
+  %spp2 = getelementptr inbounds %struct.gs_image_enum_s, ptr %penum, i64 0, i32 3
+  %8 = load i32, ptr %spp2, align 4, !tbaa !25
+  %idx.ext = zext i32 %w to i64
+  %add.ptr = getelementptr inbounds i8, ptr %buffer, i64 %idx.ext
+  %sub = sub nsw i32 0, %8
+  %idxprom = sext i32 %sub to i64
+  %arrayidx = getelementptr inbounds i8, ptr %add.ptr, i64 %idxprom
+  %9 = load i8, ptr %arrayidx, align 1, !tbaa !65
+  %not = xor i8 %9, -1
+  store i8 %not, ptr %add.ptr, align 1, !tbaa !65
+  %tobool.not = icmp eq i32 %5, 0
+  br i1 %tobool.not, label %if.then, label %while.body.lr.ph
 
-35:                                               ; preds = %4
-  %36 = add i64 %24, 2048
-  %37 = lshr i64 %36, 12
-  %38 = trunc i64 %37 to i32
-  %39 = add i64 %36, %18
-  %40 = lshr i64 %39, 12
-  %41 = trunc i64 %40 to i32
-  %42 = sub nsw i32 %41, %38
-  %43 = tail call i32 @llvm.abs.i32(i32 %42, i1 true)
-  %44 = tail call i32 @llvm.smin.i32(i32 %42, i32 0)
-  br label %45
+if.then:                                          ; preds = %entry
+  %add5 = add i64 %7, 2048
+  %10 = lshr i64 %add5, 12
+  %conv6 = trunc i64 %10 to i32
+  %add7 = add i64 %add5, %4
+  %11 = lshr i64 %add7, 12
+  %conv9 = trunc i64 %11 to i32
+  %sub10 = sub nsw i32 %conv9, %conv6
+  %iht.0 = tail call i32 @llvm.abs.i32(i32 %sub10, i1 true)
+  %idy.0 = tail call i32 @llvm.smin.i32(i32 %sub10, i32 0)
+  br label %while.body.lr.ph
 
-45:                                               ; preds = %4, %35
-  %46 = phi i32 [ undef, %4 ], [ %43, %35 ]
-  %47 = phi i32 [ undef, %4 ], [ %44, %35 ]
-  %48 = phi i32 [ undef, %4 ], [ %38, %35 ]
-  %49 = getelementptr inbounds %struct.gs_color_s, ptr %5, i64 0, i32 2
-  store i16 0, ptr %49, align 2, !tbaa !79
-  %50 = getelementptr inbounds %struct.gs_color_s, ptr %5, i64 0, i32 1
-  store i16 0, ptr %50, align 2, !tbaa !81
-  store i16 0, ptr %5, align 2, !tbaa !82
-  %51 = call i32 (ptr, ...) @gx_color_from_rgb(ptr noundef nonnull %5) #8
-  %52 = call i32 (ptr, ptr, ptr, ...) @gx_color_render(ptr noundef nonnull %5, ptr noundef nonnull %6, ptr noundef %10) #8
-  %53 = icmp eq i32 %26, 4
-  %54 = getelementptr inbounds %struct.gx_device_color_s, ptr %6, i64 0, i32 2
-  %55 = getelementptr inbounds %struct.gx_device_color_s, ptr %7, i64 0, i32 2
-  %56 = getelementptr inbounds %struct.gx_device_color_s, ptr %6, i64 0, i32 1
-  %57 = getelementptr inbounds %struct.gx_device_color_s, ptr %7, i64 0, i32 1
-  %58 = getelementptr inbounds %struct.gs_image_enum_s, ptr %0, i64 0, i32 17
-  %59 = getelementptr inbounds %struct.gs_state_s, ptr %10, i64 0, i32 1
-  %60 = add nsw i32 %48, %47
-  br label %61
+while.body.lr.ph:                                 ; preds = %entry, %if.then
+  %iht.1 = phi i32 [ undef, %entry ], [ %iht.0, %if.then ]
+  %idy.1 = phi i32 [ undef, %entry ], [ %idy.0, %if.then ]
+  %yt.0 = phi i32 [ undef, %entry ], [ %conv6, %if.then ]
+  %blue = getelementptr inbounds %struct.gs_color_s, ptr %rcolor, i64 0, i32 2
+  store i16 0, ptr %blue, align 2, !tbaa !79
+  %green = getelementptr inbounds %struct.gs_color_s, ptr %rcolor, i64 0, i32 1
+  store i16 0, ptr %green, align 2, !tbaa !81
+  store i16 0, ptr %rcolor, align 2, !tbaa !82
+  %call = call i32 (ptr, ...) @gx_color_from_rgb(ptr noundef nonnull %rcolor) #8
+  %call15 = call i32 (ptr, ptr, ptr, ...) @gx_color_render(ptr noundef nonnull %rcolor, ptr noundef nonnull %devc1, ptr noundef %0) #8
+  %cmp18 = icmp eq i32 %8, 4
+  %halftone_level = getelementptr inbounds %struct.gx_device_color_s, ptr %devc1, i64 0, i32 2
+  %halftone_level84 = getelementptr inbounds %struct.gx_device_color_s, ptr %devc2, i64 0, i32 2
+  %color2 = getelementptr inbounds %struct.gx_device_color_s, ptr %devc1, i64 0, i32 1
+  %color290 = getelementptr inbounds %struct.gx_device_color_s, ptr %devc2, i64 0, i32 1
+  %slow_loop = getelementptr inbounds %struct.gs_image_enum_s, ptr %penum, i64 0, i32 17
+  %memory_procs = getelementptr inbounds %struct.gs_state_s, ptr %0, i64 0, i32 1
+  %add123 = add nsw i32 %yt.0, %idy.1
+  br label %while.body
 
-61:                                               ; preds = %45, %170
-  %62 = phi i64 [ %24, %45 ], [ %177, %170 ]
-  %63 = phi ptr [ %6, %45 ], [ %175, %170 ]
-  %64 = phi ptr [ %7, %45 ], [ %174, %170 ]
-  %65 = phi i64 [ 0, %45 ], [ %173, %170 ]
-  %66 = phi i64 [ %24, %45 ], [ %172, %170 ]
-  %67 = phi i64 [ %22, %45 ], [ %171, %170 ]
-  %68 = phi ptr [ %1, %45 ], [ %109, %170 ]
-  %69 = phi i64 [ %22, %45 ], [ %176, %170 ]
-  br i1 %53, label %70, label %98
+while.body:                                       ; preds = %while.body.lr.ph, %if.end130
+  %ytf.0263 = phi i64 [ %7, %while.body.lr.ph ], [ %add132, %if.end130 ]
+  %pdevc.0262 = phi ptr [ %devc1, %while.body.lr.ph ], [ %pdevc.3, %if.end130 ]
+  %pdevc_next.0261 = phi ptr [ %devc2, %while.body.lr.ph ], [ %pdevc_next.3, %if.end130 ]
+  %run.sroa.0.0260 = phi i64 [ 0, %while.body.lr.ph ], [ %run.sroa.0.1, %if.end130 ]
+  %yrun.0259 = phi i64 [ %7, %while.body.lr.ph ], [ %yrun.3, %if.end130 ]
+  %xrun.0258 = phi i64 [ %6, %while.body.lr.ph ], [ %xrun.3, %if.end130 ]
+  %psrc.0257 = phi ptr [ %buffer, %while.body.lr.ph ], [ %add.ptr48, %if.end130 ]
+  %xl.0256 = phi i64 [ %6, %while.body.lr.ph ], [ %add131, %if.end130 ]
+  br i1 %cmp18, label %if.then20, label %if.else41
 
-70:                                               ; preds = %61
-  %71 = getelementptr inbounds i8, ptr %68, i64 3
-  %72 = load i8, ptr %71, align 1, !tbaa !65
-  %73 = xor i8 %72, -1
-  %74 = zext i8 %73 to i32
-  %75 = load i8, ptr %68, align 1, !tbaa !65
-  %76 = xor i8 %75, -1
-  %77 = zext i8 %76 to i32
-  %78 = mul nuw nsw i32 %77, %74
-  %79 = trunc i32 %78 to i16
-  %80 = udiv i16 %79, 255
-  %81 = trunc i16 %80 to i8
-  %82 = getelementptr inbounds i8, ptr %68, i64 1
-  %83 = load i8, ptr %82, align 1, !tbaa !65
-  %84 = xor i8 %83, -1
-  %85 = zext i8 %84 to i32
-  %86 = mul nuw nsw i32 %85, %74
-  %87 = trunc i32 %86 to i16
-  %88 = udiv i16 %87, 255
-  %89 = trunc i16 %88 to i8
-  %90 = getelementptr inbounds i8, ptr %68, i64 2
-  %91 = load i8, ptr %90, align 1, !tbaa !65
-  %92 = xor i8 %91, -1
-  %93 = zext i8 %92 to i32
-  %94 = mul nuw nsw i32 %93, %74
-  %95 = trunc i32 %94 to i16
-  %96 = udiv i16 %95, 255
-  %97 = trunc i16 %96 to i8
-  br label %104
+if.then20:                                        ; preds = %while.body
+  %arrayidx21 = getelementptr inbounds i8, ptr %psrc.0257, i64 3
+  %12 = load i8, ptr %arrayidx21, align 1, !tbaa !65
+  %13 = xor i8 %12, -1
+  %sub23 = zext i8 %13 to i32
+  %14 = load i8, ptr %psrc.0257, align 1, !tbaa !65
+  %15 = xor i8 %14, -1
+  %sub26 = zext i8 %15 to i32
+  %mul = mul nuw nsw i32 %sub26, %sub23
+  %div.lhs.trunc = trunc i32 %mul to i16
+  %div252 = udiv i16 %div.lhs.trunc, 255
+  %conv27 = trunc i16 %div252 to i8
+  %arrayidx28 = getelementptr inbounds i8, ptr %psrc.0257, i64 1
+  %16 = load i8, ptr %arrayidx28, align 1, !tbaa !65
+  %17 = xor i8 %16, -1
+  %sub30 = zext i8 %17 to i32
+  %mul31 = mul nuw nsw i32 %sub30, %sub23
+  %div32.lhs.trunc = trunc i32 %mul31 to i16
+  %div32253 = udiv i16 %div32.lhs.trunc, 255
+  %conv33 = trunc i16 %div32253 to i8
+  %arrayidx34 = getelementptr inbounds i8, ptr %psrc.0257, i64 2
+  %18 = load i8, ptr %arrayidx34, align 1, !tbaa !65
+  %19 = xor i8 %18, -1
+  %sub36 = zext i8 %19 to i32
+  %mul37 = mul nuw nsw i32 %sub36, %sub23
+  %div38.lhs.trunc = trunc i32 %mul37 to i16
+  %div38254 = udiv i16 %div38.lhs.trunc, 255
+  %conv39 = trunc i16 %div38254 to i8
+  br label %if.end49
 
-98:                                               ; preds = %61
-  %99 = load i8, ptr %68, align 1, !tbaa !65
-  %100 = getelementptr inbounds i8, ptr %68, i64 1
-  %101 = load i8, ptr %100, align 1, !tbaa !65
-  %102 = getelementptr inbounds i8, ptr %68, i64 2
-  %103 = load i8, ptr %102, align 1, !tbaa !65
-  br label %104
+if.else41:                                        ; preds = %while.body
+  %20 = load i8, ptr %psrc.0257, align 1, !tbaa !65
+  %arrayidx44 = getelementptr inbounds i8, ptr %psrc.0257, i64 1
+  %21 = load i8, ptr %arrayidx44, align 1, !tbaa !65
+  %arrayidx46 = getelementptr inbounds i8, ptr %psrc.0257, i64 2
+  %22 = load i8, ptr %arrayidx46, align 1, !tbaa !65
+  br label %if.end49
 
-104:                                              ; preds = %98, %70
-  %105 = phi i64 [ 3, %98 ], [ 4, %70 ]
-  %106 = phi i8 [ %103, %98 ], [ %97, %70 ]
-  %107 = phi i8 [ %101, %98 ], [ %89, %70 ]
-  %108 = phi i8 [ %99, %98 ], [ %81, %70 ]
-  %109 = getelementptr inbounds i8, ptr %68, i64 %105
-  %110 = zext i8 %106 to i64
-  %111 = shl nuw nsw i64 %110, 16
-  %112 = zext i8 %107 to i64
-  %113 = shl nuw nsw i64 %112, 8
-  %114 = or i64 %113, %111
-  %115 = zext i8 %108 to i64
-  %116 = or i64 %114, %115
-  %117 = icmp eq i64 %116, %65
-  br i1 %117, label %170, label %118
+if.end49:                                         ; preds = %if.else41, %if.then20
+  %.sink = phi i64 [ 3, %if.else41 ], [ 4, %if.then20 ]
+  %next.sroa.13.0 = phi i8 [ %22, %if.else41 ], [ %conv39, %if.then20 ]
+  %next.sroa.9.0 = phi i8 [ %21, %if.else41 ], [ %conv33, %if.then20 ]
+  %next.sroa.0.0 = phi i8 [ %20, %if.else41 ], [ %conv27, %if.then20 ]
+  %add.ptr48 = getelementptr inbounds i8, ptr %psrc.0257, i64 %.sink
+  %next.sroa.13.0.insert.ext = zext i8 %next.sroa.13.0 to i64
+  %next.sroa.13.0.insert.shift = shl nuw nsw i64 %next.sroa.13.0.insert.ext, 16
+  %next.sroa.9.0.insert.ext = zext i8 %next.sroa.9.0 to i64
+  %next.sroa.9.0.insert.shift = shl nuw nsw i64 %next.sroa.9.0.insert.ext, 8
+  %next.sroa.9.0.insert.insert = or i64 %next.sroa.9.0.insert.shift, %next.sroa.13.0.insert.shift
+  %next.sroa.0.0.insert.ext = zext i8 %next.sroa.0.0 to i64
+  %next.sroa.0.0.insert.insert = or i64 %next.sroa.9.0.insert.insert, %next.sroa.0.0.insert.ext
+  %cmp50.not = icmp eq i64 %next.sroa.0.0.insert.insert, %run.sroa.0.0260
+  br i1 %cmp50.not, label %if.end130, label %if.then52
 
-118:                                              ; preds = %104
-  %119 = zext i8 %108 to i16
-  %120 = shl nuw i16 %119, 8
-  %121 = or i16 %120, %119
-  store i16 %121, ptr %5, align 2, !tbaa !82
-  %122 = zext i8 %107 to i16
-  %123 = shl nuw i16 %122, 8
-  %124 = or i16 %123, %122
-  store i16 %124, ptr %50, align 2, !tbaa !81
-  %125 = zext i8 %106 to i16
-  %126 = shl nuw i16 %125, 8
-  %127 = or i16 %126, %125
-  store i16 %127, ptr %49, align 2, !tbaa !79
-  %128 = call i32 (ptr, ...) @gx_color_from_rgb(ptr noundef nonnull %5) #8
-  %129 = call i32 (ptr, ptr, ptr, ...) @gx_color_render(ptr noundef nonnull %5, ptr noundef %64, ptr noundef %10) #8
-  %130 = load i64, ptr %6, align 8, !tbaa !45
-  %131 = load i64, ptr %7, align 8, !tbaa !45
-  %132 = icmp eq i64 %130, %131
-  br i1 %132, label %133, label %147
+if.then52:                                        ; preds = %if.end49
+  %conv55 = zext i8 %next.sroa.0.0 to i16
+  %add58 = mul nuw i16 %conv55, 257
+  store i16 %add58, ptr %rcolor, align 2, !tbaa !82
+  %conv63 = zext i8 %next.sroa.9.0 to i16
+  %add67 = mul nuw i16 %conv63, 257
+  store i16 %add67, ptr %green, align 2, !tbaa !81
+  %conv72 = zext i8 %next.sroa.13.0 to i16
+  %add76 = mul nuw i16 %conv72, 257
+  store i16 %add76, ptr %blue, align 2, !tbaa !79
+  %call79 = call i32 (ptr, ...) @gx_color_from_rgb(ptr noundef nonnull %rcolor) #8
+  %call80 = call i32 (ptr, ptr, ptr, ...) @gx_color_render(ptr noundef nonnull %rcolor, ptr noundef %pdevc_next.0261, ptr noundef %0) #8
+  %23 = load i64, ptr %devc1, align 8, !tbaa !45
+  %24 = load i64, ptr %devc2, align 8, !tbaa !45
+  %cmp82.not = icmp eq i64 %23, %24
+  br i1 %cmp82.not, label %lor.lhs.false, label %if.then96
 
-133:                                              ; preds = %118
-  %134 = load i32, ptr %54, align 8, !tbaa !41
-  %135 = load i32, ptr %55, align 8, !tbaa !41
-  %136 = icmp eq i32 %134, %135
-  br i1 %136, label %137, label %147
+lor.lhs.false:                                    ; preds = %if.then52
+  %25 = load i32, ptr %halftone_level, align 8, !tbaa !41
+  %26 = load i32, ptr %halftone_level84, align 8, !tbaa !41
+  %cmp85.not = icmp eq i32 %25, %26
+  br i1 %cmp85.not, label %lor.lhs.false87, label %if.then96
 
-137:                                              ; preds = %133
-  %138 = icmp eq i32 %134, 0
-  br i1 %138, label %145, label %139
+lor.lhs.false87:                                  ; preds = %lor.lhs.false
+  %tobool89.not = icmp eq i32 %25, 0
+  br i1 %tobool89.not, label %lor.lhs.false93, label %land.lhs.true
 
-139:                                              ; preds = %137
-  %140 = load i64, ptr %56, align 8, !tbaa !83
-  %141 = load i64, ptr %57, align 8, !tbaa !83
-  %142 = icmp ne i64 %140, %141
-  %143 = icmp ugt ptr %109, %28
-  %144 = select i1 %142, i1 true, i1 %143
-  br i1 %144, label %147, label %170
+land.lhs.true:                                    ; preds = %lor.lhs.false87
+  %27 = load i64, ptr %color2, align 8, !tbaa !83
+  %28 = load i64, ptr %color290, align 8, !tbaa !83
+  %cmp91.not = icmp ne i64 %27, %28
+  %cmp94 = icmp ugt ptr %add.ptr48, %add.ptr
+  %or.cond = select i1 %cmp91.not, i1 true, i1 %cmp94
+  br i1 %or.cond, label %if.then96, label %if.end130
 
-145:                                              ; preds = %137
-  %146 = icmp ugt ptr %109, %28
-  br i1 %146, label %147, label %170
+lor.lhs.false93:                                  ; preds = %lor.lhs.false87
+  %cmp94.old = icmp ugt ptr %add.ptr48, %add.ptr
+  br i1 %cmp94.old, label %if.then96, label %if.end130
 
-147:                                              ; preds = %145, %139, %133, %118
-  %148 = load i32, ptr %58, align 8, !tbaa !56
-  %149 = icmp eq i32 %148, 0
-  br i1 %149, label %157, label %150
+if.then96:                                        ; preds = %lor.lhs.false93, %land.lhs.true, %lor.lhs.false, %if.then52
+  %29 = load i32, ptr %slow_loop, align 8, !tbaa !56
+  %tobool97.not = icmp eq i32 %29, 0
+  br i1 %tobool97.not, label %if.else109, label %if.then98
 
-150:                                              ; preds = %147
-  call void @llvm.lifetime.start.p0(i64 144, ptr nonnull %8) #8
-  call void @gx_path_init(ptr noundef nonnull %8, ptr noundef nonnull %59) #8
-  %151 = add nsw i64 %69, %16
-  %152 = add nsw i64 %62, %18
-  %153 = call i32 @gx_path_add_pgram(ptr noundef nonnull %8, i64 noundef %67, i64 noundef %66, i64 noundef %69, i64 noundef %62, i64 noundef %151, i64 noundef %152) #8
-  %154 = icmp slt i32 %153, 0
-  br i1 %154, label %169, label %155
+if.then98:                                        ; preds = %if.then96
+  call void @llvm.lifetime.start.p0(i64 144, ptr nonnull %ipath) #8
+  call void @gx_path_init(ptr noundef nonnull %ipath, ptr noundef nonnull %memory_procs) #8
+  %add99 = add nsw i64 %xl.0256, %3
+  %add100 = add nsw i64 %ytf.0263, %4
+  %call101 = call i32 @gx_path_add_pgram(ptr noundef nonnull %ipath, i64 noundef %xrun.0258, i64 noundef %yrun.0259, i64 noundef %xl.0256, i64 noundef %ytf.0263, i64 noundef %add99, i64 noundef %add100) #8
+  %cmp102 = icmp sgt i32 %call101, -1
+  br i1 %cmp102, label %cleanup.thread, label %cleanup126
 
-155:                                              ; preds = %150
-  %156 = call i32 (ptr, ptr, ptr, i32, i64, ...) @gx_fill_path(ptr noundef nonnull %8, ptr noundef %63, ptr noundef %10, i32 noundef -1, i64 noundef 0) #8
-  call void @gx_path_release(ptr noundef nonnull %8) #8
-  call void @llvm.lifetime.end.p0(i64 144, ptr nonnull %8) #8
-  br label %170
+cleanup.thread:                                   ; preds = %if.then98
+  %call106 = call i32 (ptr, ptr, ptr, i32, i64, ...) @gx_fill_path(ptr noundef nonnull %ipath, ptr noundef %pdevc.0262, ptr noundef %0, i32 noundef -1, i64 noundef 0) #8
+  call void @gx_path_release(ptr noundef nonnull %ipath) #8
+  call void @llvm.lifetime.end.p0(i64 144, ptr nonnull %ipath) #8
+  br label %if.end130
 
-157:                                              ; preds = %147
-  %158 = add nsw i64 %67, 2048
-  %159 = lshr i64 %158, 12
-  %160 = trunc i64 %159 to i32
-  %161 = add nsw i64 %69, 2048
-  %162 = lshr i64 %161, 12
-  %163 = trunc i64 %162 to i32
-  %164 = sub nsw i32 %163, %160
-  %165 = icmp slt i32 %164, 0
-  %166 = select i1 %165, i32 %163, i32 %160
-  %167 = call i32 @llvm.abs.i32(i32 %164, i1 true)
-  %168 = call i32 (i32, i32, i32, i32, ptr, ptr, ...) @gz_fill_rectangle(i32 noundef %166, i32 noundef %60, i32 noundef %167, i32 noundef %46, ptr noundef %63, ptr noundef %10) #8
-  br label %170
+if.else109:                                       ; preds = %if.then96
+  %add110 = add nsw i64 %xrun.0258, 2048
+  %30 = lshr i64 %add110, 12
+  %conv112 = trunc i64 %30 to i32
+  %add113 = add nsw i64 %xl.0256, 2048
+  %31 = lshr i64 %add113, 12
+  %conv115 = trunc i64 %31 to i32
+  %sub116 = sub nsw i32 %conv115, %conv112
+  %cmp117 = icmp slt i32 %sub116, 0
+  %spec.select = select i1 %cmp117, i32 %conv115, i32 %conv112
+  %spec.select244 = call i32 @llvm.abs.i32(i32 %sub116, i1 true)
+  %call124 = call i32 (i32, i32, i32, i32, ptr, ptr, ...) @gz_fill_rectangle(i32 noundef %spec.select, i32 noundef %add123, i32 noundef %spec.select244, i32 noundef %iht.1, ptr noundef %pdevc.0262, ptr noundef %0) #8
+  br label %if.end130
 
-169:                                              ; preds = %150
-  call void @gx_path_release(ptr noundef nonnull %8) #8
-  call void @llvm.lifetime.end.p0(i64 144, ptr nonnull %8) #8
-  br label %179
+cleanup126:                                       ; preds = %if.then98
+  call void @gx_path_release(ptr noundef nonnull %ipath) #8
+  call void @llvm.lifetime.end.p0(i64 144, ptr nonnull %ipath) #8
+  br label %cleanup133
 
-170:                                              ; preds = %139, %157, %155, %145, %104
-  %171 = phi i64 [ %67, %104 ], [ %67, %145 ], [ %69, %155 ], [ %69, %157 ], [ %67, %139 ]
-  %172 = phi i64 [ %66, %104 ], [ %66, %145 ], [ %62, %155 ], [ %62, %157 ], [ %66, %139 ]
-  %173 = phi i64 [ %65, %104 ], [ %116, %145 ], [ %116, %155 ], [ %116, %157 ], [ %116, %139 ]
-  %174 = phi ptr [ %64, %104 ], [ %64, %145 ], [ %63, %155 ], [ %63, %157 ], [ %64, %139 ]
-  %175 = phi ptr [ %63, %104 ], [ %63, %145 ], [ %64, %155 ], [ %64, %157 ], [ %63, %139 ]
-  %176 = add nsw i64 %69, %12
-  %177 = add nsw i64 %62, %14
-  %178 = icmp ugt ptr %109, %28
-  br i1 %178, label %179, label %61, !llvm.loop !84
+if.end130:                                        ; preds = %if.else109, %cleanup.thread, %lor.lhs.false93, %land.lhs.true, %if.end49
+  %xrun.3 = phi i64 [ %xrun.0258, %if.end49 ], [ %xrun.0258, %lor.lhs.false93 ], [ %xrun.0258, %land.lhs.true ], [ %xl.0256, %cleanup.thread ], [ %xl.0256, %if.else109 ]
+  %yrun.3 = phi i64 [ %yrun.0259, %if.end49 ], [ %yrun.0259, %lor.lhs.false93 ], [ %yrun.0259, %land.lhs.true ], [ %ytf.0263, %cleanup.thread ], [ %ytf.0263, %if.else109 ]
+  %run.sroa.0.1 = phi i64 [ %run.sroa.0.0260, %if.end49 ], [ %next.sroa.0.0.insert.insert, %lor.lhs.false93 ], [ %next.sroa.0.0.insert.insert, %land.lhs.true ], [ %next.sroa.0.0.insert.insert, %cleanup.thread ], [ %next.sroa.0.0.insert.insert, %if.else109 ]
+  %pdevc_next.3 = phi ptr [ %pdevc_next.0261, %if.end49 ], [ %pdevc_next.0261, %lor.lhs.false93 ], [ %pdevc_next.0261, %land.lhs.true ], [ %pdevc.0262, %cleanup.thread ], [ %pdevc.0262, %if.else109 ]
+  %pdevc.3 = phi ptr [ %pdevc.0262, %if.end49 ], [ %pdevc.0262, %lor.lhs.false93 ], [ %pdevc.0262, %land.lhs.true ], [ %pdevc_next.0261, %cleanup.thread ], [ %pdevc_next.0261, %if.else109 ]
+  %add131 = add nsw i64 %xl.0256, %1
+  %add132 = add nsw i64 %ytf.0263, %2
+  %cmp16.not = icmp ugt ptr %add.ptr48, %add.ptr
+  br i1 %cmp16.not, label %cleanup133, label %while.body, !llvm.loop !84
 
-179:                                              ; preds = %170, %169
-  %180 = phi i32 [ %153, %169 ], [ 1, %170 ]
-  call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %7) #8
-  call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %6) #8
-  call void @llvm.lifetime.end.p0(i64 10, ptr nonnull %5) #8
-  ret i32 %180
+cleanup133:                                       ; preds = %if.end130, %cleanup126
+  %retval.6 = phi i32 [ %call101, %cleanup126 ], [ 1, %if.end130 ]
+  call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %devc2) #8
+  call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %devc1) #8
+  call void @llvm.lifetime.end.p0(i64 10, ptr nonnull %rcolor) #8
+  ret i32 %retval.6
 }
 
 ; Function Attrs: nounwind uwtable
-define dso_local i32 @image_render_direct(ptr nocapture noundef readonly %0, ptr noundef %1, i32 noundef %2, i32 noundef %3) #0 {
-  %5 = getelementptr inbounds %struct.gs_image_enum_s, ptr %0, i64 0, i32 22
-  %6 = load i64, ptr %5, align 8, !tbaa !34
-  %7 = getelementptr inbounds %struct.gs_image_enum_s, ptr %0, i64 0, i32 23
-  %8 = load i64, ptr %7, align 8, !tbaa !36
-  %9 = getelementptr inbounds %struct.gs_image_enum_s, ptr %0, i64 0, i32 8
-  %10 = load i64, ptr %9, align 8, !tbaa !30
-  %11 = add nsw i64 %10, %8
-  %12 = lshr i64 %6, 12
-  %13 = trunc i64 %12 to i32
-  %14 = lshr i64 %8, 12
-  %15 = trunc i64 %14 to i32
-  %16 = lshr i64 %11, 12
-  %17 = trunc i64 %16 to i32
-  %18 = sub nsw i32 %17, %15
-  %19 = getelementptr inbounds %struct.gs_image_enum_s, ptr %0, i64 0, i32 11
-  %20 = load ptr, ptr %19, align 8, !tbaa !37
-  %21 = getelementptr inbounds %struct.gs_state_s, ptr %20, i64 0, i32 22
-  %22 = load ptr, ptr %21, align 8, !tbaa !16
-  %23 = load ptr, ptr %22, align 8, !tbaa !85
-  %24 = getelementptr inbounds %struct.gx_device_s, ptr %23, i64 0, i32 1
-  %25 = load ptr, ptr %24, align 8, !tbaa !86
-  %26 = getelementptr inbounds %struct.gx_device_procs_s, ptr %25, i64 0, i32 9
-  %27 = load ptr, ptr %26, align 8, !tbaa !88
-  %28 = getelementptr inbounds %struct.gs_image_enum_s, ptr %0, i64 0, i32 25
-  %29 = load i64, ptr %28, align 8, !tbaa !45
-  %30 = getelementptr inbounds %struct.gs_image_enum_s, ptr %0, i64 0, i32 25, i64 255
-  %31 = load i64, ptr %30, align 8, !tbaa !45
-  %32 = icmp eq i32 %18, 1
-  br i1 %32, label %33, label %37
+define dso_local i32 @image_render_direct(ptr nocapture noundef readonly %penum, ptr noundef %data, i32 noundef %w, i32 noundef %h) #0 {
+entry:
+  %xcur = getelementptr inbounds %struct.gs_image_enum_s, ptr %penum, i64 0, i32 22
+  %0 = load i64, ptr %xcur, align 8, !tbaa !34
+  %ycur = getelementptr inbounds %struct.gs_image_enum_s, ptr %penum, i64 0, i32 23
+  %1 = load i64, ptr %ycur, align 8, !tbaa !36
+  %fyy = getelementptr inbounds %struct.gs_image_enum_s, ptr %penum, i64 0, i32 8
+  %2 = load i64, ptr %fyy, align 8, !tbaa !30
+  %add = add nsw i64 %2, %1
+  %3 = lshr i64 %0, 12
+  %conv = trunc i64 %3 to i32
+  %4 = lshr i64 %1, 12
+  %conv2 = trunc i64 %4 to i32
+  %5 = lshr i64 %add, 12
+  %conv4 = trunc i64 %5 to i32
+  %sub = sub nsw i32 %conv4, %conv2
+  %pgs = getelementptr inbounds %struct.gs_image_enum_s, ptr %penum, i64 0, i32 11
+  %6 = load ptr, ptr %pgs, align 8, !tbaa !37
+  %device = getelementptr inbounds %struct.gs_state_s, ptr %6, i64 0, i32 22
+  %7 = load ptr, ptr %device, align 8, !tbaa !16
+  %8 = load ptr, ptr %7, align 8, !tbaa !85
+  %procs = getelementptr inbounds %struct.gx_device_s, ptr %8, i64 0, i32 1
+  %9 = load ptr, ptr %procs, align 8, !tbaa !86
+  %copy_mono = getelementptr inbounds %struct.gx_device_procs_s, ptr %9, i64 0, i32 9
+  %10 = load ptr, ptr %copy_mono, align 8, !tbaa !88
+  %dev_colors = getelementptr inbounds %struct.gs_image_enum_s, ptr %penum, i64 0, i32 25
+  %11 = load i64, ptr %dev_colors, align 8, !tbaa !45
+  %arrayidx6 = getelementptr inbounds %struct.gs_image_enum_s, ptr %penum, i64 0, i32 25, i64 255
+  %12 = load i64, ptr %arrayidx6, align 8, !tbaa !45
+  %cmp = icmp eq i32 %sub, 1
+  br i1 %cmp, label %if.then, label %if.else
 
-33:                                               ; preds = %4
-  %34 = add i32 %2, 7
-  %35 = lshr i32 %34, 3
-  %36 = tail call i32 %27(ptr noundef nonnull %23, ptr noundef %1, i32 noundef 0, i32 noundef %35, i32 noundef %13, i32 noundef %15, i32 noundef %2, i32 noundef %3, i64 noundef %29, i64 noundef %31) #8
-  br label %52
+if.then:                                          ; preds = %entry
+  %add9 = add i32 %w, 7
+  %shr10 = lshr i32 %add9, 3
+  %call = tail call i32 %10(ptr noundef nonnull %8, ptr noundef %data, i32 noundef 0, i32 noundef %shr10, i32 noundef %conv, i32 noundef %conv2, i32 noundef %w, i32 noundef %h, i64 noundef %11, i64 noundef %12) #8
+  br label %cleanup
 
-37:                                               ; preds = %4
-  %38 = icmp slt i32 %18, 0
-  %39 = select i1 %38, i32 %17, i32 %15
-  %40 = icmp eq i32 %17, %15
-  br i1 %40, label %52, label %41
+if.else:                                          ; preds = %entry
+  %cmp11 = icmp slt i32 %sub, 0
+  %spec.select57 = select i1 %cmp11, i32 %conv4, i32 %conv2
+  %cmp1658.not = icmp eq i32 %conv4, %conv2
+  br i1 %cmp1658.not, label %cleanup, label %for.body.lr.ph
 
-41:                                               ; preds = %37
-  %42 = tail call i32 @llvm.abs.i32(i32 %18, i1 true)
-  %43 = add i32 %2, 7
-  %44 = lshr i32 %43, 3
-  %45 = tail call i32 @llvm.umax.i32(i32 %42, i32 1)
-  br label %46
+for.body.lr.ph:                                   ; preds = %if.else
+  %spec.select = tail call i32 @llvm.abs.i32(i32 %sub, i1 true)
+  %add18 = add i32 %w, 7
+  %shr19 = lshr i32 %add18, 3
+  %umax = tail call i32 @llvm.umax.i32(i32 %spec.select, i32 1)
+  br label %for.body
 
-46:                                               ; preds = %41, %46
-  %47 = phi i32 [ 0, %41 ], [ %50, %46 ]
-  %48 = add nsw i32 %47, %39
-  %49 = tail call i32 %27(ptr noundef %23, ptr noundef %1, i32 noundef 0, i32 noundef %44, i32 noundef %13, i32 noundef %48, i32 noundef %2, i32 noundef 1, i64 noundef %29, i64 noundef %31) #8
-  %50 = add nuw i32 %47, 1
-  %51 = icmp eq i32 %50, %45
-  br i1 %51, label %52, label %46, !llvm.loop !90
+for.body:                                         ; preds = %for.body.lr.ph, %for.body
+  %dy.059 = phi i32 [ 0, %for.body.lr.ph ], [ %inc, %for.body ]
+  %add20 = add nsw i32 %dy.059, %spec.select57
+  %call21 = tail call i32 %10(ptr noundef %8, ptr noundef %data, i32 noundef 0, i32 noundef %shr19, i32 noundef %conv, i32 noundef %add20, i32 noundef %w, i32 noundef 1, i64 noundef %11, i64 noundef %12) #8
+  %inc = add nuw i32 %dy.059, 1
+  %exitcond.not = icmp eq i32 %inc, %umax
+  br i1 %exitcond.not, label %cleanup, label %for.body, !llvm.loop !90
 
-52:                                               ; preds = %46, %37, %33
-  %53 = phi i32 [ %3, %33 ], [ 1, %37 ], [ 1, %46 ]
-  ret i32 %53
+cleanup:                                          ; preds = %for.body, %if.else, %if.then
+  %retval.0 = phi i32 [ %h, %if.then ], [ 1, %if.else ], [ 1, %for.body ]
+  ret i32 %retval.0
 }
 
 ; Function Attrs: nounwind uwtable
-define dso_local i32 @image_render_mono(ptr noundef %0, ptr nocapture noundef %1, i32 noundef %2, i32 %3) #0 {
-  %5 = alloca %struct.gs_color_s, align 8
-  %6 = alloca %struct.gx_path_s, align 8
-  %7 = alloca %struct.gs_fixed_rect_s, align 8
-  %8 = getelementptr inbounds %struct.gs_image_enum_s, ptr %0, i64 0, i32 25
-  %9 = load i64, ptr %8, align 8, !tbaa !45
-  %10 = getelementptr inbounds %struct.gs_image_enum_s, ptr %0, i64 0, i32 25, i64 255
-  %11 = load i64, ptr %10, align 8, !tbaa !45
-  %12 = getelementptr inbounds %struct.gs_image_enum_s, ptr %0, i64 0, i32 11
-  %13 = load ptr, ptr %12, align 8, !tbaa !37
-  %14 = getelementptr inbounds %struct.gs_image_enum_s, ptr %0, i64 0, i32 5
-  %15 = load i64, ptr %14, align 8, !tbaa !28
-  %16 = getelementptr inbounds %struct.gs_image_enum_s, ptr %0, i64 0, i32 6
-  %17 = load i64, ptr %16, align 8, !tbaa !77
-  %18 = getelementptr inbounds %struct.gs_image_enum_s, ptr %0, i64 0, i32 7
-  %19 = load i64, ptr %18, align 8, !tbaa !78
-  %20 = getelementptr inbounds %struct.gs_image_enum_s, ptr %0, i64 0, i32 8
-  %21 = load i64, ptr %20, align 8, !tbaa !30
-  %22 = getelementptr inbounds %struct.gs_image_enum_s, ptr %0, i64 0, i32 16
-  %23 = load i32, ptr %22, align 4, !tbaa !32
-  %24 = getelementptr inbounds %struct.gs_image_enum_s, ptr %0, i64 0, i32 22
-  %25 = load i64, ptr %24, align 8, !tbaa !34
-  %26 = getelementptr inbounds %struct.gs_image_enum_s, ptr %0, i64 0, i32 23
-  %27 = load i64, ptr %26, align 8, !tbaa !36
-  call void @llvm.lifetime.start.p0(i64 10, ptr nonnull %5) #8
-  %28 = getelementptr inbounds %struct.gs_state_s, ptr %13, i64 0, i32 14
-  %29 = load ptr, ptr %28, align 8, !tbaa !55
-  %30 = load i8, ptr %1, align 1, !tbaa !65
-  %31 = zext i8 %30 to i32
-  %32 = getelementptr inbounds %struct.gs_state_s, ptr %13, i64 0, i32 22
-  %33 = load ptr, ptr %32, align 8, !tbaa !16
-  %34 = load ptr, ptr %33, align 8, !tbaa !85
-  %35 = getelementptr inbounds %struct.gx_device_s, ptr %34, i64 0, i32 1
-  %36 = load ptr, ptr %35, align 8, !tbaa !86
-  %37 = getelementptr inbounds %struct.gx_device_procs_s, ptr %36, i64 0, i32 7
-  %38 = load ptr, ptr %37, align 8, !tbaa !91
-  %39 = getelementptr inbounds %struct.gs_state_s, ptr %13, i64 0, i32 8
-  %40 = load ptr, ptr %39, align 8, !tbaa !46
-  %41 = getelementptr inbounds %struct.gx_path_s, ptr %40, i64 0, i32 1
-  %42 = load i64, ptr %41, align 8, !tbaa.struct !92
-  %43 = getelementptr inbounds %struct.gx_path_s, ptr %40, i64 0, i32 1, i32 0, i32 1
-  %44 = load i64, ptr %43, align 8, !tbaa.struct !93
-  %45 = getelementptr inbounds %struct.gx_path_s, ptr %40, i64 0, i32 1, i32 1
-  %46 = load i64, ptr %45, align 8, !tbaa.struct !94
-  %47 = getelementptr inbounds %struct.gx_path_s, ptr %40, i64 0, i32 1, i32 1, i32 1
-  %48 = load i64, ptr %47, align 8, !tbaa.struct !95
-  %49 = icmp eq i32 %23, 0
-  br i1 %49, label %50, label %77
+define dso_local i32 @image_render_mono(ptr noundef %penum, ptr nocapture noundef %buffer, i32 noundef %w, i32 %h) #0 {
+entry:
+  %rcolor = alloca %struct.gs_color_s, align 8
+  %ipath = alloca %struct.gx_path_s, align 8
+  %box = alloca %struct.gs_fixed_rect_s, align 8
+  %dev_colors = getelementptr inbounds %struct.gs_image_enum_s, ptr %penum, i64 0, i32 25
+  %0 = load i64, ptr %dev_colors, align 8, !tbaa !45
+  %arrayidx2 = getelementptr inbounds %struct.gs_image_enum_s, ptr %penum, i64 0, i32 25, i64 255
+  %1 = load i64, ptr %arrayidx2, align 8, !tbaa !45
+  %pgs4 = getelementptr inbounds %struct.gs_image_enum_s, ptr %penum, i64 0, i32 11
+  %2 = load ptr, ptr %pgs4, align 8, !tbaa !37
+  %fxx = getelementptr inbounds %struct.gs_image_enum_s, ptr %penum, i64 0, i32 5
+  %3 = load i64, ptr %fxx, align 8, !tbaa !28
+  %fxy = getelementptr inbounds %struct.gs_image_enum_s, ptr %penum, i64 0, i32 6
+  %4 = load i64, ptr %fxy, align 8, !tbaa !77
+  %fyx = getelementptr inbounds %struct.gs_image_enum_s, ptr %penum, i64 0, i32 7
+  %5 = load i64, ptr %fyx, align 8, !tbaa !78
+  %fyy = getelementptr inbounds %struct.gs_image_enum_s, ptr %penum, i64 0, i32 8
+  %6 = load i64, ptr %fyy, align 8, !tbaa !30
+  %skewed = getelementptr inbounds %struct.gs_image_enum_s, ptr %penum, i64 0, i32 16
+  %7 = load i32, ptr %skewed, align 4, !tbaa !32
+  %xcur = getelementptr inbounds %struct.gs_image_enum_s, ptr %penum, i64 0, i32 22
+  %8 = load i64, ptr %xcur, align 8, !tbaa !34
+  %ycur = getelementptr inbounds %struct.gs_image_enum_s, ptr %penum, i64 0, i32 23
+  %9 = load i64, ptr %ycur, align 8, !tbaa !36
+  call void @llvm.lifetime.start.p0(i64 10, ptr nonnull %rcolor) #8
+  %dev_color = getelementptr inbounds %struct.gs_state_s, ptr %2, i64 0, i32 14
+  %10 = load ptr, ptr %dev_color, align 8, !tbaa !55
+  %11 = load i8, ptr %buffer, align 1, !tbaa !65
+  %conv = zext i8 %11 to i32
+  %device = getelementptr inbounds %struct.gs_state_s, ptr %2, i64 0, i32 22
+  %12 = load ptr, ptr %device, align 8, !tbaa !16
+  %13 = load ptr, ptr %12, align 8, !tbaa !85
+  %procs = getelementptr inbounds %struct.gx_device_s, ptr %13, i64 0, i32 1
+  %14 = load ptr, ptr %procs, align 8, !tbaa !86
+  %fill_rectangle = getelementptr inbounds %struct.gx_device_procs_s, ptr %14, i64 0, i32 7
+  %15 = load ptr, ptr %fill_rectangle, align 8, !tbaa !91
+  %clip_path = getelementptr inbounds %struct.gs_state_s, ptr %2, i64 0, i32 8
+  %16 = load ptr, ptr %clip_path, align 8, !tbaa !46
+  %bbox = getelementptr inbounds %struct.gx_path_s, ptr %16, i64 0, i32 1
+  %cbox.sroa.0.0.copyload = load i64, ptr %bbox, align 8, !tbaa.struct !92
+  %cbox.sroa.6.0.bbox.sroa_idx = getelementptr inbounds %struct.gx_path_s, ptr %16, i64 0, i32 1, i32 0, i32 1
+  %cbox.sroa.6.0.copyload = load i64, ptr %cbox.sroa.6.0.bbox.sroa_idx, align 8, !tbaa.struct !93
+  %cbox.sroa.9.0.bbox.sroa_idx = getelementptr inbounds %struct.gx_path_s, ptr %16, i64 0, i32 1, i32 1
+  %cbox.sroa.9.0.copyload = load i64, ptr %cbox.sroa.9.0.bbox.sroa_idx, align 8, !tbaa.struct !94
+  %cbox.sroa.12.0.bbox.sroa_idx = getelementptr inbounds %struct.gx_path_s, ptr %16, i64 0, i32 1, i32 1, i32 1
+  %cbox.sroa.12.0.copyload = load i64, ptr %cbox.sroa.12.0.bbox.sroa_idx, align 8, !tbaa.struct !95
+  %tobool.not = icmp eq i32 %7, 0
+  br i1 %tobool.not, label %if.then, label %if.end42
 
-50:                                               ; preds = %4
-  %51 = add i64 %27, 2048
-  %52 = add i64 %51, %21
-  %53 = and i64 %52, -4096
-  %54 = and i64 %51, -4096
-  %55 = lshr i64 %51, 12
-  %56 = trunc i64 %55 to i32
-  %57 = lshr i64 %52, 12
-  %58 = trunc i64 %57 to i32
-  %59 = sub nsw i32 %58, %56
-  %60 = icmp sgt i32 %59, 0
-  br i1 %60, label %65, label %61
+if.then:                                          ; preds = %entry
+  %add = add i64 %9, 2048
+  %add5 = add i64 %add, %6
+  %and = and i64 %add5, -4096
+  %and7 = and i64 %add, -4096
+  %17 = lshr i64 %add, 12
+  %conv8 = trunc i64 %17 to i32
+  %18 = lshr i64 %add5, 12
+  %conv10 = trunc i64 %18 to i32
+  %sub = sub nsw i32 %conv10, %conv8
+  %cmp = icmp sgt i32 %sub, 0
+  br i1 %cmp, label %if.end18, label %if.else
 
-61:                                               ; preds = %50
-  %62 = icmp slt i32 %59, 0
-  br i1 %62, label %63, label %264
+if.else:                                          ; preds = %if.then
+  %cmp13 = icmp slt i32 %sub, 0
+  br i1 %cmp13, label %if.then15, label %cleanup265
 
-63:                                               ; preds = %61
-  %64 = sub nsw i32 0, %59
-  br label %65
+if.then15:                                        ; preds = %if.else
+  %sub16 = sub nsw i32 0, %sub
+  br label %if.end18
 
-65:                                               ; preds = %50, %63
-  %66 = phi i32 [ %64, %63 ], [ %59, %50 ]
-  %67 = phi i32 [ %59, %63 ], [ 0, %50 ]
-  %68 = icmp sgt i64 %21, 0
-  br i1 %68, label %69, label %73
+if.end18:                                         ; preds = %if.then, %if.then15
+  %iht.0 = phi i32 [ %sub16, %if.then15 ], [ %sub, %if.then ]
+  %idy.0 = phi i32 [ %sub, %if.then15 ], [ 0, %if.then ]
+  %cmp19 = icmp sgt i64 %6, 0
+  br i1 %cmp19, label %if.then21, label %if.else29
 
-69:                                               ; preds = %65
-  %70 = icmp sge i64 %54, %48
-  %71 = icmp sle i64 %53, %44
-  %72 = select i1 %70, i1 true, i1 %71
-  br i1 %72, label %264, label %77
+if.then21:                                        ; preds = %if.end18
+  %cmp22.not = icmp slt i64 %and7, %cbox.sroa.12.0.copyload
+  %cmp25.not = icmp sgt i64 %and, %cbox.sroa.6.0.copyload
+  %or.cond416 = select i1 %cmp22.not, i1 %cmp25.not, i1 false
+  br i1 %or.cond416, label %if.end42, label %cleanup265
 
-73:                                               ; preds = %65
-  %74 = icmp sge i64 %53, %48
-  %75 = icmp sle i64 %54, %44
-  %76 = select i1 %74, i1 true, i1 %75
-  br i1 %76, label %264, label %77
+if.else29:                                        ; preds = %if.end18
+  %cmp32.not = icmp slt i64 %and, %cbox.sroa.12.0.copyload
+  %cmp37.not = icmp sgt i64 %and7, %cbox.sroa.6.0.copyload
+  %or.cond417 = select i1 %cmp32.not, i1 %cmp37.not, i1 false
+  br i1 %or.cond417, label %if.end42, label %cleanup265
 
-77:                                               ; preds = %73, %69, %4
-  %78 = phi i32 [ undef, %4 ], [ %66, %69 ], [ %66, %73 ]
-  %79 = phi i32 [ undef, %4 ], [ %67, %69 ], [ %67, %73 ]
-  %80 = phi i32 [ undef, %4 ], [ %56, %69 ], [ %56, %73 ]
-  %81 = phi i64 [ undef, %4 ], [ %53, %69 ], [ %53, %73 ]
-  %82 = phi i64 [ %27, %4 ], [ %54, %69 ], [ %54, %73 ]
-  %83 = add i32 %2, -1
-  %84 = zext i32 %83 to i64
-  %85 = getelementptr inbounds i8, ptr %1, i64 %84
-  %86 = load i8, ptr %85, align 1, !tbaa !65
-  %87 = xor i8 %86, -1
-  %88 = zext i32 %2 to i64
-  %89 = getelementptr inbounds i8, ptr %1, i64 %88
-  store i8 %87, ptr %89, align 1, !tbaa !65
-  %90 = getelementptr inbounds %struct.gs_color_s, ptr %5, i64 0, i32 5
-  store i8 1, ptr %90, align 1, !tbaa !96
-  %91 = getelementptr inbounds %struct.gs_color_s, ptr %5, i64 0, i32 4
-  store i8 1, ptr %91, align 8, !tbaa !97
-  %92 = icmp sgt i32 %2, -1
-  br i1 %92, label %93, label %264
+if.end42:                                         ; preds = %if.else29, %if.then21, %entry
+  %iht.1 = phi i32 [ undef, %entry ], [ %iht.0, %if.then21 ], [ %iht.0, %if.else29 ]
+  %idy.1 = phi i32 [ undef, %entry ], [ %idy.0, %if.then21 ], [ %idy.0, %if.else29 ]
+  %yt.0 = phi i32 [ undef, %entry ], [ %conv8, %if.then21 ], [ %conv8, %if.else29 ]
+  %yn.0 = phi i64 [ undef, %entry ], [ %and, %if.then21 ], [ %and, %if.else29 ]
+  %ytf.0 = phi i64 [ %9, %entry ], [ %and7, %if.then21 ], [ %and7, %if.else29 ]
+  %sub43 = add i32 %w, -1
+  %idxprom = zext i32 %sub43 to i64
+  %arrayidx44 = getelementptr inbounds i8, ptr %buffer, i64 %idxprom
+  %19 = load i8, ptr %arrayidx44, align 1, !tbaa !65
+  %not = xor i8 %19, -1
+  %idxprom47 = zext i32 %w to i64
+  %arrayidx48 = getelementptr inbounds i8, ptr %buffer, i64 %idxprom47
+  store i8 %not, ptr %arrayidx48, align 1, !tbaa !65
+  %luminance_set = getelementptr inbounds %struct.gs_color_s, ptr %rcolor, i64 0, i32 5
+  store i8 1, ptr %luminance_set, align 1, !tbaa !96
+  %is_gray = getelementptr inbounds %struct.gs_color_s, ptr %rcolor, i64 0, i32 4
+  store i8 1, ptr %is_gray, align 8, !tbaa !97
+  %cmp49440 = icmp sgt i32 %w, -1
+  br i1 %cmp49440, label %while.body.lr.ph, label %cleanup265
 
-93:                                               ; preds = %77
-  %94 = getelementptr inbounds %struct.gs_image_enum_s, ptr %0, i64 0, i32 17
-  %95 = icmp eq i64 %11, -1
-  %96 = icmp eq i64 %9, -1
-  %97 = getelementptr inbounds %struct.gs_state_s, ptr %13, i64 0, i32 1
-  %98 = getelementptr inbounds %struct.gs_fixed_rect_s, ptr %7, i64 0, i32 1
-  %99 = getelementptr inbounds %struct.gs_fixed_rect_s, ptr %7, i64 0, i32 1, i32 1
-  %100 = getelementptr inbounds %struct.gs_fixed_point_s, ptr %7, i64 0, i32 1
-  %101 = icmp sgt i64 %15, -1
-  %102 = add nsw i32 %80, %79
-  br label %103
+while.body.lr.ph:                                 ; preds = %if.end42
+  %slow_loop = getelementptr inbounds %struct.gs_image_enum_s, ptr %penum, i64 0, i32 17
+  %cmp71 = icmp eq i64 %1, -1
+  %cmp63 = icmp eq i64 %0, -1
+  %memory_procs130 = getelementptr inbounds %struct.gs_state_s, ptr %2, i64 0, i32 1
+  %q142 = getelementptr inbounds %struct.gs_fixed_rect_s, ptr %box, i64 0, i32 1
+  %y171 = getelementptr inbounds %struct.gs_fixed_rect_s, ptr %box, i64 0, i32 1, i32 1
+  %y178 = getelementptr inbounds %struct.gs_fixed_point_s, ptr %box, i64 0, i32 1
+  %cmp101 = icmp sgt i64 %3, -1
+  %add230 = add nsw i32 %yt.0, %idy.1
+  br label %while.body
 
-103:                                              ; preds = %93, %255
-  %104 = phi i32 [ %2, %93 ], [ %113, %255 ]
-  %105 = phi i64 [ %82, %93 ], [ %262, %255 ]
-  %106 = phi i32 [ -2, %93 ], [ %260, %255 ]
-  %107 = phi i32 [ %31, %93 ], [ %259, %255 ]
-  %108 = phi i64 [ %27, %93 ], [ %258, %255 ]
-  %109 = phi i64 [ %25, %93 ], [ %257, %255 ]
-  %110 = phi ptr [ %1, %93 ], [ %114, %255 ]
-  %111 = phi i64 [ %25, %93 ], [ %261, %255 ]
-  %112 = phi ptr [ %29, %93 ], [ %256, %255 ]
-  %113 = add nsw i32 %104, -1
-  %114 = getelementptr inbounds i8, ptr %110, i64 1
-  %115 = load i8, ptr %110, align 1, !tbaa !65
-  %116 = zext i8 %115 to i32
-  %117 = icmp eq i32 %107, %116
-  br i1 %117, label %255, label %118
+while.body:                                       ; preds = %while.body.lr.ph, %if.end262
+  %dec458.in = phi i32 [ %w, %while.body.lr.ph ], [ %dec458, %if.end262 ]
+  %ytf.1453 = phi i64 [ %ytf.0, %while.body.lr.ph ], [ %add264, %if.end262 ]
+  %htrun.0451 = phi i32 [ -2, %while.body.lr.ph ], [ %htrun.7, %if.end262 ]
+  %run.0450 = phi i32 [ %conv, %while.body.lr.ph ], [ %run.1, %if.end262 ]
+  %yrun.0449 = phi i64 [ %9, %while.body.lr.ph ], [ %yrun.1, %if.end262 ]
+  %xrun.0448 = phi i64 [ %8, %while.body.lr.ph ], [ %xrun.1, %if.end262 ]
+  %psrc.0447 = phi ptr [ %buffer, %while.body.lr.ph ], [ %incdec.ptr, %if.end262 ]
+  %xl.0442 = phi i64 [ %8, %while.body.lr.ph ], [ %add263, %if.end262 ]
+  %pdevc.0441 = phi ptr [ %10, %while.body.lr.ph ], [ %pdevc.7, %if.end262 ]
+  %dec458 = add nsw i32 %dec458.in, -1
+  %incdec.ptr = getelementptr inbounds i8, ptr %psrc.0447, i64 1
+  %20 = load i8, ptr %psrc.0447, align 1, !tbaa !65
+  %conv51 = zext i8 %20 to i32
+  %cmp52.not = icmp eq i32 %run.0450, %conv51
+  br i1 %cmp52.not, label %if.end262, label %if.then54
 
-118:                                              ; preds = %103
-  %119 = load i32, ptr %94, align 8, !tbaa !56
-  %120 = icmp eq i32 %119, 0
-  br i1 %120, label %208, label %121
+if.then54:                                        ; preds = %while.body
+  %21 = load i32, ptr %slow_loop, align 8, !tbaa !56
+  %tobool55.not = icmp eq i32 %21, 0
+  br i1 %tobool55.not, label %if.else208, label %if.then56
 
-121:                                              ; preds = %118
-  call void @llvm.lifetime.start.p0(i64 144, ptr nonnull %6) #8
-  %122 = icmp eq i32 %107, %106
-  br i1 %122, label %143, label %123
+if.then56:                                        ; preds = %if.then54
+  call void @llvm.lifetime.start.p0(i64 144, ptr nonnull %ipath) #8
+  %cmp57.not = icmp eq i32 %run.0450, %htrun.0451
+  br i1 %cmp57.not, label %if.end90, label %if.then59
 
-123:                                              ; preds = %121
-  %124 = icmp eq i32 %107, 0
-  br i1 %124, label %125, label %126
+if.then59:                                        ; preds = %if.then56
+  %cmp60 = icmp eq i32 %run.0450, 0
+  br i1 %cmp60, label %if.then62, label %if.else67
 
-125:                                              ; preds = %123
-  br i1 %96, label %203, label %129
+if.then62:                                        ; preds = %if.then59
+  br i1 %cmp63, label %cleanup203.thread, label %if.end76
 
-126:                                              ; preds = %123
-  %127 = icmp eq i32 %107, 255
-  %128 = select i1 %127, i1 %95, i1 false
-  br i1 %128, label %203, label %129
+if.else67:                                        ; preds = %if.then59
+  %cmp68 = icmp eq i32 %run.0450, 255
+  %or.cond = select i1 %cmp68, i1 %cmp71, i1 false
+  br i1 %or.cond, label %cleanup203.thread, label %if.end76
 
-129:                                              ; preds = %126, %125
-  %130 = zext i32 %107 to i64
-  %131 = getelementptr inbounds %struct.gs_image_enum_s, ptr %0, i64 0, i32 25, i64 %130
-  %132 = getelementptr inbounds %struct.gs_image_enum_s, ptr %0, i64 0, i32 25, i64 %130, i32 2
-  %133 = load i32, ptr %132, align 8, !tbaa !41
-  %134 = icmp slt i32 %133, 0
-  br i1 %134, label %135, label %141
+if.end76:                                         ; preds = %if.else67, %if.then62
+  %idxprom78 = zext i32 %run.0450 to i64
+  %arrayidx79 = getelementptr inbounds %struct.gs_image_enum_s, ptr %penum, i64 0, i32 25, i64 %idxprom78
+  %halftone_level = getelementptr inbounds %struct.gs_image_enum_s, ptr %penum, i64 0, i32 25, i64 %idxprom78, i32 2
+  %22 = load i32, ptr %halftone_level, align 8, !tbaa !41
+  %cmp80 = icmp slt i32 %22, 0
+  br i1 %cmp80, label %if.then82, label %if.else87
 
-135:                                              ; preds = %129
-  %136 = trunc i32 %107 to i16
-  %137 = mul nuw i16 %136, 257
-  %138 = insertelement <4 x i16> poison, i16 %137, i64 0
-  %139 = shufflevector <4 x i16> %138, <4 x i16> poison, <4 x i32> zeroinitializer
-  store <4 x i16> %139, ptr %5, align 8, !tbaa !68
-  %140 = call i32 (ptr, ptr, ptr, ...) @gx_color_render(ptr noundef nonnull %5, ptr noundef nonnull %131, ptr noundef %13) #8
-  br label %143
+if.then82:                                        ; preds = %if.end76
+  %23 = trunc i32 %run.0450 to i16
+  %conv86 = mul nuw i16 %23, 257
+  %24 = insertelement <4 x i16> poison, i16 %conv86, i64 0
+  %25 = shufflevector <4 x i16> %24, <4 x i16> poison, <4 x i32> zeroinitializer
+  store <4 x i16> %25, ptr %rcolor, align 8, !tbaa !68
+  %call = call i32 (ptr, ptr, ptr, ...) @gx_color_render(ptr noundef nonnull %rcolor, ptr noundef nonnull %arrayidx79, ptr noundef %2) #8
+  br label %if.end90
 
-141:                                              ; preds = %129
-  %142 = call i32 (ptr, ptr, ...) @gx_color_load(ptr noundef nonnull %131, ptr noundef %13) #8
-  br label %143
+if.else87:                                        ; preds = %if.end76
+  %call88 = call i32 (ptr, ptr, ...) @gx_color_load(ptr noundef nonnull %arrayidx79, ptr noundef %2) #8
+  br label %if.end90
 
-143:                                              ; preds = %135, %141, %121
-  %144 = phi ptr [ %131, %135 ], [ %131, %141 ], [ %112, %121 ]
-  %145 = phi i32 [ %107, %135 ], [ %107, %141 ], [ %106, %121 ]
-  br i1 %49, label %146, label %161
+if.end90:                                         ; preds = %if.then82, %if.else87, %if.then56
+  %pdevc.1 = phi ptr [ %arrayidx79, %if.then82 ], [ %arrayidx79, %if.else87 ], [ %pdevc.0441, %if.then56 ]
+  %htrun.1 = phi i32 [ %run.0450, %if.then82 ], [ %run.0450, %if.else87 ], [ %htrun.0451, %if.then56 ]
+  br i1 %tobool.not, label %if.then92, label %if.end134.thread
 
-146:                                              ; preds = %143
-  %147 = add nsw i64 %111, 2048
-  %148 = and i64 %147, -4096
-  %149 = add nsw i64 %109, 2048
-  %150 = and i64 %149, -4096
-  %151 = icmp eq i64 %150, %148
-  br i1 %151, label %203, label %152
+if.then92:                                        ; preds = %if.end90
+  %add93 = add nsw i64 %xl.0442, 2048
+  %and94 = and i64 %add93, -4096
+  %add95 = add nsw i64 %xrun.0448, 2048
+  %and96 = and i64 %add95, -4096
+  %cmp97 = icmp eq i64 %and96, %and94
+  br i1 %cmp97, label %cleanup203.thread, label %if.end100
 
-152:                                              ; preds = %146
-  br i1 %101, label %153, label %157
+if.end100:                                        ; preds = %if.then92
+  br i1 %cmp101, label %if.then103, label %if.else114
 
-153:                                              ; preds = %152
-  %154 = icmp sge i64 %150, %46
-  %155 = icmp sle i64 %148, %42
-  %156 = select i1 %154, i1 true, i1 %155
-  br i1 %156, label %203, label %166
+if.then103:                                       ; preds = %if.end100
+  %cmp105.not = icmp slt i64 %and96, %cbox.sroa.9.0.copyload
+  %cmp110.not = icmp sgt i64 %and94, %cbox.sroa.0.0.copyload
+  %or.cond418 = select i1 %cmp105.not, i1 %cmp110.not, i1 false
+  br i1 %or.cond418, label %if.end134, label %cleanup203.thread
 
-157:                                              ; preds = %152
-  %158 = icmp sge i64 %148, %46
-  %159 = icmp sle i64 %150, %42
-  %160 = select i1 %158, i1 true, i1 %159
-  br i1 %160, label %203, label %166
+if.else114:                                       ; preds = %if.end100
+  %cmp117.not = icmp slt i64 %and94, %cbox.sroa.9.0.copyload
+  %cmp122.not = icmp sgt i64 %and96, %cbox.sroa.0.0.copyload
+  %or.cond419 = select i1 %cmp117.not, i1 %cmp122.not, i1 false
+  br i1 %or.cond419, label %if.end134, label %cleanup203.thread
 
-161:                                              ; preds = %143
-  call void @gx_path_init(ptr noundef nonnull %6, ptr noundef nonnull %97) #8
-  %162 = add nsw i64 %111, %19
-  %163 = add nsw i64 %105, %21
-  %164 = call i32 @gx_path_add_pgram(ptr noundef nonnull %6, i64 noundef %109, i64 noundef %108, i64 noundef %111, i64 noundef %105, i64 noundef %162, i64 noundef %163) #8
-  %165 = icmp slt i32 %164, 0
-  br i1 %165, label %206, label %169
+if.end134:                                        ; preds = %if.else114, %if.then103
+  call void @gx_path_init(ptr noundef nonnull %ipath, ptr noundef nonnull %memory_procs130) #8
+  %call127 = call i32 @gx_path_add_pgram(ptr noundef nonnull %ipath, i64 noundef %and96, i64 noundef %ytf.1453, i64 noundef %and94, i64 noundef %ytf.1453, i64 noundef %and94, i64 noundef %yn.0) #8
+  %cmp135 = icmp slt i32 %call127, 0
+  br i1 %cmp135, label %cleanup203, label %if.end201
 
-166:                                              ; preds = %157, %153
-  call void @gx_path_init(ptr noundef nonnull %6, ptr noundef nonnull %97) #8
-  %167 = call i32 @gx_path_add_pgram(ptr noundef nonnull %6, i64 noundef %150, i64 noundef %105, i64 noundef %148, i64 noundef %105, i64 noundef %148, i64 noundef %81) #8
-  %168 = icmp slt i32 %167, 0
-  br i1 %168, label %206, label %200
+if.end134.thread:                                 ; preds = %if.end90
+  call void @gx_path_init(ptr noundef nonnull %ipath, ptr noundef nonnull %memory_procs130) #8
+  %add131 = add nsw i64 %xl.0442, %5
+  %add132 = add nsw i64 %ytf.1453, %6
+  %call133 = call i32 @gx_path_add_pgram(ptr noundef nonnull %ipath, i64 noundef %xrun.0448, i64 noundef %yrun.0449, i64 noundef %xl.0442, i64 noundef %ytf.1453, i64 noundef %add131, i64 noundef %add132) #8
+  %cmp135425 = icmp slt i32 %call133, 0
+  br i1 %cmp135425, label %cleanup203, label %if.then140
 
-169:                                              ; preds = %161
-  call void @llvm.lifetime.start.p0(i64 32, ptr nonnull %7) #8
-  %170 = call i32 @gx_path_bbox(ptr noundef nonnull %6, ptr noundef nonnull %7) #8
-  %171 = load i64, ptr %98, align 8, !tbaa !98
-  %172 = icmp sgt i64 %171, %42
-  br i1 %172, label %173, label %198
+if.then140:                                       ; preds = %if.end134.thread
+  call void @llvm.lifetime.start.p0(i64 32, ptr nonnull %box) #8
+  %call141 = call i32 @gx_path_bbox(ptr noundef nonnull %ipath, ptr noundef nonnull %box) #8
+  %26 = load i64, ptr %q142, align 8, !tbaa !98
+  %cmp146.not = icmp sgt i64 %26, %cbox.sroa.0.0.copyload
+  br i1 %cmp146.not, label %lor.lhs.false148, label %cleanup198.thread
 
-173:                                              ; preds = %169
-  %174 = load i64, ptr %7, align 8, !tbaa !99
-  %175 = icmp slt i64 %174, %46
-  br i1 %175, label %176, label %198
+lor.lhs.false148:                                 ; preds = %if.then140
+  %27 = load i64, ptr %box, align 8, !tbaa !99
+  %cmp153.not = icmp slt i64 %27, %cbox.sroa.9.0.copyload
+  br i1 %cmp153.not, label %lor.lhs.false155, label %cleanup198.thread
 
-176:                                              ; preds = %173
-  %177 = add nsw i64 %174, 2048
-  %178 = lshr i64 %177, 12
-  %179 = trunc i64 %178 to i32
-  %180 = add nsw i64 %171, 2048
-  %181 = lshr i64 %180, 12
-  %182 = trunc i64 %181 to i32
-  %183 = icmp eq i32 %179, %182
-  br i1 %183, label %198, label %184
+lor.lhs.false155:                                 ; preds = %lor.lhs.false148
+  %add158 = add nsw i64 %27, 2048
+  %28 = lshr i64 %add158, 12
+  %conv160 = trunc i64 %28 to i32
+  %add163 = add nsw i64 %26, 2048
+  %29 = lshr i64 %add163, 12
+  %conv165 = trunc i64 %29 to i32
+  %cmp166 = icmp eq i32 %conv160, %conv165
+  br i1 %cmp166, label %cleanup198.thread, label %if.end169
 
-184:                                              ; preds = %176
-  %185 = load i64, ptr %99, align 8, !tbaa !100
-  %186 = icmp sgt i64 %185, %44
-  br i1 %186, label %187, label %198
+if.end169:                                        ; preds = %lor.lhs.false155
+  %30 = load i64, ptr %y171, align 8, !tbaa !100
+  %cmp174.not = icmp sgt i64 %30, %cbox.sroa.6.0.copyload
+  br i1 %cmp174.not, label %lor.lhs.false176, label %cleanup198.thread
 
-187:                                              ; preds = %184
-  %188 = load i64, ptr %100, align 8, !tbaa !101
-  %189 = icmp slt i64 %188, %48
-  br i1 %189, label %190, label %198
+lor.lhs.false176:                                 ; preds = %if.end169
+  %31 = load i64, ptr %y178, align 8, !tbaa !101
+  %cmp181.not = icmp slt i64 %31, %cbox.sroa.12.0.copyload
+  br i1 %cmp181.not, label %lor.lhs.false183, label %cleanup198.thread
 
-190:                                              ; preds = %187
-  %191 = add nsw i64 %188, 2048
-  %192 = lshr i64 %191, 12
-  %193 = trunc i64 %192 to i32
-  %194 = add nsw i64 %185, 2048
-  %195 = lshr i64 %194, 12
-  %196 = trunc i64 %195 to i32
-  %197 = icmp eq i32 %193, %196
-  br i1 %197, label %198, label %199
+lor.lhs.false183:                                 ; preds = %lor.lhs.false176
+  %add186 = add nsw i64 %31, 2048
+  %32 = lshr i64 %add186, 12
+  %conv188 = trunc i64 %32 to i32
+  %add191 = add nsw i64 %30, 2048
+  %33 = lshr i64 %add191, 12
+  %conv193 = trunc i64 %33 to i32
+  %cmp194 = icmp eq i32 %conv188, %conv193
+  br i1 %cmp194, label %cleanup198.thread, label %cleanup198
 
-198:                                              ; preds = %176, %173, %169, %190, %187, %184
-  call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %7) #8
-  br label %202
+cleanup198.thread:                                ; preds = %lor.lhs.false155, %lor.lhs.false148, %if.then140, %lor.lhs.false176, %if.end169, %lor.lhs.false183
+  call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %box) #8
+  br label %nofill
 
-199:                                              ; preds = %190
-  call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %7) #8
-  br label %200
+cleanup198:                                       ; preds = %lor.lhs.false183
+  call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %box) #8
+  br label %if.end201
 
-200:                                              ; preds = %166, %199
-  %201 = call i32 (ptr, ptr, ptr, i32, i64, ...) @gx_fill_path(ptr noundef nonnull %6, ptr noundef %144, ptr noundef %13, i32 noundef -1, i64 noundef 0) #8
-  br label %202
+if.end201:                                        ; preds = %if.end134, %cleanup198
+  %call202 = call i32 (ptr, ptr, ptr, i32, i64, ...) @gx_fill_path(ptr noundef nonnull %ipath, ptr noundef %pdevc.1, ptr noundef %2, i32 noundef -1, i64 noundef 0) #8
+  br label %nofill
 
-202:                                              ; preds = %198, %200
-  call void @gx_path_release(ptr noundef nonnull %6) #8
-  br label %203
+nofill:                                           ; preds = %cleanup198.thread, %if.end201
+  call void @gx_path_release(ptr noundef nonnull %ipath) #8
+  br label %cleanup203.thread
 
-203:                                              ; preds = %126, %125, %202, %146, %153, %157
-  %204 = phi ptr [ %112, %126 ], [ %144, %202 ], [ %112, %125 ], [ %144, %146 ], [ %144, %153 ], [ %144, %157 ]
-  %205 = phi i32 [ 255, %126 ], [ %145, %202 ], [ 0, %125 ], [ %145, %146 ], [ %145, %153 ], [ %145, %157 ]
-  call void @llvm.lifetime.end.p0(i64 144, ptr nonnull %6) #8
-  br label %250
+cleanup203.thread:                                ; preds = %if.else67, %if.then62, %nofill, %if.then92, %if.then103, %if.else114
+  %pdevc.3.ph = phi ptr [ %pdevc.0441, %if.else67 ], [ %pdevc.1, %nofill ], [ %pdevc.0441, %if.then62 ], [ %pdevc.1, %if.then92 ], [ %pdevc.1, %if.then103 ], [ %pdevc.1, %if.else114 ]
+  %htrun.3.ph = phi i32 [ 255, %if.else67 ], [ %htrun.1, %nofill ], [ 0, %if.then62 ], [ %htrun.1, %if.then92 ], [ %htrun.1, %if.then103 ], [ %htrun.1, %if.else114 ]
+  call void @llvm.lifetime.end.p0(i64 144, ptr nonnull %ipath) #8
+  br label %if.end259
 
-206:                                              ; preds = %161, %166
-  %207 = phi i32 [ %167, %166 ], [ %164, %161 ]
-  call void @gx_path_release(ptr noundef nonnull %6) #8
-  call void @llvm.lifetime.end.p0(i64 144, ptr nonnull %6) #8
-  br label %264
+cleanup203:                                       ; preds = %if.end134, %if.end134.thread
+  %code.2426 = phi i32 [ %call133, %if.end134.thread ], [ %call127, %if.end134 ]
+  call void @gx_path_release(ptr noundef nonnull %ipath) #8
+  call void @llvm.lifetime.end.p0(i64 144, ptr nonnull %ipath) #8
+  br label %cleanup265
 
-208:                                              ; preds = %118
-  %209 = add nsw i64 %109, 2048
-  %210 = lshr i64 %209, 12
-  %211 = trunc i64 %210 to i32
-  %212 = add nsw i64 %111, 2048
-  %213 = lshr i64 %212, 12
-  %214 = trunc i64 %213 to i32
-  %215 = sub nsw i32 %214, %211
-  %216 = icmp slt i32 %215, 1
-  br i1 %216, label %217, label %221
+if.else208:                                       ; preds = %if.then54
+  %add209 = add nsw i64 %xrun.0448, 2048
+  %34 = lshr i64 %add209, 12
+  %conv211 = trunc i64 %34 to i32
+  %add212 = add nsw i64 %xl.0442, 2048
+  %35 = lshr i64 %add212, 12
+  %conv214 = trunc i64 %35 to i32
+  %sub215 = sub nsw i32 %conv214, %conv211
+  %cmp216 = icmp slt i32 %sub215, 1
+  br i1 %cmp216, label %if.then218, label %if.end225
 
-217:                                              ; preds = %208
-  %218 = icmp eq i32 %215, 0
-  br i1 %218, label %250, label %219
+if.then218:                                       ; preds = %if.else208
+  %cmp219 = icmp eq i32 %sub215, 0
+  br i1 %cmp219, label %if.end259, label %if.end222
 
-219:                                              ; preds = %217
-  %220 = sub nsw i32 0, %215
-  br label %221
+if.end222:                                        ; preds = %if.then218
+  %sub224 = sub nsw i32 0, %sub215
+  br label %if.end225
 
-221:                                              ; preds = %219, %208
-  %222 = phi i32 [ %214, %219 ], [ %211, %208 ]
-  %223 = phi i32 [ %220, %219 ], [ %215, %208 ]
-  switch i32 %107, label %230 [
-    i32 0, label %225
-    i32 255, label %224
+if.end225:                                        ; preds = %if.end222, %if.else208
+  %xi.0 = phi i32 [ %conv214, %if.end222 ], [ %conv211, %if.else208 ]
+  %wi.0 = phi i32 [ %sub224, %if.end222 ], [ %sub215, %if.else208 ]
+  switch i32 %run.0450, label %sw.default [
+    i32 0, label %zo
+    i32 255, label %sw.bb226
   ]
 
-224:                                              ; preds = %221
-  br label %225
+sw.bb226:                                         ; preds = %if.end225
+  br label %zo
 
-225:                                              ; preds = %221, %224
-  %226 = phi i64 [ %11, %224 ], [ %9, %221 ]
-  %227 = icmp eq i64 %226, -1
-  br i1 %227, label %250, label %228
+zo:                                               ; preds = %if.end225, %sw.bb226
+  %rcx.0 = phi i64 [ %1, %sw.bb226 ], [ %0, %if.end225 ]
+  %cmp227.not = icmp eq i64 %rcx.0, -1
+  br i1 %cmp227.not, label %if.end259, label %if.then229
 
-228:                                              ; preds = %225
-  %229 = call i32 %38(ptr noundef %34, i32 noundef %222, i32 noundef %102, i32 noundef %223, i32 noundef %78, i64 noundef %226) #8
-  br label %250
+if.then229:                                       ; preds = %zo
+  %call231 = call i32 %15(ptr noundef %13, i32 noundef %xi.0, i32 noundef %add230, i32 noundef %wi.0, i32 noundef %iht.1, i64 noundef %rcx.0) #8
+  br label %if.end259
 
-230:                                              ; preds = %221
-  %231 = icmp eq i32 %107, %106
-  br i1 %231, label %246, label %232
+sw.default:                                       ; preds = %if.end225
+  %cmp233.not = icmp eq i32 %run.0450, %htrun.0451
+  br i1 %cmp233.not, label %if.end256, label %if.then235
 
-232:                                              ; preds = %230
-  %233 = zext i32 %107 to i64
-  %234 = getelementptr inbounds %struct.gs_image_enum_s, ptr %0, i64 0, i32 25, i64 %233
-  %235 = getelementptr inbounds %struct.gs_image_enum_s, ptr %0, i64 0, i32 25, i64 %233, i32 2
-  %236 = load i32, ptr %235, align 8, !tbaa !41
-  %237 = icmp slt i32 %236, 0
-  br i1 %237, label %238, label %244
+if.then235:                                       ; preds = %sw.default
+  %idxprom237 = zext i32 %run.0450 to i64
+  %arrayidx238 = getelementptr inbounds %struct.gs_image_enum_s, ptr %penum, i64 0, i32 25, i64 %idxprom237
+  %halftone_level239 = getelementptr inbounds %struct.gs_image_enum_s, ptr %penum, i64 0, i32 25, i64 %idxprom237, i32 2
+  %36 = load i32, ptr %halftone_level239, align 8, !tbaa !41
+  %cmp240 = icmp slt i32 %36, 0
+  br i1 %cmp240, label %if.then242, label %if.else253
 
-238:                                              ; preds = %232
-  %239 = trunc i32 %107 to i16
-  %240 = mul nuw i16 %239, 257
-  %241 = insertelement <4 x i16> poison, i16 %240, i64 0
-  %242 = shufflevector <4 x i16> %241, <4 x i16> poison, <4 x i32> zeroinitializer
-  store <4 x i16> %242, ptr %5, align 8, !tbaa !68
-  %243 = call i32 (ptr, ptr, ptr, ...) @gx_color_render(ptr noundef nonnull %5, ptr noundef nonnull %234, ptr noundef %13) #8
-  br label %246
+if.then242:                                       ; preds = %if.then235
+  %37 = trunc i32 %run.0450 to i16
+  %conv247 = mul nuw i16 %37, 257
+  %38 = insertelement <4 x i16> poison, i16 %conv247, i64 0
+  %39 = shufflevector <4 x i16> %38, <4 x i16> poison, <4 x i32> zeroinitializer
+  store <4 x i16> %39, ptr %rcolor, align 8, !tbaa !68
+  %call252 = call i32 (ptr, ptr, ptr, ...) @gx_color_render(ptr noundef nonnull %rcolor, ptr noundef nonnull %arrayidx238, ptr noundef %2) #8
+  br label %if.end256
 
-244:                                              ; preds = %232
-  %245 = call i32 (ptr, ptr, ...) @gx_color_load(ptr noundef nonnull %234, ptr noundef %13) #8
-  br label %246
+if.else253:                                       ; preds = %if.then235
+  %call254 = call i32 (ptr, ptr, ...) @gx_color_load(ptr noundef nonnull %arrayidx238, ptr noundef %2) #8
+  br label %if.end256
 
-246:                                              ; preds = %238, %244, %230
-  %247 = phi ptr [ %112, %230 ], [ %234, %244 ], [ %234, %238 ]
-  %248 = phi i32 [ %106, %230 ], [ %107, %244 ], [ %107, %238 ]
-  %249 = call i32 (i32, i32, i32, i32, ptr, ptr, ...) @gz_fill_rectangle(i32 noundef %222, i32 noundef %102, i32 noundef %223, i32 noundef %78, ptr noundef %247, ptr noundef %13) #8
-  br label %250
+if.end256:                                        ; preds = %if.then242, %if.else253, %sw.default
+  %pdevc.4 = phi ptr [ %pdevc.0441, %sw.default ], [ %arrayidx238, %if.else253 ], [ %arrayidx238, %if.then242 ]
+  %htrun.4 = phi i32 [ %htrun.0451, %sw.default ], [ %run.0450, %if.else253 ], [ %run.0450, %if.then242 ]
+  %call258 = call i32 (i32, i32, i32, i32, ptr, ptr, ...) @gz_fill_rectangle(i32 noundef %xi.0, i32 noundef %add230, i32 noundef %wi.0, i32 noundef %iht.1, ptr noundef %pdevc.4, ptr noundef %2) #8
+  br label %if.end259
 
-250:                                              ; preds = %217, %225, %228, %246, %203
-  %251 = phi ptr [ %204, %203 ], [ %112, %217 ], [ %247, %246 ], [ %112, %228 ], [ %112, %225 ]
-  %252 = phi i32 [ %205, %203 ], [ %106, %217 ], [ %248, %246 ], [ %106, %228 ], [ %106, %225 ]
-  %253 = load i8, ptr %110, align 1, !tbaa !65
-  %254 = zext i8 %253 to i32
-  br label %255
+if.end259:                                        ; preds = %cleanup203.thread, %if.then218, %zo, %if.then229, %if.end256
+  %pdevc.6 = phi ptr [ %pdevc.0441, %if.then218 ], [ %pdevc.4, %if.end256 ], [ %pdevc.0441, %if.then229 ], [ %pdevc.0441, %zo ], [ %pdevc.3.ph, %cleanup203.thread ]
+  %htrun.6 = phi i32 [ %htrun.0451, %if.then218 ], [ %htrun.4, %if.end256 ], [ %htrun.0451, %if.then229 ], [ %htrun.0451, %zo ], [ %htrun.3.ph, %cleanup203.thread ]
+  %40 = load i8, ptr %psrc.0447, align 1, !tbaa !65
+  %conv261 = zext i8 %40 to i32
+  br label %if.end262
 
-255:                                              ; preds = %250, %103
-  %256 = phi ptr [ %251, %250 ], [ %112, %103 ]
-  %257 = phi i64 [ %111, %250 ], [ %109, %103 ]
-  %258 = phi i64 [ %105, %250 ], [ %108, %103 ]
-  %259 = phi i32 [ %254, %250 ], [ %107, %103 ]
-  %260 = phi i32 [ %252, %250 ], [ %106, %103 ]
-  %261 = add nsw i64 %111, %15
-  %262 = add nsw i64 %105, %17
-  %263 = icmp eq i32 %104, 0
-  br i1 %263, label %264, label %103, !llvm.loop !102
+if.end262:                                        ; preds = %if.end259, %while.body
+  %pdevc.7 = phi ptr [ %pdevc.6, %if.end259 ], [ %pdevc.0441, %while.body ]
+  %xrun.1 = phi i64 [ %xl.0442, %if.end259 ], [ %xrun.0448, %while.body ]
+  %yrun.1 = phi i64 [ %ytf.1453, %if.end259 ], [ %yrun.0449, %while.body ]
+  %run.1 = phi i32 [ %conv261, %if.end259 ], [ %run.0450, %while.body ]
+  %htrun.7 = phi i32 [ %htrun.6, %if.end259 ], [ %htrun.0451, %while.body ]
+  %add263 = add nsw i64 %xl.0442, %3
+  %add264 = add nsw i64 %ytf.1453, %4
+  %cmp49.not = icmp eq i32 %dec458.in, 0
+  br i1 %cmp49.not, label %cleanup265, label %while.body, !llvm.loop !102
 
-264:                                              ; preds = %255, %77, %206, %73, %69, %61
-  %265 = phi i32 [ %207, %206 ], [ 1, %61 ], [ 1, %69 ], [ 1, %73 ], [ 1, %77 ], [ 1, %255 ]
-  call void @llvm.lifetime.end.p0(i64 10, ptr nonnull %5) #8
-  ret i32 %265
+cleanup265:                                       ; preds = %if.end262, %if.end42, %cleanup203, %if.else29, %if.then21, %if.else
+  %retval.4 = phi i32 [ %code.2426, %cleanup203 ], [ 1, %if.else ], [ 1, %if.then21 ], [ 1, %if.else29 ], [ 1, %if.end42 ], [ 1, %if.end262 ]
+  call void @llvm.lifetime.end.p0(i64 10, ptr nonnull %rcolor) #8
+  ret i32 %retval.4
 }
 
 ; Function Attrs: nounwind uwtable
-define dso_local i32 @gs_image_next(ptr noundef %0, ptr noundef %1, i32 noundef %2) local_unnamed_addr #0 {
-  %4 = getelementptr inbounds %struct.gs_image_enum_s, ptr %0, i64 0, i32 14
-  %5 = load i32, ptr %4, align 4, !tbaa !40
-  %6 = getelementptr inbounds %struct.gs_image_enum_s, ptr %0, i64 0, i32 21
-  %7 = load i32, ptr %6, align 8, !tbaa !62
-  %8 = load i32, ptr %0, align 8, !tbaa !21
-  %9 = getelementptr inbounds %struct.gs_image_enum_s, ptr %0, i64 0, i32 19
-  %10 = load i32, ptr %9, align 8, !tbaa !61
-  %11 = icmp eq i32 %10, 0
-  %12 = getelementptr inbounds %struct.gs_image_enum_s, ptr %0, i64 0, i32 20
-  br i1 %11, label %13, label %14
+define dso_local i32 @gs_image_next(ptr noundef %penum, ptr noundef %dbytes, i32 noundef %dsize) local_unnamed_addr #0 {
+entry:
+  %bytes_per_row = getelementptr inbounds %struct.gs_image_enum_s, ptr %penum, i64 0, i32 14
+  %0 = load i32, ptr %bytes_per_row, align 4, !tbaa !40
+  %byte_in_row = getelementptr inbounds %struct.gs_image_enum_s, ptr %penum, i64 0, i32 21
+  %1 = load i32, ptr %byte_in_row, align 8, !tbaa !62
+  %2 = load i32, ptr %penum, align 8, !tbaa !21
+  %plane_index = getelementptr inbounds %struct.gs_image_enum_s, ptr %penum, i64 0, i32 19
+  %3 = load i32, ptr %plane_index, align 8, !tbaa !61
+  %cmp = icmp eq i32 %3, 0
+  %plane_size = getelementptr inbounds %struct.gs_image_enum_s, ptr %penum, i64 0, i32 20
+  br i1 %cmp, label %if.then, label %if.else
 
-13:                                               ; preds = %3
-  store i32 %2, ptr %12, align 4, !tbaa !103
-  br label %17
+if.then:                                          ; preds = %entry
+  store i32 %dsize, ptr %plane_size, align 4, !tbaa !103
+  br label %if.end5
 
-14:                                               ; preds = %3
-  %15 = load i32, ptr %12, align 4, !tbaa !103
-  %16 = icmp eq i32 %15, %2
-  br i1 %16, label %17, label %95
+if.else:                                          ; preds = %entry
+  %4 = load i32, ptr %plane_size, align 4, !tbaa !103
+  %cmp3.not = icmp eq i32 %4, %dsize
+  br i1 %cmp3.not, label %if.end5, label %cleanup46
 
-17:                                               ; preds = %14, %13
-  %18 = sext i32 %10 to i64
-  %19 = getelementptr inbounds %struct.gs_image_enum_s, ptr %0, i64 0, i32 18, i64 %18
-  store ptr %1, ptr %19, align 8, !tbaa !60
-  %20 = add nsw i32 %10, 1
-  store i32 %20, ptr %9, align 8, !tbaa !61
-  %21 = getelementptr inbounds %struct.gs_image_enum_s, ptr %0, i64 0, i32 4
-  %22 = load i32, ptr %21, align 8, !tbaa !26
-  %23 = icmp eq i32 %20, %22
-  br i1 %23, label %24, label %95
+if.end5:                                          ; preds = %if.else, %if.then
+  %idxprom = sext i32 %3 to i64
+  %arrayidx = getelementptr inbounds %struct.gs_image_enum_s, ptr %penum, i64 0, i32 18, i64 %idxprom
+  store ptr %dbytes, ptr %arrayidx, align 8, !tbaa !60
+  %inc = add nsw i32 %3, 1
+  store i32 %inc, ptr %plane_index, align 8, !tbaa !61
+  %spread = getelementptr inbounds %struct.gs_image_enum_s, ptr %penum, i64 0, i32 4
+  %5 = load i32, ptr %spread, align 8, !tbaa !26
+  %cmp8.not = icmp eq i32 %inc, %5
+  br i1 %cmp8.not, label %if.end10, label %cleanup46
 
-24:                                               ; preds = %17
-  store i32 0, ptr %9, align 8, !tbaa !61
-  %25 = icmp eq i32 %2, 0
-  br i1 %25, label %88, label %26
+if.end10:                                         ; preds = %if.end5
+  store i32 0, ptr %plane_index, align 8, !tbaa !61
+  %tobool.not112 = icmp eq i32 %dsize, 0
+  br i1 %tobool.not112, label %while.end, label %while.body.lr.ph
 
-26:                                               ; preds = %24
-  %27 = getelementptr inbounds %struct.gs_image_enum_s, ptr %0, i64 0, i32 12
-  %28 = getelementptr inbounds %struct.gs_image_enum_s, ptr %0, i64 0, i32 2
-  %29 = getelementptr inbounds %struct.gs_image_enum_s, ptr %0, i64 0, i32 9
-  %30 = getelementptr inbounds %struct.gs_image_enum_s, ptr %0, i64 0, i32 10
-  %31 = getelementptr inbounds %struct.gs_image_enum_s, ptr %0, i64 0, i32 3
-  %32 = getelementptr inbounds %struct.gs_image_enum_s, ptr %0, i64 0, i32 24
-  %33 = getelementptr inbounds %struct.gs_image_enum_s, ptr %0, i64 0, i32 1
-  %34 = getelementptr inbounds %struct.gs_image_enum_s, ptr %0, i64 0, i32 7
-  %35 = getelementptr inbounds %struct.gs_image_enum_s, ptr %0, i64 0, i32 22
-  br label %36
+while.body.lr.ph:                                 ; preds = %if.end10
+  %buffer = getelementptr inbounds %struct.gs_image_enum_s, ptr %penum, i64 0, i32 12
+  %log2_bps = getelementptr inbounds %struct.gs_image_enum_s, ptr %penum, i64 0, i32 2
+  %unpack = getelementptr inbounds %struct.gs_image_enum_s, ptr %penum, i64 0, i32 9
+  %render = getelementptr inbounds %struct.gs_image_enum_s, ptr %penum, i64 0, i32 10
+  %spp = getelementptr inbounds %struct.gs_image_enum_s, ptr %penum, i64 0, i32 3
+  %y = getelementptr inbounds %struct.gs_image_enum_s, ptr %penum, i64 0, i32 24
+  %height = getelementptr inbounds %struct.gs_image_enum_s, ptr %penum, i64 0, i32 1
+  %fyx = getelementptr inbounds %struct.gs_image_enum_s, ptr %penum, i64 0, i32 7
+  %xcur = getelementptr inbounds %struct.gs_image_enum_s, ptr %penum, i64 0, i32 22
+  br label %while.body
 
-36:                                               ; preds = %26, %85
-  %37 = phi i32 [ %7, %26 ], [ %86, %85 ]
-  %38 = phi i32 [ 0, %26 ], [ %66, %85 ]
-  %39 = phi i32 [ %2, %26 ], [ %67, %85 ]
-  %40 = sub i32 %5, %37
-  %41 = tail call i32 @llvm.umin.i32(i32 %39, i32 %40)
-  %42 = load ptr, ptr %27, align 8, !tbaa !38
-  %43 = load i32, ptr %28, align 8, !tbaa !24
-  %44 = sub nsw i32 3, %43
-  %45 = shl i32 %37, %44
-  %46 = load i32, ptr %21, align 8, !tbaa !26
-  %47 = mul i32 %45, %46
-  %48 = zext i32 %47 to i64
-  %49 = getelementptr inbounds i8, ptr %42, i64 %48
-  %50 = icmp sgt i32 %46, 0
-  br i1 %50, label %51, label %64
+while.body:                                       ; preds = %while.body.lr.ph, %cleanup
+  %pos.0115 = phi i32 [ %1, %while.body.lr.ph ], [ %pos.2, %cleanup ]
+  %dpos.0114 = phi i32 [ 0, %while.body.lr.ph ], [ %add26, %cleanup ]
+  %dleft.0113 = phi i32 [ %dsize, %while.body.lr.ph ], [ %sub27, %cleanup ]
+  %sub = sub i32 %0, %pos.0115
+  %cond = tail call i32 @llvm.umin.i32(i32 %dleft.0113, i32 %sub)
+  %6 = load ptr, ptr %buffer, align 8, !tbaa !38
+  %7 = load i32, ptr %log2_bps, align 8, !tbaa !24
+  %sub14 = sub nsw i32 3, %7
+  %shl = shl i32 %pos.0115, %sub14
+  %8 = load i32, ptr %spread, align 8, !tbaa !26
+  %mul = mul i32 %shl, %8
+  %idx.ext = zext i32 %mul to i64
+  %add.ptr = getelementptr inbounds i8, ptr %6, i64 %idx.ext
+  %cmp17110 = icmp sgt i32 %8, 0
+  br i1 %cmp17110, label %for.body.lr.ph, label %for.end
 
-51:                                               ; preds = %36
-  %52 = zext i32 %38 to i64
-  br label %53
+for.body.lr.ph:                                   ; preds = %while.body
+  %idx.ext23 = zext i32 %dpos.0114 to i64
+  br label %for.body
 
-53:                                               ; preds = %51, %53
-  %54 = phi i64 [ 0, %51 ], [ %60, %53 ]
-  %55 = load ptr, ptr %29, align 8, !tbaa !59
-  %56 = getelementptr inbounds i8, ptr %49, i64 %54
-  %57 = getelementptr inbounds %struct.gs_image_enum_s, ptr %0, i64 0, i32 18, i64 %54
-  %58 = load ptr, ptr %57, align 8, !tbaa !60
-  %59 = getelementptr inbounds i8, ptr %58, i64 %52
-  tail call void %55(ptr noundef nonnull %0, ptr noundef %56, ptr noundef %59, i32 noundef %41) #8
-  %60 = add nuw nsw i64 %54, 1
-  %61 = load i32, ptr %21, align 8, !tbaa !26
-  %62 = sext i32 %61 to i64
-  %63 = icmp slt i64 %60, %62
-  br i1 %63, label %53, label %64, !llvm.loop !104
+for.body:                                         ; preds = %for.body.lr.ph, %for.body
+  %indvars.iv = phi i64 [ 0, %for.body.lr.ph ], [ %indvars.iv.next, %for.body ]
+  %9 = load ptr, ptr %unpack, align 8, !tbaa !59
+  %add.ptr19 = getelementptr inbounds i8, ptr %add.ptr, i64 %indvars.iv
+  %arrayidx22 = getelementptr inbounds %struct.gs_image_enum_s, ptr %penum, i64 0, i32 18, i64 %indvars.iv
+  %10 = load ptr, ptr %arrayidx22, align 8, !tbaa !60
+  %add.ptr24 = getelementptr inbounds i8, ptr %10, i64 %idx.ext23
+  tail call void %9(ptr noundef nonnull %penum, ptr noundef %add.ptr19, ptr noundef %add.ptr24, i32 noundef %cond) #8
+  %indvars.iv.next = add nuw nsw i64 %indvars.iv, 1
+  %11 = load i32, ptr %spread, align 8, !tbaa !26
+  %12 = sext i32 %11 to i64
+  %cmp17 = icmp slt i64 %indvars.iv.next, %12
+  br i1 %cmp17, label %for.body, label %for.end, !llvm.loop !104
 
-64:                                               ; preds = %53, %36
-  %65 = add i32 %41, %37
-  %66 = add i32 %41, %38
-  %67 = sub i32 %39, %41
-  %68 = icmp eq i32 %65, %5
-  br i1 %68, label %69, label %85
+for.end:                                          ; preds = %for.body, %while.body
+  %add = add i32 %cond, %pos.0115
+  %add26 = add i32 %cond, %dpos.0114
+  %sub27 = sub i32 %dleft.0113, %cond
+  %cmp28 = icmp eq i32 %add, %0
+  br i1 %cmp28, label %if.then29, label %cleanup
 
-69:                                               ; preds = %64
-  %70 = load ptr, ptr %30, align 8, !tbaa !58
-  %71 = load ptr, ptr %27, align 8, !tbaa !38
-  %72 = load i32, ptr %31, align 4, !tbaa !25
-  %73 = mul nsw i32 %72, %8
-  %74 = tail call i32 %70(ptr noundef nonnull %0, ptr noundef %71, i32 noundef %73, i32 noundef 1) #8
-  %75 = icmp slt i32 %74, 0
-  br i1 %75, label %90, label %76
+if.then29:                                        ; preds = %for.end
+  %13 = load ptr, ptr %render, align 8, !tbaa !58
+  %14 = load ptr, ptr %buffer, align 8, !tbaa !38
+  %15 = load i32, ptr %spp, align 4, !tbaa !25
+  %mul31 = mul nsw i32 %15, %2
+  %call = tail call i32 %13(ptr noundef nonnull %penum, ptr noundef %14, i32 noundef %mul31, i32 noundef 1) #8
+  %cmp32 = icmp slt i32 %call, 0
+  br i1 %cmp32, label %err, label %if.end34
 
-76:                                               ; preds = %69
-  %77 = load i32, ptr %32, align 8, !tbaa !63
-  %78 = add nsw i32 %77, 1
-  store i32 %78, ptr %32, align 8, !tbaa !63
-  %79 = load i32, ptr %33, align 4, !tbaa !23
-  %80 = icmp eq i32 %78, %79
-  br i1 %80, label %90, label %81
+if.end34:                                         ; preds = %if.then29
+  %16 = load i32, ptr %y, align 8, !tbaa !63
+  %inc35 = add nsw i32 %16, 1
+  store i32 %inc35, ptr %y, align 8, !tbaa !63
+  %17 = load i32, ptr %height, align 4, !tbaa !23
+  %cmp36 = icmp eq i32 %inc35, %17
+  br i1 %cmp36, label %err, label %if.end38
 
-81:                                               ; preds = %76
-  %82 = load <2 x i64>, ptr %34, align 8, !tbaa !31
-  %83 = load <2 x i64>, ptr %35, align 8, !tbaa !31
-  %84 = add nsw <2 x i64> %83, %82
-  store <2 x i64> %84, ptr %35, align 8, !tbaa !31
-  br label %85
+if.end38:                                         ; preds = %if.end34
+  %18 = load <2 x i64>, ptr %fyx, align 8, !tbaa !31
+  %19 = load <2 x i64>, ptr %xcur, align 8, !tbaa !31
+  %20 = add nsw <2 x i64> %19, %18
+  store <2 x i64> %20, ptr %xcur, align 8, !tbaa !31
+  br label %cleanup
 
-85:                                               ; preds = %64, %81
-  %86 = phi i32 [ 0, %81 ], [ %65, %64 ]
-  %87 = icmp eq i32 %67, 0
-  br i1 %87, label %88, label %36
+cleanup:                                          ; preds = %for.end, %if.end38
+  %pos.2 = phi i32 [ 0, %if.end38 ], [ %add, %for.end ]
+  %tobool.not = icmp eq i32 %sub27, 0
+  br i1 %tobool.not, label %while.end, label %while.body
 
-88:                                               ; preds = %85, %24
-  %89 = phi i32 [ %7, %24 ], [ %86, %85 ]
-  store i32 %89, ptr %6, align 8, !tbaa !62
-  br label %95
+while.end:                                        ; preds = %cleanup, %if.end10
+  %pos.0.lcssa = phi i32 [ %1, %if.end10 ], [ %pos.2, %cleanup ]
+  store i32 %pos.0.lcssa, ptr %byte_in_row, align 8, !tbaa !62
+  br label %cleanup46
 
-90:                                               ; preds = %69, %76
-  %91 = phi i32 [ 1, %76 ], [ %74, %69 ]
-  %92 = load ptr, ptr %27, align 8, !tbaa !38
-  %93 = getelementptr inbounds %struct.gs_image_enum_s, ptr %0, i64 0, i32 13
-  %94 = load i32, ptr %93, align 8, !tbaa !39
-  tail call void @gs_free(ptr noundef %92, i32 noundef %94, i32 noundef 1, ptr noundef nonnull @.str) #8
-  br label %95
+err:                                              ; preds = %if.then29, %if.end34
+  %code.3 = phi i32 [ 1, %if.end34 ], [ %call, %if.then29 ]
+  %21 = load ptr, ptr %buffer, align 8, !tbaa !38
+  %buffer_size = getelementptr inbounds %struct.gs_image_enum_s, ptr %penum, i64 0, i32 13
+  %22 = load i32, ptr %buffer_size, align 8, !tbaa !39
+  tail call void @gs_free(ptr noundef %21, i32 noundef %22, i32 noundef 1, ptr noundef nonnull @.str) #8
+  br label %cleanup46
 
-95:                                               ; preds = %17, %14, %90, %88
-  %96 = phi i32 [ %91, %90 ], [ 0, %88 ], [ -23, %14 ], [ 0, %17 ]
-  ret i32 %96
+cleanup46:                                        ; preds = %if.end5, %if.else, %err, %while.end
+  %retval.0 = phi i32 [ %code.3, %err ], [ 0, %while.end ], [ -23, %if.else ], [ 0, %if.end5 ]
+  ret i32 %retval.0
 }
 
 declare void @gs_free(ptr noundef, i32 noundef, i32 noundef, ptr noundef) local_unnamed_addr #2
@@ -1764,6 +1779,9 @@ declare i32 @gz_fill_rectangle(...) local_unnamed_addr #2
 declare i32 @gx_color_from_rgb(...) local_unnamed_addr #2
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
+declare i32 @llvm.umin.i32(i32, i32) #7
+
+; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
 declare i32 @llvm.abs.i32(i32, i1 immarg) #7
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
@@ -1771,9 +1789,6 @@ declare i32 @llvm.smin.i32(i32, i32) #7
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
 declare i32 @llvm.umax.i32(i32, i32) #7
-
-; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i32 @llvm.umin.i32(i32, i32) #7
 
 attributes #0 = { nounwind uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #1 = { mustprogress nocallback nofree nosync nounwind willreturn memory(argmem: readwrite) }

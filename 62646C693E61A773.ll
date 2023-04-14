@@ -105,68 +105,71 @@ $_ZTI13CMyUnknownImp = comdat any
 @reltable._ZN23CExtractCallbackConsole16PrepareOperationEPKwbiPKy = private unnamed_addr constant [3 x i32] [i32 trunc (i64 sub (i64 ptrtoint (ptr @.str.10 to i64), i64 ptrtoint (ptr @reltable._ZN23CExtractCallbackConsole16PrepareOperationEPKwbiPKy to i64)) to i32), i32 trunc (i64 sub (i64 ptrtoint (ptr @.str.11 to i64), i64 ptrtoint (ptr @reltable._ZN23CExtractCallbackConsole16PrepareOperationEPKwbiPKy to i64)) to i32), i32 trunc (i64 sub (i64 ptrtoint (ptr @.str.12 to i64), i64 ptrtoint (ptr @reltable._ZN23CExtractCallbackConsole16PrepareOperationEPKwbiPKy to i64)) to i32)], align 4
 
 ; Function Attrs: mustprogress uwtable
-define dso_local noundef i32 @_ZN23CExtractCallbackConsole8SetTotalEy(ptr nocapture nonnull readnone align 8 %0, i64 %1) unnamed_addr #0 align 2 {
-  %3 = tail call noundef zeroext i1 @_ZN13NConsoleClose15TestBreakSignalEv()
-  %4 = select i1 %3, i32 -2147467260, i32 0
-  ret i32 %4
+define dso_local noundef i32 @_ZN23CExtractCallbackConsole8SetTotalEy(ptr nocapture nonnull readnone align 8 %this, i64 %0) unnamed_addr #0 align 2 {
+entry:
+  %call = tail call noundef zeroext i1 @_ZN13NConsoleClose15TestBreakSignalEv()
+  %. = select i1 %call, i32 -2147467260, i32 0
+  ret i32 %.
 }
 
 declare noundef zeroext i1 @_ZN13NConsoleClose15TestBreakSignalEv() local_unnamed_addr #1
 
 ; Function Attrs: mustprogress uwtable
-define dso_local noundef i32 @_ZN23CExtractCallbackConsole12SetCompletedEPKy(ptr nocapture nonnull readnone align 8 %0, ptr nocapture readnone %1) unnamed_addr #0 align 2 {
-  %3 = tail call noundef zeroext i1 @_ZN13NConsoleClose15TestBreakSignalEv()
-  %4 = select i1 %3, i32 -2147467260, i32 0
-  ret i32 %4
+define dso_local noundef i32 @_ZN23CExtractCallbackConsole12SetCompletedEPKy(ptr nocapture nonnull readnone align 8 %this, ptr nocapture readnone %0) unnamed_addr #0 align 2 {
+entry:
+  %call = tail call noundef zeroext i1 @_ZN13NConsoleClose15TestBreakSignalEv()
+  %. = select i1 %call, i32 -2147467260, i32 0
+  ret i32 %.
 }
 
 ; Function Attrs: mustprogress uwtable
-define dso_local noundef i32 @_ZN23CExtractCallbackConsole12AskOverwriteEPKwPK9_FILETIMEPKyS1_S4_S6_Pi(ptr nocapture noundef nonnull readonly align 8 dereferenceable(80) %0, ptr noundef %1, ptr nocapture readnone %2, ptr nocapture readnone %3, ptr noundef %4, ptr nocapture readnone %5, ptr nocapture readnone %6, ptr nocapture noundef writeonly %7) unnamed_addr #0 align 2 {
-  %9 = getelementptr inbounds %class.CExtractCallbackConsole, ptr %0, i64 0, i32 9
-  %10 = load ptr, ptr %9, align 8, !tbaa !5
-  %11 = tail call noundef nonnull align 8 dereferenceable(16) ptr @_ZN13CStdOutStreamlsEPKc(ptr noundef nonnull align 8 dereferenceable(16) %10, ptr noundef nonnull @.str)
-  %12 = tail call noundef nonnull align 8 dereferenceable(16) ptr @_ZN13CStdOutStreamlsEPKw(ptr noundef nonnull align 8 dereferenceable(16) %11, ptr noundef %1)
-  %13 = tail call noundef nonnull align 8 dereferenceable(16) ptr @_ZN13CStdOutStreamlsEPKc(ptr noundef nonnull align 8 dereferenceable(16) %12, ptr noundef nonnull @.str.1)
-  %14 = tail call noundef nonnull align 8 dereferenceable(16) ptr @_ZN13CStdOutStreamlsEPFRS_S0_E(ptr noundef nonnull align 8 dereferenceable(16) %13, ptr noundef nonnull @_Z4endlR13CStdOutStream)
-  %15 = load ptr, ptr %9, align 8, !tbaa !5
-  %16 = tail call noundef nonnull align 8 dereferenceable(16) ptr @_ZN13CStdOutStreamlsEPKw(ptr noundef nonnull align 8 dereferenceable(16) %15, ptr noundef %4)
-  %17 = load ptr, ptr %9, align 8, !tbaa !5
-  %18 = tail call noundef i32 @_Z20ScanUserYesNoAllQuitP13CStdOutStream(ptr noundef %17)
-  switch i32 %18, label %24 [
-    i32 5, label %25
-    i32 1, label %19
-    i32 3, label %20
-    i32 2, label %21
-    i32 0, label %22
-    i32 4, label %23
+define dso_local noundef i32 @_ZN23CExtractCallbackConsole12AskOverwriteEPKwPK9_FILETIMEPKyS1_S4_S6_Pi(ptr nocapture noundef nonnull readonly align 8 dereferenceable(80) %this, ptr noundef %existName, ptr nocapture readnone %0, ptr nocapture readnone %1, ptr noundef %newName, ptr nocapture readnone %2, ptr nocapture readnone %3, ptr nocapture noundef writeonly %answer) unnamed_addr #0 align 2 {
+entry:
+  %OutStream = getelementptr inbounds %class.CExtractCallbackConsole, ptr %this, i64 0, i32 9
+  %4 = load ptr, ptr %OutStream, align 8, !tbaa !5
+  %call = tail call noundef nonnull align 8 dereferenceable(16) ptr @_ZN13CStdOutStreamlsEPKc(ptr noundef nonnull align 8 dereferenceable(16) %4, ptr noundef nonnull @.str)
+  %call5 = tail call noundef nonnull align 8 dereferenceable(16) ptr @_ZN13CStdOutStreamlsEPKw(ptr noundef nonnull align 8 dereferenceable(16) %call, ptr noundef %existName)
+  %call6 = tail call noundef nonnull align 8 dereferenceable(16) ptr @_ZN13CStdOutStreamlsEPKc(ptr noundef nonnull align 8 dereferenceable(16) %call5, ptr noundef nonnull @.str.1)
+  %call7 = tail call noundef nonnull align 8 dereferenceable(16) ptr @_ZN13CStdOutStreamlsEPFRS_S0_E(ptr noundef nonnull align 8 dereferenceable(16) %call6, ptr noundef nonnull @_Z4endlR13CStdOutStream)
+  %5 = load ptr, ptr %OutStream, align 8, !tbaa !5
+  %call9 = tail call noundef nonnull align 8 dereferenceable(16) ptr @_ZN13CStdOutStreamlsEPKw(ptr noundef nonnull align 8 dereferenceable(16) %5, ptr noundef %newName)
+  %6 = load ptr, ptr %OutStream, align 8, !tbaa !5
+  %call11 = tail call noundef i32 @_Z20ScanUserYesNoAllQuitP13CStdOutStream(ptr noundef %6)
+  switch i32 %call11, label %sw.default [
+    i32 5, label %cleanup
+    i32 1, label %sw.bb12
+    i32 3, label %sw.bb13
+    i32 2, label %sw.bb14
+    i32 0, label %sw.bb15
+    i32 4, label %sw.bb16
   ]
 
-19:                                               ; preds = %8
-  store i32 2, ptr %7, align 4, !tbaa !20
-  br label %25
+sw.bb12:                                          ; preds = %entry
+  store i32 2, ptr %answer, align 4, !tbaa !20
+  br label %cleanup
 
-20:                                               ; preds = %8
-  store i32 3, ptr %7, align 4, !tbaa !20
-  br label %25
+sw.bb13:                                          ; preds = %entry
+  store i32 3, ptr %answer, align 4, !tbaa !20
+  br label %cleanup
 
-21:                                               ; preds = %8
-  store i32 1, ptr %7, align 4, !tbaa !20
-  br label %25
+sw.bb14:                                          ; preds = %entry
+  store i32 1, ptr %answer, align 4, !tbaa !20
+  br label %cleanup
 
-22:                                               ; preds = %8
-  store i32 0, ptr %7, align 4, !tbaa !20
-  br label %25
+sw.bb15:                                          ; preds = %entry
+  store i32 0, ptr %answer, align 4, !tbaa !20
+  br label %cleanup
 
-23:                                               ; preds = %8
-  store i32 4, ptr %7, align 4, !tbaa !20
-  br label %25
+sw.bb16:                                          ; preds = %entry
+  store i32 4, ptr %answer, align 4, !tbaa !20
+  br label %cleanup
 
-24:                                               ; preds = %8
-  br label %25
+sw.default:                                       ; preds = %entry
+  br label %cleanup
 
-25:                                               ; preds = %19, %20, %21, %22, %23, %8, %24
-  %26 = phi i32 [ -2147467259, %24 ], [ -2147467260, %8 ], [ 0, %23 ], [ 0, %22 ], [ 0, %21 ], [ 0, %20 ], [ 0, %19 ]
-  ret i32 %26
+cleanup:                                          ; preds = %sw.bb12, %sw.bb13, %sw.bb14, %sw.bb15, %sw.bb16, %entry, %sw.default
+  %retval.0 = phi i32 [ -2147467259, %sw.default ], [ -2147467260, %entry ], [ 0, %sw.bb16 ], [ 0, %sw.bb15 ], [ 0, %sw.bb14 ], [ 0, %sw.bb13 ], [ 0, %sw.bb12 ]
+  ret i32 %retval.0
 }
 
 declare noundef nonnull align 8 dereferenceable(16) ptr @_ZN13CStdOutStreamlsEPKc(ptr noundef nonnull align 8 dereferenceable(16), ptr noundef) local_unnamed_addr #1
@@ -186,286 +189,291 @@ declare noundef i32 @_Z20ScanUserYesNoAllQuitP13CStdOutStream(ptr noundef) local
 declare void @llvm.lifetime.end.p0(i64 immarg, ptr nocapture) #2
 
 ; Function Attrs: mustprogress uwtable
-define dso_local noundef i32 @_ZN23CExtractCallbackConsole16PrepareOperationEPKwbiPKy(ptr nocapture noundef nonnull readonly align 8 dereferenceable(80) %0, ptr noundef %1, i1 zeroext %2, i32 noundef %3, ptr noundef readonly %4) unnamed_addr #0 align 2 {
-  %6 = icmp ult i32 %3, 3
-  br i1 %6, label %7, label %14
+define dso_local noundef i32 @_ZN23CExtractCallbackConsole16PrepareOperationEPKwbiPKy(ptr nocapture noundef nonnull readonly align 8 dereferenceable(80) %this, ptr noundef %name, i1 zeroext %0, i32 noundef %askExtractMode, ptr noundef readonly %position) unnamed_addr #0 align 2 {
+entry:
+  %1 = icmp ult i32 %askExtractMode, 3
+  br i1 %1, label %switch.lookup, label %sw.epilog
 
-7:                                                ; preds = %5
-  %8 = sext i32 %3 to i64
-  %9 = shl i64 %8, 2
-  %10 = call ptr @llvm.load.relative.i64(ptr @reltable._ZN23CExtractCallbackConsole16PrepareOperationEPKwbiPKy, i64 %9)
-  %11 = getelementptr inbounds %class.CExtractCallbackConsole, ptr %0, i64 0, i32 9
-  %12 = load ptr, ptr %11, align 8, !tbaa !5
-  %13 = tail call noundef nonnull align 8 dereferenceable(16) ptr @_ZN13CStdOutStreamlsEPKc(ptr noundef nonnull align 8 dereferenceable(16) %12, ptr noundef nonnull %10)
-  br label %14
+switch.lookup:                                    ; preds = %entry
+  %2 = sext i32 %askExtractMode to i64
+  %reltable.shift = shl i64 %2, 2
+  %reltable.intrinsic = call ptr @llvm.load.relative.i64(ptr @reltable._ZN23CExtractCallbackConsole16PrepareOperationEPKwbiPKy, i64 %reltable.shift)
+  %OutStream6 = getelementptr inbounds %class.CExtractCallbackConsole, ptr %this, i64 0, i32 9
+  %3 = load ptr, ptr %OutStream6, align 8, !tbaa !5
+  %call7 = tail call noundef nonnull align 8 dereferenceable(16) ptr @_ZN13CStdOutStreamlsEPKc(ptr noundef nonnull align 8 dereferenceable(16) %3, ptr noundef nonnull %reltable.intrinsic)
+  br label %sw.epilog
 
-14:                                               ; preds = %5, %7
-  %15 = getelementptr inbounds %class.CExtractCallbackConsole, ptr %0, i64 0, i32 9
-  %16 = load ptr, ptr %15, align 8, !tbaa !5
-  %17 = tail call noundef nonnull align 8 dereferenceable(16) ptr @_ZN13CStdOutStreamlsEPKw(ptr noundef nonnull align 8 dereferenceable(16) %16, ptr noundef %1)
-  %18 = icmp eq ptr %4, null
-  br i1 %18, label %25, label %19
+sw.epilog:                                        ; preds = %entry, %switch.lookup
+  %OutStream8 = getelementptr inbounds %class.CExtractCallbackConsole, ptr %this, i64 0, i32 9
+  %4 = load ptr, ptr %OutStream8, align 8, !tbaa !5
+  %call9 = tail call noundef nonnull align 8 dereferenceable(16) ptr @_ZN13CStdOutStreamlsEPKw(ptr noundef nonnull align 8 dereferenceable(16) %4, ptr noundef %name)
+  %cmp.not = icmp eq ptr %position, null
+  br i1 %cmp.not, label %if.end, label %if.then
 
-19:                                               ; preds = %14
-  %20 = load ptr, ptr %15, align 8, !tbaa !5
-  %21 = tail call noundef nonnull align 8 dereferenceable(16) ptr @_ZN13CStdOutStreamlsEPKc(ptr noundef nonnull align 8 dereferenceable(16) %20, ptr noundef nonnull @.str.2)
-  %22 = load i64, ptr %4, align 8, !tbaa !21
-  %23 = tail call noundef nonnull align 8 dereferenceable(16) ptr @_ZN13CStdOutStreamlsEy(ptr noundef nonnull align 8 dereferenceable(16) %21, i64 noundef %22)
-  %24 = tail call noundef nonnull align 8 dereferenceable(16) ptr @_ZN13CStdOutStreamlsEPKc(ptr noundef nonnull align 8 dereferenceable(16) %23, ptr noundef nonnull @.str.3)
-  br label %25
+if.then:                                          ; preds = %sw.epilog
+  %5 = load ptr, ptr %OutStream8, align 8, !tbaa !5
+  %call11 = tail call noundef nonnull align 8 dereferenceable(16) ptr @_ZN13CStdOutStreamlsEPKc(ptr noundef nonnull align 8 dereferenceable(16) %5, ptr noundef nonnull @.str.2)
+  %6 = load i64, ptr %position, align 8, !tbaa !21
+  %call12 = tail call noundef nonnull align 8 dereferenceable(16) ptr @_ZN13CStdOutStreamlsEy(ptr noundef nonnull align 8 dereferenceable(16) %call11, i64 noundef %6)
+  %call13 = tail call noundef nonnull align 8 dereferenceable(16) ptr @_ZN13CStdOutStreamlsEPKc(ptr noundef nonnull align 8 dereferenceable(16) %call12, ptr noundef nonnull @.str.3)
+  br label %if.end
 
-25:                                               ; preds = %19, %14
+if.end:                                           ; preds = %if.then, %sw.epilog
   ret i32 0
 }
 
 declare noundef nonnull align 8 dereferenceable(16) ptr @_ZN13CStdOutStreamlsEy(ptr noundef nonnull align 8 dereferenceable(16), i64 noundef) local_unnamed_addr #1
 
 ; Function Attrs: mustprogress uwtable
-define dso_local noundef i32 @_ZN23CExtractCallbackConsole12MessageErrorEPKw(ptr nocapture noundef nonnull align 8 dereferenceable(80) %0, ptr noundef %1) unnamed_addr #0 align 2 {
-  %3 = getelementptr inbounds %class.CExtractCallbackConsole, ptr %0, i64 0, i32 9
-  %4 = load ptr, ptr %3, align 8, !tbaa !5
-  %5 = tail call noundef nonnull align 8 dereferenceable(16) ptr @_ZN13CStdOutStreamlsEPKw(ptr noundef nonnull align 8 dereferenceable(16) %4, ptr noundef %1)
-  %6 = tail call noundef nonnull align 8 dereferenceable(16) ptr @_ZN13CStdOutStreamlsEPFRS_S0_E(ptr noundef nonnull align 8 dereferenceable(16) %5, ptr noundef nonnull @_Z4endlR13CStdOutStream)
-  %7 = getelementptr inbounds %class.CExtractCallbackConsole, ptr %0, i64 0, i32 7
-  %8 = load <2 x i64>, ptr %7, align 8, !tbaa !21
-  %9 = add <2 x i64> %8, <i64 1, i64 1>
-  store <2 x i64> %9, ptr %7, align 8, !tbaa !21
+define dso_local noundef i32 @_ZN23CExtractCallbackConsole12MessageErrorEPKw(ptr nocapture noundef nonnull align 8 dereferenceable(80) %this, ptr noundef %message) unnamed_addr #0 align 2 {
+entry:
+  %OutStream = getelementptr inbounds %class.CExtractCallbackConsole, ptr %this, i64 0, i32 9
+  %0 = load ptr, ptr %OutStream, align 8, !tbaa !5
+  %call = tail call noundef nonnull align 8 dereferenceable(16) ptr @_ZN13CStdOutStreamlsEPKw(ptr noundef nonnull align 8 dereferenceable(16) %0, ptr noundef %message)
+  %call2 = tail call noundef nonnull align 8 dereferenceable(16) ptr @_ZN13CStdOutStreamlsEPFRS_S0_E(ptr noundef nonnull align 8 dereferenceable(16) %call, ptr noundef nonnull @_Z4endlR13CStdOutStream)
+  %NumFileErrors = getelementptr inbounds %class.CExtractCallbackConsole, ptr %this, i64 0, i32 7
+  %1 = load <2 x i64>, ptr %NumFileErrors, align 8, !tbaa !21
+  %2 = add <2 x i64> %1, <i64 1, i64 1>
+  store <2 x i64> %2, ptr %NumFileErrors, align 8, !tbaa !21
   ret i32 0
 }
 
 ; Function Attrs: mustprogress uwtable
-define dso_local noundef i32 @_ZN23CExtractCallbackConsole18SetOperationResultEib(ptr nocapture noundef nonnull align 8 dereferenceable(80) %0, i32 noundef %1, i1 noundef zeroext %2) unnamed_addr #0 align 2 {
-  %4 = icmp eq i32 %1, 0
-  br i1 %4, label %26, label %5
+define dso_local noundef i32 @_ZN23CExtractCallbackConsole18SetOperationResultEib(ptr nocapture noundef nonnull align 8 dereferenceable(80) %this, i32 noundef %operationResult, i1 noundef zeroext %encrypted) unnamed_addr #0 align 2 {
+entry:
+  %cond22 = icmp eq i32 %operationResult, 0
+  br i1 %cond22, label %sw.epilog19, label %sw.default
 
-5:                                                ; preds = %3
-  %6 = getelementptr inbounds %class.CExtractCallbackConsole, ptr %0, i64 0, i32 7
-  %7 = load <2 x i64>, ptr %6, align 8, !tbaa !21
-  %8 = add <2 x i64> %7, <i64 1, i64 1>
-  store <2 x i64> %8, ptr %6, align 8, !tbaa !21
-  %9 = getelementptr inbounds %class.CExtractCallbackConsole, ptr %0, i64 0, i32 9
-  %10 = load ptr, ptr %9, align 8, !tbaa !5
-  %11 = tail call noundef nonnull align 8 dereferenceable(16) ptr @_ZN13CStdOutStreamlsEPKc(ptr noundef nonnull align 8 dereferenceable(16) %10, ptr noundef nonnull @.str.4)
-  switch i32 %1, label %23 [
-    i32 1, label %12
-    i32 3, label %15
-    i32 2, label %19
+sw.default:                                       ; preds = %entry
+  %NumFileErrors = getelementptr inbounds %class.CExtractCallbackConsole, ptr %this, i64 0, i32 7
+  %0 = load <2 x i64>, ptr %NumFileErrors, align 8, !tbaa !21
+  %1 = add <2 x i64> %0, <i64 1, i64 1>
+  store <2 x i64> %1, ptr %NumFileErrors, align 8, !tbaa !21
+  %OutStream = getelementptr inbounds %class.CExtractCallbackConsole, ptr %this, i64 0, i32 9
+  %2 = load ptr, ptr %OutStream, align 8, !tbaa !5
+  %call = tail call noundef nonnull align 8 dereferenceable(16) ptr @_ZN13CStdOutStreamlsEPKc(ptr noundef nonnull align 8 dereferenceable(16) %2, ptr noundef nonnull @.str.4)
+  switch i32 %operationResult, label %sw.default16 [
+    i32 1, label %sw.bb
+    i32 3, label %sw.bb5
+    i32 2, label %sw.bb8
   ]
 
-12:                                               ; preds = %5
-  %13 = load ptr, ptr %9, align 8, !tbaa !5
-  %14 = tail call noundef nonnull align 8 dereferenceable(16) ptr @_ZN13CStdOutStreamlsEPKc(ptr noundef nonnull align 8 dereferenceable(16) %13, ptr noundef nonnull @.str.13)
-  br label %26
+sw.bb:                                            ; preds = %sw.default
+  %3 = load ptr, ptr %OutStream, align 8, !tbaa !5
+  %call4 = tail call noundef nonnull align 8 dereferenceable(16) ptr @_ZN13CStdOutStreamlsEPKc(ptr noundef nonnull align 8 dereferenceable(16) %3, ptr noundef nonnull @.str.13)
+  br label %sw.epilog19
 
-15:                                               ; preds = %5
-  %16 = load ptr, ptr %9, align 8, !tbaa !5
-  %17 = select i1 %2, ptr @.str.14, ptr @.str.15
-  %18 = tail call noundef nonnull align 8 dereferenceable(16) ptr @_ZN13CStdOutStreamlsEPKc(ptr noundef nonnull align 8 dereferenceable(16) %16, ptr noundef nonnull %17)
-  br label %26
+sw.bb5:                                           ; preds = %sw.default
+  %4 = load ptr, ptr %OutStream, align 8, !tbaa !5
+  %cond = select i1 %encrypted, ptr @.str.14, ptr @.str.15
+  %call7 = tail call noundef nonnull align 8 dereferenceable(16) ptr @_ZN13CStdOutStreamlsEPKc(ptr noundef nonnull align 8 dereferenceable(16) %4, ptr noundef nonnull %cond)
+  br label %sw.epilog19
 
-19:                                               ; preds = %5
-  %20 = load ptr, ptr %9, align 8, !tbaa !5
-  %21 = select i1 %2, ptr @.str.16, ptr @.str.17
-  %22 = tail call noundef nonnull align 8 dereferenceable(16) ptr @_ZN13CStdOutStreamlsEPKc(ptr noundef nonnull align 8 dereferenceable(16) %20, ptr noundef nonnull %21)
-  br label %26
+sw.bb8:                                           ; preds = %sw.default
+  %5 = load ptr, ptr %OutStream, align 8, !tbaa !5
+  %cond14 = select i1 %encrypted, ptr @.str.16, ptr @.str.17
+  %call15 = tail call noundef nonnull align 8 dereferenceable(16) ptr @_ZN13CStdOutStreamlsEPKc(ptr noundef nonnull align 8 dereferenceable(16) %5, ptr noundef nonnull %cond14)
+  br label %sw.epilog19
 
-23:                                               ; preds = %5
-  %24 = load ptr, ptr %9, align 8, !tbaa !5
-  %25 = tail call noundef nonnull align 8 dereferenceable(16) ptr @_ZN13CStdOutStreamlsEPKc(ptr noundef nonnull align 8 dereferenceable(16) %24, ptr noundef nonnull @.str.18)
-  br label %26
+sw.default16:                                     ; preds = %sw.default
+  %6 = load ptr, ptr %OutStream, align 8, !tbaa !5
+  %call18 = tail call noundef nonnull align 8 dereferenceable(16) ptr @_ZN13CStdOutStreamlsEPKc(ptr noundef nonnull align 8 dereferenceable(16) %6, ptr noundef nonnull @.str.18)
+  br label %sw.epilog19
 
-26:                                               ; preds = %12, %15, %19, %23, %3
-  %27 = getelementptr inbounds %class.CExtractCallbackConsole, ptr %0, i64 0, i32 9
-  %28 = load ptr, ptr %27, align 8, !tbaa !5
-  %29 = tail call noundef nonnull align 8 dereferenceable(16) ptr @_ZN13CStdOutStreamlsEPFRS_S0_E(ptr noundef nonnull align 8 dereferenceable(16) %28, ptr noundef nonnull @_Z4endlR13CStdOutStream)
+sw.epilog19:                                      ; preds = %sw.bb, %sw.bb5, %sw.bb8, %sw.default16, %entry
+  %OutStream20 = getelementptr inbounds %class.CExtractCallbackConsole, ptr %this, i64 0, i32 9
+  %7 = load ptr, ptr %OutStream20, align 8, !tbaa !5
+  %call21 = tail call noundef nonnull align 8 dereferenceable(16) ptr @_ZN13CStdOutStreamlsEPFRS_S0_E(ptr noundef nonnull align 8 dereferenceable(16) %7, ptr noundef nonnull @_Z4endlR13CStdOutStream)
   ret i32 0
 }
 
 ; Function Attrs: mustprogress uwtable
-define dso_local noundef i32 @_ZN23CExtractCallbackConsole11SetPasswordERK11CStringBaseIwE(ptr noundef nonnull align 8 dereferenceable(80) %0, ptr noundef nonnull readonly align 8 dereferenceable(16) %1) unnamed_addr #0 align 2 {
-  %3 = getelementptr inbounds %class.CExtractCallbackConsole, ptr %0, i64 0, i32 3
-  store i8 1, ptr %3, align 4, !tbaa !22
-  %4 = getelementptr inbounds %class.CExtractCallbackConsole, ptr %0, i64 0, i32 4
-  %5 = icmp eq ptr %4, %1
-  br i1 %5, label %40, label %6
+define dso_local noundef i32 @_ZN23CExtractCallbackConsole11SetPasswordERK11CStringBaseIwE(ptr noundef nonnull align 8 dereferenceable(80) %this, ptr noundef nonnull readonly align 8 dereferenceable(16) %password) unnamed_addr #0 align 2 {
+entry:
+  %PasswordIsDefined = getelementptr inbounds %class.CExtractCallbackConsole, ptr %this, i64 0, i32 3
+  store i8 1, ptr %PasswordIsDefined, align 4, !tbaa !22
+  %Password = getelementptr inbounds %class.CExtractCallbackConsole, ptr %this, i64 0, i32 4
+  %cmp.i = icmp eq ptr %Password, %password
+  br i1 %cmp.i, label %_ZN11CStringBaseIwEaSERKS0_.exit, label %if.end.i
 
-6:                                                ; preds = %2
-  %7 = getelementptr inbounds %class.CExtractCallbackConsole, ptr %0, i64 0, i32 4, i32 1
-  store i32 0, ptr %7, align 8, !tbaa !23
-  %8 = load ptr, ptr %4, align 8, !tbaa !24
-  store i32 0, ptr %8, align 4, !tbaa !25
-  %9 = getelementptr inbounds %class.CStringBase, ptr %1, i64 0, i32 1
-  %10 = load i32, ptr %9, align 8, !tbaa !23
-  %11 = add nsw i32 %10, 1
-  %12 = getelementptr inbounds %class.CExtractCallbackConsole, ptr %0, i64 0, i32 4, i32 2
-  %13 = load i32, ptr %12, align 4, !tbaa !27
-  %14 = icmp eq i32 %11, %13
-  br i1 %14, label %28, label %15
+if.end.i:                                         ; preds = %entry
+  %_length.i.i = getelementptr inbounds %class.CExtractCallbackConsole, ptr %this, i64 0, i32 4, i32 1
+  store i32 0, ptr %_length.i.i, align 8, !tbaa !23
+  %0 = load ptr, ptr %Password, align 8, !tbaa !24
+  store i32 0, ptr %0, align 4, !tbaa !25
+  %_length.i = getelementptr inbounds %class.CStringBase, ptr %password, i64 0, i32 1
+  %1 = load i32, ptr %_length.i, align 8, !tbaa !23
+  %add.i.i = add nsw i32 %1, 1
+  %_capacity.i.i = getelementptr inbounds %class.CExtractCallbackConsole, ptr %this, i64 0, i32 4, i32 2
+  %2 = load i32, ptr %_capacity.i.i, align 4, !tbaa !27
+  %cmp.i.i = icmp eq i32 %add.i.i, %2
+  br i1 %cmp.i.i, label %_ZN11CStringBaseIwE11SetCapacityEi.exit.i, label %if.end.i.i
 
-15:                                               ; preds = %6
-  %16 = zext i32 %11 to i64
-  %17 = icmp slt i32 %10, -1
-  %18 = shl nuw nsw i64 %16, 2
-  %19 = select i1 %17, i64 -1, i64 %18
-  %20 = tail call noalias noundef nonnull ptr @_Znam(i64 noundef %19) #10
-  %21 = icmp sgt i32 %13, 0
-  br i1 %21, label %22, label %25
+if.end.i.i:                                       ; preds = %if.end.i
+  %conv.i.i = zext i32 %add.i.i to i64
+  %3 = icmp slt i32 %1, -1
+  %4 = shl nuw nsw i64 %conv.i.i, 2
+  %5 = select i1 %3, i64 -1, i64 %4
+  %call.i.i = tail call noalias noundef nonnull ptr @_Znam(i64 noundef %5) #10
+  %cmp3.i.i = icmp sgt i32 %2, 0
+  br i1 %cmp3.i.i, label %delete.notnull.i.i, label %if.end9.i.i
 
-22:                                               ; preds = %15
-  tail call void @_ZdaPv(ptr noundef nonnull %8) #11
-  %23 = load i32, ptr %7, align 8, !tbaa !23
-  %24 = sext i32 %23 to i64
-  br label %25
+delete.notnull.i.i:                               ; preds = %if.end.i.i
+  tail call void @_ZdaPv(ptr noundef nonnull %0) #11
+  %.pre.i = load i32, ptr %_length.i.i, align 8, !tbaa !23
+  %6 = sext i32 %.pre.i to i64
+  br label %if.end9.i.i
 
-25:                                               ; preds = %22, %15
-  %26 = phi i64 [ %24, %22 ], [ 0, %15 ]
-  store ptr %20, ptr %4, align 8, !tbaa !24
-  %27 = getelementptr inbounds i32, ptr %20, i64 %26
-  store i32 0, ptr %27, align 4, !tbaa !25
-  store i32 %11, ptr %12, align 4, !tbaa !27
-  br label %28
+if.end9.i.i:                                      ; preds = %delete.notnull.i.i, %if.end.i.i
+  %idxprom13.i.i = phi i64 [ %6, %delete.notnull.i.i ], [ 0, %if.end.i.i ]
+  store ptr %call.i.i, ptr %Password, align 8, !tbaa !24
+  %arrayidx14.i.i = getelementptr inbounds i32, ptr %call.i.i, i64 %idxprom13.i.i
+  store i32 0, ptr %arrayidx14.i.i, align 4, !tbaa !25
+  store i32 %add.i.i, ptr %_capacity.i.i, align 4, !tbaa !27
+  br label %_ZN11CStringBaseIwE11SetCapacityEi.exit.i
 
-28:                                               ; preds = %25, %6
-  %29 = phi ptr [ %8, %6 ], [ %20, %25 ]
-  %30 = load ptr, ptr %1, align 8, !tbaa !24
-  br label %31
+_ZN11CStringBaseIwE11SetCapacityEi.exit.i:        ; preds = %if.end9.i.i, %if.end.i
+  %7 = phi ptr [ %0, %if.end.i ], [ %call.i.i, %if.end9.i.i ]
+  %8 = load ptr, ptr %password, align 8, !tbaa !24
+  br label %while.cond.i.i
 
-31:                                               ; preds = %31, %28
-  %32 = phi ptr [ %30, %28 ], [ %34, %31 ]
-  %33 = phi ptr [ %29, %28 ], [ %36, %31 ]
-  %34 = getelementptr inbounds i32, ptr %32, i64 1
-  %35 = load i32, ptr %32, align 4, !tbaa !25
-  %36 = getelementptr inbounds i32, ptr %33, i64 1
-  store i32 %35, ptr %33, align 4, !tbaa !25
-  %37 = icmp eq i32 %35, 0
-  br i1 %37, label %38, label %31, !llvm.loop !28
+while.cond.i.i:                                   ; preds = %while.cond.i.i, %_ZN11CStringBaseIwE11SetCapacityEi.exit.i
+  %src.addr.0.i.i = phi ptr [ %8, %_ZN11CStringBaseIwE11SetCapacityEi.exit.i ], [ %incdec.ptr.i.i, %while.cond.i.i ]
+  %dest.addr.0.i.i = phi ptr [ %7, %_ZN11CStringBaseIwE11SetCapacityEi.exit.i ], [ %incdec.ptr1.i.i, %while.cond.i.i ]
+  %incdec.ptr.i.i = getelementptr inbounds i32, ptr %src.addr.0.i.i, i64 1
+  %9 = load i32, ptr %src.addr.0.i.i, align 4, !tbaa !25
+  %incdec.ptr1.i.i = getelementptr inbounds i32, ptr %dest.addr.0.i.i, i64 1
+  store i32 %9, ptr %dest.addr.0.i.i, align 4, !tbaa !25
+  %cmp.not.i.i = icmp eq i32 %9, 0
+  br i1 %cmp.not.i.i, label %_Z12MyStringCopyIwEPT_S1_PKS0_.exit.i, label %while.cond.i.i, !llvm.loop !28
 
-38:                                               ; preds = %31
-  %39 = load i32, ptr %9, align 8, !tbaa !23
-  store i32 %39, ptr %7, align 8, !tbaa !23
-  br label %40
+_Z12MyStringCopyIwEPT_S1_PKS0_.exit.i:            ; preds = %while.cond.i.i
+  %10 = load i32, ptr %_length.i, align 8, !tbaa !23
+  store i32 %10, ptr %_length.i.i, align 8, !tbaa !23
+  br label %_ZN11CStringBaseIwEaSERKS0_.exit
 
-40:                                               ; preds = %2, %38
+_ZN11CStringBaseIwEaSERKS0_.exit:                 ; preds = %entry, %_Z12MyStringCopyIwEPT_S1_PKS0_.exit.i
   ret i32 0
 }
 
 ; Function Attrs: uwtable
-define dso_local noundef i32 @_ZN23CExtractCallbackConsole21CryptoGetTextPasswordEPPw(ptr noundef nonnull align 8 dereferenceable(80) %0, ptr nocapture noundef writeonly %1) unnamed_addr #3 align 2 personality ptr @__gxx_personality_v0 {
-  %3 = alloca %class.CStringBase, align 8
-  %4 = getelementptr inbounds %class.CExtractCallbackConsole, ptr %0, i64 0, i32 3
-  %5 = load i8, ptr %4, align 4, !tbaa !22, !range !30, !noundef !31
-  %6 = icmp eq i8 %5, 0
-  br i1 %6, label %7, label %60
+define dso_local noundef i32 @_ZN23CExtractCallbackConsole21CryptoGetTextPasswordEPPw(ptr noundef nonnull align 8 dereferenceable(80) %this, ptr nocapture noundef writeonly %password) unnamed_addr #3 align 2 personality ptr @__gxx_personality_v0 {
+entry:
+  %ref.tmp = alloca %class.CStringBase, align 8
+  %PasswordIsDefined = getelementptr inbounds %class.CExtractCallbackConsole, ptr %this, i64 0, i32 3
+  %0 = load i8, ptr %PasswordIsDefined, align 4, !tbaa !22, !range !30, !noundef !31
+  %tobool.not = icmp eq i8 %0, 0
+  br i1 %tobool.not, label %if.then, label %if.end
 
-7:                                                ; preds = %2
-  call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %3) #12
-  %8 = getelementptr inbounds %class.CExtractCallbackConsole, ptr %0, i64 0, i32 9
-  %9 = load ptr, ptr %8, align 8, !tbaa !5
-  call void @_Z11GetPasswordP13CStdOutStreamb(ptr nonnull sret(%class.CStringBase) align 8 %3, ptr noundef %9, i1 noundef zeroext false)
-  %10 = getelementptr inbounds %class.CExtractCallbackConsole, ptr %0, i64 0, i32 4
-  %11 = icmp eq ptr %3, %10
-  br i1 %11, label %12, label %14
+if.then:                                          ; preds = %entry
+  call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %ref.tmp) #12
+  %OutStream = getelementptr inbounds %class.CExtractCallbackConsole, ptr %this, i64 0, i32 9
+  %1 = load ptr, ptr %OutStream, align 8, !tbaa !5
+  call void @_Z11GetPasswordP13CStdOutStreamb(ptr nonnull sret(%class.CStringBase) align 8 %ref.tmp, ptr noundef %1, i1 noundef zeroext false)
+  %Password = getelementptr inbounds %class.CExtractCallbackConsole, ptr %this, i64 0, i32 4
+  %cmp.i = icmp eq ptr %ref.tmp, %Password
+  br i1 %cmp.i, label %if.then.invoke.cont_crit_edge, label %if.end.i
 
-12:                                               ; preds = %7
-  %13 = load ptr, ptr %3, align 8, !tbaa !24
-  br label %49
+if.then.invoke.cont_crit_edge:                    ; preds = %if.then
+  %.pre = load ptr, ptr %ref.tmp, align 8, !tbaa !24
+  br label %invoke.cont
 
-14:                                               ; preds = %7
-  %15 = getelementptr inbounds %class.CExtractCallbackConsole, ptr %0, i64 0, i32 4, i32 1
-  store i32 0, ptr %15, align 8, !tbaa !23
-  %16 = load ptr, ptr %10, align 8, !tbaa !24
-  store i32 0, ptr %16, align 4, !tbaa !25
-  %17 = getelementptr inbounds %class.CStringBase, ptr %3, i64 0, i32 1
-  %18 = load i32, ptr %17, align 8, !tbaa !23
-  %19 = add nsw i32 %18, 1
-  %20 = getelementptr inbounds %class.CExtractCallbackConsole, ptr %0, i64 0, i32 4, i32 2
-  %21 = load i32, ptr %20, align 4, !tbaa !27
-  %22 = icmp eq i32 %19, %21
-  br i1 %22, label %37, label %23
+if.end.i:                                         ; preds = %if.then
+  %_length.i.i = getelementptr inbounds %class.CExtractCallbackConsole, ptr %this, i64 0, i32 4, i32 1
+  store i32 0, ptr %_length.i.i, align 8, !tbaa !23
+  %2 = load ptr, ptr %Password, align 8, !tbaa !24
+  store i32 0, ptr %2, align 4, !tbaa !25
+  %_length.i = getelementptr inbounds %class.CStringBase, ptr %ref.tmp, i64 0, i32 1
+  %3 = load i32, ptr %_length.i, align 8, !tbaa !23
+  %add.i.i = add nsw i32 %3, 1
+  %_capacity.i.i = getelementptr inbounds %class.CExtractCallbackConsole, ptr %this, i64 0, i32 4, i32 2
+  %4 = load i32, ptr %_capacity.i.i, align 4, !tbaa !27
+  %cmp.i.i = icmp eq i32 %add.i.i, %4
+  br i1 %cmp.i.i, label %_ZN11CStringBaseIwE11SetCapacityEi.exit.i, label %if.end.i.i
 
-23:                                               ; preds = %14
-  %24 = zext i32 %19 to i64
-  %25 = icmp slt i32 %18, -1
-  %26 = shl nuw nsw i64 %24, 2
-  %27 = select i1 %25, i64 -1, i64 %26
-  %28 = invoke noalias noundef nonnull ptr @_Znam(i64 noundef %27) #10
-          to label %29 unwind label %54
+if.end.i.i:                                       ; preds = %if.end.i
+  %conv.i.i = zext i32 %add.i.i to i64
+  %5 = icmp slt i32 %3, -1
+  %6 = shl nuw nsw i64 %conv.i.i, 2
+  %7 = select i1 %5, i64 -1, i64 %6
+  %call.i.i7 = invoke noalias noundef nonnull ptr @_Znam(i64 noundef %7) #10
+          to label %call.i.i.noexc unwind label %lpad
 
-29:                                               ; preds = %23
-  %30 = icmp sgt i32 %21, 0
-  br i1 %30, label %31, label %34
+call.i.i.noexc:                                   ; preds = %if.end.i.i
+  %cmp3.i.i = icmp sgt i32 %4, 0
+  br i1 %cmp3.i.i, label %delete.notnull.i.i, label %if.end9.i.i
 
-31:                                               ; preds = %29
-  call void @_ZdaPv(ptr noundef nonnull %16) #11
-  %32 = load i32, ptr %15, align 8, !tbaa !23
-  %33 = sext i32 %32 to i64
-  br label %34
+delete.notnull.i.i:                               ; preds = %call.i.i.noexc
+  call void @_ZdaPv(ptr noundef nonnull %2) #11
+  %.pre.i = load i32, ptr %_length.i.i, align 8, !tbaa !23
+  %8 = sext i32 %.pre.i to i64
+  br label %if.end9.i.i
 
-34:                                               ; preds = %31, %29
-  %35 = phi i64 [ %33, %31 ], [ 0, %29 ]
-  store ptr %28, ptr %10, align 8, !tbaa !24
-  %36 = getelementptr inbounds i32, ptr %28, i64 %35
-  store i32 0, ptr %36, align 4, !tbaa !25
-  store i32 %19, ptr %20, align 4, !tbaa !27
-  br label %37
+if.end9.i.i:                                      ; preds = %delete.notnull.i.i, %call.i.i.noexc
+  %idxprom13.i.i = phi i64 [ %8, %delete.notnull.i.i ], [ 0, %call.i.i.noexc ]
+  store ptr %call.i.i7, ptr %Password, align 8, !tbaa !24
+  %arrayidx14.i.i = getelementptr inbounds i32, ptr %call.i.i7, i64 %idxprom13.i.i
+  store i32 0, ptr %arrayidx14.i.i, align 4, !tbaa !25
+  store i32 %add.i.i, ptr %_capacity.i.i, align 4, !tbaa !27
+  br label %_ZN11CStringBaseIwE11SetCapacityEi.exit.i
 
-37:                                               ; preds = %34, %14
-  %38 = phi ptr [ %16, %14 ], [ %28, %34 ]
-  %39 = load ptr, ptr %3, align 8, !tbaa !24
-  br label %40
+_ZN11CStringBaseIwE11SetCapacityEi.exit.i:        ; preds = %if.end9.i.i, %if.end.i
+  %9 = phi ptr [ %2, %if.end.i ], [ %call.i.i7, %if.end9.i.i ]
+  %10 = load ptr, ptr %ref.tmp, align 8, !tbaa !24
+  br label %while.cond.i.i
 
-40:                                               ; preds = %40, %37
-  %41 = phi ptr [ %39, %37 ], [ %43, %40 ]
-  %42 = phi ptr [ %38, %37 ], [ %45, %40 ]
-  %43 = getelementptr inbounds i32, ptr %41, i64 1
-  %44 = load i32, ptr %41, align 4, !tbaa !25
-  %45 = getelementptr inbounds i32, ptr %42, i64 1
-  store i32 %44, ptr %42, align 4, !tbaa !25
-  %46 = icmp eq i32 %44, 0
-  br i1 %46, label %47, label %40, !llvm.loop !28
+while.cond.i.i:                                   ; preds = %while.cond.i.i, %_ZN11CStringBaseIwE11SetCapacityEi.exit.i
+  %src.addr.0.i.i = phi ptr [ %10, %_ZN11CStringBaseIwE11SetCapacityEi.exit.i ], [ %incdec.ptr.i.i, %while.cond.i.i ]
+  %dest.addr.0.i.i = phi ptr [ %9, %_ZN11CStringBaseIwE11SetCapacityEi.exit.i ], [ %incdec.ptr1.i.i, %while.cond.i.i ]
+  %incdec.ptr.i.i = getelementptr inbounds i32, ptr %src.addr.0.i.i, i64 1
+  %11 = load i32, ptr %src.addr.0.i.i, align 4, !tbaa !25
+  %incdec.ptr1.i.i = getelementptr inbounds i32, ptr %dest.addr.0.i.i, i64 1
+  store i32 %11, ptr %dest.addr.0.i.i, align 4, !tbaa !25
+  %cmp.not.i.i = icmp eq i32 %11, 0
+  br i1 %cmp.not.i.i, label %_Z12MyStringCopyIwEPT_S1_PKS0_.exit.i, label %while.cond.i.i, !llvm.loop !28
 
-47:                                               ; preds = %40
-  %48 = load i32, ptr %17, align 8, !tbaa !23
-  store i32 %48, ptr %15, align 8, !tbaa !23
-  br label %49
+_Z12MyStringCopyIwEPT_S1_PKS0_.exit.i:            ; preds = %while.cond.i.i
+  %12 = load i32, ptr %_length.i, align 8, !tbaa !23
+  store i32 %12, ptr %_length.i.i, align 8, !tbaa !23
+  br label %invoke.cont
 
-49:                                               ; preds = %12, %47
-  %50 = phi ptr [ %13, %12 ], [ %39, %47 ]
-  %51 = icmp eq ptr %50, null
-  br i1 %51, label %53, label %52
+invoke.cont:                                      ; preds = %if.then.invoke.cont_crit_edge, %_Z12MyStringCopyIwEPT_S1_PKS0_.exit.i
+  %13 = phi ptr [ %.pre, %if.then.invoke.cont_crit_edge ], [ %10, %_Z12MyStringCopyIwEPT_S1_PKS0_.exit.i ]
+  %isnull.i = icmp eq ptr %13, null
+  br i1 %isnull.i, label %_ZN11CStringBaseIwED2Ev.exit, label %delete.notnull.i
 
-52:                                               ; preds = %49
-  call void @_ZdaPv(ptr noundef nonnull %50) #11
-  br label %53
+delete.notnull.i:                                 ; preds = %invoke.cont
+  call void @_ZdaPv(ptr noundef nonnull %13) #11
+  br label %_ZN11CStringBaseIwED2Ev.exit
 
-53:                                               ; preds = %49, %52
-  call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %3) #12
-  store i8 1, ptr %4, align 4, !tbaa !22
-  br label %60
+_ZN11CStringBaseIwED2Ev.exit:                     ; preds = %invoke.cont, %delete.notnull.i
+  call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %ref.tmp) #12
+  store i8 1, ptr %PasswordIsDefined, align 4, !tbaa !22
+  br label %if.end
 
-54:                                               ; preds = %23
-  %55 = landingpad { ptr, i32 }
+lpad:                                             ; preds = %if.end.i.i
+  %14 = landingpad { ptr, i32 }
           cleanup
-  %56 = load ptr, ptr %3, align 8, !tbaa !24
-  %57 = icmp eq ptr %56, null
-  br i1 %57, label %59, label %58
+  %15 = load ptr, ptr %ref.tmp, align 8, !tbaa !24
+  %isnull.i8 = icmp eq ptr %15, null
+  br i1 %isnull.i8, label %_ZN11CStringBaseIwED2Ev.exit10, label %delete.notnull.i9
 
-58:                                               ; preds = %54
-  call void @_ZdaPv(ptr noundef nonnull %56) #11
-  br label %59
+delete.notnull.i9:                                ; preds = %lpad
+  call void @_ZdaPv(ptr noundef nonnull %15) #11
+  br label %_ZN11CStringBaseIwED2Ev.exit10
 
-59:                                               ; preds = %54, %58
-  call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %3) #12
-  resume { ptr, i32 } %55
+_ZN11CStringBaseIwED2Ev.exit10:                   ; preds = %lpad, %delete.notnull.i9
+  call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %ref.tmp) #12
+  resume { ptr, i32 } %14
 
-60:                                               ; preds = %53, %2
-  %61 = getelementptr inbounds %class.CExtractCallbackConsole, ptr %0, i64 0, i32 4
-  %62 = load ptr, ptr %61, align 8, !tbaa !24
-  %63 = call ptr @SysAllocString(ptr noundef %62)
-  store ptr %63, ptr %1, align 8, !tbaa !32
-  %64 = icmp eq ptr %63, null
-  %65 = select i1 %64, i32 -2147024882, i32 0
-  ret i32 %65
+if.end:                                           ; preds = %_ZN11CStringBaseIwED2Ev.exit, %entry
+  %Password3 = getelementptr inbounds %class.CExtractCallbackConsole, ptr %this, i64 0, i32 4
+  %16 = load ptr, ptr %Password3, align 8, !tbaa !24
+  %call.i = call ptr @SysAllocString(ptr noundef %16)
+  store ptr %call.i, ptr %password, align 8, !tbaa !32
+  %cmp.not.i = icmp eq ptr %call.i, null
+  %cond.i = select i1 %cmp.not.i, i32 -2147024882, i32 0
+  ret i32 %cond.i
 }
 
 declare void @_Z11GetPasswordP13CStdOutStreamb(ptr sret(%class.CStringBase) align 8, ptr noundef, i1 noundef zeroext) local_unnamed_addr #1
@@ -473,743 +481,758 @@ declare void @_Z11GetPasswordP13CStdOutStreamb(ptr sret(%class.CStringBase) alig
 declare i32 @__gxx_personality_v0(...)
 
 ; Function Attrs: uwtable
-define dso_local noundef i32 @_ZThn8_N23CExtractCallbackConsole21CryptoGetTextPasswordEPPw(ptr noundef %0, ptr nocapture noundef writeonly %1) unnamed_addr #3 align 2 {
-  %3 = getelementptr inbounds i8, ptr %0, i64 -8
-  %4 = tail call noundef i32 @_ZN23CExtractCallbackConsole21CryptoGetTextPasswordEPPw(ptr noundef nonnull align 8 dereferenceable(80) %3, ptr noundef %1)
-  ret i32 %4
+define dso_local noundef i32 @_ZThn8_N23CExtractCallbackConsole21CryptoGetTextPasswordEPPw(ptr noundef %this, ptr nocapture noundef writeonly %password) unnamed_addr #3 align 2 {
+entry:
+  %0 = getelementptr inbounds i8, ptr %this, i64 -8
+  %call = tail call noundef i32 @_ZN23CExtractCallbackConsole21CryptoGetTextPasswordEPPw(ptr noundef nonnull align 8 dereferenceable(80) %0, ptr noundef %password)
+  ret i32 %call
 }
 
 ; Function Attrs: mustprogress uwtable
-define dso_local noundef i32 @_ZN23CExtractCallbackConsole10BeforeOpenEPKw(ptr nocapture noundef nonnull align 8 dereferenceable(80) %0, ptr noundef %1) unnamed_addr #0 align 2 {
-  %3 = getelementptr inbounds %class.CExtractCallbackConsole, ptr %0, i64 0, i32 5
-  %4 = load i64, ptr %3, align 8, !tbaa !33
-  %5 = add i64 %4, 1
-  store i64 %5, ptr %3, align 8, !tbaa !33
-  %6 = getelementptr inbounds %class.CExtractCallbackConsole, ptr %0, i64 0, i32 8
-  store i64 0, ptr %6, align 8, !tbaa !34
-  %7 = getelementptr inbounds %class.CExtractCallbackConsole, ptr %0, i64 0, i32 9
-  %8 = load ptr, ptr %7, align 8, !tbaa !5
-  %9 = tail call noundef nonnull align 8 dereferenceable(16) ptr @_ZN13CStdOutStreamlsEPFRS_S0_E(ptr noundef nonnull align 8 dereferenceable(16) %8, ptr noundef nonnull @_Z4endlR13CStdOutStream)
-  %10 = tail call noundef nonnull align 8 dereferenceable(16) ptr @_ZN13CStdOutStreamlsEPKc(ptr noundef nonnull align 8 dereferenceable(16) %9, ptr noundef nonnull @.str.19)
-  %11 = tail call noundef nonnull align 8 dereferenceable(16) ptr @_ZN13CStdOutStreamlsEPKw(ptr noundef nonnull align 8 dereferenceable(16) %10, ptr noundef %1)
-  %12 = tail call noundef nonnull align 8 dereferenceable(16) ptr @_ZN13CStdOutStreamlsEPFRS_S0_E(ptr noundef nonnull align 8 dereferenceable(16) %11, ptr noundef nonnull @_Z4endlR13CStdOutStream)
+define dso_local noundef i32 @_ZN23CExtractCallbackConsole10BeforeOpenEPKw(ptr nocapture noundef nonnull align 8 dereferenceable(80) %this, ptr noundef %name) unnamed_addr #0 align 2 {
+entry:
+  %NumArchives = getelementptr inbounds %class.CExtractCallbackConsole, ptr %this, i64 0, i32 5
+  %0 = load i64, ptr %NumArchives, align 8, !tbaa !33
+  %inc = add i64 %0, 1
+  store i64 %inc, ptr %NumArchives, align 8, !tbaa !33
+  %NumFileErrorsInCurrentArchive = getelementptr inbounds %class.CExtractCallbackConsole, ptr %this, i64 0, i32 8
+  store i64 0, ptr %NumFileErrorsInCurrentArchive, align 8, !tbaa !34
+  %OutStream = getelementptr inbounds %class.CExtractCallbackConsole, ptr %this, i64 0, i32 9
+  %1 = load ptr, ptr %OutStream, align 8, !tbaa !5
+  %call = tail call noundef nonnull align 8 dereferenceable(16) ptr @_ZN13CStdOutStreamlsEPFRS_S0_E(ptr noundef nonnull align 8 dereferenceable(16) %1, ptr noundef nonnull @_Z4endlR13CStdOutStream)
+  %call2 = tail call noundef nonnull align 8 dereferenceable(16) ptr @_ZN13CStdOutStreamlsEPKc(ptr noundef nonnull align 8 dereferenceable(16) %call, ptr noundef nonnull @.str.19)
+  %call3 = tail call noundef nonnull align 8 dereferenceable(16) ptr @_ZN13CStdOutStreamlsEPKw(ptr noundef nonnull align 8 dereferenceable(16) %call2, ptr noundef %name)
+  %call4 = tail call noundef nonnull align 8 dereferenceable(16) ptr @_ZN13CStdOutStreamlsEPFRS_S0_E(ptr noundef nonnull align 8 dereferenceable(16) %call3, ptr noundef nonnull @_Z4endlR13CStdOutStream)
   ret i32 0
 }
 
 ; Function Attrs: uwtable
-define dso_local noundef i32 @_ZN23CExtractCallbackConsole10OpenResultEPKwib(ptr nocapture noundef nonnull align 8 dereferenceable(80) %0, ptr nocapture readnone %1, i32 noundef %2, i1 noundef zeroext %3) unnamed_addr #3 align 2 personality ptr @__gxx_personality_v0 {
-  %5 = alloca %class.CStringBase, align 8
-  %6 = getelementptr inbounds %class.CExtractCallbackConsole, ptr %0, i64 0, i32 9
-  %7 = load ptr, ptr %6, align 8, !tbaa !5
-  %8 = tail call noundef nonnull align 8 dereferenceable(16) ptr @_ZN13CStdOutStreamlsEPFRS_S0_E(ptr noundef nonnull align 8 dereferenceable(16) %7, ptr noundef nonnull @_Z4endlR13CStdOutStream)
-  %9 = icmp eq i32 %2, 0
-  br i1 %9, label %53, label %10
+define dso_local noundef i32 @_ZN23CExtractCallbackConsole10OpenResultEPKwib(ptr nocapture noundef nonnull align 8 dereferenceable(80) %this, ptr nocapture readnone %0, i32 noundef %result, i1 noundef zeroext %encrypted) unnamed_addr #3 align 2 personality ptr @__gxx_personality_v0 {
+entry:
+  %ref.tmp = alloca %class.CStringBase, align 8
+  %OutStream = getelementptr inbounds %class.CExtractCallbackConsole, ptr %this, i64 0, i32 9
+  %1 = load ptr, ptr %OutStream, align 8, !tbaa !5
+  %call = tail call noundef nonnull align 8 dereferenceable(16) ptr @_ZN13CStdOutStreamlsEPFRS_S0_E(ptr noundef nonnull align 8 dereferenceable(16) %1, ptr noundef nonnull @_Z4endlR13CStdOutStream)
+  %cmp.not = icmp eq i32 %result, 0
+  br i1 %cmp.not, label %if.end20, label %if.then
 
-10:                                               ; preds = %4
-  %11 = load ptr, ptr %6, align 8, !tbaa !5
-  %12 = tail call noundef nonnull align 8 dereferenceable(16) ptr @_ZN13CStdOutStreamlsEPKc(ptr noundef nonnull align 8 dereferenceable(16) %11, ptr noundef nonnull @.str.5)
-  switch i32 %2, label %20 [
-    i32 1, label %13
-    i32 -2147024882, label %17
+if.then:                                          ; preds = %entry
+  %2 = load ptr, ptr %OutStream, align 8, !tbaa !5
+  %call3 = tail call noundef nonnull align 8 dereferenceable(16) ptr @_ZN13CStdOutStreamlsEPKc(ptr noundef nonnull align 8 dereferenceable(16) %2, ptr noundef nonnull @.str.5)
+  switch i32 %result, label %if.else12 [
+    i32 1, label %if.then5
+    i32 -2147024882, label %if.then9
   ]
 
-13:                                               ; preds = %10
-  %14 = load ptr, ptr %6, align 8, !tbaa !5
-  %15 = select i1 %3, ptr @.str.6, ptr @.str.7
-  %16 = tail call noundef nonnull align 8 dereferenceable(16) ptr @_ZN13CStdOutStreamlsEPKc(ptr noundef nonnull align 8 dereferenceable(16) %14, ptr noundef nonnull %15)
-  br label %47
+if.then5:                                         ; preds = %if.then
+  %3 = load ptr, ptr %OutStream, align 8, !tbaa !5
+  %cond = select i1 %encrypted, ptr @.str.6, ptr @.str.7
+  %call7 = tail call noundef nonnull align 8 dereferenceable(16) ptr @_ZN13CStdOutStreamlsEPKc(ptr noundef nonnull align 8 dereferenceable(16) %3, ptr noundef nonnull %cond)
+  br label %if.end17
 
-17:                                               ; preds = %10
-  %18 = load ptr, ptr %6, align 8, !tbaa !5
-  %19 = tail call noundef nonnull align 8 dereferenceable(16) ptr @_ZN13CStdOutStreamlsEPKc(ptr noundef nonnull align 8 dereferenceable(16) %18, ptr noundef nonnull @.str.8)
-  br label %47
+if.then9:                                         ; preds = %if.then
+  %4 = load ptr, ptr %OutStream, align 8, !tbaa !5
+  %call11 = tail call noundef nonnull align 8 dereferenceable(16) ptr @_ZN13CStdOutStreamlsEPKc(ptr noundef nonnull align 8 dereferenceable(16) %4, ptr noundef nonnull @.str.8)
+  br label %if.end17
 
-20:                                               ; preds = %10
-  %21 = load ptr, ptr %6, align 8, !tbaa !5
-  call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %5) #12
+if.else12:                                        ; preds = %if.then
+  %5 = load ptr, ptr %OutStream, align 8, !tbaa !5
+  call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %ref.tmp) #12
   tail call void @llvm.experimental.noalias.scope.decl(metadata !35)
-  %22 = getelementptr inbounds %class.CStringBase, ptr %5, i64 0, i32 2
-  %23 = getelementptr inbounds i8, ptr %5, i64 8
-  store i64 0, ptr %23, align 8
-  %24 = tail call noalias noundef nonnull dereferenceable(16) ptr @_Znam(i64 noundef 16) #10, !noalias !35
-  store ptr %24, ptr %5, align 8, !tbaa !24, !alias.scope !35
-  store i32 0, ptr %24, align 4, !tbaa !25, !noalias !35
-  store i32 4, ptr %22, align 4, !tbaa !27, !alias.scope !35
-  %25 = invoke noundef zeroext i1 @_ZN8NWindows6NError15MyFormatMessageEjR11CStringBaseIwE(i32 noundef %2, ptr noundef nonnull align 8 dereferenceable(16) %5)
-          to label %33 unwind label %26
+  %_capacity.i.i = getelementptr inbounds %class.CStringBase, ptr %ref.tmp, i64 0, i32 2
+  %6 = getelementptr inbounds i8, ptr %ref.tmp, i64 8
+  store i64 0, ptr %6, align 8
+  %call.i.i.i = tail call noalias noundef nonnull dereferenceable(16) ptr @_Znam(i64 noundef 16) #10, !noalias !35
+  store ptr %call.i.i.i, ptr %ref.tmp, align 8, !tbaa !24, !alias.scope !35
+  store i32 0, ptr %call.i.i.i, align 4, !tbaa !25, !noalias !35
+  store i32 4, ptr %_capacity.i.i, align 4, !tbaa !27, !alias.scope !35
+  %call.i = invoke noundef zeroext i1 @_ZN8NWindows6NError15MyFormatMessageEjR11CStringBaseIwE(i32 noundef %result, ptr noundef nonnull align 8 dereferenceable(16) %ref.tmp)
+          to label %_ZN8NWindows6NError15MyFormatMessageEj.exit unwind label %lpad.i
 
-26:                                               ; preds = %20
-  %27 = landingpad { ptr, i32 }
+lpad.i:                                           ; preds = %if.else12
+  %7 = landingpad { ptr, i32 }
           cleanup
-  %28 = load ptr, ptr %5, align 8, !tbaa !24, !alias.scope !35
-  %29 = icmp eq ptr %28, null
-  br i1 %29, label %31, label %30
+  %8 = load ptr, ptr %ref.tmp, align 8, !tbaa !24, !alias.scope !35
+  %isnull.i.i = icmp eq ptr %8, null
+  br i1 %isnull.i.i, label %common.resume, label %delete.notnull.i.i
 
-30:                                               ; preds = %26
-  call void @_ZdaPv(ptr noundef nonnull %28) #11
-  br label %31
+delete.notnull.i.i:                               ; preds = %lpad.i
+  call void @_ZdaPv(ptr noundef nonnull %8) #11
+  br label %common.resume
 
-31:                                               ; preds = %26, %30, %46
-  %32 = phi { ptr, i32 } [ %42, %46 ], [ %27, %30 ], [ %27, %26 ]
-  resume { ptr, i32 } %32
+common.resume:                                    ; preds = %lpad.i, %delete.notnull.i.i, %_ZN11CStringBaseIwED2Ev.exit27
+  %common.resume.op = phi { ptr, i32 } [ %11, %_ZN11CStringBaseIwED2Ev.exit27 ], [ %7, %delete.notnull.i.i ], [ %7, %lpad.i ]
+  resume { ptr, i32 } %common.resume.op
 
-33:                                               ; preds = %20
-  %34 = load ptr, ptr %5, align 8, !tbaa !24
-  %35 = invoke noundef nonnull align 8 dereferenceable(16) ptr @_ZN13CStdOutStreamlsEPKw(ptr noundef nonnull align 8 dereferenceable(16) %21, ptr noundef %34)
-          to label %36 unwind label %41
+_ZN8NWindows6NError15MyFormatMessageEj.exit:      ; preds = %if.else12
+  %9 = load ptr, ptr %ref.tmp, align 8, !tbaa !24
+  %call16 = invoke noundef nonnull align 8 dereferenceable(16) ptr @_ZN13CStdOutStreamlsEPKw(ptr noundef nonnull align 8 dereferenceable(16) %5, ptr noundef %9)
+          to label %invoke.cont15 unwind label %lpad
 
-36:                                               ; preds = %33
-  %37 = load ptr, ptr %5, align 8, !tbaa !24
-  %38 = icmp eq ptr %37, null
-  br i1 %38, label %40, label %39
+invoke.cont15:                                    ; preds = %_ZN8NWindows6NError15MyFormatMessageEj.exit
+  %10 = load ptr, ptr %ref.tmp, align 8, !tbaa !24
+  %isnull.i = icmp eq ptr %10, null
+  br i1 %isnull.i, label %_ZN11CStringBaseIwED2Ev.exit, label %delete.notnull.i
 
-39:                                               ; preds = %36
-  call void @_ZdaPv(ptr noundef nonnull %37) #11
-  br label %40
+delete.notnull.i:                                 ; preds = %invoke.cont15
+  call void @_ZdaPv(ptr noundef nonnull %10) #11
+  br label %_ZN11CStringBaseIwED2Ev.exit
 
-40:                                               ; preds = %36, %39
-  call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %5) #12
-  br label %47
+_ZN11CStringBaseIwED2Ev.exit:                     ; preds = %invoke.cont15, %delete.notnull.i
+  call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %ref.tmp) #12
+  br label %if.end17
 
-41:                                               ; preds = %33
-  %42 = landingpad { ptr, i32 }
+lpad:                                             ; preds = %_ZN8NWindows6NError15MyFormatMessageEj.exit
+  %11 = landingpad { ptr, i32 }
           cleanup
-  %43 = load ptr, ptr %5, align 8, !tbaa !24
-  %44 = icmp eq ptr %43, null
-  br i1 %44, label %46, label %45
+  %12 = load ptr, ptr %ref.tmp, align 8, !tbaa !24
+  %isnull.i25 = icmp eq ptr %12, null
+  br i1 %isnull.i25, label %_ZN11CStringBaseIwED2Ev.exit27, label %delete.notnull.i26
 
-45:                                               ; preds = %41
-  call void @_ZdaPv(ptr noundef nonnull %43) #11
-  br label %46
+delete.notnull.i26:                               ; preds = %lpad
+  call void @_ZdaPv(ptr noundef nonnull %12) #11
+  br label %_ZN11CStringBaseIwED2Ev.exit27
 
-46:                                               ; preds = %41, %45
-  call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %5) #12
-  br label %31
+_ZN11CStringBaseIwED2Ev.exit27:                   ; preds = %lpad, %delete.notnull.i26
+  call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %ref.tmp) #12
+  br label %common.resume
 
-47:                                               ; preds = %17, %40, %13
-  %48 = load ptr, ptr %6, align 8, !tbaa !5
-  %49 = call noundef nonnull align 8 dereferenceable(16) ptr @_ZN13CStdOutStreamlsEPFRS_S0_E(ptr noundef nonnull align 8 dereferenceable(16) %48, ptr noundef nonnull @_Z4endlR13CStdOutStream)
-  %50 = getelementptr inbounds %class.CExtractCallbackConsole, ptr %0, i64 0, i32 6
-  %51 = load i64, ptr %50, align 8, !tbaa !38
-  %52 = add i64 %51, 1
-  store i64 %52, ptr %50, align 8, !tbaa !38
-  br label %53
+if.end17:                                         ; preds = %if.then9, %_ZN11CStringBaseIwED2Ev.exit, %if.then5
+  %13 = load ptr, ptr %OutStream, align 8, !tbaa !5
+  %call19 = call noundef nonnull align 8 dereferenceable(16) ptr @_ZN13CStdOutStreamlsEPFRS_S0_E(ptr noundef nonnull align 8 dereferenceable(16) %13, ptr noundef nonnull @_Z4endlR13CStdOutStream)
+  %NumArchiveErrors = getelementptr inbounds %class.CExtractCallbackConsole, ptr %this, i64 0, i32 6
+  %14 = load i64, ptr %NumArchiveErrors, align 8, !tbaa !38
+  %inc = add i64 %14, 1
+  store i64 %inc, ptr %NumArchiveErrors, align 8, !tbaa !38
+  br label %if.end20
 
-53:                                               ; preds = %47, %4
+if.end20:                                         ; preds = %if.end17, %entry
   ret i32 0
 }
 
 ; Function Attrs: mustprogress uwtable
-define dso_local noundef i32 @_ZN23CExtractCallbackConsole15ThereAreNoFilesEv(ptr nocapture noundef nonnull readonly align 8 dereferenceable(80) %0) unnamed_addr #0 align 2 {
-  %2 = getelementptr inbounds %class.CExtractCallbackConsole, ptr %0, i64 0, i32 9
-  %3 = load ptr, ptr %2, align 8, !tbaa !5
-  %4 = tail call noundef nonnull align 8 dereferenceable(16) ptr @_ZN13CStdOutStreamlsEPFRS_S0_E(ptr noundef nonnull align 8 dereferenceable(16) %3, ptr noundef nonnull @_Z4endlR13CStdOutStream)
-  %5 = tail call noundef nonnull align 8 dereferenceable(16) ptr @_ZN13CStdOutStreamlsEPKc(ptr noundef nonnull align 8 dereferenceable(16) %4, ptr noundef nonnull @.str.20)
-  %6 = tail call noundef nonnull align 8 dereferenceable(16) ptr @_ZN13CStdOutStreamlsEPFRS_S0_E(ptr noundef nonnull align 8 dereferenceable(16) %5, ptr noundef nonnull @_Z4endlR13CStdOutStream)
+define dso_local noundef i32 @_ZN23CExtractCallbackConsole15ThereAreNoFilesEv(ptr nocapture noundef nonnull readonly align 8 dereferenceable(80) %this) unnamed_addr #0 align 2 {
+entry:
+  %OutStream = getelementptr inbounds %class.CExtractCallbackConsole, ptr %this, i64 0, i32 9
+  %0 = load ptr, ptr %OutStream, align 8, !tbaa !5
+  %call = tail call noundef nonnull align 8 dereferenceable(16) ptr @_ZN13CStdOutStreamlsEPFRS_S0_E(ptr noundef nonnull align 8 dereferenceable(16) %0, ptr noundef nonnull @_Z4endlR13CStdOutStream)
+  %call2 = tail call noundef nonnull align 8 dereferenceable(16) ptr @_ZN13CStdOutStreamlsEPKc(ptr noundef nonnull align 8 dereferenceable(16) %call, ptr noundef nonnull @.str.20)
+  %call3 = tail call noundef nonnull align 8 dereferenceable(16) ptr @_ZN13CStdOutStreamlsEPFRS_S0_E(ptr noundef nonnull align 8 dereferenceable(16) %call2, ptr noundef nonnull @_Z4endlR13CStdOutStream)
   ret i32 0
 }
 
 ; Function Attrs: uwtable
-define dso_local noundef i32 @_ZN23CExtractCallbackConsole13ExtractResultEi(ptr nocapture noundef nonnull align 8 dereferenceable(80) %0, i32 noundef %1) unnamed_addr #3 align 2 personality ptr @__gxx_personality_v0 {
-  %3 = alloca %class.CStringBase, align 8
-  %4 = icmp eq i32 %1, 0
-  br i1 %4, label %5, label %25
+define dso_local noundef i32 @_ZN23CExtractCallbackConsole13ExtractResultEi(ptr nocapture noundef nonnull align 8 dereferenceable(80) %this, i32 noundef %result) unnamed_addr #3 align 2 personality ptr @__gxx_personality_v0 {
+entry:
+  %message = alloca %class.CStringBase, align 8
+  %cmp = icmp eq i32 %result, 0
+  br i1 %cmp, label %if.then, label %if.end15
 
-5:                                                ; preds = %2
-  %6 = getelementptr inbounds %class.CExtractCallbackConsole, ptr %0, i64 0, i32 9
-  %7 = load ptr, ptr %6, align 8, !tbaa !5
-  %8 = tail call noundef nonnull align 8 dereferenceable(16) ptr @_ZN13CStdOutStreamlsEPFRS_S0_E(ptr noundef nonnull align 8 dereferenceable(16) %7, ptr noundef nonnull @_Z4endlR13CStdOutStream)
-  %9 = getelementptr inbounds %class.CExtractCallbackConsole, ptr %0, i64 0, i32 8
-  %10 = load i64, ptr %9, align 8, !tbaa !34
-  %11 = icmp eq i64 %10, 0
-  br i1 %11, label %12, label %16
+if.then:                                          ; preds = %entry
+  %OutStream = getelementptr inbounds %class.CExtractCallbackConsole, ptr %this, i64 0, i32 9
+  %0 = load ptr, ptr %OutStream, align 8, !tbaa !5
+  %call = tail call noundef nonnull align 8 dereferenceable(16) ptr @_ZN13CStdOutStreamlsEPFRS_S0_E(ptr noundef nonnull align 8 dereferenceable(16) %0, ptr noundef nonnull @_Z4endlR13CStdOutStream)
+  %NumFileErrorsInCurrentArchive = getelementptr inbounds %class.CExtractCallbackConsole, ptr %this, i64 0, i32 8
+  %1 = load i64, ptr %NumFileErrorsInCurrentArchive, align 8, !tbaa !34
+  %cmp2 = icmp eq i64 %1, 0
+  br i1 %cmp2, label %if.then3, label %if.else
 
-12:                                               ; preds = %5
-  %13 = load ptr, ptr %6, align 8, !tbaa !5
-  %14 = tail call noundef nonnull align 8 dereferenceable(16) ptr @_ZN13CStdOutStreamlsEPKc(ptr noundef nonnull align 8 dereferenceable(16) %13, ptr noundef nonnull @.str.21)
-  %15 = tail call noundef nonnull align 8 dereferenceable(16) ptr @_ZN13CStdOutStreamlsEPFRS_S0_E(ptr noundef nonnull align 8 dereferenceable(16) %14, ptr noundef nonnull @_Z4endlR13CStdOutStream)
-  br label %61
+if.then3:                                         ; preds = %if.then
+  %2 = load ptr, ptr %OutStream, align 8, !tbaa !5
+  %call5 = tail call noundef nonnull align 8 dereferenceable(16) ptr @_ZN13CStdOutStreamlsEPKc(ptr noundef nonnull align 8 dereferenceable(16) %2, ptr noundef nonnull @.str.21)
+  %call6 = tail call noundef nonnull align 8 dereferenceable(16) ptr @_ZN13CStdOutStreamlsEPFRS_S0_E(ptr noundef nonnull align 8 dereferenceable(16) %call5, ptr noundef nonnull @_Z4endlR13CStdOutStream)
+  br label %return
 
-16:                                               ; preds = %5
-  %17 = getelementptr inbounds %class.CExtractCallbackConsole, ptr %0, i64 0, i32 6
-  %18 = load i64, ptr %17, align 8, !tbaa !38
-  %19 = add i64 %18, 1
-  store i64 %19, ptr %17, align 8, !tbaa !38
-  %20 = load ptr, ptr %6, align 8, !tbaa !5
-  %21 = tail call noundef nonnull align 8 dereferenceable(16) ptr @_ZN13CStdOutStreamlsEPKc(ptr noundef nonnull align 8 dereferenceable(16) %20, ptr noundef nonnull @.str.9)
-  %22 = load i64, ptr %9, align 8, !tbaa !34
-  %23 = tail call noundef nonnull align 8 dereferenceable(16) ptr @_ZN13CStdOutStreamlsEy(ptr noundef nonnull align 8 dereferenceable(16) %21, i64 noundef %22)
-  %24 = tail call noundef nonnull align 8 dereferenceable(16) ptr @_ZN13CStdOutStreamlsEPFRS_S0_E(ptr noundef nonnull align 8 dereferenceable(16) %23, ptr noundef nonnull @_Z4endlR13CStdOutStream)
-  br label %61
+if.else:                                          ; preds = %if.then
+  %NumArchiveErrors = getelementptr inbounds %class.CExtractCallbackConsole, ptr %this, i64 0, i32 6
+  %3 = load i64, ptr %NumArchiveErrors, align 8, !tbaa !38
+  %inc = add i64 %3, 1
+  store i64 %inc, ptr %NumArchiveErrors, align 8, !tbaa !38
+  %4 = load ptr, ptr %OutStream, align 8, !tbaa !5
+  %call8 = tail call noundef nonnull align 8 dereferenceable(16) ptr @_ZN13CStdOutStreamlsEPKc(ptr noundef nonnull align 8 dereferenceable(16) %4, ptr noundef nonnull @.str.9)
+  %5 = load i64, ptr %NumFileErrorsInCurrentArchive, align 8, !tbaa !34
+  %call10 = tail call noundef nonnull align 8 dereferenceable(16) ptr @_ZN13CStdOutStreamlsEy(ptr noundef nonnull align 8 dereferenceable(16) %call8, i64 noundef %5)
+  %call11 = tail call noundef nonnull align 8 dereferenceable(16) ptr @_ZN13CStdOutStreamlsEPFRS_S0_E(ptr noundef nonnull align 8 dereferenceable(16) %call10, ptr noundef nonnull @_Z4endlR13CStdOutStream)
+  br label %return
 
-25:                                               ; preds = %2
-  %26 = getelementptr inbounds %class.CExtractCallbackConsole, ptr %0, i64 0, i32 6
-  %27 = load i64, ptr %26, align 8, !tbaa !38
-  %28 = add i64 %27, 1
-  store i64 %28, ptr %26, align 8, !tbaa !38
-  switch i32 %1, label %29 [
-    i32 -2147467260, label %61
-    i32 28, label %61
+if.end15:                                         ; preds = %entry
+  %NumArchiveErrors16 = getelementptr inbounds %class.CExtractCallbackConsole, ptr %this, i64 0, i32 6
+  %6 = load i64, ptr %NumArchiveErrors16, align 8, !tbaa !38
+  %inc17 = add i64 %6, 1
+  store i64 %inc17, ptr %NumArchiveErrors16, align 8, !tbaa !38
+  switch i32 %result, label %if.end21 [
+    i32 -2147467260, label %return
+    i32 28, label %return
   ]
 
-29:                                               ; preds = %25
-  %30 = getelementptr inbounds %class.CExtractCallbackConsole, ptr %0, i64 0, i32 9
-  %31 = load ptr, ptr %30, align 8, !tbaa !5
-  %32 = tail call noundef nonnull align 8 dereferenceable(16) ptr @_ZN13CStdOutStreamlsEPFRS_S0_E(ptr noundef nonnull align 8 dereferenceable(16) %31, ptr noundef nonnull @_Z4endlR13CStdOutStream)
-  %33 = tail call noundef nonnull align 8 dereferenceable(16) ptr @_ZN13CStdOutStreamlsEPKc(ptr noundef nonnull align 8 dereferenceable(16) %32, ptr noundef nonnull @.str.22)
-  %34 = icmp eq i32 %1, -2147024882
-  br i1 %34, label %35, label %38
+if.end21:                                         ; preds = %if.end15
+  %OutStream22 = getelementptr inbounds %class.CExtractCallbackConsole, ptr %this, i64 0, i32 9
+  %7 = load ptr, ptr %OutStream22, align 8, !tbaa !5
+  %call23 = tail call noundef nonnull align 8 dereferenceable(16) ptr @_ZN13CStdOutStreamlsEPFRS_S0_E(ptr noundef nonnull align 8 dereferenceable(16) %7, ptr noundef nonnull @_Z4endlR13CStdOutStream)
+  %call24 = tail call noundef nonnull align 8 dereferenceable(16) ptr @_ZN13CStdOutStreamlsEPKc(ptr noundef nonnull align 8 dereferenceable(16) %call23, ptr noundef nonnull @.str.22)
+  %cmp25 = icmp eq i32 %result, -2147024882
+  br i1 %cmp25, label %if.then26, label %if.else29
 
-35:                                               ; preds = %29
-  %36 = load ptr, ptr %30, align 8, !tbaa !5
-  %37 = tail call noundef nonnull align 8 dereferenceable(16) ptr @_ZN13CStdOutStreamlsEPKc(ptr noundef nonnull align 8 dereferenceable(16) %36, ptr noundef nonnull @.str.23)
-  br label %58
+if.then26:                                        ; preds = %if.end21
+  %8 = load ptr, ptr %OutStream22, align 8, !tbaa !5
+  %call28 = tail call noundef nonnull align 8 dereferenceable(16) ptr @_ZN13CStdOutStreamlsEPKc(ptr noundef nonnull align 8 dereferenceable(16) %8, ptr noundef nonnull @.str.23)
+  br label %if.end36
 
-38:                                               ; preds = %29
-  call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %3) #12
-  %39 = getelementptr inbounds %class.CStringBase, ptr %3, i64 0, i32 2
-  %40 = getelementptr inbounds i8, ptr %3, i64 8
-  store i64 0, ptr %40, align 8
-  %41 = tail call noalias noundef nonnull dereferenceable(16) ptr @_Znam(i64 noundef 16) #10
-  store ptr %41, ptr %3, align 8, !tbaa !24
-  store i32 0, ptr %41, align 4, !tbaa !25
-  store i32 4, ptr %39, align 4, !tbaa !27
-  %42 = invoke noundef zeroext i1 @_ZN8NWindows6NError15MyFormatMessageEjR11CStringBaseIwE(i32 noundef %1, ptr noundef nonnull align 8 dereferenceable(16) %3)
-          to label %43 unwind label %52
+if.else29:                                        ; preds = %if.end21
+  call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %message) #12
+  %_capacity.i = getelementptr inbounds %class.CStringBase, ptr %message, i64 0, i32 2
+  %9 = getelementptr inbounds i8, ptr %message, i64 8
+  store i64 0, ptr %9, align 8
+  %call.i.i = tail call noalias noundef nonnull dereferenceable(16) ptr @_Znam(i64 noundef 16) #10
+  store ptr %call.i.i, ptr %message, align 8, !tbaa !24
+  store i32 0, ptr %call.i.i, align 4, !tbaa !25
+  store i32 4, ptr %_capacity.i, align 4, !tbaa !27
+  %call30 = invoke noundef zeroext i1 @_ZN8NWindows6NError15MyFormatMessageEjR11CStringBaseIwE(i32 noundef %result, ptr noundef nonnull align 8 dereferenceable(16) %message)
+          to label %invoke.cont unwind label %lpad
 
-43:                                               ; preds = %38
-  %44 = load ptr, ptr %30, align 8, !tbaa !5
-  %45 = load ptr, ptr %3, align 8, !tbaa !24
-  %46 = invoke noundef nonnull align 8 dereferenceable(16) ptr @_ZN13CStdOutStreamlsEPKw(ptr noundef nonnull align 8 dereferenceable(16) %44, ptr noundef %45)
-          to label %47 unwind label %52
+invoke.cont:                                      ; preds = %if.else29
+  %10 = load ptr, ptr %OutStream22, align 8, !tbaa !5
+  %11 = load ptr, ptr %message, align 8, !tbaa !24
+  %call35 = invoke noundef nonnull align 8 dereferenceable(16) ptr @_ZN13CStdOutStreamlsEPKw(ptr noundef nonnull align 8 dereferenceable(16) %10, ptr noundef %11)
+          to label %invoke.cont34 unwind label %lpad
 
-47:                                               ; preds = %43
-  %48 = load ptr, ptr %3, align 8, !tbaa !24
-  %49 = icmp eq ptr %48, null
-  br i1 %49, label %51, label %50
+invoke.cont34:                                    ; preds = %invoke.cont
+  %12 = load ptr, ptr %message, align 8, !tbaa !24
+  %isnull.i = icmp eq ptr %12, null
+  br i1 %isnull.i, label %_ZN11CStringBaseIwED2Ev.exit, label %delete.notnull.i
 
-50:                                               ; preds = %47
-  call void @_ZdaPv(ptr noundef nonnull %48) #11
-  br label %51
+delete.notnull.i:                                 ; preds = %invoke.cont34
+  call void @_ZdaPv(ptr noundef nonnull %12) #11
+  br label %_ZN11CStringBaseIwED2Ev.exit
 
-51:                                               ; preds = %47, %50
-  call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %3) #12
-  br label %58
+_ZN11CStringBaseIwED2Ev.exit:                     ; preds = %invoke.cont34, %delete.notnull.i
+  call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %message) #12
+  br label %if.end36
 
-52:                                               ; preds = %43, %38
-  %53 = landingpad { ptr, i32 }
+lpad:                                             ; preds = %invoke.cont, %if.else29
+  %13 = landingpad { ptr, i32 }
           cleanup
-  %54 = load ptr, ptr %3, align 8, !tbaa !24
-  %55 = icmp eq ptr %54, null
-  br i1 %55, label %57, label %56
+  %14 = load ptr, ptr %message, align 8, !tbaa !24
+  %isnull.i47 = icmp eq ptr %14, null
+  br i1 %isnull.i47, label %_ZN11CStringBaseIwED2Ev.exit49, label %delete.notnull.i48
 
-56:                                               ; preds = %52
-  call void @_ZdaPv(ptr noundef nonnull %54) #11
-  br label %57
+delete.notnull.i48:                               ; preds = %lpad
+  call void @_ZdaPv(ptr noundef nonnull %14) #11
+  br label %_ZN11CStringBaseIwED2Ev.exit49
 
-57:                                               ; preds = %52, %56
-  call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %3) #12
-  resume { ptr, i32 } %53
+_ZN11CStringBaseIwED2Ev.exit49:                   ; preds = %lpad, %delete.notnull.i48
+  call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %message) #12
+  resume { ptr, i32 } %13
 
-58:                                               ; preds = %51, %35
-  %59 = load ptr, ptr %30, align 8, !tbaa !5
-  %60 = call noundef nonnull align 8 dereferenceable(16) ptr @_ZN13CStdOutStreamlsEPFRS_S0_E(ptr noundef nonnull align 8 dereferenceable(16) %59, ptr noundef nonnull @_Z4endlR13CStdOutStream)
-  br label %61
+if.end36:                                         ; preds = %_ZN11CStringBaseIwED2Ev.exit, %if.then26
+  %15 = load ptr, ptr %OutStream22, align 8, !tbaa !5
+  %call38 = call noundef nonnull align 8 dereferenceable(16) ptr @_ZN13CStdOutStreamlsEPFRS_S0_E(ptr noundef nonnull align 8 dereferenceable(16) %15, ptr noundef nonnull @_Z4endlR13CStdOutStream)
+  br label %return
 
-61:                                               ; preds = %25, %25, %16, %12, %58
-  %62 = phi i32 [ 0, %58 ], [ 0, %12 ], [ 0, %16 ], [ %1, %25 ], [ %1, %25 ]
-  ret i32 %62
+return:                                           ; preds = %if.else, %if.then3, %if.end15, %if.end15, %if.end36
+  %retval.0 = phi i32 [ 0, %if.end36 ], [ %result, %if.end15 ], [ %result, %if.end15 ], [ 0, %if.then3 ], [ 0, %if.else ]
+  ret i32 %retval.0
 }
 
 declare noundef zeroext i1 @_ZN8NWindows6NError15MyFormatMessageEjR11CStringBaseIwE(i32 noundef, ptr noundef nonnull align 8 dereferenceable(16)) local_unnamed_addr #1
 
 ; Function Attrs: mustprogress uwtable
-define linkonce_odr dso_local noundef i32 @_ZN23CExtractCallbackConsole14QueryInterfaceERK4GUIDPPv(ptr noundef nonnull align 8 dereferenceable(80) %0, ptr noundef nonnull align 4 dereferenceable(16) %1, ptr noundef %2) unnamed_addr #0 comdat align 2 {
-  %4 = load i8, ptr %1, align 4, !tbaa !39
-  %5 = load i8, ptr @IID_IUnknown, align 4, !tbaa !39
-  %6 = icmp eq i8 %4, %5
-  br i1 %6, label %7, label %82
+define linkonce_odr dso_local noundef i32 @_ZN23CExtractCallbackConsole14QueryInterfaceERK4GUIDPPv(ptr noundef nonnull align 8 dereferenceable(80) %this, ptr noundef nonnull align 4 dereferenceable(16) %iid, ptr noundef %outObject) unnamed_addr #0 comdat align 2 {
+entry:
+  %0 = load i8, ptr %iid, align 4, !tbaa !39
+  %1 = load i8, ptr @IID_IUnknown, align 4, !tbaa !39
+  %cmp4.not.i = icmp eq i8 %0, %1
+  br i1 %cmp4.not.i, label %for.cond.i, label %if.end
 
-7:                                                ; preds = %3
-  %8 = getelementptr inbounds i8, ptr %1, i64 1
-  %9 = load i8, ptr %8, align 1, !tbaa !39
-  %10 = load i8, ptr getelementptr inbounds (i8, ptr @IID_IUnknown, i64 1), align 1, !tbaa !39
-  %11 = icmp eq i8 %9, %10
-  br i1 %11, label %12, label %82
+for.cond.i:                                       ; preds = %entry
+  %arrayidx.1.i = getelementptr inbounds i8, ptr %iid, i64 1
+  %2 = load i8, ptr %arrayidx.1.i, align 1, !tbaa !39
+  %3 = load i8, ptr getelementptr inbounds (i8, ptr @IID_IUnknown, i64 1), align 1, !tbaa !39
+  %cmp4.not.1.i = icmp eq i8 %2, %3
+  br i1 %cmp4.not.1.i, label %for.cond.1.i, label %if.end
 
-12:                                               ; preds = %7
-  %13 = getelementptr inbounds i8, ptr %1, i64 2
-  %14 = load i8, ptr %13, align 2, !tbaa !39
-  %15 = load i8, ptr getelementptr inbounds (i8, ptr @IID_IUnknown, i64 2), align 2, !tbaa !39
-  %16 = icmp eq i8 %14, %15
-  br i1 %16, label %17, label %82
+for.cond.1.i:                                     ; preds = %for.cond.i
+  %arrayidx.2.i = getelementptr inbounds i8, ptr %iid, i64 2
+  %4 = load i8, ptr %arrayidx.2.i, align 2, !tbaa !39
+  %5 = load i8, ptr getelementptr inbounds (i8, ptr @IID_IUnknown, i64 2), align 2, !tbaa !39
+  %cmp4.not.2.i = icmp eq i8 %4, %5
+  br i1 %cmp4.not.2.i, label %for.cond.2.i, label %if.end
 
-17:                                               ; preds = %12
-  %18 = getelementptr inbounds i8, ptr %1, i64 3
-  %19 = load i8, ptr %18, align 1, !tbaa !39
-  %20 = load i8, ptr getelementptr inbounds (i8, ptr @IID_IUnknown, i64 3), align 1, !tbaa !39
-  %21 = icmp eq i8 %19, %20
-  br i1 %21, label %22, label %82
+for.cond.2.i:                                     ; preds = %for.cond.1.i
+  %arrayidx.3.i = getelementptr inbounds i8, ptr %iid, i64 3
+  %6 = load i8, ptr %arrayidx.3.i, align 1, !tbaa !39
+  %7 = load i8, ptr getelementptr inbounds (i8, ptr @IID_IUnknown, i64 3), align 1, !tbaa !39
+  %cmp4.not.3.i = icmp eq i8 %6, %7
+  br i1 %cmp4.not.3.i, label %for.cond.3.i, label %if.end
 
-22:                                               ; preds = %17
-  %23 = getelementptr inbounds i8, ptr %1, i64 4
-  %24 = load i8, ptr %23, align 4, !tbaa !39
-  %25 = load i8, ptr getelementptr inbounds (%struct.GUID, ptr @IID_IUnknown, i64 0, i32 1), align 4, !tbaa !39
-  %26 = icmp eq i8 %24, %25
-  br i1 %26, label %27, label %82
+for.cond.3.i:                                     ; preds = %for.cond.2.i
+  %arrayidx.4.i = getelementptr inbounds i8, ptr %iid, i64 4
+  %8 = load i8, ptr %arrayidx.4.i, align 4, !tbaa !39
+  %9 = load i8, ptr getelementptr inbounds (%struct.GUID, ptr @IID_IUnknown, i64 0, i32 1), align 4, !tbaa !39
+  %cmp4.not.4.i = icmp eq i8 %8, %9
+  br i1 %cmp4.not.4.i, label %for.cond.4.i, label %if.end
 
-27:                                               ; preds = %22
-  %28 = getelementptr inbounds i8, ptr %1, i64 5
-  %29 = load i8, ptr %28, align 1, !tbaa !39
-  %30 = load i8, ptr getelementptr inbounds (i8, ptr @IID_IUnknown, i64 5), align 1, !tbaa !39
-  %31 = icmp eq i8 %29, %30
-  br i1 %31, label %32, label %82
+for.cond.4.i:                                     ; preds = %for.cond.3.i
+  %arrayidx.5.i = getelementptr inbounds i8, ptr %iid, i64 5
+  %10 = load i8, ptr %arrayidx.5.i, align 1, !tbaa !39
+  %11 = load i8, ptr getelementptr inbounds (i8, ptr @IID_IUnknown, i64 5), align 1, !tbaa !39
+  %cmp4.not.5.i = icmp eq i8 %10, %11
+  br i1 %cmp4.not.5.i, label %for.cond.5.i, label %if.end
 
-32:                                               ; preds = %27
-  %33 = getelementptr inbounds i8, ptr %1, i64 6
-  %34 = load i8, ptr %33, align 2, !tbaa !39
-  %35 = load i8, ptr getelementptr inbounds (%struct.GUID, ptr @IID_IUnknown, i64 0, i32 2), align 2, !tbaa !39
-  %36 = icmp eq i8 %34, %35
-  br i1 %36, label %37, label %82
+for.cond.5.i:                                     ; preds = %for.cond.4.i
+  %arrayidx.6.i = getelementptr inbounds i8, ptr %iid, i64 6
+  %12 = load i8, ptr %arrayidx.6.i, align 2, !tbaa !39
+  %13 = load i8, ptr getelementptr inbounds (%struct.GUID, ptr @IID_IUnknown, i64 0, i32 2), align 2, !tbaa !39
+  %cmp4.not.6.i = icmp eq i8 %12, %13
+  br i1 %cmp4.not.6.i, label %for.cond.6.i, label %if.end
 
-37:                                               ; preds = %32
-  %38 = getelementptr inbounds i8, ptr %1, i64 7
-  %39 = load i8, ptr %38, align 1, !tbaa !39
-  %40 = load i8, ptr getelementptr inbounds (i8, ptr @IID_IUnknown, i64 7), align 1, !tbaa !39
-  %41 = icmp eq i8 %39, %40
-  br i1 %41, label %42, label %82
+for.cond.6.i:                                     ; preds = %for.cond.5.i
+  %arrayidx.7.i = getelementptr inbounds i8, ptr %iid, i64 7
+  %14 = load i8, ptr %arrayidx.7.i, align 1, !tbaa !39
+  %15 = load i8, ptr getelementptr inbounds (i8, ptr @IID_IUnknown, i64 7), align 1, !tbaa !39
+  %cmp4.not.7.i = icmp eq i8 %14, %15
+  br i1 %cmp4.not.7.i, label %for.cond.7.i, label %if.end
 
-42:                                               ; preds = %37
-  %43 = getelementptr inbounds i8, ptr %1, i64 8
-  %44 = load i8, ptr %43, align 4, !tbaa !39
-  %45 = load i8, ptr getelementptr inbounds (%struct.GUID, ptr @IID_IUnknown, i64 0, i32 3, i64 0), align 4, !tbaa !39
-  %46 = icmp eq i8 %44, %45
-  br i1 %46, label %47, label %82
+for.cond.7.i:                                     ; preds = %for.cond.6.i
+  %arrayidx.8.i = getelementptr inbounds i8, ptr %iid, i64 8
+  %16 = load i8, ptr %arrayidx.8.i, align 4, !tbaa !39
+  %17 = load i8, ptr getelementptr inbounds (%struct.GUID, ptr @IID_IUnknown, i64 0, i32 3, i64 0), align 4, !tbaa !39
+  %cmp4.not.8.i = icmp eq i8 %16, %17
+  br i1 %cmp4.not.8.i, label %for.cond.8.i, label %if.end
 
-47:                                               ; preds = %42
-  %48 = getelementptr inbounds i8, ptr %1, i64 9
-  %49 = load i8, ptr %48, align 1, !tbaa !39
-  %50 = load i8, ptr getelementptr inbounds (%struct.GUID, ptr @IID_IUnknown, i64 0, i32 3, i64 1), align 1, !tbaa !39
-  %51 = icmp eq i8 %49, %50
-  br i1 %51, label %52, label %82
+for.cond.8.i:                                     ; preds = %for.cond.7.i
+  %arrayidx.9.i = getelementptr inbounds i8, ptr %iid, i64 9
+  %18 = load i8, ptr %arrayidx.9.i, align 1, !tbaa !39
+  %19 = load i8, ptr getelementptr inbounds (%struct.GUID, ptr @IID_IUnknown, i64 0, i32 3, i64 1), align 1, !tbaa !39
+  %cmp4.not.9.i = icmp eq i8 %18, %19
+  br i1 %cmp4.not.9.i, label %for.cond.9.i, label %if.end
 
-52:                                               ; preds = %47
-  %53 = getelementptr inbounds i8, ptr %1, i64 10
-  %54 = load i8, ptr %53, align 2, !tbaa !39
-  %55 = load i8, ptr getelementptr inbounds (%struct.GUID, ptr @IID_IUnknown, i64 0, i32 3, i64 2), align 2, !tbaa !39
-  %56 = icmp eq i8 %54, %55
-  br i1 %56, label %57, label %82
+for.cond.9.i:                                     ; preds = %for.cond.8.i
+  %arrayidx.10.i = getelementptr inbounds i8, ptr %iid, i64 10
+  %20 = load i8, ptr %arrayidx.10.i, align 2, !tbaa !39
+  %21 = load i8, ptr getelementptr inbounds (%struct.GUID, ptr @IID_IUnknown, i64 0, i32 3, i64 2), align 2, !tbaa !39
+  %cmp4.not.10.i = icmp eq i8 %20, %21
+  br i1 %cmp4.not.10.i, label %for.cond.10.i, label %if.end
 
-57:                                               ; preds = %52
-  %58 = getelementptr inbounds i8, ptr %1, i64 11
-  %59 = load i8, ptr %58, align 1, !tbaa !39
-  %60 = load i8, ptr getelementptr inbounds (%struct.GUID, ptr @IID_IUnknown, i64 0, i32 3, i64 3), align 1, !tbaa !39
-  %61 = icmp eq i8 %59, %60
-  br i1 %61, label %62, label %82
+for.cond.10.i:                                    ; preds = %for.cond.9.i
+  %arrayidx.11.i = getelementptr inbounds i8, ptr %iid, i64 11
+  %22 = load i8, ptr %arrayidx.11.i, align 1, !tbaa !39
+  %23 = load i8, ptr getelementptr inbounds (%struct.GUID, ptr @IID_IUnknown, i64 0, i32 3, i64 3), align 1, !tbaa !39
+  %cmp4.not.11.i = icmp eq i8 %22, %23
+  br i1 %cmp4.not.11.i, label %for.cond.11.i, label %if.end
 
-62:                                               ; preds = %57
-  %63 = getelementptr inbounds i8, ptr %1, i64 12
-  %64 = load i8, ptr %63, align 4, !tbaa !39
-  %65 = load i8, ptr getelementptr inbounds (%struct.GUID, ptr @IID_IUnknown, i64 0, i32 3, i64 4), align 4, !tbaa !39
-  %66 = icmp eq i8 %64, %65
-  br i1 %66, label %67, label %82
+for.cond.11.i:                                    ; preds = %for.cond.10.i
+  %arrayidx.12.i = getelementptr inbounds i8, ptr %iid, i64 12
+  %24 = load i8, ptr %arrayidx.12.i, align 4, !tbaa !39
+  %25 = load i8, ptr getelementptr inbounds (%struct.GUID, ptr @IID_IUnknown, i64 0, i32 3, i64 4), align 4, !tbaa !39
+  %cmp4.not.12.i = icmp eq i8 %24, %25
+  br i1 %cmp4.not.12.i, label %for.cond.12.i, label %if.end
 
-67:                                               ; preds = %62
-  %68 = getelementptr inbounds i8, ptr %1, i64 13
-  %69 = load i8, ptr %68, align 1, !tbaa !39
-  %70 = load i8, ptr getelementptr inbounds (%struct.GUID, ptr @IID_IUnknown, i64 0, i32 3, i64 5), align 1, !tbaa !39
-  %71 = icmp eq i8 %69, %70
-  br i1 %71, label %72, label %82
+for.cond.12.i:                                    ; preds = %for.cond.11.i
+  %arrayidx.13.i = getelementptr inbounds i8, ptr %iid, i64 13
+  %26 = load i8, ptr %arrayidx.13.i, align 1, !tbaa !39
+  %27 = load i8, ptr getelementptr inbounds (%struct.GUID, ptr @IID_IUnknown, i64 0, i32 3, i64 5), align 1, !tbaa !39
+  %cmp4.not.13.i = icmp eq i8 %26, %27
+  br i1 %cmp4.not.13.i, label %for.cond.13.i, label %if.end
 
-72:                                               ; preds = %67
-  %73 = getelementptr inbounds i8, ptr %1, i64 14
-  %74 = load i8, ptr %73, align 2, !tbaa !39
-  %75 = load i8, ptr getelementptr inbounds (%struct.GUID, ptr @IID_IUnknown, i64 0, i32 3, i64 6), align 2, !tbaa !39
-  %76 = icmp eq i8 %74, %75
-  br i1 %76, label %77, label %82
+for.cond.13.i:                                    ; preds = %for.cond.12.i
+  %arrayidx.14.i = getelementptr inbounds i8, ptr %iid, i64 14
+  %28 = load i8, ptr %arrayidx.14.i, align 2, !tbaa !39
+  %29 = load i8, ptr getelementptr inbounds (%struct.GUID, ptr @IID_IUnknown, i64 0, i32 3, i64 6), align 2, !tbaa !39
+  %cmp4.not.14.i = icmp eq i8 %28, %29
+  br i1 %cmp4.not.14.i, label %_ZeqRK4GUIDS1_.exit, label %if.end
 
-77:                                               ; preds = %72
-  %78 = getelementptr inbounds i8, ptr %1, i64 15
-  %79 = load i8, ptr %78, align 1, !tbaa !39
-  %80 = load i8, ptr getelementptr inbounds (%struct.GUID, ptr @IID_IUnknown, i64 0, i32 3, i64 7), align 1, !tbaa !39
-  %81 = icmp eq i8 %79, %80
-  br i1 %81, label %240, label %82
+_ZeqRK4GUIDS1_.exit:                              ; preds = %for.cond.13.i
+  %arrayidx.15.i = getelementptr inbounds i8, ptr %iid, i64 15
+  %30 = load i8, ptr %arrayidx.15.i, align 1, !tbaa !39
+  %31 = load i8, ptr getelementptr inbounds (%struct.GUID, ptr @IID_IUnknown, i64 0, i32 3, i64 7), align 1, !tbaa !39
+  %cmp4.not.15.i.not = icmp eq i8 %30, %31
+  br i1 %cmp4.not.15.i.not, label %return.sink.split, label %if.end
 
-82:                                               ; preds = %72, %67, %62, %57, %52, %47, %42, %37, %32, %27, %22, %17, %12, %7, %3, %77
-  %83 = load i8, ptr @IID_IFolderArchiveExtractCallback, align 4, !tbaa !39
-  %84 = icmp eq i8 %4, %83
-  br i1 %84, label %85, label %160
+if.end:                                           ; preds = %for.cond.13.i, %for.cond.12.i, %for.cond.11.i, %for.cond.10.i, %for.cond.9.i, %for.cond.8.i, %for.cond.7.i, %for.cond.6.i, %for.cond.5.i, %for.cond.4.i, %for.cond.3.i, %for.cond.2.i, %for.cond.1.i, %for.cond.i, %entry, %_ZeqRK4GUIDS1_.exit
+  %32 = load i8, ptr @IID_IFolderArchiveExtractCallback, align 4, !tbaa !39
+  %cmp4.not.i21 = icmp eq i8 %0, %32
+  br i1 %cmp4.not.i21, label %for.cond.i24, label %if.end9
 
-85:                                               ; preds = %82
-  %86 = getelementptr inbounds i8, ptr %1, i64 1
-  %87 = load i8, ptr %86, align 1, !tbaa !39
-  %88 = load i8, ptr getelementptr inbounds (i8, ptr @IID_IFolderArchiveExtractCallback, i64 1), align 1, !tbaa !39
-  %89 = icmp eq i8 %87, %88
-  br i1 %89, label %90, label %160
+for.cond.i24:                                     ; preds = %if.end
+  %arrayidx.1.i22 = getelementptr inbounds i8, ptr %iid, i64 1
+  %33 = load i8, ptr %arrayidx.1.i22, align 1, !tbaa !39
+  %34 = load i8, ptr getelementptr inbounds (i8, ptr @IID_IFolderArchiveExtractCallback, i64 1), align 1, !tbaa !39
+  %cmp4.not.1.i23 = icmp eq i8 %33, %34
+  br i1 %cmp4.not.1.i23, label %for.cond.1.i27, label %if.end9
 
-90:                                               ; preds = %85
-  %91 = getelementptr inbounds i8, ptr %1, i64 2
-  %92 = load i8, ptr %91, align 2, !tbaa !39
-  %93 = load i8, ptr getelementptr inbounds (i8, ptr @IID_IFolderArchiveExtractCallback, i64 2), align 2, !tbaa !39
-  %94 = icmp eq i8 %92, %93
-  br i1 %94, label %95, label %160
+for.cond.1.i27:                                   ; preds = %for.cond.i24
+  %arrayidx.2.i25 = getelementptr inbounds i8, ptr %iid, i64 2
+  %35 = load i8, ptr %arrayidx.2.i25, align 2, !tbaa !39
+  %36 = load i8, ptr getelementptr inbounds (i8, ptr @IID_IFolderArchiveExtractCallback, i64 2), align 2, !tbaa !39
+  %cmp4.not.2.i26 = icmp eq i8 %35, %36
+  br i1 %cmp4.not.2.i26, label %for.cond.2.i30, label %if.end9
 
-95:                                               ; preds = %90
-  %96 = getelementptr inbounds i8, ptr %1, i64 3
-  %97 = load i8, ptr %96, align 1, !tbaa !39
-  %98 = load i8, ptr getelementptr inbounds (i8, ptr @IID_IFolderArchiveExtractCallback, i64 3), align 1, !tbaa !39
-  %99 = icmp eq i8 %97, %98
-  br i1 %99, label %100, label %160
+for.cond.2.i30:                                   ; preds = %for.cond.1.i27
+  %arrayidx.3.i28 = getelementptr inbounds i8, ptr %iid, i64 3
+  %37 = load i8, ptr %arrayidx.3.i28, align 1, !tbaa !39
+  %38 = load i8, ptr getelementptr inbounds (i8, ptr @IID_IFolderArchiveExtractCallback, i64 3), align 1, !tbaa !39
+  %cmp4.not.3.i29 = icmp eq i8 %37, %38
+  br i1 %cmp4.not.3.i29, label %for.cond.3.i33, label %if.end9
 
-100:                                              ; preds = %95
-  %101 = getelementptr inbounds i8, ptr %1, i64 4
-  %102 = load i8, ptr %101, align 4, !tbaa !39
-  %103 = load i8, ptr getelementptr inbounds (%struct.GUID, ptr @IID_IFolderArchiveExtractCallback, i64 0, i32 1), align 4, !tbaa !39
-  %104 = icmp eq i8 %102, %103
-  br i1 %104, label %105, label %160
+for.cond.3.i33:                                   ; preds = %for.cond.2.i30
+  %arrayidx.4.i31 = getelementptr inbounds i8, ptr %iid, i64 4
+  %39 = load i8, ptr %arrayidx.4.i31, align 4, !tbaa !39
+  %40 = load i8, ptr getelementptr inbounds (%struct.GUID, ptr @IID_IFolderArchiveExtractCallback, i64 0, i32 1), align 4, !tbaa !39
+  %cmp4.not.4.i32 = icmp eq i8 %39, %40
+  br i1 %cmp4.not.4.i32, label %for.cond.4.i36, label %if.end9
 
-105:                                              ; preds = %100
-  %106 = getelementptr inbounds i8, ptr %1, i64 5
-  %107 = load i8, ptr %106, align 1, !tbaa !39
-  %108 = load i8, ptr getelementptr inbounds (i8, ptr @IID_IFolderArchiveExtractCallback, i64 5), align 1, !tbaa !39
-  %109 = icmp eq i8 %107, %108
-  br i1 %109, label %110, label %160
+for.cond.4.i36:                                   ; preds = %for.cond.3.i33
+  %arrayidx.5.i34 = getelementptr inbounds i8, ptr %iid, i64 5
+  %41 = load i8, ptr %arrayidx.5.i34, align 1, !tbaa !39
+  %42 = load i8, ptr getelementptr inbounds (i8, ptr @IID_IFolderArchiveExtractCallback, i64 5), align 1, !tbaa !39
+  %cmp4.not.5.i35 = icmp eq i8 %41, %42
+  br i1 %cmp4.not.5.i35, label %for.cond.5.i39, label %if.end9
 
-110:                                              ; preds = %105
-  %111 = getelementptr inbounds i8, ptr %1, i64 6
-  %112 = load i8, ptr %111, align 2, !tbaa !39
-  %113 = load i8, ptr getelementptr inbounds (%struct.GUID, ptr @IID_IFolderArchiveExtractCallback, i64 0, i32 2), align 2, !tbaa !39
-  %114 = icmp eq i8 %112, %113
-  br i1 %114, label %115, label %160
+for.cond.5.i39:                                   ; preds = %for.cond.4.i36
+  %arrayidx.6.i37 = getelementptr inbounds i8, ptr %iid, i64 6
+  %43 = load i8, ptr %arrayidx.6.i37, align 2, !tbaa !39
+  %44 = load i8, ptr getelementptr inbounds (%struct.GUID, ptr @IID_IFolderArchiveExtractCallback, i64 0, i32 2), align 2, !tbaa !39
+  %cmp4.not.6.i38 = icmp eq i8 %43, %44
+  br i1 %cmp4.not.6.i38, label %for.cond.6.i42, label %if.end9
 
-115:                                              ; preds = %110
-  %116 = getelementptr inbounds i8, ptr %1, i64 7
-  %117 = load i8, ptr %116, align 1, !tbaa !39
-  %118 = load i8, ptr getelementptr inbounds (i8, ptr @IID_IFolderArchiveExtractCallback, i64 7), align 1, !tbaa !39
-  %119 = icmp eq i8 %117, %118
-  br i1 %119, label %120, label %160
+for.cond.6.i42:                                   ; preds = %for.cond.5.i39
+  %arrayidx.7.i40 = getelementptr inbounds i8, ptr %iid, i64 7
+  %45 = load i8, ptr %arrayidx.7.i40, align 1, !tbaa !39
+  %46 = load i8, ptr getelementptr inbounds (i8, ptr @IID_IFolderArchiveExtractCallback, i64 7), align 1, !tbaa !39
+  %cmp4.not.7.i41 = icmp eq i8 %45, %46
+  br i1 %cmp4.not.7.i41, label %for.cond.7.i45, label %if.end9
 
-120:                                              ; preds = %115
-  %121 = getelementptr inbounds i8, ptr %1, i64 8
-  %122 = load i8, ptr %121, align 4, !tbaa !39
-  %123 = load i8, ptr getelementptr inbounds (%struct.GUID, ptr @IID_IFolderArchiveExtractCallback, i64 0, i32 3, i64 0), align 4, !tbaa !39
-  %124 = icmp eq i8 %122, %123
-  br i1 %124, label %125, label %160
+for.cond.7.i45:                                   ; preds = %for.cond.6.i42
+  %arrayidx.8.i43 = getelementptr inbounds i8, ptr %iid, i64 8
+  %47 = load i8, ptr %arrayidx.8.i43, align 4, !tbaa !39
+  %48 = load i8, ptr getelementptr inbounds (%struct.GUID, ptr @IID_IFolderArchiveExtractCallback, i64 0, i32 3, i64 0), align 4, !tbaa !39
+  %cmp4.not.8.i44 = icmp eq i8 %47, %48
+  br i1 %cmp4.not.8.i44, label %for.cond.8.i48, label %if.end9
 
-125:                                              ; preds = %120
-  %126 = getelementptr inbounds i8, ptr %1, i64 9
-  %127 = load i8, ptr %126, align 1, !tbaa !39
-  %128 = load i8, ptr getelementptr inbounds (%struct.GUID, ptr @IID_IFolderArchiveExtractCallback, i64 0, i32 3, i64 1), align 1, !tbaa !39
-  %129 = icmp eq i8 %127, %128
-  br i1 %129, label %130, label %160
+for.cond.8.i48:                                   ; preds = %for.cond.7.i45
+  %arrayidx.9.i46 = getelementptr inbounds i8, ptr %iid, i64 9
+  %49 = load i8, ptr %arrayidx.9.i46, align 1, !tbaa !39
+  %50 = load i8, ptr getelementptr inbounds (%struct.GUID, ptr @IID_IFolderArchiveExtractCallback, i64 0, i32 3, i64 1), align 1, !tbaa !39
+  %cmp4.not.9.i47 = icmp eq i8 %49, %50
+  br i1 %cmp4.not.9.i47, label %for.cond.9.i51, label %if.end9
 
-130:                                              ; preds = %125
-  %131 = getelementptr inbounds i8, ptr %1, i64 10
-  %132 = load i8, ptr %131, align 2, !tbaa !39
-  %133 = load i8, ptr getelementptr inbounds (%struct.GUID, ptr @IID_IFolderArchiveExtractCallback, i64 0, i32 3, i64 2), align 2, !tbaa !39
-  %134 = icmp eq i8 %132, %133
-  br i1 %134, label %135, label %160
+for.cond.9.i51:                                   ; preds = %for.cond.8.i48
+  %arrayidx.10.i49 = getelementptr inbounds i8, ptr %iid, i64 10
+  %51 = load i8, ptr %arrayidx.10.i49, align 2, !tbaa !39
+  %52 = load i8, ptr getelementptr inbounds (%struct.GUID, ptr @IID_IFolderArchiveExtractCallback, i64 0, i32 3, i64 2), align 2, !tbaa !39
+  %cmp4.not.10.i50 = icmp eq i8 %51, %52
+  br i1 %cmp4.not.10.i50, label %for.cond.10.i54, label %if.end9
 
-135:                                              ; preds = %130
-  %136 = getelementptr inbounds i8, ptr %1, i64 11
-  %137 = load i8, ptr %136, align 1, !tbaa !39
-  %138 = load i8, ptr getelementptr inbounds (%struct.GUID, ptr @IID_IFolderArchiveExtractCallback, i64 0, i32 3, i64 3), align 1, !tbaa !39
-  %139 = icmp eq i8 %137, %138
-  br i1 %139, label %140, label %160
+for.cond.10.i54:                                  ; preds = %for.cond.9.i51
+  %arrayidx.11.i52 = getelementptr inbounds i8, ptr %iid, i64 11
+  %53 = load i8, ptr %arrayidx.11.i52, align 1, !tbaa !39
+  %54 = load i8, ptr getelementptr inbounds (%struct.GUID, ptr @IID_IFolderArchiveExtractCallback, i64 0, i32 3, i64 3), align 1, !tbaa !39
+  %cmp4.not.11.i53 = icmp eq i8 %53, %54
+  br i1 %cmp4.not.11.i53, label %for.cond.11.i57, label %if.end9
 
-140:                                              ; preds = %135
-  %141 = getelementptr inbounds i8, ptr %1, i64 12
-  %142 = load i8, ptr %141, align 4, !tbaa !39
-  %143 = load i8, ptr getelementptr inbounds (%struct.GUID, ptr @IID_IFolderArchiveExtractCallback, i64 0, i32 3, i64 4), align 4, !tbaa !39
-  %144 = icmp eq i8 %142, %143
-  br i1 %144, label %145, label %160
+for.cond.11.i57:                                  ; preds = %for.cond.10.i54
+  %arrayidx.12.i55 = getelementptr inbounds i8, ptr %iid, i64 12
+  %55 = load i8, ptr %arrayidx.12.i55, align 4, !tbaa !39
+  %56 = load i8, ptr getelementptr inbounds (%struct.GUID, ptr @IID_IFolderArchiveExtractCallback, i64 0, i32 3, i64 4), align 4, !tbaa !39
+  %cmp4.not.12.i56 = icmp eq i8 %55, %56
+  br i1 %cmp4.not.12.i56, label %for.cond.12.i60, label %if.end9
 
-145:                                              ; preds = %140
-  %146 = getelementptr inbounds i8, ptr %1, i64 13
-  %147 = load i8, ptr %146, align 1, !tbaa !39
-  %148 = load i8, ptr getelementptr inbounds (%struct.GUID, ptr @IID_IFolderArchiveExtractCallback, i64 0, i32 3, i64 5), align 1, !tbaa !39
-  %149 = icmp eq i8 %147, %148
-  br i1 %149, label %150, label %160
+for.cond.12.i60:                                  ; preds = %for.cond.11.i57
+  %arrayidx.13.i58 = getelementptr inbounds i8, ptr %iid, i64 13
+  %57 = load i8, ptr %arrayidx.13.i58, align 1, !tbaa !39
+  %58 = load i8, ptr getelementptr inbounds (%struct.GUID, ptr @IID_IFolderArchiveExtractCallback, i64 0, i32 3, i64 5), align 1, !tbaa !39
+  %cmp4.not.13.i59 = icmp eq i8 %57, %58
+  br i1 %cmp4.not.13.i59, label %for.cond.13.i63, label %if.end9
 
-150:                                              ; preds = %145
-  %151 = getelementptr inbounds i8, ptr %1, i64 14
-  %152 = load i8, ptr %151, align 2, !tbaa !39
-  %153 = load i8, ptr getelementptr inbounds (%struct.GUID, ptr @IID_IFolderArchiveExtractCallback, i64 0, i32 3, i64 6), align 2, !tbaa !39
-  %154 = icmp eq i8 %152, %153
-  br i1 %154, label %155, label %160
+for.cond.13.i63:                                  ; preds = %for.cond.12.i60
+  %arrayidx.14.i61 = getelementptr inbounds i8, ptr %iid, i64 14
+  %59 = load i8, ptr %arrayidx.14.i61, align 2, !tbaa !39
+  %60 = load i8, ptr getelementptr inbounds (%struct.GUID, ptr @IID_IFolderArchiveExtractCallback, i64 0, i32 3, i64 6), align 2, !tbaa !39
+  %cmp4.not.14.i62 = icmp eq i8 %59, %60
+  br i1 %cmp4.not.14.i62, label %_ZeqRK4GUIDS1_.exit69, label %if.end9
 
-155:                                              ; preds = %150
-  %156 = getelementptr inbounds i8, ptr %1, i64 15
-  %157 = load i8, ptr %156, align 1, !tbaa !39
-  %158 = load i8, ptr getelementptr inbounds (%struct.GUID, ptr @IID_IFolderArchiveExtractCallback, i64 0, i32 3, i64 7), align 1, !tbaa !39
-  %159 = icmp eq i8 %157, %158
-  br i1 %159, label %240, label %160
+_ZeqRK4GUIDS1_.exit69:                            ; preds = %for.cond.13.i63
+  %arrayidx.15.i64 = getelementptr inbounds i8, ptr %iid, i64 15
+  %61 = load i8, ptr %arrayidx.15.i64, align 1, !tbaa !39
+  %62 = load i8, ptr getelementptr inbounds (%struct.GUID, ptr @IID_IFolderArchiveExtractCallback, i64 0, i32 3, i64 7), align 1, !tbaa !39
+  %cmp4.not.15.i65.not = icmp eq i8 %61, %62
+  br i1 %cmp4.not.15.i65.not, label %return.sink.split, label %if.end9
 
-160:                                              ; preds = %150, %145, %140, %135, %130, %125, %120, %115, %110, %105, %100, %95, %90, %85, %82, %155
-  %161 = load i8, ptr @IID_ICryptoGetTextPassword, align 4, !tbaa !39
-  %162 = icmp eq i8 %4, %161
-  br i1 %162, label %163, label %246
+if.end9:                                          ; preds = %for.cond.13.i63, %for.cond.12.i60, %for.cond.11.i57, %for.cond.10.i54, %for.cond.9.i51, %for.cond.8.i48, %for.cond.7.i45, %for.cond.6.i42, %for.cond.5.i39, %for.cond.4.i36, %for.cond.3.i33, %for.cond.2.i30, %for.cond.1.i27, %for.cond.i24, %if.end, %_ZeqRK4GUIDS1_.exit69
+  %63 = load i8, ptr @IID_ICryptoGetTextPassword, align 4, !tbaa !39
+  %cmp4.not.i70 = icmp eq i8 %0, %63
+  br i1 %cmp4.not.i70, label %for.cond.i73, label %return
 
-163:                                              ; preds = %160
-  %164 = getelementptr inbounds i8, ptr %1, i64 1
-  %165 = load i8, ptr %164, align 1, !tbaa !39
-  %166 = load i8, ptr getelementptr inbounds (i8, ptr @IID_ICryptoGetTextPassword, i64 1), align 1, !tbaa !39
-  %167 = icmp eq i8 %165, %166
-  br i1 %167, label %168, label %246
+for.cond.i73:                                     ; preds = %if.end9
+  %arrayidx.1.i71 = getelementptr inbounds i8, ptr %iid, i64 1
+  %64 = load i8, ptr %arrayidx.1.i71, align 1, !tbaa !39
+  %65 = load i8, ptr getelementptr inbounds (i8, ptr @IID_ICryptoGetTextPassword, i64 1), align 1, !tbaa !39
+  %cmp4.not.1.i72 = icmp eq i8 %64, %65
+  br i1 %cmp4.not.1.i72, label %for.cond.1.i76, label %return
 
-168:                                              ; preds = %163
-  %169 = getelementptr inbounds i8, ptr %1, i64 2
-  %170 = load i8, ptr %169, align 2, !tbaa !39
-  %171 = load i8, ptr getelementptr inbounds (i8, ptr @IID_ICryptoGetTextPassword, i64 2), align 2, !tbaa !39
-  %172 = icmp eq i8 %170, %171
-  br i1 %172, label %173, label %246
+for.cond.1.i76:                                   ; preds = %for.cond.i73
+  %arrayidx.2.i74 = getelementptr inbounds i8, ptr %iid, i64 2
+  %66 = load i8, ptr %arrayidx.2.i74, align 2, !tbaa !39
+  %67 = load i8, ptr getelementptr inbounds (i8, ptr @IID_ICryptoGetTextPassword, i64 2), align 2, !tbaa !39
+  %cmp4.not.2.i75 = icmp eq i8 %66, %67
+  br i1 %cmp4.not.2.i75, label %for.cond.2.i79, label %return
 
-173:                                              ; preds = %168
-  %174 = getelementptr inbounds i8, ptr %1, i64 3
-  %175 = load i8, ptr %174, align 1, !tbaa !39
-  %176 = load i8, ptr getelementptr inbounds (i8, ptr @IID_ICryptoGetTextPassword, i64 3), align 1, !tbaa !39
-  %177 = icmp eq i8 %175, %176
-  br i1 %177, label %178, label %246
+for.cond.2.i79:                                   ; preds = %for.cond.1.i76
+  %arrayidx.3.i77 = getelementptr inbounds i8, ptr %iid, i64 3
+  %68 = load i8, ptr %arrayidx.3.i77, align 1, !tbaa !39
+  %69 = load i8, ptr getelementptr inbounds (i8, ptr @IID_ICryptoGetTextPassword, i64 3), align 1, !tbaa !39
+  %cmp4.not.3.i78 = icmp eq i8 %68, %69
+  br i1 %cmp4.not.3.i78, label %for.cond.3.i82, label %return
 
-178:                                              ; preds = %173
-  %179 = getelementptr inbounds i8, ptr %1, i64 4
-  %180 = load i8, ptr %179, align 4, !tbaa !39
-  %181 = load i8, ptr getelementptr inbounds (%struct.GUID, ptr @IID_ICryptoGetTextPassword, i64 0, i32 1), align 4, !tbaa !39
-  %182 = icmp eq i8 %180, %181
-  br i1 %182, label %183, label %246
+for.cond.3.i82:                                   ; preds = %for.cond.2.i79
+  %arrayidx.4.i80 = getelementptr inbounds i8, ptr %iid, i64 4
+  %70 = load i8, ptr %arrayidx.4.i80, align 4, !tbaa !39
+  %71 = load i8, ptr getelementptr inbounds (%struct.GUID, ptr @IID_ICryptoGetTextPassword, i64 0, i32 1), align 4, !tbaa !39
+  %cmp4.not.4.i81 = icmp eq i8 %70, %71
+  br i1 %cmp4.not.4.i81, label %for.cond.4.i85, label %return
 
-183:                                              ; preds = %178
-  %184 = getelementptr inbounds i8, ptr %1, i64 5
-  %185 = load i8, ptr %184, align 1, !tbaa !39
-  %186 = load i8, ptr getelementptr inbounds (i8, ptr @IID_ICryptoGetTextPassword, i64 5), align 1, !tbaa !39
-  %187 = icmp eq i8 %185, %186
-  br i1 %187, label %188, label %246
+for.cond.4.i85:                                   ; preds = %for.cond.3.i82
+  %arrayidx.5.i83 = getelementptr inbounds i8, ptr %iid, i64 5
+  %72 = load i8, ptr %arrayidx.5.i83, align 1, !tbaa !39
+  %73 = load i8, ptr getelementptr inbounds (i8, ptr @IID_ICryptoGetTextPassword, i64 5), align 1, !tbaa !39
+  %cmp4.not.5.i84 = icmp eq i8 %72, %73
+  br i1 %cmp4.not.5.i84, label %for.cond.5.i88, label %return
 
-188:                                              ; preds = %183
-  %189 = getelementptr inbounds i8, ptr %1, i64 6
-  %190 = load i8, ptr %189, align 2, !tbaa !39
-  %191 = load i8, ptr getelementptr inbounds (%struct.GUID, ptr @IID_ICryptoGetTextPassword, i64 0, i32 2), align 2, !tbaa !39
-  %192 = icmp eq i8 %190, %191
-  br i1 %192, label %193, label %246
+for.cond.5.i88:                                   ; preds = %for.cond.4.i85
+  %arrayidx.6.i86 = getelementptr inbounds i8, ptr %iid, i64 6
+  %74 = load i8, ptr %arrayidx.6.i86, align 2, !tbaa !39
+  %75 = load i8, ptr getelementptr inbounds (%struct.GUID, ptr @IID_ICryptoGetTextPassword, i64 0, i32 2), align 2, !tbaa !39
+  %cmp4.not.6.i87 = icmp eq i8 %74, %75
+  br i1 %cmp4.not.6.i87, label %for.cond.6.i91, label %return
 
-193:                                              ; preds = %188
-  %194 = getelementptr inbounds i8, ptr %1, i64 7
-  %195 = load i8, ptr %194, align 1, !tbaa !39
-  %196 = load i8, ptr getelementptr inbounds (i8, ptr @IID_ICryptoGetTextPassword, i64 7), align 1, !tbaa !39
-  %197 = icmp eq i8 %195, %196
-  br i1 %197, label %198, label %246
+for.cond.6.i91:                                   ; preds = %for.cond.5.i88
+  %arrayidx.7.i89 = getelementptr inbounds i8, ptr %iid, i64 7
+  %76 = load i8, ptr %arrayidx.7.i89, align 1, !tbaa !39
+  %77 = load i8, ptr getelementptr inbounds (i8, ptr @IID_ICryptoGetTextPassword, i64 7), align 1, !tbaa !39
+  %cmp4.not.7.i90 = icmp eq i8 %76, %77
+  br i1 %cmp4.not.7.i90, label %for.cond.7.i94, label %return
 
-198:                                              ; preds = %193
-  %199 = getelementptr inbounds i8, ptr %1, i64 8
-  %200 = load i8, ptr %199, align 4, !tbaa !39
-  %201 = load i8, ptr getelementptr inbounds (%struct.GUID, ptr @IID_ICryptoGetTextPassword, i64 0, i32 3, i64 0), align 4, !tbaa !39
-  %202 = icmp eq i8 %200, %201
-  br i1 %202, label %203, label %246
+for.cond.7.i94:                                   ; preds = %for.cond.6.i91
+  %arrayidx.8.i92 = getelementptr inbounds i8, ptr %iid, i64 8
+  %78 = load i8, ptr %arrayidx.8.i92, align 4, !tbaa !39
+  %79 = load i8, ptr getelementptr inbounds (%struct.GUID, ptr @IID_ICryptoGetTextPassword, i64 0, i32 3, i64 0), align 4, !tbaa !39
+  %cmp4.not.8.i93 = icmp eq i8 %78, %79
+  br i1 %cmp4.not.8.i93, label %for.cond.8.i97, label %return
 
-203:                                              ; preds = %198
-  %204 = getelementptr inbounds i8, ptr %1, i64 9
-  %205 = load i8, ptr %204, align 1, !tbaa !39
-  %206 = load i8, ptr getelementptr inbounds (%struct.GUID, ptr @IID_ICryptoGetTextPassword, i64 0, i32 3, i64 1), align 1, !tbaa !39
-  %207 = icmp eq i8 %205, %206
-  br i1 %207, label %208, label %246
+for.cond.8.i97:                                   ; preds = %for.cond.7.i94
+  %arrayidx.9.i95 = getelementptr inbounds i8, ptr %iid, i64 9
+  %80 = load i8, ptr %arrayidx.9.i95, align 1, !tbaa !39
+  %81 = load i8, ptr getelementptr inbounds (%struct.GUID, ptr @IID_ICryptoGetTextPassword, i64 0, i32 3, i64 1), align 1, !tbaa !39
+  %cmp4.not.9.i96 = icmp eq i8 %80, %81
+  br i1 %cmp4.not.9.i96, label %for.cond.9.i100, label %return
 
-208:                                              ; preds = %203
-  %209 = getelementptr inbounds i8, ptr %1, i64 10
-  %210 = load i8, ptr %209, align 2, !tbaa !39
-  %211 = load i8, ptr getelementptr inbounds (%struct.GUID, ptr @IID_ICryptoGetTextPassword, i64 0, i32 3, i64 2), align 2, !tbaa !39
-  %212 = icmp eq i8 %210, %211
-  br i1 %212, label %213, label %246
+for.cond.9.i100:                                  ; preds = %for.cond.8.i97
+  %arrayidx.10.i98 = getelementptr inbounds i8, ptr %iid, i64 10
+  %82 = load i8, ptr %arrayidx.10.i98, align 2, !tbaa !39
+  %83 = load i8, ptr getelementptr inbounds (%struct.GUID, ptr @IID_ICryptoGetTextPassword, i64 0, i32 3, i64 2), align 2, !tbaa !39
+  %cmp4.not.10.i99 = icmp eq i8 %82, %83
+  br i1 %cmp4.not.10.i99, label %for.cond.10.i103, label %return
 
-213:                                              ; preds = %208
-  %214 = getelementptr inbounds i8, ptr %1, i64 11
-  %215 = load i8, ptr %214, align 1, !tbaa !39
-  %216 = load i8, ptr getelementptr inbounds (%struct.GUID, ptr @IID_ICryptoGetTextPassword, i64 0, i32 3, i64 3), align 1, !tbaa !39
-  %217 = icmp eq i8 %215, %216
-  br i1 %217, label %218, label %246
+for.cond.10.i103:                                 ; preds = %for.cond.9.i100
+  %arrayidx.11.i101 = getelementptr inbounds i8, ptr %iid, i64 11
+  %84 = load i8, ptr %arrayidx.11.i101, align 1, !tbaa !39
+  %85 = load i8, ptr getelementptr inbounds (%struct.GUID, ptr @IID_ICryptoGetTextPassword, i64 0, i32 3, i64 3), align 1, !tbaa !39
+  %cmp4.not.11.i102 = icmp eq i8 %84, %85
+  br i1 %cmp4.not.11.i102, label %for.cond.11.i106, label %return
 
-218:                                              ; preds = %213
-  %219 = getelementptr inbounds i8, ptr %1, i64 12
-  %220 = load i8, ptr %219, align 4, !tbaa !39
-  %221 = load i8, ptr getelementptr inbounds (%struct.GUID, ptr @IID_ICryptoGetTextPassword, i64 0, i32 3, i64 4), align 4, !tbaa !39
-  %222 = icmp eq i8 %220, %221
-  br i1 %222, label %223, label %246
+for.cond.11.i106:                                 ; preds = %for.cond.10.i103
+  %arrayidx.12.i104 = getelementptr inbounds i8, ptr %iid, i64 12
+  %86 = load i8, ptr %arrayidx.12.i104, align 4, !tbaa !39
+  %87 = load i8, ptr getelementptr inbounds (%struct.GUID, ptr @IID_ICryptoGetTextPassword, i64 0, i32 3, i64 4), align 4, !tbaa !39
+  %cmp4.not.12.i105 = icmp eq i8 %86, %87
+  br i1 %cmp4.not.12.i105, label %for.cond.12.i109, label %return
 
-223:                                              ; preds = %218
-  %224 = getelementptr inbounds i8, ptr %1, i64 13
-  %225 = load i8, ptr %224, align 1, !tbaa !39
-  %226 = load i8, ptr getelementptr inbounds (%struct.GUID, ptr @IID_ICryptoGetTextPassword, i64 0, i32 3, i64 5), align 1, !tbaa !39
-  %227 = icmp eq i8 %225, %226
-  br i1 %227, label %228, label %246
+for.cond.12.i109:                                 ; preds = %for.cond.11.i106
+  %arrayidx.13.i107 = getelementptr inbounds i8, ptr %iid, i64 13
+  %88 = load i8, ptr %arrayidx.13.i107, align 1, !tbaa !39
+  %89 = load i8, ptr getelementptr inbounds (%struct.GUID, ptr @IID_ICryptoGetTextPassword, i64 0, i32 3, i64 5), align 1, !tbaa !39
+  %cmp4.not.13.i108 = icmp eq i8 %88, %89
+  br i1 %cmp4.not.13.i108, label %for.cond.13.i112, label %return
 
-228:                                              ; preds = %223
-  %229 = getelementptr inbounds i8, ptr %1, i64 14
-  %230 = load i8, ptr %229, align 2, !tbaa !39
-  %231 = load i8, ptr getelementptr inbounds (%struct.GUID, ptr @IID_ICryptoGetTextPassword, i64 0, i32 3, i64 6), align 2, !tbaa !39
-  %232 = icmp eq i8 %230, %231
-  br i1 %232, label %233, label %246
+for.cond.13.i112:                                 ; preds = %for.cond.12.i109
+  %arrayidx.14.i110 = getelementptr inbounds i8, ptr %iid, i64 14
+  %90 = load i8, ptr %arrayidx.14.i110, align 2, !tbaa !39
+  %91 = load i8, ptr getelementptr inbounds (%struct.GUID, ptr @IID_ICryptoGetTextPassword, i64 0, i32 3, i64 6), align 2, !tbaa !39
+  %cmp4.not.14.i111 = icmp eq i8 %90, %91
+  br i1 %cmp4.not.14.i111, label %_ZeqRK4GUIDS1_.exit118, label %return
 
-233:                                              ; preds = %228
-  %234 = getelementptr inbounds i8, ptr %1, i64 15
-  %235 = load i8, ptr %234, align 1, !tbaa !39
-  %236 = load i8, ptr getelementptr inbounds (%struct.GUID, ptr @IID_ICryptoGetTextPassword, i64 0, i32 3, i64 7), align 1, !tbaa !39
-  %237 = icmp eq i8 %235, %236
-  br i1 %237, label %238, label %246
+_ZeqRK4GUIDS1_.exit118:                           ; preds = %for.cond.13.i112
+  %arrayidx.15.i113 = getelementptr inbounds i8, ptr %iid, i64 15
+  %92 = load i8, ptr %arrayidx.15.i113, align 1, !tbaa !39
+  %93 = load i8, ptr getelementptr inbounds (%struct.GUID, ptr @IID_ICryptoGetTextPassword, i64 0, i32 3, i64 7), align 1, !tbaa !39
+  %cmp4.not.15.i114.not = icmp eq i8 %92, %93
+  br i1 %cmp4.not.15.i114.not, label %if.then12, label %return
 
-238:                                              ; preds = %233
-  %239 = getelementptr inbounds i8, ptr %0, i64 8
-  br label %240
+if.then12:                                        ; preds = %_ZeqRK4GUIDS1_.exit118
+  %add.ptr = getelementptr inbounds i8, ptr %this, i64 8
+  br label %return.sink.split
 
-240:                                              ; preds = %155, %77, %238
-  %241 = phi ptr [ %239, %238 ], [ %0, %77 ], [ %0, %155 ]
-  store ptr %241, ptr %2, align 8, !tbaa !32
-  %242 = load ptr, ptr %0, align 8, !tbaa !40
-  %243 = getelementptr inbounds ptr, ptr %242, i64 1
-  %244 = load ptr, ptr %243, align 8
-  %245 = tail call noundef i32 %244(ptr noundef nonnull align 8 dereferenceable(80) %0)
-  br label %246
+return.sink.split:                                ; preds = %_ZeqRK4GUIDS1_.exit69, %_ZeqRK4GUIDS1_.exit, %if.then12
+  %add.ptr.sink = phi ptr [ %add.ptr, %if.then12 ], [ %this, %_ZeqRK4GUIDS1_.exit ], [ %this, %_ZeqRK4GUIDS1_.exit69 ]
+  store ptr %add.ptr.sink, ptr %outObject, align 8, !tbaa !32
+  %vtable13 = load ptr, ptr %this, align 8, !tbaa !40
+  %vfn14 = getelementptr inbounds ptr, ptr %vtable13, i64 1
+  %94 = load ptr, ptr %vfn14, align 8
+  %call15 = tail call noundef i32 %94(ptr noundef nonnull align 8 dereferenceable(80) %this)
+  br label %return
 
-246:                                              ; preds = %240, %228, %223, %218, %213, %208, %203, %198, %193, %188, %183, %178, %173, %168, %163, %160, %233
-  %247 = phi i32 [ -2147467262, %233 ], [ -2147467262, %160 ], [ -2147467262, %163 ], [ -2147467262, %168 ], [ -2147467262, %173 ], [ -2147467262, %178 ], [ -2147467262, %183 ], [ -2147467262, %188 ], [ -2147467262, %193 ], [ -2147467262, %198 ], [ -2147467262, %203 ], [ -2147467262, %208 ], [ -2147467262, %213 ], [ -2147467262, %218 ], [ -2147467262, %223 ], [ -2147467262, %228 ], [ 0, %240 ]
-  ret i32 %247
+return:                                           ; preds = %return.sink.split, %for.cond.13.i112, %for.cond.12.i109, %for.cond.11.i106, %for.cond.10.i103, %for.cond.9.i100, %for.cond.8.i97, %for.cond.7.i94, %for.cond.6.i91, %for.cond.5.i88, %for.cond.4.i85, %for.cond.3.i82, %for.cond.2.i79, %for.cond.1.i76, %for.cond.i73, %if.end9, %_ZeqRK4GUIDS1_.exit118
+  %retval.0 = phi i32 [ -2147467262, %_ZeqRK4GUIDS1_.exit118 ], [ -2147467262, %if.end9 ], [ -2147467262, %for.cond.i73 ], [ -2147467262, %for.cond.1.i76 ], [ -2147467262, %for.cond.2.i79 ], [ -2147467262, %for.cond.3.i82 ], [ -2147467262, %for.cond.4.i85 ], [ -2147467262, %for.cond.5.i88 ], [ -2147467262, %for.cond.6.i91 ], [ -2147467262, %for.cond.7.i94 ], [ -2147467262, %for.cond.8.i97 ], [ -2147467262, %for.cond.9.i100 ], [ -2147467262, %for.cond.10.i103 ], [ -2147467262, %for.cond.11.i106 ], [ -2147467262, %for.cond.12.i109 ], [ -2147467262, %for.cond.13.i112 ], [ 0, %return.sink.split ]
+  ret i32 %retval.0
 }
 
 ; Function Attrs: mustprogress nounwind uwtable
-define linkonce_odr dso_local noundef i32 @_ZN23CExtractCallbackConsole6AddRefEv(ptr noundef nonnull align 8 dereferenceable(80) %0) unnamed_addr #4 comdat align 2 {
-  %2 = getelementptr inbounds i8, ptr %0, i64 16
-  %3 = load i32, ptr %2, align 8, !tbaa !42
-  %4 = add i32 %3, 1
-  store i32 %4, ptr %2, align 8, !tbaa !42
-  ret i32 %4
+define linkonce_odr dso_local noundef i32 @_ZN23CExtractCallbackConsole6AddRefEv(ptr noundef nonnull align 8 dereferenceable(80) %this) unnamed_addr #4 comdat align 2 {
+entry:
+  %add.ptr = getelementptr inbounds i8, ptr %this, i64 16
+  %0 = load i32, ptr %add.ptr, align 8, !tbaa !42
+  %inc = add i32 %0, 1
+  store i32 %inc, ptr %add.ptr, align 8, !tbaa !42
+  ret i32 %inc
 }
 
 ; Function Attrs: mustprogress nounwind uwtable
-define linkonce_odr dso_local noundef i32 @_ZN23CExtractCallbackConsole7ReleaseEv(ptr noundef nonnull align 8 dereferenceable(80) %0) unnamed_addr #4 comdat align 2 {
-  %2 = getelementptr inbounds i8, ptr %0, i64 16
-  %3 = load i32, ptr %2, align 8, !tbaa !42
-  %4 = add i32 %3, -1
-  store i32 %4, ptr %2, align 8, !tbaa !42
-  %5 = icmp eq i32 %4, 0
-  br i1 %5, label %6, label %10
+define linkonce_odr dso_local noundef i32 @_ZN23CExtractCallbackConsole7ReleaseEv(ptr noundef nonnull align 8 dereferenceable(80) %this) unnamed_addr #4 comdat align 2 {
+entry:
+  %add.ptr = getelementptr inbounds i8, ptr %this, i64 16
+  %0 = load i32, ptr %add.ptr, align 8, !tbaa !42
+  %dec = add i32 %0, -1
+  store i32 %dec, ptr %add.ptr, align 8, !tbaa !42
+  %cmp.not = icmp eq i32 %dec, 0
+  br i1 %cmp.not, label %delete.notnull, label %return
 
-6:                                                ; preds = %1
-  %7 = load ptr, ptr %0, align 8, !tbaa !40
-  %8 = getelementptr inbounds ptr, ptr %7, i64 4
-  %9 = load ptr, ptr %8, align 8
-  tail call void %9(ptr noundef nonnull align 8 dereferenceable(80) %0) #12
-  br label %10
+delete.notnull:                                   ; preds = %entry
+  %vtable = load ptr, ptr %this, align 8, !tbaa !40
+  %vfn = getelementptr inbounds ptr, ptr %vtable, i64 4
+  %1 = load ptr, ptr %vfn, align 8
+  tail call void %1(ptr noundef nonnull align 8 dereferenceable(80) %this) #12
+  br label %return
 
-10:                                               ; preds = %1, %6
-  ret i32 %4
+return:                                           ; preds = %entry, %delete.notnull
+  ret i32 %dec
 }
 
 ; Function Attrs: inlinehint nounwind uwtable
-define linkonce_odr dso_local void @_ZN23CExtractCallbackConsoleD2Ev(ptr noundef nonnull align 8 dereferenceable(80) %0) unnamed_addr #5 comdat align 2 {
-  store ptr getelementptr inbounds ({ [19 x ptr], [8 x ptr] }, ptr @_ZTV23CExtractCallbackConsole, i64 0, inrange i32 0, i64 2), ptr %0, align 8, !tbaa !40
-  %2 = getelementptr inbounds i8, ptr %0, i64 8
-  store ptr getelementptr inbounds ({ [19 x ptr], [8 x ptr] }, ptr @_ZTV23CExtractCallbackConsole, i64 0, inrange i32 1, i64 2), ptr %2, align 8, !tbaa !40
-  %3 = getelementptr inbounds %class.CExtractCallbackConsole, ptr %0, i64 0, i32 4
-  %4 = load ptr, ptr %3, align 8, !tbaa !24
-  %5 = icmp eq ptr %4, null
-  br i1 %5, label %7, label %6
+define linkonce_odr dso_local void @_ZN23CExtractCallbackConsoleD2Ev(ptr noundef nonnull align 8 dereferenceable(80) %this) unnamed_addr #5 comdat align 2 {
+entry:
+  store ptr getelementptr inbounds ({ [19 x ptr], [8 x ptr] }, ptr @_ZTV23CExtractCallbackConsole, i64 0, inrange i32 0, i64 2), ptr %this, align 8, !tbaa !40
+  %add.ptr = getelementptr inbounds i8, ptr %this, i64 8
+  store ptr getelementptr inbounds ({ [19 x ptr], [8 x ptr] }, ptr @_ZTV23CExtractCallbackConsole, i64 0, inrange i32 1, i64 2), ptr %add.ptr, align 8, !tbaa !40
+  %Password = getelementptr inbounds %class.CExtractCallbackConsole, ptr %this, i64 0, i32 4
+  %0 = load ptr, ptr %Password, align 8, !tbaa !24
+  %isnull.i = icmp eq ptr %0, null
+  br i1 %isnull.i, label %_ZN11CStringBaseIwED2Ev.exit, label %delete.notnull.i
 
-6:                                                ; preds = %1
-  tail call void @_ZdaPv(ptr noundef nonnull %4) #11
-  br label %7
+delete.notnull.i:                                 ; preds = %entry
+  tail call void @_ZdaPv(ptr noundef nonnull %0) #11
+  br label %_ZN11CStringBaseIwED2Ev.exit
 
-7:                                                ; preds = %1, %6
+_ZN11CStringBaseIwED2Ev.exit:                     ; preds = %entry, %delete.notnull.i
   ret void
 }
 
 ; Function Attrs: inlinehint nounwind uwtable
-define linkonce_odr dso_local void @_ZN23CExtractCallbackConsoleD0Ev(ptr noundef nonnull align 8 dereferenceable(80) %0) unnamed_addr #5 comdat align 2 {
+define linkonce_odr dso_local void @_ZN23CExtractCallbackConsoleD0Ev(ptr noundef nonnull align 8 dereferenceable(80) %this) unnamed_addr #5 comdat align 2 {
+entry:
+  store ptr getelementptr inbounds ({ [19 x ptr], [8 x ptr] }, ptr @_ZTV23CExtractCallbackConsole, i64 0, inrange i32 0, i64 2), ptr %this, align 8, !tbaa !40
+  %add.ptr.i = getelementptr inbounds i8, ptr %this, i64 8
+  store ptr getelementptr inbounds ({ [19 x ptr], [8 x ptr] }, ptr @_ZTV23CExtractCallbackConsole, i64 0, inrange i32 1, i64 2), ptr %add.ptr.i, align 8, !tbaa !40
+  %Password.i = getelementptr inbounds %class.CExtractCallbackConsole, ptr %this, i64 0, i32 4
+  %0 = load ptr, ptr %Password.i, align 8, !tbaa !24
+  %isnull.i.i = icmp eq ptr %0, null
+  br i1 %isnull.i.i, label %_ZN23CExtractCallbackConsoleD2Ev.exit, label %delete.notnull.i.i
+
+delete.notnull.i.i:                               ; preds = %entry
+  tail call void @_ZdaPv(ptr noundef nonnull %0) #11
+  br label %_ZN23CExtractCallbackConsoleD2Ev.exit
+
+_ZN23CExtractCallbackConsoleD2Ev.exit:            ; preds = %entry, %delete.notnull.i.i
+  tail call void @_ZdlPv(ptr noundef nonnull %this) #11
+  ret void
+}
+
+; Function Attrs: uwtable
+define linkonce_odr dso_local noundef i32 @_ZThn8_N23CExtractCallbackConsole14QueryInterfaceERK4GUIDPPv(ptr noundef %this, ptr noundef nonnull align 4 dereferenceable(16) %iid, ptr noundef %outObject) unnamed_addr #3 comdat align 2 {
+entry:
+  %0 = getelementptr inbounds i8, ptr %this, i64 -8
+  %call = tail call noundef i32 @_ZN23CExtractCallbackConsole14QueryInterfaceERK4GUIDPPv(ptr noundef nonnull align 8 dereferenceable(80) %0, ptr noundef nonnull align 4 dereferenceable(16) %iid, ptr noundef %outObject)
+  ret i32 %call
+}
+
+; Function Attrs: uwtable
+define linkonce_odr dso_local noundef i32 @_ZThn8_N23CExtractCallbackConsole6AddRefEv(ptr noundef %this) unnamed_addr #3 comdat align 2 {
+entry:
+  %add.ptr.i = getelementptr inbounds i8, ptr %this, i64 8
+  %0 = load i32, ptr %add.ptr.i, align 8, !tbaa !42
+  %inc.i = add i32 %0, 1
+  store i32 %inc.i, ptr %add.ptr.i, align 8, !tbaa !42
+  ret i32 %inc.i
+}
+
+; Function Attrs: uwtable
+define linkonce_odr dso_local noundef i32 @_ZThn8_N23CExtractCallbackConsole7ReleaseEv(ptr noundef %this) unnamed_addr #3 comdat align 2 {
+entry:
+  %add.ptr.i = getelementptr inbounds i8, ptr %this, i64 8
+  %0 = load i32, ptr %add.ptr.i, align 8, !tbaa !42
+  %dec.i = add i32 %0, -1
+  store i32 %dec.i, ptr %add.ptr.i, align 8, !tbaa !42
+  %cmp.not.i = icmp eq i32 %dec.i, 0
+  br i1 %cmp.not.i, label %delete.notnull.i, label %_ZN23CExtractCallbackConsole7ReleaseEv.exit
+
+delete.notnull.i:                                 ; preds = %entry
+  %1 = getelementptr inbounds i8, ptr %this, i64 -8
+  %vtable.i = load ptr, ptr %1, align 8, !tbaa !40
+  %vfn.i = getelementptr inbounds ptr, ptr %vtable.i, i64 4
+  %2 = load ptr, ptr %vfn.i, align 8
+  tail call void %2(ptr noundef nonnull align 8 dereferenceable(80) %1) #12
+  br label %_ZN23CExtractCallbackConsole7ReleaseEv.exit
+
+_ZN23CExtractCallbackConsole7ReleaseEv.exit:      ; preds = %entry, %delete.notnull.i
+  ret i32 %dec.i
+}
+
+; Function Attrs: inlinehint nounwind uwtable
+define linkonce_odr dso_local void @_ZThn8_N23CExtractCallbackConsoleD1Ev(ptr noundef %this) unnamed_addr #5 comdat align 2 {
+entry:
+  %0 = getelementptr inbounds i8, ptr %this, i64 -8
   store ptr getelementptr inbounds ({ [19 x ptr], [8 x ptr] }, ptr @_ZTV23CExtractCallbackConsole, i64 0, inrange i32 0, i64 2), ptr %0, align 8, !tbaa !40
-  %2 = getelementptr inbounds i8, ptr %0, i64 8
-  store ptr getelementptr inbounds ({ [19 x ptr], [8 x ptr] }, ptr @_ZTV23CExtractCallbackConsole, i64 0, inrange i32 1, i64 2), ptr %2, align 8, !tbaa !40
-  %3 = getelementptr inbounds %class.CExtractCallbackConsole, ptr %0, i64 0, i32 4
-  %4 = load ptr, ptr %3, align 8, !tbaa !24
-  %5 = icmp eq ptr %4, null
-  br i1 %5, label %7, label %6
+  store ptr getelementptr inbounds ({ [19 x ptr], [8 x ptr] }, ptr @_ZTV23CExtractCallbackConsole, i64 0, inrange i32 1, i64 2), ptr %this, align 8, !tbaa !40
+  %Password.i = getelementptr inbounds i8, ptr %this, i64 16
+  %1 = load ptr, ptr %Password.i, align 8, !tbaa !24
+  %isnull.i.i = icmp eq ptr %1, null
+  br i1 %isnull.i.i, label %_ZN23CExtractCallbackConsoleD2Ev.exit, label %delete.notnull.i.i
 
-6:                                                ; preds = %1
-  tail call void @_ZdaPv(ptr noundef nonnull %4) #11
-  br label %7
+delete.notnull.i.i:                               ; preds = %entry
+  tail call void @_ZdaPv(ptr noundef nonnull %1) #11
+  br label %_ZN23CExtractCallbackConsoleD2Ev.exit
 
-7:                                                ; preds = %1, %6
+_ZN23CExtractCallbackConsoleD2Ev.exit:            ; preds = %entry, %delete.notnull.i.i
+  ret void
+}
+
+; Function Attrs: inlinehint nounwind uwtable
+define linkonce_odr dso_local void @_ZThn8_N23CExtractCallbackConsoleD0Ev(ptr noundef %this) unnamed_addr #5 comdat align 2 {
+entry:
+  %0 = getelementptr inbounds i8, ptr %this, i64 -8
+  store ptr getelementptr inbounds ({ [19 x ptr], [8 x ptr] }, ptr @_ZTV23CExtractCallbackConsole, i64 0, inrange i32 0, i64 2), ptr %0, align 8, !tbaa !40
+  store ptr getelementptr inbounds ({ [19 x ptr], [8 x ptr] }, ptr @_ZTV23CExtractCallbackConsole, i64 0, inrange i32 1, i64 2), ptr %this, align 8, !tbaa !40
+  %Password.i.i = getelementptr inbounds i8, ptr %this, i64 16
+  %1 = load ptr, ptr %Password.i.i, align 8, !tbaa !24
+  %isnull.i.i.i = icmp eq ptr %1, null
+  br i1 %isnull.i.i.i, label %_ZN23CExtractCallbackConsoleD0Ev.exit, label %delete.notnull.i.i.i
+
+delete.notnull.i.i.i:                             ; preds = %entry
+  tail call void @_ZdaPv(ptr noundef nonnull %1) #11
+  br label %_ZN23CExtractCallbackConsoleD0Ev.exit
+
+_ZN23CExtractCallbackConsoleD0Ev.exit:            ; preds = %entry, %delete.notnull.i.i.i
   tail call void @_ZdlPv(ptr noundef nonnull %0) #11
-  ret void
-}
-
-; Function Attrs: uwtable
-define linkonce_odr dso_local noundef i32 @_ZThn8_N23CExtractCallbackConsole14QueryInterfaceERK4GUIDPPv(ptr noundef %0, ptr noundef nonnull align 4 dereferenceable(16) %1, ptr noundef %2) unnamed_addr #3 comdat align 2 {
-  %4 = getelementptr inbounds i8, ptr %0, i64 -8
-  %5 = tail call noundef i32 @_ZN23CExtractCallbackConsole14QueryInterfaceERK4GUIDPPv(ptr noundef nonnull align 8 dereferenceable(80) %4, ptr noundef nonnull align 4 dereferenceable(16) %1, ptr noundef %2)
-  ret i32 %5
-}
-
-; Function Attrs: uwtable
-define linkonce_odr dso_local noundef i32 @_ZThn8_N23CExtractCallbackConsole6AddRefEv(ptr noundef %0) unnamed_addr #3 comdat align 2 {
-  %2 = getelementptr inbounds i8, ptr %0, i64 8
-  %3 = load i32, ptr %2, align 8, !tbaa !42
-  %4 = add i32 %3, 1
-  store i32 %4, ptr %2, align 8, !tbaa !42
-  ret i32 %4
-}
-
-; Function Attrs: uwtable
-define linkonce_odr dso_local noundef i32 @_ZThn8_N23CExtractCallbackConsole7ReleaseEv(ptr noundef %0) unnamed_addr #3 comdat align 2 {
-  %2 = getelementptr inbounds i8, ptr %0, i64 8
-  %3 = load i32, ptr %2, align 8, !tbaa !42
-  %4 = add i32 %3, -1
-  store i32 %4, ptr %2, align 8, !tbaa !42
-  %5 = icmp eq i32 %4, 0
-  br i1 %5, label %6, label %11
-
-6:                                                ; preds = %1
-  %7 = getelementptr inbounds i8, ptr %0, i64 -8
-  %8 = load ptr, ptr %7, align 8, !tbaa !40
-  %9 = getelementptr inbounds ptr, ptr %8, i64 4
-  %10 = load ptr, ptr %9, align 8
-  tail call void %10(ptr noundef nonnull align 8 dereferenceable(80) %7) #12
-  br label %11
-
-11:                                               ; preds = %1, %6
-  ret i32 %4
-}
-
-; Function Attrs: inlinehint nounwind uwtable
-define linkonce_odr dso_local void @_ZThn8_N23CExtractCallbackConsoleD1Ev(ptr noundef %0) unnamed_addr #5 comdat align 2 {
-  %2 = getelementptr inbounds i8, ptr %0, i64 -8
-  store ptr getelementptr inbounds ({ [19 x ptr], [8 x ptr] }, ptr @_ZTV23CExtractCallbackConsole, i64 0, inrange i32 0, i64 2), ptr %2, align 8, !tbaa !40
-  store ptr getelementptr inbounds ({ [19 x ptr], [8 x ptr] }, ptr @_ZTV23CExtractCallbackConsole, i64 0, inrange i32 1, i64 2), ptr %0, align 8, !tbaa !40
-  %3 = getelementptr inbounds i8, ptr %0, i64 16
-  %4 = load ptr, ptr %3, align 8, !tbaa !24
-  %5 = icmp eq ptr %4, null
-  br i1 %5, label %7, label %6
-
-6:                                                ; preds = %1
-  tail call void @_ZdaPv(ptr noundef nonnull %4) #11
-  br label %7
-
-7:                                                ; preds = %1, %6
-  ret void
-}
-
-; Function Attrs: inlinehint nounwind uwtable
-define linkonce_odr dso_local void @_ZThn8_N23CExtractCallbackConsoleD0Ev(ptr noundef %0) unnamed_addr #5 comdat align 2 {
-  %2 = getelementptr inbounds i8, ptr %0, i64 -8
-  store ptr getelementptr inbounds ({ [19 x ptr], [8 x ptr] }, ptr @_ZTV23CExtractCallbackConsole, i64 0, inrange i32 0, i64 2), ptr %2, align 8, !tbaa !40
-  store ptr getelementptr inbounds ({ [19 x ptr], [8 x ptr] }, ptr @_ZTV23CExtractCallbackConsole, i64 0, inrange i32 1, i64 2), ptr %0, align 8, !tbaa !40
-  %3 = getelementptr inbounds i8, ptr %0, i64 16
-  %4 = load ptr, ptr %3, align 8, !tbaa !24
-  %5 = icmp eq ptr %4, null
-  br i1 %5, label %7, label %6
-
-6:                                                ; preds = %1
-  tail call void @_ZdaPv(ptr noundef nonnull %4) #11
-  br label %7
-
-7:                                                ; preds = %1, %6
-  tail call void @_ZdlPv(ptr noundef nonnull %2) #11
   ret void
 }
 
@@ -1283,7 +1306,7 @@ attributes #12 = { nounwind }
 !33 = !{!6, !19, i64 40}
 !34 = !{!6, !19, i64 64}
 !35 = !{!36}
-!36 = distinct !{!36, !37, !"_ZN8NWindows6NError15MyFormatMessageEj: argument 0"}
+!36 = distinct !{!36, !37, !"_ZN8NWindows6NError15MyFormatMessageEj: %agg.result"}
 !37 = distinct !{!37, !"_ZN8NWindows6NError15MyFormatMessageEj"}
 !38 = !{!6, !19, i64 48}
 !39 = !{!14, !14, i64 0}

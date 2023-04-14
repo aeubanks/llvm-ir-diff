@@ -71,80 +71,81 @@ target triple = "x86_64-unknown-linux-gnu"
 
 ; Function Attrs: nounwind uwtable
 define dso_local i32 @term() local_unnamed_addr #0 {
-  %1 = tail call i32 @factor()
-  %2 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
-  %3 = icmp eq i32 %2, 0
-  br i1 %3, label %4, label %35
+entry:
+  %call = tail call i32 @factor()
+  %0 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
+  %tobool.not = icmp eq i32 %0, 0
+  br i1 %tobool.not, label %while.cond, label %cleanup
 
-4:                                                ; preds = %0, %28
-  %5 = phi i32 [ %30, %28 ], [ %1, %0 ]
-  %6 = load i32, ptr @lookahead, align 4, !tbaa !5
-  %7 = icmp eq i32 %6, 42
-  switch i32 %6, label %31 [
-    i32 47, label %8
-    i32 42, label %8
+while.cond:                                       ; preds = %entry, %if.end35
+  %leftExpr.0 = phi i32 [ %leftExpr.1, %if.end35 ], [ %call, %entry ]
+  %1 = load i32, ptr @lookahead, align 4
+  %cmp = icmp eq i32 %1, 42
+  switch i32 %1, label %while.end [
+    i32 47, label %while.body
+    i32 42, label %while.body
   ]
 
-8:                                                ; preds = %4, %4
-  tail call void @match(i32 noundef %6)
-  %9 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
-  %10 = icmp eq i32 %9, 0
-  br i1 %10, label %11, label %35
+while.body:                                       ; preds = %while.cond, %while.cond
+  tail call void @match(i32 noundef %1)
+  %2 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
+  %tobool2.not = icmp eq i32 %2, 0
+  br i1 %tobool2.not, label %if.end4, label %cleanup
 
-11:                                               ; preds = %8
-  %12 = tail call i32 @factor()
-  %13 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
-  %14 = icmp eq i32 %13, 0
-  br i1 %14, label %15, label %35
+if.end4:                                          ; preds = %while.body
+  %call5 = tail call i32 @factor()
+  %3 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
+  %tobool6.not = icmp eq i32 %3, 0
+  br i1 %tobool6.not, label %if.end8, label %cleanup
 
-15:                                               ; preds = %11
-  %16 = icmp eq i32 %5, %12
-  %17 = icmp eq i32 %5, 0
-  br i1 %16, label %18, label %23
+if.end8:                                          ; preds = %if.end4
+  %cmp9 = icmp eq i32 %leftExpr.0, %call5
+  %tobool11.not = icmp eq i32 %leftExpr.0, 0
+  br i1 %cmp9, label %if.then10, label %if.else22
 
-18:                                               ; preds = %15
-  br i1 %17, label %21, label %19
+if.then10:                                        ; preds = %if.end8
+  br i1 %tobool11.not, label %if.else16, label %if.then12
 
-19:                                               ; preds = %18
-  %20 = select i1 %7, i32 2034, i32 2036
-  br label %28
+if.then12:                                        ; preds = %if.then10
+  %. = select i1 %cmp, i32 2034, i32 2036
+  br label %if.end35
 
-21:                                               ; preds = %18
-  %22 = select i1 %7, i32 2033, i32 2035
-  br label %28
+if.else16:                                        ; preds = %if.then10
+  %.50 = select i1 %cmp, i32 2033, i32 2035
+  br label %if.end35
 
-23:                                               ; preds = %15
-  br i1 %17, label %26, label %24
+if.else22:                                        ; preds = %if.end8
+  br i1 %tobool11.not, label %if.else29, label %if.then24
 
-24:                                               ; preds = %23
+if.then24:                                        ; preds = %if.else22
   tail call void @emit(i32 noundef 2003, i32 noundef 0, float noundef 0.000000e+00) #7
-  %25 = select i1 %7, i32 2034, i32 2036
-  br label %28
+  %.51 = select i1 %cmp, i32 2034, i32 2036
+  br label %if.end35
 
-26:                                               ; preds = %23
+if.else29:                                        ; preds = %if.else22
   tail call void @emit(i32 noundef 256, i32 noundef 1, float noundef 0.000000e+00) #7
   tail call void @emit(i32 noundef 2028, i32 noundef 0, float noundef 0.000000e+00) #7
   tail call void @emit(i32 noundef 2003, i32 noundef 0, float noundef 0.000000e+00) #7
   tail call void @emit(i32 noundef 256, i32 noundef 1, float noundef 0.000000e+00) #7
   tail call void @emit(i32 noundef 2023, i32 noundef 0, float noundef 0.000000e+00) #7
-  %27 = select i1 %7, i32 2034, i32 2036
-  br label %28
+  %.52 = select i1 %cmp, i32 2034, i32 2036
+  br label %if.end35
 
-28:                                               ; preds = %26, %24, %21, %19
-  %29 = phi i32 [ %20, %19 ], [ %22, %21 ], [ %25, %24 ], [ %27, %26 ]
-  %30 = phi i32 [ 1, %19 ], [ 0, %21 ], [ 1, %24 ], [ 1, %26 ]
-  tail call void @emit(i32 noundef %29, i32 noundef 0, float noundef 0.000000e+00) #7
-  br label %4, !llvm.loop !9
+if.end35:                                         ; preds = %if.else29, %if.then24, %if.else16, %if.then12
+  %.sink = phi i32 [ %., %if.then12 ], [ %.50, %if.else16 ], [ %.51, %if.then24 ], [ %.52, %if.else29 ]
+  %leftExpr.1 = phi i32 [ 1, %if.then12 ], [ 0, %if.else16 ], [ 1, %if.then24 ], [ 1, %if.else29 ]
+  tail call void @emit(i32 noundef %.sink, i32 noundef 0, float noundef 0.000000e+00) #7
+  br label %while.cond, !llvm.loop !9
 
-31:                                               ; preds = %4
-  %32 = load i32, ptr @FloatFlag, align 4, !tbaa !5
-  %33 = icmp eq i32 %32, 0
-  %34 = select i1 %33, i32 %5, i32 1
-  br label %35
+while.end:                                        ; preds = %while.cond
+  %4 = load i32, ptr @FloatFlag, align 4, !tbaa !5
+  %tobool36.not = icmp eq i32 %4, 0
+  %leftExpr.0. = select i1 %tobool36.not, i32 %leftExpr.0, i32 1
+  br label %cleanup
 
-35:                                               ; preds = %11, %8, %31, %0
-  %36 = phi i32 [ -99, %0 ], [ %34, %31 ], [ -99, %8 ], [ -99, %11 ]
-  ret i32 %36
+cleanup:                                          ; preds = %if.end4, %while.body, %while.end, %entry
+  %retval.0 = phi i32 [ -99, %entry ], [ %leftExpr.0., %while.end ], [ -99, %while.body ], [ -99, %if.end4 ]
+  ret i32 %retval.0
 }
 
 ; Function Attrs: mustprogress nocallback nofree nosync nounwind willreturn memory(argmem: readwrite)
@@ -152,189 +153,537 @@ declare void @llvm.lifetime.start.p0(i64 immarg, ptr nocapture) #1
 
 ; Function Attrs: nounwind uwtable
 define dso_local i32 @factor() local_unnamed_addr #0 {
-  %1 = alloca [30 x i8], align 16
-  call void @llvm.lifetime.start.p0(i64 30, ptr nonnull %1) #7
-  %2 = load i32, ptr @lookahead, align 4, !tbaa !5
-  switch i32 %2, label %479 [
-    i32 40, label %3
-    i32 256, label %53
-    i32 2001, label %80
-    i32 259, label %108
-    i32 2006, label %199
-    i32 45, label %245
-    i32 2043, label %265
-    i32 2044, label %305
-    i32 2045, label %345
-    i32 2046, label %392
-    i32 2011, label %439
+entry:
+  %templexbuf = alloca [30 x i8], align 16
+  call void @llvm.lifetime.start.p0(i64 30, ptr nonnull %templexbuf) #7
+  %0 = load i32, ptr @lookahead, align 4, !tbaa !5
+  switch i32 %0, label %sw.default229 [
+    i32 40, label %if.then.i
+    i32 256, label %sw.bb36
+    i32 2001, label %sw.bb40
+    i32 259, label %sw.bb44
+    i32 2006, label %sw.bb125
+    i32 45, label %if.then.i318
+    i32 2043, label %if.then.i332
+    i32 2044, label %if.then.i360
+    i32 2045, label %if.then.i388
+    i32 2046, label %if.then.i416
+    i32 2011, label %if.then.i444
   ]
 
-3:                                                ; preds = %0
+if.then.i:                                        ; preds = %entry
   store i32 40, ptr @PreviousLookahead, align 4, !tbaa !5
-  %4 = load i32, ptr @tokenval, align 4, !tbaa !5
-  store i32 %4, ptr @PreviousTokenval, align 4, !tbaa !5
-  %5 = load float, ptr @ftokenval, align 4, !tbaa !11
-  store float %5, ptr @PreviousFtokenval, align 4, !tbaa !11
-  %6 = load i32, ptr @NextLookahead, align 4, !tbaa !5
-  store i32 %6, ptr @lookahead, align 4, !tbaa !5
-  %7 = load i32, ptr @NextTokenval, align 4, !tbaa !5
-  store i32 %7, ptr @tokenval, align 4, !tbaa !5
-  %8 = load float, ptr @NextFtokenval, align 4, !tbaa !11
-  store float %8, ptr @ftokenval, align 4, !tbaa !11
-  %9 = icmp eq i32 %6, 260
-  br i1 %9, label %12, label %10
+  %1 = load i32, ptr @tokenval, align 4, !tbaa !5
+  store i32 %1, ptr @PreviousTokenval, align 4, !tbaa !5
+  %2 = load float, ptr @ftokenval, align 4, !tbaa !11
+  store float %2, ptr @PreviousFtokenval, align 4, !tbaa !11
+  %3 = load i32, ptr @NextLookahead, align 4, !tbaa !5
+  store i32 %3, ptr @lookahead, align 4, !tbaa !5
+  %4 = load i32, ptr @NextTokenval, align 4, !tbaa !5
+  store i32 %4, ptr @tokenval, align 4, !tbaa !5
+  %5 = load float, ptr @NextFtokenval, align 4, !tbaa !11
+  store float %5, ptr @ftokenval, align 4, !tbaa !11
+  %cmp1.not.i = icmp eq i32 %3, 260
+  br i1 %cmp1.not.i, label %match.exit, label %if.then2.i
 
-10:                                               ; preds = %3
-  %11 = tail call i32 @lexan() #7
-  store i32 %11, ptr @NextLookahead, align 4, !tbaa !5
-  br label %12
+if.then2.i:                                       ; preds = %if.then.i
+  %call.i = tail call i32 @lexan() #7
+  store i32 %call.i, ptr @NextLookahead, align 4, !tbaa !5
+  br label %match.exit
 
-12:                                               ; preds = %3, %10
-  %13 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
-  %14 = icmp eq i32 %13, 0
-  br i1 %14, label %15, label %480
+match.exit:                                       ; preds = %if.then.i, %if.then2.i
+  %6 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
+  %tobool.not = icmp eq i32 %6, 0
+  br i1 %tobool.not, label %if.end, label %cleanup
 
-15:                                               ; preds = %12
-  %16 = load i32, ptr @lookahead, align 4, !tbaa !5
-  switch i32 %16, label %43 [
-    i32 2002, label %17
-    i32 2003, label %30
+if.end:                                           ; preds = %match.exit
+  %7 = load i32, ptr @lookahead, align 4, !tbaa !5
+  switch i32 %7, label %sw.default [
+    i32 2002, label %sw.bb1
+    i32 2003, label %sw.bb14
   ]
 
-17:                                               ; preds = %15
+sw.bb1:                                           ; preds = %if.end
   tail call void @match(i32 noundef 2002)
-  %18 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
-  %19 = icmp eq i32 %18, 0
-  br i1 %19, label %20, label %480
+  %8 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
+  %tobool2.not = icmp eq i32 %8, 0
+  br i1 %tobool2.not, label %if.end4, label %cleanup
 
-20:                                               ; preds = %17
+if.end4:                                          ; preds = %sw.bb1
   tail call void @match(i32 noundef 41)
-  %21 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
-  %22 = icmp eq i32 %21, 0
-  br i1 %22, label %23, label %480
+  %9 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
+  %tobool5.not = icmp eq i32 %9, 0
+  br i1 %tobool5.not, label %if.end7, label %cleanup
 
-23:                                               ; preds = %20
-  %24 = tail call i32 @factor()
-  %25 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
-  %26 = icmp eq i32 %25, 0
-  br i1 %26, label %27, label %480
+if.end7:                                          ; preds = %if.end4
+  %call = tail call i32 @factor()
+  %10 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
+  %tobool8.not = icmp eq i32 %10, 0
+  br i1 %tobool8.not, label %if.end10, label %cleanup
 
-27:                                               ; preds = %23
-  %28 = icmp eq i32 %24, 0
-  br i1 %28, label %480, label %29
+if.end10:                                         ; preds = %if.end7
+  %tobool11.not = icmp eq i32 %call, 0
+  br i1 %tobool11.not, label %cleanup, label %if.then12
 
-29:                                               ; preds = %27
+if.then12:                                        ; preds = %if.end10
   tail call void @emit(i32 noundef 2002, i32 noundef 0, float noundef 0.000000e+00) #7
-  br label %480
+  br label %cleanup
 
-30:                                               ; preds = %15
+sw.bb14:                                          ; preds = %if.end
   tail call void @match(i32 noundef 2003)
-  %31 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
-  %32 = icmp eq i32 %31, 0
-  br i1 %32, label %33, label %480
+  %11 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
+  %tobool15.not = icmp eq i32 %11, 0
+  br i1 %tobool15.not, label %if.end17, label %cleanup
 
-33:                                               ; preds = %30
+if.end17:                                         ; preds = %sw.bb14
   tail call void @match(i32 noundef 41)
-  %34 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
-  %35 = icmp eq i32 %34, 0
-  br i1 %35, label %36, label %480
+  %12 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
+  %tobool18.not = icmp eq i32 %12, 0
+  br i1 %tobool18.not, label %if.end20, label %cleanup
 
-36:                                               ; preds = %33
-  %37 = tail call i32 @factor()
-  %38 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
-  %39 = icmp eq i32 %38, 0
-  br i1 %39, label %40, label %480
+if.end20:                                         ; preds = %if.end17
+  %call21 = tail call i32 @factor()
+  %13 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
+  %tobool22.not = icmp eq i32 %13, 0
+  br i1 %tobool22.not, label %if.end24, label %cleanup
 
-40:                                               ; preds = %36
-  %41 = icmp eq i32 %37, 0
-  br i1 %41, label %42, label %480
+if.end24:                                         ; preds = %if.end20
+  %tobool25.not = icmp eq i32 %call21, 0
+  br i1 %tobool25.not, label %if.then26, label %cleanup
 
-42:                                               ; preds = %40
+if.then26:                                        ; preds = %if.end24
   tail call void @emit(i32 noundef 2003, i32 noundef 0, float noundef 0.000000e+00) #7
-  br label %480
+  br label %cleanup
 
-43:                                               ; preds = %15
+sw.default:                                       ; preds = %if.end
   store i32 0, ptr @FloatFlag, align 4, !tbaa !5
   tail call void @exprAssg()
-  %44 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
-  %45 = icmp eq i32 %44, 0
-  br i1 %45, label %46, label %480
+  %14 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
+  %tobool28.not = icmp eq i32 %14, 0
+  br i1 %tobool28.not, label %if.end30, label %cleanup
 
-46:                                               ; preds = %43
+if.end30:                                         ; preds = %sw.default
   tail call void @match(i32 noundef 41)
-  %47 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
-  %48 = icmp eq i32 %47, 0
-  br i1 %48, label %49, label %480
+  %15 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
+  %tobool31.not = icmp eq i32 %15, 0
+  br i1 %tobool31.not, label %if.end33, label %cleanup
 
-49:                                               ; preds = %46
-  %50 = load i32, ptr @FloatFlag, align 4, !tbaa !5
-  %51 = icmp ne i32 %50, 0
-  %52 = zext i1 %51 to i32
-  br label %480
+if.end33:                                         ; preds = %if.end30
+  %16 = load i32, ptr @FloatFlag, align 4, !tbaa !5
+  %tobool34.not = icmp ne i32 %16, 0
+  %. = zext i1 %tobool34.not to i32
+  br label %cleanup
 
-53:                                               ; preds = %0
-  %54 = load i32, ptr @tokenval, align 4, !tbaa !5
-  tail call void @emit(i32 noundef 256, i32 noundef %54, float noundef 0.000000e+00) #7
-  %55 = load i32, ptr @lookahead, align 4, !tbaa !5
-  %56 = icmp eq i32 %55, 256
-  br i1 %56, label %57, label %66
+sw.bb36:                                          ; preds = %entry
+  %17 = load i32, ptr @tokenval, align 4, !tbaa !5
+  tail call void @emit(i32 noundef 256, i32 noundef %17, float noundef 0.000000e+00) #7
+  %18 = load i32, ptr @lookahead, align 4, !tbaa !5
+  %cmp.i260 = icmp eq i32 %18, 256
+  br i1 %cmp.i260, label %if.then.i262, label %if.else.i267
 
-57:                                               ; preds = %53
+if.then.i262:                                     ; preds = %sw.bb36
   store i32 256, ptr @PreviousLookahead, align 4, !tbaa !5
-  %58 = load i32, ptr @tokenval, align 4, !tbaa !5
-  store i32 %58, ptr @PreviousTokenval, align 4, !tbaa !5
-  %59 = load float, ptr @ftokenval, align 4, !tbaa !11
-  store float %59, ptr @PreviousFtokenval, align 4, !tbaa !11
-  %60 = load i32, ptr @NextLookahead, align 4, !tbaa !5
-  store i32 %60, ptr @lookahead, align 4, !tbaa !5
-  %61 = load i32, ptr @NextTokenval, align 4, !tbaa !5
-  store i32 %61, ptr @tokenval, align 4, !tbaa !5
-  %62 = load float, ptr @NextFtokenval, align 4, !tbaa !11
-  store float %62, ptr @ftokenval, align 4, !tbaa !11
-  %63 = icmp eq i32 %60, 260
-  br i1 %63, label %76, label %64
+  %19 = load i32, ptr @tokenval, align 4, !tbaa !5
+  store i32 %19, ptr @PreviousTokenval, align 4, !tbaa !5
+  %20 = load float, ptr @ftokenval, align 4, !tbaa !11
+  store float %20, ptr @PreviousFtokenval, align 4, !tbaa !11
+  %21 = load i32, ptr @NextLookahead, align 4, !tbaa !5
+  store i32 %21, ptr @lookahead, align 4, !tbaa !5
+  %22 = load i32, ptr @NextTokenval, align 4, !tbaa !5
+  store i32 %22, ptr @tokenval, align 4, !tbaa !5
+  %23 = load float, ptr @NextFtokenval, align 4, !tbaa !11
+  store float %23, ptr @ftokenval, align 4, !tbaa !11
+  %cmp1.not.i261 = icmp eq i32 %21, 260
+  br i1 %cmp1.not.i261, label %match.exit273, label %if.then2.i264
 
-64:                                               ; preds = %57
-  %65 = tail call i32 @lexan() #7
-  store i32 %65, ptr @NextLookahead, align 4, !tbaa !5
-  br label %76
+if.then2.i264:                                    ; preds = %if.then.i262
+  %call.i263 = tail call i32 @lexan() #7
+  store i32 %call.i263, ptr @NextLookahead, align 4, !tbaa !5
+  br label %match.exit273
 
-66:                                               ; preds = %53
-  %67 = add i32 %55, -2007
-  %68 = icmp ult i32 %67, 2
-  br i1 %68, label %69, label %70
+if.else.i267:                                     ; preds = %sw.bb36
+  %.off.i265 = add i32 %18, -2007
+  %switch.i266 = icmp ult i32 %.off.i265, 2
+  br i1 %switch.i266, label %sw.bb.i268, label %sw.epilog.i270
 
-69:                                               ; preds = %66
+sw.bb.i268:                                       ; preds = %if.else.i267
   tail call void @error(ptr noundef nonnull @.str) #7
-  br label %70
+  br label %sw.epilog.i270
 
-70:                                               ; preds = %69, %66
-  %71 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
-  %72 = icmp eq i32 %71, 0
-  br i1 %72, label %73, label %480
+sw.epilog.i270:                                   ; preds = %sw.bb.i268, %if.else.i267
+  %24 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
+  %tobool.not.i269 = icmp eq i32 %24, 0
+  br i1 %tobool.not.i269, label %if.end4.i271, label %match.exit273
 
-73:                                               ; preds = %70
-  %74 = load i32, ptr @lookahead, align 4, !tbaa !5
-  %75 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.2, i32 noundef %74)
+if.end4.i271:                                     ; preds = %sw.epilog.i270
+  %25 = load i32, ptr @lookahead, align 4, !tbaa !5
+  %call6.i272 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.2, i32 noundef %25)
   tail call void @error(ptr noundef nonnull @.str.3) #7
-  br label %76
+  br label %match.exit273
 
-76:                                               ; preds = %57, %64, %73
-  %77 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
-  %78 = icmp eq i32 %77, 0
-  %79 = select i1 %78, i32 0, i32 -99
-  br label %480
+match.exit273:                                    ; preds = %if.then.i262, %if.then2.i264, %sw.epilog.i270, %if.end4.i271
+  %26 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
+  %tobool37.not = icmp eq i32 %26, 0
+  %.253 = select i1 %tobool37.not, i32 0, i32 -99
+  br label %cleanup
 
-80:                                               ; preds = %0
-  %81 = load i32, ptr @tokenval, align 4, !tbaa !5
-  %82 = load float, ptr @ftokenval, align 4, !tbaa !11
-  tail call void @emit(i32 noundef 2001, i32 noundef %81, float noundef %82) #7
-  %83 = load i32, ptr @lookahead, align 4, !tbaa !5
-  %84 = icmp eq i32 %83, 2001
-  br i1 %84, label %85, label %94
+sw.bb40:                                          ; preds = %entry
+  %27 = load i32, ptr @tokenval, align 4, !tbaa !5
+  %28 = load float, ptr @ftokenval, align 4, !tbaa !11
+  tail call void @emit(i32 noundef 2001, i32 noundef %27, float noundef %28) #7
+  %29 = load i32, ptr @lookahead, align 4, !tbaa !5
+  %cmp.i274 = icmp eq i32 %29, 2001
+  br i1 %cmp.i274, label %if.then.i276, label %if.else.i281
 
-85:                                               ; preds = %80
+if.then.i276:                                     ; preds = %sw.bb40
   store i32 2001, ptr @PreviousLookahead, align 4, !tbaa !5
+  %30 = load i32, ptr @tokenval, align 4, !tbaa !5
+  store i32 %30, ptr @PreviousTokenval, align 4, !tbaa !5
+  %31 = load float, ptr @ftokenval, align 4, !tbaa !11
+  store float %31, ptr @PreviousFtokenval, align 4, !tbaa !11
+  %32 = load i32, ptr @NextLookahead, align 4, !tbaa !5
+  store i32 %32, ptr @lookahead, align 4, !tbaa !5
+  %33 = load i32, ptr @NextTokenval, align 4, !tbaa !5
+  store i32 %33, ptr @tokenval, align 4, !tbaa !5
+  %34 = load float, ptr @NextFtokenval, align 4, !tbaa !11
+  store float %34, ptr @ftokenval, align 4, !tbaa !11
+  %cmp1.not.i275 = icmp eq i32 %32, 260
+  br i1 %cmp1.not.i275, label %match.exit287, label %if.then2.i278
+
+if.then2.i278:                                    ; preds = %if.then.i276
+  %call.i277 = tail call i32 @lexan() #7
+  store i32 %call.i277, ptr @NextLookahead, align 4, !tbaa !5
+  br label %match.exit287
+
+if.else.i281:                                     ; preds = %sw.bb40
+  %.off.i279 = add i32 %29, -2007
+  %switch.i280 = icmp ult i32 %.off.i279, 2
+  br i1 %switch.i280, label %sw.bb.i282, label %sw.epilog.i284
+
+sw.bb.i282:                                       ; preds = %if.else.i281
+  tail call void @error(ptr noundef nonnull @.str) #7
+  br label %sw.epilog.i284
+
+sw.epilog.i284:                                   ; preds = %sw.bb.i282, %if.else.i281
+  %35 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
+  %tobool.not.i283 = icmp eq i32 %35, 0
+  br i1 %tobool.not.i283, label %if.end4.i285, label %match.exit287
+
+if.end4.i285:                                     ; preds = %sw.epilog.i284
+  %36 = load i32, ptr @lookahead, align 4, !tbaa !5
+  %call6.i286 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.2, i32 noundef %36)
+  tail call void @error(ptr noundef nonnull @.str.3) #7
+  br label %match.exit287
+
+match.exit287:                                    ; preds = %if.then.i276, %if.then2.i278, %sw.epilog.i284, %if.end4.i285
+  %37 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
+  %tobool41.not = icmp eq i32 %37, 0
+  %.254 = select i1 %tobool41.not, i32 1, i32 -99
+  br label %cleanup
+
+sw.bb44:                                          ; preds = %entry
+  %38 = load i32, ptr @NextLookahead, align 4, !tbaa !5
+  %cmp = icmp eq i32 %38, 40
+  %39 = load i32, ptr @LocalIndex, align 4, !tbaa !5
+  br i1 %cmp, label %match.exit301, label %if.else93
+
+match.exit301:                                    ; preds = %sw.bb44
+  %40 = load i32, ptr @GlobalIndex, align 4, !tbaa !5
+  %call46 = call ptr @strcpy(ptr noundef nonnull dereferenceable(1) %templexbuf, ptr noundef nonnull dereferenceable(1) @lexbuf) #7
+  store i32 259, ptr @PreviousLookahead, align 4, !tbaa !5
+  %41 = load i32, ptr @tokenval, align 4, !tbaa !5
+  store i32 %41, ptr @PreviousTokenval, align 4, !tbaa !5
+  %42 = load float, ptr @ftokenval, align 4, !tbaa !11
+  store float %42, ptr @PreviousFtokenval, align 4, !tbaa !11
+  store i32 40, ptr @lookahead, align 4, !tbaa !5
+  %43 = load i32, ptr @NextTokenval, align 4, !tbaa !5
+  store i32 %43, ptr @tokenval, align 4, !tbaa !5
+  %44 = load float, ptr @NextFtokenval, align 4, !tbaa !11
+  store float %44, ptr @ftokenval, align 4, !tbaa !11
+  %call.i291 = call i32 @lexan() #7
+  store i32 %call.i291, ptr @NextLookahead, align 4, !tbaa !5
+  %45 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
+  %tobool47.not = icmp eq i32 %45, 0
+  br i1 %tobool47.not, label %if.end49, label %cleanup
+
+if.end49:                                         ; preds = %match.exit301
+  call void @match(i32 noundef 40)
+  %46 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
+  %tobool50.not = icmp eq i32 %46, 0
+  br i1 %tobool50.not, label %if.end52, label %cleanup
+
+if.end52:                                         ; preds = %if.end49
+  call void @ExprList()
+  %47 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
+  %tobool53.not = icmp eq i32 %47, 0
+  br i1 %tobool53.not, label %if.end55, label %cleanup
+
+if.end55:                                         ; preds = %if.end52
+  call void @match(i32 noundef 41)
+  %48 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
+  %tobool56.not = icmp eq i32 %48, 0
+  br i1 %tobool56.not, label %if.end58, label %cleanup
+
+if.end58:                                         ; preds = %if.end55
+  %49 = load i32, ptr @LabelCounter, align 4, !tbaa !5
+  store i32 %49, ptr @CallReturnAddr, align 4, !tbaa !5
+  %inc = add nsw i32 %49, 1
+  store i32 %inc, ptr @LabelCounter, align 4, !tbaa !5
+  call void @emit(i32 noundef 2015, i32 noundef %49, float noundef 0.000000e+00) #7
+  %50 = load i32, ptr @FuncNameIndex, align 4, !tbaa !5
+  call void @emit(i32 noundef 2059, i32 noundef %50, float noundef 0.000000e+00) #7
+  call void @emit(i32 noundef 2060, i32 noundef 0, float noundef 0.000000e+00) #7
+  %tobool59.not = icmp eq i32 %39, 0
+  br i1 %tobool59.not, label %if.else61, label %if.then60
+
+if.then60:                                        ; preds = %if.end58
+  call void @error(ptr noundef nonnull @.str.14) #7
+  br label %cleanup
+
+if.else61:                                        ; preds = %if.end58
+  %tobool62.not = icmp eq i32 %40, 0
+  br i1 %tobool62.not, label %if.else70, label %if.then63
+
+if.then63:                                        ; preds = %if.else61
+  %idxprom = sext i32 %40 to i64
+  %function = getelementptr inbounds [100 x %struct.entry], ptr @GlobalTable, i64 0, i64 %idxprom, i32 4
+  %51 = load i32, ptr %function, align 4, !tbaa !13
+  %tobool64.not = icmp eq i32 %51, 0
+  br i1 %tobool64.not, label %if.then65, label %if.end81
+
+if.then65:                                        ; preds = %if.then63
+  call void @error(ptr noundef nonnull @.str.15) #7
+  br label %cleanup
+
+if.else70:                                        ; preds = %if.else61
+  %52 = load i32, ptr @LabelCounter, align 4, !tbaa !5
+  %call72 = call i32 @GlobalInsert(ptr noundef nonnull %templexbuf, i32 noundef 259, i32 noundef 2002, i32 noundef 0, i32 noundef 1, i32 noundef %52) #7
+  %53 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
+  %tobool73.not = icmp eq i32 %53, 0
+  br i1 %tobool73.not, label %if.end75, label %if.then74
+
+if.then74:                                        ; preds = %if.else70
+  store i32 0, ptr @ErrorFlag, align 4, !tbaa !5
+  br label %if.end75
+
+if.end75:                                         ; preds = %if.then74, %if.else70
+  %54 = load i32, ptr @LabelCounter, align 4, !tbaa !5
+  %inc76 = add nsw i32 %54, 1
+  store i32 %inc76, ptr @LabelCounter, align 4, !tbaa !5
+  %idxprom77 = sext i32 %call72 to i64
+  br label %if.end81
+
+if.end81:                                         ; preds = %if.then63, %if.end75
+  %idxprom.sink = phi i64 [ %idxprom77, %if.end75 ], [ %idxprom, %if.then63 ]
+  %functionlabel = getelementptr inbounds [100 x %struct.entry], ptr @GlobalTable, i64 0, i64 %idxprom.sink, i32 5
+  %55 = load i32, ptr %functionlabel, align 8, !tbaa !16
+  call void @emit(i32 noundef 2015, i32 noundef %55, float noundef 0.000000e+00) #7
+  call void @emit(i32 noundef 2018, i32 noundef 0, float noundef 0.000000e+00) #7
+  %56 = load i32, ptr @CallReturnAddr, align 4, !tbaa !5
+  call void @emit(i32 noundef 2014, i32 noundef %56, float noundef 0.000000e+00) #7
+  %57 = load i32, ptr @FuncNameIndex, align 4, !tbaa !5
+  call void @emit(i32 noundef 2059, i32 noundef %57, float noundef 0.000000e+00) #7
+  call void @emit(i32 noundef 2061, i32 noundef 0, float noundef 0.000000e+00) #7
+  %function84 = getelementptr inbounds [100 x %struct.entry], ptr @GlobalTable, i64 0, i64 %idxprom.sink, i32 4
+  %58 = load i32, ptr %function84, align 4, !tbaa !13
+  %cmp85 = icmp slt i32 %58, 0
+  br i1 %cmp85, label %if.then86, label %cleanup
+
+if.then86:                                        ; preds = %if.end81
+  %type = getelementptr inbounds [100 x %struct.entry], ptr @GlobalTable, i64 0, i64 %idxprom.sink, i32 2
+  %59 = load i32, ptr %type, align 4, !tbaa !17
+  %cmp89 = icmp ne i32 %59, 2002
+  %.255 = zext i1 %cmp89 to i32
+  br label %cleanup
+
+if.else93:                                        ; preds = %sw.bb44
+  %tobool94 = icmp ne i32 %39, 0
+  %60 = load i32, ptr @GlobalIndex, align 4
+  %tobool95 = icmp ne i32 %60, 0
+  %or.cond = select i1 %tobool94, i1 true, i1 %tobool95
+  br i1 %or.cond, label %if.end98, label %if.then96
+
+if.then96:                                        ; preds = %if.else93
+  tail call void @error(ptr noundef nonnull @.str.16) #7
+  br label %cleanup
+
+if.end98:                                         ; preds = %if.else93
+  br i1 %tobool94, label %if.then100, label %if.else101
+
+if.then100:                                       ; preds = %if.end98
+  tail call void @emit(i32 noundef 2051, i32 noundef %39, float noundef 0.000000e+00) #7
+  br label %if.end106
+
+if.else101:                                       ; preds = %if.end98
+  br i1 %tobool95, label %if.then103, label %if.else104
+
+if.then103:                                       ; preds = %if.else101
+  tail call void @emit(i32 noundef 2052, i32 noundef %60, float noundef 0.000000e+00) #7
+  br label %if.end106
+
+if.else104:                                       ; preds = %if.else101
+  tail call void @error(ptr noundef nonnull @.str.17) #7
+  br label %cleanup
+
+if.end106:                                        ; preds = %if.then103, %if.then100
+  %61 = load i32, ptr @LocalIndex, align 4, !tbaa !5
+  %62 = load i32, ptr @GlobalIndex, align 4, !tbaa !5
+  tail call void @match(i32 noundef 259)
+  %63 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
+  %tobool107.not = icmp eq i32 %63, 0
+  br i1 %tobool107.not, label %if.end109, label %cleanup
+
+if.end109:                                        ; preds = %if.end106
+  %tobool110.not = icmp eq i32 %61, 0
+  br i1 %tobool110.not, label %if.else118, label %if.then111
+
+if.then111:                                       ; preds = %if.end109
+  %idxprom112 = sext i32 %61 to i64
+  %type114 = getelementptr inbounds [100 x %struct.entry], ptr @LocalTable, i64 0, i64 %idxprom112, i32 2
+  %64 = load i32, ptr %type114, align 4, !tbaa !17
+  %cmp115 = icmp eq i32 %64, 2003
+  %.256 = zext i1 %cmp115 to i32
+  br label %cleanup
+
+if.else118:                                       ; preds = %if.end109
+  %idxprom119 = sext i32 %62 to i64
+  %type121 = getelementptr inbounds [100 x %struct.entry], ptr @GlobalTable, i64 0, i64 %idxprom119, i32 2
+  %65 = load i32, ptr %type121, align 4, !tbaa !17
+  %cmp122 = icmp eq i32 %65, 2003
+  %.257 = zext i1 %cmp122 to i32
+  br label %cleanup
+
+sw.bb125:                                         ; preds = %entry
+  %66 = load i32, ptr @LocalIndex, align 4, !tbaa !5
+  %67 = load i32, ptr @GlobalIndex, align 4, !tbaa !5
+  tail call void @PushArrayCellAddr()
+  %68 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
+  %tobool126.not = icmp eq i32 %68, 0
+  br i1 %tobool126.not, label %if.end128, label %cleanup
+
+if.end128:                                        ; preds = %sw.bb125
+  store i32 0, ptr @ArrayParsed, align 4, !tbaa !5
+  %69 = load i32, ptr @lookahead, align 4, !tbaa !5
+  %cmp.i302 = icmp eq i32 %69, 2006
+  br i1 %cmp.i302, label %if.then.i304, label %if.else.i309
+
+if.then.i304:                                     ; preds = %if.end128
+  store i32 2006, ptr @PreviousLookahead, align 4, !tbaa !5
+  %70 = load i32, ptr @tokenval, align 4, !tbaa !5
+  store i32 %70, ptr @PreviousTokenval, align 4, !tbaa !5
+  %71 = load float, ptr @ftokenval, align 4, !tbaa !11
+  store float %71, ptr @PreviousFtokenval, align 4, !tbaa !11
+  %72 = load i32, ptr @NextLookahead, align 4, !tbaa !5
+  store i32 %72, ptr @lookahead, align 4, !tbaa !5
+  %73 = load i32, ptr @NextTokenval, align 4, !tbaa !5
+  store i32 %73, ptr @tokenval, align 4, !tbaa !5
+  %74 = load float, ptr @NextFtokenval, align 4, !tbaa !11
+  store float %74, ptr @ftokenval, align 4, !tbaa !11
+  %cmp1.not.i303 = icmp eq i32 %72, 260
+  br i1 %cmp1.not.i303, label %match.exit315, label %if.then2.i306
+
+if.then2.i306:                                    ; preds = %if.then.i304
+  %call.i305 = tail call i32 @lexan() #7
+  store i32 %call.i305, ptr @NextLookahead, align 4, !tbaa !5
+  br label %match.exit315
+
+if.else.i309:                                     ; preds = %if.end128
+  %.off.i307 = add i32 %69, -2007
+  %switch.i308 = icmp ult i32 %.off.i307, 2
+  br i1 %switch.i308, label %sw.epilog.i312, label %if.end4.i313
+
+sw.epilog.i312:                                   ; preds = %if.else.i309
+  tail call void @error(ptr noundef nonnull @.str) #7
+  %.pre485 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
+  %75 = icmp eq i32 %.pre485, 0
+  br i1 %75, label %if.end4.i313, label %cleanup
+
+if.end4.i313:                                     ; preds = %if.else.i309, %sw.epilog.i312
+  %76 = load i32, ptr @lookahead, align 4, !tbaa !5
+  %call6.i314 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.2, i32 noundef %76)
+  tail call void @error(ptr noundef nonnull @.str.3) #7
+  br label %match.exit315
+
+match.exit315:                                    ; preds = %if.then.i304, %if.then2.i306, %if.end4.i313
+  %.pr = load i32, ptr @ErrorFlag, align 4, !tbaa !5
+  %tobool129.not = icmp eq i32 %.pr, 0
+  br i1 %tobool129.not, label %if.end131, label %cleanup
+
+if.end131:                                        ; preds = %match.exit315
+  %tobool132.not = icmp eq i32 %66, 0
+  br i1 %tobool132.not, label %if.else134, label %if.then141
+
+if.else134:                                       ; preds = %if.end131
+  %tobool135.not = icmp eq i32 %67, 0
+  br i1 %tobool135.not, label %if.else137, label %if.else148
+
+if.else137:                                       ; preds = %if.else134
+  tail call void @error(ptr noundef nonnull @.str.18) #7
+  br label %cleanup
+
+if.then141:                                       ; preds = %if.end131
+  tail call void @emit(i32 noundef 2063, i32 noundef 0, float noundef 0.000000e+00) #7
+  %idxprom142 = sext i32 %66 to i64
+  %type144 = getelementptr inbounds [100 x %struct.entry], ptr @LocalTable, i64 0, i64 %idxprom142, i32 2
+  %77 = load i32, ptr %type144, align 4, !tbaa !17
+  %cmp145 = icmp eq i32 %77, 2003
+  %.258 = zext i1 %cmp145 to i32
+  br label %cleanup
+
+if.else148:                                       ; preds = %if.else134
+  tail call void @emit(i32 noundef 2023, i32 noundef 0, float noundef 0.000000e+00) #7
+  %idxprom149 = sext i32 %67 to i64
+  %type151 = getelementptr inbounds [100 x %struct.entry], ptr @GlobalTable, i64 0, i64 %idxprom149, i32 2
+  %78 = load i32, ptr %type151, align 4, !tbaa !17
+  %cmp152 = icmp eq i32 %78, 2003
+  %.259 = zext i1 %cmp152 to i32
+  br label %cleanup
+
+if.then.i318:                                     ; preds = %entry
+  store i32 45, ptr @PreviousLookahead, align 4, !tbaa !5
+  %79 = load i32, ptr @tokenval, align 4, !tbaa !5
+  store i32 %79, ptr @PreviousTokenval, align 4, !tbaa !5
+  %80 = load float, ptr @ftokenval, align 4, !tbaa !11
+  store float %80, ptr @PreviousFtokenval, align 4, !tbaa !11
+  %81 = load i32, ptr @NextLookahead, align 4, !tbaa !5
+  store i32 %81, ptr @lookahead, align 4, !tbaa !5
+  %82 = load i32, ptr @NextTokenval, align 4, !tbaa !5
+  store i32 %82, ptr @tokenval, align 4, !tbaa !5
+  %83 = load float, ptr @NextFtokenval, align 4, !tbaa !11
+  store float %83, ptr @ftokenval, align 4, !tbaa !11
+  %cmp1.not.i317 = icmp eq i32 %81, 260
+  br i1 %cmp1.not.i317, label %match.exit329, label %if.then2.i320
+
+if.then2.i320:                                    ; preds = %if.then.i318
+  %call.i319 = tail call i32 @lexan() #7
+  store i32 %call.i319, ptr @NextLookahead, align 4, !tbaa !5
+  br label %match.exit329
+
+match.exit329:                                    ; preds = %if.then.i318, %if.then2.i320
+  %84 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
+  %tobool156.not = icmp eq i32 %84, 0
+  br i1 %tobool156.not, label %if.end158, label %cleanup
+
+if.end158:                                        ; preds = %match.exit329
+  %call159 = tail call i32 @factor()
+  %85 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
+  %tobool160.not = icmp eq i32 %85, 0
+  br i1 %tobool160.not, label %if.end162, label %cleanup
+
+if.end162:                                        ; preds = %if.end158
+  %tobool163.not = icmp eq i32 %call159, 0
+  br i1 %tobool163.not, label %if.else165, label %if.then164
+
+if.then164:                                       ; preds = %if.end162
+  tail call void @emit(i32 noundef 2039, i32 noundef 0, float noundef 0.000000e+00) #7
+  br label %cleanup
+
+if.else165:                                       ; preds = %if.end162
+  tail call void @emit(i32 noundef 2038, i32 noundef 0, float noundef 0.000000e+00) #7
+  br label %cleanup
+
+if.then.i332:                                     ; preds = %entry
+  store i32 2043, ptr @PreviousLookahead, align 4, !tbaa !5
   %86 = load i32, ptr @tokenval, align 4, !tbaa !5
   store i32 %86, ptr @PreviousTokenval, align 4, !tbaa !5
   %87 = load float, ptr @ftokenval, align 4, !tbaa !11
@@ -345,855 +694,509 @@ define dso_local i32 @factor() local_unnamed_addr #0 {
   store i32 %89, ptr @tokenval, align 4, !tbaa !5
   %90 = load float, ptr @NextFtokenval, align 4, !tbaa !11
   store float %90, ptr @ftokenval, align 4, !tbaa !11
-  %91 = icmp eq i32 %88, 260
-  br i1 %91, label %104, label %92
+  %cmp1.not.i331 = icmp eq i32 %88, 260
+  br i1 %cmp1.not.i331, label %match.exit343, label %if.then2.i334
 
-92:                                               ; preds = %85
-  %93 = tail call i32 @lexan() #7
-  store i32 %93, ptr @NextLookahead, align 4, !tbaa !5
-  br label %104
+if.then2.i334:                                    ; preds = %if.then.i332
+  %call.i333 = tail call i32 @lexan() #7
+  store i32 %call.i333, ptr @NextLookahead, align 4, !tbaa !5
+  br label %match.exit343
 
-94:                                               ; preds = %80
-  %95 = add i32 %83, -2007
-  %96 = icmp ult i32 %95, 2
-  br i1 %96, label %97, label %98
+match.exit343:                                    ; preds = %if.then.i332, %if.then2.i334
+  %91 = phi i32 [ 260, %if.then.i332 ], [ %call.i333, %if.then2.i334 ]
+  %92 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
+  %tobool168.not = icmp eq i32 %92, 0
+  br i1 %tobool168.not, label %if.end170, label %cleanup
 
-97:                                               ; preds = %94
-  tail call void @error(ptr noundef nonnull @.str) #7
-  br label %98
+if.end170:                                        ; preds = %match.exit343
+  %93 = load i32, ptr @lookahead, align 4, !tbaa !5
+  %cmp.i344 = icmp eq i32 %93, 40
+  br i1 %cmp.i344, label %if.then.i346, label %if.else.i351
 
-98:                                               ; preds = %97, %94
-  %99 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
-  %100 = icmp eq i32 %99, 0
-  br i1 %100, label %101, label %480
-
-101:                                              ; preds = %98
-  %102 = load i32, ptr @lookahead, align 4, !tbaa !5
-  %103 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.2, i32 noundef %102)
-  tail call void @error(ptr noundef nonnull @.str.3) #7
-  br label %104
-
-104:                                              ; preds = %85, %92, %101
-  %105 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
-  %106 = icmp eq i32 %105, 0
-  %107 = select i1 %106, i32 1, i32 -99
-  br label %480
-
-108:                                              ; preds = %0
-  %109 = load i32, ptr @NextLookahead, align 4, !tbaa !5
-  %110 = icmp eq i32 %109, 40
-  %111 = load i32, ptr @LocalIndex, align 4, !tbaa !5
-  br i1 %110, label %112, label %169
-
-112:                                              ; preds = %108
-  %113 = load i32, ptr @GlobalIndex, align 4, !tbaa !5
-  %114 = call ptr @strcpy(ptr noundef nonnull dereferenceable(1) %1, ptr noundef nonnull dereferenceable(1) @lexbuf) #7
-  store i32 259, ptr @PreviousLookahead, align 4, !tbaa !5
-  %115 = load i32, ptr @tokenval, align 4, !tbaa !5
-  store i32 %115, ptr @PreviousTokenval, align 4, !tbaa !5
-  %116 = load float, ptr @ftokenval, align 4, !tbaa !11
-  store float %116, ptr @PreviousFtokenval, align 4, !tbaa !11
-  store i32 40, ptr @lookahead, align 4, !tbaa !5
-  %117 = load i32, ptr @NextTokenval, align 4, !tbaa !5
-  store i32 %117, ptr @tokenval, align 4, !tbaa !5
-  %118 = load float, ptr @NextFtokenval, align 4, !tbaa !11
-  store float %118, ptr @ftokenval, align 4, !tbaa !11
-  %119 = call i32 @lexan() #7
-  store i32 %119, ptr @NextLookahead, align 4, !tbaa !5
-  %120 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
-  %121 = icmp eq i32 %120, 0
-  br i1 %121, label %122, label %480
-
-122:                                              ; preds = %112
-  call void @match(i32 noundef 40)
-  %123 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
-  %124 = icmp eq i32 %123, 0
-  br i1 %124, label %125, label %480
-
-125:                                              ; preds = %122
-  call void @ExprList()
-  %126 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
-  %127 = icmp eq i32 %126, 0
-  br i1 %127, label %128, label %480
-
-128:                                              ; preds = %125
-  call void @match(i32 noundef 41)
-  %129 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
-  %130 = icmp eq i32 %129, 0
-  br i1 %130, label %131, label %480
-
-131:                                              ; preds = %128
-  %132 = load i32, ptr @LabelCounter, align 4, !tbaa !5
-  store i32 %132, ptr @CallReturnAddr, align 4, !tbaa !5
-  %133 = add nsw i32 %132, 1
-  store i32 %133, ptr @LabelCounter, align 4, !tbaa !5
-  call void @emit(i32 noundef 2015, i32 noundef %132, float noundef 0.000000e+00) #7
-  %134 = load i32, ptr @FuncNameIndex, align 4, !tbaa !5
-  call void @emit(i32 noundef 2059, i32 noundef %134, float noundef 0.000000e+00) #7
-  call void @emit(i32 noundef 2060, i32 noundef 0, float noundef 0.000000e+00) #7
-  %135 = icmp eq i32 %111, 0
-  br i1 %135, label %137, label %136
-
-136:                                              ; preds = %131
-  call void @error(ptr noundef nonnull @.str.14) #7
-  br label %480
-
-137:                                              ; preds = %131
-  %138 = icmp eq i32 %113, 0
-  br i1 %138, label %145, label %139
-
-139:                                              ; preds = %137
-  %140 = sext i32 %113 to i64
-  %141 = getelementptr inbounds [100 x %struct.entry], ptr @GlobalTable, i64 0, i64 %140, i32 4
-  %142 = load i32, ptr %141, align 4, !tbaa !13
-  %143 = icmp eq i32 %142, 0
-  br i1 %143, label %144, label %155
-
-144:                                              ; preds = %139
-  call void @error(ptr noundef nonnull @.str.15) #7
-  br label %480
-
-145:                                              ; preds = %137
-  %146 = load i32, ptr @LabelCounter, align 4, !tbaa !5
-  %147 = call i32 @GlobalInsert(ptr noundef nonnull %1, i32 noundef 259, i32 noundef 2002, i32 noundef 0, i32 noundef 1, i32 noundef %146) #7
-  %148 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
-  %149 = icmp eq i32 %148, 0
-  br i1 %149, label %151, label %150
-
-150:                                              ; preds = %145
-  store i32 0, ptr @ErrorFlag, align 4, !tbaa !5
-  br label %151
-
-151:                                              ; preds = %150, %145
-  %152 = load i32, ptr @LabelCounter, align 4, !tbaa !5
-  %153 = add nsw i32 %152, 1
-  store i32 %153, ptr @LabelCounter, align 4, !tbaa !5
-  %154 = sext i32 %147 to i64
-  br label %155
-
-155:                                              ; preds = %139, %151
-  %156 = phi i64 [ %154, %151 ], [ %140, %139 ]
-  %157 = getelementptr inbounds [100 x %struct.entry], ptr @GlobalTable, i64 0, i64 %156, i32 5
-  %158 = load i32, ptr %157, align 8, !tbaa !16
-  call void @emit(i32 noundef 2015, i32 noundef %158, float noundef 0.000000e+00) #7
-  call void @emit(i32 noundef 2018, i32 noundef 0, float noundef 0.000000e+00) #7
-  %159 = load i32, ptr @CallReturnAddr, align 4, !tbaa !5
-  call void @emit(i32 noundef 2014, i32 noundef %159, float noundef 0.000000e+00) #7
-  %160 = load i32, ptr @FuncNameIndex, align 4, !tbaa !5
-  call void @emit(i32 noundef 2059, i32 noundef %160, float noundef 0.000000e+00) #7
-  call void @emit(i32 noundef 2061, i32 noundef 0, float noundef 0.000000e+00) #7
-  %161 = getelementptr inbounds [100 x %struct.entry], ptr @GlobalTable, i64 0, i64 %156, i32 4
-  %162 = load i32, ptr %161, align 4, !tbaa !13
-  %163 = icmp slt i32 %162, 0
-  br i1 %163, label %164, label %480
-
-164:                                              ; preds = %155
-  %165 = getelementptr inbounds [100 x %struct.entry], ptr @GlobalTable, i64 0, i64 %156, i32 2
-  %166 = load i32, ptr %165, align 4, !tbaa !17
-  %167 = icmp ne i32 %166, 2002
-  %168 = zext i1 %167 to i32
-  br label %480
-
-169:                                              ; preds = %108
-  %170 = icmp ne i32 %111, 0
-  %171 = load i32, ptr @GlobalIndex, align 4
-  %172 = icmp ne i32 %171, 0
-  %173 = select i1 %170, i1 true, i1 %172
-  br i1 %173, label %175, label %174
-
-174:                                              ; preds = %169
-  tail call void @error(ptr noundef nonnull @.str.16) #7
-  br label %480
-
-175:                                              ; preds = %169
-  br i1 %170, label %176, label %177
-
-176:                                              ; preds = %175
-  tail call void @emit(i32 noundef 2051, i32 noundef %111, float noundef 0.000000e+00) #7
-  br label %180
-
-177:                                              ; preds = %175
-  br i1 %172, label %178, label %179
-
-178:                                              ; preds = %177
-  tail call void @emit(i32 noundef 2052, i32 noundef %171, float noundef 0.000000e+00) #7
-  br label %180
-
-179:                                              ; preds = %177
-  tail call void @error(ptr noundef nonnull @.str.17) #7
-  br label %480
-
-180:                                              ; preds = %178, %176
-  %181 = load i32, ptr @LocalIndex, align 4, !tbaa !5
-  %182 = load i32, ptr @GlobalIndex, align 4, !tbaa !5
-  tail call void @match(i32 noundef 259)
-  %183 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
-  %184 = icmp eq i32 %183, 0
-  br i1 %184, label %185, label %480
-
-185:                                              ; preds = %180
-  %186 = icmp eq i32 %181, 0
-  br i1 %186, label %193, label %187
-
-187:                                              ; preds = %185
-  %188 = sext i32 %181 to i64
-  %189 = getelementptr inbounds [100 x %struct.entry], ptr @LocalTable, i64 0, i64 %188, i32 2
-  %190 = load i32, ptr %189, align 4, !tbaa !17
-  %191 = icmp eq i32 %190, 2003
-  %192 = zext i1 %191 to i32
-  br label %480
-
-193:                                              ; preds = %185
-  %194 = sext i32 %182 to i64
-  %195 = getelementptr inbounds [100 x %struct.entry], ptr @GlobalTable, i64 0, i64 %194, i32 2
-  %196 = load i32, ptr %195, align 4, !tbaa !17
-  %197 = icmp eq i32 %196, 2003
-  %198 = zext i1 %197 to i32
-  br label %480
-
-199:                                              ; preds = %0
-  %200 = load i32, ptr @LocalIndex, align 4, !tbaa !5
-  %201 = load i32, ptr @GlobalIndex, align 4, !tbaa !5
-  tail call void @PushArrayCellAddr()
-  %202 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
-  %203 = icmp eq i32 %202, 0
-  br i1 %203, label %204, label %480
-
-204:                                              ; preds = %199
-  store i32 0, ptr @ArrayParsed, align 4, !tbaa !5
-  %205 = load i32, ptr @lookahead, align 4, !tbaa !5
-  %206 = icmp eq i32 %205, 2006
-  br i1 %206, label %207, label %216
-
-207:                                              ; preds = %204
-  store i32 2006, ptr @PreviousLookahead, align 4, !tbaa !5
-  %208 = load i32, ptr @tokenval, align 4, !tbaa !5
-  store i32 %208, ptr @PreviousTokenval, align 4, !tbaa !5
-  %209 = load float, ptr @ftokenval, align 4, !tbaa !11
-  store float %209, ptr @PreviousFtokenval, align 4, !tbaa !11
-  %210 = load i32, ptr @NextLookahead, align 4, !tbaa !5
-  store i32 %210, ptr @lookahead, align 4, !tbaa !5
-  %211 = load i32, ptr @NextTokenval, align 4, !tbaa !5
-  store i32 %211, ptr @tokenval, align 4, !tbaa !5
-  %212 = load float, ptr @NextFtokenval, align 4, !tbaa !11
-  store float %212, ptr @ftokenval, align 4, !tbaa !11
-  %213 = icmp eq i32 %210, 260
-  br i1 %213, label %225, label %214
-
-214:                                              ; preds = %207
-  %215 = tail call i32 @lexan() #7
-  store i32 %215, ptr @NextLookahead, align 4, !tbaa !5
-  br label %225
-
-216:                                              ; preds = %204
-  %217 = add i32 %205, -2007
-  %218 = icmp ult i32 %217, 2
-  br i1 %218, label %219, label %222
-
-219:                                              ; preds = %216
-  tail call void @error(ptr noundef nonnull @.str) #7
-  %220 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
-  %221 = icmp eq i32 %220, 0
-  br i1 %221, label %222, label %480
-
-222:                                              ; preds = %216, %219
-  %223 = load i32, ptr @lookahead, align 4, !tbaa !5
-  %224 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.2, i32 noundef %223)
-  tail call void @error(ptr noundef nonnull @.str.3) #7
-  br label %225
-
-225:                                              ; preds = %207, %214, %222
-  %226 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
-  %227 = icmp eq i32 %226, 0
-  br i1 %227, label %228, label %480
-
-228:                                              ; preds = %225
-  %229 = icmp eq i32 %200, 0
-  br i1 %229, label %230, label %233
-
-230:                                              ; preds = %228
-  %231 = icmp eq i32 %201, 0
-  br i1 %231, label %232, label %239
-
-232:                                              ; preds = %230
-  tail call void @error(ptr noundef nonnull @.str.18) #7
-  br label %480
-
-233:                                              ; preds = %228
-  tail call void @emit(i32 noundef 2063, i32 noundef 0, float noundef 0.000000e+00) #7
-  %234 = sext i32 %200 to i64
-  %235 = getelementptr inbounds [100 x %struct.entry], ptr @LocalTable, i64 0, i64 %234, i32 2
-  %236 = load i32, ptr %235, align 4, !tbaa !17
-  %237 = icmp eq i32 %236, 2003
-  %238 = zext i1 %237 to i32
-  br label %480
-
-239:                                              ; preds = %230
-  tail call void @emit(i32 noundef 2023, i32 noundef 0, float noundef 0.000000e+00) #7
-  %240 = sext i32 %201 to i64
-  %241 = getelementptr inbounds [100 x %struct.entry], ptr @GlobalTable, i64 0, i64 %240, i32 2
-  %242 = load i32, ptr %241, align 4, !tbaa !17
-  %243 = icmp eq i32 %242, 2003
-  %244 = zext i1 %243 to i32
-  br label %480
-
-245:                                              ; preds = %0
-  store i32 45, ptr @PreviousLookahead, align 4, !tbaa !5
-  %246 = load i32, ptr @tokenval, align 4, !tbaa !5
-  store i32 %246, ptr @PreviousTokenval, align 4, !tbaa !5
-  %247 = load float, ptr @ftokenval, align 4, !tbaa !11
-  store float %247, ptr @PreviousFtokenval, align 4, !tbaa !11
-  %248 = load i32, ptr @NextLookahead, align 4, !tbaa !5
-  store i32 %248, ptr @lookahead, align 4, !tbaa !5
-  %249 = load i32, ptr @NextTokenval, align 4, !tbaa !5
-  store i32 %249, ptr @tokenval, align 4, !tbaa !5
-  %250 = load float, ptr @NextFtokenval, align 4, !tbaa !11
-  store float %250, ptr @ftokenval, align 4, !tbaa !11
-  %251 = icmp eq i32 %248, 260
-  br i1 %251, label %254, label %252
-
-252:                                              ; preds = %245
-  %253 = tail call i32 @lexan() #7
-  store i32 %253, ptr @NextLookahead, align 4, !tbaa !5
-  br label %254
-
-254:                                              ; preds = %245, %252
-  %255 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
-  %256 = icmp eq i32 %255, 0
-  br i1 %256, label %257, label %480
-
-257:                                              ; preds = %254
-  %258 = tail call i32 @factor()
-  %259 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
-  %260 = icmp eq i32 %259, 0
-  br i1 %260, label %261, label %480
-
-261:                                              ; preds = %257
-  %262 = icmp eq i32 %258, 0
-  br i1 %262, label %264, label %263
-
-263:                                              ; preds = %261
-  tail call void @emit(i32 noundef 2039, i32 noundef 0, float noundef 0.000000e+00) #7
-  br label %480
-
-264:                                              ; preds = %261
-  tail call void @emit(i32 noundef 2038, i32 noundef 0, float noundef 0.000000e+00) #7
-  br label %480
-
-265:                                              ; preds = %0
-  store i32 2043, ptr @PreviousLookahead, align 4, !tbaa !5
-  %266 = load i32, ptr @tokenval, align 4, !tbaa !5
-  store i32 %266, ptr @PreviousTokenval, align 4, !tbaa !5
-  %267 = load float, ptr @ftokenval, align 4, !tbaa !11
-  store float %267, ptr @PreviousFtokenval, align 4, !tbaa !11
-  %268 = load i32, ptr @NextLookahead, align 4, !tbaa !5
-  store i32 %268, ptr @lookahead, align 4, !tbaa !5
-  %269 = load i32, ptr @NextTokenval, align 4, !tbaa !5
-  store i32 %269, ptr @tokenval, align 4, !tbaa !5
-  %270 = load float, ptr @NextFtokenval, align 4, !tbaa !11
-  store float %270, ptr @ftokenval, align 4, !tbaa !11
-  %271 = icmp eq i32 %268, 260
-  br i1 %271, label %274, label %272
-
-272:                                              ; preds = %265
-  %273 = tail call i32 @lexan() #7
-  store i32 %273, ptr @NextLookahead, align 4, !tbaa !5
-  br label %274
-
-274:                                              ; preds = %265, %272
-  %275 = phi i32 [ 260, %265 ], [ %273, %272 ]
-  %276 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
-  %277 = icmp eq i32 %276, 0
-  br i1 %277, label %278, label %480
-
-278:                                              ; preds = %274
-  %279 = load i32, ptr @lookahead, align 4, !tbaa !5
-  %280 = icmp eq i32 %279, 40
-  br i1 %280, label %281, label %289
-
-281:                                              ; preds = %278
+if.then.i346:                                     ; preds = %if.end170
   store i32 40, ptr @PreviousLookahead, align 4, !tbaa !5
-  %282 = load i32, ptr @tokenval, align 4, !tbaa !5
-  store i32 %282, ptr @PreviousTokenval, align 4, !tbaa !5
-  %283 = load float, ptr @ftokenval, align 4, !tbaa !11
-  store float %283, ptr @PreviousFtokenval, align 4, !tbaa !11
-  store i32 %275, ptr @lookahead, align 4, !tbaa !5
-  %284 = load i32, ptr @NextTokenval, align 4, !tbaa !5
-  store i32 %284, ptr @tokenval, align 4, !tbaa !5
-  %285 = load float, ptr @NextFtokenval, align 4, !tbaa !11
-  store float %285, ptr @ftokenval, align 4, !tbaa !11
-  %286 = icmp eq i32 %275, 260
-  br i1 %286, label %298, label %287
+  %94 = load i32, ptr @tokenval, align 4, !tbaa !5
+  store i32 %94, ptr @PreviousTokenval, align 4, !tbaa !5
+  %95 = load float, ptr @ftokenval, align 4, !tbaa !11
+  store float %95, ptr @PreviousFtokenval, align 4, !tbaa !11
+  store i32 %91, ptr @lookahead, align 4, !tbaa !5
+  %96 = load i32, ptr @NextTokenval, align 4, !tbaa !5
+  store i32 %96, ptr @tokenval, align 4, !tbaa !5
+  %97 = load float, ptr @NextFtokenval, align 4, !tbaa !11
+  store float %97, ptr @ftokenval, align 4, !tbaa !11
+  %cmp1.not.i345 = icmp eq i32 %91, 260
+  br i1 %cmp1.not.i345, label %match.exit357, label %if.then2.i348
 
-287:                                              ; preds = %281
-  %288 = tail call i32 @lexan() #7
-  store i32 %288, ptr @NextLookahead, align 4, !tbaa !5
-  br label %298
+if.then2.i348:                                    ; preds = %if.then.i346
+  %call.i347 = tail call i32 @lexan() #7
+  store i32 %call.i347, ptr @NextLookahead, align 4, !tbaa !5
+  br label %match.exit357
 
-289:                                              ; preds = %278
-  %290 = add i32 %279, -2007
-  %291 = icmp ult i32 %290, 2
-  br i1 %291, label %292, label %295
+if.else.i351:                                     ; preds = %if.end170
+  %.off.i349 = add i32 %93, -2007
+  %switch.i350 = icmp ult i32 %.off.i349, 2
+  br i1 %switch.i350, label %sw.epilog.i354, label %if.end4.i355
 
-292:                                              ; preds = %289
+sw.epilog.i354:                                   ; preds = %if.else.i351
   tail call void @error(ptr noundef nonnull @.str) #7
-  %293 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
-  %294 = icmp eq i32 %293, 0
-  br i1 %294, label %295, label %480
+  %.pre484 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
+  %98 = icmp eq i32 %.pre484, 0
+  br i1 %98, label %if.end4.i355, label %cleanup
 
-295:                                              ; preds = %289, %292
-  %296 = load i32, ptr @lookahead, align 4, !tbaa !5
-  %297 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.2, i32 noundef %296)
+if.end4.i355:                                     ; preds = %if.else.i351, %sw.epilog.i354
+  %99 = load i32, ptr @lookahead, align 4, !tbaa !5
+  %call6.i356 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.2, i32 noundef %99)
   tail call void @error(ptr noundef nonnull @.str.3) #7
-  br label %298
+  br label %match.exit357
 
-298:                                              ; preds = %281, %287, %295
-  %299 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
-  %300 = icmp eq i32 %299, 0
-  br i1 %300, label %301, label %480
+match.exit357:                                    ; preds = %if.then.i346, %if.then2.i348, %if.end4.i355
+  %.pr471 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
+  %tobool171.not = icmp eq i32 %.pr471, 0
+  br i1 %tobool171.not, label %if.end173, label %cleanup
 
-301:                                              ; preds = %298
+if.end173:                                        ; preds = %match.exit357
   tail call void @match(i32 noundef 41)
-  %302 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
-  %303 = icmp eq i32 %302, 0
-  br i1 %303, label %304, label %480
+  %100 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
+  %tobool174.not = icmp eq i32 %100, 0
+  br i1 %tobool174.not, label %if.end176, label %cleanup
 
-304:                                              ; preds = %301
+if.end176:                                        ; preds = %if.end173
   tail call void @emit(i32 noundef 2009, i32 noundef 0, float noundef 0.000000e+00) #7
   tail call void @emit(i32 noundef 2003, i32 noundef 0, float noundef 0.000000e+00) #7
-  br label %480
+  br label %cleanup
 
-305:                                              ; preds = %0
+if.then.i360:                                     ; preds = %entry
   store i32 2044, ptr @PreviousLookahead, align 4, !tbaa !5
-  %306 = load i32, ptr @tokenval, align 4, !tbaa !5
-  store i32 %306, ptr @PreviousTokenval, align 4, !tbaa !5
-  %307 = load float, ptr @ftokenval, align 4, !tbaa !11
-  store float %307, ptr @PreviousFtokenval, align 4, !tbaa !11
-  %308 = load i32, ptr @NextLookahead, align 4, !tbaa !5
-  store i32 %308, ptr @lookahead, align 4, !tbaa !5
-  %309 = load i32, ptr @NextTokenval, align 4, !tbaa !5
-  store i32 %309, ptr @tokenval, align 4, !tbaa !5
-  %310 = load float, ptr @NextFtokenval, align 4, !tbaa !11
-  store float %310, ptr @ftokenval, align 4, !tbaa !11
-  %311 = icmp eq i32 %308, 260
-  br i1 %311, label %314, label %312
+  %101 = load i32, ptr @tokenval, align 4, !tbaa !5
+  store i32 %101, ptr @PreviousTokenval, align 4, !tbaa !5
+  %102 = load float, ptr @ftokenval, align 4, !tbaa !11
+  store float %102, ptr @PreviousFtokenval, align 4, !tbaa !11
+  %103 = load i32, ptr @NextLookahead, align 4, !tbaa !5
+  store i32 %103, ptr @lookahead, align 4, !tbaa !5
+  %104 = load i32, ptr @NextTokenval, align 4, !tbaa !5
+  store i32 %104, ptr @tokenval, align 4, !tbaa !5
+  %105 = load float, ptr @NextFtokenval, align 4, !tbaa !11
+  store float %105, ptr @ftokenval, align 4, !tbaa !11
+  %cmp1.not.i359 = icmp eq i32 %103, 260
+  br i1 %cmp1.not.i359, label %match.exit371, label %if.then2.i362
 
-312:                                              ; preds = %305
-  %313 = tail call i32 @lexan() #7
-  store i32 %313, ptr @NextLookahead, align 4, !tbaa !5
-  br label %314
+if.then2.i362:                                    ; preds = %if.then.i360
+  %call.i361 = tail call i32 @lexan() #7
+  store i32 %call.i361, ptr @NextLookahead, align 4, !tbaa !5
+  br label %match.exit371
 
-314:                                              ; preds = %305, %312
-  %315 = phi i32 [ 260, %305 ], [ %313, %312 ]
-  %316 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
-  %317 = icmp eq i32 %316, 0
-  br i1 %317, label %318, label %480
+match.exit371:                                    ; preds = %if.then.i360, %if.then2.i362
+  %106 = phi i32 [ 260, %if.then.i360 ], [ %call.i361, %if.then2.i362 ]
+  %107 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
+  %tobool178.not = icmp eq i32 %107, 0
+  br i1 %tobool178.not, label %if.end180, label %cleanup
 
-318:                                              ; preds = %314
-  %319 = load i32, ptr @lookahead, align 4, !tbaa !5
-  %320 = icmp eq i32 %319, 40
-  br i1 %320, label %321, label %329
+if.end180:                                        ; preds = %match.exit371
+  %108 = load i32, ptr @lookahead, align 4, !tbaa !5
+  %cmp.i372 = icmp eq i32 %108, 40
+  br i1 %cmp.i372, label %if.then.i374, label %if.else.i379
 
-321:                                              ; preds = %318
+if.then.i374:                                     ; preds = %if.end180
   store i32 40, ptr @PreviousLookahead, align 4, !tbaa !5
-  %322 = load i32, ptr @tokenval, align 4, !tbaa !5
-  store i32 %322, ptr @PreviousTokenval, align 4, !tbaa !5
-  %323 = load float, ptr @ftokenval, align 4, !tbaa !11
-  store float %323, ptr @PreviousFtokenval, align 4, !tbaa !11
-  store i32 %315, ptr @lookahead, align 4, !tbaa !5
-  %324 = load i32, ptr @NextTokenval, align 4, !tbaa !5
-  store i32 %324, ptr @tokenval, align 4, !tbaa !5
-  %325 = load float, ptr @NextFtokenval, align 4, !tbaa !11
-  store float %325, ptr @ftokenval, align 4, !tbaa !11
-  %326 = icmp eq i32 %315, 260
-  br i1 %326, label %338, label %327
+  %109 = load i32, ptr @tokenval, align 4, !tbaa !5
+  store i32 %109, ptr @PreviousTokenval, align 4, !tbaa !5
+  %110 = load float, ptr @ftokenval, align 4, !tbaa !11
+  store float %110, ptr @PreviousFtokenval, align 4, !tbaa !11
+  store i32 %106, ptr @lookahead, align 4, !tbaa !5
+  %111 = load i32, ptr @NextTokenval, align 4, !tbaa !5
+  store i32 %111, ptr @tokenval, align 4, !tbaa !5
+  %112 = load float, ptr @NextFtokenval, align 4, !tbaa !11
+  store float %112, ptr @ftokenval, align 4, !tbaa !11
+  %cmp1.not.i373 = icmp eq i32 %106, 260
+  br i1 %cmp1.not.i373, label %match.exit385, label %if.then2.i376
 
-327:                                              ; preds = %321
-  %328 = tail call i32 @lexan() #7
-  store i32 %328, ptr @NextLookahead, align 4, !tbaa !5
-  br label %338
+if.then2.i376:                                    ; preds = %if.then.i374
+  %call.i375 = tail call i32 @lexan() #7
+  store i32 %call.i375, ptr @NextLookahead, align 4, !tbaa !5
+  br label %match.exit385
 
-329:                                              ; preds = %318
-  %330 = add i32 %319, -2007
-  %331 = icmp ult i32 %330, 2
-  br i1 %331, label %332, label %335
+if.else.i379:                                     ; preds = %if.end180
+  %.off.i377 = add i32 %108, -2007
+  %switch.i378 = icmp ult i32 %.off.i377, 2
+  br i1 %switch.i378, label %sw.epilog.i382, label %if.end4.i383
 
-332:                                              ; preds = %329
+sw.epilog.i382:                                   ; preds = %if.else.i379
   tail call void @error(ptr noundef nonnull @.str) #7
-  %333 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
-  %334 = icmp eq i32 %333, 0
-  br i1 %334, label %335, label %480
+  %.pre483 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
+  %113 = icmp eq i32 %.pre483, 0
+  br i1 %113, label %if.end4.i383, label %cleanup
 
-335:                                              ; preds = %329, %332
-  %336 = load i32, ptr @lookahead, align 4, !tbaa !5
-  %337 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.2, i32 noundef %336)
+if.end4.i383:                                     ; preds = %if.else.i379, %sw.epilog.i382
+  %114 = load i32, ptr @lookahead, align 4, !tbaa !5
+  %call6.i384 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.2, i32 noundef %114)
   tail call void @error(ptr noundef nonnull @.str.3) #7
-  br label %338
+  br label %match.exit385
 
-338:                                              ; preds = %321, %327, %335
-  %339 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
-  %340 = icmp eq i32 %339, 0
-  br i1 %340, label %341, label %480
+match.exit385:                                    ; preds = %if.then.i374, %if.then2.i376, %if.end4.i383
+  %.pr473 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
+  %tobool181.not = icmp eq i32 %.pr473, 0
+  br i1 %tobool181.not, label %if.end183, label %cleanup
 
-341:                                              ; preds = %338
+if.end183:                                        ; preds = %match.exit385
   tail call void @match(i32 noundef 41)
-  %342 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
-  %343 = icmp eq i32 %342, 0
-  br i1 %343, label %344, label %480
+  %115 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
+  %tobool184.not = icmp eq i32 %115, 0
+  br i1 %tobool184.not, label %if.end186, label %cleanup
 
-344:                                              ; preds = %341
+if.end186:                                        ; preds = %if.end183
   tail call void @emit(i32 noundef 2009, i32 noundef 0, float noundef 0.000000e+00) #7
   tail call void @emit(i32 noundef 2002, i32 noundef 0, float noundef 0.000000e+00) #7
-  br label %480
+  br label %cleanup
 
-345:                                              ; preds = %0
+if.then.i388:                                     ; preds = %entry
   store i32 2045, ptr @PreviousLookahead, align 4, !tbaa !5
-  %346 = load i32, ptr @tokenval, align 4, !tbaa !5
-  store i32 %346, ptr @PreviousTokenval, align 4, !tbaa !5
-  %347 = load float, ptr @ftokenval, align 4, !tbaa !11
-  store float %347, ptr @PreviousFtokenval, align 4, !tbaa !11
-  %348 = load i32, ptr @NextLookahead, align 4, !tbaa !5
-  store i32 %348, ptr @lookahead, align 4, !tbaa !5
-  %349 = load i32, ptr @NextTokenval, align 4, !tbaa !5
-  store i32 %349, ptr @tokenval, align 4, !tbaa !5
-  %350 = load float, ptr @NextFtokenval, align 4, !tbaa !11
-  store float %350, ptr @ftokenval, align 4, !tbaa !11
-  %351 = icmp eq i32 %348, 260
-  br i1 %351, label %354, label %352
+  %116 = load i32, ptr @tokenval, align 4, !tbaa !5
+  store i32 %116, ptr @PreviousTokenval, align 4, !tbaa !5
+  %117 = load float, ptr @ftokenval, align 4, !tbaa !11
+  store float %117, ptr @PreviousFtokenval, align 4, !tbaa !11
+  %118 = load i32, ptr @NextLookahead, align 4, !tbaa !5
+  store i32 %118, ptr @lookahead, align 4, !tbaa !5
+  %119 = load i32, ptr @NextTokenval, align 4, !tbaa !5
+  store i32 %119, ptr @tokenval, align 4, !tbaa !5
+  %120 = load float, ptr @NextFtokenval, align 4, !tbaa !11
+  store float %120, ptr @ftokenval, align 4, !tbaa !11
+  %cmp1.not.i387 = icmp eq i32 %118, 260
+  br i1 %cmp1.not.i387, label %match.exit399, label %if.then2.i390
 
-352:                                              ; preds = %345
-  %353 = tail call i32 @lexan() #7
-  store i32 %353, ptr @NextLookahead, align 4, !tbaa !5
-  br label %354
+if.then2.i390:                                    ; preds = %if.then.i388
+  %call.i389 = tail call i32 @lexan() #7
+  store i32 %call.i389, ptr @NextLookahead, align 4, !tbaa !5
+  br label %match.exit399
 
-354:                                              ; preds = %345, %352
-  %355 = phi i32 [ 260, %345 ], [ %353, %352 ]
-  %356 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
-  %357 = icmp eq i32 %356, 0
-  br i1 %357, label %358, label %480
+match.exit399:                                    ; preds = %if.then.i388, %if.then2.i390
+  %121 = phi i32 [ 260, %if.then.i388 ], [ %call.i389, %if.then2.i390 ]
+  %122 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
+  %tobool188.not = icmp eq i32 %122, 0
+  br i1 %tobool188.not, label %if.end190, label %cleanup
 
-358:                                              ; preds = %354
-  %359 = load i32, ptr @lookahead, align 4, !tbaa !5
-  %360 = icmp eq i32 %359, 40
-  br i1 %360, label %361, label %369
+if.end190:                                        ; preds = %match.exit399
+  %123 = load i32, ptr @lookahead, align 4, !tbaa !5
+  %cmp.i400 = icmp eq i32 %123, 40
+  br i1 %cmp.i400, label %if.then.i402, label %if.else.i407
 
-361:                                              ; preds = %358
+if.then.i402:                                     ; preds = %if.end190
   store i32 40, ptr @PreviousLookahead, align 4, !tbaa !5
-  %362 = load i32, ptr @tokenval, align 4, !tbaa !5
-  store i32 %362, ptr @PreviousTokenval, align 4, !tbaa !5
-  %363 = load float, ptr @ftokenval, align 4, !tbaa !11
-  store float %363, ptr @PreviousFtokenval, align 4, !tbaa !11
-  store i32 %355, ptr @lookahead, align 4, !tbaa !5
-  %364 = load i32, ptr @NextTokenval, align 4, !tbaa !5
-  store i32 %364, ptr @tokenval, align 4, !tbaa !5
-  %365 = load float, ptr @NextFtokenval, align 4, !tbaa !11
-  store float %365, ptr @ftokenval, align 4, !tbaa !11
-  %366 = icmp eq i32 %355, 260
-  br i1 %366, label %378, label %367
+  %124 = load i32, ptr @tokenval, align 4, !tbaa !5
+  store i32 %124, ptr @PreviousTokenval, align 4, !tbaa !5
+  %125 = load float, ptr @ftokenval, align 4, !tbaa !11
+  store float %125, ptr @PreviousFtokenval, align 4, !tbaa !11
+  store i32 %121, ptr @lookahead, align 4, !tbaa !5
+  %126 = load i32, ptr @NextTokenval, align 4, !tbaa !5
+  store i32 %126, ptr @tokenval, align 4, !tbaa !5
+  %127 = load float, ptr @NextFtokenval, align 4, !tbaa !11
+  store float %127, ptr @ftokenval, align 4, !tbaa !11
+  %cmp1.not.i401 = icmp eq i32 %121, 260
+  br i1 %cmp1.not.i401, label %match.exit413, label %if.then2.i404
 
-367:                                              ; preds = %361
-  %368 = tail call i32 @lexan() #7
-  store i32 %368, ptr @NextLookahead, align 4, !tbaa !5
-  br label %378
+if.then2.i404:                                    ; preds = %if.then.i402
+  %call.i403 = tail call i32 @lexan() #7
+  store i32 %call.i403, ptr @NextLookahead, align 4, !tbaa !5
+  br label %match.exit413
 
-369:                                              ; preds = %358
-  %370 = add i32 %359, -2007
-  %371 = icmp ult i32 %370, 2
-  br i1 %371, label %372, label %375
+if.else.i407:                                     ; preds = %if.end190
+  %.off.i405 = add i32 %123, -2007
+  %switch.i406 = icmp ult i32 %.off.i405, 2
+  br i1 %switch.i406, label %sw.epilog.i410, label %if.end4.i411
 
-372:                                              ; preds = %369
+sw.epilog.i410:                                   ; preds = %if.else.i407
   tail call void @error(ptr noundef nonnull @.str) #7
-  %373 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
-  %374 = icmp eq i32 %373, 0
-  br i1 %374, label %375, label %480
+  %.pre482 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
+  %128 = icmp eq i32 %.pre482, 0
+  br i1 %128, label %if.end4.i411, label %cleanup
 
-375:                                              ; preds = %369, %372
-  %376 = load i32, ptr @lookahead, align 4, !tbaa !5
-  %377 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.2, i32 noundef %376)
+if.end4.i411:                                     ; preds = %if.else.i407, %sw.epilog.i410
+  %129 = load i32, ptr @lookahead, align 4, !tbaa !5
+  %call6.i412 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.2, i32 noundef %129)
   tail call void @error(ptr noundef nonnull @.str.3) #7
-  br label %378
+  br label %match.exit413
 
-378:                                              ; preds = %361, %367, %375
-  %379 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
-  %380 = icmp eq i32 %379, 0
-  br i1 %380, label %381, label %480
+match.exit413:                                    ; preds = %if.then.i402, %if.then2.i404, %if.end4.i411
+  %.pr475 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
+  %tobool191.not = icmp eq i32 %.pr475, 0
+  br i1 %tobool191.not, label %if.end193, label %cleanup
 
-381:                                              ; preds = %378
+if.end193:                                        ; preds = %match.exit413
   store i32 0, ptr @FloatFlag, align 4, !tbaa !5
   tail call void @exprAssg()
-  %382 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
-  %383 = icmp eq i32 %382, 0
-  br i1 %383, label %384, label %480
+  %130 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
+  %tobool194.not = icmp eq i32 %130, 0
+  br i1 %tobool194.not, label %if.end196, label %cleanup
 
-384:                                              ; preds = %381
-  %385 = load i32, ptr @FloatFlag, align 4, !tbaa !5
-  %386 = icmp eq i32 %385, 0
-  br i1 %386, label %387, label %388
+if.end196:                                        ; preds = %if.end193
+  %131 = load i32, ptr @FloatFlag, align 4, !tbaa !5
+  %tobool197.not = icmp eq i32 %131, 0
+  br i1 %tobool197.not, label %if.then198, label %if.end199
 
-387:                                              ; preds = %384
+if.then198:                                       ; preds = %if.end196
   tail call void @emit(i32 noundef 2003, i32 noundef 0, float noundef 0.000000e+00) #7
   store i32 1, ptr @FloatFlag, align 4, !tbaa !5
-  br label %388
+  br label %if.end199
 
-388:                                              ; preds = %387, %384
+if.end199:                                        ; preds = %if.then198, %if.end196
   tail call void @match(i32 noundef 41)
-  %389 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
-  %390 = icmp eq i32 %389, 0
-  br i1 %390, label %391, label %480
+  %132 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
+  %tobool200.not = icmp eq i32 %132, 0
+  br i1 %tobool200.not, label %if.end202, label %cleanup
 
-391:                                              ; preds = %388
+if.end202:                                        ; preds = %if.end199
   tail call void @emit(i32 noundef 2045, i32 noundef 0, float noundef 0.000000e+00) #7
   tail call void @emit(i32 noundef 2001, i32 noundef 1, float noundef 1.000000e+00) #7
-  br label %480
+  br label %cleanup
 
-392:                                              ; preds = %0
+if.then.i416:                                     ; preds = %entry
   store i32 2046, ptr @PreviousLookahead, align 4, !tbaa !5
-  %393 = load i32, ptr @tokenval, align 4, !tbaa !5
-  store i32 %393, ptr @PreviousTokenval, align 4, !tbaa !5
-  %394 = load float, ptr @ftokenval, align 4, !tbaa !11
-  store float %394, ptr @PreviousFtokenval, align 4, !tbaa !11
-  %395 = load i32, ptr @NextLookahead, align 4, !tbaa !5
-  store i32 %395, ptr @lookahead, align 4, !tbaa !5
-  %396 = load i32, ptr @NextTokenval, align 4, !tbaa !5
-  store i32 %396, ptr @tokenval, align 4, !tbaa !5
-  %397 = load float, ptr @NextFtokenval, align 4, !tbaa !11
-  store float %397, ptr @ftokenval, align 4, !tbaa !11
-  %398 = icmp eq i32 %395, 260
-  br i1 %398, label %401, label %399
+  %133 = load i32, ptr @tokenval, align 4, !tbaa !5
+  store i32 %133, ptr @PreviousTokenval, align 4, !tbaa !5
+  %134 = load float, ptr @ftokenval, align 4, !tbaa !11
+  store float %134, ptr @PreviousFtokenval, align 4, !tbaa !11
+  %135 = load i32, ptr @NextLookahead, align 4, !tbaa !5
+  store i32 %135, ptr @lookahead, align 4, !tbaa !5
+  %136 = load i32, ptr @NextTokenval, align 4, !tbaa !5
+  store i32 %136, ptr @tokenval, align 4, !tbaa !5
+  %137 = load float, ptr @NextFtokenval, align 4, !tbaa !11
+  store float %137, ptr @ftokenval, align 4, !tbaa !11
+  %cmp1.not.i415 = icmp eq i32 %135, 260
+  br i1 %cmp1.not.i415, label %match.exit427, label %if.then2.i418
 
-399:                                              ; preds = %392
-  %400 = tail call i32 @lexan() #7
-  store i32 %400, ptr @NextLookahead, align 4, !tbaa !5
-  br label %401
+if.then2.i418:                                    ; preds = %if.then.i416
+  %call.i417 = tail call i32 @lexan() #7
+  store i32 %call.i417, ptr @NextLookahead, align 4, !tbaa !5
+  br label %match.exit427
 
-401:                                              ; preds = %392, %399
-  %402 = phi i32 [ 260, %392 ], [ %400, %399 ]
-  %403 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
-  %404 = icmp eq i32 %403, 0
-  br i1 %404, label %405, label %480
+match.exit427:                                    ; preds = %if.then.i416, %if.then2.i418
+  %138 = phi i32 [ 260, %if.then.i416 ], [ %call.i417, %if.then2.i418 ]
+  %139 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
+  %tobool204.not = icmp eq i32 %139, 0
+  br i1 %tobool204.not, label %if.end206, label %cleanup
 
-405:                                              ; preds = %401
-  %406 = load i32, ptr @lookahead, align 4, !tbaa !5
-  %407 = icmp eq i32 %406, 40
-  br i1 %407, label %408, label %416
+if.end206:                                        ; preds = %match.exit427
+  %140 = load i32, ptr @lookahead, align 4, !tbaa !5
+  %cmp.i428 = icmp eq i32 %140, 40
+  br i1 %cmp.i428, label %if.then.i430, label %if.else.i435
 
-408:                                              ; preds = %405
+if.then.i430:                                     ; preds = %if.end206
   store i32 40, ptr @PreviousLookahead, align 4, !tbaa !5
-  %409 = load i32, ptr @tokenval, align 4, !tbaa !5
-  store i32 %409, ptr @PreviousTokenval, align 4, !tbaa !5
-  %410 = load float, ptr @ftokenval, align 4, !tbaa !11
-  store float %410, ptr @PreviousFtokenval, align 4, !tbaa !11
-  store i32 %402, ptr @lookahead, align 4, !tbaa !5
-  %411 = load i32, ptr @NextTokenval, align 4, !tbaa !5
-  store i32 %411, ptr @tokenval, align 4, !tbaa !5
-  %412 = load float, ptr @NextFtokenval, align 4, !tbaa !11
-  store float %412, ptr @ftokenval, align 4, !tbaa !11
-  %413 = icmp eq i32 %402, 260
-  br i1 %413, label %425, label %414
+  %141 = load i32, ptr @tokenval, align 4, !tbaa !5
+  store i32 %141, ptr @PreviousTokenval, align 4, !tbaa !5
+  %142 = load float, ptr @ftokenval, align 4, !tbaa !11
+  store float %142, ptr @PreviousFtokenval, align 4, !tbaa !11
+  store i32 %138, ptr @lookahead, align 4, !tbaa !5
+  %143 = load i32, ptr @NextTokenval, align 4, !tbaa !5
+  store i32 %143, ptr @tokenval, align 4, !tbaa !5
+  %144 = load float, ptr @NextFtokenval, align 4, !tbaa !11
+  store float %144, ptr @ftokenval, align 4, !tbaa !11
+  %cmp1.not.i429 = icmp eq i32 %138, 260
+  br i1 %cmp1.not.i429, label %match.exit441, label %if.then2.i432
 
-414:                                              ; preds = %408
-  %415 = tail call i32 @lexan() #7
-  store i32 %415, ptr @NextLookahead, align 4, !tbaa !5
-  br label %425
+if.then2.i432:                                    ; preds = %if.then.i430
+  %call.i431 = tail call i32 @lexan() #7
+  store i32 %call.i431, ptr @NextLookahead, align 4, !tbaa !5
+  br label %match.exit441
 
-416:                                              ; preds = %405
-  %417 = add i32 %406, -2007
-  %418 = icmp ult i32 %417, 2
-  br i1 %418, label %419, label %422
+if.else.i435:                                     ; preds = %if.end206
+  %.off.i433 = add i32 %140, -2007
+  %switch.i434 = icmp ult i32 %.off.i433, 2
+  br i1 %switch.i434, label %sw.epilog.i438, label %if.end4.i439
 
-419:                                              ; preds = %416
+sw.epilog.i438:                                   ; preds = %if.else.i435
   tail call void @error(ptr noundef nonnull @.str) #7
-  %420 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
-  %421 = icmp eq i32 %420, 0
-  br i1 %421, label %422, label %480
+  %.pre481 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
+  %145 = icmp eq i32 %.pre481, 0
+  br i1 %145, label %if.end4.i439, label %cleanup
 
-422:                                              ; preds = %416, %419
-  %423 = load i32, ptr @lookahead, align 4, !tbaa !5
-  %424 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.2, i32 noundef %423)
+if.end4.i439:                                     ; preds = %if.else.i435, %sw.epilog.i438
+  %146 = load i32, ptr @lookahead, align 4, !tbaa !5
+  %call6.i440 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.2, i32 noundef %146)
   tail call void @error(ptr noundef nonnull @.str.3) #7
-  br label %425
+  br label %match.exit441
 
-425:                                              ; preds = %408, %414, %422
-  %426 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
-  %427 = icmp eq i32 %426, 0
-  br i1 %427, label %428, label %480
+match.exit441:                                    ; preds = %if.then.i430, %if.then2.i432, %if.end4.i439
+  %.pr477 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
+  %tobool207.not = icmp eq i32 %.pr477, 0
+  br i1 %tobool207.not, label %if.end209, label %cleanup
 
-428:                                              ; preds = %425
+if.end209:                                        ; preds = %match.exit441
   store i32 0, ptr @FloatFlag, align 4, !tbaa !5
   tail call void @exprAssg()
-  %429 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
-  %430 = icmp eq i32 %429, 0
-  br i1 %430, label %431, label %480
+  %147 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
+  %tobool210.not = icmp eq i32 %147, 0
+  br i1 %tobool210.not, label %if.end212, label %cleanup
 
-431:                                              ; preds = %428
-  %432 = load i32, ptr @FloatFlag, align 4, !tbaa !5
-  %433 = icmp eq i32 %432, 0
-  br i1 %433, label %435, label %434
+if.end212:                                        ; preds = %if.end209
+  %148 = load i32, ptr @FloatFlag, align 4, !tbaa !5
+  %tobool213.not = icmp eq i32 %148, 0
+  br i1 %tobool213.not, label %if.end215, label %if.then214
 
-434:                                              ; preds = %431
+if.then214:                                       ; preds = %if.end212
   tail call void @emit(i32 noundef 2002, i32 noundef 0, float noundef 0.000000e+00) #7
   store i32 0, ptr @FloatFlag, align 4, !tbaa !5
-  br label %435
+  br label %if.end215
 
-435:                                              ; preds = %434, %431
+if.end215:                                        ; preds = %if.then214, %if.end212
   tail call void @match(i32 noundef 41)
-  %436 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
-  %437 = icmp eq i32 %436, 0
-  br i1 %437, label %438, label %480
+  %149 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
+  %tobool216.not = icmp eq i32 %149, 0
+  br i1 %tobool216.not, label %if.end218, label %cleanup
 
-438:                                              ; preds = %435
+if.end218:                                        ; preds = %if.end215
   tail call void @emit(i32 noundef 2046, i32 noundef 0, float noundef 0.000000e+00) #7
   tail call void @emit(i32 noundef 256, i32 noundef 1, float noundef 0.000000e+00) #7
-  br label %480
+  br label %cleanup
 
-439:                                              ; preds = %0
+if.then.i444:                                     ; preds = %entry
   store i32 2011, ptr @PreviousLookahead, align 4, !tbaa !5
-  %440 = load i32, ptr @tokenval, align 4, !tbaa !5
-  store i32 %440, ptr @PreviousTokenval, align 4, !tbaa !5
-  %441 = load float, ptr @ftokenval, align 4, !tbaa !11
-  store float %441, ptr @PreviousFtokenval, align 4, !tbaa !11
-  %442 = load i32, ptr @NextLookahead, align 4, !tbaa !5
-  store i32 %442, ptr @lookahead, align 4, !tbaa !5
-  %443 = load i32, ptr @NextTokenval, align 4, !tbaa !5
-  store i32 %443, ptr @tokenval, align 4, !tbaa !5
-  %444 = load float, ptr @NextFtokenval, align 4, !tbaa !11
-  store float %444, ptr @ftokenval, align 4, !tbaa !11
-  %445 = icmp eq i32 %442, 260
-  br i1 %445, label %448, label %446
+  %150 = load i32, ptr @tokenval, align 4, !tbaa !5
+  store i32 %150, ptr @PreviousTokenval, align 4, !tbaa !5
+  %151 = load float, ptr @ftokenval, align 4, !tbaa !11
+  store float %151, ptr @PreviousFtokenval, align 4, !tbaa !11
+  %152 = load i32, ptr @NextLookahead, align 4, !tbaa !5
+  store i32 %152, ptr @lookahead, align 4, !tbaa !5
+  %153 = load i32, ptr @NextTokenval, align 4, !tbaa !5
+  store i32 %153, ptr @tokenval, align 4, !tbaa !5
+  %154 = load float, ptr @NextFtokenval, align 4, !tbaa !11
+  store float %154, ptr @ftokenval, align 4, !tbaa !11
+  %cmp1.not.i443 = icmp eq i32 %152, 260
+  br i1 %cmp1.not.i443, label %match.exit455, label %if.then2.i446
 
-446:                                              ; preds = %439
-  %447 = tail call i32 @lexan() #7
-  store i32 %447, ptr @NextLookahead, align 4, !tbaa !5
-  br label %448
+if.then2.i446:                                    ; preds = %if.then.i444
+  %call.i445 = tail call i32 @lexan() #7
+  store i32 %call.i445, ptr @NextLookahead, align 4, !tbaa !5
+  br label %match.exit455
 
-448:                                              ; preds = %439, %446
-  %449 = phi i32 [ 260, %439 ], [ %447, %446 ]
-  %450 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
-  %451 = icmp eq i32 %450, 0
-  br i1 %451, label %452, label %480
+match.exit455:                                    ; preds = %if.then.i444, %if.then2.i446
+  %155 = phi i32 [ 260, %if.then.i444 ], [ %call.i445, %if.then2.i446 ]
+  %156 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
+  %tobool220.not = icmp eq i32 %156, 0
+  br i1 %tobool220.not, label %if.end222, label %cleanup
 
-452:                                              ; preds = %448
-  %453 = load i32, ptr @lookahead, align 4, !tbaa !5
-  %454 = icmp eq i32 %453, 40
-  br i1 %454, label %455, label %463
+if.end222:                                        ; preds = %match.exit455
+  %157 = load i32, ptr @lookahead, align 4, !tbaa !5
+  %cmp.i456 = icmp eq i32 %157, 40
+  br i1 %cmp.i456, label %if.then.i458, label %if.else.i463
 
-455:                                              ; preds = %452
+if.then.i458:                                     ; preds = %if.end222
   store i32 40, ptr @PreviousLookahead, align 4, !tbaa !5
-  %456 = load i32, ptr @tokenval, align 4, !tbaa !5
-  store i32 %456, ptr @PreviousTokenval, align 4, !tbaa !5
-  %457 = load float, ptr @ftokenval, align 4, !tbaa !11
-  store float %457, ptr @PreviousFtokenval, align 4, !tbaa !11
-  store i32 %449, ptr @lookahead, align 4, !tbaa !5
-  %458 = load i32, ptr @NextTokenval, align 4, !tbaa !5
-  store i32 %458, ptr @tokenval, align 4, !tbaa !5
-  %459 = load float, ptr @NextFtokenval, align 4, !tbaa !11
-  store float %459, ptr @ftokenval, align 4, !tbaa !11
-  %460 = icmp eq i32 %449, 260
-  br i1 %460, label %472, label %461
+  %158 = load i32, ptr @tokenval, align 4, !tbaa !5
+  store i32 %158, ptr @PreviousTokenval, align 4, !tbaa !5
+  %159 = load float, ptr @ftokenval, align 4, !tbaa !11
+  store float %159, ptr @PreviousFtokenval, align 4, !tbaa !11
+  store i32 %155, ptr @lookahead, align 4, !tbaa !5
+  %160 = load i32, ptr @NextTokenval, align 4, !tbaa !5
+  store i32 %160, ptr @tokenval, align 4, !tbaa !5
+  %161 = load float, ptr @NextFtokenval, align 4, !tbaa !11
+  store float %161, ptr @ftokenval, align 4, !tbaa !11
+  %cmp1.not.i457 = icmp eq i32 %155, 260
+  br i1 %cmp1.not.i457, label %match.exit469, label %if.then2.i460
 
-461:                                              ; preds = %455
-  %462 = tail call i32 @lexan() #7
-  store i32 %462, ptr @NextLookahead, align 4, !tbaa !5
-  br label %472
+if.then2.i460:                                    ; preds = %if.then.i458
+  %call.i459 = tail call i32 @lexan() #7
+  store i32 %call.i459, ptr @NextLookahead, align 4, !tbaa !5
+  br label %match.exit469
 
-463:                                              ; preds = %452
-  %464 = add i32 %453, -2007
-  %465 = icmp ult i32 %464, 2
-  br i1 %465, label %466, label %469
+if.else.i463:                                     ; preds = %if.end222
+  %.off.i461 = add i32 %157, -2007
+  %switch.i462 = icmp ult i32 %.off.i461, 2
+  br i1 %switch.i462, label %sw.epilog.i466, label %if.end4.i467
 
-466:                                              ; preds = %463
+sw.epilog.i466:                                   ; preds = %if.else.i463
   tail call void @error(ptr noundef nonnull @.str) #7
-  %467 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
-  %468 = icmp eq i32 %467, 0
-  br i1 %468, label %469, label %480
+  %.pre = load i32, ptr @ErrorFlag, align 4, !tbaa !5
+  %162 = icmp eq i32 %.pre, 0
+  br i1 %162, label %if.end4.i467, label %cleanup
 
-469:                                              ; preds = %463, %466
-  %470 = load i32, ptr @lookahead, align 4, !tbaa !5
-  %471 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.2, i32 noundef %470)
+if.end4.i467:                                     ; preds = %if.else.i463, %sw.epilog.i466
+  %163 = load i32, ptr @lookahead, align 4, !tbaa !5
+  %call6.i468 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.2, i32 noundef %163)
   tail call void @error(ptr noundef nonnull @.str.3) #7
-  br label %472
+  br label %match.exit469
 
-472:                                              ; preds = %455, %461, %469
-  %473 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
-  %474 = icmp eq i32 %473, 0
-  br i1 %474, label %475, label %480
+match.exit469:                                    ; preds = %if.then.i458, %if.then2.i460, %if.end4.i467
+  %.pr479 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
+  %tobool223.not = icmp eq i32 %.pr479, 0
+  br i1 %tobool223.not, label %if.end225, label %cleanup
 
-475:                                              ; preds = %472
+if.end225:                                        ; preds = %match.exit469
   tail call void @match(i32 noundef 41)
-  %476 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
-  %477 = icmp eq i32 %476, 0
-  br i1 %477, label %478, label %480
+  %164 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
+  %tobool226.not = icmp eq i32 %164, 0
+  br i1 %tobool226.not, label %if.end228, label %cleanup
 
-478:                                              ; preds = %475
+if.end228:                                        ; preds = %if.end225
   tail call void @emit(i32 noundef 2011, i32 noundef 0, float noundef 0.000000e+00) #7
   tail call void @emit(i32 noundef 256, i32 noundef 1, float noundef 0.000000e+00) #7
-  br label %480
+  br label %cleanup
 
-479:                                              ; preds = %0
+sw.default229:                                    ; preds = %entry
   tail call void @error(ptr noundef nonnull @.str.19) #7
-  br label %480
+  br label %cleanup
 
-480:                                              ; preds = %239, %233, %193, %187, %164, %104, %76, %49, %466, %419, %372, %332, %292, %219, %98, %70, %475, %472, %448, %435, %428, %425, %401, %388, %381, %378, %354, %341, %338, %314, %301, %298, %274, %263, %264, %257, %254, %225, %199, %180, %155, %128, %125, %122, %112, %46, %43, %40, %42, %36, %33, %30, %27, %29, %23, %20, %17, %12, %179, %479, %478, %438, %391, %344, %304, %232, %174, %144, %136
-  %481 = phi i32 [ 0, %479 ], [ 0, %478 ], [ 0, %438 ], [ 1, %391 ], [ 0, %344 ], [ 1, %304 ], [ -99, %232 ], [ -99, %136 ], [ -99, %144 ], [ -99, %179 ], [ -99, %174 ], [ -99, %12 ], [ -99, %17 ], [ -99, %20 ], [ -99, %23 ], [ 0, %29 ], [ 0, %27 ], [ -99, %30 ], [ -99, %33 ], [ -99, %36 ], [ 1, %42 ], [ 1, %40 ], [ -99, %43 ], [ -99, %46 ], [ -99, %112 ], [ -99, %122 ], [ -99, %125 ], [ -99, %128 ], [ 0, %155 ], [ -99, %180 ], [ -99, %199 ], [ -99, %225 ], [ -99, %254 ], [ -99, %257 ], [ 0, %264 ], [ %258, %263 ], [ -99, %274 ], [ -99, %298 ], [ -99, %301 ], [ -99, %314 ], [ -99, %338 ], [ -99, %341 ], [ -99, %354 ], [ -99, %378 ], [ -99, %381 ], [ -99, %388 ], [ -99, %401 ], [ -99, %425 ], [ -99, %428 ], [ -99, %435 ], [ -99, %448 ], [ -99, %472 ], [ -99, %475 ], [ -99, %70 ], [ -99, %98 ], [ -99, %219 ], [ -99, %292 ], [ -99, %332 ], [ -99, %372 ], [ -99, %419 ], [ -99, %466 ], [ %52, %49 ], [ %79, %76 ], [ %107, %104 ], [ %168, %164 ], [ %192, %187 ], [ %198, %193 ], [ %238, %233 ], [ %244, %239 ]
-  call void @llvm.lifetime.end.p0(i64 30, ptr nonnull %1) #7
-  ret i32 %481
+cleanup:                                          ; preds = %sw.epilog.i466, %sw.epilog.i438, %sw.epilog.i410, %sw.epilog.i382, %sw.epilog.i354, %sw.epilog.i312, %if.end225, %match.exit469, %match.exit455, %if.end215, %if.end209, %match.exit441, %match.exit427, %if.end199, %if.end193, %match.exit413, %match.exit399, %if.end183, %match.exit385, %match.exit371, %if.end173, %match.exit357, %match.exit343, %if.then164, %if.else165, %if.end158, %match.exit329, %if.else148, %if.then141, %match.exit315, %sw.bb125, %if.else118, %if.then111, %if.end106, %if.end81, %if.then86, %if.end55, %if.end52, %if.end49, %match.exit301, %match.exit287, %match.exit273, %if.end33, %if.end30, %sw.default, %if.end24, %if.then26, %if.end20, %if.end17, %sw.bb14, %if.end10, %if.then12, %if.end7, %if.end4, %sw.bb1, %match.exit, %if.else104, %sw.default229, %if.end228, %if.end218, %if.end202, %if.end186, %if.end176, %if.else137, %if.then96, %if.then65, %if.then60
+  %retval.0 = phi i32 [ 0, %sw.default229 ], [ 0, %if.end228 ], [ 0, %if.end218 ], [ 1, %if.end202 ], [ 0, %if.end186 ], [ 1, %if.end176 ], [ -99, %if.else137 ], [ -99, %if.then60 ], [ -99, %if.then65 ], [ -99, %if.else104 ], [ -99, %if.then96 ], [ -99, %match.exit ], [ -99, %sw.bb1 ], [ -99, %if.end4 ], [ -99, %if.end7 ], [ 0, %if.then12 ], [ 0, %if.end10 ], [ -99, %sw.bb14 ], [ -99, %if.end17 ], [ -99, %if.end20 ], [ 1, %if.then26 ], [ 1, %if.end24 ], [ -99, %sw.default ], [ -99, %if.end30 ], [ %., %if.end33 ], [ %.253, %match.exit273 ], [ %.254, %match.exit287 ], [ -99, %match.exit301 ], [ -99, %if.end49 ], [ -99, %if.end52 ], [ -99, %if.end55 ], [ %.255, %if.then86 ], [ 0, %if.end81 ], [ -99, %if.end106 ], [ %.256, %if.then111 ], [ %.257, %if.else118 ], [ -99, %sw.bb125 ], [ -99, %match.exit315 ], [ %.258, %if.then141 ], [ %.259, %if.else148 ], [ -99, %match.exit329 ], [ -99, %if.end158 ], [ 0, %if.else165 ], [ %call159, %if.then164 ], [ -99, %match.exit343 ], [ -99, %match.exit357 ], [ -99, %if.end173 ], [ -99, %match.exit371 ], [ -99, %match.exit385 ], [ -99, %if.end183 ], [ -99, %match.exit399 ], [ -99, %match.exit413 ], [ -99, %if.end193 ], [ -99, %if.end199 ], [ -99, %match.exit427 ], [ -99, %match.exit441 ], [ -99, %if.end209 ], [ -99, %if.end215 ], [ -99, %match.exit455 ], [ -99, %match.exit469 ], [ -99, %if.end225 ], [ -99, %sw.epilog.i312 ], [ -99, %sw.epilog.i354 ], [ -99, %sw.epilog.i382 ], [ -99, %sw.epilog.i410 ], [ -99, %sw.epilog.i438 ], [ -99, %sw.epilog.i466 ]
+  call void @llvm.lifetime.end.p0(i64 30, ptr nonnull %templexbuf) #7
+  ret i32 %retval.0
 }
 
 ; Function Attrs: nounwind uwtable
-define dso_local void @match(i32 noundef %0) local_unnamed_addr #0 {
-  %2 = load i32, ptr @lookahead, align 4, !tbaa !5
-  %3 = icmp eq i32 %2, %0
-  br i1 %3, label %4, label %13
+define dso_local void @match(i32 noundef %t) local_unnamed_addr #0 {
+entry:
+  %0 = load i32, ptr @lookahead, align 4, !tbaa !5
+  %cmp = icmp eq i32 %0, %t
+  br i1 %cmp, label %if.then, label %if.else
 
-4:                                                ; preds = %1
-  store i32 %0, ptr @PreviousLookahead, align 4, !tbaa !5
-  %5 = load i32, ptr @tokenval, align 4, !tbaa !5
-  store i32 %5, ptr @PreviousTokenval, align 4, !tbaa !5
-  %6 = load float, ptr @ftokenval, align 4, !tbaa !11
-  store float %6, ptr @PreviousFtokenval, align 4, !tbaa !11
-  %7 = load i32, ptr @NextLookahead, align 4, !tbaa !5
-  store i32 %7, ptr @lookahead, align 4, !tbaa !5
-  %8 = load i32, ptr @NextTokenval, align 4, !tbaa !5
-  store i32 %8, ptr @tokenval, align 4, !tbaa !5
-  %9 = load float, ptr @NextFtokenval, align 4, !tbaa !11
-  store float %9, ptr @ftokenval, align 4, !tbaa !11
-  %10 = icmp eq i32 %7, 260
-  br i1 %10, label %26, label %11
+if.then:                                          ; preds = %entry
+  store i32 %t, ptr @PreviousLookahead, align 4, !tbaa !5
+  %1 = load i32, ptr @tokenval, align 4, !tbaa !5
+  store i32 %1, ptr @PreviousTokenval, align 4, !tbaa !5
+  %2 = load float, ptr @ftokenval, align 4, !tbaa !11
+  store float %2, ptr @PreviousFtokenval, align 4, !tbaa !11
+  %3 = load i32, ptr @NextLookahead, align 4, !tbaa !5
+  store i32 %3, ptr @lookahead, align 4, !tbaa !5
+  %4 = load i32, ptr @NextTokenval, align 4, !tbaa !5
+  store i32 %4, ptr @tokenval, align 4, !tbaa !5
+  %5 = load float, ptr @NextFtokenval, align 4, !tbaa !11
+  store float %5, ptr @ftokenval, align 4, !tbaa !11
+  %cmp1.not = icmp eq i32 %3, 260
+  br i1 %cmp1.not, label %if.end8, label %if.then2
 
-11:                                               ; preds = %4
-  %12 = tail call i32 @lexan() #7
-  store i32 %12, ptr @NextLookahead, align 4, !tbaa !5
-  br label %26
+if.then2:                                         ; preds = %if.then
+  %call = tail call i32 @lexan() #7
+  store i32 %call, ptr @NextLookahead, align 4, !tbaa !5
+  br label %if.end8
 
-13:                                               ; preds = %1
-  %14 = add i32 %2, -2007
-  %15 = icmp ult i32 %14, 2
-  br i1 %15, label %16, label %17
+if.else:                                          ; preds = %entry
+  %.off = add i32 %0, -2007
+  %switch = icmp ult i32 %.off, 2
+  br i1 %switch, label %sw.bb, label %sw.epilog
 
-16:                                               ; preds = %13
+sw.bb:                                            ; preds = %if.else
   tail call void @error(ptr noundef nonnull @.str) #7
-  br label %17
+  br label %sw.epilog
 
-17:                                               ; preds = %13, %16
-  %18 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
-  %19 = icmp eq i32 %18, 0
-  br i1 %19, label %20, label %26
+sw.epilog:                                        ; preds = %if.else, %sw.bb
+  %6 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
+  %tobool.not = icmp eq i32 %6, 0
+  br i1 %tobool.not, label %if.end4, label %if.end8
 
-20:                                               ; preds = %17
-  %21 = icmp eq i32 %0, 41
-  br i1 %21, label %22, label %23
+if.end4:                                          ; preds = %sw.epilog
+  %cond = icmp eq i32 %t, 41
+  br i1 %cond, label %sw.bb5, label %sw.default
 
-22:                                               ; preds = %20
+sw.bb5:                                           ; preds = %if.end4
   tail call void @error(ptr noundef nonnull @.str.1) #7
-  br label %26
+  br label %if.end8
 
-23:                                               ; preds = %20
-  %24 = load i32, ptr @lookahead, align 4, !tbaa !5
-  %25 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.2, i32 noundef %24)
+sw.default:                                       ; preds = %if.end4
+  %7 = load i32, ptr @lookahead, align 4, !tbaa !5
+  %call6 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.2, i32 noundef %7)
   tail call void @error(ptr noundef nonnull @.str.3) #7
-  br label %26
+  br label %if.end8
 
-26:                                               ; preds = %22, %23, %17, %4, %11
+if.end8:                                          ; preds = %sw.bb5, %sw.default, %sw.epilog, %if.then, %if.then2
   ret void
 }
 
@@ -1211,1052 +1214,121 @@ declare noundef i32 @printf(ptr nocapture noundef readonly, ...) local_unnamed_a
 
 ; Function Attrs: nounwind uwtable
 define dso_local i32 @expr() local_unnamed_addr #0 {
-  %1 = tail call i32 @term()
-  %2 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
-  %3 = icmp eq i32 %2, 0
-  br i1 %3, label %4, label %35
+entry:
+  %call = tail call i32 @term()
+  %0 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
+  %tobool.not = icmp eq i32 %0, 0
+  br i1 %tobool.not, label %while.cond, label %cleanup
 
-4:                                                ; preds = %0, %28
-  %5 = phi i32 [ %30, %28 ], [ %1, %0 ]
-  %6 = load i32, ptr @lookahead, align 4, !tbaa !5
-  %7 = icmp eq i32 %6, 43
-  switch i32 %6, label %31 [
-    i32 45, label %8
-    i32 43, label %8
+while.cond:                                       ; preds = %entry, %if.end35
+  %leftExpr.0 = phi i32 [ %leftExpr.1, %if.end35 ], [ %call, %entry ]
+  %1 = load i32, ptr @lookahead, align 4
+  %cmp = icmp eq i32 %1, 43
+  switch i32 %1, label %while.end [
+    i32 45, label %while.body
+    i32 43, label %while.body
   ]
 
-8:                                                ; preds = %4, %4
-  tail call void @match(i32 noundef %6)
-  %9 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
-  %10 = icmp eq i32 %9, 0
-  br i1 %10, label %11, label %35
+while.body:                                       ; preds = %while.cond, %while.cond
+  tail call void @match(i32 noundef %1)
+  %2 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
+  %tobool2.not = icmp eq i32 %2, 0
+  br i1 %tobool2.not, label %if.end4, label %cleanup
 
-11:                                               ; preds = %8
-  %12 = tail call i32 @term()
-  %13 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
-  %14 = icmp eq i32 %13, 0
-  br i1 %14, label %15, label %35
+if.end4:                                          ; preds = %while.body
+  %call5 = tail call i32 @term()
+  %3 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
+  %tobool6.not = icmp eq i32 %3, 0
+  br i1 %tobool6.not, label %if.end8, label %cleanup
 
-15:                                               ; preds = %11
-  %16 = icmp eq i32 %5, %12
-  %17 = icmp eq i32 %5, 0
-  br i1 %16, label %18, label %23
+if.end8:                                          ; preds = %if.end4
+  %cmp9 = icmp eq i32 %leftExpr.0, %call5
+  %tobool11.not = icmp eq i32 %leftExpr.0, 0
+  br i1 %cmp9, label %if.then10, label %if.else22
 
-18:                                               ; preds = %15
-  br i1 %17, label %21, label %19
+if.then10:                                        ; preds = %if.end8
+  br i1 %tobool11.not, label %if.else16, label %if.then12
 
-19:                                               ; preds = %18
-  %20 = select i1 %7, i32 2030, i32 2032
-  br label %28
+if.then12:                                        ; preds = %if.then10
+  %. = select i1 %cmp, i32 2030, i32 2032
+  br label %if.end35
 
-21:                                               ; preds = %18
-  %22 = select i1 %7, i32 2029, i32 2031
-  br label %28
+if.else16:                                        ; preds = %if.then10
+  %.50 = select i1 %cmp, i32 2029, i32 2031
+  br label %if.end35
 
-23:                                               ; preds = %15
-  br i1 %17, label %26, label %24
+if.else22:                                        ; preds = %if.end8
+  br i1 %tobool11.not, label %if.else29, label %if.then24
 
-24:                                               ; preds = %23
+if.then24:                                        ; preds = %if.else22
   tail call void @emit(i32 noundef 2003, i32 noundef 0, float noundef 0.000000e+00) #7
-  %25 = select i1 %7, i32 2030, i32 2032
-  br label %28
+  %.51 = select i1 %cmp, i32 2030, i32 2032
+  br label %if.end35
 
-26:                                               ; preds = %23
+if.else29:                                        ; preds = %if.else22
   tail call void @emit(i32 noundef 256, i32 noundef 1, float noundef 0.000000e+00) #7
   tail call void @emit(i32 noundef 2028, i32 noundef 0, float noundef 0.000000e+00) #7
   tail call void @emit(i32 noundef 2003, i32 noundef 0, float noundef 0.000000e+00) #7
   tail call void @emit(i32 noundef 256, i32 noundef 1, float noundef 0.000000e+00) #7
   tail call void @emit(i32 noundef 2023, i32 noundef 0, float noundef 0.000000e+00) #7
-  %27 = select i1 %7, i32 2030, i32 2032
-  br label %28
+  %.52 = select i1 %cmp, i32 2030, i32 2032
+  br label %if.end35
 
-28:                                               ; preds = %26, %24, %21, %19
-  %29 = phi i32 [ %20, %19 ], [ %22, %21 ], [ %25, %24 ], [ %27, %26 ]
-  %30 = phi i32 [ 1, %19 ], [ 0, %21 ], [ 1, %24 ], [ 1, %26 ]
-  tail call void @emit(i32 noundef %29, i32 noundef 0, float noundef 0.000000e+00) #7
-  br label %4, !llvm.loop !18
+if.end35:                                         ; preds = %if.else29, %if.then24, %if.else16, %if.then12
+  %.sink = phi i32 [ %., %if.then12 ], [ %.50, %if.else16 ], [ %.51, %if.then24 ], [ %.52, %if.else29 ]
+  %leftExpr.1 = phi i32 [ 1, %if.then12 ], [ 0, %if.else16 ], [ 1, %if.then24 ], [ 1, %if.else29 ]
+  tail call void @emit(i32 noundef %.sink, i32 noundef 0, float noundef 0.000000e+00) #7
+  br label %while.cond, !llvm.loop !18
 
-31:                                               ; preds = %4
-  %32 = load i32, ptr @FloatFlag, align 4, !tbaa !5
-  %33 = icmp eq i32 %32, 0
-  %34 = select i1 %33, i32 %5, i32 1
-  br label %35
+while.end:                                        ; preds = %while.cond
+  %4 = load i32, ptr @FloatFlag, align 4, !tbaa !5
+  %tobool36.not = icmp eq i32 %4, 0
+  %leftExpr.0. = select i1 %tobool36.not, i32 %leftExpr.0, i32 1
+  br label %cleanup
 
-35:                                               ; preds = %11, %8, %31, %0
-  %36 = phi i32 [ -99, %0 ], [ %34, %31 ], [ -99, %8 ], [ -99, %11 ]
-  ret i32 %36
+cleanup:                                          ; preds = %if.end4, %while.body, %while.end, %entry
+  %retval.0 = phi i32 [ -99, %entry ], [ %leftExpr.0., %while.end ], [ -99, %while.body ], [ -99, %if.end4 ]
+  ret i32 %retval.0
 }
 
 ; Function Attrs: nounwind uwtable
 define dso_local void @PushArrayCellAddr() local_unnamed_addr #0 {
-  %1 = load i32, ptr @ArrayParsed, align 4, !tbaa !5
-  %2 = icmp eq i32 %1, 0
-  br i1 %2, label %3, label %74
+entry:
+  %0 = load i32, ptr @ArrayParsed, align 4, !tbaa !5
+  %tobool.not = icmp eq i32 %0, 0
+  br i1 %tobool.not, label %if.then, label %if.else21
 
-3:                                                ; preds = %0
+if.then:                                          ; preds = %entry
   store i32 1, ptr @ArrayParsed, align 4, !tbaa !5
-  %4 = load i32, ptr @tokenval, align 4, !tbaa !5
-  %5 = load i32, ptr @LocalIndex, align 4, !tbaa !5
-  %6 = icmp eq i32 %5, 0
-  br i1 %6, label %8, label %7
-
-7:                                                ; preds = %3
-  tail call void @emit(i32 noundef 2049, i32 noundef %5, float noundef 0.000000e+00) #7
-  br label %13
-
-8:                                                ; preds = %3
-  %9 = load i32, ptr @GlobalIndex, align 4, !tbaa !5
-  %10 = icmp eq i32 %9, 0
-  br i1 %10, label %12, label %11
-
-11:                                               ; preds = %8
-  tail call void @emit(i32 noundef 2050, i32 noundef %9, float noundef 0.000000e+00) #7
-  br label %13
-
-12:                                               ; preds = %8
-  tail call void @error(ptr noundef nonnull @.str.4) #7
-  br label %75
-
-13:                                               ; preds = %11, %7
-  %14 = load i32, ptr @lookahead, align 4, !tbaa !5
-  %15 = icmp eq i32 %14, 2006
-  br i1 %15, label %16, label %25
-
-16:                                               ; preds = %13
-  store i32 2006, ptr @PreviousLookahead, align 4, !tbaa !5
-  %17 = load i32, ptr @tokenval, align 4, !tbaa !5
-  store i32 %17, ptr @PreviousTokenval, align 4, !tbaa !5
-  %18 = load float, ptr @ftokenval, align 4, !tbaa !11
-  store float %18, ptr @PreviousFtokenval, align 4, !tbaa !11
-  %19 = load i32, ptr @NextLookahead, align 4, !tbaa !5
-  store i32 %19, ptr @lookahead, align 4, !tbaa !5
-  %20 = load i32, ptr @NextTokenval, align 4, !tbaa !5
-  store i32 %20, ptr @tokenval, align 4, !tbaa !5
-  %21 = load float, ptr @NextFtokenval, align 4, !tbaa !11
-  store float %21, ptr @ftokenval, align 4, !tbaa !11
-  %22 = icmp eq i32 %19, 260
-  br i1 %22, label %35, label %23
-
-23:                                               ; preds = %16
-  %24 = tail call i32 @lexan() #7
-  store i32 %24, ptr @NextLookahead, align 4, !tbaa !5
-  br label %35
-
-25:                                               ; preds = %13
-  %26 = add i32 %14, -2007
-  %27 = icmp ult i32 %26, 2
-  br i1 %27, label %28, label %29
-
-28:                                               ; preds = %25
-  tail call void @error(ptr noundef nonnull @.str) #7
-  br label %29
-
-29:                                               ; preds = %28, %25
-  %30 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
-  %31 = icmp eq i32 %30, 0
-  br i1 %31, label %32, label %75
-
-32:                                               ; preds = %29
-  %33 = load i32, ptr @lookahead, align 4, !tbaa !5
-  %34 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.2, i32 noundef %33)
-  tail call void @error(ptr noundef nonnull @.str.3) #7
-  br label %35
-
-35:                                               ; preds = %16, %23, %32
-  %36 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
-  %37 = icmp eq i32 %36, 0
-  br i1 %37, label %38, label %75
-
-38:                                               ; preds = %35
-  %39 = load i32, ptr @lookahead, align 4, !tbaa !5
-  %40 = icmp eq i32 %39, 91
-  br i1 %40, label %41, label %50
-
-41:                                               ; preds = %38
-  store i32 91, ptr @PreviousLookahead, align 4, !tbaa !5
-  %42 = load i32, ptr @tokenval, align 4, !tbaa !5
-  store i32 %42, ptr @PreviousTokenval, align 4, !tbaa !5
-  %43 = load float, ptr @ftokenval, align 4, !tbaa !11
-  store float %43, ptr @PreviousFtokenval, align 4, !tbaa !11
-  %44 = load i32, ptr @NextLookahead, align 4, !tbaa !5
-  store i32 %44, ptr @lookahead, align 4, !tbaa !5
-  %45 = load i32, ptr @NextTokenval, align 4, !tbaa !5
-  store i32 %45, ptr @tokenval, align 4, !tbaa !5
-  %46 = load float, ptr @NextFtokenval, align 4, !tbaa !11
-  store float %46, ptr @ftokenval, align 4, !tbaa !11
-  %47 = icmp eq i32 %44, 260
-  br i1 %47, label %59, label %48
-
-48:                                               ; preds = %41
-  %49 = tail call i32 @lexan() #7
-  store i32 %49, ptr @NextLookahead, align 4, !tbaa !5
-  br label %59
-
-50:                                               ; preds = %38
-  %51 = add i32 %39, -2007
-  %52 = icmp ult i32 %51, 2
-  br i1 %52, label %53, label %56
-
-53:                                               ; preds = %50
-  tail call void @error(ptr noundef nonnull @.str) #7
-  %54 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
-  %55 = icmp eq i32 %54, 0
-  br i1 %55, label %56, label %75
-
-56:                                               ; preds = %50, %53
-  %57 = load i32, ptr @lookahead, align 4, !tbaa !5
-  %58 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.2, i32 noundef %57)
-  tail call void @error(ptr noundef nonnull @.str.3) #7
-  br label %59
-
-59:                                               ; preds = %41, %48, %56
-  %60 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
-  %61 = icmp eq i32 %60, 0
-  br i1 %61, label %62, label %75
-
-62:                                               ; preds = %59
-  store i32 0, ptr @FloatFlag, align 4, !tbaa !5
-  %63 = tail call i32 @expr()
-  store i32 %63, ptr @FloatFlag, align 4, !tbaa !5
-  %64 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
-  %65 = icmp eq i32 %64, 0
-  br i1 %65, label %66, label %75
-
-66:                                               ; preds = %62
-  %67 = load i32, ptr @lookahead, align 4, !tbaa !5
-  %68 = icmp eq i32 %67, 93
-  br i1 %68, label %70, label %69
-
-69:                                               ; preds = %66
-  tail call void @error(ptr noundef nonnull @.str.5) #7
-  br label %75
-
-70:                                               ; preds = %66
-  %71 = icmp eq i32 %63, 0
-  br i1 %71, label %73, label %72
-
-72:                                               ; preds = %70
-  tail call void @error(ptr noundef nonnull @.str.6) #7
-  br label %75
-
-73:                                               ; preds = %70
-  tail call void @emit(i32 noundef 2029, i32 noundef 0, float noundef 0.000000e+00) #7
-  store i32 2006, ptr @lookahead, align 4, !tbaa !5
-  store i32 %4, ptr @tokenval, align 4, !tbaa !5
-  br label %75
-
-74:                                               ; preds = %0
-  store i32 0, ptr @ArrayParsed, align 4, !tbaa !5
-  br label %75
-
-75:                                               ; preds = %53, %29, %73, %74, %62, %59, %35, %72, %69, %12
-  ret void
-}
-
-; Function Attrs: nounwind uwtable
-define dso_local void @DeclOrF() local_unnamed_addr #0 {
-  store i32 0, ptr @Scope, align 4, !tbaa !5
-  br label %1
-
-1:                                                ; preds = %115, %0
-  %2 = load i32, ptr @lookahead, align 4, !tbaa !5
-  switch i32 %2, label %33 [
-    i32 259, label %3
-    i32 2002, label %11
-    i32 2003, label %24
-  ]
-
-3:                                                ; preds = %1
-  tail call void @emit(i32 noundef 2026, i32 noundef 0, float noundef 0.000000e+00) #7
-  store i32 4, ptr @LabelCounter, align 4, !tbaa !5
-  %4 = tail call i32 @GlobalInsert(ptr noundef nonnull @.str.7, i32 noundef 259, i32 noundef 2002, i32 noundef 0, i32 noundef 1, i32 noundef 1) #7
-  %5 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
-  %6 = icmp eq i32 %5, 0
-  br i1 %6, label %7, label %120
-
-7:                                                ; preds = %3
-  %8 = tail call i32 @bcmp(ptr noundef nonnull dereferenceable(5) @.str.7, ptr noundef nonnull dereferenceable(5) @lexbuf, i64 5)
-  %9 = icmp eq i32 %8, 0
-  br i1 %9, label %10, label %118
-
-10:                                               ; preds = %7
-  store i32 %4, ptr @GlobalIndex, align 4, !tbaa !5
-  br label %118
-
-11:                                               ; preds = %1
-  store i32 2002, ptr @PreviousLookahead, align 4, !tbaa !5
-  %12 = load i32, ptr @tokenval, align 4, !tbaa !5
-  store i32 %12, ptr @PreviousTokenval, align 4, !tbaa !5
-  %13 = load float, ptr @ftokenval, align 4, !tbaa !11
-  store float %13, ptr @PreviousFtokenval, align 4, !tbaa !11
-  %14 = load i32, ptr @NextLookahead, align 4, !tbaa !5
-  store i32 %14, ptr @lookahead, align 4, !tbaa !5
-  %15 = load i32, ptr @NextTokenval, align 4, !tbaa !5
-  store i32 %15, ptr @tokenval, align 4, !tbaa !5
-  %16 = load float, ptr @NextFtokenval, align 4, !tbaa !11
-  store float %16, ptr @ftokenval, align 4, !tbaa !11
-  %17 = icmp eq i32 %14, 260
-  br i1 %17, label %20, label %18
-
-18:                                               ; preds = %11
-  %19 = tail call i32 @lexan() #7
-  store i32 %19, ptr @NextLookahead, align 4, !tbaa !5
-  br label %20
-
-20:                                               ; preds = %11, %18
-  %21 = phi i32 [ 260, %11 ], [ %19, %18 ]
-  %22 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
-  %23 = icmp eq i32 %22, 0
-  br i1 %23, label %48, label %120
-
-24:                                               ; preds = %1
-  store i32 2003, ptr @PreviousLookahead, align 4, !tbaa !5
-  %25 = load i32, ptr @tokenval, align 4, !tbaa !5
-  store i32 %25, ptr @PreviousTokenval, align 4, !tbaa !5
-  %26 = load float, ptr @ftokenval, align 4, !tbaa !11
-  store float %26, ptr @PreviousFtokenval, align 4, !tbaa !11
-  %27 = load i32, ptr @NextLookahead, align 4, !tbaa !5
-  store i32 %27, ptr @lookahead, align 4, !tbaa !5
-  %28 = load i32, ptr @NextTokenval, align 4, !tbaa !5
-  store i32 %28, ptr @tokenval, align 4, !tbaa !5
-  %29 = load float, ptr @NextFtokenval, align 4, !tbaa !11
-  store float %29, ptr @ftokenval, align 4, !tbaa !11
-  %30 = icmp eq i32 %27, 260
-  br i1 %30, label %43, label %31
-
-31:                                               ; preds = %24
-  %32 = tail call i32 @lexan() #7
-  store i32 %32, ptr @NextLookahead, align 4, !tbaa !5
-  br label %43
-
-33:                                               ; preds = %1
-  %34 = add i32 %2, -2007
-  %35 = icmp ult i32 %34, 2
-  br i1 %35, label %36, label %37
-
-36:                                               ; preds = %33
-  tail call void @error(ptr noundef nonnull @.str) #7
-  br label %37
-
-37:                                               ; preds = %36, %33
-  %38 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
-  %39 = icmp eq i32 %38, 0
-  br i1 %39, label %40, label %120
-
-40:                                               ; preds = %37
-  %41 = load i32, ptr @lookahead, align 4, !tbaa !5
-  %42 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.2, i32 noundef %41)
-  tail call void @error(ptr noundef nonnull @.str.3) #7
-  br label %43
-
-43:                                               ; preds = %24, %31, %40
-  %44 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
-  %45 = icmp eq i32 %44, 0
-  br i1 %45, label %46, label %120
-
-46:                                               ; preds = %43
-  %47 = load i32, ptr @NextLookahead, align 4, !tbaa !5
-  br label %48
-
-48:                                               ; preds = %46, %20
-  %49 = phi i32 [ %47, %46 ], [ %21, %20 ]
-  %50 = icmp eq i32 %49, 40
-  br i1 %50, label %51, label %61
-
-51:                                               ; preds = %48
-  tail call void @emit(i32 noundef 2026, i32 noundef 0, float noundef 0.000000e+00) #7
-  store i32 4, ptr @LabelCounter, align 4, !tbaa !5
-  %52 = tail call i32 @GlobalInsert(ptr noundef nonnull @.str.7, i32 noundef 259, i32 noundef 2002, i32 noundef 0, i32 noundef 1, i32 noundef 1) #7
-  %53 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
-  %54 = icmp eq i32 %53, 0
-  br i1 %54, label %55, label %120
-
-55:                                               ; preds = %51
-  %56 = tail call i32 @bcmp(ptr noundef nonnull dereferenceable(5) @.str.7, ptr noundef nonnull dereferenceable(5) @lexbuf, i64 5)
-  %57 = icmp eq i32 %56, 0
-  br i1 %57, label %58, label %59
-
-58:                                               ; preds = %55
-  store i32 %52, ptr @GlobalIndex, align 4, !tbaa !5
-  br label %59
-
-59:                                               ; preds = %58, %55
-  %60 = load i32, ptr @PreviousLookahead, align 4, !tbaa !5
-  br label %118
-
-61:                                               ; preds = %48
-  %62 = load i32, ptr @PreviousLookahead, align 4, !tbaa !5
-  tail call void @GlobalScopeAndInsert(i32 noundef %62)
-  %63 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
-  %64 = icmp eq i32 %63, 0
-  br i1 %64, label %65, label %120
-
-65:                                               ; preds = %61
-  %66 = load i32, ptr @lookahead, align 4, !tbaa !5
-  %67 = icmp eq i32 %66, 44
-  br i1 %67, label %68, label %94
-
-68:                                               ; preds = %65, %81
-  store i32 44, ptr @PreviousLookahead, align 4, !tbaa !5
-  %69 = load i32, ptr @tokenval, align 4, !tbaa !5
-  store i32 %69, ptr @PreviousTokenval, align 4, !tbaa !5
-  %70 = load float, ptr @ftokenval, align 4, !tbaa !11
-  store float %70, ptr @PreviousFtokenval, align 4, !tbaa !11
-  %71 = load i32, ptr @NextLookahead, align 4, !tbaa !5
-  store i32 %71, ptr @lookahead, align 4, !tbaa !5
-  %72 = load i32, ptr @NextTokenval, align 4, !tbaa !5
-  store i32 %72, ptr @tokenval, align 4, !tbaa !5
-  %73 = load float, ptr @NextFtokenval, align 4, !tbaa !11
-  store float %73, ptr @ftokenval, align 4, !tbaa !11
-  %74 = icmp eq i32 %71, 260
-  br i1 %74, label %79, label %75
-
-75:                                               ; preds = %68
-  %76 = tail call i32 @lexan() #7
-  store i32 %76, ptr @NextLookahead, align 4, !tbaa !5
-  %77 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
-  %78 = icmp eq i32 %77, 0
-  br i1 %78, label %79, label %120
-
-79:                                               ; preds = %68, %75
-  %80 = load i32, ptr @lookahead, align 4, !tbaa !5
-  switch i32 %80, label %87 [
-    i32 2006, label %81
-    i32 259, label %81
-  ]
-
-81:                                               ; preds = %79, %79
-  tail call void @GlobalScopeAndInsert(i32 noundef %62)
-  %82 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
-  %83 = icmp eq i32 %82, 0
-  %84 = load i32, ptr @lookahead, align 4
-  %85 = icmp eq i32 %84, 44
-  %86 = select i1 %83, i1 %85, i1 false
-  br i1 %86, label %68, label %89, !llvm.loop !19
-
-87:                                               ; preds = %79
-  tail call void @error(ptr noundef nonnull @.str.12) #7
-  %88 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
-  br label %89
-
-89:                                               ; preds = %81, %87
-  %90 = phi i32 [ %88, %87 ], [ %82, %81 ]
-  %91 = icmp eq i32 %90, 0
-  br i1 %91, label %92, label %120
-
-92:                                               ; preds = %89
-  %93 = load i32, ptr @lookahead, align 4, !tbaa !5
-  br label %94
-
-94:                                               ; preds = %65, %92
-  %95 = phi i32 [ %93, %92 ], [ %66, %65 ]
-  %96 = icmp eq i32 %95, 59
-  br i1 %96, label %97, label %106
-
-97:                                               ; preds = %94
-  store i32 59, ptr @PreviousLookahead, align 4, !tbaa !5
-  %98 = load i32, ptr @tokenval, align 4, !tbaa !5
-  store i32 %98, ptr @PreviousTokenval, align 4, !tbaa !5
-  %99 = load float, ptr @ftokenval, align 4, !tbaa !11
-  store float %99, ptr @PreviousFtokenval, align 4, !tbaa !11
-  %100 = load i32, ptr @NextLookahead, align 4, !tbaa !5
-  store i32 %100, ptr @lookahead, align 4, !tbaa !5
-  %101 = load i32, ptr @NextTokenval, align 4, !tbaa !5
-  store i32 %101, ptr @tokenval, align 4, !tbaa !5
-  %102 = load float, ptr @NextFtokenval, align 4, !tbaa !11
-  store float %102, ptr @ftokenval, align 4, !tbaa !11
-  %103 = icmp eq i32 %100, 260
-  br i1 %103, label %115, label %104
-
-104:                                              ; preds = %97
-  %105 = tail call i32 @lexan() #7
-  store i32 %105, ptr @NextLookahead, align 4, !tbaa !5
-  br label %115
-
-106:                                              ; preds = %94
-  %107 = add i32 %95, -2007
-  %108 = icmp ult i32 %107, 2
-  br i1 %108, label %109, label %112
-
-109:                                              ; preds = %106
-  tail call void @error(ptr noundef nonnull @.str) #7
-  %110 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
-  %111 = icmp eq i32 %110, 0
-  br i1 %111, label %112, label %120
-
-112:                                              ; preds = %106, %109
-  %113 = load i32, ptr @lookahead, align 4, !tbaa !5
-  %114 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.2, i32 noundef %113)
-  tail call void @error(ptr noundef nonnull @.str.3) #7
-  br label %115
-
-115:                                              ; preds = %97, %104, %112
-  %116 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
-  %117 = icmp eq i32 %116, 0
-  br i1 %117, label %1, label %120
-
-118:                                              ; preds = %7, %10, %59
-  %119 = phi i32 [ %60, %59 ], [ 2002, %10 ], [ 2002, %7 ]
-  tail call void @FunctionDef(i32 noundef %119)
-  br label %120
-
-120:                                              ; preds = %109, %37, %115, %89, %61, %43, %20, %75, %118, %51, %3
-  ret void
-}
-
-declare i32 @GlobalInsert(ptr noundef, i32 noundef, i32 noundef, i32 noundef, i32 noundef, i32 noundef) local_unnamed_addr #2
-
-; Function Attrs: mustprogress nofree nounwind willreturn memory(argmem: read)
-declare i32 @strcmp(ptr nocapture noundef, ptr nocapture noundef) local_unnamed_addr #4
-
-; Function Attrs: nounwind uwtable
-define dso_local void @FunctionDef(i32 noundef %0) local_unnamed_addr #0 {
-  store i32 1, ptr @offset, align 4, !tbaa !5
-  %2 = load i32, ptr @lookahead, align 4, !tbaa !5
-  %3 = icmp eq i32 %2, 259
-  br i1 %3, label %5, label %4
-
-4:                                                ; preds = %1
-  tail call void @error(ptr noundef nonnull @.str.21) #7
-  br label %172
-
-5:                                                ; preds = %1
-  %6 = load i32, ptr @LocalIndex, align 4, !tbaa !5
-  %7 = icmp eq i32 %6, 0
-  br i1 %7, label %9, label %8
-
-8:                                                ; preds = %5
-  tail call void @error(ptr noundef nonnull @.str.22) #7
-  br label %172
-
-9:                                                ; preds = %5
-  %10 = load i32, ptr @GlobalIndex, align 4, !tbaa !5
-  %11 = icmp eq i32 %10, 0
-  br i1 %11, label %23, label %12
-
-12:                                               ; preds = %9
-  %13 = sext i32 %10 to i64
-  %14 = getelementptr inbounds [100 x %struct.entry], ptr @GlobalTable, i64 0, i64 %13, i32 4
-  %15 = load i32, ptr %14, align 4, !tbaa !13
-  %16 = icmp eq i32 %15, 0
-  br i1 %16, label %17, label %18
-
-17:                                               ; preds = %12
-  tail call void @error(ptr noundef nonnull @.str.23) #7
-  br label %172
-
-18:                                               ; preds = %12
-  %19 = icmp slt i32 %15, 0
-  br i1 %19, label %20, label %21
-
-20:                                               ; preds = %18
-  tail call void @error(ptr noundef nonnull @.str.24) #7
-  br label %172
-
-21:                                               ; preds = %18
-  %22 = getelementptr inbounds [100 x %struct.entry], ptr @GlobalTable, i64 0, i64 %13, i32 2
-  store i32 %0, ptr %22, align 4, !tbaa !17
-  store i32 %10, ptr @FuncNameIndex, align 4, !tbaa !5
-  store i32 -1, ptr %14, align 4, !tbaa !13
-  br label %33
-
-23:                                               ; preds = %9
-  %24 = load i32, ptr @LabelCounter, align 4, !tbaa !5
-  %25 = tail call i32 @GlobalInsert(ptr noundef nonnull @lexbuf, i32 noundef 259, i32 noundef %0, i32 noundef 0, i32 noundef -1, i32 noundef %24) #7
-  store i32 %25, ptr @GlobalIndex, align 4, !tbaa !5
-  %26 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
-  %27 = icmp eq i32 %26, 0
-  br i1 %27, label %29, label %28
-
-28:                                               ; preds = %23
-  store i32 0, ptr @ErrorFlag, align 4, !tbaa !5
-  br label %29
-
-29:                                               ; preds = %28, %23
-  store i32 %25, ptr @FuncNameIndex, align 4, !tbaa !5
-  %30 = load i32, ptr @LabelCounter, align 4, !tbaa !5
-  %31 = add nsw i32 %30, 1
-  store i32 %31, ptr @LabelCounter, align 4, !tbaa !5
-  %32 = sext i32 %25 to i64
-  br label %33
-
-33:                                               ; preds = %21, %29
-  %34 = phi i64 [ %13, %21 ], [ %32, %29 ]
-  %35 = phi i32 [ %10, %21 ], [ %25, %29 ]
-  %36 = getelementptr inbounds [100 x %struct.entry], ptr @GlobalTable, i64 0, i64 %34, i32 5
-  %37 = load i32, ptr %36, align 8, !tbaa !16
-  store i32 %37, ptr @Scope, align 4, !tbaa !5
-  tail call void @emit(i32 noundef 2054, i32 noundef %35, float noundef 0.000000e+00) #7
-  %38 = load i32, ptr @Scope, align 4, !tbaa !5
-  tail call void @emit(i32 noundef 2014, i32 noundef %38, float noundef 0.000000e+00) #7
-  %39 = load i32, ptr @FuncNameIndex, align 4, !tbaa !5
-  tail call void @emit(i32 noundef 2056, i32 noundef %39, float noundef 0.000000e+00) #7
-  %40 = load i32, ptr @LabelCounter, align 4, !tbaa !5
-  store i32 %40, ptr @ReturnLabel, align 4, !tbaa !5
-  %41 = add nsw i32 %40, 1
-  store i32 %41, ptr @LabelCounter, align 4, !tbaa !5
-  %42 = load i32, ptr @lookahead, align 4, !tbaa !5
-  %43 = icmp eq i32 %42, 259
-  br i1 %43, label %44, label %53
-
-44:                                               ; preds = %33
-  store i32 259, ptr @PreviousLookahead, align 4, !tbaa !5
-  %45 = load i32, ptr @tokenval, align 4, !tbaa !5
-  store i32 %45, ptr @PreviousTokenval, align 4, !tbaa !5
-  %46 = load float, ptr @ftokenval, align 4, !tbaa !11
-  store float %46, ptr @PreviousFtokenval, align 4, !tbaa !11
-  %47 = load i32, ptr @NextLookahead, align 4, !tbaa !5
-  store i32 %47, ptr @lookahead, align 4, !tbaa !5
-  %48 = load i32, ptr @NextTokenval, align 4, !tbaa !5
-  store i32 %48, ptr @tokenval, align 4, !tbaa !5
-  %49 = load float, ptr @NextFtokenval, align 4, !tbaa !11
-  store float %49, ptr @ftokenval, align 4, !tbaa !11
-  %50 = icmp eq i32 %47, 260
-  br i1 %50, label %63, label %51
-
-51:                                               ; preds = %44
-  %52 = tail call i32 @lexan() #7
-  store i32 %52, ptr @NextLookahead, align 4, !tbaa !5
-  br label %63
-
-53:                                               ; preds = %33
-  %54 = add i32 %42, -2007
-  %55 = icmp ult i32 %54, 2
-  br i1 %55, label %56, label %57
-
-56:                                               ; preds = %53
-  tail call void @error(ptr noundef nonnull @.str) #7
-  br label %57
-
-57:                                               ; preds = %56, %53
-  %58 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
-  %59 = icmp eq i32 %58, 0
-  br i1 %59, label %60, label %66
-
-60:                                               ; preds = %57
-  %61 = load i32, ptr @lookahead, align 4, !tbaa !5
-  %62 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.2, i32 noundef %61)
-  tail call void @error(ptr noundef nonnull @.str.3) #7
-  br label %63
-
-63:                                               ; preds = %44, %51, %60
-  %64 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
-  %65 = icmp eq i32 %64, 0
-  br i1 %65, label %67, label %66
-
-66:                                               ; preds = %57, %63
-  store i32 0, ptr @ErrorFlag, align 4, !tbaa !5
-  br label %67
-
-67:                                               ; preds = %66, %63
-  %68 = load i32, ptr @lookahead, align 4, !tbaa !5
-  %69 = icmp eq i32 %68, 40
-  br i1 %69, label %70, label %79
-
-70:                                               ; preds = %67
-  store i32 40, ptr @PreviousLookahead, align 4, !tbaa !5
-  %71 = load i32, ptr @tokenval, align 4, !tbaa !5
-  store i32 %71, ptr @PreviousTokenval, align 4, !tbaa !5
-  %72 = load float, ptr @ftokenval, align 4, !tbaa !11
-  store float %72, ptr @PreviousFtokenval, align 4, !tbaa !11
-  %73 = load i32, ptr @NextLookahead, align 4, !tbaa !5
-  store i32 %73, ptr @lookahead, align 4, !tbaa !5
-  %74 = load i32, ptr @NextTokenval, align 4, !tbaa !5
-  store i32 %74, ptr @tokenval, align 4, !tbaa !5
-  %75 = load float, ptr @NextFtokenval, align 4, !tbaa !11
-  store float %75, ptr @ftokenval, align 4, !tbaa !11
-  %76 = icmp eq i32 %73, 260
-  br i1 %76, label %88, label %77
-
-77:                                               ; preds = %70
-  %78 = tail call i32 @lexan() #7
-  store i32 %78, ptr @NextLookahead, align 4, !tbaa !5
-  br label %88
-
-79:                                               ; preds = %67
-  %80 = add i32 %68, -2007
-  %81 = icmp ult i32 %80, 2
-  br i1 %81, label %82, label %85
-
-82:                                               ; preds = %79
-  tail call void @error(ptr noundef nonnull @.str) #7
-  %83 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
-  %84 = icmp eq i32 %83, 0
-  br i1 %84, label %85, label %91
-
-85:                                               ; preds = %79, %82
-  %86 = load i32, ptr @lookahead, align 4, !tbaa !5
-  %87 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.2, i32 noundef %86)
-  tail call void @error(ptr noundef nonnull @.str.3) #7
-  br label %88
-
-88:                                               ; preds = %70, %77, %85
-  %89 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
-  %90 = icmp eq i32 %89, 0
-  br i1 %90, label %92, label %91
-
-91:                                               ; preds = %82, %88
-  store i32 0, ptr @ErrorFlag, align 4, !tbaa !5
-  br label %92
-
-92:                                               ; preds = %91, %88
-  %93 = load i32, ptr @FuncNameIndex, align 4, !tbaa !5
-  %94 = sext i32 %93 to i64
-  %95 = getelementptr inbounds [100 x %struct.entry], ptr @GlobalTable, i64 0, i64 %94
-  %96 = load ptr, ptr %95, align 16, !tbaa !20
-  %97 = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %96, ptr noundef nonnull dereferenceable(5) @.str.7) #8
-  %98 = icmp eq i32 %97, 0
-  br i1 %98, label %99, label %114
-
-99:                                               ; preds = %92
-  %100 = load i32, ptr @lookahead, align 4, !tbaa !5
-  %101 = icmp eq i32 %100, 41
-  br i1 %101, label %102, label %113
-
-102:                                              ; preds = %99
-  store i32 41, ptr @PreviousLookahead, align 4, !tbaa !5
-  %103 = load i32, ptr @tokenval, align 4, !tbaa !5
-  store i32 %103, ptr @PreviousTokenval, align 4, !tbaa !5
-  %104 = load float, ptr @ftokenval, align 4, !tbaa !11
-  store float %104, ptr @PreviousFtokenval, align 4, !tbaa !11
-  %105 = load i32, ptr @NextLookahead, align 4, !tbaa !5
-  store i32 %105, ptr @lookahead, align 4, !tbaa !5
-  %106 = load i32, ptr @NextTokenval, align 4, !tbaa !5
-  store i32 %106, ptr @tokenval, align 4, !tbaa !5
-  %107 = load float, ptr @NextFtokenval, align 4, !tbaa !11
-  store float %107, ptr @ftokenval, align 4, !tbaa !11
-  %108 = icmp eq i32 %105, 260
-  br i1 %108, label %141, label %109
-
-109:                                              ; preds = %102
-  %110 = tail call i32 @lexan() #7
-  store i32 %110, ptr @NextLookahead, align 4, !tbaa !5
-  %111 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
-  %112 = icmp eq i32 %111, 0
-  br i1 %112, label %141, label %172
-
-113:                                              ; preds = %99
-  tail call void @error(ptr noundef nonnull @.str.26) #7
-  br label %172
-
-114:                                              ; preds = %92
-  tail call void @ParamList()
-  %115 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
-  %116 = icmp eq i32 %115, 0
-  br i1 %116, label %118, label %117
-
-117:                                              ; preds = %114
-  store i32 0, ptr @ErrorFlag, align 4, !tbaa !5
-  br label %118
-
-118:                                              ; preds = %117, %114
-  %119 = load i32, ptr @lookahead, align 4, !tbaa !5
-  %120 = icmp eq i32 %119, 41
-  br i1 %120, label %121, label %130
-
-121:                                              ; preds = %118
-  store i32 41, ptr @PreviousLookahead, align 4, !tbaa !5
-  %122 = load i32, ptr @tokenval, align 4, !tbaa !5
-  store i32 %122, ptr @PreviousTokenval, align 4, !tbaa !5
-  %123 = load float, ptr @ftokenval, align 4, !tbaa !11
-  store float %123, ptr @PreviousFtokenval, align 4, !tbaa !11
-  %124 = load i32, ptr @NextLookahead, align 4, !tbaa !5
-  store i32 %124, ptr @lookahead, align 4, !tbaa !5
-  %125 = load i32, ptr @NextTokenval, align 4, !tbaa !5
-  store i32 %125, ptr @tokenval, align 4, !tbaa !5
-  %126 = load float, ptr @NextFtokenval, align 4, !tbaa !11
-  store float %126, ptr @ftokenval, align 4, !tbaa !11
-  %127 = icmp eq i32 %124, 260
-  br i1 %127, label %137, label %128
-
-128:                                              ; preds = %121
-  %129 = tail call i32 @lexan() #7
-  store i32 %129, ptr @NextLookahead, align 4, !tbaa !5
-  br label %137
-
-130:                                              ; preds = %118
-  %131 = add i32 %119, -2007
-  %132 = icmp ult i32 %131, 2
-  br i1 %132, label %133, label %136
-
-133:                                              ; preds = %130
-  tail call void @error(ptr noundef nonnull @.str) #7
-  %134 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
-  %135 = icmp eq i32 %134, 0
-  br i1 %135, label %136, label %140
-
-136:                                              ; preds = %130, %133
-  tail call void @error(ptr noundef nonnull @.str.1) #7
-  br label %137
-
-137:                                              ; preds = %121, %128, %136
-  %138 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
-  %139 = icmp eq i32 %138, 0
-  br i1 %139, label %141, label %140
-
-140:                                              ; preds = %133, %137
-  store i32 0, ptr @ErrorFlag, align 4, !tbaa !5
-  br label %141
-
-141:                                              ; preds = %102, %137, %140, %109
-  br label %142
-
-142:                                              ; preds = %141, %149
-  %143 = load i32, ptr @lookahead, align 4, !tbaa !5
-  %144 = and i32 %143, -2
-  %145 = icmp eq i32 %144, 2002
-  br i1 %145, label %146, label %153
-
-146:                                              ; preds = %142
-  tail call void @match(i32 noundef %143)
-  %147 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
-  %148 = icmp eq i32 %147, 0
-  br i1 %148, label %149, label %156
-
-149:                                              ; preds = %146
-  %150 = load i32, ptr @PreviousLookahead, align 4, !tbaa !5
-  tail call void @VarList(i32 noundef %150)
-  %151 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
-  %152 = icmp eq i32 %151, 0
-  br i1 %152, label %142, label %156, !llvm.loop !21
-
-153:                                              ; preds = %142
-  tail call void @ParamInt() #7
-  %154 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
-  %155 = icmp eq i32 %154, 0
-  br i1 %155, label %157, label %156
-
-156:                                              ; preds = %149, %146, %153
-  store i32 0, ptr @ErrorFlag, align 4, !tbaa !5
-  br label %157
-
-157:                                              ; preds = %156, %153
-  %158 = load i32, ptr @FuncNameIndex, align 4, !tbaa !5
-  tail call void @emit(i32 noundef 2057, i32 noundef %158, float noundef 0.000000e+00) #7
-  tail call void @FstmtList()
-  %159 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
-  %160 = icmp eq i32 %159, 0
-  br i1 %160, label %161, label %172
-
-161:                                              ; preds = %157
-  %162 = load i32, ptr @FuncNameIndex, align 4, !tbaa !5
-  %163 = sext i32 %162 to i64
-  %164 = getelementptr inbounds [100 x %struct.entry], ptr @GlobalTable, i64 0, i64 %163, i32 2
-  %165 = load i32, ptr %164, align 4, !tbaa !17
-  %166 = icmp eq i32 %165, 2002
-  br i1 %166, label %167, label %168
-
-167:                                              ; preds = %161
-  tail call void @emit(i32 noundef 256, i32 noundef 1, float noundef 0.000000e+00) #7
-  br label %169
-
-168:                                              ; preds = %161
-  tail call void @emit(i32 noundef 2001, i32 noundef 0, float noundef 1.000000e+00) #7
-  br label %169
-
-169:                                              ; preds = %168, %167
-  %170 = load i32, ptr @ReturnLabel, align 4, !tbaa !5
-  tail call void @emit(i32 noundef 2014, i32 noundef %170, float noundef 0.000000e+00) #7
-  %171 = load i32, ptr @FuncNameIndex, align 4, !tbaa !5
-  tail call void @emit(i32 noundef 2058, i32 noundef %171, float noundef 0.000000e+00) #7
-  tail call void @emit(i32 noundef 2018, i32 noundef 0, float noundef 0.000000e+00) #7
-  br label %172
-
-172:                                              ; preds = %157, %109, %169, %113, %20, %17, %8, %4
-  ret void
-}
-
-; Function Attrs: nounwind uwtable
-define dso_local void @GlobalScopeAndInsert(i32 noundef %0) local_unnamed_addr #0 {
+  %1 = load i32, ptr @tokenval, align 4, !tbaa !5
   %2 = load i32, ptr @LocalIndex, align 4, !tbaa !5
-  %3 = icmp eq i32 %2, 0
-  br i1 %3, label %5, label %4
+  %tobool1.not = icmp eq i32 %2, 0
+  br i1 %tobool1.not, label %if.else, label %if.then2
 
-4:                                                ; preds = %1
-  tail call void @error(ptr noundef nonnull @.str.8) #7
-  br label %91
+if.then2:                                         ; preds = %if.then
+  tail call void @emit(i32 noundef 2049, i32 noundef %2, float noundef 0.000000e+00) #7
+  br label %if.end6
 
-5:                                                ; preds = %1
-  %6 = load i32, ptr @GlobalIndex, align 4, !tbaa !5
-  %7 = icmp eq i32 %6, 0
-  br i1 %7, label %15, label %8
+if.else:                                          ; preds = %if.then
+  %3 = load i32, ptr @GlobalIndex, align 4, !tbaa !5
+  %tobool3.not = icmp eq i32 %3, 0
+  br i1 %tobool3.not, label %if.else5, label %if.then4
 
-8:                                                ; preds = %5
-  %9 = sext i32 %6 to i64
-  %10 = getelementptr inbounds [100 x %struct.entry], ptr @GlobalTable, i64 0, i64 %9, i32 4
-  %11 = load i32, ptr %10, align 4, !tbaa !13
-  %12 = icmp eq i32 %11, 0
-  br i1 %12, label %14, label %13
+if.then4:                                         ; preds = %if.else
+  tail call void @emit(i32 noundef 2050, i32 noundef %3, float noundef 0.000000e+00) #7
+  br label %if.end6
 
-13:                                               ; preds = %8
-  tail call void @error(ptr noundef nonnull @.str.9) #7
-  br label %91
+if.else5:                                         ; preds = %if.else
+  tail call void @error(ptr noundef nonnull @.str.4) #7
+  br label %cleanup
 
-14:                                               ; preds = %8
-  tail call void @error(ptr noundef nonnull @.str.10) #7
-  br label %91
+if.end6:                                          ; preds = %if.then4, %if.then2
+  %4 = load i32, ptr @lookahead, align 4, !tbaa !5
+  %cmp.i = icmp eq i32 %4, 2006
+  br i1 %cmp.i, label %if.then.i, label %if.else.i
 
-15:                                               ; preds = %5
-  %16 = load i32, ptr @NextLookahead, align 4, !tbaa !5
-  %17 = icmp eq i32 %16, 91
-  br i1 %17, label %18, label %63
-
-18:                                               ; preds = %15
-  %19 = tail call i32 @GlobalInsert(ptr noundef nonnull @lexbuf, i32 noundef 2006, i32 noundef %0, i32 noundef 0, i32 noundef 0, i32 noundef 0) #7
-  store i32 %19, ptr @GlobalIndex, align 4, !tbaa !5
-  %20 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
-  %21 = icmp eq i32 %20, 0
-  br i1 %21, label %22, label %91
-
-22:                                               ; preds = %18
-  %23 = load i32, ptr @lookahead, align 4, !tbaa !5
-  %24 = icmp eq i32 %23, 259
-  br i1 %24, label %25, label %34
-
-25:                                               ; preds = %22
-  store i32 259, ptr @PreviousLookahead, align 4, !tbaa !5
-  %26 = load i32, ptr @tokenval, align 4, !tbaa !5
-  store i32 %26, ptr @PreviousTokenval, align 4, !tbaa !5
-  %27 = load float, ptr @ftokenval, align 4, !tbaa !11
-  store float %27, ptr @PreviousFtokenval, align 4, !tbaa !11
-  %28 = load i32, ptr @NextLookahead, align 4, !tbaa !5
-  store i32 %28, ptr @lookahead, align 4, !tbaa !5
-  %29 = load i32, ptr @NextTokenval, align 4, !tbaa !5
-  store i32 %29, ptr @tokenval, align 4, !tbaa !5
-  %30 = load float, ptr @NextFtokenval, align 4, !tbaa !11
-  store float %30, ptr @ftokenval, align 4, !tbaa !11
-  %31 = icmp eq i32 %28, 260
-  br i1 %31, label %43, label %32
-
-32:                                               ; preds = %25
-  %33 = tail call i32 @lexan() #7
-  store i32 %33, ptr @NextLookahead, align 4, !tbaa !5
-  br label %43
-
-34:                                               ; preds = %22
-  %35 = add i32 %23, -2007
-  %36 = icmp ult i32 %35, 2
-  br i1 %36, label %37, label %40
-
-37:                                               ; preds = %34
-  tail call void @error(ptr noundef nonnull @.str) #7
-  %38 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
-  %39 = icmp eq i32 %38, 0
-  br i1 %39, label %40, label %91
-
-40:                                               ; preds = %34, %37
-  %41 = load i32, ptr @lookahead, align 4, !tbaa !5
-  %42 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.2, i32 noundef %41)
-  tail call void @error(ptr noundef nonnull @.str.3) #7
-  br label %43
-
-43:                                               ; preds = %25, %32, %40
-  %44 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
-  %45 = icmp eq i32 %44, 0
-  br i1 %45, label %46, label %91
-
-46:                                               ; preds = %43
-  tail call void @match(i32 noundef 91)
-  %47 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
-  %48 = icmp eq i32 %47, 0
-  br i1 %48, label %49, label %91
-
-49:                                               ; preds = %46
-  %50 = load i32, ptr @lookahead, align 4, !tbaa !5
-  %51 = icmp eq i32 %50, 256
-  br i1 %51, label %52, label %58
-
-52:                                               ; preds = %49
-  %53 = load i32, ptr @tokenval, align 4, !tbaa !5
-  %54 = sext i32 %19 to i64
-  %55 = getelementptr inbounds [100 x %struct.entry], ptr @GlobalTable, i64 0, i64 %54, i32 3
-  store i32 %53, ptr %55, align 16, !tbaa !22
-  tail call void @match(i32 noundef 256)
-  tail call void @match(i32 noundef 93)
-  %56 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
-  %57 = icmp eq i32 %56, 0
-  br i1 %57, label %59, label %91
-
-58:                                               ; preds = %49
-  tail call void @error(ptr noundef nonnull @.str.11) #7
-  br label %91
-
-59:                                               ; preds = %52
-  tail call void @emit(i32 noundef 2048, i32 noundef %19, float noundef 0.000000e+00) #7
-  %60 = load i32, ptr %55, align 16, !tbaa !22
-  %61 = load i32, ptr @DecCount, align 4, !tbaa !5
-  %62 = add nsw i32 %61, %60
-  store i32 %62, ptr @DecCount, align 4, !tbaa !5
-  br label %91
-
-63:                                               ; preds = %15
-  %64 = tail call i32 @GlobalInsert(ptr noundef nonnull @lexbuf, i32 noundef 259, i32 noundef %0, i32 noundef 1, i32 noundef 0, i32 noundef 0) #7
-  store i32 %64, ptr @GlobalIndex, align 4, !tbaa !5
-  %65 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
-  %66 = icmp eq i32 %65, 0
-  br i1 %66, label %67, label %91
-
-67:                                               ; preds = %63
-  tail call void @emit(i32 noundef 2048, i32 noundef %64, float noundef 0.000000e+00) #7
-  %68 = load i32, ptr @DecCount, align 4, !tbaa !5
-  %69 = add nsw i32 %68, 1
-  store i32 %69, ptr @DecCount, align 4, !tbaa !5
-  %70 = load i32, ptr @lookahead, align 4, !tbaa !5
-  %71 = icmp eq i32 %70, 259
-  br i1 %71, label %72, label %81
-
-72:                                               ; preds = %67
-  store i32 259, ptr @PreviousLookahead, align 4, !tbaa !5
-  %73 = load i32, ptr @tokenval, align 4, !tbaa !5
-  store i32 %73, ptr @PreviousTokenval, align 4, !tbaa !5
-  %74 = load float, ptr @ftokenval, align 4, !tbaa !11
-  store float %74, ptr @PreviousFtokenval, align 4, !tbaa !11
-  %75 = load i32, ptr @NextLookahead, align 4, !tbaa !5
-  store i32 %75, ptr @lookahead, align 4, !tbaa !5
-  %76 = load i32, ptr @NextTokenval, align 4, !tbaa !5
-  store i32 %76, ptr @tokenval, align 4, !tbaa !5
-  %77 = load float, ptr @NextFtokenval, align 4, !tbaa !11
-  store float %77, ptr @ftokenval, align 4, !tbaa !11
-  %78 = icmp eq i32 %75, 260
-  br i1 %78, label %91, label %79
-
-79:                                               ; preds = %72
-  %80 = tail call i32 @lexan() #7
-  store i32 %80, ptr @NextLookahead, align 4, !tbaa !5
-  br label %91
-
-81:                                               ; preds = %67
-  %82 = add i32 %70, -2007
-  %83 = icmp ult i32 %82, 2
-  br i1 %83, label %84, label %85
-
-84:                                               ; preds = %81
-  tail call void @error(ptr noundef nonnull @.str) #7
-  br label %85
-
-85:                                               ; preds = %84, %81
-  %86 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
-  %87 = icmp eq i32 %86, 0
-  br i1 %87, label %88, label %91
-
-88:                                               ; preds = %85
-  %89 = load i32, ptr @lookahead, align 4, !tbaa !5
-  %90 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.2, i32 noundef %89)
-  tail call void @error(ptr noundef nonnull @.str.3) #7
-  br label %91
-
-91:                                               ; preds = %88, %79, %72, %85, %37, %59, %63, %52, %46, %43, %18, %58, %14, %13, %4
-  ret void
-}
-
-; Function Attrs: nounwind uwtable
-define dso_local void @GlobalVarList(i32 noundef %0) local_unnamed_addr #0 {
-  %2 = load i32, ptr @lookahead, align 4, !tbaa !5
-  %3 = icmp eq i32 %2, 44
-  br i1 %3, label %4, label %25
-
-4:                                                ; preds = %1, %18
-  store i32 44, ptr @PreviousLookahead, align 4, !tbaa !5
+if.then.i:                                        ; preds = %if.end6
+  store i32 2006, ptr @PreviousLookahead, align 4, !tbaa !5
   %5 = load i32, ptr @tokenval, align 4, !tbaa !5
   store i32 %5, ptr @PreviousTokenval, align 4, !tbaa !5
   %6 = load float, ptr @ftokenval, align 4, !tbaa !11
@@ -2267,586 +1339,528 @@ define dso_local void @GlobalVarList(i32 noundef %0) local_unnamed_addr #0 {
   store i32 %8, ptr @tokenval, align 4, !tbaa !5
   %9 = load float, ptr @NextFtokenval, align 4, !tbaa !11
   store float %9, ptr @ftokenval, align 4, !tbaa !11
-  %10 = icmp eq i32 %7, 260
-  br i1 %10, label %13, label %11
+  %cmp1.not.i = icmp eq i32 %7, 260
+  br i1 %cmp1.not.i, label %match.exit, label %if.then2.i
 
-11:                                               ; preds = %4
-  %12 = tail call i32 @lexan() #7
-  store i32 %12, ptr @NextLookahead, align 4, !tbaa !5
-  br label %13
+if.then2.i:                                       ; preds = %if.then.i
+  %call.i = tail call i32 @lexan() #7
+  store i32 %call.i, ptr @NextLookahead, align 4, !tbaa !5
+  br label %match.exit
 
-13:                                               ; preds = %4, %11
-  %14 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
-  %15 = icmp eq i32 %14, 0
-  br i1 %15, label %16, label %25
+if.else.i:                                        ; preds = %if.end6
+  %.off.i = add i32 %4, -2007
+  %switch.i = icmp ult i32 %.off.i, 2
+  br i1 %switch.i, label %sw.bb.i, label %sw.epilog.i
 
-16:                                               ; preds = %13
-  %17 = load i32, ptr @lookahead, align 4, !tbaa !5
-  switch i32 %17, label %24 [
-    i32 2006, label %18
-    i32 259, label %18
-  ]
+sw.bb.i:                                          ; preds = %if.else.i
+  tail call void @error(ptr noundef nonnull @.str) #7
+  br label %sw.epilog.i
 
-18:                                               ; preds = %16, %16
-  tail call void @GlobalScopeAndInsert(i32 noundef %0)
-  %19 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
-  %20 = icmp eq i32 %19, 0
-  %21 = load i32, ptr @lookahead, align 4
-  %22 = icmp eq i32 %21, 44
-  %23 = select i1 %20, i1 %22, i1 false
-  br i1 %23, label %4, label %25, !llvm.loop !19
+sw.epilog.i:                                      ; preds = %sw.bb.i, %if.else.i
+  %10 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
+  %tobool.not.i = icmp eq i32 %10, 0
+  br i1 %tobool.not.i, label %if.end4.i, label %cleanup
 
-24:                                               ; preds = %16
-  tail call void @error(ptr noundef nonnull @.str.12) #7
-  br label %25
-
-25:                                               ; preds = %18, %13, %24, %1
-  ret void
-}
-
-; Function Attrs: nounwind uwtable
-define dso_local void @exprTest() local_unnamed_addr #0 {
-  store i32 0, ptr @FloatFlag, align 4, !tbaa !5
-  %1 = tail call i32 @expr()
-  store i32 %1, ptr @FloatFlag, align 4, !tbaa !5
-  %2 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
-  %3 = icmp eq i32 %2, 0
-  br i1 %3, label %4, label %52
-
-4:                                                ; preds = %0
-  %5 = load i32, ptr @lookahead, align 4, !tbaa !5
-  %6 = and i32 %5, -2
-  %7 = icmp eq i32 %6, 2012
-  br i1 %7, label %8, label %52
-
-8:                                                ; preds = %4, %44
-  %9 = phi i32 [ %49, %44 ], [ %5, %4 ]
-  %10 = icmp eq i32 %9, 2012
-  br i1 %10, label %11, label %18
-
-11:                                               ; preds = %8
-  store i32 2012, ptr @PreviousLookahead, align 4, !tbaa !5
-  %12 = load i32, ptr @tokenval, align 4, !tbaa !5
-  store i32 %12, ptr @PreviousTokenval, align 4, !tbaa !5
-  %13 = load float, ptr @ftokenval, align 4, !tbaa !11
-  store float %13, ptr @PreviousFtokenval, align 4, !tbaa !11
-  %14 = load i32, ptr @NextLookahead, align 4, !tbaa !5
-  store i32 %14, ptr @lookahead, align 4, !tbaa !5
-  %15 = load i32, ptr @NextTokenval, align 4, !tbaa !5
-  store i32 %15, ptr @tokenval, align 4, !tbaa !5
-  %16 = load float, ptr @NextFtokenval, align 4, !tbaa !11
-  store float %16, ptr @ftokenval, align 4, !tbaa !11
-  %17 = icmp eq i32 %14, 260
-  br i1 %17, label %27, label %25
-
-18:                                               ; preds = %8
-  store i32 2013, ptr @PreviousLookahead, align 4, !tbaa !5
-  %19 = load i32, ptr @tokenval, align 4, !tbaa !5
-  store i32 %19, ptr @PreviousTokenval, align 4, !tbaa !5
-  %20 = load float, ptr @ftokenval, align 4, !tbaa !11
-  store float %20, ptr @PreviousFtokenval, align 4, !tbaa !11
-  %21 = load i32, ptr @NextLookahead, align 4, !tbaa !5
-  store i32 %21, ptr @lookahead, align 4, !tbaa !5
-  %22 = load i32, ptr @NextTokenval, align 4, !tbaa !5
-  store i32 %22, ptr @tokenval, align 4, !tbaa !5
-  %23 = load float, ptr @NextFtokenval, align 4, !tbaa !11
-  store float %23, ptr @ftokenval, align 4, !tbaa !11
-  %24 = icmp eq i32 %21, 260
-  br i1 %24, label %27, label %25
-
-25:                                               ; preds = %18, %11
-  %26 = tail call i32 @lexan() #7
-  store i32 %26, ptr @NextLookahead, align 4, !tbaa !5
-  br label %27
-
-27:                                               ; preds = %25, %18, %11
-  %28 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
-  %29 = icmp eq i32 %28, 0
-  br i1 %29, label %30, label %52
-
-30:                                               ; preds = %27
-  %31 = load i32, ptr @FloatFlag, align 4, !tbaa !5
-  %32 = icmp eq i32 %31, 0
-  br i1 %32, label %37, label %33
-
-33:                                               ; preds = %30
-  store i32 0, ptr @FloatFlag, align 4, !tbaa !5
-  %34 = tail call i32 @expr()
-  store i32 %34, ptr @FloatFlag, align 4, !tbaa !5
-  %35 = icmp eq i32 %34, 0
-  br i1 %35, label %36, label %41
-
-36:                                               ; preds = %33
-  tail call void @emit(i32 noundef 2003, i32 noundef 0, float noundef 0.000000e+00) #7
-  store i32 1, ptr @FloatFlag, align 4, !tbaa !5
-  br label %41
-
-37:                                               ; preds = %30
-  %38 = tail call i32 @expr()
-  store i32 %38, ptr @FloatFlag, align 4, !tbaa !5
-  %39 = icmp eq i32 %38, 0
-  br i1 %39, label %41, label %40
-
-40:                                               ; preds = %37
-  tail call void @emit(i32 noundef 256, i32 noundef 1, float noundef 0.000000e+00) #7
-  tail call void @emit(i32 noundef 2028, i32 noundef 0, float noundef 0.000000e+00) #7
-  tail call void @emit(i32 noundef 2003, i32 noundef 0, float noundef 0.000000e+00) #7
-  tail call void @emit(i32 noundef 256, i32 noundef 1, float noundef 0.000000e+00) #7
-  tail call void @emit(i32 noundef 2023, i32 noundef 0, float noundef 0.000000e+00) #7
-  br label %41
-
-41:                                               ; preds = %37, %40, %33, %36
-  %42 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
-  %43 = icmp eq i32 %42, 0
-  br i1 %43, label %44, label %52
-
-44:                                               ; preds = %41
-  tail call void @emit(i32 noundef 2016, i32 noundef 0, float noundef 0.000000e+00) #7
-  %45 = load i32, ptr @LabelCounter, align 4, !tbaa !5
-  %46 = add nsw i32 %45, 1
-  %47 = add nsw i32 %45, 2
-  store i32 %47, ptr @LabelCounter, align 4, !tbaa !5
-  tail call void @emit(i32 noundef 2015, i32 noundef %45, float noundef 0.000000e+00) #7
-  %48 = select i1 %10, i32 2017, i32 2025
-  tail call void @emit(i32 noundef %48, i32 noundef 0, float noundef 0.000000e+00) #7
-  tail call void @emit(i32 noundef 256, i32 noundef 0, float noundef 0.000000e+00) #7
-  tail call void @emit(i32 noundef 2015, i32 noundef %46, float noundef 0.000000e+00) #7
-  tail call void @emit(i32 noundef 2018, i32 noundef 0, float noundef 0.000000e+00) #7
-  tail call void @emit(i32 noundef 2014, i32 noundef %45, float noundef 0.000000e+00) #7
-  tail call void @emit(i32 noundef 256, i32 noundef 1, float noundef 0.000000e+00) #7
-  tail call void @emit(i32 noundef 2014, i32 noundef %46, float noundef 0.000000e+00) #7
-  %49 = load i32, ptr @lookahead, align 4, !tbaa !5
-  %50 = and i32 %49, -2
-  %51 = icmp eq i32 %50, 2012
-  br i1 %51, label %8, label %52, !llvm.loop !23
-
-52:                                               ; preds = %27, %41, %44, %4, %0
-  ret void
-}
-
-; Function Attrs: nounwind uwtable
-define dso_local void @exprAssg() local_unnamed_addr #0 {
-  %1 = load i32, ptr @lookahead, align 4, !tbaa !5
-  switch i32 %1, label %189 [
-    i32 2006, label %2
-    i32 259, label %92
-  ]
-
-2:                                                ; preds = %0
-  %3 = load i32, ptr @LocalIndex, align 4, !tbaa !5
-  %4 = load i32, ptr @GlobalIndex, align 4, !tbaa !5
-  tail call void @PushArrayCellAddr()
-  %5 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
-  %6 = icmp eq i32 %5, 0
-  br i1 %6, label %7, label %190
-
-7:                                                ; preds = %2
-  %8 = load i32, ptr @NextLookahead, align 4, !tbaa !5
-  %9 = icmp eq i32 %8, 61
-  br i1 %9, label %10, label %91
-
-10:                                               ; preds = %7
-  store i32 0, ptr @ArrayParsed, align 4, !tbaa !5
+if.end4.i:                                        ; preds = %sw.epilog.i
   %11 = load i32, ptr @lookahead, align 4, !tbaa !5
-  %12 = icmp eq i32 %11, 2006
-  br i1 %12, label %13, label %19
+  %call6.i = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.2, i32 noundef %11)
+  tail call void @error(ptr noundef nonnull @.str.3) #7
+  br label %match.exit
 
-13:                                               ; preds = %10
-  store i32 2006, ptr @PreviousLookahead, align 4, !tbaa !5
-  %14 = load i32, ptr @tokenval, align 4, !tbaa !5
-  store i32 %14, ptr @PreviousTokenval, align 4, !tbaa !5
-  %15 = load float, ptr @ftokenval, align 4, !tbaa !11
-  store float %15, ptr @PreviousFtokenval, align 4, !tbaa !11
-  store i32 61, ptr @lookahead, align 4, !tbaa !5
+match.exit:                                       ; preds = %if.then.i, %if.then2.i, %if.end4.i
+  %.pr = load i32, ptr @ErrorFlag, align 4, !tbaa !5
+  %tobool7.not = icmp eq i32 %.pr, 0
+  br i1 %tobool7.not, label %if.end9, label %cleanup
+
+if.end9:                                          ; preds = %match.exit
+  %12 = load i32, ptr @lookahead, align 4, !tbaa !5
+  %cmp.i24 = icmp eq i32 %12, 91
+  br i1 %cmp.i24, label %if.then.i26, label %if.else.i31
+
+if.then.i26:                                      ; preds = %if.end9
+  store i32 91, ptr @PreviousLookahead, align 4, !tbaa !5
+  %13 = load i32, ptr @tokenval, align 4, !tbaa !5
+  store i32 %13, ptr @PreviousTokenval, align 4, !tbaa !5
+  %14 = load float, ptr @ftokenval, align 4, !tbaa !11
+  store float %14, ptr @PreviousFtokenval, align 4, !tbaa !11
+  %15 = load i32, ptr @NextLookahead, align 4, !tbaa !5
+  store i32 %15, ptr @lookahead, align 4, !tbaa !5
   %16 = load i32, ptr @NextTokenval, align 4, !tbaa !5
   store i32 %16, ptr @tokenval, align 4, !tbaa !5
   %17 = load float, ptr @NextFtokenval, align 4, !tbaa !11
   store float %17, ptr @ftokenval, align 4, !tbaa !11
-  %18 = tail call i32 @lexan() #7
-  store i32 %18, ptr @NextLookahead, align 4, !tbaa !5
-  br label %28
+  %cmp1.not.i25 = icmp eq i32 %15, 260
+  br i1 %cmp1.not.i25, label %match.exit37, label %if.then2.i28
 
-19:                                               ; preds = %10
-  %20 = add i32 %11, -2007
-  %21 = icmp ult i32 %20, 2
-  br i1 %21, label %22, label %25
+if.then2.i28:                                     ; preds = %if.then.i26
+  %call.i27 = tail call i32 @lexan() #7
+  store i32 %call.i27, ptr @NextLookahead, align 4, !tbaa !5
+  br label %match.exit37
 
-22:                                               ; preds = %19
+if.else.i31:                                      ; preds = %if.end9
+  %.off.i29 = add i32 %12, -2007
+  %switch.i30 = icmp ult i32 %.off.i29, 2
+  br i1 %switch.i30, label %sw.epilog.i34, label %if.end4.i35
+
+sw.epilog.i34:                                    ; preds = %if.else.i31
   tail call void @error(ptr noundef nonnull @.str) #7
-  %23 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
-  %24 = icmp eq i32 %23, 0
-  br i1 %24, label %25, label %190
+  %.pre = load i32, ptr @ErrorFlag, align 4, !tbaa !5
+  %18 = icmp eq i32 %.pre, 0
+  br i1 %18, label %if.end4.i35, label %cleanup
 
-25:                                               ; preds = %19, %22
-  %26 = load i32, ptr @lookahead, align 4, !tbaa !5
-  %27 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.2, i32 noundef %26)
+if.end4.i35:                                      ; preds = %if.else.i31, %sw.epilog.i34
+  %19 = load i32, ptr @lookahead, align 4, !tbaa !5
+  %call6.i36 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.2, i32 noundef %19)
   tail call void @error(ptr noundef nonnull @.str.3) #7
-  br label %28
+  br label %match.exit37
 
-28:                                               ; preds = %13, %25
-  %29 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
-  %30 = icmp eq i32 %29, 0
-  br i1 %30, label %31, label %190
+match.exit37:                                     ; preds = %if.then.i26, %if.then2.i28, %if.end4.i35
+  %.pr39 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
+  %tobool10.not = icmp eq i32 %.pr39, 0
+  br i1 %tobool10.not, label %if.end12, label %cleanup
 
-31:                                               ; preds = %28
-  %32 = load i32, ptr @lookahead, align 4, !tbaa !5
-  %33 = icmp eq i32 %32, 61
-  br i1 %33, label %34, label %43
-
-34:                                               ; preds = %31
-  store i32 61, ptr @PreviousLookahead, align 4, !tbaa !5
-  %35 = load i32, ptr @tokenval, align 4, !tbaa !5
-  store i32 %35, ptr @PreviousTokenval, align 4, !tbaa !5
-  %36 = load float, ptr @ftokenval, align 4, !tbaa !11
-  store float %36, ptr @PreviousFtokenval, align 4, !tbaa !11
-  %37 = load i32, ptr @NextLookahead, align 4, !tbaa !5
-  store i32 %37, ptr @lookahead, align 4, !tbaa !5
-  %38 = load i32, ptr @NextTokenval, align 4, !tbaa !5
-  store i32 %38, ptr @tokenval, align 4, !tbaa !5
-  %39 = load float, ptr @NextFtokenval, align 4, !tbaa !11
-  store float %39, ptr @ftokenval, align 4, !tbaa !11
-  %40 = icmp eq i32 %37, 260
-  br i1 %40, label %52, label %41
-
-41:                                               ; preds = %34
-  %42 = tail call i32 @lexan() #7
-  store i32 %42, ptr @NextLookahead, align 4, !tbaa !5
-  br label %52
-
-43:                                               ; preds = %31
-  %44 = add i32 %32, -2007
-  %45 = icmp ult i32 %44, 2
-  br i1 %45, label %46, label %49
-
-46:                                               ; preds = %43
-  tail call void @error(ptr noundef nonnull @.str) #7
-  %47 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
-  %48 = icmp eq i32 %47, 0
-  br i1 %48, label %49, label %190
-
-49:                                               ; preds = %43, %46
-  %50 = load i32, ptr @lookahead, align 4, !tbaa !5
-  %51 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.2, i32 noundef %50)
-  tail call void @error(ptr noundef nonnull @.str.3) #7
-  br label %52
-
-52:                                               ; preds = %34, %41, %49
-  %53 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
-  %54 = icmp eq i32 %53, 0
-  br i1 %54, label %55, label %190
-
-55:                                               ; preds = %52
+if.end12:                                         ; preds = %match.exit37
   store i32 0, ptr @FloatFlag, align 4, !tbaa !5
-  tail call void @exprAssg()
-  %56 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
-  %57 = icmp eq i32 %56, 0
-  br i1 %57, label %58, label %190
+  %call = tail call i32 @expr()
+  store i32 %call, ptr @FloatFlag, align 4, !tbaa !5
+  %20 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
+  %tobool13.not = icmp eq i32 %20, 0
+  br i1 %tobool13.not, label %if.end15, label %cleanup
 
-58:                                               ; preds = %55
-  %59 = icmp eq i32 %3, 0
-  br i1 %59, label %71, label %60
+if.end15:                                         ; preds = %if.end12
+  %21 = load i32, ptr @lookahead, align 4, !tbaa !5
+  %cmp.not = icmp eq i32 %21, 93
+  br i1 %cmp.not, label %if.end17, label %if.then16
 
-60:                                               ; preds = %58
-  %61 = sext i32 %3 to i64
-  %62 = getelementptr inbounds [100 x %struct.entry], ptr @LocalTable, i64 0, i64 %61, i32 2
-  %63 = load i32, ptr %62, align 4, !tbaa !17
-  %64 = icmp eq i32 %63, 2002
-  %65 = load i32, ptr @FloatFlag, align 4
-  %66 = icmp ne i32 %65, 0
-  %67 = select i1 %64, i1 %66, i1 false
-  br i1 %67, label %84, label %68
+if.then16:                                        ; preds = %if.end15
+  tail call void @error(ptr noundef nonnull @.str.5) #7
+  br label %cleanup
 
-68:                                               ; preds = %60
-  %69 = icmp ne i32 %63, 2003
-  %70 = select i1 %69, i1 true, i1 %66
-  br i1 %70, label %88, label %84
+if.end17:                                         ; preds = %if.end15
+  %tobool18.not = icmp eq i32 %call, 0
+  br i1 %tobool18.not, label %if.end20, label %if.then19
 
-71:                                               ; preds = %58
-  %72 = icmp eq i32 %4, 0
-  br i1 %72, label %90, label %73
+if.then19:                                        ; preds = %if.end17
+  tail call void @error(ptr noundef nonnull @.str.6) #7
+  br label %cleanup
 
-73:                                               ; preds = %71
-  %74 = sext i32 %4 to i64
-  %75 = getelementptr inbounds [100 x %struct.entry], ptr @GlobalTable, i64 0, i64 %74, i32 2
-  %76 = load i32, ptr %75, align 4, !tbaa !17
-  %77 = icmp eq i32 %76, 2002
-  %78 = load i32, ptr @FloatFlag, align 4
-  %79 = icmp ne i32 %78, 0
-  %80 = select i1 %77, i1 %79, i1 false
-  br i1 %80, label %84, label %81
+if.end20:                                         ; preds = %if.end17
+  tail call void @emit(i32 noundef 2029, i32 noundef 0, float noundef 0.000000e+00) #7
+  store i32 2006, ptr @lookahead, align 4, !tbaa !5
+  store i32 %1, ptr @tokenval, align 4, !tbaa !5
+  br label %cleanup
 
-81:                                               ; preds = %73
-  %82 = icmp ne i32 %76, 2003
-  %83 = select i1 %82, i1 true, i1 %79
-  br i1 %83, label %88, label %84
+if.else21:                                        ; preds = %entry
+  store i32 0, ptr @ArrayParsed, align 4, !tbaa !5
+  br label %cleanup
 
-84:                                               ; preds = %73, %81, %60, %68
-  %85 = phi i32 [ 2002, %60 ], [ 2003, %68 ], [ 2002, %73 ], [ 2003, %81 ]
-  %86 = phi i32 [ 0, %60 ], [ 1, %68 ], [ 0, %73 ], [ 1, %81 ]
-  %87 = phi i32 [ 2053, %60 ], [ 2053, %68 ], [ 2022, %73 ], [ 2022, %81 ]
-  tail call void @emit(i32 noundef %85, i32 noundef 0, float noundef 0.000000e+00) #7
-  store i32 %86, ptr @FloatFlag, align 4, !tbaa !5
-  br label %88
-
-88:                                               ; preds = %84, %81, %68
-  %89 = phi i32 [ 2053, %68 ], [ 2022, %81 ], [ %87, %84 ]
-  tail call void @emit(i32 noundef %89, i32 noundef 0, float noundef 0.000000e+00) #7
-  br label %90
-
-90:                                               ; preds = %88, %71
-  tail call void @emit(i32 noundef 2037, i32 noundef 0, float noundef 0.000000e+00) #7
-  tail call void @emit(i32 noundef 2004, i32 noundef 0, float noundef 0.000000e+00) #7
-  br label %190
-
-91:                                               ; preds = %7
-  tail call void @exprTest()
-  br label %190
-
-92:                                               ; preds = %0
-  %93 = load i32, ptr @LocalIndex, align 4, !tbaa !5
-  %94 = load i32, ptr @GlobalIndex, align 4, !tbaa !5
-  %95 = load i32, ptr @NextLookahead, align 4, !tbaa !5
-  %96 = icmp eq i32 %95, 61
-  br i1 %96, label %97, label %188
-
-97:                                               ; preds = %92
-  %98 = icmp eq i32 %93, 0
-  br i1 %98, label %100, label %99
-
-99:                                               ; preds = %97
-  tail call void @emit(i32 noundef 2049, i32 noundef %93, float noundef 0.000000e+00) #7
-  br label %104
-
-100:                                              ; preds = %97
-  %101 = icmp eq i32 %94, 0
-  br i1 %101, label %103, label %102
-
-102:                                              ; preds = %100
-  tail call void @emit(i32 noundef 2050, i32 noundef %94, float noundef 0.000000e+00) #7
-  br label %104
-
-103:                                              ; preds = %100
-  tail call void @error(ptr noundef nonnull @.str.13) #7
-  br label %190
-
-104:                                              ; preds = %102, %99
-  %105 = load i32, ptr @lookahead, align 4, !tbaa !5
-  %106 = icmp eq i32 %105, 259
-  br i1 %106, label %107, label %116
-
-107:                                              ; preds = %104
-  store i32 259, ptr @PreviousLookahead, align 4, !tbaa !5
-  %108 = load i32, ptr @tokenval, align 4, !tbaa !5
-  store i32 %108, ptr @PreviousTokenval, align 4, !tbaa !5
-  %109 = load float, ptr @ftokenval, align 4, !tbaa !11
-  store float %109, ptr @PreviousFtokenval, align 4, !tbaa !11
-  %110 = load i32, ptr @NextLookahead, align 4, !tbaa !5
-  store i32 %110, ptr @lookahead, align 4, !tbaa !5
-  %111 = load i32, ptr @NextTokenval, align 4, !tbaa !5
-  store i32 %111, ptr @tokenval, align 4, !tbaa !5
-  %112 = load float, ptr @NextFtokenval, align 4, !tbaa !11
-  store float %112, ptr @ftokenval, align 4, !tbaa !11
-  %113 = icmp eq i32 %110, 260
-  br i1 %113, label %126, label %114
-
-114:                                              ; preds = %107
-  %115 = tail call i32 @lexan() #7
-  store i32 %115, ptr @NextLookahead, align 4, !tbaa !5
-  br label %126
-
-116:                                              ; preds = %104
-  %117 = add i32 %105, -2007
-  %118 = icmp ult i32 %117, 2
-  br i1 %118, label %119, label %120
-
-119:                                              ; preds = %116
-  tail call void @error(ptr noundef nonnull @.str) #7
-  br label %120
-
-120:                                              ; preds = %119, %116
-  %121 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
-  %122 = icmp eq i32 %121, 0
-  br i1 %122, label %123, label %190
-
-123:                                              ; preds = %120
-  %124 = load i32, ptr @lookahead, align 4, !tbaa !5
-  %125 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.2, i32 noundef %124)
-  tail call void @error(ptr noundef nonnull @.str.3) #7
-  br label %126
-
-126:                                              ; preds = %107, %114, %123
-  %127 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
-  %128 = icmp eq i32 %127, 0
-  br i1 %128, label %129, label %190
-
-129:                                              ; preds = %126
-  %130 = load i32, ptr @lookahead, align 4, !tbaa !5
-  %131 = icmp eq i32 %130, 61
-  br i1 %131, label %132, label %141
-
-132:                                              ; preds = %129
-  store i32 61, ptr @PreviousLookahead, align 4, !tbaa !5
-  %133 = load i32, ptr @tokenval, align 4, !tbaa !5
-  store i32 %133, ptr @PreviousTokenval, align 4, !tbaa !5
-  %134 = load float, ptr @ftokenval, align 4, !tbaa !11
-  store float %134, ptr @PreviousFtokenval, align 4, !tbaa !11
-  %135 = load i32, ptr @NextLookahead, align 4, !tbaa !5
-  store i32 %135, ptr @lookahead, align 4, !tbaa !5
-  %136 = load i32, ptr @NextTokenval, align 4, !tbaa !5
-  store i32 %136, ptr @tokenval, align 4, !tbaa !5
-  %137 = load float, ptr @NextFtokenval, align 4, !tbaa !11
-  store float %137, ptr @ftokenval, align 4, !tbaa !11
-  %138 = icmp eq i32 %135, 260
-  br i1 %138, label %150, label %139
-
-139:                                              ; preds = %132
-  %140 = tail call i32 @lexan() #7
-  store i32 %140, ptr @NextLookahead, align 4, !tbaa !5
-  br label %150
-
-141:                                              ; preds = %129
-  %142 = add i32 %130, -2007
-  %143 = icmp ult i32 %142, 2
-  br i1 %143, label %144, label %147
-
-144:                                              ; preds = %141
-  tail call void @error(ptr noundef nonnull @.str) #7
-  %145 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
-  %146 = icmp eq i32 %145, 0
-  br i1 %146, label %147, label %190
-
-147:                                              ; preds = %141, %144
-  %148 = load i32, ptr @lookahead, align 4, !tbaa !5
-  %149 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.2, i32 noundef %148)
-  tail call void @error(ptr noundef nonnull @.str.3) #7
-  br label %150
-
-150:                                              ; preds = %132, %139, %147
-  %151 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
-  %152 = icmp eq i32 %151, 0
-  br i1 %152, label %153, label %190
-
-153:                                              ; preds = %150
-  store i32 0, ptr @FloatFlag, align 4, !tbaa !5
-  tail call void @exprAssg()
-  %154 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
-  %155 = icmp eq i32 %154, 0
-  br i1 %155, label %156, label %190
-
-156:                                              ; preds = %153
-  br i1 %98, label %168, label %157
-
-157:                                              ; preds = %156
-  %158 = sext i32 %93 to i64
-  %159 = getelementptr inbounds [100 x %struct.entry], ptr @LocalTable, i64 0, i64 %158, i32 2
-  %160 = load i32, ptr %159, align 4, !tbaa !17
-  %161 = icmp eq i32 %160, 2002
-  %162 = load i32, ptr @FloatFlag, align 4
-  %163 = icmp ne i32 %162, 0
-  %164 = select i1 %161, i1 %163, i1 false
-  br i1 %164, label %181, label %165
-
-165:                                              ; preds = %157
-  %166 = icmp ne i32 %160, 2003
-  %167 = select i1 %166, i1 true, i1 %163
-  br i1 %167, label %185, label %181
-
-168:                                              ; preds = %156
-  %169 = icmp eq i32 %94, 0
-  br i1 %169, label %187, label %170
-
-170:                                              ; preds = %168
-  %171 = sext i32 %94 to i64
-  %172 = getelementptr inbounds [100 x %struct.entry], ptr @GlobalTable, i64 0, i64 %171, i32 2
-  %173 = load i32, ptr %172, align 4, !tbaa !17
-  %174 = icmp eq i32 %173, 2002
-  %175 = load i32, ptr @FloatFlag, align 4
-  %176 = icmp ne i32 %175, 0
-  %177 = select i1 %174, i1 %176, i1 false
-  br i1 %177, label %181, label %178
-
-178:                                              ; preds = %170
-  %179 = icmp ne i32 %173, 2003
-  %180 = select i1 %179, i1 true, i1 %176
-  br i1 %180, label %185, label %181
-
-181:                                              ; preds = %170, %178, %157, %165
-  %182 = phi i32 [ 2002, %157 ], [ 2003, %165 ], [ 2002, %170 ], [ 2003, %178 ]
-  %183 = phi i32 [ 0, %157 ], [ 1, %165 ], [ 0, %170 ], [ 1, %178 ]
-  %184 = phi i32 [ 2053, %157 ], [ 2053, %165 ], [ 2022, %170 ], [ 2022, %178 ]
-  tail call void @emit(i32 noundef %182, i32 noundef 0, float noundef 0.000000e+00) #7
-  store i32 %183, ptr @FloatFlag, align 4, !tbaa !5
-  br label %185
-
-185:                                              ; preds = %181, %178, %165
-  %186 = phi i32 [ 2053, %165 ], [ 2022, %178 ], [ %184, %181 ]
-  tail call void @emit(i32 noundef %186, i32 noundef 0, float noundef 0.000000e+00) #7
-  br label %187
-
-187:                                              ; preds = %185, %168
-  tail call void @emit(i32 noundef 2037, i32 noundef 0, float noundef 0.000000e+00) #7
-  tail call void @emit(i32 noundef 2004, i32 noundef 0, float noundef 0.000000e+00) #7
-  br label %190
-
-188:                                              ; preds = %92
-  tail call void @exprTest()
-  br label %190
-
-189:                                              ; preds = %0
-  tail call void @exprTest()
-  br label %190
-
-190:                                              ; preds = %189, %91, %188, %144, %120, %46, %22, %90, %187, %153, %150, %126, %55, %52, %28, %2, %103
+cleanup:                                          ; preds = %sw.epilog.i34, %sw.epilog.i, %if.end20, %if.else21, %if.end12, %match.exit37, %match.exit, %if.then19, %if.then16, %if.else5
   ret void
 }
 
 ; Function Attrs: nounwind uwtable
-define dso_local void @parseAStmt() local_unnamed_addr #0 {
-  %1 = load i32, ptr @lookahead, align 4, !tbaa !5
-  switch i32 %1, label %205 [
-    i32 2007, label %2
-    i32 2008, label %55
-    i32 123, label %119
-    i32 2042, label %146
+define dso_local void @DeclOrF() local_unnamed_addr #0 {
+entry:
+  store i32 0, ptr @Scope, align 4, !tbaa !5
+  br label %while.cond
+
+while.cond:                                       ; preds = %match.exit78, %entry
+  %0 = load i32, ptr @lookahead, align 4, !tbaa !5
+  switch i32 %0, label %if.else.i55 [
+    i32 259, label %if.then
+    i32 2002, label %if.then.i
+    i32 2003, label %if.then.i50
   ]
 
-2:                                                ; preds = %0
-  store i32 2007, ptr @PreviousLookahead, align 4, !tbaa !5
-  %3 = load i32, ptr @tokenval, align 4, !tbaa !5
-  store i32 %3, ptr @PreviousTokenval, align 4, !tbaa !5
-  %4 = load float, ptr @ftokenval, align 4, !tbaa !11
-  store float %4, ptr @PreviousFtokenval, align 4, !tbaa !11
-  %5 = load i32, ptr @NextLookahead, align 4, !tbaa !5
-  store i32 %5, ptr @lookahead, align 4, !tbaa !5
-  %6 = load i32, ptr @NextTokenval, align 4, !tbaa !5
-  store i32 %6, ptr @tokenval, align 4, !tbaa !5
-  %7 = load float, ptr @NextFtokenval, align 4, !tbaa !11
-  store float %7, ptr @ftokenval, align 4, !tbaa !11
-  %8 = icmp eq i32 %5, 260
-  br i1 %8, label %11, label %9
+if.then:                                          ; preds = %while.cond
+  tail call void @emit(i32 noundef 2026, i32 noundef 0, float noundef 0.000000e+00) #7
+  store i32 4, ptr @LabelCounter, align 4, !tbaa !5
+  %call = tail call i32 @GlobalInsert(ptr noundef nonnull @.str.7, i32 noundef 259, i32 noundef 2002, i32 noundef 0, i32 noundef 1, i32 noundef 1) #7
+  %1 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
+  %tobool.not = icmp eq i32 %1, 0
+  br i1 %tobool.not, label %if.end, label %cleanup
 
-9:                                                ; preds = %2
-  %10 = tail call i32 @lexan() #7
-  store i32 %10, ptr @NextLookahead, align 4, !tbaa !5
-  br label %11
+if.end:                                           ; preds = %if.then
+  %bcmp47 = tail call i32 @bcmp(ptr noundef nonnull dereferenceable(5) @.str.7, ptr noundef nonnull dereferenceable(5) @lexbuf, i64 5)
+  %cmp3 = icmp eq i32 %bcmp47, 0
+  br i1 %cmp3, label %if.then4, label %cleanup.sink.split
 
-11:                                               ; preds = %2, %9
-  %12 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
-  %13 = icmp eq i32 %12, 0
-  br i1 %13, label %14, label %230
+if.then4:                                         ; preds = %if.end
+  store i32 %call, ptr @GlobalIndex, align 4, !tbaa !5
+  br label %cleanup.sink.split
 
-14:                                               ; preds = %11
-  %15 = load i32, ptr @LabelCounter, align 4, !tbaa !5
-  %16 = add nsw i32 %15, 1
-  %17 = add nsw i32 %15, 2
-  store i32 %17, ptr @LabelCounter, align 4, !tbaa !5
-  tail call void @emit(i32 noundef 2014, i32 noundef %15, float noundef 0.000000e+00) #7
-  tail call void @emit(i32 noundef 2015, i32 noundef %16, float noundef 0.000000e+00) #7
-  %18 = load i32, ptr @lookahead, align 4, !tbaa !5
-  %19 = icmp eq i32 %18, 40
-  br i1 %19, label %20, label %29
+if.then.i:                                        ; preds = %while.cond
+  store i32 2002, ptr @PreviousLookahead, align 4, !tbaa !5
+  %2 = load i32, ptr @tokenval, align 4, !tbaa !5
+  store i32 %2, ptr @PreviousTokenval, align 4, !tbaa !5
+  %3 = load float, ptr @ftokenval, align 4, !tbaa !11
+  store float %3, ptr @PreviousFtokenval, align 4, !tbaa !11
+  %4 = load i32, ptr @NextLookahead, align 4, !tbaa !5
+  store i32 %4, ptr @lookahead, align 4, !tbaa !5
+  %5 = load i32, ptr @NextTokenval, align 4, !tbaa !5
+  store i32 %5, ptr @tokenval, align 4, !tbaa !5
+  %6 = load float, ptr @NextFtokenval, align 4, !tbaa !11
+  store float %6, ptr @ftokenval, align 4, !tbaa !11
+  %cmp1.not.i = icmp eq i32 %4, 260
+  br i1 %cmp1.not.i, label %match.exit, label %if.then2.i
 
-20:                                               ; preds = %14
+if.then2.i:                                       ; preds = %if.then.i
+  %call.i = tail call i32 @lexan() #7
+  store i32 %call.i, ptr @NextLookahead, align 4, !tbaa !5
+  br label %match.exit
+
+match.exit:                                       ; preds = %if.then.i, %if.then2.i
+  %7 = phi i32 [ 260, %if.then.i ], [ %call.i, %if.then2.i ]
+  %8 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
+  %tobool11.not = icmp eq i32 %8, 0
+  br i1 %tobool11.not, label %if.end19, label %cleanup
+
+if.then.i50:                                      ; preds = %while.cond
+  store i32 2003, ptr @PreviousLookahead, align 4, !tbaa !5
+  %9 = load i32, ptr @tokenval, align 4, !tbaa !5
+  store i32 %9, ptr @PreviousTokenval, align 4, !tbaa !5
+  %10 = load float, ptr @ftokenval, align 4, !tbaa !11
+  store float %10, ptr @PreviousFtokenval, align 4, !tbaa !11
+  %11 = load i32, ptr @NextLookahead, align 4, !tbaa !5
+  store i32 %11, ptr @lookahead, align 4, !tbaa !5
+  %12 = load i32, ptr @NextTokenval, align 4, !tbaa !5
+  store i32 %12, ptr @tokenval, align 4, !tbaa !5
+  %13 = load float, ptr @NextFtokenval, align 4, !tbaa !11
+  store float %13, ptr @ftokenval, align 4, !tbaa !11
+  %cmp1.not.i49 = icmp eq i32 %11, 260
+  br i1 %cmp1.not.i49, label %match.exit61, label %if.then2.i52
+
+if.then2.i52:                                     ; preds = %if.then.i50
+  %call.i51 = tail call i32 @lexan() #7
+  store i32 %call.i51, ptr @NextLookahead, align 4, !tbaa !5
+  br label %match.exit61
+
+if.else.i55:                                      ; preds = %while.cond
+  %.off.i53 = add i32 %0, -2007
+  %switch.i54 = icmp ult i32 %.off.i53, 2
+  br i1 %switch.i54, label %sw.bb.i56, label %sw.epilog.i58
+
+sw.bb.i56:                                        ; preds = %if.else.i55
+  tail call void @error(ptr noundef nonnull @.str) #7
+  br label %sw.epilog.i58
+
+sw.epilog.i58:                                    ; preds = %sw.bb.i56, %if.else.i55
+  %14 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
+  %tobool.not.i57 = icmp eq i32 %14, 0
+  br i1 %tobool.not.i57, label %if.end4.i59, label %cleanup
+
+if.end4.i59:                                      ; preds = %sw.epilog.i58
+  %15 = load i32, ptr @lookahead, align 4, !tbaa !5
+  %call6.i60 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.2, i32 noundef %15)
+  tail call void @error(ptr noundef nonnull @.str.3) #7
+  br label %match.exit61
+
+match.exit61:                                     ; preds = %if.then.i50, %if.then2.i52, %if.end4.i59
+  %.pr = load i32, ptr @ErrorFlag, align 4, !tbaa !5
+  %tobool15.not = icmp eq i32 %.pr, 0
+  br i1 %tobool15.not, label %match.exit61.if.end19_crit_edge, label %cleanup
+
+match.exit61.if.end19_crit_edge:                  ; preds = %match.exit61
+  %.pre = load i32, ptr @NextLookahead, align 4, !tbaa !5
+  br label %if.end19
+
+if.end19:                                         ; preds = %match.exit61.if.end19_crit_edge, %match.exit
+  %16 = phi i32 [ %.pre, %match.exit61.if.end19_crit_edge ], [ %7, %match.exit ]
+  %cmp20 = icmp eq i32 %16, 40
+  br i1 %cmp20, label %if.then21, label %if.else33
+
+if.then21:                                        ; preds = %if.end19
+  tail call void @emit(i32 noundef 2026, i32 noundef 0, float noundef 0.000000e+00) #7
+  store i32 4, ptr @LabelCounter, align 4, !tbaa !5
+  %call22 = tail call i32 @GlobalInsert(ptr noundef nonnull @.str.7, i32 noundef 259, i32 noundef 2002, i32 noundef 0, i32 noundef 1, i32 noundef 1) #7
+  %17 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
+  %tobool23.not = icmp eq i32 %17, 0
+  br i1 %tobool23.not, label %if.end25, label %cleanup
+
+if.end25:                                         ; preds = %if.then21
+  %bcmp = tail call i32 @bcmp(ptr noundef nonnull dereferenceable(5) @.str.7, ptr noundef nonnull dereferenceable(5) @lexbuf, i64 5)
+  %cmp27 = icmp eq i32 %bcmp, 0
+  br i1 %cmp27, label %if.then28, label %if.end29
+
+if.then28:                                        ; preds = %if.end25
+  store i32 %call22, ptr @GlobalIndex, align 4, !tbaa !5
+  br label %if.end29
+
+if.end29:                                         ; preds = %if.then28, %if.end25
+  %18 = load i32, ptr @PreviousLookahead, align 4, !tbaa !5
+  br label %cleanup.sink.split
+
+if.else33:                                        ; preds = %if.end19
+  %19 = load i32, ptr @PreviousLookahead, align 4, !tbaa !5
+  tail call void @GlobalScopeAndInsert(i32 noundef %19)
+  %20 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
+  %tobool34.not = icmp eq i32 %20, 0
+  br i1 %tobool34.not, label %if.end36, label %cleanup
+
+if.end36:                                         ; preds = %if.else33
+  %.old.i = load i32, ptr @lookahead, align 4, !tbaa !5
+  %cmp.old.i = icmp eq i32 %.old.i, 44
+  br i1 %cmp.old.i, label %if.then.i.i, label %if.end39
+
+if.then.i.i:                                      ; preds = %if.end36, %if.then3.i
+  store i32 44, ptr @PreviousLookahead, align 4, !tbaa !5
+  %21 = load i32, ptr @tokenval, align 4, !tbaa !5
+  store i32 %21, ptr @PreviousTokenval, align 4, !tbaa !5
+  %22 = load float, ptr @ftokenval, align 4, !tbaa !11
+  store float %22, ptr @PreviousFtokenval, align 4, !tbaa !11
+  %23 = load i32, ptr @NextLookahead, align 4, !tbaa !5
+  store i32 %23, ptr @lookahead, align 4, !tbaa !5
+  %24 = load i32, ptr @NextTokenval, align 4, !tbaa !5
+  store i32 %24, ptr @tokenval, align 4, !tbaa !5
+  %25 = load float, ptr @NextFtokenval, align 4, !tbaa !11
+  store float %25, ptr @ftokenval, align 4, !tbaa !11
+  %cmp1.not.i.i = icmp eq i32 %23, 260
+  br i1 %cmp1.not.i.i, label %if.end.i, label %match.exit.i
+
+match.exit.i:                                     ; preds = %if.then.i.i
+  %call.i.i = tail call i32 @lexan() #7
+  store i32 %call.i.i, ptr @NextLookahead, align 4, !tbaa !5
+  %.pre89 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
+  %tobool.not.i62 = icmp eq i32 %.pre89, 0
+  br i1 %tobool.not.i62, label %if.end.i, label %cleanup
+
+if.end.i:                                         ; preds = %if.then.i.i, %match.exit.i
+  %26 = load i32, ptr @lookahead, align 4
+  switch i32 %26, label %if.else.i64 [
+    i32 2006, label %if.then3.i
+    i32 259, label %if.then3.i
+  ]
+
+if.then3.i:                                       ; preds = %if.end.i, %if.end.i
+  tail call void @GlobalScopeAndInsert(i32 noundef %19)
+  %27 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
+  %tobool4.i = icmp eq i32 %27, 0
+  %28 = load i32, ptr @lookahead, align 4
+  %cmp.i63 = icmp eq i32 %28, 44
+  %or.cond8.i = select i1 %tobool4.i, i1 %cmp.i63, i1 false
+  br i1 %or.cond8.i, label %if.then.i.i, label %GlobalVarList.exit, !llvm.loop !19
+
+if.else.i64:                                      ; preds = %if.end.i
+  tail call void @error(ptr noundef nonnull @.str.12) #7
+  %.pr80 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
+  br label %GlobalVarList.exit
+
+GlobalVarList.exit:                               ; preds = %if.then3.i, %if.else.i64
+  %29 = phi i32 [ %.pr80, %if.else.i64 ], [ %27, %if.then3.i ]
+  %tobool37.not = icmp eq i32 %29, 0
+  br i1 %tobool37.not, label %if.end39thread-pre-split, label %cleanup
+
+if.end39thread-pre-split:                         ; preds = %GlobalVarList.exit
+  %.pr84 = load i32, ptr @lookahead, align 4, !tbaa !5
+  br label %if.end39
+
+if.end39:                                         ; preds = %if.end36, %if.end39thread-pre-split
+  %30 = phi i32 [ %.pr84, %if.end39thread-pre-split ], [ %.old.i, %if.end36 ]
+  %cmp.i65 = icmp eq i32 %30, 59
+  br i1 %cmp.i65, label %if.then.i67, label %if.else.i72
+
+if.then.i67:                                      ; preds = %if.end39
+  store i32 59, ptr @PreviousLookahead, align 4, !tbaa !5
+  %31 = load i32, ptr @tokenval, align 4, !tbaa !5
+  store i32 %31, ptr @PreviousTokenval, align 4, !tbaa !5
+  %32 = load float, ptr @ftokenval, align 4, !tbaa !11
+  store float %32, ptr @PreviousFtokenval, align 4, !tbaa !11
+  %33 = load i32, ptr @NextLookahead, align 4, !tbaa !5
+  store i32 %33, ptr @lookahead, align 4, !tbaa !5
+  %34 = load i32, ptr @NextTokenval, align 4, !tbaa !5
+  store i32 %34, ptr @tokenval, align 4, !tbaa !5
+  %35 = load float, ptr @NextFtokenval, align 4, !tbaa !11
+  store float %35, ptr @ftokenval, align 4, !tbaa !11
+  %cmp1.not.i66 = icmp eq i32 %33, 260
+  br i1 %cmp1.not.i66, label %match.exit78, label %if.then2.i69
+
+if.then2.i69:                                     ; preds = %if.then.i67
+  %call.i68 = tail call i32 @lexan() #7
+  store i32 %call.i68, ptr @NextLookahead, align 4, !tbaa !5
+  br label %match.exit78
+
+if.else.i72:                                      ; preds = %if.end39
+  %.off.i70 = add i32 %30, -2007
+  %switch.i71 = icmp ult i32 %.off.i70, 2
+  br i1 %switch.i71, label %sw.epilog.i75, label %if.end4.i76
+
+sw.epilog.i75:                                    ; preds = %if.else.i72
+  tail call void @error(ptr noundef nonnull @.str) #7
+  %.pre90 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
+  %tobool.not.i74 = icmp eq i32 %.pre90, 0
+  br i1 %tobool.not.i74, label %if.end4.i76, label %cleanup
+
+if.end4.i76:                                      ; preds = %if.else.i72, %sw.epilog.i75
+  %36 = load i32, ptr @lookahead, align 4, !tbaa !5
+  %call6.i77 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.2, i32 noundef %36)
+  tail call void @error(ptr noundef nonnull @.str.3) #7
+  br label %match.exit78
+
+match.exit78:                                     ; preds = %if.then.i67, %if.then2.i69, %if.end4.i76
+  %.pr85 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
+  %tobool40.not = icmp eq i32 %.pr85, 0
+  br i1 %tobool40.not, label %while.cond, label %cleanup
+
+cleanup.sink.split:                               ; preds = %if.end, %if.then4, %if.end29
+  %.sink = phi i32 [ %18, %if.end29 ], [ 2002, %if.then4 ], [ 2002, %if.end ]
+  tail call void @FunctionDef(i32 noundef %.sink)
+  br label %cleanup
+
+cleanup:                                          ; preds = %sw.epilog.i75, %sw.epilog.i58, %match.exit78, %GlobalVarList.exit, %if.else33, %match.exit61, %match.exit, %match.exit.i, %cleanup.sink.split, %if.then21, %if.then
+  ret void
+}
+
+declare i32 @GlobalInsert(ptr noundef, i32 noundef, i32 noundef, i32 noundef, i32 noundef, i32 noundef) local_unnamed_addr #2
+
+; Function Attrs: mustprogress nofree nounwind willreturn memory(argmem: read)
+declare i32 @strcmp(ptr nocapture noundef, ptr nocapture noundef) local_unnamed_addr #4
+
+; Function Attrs: nounwind uwtable
+define dso_local void @FunctionDef(i32 noundef %type) local_unnamed_addr #0 {
+entry:
+  store i32 1, ptr @offset, align 4, !tbaa !5
+  %0 = load i32, ptr @lookahead, align 4, !tbaa !5
+  %cmp.not = icmp eq i32 %0, 259
+  br i1 %cmp.not, label %if.end, label %if.then
+
+if.then:                                          ; preds = %entry
+  tail call void @error(ptr noundef nonnull @.str.21) #7
+  br label %return
+
+if.end:                                           ; preds = %entry
+  %1 = load i32, ptr @LocalIndex, align 4, !tbaa !5
+  %tobool.not = icmp eq i32 %1, 0
+  br i1 %tobool.not, label %if.else, label %if.then1
+
+if.then1:                                         ; preds = %if.end
+  tail call void @error(ptr noundef nonnull @.str.22) #7
+  br label %return
+
+if.else:                                          ; preds = %if.end
+  %2 = load i32, ptr @GlobalIndex, align 4, !tbaa !5
+  %tobool2.not = icmp eq i32 %2, 0
+  br i1 %tobool2.not, label %if.else28, label %if.then3
+
+if.then3:                                         ; preds = %if.else
+  %idxprom = sext i32 %2 to i64
+  %function = getelementptr inbounds [100 x %struct.entry], ptr @GlobalTable, i64 0, i64 %idxprom, i32 4
+  %3 = load i32, ptr %function, align 4, !tbaa !13
+  %tobool4.not = icmp eq i32 %3, 0
+  br i1 %tobool4.not, label %if.then5, label %if.else6
+
+if.then5:                                         ; preds = %if.then3
+  tail call void @error(ptr noundef nonnull @.str.23) #7
+  br label %return
+
+if.else6:                                         ; preds = %if.then3
+  %cmp10 = icmp slt i32 %3, 0
+  br i1 %cmp10, label %if.then11, label %if.then17
+
+if.then11:                                        ; preds = %if.else6
+  tail call void @error(ptr noundef nonnull @.str.24) #7
+  br label %return
+
+if.then17:                                        ; preds = %if.else6
+  %type20 = getelementptr inbounds [100 x %struct.entry], ptr @GlobalTable, i64 0, i64 %idxprom, i32 2
+  store i32 %type, ptr %type20, align 4, !tbaa !17
+  store i32 %2, ptr @FuncNameIndex, align 4, !tbaa !5
+  store i32 -1, ptr %function, align 4, !tbaa !13
+  br label %if.end33
+
+if.else28:                                        ; preds = %if.else
+  %4 = load i32, ptr @LabelCounter, align 4, !tbaa !5
+  %call = tail call i32 @GlobalInsert(ptr noundef nonnull @lexbuf, i32 noundef 259, i32 noundef %type, i32 noundef 0, i32 noundef -1, i32 noundef %4) #7
+  store i32 %call, ptr @GlobalIndex, align 4, !tbaa !5
+  %5 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
+  %tobool29.not = icmp eq i32 %5, 0
+  br i1 %tobool29.not, label %if.end31, label %if.then30
+
+if.then30:                                        ; preds = %if.else28
+  store i32 0, ptr @ErrorFlag, align 4, !tbaa !5
+  br label %if.end31
+
+if.end31:                                         ; preds = %if.then30, %if.else28
+  store i32 %call, ptr @FuncNameIndex, align 4, !tbaa !5
+  %6 = load i32, ptr @LabelCounter, align 4, !tbaa !5
+  %inc = add nsw i32 %6, 1
+  store i32 %inc, ptr @LabelCounter, align 4, !tbaa !5
+  %.pre = sext i32 %call to i64
+  br label %if.end33
+
+if.end33:                                         ; preds = %if.then17, %if.end31
+  %idxprom34.pre-phi = phi i64 [ %idxprom, %if.then17 ], [ %.pre, %if.end31 ]
+  %7 = phi i32 [ %2, %if.then17 ], [ %call, %if.end31 ]
+  %functionlabel = getelementptr inbounds [100 x %struct.entry], ptr @GlobalTable, i64 0, i64 %idxprom34.pre-phi, i32 5
+  %8 = load i32, ptr %functionlabel, align 8, !tbaa !16
+  store i32 %8, ptr @Scope, align 4, !tbaa !5
+  tail call void @emit(i32 noundef 2054, i32 noundef %7, float noundef 0.000000e+00) #7
+  %9 = load i32, ptr @Scope, align 4, !tbaa !5
+  tail call void @emit(i32 noundef 2014, i32 noundef %9, float noundef 0.000000e+00) #7
+  %10 = load i32, ptr @FuncNameIndex, align 4, !tbaa !5
+  tail call void @emit(i32 noundef 2056, i32 noundef %10, float noundef 0.000000e+00) #7
+  %11 = load i32, ptr @LabelCounter, align 4, !tbaa !5
+  store i32 %11, ptr @ReturnLabel, align 4, !tbaa !5
+  %inc36 = add nsw i32 %11, 1
+  store i32 %inc36, ptr @LabelCounter, align 4, !tbaa !5
+  %12 = load i32, ptr @lookahead, align 4, !tbaa !5
+  %cmp.i = icmp eq i32 %12, 259
+  br i1 %cmp.i, label %if.then.i, label %if.else.i
+
+if.then.i:                                        ; preds = %if.end33
+  store i32 259, ptr @PreviousLookahead, align 4, !tbaa !5
+  %13 = load i32, ptr @tokenval, align 4, !tbaa !5
+  store i32 %13, ptr @PreviousTokenval, align 4, !tbaa !5
+  %14 = load float, ptr @ftokenval, align 4, !tbaa !11
+  store float %14, ptr @PreviousFtokenval, align 4, !tbaa !11
+  %15 = load i32, ptr @NextLookahead, align 4, !tbaa !5
+  store i32 %15, ptr @lookahead, align 4, !tbaa !5
+  %16 = load i32, ptr @NextTokenval, align 4, !tbaa !5
+  store i32 %16, ptr @tokenval, align 4, !tbaa !5
+  %17 = load float, ptr @NextFtokenval, align 4, !tbaa !11
+  store float %17, ptr @ftokenval, align 4, !tbaa !11
+  %cmp1.not.i = icmp eq i32 %15, 260
+  br i1 %cmp1.not.i, label %match.exit, label %if.then2.i
+
+if.then2.i:                                       ; preds = %if.then.i
+  %call.i = tail call i32 @lexan() #7
+  store i32 %call.i, ptr @NextLookahead, align 4, !tbaa !5
+  br label %match.exit
+
+if.else.i:                                        ; preds = %if.end33
+  %.off.i = add i32 %12, -2007
+  %switch.i = icmp ult i32 %.off.i, 2
+  br i1 %switch.i, label %sw.bb.i, label %sw.epilog.i
+
+sw.bb.i:                                          ; preds = %if.else.i
+  tail call void @error(ptr noundef nonnull @.str) #7
+  br label %sw.epilog.i
+
+sw.epilog.i:                                      ; preds = %sw.bb.i, %if.else.i
+  %18 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
+  %tobool.not.i = icmp eq i32 %18, 0
+  br i1 %tobool.not.i, label %if.end4.i, label %if.then38
+
+if.end4.i:                                        ; preds = %sw.epilog.i
+  %19 = load i32, ptr @lookahead, align 4, !tbaa !5
+  %call6.i = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.2, i32 noundef %19)
+  tail call void @error(ptr noundef nonnull @.str.3) #7
+  br label %match.exit
+
+match.exit:                                       ; preds = %if.then.i, %if.then2.i, %if.end4.i
+  %.pr = load i32, ptr @ErrorFlag, align 4, !tbaa !5
+  %tobool37.not = icmp eq i32 %.pr, 0
+  br i1 %tobool37.not, label %if.end39, label %if.then38
+
+if.then38:                                        ; preds = %sw.epilog.i, %match.exit
+  store i32 0, ptr @ErrorFlag, align 4, !tbaa !5
+  br label %if.end39
+
+if.end39:                                         ; preds = %if.then38, %match.exit
+  %20 = load i32, ptr @lookahead, align 4, !tbaa !5
+  %cmp.i78 = icmp eq i32 %20, 40
+  br i1 %cmp.i78, label %if.then.i80, label %if.else.i85
+
+if.then.i80:                                      ; preds = %if.end39
   store i32 40, ptr @PreviousLookahead, align 4, !tbaa !5
   %21 = load i32, ptr @tokenval, align 4, !tbaa !5
   store i32 %21, ptr @PreviousTokenval, align 4, !tbaa !5
@@ -2858,585 +1872,349 @@ define dso_local void @parseAStmt() local_unnamed_addr #0 {
   store i32 %24, ptr @tokenval, align 4, !tbaa !5
   %25 = load float, ptr @NextFtokenval, align 4, !tbaa !11
   store float %25, ptr @ftokenval, align 4, !tbaa !11
-  %26 = icmp eq i32 %23, 260
-  br i1 %26, label %39, label %27
+  %cmp1.not.i79 = icmp eq i32 %23, 260
+  br i1 %cmp1.not.i79, label %match.exit91, label %if.then2.i82
 
-27:                                               ; preds = %20
-  %28 = tail call i32 @lexan() #7
-  store i32 %28, ptr @NextLookahead, align 4, !tbaa !5
-  br label %39
+if.then2.i82:                                     ; preds = %if.then.i80
+  %call.i81 = tail call i32 @lexan() #7
+  store i32 %call.i81, ptr @NextLookahead, align 4, !tbaa !5
+  br label %match.exit91
 
-29:                                               ; preds = %14
-  %30 = add i32 %18, -2007
-  %31 = icmp ult i32 %30, 2
-  br i1 %31, label %32, label %33
+if.else.i85:                                      ; preds = %if.end39
+  %.off.i83 = add i32 %20, -2007
+  %switch.i84 = icmp ult i32 %.off.i83, 2
+  br i1 %switch.i84, label %sw.epilog.i88, label %if.end4.i89
 
-32:                                               ; preds = %29
+sw.epilog.i88:                                    ; preds = %if.else.i85
   tail call void @error(ptr noundef nonnull @.str) #7
-  br label %33
+  %.pre126 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
+  %tobool.not.i87 = icmp eq i32 %.pre126, 0
+  br i1 %tobool.not.i87, label %if.end4.i89, label %if.then41
 
-33:                                               ; preds = %32, %29
-  %34 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
-  %35 = icmp eq i32 %34, 0
-  br i1 %35, label %36, label %230
+if.end4.i89:                                      ; preds = %if.else.i85, %sw.epilog.i88
+  %26 = load i32, ptr @lookahead, align 4, !tbaa !5
+  %call6.i90 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.2, i32 noundef %26)
+  tail call void @error(ptr noundef nonnull @.str.3) #7
+  br label %match.exit91
 
-36:                                               ; preds = %33
+match.exit91:                                     ; preds = %if.then.i80, %if.then2.i82, %if.end4.i89
+  %.pr120 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
+  %tobool40.not = icmp eq i32 %.pr120, 0
+  br i1 %tobool40.not, label %if.end42, label %if.then41
+
+if.then41:                                        ; preds = %sw.epilog.i88, %match.exit91
+  store i32 0, ptr @ErrorFlag, align 4, !tbaa !5
+  br label %if.end42
+
+if.end42:                                         ; preds = %if.then41, %match.exit91
+  %27 = load i32, ptr @FuncNameIndex, align 4, !tbaa !5
+  %idxprom43 = sext i32 %27 to i64
+  %arrayidx44 = getelementptr inbounds [100 x %struct.entry], ptr @GlobalTable, i64 0, i64 %idxprom43
+  %28 = load ptr, ptr %arrayidx44, align 16, !tbaa !20
+  %call45 = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %28, ptr noundef nonnull dereferenceable(5) @.str.7) #8
+  %cmp46 = icmp eq i32 %call45, 0
+  br i1 %cmp46, label %if.then47, label %if.else55
+
+if.then47:                                        ; preds = %if.end42
+  %29 = load i32, ptr @lookahead, align 4, !tbaa !5
+  %cmp48 = icmp eq i32 %29, 41
+  br i1 %cmp48, label %if.then.i94, label %if.else53
+
+if.then.i94:                                      ; preds = %if.then47
+  store i32 41, ptr @PreviousLookahead, align 4, !tbaa !5
+  %30 = load i32, ptr @tokenval, align 4, !tbaa !5
+  store i32 %30, ptr @PreviousTokenval, align 4, !tbaa !5
+  %31 = load float, ptr @ftokenval, align 4, !tbaa !11
+  store float %31, ptr @PreviousFtokenval, align 4, !tbaa !11
+  %32 = load i32, ptr @NextLookahead, align 4, !tbaa !5
+  store i32 %32, ptr @lookahead, align 4, !tbaa !5
+  %33 = load i32, ptr @NextTokenval, align 4, !tbaa !5
+  store i32 %33, ptr @tokenval, align 4, !tbaa !5
+  %34 = load float, ptr @NextFtokenval, align 4, !tbaa !11
+  store float %34, ptr @ftokenval, align 4, !tbaa !11
+  %cmp1.not.i93 = icmp eq i32 %32, 260
+  br i1 %cmp1.not.i93, label %while.cond.i.preheader, label %match.exit104
+
+match.exit104:                                    ; preds = %if.then.i94
+  %call.i95 = tail call i32 @lexan() #7
+  store i32 %call.i95, ptr @NextLookahead, align 4, !tbaa !5
+  %.pre128 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
+  %35 = icmp eq i32 %.pre128, 0
+  br i1 %35, label %while.cond.i.preheader, label %return
+
+if.else53:                                        ; preds = %if.then47
+  tail call void @error(ptr noundef nonnull @.str.26) #7
+  br label %return
+
+if.else55:                                        ; preds = %if.end42
+  tail call void @ParamList()
+  %36 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
+  %tobool56.not = icmp eq i32 %36, 0
+  br i1 %tobool56.not, label %if.end58, label %if.then57
+
+if.then57:                                        ; preds = %if.else55
+  store i32 0, ptr @ErrorFlag, align 4, !tbaa !5
+  br label %if.end58
+
+if.end58:                                         ; preds = %if.then57, %if.else55
   %37 = load i32, ptr @lookahead, align 4, !tbaa !5
-  %38 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.2, i32 noundef %37)
-  tail call void @error(ptr noundef nonnull @.str.3) #7
-  br label %39
+  %cmp.i105 = icmp eq i32 %37, 41
+  br i1 %cmp.i105, label %if.then.i107, label %if.else.i112
 
-39:                                               ; preds = %20, %27, %36
-  %40 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
-  %41 = icmp eq i32 %40, 0
-  br i1 %41, label %42, label %230
+if.then.i107:                                     ; preds = %if.end58
+  store i32 41, ptr @PreviousLookahead, align 4, !tbaa !5
+  %38 = load i32, ptr @tokenval, align 4, !tbaa !5
+  store i32 %38, ptr @PreviousTokenval, align 4, !tbaa !5
+  %39 = load float, ptr @ftokenval, align 4, !tbaa !11
+  store float %39, ptr @PreviousFtokenval, align 4, !tbaa !11
+  %40 = load i32, ptr @NextLookahead, align 4, !tbaa !5
+  store i32 %40, ptr @lookahead, align 4, !tbaa !5
+  %41 = load i32, ptr @NextTokenval, align 4, !tbaa !5
+  store i32 %41, ptr @tokenval, align 4, !tbaa !5
+  %42 = load float, ptr @NextFtokenval, align 4, !tbaa !11
+  store float %42, ptr @ftokenval, align 4, !tbaa !11
+  %cmp1.not.i106 = icmp eq i32 %40, 260
+  br i1 %cmp1.not.i106, label %match.exit117, label %if.then2.i109
 
-42:                                               ; preds = %39
-  store i32 0, ptr @FloatFlag, align 4, !tbaa !5
-  tail call void @exprAssg()
-  %43 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
-  %44 = icmp eq i32 %43, 0
-  br i1 %44, label %45, label %230
+if.then2.i109:                                    ; preds = %if.then.i107
+  %call.i108 = tail call i32 @lexan() #7
+  store i32 %call.i108, ptr @NextLookahead, align 4, !tbaa !5
+  br label %match.exit117
 
-45:                                               ; preds = %42
-  tail call void @match(i32 noundef 41)
-  %46 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
-  %47 = icmp eq i32 %46, 0
-  br i1 %47, label %48, label %230
+if.else.i112:                                     ; preds = %if.end58
+  %.off.i110 = add i32 %37, -2007
+  %switch.i111 = icmp ult i32 %.off.i110, 2
+  br i1 %switch.i111, label %sw.epilog.i115, label %if.end4.i116
 
-48:                                               ; preds = %45
-  %49 = load i32, ptr @FloatFlag, align 4, !tbaa !5
-  %50 = icmp eq i32 %49, 0
-  %51 = select i1 %50, i32 256, i32 2001
-  tail call void @emit(i32 noundef %51, i32 noundef 0, float noundef 0.000000e+00) #7
-  tail call void @emit(i32 noundef 2016, i32 noundef 0, float noundef 0.000000e+00) #7
-  tail call void @emit(i32 noundef 2017, i32 noundef 0, float noundef 0.000000e+00) #7
-  tail call void @parseAStmt()
-  %52 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
-  %53 = icmp eq i32 %52, 0
-  br i1 %53, label %54, label %230
-
-54:                                               ; preds = %48
-  tail call void @emit(i32 noundef 2015, i32 noundef %15, float noundef 0.000000e+00) #7
-  tail call void @emit(i32 noundef 2018, i32 noundef 0, float noundef 0.000000e+00) #7
-  tail call void @emit(i32 noundef 2014, i32 noundef %16, float noundef 0.000000e+00) #7
-  br label %230
-
-55:                                               ; preds = %0
-  store i32 2008, ptr @PreviousLookahead, align 4, !tbaa !5
-  %56 = load i32, ptr @tokenval, align 4, !tbaa !5
-  store i32 %56, ptr @PreviousTokenval, align 4, !tbaa !5
-  %57 = load float, ptr @ftokenval, align 4, !tbaa !11
-  store float %57, ptr @PreviousFtokenval, align 4, !tbaa !11
-  %58 = load i32, ptr @NextLookahead, align 4, !tbaa !5
-  store i32 %58, ptr @lookahead, align 4, !tbaa !5
-  %59 = load i32, ptr @NextTokenval, align 4, !tbaa !5
-  store i32 %59, ptr @tokenval, align 4, !tbaa !5
-  %60 = load float, ptr @NextFtokenval, align 4, !tbaa !11
-  store float %60, ptr @ftokenval, align 4, !tbaa !11
-  %61 = icmp eq i32 %58, 260
-  br i1 %61, label %64, label %62
-
-62:                                               ; preds = %55
-  %63 = tail call i32 @lexan() #7
-  store i32 %63, ptr @NextLookahead, align 4, !tbaa !5
-  br label %64
-
-64:                                               ; preds = %55, %62
-  %65 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
-  %66 = icmp eq i32 %65, 0
-  br i1 %66, label %67, label %230
-
-67:                                               ; preds = %64
-  %68 = load i32, ptr @LabelCounter, align 4, !tbaa !5
-  %69 = add nsw i32 %68, 1
-  store i32 %69, ptr @LabelCounter, align 4, !tbaa !5
-  tail call void @emit(i32 noundef 2015, i32 noundef %68, float noundef 0.000000e+00) #7
-  %70 = load i32, ptr @lookahead, align 4, !tbaa !5
-  %71 = icmp eq i32 %70, 40
-  br i1 %71, label %72, label %81
-
-72:                                               ; preds = %67
-  store i32 40, ptr @PreviousLookahead, align 4, !tbaa !5
-  %73 = load i32, ptr @tokenval, align 4, !tbaa !5
-  store i32 %73, ptr @PreviousTokenval, align 4, !tbaa !5
-  %74 = load float, ptr @ftokenval, align 4, !tbaa !11
-  store float %74, ptr @PreviousFtokenval, align 4, !tbaa !11
-  %75 = load i32, ptr @NextLookahead, align 4, !tbaa !5
-  store i32 %75, ptr @lookahead, align 4, !tbaa !5
-  %76 = load i32, ptr @NextTokenval, align 4, !tbaa !5
-  store i32 %76, ptr @tokenval, align 4, !tbaa !5
-  %77 = load float, ptr @NextFtokenval, align 4, !tbaa !11
-  store float %77, ptr @ftokenval, align 4, !tbaa !11
-  %78 = icmp eq i32 %75, 260
-  br i1 %78, label %91, label %79
-
-79:                                               ; preds = %72
-  %80 = tail call i32 @lexan() #7
-  store i32 %80, ptr @NextLookahead, align 4, !tbaa !5
-  br label %91
-
-81:                                               ; preds = %67
-  %82 = add i32 %70, -2007
-  %83 = icmp ult i32 %82, 2
-  br i1 %83, label %84, label %85
-
-84:                                               ; preds = %81
+sw.epilog.i115:                                   ; preds = %if.else.i112
   tail call void @error(ptr noundef nonnull @.str) #7
-  br label %85
+  %.pre127 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
+  %43 = icmp eq i32 %.pre127, 0
+  br i1 %43, label %if.end4.i116, label %if.then60
 
-85:                                               ; preds = %84, %81
-  %86 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
-  %87 = icmp eq i32 %86, 0
-  br i1 %87, label %88, label %230
+if.end4.i116:                                     ; preds = %if.else.i112, %sw.epilog.i115
+  tail call void @error(ptr noundef nonnull @.str.1) #7
+  br label %match.exit117
 
-88:                                               ; preds = %85
-  %89 = load i32, ptr @lookahead, align 4, !tbaa !5
-  %90 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.2, i32 noundef %89)
-  tail call void @error(ptr noundef nonnull @.str.3) #7
-  br label %91
+match.exit117:                                    ; preds = %if.then.i107, %if.then2.i109, %if.end4.i116
+  %.pr122 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
+  %tobool59.not = icmp eq i32 %.pr122, 0
+  br i1 %tobool59.not, label %while.cond.i.preheader, label %if.then60
 
-91:                                               ; preds = %72, %79, %88
-  %92 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
-  %93 = icmp eq i32 %92, 0
-  br i1 %93, label %94, label %230
-
-94:                                               ; preds = %91
-  store i32 0, ptr @FloatFlag, align 4, !tbaa !5
-  tail call void @exprAssg()
-  %95 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
-  %96 = icmp eq i32 %95, 0
-  br i1 %96, label %97, label %230
-
-97:                                               ; preds = %94
-  tail call void @match(i32 noundef 41)
-  %98 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
-  %99 = icmp eq i32 %98, 0
-  br i1 %99, label %100, label %230
-
-100:                                              ; preds = %97
-  %101 = load i32, ptr @FloatFlag, align 4, !tbaa !5
-  %102 = icmp eq i32 %101, 0
-  %103 = select i1 %102, i32 256, i32 2001
-  tail call void @emit(i32 noundef %103, i32 noundef 0, float noundef 0.000000e+00) #7
-  tail call void @emit(i32 noundef 2016, i32 noundef 0, float noundef 0.000000e+00) #7
-  tail call void @emit(i32 noundef 2017, i32 noundef 0, float noundef 0.000000e+00) #7
-  tail call void @parseAStmt()
-  %104 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
-  %105 = icmp eq i32 %104, 0
-  br i1 %105, label %106, label %230
-
-106:                                              ; preds = %100
-  %107 = load i32, ptr @lookahead, align 4, !tbaa !5
-  %108 = icmp eq i32 %107, 2024
-  br i1 %108, label %109, label %118
-
-109:                                              ; preds = %106
-  tail call void @match(i32 noundef 2024)
-  %110 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
-  %111 = icmp eq i32 %110, 0
-  br i1 %111, label %112, label %230
-
-112:                                              ; preds = %109
-  %113 = load i32, ptr @LabelCounter, align 4, !tbaa !5
-  %114 = add nsw i32 %113, 1
-  store i32 %114, ptr @LabelCounter, align 4, !tbaa !5
-  tail call void @emit(i32 noundef 2015, i32 noundef %113, float noundef 0.000000e+00) #7
-  tail call void @emit(i32 noundef 2018, i32 noundef 0, float noundef 0.000000e+00) #7
-  tail call void @emit(i32 noundef 2014, i32 noundef %68, float noundef 0.000000e+00) #7
-  tail call void @parseAStmt()
-  %115 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
-  %116 = icmp eq i32 %115, 0
-  br i1 %116, label %117, label %230
-
-117:                                              ; preds = %112
-  tail call void @emit(i32 noundef 2014, i32 noundef %113, float noundef 0.000000e+00) #7
-  br label %230
-
-118:                                              ; preds = %106
-  tail call void @emit(i32 noundef 2014, i32 noundef %68, float noundef 0.000000e+00) #7
-  br label %230
-
-119:                                              ; preds = %0
-  store i32 123, ptr @PreviousLookahead, align 4, !tbaa !5
-  %120 = load i32, ptr @tokenval, align 4, !tbaa !5
-  store i32 %120, ptr @PreviousTokenval, align 4, !tbaa !5
-  %121 = load float, ptr @ftokenval, align 4, !tbaa !11
-  store float %121, ptr @PreviousFtokenval, align 4, !tbaa !11
-  %122 = load i32, ptr @NextLookahead, align 4, !tbaa !5
-  store i32 %122, ptr @lookahead, align 4, !tbaa !5
-  %123 = load i32, ptr @NextTokenval, align 4, !tbaa !5
-  store i32 %123, ptr @tokenval, align 4, !tbaa !5
-  %124 = load float, ptr @NextFtokenval, align 4, !tbaa !11
-  store float %124, ptr @ftokenval, align 4, !tbaa !11
-  %125 = icmp eq i32 %122, 260
-  br i1 %125, label %128, label %126
-
-126:                                              ; preds = %119
-  %127 = tail call i32 @lexan() #7
-  store i32 %127, ptr @NextLookahead, align 4, !tbaa !5
-  br label %128
-
-128:                                              ; preds = %119, %126
-  br label %129
-
-129:                                              ; preds = %128, %133
-  tail call void @parseAStmt()
-  %130 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
-  %131 = icmp eq i32 %130, 0
-  br i1 %131, label %133, label %132
-
-132:                                              ; preds = %129
+if.then60:                                        ; preds = %sw.epilog.i115, %match.exit117
   store i32 0, ptr @ErrorFlag, align 4, !tbaa !5
-  br label %133
+  br label %while.cond.i.preheader
 
-133:                                              ; preds = %129, %132
-  %134 = load i32, ptr @lookahead, align 4, !tbaa !5
-  switch i32 %134, label %129 [
-    i32 125, label %135
-    i32 260, label %144
-  ]
+while.cond.i.preheader:                           ; preds = %if.then.i94, %match.exit117, %if.then60, %match.exit104
+  br label %while.cond.i
 
-135:                                              ; preds = %133
-  store i32 125, ptr @PreviousLookahead, align 4, !tbaa !5
-  %136 = load i32, ptr @tokenval, align 4, !tbaa !5
-  store i32 %136, ptr @PreviousTokenval, align 4, !tbaa !5
-  %137 = load float, ptr @ftokenval, align 4, !tbaa !11
-  store float %137, ptr @PreviousFtokenval, align 4, !tbaa !11
-  %138 = load i32, ptr @NextLookahead, align 4, !tbaa !5
-  store i32 %138, ptr @lookahead, align 4, !tbaa !5
-  %139 = load i32, ptr @NextTokenval, align 4, !tbaa !5
-  store i32 %139, ptr @tokenval, align 4, !tbaa !5
-  %140 = load float, ptr @NextFtokenval, align 4, !tbaa !11
-  store float %140, ptr @ftokenval, align 4, !tbaa !11
-  %141 = icmp eq i32 %138, 260
-  br i1 %141, label %230, label %142
+while.cond.i:                                     ; preds = %while.cond.i.preheader, %if.end.i
+  %44 = load i32, ptr @lookahead, align 4
+  %45 = and i32 %44, -2
+  %46 = icmp eq i32 %45, 2002
+  br i1 %46, label %while.body.i, label %DecList.exit
 
-142:                                              ; preds = %135
-  %143 = tail call i32 @lexan() #7
-  store i32 %143, ptr @NextLookahead, align 4, !tbaa !5
-  br label %230
+while.body.i:                                     ; preds = %while.cond.i
+  tail call void @match(i32 noundef %44)
+  %47 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
+  %tobool.not.i118 = icmp eq i32 %47, 0
+  br i1 %tobool.not.i118, label %if.end.i, label %if.then64
 
-144:                                              ; preds = %133
-  %145 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.2, i32 noundef 260)
-  tail call void @error(ptr noundef nonnull @.str.3) #7
-  br label %230
+if.end.i:                                         ; preds = %while.body.i
+  %48 = load i32, ptr @PreviousLookahead, align 4, !tbaa !5
+  tail call void @VarList(i32 noundef %48)
+  %49 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
+  %tobool2.not.i = icmp eq i32 %49, 0
+  br i1 %tobool2.not.i, label %while.cond.i, label %if.then64, !llvm.loop !21
 
-146:                                              ; preds = %0
-  %147 = load i32, ptr @NextLookahead, align 4, !tbaa !5
-  %148 = icmp eq i32 %147, 59
-  store i32 2042, ptr @PreviousLookahead, align 4, !tbaa !5
-  %149 = load i32, ptr @tokenval, align 4, !tbaa !5
-  store i32 %149, ptr @PreviousTokenval, align 4, !tbaa !5
-  %150 = load float, ptr @ftokenval, align 4, !tbaa !11
-  store float %150, ptr @PreviousFtokenval, align 4, !tbaa !11
-  br i1 %148, label %151, label %188
+DecList.exit:                                     ; preds = %while.cond.i
+  tail call void @ParamInt() #7
+  %.pr124 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
+  %tobool63.not = icmp eq i32 %.pr124, 0
+  br i1 %tobool63.not, label %if.end65, label %if.then64
 
-151:                                              ; preds = %146
-  store i32 59, ptr @lookahead, align 4, !tbaa !5
-  %152 = load i32, ptr @NextTokenval, align 4, !tbaa !5
-  store i32 %152, ptr @tokenval, align 4, !tbaa !5
-  %153 = load float, ptr @NextFtokenval, align 4, !tbaa !11
-  store float %153, ptr @ftokenval, align 4, !tbaa !11
-  %154 = tail call i32 @lexan() #7
-  store i32 %154, ptr @NextLookahead, align 4, !tbaa !5
-  %155 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
-  %156 = icmp eq i32 %155, 0
-  br i1 %156, label %157, label %230
+if.then64:                                        ; preds = %if.end.i, %while.body.i, %DecList.exit
+  store i32 0, ptr @ErrorFlag, align 4, !tbaa !5
+  br label %if.end65
 
-157:                                              ; preds = %151
-  %158 = load i32, ptr @lookahead, align 4, !tbaa !5
-  %159 = icmp eq i32 %158, 59
-  br i1 %159, label %160, label %168
+if.end65:                                         ; preds = %if.then64, %DecList.exit
+  %50 = load i32, ptr @FuncNameIndex, align 4, !tbaa !5
+  tail call void @emit(i32 noundef 2057, i32 noundef %50, float noundef 0.000000e+00) #7
+  tail call void @FstmtList()
+  %51 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
+  %tobool66.not = icmp eq i32 %51, 0
+  br i1 %tobool66.not, label %if.end68, label %return
 
-160:                                              ; preds = %157
-  store i32 59, ptr @PreviousLookahead, align 4, !tbaa !5
-  %161 = load i32, ptr @tokenval, align 4, !tbaa !5
-  store i32 %161, ptr @PreviousTokenval, align 4, !tbaa !5
-  %162 = load float, ptr @ftokenval, align 4, !tbaa !11
-  store float %162, ptr @PreviousFtokenval, align 4, !tbaa !11
-  store i32 %154, ptr @lookahead, align 4, !tbaa !5
-  %163 = load i32, ptr @NextTokenval, align 4, !tbaa !5
-  store i32 %163, ptr @tokenval, align 4, !tbaa !5
-  %164 = load float, ptr @NextFtokenval, align 4, !tbaa !11
-  store float %164, ptr @ftokenval, align 4, !tbaa !11
-  %165 = icmp eq i32 %154, 260
-  br i1 %165, label %177, label %166
+if.end68:                                         ; preds = %if.end65
+  %52 = load i32, ptr @FuncNameIndex, align 4, !tbaa !5
+  %idxprom69 = sext i32 %52 to i64
+  %type71 = getelementptr inbounds [100 x %struct.entry], ptr @GlobalTable, i64 0, i64 %idxprom69, i32 2
+  %53 = load i32, ptr %type71, align 4, !tbaa !17
+  %cmp72 = icmp eq i32 %53, 2002
+  br i1 %cmp72, label %if.then73, label %if.else74
 
-166:                                              ; preds = %160
-  %167 = tail call i32 @lexan() #7
-  store i32 %167, ptr @NextLookahead, align 4, !tbaa !5
-  br label %177
-
-168:                                              ; preds = %157
-  %169 = add i32 %158, -2007
-  %170 = icmp ult i32 %169, 2
-  br i1 %170, label %171, label %174
-
-171:                                              ; preds = %168
-  tail call void @error(ptr noundef nonnull @.str) #7
-  %172 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
-  %173 = icmp eq i32 %172, 0
-  br i1 %173, label %174, label %230
-
-174:                                              ; preds = %168, %171
-  %175 = load i32, ptr @lookahead, align 4, !tbaa !5
-  %176 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.2, i32 noundef %175)
-  tail call void @error(ptr noundef nonnull @.str.3) #7
-  br label %177
-
-177:                                              ; preds = %160, %166, %174
-  %178 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
-  %179 = icmp eq i32 %178, 0
-  br i1 %179, label %180, label %230
-
-180:                                              ; preds = %177
-  %181 = load i32, ptr @FuncNameIndex, align 4, !tbaa !5
-  %182 = sext i32 %181 to i64
-  %183 = getelementptr inbounds [100 x %struct.entry], ptr @GlobalTable, i64 0, i64 %182, i32 2
-  %184 = load i32, ptr %183, align 4, !tbaa !17
-  %185 = icmp eq i32 %184, 2002
-  br i1 %185, label %186, label %187
-
-186:                                              ; preds = %180
+if.then73:                                        ; preds = %if.end68
   tail call void @emit(i32 noundef 256, i32 noundef 1, float noundef 0.000000e+00) #7
-  br label %203
+  br label %if.end75
 
-187:                                              ; preds = %180
+if.else74:                                        ; preds = %if.end68
   tail call void @emit(i32 noundef 2001, i32 noundef 0, float noundef 1.000000e+00) #7
-  br label %203
+  br label %if.end75
 
-188:                                              ; preds = %146
-  store i32 %147, ptr @lookahead, align 4, !tbaa !5
-  %189 = load i32, ptr @NextTokenval, align 4, !tbaa !5
-  store i32 %189, ptr @tokenval, align 4, !tbaa !5
-  %190 = load float, ptr @NextFtokenval, align 4, !tbaa !11
-  store float %190, ptr @ftokenval, align 4, !tbaa !11
-  %191 = icmp eq i32 %147, 260
-  br i1 %191, label %194, label %192
-
-192:                                              ; preds = %188
-  %193 = tail call i32 @lexan() #7
-  store i32 %193, ptr @NextLookahead, align 4, !tbaa !5
-  br label %194
-
-194:                                              ; preds = %188, %192
-  %195 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
-  %196 = icmp eq i32 %195, 0
-  br i1 %196, label %197, label %230
-
-197:                                              ; preds = %194
-  tail call void @exprAssg()
-  %198 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
-  %199 = icmp eq i32 %198, 0
-  br i1 %199, label %200, label %230
-
-200:                                              ; preds = %197
-  tail call void @match(i32 noundef 59)
-  %201 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
-  %202 = icmp eq i32 %201, 0
-  br i1 %202, label %203, label %230
-
-203:                                              ; preds = %200, %186, %187
-  %204 = load i32, ptr @ReturnLabel, align 4, !tbaa !5
-  tail call void @emit(i32 noundef 2015, i32 noundef %204, float noundef 0.000000e+00) #7
+if.end75:                                         ; preds = %if.else74, %if.then73
+  %54 = load i32, ptr @ReturnLabel, align 4, !tbaa !5
+  tail call void @emit(i32 noundef 2014, i32 noundef %54, float noundef 0.000000e+00) #7
+  %55 = load i32, ptr @FuncNameIndex, align 4, !tbaa !5
+  tail call void @emit(i32 noundef 2058, i32 noundef %55, float noundef 0.000000e+00) #7
   tail call void @emit(i32 noundef 2018, i32 noundef 0, float noundef 0.000000e+00) #7
-  br label %230
+  br label %return
 
-205:                                              ; preds = %0
-  tail call void @exprAssg()
-  %206 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
-  %207 = icmp eq i32 %206, 0
-  br i1 %207, label %208, label %230
-
-208:                                              ; preds = %205
-  tail call void @emit(i32 noundef 2004, i32 noundef 0, float noundef 0.000000e+00) #7
-  %209 = load i32, ptr @lookahead, align 4, !tbaa !5
-  %210 = icmp eq i32 %209, 59
-  br i1 %210, label %211, label %220
-
-211:                                              ; preds = %208
-  store i32 59, ptr @PreviousLookahead, align 4, !tbaa !5
-  %212 = load i32, ptr @tokenval, align 4, !tbaa !5
-  store i32 %212, ptr @PreviousTokenval, align 4, !tbaa !5
-  %213 = load float, ptr @ftokenval, align 4, !tbaa !11
-  store float %213, ptr @PreviousFtokenval, align 4, !tbaa !11
-  %214 = load i32, ptr @NextLookahead, align 4, !tbaa !5
-  store i32 %214, ptr @lookahead, align 4, !tbaa !5
-  %215 = load i32, ptr @NextTokenval, align 4, !tbaa !5
-  store i32 %215, ptr @tokenval, align 4, !tbaa !5
-  %216 = load float, ptr @NextFtokenval, align 4, !tbaa !11
-  store float %216, ptr @ftokenval, align 4, !tbaa !11
-  %217 = icmp eq i32 %214, 260
-  br i1 %217, label %230, label %218
-
-218:                                              ; preds = %211
-  %219 = tail call i32 @lexan() #7
-  store i32 %219, ptr @NextLookahead, align 4, !tbaa !5
-  br label %230
-
-220:                                              ; preds = %208
-  %221 = add i32 %209, -2007
-  %222 = icmp ult i32 %221, 2
-  br i1 %222, label %223, label %224
-
-223:                                              ; preds = %220
-  tail call void @error(ptr noundef nonnull @.str) #7
-  br label %224
-
-224:                                              ; preds = %223, %220
-  %225 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
-  %226 = icmp eq i32 %225, 0
-  br i1 %226, label %227, label %230
-
-227:                                              ; preds = %224
-  %228 = load i32, ptr @lookahead, align 4, !tbaa !5
-  %229 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.2, i32 noundef %228)
-  tail call void @error(ptr noundef nonnull @.str.3) #7
-  br label %230
-
-230:                                              ; preds = %144, %142, %135, %171, %85, %33, %54, %203, %118, %117, %227, %224, %218, %211, %205, %200, %197, %194, %177, %151, %112, %109, %100, %97, %94, %91, %64, %48, %45, %42, %39, %11
+return:                                           ; preds = %if.end65, %match.exit104, %if.end75, %if.else53, %if.then11, %if.then5, %if.then1, %if.then
   ret void
 }
 
 ; Function Attrs: nounwind uwtable
-define dso_local void @parse() local_unnamed_addr #0 {
-  store i32 1, ptr @PreviousLookahead, align 4, !tbaa !5
-  %1 = load i32, ptr @tokenval, align 4, !tbaa !5
-  store i32 %1, ptr @PreviousTokenval, align 4, !tbaa !5
-  %2 = load float, ptr @ftokenval, align 4, !tbaa !11
-  store float %2, ptr @PreviousFtokenval, align 4, !tbaa !11
+define dso_local void @GlobalScopeAndInsert(i32 noundef %type) local_unnamed_addr #0 {
+entry:
+  %0 = load i32, ptr @LocalIndex, align 4, !tbaa !5
+  %tobool.not = icmp eq i32 %0, 0
+  br i1 %tobool.not, label %if.else, label %if.then
+
+if.then:                                          ; preds = %entry
+  tail call void @error(ptr noundef nonnull @.str.8) #7
+  br label %cleanup
+
+if.else:                                          ; preds = %entry
+  %1 = load i32, ptr @GlobalIndex, align 4, !tbaa !5
+  %tobool1.not = icmp eq i32 %1, 0
+  br i1 %tobool1.not, label %if.else6, label %if.then2
+
+if.then2:                                         ; preds = %if.else
+  %idxprom = sext i32 %1 to i64
+  %function = getelementptr inbounds [100 x %struct.entry], ptr @GlobalTable, i64 0, i64 %idxprom, i32 4
+  %2 = load i32, ptr %function, align 4, !tbaa !13
+  %tobool3.not = icmp eq i32 %2, 0
+  br i1 %tobool3.not, label %if.else5, label %if.then4
+
+if.then4:                                         ; preds = %if.then2
+  tail call void @error(ptr noundef nonnull @.str.9) #7
+  br label %cleanup
+
+if.else5:                                         ; preds = %if.then2
+  tail call void @error(ptr noundef nonnull @.str.10) #7
+  br label %cleanup
+
+if.else6:                                         ; preds = %if.else
   %3 = load i32, ptr @NextLookahead, align 4, !tbaa !5
-  store i32 %3, ptr @lookahead, align 4, !tbaa !5
-  %4 = load i32, ptr @NextTokenval, align 4, !tbaa !5
-  store i32 %4, ptr @tokenval, align 4, !tbaa !5
-  %5 = load float, ptr @NextFtokenval, align 4, !tbaa !11
-  store float %5, ptr @ftokenval, align 4, !tbaa !11
-  %6 = icmp eq i32 %3, 260
-  br i1 %6, label %9, label %7
+  %cmp = icmp eq i32 %3, 91
+  br i1 %cmp, label %if.then7, label %if.else28
 
-7:                                                ; preds = %0
-  %8 = tail call i32 @lexan() #7
-  store i32 %8, ptr @NextLookahead, align 4, !tbaa !5
-  br label %9
-
-9:                                                ; preds = %0, %7
-  %10 = phi i32 [ 260, %0 ], [ %8, %7 ]
-  %11 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
-  %12 = icmp eq i32 %11, 0
-  br i1 %12, label %14, label %13
-
-13:                                               ; preds = %9
-  store i32 0, ptr @ErrorFlag, align 4, !tbaa !5
-  br label %14
-
-14:                                               ; preds = %9, %13
-  store i32 1, ptr @PreviousLookahead, align 4, !tbaa !5
-  %15 = load i32, ptr @tokenval, align 4, !tbaa !5
-  store i32 %15, ptr @PreviousTokenval, align 4, !tbaa !5
-  %16 = load float, ptr @ftokenval, align 4, !tbaa !11
-  store float %16, ptr @PreviousFtokenval, align 4, !tbaa !11
-  store i32 %10, ptr @lookahead, align 4, !tbaa !5
-  %17 = load i32, ptr @NextTokenval, align 4, !tbaa !5
-  store i32 %17, ptr @tokenval, align 4, !tbaa !5
-  %18 = load float, ptr @NextFtokenval, align 4, !tbaa !11
-  store float %18, ptr @ftokenval, align 4, !tbaa !11
-  %19 = icmp eq i32 %10, 260
-  br i1 %19, label %25, label %20
-
-20:                                               ; preds = %14
-  %21 = tail call i32 @lexan() #7
-  store i32 %21, ptr @NextLookahead, align 4, !tbaa !5
-  %22 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
-  %23 = icmp eq i32 %22, 0
-  br i1 %23, label %25, label %24
-
-24:                                               ; preds = %20
-  store i32 0, ptr @ErrorFlag, align 4, !tbaa !5
-  br label %25
-
-25:                                               ; preds = %14, %24, %20
-  tail call void @DeclOrF()
-  %26 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
-  %27 = icmp eq i32 %26, 0
-  br i1 %27, label %28, label %35
-
-28:                                               ; preds = %25
-  tail call void @FunctionList()
-  %29 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
-  %30 = icmp eq i32 %29, 0
-  br i1 %30, label %31, label %35
-
-31:                                               ; preds = %28
-  tail call void @CheckMain() #7
-  tail call void @AllBodsParsed() #7
-  %32 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
-  %33 = icmp eq i32 %32, 0
-  br i1 %33, label %34, label %35
-
-34:                                               ; preds = %31
-  tail call void @emit(i32 noundef 2027, i32 noundef 0, float noundef 0.000000e+00) #7
-  br label %35
-
-35:                                               ; preds = %31, %28, %25, %34
-  ret void
-}
-
-; Function Attrs: nounwind uwtable
-define dso_local void @FunctionList() local_unnamed_addr #0 {
-  br label %1
-
-1:                                                ; preds = %37, %0
-  store i32 0, ptr @ErrorFlag, align 4, !tbaa !5
-  store i32 0, ptr @FloatFlag, align 4, !tbaa !5
-  tail call void @LocalReset() #7
-  %2 = load i32, ptr @lookahead, align 4, !tbaa !5
-  switch i32 %2, label %36 [
-    i32 259, label %3
-    i32 2002, label %6
-    i32 2003, label %21
-    i32 260, label %40
-  ]
-
-3:                                                ; preds = %1
-  tail call void @FunctionDef(i32 noundef 2002)
+if.then7:                                         ; preds = %if.else6
+  %call = tail call i32 @GlobalInsert(ptr noundef nonnull @lexbuf, i32 noundef 2006, i32 noundef %type, i32 noundef 0, i32 noundef 0, i32 noundef 0) #7
+  store i32 %call, ptr @GlobalIndex, align 4, !tbaa !5
   %4 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
-  %5 = icmp eq i32 %4, 0
-  br i1 %5, label %37, label %40
+  %tobool8.not = icmp eq i32 %4, 0
+  br i1 %tobool8.not, label %if.end, label %cleanup
 
-6:                                                ; preds = %1
-  store i32 2002, ptr @PreviousLookahead, align 4, !tbaa !5
-  %7 = load i32, ptr @tokenval, align 4, !tbaa !5
-  store i32 %7, ptr @PreviousTokenval, align 4, !tbaa !5
-  %8 = load float, ptr @ftokenval, align 4, !tbaa !11
-  store float %8, ptr @PreviousFtokenval, align 4, !tbaa !11
-  %9 = load i32, ptr @NextLookahead, align 4, !tbaa !5
-  store i32 %9, ptr @lookahead, align 4, !tbaa !5
-  %10 = load i32, ptr @NextTokenval, align 4, !tbaa !5
-  store i32 %10, ptr @tokenval, align 4, !tbaa !5
-  %11 = load float, ptr @NextFtokenval, align 4, !tbaa !11
-  store float %11, ptr @ftokenval, align 4, !tbaa !11
-  %12 = icmp eq i32 %9, 260
-  br i1 %12, label %15, label %13
+if.end:                                           ; preds = %if.then7
+  %5 = load i32, ptr @lookahead, align 4, !tbaa !5
+  %cmp.i = icmp eq i32 %5, 259
+  br i1 %cmp.i, label %if.then.i, label %if.else.i
 
-13:                                               ; preds = %6
-  %14 = tail call i32 @lexan() #7
-  store i32 %14, ptr @NextLookahead, align 4, !tbaa !5
-  br label %15
+if.then.i:                                        ; preds = %if.end
+  store i32 259, ptr @PreviousLookahead, align 4, !tbaa !5
+  %6 = load i32, ptr @tokenval, align 4, !tbaa !5
+  store i32 %6, ptr @PreviousTokenval, align 4, !tbaa !5
+  %7 = load float, ptr @ftokenval, align 4, !tbaa !11
+  store float %7, ptr @PreviousFtokenval, align 4, !tbaa !11
+  %8 = load i32, ptr @NextLookahead, align 4, !tbaa !5
+  store i32 %8, ptr @lookahead, align 4, !tbaa !5
+  %9 = load i32, ptr @NextTokenval, align 4, !tbaa !5
+  store i32 %9, ptr @tokenval, align 4, !tbaa !5
+  %10 = load float, ptr @NextFtokenval, align 4, !tbaa !11
+  store float %10, ptr @ftokenval, align 4, !tbaa !11
+  %cmp1.not.i = icmp eq i32 %8, 260
+  br i1 %cmp1.not.i, label %match.exit, label %if.then2.i
 
-15:                                               ; preds = %6, %13
+if.then2.i:                                       ; preds = %if.then.i
+  %call.i = tail call i32 @lexan() #7
+  store i32 %call.i, ptr @NextLookahead, align 4, !tbaa !5
+  br label %match.exit
+
+if.else.i:                                        ; preds = %if.end
+  %.off.i = add i32 %5, -2007
+  %switch.i = icmp ult i32 %.off.i, 2
+  br i1 %switch.i, label %sw.epilog.i, label %if.end4.i
+
+sw.epilog.i:                                      ; preds = %if.else.i
+  tail call void @error(ptr noundef nonnull @.str) #7
+  %.pre = load i32, ptr @ErrorFlag, align 4, !tbaa !5
+  %11 = icmp eq i32 %.pre, 0
+  br i1 %11, label %if.end4.i, label %cleanup
+
+if.end4.i:                                        ; preds = %if.else.i, %sw.epilog.i
+  %12 = load i32, ptr @lookahead, align 4, !tbaa !5
+  %call6.i = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.2, i32 noundef %12)
+  tail call void @error(ptr noundef nonnull @.str.3) #7
+  br label %match.exit
+
+match.exit:                                       ; preds = %if.then.i, %if.then2.i, %if.end4.i
+  %.pr = load i32, ptr @ErrorFlag, align 4, !tbaa !5
+  %tobool10.not = icmp eq i32 %.pr, 0
+  br i1 %tobool10.not, label %if.end12, label %cleanup
+
+if.end12:                                         ; preds = %match.exit
+  tail call void @match(i32 noundef 91)
+  %13 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
+  %tobool13.not = icmp eq i32 %13, 0
+  br i1 %tobool13.not, label %if.end15, label %cleanup
+
+if.end15:                                         ; preds = %if.end12
+  %14 = load i32, ptr @lookahead, align 4, !tbaa !5
+  %cmp16 = icmp eq i32 %14, 256
+  br i1 %cmp16, label %if.then17, label %if.else20
+
+if.then17:                                        ; preds = %if.end15
+  %15 = load i32, ptr @tokenval, align 4, !tbaa !5
+  %idxprom18 = sext i32 %call to i64
+  %size = getelementptr inbounds [100 x %struct.entry], ptr @GlobalTable, i64 0, i64 %idxprom18, i32 3
+  store i32 %15, ptr %size, align 16, !tbaa !22
+  tail call void @match(i32 noundef 256)
+  tail call void @match(i32 noundef 93)
   %16 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
-  %17 = icmp eq i32 %16, 0
-  br i1 %17, label %18, label %40
+  %tobool22.not = icmp eq i32 %16, 0
+  br i1 %tobool22.not, label %if.end24, label %cleanup
 
-18:                                               ; preds = %15
-  tail call void @FunctionDef(i32 noundef 2002)
+if.else20:                                        ; preds = %if.end15
+  tail call void @error(ptr noundef nonnull @.str.11) #7
+  br label %cleanup
+
+if.end24:                                         ; preds = %if.then17
+  tail call void @emit(i32 noundef 2048, i32 noundef %call, float noundef 0.000000e+00) #7
+  %17 = load i32, ptr %size, align 16, !tbaa !22
+  %18 = load i32, ptr @DecCount, align 4, !tbaa !5
+  %add = add nsw i32 %18, %17
+  store i32 %add, ptr @DecCount, align 4, !tbaa !5
+  br label %cleanup
+
+if.else28:                                        ; preds = %if.else6
+  %call29 = tail call i32 @GlobalInsert(ptr noundef nonnull @lexbuf, i32 noundef 259, i32 noundef %type, i32 noundef 1, i32 noundef 0, i32 noundef 0) #7
+  store i32 %call29, ptr @GlobalIndex, align 4, !tbaa !5
   %19 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
-  %20 = icmp eq i32 %19, 0
-  br i1 %20, label %37, label %40
+  %tobool30.not = icmp eq i32 %19, 0
+  br i1 %tobool30.not, label %if.end32, label %cleanup
 
-21:                                               ; preds = %1
-  store i32 2003, ptr @PreviousLookahead, align 4, !tbaa !5
+if.end32:                                         ; preds = %if.else28
+  tail call void @emit(i32 noundef 2048, i32 noundef %call29, float noundef 0.000000e+00) #7
+  %20 = load i32, ptr @DecCount, align 4, !tbaa !5
+  %inc = add nsw i32 %20, 1
+  store i32 %inc, ptr @DecCount, align 4, !tbaa !5
+  %21 = load i32, ptr @lookahead, align 4, !tbaa !5
+  %cmp.i42 = icmp eq i32 %21, 259
+  br i1 %cmp.i42, label %if.then.i44, label %if.else.i49
+
+if.then.i44:                                      ; preds = %if.end32
+  store i32 259, ptr @PreviousLookahead, align 4, !tbaa !5
   %22 = load i32, ptr @tokenval, align 4, !tbaa !5
   store i32 %22, ptr @PreviousTokenval, align 4, !tbaa !5
   %23 = load float, ptr @ftokenval, align 4, !tbaa !11
@@ -3447,35 +2225,1271 @@ define dso_local void @FunctionList() local_unnamed_addr #0 {
   store i32 %25, ptr @tokenval, align 4, !tbaa !5
   %26 = load float, ptr @NextFtokenval, align 4, !tbaa !11
   store float %26, ptr @ftokenval, align 4, !tbaa !11
-  %27 = icmp eq i32 %24, 260
-  br i1 %27, label %30, label %28
+  %cmp1.not.i43 = icmp eq i32 %24, 260
+  br i1 %cmp1.not.i43, label %cleanup, label %if.then2.i46
 
-28:                                               ; preds = %21
-  %29 = tail call i32 @lexan() #7
-  store i32 %29, ptr @NextLookahead, align 4, !tbaa !5
-  br label %30
+if.then2.i46:                                     ; preds = %if.then.i44
+  %call.i45 = tail call i32 @lexan() #7
+  store i32 %call.i45, ptr @NextLookahead, align 4, !tbaa !5
+  br label %cleanup
 
-30:                                               ; preds = %21, %28
-  %31 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
-  %32 = icmp eq i32 %31, 0
-  br i1 %32, label %33, label %40
+if.else.i49:                                      ; preds = %if.end32
+  %.off.i47 = add i32 %21, -2007
+  %switch.i48 = icmp ult i32 %.off.i47, 2
+  br i1 %switch.i48, label %sw.bb.i50, label %sw.epilog.i52
 
-33:                                               ; preds = %30
-  tail call void @FunctionDef(i32 noundef 2003)
+sw.bb.i50:                                        ; preds = %if.else.i49
+  tail call void @error(ptr noundef nonnull @.str) #7
+  br label %sw.epilog.i52
+
+sw.epilog.i52:                                    ; preds = %sw.bb.i50, %if.else.i49
+  %27 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
+  %tobool.not.i51 = icmp eq i32 %27, 0
+  br i1 %tobool.not.i51, label %if.end4.i53, label %cleanup
+
+if.end4.i53:                                      ; preds = %sw.epilog.i52
+  %28 = load i32, ptr @lookahead, align 4, !tbaa !5
+  %call6.i54 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.2, i32 noundef %28)
+  tail call void @error(ptr noundef nonnull @.str.3) #7
+  br label %cleanup
+
+cleanup:                                          ; preds = %sw.epilog.i, %if.end4.i53, %sw.epilog.i52, %if.then2.i46, %if.then.i44, %if.end24, %if.else28, %if.then17, %if.end12, %match.exit, %if.then7, %if.else20, %if.else5, %if.then4, %if.then
+  ret void
+}
+
+; Function Attrs: nounwind uwtable
+define dso_local void @GlobalVarList(i32 noundef %type) local_unnamed_addr #0 {
+entry:
+  %.old = load i32, ptr @lookahead, align 4, !tbaa !5
+  %cmp.old = icmp eq i32 %.old, 44
+  br i1 %cmp.old, label %if.then.i, label %while.end
+
+if.then.i:                                        ; preds = %entry, %if.then3
+  store i32 44, ptr @PreviousLookahead, align 4, !tbaa !5
+  %0 = load i32, ptr @tokenval, align 4, !tbaa !5
+  store i32 %0, ptr @PreviousTokenval, align 4, !tbaa !5
+  %1 = load float, ptr @ftokenval, align 4, !tbaa !11
+  store float %1, ptr @PreviousFtokenval, align 4, !tbaa !11
+  %2 = load i32, ptr @NextLookahead, align 4, !tbaa !5
+  store i32 %2, ptr @lookahead, align 4, !tbaa !5
+  %3 = load i32, ptr @NextTokenval, align 4, !tbaa !5
+  store i32 %3, ptr @tokenval, align 4, !tbaa !5
+  %4 = load float, ptr @NextFtokenval, align 4, !tbaa !11
+  store float %4, ptr @ftokenval, align 4, !tbaa !11
+  %cmp1.not.i = icmp eq i32 %2, 260
+  br i1 %cmp1.not.i, label %match.exit, label %if.then2.i
+
+if.then2.i:                                       ; preds = %if.then.i
+  %call.i = tail call i32 @lexan() #7
+  store i32 %call.i, ptr @NextLookahead, align 4, !tbaa !5
+  br label %match.exit
+
+match.exit:                                       ; preds = %if.then.i, %if.then2.i
+  %5 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
+  %tobool.not = icmp eq i32 %5, 0
+  br i1 %tobool.not, label %if.end, label %while.end
+
+if.end:                                           ; preds = %match.exit
+  %6 = load i32, ptr @lookahead, align 4
+  switch i32 %6, label %if.else [
+    i32 2006, label %if.then3
+    i32 259, label %if.then3
+  ]
+
+if.then3:                                         ; preds = %if.end, %if.end
+  tail call void @GlobalScopeAndInsert(i32 noundef %type)
+  %7 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
+  %tobool4 = icmp eq i32 %7, 0
+  %8 = load i32, ptr @lookahead, align 4
+  %cmp = icmp eq i32 %8, 44
+  %or.cond8 = select i1 %tobool4, i1 %cmp, i1 false
+  br i1 %or.cond8, label %if.then.i, label %while.end, !llvm.loop !19
+
+if.else:                                          ; preds = %if.end
+  tail call void @error(ptr noundef nonnull @.str.12) #7
+  br label %while.end
+
+while.end:                                        ; preds = %if.then3, %match.exit, %if.else, %entry
+  ret void
+}
+
+; Function Attrs: nounwind uwtable
+define dso_local void @exprTest() local_unnamed_addr #0 {
+entry:
+  store i32 0, ptr @FloatFlag, align 4, !tbaa !5
+  %call = tail call i32 @expr()
+  store i32 %call, ptr @FloatFlag, align 4, !tbaa !5
+  %0 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
+  %tobool.not = icmp eq i32 %0, 0
+  br i1 %tobool.not, label %while.cond.preheader, label %cleanup
+
+while.cond.preheader:                             ; preds = %entry
+  %1 = load i32, ptr @lookahead, align 4
+  %2 = and i32 %1, -2
+  %3 = icmp eq i32 %2, 2012
+  br i1 %3, label %while.body, label %cleanup
+
+while.body:                                       ; preds = %while.cond.preheader, %if.end22
+  %cmp48.in = phi i32 [ %18, %if.end22 ], [ %1, %while.cond.preheader ]
+  %cmp48 = icmp eq i32 %cmp48.in, 2012
+  br i1 %cmp48, label %if.then.i, label %if.then.i35
+
+if.then.i:                                        ; preds = %while.body
+  store i32 2012, ptr @PreviousLookahead, align 4, !tbaa !5
+  %4 = load i32, ptr @tokenval, align 4, !tbaa !5
+  store i32 %4, ptr @PreviousTokenval, align 4, !tbaa !5
+  %5 = load float, ptr @ftokenval, align 4, !tbaa !11
+  store float %5, ptr @PreviousFtokenval, align 4, !tbaa !11
+  %6 = load i32, ptr @NextLookahead, align 4, !tbaa !5
+  store i32 %6, ptr @lookahead, align 4, !tbaa !5
+  %7 = load i32, ptr @NextTokenval, align 4, !tbaa !5
+  store i32 %7, ptr @tokenval, align 4, !tbaa !5
+  %8 = load float, ptr @NextFtokenval, align 4, !tbaa !11
+  store float %8, ptr @ftokenval, align 4, !tbaa !11
+  %cmp1.not.i = icmp eq i32 %6, 260
+  br i1 %cmp1.not.i, label %if.end4, label %if.end4.sink.split
+
+if.then.i35:                                      ; preds = %while.body
+  store i32 2013, ptr @PreviousLookahead, align 4, !tbaa !5
+  %9 = load i32, ptr @tokenval, align 4, !tbaa !5
+  store i32 %9, ptr @PreviousTokenval, align 4, !tbaa !5
+  %10 = load float, ptr @ftokenval, align 4, !tbaa !11
+  store float %10, ptr @PreviousFtokenval, align 4, !tbaa !11
+  %11 = load i32, ptr @NextLookahead, align 4, !tbaa !5
+  store i32 %11, ptr @lookahead, align 4, !tbaa !5
+  %12 = load i32, ptr @NextTokenval, align 4, !tbaa !5
+  store i32 %12, ptr @tokenval, align 4, !tbaa !5
+  %13 = load float, ptr @NextFtokenval, align 4, !tbaa !11
+  store float %13, ptr @ftokenval, align 4, !tbaa !11
+  %cmp1.not.i34 = icmp eq i32 %11, 260
+  br i1 %cmp1.not.i34, label %if.end4, label %if.end4.sink.split
+
+if.end4.sink.split:                               ; preds = %if.then.i35, %if.then.i
+  %call.i36 = tail call i32 @lexan() #7
+  store i32 %call.i36, ptr @NextLookahead, align 4, !tbaa !5
+  br label %if.end4
+
+if.end4:                                          ; preds = %if.end4.sink.split, %if.then.i35, %if.then.i
+  %14 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
+  %tobool5.not = icmp eq i32 %14, 0
+  br i1 %tobool5.not, label %if.end7, label %cleanup
+
+if.end7:                                          ; preds = %if.end4
+  %15 = load i32, ptr @FloatFlag, align 4, !tbaa !5
+  %tobool8.not = icmp eq i32 %15, 0
+  br i1 %tobool8.not, label %if.else14, label %if.then9
+
+if.then9:                                         ; preds = %if.end7
+  store i32 0, ptr @FloatFlag, align 4, !tbaa !5
+  %call10 = tail call i32 @expr()
+  store i32 %call10, ptr @FloatFlag, align 4, !tbaa !5
+  %tobool11.not = icmp eq i32 %call10, 0
+  br i1 %tobool11.not, label %if.then12, label %if.end19
+
+if.then12:                                        ; preds = %if.then9
+  tail call void @emit(i32 noundef 2003, i32 noundef 0, float noundef 0.000000e+00) #7
+  store i32 1, ptr @FloatFlag, align 4, !tbaa !5
+  br label %if.end19
+
+if.else14:                                        ; preds = %if.end7
+  %call15 = tail call i32 @expr()
+  store i32 %call15, ptr @FloatFlag, align 4, !tbaa !5
+  %tobool16.not = icmp eq i32 %call15, 0
+  br i1 %tobool16.not, label %if.end19, label %if.then17
+
+if.then17:                                        ; preds = %if.else14
+  tail call void @emit(i32 noundef 256, i32 noundef 1, float noundef 0.000000e+00) #7
+  tail call void @emit(i32 noundef 2028, i32 noundef 0, float noundef 0.000000e+00) #7
+  tail call void @emit(i32 noundef 2003, i32 noundef 0, float noundef 0.000000e+00) #7
+  tail call void @emit(i32 noundef 256, i32 noundef 1, float noundef 0.000000e+00) #7
+  tail call void @emit(i32 noundef 2023, i32 noundef 0, float noundef 0.000000e+00) #7
+  br label %if.end19
+
+if.end19:                                         ; preds = %if.else14, %if.then17, %if.then9, %if.then12
+  %16 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
+  %tobool20.not = icmp eq i32 %16, 0
+  br i1 %tobool20.not, label %if.end22, label %cleanup
+
+if.end22:                                         ; preds = %if.end19
+  tail call void @emit(i32 noundef 2016, i32 noundef 0, float noundef 0.000000e+00) #7
+  %17 = load i32, ptr @LabelCounter, align 4, !tbaa !5
+  %inc = add nsw i32 %17, 1
+  %inc23 = add nsw i32 %17, 2
+  store i32 %inc23, ptr @LabelCounter, align 4, !tbaa !5
+  tail call void @emit(i32 noundef 2015, i32 noundef %17, float noundef 0.000000e+00) #7
+  %. = select i1 %cmp48, i32 2017, i32 2025
+  tail call void @emit(i32 noundef %., i32 noundef 0, float noundef 0.000000e+00) #7
+  tail call void @emit(i32 noundef 256, i32 noundef 0, float noundef 0.000000e+00) #7
+  tail call void @emit(i32 noundef 2015, i32 noundef %inc, float noundef 0.000000e+00) #7
+  tail call void @emit(i32 noundef 2018, i32 noundef 0, float noundef 0.000000e+00) #7
+  tail call void @emit(i32 noundef 2014, i32 noundef %17, float noundef 0.000000e+00) #7
+  tail call void @emit(i32 noundef 256, i32 noundef 1, float noundef 0.000000e+00) #7
+  tail call void @emit(i32 noundef 2014, i32 noundef %inc, float noundef 0.000000e+00) #7
+  %18 = load i32, ptr @lookahead, align 4
+  %19 = and i32 %18, -2
+  %20 = icmp eq i32 %19, 2012
+  br i1 %20, label %while.body, label %cleanup, !llvm.loop !23
+
+cleanup:                                          ; preds = %if.end4, %if.end19, %if.end22, %while.cond.preheader, %entry
+  ret void
+}
+
+; Function Attrs: nounwind uwtable
+define dso_local void @exprAssg() local_unnamed_addr #0 {
+entry:
+  %0 = load i32, ptr @lookahead, align 4, !tbaa !5
+  switch i32 %0, label %sw.default [
+    i32 2006, label %sw.bb
+    i32 259, label %sw.bb52
+  ]
+
+sw.bb:                                            ; preds = %entry
+  %1 = load i32, ptr @LocalIndex, align 4, !tbaa !5
+  %2 = load i32, ptr @GlobalIndex, align 4, !tbaa !5
+  tail call void @PushArrayCellAddr()
+  %3 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
+  %tobool.not = icmp eq i32 %3, 0
+  br i1 %tobool.not, label %if.end, label %cleanup
+
+if.end:                                           ; preds = %sw.bb
+  %4 = load i32, ptr @NextLookahead, align 4, !tbaa !5
+  %cmp = icmp eq i32 %4, 61
+  br i1 %cmp, label %if.then1, label %if.else47
+
+if.then1:                                         ; preds = %if.end
+  store i32 0, ptr @ArrayParsed, align 4, !tbaa !5
+  %5 = load i32, ptr @lookahead, align 4, !tbaa !5
+  %cmp.i = icmp eq i32 %5, 2006
+  br i1 %cmp.i, label %if.then2.i, label %if.else.i
+
+if.then2.i:                                       ; preds = %if.then1
+  store i32 2006, ptr @PreviousLookahead, align 4, !tbaa !5
+  %6 = load i32, ptr @tokenval, align 4, !tbaa !5
+  store i32 %6, ptr @PreviousTokenval, align 4, !tbaa !5
+  %7 = load float, ptr @ftokenval, align 4, !tbaa !11
+  store float %7, ptr @PreviousFtokenval, align 4, !tbaa !11
+  store i32 61, ptr @lookahead, align 4, !tbaa !5
+  %8 = load i32, ptr @NextTokenval, align 4, !tbaa !5
+  store i32 %8, ptr @tokenval, align 4, !tbaa !5
+  %9 = load float, ptr @NextFtokenval, align 4, !tbaa !11
+  store float %9, ptr @ftokenval, align 4, !tbaa !11
+  %call.i = tail call i32 @lexan() #7
+  store i32 %call.i, ptr @NextLookahead, align 4, !tbaa !5
+  br label %match.exit
+
+if.else.i:                                        ; preds = %if.then1
+  %.off.i = add i32 %5, -2007
+  %switch.i = icmp ult i32 %.off.i, 2
+  br i1 %switch.i, label %sw.epilog.i, label %if.end4.i
+
+sw.epilog.i:                                      ; preds = %if.else.i
+  tail call void @error(ptr noundef nonnull @.str) #7
+  %.pre192 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
+  %10 = icmp eq i32 %.pre192, 0
+  br i1 %10, label %if.end4.i, label %cleanup
+
+if.end4.i:                                        ; preds = %if.else.i, %sw.epilog.i
+  %11 = load i32, ptr @lookahead, align 4, !tbaa !5
+  %call6.i = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.2, i32 noundef %11)
+  tail call void @error(ptr noundef nonnull @.str.3) #7
+  br label %match.exit
+
+match.exit:                                       ; preds = %if.then2.i, %if.end4.i
+  %.pr = load i32, ptr @ErrorFlag, align 4, !tbaa !5
+  %tobool2.not = icmp eq i32 %.pr, 0
+  br i1 %tobool2.not, label %if.end4, label %cleanup
+
+if.end4:                                          ; preds = %match.exit
+  %12 = load i32, ptr @lookahead, align 4, !tbaa !5
+  %cmp.i143 = icmp eq i32 %12, 61
+  br i1 %cmp.i143, label %if.then.i145, label %if.else.i150
+
+if.then.i145:                                     ; preds = %if.end4
+  store i32 61, ptr @PreviousLookahead, align 4, !tbaa !5
+  %13 = load i32, ptr @tokenval, align 4, !tbaa !5
+  store i32 %13, ptr @PreviousTokenval, align 4, !tbaa !5
+  %14 = load float, ptr @ftokenval, align 4, !tbaa !11
+  store float %14, ptr @PreviousFtokenval, align 4, !tbaa !11
+  %15 = load i32, ptr @NextLookahead, align 4, !tbaa !5
+  store i32 %15, ptr @lookahead, align 4, !tbaa !5
+  %16 = load i32, ptr @NextTokenval, align 4, !tbaa !5
+  store i32 %16, ptr @tokenval, align 4, !tbaa !5
+  %17 = load float, ptr @NextFtokenval, align 4, !tbaa !11
+  store float %17, ptr @ftokenval, align 4, !tbaa !11
+  %cmp1.not.i144 = icmp eq i32 %15, 260
+  br i1 %cmp1.not.i144, label %match.exit156, label %if.then2.i147
+
+if.then2.i147:                                    ; preds = %if.then.i145
+  %call.i146 = tail call i32 @lexan() #7
+  store i32 %call.i146, ptr @NextLookahead, align 4, !tbaa !5
+  br label %match.exit156
+
+if.else.i150:                                     ; preds = %if.end4
+  %.off.i148 = add i32 %12, -2007
+  %switch.i149 = icmp ult i32 %.off.i148, 2
+  br i1 %switch.i149, label %sw.epilog.i153, label %if.end4.i154
+
+sw.epilog.i153:                                   ; preds = %if.else.i150
+  tail call void @error(ptr noundef nonnull @.str) #7
+  %.pre193 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
+  %18 = icmp eq i32 %.pre193, 0
+  br i1 %18, label %if.end4.i154, label %cleanup
+
+if.end4.i154:                                     ; preds = %if.else.i150, %sw.epilog.i153
+  %19 = load i32, ptr @lookahead, align 4, !tbaa !5
+  %call6.i155 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.2, i32 noundef %19)
+  tail call void @error(ptr noundef nonnull @.str.3) #7
+  br label %match.exit156
+
+match.exit156:                                    ; preds = %if.then.i145, %if.then2.i147, %if.end4.i154
+  %.pr186 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
+  %tobool5.not = icmp eq i32 %.pr186, 0
+  br i1 %tobool5.not, label %if.end7, label %cleanup
+
+if.end7:                                          ; preds = %match.exit156
+  store i32 0, ptr @FloatFlag, align 4, !tbaa !5
+  tail call void @exprAssg()
+  %20 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
+  %tobool8.not = icmp eq i32 %20, 0
+  br i1 %tobool8.not, label %if.end10, label %cleanup
+
+if.end10:                                         ; preds = %if.end7
+  %tobool11.not = icmp eq i32 %1, 0
+  br i1 %tobool11.not, label %if.else25, label %if.then12
+
+if.then12:                                        ; preds = %if.end10
+  %idxprom = sext i32 %1 to i64
+  %type = getelementptr inbounds [100 x %struct.entry], ptr @LocalTable, i64 0, i64 %idxprom, i32 2
+  %21 = load i32, ptr %type, align 4, !tbaa !17
+  %cmp13 = icmp eq i32 %21, 2002
+  %22 = load i32, ptr @FloatFlag, align 4
+  %tobool14 = icmp ne i32 %22, 0
+  %or.cond = select i1 %cmp13, i1 %tobool14, i1 false
+  br i1 %or.cond, label %if.end46.sink.split.sink.split, label %if.else
+
+if.else:                                          ; preds = %if.then12
+  %cmp19 = icmp ne i32 %21, 2003
+  %or.cond122 = select i1 %cmp19, i1 true, i1 %tobool14
+  br i1 %or.cond122, label %if.end46.sink.split, label %if.end46.sink.split.sink.split
+
+if.else25:                                        ; preds = %if.end10
+  %tobool26.not = icmp eq i32 %2, 0
+  br i1 %tobool26.not, label %if.end46, label %if.then27
+
+if.then27:                                        ; preds = %if.else25
+  %idxprom28 = sext i32 %2 to i64
+  %type30 = getelementptr inbounds [100 x %struct.entry], ptr @GlobalTable, i64 0, i64 %idxprom28, i32 2
+  %23 = load i32, ptr %type30, align 4, !tbaa !17
+  %cmp31 = icmp eq i32 %23, 2002
+  %24 = load i32, ptr @FloatFlag, align 4
+  %tobool33 = icmp ne i32 %24, 0
+  %or.cond123 = select i1 %cmp31, i1 %tobool33, i1 false
+  br i1 %or.cond123, label %if.end46.sink.split.sink.split, label %if.else35
+
+if.else35:                                        ; preds = %if.then27
+  %cmp39 = icmp ne i32 %23, 2003
+  %or.cond124 = select i1 %cmp39, i1 true, i1 %tobool33
+  br i1 %or.cond124, label %if.end46.sink.split, label %if.end46.sink.split.sink.split
+
+if.end46.sink.split.sink.split:                   ; preds = %if.then27, %if.else35, %if.then12, %if.else
+  %.sink199.sink = phi i32 [ 2002, %if.then12 ], [ 2003, %if.else ], [ 2002, %if.then27 ], [ 2003, %if.else35 ]
+  %.sink198.sink = phi i32 [ 0, %if.then12 ], [ 1, %if.else ], [ 0, %if.then27 ], [ 1, %if.else35 ]
+  %.sink200.ph = phi i32 [ 2053, %if.then12 ], [ 2053, %if.else ], [ 2022, %if.then27 ], [ 2022, %if.else35 ]
+  tail call void @emit(i32 noundef %.sink199.sink, i32 noundef 0, float noundef 0.000000e+00) #7
+  store i32 %.sink198.sink, ptr @FloatFlag, align 4, !tbaa !5
+  br label %if.end46.sink.split
+
+if.end46.sink.split:                              ; preds = %if.end46.sink.split.sink.split, %if.else35, %if.else
+  %.sink200 = phi i32 [ 2053, %if.else ], [ 2022, %if.else35 ], [ %.sink200.ph, %if.end46.sink.split.sink.split ]
+  tail call void @emit(i32 noundef %.sink200, i32 noundef 0, float noundef 0.000000e+00) #7
+  br label %if.end46
+
+if.end46:                                         ; preds = %if.end46.sink.split, %if.else25
+  tail call void @emit(i32 noundef 2037, i32 noundef 0, float noundef 0.000000e+00) #7
+  tail call void @emit(i32 noundef 2004, i32 noundef 0, float noundef 0.000000e+00) #7
+  br label %cleanup
+
+if.else47:                                        ; preds = %if.end
+  tail call void @exprTest()
+  br label %cleanup
+
+sw.bb52:                                          ; preds = %entry
+  %25 = load i32, ptr @LocalIndex, align 4, !tbaa !5
+  %26 = load i32, ptr @GlobalIndex, align 4, !tbaa !5
+  %27 = load i32, ptr @NextLookahead, align 4, !tbaa !5
+  %cmp53 = icmp eq i32 %27, 61
+  br i1 %cmp53, label %if.then54, label %if.else113
+
+if.then54:                                        ; preds = %sw.bb52
+  %tobool55.not = icmp eq i32 %25, 0
+  br i1 %tobool55.not, label %if.else57, label %if.then56
+
+if.then56:                                        ; preds = %if.then54
+  tail call void @emit(i32 noundef 2049, i32 noundef %25, float noundef 0.000000e+00) #7
+  br label %if.end62
+
+if.else57:                                        ; preds = %if.then54
+  %tobool58.not = icmp eq i32 %26, 0
+  br i1 %tobool58.not, label %if.else60, label %if.then59
+
+if.then59:                                        ; preds = %if.else57
+  tail call void @emit(i32 noundef 2050, i32 noundef %26, float noundef 0.000000e+00) #7
+  br label %if.end62
+
+if.else60:                                        ; preds = %if.else57
+  tail call void @error(ptr noundef nonnull @.str.13) #7
+  br label %cleanup
+
+if.end62:                                         ; preds = %if.then59, %if.then56
+  %28 = load i32, ptr @lookahead, align 4, !tbaa !5
+  %cmp.i157 = icmp eq i32 %28, 259
+  br i1 %cmp.i157, label %if.then.i159, label %if.else.i164
+
+if.then.i159:                                     ; preds = %if.end62
+  store i32 259, ptr @PreviousLookahead, align 4, !tbaa !5
+  %29 = load i32, ptr @tokenval, align 4, !tbaa !5
+  store i32 %29, ptr @PreviousTokenval, align 4, !tbaa !5
+  %30 = load float, ptr @ftokenval, align 4, !tbaa !11
+  store float %30, ptr @PreviousFtokenval, align 4, !tbaa !11
+  %31 = load i32, ptr @NextLookahead, align 4, !tbaa !5
+  store i32 %31, ptr @lookahead, align 4, !tbaa !5
+  %32 = load i32, ptr @NextTokenval, align 4, !tbaa !5
+  store i32 %32, ptr @tokenval, align 4, !tbaa !5
+  %33 = load float, ptr @NextFtokenval, align 4, !tbaa !11
+  store float %33, ptr @ftokenval, align 4, !tbaa !11
+  %cmp1.not.i158 = icmp eq i32 %31, 260
+  br i1 %cmp1.not.i158, label %match.exit170, label %if.then2.i161
+
+if.then2.i161:                                    ; preds = %if.then.i159
+  %call.i160 = tail call i32 @lexan() #7
+  store i32 %call.i160, ptr @NextLookahead, align 4, !tbaa !5
+  br label %match.exit170
+
+if.else.i164:                                     ; preds = %if.end62
+  %.off.i162 = add i32 %28, -2007
+  %switch.i163 = icmp ult i32 %.off.i162, 2
+  br i1 %switch.i163, label %sw.bb.i165, label %sw.epilog.i167
+
+sw.bb.i165:                                       ; preds = %if.else.i164
+  tail call void @error(ptr noundef nonnull @.str) #7
+  br label %sw.epilog.i167
+
+sw.epilog.i167:                                   ; preds = %sw.bb.i165, %if.else.i164
   %34 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
-  %35 = icmp eq i32 %34, 0
-  br i1 %35, label %37, label %40
+  %tobool.not.i166 = icmp eq i32 %34, 0
+  br i1 %tobool.not.i166, label %if.end4.i168, label %cleanup
 
-36:                                               ; preds = %1
+if.end4.i168:                                     ; preds = %sw.epilog.i167
+  %35 = load i32, ptr @lookahead, align 4, !tbaa !5
+  %call6.i169 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.2, i32 noundef %35)
+  tail call void @error(ptr noundef nonnull @.str.3) #7
+  br label %match.exit170
+
+match.exit170:                                    ; preds = %if.then.i159, %if.then2.i161, %if.end4.i168
+  %.pr188 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
+  %tobool63.not = icmp eq i32 %.pr188, 0
+  br i1 %tobool63.not, label %if.end65, label %cleanup
+
+if.end65:                                         ; preds = %match.exit170
+  %36 = load i32, ptr @lookahead, align 4, !tbaa !5
+  %cmp.i171 = icmp eq i32 %36, 61
+  br i1 %cmp.i171, label %if.then.i173, label %if.else.i178
+
+if.then.i173:                                     ; preds = %if.end65
+  store i32 61, ptr @PreviousLookahead, align 4, !tbaa !5
+  %37 = load i32, ptr @tokenval, align 4, !tbaa !5
+  store i32 %37, ptr @PreviousTokenval, align 4, !tbaa !5
+  %38 = load float, ptr @ftokenval, align 4, !tbaa !11
+  store float %38, ptr @PreviousFtokenval, align 4, !tbaa !11
+  %39 = load i32, ptr @NextLookahead, align 4, !tbaa !5
+  store i32 %39, ptr @lookahead, align 4, !tbaa !5
+  %40 = load i32, ptr @NextTokenval, align 4, !tbaa !5
+  store i32 %40, ptr @tokenval, align 4, !tbaa !5
+  %41 = load float, ptr @NextFtokenval, align 4, !tbaa !11
+  store float %41, ptr @ftokenval, align 4, !tbaa !11
+  %cmp1.not.i172 = icmp eq i32 %39, 260
+  br i1 %cmp1.not.i172, label %match.exit184, label %if.then2.i175
+
+if.then2.i175:                                    ; preds = %if.then.i173
+  %call.i174 = tail call i32 @lexan() #7
+  store i32 %call.i174, ptr @NextLookahead, align 4, !tbaa !5
+  br label %match.exit184
+
+if.else.i178:                                     ; preds = %if.end65
+  %.off.i176 = add i32 %36, -2007
+  %switch.i177 = icmp ult i32 %.off.i176, 2
+  br i1 %switch.i177, label %sw.epilog.i181, label %if.end4.i182
+
+sw.epilog.i181:                                   ; preds = %if.else.i178
+  tail call void @error(ptr noundef nonnull @.str) #7
+  %.pre = load i32, ptr @ErrorFlag, align 4, !tbaa !5
+  %42 = icmp eq i32 %.pre, 0
+  br i1 %42, label %if.end4.i182, label %cleanup
+
+if.end4.i182:                                     ; preds = %if.else.i178, %sw.epilog.i181
+  %43 = load i32, ptr @lookahead, align 4, !tbaa !5
+  %call6.i183 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.2, i32 noundef %43)
+  tail call void @error(ptr noundef nonnull @.str.3) #7
+  br label %match.exit184
+
+match.exit184:                                    ; preds = %if.then.i173, %if.then2.i175, %if.end4.i182
+  %.pr190 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
+  %tobool66.not = icmp eq i32 %.pr190, 0
+  br i1 %tobool66.not, label %if.end68, label %cleanup
+
+if.end68:                                         ; preds = %match.exit184
+  store i32 0, ptr @FloatFlag, align 4, !tbaa !5
+  tail call void @exprAssg()
+  %44 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
+  %tobool69.not = icmp eq i32 %44, 0
+  br i1 %tobool69.not, label %if.end71, label %cleanup
+
+if.end71:                                         ; preds = %if.end68
+  br i1 %tobool55.not, label %if.else91, label %if.then73
+
+if.then73:                                        ; preds = %if.end71
+  %idxprom74 = sext i32 %25 to i64
+  %type76 = getelementptr inbounds [100 x %struct.entry], ptr @LocalTable, i64 0, i64 %idxprom74, i32 2
+  %45 = load i32, ptr %type76, align 4, !tbaa !17
+  %cmp77 = icmp eq i32 %45, 2002
+  %46 = load i32, ptr @FloatFlag, align 4
+  %tobool79 = icmp ne i32 %46, 0
+  %or.cond125 = select i1 %cmp77, i1 %tobool79, i1 false
+  br i1 %or.cond125, label %if.end112.sink.split.sink.split, label %if.else81
+
+if.else81:                                        ; preds = %if.then73
+  %cmp85 = icmp ne i32 %45, 2003
+  %or.cond126 = select i1 %cmp85, i1 true, i1 %tobool79
+  br i1 %or.cond126, label %if.end112.sink.split, label %if.end112.sink.split.sink.split
+
+if.else91:                                        ; preds = %if.end71
+  %tobool92.not = icmp eq i32 %26, 0
+  br i1 %tobool92.not, label %if.end112, label %if.then93
+
+if.then93:                                        ; preds = %if.else91
+  %idxprom94 = sext i32 %26 to i64
+  %type96 = getelementptr inbounds [100 x %struct.entry], ptr @GlobalTable, i64 0, i64 %idxprom94, i32 2
+  %47 = load i32, ptr %type96, align 4, !tbaa !17
+  %cmp97 = icmp eq i32 %47, 2002
+  %48 = load i32, ptr @FloatFlag, align 4
+  %tobool99 = icmp ne i32 %48, 0
+  %or.cond127 = select i1 %cmp97, i1 %tobool99, i1 false
+  br i1 %or.cond127, label %if.end112.sink.split.sink.split, label %if.else101
+
+if.else101:                                       ; preds = %if.then93
+  %cmp105 = icmp ne i32 %47, 2003
+  %or.cond128 = select i1 %cmp105, i1 true, i1 %tobool99
+  br i1 %or.cond128, label %if.end112.sink.split, label %if.end112.sink.split.sink.split
+
+if.end112.sink.split.sink.split:                  ; preds = %if.then93, %if.else101, %if.then73, %if.else81
+  %.sink204.sink = phi i32 [ 2002, %if.then73 ], [ 2003, %if.else81 ], [ 2002, %if.then93 ], [ 2003, %if.else101 ]
+  %.sink203.sink = phi i32 [ 0, %if.then73 ], [ 1, %if.else81 ], [ 0, %if.then93 ], [ 1, %if.else101 ]
+  %.sink205.ph = phi i32 [ 2053, %if.then73 ], [ 2053, %if.else81 ], [ 2022, %if.then93 ], [ 2022, %if.else101 ]
+  tail call void @emit(i32 noundef %.sink204.sink, i32 noundef 0, float noundef 0.000000e+00) #7
+  store i32 %.sink203.sink, ptr @FloatFlag, align 4, !tbaa !5
+  br label %if.end112.sink.split
+
+if.end112.sink.split:                             ; preds = %if.end112.sink.split.sink.split, %if.else101, %if.else81
+  %.sink205 = phi i32 [ 2053, %if.else81 ], [ 2022, %if.else101 ], [ %.sink205.ph, %if.end112.sink.split.sink.split ]
+  tail call void @emit(i32 noundef %.sink205, i32 noundef 0, float noundef 0.000000e+00) #7
+  br label %if.end112
+
+if.end112:                                        ; preds = %if.end112.sink.split, %if.else91
+  tail call void @emit(i32 noundef 2037, i32 noundef 0, float noundef 0.000000e+00) #7
+  tail call void @emit(i32 noundef 2004, i32 noundef 0, float noundef 0.000000e+00) #7
+  br label %cleanup
+
+if.else113:                                       ; preds = %sw.bb52
+  tail call void @exprTest()
+  br label %cleanup
+
+sw.default:                                       ; preds = %entry
+  tail call void @exprTest()
+  br label %cleanup
+
+cleanup:                                          ; preds = %sw.epilog.i181, %sw.epilog.i167, %sw.epilog.i153, %sw.epilog.i, %sw.default, %if.else113, %if.else47, %if.end46, %if.end112, %if.end68, %match.exit184, %match.exit170, %if.end7, %match.exit156, %match.exit, %sw.bb, %if.else60
+  ret void
+}
+
+; Function Attrs: nounwind uwtable
+define dso_local void @parseAStmt() local_unnamed_addr #0 {
+entry:
+  %0 = load i32, ptr @lookahead, align 4, !tbaa !5
+  switch i32 %0, label %sw.default [
+    i32 2007, label %if.then.i
+    i32 2008, label %if.then.i108
+    i32 123, label %if.then.i136
+    i32 2042, label %sw.bb57
+  ]
+
+if.then.i:                                        ; preds = %entry
+  store i32 2007, ptr @PreviousLookahead, align 4, !tbaa !5
+  %1 = load i32, ptr @tokenval, align 4, !tbaa !5
+  store i32 %1, ptr @PreviousTokenval, align 4, !tbaa !5
+  %2 = load float, ptr @ftokenval, align 4, !tbaa !11
+  store float %2, ptr @PreviousFtokenval, align 4, !tbaa !11
+  %3 = load i32, ptr @NextLookahead, align 4, !tbaa !5
+  store i32 %3, ptr @lookahead, align 4, !tbaa !5
+  %4 = load i32, ptr @NextTokenval, align 4, !tbaa !5
+  store i32 %4, ptr @tokenval, align 4, !tbaa !5
+  %5 = load float, ptr @NextFtokenval, align 4, !tbaa !11
+  store float %5, ptr @ftokenval, align 4, !tbaa !11
+  %cmp1.not.i = icmp eq i32 %3, 260
+  br i1 %cmp1.not.i, label %match.exit, label %if.then2.i
+
+if.then2.i:                                       ; preds = %if.then.i
+  %call.i = tail call i32 @lexan() #7
+  store i32 %call.i, ptr @NextLookahead, align 4, !tbaa !5
+  br label %match.exit
+
+match.exit:                                       ; preds = %if.then.i, %if.then2.i
+  %6 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
+  %tobool.not = icmp eq i32 %6, 0
+  br i1 %tobool.not, label %if.end, label %cleanup
+
+if.end:                                           ; preds = %match.exit
+  %7 = load i32, ptr @LabelCounter, align 4, !tbaa !5
+  %inc = add nsw i32 %7, 1
+  %inc1 = add nsw i32 %7, 2
+  store i32 %inc1, ptr @LabelCounter, align 4, !tbaa !5
+  tail call void @emit(i32 noundef 2014, i32 noundef %7, float noundef 0.000000e+00) #7
+  tail call void @emit(i32 noundef 2015, i32 noundef %inc, float noundef 0.000000e+00) #7
+  %8 = load i32, ptr @lookahead, align 4, !tbaa !5
+  %cmp.i92 = icmp eq i32 %8, 40
+  br i1 %cmp.i92, label %if.then.i94, label %if.else.i99
+
+if.then.i94:                                      ; preds = %if.end
+  store i32 40, ptr @PreviousLookahead, align 4, !tbaa !5
+  %9 = load i32, ptr @tokenval, align 4, !tbaa !5
+  store i32 %9, ptr @PreviousTokenval, align 4, !tbaa !5
+  %10 = load float, ptr @ftokenval, align 4, !tbaa !11
+  store float %10, ptr @PreviousFtokenval, align 4, !tbaa !11
+  %11 = load i32, ptr @NextLookahead, align 4, !tbaa !5
+  store i32 %11, ptr @lookahead, align 4, !tbaa !5
+  %12 = load i32, ptr @NextTokenval, align 4, !tbaa !5
+  store i32 %12, ptr @tokenval, align 4, !tbaa !5
+  %13 = load float, ptr @NextFtokenval, align 4, !tbaa !11
+  store float %13, ptr @ftokenval, align 4, !tbaa !11
+  %cmp1.not.i93 = icmp eq i32 %11, 260
+  br i1 %cmp1.not.i93, label %match.exit105, label %if.then2.i96
+
+if.then2.i96:                                     ; preds = %if.then.i94
+  %call.i95 = tail call i32 @lexan() #7
+  store i32 %call.i95, ptr @NextLookahead, align 4, !tbaa !5
+  br label %match.exit105
+
+if.else.i99:                                      ; preds = %if.end
+  %.off.i97 = add i32 %8, -2007
+  %switch.i98 = icmp ult i32 %.off.i97, 2
+  br i1 %switch.i98, label %sw.bb.i100, label %sw.epilog.i102
+
+sw.bb.i100:                                       ; preds = %if.else.i99
+  tail call void @error(ptr noundef nonnull @.str) #7
+  br label %sw.epilog.i102
+
+sw.epilog.i102:                                   ; preds = %sw.bb.i100, %if.else.i99
+  %14 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
+  %tobool.not.i101 = icmp eq i32 %14, 0
+  br i1 %tobool.not.i101, label %if.end4.i103, label %cleanup
+
+if.end4.i103:                                     ; preds = %sw.epilog.i102
+  %15 = load i32, ptr @lookahead, align 4, !tbaa !5
+  %call6.i104 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.2, i32 noundef %15)
+  tail call void @error(ptr noundef nonnull @.str.3) #7
+  br label %match.exit105
+
+match.exit105:                                    ; preds = %if.then.i94, %if.then2.i96, %if.end4.i103
+  %.pr = load i32, ptr @ErrorFlag, align 4, !tbaa !5
+  %tobool2.not = icmp eq i32 %.pr, 0
+  br i1 %tobool2.not, label %if.end4, label %cleanup
+
+if.end4:                                          ; preds = %match.exit105
+  store i32 0, ptr @FloatFlag, align 4, !tbaa !5
+  tail call void @exprAssg()
+  %16 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
+  %tobool5.not = icmp eq i32 %16, 0
+  br i1 %tobool5.not, label %if.end7, label %cleanup
+
+if.end7:                                          ; preds = %if.end4
+  tail call void @match(i32 noundef 41)
+  %17 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
+  %tobool8.not = icmp eq i32 %17, 0
+  br i1 %tobool8.not, label %if.end10, label %cleanup
+
+if.end10:                                         ; preds = %if.end7
+  %18 = load i32, ptr @FloatFlag, align 4, !tbaa !5
+  %tobool11.not = icmp eq i32 %18, 0
+  %. = select i1 %tobool11.not, i32 256, i32 2001
+  tail call void @emit(i32 noundef %., i32 noundef 0, float noundef 0.000000e+00) #7
+  tail call void @emit(i32 noundef 2016, i32 noundef 0, float noundef 0.000000e+00) #7
+  tail call void @emit(i32 noundef 2017, i32 noundef 0, float noundef 0.000000e+00) #7
+  tail call void @parseAStmt()
+  %19 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
+  %tobool14.not = icmp eq i32 %19, 0
+  br i1 %tobool14.not, label %if.end16, label %cleanup
+
+if.end16:                                         ; preds = %if.end10
+  tail call void @emit(i32 noundef 2015, i32 noundef %7, float noundef 0.000000e+00) #7
+  tail call void @emit(i32 noundef 2018, i32 noundef 0, float noundef 0.000000e+00) #7
+  tail call void @emit(i32 noundef 2014, i32 noundef %inc, float noundef 0.000000e+00) #7
+  br label %cleanup
+
+if.then.i108:                                     ; preds = %entry
+  store i32 2008, ptr @PreviousLookahead, align 4, !tbaa !5
+  %20 = load i32, ptr @tokenval, align 4, !tbaa !5
+  store i32 %20, ptr @PreviousTokenval, align 4, !tbaa !5
+  %21 = load float, ptr @ftokenval, align 4, !tbaa !11
+  store float %21, ptr @PreviousFtokenval, align 4, !tbaa !11
+  %22 = load i32, ptr @NextLookahead, align 4, !tbaa !5
+  store i32 %22, ptr @lookahead, align 4, !tbaa !5
+  %23 = load i32, ptr @NextTokenval, align 4, !tbaa !5
+  store i32 %23, ptr @tokenval, align 4, !tbaa !5
+  %24 = load float, ptr @NextFtokenval, align 4, !tbaa !11
+  store float %24, ptr @ftokenval, align 4, !tbaa !11
+  %cmp1.not.i107 = icmp eq i32 %22, 260
+  br i1 %cmp1.not.i107, label %match.exit119, label %if.then2.i110
+
+if.then2.i110:                                    ; preds = %if.then.i108
+  %call.i109 = tail call i32 @lexan() #7
+  store i32 %call.i109, ptr @NextLookahead, align 4, !tbaa !5
+  br label %match.exit119
+
+match.exit119:                                    ; preds = %if.then.i108, %if.then2.i110
+  %25 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
+  %tobool18.not = icmp eq i32 %25, 0
+  br i1 %tobool18.not, label %if.end20, label %cleanup
+
+if.end20:                                         ; preds = %match.exit119
+  %26 = load i32, ptr @LabelCounter, align 4, !tbaa !5
+  %inc21 = add nsw i32 %26, 1
+  store i32 %inc21, ptr @LabelCounter, align 4, !tbaa !5
+  tail call void @emit(i32 noundef 2015, i32 noundef %26, float noundef 0.000000e+00) #7
+  %27 = load i32, ptr @lookahead, align 4, !tbaa !5
+  %cmp.i120 = icmp eq i32 %27, 40
+  br i1 %cmp.i120, label %if.then.i122, label %if.else.i127
+
+if.then.i122:                                     ; preds = %if.end20
+  store i32 40, ptr @PreviousLookahead, align 4, !tbaa !5
+  %28 = load i32, ptr @tokenval, align 4, !tbaa !5
+  store i32 %28, ptr @PreviousTokenval, align 4, !tbaa !5
+  %29 = load float, ptr @ftokenval, align 4, !tbaa !11
+  store float %29, ptr @PreviousFtokenval, align 4, !tbaa !11
+  %30 = load i32, ptr @NextLookahead, align 4, !tbaa !5
+  store i32 %30, ptr @lookahead, align 4, !tbaa !5
+  %31 = load i32, ptr @NextTokenval, align 4, !tbaa !5
+  store i32 %31, ptr @tokenval, align 4, !tbaa !5
+  %32 = load float, ptr @NextFtokenval, align 4, !tbaa !11
+  store float %32, ptr @ftokenval, align 4, !tbaa !11
+  %cmp1.not.i121 = icmp eq i32 %30, 260
+  br i1 %cmp1.not.i121, label %match.exit133, label %if.then2.i124
+
+if.then2.i124:                                    ; preds = %if.then.i122
+  %call.i123 = tail call i32 @lexan() #7
+  store i32 %call.i123, ptr @NextLookahead, align 4, !tbaa !5
+  br label %match.exit133
+
+if.else.i127:                                     ; preds = %if.end20
+  %.off.i125 = add i32 %27, -2007
+  %switch.i126 = icmp ult i32 %.off.i125, 2
+  br i1 %switch.i126, label %sw.bb.i128, label %sw.epilog.i130
+
+sw.bb.i128:                                       ; preds = %if.else.i127
+  tail call void @error(ptr noundef nonnull @.str) #7
+  br label %sw.epilog.i130
+
+sw.epilog.i130:                                   ; preds = %sw.bb.i128, %if.else.i127
+  %33 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
+  %tobool.not.i129 = icmp eq i32 %33, 0
+  br i1 %tobool.not.i129, label %if.end4.i131, label %cleanup
+
+if.end4.i131:                                     ; preds = %sw.epilog.i130
+  %34 = load i32, ptr @lookahead, align 4, !tbaa !5
+  %call6.i132 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.2, i32 noundef %34)
+  tail call void @error(ptr noundef nonnull @.str.3) #7
+  br label %match.exit133
+
+match.exit133:                                    ; preds = %if.then.i122, %if.then2.i124, %if.end4.i131
+  %.pr219 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
+  %tobool22.not = icmp eq i32 %.pr219, 0
+  br i1 %tobool22.not, label %if.end24, label %cleanup
+
+if.end24:                                         ; preds = %match.exit133
+  store i32 0, ptr @FloatFlag, align 4, !tbaa !5
+  tail call void @exprAssg()
+  %35 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
+  %tobool25.not = icmp eq i32 %35, 0
+  br i1 %tobool25.not, label %if.end27, label %cleanup
+
+if.end27:                                         ; preds = %if.end24
+  tail call void @match(i32 noundef 41)
+  %36 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
+  %tobool28.not = icmp eq i32 %36, 0
+  br i1 %tobool28.not, label %if.end30, label %cleanup
+
+if.end30:                                         ; preds = %if.end27
+  %37 = load i32, ptr @FloatFlag, align 4, !tbaa !5
+  %tobool31.not = icmp eq i32 %37, 0
+  %.225 = select i1 %tobool31.not, i32 256, i32 2001
+  tail call void @emit(i32 noundef %.225, i32 noundef 0, float noundef 0.000000e+00) #7
+  tail call void @emit(i32 noundef 2016, i32 noundef 0, float noundef 0.000000e+00) #7
+  tail call void @emit(i32 noundef 2017, i32 noundef 0, float noundef 0.000000e+00) #7
+  tail call void @parseAStmt()
+  %38 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
+  %tobool35.not = icmp eq i32 %38, 0
+  br i1 %tobool35.not, label %if.end37, label %cleanup
+
+if.end37:                                         ; preds = %if.end30
+  %39 = load i32, ptr @lookahead, align 4, !tbaa !5
+  %cmp = icmp eq i32 %39, 2024
+  br i1 %cmp, label %if.then38, label %if.else46
+
+if.then38:                                        ; preds = %if.end37
+  tail call void @match(i32 noundef 2024)
+  %40 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
+  %tobool39.not = icmp eq i32 %40, 0
+  br i1 %tobool39.not, label %if.end41, label %cleanup
+
+if.end41:                                         ; preds = %if.then38
+  %41 = load i32, ptr @LabelCounter, align 4, !tbaa !5
+  %inc42 = add nsw i32 %41, 1
+  store i32 %inc42, ptr @LabelCounter, align 4, !tbaa !5
+  tail call void @emit(i32 noundef 2015, i32 noundef %41, float noundef 0.000000e+00) #7
+  tail call void @emit(i32 noundef 2018, i32 noundef 0, float noundef 0.000000e+00) #7
+  tail call void @emit(i32 noundef 2014, i32 noundef %26, float noundef 0.000000e+00) #7
+  tail call void @parseAStmt()
+  %42 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
+  %tobool43.not = icmp eq i32 %42, 0
+  br i1 %tobool43.not, label %if.end45, label %cleanup
+
+if.end45:                                         ; preds = %if.end41
+  tail call void @emit(i32 noundef 2014, i32 noundef %41, float noundef 0.000000e+00) #7
+  br label %cleanup
+
+if.else46:                                        ; preds = %if.end37
+  tail call void @emit(i32 noundef 2014, i32 noundef %26, float noundef 0.000000e+00) #7
+  br label %cleanup
+
+if.then.i136:                                     ; preds = %entry
+  store i32 123, ptr @PreviousLookahead, align 4, !tbaa !5
+  %43 = load i32, ptr @tokenval, align 4, !tbaa !5
+  store i32 %43, ptr @PreviousTokenval, align 4, !tbaa !5
+  %44 = load float, ptr @ftokenval, align 4, !tbaa !11
+  store float %44, ptr @PreviousFtokenval, align 4, !tbaa !11
+  %45 = load i32, ptr @NextLookahead, align 4, !tbaa !5
+  store i32 %45, ptr @lookahead, align 4, !tbaa !5
+  %46 = load i32, ptr @NextTokenval, align 4, !tbaa !5
+  store i32 %46, ptr @tokenval, align 4, !tbaa !5
+  %47 = load float, ptr @NextFtokenval, align 4, !tbaa !11
+  store float %47, ptr @ftokenval, align 4, !tbaa !11
+  %cmp1.not.i135 = icmp eq i32 %45, 260
+  br i1 %cmp1.not.i135, label %do.body.preheader, label %if.then2.i138
+
+if.then2.i138:                                    ; preds = %if.then.i136
+  %call.i137 = tail call i32 @lexan() #7
+  store i32 %call.i137, ptr @NextLookahead, align 4, !tbaa !5
+  br label %do.body.preheader
+
+do.body.preheader:                                ; preds = %if.then.i136, %if.then2.i138
+  br label %do.body
+
+do.body:                                          ; preds = %do.body.preheader, %do.cond
+  tail call void @parseAStmt()
+  %48 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
+  %tobool49.not = icmp eq i32 %48, 0
+  br i1 %tobool49.not, label %do.cond, label %if.then50
+
+if.then50:                                        ; preds = %do.body
+  store i32 0, ptr @ErrorFlag, align 4, !tbaa !5
+  br label %do.cond
+
+do.cond:                                          ; preds = %do.body, %if.then50
+  %49 = load i32, ptr @lookahead, align 4
+  switch i32 %49, label %do.body [
+    i32 125, label %if.then.i150
+    i32 260, label %if.end4.i159
+  ]
+
+if.then.i150:                                     ; preds = %do.cond
+  store i32 125, ptr @PreviousLookahead, align 4, !tbaa !5
+  %50 = load i32, ptr @tokenval, align 4, !tbaa !5
+  store i32 %50, ptr @PreviousTokenval, align 4, !tbaa !5
+  %51 = load float, ptr @ftokenval, align 4, !tbaa !11
+  store float %51, ptr @PreviousFtokenval, align 4, !tbaa !11
+  %52 = load i32, ptr @NextLookahead, align 4, !tbaa !5
+  store i32 %52, ptr @lookahead, align 4, !tbaa !5
+  %53 = load i32, ptr @NextTokenval, align 4, !tbaa !5
+  store i32 %53, ptr @tokenval, align 4, !tbaa !5
+  %54 = load float, ptr @NextFtokenval, align 4, !tbaa !11
+  store float %54, ptr @ftokenval, align 4, !tbaa !11
+  %cmp1.not.i149 = icmp eq i32 %52, 260
+  br i1 %cmp1.not.i149, label %cleanup, label %if.then2.i152
+
+if.then2.i152:                                    ; preds = %if.then.i150
+  %call.i151 = tail call i32 @lexan() #7
+  store i32 %call.i151, ptr @NextLookahead, align 4, !tbaa !5
+  br label %cleanup
+
+if.end4.i159:                                     ; preds = %do.cond
+  %call6.i160 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.2, i32 noundef 260)
+  tail call void @error(ptr noundef nonnull @.str.3) #7
+  br label %cleanup
+
+sw.bb57:                                          ; preds = %entry
+  %55 = load i32, ptr @NextLookahead, align 4, !tbaa !5
+  %cmp58 = icmp eq i32 %55, 59
+  store i32 2042, ptr @PreviousLookahead, align 4, !tbaa !5
+  %56 = load i32, ptr @tokenval, align 4, !tbaa !5
+  store i32 %56, ptr @PreviousTokenval, align 4, !tbaa !5
+  %57 = load float, ptr @ftokenval, align 4, !tbaa !11
+  store float %57, ptr @PreviousFtokenval, align 4, !tbaa !11
+  br i1 %cmp58, label %match.exit175, label %if.then.i192
+
+match.exit175:                                    ; preds = %sw.bb57
+  store i32 59, ptr @lookahead, align 4, !tbaa !5
+  %58 = load i32, ptr @NextTokenval, align 4, !tbaa !5
+  store i32 %58, ptr @tokenval, align 4, !tbaa !5
+  %59 = load float, ptr @NextFtokenval, align 4, !tbaa !11
+  store float %59, ptr @ftokenval, align 4, !tbaa !11
+  %call.i165 = tail call i32 @lexan() #7
+  store i32 %call.i165, ptr @NextLookahead, align 4, !tbaa !5
+  %60 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
+  %tobool60.not = icmp eq i32 %60, 0
+  br i1 %tobool60.not, label %if.end62, label %cleanup
+
+if.end62:                                         ; preds = %match.exit175
+  %61 = load i32, ptr @lookahead, align 4, !tbaa !5
+  %cmp.i176 = icmp eq i32 %61, 59
+  br i1 %cmp.i176, label %if.then.i178, label %if.else.i183
+
+if.then.i178:                                     ; preds = %if.end62
+  store i32 59, ptr @PreviousLookahead, align 4, !tbaa !5
+  %62 = load i32, ptr @tokenval, align 4, !tbaa !5
+  store i32 %62, ptr @PreviousTokenval, align 4, !tbaa !5
+  %63 = load float, ptr @ftokenval, align 4, !tbaa !11
+  store float %63, ptr @PreviousFtokenval, align 4, !tbaa !11
+  store i32 %call.i165, ptr @lookahead, align 4, !tbaa !5
+  %64 = load i32, ptr @NextTokenval, align 4, !tbaa !5
+  store i32 %64, ptr @tokenval, align 4, !tbaa !5
+  %65 = load float, ptr @NextFtokenval, align 4, !tbaa !11
+  store float %65, ptr @ftokenval, align 4, !tbaa !11
+  %cmp1.not.i177 = icmp eq i32 %call.i165, 260
+  br i1 %cmp1.not.i177, label %match.exit189, label %if.then2.i180
+
+if.then2.i180:                                    ; preds = %if.then.i178
+  %call.i179 = tail call i32 @lexan() #7
+  store i32 %call.i179, ptr @NextLookahead, align 4, !tbaa !5
+  br label %match.exit189
+
+if.else.i183:                                     ; preds = %if.end62
+  %.off.i181 = add i32 %61, -2007
+  %switch.i182 = icmp ult i32 %.off.i181, 2
+  br i1 %switch.i182, label %sw.epilog.i186, label %if.end4.i187
+
+sw.epilog.i186:                                   ; preds = %if.else.i183
+  tail call void @error(ptr noundef nonnull @.str) #7
+  %.pre = load i32, ptr @ErrorFlag, align 4, !tbaa !5
+  %66 = icmp eq i32 %.pre, 0
+  br i1 %66, label %if.end4.i187, label %cleanup
+
+if.end4.i187:                                     ; preds = %if.else.i183, %sw.epilog.i186
+  %67 = load i32, ptr @lookahead, align 4, !tbaa !5
+  %call6.i188 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.2, i32 noundef %67)
+  tail call void @error(ptr noundef nonnull @.str.3) #7
+  br label %match.exit189
+
+match.exit189:                                    ; preds = %if.then.i178, %if.then2.i180, %if.end4.i187
+  %.pr221 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
+  %tobool63.not = icmp eq i32 %.pr221, 0
+  br i1 %tobool63.not, label %if.end65, label %cleanup
+
+if.end65:                                         ; preds = %match.exit189
+  %68 = load i32, ptr @FuncNameIndex, align 4, !tbaa !5
+  %idxprom = sext i32 %68 to i64
+  %type = getelementptr inbounds [100 x %struct.entry], ptr @GlobalTable, i64 0, i64 %idxprom, i32 2
+  %69 = load i32, ptr %type, align 4, !tbaa !17
+  %cmp66 = icmp eq i32 %69, 2002
+  br i1 %cmp66, label %if.then67, label %if.else68
+
+if.then67:                                        ; preds = %if.end65
+  tail call void @emit(i32 noundef 256, i32 noundef 1, float noundef 0.000000e+00) #7
+  br label %if.end80
+
+if.else68:                                        ; preds = %if.end65
+  tail call void @emit(i32 noundef 2001, i32 noundef 0, float noundef 1.000000e+00) #7
+  br label %if.end80
+
+if.then.i192:                                     ; preds = %sw.bb57
+  store i32 %55, ptr @lookahead, align 4, !tbaa !5
+  %70 = load i32, ptr @NextTokenval, align 4, !tbaa !5
+  store i32 %70, ptr @tokenval, align 4, !tbaa !5
+  %71 = load float, ptr @NextFtokenval, align 4, !tbaa !11
+  store float %71, ptr @ftokenval, align 4, !tbaa !11
+  %cmp1.not.i191 = icmp eq i32 %55, 260
+  br i1 %cmp1.not.i191, label %match.exit203, label %if.then2.i194
+
+if.then2.i194:                                    ; preds = %if.then.i192
+  %call.i193 = tail call i32 @lexan() #7
+  store i32 %call.i193, ptr @NextLookahead, align 4, !tbaa !5
+  br label %match.exit203
+
+match.exit203:                                    ; preds = %if.then.i192, %if.then2.i194
+  %72 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
+  %tobool71.not = icmp eq i32 %72, 0
+  br i1 %tobool71.not, label %if.end73, label %cleanup
+
+if.end73:                                         ; preds = %match.exit203
+  tail call void @exprAssg()
+  %73 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
+  %tobool74.not = icmp eq i32 %73, 0
+  br i1 %tobool74.not, label %if.end76, label %cleanup
+
+if.end76:                                         ; preds = %if.end73
+  tail call void @match(i32 noundef 59)
+  %74 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
+  %tobool77.not = icmp eq i32 %74, 0
+  br i1 %tobool77.not, label %if.end80, label %cleanup
+
+if.end80:                                         ; preds = %if.end76, %if.then67, %if.else68
+  %75 = load i32, ptr @ReturnLabel, align 4, !tbaa !5
+  tail call void @emit(i32 noundef 2015, i32 noundef %75, float noundef 0.000000e+00) #7
+  tail call void @emit(i32 noundef 2018, i32 noundef 0, float noundef 0.000000e+00) #7
+  br label %cleanup
+
+sw.default:                                       ; preds = %entry
+  tail call void @exprAssg()
+  %76 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
+  %tobool81.not = icmp eq i32 %76, 0
+  br i1 %tobool81.not, label %if.end83, label %cleanup
+
+if.end83:                                         ; preds = %sw.default
+  tail call void @emit(i32 noundef 2004, i32 noundef 0, float noundef 0.000000e+00) #7
+  %77 = load i32, ptr @lookahead, align 4, !tbaa !5
+  %cmp.i204 = icmp eq i32 %77, 59
+  br i1 %cmp.i204, label %if.then.i206, label %if.else.i211
+
+if.then.i206:                                     ; preds = %if.end83
+  store i32 59, ptr @PreviousLookahead, align 4, !tbaa !5
+  %78 = load i32, ptr @tokenval, align 4, !tbaa !5
+  store i32 %78, ptr @PreviousTokenval, align 4, !tbaa !5
+  %79 = load float, ptr @ftokenval, align 4, !tbaa !11
+  store float %79, ptr @PreviousFtokenval, align 4, !tbaa !11
+  %80 = load i32, ptr @NextLookahead, align 4, !tbaa !5
+  store i32 %80, ptr @lookahead, align 4, !tbaa !5
+  %81 = load i32, ptr @NextTokenval, align 4, !tbaa !5
+  store i32 %81, ptr @tokenval, align 4, !tbaa !5
+  %82 = load float, ptr @NextFtokenval, align 4, !tbaa !11
+  store float %82, ptr @ftokenval, align 4, !tbaa !11
+  %cmp1.not.i205 = icmp eq i32 %80, 260
+  br i1 %cmp1.not.i205, label %cleanup, label %if.then2.i208
+
+if.then2.i208:                                    ; preds = %if.then.i206
+  %call.i207 = tail call i32 @lexan() #7
+  store i32 %call.i207, ptr @NextLookahead, align 4, !tbaa !5
+  br label %cleanup
+
+if.else.i211:                                     ; preds = %if.end83
+  %.off.i209 = add i32 %77, -2007
+  %switch.i210 = icmp ult i32 %.off.i209, 2
+  br i1 %switch.i210, label %sw.bb.i212, label %sw.epilog.i214
+
+sw.bb.i212:                                       ; preds = %if.else.i211
+  tail call void @error(ptr noundef nonnull @.str) #7
+  br label %sw.epilog.i214
+
+sw.epilog.i214:                                   ; preds = %sw.bb.i212, %if.else.i211
+  %83 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
+  %tobool.not.i213 = icmp eq i32 %83, 0
+  br i1 %tobool.not.i213, label %if.end4.i215, label %cleanup
+
+if.end4.i215:                                     ; preds = %sw.epilog.i214
+  %84 = load i32, ptr @lookahead, align 4, !tbaa !5
+  %call6.i216 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.2, i32 noundef %84)
+  tail call void @error(ptr noundef nonnull @.str.3) #7
+  br label %cleanup
+
+cleanup:                                          ; preds = %sw.epilog.i186, %sw.epilog.i130, %sw.epilog.i102, %if.end4.i215, %sw.epilog.i214, %if.then2.i208, %if.then.i206, %if.end4.i159, %if.then2.i152, %if.then.i150, %if.end16, %if.end80, %if.else46, %if.end45, %sw.default, %if.end76, %if.end73, %match.exit203, %match.exit189, %match.exit175, %if.end41, %if.then38, %if.end30, %if.end27, %if.end24, %match.exit133, %match.exit119, %if.end10, %if.end7, %if.end4, %match.exit105, %match.exit
+  ret void
+}
+
+; Function Attrs: nounwind uwtable
+define dso_local void @parse() local_unnamed_addr #0 {
+if.then.i:
+  store i32 1, ptr @PreviousLookahead, align 4, !tbaa !5
+  %0 = load i32, ptr @tokenval, align 4, !tbaa !5
+  store i32 %0, ptr @PreviousTokenval, align 4, !tbaa !5
+  %1 = load float, ptr @ftokenval, align 4, !tbaa !11
+  store float %1, ptr @PreviousFtokenval, align 4, !tbaa !11
+  %2 = load i32, ptr @NextLookahead, align 4, !tbaa !5
+  store i32 %2, ptr @lookahead, align 4, !tbaa !5
+  %3 = load i32, ptr @NextTokenval, align 4, !tbaa !5
+  store i32 %3, ptr @tokenval, align 4, !tbaa !5
+  %4 = load float, ptr @NextFtokenval, align 4, !tbaa !11
+  store float %4, ptr @ftokenval, align 4, !tbaa !11
+  %cmp1.not.i = icmp eq i32 %2, 260
+  br i1 %cmp1.not.i, label %match.exit, label %if.then2.i
+
+if.then2.i:                                       ; preds = %if.then.i
+  %call.i = tail call i32 @lexan() #7
+  store i32 %call.i, ptr @NextLookahead, align 4, !tbaa !5
+  br label %match.exit
+
+match.exit:                                       ; preds = %if.then.i, %if.then2.i
+  %5 = phi i32 [ 260, %if.then.i ], [ %call.i, %if.then2.i ]
+  %6 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
+  %tobool.not = icmp eq i32 %6, 0
+  br i1 %tobool.not, label %if.then.i15, label %if.then
+
+if.then:                                          ; preds = %match.exit
+  store i32 0, ptr @ErrorFlag, align 4, !tbaa !5
+  br label %if.then.i15
+
+if.then.i15:                                      ; preds = %match.exit, %if.then
+  store i32 1, ptr @PreviousLookahead, align 4, !tbaa !5
+  %7 = load i32, ptr @tokenval, align 4, !tbaa !5
+  store i32 %7, ptr @PreviousTokenval, align 4, !tbaa !5
+  %8 = load float, ptr @ftokenval, align 4, !tbaa !11
+  store float %8, ptr @PreviousFtokenval, align 4, !tbaa !11
+  store i32 %5, ptr @lookahead, align 4, !tbaa !5
+  %9 = load i32, ptr @NextTokenval, align 4, !tbaa !5
+  store i32 %9, ptr @tokenval, align 4, !tbaa !5
+  %10 = load float, ptr @NextFtokenval, align 4, !tbaa !11
+  store float %10, ptr @ftokenval, align 4, !tbaa !11
+  %cmp1.not.i14 = icmp eq i32 %5, 260
+  br i1 %cmp1.not.i14, label %if.end3, label %match.exit26
+
+match.exit26:                                     ; preds = %if.then.i15
+  %call.i16 = tail call i32 @lexan() #7
+  store i32 %call.i16, ptr @NextLookahead, align 4, !tbaa !5
+  %.pre = load i32, ptr @ErrorFlag, align 4, !tbaa !5
+  %11 = icmp eq i32 %.pre, 0
+  br i1 %11, label %if.end3, label %if.then2
+
+if.then2:                                         ; preds = %match.exit26
+  store i32 0, ptr @ErrorFlag, align 4, !tbaa !5
+  br label %if.end3
+
+if.end3:                                          ; preds = %if.then.i15, %if.then2, %match.exit26
+  tail call void @DeclOrF()
+  %12 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
+  %tobool4.not = icmp eq i32 %12, 0
+  br i1 %tobool4.not, label %if.end6, label %return
+
+if.end6:                                          ; preds = %if.end3
+  tail call void @FunctionList()
+  %13 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
+  %tobool7.not = icmp eq i32 %13, 0
+  br i1 %tobool7.not, label %if.end9, label %return
+
+if.end9:                                          ; preds = %if.end6
+  tail call void @CheckMain() #7
+  tail call void @AllBodsParsed() #7
+  %14 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
+  %tobool10.not = icmp eq i32 %14, 0
+  br i1 %tobool10.not, label %if.end12, label %return
+
+if.end12:                                         ; preds = %if.end9
+  tail call void @emit(i32 noundef 2027, i32 noundef 0, float noundef 0.000000e+00) #7
+  br label %return
+
+return:                                           ; preds = %if.end9, %if.end6, %if.end3, %if.end12
+  ret void
+}
+
+; Function Attrs: nounwind uwtable
+define dso_local void @FunctionList() local_unnamed_addr #0 {
+entry:
+  br label %do.body
+
+do.body:                                          ; preds = %do.cond, %entry
+  store i32 0, ptr @ErrorFlag, align 4, !tbaa !5
+  store i32 0, ptr @FloatFlag, align 4, !tbaa !5
+  tail call void @LocalReset() #7
+  %0 = load i32, ptr @lookahead, align 4, !tbaa !5
+  switch i32 %0, label %sw.default [
+    i32 259, label %sw.bb
+    i32 2002, label %if.then.i
+    i32 2003, label %if.then.i17
+    i32 260, label %do.end
+  ]
+
+sw.bb:                                            ; preds = %do.body
+  tail call void @FunctionDef(i32 noundef 2002)
+  %1 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
+  %tobool.not = icmp eq i32 %1, 0
+  br i1 %tobool.not, label %do.cond, label %do.end
+
+if.then.i:                                        ; preds = %do.body
+  store i32 2002, ptr @PreviousLookahead, align 4, !tbaa !5
+  %2 = load i32, ptr @tokenval, align 4, !tbaa !5
+  store i32 %2, ptr @PreviousTokenval, align 4, !tbaa !5
+  %3 = load float, ptr @ftokenval, align 4, !tbaa !11
+  store float %3, ptr @PreviousFtokenval, align 4, !tbaa !11
+  %4 = load i32, ptr @NextLookahead, align 4, !tbaa !5
+  store i32 %4, ptr @lookahead, align 4, !tbaa !5
+  %5 = load i32, ptr @NextTokenval, align 4, !tbaa !5
+  store i32 %5, ptr @tokenval, align 4, !tbaa !5
+  %6 = load float, ptr @NextFtokenval, align 4, !tbaa !11
+  store float %6, ptr @ftokenval, align 4, !tbaa !11
+  %cmp1.not.i = icmp eq i32 %4, 260
+  br i1 %cmp1.not.i, label %match.exit, label %if.then2.i
+
+if.then2.i:                                       ; preds = %if.then.i
+  %call.i = tail call i32 @lexan() #7
+  store i32 %call.i, ptr @NextLookahead, align 4, !tbaa !5
+  br label %match.exit
+
+match.exit:                                       ; preds = %if.then.i, %if.then2.i
+  %7 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
+  %tobool2.not = icmp eq i32 %7, 0
+  br i1 %tobool2.not, label %if.end4, label %do.end
+
+if.end4:                                          ; preds = %match.exit
+  tail call void @FunctionDef(i32 noundef 2002)
+  %8 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
+  %tobool5.not = icmp eq i32 %8, 0
+  br i1 %tobool5.not, label %do.cond, label %do.end
+
+if.then.i17:                                      ; preds = %do.body
+  store i32 2003, ptr @PreviousLookahead, align 4, !tbaa !5
+  %9 = load i32, ptr @tokenval, align 4, !tbaa !5
+  store i32 %9, ptr @PreviousTokenval, align 4, !tbaa !5
+  %10 = load float, ptr @ftokenval, align 4, !tbaa !11
+  store float %10, ptr @PreviousFtokenval, align 4, !tbaa !11
+  %11 = load i32, ptr @NextLookahead, align 4, !tbaa !5
+  store i32 %11, ptr @lookahead, align 4, !tbaa !5
+  %12 = load i32, ptr @NextTokenval, align 4, !tbaa !5
+  store i32 %12, ptr @tokenval, align 4, !tbaa !5
+  %13 = load float, ptr @NextFtokenval, align 4, !tbaa !11
+  store float %13, ptr @ftokenval, align 4, !tbaa !11
+  %cmp1.not.i16 = icmp eq i32 %11, 260
+  br i1 %cmp1.not.i16, label %match.exit28, label %if.then2.i19
+
+if.then2.i19:                                     ; preds = %if.then.i17
+  %call.i18 = tail call i32 @lexan() #7
+  store i32 %call.i18, ptr @NextLookahead, align 4, !tbaa !5
+  br label %match.exit28
+
+match.exit28:                                     ; preds = %if.then.i17, %if.then2.i19
+  %14 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
+  %tobool9.not = icmp eq i32 %14, 0
+  br i1 %tobool9.not, label %if.end11, label %do.end
+
+if.end11:                                         ; preds = %match.exit28
+  tail call void @FunctionDef(i32 noundef 2003)
+  %15 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
+  %tobool12.not = icmp eq i32 %15, 0
+  br i1 %tobool12.not, label %do.cond, label %do.end
+
+sw.default:                                       ; preds = %do.body
   tail call void @error(ptr noundef nonnull @.str.20) #7
-  br label %40
+  br label %do.end
 
-37:                                               ; preds = %3, %18, %33
-  %38 = load i32, ptr @lookahead, align 4, !tbaa !5
-  %39 = icmp eq i32 %38, 260
-  br i1 %39, label %40, label %1, !llvm.loop !24
+do.cond:                                          ; preds = %sw.bb, %if.end4, %if.end11
+  %.pr = load i32, ptr @lookahead, align 4, !tbaa !5
+  %cmp.not = icmp eq i32 %.pr, 260
+  br i1 %cmp.not, label %do.end, label %do.body, !llvm.loop !24
 
-40:                                               ; preds = %1, %33, %30, %18, %15, %3, %37, %36
+do.end:                                           ; preds = %do.body, %if.end11, %match.exit28, %if.end4, %match.exit, %sw.bb, %do.cond, %sw.default
   ret void
 }
 
@@ -3488,21 +3502,276 @@ declare ptr @strcpy(ptr noalias noundef returned writeonly, ptr noalias nocaptur
 
 ; Function Attrs: nounwind uwtable
 define dso_local void @ExprList() local_unnamed_addr #0 {
-  %1 = load i32, ptr @lookahead, align 4, !tbaa !5
-  %2 = icmp eq i32 %1, 41
-  br i1 %2, label %26, label %3
+entry:
+  %0 = load i32, ptr @lookahead, align 4, !tbaa !5
+  %cmp.not = icmp eq i32 %0, 41
+  br i1 %cmp.not, label %if.end9, label %if.then
 
-3:                                                ; preds = %0
+if.then:                                          ; preds = %entry
   tail call void @exprAssg()
-  %4 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
-  %5 = icmp eq i32 %4, 0
-  %6 = load i32, ptr @lookahead, align 4
-  %7 = icmp eq i32 %6, 44
-  %8 = select i1 %5, i1 %7, i1 false
-  br i1 %8, label %9, label %26
+  %1 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
+  %tobool.not = icmp eq i32 %1, 0
+  %.old = load i32, ptr @lookahead, align 4
+  %cmp2.old = icmp eq i32 %.old, 44
+  %or.cond10 = select i1 %tobool.not, i1 %cmp2.old, i1 false
+  br i1 %or.cond10, label %if.then.i, label %if.end9
 
-9:                                                ; preds = %3, %20
+if.then.i:                                        ; preds = %if.then, %if.end5
   store i32 44, ptr @PreviousLookahead, align 4, !tbaa !5
+  %2 = load i32, ptr @tokenval, align 4, !tbaa !5
+  store i32 %2, ptr @PreviousTokenval, align 4, !tbaa !5
+  %3 = load float, ptr @ftokenval, align 4, !tbaa !11
+  store float %3, ptr @PreviousFtokenval, align 4, !tbaa !11
+  %4 = load i32, ptr @NextLookahead, align 4, !tbaa !5
+  store i32 %4, ptr @lookahead, align 4, !tbaa !5
+  %5 = load i32, ptr @NextTokenval, align 4, !tbaa !5
+  store i32 %5, ptr @tokenval, align 4, !tbaa !5
+  %6 = load float, ptr @NextFtokenval, align 4, !tbaa !11
+  store float %6, ptr @ftokenval, align 4, !tbaa !11
+  %cmp1.not.i = icmp eq i32 %4, 260
+  br i1 %cmp1.not.i, label %if.end5, label %match.exit
+
+match.exit:                                       ; preds = %if.then.i
+  %call.i = tail call i32 @lexan() #7
+  store i32 %call.i, ptr @NextLookahead, align 4, !tbaa !5
+  %.pre = load i32, ptr @ErrorFlag, align 4, !tbaa !5
+  %tobool3.not = icmp eq i32 %.pre, 0
+  br i1 %tobool3.not, label %if.end5, label %if.end9
+
+if.end5:                                          ; preds = %if.then.i, %match.exit
+  tail call void @exprAssg()
+  %7 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
+  %tobool6.not = icmp eq i32 %7, 0
+  %8 = load i32, ptr @lookahead, align 4
+  %cmp2 = icmp eq i32 %8, 44
+  %or.cond = select i1 %tobool6.not, i1 %cmp2, i1 false
+  br i1 %or.cond, label %if.then.i, label %if.end9, !llvm.loop !25
+
+if.end9:                                          ; preds = %if.end5, %match.exit, %if.then, %entry
+  ret void
+}
+
+declare void @LocalReset() local_unnamed_addr #2
+
+; Function Attrs: nounwind uwtable
+define dso_local void @ParamList() local_unnamed_addr #0 {
+entry:
+  %0 = load i32, ptr @lookahead, align 4, !tbaa !5
+  %cmp = icmp eq i32 %0, 259
+  br i1 %cmp, label %if.then, label %cleanup
+
+if.then:                                          ; preds = %entry
+  %1 = load i32, ptr @GlobalIndex, align 4, !tbaa !5
+  %tobool.not = icmp eq i32 %1, 0
+  br i1 %tobool.not, label %if.end4, label %if.then1
+
+if.then1:                                         ; preds = %if.then
+  %idxprom = sext i32 %1 to i64
+  %function = getelementptr inbounds [100 x %struct.entry], ptr @GlobalTable, i64 0, i64 %idxprom, i32 4
+  %2 = load i32, ptr %function, align 4, !tbaa !13
+  %tobool2.not = icmp eq i32 %2, 0
+  br i1 %tobool2.not, label %if.end4, label %if.then3
+
+if.then3:                                         ; preds = %if.then1
+  tail call void @error(ptr noundef nonnull @.str.28) #7
+  br label %cleanup
+
+if.end4:                                          ; preds = %if.then1, %if.then
+  %3 = load i32, ptr @LocalIndex, align 4, !tbaa !5
+  %tobool5.not = icmp eq i32 %3, 0
+  br i1 %tobool5.not, label %if.else, label %if.then6
+
+if.then6:                                         ; preds = %if.end4
+  tail call void @error(ptr noundef nonnull @.str.30) #7
+  br label %cleanup
+
+if.else:                                          ; preds = %if.end4
+  %call = tail call i32 @LocalInsert(ptr noundef nonnull @lexbuf, i32 noundef 259, i32 noundef 2041, i32 noundef 1, i32 noundef 0, i32 noundef 0) #7
+  store i32 %call, ptr @LocalIndex, align 4, !tbaa !5
+  %4 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
+  %tobool7.not = icmp eq i32 %4, 0
+  br i1 %tobool7.not, label %if.end10, label %cleanup
+
+if.end10:                                         ; preds = %if.else
+  %5 = load i32, ptr @lookahead, align 4, !tbaa !5
+  %cmp.i = icmp eq i32 %5, 259
+  br i1 %cmp.i, label %if.then.i, label %if.else.i
+
+if.then.i:                                        ; preds = %if.end10
+  store i32 259, ptr @PreviousLookahead, align 4, !tbaa !5
+  %6 = load i32, ptr @tokenval, align 4, !tbaa !5
+  store i32 %6, ptr @PreviousTokenval, align 4, !tbaa !5
+  %7 = load float, ptr @ftokenval, align 4, !tbaa !11
+  store float %7, ptr @PreviousFtokenval, align 4, !tbaa !11
+  %8 = load i32, ptr @NextLookahead, align 4, !tbaa !5
+  store i32 %8, ptr @lookahead, align 4, !tbaa !5
+  %9 = load i32, ptr @NextTokenval, align 4, !tbaa !5
+  store i32 %9, ptr @tokenval, align 4, !tbaa !5
+  %10 = load float, ptr @NextFtokenval, align 4, !tbaa !11
+  store float %10, ptr @ftokenval, align 4, !tbaa !11
+  %cmp1.not.i = icmp eq i32 %8, 260
+  br i1 %cmp1.not.i, label %match.exit, label %if.then2.i
+
+if.then2.i:                                       ; preds = %if.then.i
+  %call.i = tail call i32 @lexan() #7
+  store i32 %call.i, ptr @NextLookahead, align 4, !tbaa !5
+  br label %match.exit
+
+if.else.i:                                        ; preds = %if.end10
+  %.off.i = add i32 %5, -2007
+  %switch.i = icmp ult i32 %.off.i, 2
+  br i1 %switch.i, label %sw.epilog.i, label %if.end4.i
+
+sw.epilog.i:                                      ; preds = %if.else.i
+  tail call void @error(ptr noundef nonnull @.str) #7
+  %.pre = load i32, ptr @ErrorFlag, align 4, !tbaa !5
+  %11 = icmp eq i32 %.pre, 0
+  br i1 %11, label %if.end4.i, label %cleanup
+
+if.end4.i:                                        ; preds = %if.else.i, %sw.epilog.i
+  %12 = load i32, ptr @lookahead, align 4, !tbaa !5
+  %call6.i = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.2, i32 noundef %12)
+  tail call void @error(ptr noundef nonnull @.str.3) #7
+  br label %match.exit
+
+match.exit:                                       ; preds = %if.then.i, %if.then2.i, %if.end4.i
+  %.pr = load i32, ptr @ErrorFlag, align 4, !tbaa !5
+  %tobool11.not = icmp eq i32 %.pr, 0
+  br i1 %tobool11.not, label %if.end13, label %cleanup
+
+if.end13:                                         ; preds = %match.exit
+  tail call void @MoreParams()
+  %13 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
+  %tobool14.not = icmp eq i32 %13, 0
+  br i1 %tobool14.not, label %if.end16, label %cleanup
+
+if.end16:                                         ; preds = %if.end13
+  tail call void @emit(i32 noundef 2047, i32 noundef %call, float noundef 0.000000e+00) #7
+  tail call void @emit(i32 noundef 2049, i32 noundef %call, float noundef 0.000000e+00) #7
+  tail call void @emit(i32 noundef 2055, i32 noundef 0, float noundef 0.000000e+00) #7
+  %14 = load i32, ptr @offset, align 4, !tbaa !5
+  %inc = add nsw i32 %14, 1
+  store i32 %inc, ptr @offset, align 4, !tbaa !5
+  br label %cleanup
+
+cleanup:                                          ; preds = %sw.epilog.i, %entry, %if.end16, %if.end13, %match.exit, %if.else, %if.then6, %if.then3
+  ret void
+}
+
+; Function Attrs: nounwind uwtable
+define dso_local void @DecList() local_unnamed_addr #0 {
+entry:
+  br label %while.cond
+
+while.cond:                                       ; preds = %if.end, %entry
+  %0 = load i32, ptr @lookahead, align 4
+  %1 = and i32 %0, -2
+  %2 = icmp eq i32 %1, 2002
+  br i1 %2, label %while.body, label %while.end
+
+while.body:                                       ; preds = %while.cond
+  tail call void @match(i32 noundef %0)
+  %3 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
+  %tobool.not = icmp eq i32 %3, 0
+  br i1 %tobool.not, label %if.end, label %return
+
+if.end:                                           ; preds = %while.body
+  %4 = load i32, ptr @PreviousLookahead, align 4, !tbaa !5
+  tail call void @VarList(i32 noundef %4)
+  %5 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
+  %tobool2.not = icmp eq i32 %5, 0
+  br i1 %tobool2.not, label %while.cond, label %return, !llvm.loop !21
+
+while.end:                                        ; preds = %while.cond
+  tail call void @ParamInt() #7
+  br label %return
+
+return:                                           ; preds = %if.end, %while.body, %while.end
+  ret void
+}
+
+; Function Attrs: nounwind uwtable
+define dso_local void @FstmtList() local_unnamed_addr #0 {
+entry:
+  %0 = load i32, ptr @lookahead, align 4, !tbaa !5
+  %cmp.i = icmp eq i32 %0, 123
+  br i1 %cmp.i, label %if.then.i, label %if.else.i
+
+if.then.i:                                        ; preds = %entry
+  store i32 123, ptr @PreviousLookahead, align 4, !tbaa !5
+  %1 = load i32, ptr @tokenval, align 4, !tbaa !5
+  store i32 %1, ptr @PreviousTokenval, align 4, !tbaa !5
+  %2 = load float, ptr @ftokenval, align 4, !tbaa !11
+  store float %2, ptr @PreviousFtokenval, align 4, !tbaa !11
+  %3 = load i32, ptr @NextLookahead, align 4, !tbaa !5
+  store i32 %3, ptr @lookahead, align 4, !tbaa !5
+  %4 = load i32, ptr @NextTokenval, align 4, !tbaa !5
+  store i32 %4, ptr @tokenval, align 4, !tbaa !5
+  %5 = load float, ptr @NextFtokenval, align 4, !tbaa !11
+  store float %5, ptr @ftokenval, align 4, !tbaa !11
+  %cmp1.not.i = icmp eq i32 %3, 260
+  br i1 %cmp1.not.i, label %match.exit, label %if.then2.i
+
+if.then2.i:                                       ; preds = %if.then.i
+  %call.i = tail call i32 @lexan() #7
+  store i32 %call.i, ptr @NextLookahead, align 4, !tbaa !5
+  br label %match.exit
+
+if.else.i:                                        ; preds = %entry
+  %.off.i = add i32 %0, -2007
+  %switch.i = icmp ult i32 %.off.i, 2
+  br i1 %switch.i, label %sw.bb.i, label %sw.epilog.i
+
+sw.bb.i:                                          ; preds = %if.else.i
+  tail call void @error(ptr noundef nonnull @.str) #7
+  br label %sw.epilog.i
+
+sw.epilog.i:                                      ; preds = %sw.bb.i, %if.else.i
+  %6 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
+  %tobool.not.i = icmp eq i32 %6, 0
+  br i1 %tobool.not.i, label %if.end4.i, label %if.then
+
+if.end4.i:                                        ; preds = %sw.epilog.i
+  %7 = load i32, ptr @lookahead, align 4, !tbaa !5
+  %call6.i = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.2, i32 noundef %7)
+  tail call void @error(ptr noundef nonnull @.str.3) #7
+  br label %match.exit
+
+match.exit:                                       ; preds = %if.then.i, %if.then2.i, %if.end4.i
+  %.pr = load i32, ptr @ErrorFlag, align 4, !tbaa !5
+  %tobool.not = icmp eq i32 %.pr, 0
+  br i1 %tobool.not, label %do.body.preheader, label %if.then
+
+if.then:                                          ; preds = %sw.epilog.i, %match.exit
+  store i32 0, ptr @ErrorFlag, align 4, !tbaa !5
+  br label %do.body.preheader
+
+do.body.preheader:                                ; preds = %if.then, %match.exit
+  br label %do.body
+
+do.body:                                          ; preds = %do.body.preheader, %do.cond
+  tail call void @parseAStmt()
+  %8 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
+  %tobool1.not = icmp eq i32 %8, 0
+  br i1 %tobool1.not, label %do.cond, label %if.then2
+
+if.then2:                                         ; preds = %do.body
+  store i32 0, ptr @ErrorFlag, align 4, !tbaa !5
+  br label %do.cond
+
+do.cond:                                          ; preds = %do.body, %if.then2
+  %9 = load i32, ptr @lookahead, align 4
+  switch i32 %9, label %do.body [
+    i32 260, label %if.then6
+    i32 125, label %if.then.i13
+  ]
+
+if.then6:                                         ; preds = %do.cond
+  tail call void @error(ptr noundef nonnull @.str.37) #7
+  br label %if.end10
+
+if.then.i13:                                      ; preds = %do.cond
+  store i32 125, ptr @PreviousLookahead, align 4, !tbaa !5
   %10 = load i32, ptr @tokenval, align 4, !tbaa !5
   store i32 %10, ptr @PreviousTokenval, align 4, !tbaa !5
   %11 = load float, ptr @ftokenval, align 4, !tbaa !11
@@ -3513,765 +3782,516 @@ define dso_local void @ExprList() local_unnamed_addr #0 {
   store i32 %13, ptr @tokenval, align 4, !tbaa !5
   %14 = load float, ptr @NextFtokenval, align 4, !tbaa !11
   store float %14, ptr @ftokenval, align 4, !tbaa !11
-  %15 = icmp eq i32 %12, 260
-  br i1 %15, label %20, label %16
+  %cmp1.not.i12 = icmp eq i32 %12, 260
+  br i1 %cmp1.not.i12, label %if.end10, label %if.then2.i15
 
-16:                                               ; preds = %9
-  %17 = tail call i32 @lexan() #7
-  store i32 %17, ptr @NextLookahead, align 4, !tbaa !5
-  %18 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
-  %19 = icmp eq i32 %18, 0
-  br i1 %19, label %20, label %26
+if.then2.i15:                                     ; preds = %if.then.i13
+  %call.i14 = tail call i32 @lexan() #7
+  store i32 %call.i14, ptr @NextLookahead, align 4, !tbaa !5
+  br label %if.end10
 
-20:                                               ; preds = %9, %16
-  tail call void @exprAssg()
-  %21 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
-  %22 = icmp eq i32 %21, 0
-  %23 = load i32, ptr @lookahead, align 4
-  %24 = icmp eq i32 %23, 44
-  %25 = select i1 %22, i1 %24, i1 false
-  br i1 %25, label %9, label %26, !llvm.loop !25
-
-26:                                               ; preds = %20, %16, %3, %0
-  ret void
-}
-
-declare void @LocalReset() local_unnamed_addr #2
-
-; Function Attrs: nounwind uwtable
-define dso_local void @ParamList() local_unnamed_addr #0 {
-  %1 = load i32, ptr @lookahead, align 4, !tbaa !5
-  %2 = icmp eq i32 %1, 259
-  br i1 %2, label %3, label %50
-
-3:                                                ; preds = %0
-  %4 = load i32, ptr @GlobalIndex, align 4, !tbaa !5
-  %5 = icmp eq i32 %4, 0
-  br i1 %5, label %12, label %6
-
-6:                                                ; preds = %3
-  %7 = sext i32 %4 to i64
-  %8 = getelementptr inbounds [100 x %struct.entry], ptr @GlobalTable, i64 0, i64 %7, i32 4
-  %9 = load i32, ptr %8, align 4, !tbaa !13
-  %10 = icmp eq i32 %9, 0
-  br i1 %10, label %12, label %11
-
-11:                                               ; preds = %6
-  tail call void @error(ptr noundef nonnull @.str.28) #7
-  br label %50
-
-12:                                               ; preds = %6, %3
-  %13 = load i32, ptr @LocalIndex, align 4, !tbaa !5
-  %14 = icmp eq i32 %13, 0
-  br i1 %14, label %16, label %15
-
-15:                                               ; preds = %12
-  tail call void @error(ptr noundef nonnull @.str.30) #7
-  br label %50
-
-16:                                               ; preds = %12
-  %17 = tail call i32 @LocalInsert(ptr noundef nonnull @lexbuf, i32 noundef 259, i32 noundef 2041, i32 noundef 1, i32 noundef 0, i32 noundef 0) #7
-  store i32 %17, ptr @LocalIndex, align 4, !tbaa !5
-  %18 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
-  %19 = icmp eq i32 %18, 0
-  br i1 %19, label %20, label %50
-
-20:                                               ; preds = %16
-  %21 = load i32, ptr @lookahead, align 4, !tbaa !5
-  %22 = icmp eq i32 %21, 259
-  br i1 %22, label %23, label %32
-
-23:                                               ; preds = %20
-  store i32 259, ptr @PreviousLookahead, align 4, !tbaa !5
-  %24 = load i32, ptr @tokenval, align 4, !tbaa !5
-  store i32 %24, ptr @PreviousTokenval, align 4, !tbaa !5
-  %25 = load float, ptr @ftokenval, align 4, !tbaa !11
-  store float %25, ptr @PreviousFtokenval, align 4, !tbaa !11
-  %26 = load i32, ptr @NextLookahead, align 4, !tbaa !5
-  store i32 %26, ptr @lookahead, align 4, !tbaa !5
-  %27 = load i32, ptr @NextTokenval, align 4, !tbaa !5
-  store i32 %27, ptr @tokenval, align 4, !tbaa !5
-  %28 = load float, ptr @NextFtokenval, align 4, !tbaa !11
-  store float %28, ptr @ftokenval, align 4, !tbaa !11
-  %29 = icmp eq i32 %26, 260
-  br i1 %29, label %41, label %30
-
-30:                                               ; preds = %23
-  %31 = tail call i32 @lexan() #7
-  store i32 %31, ptr @NextLookahead, align 4, !tbaa !5
-  br label %41
-
-32:                                               ; preds = %20
-  %33 = add i32 %21, -2007
-  %34 = icmp ult i32 %33, 2
-  br i1 %34, label %35, label %38
-
-35:                                               ; preds = %32
-  tail call void @error(ptr noundef nonnull @.str) #7
-  %36 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
-  %37 = icmp eq i32 %36, 0
-  br i1 %37, label %38, label %50
-
-38:                                               ; preds = %32, %35
-  %39 = load i32, ptr @lookahead, align 4, !tbaa !5
-  %40 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.2, i32 noundef %39)
-  tail call void @error(ptr noundef nonnull @.str.3) #7
-  br label %41
-
-41:                                               ; preds = %23, %30, %38
-  %42 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
-  %43 = icmp eq i32 %42, 0
-  br i1 %43, label %44, label %50
-
-44:                                               ; preds = %41
-  tail call void @MoreParams()
-  %45 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
-  %46 = icmp eq i32 %45, 0
-  br i1 %46, label %47, label %50
-
-47:                                               ; preds = %44
-  tail call void @emit(i32 noundef 2047, i32 noundef %17, float noundef 0.000000e+00) #7
-  tail call void @emit(i32 noundef 2049, i32 noundef %17, float noundef 0.000000e+00) #7
-  tail call void @emit(i32 noundef 2055, i32 noundef 0, float noundef 0.000000e+00) #7
-  %48 = load i32, ptr @offset, align 4, !tbaa !5
-  %49 = add nsw i32 %48, 1
-  store i32 %49, ptr @offset, align 4, !tbaa !5
-  br label %50
-
-50:                                               ; preds = %35, %0, %47, %44, %41, %16, %15, %11
-  ret void
-}
-
-; Function Attrs: nounwind uwtable
-define dso_local void @DecList() local_unnamed_addr #0 {
-  br label %1
-
-1:                                                ; preds = %8, %0
-  %2 = load i32, ptr @lookahead, align 4, !tbaa !5
-  %3 = and i32 %2, -2
-  %4 = icmp eq i32 %3, 2002
-  br i1 %4, label %5, label %12
-
-5:                                                ; preds = %1
-  tail call void @match(i32 noundef %2)
-  %6 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
-  %7 = icmp eq i32 %6, 0
-  br i1 %7, label %8, label %13
-
-8:                                                ; preds = %5
-  %9 = load i32, ptr @PreviousLookahead, align 4, !tbaa !5
-  tail call void @VarList(i32 noundef %9)
-  %10 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
-  %11 = icmp eq i32 %10, 0
-  br i1 %11, label %1, label %13, !llvm.loop !21
-
-12:                                               ; preds = %1
-  tail call void @ParamInt() #7
-  br label %13
-
-13:                                               ; preds = %8, %5, %12
-  ret void
-}
-
-; Function Attrs: nounwind uwtable
-define dso_local void @FstmtList() local_unnamed_addr #0 {
-  %1 = load i32, ptr @lookahead, align 4, !tbaa !5
-  %2 = icmp eq i32 %1, 123
-  br i1 %2, label %3, label %12
-
-3:                                                ; preds = %0
-  store i32 123, ptr @PreviousLookahead, align 4, !tbaa !5
-  %4 = load i32, ptr @tokenval, align 4, !tbaa !5
-  store i32 %4, ptr @PreviousTokenval, align 4, !tbaa !5
-  %5 = load float, ptr @ftokenval, align 4, !tbaa !11
-  store float %5, ptr @PreviousFtokenval, align 4, !tbaa !11
-  %6 = load i32, ptr @NextLookahead, align 4, !tbaa !5
-  store i32 %6, ptr @lookahead, align 4, !tbaa !5
-  %7 = load i32, ptr @NextTokenval, align 4, !tbaa !5
-  store i32 %7, ptr @tokenval, align 4, !tbaa !5
-  %8 = load float, ptr @NextFtokenval, align 4, !tbaa !11
-  store float %8, ptr @ftokenval, align 4, !tbaa !11
-  %9 = icmp eq i32 %6, 260
-  br i1 %9, label %22, label %10
-
-10:                                               ; preds = %3
-  %11 = tail call i32 @lexan() #7
-  store i32 %11, ptr @NextLookahead, align 4, !tbaa !5
-  br label %22
-
-12:                                               ; preds = %0
-  %13 = add i32 %1, -2007
-  %14 = icmp ult i32 %13, 2
-  br i1 %14, label %15, label %16
-
-15:                                               ; preds = %12
-  tail call void @error(ptr noundef nonnull @.str) #7
-  br label %16
-
-16:                                               ; preds = %15, %12
-  %17 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
-  %18 = icmp eq i32 %17, 0
-  br i1 %18, label %19, label %25
-
-19:                                               ; preds = %16
-  %20 = load i32, ptr @lookahead, align 4, !tbaa !5
-  %21 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.2, i32 noundef %20)
-  tail call void @error(ptr noundef nonnull @.str.3) #7
-  br label %22
-
-22:                                               ; preds = %3, %10, %19
-  %23 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
-  %24 = icmp eq i32 %23, 0
-  br i1 %24, label %26, label %25
-
-25:                                               ; preds = %16, %22
-  store i32 0, ptr @ErrorFlag, align 4, !tbaa !5
-  br label %26
-
-26:                                               ; preds = %25, %22
-  br label %27
-
-27:                                               ; preds = %26, %31
-  tail call void @parseAStmt()
-  %28 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
-  %29 = icmp eq i32 %28, 0
-  br i1 %29, label %31, label %30
-
-30:                                               ; preds = %27
-  store i32 0, ptr @ErrorFlag, align 4, !tbaa !5
-  br label %31
-
-31:                                               ; preds = %27, %30
-  %32 = load i32, ptr @lookahead, align 4, !tbaa !5
-  switch i32 %32, label %27 [
-    i32 260, label %33
-    i32 125, label %34
-  ]
-
-33:                                               ; preds = %31
-  tail call void @error(ptr noundef nonnull @.str.37) #7
-  br label %43
-
-34:                                               ; preds = %31
-  store i32 125, ptr @PreviousLookahead, align 4, !tbaa !5
-  %35 = load i32, ptr @tokenval, align 4, !tbaa !5
-  store i32 %35, ptr @PreviousTokenval, align 4, !tbaa !5
-  %36 = load float, ptr @ftokenval, align 4, !tbaa !11
-  store float %36, ptr @PreviousFtokenval, align 4, !tbaa !11
-  %37 = load i32, ptr @NextLookahead, align 4, !tbaa !5
-  store i32 %37, ptr @lookahead, align 4, !tbaa !5
-  %38 = load i32, ptr @NextTokenval, align 4, !tbaa !5
-  store i32 %38, ptr @tokenval, align 4, !tbaa !5
-  %39 = load float, ptr @NextFtokenval, align 4, !tbaa !11
-  store float %39, ptr @ftokenval, align 4, !tbaa !11
-  %40 = icmp eq i32 %37, 260
-  br i1 %40, label %43, label %41
-
-41:                                               ; preds = %34
-  %42 = tail call i32 @lexan() #7
-  store i32 %42, ptr @NextLookahead, align 4, !tbaa !5
-  br label %43
-
-43:                                               ; preds = %41, %34, %33
+if.end10:                                         ; preds = %if.then2.i15, %if.then.i13, %if.then6
   ret void
 }
 
 ; Function Attrs: nounwind uwtable
 define dso_local void @MoreParams() local_unnamed_addr #0 {
-  %1 = load i32, ptr @lookahead, align 4, !tbaa !5
-  %2 = icmp eq i32 %1, 44
-  br i1 %2, label %3, label %45
+entry:
+  %0 = load i32, ptr @lookahead, align 4, !tbaa !5
+  %cmp = icmp eq i32 %0, 44
+  br i1 %cmp, label %if.then.i, label %cleanup
 
-3:                                                ; preds = %0
+if.then.i:                                        ; preds = %entry
   store i32 44, ptr @PreviousLookahead, align 4, !tbaa !5
-  %4 = load i32, ptr @tokenval, align 4, !tbaa !5
-  store i32 %4, ptr @PreviousTokenval, align 4, !tbaa !5
-  %5 = load float, ptr @ftokenval, align 4, !tbaa !11
-  store float %5, ptr @PreviousFtokenval, align 4, !tbaa !11
-  %6 = load i32, ptr @NextLookahead, align 4, !tbaa !5
-  store i32 %6, ptr @lookahead, align 4, !tbaa !5
-  %7 = load i32, ptr @NextTokenval, align 4, !tbaa !5
-  store i32 %7, ptr @tokenval, align 4, !tbaa !5
-  %8 = load float, ptr @NextFtokenval, align 4, !tbaa !11
-  store float %8, ptr @ftokenval, align 4, !tbaa !11
-  %9 = icmp eq i32 %6, 260
-  br i1 %9, label %12, label %10
+  %1 = load i32, ptr @tokenval, align 4, !tbaa !5
+  store i32 %1, ptr @PreviousTokenval, align 4, !tbaa !5
+  %2 = load float, ptr @ftokenval, align 4, !tbaa !11
+  store float %2, ptr @PreviousFtokenval, align 4, !tbaa !11
+  %3 = load i32, ptr @NextLookahead, align 4, !tbaa !5
+  store i32 %3, ptr @lookahead, align 4, !tbaa !5
+  %4 = load i32, ptr @NextTokenval, align 4, !tbaa !5
+  store i32 %4, ptr @tokenval, align 4, !tbaa !5
+  %5 = load float, ptr @NextFtokenval, align 4, !tbaa !11
+  store float %5, ptr @ftokenval, align 4, !tbaa !11
+  %cmp1.not.i = icmp eq i32 %3, 260
+  br i1 %cmp1.not.i, label %match.exit, label %if.then2.i
 
-10:                                               ; preds = %3
-  %11 = tail call i32 @lexan() #7
-  store i32 %11, ptr @NextLookahead, align 4, !tbaa !5
-  br label %12
+if.then2.i:                                       ; preds = %if.then.i
+  %call.i = tail call i32 @lexan() #7
+  store i32 %call.i, ptr @NextLookahead, align 4, !tbaa !5
+  br label %match.exit
 
-12:                                               ; preds = %3, %10
-  %13 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
-  %14 = icmp eq i32 %13, 0
-  br i1 %14, label %15, label %45
+match.exit:                                       ; preds = %if.then.i, %if.then2.i
+  %6 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
+  %tobool.not = icmp eq i32 %6, 0
+  br i1 %tobool.not, label %if.end, label %cleanup
 
-15:                                               ; preds = %12
-  %16 = load i32, ptr @lookahead, align 4, !tbaa !5
-  %17 = icmp eq i32 %16, 259
-  br i1 %17, label %19, label %18
+if.end:                                           ; preds = %match.exit
+  %7 = load i32, ptr @lookahead, align 4, !tbaa !5
+  %cmp2.not = icmp eq i32 %7, 259
+  br i1 %cmp2.not, label %if.end4, label %if.then3
 
-18:                                               ; preds = %15
+if.then3:                                         ; preds = %if.end
   tail call void @error(ptr noundef nonnull @.str.27) #7
-  br label %45
+  br label %cleanup
 
-19:                                               ; preds = %15
-  %20 = load i32, ptr @GlobalIndex, align 4, !tbaa !5
-  %21 = icmp eq i32 %20, 0
-  br i1 %21, label %28, label %22
+if.end4:                                          ; preds = %if.end
+  %8 = load i32, ptr @GlobalIndex, align 4, !tbaa !5
+  %tobool5.not = icmp eq i32 %8, 0
+  br i1 %tobool5.not, label %if.end10, label %if.then6
 
-22:                                               ; preds = %19
-  %23 = sext i32 %20 to i64
-  %24 = getelementptr inbounds [100 x %struct.entry], ptr @GlobalTable, i64 0, i64 %23, i32 4
-  %25 = load i32, ptr %24, align 4, !tbaa !13
-  %26 = icmp eq i32 %25, 0
-  br i1 %26, label %28, label %27
+if.then6:                                         ; preds = %if.end4
+  %idxprom = sext i32 %8 to i64
+  %function = getelementptr inbounds [100 x %struct.entry], ptr @GlobalTable, i64 0, i64 %idxprom, i32 4
+  %9 = load i32, ptr %function, align 4, !tbaa !13
+  %tobool7.not = icmp eq i32 %9, 0
+  br i1 %tobool7.not, label %if.end10, label %if.then8
 
-27:                                               ; preds = %22
+if.then8:                                         ; preds = %if.then6
   tail call void @error(ptr noundef nonnull @.str.28) #7
-  br label %45
+  br label %cleanup
 
-28:                                               ; preds = %22, %19
-  %29 = load i32, ptr @LocalIndex, align 4, !tbaa !5
-  %30 = icmp eq i32 %29, 0
-  br i1 %30, label %32, label %31
+if.end10:                                         ; preds = %if.then6, %if.end4
+  %10 = load i32, ptr @LocalIndex, align 4, !tbaa !5
+  %tobool11.not = icmp eq i32 %10, 0
+  br i1 %tobool11.not, label %if.else, label %if.then12
 
-31:                                               ; preds = %28
+if.then12:                                        ; preds = %if.end10
   tail call void @error(ptr noundef nonnull @.str.29) #7
-  br label %45
+  br label %cleanup
 
-32:                                               ; preds = %28
-  %33 = tail call i32 @LocalInsert(ptr noundef nonnull @lexbuf, i32 noundef 259, i32 noundef 2041, i32 noundef 1, i32 noundef 0, i32 noundef 0) #7
-  store i32 %33, ptr @LocalIndex, align 4, !tbaa !5
-  %34 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
-  %35 = icmp eq i32 %34, 0
-  br i1 %35, label %36, label %45
+if.else:                                          ; preds = %if.end10
+  %call = tail call i32 @LocalInsert(ptr noundef nonnull @lexbuf, i32 noundef 259, i32 noundef 2041, i32 noundef 1, i32 noundef 0, i32 noundef 0) #7
+  store i32 %call, ptr @LocalIndex, align 4, !tbaa !5
+  %11 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
+  %tobool13.not = icmp eq i32 %11, 0
+  br i1 %tobool13.not, label %if.end16, label %cleanup
 
-36:                                               ; preds = %32
+if.end16:                                         ; preds = %if.else
   tail call void @match(i32 noundef 259)
-  %37 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
-  %38 = icmp eq i32 %37, 0
-  br i1 %38, label %39, label %45
+  %12 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
+  %tobool17.not = icmp eq i32 %12, 0
+  br i1 %tobool17.not, label %if.end19, label %cleanup
 
-39:                                               ; preds = %36
+if.end19:                                         ; preds = %if.end16
   tail call void @MoreParams()
-  %40 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
-  %41 = icmp eq i32 %40, 0
-  br i1 %41, label %42, label %45
+  %13 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
+  %tobool20.not = icmp eq i32 %13, 0
+  br i1 %tobool20.not, label %if.end22, label %cleanup
 
-42:                                               ; preds = %39
-  tail call void @emit(i32 noundef 2047, i32 noundef %33, float noundef 0.000000e+00) #7
-  tail call void @emit(i32 noundef 2049, i32 noundef %33, float noundef 0.000000e+00) #7
+if.end22:                                         ; preds = %if.end19
+  tail call void @emit(i32 noundef 2047, i32 noundef %call, float noundef 0.000000e+00) #7
+  tail call void @emit(i32 noundef 2049, i32 noundef %call, float noundef 0.000000e+00) #7
   tail call void @emit(i32 noundef 2055, i32 noundef 0, float noundef 0.000000e+00) #7
-  %43 = load i32, ptr @offset, align 4, !tbaa !5
-  %44 = add nsw i32 %43, 1
-  store i32 %44, ptr @offset, align 4, !tbaa !5
-  br label %45
+  %14 = load i32, ptr @offset, align 4, !tbaa !5
+  %inc = add nsw i32 %14, 1
+  store i32 %inc, ptr @offset, align 4, !tbaa !5
+  br label %cleanup
 
-45:                                               ; preds = %0, %42, %39, %36, %32, %12, %31, %27, %18
+cleanup:                                          ; preds = %entry, %if.end22, %if.end19, %if.end16, %if.else, %match.exit, %if.then12, %if.then8, %if.then3
   ret void
 }
 
 declare i32 @LocalInsert(ptr noundef, i32 noundef, i32 noundef, i32 noundef, i32 noundef, i32 noundef) local_unnamed_addr #2
 
 ; Function Attrs: nounwind uwtable
-define dso_local void @VarList(i32 noundef %0) local_unnamed_addr #0 {
-  br label %2
+define dso_local void @VarList(i32 noundef %type) local_unnamed_addr #0 {
+entry:
+  br label %do.body
 
-2:                                                ; preds = %192, %1
-  %3 = load i32, ptr @GlobalIndex, align 4, !tbaa !5
-  %4 = icmp eq i32 %3, 0
-  br i1 %4, label %11, label %5
+do.body:                                          ; preds = %do.body.backedge, %entry
+  %0 = load i32, ptr @GlobalIndex, align 4, !tbaa !5
+  %tobool.not = icmp eq i32 %0, 0
+  br i1 %tobool.not, label %if.end3, label %if.then
 
-5:                                                ; preds = %2
-  %6 = sext i32 %3 to i64
-  %7 = getelementptr inbounds [100 x %struct.entry], ptr @GlobalTable, i64 0, i64 %6, i32 4
-  %8 = load i32, ptr %7, align 4, !tbaa !13
-  %9 = icmp eq i32 %8, 0
-  br i1 %9, label %11, label %10
+if.then:                                          ; preds = %do.body
+  %idxprom = sext i32 %0 to i64
+  %function = getelementptr inbounds [100 x %struct.entry], ptr @GlobalTable, i64 0, i64 %idxprom, i32 4
+  %1 = load i32, ptr %function, align 4, !tbaa !13
+  %tobool1.not = icmp eq i32 %1, 0
+  br i1 %tobool1.not, label %if.end3, label %if.then2
 
-10:                                               ; preds = %5
+if.then2:                                         ; preds = %if.then
   tail call void @error(ptr noundef nonnull @.str.31) #7
-  br label %194
+  br label %cleanup
 
-11:                                               ; preds = %5, %2
-  %12 = load i32, ptr @LocalIndex, align 4, !tbaa !5
-  %13 = icmp eq i32 %12, 0
-  br i1 %13, label %48, label %14
+if.end3:                                          ; preds = %if.then, %do.body
+  %2 = load i32, ptr @LocalIndex, align 4, !tbaa !5
+  %tobool4.not = icmp eq i32 %2, 0
+  br i1 %tobool4.not, label %if.else21, label %if.then5
 
-14:                                               ; preds = %11
-  %15 = sext i32 %12 to i64
-  %16 = getelementptr inbounds [100 x %struct.entry], ptr @LocalTable, i64 0, i64 %15, i32 2
-  %17 = load i32, ptr %16, align 4, !tbaa !17
-  %18 = icmp eq i32 %17, 2041
-  br i1 %18, label %19, label %47
+if.then5:                                         ; preds = %if.end3
+  %idxprom6 = sext i32 %2 to i64
+  %type8 = getelementptr inbounds [100 x %struct.entry], ptr @LocalTable, i64 0, i64 %idxprom6, i32 2
+  %3 = load i32, ptr %type8, align 4, !tbaa !17
+  %cmp = icmp eq i32 %3, 2041
+  br i1 %cmp, label %if.then9, label %if.else19
 
-19:                                               ; preds = %14
-  %20 = load i32, ptr @NextLookahead, align 4, !tbaa !5
-  %21 = icmp eq i32 %20, 91
-  br i1 %21, label %22, label %23
+if.then9:                                         ; preds = %if.then5
+  %4 = load i32, ptr @NextLookahead, align 4, !tbaa !5
+  %cmp10 = icmp eq i32 %4, 91
+  br i1 %cmp10, label %if.then11, label %if.else
 
-22:                                               ; preds = %19
+if.then11:                                        ; preds = %if.then9
   tail call void @error(ptr noundef nonnull @.str.32) #7
-  br label %166
+  br label %if.end60
 
-23:                                               ; preds = %19
-  store i32 %0, ptr %16, align 4, !tbaa !17
-  %24 = load i32, ptr @lookahead, align 4, !tbaa !5
-  %25 = icmp eq i32 %24, 259
-  br i1 %25, label %26, label %34
+if.else:                                          ; preds = %if.then9
+  store i32 %type, ptr %type8, align 4, !tbaa !17
+  %5 = load i32, ptr @lookahead, align 4, !tbaa !5
+  %cmp.i = icmp eq i32 %5, 259
+  br i1 %cmp.i, label %if.then.i, label %if.else.i
 
-26:                                               ; preds = %23
+if.then.i:                                        ; preds = %if.else
   store i32 259, ptr @PreviousLookahead, align 4, !tbaa !5
+  %6 = load i32, ptr @tokenval, align 4, !tbaa !5
+  store i32 %6, ptr @PreviousTokenval, align 4, !tbaa !5
+  %7 = load float, ptr @ftokenval, align 4, !tbaa !11
+  store float %7, ptr @PreviousFtokenval, align 4, !tbaa !11
+  store i32 %4, ptr @lookahead, align 4, !tbaa !5
+  %8 = load i32, ptr @NextTokenval, align 4, !tbaa !5
+  store i32 %8, ptr @tokenval, align 4, !tbaa !5
+  %9 = load float, ptr @NextFtokenval, align 4, !tbaa !11
+  store float %9, ptr @ftokenval, align 4, !tbaa !11
+  %cmp1.not.i = icmp eq i32 %4, 260
+  br i1 %cmp1.not.i, label %match.exit, label %if.then2.i
+
+if.then2.i:                                       ; preds = %if.then.i
+  %call.i = tail call i32 @lexan() #7
+  store i32 %call.i, ptr @NextLookahead, align 4, !tbaa !5
+  br label %match.exit
+
+if.else.i:                                        ; preds = %if.else
+  %.off.i = add i32 %5, -2007
+  %switch.i = icmp ult i32 %.off.i, 2
+  br i1 %switch.i, label %sw.bb.i, label %sw.epilog.i
+
+sw.bb.i:                                          ; preds = %if.else.i
+  tail call void @error(ptr noundef nonnull @.str) #7
+  br label %sw.epilog.i
+
+sw.epilog.i:                                      ; preds = %sw.bb.i, %if.else.i
+  %10 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
+  %tobool.not.i = icmp eq i32 %10, 0
+  br i1 %tobool.not.i, label %if.end4.i, label %cleanup
+
+if.end4.i:                                        ; preds = %sw.epilog.i
+  %11 = load i32, ptr @lookahead, align 4, !tbaa !5
+  %call6.i = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.2, i32 noundef %11)
+  tail call void @error(ptr noundef nonnull @.str.3) #7
+  br label %match.exit
+
+match.exit:                                       ; preds = %if.then.i, %if.then2.i, %if.end4.i
+  %.pr = load i32, ptr @ErrorFlag, align 4, !tbaa !5
+  %tobool15.not = icmp eq i32 %.pr, 0
+  br i1 %tobool15.not, label %if.end60, label %cleanup
+
+if.else19:                                        ; preds = %if.then5
+  tail call void @error(ptr noundef nonnull @.str.33) #7
+  br label %cleanup
+
+if.else21:                                        ; preds = %if.end3
+  %12 = load i32, ptr @NextLookahead, align 4, !tbaa !5
+  %cmp22 = icmp eq i32 %12, 91
+  br i1 %cmp22, label %if.then23, label %if.else51
+
+if.then23:                                        ; preds = %if.else21
+  %call = tail call i32 @LocalInsert(ptr noundef nonnull @lexbuf, i32 noundef 2006, i32 noundef %type, i32 noundef 0, i32 noundef 0, i32 noundef 0) #7
+  store i32 %call, ptr @LocalIndex, align 4, !tbaa !5
+  %13 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
+  %tobool24.not = icmp eq i32 %13, 0
+  br i1 %tobool24.not, label %if.then.i77, label %cleanup
+
+if.then.i77:                                      ; preds = %if.then23
+  store i32 2006, ptr @PreviousLookahead, align 4, !tbaa !5
+  %14 = load i32, ptr @tokenval, align 4, !tbaa !5
+  store i32 %14, ptr @PreviousTokenval, align 4, !tbaa !5
+  %15 = load float, ptr @ftokenval, align 4, !tbaa !11
+  store float %15, ptr @PreviousFtokenval, align 4, !tbaa !11
+  %16 = load i32, ptr @NextLookahead, align 4, !tbaa !5
+  store i32 %16, ptr @lookahead, align 4, !tbaa !5
+  %17 = load i32, ptr @NextTokenval, align 4, !tbaa !5
+  store i32 %17, ptr @tokenval, align 4, !tbaa !5
+  %18 = load float, ptr @NextFtokenval, align 4, !tbaa !11
+  store float %18, ptr @ftokenval, align 4, !tbaa !11
+  %cmp1.not.i76 = icmp eq i32 %16, 260
+  br i1 %cmp1.not.i76, label %if.end29, label %match.exit88
+
+match.exit88:                                     ; preds = %if.then.i77
+  %call.i78 = tail call i32 @lexan() #7
+  store i32 %call.i78, ptr @NextLookahead, align 4, !tbaa !5
+  %.pre = load i32, ptr @ErrorFlag, align 4, !tbaa !5
+  %tobool27.not = icmp eq i32 %.pre, 0
+  br i1 %tobool27.not, label %if.end29, label %cleanup
+
+if.end29:                                         ; preds = %if.then.i77, %match.exit88
+  %19 = phi i32 [ %call.i78, %match.exit88 ], [ 260, %if.then.i77 ]
+  %20 = load i32, ptr @lookahead, align 4, !tbaa !5
+  %cmp.i89 = icmp eq i32 %20, 91
+  br i1 %cmp.i89, label %if.then.i91, label %if.else.i96
+
+if.then.i91:                                      ; preds = %if.end29
+  store i32 91, ptr @PreviousLookahead, align 4, !tbaa !5
+  %21 = load i32, ptr @tokenval, align 4, !tbaa !5
+  store i32 %21, ptr @PreviousTokenval, align 4, !tbaa !5
+  %22 = load float, ptr @ftokenval, align 4, !tbaa !11
+  store float %22, ptr @PreviousFtokenval, align 4, !tbaa !11
+  store i32 %19, ptr @lookahead, align 4, !tbaa !5
+  %23 = load i32, ptr @NextTokenval, align 4, !tbaa !5
+  store i32 %23, ptr @tokenval, align 4, !tbaa !5
+  %24 = load float, ptr @NextFtokenval, align 4, !tbaa !11
+  store float %24, ptr @ftokenval, align 4, !tbaa !11
+  %cmp1.not.i90 = icmp eq i32 %19, 260
+  br i1 %cmp1.not.i90, label %match.exit102, label %if.then2.i93
+
+if.then2.i93:                                     ; preds = %if.then.i91
+  %call.i92 = tail call i32 @lexan() #7
+  store i32 %call.i92, ptr @NextLookahead, align 4, !tbaa !5
+  br label %match.exit102
+
+if.else.i96:                                      ; preds = %if.end29
+  %.off.i94 = add i32 %20, -2007
+  %switch.i95 = icmp ult i32 %.off.i94, 2
+  br i1 %switch.i95, label %sw.epilog.i99, label %if.end4.i100
+
+sw.epilog.i99:                                    ; preds = %if.else.i96
+  tail call void @error(ptr noundef nonnull @.str) #7
+  %.pre180 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
+  %tobool.not.i98 = icmp eq i32 %.pre180, 0
+  br i1 %tobool.not.i98, label %if.end4.i100, label %cleanup
+
+if.end4.i100:                                     ; preds = %if.else.i96, %sw.epilog.i99
+  %25 = load i32, ptr @lookahead, align 4, !tbaa !5
+  %call6.i101 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.2, i32 noundef %25)
+  tail call void @error(ptr noundef nonnull @.str.3) #7
+  br label %match.exit102
+
+match.exit102:                                    ; preds = %if.then.i91, %if.then2.i93, %if.end4.i100
+  %.pr174 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
+  %tobool30.not = icmp eq i32 %.pr174, 0
+  br i1 %tobool30.not, label %if.end32, label %cleanup
+
+if.end32:                                         ; preds = %match.exit102
+  %26 = load i32, ptr @lookahead, align 4, !tbaa !5
+  %cmp33 = icmp eq i32 %26, 256
+  br i1 %cmp33, label %if.then.i105, label %if.else40
+
+if.else40:                                        ; preds = %if.end32
+  tail call void @error(ptr noundef nonnull @.str.34) #7
+  br label %cleanup
+
+if.then.i105:                                     ; preds = %if.end32
   %27 = load i32, ptr @tokenval, align 4, !tbaa !5
+  %idxprom35 = sext i32 %call to i64
+  %size = getelementptr inbounds [100 x %struct.entry], ptr @LocalTable, i64 0, i64 %idxprom35, i32 3
+  store i32 %27, ptr %size, align 16, !tbaa !22
+  store i32 256, ptr @PreviousLookahead, align 4, !tbaa !5
   store i32 %27, ptr @PreviousTokenval, align 4, !tbaa !5
   %28 = load float, ptr @ftokenval, align 4, !tbaa !11
   store float %28, ptr @PreviousFtokenval, align 4, !tbaa !11
-  store i32 %20, ptr @lookahead, align 4, !tbaa !5
-  %29 = load i32, ptr @NextTokenval, align 4, !tbaa !5
-  store i32 %29, ptr @tokenval, align 4, !tbaa !5
-  %30 = load float, ptr @NextFtokenval, align 4, !tbaa !11
-  store float %30, ptr @ftokenval, align 4, !tbaa !11
-  %31 = icmp eq i32 %20, 260
-  br i1 %31, label %44, label %32
+  %29 = load i32, ptr @NextLookahead, align 4, !tbaa !5
+  store i32 %29, ptr @lookahead, align 4, !tbaa !5
+  %30 = load i32, ptr @NextTokenval, align 4, !tbaa !5
+  store i32 %30, ptr @tokenval, align 4, !tbaa !5
+  %31 = load float, ptr @NextFtokenval, align 4, !tbaa !11
+  store float %31, ptr @ftokenval, align 4, !tbaa !11
+  %cmp1.not.i104 = icmp eq i32 %29, 260
+  br i1 %cmp1.not.i104, label %if.end44, label %match.exit116
 
-32:                                               ; preds = %26
-  %33 = tail call i32 @lexan() #7
-  store i32 %33, ptr @NextLookahead, align 4, !tbaa !5
-  br label %44
+match.exit116:                                    ; preds = %if.then.i105
+  %call.i106 = tail call i32 @lexan() #7
+  store i32 %call.i106, ptr @NextLookahead, align 4, !tbaa !5
+  %.pre181 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
+  %tobool42.not = icmp eq i32 %.pre181, 0
+  br i1 %tobool42.not, label %if.end44, label %cleanup
 
-34:                                               ; preds = %23
-  %35 = add i32 %24, -2007
-  %36 = icmp ult i32 %35, 2
-  br i1 %36, label %37, label %38
+if.end44:                                         ; preds = %if.then.i105, %match.exit116
+  %32 = phi i32 [ %call.i106, %match.exit116 ], [ 260, %if.then.i105 ]
+  %33 = load i32, ptr @lookahead, align 4, !tbaa !5
+  %cmp.i117 = icmp eq i32 %33, 93
+  br i1 %cmp.i117, label %if.then.i119, label %if.else.i124
 
-37:                                               ; preds = %34
-  tail call void @error(ptr noundef nonnull @.str) #7
-  br label %38
-
-38:                                               ; preds = %37, %34
-  %39 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
-  %40 = icmp eq i32 %39, 0
-  br i1 %40, label %41, label %194
-
-41:                                               ; preds = %38
-  %42 = load i32, ptr @lookahead, align 4, !tbaa !5
-  %43 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.2, i32 noundef %42)
-  tail call void @error(ptr noundef nonnull @.str.3) #7
-  br label %44
-
-44:                                               ; preds = %26, %32, %41
-  %45 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
-  %46 = icmp eq i32 %45, 0
-  br i1 %46, label %166, label %194
-
-47:                                               ; preds = %14
-  tail call void @error(ptr noundef nonnull @.str.33) #7
-  br label %194
-
-48:                                               ; preds = %11
-  %49 = load i32, ptr @NextLookahead, align 4, !tbaa !5
-  %50 = icmp eq i32 %49, 91
-  br i1 %50, label %51, label %135
-
-51:                                               ; preds = %48
-  %52 = tail call i32 @LocalInsert(ptr noundef nonnull @lexbuf, i32 noundef 2006, i32 noundef %0, i32 noundef 0, i32 noundef 0, i32 noundef 0) #7
-  store i32 %52, ptr @LocalIndex, align 4, !tbaa !5
-  %53 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
-  %54 = icmp eq i32 %53, 0
-  br i1 %54, label %55, label %194
-
-55:                                               ; preds = %51
-  store i32 2006, ptr @PreviousLookahead, align 4, !tbaa !5
-  %56 = load i32, ptr @tokenval, align 4, !tbaa !5
-  store i32 %56, ptr @PreviousTokenval, align 4, !tbaa !5
-  %57 = load float, ptr @ftokenval, align 4, !tbaa !11
-  store float %57, ptr @PreviousFtokenval, align 4, !tbaa !11
-  %58 = load i32, ptr @NextLookahead, align 4, !tbaa !5
-  store i32 %58, ptr @lookahead, align 4, !tbaa !5
-  %59 = load i32, ptr @NextTokenval, align 4, !tbaa !5
-  store i32 %59, ptr @tokenval, align 4, !tbaa !5
-  %60 = load float, ptr @NextFtokenval, align 4, !tbaa !11
-  store float %60, ptr @ftokenval, align 4, !tbaa !11
-  %61 = icmp eq i32 %58, 260
-  br i1 %61, label %66, label %62
-
-62:                                               ; preds = %55
-  %63 = tail call i32 @lexan() #7
-  store i32 %63, ptr @NextLookahead, align 4, !tbaa !5
-  %64 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
-  %65 = icmp eq i32 %64, 0
-  br i1 %65, label %66, label %194
-
-66:                                               ; preds = %55, %62
-  %67 = phi i32 [ %63, %62 ], [ 260, %55 ]
-  %68 = load i32, ptr @lookahead, align 4, !tbaa !5
-  %69 = icmp eq i32 %68, 91
-  br i1 %69, label %70, label %78
-
-70:                                               ; preds = %66
-  store i32 91, ptr @PreviousLookahead, align 4, !tbaa !5
-  %71 = load i32, ptr @tokenval, align 4, !tbaa !5
-  store i32 %71, ptr @PreviousTokenval, align 4, !tbaa !5
-  %72 = load float, ptr @ftokenval, align 4, !tbaa !11
-  store float %72, ptr @PreviousFtokenval, align 4, !tbaa !11
-  store i32 %67, ptr @lookahead, align 4, !tbaa !5
-  %73 = load i32, ptr @NextTokenval, align 4, !tbaa !5
-  store i32 %73, ptr @tokenval, align 4, !tbaa !5
-  %74 = load float, ptr @NextFtokenval, align 4, !tbaa !11
-  store float %74, ptr @ftokenval, align 4, !tbaa !11
-  %75 = icmp eq i32 %67, 260
-  br i1 %75, label %87, label %76
-
-76:                                               ; preds = %70
-  %77 = tail call i32 @lexan() #7
-  store i32 %77, ptr @NextLookahead, align 4, !tbaa !5
-  br label %87
-
-78:                                               ; preds = %66
-  %79 = add i32 %68, -2007
-  %80 = icmp ult i32 %79, 2
-  br i1 %80, label %81, label %84
-
-81:                                               ; preds = %78
-  tail call void @error(ptr noundef nonnull @.str) #7
-  %82 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
-  %83 = icmp eq i32 %82, 0
-  br i1 %83, label %84, label %194
-
-84:                                               ; preds = %78, %81
-  %85 = load i32, ptr @lookahead, align 4, !tbaa !5
-  %86 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.2, i32 noundef %85)
-  tail call void @error(ptr noundef nonnull @.str.3) #7
-  br label %87
-
-87:                                               ; preds = %70, %76, %84
-  %88 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
-  %89 = icmp eq i32 %88, 0
-  br i1 %89, label %90, label %194
-
-90:                                               ; preds = %87
-  %91 = load i32, ptr @lookahead, align 4, !tbaa !5
-  %92 = icmp eq i32 %91, 256
-  br i1 %92, label %94, label %93
-
-93:                                               ; preds = %90
-  tail call void @error(ptr noundef nonnull @.str.34) #7
-  br label %194
-
-94:                                               ; preds = %90
-  %95 = load i32, ptr @tokenval, align 4, !tbaa !5
-  %96 = sext i32 %52 to i64
-  %97 = getelementptr inbounds [100 x %struct.entry], ptr @LocalTable, i64 0, i64 %96, i32 3
-  store i32 %95, ptr %97, align 16, !tbaa !22
-  store i32 256, ptr @PreviousLookahead, align 4, !tbaa !5
-  store i32 %95, ptr @PreviousTokenval, align 4, !tbaa !5
-  %98 = load float, ptr @ftokenval, align 4, !tbaa !11
-  store float %98, ptr @PreviousFtokenval, align 4, !tbaa !11
-  %99 = load i32, ptr @NextLookahead, align 4, !tbaa !5
-  store i32 %99, ptr @lookahead, align 4, !tbaa !5
-  %100 = load i32, ptr @NextTokenval, align 4, !tbaa !5
-  store i32 %100, ptr @tokenval, align 4, !tbaa !5
-  %101 = load float, ptr @NextFtokenval, align 4, !tbaa !11
-  store float %101, ptr @ftokenval, align 4, !tbaa !11
-  %102 = icmp eq i32 %99, 260
-  br i1 %102, label %107, label %103
-
-103:                                              ; preds = %94
-  %104 = tail call i32 @lexan() #7
-  store i32 %104, ptr @NextLookahead, align 4, !tbaa !5
-  %105 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
-  %106 = icmp eq i32 %105, 0
-  br i1 %106, label %107, label %194
-
-107:                                              ; preds = %94, %103
-  %108 = phi i32 [ %104, %103 ], [ 260, %94 ]
-  %109 = load i32, ptr @lookahead, align 4, !tbaa !5
-  %110 = icmp eq i32 %109, 93
-  br i1 %110, label %111, label %119
-
-111:                                              ; preds = %107
+if.then.i119:                                     ; preds = %if.end44
   store i32 93, ptr @PreviousLookahead, align 4, !tbaa !5
-  %112 = load i32, ptr @tokenval, align 4, !tbaa !5
-  store i32 %112, ptr @PreviousTokenval, align 4, !tbaa !5
-  %113 = load float, ptr @ftokenval, align 4, !tbaa !11
-  store float %113, ptr @PreviousFtokenval, align 4, !tbaa !11
-  store i32 %108, ptr @lookahead, align 4, !tbaa !5
-  %114 = load i32, ptr @NextTokenval, align 4, !tbaa !5
-  store i32 %114, ptr @tokenval, align 4, !tbaa !5
-  %115 = load float, ptr @NextFtokenval, align 4, !tbaa !11
-  store float %115, ptr @ftokenval, align 4, !tbaa !11
-  %116 = icmp eq i32 %108, 260
-  br i1 %116, label %128, label %117
+  %34 = load i32, ptr @tokenval, align 4, !tbaa !5
+  store i32 %34, ptr @PreviousTokenval, align 4, !tbaa !5
+  %35 = load float, ptr @ftokenval, align 4, !tbaa !11
+  store float %35, ptr @PreviousFtokenval, align 4, !tbaa !11
+  store i32 %32, ptr @lookahead, align 4, !tbaa !5
+  %36 = load i32, ptr @NextTokenval, align 4, !tbaa !5
+  store i32 %36, ptr @tokenval, align 4, !tbaa !5
+  %37 = load float, ptr @NextFtokenval, align 4, !tbaa !11
+  store float %37, ptr @ftokenval, align 4, !tbaa !11
+  %cmp1.not.i118 = icmp eq i32 %32, 260
+  br i1 %cmp1.not.i118, label %match.exit130, label %if.then2.i121
 
-117:                                              ; preds = %111
-  %118 = tail call i32 @lexan() #7
-  store i32 %118, ptr @NextLookahead, align 4, !tbaa !5
-  br label %128
+if.then2.i121:                                    ; preds = %if.then.i119
+  %call.i120 = tail call i32 @lexan() #7
+  store i32 %call.i120, ptr @NextLookahead, align 4, !tbaa !5
+  br label %match.exit130
 
-119:                                              ; preds = %107
-  %120 = add i32 %109, -2007
-  %121 = icmp ult i32 %120, 2
-  br i1 %121, label %122, label %125
+if.else.i124:                                     ; preds = %if.end44
+  %.off.i122 = add i32 %33, -2007
+  %switch.i123 = icmp ult i32 %.off.i122, 2
+  br i1 %switch.i123, label %sw.epilog.i127, label %if.end4.i128
 
-122:                                              ; preds = %119
+sw.epilog.i127:                                   ; preds = %if.else.i124
   tail call void @error(ptr noundef nonnull @.str) #7
-  %123 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
-  %124 = icmp eq i32 %123, 0
-  br i1 %124, label %125, label %194
+  %.pre182 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
+  %tobool.not.i126 = icmp eq i32 %.pre182, 0
+  br i1 %tobool.not.i126, label %if.end4.i128, label %cleanup
 
-125:                                              ; preds = %119, %122
-  %126 = load i32, ptr @lookahead, align 4, !tbaa !5
-  %127 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.2, i32 noundef %126)
+if.end4.i128:                                     ; preds = %if.else.i124, %sw.epilog.i127
+  %38 = load i32, ptr @lookahead, align 4, !tbaa !5
+  %call6.i129 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.2, i32 noundef %38)
   tail call void @error(ptr noundef nonnull @.str.3) #7
-  br label %128
+  br label %match.exit130
 
-128:                                              ; preds = %111, %117, %125
-  %129 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
-  %130 = icmp eq i32 %129, 0
-  br i1 %130, label %131, label %194
+match.exit130:                                    ; preds = %if.then.i119, %if.then2.i121, %if.end4.i128
+  %.pr176 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
+  %tobool45.not = icmp eq i32 %.pr176, 0
+  br i1 %tobool45.not, label %if.end47, label %cleanup
 
-131:                                              ; preds = %128
-  tail call void @emit(i32 noundef 2047, i32 noundef %52, float noundef 0.000000e+00) #7
-  %132 = load i32, ptr %97, align 16, !tbaa !22
-  %133 = load i32, ptr @offset, align 4, !tbaa !5
-  %134 = add nsw i32 %133, %132
-  store i32 %134, ptr @offset, align 4, !tbaa !5
-  br label %166
+if.end47:                                         ; preds = %match.exit130
+  tail call void @emit(i32 noundef 2047, i32 noundef %call, float noundef 0.000000e+00) #7
+  %39 = load i32, ptr %size, align 16, !tbaa !22
+  %40 = load i32, ptr @offset, align 4, !tbaa !5
+  %add = add nsw i32 %40, %39
+  store i32 %add, ptr @offset, align 4, !tbaa !5
+  br label %if.end60
 
-135:                                              ; preds = %48
-  %136 = tail call i32 @LocalInsert(ptr noundef nonnull @lexbuf, i32 noundef 259, i32 noundef %0, i32 noundef 1, i32 noundef 0, i32 noundef 0) #7
-  store i32 %136, ptr @LocalIndex, align 4, !tbaa !5
-  %137 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
-  %138 = icmp eq i32 %137, 0
-  br i1 %138, label %139, label %194
+if.else51:                                        ; preds = %if.else21
+  %call52 = tail call i32 @LocalInsert(ptr noundef nonnull @lexbuf, i32 noundef 259, i32 noundef %type, i32 noundef 1, i32 noundef 0, i32 noundef 0) #7
+  store i32 %call52, ptr @LocalIndex, align 4, !tbaa !5
+  %41 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
+  %tobool53.not = icmp eq i32 %41, 0
+  br i1 %tobool53.not, label %if.end55, label %cleanup
 
-139:                                              ; preds = %135
-  tail call void @emit(i32 noundef 2047, i32 noundef %136, float noundef 0.000000e+00) #7
-  %140 = load i32, ptr @offset, align 4, !tbaa !5
-  %141 = add nsw i32 %140, 1
-  store i32 %141, ptr @offset, align 4, !tbaa !5
-  %142 = load i32, ptr @lookahead, align 4, !tbaa !5
-  %143 = icmp eq i32 %142, 259
-  br i1 %143, label %144, label %153
+if.end55:                                         ; preds = %if.else51
+  tail call void @emit(i32 noundef 2047, i32 noundef %call52, float noundef 0.000000e+00) #7
+  %42 = load i32, ptr @offset, align 4, !tbaa !5
+  %inc = add nsw i32 %42, 1
+  store i32 %inc, ptr @offset, align 4, !tbaa !5
+  %43 = load i32, ptr @lookahead, align 4, !tbaa !5
+  %cmp.i131 = icmp eq i32 %43, 259
+  br i1 %cmp.i131, label %if.then.i133, label %if.else.i138
 
-144:                                              ; preds = %139
+if.then.i133:                                     ; preds = %if.end55
   store i32 259, ptr @PreviousLookahead, align 4, !tbaa !5
-  %145 = load i32, ptr @tokenval, align 4, !tbaa !5
-  store i32 %145, ptr @PreviousTokenval, align 4, !tbaa !5
-  %146 = load float, ptr @ftokenval, align 4, !tbaa !11
-  store float %146, ptr @PreviousFtokenval, align 4, !tbaa !11
-  %147 = load i32, ptr @NextLookahead, align 4, !tbaa !5
-  store i32 %147, ptr @lookahead, align 4, !tbaa !5
-  %148 = load i32, ptr @NextTokenval, align 4, !tbaa !5
-  store i32 %148, ptr @tokenval, align 4, !tbaa !5
-  %149 = load float, ptr @NextFtokenval, align 4, !tbaa !11
-  store float %149, ptr @ftokenval, align 4, !tbaa !11
-  %150 = icmp eq i32 %147, 260
-  br i1 %150, label %163, label %151
+  %44 = load i32, ptr @tokenval, align 4, !tbaa !5
+  store i32 %44, ptr @PreviousTokenval, align 4, !tbaa !5
+  %45 = load float, ptr @ftokenval, align 4, !tbaa !11
+  store float %45, ptr @PreviousFtokenval, align 4, !tbaa !11
+  %46 = load i32, ptr @NextLookahead, align 4, !tbaa !5
+  store i32 %46, ptr @lookahead, align 4, !tbaa !5
+  %47 = load i32, ptr @NextTokenval, align 4, !tbaa !5
+  store i32 %47, ptr @tokenval, align 4, !tbaa !5
+  %48 = load float, ptr @NextFtokenval, align 4, !tbaa !11
+  store float %48, ptr @ftokenval, align 4, !tbaa !11
+  %cmp1.not.i132 = icmp eq i32 %46, 260
+  br i1 %cmp1.not.i132, label %match.exit144, label %if.then2.i135
 
-151:                                              ; preds = %144
-  %152 = tail call i32 @lexan() #7
-  store i32 %152, ptr @NextLookahead, align 4, !tbaa !5
-  br label %163
+if.then2.i135:                                    ; preds = %if.then.i133
+  %call.i134 = tail call i32 @lexan() #7
+  store i32 %call.i134, ptr @NextLookahead, align 4, !tbaa !5
+  br label %match.exit144
 
-153:                                              ; preds = %139
-  %154 = add i32 %142, -2007
-  %155 = icmp ult i32 %154, 2
-  br i1 %155, label %156, label %157
+if.else.i138:                                     ; preds = %if.end55
+  %.off.i136 = add i32 %43, -2007
+  %switch.i137 = icmp ult i32 %.off.i136, 2
+  br i1 %switch.i137, label %sw.bb.i139, label %sw.epilog.i141
 
-156:                                              ; preds = %153
+sw.bb.i139:                                       ; preds = %if.else.i138
   tail call void @error(ptr noundef nonnull @.str) #7
-  br label %157
+  br label %sw.epilog.i141
 
-157:                                              ; preds = %156, %153
-  %158 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
-  %159 = icmp eq i32 %158, 0
-  br i1 %159, label %160, label %194
+sw.epilog.i141:                                   ; preds = %sw.bb.i139, %if.else.i138
+  %49 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
+  %tobool.not.i140 = icmp eq i32 %49, 0
+  br i1 %tobool.not.i140, label %if.end4.i142, label %cleanup
 
-160:                                              ; preds = %157
-  %161 = load i32, ptr @lookahead, align 4, !tbaa !5
-  %162 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.2, i32 noundef %161)
+if.end4.i142:                                     ; preds = %sw.epilog.i141
+  %50 = load i32, ptr @lookahead, align 4, !tbaa !5
+  %call6.i143 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.2, i32 noundef %50)
   tail call void @error(ptr noundef nonnull @.str.3) #7
-  br label %163
+  br label %match.exit144
 
-163:                                              ; preds = %144, %151, %160
-  %164 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
-  %165 = icmp eq i32 %164, 0
-  br i1 %165, label %166, label %194
+match.exit144:                                    ; preds = %if.then.i133, %if.then2.i135, %if.end4.i142
+  %.pr178 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
+  %tobool56.not = icmp eq i32 %.pr178, 0
+  br i1 %tobool56.not, label %if.end60, label %cleanup
 
-166:                                              ; preds = %131, %163, %44, %22
-  %167 = load i32, ptr @lookahead, align 4, !tbaa !5
-  switch i32 %167, label %189 [
-    i32 44, label %168
-    i32 59, label %180
+if.end60:                                         ; preds = %if.end47, %match.exit144, %match.exit, %if.then11
+  %51 = load i32, ptr @lookahead, align 4, !tbaa !5
+  switch i32 %51, label %sw.default [
+    i32 44, label %if.then.i147
+    i32 59, label %if.then.i161
   ]
 
-168:                                              ; preds = %166
+if.then.i147:                                     ; preds = %if.end60
   store i32 44, ptr @PreviousLookahead, align 4, !tbaa !5
-  %169 = load i32, ptr @tokenval, align 4, !tbaa !5
-  store i32 %169, ptr @PreviousTokenval, align 4, !tbaa !5
-  %170 = load float, ptr @ftokenval, align 4, !tbaa !11
-  store float %170, ptr @PreviousFtokenval, align 4, !tbaa !11
-  %171 = load i32, ptr @NextLookahead, align 4, !tbaa !5
-  store i32 %171, ptr @lookahead, align 4, !tbaa !5
-  %172 = load i32, ptr @NextTokenval, align 4, !tbaa !5
-  store i32 %172, ptr @tokenval, align 4, !tbaa !5
-  %173 = load float, ptr @NextFtokenval, align 4, !tbaa !11
-  store float %173, ptr @ftokenval, align 4, !tbaa !11
-  %174 = icmp eq i32 %171, 260
-  br i1 %174, label %177, label %175
+  %52 = load i32, ptr @tokenval, align 4, !tbaa !5
+  store i32 %52, ptr @PreviousTokenval, align 4, !tbaa !5
+  %53 = load float, ptr @ftokenval, align 4, !tbaa !11
+  store float %53, ptr @PreviousFtokenval, align 4, !tbaa !11
+  %54 = load i32, ptr @NextLookahead, align 4, !tbaa !5
+  store i32 %54, ptr @lookahead, align 4, !tbaa !5
+  %55 = load i32, ptr @NextTokenval, align 4, !tbaa !5
+  store i32 %55, ptr @tokenval, align 4, !tbaa !5
+  %56 = load float, ptr @NextFtokenval, align 4, !tbaa !11
+  store float %56, ptr @ftokenval, align 4, !tbaa !11
+  %cmp1.not.i146 = icmp eq i32 %54, 260
+  br i1 %cmp1.not.i146, label %match.exit158, label %if.then2.i149
 
-175:                                              ; preds = %168
-  %176 = tail call i32 @lexan() #7
-  store i32 %176, ptr @NextLookahead, align 4, !tbaa !5
-  br label %177
+if.then2.i149:                                    ; preds = %if.then.i147
+  %call.i148 = tail call i32 @lexan() #7
+  store i32 %call.i148, ptr @NextLookahead, align 4, !tbaa !5
+  br label %match.exit158
 
-177:                                              ; preds = %168, %175
-  %178 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
-  %179 = icmp eq i32 %178, 0
-  br i1 %179, label %190, label %194
+match.exit158:                                    ; preds = %if.then.i147, %if.then2.i149
+  %57 = load i32, ptr @ErrorFlag, align 4, !tbaa !5
+  %tobool61.not = icmp eq i32 %57, 0
+  br i1 %tobool61.not, label %do.cond, label %cleanup
 
-180:                                              ; preds = %166
+if.then.i161:                                     ; preds = %if.end60
   store i32 59, ptr @PreviousLookahead, align 4, !tbaa !5
-  %181 = load i32, ptr @tokenval, align 4, !tbaa !5
-  store i32 %181, ptr @PreviousTokenval, align 4, !tbaa !5
-  %182 = load float, ptr @ftokenval, align 4, !tbaa !11
-  store float %182, ptr @PreviousFtokenval, align 4, !tbaa !11
-  %183 = load i32, ptr @NextLookahead, align 4, !tbaa !5
-  store i32 %183, ptr @lookahead, align 4, !tbaa !5
-  %184 = load i32, ptr @NextTokenval, align 4, !tbaa !5
-  store i32 %184, ptr @tokenval, align 4, !tbaa !5
-  %185 = load float, ptr @NextFtokenval, align 4, !tbaa !11
-  store float %185, ptr @ftokenval, align 4, !tbaa !11
-  %186 = icmp eq i32 %183, 260
-  br i1 %186, label %194, label %187
+  %58 = load i32, ptr @tokenval, align 4, !tbaa !5
+  store i32 %58, ptr @PreviousTokenval, align 4, !tbaa !5
+  %59 = load float, ptr @ftokenval, align 4, !tbaa !11
+  store float %59, ptr @PreviousFtokenval, align 4, !tbaa !11
+  %60 = load i32, ptr @NextLookahead, align 4, !tbaa !5
+  store i32 %60, ptr @lookahead, align 4, !tbaa !5
+  %61 = load i32, ptr @NextTokenval, align 4, !tbaa !5
+  store i32 %61, ptr @tokenval, align 4, !tbaa !5
+  %62 = load float, ptr @NextFtokenval, align 4, !tbaa !11
+  store float %62, ptr @ftokenval, align 4, !tbaa !11
+  %cmp1.not.i160 = icmp eq i32 %60, 260
+  br i1 %cmp1.not.i160, label %cleanup, label %if.then2.i163
 
-187:                                              ; preds = %180
-  %188 = tail call i32 @lexan() #7
-  store i32 %188, ptr @NextLookahead, align 4, !tbaa !5
-  br label %194
+if.then2.i163:                                    ; preds = %if.then.i161
+  %call.i162 = tail call i32 @lexan() #7
+  store i32 %call.i162, ptr @NextLookahead, align 4, !tbaa !5
+  br label %cleanup
 
-189:                                              ; preds = %166
+sw.default:                                       ; preds = %if.end60
   tail call void @error(ptr noundef nonnull @.str.35) #7
-  br label %194
+  br label %cleanup
 
-190:                                              ; preds = %177
-  %191 = load i32, ptr @lookahead, align 4, !tbaa !5
-  switch i32 %191, label %193 [
-    i32 2006, label %192
-    i32 259, label %192
+do.cond:                                          ; preds = %match.exit158
+  %63 = load i32, ptr @lookahead, align 4
+  switch i32 %63, label %do.end [
+    i32 2006, label %do.body.backedge
+    i32 259, label %do.body.backedge
   ]
 
-192:                                              ; preds = %190, %190
-  br label %2
+do.body.backedge:                                 ; preds = %do.cond, %do.cond
+  br label %do.body
 
-193:                                              ; preds = %190
+do.end:                                           ; preds = %do.cond
   tail call void @error(ptr noundef nonnull @.str.36) #7
-  br label %194
+  br label %cleanup
 
-194:                                              ; preds = %157, %122, %81, %38, %177, %163, %135, %128, %103, %87, %62, %51, %44, %187, %180, %193, %189, %93, %47, %10
+cleanup:                                          ; preds = %sw.epilog.i141, %sw.epilog.i127, %sw.epilog.i99, %sw.epilog.i, %match.exit158, %match.exit144, %if.else51, %match.exit130, %match.exit116, %match.exit102, %match.exit88, %if.then23, %match.exit, %if.then2.i163, %if.then.i161, %do.end, %sw.default, %if.else40, %if.else19, %if.then2
   ret void
 }
 

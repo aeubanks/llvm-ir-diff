@@ -22,20 +22,21 @@ target triple = "x86_64-unknown-linux-gnu"
 @.str.8 = private unnamed_addr constant [16 x i8] c"#line %ld \22%s\22\0A\00", align 1
 
 ; Function Attrs: nounwind uwtable
-define dso_local ptr @TreeCCDupString(ptr nocapture noundef readonly %0) local_unnamed_addr #0 {
-  %2 = tail call i64 @strlen(ptr noundef nonnull dereferenceable(1) %0) #14
-  %3 = add i64 %2, 1
-  %4 = tail call noalias ptr @malloc(i64 noundef %3) #15
-  %5 = icmp eq ptr %4, null
-  br i1 %5, label %6, label %7
+define dso_local ptr @TreeCCDupString(ptr nocapture noundef readonly %str) local_unnamed_addr #0 {
+entry:
+  %call = tail call i64 @strlen(ptr noundef nonnull dereferenceable(1) %str) #14
+  %add = add i64 %call, 1
+  %call1 = tail call noalias ptr @malloc(i64 noundef %add) #15
+  %tobool.not = icmp eq ptr %call1, null
+  br i1 %tobool.not, label %if.then, label %if.end
 
-6:                                                ; preds = %1
+if.then:                                          ; preds = %entry
   tail call void @TreeCCOutOfMemory(ptr noundef null) #16
-  br label %7
+  br label %if.end
 
-7:                                                ; preds = %6, %1
-  %8 = tail call ptr @strcpy(ptr noundef nonnull dereferenceable(1) %4, ptr noundef nonnull dereferenceable(1) %0) #16
-  ret ptr %4
+if.end:                                           ; preds = %if.then, %entry
+  %call2 = tail call ptr @strcpy(ptr noundef nonnull dereferenceable(1) %call1, ptr noundef nonnull dereferenceable(1) %str) #16
+  ret ptr %call1
 }
 
 ; Function Attrs: mustprogress nocallback nofree nosync nounwind willreturn memory(argmem: readwrite)
@@ -56,219 +57,214 @@ declare ptr @strcpy(ptr noalias noundef returned writeonly, ptr noalias nocaptur
 declare void @llvm.lifetime.end.p0(i64 immarg, ptr nocapture) #1
 
 ; Function Attrs: nounwind uwtable
-define dso_local ptr @TreeCCResolvePathname(ptr noundef readonly %0, ptr nocapture noundef readonly %1) local_unnamed_addr #0 {
-  %3 = icmp eq ptr %0, null
-  br i1 %3, label %4, label %10
+define dso_local ptr @TreeCCResolvePathname(ptr noundef readonly %absolute, ptr nocapture noundef readonly %relative) local_unnamed_addr #0 {
+entry:
+  %tobool.not = icmp eq ptr %absolute, null
+  br i1 %tobool.not, label %if.then, label %if.end
 
-4:                                                ; preds = %2
-  %5 = tail call i64 @strlen(ptr noundef nonnull dereferenceable(1) %1) #14
-  %6 = add i64 %5, 1
-  %7 = tail call noalias ptr @malloc(i64 noundef %6) #15
-  %8 = icmp eq ptr %7, null
-  br i1 %8, label %9, label %43
+if.then:                                          ; preds = %entry
+  %call.i = tail call i64 @strlen(ptr noundef nonnull dereferenceable(1) %relative) #14
+  %add.i = add i64 %call.i, 1
+  %call1.i = tail call noalias ptr @malloc(i64 noundef %add.i) #15
+  %tobool.not.i = icmp eq ptr %call1.i, null
+  br i1 %tobool.not.i, label %if.then.i, label %cleanup
 
-9:                                                ; preds = %4
+if.then.i:                                        ; preds = %if.then
   tail call void @TreeCCOutOfMemory(ptr noundef null) #16
-  br label %43
+  br label %cleanup
 
-10:                                               ; preds = %2
-  %11 = tail call i64 @strlen(ptr noundef nonnull dereferenceable(1) %0) #14
-  %12 = trunc i64 %11 to i32
-  %13 = icmp sgt i32 %12, 0
-  br i1 %13, label %14, label %26
+if.end:                                           ; preds = %entry
+  %call1 = tail call i64 @strlen(ptr noundef nonnull dereferenceable(1) %absolute) #14
+  %0 = and i64 %call1, 4294967295
+  br label %while.cond
 
-14:                                               ; preds = %10
-  %15 = and i64 %11, 4294967295
-  br label %16
+while.cond:                                       ; preds = %land.lhs.true, %if.end
+  %indvars.iv = phi i64 [ %2, %land.lhs.true ], [ %0, %if.end ]
+  %1 = trunc i64 %indvars.iv to i32
+  %cmp = icmp sgt i32 %1, 0
+  br i1 %cmp, label %land.lhs.true, label %if.then14
 
-16:                                               ; preds = %14, %23
-  %17 = phi i64 [ %15, %14 ], [ %24, %23 ]
-  %18 = add nuw i64 %17, 4294967295
-  %19 = and i64 %18, 4294967295
-  %20 = getelementptr inbounds i8, ptr %0, i64 %19
-  %21 = load i8, ptr %20, align 1, !tbaa !5
-  %22 = sext i8 %21 to i32
-  switch i32 %22, label %23 [
-    i32 47, label %32
-    i32 92, label %32
-  ]
+land.lhs.true:                                    ; preds = %while.cond
+  %2 = add nsw i64 %indvars.iv, -1
+  %arrayidx = getelementptr inbounds i8, ptr %absolute, i64 %2
+  %3 = load i8, ptr %arrayidx, align 1, !tbaa !5
+  switch i8 %3, label %while.cond [
+    i8 47, label %if.end16
+    i8 92, label %if.end16
+  ], !llvm.loop !8
 
-23:                                               ; preds = %16
-  %24 = add nsw i64 %17, -1
-  %25 = icmp sgt i64 %17, 1
-  br i1 %25, label %16, label %26, !llvm.loop !8
+if.then14:                                        ; preds = %while.cond
+  %call.i45 = tail call i64 @strlen(ptr noundef nonnull dereferenceable(1) %relative) #14
+  %add.i46 = add i64 %call.i45, 1
+  %call1.i47 = tail call noalias ptr @malloc(i64 noundef %add.i46) #15
+  %tobool.not.i48 = icmp eq ptr %call1.i47, null
+  br i1 %tobool.not.i48, label %if.then.i49, label %cleanup
 
-26:                                               ; preds = %23, %10
-  %27 = tail call i64 @strlen(ptr noundef nonnull dereferenceable(1) %1) #14
-  %28 = add i64 %27, 1
-  %29 = tail call noalias ptr @malloc(i64 noundef %28) #15
-  %30 = icmp eq ptr %29, null
-  br i1 %30, label %31, label %43
-
-31:                                               ; preds = %26
+if.then.i49:                                      ; preds = %if.then14
   tail call void @TreeCCOutOfMemory(ptr noundef null) #16
-  br label %43
+  br label %cleanup
 
-32:                                               ; preds = %16, %16
-  %33 = and i64 %17, 4294967295
-  %34 = tail call i64 @strlen(ptr noundef nonnull dereferenceable(1) %1) #14
-  %35 = add nuw nsw i64 %33, 1
-  %36 = add i64 %35, %34
-  %37 = tail call noalias ptr @malloc(i64 noundef %36) #15
-  %38 = icmp eq ptr %37, null
-  br i1 %38, label %39, label %40
+if.end16:                                         ; preds = %land.lhs.true, %land.lhs.true
+  %conv17 = and i64 %indvars.iv, 4294967295
+  %call18 = tail call i64 @strlen(ptr noundef nonnull dereferenceable(1) %relative) #14
+  %add = add nuw nsw i64 %conv17, 1
+  %add19 = add i64 %add, %call18
+  %call20 = tail call noalias ptr @malloc(i64 noundef %add19) #15
+  %tobool21.not = icmp eq ptr %call20, null
+  br i1 %tobool21.not, label %if.then22, label %if.end23
 
-39:                                               ; preds = %32
+if.then22:                                        ; preds = %if.end16
   tail call void @TreeCCOutOfMemory(ptr noundef null) #16
-  br label %40
+  br label %if.end23
 
-40:                                               ; preds = %39, %32
-  %41 = tail call ptr @strncpy(ptr noundef %37, ptr noundef nonnull %0, i64 noundef %33) #16
-  %42 = getelementptr inbounds i8, ptr %37, i64 %33
-  br label %43
+if.end23:                                         ; preds = %if.then22, %if.end16
+  %call25 = tail call ptr @strncpy(ptr noundef %call20, ptr noundef nonnull %absolute, i64 noundef %conv17) #16
+  %add.ptr = getelementptr inbounds i8, ptr %call20, i64 %conv17
+  br label %cleanup
 
-43:                                               ; preds = %31, %26, %9, %4, %40
-  %44 = phi ptr [ %42, %40 ], [ %7, %4 ], [ %7, %9 ], [ %29, %26 ], [ %29, %31 ]
-  %45 = phi ptr [ %37, %40 ], [ %7, %4 ], [ %7, %9 ], [ %29, %26 ], [ %29, %31 ]
-  %46 = tail call ptr @strcpy(ptr noundef nonnull dereferenceable(1) %44, ptr noundef nonnull dereferenceable(1) %1) #16
-  ret ptr %45
+cleanup:                                          ; preds = %if.then.i49, %if.then14, %if.then.i, %if.then, %if.end23
+  %add.ptr.sink = phi ptr [ %add.ptr, %if.end23 ], [ %call1.i, %if.then ], [ %call1.i, %if.then.i ], [ %call1.i47, %if.then14 ], [ %call1.i47, %if.then.i49 ]
+  %retval.0 = phi ptr [ %call20, %if.end23 ], [ %call1.i, %if.then ], [ %call1.i, %if.then.i ], [ %call1.i47, %if.then14 ], [ %call1.i47, %if.then.i49 ]
+  %call26 = tail call ptr @strcpy(ptr noundef nonnull dereferenceable(1) %add.ptr.sink, ptr noundef nonnull dereferenceable(1) %relative) #16
+  ret ptr %retval.0
 }
 
 ; Function Attrs: mustprogress nofree nounwind willreturn memory(argmem: readwrite)
 declare ptr @strncpy(ptr noalias noundef returned writeonly, ptr noalias nocapture noundef readonly, i64 noundef) local_unnamed_addr #5
 
 ; Function Attrs: nounwind uwtable
-define dso_local ptr @TreeCCStreamCreate(ptr noundef %0, ptr nocapture noundef readonly %1, ptr noundef readonly %2, i32 noundef %3) local_unnamed_addr #0 {
-  %5 = icmp slt i32 %3, 0
-  br i1 %5, label %6, label %14
+define dso_local ptr @TreeCCStreamCreate(ptr noundef %context, ptr nocapture noundef readonly %filename, ptr noundef readonly %embedName, i32 noundef %isHeader) local_unnamed_addr #0 {
+entry:
+  %cmp = icmp slt i32 %isHeader, 0
+  br i1 %cmp, label %if.then, label %if.else
 
-6:                                                ; preds = %4
-  %7 = tail call i64 @strlen(ptr noundef nonnull dereferenceable(1) %1) #14
-  %8 = add i64 %7, 1
-  %9 = tail call noalias ptr @malloc(i64 noundef %8) #15
-  %10 = icmp eq ptr %9, null
-  br i1 %10, label %11, label %12
+if.then:                                          ; preds = %entry
+  %call.i = tail call i64 @strlen(ptr noundef nonnull dereferenceable(1) %filename) #14
+  %add.i = add i64 %call.i, 1
+  %call1.i = tail call noalias ptr @malloc(i64 noundef %add.i) #15
+  %tobool.not.i = icmp eq ptr %call1.i, null
+  br i1 %tobool.not.i, label %if.then.i, label %TreeCCDupString.exit
 
-11:                                               ; preds = %6
+if.then.i:                                        ; preds = %if.then
   tail call void @TreeCCOutOfMemory(ptr noundef null) #16
-  br label %12
+  br label %TreeCCDupString.exit
 
-12:                                               ; preds = %6, %11
-  %13 = tail call ptr @strcpy(ptr noundef nonnull dereferenceable(1) %9, ptr noundef nonnull dereferenceable(1) %1) #16
-  br label %23
+TreeCCDupString.exit:                             ; preds = %if.then, %if.then.i
+  %call2.i = tail call ptr @strcpy(ptr noundef nonnull dereferenceable(1) %call1.i, ptr noundef nonnull dereferenceable(1) %filename) #16
+  br label %if.end
 
-14:                                               ; preds = %4
-  %15 = getelementptr inbounds %struct._tagTreeCCContext, ptr %0, i64 0, i32 2
-  %16 = load ptr, ptr %15, align 8, !tbaa !10
-  %17 = getelementptr inbounds %struct.TreeCCInput, ptr %16, i64 0, i32 4
-  %18 = load ptr, ptr %17, align 8, !tbaa !14
-  %19 = tail call ptr @TreeCCResolvePathname(ptr noundef %18, ptr noundef %1)
-  %20 = trunc i32 %3 to i8
-  %21 = shl i8 %20, 2
-  %22 = and i8 %21, 4
-  br label %23
+if.else:                                          ; preds = %entry
+  %input = getelementptr inbounds %struct._tagTreeCCContext, ptr %context, i64 0, i32 2
+  %0 = load ptr, ptr %input, align 8, !tbaa !10
+  %filename1 = getelementptr inbounds %struct.TreeCCInput, ptr %0, i64 0, i32 4
+  %1 = load ptr, ptr %filename1, align 8, !tbaa !14
+  %call2 = tail call ptr @TreeCCResolvePathname(ptr noundef %1, ptr noundef %filename)
+  %2 = trunc i32 %isHeader to i8
+  %3 = shl i8 %2, 2
+  %4 = and i8 %3, 4
+  br label %if.end
 
-23:                                               ; preds = %14, %12
-  %24 = phi i8 [ 0, %12 ], [ %22, %14 ]
-  %25 = phi ptr [ %9, %12 ], [ %19, %14 ]
-  %26 = getelementptr inbounds %struct._tagTreeCCContext, ptr %0, i64 0, i32 3
-  %27 = load ptr, ptr %26, align 8, !tbaa !17
-  %28 = icmp eq ptr %27, null
-  br i1 %28, label %40, label %29
+if.end:                                           ; preds = %if.else, %TreeCCDupString.exit
+  %isHeader.addr.0 = phi i8 [ 0, %TreeCCDupString.exit ], [ %4, %if.else ]
+  %path.0 = phi ptr [ %call1.i, %TreeCCDupString.exit ], [ %call2, %if.else ]
+  %streamList = getelementptr inbounds %struct._tagTreeCCContext, ptr %context, i64 0, i32 3
+  %stream.089 = load ptr, ptr %streamList, align 8, !tbaa !17
+  %cmp3.not90 = icmp eq ptr %stream.089, null
+  br i1 %cmp3.not90, label %while.end, label %while.body
 
-29:                                               ; preds = %23, %36
-  %30 = phi ptr [ %38, %36 ], [ %27, %23 ]
-  %31 = getelementptr inbounds %struct._tagTreeCCStream, ptr %30, i64 0, i32 1
-  %32 = load ptr, ptr %31, align 8, !tbaa !18
-  %33 = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %32, ptr noundef nonnull dereferenceable(1) %25) #14
-  %34 = icmp eq i32 %33, 0
-  br i1 %34, label %35, label %36
+while.body:                                       ; preds = %if.end, %if.end7
+  %stream.091 = phi ptr [ %stream.0, %if.end7 ], [ %stream.089, %if.end ]
+  %filename4 = getelementptr inbounds %struct._tagTreeCCStream, ptr %stream.091, i64 0, i32 1
+  %5 = load ptr, ptr %filename4, align 8, !tbaa !18
+  %call5 = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %5, ptr noundef nonnull dereferenceable(1) %path.0) #14
+  %tobool.not = icmp eq i32 %call5, 0
+  br i1 %tobool.not, label %if.then6, label %if.end7
 
-35:                                               ; preds = %29
-  tail call void @free(ptr noundef %25) #16
-  br label %79
+if.then6:                                         ; preds = %while.body
+  tail call void @free(ptr noundef %path.0) #16
+  br label %cleanup
 
-36:                                               ; preds = %29
-  %37 = getelementptr inbounds %struct._tagTreeCCStream, ptr %30, i64 0, i32 10
-  %38 = load ptr, ptr %37, align 8, !tbaa !17
-  %39 = icmp eq ptr %38, null
-  br i1 %39, label %40, label %29, !llvm.loop !20
+if.end7:                                          ; preds = %while.body
+  %nextStream = getelementptr inbounds %struct._tagTreeCCStream, ptr %stream.091, i64 0, i32 10
+  %stream.0 = load ptr, ptr %nextStream, align 8, !tbaa !17
+  %cmp3.not = icmp eq ptr %stream.0, null
+  br i1 %cmp3.not, label %while.end, label %while.body, !llvm.loop !20
 
-40:                                               ; preds = %36, %23
-  %41 = tail call noalias dereferenceable_or_null(80) ptr @malloc(i64 noundef 80) #15
-  %42 = icmp eq ptr %41, null
-  br i1 %42, label %43, label %44
+while.end:                                        ; preds = %if.end7, %if.end
+  %call8 = tail call noalias dereferenceable_or_null(80) ptr @malloc(i64 noundef 80) #15
+  %tobool9.not = icmp eq ptr %call8, null
+  br i1 %tobool9.not, label %if.then10, label %if.end11
 
-43:                                               ; preds = %40
+if.then10:                                        ; preds = %while.end
   tail call void @TreeCCOutOfMemory(ptr noundef null) #16
-  br label %44
+  br label %if.end11
 
-44:                                               ; preds = %43, %40
-  store ptr %0, ptr %41, align 8, !tbaa !21
-  %45 = getelementptr inbounds %struct._tagTreeCCStream, ptr %41, i64 0, i32 1
-  store ptr %25, ptr %45, align 8, !tbaa !18
-  %46 = icmp eq ptr %2, null
-  br i1 %46, label %55, label %47
+if.end11:                                         ; preds = %if.then10, %while.end
+  store ptr %context, ptr %call8, align 8, !tbaa !21
+  %filename13 = getelementptr inbounds %struct._tagTreeCCStream, ptr %call8, i64 0, i32 1
+  store ptr %path.0, ptr %filename13, align 8, !tbaa !18
+  %tobool14.not = icmp eq ptr %embedName, null
+  br i1 %tobool14.not, label %cond.false, label %cond.true
 
-47:                                               ; preds = %44
-  %48 = tail call i64 @strlen(ptr noundef nonnull dereferenceable(1) %2) #14
-  %49 = add i64 %48, 1
-  %50 = tail call noalias ptr @malloc(i64 noundef %49) #15
-  %51 = icmp eq ptr %50, null
-  br i1 %51, label %52, label %53
+cond.true:                                        ; preds = %if.end11
+  %call.i74 = tail call i64 @strlen(ptr noundef nonnull dereferenceable(1) %embedName) #14
+  %add.i75 = add i64 %call.i74, 1
+  %call1.i76 = tail call noalias ptr @malloc(i64 noundef %add.i75) #15
+  %tobool.not.i77 = icmp eq ptr %call1.i76, null
+  br i1 %tobool.not.i77, label %if.then.i78, label %TreeCCDupString.exit80
 
-52:                                               ; preds = %47
+if.then.i78:                                      ; preds = %cond.true
   tail call void @TreeCCOutOfMemory(ptr noundef null) #16
-  br label %53
+  br label %TreeCCDupString.exit80
 
-53:                                               ; preds = %47, %52
-  %54 = tail call ptr @strcpy(ptr noundef nonnull dereferenceable(1) %50, ptr noundef nonnull dereferenceable(1) %2) #16
-  br label %63
+TreeCCDupString.exit80:                           ; preds = %cond.true, %if.then.i78
+  %call2.i79 = tail call ptr @strcpy(ptr noundef nonnull dereferenceable(1) %call1.i76, ptr noundef nonnull dereferenceable(1) %embedName) #16
+  br label %cond.end
 
-55:                                               ; preds = %44
-  %56 = tail call i64 @strlen(ptr noundef nonnull dereferenceable(1) %1) #14
-  %57 = add i64 %56, 1
-  %58 = tail call noalias ptr @malloc(i64 noundef %57) #15
-  %59 = icmp eq ptr %58, null
-  br i1 %59, label %60, label %61
+cond.false:                                       ; preds = %if.end11
+  %call.i81 = tail call i64 @strlen(ptr noundef nonnull dereferenceable(1) %filename) #14
+  %add.i82 = add i64 %call.i81, 1
+  %call1.i83 = tail call noalias ptr @malloc(i64 noundef %add.i82) #15
+  %tobool.not.i84 = icmp eq ptr %call1.i83, null
+  br i1 %tobool.not.i84, label %if.then.i85, label %TreeCCDupString.exit87
 
-60:                                               ; preds = %55
+if.then.i85:                                      ; preds = %cond.false
   tail call void @TreeCCOutOfMemory(ptr noundef null) #16
-  br label %61
+  br label %TreeCCDupString.exit87
 
-61:                                               ; preds = %55, %60
-  %62 = tail call ptr @strcpy(ptr noundef nonnull dereferenceable(1) %58, ptr noundef nonnull dereferenceable(1) %1) #16
-  br label %63
+TreeCCDupString.exit87:                           ; preds = %cond.false, %if.then.i85
+  %call2.i86 = tail call ptr @strcpy(ptr noundef nonnull dereferenceable(1) %call1.i83, ptr noundef nonnull dereferenceable(1) %filename) #16
+  br label %cond.end
 
-63:                                               ; preds = %61, %53
-  %64 = phi ptr [ %50, %53 ], [ %58, %61 ]
-  %65 = getelementptr inbounds %struct._tagTreeCCStream, ptr %41, i64 0, i32 2
-  store ptr %64, ptr %65, align 8, !tbaa !22
-  %66 = getelementptr inbounds %struct._tagTreeCCStream, ptr %41, i64 0, i32 3
-  store i64 1, ptr %66, align 8, !tbaa !23
-  %67 = getelementptr inbounds %struct._tagTreeCCStream, ptr %41, i64 0, i32 4
-  %68 = getelementptr inbounds %struct._tagTreeCCStream, ptr %41, i64 0, i32 6
-  tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %67, i8 0, i64 16, i1 false)
-  store i32 2048, ptr %68, align 8, !tbaa !24
-  %69 = getelementptr inbounds %struct._tagTreeCCContext, ptr %0, i64 0, i32 8
-  %70 = load i16, ptr %69, align 8
-  %71 = getelementptr inbounds %struct._tagTreeCCStream, ptr %41, i64 0, i32 7
-  %72 = trunc i16 %70 to i8
-  %73 = lshr i8 %72, 4
-  %74 = and i8 %73, 1
-  %75 = or i8 %24, %74
-  store i8 %75, ptr %71, align 4
-  %76 = getelementptr inbounds %struct._tagTreeCCStream, ptr %41, i64 0, i32 8
-  tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %76, i8 0, i64 16, i1 false)
-  %77 = load ptr, ptr %26, align 8, !tbaa !25
-  %78 = getelementptr inbounds %struct._tagTreeCCStream, ptr %41, i64 0, i32 10
-  store ptr %77, ptr %78, align 8, !tbaa !26
-  store ptr %41, ptr %26, align 8, !tbaa !25
-  br label %79
+cond.end:                                         ; preds = %TreeCCDupString.exit87, %TreeCCDupString.exit80
+  %cond = phi ptr [ %call1.i76, %TreeCCDupString.exit80 ], [ %call1.i83, %TreeCCDupString.exit87 ]
+  %embedName17 = getelementptr inbounds %struct._tagTreeCCStream, ptr %call8, i64 0, i32 2
+  store ptr %cond, ptr %embedName17, align 8, !tbaa !22
+  %linenum = getelementptr inbounds %struct._tagTreeCCStream, ptr %call8, i64 0, i32 3
+  store i64 1, ptr %linenum, align 8, !tbaa !23
+  %firstBuf = getelementptr inbounds %struct._tagTreeCCStream, ptr %call8, i64 0, i32 4
+  %posn = getelementptr inbounds %struct._tagTreeCCStream, ptr %call8, i64 0, i32 6
+  tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %firstBuf, i8 0, i64 16, i1 false)
+  store i32 2048, ptr %posn, align 8, !tbaa !24
+  %force = getelementptr inbounds %struct._tagTreeCCContext, ptr %context, i64 0, i32 8
+  %bf.load = load i16, ptr %force, align 8
+  %forceCreate = getelementptr inbounds %struct._tagTreeCCStream, ptr %call8, i64 0, i32 7
+  %6 = trunc i16 %bf.load to i8
+  %7 = lshr i8 %6, 4
+  %8 = and i8 %7, 1
+  %bf.set27 = or i8 %isHeader.addr.0, %8
+  store i8 %bf.set27, ptr %forceCreate, align 4
+  %firstDefn = getelementptr inbounds %struct._tagTreeCCStream, ptr %call8, i64 0, i32 8
+  tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %firstDefn, i8 0, i64 16, i1 false)
+  %9 = load ptr, ptr %streamList, align 8, !tbaa !25
+  %nextStream38 = getelementptr inbounds %struct._tagTreeCCStream, ptr %call8, i64 0, i32 10
+  store ptr %9, ptr %nextStream38, align 8, !tbaa !26
+  store ptr %call8, ptr %streamList, align 8, !tbaa !25
+  br label %cleanup
 
-79:                                               ; preds = %63, %35
-  %80 = phi ptr [ %30, %35 ], [ %41, %63 ]
-  ret ptr %80
+cleanup:                                          ; preds = %cond.end, %if.then6
+  %retval.0 = phi ptr [ %stream.091, %if.then6 ], [ %call8, %cond.end ]
+  ret ptr %retval.0
 }
 
 ; Function Attrs: mustprogress nofree nounwind willreturn memory(argmem: read)
@@ -278,333 +274,334 @@ declare i32 @strcmp(ptr nocapture noundef, ptr nocapture noundef) local_unnamed_
 declare void @free(ptr allocptr nocapture noundef) local_unnamed_addr #6
 
 ; Function Attrs: nounwind uwtable
-define dso_local ptr @TreeCCStreamGetJava(ptr noundef %0, ptr nocapture noundef readonly %1) local_unnamed_addr #0 {
-  %3 = getelementptr inbounds %struct._tagTreeCCContext, ptr %0, i64 0, i32 15
-  %4 = load ptr, ptr %3, align 8, !tbaa !27
-  %5 = icmp eq ptr %4, null
-  br i1 %5, label %32, label %6
+define dso_local ptr @TreeCCStreamGetJava(ptr noundef %context, ptr nocapture noundef readonly %className) local_unnamed_addr #0 {
+entry:
+  %outputDirectory = getelementptr inbounds %struct._tagTreeCCContext, ptr %context, i64 0, i32 15
+  %0 = load ptr, ptr %outputDirectory, align 8, !tbaa !27
+  %tobool.not = icmp eq ptr %0, null
+  br i1 %tobool.not, label %if.else, label %if.then
 
-6:                                                ; preds = %2
-  %7 = tail call i64 @strlen(ptr noundef nonnull dereferenceable(1) %4) #14
-  %8 = tail call i64 @strlen(ptr noundef nonnull dereferenceable(1) %1) #14
-  %9 = add i64 %8, %7
-  %10 = shl i64 %9, 32
-  %11 = add i64 %10, 30064771072
-  %12 = ashr exact i64 %11, 32
-  %13 = tail call noalias ptr @malloc(i64 noundef %12) #15
-  %14 = icmp eq ptr %13, null
-  br i1 %14, label %15, label %19
+if.then:                                          ; preds = %entry
+  %call = tail call i64 @strlen(ptr noundef nonnull dereferenceable(1) %0) #14
+  %call2 = tail call i64 @strlen(ptr noundef nonnull dereferenceable(1) %className) #14
+  %add = add i64 %call2, %call
+  %conv = shl i64 %add, 32
+  %sext55 = add i64 %conv, 30064771072
+  %conv4 = ashr exact i64 %sext55, 32
+  %call5 = tail call noalias ptr @malloc(i64 noundef %conv4) #15
+  %cmp = icmp eq ptr %call5, null
+  br i1 %cmp, label %if.then7, label %if.end
 
-15:                                               ; preds = %6
-  %16 = getelementptr inbounds %struct._tagTreeCCContext, ptr %0, i64 0, i32 2
-  %17 = load ptr, ptr %16, align 8, !tbaa !10
-  tail call void @TreeCCOutOfMemory(ptr noundef %17) #16
-  %18 = load ptr, ptr %3, align 8, !tbaa !27
-  br label %19
+if.then7:                                         ; preds = %if.then
+  %input = getelementptr inbounds %struct._tagTreeCCContext, ptr %context, i64 0, i32 2
+  %1 = load ptr, ptr %input, align 8, !tbaa !10
+  tail call void @TreeCCOutOfMemory(ptr noundef %1) #16
+  %.pre = load ptr, ptr %outputDirectory, align 8, !tbaa !27
+  br label %if.end
 
-19:                                               ; preds = %15, %6
-  %20 = phi ptr [ %18, %15 ], [ %4, %6 ]
-  %21 = tail call ptr @strcpy(ptr noundef nonnull dereferenceable(1) %13, ptr noundef nonnull dereferenceable(1) %20) #16
-  %22 = tail call i64 @strlen(ptr noundef nonnull dereferenceable(1) %20) #14
-  %23 = shl i64 %22, 32
-  %24 = ashr exact i64 %23, 32
-  %25 = getelementptr inbounds i8, ptr %13, i64 %24
-  store i8 47, ptr %25, align 1, !tbaa !5
-  %26 = getelementptr inbounds i8, ptr %25, i64 1
-  %27 = tail call ptr @strcpy(ptr noundef nonnull dereferenceable(1) %26, ptr noundef nonnull dereferenceable(1) %1) #16
-  %28 = tail call i64 @strlen(ptr nonnull dereferenceable(1) %13)
-  %29 = getelementptr inbounds i8, ptr %13, i64 %28
-  tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 1 dereferenceable(6) %29, ptr noundef nonnull align 1 dereferenceable(6) @.str, i64 6, i1 false)
-  %30 = add i64 %23, 4294967296
-  %31 = ashr exact i64 %30, 32
-  br label %46
+if.end:                                           ; preds = %if.then7, %if.then
+  %2 = phi ptr [ %.pre, %if.then7 ], [ %0, %if.then ]
+  %call9 = tail call ptr @strcpy(ptr noundef nonnull dereferenceable(1) %call5, ptr noundef nonnull dereferenceable(1) %2) #16
+  %call11 = tail call i64 @strlen(ptr noundef nonnull dereferenceable(1) %2) #14
+  %sext56 = shl i64 %call11, 32
+  %idxprom = ashr exact i64 %sext56, 32
+  %arrayidx = getelementptr inbounds i8, ptr %call5, i64 %idxprom
+  store i8 47, ptr %arrayidx, align 1, !tbaa !5
+  %add.ptr13 = getelementptr inbounds i8, ptr %arrayidx, i64 1
+  %call14 = tail call ptr @strcpy(ptr noundef nonnull dereferenceable(1) %add.ptr13, ptr noundef nonnull dereferenceable(1) %className) #16
+  %strlen57 = tail call i64 @strlen(ptr nonnull dereferenceable(1) %call5)
+  %endptr58 = getelementptr inbounds i8, ptr %call5, i64 %strlen57
+  tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 1 dereferenceable(6) %endptr58, ptr noundef nonnull align 1 dereferenceable(6) @.str, i64 6, i1 false)
+  %sext54 = add i64 %sext56, 4294967296
+  %3 = ashr exact i64 %sext54, 32
+  br label %if.end28
 
-32:                                               ; preds = %2
-  %33 = tail call i64 @strlen(ptr noundef nonnull dereferenceable(1) %1) #14
-  %34 = shl i64 %33, 32
-  %35 = add i64 %34, 25769803776
-  %36 = ashr exact i64 %35, 32
-  %37 = tail call noalias ptr @malloc(i64 noundef %36) #15
-  %38 = icmp eq ptr %37, null
-  br i1 %38, label %39, label %42
+if.else:                                          ; preds = %entry
+  %call16 = tail call i64 @strlen(ptr noundef nonnull dereferenceable(1) %className) #14
+  %conv18 = shl i64 %call16, 32
+  %sext = add i64 %conv18, 25769803776
+  %conv19 = ashr exact i64 %sext, 32
+  %call20 = tail call noalias ptr @malloc(i64 noundef %conv19) #15
+  %cmp21 = icmp eq ptr %call20, null
+  br i1 %cmp21, label %if.then23, label %if.end25
 
-39:                                               ; preds = %32
-  %40 = getelementptr inbounds %struct._tagTreeCCContext, ptr %0, i64 0, i32 2
-  %41 = load ptr, ptr %40, align 8, !tbaa !10
-  tail call void @TreeCCOutOfMemory(ptr noundef %41) #16
-  br label %42
+if.then23:                                        ; preds = %if.else
+  %input24 = getelementptr inbounds %struct._tagTreeCCContext, ptr %context, i64 0, i32 2
+  %4 = load ptr, ptr %input24, align 8, !tbaa !10
+  tail call void @TreeCCOutOfMemory(ptr noundef %4) #16
+  br label %if.end25
 
-42:                                               ; preds = %39, %32
-  %43 = tail call ptr @strcpy(ptr noundef nonnull dereferenceable(1) %37, ptr noundef nonnull dereferenceable(1) %1) #16
-  %44 = tail call i64 @strlen(ptr nonnull dereferenceable(1) %37)
-  %45 = getelementptr inbounds i8, ptr %37, i64 %44
-  tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 1 dereferenceable(6) %45, ptr noundef nonnull align 1 dereferenceable(6) @.str, i64 6, i1 false)
-  br label %46
+if.end25:                                         ; preds = %if.then23, %if.else
+  %call26 = tail call ptr @strcpy(ptr noundef nonnull dereferenceable(1) %call20, ptr noundef nonnull dereferenceable(1) %className) #16
+  %strlen = tail call i64 @strlen(ptr nonnull dereferenceable(1) %call20)
+  %endptr = getelementptr inbounds i8, ptr %call20, i64 %strlen
+  tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 1 dereferenceable(6) %endptr, ptr noundef nonnull align 1 dereferenceable(6) @.str, i64 6, i1 false)
+  br label %if.end28
 
-46:                                               ; preds = %42, %19
-  %47 = phi i64 [ %31, %19 ], [ 0, %42 ]
-  %48 = phi ptr [ %13, %19 ], [ %37, %42 ]
-  %49 = getelementptr inbounds i8, ptr %48, i64 %47
-  %50 = tail call ptr @TreeCCStreamCreate(ptr noundef nonnull %0, ptr noundef nonnull %48, ptr noundef %49, i32 noundef -1)
-  tail call void @free(ptr noundef nonnull %48) #16
-  ret ptr %50
+if.end28:                                         ; preds = %if.end25, %if.end
+  %len.0 = phi i64 [ %3, %if.end ], [ 0, %if.end25 ]
+  %filename.0 = phi ptr [ %call5, %if.end ], [ %call20, %if.end25 ]
+  %add.ptr30 = getelementptr inbounds i8, ptr %filename.0, i64 %len.0
+  %call31 = tail call ptr @TreeCCStreamCreate(ptr noundef nonnull %context, ptr noundef nonnull %filename.0, ptr noundef %add.ptr30, i32 noundef -1)
+  tail call void @free(ptr noundef nonnull %filename.0) #16
+  ret ptr %call31
 }
 
 ; Function Attrs: nounwind uwtable
-define dso_local void @TreeCCStreamDestroy(ptr nocapture noundef %0) local_unnamed_addr #0 {
-  %2 = getelementptr inbounds %struct._tagTreeCCStream, ptr %0, i64 0, i32 4
-  %3 = load ptr, ptr %2, align 8, !tbaa !28
-  %4 = icmp eq ptr %3, null
-  br i1 %4, label %10, label %5
+define dso_local void @TreeCCStreamDestroy(ptr nocapture noundef %stream) local_unnamed_addr #0 {
+entry:
+  %firstBuf.i = getelementptr inbounds %struct._tagTreeCCStream, ptr %stream, i64 0, i32 4
+  %0 = load ptr, ptr %firstBuf.i, align 8, !tbaa !28
+  %cmp.not9.i = icmp eq ptr %0, null
+  br i1 %cmp.not9.i, label %TreeCCStreamClear.exit, label %while.body.i
 
-5:                                                ; preds = %1, %5
-  %6 = phi ptr [ %8, %5 ], [ %3, %1 ]
-  %7 = getelementptr inbounds %struct._tagTreeCCStreamBuf, ptr %6, i64 0, i32 1
-  %8 = load ptr, ptr %7, align 8, !tbaa !29
-  tail call void @free(ptr noundef nonnull %6) #16
-  %9 = icmp eq ptr %8, null
-  br i1 %9, label %10, label %5, !llvm.loop !31
+while.body.i:                                     ; preds = %entry, %while.body.i
+  %buffer.010.i = phi ptr [ %1, %while.body.i ], [ %0, %entry ]
+  %next.i = getelementptr inbounds %struct._tagTreeCCStreamBuf, ptr %buffer.010.i, i64 0, i32 1
+  %1 = load ptr, ptr %next.i, align 8, !tbaa !29
+  tail call void @free(ptr noundef nonnull %buffer.010.i) #16
+  %cmp.not.i = icmp eq ptr %1, null
+  br i1 %cmp.not.i, label %TreeCCStreamClear.exit, label %while.body.i, !llvm.loop !31
 
-10:                                               ; preds = %5, %1
-  %11 = getelementptr inbounds %struct._tagTreeCCStream, ptr %0, i64 0, i32 7
-  tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %2, i8 0, i64 16, i1 false)
-  %12 = load i8, ptr %11, align 4
-  %13 = and i8 %12, -17
-  store i8 %13, ptr %11, align 4
-  %14 = getelementptr inbounds %struct._tagTreeCCStream, ptr %0, i64 0, i32 6
-  store i32 2048, ptr %14, align 8, !tbaa !24
-  %15 = getelementptr inbounds %struct._tagTreeCCStream, ptr %0, i64 0, i32 3
-  store i64 1, ptr %15, align 8, !tbaa !23
-  %16 = getelementptr inbounds %struct._tagTreeCCStream, ptr %0, i64 0, i32 8
-  %17 = load ptr, ptr %16, align 8, !tbaa !32
-  %18 = icmp eq ptr %17, null
-  br i1 %18, label %30, label %19
+TreeCCStreamClear.exit:                           ; preds = %while.body.i, %entry
+  %dirty.i = getelementptr inbounds %struct._tagTreeCCStream, ptr %stream, i64 0, i32 7
+  tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %firstBuf.i, i8 0, i64 16, i1 false)
+  %bf.load.i = load i8, ptr %dirty.i, align 4
+  %bf.clear.i = and i8 %bf.load.i, -17
+  store i8 %bf.clear.i, ptr %dirty.i, align 4
+  %posn.i = getelementptr inbounds %struct._tagTreeCCStream, ptr %stream, i64 0, i32 6
+  store i32 2048, ptr %posn.i, align 8, !tbaa !24
+  %linenum.i = getelementptr inbounds %struct._tagTreeCCStream, ptr %stream, i64 0, i32 3
+  store i64 1, ptr %linenum.i, align 8, !tbaa !23
+  %firstDefn = getelementptr inbounds %struct._tagTreeCCStream, ptr %stream, i64 0, i32 8
+  %2 = load ptr, ptr %firstDefn, align 8, !tbaa !32
+  %cmp.not9 = icmp eq ptr %2, null
+  br i1 %cmp.not9, label %while.end, label %while.body
 
-19:                                               ; preds = %10, %28
-  %20 = phi ptr [ %22, %28 ], [ %17, %10 ]
-  %21 = getelementptr inbounds %struct._tagTreeCCStreamDefn, ptr %20, i64 0, i32 5
-  %22 = load ptr, ptr %21, align 8, !tbaa !33
-  %23 = getelementptr inbounds %struct._tagTreeCCStreamDefn, ptr %20, i64 0, i32 4
-  %24 = load i32, ptr %23, align 4, !tbaa !35
-  %25 = icmp eq i32 %24, 0
-  br i1 %25, label %26, label %28
+while.body:                                       ; preds = %TreeCCStreamClear.exit, %if.end
+  %defn.010 = phi ptr [ %3, %if.end ], [ %2, %TreeCCStreamClear.exit ]
+  %next = getelementptr inbounds %struct._tagTreeCCStreamDefn, ptr %defn.010, i64 0, i32 5
+  %3 = load ptr, ptr %next, align 8, !tbaa !33
+  %refOnly = getelementptr inbounds %struct._tagTreeCCStreamDefn, ptr %defn.010, i64 0, i32 4
+  %4 = load i32, ptr %refOnly, align 4, !tbaa !35
+  %tobool.not = icmp eq i32 %4, 0
+  br i1 %tobool.not, label %if.then, label %if.end
 
-26:                                               ; preds = %19
-  %27 = load ptr, ptr %20, align 8, !tbaa !36
-  tail call void @free(ptr noundef %27) #16
-  br label %28
+if.then:                                          ; preds = %while.body
+  %5 = load ptr, ptr %defn.010, align 8, !tbaa !36
+  tail call void @free(ptr noundef %5) #16
+  br label %if.end
 
-28:                                               ; preds = %26, %19
-  tail call void @free(ptr noundef nonnull %20) #16
-  %29 = icmp eq ptr %22, null
-  br i1 %29, label %30, label %19, !llvm.loop !37
+if.end:                                           ; preds = %if.then, %while.body
+  tail call void @free(ptr noundef nonnull %defn.010) #16
+  %cmp.not = icmp eq ptr %3, null
+  br i1 %cmp.not, label %while.end, label %while.body, !llvm.loop !37
 
-30:                                               ; preds = %28, %10
-  %31 = getelementptr inbounds %struct._tagTreeCCStream, ptr %0, i64 0, i32 1
-  %32 = load ptr, ptr %31, align 8, !tbaa !18
-  tail call void @free(ptr noundef %32) #16
-  %33 = getelementptr inbounds %struct._tagTreeCCStream, ptr %0, i64 0, i32 2
-  %34 = load ptr, ptr %33, align 8, !tbaa !22
-  tail call void @free(ptr noundef %34) #16
-  tail call void @free(ptr noundef %0) #16
+while.end:                                        ; preds = %if.end, %TreeCCStreamClear.exit
+  %filename = getelementptr inbounds %struct._tagTreeCCStream, ptr %stream, i64 0, i32 1
+  %6 = load ptr, ptr %filename, align 8, !tbaa !18
+  tail call void @free(ptr noundef %6) #16
+  %embedName = getelementptr inbounds %struct._tagTreeCCStream, ptr %stream, i64 0, i32 2
+  %7 = load ptr, ptr %embedName, align 8, !tbaa !22
+  tail call void @free(ptr noundef %7) #16
+  tail call void @free(ptr noundef %stream) #16
   ret void
 }
 
 ; Function Attrs: nounwind uwtable
-define dso_local void @TreeCCStreamClear(ptr nocapture noundef %0) local_unnamed_addr #0 {
-  %2 = getelementptr inbounds %struct._tagTreeCCStream, ptr %0, i64 0, i32 4
-  %3 = load ptr, ptr %2, align 8, !tbaa !28
-  %4 = icmp eq ptr %3, null
-  br i1 %4, label %10, label %5
+define dso_local void @TreeCCStreamClear(ptr nocapture noundef %stream) local_unnamed_addr #0 {
+entry:
+  %firstBuf = getelementptr inbounds %struct._tagTreeCCStream, ptr %stream, i64 0, i32 4
+  %0 = load ptr, ptr %firstBuf, align 8, !tbaa !28
+  %cmp.not9 = icmp eq ptr %0, null
+  br i1 %cmp.not9, label %while.end, label %while.body
 
-5:                                                ; preds = %1, %5
-  %6 = phi ptr [ %8, %5 ], [ %3, %1 ]
-  %7 = getelementptr inbounds %struct._tagTreeCCStreamBuf, ptr %6, i64 0, i32 1
-  %8 = load ptr, ptr %7, align 8, !tbaa !29
-  tail call void @free(ptr noundef nonnull %6) #16
-  %9 = icmp eq ptr %8, null
-  br i1 %9, label %10, label %5, !llvm.loop !31
+while.body:                                       ; preds = %entry, %while.body
+  %buffer.010 = phi ptr [ %1, %while.body ], [ %0, %entry ]
+  %next = getelementptr inbounds %struct._tagTreeCCStreamBuf, ptr %buffer.010, i64 0, i32 1
+  %1 = load ptr, ptr %next, align 8, !tbaa !29
+  tail call void @free(ptr noundef nonnull %buffer.010) #16
+  %cmp.not = icmp eq ptr %1, null
+  br i1 %cmp.not, label %while.end, label %while.body, !llvm.loop !31
 
-10:                                               ; preds = %5, %1
-  %11 = getelementptr inbounds %struct._tagTreeCCStream, ptr %0, i64 0, i32 7
-  tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %2, i8 0, i64 16, i1 false)
-  %12 = load i8, ptr %11, align 4
-  %13 = and i8 %12, -17
-  store i8 %13, ptr %11, align 4
-  %14 = getelementptr inbounds %struct._tagTreeCCStream, ptr %0, i64 0, i32 6
-  store i32 2048, ptr %14, align 8, !tbaa !24
-  %15 = getelementptr inbounds %struct._tagTreeCCStream, ptr %0, i64 0, i32 3
-  store i64 1, ptr %15, align 8, !tbaa !23
+while.end:                                        ; preds = %while.body, %entry
+  %dirty = getelementptr inbounds %struct._tagTreeCCStream, ptr %stream, i64 0, i32 7
+  tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %firstBuf, i8 0, i64 16, i1 false)
+  %bf.load = load i8, ptr %dirty, align 4
+  %bf.clear = and i8 %bf.load, -17
+  store i8 %bf.clear, ptr %dirty, align 4
+  %posn = getelementptr inbounds %struct._tagTreeCCStream, ptr %stream, i64 0, i32 6
+  store i32 2048, ptr %posn, align 8, !tbaa !24
+  %linenum = getelementptr inbounds %struct._tagTreeCCStream, ptr %stream, i64 0, i32 3
+  store i64 1, ptr %linenum, align 8, !tbaa !23
   ret void
 }
 
 ; Function Attrs: nofree nounwind uwtable
-define dso_local i32 @TreeCCStreamFlush(ptr nocapture noundef readonly %0) local_unnamed_addr #7 {
-  %2 = alloca [2048 x i8], align 16
-  call void @llvm.lifetime.start.p0(i64 2048, ptr nonnull %2) #16
-  %3 = getelementptr inbounds %struct._tagTreeCCStream, ptr %0, i64 0, i32 7
-  %4 = load i8, ptr %3, align 4
-  %5 = and i8 %4, 8
-  %6 = icmp eq i8 %5, 0
-  br i1 %6, label %11, label %7
+define dso_local i32 @TreeCCStreamFlush(ptr nocapture noundef readonly %stream) local_unnamed_addr #7 {
+entry:
+  %tempbuf = alloca [2048 x i8], align 16
+  call void @llvm.lifetime.start.p0(i64 2048, ptr nonnull %tempbuf) #16
+  %defaultFile = getelementptr inbounds %struct._tagTreeCCStream, ptr %stream, i64 0, i32 7
+  %bf.load = load i8, ptr %defaultFile, align 4
+  %bf.shl.mask = and i8 %bf.load, 8
+  %tobool.not = icmp eq i8 %bf.shl.mask, 0
+  br i1 %tobool.not, label %if.end, label %land.lhs.true
 
-7:                                                ; preds = %1
-  %8 = getelementptr inbounds %struct._tagTreeCCStream, ptr %0, i64 0, i32 4
-  %9 = load ptr, ptr %8, align 8, !tbaa !28
-  %10 = icmp eq ptr %9, null
-  br i1 %10, label %105, label %11
+land.lhs.true:                                    ; preds = %entry
+  %firstBuf = getelementptr inbounds %struct._tagTreeCCStream, ptr %stream, i64 0, i32 4
+  %0 = load ptr, ptr %firstBuf, align 8, !tbaa !28
+  %tobool1.not = icmp eq ptr %0, null
+  br i1 %tobool1.not, label %cleanup, label %if.end
 
-11:                                               ; preds = %7, %1
-  %12 = and i8 %4, 3
-  %13 = icmp eq i8 %12, 1
-  br i1 %13, label %66, label %14
+if.end:                                           ; preds = %land.lhs.true, %entry
+  %1 = and i8 %bf.load, 3
+  %or.cond115 = icmp eq i8 %1, 1
+  br i1 %or.cond115, label %if.end75, label %if.then12
 
-14:                                               ; preds = %11
-  %15 = getelementptr inbounds %struct._tagTreeCCStream, ptr %0, i64 0, i32 1
-  %16 = load ptr, ptr %15, align 8, !tbaa !18
-  %17 = tail call noalias ptr @fopen(ptr noundef %16, ptr noundef nonnull @.str.1)
-  %18 = icmp eq ptr %17, null
-  br i1 %18, label %58, label %19
+if.then12:                                        ; preds = %if.end
+  %filename = getelementptr inbounds %struct._tagTreeCCStream, ptr %stream, i64 0, i32 1
+  %2 = load ptr, ptr %filename, align 8, !tbaa !18
+  %call = tail call noalias ptr @fopen(ptr noundef %2, ptr noundef nonnull @.str.1)
+  %cmp.not = icmp eq ptr %call, null
+  br i1 %cmp.not, label %if.end64, label %if.then13
 
-19:                                               ; preds = %14
-  %20 = getelementptr inbounds %struct._tagTreeCCStream, ptr %0, i64 0, i32 4
-  %21 = load ptr, ptr %20, align 8, !tbaa !28
-  %22 = getelementptr inbounds %struct._tagTreeCCStream, ptr %0, i64 0, i32 5
-  %23 = getelementptr inbounds %struct._tagTreeCCStream, ptr %0, i64 0, i32 6
-  br label %24
+if.then13:                                        ; preds = %if.then12
+  %firstBuf14 = getelementptr inbounds %struct._tagTreeCCStream, ptr %stream, i64 0, i32 4
+  %3 = load ptr, ptr %firstBuf14, align 8, !tbaa !28
+  %posn = getelementptr inbounds %struct._tagTreeCCStream, ptr %stream, i64 0, i32 6
+  %lastBuf = getelementptr inbounds %struct._tagTreeCCStream, ptr %stream, i64 0, i32 5
+  br label %while.cond
 
-24:                                               ; preds = %47, %19
-  %25 = phi ptr [ %21, %19 ], [ %49, %47 ]
-  %26 = call i64 @fread(ptr noundef nonnull %2, i64 noundef 1, i64 noundef 2048, ptr noundef nonnull %17)
-  %27 = trunc i64 %26 to i32
-  %28 = icmp eq i32 %27, 0
-  br i1 %28, label %51, label %29
+while.cond:                                       ; preds = %if.end48, %if.then13
+  %buffer.0 = phi ptr [ %3, %if.then13 ], [ %6, %if.end48 ]
+  %call15 = call i64 @fread(ptr noundef nonnull %tempbuf, i64 noundef 1, i64 noundef 2048, ptr noundef nonnull %call)
+  %conv = trunc i64 %call15 to i32
+  %cmp16.not = icmp eq i32 %conv, 0
+  br i1 %cmp16.not, label %while.end, label %while.body
 
-29:                                               ; preds = %24
-  %30 = icmp eq ptr %25, null
-  br i1 %30, label %54, label %31
+while.body:                                       ; preds = %while.cond
+  %tobool18.not = icmp eq ptr %buffer.0, null
+  br i1 %tobool18.not, label %while.end, label %if.end20
 
-31:                                               ; preds = %29
-  %32 = load ptr, ptr %22, align 8, !tbaa !38
-  %33 = icmp eq ptr %25, %32
-  br i1 %33, label %34, label %42
+if.end20:                                         ; preds = %while.body
+  %4 = load ptr, ptr %lastBuf, align 8, !tbaa !38
+  %cmp21 = icmp eq ptr %buffer.0, %4
+  br i1 %cmp21, label %if.then23, label %if.else
 
-34:                                               ; preds = %31
-  %35 = load i32, ptr %23, align 8, !tbaa !24
-  %36 = icmp eq i32 %35, %27
-  br i1 %36, label %37, label %54
+if.then23:                                        ; preds = %if.end20
+  %5 = load i32, ptr %posn, align 8, !tbaa !24
+  %cmp24.not = icmp eq i32 %5, %conv
+  br i1 %cmp24.not, label %if.end27, label %while.end
 
-37:                                               ; preds = %34
-  %38 = shl i64 %26, 32
-  %39 = ashr exact i64 %38, 32
-  %40 = call i32 @bcmp(ptr nonnull %25, ptr nonnull %2, i64 %39)
-  %41 = icmp eq i32 %40, 0
-  br i1 %41, label %47, label %54
+if.end27:                                         ; preds = %if.then23
+  %sext = shl i64 %call15, 32
+  %conv30 = ashr exact i64 %sext, 32
+  %bcmp114 = call i32 @bcmp(ptr nonnull %buffer.0, ptr nonnull %tempbuf, i64 %conv30)
+  %cmp32.not = icmp eq i32 %bcmp114, 0
+  br i1 %cmp32.not, label %if.end48, label %while.end
 
-42:                                               ; preds = %31
-  %43 = icmp eq i32 %27, 2048
-  br i1 %43, label %44, label %54
+if.else:                                          ; preds = %if.end20
+  %cmp36.not = icmp eq i32 %conv, 2048
+  br i1 %cmp36.not, label %if.end39, label %while.end
 
-44:                                               ; preds = %42
-  %45 = call i32 @bcmp(ptr noundef nonnull dereferenceable(2048) %25, ptr noundef nonnull dereferenceable(2048) %2, i64 2048)
-  %46 = icmp eq i32 %45, 0
-  br i1 %46, label %47, label %54
+if.end39:                                         ; preds = %if.else
+  %bcmp = call i32 @bcmp(ptr noundef nonnull dereferenceable(2048) %buffer.0, ptr noundef nonnull dereferenceable(2048) %tempbuf, i64 2048)
+  %cmp44.not = icmp eq i32 %bcmp, 0
+  br i1 %cmp44.not, label %if.end48, label %while.end
 
-47:                                               ; preds = %44, %37
-  %48 = getelementptr inbounds %struct._tagTreeCCStreamBuf, ptr %25, i64 0, i32 1
-  %49 = load ptr, ptr %48, align 8, !tbaa !29
-  %50 = icmp slt i32 %27, 2048
-  br i1 %50, label %51, label %24, !llvm.loop !39
+if.end48:                                         ; preds = %if.end39, %if.end27
+  %next = getelementptr inbounds %struct._tagTreeCCStreamBuf, ptr %buffer.0, i64 0, i32 1
+  %6 = load ptr, ptr %next, align 8, !tbaa !29
+  %cmp49 = icmp slt i32 %conv, 2048
+  br i1 %cmp49, label %while.end, label %while.cond, !llvm.loop !39
 
-51:                                               ; preds = %47, %24
-  %52 = phi ptr [ %25, %24 ], [ %49, %47 ]
-  %53 = icmp eq ptr %52, null
-  br i1 %53, label %56, label %54
+while.end:                                        ; preds = %if.end48, %if.end39, %if.else, %if.end27, %if.then23, %while.body, %while.cond
+  %buffer.1 = phi ptr [ %buffer.0, %while.cond ], [ null, %while.body ], [ %buffer.0, %if.then23 ], [ %buffer.0, %if.end27 ], [ %buffer.0, %if.else ], [ %buffer.0, %if.end39 ], [ %6, %if.end48 ]
+  %cmp53 = phi i1 [ true, %while.cond ], [ false, %while.body ], [ false, %if.then23 ], [ false, %if.end27 ], [ false, %if.else ], [ false, %if.end39 ], [ true, %if.end48 ]
+  %cmp56 = icmp eq ptr %buffer.1, null
+  %not.cmp53 = xor i1 %cmp53, true
+  %or.cond = select i1 %not.cmp53, i1 true, i1 %cmp56
+  %call60 = tail call i32 @fclose(ptr noundef nonnull %call)
+  %tobool61.not = and i1 %cmp53, %or.cond
+  br i1 %tobool61.not, label %cleanup, label %if.end64
 
-54:                                               ; preds = %29, %34, %37, %42, %44, %51
-  %55 = tail call i32 @fclose(ptr noundef nonnull %17)
-  br label %58
+if.end64:                                         ; preds = %while.end, %if.then12
+  %bf.load66 = load i8, ptr %defaultFile, align 4
+  %bf.shl67.mask = and i8 %bf.load66, 2
+  %tobool70.not = icmp eq i8 %bf.shl67.mask, 0
+  br i1 %tobool70.not, label %if.end75, label %if.then71
 
-56:                                               ; preds = %51
-  %57 = tail call i32 @fclose(ptr noundef nonnull %17)
-  br label %105
+if.then71:                                        ; preds = %if.end64
+  %7 = load ptr, ptr @stderr, align 8, !tbaa !17
+  %8 = load ptr, ptr %filename, align 8, !tbaa !18
+  %call73 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %7, ptr noundef nonnull @.str.2, ptr noundef %8) #17
+  br label %cleanup
 
-58:                                               ; preds = %54, %14
-  %59 = load i8, ptr %3, align 4
-  %60 = and i8 %59, 2
-  %61 = icmp eq i8 %60, 0
-  br i1 %61, label %66, label %62
+if.end75:                                         ; preds = %if.end, %if.end64
+  %filename76 = getelementptr inbounds %struct._tagTreeCCStream, ptr %stream, i64 0, i32 1
+  %9 = load ptr, ptr %filename76, align 8, !tbaa !18
+  %call77 = tail call noalias ptr @fopen(ptr noundef %9, ptr noundef nonnull @.str.3)
+  %cmp78 = icmp eq ptr %call77, null
+  br i1 %cmp78, label %if.then80, label %if.end82
 
-62:                                               ; preds = %58
-  %63 = load ptr, ptr @stderr, align 8, !tbaa !17
-  %64 = load ptr, ptr %15, align 8, !tbaa !18
-  %65 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %63, ptr noundef nonnull @.str.2, ptr noundef %64) #17
-  br label %105
+if.then80:                                        ; preds = %if.end75
+  %10 = load ptr, ptr %filename76, align 8, !tbaa !18
+  tail call void @perror(ptr noundef %10) #17
+  br label %cleanup
 
-66:                                               ; preds = %11, %58
-  %67 = getelementptr inbounds %struct._tagTreeCCStream, ptr %0, i64 0, i32 1
-  %68 = load ptr, ptr %67, align 8, !tbaa !18
-  %69 = tail call noalias ptr @fopen(ptr noundef %68, ptr noundef nonnull @.str.3)
-  %70 = icmp eq ptr %69, null
-  br i1 %70, label %71, label %73
+if.end82:                                         ; preds = %if.end75
+  %firstBuf.i = getelementptr inbounds %struct._tagTreeCCStream, ptr %stream, i64 0, i32 4
+  %buffer.027.i = load ptr, ptr %firstBuf.i, align 8, !tbaa !17
+  %cmp.not28.i = icmp eq ptr %buffer.027.i, null
+  br i1 %cmp.not28.i, label %while.end.i, label %while.body.lr.ph.i
 
-71:                                               ; preds = %66
-  %72 = load ptr, ptr %67, align 8, !tbaa !18
-  tail call void @perror(ptr noundef %72) #17
-  br label %105
+while.body.lr.ph.i:                               ; preds = %if.end82
+  %lastBuf.i = getelementptr inbounds %struct._tagTreeCCStream, ptr %stream, i64 0, i32 5
+  %posn.i = getelementptr inbounds %struct._tagTreeCCStream, ptr %stream, i64 0, i32 6
+  br label %while.body.i
 
-73:                                               ; preds = %66
-  %74 = getelementptr inbounds %struct._tagTreeCCStream, ptr %0, i64 0, i32 4
-  %75 = load ptr, ptr %74, align 8, !tbaa !17
-  %76 = icmp eq ptr %75, null
-  br i1 %76, label %98, label %77
+while.body.i:                                     ; preds = %if.end14.i, %while.body.lr.ph.i
+  %buffer.029.i = phi ptr [ %buffer.027.i, %while.body.lr.ph.i ], [ %buffer.0.i, %if.end14.i ]
+  %11 = load ptr, ptr %lastBuf.i, align 8, !tbaa !38
+  %cmp1.i = icmp eq ptr %buffer.029.i, %11
+  br i1 %cmp1.i, label %if.then.i, label %if.else.i
 
-77:                                               ; preds = %73
-  %78 = getelementptr inbounds %struct._tagTreeCCStream, ptr %0, i64 0, i32 5
-  %79 = getelementptr inbounds %struct._tagTreeCCStream, ptr %0, i64 0, i32 6
-  br label %80
+if.then.i:                                        ; preds = %while.body.i
+  %12 = load i32, ptr %posn.i, align 8, !tbaa !24
+  %conv.i = sext i32 %12 to i64
+  %call.i = tail call i64 @fwrite(ptr noundef nonnull %buffer.029.i, i64 noundef 1, i64 noundef %conv.i, ptr noundef nonnull %call77)
+  %13 = load i32, ptr %posn.i, align 8, !tbaa !24
+  %conv3.i = sext i32 %13 to i64
+  %cmp4.not.i = icmp eq i64 %call.i, %conv3.i
+  br i1 %cmp4.not.i, label %if.end14.i, label %TreeCCStreamFlushStdio.exit
 
-80:                                               ; preds = %94, %77
-  %81 = phi ptr [ %75, %77 ], [ %96, %94 ]
-  %82 = load ptr, ptr %78, align 8, !tbaa !38
-  %83 = icmp eq ptr %81, %82
-  br i1 %83, label %84, label %91
+if.else.i:                                        ; preds = %while.body.i
+  %call9.i = tail call i64 @fwrite(ptr noundef nonnull %buffer.029.i, i64 noundef 1, i64 noundef 2048, ptr noundef nonnull %call77)
+  %cmp10.not.i = icmp eq i64 %call9.i, 2048
+  br i1 %cmp10.not.i, label %if.end14.i, label %TreeCCStreamFlushStdio.exit
 
-84:                                               ; preds = %80
-  %85 = load i32, ptr %79, align 8, !tbaa !24
-  %86 = sext i32 %85 to i64
-  %87 = tail call i64 @fwrite(ptr noundef nonnull %81, i64 noundef 1, i64 noundef %86, ptr noundef nonnull %69)
-  %88 = load i32, ptr %79, align 8, !tbaa !24
-  %89 = sext i32 %88 to i64
-  %90 = icmp eq i64 %87, %89
-  br i1 %90, label %94, label %102
+if.end14.i:                                       ; preds = %if.else.i, %if.then.i
+  %next.i = getelementptr inbounds %struct._tagTreeCCStreamBuf, ptr %buffer.029.i, i64 0, i32 1
+  %buffer.0.i = load ptr, ptr %next.i, align 8, !tbaa !17
+  %cmp.not.i = icmp eq ptr %buffer.0.i, null
+  br i1 %cmp.not.i, label %while.end.i, label %while.body.i, !llvm.loop !40
 
-91:                                               ; preds = %80
-  %92 = tail call i64 @fwrite(ptr noundef nonnull %81, i64 noundef 1, i64 noundef 2048, ptr noundef nonnull %69)
-  %93 = icmp eq i64 %92, 2048
-  br i1 %93, label %94, label %102
+while.end.i:                                      ; preds = %if.end14.i, %if.end82
+  %call15.i = tail call i32 @fflush(ptr noundef nonnull %call77)
+  %cmp16.i = icmp eq i32 %call15.i, 0
+  %conv17.i = zext i1 %cmp16.i to i32
+  br label %TreeCCStreamFlushStdio.exit
 
-94:                                               ; preds = %91, %84
-  %95 = getelementptr inbounds %struct._tagTreeCCStreamBuf, ptr %81, i64 0, i32 1
-  %96 = load ptr, ptr %95, align 8, !tbaa !17
-  %97 = icmp eq ptr %96, null
-  br i1 %97, label %98, label %80, !llvm.loop !40
+TreeCCStreamFlushStdio.exit:                      ; preds = %if.then.i, %if.else.i, %while.end.i
+  %retval.0.i = phi i32 [ %conv17.i, %while.end.i ], [ 0, %if.else.i ], [ 0, %if.then.i ]
+  %call84 = tail call i32 @fclose(ptr noundef nonnull %call77)
+  br label %cleanup
 
-98:                                               ; preds = %94, %73
-  %99 = tail call i32 @fflush(ptr noundef nonnull %69)
-  %100 = icmp eq i32 %99, 0
-  %101 = zext i1 %100 to i32
-  br label %102
-
-102:                                              ; preds = %84, %91, %98
-  %103 = phi i32 [ %101, %98 ], [ 0, %91 ], [ 0, %84 ]
-  %104 = tail call i32 @fclose(ptr noundef nonnull %69)
-  br label %105
-
-105:                                              ; preds = %7, %102, %71, %62, %56
-  %106 = phi i32 [ 0, %62 ], [ 0, %71 ], [ %103, %102 ], [ 1, %56 ], [ 1, %7 ]
-  call void @llvm.lifetime.end.p0(i64 2048, ptr nonnull %2) #16
-  ret i32 %106
+cleanup:                                          ; preds = %while.end, %land.lhs.true, %TreeCCStreamFlushStdio.exit, %if.then80, %if.then71
+  %retval.0 = phi i32 [ 0, %if.then71 ], [ 0, %if.then80 ], [ %retval.0.i, %TreeCCStreamFlushStdio.exit ], [ 1, %land.lhs.true ], [ 1, %while.end ]
+  call void @llvm.lifetime.end.p0(i64 2048, ptr nonnull %tempbuf) #16
+  ret i32 %retval.0
 }
 
 ; Function Attrs: nofree nounwind
@@ -623,52 +620,53 @@ declare noundef i32 @fprintf(ptr nocapture noundef, ptr nocapture noundef readon
 declare void @perror(ptr nocapture noundef readonly) local_unnamed_addr #8
 
 ; Function Attrs: nofree nounwind uwtable
-define dso_local i32 @TreeCCStreamFlushStdio(ptr nocapture noundef readonly %0, ptr nocapture noundef %1) local_unnamed_addr #7 {
-  %3 = getelementptr inbounds %struct._tagTreeCCStream, ptr %0, i64 0, i32 4
-  %4 = load ptr, ptr %3, align 8, !tbaa !17
-  %5 = icmp eq ptr %4, null
-  br i1 %5, label %27, label %6
+define dso_local i32 @TreeCCStreamFlushStdio(ptr nocapture noundef readonly %stream, ptr nocapture noundef %file) local_unnamed_addr #7 {
+entry:
+  %firstBuf = getelementptr inbounds %struct._tagTreeCCStream, ptr %stream, i64 0, i32 4
+  %buffer.027 = load ptr, ptr %firstBuf, align 8, !tbaa !17
+  %cmp.not28 = icmp eq ptr %buffer.027, null
+  br i1 %cmp.not28, label %while.end, label %while.body.lr.ph
 
-6:                                                ; preds = %2
-  %7 = getelementptr inbounds %struct._tagTreeCCStream, ptr %0, i64 0, i32 5
-  %8 = getelementptr inbounds %struct._tagTreeCCStream, ptr %0, i64 0, i32 6
-  br label %9
+while.body.lr.ph:                                 ; preds = %entry
+  %lastBuf = getelementptr inbounds %struct._tagTreeCCStream, ptr %stream, i64 0, i32 5
+  %posn = getelementptr inbounds %struct._tagTreeCCStream, ptr %stream, i64 0, i32 6
+  br label %while.body
 
-9:                                                ; preds = %6, %23
-  %10 = phi ptr [ %4, %6 ], [ %25, %23 ]
-  %11 = load ptr, ptr %7, align 8, !tbaa !38
-  %12 = icmp eq ptr %10, %11
-  br i1 %12, label %13, label %20
+while.body:                                       ; preds = %while.body.lr.ph, %if.end14
+  %buffer.029 = phi ptr [ %buffer.027, %while.body.lr.ph ], [ %buffer.0, %if.end14 ]
+  %0 = load ptr, ptr %lastBuf, align 8, !tbaa !38
+  %cmp1 = icmp eq ptr %buffer.029, %0
+  br i1 %cmp1, label %if.then, label %if.else
 
-13:                                               ; preds = %9
-  %14 = load i32, ptr %8, align 8, !tbaa !24
-  %15 = sext i32 %14 to i64
-  %16 = tail call i64 @fwrite(ptr noundef nonnull %10, i64 noundef 1, i64 noundef %15, ptr noundef %1)
-  %17 = load i32, ptr %8, align 8, !tbaa !24
-  %18 = sext i32 %17 to i64
-  %19 = icmp eq i64 %16, %18
-  br i1 %19, label %23, label %31
+if.then:                                          ; preds = %while.body
+  %1 = load i32, ptr %posn, align 8, !tbaa !24
+  %conv = sext i32 %1 to i64
+  %call = tail call i64 @fwrite(ptr noundef nonnull %buffer.029, i64 noundef 1, i64 noundef %conv, ptr noundef %file)
+  %2 = load i32, ptr %posn, align 8, !tbaa !24
+  %conv3 = sext i32 %2 to i64
+  %cmp4.not = icmp eq i64 %call, %conv3
+  br i1 %cmp4.not, label %if.end14, label %cleanup
 
-20:                                               ; preds = %9
-  %21 = tail call i64 @fwrite(ptr noundef nonnull %10, i64 noundef 1, i64 noundef 2048, ptr noundef %1)
-  %22 = icmp eq i64 %21, 2048
-  br i1 %22, label %23, label %31
+if.else:                                          ; preds = %while.body
+  %call9 = tail call i64 @fwrite(ptr noundef nonnull %buffer.029, i64 noundef 1, i64 noundef 2048, ptr noundef %file)
+  %cmp10.not = icmp eq i64 %call9, 2048
+  br i1 %cmp10.not, label %if.end14, label %cleanup
 
-23:                                               ; preds = %20, %13
-  %24 = getelementptr inbounds %struct._tagTreeCCStreamBuf, ptr %10, i64 0, i32 1
-  %25 = load ptr, ptr %24, align 8, !tbaa !17
-  %26 = icmp eq ptr %25, null
-  br i1 %26, label %27, label %9, !llvm.loop !40
+if.end14:                                         ; preds = %if.else, %if.then
+  %next = getelementptr inbounds %struct._tagTreeCCStreamBuf, ptr %buffer.029, i64 0, i32 1
+  %buffer.0 = load ptr, ptr %next, align 8, !tbaa !17
+  %cmp.not = icmp eq ptr %buffer.0, null
+  br i1 %cmp.not, label %while.end, label %while.body, !llvm.loop !40
 
-27:                                               ; preds = %23, %2
-  %28 = tail call i32 @fflush(ptr noundef %1)
-  %29 = icmp eq i32 %28, 0
-  %30 = zext i1 %29 to i32
-  br label %31
+while.end:                                        ; preds = %if.end14, %entry
+  %call15 = tail call i32 @fflush(ptr noundef %file)
+  %cmp16 = icmp eq i32 %call15, 0
+  %conv17 = zext i1 %cmp16 to i32
+  br label %cleanup
 
-31:                                               ; preds = %20, %13, %27
-  %32 = phi i32 [ %30, %27 ], [ 0, %13 ], [ 0, %20 ]
-  ret i32 %32
+cleanup:                                          ; preds = %if.else, %if.then, %while.end
+  %retval.0 = phi i32 [ %conv17, %while.end ], [ 0, %if.then ], [ 0, %if.else ]
+  ret i32 %retval.0
 }
 
 ; Function Attrs: nofree nounwind
@@ -678,103 +676,104 @@ declare noundef i64 @fwrite(ptr nocapture noundef, i64 noundef, i64 noundef, ptr
 declare noundef i32 @fflush(ptr nocapture noundef) local_unnamed_addr #8
 
 ; Function Attrs: nounwind uwtable
-define dso_local void @TreeCCStreamPrint(ptr nocapture noundef %0, ptr nocapture noundef readonly %1, ...) local_unnamed_addr #0 {
-  %3 = alloca [4096 x i8], align 16
-  %4 = alloca [1 x %struct.__va_list_tag], align 16
-  call void @llvm.lifetime.start.p0(i64 4096, ptr nonnull %3) #16
-  call void @llvm.lifetime.start.p0(i64 24, ptr nonnull %4) #16
-  call void @llvm.va_start(ptr nonnull %4)
-  %5 = call i32 @vsnprintf(ptr noundef nonnull %3, i64 noundef 4096, ptr noundef %1, ptr noundef nonnull %4) #16
-  call void @llvm.va_end(ptr nonnull %4)
-  %6 = call i64 @strlen(ptr noundef nonnull dereferenceable(1) %3) #14
-  %7 = trunc i64 %6 to i32
-  %8 = getelementptr inbounds %struct._tagTreeCCStream, ptr %0, i64 0, i32 7
-  %9 = load i8, ptr %8, align 4
-  %10 = or i8 %9, 16
-  store i8 %10, ptr %8, align 4
-  %11 = icmp sgt i32 %7, 0
-  br i1 %11, label %12, label %48
+define dso_local void @TreeCCStreamPrint(ptr nocapture noundef %stream, ptr nocapture noundef readonly %format, ...) local_unnamed_addr #0 {
+entry:
+  %tempbuf = alloca [4096 x i8], align 16
+  %va = alloca [1 x %struct.__va_list_tag], align 16
+  call void @llvm.lifetime.start.p0(i64 4096, ptr nonnull %tempbuf) #16
+  call void @llvm.lifetime.start.p0(i64 24, ptr nonnull %va) #16
+  call void @llvm.va_start(ptr nonnull %va)
+  %call = call i32 @vsnprintf(ptr noundef nonnull %tempbuf, i64 noundef 4096, ptr noundef %format, ptr noundef nonnull %va) #16
+  call void @llvm.va_end(ptr nonnull %va)
+  %call.i = call i64 @strlen(ptr noundef nonnull dereferenceable(1) %tempbuf) #14
+  %conv.i = trunc i64 %call.i to i32
+  %dirty.i = getelementptr inbounds %struct._tagTreeCCStream, ptr %stream, i64 0, i32 7
+  %bf.load.i = load i8, ptr %dirty.i, align 4
+  %bf.set.i = or i8 %bf.load.i, 16
+  store i8 %bf.set.i, ptr %dirty.i, align 4
+  %cmp52.i = icmp sgt i32 %conv.i, 0
+  br i1 %cmp52.i, label %while.body.lr.ph.i, label %WriteBuffer.exit
 
-12:                                               ; preds = %2
-  %13 = getelementptr inbounds %struct._tagTreeCCStream, ptr %0, i64 0, i32 6
-  %14 = getelementptr inbounds %struct._tagTreeCCStream, ptr %0, i64 0, i32 5
-  %15 = getelementptr inbounds %struct._tagTreeCCStream, ptr %0, i64 0, i32 4
-  %16 = load i32, ptr %13, align 8, !tbaa !24
-  br label %17
+while.body.lr.ph.i:                               ; preds = %entry
+  %posn.i = getelementptr inbounds %struct._tagTreeCCStream, ptr %stream, i64 0, i32 6
+  %lastBuf14.i = getelementptr inbounds %struct._tagTreeCCStream, ptr %stream, i64 0, i32 5
+  %firstBuf.i = getelementptr inbounds %struct._tagTreeCCStream, ptr %stream, i64 0, i32 4
+  %.pre.i = load i32, ptr %posn.i, align 8, !tbaa !24
+  br label %while.body.i
 
-17:                                               ; preds = %35, %12
-  %18 = phi i32 [ %16, %12 ], [ %46, %35 ]
-  %19 = phi i32 [ %7, %12 ], [ %44, %35 ]
-  %20 = phi ptr [ %3, %12 ], [ %43, %35 ]
-  %21 = icmp sgt i32 %18, 2047
-  br i1 %21, label %22, label %32
+while.body.i:                                     ; preds = %if.end16.i, %while.body.lr.ph.i
+  %0 = phi i32 [ %.pre.i, %while.body.lr.ph.i ], [ %add.i, %if.end16.i ]
+  %len.054.i = phi i32 [ %conv.i, %while.body.lr.ph.i ], [ %sub25.i, %if.end16.i ]
+  %buf.addr.053.i = phi ptr [ %tempbuf, %while.body.lr.ph.i ], [ %add.ptr24.i, %if.end16.i ]
+  %cmp2.i = icmp sgt i32 %0, 2047
+  br i1 %cmp2.i, label %if.then.i, label %if.else13.i
 
-22:                                               ; preds = %17
-  %23 = call noalias dereferenceable_or_null(2056) ptr @malloc(i64 noundef 2056) #15
-  %24 = icmp eq ptr %23, null
-  br i1 %24, label %25, label %26
+if.then.i:                                        ; preds = %while.body.i
+  %call4.i = call noalias dereferenceable_or_null(2056) ptr @malloc(i64 noundef 2056) #15
+  %tobool.not.i = icmp eq ptr %call4.i, null
+  br i1 %tobool.not.i, label %if.then5.i, label %if.end.i
 
-25:                                               ; preds = %22
+if.then5.i:                                       ; preds = %if.then.i
   call void @TreeCCOutOfMemory(ptr noundef null) #16
-  br label %26
+  br label %if.end.i
 
-26:                                               ; preds = %25, %22
-  %27 = getelementptr inbounds %struct._tagTreeCCStreamBuf, ptr %23, i64 0, i32 1
-  store ptr null, ptr %27, align 8, !tbaa !29
-  %28 = load ptr, ptr %14, align 8, !tbaa !38
-  %29 = icmp eq ptr %28, null
-  %30 = getelementptr inbounds %struct._tagTreeCCStreamBuf, ptr %28, i64 0, i32 1
-  %31 = select i1 %29, ptr %15, ptr %30
-  store ptr %23, ptr %31, align 8, !tbaa !17
-  store ptr %23, ptr %14, align 8, !tbaa !38
-  store i32 0, ptr %13, align 8, !tbaa !24
-  br label %35
+if.end.i:                                         ; preds = %if.then5.i, %if.then.i
+  %next.i = getelementptr inbounds %struct._tagTreeCCStreamBuf, ptr %call4.i, i64 0, i32 1
+  store ptr null, ptr %next.i, align 8, !tbaa !29
+  %1 = load ptr, ptr %lastBuf14.i, align 8, !tbaa !38
+  %tobool6.not.i = icmp eq ptr %1, null
+  %next9.i = getelementptr inbounds %struct._tagTreeCCStreamBuf, ptr %1, i64 0, i32 1
+  %firstBuf.sink.i = select i1 %tobool6.not.i, ptr %firstBuf.i, ptr %next9.i
+  store ptr %call4.i, ptr %firstBuf.sink.i, align 8, !tbaa !17
+  store ptr %call4.i, ptr %lastBuf14.i, align 8, !tbaa !38
+  store i32 0, ptr %posn.i, align 8, !tbaa !24
+  br label %if.end16.i
 
-32:                                               ; preds = %17
-  %33 = load ptr, ptr %14, align 8, !tbaa !38
-  %34 = sub nsw i32 2048, %18
-  br label %35
+if.else13.i:                                      ; preds = %while.body.i
+  %2 = load ptr, ptr %lastBuf14.i, align 8, !tbaa !38
+  %sub.i = sub nsw i32 2048, %0
+  br label %if.end16.i
 
-35:                                               ; preds = %32, %26
-  %36 = phi i32 [ 0, %26 ], [ %18, %32 ]
-  %37 = phi i32 [ 2048, %26 ], [ %34, %32 ]
-  %38 = phi ptr [ %23, %26 ], [ %33, %32 ]
-  %39 = call i32 @llvm.umin.i32(i32 %37, i32 %19)
-  %40 = sext i32 %36 to i64
-  %41 = getelementptr inbounds i8, ptr %38, i64 %40
-  %42 = zext i32 %39 to i64
-  call void @llvm.memcpy.p0.p0.i64(ptr align 1 %41, ptr align 1 %20, i64 %42, i1 false)
-  %43 = getelementptr inbounds i8, ptr %20, i64 %42
-  %44 = sub nsw i32 %19, %39
-  %45 = load i32, ptr %13, align 8, !tbaa !24
-  %46 = add nsw i32 %45, %39
-  store i32 %46, ptr %13, align 8, !tbaa !24
-  %47 = icmp sgt i32 %44, 0
-  br i1 %47, label %17, label %48, !llvm.loop !41
+if.end16.i:                                       ; preds = %if.else13.i, %if.end.i
+  %3 = phi i32 [ 0, %if.end.i ], [ %0, %if.else13.i ]
+  %templen.0.i = phi i32 [ 2048, %if.end.i ], [ %sub.i, %if.else13.i ]
+  %buffer.0.i = phi ptr [ %call4.i, %if.end.i ], [ %2, %if.else13.i ]
+  %spec.select.i = call i32 @llvm.umin.i32(i32 %templen.0.i, i32 %len.054.i)
+  %idx.ext.i = sext i32 %3 to i64
+  %add.ptr.i = getelementptr inbounds i8, ptr %buffer.0.i, i64 %idx.ext.i
+  %conv22.i = zext i32 %spec.select.i to i64
+  call void @llvm.memcpy.p0.p0.i64(ptr align 1 %add.ptr.i, ptr align 1 %buf.addr.053.i, i64 %conv22.i, i1 false)
+  %add.ptr24.i = getelementptr inbounds i8, ptr %buf.addr.053.i, i64 %conv22.i
+  %sub25.i = sub nsw i32 %len.054.i, %spec.select.i
+  %4 = load i32, ptr %posn.i, align 8, !tbaa !24
+  %add.i = add nsw i32 %4, %spec.select.i
+  store i32 %add.i, ptr %posn.i, align 8, !tbaa !24
+  %cmp.i = icmp sgt i32 %sub25.i, 0
+  br i1 %cmp.i, label %while.body.i, label %WriteBuffer.exit, !llvm.loop !41
 
-48:                                               ; preds = %35, %2
-  %49 = call ptr @strchr(ptr noundef nonnull dereferenceable(1) %3, i32 noundef 10) #14
-  %50 = icmp eq ptr %49, null
-  br i1 %50, label %61, label %51
+WriteBuffer.exit:                                 ; preds = %if.end16.i, %entry
+  %call2.i = call ptr @strchr(ptr noundef nonnull dereferenceable(1) %tempbuf, i32 noundef 10) #14
+  %cmp.not3.i = icmp eq ptr %call2.i, null
+  br i1 %cmp.not3.i, label %UpdateLineNum.exit, label %while.body.lr.ph.i7
 
-51:                                               ; preds = %48
-  %52 = getelementptr inbounds %struct._tagTreeCCStream, ptr %0, i64 0, i32 3
-  %53 = load i64, ptr %52, align 8, !tbaa !23
-  br label %54
+while.body.lr.ph.i7:                              ; preds = %WriteBuffer.exit
+  %linenum.i = getelementptr inbounds %struct._tagTreeCCStream, ptr %stream, i64 0, i32 3
+  %linenum.promoted.i = load i64, ptr %linenum.i, align 8, !tbaa !23
+  br label %while.body.i10
 
-54:                                               ; preds = %54, %51
-  %55 = phi i64 [ %53, %51 ], [ %58, %54 ]
-  %56 = phi ptr [ %49, %51 ], [ %59, %54 ]
-  %57 = getelementptr inbounds i8, ptr %56, i64 1
-  %58 = add nsw i64 %55, 1
-  store i64 %58, ptr %52, align 8, !tbaa !23
-  %59 = call ptr @strchr(ptr noundef nonnull dereferenceable(1) %57, i32 noundef 10) #14
-  %60 = icmp eq ptr %59, null
-  br i1 %60, label %61, label %54, !llvm.loop !42
+while.body.i10:                                   ; preds = %while.body.i10, %while.body.lr.ph.i7
+  %inc5.i = phi i64 [ %linenum.promoted.i, %while.body.lr.ph.i7 ], [ %inc.i, %while.body.i10 ]
+  %call4.i8 = phi ptr [ %call2.i, %while.body.lr.ph.i7 ], [ %call.i9, %while.body.i10 ]
+  %incdec.ptr.i = getelementptr inbounds i8, ptr %call4.i8, i64 1
+  %inc.i = add nsw i64 %inc5.i, 1
+  store i64 %inc.i, ptr %linenum.i, align 8, !tbaa !23
+  %call.i9 = call ptr @strchr(ptr noundef nonnull dereferenceable(1) %incdec.ptr.i, i32 noundef 10) #14
+  %cmp.not.i = icmp eq ptr %call.i9, null
+  br i1 %cmp.not.i, label %UpdateLineNum.exit, label %while.body.i10, !llvm.loop !42
 
-61:                                               ; preds = %54, %48
-  call void @llvm.lifetime.end.p0(i64 24, ptr nonnull %4) #16
-  call void @llvm.lifetime.end.p0(i64 4096, ptr nonnull %3) #16
+UpdateLineNum.exit:                               ; preds = %while.body.i10, %WriteBuffer.exit
+  call void @llvm.lifetime.end.p0(i64 24, ptr nonnull %va) #16
+  call void @llvm.lifetime.end.p0(i64 4096, ptr nonnull %tempbuf) #16
   ret void
 }
 
@@ -788,1376 +787,1372 @@ declare noundef i32 @vsnprintf(ptr nocapture noundef, i64 noundef, ptr nocapture
 declare void @llvm.va_end(ptr) #9
 
 ; Function Attrs: nounwind uwtable
-define dso_local void @TreeCCStreamCode(ptr nocapture noundef %0, ptr noundef readonly %1) local_unnamed_addr #0 {
-  %3 = tail call i64 @strlen(ptr noundef nonnull dereferenceable(1) %1) #14
-  %4 = trunc i64 %3 to i32
-  %5 = getelementptr inbounds %struct._tagTreeCCStream, ptr %0, i64 0, i32 7
-  %6 = load i8, ptr %5, align 4
-  %7 = or i8 %6, 16
-  store i8 %7, ptr %5, align 4
-  %8 = icmp sgt i32 %4, 0
-  br i1 %8, label %9, label %45
+define dso_local void @TreeCCStreamCode(ptr nocapture noundef %stream, ptr noundef readonly %code) local_unnamed_addr #0 {
+entry:
+  %call.i = tail call i64 @strlen(ptr noundef nonnull dereferenceable(1) %code) #14
+  %conv.i = trunc i64 %call.i to i32
+  %dirty.i = getelementptr inbounds %struct._tagTreeCCStream, ptr %stream, i64 0, i32 7
+  %bf.load.i = load i8, ptr %dirty.i, align 4
+  %bf.set.i = or i8 %bf.load.i, 16
+  store i8 %bf.set.i, ptr %dirty.i, align 4
+  %cmp52.i = icmp sgt i32 %conv.i, 0
+  br i1 %cmp52.i, label %while.body.lr.ph.i, label %WriteBuffer.exit
 
-9:                                                ; preds = %2
-  %10 = getelementptr inbounds %struct._tagTreeCCStream, ptr %0, i64 0, i32 6
-  %11 = getelementptr inbounds %struct._tagTreeCCStream, ptr %0, i64 0, i32 5
-  %12 = getelementptr inbounds %struct._tagTreeCCStream, ptr %0, i64 0, i32 4
-  %13 = load i32, ptr %10, align 8, !tbaa !24
-  br label %14
+while.body.lr.ph.i:                               ; preds = %entry
+  %posn.i = getelementptr inbounds %struct._tagTreeCCStream, ptr %stream, i64 0, i32 6
+  %lastBuf14.i = getelementptr inbounds %struct._tagTreeCCStream, ptr %stream, i64 0, i32 5
+  %firstBuf.i = getelementptr inbounds %struct._tagTreeCCStream, ptr %stream, i64 0, i32 4
+  %.pre.i = load i32, ptr %posn.i, align 8, !tbaa !24
+  br label %while.body.i
 
-14:                                               ; preds = %32, %9
-  %15 = phi i32 [ %13, %9 ], [ %43, %32 ]
-  %16 = phi i32 [ %4, %9 ], [ %41, %32 ]
-  %17 = phi ptr [ %1, %9 ], [ %40, %32 ]
-  %18 = icmp sgt i32 %15, 2047
-  br i1 %18, label %19, label %29
+while.body.i:                                     ; preds = %if.end16.i, %while.body.lr.ph.i
+  %0 = phi i32 [ %.pre.i, %while.body.lr.ph.i ], [ %add.i, %if.end16.i ]
+  %len.054.i = phi i32 [ %conv.i, %while.body.lr.ph.i ], [ %sub25.i, %if.end16.i ]
+  %buf.addr.053.i = phi ptr [ %code, %while.body.lr.ph.i ], [ %add.ptr24.i, %if.end16.i ]
+  %cmp2.i = icmp sgt i32 %0, 2047
+  br i1 %cmp2.i, label %if.then.i, label %if.else13.i
 
-19:                                               ; preds = %14
-  %20 = tail call noalias dereferenceable_or_null(2056) ptr @malloc(i64 noundef 2056) #15
-  %21 = icmp eq ptr %20, null
-  br i1 %21, label %22, label %23
+if.then.i:                                        ; preds = %while.body.i
+  %call4.i = tail call noalias dereferenceable_or_null(2056) ptr @malloc(i64 noundef 2056) #15
+  %tobool.not.i = icmp eq ptr %call4.i, null
+  br i1 %tobool.not.i, label %if.then5.i, label %if.end.i
 
-22:                                               ; preds = %19
+if.then5.i:                                       ; preds = %if.then.i
   tail call void @TreeCCOutOfMemory(ptr noundef null) #16
-  br label %23
+  br label %if.end.i
 
-23:                                               ; preds = %22, %19
-  %24 = getelementptr inbounds %struct._tagTreeCCStreamBuf, ptr %20, i64 0, i32 1
-  store ptr null, ptr %24, align 8, !tbaa !29
-  %25 = load ptr, ptr %11, align 8, !tbaa !38
-  %26 = icmp eq ptr %25, null
-  %27 = getelementptr inbounds %struct._tagTreeCCStreamBuf, ptr %25, i64 0, i32 1
-  %28 = select i1 %26, ptr %12, ptr %27
-  store ptr %20, ptr %28, align 8, !tbaa !17
-  store ptr %20, ptr %11, align 8, !tbaa !38
-  store i32 0, ptr %10, align 8, !tbaa !24
-  br label %32
+if.end.i:                                         ; preds = %if.then5.i, %if.then.i
+  %next.i = getelementptr inbounds %struct._tagTreeCCStreamBuf, ptr %call4.i, i64 0, i32 1
+  store ptr null, ptr %next.i, align 8, !tbaa !29
+  %1 = load ptr, ptr %lastBuf14.i, align 8, !tbaa !38
+  %tobool6.not.i = icmp eq ptr %1, null
+  %next9.i = getelementptr inbounds %struct._tagTreeCCStreamBuf, ptr %1, i64 0, i32 1
+  %firstBuf.sink.i = select i1 %tobool6.not.i, ptr %firstBuf.i, ptr %next9.i
+  store ptr %call4.i, ptr %firstBuf.sink.i, align 8, !tbaa !17
+  store ptr %call4.i, ptr %lastBuf14.i, align 8, !tbaa !38
+  store i32 0, ptr %posn.i, align 8, !tbaa !24
+  br label %if.end16.i
 
-29:                                               ; preds = %14
-  %30 = load ptr, ptr %11, align 8, !tbaa !38
-  %31 = sub nsw i32 2048, %15
-  br label %32
+if.else13.i:                                      ; preds = %while.body.i
+  %2 = load ptr, ptr %lastBuf14.i, align 8, !tbaa !38
+  %sub.i = sub nsw i32 2048, %0
+  br label %if.end16.i
 
-32:                                               ; preds = %29, %23
-  %33 = phi i32 [ 0, %23 ], [ %15, %29 ]
-  %34 = phi i32 [ 2048, %23 ], [ %31, %29 ]
-  %35 = phi ptr [ %20, %23 ], [ %30, %29 ]
-  %36 = tail call i32 @llvm.umin.i32(i32 %34, i32 %16)
-  %37 = sext i32 %33 to i64
-  %38 = getelementptr inbounds i8, ptr %35, i64 %37
-  %39 = zext i32 %36 to i64
-  tail call void @llvm.memcpy.p0.p0.i64(ptr align 1 %38, ptr align 1 %17, i64 %39, i1 false)
-  %40 = getelementptr inbounds i8, ptr %17, i64 %39
-  %41 = sub nsw i32 %16, %36
-  %42 = load i32, ptr %10, align 8, !tbaa !24
-  %43 = add nsw i32 %42, %36
-  store i32 %43, ptr %10, align 8, !tbaa !24
-  %44 = icmp sgt i32 %41, 0
-  br i1 %44, label %14, label %45, !llvm.loop !41
+if.end16.i:                                       ; preds = %if.else13.i, %if.end.i
+  %3 = phi i32 [ 0, %if.end.i ], [ %0, %if.else13.i ]
+  %templen.0.i = phi i32 [ 2048, %if.end.i ], [ %sub.i, %if.else13.i ]
+  %buffer.0.i = phi ptr [ %call4.i, %if.end.i ], [ %2, %if.else13.i ]
+  %spec.select.i = tail call i32 @llvm.umin.i32(i32 %templen.0.i, i32 %len.054.i)
+  %idx.ext.i = sext i32 %3 to i64
+  %add.ptr.i = getelementptr inbounds i8, ptr %buffer.0.i, i64 %idx.ext.i
+  %conv22.i = zext i32 %spec.select.i to i64
+  tail call void @llvm.memcpy.p0.p0.i64(ptr align 1 %add.ptr.i, ptr align 1 %buf.addr.053.i, i64 %conv22.i, i1 false)
+  %add.ptr24.i = getelementptr inbounds i8, ptr %buf.addr.053.i, i64 %conv22.i
+  %sub25.i = sub nsw i32 %len.054.i, %spec.select.i
+  %4 = load i32, ptr %posn.i, align 8, !tbaa !24
+  %add.i = add nsw i32 %4, %spec.select.i
+  store i32 %add.i, ptr %posn.i, align 8, !tbaa !24
+  %cmp.i = icmp sgt i32 %sub25.i, 0
+  br i1 %cmp.i, label %while.body.i, label %WriteBuffer.exit, !llvm.loop !41
 
-45:                                               ; preds = %32, %2
-  %46 = tail call ptr @strchr(ptr noundef nonnull dereferenceable(1) %1, i32 noundef 10) #14
-  %47 = icmp eq ptr %46, null
-  br i1 %47, label %58, label %48
+WriteBuffer.exit:                                 ; preds = %if.end16.i, %entry
+  %call2.i = tail call ptr @strchr(ptr noundef nonnull dereferenceable(1) %code, i32 noundef 10) #14
+  %cmp.not3.i = icmp eq ptr %call2.i, null
+  br i1 %cmp.not3.i, label %UpdateLineNum.exit, label %while.body.lr.ph.i3
 
-48:                                               ; preds = %45
-  %49 = getelementptr inbounds %struct._tagTreeCCStream, ptr %0, i64 0, i32 3
-  %50 = load i64, ptr %49, align 8, !tbaa !23
-  br label %51
+while.body.lr.ph.i3:                              ; preds = %WriteBuffer.exit
+  %linenum.i = getelementptr inbounds %struct._tagTreeCCStream, ptr %stream, i64 0, i32 3
+  %linenum.promoted.i = load i64, ptr %linenum.i, align 8, !tbaa !23
+  br label %while.body.i6
 
-51:                                               ; preds = %51, %48
-  %52 = phi i64 [ %50, %48 ], [ %55, %51 ]
-  %53 = phi ptr [ %46, %48 ], [ %56, %51 ]
-  %54 = getelementptr inbounds i8, ptr %53, i64 1
-  %55 = add nsw i64 %52, 1
-  store i64 %55, ptr %49, align 8, !tbaa !23
-  %56 = tail call ptr @strchr(ptr noundef nonnull dereferenceable(1) %54, i32 noundef 10) #14
-  %57 = icmp eq ptr %56, null
-  br i1 %57, label %58, label %51, !llvm.loop !42
+while.body.i6:                                    ; preds = %while.body.i6, %while.body.lr.ph.i3
+  %inc5.i = phi i64 [ %linenum.promoted.i, %while.body.lr.ph.i3 ], [ %inc.i, %while.body.i6 ]
+  %call4.i4 = phi ptr [ %call2.i, %while.body.lr.ph.i3 ], [ %call.i5, %while.body.i6 ]
+  %incdec.ptr.i = getelementptr inbounds i8, ptr %call4.i4, i64 1
+  %inc.i = add nsw i64 %inc5.i, 1
+  store i64 %inc.i, ptr %linenum.i, align 8, !tbaa !23
+  %call.i5 = tail call ptr @strchr(ptr noundef nonnull dereferenceable(1) %incdec.ptr.i, i32 noundef 10) #14
+  %cmp.not.i = icmp eq ptr %call.i5, null
+  br i1 %cmp.not.i, label %UpdateLineNum.exit, label %while.body.i6, !llvm.loop !42
 
-58:                                               ; preds = %51, %45
+UpdateLineNum.exit:                               ; preds = %while.body.i6, %WriteBuffer.exit
   ret void
 }
 
 ; Function Attrs: nounwind uwtable
-define dso_local void @TreeCCStreamCodeIndent(ptr nocapture noundef %0, ptr nocapture noundef readonly %1, i32 noundef %2) local_unnamed_addr #0 {
-  %4 = alloca [2 x i8], align 1
-  %5 = alloca [2 x i8], align 1
-  %6 = load i8, ptr %1, align 1, !tbaa !5
-  %7 = icmp eq i8 %6, 0
-  br i1 %7, label %129, label %8
+define dso_local void @TreeCCStreamCodeIndent(ptr nocapture noundef %stream, ptr nocapture noundef readonly %code, i32 noundef %indent) local_unnamed_addr #0 {
+entry:
+  %buf.i50 = alloca [2 x i8], align 1
+  %buf.i = alloca [2 x i8], align 1
+  %0 = load i8, ptr %code, align 1, !tbaa !5
+  %cmp.not92 = icmp eq i8 %0, 0
+  br i1 %cmp.not92, label %while.end, label %do.body.lr.ph
 
-8:                                                ; preds = %3
-  %9 = getelementptr inbounds %struct._tagTreeCCStream, ptr %0, i64 0, i32 6
-  %10 = getelementptr inbounds [2 x i8], ptr %5, i64 0, i64 1
-  %11 = getelementptr inbounds %struct._tagTreeCCStream, ptr %0, i64 0, i32 7
-  %12 = getelementptr inbounds %struct._tagTreeCCStream, ptr %0, i64 0, i32 5
-  %13 = getelementptr inbounds %struct._tagTreeCCStream, ptr %0, i64 0, i32 4
-  %14 = getelementptr inbounds %struct._tagTreeCCStream, ptr %0, i64 0, i32 3
-  %15 = icmp sgt i32 %2, 0
-  %16 = getelementptr inbounds [2 x i8], ptr %4, i64 0, i64 1
-  br label %17
+do.body.lr.ph:                                    ; preds = %entry
+  %posn = getelementptr inbounds %struct._tagTreeCCStream, ptr %stream, i64 0, i32 6
+  %arrayidx1.i = getelementptr inbounds [2 x i8], ptr %buf.i, i64 0, i64 1
+  %dirty.i.i = getelementptr inbounds %struct._tagTreeCCStream, ptr %stream, i64 0, i32 7
+  %lastBuf14.i.i = getelementptr inbounds %struct._tagTreeCCStream, ptr %stream, i64 0, i32 5
+  %firstBuf.i.i = getelementptr inbounds %struct._tagTreeCCStream, ptr %stream, i64 0, i32 4
+  %linenum = getelementptr inbounds %struct._tagTreeCCStream, ptr %stream, i64 0, i32 3
+  %cmp1190 = icmp sgt i32 %indent, 0
+  %arrayidx1.i51 = getelementptr inbounds [2 x i8], ptr %buf.i50, i64 0, i64 1
+  br label %do.body
 
-17:                                               ; preds = %8, %125
-  %18 = phi i8 [ %6, %8 ], [ %127, %125 ]
-  %19 = phi ptr [ %1, %8 ], [ %126, %125 ]
-  %20 = load i32, ptr %9, align 8, !tbaa !24
-  %21 = icmp slt i32 %20, 2048
-  br i1 %21, label %22, label %29
+do.body:                                          ; preds = %do.body.lr.ph, %if.end33
+  %1 = phi i8 [ %0, %do.body.lr.ph ], [ %18, %if.end33 ]
+  %code.addr.093 = phi ptr [ %code, %do.body.lr.ph ], [ %incdec.ptr, %if.end33 ]
+  %2 = load i32, ptr %posn, align 8, !tbaa !24
+  %cmp2 = icmp slt i32 %2, 2048
+  br i1 %cmp2, label %if.then, label %if.else
 
-22:                                               ; preds = %17
-  %23 = load ptr, ptr %12, align 8, !tbaa !38
-  %24 = add nsw i32 %20, 1
-  store i32 %24, ptr %9, align 8, !tbaa !24
-  %25 = sext i32 %20 to i64
-  %26 = getelementptr inbounds [2048 x i8], ptr %23, i64 0, i64 %25
-  store i8 %18, ptr %26, align 1, !tbaa !5
-  %27 = load i8, ptr %11, align 4
-  %28 = or i8 %27, 16
-  store i8 %28, ptr %11, align 4
-  br label %67
+if.then:                                          ; preds = %do.body
+  %3 = load ptr, ptr %lastBuf14.i.i, align 8, !tbaa !38
+  %inc = add nsw i32 %2, 1
+  store i32 %inc, ptr %posn, align 8, !tbaa !24
+  %idxprom = sext i32 %2 to i64
+  %arrayidx = getelementptr inbounds [2048 x i8], ptr %3, i64 0, i64 %idxprom
+  store i8 %1, ptr %arrayidx, align 1, !tbaa !5
+  %bf.load = load i8, ptr %dirty.i.i, align 4
+  %bf.set = or i8 %bf.load, 16
+  store i8 %bf.set, ptr %dirty.i.i, align 4
+  br label %do.end
 
-29:                                               ; preds = %17
-  call void @llvm.lifetime.start.p0(i64 2, ptr nonnull %5) #16
-  store i8 %18, ptr %5, align 1, !tbaa !5
-  store i8 0, ptr %10, align 1, !tbaa !5
-  %30 = call i64 @strlen(ptr noundef nonnull dereferenceable(1) %5) #14
-  %31 = trunc i64 %30 to i32
-  %32 = load i8, ptr %11, align 4
-  %33 = or i8 %32, 16
-  store i8 %33, ptr %11, align 4
-  %34 = icmp sgt i32 %31, 0
-  br i1 %34, label %35, label %66
+if.else:                                          ; preds = %do.body
+  call void @llvm.lifetime.start.p0(i64 2, ptr nonnull %buf.i) #16
+  store i8 %1, ptr %buf.i, align 1, !tbaa !5
+  store i8 0, ptr %arrayidx1.i, align 1, !tbaa !5
+  %call.i.i = call i64 @strlen(ptr noundef nonnull dereferenceable(1) %buf.i) #14
+  %conv.i.i = trunc i64 %call.i.i to i32
+  %bf.load.i.i = load i8, ptr %dirty.i.i, align 4
+  %bf.set.i.i = or i8 %bf.load.i.i, 16
+  store i8 %bf.set.i.i, ptr %dirty.i.i, align 4
+  %cmp52.i.i = icmp sgt i32 %conv.i.i, 0
+  br i1 %cmp52.i.i, label %while.body.i.i, label %_StreamPut.exit
 
-35:                                               ; preds = %29, %53
-  %36 = phi i32 [ %64, %53 ], [ %20, %29 ]
-  %37 = phi i32 [ %62, %53 ], [ %31, %29 ]
-  %38 = phi ptr [ %61, %53 ], [ %5, %29 ]
-  %39 = icmp sgt i32 %36, 2047
-  br i1 %39, label %40, label %50
+while.body.i.i:                                   ; preds = %if.else, %if.end16.i.i
+  %4 = phi i32 [ %add.i.i, %if.end16.i.i ], [ %2, %if.else ]
+  %len.054.i.i = phi i32 [ %sub25.i.i, %if.end16.i.i ], [ %conv.i.i, %if.else ]
+  %buf.addr.053.i.i = phi ptr [ %add.ptr24.i.i, %if.end16.i.i ], [ %buf.i, %if.else ]
+  %cmp2.i.i = icmp sgt i32 %4, 2047
+  br i1 %cmp2.i.i, label %if.then.i.i, label %if.else13.i.i
 
-40:                                               ; preds = %35
-  %41 = tail call noalias dereferenceable_or_null(2056) ptr @malloc(i64 noundef 2056) #15
-  %42 = icmp eq ptr %41, null
-  br i1 %42, label %43, label %44
+if.then.i.i:                                      ; preds = %while.body.i.i
+  %call4.i.i = tail call noalias dereferenceable_or_null(2056) ptr @malloc(i64 noundef 2056) #15
+  %tobool.not.i.i = icmp eq ptr %call4.i.i, null
+  br i1 %tobool.not.i.i, label %if.then5.i.i, label %if.end.i.i
 
-43:                                               ; preds = %40
+if.then5.i.i:                                     ; preds = %if.then.i.i
   tail call void @TreeCCOutOfMemory(ptr noundef null) #16
-  br label %44
+  br label %if.end.i.i
 
-44:                                               ; preds = %43, %40
-  %45 = getelementptr inbounds %struct._tagTreeCCStreamBuf, ptr %41, i64 0, i32 1
-  store ptr null, ptr %45, align 8, !tbaa !29
-  %46 = load ptr, ptr %12, align 8, !tbaa !38
-  %47 = icmp eq ptr %46, null
-  %48 = getelementptr inbounds %struct._tagTreeCCStreamBuf, ptr %46, i64 0, i32 1
-  %49 = select i1 %47, ptr %13, ptr %48
-  store ptr %41, ptr %49, align 8, !tbaa !17
-  store ptr %41, ptr %12, align 8, !tbaa !38
-  store i32 0, ptr %9, align 8, !tbaa !24
-  br label %53
+if.end.i.i:                                       ; preds = %if.then5.i.i, %if.then.i.i
+  %next.i.i = getelementptr inbounds %struct._tagTreeCCStreamBuf, ptr %call4.i.i, i64 0, i32 1
+  store ptr null, ptr %next.i.i, align 8, !tbaa !29
+  %5 = load ptr, ptr %lastBuf14.i.i, align 8, !tbaa !38
+  %tobool6.not.i.i = icmp eq ptr %5, null
+  %next9.i.i = getelementptr inbounds %struct._tagTreeCCStreamBuf, ptr %5, i64 0, i32 1
+  %firstBuf.sink.i.i = select i1 %tobool6.not.i.i, ptr %firstBuf.i.i, ptr %next9.i.i
+  store ptr %call4.i.i, ptr %firstBuf.sink.i.i, align 8, !tbaa !17
+  store ptr %call4.i.i, ptr %lastBuf14.i.i, align 8, !tbaa !38
+  store i32 0, ptr %posn, align 8, !tbaa !24
+  br label %if.end16.i.i
 
-50:                                               ; preds = %35
-  %51 = load ptr, ptr %12, align 8, !tbaa !38
-  %52 = sub nsw i32 2048, %36
-  br label %53
+if.else13.i.i:                                    ; preds = %while.body.i.i
+  %6 = load ptr, ptr %lastBuf14.i.i, align 8, !tbaa !38
+  %sub.i.i = sub nsw i32 2048, %4
+  br label %if.end16.i.i
 
-53:                                               ; preds = %50, %44
-  %54 = phi i32 [ 0, %44 ], [ %36, %50 ]
-  %55 = phi i32 [ 2048, %44 ], [ %52, %50 ]
-  %56 = phi ptr [ %41, %44 ], [ %51, %50 ]
-  %57 = tail call i32 @llvm.umin.i32(i32 %55, i32 %37)
-  %58 = sext i32 %54 to i64
-  %59 = getelementptr inbounds i8, ptr %56, i64 %58
-  %60 = zext i32 %57 to i64
-  call void @llvm.memcpy.p0.p0.i64(ptr align 1 %59, ptr align 1 %38, i64 %60, i1 false)
-  %61 = getelementptr inbounds i8, ptr %38, i64 %60
-  %62 = sub nsw i32 %37, %57
-  %63 = load i32, ptr %9, align 8, !tbaa !24
-  %64 = add nsw i32 %63, %57
-  store i32 %64, ptr %9, align 8, !tbaa !24
-  %65 = icmp sgt i32 %62, 0
-  br i1 %65, label %35, label %66, !llvm.loop !41
+if.end16.i.i:                                     ; preds = %if.else13.i.i, %if.end.i.i
+  %7 = phi i32 [ 0, %if.end.i.i ], [ %4, %if.else13.i.i ]
+  %templen.0.i.i = phi i32 [ 2048, %if.end.i.i ], [ %sub.i.i, %if.else13.i.i ]
+  %buffer.0.i.i = phi ptr [ %call4.i.i, %if.end.i.i ], [ %6, %if.else13.i.i ]
+  %spec.select.i.i = tail call i32 @llvm.umin.i32(i32 %templen.0.i.i, i32 %len.054.i.i)
+  %idx.ext.i.i = sext i32 %7 to i64
+  %add.ptr.i.i = getelementptr inbounds i8, ptr %buffer.0.i.i, i64 %idx.ext.i.i
+  %conv22.i.i = zext i32 %spec.select.i.i to i64
+  call void @llvm.memcpy.p0.p0.i64(ptr align 1 %add.ptr.i.i, ptr align 1 %buf.addr.053.i.i, i64 %conv22.i.i, i1 false)
+  %add.ptr24.i.i = getelementptr inbounds i8, ptr %buf.addr.053.i.i, i64 %conv22.i.i
+  %sub25.i.i = sub nsw i32 %len.054.i.i, %spec.select.i.i
+  %8 = load i32, ptr %posn, align 8, !tbaa !24
+  %add.i.i = add nsw i32 %8, %spec.select.i.i
+  store i32 %add.i.i, ptr %posn, align 8, !tbaa !24
+  %cmp.i.i = icmp sgt i32 %sub25.i.i, 0
+  br i1 %cmp.i.i, label %while.body.i.i, label %_StreamPut.exit, !llvm.loop !41
 
-66:                                               ; preds = %53, %29
-  call void @llvm.lifetime.end.p0(i64 2, ptr nonnull %5) #16
-  br label %67
+_StreamPut.exit:                                  ; preds = %if.end16.i.i, %if.else
+  call void @llvm.lifetime.end.p0(i64 2, ptr nonnull %buf.i) #16
+  br label %do.end
 
-67:                                               ; preds = %66, %22
-  %68 = load i8, ptr %19, align 1, !tbaa !5
-  %69 = icmp eq i8 %68, 10
-  br i1 %69, label %70, label %125
+do.end:                                           ; preds = %_StreamPut.exit, %if.then
+  %9 = load i8, ptr %code.addr.093, align 1, !tbaa !5
+  %cmp7 = icmp eq i8 %9, 10
+  br i1 %cmp7, label %if.then9, label %if.end33
 
-70:                                               ; preds = %67
-  %71 = load i64, ptr %14, align 8, !tbaa !23
-  %72 = add nsw i64 %71, 1
-  store i64 %72, ptr %14, align 8, !tbaa !23
-  br i1 %15, label %73, label %125
+if.then9:                                         ; preds = %do.end
+  %10 = load i64, ptr %linenum, align 8, !tbaa !23
+  %inc10 = add nsw i64 %10, 1
+  store i64 %inc10, ptr %linenum, align 8, !tbaa !23
+  br i1 %cmp1190, label %do.body13, label %if.end33
 
-73:                                               ; preds = %70, %122
-  %74 = phi i32 [ %123, %122 ], [ 0, %70 ]
-  %75 = load i32, ptr %9, align 8, !tbaa !24
-  %76 = icmp slt i32 %75, 2048
-  br i1 %76, label %77, label %84
+do.body13:                                        ; preds = %if.then9, %for.inc
+  %temp.091 = phi i32 [ %inc32, %for.inc ], [ 0, %if.then9 ]
+  %11 = load i32, ptr %posn, align 8, !tbaa !24
+  %cmp15 = icmp slt i32 %11, 2048
+  br i1 %cmp15, label %if.then17, label %if.else28
 
-77:                                               ; preds = %73
-  %78 = load ptr, ptr %12, align 8, !tbaa !38
-  %79 = add nsw i32 %75, 1
-  store i32 %79, ptr %9, align 8, !tbaa !24
-  %80 = sext i32 %75 to i64
-  %81 = getelementptr inbounds [2048 x i8], ptr %78, i64 0, i64 %80
-  store i8 9, ptr %81, align 1, !tbaa !5
-  %82 = load i8, ptr %11, align 4
-  %83 = or i8 %82, 16
-  store i8 %83, ptr %11, align 4
-  br label %122
+if.then17:                                        ; preds = %do.body13
+  %12 = load ptr, ptr %lastBuf14.i.i, align 8, !tbaa !38
+  %inc21 = add nsw i32 %11, 1
+  store i32 %inc21, ptr %posn, align 8, !tbaa !24
+  %idxprom22 = sext i32 %11 to i64
+  %arrayidx23 = getelementptr inbounds [2048 x i8], ptr %12, i64 0, i64 %idxprom22
+  store i8 9, ptr %arrayidx23, align 1, !tbaa !5
+  %bf.load25 = load i8, ptr %dirty.i.i, align 4
+  %bf.set27 = or i8 %bf.load25, 16
+  store i8 %bf.set27, ptr %dirty.i.i, align 4
+  br label %for.inc
 
-84:                                               ; preds = %73
-  call void @llvm.lifetime.start.p0(i64 2, ptr nonnull %4) #16
-  store i8 9, ptr %4, align 1, !tbaa !5
-  store i8 0, ptr %16, align 1, !tbaa !5
-  %85 = call i64 @strlen(ptr noundef nonnull dereferenceable(1) %4) #14
-  %86 = trunc i64 %85 to i32
-  %87 = load i8, ptr %11, align 4
-  %88 = or i8 %87, 16
-  store i8 %88, ptr %11, align 4
-  %89 = icmp sgt i32 %86, 0
-  br i1 %89, label %90, label %121
+if.else28:                                        ; preds = %do.body13
+  call void @llvm.lifetime.start.p0(i64 2, ptr nonnull %buf.i50) #16
+  store i8 9, ptr %buf.i50, align 1, !tbaa !5
+  store i8 0, ptr %arrayidx1.i51, align 1, !tbaa !5
+  %call.i.i52 = call i64 @strlen(ptr noundef nonnull dereferenceable(1) %buf.i50) #14
+  %conv.i.i53 = trunc i64 %call.i.i52 to i32
+  %bf.load.i.i55 = load i8, ptr %dirty.i.i, align 4
+  %bf.set.i.i56 = or i8 %bf.load.i.i55, 16
+  store i8 %bf.set.i.i56, ptr %dirty.i.i, align 4
+  %cmp52.i.i57 = icmp sgt i32 %conv.i.i53, 0
+  br i1 %cmp52.i.i57, label %while.body.i.i66, label %_StreamPut.exit89
 
-90:                                               ; preds = %84, %108
-  %91 = phi i32 [ %119, %108 ], [ %75, %84 ]
-  %92 = phi i32 [ %117, %108 ], [ %86, %84 ]
-  %93 = phi ptr [ %116, %108 ], [ %4, %84 ]
-  %94 = icmp sgt i32 %91, 2047
-  br i1 %94, label %95, label %105
+while.body.i.i66:                                 ; preds = %if.else28, %if.end16.i.i88
+  %13 = phi i32 [ %add.i.i86, %if.end16.i.i88 ], [ %11, %if.else28 ]
+  %len.054.i.i63 = phi i32 [ %sub25.i.i85, %if.end16.i.i88 ], [ %conv.i.i53, %if.else28 ]
+  %buf.addr.053.i.i64 = phi ptr [ %add.ptr24.i.i84, %if.end16.i.i88 ], [ %buf.i50, %if.else28 ]
+  %cmp2.i.i65 = icmp sgt i32 %13, 2047
+  br i1 %cmp2.i.i65, label %if.then.i.i69, label %if.else13.i.i77
 
-95:                                               ; preds = %90
-  %96 = tail call noalias dereferenceable_or_null(2056) ptr @malloc(i64 noundef 2056) #15
-  %97 = icmp eq ptr %96, null
-  br i1 %97, label %98, label %99
+if.then.i.i69:                                    ; preds = %while.body.i.i66
+  %call4.i.i67 = tail call noalias dereferenceable_or_null(2056) ptr @malloc(i64 noundef 2056) #15
+  %tobool.not.i.i68 = icmp eq ptr %call4.i.i67, null
+  br i1 %tobool.not.i.i68, label %if.then5.i.i70, label %if.end.i.i75
 
-98:                                               ; preds = %95
+if.then5.i.i70:                                   ; preds = %if.then.i.i69
   tail call void @TreeCCOutOfMemory(ptr noundef null) #16
-  br label %99
+  br label %if.end.i.i75
 
-99:                                               ; preds = %98, %95
-  %100 = getelementptr inbounds %struct._tagTreeCCStreamBuf, ptr %96, i64 0, i32 1
-  store ptr null, ptr %100, align 8, !tbaa !29
-  %101 = load ptr, ptr %12, align 8, !tbaa !38
-  %102 = icmp eq ptr %101, null
-  %103 = getelementptr inbounds %struct._tagTreeCCStreamBuf, ptr %101, i64 0, i32 1
-  %104 = select i1 %102, ptr %13, ptr %103
-  store ptr %96, ptr %104, align 8, !tbaa !17
-  store ptr %96, ptr %12, align 8, !tbaa !38
-  store i32 0, ptr %9, align 8, !tbaa !24
-  br label %108
+if.end.i.i75:                                     ; preds = %if.then5.i.i70, %if.then.i.i69
+  %next.i.i71 = getelementptr inbounds %struct._tagTreeCCStreamBuf, ptr %call4.i.i67, i64 0, i32 1
+  store ptr null, ptr %next.i.i71, align 8, !tbaa !29
+  %14 = load ptr, ptr %lastBuf14.i.i, align 8, !tbaa !38
+  %tobool6.not.i.i72 = icmp eq ptr %14, null
+  %next9.i.i73 = getelementptr inbounds %struct._tagTreeCCStreamBuf, ptr %14, i64 0, i32 1
+  %firstBuf.sink.i.i74 = select i1 %tobool6.not.i.i72, ptr %firstBuf.i.i, ptr %next9.i.i73
+  store ptr %call4.i.i67, ptr %firstBuf.sink.i.i74, align 8, !tbaa !17
+  store ptr %call4.i.i67, ptr %lastBuf14.i.i, align 8, !tbaa !38
+  store i32 0, ptr %posn, align 8, !tbaa !24
+  br label %if.end16.i.i88
 
-105:                                              ; preds = %90
-  %106 = load ptr, ptr %12, align 8, !tbaa !38
-  %107 = sub nsw i32 2048, %91
-  br label %108
+if.else13.i.i77:                                  ; preds = %while.body.i.i66
+  %15 = load ptr, ptr %lastBuf14.i.i, align 8, !tbaa !38
+  %sub.i.i76 = sub nsw i32 2048, %13
+  br label %if.end16.i.i88
 
-108:                                              ; preds = %105, %99
-  %109 = phi i32 [ 0, %99 ], [ %91, %105 ]
-  %110 = phi i32 [ 2048, %99 ], [ %107, %105 ]
-  %111 = phi ptr [ %96, %99 ], [ %106, %105 ]
-  %112 = tail call i32 @llvm.umin.i32(i32 %110, i32 %92)
-  %113 = sext i32 %109 to i64
-  %114 = getelementptr inbounds i8, ptr %111, i64 %113
-  %115 = zext i32 %112 to i64
-  call void @llvm.memcpy.p0.p0.i64(ptr align 1 %114, ptr align 1 %93, i64 %115, i1 false)
-  %116 = getelementptr inbounds i8, ptr %93, i64 %115
-  %117 = sub nsw i32 %92, %112
-  %118 = load i32, ptr %9, align 8, !tbaa !24
-  %119 = add nsw i32 %118, %112
-  store i32 %119, ptr %9, align 8, !tbaa !24
-  %120 = icmp sgt i32 %117, 0
-  br i1 %120, label %90, label %121, !llvm.loop !41
+if.end16.i.i88:                                   ; preds = %if.else13.i.i77, %if.end.i.i75
+  %16 = phi i32 [ 0, %if.end.i.i75 ], [ %13, %if.else13.i.i77 ]
+  %templen.0.i.i78 = phi i32 [ 2048, %if.end.i.i75 ], [ %sub.i.i76, %if.else13.i.i77 ]
+  %buffer.0.i.i79 = phi ptr [ %call4.i.i67, %if.end.i.i75 ], [ %15, %if.else13.i.i77 ]
+  %spec.select.i.i80 = tail call i32 @llvm.umin.i32(i32 %templen.0.i.i78, i32 %len.054.i.i63)
+  %idx.ext.i.i81 = sext i32 %16 to i64
+  %add.ptr.i.i82 = getelementptr inbounds i8, ptr %buffer.0.i.i79, i64 %idx.ext.i.i81
+  %conv22.i.i83 = zext i32 %spec.select.i.i80 to i64
+  call void @llvm.memcpy.p0.p0.i64(ptr align 1 %add.ptr.i.i82, ptr align 1 %buf.addr.053.i.i64, i64 %conv22.i.i83, i1 false)
+  %add.ptr24.i.i84 = getelementptr inbounds i8, ptr %buf.addr.053.i.i64, i64 %conv22.i.i83
+  %sub25.i.i85 = sub nsw i32 %len.054.i.i63, %spec.select.i.i80
+  %17 = load i32, ptr %posn, align 8, !tbaa !24
+  %add.i.i86 = add nsw i32 %17, %spec.select.i.i80
+  store i32 %add.i.i86, ptr %posn, align 8, !tbaa !24
+  %cmp.i.i87 = icmp sgt i32 %sub25.i.i85, 0
+  br i1 %cmp.i.i87, label %while.body.i.i66, label %_StreamPut.exit89, !llvm.loop !41
 
-121:                                              ; preds = %108, %84
-  call void @llvm.lifetime.end.p0(i64 2, ptr nonnull %4) #16
-  br label %122
+_StreamPut.exit89:                                ; preds = %if.end16.i.i88, %if.else28
+  call void @llvm.lifetime.end.p0(i64 2, ptr nonnull %buf.i50) #16
+  br label %for.inc
 
-122:                                              ; preds = %77, %121
-  %123 = add nuw nsw i32 %74, 1
-  %124 = icmp eq i32 %123, %2
-  br i1 %124, label %125, label %73, !llvm.loop !43
+for.inc:                                          ; preds = %if.then17, %_StreamPut.exit89
+  %inc32 = add nuw nsw i32 %temp.091, 1
+  %exitcond.not = icmp eq i32 %inc32, %indent
+  br i1 %exitcond.not, label %if.end33, label %do.body13, !llvm.loop !43
 
-125:                                              ; preds = %122, %70, %67
-  %126 = getelementptr inbounds i8, ptr %19, i64 1
-  %127 = load i8, ptr %126, align 1, !tbaa !5
-  %128 = icmp eq i8 %127, 0
-  br i1 %128, label %129, label %17, !llvm.loop !44
+if.end33:                                         ; preds = %for.inc, %if.then9, %do.end
+  %incdec.ptr = getelementptr inbounds i8, ptr %code.addr.093, i64 1
+  %18 = load i8, ptr %incdec.ptr, align 1, !tbaa !5
+  %cmp.not = icmp eq i8 %18, 0
+  br i1 %cmp.not, label %while.end, label %do.body, !llvm.loop !44
 
-129:                                              ; preds = %125, %3
+while.end:                                        ; preds = %if.end33, %entry
   ret void
 }
 
 ; Function Attrs: nounwind uwtable
-define dso_local void @TreeCCStreamCodeIndentCustom(ptr nocapture noundef %0, ptr nocapture noundef readonly %1, i8 noundef signext %2, i32 noundef %3) local_unnamed_addr #0 {
-  %5 = alloca [2 x i8], align 1
-  %6 = alloca [2 x i8], align 1
-  %7 = load i8, ptr %1, align 1, !tbaa !5
-  %8 = icmp eq i8 %7, 0
-  br i1 %8, label %130, label %9
+define dso_local void @TreeCCStreamCodeIndentCustom(ptr nocapture noundef %stream, ptr nocapture noundef readonly %code, i8 noundef signext %indentchar, i32 noundef %indent) local_unnamed_addr #0 {
+entry:
+  %buf.i52 = alloca [2 x i8], align 1
+  %buf.i = alloca [2 x i8], align 1
+  %0 = load i8, ptr %code, align 1, !tbaa !5
+  %cmp.not94 = icmp eq i8 %0, 0
+  br i1 %cmp.not94, label %while.end, label %do.body.lr.ph
 
-9:                                                ; preds = %4
-  %10 = getelementptr inbounds %struct._tagTreeCCStream, ptr %0, i64 0, i32 6
-  %11 = getelementptr inbounds [2 x i8], ptr %6, i64 0, i64 1
-  %12 = getelementptr inbounds %struct._tagTreeCCStream, ptr %0, i64 0, i32 7
-  %13 = getelementptr inbounds %struct._tagTreeCCStream, ptr %0, i64 0, i32 5
-  %14 = getelementptr inbounds %struct._tagTreeCCStream, ptr %0, i64 0, i32 4
-  %15 = getelementptr inbounds %struct._tagTreeCCStream, ptr %0, i64 0, i32 3
-  %16 = icmp sgt i32 %3, 0
-  %17 = getelementptr inbounds [2 x i8], ptr %5, i64 0, i64 1
-  br label %18
+do.body.lr.ph:                                    ; preds = %entry
+  %posn = getelementptr inbounds %struct._tagTreeCCStream, ptr %stream, i64 0, i32 6
+  %arrayidx1.i = getelementptr inbounds [2 x i8], ptr %buf.i, i64 0, i64 1
+  %dirty.i.i = getelementptr inbounds %struct._tagTreeCCStream, ptr %stream, i64 0, i32 7
+  %lastBuf14.i.i = getelementptr inbounds %struct._tagTreeCCStream, ptr %stream, i64 0, i32 5
+  %firstBuf.i.i = getelementptr inbounds %struct._tagTreeCCStream, ptr %stream, i64 0, i32 4
+  %linenum = getelementptr inbounds %struct._tagTreeCCStream, ptr %stream, i64 0, i32 3
+  %cmp1192 = icmp sgt i32 %indent, 0
+  %arrayidx1.i53 = getelementptr inbounds [2 x i8], ptr %buf.i52, i64 0, i64 1
+  br label %do.body
 
-18:                                               ; preds = %9, %126
-  %19 = phi i8 [ %7, %9 ], [ %128, %126 ]
-  %20 = phi ptr [ %1, %9 ], [ %127, %126 ]
-  %21 = load i32, ptr %10, align 8, !tbaa !24
-  %22 = icmp slt i32 %21, 2048
-  br i1 %22, label %23, label %30
+do.body:                                          ; preds = %do.body.lr.ph, %if.end34
+  %1 = phi i8 [ %0, %do.body.lr.ph ], [ %18, %if.end34 ]
+  %code.addr.095 = phi ptr [ %code, %do.body.lr.ph ], [ %incdec.ptr, %if.end34 ]
+  %2 = load i32, ptr %posn, align 8, !tbaa !24
+  %cmp2 = icmp slt i32 %2, 2048
+  br i1 %cmp2, label %if.then, label %if.else
 
-23:                                               ; preds = %18
-  %24 = load ptr, ptr %13, align 8, !tbaa !38
-  %25 = add nsw i32 %21, 1
-  store i32 %25, ptr %10, align 8, !tbaa !24
-  %26 = sext i32 %21 to i64
-  %27 = getelementptr inbounds [2048 x i8], ptr %24, i64 0, i64 %26
-  store i8 %19, ptr %27, align 1, !tbaa !5
-  %28 = load i8, ptr %12, align 4
-  %29 = or i8 %28, 16
-  store i8 %29, ptr %12, align 4
-  br label %68
+if.then:                                          ; preds = %do.body
+  %3 = load ptr, ptr %lastBuf14.i.i, align 8, !tbaa !38
+  %inc = add nsw i32 %2, 1
+  store i32 %inc, ptr %posn, align 8, !tbaa !24
+  %idxprom = sext i32 %2 to i64
+  %arrayidx = getelementptr inbounds [2048 x i8], ptr %3, i64 0, i64 %idxprom
+  store i8 %1, ptr %arrayidx, align 1, !tbaa !5
+  %bf.load = load i8, ptr %dirty.i.i, align 4
+  %bf.set = or i8 %bf.load, 16
+  store i8 %bf.set, ptr %dirty.i.i, align 4
+  br label %do.end
 
-30:                                               ; preds = %18
-  call void @llvm.lifetime.start.p0(i64 2, ptr nonnull %6) #16
-  store i8 %19, ptr %6, align 1, !tbaa !5
-  store i8 0, ptr %11, align 1, !tbaa !5
-  %31 = call i64 @strlen(ptr noundef nonnull dereferenceable(1) %6) #14
-  %32 = trunc i64 %31 to i32
-  %33 = load i8, ptr %12, align 4
-  %34 = or i8 %33, 16
-  store i8 %34, ptr %12, align 4
-  %35 = icmp sgt i32 %32, 0
-  br i1 %35, label %36, label %67
+if.else:                                          ; preds = %do.body
+  call void @llvm.lifetime.start.p0(i64 2, ptr nonnull %buf.i) #16
+  store i8 %1, ptr %buf.i, align 1, !tbaa !5
+  store i8 0, ptr %arrayidx1.i, align 1, !tbaa !5
+  %call.i.i = call i64 @strlen(ptr noundef nonnull dereferenceable(1) %buf.i) #14
+  %conv.i.i = trunc i64 %call.i.i to i32
+  %bf.load.i.i = load i8, ptr %dirty.i.i, align 4
+  %bf.set.i.i = or i8 %bf.load.i.i, 16
+  store i8 %bf.set.i.i, ptr %dirty.i.i, align 4
+  %cmp52.i.i = icmp sgt i32 %conv.i.i, 0
+  br i1 %cmp52.i.i, label %while.body.i.i, label %_StreamPut.exit
 
-36:                                               ; preds = %30, %54
-  %37 = phi i32 [ %65, %54 ], [ %21, %30 ]
-  %38 = phi i32 [ %63, %54 ], [ %32, %30 ]
-  %39 = phi ptr [ %62, %54 ], [ %6, %30 ]
-  %40 = icmp sgt i32 %37, 2047
-  br i1 %40, label %41, label %51
+while.body.i.i:                                   ; preds = %if.else, %if.end16.i.i
+  %4 = phi i32 [ %add.i.i, %if.end16.i.i ], [ %2, %if.else ]
+  %len.054.i.i = phi i32 [ %sub25.i.i, %if.end16.i.i ], [ %conv.i.i, %if.else ]
+  %buf.addr.053.i.i = phi ptr [ %add.ptr24.i.i, %if.end16.i.i ], [ %buf.i, %if.else ]
+  %cmp2.i.i = icmp sgt i32 %4, 2047
+  br i1 %cmp2.i.i, label %if.then.i.i, label %if.else13.i.i
 
-41:                                               ; preds = %36
-  %42 = tail call noalias dereferenceable_or_null(2056) ptr @malloc(i64 noundef 2056) #15
-  %43 = icmp eq ptr %42, null
-  br i1 %43, label %44, label %45
+if.then.i.i:                                      ; preds = %while.body.i.i
+  %call4.i.i = tail call noalias dereferenceable_or_null(2056) ptr @malloc(i64 noundef 2056) #15
+  %tobool.not.i.i = icmp eq ptr %call4.i.i, null
+  br i1 %tobool.not.i.i, label %if.then5.i.i, label %if.end.i.i
 
-44:                                               ; preds = %41
+if.then5.i.i:                                     ; preds = %if.then.i.i
   tail call void @TreeCCOutOfMemory(ptr noundef null) #16
-  br label %45
+  br label %if.end.i.i
 
-45:                                               ; preds = %44, %41
-  %46 = getelementptr inbounds %struct._tagTreeCCStreamBuf, ptr %42, i64 0, i32 1
-  store ptr null, ptr %46, align 8, !tbaa !29
-  %47 = load ptr, ptr %13, align 8, !tbaa !38
-  %48 = icmp eq ptr %47, null
-  %49 = getelementptr inbounds %struct._tagTreeCCStreamBuf, ptr %47, i64 0, i32 1
-  %50 = select i1 %48, ptr %14, ptr %49
-  store ptr %42, ptr %50, align 8, !tbaa !17
-  store ptr %42, ptr %13, align 8, !tbaa !38
-  store i32 0, ptr %10, align 8, !tbaa !24
-  br label %54
+if.end.i.i:                                       ; preds = %if.then5.i.i, %if.then.i.i
+  %next.i.i = getelementptr inbounds %struct._tagTreeCCStreamBuf, ptr %call4.i.i, i64 0, i32 1
+  store ptr null, ptr %next.i.i, align 8, !tbaa !29
+  %5 = load ptr, ptr %lastBuf14.i.i, align 8, !tbaa !38
+  %tobool6.not.i.i = icmp eq ptr %5, null
+  %next9.i.i = getelementptr inbounds %struct._tagTreeCCStreamBuf, ptr %5, i64 0, i32 1
+  %firstBuf.sink.i.i = select i1 %tobool6.not.i.i, ptr %firstBuf.i.i, ptr %next9.i.i
+  store ptr %call4.i.i, ptr %firstBuf.sink.i.i, align 8, !tbaa !17
+  store ptr %call4.i.i, ptr %lastBuf14.i.i, align 8, !tbaa !38
+  store i32 0, ptr %posn, align 8, !tbaa !24
+  br label %if.end16.i.i
 
-51:                                               ; preds = %36
-  %52 = load ptr, ptr %13, align 8, !tbaa !38
-  %53 = sub nsw i32 2048, %37
-  br label %54
+if.else13.i.i:                                    ; preds = %while.body.i.i
+  %6 = load ptr, ptr %lastBuf14.i.i, align 8, !tbaa !38
+  %sub.i.i = sub nsw i32 2048, %4
+  br label %if.end16.i.i
 
-54:                                               ; preds = %51, %45
-  %55 = phi i32 [ 0, %45 ], [ %37, %51 ]
-  %56 = phi i32 [ 2048, %45 ], [ %53, %51 ]
-  %57 = phi ptr [ %42, %45 ], [ %52, %51 ]
-  %58 = tail call i32 @llvm.umin.i32(i32 %56, i32 %38)
-  %59 = sext i32 %55 to i64
-  %60 = getelementptr inbounds i8, ptr %57, i64 %59
-  %61 = zext i32 %58 to i64
-  call void @llvm.memcpy.p0.p0.i64(ptr align 1 %60, ptr align 1 %39, i64 %61, i1 false)
-  %62 = getelementptr inbounds i8, ptr %39, i64 %61
-  %63 = sub nsw i32 %38, %58
-  %64 = load i32, ptr %10, align 8, !tbaa !24
-  %65 = add nsw i32 %64, %58
-  store i32 %65, ptr %10, align 8, !tbaa !24
-  %66 = icmp sgt i32 %63, 0
-  br i1 %66, label %36, label %67, !llvm.loop !41
+if.end16.i.i:                                     ; preds = %if.else13.i.i, %if.end.i.i
+  %7 = phi i32 [ 0, %if.end.i.i ], [ %4, %if.else13.i.i ]
+  %templen.0.i.i = phi i32 [ 2048, %if.end.i.i ], [ %sub.i.i, %if.else13.i.i ]
+  %buffer.0.i.i = phi ptr [ %call4.i.i, %if.end.i.i ], [ %6, %if.else13.i.i ]
+  %spec.select.i.i = tail call i32 @llvm.umin.i32(i32 %templen.0.i.i, i32 %len.054.i.i)
+  %idx.ext.i.i = sext i32 %7 to i64
+  %add.ptr.i.i = getelementptr inbounds i8, ptr %buffer.0.i.i, i64 %idx.ext.i.i
+  %conv22.i.i = zext i32 %spec.select.i.i to i64
+  call void @llvm.memcpy.p0.p0.i64(ptr align 1 %add.ptr.i.i, ptr align 1 %buf.addr.053.i.i, i64 %conv22.i.i, i1 false)
+  %add.ptr24.i.i = getelementptr inbounds i8, ptr %buf.addr.053.i.i, i64 %conv22.i.i
+  %sub25.i.i = sub nsw i32 %len.054.i.i, %spec.select.i.i
+  %8 = load i32, ptr %posn, align 8, !tbaa !24
+  %add.i.i = add nsw i32 %8, %spec.select.i.i
+  store i32 %add.i.i, ptr %posn, align 8, !tbaa !24
+  %cmp.i.i = icmp sgt i32 %sub25.i.i, 0
+  br i1 %cmp.i.i, label %while.body.i.i, label %_StreamPut.exit, !llvm.loop !41
 
-67:                                               ; preds = %54, %30
-  call void @llvm.lifetime.end.p0(i64 2, ptr nonnull %6) #16
-  br label %68
+_StreamPut.exit:                                  ; preds = %if.end16.i.i, %if.else
+  call void @llvm.lifetime.end.p0(i64 2, ptr nonnull %buf.i) #16
+  br label %do.end
 
-68:                                               ; preds = %67, %23
-  %69 = load i8, ptr %20, align 1, !tbaa !5
-  %70 = icmp eq i8 %69, 10
-  br i1 %70, label %71, label %126
+do.end:                                           ; preds = %_StreamPut.exit, %if.then
+  %9 = load i8, ptr %code.addr.095, align 1, !tbaa !5
+  %cmp7 = icmp eq i8 %9, 10
+  br i1 %cmp7, label %if.then9, label %if.end34
 
-71:                                               ; preds = %68
-  %72 = load i64, ptr %15, align 8, !tbaa !23
-  %73 = add nsw i64 %72, 1
-  store i64 %73, ptr %15, align 8, !tbaa !23
-  br i1 %16, label %74, label %126
+if.then9:                                         ; preds = %do.end
+  %10 = load i64, ptr %linenum, align 8, !tbaa !23
+  %inc10 = add nsw i64 %10, 1
+  store i64 %inc10, ptr %linenum, align 8, !tbaa !23
+  br i1 %cmp1192, label %do.body13, label %if.end34
 
-74:                                               ; preds = %71, %123
-  %75 = phi i32 [ %124, %123 ], [ 0, %71 ]
-  %76 = load i32, ptr %10, align 8, !tbaa !24
-  %77 = icmp slt i32 %76, 2048
-  br i1 %77, label %78, label %85
+do.body13:                                        ; preds = %if.then9, %for.inc
+  %temp.093 = phi i32 [ %inc33, %for.inc ], [ 0, %if.then9 ]
+  %11 = load i32, ptr %posn, align 8, !tbaa !24
+  %cmp15 = icmp slt i32 %11, 2048
+  br i1 %cmp15, label %if.then17, label %if.else28
 
-78:                                               ; preds = %74
-  %79 = load ptr, ptr %13, align 8, !tbaa !38
-  %80 = add nsw i32 %76, 1
-  store i32 %80, ptr %10, align 8, !tbaa !24
-  %81 = sext i32 %76 to i64
-  %82 = getelementptr inbounds [2048 x i8], ptr %79, i64 0, i64 %81
-  store i8 %2, ptr %82, align 1, !tbaa !5
-  %83 = load i8, ptr %12, align 4
-  %84 = or i8 %83, 16
-  store i8 %84, ptr %12, align 4
-  br label %123
+if.then17:                                        ; preds = %do.body13
+  %12 = load ptr, ptr %lastBuf14.i.i, align 8, !tbaa !38
+  %inc21 = add nsw i32 %11, 1
+  store i32 %inc21, ptr %posn, align 8, !tbaa !24
+  %idxprom22 = sext i32 %11 to i64
+  %arrayidx23 = getelementptr inbounds [2048 x i8], ptr %12, i64 0, i64 %idxprom22
+  store i8 %indentchar, ptr %arrayidx23, align 1, !tbaa !5
+  %bf.load25 = load i8, ptr %dirty.i.i, align 4
+  %bf.set27 = or i8 %bf.load25, 16
+  store i8 %bf.set27, ptr %dirty.i.i, align 4
+  br label %for.inc
 
-85:                                               ; preds = %74
-  call void @llvm.lifetime.start.p0(i64 2, ptr nonnull %5) #16
-  store i8 %2, ptr %5, align 1, !tbaa !5
-  store i8 0, ptr %17, align 1, !tbaa !5
-  %86 = call i64 @strlen(ptr noundef nonnull dereferenceable(1) %5) #14
-  %87 = trunc i64 %86 to i32
-  %88 = load i8, ptr %12, align 4
-  %89 = or i8 %88, 16
-  store i8 %89, ptr %12, align 4
-  %90 = icmp sgt i32 %87, 0
-  br i1 %90, label %91, label %122
+if.else28:                                        ; preds = %do.body13
+  call void @llvm.lifetime.start.p0(i64 2, ptr nonnull %buf.i52) #16
+  store i8 %indentchar, ptr %buf.i52, align 1, !tbaa !5
+  store i8 0, ptr %arrayidx1.i53, align 1, !tbaa !5
+  %call.i.i54 = call i64 @strlen(ptr noundef nonnull dereferenceable(1) %buf.i52) #14
+  %conv.i.i55 = trunc i64 %call.i.i54 to i32
+  %bf.load.i.i57 = load i8, ptr %dirty.i.i, align 4
+  %bf.set.i.i58 = or i8 %bf.load.i.i57, 16
+  store i8 %bf.set.i.i58, ptr %dirty.i.i, align 4
+  %cmp52.i.i59 = icmp sgt i32 %conv.i.i55, 0
+  br i1 %cmp52.i.i59, label %while.body.i.i68, label %_StreamPut.exit91
 
-91:                                               ; preds = %85, %109
-  %92 = phi i32 [ %120, %109 ], [ %76, %85 ]
-  %93 = phi i32 [ %118, %109 ], [ %87, %85 ]
-  %94 = phi ptr [ %117, %109 ], [ %5, %85 ]
-  %95 = icmp sgt i32 %92, 2047
-  br i1 %95, label %96, label %106
+while.body.i.i68:                                 ; preds = %if.else28, %if.end16.i.i90
+  %13 = phi i32 [ %add.i.i88, %if.end16.i.i90 ], [ %11, %if.else28 ]
+  %len.054.i.i65 = phi i32 [ %sub25.i.i87, %if.end16.i.i90 ], [ %conv.i.i55, %if.else28 ]
+  %buf.addr.053.i.i66 = phi ptr [ %add.ptr24.i.i86, %if.end16.i.i90 ], [ %buf.i52, %if.else28 ]
+  %cmp2.i.i67 = icmp sgt i32 %13, 2047
+  br i1 %cmp2.i.i67, label %if.then.i.i71, label %if.else13.i.i79
 
-96:                                               ; preds = %91
-  %97 = tail call noalias dereferenceable_or_null(2056) ptr @malloc(i64 noundef 2056) #15
-  %98 = icmp eq ptr %97, null
-  br i1 %98, label %99, label %100
+if.then.i.i71:                                    ; preds = %while.body.i.i68
+  %call4.i.i69 = tail call noalias dereferenceable_or_null(2056) ptr @malloc(i64 noundef 2056) #15
+  %tobool.not.i.i70 = icmp eq ptr %call4.i.i69, null
+  br i1 %tobool.not.i.i70, label %if.then5.i.i72, label %if.end.i.i77
 
-99:                                               ; preds = %96
+if.then5.i.i72:                                   ; preds = %if.then.i.i71
   tail call void @TreeCCOutOfMemory(ptr noundef null) #16
-  br label %100
+  br label %if.end.i.i77
 
-100:                                              ; preds = %99, %96
-  %101 = getelementptr inbounds %struct._tagTreeCCStreamBuf, ptr %97, i64 0, i32 1
-  store ptr null, ptr %101, align 8, !tbaa !29
-  %102 = load ptr, ptr %13, align 8, !tbaa !38
-  %103 = icmp eq ptr %102, null
-  %104 = getelementptr inbounds %struct._tagTreeCCStreamBuf, ptr %102, i64 0, i32 1
-  %105 = select i1 %103, ptr %14, ptr %104
-  store ptr %97, ptr %105, align 8, !tbaa !17
-  store ptr %97, ptr %13, align 8, !tbaa !38
-  store i32 0, ptr %10, align 8, !tbaa !24
-  br label %109
+if.end.i.i77:                                     ; preds = %if.then5.i.i72, %if.then.i.i71
+  %next.i.i73 = getelementptr inbounds %struct._tagTreeCCStreamBuf, ptr %call4.i.i69, i64 0, i32 1
+  store ptr null, ptr %next.i.i73, align 8, !tbaa !29
+  %14 = load ptr, ptr %lastBuf14.i.i, align 8, !tbaa !38
+  %tobool6.not.i.i74 = icmp eq ptr %14, null
+  %next9.i.i75 = getelementptr inbounds %struct._tagTreeCCStreamBuf, ptr %14, i64 0, i32 1
+  %firstBuf.sink.i.i76 = select i1 %tobool6.not.i.i74, ptr %firstBuf.i.i, ptr %next9.i.i75
+  store ptr %call4.i.i69, ptr %firstBuf.sink.i.i76, align 8, !tbaa !17
+  store ptr %call4.i.i69, ptr %lastBuf14.i.i, align 8, !tbaa !38
+  store i32 0, ptr %posn, align 8, !tbaa !24
+  br label %if.end16.i.i90
 
-106:                                              ; preds = %91
-  %107 = load ptr, ptr %13, align 8, !tbaa !38
-  %108 = sub nsw i32 2048, %92
-  br label %109
+if.else13.i.i79:                                  ; preds = %while.body.i.i68
+  %15 = load ptr, ptr %lastBuf14.i.i, align 8, !tbaa !38
+  %sub.i.i78 = sub nsw i32 2048, %13
+  br label %if.end16.i.i90
 
-109:                                              ; preds = %106, %100
-  %110 = phi i32 [ 0, %100 ], [ %92, %106 ]
-  %111 = phi i32 [ 2048, %100 ], [ %108, %106 ]
-  %112 = phi ptr [ %97, %100 ], [ %107, %106 ]
-  %113 = tail call i32 @llvm.umin.i32(i32 %111, i32 %93)
-  %114 = sext i32 %110 to i64
-  %115 = getelementptr inbounds i8, ptr %112, i64 %114
-  %116 = zext i32 %113 to i64
-  call void @llvm.memcpy.p0.p0.i64(ptr align 1 %115, ptr align 1 %94, i64 %116, i1 false)
-  %117 = getelementptr inbounds i8, ptr %94, i64 %116
-  %118 = sub nsw i32 %93, %113
-  %119 = load i32, ptr %10, align 8, !tbaa !24
-  %120 = add nsw i32 %119, %113
-  store i32 %120, ptr %10, align 8, !tbaa !24
-  %121 = icmp sgt i32 %118, 0
-  br i1 %121, label %91, label %122, !llvm.loop !41
+if.end16.i.i90:                                   ; preds = %if.else13.i.i79, %if.end.i.i77
+  %16 = phi i32 [ 0, %if.end.i.i77 ], [ %13, %if.else13.i.i79 ]
+  %templen.0.i.i80 = phi i32 [ 2048, %if.end.i.i77 ], [ %sub.i.i78, %if.else13.i.i79 ]
+  %buffer.0.i.i81 = phi ptr [ %call4.i.i69, %if.end.i.i77 ], [ %15, %if.else13.i.i79 ]
+  %spec.select.i.i82 = tail call i32 @llvm.umin.i32(i32 %templen.0.i.i80, i32 %len.054.i.i65)
+  %idx.ext.i.i83 = sext i32 %16 to i64
+  %add.ptr.i.i84 = getelementptr inbounds i8, ptr %buffer.0.i.i81, i64 %idx.ext.i.i83
+  %conv22.i.i85 = zext i32 %spec.select.i.i82 to i64
+  call void @llvm.memcpy.p0.p0.i64(ptr align 1 %add.ptr.i.i84, ptr align 1 %buf.addr.053.i.i66, i64 %conv22.i.i85, i1 false)
+  %add.ptr24.i.i86 = getelementptr inbounds i8, ptr %buf.addr.053.i.i66, i64 %conv22.i.i85
+  %sub25.i.i87 = sub nsw i32 %len.054.i.i65, %spec.select.i.i82
+  %17 = load i32, ptr %posn, align 8, !tbaa !24
+  %add.i.i88 = add nsw i32 %17, %spec.select.i.i82
+  store i32 %add.i.i88, ptr %posn, align 8, !tbaa !24
+  %cmp.i.i89 = icmp sgt i32 %sub25.i.i87, 0
+  br i1 %cmp.i.i89, label %while.body.i.i68, label %_StreamPut.exit91, !llvm.loop !41
 
-122:                                              ; preds = %109, %85
-  call void @llvm.lifetime.end.p0(i64 2, ptr nonnull %5) #16
-  br label %123
+_StreamPut.exit91:                                ; preds = %if.end16.i.i90, %if.else28
+  call void @llvm.lifetime.end.p0(i64 2, ptr nonnull %buf.i52) #16
+  br label %for.inc
 
-123:                                              ; preds = %78, %122
-  %124 = add nuw nsw i32 %75, 1
-  %125 = icmp eq i32 %124, %3
-  br i1 %125, label %126, label %74, !llvm.loop !45
+for.inc:                                          ; preds = %if.then17, %_StreamPut.exit91
+  %inc33 = add nuw nsw i32 %temp.093, 1
+  %exitcond.not = icmp eq i32 %inc33, %indent
+  br i1 %exitcond.not, label %if.end34, label %do.body13, !llvm.loop !45
 
-126:                                              ; preds = %123, %71, %68
-  %127 = getelementptr inbounds i8, ptr %20, i64 1
-  %128 = load i8, ptr %127, align 1, !tbaa !5
-  %129 = icmp eq i8 %128, 0
-  br i1 %129, label %130, label %18, !llvm.loop !46
+if.end34:                                         ; preds = %for.inc, %if.then9, %do.end
+  %incdec.ptr = getelementptr inbounds i8, ptr %code.addr.095, i64 1
+  %18 = load i8, ptr %incdec.ptr, align 1, !tbaa !5
+  %cmp.not = icmp eq i8 %18, 0
+  br i1 %cmp.not, label %while.end, label %do.body, !llvm.loop !46
 
-130:                                              ; preds = %126, %4
+while.end:                                        ; preds = %if.end34, %entry
   ret void
 }
 
 ; Function Attrs: nounwind uwtable
-define dso_local void @TreeCCStreamFixLine(ptr nocapture noundef %0) local_unnamed_addr #0 {
-  %2 = getelementptr inbounds %struct._tagTreeCCStream, ptr %0, i64 0, i32 3
-  %3 = load i64, ptr %2, align 8, !tbaa !23
-  %4 = add nsw i64 %3, 1
-  %5 = getelementptr inbounds %struct._tagTreeCCStream, ptr %0, i64 0, i32 2
-  %6 = load ptr, ptr %5, align 8, !tbaa !22
-  %7 = load ptr, ptr %0, align 8, !tbaa !21
-  %8 = getelementptr inbounds %struct._tagTreeCCContext, ptr %7, i64 0, i32 8
-  %9 = load i16, ptr %8, align 8
-  %10 = and i16 %9, 512
-  %11 = icmp eq i16 %10, 0
-  br i1 %11, label %38, label %12
+define dso_local void @TreeCCStreamFixLine(ptr nocapture noundef %stream) local_unnamed_addr #0 {
+entry:
+  %linenum = getelementptr inbounds %struct._tagTreeCCStream, ptr %stream, i64 0, i32 3
+  %0 = load i64, ptr %linenum, align 8, !tbaa !23
+  %add = add nsw i64 %0, 1
+  %embedName = getelementptr inbounds %struct._tagTreeCCStream, ptr %stream, i64 0, i32 2
+  %1 = load ptr, ptr %embedName, align 8, !tbaa !22
+  %2 = load ptr, ptr %stream, align 8, !tbaa !21
+  %print_lines.i = getelementptr inbounds %struct._tagTreeCCContext, ptr %2, i64 0, i32 8
+  %bf.load.i = load i16, ptr %print_lines.i, align 8
+  %bf.shl.mask.i = and i16 %bf.load.i, 512
+  %tobool.not.i = icmp eq i16 %bf.shl.mask.i, 0
+  br i1 %tobool.not.i, label %TreeCCStreamLine.exit, label %if.then.i
 
-12:                                               ; preds = %1
-  %13 = and i16 %9, 256
-  %14 = icmp eq i16 %13, 0
-  br i1 %14, label %36, label %15
+if.then.i:                                        ; preds = %entry
+  %bf.shl3.mask.i = and i16 %bf.load.i, 256
+  %tobool6.not.i = icmp eq i16 %bf.shl3.mask.i, 0
+  br i1 %tobool6.not.i, label %if.end.i, label %if.then7.i
 
-15:                                               ; preds = %12
-  %16 = tail call i64 @strlen(ptr noundef nonnull dereferenceable(1) %6) #14
-  %17 = trunc i64 %16 to i32
-  %18 = icmp sgt i32 %17, 0
-  br i1 %18, label %19, label %31
+if.then7.i:                                       ; preds = %if.then.i
+  %call.i = tail call i64 @strlen(ptr noundef nonnull dereferenceable(1) %1) #14
+  %conv.i = trunc i64 %call.i to i32
+  %3 = and i64 %call.i, 4294967295
+  %smin.i = tail call i32 @llvm.smin.i32(i32 %conv.i, i32 0)
+  br label %while.cond.i
 
-19:                                               ; preds = %15
-  %20 = and i64 %16, 4294967295
-  br label %21
+while.cond.i:                                     ; preds = %land.lhs.true.i, %if.then7.i
+  %indvars.iv.i = phi i64 [ %5, %land.lhs.true.i ], [ %3, %if.then7.i ]
+  %4 = trunc i64 %indvars.iv.i to i32
+  %cmp.i = icmp sgt i32 %4, 0
+  br i1 %cmp.i, label %land.lhs.true.i, label %while.end.i
 
-21:                                               ; preds = %28, %19
-  %22 = phi i64 [ %20, %19 ], [ %29, %28 ]
-  %23 = add nuw nsw i64 %22, 4294967295
-  %24 = and i64 %23, 4294967295
-  %25 = getelementptr inbounds i8, ptr %6, i64 %24
-  %26 = load i8, ptr %25, align 1, !tbaa !5
-  %27 = sext i8 %26 to i32
-  switch i32 %27, label %28 [
-    i32 47, label %31
-    i32 92, label %31
-  ]
+land.lhs.true.i:                                  ; preds = %while.cond.i
+  %5 = add nsw i64 %indvars.iv.i, -1
+  %arrayidx.i = getelementptr inbounds i8, ptr %1, i64 %5
+  %6 = load i8, ptr %arrayidx.i, align 1, !tbaa !5
+  switch i8 %6, label %while.cond.i [
+    i8 47, label %while.end.i.split.loop.exit6
+    i8 92, label %while.end.i.split.loop.exit6
+  ], !llvm.loop !47
 
-28:                                               ; preds = %21
-  %29 = add nsw i64 %22, -1
-  %30 = icmp sgt i64 %22, 1
-  br i1 %30, label %21, label %31, !llvm.loop !47
+while.end.i.split.loop.exit6:                     ; preds = %land.lhs.true.i, %land.lhs.true.i
+  %7 = trunc i64 %indvars.iv.i to i32
+  br label %while.end.i
 
-31:                                               ; preds = %28, %21, %21, %15
-  %32 = phi i64 [ %16, %15 ], [ 0, %28 ], [ %22, %21 ], [ %22, %21 ]
-  %33 = shl i64 %32, 32
-  %34 = ashr exact i64 %33, 32
-  %35 = getelementptr inbounds i8, ptr %6, i64 %34
-  br label %36
+while.end.i:                                      ; preds = %while.cond.i, %while.end.i.split.loop.exit6
+  %len.0.lcssa.i = phi i32 [ %7, %while.end.i.split.loop.exit6 ], [ %smin.i, %while.cond.i ]
+  %idx.ext.i = sext i32 %len.0.lcssa.i to i64
+  %add.ptr.i = getelementptr inbounds i8, ptr %1, i64 %idx.ext.i
+  br label %if.end.i
 
-36:                                               ; preds = %31, %12
-  %37 = phi ptr [ %35, %31 ], [ %6, %12 ]
-  tail call void (ptr, ptr, ...) @TreeCCStreamPrint(ptr noundef nonnull %0, ptr noundef nonnull @.str.8, i64 noundef %4, ptr noundef %37)
-  br label %38
+if.end.i:                                         ; preds = %while.end.i, %if.then.i
+  %filename.addr.0.i = phi ptr [ %add.ptr.i, %while.end.i ], [ %1, %if.then.i ]
+  tail call void (ptr, ptr, ...) @TreeCCStreamPrint(ptr noundef nonnull %stream, ptr noundef nonnull @.str.8, i64 noundef %add, ptr noundef %filename.addr.0.i)
+  br label %TreeCCStreamLine.exit
 
-38:                                               ; preds = %1, %36
+TreeCCStreamLine.exit:                            ; preds = %entry, %if.end.i
   ret void
 }
 
 ; Function Attrs: nounwind uwtable
-define dso_local void @TreeCCStreamLine(ptr nocapture noundef %0, i64 noundef %1, ptr noundef %2) local_unnamed_addr #0 {
-  %4 = load ptr, ptr %0, align 8, !tbaa !21
-  %5 = getelementptr inbounds %struct._tagTreeCCContext, ptr %4, i64 0, i32 8
-  %6 = load i16, ptr %5, align 8
-  %7 = and i16 %6, 512
-  %8 = icmp eq i16 %7, 0
-  br i1 %8, label %35, label %9
+define dso_local void @TreeCCStreamLine(ptr nocapture noundef %stream, i64 noundef %linenum, ptr noundef %filename) local_unnamed_addr #0 {
+entry:
+  %0 = load ptr, ptr %stream, align 8, !tbaa !21
+  %print_lines = getelementptr inbounds %struct._tagTreeCCContext, ptr %0, i64 0, i32 8
+  %bf.load = load i16, ptr %print_lines, align 8
+  %bf.shl.mask = and i16 %bf.load, 512
+  %tobool.not = icmp eq i16 %bf.shl.mask, 0
+  br i1 %tobool.not, label %if.end18, label %if.then
 
-9:                                                ; preds = %3
-  %10 = and i16 %6, 256
-  %11 = icmp eq i16 %10, 0
-  br i1 %11, label %33, label %12
+if.then:                                          ; preds = %entry
+  %bf.shl3.mask = and i16 %bf.load, 256
+  %tobool6.not = icmp eq i16 %bf.shl3.mask, 0
+  br i1 %tobool6.not, label %if.end, label %if.then7
 
-12:                                               ; preds = %9
-  %13 = tail call i64 @strlen(ptr noundef nonnull dereferenceable(1) %2) #14
-  %14 = trunc i64 %13 to i32
-  %15 = icmp sgt i32 %14, 0
-  br i1 %15, label %16, label %28
+if.then7:                                         ; preds = %if.then
+  %call = tail call i64 @strlen(ptr noundef nonnull dereferenceable(1) %filename) #14
+  %conv = trunc i64 %call to i32
+  %1 = and i64 %call, 4294967295
+  %smin = tail call i32 @llvm.smin.i32(i32 %conv, i32 0)
+  br label %while.cond
 
-16:                                               ; preds = %12
-  %17 = and i64 %13, 4294967295
-  br label %18
+while.cond:                                       ; preds = %land.lhs.true, %if.then7
+  %indvars.iv = phi i64 [ %3, %land.lhs.true ], [ %1, %if.then7 ]
+  %2 = trunc i64 %indvars.iv to i32
+  %cmp = icmp sgt i32 %2, 0
+  br i1 %cmp, label %land.lhs.true, label %while.end
 
-18:                                               ; preds = %16, %25
-  %19 = phi i64 [ %17, %16 ], [ %26, %25 ]
-  %20 = add nuw i64 %19, 4294967295
-  %21 = and i64 %20, 4294967295
-  %22 = getelementptr inbounds i8, ptr %2, i64 %21
-  %23 = load i8, ptr %22, align 1, !tbaa !5
-  %24 = sext i8 %23 to i32
-  switch i32 %24, label %25 [
-    i32 47, label %28
-    i32 92, label %28
-  ]
+land.lhs.true:                                    ; preds = %while.cond
+  %3 = add nsw i64 %indvars.iv, -1
+  %arrayidx = getelementptr inbounds i8, ptr %filename, i64 %3
+  %4 = load i8, ptr %arrayidx, align 1, !tbaa !5
+  switch i8 %4, label %while.cond [
+    i8 47, label %while.end.split.loop.exit
+    i8 92, label %while.end.split.loop.exit
+  ], !llvm.loop !47
 
-25:                                               ; preds = %18
-  %26 = add nsw i64 %19, -1
-  %27 = icmp sgt i64 %19, 1
-  br i1 %27, label %18, label %28, !llvm.loop !47
+while.end.split.loop.exit:                        ; preds = %land.lhs.true, %land.lhs.true
+  %5 = trunc i64 %indvars.iv to i32
+  br label %while.end
 
-28:                                               ; preds = %25, %18, %18, %12
-  %29 = phi i64 [ %13, %12 ], [ %19, %18 ], [ %19, %18 ], [ 0, %25 ]
-  %30 = shl i64 %29, 32
-  %31 = ashr exact i64 %30, 32
-  %32 = getelementptr inbounds i8, ptr %2, i64 %31
-  br label %33
+while.end:                                        ; preds = %while.cond, %while.end.split.loop.exit
+  %len.0.lcssa = phi i32 [ %5, %while.end.split.loop.exit ], [ %smin, %while.cond ]
+  %idx.ext = sext i32 %len.0.lcssa to i64
+  %add.ptr = getelementptr inbounds i8, ptr %filename, i64 %idx.ext
+  br label %if.end
 
-33:                                               ; preds = %28, %9
-  %34 = phi ptr [ %32, %28 ], [ %2, %9 ]
-  tail call void (ptr, ptr, ...) @TreeCCStreamPrint(ptr noundef nonnull %0, ptr noundef nonnull @.str.8, i64 noundef %1, ptr noundef %34)
-  br label %35
+if.end:                                           ; preds = %while.end, %if.then
+  %filename.addr.0 = phi ptr [ %add.ptr, %while.end ], [ %filename, %if.then ]
+  tail call void (ptr, ptr, ...) @TreeCCStreamPrint(ptr noundef nonnull %stream, ptr noundef nonnull @.str.8, i64 noundef %linenum, ptr noundef %filename.addr.0)
+  br label %if.end18
 
-35:                                               ; preds = %33, %3
+if.end18:                                         ; preds = %if.end, %entry
   ret void
 }
 
 ; Function Attrs: nounwind uwtable
-define dso_local void @TreeCCStreamAddLiteral(ptr noundef %0, ptr noundef %1, ptr noundef %2, i64 noundef %3, i32 noundef %4, i32 noundef %5) local_unnamed_addr #0 {
-  %7 = icmp eq ptr %0, null
-  br i1 %7, label %24, label %8
+define dso_local void @TreeCCStreamAddLiteral(ptr noundef %stream, ptr noundef %code, ptr noundef %filename, i64 noundef %linenum, i32 noundef %atEnd, i32 noundef %refOnly) local_unnamed_addr #0 {
+entry:
+  %tobool.not = icmp eq ptr %stream, null
+  br i1 %tobool.not, label %cleanup, label %if.end
 
-8:                                                ; preds = %6
-  %9 = tail call noalias dereferenceable_or_null(40) ptr @malloc(i64 noundef 40) #15
-  %10 = icmp eq ptr %9, null
-  br i1 %10, label %11, label %12
+if.end:                                           ; preds = %entry
+  %call = tail call noalias dereferenceable_or_null(40) ptr @malloc(i64 noundef 40) #15
+  %tobool1.not = icmp eq ptr %call, null
+  br i1 %tobool1.not, label %if.then2, label %if.end3
 
-11:                                               ; preds = %8
+if.then2:                                         ; preds = %if.end
   tail call void @TreeCCOutOfMemory(ptr noundef null) #16
-  br label %12
+  br label %if.end3
 
-12:                                               ; preds = %11, %8
-  store ptr %1, ptr %9, align 8, !tbaa !36
-  %13 = getelementptr inbounds %struct._tagTreeCCStreamDefn, ptr %9, i64 0, i32 1
-  store ptr %2, ptr %13, align 8, !tbaa !48
-  %14 = getelementptr inbounds %struct._tagTreeCCStreamDefn, ptr %9, i64 0, i32 2
-  store i64 %3, ptr %14, align 8, !tbaa !49
-  %15 = getelementptr inbounds %struct._tagTreeCCStreamDefn, ptr %9, i64 0, i32 3
-  store i32 %4, ptr %15, align 8, !tbaa !50
-  %16 = getelementptr inbounds %struct._tagTreeCCStreamDefn, ptr %9, i64 0, i32 4
-  store i32 %5, ptr %16, align 4, !tbaa !35
-  %17 = getelementptr inbounds %struct._tagTreeCCStreamDefn, ptr %9, i64 0, i32 5
-  store ptr null, ptr %17, align 8, !tbaa !33
-  %18 = getelementptr inbounds %struct._tagTreeCCStream, ptr %0, i64 0, i32 9
-  %19 = load ptr, ptr %18, align 8, !tbaa !51
-  %20 = icmp eq ptr %19, null
-  %21 = getelementptr inbounds %struct._tagTreeCCStream, ptr %0, i64 0, i32 8
-  %22 = getelementptr inbounds %struct._tagTreeCCStreamDefn, ptr %19, i64 0, i32 5
-  %23 = select i1 %20, ptr %21, ptr %22
-  store ptr %9, ptr %23, align 8, !tbaa !17
-  store ptr %9, ptr %18, align 8, !tbaa !51
-  br label %24
+if.end3:                                          ; preds = %if.then2, %if.end
+  store ptr %code, ptr %call, align 8, !tbaa !36
+  %filename5 = getelementptr inbounds %struct._tagTreeCCStreamDefn, ptr %call, i64 0, i32 1
+  store ptr %filename, ptr %filename5, align 8, !tbaa !48
+  %linenum6 = getelementptr inbounds %struct._tagTreeCCStreamDefn, ptr %call, i64 0, i32 2
+  store i64 %linenum, ptr %linenum6, align 8, !tbaa !49
+  %atEnd7 = getelementptr inbounds %struct._tagTreeCCStreamDefn, ptr %call, i64 0, i32 3
+  store i32 %atEnd, ptr %atEnd7, align 8, !tbaa !50
+  %refOnly8 = getelementptr inbounds %struct._tagTreeCCStreamDefn, ptr %call, i64 0, i32 4
+  store i32 %refOnly, ptr %refOnly8, align 4, !tbaa !35
+  %next = getelementptr inbounds %struct._tagTreeCCStreamDefn, ptr %call, i64 0, i32 5
+  store ptr null, ptr %next, align 8, !tbaa !33
+  %lastDefn = getelementptr inbounds %struct._tagTreeCCStream, ptr %stream, i64 0, i32 9
+  %0 = load ptr, ptr %lastDefn, align 8, !tbaa !51
+  %tobool9.not = icmp eq ptr %0, null
+  %firstDefn = getelementptr inbounds %struct._tagTreeCCStream, ptr %stream, i64 0, i32 8
+  %next12 = getelementptr inbounds %struct._tagTreeCCStreamDefn, ptr %0, i64 0, i32 5
+  %firstDefn.sink = select i1 %tobool9.not, ptr %firstDefn, ptr %next12
+  store ptr %call, ptr %firstDefn.sink, align 8, !tbaa !17
+  store ptr %call, ptr %lastDefn, align 8, !tbaa !51
+  br label %cleanup
 
-24:                                               ; preds = %6, %12
+cleanup:                                          ; preds = %entry, %if.end3
   ret void
 }
 
 ; Function Attrs: nounwind uwtable
-define dso_local void @TreeCCStreamHeaderTop(ptr nocapture noundef %0) local_unnamed_addr #0 {
-  %2 = getelementptr inbounds %struct._tagTreeCCStream, ptr %0, i64 0, i32 2
-  %3 = load ptr, ptr %2, align 8, !tbaa !22
-  tail call void (ptr, ptr, ...) @TreeCCStreamPrint(ptr noundef %0, ptr noundef nonnull @.str.4, ptr noundef %3)
-  %4 = load ptr, ptr %0, align 8, !tbaa !21
-  %5 = getelementptr inbounds %struct._tagTreeCCContext, ptr %4, i64 0, i32 9
-  %6 = load ptr, ptr %5, align 8, !tbaa !52
-  tail call void (ptr, ptr, ...) @TreeCCStreamPrint(ptr noundef nonnull %0, ptr noundef nonnull @.str.5, ptr noundef %6)
-  tail call fastcc void @OutputMacroName(ptr noundef nonnull %0, ptr noundef %3)
-  %7 = load ptr, ptr %0, align 8, !tbaa !21
-  %8 = getelementptr inbounds %struct._tagTreeCCContext, ptr %7, i64 0, i32 9
-  %9 = load ptr, ptr %8, align 8, !tbaa !52
-  tail call void (ptr, ptr, ...) @TreeCCStreamPrint(ptr noundef nonnull %0, ptr noundef nonnull @.str.6, ptr noundef %9)
-  tail call fastcc void @OutputMacroName(ptr noundef nonnull %0, ptr noundef %3)
-  tail call fastcc void @OutputDefns(ptr noundef nonnull %0, i32 noundef 0)
+define dso_local void @TreeCCStreamHeaderTop(ptr nocapture noundef %stream) local_unnamed_addr #0 {
+entry:
+  %embedName = getelementptr inbounds %struct._tagTreeCCStream, ptr %stream, i64 0, i32 2
+  %0 = load ptr, ptr %embedName, align 8, !tbaa !22
+  tail call void (ptr, ptr, ...) @TreeCCStreamPrint(ptr noundef %stream, ptr noundef nonnull @.str.4, ptr noundef %0)
+  %1 = load ptr, ptr %stream, align 8, !tbaa !21
+  %yy_replacement = getelementptr inbounds %struct._tagTreeCCContext, ptr %1, i64 0, i32 9
+  %2 = load ptr, ptr %yy_replacement, align 8, !tbaa !52
+  tail call void (ptr, ptr, ...) @TreeCCStreamPrint(ptr noundef nonnull %stream, ptr noundef nonnull @.str.5, ptr noundef %2)
+  tail call fastcc void @OutputMacroName(ptr noundef nonnull %stream, ptr noundef %0)
+  %3 = load ptr, ptr %stream, align 8, !tbaa !21
+  %yy_replacement2 = getelementptr inbounds %struct._tagTreeCCContext, ptr %3, i64 0, i32 9
+  %4 = load ptr, ptr %yy_replacement2, align 8, !tbaa !52
+  tail call void (ptr, ptr, ...) @TreeCCStreamPrint(ptr noundef nonnull %stream, ptr noundef nonnull @.str.6, ptr noundef %4)
+  tail call fastcc void @OutputMacroName(ptr noundef nonnull %stream, ptr noundef %0)
+  tail call fastcc void @OutputDefns(ptr noundef nonnull %stream, i32 noundef 0)
   ret void
 }
 
 ; Function Attrs: nounwind uwtable
-define internal fastcc void @OutputMacroName(ptr nocapture noundef %0, ptr nocapture noundef readonly %1) unnamed_addr #0 {
-  %3 = alloca [2 x i8], align 1
-  %4 = alloca [2 x i8], align 1
-  %5 = alloca [2 x i8], align 1
-  %6 = load i8, ptr %1, align 1, !tbaa !5
-  %7 = icmp eq i8 %6, 0
-  br i1 %7, label %127, label %8
+define internal fastcc void @OutputMacroName(ptr nocapture noundef %stream, ptr nocapture noundef readonly %filename) unnamed_addr #0 {
+entry:
+  %buf.i135 = alloca [2 x i8], align 1
+  %buf.i95 = alloca [2 x i8], align 1
+  %buf.i = alloca [2 x i8], align 1
+  %0 = load i8, ptr %filename, align 1, !tbaa !5
+  %cmp.not177 = icmp eq i8 %0, 0
+  br i1 %cmp.not177, label %do.body48, label %while.body.lr.ph
 
-8:                                                ; preds = %2
-  %9 = getelementptr inbounds %struct._tagTreeCCStream, ptr %0, i64 0, i32 6
-  %10 = getelementptr inbounds [2 x i8], ptr %4, i64 0, i64 1
-  %11 = getelementptr inbounds %struct._tagTreeCCStream, ptr %0, i64 0, i32 7
-  %12 = getelementptr inbounds %struct._tagTreeCCStream, ptr %0, i64 0, i32 5
-  %13 = getelementptr inbounds %struct._tagTreeCCStream, ptr %0, i64 0, i32 4
-  %14 = getelementptr inbounds [2 x i8], ptr %5, i64 0, i64 1
-  br label %15
+while.body.lr.ph:                                 ; preds = %entry
+  %posn30 = getelementptr inbounds %struct._tagTreeCCStream, ptr %stream, i64 0, i32 6
+  %arrayidx1.i96 = getelementptr inbounds [2 x i8], ptr %buf.i95, i64 0, i64 1
+  %dirty.i.i99 = getelementptr inbounds %struct._tagTreeCCStream, ptr %stream, i64 0, i32 7
+  %lastBuf14.i.i104 = getelementptr inbounds %struct._tagTreeCCStream, ptr %stream, i64 0, i32 5
+  %firstBuf.i.i105 = getelementptr inbounds %struct._tagTreeCCStream, ptr %stream, i64 0, i32 4
+  %arrayidx1.i = getelementptr inbounds [2 x i8], ptr %buf.i, i64 0, i64 1
+  br label %while.body
 
-15:                                               ; preds = %8, %123
-  %16 = phi i8 [ %6, %8 ], [ %125, %123 ]
-  %17 = phi ptr [ %1, %8 ], [ %124, %123 ]
-  %18 = icmp sgt i8 %16, 64
-  br i1 %18, label %19, label %24
+while.body:                                       ; preds = %while.body.lr.ph, %if.end47
+  %1 = phi i8 [ %0, %while.body.lr.ph ], [ %18, %if.end47 ]
+  %filename.addr.0178 = phi ptr [ %filename, %while.body.lr.ph ], [ %incdec.ptr, %if.end47 ]
+  %2 = and i8 %1, -33
+  %3 = add i8 %2, -65
+  %or.cond175 = icmp ult i8 %3, 26
+  %4 = add i8 %1, -48
+  %or.cond94 = icmp ult i8 %4, 10
+  %or.cond176 = select i1 %or.cond175, i1 true, i1 %or.cond94
+  %5 = load i32, ptr %posn30, align 8, !tbaa !24
+  %cmp23 = icmp slt i32 %5, 2048
+  br i1 %or.cond176, label %do.body, label %do.body29
 
-19:                                               ; preds = %15
-  %20 = icmp ult i8 %16, 91
-  %21 = add nsw i8 %16, -97
-  %22 = icmp ult i8 %21, 26
-  %23 = or i1 %20, %22
-  br i1 %23, label %27, label %75
+do.body:                                          ; preds = %while.body
+  br i1 %cmp23, label %if.then25, label %if.else
 
-24:                                               ; preds = %15
-  %25 = add i8 %16, -48
-  %26 = icmp ult i8 %25, 10
-  br i1 %26, label %27, label %75
+if.then25:                                        ; preds = %do.body
+  %6 = load ptr, ptr %lastBuf14.i.i104, align 8, !tbaa !38
+  %inc = add nsw i32 %5, 1
+  store i32 %inc, ptr %posn30, align 8, !tbaa !24
+  %idxprom = sext i32 %5 to i64
+  %arrayidx = getelementptr inbounds [2048 x i8], ptr %6, i64 0, i64 %idxprom
+  store i8 %1, ptr %arrayidx, align 1, !tbaa !5
+  %bf.load = load i8, ptr %dirty.i.i99, align 4
+  %bf.set = or i8 %bf.load, 16
+  store i8 %bf.set, ptr %dirty.i.i99, align 4
+  br label %if.end47
 
-27:                                               ; preds = %24, %19
-  %28 = load i32, ptr %9, align 8, !tbaa !24
-  %29 = icmp slt i32 %28, 2048
-  br i1 %29, label %30, label %37
+if.else:                                          ; preds = %do.body
+  call void @llvm.lifetime.start.p0(i64 2, ptr nonnull %buf.i) #16
+  store i8 %1, ptr %buf.i, align 1, !tbaa !5
+  store i8 0, ptr %arrayidx1.i, align 1, !tbaa !5
+  %call.i.i = call i64 @strlen(ptr noundef nonnull dereferenceable(1) %buf.i) #14
+  %conv.i.i = trunc i64 %call.i.i to i32
+  %bf.load.i.i = load i8, ptr %dirty.i.i99, align 4
+  %bf.set.i.i = or i8 %bf.load.i.i, 16
+  store i8 %bf.set.i.i, ptr %dirty.i.i99, align 4
+  %cmp52.i.i = icmp sgt i32 %conv.i.i, 0
+  br i1 %cmp52.i.i, label %while.body.i.i, label %_StreamPut.exit
 
-30:                                               ; preds = %27
-  %31 = load ptr, ptr %12, align 8, !tbaa !38
-  %32 = add nsw i32 %28, 1
-  store i32 %32, ptr %9, align 8, !tbaa !24
-  %33 = sext i32 %28 to i64
-  %34 = getelementptr inbounds [2048 x i8], ptr %31, i64 0, i64 %33
-  store i8 %16, ptr %34, align 1, !tbaa !5
-  %35 = load i8, ptr %11, align 4
-  %36 = or i8 %35, 16
-  store i8 %36, ptr %11, align 4
-  br label %123
+while.body.i.i:                                   ; preds = %if.else, %if.end16.i.i
+  %7 = phi i32 [ %add.i.i, %if.end16.i.i ], [ %5, %if.else ]
+  %len.054.i.i = phi i32 [ %sub25.i.i, %if.end16.i.i ], [ %conv.i.i, %if.else ]
+  %buf.addr.053.i.i = phi ptr [ %add.ptr24.i.i, %if.end16.i.i ], [ %buf.i, %if.else ]
+  %cmp2.i.i = icmp sgt i32 %7, 2047
+  br i1 %cmp2.i.i, label %if.then.i.i, label %if.else13.i.i
 
-37:                                               ; preds = %27
-  call void @llvm.lifetime.start.p0(i64 2, ptr nonnull %5) #16
-  store i8 %16, ptr %5, align 1, !tbaa !5
-  store i8 0, ptr %14, align 1, !tbaa !5
-  %38 = call i64 @strlen(ptr noundef nonnull dereferenceable(1) %5) #14
-  %39 = trunc i64 %38 to i32
-  %40 = load i8, ptr %11, align 4
-  %41 = or i8 %40, 16
-  store i8 %41, ptr %11, align 4
-  %42 = icmp sgt i32 %39, 0
-  br i1 %42, label %43, label %74
+if.then.i.i:                                      ; preds = %while.body.i.i
+  %call4.i.i = tail call noalias dereferenceable_or_null(2056) ptr @malloc(i64 noundef 2056) #15
+  %tobool.not.i.i = icmp eq ptr %call4.i.i, null
+  br i1 %tobool.not.i.i, label %if.then5.i.i, label %if.end.i.i
 
-43:                                               ; preds = %37, %61
-  %44 = phi i32 [ %72, %61 ], [ %28, %37 ]
-  %45 = phi i32 [ %70, %61 ], [ %39, %37 ]
-  %46 = phi ptr [ %69, %61 ], [ %5, %37 ]
-  %47 = icmp sgt i32 %44, 2047
-  br i1 %47, label %48, label %58
-
-48:                                               ; preds = %43
-  %49 = tail call noalias dereferenceable_or_null(2056) ptr @malloc(i64 noundef 2056) #15
-  %50 = icmp eq ptr %49, null
-  br i1 %50, label %51, label %52
-
-51:                                               ; preds = %48
+if.then5.i.i:                                     ; preds = %if.then.i.i
   tail call void @TreeCCOutOfMemory(ptr noundef null) #16
-  br label %52
+  br label %if.end.i.i
 
-52:                                               ; preds = %51, %48
-  %53 = getelementptr inbounds %struct._tagTreeCCStreamBuf, ptr %49, i64 0, i32 1
-  store ptr null, ptr %53, align 8, !tbaa !29
-  %54 = load ptr, ptr %12, align 8, !tbaa !38
-  %55 = icmp eq ptr %54, null
-  %56 = getelementptr inbounds %struct._tagTreeCCStreamBuf, ptr %54, i64 0, i32 1
-  %57 = select i1 %55, ptr %13, ptr %56
-  store ptr %49, ptr %57, align 8, !tbaa !17
-  store ptr %49, ptr %12, align 8, !tbaa !38
-  store i32 0, ptr %9, align 8, !tbaa !24
-  br label %61
+if.end.i.i:                                       ; preds = %if.then5.i.i, %if.then.i.i
+  %next.i.i = getelementptr inbounds %struct._tagTreeCCStreamBuf, ptr %call4.i.i, i64 0, i32 1
+  store ptr null, ptr %next.i.i, align 8, !tbaa !29
+  %8 = load ptr, ptr %lastBuf14.i.i104, align 8, !tbaa !38
+  %tobool6.not.i.i = icmp eq ptr %8, null
+  %next9.i.i = getelementptr inbounds %struct._tagTreeCCStreamBuf, ptr %8, i64 0, i32 1
+  %firstBuf.sink.i.i = select i1 %tobool6.not.i.i, ptr %firstBuf.i.i105, ptr %next9.i.i
+  store ptr %call4.i.i, ptr %firstBuf.sink.i.i, align 8, !tbaa !17
+  store ptr %call4.i.i, ptr %lastBuf14.i.i104, align 8, !tbaa !38
+  store i32 0, ptr %posn30, align 8, !tbaa !24
+  br label %if.end16.i.i
 
-58:                                               ; preds = %43
-  %59 = load ptr, ptr %12, align 8, !tbaa !38
-  %60 = sub nsw i32 2048, %44
-  br label %61
+if.else13.i.i:                                    ; preds = %while.body.i.i
+  %9 = load ptr, ptr %lastBuf14.i.i104, align 8, !tbaa !38
+  %sub.i.i = sub nsw i32 2048, %7
+  br label %if.end16.i.i
 
-61:                                               ; preds = %58, %52
-  %62 = phi i32 [ 0, %52 ], [ %44, %58 ]
-  %63 = phi i32 [ 2048, %52 ], [ %60, %58 ]
-  %64 = phi ptr [ %49, %52 ], [ %59, %58 ]
-  %65 = tail call i32 @llvm.umin.i32(i32 %63, i32 %45)
-  %66 = sext i32 %62 to i64
-  %67 = getelementptr inbounds i8, ptr %64, i64 %66
-  %68 = zext i32 %65 to i64
-  call void @llvm.memcpy.p0.p0.i64(ptr align 1 %67, ptr align 1 %46, i64 %68, i1 false)
-  %69 = getelementptr inbounds i8, ptr %46, i64 %68
-  %70 = sub nsw i32 %45, %65
-  %71 = load i32, ptr %9, align 8, !tbaa !24
-  %72 = add nsw i32 %71, %65
-  store i32 %72, ptr %9, align 8, !tbaa !24
-  %73 = icmp sgt i32 %70, 0
-  br i1 %73, label %43, label %74, !llvm.loop !41
+if.end16.i.i:                                     ; preds = %if.else13.i.i, %if.end.i.i
+  %10 = phi i32 [ 0, %if.end.i.i ], [ %7, %if.else13.i.i ]
+  %templen.0.i.i = phi i32 [ 2048, %if.end.i.i ], [ %sub.i.i, %if.else13.i.i ]
+  %buffer.0.i.i = phi ptr [ %call4.i.i, %if.end.i.i ], [ %9, %if.else13.i.i ]
+  %spec.select.i.i = tail call i32 @llvm.umin.i32(i32 %templen.0.i.i, i32 %len.054.i.i)
+  %idx.ext.i.i = sext i32 %10 to i64
+  %add.ptr.i.i = getelementptr inbounds i8, ptr %buffer.0.i.i, i64 %idx.ext.i.i
+  %conv22.i.i = zext i32 %spec.select.i.i to i64
+  call void @llvm.memcpy.p0.p0.i64(ptr align 1 %add.ptr.i.i, ptr align 1 %buf.addr.053.i.i, i64 %conv22.i.i, i1 false)
+  %add.ptr24.i.i = getelementptr inbounds i8, ptr %buf.addr.053.i.i, i64 %conv22.i.i
+  %sub25.i.i = sub nsw i32 %len.054.i.i, %spec.select.i.i
+  %11 = load i32, ptr %posn30, align 8, !tbaa !24
+  %add.i.i = add nsw i32 %11, %spec.select.i.i
+  store i32 %add.i.i, ptr %posn30, align 8, !tbaa !24
+  %cmp.i.i = icmp sgt i32 %sub25.i.i, 0
+  br i1 %cmp.i.i, label %while.body.i.i, label %_StreamPut.exit, !llvm.loop !41
 
-74:                                               ; preds = %61, %37
-  call void @llvm.lifetime.end.p0(i64 2, ptr nonnull %5) #16
-  br label %123
+_StreamPut.exit:                                  ; preds = %if.end16.i.i, %if.else
+  call void @llvm.lifetime.end.p0(i64 2, ptr nonnull %buf.i) #16
+  br label %if.end47
 
-75:                                               ; preds = %19, %24
-  %76 = load i32, ptr %9, align 8, !tbaa !24
-  %77 = icmp slt i32 %76, 2048
-  br i1 %77, label %78, label %85
+do.body29:                                        ; preds = %while.body
+  br i1 %cmp23, label %if.then33, label %if.else44
 
-78:                                               ; preds = %75
-  %79 = load ptr, ptr %12, align 8, !tbaa !38
-  %80 = add nsw i32 %76, 1
-  store i32 %80, ptr %9, align 8, !tbaa !24
-  %81 = sext i32 %76 to i64
-  %82 = getelementptr inbounds [2048 x i8], ptr %79, i64 0, i64 %81
-  store i8 95, ptr %82, align 1, !tbaa !5
-  %83 = load i8, ptr %11, align 4
-  %84 = or i8 %83, 16
-  store i8 %84, ptr %11, align 4
-  br label %123
+if.then33:                                        ; preds = %do.body29
+  %12 = load ptr, ptr %lastBuf14.i.i104, align 8, !tbaa !38
+  %inc37 = add nsw i32 %5, 1
+  store i32 %inc37, ptr %posn30, align 8, !tbaa !24
+  %idxprom38 = sext i32 %5 to i64
+  %arrayidx39 = getelementptr inbounds [2048 x i8], ptr %12, i64 0, i64 %idxprom38
+  store i8 95, ptr %arrayidx39, align 1, !tbaa !5
+  %bf.load41 = load i8, ptr %dirty.i.i99, align 4
+  %bf.set43 = or i8 %bf.load41, 16
+  store i8 %bf.set43, ptr %dirty.i.i99, align 4
+  br label %if.end47
 
-85:                                               ; preds = %75
-  call void @llvm.lifetime.start.p0(i64 2, ptr nonnull %4) #16
-  store i8 95, ptr %4, align 1, !tbaa !5
-  store i8 0, ptr %10, align 1, !tbaa !5
-  %86 = call i64 @strlen(ptr noundef nonnull dereferenceable(1) %4) #14
-  %87 = trunc i64 %86 to i32
-  %88 = load i8, ptr %11, align 4
-  %89 = or i8 %88, 16
-  store i8 %89, ptr %11, align 4
-  %90 = icmp sgt i32 %87, 0
-  br i1 %90, label %91, label %122
+if.else44:                                        ; preds = %do.body29
+  call void @llvm.lifetime.start.p0(i64 2, ptr nonnull %buf.i95) #16
+  store i8 95, ptr %buf.i95, align 1, !tbaa !5
+  store i8 0, ptr %arrayidx1.i96, align 1, !tbaa !5
+  %call.i.i97 = call i64 @strlen(ptr noundef nonnull dereferenceable(1) %buf.i95) #14
+  %conv.i.i98 = trunc i64 %call.i.i97 to i32
+  %bf.load.i.i100 = load i8, ptr %dirty.i.i99, align 4
+  %bf.set.i.i101 = or i8 %bf.load.i.i100, 16
+  store i8 %bf.set.i.i101, ptr %dirty.i.i99, align 4
+  %cmp52.i.i102 = icmp sgt i32 %conv.i.i98, 0
+  br i1 %cmp52.i.i102, label %while.body.i.i111, label %_StreamPut.exit134
 
-91:                                               ; preds = %85, %109
-  %92 = phi i32 [ %120, %109 ], [ %76, %85 ]
-  %93 = phi i32 [ %118, %109 ], [ %87, %85 ]
-  %94 = phi ptr [ %117, %109 ], [ %4, %85 ]
-  %95 = icmp sgt i32 %92, 2047
-  br i1 %95, label %96, label %106
+while.body.i.i111:                                ; preds = %if.else44, %if.end16.i.i133
+  %13 = phi i32 [ %add.i.i131, %if.end16.i.i133 ], [ %5, %if.else44 ]
+  %len.054.i.i108 = phi i32 [ %sub25.i.i130, %if.end16.i.i133 ], [ %conv.i.i98, %if.else44 ]
+  %buf.addr.053.i.i109 = phi ptr [ %add.ptr24.i.i129, %if.end16.i.i133 ], [ %buf.i95, %if.else44 ]
+  %cmp2.i.i110 = icmp sgt i32 %13, 2047
+  br i1 %cmp2.i.i110, label %if.then.i.i114, label %if.else13.i.i122
 
-96:                                               ; preds = %91
-  %97 = tail call noalias dereferenceable_or_null(2056) ptr @malloc(i64 noundef 2056) #15
-  %98 = icmp eq ptr %97, null
-  br i1 %98, label %99, label %100
+if.then.i.i114:                                   ; preds = %while.body.i.i111
+  %call4.i.i112 = tail call noalias dereferenceable_or_null(2056) ptr @malloc(i64 noundef 2056) #15
+  %tobool.not.i.i113 = icmp eq ptr %call4.i.i112, null
+  br i1 %tobool.not.i.i113, label %if.then5.i.i115, label %if.end.i.i120
 
-99:                                               ; preds = %96
+if.then5.i.i115:                                  ; preds = %if.then.i.i114
   tail call void @TreeCCOutOfMemory(ptr noundef null) #16
-  br label %100
+  br label %if.end.i.i120
 
-100:                                              ; preds = %99, %96
-  %101 = getelementptr inbounds %struct._tagTreeCCStreamBuf, ptr %97, i64 0, i32 1
-  store ptr null, ptr %101, align 8, !tbaa !29
-  %102 = load ptr, ptr %12, align 8, !tbaa !38
-  %103 = icmp eq ptr %102, null
-  %104 = getelementptr inbounds %struct._tagTreeCCStreamBuf, ptr %102, i64 0, i32 1
-  %105 = select i1 %103, ptr %13, ptr %104
-  store ptr %97, ptr %105, align 8, !tbaa !17
-  store ptr %97, ptr %12, align 8, !tbaa !38
-  store i32 0, ptr %9, align 8, !tbaa !24
-  br label %109
+if.end.i.i120:                                    ; preds = %if.then5.i.i115, %if.then.i.i114
+  %next.i.i116 = getelementptr inbounds %struct._tagTreeCCStreamBuf, ptr %call4.i.i112, i64 0, i32 1
+  store ptr null, ptr %next.i.i116, align 8, !tbaa !29
+  %14 = load ptr, ptr %lastBuf14.i.i104, align 8, !tbaa !38
+  %tobool6.not.i.i117 = icmp eq ptr %14, null
+  %next9.i.i118 = getelementptr inbounds %struct._tagTreeCCStreamBuf, ptr %14, i64 0, i32 1
+  %firstBuf.sink.i.i119 = select i1 %tobool6.not.i.i117, ptr %firstBuf.i.i105, ptr %next9.i.i118
+  store ptr %call4.i.i112, ptr %firstBuf.sink.i.i119, align 8, !tbaa !17
+  store ptr %call4.i.i112, ptr %lastBuf14.i.i104, align 8, !tbaa !38
+  store i32 0, ptr %posn30, align 8, !tbaa !24
+  br label %if.end16.i.i133
 
-106:                                              ; preds = %91
-  %107 = load ptr, ptr %12, align 8, !tbaa !38
-  %108 = sub nsw i32 2048, %92
-  br label %109
+if.else13.i.i122:                                 ; preds = %while.body.i.i111
+  %15 = load ptr, ptr %lastBuf14.i.i104, align 8, !tbaa !38
+  %sub.i.i121 = sub nsw i32 2048, %13
+  br label %if.end16.i.i133
 
-109:                                              ; preds = %106, %100
-  %110 = phi i32 [ 0, %100 ], [ %92, %106 ]
-  %111 = phi i32 [ 2048, %100 ], [ %108, %106 ]
-  %112 = phi ptr [ %97, %100 ], [ %107, %106 ]
-  %113 = tail call i32 @llvm.umin.i32(i32 %111, i32 %93)
-  %114 = sext i32 %110 to i64
-  %115 = getelementptr inbounds i8, ptr %112, i64 %114
-  %116 = zext i32 %113 to i64
-  call void @llvm.memcpy.p0.p0.i64(ptr align 1 %115, ptr align 1 %94, i64 %116, i1 false)
-  %117 = getelementptr inbounds i8, ptr %94, i64 %116
-  %118 = sub nsw i32 %93, %113
-  %119 = load i32, ptr %9, align 8, !tbaa !24
-  %120 = add nsw i32 %119, %113
-  store i32 %120, ptr %9, align 8, !tbaa !24
-  %121 = icmp sgt i32 %118, 0
-  br i1 %121, label %91, label %122, !llvm.loop !41
+if.end16.i.i133:                                  ; preds = %if.else13.i.i122, %if.end.i.i120
+  %16 = phi i32 [ 0, %if.end.i.i120 ], [ %13, %if.else13.i.i122 ]
+  %templen.0.i.i123 = phi i32 [ 2048, %if.end.i.i120 ], [ %sub.i.i121, %if.else13.i.i122 ]
+  %buffer.0.i.i124 = phi ptr [ %call4.i.i112, %if.end.i.i120 ], [ %15, %if.else13.i.i122 ]
+  %spec.select.i.i125 = tail call i32 @llvm.umin.i32(i32 %templen.0.i.i123, i32 %len.054.i.i108)
+  %idx.ext.i.i126 = sext i32 %16 to i64
+  %add.ptr.i.i127 = getelementptr inbounds i8, ptr %buffer.0.i.i124, i64 %idx.ext.i.i126
+  %conv22.i.i128 = zext i32 %spec.select.i.i125 to i64
+  call void @llvm.memcpy.p0.p0.i64(ptr align 1 %add.ptr.i.i127, ptr align 1 %buf.addr.053.i.i109, i64 %conv22.i.i128, i1 false)
+  %add.ptr24.i.i129 = getelementptr inbounds i8, ptr %buf.addr.053.i.i109, i64 %conv22.i.i128
+  %sub25.i.i130 = sub nsw i32 %len.054.i.i108, %spec.select.i.i125
+  %17 = load i32, ptr %posn30, align 8, !tbaa !24
+  %add.i.i131 = add nsw i32 %17, %spec.select.i.i125
+  store i32 %add.i.i131, ptr %posn30, align 8, !tbaa !24
+  %cmp.i.i132 = icmp sgt i32 %sub25.i.i130, 0
+  br i1 %cmp.i.i132, label %while.body.i.i111, label %_StreamPut.exit134, !llvm.loop !41
 
-122:                                              ; preds = %109, %85
-  call void @llvm.lifetime.end.p0(i64 2, ptr nonnull %4) #16
-  br label %123
+_StreamPut.exit134:                               ; preds = %if.end16.i.i133, %if.else44
+  call void @llvm.lifetime.end.p0(i64 2, ptr nonnull %buf.i95) #16
+  br label %if.end47
 
-123:                                              ; preds = %122, %78, %74, %30
-  %124 = getelementptr inbounds i8, ptr %17, i64 1
-  %125 = load i8, ptr %124, align 1, !tbaa !5
-  %126 = icmp eq i8 %125, 0
-  br i1 %126, label %127, label %15, !llvm.loop !53
+if.end47:                                         ; preds = %_StreamPut.exit134, %if.then33, %_StreamPut.exit, %if.then25
+  %incdec.ptr = getelementptr inbounds i8, ptr %filename.addr.0178, i64 1
+  %18 = load i8, ptr %incdec.ptr, align 1, !tbaa !5
+  %cmp.not = icmp eq i8 %18, 0
+  br i1 %cmp.not, label %do.body48, label %while.body, !llvm.loop !53
 
-127:                                              ; preds = %123, %2
-  %128 = getelementptr inbounds %struct._tagTreeCCStream, ptr %0, i64 0, i32 6
-  %129 = load i32, ptr %128, align 8, !tbaa !24
-  %130 = icmp slt i32 %129, 2048
-  br i1 %130, label %131, label %140
+do.body48:                                        ; preds = %if.end47, %entry
+  %posn49 = getelementptr inbounds %struct._tagTreeCCStream, ptr %stream, i64 0, i32 6
+  %19 = load i32, ptr %posn49, align 8, !tbaa !24
+  %cmp50 = icmp slt i32 %19, 2048
+  br i1 %cmp50, label %if.then52, label %if.else63
 
-131:                                              ; preds = %127
-  %132 = getelementptr inbounds %struct._tagTreeCCStream, ptr %0, i64 0, i32 5
-  %133 = load ptr, ptr %132, align 8, !tbaa !38
-  %134 = add nsw i32 %129, 1
-  store i32 %134, ptr %128, align 8, !tbaa !24
-  %135 = sext i32 %129 to i64
-  %136 = getelementptr inbounds [2048 x i8], ptr %133, i64 0, i64 %135
-  store i8 10, ptr %136, align 1, !tbaa !5
-  %137 = getelementptr inbounds %struct._tagTreeCCStream, ptr %0, i64 0, i32 7
-  %138 = load i8, ptr %137, align 4
-  %139 = or i8 %138, 16
-  store i8 %139, ptr %137, align 4
-  br label %183
+if.then52:                                        ; preds = %do.body48
+  %lastBuf53 = getelementptr inbounds %struct._tagTreeCCStream, ptr %stream, i64 0, i32 5
+  %20 = load ptr, ptr %lastBuf53, align 8, !tbaa !38
+  %inc56 = add nsw i32 %19, 1
+  store i32 %inc56, ptr %posn49, align 8, !tbaa !24
+  %idxprom57 = sext i32 %19 to i64
+  %arrayidx58 = getelementptr inbounds [2048 x i8], ptr %20, i64 0, i64 %idxprom57
+  store i8 10, ptr %arrayidx58, align 1, !tbaa !5
+  %dirty59 = getelementptr inbounds %struct._tagTreeCCStream, ptr %stream, i64 0, i32 7
+  %bf.load60 = load i8, ptr %dirty59, align 4
+  %bf.set62 = or i8 %bf.load60, 16
+  store i8 %bf.set62, ptr %dirty59, align 4
+  br label %do.end65
 
-140:                                              ; preds = %127
-  call void @llvm.lifetime.start.p0(i64 2, ptr nonnull %3) #16
-  store i8 10, ptr %3, align 1, !tbaa !5
-  %141 = getelementptr inbounds [2 x i8], ptr %3, i64 0, i64 1
-  store i8 0, ptr %141, align 1, !tbaa !5
-  %142 = call i64 @strlen(ptr noundef nonnull dereferenceable(1) %3) #14
-  %143 = trunc i64 %142 to i32
-  %144 = getelementptr inbounds %struct._tagTreeCCStream, ptr %0, i64 0, i32 7
-  %145 = load i8, ptr %144, align 4
-  %146 = or i8 %145, 16
-  store i8 %146, ptr %144, align 4
-  %147 = icmp sgt i32 %143, 0
-  br i1 %147, label %148, label %182
+if.else63:                                        ; preds = %do.body48
+  call void @llvm.lifetime.start.p0(i64 2, ptr nonnull %buf.i135) #16
+  store i8 10, ptr %buf.i135, align 1, !tbaa !5
+  %arrayidx1.i136 = getelementptr inbounds [2 x i8], ptr %buf.i135, i64 0, i64 1
+  store i8 0, ptr %arrayidx1.i136, align 1, !tbaa !5
+  %call.i.i137 = call i64 @strlen(ptr noundef nonnull dereferenceable(1) %buf.i135) #14
+  %conv.i.i138 = trunc i64 %call.i.i137 to i32
+  %dirty.i.i139 = getelementptr inbounds %struct._tagTreeCCStream, ptr %stream, i64 0, i32 7
+  %bf.load.i.i140 = load i8, ptr %dirty.i.i139, align 4
+  %bf.set.i.i141 = or i8 %bf.load.i.i140, 16
+  store i8 %bf.set.i.i141, ptr %dirty.i.i139, align 4
+  %cmp52.i.i142 = icmp sgt i32 %conv.i.i138, 0
+  br i1 %cmp52.i.i142, label %while.body.lr.ph.i.i147, label %_StreamPut.exit174
 
-148:                                              ; preds = %140
-  %149 = getelementptr inbounds %struct._tagTreeCCStream, ptr %0, i64 0, i32 5
-  %150 = getelementptr inbounds %struct._tagTreeCCStream, ptr %0, i64 0, i32 4
-  br label %151
+while.body.lr.ph.i.i147:                          ; preds = %if.else63
+  %lastBuf14.i.i144 = getelementptr inbounds %struct._tagTreeCCStream, ptr %stream, i64 0, i32 5
+  %firstBuf.i.i145 = getelementptr inbounds %struct._tagTreeCCStream, ptr %stream, i64 0, i32 4
+  br label %while.body.i.i151
 
-151:                                              ; preds = %169, %148
-  %152 = phi i32 [ %129, %148 ], [ %180, %169 ]
-  %153 = phi i32 [ %143, %148 ], [ %178, %169 ]
-  %154 = phi ptr [ %3, %148 ], [ %177, %169 ]
-  %155 = icmp sgt i32 %152, 2047
-  br i1 %155, label %156, label %166
+while.body.i.i151:                                ; preds = %if.end16.i.i173, %while.body.lr.ph.i.i147
+  %21 = phi i32 [ %19, %while.body.lr.ph.i.i147 ], [ %add.i.i171, %if.end16.i.i173 ]
+  %len.054.i.i148 = phi i32 [ %conv.i.i138, %while.body.lr.ph.i.i147 ], [ %sub25.i.i170, %if.end16.i.i173 ]
+  %buf.addr.053.i.i149 = phi ptr [ %buf.i135, %while.body.lr.ph.i.i147 ], [ %add.ptr24.i.i169, %if.end16.i.i173 ]
+  %cmp2.i.i150 = icmp sgt i32 %21, 2047
+  br i1 %cmp2.i.i150, label %if.then.i.i154, label %if.else13.i.i162
 
-156:                                              ; preds = %151
-  %157 = tail call noalias dereferenceable_or_null(2056) ptr @malloc(i64 noundef 2056) #15
-  %158 = icmp eq ptr %157, null
-  br i1 %158, label %159, label %160
+if.then.i.i154:                                   ; preds = %while.body.i.i151
+  %call4.i.i152 = tail call noalias dereferenceable_or_null(2056) ptr @malloc(i64 noundef 2056) #15
+  %tobool.not.i.i153 = icmp eq ptr %call4.i.i152, null
+  br i1 %tobool.not.i.i153, label %if.then5.i.i155, label %if.end.i.i160
 
-159:                                              ; preds = %156
+if.then5.i.i155:                                  ; preds = %if.then.i.i154
   tail call void @TreeCCOutOfMemory(ptr noundef null) #16
-  br label %160
+  br label %if.end.i.i160
 
-160:                                              ; preds = %159, %156
-  %161 = getelementptr inbounds %struct._tagTreeCCStreamBuf, ptr %157, i64 0, i32 1
-  store ptr null, ptr %161, align 8, !tbaa !29
-  %162 = load ptr, ptr %149, align 8, !tbaa !38
-  %163 = icmp eq ptr %162, null
-  %164 = getelementptr inbounds %struct._tagTreeCCStreamBuf, ptr %162, i64 0, i32 1
-  %165 = select i1 %163, ptr %150, ptr %164
-  store ptr %157, ptr %165, align 8, !tbaa !17
-  store ptr %157, ptr %149, align 8, !tbaa !38
-  store i32 0, ptr %128, align 8, !tbaa !24
-  br label %169
+if.end.i.i160:                                    ; preds = %if.then5.i.i155, %if.then.i.i154
+  %next.i.i156 = getelementptr inbounds %struct._tagTreeCCStreamBuf, ptr %call4.i.i152, i64 0, i32 1
+  store ptr null, ptr %next.i.i156, align 8, !tbaa !29
+  %22 = load ptr, ptr %lastBuf14.i.i144, align 8, !tbaa !38
+  %tobool6.not.i.i157 = icmp eq ptr %22, null
+  %next9.i.i158 = getelementptr inbounds %struct._tagTreeCCStreamBuf, ptr %22, i64 0, i32 1
+  %firstBuf.sink.i.i159 = select i1 %tobool6.not.i.i157, ptr %firstBuf.i.i145, ptr %next9.i.i158
+  store ptr %call4.i.i152, ptr %firstBuf.sink.i.i159, align 8, !tbaa !17
+  store ptr %call4.i.i152, ptr %lastBuf14.i.i144, align 8, !tbaa !38
+  store i32 0, ptr %posn49, align 8, !tbaa !24
+  br label %if.end16.i.i173
 
-166:                                              ; preds = %151
-  %167 = load ptr, ptr %149, align 8, !tbaa !38
-  %168 = sub nsw i32 2048, %152
-  br label %169
+if.else13.i.i162:                                 ; preds = %while.body.i.i151
+  %23 = load ptr, ptr %lastBuf14.i.i144, align 8, !tbaa !38
+  %sub.i.i161 = sub nsw i32 2048, %21
+  br label %if.end16.i.i173
 
-169:                                              ; preds = %166, %160
-  %170 = phi i32 [ 0, %160 ], [ %152, %166 ]
-  %171 = phi i32 [ 2048, %160 ], [ %168, %166 ]
-  %172 = phi ptr [ %157, %160 ], [ %167, %166 ]
-  %173 = tail call i32 @llvm.umin.i32(i32 %171, i32 %153)
-  %174 = sext i32 %170 to i64
-  %175 = getelementptr inbounds i8, ptr %172, i64 %174
-  %176 = zext i32 %173 to i64
-  call void @llvm.memcpy.p0.p0.i64(ptr align 1 %175, ptr align 1 %154, i64 %176, i1 false)
-  %177 = getelementptr inbounds i8, ptr %154, i64 %176
-  %178 = sub nsw i32 %153, %173
-  %179 = load i32, ptr %128, align 8, !tbaa !24
-  %180 = add nsw i32 %179, %173
-  store i32 %180, ptr %128, align 8, !tbaa !24
-  %181 = icmp sgt i32 %178, 0
-  br i1 %181, label %151, label %182, !llvm.loop !41
+if.end16.i.i173:                                  ; preds = %if.else13.i.i162, %if.end.i.i160
+  %24 = phi i32 [ 0, %if.end.i.i160 ], [ %21, %if.else13.i.i162 ]
+  %templen.0.i.i163 = phi i32 [ 2048, %if.end.i.i160 ], [ %sub.i.i161, %if.else13.i.i162 ]
+  %buffer.0.i.i164 = phi ptr [ %call4.i.i152, %if.end.i.i160 ], [ %23, %if.else13.i.i162 ]
+  %spec.select.i.i165 = tail call i32 @llvm.umin.i32(i32 %templen.0.i.i163, i32 %len.054.i.i148)
+  %idx.ext.i.i166 = sext i32 %24 to i64
+  %add.ptr.i.i167 = getelementptr inbounds i8, ptr %buffer.0.i.i164, i64 %idx.ext.i.i166
+  %conv22.i.i168 = zext i32 %spec.select.i.i165 to i64
+  call void @llvm.memcpy.p0.p0.i64(ptr align 1 %add.ptr.i.i167, ptr align 1 %buf.addr.053.i.i149, i64 %conv22.i.i168, i1 false)
+  %add.ptr24.i.i169 = getelementptr inbounds i8, ptr %buf.addr.053.i.i149, i64 %conv22.i.i168
+  %sub25.i.i170 = sub nsw i32 %len.054.i.i148, %spec.select.i.i165
+  %25 = load i32, ptr %posn49, align 8, !tbaa !24
+  %add.i.i171 = add nsw i32 %25, %spec.select.i.i165
+  store i32 %add.i.i171, ptr %posn49, align 8, !tbaa !24
+  %cmp.i.i172 = icmp sgt i32 %sub25.i.i170, 0
+  br i1 %cmp.i.i172, label %while.body.i.i151, label %_StreamPut.exit174, !llvm.loop !41
 
-182:                                              ; preds = %169, %140
-  call void @llvm.lifetime.end.p0(i64 2, ptr nonnull %3) #16
-  br label %183
+_StreamPut.exit174:                               ; preds = %if.end16.i.i173, %if.else63
+  call void @llvm.lifetime.end.p0(i64 2, ptr nonnull %buf.i135) #16
+  br label %do.end65
 
-183:                                              ; preds = %131, %182
-  %184 = getelementptr inbounds %struct._tagTreeCCStream, ptr %0, i64 0, i32 3
-  %185 = load i64, ptr %184, align 8, !tbaa !23
-  %186 = add nsw i64 %185, 1
-  store i64 %186, ptr %184, align 8, !tbaa !23
+do.end65:                                         ; preds = %if.then52, %_StreamPut.exit174
+  %linenum = getelementptr inbounds %struct._tagTreeCCStream, ptr %stream, i64 0, i32 3
+  %26 = load i64, ptr %linenum, align 8, !tbaa !23
+  %inc66 = add nsw i64 %26, 1
+  store i64 %inc66, ptr %linenum, align 8, !tbaa !23
   ret void
 }
 
 ; Function Attrs: nounwind uwtable
-define internal fastcc void @OutputDefns(ptr nocapture noundef %0, i32 noundef %1) unnamed_addr #0 {
-  %3 = alloca [2 x i8], align 1
-  %4 = getelementptr inbounds %struct._tagTreeCCStream, ptr %0, i64 0, i32 8
-  %5 = load ptr, ptr %4, align 8, !tbaa !17
-  %6 = icmp eq ptr %5, null
-  br i1 %6, label %213, label %7
+define internal fastcc void @OutputDefns(ptr nocapture noundef %stream, i32 noundef %atEnd) unnamed_addr #0 {
+entry:
+  %buf.i = alloca [2 x i8], align 1
+  %firstDefn = getelementptr inbounds %struct._tagTreeCCStream, ptr %stream, i64 0, i32 8
+  %defn.073 = load ptr, ptr %firstDefn, align 8, !tbaa !17
+  %cmp.not74 = icmp eq ptr %defn.073, null
+  br i1 %cmp.not74, label %if.end23, label %while.body.lr.ph
 
-7:                                                ; preds = %2
-  %8 = getelementptr inbounds %struct._tagTreeCCStream, ptr %0, i64 0, i32 7
-  %9 = getelementptr inbounds %struct._tagTreeCCStream, ptr %0, i64 0, i32 6
-  %10 = getelementptr inbounds %struct._tagTreeCCStream, ptr %0, i64 0, i32 5
-  %11 = getelementptr inbounds %struct._tagTreeCCStream, ptr %0, i64 0, i32 4
-  %12 = getelementptr inbounds %struct._tagTreeCCStream, ptr %0, i64 0, i32 3
-  %13 = getelementptr inbounds [2 x i8], ptr %3, i64 0, i64 1
-  br label %14
+while.body.lr.ph:                                 ; preds = %entry
+  %dirty.i = getelementptr inbounds %struct._tagTreeCCStream, ptr %stream, i64 0, i32 7
+  %posn.i = getelementptr inbounds %struct._tagTreeCCStream, ptr %stream, i64 0, i32 6
+  %lastBuf14.i = getelementptr inbounds %struct._tagTreeCCStream, ptr %stream, i64 0, i32 5
+  %firstBuf.i = getelementptr inbounds %struct._tagTreeCCStream, ptr %stream, i64 0, i32 4
+  %linenum.i = getelementptr inbounds %struct._tagTreeCCStream, ptr %stream, i64 0, i32 3
+  %arrayidx1.i = getelementptr inbounds [2 x i8], ptr %buf.i, i64 0, i64 1
+  br label %while.body
 
-14:                                               ; preds = %7, %169
-  %15 = phi ptr [ %5, %7 ], [ %172, %169 ]
-  %16 = phi i32 [ 0, %7 ], [ %170, %169 ]
-  %17 = getelementptr inbounds %struct._tagTreeCCStreamDefn, ptr %15, i64 0, i32 3
-  %18 = load i32, ptr %17, align 8, !tbaa !50
-  %19 = icmp eq i32 %18, %1
-  br i1 %19, label %20, label %169
+while.body:                                       ; preds = %while.body.lr.ph, %if.end21
+  %defn.076 = phi ptr [ %defn.073, %while.body.lr.ph ], [ %defn.0, %if.end21 ]
+  %sawDefn.075 = phi i32 [ 0, %while.body.lr.ph ], [ %sawDefn.1, %if.end21 ]
+  %atEnd1 = getelementptr inbounds %struct._tagTreeCCStreamDefn, ptr %defn.076, i64 0, i32 3
+  %0 = load i32, ptr %atEnd1, align 8, !tbaa !50
+  %cmp2 = icmp eq i32 %0, %atEnd
+  br i1 %cmp2, label %if.then, label %if.end21
 
-20:                                               ; preds = %14
-  %21 = getelementptr inbounds %struct._tagTreeCCStreamDefn, ptr %15, i64 0, i32 2
-  %22 = load i64, ptr %21, align 8, !tbaa !49
-  %23 = getelementptr inbounds %struct._tagTreeCCStreamDefn, ptr %15, i64 0, i32 1
-  %24 = load ptr, ptr %23, align 8, !tbaa !48
-  %25 = load ptr, ptr %0, align 8, !tbaa !21
-  %26 = getelementptr inbounds %struct._tagTreeCCContext, ptr %25, i64 0, i32 8
-  %27 = load i16, ptr %26, align 8
-  %28 = and i16 %27, 512
-  %29 = icmp eq i16 %28, 0
-  br i1 %29, label %56, label %30
+if.then:                                          ; preds = %while.body
+  %linenum = getelementptr inbounds %struct._tagTreeCCStreamDefn, ptr %defn.076, i64 0, i32 2
+  %1 = load i64, ptr %linenum, align 8, !tbaa !49
+  %filename = getelementptr inbounds %struct._tagTreeCCStreamDefn, ptr %defn.076, i64 0, i32 1
+  %2 = load ptr, ptr %filename, align 8, !tbaa !48
+  %3 = load ptr, ptr %stream, align 8, !tbaa !21
+  %print_lines.i = getelementptr inbounds %struct._tagTreeCCContext, ptr %3, i64 0, i32 8
+  %bf.load.i = load i16, ptr %print_lines.i, align 8
+  %bf.shl.mask.i = and i16 %bf.load.i, 512
+  %tobool.not.i = icmp eq i16 %bf.shl.mask.i, 0
+  br i1 %tobool.not.i, label %TreeCCStreamLine.exit, label %if.then.i
 
-30:                                               ; preds = %20
-  %31 = and i16 %27, 256
-  %32 = icmp eq i16 %31, 0
-  br i1 %32, label %54, label %33
+if.then.i:                                        ; preds = %if.then
+  %bf.shl3.mask.i = and i16 %bf.load.i, 256
+  %tobool6.not.i = icmp eq i16 %bf.shl3.mask.i, 0
+  br i1 %tobool6.not.i, label %if.end.i, label %if.then7.i
 
-33:                                               ; preds = %30
-  %34 = tail call i64 @strlen(ptr noundef nonnull dereferenceable(1) %24) #14
-  %35 = trunc i64 %34 to i32
-  %36 = icmp sgt i32 %35, 0
-  br i1 %36, label %37, label %49
+if.then7.i:                                       ; preds = %if.then.i
+  %call.i = tail call i64 @strlen(ptr noundef nonnull dereferenceable(1) %2) #14
+  %conv.i = trunc i64 %call.i to i32
+  %4 = and i64 %call.i, 4294967295
+  %smin.i = tail call i32 @llvm.smin.i32(i32 %conv.i, i32 0)
+  br label %while.cond.i
 
-37:                                               ; preds = %33
-  %38 = and i64 %34, 4294967295
-  br label %39
+while.cond.i:                                     ; preds = %land.lhs.true.i, %if.then7.i
+  %indvars.iv.i = phi i64 [ %6, %land.lhs.true.i ], [ %4, %if.then7.i ]
+  %5 = trunc i64 %indvars.iv.i to i32
+  %cmp.i = icmp sgt i32 %5, 0
+  br i1 %cmp.i, label %land.lhs.true.i, label %while.end.i
 
-39:                                               ; preds = %46, %37
-  %40 = phi i64 [ %38, %37 ], [ %47, %46 ]
-  %41 = add nuw nsw i64 %40, 4294967295
-  %42 = and i64 %41, 4294967295
-  %43 = getelementptr inbounds i8, ptr %24, i64 %42
-  %44 = load i8, ptr %43, align 1, !tbaa !5
-  %45 = sext i8 %44 to i32
-  switch i32 %45, label %46 [
-    i32 47, label %49
-    i32 92, label %49
-  ]
+land.lhs.true.i:                                  ; preds = %while.cond.i
+  %6 = add nsw i64 %indvars.iv.i, -1
+  %arrayidx.i = getelementptr inbounds i8, ptr %2, i64 %6
+  %7 = load i8, ptr %arrayidx.i, align 1, !tbaa !5
+  switch i8 %7, label %while.cond.i [
+    i8 47, label %while.end.i.split.loop.exit83
+    i8 92, label %while.end.i.split.loop.exit83
+  ], !llvm.loop !47
 
-46:                                               ; preds = %39
-  %47 = add nsw i64 %40, -1
-  %48 = icmp sgt i64 %40, 1
-  br i1 %48, label %39, label %49, !llvm.loop !47
+while.end.i.split.loop.exit83:                    ; preds = %land.lhs.true.i, %land.lhs.true.i
+  %8 = trunc i64 %indvars.iv.i to i32
+  br label %while.end.i
 
-49:                                               ; preds = %46, %39, %39, %33
-  %50 = phi i64 [ %34, %33 ], [ 0, %46 ], [ %40, %39 ], [ %40, %39 ]
-  %51 = shl i64 %50, 32
-  %52 = ashr exact i64 %51, 32
-  %53 = getelementptr inbounds i8, ptr %24, i64 %52
-  br label %54
+while.end.i:                                      ; preds = %while.cond.i, %while.end.i.split.loop.exit83
+  %len.0.lcssa.i = phi i32 [ %8, %while.end.i.split.loop.exit83 ], [ %smin.i, %while.cond.i ]
+  %idx.ext.i = sext i32 %len.0.lcssa.i to i64
+  %add.ptr.i = getelementptr inbounds i8, ptr %2, i64 %idx.ext.i
+  br label %if.end.i
 
-54:                                               ; preds = %49, %30
-  %55 = phi ptr [ %53, %49 ], [ %24, %30 ]
-  tail call void (ptr, ptr, ...) @TreeCCStreamPrint(ptr noundef nonnull %0, ptr noundef nonnull @.str.8, i64 noundef %22, ptr noundef %55)
-  br label %56
+if.end.i:                                         ; preds = %while.end.i, %if.then.i
+  %filename.addr.0.i = phi ptr [ %add.ptr.i, %while.end.i ], [ %2, %if.then.i ]
+  tail call void (ptr, ptr, ...) @TreeCCStreamPrint(ptr noundef nonnull %stream, ptr noundef nonnull @.str.8, i64 noundef %1, ptr noundef %filename.addr.0.i)
+  br label %TreeCCStreamLine.exit
 
-56:                                               ; preds = %20, %54
-  %57 = load ptr, ptr %15, align 8, !tbaa !36
-  %58 = tail call i64 @strlen(ptr noundef nonnull dereferenceable(1) %57) #14
-  %59 = trunc i64 %58 to i32
-  %60 = load i8, ptr %8, align 4
-  %61 = or i8 %60, 16
-  store i8 %61, ptr %8, align 4
-  %62 = icmp sgt i32 %59, 0
-  br i1 %62, label %63, label %96
+TreeCCStreamLine.exit:                            ; preds = %if.then, %if.end.i
+  %9 = load ptr, ptr %defn.076, align 8, !tbaa !36
+  %call.i43 = tail call i64 @strlen(ptr noundef nonnull dereferenceable(1) %9) #14
+  %conv.i44 = trunc i64 %call.i43 to i32
+  %bf.load.i45 = load i8, ptr %dirty.i, align 4
+  %bf.set.i = or i8 %bf.load.i45, 16
+  store i8 %bf.set.i, ptr %dirty.i, align 4
+  %cmp52.i = icmp sgt i32 %conv.i44, 0
+  br i1 %cmp52.i, label %while.body.lr.ph.i, label %WriteBuffer.exit
 
-63:                                               ; preds = %56
-  %64 = load i32, ptr %9, align 8, !tbaa !24
-  br label %65
+while.body.lr.ph.i:                               ; preds = %TreeCCStreamLine.exit
+  %.pre.i = load i32, ptr %posn.i, align 8, !tbaa !24
+  br label %while.body.i
 
-65:                                               ; preds = %83, %63
-  %66 = phi i32 [ %64, %63 ], [ %94, %83 ]
-  %67 = phi i32 [ %59, %63 ], [ %92, %83 ]
-  %68 = phi ptr [ %57, %63 ], [ %91, %83 ]
-  %69 = icmp sgt i32 %66, 2047
-  br i1 %69, label %70, label %80
+while.body.i:                                     ; preds = %if.end16.i, %while.body.lr.ph.i
+  %10 = phi i32 [ %.pre.i, %while.body.lr.ph.i ], [ %add.i, %if.end16.i ]
+  %len.054.i = phi i32 [ %conv.i44, %while.body.lr.ph.i ], [ %sub25.i, %if.end16.i ]
+  %buf.addr.053.i = phi ptr [ %9, %while.body.lr.ph.i ], [ %add.ptr24.i, %if.end16.i ]
+  %cmp2.i = icmp sgt i32 %10, 2047
+  br i1 %cmp2.i, label %if.then.i47, label %if.else13.i
 
-70:                                               ; preds = %65
-  %71 = tail call noalias dereferenceable_or_null(2056) ptr @malloc(i64 noundef 2056) #15
-  %72 = icmp eq ptr %71, null
-  br i1 %72, label %73, label %74
+if.then.i47:                                      ; preds = %while.body.i
+  %call4.i = tail call noalias dereferenceable_or_null(2056) ptr @malloc(i64 noundef 2056) #15
+  %tobool.not.i46 = icmp eq ptr %call4.i, null
+  br i1 %tobool.not.i46, label %if.then5.i, label %if.end.i49
 
-73:                                               ; preds = %70
+if.then5.i:                                       ; preds = %if.then.i47
   tail call void @TreeCCOutOfMemory(ptr noundef null) #16
-  br label %74
+  br label %if.end.i49
 
-74:                                               ; preds = %73, %70
-  %75 = getelementptr inbounds %struct._tagTreeCCStreamBuf, ptr %71, i64 0, i32 1
-  store ptr null, ptr %75, align 8, !tbaa !29
-  %76 = load ptr, ptr %10, align 8, !tbaa !38
-  %77 = icmp eq ptr %76, null
-  %78 = getelementptr inbounds %struct._tagTreeCCStreamBuf, ptr %76, i64 0, i32 1
-  %79 = select i1 %77, ptr %11, ptr %78
-  store ptr %71, ptr %79, align 8, !tbaa !17
-  store ptr %71, ptr %10, align 8, !tbaa !38
-  store i32 0, ptr %9, align 8, !tbaa !24
-  br label %83
+if.end.i49:                                       ; preds = %if.then5.i, %if.then.i47
+  %next.i = getelementptr inbounds %struct._tagTreeCCStreamBuf, ptr %call4.i, i64 0, i32 1
+  store ptr null, ptr %next.i, align 8, !tbaa !29
+  %11 = load ptr, ptr %lastBuf14.i, align 8, !tbaa !38
+  %tobool6.not.i48 = icmp eq ptr %11, null
+  %next9.i = getelementptr inbounds %struct._tagTreeCCStreamBuf, ptr %11, i64 0, i32 1
+  %firstBuf.sink.i = select i1 %tobool6.not.i48, ptr %firstBuf.i, ptr %next9.i
+  store ptr %call4.i, ptr %firstBuf.sink.i, align 8, !tbaa !17
+  store ptr %call4.i, ptr %lastBuf14.i, align 8, !tbaa !38
+  store i32 0, ptr %posn.i, align 8, !tbaa !24
+  br label %if.end16.i
 
-80:                                               ; preds = %65
-  %81 = load ptr, ptr %10, align 8, !tbaa !38
-  %82 = sub nsw i32 2048, %66
-  br label %83
+if.else13.i:                                      ; preds = %while.body.i
+  %12 = load ptr, ptr %lastBuf14.i, align 8, !tbaa !38
+  %sub.i = sub nsw i32 2048, %10
+  br label %if.end16.i
 
-83:                                               ; preds = %80, %74
-  %84 = phi i32 [ 0, %74 ], [ %66, %80 ]
-  %85 = phi i32 [ 2048, %74 ], [ %82, %80 ]
-  %86 = phi ptr [ %71, %74 ], [ %81, %80 ]
-  %87 = tail call i32 @llvm.umin.i32(i32 %85, i32 %67)
-  %88 = sext i32 %84 to i64
-  %89 = getelementptr inbounds i8, ptr %86, i64 %88
-  %90 = zext i32 %87 to i64
-  tail call void @llvm.memcpy.p0.p0.i64(ptr align 1 %89, ptr align 1 %68, i64 %90, i1 false)
-  %91 = getelementptr inbounds i8, ptr %68, i64 %90
-  %92 = sub nsw i32 %67, %87
-  %93 = load i32, ptr %9, align 8, !tbaa !24
-  %94 = add nsw i32 %93, %87
-  store i32 %94, ptr %9, align 8, !tbaa !24
-  %95 = icmp sgt i32 %92, 0
-  br i1 %95, label %65, label %96, !llvm.loop !41
+if.end16.i:                                       ; preds = %if.else13.i, %if.end.i49
+  %13 = phi i32 [ 0, %if.end.i49 ], [ %10, %if.else13.i ]
+  %templen.0.i = phi i32 [ 2048, %if.end.i49 ], [ %sub.i, %if.else13.i ]
+  %buffer.0.i = phi ptr [ %call4.i, %if.end.i49 ], [ %12, %if.else13.i ]
+  %spec.select.i = tail call i32 @llvm.umin.i32(i32 %templen.0.i, i32 %len.054.i)
+  %idx.ext.i50 = sext i32 %13 to i64
+  %add.ptr.i51 = getelementptr inbounds i8, ptr %buffer.0.i, i64 %idx.ext.i50
+  %conv22.i = zext i32 %spec.select.i to i64
+  tail call void @llvm.memcpy.p0.p0.i64(ptr align 1 %add.ptr.i51, ptr align 1 %buf.addr.053.i, i64 %conv22.i, i1 false)
+  %add.ptr24.i = getelementptr inbounds i8, ptr %buf.addr.053.i, i64 %conv22.i
+  %sub25.i = sub nsw i32 %len.054.i, %spec.select.i
+  %14 = load i32, ptr %posn.i, align 8, !tbaa !24
+  %add.i = add nsw i32 %14, %spec.select.i
+  store i32 %add.i, ptr %posn.i, align 8, !tbaa !24
+  %cmp.i52 = icmp sgt i32 %sub25.i, 0
+  br i1 %cmp.i52, label %while.body.i, label %WriteBuffer.exit, !llvm.loop !41
 
-96:                                               ; preds = %83, %56
-  %97 = load ptr, ptr %15, align 8, !tbaa !36
-  %98 = tail call ptr @strchr(ptr noundef nonnull dereferenceable(1) %97, i32 noundef 10) #14
-  %99 = icmp eq ptr %98, null
-  br i1 %99, label %109, label %100
+WriteBuffer.exit:                                 ; preds = %if.end16.i, %TreeCCStreamLine.exit
+  %15 = load ptr, ptr %defn.076, align 8, !tbaa !36
+  %call2.i = tail call ptr @strchr(ptr noundef nonnull dereferenceable(1) %15, i32 noundef 10) #14
+  %cmp.not3.i = icmp eq ptr %call2.i, null
+  br i1 %cmp.not3.i, label %UpdateLineNum.exit, label %while.body.lr.ph.i54
 
-100:                                              ; preds = %96
-  %101 = load i64, ptr %12, align 8, !tbaa !23
-  br label %102
+while.body.lr.ph.i54:                             ; preds = %WriteBuffer.exit
+  %linenum.promoted.i = load i64, ptr %linenum.i, align 8, !tbaa !23
+  br label %while.body.i57
 
-102:                                              ; preds = %102, %100
-  %103 = phi i64 [ %101, %100 ], [ %106, %102 ]
-  %104 = phi ptr [ %98, %100 ], [ %107, %102 ]
-  %105 = getelementptr inbounds i8, ptr %104, i64 1
-  %106 = add nsw i64 %103, 1
-  store i64 %106, ptr %12, align 8, !tbaa !23
-  %107 = tail call ptr @strchr(ptr noundef nonnull dereferenceable(1) %105, i32 noundef 10) #14
-  %108 = icmp eq ptr %107, null
-  br i1 %108, label %109, label %102, !llvm.loop !42
+while.body.i57:                                   ; preds = %while.body.i57, %while.body.lr.ph.i54
+  %inc5.i = phi i64 [ %linenum.promoted.i, %while.body.lr.ph.i54 ], [ %inc.i, %while.body.i57 ]
+  %call4.i55 = phi ptr [ %call2.i, %while.body.lr.ph.i54 ], [ %call.i56, %while.body.i57 ]
+  %incdec.ptr.i = getelementptr inbounds i8, ptr %call4.i55, i64 1
+  %inc.i = add nsw i64 %inc5.i, 1
+  store i64 %inc.i, ptr %linenum.i, align 8, !tbaa !23
+  %call.i56 = tail call ptr @strchr(ptr noundef nonnull dereferenceable(1) %incdec.ptr.i, i32 noundef 10) #14
+  %cmp.not.i = icmp eq ptr %call.i56, null
+  br i1 %cmp.not.i, label %UpdateLineNum.exit, label %while.body.i57, !llvm.loop !42
 
-109:                                              ; preds = %102, %96
-  %110 = load i8, ptr %97, align 1, !tbaa !5
-  %111 = icmp eq i8 %110, 0
-  br i1 %111, label %169, label %112
+UpdateLineNum.exit:                               ; preds = %while.body.i57, %WriteBuffer.exit
+  %16 = load i8, ptr %15, align 1, !tbaa !5
+  %cmp5.not = icmp eq i8 %16, 0
+  br i1 %cmp5.not, label %if.end21, label %land.lhs.true
 
-112:                                              ; preds = %109
-  %113 = tail call i64 @strlen(ptr noundef nonnull dereferenceable(1) %97) #14
-  %114 = add i64 %113, -1
-  %115 = getelementptr inbounds i8, ptr %97, i64 %114
-  %116 = load i8, ptr %115, align 1, !tbaa !5
-  %117 = icmp eq i8 %116, 10
-  br i1 %117, label %169, label %118
+land.lhs.true:                                    ; preds = %UpdateLineNum.exit
+  %call = tail call i64 @strlen(ptr noundef nonnull dereferenceable(1) %15) #14
+  %sub = add i64 %call, -1
+  %arrayidx = getelementptr inbounds i8, ptr %15, i64 %sub
+  %17 = load i8, ptr %arrayidx, align 1, !tbaa !5
+  %cmp10.not = icmp eq i8 %17, 10
+  br i1 %cmp10.not, label %if.end21, label %do.body
 
-118:                                              ; preds = %112
-  %119 = load i32, ptr %9, align 8, !tbaa !24
-  %120 = icmp slt i32 %119, 2048
-  br i1 %120, label %121, label %128
+do.body:                                          ; preds = %land.lhs.true
+  %18 = load i32, ptr %posn.i, align 8, !tbaa !24
+  %cmp13 = icmp slt i32 %18, 2048
+  br i1 %cmp13, label %if.then15, label %if.else
 
-121:                                              ; preds = %118
-  %122 = load ptr, ptr %10, align 8, !tbaa !38
-  %123 = add nsw i32 %119, 1
-  store i32 %123, ptr %9, align 8, !tbaa !24
-  %124 = sext i32 %119 to i64
-  %125 = getelementptr inbounds [2048 x i8], ptr %122, i64 0, i64 %124
-  store i8 10, ptr %125, align 1, !tbaa !5
-  %126 = load i8, ptr %8, align 4
-  %127 = or i8 %126, 16
-  store i8 %127, ptr %8, align 4
-  br label %166
+if.then15:                                        ; preds = %do.body
+  %19 = load ptr, ptr %lastBuf14.i, align 8, !tbaa !38
+  %inc = add nsw i32 %18, 1
+  store i32 %inc, ptr %posn.i, align 8, !tbaa !24
+  %idxprom = sext i32 %18 to i64
+  %arrayidx17 = getelementptr inbounds [2048 x i8], ptr %19, i64 0, i64 %idxprom
+  store i8 10, ptr %arrayidx17, align 1, !tbaa !5
+  %bf.load = load i8, ptr %dirty.i, align 4
+  %bf.set = or i8 %bf.load, 16
+  store i8 %bf.set, ptr %dirty.i, align 4
+  br label %do.end
 
-128:                                              ; preds = %118
-  call void @llvm.lifetime.start.p0(i64 2, ptr nonnull %3) #16
-  store i8 10, ptr %3, align 1, !tbaa !5
-  store i8 0, ptr %13, align 1, !tbaa !5
-  %129 = call i64 @strlen(ptr noundef nonnull dereferenceable(1) %3) #14
-  %130 = trunc i64 %129 to i32
-  %131 = load i8, ptr %8, align 4
-  %132 = or i8 %131, 16
-  store i8 %132, ptr %8, align 4
-  %133 = icmp sgt i32 %130, 0
-  br i1 %133, label %134, label %165
+if.else:                                          ; preds = %do.body
+  call void @llvm.lifetime.start.p0(i64 2, ptr nonnull %buf.i) #16
+  store i8 10, ptr %buf.i, align 1, !tbaa !5
+  store i8 0, ptr %arrayidx1.i, align 1, !tbaa !5
+  %call.i.i = call i64 @strlen(ptr noundef nonnull dereferenceable(1) %buf.i) #14
+  %conv.i.i = trunc i64 %call.i.i to i32
+  %bf.load.i.i = load i8, ptr %dirty.i, align 4
+  %bf.set.i.i = or i8 %bf.load.i.i, 16
+  store i8 %bf.set.i.i, ptr %dirty.i, align 4
+  %cmp52.i.i = icmp sgt i32 %conv.i.i, 0
+  br i1 %cmp52.i.i, label %while.body.i.i, label %_StreamPut.exit
 
-134:                                              ; preds = %128, %152
-  %135 = phi i32 [ %163, %152 ], [ %119, %128 ]
-  %136 = phi i32 [ %161, %152 ], [ %130, %128 ]
-  %137 = phi ptr [ %160, %152 ], [ %3, %128 ]
-  %138 = icmp sgt i32 %135, 2047
-  br i1 %138, label %139, label %149
+while.body.i.i:                                   ; preds = %if.else, %if.end16.i.i
+  %20 = phi i32 [ %add.i.i, %if.end16.i.i ], [ %18, %if.else ]
+  %len.054.i.i = phi i32 [ %sub25.i.i, %if.end16.i.i ], [ %conv.i.i, %if.else ]
+  %buf.addr.053.i.i = phi ptr [ %add.ptr24.i.i, %if.end16.i.i ], [ %buf.i, %if.else ]
+  %cmp2.i.i = icmp sgt i32 %20, 2047
+  br i1 %cmp2.i.i, label %if.then.i.i, label %if.else13.i.i
 
-139:                                              ; preds = %134
-  %140 = tail call noalias dereferenceable_or_null(2056) ptr @malloc(i64 noundef 2056) #15
-  %141 = icmp eq ptr %140, null
-  br i1 %141, label %142, label %143
+if.then.i.i:                                      ; preds = %while.body.i.i
+  %call4.i.i = tail call noalias dereferenceable_or_null(2056) ptr @malloc(i64 noundef 2056) #15
+  %tobool.not.i.i = icmp eq ptr %call4.i.i, null
+  br i1 %tobool.not.i.i, label %if.then5.i.i, label %if.end.i.i
 
-142:                                              ; preds = %139
+if.then5.i.i:                                     ; preds = %if.then.i.i
   tail call void @TreeCCOutOfMemory(ptr noundef null) #16
-  br label %143
+  br label %if.end.i.i
 
-143:                                              ; preds = %142, %139
-  %144 = getelementptr inbounds %struct._tagTreeCCStreamBuf, ptr %140, i64 0, i32 1
-  store ptr null, ptr %144, align 8, !tbaa !29
-  %145 = load ptr, ptr %10, align 8, !tbaa !38
-  %146 = icmp eq ptr %145, null
-  %147 = getelementptr inbounds %struct._tagTreeCCStreamBuf, ptr %145, i64 0, i32 1
-  %148 = select i1 %146, ptr %11, ptr %147
-  store ptr %140, ptr %148, align 8, !tbaa !17
-  store ptr %140, ptr %10, align 8, !tbaa !38
-  store i32 0, ptr %9, align 8, !tbaa !24
-  br label %152
+if.end.i.i:                                       ; preds = %if.then5.i.i, %if.then.i.i
+  %next.i.i = getelementptr inbounds %struct._tagTreeCCStreamBuf, ptr %call4.i.i, i64 0, i32 1
+  store ptr null, ptr %next.i.i, align 8, !tbaa !29
+  %21 = load ptr, ptr %lastBuf14.i, align 8, !tbaa !38
+  %tobool6.not.i.i = icmp eq ptr %21, null
+  %next9.i.i = getelementptr inbounds %struct._tagTreeCCStreamBuf, ptr %21, i64 0, i32 1
+  %firstBuf.sink.i.i = select i1 %tobool6.not.i.i, ptr %firstBuf.i, ptr %next9.i.i
+  store ptr %call4.i.i, ptr %firstBuf.sink.i.i, align 8, !tbaa !17
+  store ptr %call4.i.i, ptr %lastBuf14.i, align 8, !tbaa !38
+  store i32 0, ptr %posn.i, align 8, !tbaa !24
+  br label %if.end16.i.i
 
-149:                                              ; preds = %134
-  %150 = load ptr, ptr %10, align 8, !tbaa !38
-  %151 = sub nsw i32 2048, %135
-  br label %152
+if.else13.i.i:                                    ; preds = %while.body.i.i
+  %22 = load ptr, ptr %lastBuf14.i, align 8, !tbaa !38
+  %sub.i.i = sub nsw i32 2048, %20
+  br label %if.end16.i.i
 
-152:                                              ; preds = %149, %143
-  %153 = phi i32 [ 0, %143 ], [ %135, %149 ]
-  %154 = phi i32 [ 2048, %143 ], [ %151, %149 ]
-  %155 = phi ptr [ %140, %143 ], [ %150, %149 ]
-  %156 = tail call i32 @llvm.umin.i32(i32 %154, i32 %136)
-  %157 = sext i32 %153 to i64
-  %158 = getelementptr inbounds i8, ptr %155, i64 %157
-  %159 = zext i32 %156 to i64
-  call void @llvm.memcpy.p0.p0.i64(ptr align 1 %158, ptr align 1 %137, i64 %159, i1 false)
-  %160 = getelementptr inbounds i8, ptr %137, i64 %159
-  %161 = sub nsw i32 %136, %156
-  %162 = load i32, ptr %9, align 8, !tbaa !24
-  %163 = add nsw i32 %162, %156
-  store i32 %163, ptr %9, align 8, !tbaa !24
-  %164 = icmp sgt i32 %161, 0
-  br i1 %164, label %134, label %165, !llvm.loop !41
+if.end16.i.i:                                     ; preds = %if.else13.i.i, %if.end.i.i
+  %23 = phi i32 [ 0, %if.end.i.i ], [ %20, %if.else13.i.i ]
+  %templen.0.i.i = phi i32 [ 2048, %if.end.i.i ], [ %sub.i.i, %if.else13.i.i ]
+  %buffer.0.i.i = phi ptr [ %call4.i.i, %if.end.i.i ], [ %22, %if.else13.i.i ]
+  %spec.select.i.i = tail call i32 @llvm.umin.i32(i32 %templen.0.i.i, i32 %len.054.i.i)
+  %idx.ext.i.i = sext i32 %23 to i64
+  %add.ptr.i.i = getelementptr inbounds i8, ptr %buffer.0.i.i, i64 %idx.ext.i.i
+  %conv22.i.i = zext i32 %spec.select.i.i to i64
+  call void @llvm.memcpy.p0.p0.i64(ptr align 1 %add.ptr.i.i, ptr align 1 %buf.addr.053.i.i, i64 %conv22.i.i, i1 false)
+  %add.ptr24.i.i = getelementptr inbounds i8, ptr %buf.addr.053.i.i, i64 %conv22.i.i
+  %sub25.i.i = sub nsw i32 %len.054.i.i, %spec.select.i.i
+  %24 = load i32, ptr %posn.i, align 8, !tbaa !24
+  %add.i.i = add nsw i32 %24, %spec.select.i.i
+  store i32 %add.i.i, ptr %posn.i, align 8, !tbaa !24
+  %cmp.i.i = icmp sgt i32 %sub25.i.i, 0
+  br i1 %cmp.i.i, label %while.body.i.i, label %_StreamPut.exit, !llvm.loop !41
 
-165:                                              ; preds = %152, %128
-  call void @llvm.lifetime.end.p0(i64 2, ptr nonnull %3) #16
-  br label %166
+_StreamPut.exit:                                  ; preds = %if.end16.i.i, %if.else
+  call void @llvm.lifetime.end.p0(i64 2, ptr nonnull %buf.i) #16
+  br label %do.end
 
-166:                                              ; preds = %165, %121
-  %167 = load i64, ptr %12, align 8, !tbaa !23
-  %168 = add nsw i64 %167, 1
-  store i64 %168, ptr %12, align 8, !tbaa !23
-  br label %169
+do.end:                                           ; preds = %_StreamPut.exit, %if.then15
+  %25 = load i64, ptr %linenum.i, align 8, !tbaa !23
+  %inc19 = add nsw i64 %25, 1
+  store i64 %inc19, ptr %linenum.i, align 8, !tbaa !23
+  br label %if.end21
 
-169:                                              ; preds = %109, %112, %166, %14
-  %170 = phi i32 [ %16, %14 ], [ 1, %166 ], [ 1, %112 ], [ 1, %109 ]
-  %171 = getelementptr inbounds %struct._tagTreeCCStreamDefn, ptr %15, i64 0, i32 5
-  %172 = load ptr, ptr %171, align 8, !tbaa !17
-  %173 = icmp eq ptr %172, null
-  br i1 %173, label %174, label %14, !llvm.loop !54
+if.end21:                                         ; preds = %UpdateLineNum.exit, %land.lhs.true, %do.end, %while.body
+  %sawDefn.1 = phi i32 [ %sawDefn.075, %while.body ], [ 1, %do.end ], [ 1, %land.lhs.true ], [ 1, %UpdateLineNum.exit ]
+  %next = getelementptr inbounds %struct._tagTreeCCStreamDefn, ptr %defn.076, i64 0, i32 5
+  %defn.0 = load ptr, ptr %next, align 8, !tbaa !17
+  %cmp.not = icmp eq ptr %defn.0, null
+  br i1 %cmp.not, label %while.end, label %while.body, !llvm.loop !54
 
-174:                                              ; preds = %169
-  %175 = icmp eq i32 %170, 0
-  br i1 %175, label %213, label %176
+while.end:                                        ; preds = %if.end21
+  %tobool.not = icmp eq i32 %sawDefn.1, 0
+  br i1 %tobool.not, label %if.end23, label %if.then22
 
-176:                                              ; preds = %174
-  %177 = getelementptr inbounds %struct._tagTreeCCStream, ptr %0, i64 0, i32 3
-  %178 = load i64, ptr %177, align 8, !tbaa !23
-  %179 = add nsw i64 %178, 1
-  %180 = getelementptr inbounds %struct._tagTreeCCStream, ptr %0, i64 0, i32 2
-  %181 = load ptr, ptr %180, align 8, !tbaa !22
-  %182 = load ptr, ptr %0, align 8, !tbaa !21
-  %183 = getelementptr inbounds %struct._tagTreeCCContext, ptr %182, i64 0, i32 8
-  %184 = load i16, ptr %183, align 8
-  %185 = and i16 %184, 512
-  %186 = icmp eq i16 %185, 0
-  br i1 %186, label %213, label %187
+if.then22:                                        ; preds = %while.end
+  %linenum.i59 = getelementptr inbounds %struct._tagTreeCCStream, ptr %stream, i64 0, i32 3
+  %26 = load i64, ptr %linenum.i59, align 8, !tbaa !23
+  %add.i60 = add nsw i64 %26, 1
+  %embedName.i = getelementptr inbounds %struct._tagTreeCCStream, ptr %stream, i64 0, i32 2
+  %27 = load ptr, ptr %embedName.i, align 8, !tbaa !22
+  %28 = load ptr, ptr %stream, align 8, !tbaa !21
+  %print_lines.i.i = getelementptr inbounds %struct._tagTreeCCContext, ptr %28, i64 0, i32 8
+  %bf.load.i.i61 = load i16, ptr %print_lines.i.i, align 8
+  %bf.shl.mask.i.i = and i16 %bf.load.i.i61, 512
+  %tobool.not.i.i62 = icmp eq i16 %bf.shl.mask.i.i, 0
+  br i1 %tobool.not.i.i62, label %if.end23, label %if.then.i.i64
 
-187:                                              ; preds = %176
-  %188 = and i16 %184, 256
-  %189 = icmp eq i16 %188, 0
-  br i1 %189, label %211, label %190
+if.then.i.i64:                                    ; preds = %if.then22
+  %bf.shl3.mask.i.i = and i16 %bf.load.i.i61, 256
+  %tobool6.not.i.i63 = icmp eq i16 %bf.shl3.mask.i.i, 0
+  br i1 %tobool6.not.i.i63, label %if.end.i.i70, label %if.then7.i.i
 
-190:                                              ; preds = %187
-  %191 = tail call i64 @strlen(ptr noundef nonnull dereferenceable(1) %181) #14
-  %192 = trunc i64 %191 to i32
-  %193 = icmp sgt i32 %192, 0
-  br i1 %193, label %194, label %206
+if.then7.i.i:                                     ; preds = %if.then.i.i64
+  %call.i.i65 = tail call i64 @strlen(ptr noundef nonnull dereferenceable(1) %27) #14
+  %conv.i.i66 = trunc i64 %call.i.i65 to i32
+  %29 = and i64 %call.i.i65, 4294967295
+  %smin.i.i = tail call i32 @llvm.smin.i32(i32 %conv.i.i66, i32 0)
+  br label %while.cond.i.i
 
-194:                                              ; preds = %190
-  %195 = and i64 %191, 4294967295
-  br label %196
+while.cond.i.i:                                   ; preds = %land.lhs.true.i.i, %if.then7.i.i
+  %indvars.iv.i.i = phi i64 [ %31, %land.lhs.true.i.i ], [ %29, %if.then7.i.i ]
+  %30 = trunc i64 %indvars.iv.i.i to i32
+  %cmp.i.i67 = icmp sgt i32 %30, 0
+  br i1 %cmp.i.i67, label %land.lhs.true.i.i, label %while.end.i.i
 
-196:                                              ; preds = %203, %194
-  %197 = phi i64 [ %195, %194 ], [ %204, %203 ]
-  %198 = add nuw nsw i64 %197, 4294967295
-  %199 = and i64 %198, 4294967295
-  %200 = getelementptr inbounds i8, ptr %181, i64 %199
-  %201 = load i8, ptr %200, align 1, !tbaa !5
-  %202 = sext i8 %201 to i32
-  switch i32 %202, label %203 [
-    i32 47, label %206
-    i32 92, label %206
-  ]
+land.lhs.true.i.i:                                ; preds = %while.cond.i.i
+  %31 = add nsw i64 %indvars.iv.i.i, -1
+  %arrayidx.i.i = getelementptr inbounds i8, ptr %27, i64 %31
+  %32 = load i8, ptr %arrayidx.i.i, align 1, !tbaa !5
+  switch i8 %32, label %while.cond.i.i [
+    i8 47, label %while.end.i.i.split.loop.exit85
+    i8 92, label %while.end.i.i.split.loop.exit85
+  ], !llvm.loop !47
 
-203:                                              ; preds = %196
-  %204 = add nsw i64 %197, -1
-  %205 = icmp sgt i64 %197, 1
-  br i1 %205, label %196, label %206, !llvm.loop !47
+while.end.i.i.split.loop.exit85:                  ; preds = %land.lhs.true.i.i, %land.lhs.true.i.i
+  %33 = trunc i64 %indvars.iv.i.i to i32
+  br label %while.end.i.i
 
-206:                                              ; preds = %203, %196, %196, %190
-  %207 = phi i64 [ %191, %190 ], [ %197, %196 ], [ %197, %196 ], [ 0, %203 ]
-  %208 = shl i64 %207, 32
-  %209 = ashr exact i64 %208, 32
-  %210 = getelementptr inbounds i8, ptr %181, i64 %209
-  br label %211
+while.end.i.i:                                    ; preds = %while.cond.i.i, %while.end.i.i.split.loop.exit85
+  %len.0.lcssa.i.i = phi i32 [ %33, %while.end.i.i.split.loop.exit85 ], [ %smin.i.i, %while.cond.i.i ]
+  %idx.ext.i.i68 = sext i32 %len.0.lcssa.i.i to i64
+  %add.ptr.i.i69 = getelementptr inbounds i8, ptr %27, i64 %idx.ext.i.i68
+  br label %if.end.i.i70
 
-211:                                              ; preds = %206, %187
-  %212 = phi ptr [ %210, %206 ], [ %181, %187 ]
-  tail call void (ptr, ptr, ...) @TreeCCStreamPrint(ptr noundef nonnull %0, ptr noundef nonnull @.str.8, i64 noundef %179, ptr noundef %212)
-  br label %213
+if.end.i.i70:                                     ; preds = %while.end.i.i, %if.then.i.i64
+  %filename.addr.0.i.i = phi ptr [ %add.ptr.i.i69, %while.end.i.i ], [ %27, %if.then.i.i64 ]
+  tail call void (ptr, ptr, ...) @TreeCCStreamPrint(ptr noundef nonnull %stream, ptr noundef nonnull @.str.8, i64 noundef %add.i60, ptr noundef %filename.addr.0.i.i)
+  br label %if.end23
 
-213:                                              ; preds = %2, %211, %176, %174
+if.end23:                                         ; preds = %entry, %if.end.i.i70, %if.then22, %while.end
   ret void
 }
 
 ; Function Attrs: nounwind uwtable
-define dso_local void @TreeCCStreamHeaderBottom(ptr nocapture noundef %0) local_unnamed_addr #0 {
-  tail call fastcc void @OutputDefns(ptr noundef %0, i32 noundef 1)
-  tail call void (ptr, ptr, ...) @TreeCCStreamPrint(ptr noundef %0, ptr noundef nonnull @.str.7)
+define dso_local void @TreeCCStreamHeaderBottom(ptr nocapture noundef %stream) local_unnamed_addr #0 {
+entry:
+  tail call fastcc void @OutputDefns(ptr noundef %stream, i32 noundef 1)
+  tail call void (ptr, ptr, ...) @TreeCCStreamPrint(ptr noundef %stream, ptr noundef nonnull @.str.7)
   ret void
 }
 
 ; Function Attrs: nounwind uwtable
-define dso_local void @TreeCCStreamSourceTop(ptr nocapture noundef %0) local_unnamed_addr #0 {
-  %2 = getelementptr inbounds %struct._tagTreeCCStream, ptr %0, i64 0, i32 2
-  %3 = load ptr, ptr %2, align 8, !tbaa !22
-  tail call void (ptr, ptr, ...) @TreeCCStreamPrint(ptr noundef %0, ptr noundef nonnull @.str.4, ptr noundef %3)
-  tail call fastcc void @OutputDefns(ptr noundef %0, i32 noundef 0)
+define dso_local void @TreeCCStreamSourceTop(ptr nocapture noundef %stream) local_unnamed_addr #0 {
+entry:
+  %embedName = getelementptr inbounds %struct._tagTreeCCStream, ptr %stream, i64 0, i32 2
+  %0 = load ptr, ptr %embedName, align 8, !tbaa !22
+  tail call void (ptr, ptr, ...) @TreeCCStreamPrint(ptr noundef %stream, ptr noundef nonnull @.str.4, ptr noundef %0)
+  tail call fastcc void @OutputDefns(ptr noundef %stream, i32 noundef 0)
   ret void
 }
 
 ; Function Attrs: nounwind uwtable
-define dso_local void @TreeCCStreamSourceTopCS(ptr nocapture noundef %0) local_unnamed_addr #0 {
-  tail call fastcc void @OutputDefns(ptr noundef %0, i32 noundef 0)
+define dso_local void @TreeCCStreamSourceTopCS(ptr nocapture noundef %stream) local_unnamed_addr #0 {
+entry:
+  tail call fastcc void @OutputDefns(ptr noundef %stream, i32 noundef 0)
   ret void
 }
 
 ; Function Attrs: nounwind uwtable
-define dso_local void @TreeCCStreamSourceBottom(ptr nocapture noundef %0) local_unnamed_addr #0 {
-  tail call fastcc void @OutputDefns(ptr noundef %0, i32 noundef 1)
+define dso_local void @TreeCCStreamSourceBottom(ptr nocapture noundef %stream) local_unnamed_addr #0 {
+entry:
+  tail call fastcc void @OutputDefns(ptr noundef %stream, i32 noundef 1)
   ret void
 }
 
@@ -2167,14 +2162,17 @@ declare void @llvm.memcpy.p0.p0.i64(ptr noalias nocapture writeonly, ptr noalias
 ; Function Attrs: mustprogress nofree nounwind willreturn memory(argmem: read)
 declare ptr @strchr(ptr noundef, i32 noundef) local_unnamed_addr #3
 
-; Function Attrs: nocallback nofree nounwind willreturn memory(argmem: write)
-declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #11
-
 ; Function Attrs: nofree nounwind willreturn memory(argmem: read)
-declare i32 @bcmp(ptr nocapture, ptr nocapture, i64) local_unnamed_addr #12
+declare i32 @bcmp(ptr nocapture, ptr nocapture, i64) local_unnamed_addr #11
+
+; Function Attrs: nocallback nofree nounwind willreturn memory(argmem: write)
+declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #12
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
 declare i32 @llvm.umin.i32(i32, i32) #13
+
+; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
+declare i32 @llvm.smin.i32(i32, i32) #13
 
 attributes #0 = { nounwind uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #1 = { mustprogress nocallback nofree nosync nounwind willreturn memory(argmem: readwrite) }
@@ -2187,8 +2185,8 @@ attributes #7 = { nofree nounwind uwtable "min-legal-vector-width"="0" "no-trapp
 attributes #8 = { nofree nounwind "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #9 = { mustprogress nocallback nofree nosync nounwind willreturn }
 attributes #10 = { mustprogress nocallback nofree nounwind willreturn memory(argmem: readwrite) }
-attributes #11 = { nocallback nofree nounwind willreturn memory(argmem: write) }
-attributes #12 = { nofree nounwind willreturn memory(argmem: read) }
+attributes #11 = { nofree nounwind willreturn memory(argmem: read) }
+attributes #12 = { nocallback nofree nounwind willreturn memory(argmem: write) }
 attributes #13 = { nocallback nofree nosync nounwind speculatable willreturn memory(none) }
 attributes #14 = { nounwind willreturn memory(read) }
 attributes #15 = { nounwind allocsize(0) }

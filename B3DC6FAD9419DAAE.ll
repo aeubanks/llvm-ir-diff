@@ -38,105 +38,103 @@ target triple = "x86_64-unknown-linux-gnu"
 @.str.7 = private unnamed_addr constant [13 x i8] c"Constrained:\00", align 1
 
 ; Function Attrs: mustprogress nofree nosync nounwind willreturn memory(argmem: readwrite) uwtable
-define dso_local void @MinConstraint(ptr nocapture noundef %0, ptr nocapture noundef readonly %1) local_unnamed_addr #0 {
-  %3 = load <2 x i32>, ptr %0, align 4, !tbaa !5
-  %4 = load <2 x i32>, ptr %1, align 4, !tbaa !5
-  %5 = tail call <2 x i32> @llvm.smin.v2i32(<2 x i32> %3, <2 x i32> %4)
-  store <2 x i32> %5, ptr %0, align 4, !tbaa !5
-  %6 = getelementptr inbounds %struct.CONSTRAINT, ptr %0, i64 0, i32 2
-  %7 = load i32, ptr %6, align 4, !tbaa !9
-  %8 = getelementptr inbounds %struct.CONSTRAINT, ptr %1, i64 0, i32 2
-  %9 = load i32, ptr %8, align 4, !tbaa !9
-  %10 = tail call i32 @llvm.smin.i32(i32 %7, i32 %9)
-  store i32 %10, ptr %6, align 4, !tbaa !9
+define dso_local void @MinConstraint(ptr nocapture noundef %xc, ptr nocapture noundef readonly %yc) local_unnamed_addr #0 {
+entry:
+  %0 = load <2 x i32>, ptr %xc, align 4, !tbaa !5
+  %1 = load <2 x i32>, ptr %yc, align 4, !tbaa !5
+  %2 = tail call <2 x i32> @llvm.smin.v2i32(<2 x i32> %0, <2 x i32> %1)
+  store <2 x i32> %2, ptr %xc, align 4, !tbaa !5
+  %ofc = getelementptr inbounds %struct.CONSTRAINT, ptr %xc, i64 0, i32 2
+  %3 = load i32, ptr %ofc, align 4, !tbaa !9
+  %ofc14 = getelementptr inbounds %struct.CONSTRAINT, ptr %yc, i64 0, i32 2
+  %4 = load i32, ptr %ofc14, align 4, !tbaa !9
+  %cond21 = tail call i32 @llvm.smin.i32(i32 %3, i32 %4)
+  store i32 %cond21, ptr %ofc, align 4, !tbaa !9
   ret void
 }
 
 ; Function Attrs: mustprogress nofree nosync nounwind willreturn memory(argmem: readwrite) uwtable
-define dso_local void @SetSizeToMaxForwardConstraint(ptr nocapture noundef writeonly %0, ptr nocapture noundef writeonly %1, ptr nocapture noundef readonly %2) local_unnamed_addr #0 {
-  %4 = getelementptr inbounds %struct.CONSTRAINT, ptr %2, i64 0, i32 1
-  %5 = load i32, ptr %4, align 4, !tbaa !11
-  %6 = getelementptr inbounds %struct.CONSTRAINT, ptr %2, i64 0, i32 2
-  %7 = load i32, ptr %6, align 4, !tbaa !9
-  %8 = tail call i32 @llvm.smin.i32(i32 %5, i32 %7)
-  store i32 %8, ptr %1, align 4, !tbaa !5
-  %9 = load i32, ptr %2, align 4, !tbaa !12
-  %10 = load i32, ptr %4, align 4, !tbaa !11
-  %11 = sub nsw i32 %10, %8
-  %12 = tail call i32 @llvm.smin.i32(i32 %9, i32 %11)
-  store i32 %12, ptr %0, align 4, !tbaa !5
+define dso_local void @SetSizeToMaxForwardConstraint(ptr nocapture noundef writeonly %b, ptr nocapture noundef writeonly %f, ptr nocapture noundef readonly %c) local_unnamed_addr #0 {
+entry:
+  %obfc = getelementptr inbounds %struct.CONSTRAINT, ptr %c, i64 0, i32 1
+  %0 = load i32, ptr %obfc, align 4, !tbaa !11
+  %ofc = getelementptr inbounds %struct.CONSTRAINT, ptr %c, i64 0, i32 2
+  %1 = load i32, ptr %ofc, align 4, !tbaa !9
+  %. = tail call i32 @llvm.smin.i32(i32 %0, i32 %1)
+  store i32 %., ptr %f, align 4, !tbaa !5
+  %2 = load i32, ptr %c, align 4, !tbaa !12
+  %3 = load i32, ptr %obfc, align 4, !tbaa !11
+  %sub = sub nsw i32 %3, %.
+  %cond11 = tail call i32 @llvm.smin.i32(i32 %2, i32 %sub)
+  store i32 %cond11, ptr %b, align 4, !tbaa !5
   ret void
 }
 
 ; Function Attrs: mustprogress nofree nosync nounwind willreturn memory(argmem: readwrite) uwtable
-define dso_local void @EnlargeToConstraint(ptr nocapture noundef readonly %0, ptr nocapture noundef writeonly %1, ptr nocapture noundef readonly %2) local_unnamed_addr #0 {
-  %4 = getelementptr inbounds %struct.CONSTRAINT, ptr %2, i64 0, i32 1
-  %5 = load i32, ptr %4, align 4, !tbaa !11
-  %6 = load i32, ptr %0, align 4, !tbaa !5
-  %7 = sub nsw i32 %5, %6
-  %8 = getelementptr inbounds %struct.CONSTRAINT, ptr %2, i64 0, i32 2
-  %9 = load i32, ptr %8, align 4, !tbaa !9
-  %10 = tail call i32 @llvm.smin.i32(i32 %7, i32 %9)
-  store i32 %10, ptr %1, align 4, !tbaa !5
+define dso_local void @EnlargeToConstraint(ptr nocapture noundef readonly %b, ptr nocapture noundef writeonly %f, ptr nocapture noundef readonly %c) local_unnamed_addr #0 {
+entry:
+  %obfc = getelementptr inbounds %struct.CONSTRAINT, ptr %c, i64 0, i32 1
+  %0 = load i32, ptr %obfc, align 4, !tbaa !11
+  %1 = load i32, ptr %b, align 4, !tbaa !5
+  %sub = sub nsw i32 %0, %1
+  %ofc = getelementptr inbounds %struct.CONSTRAINT, ptr %c, i64 0, i32 2
+  %2 = load i32, ptr %ofc, align 4, !tbaa !9
+  %sub. = tail call i32 @llvm.smin.i32(i32 %sub, i32 %2)
+  store i32 %sub., ptr %f, align 4, !tbaa !5
   ret void
 }
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(argmem: read) uwtable
-define dso_local i32 @ScaleToConstraint(i32 noundef %0, i32 noundef %1, ptr nocapture noundef readonly %2) local_unnamed_addr #1 {
-  %4 = icmp sgt i32 %0, 0
-  br i1 %4, label %5, label %12
+define dso_local i32 @ScaleToConstraint(i32 noundef %b, i32 noundef %f, ptr nocapture noundef readonly %c) local_unnamed_addr #1 {
+entry:
+  %cmp = icmp sgt i32 %b, 0
+  br i1 %cmp, label %if.then, label %if.end
 
-5:                                                ; preds = %3
-  %6 = load i32, ptr %2, align 4, !tbaa !12
-  %7 = sitofp i32 %6 to float
-  %8 = sitofp i32 %0 to float
-  %9 = fdiv float %7, %8
-  %10 = fcmp ogt float %9, 1.000000e+00
-  br i1 %10, label %12, label %11
+if.then:                                          ; preds = %entry
+  %0 = load i32, ptr %c, align 4, !tbaa !12
+  %conv = sitofp i32 %0 to float
+  %conv1 = sitofp i32 %b to float
+  %div = fdiv float %conv, %conv1
+  %cmp2 = fcmp ogt float %div, 1.000000e+00
+  %.div = select i1 %cmp2, float 1.000000e+00, float %div
+  br label %if.end
 
-11:                                               ; preds = %5
-  br label %12
+if.end:                                           ; preds = %if.then, %entry
+  %scale_factor.0 = phi float [ %.div, %if.then ], [ 1.000000e+00, %entry ]
+  %add = add nsw i32 %f, %b
+  %cmp8 = icmp sgt i32 %add, 0
+  br i1 %cmp8, label %if.then10, label %if.end26
 
-12:                                               ; preds = %11, %5, %3
-  %13 = phi float [ 1.000000e+00, %3 ], [ %9, %11 ], [ 1.000000e+00, %5 ]
-  %14 = add nsw i32 %1, %0
-  %15 = icmp sgt i32 %14, 0
-  br i1 %15, label %16, label %24
+if.then10:                                        ; preds = %if.end
+  %obfc = getelementptr inbounds %struct.CONSTRAINT, ptr %c, i64 0, i32 1
+  %1 = load i32, ptr %obfc, align 4, !tbaa !11
+  %conv11 = sitofp i32 %1 to float
+  %conv13 = sitofp i32 %add to float
+  %div14 = fdiv float %conv11, %conv13
+  %cmp15 = fcmp olt float %scale_factor.0, %div14
+  %scale_factor.0.div14 = select i1 %cmp15, float %scale_factor.0, float %div14
+  br label %if.end26
 
-16:                                               ; preds = %12
-  %17 = getelementptr inbounds %struct.CONSTRAINT, ptr %2, i64 0, i32 1
-  %18 = load i32, ptr %17, align 4, !tbaa !11
-  %19 = sitofp i32 %18 to float
-  %20 = sitofp i32 %14 to float
-  %21 = fdiv float %19, %20
-  %22 = fcmp olt float %13, %21
-  br i1 %22, label %24, label %23
+if.end26:                                         ; preds = %if.then10, %if.end
+  %scale_factor.1 = phi float [ %scale_factor.0.div14, %if.then10 ], [ %scale_factor.0, %if.end ]
+  %cmp27 = icmp sgt i32 %f, 0
+  br i1 %cmp27, label %if.then29, label %if.end43
 
-23:                                               ; preds = %16
-  br label %24
+if.then29:                                        ; preds = %if.end26
+  %ofc = getelementptr inbounds %struct.CONSTRAINT, ptr %c, i64 0, i32 2
+  %2 = load i32, ptr %ofc, align 4, !tbaa !9
+  %conv30 = sitofp i32 %2 to float
+  %conv31 = sitofp i32 %f to float
+  %div32 = fdiv float %conv30, %conv31
+  %cmp33 = fcmp olt float %scale_factor.1, %div32
+  %scale_factor.1.div32 = select i1 %cmp33, float %scale_factor.1, float %div32
+  br label %if.end43
 
-24:                                               ; preds = %23, %16, %12
-  %25 = phi float [ %13, %12 ], [ %21, %23 ], [ %13, %16 ]
-  %26 = icmp sgt i32 %1, 0
-  br i1 %26, label %27, label %35
-
-27:                                               ; preds = %24
-  %28 = getelementptr inbounds %struct.CONSTRAINT, ptr %2, i64 0, i32 2
-  %29 = load i32, ptr %28, align 4, !tbaa !9
-  %30 = sitofp i32 %29 to float
-  %31 = sitofp i32 %1 to float
-  %32 = fdiv float %30, %31
-  %33 = fcmp olt float %25, %32
-  br i1 %33, label %35, label %34
-
-34:                                               ; preds = %27
-  br label %35
-
-35:                                               ; preds = %34, %27, %24
-  %36 = phi float [ %25, %24 ], [ %32, %34 ], [ %25, %27 ]
-  %37 = fmul float %36, 1.280000e+02
-  %38 = fptosi float %37 to i32
-  ret i32 %38
+if.end43:                                         ; preds = %if.then29, %if.end26
+  %scale_factor.2 = phi float [ %scale_factor.1.div32, %if.then29 ], [ %scale_factor.1, %if.end26 ]
+  %mul = fmul float %scale_factor.2, 1.280000e+02
+  %conv44 = fptosi float %mul to i32
+  ret i32 %conv44
 }
 
 ; Function Attrs: mustprogress nocallback nofree nosync nounwind willreturn memory(argmem: readwrite)
@@ -146,1702 +144,1698 @@ declare void @llvm.lifetime.start.p0(i64 immarg, ptr nocapture) #2
 declare void @llvm.lifetime.end.p0(i64 immarg, ptr nocapture) #2
 
 ; Function Attrs: nounwind uwtable
-define dso_local void @InvScaleConstraint(ptr nocapture noundef writeonly %0, i32 noundef %1, ptr nocapture noundef readonly %2) local_unnamed_addr #3 {
-  %4 = icmp sgt i32 %1, 0
-  br i1 %4, label %8, label %5
+define dso_local void @InvScaleConstraint(ptr nocapture noundef writeonly %yc, i32 noundef %sf, ptr nocapture noundef readonly %xc) local_unnamed_addr #3 {
+entry:
+  %cmp = icmp sgt i32 %sf, 0
+  br i1 %cmp, label %if.end, label %if.then
 
-5:                                                ; preds = %3
-  %6 = load ptr, ptr @no_fpos, align 8, !tbaa !13
-  %7 = tail call ptr (i32, i32, ptr, i32, ptr, ...) @Error(i32 noundef 1, i32 noundef 2, ptr noundef nonnull @.str, i32 noundef 0, ptr noundef %6, ptr noundef nonnull @.str.1) #8
-  br label %8
+if.then:                                          ; preds = %entry
+  %0 = load ptr, ptr @no_fpos, align 8, !tbaa !13
+  %call = tail call ptr (i32, i32, ptr, i32, ptr, ...) @Error(i32 noundef 1, i32 noundef 2, ptr noundef nonnull @.str, i32 noundef 0, ptr noundef %0, ptr noundef nonnull @.str.1) #8
+  br label %if.end
 
-8:                                                ; preds = %5, %3
-  %9 = load i32, ptr %2, align 4, !tbaa !12
-  %10 = icmp eq i32 %9, 8388607
-  br i1 %10, label %15, label %11
+if.end:                                           ; preds = %if.then, %entry
+  %1 = load i32, ptr %xc, align 4, !tbaa !12
+  %cmp1 = icmp eq i32 %1, 8388607
+  br i1 %cmp1, label %cond.end9, label %cond.false
 
-11:                                               ; preds = %8
-  %12 = shl nsw i32 %9, 7
-  %13 = sdiv i32 %12, %1
-  %14 = tail call i32 @llvm.smin.i32(i32 %13, i32 8388607)
-  br label %15
+cond.false:                                       ; preds = %if.end
+  %mul = shl nsw i32 %1, 7
+  %div = sdiv i32 %mul, %sf
+  %spec.select = tail call i32 @llvm.smin.i32(i32 %div, i32 8388607)
+  br label %cond.end9
 
-15:                                               ; preds = %11, %8
-  %16 = phi i32 [ 8388607, %8 ], [ %14, %11 ]
-  store i32 %16, ptr %0, align 4, !tbaa !12
-  %17 = getelementptr inbounds %struct.CONSTRAINT, ptr %2, i64 0, i32 1
-  %18 = load i32, ptr %17, align 4, !tbaa !11
-  %19 = icmp eq i32 %18, 8388607
-  br i1 %19, label %24, label %20
+cond.end9:                                        ; preds = %cond.false, %if.end
+  %cond10 = phi i32 [ 8388607, %if.end ], [ %spec.select, %cond.false ]
+  store i32 %cond10, ptr %yc, align 4, !tbaa !12
+  %obfc = getelementptr inbounds %struct.CONSTRAINT, ptr %xc, i64 0, i32 1
+  %2 = load i32, ptr %obfc, align 4, !tbaa !11
+  %cmp12 = icmp eq i32 %2, 8388607
+  br i1 %cmp12, label %cond.end26, label %cond.false14
 
-20:                                               ; preds = %15
-  %21 = shl nsw i32 %18, 7
-  %22 = sdiv i32 %21, %1
-  %23 = tail call i32 @llvm.smin.i32(i32 %22, i32 8388607)
-  br label %24
+cond.false14:                                     ; preds = %cond.end9
+  %mul16 = shl nsw i32 %2, 7
+  %div17 = sdiv i32 %mul16, %sf
+  %spec.select64 = tail call i32 @llvm.smin.i32(i32 %div17, i32 8388607)
+  br label %cond.end26
 
-24:                                               ; preds = %20, %15
-  %25 = phi i32 [ 8388607, %15 ], [ %23, %20 ]
-  %26 = getelementptr inbounds %struct.CONSTRAINT, ptr %0, i64 0, i32 1
-  store i32 %25, ptr %26, align 4, !tbaa !11
-  %27 = getelementptr inbounds %struct.CONSTRAINT, ptr %2, i64 0, i32 2
-  %28 = load i32, ptr %27, align 4, !tbaa !9
-  %29 = icmp eq i32 %28, 8388607
-  br i1 %29, label %34, label %30
+cond.end26:                                       ; preds = %cond.false14, %cond.end9
+  %cond27 = phi i32 [ 8388607, %cond.end9 ], [ %spec.select64, %cond.false14 ]
+  %obfc28 = getelementptr inbounds %struct.CONSTRAINT, ptr %yc, i64 0, i32 1
+  store i32 %cond27, ptr %obfc28, align 4, !tbaa !11
+  %ofc = getelementptr inbounds %struct.CONSTRAINT, ptr %xc, i64 0, i32 2
+  %3 = load i32, ptr %ofc, align 4, !tbaa !9
+  %cmp29 = icmp eq i32 %3, 8388607
+  br i1 %cmp29, label %cond.end43, label %cond.false31
 
-30:                                               ; preds = %24
-  %31 = shl nsw i32 %28, 7
-  %32 = sdiv i32 %31, %1
-  %33 = tail call i32 @llvm.smin.i32(i32 %32, i32 8388607)
-  br label %34
+cond.false31:                                     ; preds = %cond.end26
+  %mul33 = shl nsw i32 %3, 7
+  %div34 = sdiv i32 %mul33, %sf
+  %spec.select65 = tail call i32 @llvm.smin.i32(i32 %div34, i32 8388607)
+  br label %cond.end43
 
-34:                                               ; preds = %30, %24
-  %35 = phi i32 [ 8388607, %24 ], [ %33, %30 ]
-  %36 = getelementptr inbounds %struct.CONSTRAINT, ptr %0, i64 0, i32 2
-  store i32 %35, ptr %36, align 4, !tbaa !9
+cond.end43:                                       ; preds = %cond.false31, %cond.end26
+  %cond44 = phi i32 [ 8388607, %cond.end26 ], [ %spec.select65, %cond.false31 ]
+  %ofc45 = getelementptr inbounds %struct.CONSTRAINT, ptr %yc, i64 0, i32 2
+  store i32 %cond44, ptr %ofc45, align 4, !tbaa !9
   ret void
 }
 
 declare ptr @Error(i32 noundef, i32 noundef, ptr noundef, i32 noundef, ptr noundef, ...) local_unnamed_addr #4
 
 ; Function Attrs: nounwind uwtable
-define dso_local void @RotateConstraint(ptr nocapture noundef %0, ptr nocapture noundef readonly %1, i32 noundef %2, ptr nocapture noundef readonly %3, ptr nocapture noundef readonly %4, i32 noundef %5) local_unnamed_addr #3 {
-  %7 = sitofp i32 %2 to float
-  %8 = fmul float %7, 2.000000e+00
-  %9 = fpext float %8 to double
-  %10 = fmul double %9, 0x400921FB54442D18
-  %11 = fdiv double %10, 4.608000e+04
-  %12 = fptrunc double %11 to float
-  %13 = fcmp olt float %12, 0.000000e+00
-  br i1 %13, label %18, label %14
+define dso_local void @RotateConstraint(ptr nocapture noundef %c, ptr nocapture noundef readonly %y, i32 noundef %angle, ptr nocapture noundef readonly %hc, ptr nocapture noundef readonly %vc, i32 noundef %dim) local_unnamed_addr #3 {
+entry:
+  %conv = sitofp i32 %angle to float
+  %mul = fmul float %conv, 2.000000e+00
+  %conv1 = fpext float %mul to double
+  %mul2 = fmul double %conv1, 0x400921FB54442D18
+  %div = fdiv double %mul2, 4.608000e+04
+  %theta.0285 = fptrunc double %div to float
+  %cmp286 = fcmp olt float %theta.0285, 0.000000e+00
+  br i1 %cmp286, label %while.body, label %while.cond7.preheader
 
-14:                                               ; preds = %18, %6
-  %15 = phi float [ %12, %6 ], [ %22, %18 ]
-  %16 = fpext float %15 to double
-  %17 = fcmp ult double %16, 0x401921FB54442D18
-  br i1 %17, label %30, label %24
+while.cond7.preheader:                            ; preds = %while.body, %entry
+  %theta.0.lcssa = phi float [ %theta.0285, %entry ], [ %theta.0, %while.body ]
+  %conv8288 = fpext float %theta.0.lcssa to double
+  %cmp9289 = fcmp ult double %conv8288, 0x401921FB54442D18
+  br i1 %cmp9289, label %while.end14, label %while.body11
 
-18:                                               ; preds = %6, %18
-  %19 = phi float [ %22, %18 ], [ %12, %6 ]
-  %20 = fpext float %19 to double
-  %21 = fadd double %20, 0x401921FB54442D18
-  %22 = fptrunc double %21 to float
-  %23 = fcmp olt float %22, 0.000000e+00
-  br i1 %23, label %18, label %14, !llvm.loop !15
+while.body:                                       ; preds = %entry, %while.body
+  %theta.0287 = phi float [ %theta.0, %while.body ], [ %theta.0285, %entry ]
+  %conv5 = fpext float %theta.0287 to double
+  %add = fadd double %conv5, 0x401921FB54442D18
+  %theta.0 = fptrunc double %add to float
+  %cmp = fcmp olt float %theta.0, 0.000000e+00
+  br i1 %cmp, label %while.body, label %while.cond7.preheader, !llvm.loop !15
 
-24:                                               ; preds = %14, %24
-  %25 = phi double [ %28, %24 ], [ %16, %14 ]
-  %26 = fadd double %25, 0xC01921FB54442D18
-  %27 = fptrunc double %26 to float
-  %28 = fpext float %27 to double
-  %29 = fcmp ult double %28, 0x401921FB54442D18
-  br i1 %29, label %30, label %24, !llvm.loop !17
+while.body11:                                     ; preds = %while.cond7.preheader, %while.body11
+  %conv8290 = phi double [ %conv8, %while.body11 ], [ %conv8288, %while.cond7.preheader ]
+  %sub = fadd double %conv8290, 0xC01921FB54442D18
+  %conv13 = fptrunc double %sub to float
+  %conv8 = fpext float %conv13 to double
+  %cmp9 = fcmp ult double %conv8, 0x401921FB54442D18
+  br i1 %cmp9, label %while.end14, label %while.body11, !llvm.loop !17
 
-30:                                               ; preds = %24, %14
-  %31 = phi float [ %15, %14 ], [ %27, %24 ]
-  %32 = phi double [ %16, %14 ], [ %28, %24 ]
-  %33 = fcmp oge float %31, 0.000000e+00
-  %34 = fcmp ole double %32, 0x401921FB54442D18
-  %35 = and i1 %33, %34
-  br i1 %35, label %39, label %36
+while.end14:                                      ; preds = %while.body11, %while.cond7.preheader
+  %theta.1.lcssa = phi float [ %theta.0.lcssa, %while.cond7.preheader ], [ %conv13, %while.body11 ]
+  %conv8.lcssa = phi double [ %conv8288, %while.cond7.preheader ], [ %conv8, %while.body11 ]
+  %cmp15 = fcmp ult float %theta.1.lcssa, 0.000000e+00
+  %cmp18 = fcmp ugt double %conv8.lcssa, 0x401921FB54442D18
+  %or.cond = or i1 %cmp15, %cmp18
+  br i1 %or.cond, label %if.then, label %if.end
 
-36:                                               ; preds = %30
-  %37 = load ptr, ptr @no_fpos, align 8, !tbaa !13
-  %38 = tail call ptr (i32, i32, ptr, i32, ptr, ...) @Error(i32 noundef 1, i32 noundef 2, ptr noundef nonnull @.str, i32 noundef 0, ptr noundef %37, ptr noundef nonnull @.str.2) #8
-  br label %39
+if.then:                                          ; preds = %while.end14
+  %0 = load ptr, ptr @no_fpos, align 8, !tbaa !13
+  %call = tail call ptr (i32, i32, ptr, i32, ptr, ...) @Error(i32 noundef 1, i32 noundef 2, ptr noundef nonnull @.str, i32 noundef 0, ptr noundef %0, ptr noundef nonnull @.str.2) #8
+  br label %if.end
 
-39:                                               ; preds = %30, %36
-  %40 = fcmp ugt double %32, 0x3FF921FB54442D18
-  br i1 %40, label %46, label %41
+if.end:                                           ; preds = %while.end14, %if.then
+  %cmp21 = fcmp ugt double %conv8.lcssa, 0x3FF921FB54442D18
+  br i1 %cmp21, label %if.else, label %if.then23
 
-41:                                               ; preds = %39
-  %42 = getelementptr inbounds %struct.CONSTRAINT, ptr %3, i64 0, i32 1
-  %43 = getelementptr inbounds %struct.CONSTRAINT, ptr %3, i64 0, i32 2
-  %44 = getelementptr inbounds %struct.CONSTRAINT, ptr %4, i64 0, i32 1
-  %45 = getelementptr inbounds %struct.CONSTRAINT, ptr %4, i64 0, i32 2
-  br label %71
+if.then23:                                        ; preds = %if.end
+  %obfc = getelementptr inbounds %struct.CONSTRAINT, ptr %hc, i64 0, i32 1
+  %ofc = getelementptr inbounds %struct.CONSTRAINT, ptr %hc, i64 0, i32 2
+  %obfc29 = getelementptr inbounds %struct.CONSTRAINT, ptr %vc, i64 0, i32 1
+  %ofc31 = getelementptr inbounds %struct.CONSTRAINT, ptr %vc, i64 0, i32 2
+  br label %if.end90
 
-46:                                               ; preds = %39
-  %47 = fcmp ugt double %32, 0x400921FB54442D18
-  br i1 %47, label %55, label %48
+if.else:                                          ; preds = %if.end
+  %cmp34 = fcmp ugt double %conv8.lcssa, 0x400921FB54442D18
+  br i1 %cmp34, label %if.else52, label %if.then36
 
-48:                                               ; preds = %46
-  %49 = fadd double %32, 0xBFF921FB54442D18
-  %50 = fptrunc double %49 to float
-  %51 = getelementptr inbounds %struct.CONSTRAINT, ptr %4, i64 0, i32 2
-  %52 = getelementptr inbounds %struct.CONSTRAINT, ptr %4, i64 0, i32 1
-  %53 = getelementptr inbounds %struct.CONSTRAINT, ptr %3, i64 0, i32 1
-  %54 = getelementptr inbounds %struct.CONSTRAINT, ptr %3, i64 0, i32 2
-  br label %71
+if.then36:                                        ; preds = %if.else
+  %sub38 = fadd double %conv8.lcssa, 0xBFF921FB54442D18
+  %conv39 = fptrunc double %sub38 to float
+  %ofc40 = getelementptr inbounds %struct.CONSTRAINT, ptr %vc, i64 0, i32 2
+  %obfc42 = getelementptr inbounds %struct.CONSTRAINT, ptr %vc, i64 0, i32 1
+  %obfc48 = getelementptr inbounds %struct.CONSTRAINT, ptr %hc, i64 0, i32 1
+  %ofc50 = getelementptr inbounds %struct.CONSTRAINT, ptr %hc, i64 0, i32 2
+  br label %if.end90
 
-55:                                               ; preds = %46
-  %56 = fcmp ugt double %32, 0x4012D97C7F3321D2
-  br i1 %56, label %64, label %57
+if.else52:                                        ; preds = %if.else
+  %cmp54 = fcmp ugt double %conv8.lcssa, 0x4012D97C7F3321D2
+  br i1 %cmp54, label %if.else72, label %if.then56
 
-57:                                               ; preds = %55
-  %58 = fadd double %32, 0xC00921FB54442D18
-  %59 = fptrunc double %58 to float
-  %60 = getelementptr inbounds %struct.CONSTRAINT, ptr %3, i64 0, i32 2
-  %61 = getelementptr inbounds %struct.CONSTRAINT, ptr %3, i64 0, i32 1
-  %62 = getelementptr inbounds %struct.CONSTRAINT, ptr %4, i64 0, i32 2
-  %63 = getelementptr inbounds %struct.CONSTRAINT, ptr %4, i64 0, i32 1
-  br label %71
+if.then56:                                        ; preds = %if.else52
+  %sub58 = fadd double %conv8.lcssa, 0xC00921FB54442D18
+  %conv59 = fptrunc double %sub58 to float
+  %ofc60 = getelementptr inbounds %struct.CONSTRAINT, ptr %hc, i64 0, i32 2
+  %obfc62 = getelementptr inbounds %struct.CONSTRAINT, ptr %hc, i64 0, i32 1
+  %ofc66 = getelementptr inbounds %struct.CONSTRAINT, ptr %vc, i64 0, i32 2
+  %obfc68 = getelementptr inbounds %struct.CONSTRAINT, ptr %vc, i64 0, i32 1
+  br label %if.end90
 
-64:                                               ; preds = %55
-  %65 = fadd double %32, 0xC012D97C7F3321D2
-  %66 = fptrunc double %65 to float
-  %67 = getelementptr inbounds %struct.CONSTRAINT, ptr %4, i64 0, i32 1
-  %68 = getelementptr inbounds %struct.CONSTRAINT, ptr %4, i64 0, i32 2
-  %69 = getelementptr inbounds %struct.CONSTRAINT, ptr %3, i64 0, i32 2
-  %70 = getelementptr inbounds %struct.CONSTRAINT, ptr %3, i64 0, i32 1
-  br label %71
+if.else72:                                        ; preds = %if.else52
+  %sub74 = fadd double %conv8.lcssa, 0xC012D97C7F3321D2
+  %conv75 = fptrunc double %sub74 to float
+  %obfc78 = getelementptr inbounds %struct.CONSTRAINT, ptr %vc, i64 0, i32 1
+  %ofc80 = getelementptr inbounds %struct.CONSTRAINT, ptr %vc, i64 0, i32 2
+  %ofc82 = getelementptr inbounds %struct.CONSTRAINT, ptr %hc, i64 0, i32 2
+  %obfc84 = getelementptr inbounds %struct.CONSTRAINT, ptr %hc, i64 0, i32 1
+  br label %if.end90
 
-71:                                               ; preds = %48, %64, %57, %41
-  %72 = phi ptr [ %4, %41 ], [ %3, %48 ], [ %62, %57 ], [ %69, %64 ]
-  %73 = phi ptr [ %44, %41 ], [ %53, %48 ], [ %63, %57 ], [ %70, %64 ]
-  %74 = phi ptr [ %45, %41 ], [ %54, %48 ], [ %4, %57 ], [ %3, %64 ]
-  %75 = phi ptr [ %3, %41 ], [ %51, %48 ], [ %60, %57 ], [ %4, %64 ]
-  %76 = phi ptr [ %42, %41 ], [ %52, %48 ], [ %61, %57 ], [ %67, %64 ]
-  %77 = phi ptr [ %43, %41 ], [ %4, %48 ], [ %3, %57 ], [ %68, %64 ]
-  %78 = phi float [ %31, %41 ], [ %50, %48 ], [ %59, %57 ], [ %66, %64 ]
-  %79 = load i32, ptr %77, align 4, !tbaa !5
-  %80 = load i32, ptr %76, align 4, !tbaa !11
-  %81 = load i32, ptr %75, align 4, !tbaa !5
-  %82 = load i32, ptr %74, align 4, !tbaa !5
-  %83 = load i32, ptr %73, align 4, !tbaa !11
-  %84 = load i32, ptr %72, align 4, !tbaa !5
-  %85 = fpext float %78 to double
-  %86 = fsub double 0x3FF921FB54442D18, %85
-  %87 = fptrunc double %86 to float
-  %88 = icmp eq i32 %5, 0
-  br i1 %88, label %89, label %169
+if.end90:                                         ; preds = %if.then36, %if.else72, %if.then56, %if.then23
+  %c2.sroa.0.0.in = phi ptr [ %ofc82, %if.else72 ], [ %ofc66, %if.then56 ], [ %hc, %if.then36 ], [ %vc, %if.then23 ]
+  %c2.sroa.8.0.in = phi ptr [ %obfc84, %if.else72 ], [ %obfc68, %if.then56 ], [ %obfc48, %if.then36 ], [ %obfc29, %if.then23 ]
+  %c2.sroa.14.0.in = phi ptr [ %hc, %if.else72 ], [ %vc, %if.then56 ], [ %ofc50, %if.then36 ], [ %ofc31, %if.then23 ]
+  %c1.sroa.0.0.in = phi ptr [ %vc, %if.else72 ], [ %ofc60, %if.then56 ], [ %ofc40, %if.then36 ], [ %hc, %if.then23 ]
+  %c1.sroa.8.0.in = phi ptr [ %obfc78, %if.else72 ], [ %obfc62, %if.then56 ], [ %obfc42, %if.then36 ], [ %obfc, %if.then23 ]
+  %c1.sroa.14.0.in = phi ptr [ %ofc80, %if.else72 ], [ %hc, %if.then56 ], [ %vc, %if.then36 ], [ %ofc, %if.then23 ]
+  %theta.2 = phi float [ %conv75, %if.else72 ], [ %conv59, %if.then56 ], [ %conv39, %if.then36 ], [ %theta.1.lcssa, %if.then23 ]
+  %c1.sroa.14.0 = load i32, ptr %c1.sroa.14.0.in, align 4, !tbaa !5
+  %c1.sroa.8.0 = load i32, ptr %c1.sroa.8.0.in, align 4, !tbaa !11
+  %c1.sroa.0.0 = load i32, ptr %c1.sroa.0.0.in, align 4, !tbaa !5
+  %c2.sroa.14.0 = load i32, ptr %c2.sroa.14.0.in, align 4, !tbaa !5
+  %c2.sroa.8.0 = load i32, ptr %c2.sroa.8.0.in, align 4, !tbaa !11
+  %c2.sroa.0.0 = load i32, ptr %c2.sroa.0.0.in, align 4, !tbaa !5
+  %conv91 = fpext float %theta.2 to double
+  %sub92 = fsub double 0x3FF921FB54442D18, %conv91
+  %conv93 = fptrunc double %sub92 to float
+  %cmp94 = icmp eq i32 %dim, 0
+  br i1 %cmp94, label %if.then96, label %if.else111
 
-89:                                               ; preds = %71
-  %90 = getelementptr inbounds i8, ptr %1, i64 52
-  %91 = getelementptr inbounds %struct.word_type, ptr %1, i64 0, i32 3, i32 1, i64 4
-  %92 = load i32, ptr %90, align 4, !tbaa !18
-  %93 = load i32, ptr %91, align 4, !tbaa !18
-  %94 = tail call double @cos(double noundef %85) #8
-  %95 = fptrunc double %94 to float
-  %96 = tail call double @sin(double noundef %85) #8
-  %97 = tail call float @llvm.fabs.f32(float %95)
-  %98 = fpext float %97 to double
-  %99 = fcmp olt double %98, 0x3EB0C6F7A0B5ED8D
-  br i1 %99, label %128, label %100
+if.then96:                                        ; preds = %if.end90
+  %arrayidx = getelementptr inbounds i8, ptr %y, i64 52
+  %arrayidx98 = getelementptr inbounds %struct.word_type, ptr %y, i64 0, i32 3, i32 1, i64 4
+  %1 = load i32, ptr %arrayidx, align 4, !tbaa !18
+  %2 = load i32, ptr %arrayidx98, align 4, !tbaa !18
+  %call.i = tail call double @cos(double noundef %conv91) #8
+  %conv1.i = fptrunc double %call.i to float
+  %call3.i = tail call double @sin(double noundef %conv91) #8
+  %3 = tail call float @llvm.fabs.f32(float %conv1.i)
+  %4 = fpext float %3 to double
+  %cmp.i = fcmp olt double %4, 0x3EB0C6F7A0B5ED8D
+  br i1 %cmp.i, label %SemiRotateConstraint.exit, label %if.else.i
 
-100:                                              ; preds = %89
-  %101 = fptrunc double %96 to float
-  %102 = sitofp i32 %81 to float
-  %103 = insertelement <2 x i32> poison, i32 %92, i64 0
-  %104 = insertelement <2 x i32> %103, i32 %93, i64 1
-  %105 = sitofp <2 x i32> %104 to <2 x float>
-  %106 = sitofp i32 %80 to float
-  %107 = fneg <2 x float> %105
-  %108 = extractelement <2 x float> %107, i64 0
-  %109 = tail call float @llvm.fmuladd.f32(float %108, float %101, float %106)
-  %110 = insertelement <2 x float> poison, float %101, i64 0
-  %111 = shufflevector <2 x float> %110, <2 x float> poison, <2 x i32> zeroinitializer
-  %112 = insertelement <2 x float> poison, float %102, i64 0
-  %113 = insertelement <2 x float> %112, float %109, i64 1
-  %114 = tail call <2 x float> @llvm.fmuladd.v2f32(<2 x float> %107, <2 x float> %111, <2 x float> %113)
-  %115 = insertelement <2 x float> poison, float %95, i64 0
-  %116 = shufflevector <2 x float> %115, <2 x float> poison, <2 x i32> zeroinitializer
-  %117 = fdiv <2 x float> %114, %116
-  %118 = fcmp ogt <2 x float> %117, <float 0x415FFFFFC0000000, float 0x415FFFFFC0000000>
-  %119 = select <2 x i1> %118, <2 x float> <float 0x415FFFFFC0000000, float 0x415FFFFFC0000000>, <2 x float> %117
-  %120 = fptosi <2 x float> %119 to <2 x i32>
-  %121 = sitofp i32 %79 to float
-  %122 = extractelement <2 x float> %107, i64 1
-  %123 = tail call float @llvm.fmuladd.f32(float %122, float %101, float %121)
-  %124 = fdiv float %123, %95
-  %125 = fcmp ogt float %124, 0x415FFFFFC0000000
-  %126 = select i1 %125, float 0x415FFFFFC0000000, float %124
-  %127 = fptosi float %126 to i32
-  br label %128
+if.else.i:                                        ; preds = %if.then96
+  %conv4.i = fptrunc double %call3.i to float
+  %conv8.i = sitofp i32 %c1.sroa.0.0 to float
+  %5 = insertelement <2 x i32> poison, i32 %1, i64 0
+  %6 = insertelement <2 x i32> %5, i32 %2, i64 1
+  %7 = sitofp <2 x i32> %6 to <2 x float>
+  %conv20.i = sitofp i32 %c1.sroa.8.0 to float
+  %8 = fneg <2 x float> %7
+  %9 = extractelement <2 x float> %8, i64 0
+  %10 = tail call float @llvm.fmuladd.f32(float %9, float %conv4.i, float %conv20.i)
+  %11 = insertelement <2 x float> poison, float %conv4.i, i64 0
+  %12 = shufflevector <2 x float> %11, <2 x float> poison, <2 x i32> zeroinitializer
+  %13 = insertelement <2 x float> poison, float %conv8.i, i64 0
+  %14 = insertelement <2 x float> %13, float %10, i64 1
+  %15 = tail call <2 x float> @llvm.fmuladd.v2f32(<2 x float> %8, <2 x float> %12, <2 x float> %14)
+  %16 = insertelement <2 x float> poison, float %conv1.i, i64 0
+  %17 = shufflevector <2 x float> %16, <2 x float> poison, <2 x i32> zeroinitializer
+  %18 = fdiv <2 x float> %15, %17
+  %19 = fcmp oge <2 x float> %18, <float 0x415FFFFFC0000000, float 0x415FFFFFC0000000>
+  %20 = select <2 x i1> %19, <2 x float> <float 0x415FFFFFC0000000, float 0x415FFFFFC0000000>, <2 x float> %18
+  %21 = fptosi <2 x float> %20 to <2 x i32>
+  %conv42.i = sitofp i32 %c1.sroa.14.0 to float
+  %22 = extractelement <2 x float> %8, i64 1
+  %23 = tail call float @llvm.fmuladd.f32(float %22, float %conv4.i, float %conv42.i)
+  %div45.i = fdiv float %23, %conv1.i
+  %.inv93.i = fcmp oge float %div45.i, 0x415FFFFFC0000000
+  %cond5692.i = select i1 %.inv93.i, float 0x415FFFFFC0000000, float %div45.i
+  %cond56.i = fptosi float %cond5692.i to i32
+  br label %SemiRotateConstraint.exit
 
-128:                                              ; preds = %89, %100
-  %129 = phi i32 [ %127, %100 ], [ 8388607, %89 ]
-  %130 = phi <2 x i32> [ %120, %100 ], [ <i32 8388607, i32 8388607>, %89 ]
-  store <2 x i32> %130, ptr %0, align 4
-  %131 = getelementptr inbounds %struct.CONSTRAINT, ptr %0, i64 0, i32 2
-  store i32 %129, ptr %131, align 4
-  %132 = load i32, ptr %91, align 4, !tbaa !18
-  %133 = load i32, ptr %90, align 4, !tbaa !18
-  %134 = fpext float %87 to double
-  %135 = tail call double @cos(double noundef %134) #8
-  %136 = fptrunc double %135 to float
-  %137 = tail call double @sin(double noundef %134) #8
-  %138 = tail call float @llvm.fabs.f32(float %136)
-  %139 = fpext float %138 to double
-  %140 = fcmp olt double %139, 0x3EB0C6F7A0B5ED8D
-  br i1 %140, label %249, label %141
+SemiRotateConstraint.exit:                        ; preds = %if.then96, %if.else.i
+  %cond56.sink.i = phi i32 [ %cond56.i, %if.else.i ], [ 8388607, %if.then96 ]
+  %24 = phi <2 x i32> [ %21, %if.else.i ], [ <i32 8388607, i32 8388607>, %if.then96 ]
+  store <2 x i32> %24, ptr %c, align 4
+  %25 = getelementptr inbounds %struct.CONSTRAINT, ptr %c, i64 0, i32 2
+  store i32 %cond56.sink.i, ptr %25, align 4
+  %26 = load i32, ptr %arrayidx98, align 4, !tbaa !18
+  %27 = load i32, ptr %arrayidx, align 4, !tbaa !18
+  %conv.i173 = fpext float %conv93 to double
+  %call.i174 = tail call double @cos(double noundef %conv.i173) #8
+  %conv1.i175 = fptrunc double %call.i174 to float
+  %call3.i176 = tail call double @sin(double noundef %conv.i173) #8
+  %28 = tail call float @llvm.fabs.f32(float %conv1.i175)
+  %29 = fpext float %28 to double
+  %cmp.i177 = fcmp olt double %29, 0x3EB0C6F7A0B5ED8D
+  br i1 %cmp.i177, label %if.end124, label %if.else.i200
 
-141:                                              ; preds = %128
-  %142 = fptrunc double %137 to float
-  %143 = sitofp i32 %82 to float
-  %144 = sitofp i32 %132 to float
-  %145 = fneg float %144
-  %146 = tail call float @llvm.fmuladd.f32(float %145, float %142, float %143)
-  %147 = fdiv float %146, %136
-  %148 = fcmp ogt float %147, 0x415FFFFFC0000000
-  %149 = select i1 %148, float 0x415FFFFFC0000000, float %147
-  %150 = fptosi float %149 to i32
-  %151 = sitofp i32 %83 to float
-  %152 = tail call float @llvm.fmuladd.f32(float %145, float %142, float %151)
-  %153 = sitofp i32 %133 to float
-  %154 = fneg float %153
-  %155 = sitofp i32 %84 to float
-  %156 = insertelement <2 x float> poison, float %154, i64 0
-  %157 = shufflevector <2 x float> %156, <2 x float> poison, <2 x i32> zeroinitializer
-  %158 = insertelement <2 x float> poison, float %142, i64 0
-  %159 = shufflevector <2 x float> %158, <2 x float> poison, <2 x i32> zeroinitializer
-  %160 = insertelement <2 x float> poison, float %152, i64 0
-  %161 = insertelement <2 x float> %160, float %155, i64 1
-  %162 = tail call <2 x float> @llvm.fmuladd.v2f32(<2 x float> %157, <2 x float> %159, <2 x float> %161)
-  %163 = insertelement <2 x float> poison, float %136, i64 0
-  %164 = shufflevector <2 x float> %163, <2 x float> poison, <2 x i32> zeroinitializer
-  %165 = fdiv <2 x float> %162, %164
-  %166 = fcmp ogt <2 x float> %165, <float 0x415FFFFFC0000000, float 0x415FFFFFC0000000>
-  %167 = select <2 x i1> %166, <2 x float> <float 0x415FFFFFC0000000, float 0x415FFFFFC0000000>, <2 x float> %165
-  %168 = fptosi <2 x float> %167 to <2 x i32>
-  br label %249
+if.else.i200:                                     ; preds = %SemiRotateConstraint.exit
+  %conv4.i178 = fptrunc double %call3.i176 to float
+  %conv8.i179 = sitofp i32 %c2.sroa.14.0 to float
+  %conv9.i180 = sitofp i32 %26 to float
+  %neg.i181 = fneg float %conv9.i180
+  %30 = tail call float @llvm.fmuladd.f32(float %neg.i181, float %conv4.i178, float %conv8.i179)
+  %div.i182 = fdiv float %30, %conv1.i175
+  %.inv.i183 = fcmp oge float %div.i182, 0x415FFFFFC0000000
+  %cond89.i184 = select i1 %.inv.i183, float 0x415FFFFFC0000000, float %div.i182
+  %cond.i185 = fptosi float %cond89.i184 to i32
+  %conv20.i187 = sitofp i32 %c2.sroa.8.0 to float
+  %31 = tail call float @llvm.fmuladd.f32(float %neg.i181, float %conv4.i178, float %conv20.i187)
+  %conv23.i188 = sitofp i32 %27 to float
+  %neg24.i189 = fneg float %conv23.i188
+  %conv42.i195 = sitofp i32 %c2.sroa.0.0 to float
+  %32 = insertelement <2 x float> poison, float %neg24.i189, i64 0
+  %33 = shufflevector <2 x float> %32, <2 x float> poison, <2 x i32> zeroinitializer
+  %34 = insertelement <2 x float> poison, float %conv4.i178, i64 0
+  %35 = shufflevector <2 x float> %34, <2 x float> poison, <2 x i32> zeroinitializer
+  %36 = insertelement <2 x float> poison, float %31, i64 0
+  %37 = insertelement <2 x float> %36, float %conv42.i195, i64 1
+  %38 = tail call <2 x float> @llvm.fmuladd.v2f32(<2 x float> %33, <2 x float> %35, <2 x float> %37)
+  %39 = insertelement <2 x float> poison, float %conv1.i175, i64 0
+  %40 = shufflevector <2 x float> %39, <2 x float> poison, <2 x i32> zeroinitializer
+  %41 = fdiv <2 x float> %38, %40
+  %42 = fcmp oge <2 x float> %41, <float 0x415FFFFFC0000000, float 0x415FFFFFC0000000>
+  %43 = select <2 x i1> %42, <2 x float> <float 0x415FFFFFC0000000, float 0x415FFFFFC0000000>, <2 x float> %41
+  %44 = fptosi <2 x float> %43 to <2 x i32>
+  br label %if.end124
 
-169:                                              ; preds = %71
-  %170 = getelementptr inbounds %struct.word_type, ptr %1, i64 0, i32 3
-  %171 = getelementptr inbounds %struct.word_type, ptr %1, i64 0, i32 3, i32 1
-  %172 = load i32, ptr %170, align 8, !tbaa !18
-  %173 = load i32, ptr %171, align 8, !tbaa !18
-  %174 = fpext float %87 to double
-  %175 = tail call double @cos(double noundef %174) #8
-  %176 = fptrunc double %175 to float
-  %177 = tail call double @sin(double noundef %174) #8
-  %178 = tail call float @llvm.fabs.f32(float %176)
-  %179 = fpext float %178 to double
-  %180 = fcmp olt double %179, 0x3EB0C6F7A0B5ED8D
-  br i1 %180, label %209, label %181
+if.else111:                                       ; preds = %if.end90
+  %ou3112 = getelementptr inbounds %struct.word_type, ptr %y, i64 0, i32 3
+  %ofwd116 = getelementptr inbounds %struct.word_type, ptr %y, i64 0, i32 3, i32 1
+  %45 = load i32, ptr %ou3112, align 8, !tbaa !18
+  %46 = load i32, ptr %ofwd116, align 8, !tbaa !18
+  %conv.i205 = fpext float %conv93 to double
+  %call.i206 = tail call double @cos(double noundef %conv.i205) #8
+  %conv1.i207 = fptrunc double %call.i206 to float
+  %call3.i208 = tail call double @sin(double noundef %conv.i205) #8
+  %47 = tail call float @llvm.fabs.f32(float %conv1.i207)
+  %48 = fpext float %47 to double
+  %cmp.i209 = fcmp olt double %48, 0x3EB0C6F7A0B5ED8D
+  br i1 %cmp.i209, label %SemiRotateConstraint.exit236, label %if.else.i232
 
-181:                                              ; preds = %169
-  %182 = fptrunc double %177 to float
-  %183 = sitofp i32 %81 to float
-  %184 = insertelement <2 x i32> poison, i32 %172, i64 0
-  %185 = insertelement <2 x i32> %184, i32 %173, i64 1
-  %186 = sitofp <2 x i32> %185 to <2 x float>
-  %187 = sitofp i32 %80 to float
-  %188 = fneg <2 x float> %186
-  %189 = extractelement <2 x float> %188, i64 0
-  %190 = tail call float @llvm.fmuladd.f32(float %189, float %182, float %187)
-  %191 = insertelement <2 x float> poison, float %182, i64 0
-  %192 = shufflevector <2 x float> %191, <2 x float> poison, <2 x i32> zeroinitializer
-  %193 = insertelement <2 x float> poison, float %183, i64 0
-  %194 = insertelement <2 x float> %193, float %190, i64 1
-  %195 = tail call <2 x float> @llvm.fmuladd.v2f32(<2 x float> %188, <2 x float> %192, <2 x float> %194)
-  %196 = insertelement <2 x float> poison, float %176, i64 0
-  %197 = shufflevector <2 x float> %196, <2 x float> poison, <2 x i32> zeroinitializer
-  %198 = fdiv <2 x float> %195, %197
-  %199 = fcmp ogt <2 x float> %198, <float 0x415FFFFFC0000000, float 0x415FFFFFC0000000>
-  %200 = select <2 x i1> %199, <2 x float> <float 0x415FFFFFC0000000, float 0x415FFFFFC0000000>, <2 x float> %198
-  %201 = fptosi <2 x float> %200 to <2 x i32>
-  %202 = sitofp i32 %79 to float
-  %203 = extractelement <2 x float> %188, i64 1
-  %204 = tail call float @llvm.fmuladd.f32(float %203, float %182, float %202)
-  %205 = fdiv float %204, %176
-  %206 = fcmp ogt float %205, 0x415FFFFFC0000000
-  %207 = select i1 %206, float 0x415FFFFFC0000000, float %205
-  %208 = fptosi float %207 to i32
-  br label %209
+if.else.i232:                                     ; preds = %if.else111
+  %conv4.i210 = fptrunc double %call3.i208 to float
+  %conv8.i211 = sitofp i32 %c1.sroa.0.0 to float
+  %49 = insertelement <2 x i32> poison, i32 %45, i64 0
+  %50 = insertelement <2 x i32> %49, i32 %46, i64 1
+  %51 = sitofp <2 x i32> %50 to <2 x float>
+  %conv20.i219 = sitofp i32 %c1.sroa.8.0 to float
+  %52 = fneg <2 x float> %51
+  %53 = extractelement <2 x float> %52, i64 0
+  %54 = tail call float @llvm.fmuladd.f32(float %53, float %conv4.i210, float %conv20.i219)
+  %55 = insertelement <2 x float> poison, float %conv4.i210, i64 0
+  %56 = shufflevector <2 x float> %55, <2 x float> poison, <2 x i32> zeroinitializer
+  %57 = insertelement <2 x float> poison, float %conv8.i211, i64 0
+  %58 = insertelement <2 x float> %57, float %54, i64 1
+  %59 = tail call <2 x float> @llvm.fmuladd.v2f32(<2 x float> %52, <2 x float> %56, <2 x float> %58)
+  %60 = insertelement <2 x float> poison, float %conv1.i207, i64 0
+  %61 = shufflevector <2 x float> %60, <2 x float> poison, <2 x i32> zeroinitializer
+  %62 = fdiv <2 x float> %59, %61
+  %63 = fcmp oge <2 x float> %62, <float 0x415FFFFFC0000000, float 0x415FFFFFC0000000>
+  %64 = select <2 x i1> %63, <2 x float> <float 0x415FFFFFC0000000, float 0x415FFFFFC0000000>, <2 x float> %62
+  %65 = fptosi <2 x float> %64 to <2 x i32>
+  %conv42.i227 = sitofp i32 %c1.sroa.14.0 to float
+  %66 = extractelement <2 x float> %52, i64 1
+  %67 = tail call float @llvm.fmuladd.f32(float %66, float %conv4.i210, float %conv42.i227)
+  %div45.i228 = fdiv float %67, %conv1.i207
+  %.inv93.i229 = fcmp oge float %div45.i228, 0x415FFFFFC0000000
+  %cond5692.i230 = select i1 %.inv93.i229, float 0x415FFFFFC0000000, float %div45.i228
+  %cond56.i231 = fptosi float %cond5692.i230 to i32
+  br label %SemiRotateConstraint.exit236
 
-209:                                              ; preds = %169, %181
-  %210 = phi i32 [ %208, %181 ], [ 8388607, %169 ]
-  %211 = phi <2 x i32> [ %201, %181 ], [ <i32 8388607, i32 8388607>, %169 ]
-  store <2 x i32> %211, ptr %0, align 4
-  %212 = getelementptr inbounds %struct.CONSTRAINT, ptr %0, i64 0, i32 2
-  store i32 %210, ptr %212, align 4
-  %213 = load i32, ptr %171, align 8, !tbaa !18
-  %214 = load i32, ptr %170, align 8, !tbaa !18
-  %215 = tail call double @cos(double noundef %85) #8
-  %216 = fptrunc double %215 to float
-  %217 = tail call double @sin(double noundef %85) #8
-  %218 = tail call float @llvm.fabs.f32(float %216)
-  %219 = fpext float %218 to double
-  %220 = fcmp olt double %219, 0x3EB0C6F7A0B5ED8D
-  br i1 %220, label %249, label %221
+SemiRotateConstraint.exit236:                     ; preds = %if.else111, %if.else.i232
+  %cond56.sink.i235 = phi i32 [ %cond56.i231, %if.else.i232 ], [ 8388607, %if.else111 ]
+  %68 = phi <2 x i32> [ %65, %if.else.i232 ], [ <i32 8388607, i32 8388607>, %if.else111 ]
+  store <2 x i32> %68, ptr %c, align 4
+  %69 = getelementptr inbounds %struct.CONSTRAINT, ptr %c, i64 0, i32 2
+  store i32 %cond56.sink.i235, ptr %69, align 4
+  %70 = load i32, ptr %ofwd116, align 8, !tbaa !18
+  %71 = load i32, ptr %ou3112, align 8, !tbaa !18
+  %call.i238 = tail call double @cos(double noundef %conv91) #8
+  %conv1.i239 = fptrunc double %call.i238 to float
+  %call3.i240 = tail call double @sin(double noundef %conv91) #8
+  %72 = tail call float @llvm.fabs.f32(float %conv1.i239)
+  %73 = fpext float %72 to double
+  %cmp.i241 = fcmp olt double %73, 0x3EB0C6F7A0B5ED8D
+  br i1 %cmp.i241, label %if.end124, label %if.else.i264
 
-221:                                              ; preds = %209
-  %222 = fptrunc double %217 to float
-  %223 = sitofp i32 %84 to float
-  %224 = sitofp i32 %213 to float
-  %225 = fneg float %224
-  %226 = tail call float @llvm.fmuladd.f32(float %225, float %222, float %223)
-  %227 = fdiv float %226, %216
-  %228 = fcmp ogt float %227, 0x415FFFFFC0000000
-  %229 = select i1 %228, float 0x415FFFFFC0000000, float %227
-  %230 = fptosi float %229 to i32
-  %231 = sitofp i32 %83 to float
-  %232 = tail call float @llvm.fmuladd.f32(float %225, float %222, float %231)
-  %233 = sitofp i32 %214 to float
-  %234 = fneg float %233
-  %235 = sitofp i32 %82 to float
-  %236 = insertelement <2 x float> poison, float %234, i64 0
-  %237 = shufflevector <2 x float> %236, <2 x float> poison, <2 x i32> zeroinitializer
-  %238 = insertelement <2 x float> poison, float %222, i64 0
-  %239 = shufflevector <2 x float> %238, <2 x float> poison, <2 x i32> zeroinitializer
-  %240 = insertelement <2 x float> poison, float %232, i64 0
-  %241 = insertelement <2 x float> %240, float %235, i64 1
-  %242 = tail call <2 x float> @llvm.fmuladd.v2f32(<2 x float> %237, <2 x float> %239, <2 x float> %241)
-  %243 = insertelement <2 x float> poison, float %216, i64 0
-  %244 = shufflevector <2 x float> %243, <2 x float> poison, <2 x i32> zeroinitializer
-  %245 = fdiv <2 x float> %242, %244
-  %246 = fcmp ogt <2 x float> %245, <float 0x415FFFFFC0000000, float 0x415FFFFFC0000000>
-  %247 = select <2 x i1> %246, <2 x float> <float 0x415FFFFFC0000000, float 0x415FFFFFC0000000>, <2 x float> %245
-  %248 = fptosi <2 x float> %247 to <2 x i32>
-  br label %249
+if.else.i264:                                     ; preds = %SemiRotateConstraint.exit236
+  %conv4.i242 = fptrunc double %call3.i240 to float
+  %conv8.i243 = sitofp i32 %c2.sroa.0.0 to float
+  %conv9.i244 = sitofp i32 %70 to float
+  %neg.i245 = fneg float %conv9.i244
+  %74 = tail call float @llvm.fmuladd.f32(float %neg.i245, float %conv4.i242, float %conv8.i243)
+  %div.i246 = fdiv float %74, %conv1.i239
+  %.inv.i247 = fcmp oge float %div.i246, 0x415FFFFFC0000000
+  %cond89.i248 = select i1 %.inv.i247, float 0x415FFFFFC0000000, float %div.i246
+  %cond.i249 = fptosi float %cond89.i248 to i32
+  %conv20.i251 = sitofp i32 %c2.sroa.8.0 to float
+  %75 = tail call float @llvm.fmuladd.f32(float %neg.i245, float %conv4.i242, float %conv20.i251)
+  %conv23.i252 = sitofp i32 %71 to float
+  %neg24.i253 = fneg float %conv23.i252
+  %conv42.i259 = sitofp i32 %c2.sroa.14.0 to float
+  %76 = insertelement <2 x float> poison, float %neg24.i253, i64 0
+  %77 = shufflevector <2 x float> %76, <2 x float> poison, <2 x i32> zeroinitializer
+  %78 = insertelement <2 x float> poison, float %conv4.i242, i64 0
+  %79 = shufflevector <2 x float> %78, <2 x float> poison, <2 x i32> zeroinitializer
+  %80 = insertelement <2 x float> poison, float %75, i64 0
+  %81 = insertelement <2 x float> %80, float %conv42.i259, i64 1
+  %82 = tail call <2 x float> @llvm.fmuladd.v2f32(<2 x float> %77, <2 x float> %79, <2 x float> %81)
+  %83 = insertelement <2 x float> poison, float %conv1.i239, i64 0
+  %84 = shufflevector <2 x float> %83, <2 x float> poison, <2 x i32> zeroinitializer
+  %85 = fdiv <2 x float> %82, %84
+  %86 = fcmp oge <2 x float> %85, <float 0x415FFFFFC0000000, float 0x415FFFFFC0000000>
+  %87 = select <2 x i1> %86, <2 x float> <float 0x415FFFFFC0000000, float 0x415FFFFFC0000000>, <2 x float> %85
+  %88 = fptosi <2 x float> %87 to <2 x i32>
+  br label %if.end124
 
-249:                                              ; preds = %221, %209, %141, %128
-  %250 = phi i32 [ %150, %141 ], [ 8388607, %128 ], [ %230, %221 ], [ 8388607, %209 ]
-  %251 = phi ptr [ %131, %141 ], [ %131, %128 ], [ %212, %221 ], [ %212, %209 ]
-  %252 = phi <2 x i32> [ %168, %141 ], [ <i32 8388607, i32 8388607>, %128 ], [ %248, %221 ], [ <i32 8388607, i32 8388607>, %209 ]
-  %253 = getelementptr inbounds %struct.CONSTRAINT, ptr %0, i64 0, i32 1
-  %254 = load i32, ptr %0, align 4, !tbaa !12
-  %255 = tail call i32 @llvm.smin.i32(i32 %254, i32 %250)
-  store i32 %255, ptr %0, align 4, !tbaa !12
-  %256 = load i32, ptr %253, align 4, !tbaa !11
-  %257 = extractelement <2 x i32> %252, i64 0
-  %258 = tail call i32 @llvm.smin.i32(i32 %256, i32 %257)
-  store i32 %258, ptr %253, align 4, !tbaa !11
-  %259 = load i32, ptr %251, align 4, !tbaa !9
-  %260 = extractelement <2 x i32> %252, i64 1
-  %261 = tail call i32 @llvm.smin.i32(i32 %259, i32 %260)
-  store i32 %261, ptr %251, align 4, !tbaa !9
+if.end124:                                        ; preds = %if.else.i264, %SemiRotateConstraint.exit236, %if.else.i200, %SemiRotateConstraint.exit
+  %cond.sink.i265.sink = phi i32 [ %cond.i185, %if.else.i200 ], [ 8388607, %SemiRotateConstraint.exit ], [ %cond.i249, %if.else.i264 ], [ 8388607, %SemiRotateConstraint.exit236 ]
+  %.sink298 = phi ptr [ %25, %if.else.i200 ], [ %25, %SemiRotateConstraint.exit ], [ %69, %if.else.i264 ], [ %69, %SemiRotateConstraint.exit236 ]
+  %89 = phi <2 x i32> [ %44, %if.else.i200 ], [ <i32 8388607, i32 8388607>, %SemiRotateConstraint.exit ], [ %88, %if.else.i264 ], [ <i32 8388607, i32 8388607>, %SemiRotateConstraint.exit236 ]
+  %.sink301 = getelementptr inbounds %struct.CONSTRAINT, ptr %c, i64 0, i32 1
+  %90 = load i32, ptr %c, align 4, !tbaa !12
+  %..i269 = tail call i32 @llvm.smin.i32(i32 %90, i32 %cond.sink.i265.sink)
+  store i32 %..i269, ptr %c, align 4, !tbaa !12
+  %91 = load i32, ptr %.sink301, align 4, !tbaa !11
+  %92 = extractelement <2 x i32> %89, i64 0
+  %cond12.i272 = tail call i32 @llvm.smin.i32(i32 %91, i32 %92)
+  store i32 %cond12.i272, ptr %.sink301, align 4, !tbaa !11
+  %93 = load i32, ptr %.sink298, align 4, !tbaa !9
+  %94 = extractelement <2 x i32> %89, i64 1
+  %cond21.i275 = tail call i32 @llvm.smin.i32(i32 %93, i32 %94)
+  store i32 %cond21.i275, ptr %.sink298, align 4, !tbaa !9
   ret void
 }
 
 ; Function Attrs: nounwind uwtable
-define dso_local i32 @InsertScale(ptr noundef %0, ptr nocapture noundef readonly %1) local_unnamed_addr #3 {
-  %3 = getelementptr inbounds %struct.word_type, ptr %0, i64 0, i32 3
-  %4 = load i32, ptr %3, align 8, !tbaa !18
-  %5 = getelementptr inbounds %struct.word_type, ptr %0, i64 0, i32 3, i32 1
-  %6 = load i32, ptr %5, align 8, !tbaa !18
-  %7 = icmp sgt i32 %4, 0
-  br i1 %7, label %8, label %15
+define dso_local i32 @InsertScale(ptr noundef %x, ptr nocapture noundef readonly %c) local_unnamed_addr #3 {
+entry:
+  %ou3 = getelementptr inbounds %struct.word_type, ptr %x, i64 0, i32 3
+  %0 = load i32, ptr %ou3, align 8, !tbaa !18
+  %ofwd = getelementptr inbounds %struct.word_type, ptr %x, i64 0, i32 3, i32 1
+  %1 = load i32, ptr %ofwd, align 8, !tbaa !18
+  %cmp.i = icmp sgt i32 %0, 0
+  br i1 %cmp.i, label %if.then.i, label %if.end.i
 
-8:                                                ; preds = %2
-  %9 = load i32, ptr %1, align 4, !tbaa !12
-  %10 = sitofp i32 %9 to float
-  %11 = sitofp i32 %4 to float
-  %12 = fdiv float %10, %11
-  %13 = fcmp ogt float %12, 1.000000e+00
-  br i1 %13, label %15, label %14
+if.then.i:                                        ; preds = %entry
+  %2 = load i32, ptr %c, align 4, !tbaa !12
+  %conv.i = sitofp i32 %2 to float
+  %conv1.i = sitofp i32 %0 to float
+  %div.i = fdiv float %conv.i, %conv1.i
+  %cmp2.i = fcmp ogt float %div.i, 1.000000e+00
+  %.div.i = select i1 %cmp2.i, float 1.000000e+00, float %div.i
+  br label %if.end.i
 
-14:                                               ; preds = %8
-  br label %15
+if.end.i:                                         ; preds = %if.then.i, %entry
+  %scale_factor.0.i = phi float [ %.div.i, %if.then.i ], [ 1.000000e+00, %entry ]
+  %add.i = add nsw i32 %1, %0
+  %cmp8.i = icmp sgt i32 %add.i, 0
+  br i1 %cmp8.i, label %if.then10.i, label %if.end26.i
 
-15:                                               ; preds = %14, %8, %2
-  %16 = phi float [ 1.000000e+00, %2 ], [ %12, %14 ], [ 1.000000e+00, %8 ]
-  %17 = add nsw i32 %6, %4
-  %18 = icmp sgt i32 %17, 0
-  br i1 %18, label %19, label %27
+if.then10.i:                                      ; preds = %if.end.i
+  %obfc.i = getelementptr inbounds %struct.CONSTRAINT, ptr %c, i64 0, i32 1
+  %3 = load i32, ptr %obfc.i, align 4, !tbaa !11
+  %conv11.i = sitofp i32 %3 to float
+  %conv13.i = sitofp i32 %add.i to float
+  %div14.i = fdiv float %conv11.i, %conv13.i
+  %cmp15.i = fcmp olt float %scale_factor.0.i, %div14.i
+  %scale_factor.0.div14.i = select i1 %cmp15.i, float %scale_factor.0.i, float %div14.i
+  br label %if.end26.i
 
-19:                                               ; preds = %15
-  %20 = getelementptr inbounds %struct.CONSTRAINT, ptr %1, i64 0, i32 1
-  %21 = load i32, ptr %20, align 4, !tbaa !11
-  %22 = sitofp i32 %21 to float
-  %23 = sitofp i32 %17 to float
-  %24 = fdiv float %22, %23
-  %25 = fcmp olt float %16, %24
-  br i1 %25, label %27, label %26
+if.end26.i:                                       ; preds = %if.then10.i, %if.end.i
+  %scale_factor.1.i = phi float [ %scale_factor.0.div14.i, %if.then10.i ], [ %scale_factor.0.i, %if.end.i ]
+  %cmp27.i = icmp sgt i32 %1, 0
+  br i1 %cmp27.i, label %if.then29.i, label %ScaleToConstraint.exit
 
-26:                                               ; preds = %19
-  br label %27
+if.then29.i:                                      ; preds = %if.end26.i
+  %ofc.i = getelementptr inbounds %struct.CONSTRAINT, ptr %c, i64 0, i32 2
+  %4 = load i32, ptr %ofc.i, align 4, !tbaa !9
+  %conv30.i = sitofp i32 %4 to float
+  %conv31.i = sitofp i32 %1 to float
+  %div32.i = fdiv float %conv30.i, %conv31.i
+  %cmp33.i = fcmp olt float %scale_factor.1.i, %div32.i
+  %scale_factor.1.div32.i = select i1 %cmp33.i, float %scale_factor.1.i, float %div32.i
+  br label %ScaleToConstraint.exit
 
-27:                                               ; preds = %26, %19, %15
-  %28 = phi float [ %16, %15 ], [ %24, %26 ], [ %16, %19 ]
-  %29 = icmp sgt i32 %6, 0
-  br i1 %29, label %30, label %38
+ScaleToConstraint.exit:                           ; preds = %if.end26.i, %if.then29.i
+  %scale_factor.2.i = phi float [ %scale_factor.1.div32.i, %if.then29.i ], [ %scale_factor.1.i, %if.end26.i ]
+  %mul.i = fmul float %scale_factor.2.i, 1.280000e+02
+  %conv44.i = fptosi float %mul.i to i32
+  %cmp = icmp sgt i32 %conv44.i, 25
+  br i1 %cmp, label %if.then, label %cleanup
 
-30:                                               ; preds = %27
-  %31 = getelementptr inbounds %struct.CONSTRAINT, ptr %1, i64 0, i32 2
-  %32 = load i32, ptr %31, align 4, !tbaa !9
-  %33 = sitofp i32 %32 to float
-  %34 = sitofp i32 %6 to float
-  %35 = fdiv float %33, %34
-  %36 = fcmp olt float %28, %35
-  br i1 %36, label %38, label %37
+if.then:                                          ; preds = %ScaleToConstraint.exit
+  %5 = load i8, ptr getelementptr inbounds ([0 x i8], ptr @zz_lengths, i64 0, i64 34), align 1, !tbaa !18
+  %conv4 = zext i8 %5 to i32
+  store i32 %conv4, ptr @zz_size, align 4, !tbaa !5
+  %conv5 = zext i8 %5 to i64
+  %arrayidx10 = getelementptr inbounds [0 x ptr], ptr @zz_free, i64 0, i64 %conv5
+  %6 = load ptr, ptr %arrayidx10, align 8, !tbaa !13
+  %cmp11 = icmp eq ptr %6, null
+  br i1 %cmp11, label %if.then13, label %if.else15
 
-37:                                               ; preds = %30
-  br label %38
+if.then13:                                        ; preds = %if.then
+  %7 = load ptr, ptr @no_fpos, align 8, !tbaa !13
+  %call14 = tail call ptr @GetMemory(i32 noundef %conv4, ptr noundef %7) #8
+  store ptr %call14, ptr @zz_hold, align 8, !tbaa !13
+  br label %if.end21
 
-38:                                               ; preds = %27, %30, %37
-  %39 = phi float [ %28, %27 ], [ %35, %37 ], [ %28, %30 ]
-  %40 = fmul float %39, 1.280000e+02
-  %41 = fptosi float %40 to i32
-  %42 = icmp sgt i32 %41, 25
-  br i1 %42, label %43, label %152
+if.else15:                                        ; preds = %if.then
+  store ptr %6, ptr @zz_hold, align 8, !tbaa !13
+  %8 = load ptr, ptr %6, align 8, !tbaa !18
+  store ptr %8, ptr %arrayidx10, align 8, !tbaa !13
+  br label %if.end21
 
-43:                                               ; preds = %38
-  %44 = load i8, ptr getelementptr inbounds ([0 x i8], ptr @zz_lengths, i64 0, i64 34), align 1, !tbaa !18
-  %45 = zext i8 %44 to i32
-  store i32 %45, ptr @zz_size, align 4, !tbaa !5
-  %46 = zext i8 %44 to i64
-  %47 = getelementptr inbounds [0 x ptr], ptr @zz_free, i64 0, i64 %46
-  %48 = load ptr, ptr %47, align 8, !tbaa !13
-  %49 = icmp eq ptr %48, null
-  br i1 %49, label %50, label %53
+if.end21:                                         ; preds = %if.then13, %if.else15
+  %9 = phi ptr [ %call14, %if.then13 ], [ %6, %if.else15 ]
+  %ou1 = getelementptr inbounds %struct.word_type, ptr %9, i64 0, i32 1
+  store i8 34, ptr %ou1, align 8, !tbaa !18
+  %osucc = getelementptr inbounds [2 x %struct.LIST], ptr %9, i64 0, i64 1, i32 1
+  store ptr %9, ptr %osucc, align 8, !tbaa !18
+  %arrayidx25 = getelementptr inbounds [2 x %struct.LIST], ptr %9, i64 0, i64 1
+  store ptr %9, ptr %arrayidx25, align 8, !tbaa !18
+  %osucc29 = getelementptr inbounds %struct.LIST, ptr %9, i64 0, i32 1
+  store ptr %9, ptr %osucc29, align 8, !tbaa !18
+  store ptr %9, ptr %9, align 8, !tbaa !18
+  %ou2 = getelementptr inbounds %struct.word_type, ptr %x, i64 0, i32 2
+  %bf.load = load i32, ptr %ou2, align 8
+  %bf.clear = and i32 %bf.load, 1610612736
+  %ou233 = getelementptr inbounds %struct.word_type, ptr %9, i64 0, i32 2
+  %bf.load34 = load i32, ptr %ou233, align 8
+  %bf.clear35 = and i32 %bf.load34, -1610612737
+  %bf.set = or i32 %bf.clear35, %bf.clear
+  store i32 %bf.set, ptr %ou233, align 8
+  %ofile_num = getelementptr inbounds %struct.word_type, ptr %x, i64 0, i32 1, i32 0, i32 2
+  %10 = load i16, ptr %ofile_num, align 2, !tbaa !18
+  %ofile_num38 = getelementptr inbounds %struct.word_type, ptr %9, i64 0, i32 1, i32 0, i32 2
+  store i16 %10, ptr %ofile_num38, align 2, !tbaa !18
+  %oline_num = getelementptr inbounds %struct.word_type, ptr %x, i64 0, i32 1, i32 0, i32 3
+  %bf.load40 = load i32, ptr %oline_num, align 4
+  %bf.clear41 = and i32 %bf.load40, 1048575
+  %oline_num43 = getelementptr inbounds %struct.word_type, ptr %9, i64 0, i32 1, i32 0, i32 3
+  %bf.load44 = load i32, ptr %oline_num43, align 4
+  %bf.clear46 = and i32 %bf.load44, -1048576
+  %bf.set47 = or i32 %bf.clear46, %bf.clear41
+  store i32 %bf.set47, ptr %oline_num43, align 4
+  %bf.load49 = load i32, ptr %oline_num, align 4
+  %bf.lshr50 = and i32 %bf.load49, -1048576
+  %bf.set57 = or i32 %bf.lshr50, %bf.clear41
+  store i32 %bf.set57, ptr %oline_num43, align 4
+  %ou4 = getelementptr inbounds %struct.closure_type, ptr %9, i64 0, i32 4
+  store i32 %conv44.i, ptr %ou4, align 8, !tbaa !18
+  %11 = load i32, ptr %ou3, align 8, !tbaa !18
+  %mul = mul nsw i32 %11, %conv44.i
+  %div = sdiv i32 %mul, 128
+  %ou361 = getelementptr inbounds %struct.word_type, ptr %9, i64 0, i32 3
+  store i32 %div, ptr %ou361, align 8, !tbaa !18
+  %obfc = getelementptr inbounds %struct.CONSTRAINT, ptr %c, i64 0, i32 1
+  %12 = load i32, ptr %obfc, align 4, !tbaa !11
+  %sub = sub nsw i32 %12, %div
+  %ofc = getelementptr inbounds %struct.CONSTRAINT, ptr %c, i64 0, i32 2
+  %13 = load i32, ptr %ofc, align 4, !tbaa !9
+  %sub. = tail call i32 @llvm.smin.i32(i32 %sub, i32 %13)
+  %ofwd76 = getelementptr inbounds %struct.word_type, ptr %9, i64 0, i32 3, i32 1
+  store i32 %sub., ptr %ofwd76, align 8, !tbaa !18
+  %ofc79 = getelementptr inbounds %struct.closure_type, ptr %9, i64 0, i32 4, i32 0, i32 2
+  store i32 128, ptr %ofc79, align 8, !tbaa !18
+  %arrayidx82 = getelementptr inbounds i8, ptr %x, i64 52
+  %14 = load i32, ptr %arrayidx82, align 4, !tbaa !18
+  %arrayidx85 = getelementptr inbounds i8, ptr %9, i64 52
+  store i32 %14, ptr %arrayidx85, align 4, !tbaa !18
+  %arrayidx88 = getelementptr inbounds %struct.word_type, ptr %x, i64 0, i32 3, i32 1, i64 4
+  %15 = load i32, ptr %arrayidx88, align 4, !tbaa !18
+  %arrayidx91 = getelementptr inbounds %struct.word_type, ptr %9, i64 0, i32 3, i32 1, i64 4
+  store i32 %15, ptr %arrayidx91, align 4, !tbaa !18
+  %arrayidx93 = getelementptr inbounds [2 x %struct.LIST], ptr %x, i64 0, i64 1
+  %osucc94 = getelementptr inbounds [2 x %struct.LIST], ptr %x, i64 0, i64 1, i32 1
+  %16 = load ptr, ptr %osucc94, align 8, !tbaa !18
+  %cmp95 = icmp eq ptr %16, %x
+  br i1 %cmp95, label %cond.end120.thread, label %cond.false129
 
-50:                                               ; preds = %43
-  %51 = load ptr, ptr @no_fpos, align 8, !tbaa !13
-  %52 = tail call ptr @GetMemory(i32 noundef %45, ptr noundef %51) #8
-  store ptr %52, ptr @zz_hold, align 8, !tbaa !13
-  br label %55
-
-53:                                               ; preds = %43
-  store ptr %48, ptr @zz_hold, align 8, !tbaa !13
-  %54 = load ptr, ptr %48, align 8, !tbaa !18
-  store ptr %54, ptr %47, align 8, !tbaa !13
-  br label %55
-
-55:                                               ; preds = %50, %53
-  %56 = phi ptr [ %52, %50 ], [ %48, %53 ]
-  %57 = getelementptr inbounds %struct.word_type, ptr %56, i64 0, i32 1
-  store i8 34, ptr %57, align 8, !tbaa !18
-  %58 = getelementptr inbounds [2 x %struct.LIST], ptr %56, i64 0, i64 1
-  %59 = getelementptr inbounds [2 x %struct.LIST], ptr %56, i64 0, i64 1, i32 1
-  store ptr %56, ptr %59, align 8, !tbaa !18
-  store ptr %56, ptr %58, align 8, !tbaa !18
-  %60 = getelementptr inbounds %struct.LIST, ptr %56, i64 0, i32 1
-  store ptr %56, ptr %60, align 8, !tbaa !18
-  store ptr %56, ptr %56, align 8, !tbaa !18
-  %61 = getelementptr inbounds %struct.word_type, ptr %0, i64 0, i32 2
-  %62 = load i32, ptr %61, align 8
-  %63 = and i32 %62, 1610612736
-  %64 = getelementptr inbounds %struct.word_type, ptr %56, i64 0, i32 2
-  %65 = load i32, ptr %64, align 8
-  %66 = and i32 %65, -1610612737
-  %67 = or i32 %66, %63
-  store i32 %67, ptr %64, align 8
-  %68 = getelementptr inbounds %struct.word_type, ptr %0, i64 0, i32 1, i32 0, i32 2
-  %69 = load i16, ptr %68, align 2, !tbaa !18
-  %70 = getelementptr inbounds %struct.word_type, ptr %56, i64 0, i32 1, i32 0, i32 2
-  store i16 %69, ptr %70, align 2, !tbaa !18
-  %71 = getelementptr inbounds %struct.word_type, ptr %0, i64 0, i32 1, i32 0, i32 3
-  %72 = load i32, ptr %71, align 4
-  %73 = and i32 %72, 1048575
-  %74 = getelementptr inbounds %struct.word_type, ptr %56, i64 0, i32 1, i32 0, i32 3
-  %75 = load i32, ptr %74, align 4
-  %76 = and i32 %75, -1048576
-  %77 = or i32 %76, %73
-  store i32 %77, ptr %74, align 4
-  %78 = load i32, ptr %71, align 4
-  %79 = and i32 %78, -1048576
-  %80 = or i32 %79, %73
-  store i32 %80, ptr %74, align 4
-  %81 = getelementptr inbounds %struct.closure_type, ptr %56, i64 0, i32 4
-  store i32 %41, ptr %81, align 8, !tbaa !18
-  %82 = load i32, ptr %3, align 8, !tbaa !18
-  %83 = mul nsw i32 %82, %41
-  %84 = sdiv i32 %83, 128
-  %85 = getelementptr inbounds %struct.word_type, ptr %56, i64 0, i32 3
-  store i32 %84, ptr %85, align 8, !tbaa !18
-  %86 = getelementptr inbounds %struct.CONSTRAINT, ptr %1, i64 0, i32 1
-  %87 = load i32, ptr %86, align 4, !tbaa !11
-  %88 = sub nsw i32 %87, %84
-  %89 = getelementptr inbounds %struct.CONSTRAINT, ptr %1, i64 0, i32 2
-  %90 = load i32, ptr %89, align 4, !tbaa !9
-  %91 = tail call i32 @llvm.smin.i32(i32 %88, i32 %90)
-  %92 = getelementptr inbounds %struct.word_type, ptr %56, i64 0, i32 3, i32 1
-  store i32 %91, ptr %92, align 8, !tbaa !18
-  %93 = getelementptr inbounds %struct.closure_type, ptr %56, i64 0, i32 4, i32 0, i32 2
-  store i32 128, ptr %93, align 8, !tbaa !18
-  %94 = getelementptr inbounds i8, ptr %0, i64 52
-  %95 = load i32, ptr %94, align 4, !tbaa !18
-  %96 = getelementptr inbounds i8, ptr %56, i64 52
-  store i32 %95, ptr %96, align 4, !tbaa !18
-  %97 = getelementptr inbounds %struct.word_type, ptr %0, i64 0, i32 3, i32 1, i64 4
-  %98 = load i32, ptr %97, align 4, !tbaa !18
-  %99 = getelementptr inbounds %struct.word_type, ptr %56, i64 0, i32 3, i32 1, i64 4
-  store i32 %98, ptr %99, align 4, !tbaa !18
-  %100 = getelementptr inbounds [2 x %struct.LIST], ptr %0, i64 0, i64 1
-  %101 = getelementptr inbounds [2 x %struct.LIST], ptr %0, i64 0, i64 1, i32 1
-  %102 = load ptr, ptr %101, align 8, !tbaa !18
-  %103 = icmp eq ptr %102, %0
-  br i1 %103, label %104, label %105
-
-104:                                              ; preds = %55
+cond.end120.thread:                               ; preds = %if.end21
   store ptr null, ptr @xx_tmp, align 8, !tbaa !13
-  store ptr %56, ptr @zz_res, align 8, !tbaa !13
+  store ptr %9, ptr @zz_res, align 8, !tbaa !13
   store ptr null, ptr @zz_hold, align 8, !tbaa !13
-  br label %115
+  br label %cond.end153
 
-105:                                              ; preds = %55
-  %106 = load ptr, ptr %100, align 8, !tbaa !18
-  %107 = getelementptr inbounds [2 x %struct.LIST], ptr %102, i64 0, i64 1
-  store ptr %106, ptr %107, align 8, !tbaa !18
-  %108 = load ptr, ptr %100, align 8, !tbaa !18
-  %109 = getelementptr inbounds [2 x %struct.LIST], ptr %108, i64 0, i64 1, i32 1
-  store ptr %102, ptr %109, align 8, !tbaa !18
-  store ptr %0, ptr %101, align 8, !tbaa !18
-  store ptr %0, ptr %100, align 8, !tbaa !18
-  store ptr %102, ptr @xx_tmp, align 8, !tbaa !13
-  store ptr %56, ptr @zz_res, align 8, !tbaa !13
-  store ptr %102, ptr @zz_hold, align 8, !tbaa !13
-  %110 = load ptr, ptr %107, align 8, !tbaa !18
-  store ptr %110, ptr @zz_tmp, align 8, !tbaa !13
-  %111 = load ptr, ptr %58, align 8, !tbaa !18
-  store ptr %111, ptr %107, align 8, !tbaa !18
-  %112 = load ptr, ptr %58, align 8, !tbaa !18
-  %113 = getelementptr inbounds [2 x %struct.LIST], ptr %112, i64 0, i64 1, i32 1
-  store ptr %102, ptr %113, align 8, !tbaa !18
-  store ptr %110, ptr %58, align 8, !tbaa !18
-  %114 = getelementptr inbounds [2 x %struct.LIST], ptr %110, i64 0, i64 1, i32 1
-  store ptr %56, ptr %114, align 8, !tbaa !18
-  br label %115
+cond.false129:                                    ; preds = %if.end21
+  %17 = load ptr, ptr %arrayidx93, align 8, !tbaa !18
+  %arrayidx106 = getelementptr inbounds [2 x %struct.LIST], ptr %16, i64 0, i64 1
+  store ptr %17, ptr %arrayidx106, align 8, !tbaa !18
+  %18 = load ptr, ptr %arrayidx93, align 8, !tbaa !18
+  %osucc113 = getelementptr inbounds [2 x %struct.LIST], ptr %18, i64 0, i64 1, i32 1
+  store ptr %16, ptr %osucc113, align 8, !tbaa !18
+  store ptr %x, ptr %osucc94, align 8, !tbaa !18
+  store ptr %x, ptr %arrayidx93, align 8, !tbaa !18
+  store ptr %16, ptr @xx_tmp, align 8, !tbaa !13
+  store ptr %9, ptr @zz_res, align 8, !tbaa !13
+  store ptr %16, ptr @zz_hold, align 8, !tbaa !13
+  %19 = load ptr, ptr %arrayidx106, align 8, !tbaa !18
+  store ptr %19, ptr @zz_tmp, align 8, !tbaa !13
+  %20 = load ptr, ptr %arrayidx25, align 8, !tbaa !18
+  store ptr %20, ptr %arrayidx106, align 8, !tbaa !18
+  %21 = load ptr, ptr %arrayidx25, align 8, !tbaa !18
+  %osucc144 = getelementptr inbounds [2 x %struct.LIST], ptr %21, i64 0, i64 1, i32 1
+  store ptr %16, ptr %osucc144, align 8, !tbaa !18
+  store ptr %19, ptr %arrayidx25, align 8, !tbaa !18
+  %osucc150 = getelementptr inbounds [2 x %struct.LIST], ptr %19, i64 0, i64 1, i32 1
+  store ptr %9, ptr %osucc150, align 8, !tbaa !18
+  br label %cond.end153
 
-115:                                              ; preds = %105, %104
-  %116 = load i8, ptr @zz_lengths, align 1, !tbaa !18
-  %117 = zext i8 %116 to i32
-  store i32 %117, ptr @zz_size, align 4, !tbaa !5
-  %118 = zext i8 %116 to i64
-  %119 = getelementptr inbounds [0 x ptr], ptr @zz_free, i64 0, i64 %118
-  %120 = load ptr, ptr %119, align 8, !tbaa !13
-  %121 = icmp eq ptr %120, null
-  br i1 %121, label %122, label %125
+cond.end153:                                      ; preds = %cond.end120.thread, %cond.false129
+  %22 = load i8, ptr @zz_lengths, align 1, !tbaa !18
+  %conv155 = zext i8 %22 to i32
+  store i32 %conv155, ptr @zz_size, align 4, !tbaa !5
+  %conv156 = zext i8 %22 to i64
+  %arrayidx163 = getelementptr inbounds [0 x ptr], ptr @zz_free, i64 0, i64 %conv156
+  %23 = load ptr, ptr %arrayidx163, align 8, !tbaa !13
+  %cmp164 = icmp eq ptr %23, null
+  br i1 %cmp164, label %if.then166, label %if.else168
 
-122:                                              ; preds = %115
-  %123 = load ptr, ptr @no_fpos, align 8, !tbaa !13
-  %124 = tail call ptr @GetMemory(i32 noundef %117, ptr noundef %123) #8
-  br label %127
+if.then166:                                       ; preds = %cond.end153
+  %24 = load ptr, ptr @no_fpos, align 8, !tbaa !13
+  %call167 = tail call ptr @GetMemory(i32 noundef %conv155, ptr noundef %24) #8
+  br label %cond.end223
 
-125:                                              ; preds = %115
-  store ptr %120, ptr @zz_hold, align 8, !tbaa !13
-  %126 = load ptr, ptr %120, align 8, !tbaa !18
-  store ptr %126, ptr %119, align 8, !tbaa !13
-  br label %127
+if.else168:                                       ; preds = %cond.end153
+  store ptr %23, ptr @zz_hold, align 8, !tbaa !13
+  %25 = load ptr, ptr %23, align 8, !tbaa !18
+  store ptr %25, ptr %arrayidx163, align 8, !tbaa !13
+  br label %cond.end223
 
-127:                                              ; preds = %122, %125
-  %128 = phi ptr [ %124, %122 ], [ %120, %125 ]
-  %129 = getelementptr inbounds %struct.word_type, ptr %128, i64 0, i32 1
-  store i8 0, ptr %129, align 8, !tbaa !18
-  %130 = getelementptr inbounds [2 x %struct.LIST], ptr %128, i64 0, i64 1
-  %131 = getelementptr inbounds [2 x %struct.LIST], ptr %128, i64 0, i64 1, i32 1
-  store ptr %128, ptr %131, align 8, !tbaa !18
-  store ptr %128, ptr %130, align 8, !tbaa !18
-  %132 = getelementptr inbounds %struct.LIST, ptr %128, i64 0, i32 1
-  store ptr %128, ptr %132, align 8, !tbaa !18
-  store ptr %128, ptr %128, align 8, !tbaa !18
-  store ptr %128, ptr @xx_link, align 8, !tbaa !13
-  store ptr %128, ptr @zz_res, align 8, !tbaa !13
-  store ptr %56, ptr @zz_hold, align 8, !tbaa !13
-  %133 = load ptr, ptr %56, align 8, !tbaa !18
-  store ptr %133, ptr @zz_tmp, align 8, !tbaa !13
-  %134 = load ptr, ptr %128, align 8, !tbaa !18
-  store ptr %134, ptr %56, align 8, !tbaa !18
-  %135 = load ptr, ptr @zz_hold, align 8, !tbaa !13
-  %136 = load ptr, ptr @zz_res, align 8, !tbaa !13
-  %137 = load ptr, ptr %136, align 8, !tbaa !18
-  %138 = getelementptr inbounds %struct.LIST, ptr %137, i64 0, i32 1
-  store ptr %135, ptr %138, align 8, !tbaa !18
-  %139 = load ptr, ptr @zz_tmp, align 8, !tbaa !13
-  store ptr %139, ptr %136, align 8, !tbaa !18
-  %140 = load ptr, ptr @zz_res, align 8, !tbaa !13
-  %141 = load ptr, ptr @zz_tmp, align 8, !tbaa !13
-  %142 = getelementptr inbounds %struct.LIST, ptr %141, i64 0, i32 1
-  store ptr %140, ptr %142, align 8, !tbaa !18
-  %143 = load ptr, ptr @xx_link, align 8, !tbaa !13
-  store ptr %143, ptr @zz_res, align 8, !tbaa !13
-  store ptr %0, ptr @zz_hold, align 8, !tbaa !13
-  %144 = icmp eq ptr %143, null
-  br i1 %144, label %152, label %145
+cond.end223:                                      ; preds = %if.then166, %if.else168
+  %26 = phi ptr [ %call167, %if.then166 ], [ %23, %if.else168 ]
+  %ou1178 = getelementptr inbounds %struct.word_type, ptr %26, i64 0, i32 1
+  store i8 0, ptr %ou1178, align 8, !tbaa !18
+  %osucc182 = getelementptr inbounds [2 x %struct.LIST], ptr %26, i64 0, i64 1, i32 1
+  store ptr %26, ptr %osucc182, align 8, !tbaa !18
+  %arrayidx184 = getelementptr inbounds [2 x %struct.LIST], ptr %26, i64 0, i64 1
+  store ptr %26, ptr %arrayidx184, align 8, !tbaa !18
+  %osucc188 = getelementptr inbounds %struct.LIST, ptr %26, i64 0, i32 1
+  store ptr %26, ptr %osucc188, align 8, !tbaa !18
+  store ptr %26, ptr %26, align 8, !tbaa !18
+  store ptr %26, ptr @xx_link, align 8, !tbaa !13
+  store ptr %26, ptr @zz_res, align 8, !tbaa !13
+  store ptr %9, ptr @zz_hold, align 8, !tbaa !13
+  %27 = load ptr, ptr %9, align 8, !tbaa !18
+  store ptr %27, ptr @zz_tmp, align 8, !tbaa !13
+  %28 = load ptr, ptr %26, align 8, !tbaa !18
+  store ptr %28, ptr %9, align 8, !tbaa !18
+  %29 = load ptr, ptr @zz_hold, align 8, !tbaa !13
+  %30 = load ptr, ptr @zz_res, align 8, !tbaa !13
+  %31 = load ptr, ptr %30, align 8, !tbaa !18
+  %osucc214 = getelementptr inbounds %struct.LIST, ptr %31, i64 0, i32 1
+  store ptr %29, ptr %osucc214, align 8, !tbaa !18
+  %32 = load ptr, ptr @zz_tmp, align 8, !tbaa !13
+  store ptr %32, ptr %30, align 8, !tbaa !18
+  %33 = load ptr, ptr @zz_res, align 8, !tbaa !13
+  %34 = load ptr, ptr @zz_tmp, align 8, !tbaa !13
+  %osucc220 = getelementptr inbounds %struct.LIST, ptr %34, i64 0, i32 1
+  store ptr %33, ptr %osucc220, align 8, !tbaa !18
+  %35 = load ptr, ptr @xx_link, align 8
+  store ptr %35, ptr @zz_res, align 8, !tbaa !13
+  store ptr %x, ptr @zz_hold, align 8, !tbaa !13
+  %cmp229 = icmp eq ptr %35, null
+  br i1 %cmp229, label %cleanup, label %cond.false232
 
-145:                                              ; preds = %127
-  %146 = load ptr, ptr %100, align 8, !tbaa !18
-  store ptr %146, ptr @zz_tmp, align 8, !tbaa !13
-  %147 = getelementptr inbounds [2 x %struct.LIST], ptr %143, i64 0, i64 1
-  %148 = load ptr, ptr %147, align 8, !tbaa !18
-  store ptr %148, ptr %100, align 8, !tbaa !18
-  %149 = load ptr, ptr %147, align 8, !tbaa !18
-  %150 = getelementptr inbounds [2 x %struct.LIST], ptr %149, i64 0, i64 1, i32 1
-  store ptr %0, ptr %150, align 8, !tbaa !18
-  store ptr %146, ptr %147, align 8, !tbaa !18
-  %151 = getelementptr inbounds [2 x %struct.LIST], ptr %146, i64 0, i64 1, i32 1
-  store ptr %143, ptr %151, align 8, !tbaa !18
-  br label %152
+cond.false232:                                    ; preds = %cond.end223
+  %36 = load ptr, ptr %arrayidx93, align 8, !tbaa !18
+  store ptr %36, ptr @zz_tmp, align 8, !tbaa !13
+  %arrayidx237 = getelementptr inbounds [2 x %struct.LIST], ptr %35, i64 0, i64 1
+  %37 = load ptr, ptr %arrayidx237, align 8, !tbaa !18
+  store ptr %37, ptr %arrayidx93, align 8, !tbaa !18
+  %38 = load ptr, ptr %arrayidx237, align 8, !tbaa !18
+  %osucc247 = getelementptr inbounds [2 x %struct.LIST], ptr %38, i64 0, i64 1, i32 1
+  store ptr %x, ptr %osucc247, align 8, !tbaa !18
+  store ptr %36, ptr %arrayidx237, align 8, !tbaa !18
+  %osucc253 = getelementptr inbounds [2 x %struct.LIST], ptr %36, i64 0, i64 1, i32 1
+  store ptr %35, ptr %osucc253, align 8, !tbaa !18
+  br label %cleanup
 
-152:                                              ; preds = %38, %145, %127
-  %153 = phi i32 [ 1, %127 ], [ 1, %145 ], [ 0, %38 ]
-  ret i32 %153
+cleanup:                                          ; preds = %ScaleToConstraint.exit, %cond.false232, %cond.end223
+  %retval.0 = phi i32 [ 1, %cond.end223 ], [ 1, %cond.false232 ], [ 0, %ScaleToConstraint.exit ]
+  ret i32 %retval.0
 }
 
 declare ptr @GetMemory(i32 noundef, ptr noundef) local_unnamed_addr #4
 
 ; Function Attrs: nounwind uwtable
-define dso_local void @Constrained(ptr noundef %0, ptr noundef %1, i32 noundef %2, ptr noundef %3) local_unnamed_addr #3 {
-  %5 = alloca i32, align 4
-  %6 = alloca %struct.CONSTRAINT, align 4
-  %7 = alloca ptr, align 8
-  %8 = alloca ptr, align 8
-  %9 = alloca ptr, align 8
-  %10 = alloca ptr, align 8
-  %11 = alloca %struct.CONSTRAINT, align 4
-  %12 = alloca %struct.CONSTRAINT, align 4
-  %13 = alloca %struct.CONSTRAINT, align 4
-  call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %11) #8
-  call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %12) #8
-  call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %13) #8
-  tail call void @SetLengthDim(i32 noundef %2) #8
-  %14 = getelementptr inbounds [2 x %struct.LIST], ptr %0, i64 0, i64 1
-  %15 = getelementptr inbounds [2 x %struct.LIST], ptr %0, i64 0, i64 1, i32 1
-  %16 = load ptr, ptr %15, align 8, !tbaa !18
-  %17 = icmp eq ptr %16, %0
-  br i1 %17, label %18, label %21
+define dso_local void @Constrained(ptr noundef %x, ptr noundef %xc, i32 noundef %dim, ptr noundef %why) local_unnamed_addr #3 {
+entry:
+  %side.i = alloca i32, align 4
+  %yc.i = alloca %struct.CONSTRAINT, align 4
+  %sg.i = alloca ptr, align 8
+  %pg.i = alloca ptr, align 8
+  %prec_def.i = alloca ptr, align 8
+  %sd.i = alloca ptr, align 8
+  %yc = alloca %struct.CONSTRAINT, align 4
+  %hc = alloca %struct.CONSTRAINT, align 4
+  %vc = alloca %struct.CONSTRAINT, align 4
+  call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %yc) #8
+  call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %hc) #8
+  call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %vc) #8
+  tail call void @SetLengthDim(i32 noundef %dim) #8
+  %arrayidx = getelementptr inbounds [2 x %struct.LIST], ptr %x, i64 0, i64 1
+  %osucc = getelementptr inbounds [2 x %struct.LIST], ptr %x, i64 0, i64 1, i32 1
+  %0 = load ptr, ptr %osucc, align 8, !tbaa !18
+  %cmp.not = icmp eq ptr %0, %x
+  br i1 %cmp.not, label %if.then, label %if.end
 
-18:                                               ; preds = %4
-  %19 = load ptr, ptr @no_fpos, align 8, !tbaa !13
-  %20 = tail call ptr (i32, i32, ptr, i32, ptr, ...) @Error(i32 noundef 1, i32 noundef 2, ptr noundef nonnull @.str, i32 noundef 0, ptr noundef %19, ptr noundef nonnull @.str.4) #8
-  br label %21
+if.then:                                          ; preds = %entry
+  %1 = load ptr, ptr @no_fpos, align 8, !tbaa !13
+  %call = tail call ptr (i32, i32, ptr, i32, ptr, ...) @Error(i32 noundef 1, i32 noundef 2, ptr noundef nonnull @.str, i32 noundef 0, ptr noundef %1, ptr noundef nonnull @.str.4) #8
+  br label %if.end
 
-21:                                               ; preds = %18, %4
-  %22 = getelementptr inbounds %struct.word_type, ptr %0, i64 0, i32 1
-  %23 = load i8, ptr %22, align 8, !tbaa !18
-  %24 = icmp eq i8 %23, 2
-  br i1 %24, label %25, label %38
+if.end:                                           ; preds = %if.then, %entry
+  %ou1 = getelementptr inbounds %struct.word_type, ptr %x, i64 0, i32 1
+  %2 = load i8, ptr %ou1, align 8, !tbaa !18
+  %cmp1 = icmp eq i8 %2, 2
+  br i1 %cmp1, label %land.lhs.true, label %if.end13
 
-25:                                               ; preds = %21
-  %26 = icmp ne i32 %2, 1
-  %27 = getelementptr inbounds i8, ptr %0, i64 42
-  %28 = load i16, ptr %27, align 2
-  %29 = and i16 %28, 16
-  %30 = icmp eq i16 %29, 0
-  %31 = select i1 %26, i1 true, i1 %30
-  %32 = and i16 %28, 8
-  %33 = icmp eq i16 %32, 0
-  %34 = select i1 %31, i1 %33, i1 false
-  br i1 %34, label %38, label %35
+land.lhs.true:                                    ; preds = %if.end
+  %cmp3 = icmp ne i32 %dim, 1
+  %oexternal_ver = getelementptr inbounds i8, ptr %x, i64 42
+  %bf.load = load i16, ptr %oexternal_ver, align 2
+  %3 = and i16 %bf.load, 16
+  %tobool.not = icmp eq i16 %3, 0
+  %or.cond1122 = select i1 %cmp3, i1 true, i1 %tobool.not
+  %4 = and i16 %bf.load, 8
+  %tobool11.not = icmp eq i16 %4, 0
+  %or.cond1123 = select i1 %or.cond1122, i1 %tobool11.not, i1 false
+  br i1 %or.cond1123, label %if.end13, label %if.then12
 
-35:                                               ; preds = %25
-  store i32 8388607, ptr %1, align 4, !tbaa !12
-  %36 = getelementptr inbounds %struct.CONSTRAINT, ptr %1, i64 0, i32 1
-  store i32 8388607, ptr %36, align 4, !tbaa !11
-  %37 = getelementptr inbounds %struct.CONSTRAINT, ptr %1, i64 0, i32 2
-  store i32 8388607, ptr %37, align 4, !tbaa !9
-  br label %676
+if.then12:                                        ; preds = %land.lhs.true
+  store i32 8388607, ptr %xc, align 4, !tbaa !12
+  %obfc = getelementptr inbounds %struct.CONSTRAINT, ptr %xc, i64 0, i32 1
+  store i32 8388607, ptr %obfc, align 4, !tbaa !11
+  %ofc = getelementptr inbounds %struct.CONSTRAINT, ptr %xc, i64 0, i32 2
+  store i32 8388607, ptr %ofc, align 4, !tbaa !9
+  br label %cleanup
 
-38:                                               ; preds = %25, %21
-  %39 = icmp eq i32 %2, 0
-  %40 = select i1 %39, ptr %15, ptr %14
-  %41 = load ptr, ptr %40, align 8, !tbaa !18
-  %42 = getelementptr inbounds %struct.LIST, ptr %41, i64 0, i32 1
-  br label %43
+if.end13:                                         ; preds = %land.lhs.true, %if.end
+  %cmp14 = icmp eq i32 %dim, 0
+  %osucc.arrayidx = select i1 %cmp14, ptr %osucc, ptr %arrayidx
+  %cond = load ptr, ptr %osucc.arrayidx, align 8, !tbaa !18
+  %osucc23 = getelementptr inbounds %struct.LIST, ptr %cond, i64 0, i32 1
+  br label %for.cond
 
-43:                                               ; preds = %61, %38
-  %44 = phi ptr [ %42, %38 ], [ %63, %61 ]
-  %45 = phi i32 [ 0, %38 ], [ %62, %61 ]
-  %46 = load ptr, ptr %44, align 8, !tbaa !18
-  %47 = getelementptr inbounds %struct.word_type, ptr %46, i64 0, i32 1
-  %48 = load i8, ptr %47, align 8, !tbaa !18
-  switch i8 %48, label %671 [
-    i8 0, label %49
-    i8 96, label %64
-    i8 97, label %64
-    i8 98, label %64
-    i8 99, label %64
-    i8 35, label %64
-    i8 20, label %64
-    i8 22, label %64
-    i8 24, label %64
-    i8 25, label %64
-    i8 36, label %64
-    i8 37, label %64
-    i8 40, label %64
-    i8 41, label %64
-    i8 44, label %64
-    i8 42, label %64
-    i8 43, label %64
-    i8 9, label %64
-    i8 51, label %64
-    i8 30, label %65
-    i8 31, label %65
-    i8 32, label %72
-    i8 33, label %72
-    i8 34, label %79
-    i8 50, label %92
-    i8 26, label %95
-    i8 27, label %95
-    i8 38, label %110
-    i8 39, label %110
-    i8 14, label %164
-    i8 13, label %164
-    i8 28, label %173
-    i8 29, label %173
-    i8 8, label %190
-    i8 16, label %204
-    i8 15, label %204
-    i8 19, label %237
-    i8 18, label %237
-    i8 17, label %237
+for.cond:                                         ; preds = %for.inc55, %if.end13
+  %tlink.0.in = phi ptr [ %osucc23, %if.end13 ], [ %osucc58, %for.inc55 ]
+  %ratm.0 = phi i32 [ 0, %if.end13 ], [ %ratm.1, %for.inc55 ]
+  %tlink.0 = load ptr, ptr %tlink.0.in, align 8, !tbaa !18
+  %ou124 = getelementptr inbounds %struct.word_type, ptr %tlink.0, i64 0, i32 1
+  %5 = load i8, ptr %ou124, align 8, !tbaa !18
+  switch i8 %5, label %sw.default632 [
+    i8 0, label %for.cond32
+    i8 96, label %sw.bb
+    i8 97, label %sw.bb
+    i8 98, label %sw.bb
+    i8 99, label %sw.bb
+    i8 35, label %sw.bb
+    i8 20, label %sw.bb
+    i8 22, label %sw.bb
+    i8 24, label %sw.bb
+    i8 25, label %sw.bb
+    i8 36, label %sw.bb
+    i8 37, label %sw.bb
+    i8 40, label %sw.bb
+    i8 41, label %sw.bb
+    i8 44, label %sw.bb
+    i8 42, label %sw.bb
+    i8 43, label %sw.bb
+    i8 9, label %sw.bb
+    i8 51, label %sw.bb
+    i8 30, label %sw.bb63
+    i8 31, label %sw.bb63
+    i8 32, label %sw.bb78
+    i8 33, label %sw.bb78
+    i8 34, label %sw.bb94
+    i8 50, label %sw.bb117
+    i8 26, label %sw.bb119
+    i8 27, label %sw.bb119
+    i8 38, label %sw.bb132
+    i8 39, label %sw.bb132
+    i8 14, label %sw.bb227
+    i8 13, label %sw.bb227
+    i8 28, label %sw.bb237
+    i8 29, label %sw.bb237
+    i8 8, label %sw.bb276
+    i8 16, label %sw.bb294
+    i8 15, label %sw.bb294
+    i8 19, label %sw.bb353
+    i8 18, label %sw.bb353
+    i8 17, label %sw.bb353
   ]
 
-49:                                               ; preds = %43, %49
-  %50 = phi ptr [ %52, %49 ], [ %46, %43 ]
-  %51 = getelementptr inbounds [2 x %struct.LIST], ptr %50, i64 0, i64 1
-  %52 = load ptr, ptr %51, align 8, !tbaa !18
-  %53 = getelementptr inbounds %struct.word_type, ptr %52, i64 0, i32 1
-  %54 = load i8, ptr %53, align 8, !tbaa !18
-  switch i8 %54, label %61 [
-    i8 0, label %49
-    i8 1, label %55
-  ], !llvm.loop !19
-
-55:                                               ; preds = %49
-  %56 = getelementptr inbounds %struct.gapobj_type, ptr %52, i64 0, i32 3
-  %57 = load i16, ptr %56, align 4
-  %58 = and i16 %57, 256
-  %59 = icmp eq i16 %58, 0
-  %60 = select i1 %59, i32 %45, i32 1
-  br label %61
-
-61:                                               ; preds = %49, %55
-  %62 = phi i32 [ %60, %55 ], [ %45, %49 ]
-  %63 = getelementptr inbounds %struct.LIST, ptr %46, i64 0, i32 1
-  br label %43, !llvm.loop !20
-
-64:                                               ; preds = %43, %43, %43, %43, %43, %43, %43, %43, %43, %43, %43, %43, %43, %43, %43, %43, %43, %43
-  tail call void @Constrained(ptr noundef nonnull %46, ptr noundef %1, i32 noundef %2, ptr noundef %3)
-  br label %676
-
-65:                                               ; preds = %43, %43
-  %66 = icmp ne i8 %48, 30
-  %67 = xor i1 %39, %66
-  br i1 %67, label %69, label %68
-
-68:                                               ; preds = %65
-  tail call void @Constrained(ptr noundef nonnull %46, ptr noundef %1, i32 noundef %2, ptr noundef %3)
-  br label %676
-
-69:                                               ; preds = %65
-  store i32 8388607, ptr %1, align 4, !tbaa !12
-  %70 = getelementptr inbounds %struct.CONSTRAINT, ptr %1, i64 0, i32 1
-  store i32 8388607, ptr %70, align 4, !tbaa !11
-  %71 = getelementptr inbounds %struct.CONSTRAINT, ptr %1, i64 0, i32 2
-  store i32 8388607, ptr %71, align 4, !tbaa !9
-  br label %676
-
-72:                                               ; preds = %43, %43
-  %73 = icmp ne i8 %48, 32
-  %74 = xor i1 %39, %73
-  br i1 %74, label %76, label %75
-
-75:                                               ; preds = %72
-  tail call void @Constrained(ptr noundef nonnull %46, ptr noundef %1, i32 noundef %2, ptr noundef %3)
-  br label %676
-
-76:                                               ; preds = %72
-  store i32 8388607, ptr %1, align 4, !tbaa !12
-  %77 = getelementptr inbounds %struct.CONSTRAINT, ptr %1, i64 0, i32 1
-  store i32 8388607, ptr %77, align 4, !tbaa !11
-  %78 = getelementptr inbounds %struct.CONSTRAINT, ptr %1, i64 0, i32 2
-  store i32 8388607, ptr %78, align 4, !tbaa !9
-  br label %676
-
-79:                                               ; preds = %43
-  call void @Constrained(ptr noundef nonnull %46, ptr noundef nonnull %11, i32 noundef %2, ptr noundef %3)
-  br i1 %39, label %80, label %87
-
-80:                                               ; preds = %79
-  %81 = getelementptr inbounds %struct.closure_type, ptr %46, i64 0, i32 4
-  %82 = load i32, ptr %81, align 8, !tbaa !18
-  %83 = icmp eq i32 %82, 0
-  br i1 %83, label %84, label %90
-
-84:                                               ; preds = %80
-  store i32 8388607, ptr %1, align 4, !tbaa !12
-  %85 = getelementptr inbounds %struct.CONSTRAINT, ptr %1, i64 0, i32 1
-  store i32 8388607, ptr %85, align 4, !tbaa !11
-  %86 = getelementptr inbounds %struct.CONSTRAINT, ptr %1, i64 0, i32 2
-  store i32 8388607, ptr %86, align 4, !tbaa !9
-  br label %676
-
-87:                                               ; preds = %79
-  %88 = getelementptr inbounds %struct.closure_type, ptr %46, i64 0, i32 4, i32 0, i32 2
-  %89 = load i32, ptr %88, align 8, !tbaa !18
-  br label %90
-
-90:                                               ; preds = %80, %87
-  %91 = phi i32 [ %89, %87 ], [ %82, %80 ]
-  call void @InvScaleConstraint(ptr noundef %1, i32 noundef %91, ptr noundef nonnull %11)
-  br label %676
-
-92:                                               ; preds = %43
-  call void @Constrained(ptr noundef nonnull %46, ptr noundef nonnull %12, i32 noundef 0, ptr noundef %3)
-  call void @Constrained(ptr noundef nonnull %46, ptr noundef nonnull %13, i32 noundef 1, ptr noundef %3)
-  %93 = getelementptr inbounds %struct.closure_type, ptr %46, i64 0, i32 4, i32 0, i32 4
-  %94 = load i32, ptr %93, align 4, !tbaa !18
-  call void @RotateConstraint(ptr noundef %1, ptr noundef %0, i32 noundef %94, ptr noundef nonnull %12, ptr noundef nonnull %13, i32 noundef %2)
-  br label %676
-
-95:                                               ; preds = %43, %43
-  %96 = getelementptr inbounds %struct.word_type, ptr %46, i64 0, i32 1
-  tail call void @Constrained(ptr noundef nonnull %46, ptr noundef %1, i32 noundef %2, ptr noundef %3)
-  %97 = load i8, ptr %96, align 8, !tbaa !18
-  %98 = icmp ne i8 %97, 26
-  %99 = xor i1 %39, %98
-  br i1 %99, label %100, label %676
-
-100:                                              ; preds = %95
-  %101 = getelementptr inbounds %struct.closure_type, ptr %46, i64 0, i32 4
-  %102 = load <2 x i32>, ptr %1, align 4, !tbaa !5
-  %103 = load <2 x i32>, ptr %101, align 4, !tbaa !5
-  %104 = tail call <2 x i32> @llvm.smin.v2i32(<2 x i32> %102, <2 x i32> %103)
-  store <2 x i32> %104, ptr %1, align 4, !tbaa !5
-  %105 = getelementptr inbounds %struct.CONSTRAINT, ptr %1, i64 0, i32 2
-  %106 = load i32, ptr %105, align 4, !tbaa !9
-  %107 = getelementptr inbounds %struct.closure_type, ptr %46, i64 0, i32 4, i32 0, i32 2
-  %108 = load i32, ptr %107, align 4, !tbaa !9
-  %109 = tail call i32 @llvm.smin.i32(i32 %106, i32 %108)
-  store i32 %109, ptr %105, align 4, !tbaa !9
-  store ptr %46, ptr %3, align 8, !tbaa !13
-  br label %676
-
-110:                                              ; preds = %43, %43
-  %111 = icmp ne i8 %48, 38
-  %112 = xor i1 %39, %111
-  br i1 %112, label %113, label %163
-
-113:                                              ; preds = %110
-  %114 = getelementptr inbounds %struct.word_type, ptr %46, i64 0, i32 3
-  %115 = sext i32 %2 to i64
-  %116 = getelementptr inbounds [2 x i32], ptr %114, i64 0, i64 %115
-  %117 = load i32, ptr %116, align 4, !tbaa !18
-  store i32 %117, ptr %1, align 4, !tbaa !12
-  %118 = load i32, ptr %116, align 4, !tbaa !18
-  %119 = getelementptr inbounds %struct.word_type, ptr %46, i64 0, i32 3, i32 1
-  %120 = getelementptr inbounds [2 x i32], ptr %119, i64 0, i64 %115
-  %121 = load i32, ptr %120, align 4, !tbaa !18
-  %122 = add nsw i32 %121, %118
-  %123 = getelementptr inbounds %struct.CONSTRAINT, ptr %1, i64 0, i32 1
-  store i32 %122, ptr %123, align 4, !tbaa !11
-  %124 = getelementptr inbounds %struct.CONSTRAINT, ptr %1, i64 0, i32 2
-  %125 = load i32, ptr %120, align 4, !tbaa !18
-  store i32 %125, ptr %124, align 4, !tbaa !9
-  %126 = getelementptr inbounds [2 x %struct.LIST], ptr %46, i64 0, i64 1, i32 1
-  %127 = load ptr, ptr %126, align 8, !tbaa !18
-  %128 = icmp eq ptr %127, %46
-  br i1 %128, label %162, label %129
-
-129:                                              ; preds = %113, %149
-  %130 = phi ptr [ %160, %149 ], [ %127, %113 ]
-  %131 = phi ptr [ %139, %149 ], [ %46, %113 ]
-  br i1 %39, label %135, label %132
-
-132:                                              ; preds = %129
-  %133 = getelementptr inbounds [2 x %struct.LIST], ptr %131, i64 0, i64 1
-  %134 = load ptr, ptr %133, align 8, !tbaa !18
-  br label %135
-
-135:                                              ; preds = %129, %132
-  %136 = phi ptr [ %130, %129 ], [ %134, %132 ]
-  br label %137
-
-137:                                              ; preds = %135, %137
-  %138 = phi ptr [ %139, %137 ], [ %136, %135 ]
-  %139 = load ptr, ptr %138, align 8, !tbaa !18
-  %140 = getelementptr inbounds %struct.word_type, ptr %139, i64 0, i32 1
-  %141 = load i8, ptr %140, align 8, !tbaa !18
-  switch i8 %141, label %162 [
-    i8 0, label %137
-    i8 39, label %149
-    i8 38, label %149
-    i8 16, label %149
-    i8 15, label %149
-    i8 24, label %149
-    i8 25, label %149
-    i8 36, label %149
-    i8 37, label %149
-    i8 9, label %149
-    i8 43, label %149
-    i8 42, label %149
-    i8 13, label %142
-    i8 14, label %142
-  ], !llvm.loop !21
-
-142:                                              ; preds = %137, %137
-  %143 = getelementptr inbounds %struct.closure_type, ptr %139, i64 0, i32 4
-  %144 = load i32, ptr %143, align 8, !tbaa !18
-  store i32 %144, ptr %1, align 4, !tbaa !12
-  %145 = getelementptr inbounds %struct.closure_type, ptr %139, i64 0, i32 4, i32 0, i32 1
-  %146 = load i32, ptr %145, align 4, !tbaa !18
-  store i32 %146, ptr %123, align 4, !tbaa !11
-  %147 = getelementptr inbounds %struct.closure_type, ptr %139, i64 0, i32 4, i32 0, i32 2
-  %148 = load i32, ptr %147, align 8, !tbaa !18
-  store i32 %148, ptr %124, align 4, !tbaa !9
-  br label %162
-
-149:                                              ; preds = %137, %137, %137, %137, %137, %137, %137, %137, %137, %137, %137
-  %150 = getelementptr inbounds %struct.word_type, ptr %139, i64 0, i32 3
-  %151 = getelementptr inbounds [2 x i32], ptr %150, i64 0, i64 %115
-  %152 = load i32, ptr %151, align 4, !tbaa !18
-  store i32 %152, ptr %1, align 4, !tbaa !12
-  %153 = load i32, ptr %151, align 4, !tbaa !18
-  %154 = getelementptr inbounds %struct.word_type, ptr %139, i64 0, i32 3, i32 1
-  %155 = getelementptr inbounds [2 x i32], ptr %154, i64 0, i64 %115
-  %156 = load i32, ptr %155, align 4, !tbaa !18
-  %157 = add nsw i32 %156, %153
-  store i32 %157, ptr %123, align 4, !tbaa !11
-  %158 = load i32, ptr %155, align 4, !tbaa !18
-  store i32 %158, ptr %124, align 4, !tbaa !9
-  %159 = getelementptr inbounds [2 x %struct.LIST], ptr %139, i64 0, i64 1, i32 1
-  %160 = load ptr, ptr %159, align 8, !tbaa !18
-  %161 = icmp eq ptr %160, %139
-  br i1 %161, label %162, label %129, !llvm.loop !22
-
-162:                                              ; preds = %149, %137, %113, %142
-  store ptr %46, ptr %3, align 8, !tbaa !13
-  br label %676
-
-163:                                              ; preds = %110
-  tail call void @Constrained(ptr noundef nonnull %46, ptr noundef %1, i32 noundef %2, ptr noundef %3)
-  br label %676
-
-164:                                              ; preds = %43, %43
-  %165 = getelementptr inbounds %struct.closure_type, ptr %46, i64 0, i32 4
-  %166 = load i32, ptr %165, align 8, !tbaa !18
-  store i32 %166, ptr %1, align 4, !tbaa !12
-  %167 = getelementptr inbounds %struct.closure_type, ptr %46, i64 0, i32 4, i32 0, i32 1
-  %168 = load i32, ptr %167, align 4, !tbaa !18
-  %169 = getelementptr inbounds %struct.CONSTRAINT, ptr %1, i64 0, i32 1
-  store i32 %168, ptr %169, align 4, !tbaa !11
-  %170 = getelementptr inbounds %struct.closure_type, ptr %46, i64 0, i32 4, i32 0, i32 2
-  %171 = load i32, ptr %170, align 8, !tbaa !18
-  %172 = getelementptr inbounds %struct.CONSTRAINT, ptr %1, i64 0, i32 2
-  store i32 %171, ptr %172, align 4, !tbaa !9
-  br label %676
-
-173:                                              ; preds = %43, %43
-  %174 = icmp ne i8 %48, 28
-  %175 = xor i1 %39, %174
-  br i1 %175, label %176, label %189
-
-176:                                              ; preds = %173
-  call void @Constrained(ptr noundef nonnull %46, ptr noundef nonnull %11, i32 noundef %2, ptr noundef %3)
-  %177 = call i32 @FindShift(ptr noundef nonnull %46, ptr noundef %0, i32 noundef %2) #8
-  %178 = load i32, ptr %11, align 4, !tbaa !12
-  %179 = getelementptr inbounds %struct.CONSTRAINT, ptr %11, i64 0, i32 1
-  %180 = load i32, ptr %179, align 4, !tbaa !11
-  %181 = call i32 @llvm.smin.i32(i32 %178, i32 %180)
-  %182 = sub nsw i32 %181, %177
-  store i32 %182, ptr %1, align 4, !tbaa !12
-  %183 = getelementptr inbounds %struct.CONSTRAINT, ptr %1, i64 0, i32 1
-  store i32 %180, ptr %183, align 4, !tbaa !11
-  %184 = getelementptr inbounds %struct.CONSTRAINT, ptr %11, i64 0, i32 2
-  %185 = load i32, ptr %184, align 4, !tbaa !9
-  %186 = call i32 @llvm.smin.i32(i32 %185, i32 %180)
-  %187 = add nsw i32 %186, %177
-  %188 = getelementptr inbounds %struct.CONSTRAINT, ptr %1, i64 0, i32 2
-  store i32 %187, ptr %188, align 4, !tbaa !9
-  br label %676
-
-189:                                              ; preds = %173
-  tail call void @Constrained(ptr noundef nonnull %46, ptr noundef %1, i32 noundef %2, ptr noundef %3)
-  br label %676
-
-190:                                              ; preds = %43
-  %191 = icmp eq i32 %2, 1
-  br i1 %191, label %192, label %195
-
-192:                                              ; preds = %190
-  store i32 8388607, ptr %1, align 4, !tbaa !12
-  %193 = getelementptr inbounds %struct.CONSTRAINT, ptr %1, i64 0, i32 1
-  store i32 8388607, ptr %193, align 4, !tbaa !11
-  %194 = getelementptr inbounds %struct.CONSTRAINT, ptr %1, i64 0, i32 2
-  store i32 8388607, ptr %194, align 4, !tbaa !9
-  br label %676
-
-195:                                              ; preds = %190
-  %196 = getelementptr inbounds %struct.closure_type, ptr %46, i64 0, i32 4
-  %197 = load i32, ptr %196, align 8, !tbaa !18
-  store i32 %197, ptr %11, align 4, !tbaa !12
-  %198 = getelementptr inbounds %struct.closure_type, ptr %46, i64 0, i32 4, i32 0, i32 1
-  %199 = load i32, ptr %198, align 4, !tbaa !18
-  %200 = getelementptr inbounds %struct.CONSTRAINT, ptr %11, i64 0, i32 1
-  store i32 %199, ptr %200, align 4, !tbaa !11
-  %201 = getelementptr inbounds %struct.closure_type, ptr %46, i64 0, i32 4, i32 0, i32 2
-  %202 = load i32, ptr %201, align 8, !tbaa !18
-  %203 = getelementptr inbounds %struct.CONSTRAINT, ptr %11, i64 0, i32 2
-  store i32 %202, ptr %203, align 4, !tbaa !9
-  br label %548
-
-204:                                              ; preds = %43, %43
-  %205 = icmp ne i8 %48, 16
-  %206 = xor i1 %39, %205
-  br i1 %206, label %210, label %207
-
-207:                                              ; preds = %204
-  %208 = load ptr, ptr @no_fpos, align 8, !tbaa !13
-  %209 = tail call ptr (i32, i32, ptr, i32, ptr, ...) @Error(i32 noundef 1, i32 noundef 2, ptr noundef nonnull @.str, i32 noundef 0, ptr noundef %208, ptr noundef nonnull @.str.5) #8
-  br label %210
-
-210:                                              ; preds = %207, %204
-  call void @Constrained(ptr noundef nonnull %46, ptr noundef nonnull %11, i32 noundef %2, ptr noundef %3)
-  %211 = getelementptr inbounds %struct.CONSTRAINT, ptr %11, i64 0, i32 1
-  %212 = load i32, ptr %211, align 4, !tbaa !11
-  %213 = icmp eq i32 %212, 8388607
-  br i1 %213, label %214, label %217
-
-214:                                              ; preds = %210
-  %215 = load i32, ptr %11, align 4, !tbaa !12
-  %216 = call i32 @llvm.smin.i32(i32 %215, i32 8388607)
-  br label %229
-
-217:                                              ; preds = %210
-  %218 = getelementptr inbounds %struct.word_type, ptr %46, i64 0, i32 3, i32 1
-  %219 = sext i32 %2 to i64
-  %220 = getelementptr inbounds [2 x i32], ptr %218, i64 0, i64 %219
-  %221 = load i32, ptr %220, align 4, !tbaa !18
-  %222 = sub nsw i32 %212, %221
-  %223 = load i32, ptr %11, align 4, !tbaa !12
-  %224 = call i32 @llvm.smin.i32(i32 %223, i32 %222)
-  %225 = getelementptr inbounds %struct.word_type, ptr %46, i64 0, i32 3
-  %226 = getelementptr inbounds [2 x i32], ptr %225, i64 0, i64 %219
-  %227 = load i32, ptr %226, align 4, !tbaa !18
-  %228 = sub nsw i32 %212, %227
-  br label %229
-
-229:                                              ; preds = %214, %217
-  %230 = phi i32 [ %224, %217 ], [ %216, %214 ]
-  %231 = phi i32 [ %228, %217 ], [ 8388607, %214 ]
-  %232 = getelementptr inbounds %struct.CONSTRAINT, ptr %11, i64 0, i32 2
-  %233 = load i32, ptr %232, align 4, !tbaa !9
-  %234 = call i32 @llvm.smin.i32(i32 %233, i32 %231)
-  store i32 %230, ptr %1, align 4, !tbaa !12
-  %235 = getelementptr inbounds %struct.CONSTRAINT, ptr %1, i64 0, i32 1
-  store i32 %212, ptr %235, align 4, !tbaa !11
-  %236 = getelementptr inbounds %struct.CONSTRAINT, ptr %1, i64 0, i32 2
-  store i32 %234, ptr %236, align 4, !tbaa !9
-  br label %676
-
-237:                                              ; preds = %43, %43, %43
-  %238 = icmp ne i8 %48, 19
-  %239 = icmp eq i32 %2, 1
-  %240 = xor i1 %239, %238
-  br i1 %240, label %241, label %534
-
-241:                                              ; preds = %237
-  call void @llvm.lifetime.start.p0(i64 4, ptr nonnull %5) #8
-  call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %6) #8
-  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %7) #8
-  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %8) #8
-  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %9) #8
-  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %10) #8
-  call void @Constrained(ptr noundef nonnull %46, ptr noundef nonnull %6, i32 noundef %2, ptr noundef %3)
-  %242 = load i32, ptr %6, align 4, !tbaa !12
-  %243 = icmp ne i32 %242, 8388607
-  %244 = getelementptr inbounds %struct.CONSTRAINT, ptr %6, i64 0, i32 1
-  %245 = load i32, ptr %244, align 4
-  %246 = icmp ne i32 %245, 8388607
-  %247 = select i1 %243, i1 true, i1 %246
-  %248 = getelementptr inbounds %struct.CONSTRAINT, ptr %6, i64 0, i32 2
-  %249 = load i32, ptr %248, align 4
-  %250 = icmp ne i32 %249, 8388607
-  %251 = select i1 %247, i1 true, i1 %250
-  br i1 %251, label %252, label %527
-
-252:                                              ; preds = %241
-  %253 = load ptr, ptr %40, align 8, !tbaa !18
-  call void @SetNeighbours(ptr noundef %253, i32 noundef %45, ptr noundef nonnull %8, ptr noundef nonnull %9, ptr noundef nonnull %7, ptr noundef nonnull %10, ptr noundef nonnull %5) #8
-  %254 = load ptr, ptr %8, align 8, !tbaa !13
-  %255 = icmp eq ptr %254, null
-  br i1 %255, label %264, label %256
-
-256:                                              ; preds = %252
-  %257 = load ptr, ptr %9, align 8, !tbaa !13
-  %258 = getelementptr inbounds %struct.word_type, ptr %257, i64 0, i32 3, i32 1
-  %259 = sext i32 %2 to i64
-  %260 = getelementptr inbounds [2 x i32], ptr %258, i64 0, i64 %259
-  %261 = load i32, ptr %260, align 4, !tbaa !18
-  %262 = getelementptr inbounds %struct.gapobj_type, ptr %254, i64 0, i32 3
-  %263 = call i32 @ExtraGap(i32 noundef %261, i32 noundef 0, ptr noundef nonnull %262, i32 noundef 151) #8
-  br label %264
-
-264:                                              ; preds = %256, %252
-  %265 = phi i32 [ %263, %256 ], [ 0, %252 ]
-  %266 = load ptr, ptr %7, align 8, !tbaa !13
-  %267 = icmp eq ptr %266, null
-  br i1 %267, label %276, label %268
-
-268:                                              ; preds = %264
-  %269 = load ptr, ptr %10, align 8, !tbaa !13
-  %270 = getelementptr inbounds %struct.word_type, ptr %269, i64 0, i32 3
-  %271 = sext i32 %2 to i64
-  %272 = getelementptr inbounds [2 x i32], ptr %270, i64 0, i64 %271
-  %273 = load i32, ptr %272, align 4, !tbaa !18
-  %274 = getelementptr inbounds %struct.gapobj_type, ptr %266, i64 0, i32 3
-  %275 = call i32 @ExtraGap(i32 noundef 0, i32 noundef %273, ptr noundef nonnull %274, i32 noundef 153) #8
-  br label %276
-
-276:                                              ; preds = %268, %264
-  %277 = phi i32 [ %275, %268 ], [ 0, %264 ]
-  %278 = load i8, ptr %22, align 8, !tbaa !18
-  %279 = add i8 %278, -2
-  %280 = icmp ult i8 %279, 7
-  %281 = load ptr, ptr %8, align 8, !tbaa !13
-  %282 = icmp eq ptr %281, null
-  br i1 %280, label %283, label %367
-
-283:                                              ; preds = %276
-  br i1 %282, label %292, label %284
-
-284:                                              ; preds = %283
-  %285 = load ptr, ptr %9, align 8, !tbaa !13
-  %286 = getelementptr inbounds %struct.word_type, ptr %285, i64 0, i32 3, i32 1
-  %287 = sext i32 %2 to i64
-  %288 = getelementptr inbounds [2 x i32], ptr %286, i64 0, i64 %287
-  %289 = load i32, ptr %288, align 4, !tbaa !18
-  %290 = getelementptr inbounds %struct.gapobj_type, ptr %281, i64 0, i32 3
-  %291 = call i32 @MinGap(i32 noundef %289, i32 noundef 0, i32 noundef 0, ptr noundef nonnull %290) #8
-  br label %292
-
-292:                                              ; preds = %284, %283
-  %293 = phi i32 [ %291, %284 ], [ 0, %283 ]
-  %294 = load ptr, ptr %7, align 8, !tbaa !13
-  %295 = icmp eq ptr %294, null
-  br i1 %295, label %307, label %296
-
-296:                                              ; preds = %292
-  %297 = load ptr, ptr %10, align 8, !tbaa !13
-  %298 = getelementptr inbounds %struct.word_type, ptr %297, i64 0, i32 3
-  %299 = sext i32 %2 to i64
-  %300 = getelementptr inbounds [2 x i32], ptr %298, i64 0, i64 %299
-  %301 = load i32, ptr %300, align 4, !tbaa !18
-  %302 = getelementptr inbounds %struct.word_type, ptr %297, i64 0, i32 3, i32 1
-  %303 = getelementptr inbounds [2 x i32], ptr %302, i64 0, i64 %299
-  %304 = load i32, ptr %303, align 4, !tbaa !18
-  %305 = getelementptr inbounds %struct.gapobj_type, ptr %294, i64 0, i32 3
-  %306 = call i32 @MinGap(i32 noundef 0, i32 noundef %301, i32 noundef %304, ptr noundef nonnull %305) #8
-  br label %307
-
-307:                                              ; preds = %296, %292
-  %308 = phi i32 [ %306, %296 ], [ 0, %292 ]
-  %309 = load ptr, ptr %8, align 8, !tbaa !13
-  %310 = icmp eq ptr %309, null
-  %311 = load ptr, ptr %7, align 8, !tbaa !13
-  %312 = icmp eq ptr %311, null
-  br i1 %310, label %313, label %320
-
-313:                                              ; preds = %307
-  br i1 %312, label %336, label %314
-
-314:                                              ; preds = %313
-  %315 = load ptr, ptr %10, align 8, !tbaa !13
-  %316 = getelementptr inbounds %struct.word_type, ptr %315, i64 0, i32 3
-  %317 = sext i32 %2 to i64
-  %318 = getelementptr inbounds [2 x i32], ptr %316, i64 0, i64 %317
-  %319 = load i32, ptr %318, align 4, !tbaa !18
-  br label %336
-
-320:                                              ; preds = %307
-  %321 = load ptr, ptr %9, align 8, !tbaa !13
-  %322 = getelementptr inbounds %struct.word_type, ptr %321, i64 0, i32 3, i32 1
-  %323 = sext i32 %2 to i64
-  %324 = getelementptr inbounds [2 x i32], ptr %322, i64 0, i64 %323
-  %325 = load i32, ptr %324, align 4, !tbaa !18
-  br i1 %312, label %336, label %326
-
-326:                                              ; preds = %320
-  %327 = load ptr, ptr %10, align 8, !tbaa !13
-  %328 = getelementptr inbounds %struct.word_type, ptr %327, i64 0, i32 3
-  %329 = getelementptr inbounds [2 x i32], ptr %328, i64 0, i64 %323
-  %330 = load i32, ptr %329, align 4, !tbaa !18
-  %331 = getelementptr inbounds %struct.word_type, ptr %327, i64 0, i32 3, i32 1
-  %332 = getelementptr inbounds [2 x i32], ptr %331, i64 0, i64 %323
-  %333 = load i32, ptr %332, align 4, !tbaa !18
-  %334 = getelementptr inbounds %struct.gapobj_type, ptr %311, i64 0, i32 3
-  %335 = call i32 @MinGap(i32 noundef %325, i32 noundef %330, i32 noundef %333, ptr noundef nonnull %334) #8
-  br label %336
-
-336:                                              ; preds = %320, %326, %314, %313
-  %337 = phi i32 [ %319, %314 ], [ 0, %313 ], [ %335, %326 ], [ %325, %320 ]
-  %338 = load i32, ptr %5, align 4, !tbaa !5
-  switch i32 %338, label %457 [
-    i32 151, label %339
-    i32 152, label %350
-    i32 153, label %356
+for.cond32:                                       ; preds = %for.cond, %for.cond32
+  %tlink.0.pn = phi ptr [ %g.0, %for.cond32 ], [ %tlink.0, %for.cond ]
+  %g.0.in = getelementptr inbounds [2 x %struct.LIST], ptr %tlink.0.pn, i64 0, i64 1
+  %g.0 = load ptr, ptr %g.0.in, align 8, !tbaa !18
+  %ou133 = getelementptr inbounds %struct.word_type, ptr %g.0, i64 0, i32 1
+  %6 = load i8, ptr %ou133, align 8, !tbaa !18
+  switch i8 %6, label %for.inc55 [
+    i8 0, label %for.cond32
+    i8 1, label %land.lhs.true47
   ]
 
-339:                                              ; preds = %336
-  %340 = getelementptr inbounds %struct.word_type, ptr %46, i64 0, i32 3
-  %341 = sext i32 %2 to i64
-  %342 = getelementptr inbounds [2 x i32], ptr %340, i64 0, i64 %341
-  %343 = load i32, ptr %342, align 4, !tbaa !18
-  %344 = add i32 %308, %293
-  %345 = sub i32 %344, %337
-  %346 = add i32 %345, %343
-  %347 = getelementptr inbounds %struct.word_type, ptr %46, i64 0, i32 3, i32 1
-  %348 = getelementptr inbounds [2 x i32], ptr %347, i64 0, i64 %341
-  %349 = load i32, ptr %348, align 4, !tbaa !18
-  br label %460
+land.lhs.true47:                                  ; preds = %for.cond32
+  %ogap = getelementptr inbounds %struct.gapobj_type, ptr %g.0, i64 0, i32 3
+  %bf.load48 = load i16, ptr %ogap, align 4
+  %7 = and i16 %bf.load48, 256
+  %tobool52.not = icmp eq i16 %7, 0
+  %spec.select = select i1 %tobool52.not, i32 %ratm.0, i32 1
+  br label %for.inc55
 
-350:                                              ; preds = %336
-  %351 = getelementptr inbounds %struct.word_type, ptr %46, i64 0, i32 3, i32 1
-  %352 = sext i32 %2 to i64
-  %353 = getelementptr inbounds [2 x i32], ptr %351, i64 0, i64 %352
-  %354 = load i32, ptr %353, align 4, !tbaa !18
-  %355 = add nsw i32 %354, %308
-  br label %460
+for.inc55:                                        ; preds = %for.cond32, %land.lhs.true47
+  %ratm.1 = phi i32 [ %spec.select, %land.lhs.true47 ], [ %ratm.0, %for.cond32 ]
+  %osucc58 = getelementptr inbounds %struct.LIST, ptr %tlink.0, i64 0, i32 1
+  br label %for.cond, !llvm.loop !19
 
-356:                                              ; preds = %336
-  %357 = getelementptr inbounds %struct.word_type, ptr %46, i64 0, i32 3
-  %358 = sext i32 %2 to i64
-  %359 = getelementptr inbounds [2 x i32], ptr %357, i64 0, i64 %358
-  %360 = load i32, ptr %359, align 4, !tbaa !18
-  %361 = getelementptr inbounds %struct.word_type, ptr %46, i64 0, i32 3, i32 1
-  %362 = getelementptr inbounds [2 x i32], ptr %361, i64 0, i64 %358
-  %363 = load i32, ptr %362, align 4, !tbaa !18
-  %364 = add i32 %308, %293
-  %365 = sub i32 %364, %337
-  %366 = add i32 %365, %363
-  br label %460
+sw.bb:                                            ; preds = %for.cond, %for.cond, %for.cond, %for.cond, %for.cond, %for.cond, %for.cond, %for.cond, %for.cond, %for.cond, %for.cond, %for.cond, %for.cond, %for.cond, %for.cond, %for.cond, %for.cond, %for.cond
+  tail call void @Constrained(ptr noundef nonnull %tlink.0, ptr noundef %xc, i32 noundef %dim, ptr noundef %why)
+  br label %cleanup
 
-367:                                              ; preds = %276
-  br i1 %282, label %368, label %373
+sw.bb63:                                          ; preds = %for.cond, %for.cond
+  %cmp69 = icmp ne i8 %5, 30
+  %cmp71.not = xor i1 %cmp14, %cmp69
+  br i1 %cmp71.not, label %if.else, label %if.then73
 
-368:                                              ; preds = %367
-  %369 = getelementptr inbounds %struct.word_type, ptr %0, i64 0, i32 3
-  %370 = sext i32 %2 to i64
-  %371 = getelementptr inbounds [2 x i32], ptr %369, i64 0, i64 %370
-  %372 = load i32, ptr %371, align 4, !tbaa !18
-  br label %395
+if.then73:                                        ; preds = %sw.bb63
+  tail call void @Constrained(ptr noundef nonnull %tlink.0, ptr noundef %xc, i32 noundef %dim, ptr noundef %why)
+  br label %cleanup
 
-373:                                              ; preds = %367
-  %374 = load ptr, ptr %9, align 8, !tbaa !13
-  %375 = getelementptr inbounds %struct.word_type, ptr %374, i64 0, i32 3, i32 1
-  %376 = sext i32 %2 to i64
-  %377 = getelementptr inbounds [2 x i32], ptr %375, i64 0, i64 %376
-  %378 = load i32, ptr %377, align 4, !tbaa !18
-  %379 = getelementptr inbounds %struct.word_type, ptr %0, i64 0, i32 3
-  %380 = getelementptr inbounds [2 x i32], ptr %379, i64 0, i64 %376
-  %381 = load i32, ptr %380, align 4, !tbaa !18
-  %382 = getelementptr inbounds %struct.word_type, ptr %0, i64 0, i32 3, i32 1
-  %383 = getelementptr inbounds [2 x i32], ptr %382, i64 0, i64 %376
-  %384 = load i32, ptr %383, align 4, !tbaa !18
-  %385 = getelementptr inbounds %struct.gapobj_type, ptr %281, i64 0, i32 3
-  %386 = call i32 @MinGap(i32 noundef %378, i32 noundef %381, i32 noundef %384, ptr noundef nonnull %385) #8
-  %387 = load ptr, ptr %9, align 8, !tbaa !13
-  %388 = getelementptr inbounds %struct.word_type, ptr %387, i64 0, i32 3, i32 1
-  %389 = getelementptr inbounds [2 x i32], ptr %388, i64 0, i64 %376
-  %390 = load i32, ptr %389, align 4, !tbaa !18
-  %391 = load ptr, ptr %8, align 8, !tbaa !13
-  %392 = getelementptr inbounds %struct.gapobj_type, ptr %391, i64 0, i32 3
-  %393 = call i32 @MinGap(i32 noundef %390, i32 noundef 0, i32 noundef 0, ptr noundef nonnull %392) #8
-  %394 = sub nsw i32 %386, %393
-  br label %395
+if.else:                                          ; preds = %sw.bb63
+  store i32 8388607, ptr %xc, align 4, !tbaa !12
+  %obfc75 = getelementptr inbounds %struct.CONSTRAINT, ptr %xc, i64 0, i32 1
+  store i32 8388607, ptr %obfc75, align 4, !tbaa !11
+  %ofc76 = getelementptr inbounds %struct.CONSTRAINT, ptr %xc, i64 0, i32 2
+  store i32 8388607, ptr %ofc76, align 4, !tbaa !9
+  br label %cleanup
 
-395:                                              ; preds = %373, %368
-  %396 = phi i32 [ %372, %368 ], [ %394, %373 ]
-  %397 = load ptr, ptr %7, align 8, !tbaa !13
-  %398 = icmp eq ptr %397, null
-  %399 = getelementptr inbounds %struct.word_type, ptr %0, i64 0, i32 3, i32 1
-  %400 = sext i32 %2 to i64
-  %401 = getelementptr inbounds [2 x i32], ptr %399, i64 0, i64 %400
-  %402 = load i32, ptr %401, align 4, !tbaa !18
-  br i1 %398, label %424, label %403
+sw.bb78:                                          ; preds = %for.cond, %for.cond
+  %cmp84 = icmp ne i8 %5, 32
+  %cmp86.not = xor i1 %cmp14, %cmp84
+  br i1 %cmp86.not, label %if.else89, label %if.then88
 
-403:                                              ; preds = %395
-  %404 = load ptr, ptr %10, align 8, !tbaa !13
-  %405 = getelementptr inbounds %struct.word_type, ptr %404, i64 0, i32 3
-  %406 = getelementptr inbounds [2 x i32], ptr %405, i64 0, i64 %400
-  %407 = load i32, ptr %406, align 4, !tbaa !18
-  %408 = getelementptr inbounds %struct.word_type, ptr %404, i64 0, i32 3, i32 1
-  %409 = getelementptr inbounds [2 x i32], ptr %408, i64 0, i64 %400
-  %410 = load i32, ptr %409, align 4, !tbaa !18
-  %411 = getelementptr inbounds %struct.gapobj_type, ptr %397, i64 0, i32 3
-  %412 = call i32 @MinGap(i32 noundef %402, i32 noundef %407, i32 noundef %410, ptr noundef nonnull %411) #8
-  %413 = load ptr, ptr %10, align 8, !tbaa !13
-  %414 = getelementptr inbounds %struct.word_type, ptr %413, i64 0, i32 3
-  %415 = getelementptr inbounds [2 x i32], ptr %414, i64 0, i64 %400
-  %416 = load i32, ptr %415, align 4, !tbaa !18
-  %417 = getelementptr inbounds %struct.word_type, ptr %413, i64 0, i32 3, i32 1
-  %418 = getelementptr inbounds [2 x i32], ptr %417, i64 0, i64 %400
-  %419 = load i32, ptr %418, align 4, !tbaa !18
-  %420 = load ptr, ptr %7, align 8, !tbaa !13
-  %421 = getelementptr inbounds %struct.gapobj_type, ptr %420, i64 0, i32 3
-  %422 = call i32 @MinGap(i32 noundef 0, i32 noundef %416, i32 noundef %419, ptr noundef nonnull %421) #8
-  %423 = sub nsw i32 %412, %422
-  br label %424
+if.then88:                                        ; preds = %sw.bb78
+  tail call void @Constrained(ptr noundef nonnull %tlink.0, ptr noundef %xc, i32 noundef %dim, ptr noundef %why)
+  br label %cleanup
 
-424:                                              ; preds = %395, %403
-  %425 = phi i32 [ %423, %403 ], [ %402, %395 ]
-  %426 = load i32, ptr %5, align 4, !tbaa !5
-  switch i32 %426, label %457 [
-    i32 151, label %427
-    i32 152, label %437
-    i32 153, label %447
+if.else89:                                        ; preds = %sw.bb78
+  store i32 8388607, ptr %xc, align 4, !tbaa !12
+  %obfc91 = getelementptr inbounds %struct.CONSTRAINT, ptr %xc, i64 0, i32 1
+  store i32 8388607, ptr %obfc91, align 4, !tbaa !11
+  %ofc92 = getelementptr inbounds %struct.CONSTRAINT, ptr %xc, i64 0, i32 2
+  store i32 8388607, ptr %ofc92, align 4, !tbaa !9
+  br label %cleanup
+
+sw.bb94:                                          ; preds = %for.cond
+  call void @Constrained(ptr noundef nonnull %tlink.0, ptr noundef nonnull %yc, i32 noundef %dim, ptr noundef %why)
+  br i1 %cmp14, label %land.lhs.true97, label %cond.false111
+
+land.lhs.true97:                                  ; preds = %sw.bb94
+  %ou4 = getelementptr inbounds %struct.closure_type, ptr %tlink.0, i64 0, i32 4
+  %8 = load i32, ptr %ou4, align 8, !tbaa !18
+  %cmp99 = icmp eq i32 %8, 0
+  br i1 %cmp99, label %if.then101, label %cond.end114
+
+if.then101:                                       ; preds = %land.lhs.true97
+  store i32 8388607, ptr %xc, align 4, !tbaa !12
+  %obfc103 = getelementptr inbounds %struct.CONSTRAINT, ptr %xc, i64 0, i32 1
+  store i32 8388607, ptr %obfc103, align 4, !tbaa !11
+  %ofc104 = getelementptr inbounds %struct.CONSTRAINT, ptr %xc, i64 0, i32 2
+  store i32 8388607, ptr %ofc104, align 4, !tbaa !9
+  br label %cleanup
+
+cond.false111:                                    ; preds = %sw.bb94
+  %ofc113 = getelementptr inbounds %struct.closure_type, ptr %tlink.0, i64 0, i32 4, i32 0, i32 2
+  %cond115.pre = load i32, ptr %ofc113, align 8, !tbaa !18
+  br label %cond.end114
+
+cond.end114:                                      ; preds = %land.lhs.true97, %cond.false111
+  %cond115 = phi i32 [ %cond115.pre, %cond.false111 ], [ %8, %land.lhs.true97 ]
+  call void @InvScaleConstraint(ptr noundef %xc, i32 noundef %cond115, ptr noundef nonnull %yc)
+  br label %cleanup
+
+sw.bb117:                                         ; preds = %for.cond
+  call void @Constrained(ptr noundef nonnull %tlink.0, ptr noundef nonnull %hc, i32 noundef 0, ptr noundef %why)
+  call void @Constrained(ptr noundef nonnull %tlink.0, ptr noundef nonnull %vc, i32 noundef 1, ptr noundef %why)
+  %osparec = getelementptr inbounds %struct.closure_type, ptr %tlink.0, i64 0, i32 4, i32 0, i32 4
+  %9 = load i32, ptr %osparec, align 4, !tbaa !18
+  call void @RotateConstraint(ptr noundef %xc, ptr noundef %x, i32 noundef %9, ptr noundef nonnull %hc, ptr noundef nonnull %vc, i32 noundef %dim)
+  br label %cleanup
+
+sw.bb119:                                         ; preds = %for.cond, %for.cond
+  %ou124.le1120 = getelementptr inbounds %struct.word_type, ptr %tlink.0, i64 0, i32 1
+  tail call void @Constrained(ptr noundef nonnull %tlink.0, ptr noundef %xc, i32 noundef %dim, ptr noundef %why)
+  %10 = load i8, ptr %ou124.le1120, align 8, !tbaa !18
+  %cmp123 = icmp ne i8 %10, 26
+  %cmp127 = xor i1 %cmp14, %cmp123
+  br i1 %cmp127, label %if.then129, label %cleanup
+
+if.then129:                                       ; preds = %sw.bb119
+  %ou4130 = getelementptr inbounds %struct.closure_type, ptr %tlink.0, i64 0, i32 4
+  %11 = load <2 x i32>, ptr %xc, align 4, !tbaa !5
+  %12 = load <2 x i32>, ptr %ou4130, align 4, !tbaa !5
+  %13 = tail call <2 x i32> @llvm.smin.v2i32(<2 x i32> %11, <2 x i32> %12)
+  store <2 x i32> %13, ptr %xc, align 4, !tbaa !5
+  %ofc.i = getelementptr inbounds %struct.CONSTRAINT, ptr %xc, i64 0, i32 2
+  %14 = load i32, ptr %ofc.i, align 4, !tbaa !9
+  %ofc14.i = getelementptr inbounds %struct.closure_type, ptr %tlink.0, i64 0, i32 4, i32 0, i32 2
+  %15 = load i32, ptr %ofc14.i, align 4, !tbaa !9
+  %cond21.i = tail call i32 @llvm.smin.i32(i32 %14, i32 %15)
+  store i32 %cond21.i, ptr %ofc.i, align 4, !tbaa !9
+  store ptr %tlink.0, ptr %why, align 8, !tbaa !13
+  br label %cleanup
+
+sw.bb132:                                         ; preds = %for.cond, %for.cond
+  %cmp136 = icmp ne i8 %5, 38
+  %cmp140 = xor i1 %cmp14, %cmp136
+  br i1 %cmp140, label %if.then142, label %if.else225
+
+if.then142:                                       ; preds = %sw.bb132
+  %ou3 = getelementptr inbounds %struct.word_type, ptr %tlink.0, i64 0, i32 3
+  %idxprom = sext i32 %dim to i64
+  %arrayidx143 = getelementptr inbounds [2 x i32], ptr %ou3, i64 0, i64 %idxprom
+  %16 = load i32, ptr %arrayidx143, align 4, !tbaa !18
+  store i32 %16, ptr %xc, align 4, !tbaa !12
+  %17 = load i32, ptr %arrayidx143, align 4, !tbaa !18
+  %ofwd = getelementptr inbounds %struct.word_type, ptr %tlink.0, i64 0, i32 3, i32 1
+  %arrayidx151 = getelementptr inbounds [2 x i32], ptr %ofwd, i64 0, i64 %idxprom
+  %18 = load i32, ptr %arrayidx151, align 4, !tbaa !18
+  %add = add nsw i32 %18, %17
+  %obfc152 = getelementptr inbounds %struct.CONSTRAINT, ptr %xc, i64 0, i32 1
+  store i32 %add, ptr %obfc152, align 4, !tbaa !11
+  %ofc157 = getelementptr inbounds %struct.CONSTRAINT, ptr %xc, i64 0, i32 2
+  %.sink1176 = load i32, ptr %arrayidx151, align 4, !tbaa !18
+  store i32 %.sink1176, ptr %ofc157, align 4, !tbaa !9
+  %osucc1611178 = getelementptr inbounds [2 x %struct.LIST], ptr %tlink.0, i64 0, i64 1, i32 1
+  %19 = load ptr, ptr %osucc1611178, align 8, !tbaa !18
+  %cmp162.not1179 = icmp eq ptr %19, %tlink.0
+  br i1 %cmp162.not1179, label %while.end, label %while.body
+
+while.body:                                       ; preds = %if.then142, %sw.epilog
+  %20 = phi ptr [ %29, %sw.epilog ], [ %19, %if.then142 ]
+  %tlink.0.pn1181 = phi ptr [ %z.1, %sw.epilog ], [ %tlink.0, %if.then142 ]
+  br i1 %cmp14, label %for.cond179.preheader, label %cond.false170
+
+cond.false170:                                    ; preds = %while.body
+  %arrayidx1601180 = getelementptr inbounds [2 x %struct.LIST], ptr %tlink.0.pn1181, i64 0, i64 1
+  %21 = load ptr, ptr %arrayidx1601180, align 8, !tbaa !18
+  br label %for.cond179.preheader
+
+for.cond179.preheader:                            ; preds = %while.body, %cond.false170
+  %z.1.in.ph = phi ptr [ %20, %while.body ], [ %21, %cond.false170 ]
+  br label %for.cond179
+
+for.cond179:                                      ; preds = %for.cond179.preheader, %for.cond179
+  %z.1.in = phi ptr [ %z.1, %for.cond179 ], [ %z.1.in.ph, %for.cond179.preheader ]
+  %z.1 = load ptr, ptr %z.1.in, align 8, !tbaa !18
+  %ou1180 = getelementptr inbounds %struct.word_type, ptr %z.1, i64 0, i32 1
+  %22 = load i8, ptr %ou1180, align 8, !tbaa !18
+  switch i8 %22, label %while.end [
+    i8 0, label %for.cond179
+    i8 39, label %sw.epilog
+    i8 38, label %sw.epilog
+    i8 16, label %sw.epilog
+    i8 15, label %sw.epilog
+    i8 24, label %sw.epilog
+    i8 25, label %sw.epilog
+    i8 36, label %sw.epilog
+    i8 37, label %sw.epilog
+    i8 9, label %sw.epilog
+    i8 43, label %sw.epilog
+    i8 42, label %sw.epilog
+    i8 13, label %sw.bb215
+    i8 14, label %sw.bb215
   ]
 
-427:                                              ; preds = %424
-  %428 = getelementptr inbounds %struct.word_type, ptr %46, i64 0, i32 3
-  %429 = sext i32 %2 to i64
-  %430 = getelementptr inbounds [2 x i32], ptr %428, i64 0, i64 %429
-  %431 = load i32, ptr %430, align 4, !tbaa !18
-  %432 = add i32 %425, %396
-  %433 = sub i32 %431, %432
-  %434 = getelementptr inbounds %struct.word_type, ptr %46, i64 0, i32 3, i32 1
-  %435 = getelementptr inbounds [2 x i32], ptr %434, i64 0, i64 %429
-  %436 = load i32, ptr %435, align 4, !tbaa !18
-  br label %460
+sw.bb215:                                         ; preds = %for.cond179, %for.cond179
+  %ou4216 = getelementptr inbounds %struct.closure_type, ptr %z.1, i64 0, i32 4
+  %23 = load i32, ptr %ou4216, align 8, !tbaa !18
+  store i32 %23, ptr %xc, align 4, !tbaa !12
+  %obfc220 = getelementptr inbounds %struct.closure_type, ptr %z.1, i64 0, i32 4, i32 0, i32 1
+  %24 = load i32, ptr %obfc220, align 4, !tbaa !18
+  store i32 %24, ptr %obfc152, align 4, !tbaa !11
+  %ofc223 = getelementptr inbounds %struct.closure_type, ptr %z.1, i64 0, i32 4, i32 0, i32 2
+  %25 = load i32, ptr %ofc223, align 8, !tbaa !18
+  store i32 %25, ptr %ofc157, align 4, !tbaa !9
+  br label %while.end
 
-437:                                              ; preds = %424
-  %438 = getelementptr inbounds %struct.word_type, ptr %46, i64 0, i32 3
-  %439 = sext i32 %2 to i64
-  %440 = getelementptr inbounds [2 x i32], ptr %438, i64 0, i64 %439
-  %441 = load i32, ptr %440, align 4, !tbaa !18
-  %442 = sub nsw i32 %441, %396
-  %443 = getelementptr inbounds %struct.word_type, ptr %46, i64 0, i32 3, i32 1
-  %444 = getelementptr inbounds [2 x i32], ptr %443, i64 0, i64 %439
-  %445 = load i32, ptr %444, align 4, !tbaa !18
-  %446 = sub nsw i32 %445, %425
-  br label %460
+sw.epilog:                                        ; preds = %for.cond179, %for.cond179, %for.cond179, %for.cond179, %for.cond179, %for.cond179, %for.cond179, %for.cond179, %for.cond179, %for.cond179, %for.cond179
+  %ou3195 = getelementptr inbounds %struct.word_type, ptr %z.1, i64 0, i32 3
+  %arrayidx198 = getelementptr inbounds [2 x i32], ptr %ou3195, i64 0, i64 %idxprom
+  %26 = load i32, ptr %arrayidx198, align 4, !tbaa !18
+  store i32 %26, ptr %xc, align 4, !tbaa !12
+  %27 = load i32, ptr %arrayidx198, align 4, !tbaa !18
+  %ofwd205 = getelementptr inbounds %struct.word_type, ptr %z.1, i64 0, i32 3, i32 1
+  %arrayidx207 = getelementptr inbounds [2 x i32], ptr %ofwd205, i64 0, i64 %idxprom
+  %28 = load i32, ptr %arrayidx207, align 4, !tbaa !18
+  %add208 = add nsw i32 %28, %27
+  store i32 %add208, ptr %obfc152, align 4, !tbaa !11
+  %.sink = load i32, ptr %arrayidx207, align 4, !tbaa !18
+  store i32 %.sink, ptr %ofc157, align 4, !tbaa !9
+  %osucc161 = getelementptr inbounds [2 x %struct.LIST], ptr %z.1, i64 0, i64 1, i32 1
+  %29 = load ptr, ptr %osucc161, align 8, !tbaa !18
+  %cmp162.not = icmp eq ptr %29, %z.1
+  br i1 %cmp162.not, label %while.end, label %while.body, !llvm.loop !20
 
-447:                                              ; preds = %424
-  %448 = getelementptr inbounds %struct.word_type, ptr %46, i64 0, i32 3
-  %449 = sext i32 %2 to i64
-  %450 = getelementptr inbounds [2 x i32], ptr %448, i64 0, i64 %449
-  %451 = load i32, ptr %450, align 4, !tbaa !18
-  %452 = getelementptr inbounds %struct.word_type, ptr %46, i64 0, i32 3, i32 1
-  %453 = getelementptr inbounds [2 x i32], ptr %452, i64 0, i64 %449
-  %454 = load i32, ptr %453, align 4, !tbaa !18
-  %455 = add i32 %425, %396
-  %456 = sub i32 %454, %455
-  br label %460
+while.end:                                        ; preds = %sw.epilog, %for.cond179, %if.then142, %sw.bb215
+  store ptr %tlink.0, ptr %why, align 8, !tbaa !13
+  br label %cleanup
 
-457:                                              ; preds = %336, %424
-  %458 = phi i32 [ %338, %336 ], [ %426, %424 ]
-  %459 = load i32, ptr %6, align 4, !tbaa !12
-  br label %466
+if.else225:                                       ; preds = %sw.bb132
+  tail call void @Constrained(ptr noundef nonnull %tlink.0, ptr noundef %xc, i32 noundef %dim, ptr noundef %why)
+  br label %cleanup
 
-460:                                              ; preds = %447, %437, %427, %356, %350, %339
-  %461 = phi i32 [ 153, %356 ], [ 152, %350 ], [ 151, %339 ], [ 153, %447 ], [ 152, %437 ], [ 151, %427 ]
-  %462 = phi i32 [ %366, %356 ], [ %355, %350 ], [ %349, %339 ], [ %456, %447 ], [ %446, %437 ], [ %436, %427 ]
-  %463 = phi i32 [ %360, %356 ], [ 0, %350 ], [ %346, %339 ], [ %451, %447 ], [ %442, %437 ], [ %433, %427 ]
-  %464 = load i32, ptr %6, align 4, !tbaa !12
-  %465 = icmp sgt i32 %463, %464
-  br i1 %465, label %527, label %466
+sw.bb227:                                         ; preds = %for.cond, %for.cond
+  %ou4228 = getelementptr inbounds %struct.closure_type, ptr %tlink.0, i64 0, i32 4
+  %30 = load i32, ptr %ou4228, align 8, !tbaa !18
+  store i32 %30, ptr %xc, align 4, !tbaa !12
+  %obfc232 = getelementptr inbounds %struct.closure_type, ptr %tlink.0, i64 0, i32 4, i32 0, i32 1
+  %31 = load i32, ptr %obfc232, align 4, !tbaa !18
+  %obfc233 = getelementptr inbounds %struct.CONSTRAINT, ptr %xc, i64 0, i32 1
+  store i32 %31, ptr %obfc233, align 4, !tbaa !11
+  %ofc235 = getelementptr inbounds %struct.closure_type, ptr %tlink.0, i64 0, i32 4, i32 0, i32 2
+  %32 = load i32, ptr %ofc235, align 8, !tbaa !18
+  %ofc236 = getelementptr inbounds %struct.CONSTRAINT, ptr %xc, i64 0, i32 2
+  store i32 %32, ptr %ofc236, align 4, !tbaa !9
+  br label %cleanup
 
-466:                                              ; preds = %457, %460
-  %467 = phi i32 [ %458, %457 ], [ %461, %460 ]
-  %468 = phi i32 [ %459, %457 ], [ %464, %460 ]
-  %469 = phi i32 [ undef, %457 ], [ %463, %460 ]
-  %470 = phi i32 [ undef, %457 ], [ %462, %460 ]
-  %471 = add i32 %470, %469
-  %472 = load i32, ptr %244, align 4, !tbaa !11
-  %473 = icmp slt i32 %472, %471
-  br i1 %473, label %527, label %474
+sw.bb237:                                         ; preds = %for.cond, %for.cond
+  %cmp241 = icmp ne i8 %5, 28
+  %cmp245 = xor i1 %cmp14, %cmp241
+  br i1 %cmp245, label %if.then247, label %if.else274
 
-474:                                              ; preds = %466
-  %475 = load i32, ptr %248, align 4, !tbaa !9
-  %476 = icmp slt i32 %475, %470
-  br i1 %476, label %527, label %477
+if.then247:                                       ; preds = %sw.bb237
+  call void @Constrained(ptr noundef nonnull %tlink.0, ptr noundef nonnull %yc, i32 noundef %dim, ptr noundef %why)
+  %call248 = call i32 @FindShift(ptr noundef nonnull %tlink.0, ptr noundef %x, i32 noundef %dim) #8
+  %33 = load i32, ptr %yc, align 4
+  %obfc250 = getelementptr inbounds %struct.CONSTRAINT, ptr %yc, i64 0, i32 1
+  %34 = load i32, ptr %obfc250, align 4
+  %cond258 = call i32 @llvm.smin.i32(i32 %33, i32 %34)
+  %sub = sub nsw i32 %cond258, %call248
+  store i32 %sub, ptr %xc, align 4, !tbaa !12
+  %obfc261 = getelementptr inbounds %struct.CONSTRAINT, ptr %xc, i64 0, i32 1
+  store i32 %34, ptr %obfc261, align 4, !tbaa !11
+  %ofc262 = getelementptr inbounds %struct.CONSTRAINT, ptr %yc, i64 0, i32 2
+  %35 = load i32, ptr %ofc262, align 4
+  %cond271 = call i32 @llvm.smin.i32(i32 %35, i32 %34)
+  %add272 = add nsw i32 %cond271, %call248
+  %ofc273 = getelementptr inbounds %struct.CONSTRAINT, ptr %xc, i64 0, i32 2
+  store i32 %add272, ptr %ofc273, align 4, !tbaa !9
+  br label %cleanup
 
-477:                                              ; preds = %474
-  switch i32 %467, label %533 [
-    i32 151, label %478
-    i32 152, label %493
-    i32 153, label %512
+if.else274:                                       ; preds = %sw.bb237
+  tail call void @Constrained(ptr noundef nonnull %tlink.0, ptr noundef %xc, i32 noundef %dim, ptr noundef %why)
+  br label %cleanup
+
+sw.bb276:                                         ; preds = %for.cond
+  %cmp277 = icmp eq i32 %dim, 1
+  br i1 %cmp277, label %if.then279, label %if.else283
+
+if.then279:                                       ; preds = %sw.bb276
+  store i32 8388607, ptr %xc, align 4, !tbaa !12
+  %obfc281 = getelementptr inbounds %struct.CONSTRAINT, ptr %xc, i64 0, i32 1
+  store i32 8388607, ptr %obfc281, align 4, !tbaa !11
+  %ofc282 = getelementptr inbounds %struct.CONSTRAINT, ptr %xc, i64 0, i32 2
+  store i32 8388607, ptr %ofc282, align 4, !tbaa !9
+  br label %cleanup
+
+if.else283:                                       ; preds = %sw.bb276
+  %ou4284 = getelementptr inbounds %struct.closure_type, ptr %tlink.0, i64 0, i32 4
+  %36 = load i32, ptr %ou4284, align 8, !tbaa !18
+  store i32 %36, ptr %yc, align 4, !tbaa !12
+  %obfc288 = getelementptr inbounds %struct.closure_type, ptr %tlink.0, i64 0, i32 4, i32 0, i32 1
+  %37 = load i32, ptr %obfc288, align 4, !tbaa !18
+  %obfc289 = getelementptr inbounds %struct.CONSTRAINT, ptr %yc, i64 0, i32 1
+  store i32 %37, ptr %obfc289, align 4, !tbaa !11
+  %ofc291 = getelementptr inbounds %struct.closure_type, ptr %tlink.0, i64 0, i32 4, i32 0, i32 2
+  %38 = load i32, ptr %ofc291, align 8, !tbaa !18
+  %ofc292 = getelementptr inbounds %struct.CONSTRAINT, ptr %yc, i64 0, i32 2
+  store i32 %38, ptr %ofc292, align 4, !tbaa !9
+  br label %REST_OF_HEAD
+
+sw.bb294:                                         ; preds = %for.cond, %for.cond
+  %cmp298 = icmp ne i8 %5, 16
+  %cmp302 = xor i1 %cmp14, %cmp298
+  br i1 %cmp302, label %if.end306, label %if.then304
+
+if.then304:                                       ; preds = %sw.bb294
+  %39 = load ptr, ptr @no_fpos, align 8, !tbaa !13
+  %call305 = tail call ptr (i32, i32, ptr, i32, ptr, ...) @Error(i32 noundef 1, i32 noundef 2, ptr noundef nonnull @.str, i32 noundef 0, ptr noundef %39, ptr noundef nonnull @.str.5) #8
+  br label %if.end306
+
+if.end306:                                        ; preds = %if.then304, %sw.bb294
+  call void @Constrained(ptr noundef nonnull %tlink.0, ptr noundef nonnull %yc, i32 noundef %dim, ptr noundef %why)
+  %obfc307 = getelementptr inbounds %struct.CONSTRAINT, ptr %yc, i64 0, i32 1
+  %40 = load i32, ptr %obfc307, align 4, !tbaa !11
+  %cmp308 = icmp eq i32 %40, 8388607
+  br i1 %cmp308, label %cond.end318.thread, label %cond.false332
+
+cond.end318.thread:                               ; preds = %if.end306
+  %41 = load i32, ptr %yc, align 4
+  %cond327905 = call i32 @llvm.smin.i32(i32 %41, i32 8388607)
+  br label %cond.end339
+
+cond.false332:                                    ; preds = %if.end306
+  %ofwd314 = getelementptr inbounds %struct.word_type, ptr %tlink.0, i64 0, i32 3, i32 1
+  %idxprom315 = sext i32 %dim to i64
+  %arrayidx316 = getelementptr inbounds [2 x i32], ptr %ofwd314, i64 0, i64 %idxprom315
+  %42 = load i32, ptr %arrayidx316, align 4, !tbaa !18
+  %sub317 = sub nsw i32 %40, %42
+  %43 = load i32, ptr %yc, align 4
+  %cond327 = call i32 @llvm.smin.i32(i32 %43, i32 %sub317)
+  %ou3334 = getelementptr inbounds %struct.word_type, ptr %tlink.0, i64 0, i32 3
+  %arrayidx337 = getelementptr inbounds [2 x i32], ptr %ou3334, i64 0, i64 %idxprom315
+  %44 = load i32, ptr %arrayidx337, align 4, !tbaa !18
+  %sub338 = sub nsw i32 %40, %44
+  br label %cond.end339
+
+cond.end339:                                      ; preds = %cond.end318.thread, %cond.false332
+  %cond327906 = phi i32 [ %cond327, %cond.false332 ], [ %cond327905, %cond.end318.thread ]
+  %cond340 = phi i32 [ %sub338, %cond.false332 ], [ 8388607, %cond.end318.thread ]
+  %ofc341 = getelementptr inbounds %struct.CONSTRAINT, ptr %yc, i64 0, i32 2
+  %45 = load i32, ptr %ofc341, align 4
+  %cond348 = call i32 @llvm.smin.i32(i32 %45, i32 %cond340)
+  store i32 %cond327906, ptr %xc, align 4, !tbaa !12
+  %obfc351 = getelementptr inbounds %struct.CONSTRAINT, ptr %xc, i64 0, i32 1
+  store i32 %40, ptr %obfc351, align 4, !tbaa !11
+  %ofc352 = getelementptr inbounds %struct.CONSTRAINT, ptr %xc, i64 0, i32 2
+  store i32 %cond348, ptr %ofc352, align 4, !tbaa !9
+  br label %cleanup
+
+sw.bb353:                                         ; preds = %for.cond, %for.cond, %for.cond
+  %cmp357 = icmp ne i8 %5, 19
+  %cmp359 = icmp eq i32 %dim, 1
+  %cmp361 = xor i1 %cmp359, %cmp357
+  br i1 %cmp361, label %if.then363, label %if.end364
+
+if.then363:                                       ; preds = %sw.bb353
+  call void @llvm.lifetime.start.p0(i64 4, ptr nonnull %side.i) #8
+  call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %yc.i) #8
+  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %sg.i) #8
+  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %pg.i) #8
+  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %prec_def.i) #8
+  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %sd.i) #8
+  call void @Constrained(ptr noundef nonnull %tlink.0, ptr noundef nonnull %yc.i, i32 noundef %dim, ptr noundef %why)
+  %46 = load i32, ptr %yc.i, align 4, !tbaa !12
+  %cmp.i = icmp ne i32 %46, 8388607
+  %obfc.i901 = getelementptr inbounds %struct.CONSTRAINT, ptr %yc.i, i64 0, i32 1
+  %47 = load i32, ptr %obfc.i901, align 4
+  %cmp1.i = icmp ne i32 %47, 8388607
+  %or.cond.i = select i1 %cmp.i, i1 true, i1 %cmp1.i
+  %ofc.i902 = getelementptr inbounds %struct.CONSTRAINT, ptr %yc.i, i64 0, i32 2
+  %48 = load i32, ptr %ofc.i902, align 4
+  %cmp3.i = icmp ne i32 %48, 8388607
+  %or.cond430.i = select i1 %or.cond.i, i1 true, i1 %cmp3.i
+  br i1 %or.cond430.i, label %if.then.i, label %CatConstrained.exit.sink.split
+
+if.then.i:                                        ; preds = %if.then363
+  %cond.i = load ptr, ptr %osucc.arrayidx, align 8, !tbaa !18
+  call void @SetNeighbours(ptr noundef %cond.i, i32 noundef %ratm.0, ptr noundef nonnull %pg.i, ptr noundef nonnull %prec_def.i, ptr noundef nonnull %sg.i, ptr noundef nonnull %sd.i, ptr noundef nonnull %side.i) #8
+  %49 = load ptr, ptr %pg.i, align 8, !tbaa !13
+  %cmp7.i = icmp eq ptr %49, null
+  br i1 %cmp7.i, label %cond.end11.i, label %cond.false9.i
+
+cond.false9.i:                                    ; preds = %if.then.i
+  %50 = load ptr, ptr %prec_def.i, align 8, !tbaa !13
+  %ofwd.i = getelementptr inbounds %struct.word_type, ptr %50, i64 0, i32 3, i32 1
+  %idxprom.i = sext i32 %dim to i64
+  %arrayidx10.i = getelementptr inbounds [2 x i32], ptr %ofwd.i, i64 0, i64 %idxprom.i
+  %51 = load i32, ptr %arrayidx10.i, align 4, !tbaa !18
+  %ogap.i = getelementptr inbounds %struct.gapobj_type, ptr %49, i64 0, i32 3
+  %call.i = call i32 @ExtraGap(i32 noundef %51, i32 noundef 0, ptr noundef nonnull %ogap.i, i32 noundef 151) #8
+  br label %cond.end11.i
+
+cond.end11.i:                                     ; preds = %cond.false9.i, %if.then.i
+  %cond12.i903 = phi i32 [ %call.i, %cond.false9.i ], [ 0, %if.then.i ]
+  %52 = load ptr, ptr %sg.i, align 8, !tbaa !13
+  %cmp13.i = icmp eq ptr %52, null
+  br i1 %cmp13.i, label %cond.end21.i, label %cond.false15.i
+
+cond.false15.i:                                   ; preds = %cond.end11.i
+  %53 = load ptr, ptr %sd.i, align 8, !tbaa !13
+  %ou316.i = getelementptr inbounds %struct.word_type, ptr %53, i64 0, i32 3
+  %idxprom17.i = sext i32 %dim to i64
+  %arrayidx18.i = getelementptr inbounds [2 x i32], ptr %ou316.i, i64 0, i64 %idxprom17.i
+  %54 = load i32, ptr %arrayidx18.i, align 4, !tbaa !18
+  %ogap19.i = getelementptr inbounds %struct.gapobj_type, ptr %52, i64 0, i32 3
+  %call20.i = call i32 @ExtraGap(i32 noundef 0, i32 noundef %54, ptr noundef nonnull %ogap19.i, i32 noundef 153) #8
+  br label %cond.end21.i
+
+cond.end21.i:                                     ; preds = %cond.false15.i, %cond.end11.i
+  %cond22.i = phi i32 [ %call20.i, %cond.false15.i ], [ 0, %cond.end11.i ]
+  %55 = load i8, ptr %ou1, align 8, !tbaa !18
+  %56 = add i8 %55, -2
+  %or.cond585.i = icmp ult i8 %56, 7
+  %57 = load ptr, ptr %pg.i, align 8, !tbaa !13
+  %cmp31.i = icmp eq ptr %57, null
+  br i1 %or.cond585.i, label %if.then30.i, label %if.else.i
+
+if.then30.i:                                      ; preds = %cond.end21.i
+  br i1 %cmp31.i, label %cond.end41.i, label %cond.false34.i
+
+cond.false34.i:                                   ; preds = %if.then30.i
+  %58 = load ptr, ptr %prec_def.i, align 8, !tbaa !13
+  %ofwd36.i = getelementptr inbounds %struct.word_type, ptr %58, i64 0, i32 3, i32 1
+  %idxprom37.i = sext i32 %dim to i64
+  %arrayidx38.i = getelementptr inbounds [2 x i32], ptr %ofwd36.i, i64 0, i64 %idxprom37.i
+  %59 = load i32, ptr %arrayidx38.i, align 4, !tbaa !18
+  %ogap39.i = getelementptr inbounds %struct.gapobj_type, ptr %57, i64 0, i32 3
+  %call40.i = call i32 @MinGap(i32 noundef %59, i32 noundef 0, i32 noundef 0, ptr noundef nonnull %ogap39.i) #8
+  br label %cond.end41.i
+
+cond.end41.i:                                     ; preds = %cond.false34.i, %if.then30.i
+  %cond42.i = phi i32 [ %call40.i, %cond.false34.i ], [ 0, %if.then30.i ]
+  %60 = load ptr, ptr %sg.i, align 8, !tbaa !13
+  %cmp43.i = icmp eq ptr %60, null
+  br i1 %cmp43.i, label %cond.end57.i, label %cond.false46.i
+
+cond.false46.i:                                   ; preds = %cond.end41.i
+  %61 = load ptr, ptr %sd.i, align 8, !tbaa !13
+  %ou347.i = getelementptr inbounds %struct.word_type, ptr %61, i64 0, i32 3
+  %idxprom49.i = sext i32 %dim to i64
+  %arrayidx50.i = getelementptr inbounds [2 x i32], ptr %ou347.i, i64 0, i64 %idxprom49.i
+  %62 = load i32, ptr %arrayidx50.i, align 4, !tbaa !18
+  %ofwd52.i = getelementptr inbounds %struct.word_type, ptr %61, i64 0, i32 3, i32 1
+  %arrayidx54.i = getelementptr inbounds [2 x i32], ptr %ofwd52.i, i64 0, i64 %idxprom49.i
+  %63 = load i32, ptr %arrayidx54.i, align 4, !tbaa !18
+  %ogap55.i = getelementptr inbounds %struct.gapobj_type, ptr %60, i64 0, i32 3
+  %call56.i = call i32 @MinGap(i32 noundef 0, i32 noundef %62, i32 noundef %63, ptr noundef nonnull %ogap55.i) #8
+  br label %cond.end57.i
+
+cond.end57.i:                                     ; preds = %cond.false46.i, %cond.end41.i
+  %cond58.i = phi i32 [ %call56.i, %cond.false46.i ], [ 0, %cond.end41.i ]
+  %64 = load ptr, ptr %pg.i, align 8, !tbaa !13
+  %cmp59.i = icmp eq ptr %64, null
+  %65 = load ptr, ptr %sg.i, align 8, !tbaa !13
+  %cmp62.i = icmp eq ptr %65, null
+  br i1 %cmp59.i, label %cond.true61.i, label %cond.false72.i
+
+cond.true61.i:                                    ; preds = %cond.end57.i
+  br i1 %cmp62.i, label %cond.end97.i, label %cond.false65.i
+
+cond.false65.i:                                   ; preds = %cond.true61.i
+  %66 = load ptr, ptr %sd.i, align 8, !tbaa !13
+  %ou366.i = getelementptr inbounds %struct.word_type, ptr %66, i64 0, i32 3
+  %idxprom68.i = sext i32 %dim to i64
+  %arrayidx69.i = getelementptr inbounds [2 x i32], ptr %ou366.i, i64 0, i64 %idxprom68.i
+  %67 = load i32, ptr %arrayidx69.i, align 4, !tbaa !18
+  br label %cond.end97.i
+
+cond.false72.i:                                   ; preds = %cond.end57.i
+  %68 = load ptr, ptr %prec_def.i, align 8, !tbaa !13
+  %ofwd77.i = getelementptr inbounds %struct.word_type, ptr %68, i64 0, i32 3, i32 1
+  %idxprom78.i = sext i32 %dim to i64
+  %arrayidx79.i = getelementptr inbounds [2 x i32], ptr %ofwd77.i, i64 0, i64 %idxprom78.i
+  %69 = load i32, ptr %arrayidx79.i, align 4, !tbaa !18
+  br i1 %cmp62.i, label %cond.end97.i, label %cond.false80.i
+
+cond.false80.i:                                   ; preds = %cond.false72.i
+  %70 = load ptr, ptr %sd.i, align 8, !tbaa !13
+  %ou385.i = getelementptr inbounds %struct.word_type, ptr %70, i64 0, i32 3
+  %arrayidx88.i = getelementptr inbounds [2 x i32], ptr %ou385.i, i64 0, i64 %idxprom78.i
+  %71 = load i32, ptr %arrayidx88.i, align 4, !tbaa !18
+  %ofwd90.i = getelementptr inbounds %struct.word_type, ptr %70, i64 0, i32 3, i32 1
+  %arrayidx92.i = getelementptr inbounds [2 x i32], ptr %ofwd90.i, i64 0, i64 %idxprom78.i
+  %72 = load i32, ptr %arrayidx92.i, align 4, !tbaa !18
+  %ogap93.i = getelementptr inbounds %struct.gapobj_type, ptr %65, i64 0, i32 3
+  %call94.i = call i32 @MinGap(i32 noundef %69, i32 noundef %71, i32 noundef %72, ptr noundef nonnull %ogap93.i) #8
+  br label %cond.end97.i
+
+cond.end97.i:                                     ; preds = %cond.false72.i, %cond.false80.i, %cond.false65.i, %cond.true61.i
+  %cond98.i = phi i32 [ %67, %cond.false65.i ], [ 0, %cond.true61.i ], [ %call94.i, %cond.false80.i ], [ %69, %cond.false72.i ]
+  %73 = load i32, ptr %side.i, align 4, !tbaa !5
+  switch i32 %73, label %if.end.i.thread [
+    i32 151, label %sw.bb.i
+    i32 152, label %sw.bb108.i
+    i32 153, label %sw.bb114.i
   ]
 
-478:                                              ; preds = %477
-  %479 = icmp eq i32 %468, 8388607
-  %480 = sub nsw i32 %468, %469
-  %481 = select i1 %479, i32 8388607, i32 %480
-  %482 = icmp eq i32 %472, 8388607
-  %483 = sub i32 %472, %471
-  %484 = select i1 %482, i32 8388607, i32 %483
-  %485 = call i32 @llvm.smin.i32(i32 %481, i32 %484)
-  %486 = add nsw i32 %485, %265
-  %487 = call i32 @llvm.smin.i32(i32 %486, i32 8388607)
-  %488 = add nsw i32 %277, %265
-  %489 = add nsw i32 %488, %485
-  %490 = call i32 @llvm.smin.i32(i32 %489, i32 8388607)
-  %491 = add nsw i32 %485, %277
-  %492 = call i32 @llvm.smin.i32(i32 %491, i32 8388607)
-  br label %527
+sw.bb.i:                                          ; preds = %cond.end97.i
+  %ou399.i = getelementptr inbounds %struct.word_type, ptr %tlink.0, i64 0, i32 3
+  %idxprom101.i = sext i32 %dim to i64
+  %arrayidx102.i = getelementptr inbounds [2 x i32], ptr %ou399.i, i64 0, i64 %idxprom101.i
+  %74 = load i32, ptr %arrayidx102.i, align 4, !tbaa !18
+  %add.i = add i32 %cond58.i, %cond42.i
+  %add103.i = sub i32 %add.i, %cond98.i
+  %sub.i = add i32 %add103.i, %74
+  %ofwd105.i = getelementptr inbounds %struct.word_type, ptr %tlink.0, i64 0, i32 3, i32 1
+  %arrayidx107.i = getelementptr inbounds [2 x i32], ptr %ofwd105.i, i64 0, i64 %idxprom101.i
+  %75 = load i32, ptr %arrayidx107.i, align 4, !tbaa !18
+  br label %if.end.i
 
-493:                                              ; preds = %477
-  %494 = icmp eq i32 %468, 8388607
-  %495 = sub nsw i32 %468, %469
-  %496 = select i1 %494, i32 8388607, i32 %495
-  %497 = icmp eq i32 %472, 8388607
-  %498 = sub i32 %472, %471
-  %499 = select i1 %497, i32 8388607, i32 %498
-  %500 = icmp eq i32 %475, 8388607
-  %501 = sub nsw i32 %475, %470
-  %502 = select i1 %500, i32 8388607, i32 %501
-  %503 = call i32 @llvm.smin.i32(i32 %496, i32 %499)
-  %504 = call i32 @llvm.smin.i32(i32 %502, i32 %499)
-  %505 = add nsw i32 %503, %265
-  %506 = call i32 @llvm.smin.i32(i32 %505, i32 8388607)
-  %507 = add nsw i32 %277, %265
-  %508 = add nsw i32 %507, %499
-  %509 = call i32 @llvm.smin.i32(i32 %508, i32 8388607)
-  %510 = add nsw i32 %504, %277
-  %511 = call i32 @llvm.smin.i32(i32 %510, i32 8388607)
-  br label %527
+sw.bb108.i:                                       ; preds = %cond.end97.i
+  %ofwd110.i = getelementptr inbounds %struct.word_type, ptr %tlink.0, i64 0, i32 3, i32 1
+  %idxprom111.i = sext i32 %dim to i64
+  %arrayidx112.i = getelementptr inbounds [2 x i32], ptr %ofwd110.i, i64 0, i64 %idxprom111.i
+  %76 = load i32, ptr %arrayidx112.i, align 4, !tbaa !18
+  %add113.i = add nsw i32 %76, %cond58.i
+  br label %if.end.i
 
-512:                                              ; preds = %477
-  %513 = icmp eq i32 %475, 8388607
-  %514 = sub nsw i32 %475, %470
-  %515 = select i1 %513, i32 8388607, i32 %514
-  %516 = icmp eq i32 %472, 8388607
-  %517 = sub i32 %472, %471
-  %518 = select i1 %516, i32 8388607, i32 %517
-  %519 = call i32 @llvm.smin.i32(i32 %515, i32 %518)
-  %520 = add nsw i32 %519, %265
-  %521 = call i32 @llvm.smin.i32(i32 %520, i32 8388607)
-  %522 = add nsw i32 %277, %265
-  %523 = add nsw i32 %522, %519
-  %524 = call i32 @llvm.smin.i32(i32 %523, i32 8388607)
-  %525 = add nsw i32 %519, %277
-  %526 = call i32 @llvm.smin.i32(i32 %525, i32 8388607)
-  br label %527
+sw.bb114.i:                                       ; preds = %cond.end97.i
+  %ou3115.i = getelementptr inbounds %struct.word_type, ptr %tlink.0, i64 0, i32 3
+  %idxprom117.i = sext i32 %dim to i64
+  %arrayidx118.i = getelementptr inbounds [2 x i32], ptr %ou3115.i, i64 0, i64 %idxprom117.i
+  %77 = load i32, ptr %arrayidx118.i, align 4, !tbaa !18
+  %ofwd120.i = getelementptr inbounds %struct.word_type, ptr %tlink.0, i64 0, i32 3, i32 1
+  %arrayidx122.i = getelementptr inbounds [2 x i32], ptr %ofwd120.i, i64 0, i64 %idxprom117.i
+  %78 = load i32, ptr %arrayidx122.i, align 4, !tbaa !18
+  %add123.i = add i32 %cond58.i, %cond42.i
+  %add124.i = sub i32 %add123.i, %cond98.i
+  %sub125.i = add i32 %add124.i, %78
+  br label %if.end.i
 
-527:                                              ; preds = %241, %460, %466, %474, %512, %493, %478
-  %528 = phi i32 [ %487, %478 ], [ %506, %493 ], [ %521, %512 ], [ -1, %474 ], [ -1, %466 ], [ -1, %460 ], [ 8388607, %241 ]
-  %529 = phi i32 [ %490, %478 ], [ %509, %493 ], [ %524, %512 ], [ -1, %474 ], [ -1, %466 ], [ -1, %460 ], [ 8388607, %241 ]
-  %530 = phi i32 [ %492, %478 ], [ %511, %493 ], [ %526, %512 ], [ -1, %474 ], [ -1, %466 ], [ -1, %460 ], [ 8388607, %241 ]
-  store i32 %528, ptr %1, align 4, !tbaa !12
-  %531 = getelementptr inbounds %struct.CONSTRAINT, ptr %1, i64 0, i32 1
-  store i32 %529, ptr %531, align 4, !tbaa !11
-  %532 = getelementptr inbounds %struct.CONSTRAINT, ptr %1, i64 0, i32 2
-  store i32 %530, ptr %532, align 4, !tbaa !9
-  br label %533
+if.else.i:                                        ; preds = %cond.end21.i
+  br i1 %cmp31.i, label %cond.true128.i, label %cond.false133.i
 
-533:                                              ; preds = %527, %477
-  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %10) #8
-  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %9) #8
-  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %8) #8
-  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %7) #8
-  call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %6) #8
-  call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %5) #8
-  br label %676
+cond.true128.i:                                   ; preds = %if.else.i
+  %ou3129.i = getelementptr inbounds %struct.word_type, ptr %x, i64 0, i32 3
+  %idxprom131.i = sext i32 %dim to i64
+  %arrayidx132.i = getelementptr inbounds [2 x i32], ptr %ou3129.i, i64 0, i64 %idxprom131.i
+  %79 = load i32, ptr %arrayidx132.i, align 4, !tbaa !18
+  br label %cond.end155.i
 
-534:                                              ; preds = %237
-  call void @Constrained(ptr noundef nonnull %46, ptr noundef nonnull %11, i32 noundef %2, ptr noundef %3)
-  %535 = load i32, ptr %11, align 4, !tbaa !12
-  %536 = icmp ne i32 %535, 8388607
-  %537 = getelementptr inbounds %struct.CONSTRAINT, ptr %11, i64 0, i32 1
-  %538 = load i32, ptr %537, align 4
-  %539 = icmp ne i32 %538, 8388607
-  %540 = select i1 %536, i1 true, i1 %539
-  %541 = getelementptr inbounds %struct.CONSTRAINT, ptr %11, i64 0, i32 2
-  %542 = load i32, ptr %541, align 4
-  %543 = icmp ne i32 %542, 8388607
-  %544 = select i1 %540, i1 true, i1 %543
-  br i1 %544, label %548, label %545
+cond.false133.i:                                  ; preds = %if.else.i
+  %80 = load ptr, ptr %prec_def.i, align 8, !tbaa !13
+  %ofwd135.i = getelementptr inbounds %struct.word_type, ptr %80, i64 0, i32 3, i32 1
+  %idxprom136.i = sext i32 %dim to i64
+  %arrayidx137.i = getelementptr inbounds [2 x i32], ptr %ofwd135.i, i64 0, i64 %idxprom136.i
+  %81 = load i32, ptr %arrayidx137.i, align 4, !tbaa !18
+  %ou3138.i = getelementptr inbounds %struct.word_type, ptr %x, i64 0, i32 3
+  %arrayidx141.i = getelementptr inbounds [2 x i32], ptr %ou3138.i, i64 0, i64 %idxprom136.i
+  %82 = load i32, ptr %arrayidx141.i, align 4, !tbaa !18
+  %ofwd143.i = getelementptr inbounds %struct.word_type, ptr %x, i64 0, i32 3, i32 1
+  %arrayidx145.i = getelementptr inbounds [2 x i32], ptr %ofwd143.i, i64 0, i64 %idxprom136.i
+  %83 = load i32, ptr %arrayidx145.i, align 4, !tbaa !18
+  %ogap146.i = getelementptr inbounds %struct.gapobj_type, ptr %57, i64 0, i32 3
+  %call147.i = call i32 @MinGap(i32 noundef %81, i32 noundef %82, i32 noundef %83, ptr noundef nonnull %ogap146.i) #8
+  %84 = load ptr, ptr %prec_def.i, align 8, !tbaa !13
+  %ofwd149.i = getelementptr inbounds %struct.word_type, ptr %84, i64 0, i32 3, i32 1
+  %arrayidx151.i = getelementptr inbounds [2 x i32], ptr %ofwd149.i, i64 0, i64 %idxprom136.i
+  %85 = load i32, ptr %arrayidx151.i, align 4, !tbaa !18
+  %86 = load ptr, ptr %pg.i, align 8, !tbaa !13
+  %ogap152.i = getelementptr inbounds %struct.gapobj_type, ptr %86, i64 0, i32 3
+  %call153.i = call i32 @MinGap(i32 noundef %85, i32 noundef 0, i32 noundef 0, ptr noundef nonnull %ogap152.i) #8
+  %sub154.i = sub nsw i32 %call147.i, %call153.i
+  br label %cond.end155.i
 
-545:                                              ; preds = %534
-  store i32 8388607, ptr %1, align 4, !tbaa !12
-  %546 = getelementptr inbounds %struct.CONSTRAINT, ptr %1, i64 0, i32 1
-  store i32 8388607, ptr %546, align 4, !tbaa !11
-  %547 = getelementptr inbounds %struct.CONSTRAINT, ptr %1, i64 0, i32 2
-  store i32 8388607, ptr %547, align 4, !tbaa !9
-  br label %676
+cond.end155.i:                                    ; preds = %cond.false133.i, %cond.true128.i
+  %cond156.i = phi i32 [ %79, %cond.true128.i ], [ %sub154.i, %cond.false133.i ]
+  %87 = load ptr, ptr %sg.i, align 8, !tbaa !13
+  %cmp157.i = icmp eq ptr %87, null
+  %ofwd161.i = getelementptr inbounds %struct.word_type, ptr %x, i64 0, i32 3, i32 1
+  %idxprom162.i = sext i32 %dim to i64
+  %arrayidx163.i = getelementptr inbounds [2 x i32], ptr %ofwd161.i, i64 0, i64 %idxprom162.i
+  %88 = load i32, ptr %arrayidx163.i, align 4, !tbaa !18
+  br i1 %cmp157.i, label %cond.end190.i, label %cond.false164.i
 
-548:                                              ; preds = %534, %195
-  %549 = phi i32 [ %535, %534 ], [ %197, %195 ]
-  %550 = phi i32 [ %542, %534 ], [ %202, %195 ]
-  %551 = phi i32 [ %538, %534 ], [ %199, %195 ]
-  %552 = getelementptr inbounds %struct.word_type, ptr %46, i64 0, i32 1
-  %553 = load ptr, ptr %41, align 8, !tbaa !18
-  %554 = icmp eq ptr %553, %46
-  br i1 %554, label %571, label %555
+cond.false164.i:                                  ; preds = %cond.end155.i
+  %89 = load ptr, ptr %sd.i, align 8, !tbaa !13
+  %ou3169.i = getelementptr inbounds %struct.word_type, ptr %89, i64 0, i32 3
+  %arrayidx172.i = getelementptr inbounds [2 x i32], ptr %ou3169.i, i64 0, i64 %idxprom162.i
+  %90 = load i32, ptr %arrayidx172.i, align 4, !tbaa !18
+  %ofwd174.i = getelementptr inbounds %struct.word_type, ptr %89, i64 0, i32 3, i32 1
+  %arrayidx176.i = getelementptr inbounds [2 x i32], ptr %ofwd174.i, i64 0, i64 %idxprom162.i
+  %91 = load i32, ptr %arrayidx176.i, align 4, !tbaa !18
+  %ogap177.i = getelementptr inbounds %struct.gapobj_type, ptr %87, i64 0, i32 3
+  %call178.i = call i32 @MinGap(i32 noundef %88, i32 noundef %90, i32 noundef %91, ptr noundef nonnull %ogap177.i) #8
+  %92 = load ptr, ptr %sd.i, align 8, !tbaa !13
+  %ou3179.i = getelementptr inbounds %struct.word_type, ptr %92, i64 0, i32 3
+  %arrayidx182.i = getelementptr inbounds [2 x i32], ptr %ou3179.i, i64 0, i64 %idxprom162.i
+  %93 = load i32, ptr %arrayidx182.i, align 4, !tbaa !18
+  %ofwd184.i = getelementptr inbounds %struct.word_type, ptr %92, i64 0, i32 3, i32 1
+  %arrayidx186.i = getelementptr inbounds [2 x i32], ptr %ofwd184.i, i64 0, i64 %idxprom162.i
+  %94 = load i32, ptr %arrayidx186.i, align 4, !tbaa !18
+  %95 = load ptr, ptr %sg.i, align 8, !tbaa !13
+  %ogap187.i = getelementptr inbounds %struct.gapobj_type, ptr %95, i64 0, i32 3
+  %call188.i = call i32 @MinGap(i32 noundef 0, i32 noundef %93, i32 noundef %94, ptr noundef nonnull %ogap187.i) #8
+  %sub189.i = sub nsw i32 %call178.i, %call188.i
+  br label %cond.end190.i
 
-555:                                              ; preds = %548, %568
-  %556 = phi ptr [ %569, %568 ], [ %553, %548 ]
-  br label %557
+cond.end190.i:                                    ; preds = %cond.end155.i, %cond.false164.i
+  %cond191.i = phi i32 [ %sub189.i, %cond.false164.i ], [ %88, %cond.end155.i ]
+  %96 = load i32, ptr %side.i, align 4, !tbaa !5
+  switch i32 %96, label %if.end.i.thread [
+    i32 151, label %sw.bb192.i
+    i32 152, label %sw.bb203.i
+    i32 153, label %sw.bb214.i
+  ]
 
-557:                                              ; preds = %555, %557
-  %558 = phi ptr [ %560, %557 ], [ %556, %555 ]
-  %559 = getelementptr inbounds [2 x %struct.LIST], ptr %558, i64 0, i64 1
-  %560 = load ptr, ptr %559, align 8, !tbaa !18
-  %561 = getelementptr inbounds %struct.word_type, ptr %560, i64 0, i32 1
-  %562 = load i8, ptr %561, align 8, !tbaa !18
-  switch i8 %562, label %568 [
-    i8 0, label %557
-    i8 1, label %563
-  ], !llvm.loop !23
+sw.bb192.i:                                       ; preds = %cond.end190.i
+  %ou3193.i = getelementptr inbounds %struct.word_type, ptr %tlink.0, i64 0, i32 3
+  %idxprom195.i = sext i32 %dim to i64
+  %arrayidx196.i = getelementptr inbounds [2 x i32], ptr %ou3193.i, i64 0, i64 %idxprom195.i
+  %97 = load i32, ptr %arrayidx196.i, align 4, !tbaa !18
+  %98 = add i32 %cond191.i, %cond156.i
+  %sub198.i = sub i32 %97, %98
+  %ofwd200.i = getelementptr inbounds %struct.word_type, ptr %tlink.0, i64 0, i32 3, i32 1
+  %arrayidx202.i = getelementptr inbounds [2 x i32], ptr %ofwd200.i, i64 0, i64 %idxprom195.i
+  %99 = load i32, ptr %arrayidx202.i, align 4, !tbaa !18
+  br label %if.end.i
 
-563:                                              ; preds = %557
-  %564 = getelementptr inbounds %struct.gapobj_type, ptr %560, i64 0, i32 3
-  %565 = load i16, ptr %564, align 4
-  %566 = and i16 %565, 512
-  %567 = icmp eq i16 %566, 0
-  br i1 %567, label %571, label %568
+sw.bb203.i:                                       ; preds = %cond.end190.i
+  %ou3204.i = getelementptr inbounds %struct.word_type, ptr %tlink.0, i64 0, i32 3
+  %idxprom206.i = sext i32 %dim to i64
+  %arrayidx207.i = getelementptr inbounds [2 x i32], ptr %ou3204.i, i64 0, i64 %idxprom206.i
+  %100 = load i32, ptr %arrayidx207.i, align 4, !tbaa !18
+  %sub208.i = sub nsw i32 %100, %cond156.i
+  %ofwd210.i = getelementptr inbounds %struct.word_type, ptr %tlink.0, i64 0, i32 3, i32 1
+  %arrayidx212.i = getelementptr inbounds [2 x i32], ptr %ofwd210.i, i64 0, i64 %idxprom206.i
+  %101 = load i32, ptr %arrayidx212.i, align 4, !tbaa !18
+  %sub213.i = sub nsw i32 %101, %cond191.i
+  br label %if.end.i
 
-568:                                              ; preds = %557, %563
-  %569 = load ptr, ptr %556, align 8, !tbaa !18
-  %570 = icmp eq ptr %569, %46
-  br i1 %570, label %571, label %555, !llvm.loop !24
+sw.bb214.i:                                       ; preds = %cond.end190.i
+  %ou3215.i = getelementptr inbounds %struct.word_type, ptr %tlink.0, i64 0, i32 3
+  %idxprom217.i = sext i32 %dim to i64
+  %arrayidx218.i = getelementptr inbounds [2 x i32], ptr %ou3215.i, i64 0, i64 %idxprom217.i
+  %102 = load i32, ptr %arrayidx218.i, align 4, !tbaa !18
+  %ofwd220.i = getelementptr inbounds %struct.word_type, ptr %tlink.0, i64 0, i32 3, i32 1
+  %arrayidx222.i = getelementptr inbounds [2 x i32], ptr %ofwd220.i, i64 0, i64 %idxprom217.i
+  %103 = load i32, ptr %arrayidx222.i, align 4, !tbaa !18
+  %104 = add i32 %cond191.i, %cond156.i
+  %sub224.i = sub i32 %103, %104
+  br label %if.end.i
 
-571:                                              ; preds = %568, %563, %548
-  %572 = phi ptr [ %46, %548 ], [ %556, %563 ], [ %46, %568 ]
-  %573 = load ptr, ptr %42, align 8, !tbaa !18
-  %574 = icmp eq ptr %573, %46
-  br i1 %574, label %592, label %575
+if.end.i.thread:                                  ; preds = %cond.end97.i, %cond.end190.i
+  %105 = phi i32 [ %73, %cond.end97.i ], [ %96, %cond.end190.i ]
+  %106 = load i32, ptr %yc.i, align 4
+  br label %land.lhs.true229.i
 
-575:                                              ; preds = %571, %588
-  %576 = phi ptr [ %590, %588 ], [ %573, %571 ]
-  br label %577
+if.end.i:                                         ; preds = %sw.bb214.i, %sw.bb203.i, %sw.bb192.i, %sw.bb114.i, %sw.bb108.i, %sw.bb.i
+  %107 = phi i32 [ 153, %sw.bb114.i ], [ 152, %sw.bb108.i ], [ 151, %sw.bb.i ], [ 153, %sw.bb214.i ], [ 152, %sw.bb203.i ], [ 151, %sw.bb192.i ]
+  %fwdy.0.i = phi i32 [ %sub125.i, %sw.bb114.i ], [ %add113.i, %sw.bb108.i ], [ %75, %sw.bb.i ], [ %sub224.i, %sw.bb214.i ], [ %sub213.i, %sw.bb203.i ], [ %99, %sw.bb192.i ]
+  %backy.0.i = phi i32 [ %77, %sw.bb114.i ], [ 0, %sw.bb108.i ], [ %sub.i, %sw.bb.i ], [ %102, %sw.bb214.i ], [ %sub208.i, %sw.bb203.i ], [ %sub198.i, %sw.bb192.i ]
+  %108 = load i32, ptr %yc.i, align 4
+  %cmp227.not.i = icmp slt i32 %108, %backy.0.i
+  br i1 %cmp227.not.i, label %CatConstrained.exit.sink.split, label %land.lhs.true229.i
 
-577:                                              ; preds = %575, %577
-  %578 = phi ptr [ %580, %577 ], [ %576, %575 ]
-  %579 = getelementptr inbounds [2 x %struct.LIST], ptr %578, i64 0, i64 1
-  %580 = load ptr, ptr %579, align 8, !tbaa !18
-  %581 = getelementptr inbounds %struct.word_type, ptr %580, i64 0, i32 1
-  %582 = load i8, ptr %581, align 8, !tbaa !18
-  switch i8 %582, label %588 [
-    i8 0, label %577
-    i8 1, label %583
-  ], !llvm.loop !25
+land.lhs.true229.i:                               ; preds = %if.end.i.thread, %if.end.i
+  %109 = phi i32 [ %105, %if.end.i.thread ], [ %107, %if.end.i ]
+  %110 = phi i32 [ %106, %if.end.i.thread ], [ %108, %if.end.i ]
+  %backy.0.i911 = phi i32 [ undef, %if.end.i.thread ], [ %backy.0.i, %if.end.i ]
+  %fwdy.0.i910 = phi i32 [ undef, %if.end.i.thread ], [ %fwdy.0.i, %if.end.i ]
+  %add230.i = add nsw i32 %fwdy.0.i910, %backy.0.i911
+  %111 = load i32, ptr %obfc.i901, align 4, !tbaa !11
+  %cmp232.not.i = icmp slt i32 %111, %add230.i
+  br i1 %cmp232.not.i, label %CatConstrained.exit.sink.split, label %land.lhs.true234.i
 
-583:                                              ; preds = %577
-  %584 = getelementptr inbounds %struct.gapobj_type, ptr %580, i64 0, i32 3
-  %585 = load i16, ptr %584, align 4
-  %586 = and i16 %585, 512
-  %587 = icmp eq i16 %586, 0
-  br i1 %587, label %592, label %588
+land.lhs.true234.i:                               ; preds = %land.lhs.true229.i
+  %112 = load i32, ptr %ofc.i902, align 4
+  %cmp236.not.i = icmp slt i32 %112, %fwdy.0.i910
+  br i1 %cmp236.not.i, label %CatConstrained.exit.sink.split, label %if.else242.i
 
-588:                                              ; preds = %577, %583
-  %589 = getelementptr inbounds %struct.LIST, ptr %576, i64 0, i32 1
-  %590 = load ptr, ptr %589, align 8, !tbaa !18
-  %591 = icmp eq ptr %590, %46
-  br i1 %591, label %592, label %575, !llvm.loop !26
+if.else242.i:                                     ; preds = %land.lhs.true234.i
+  switch i32 %109, label %CatConstrained.exit [
+    i32 151, label %sw.bb243.i
+    i32 152, label %sw.bb298.i
+    i32 153, label %sw.bb368.i
+  ]
 
-592:                                              ; preds = %588, %583, %571
-  %593 = phi ptr [ %46, %571 ], [ %576, %583 ], [ %46, %588 ]
-  %594 = icmp eq ptr %572, %46
-  %595 = icmp eq ptr %593, %46
-  %596 = select i1 %594, i1 %595, i1 false
-  br i1 %596, label %597, label %626
+sw.bb243.i:                                       ; preds = %if.else242.i
+  %cmp245.i = icmp eq i32 %110, 8388607
+  %sub250.i = sub nsw i32 %110, %backy.0.i911
+  %cond252.i = select i1 %cmp245.i, i32 8388607, i32 %sub250.i
+  %cmp254.i = icmp eq i32 %111, 8388607
+  %sub260.i = sub i32 %111, %add230.i
+  %cond262.i = select i1 %cmp254.i, i32 8388607, i32 %sub260.i
+  %cond268.i = call i32 @llvm.smin.i32(i32 %cond252.i, i32 %cond262.i)
+  %add269.i = add nsw i32 %cond268.i, %cond12.i903
+  %cond276.i = call i32 @llvm.smin.i32(i32 %add269.i, i32 8388607)
+  %add277.i = add nsw i32 %cond22.i, %cond12.i903
+  %add278.i = add nsw i32 %add277.i, %cond268.i
+  %cond286.i = call i32 @llvm.smin.i32(i32 %add278.i, i32 8388607)
+  %add287.i = add nsw i32 %cond268.i, %cond22.i
+  %cond294.i = call i32 @llvm.smin.i32(i32 %add287.i, i32 8388607)
+  br label %CatConstrained.exit.sink.split
 
-597:                                              ; preds = %592
-  %598 = load i8, ptr %552, align 8, !tbaa !18
-  %599 = icmp eq i8 %598, 8
-  br i1 %599, label %600, label %605
+sw.bb298.i:                                       ; preds = %if.else242.i
+  %cmp300.i = icmp eq i32 %110, 8388607
+  %sub305.i = sub nsw i32 %110, %backy.0.i911
+  %cond307.i = select i1 %cmp300.i, i32 8388607, i32 %sub305.i
+  %cmp309.i = icmp eq i32 %111, 8388607
+  %sub315.i = sub i32 %111, %add230.i
+  %cond317.i = select i1 %cmp309.i, i32 8388607, i32 %sub315.i
+  %cmp319.i = icmp eq i32 %112, 8388607
+  %sub324.i = sub nsw i32 %112, %fwdy.0.i910
+  %cond326.i = select i1 %cmp319.i, i32 8388607, i32 %sub324.i
+  %cond332.i = call i32 @llvm.smin.i32(i32 %cond307.i, i32 %cond317.i)
+  %cond338.i = call i32 @llvm.smin.i32(i32 %cond326.i, i32 %cond317.i)
+  %add339.i = add nsw i32 %cond332.i, %cond12.i903
+  %cond346.i = call i32 @llvm.smin.i32(i32 %add339.i, i32 8388607)
+  %add347.i = add nsw i32 %cond22.i, %cond12.i903
+  %add348.i = add nsw i32 %add347.i, %cond317.i
+  %cond356.i = call i32 @llvm.smin.i32(i32 %add348.i, i32 8388607)
+  %add357.i = add nsw i32 %cond338.i, %cond22.i
+  %cond364.i = call i32 @llvm.smin.i32(i32 %add357.i, i32 8388607)
+  br label %CatConstrained.exit.sink.split
 
-600:                                              ; preds = %597
-  %601 = getelementptr inbounds i8, ptr %46, i64 42
-  %602 = load i16, ptr %601, align 2
-  %603 = and i16 %602, 32
-  %604 = icmp eq i16 %603, 0
-  br i1 %604, label %605, label %626
+sw.bb368.i:                                       ; preds = %if.else242.i
+  %cmp370.i = icmp eq i32 %112, 8388607
+  %sub375.i = sub nsw i32 %112, %fwdy.0.i910
+  %cond377.i = select i1 %cmp370.i, i32 8388607, i32 %sub375.i
+  %cmp379.i = icmp eq i32 %111, 8388607
+  %sub385.i = sub i32 %111, %add230.i
+  %cond387.i = select i1 %cmp379.i, i32 8388607, i32 %sub385.i
+  %cond393.i = call i32 @llvm.smin.i32(i32 %cond377.i, i32 %cond387.i)
+  %add394.i = add nsw i32 %cond393.i, %cond12.i903
+  %cond401.i = call i32 @llvm.smin.i32(i32 %add394.i, i32 8388607)
+  %add402.i = add nsw i32 %cond22.i, %cond12.i903
+  %add403.i = add nsw i32 %add402.i, %cond393.i
+  %cond411.i = call i32 @llvm.smin.i32(i32 %add403.i, i32 8388607)
+  %add412.i = add nsw i32 %cond393.i, %cond22.i
+  %cond419.i = call i32 @llvm.smin.i32(i32 %add412.i, i32 8388607)
+  br label %CatConstrained.exit.sink.split
 
-605:                                              ; preds = %600, %597
-  %606 = icmp eq i32 %551, 8388607
-  br i1 %606, label %607, label %609
+CatConstrained.exit.sink.split:                   ; preds = %if.then363, %if.end.i, %land.lhs.true229.i, %land.lhs.true234.i, %sw.bb368.i, %sw.bb298.i, %sw.bb243.i
+  %.sink1126 = phi i32 [ %cond276.i, %sw.bb243.i ], [ %cond346.i, %sw.bb298.i ], [ %cond401.i, %sw.bb368.i ], [ -1, %land.lhs.true234.i ], [ -1, %land.lhs.true229.i ], [ -1, %if.end.i ], [ 8388607, %if.then363 ]
+  %.sink1125 = phi i32 [ %cond286.i, %sw.bb243.i ], [ %cond356.i, %sw.bb298.i ], [ %cond411.i, %sw.bb368.i ], [ -1, %land.lhs.true234.i ], [ -1, %land.lhs.true229.i ], [ -1, %if.end.i ], [ 8388607, %if.then363 ]
+  %.sink1124 = phi i32 [ %cond294.i, %sw.bb243.i ], [ %cond364.i, %sw.bb298.i ], [ %cond419.i, %sw.bb368.i ], [ -1, %land.lhs.true234.i ], [ -1, %land.lhs.true229.i ], [ -1, %if.end.i ], [ 8388607, %if.then363 ]
+  store i32 %.sink1126, ptr %xc, align 4, !tbaa !12
+  %obfc240.i = getelementptr inbounds %struct.CONSTRAINT, ptr %xc, i64 0, i32 1
+  store i32 %.sink1125, ptr %obfc240.i, align 4, !tbaa !11
+  %ofc241.i = getelementptr inbounds %struct.CONSTRAINT, ptr %xc, i64 0, i32 2
+  store i32 %.sink1124, ptr %ofc241.i, align 4, !tbaa !9
+  br label %CatConstrained.exit
 
-607:                                              ; preds = %605
-  %608 = call i32 @llvm.smin.i32(i32 %549, i32 8388607)
-  br label %620
+CatConstrained.exit:                              ; preds = %CatConstrained.exit.sink.split, %if.else242.i
+  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %sd.i) #8
+  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %prec_def.i) #8
+  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %pg.i) #8
+  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %sg.i) #8
+  call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %yc.i) #8
+  call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %side.i) #8
+  br label %cleanup
 
-609:                                              ; preds = %605
-  %610 = getelementptr inbounds %struct.word_type, ptr %46, i64 0, i32 3, i32 1
-  %611 = sext i32 %2 to i64
-  %612 = getelementptr inbounds [2 x i32], ptr %610, i64 0, i64 %611
-  %613 = load i32, ptr %612, align 4, !tbaa !18
-  %614 = sub nsw i32 %551, %613
-  %615 = call i32 @llvm.smin.i32(i32 %549, i32 %614)
-  %616 = getelementptr inbounds %struct.word_type, ptr %46, i64 0, i32 3
-  %617 = getelementptr inbounds [2 x i32], ptr %616, i64 0, i64 %611
-  %618 = load i32, ptr %617, align 4, !tbaa !18
-  %619 = sub nsw i32 %551, %618
-  br label %620
+if.end364:                                        ; preds = %sw.bb353
+  call void @Constrained(ptr noundef nonnull %tlink.0, ptr noundef nonnull %yc, i32 noundef %dim, ptr noundef %why)
+  %113 = load i32, ptr %yc, align 4, !tbaa !12
+  %cmp366 = icmp ne i32 %113, 8388607
+  %obfc369 = getelementptr inbounds %struct.CONSTRAINT, ptr %yc, i64 0, i32 1
+  %114 = load i32, ptr %obfc369, align 4
+  %cmp370 = icmp ne i32 %114, 8388607
+  %or.cond = select i1 %cmp366, i1 true, i1 %cmp370
+  %ofc373 = getelementptr inbounds %struct.CONSTRAINT, ptr %yc, i64 0, i32 2
+  %115 = load i32, ptr %ofc373, align 4
+  %cmp374 = icmp ne i32 %115, 8388607
+  %or.cond656 = select i1 %or.cond, i1 true, i1 %cmp374
+  br i1 %or.cond656, label %REST_OF_HEAD, label %if.then376
 
-620:                                              ; preds = %607, %609
-  %621 = phi i32 [ %615, %609 ], [ %608, %607 ]
-  %622 = phi i32 [ %619, %609 ], [ 8388607, %607 ]
-  %623 = call i32 @llvm.smin.i32(i32 %550, i32 %622)
-  store i32 %621, ptr %1, align 4, !tbaa !12
-  %624 = getelementptr inbounds %struct.CONSTRAINT, ptr %1, i64 0, i32 1
-  store i32 %551, ptr %624, align 4, !tbaa !11
-  %625 = getelementptr inbounds %struct.CONSTRAINT, ptr %1, i64 0, i32 2
-  store i32 %623, ptr %625, align 4, !tbaa !9
-  br label %676
+if.then376:                                       ; preds = %if.end364
+  store i32 8388607, ptr %xc, align 4, !tbaa !12
+  %obfc378 = getelementptr inbounds %struct.CONSTRAINT, ptr %xc, i64 0, i32 1
+  store i32 8388607, ptr %obfc378, align 4, !tbaa !11
+  %ofc379 = getelementptr inbounds %struct.CONSTRAINT, ptr %xc, i64 0, i32 2
+  store i32 8388607, ptr %ofc379, align 4, !tbaa !9
+  br label %cleanup
 
-626:                                              ; preds = %600, %592
-  %627 = getelementptr inbounds %struct.LIST, ptr %572, i64 0, i32 1
-  %628 = load ptr, ptr %627, align 8, !tbaa !18
-  %629 = icmp eq ptr %628, %593
-  br i1 %629, label %660, label %630
+REST_OF_HEAD:                                     ; preds = %if.end364, %if.else283
+  %116 = phi i32 [ %113, %if.end364 ], [ %36, %if.else283 ]
+  %117 = phi i32 [ %115, %if.end364 ], [ %38, %if.else283 ]
+  %118 = phi i32 [ %114, %if.end364 ], [ %37, %if.else283 ]
+  %ou1241091 = getelementptr inbounds %struct.word_type, ptr %tlink.0, i64 0, i32 1
+  %lp.0979 = load ptr, ptr %cond, align 8, !tbaa !18
+  %cmp385.not980 = icmp eq ptr %lp.0979, %tlink.0
+  br i1 %cmp385.not980, label %for.end421, label %for.cond391.preheader
 
-630:                                              ; preds = %626
-  %631 = sext i32 %2 to i64
-  br label %632
+for.cond391.preheader:                            ; preds = %REST_OF_HEAD, %for.inc417
+  %lp.0981 = phi ptr [ %lp.0, %for.inc417 ], [ %lp.0979, %REST_OF_HEAD ]
+  br label %for.cond391
 
-632:                                              ; preds = %630, %654
-  %633 = phi ptr [ %628, %630 ], [ %658, %654 ]
-  %634 = phi i32 [ 0, %630 ], [ %656, %654 ]
-  %635 = phi i32 [ 0, %630 ], [ %655, %654 ]
-  br label %636
+for.cond391:                                      ; preds = %for.cond391.preheader, %for.cond391
+  %lp.0.pn898 = phi ptr [ %z.2, %for.cond391 ], [ %lp.0981, %for.cond391.preheader ]
+  %z.2.in = getelementptr inbounds [2 x %struct.LIST], ptr %lp.0.pn898, i64 0, i64 1
+  %z.2 = load ptr, ptr %z.2.in, align 8, !tbaa !18
+  %ou1392 = getelementptr inbounds %struct.word_type, ptr %z.2, i64 0, i32 1
+  %119 = load i8, ptr %ou1392, align 8, !tbaa !18
+  switch i8 %119, label %for.inc417 [
+    i8 0, label %for.cond391
+    i8 1, label %land.lhs.true408
+  ]
 
-636:                                              ; preds = %632, %636
-  %637 = phi ptr [ %639, %636 ], [ %633, %632 ]
-  %638 = getelementptr inbounds [2 x %struct.LIST], ptr %637, i64 0, i64 1
-  %639 = load ptr, ptr %638, align 8, !tbaa !18
-  %640 = getelementptr inbounds %struct.word_type, ptr %639, i64 0, i32 1
-  %641 = load i8, ptr %640, align 8, !tbaa !18
-  switch i8 %641, label %642 [
-    i8 0, label %636
-    i8 1, label %654
-  ], !llvm.loop !27
+land.lhs.true408:                                 ; preds = %for.cond391
+  %ogap409 = getelementptr inbounds %struct.gapobj_type, ptr %z.2, i64 0, i32 3
+  %bf.load410 = load i16, ptr %ogap409, align 4
+  %120 = and i16 %bf.load410, 512
+  %tobool414.not = icmp eq i16 %120, 0
+  br i1 %tobool414.not, label %for.end421, label %for.inc417
 
-642:                                              ; preds = %636
-  %643 = add i8 %641, -119
-  %644 = icmp ult i8 %643, 20
-  br i1 %644, label %654, label %645
+for.inc417:                                       ; preds = %for.cond391, %land.lhs.true408
+  %lp.0 = load ptr, ptr %lp.0981, align 8, !tbaa !18
+  %cmp385.not = icmp eq ptr %lp.0, %tlink.0
+  br i1 %cmp385.not, label %for.end421, label %for.cond391.preheader, !llvm.loop !21
 
-645:                                              ; preds = %642
-  %646 = getelementptr inbounds %struct.word_type, ptr %639, i64 0, i32 3
-  %647 = getelementptr inbounds [2 x i32], ptr %646, i64 0, i64 %631
-  %648 = load i32, ptr %647, align 4, !tbaa !18
-  %649 = call i32 @llvm.smax.i32(i32 %635, i32 %648)
-  %650 = getelementptr inbounds %struct.word_type, ptr %639, i64 0, i32 3, i32 1
-  %651 = getelementptr inbounds [2 x i32], ptr %650, i64 0, i64 %631
-  %652 = load i32, ptr %651, align 4, !tbaa !18
-  %653 = call i32 @llvm.smax.i32(i32 %634, i32 %652)
-  br label %654
+for.end421:                                       ; preds = %for.inc417, %land.lhs.true408, %REST_OF_HEAD
+  %lp.0.lcssa = phi ptr [ %tlink.0, %REST_OF_HEAD ], [ %lp.0981, %land.lhs.true408 ], [ %tlink.0, %for.inc417 ]
+  %cmp385.not.lcssa = phi i1 [ true, %REST_OF_HEAD ], [ false, %land.lhs.true408 ], [ true, %for.inc417 ]
+  %rp.0986 = load ptr, ptr %osucc23, align 8, !tbaa !18
+  %cmp426.not987 = icmp eq ptr %rp.0986, %tlink.0
+  br i1 %cmp426.not987, label %for.end462, label %for.cond432.preheader
 
-654:                                              ; preds = %636, %645, %642
-  %655 = phi i32 [ %635, %642 ], [ %649, %645 ], [ %635, %636 ]
-  %656 = phi i32 [ %634, %642 ], [ %653, %645 ], [ %634, %636 ]
-  %657 = getelementptr inbounds %struct.LIST, ptr %633, i64 0, i32 1
-  %658 = load ptr, ptr %657, align 8, !tbaa !18
-  %659 = icmp eq ptr %658, %593
-  br i1 %659, label %660, label %632, !llvm.loop !28
+for.cond432.preheader:                            ; preds = %for.end421, %for.inc458
+  %rp.0988 = phi ptr [ %rp.0, %for.inc458 ], [ %rp.0986, %for.end421 ]
+  br label %for.cond432
 
-660:                                              ; preds = %654, %626
-  %661 = phi i32 [ 0, %626 ], [ %655, %654 ]
-  %662 = phi i32 [ 0, %626 ], [ %656, %654 ]
-  %663 = call i32 @llvm.smin.i32(i32 %551, i32 %550)
-  %664 = icmp eq i32 %663, 8388607
-  %665 = sub nsw i32 %663, %662
-  %666 = select i1 %664, i32 8388607, i32 %665
-  %667 = sub nsw i32 %663, %661
-  %668 = select i1 %664, i32 8388607, i32 %667
-  store i32 %666, ptr %1, align 4, !tbaa !12
-  %669 = getelementptr inbounds %struct.CONSTRAINT, ptr %1, i64 0, i32 1
-  store i32 %663, ptr %669, align 4, !tbaa !11
-  %670 = getelementptr inbounds %struct.CONSTRAINT, ptr %1, i64 0, i32 2
-  store i32 %668, ptr %670, align 4, !tbaa !9
-  br label %676
+for.cond432:                                      ; preds = %for.cond432.preheader, %for.cond432
+  %rp.0.pn = phi ptr [ %z.3, %for.cond432 ], [ %rp.0988, %for.cond432.preheader ]
+  %z.3.in = getelementptr inbounds [2 x %struct.LIST], ptr %rp.0.pn, i64 0, i64 1
+  %z.3 = load ptr, ptr %z.3.in, align 8, !tbaa !18
+  %ou1433 = getelementptr inbounds %struct.word_type, ptr %z.3, i64 0, i32 1
+  %121 = load i8, ptr %ou1433, align 8, !tbaa !18
+  switch i8 %121, label %for.inc458 [
+    i8 0, label %for.cond432
+    i8 1, label %land.lhs.true449
+  ]
 
-671:                                              ; preds = %43
-  %672 = zext i8 %48 to i32
-  %673 = load ptr, ptr @no_fpos, align 8, !tbaa !13
-  %674 = tail call ptr @Image(i32 noundef %672) #8
-  %675 = tail call ptr (i32, i32, ptr, i32, ptr, ...) @Error(i32 noundef 1, i32 noundef 3, ptr noundef nonnull @.str.6, i32 noundef 0, ptr noundef %673, ptr noundef nonnull @.str.7, ptr noundef %674) #8
-  br label %676
+land.lhs.true449:                                 ; preds = %for.cond432
+  %ogap450 = getelementptr inbounds %struct.gapobj_type, ptr %z.3, i64 0, i32 3
+  %bf.load451 = load i16, ptr %ogap450, align 4
+  %122 = and i16 %bf.load451, 512
+  %tobool455.not = icmp eq i16 %122, 0
+  br i1 %tobool455.not, label %if.else528, label %for.inc458
 
-676:                                              ; preds = %64, %92, %164, %192, %229, %533, %671, %69, %68, %76, %75, %90, %84, %100, %95, %163, %162, %189, %176, %620, %660, %545, %35
-  call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %13) #8
-  call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %12) #8
-  call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %11) #8
+for.inc458:                                       ; preds = %for.cond432, %land.lhs.true449
+  %osucc461 = getelementptr inbounds %struct.LIST, ptr %rp.0988, i64 0, i32 1
+  %rp.0 = load ptr, ptr %osucc461, align 8, !tbaa !18
+  %cmp426.not = icmp eq ptr %rp.0, %tlink.0
+  br i1 %cmp426.not, label %for.end462, label %for.cond432.preheader, !llvm.loop !22
+
+for.end462:                                       ; preds = %for.inc458, %for.end421
+  br i1 %cmp385.not.lcssa, label %land.lhs.true468, label %if.else528
+
+land.lhs.true468:                                 ; preds = %for.end462
+  %123 = load i8, ptr %ou1241091, align 8, !tbaa !18
+  %cmp472 = icmp eq i8 %123, 8
+  br i1 %cmp472, label %land.lhs.true474, label %if.then481
+
+land.lhs.true474:                                 ; preds = %land.lhs.true468
+  %oblocked = getelementptr inbounds i8, ptr %tlink.0, i64 42
+  %bf.load476 = load i16, ptr %oblocked, align 2
+  %124 = and i16 %bf.load476, 32
+  %tobool480.not = icmp eq i16 %124, 0
+  br i1 %tobool480.not, label %if.then481, label %if.else528
+
+if.then481:                                       ; preds = %land.lhs.true474, %land.lhs.true468
+  %cmp483 = icmp eq i32 %118, 8388607
+  br i1 %cmp483, label %cond.end493.thread, label %cond.false507
+
+cond.end493.thread:                               ; preds = %if.then481
+  %cond502913 = call i32 @llvm.smin.i32(i32 %116, i32 8388607)
+  br label %cond.end514
+
+cond.false507:                                    ; preds = %if.then481
+  %ofwd489 = getelementptr inbounds %struct.word_type, ptr %tlink.0, i64 0, i32 3, i32 1
+  %idxprom490 = sext i32 %dim to i64
+  %arrayidx491 = getelementptr inbounds [2 x i32], ptr %ofwd489, i64 0, i64 %idxprom490
+  %125 = load i32, ptr %arrayidx491, align 4, !tbaa !18
+  %sub492 = sub nsw i32 %118, %125
+  %cond502 = call i32 @llvm.smin.i32(i32 %116, i32 %sub492)
+  %ou3509 = getelementptr inbounds %struct.word_type, ptr %tlink.0, i64 0, i32 3
+  %arrayidx512 = getelementptr inbounds [2 x i32], ptr %ou3509, i64 0, i64 %idxprom490
+  %126 = load i32, ptr %arrayidx512, align 4, !tbaa !18
+  %sub513 = sub nsw i32 %118, %126
+  br label %cond.end514
+
+cond.end514:                                      ; preds = %cond.end493.thread, %cond.false507
+  %cond502914 = phi i32 [ %cond502, %cond.false507 ], [ %cond502913, %cond.end493.thread ]
+  %cond515 = phi i32 [ %sub513, %cond.false507 ], [ 8388607, %cond.end493.thread ]
+  %cond523 = call i32 @llvm.smin.i32(i32 %117, i32 %cond515)
+  store i32 %cond502914, ptr %xc, align 4, !tbaa !12
+  %obfc526 = getelementptr inbounds %struct.CONSTRAINT, ptr %xc, i64 0, i32 1
+  store i32 %118, ptr %obfc526, align 4, !tbaa !11
+  %ofc527 = getelementptr inbounds %struct.CONSTRAINT, ptr %xc, i64 0, i32 2
+  store i32 %cond523, ptr %ofc527, align 4, !tbaa !9
+  br label %cleanup
+
+if.else528:                                       ; preds = %land.lhs.true449, %land.lhs.true474, %for.end462
+  %rp.0.lcssa1056 = phi ptr [ %tlink.0, %land.lhs.true474 ], [ %tlink.0, %for.end462 ], [ %rp.0988, %land.lhs.true449 ]
+  %link.0.in994 = getelementptr inbounds %struct.LIST, ptr %lp.0.lcssa, i64 0, i32 1
+  %link.0995 = load ptr, ptr %link.0.in994, align 8, !tbaa !18
+  %cmp533.not996 = icmp eq ptr %link.0995, %rp.0.lcssa1056
+  br i1 %cmp533.not996, label %for.end602, label %for.cond539.preheader.lr.ph
+
+for.cond539.preheader.lr.ph:                      ; preds = %if.else528
+  %idxprom572 = sext i32 %dim to i64
+  br label %for.cond539.preheader
+
+for.cond539.preheader:                            ; preds = %for.cond539.preheader.lr.ph, %for.inc598
+  %link.0999 = phi ptr [ %link.0995, %for.cond539.preheader.lr.ph ], [ %link.0, %for.inc598 ]
+  %xfwd.0998 = phi i32 [ 0, %for.cond539.preheader.lr.ph ], [ %xfwd.1, %for.inc598 ]
+  %xback.0997 = phi i32 [ 0, %for.cond539.preheader.lr.ph ], [ %xback.1, %for.inc598 ]
+  br label %for.cond539
+
+for.cond539:                                      ; preds = %for.cond539.preheader, %for.cond539
+  %link.0.pn = phi ptr [ %z.4, %for.cond539 ], [ %link.0999, %for.cond539.preheader ]
+  %z.4.in = getelementptr inbounds [2 x %struct.LIST], ptr %link.0.pn, i64 0, i64 1
+  %z.4 = load ptr, ptr %z.4.in, align 8, !tbaa !18
+  %ou1540 = getelementptr inbounds %struct.word_type, ptr %z.4, i64 0, i32 1
+  %127 = load i8, ptr %ou1540, align 8, !tbaa !18
+  switch i8 %127, label %lor.lhs.false556 [
+    i8 0, label %for.cond539
+    i8 1, label %for.inc598
+  ]
+
+lor.lhs.false556:                                 ; preds = %for.cond539
+  %128 = add i8 %127, -119
+  %or.cond900 = icmp ult i8 %128, 20
+  br i1 %or.cond900, label %for.inc598, label %if.end569
+
+if.end569:                                        ; preds = %lor.lhs.false556
+  %ou3570 = getelementptr inbounds %struct.word_type, ptr %z.4, i64 0, i32 3
+  %arrayidx573 = getelementptr inbounds [2 x i32], ptr %ou3570, i64 0, i64 %idxprom572
+  %129 = load i32, ptr %arrayidx573, align 4, !tbaa !18
+  %.xback.0 = call i32 @llvm.smax.i32(i32 %xback.0997, i32 %129)
+  %ofwd585 = getelementptr inbounds %struct.word_type, ptr %z.4, i64 0, i32 3, i32 1
+  %arrayidx587 = getelementptr inbounds [2 x i32], ptr %ofwd585, i64 0, i64 %idxprom572
+  %130 = load i32, ptr %arrayidx587, align 4, !tbaa !18
+  %cond597 = call i32 @llvm.smax.i32(i32 %xfwd.0998, i32 %130)
+  br label %for.inc598
+
+for.inc598:                                       ; preds = %for.cond539, %lor.lhs.false556, %if.end569
+  %xback.1 = phi i32 [ %.xback.0, %if.end569 ], [ %xback.0997, %lor.lhs.false556 ], [ %xback.0997, %for.cond539 ]
+  %xfwd.1 = phi i32 [ %cond597, %if.end569 ], [ %xfwd.0998, %lor.lhs.false556 ], [ %xfwd.0998, %for.cond539 ]
+  %link.0.in = getelementptr inbounds %struct.LIST, ptr %link.0999, i64 0, i32 1
+  %link.0 = load ptr, ptr %link.0.in, align 8, !tbaa !18
+  %cmp533.not = icmp eq ptr %link.0, %rp.0.lcssa1056
+  br i1 %cmp533.not, label %for.end602, label %for.cond539.preheader, !llvm.loop !23
+
+for.end602:                                       ; preds = %for.inc598, %if.else528
+  %xback.0.lcssa = phi i32 [ 0, %if.else528 ], [ %xback.1, %for.inc598 ]
+  %xfwd.0.lcssa = phi i32 [ 0, %if.else528 ], [ %xfwd.1, %for.inc598 ]
+  %cond612 = call i32 @llvm.smin.i32(i32 %118, i32 %117)
+  %cmp613 = icmp eq i32 %cond612, 8388607
+  %sub617 = sub nsw i32 %cond612, %xfwd.0.lcssa
+  %cond619 = select i1 %cmp613, i32 8388607, i32 %sub617
+  %sub624 = sub nsw i32 %cond612, %xback.0.lcssa
+  %cond626 = select i1 %cmp613, i32 8388607, i32 %sub624
+  store i32 %cond619, ptr %xc, align 4, !tbaa !12
+  %obfc628 = getelementptr inbounds %struct.CONSTRAINT, ptr %xc, i64 0, i32 1
+  store i32 %cond612, ptr %obfc628, align 4, !tbaa !11
+  %ofc629 = getelementptr inbounds %struct.CONSTRAINT, ptr %xc, i64 0, i32 2
+  store i32 %cond626, ptr %ofc629, align 4, !tbaa !9
+  br label %cleanup
+
+sw.default632:                                    ; preds = %for.cond
+  %conv26 = zext i8 %5 to i32
+  %131 = load ptr, ptr @no_fpos, align 8, !tbaa !13
+  %call636 = tail call ptr @Image(i32 noundef %conv26) #8
+  %call637 = tail call ptr (i32, i32, ptr, i32, ptr, ...) @Error(i32 noundef 1, i32 noundef 3, ptr noundef nonnull @.str.6, i32 noundef 0, ptr noundef %131, ptr noundef nonnull @.str.7, ptr noundef %call636) #8
+  br label %cleanup
+
+cleanup:                                          ; preds = %sw.bb, %sw.bb117, %sw.bb227, %if.then279, %cond.end339, %CatConstrained.exit, %sw.default632, %if.else, %if.then73, %if.else89, %if.then88, %cond.end114, %if.then101, %if.then129, %sw.bb119, %if.else225, %while.end, %if.else274, %if.then247, %cond.end514, %for.end602, %if.then376, %if.then12
+  call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %vc) #8
+  call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %hc) #8
+  call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %yc) #8
   ret void
 }
 
@@ -1867,10 +1861,10 @@ declare i32 @ExtraGap(i32 noundef, i32 noundef, ptr noundef, i32 noundef) local_
 declare i32 @MinGap(i32 noundef, i32 noundef, i32 noundef, ptr noundef) local_unnamed_addr #4
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i32 @llvm.smin.i32(i32, i32) #7
+declare float @llvm.fabs.f32(float) #7
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare float @llvm.fabs.f32(float) #7
+declare i32 @llvm.smin.i32(i32, i32) #7
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
 declare i32 @llvm.smax.i32(i32, i32) #7
@@ -1918,8 +1912,3 @@ attributes #8 = { nounwind }
 !21 = distinct !{!21, !16}
 !22 = distinct !{!22, !16}
 !23 = distinct !{!23, !16}
-!24 = distinct !{!24, !16}
-!25 = distinct !{!25, !16}
-!26 = distinct !{!26, !16}
-!27 = distinct !{!27, !16}
-!28 = distinct !{!28, !16}

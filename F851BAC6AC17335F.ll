@@ -12,8 +12,9 @@ target triple = "x86_64-unknown-linux-gnu"
 @gs_identity_matrix = dso_local local_unnamed_addr global %struct.gs_matrix_s { float 1.000000e+00, i64 0, float 0.000000e+00, i64 0, float 0.000000e+00, i64 0, float 1.000000e+00, i64 0, float 0.000000e+00, i64 0, float 0.000000e+00, i64 0 }, align 8
 
 ; Function Attrs: mustprogress nofree nosync nounwind willreturn memory(readwrite, inaccessiblemem: none) uwtable
-define dso_local void @gs_make_identity(ptr nocapture noundef writeonly %0) local_unnamed_addr #0 {
-  tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(96) %0, ptr noundef nonnull align 8 dereferenceable(96) @gs_identity_matrix, i64 96, i1 false), !tbaa.struct !5
+define dso_local void @gs_make_identity(ptr nocapture noundef writeonly %pmat) local_unnamed_addr #0 {
+entry:
+  tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(96) %pmat, ptr noundef nonnull align 8 dereferenceable(96) @gs_identity_matrix, i64 96, i1 false), !tbaa.struct !5
   ret void
 }
 
@@ -21,46 +22,49 @@ define dso_local void @gs_make_identity(ptr nocapture noundef writeonly %0) loca
 declare void @llvm.memcpy.p0.p0.i64(ptr noalias nocapture writeonly, ptr noalias nocapture readonly, i64, i1 immarg) #1
 
 ; Function Attrs: mustprogress nofree nosync nounwind willreturn memory(readwrite, inaccessiblemem: none) uwtable
-define dso_local i32 @gs_make_translation(double noundef %0, double noundef %1, ptr nocapture noundef writeonly %2) local_unnamed_addr #0 {
-  tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(96) %2, ptr noundef nonnull align 8 dereferenceable(96) @gs_identity_matrix, i64 96, i1 false), !tbaa.struct !5
-  %4 = fptrunc double %0 to float
-  %5 = getelementptr inbounds %struct.gs_matrix_s, ptr %2, i64 0, i32 8
-  store float %4, ptr %5, align 8, !tbaa !12
-  %6 = fptrunc double %1 to float
-  %7 = getelementptr inbounds %struct.gs_matrix_s, ptr %2, i64 0, i32 10
-  store float %6, ptr %7, align 8, !tbaa !14
+define dso_local i32 @gs_make_translation(double noundef %dx, double noundef %dy, ptr nocapture noundef writeonly %pmat) local_unnamed_addr #0 {
+entry:
+  tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(96) %pmat, ptr noundef nonnull align 8 dereferenceable(96) @gs_identity_matrix, i64 96, i1 false), !tbaa.struct !5
+  %conv = fptrunc double %dx to float
+  %tx = getelementptr inbounds %struct.gs_matrix_s, ptr %pmat, i64 0, i32 8
+  store float %conv, ptr %tx, align 8, !tbaa !12
+  %conv1 = fptrunc double %dy to float
+  %ty = getelementptr inbounds %struct.gs_matrix_s, ptr %pmat, i64 0, i32 10
+  store float %conv1, ptr %ty, align 8, !tbaa !14
   ret i32 0
 }
 
 ; Function Attrs: mustprogress nofree nosync nounwind willreturn memory(readwrite, inaccessiblemem: none) uwtable
-define dso_local i32 @gs_make_scaling(double noundef %0, double noundef %1, ptr nocapture noundef writeonly %2) local_unnamed_addr #0 {
-  tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(96) %2, ptr noundef nonnull align 8 dereferenceable(96) @gs_identity_matrix, i64 96, i1 false), !tbaa.struct !5
-  %4 = fptrunc double %0 to float
-  store float %4, ptr %2, align 8, !tbaa !15
-  %5 = fptrunc double %1 to float
-  %6 = getelementptr inbounds %struct.gs_matrix_s, ptr %2, i64 0, i32 6
-  store float %5, ptr %6, align 8, !tbaa !16
+define dso_local i32 @gs_make_scaling(double noundef %sx, double noundef %sy, ptr nocapture noundef writeonly %pmat) local_unnamed_addr #0 {
+entry:
+  tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(96) %pmat, ptr noundef nonnull align 8 dereferenceable(96) @gs_identity_matrix, i64 96, i1 false), !tbaa.struct !5
+  %conv = fptrunc double %sx to float
+  store float %conv, ptr %pmat, align 8, !tbaa !15
+  %conv1 = fptrunc double %sy to float
+  %yy = getelementptr inbounds %struct.gs_matrix_s, ptr %pmat, i64 0, i32 6
+  store float %conv1, ptr %yy, align 8, !tbaa !16
   ret i32 0
 }
 
 ; Function Attrs: mustprogress nofree nounwind willreturn memory(readwrite, inaccessiblemem: write) uwtable
-define dso_local i32 @gs_make_rotation(double noundef %0, ptr nocapture noundef writeonly %1) local_unnamed_addr #2 {
-  %3 = fmul double %0, 0x3F91DF46A2529D39
-  %4 = fptrunc double %3 to float
-  tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(96) %1, ptr noundef nonnull align 8 dereferenceable(96) @gs_identity_matrix, i64 96, i1 false), !tbaa.struct !5
-  %5 = fpext float %4 to double
-  %6 = tail call double @cos(double noundef %5) #10
-  %7 = fptrunc double %6 to float
-  %8 = getelementptr inbounds %struct.gs_matrix_s, ptr %1, i64 0, i32 6
-  store float %7, ptr %8, align 8, !tbaa !16
-  store float %7, ptr %1, align 8, !tbaa !15
-  %9 = tail call double @sin(double noundef %5) #10
-  %10 = fptrunc double %9 to float
-  %11 = getelementptr inbounds %struct.gs_matrix_s, ptr %1, i64 0, i32 2
-  store float %10, ptr %11, align 8, !tbaa !17
-  %12 = fneg float %10
-  %13 = getelementptr inbounds %struct.gs_matrix_s, ptr %1, i64 0, i32 4
-  store float %12, ptr %13, align 8, !tbaa !18
+define dso_local i32 @gs_make_rotation(double noundef %ang, ptr nocapture noundef writeonly %pmat) local_unnamed_addr #2 {
+entry:
+  %mul = fmul double %ang, 0x3F91DF46A2529D39
+  %conv = fptrunc double %mul to float
+  tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(96) %pmat, ptr noundef nonnull align 8 dereferenceable(96) @gs_identity_matrix, i64 96, i1 false), !tbaa.struct !5
+  %conv1 = fpext float %conv to double
+  %call = tail call double @cos(double noundef %conv1) #10
+  %conv2 = fptrunc double %call to float
+  %yy = getelementptr inbounds %struct.gs_matrix_s, ptr %pmat, i64 0, i32 6
+  store float %conv2, ptr %yy, align 8, !tbaa !16
+  store float %conv2, ptr %pmat, align 8, !tbaa !15
+  %call4 = tail call double @sin(double noundef %conv1) #10
+  %conv5 = fptrunc double %call4 to float
+  %xy = getelementptr inbounds %struct.gs_matrix_s, ptr %pmat, i64 0, i32 2
+  store float %conv5, ptr %xy, align 8, !tbaa !17
+  %fneg = fneg float %conv5
+  %yx = getelementptr inbounds %struct.gs_matrix_s, ptr %pmat, i64 0, i32 4
+  store float %fneg, ptr %yx, align 8, !tbaa !18
   ret i32 0
 }
 
@@ -77,127 +81,128 @@ declare double @sin(double noundef) local_unnamed_addr #4
 declare void @llvm.lifetime.end.p0(i64 immarg, ptr nocapture) #3
 
 ; Function Attrs: mustprogress nofree nosync nounwind willreturn memory(argmem: readwrite) uwtable
-define dso_local i32 @gs_matrix_multiply(ptr nocapture noundef readonly %0, ptr nocapture noundef readonly %1, ptr nocapture noundef writeonly %2) local_unnamed_addr #5 {
-  %4 = alloca float, align 8
-  %5 = alloca float, align 8
-  %6 = load float, ptr %0, align 8, !tbaa !15
-  %7 = getelementptr inbounds %struct.gs_matrix_s, ptr %0, i64 0, i32 6
-  %8 = load float, ptr %7, align 8, !tbaa !16
-  %9 = getelementptr inbounds %struct.gs_matrix_s, ptr %0, i64 0, i32 8
-  %10 = load float, ptr %9, align 8, !tbaa !12
-  %11 = getelementptr inbounds %struct.gs_matrix_s, ptr %0, i64 0, i32 10
-  %12 = load float, ptr %11, align 8, !tbaa !14
-  %13 = load float, ptr %1, align 8, !tbaa !15
-  %14 = getelementptr inbounds %struct.gs_matrix_s, ptr %1, i64 0, i32 6
-  %15 = load float, ptr %14, align 8, !tbaa !16
-  call void @llvm.lifetime.start.p0(i64 4, ptr nonnull %4)
-  %16 = getelementptr inbounds %struct.gs_matrix_s, ptr %1, i64 0, i32 2
-  %17 = load float, ptr %16, align 8, !tbaa !17
-  store float %17, ptr %4, align 8, !tbaa !6
-  call void @llvm.lifetime.start.p0(i64 4, ptr nonnull %5)
-  %18 = getelementptr inbounds %struct.gs_matrix_s, ptr %1, i64 0, i32 4
-  %19 = load float, ptr %18, align 8, !tbaa !18
-  store float %19, ptr %5, align 8, !tbaa !6
-  %20 = getelementptr inbounds %struct.gs_matrix_s, ptr %0, i64 0, i32 2
-  %21 = load i64, ptr %20, align 8, !tbaa !10
-  %22 = getelementptr inbounds %struct.gs_matrix_s, ptr %0, i64 0, i32 4
-  %23 = load i64, ptr %22, align 8, !tbaa !10
-  %24 = or i64 %23, %21
-  %25 = and i64 %24, 9223372036854775807
-  %26 = icmp eq i64 %25, 0
-  br i1 %26, label %27, label %61
+define dso_local i32 @gs_matrix_multiply(ptr nocapture noundef readonly %pm1, ptr nocapture noundef readonly %pm2, ptr nocapture noundef writeonly %pmr) local_unnamed_addr #5 {
+entry:
+  %xy2 = alloca float, align 8
+  %yx2 = alloca float, align 8
+  %0 = load float, ptr %pm1, align 8, !tbaa !15
+  %yy = getelementptr inbounds %struct.gs_matrix_s, ptr %pm1, i64 0, i32 6
+  %1 = load float, ptr %yy, align 8, !tbaa !16
+  %tx = getelementptr inbounds %struct.gs_matrix_s, ptr %pm1, i64 0, i32 8
+  %2 = load float, ptr %tx, align 8, !tbaa !12
+  %ty = getelementptr inbounds %struct.gs_matrix_s, ptr %pm1, i64 0, i32 10
+  %3 = load float, ptr %ty, align 8, !tbaa !14
+  %4 = load float, ptr %pm2, align 8, !tbaa !15
+  %yy4 = getelementptr inbounds %struct.gs_matrix_s, ptr %pm2, i64 0, i32 6
+  %5 = load float, ptr %yy4, align 8, !tbaa !16
+  call void @llvm.lifetime.start.p0(i64 4, ptr nonnull %xy2)
+  %xy = getelementptr inbounds %struct.gs_matrix_s, ptr %pm2, i64 0, i32 2
+  %6 = load float, ptr %xy, align 8, !tbaa !6
+  store float %6, ptr %xy2, align 8, !tbaa !6
+  call void @llvm.lifetime.start.p0(i64 4, ptr nonnull %yx2)
+  %yx = getelementptr inbounds %struct.gs_matrix_s, ptr %pm2, i64 0, i32 4
+  %7 = load float, ptr %yx, align 8, !tbaa !6
+  store float %7, ptr %yx2, align 8, !tbaa !6
+  %xy5 = getelementptr inbounds %struct.gs_matrix_s, ptr %pm1, i64 0, i32 2
+  %8 = load i64, ptr %xy5, align 8, !tbaa !10
+  %yx6 = getelementptr inbounds %struct.gs_matrix_s, ptr %pm1, i64 0, i32 4
+  %9 = load i64, ptr %yx6, align 8, !tbaa !10
+  %or = or i64 %9, %8
+  %shl.mask = and i64 %or, 9223372036854775807
+  %cmp = icmp eq i64 %shl.mask, 0
+  br i1 %cmp, label %if.then, label %if.else32
 
-27:                                               ; preds = %3
-  %28 = getelementptr inbounds %struct.gs_matrix_s, ptr %1, i64 0, i32 8
-  %29 = load float, ptr %28, align 8, !tbaa !12
-  %30 = tail call float @llvm.fmuladd.f32(float %10, float %13, float %29)
-  %31 = getelementptr inbounds %struct.gs_matrix_s, ptr %2, i64 0, i32 8
-  store float %30, ptr %31, align 8, !tbaa !12
-  %32 = getelementptr inbounds %struct.gs_matrix_s, ptr %1, i64 0, i32 10
-  %33 = load float, ptr %32, align 8, !tbaa !14
-  %34 = tail call float @llvm.fmuladd.f32(float %12, float %15, float %33)
-  %35 = getelementptr inbounds %struct.gs_matrix_s, ptr %2, i64 0, i32 10
-  store float %34, ptr %35, align 8, !tbaa !14
-  %36 = load i64, ptr %4, align 8, !tbaa !10
-  %37 = and i64 %36, 9223372036854775807
-  %38 = icmp eq i64 %37, 0
-  br i1 %38, label %44, label %39
+if.then:                                          ; preds = %entry
+  %tx7 = getelementptr inbounds %struct.gs_matrix_s, ptr %pm2, i64 0, i32 8
+  %10 = load float, ptr %tx7, align 8, !tbaa !12
+  %11 = tail call float @llvm.fmuladd.f32(float %2, float %4, float %10)
+  %tx8 = getelementptr inbounds %struct.gs_matrix_s, ptr %pmr, i64 0, i32 8
+  store float %11, ptr %tx8, align 8, !tbaa !12
+  %ty9 = getelementptr inbounds %struct.gs_matrix_s, ptr %pm2, i64 0, i32 10
+  %12 = load float, ptr %ty9, align 8, !tbaa !14
+  %13 = tail call float @llvm.fmuladd.f32(float %3, float %5, float %12)
+  %ty10 = getelementptr inbounds %struct.gs_matrix_s, ptr %pmr, i64 0, i32 10
+  store float %13, ptr %ty10, align 8, !tbaa !14
+  %xy2.0.xy2.0.xy2.0.xy2.0.68 = load i64, ptr %xy2, align 8, !tbaa !10
+  %shl11.mask = and i64 %xy2.0.xy2.0.xy2.0.xy2.0.68, 9223372036854775807
+  %cmp12 = icmp eq i64 %shl11.mask, 0
+  br i1 %cmp12, label %if.end, label %if.else
 
-39:                                               ; preds = %27
-  %40 = trunc i64 %36 to i32
-  %41 = bitcast i32 %40 to float
-  %42 = fmul float %6, %41
-  %43 = tail call float @llvm.fmuladd.f32(float %10, float %41, float %34)
-  store float %43, ptr %35, align 8, !tbaa !14
-  br label %44
+if.else:                                          ; preds = %if.then
+  %14 = trunc i64 %xy2.0.xy2.0.xy2.0.xy2.0.68 to i32
+  %15 = bitcast i32 %14 to float
+  %mul = fmul float %0, %15
+  %16 = tail call float @llvm.fmuladd.f32(float %2, float %15, float %13)
+  store float %16, ptr %ty10, align 8, !tbaa !14
+  br label %if.end
 
-44:                                               ; preds = %27, %39
-  %45 = phi float [ %42, %39 ], [ 0.000000e+00, %27 ]
-  %46 = getelementptr inbounds %struct.gs_matrix_s, ptr %2, i64 0, i32 2
-  store float %45, ptr %46, align 8
-  %47 = fmul float %6, %13
-  store float %47, ptr %2, align 8, !tbaa !15
-  %48 = load i64, ptr %5, align 8, !tbaa !10
-  %49 = and i64 %48, 9223372036854775807
-  %50 = icmp eq i64 %49, 0
-  br i1 %50, label %56, label %51
+if.end:                                           ; preds = %if.then, %if.else
+  %mul.sink = phi float [ %mul, %if.else ], [ 0.000000e+00, %if.then ]
+  %17 = getelementptr inbounds %struct.gs_matrix_s, ptr %pmr, i64 0, i32 2
+  store float %mul.sink, ptr %17, align 8
+  %mul18 = fmul float %0, %4
+  store float %mul18, ptr %pmr, align 8, !tbaa !15
+  %yx2.0.yx2.0.yx2.0.yx2.0.63 = load i64, ptr %yx2, align 8, !tbaa !10
+  %shl20.mask = and i64 %yx2.0.yx2.0.yx2.0.yx2.0.63, 9223372036854775807
+  %cmp21 = icmp eq i64 %shl20.mask, 0
+  br i1 %cmp21, label %if.end29, label %if.else24
 
-51:                                               ; preds = %44
-  %52 = trunc i64 %48 to i32
-  %53 = bitcast i32 %52 to float
-  %54 = fmul float %8, %53
-  %55 = tail call float @llvm.fmuladd.f32(float %12, float %53, float %30)
-  store float %55, ptr %31, align 8, !tbaa !12
-  br label %56
+if.else24:                                        ; preds = %if.end
+  %18 = trunc i64 %yx2.0.yx2.0.yx2.0.yx2.0.63 to i32
+  %19 = bitcast i32 %18 to float
+  %mul25 = fmul float %1, %19
+  %20 = tail call float @llvm.fmuladd.f32(float %3, float %19, float %11)
+  store float %20, ptr %tx8, align 8, !tbaa !12
+  br label %if.end29
 
-56:                                               ; preds = %44, %51
-  %57 = phi float [ %54, %51 ], [ 0.000000e+00, %44 ]
-  %58 = getelementptr inbounds %struct.gs_matrix_s, ptr %2, i64 0, i32 4
-  store float %57, ptr %58, align 8
-  %59 = fmul float %8, %15
-  %60 = getelementptr inbounds %struct.gs_matrix_s, ptr %2, i64 0, i32 6
-  store float %59, ptr %60, align 8, !tbaa !16
-  br label %89
+if.end29:                                         ; preds = %if.end, %if.else24
+  %mul25.sink = phi float [ %mul25, %if.else24 ], [ 0.000000e+00, %if.end ]
+  %21 = getelementptr inbounds %struct.gs_matrix_s, ptr %pmr, i64 0, i32 4
+  store float %mul25.sink, ptr %21, align 8
+  %mul30 = fmul float %1, %5
+  %yy31 = getelementptr inbounds %struct.gs_matrix_s, ptr %pmr, i64 0, i32 6
+  store float %mul30, ptr %yy31, align 8, !tbaa !16
+  br label %if.end58
 
-61:                                               ; preds = %3
-  %62 = trunc i64 %23 to i32
-  %63 = bitcast i32 %62 to float
-  %64 = trunc i64 %21 to i32
-  %65 = bitcast i32 %64 to float
-  %66 = fmul float %19, %65
-  %67 = tail call float @llvm.fmuladd.f32(float %6, float %13, float %66)
-  store float %67, ptr %2, align 8, !tbaa !15
-  %68 = fmul float %15, %65
-  %69 = tail call float @llvm.fmuladd.f32(float %6, float %17, float %68)
-  %70 = getelementptr inbounds %struct.gs_matrix_s, ptr %2, i64 0, i32 2
-  store float %69, ptr %70, align 8, !tbaa !17
-  %71 = fmul float %8, %15
-  %72 = tail call float @llvm.fmuladd.f32(float %63, float %17, float %71)
-  %73 = getelementptr inbounds %struct.gs_matrix_s, ptr %2, i64 0, i32 6
-  store float %72, ptr %73, align 8, !tbaa !16
-  %74 = fmul float %8, %19
-  %75 = tail call float @llvm.fmuladd.f32(float %63, float %13, float %74)
-  %76 = getelementptr inbounds %struct.gs_matrix_s, ptr %2, i64 0, i32 4
-  store float %75, ptr %76, align 8, !tbaa !18
-  %77 = fmul float %12, %19
-  %78 = tail call float @llvm.fmuladd.f32(float %10, float %13, float %77)
-  %79 = getelementptr inbounds %struct.gs_matrix_s, ptr %1, i64 0, i32 8
-  %80 = load float, ptr %79, align 8, !tbaa !12
-  %81 = fadd float %78, %80
-  %82 = getelementptr inbounds %struct.gs_matrix_s, ptr %2, i64 0, i32 8
-  store float %81, ptr %82, align 8, !tbaa !12
-  %83 = fmul float %12, %15
-  %84 = tail call float @llvm.fmuladd.f32(float %10, float %17, float %83)
-  %85 = getelementptr inbounds %struct.gs_matrix_s, ptr %1, i64 0, i32 10
-  %86 = load float, ptr %85, align 8, !tbaa !14
-  %87 = fadd float %84, %86
-  %88 = getelementptr inbounds %struct.gs_matrix_s, ptr %2, i64 0, i32 10
-  store float %87, ptr %88, align 8, !tbaa !14
-  br label %89
+if.else32:                                        ; preds = %entry
+  %22 = trunc i64 %9 to i32
+  %23 = bitcast i32 %22 to float
+  %24 = trunc i64 %8 to i32
+  %25 = bitcast i32 %24 to float
+  %mul35 = fmul float %7, %25
+  %26 = tail call float @llvm.fmuladd.f32(float %0, float %4, float %mul35)
+  store float %26, ptr %pmr, align 8, !tbaa !15
+  %mul39 = fmul float %5, %25
+  %27 = tail call float @llvm.fmuladd.f32(float %0, float %6, float %mul39)
+  %xy40 = getelementptr inbounds %struct.gs_matrix_s, ptr %pmr, i64 0, i32 2
+  store float %27, ptr %xy40, align 8, !tbaa !17
+  %mul43 = fmul float %1, %5
+  %28 = tail call float @llvm.fmuladd.f32(float %23, float %6, float %mul43)
+  %yy44 = getelementptr inbounds %struct.gs_matrix_s, ptr %pmr, i64 0, i32 6
+  store float %28, ptr %yy44, align 8, !tbaa !16
+  %mul47 = fmul float %1, %7
+  %29 = tail call float @llvm.fmuladd.f32(float %23, float %4, float %mul47)
+  %yx48 = getelementptr inbounds %struct.gs_matrix_s, ptr %pmr, i64 0, i32 4
+  store float %29, ptr %yx48, align 8, !tbaa !18
+  %mul50 = fmul float %3, %7
+  %30 = tail call float @llvm.fmuladd.f32(float %2, float %4, float %mul50)
+  %tx51 = getelementptr inbounds %struct.gs_matrix_s, ptr %pm2, i64 0, i32 8
+  %31 = load float, ptr %tx51, align 8, !tbaa !12
+  %add = fadd float %30, %31
+  %tx52 = getelementptr inbounds %struct.gs_matrix_s, ptr %pmr, i64 0, i32 8
+  store float %add, ptr %tx52, align 8, !tbaa !12
+  %mul54 = fmul float %3, %5
+  %32 = tail call float @llvm.fmuladd.f32(float %2, float %6, float %mul54)
+  %ty55 = getelementptr inbounds %struct.gs_matrix_s, ptr %pm2, i64 0, i32 10
+  %33 = load float, ptr %ty55, align 8, !tbaa !14
+  %add56 = fadd float %32, %33
+  %ty57 = getelementptr inbounds %struct.gs_matrix_s, ptr %pmr, i64 0, i32 10
+  store float %add56, ptr %ty57, align 8, !tbaa !14
+  br label %if.end58
 
-89:                                               ; preds = %61, %56
-  call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %5)
-  call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %4)
+if.end58:                                         ; preds = %if.else32, %if.end29
+  call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %yx2)
+  call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %xy2)
   ret i32 0
 }
 
@@ -205,251 +210,254 @@ define dso_local i32 @gs_matrix_multiply(ptr nocapture noundef readonly %0, ptr 
 declare float @llvm.fmuladd.f32(float, float, float) #6
 
 ; Function Attrs: mustprogress nofree nosync nounwind willreturn memory(argmem: readwrite) uwtable
-define dso_local i32 @gs_matrix_invert(ptr nocapture noundef readonly %0, ptr nocapture noundef writeonly %1) local_unnamed_addr #5 {
-  %3 = getelementptr inbounds %struct.gs_matrix_s, ptr %0, i64 0, i32 2
-  %4 = load i64, ptr %3, align 8, !tbaa !10
-  %5 = getelementptr inbounds %struct.gs_matrix_s, ptr %0, i64 0, i32 4
-  %6 = load i64, ptr %5, align 8, !tbaa !10
-  %7 = or i64 %6, %4
-  %8 = and i64 %7, 9223372036854775807
-  %9 = icmp eq i64 %8, 0
-  %10 = trunc i64 %6 to i32
-  %11 = bitcast i32 %10 to float
-  br i1 %9, label %12, label %40
+define dso_local i32 @gs_matrix_invert(ptr nocapture noundef readonly %pm, ptr nocapture noundef writeonly %pmr) local_unnamed_addr #5 {
+entry:
+  %xy = getelementptr inbounds %struct.gs_matrix_s, ptr %pm, i64 0, i32 2
+  %0 = load i64, ptr %xy, align 8, !tbaa !10
+  %yx = getelementptr inbounds %struct.gs_matrix_s, ptr %pm, i64 0, i32 4
+  %1 = load i64, ptr %yx, align 8, !tbaa !10
+  %or = or i64 %1, %0
+  %shl.mask = and i64 %or, 9223372036854775807
+  %cmp = icmp eq i64 %shl.mask, 0
+  %2 = trunc i64 %1 to i32
+  %3 = bitcast i32 %2 to float
+  br i1 %cmp, label %if.then, label %if.else
 
-12:                                               ; preds = %2
-  %13 = load i64, ptr %0, align 8, !tbaa !10
-  %14 = and i64 %13, 9223372036854775807
-  %15 = icmp eq i64 %14, 0
-  %16 = trunc i64 %13 to i32
-  %17 = bitcast i32 %16 to float
-  br i1 %15, label %73, label %18
+if.then:                                          ; preds = %entry
+  %4 = load i64, ptr %pm, align 8, !tbaa !10
+  %shl1.mask = and i64 %4, 9223372036854775807
+  %cmp2 = icmp eq i64 %shl1.mask, 0
+  %5 = trunc i64 %4 to i32
+  %6 = bitcast i32 %5 to float
+  br i1 %cmp2, label %return, label %lor.lhs.false
 
-18:                                               ; preds = %12
-  %19 = getelementptr inbounds %struct.gs_matrix_s, ptr %0, i64 0, i32 6
-  %20 = load i64, ptr %19, align 8, !tbaa !10
-  %21 = and i64 %20, 9223372036854775807
-  %22 = icmp eq i64 %21, 0
-  br i1 %22, label %73, label %23
+lor.lhs.false:                                    ; preds = %if.then
+  %yy = getelementptr inbounds %struct.gs_matrix_s, ptr %pm, i64 0, i32 6
+  %7 = load i64, ptr %yy, align 8, !tbaa !10
+  %shl3.mask = and i64 %7, 9223372036854775807
+  %cmp4 = icmp eq i64 %shl3.mask, 0
+  br i1 %cmp4, label %return, label %if.end
 
-23:                                               ; preds = %18
-  %24 = trunc i64 %20 to i32
-  %25 = bitcast i32 %24 to float
-  %26 = fdiv float 1.000000e+00, %17
-  store float %26, ptr %1, align 8, !tbaa !15
-  %27 = fneg float %26
-  %28 = getelementptr inbounds %struct.gs_matrix_s, ptr %0, i64 0, i32 8
-  %29 = load float, ptr %28, align 8, !tbaa !12
-  %30 = fmul float %29, %27
-  %31 = getelementptr inbounds %struct.gs_matrix_s, ptr %1, i64 0, i32 8
-  store float %30, ptr %31, align 8, !tbaa !12
-  %32 = getelementptr inbounds %struct.gs_matrix_s, ptr %1, i64 0, i32 2
-  store float 0.000000e+00, ptr %32, align 8, !tbaa !17
-  %33 = getelementptr inbounds %struct.gs_matrix_s, ptr %1, i64 0, i32 4
-  store float 0.000000e+00, ptr %33, align 8, !tbaa !18
-  %34 = fdiv float 1.000000e+00, %25
-  %35 = getelementptr inbounds %struct.gs_matrix_s, ptr %1, i64 0, i32 6
-  store float %34, ptr %35, align 8, !tbaa !16
-  %36 = fneg float %34
-  %37 = getelementptr inbounds %struct.gs_matrix_s, ptr %0, i64 0, i32 10
-  %38 = load float, ptr %37, align 8, !tbaa !14
-  %39 = fmul float %38, %36
-  br label %70
+if.end:                                           ; preds = %lor.lhs.false
+  %8 = trunc i64 %7 to i32
+  %9 = bitcast i32 %8 to float
+  %conv7 = fdiv float 1.000000e+00, %6
+  store float %conv7, ptr %pmr, align 8, !tbaa !15
+  %fneg = fneg float %conv7
+  %tx = getelementptr inbounds %struct.gs_matrix_s, ptr %pm, i64 0, i32 8
+  %10 = load float, ptr %tx, align 8, !tbaa !12
+  %mul = fmul float %10, %fneg
+  %tx9 = getelementptr inbounds %struct.gs_matrix_s, ptr %pmr, i64 0, i32 8
+  store float %mul, ptr %tx9, align 8, !tbaa !12
+  %xy10 = getelementptr inbounds %struct.gs_matrix_s, ptr %pmr, i64 0, i32 2
+  store float 0.000000e+00, ptr %xy10, align 8, !tbaa !17
+  %yx11 = getelementptr inbounds %struct.gs_matrix_s, ptr %pmr, i64 0, i32 4
+  store float 0.000000e+00, ptr %yx11, align 8, !tbaa !18
+  %conv15 = fdiv float 1.000000e+00, %9
+  %yy16 = getelementptr inbounds %struct.gs_matrix_s, ptr %pmr, i64 0, i32 6
+  store float %conv15, ptr %yy16, align 8, !tbaa !16
+  %fneg17 = fneg float %conv15
+  %ty = getelementptr inbounds %struct.gs_matrix_s, ptr %pm, i64 0, i32 10
+  %11 = load float, ptr %ty, align 8, !tbaa !14
+  %mul18 = fmul float %11, %fneg17
+  br label %return.sink.split
 
-40:                                               ; preds = %2
-  %41 = trunc i64 %4 to i32
-  %42 = bitcast i32 %41 to float
-  %43 = load float, ptr %0, align 8, !tbaa !15
-  %44 = getelementptr inbounds %struct.gs_matrix_s, ptr %0, i64 0, i32 6
-  %45 = load float, ptr %44, align 8, !tbaa !16
-  %46 = fneg float %42
-  %47 = fmul float %11, %46
-  %48 = tail call float @llvm.fmuladd.f32(float %43, float %45, float %47)
-  %49 = fcmp oeq float %48, 0.000000e+00
-  br i1 %49, label %73, label %50
+if.else:                                          ; preds = %entry
+  %12 = trunc i64 %0 to i32
+  %13 = bitcast i32 %12 to float
+  %14 = load float, ptr %pm, align 8, !tbaa !15
+  %yy21 = getelementptr inbounds %struct.gs_matrix_s, ptr %pm, i64 0, i32 6
+  %15 = load float, ptr %yy21, align 8, !tbaa !16
+  %16 = fneg float %13
+  %neg = fmul float %3, %16
+  %17 = tail call float @llvm.fmuladd.f32(float %14, float %15, float %neg)
+  %cmp29 = fcmp oeq float %17, 0.000000e+00
+  br i1 %cmp29, label %return, label %cleanup.thread
 
-50:                                               ; preds = %40
-  %51 = getelementptr inbounds %struct.gs_matrix_s, ptr %0, i64 0, i32 8
-  %52 = load float, ptr %51, align 8, !tbaa !12
-  %53 = fdiv float %45, %48
-  store float %53, ptr %1, align 8, !tbaa !15
-  %54 = fdiv float %46, %48
-  %55 = getelementptr inbounds %struct.gs_matrix_s, ptr %1, i64 0, i32 2
-  store float %54, ptr %55, align 8, !tbaa !17
-  %56 = fneg float %11
-  %57 = fdiv float %56, %48
-  %58 = getelementptr inbounds %struct.gs_matrix_s, ptr %1, i64 0, i32 4
-  store float %57, ptr %58, align 8, !tbaa !18
-  %59 = fdiv float %43, %48
-  %60 = getelementptr inbounds %struct.gs_matrix_s, ptr %1, i64 0, i32 6
-  store float %59, ptr %60, align 8, !tbaa !16
-  %61 = getelementptr inbounds %struct.gs_matrix_s, ptr %0, i64 0, i32 10
-  %62 = load float, ptr %61, align 8, !tbaa !14
-  %63 = fmul float %57, %62
-  %64 = tail call float @llvm.fmuladd.f32(float %52, float %53, float %63)
-  %65 = fneg float %64
-  %66 = getelementptr inbounds %struct.gs_matrix_s, ptr %1, i64 0, i32 8
-  store float %65, ptr %66, align 8, !tbaa !12
-  %67 = fmul float %59, %62
-  %68 = tail call float @llvm.fmuladd.f32(float %52, float %54, float %67)
-  %69 = fneg float %68
-  br label %70
+cleanup.thread:                                   ; preds = %if.else
+  %tx28 = getelementptr inbounds %struct.gs_matrix_s, ptr %pm, i64 0, i32 8
+  %18 = load float, ptr %tx28, align 8, !tbaa !12
+  %conv36 = fdiv float %15, %17
+  store float %conv36, ptr %pmr, align 8, !tbaa !15
+  %conv42 = fdiv float %16, %17
+  %xy43 = getelementptr inbounds %struct.gs_matrix_s, ptr %pmr, i64 0, i32 2
+  store float %conv42, ptr %xy43, align 8, !tbaa !17
+  %fneg45 = fneg float %3
+  %conv48 = fdiv float %fneg45, %17
+  %yx49 = getelementptr inbounds %struct.gs_matrix_s, ptr %pmr, i64 0, i32 4
+  store float %conv48, ptr %yx49, align 8, !tbaa !18
+  %conv52 = fdiv float %14, %17
+  %yy53 = getelementptr inbounds %struct.gs_matrix_s, ptr %pmr, i64 0, i32 6
+  store float %conv52, ptr %yy53, align 8, !tbaa !16
+  %ty56 = getelementptr inbounds %struct.gs_matrix_s, ptr %pm, i64 0, i32 10
+  %19 = load float, ptr %ty56, align 8, !tbaa !14
+  %mul58 = fmul float %conv48, %19
+  %20 = tail call float @llvm.fmuladd.f32(float %18, float %conv36, float %mul58)
+  %fneg59 = fneg float %20
+  %tx60 = getelementptr inbounds %struct.gs_matrix_s, ptr %pmr, i64 0, i32 8
+  store float %fneg59, ptr %tx60, align 8, !tbaa !12
+  %mul65 = fmul float %conv52, %19
+  %21 = tail call float @llvm.fmuladd.f32(float %18, float %conv42, float %mul65)
+  %fneg66 = fneg float %21
+  br label %return.sink.split
 
-70:                                               ; preds = %50, %23
-  %71 = phi float [ %39, %23 ], [ %69, %50 ]
-  %72 = getelementptr inbounds %struct.gs_matrix_s, ptr %1, i64 0, i32 10
-  store float %71, ptr %72, align 8, !tbaa !14
-  br label %73
+return.sink.split:                                ; preds = %cleanup.thread, %if.end
+  %mul18.sink = phi float [ %mul18, %if.end ], [ %fneg66, %cleanup.thread ]
+  %ty19 = getelementptr inbounds %struct.gs_matrix_s, ptr %pmr, i64 0, i32 10
+  store float %mul18.sink, ptr %ty19, align 8, !tbaa !14
+  br label %return
 
-73:                                               ; preds = %70, %40, %12, %18
-  %74 = phi i32 [ -23, %18 ], [ -23, %12 ], [ -23, %40 ], [ 0, %70 ]
-  ret i32 %74
+return:                                           ; preds = %return.sink.split, %if.else, %if.then, %lor.lhs.false
+  %retval.1 = phi i32 [ -23, %lor.lhs.false ], [ -23, %if.then ], [ -23, %if.else ], [ 0, %return.sink.split ]
+  ret i32 %retval.1
 }
 
 ; Function Attrs: nofree nounwind memory(write, argmem: readwrite) uwtable
-define dso_local i32 @gs_matrix_rotate(ptr nocapture noundef readonly %0, double noundef %1, ptr nocapture noundef writeonly %2) local_unnamed_addr #7 {
-  %4 = fcmp oge double %1, -3.600000e+02
-  %5 = fcmp ole double %1, 3.600000e+02
-  %6 = and i1 %4, %5
-  br i1 %6, label %7, label %24
+define dso_local i32 @gs_matrix_rotate(ptr nocapture noundef readonly %pm, double noundef %ang, ptr nocapture noundef writeonly %pmr) local_unnamed_addr #7 {
+entry:
+  %cmp = fcmp oge double %ang, -3.600000e+02
+  %cmp1 = fcmp ole double %ang, 3.600000e+02
+  %or.cond = and i1 %cmp, %cmp1
+  br i1 %or.cond, label %land.lhs.true2, label %if.else
 
-7:                                                ; preds = %3
-  %8 = fptosi double %1 to i32
-  %9 = sdiv i32 %8, 90
-  %10 = mul nsw i32 %9, 90
-  %11 = sitofp i32 %10 to double
-  %12 = fcmp oeq double %11, %1
-  br i1 %12, label %13, label %24
+land.lhs.true2:                                   ; preds = %entry
+  %conv = fptosi double %ang to i32
+  %div = sdiv i32 %conv, 90
+  %mul = mul nsw i32 %div, 90
+  %conv3 = sitofp i32 %mul to double
+  %cmp4 = fcmp oeq double %conv3, %ang
+  br i1 %cmp4, label %if.then, label %if.else
 
-13:                                               ; preds = %7
-  %14 = and i32 %9, 3
-  switch i32 %14, label %15 [
-    i32 0, label %20
-    i32 1, label %17
-    i32 2, label %16
+if.then:                                          ; preds = %land.lhs.true2
+  %and = and i32 %div, 3
+  switch i32 %and, label %while.body.2 [
+    i32 0, label %while.end
+    i32 1, label %while.end.loopexit
+    i32 2, label %while.end.loopexit.fold.split
   ]
 
-15:                                               ; preds = %13
-  br label %17
+while.body.2:                                     ; preds = %if.then
+  br label %while.end.loopexit
 
-16:                                               ; preds = %13
-  br label %17
+while.end.loopexit.fold.split:                    ; preds = %if.then
+  br label %while.end.loopexit
 
-17:                                               ; preds = %13, %16, %15
-  %18 = phi i32 [ -1, %15 ], [ 1, %13 ], [ 0, %16 ]
-  %19 = phi float [ 0.000000e+00, %15 ], [ 0.000000e+00, %13 ], [ -1.000000e+00, %16 ]
-  br label %20
+while.end.loopexit:                               ; preds = %if.then, %while.end.loopexit.fold.split, %while.body.2
+  %icos.062.lcssa = phi i32 [ -1, %while.body.2 ], [ 1, %if.then ], [ 0, %while.end.loopexit.fold.split ]
+  %sub.lcssa = phi float [ 0.000000e+00, %while.body.2 ], [ 0.000000e+00, %if.then ], [ -1.000000e+00, %while.end.loopexit.fold.split ]
+  br label %while.end
 
-20:                                               ; preds = %13, %17
-  %21 = phi i32 [ 0, %13 ], [ %18, %17 ]
-  %22 = phi float [ 1.000000e+00, %13 ], [ %19, %17 ]
-  %23 = sitofp i32 %21 to float
-  br label %32
+while.end:                                        ; preds = %if.then, %while.end.loopexit
+  %isin.0.lcssa = phi i32 [ 0, %if.then ], [ %icos.062.lcssa, %while.end.loopexit ]
+  %icos.0.lcssa = phi float [ 1.000000e+00, %if.then ], [ %sub.lcssa, %while.end.loopexit ]
+  %conv6 = sitofp i32 %isin.0.lcssa to float
+  br label %if.end
 
-24:                                               ; preds = %7, %3
-  %25 = fmul double %1, 0x3F91DF46A2529D39
-  %26 = fptrunc double %25 to float
-  %27 = fpext float %26 to double
-  %28 = tail call double @sin(double noundef %27) #10
-  %29 = fptrunc double %28 to float
-  %30 = tail call double @cos(double noundef %27) #10
-  %31 = fptrunc double %30 to float
-  br label %32
+if.else:                                          ; preds = %land.lhs.true2, %entry
+  %mul8 = fmul double %ang, 0x3F91DF46A2529D39
+  %conv9 = fptrunc double %mul8 to float
+  %conv10 = fpext float %conv9 to double
+  %call = tail call double @sin(double noundef %conv10) #10
+  %conv11 = fptrunc double %call to float
+  %call13 = tail call double @cos(double noundef %conv10) #10
+  %conv14 = fptrunc double %call13 to float
+  br label %if.end
 
-32:                                               ; preds = %24, %20
-  %33 = phi float [ %22, %20 ], [ %31, %24 ]
-  %34 = phi float [ %23, %20 ], [ %29, %24 ]
-  %35 = load float, ptr %0, align 8, !tbaa !15
-  %36 = getelementptr inbounds %struct.gs_matrix_s, ptr %0, i64 0, i32 2
-  %37 = load float, ptr %36, align 8, !tbaa !17
-  %38 = getelementptr inbounds %struct.gs_matrix_s, ptr %0, i64 0, i32 4
-  %39 = load float, ptr %38, align 8, !tbaa !18
-  %40 = fmul float %34, %39
-  %41 = tail call float @llvm.fmuladd.f32(float %33, float %35, float %40)
-  store float %41, ptr %2, align 8, !tbaa !15
-  %42 = getelementptr inbounds %struct.gs_matrix_s, ptr %0, i64 0, i32 6
-  %43 = load float, ptr %42, align 8, !tbaa !16
-  %44 = fmul float %34, %43
-  %45 = tail call float @llvm.fmuladd.f32(float %33, float %37, float %44)
-  %46 = getelementptr inbounds %struct.gs_matrix_s, ptr %2, i64 0, i32 2
-  store float %45, ptr %46, align 8, !tbaa !17
-  %47 = fneg float %34
-  %48 = fmul float %35, %47
-  %49 = tail call float @llvm.fmuladd.f32(float %33, float %39, float %48)
-  %50 = getelementptr inbounds %struct.gs_matrix_s, ptr %2, i64 0, i32 4
-  store float %49, ptr %50, align 8, !tbaa !18
-  %51 = fmul float %37, %47
-  %52 = tail call float @llvm.fmuladd.f32(float %33, float %43, float %51)
-  %53 = getelementptr inbounds %struct.gs_matrix_s, ptr %2, i64 0, i32 6
-  store float %52, ptr %53, align 8, !tbaa !16
-  %54 = getelementptr inbounds %struct.gs_matrix_s, ptr %0, i64 0, i32 8
-  %55 = load float, ptr %54, align 8, !tbaa !12
-  %56 = getelementptr inbounds %struct.gs_matrix_s, ptr %2, i64 0, i32 8
-  store float %55, ptr %56, align 8, !tbaa !12
-  %57 = getelementptr inbounds %struct.gs_matrix_s, ptr %0, i64 0, i32 10
-  %58 = load float, ptr %57, align 8, !tbaa !14
-  %59 = getelementptr inbounds %struct.gs_matrix_s, ptr %2, i64 0, i32 10
-  store float %58, ptr %59, align 8, !tbaa !14
+if.end:                                           ; preds = %if.else, %while.end
+  %tcos.0 = phi float [ %icos.0.lcssa, %while.end ], [ %conv14, %if.else ]
+  %tsin.0 = phi float [ %conv6, %while.end ], [ %conv11, %if.else ]
+  %0 = load float, ptr %pm, align 8, !tbaa !15
+  %xy = getelementptr inbounds %struct.gs_matrix_s, ptr %pm, i64 0, i32 2
+  %1 = load float, ptr %xy, align 8, !tbaa !17
+  %yx = getelementptr inbounds %struct.gs_matrix_s, ptr %pm, i64 0, i32 4
+  %2 = load float, ptr %yx, align 8, !tbaa !18
+  %mul16 = fmul float %tsin.0, %2
+  %3 = tail call float @llvm.fmuladd.f32(float %tcos.0, float %0, float %mul16)
+  store float %3, ptr %pmr, align 8, !tbaa !15
+  %yy = getelementptr inbounds %struct.gs_matrix_s, ptr %pm, i64 0, i32 6
+  %4 = load float, ptr %yy, align 8, !tbaa !16
+  %mul19 = fmul float %tsin.0, %4
+  %5 = tail call float @llvm.fmuladd.f32(float %tcos.0, float %1, float %mul19)
+  %xy20 = getelementptr inbounds %struct.gs_matrix_s, ptr %pmr, i64 0, i32 2
+  store float %5, ptr %xy20, align 8, !tbaa !17
+  %6 = fneg float %tsin.0
+  %neg = fmul float %0, %6
+  %7 = tail call float @llvm.fmuladd.f32(float %tcos.0, float %2, float %neg)
+  %yx24 = getelementptr inbounds %struct.gs_matrix_s, ptr %pmr, i64 0, i32 4
+  store float %7, ptr %yx24, align 8, !tbaa !18
+  %neg28 = fmul float %1, %6
+  %8 = tail call float @llvm.fmuladd.f32(float %tcos.0, float %4, float %neg28)
+  %yy29 = getelementptr inbounds %struct.gs_matrix_s, ptr %pmr, i64 0, i32 6
+  store float %8, ptr %yy29, align 8, !tbaa !16
+  %tx = getelementptr inbounds %struct.gs_matrix_s, ptr %pm, i64 0, i32 8
+  %9 = load float, ptr %tx, align 8, !tbaa !12
+  %tx30 = getelementptr inbounds %struct.gs_matrix_s, ptr %pmr, i64 0, i32 8
+  store float %9, ptr %tx30, align 8, !tbaa !12
+  %ty = getelementptr inbounds %struct.gs_matrix_s, ptr %pm, i64 0, i32 10
+  %10 = load float, ptr %ty, align 8, !tbaa !14
+  %ty31 = getelementptr inbounds %struct.gs_matrix_s, ptr %pmr, i64 0, i32 10
+  store float %10, ptr %ty31, align 8, !tbaa !14
   ret i32 0
 }
 
 ; Function Attrs: mustprogress nofree nosync nounwind willreturn memory(argmem: readwrite) uwtable
-define dso_local i32 @gs_point_transform(double noundef %0, double noundef %1, ptr nocapture noundef readonly %2, ptr nocapture noundef writeonly %3) local_unnamed_addr #5 {
-  %5 = getelementptr inbounds %struct.gs_matrix_s, ptr %2, i64 0, i32 8
-  %6 = getelementptr inbounds %struct.gs_matrix_s, ptr %2, i64 0, i32 6
-  %7 = getelementptr inbounds %struct.gs_matrix_s, ptr %2, i64 0, i32 10
-  %8 = getelementptr inbounds %struct.gs_point_s, ptr %3, i64 0, i32 1
-  %9 = load float, ptr %2, align 8, !tbaa !15
-  %10 = load float, ptr %5, align 8, !tbaa !12
-  %11 = load float, ptr %6, align 8, !tbaa !16
-  %12 = insertelement <2 x float> poison, float %9, i64 0
-  %13 = insertelement <2 x float> %12, float %11, i64 1
-  %14 = fpext <2 x float> %13 to <2 x double>
-  %15 = load float, ptr %7, align 8, !tbaa !14
-  %16 = insertelement <2 x float> poison, float %10, i64 0
-  %17 = insertelement <2 x float> %16, float %15, i64 1
-  %18 = fpext <2 x float> %17 to <2 x double>
-  %19 = insertelement <2 x double> poison, double %0, i64 0
-  %20 = insertelement <2 x double> %19, double %1, i64 1
-  %21 = tail call <2 x double> @llvm.fmuladd.v2f64(<2 x double> %20, <2 x double> %14, <2 x double> %18)
-  %22 = fptrunc <2 x double> %21 to <2 x float>
-  store <2 x float> %22, ptr %3, align 4, !tbaa !6
-  %23 = getelementptr inbounds %struct.gs_matrix_s, ptr %2, i64 0, i32 4
-  %24 = load i64, ptr %23, align 8, !tbaa !10
-  %25 = and i64 %24, 9223372036854775807
-  %26 = icmp eq i64 %25, 0
-  br i1 %26, label %35, label %27
+define dso_local i32 @gs_point_transform(double noundef %x, double noundef %y, ptr nocapture noundef readonly %pmat, ptr nocapture noundef writeonly %ppt) local_unnamed_addr #5 {
+entry:
+  %tx = getelementptr inbounds %struct.gs_matrix_s, ptr %pmat, i64 0, i32 8
+  %yy = getelementptr inbounds %struct.gs_matrix_s, ptr %pmat, i64 0, i32 6
+  %ty = getelementptr inbounds %struct.gs_matrix_s, ptr %pmat, i64 0, i32 10
+  %y7 = getelementptr inbounds %struct.gs_point_s, ptr %ppt, i64 0, i32 1
+  %0 = load float, ptr %pmat, align 8, !tbaa !15
+  %1 = load float, ptr %tx, align 8, !tbaa !12
+  %2 = load float, ptr %yy, align 8, !tbaa !16
+  %3 = insertelement <2 x float> poison, float %0, i64 0
+  %4 = insertelement <2 x float> %3, float %2, i64 1
+  %5 = fpext <2 x float> %4 to <2 x double>
+  %6 = load float, ptr %ty, align 8, !tbaa !14
+  %7 = insertelement <2 x float> poison, float %1, i64 0
+  %8 = insertelement <2 x float> %7, float %6, i64 1
+  %9 = fpext <2 x float> %8 to <2 x double>
+  %10 = insertelement <2 x double> poison, double %x, i64 0
+  %11 = insertelement <2 x double> %10, double %y, i64 1
+  %12 = tail call <2 x double> @llvm.fmuladd.v2f64(<2 x double> %11, <2 x double> %5, <2 x double> %9)
+  %13 = fptrunc <2 x double> %12 to <2 x float>
+  store <2 x float> %13, ptr %ppt, align 4, !tbaa !6
+  %yx = getelementptr inbounds %struct.gs_matrix_s, ptr %pmat, i64 0, i32 4
+  %14 = load i64, ptr %yx, align 8, !tbaa !10
+  %shl.mask = and i64 %14, 9223372036854775807
+  %cmp = icmp eq i64 %shl.mask, 0
+  br i1 %cmp, label %if.end, label %if.then
 
-27:                                               ; preds = %4
-  %28 = trunc i64 %24 to i32
-  %29 = bitcast i32 %28 to float
-  %30 = fpext float %29 to double
-  %31 = extractelement <2 x float> %22, i64 0
-  %32 = fpext float %31 to double
-  %33 = tail call double @llvm.fmuladd.f64(double %1, double %30, double %32)
-  %34 = fptrunc double %33 to float
-  store float %34, ptr %3, align 4, !tbaa !19
-  br label %35
+if.then:                                          ; preds = %entry
+  %15 = trunc i64 %14 to i32
+  %16 = bitcast i32 %15 to float
+  %conv10 = fpext float %16 to double
+  %17 = extractelement <2 x float> %13, i64 0
+  %conv12 = fpext float %17 to double
+  %18 = tail call double @llvm.fmuladd.f64(double %y, double %conv10, double %conv12)
+  %conv13 = fptrunc double %18 to float
+  store float %conv13, ptr %ppt, align 4, !tbaa !19
+  br label %if.end
 
-35:                                               ; preds = %27, %4
-  %36 = getelementptr inbounds %struct.gs_matrix_s, ptr %2, i64 0, i32 2
-  %37 = load i64, ptr %36, align 8, !tbaa !10
-  %38 = and i64 %37, 9223372036854775807
-  %39 = icmp eq i64 %38, 0
-  br i1 %39, label %48, label %40
+if.end:                                           ; preds = %if.then, %entry
+  %xy = getelementptr inbounds %struct.gs_matrix_s, ptr %pmat, i64 0, i32 2
+  %19 = load i64, ptr %xy, align 8, !tbaa !10
+  %shl14.mask = and i64 %19, 9223372036854775807
+  %cmp15 = icmp eq i64 %shl14.mask, 0
+  br i1 %cmp15, label %if.end23, label %if.then17
 
-40:                                               ; preds = %35
-  %41 = trunc i64 %37 to i32
-  %42 = bitcast i32 %41 to float
-  %43 = fpext float %42 to double
-  %44 = extractelement <2 x float> %22, i64 1
-  %45 = fpext float %44 to double
-  %46 = tail call double @llvm.fmuladd.f64(double %0, double %43, double %45)
-  %47 = fptrunc double %46 to float
-  store float %47, ptr %8, align 4, !tbaa !21
-  br label %48
+if.then17:                                        ; preds = %if.end
+  %20 = trunc i64 %19 to i32
+  %21 = bitcast i32 %20 to float
+  %conv19 = fpext float %21 to double
+  %22 = extractelement <2 x float> %13, i64 1
+  %conv21 = fpext float %22 to double
+  %23 = tail call double @llvm.fmuladd.f64(double %x, double %conv19, double %conv21)
+  %conv22 = fptrunc double %23 to float
+  store float %conv22, ptr %y7, align 4, !tbaa !21
+  br label %if.end23
 
-48:                                               ; preds = %40, %35
+if.end23:                                         ; preds = %if.then17, %if.end
   ret i32 0
 }
 
@@ -457,524 +465,528 @@ define dso_local i32 @gs_point_transform(double noundef %0, double noundef %1, p
 declare double @llvm.fmuladd.f64(double, double, double) #6
 
 ; Function Attrs: mustprogress nofree nosync nounwind willreturn memory(argmem: readwrite) uwtable
-define dso_local i32 @gs_point_transform_inverse(double noundef %0, double noundef %1, ptr nocapture noundef readonly %2, ptr nocapture noundef writeonly %3) local_unnamed_addr #5 {
-  %5 = getelementptr inbounds %struct.gs_matrix_s, ptr %2, i64 0, i32 2
-  %6 = load i64, ptr %5, align 8, !tbaa !10
-  %7 = getelementptr inbounds %struct.gs_matrix_s, ptr %2, i64 0, i32 4
-  %8 = load i64, ptr %7, align 8, !tbaa !10
-  %9 = or i64 %8, %6
-  %10 = and i64 %9, 9223372036854775807
-  %11 = icmp eq i64 %10, 0
-  %12 = load float, ptr %2, align 8, !tbaa !15
-  br i1 %11, label %13, label %31
+define dso_local i32 @gs_point_transform_inverse(double noundef %x, double noundef %y, ptr nocapture noundef readonly %pmat, ptr nocapture noundef writeonly %ppt) local_unnamed_addr #5 {
+entry:
+  %xy = getelementptr inbounds %struct.gs_matrix_s, ptr %pmat, i64 0, i32 2
+  %0 = load i64, ptr %xy, align 8, !tbaa !10
+  %yx = getelementptr inbounds %struct.gs_matrix_s, ptr %pmat, i64 0, i32 4
+  %1 = load i64, ptr %yx, align 8, !tbaa !10
+  %or = or i64 %1, %0
+  %shl.mask = and i64 %or, 9223372036854775807
+  %cmp = icmp eq i64 %shl.mask, 0
+  %2 = load float, ptr %pmat, align 8, !tbaa !15
+  br i1 %cmp, label %if.then, label %if.else.i
 
-13:                                               ; preds = %4
-  %14 = getelementptr inbounds %struct.gs_matrix_s, ptr %2, i64 0, i32 8
-  %15 = getelementptr inbounds %struct.gs_matrix_s, ptr %2, i64 0, i32 10
-  %16 = getelementptr inbounds %struct.gs_matrix_s, ptr %2, i64 0, i32 6
-  %17 = load float, ptr %16, align 8, !tbaa !16
-  %18 = load float, ptr %14, align 8, !tbaa !12
-  %19 = load float, ptr %15, align 8, !tbaa !14
-  %20 = insertelement <2 x float> poison, float %18, i64 0
-  %21 = insertelement <2 x float> %20, float %19, i64 1
-  %22 = fpext <2 x float> %21 to <2 x double>
-  %23 = insertelement <2 x double> poison, double %0, i64 0
-  %24 = insertelement <2 x double> %23, double %1, i64 1
-  %25 = fsub <2 x double> %24, %22
-  %26 = insertelement <2 x float> poison, float %12, i64 0
-  %27 = insertelement <2 x float> %26, float %17, i64 1
-  %28 = fpext <2 x float> %27 to <2 x double>
-  %29 = fdiv <2 x double> %25, %28
-  %30 = fptrunc <2 x double> %29 to <2 x float>
-  store <2 x float> %30, ptr %3, align 4, !tbaa !6
-  br label %88
+if.then:                                          ; preds = %entry
+  %tx = getelementptr inbounds %struct.gs_matrix_s, ptr %pmat, i64 0, i32 8
+  %ty = getelementptr inbounds %struct.gs_matrix_s, ptr %pmat, i64 0, i32 10
+  %yy = getelementptr inbounds %struct.gs_matrix_s, ptr %pmat, i64 0, i32 6
+  %3 = load float, ptr %yy, align 8, !tbaa !16
+  %4 = load float, ptr %tx, align 8, !tbaa !12
+  %5 = load float, ptr %ty, align 8, !tbaa !14
+  %6 = insertelement <2 x float> poison, float %4, i64 0
+  %7 = insertelement <2 x float> %6, float %5, i64 1
+  %8 = fpext <2 x float> %7 to <2 x double>
+  %9 = insertelement <2 x double> poison, double %x, i64 0
+  %10 = insertelement <2 x double> %9, double %y, i64 1
+  %11 = fsub <2 x double> %10, %8
+  %12 = insertelement <2 x float> poison, float %2, i64 0
+  %13 = insertelement <2 x float> %12, float %3, i64 1
+  %14 = fpext <2 x float> %13 to <2 x double>
+  %15 = fdiv <2 x double> %11, %14
+  %16 = fptrunc <2 x double> %15 to <2 x float>
+  store <2 x float> %16, ptr %ppt, align 4, !tbaa !6
+  br label %return
 
-31:                                               ; preds = %4
-  %32 = trunc i64 %8 to i32
-  %33 = bitcast i32 %32 to float
-  %34 = trunc i64 %6 to i32
-  %35 = bitcast i32 %34 to float
-  %36 = getelementptr inbounds %struct.gs_matrix_s, ptr %2, i64 0, i32 6
-  %37 = load float, ptr %36, align 8, !tbaa !16
-  %38 = fneg float %35
-  %39 = fmul float %38, %33
-  %40 = tail call float @llvm.fmuladd.f32(float %12, float %37, float %39)
-  %41 = fcmp oeq float %40, 0.000000e+00
-  br i1 %41, label %88, label %42
-
-42:                                               ; preds = %31
-  %43 = fdiv float %38, %40
-  %44 = fneg float %33
-  %45 = fdiv float %44, %40
-  %46 = getelementptr inbounds %struct.gs_matrix_s, ptr %2, i64 0, i32 8
-  %47 = load float, ptr %46, align 8, !tbaa !12
-  %48 = insertelement <2 x float> poison, float %37, i64 0
-  %49 = insertelement <2 x float> %48, float %12, i64 1
-  %50 = insertelement <2 x float> poison, float %40, i64 0
-  %51 = shufflevector <2 x float> %50, <2 x float> poison, <2 x i32> zeroinitializer
-  %52 = fdiv <2 x float> %49, %51
-  %53 = getelementptr inbounds %struct.gs_matrix_s, ptr %2, i64 0, i32 10
-  %54 = load float, ptr %53, align 8, !tbaa !14
-  %55 = getelementptr inbounds %struct.gs_point_s, ptr %3, i64 0, i32 1
-  %56 = insertelement <2 x float> %52, float %45, i64 0
-  %57 = insertelement <2 x float> poison, float %54, i64 0
-  %58 = shufflevector <2 x float> %57, <2 x float> poison, <2 x i32> zeroinitializer
-  %59 = fmul <2 x float> %56, %58
-  %60 = insertelement <2 x float> poison, float %47, i64 0
-  %61 = shufflevector <2 x float> %60, <2 x float> poison, <2 x i32> zeroinitializer
-  %62 = insertelement <2 x float> %52, float %43, i64 1
-  %63 = tail call <2 x float> @llvm.fmuladd.v2f32(<2 x float> %61, <2 x float> %62, <2 x float> %59)
-  %64 = fneg <2 x float> %63
-  %65 = fpext <2 x float> %52 to <2 x double>
-  %66 = fpext <2 x float> %64 to <2 x double>
-  %67 = insertelement <2 x double> poison, double %0, i64 0
-  %68 = insertelement <2 x double> %67, double %1, i64 1
-  %69 = tail call <2 x double> @llvm.fmuladd.v2f64(<2 x double> %68, <2 x double> %65, <2 x double> %66)
-  %70 = fptrunc <2 x double> %69 to <2 x float>
-  store <2 x float> %70, ptr %3, align 4, !tbaa !6
-  %71 = bitcast float %45 to i32
-  %72 = icmp eq i32 %71, 0
-  br i1 %72, label %79, label %73
-
-73:                                               ; preds = %42
-  %74 = fpext float %45 to double
-  %75 = extractelement <2 x float> %70, i64 0
-  %76 = fpext float %75 to double
-  %77 = tail call double @llvm.fmuladd.f64(double %1, double %74, double %76)
-  %78 = fptrunc double %77 to float
-  store float %78, ptr %3, align 4, !tbaa !19
-  br label %79
-
-79:                                               ; preds = %73, %42
-  %80 = bitcast float %43 to i32
-  %81 = icmp eq i32 %80, 0
-  br i1 %81, label %88, label %82
-
-82:                                               ; preds = %79
-  %83 = fpext float %43 to double
-  %84 = extractelement <2 x float> %70, i64 1
-  %85 = fpext float %84 to double
-  %86 = tail call double @llvm.fmuladd.f64(double %0, double %83, double %85)
-  %87 = fptrunc double %86 to float
-  store float %87, ptr %55, align 4, !tbaa !21
-  br label %88
-
-88:                                               ; preds = %31, %79, %82, %13
-  %89 = phi i32 [ 0, %13 ], [ -23, %31 ], [ 0, %79 ], [ 0, %82 ]
-  ret i32 %89
-}
-
-; Function Attrs: mustprogress nofree nosync nounwind willreturn memory(argmem: readwrite) uwtable
-define dso_local i32 @gs_distance_transform(double noundef %0, double noundef %1, ptr nocapture noundef readonly %2, ptr nocapture noundef writeonly %3) local_unnamed_addr #5 {
-  %5 = getelementptr inbounds %struct.gs_matrix_s, ptr %2, i64 0, i32 6
-  %6 = getelementptr inbounds %struct.gs_point_s, ptr %3, i64 0, i32 1
-  %7 = load float, ptr %2, align 8, !tbaa !15
-  %8 = load float, ptr %5, align 8, !tbaa !16
-  %9 = insertelement <2 x float> poison, float %7, i64 0
-  %10 = insertelement <2 x float> %9, float %8, i64 1
-  %11 = fpext <2 x float> %10 to <2 x double>
-  %12 = insertelement <2 x double> poison, double %0, i64 0
-  %13 = insertelement <2 x double> %12, double %1, i64 1
-  %14 = fmul <2 x double> %13, %11
-  %15 = fptrunc <2 x double> %14 to <2 x float>
-  store <2 x float> %15, ptr %3, align 4, !tbaa !6
-  %16 = getelementptr inbounds %struct.gs_matrix_s, ptr %2, i64 0, i32 4
-  %17 = load i64, ptr %16, align 8, !tbaa !10
-  %18 = and i64 %17, 9223372036854775807
-  %19 = icmp eq i64 %18, 0
-  br i1 %19, label %28, label %20
-
-20:                                               ; preds = %4
-  %21 = trunc i64 %17 to i32
-  %22 = bitcast i32 %21 to float
-  %23 = fpext float %22 to double
-  %24 = extractelement <2 x float> %15, i64 0
-  %25 = fpext float %24 to double
-  %26 = tail call double @llvm.fmuladd.f64(double %1, double %23, double %25)
-  %27 = fptrunc double %26 to float
-  store float %27, ptr %3, align 4, !tbaa !19
-  br label %28
-
-28:                                               ; preds = %20, %4
-  %29 = getelementptr inbounds %struct.gs_matrix_s, ptr %2, i64 0, i32 2
-  %30 = load i64, ptr %29, align 8, !tbaa !10
-  %31 = and i64 %30, 9223372036854775807
-  %32 = icmp eq i64 %31, 0
-  br i1 %32, label %41, label %33
-
-33:                                               ; preds = %28
-  %34 = trunc i64 %30 to i32
-  %35 = bitcast i32 %34 to float
-  %36 = fpext float %35 to double
-  %37 = extractelement <2 x float> %15, i64 1
-  %38 = fpext float %37 to double
-  %39 = tail call double @llvm.fmuladd.f64(double %0, double %36, double %38)
-  %40 = fptrunc double %39 to float
-  store float %40, ptr %6, align 4, !tbaa !21
-  br label %41
-
-41:                                               ; preds = %33, %28
-  ret i32 0
-}
-
-; Function Attrs: mustprogress nofree nosync nounwind willreturn memory(argmem: readwrite) uwtable
-define dso_local i32 @gs_distance_transform_inverse(double noundef %0, double noundef %1, ptr nocapture noundef readonly %2, ptr nocapture noundef writeonly %3) local_unnamed_addr #5 {
-  %5 = getelementptr inbounds %struct.gs_matrix_s, ptr %2, i64 0, i32 2
-  %6 = load i64, ptr %5, align 8, !tbaa !10
-  %7 = getelementptr inbounds %struct.gs_matrix_s, ptr %2, i64 0, i32 4
-  %8 = load i64, ptr %7, align 8, !tbaa !10
-  %9 = or i64 %8, %6
-  %10 = and i64 %9, 9223372036854775807
-  %11 = icmp eq i64 %10, 0
-  %12 = trunc i64 %6 to i32
-  %13 = bitcast i32 %12 to float
-  %14 = trunc i64 %8 to i32
-  %15 = bitcast i32 %14 to float
-  %16 = load float, ptr %2, align 8, !tbaa !15
-  br i1 %11, label %17, label %25
-
-17:                                               ; preds = %4
-  %18 = fpext float %16 to double
-  %19 = fdiv double %0, %18
-  %20 = fptrunc double %19 to float
-  store float %20, ptr %3, align 4, !tbaa !19
-  %21 = getelementptr inbounds %struct.gs_matrix_s, ptr %2, i64 0, i32 6
-  %22 = load float, ptr %21, align 8, !tbaa !16
-  %23 = fpext float %22 to double
-  %24 = fdiv double %1, %23
-  br label %47
-
-25:                                               ; preds = %4
-  %26 = getelementptr inbounds %struct.gs_matrix_s, ptr %2, i64 0, i32 6
-  %27 = load float, ptr %26, align 8, !tbaa !16
-  %28 = fneg float %13
-  %29 = fmul float %15, %28
-  %30 = tail call float @llvm.fmuladd.f32(float %16, float %27, float %29)
-  %31 = fcmp oeq float %30, 0.000000e+00
-  br i1 %31, label %51, label %32
-
-32:                                               ; preds = %25
-  %33 = fpext float %30 to double
-  %34 = fpext float %27 to double
-  %35 = fpext float %15 to double
-  %36 = fneg double %35
-  %37 = fmul double %36, %1
-  %38 = tail call double @llvm.fmuladd.f64(double %0, double %34, double %37)
-  %39 = fdiv double %38, %33
-  %40 = fptrunc double %39 to float
-  store float %40, ptr %3, align 4, !tbaa !19
-  %41 = fpext float %16 to double
-  %42 = fpext float %13 to double
-  %43 = fneg double %42
-  %44 = fmul double %43, %0
-  %45 = tail call double @llvm.fmuladd.f64(double %1, double %41, double %44)
-  %46 = fdiv double %45, %33
-  br label %47
-
-47:                                               ; preds = %32, %17
-  %48 = phi double [ %24, %17 ], [ %46, %32 ]
-  %49 = fptrunc double %48 to float
-  %50 = getelementptr inbounds %struct.gs_point_s, ptr %3, i64 0, i32 1
-  store float %49, ptr %50, align 4, !tbaa !21
-  br label %51
-
-51:                                               ; preds = %47, %25
-  %52 = phi i32 [ -23, %25 ], [ 0, %47 ]
-  ret i32 %52
-}
-
-; Function Attrs: mustprogress nofree nosync nounwind willreturn memory(argmem: readwrite) uwtable
-define dso_local i32 @gs_bbox_transform_inverse(ptr nocapture noundef readonly %0, ptr nocapture noundef readonly %1, ptr nocapture noundef writeonly %2) local_unnamed_addr #5 {
-  %4 = load <2 x float>, ptr %0, align 4, !tbaa !6
-  %5 = fpext <2 x float> %4 to <2 x double>
-  %6 = getelementptr inbounds %struct.gs_matrix_s, ptr %1, i64 0, i32 2
-  %7 = load i64, ptr %6, align 8, !tbaa !10
-  %8 = getelementptr inbounds %struct.gs_matrix_s, ptr %1, i64 0, i32 4
-  %9 = load i64, ptr %8, align 8, !tbaa !10
-  %10 = or i64 %9, %7
-  %11 = and i64 %10, 9223372036854775807
-  %12 = icmp eq i64 %11, 0
-  %13 = load float, ptr %1, align 8, !tbaa !15
-  br i1 %12, label %67, label %14
-
-14:                                               ; preds = %3
-  %15 = trunc i64 %9 to i32
-  %16 = bitcast i32 %15 to float
-  %17 = trunc i64 %7 to i32
+if.else.i:                                        ; preds = %entry
+  %17 = trunc i64 %1 to i32
   %18 = bitcast i32 %17 to float
-  %19 = getelementptr inbounds %struct.gs_matrix_s, ptr %1, i64 0, i32 6
-  %20 = load float, ptr %19, align 8, !tbaa !16
-  %21 = fneg float %18
-  %22 = fmul float %21, %16
-  %23 = tail call float @llvm.fmuladd.f32(float %13, float %20, float %22)
-  %24 = fcmp oeq float %23, 0.000000e+00
-  br i1 %24, label %157, label %25
+  %19 = trunc i64 %0 to i32
+  %20 = bitcast i32 %19 to float
+  %yy21.i = getelementptr inbounds %struct.gs_matrix_s, ptr %pmat, i64 0, i32 6
+  %21 = load float, ptr %yy21.i, align 8, !tbaa !16
+  %22 = fneg float %20
+  %neg.i = fmul float %22, %18
+  %23 = tail call float @llvm.fmuladd.f32(float %2, float %21, float %neg.i)
+  %cmp29.i = fcmp oeq float %23, 0.000000e+00
+  br i1 %cmp29.i, label %return, label %if.end
 
-25:                                               ; preds = %14
-  %26 = fdiv float %21, %23
-  %27 = fneg float %16
-  %28 = fdiv float %27, %23
-  %29 = getelementptr inbounds %struct.gs_matrix_s, ptr %1, i64 0, i32 8
-  %30 = load float, ptr %29, align 8, !tbaa !12
-  %31 = fdiv float %13, %23
-  %32 = getelementptr inbounds %struct.gs_matrix_s, ptr %1, i64 0, i32 10
-  %33 = load float, ptr %32, align 8, !tbaa !14
-  %34 = fmul float %31, %33
-  %35 = tail call float @llvm.fmuladd.f32(float %30, float %26, float %34)
-  %36 = fneg float %35
-  %37 = fdiv float %20, %23
-  %38 = fmul float %28, %33
-  %39 = tail call float @llvm.fmuladd.f32(float %30, float %37, float %38)
-  %40 = fneg float %39
-  %41 = fpext float %37 to double
-  %42 = fpext float %40 to double
-  %43 = extractelement <2 x double> %5, i64 0
-  %44 = tail call double @llvm.fmuladd.f64(double %43, double %41, double %42)
-  %45 = fptrunc double %44 to float
-  %46 = fpext float %31 to double
-  %47 = fpext float %36 to double
-  %48 = extractelement <2 x double> %5, i64 1
-  %49 = tail call double @llvm.fmuladd.f64(double %48, double %46, double %47)
-  %50 = fptrunc double %49 to float
-  %51 = bitcast float %28 to i32
-  %52 = icmp eq i32 %51, 0
-  br i1 %52, label %58, label %53
+if.end:                                           ; preds = %if.else.i
+  %tx28.i = getelementptr inbounds %struct.gs_matrix_s, ptr %pmat, i64 0, i32 8
+  %24 = load float, ptr %tx28.i, align 8, !tbaa !12
+  %25 = insertelement <2 x float> poison, float %21, i64 0
+  %26 = insertelement <2 x float> %25, float %2, i64 1
+  %27 = insertelement <2 x float> poison, float %23, i64 0
+  %28 = shufflevector <2 x float> %27, <2 x float> poison, <2 x i32> zeroinitializer
+  %29 = fdiv <2 x float> %26, %28
+  %conv42.i = fdiv float %22, %23
+  %fneg45.i = fneg float %18
+  %conv48.i = fdiv float %fneg45.i, %23
+  %ty56.i = getelementptr inbounds %struct.gs_matrix_s, ptr %pmat, i64 0, i32 10
+  %30 = load float, ptr %ty56.i, align 8, !tbaa !14
+  %y7.i = getelementptr inbounds %struct.gs_point_s, ptr %ppt, i64 0, i32 1
+  %31 = insertelement <2 x float> %29, float %conv48.i, i64 0
+  %32 = insertelement <2 x float> poison, float %30, i64 0
+  %33 = shufflevector <2 x float> %32, <2 x float> poison, <2 x i32> zeroinitializer
+  %34 = fmul <2 x float> %31, %33
+  %35 = insertelement <2 x float> poison, float %24, i64 0
+  %36 = shufflevector <2 x float> %35, <2 x float> poison, <2 x i32> zeroinitializer
+  %37 = insertelement <2 x float> %29, float %conv42.i, i64 1
+  %38 = tail call <2 x float> @llvm.fmuladd.v2f32(<2 x float> %36, <2 x float> %37, <2 x float> %34)
+  %39 = fneg <2 x float> %38
+  %40 = fpext <2 x float> %29 to <2 x double>
+  %41 = fpext <2 x float> %39 to <2 x double>
+  %42 = insertelement <2 x double> poison, double %x, i64 0
+  %43 = insertelement <2 x double> %42, double %y, i64 1
+  %44 = tail call <2 x double> @llvm.fmuladd.v2f64(<2 x double> %43, <2 x double> %40, <2 x double> %41)
+  %45 = fptrunc <2 x double> %44 to <2 x float>
+  store <2 x float> %45, ptr %ppt, align 4, !tbaa !6
+  %46 = bitcast float %conv48.i to i32
+  %cmp.i31 = icmp eq i32 %46, 0
+  br i1 %cmp.i31, label %if.end.i34, label %if.then.i32
 
-53:                                               ; preds = %25
-  %54 = fpext float %28 to double
-  %55 = fpext float %45 to double
-  %56 = tail call double @llvm.fmuladd.f64(double %48, double %54, double %55)
-  %57 = fptrunc double %56 to float
-  br label %58
+if.then.i32:                                      ; preds = %if.end
+  %conv10.i = fpext float %conv48.i to double
+  %47 = extractelement <2 x float> %45, i64 0
+  %conv12.i = fpext float %47 to double
+  %48 = tail call double @llvm.fmuladd.f64(double %y, double %conv10.i, double %conv12.i)
+  %conv13.i = fptrunc double %48 to float
+  store float %conv13.i, ptr %ppt, align 4, !tbaa !19
+  br label %if.end.i34
 
-58:                                               ; preds = %53, %25
-  %59 = phi float [ %45, %25 ], [ %57, %53 ]
-  %60 = bitcast float %26 to i32
-  %61 = icmp eq i32 %60, 0
-  br i1 %61, label %97, label %62
+if.end.i34:                                       ; preds = %if.then.i32, %if.end
+  %49 = bitcast float %conv42.i to i32
+  %cmp15.i = icmp eq i32 %49, 0
+  br i1 %cmp15.i, label %return, label %if.then17.i
 
-62:                                               ; preds = %58
-  %63 = fpext float %26 to double
-  %64 = fpext float %50 to double
-  %65 = tail call double @llvm.fmuladd.f64(double %43, double %63, double %64)
-  %66 = fptrunc double %65 to float
-  br label %97
+if.then17.i:                                      ; preds = %if.end.i34
+  %conv19.i = fpext float %conv42.i to double
+  %50 = extractelement <2 x float> %45, i64 1
+  %conv21.i = fpext float %50 to double
+  %51 = tail call double @llvm.fmuladd.f64(double %x, double %conv19.i, double %conv21.i)
+  %conv22.i = fptrunc double %51 to float
+  store float %conv22.i, ptr %y7.i, align 4, !tbaa !21
+  br label %return
 
-67:                                               ; preds = %3
-  %68 = getelementptr inbounds %struct.gs_matrix_s, ptr %1, i64 0, i32 8
-  %69 = getelementptr inbounds %struct.gs_matrix_s, ptr %1, i64 0, i32 10
-  %70 = getelementptr inbounds %struct.gs_matrix_s, ptr %1, i64 0, i32 6
-  %71 = load float, ptr %70, align 8, !tbaa !16
-  %72 = load float, ptr %68, align 8, !tbaa !12
-  %73 = load float, ptr %69, align 8, !tbaa !14
-  %74 = insertelement <2 x float> poison, float %72, i64 0
-  %75 = insertelement <2 x float> %74, float %73, i64 1
-  %76 = fpext <2 x float> %75 to <2 x double>
-  %77 = fsub <2 x double> %5, %76
-  %78 = insertelement <2 x float> poison, float %13, i64 0
-  %79 = insertelement <2 x float> %78, float %71, i64 1
-  %80 = fpext <2 x float> %79 to <2 x double>
-  %81 = fdiv <2 x double> %77, %80
-  %82 = fptrunc <2 x double> %81 to <2 x float>
-  %83 = getelementptr inbounds %struct.gs_rect_s, ptr %0, i64 0, i32 1
-  %84 = load float, ptr %83, align 4, !tbaa !22
-  %85 = extractelement <2 x float> %4, i64 0
-  %86 = fsub float %84, %85
-  %87 = fpext float %86 to double
-  %88 = insertelement <2 x double> <double poison, double 0.000000e+00>, double %87, i64 0
-  %89 = fdiv <2 x double> %88, %80
-  %90 = getelementptr inbounds %struct.gs_rect_s, ptr %0, i64 0, i32 1, i32 1
-  %91 = load float, ptr %90, align 4, !tbaa !24
-  %92 = extractelement <2 x float> %4, i64 1
-  %93 = fsub float %91, %92
-  %94 = fpext float %93 to double
-  %95 = insertelement <2 x double> <double 0.000000e+00, double poison>, double %94, i64 1
-  %96 = fdiv <2 x double> %95, %80
-  br label %136
+return:                                           ; preds = %if.else.i, %if.end.i34, %if.then17.i, %if.then
+  %retval.1 = phi i32 [ 0, %if.then ], [ 0, %if.end.i34 ], [ 0, %if.then17.i ], [ -23, %if.else.i ]
+  ret i32 %retval.1
+}
 
-97:                                               ; preds = %58, %62
-  %98 = phi float [ %50, %58 ], [ %66, %62 ]
-  %99 = getelementptr inbounds %struct.gs_rect_s, ptr %0, i64 0, i32 1, i32 1
-  %100 = load float, ptr %99, align 4, !tbaa !24
-  %101 = extractelement <2 x float> %4, i64 1
-  %102 = fsub float %100, %101
-  %103 = getelementptr inbounds %struct.gs_rect_s, ptr %0, i64 0, i32 1
-  %104 = fpext float %18 to double
-  %105 = fneg double %104
-  %106 = load float, ptr %103, align 4, !tbaa !22
-  %107 = extractelement <2 x float> %4, i64 0
-  %108 = fsub float %106, %107
-  %109 = fpext float %23 to double
-  %110 = fpext float %16 to double
-  %111 = fneg double %110
-  %112 = insertelement <2 x float> poison, float %108, i64 0
-  %113 = insertelement <2 x float> %112, float %13, i64 1
-  %114 = fpext <2 x float> %113 to <2 x double>
-  %115 = insertelement <2 x float> poison, float %20, i64 0
-  %116 = insertelement <2 x float> %115, float %102, i64 1
-  %117 = fpext <2 x float> %116 to <2 x double>
-  %118 = insertelement <2 x double> <double -0.000000e+00, double poison>, double %105, i64 1
-  %119 = shufflevector <2 x double> %114, <2 x double> poison, <2 x i32> <i32 undef, i32 0>
-  %120 = insertelement <2 x double> %119, double %110, i64 0
-  %121 = fmul <2 x double> %118, %120
-  %122 = insertelement <2 x double> %117, double 0.000000e+00, i64 1
-  %123 = tail call <2 x double> @llvm.fmuladd.v2f64(<2 x double> %114, <2 x double> %122, <2 x double> %121)
-  %124 = insertelement <2 x double> poison, double %109, i64 0
-  %125 = shufflevector <2 x double> %124, <2 x double> poison, <2 x i32> zeroinitializer
-  %126 = fdiv <2 x double> %123, %125
-  %127 = insertelement <2 x double> <double poison, double -0.000000e+00>, double %111, i64 0
-  %128 = shufflevector <2 x double> %117, <2 x double> poison, <2 x i32> <i32 1, i32 undef>
-  %129 = insertelement <2 x double> %128, double %104, i64 1
-  %130 = fmul <2 x double> %127, %129
-  %131 = insertelement <2 x double> %114, double 0.000000e+00, i64 0
-  %132 = tail call <2 x double> @llvm.fmuladd.v2f64(<2 x double> %117, <2 x double> %131, <2 x double> %130)
-  %133 = fdiv <2 x double> %132, %125
-  %134 = insertelement <2 x float> poison, float %59, i64 0
-  %135 = insertelement <2 x float> %134, float %98, i64 1
-  br label %136
+; Function Attrs: mustprogress nofree nosync nounwind willreturn memory(argmem: readwrite) uwtable
+define dso_local i32 @gs_distance_transform(double noundef %dx, double noundef %dy, ptr nocapture noundef readonly %pmat, ptr nocapture noundef writeonly %pdpt) local_unnamed_addr #5 {
+entry:
+  %yy = getelementptr inbounds %struct.gs_matrix_s, ptr %pmat, i64 0, i32 6
+  %y = getelementptr inbounds %struct.gs_point_s, ptr %pdpt, i64 0, i32 1
+  %0 = load float, ptr %pmat, align 8, !tbaa !15
+  %1 = load float, ptr %yy, align 8, !tbaa !16
+  %2 = insertelement <2 x float> poison, float %0, i64 0
+  %3 = insertelement <2 x float> %2, float %1, i64 1
+  %4 = fpext <2 x float> %3 to <2 x double>
+  %5 = insertelement <2 x double> poison, double %dx, i64 0
+  %6 = insertelement <2 x double> %5, double %dy, i64 1
+  %7 = fmul <2 x double> %6, %4
+  %8 = fptrunc <2 x double> %7 to <2 x float>
+  store <2 x float> %8, ptr %pdpt, align 4, !tbaa !6
+  %yx = getelementptr inbounds %struct.gs_matrix_s, ptr %pmat, i64 0, i32 4
+  %9 = load i64, ptr %yx, align 8, !tbaa !10
+  %shl.mask = and i64 %9, 9223372036854775807
+  %cmp = icmp eq i64 %shl.mask, 0
+  br i1 %cmp, label %if.end, label %if.then
 
-136:                                              ; preds = %97, %67
-  %137 = phi <2 x float> [ %82, %67 ], [ %135, %97 ]
-  %138 = phi <2 x double> [ %89, %67 ], [ %126, %97 ]
-  %139 = phi <2 x double> [ %96, %67 ], [ %133, %97 ]
-  %140 = shufflevector <2 x float> %137, <2 x float> poison, <4 x i32> <i32 0, i32 1, i32 0, i32 1>
-  %141 = fptrunc <2 x double> %139 to <2 x float>
-  %142 = fptrunc <2 x double> %138 to <2 x float>
-  %143 = fcmp olt <2 x float> %142, zeroinitializer
-  %144 = shufflevector <2 x i1> %143, <2 x i1> poison, <4 x i32> <i32 0, i32 1, i32 0, i32 1>
-  %145 = shufflevector <2 x float> %142, <2 x float> poison, <4 x i32> <i32 0, i32 1, i32 0, i32 1>
-  %146 = shufflevector <4 x float> %145, <4 x float> <float poison, float poison, float -0.000000e+00, float -0.000000e+00>, <4 x i32> <i32 0, i32 1, i32 6, i32 7>
-  %147 = shufflevector <4 x float> <float -0.000000e+00, float -0.000000e+00, float poison, float poison>, <4 x float> %145, <4 x i32> <i32 0, i32 1, i32 6, i32 7>
-  %148 = select <4 x i1> %144, <4 x float> %146, <4 x float> %147
-  %149 = fadd <4 x float> %140, %148
-  %150 = fcmp olt <2 x float> %141, zeroinitializer
-  %151 = shufflevector <2 x i1> %150, <2 x i1> poison, <4 x i32> <i32 0, i32 1, i32 0, i32 1>
-  %152 = shufflevector <2 x float> %141, <2 x float> poison, <4 x i32> <i32 0, i32 1, i32 0, i32 1>
-  %153 = shufflevector <4 x float> %152, <4 x float> <float poison, float poison, float -0.000000e+00, float -0.000000e+00>, <4 x i32> <i32 0, i32 1, i32 6, i32 7>
-  %154 = shufflevector <4 x float> <float -0.000000e+00, float -0.000000e+00, float poison, float poison>, <4 x float> %152, <4 x i32> <i32 0, i32 1, i32 6, i32 7>
-  %155 = select <4 x i1> %151, <4 x float> %153, <4 x float> %154
-  %156 = fadd <4 x float> %149, %155
-  store <4 x float> %156, ptr %2, align 4, !tbaa !6
-  br label %157
+if.then:                                          ; preds = %entry
+  %10 = trunc i64 %9 to i32
+  %11 = bitcast i32 %10 to float
+  %conv7 = fpext float %11 to double
+  %12 = extractelement <2 x float> %8, i64 0
+  %conv10 = fpext float %12 to double
+  %13 = tail call double @llvm.fmuladd.f64(double %dy, double %conv7, double %conv10)
+  %conv11 = fptrunc double %13 to float
+  store float %conv11, ptr %pdpt, align 4, !tbaa !19
+  br label %if.end
 
-157:                                              ; preds = %14, %136
-  %158 = phi i32 [ 0, %136 ], [ -23, %14 ]
-  ret i32 %158
+if.end:                                           ; preds = %if.then, %entry
+  %xy = getelementptr inbounds %struct.gs_matrix_s, ptr %pmat, i64 0, i32 2
+  %14 = load i64, ptr %xy, align 8, !tbaa !10
+  %shl12.mask = and i64 %14, 9223372036854775807
+  %cmp13 = icmp eq i64 %shl12.mask, 0
+  br i1 %cmp13, label %if.end22, label %if.then15
+
+if.then15:                                        ; preds = %if.end
+  %15 = trunc i64 %14 to i32
+  %16 = bitcast i32 %15 to float
+  %conv17 = fpext float %16 to double
+  %17 = extractelement <2 x float> %8, i64 1
+  %conv20 = fpext float %17 to double
+  %18 = tail call double @llvm.fmuladd.f64(double %dx, double %conv17, double %conv20)
+  %conv21 = fptrunc double %18 to float
+  store float %conv21, ptr %y, align 4, !tbaa !21
+  br label %if.end22
+
+if.end22:                                         ; preds = %if.then15, %if.end
+  ret i32 0
+}
+
+; Function Attrs: mustprogress nofree nosync nounwind willreturn memory(argmem: readwrite) uwtable
+define dso_local i32 @gs_distance_transform_inverse(double noundef %dx, double noundef %dy, ptr nocapture noundef readonly %pmat, ptr nocapture noundef writeonly %pdpt) local_unnamed_addr #5 {
+entry:
+  %xy = getelementptr inbounds %struct.gs_matrix_s, ptr %pmat, i64 0, i32 2
+  %0 = load i64, ptr %xy, align 8, !tbaa !10
+  %yx = getelementptr inbounds %struct.gs_matrix_s, ptr %pmat, i64 0, i32 4
+  %1 = load i64, ptr %yx, align 8, !tbaa !10
+  %or = or i64 %1, %0
+  %shl.mask = and i64 %or, 9223372036854775807
+  %cmp = icmp eq i64 %shl.mask, 0
+  %2 = trunc i64 %0 to i32
+  %3 = bitcast i32 %2 to float
+  %4 = trunc i64 %1 to i32
+  %5 = bitcast i32 %4 to float
+  %6 = load float, ptr %pmat, align 8, !tbaa !15
+  br i1 %cmp, label %if.then, label %if.else
+
+if.then:                                          ; preds = %entry
+  %conv = fpext float %6 to double
+  %div = fdiv double %dx, %conv
+  %conv1 = fptrunc double %div to float
+  store float %conv1, ptr %pdpt, align 4, !tbaa !19
+  %yy = getelementptr inbounds %struct.gs_matrix_s, ptr %pmat, i64 0, i32 6
+  %7 = load float, ptr %yy, align 8, !tbaa !16
+  %conv2 = fpext float %7 to double
+  %div3 = fdiv double %dy, %conv2
+  br label %return.sink.split
+
+if.else:                                          ; preds = %entry
+  %yy6 = getelementptr inbounds %struct.gs_matrix_s, ptr %pmat, i64 0, i32 6
+  %8 = load float, ptr %yy6, align 8, !tbaa !16
+  %9 = fneg float %3
+  %neg = fmul float %5, %9
+  %10 = tail call float @llvm.fmuladd.f32(float %6, float %8, float %neg)
+  %cmp11 = fcmp oeq float %10, 0.000000e+00
+  br i1 %cmp11, label %return, label %cleanup.thread
+
+cleanup.thread:                                   ; preds = %if.else
+  %conv10 = fpext float %10 to double
+  %conv15 = fpext float %8 to double
+  %conv17 = fpext float %5 to double
+  %11 = fneg double %conv17
+  %neg19 = fmul double %11, %dy
+  %12 = tail call double @llvm.fmuladd.f64(double %dx, double %conv15, double %neg19)
+  %div20 = fdiv double %12, %conv10
+  %conv21 = fptrunc double %div20 to float
+  store float %conv21, ptr %pdpt, align 4, !tbaa !19
+  %conv24 = fpext float %6 to double
+  %conv26 = fpext float %3 to double
+  %13 = fneg double %conv26
+  %neg28 = fmul double %13, %dx
+  %14 = tail call double @llvm.fmuladd.f64(double %dy, double %conv24, double %neg28)
+  %div29 = fdiv double %14, %conv10
+  br label %return.sink.split
+
+return.sink.split:                                ; preds = %cleanup.thread, %if.then
+  %div3.sink = phi double [ %div3, %if.then ], [ %div29, %cleanup.thread ]
+  %conv4 = fptrunc double %div3.sink to float
+  %y = getelementptr inbounds %struct.gs_point_s, ptr %pdpt, i64 0, i32 1
+  store float %conv4, ptr %y, align 4, !tbaa !21
+  br label %return
+
+return:                                           ; preds = %return.sink.split, %if.else
+  %retval.1 = phi i32 [ -23, %if.else ], [ 0, %return.sink.split ]
+  ret i32 %retval.1
+}
+
+; Function Attrs: mustprogress nofree nosync nounwind willreturn memory(argmem: readwrite) uwtable
+define dso_local i32 @gs_bbox_transform_inverse(ptr nocapture noundef readonly %pbox_in, ptr nocapture noundef readonly %pmat, ptr nocapture noundef writeonly %pbox_out) local_unnamed_addr #5 {
+entry:
+  %0 = load <2 x float>, ptr %pbox_in, align 4, !tbaa !6
+  %1 = fpext <2 x float> %0 to <2 x double>
+  %xy.i = getelementptr inbounds %struct.gs_matrix_s, ptr %pmat, i64 0, i32 2
+  %2 = load i64, ptr %xy.i, align 8, !tbaa !10
+  %yx.i = getelementptr inbounds %struct.gs_matrix_s, ptr %pmat, i64 0, i32 4
+  %3 = load i64, ptr %yx.i, align 8, !tbaa !10
+  %or.i = or i64 %3, %2
+  %shl.mask.i = and i64 %or.i, 9223372036854775807
+  %cmp.i = icmp eq i64 %shl.mask.i, 0
+  %4 = load float, ptr %pmat, align 8, !tbaa !15
+  br i1 %cmp.i, label %if.then.i125, label %if.else.i.i
+
+if.else.i.i:                                      ; preds = %entry
+  %5 = trunc i64 %3 to i32
+  %6 = bitcast i32 %5 to float
+  %7 = trunc i64 %2 to i32
+  %8 = bitcast i32 %7 to float
+  %yy21.i.i = getelementptr inbounds %struct.gs_matrix_s, ptr %pmat, i64 0, i32 6
+  %9 = load float, ptr %yy21.i.i, align 8, !tbaa !16
+  %10 = fneg float %8
+  %neg.i.i = fmul float %10, %6
+  %11 = tail call float @llvm.fmuladd.f32(float %4, float %9, float %neg.i.i)
+  %cmp29.i.i = fcmp oeq float %11, 0.000000e+00
+  br i1 %cmp29.i.i, label %cleanup, label %if.end.i
+
+if.end.i:                                         ; preds = %if.else.i.i
+  %tx28.i.i = getelementptr inbounds %struct.gs_matrix_s, ptr %pmat, i64 0, i32 8
+  %12 = load float, ptr %tx28.i.i, align 8, !tbaa !12
+  %conv36.i.i = fdiv float %9, %11
+  %conv42.i.i = fdiv float %10, %11
+  %fneg45.i.i = fneg float %6
+  %conv48.i.i = fdiv float %fneg45.i.i, %11
+  %conv52.i.i = fdiv float %4, %11
+  %ty56.i.i = getelementptr inbounds %struct.gs_matrix_s, ptr %pmat, i64 0, i32 10
+  %13 = load float, ptr %ty56.i.i, align 8, !tbaa !14
+  %mul58.i.i = fmul float %conv48.i.i, %13
+  %14 = tail call float @llvm.fmuladd.f32(float %12, float %conv36.i.i, float %mul58.i.i)
+  %fneg59.i.i = fneg float %14
+  %mul65.i.i = fmul float %conv52.i.i, %13
+  %15 = tail call float @llvm.fmuladd.f32(float %12, float %conv42.i.i, float %mul65.i.i)
+  %fneg66.i.i = fneg float %15
+  %conv.i.i = fpext float %conv36.i.i to double
+  %conv1.i.i = fpext float %fneg59.i.i to double
+  %16 = extractelement <2 x double> %1, i64 0
+  %17 = tail call double @llvm.fmuladd.f64(double %16, double %conv.i.i, double %conv1.i.i)
+  %conv2.i.i = fptrunc double %17 to float
+  %conv4.i.i = fpext float %conv52.i.i to double
+  %conv5.i.i = fpext float %fneg66.i.i to double
+  %18 = extractelement <2 x double> %1, i64 1
+  %19 = tail call double @llvm.fmuladd.f64(double %18, double %conv4.i.i, double %conv5.i.i)
+  %conv6.i.i = fptrunc double %19 to float
+  %20 = bitcast float %conv48.i.i to i32
+  %cmp.i31.i = icmp eq i32 %20, 0
+  br i1 %cmp.i31.i, label %if.end.i34.i, label %if.then.i32.i
+
+if.then.i32.i:                                    ; preds = %if.end.i
+  %conv10.i.i = fpext float %conv48.i.i to double
+  %conv12.i.i = fpext float %conv2.i.i to double
+  %21 = tail call double @llvm.fmuladd.f64(double %18, double %conv10.i.i, double %conv12.i.i)
+  %conv13.i.i = fptrunc double %21 to float
+  br label %if.end.i34.i
+
+if.end.i34.i:                                     ; preds = %if.then.i32.i, %if.end.i
+  %p.sroa.0.0 = phi float [ %conv2.i.i, %if.end.i ], [ %conv13.i.i, %if.then.i32.i ]
+  %22 = bitcast float %conv42.i.i to i32
+  %cmp15.i.i = icmp eq i32 %22, 0
+  br i1 %cmp15.i.i, label %cleanup.thread.i140, label %if.then17.i.i
+
+if.then17.i.i:                                    ; preds = %if.end.i34.i
+  %conv19.i.i = fpext float %conv42.i.i to double
+  %conv21.i.i = fpext float %conv6.i.i to double
+  %23 = tail call double @llvm.fmuladd.f64(double %16, double %conv19.i.i, double %conv21.i.i)
+  %conv22.i.i = fptrunc double %23 to float
+  br label %cleanup.thread.i140
+
+if.then.i125:                                     ; preds = %entry
+  %tx.i = getelementptr inbounds %struct.gs_matrix_s, ptr %pmat, i64 0, i32 8
+  %ty.i = getelementptr inbounds %struct.gs_matrix_s, ptr %pmat, i64 0, i32 10
+  %yy.i = getelementptr inbounds %struct.gs_matrix_s, ptr %pmat, i64 0, i32 6
+  %24 = load float, ptr %yy.i, align 8, !tbaa !16
+  %25 = insertelement <2 x float> poison, float %4, i64 0
+  %26 = insertelement <2 x float> %25, float %24, i64 1
+  %27 = fpext <2 x float> %26 to <2 x double>
+  %28 = load float, ptr %tx.i, align 8, !tbaa !12
+  %29 = load float, ptr %ty.i, align 8, !tbaa !14
+  %30 = insertelement <2 x float> poison, float %28, i64 0
+  %31 = insertelement <2 x float> %30, float %29, i64 1
+  %32 = fpext <2 x float> %31 to <2 x double>
+  %33 = fsub <2 x double> %1, %32
+  %34 = fdiv <2 x double> %33, %27
+  %35 = fptrunc <2 x double> %34 to <2 x float>
+  %q = getelementptr inbounds %struct.gs_rect_s, ptr %pbox_in, i64 0, i32 1
+  %36 = load float, ptr %q, align 4, !tbaa !22
+  %37 = extractelement <2 x float> %0, i64 0
+  %sub = fsub float %36, %37
+  %conv8 = fpext float %sub to double
+  %38 = insertelement <2 x double> <double poison, double 0.000000e+00>, double %conv8, i64 0
+  %39 = fdiv <2 x double> %38, %27
+  %y14176 = getelementptr inbounds %struct.gs_rect_s, ptr %pbox_in, i64 0, i32 1, i32 1
+  %40 = load float, ptr %y14176, align 4, !tbaa !24
+  %41 = extractelement <2 x float> %0, i64 1
+  %sub17177 = fsub float %40, %41
+  %conv18178 = fpext float %sub17177 to double
+  %42 = insertelement <2 x double> <double 0.000000e+00, double poison>, double %conv18178, i64 1
+  %43 = fdiv <2 x double> %42, %27
+  br label %if.end
+
+cleanup.thread.i140:                              ; preds = %if.end.i34.i, %if.then17.i.i
+  %p.sroa.6.0.ph.ph = phi float [ %conv6.i.i, %if.end.i34.i ], [ %conv22.i.i, %if.then17.i.i ]
+  %y14 = getelementptr inbounds %struct.gs_rect_s, ptr %pbox_in, i64 0, i32 1, i32 1
+  %44 = load float, ptr %y14, align 4, !tbaa !24
+  %45 = extractelement <2 x float> %0, i64 1
+  %sub17 = fsub float %44, %45
+  %conv26.i = fpext float %8 to double
+  %46 = fneg double %conv26.i
+  %q155 = getelementptr inbounds %struct.gs_rect_s, ptr %pbox_in, i64 0, i32 1
+  %47 = load float, ptr %q155, align 4, !tbaa !22
+  %48 = extractelement <2 x float> %0, i64 0
+  %sub156 = fsub float %47, %48
+  %conv10.i = fpext float %11 to double
+  %conv17.i = fpext float %6 to double
+  %49 = fneg double %conv17.i
+  %50 = insertelement <2 x float> poison, float %sub156, i64 0
+  %51 = insertelement <2 x float> %50, float %4, i64 1
+  %52 = fpext <2 x float> %51 to <2 x double>
+  %53 = insertelement <2 x float> poison, float %9, i64 0
+  %54 = insertelement <2 x float> %53, float %sub17, i64 1
+  %55 = fpext <2 x float> %54 to <2 x double>
+  %56 = insertelement <2 x double> <double -0.000000e+00, double poison>, double %46, i64 1
+  %57 = shufflevector <2 x double> %52, <2 x double> poison, <2 x i32> <i32 undef, i32 0>
+  %58 = insertelement <2 x double> %57, double %conv17.i, i64 0
+  %59 = fmul <2 x double> %56, %58
+  %60 = insertelement <2 x double> %55, double 0.000000e+00, i64 1
+  %61 = tail call <2 x double> @llvm.fmuladd.v2f64(<2 x double> %52, <2 x double> %60, <2 x double> %59)
+  %62 = insertelement <2 x double> poison, double %conv10.i, i64 0
+  %63 = shufflevector <2 x double> %62, <2 x double> poison, <2 x i32> zeroinitializer
+  %64 = fdiv <2 x double> %61, %63
+  %65 = insertelement <2 x double> <double poison, double -0.000000e+00>, double %49, i64 0
+  %66 = shufflevector <2 x double> %55, <2 x double> poison, <2 x i32> <i32 1, i32 undef>
+  %67 = insertelement <2 x double> %66, double %conv26.i, i64 1
+  %68 = fmul <2 x double> %65, %67
+  %69 = insertelement <2 x double> %52, double 0.000000e+00, i64 0
+  %70 = tail call <2 x double> @llvm.fmuladd.v2f64(<2 x double> %55, <2 x double> %69, <2 x double> %68)
+  %71 = fdiv <2 x double> %70, %63
+  %72 = insertelement <2 x float> poison, float %p.sroa.0.0, i64 0
+  %73 = insertelement <2 x float> %72, float %p.sroa.6.0.ph.ph, i64 1
+  br label %if.end
+
+if.end:                                           ; preds = %cleanup.thread.i140, %if.then.i125
+  %74 = phi <2 x double> [ %39, %if.then.i125 ], [ %64, %cleanup.thread.i140 ]
+  %75 = phi <2 x double> [ %43, %if.then.i125 ], [ %71, %cleanup.thread.i140 ]
+  %76 = phi <2 x float> [ %35, %if.then.i125 ], [ %73, %cleanup.thread.i140 ]
+  %77 = fptrunc <2 x double> %75 to <2 x float>
+  %78 = fptrunc <2 x double> %74 to <2 x float>
+  %79 = fadd <2 x float> %76, %78
+  %80 = fcmp olt <2 x float> %78, zeroinitializer
+  %81 = shufflevector <2 x i1> %80, <2 x i1> poison, <4 x i32> <i32 0, i32 1, i32 0, i32 1>
+  %82 = shufflevector <2 x float> %79, <2 x float> %76, <4 x i32> <i32 0, i32 1, i32 2, i32 3>
+  %83 = shufflevector <2 x float> %79, <2 x float> %76, <4 x i32> <i32 2, i32 3, i32 0, i32 1>
+  %84 = select <4 x i1> %81, <4 x float> %82, <4 x float> %83
+  %85 = fcmp olt <2 x float> %77, zeroinitializer
+  %86 = shufflevector <2 x i1> %85, <2 x i1> poison, <4 x i32> <i32 0, i32 1, i32 0, i32 1>
+  %87 = shufflevector <2 x float> %77, <2 x float> poison, <4 x i32> <i32 0, i32 1, i32 0, i32 1>
+  %88 = shufflevector <4 x float> %87, <4 x float> <float poison, float poison, float -0.000000e+00, float -0.000000e+00>, <4 x i32> <i32 0, i32 1, i32 6, i32 7>
+  %89 = shufflevector <4 x float> <float -0.000000e+00, float -0.000000e+00, float poison, float poison>, <4 x float> %87, <4 x i32> <i32 0, i32 1, i32 6, i32 7>
+  %90 = select <4 x i1> %86, <4 x float> %88, <4 x float> %89
+  %91 = fadd <4 x float> %84, %90
+  store <4 x float> %91, ptr %pbox_out, align 4, !tbaa !6
+  br label %cleanup
+
+cleanup:                                          ; preds = %if.else.i.i, %if.end
+  %retval.0 = phi i32 [ 0, %if.end ], [ -23, %if.else.i.i ]
+  ret i32 %retval.0
 }
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(argmem: readwrite) uwtable
-define dso_local i32 @gs_point_transform2fixed(ptr nocapture noundef readonly %0, double noundef %1, double noundef %2, ptr nocapture noundef writeonly %3) local_unnamed_addr #8 {
-  %5 = load float, ptr %0, align 8, !tbaa !25
-  %6 = fpext float %5 to double
-  %7 = fmul double %6, %1
-  %8 = fmul double %7, 4.096000e+03
-  %9 = fptosi double %8 to i64
-  %10 = getelementptr inbounds %struct.gs_matrix_fixed_s, ptr %0, i64 0, i32 12
-  %11 = load i64, ptr %10, align 8, !tbaa !27
-  %12 = add nsw i64 %11, %9
-  store i64 %12, ptr %3, align 8, !tbaa !28
-  %13 = getelementptr inbounds %struct.gs_matrix_fixed_s, ptr %0, i64 0, i32 6
-  %14 = load float, ptr %13, align 8, !tbaa !30
-  %15 = fpext float %14 to double
-  %16 = fmul double %15, %2
-  %17 = fmul double %16, 4.096000e+03
-  %18 = fptosi double %17 to i64
-  %19 = getelementptr inbounds %struct.gs_matrix_fixed_s, ptr %0, i64 0, i32 13
-  %20 = load i64, ptr %19, align 8, !tbaa !31
-  %21 = add nsw i64 %20, %18
-  %22 = getelementptr inbounds %struct.gs_fixed_point_s, ptr %3, i64 0, i32 1
-  store i64 %21, ptr %22, align 8, !tbaa !32
-  %23 = getelementptr inbounds %struct.gs_matrix_fixed_s, ptr %0, i64 0, i32 4
-  %24 = load i64, ptr %23, align 8, !tbaa !10
-  %25 = and i64 %24, 9223372036854775807
-  %26 = icmp eq i64 %25, 0
-  br i1 %26, label %35, label %27
+define dso_local i32 @gs_point_transform2fixed(ptr nocapture noundef readonly %pmat, double noundef %x, double noundef %y, ptr nocapture noundef writeonly %ppt) local_unnamed_addr #8 {
+entry:
+  %0 = load float, ptr %pmat, align 8, !tbaa !25
+  %conv = fpext float %0 to double
+  %mul = fmul double %conv, %x
+  %mul1 = fmul double %mul, 4.096000e+03
+  %conv2 = fptosi double %mul1 to i64
+  %tx_fixed = getelementptr inbounds %struct.gs_matrix_fixed_s, ptr %pmat, i64 0, i32 12
+  %1 = load i64, ptr %tx_fixed, align 8, !tbaa !27
+  %add = add nsw i64 %1, %conv2
+  store i64 %add, ptr %ppt, align 8, !tbaa !28
+  %yy = getelementptr inbounds %struct.gs_matrix_fixed_s, ptr %pmat, i64 0, i32 6
+  %2 = load float, ptr %yy, align 8, !tbaa !30
+  %conv4 = fpext float %2 to double
+  %mul5 = fmul double %conv4, %y
+  %mul6 = fmul double %mul5, 4.096000e+03
+  %conv7 = fptosi double %mul6 to i64
+  %ty_fixed = getelementptr inbounds %struct.gs_matrix_fixed_s, ptr %pmat, i64 0, i32 13
+  %3 = load i64, ptr %ty_fixed, align 8, !tbaa !31
+  %add8 = add nsw i64 %3, %conv7
+  %y9 = getelementptr inbounds %struct.gs_fixed_point_s, ptr %ppt, i64 0, i32 1
+  store i64 %add8, ptr %y9, align 8, !tbaa !32
+  %yx = getelementptr inbounds %struct.gs_matrix_fixed_s, ptr %pmat, i64 0, i32 4
+  %4 = load i64, ptr %yx, align 8, !tbaa !10
+  %shl.mask = and i64 %4, 9223372036854775807
+  %cmp = icmp eq i64 %shl.mask, 0
+  br i1 %cmp, label %if.end, label %if.then
 
-27:                                               ; preds = %4
-  %28 = trunc i64 %24 to i32
-  %29 = bitcast i32 %28 to float
-  %30 = fpext float %29 to double
-  %31 = fmul double %30, %2
-  %32 = fmul double %31, 4.096000e+03
-  %33 = fptosi double %32 to i64
-  %34 = add nsw i64 %12, %33
-  store i64 %34, ptr %3, align 8, !tbaa !28
-  br label %35
+if.then:                                          ; preds = %entry
+  %5 = trunc i64 %4 to i32
+  %6 = bitcast i32 %5 to float
+  %conv12 = fpext float %6 to double
+  %mul13 = fmul double %conv12, %y
+  %mul14 = fmul double %mul13, 4.096000e+03
+  %conv15 = fptosi double %mul14 to i64
+  %add17 = add nsw i64 %add, %conv15
+  store i64 %add17, ptr %ppt, align 8, !tbaa !28
+  br label %if.end
 
-35:                                               ; preds = %27, %4
-  %36 = getelementptr inbounds %struct.gs_matrix_fixed_s, ptr %0, i64 0, i32 2
-  %37 = load i64, ptr %36, align 8, !tbaa !10
-  %38 = and i64 %37, 9223372036854775807
-  %39 = icmp eq i64 %38, 0
-  br i1 %39, label %48, label %40
+if.end:                                           ; preds = %if.then, %entry
+  %xy = getelementptr inbounds %struct.gs_matrix_fixed_s, ptr %pmat, i64 0, i32 2
+  %7 = load i64, ptr %xy, align 8, !tbaa !10
+  %shl18.mask = and i64 %7, 9223372036854775807
+  %cmp19 = icmp eq i64 %shl18.mask, 0
+  br i1 %cmp19, label %if.end29, label %if.then21
 
-40:                                               ; preds = %35
-  %41 = trunc i64 %37 to i32
-  %42 = bitcast i32 %41 to float
-  %43 = fpext float %42 to double
-  %44 = fmul double %43, %1
-  %45 = fmul double %44, 4.096000e+03
-  %46 = fptosi double %45 to i64
-  %47 = add nsw i64 %21, %46
-  store i64 %47, ptr %22, align 8, !tbaa !32
-  br label %48
+if.then21:                                        ; preds = %if.end
+  %8 = trunc i64 %7 to i32
+  %9 = bitcast i32 %8 to float
+  %conv23 = fpext float %9 to double
+  %mul24 = fmul double %conv23, %x
+  %mul25 = fmul double %mul24, 4.096000e+03
+  %conv26 = fptosi double %mul25 to i64
+  %add28 = add nsw i64 %add8, %conv26
+  store i64 %add28, ptr %y9, align 8, !tbaa !32
+  br label %if.end29
 
-48:                                               ; preds = %40, %35
+if.end29:                                         ; preds = %if.then21, %if.end
   ret i32 0
 }
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(argmem: readwrite) uwtable
-define dso_local i32 @gs_distance_transform2fixed(ptr nocapture noundef readonly %0, double noundef %1, double noundef %2, ptr nocapture noundef writeonly %3) local_unnamed_addr #8 {
-  %5 = load float, ptr %0, align 8, !tbaa !25
-  %6 = fpext float %5 to double
-  %7 = fmul double %6, %1
-  %8 = fmul double %7, 4.096000e+03
-  %9 = fptosi double %8 to i64
-  store i64 %9, ptr %3, align 8, !tbaa !28
-  %10 = getelementptr inbounds %struct.gs_matrix_fixed_s, ptr %0, i64 0, i32 6
-  %11 = load float, ptr %10, align 8, !tbaa !30
-  %12 = fpext float %11 to double
-  %13 = fmul double %12, %2
-  %14 = fmul double %13, 4.096000e+03
-  %15 = fptosi double %14 to i64
-  %16 = getelementptr inbounds %struct.gs_fixed_point_s, ptr %3, i64 0, i32 1
-  store i64 %15, ptr %16, align 8, !tbaa !32
-  %17 = getelementptr inbounds %struct.gs_matrix_fixed_s, ptr %0, i64 0, i32 4
-  %18 = load i64, ptr %17, align 8, !tbaa !10
-  %19 = and i64 %18, 9223372036854775807
-  %20 = icmp eq i64 %19, 0
-  br i1 %20, label %29, label %21
+define dso_local i32 @gs_distance_transform2fixed(ptr nocapture noundef readonly %pmat, double noundef %dx, double noundef %dy, ptr nocapture noundef writeonly %ppt) local_unnamed_addr #8 {
+entry:
+  %0 = load float, ptr %pmat, align 8, !tbaa !25
+  %conv = fpext float %0 to double
+  %mul = fmul double %conv, %dx
+  %mul1 = fmul double %mul, 4.096000e+03
+  %conv2 = fptosi double %mul1 to i64
+  store i64 %conv2, ptr %ppt, align 8, !tbaa !28
+  %yy = getelementptr inbounds %struct.gs_matrix_fixed_s, ptr %pmat, i64 0, i32 6
+  %1 = load float, ptr %yy, align 8, !tbaa !30
+  %conv3 = fpext float %1 to double
+  %mul4 = fmul double %conv3, %dy
+  %mul5 = fmul double %mul4, 4.096000e+03
+  %conv6 = fptosi double %mul5 to i64
+  %y = getelementptr inbounds %struct.gs_fixed_point_s, ptr %ppt, i64 0, i32 1
+  store i64 %conv6, ptr %y, align 8, !tbaa !32
+  %yx = getelementptr inbounds %struct.gs_matrix_fixed_s, ptr %pmat, i64 0, i32 4
+  %2 = load i64, ptr %yx, align 8, !tbaa !10
+  %shl.mask = and i64 %2, 9223372036854775807
+  %cmp = icmp eq i64 %shl.mask, 0
+  br i1 %cmp, label %if.end, label %if.then
 
-21:                                               ; preds = %4
-  %22 = trunc i64 %18 to i32
-  %23 = bitcast i32 %22 to float
-  %24 = fpext float %23 to double
-  %25 = fmul double %24, %2
-  %26 = fmul double %25, 4.096000e+03
-  %27 = fptosi double %26 to i64
-  %28 = add nsw i64 %27, %9
-  store i64 %28, ptr %3, align 8, !tbaa !28
-  br label %29
+if.then:                                          ; preds = %entry
+  %3 = trunc i64 %2 to i32
+  %4 = bitcast i32 %3 to float
+  %conv9 = fpext float %4 to double
+  %mul10 = fmul double %conv9, %dy
+  %mul11 = fmul double %mul10, 4.096000e+03
+  %conv12 = fptosi double %mul11 to i64
+  %add = add nsw i64 %conv12, %conv2
+  store i64 %add, ptr %ppt, align 8, !tbaa !28
+  br label %if.end
 
-29:                                               ; preds = %21, %4
-  %30 = getelementptr inbounds %struct.gs_matrix_fixed_s, ptr %0, i64 0, i32 2
-  %31 = load i64, ptr %30, align 8, !tbaa !10
-  %32 = and i64 %31, 9223372036854775807
-  %33 = icmp eq i64 %32, 0
-  br i1 %33, label %42, label %34
+if.end:                                           ; preds = %if.then, %entry
+  %xy = getelementptr inbounds %struct.gs_matrix_fixed_s, ptr %pmat, i64 0, i32 2
+  %5 = load i64, ptr %xy, align 8, !tbaa !10
+  %shl14.mask = and i64 %5, 9223372036854775807
+  %cmp15 = icmp eq i64 %shl14.mask, 0
+  br i1 %cmp15, label %if.end25, label %if.then17
 
-34:                                               ; preds = %29
-  %35 = trunc i64 %31 to i32
-  %36 = bitcast i32 %35 to float
-  %37 = fpext float %36 to double
-  %38 = fmul double %37, %1
-  %39 = fmul double %38, 4.096000e+03
-  %40 = fptosi double %39 to i64
-  %41 = add nsw i64 %40, %15
-  store i64 %41, ptr %16, align 8, !tbaa !32
-  br label %42
+if.then17:                                        ; preds = %if.end
+  %6 = trunc i64 %5 to i32
+  %7 = bitcast i32 %6 to float
+  %conv19 = fpext float %7 to double
+  %mul20 = fmul double %conv19, %dx
+  %mul21 = fmul double %mul20, 4.096000e+03
+  %conv22 = fptosi double %mul21 to i64
+  %add24 = add nsw i64 %conv22, %conv6
+  store i64 %add24, ptr %y, align 8, !tbaa !32
+  br label %if.end25
 
-42:                                               ; preds = %34, %29
+if.end25:                                         ; preds = %if.then17, %if.end
   ret i32 0
 }
 

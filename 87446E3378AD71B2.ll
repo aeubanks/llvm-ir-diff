@@ -85,105 +85,111 @@ declare i32 @__cxa_atexit(ptr, ptr, ptr) local_unnamed_addr #2
 declare double @sqrt(double noundef) local_unnamed_addr #3
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(argmem: readwrite) uwtable
-define dso_local void @_ZplRK3VecS1_(ptr noalias nocapture writeonly sret(%struct.Vec) align 8 %0, ptr nocapture noundef nonnull readonly align 8 dereferenceable(24) %1, ptr nocapture noundef nonnull readonly align 8 dereferenceable(24) %2) local_unnamed_addr #4 {
-  %4 = getelementptr inbounds %struct.Vec, ptr %1, i64 0, i32 2
-  %5 = load double, ptr %4, align 8, !tbaa !5
-  %6 = getelementptr inbounds %struct.Vec, ptr %2, i64 0, i32 2
-  %7 = load double, ptr %6, align 8, !tbaa !5
-  %8 = fadd double %5, %7
-  %9 = load <2 x double>, ptr %1, align 8, !tbaa !10
-  %10 = load <2 x double>, ptr %2, align 8, !tbaa !10
-  %11 = fadd <2 x double> %9, %10
-  store <2 x double> %11, ptr %0, align 8, !tbaa !10
-  %12 = getelementptr inbounds %struct.Vec, ptr %0, i64 0, i32 2
-  store double %8, ptr %12, align 8, !tbaa !5
+define dso_local void @_ZplRK3VecS1_(ptr noalias nocapture writeonly sret(%struct.Vec) align 8 %agg.result, ptr nocapture noundef nonnull readonly align 8 dereferenceable(24) %a, ptr nocapture noundef nonnull readonly align 8 dereferenceable(24) %b) local_unnamed_addr #4 {
+entry:
+  %z = getelementptr inbounds %struct.Vec, ptr %a, i64 0, i32 2
+  %0 = load double, ptr %z, align 8, !tbaa !5
+  %z4 = getelementptr inbounds %struct.Vec, ptr %b, i64 0, i32 2
+  %1 = load double, ptr %z4, align 8, !tbaa !5
+  %add5 = fadd double %0, %1
+  %2 = load <2 x double>, ptr %a, align 8, !tbaa !10
+  %3 = load <2 x double>, ptr %b, align 8, !tbaa !10
+  %4 = fadd <2 x double> %2, %3
+  store <2 x double> %4, ptr %agg.result, align 8, !tbaa !10
+  %z.i = getelementptr inbounds %struct.Vec, ptr %agg.result, i64 0, i32 2
+  store double %add5, ptr %z.i, align 8, !tbaa !5
   ret void
 }
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(argmem: readwrite) uwtable
-define dso_local void @_ZmiRK3VecS1_(ptr noalias nocapture writeonly sret(%struct.Vec) align 8 %0, ptr nocapture noundef nonnull readonly align 8 dereferenceable(24) %1, ptr nocapture noundef nonnull readonly align 8 dereferenceable(24) %2) local_unnamed_addr #4 {
-  %4 = getelementptr inbounds %struct.Vec, ptr %1, i64 0, i32 2
-  %5 = load double, ptr %4, align 8, !tbaa !5
-  %6 = getelementptr inbounds %struct.Vec, ptr %2, i64 0, i32 2
-  %7 = load double, ptr %6, align 8, !tbaa !5
-  %8 = fsub double %5, %7
-  %9 = load <2 x double>, ptr %1, align 8, !tbaa !10
-  %10 = load <2 x double>, ptr %2, align 8, !tbaa !10
-  %11 = fsub <2 x double> %9, %10
-  store <2 x double> %11, ptr %0, align 8, !tbaa !10
-  %12 = getelementptr inbounds %struct.Vec, ptr %0, i64 0, i32 2
-  store double %8, ptr %12, align 8, !tbaa !5
+define dso_local void @_ZmiRK3VecS1_(ptr noalias nocapture writeonly sret(%struct.Vec) align 8 %agg.result, ptr nocapture noundef nonnull readonly align 8 dereferenceable(24) %a, ptr nocapture noundef nonnull readonly align 8 dereferenceable(24) %b) local_unnamed_addr #4 {
+entry:
+  %z = getelementptr inbounds %struct.Vec, ptr %a, i64 0, i32 2
+  %0 = load double, ptr %z, align 8, !tbaa !5
+  %z4 = getelementptr inbounds %struct.Vec, ptr %b, i64 0, i32 2
+  %1 = load double, ptr %z4, align 8, !tbaa !5
+  %sub5 = fsub double %0, %1
+  %2 = load <2 x double>, ptr %a, align 8, !tbaa !10
+  %3 = load <2 x double>, ptr %b, align 8, !tbaa !10
+  %4 = fsub <2 x double> %2, %3
+  store <2 x double> %4, ptr %agg.result, align 8, !tbaa !10
+  %z.i = getelementptr inbounds %struct.Vec, ptr %agg.result, i64 0, i32 2
+  store double %sub5, ptr %z.i, align 8, !tbaa !5
   ret void
 }
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(argmem: readwrite) uwtable
-define dso_local void @_ZmldRK3Vec(ptr noalias nocapture writeonly sret(%struct.Vec) align 8 %0, double noundef %1, ptr nocapture noundef nonnull readonly align 8 dereferenceable(24) %2) local_unnamed_addr #4 {
-  %4 = getelementptr inbounds %struct.Vec, ptr %2, i64 0, i32 2
-  %5 = load double, ptr %4, align 8, !tbaa !5
-  %6 = fmul double %5, %1
-  %7 = load <2 x double>, ptr %2, align 8, !tbaa !10
-  %8 = insertelement <2 x double> poison, double %1, i64 0
-  %9 = shufflevector <2 x double> %8, <2 x double> poison, <2 x i32> zeroinitializer
-  %10 = fmul <2 x double> %7, %9
-  store <2 x double> %10, ptr %0, align 8, !tbaa !10
-  %11 = getelementptr inbounds %struct.Vec, ptr %0, i64 0, i32 2
-  store double %6, ptr %11, align 8, !tbaa !5
+define dso_local void @_ZmldRK3Vec(ptr noalias nocapture writeonly sret(%struct.Vec) align 8 %agg.result, double noundef %a, ptr nocapture noundef nonnull readonly align 8 dereferenceable(24) %b) local_unnamed_addr #4 {
+entry:
+  %z = getelementptr inbounds %struct.Vec, ptr %b, i64 0, i32 2
+  %0 = load double, ptr %z, align 8, !tbaa !5
+  %mul2 = fmul double %0, %a
+  %1 = load <2 x double>, ptr %b, align 8, !tbaa !10
+  %2 = insertelement <2 x double> poison, double %a, i64 0
+  %3 = shufflevector <2 x double> %2, <2 x double> poison, <2 x i32> zeroinitializer
+  %4 = fmul <2 x double> %1, %3
+  store <2 x double> %4, ptr %agg.result, align 8, !tbaa !10
+  %z.i = getelementptr inbounds %struct.Vec, ptr %agg.result, i64 0, i32 2
+  store double %mul2, ptr %z.i, align 8, !tbaa !5
   ret void
 }
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(argmem: read) uwtable
-define dso_local noundef double @_Z3dotRK3VecS1_(ptr nocapture noundef nonnull readonly align 8 dereferenceable(24) %0, ptr nocapture noundef nonnull readonly align 8 dereferenceable(24) %1) local_unnamed_addr #5 {
-  %3 = load double, ptr %0, align 8, !tbaa !11
-  %4 = load double, ptr %1, align 8, !tbaa !11
-  %5 = fmul double %3, %4
-  %6 = getelementptr inbounds %struct.Vec, ptr %0, i64 0, i32 1
-  %7 = getelementptr inbounds %struct.Vec, ptr %1, i64 0, i32 1
-  %8 = load <2 x double>, ptr %6, align 8, !tbaa !10
-  %9 = load <2 x double>, ptr %7, align 8, !tbaa !10
-  %10 = fmul <2 x double> %8, %9
-  %11 = extractelement <2 x double> %10, i64 0
-  %12 = fadd double %5, %11
-  %13 = extractelement <2 x double> %10, i64 1
-  %14 = fadd double %12, %13
-  ret double %14
+define dso_local noundef double @_Z3dotRK3VecS1_(ptr nocapture noundef nonnull readonly align 8 dereferenceable(24) %a, ptr nocapture noundef nonnull readonly align 8 dereferenceable(24) %b) local_unnamed_addr #5 {
+entry:
+  %0 = load double, ptr %a, align 8, !tbaa !11
+  %1 = load double, ptr %b, align 8, !tbaa !11
+  %mul = fmul double %0, %1
+  %y = getelementptr inbounds %struct.Vec, ptr %a, i64 0, i32 1
+  %y2 = getelementptr inbounds %struct.Vec, ptr %b, i64 0, i32 1
+  %2 = load <2 x double>, ptr %y, align 8, !tbaa !10
+  %3 = load <2 x double>, ptr %y2, align 8, !tbaa !10
+  %4 = fmul <2 x double> %2, %3
+  %5 = extractelement <2 x double> %4, i64 0
+  %add = fadd double %mul, %5
+  %6 = extractelement <2 x double> %4, i64 1
+  %add6 = fadd double %add, %6
+  ret double %add6
 }
 
 ; Function Attrs: mustprogress nofree nosync nounwind willreturn memory(argmem: readwrite) uwtable
-define dso_local void @_Z7unitiseRK3Vec(ptr noalias nocapture writeonly sret(%struct.Vec) align 8 %0, ptr nocapture noundef nonnull readonly align 8 dereferenceable(24) %1) local_unnamed_addr #6 {
-  %3 = getelementptr inbounds %struct.Vec, ptr %1, i64 0, i32 2
-  %4 = load double, ptr %3, align 8, !tbaa !5
-  %5 = fmul double %4, %4
-  %6 = load <2 x double>, ptr %1, align 8, !tbaa !10
-  %7 = fmul <2 x double> %6, %6
-  %8 = shufflevector <2 x double> %7, <2 x double> poison, <2 x i32> <i32 1, i32 undef>
-  %9 = fadd <2 x double> %7, %8
-  %10 = extractelement <2 x double> %9, i64 0
-  %11 = fadd double %10, %5
-  %12 = tail call double @llvm.sqrt.f64(double %11)
-  %13 = fdiv double 1.000000e+00, %12
-  %14 = insertelement <2 x double> poison, double %13, i64 0
-  %15 = shufflevector <2 x double> %14, <2 x double> poison, <2 x i32> zeroinitializer
-  %16 = fmul <2 x double> %6, %15
-  %17 = fmul double %4, %13
-  store <2 x double> %16, ptr %0, align 8, !tbaa !10, !alias.scope !12
-  %18 = getelementptr inbounds %struct.Vec, ptr %0, i64 0, i32 2
-  store double %17, ptr %18, align 8, !tbaa !5, !alias.scope !12
+define dso_local void @_Z7unitiseRK3Vec(ptr noalias nocapture writeonly sret(%struct.Vec) align 8 %agg.result, ptr nocapture noundef nonnull readonly align 8 dereferenceable(24) %a) local_unnamed_addr #6 {
+entry:
+  %z.i = getelementptr inbounds %struct.Vec, ptr %a, i64 0, i32 2
+  %0 = load double, ptr %z.i, align 8, !tbaa !5
+  %mul5.i = fmul double %0, %0
+  %1 = load <2 x double>, ptr %a, align 8, !tbaa !10
+  %2 = fmul <2 x double> %1, %1
+  %shift = shufflevector <2 x double> %2, <2 x double> poison, <2 x i32> <i32 1, i32 undef>
+  %3 = fadd <2 x double> %2, %shift
+  %add.i = extractelement <2 x double> %3, i64 0
+  %add6.i = fadd double %add.i, %mul5.i
+  %sqrt = tail call double @llvm.sqrt.f64(double %add6.i)
+  %div = fdiv double 1.000000e+00, %sqrt
+  %4 = insertelement <2 x double> poison, double %div, i64 0
+  %5 = shufflevector <2 x double> %4, <2 x double> poison, <2 x i32> zeroinitializer
+  %6 = fmul <2 x double> %1, %5
+  %mul2.i = fmul double %0, %div
+  store <2 x double> %6, ptr %agg.result, align 8, !tbaa !10, !alias.scope !12
+  %z.i.i = getelementptr inbounds %struct.Vec, ptr %agg.result, i64 0, i32 2
+  store double %mul2.i, ptr %z.i.i, align 8, !tbaa !5, !alias.scope !12
   ret void
 }
 
 ; Function Attrs: uwtable
-define dso_local void @_Z9intersectRK3RayRK5Scene(ptr noalias sret(%"struct.std::pair") align 8 %0, ptr noundef nonnull align 8 dereferenceable(48) %1, ptr noundef nonnull align 8 dereferenceable(8) %2) local_unnamed_addr #7 {
-  %4 = alloca %"struct.std::pair", align 8
-  call void @llvm.lifetime.start.p0(i64 32, ptr nonnull %4) #18
-  %5 = load double, ptr @infinity, align 8, !tbaa !10
-  store double %5, ptr %4, align 8, !tbaa !15
-  %6 = getelementptr inbounds %"struct.std::pair", ptr %4, i64 0, i32 1
-  call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(24) %6, i8 0, i64 24, i1 false)
-  %7 = load ptr, ptr %2, align 8, !tbaa !17
-  %8 = getelementptr inbounds ptr, ptr %7, i64 2
-  %9 = load ptr, ptr %8, align 8
-  call void %9(ptr sret(%"struct.std::pair") align 8 %0, ptr noundef nonnull align 8 dereferenceable(8) %2, ptr noundef nonnull align 8 dereferenceable(32) %4, ptr noundef nonnull align 8 dereferenceable(48) %1)
-  call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %4) #18
+define dso_local void @_Z9intersectRK3RayRK5Scene(ptr noalias sret(%"struct.std::pair") align 8 %agg.result, ptr noundef nonnull align 8 dereferenceable(48) %ray, ptr noundef nonnull align 8 dereferenceable(8) %s) local_unnamed_addr #7 {
+entry:
+  %ref.tmp = alloca %"struct.std::pair", align 8
+  call void @llvm.lifetime.start.p0(i64 32, ptr nonnull %ref.tmp) #18
+  %0 = load double, ptr @infinity, align 8, !tbaa !10
+  store double %0, ptr %ref.tmp, align 8, !tbaa !15
+  %second.i = getelementptr inbounds %"struct.std::pair", ptr %ref.tmp, i64 0, i32 1
+  call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(24) %second.i, i8 0, i64 24, i1 false)
+  %vtable = load ptr, ptr %s, align 8, !tbaa !17
+  %vfn = getelementptr inbounds ptr, ptr %vtable, i64 2
+  %1 = load ptr, ptr %vfn, align 8
+  call void %1(ptr sret(%"struct.std::pair") align 8 %agg.result, ptr noundef nonnull align 8 dereferenceable(8) %s, ptr noundef nonnull align 8 dereferenceable(32) %ref.tmp, ptr noundef nonnull align 8 dereferenceable(48) %ray)
+  call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %ref.tmp) #18
   ret void
 }
 
@@ -194,419 +200,421 @@ declare void @llvm.lifetime.start.p0(i64 immarg, ptr nocapture) #8
 declare void @llvm.lifetime.end.p0(i64 immarg, ptr nocapture) #8
 
 ; Function Attrs: uwtable
-define dso_local noundef double @_Z9ray_traceRK3VecRK3RayRK5Scene(ptr nocapture noundef nonnull readonly align 8 dereferenceable(24) %0, ptr noundef nonnull align 8 dereferenceable(48) %1, ptr noundef nonnull align 8 dereferenceable(8) %2) local_unnamed_addr #7 {
-  %4 = alloca %"struct.std::pair", align 8
-  %5 = alloca %"struct.std::pair", align 8
-  %6 = alloca %"struct.std::pair", align 8
-  %7 = alloca %"struct.std::pair", align 8
-  %8 = alloca %struct.Ray, align 16
-  call void @llvm.lifetime.start.p0(i64 32, ptr nonnull %6) #18
-  call void @llvm.lifetime.start.p0(i64 32, ptr nonnull %5) #18, !noalias !19
-  %9 = load double, ptr @infinity, align 8, !tbaa !10, !noalias !19
-  store double %9, ptr %5, align 8, !tbaa !15, !noalias !19
-  %10 = getelementptr inbounds %"struct.std::pair", ptr %5, i64 0, i32 1
-  call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(24) %10, i8 0, i64 24, i1 false), !noalias !19
-  %11 = load ptr, ptr %2, align 8, !tbaa !17, !noalias !19
-  %12 = getelementptr inbounds ptr, ptr %11, i64 2
-  %13 = load ptr, ptr %12, align 8, !noalias !19
-  call void %13(ptr nonnull sret(%"struct.std::pair") align 8 %6, ptr noundef nonnull align 8 dereferenceable(8) %2, ptr noundef nonnull align 8 dereferenceable(32) %5, ptr noundef nonnull align 8 dereferenceable(48) %1)
-  call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %5) #18, !noalias !19
-  %14 = load double, ptr %6, align 8, !tbaa !15
-  %15 = load double, ptr @infinity, align 8, !tbaa !10
-  %16 = fcmp oeq double %14, %15
-  br i1 %16, label %67, label %17
+define dso_local noundef double @_Z9ray_traceRK3VecRK3RayRK5Scene(ptr nocapture noundef nonnull readonly align 8 dereferenceable(24) %light, ptr noundef nonnull align 8 dereferenceable(48) %ray, ptr noundef nonnull align 8 dereferenceable(8) %s) local_unnamed_addr #7 {
+entry:
+  %ref.tmp.i52 = alloca %"struct.std::pair", align 8
+  %ref.tmp.i = alloca %"struct.std::pair", align 8
+  %hit = alloca %"struct.std::pair", align 8
+  %ref.tmp8 = alloca %"struct.std::pair", align 8
+  %ref.tmp9 = alloca %struct.Ray, align 16
+  call void @llvm.lifetime.start.p0(i64 32, ptr nonnull %hit) #18
+  call void @llvm.lifetime.start.p0(i64 32, ptr nonnull %ref.tmp.i) #18, !noalias !19
+  %0 = load double, ptr @infinity, align 8, !tbaa !10, !noalias !19
+  store double %0, ptr %ref.tmp.i, align 8, !tbaa !15, !noalias !19
+  %second.i.i = getelementptr inbounds %"struct.std::pair", ptr %ref.tmp.i, i64 0, i32 1
+  call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(24) %second.i.i, i8 0, i64 24, i1 false), !noalias !19
+  %vtable.i = load ptr, ptr %s, align 8, !tbaa !17, !noalias !19
+  %vfn.i = getelementptr inbounds ptr, ptr %vtable.i, i64 2
+  %1 = load ptr, ptr %vfn.i, align 8, !noalias !19
+  call void %1(ptr nonnull sret(%"struct.std::pair") align 8 %hit, ptr noundef nonnull align 8 dereferenceable(8) %s, ptr noundef nonnull align 8 dereferenceable(32) %ref.tmp.i, ptr noundef nonnull align 8 dereferenceable(48) %ray)
+  call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %ref.tmp.i) #18, !noalias !19
+  %2 = load double, ptr %hit, align 8, !tbaa !15
+  %3 = load double, ptr @infinity, align 8, !tbaa !10
+  %cmp = fcmp oeq double %2, %3
+  br i1 %cmp, label %cleanup13, label %if.end
 
-17:                                               ; preds = %3
-  %18 = getelementptr inbounds %"struct.std::pair", ptr %6, i64 0, i32 1
-  %19 = load <2 x double>, ptr %18, align 8, !tbaa !10
-  %20 = load <2 x double>, ptr %0, align 8, !tbaa !10
-  %21 = fmul <2 x double> %19, %20
-  %22 = shufflevector <2 x double> %21, <2 x double> poison, <2 x i32> <i32 1, i32 undef>
-  %23 = fadd <2 x double> %21, %22
-  %24 = extractelement <2 x double> %23, i64 0
-  %25 = getelementptr inbounds %"struct.std::pair", ptr %6, i64 0, i32 1, i32 2
-  %26 = load double, ptr %25, align 8, !tbaa !5
-  %27 = getelementptr inbounds %struct.Vec, ptr %0, i64 0, i32 2
-  %28 = load double, ptr %27, align 8, !tbaa !5
-  %29 = fmul double %26, %28
-  %30 = fadd double %24, %29
-  %31 = fcmp ult double %30, 0.000000e+00
-  br i1 %31, label %32, label %67
+if.end:                                           ; preds = %entry
+  %second = getelementptr inbounds %"struct.std::pair", ptr %hit, i64 0, i32 1
+  %4 = load <2 x double>, ptr %second, align 8, !tbaa !10
+  %5 = load <2 x double>, ptr %light, align 8, !tbaa !10
+  %6 = fmul <2 x double> %4, %5
+  %shift = shufflevector <2 x double> %6, <2 x double> poison, <2 x i32> <i32 1, i32 undef>
+  %7 = fadd <2 x double> %6, %shift
+  %add.i = extractelement <2 x double> %7, i64 0
+  %z.i = getelementptr inbounds %"struct.std::pair", ptr %hit, i64 0, i32 1, i32 2
+  %8 = load double, ptr %z.i, align 8, !tbaa !5
+  %z4.i = getelementptr inbounds %struct.Vec, ptr %light, i64 0, i32 2
+  %9 = load double, ptr %z4.i, align 8, !tbaa !5
+  %mul5.i = fmul double %8, %9
+  %add6.i = fadd double %add.i, %mul5.i
+  %cmp1 = fcmp ult double %add6.i, 0.000000e+00
+  br i1 %cmp1, label %if.end3, label %cleanup13
 
-32:                                               ; preds = %17
-  %33 = getelementptr inbounds %struct.Ray, ptr %1, i64 0, i32 1
-  %34 = getelementptr inbounds %struct.Ray, ptr %1, i64 0, i32 1, i32 2
-  %35 = load double, ptr %34, align 8, !tbaa !5, !noalias !22
-  %36 = fmul double %14, %35
-  %37 = getelementptr inbounds %struct.Vec, ptr %1, i64 0, i32 2
-  %38 = load double, ptr %37, align 8, !tbaa !5, !noalias !25
-  %39 = fadd double %36, %38
-  %40 = load double, ptr @delta, align 8, !tbaa !10
-  %41 = fmul double %26, %40
-  %42 = fadd double %39, %41
-  call void @llvm.lifetime.start.p0(i64 32, ptr nonnull %7) #18
-  call void @llvm.lifetime.start.p0(i64 48, ptr nonnull %8) #18
-  %43 = fneg <2 x double> %20
-  %44 = fneg double %28
-  %45 = load <2 x double>, ptr %33, align 8, !tbaa !10, !noalias !22
-  %46 = insertelement <2 x double> poison, double %14, i64 0
-  %47 = shufflevector <2 x double> %46, <2 x double> poison, <2 x i32> zeroinitializer
-  %48 = fmul <2 x double> %47, %45
-  %49 = load <2 x double>, ptr %1, align 8, !tbaa !10, !noalias !25
-  %50 = fadd <2 x double> %48, %49
-  %51 = insertelement <2 x double> poison, double %40, i64 0
-  %52 = shufflevector <2 x double> %51, <2 x double> poison, <2 x i32> zeroinitializer
-  %53 = fmul <2 x double> %19, %52
-  %54 = fadd <2 x double> %50, %53
-  store <2 x double> %54, ptr %8, align 16
-  %55 = getelementptr inbounds i8, ptr %8, i64 16
-  store double %42, ptr %55, align 16, !tbaa.struct !28
-  %56 = getelementptr inbounds %struct.Ray, ptr %8, i64 0, i32 1
-  store <2 x double> %43, ptr %56, align 8
-  %57 = getelementptr inbounds %struct.Ray, ptr %8, i64 0, i32 1, i32 2
-  store double %44, ptr %57, align 8, !tbaa.struct !28
-  call void @llvm.lifetime.start.p0(i64 32, ptr nonnull %4) #18, !noalias !29
-  store double %15, ptr %4, align 8, !tbaa !15, !noalias !29
-  %58 = getelementptr inbounds %"struct.std::pair", ptr %4, i64 0, i32 1
-  call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(24) %58, i8 0, i64 24, i1 false), !noalias !29
-  %59 = load ptr, ptr %2, align 8, !tbaa !17, !noalias !29
-  %60 = getelementptr inbounds ptr, ptr %59, i64 2
-  %61 = load ptr, ptr %60, align 8, !noalias !29
-  call void %61(ptr nonnull sret(%"struct.std::pair") align 8 %7, ptr noundef nonnull align 8 dereferenceable(8) %2, ptr noundef nonnull align 8 dereferenceable(32) %4, ptr noundef nonnull align 8 dereferenceable(48) %8)
-  call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %4) #18, !noalias !29
-  %62 = load double, ptr %7, align 8, !tbaa !15
-  %63 = load double, ptr @infinity, align 8, !tbaa !10
-  %64 = fcmp olt double %62, %63
-  %65 = fneg double %30
-  %66 = select i1 %64, double 0.000000e+00, double %65
-  call void @llvm.lifetime.end.p0(i64 48, ptr nonnull %8) #18
-  call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %7) #18
-  br label %67
+if.end3:                                          ; preds = %if.end
+  %dir = getelementptr inbounds %struct.Ray, ptr %ray, i64 0, i32 1
+  %z.i21 = getelementptr inbounds %struct.Ray, ptr %ray, i64 0, i32 1, i32 2
+  %10 = load double, ptr %z.i21, align 8, !tbaa !5, !noalias !22
+  %mul2.i = fmul double %2, %10
+  %z.i25 = getelementptr inbounds %struct.Vec, ptr %ray, i64 0, i32 2
+  %11 = load double, ptr %z.i25, align 8, !tbaa !5, !noalias !25
+  %add5.i = fadd double %mul2.i, %11
+  %12 = load double, ptr @delta, align 8, !tbaa !10
+  %mul2.i33 = fmul double %8, %12
+  %add5.i42 = fadd double %add5.i, %mul2.i33
+  call void @llvm.lifetime.start.p0(i64 32, ptr nonnull %ref.tmp8) #18
+  call void @llvm.lifetime.start.p0(i64 48, ptr nonnull %ref.tmp9) #18
+  %13 = fneg <2 x double> %5
+  %mul2.i49 = fneg double %9
+  %14 = load <2 x double>, ptr %dir, align 8, !tbaa !10, !noalias !22
+  %15 = insertelement <2 x double> poison, double %2, i64 0
+  %16 = shufflevector <2 x double> %15, <2 x double> poison, <2 x i32> zeroinitializer
+  %17 = fmul <2 x double> %16, %14
+  %18 = load <2 x double>, ptr %ray, align 8, !tbaa !10, !noalias !25
+  %19 = fadd <2 x double> %17, %18
+  %20 = insertelement <2 x double> poison, double %12, i64 0
+  %21 = shufflevector <2 x double> %20, <2 x double> poison, <2 x i32> zeroinitializer
+  %22 = fmul <2 x double> %4, %21
+  %23 = fadd <2 x double> %19, %22
+  store <2 x double> %23, ptr %ref.tmp9, align 16
+  %p.sroa.5.0.ref.tmp9.sroa_idx = getelementptr inbounds i8, ptr %ref.tmp9, i64 16
+  store double %add5.i42, ptr %p.sroa.5.0.ref.tmp9.sroa_idx, align 16, !tbaa.struct !28
+  %dir.i = getelementptr inbounds %struct.Ray, ptr %ref.tmp9, i64 0, i32 1
+  store <2 x double> %13, ptr %dir.i, align 8
+  %ref.tmp10.sroa.5.0.dir.i.sroa_idx = getelementptr inbounds %struct.Ray, ptr %ref.tmp9, i64 0, i32 1, i32 2
+  store double %mul2.i49, ptr %ref.tmp10.sroa.5.0.dir.i.sroa_idx, align 8, !tbaa.struct !28
+  call void @llvm.lifetime.start.p0(i64 32, ptr nonnull %ref.tmp.i52) #18, !noalias !29
+  store double %3, ptr %ref.tmp.i52, align 8, !tbaa !15, !noalias !29
+  %second.i.i53 = getelementptr inbounds %"struct.std::pair", ptr %ref.tmp.i52, i64 0, i32 1
+  call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(24) %second.i.i53, i8 0, i64 24, i1 false), !noalias !29
+  %vtable.i54 = load ptr, ptr %s, align 8, !tbaa !17, !noalias !29
+  %vfn.i55 = getelementptr inbounds ptr, ptr %vtable.i54, i64 2
+  %24 = load ptr, ptr %vfn.i55, align 8, !noalias !29
+  call void %24(ptr nonnull sret(%"struct.std::pair") align 8 %ref.tmp8, ptr noundef nonnull align 8 dereferenceable(8) %s, ptr noundef nonnull align 8 dereferenceable(32) %ref.tmp.i52, ptr noundef nonnull align 8 dereferenceable(48) %ref.tmp9)
+  call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %ref.tmp.i52) #18, !noalias !29
+  %25 = load double, ptr %ref.tmp8, align 8, !tbaa !15
+  %26 = load double, ptr @infinity, align 8, !tbaa !10
+  %cmp12 = fcmp olt double %25, %26
+  %fneg = fneg double %add6.i
+  %cond = select i1 %cmp12, double 0.000000e+00, double %fneg
+  call void @llvm.lifetime.end.p0(i64 48, ptr nonnull %ref.tmp9) #18
+  call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %ref.tmp8) #18
+  br label %cleanup13
 
-67:                                               ; preds = %32, %17, %3
-  %68 = phi double [ 0.000000e+00, %3 ], [ %66, %32 ], [ 0.000000e+00, %17 ]
-  call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %6) #18
-  ret double %68
+cleanup13:                                        ; preds = %if.end3, %if.end, %entry
+  %retval.1 = phi double [ 0.000000e+00, %entry ], [ %cond, %if.end3 ], [ 0.000000e+00, %if.end ]
+  call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %hit) #18
+  ret double %retval.1
 }
 
 ; Function Attrs: uwtable
-define dso_local noundef nonnull ptr @_Z6createiRK3Vecd(i32 noundef %0, ptr nocapture noundef nonnull readonly align 8 dereferenceable(24) %1, double noundef %2) local_unnamed_addr #7 personality ptr @__gxx_personality_v0 {
-  %4 = alloca %"class.std::__cxx11::list", align 8
-  %5 = alloca %struct.Vec, align 16
-  %6 = alloca %struct.Vec, align 8
-  %7 = alloca %"class.std::__cxx11::list", align 8
-  %8 = tail call noalias noundef nonnull dereferenceable(40) ptr @_Znwm(i64 noundef 40) #19
-  %9 = getelementptr inbounds %struct.Sphere, ptr %8, i64 0, i32 1
-  tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(24) %9, ptr noundef nonnull align 8 dereferenceable(24) %1, i64 24, i1 false)
-  store ptr getelementptr inbounds ({ [5 x ptr] }, ptr @_ZTV6Sphere, i64 0, inrange i32 0, i64 2), ptr %8, align 8, !tbaa !17
-  %10 = getelementptr inbounds %struct.Sphere, ptr %8, i64 0, i32 2
-  store double %2, ptr %10, align 8, !tbaa !32
-  %11 = icmp eq i32 %0, 1
-  br i1 %11, label %170, label %12
+define dso_local noundef nonnull ptr @_Z6createiRK3Vecd(i32 noundef %level, ptr nocapture noundef nonnull readonly align 8 dereferenceable(24) %c, double noundef %r) local_unnamed_addr #7 personality ptr @__gxx_personality_v0 {
+entry:
+  %child = alloca %"class.std::__cxx11::list", align 8
+  %ref.tmp9 = alloca %struct.Vec, align 16
+  %agg.tmp27.sroa.1 = alloca %struct.Vec, align 8
+  %agg.tmp32 = alloca %"class.std::__cxx11::list", align 8
+  %call = tail call noalias noundef nonnull dereferenceable(40) ptr @_Znwm(i64 noundef 40) #19
+  %center.i = getelementptr inbounds %struct.Sphere, ptr %call, i64 0, i32 1
+  tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(24) %center.i, ptr noundef nonnull align 8 dereferenceable(24) %c, i64 24, i1 false)
+  store ptr getelementptr inbounds ({ [5 x ptr] }, ptr @_ZTV6Sphere, i64 0, inrange i32 0, i64 2), ptr %call, align 8, !tbaa !17
+  %radius.i = getelementptr inbounds %struct.Sphere, ptr %call, i64 0, i32 2
+  store double %r, ptr %radius.i, align 8, !tbaa !32
+  %cmp = icmp eq i32 %level, 1
+  br i1 %cmp, label %cleanup, label %if.end
 
-12:                                               ; preds = %3
-  call void @llvm.lifetime.start.p0(i64 24, ptr nonnull %4) #18
-  %13 = getelementptr inbounds %"struct.std::__detail::_List_node_base", ptr %4, i64 0, i32 1
-  store ptr %4, ptr %13, align 8, !tbaa !35
-  store ptr %4, ptr %4, align 8, !tbaa !38
-  %14 = getelementptr inbounds %"struct.std::__detail::_List_node_header", ptr %4, i64 0, i32 1
-  store i64 0, ptr %14, align 8, !tbaa !39
-  %15 = invoke noalias noundef nonnull dereferenceable(24) ptr @_Znwm(i64 noundef 24) #19
-          to label %16 unwind label %35
+if.end:                                           ; preds = %entry
+  call void @llvm.lifetime.start.p0(i64 24, ptr nonnull %child) #18
+  %_M_prev.i.i.i.i.i = getelementptr inbounds %"struct.std::__detail::_List_node_base", ptr %child, i64 0, i32 1
+  store ptr %child, ptr %_M_prev.i.i.i.i.i, align 8, !tbaa !35
+  store ptr %child, ptr %child, align 8, !tbaa !38
+  %_M_size.i.i.i.i.i = getelementptr inbounds %"struct.std::__detail::_List_node_header", ptr %child, i64 0, i32 1
+  store i64 0, ptr %_M_size.i.i.i.i.i, align 8, !tbaa !39
+  %call5.i.i.i.i.i.i58 = invoke noalias noundef nonnull dereferenceable(24) ptr @_Znwm(i64 noundef 24) #19
+          to label %invoke.cont2 unwind label %lpad1
 
-16:                                               ; preds = %12
-  %17 = getelementptr inbounds %"struct.std::_List_node", ptr %15, i64 0, i32 1
-  store ptr %8, ptr %17, align 8, !tbaa !42
-  call void @_ZNSt8__detail15_List_node_base7_M_hookEPS0_(ptr noundef nonnull align 8 dereferenceable(16) %15, ptr noundef nonnull %4) #18
-  %18 = load i64, ptr %14, align 8, !tbaa !43
-  %19 = add i64 %18, 1
-  store i64 %19, ptr %14, align 8, !tbaa !43
-  %20 = fmul double %2, 3.000000e+00
-  %21 = fdiv double %20, 0x400BB67AE8584CAA
-  %22 = add nsw i32 %0, -1
-  %23 = getelementptr inbounds %struct.Vec, ptr %1, i64 0, i32 1
-  %24 = getelementptr inbounds %struct.Vec, ptr %1, i64 0, i32 2
-  %25 = getelementptr inbounds %struct.Vec, ptr %5, i64 0, i32 1
-  %26 = getelementptr inbounds %struct.Vec, ptr %5, i64 0, i32 2
-  %27 = fmul double %2, 5.000000e-01
-  call void @llvm.lifetime.start.p0(i64 24, ptr nonnull %5) #18
+invoke.cont2:                                     ; preds = %if.end
+  %_M_storage.i.i.i.i = getelementptr inbounds %"struct.std::_List_node", ptr %call5.i.i.i.i.i.i58, i64 0, i32 1
+  store ptr %call, ptr %_M_storage.i.i.i.i, align 8, !tbaa !42
+  call void @_ZNSt8__detail15_List_node_base7_M_hookEPS0_(ptr noundef nonnull align 8 dereferenceable(16) %call5.i.i.i.i.i.i58, ptr noundef nonnull %child) #18
+  %0 = load i64, ptr %_M_size.i.i.i.i.i, align 8, !tbaa !43
+  %add.i.i.i = add i64 %0, 1
+  store i64 %add.i.i.i, ptr %_M_size.i.i.i.i.i, align 8, !tbaa !43
+  %mul = fmul double %r, 3.000000e+00
+  %div = fdiv double %mul, 0x400BB67AE8584CAA
+  %sub = add nsw i32 %level, -1
+  %y.i61 = getelementptr inbounds %struct.Vec, ptr %c, i64 0, i32 1
+  %z.i62 = getelementptr inbounds %struct.Vec, ptr %c, i64 0, i32 2
+  %y.i.i63 = getelementptr inbounds %struct.Vec, ptr %ref.tmp9, i64 0, i32 1
+  %z.i.i64 = getelementptr inbounds %struct.Vec, ptr %ref.tmp9, i64 0, i32 2
+  %div17 = fmul double %r, 5.000000e-01
+  call void @llvm.lifetime.start.p0(i64 24, ptr nonnull %ref.tmp9) #18
   call void @llvm.experimental.noalias.scope.decl(metadata !46)
-  %28 = load double, ptr %1, align 8, !tbaa !11, !noalias !46
-  %29 = fsub double %28, %21
-  %30 = load double, ptr %23, align 8, !tbaa !49, !noalias !46
-  %31 = fadd double %21, %30
-  %32 = load double, ptr %24, align 8, !tbaa !5, !noalias !46
-  %33 = fsub double %32, %21
-  store double %29, ptr %5, align 16, !tbaa !11, !alias.scope !46
-  store double %31, ptr %25, align 8, !tbaa !49, !alias.scope !46
-  store double %33, ptr %26, align 16, !tbaa !5, !alias.scope !46
-  %34 = invoke noundef ptr @_Z6createiRK3Vecd(i32 noundef %22, ptr noundef nonnull align 8 dereferenceable(24) %5, double noundef %27)
-          to label %37 unwind label %79
+  %1 = load double, ptr %c, align 8, !tbaa !11, !noalias !46
+  %add.i = fsub double %1, %div
+  %2 = load double, ptr %y.i61, align 8, !tbaa !49, !noalias !46
+  %add3.i = fadd double %div, %2
+  %3 = load double, ptr %z.i62, align 8, !tbaa !5, !noalias !46
+  %add5.i = fsub double %3, %div
+  store double %add.i, ptr %ref.tmp9, align 16, !tbaa !11, !alias.scope !46
+  store double %add3.i, ptr %y.i.i63, align 8, !tbaa !49, !alias.scope !46
+  store double %add5.i, ptr %z.i.i64, align 16, !tbaa !5, !alias.scope !46
+  %call19 = invoke noundef ptr @_Z6createiRK3Vecd(i32 noundef %sub, ptr noundef nonnull align 8 dereferenceable(24) %ref.tmp9, double noundef %div17)
+          to label %invoke.cont18 unwind label %lpad13
 
-35:                                               ; preds = %12
-  %36 = landingpad { ptr, i32 }
+lpad1:                                            ; preds = %if.end
+  %4 = landingpad { ptr, i32 }
           cleanup
-  br label %161
+  br label %ehcleanup39
 
-37:                                               ; preds = %16
-  %38 = invoke noalias noundef nonnull dereferenceable(24) ptr @_Znwm(i64 noundef 24) #19
-          to label %39 unwind label %79
+invoke.cont18:                                    ; preds = %invoke.cont2
+  %call5.i.i.i.i.i.i68 = invoke noalias noundef nonnull dereferenceable(24) ptr @_Znwm(i64 noundef 24) #19
+          to label %invoke.cont20 unwind label %lpad13
 
-39:                                               ; preds = %37
-  %40 = getelementptr inbounds %"struct.std::_List_node", ptr %38, i64 0, i32 1
-  store ptr %34, ptr %40, align 8, !tbaa !42
-  call void @_ZNSt8__detail15_List_node_base7_M_hookEPS0_(ptr noundef nonnull align 8 dereferenceable(16) %38, ptr noundef nonnull %4) #18
-  %41 = load i64, ptr %14, align 8, !tbaa !43
-  %42 = add i64 %41, 1
-  store i64 %42, ptr %14, align 8, !tbaa !43
-  call void @llvm.lifetime.end.p0(i64 24, ptr nonnull %5) #18
-  call void @llvm.lifetime.start.p0(i64 24, ptr nonnull %5) #18
+invoke.cont20:                                    ; preds = %invoke.cont18
+  %_M_storage.i.i.i.i65 = getelementptr inbounds %"struct.std::_List_node", ptr %call5.i.i.i.i.i.i68, i64 0, i32 1
+  store ptr %call19, ptr %_M_storage.i.i.i.i65, align 8, !tbaa !42
+  call void @_ZNSt8__detail15_List_node_base7_M_hookEPS0_(ptr noundef nonnull align 8 dereferenceable(16) %call5.i.i.i.i.i.i68, ptr noundef nonnull %child) #18
+  %5 = load i64, ptr %_M_size.i.i.i.i.i, align 8, !tbaa !43
+  %add.i.i.i67 = add i64 %5, 1
+  store i64 %add.i.i.i67, ptr %_M_size.i.i.i.i.i, align 8, !tbaa !43
+  call void @llvm.lifetime.end.p0(i64 24, ptr nonnull %ref.tmp9) #18
+  call void @llvm.lifetime.start.p0(i64 24, ptr nonnull %ref.tmp9) #18
   call void @llvm.experimental.noalias.scope.decl(metadata !50)
-  %43 = load double, ptr %24, align 8, !tbaa !5, !noalias !50
-  %44 = fsub double %43, %21
-  %45 = load <2 x double>, ptr %1, align 8, !tbaa !10, !noalias !50
-  %46 = insertelement <2 x double> poison, double %21, i64 0
-  %47 = shufflevector <2 x double> %46, <2 x double> poison, <2 x i32> zeroinitializer
-  %48 = fadd <2 x double> %47, %45
-  store <2 x double> %48, ptr %5, align 16, !tbaa !10, !alias.scope !50
-  store double %44, ptr %26, align 16, !tbaa !5, !alias.scope !50
-  %49 = invoke noundef ptr @_Z6createiRK3Vecd(i32 noundef %22, ptr noundef nonnull align 8 dereferenceable(24) %5, double noundef %27)
-          to label %50 unwind label %79
+  %6 = load double, ptr %z.i62, align 8, !tbaa !5, !noalias !50
+  %add5.i.1 = fsub double %6, %div
+  %7 = load <2 x double>, ptr %c, align 8, !tbaa !10, !noalias !50
+  %8 = insertelement <2 x double> poison, double %div, i64 0
+  %9 = shufflevector <2 x double> %8, <2 x double> poison, <2 x i32> zeroinitializer
+  %10 = fadd <2 x double> %9, %7
+  store <2 x double> %10, ptr %ref.tmp9, align 16, !tbaa !10, !alias.scope !50
+  store double %add5.i.1, ptr %z.i.i64, align 16, !tbaa !5, !alias.scope !50
+  %call19.1 = invoke noundef ptr @_Z6createiRK3Vecd(i32 noundef %sub, ptr noundef nonnull align 8 dereferenceable(24) %ref.tmp9, double noundef %div17)
+          to label %invoke.cont18.1 unwind label %lpad13
 
-50:                                               ; preds = %39
-  %51 = invoke noalias noundef nonnull dereferenceable(24) ptr @_Znwm(i64 noundef 24) #19
-          to label %52 unwind label %79
+invoke.cont18.1:                                  ; preds = %invoke.cont20
+  %call5.i.i.i.i.i.i68.1 = invoke noalias noundef nonnull dereferenceable(24) ptr @_Znwm(i64 noundef 24) #19
+          to label %invoke.cont20.1 unwind label %lpad13
 
-52:                                               ; preds = %50
-  %53 = getelementptr inbounds %"struct.std::_List_node", ptr %51, i64 0, i32 1
-  store ptr %49, ptr %53, align 8, !tbaa !42
-  call void @_ZNSt8__detail15_List_node_base7_M_hookEPS0_(ptr noundef nonnull align 8 dereferenceable(16) %51, ptr noundef nonnull %4) #18
-  %54 = load i64, ptr %14, align 8, !tbaa !43
-  %55 = add i64 %54, 1
-  store i64 %55, ptr %14, align 8, !tbaa !43
-  call void @llvm.lifetime.end.p0(i64 24, ptr nonnull %5) #18
-  call void @llvm.lifetime.start.p0(i64 24, ptr nonnull %5) #18
+invoke.cont20.1:                                  ; preds = %invoke.cont18.1
+  %_M_storage.i.i.i.i65.1 = getelementptr inbounds %"struct.std::_List_node", ptr %call5.i.i.i.i.i.i68.1, i64 0, i32 1
+  store ptr %call19.1, ptr %_M_storage.i.i.i.i65.1, align 8, !tbaa !42
+  call void @_ZNSt8__detail15_List_node_base7_M_hookEPS0_(ptr noundef nonnull align 8 dereferenceable(16) %call5.i.i.i.i.i.i68.1, ptr noundef nonnull %child) #18
+  %11 = load i64, ptr %_M_size.i.i.i.i.i, align 8, !tbaa !43
+  %add.i.i.i67.1 = add i64 %11, 1
+  store i64 %add.i.i.i67.1, ptr %_M_size.i.i.i.i.i, align 8, !tbaa !43
+  call void @llvm.lifetime.end.p0(i64 24, ptr nonnull %ref.tmp9) #18
+  call void @llvm.lifetime.start.p0(i64 24, ptr nonnull %ref.tmp9) #18
   call void @llvm.experimental.noalias.scope.decl(metadata !52)
-  %56 = load double, ptr %1, align 8, !tbaa !11, !noalias !52
-  %57 = fsub double %56, %21
-  store double %57, ptr %5, align 16, !tbaa !11, !alias.scope !52
-  %58 = load <2 x double>, ptr %23, align 8, !tbaa !10, !noalias !52
-  %59 = fadd <2 x double> %47, %58
-  store <2 x double> %59, ptr %25, align 8, !tbaa !10, !alias.scope !52
-  %60 = invoke noundef ptr @_Z6createiRK3Vecd(i32 noundef %22, ptr noundef nonnull align 8 dereferenceable(24) %5, double noundef %27)
-          to label %61 unwind label %79
+  %12 = load double, ptr %c, align 8, !tbaa !11, !noalias !52
+  %add.i.195 = fsub double %12, %div
+  store double %add.i.195, ptr %ref.tmp9, align 16, !tbaa !11, !alias.scope !52
+  %13 = load <2 x double>, ptr %y.i61, align 8, !tbaa !10, !noalias !52
+  %14 = fadd <2 x double> %9, %13
+  store <2 x double> %14, ptr %y.i.i63, align 8, !tbaa !10, !alias.scope !52
+  %call19.198 = invoke noundef ptr @_Z6createiRK3Vecd(i32 noundef %sub, ptr noundef nonnull align 8 dereferenceable(24) %ref.tmp9, double noundef %div17)
+          to label %invoke.cont18.1100 unwind label %lpad13
 
-61:                                               ; preds = %52
-  %62 = invoke noalias noundef nonnull dereferenceable(24) ptr @_Znwm(i64 noundef 24) #19
-          to label %63 unwind label %79
+invoke.cont18.1100:                               ; preds = %invoke.cont20.1
+  %call5.i.i.i.i.i.i68.199 = invoke noalias noundef nonnull dereferenceable(24) ptr @_Znwm(i64 noundef 24) #19
+          to label %invoke.cont20.1103 unwind label %lpad13
 
-63:                                               ; preds = %61
-  %64 = getelementptr inbounds %"struct.std::_List_node", ptr %62, i64 0, i32 1
-  store ptr %60, ptr %64, align 8, !tbaa !42
-  call void @_ZNSt8__detail15_List_node_base7_M_hookEPS0_(ptr noundef nonnull align 8 dereferenceable(16) %62, ptr noundef nonnull %4) #18
-  %65 = load i64, ptr %14, align 8, !tbaa !43
-  %66 = add i64 %65, 1
-  store i64 %66, ptr %14, align 8, !tbaa !43
-  call void @llvm.lifetime.end.p0(i64 24, ptr nonnull %5) #18
-  call void @llvm.lifetime.start.p0(i64 24, ptr nonnull %5) #18
+invoke.cont20.1103:                               ; preds = %invoke.cont18.1100
+  %_M_storage.i.i.i.i65.1101 = getelementptr inbounds %"struct.std::_List_node", ptr %call5.i.i.i.i.i.i68.199, i64 0, i32 1
+  store ptr %call19.198, ptr %_M_storage.i.i.i.i65.1101, align 8, !tbaa !42
+  call void @_ZNSt8__detail15_List_node_base7_M_hookEPS0_(ptr noundef nonnull align 8 dereferenceable(16) %call5.i.i.i.i.i.i68.199, ptr noundef nonnull %child) #18
+  %15 = load i64, ptr %_M_size.i.i.i.i.i, align 8, !tbaa !43
+  %add.i.i.i67.1102 = add i64 %15, 1
+  store i64 %add.i.i.i67.1102, ptr %_M_size.i.i.i.i.i, align 8, !tbaa !43
+  call void @llvm.lifetime.end.p0(i64 24, ptr nonnull %ref.tmp9) #18
+  call void @llvm.lifetime.start.p0(i64 24, ptr nonnull %ref.tmp9) #18
   call void @llvm.experimental.noalias.scope.decl(metadata !54)
-  %67 = load double, ptr %24, align 8, !tbaa !5, !noalias !54
-  %68 = fadd double %21, %67
-  %69 = load <2 x double>, ptr %1, align 8, !tbaa !10, !noalias !54
-  %70 = fadd <2 x double> %47, %69
-  store <2 x double> %70, ptr %5, align 16, !tbaa !10, !alias.scope !54
-  store double %68, ptr %26, align 16, !tbaa !5, !alias.scope !54
-  %71 = invoke noundef ptr @_Z6createiRK3Vecd(i32 noundef %22, ptr noundef nonnull align 8 dereferenceable(24) %5, double noundef %27)
-          to label %72 unwind label %79
+  %16 = load double, ptr %z.i62, align 8, !tbaa !5, !noalias !54
+  %add5.i.1.1 = fadd double %div, %16
+  %17 = load <2 x double>, ptr %c, align 8, !tbaa !10, !noalias !54
+  %18 = fadd <2 x double> %9, %17
+  store <2 x double> %18, ptr %ref.tmp9, align 16, !tbaa !10, !alias.scope !54
+  store double %add5.i.1.1, ptr %z.i.i64, align 16, !tbaa !5, !alias.scope !54
+  %call19.1.1 = invoke noundef ptr @_Z6createiRK3Vecd(i32 noundef %sub, ptr noundef nonnull align 8 dereferenceable(24) %ref.tmp9, double noundef %div17)
+          to label %invoke.cont18.1.1 unwind label %lpad13
 
-72:                                               ; preds = %63
-  %73 = invoke noalias noundef nonnull dereferenceable(24) ptr @_Znwm(i64 noundef 24) #19
-          to label %74 unwind label %79
+invoke.cont18.1.1:                                ; preds = %invoke.cont20.1103
+  %call5.i.i.i.i.i.i68.1.1 = invoke noalias noundef nonnull dereferenceable(24) ptr @_Znwm(i64 noundef 24) #19
+          to label %invoke.cont20.1.1 unwind label %lpad13
 
-74:                                               ; preds = %72
-  %75 = getelementptr inbounds %"struct.std::_List_node", ptr %73, i64 0, i32 1
-  store ptr %71, ptr %75, align 8, !tbaa !42
-  call void @_ZNSt8__detail15_List_node_base7_M_hookEPS0_(ptr noundef nonnull align 8 dereferenceable(16) %73, ptr noundef nonnull %4) #18
-  %76 = load i64, ptr %14, align 8, !tbaa !43
-  %77 = add i64 %76, 1
-  store i64 %77, ptr %14, align 8, !tbaa !43
-  call void @llvm.lifetime.end.p0(i64 24, ptr nonnull %5) #18
-  %78 = invoke noalias noundef nonnull dereferenceable(72) ptr @_Znwm(i64 noundef 72) #19
-          to label %81 unwind label %150
+invoke.cont20.1.1:                                ; preds = %invoke.cont18.1.1
+  %_M_storage.i.i.i.i65.1.1 = getelementptr inbounds %"struct.std::_List_node", ptr %call5.i.i.i.i.i.i68.1.1, i64 0, i32 1
+  store ptr %call19.1.1, ptr %_M_storage.i.i.i.i65.1.1, align 8, !tbaa !42
+  call void @_ZNSt8__detail15_List_node_base7_M_hookEPS0_(ptr noundef nonnull align 8 dereferenceable(16) %call5.i.i.i.i.i.i68.1.1, ptr noundef nonnull %child) #18
+  %19 = load i64, ptr %_M_size.i.i.i.i.i, align 8, !tbaa !43
+  %add.i.i.i67.1.1 = add i64 %19, 1
+  store i64 %add.i.i.i67.1.1, ptr %_M_size.i.i.i.i.i, align 8, !tbaa !43
+  call void @llvm.lifetime.end.p0(i64 24, ptr nonnull %ref.tmp9) #18
+  %call26 = invoke noalias noundef nonnull dereferenceable(72) ptr @_Znwm(i64 noundef 72) #19
+          to label %invoke.cont25 unwind label %lpad24
 
-79:                                               ; preds = %72, %63, %61, %52, %50, %39, %37, %16
-  %80 = landingpad { ptr, i32 }
+lpad13:                                           ; preds = %invoke.cont18.1.1, %invoke.cont20.1103, %invoke.cont18.1100, %invoke.cont20.1, %invoke.cont18.1, %invoke.cont20, %invoke.cont18, %invoke.cont2
+  %20 = landingpad { ptr, i32 }
           cleanup
-  call void @llvm.lifetime.end.p0(i64 24, ptr nonnull %5) #18
-  br label %161
+  call void @llvm.lifetime.end.p0(i64 24, ptr nonnull %ref.tmp9) #18
+  br label %ehcleanup39
 
-81:                                               ; preds = %74
-  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(24) %6, ptr noundef nonnull align 8 dereferenceable(24) %1, i64 24, i1 false)
-  %82 = getelementptr inbounds %"struct.std::__detail::_List_node_base", ptr %7, i64 0, i32 1
-  store ptr %7, ptr %82, align 8, !tbaa !35
-  store ptr %7, ptr %7, align 8, !tbaa !38
-  %83 = getelementptr inbounds %"struct.std::__detail::_List_node_header", ptr %7, i64 0, i32 1
-  store i64 0, ptr %83, align 8, !tbaa !39
-  %84 = load ptr, ptr %4, align 8, !tbaa !38
-  %85 = icmp eq ptr %84, %4
-  br i1 %85, label %107, label %86
+invoke.cont25:                                    ; preds = %invoke.cont20.1.1
+  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(24) %agg.tmp27.sroa.1, ptr noundef nonnull align 8 dereferenceable(24) %c, i64 24, i1 false)
+  %_M_prev.i.i.i.i.i72 = getelementptr inbounds %"struct.std::__detail::_List_node_base", ptr %agg.tmp32, i64 0, i32 1
+  store ptr %agg.tmp32, ptr %_M_prev.i.i.i.i.i72, align 8, !tbaa !35
+  store ptr %agg.tmp32, ptr %agg.tmp32, align 8, !tbaa !38
+  %_M_size.i.i.i.i.i73 = getelementptr inbounds %"struct.std::__detail::_List_node_header", ptr %agg.tmp32, i64 0, i32 1
+  store i64 0, ptr %_M_size.i.i.i.i.i73, align 8, !tbaa !39
+  %21 = load ptr, ptr %child, align 8, !tbaa !38
+  %cmp.i.not7.i.i = icmp eq ptr %21, %child
+  br i1 %cmp.i.not7.i.i, label %invoke.cont34, label %for.body.i.i
 
-86:                                               ; preds = %81, %89
-  %87 = phi ptr [ %95, %89 ], [ %84, %81 ]
-  %88 = invoke noalias noundef nonnull dereferenceable(24) ptr @_Znwm(i64 noundef 24) #19
-          to label %89 unwind label %97
+for.body.i.i:                                     ; preds = %invoke.cont25, %call5.i.i.i.i.i.i.i.noexc.i
+  %__first.sroa.0.08.i.i = phi ptr [ %24, %call5.i.i.i.i.i.i.i.noexc.i ], [ %21, %invoke.cont25 ]
+  %call5.i.i.i.i.i.i.i15.i = invoke noalias noundef nonnull dereferenceable(24) ptr @_Znwm(i64 noundef 24) #19
+          to label %call5.i.i.i.i.i.i.i.noexc.i unwind label %lpad9.i
 
-89:                                               ; preds = %86
-  %90 = getelementptr inbounds %"struct.std::_List_node", ptr %87, i64 0, i32 1
-  %91 = getelementptr inbounds %"struct.std::_List_node", ptr %88, i64 0, i32 1
-  %92 = load ptr, ptr %90, align 8, !tbaa !42
-  store ptr %92, ptr %91, align 8, !tbaa !42
-  call void @_ZNSt8__detail15_List_node_base7_M_hookEPS0_(ptr noundef nonnull align 8 dereferenceable(16) %88, ptr noundef nonnull %7) #18
-  %93 = load i64, ptr %83, align 8, !tbaa !43
-  %94 = add i64 %93, 1
-  store i64 %94, ptr %83, align 8, !tbaa !43
-  %95 = load ptr, ptr %87, align 8, !tbaa !38
-  %96 = icmp eq ptr %95, %4
-  br i1 %96, label %105, label %86, !llvm.loop !56
+call5.i.i.i.i.i.i.i.noexc.i:                      ; preds = %for.body.i.i
+  %_M_storage.i.i.i.i74 = getelementptr inbounds %"struct.std::_List_node", ptr %__first.sroa.0.08.i.i, i64 0, i32 1
+  %_M_storage.i.i.i.i.i.i = getelementptr inbounds %"struct.std::_List_node", ptr %call5.i.i.i.i.i.i.i15.i, i64 0, i32 1
+  %22 = load ptr, ptr %_M_storage.i.i.i.i74, align 8, !tbaa !42
+  store ptr %22, ptr %_M_storage.i.i.i.i.i.i, align 8, !tbaa !42
+  call void @_ZNSt8__detail15_List_node_base7_M_hookEPS0_(ptr noundef nonnull align 8 dereferenceable(16) %call5.i.i.i.i.i.i.i15.i, ptr noundef nonnull %agg.tmp32) #18
+  %23 = load i64, ptr %_M_size.i.i.i.i.i73, align 8, !tbaa !43
+  %add.i.i.i.i.i = add i64 %23, 1
+  store i64 %add.i.i.i.i.i, ptr %_M_size.i.i.i.i.i73, align 8, !tbaa !43
+  %24 = load ptr, ptr %__first.sroa.0.08.i.i, align 8, !tbaa !38
+  %cmp.i.not.i.i = icmp eq ptr %24, %child
+  br i1 %cmp.i.not.i.i, label %invoke.cont34.loopexit, label %for.body.i.i, !llvm.loop !56
 
-97:                                               ; preds = %86
-  %98 = landingpad { ptr, i32 }
+lpad9.i:                                          ; preds = %for.body.i.i
+  %25 = landingpad { ptr, i32 }
           cleanup
-  %99 = load ptr, ptr %7, align 8, !tbaa !38
-  %100 = icmp eq ptr %99, %7
-  br i1 %100, label %159, label %101
+  %26 = load ptr, ptr %agg.tmp32, align 8, !tbaa !38
+  %cmp.not9.i.i.i = icmp eq ptr %26, %agg.tmp32
+  br i1 %cmp.not9.i.i.i, label %ehcleanup, label %while.body.i.i.i
 
-101:                                              ; preds = %97, %101
-  %102 = phi ptr [ %103, %101 ], [ %99, %97 ]
-  %103 = load ptr, ptr %102, align 8, !tbaa !38
-  call void @_ZdlPv(ptr noundef %102) #20
-  %104 = icmp eq ptr %103, %7
-  br i1 %104, label %159, label %101, !llvm.loop !58
+while.body.i.i.i:                                 ; preds = %lpad9.i, %while.body.i.i.i
+  %__cur.010.i.i.i = phi ptr [ %27, %while.body.i.i.i ], [ %26, %lpad9.i ]
+  %27 = load ptr, ptr %__cur.010.i.i.i, align 8, !tbaa !38
+  call void @_ZdlPv(ptr noundef %__cur.010.i.i.i) #20
+  %cmp.not.i.i.i = icmp eq ptr %27, %agg.tmp32
+  br i1 %cmp.not.i.i.i, label %ehcleanup, label %while.body.i.i.i, !llvm.loop !58
 
-105:                                              ; preds = %89
-  %106 = load ptr, ptr %7, align 8, !tbaa !38
-  br label %107
+invoke.cont34.loopexit:                           ; preds = %call5.i.i.i.i.i.i.i.noexc.i
+  %.pre = load ptr, ptr %agg.tmp32, align 8, !tbaa !38
+  br label %invoke.cont34
 
-107:                                              ; preds = %105, %81
-  %108 = phi ptr [ %106, %105 ], [ %7, %81 ]
-  store ptr getelementptr inbounds ({ [5 x ptr] }, ptr @_ZTV5Group, i64 0, inrange i32 0, i64 2), ptr %78, align 8, !tbaa !17
-  %109 = getelementptr inbounds %struct.Group, ptr %78, i64 0, i32 1
-  store ptr getelementptr inbounds ({ [5 x ptr] }, ptr @_ZTV6Sphere, i64 0, inrange i32 0, i64 2), ptr %109, align 8, !tbaa !17
-  %110 = getelementptr inbounds %struct.Group, ptr %78, i64 0, i32 1, i32 1
-  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(24) %110, ptr noundef nonnull align 8 dereferenceable(24) %6, i64 24, i1 false)
-  %111 = getelementptr inbounds %struct.Group, ptr %78, i64 0, i32 1, i32 2
-  store double %20, ptr %111, align 8
-  %112 = getelementptr inbounds %struct.Group, ptr %78, i64 0, i32 2
-  %113 = getelementptr inbounds %struct.Group, ptr %78, i64 0, i32 2, i32 0, i32 0, i32 0, i32 0, i32 1
-  store ptr %112, ptr %113, align 8, !tbaa !35
-  store ptr %112, ptr %112, align 8, !tbaa !38
-  %114 = getelementptr inbounds %struct.Group, ptr %78, i64 0, i32 2, i32 0, i32 0, i32 0, i32 1
-  store i64 0, ptr %114, align 8, !tbaa !39
-  %115 = icmp eq ptr %108, %7
-  br i1 %115, label %142, label %116
+invoke.cont34:                                    ; preds = %invoke.cont34.loopexit, %invoke.cont25
+  %28 = phi ptr [ %.pre, %invoke.cont34.loopexit ], [ %agg.tmp32, %invoke.cont25 ]
+  store ptr getelementptr inbounds ({ [5 x ptr] }, ptr @_ZTV5Group, i64 0, inrange i32 0, i64 2), ptr %call26, align 8, !tbaa !17
+  %bound.i = getelementptr inbounds %struct.Group, ptr %call26, i64 0, i32 1
+  store ptr getelementptr inbounds ({ [5 x ptr] }, ptr @_ZTV6Sphere, i64 0, inrange i32 0, i64 2), ptr %bound.i, align 8, !tbaa !17
+  %center.i.i = getelementptr inbounds %struct.Group, ptr %call26, i64 0, i32 1, i32 1
+  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(24) %center.i.i, ptr noundef nonnull align 8 dereferenceable(24) %agg.tmp27.sroa.1, i64 24, i1 false)
+  %agg.tmp27.sroa.3.8.center.i.i.sroa_idx = getelementptr inbounds %struct.Group, ptr %call26, i64 0, i32 1, i32 2
+  store double %mul, ptr %agg.tmp27.sroa.3.8.center.i.i.sroa_idx, align 8
+  %child.i = getelementptr inbounds %struct.Group, ptr %call26, i64 0, i32 2
+  %_M_prev.i.i.i.i.i.i = getelementptr inbounds %struct.Group, ptr %call26, i64 0, i32 2, i32 0, i32 0, i32 0, i32 0, i32 1
+  store ptr %child.i, ptr %_M_prev.i.i.i.i.i.i, align 8, !tbaa !35
+  store ptr %child.i, ptr %child.i, align 8, !tbaa !38
+  %_M_size.i.i.i.i.i.i = getelementptr inbounds %struct.Group, ptr %call26, i64 0, i32 2, i32 0, i32 0, i32 0, i32 1
+  store i64 0, ptr %_M_size.i.i.i.i.i.i, align 8, !tbaa !39
+  %cmp.i.not7.i.i.i = icmp eq ptr %28, %agg.tmp32
+  br i1 %cmp.i.not7.i.i.i, label %_ZNSt7__cxx1110_List_baseIP5SceneSaIS2_EED2Ev.exit, label %for.body.i.i.i
 
-116:                                              ; preds = %107, %119
-  %117 = phi ptr [ %125, %119 ], [ %108, %107 ]
-  %118 = invoke noalias noundef nonnull dereferenceable(24) ptr @_Znwm(i64 noundef 24) #19
-          to label %119 unwind label %127
+for.body.i.i.i:                                   ; preds = %invoke.cont34, %call5.i.i.i.i.i.i.i.noexc.i.i
+  %__first.sroa.0.08.i.i.i = phi ptr [ %31, %call5.i.i.i.i.i.i.i.noexc.i.i ], [ %28, %invoke.cont34 ]
+  %call5.i.i.i.i.i.i.i15.i.i = invoke noalias noundef nonnull dereferenceable(24) ptr @_Znwm(i64 noundef 24) #19
+          to label %call5.i.i.i.i.i.i.i.noexc.i.i unwind label %lpad9.i.i
 
-119:                                              ; preds = %116
-  %120 = getelementptr inbounds %"struct.std::_List_node", ptr %117, i64 0, i32 1
-  %121 = getelementptr inbounds %"struct.std::_List_node", ptr %118, i64 0, i32 1
-  %122 = load ptr, ptr %120, align 8, !tbaa !42
-  store ptr %122, ptr %121, align 8, !tbaa !42
-  call void @_ZNSt8__detail15_List_node_base7_M_hookEPS0_(ptr noundef nonnull align 8 dereferenceable(16) %118, ptr noundef nonnull %112) #18
-  %123 = load i64, ptr %114, align 8, !tbaa !43
-  %124 = add i64 %123, 1
-  store i64 %124, ptr %114, align 8, !tbaa !43
-  %125 = load ptr, ptr %117, align 8, !tbaa !38
-  %126 = icmp eq ptr %125, %7
-  br i1 %126, label %135, label %116, !llvm.loop !56
+call5.i.i.i.i.i.i.i.noexc.i.i:                    ; preds = %for.body.i.i.i
+  %_M_storage.i.i.i.i.i = getelementptr inbounds %"struct.std::_List_node", ptr %__first.sroa.0.08.i.i.i, i64 0, i32 1
+  %_M_storage.i.i.i.i.i.i.i = getelementptr inbounds %"struct.std::_List_node", ptr %call5.i.i.i.i.i.i.i15.i.i, i64 0, i32 1
+  %29 = load ptr, ptr %_M_storage.i.i.i.i.i, align 8, !tbaa !42
+  store ptr %29, ptr %_M_storage.i.i.i.i.i.i.i, align 8, !tbaa !42
+  call void @_ZNSt8__detail15_List_node_base7_M_hookEPS0_(ptr noundef nonnull align 8 dereferenceable(16) %call5.i.i.i.i.i.i.i15.i.i, ptr noundef nonnull %child.i) #18
+  %30 = load i64, ptr %_M_size.i.i.i.i.i.i, align 8, !tbaa !43
+  %add.i.i.i.i.i.i = add i64 %30, 1
+  store i64 %add.i.i.i.i.i.i, ptr %_M_size.i.i.i.i.i.i, align 8, !tbaa !43
+  %31 = load ptr, ptr %__first.sroa.0.08.i.i.i, align 8, !tbaa !38
+  %cmp.i.not.i.i.i = icmp eq ptr %31, %agg.tmp32
+  br i1 %cmp.i.not.i.i.i, label %invoke.cont36, label %for.body.i.i.i, !llvm.loop !56
 
-127:                                              ; preds = %116
-  %128 = landingpad { ptr, i32 }
+lpad9.i.i:                                        ; preds = %for.body.i.i.i
+  %32 = landingpad { ptr, i32 }
           cleanup
-  %129 = load ptr, ptr %112, align 8, !tbaa !38
-  %130 = icmp eq ptr %129, %112
-  br i1 %130, label %152, label %131
+  %33 = load ptr, ptr %child.i, align 8, !tbaa !38
+  %cmp.not9.i.i.i.i = icmp eq ptr %33, %child.i
+  br i1 %cmp.not9.i.i.i.i, label %lpad35.body, label %while.body.i.i.i.i
 
-131:                                              ; preds = %127, %131
-  %132 = phi ptr [ %133, %131 ], [ %129, %127 ]
-  %133 = load ptr, ptr %132, align 8, !tbaa !38
-  call void @_ZdlPv(ptr noundef %132) #20
-  %134 = icmp eq ptr %133, %112
-  br i1 %134, label %152, label %131, !llvm.loop !58
+while.body.i.i.i.i:                               ; preds = %lpad9.i.i, %while.body.i.i.i.i
+  %__cur.010.i.i.i.i = phi ptr [ %34, %while.body.i.i.i.i ], [ %33, %lpad9.i.i ]
+  %34 = load ptr, ptr %__cur.010.i.i.i.i, align 8, !tbaa !38
+  call void @_ZdlPv(ptr noundef %__cur.010.i.i.i.i) #20
+  %cmp.not.i.i.i.i = icmp eq ptr %34, %child.i
+  br i1 %cmp.not.i.i.i.i, label %lpad35.body, label %while.body.i.i.i.i, !llvm.loop !58
 
-135:                                              ; preds = %119
-  %136 = load ptr, ptr %7, align 8, !tbaa !38
-  %137 = icmp eq ptr %136, %7
-  br i1 %137, label %142, label %138
+invoke.cont36:                                    ; preds = %call5.i.i.i.i.i.i.i.noexc.i.i
+  %.pre104 = load ptr, ptr %agg.tmp32, align 8, !tbaa !38
+  %cmp.not9.i.i = icmp eq ptr %.pre104, %agg.tmp32
+  br i1 %cmp.not9.i.i, label %_ZNSt7__cxx1110_List_baseIP5SceneSaIS2_EED2Ev.exit, label %while.body.i.i
 
-138:                                              ; preds = %135, %138
-  %139 = phi ptr [ %140, %138 ], [ %136, %135 ]
-  %140 = load ptr, ptr %139, align 8, !tbaa !38
-  call void @_ZdlPv(ptr noundef %139) #20
-  %141 = icmp eq ptr %140, %7
-  br i1 %141, label %142, label %138, !llvm.loop !58
+while.body.i.i:                                   ; preds = %invoke.cont36, %while.body.i.i
+  %__cur.010.i.i = phi ptr [ %35, %while.body.i.i ], [ %.pre104, %invoke.cont36 ]
+  %35 = load ptr, ptr %__cur.010.i.i, align 8, !tbaa !38
+  call void @_ZdlPv(ptr noundef %__cur.010.i.i) #20
+  %cmp.not.i.i = icmp eq ptr %35, %agg.tmp32
+  br i1 %cmp.not.i.i, label %_ZNSt7__cxx1110_List_baseIP5SceneSaIS2_EED2Ev.exit, label %while.body.i.i, !llvm.loop !58
 
-142:                                              ; preds = %138, %107, %135
-  %143 = load ptr, ptr %4, align 8, !tbaa !38
-  %144 = icmp eq ptr %143, %4
-  br i1 %144, label %149, label %145
+_ZNSt7__cxx1110_List_baseIP5SceneSaIS2_EED2Ev.exit: ; preds = %while.body.i.i, %invoke.cont34, %invoke.cont36
+  %36 = load ptr, ptr %child, align 8, !tbaa !38
+  %cmp.not9.i.i76 = icmp eq ptr %36, %child
+  br i1 %cmp.not9.i.i76, label %_ZNSt7__cxx1110_List_baseIP5SceneSaIS2_EED2Ev.exit80, label %while.body.i.i79
 
-145:                                              ; preds = %142, %145
-  %146 = phi ptr [ %147, %145 ], [ %143, %142 ]
-  %147 = load ptr, ptr %146, align 8, !tbaa !38
-  call void @_ZdlPv(ptr noundef %146) #20
-  %148 = icmp eq ptr %147, %4
-  br i1 %148, label %149, label %145, !llvm.loop !58
+while.body.i.i79:                                 ; preds = %_ZNSt7__cxx1110_List_baseIP5SceneSaIS2_EED2Ev.exit, %while.body.i.i79
+  %__cur.010.i.i77 = phi ptr [ %37, %while.body.i.i79 ], [ %36, %_ZNSt7__cxx1110_List_baseIP5SceneSaIS2_EED2Ev.exit ]
+  %37 = load ptr, ptr %__cur.010.i.i77, align 8, !tbaa !38
+  call void @_ZdlPv(ptr noundef %__cur.010.i.i77) #20
+  %cmp.not.i.i78 = icmp eq ptr %37, %child
+  br i1 %cmp.not.i.i78, label %_ZNSt7__cxx1110_List_baseIP5SceneSaIS2_EED2Ev.exit80, label %while.body.i.i79, !llvm.loop !58
 
-149:                                              ; preds = %145, %142
-  call void @llvm.lifetime.end.p0(i64 24, ptr nonnull %4) #18
-  br label %170
+_ZNSt7__cxx1110_List_baseIP5SceneSaIS2_EED2Ev.exit80: ; preds = %while.body.i.i79, %_ZNSt7__cxx1110_List_baseIP5SceneSaIS2_EED2Ev.exit
+  call void @llvm.lifetime.end.p0(i64 24, ptr nonnull %child) #18
+  br label %cleanup
 
-150:                                              ; preds = %74
-  %151 = landingpad { ptr, i32 }
+lpad24:                                           ; preds = %invoke.cont20.1.1
+  %38 = landingpad { ptr, i32 }
           cleanup
-  br label %161
+  br label %ehcleanup39
 
-152:                                              ; preds = %131, %127
-  %153 = load ptr, ptr %7, align 8, !tbaa !38
-  %154 = icmp eq ptr %153, %7
-  br i1 %154, label %159, label %155
+lpad35.body:                                      ; preds = %while.body.i.i.i.i, %lpad9.i.i
+  %39 = load ptr, ptr %agg.tmp32, align 8, !tbaa !38
+  %cmp.not9.i.i81 = icmp eq ptr %39, %agg.tmp32
+  br i1 %cmp.not9.i.i81, label %ehcleanup, label %while.body.i.i84
 
-155:                                              ; preds = %152, %155
-  %156 = phi ptr [ %157, %155 ], [ %153, %152 ]
-  %157 = load ptr, ptr %156, align 8, !tbaa !38
-  call void @_ZdlPv(ptr noundef %156) #20
-  %158 = icmp eq ptr %157, %7
-  br i1 %158, label %159, label %155, !llvm.loop !58
+while.body.i.i84:                                 ; preds = %lpad35.body, %while.body.i.i84
+  %__cur.010.i.i82 = phi ptr [ %40, %while.body.i.i84 ], [ %39, %lpad35.body ]
+  %40 = load ptr, ptr %__cur.010.i.i82, align 8, !tbaa !38
+  call void @_ZdlPv(ptr noundef %__cur.010.i.i82) #20
+  %cmp.not.i.i83 = icmp eq ptr %40, %agg.tmp32
+  br i1 %cmp.not.i.i83, label %ehcleanup, label %while.body.i.i84, !llvm.loop !58
 
-159:                                              ; preds = %101, %155, %97, %152
-  %160 = phi { ptr, i32 } [ %128, %152 ], [ %98, %97 ], [ %128, %155 ], [ %98, %101 ]
-  call void @_ZdlPv(ptr noundef nonnull %78) #20
-  br label %161
+ehcleanup:                                        ; preds = %while.body.i.i.i, %while.body.i.i84, %lpad35.body, %lpad9.i
+  %.pn = phi { ptr, i32 } [ %25, %lpad9.i ], [ %32, %lpad35.body ], [ %32, %while.body.i.i84 ], [ %25, %while.body.i.i.i ]
+  call void @_ZdlPv(ptr noundef nonnull %call26) #20
+  br label %ehcleanup39
 
-161:                                              ; preds = %79, %150, %159, %35
-  %162 = phi { ptr, i32 } [ %36, %35 ], [ %80, %79 ], [ %160, %159 ], [ %151, %150 ]
-  %163 = load ptr, ptr %4, align 8, !tbaa !38
-  %164 = icmp eq ptr %163, %4
-  br i1 %164, label %169, label %165
+ehcleanup39:                                      ; preds = %lpad13, %lpad24, %ehcleanup, %lpad1
+  %.pn53.pn = phi { ptr, i32 } [ %4, %lpad1 ], [ %20, %lpad13 ], [ %.pn, %ehcleanup ], [ %38, %lpad24 ]
+  %41 = load ptr, ptr %child, align 8, !tbaa !38
+  %cmp.not9.i.i86 = icmp eq ptr %41, %child
+  br i1 %cmp.not9.i.i86, label %_ZNSt7__cxx1110_List_baseIP5SceneSaIS2_EED2Ev.exit90, label %while.body.i.i89
 
-165:                                              ; preds = %161, %165
-  %166 = phi ptr [ %167, %165 ], [ %163, %161 ]
-  %167 = load ptr, ptr %166, align 8, !tbaa !38
-  call void @_ZdlPv(ptr noundef %166) #20
-  %168 = icmp eq ptr %167, %4
-  br i1 %168, label %169, label %165, !llvm.loop !58
+while.body.i.i89:                                 ; preds = %ehcleanup39, %while.body.i.i89
+  %__cur.010.i.i87 = phi ptr [ %42, %while.body.i.i89 ], [ %41, %ehcleanup39 ]
+  %42 = load ptr, ptr %__cur.010.i.i87, align 8, !tbaa !38
+  call void @_ZdlPv(ptr noundef %__cur.010.i.i87) #20
+  %cmp.not.i.i88 = icmp eq ptr %42, %child
+  br i1 %cmp.not.i.i88, label %_ZNSt7__cxx1110_List_baseIP5SceneSaIS2_EED2Ev.exit90, label %while.body.i.i89, !llvm.loop !58
 
-169:                                              ; preds = %165, %161
-  call void @llvm.lifetime.end.p0(i64 24, ptr nonnull %4) #18
-  resume { ptr, i32 } %162
+_ZNSt7__cxx1110_List_baseIP5SceneSaIS2_EED2Ev.exit90: ; preds = %while.body.i.i89, %ehcleanup39
+  call void @llvm.lifetime.end.p0(i64 24, ptr nonnull %child) #18
+  resume { ptr, i32 } %.pn53.pn
 
-170:                                              ; preds = %3, %149
-  %171 = phi ptr [ %78, %149 ], [ %8, %3 ]
-  ret ptr %171
+cleanup:                                          ; preds = %entry, %_ZNSt7__cxx1110_List_baseIP5SceneSaIS2_EED2Ev.exit80
+  %retval.0 = phi ptr [ %call26, %_ZNSt7__cxx1110_List_baseIP5SceneSaIS2_EED2Ev.exit80 ], [ %call, %entry ]
+  ret ptr %retval.0
 }
 
 ; Function Attrs: nobuiltin allocsize(0)
@@ -621,536 +629,542 @@ declare i32 @__gxx_personality_v0(...)
 declare void @_ZdlPv(ptr noundef) local_unnamed_addr #11
 
 ; Function Attrs: nounwind uwtable
-define linkonce_odr dso_local void @_ZN5SceneD2Ev(ptr noundef nonnull align 8 dereferenceable(8) %0) unnamed_addr #12 comdat align 2 {
+define linkonce_odr dso_local void @_ZN5SceneD2Ev(ptr noundef nonnull align 8 dereferenceable(8) %this) unnamed_addr #12 comdat align 2 {
+entry:
   ret void
 }
 
 ; Function Attrs: norecurse uwtable
-define dso_local noundef i32 @main(i32 noundef %0, ptr nocapture noundef readonly %1) local_unnamed_addr #13 {
-  %3 = alloca %"struct.std::pair", align 8
-  %4 = alloca %"struct.std::pair", align 8
-  %5 = alloca %"struct.std::pair", align 8
-  %6 = alloca %"struct.std::pair", align 8
-  %7 = alloca %struct.Ray, align 16
-  %8 = alloca i8, align 1
-  %9 = alloca %struct.Vec, align 16
-  %10 = alloca %struct.Ray, align 16
-  %11 = icmp eq i32 %0, 2
-  br i1 %11, label %12, label %17
+define dso_local noundef i32 @main(i32 noundef %argc, ptr nocapture noundef readonly %argv) local_unnamed_addr #13 {
+entry:
+  %ref.tmp.i52.i = alloca %"struct.std::pair", align 8
+  %ref.tmp.i.i = alloca %"struct.std::pair", align 8
+  %hit.i = alloca %"struct.std::pair", align 8
+  %ref.tmp8.i = alloca %"struct.std::pair", align 8
+  %ref.tmp9.i = alloca %struct.Ray, align 16
+  %__c.addr.i = alloca i8, align 1
+  %ref.tmp1 = alloca %struct.Vec, align 16
+  %ref.tmp37 = alloca %struct.Ray, align 16
+  %cmp = icmp eq i32 %argc, 2
+  br i1 %cmp, label %if.then, label %if.end
 
-12:                                               ; preds = %2
-  %13 = getelementptr inbounds ptr, ptr %1, i64 1
-  %14 = load ptr, ptr %13, align 8, !tbaa !42
-  %15 = tail call i64 @strtol(ptr nocapture noundef nonnull %14, ptr noundef null, i32 noundef 10) #18
-  %16 = trunc i64 %15 to i32
-  br label %17
+if.then:                                          ; preds = %entry
+  %arrayidx = getelementptr inbounds ptr, ptr %argv, i64 1
+  %0 = load ptr, ptr %arrayidx, align 8, !tbaa !42
+  %call.i = tail call i64 @strtol(ptr nocapture noundef nonnull %0, ptr noundef null, i32 noundef 10) #18
+  %conv.i = trunc i64 %call.i to i32
+  br label %if.end
 
-17:                                               ; preds = %12, %2
-  %18 = phi i32 [ %16, %12 ], [ 6, %2 ]
-  call void @llvm.lifetime.start.p0(i64 24, ptr nonnull %9) #18
-  store <2 x double> <double 0.000000e+00, double -1.000000e+00>, ptr %9, align 16, !tbaa !10
-  %19 = getelementptr inbounds %struct.Vec, ptr %9, i64 0, i32 2
-  store double 0.000000e+00, ptr %19, align 16, !tbaa !5
-  %20 = call noundef ptr @_Z6createiRK3Vecd(i32 noundef %18, ptr noundef nonnull align 8 dereferenceable(24) %9, double noundef 1.000000e+00)
-  call void @llvm.lifetime.end.p0(i64 24, ptr nonnull %9) #18
-  %21 = tail call noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cout, ptr noundef nonnull @.str, i64 noundef 3)
-  %22 = tail call noundef nonnull align 8 dereferenceable(8) ptr @_ZNSolsEi(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cout, i32 noundef 512)
-  %23 = tail call noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) %22, ptr noundef nonnull @.str.2, i64 noundef 1)
-  %24 = tail call noundef nonnull align 8 dereferenceable(8) ptr @_ZNSolsEi(ptr noundef nonnull align 8 dereferenceable(8) %22, i32 noundef 512)
-  %25 = tail call noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) %24, ptr noundef nonnull @.str.3, i64 noundef 5)
-  %26 = getelementptr inbounds i8, ptr %10, i64 16
-  %27 = getelementptr inbounds %struct.Ray, ptr %10, i64 0, i32 1
-  %28 = getelementptr inbounds %struct.Ray, ptr %10, i64 0, i32 1, i32 2
-  %29 = getelementptr inbounds %"struct.std::pair", ptr %4, i64 0, i32 1
-  %30 = getelementptr inbounds %"struct.std::pair", ptr %5, i64 0, i32 1
-  %31 = getelementptr inbounds %"struct.std::pair", ptr %5, i64 0, i32 1, i32 2
-  %32 = getelementptr inbounds i8, ptr %7, i64 16
-  %33 = getelementptr inbounds %struct.Ray, ptr %7, i64 0, i32 1
-  %34 = getelementptr inbounds %struct.Ray, ptr %7, i64 0, i32 1, i32 2
-  %35 = getelementptr inbounds %"struct.std::pair", ptr %3, i64 0, i32 1
-  br label %36
+if.end:                                           ; preds = %if.then, %entry
+  %level.0 = phi i32 [ %conv.i, %if.then ], [ 6, %entry ]
+  call void @llvm.lifetime.start.p0(i64 24, ptr nonnull %ref.tmp1) #18
+  store <2 x double> <double 0.000000e+00, double -1.000000e+00>, ptr %ref.tmp1, align 16, !tbaa !10
+  %z.i79 = getelementptr inbounds %struct.Vec, ptr %ref.tmp1, i64 0, i32 2
+  store double 0.000000e+00, ptr %z.i79, align 16, !tbaa !5
+  %call2 = call noundef ptr @_Z6createiRK3Vecd(i32 noundef %level.0, ptr noundef nonnull align 8 dereferenceable(24) %ref.tmp1, double noundef 1.000000e+00)
+  call void @llvm.lifetime.end.p0(i64 24, ptr nonnull %ref.tmp1) #18
+  %call1.i = tail call noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cout, ptr noundef nonnull @.str, i64 noundef 3)
+  %call4 = tail call noundef nonnull align 8 dereferenceable(8) ptr @_ZNSolsEi(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cout, i32 noundef 512)
+  %call1.i81 = tail call noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) %call4, ptr noundef nonnull @.str.2, i64 noundef 1)
+  %call6 = tail call noundef nonnull align 8 dereferenceable(8) ptr @_ZNSolsEi(ptr noundef nonnull align 8 dereferenceable(8) %call4, i32 noundef 512)
+  %call1.i83 = tail call noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) %call6, ptr noundef nonnull @.str.3, i64 noundef 5)
+  %ref.tmp38.sroa.5.0.ref.tmp37.sroa_idx = getelementptr inbounds i8, ptr %ref.tmp37, i64 16
+  %dir.i = getelementptr inbounds %struct.Ray, ptr %ref.tmp37, i64 0, i32 1
+  %dir.sroa.5.0.dir.i.sroa_idx = getelementptr inbounds %struct.Ray, ptr %ref.tmp37, i64 0, i32 1, i32 2
+  %second.i.i.i = getelementptr inbounds %"struct.std::pair", ptr %ref.tmp.i.i, i64 0, i32 1
+  %second.i = getelementptr inbounds %"struct.std::pair", ptr %hit.i, i64 0, i32 1
+  %z.i.i107 = getelementptr inbounds %"struct.std::pair", ptr %hit.i, i64 0, i32 1, i32 2
+  %p.sroa.5.0.ref.tmp9.sroa_idx.i = getelementptr inbounds i8, ptr %ref.tmp9.i, i64 16
+  %dir.i.i = getelementptr inbounds %struct.Ray, ptr %ref.tmp9.i, i64 0, i32 1
+  %ref.tmp10.sroa.5.0.dir.i.sroa_idx.i = getelementptr inbounds %struct.Ray, ptr %ref.tmp9.i, i64 0, i32 1, i32 2
+  %second.i.i53.i = getelementptr inbounds %"struct.std::pair", ptr %ref.tmp.i52.i, i64 0, i32 1
+  br label %for.cond9.preheader
 
-36:                                               ; preds = %17, %43
-  %37 = phi i32 [ 511, %17 ], [ %44, %43 ]
-  %38 = sitofp i32 %37 to double
-  br label %39
+for.cond9.preheader:                              ; preds = %if.end, %for.cond.cleanup11
+  %y.0119 = phi i32 [ 511, %if.end ], [ %dec, %for.cond.cleanup11 ]
+  %conv27 = sitofp i32 %y.0119 to double
+  br label %for.cond13.preheader
 
-39:                                               ; preds = %36, %73
-  %40 = phi i32 [ 0, %36 ], [ %74, %73 ]
-  %41 = sitofp i32 %40 to double
-  %42 = load double, ptr @infinity, align 8, !tbaa !10, !noalias !59
-  br label %46
+for.cond13.preheader:                             ; preds = %for.cond9.preheader, %_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_c.exit
+  %x.0118 = phi i32 [ 0, %for.cond9.preheader ], [ %inc53, %_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_c.exit ]
+  %conv = sitofp i32 %x.0118 to double
+  %.pre.pre = load double, ptr @infinity, align 8, !tbaa !10, !noalias !59
+  br label %for.cond17.preheader
 
-43:                                               ; preds = %73
-  %44 = add nsw i32 %37, -1
-  %45 = icmp eq i32 %37, 0
-  br i1 %45, label %145, label %36, !llvm.loop !62
+for.cond.cleanup11:                               ; preds = %_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_c.exit
+  %dec = add nsw i32 %y.0119, -1
+  %cmp8.not = icmp eq i32 %y.0119, 0
+  br i1 %cmp8.not, label %delete.end, label %for.cond9.preheader, !llvm.loop !62
 
-46:                                               ; preds = %39, %76
-  %47 = phi double [ %42, %39 ], [ %140, %76 ]
-  %48 = phi i32 [ 0, %39 ], [ %77, %76 ]
-  %49 = phi double [ 0.000000e+00, %39 ], [ %142, %76 ]
-  %50 = sitofp i32 %48 to double
-  %51 = fmul double %50, 2.500000e-01
-  %52 = fadd double %51, %41
-  %53 = fadd double %52, -2.560000e+02
-  %54 = fmul double %53, %53
-  %55 = insertelement <2 x double> poison, double %53, i64 0
-  br label %79
+for.cond17.preheader:                             ; preds = %for.cond13.preheader, %for.cond.cleanup19
+  %.pre = phi double [ %.pre.pre, %for.cond13.preheader ], [ %32, %for.cond.cleanup19 ]
+  %dx.0117 = phi i32 [ 0, %for.cond13.preheader ], [ %inc42, %for.cond.cleanup19 ]
+  %g.0116 = phi double [ 0.000000e+00, %for.cond13.preheader ], [ %add40, %for.cond.cleanup19 ]
+  %conv22 = sitofp i32 %dx.0117 to double
+  %div = fmul double %conv22, 2.500000e-01
+  %add = fadd double %div, %conv
+  %sub26 = fadd double %add, -2.560000e+02
+  %mul.i.i87 = fmul double %sub26, %sub26
+  %1 = insertelement <2 x double> poison, double %sub26, i64 0
+  br label %for.body20
 
-56:                                               ; preds = %76
-  %57 = fmul double %142, 2.550000e+02
-  %58 = fmul double %57, 6.250000e-02
-  %59 = fadd double %58, 5.000000e-01
-  %60 = fptosi double %59 to i32
-  %61 = trunc i32 %60 to i8
-  call void @llvm.lifetime.start.p0(i64 1, ptr nonnull %8)
-  store i8 %61, ptr %8, align 1, !tbaa !63
-  %62 = load ptr, ptr @_ZSt4cout, align 8, !tbaa !17
-  %63 = getelementptr i8, ptr %62, i64 -24
-  %64 = load i64, ptr %63, align 8
-  %65 = getelementptr inbounds i8, ptr @_ZSt4cout, i64 %64
-  %66 = getelementptr inbounds %"class.std::ios_base", ptr %65, i64 0, i32 2
-  %67 = load i64, ptr %66, align 8, !tbaa !64
-  %68 = icmp eq i64 %67, 0
-  br i1 %68, label %71, label %69
+for.cond.cleanup15:                               ; preds = %for.cond.cleanup19
+  %mul44 = fmul double %add40, 2.550000e+02
+  %div47 = fmul double %mul44, 6.250000e-02
+  %add48 = fadd double %div47, 5.000000e-01
+  %conv49 = fptosi double %add48 to i32
+  %conv50 = trunc i32 %conv49 to i8
+  call void @llvm.lifetime.start.p0(i64 1, ptr nonnull %__c.addr.i)
+  store i8 %conv50, ptr %__c.addr.i, align 1, !tbaa !63
+  %vtable.i = load ptr, ptr @_ZSt4cout, align 8, !tbaa !17
+  %vbase.offset.ptr.i = getelementptr i8, ptr %vtable.i, i64 -24
+  %vbase.offset.i = load i64, ptr %vbase.offset.ptr.i, align 8
+  %gep = getelementptr i8, ptr getelementptr inbounds (%"class.std::basic_ostream", ptr @_ZSt4cout, i64 0, i32 1, i32 0, i32 1), i64 %vbase.offset.i
+  %2 = load i64, ptr %gep, align 8, !tbaa !64
+  %cmp.not.i = icmp eq i64 %2, 0
+  br i1 %cmp.not.i, label %if.end.i, label %if.then.i
 
-69:                                               ; preds = %56
-  %70 = call noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cout, ptr noundef nonnull %8, i64 noundef 1)
-  br label %73
+if.then.i:                                        ; preds = %for.cond.cleanup15
+  %call1.i84 = call noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cout, ptr noundef nonnull %__c.addr.i, i64 noundef 1)
+  br label %_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_c.exit
 
-71:                                               ; preds = %56
-  %72 = call noundef nonnull align 8 dereferenceable(8) ptr @_ZNSo3putEc(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cout, i8 noundef signext %61)
-  br label %73
+if.end.i:                                         ; preds = %for.cond.cleanup15
+  %call2.i = call noundef nonnull align 8 dereferenceable(8) ptr @_ZNSo3putEc(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cout, i8 noundef signext %conv50)
+  br label %_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_c.exit
 
-73:                                               ; preds = %69, %71
-  call void @llvm.lifetime.end.p0(i64 1, ptr nonnull %8)
-  %74 = add nuw nsw i32 %40, 1
-  %75 = icmp eq i32 %74, 512
-  br i1 %75, label %43, label %39, !llvm.loop !71
+_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_c.exit: ; preds = %if.then.i, %if.end.i
+  call void @llvm.lifetime.end.p0(i64 1, ptr nonnull %__c.addr.i)
+  %inc53 = add nuw nsw i32 %x.0118, 1
+  %exitcond121.not = icmp eq i32 %inc53, 512
+  br i1 %exitcond121.not, label %for.cond.cleanup11, label %for.cond13.preheader, !llvm.loop !71
 
-76:                                               ; preds = %139
-  %77 = add nuw nsw i32 %48, 1
-  %78 = icmp eq i32 %77, 4
-  br i1 %78, label %56, label %46, !llvm.loop !72
+for.cond.cleanup19:                               ; preds = %_Z9ray_traceRK3VecRK3RayRK5Scene.exit
+  %inc42 = add nuw nsw i32 %dx.0117, 1
+  %exitcond120.not = icmp eq i32 %inc42, 4
+  br i1 %exitcond120.not, label %for.cond.cleanup15, label %for.cond17.preheader, !llvm.loop !72
 
-79:                                               ; preds = %46, %139
-  %80 = phi double [ %47, %46 ], [ %140, %139 ]
-  %81 = phi i32 [ 0, %46 ], [ %143, %139 ]
-  %82 = phi double [ %49, %46 ], [ %142, %139 ]
-  %83 = sitofp i32 %81 to double
-  %84 = fmul double %83, 2.500000e-01
-  %85 = fadd double %84, %38
-  %86 = fadd double %85, -2.560000e+02
-  %87 = fmul double %86, %86
-  %88 = fadd double %54, %87
-  %89 = fadd double %88, 2.621440e+05
-  %90 = call double @llvm.sqrt.f64(double %89)
-  %91 = fdiv double 1.000000e+00, %90
-  %92 = fmul double %91, 5.120000e+02
-  call void @llvm.lifetime.start.p0(i64 48, ptr nonnull %10) #18
-  call void @llvm.memset.p0.i64(ptr noundef nonnull align 16 dereferenceable(16) %10, i8 0, i64 16, i1 false)
-  store double -4.000000e+00, ptr %26, align 16, !tbaa.struct !28
-  %93 = insertelement <2 x double> %55, double %86, i64 1
-  %94 = insertelement <2 x double> poison, double %91, i64 0
-  %95 = shufflevector <2 x double> %94, <2 x double> poison, <2 x i32> zeroinitializer
-  %96 = fmul <2 x double> %93, %95
-  store <2 x double> %96, ptr %27, align 8
-  store double %92, ptr %28, align 8, !tbaa.struct !28
-  call void @llvm.lifetime.start.p0(i64 32, ptr nonnull %5) #18
-  call void @llvm.lifetime.start.p0(i64 32, ptr nonnull %4) #18, !noalias !59
-  store double %80, ptr %4, align 8, !tbaa !15, !noalias !59
-  call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(24) %29, i8 0, i64 24, i1 false), !noalias !59
-  %97 = load ptr, ptr %20, align 8, !tbaa !17, !noalias !59
-  %98 = getelementptr inbounds ptr, ptr %97, i64 2
-  %99 = load ptr, ptr %98, align 8, !noalias !59
-  call void %99(ptr nonnull sret(%"struct.std::pair") align 8 %5, ptr noundef nonnull align 8 dereferenceable(8) %20, ptr noundef nonnull align 8 dereferenceable(32) %4, ptr noundef nonnull align 8 dereferenceable(48) %10)
-  call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %4) #18, !noalias !59
-  %100 = load double, ptr %5, align 8, !tbaa !15
-  %101 = load double, ptr @infinity, align 8, !tbaa !10
-  %102 = fcmp oeq double %100, %101
-  br i1 %102, label %139, label %103
+for.body20:                                       ; preds = %for.cond17.preheader, %_Z9ray_traceRK3VecRK3RayRK5Scene.exit
+  %3 = phi double [ %.pre, %for.cond17.preheader ], [ %32, %_Z9ray_traceRK3VecRK3RayRK5Scene.exit ]
+  %dy.0115 = phi i32 [ 0, %for.cond17.preheader ], [ %inc, %_Z9ray_traceRK3VecRK3RayRK5Scene.exit ]
+  %g.1114 = phi double [ %g.0116, %for.cond17.preheader ], [ %add40, %_Z9ray_traceRK3VecRK3RayRK5Scene.exit ]
+  %conv28 = sitofp i32 %dy.0115 to double
+  %div31 = fmul double %conv28, 2.500000e-01
+  %add32 = fadd double %div31, %conv27
+  %sub35 = fadd double %add32, -2.560000e+02
+  %mul3.i.i89 = fmul double %sub35, %sub35
+  %add.i.i90 = fadd double %mul.i.i87, %mul3.i.i89
+  %add6.i.i93 = fadd double %add.i.i90, 2.621440e+05
+  %sqrt.i94 = call double @llvm.sqrt.f64(double %add6.i.i93)
+  %div.i95 = fdiv double 1.000000e+00, %sqrt.i94
+  %mul2.i.i98 = fmul double %div.i95, 5.120000e+02
+  call void @llvm.lifetime.start.p0(i64 48, ptr nonnull %ref.tmp37) #18
+  call void @llvm.memset.p0.i64(ptr noundef nonnull align 16 dereferenceable(16) %ref.tmp37, i8 0, i64 16, i1 false)
+  store double -4.000000e+00, ptr %ref.tmp38.sroa.5.0.ref.tmp37.sroa_idx, align 16, !tbaa.struct !28
+  %4 = insertelement <2 x double> %1, double %sub35, i64 1
+  %5 = insertelement <2 x double> poison, double %div.i95, i64 0
+  %6 = shufflevector <2 x double> %5, <2 x double> poison, <2 x i32> zeroinitializer
+  %7 = fmul <2 x double> %4, %6
+  store <2 x double> %7, ptr %dir.i, align 8
+  store double %mul2.i.i98, ptr %dir.sroa.5.0.dir.i.sroa_idx, align 8, !tbaa.struct !28
+  call void @llvm.lifetime.start.p0(i64 32, ptr nonnull %hit.i) #18
+  call void @llvm.lifetime.start.p0(i64 32, ptr nonnull %ref.tmp.i.i) #18, !noalias !59
+  store double %3, ptr %ref.tmp.i.i, align 8, !tbaa !15, !noalias !59
+  call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(24) %second.i.i.i, i8 0, i64 24, i1 false), !noalias !59
+  %vtable.i.i = load ptr, ptr %call2, align 8, !tbaa !17, !noalias !59
+  %vfn.i.i = getelementptr inbounds ptr, ptr %vtable.i.i, i64 2
+  %8 = load ptr, ptr %vfn.i.i, align 8, !noalias !59
+  call void %8(ptr nonnull sret(%"struct.std::pair") align 8 %hit.i, ptr noundef nonnull align 8 dereferenceable(8) %call2, ptr noundef nonnull align 8 dereferenceable(32) %ref.tmp.i.i, ptr noundef nonnull align 8 dereferenceable(48) %ref.tmp37)
+  call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %ref.tmp.i.i) #18, !noalias !59
+  %9 = load double, ptr %hit.i, align 8, !tbaa !15
+  %10 = load double, ptr @infinity, align 8, !tbaa !10
+  %cmp.i = fcmp oeq double %9, %10
+  br i1 %cmp.i, label %_Z9ray_traceRK3VecRK3RayRK5Scene.exit, label %if.end.i110
 
-103:                                              ; preds = %79
-  %104 = load <2 x double>, ptr %30, align 8, !tbaa !10
-  %105 = fmul <2 x double> %104, <double 0xBFD11ACEE560242A, double 0x3FE9A8365810363F>
-  %106 = shufflevector <2 x double> %105, <2 x double> poison, <2 x i32> <i32 1, i32 undef>
-  %107 = fsub <2 x double> %105, %106
-  %108 = extractelement <2 x double> %107, i64 0
-  %109 = load double, ptr %31, align 8, !tbaa !5
-  %110 = fmul double %109, 0x3FE11ACEE560242A
-  %111 = fadd double %108, %110
-  %112 = fcmp ult double %111, 0.000000e+00
-  br i1 %112, label %113, label %139
+if.end.i110:                                      ; preds = %for.body20
+  %11 = load <2 x double>, ptr %second.i, align 8, !tbaa !10
+  %12 = fmul <2 x double> %11, <double 0xBFD11ACEE560242A, double 0x3FE9A8365810363F>
+  %shift = shufflevector <2 x double> %12, <2 x double> poison, <2 x i32> <i32 1, i32 undef>
+  %13 = fsub <2 x double> %12, %shift
+  %14 = extractelement <2 x double> %13, i64 0
+  %15 = load double, ptr %z.i.i107, align 8, !tbaa !5
+  %mul5.i.i108 = fmul double %15, 0x3FE11ACEE560242A
+  %add6.i.i109 = fadd double %14, %mul5.i.i108
+  %cmp1.i = fcmp ult double %add6.i.i109, 0.000000e+00
+  br i1 %cmp1.i, label %if.end3.i, label %_Z9ray_traceRK3VecRK3RayRK5Scene.exit
 
-113:                                              ; preds = %103
-  %114 = load double, ptr %28, align 8, !tbaa !5, !noalias !73
-  %115 = fmul double %100, %114
-  %116 = load double, ptr %26, align 16, !tbaa !5, !noalias !76
-  %117 = fadd double %115, %116
-  %118 = load double, ptr @delta, align 8, !tbaa !10
-  %119 = fmul double %109, %118
-  %120 = fadd double %117, %119
-  call void @llvm.lifetime.start.p0(i64 32, ptr nonnull %6) #18
-  call void @llvm.lifetime.start.p0(i64 48, ptr nonnull %7) #18
-  %121 = load <2 x double>, ptr %27, align 8, !tbaa !10, !noalias !73
-  %122 = insertelement <2 x double> poison, double %100, i64 0
-  %123 = shufflevector <2 x double> %122, <2 x double> poison, <2 x i32> zeroinitializer
-  %124 = fmul <2 x double> %123, %121
-  %125 = load <2 x double>, ptr %10, align 16, !tbaa !10, !noalias !76
-  %126 = fadd <2 x double> %124, %125
-  %127 = insertelement <2 x double> poison, double %118, i64 0
-  %128 = shufflevector <2 x double> %127, <2 x double> poison, <2 x i32> zeroinitializer
-  %129 = fmul <2 x double> %104, %128
-  %130 = fadd <2 x double> %126, %129
-  store <2 x double> %130, ptr %7, align 16
-  store double %120, ptr %32, align 16, !tbaa.struct !28
-  store <2 x double> <double 0x3FD11ACEE560242A, double 0x3FE9A8365810363F>, ptr %33, align 8
-  store double 0xBFE11ACEE560242A, ptr %34, align 8, !tbaa.struct !28
-  call void @llvm.lifetime.start.p0(i64 32, ptr nonnull %3) #18, !noalias !79
-  store double %101, ptr %3, align 8, !tbaa !15, !noalias !79
-  call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(24) %35, i8 0, i64 24, i1 false), !noalias !79
-  %131 = load ptr, ptr %20, align 8, !tbaa !17, !noalias !79
-  %132 = getelementptr inbounds ptr, ptr %131, i64 2
-  %133 = load ptr, ptr %132, align 8, !noalias !79
-  call void %133(ptr nonnull sret(%"struct.std::pair") align 8 %6, ptr noundef nonnull align 8 dereferenceable(8) %20, ptr noundef nonnull align 8 dereferenceable(32) %3, ptr noundef nonnull align 8 dereferenceable(48) %7)
-  call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %3) #18, !noalias !79
-  %134 = load double, ptr %6, align 8, !tbaa !15
-  %135 = load double, ptr @infinity, align 8, !tbaa !10
-  %136 = fcmp olt double %134, %135
-  %137 = fneg double %111
-  %138 = select i1 %136, double 0.000000e+00, double %137
-  call void @llvm.lifetime.end.p0(i64 48, ptr nonnull %7) #18
-  call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %6) #18
-  br label %139
+if.end3.i:                                        ; preds = %if.end.i110
+  %16 = load double, ptr %dir.sroa.5.0.dir.i.sroa_idx, align 8, !tbaa !5, !noalias !73
+  %mul2.i.i113 = fmul double %9, %16
+  %17 = load double, ptr %ref.tmp38.sroa.5.0.ref.tmp37.sroa_idx, align 16, !tbaa !5, !noalias !76
+  %add5.i.i = fadd double %mul2.i.i113, %17
+  %18 = load double, ptr @delta, align 8, !tbaa !10
+  %mul2.i33.i = fmul double %15, %18
+  %add5.i42.i = fadd double %add5.i.i, %mul2.i33.i
+  call void @llvm.lifetime.start.p0(i64 32, ptr nonnull %ref.tmp8.i) #18
+  call void @llvm.lifetime.start.p0(i64 48, ptr nonnull %ref.tmp9.i) #18
+  %19 = load <2 x double>, ptr %dir.i, align 8, !tbaa !10, !noalias !73
+  %20 = insertelement <2 x double> poison, double %9, i64 0
+  %21 = shufflevector <2 x double> %20, <2 x double> poison, <2 x i32> zeroinitializer
+  %22 = fmul <2 x double> %21, %19
+  %23 = load <2 x double>, ptr %ref.tmp37, align 16, !tbaa !10, !noalias !76
+  %24 = fadd <2 x double> %22, %23
+  %25 = insertelement <2 x double> poison, double %18, i64 0
+  %26 = shufflevector <2 x double> %25, <2 x double> poison, <2 x i32> zeroinitializer
+  %27 = fmul <2 x double> %11, %26
+  %28 = fadd <2 x double> %24, %27
+  store <2 x double> %28, ptr %ref.tmp9.i, align 16
+  store double %add5.i42.i, ptr %p.sroa.5.0.ref.tmp9.sroa_idx.i, align 16, !tbaa.struct !28
+  store <2 x double> <double 0x3FD11ACEE560242A, double 0x3FE9A8365810363F>, ptr %dir.i.i, align 8
+  store double 0xBFE11ACEE560242A, ptr %ref.tmp10.sroa.5.0.dir.i.sroa_idx.i, align 8, !tbaa.struct !28
+  call void @llvm.lifetime.start.p0(i64 32, ptr nonnull %ref.tmp.i52.i) #18, !noalias !79
+  store double %10, ptr %ref.tmp.i52.i, align 8, !tbaa !15, !noalias !79
+  call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(24) %second.i.i53.i, i8 0, i64 24, i1 false), !noalias !79
+  %vtable.i54.i = load ptr, ptr %call2, align 8, !tbaa !17, !noalias !79
+  %vfn.i55.i = getelementptr inbounds ptr, ptr %vtable.i54.i, i64 2
+  %29 = load ptr, ptr %vfn.i55.i, align 8, !noalias !79
+  call void %29(ptr nonnull sret(%"struct.std::pair") align 8 %ref.tmp8.i, ptr noundef nonnull align 8 dereferenceable(8) %call2, ptr noundef nonnull align 8 dereferenceable(32) %ref.tmp.i52.i, ptr noundef nonnull align 8 dereferenceable(48) %ref.tmp9.i)
+  call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %ref.tmp.i52.i) #18, !noalias !79
+  %30 = load double, ptr %ref.tmp8.i, align 8, !tbaa !15
+  %31 = load double, ptr @infinity, align 8, !tbaa !10
+  %cmp12.i = fcmp olt double %30, %31
+  %fneg.i = fneg double %add6.i.i109
+  %cond.i = select i1 %cmp12.i, double 0.000000e+00, double %fneg.i
+  call void @llvm.lifetime.end.p0(i64 48, ptr nonnull %ref.tmp9.i) #18
+  call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %ref.tmp8.i) #18
+  br label %_Z9ray_traceRK3VecRK3RayRK5Scene.exit
 
-139:                                              ; preds = %79, %103, %113
-  %140 = phi double [ %101, %79 ], [ %135, %113 ], [ %101, %103 ]
-  %141 = phi double [ 0.000000e+00, %79 ], [ %138, %113 ], [ 0.000000e+00, %103 ]
-  call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %5) #18
-  %142 = fadd double %82, %141
-  call void @llvm.lifetime.end.p0(i64 48, ptr nonnull %10) #18
-  %143 = add nuw nsw i32 %81, 1
-  %144 = icmp eq i32 %143, 4
-  br i1 %144, label %76, label %79, !llvm.loop !82
+_Z9ray_traceRK3VecRK3RayRK5Scene.exit:            ; preds = %for.body20, %if.end.i110, %if.end3.i
+  %32 = phi double [ %10, %for.body20 ], [ %31, %if.end3.i ], [ %10, %if.end.i110 ]
+  %retval.1.i = phi double [ 0.000000e+00, %for.body20 ], [ %cond.i, %if.end3.i ], [ 0.000000e+00, %if.end.i110 ]
+  call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %hit.i) #18
+  %add40 = fadd double %g.1114, %retval.1.i
+  call void @llvm.lifetime.end.p0(i64 48, ptr nonnull %ref.tmp37) #18
+  %inc = add nuw nsw i32 %dy.0115, 1
+  %exitcond.not = icmp eq i32 %inc, 4
+  br i1 %exitcond.not, label %for.cond.cleanup19, label %for.body20, !llvm.loop !82
 
-145:                                              ; preds = %43
-  %146 = load ptr, ptr %20, align 8, !tbaa !17
-  %147 = getelementptr inbounds ptr, ptr %146, i64 1
-  %148 = load ptr, ptr %147, align 8
-  call void %148(ptr noundef nonnull align 8 dereferenceable(8) %20) #18
+delete.end:                                       ; preds = %for.cond.cleanup11
+  %vtable = load ptr, ptr %call2, align 8, !tbaa !17
+  %vfn = getelementptr inbounds ptr, ptr %vtable, i64 1
+  %33 = load ptr, ptr %vfn, align 8
+  call void %33(ptr noundef nonnull align 8 dereferenceable(8) %call2) #18
   ret i32 0
 }
 
 declare noundef nonnull align 8 dereferenceable(8) ptr @_ZNSolsEi(ptr noundef nonnull align 8 dereferenceable(8), i32 noundef) local_unnamed_addr #0
 
 ; Function Attrs: nounwind uwtable
-define linkonce_odr dso_local void @_ZN6SphereD0Ev(ptr noundef nonnull align 8 dereferenceable(40) %0) unnamed_addr #12 comdat align 2 {
-  tail call void @_ZdlPv(ptr noundef nonnull %0) #20
+define linkonce_odr dso_local void @_ZN6SphereD0Ev(ptr noundef nonnull align 8 dereferenceable(40) %this) unnamed_addr #12 comdat align 2 {
+entry:
+  tail call void @_ZdlPv(ptr noundef nonnull %this) #20
   ret void
 }
 
 ; Function Attrs: uwtable
-define linkonce_odr dso_local void @_ZNK6Sphere9intersectERKSt4pairId3VecERK3Ray(ptr noalias sret(%"struct.std::pair") align 8 %0, ptr noundef nonnull align 8 dereferenceable(40) %1, ptr noundef nonnull align 8 dereferenceable(32) %2, ptr noundef nonnull align 8 dereferenceable(48) %3) unnamed_addr #7 comdat align 2 {
-  %5 = getelementptr inbounds %struct.Sphere, ptr %1, i64 0, i32 1
-  %6 = getelementptr inbounds %struct.Sphere, ptr %1, i64 0, i32 1, i32 2
-  %7 = load double, ptr %6, align 8, !tbaa !5, !noalias !83
-  %8 = getelementptr inbounds %struct.Vec, ptr %3, i64 0, i32 2
-  %9 = load double, ptr %8, align 8, !tbaa !5, !noalias !83
-  %10 = fsub double %7, %9
-  %11 = getelementptr inbounds %struct.Ray, ptr %3, i64 0, i32 1
-  %12 = load double, ptr %11, align 8, !tbaa !11
-  %13 = getelementptr inbounds %struct.Ray, ptr %3, i64 0, i32 1, i32 1
-  %14 = load double, ptr %13, align 8, !tbaa !49
-  %15 = getelementptr inbounds %struct.Ray, ptr %3, i64 0, i32 1, i32 2
-  %16 = load double, ptr %15, align 8, !tbaa !5
-  %17 = load <2 x double>, ptr %5, align 8, !tbaa !10, !noalias !83
-  %18 = load <2 x double>, ptr %3, align 8, !tbaa !10, !noalias !83
-  %19 = fsub <2 x double> %17, %18
-  %20 = insertelement <2 x double> %19, double %14, i64 1
-  %21 = fmul <2 x double> %19, %20
-  %22 = shufflevector <2 x double> %19, <2 x double> poison, <2 x i32> <i32 1, i32 0>
-  %23 = insertelement <2 x double> %22, double %12, i64 1
-  %24 = fmul <2 x double> %22, %23
-  %25 = fadd <2 x double> %21, %24
-  %26 = insertelement <2 x double> poison, double %10, i64 0
-  %27 = shufflevector <2 x double> %26, <2 x double> poison, <2 x i32> zeroinitializer
-  %28 = insertelement <2 x double> %27, double %16, i64 1
-  %29 = fmul <2 x double> %27, %28
-  %30 = fadd <2 x double> %25, %29
-  %31 = extractelement <2 x double> %30, i64 1
-  %32 = fmul double %31, %31
-  %33 = extractelement <2 x double> %30, i64 0
-  %34 = fsub double %32, %33
-  %35 = getelementptr inbounds %struct.Sphere, ptr %1, i64 0, i32 2
-  %36 = load double, ptr %35, align 8, !tbaa !32
-  %37 = fmul double %36, %36
-  %38 = fadd double %37, %34
-  %39 = fcmp olt double %38, 0.000000e+00
-  br i1 %39, label %40, label %42
+define linkonce_odr dso_local void @_ZNK6Sphere9intersectERKSt4pairId3VecERK3Ray(ptr noalias sret(%"struct.std::pair") align 8 %agg.result, ptr noundef nonnull align 8 dereferenceable(40) %this, ptr noundef nonnull align 8 dereferenceable(32) %hit, ptr noundef nonnull align 8 dereferenceable(48) %ray) unnamed_addr #7 comdat align 2 {
+entry:
+  %center.i = getelementptr inbounds %struct.Sphere, ptr %this, i64 0, i32 1
+  %z.i.i = getelementptr inbounds %struct.Sphere, ptr %this, i64 0, i32 1, i32 2
+  %0 = load double, ptr %z.i.i, align 8, !tbaa !5, !noalias !83
+  %z4.i.i = getelementptr inbounds %struct.Vec, ptr %ray, i64 0, i32 2
+  %1 = load double, ptr %z4.i.i, align 8, !tbaa !5, !noalias !83
+  %sub5.i.i = fsub double %0, %1
+  %dir.i = getelementptr inbounds %struct.Ray, ptr %ray, i64 0, i32 1
+  %2 = load double, ptr %dir.i, align 8, !tbaa !11
+  %y2.i25.i = getelementptr inbounds %struct.Ray, ptr %ray, i64 0, i32 1, i32 1
+  %3 = load double, ptr %y2.i25.i, align 8, !tbaa !49
+  %z4.i27.i = getelementptr inbounds %struct.Ray, ptr %ray, i64 0, i32 1, i32 2
+  %4 = load double, ptr %z4.i27.i, align 8, !tbaa !5
+  %5 = load <2 x double>, ptr %center.i, align 8, !tbaa !10, !noalias !83
+  %6 = load <2 x double>, ptr %ray, align 8, !tbaa !10, !noalias !83
+  %7 = fsub <2 x double> %5, %6
+  %8 = insertelement <2 x double> %7, double %3, i64 1
+  %9 = fmul <2 x double> %7, %8
+  %10 = shufflevector <2 x double> %7, <2 x double> poison, <2 x i32> <i32 1, i32 0>
+  %11 = insertelement <2 x double> %10, double %2, i64 1
+  %12 = fmul <2 x double> %10, %11
+  %13 = fadd <2 x double> %9, %12
+  %14 = insertelement <2 x double> poison, double %sub5.i.i, i64 0
+  %15 = shufflevector <2 x double> %14, <2 x double> poison, <2 x i32> zeroinitializer
+  %16 = insertelement <2 x double> %15, double %4, i64 1
+  %17 = fmul <2 x double> %15, %16
+  %18 = fadd <2 x double> %13, %17
+  %19 = extractelement <2 x double> %18, i64 1
+  %mul.i = fmul double %19, %19
+  %20 = extractelement <2 x double> %18, i64 0
+  %sub.i = fsub double %mul.i, %20
+  %radius.i = getelementptr inbounds %struct.Sphere, ptr %this, i64 0, i32 2
+  %21 = load double, ptr %radius.i, align 8, !tbaa !32
+  %mul4.i = fmul double %21, %21
+  %add.i = fadd double %mul4.i, %sub.i
+  %cmp.i = fcmp olt double %add.i, 0.000000e+00
+  br i1 %cmp.i, label %if.then.i, label %if.end.i
 
-40:                                               ; preds = %4
-  %41 = load double, ptr @infinity, align 8, !tbaa !10
-  br label %52
+if.then.i:                                        ; preds = %entry
+  %22 = load double, ptr @infinity, align 8, !tbaa !10
+  br label %_ZNK6Sphere10ray_sphereERK3Ray.exit
 
-42:                                               ; preds = %4
-  %43 = tail call double @sqrt(double noundef %38) #18
-  %44 = fadd double %31, %43
-  %45 = fcmp olt double %44, 0.000000e+00
-  br i1 %45, label %46, label %48
+if.end.i:                                         ; preds = %entry
+  %call5.i = tail call double @sqrt(double noundef %add.i) #18
+  %add6.i = fadd double %19, %call5.i
+  %cmp7.i = fcmp olt double %add6.i, 0.000000e+00
+  br i1 %cmp7.i, label %if.then8.i, label %if.end9.i
 
-46:                                               ; preds = %42
-  %47 = load double, ptr @infinity, align 8, !tbaa !10
-  br label %52
+if.then8.i:                                       ; preds = %if.end.i
+  %23 = load double, ptr @infinity, align 8, !tbaa !10
+  br label %_ZNK6Sphere10ray_sphereERK3Ray.exit
 
-48:                                               ; preds = %42
-  %49 = fsub double %31, %43
-  %50 = fcmp ogt double %49, 0.000000e+00
-  %51 = select i1 %50, double %49, double %44
-  br label %52
+if.end9.i:                                        ; preds = %if.end.i
+  %sub10.i = fsub double %19, %call5.i
+  %cmp11.i = fcmp ogt double %sub10.i, 0.000000e+00
+  %cond.i = select i1 %cmp11.i, double %sub10.i, double %add6.i
+  br label %_ZNK6Sphere10ray_sphereERK3Ray.exit
 
-52:                                               ; preds = %40, %46, %48
-  %53 = phi double [ %41, %40 ], [ %47, %46 ], [ %51, %48 ]
-  %54 = load double, ptr %2, align 8, !tbaa !15
-  %55 = fcmp ult double %53, %54
-  br i1 %55, label %57, label %56
+_ZNK6Sphere10ray_sphereERK3Ray.exit:              ; preds = %if.then.i, %if.then8.i, %if.end9.i
+  %retval.1.i = phi double [ %22, %if.then.i ], [ %23, %if.then8.i ], [ %cond.i, %if.end9.i ]
+  %24 = load double, ptr %hit, align 8, !tbaa !15
+  %cmp = fcmp ult double %retval.1.i, %24
+  br i1 %cmp, label %if.end, label %if.then
 
-56:                                               ; preds = %52
-  tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(32) %0, ptr noundef nonnull align 8 dereferenceable(32) %2, i64 32, i1 false)
-  br label %86
+if.then:                                          ; preds = %_ZNK6Sphere10ray_sphereERK3Ray.exit
+  tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(32) %agg.result, ptr noundef nonnull align 8 dereferenceable(32) %hit, i64 32, i1 false)
+  br label %cleanup
 
-57:                                               ; preds = %52
-  %58 = load double, ptr %15, align 8, !tbaa !5, !noalias !86
-  %59 = fmul double %53, %58
-  %60 = load double, ptr %8, align 8, !tbaa !5, !noalias !89
-  %61 = fadd double %59, %60
-  %62 = load double, ptr %6, align 8, !tbaa !5, !noalias !92
-  %63 = fsub double %61, %62
-  %64 = fmul double %63, %63
-  store double %53, ptr %0, align 8, !tbaa !15
-  %65 = getelementptr inbounds %"struct.std::pair", ptr %0, i64 0, i32 1
-  %66 = load <2 x double>, ptr %11, align 8, !tbaa !10, !noalias !86
-  %67 = insertelement <2 x double> poison, double %53, i64 0
-  %68 = shufflevector <2 x double> %67, <2 x double> poison, <2 x i32> zeroinitializer
-  %69 = fmul <2 x double> %68, %66
-  %70 = load <2 x double>, ptr %3, align 8, !tbaa !10, !noalias !89
-  %71 = fadd <2 x double> %69, %70
-  %72 = load <2 x double>, ptr %5, align 8, !tbaa !10, !noalias !92
-  %73 = fsub <2 x double> %71, %72
-  %74 = fmul <2 x double> %73, %73
-  %75 = shufflevector <2 x double> %74, <2 x double> poison, <2 x i32> <i32 1, i32 undef>
-  %76 = fadd <2 x double> %74, %75
-  %77 = extractelement <2 x double> %76, i64 0
-  %78 = fadd double %77, %64
-  %79 = tail call double @llvm.sqrt.f64(double %78)
-  %80 = fdiv double 1.000000e+00, %79
-  %81 = insertelement <2 x double> poison, double %80, i64 0
-  %82 = shufflevector <2 x double> %81, <2 x double> poison, <2 x i32> zeroinitializer
-  %83 = fmul <2 x double> %73, %82
-  %84 = fmul double %63, %80
-  store <2 x double> %83, ptr %65, align 8
-  %85 = getelementptr inbounds %"struct.std::pair", ptr %0, i64 0, i32 1, i32 2
-  store double %84, ptr %85, align 8, !tbaa.struct !28
-  br label %86
+if.end:                                           ; preds = %_ZNK6Sphere10ray_sphereERK3Ray.exit
+  %25 = load double, ptr %z4.i27.i, align 8, !tbaa !5, !noalias !86
+  %mul2.i = fmul double %retval.1.i, %25
+  %26 = load double, ptr %z4.i.i, align 8, !tbaa !5, !noalias !89
+  %add5.i = fadd double %mul2.i, %26
+  %27 = load double, ptr %z.i.i, align 8, !tbaa !5, !noalias !92
+  %sub5.i = fsub double %add5.i, %27
+  %mul5.i.i28 = fmul double %sub5.i, %sub5.i
+  store double %retval.1.i, ptr %agg.result, align 8, !tbaa !15
+  %second.i = getelementptr inbounds %"struct.std::pair", ptr %agg.result, i64 0, i32 1
+  %28 = load <2 x double>, ptr %dir.i, align 8, !tbaa !10, !noalias !86
+  %29 = insertelement <2 x double> poison, double %retval.1.i, i64 0
+  %30 = shufflevector <2 x double> %29, <2 x double> poison, <2 x i32> zeroinitializer
+  %31 = fmul <2 x double> %30, %28
+  %32 = load <2 x double>, ptr %ray, align 8, !tbaa !10, !noalias !89
+  %33 = fadd <2 x double> %31, %32
+  %34 = load <2 x double>, ptr %center.i, align 8, !tbaa !10, !noalias !92
+  %35 = fsub <2 x double> %33, %34
+  %36 = fmul <2 x double> %35, %35
+  %shift = shufflevector <2 x double> %36, <2 x double> poison, <2 x i32> <i32 1, i32 undef>
+  %37 = fadd <2 x double> %36, %shift
+  %add.i.i26 = extractelement <2 x double> %37, i64 0
+  %add6.i.i29 = fadd double %add.i.i26, %mul5.i.i28
+  %sqrt.i = tail call double @llvm.sqrt.f64(double %add6.i.i29)
+  %div.i = fdiv double 1.000000e+00, %sqrt.i
+  %38 = insertelement <2 x double> poison, double %div.i, i64 0
+  %39 = shufflevector <2 x double> %38, <2 x double> poison, <2 x i32> zeroinitializer
+  %40 = fmul <2 x double> %35, %39
+  %mul2.i.i = fmul double %sub5.i, %div.i
+  store <2 x double> %40, ptr %second.i, align 8
+  %ref.tmp.sroa.5.0.second.i.sroa_idx = getelementptr inbounds %"struct.std::pair", ptr %agg.result, i64 0, i32 1, i32 2
+  store double %mul2.i.i, ptr %ref.tmp.sroa.5.0.second.i.sroa_idx, align 8, !tbaa.struct !28
+  br label %cleanup
 
-86:                                               ; preds = %57, %56
+cleanup:                                          ; preds = %if.end, %if.then
   ret void
 }
 
 ; Function Attrs: nounwind uwtable
-define linkonce_odr dso_local void @_ZN5GroupD2Ev(ptr noundef nonnull align 8 dereferenceable(72) %0) unnamed_addr #12 comdat align 2 personality ptr @__gxx_personality_v0 {
-  store ptr getelementptr inbounds ({ [5 x ptr] }, ptr @_ZTV5Group, i64 0, inrange i32 0, i64 2), ptr %0, align 8, !tbaa !17
-  %2 = getelementptr inbounds %struct.Group, ptr %0, i64 0, i32 2
-  %3 = load ptr, ptr %2, align 8, !tbaa !38
-  %4 = icmp eq ptr %3, %2
-  br i1 %4, label %12, label %13
+define linkonce_odr dso_local void @_ZN5GroupD2Ev(ptr noundef nonnull align 8 dereferenceable(72) %this) unnamed_addr #12 comdat align 2 personality ptr @__gxx_personality_v0 {
+entry:
+  store ptr getelementptr inbounds ({ [5 x ptr] }, ptr @_ZTV5Group, i64 0, inrange i32 0, i64 2), ptr %this, align 8, !tbaa !17
+  %child = getelementptr inbounds %struct.Group, ptr %this, i64 0, i32 2
+  %it.sroa.0.013 = load ptr, ptr %child, align 8, !tbaa !38
+  %cmp.i.not14 = icmp eq ptr %it.sroa.0.013, %child
+  br i1 %cmp.i.not14, label %_ZNSt7__cxx1110_List_baseIP5SceneSaIS2_EED2Ev.exit, label %for.body
 
-5:                                                ; preds = %22
-  %6 = load ptr, ptr %2, align 8, !tbaa !38
-  %7 = icmp eq ptr %6, %2
-  br i1 %7, label %12, label %8
+for.cond.cleanup:                                 ; preds = %for.inc
+  %.pre = load ptr, ptr %child, align 8, !tbaa !38
+  %cmp.not9.i.i = icmp eq ptr %.pre, %child
+  br i1 %cmp.not9.i.i, label %_ZNSt7__cxx1110_List_baseIP5SceneSaIS2_EED2Ev.exit, label %while.body.i.i
 
-8:                                                ; preds = %5, %8
-  %9 = phi ptr [ %10, %8 ], [ %6, %5 ]
-  %10 = load ptr, ptr %9, align 8, !tbaa !38
-  tail call void @_ZdlPv(ptr noundef %9) #20
-  %11 = icmp eq ptr %10, %2
-  br i1 %11, label %12, label %8, !llvm.loop !58
+while.body.i.i:                                   ; preds = %for.cond.cleanup, %while.body.i.i
+  %__cur.010.i.i = phi ptr [ %0, %while.body.i.i ], [ %.pre, %for.cond.cleanup ]
+  %0 = load ptr, ptr %__cur.010.i.i, align 8, !tbaa !38
+  tail call void @_ZdlPv(ptr noundef %__cur.010.i.i) #20
+  %cmp.not.i.i = icmp eq ptr %0, %child
+  br i1 %cmp.not.i.i, label %_ZNSt7__cxx1110_List_baseIP5SceneSaIS2_EED2Ev.exit, label %while.body.i.i, !llvm.loop !58
 
-12:                                               ; preds = %8, %1, %5
+_ZNSt7__cxx1110_List_baseIP5SceneSaIS2_EED2Ev.exit: ; preds = %while.body.i.i, %entry, %for.cond.cleanup
   ret void
 
-13:                                               ; preds = %1, %22
-  %14 = phi ptr [ %23, %22 ], [ %3, %1 ]
-  %15 = getelementptr inbounds %"struct.std::_List_node", ptr %14, i64 0, i32 1
-  %16 = load ptr, ptr %15, align 8, !tbaa !42
-  %17 = icmp eq ptr %16, null
-  br i1 %17, label %22, label %18
+for.body:                                         ; preds = %entry, %for.inc
+  %it.sroa.0.015 = phi ptr [ %it.sroa.0.0, %for.inc ], [ %it.sroa.0.013, %entry ]
+  %_M_storage.i.i = getelementptr inbounds %"struct.std::_List_node", ptr %it.sroa.0.015, i64 0, i32 1
+  %1 = load ptr, ptr %_M_storage.i.i, align 8, !tbaa !42
+  %isnull = icmp eq ptr %1, null
+  br i1 %isnull, label %for.inc, label %delete.notnull
 
-18:                                               ; preds = %13
-  %19 = load ptr, ptr %16, align 8, !tbaa !17
-  %20 = getelementptr inbounds ptr, ptr %19, i64 1
-  %21 = load ptr, ptr %20, align 8
-  tail call void %21(ptr noundef nonnull align 8 dereferenceable(8) %16) #18
-  br label %22
+delete.notnull:                                   ; preds = %for.body
+  %vtable = load ptr, ptr %1, align 8, !tbaa !17
+  %vfn = getelementptr inbounds ptr, ptr %vtable, i64 1
+  %2 = load ptr, ptr %vfn, align 8
+  tail call void %2(ptr noundef nonnull align 8 dereferenceable(8) %1) #18
+  br label %for.inc
 
-22:                                               ; preds = %13, %18
-  %23 = load ptr, ptr %14, align 8, !tbaa !38
-  %24 = icmp eq ptr %23, %2
-  br i1 %24, label %5, label %13, !llvm.loop !95
+for.inc:                                          ; preds = %for.body, %delete.notnull
+  %it.sroa.0.0 = load ptr, ptr %it.sroa.0.015, align 8, !tbaa !38
+  %cmp.i.not = icmp eq ptr %it.sroa.0.0, %child
+  br i1 %cmp.i.not, label %for.cond.cleanup, label %for.body, !llvm.loop !95
 }
 
 ; Function Attrs: nounwind uwtable
-define linkonce_odr dso_local void @_ZN5GroupD0Ev(ptr noundef nonnull align 8 dereferenceable(72) %0) unnamed_addr #12 comdat align 2 personality ptr @__gxx_personality_v0 {
-  store ptr getelementptr inbounds ({ [5 x ptr] }, ptr @_ZTV5Group, i64 0, inrange i32 0, i64 2), ptr %0, align 8, !tbaa !17
-  %2 = getelementptr inbounds %struct.Group, ptr %0, i64 0, i32 2
-  %3 = load ptr, ptr %2, align 8, !tbaa !38
-  %4 = icmp eq ptr %3, %2
-  br i1 %4, label %24, label %12
+define linkonce_odr dso_local void @_ZN5GroupD0Ev(ptr noundef nonnull align 8 dereferenceable(72) %this) unnamed_addr #12 comdat align 2 personality ptr @__gxx_personality_v0 {
+entry:
+  store ptr getelementptr inbounds ({ [5 x ptr] }, ptr @_ZTV5Group, i64 0, inrange i32 0, i64 2), ptr %this, align 8, !tbaa !17
+  %child.i = getelementptr inbounds %struct.Group, ptr %this, i64 0, i32 2
+  %it.sroa.0.013.i = load ptr, ptr %child.i, align 8, !tbaa !38
+  %cmp.i.not14.i = icmp eq ptr %it.sroa.0.013.i, %child.i
+  br i1 %cmp.i.not14.i, label %_ZN5GroupD2Ev.exit, label %for.body.i
 
-5:                                                ; preds = %21
-  %6 = load ptr, ptr %2, align 8, !tbaa !38
-  %7 = icmp eq ptr %6, %2
-  br i1 %7, label %24, label %8
+for.cond.cleanup.i:                               ; preds = %for.inc.i
+  %.pre.i = load ptr, ptr %child.i, align 8, !tbaa !38
+  %cmp.not9.i.i.i = icmp eq ptr %.pre.i, %child.i
+  br i1 %cmp.not9.i.i.i, label %_ZN5GroupD2Ev.exit, label %while.body.i.i.i
 
-8:                                                ; preds = %5, %8
-  %9 = phi ptr [ %10, %8 ], [ %6, %5 ]
-  %10 = load ptr, ptr %9, align 8, !tbaa !38
-  tail call void @_ZdlPv(ptr noundef %9) #20
-  %11 = icmp eq ptr %10, %2
-  br i1 %11, label %24, label %8, !llvm.loop !58
+while.body.i.i.i:                                 ; preds = %for.cond.cleanup.i, %while.body.i.i.i
+  %__cur.010.i.i.i = phi ptr [ %0, %while.body.i.i.i ], [ %.pre.i, %for.cond.cleanup.i ]
+  %0 = load ptr, ptr %__cur.010.i.i.i, align 8, !tbaa !38
+  tail call void @_ZdlPv(ptr noundef %__cur.010.i.i.i) #20
+  %cmp.not.i.i.i = icmp eq ptr %0, %child.i
+  br i1 %cmp.not.i.i.i, label %_ZN5GroupD2Ev.exit, label %while.body.i.i.i, !llvm.loop !58
 
-12:                                               ; preds = %1, %21
-  %13 = phi ptr [ %22, %21 ], [ %3, %1 ]
-  %14 = getelementptr inbounds %"struct.std::_List_node", ptr %13, i64 0, i32 1
-  %15 = load ptr, ptr %14, align 8, !tbaa !42
-  %16 = icmp eq ptr %15, null
-  br i1 %16, label %21, label %17
+for.body.i:                                       ; preds = %entry, %for.inc.i
+  %it.sroa.0.015.i = phi ptr [ %it.sroa.0.0.i, %for.inc.i ], [ %it.sroa.0.013.i, %entry ]
+  %_M_storage.i.i.i = getelementptr inbounds %"struct.std::_List_node", ptr %it.sroa.0.015.i, i64 0, i32 1
+  %1 = load ptr, ptr %_M_storage.i.i.i, align 8, !tbaa !42
+  %isnull.i = icmp eq ptr %1, null
+  br i1 %isnull.i, label %for.inc.i, label %delete.notnull.i
 
-17:                                               ; preds = %12
-  %18 = load ptr, ptr %15, align 8, !tbaa !17
-  %19 = getelementptr inbounds ptr, ptr %18, i64 1
-  %20 = load ptr, ptr %19, align 8
-  tail call void %20(ptr noundef nonnull align 8 dereferenceable(8) %15) #18
-  br label %21
+delete.notnull.i:                                 ; preds = %for.body.i
+  %vtable.i = load ptr, ptr %1, align 8, !tbaa !17
+  %vfn.i = getelementptr inbounds ptr, ptr %vtable.i, i64 1
+  %2 = load ptr, ptr %vfn.i, align 8
+  tail call void %2(ptr noundef nonnull align 8 dereferenceable(8) %1) #18
+  br label %for.inc.i
 
-21:                                               ; preds = %17, %12
-  %22 = load ptr, ptr %13, align 8, !tbaa !38
-  %23 = icmp eq ptr %22, %2
-  br i1 %23, label %5, label %12, !llvm.loop !95
+for.inc.i:                                        ; preds = %delete.notnull.i, %for.body.i
+  %it.sroa.0.0.i = load ptr, ptr %it.sroa.0.015.i, align 8, !tbaa !38
+  %cmp.i.not.i = icmp eq ptr %it.sroa.0.0.i, %child.i
+  br i1 %cmp.i.not.i, label %for.cond.cleanup.i, label %for.body.i, !llvm.loop !95
 
-24:                                               ; preds = %8, %1, %5
-  tail call void @_ZdlPv(ptr noundef nonnull %0) #20
+_ZN5GroupD2Ev.exit:                               ; preds = %while.body.i.i.i, %entry, %for.cond.cleanup.i
+  tail call void @_ZdlPv(ptr noundef nonnull %this) #20
   ret void
 }
 
 ; Function Attrs: uwtable
-define linkonce_odr dso_local void @_ZNK5Group9intersectERKSt4pairId3VecERK3Ray(ptr noalias sret(%"struct.std::pair") align 8 %0, ptr noundef nonnull align 8 dereferenceable(72) %1, ptr noundef nonnull align 8 dereferenceable(32) %2, ptr noundef nonnull align 8 dereferenceable(48) %3) unnamed_addr #7 comdat align 2 personality ptr @__gxx_personality_v0 {
-  %5 = alloca %"struct.std::pair", align 8
-  %6 = alloca %"struct.std::pair", align 8
-  call void @llvm.lifetime.start.p0(i64 32, ptr nonnull %5) #18
-  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(32) %5, ptr noundef nonnull align 8 dereferenceable(32) %2, i64 32, i1 false)
-  %7 = getelementptr inbounds %struct.Group, ptr %1, i64 0, i32 1, i32 1
-  %8 = getelementptr inbounds %struct.Group, ptr %1, i64 0, i32 1, i32 1, i32 2
-  %9 = load double, ptr %8, align 8, !tbaa !5, !noalias !96
-  %10 = getelementptr inbounds %struct.Vec, ptr %3, i64 0, i32 2
-  %11 = load double, ptr %10, align 8, !tbaa !5, !noalias !96
-  %12 = fsub double %9, %11
-  %13 = getelementptr inbounds %struct.Ray, ptr %3, i64 0, i32 1
-  %14 = load double, ptr %13, align 8, !tbaa !11
-  %15 = getelementptr inbounds %struct.Ray, ptr %3, i64 0, i32 1, i32 1
-  %16 = load double, ptr %15, align 8, !tbaa !49
-  %17 = getelementptr inbounds %struct.Ray, ptr %3, i64 0, i32 1, i32 2
-  %18 = load double, ptr %17, align 8, !tbaa !5
-  %19 = load <2 x double>, ptr %7, align 8, !tbaa !10, !noalias !96
-  %20 = load <2 x double>, ptr %3, align 8, !tbaa !10, !noalias !96
-  %21 = fsub <2 x double> %19, %20
-  %22 = insertelement <2 x double> %21, double %16, i64 1
-  %23 = fmul <2 x double> %21, %22
-  %24 = shufflevector <2 x double> %21, <2 x double> poison, <2 x i32> <i32 1, i32 0>
-  %25 = insertelement <2 x double> %24, double %14, i64 1
-  %26 = fmul <2 x double> %24, %25
-  %27 = fadd <2 x double> %23, %26
-  %28 = insertelement <2 x double> poison, double %12, i64 0
-  %29 = shufflevector <2 x double> %28, <2 x double> poison, <2 x i32> zeroinitializer
-  %30 = insertelement <2 x double> %29, double %18, i64 1
-  %31 = fmul <2 x double> %29, %30
-  %32 = fadd <2 x double> %27, %31
-  %33 = extractelement <2 x double> %32, i64 1
-  %34 = fmul double %33, %33
-  %35 = extractelement <2 x double> %32, i64 0
-  %36 = fsub double %34, %35
-  %37 = getelementptr inbounds %struct.Group, ptr %1, i64 0, i32 1, i32 2
-  %38 = load double, ptr %37, align 8, !tbaa !32
-  %39 = fmul double %38, %38
-  %40 = fadd double %39, %36
-  %41 = fcmp olt double %40, 0.000000e+00
-  br i1 %41, label %42, label %44
+define linkonce_odr dso_local void @_ZNK5Group9intersectERKSt4pairId3VecERK3Ray(ptr noalias sret(%"struct.std::pair") align 8 %agg.result, ptr noundef nonnull align 8 dereferenceable(72) %this, ptr noundef nonnull align 8 dereferenceable(32) %hit, ptr noundef nonnull align 8 dereferenceable(48) %ray) unnamed_addr #7 comdat align 2 personality ptr @__gxx_personality_v0 {
+entry:
+  %hit2 = alloca %"struct.std::pair", align 8
+  %ref.tmp7 = alloca %"struct.std::pair", align 8
+  call void @llvm.lifetime.start.p0(i64 32, ptr nonnull %hit2) #18
+  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(32) %hit2, ptr noundef nonnull align 8 dereferenceable(32) %hit, i64 32, i1 false)
+  %center.i = getelementptr inbounds %struct.Group, ptr %this, i64 0, i32 1, i32 1
+  %z.i.i = getelementptr inbounds %struct.Group, ptr %this, i64 0, i32 1, i32 1, i32 2
+  %0 = load double, ptr %z.i.i, align 8, !tbaa !5, !noalias !96
+  %z4.i.i = getelementptr inbounds %struct.Vec, ptr %ray, i64 0, i32 2
+  %1 = load double, ptr %z4.i.i, align 8, !tbaa !5, !noalias !96
+  %sub5.i.i = fsub double %0, %1
+  %dir.i = getelementptr inbounds %struct.Ray, ptr %ray, i64 0, i32 1
+  %2 = load double, ptr %dir.i, align 8, !tbaa !11
+  %y2.i25.i = getelementptr inbounds %struct.Ray, ptr %ray, i64 0, i32 1, i32 1
+  %3 = load double, ptr %y2.i25.i, align 8, !tbaa !49
+  %z4.i27.i = getelementptr inbounds %struct.Ray, ptr %ray, i64 0, i32 1, i32 2
+  %4 = load double, ptr %z4.i27.i, align 8, !tbaa !5
+  %5 = load <2 x double>, ptr %center.i, align 8, !tbaa !10, !noalias !96
+  %6 = load <2 x double>, ptr %ray, align 8, !tbaa !10, !noalias !96
+  %7 = fsub <2 x double> %5, %6
+  %8 = insertelement <2 x double> %7, double %3, i64 1
+  %9 = fmul <2 x double> %7, %8
+  %10 = shufflevector <2 x double> %7, <2 x double> poison, <2 x i32> <i32 1, i32 0>
+  %11 = insertelement <2 x double> %10, double %2, i64 1
+  %12 = fmul <2 x double> %10, %11
+  %13 = fadd <2 x double> %9, %12
+  %14 = insertelement <2 x double> poison, double %sub5.i.i, i64 0
+  %15 = shufflevector <2 x double> %14, <2 x double> poison, <2 x i32> zeroinitializer
+  %16 = insertelement <2 x double> %15, double %4, i64 1
+  %17 = fmul <2 x double> %15, %16
+  %18 = fadd <2 x double> %13, %17
+  %19 = extractelement <2 x double> %18, i64 1
+  %mul.i = fmul double %19, %19
+  %20 = extractelement <2 x double> %18, i64 0
+  %sub.i = fsub double %mul.i, %20
+  %radius.i = getelementptr inbounds %struct.Group, ptr %this, i64 0, i32 1, i32 2
+  %21 = load double, ptr %radius.i, align 8, !tbaa !32
+  %mul4.i = fmul double %21, %21
+  %add.i = fadd double %mul4.i, %sub.i
+  %cmp.i = fcmp olt double %add.i, 0.000000e+00
+  br i1 %cmp.i, label %if.then.i, label %if.end.i
 
-42:                                               ; preds = %4
-  %43 = load double, ptr @infinity, align 8, !tbaa !10
-  br label %54
+if.then.i:                                        ; preds = %entry
+  %22 = load double, ptr @infinity, align 8, !tbaa !10
+  br label %_ZNK6Sphere10ray_sphereERK3Ray.exit
 
-44:                                               ; preds = %4
-  %45 = tail call double @sqrt(double noundef %40) #18
-  %46 = fadd double %33, %45
-  %47 = fcmp olt double %46, 0.000000e+00
-  br i1 %47, label %48, label %50
+if.end.i:                                         ; preds = %entry
+  %call5.i = tail call double @sqrt(double noundef %add.i) #18
+  %add6.i = fadd double %19, %call5.i
+  %cmp7.i = fcmp olt double %add6.i, 0.000000e+00
+  br i1 %cmp7.i, label %if.then8.i, label %if.end9.i
 
-48:                                               ; preds = %44
-  %49 = load double, ptr @infinity, align 8, !tbaa !10
-  br label %54
+if.then8.i:                                       ; preds = %if.end.i
+  %23 = load double, ptr @infinity, align 8, !tbaa !10
+  br label %_ZNK6Sphere10ray_sphereERK3Ray.exit
 
-50:                                               ; preds = %44
-  %51 = fsub double %33, %45
-  %52 = fcmp ogt double %51, 0.000000e+00
-  %53 = select i1 %52, double %51, double %46
-  br label %54
+if.end9.i:                                        ; preds = %if.end.i
+  %sub10.i = fsub double %19, %call5.i
+  %cmp11.i = fcmp ogt double %sub10.i, 0.000000e+00
+  %cond.i = select i1 %cmp11.i, double %sub10.i, double %add6.i
+  br label %_ZNK6Sphere10ray_sphereERK3Ray.exit
 
-54:                                               ; preds = %42, %48, %50
-  %55 = phi double [ %43, %42 ], [ %49, %48 ], [ %53, %50 ]
-  %56 = load double, ptr %2, align 8, !tbaa !15
-  %57 = fcmp ult double %55, %56
-  br i1 %57, label %59, label %58
+_ZNK6Sphere10ray_sphereERK3Ray.exit:              ; preds = %if.then.i, %if.then8.i, %if.end9.i
+  %retval.1.i = phi double [ %22, %if.then.i ], [ %23, %if.then8.i ], [ %cond.i, %if.end9.i ]
+  %24 = load double, ptr %hit, align 8, !tbaa !15
+  %cmp = fcmp ult double %retval.1.i, %24
+  br i1 %cmp, label %if.end, label %if.then
 
-58:                                               ; preds = %54
-  tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(32) %0, ptr noundef nonnull align 8 dereferenceable(32) %2, i64 32, i1 false)
-  br label %77
+if.then:                                          ; preds = %_ZNK6Sphere10ray_sphereERK3Ray.exit
+  tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(32) %agg.result, ptr noundef nonnull align 8 dereferenceable(32) %hit, i64 32, i1 false)
+  br label %cleanup
 
-59:                                               ; preds = %54
-  %60 = getelementptr inbounds %struct.Group, ptr %1, i64 0, i32 2
-  %61 = load ptr, ptr %60, align 8, !tbaa !38
-  %62 = icmp eq ptr %61, %60
-  br i1 %62, label %66, label %63
+if.end:                                           ; preds = %_ZNK6Sphere10ray_sphereERK3Ray.exit
+  %child = getelementptr inbounds %struct.Group, ptr %this, i64 0, i32 2
+  %it.sroa.0.018 = load ptr, ptr %child, align 8, !tbaa !38
+  %cmp.i15.not19 = icmp eq ptr %it.sroa.0.018, %child
+  br i1 %cmp.i15.not19, label %for.cond.cleanup, label %for.body.lr.ph
 
-63:                                               ; preds = %59
-  %64 = getelementptr inbounds %"struct.std::pair", ptr %6, i64 0, i32 1
-  %65 = getelementptr inbounds %"struct.std::pair", ptr %5, i64 0, i32 1
-  br label %67
+for.body.lr.ph:                                   ; preds = %if.end
+  %second.i = getelementptr inbounds %"struct.std::pair", ptr %ref.tmp7, i64 0, i32 1
+  %second3.i = getelementptr inbounds %"struct.std::pair", ptr %hit2, i64 0, i32 1
+  br label %for.body
 
-66:                                               ; preds = %67, %59
-  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(32) %0, ptr noundef nonnull align 8 dereferenceable(32) %5, i64 32, i1 false)
-  br label %77
+for.cond.cleanup:                                 ; preds = %for.body, %if.end
+  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(32) %agg.result, ptr noundef nonnull align 8 dereferenceable(32) %hit2, i64 32, i1 false)
+  br label %cleanup
 
-67:                                               ; preds = %63, %67
-  %68 = phi ptr [ %61, %63 ], [ %75, %67 ]
-  call void @llvm.lifetime.start.p0(i64 32, ptr nonnull %6) #18
-  %69 = getelementptr inbounds %"struct.std::_List_node", ptr %68, i64 0, i32 1
-  %70 = load ptr, ptr %69, align 8, !tbaa !42
-  %71 = load ptr, ptr %70, align 8, !tbaa !17
-  %72 = getelementptr inbounds ptr, ptr %71, i64 2
-  %73 = load ptr, ptr %72, align 8
-  call void %73(ptr nonnull sret(%"struct.std::pair") align 8 %6, ptr noundef nonnull align 8 dereferenceable(8) %70, ptr noundef nonnull align 8 dereferenceable(32) %5, ptr noundef nonnull align 8 dereferenceable(48) %3)
-  %74 = load double, ptr %6, align 8, !tbaa !10
-  store double %74, ptr %5, align 8, !tbaa !15
-  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(24) %65, ptr noundef nonnull align 8 dereferenceable(24) %64, i64 24, i1 false), !tbaa.struct !99
-  call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %6) #18
-  %75 = load ptr, ptr %68, align 8, !tbaa !38
-  %76 = icmp eq ptr %75, %60
-  br i1 %76, label %66, label %67, !llvm.loop !100
+for.body:                                         ; preds = %for.body.lr.ph, %for.body
+  %it.sroa.0.020 = phi ptr [ %it.sroa.0.018, %for.body.lr.ph ], [ %it.sroa.0.0, %for.body ]
+  call void @llvm.lifetime.start.p0(i64 32, ptr nonnull %ref.tmp7) #18
+  %_M_storage.i.i = getelementptr inbounds %"struct.std::_List_node", ptr %it.sroa.0.020, i64 0, i32 1
+  %25 = load ptr, ptr %_M_storage.i.i, align 8, !tbaa !42
+  %vtable = load ptr, ptr %25, align 8, !tbaa !17
+  %vfn = getelementptr inbounds ptr, ptr %vtable, i64 2
+  %26 = load ptr, ptr %vfn, align 8
+  call void %26(ptr nonnull sret(%"struct.std::pair") align 8 %ref.tmp7, ptr noundef nonnull align 8 dereferenceable(8) %25, ptr noundef nonnull align 8 dereferenceable(32) %hit2, ptr noundef nonnull align 8 dereferenceable(48) %ray)
+  %27 = load double, ptr %ref.tmp7, align 8, !tbaa !10
+  store double %27, ptr %hit2, align 8, !tbaa !15
+  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(24) %second3.i, ptr noundef nonnull align 8 dereferenceable(24) %second.i, i64 24, i1 false), !tbaa.struct !99
+  call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %ref.tmp7) #18
+  %it.sroa.0.0 = load ptr, ptr %it.sroa.0.020, align 8, !tbaa !38
+  %cmp.i15.not = icmp eq ptr %it.sroa.0.0, %child
+  br i1 %cmp.i15.not, label %for.cond.cleanup, label %for.body, !llvm.loop !100
 
-77:                                               ; preds = %66, %58
-  call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %5) #18
+cleanup:                                          ; preds = %for.cond.cleanup, %if.then
+  call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %hit2) #18
   ret void
 }
 
@@ -1166,8 +1180,9 @@ declare noundef nonnull align 8 dereferenceable(8) ptr @_ZNSo3putEc(ptr noundef 
 
 ; Function Attrs: uwtable
 define internal void @_GLOBAL__sub_I_ray.cpp() #7 section ".text.startup" {
+entry:
   tail call void @_ZNSt8ios_base4InitC1Ev(ptr noundef nonnull align 1 dereferenceable(1) @_ZStL8__ioinit)
-  %1 = tail call i32 @__cxa_atexit(ptr nonnull @_ZNSt8ios_base4InitD1Ev, ptr nonnull @_ZStL8__ioinit, ptr nonnull @__dso_handle) #18
+  %0 = tail call i32 @__cxa_atexit(ptr nonnull @_ZNSt8ios_base4InitD1Ev, ptr nonnull @_ZStL8__ioinit, ptr nonnull @__dso_handle) #18
   store double 0x3E50000000000000, ptr @delta, align 8, !tbaa !10
   ret void
 }
@@ -1219,24 +1234,24 @@ attributes #20 = { builtin nounwind }
 !10 = !{!7, !7, i64 0}
 !11 = !{!6, !7, i64 0}
 !12 = !{!13}
-!13 = distinct !{!13, !14, !"_ZmldRK3Vec: argument 0"}
+!13 = distinct !{!13, !14, !"_ZmldRK3Vec: %agg.result"}
 !14 = distinct !{!14, !"_ZmldRK3Vec"}
 !15 = !{!16, !7, i64 0}
 !16 = !{!"_ZTSSt4pairId3VecE", !7, i64 0, !6, i64 8}
 !17 = !{!18, !18, i64 0}
 !18 = !{!"vtable pointer", !9, i64 0}
 !19 = !{!20}
-!20 = distinct !{!20, !21, !"_Z9intersectRK3RayRK5Scene: argument 0"}
+!20 = distinct !{!20, !21, !"_Z9intersectRK3RayRK5Scene: %agg.result"}
 !21 = distinct !{!21, !"_Z9intersectRK3RayRK5Scene"}
 !22 = !{!23}
-!23 = distinct !{!23, !24, !"_ZmldRK3Vec: argument 0"}
+!23 = distinct !{!23, !24, !"_ZmldRK3Vec: %agg.result"}
 !24 = distinct !{!24, !"_ZmldRK3Vec"}
 !25 = !{!26}
-!26 = distinct !{!26, !27, !"_ZplRK3VecS1_: argument 0"}
+!26 = distinct !{!26, !27, !"_ZplRK3VecS1_: %agg.result"}
 !27 = distinct !{!27, !"_ZplRK3VecS1_"}
 !28 = !{i64 0, i64 8, !10}
 !29 = !{!30}
-!30 = distinct !{!30, !31, !"_Z9intersectRK3RayRK5Scene: argument 0"}
+!30 = distinct !{!30, !31, !"_Z9intersectRK3RayRK5Scene: %agg.result"}
 !31 = distinct !{!31, !"_Z9intersectRK3RayRK5Scene"}
 !32 = !{!33, !7, i64 32}
 !33 = !{!"_ZTS6Sphere", !34, i64 0, !6, i64 8, !7, i64 32}
@@ -1253,20 +1268,20 @@ attributes #20 = { builtin nounwind }
 !44 = !{!"_ZTSNSt7__cxx1110_List_baseIP5SceneSaIS2_EEE", !45, i64 0}
 !45 = !{!"_ZTSNSt7__cxx1110_List_baseIP5SceneSaIS2_EE10_List_implE", !40, i64 0}
 !46 = !{!47}
-!47 = distinct !{!47, !48, !"_ZplRK3VecS1_: argument 0"}
+!47 = distinct !{!47, !48, !"_ZplRK3VecS1_: %agg.result"}
 !48 = distinct !{!48, !"_ZplRK3VecS1_"}
 !49 = !{!6, !7, i64 8}
 !50 = !{!51}
-!51 = distinct !{!51, !48, !"_ZplRK3VecS1_: argument 0:It1"}
+!51 = distinct !{!51, !48, !"_ZplRK3VecS1_: %agg.result:It1"}
 !52 = !{!53}
-!53 = distinct !{!53, !48, !"_ZplRK3VecS1_: argument 0:It1"}
+!53 = distinct !{!53, !48, !"_ZplRK3VecS1_: %agg.result:It1"}
 !54 = !{!55}
-!55 = distinct !{!55, !48, !"_ZplRK3VecS1_: argument 0:It1:It1"}
+!55 = distinct !{!55, !48, !"_ZplRK3VecS1_: %agg.result:It1:It1"}
 !56 = distinct !{!56, !57}
 !57 = !{!"llvm.loop.mustprogress"}
 !58 = distinct !{!58, !57}
 !59 = !{!60}
-!60 = distinct !{!60, !61, !"_Z9intersectRK3RayRK5Scene: argument 0"}
+!60 = distinct !{!60, !61, !"_Z9intersectRK3RayRK5Scene: %agg.result"}
 !61 = distinct !{!61, !"_Z9intersectRK3RayRK5Scene"}
 !62 = distinct !{!62, !57}
 !63 = !{!8, !8, i64 0}
@@ -1280,30 +1295,30 @@ attributes #20 = { builtin nounwind }
 !71 = distinct !{!71, !57}
 !72 = distinct !{!72, !57}
 !73 = !{!74}
-!74 = distinct !{!74, !75, !"_ZmldRK3Vec: argument 0"}
+!74 = distinct !{!74, !75, !"_ZmldRK3Vec: %agg.result"}
 !75 = distinct !{!75, !"_ZmldRK3Vec"}
 !76 = !{!77}
-!77 = distinct !{!77, !78, !"_ZplRK3VecS1_: argument 0"}
+!77 = distinct !{!77, !78, !"_ZplRK3VecS1_: %agg.result"}
 !78 = distinct !{!78, !"_ZplRK3VecS1_"}
 !79 = !{!80}
-!80 = distinct !{!80, !81, !"_Z9intersectRK3RayRK5Scene: argument 0"}
+!80 = distinct !{!80, !81, !"_Z9intersectRK3RayRK5Scene: %agg.result"}
 !81 = distinct !{!81, !"_Z9intersectRK3RayRK5Scene"}
 !82 = distinct !{!82, !57}
 !83 = !{!84}
-!84 = distinct !{!84, !85, !"_ZmiRK3VecS1_: argument 0"}
+!84 = distinct !{!84, !85, !"_ZmiRK3VecS1_: %agg.result"}
 !85 = distinct !{!85, !"_ZmiRK3VecS1_"}
 !86 = !{!87}
-!87 = distinct !{!87, !88, !"_ZmldRK3Vec: argument 0"}
+!87 = distinct !{!87, !88, !"_ZmldRK3Vec: %agg.result"}
 !88 = distinct !{!88, !"_ZmldRK3Vec"}
 !89 = !{!90}
-!90 = distinct !{!90, !91, !"_ZplRK3VecS1_: argument 0"}
+!90 = distinct !{!90, !91, !"_ZplRK3VecS1_: %agg.result"}
 !91 = distinct !{!91, !"_ZplRK3VecS1_"}
 !92 = !{!93}
-!93 = distinct !{!93, !94, !"_ZmiRK3VecS1_: argument 0"}
+!93 = distinct !{!93, !94, !"_ZmiRK3VecS1_: %agg.result"}
 !94 = distinct !{!94, !"_ZmiRK3VecS1_"}
 !95 = distinct !{!95, !57}
 !96 = !{!97}
-!97 = distinct !{!97, !98, !"_ZmiRK3VecS1_: argument 0"}
+!97 = distinct !{!97, !98, !"_ZmiRK3VecS1_: %agg.result"}
 !98 = distinct !{!98, !"_ZmiRK3VecS1_"}
 !99 = !{i64 0, i64 8, !10, i64 8, i64 8, !10, i64 16, i64 8, !10}
 !100 = distinct !{!100, !57}

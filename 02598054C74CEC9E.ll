@@ -20,71 +20,73 @@ target triple = "x86_64-unknown-linux-gnu"
 %struct._IMatchFinder = type { ptr, ptr, ptr, ptr, ptr, ptr }
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(argmem: write) uwtable
-define dso_local void @MtSync_Construct(ptr nocapture noundef writeonly %0) local_unnamed_addr #0 {
-  store i32 0, ptr %0, align 8, !tbaa !5
-  %2 = getelementptr inbounds %struct._CMtSync, ptr %0, i64 0, i32 10
-  store i32 0, ptr %2, align 8, !tbaa !15
-  %3 = getelementptr inbounds %struct._CMtSync, ptr %0, i64 0, i32 11
-  store i32 0, ptr %3, align 4, !tbaa !16
-  %4 = getelementptr inbounds %struct._CMtSync, ptr %0, i64 0, i32 4, i32 1
-  store i32 0, ptr %4, align 8, !tbaa !17
-  %5 = getelementptr inbounds %struct._CMtSync, ptr %0, i64 0, i32 5
-  store i32 0, ptr %5, align 8, !tbaa !18
-  %6 = getelementptr inbounds %struct._CMtSync, ptr %0, i64 0, i32 6
-  store i32 0, ptr %6, align 8, !tbaa !19
-  %7 = getelementptr inbounds %struct._CMtSync, ptr %0, i64 0, i32 7
-  store i32 0, ptr %7, align 8, !tbaa !20
-  %8 = getelementptr inbounds %struct._CMtSync, ptr %0, i64 0, i32 8
-  store i32 0, ptr %8, align 8, !tbaa !21
-  %9 = getelementptr inbounds %struct._CMtSync, ptr %0, i64 0, i32 9
-  store i32 0, ptr %9, align 8, !tbaa !22
+define dso_local void @MtSync_Construct(ptr nocapture noundef writeonly %p) local_unnamed_addr #0 {
+entry:
+  store i32 0, ptr %p, align 8, !tbaa !5
+  %csWasInitialized = getelementptr inbounds %struct._CMtSync, ptr %p, i64 0, i32 10
+  store i32 0, ptr %csWasInitialized, align 8, !tbaa !15
+  %csWasEntered = getelementptr inbounds %struct._CMtSync, ptr %p, i64 0, i32 11
+  store i32 0, ptr %csWasEntered, align 4, !tbaa !16
+  %_created = getelementptr inbounds %struct._CMtSync, ptr %p, i64 0, i32 4, i32 1
+  store i32 0, ptr %_created, align 8, !tbaa !17
+  %canStart = getelementptr inbounds %struct._CMtSync, ptr %p, i64 0, i32 5
+  store i32 0, ptr %canStart, align 8, !tbaa !18
+  %wasStarted = getelementptr inbounds %struct._CMtSync, ptr %p, i64 0, i32 6
+  store i32 0, ptr %wasStarted, align 8, !tbaa !19
+  %wasStopped = getelementptr inbounds %struct._CMtSync, ptr %p, i64 0, i32 7
+  store i32 0, ptr %wasStopped, align 8, !tbaa !20
+  %freeSemaphore = getelementptr inbounds %struct._CMtSync, ptr %p, i64 0, i32 8
+  store i32 0, ptr %freeSemaphore, align 8, !tbaa !21
+  %filledSemaphore = getelementptr inbounds %struct._CMtSync, ptr %p, i64 0, i32 9
+  store i32 0, ptr %filledSemaphore, align 8, !tbaa !22
   ret void
 }
 
 ; Function Attrs: nounwind uwtable
-define dso_local void @MtSync_GetNextBlock(ptr noundef %0) local_unnamed_addr #1 {
-  %2 = getelementptr inbounds %struct._CMtSync, ptr %0, i64 0, i32 1
-  %3 = load i32, ptr %2, align 4, !tbaa !23
-  %4 = icmp eq i32 %3, 0
-  br i1 %4, label %16, label %5
+define dso_local void @MtSync_GetNextBlock(ptr noundef %p) local_unnamed_addr #1 {
+entry:
+  %needStart = getelementptr inbounds %struct._CMtSync, ptr %p, i64 0, i32 1
+  %0 = load i32, ptr %needStart, align 4, !tbaa !23
+  %tobool.not = icmp eq i32 %0, 0
+  br i1 %tobool.not, label %if.else, label %if.then
 
-5:                                                ; preds = %1
-  %6 = getelementptr inbounds %struct._CMtSync, ptr %0, i64 0, i32 13
-  store i32 1, ptr %6, align 8, !tbaa !24
-  store i32 0, ptr %2, align 4, !tbaa !23
-  %7 = getelementptr inbounds %struct._CMtSync, ptr %0, i64 0, i32 3
-  store i32 0, ptr %7, align 4, !tbaa !25
-  %8 = getelementptr inbounds %struct._CMtSync, ptr %0, i64 0, i32 2
-  store i32 0, ptr %8, align 8, !tbaa !26
-  %9 = getelementptr inbounds %struct._CMtSync, ptr %0, i64 0, i32 6
-  %10 = tail call i32 @Event_Reset(ptr noundef nonnull %9) #10
-  %11 = getelementptr inbounds %struct._CMtSync, ptr %0, i64 0, i32 7
-  %12 = tail call i32 @Event_Reset(ptr noundef nonnull %11) #10
-  %13 = getelementptr inbounds %struct._CMtSync, ptr %0, i64 0, i32 5
-  %14 = tail call i32 @Event_Set(ptr noundef nonnull %13) #10
-  %15 = tail call i32 @Event_Wait(ptr noundef nonnull %9) #10
-  br label %25
+if.then:                                          ; preds = %entry
+  %numProcessedBlocks = getelementptr inbounds %struct._CMtSync, ptr %p, i64 0, i32 13
+  store i32 1, ptr %numProcessedBlocks, align 8, !tbaa !24
+  store i32 0, ptr %needStart, align 4, !tbaa !23
+  %stopWriting = getelementptr inbounds %struct._CMtSync, ptr %p, i64 0, i32 3
+  store i32 0, ptr %stopWriting, align 4, !tbaa !25
+  %exit = getelementptr inbounds %struct._CMtSync, ptr %p, i64 0, i32 2
+  store i32 0, ptr %exit, align 8, !tbaa !26
+  %wasStarted = getelementptr inbounds %struct._CMtSync, ptr %p, i64 0, i32 6
+  %call = tail call i32 @Event_Reset(ptr noundef nonnull %wasStarted) #10
+  %wasStopped = getelementptr inbounds %struct._CMtSync, ptr %p, i64 0, i32 7
+  %call2 = tail call i32 @Event_Reset(ptr noundef nonnull %wasStopped) #10
+  %canStart = getelementptr inbounds %struct._CMtSync, ptr %p, i64 0, i32 5
+  %call3 = tail call i32 @Event_Set(ptr noundef nonnull %canStart) #10
+  %call5 = tail call i32 @Event_Wait(ptr noundef nonnull %wasStarted) #10
+  br label %if.end
 
-16:                                               ; preds = %1
-  %17 = getelementptr inbounds %struct._CMtSync, ptr %0, i64 0, i32 12
-  %18 = tail call i32 @pthread_mutex_unlock(ptr noundef nonnull %17) #10
-  %19 = getelementptr inbounds %struct._CMtSync, ptr %0, i64 0, i32 11
-  store i32 0, ptr %19, align 4, !tbaa !16
-  %20 = getelementptr inbounds %struct._CMtSync, ptr %0, i64 0, i32 13
-  %21 = load i32, ptr %20, align 8, !tbaa !24
-  %22 = add i32 %21, 1
-  store i32 %22, ptr %20, align 8, !tbaa !24
-  %23 = getelementptr inbounds %struct._CMtSync, ptr %0, i64 0, i32 8
-  %24 = tail call i32 @Semaphore_ReleaseN(ptr noundef nonnull %23, i32 noundef 1) #10
-  br label %25
+if.else:                                          ; preds = %entry
+  %cs = getelementptr inbounds %struct._CMtSync, ptr %p, i64 0, i32 12
+  %call6 = tail call i32 @pthread_mutex_unlock(ptr noundef nonnull %cs) #10
+  %csWasEntered = getelementptr inbounds %struct._CMtSync, ptr %p, i64 0, i32 11
+  store i32 0, ptr %csWasEntered, align 4, !tbaa !16
+  %numProcessedBlocks7 = getelementptr inbounds %struct._CMtSync, ptr %p, i64 0, i32 13
+  %1 = load i32, ptr %numProcessedBlocks7, align 8, !tbaa !24
+  %inc = add i32 %1, 1
+  store i32 %inc, ptr %numProcessedBlocks7, align 8, !tbaa !24
+  %freeSemaphore = getelementptr inbounds %struct._CMtSync, ptr %p, i64 0, i32 8
+  %call8 = tail call i32 @Semaphore_ReleaseN(ptr noundef nonnull %freeSemaphore, i32 noundef 1) #10
+  br label %if.end
 
-25:                                               ; preds = %16, %5
-  %26 = getelementptr inbounds %struct._CMtSync, ptr %0, i64 0, i32 9
-  %27 = tail call i32 @Semaphore_Wait(ptr noundef nonnull %26) #10
-  %28 = getelementptr inbounds %struct._CMtSync, ptr %0, i64 0, i32 12
-  %29 = tail call i32 @pthread_mutex_lock(ptr noundef nonnull %28) #10
-  %30 = getelementptr inbounds %struct._CMtSync, ptr %0, i64 0, i32 11
-  store i32 1, ptr %30, align 4, !tbaa !16
+if.end:                                           ; preds = %if.else, %if.then
+  %filledSemaphore = getelementptr inbounds %struct._CMtSync, ptr %p, i64 0, i32 9
+  %call9 = tail call i32 @Semaphore_Wait(ptr noundef nonnull %filledSemaphore) #10
+  %cs10 = getelementptr inbounds %struct._CMtSync, ptr %p, i64 0, i32 12
+  %call12 = tail call i32 @pthread_mutex_lock(ptr noundef nonnull %cs10) #10
+  %csWasEntered13 = getelementptr inbounds %struct._CMtSync, ptr %p, i64 0, i32 11
+  store i32 1, ptr %csWasEntered13, align 4, !tbaa !16
   ret void
 }
 
@@ -105,115 +107,117 @@ declare i32 @Semaphore_Wait(ptr noundef) local_unnamed_addr #2
 declare i32 @pthread_mutex_lock(ptr noundef) local_unnamed_addr #3
 
 ; Function Attrs: nounwind uwtable
-define dso_local void @MtSync_StopWriting(ptr noundef %0) local_unnamed_addr #1 {
-  %2 = getelementptr inbounds %struct._CMtSync, ptr %0, i64 0, i32 13
-  %3 = load i32, ptr %2, align 8, !tbaa !24
-  %4 = getelementptr inbounds %struct._CMtSync, ptr %0, i64 0, i32 4, i32 1
-  %5 = load i32, ptr %4, align 8, !tbaa !17
-  %6 = icmp eq i32 %5, 0
-  br i1 %6, label %36, label %7
+define dso_local void @MtSync_StopWriting(ptr noundef %p) local_unnamed_addr #1 {
+entry:
+  %numProcessedBlocks = getelementptr inbounds %struct._CMtSync, ptr %p, i64 0, i32 13
+  %0 = load i32, ptr %numProcessedBlocks, align 8, !tbaa !24
+  %_created = getelementptr inbounds %struct._CMtSync, ptr %p, i64 0, i32 4, i32 1
+  %1 = load i32, ptr %_created, align 8, !tbaa !17
+  %cmp.not = icmp eq i32 %1, 0
+  br i1 %cmp.not, label %cleanup, label %lor.lhs.false
 
-7:                                                ; preds = %1
-  %8 = getelementptr inbounds %struct._CMtSync, ptr %0, i64 0, i32 1
-  %9 = load i32, ptr %8, align 4, !tbaa !23
-  %10 = icmp eq i32 %9, 0
-  br i1 %10, label %11, label %36
+lor.lhs.false:                                    ; preds = %entry
+  %needStart = getelementptr inbounds %struct._CMtSync, ptr %p, i64 0, i32 1
+  %2 = load i32, ptr %needStart, align 4, !tbaa !23
+  %tobool.not = icmp eq i32 %2, 0
+  br i1 %tobool.not, label %if.end, label %cleanup
 
-11:                                               ; preds = %7
-  %12 = getelementptr inbounds %struct._CMtSync, ptr %0, i64 0, i32 3
-  store i32 1, ptr %12, align 4, !tbaa !25
-  %13 = getelementptr inbounds %struct._CMtSync, ptr %0, i64 0, i32 11
-  %14 = load i32, ptr %13, align 4, !tbaa !16
-  %15 = icmp eq i32 %14, 0
-  br i1 %15, label %19, label %16
+if.end:                                           ; preds = %lor.lhs.false
+  %stopWriting = getelementptr inbounds %struct._CMtSync, ptr %p, i64 0, i32 3
+  store i32 1, ptr %stopWriting, align 4, !tbaa !25
+  %csWasEntered = getelementptr inbounds %struct._CMtSync, ptr %p, i64 0, i32 11
+  %3 = load i32, ptr %csWasEntered, align 4, !tbaa !16
+  %tobool1.not = icmp eq i32 %3, 0
+  br i1 %tobool1.not, label %if.end4, label %if.then2
 
-16:                                               ; preds = %11
-  %17 = getelementptr inbounds %struct._CMtSync, ptr %0, i64 0, i32 12
-  %18 = tail call i32 @pthread_mutex_unlock(ptr noundef nonnull %17) #10
-  store i32 0, ptr %13, align 4, !tbaa !16
-  br label %19
+if.then2:                                         ; preds = %if.end
+  %cs = getelementptr inbounds %struct._CMtSync, ptr %p, i64 0, i32 12
+  %call = tail call i32 @pthread_mutex_unlock(ptr noundef nonnull %cs) #10
+  store i32 0, ptr %csWasEntered, align 4, !tbaa !16
+  br label %if.end4
 
-19:                                               ; preds = %16, %11
-  %20 = getelementptr inbounds %struct._CMtSync, ptr %0, i64 0, i32 8
-  %21 = tail call i32 @Semaphore_ReleaseN(ptr noundef nonnull %20, i32 noundef 1) #10
-  %22 = getelementptr inbounds %struct._CMtSync, ptr %0, i64 0, i32 7
-  %23 = tail call i32 @Event_Wait(ptr noundef nonnull %22) #10
-  %24 = load i32, ptr %2, align 8, !tbaa !24
-  %25 = icmp eq i32 %3, %24
-  br i1 %25, label %35, label %26
+if.end4:                                          ; preds = %if.then2, %if.end
+  %freeSemaphore = getelementptr inbounds %struct._CMtSync, ptr %p, i64 0, i32 8
+  %call5 = tail call i32 @Semaphore_ReleaseN(ptr noundef nonnull %freeSemaphore, i32 noundef 1) #10
+  %wasStopped = getelementptr inbounds %struct._CMtSync, ptr %p, i64 0, i32 7
+  %call6 = tail call i32 @Event_Wait(ptr noundef nonnull %wasStopped) #10
+  %4 = load i32, ptr %numProcessedBlocks, align 8, !tbaa !24
+  %cmp8.not25 = icmp eq i32 %0, %4
+  br i1 %cmp8.not25, label %while.end, label %while.body.lr.ph
 
-26:                                               ; preds = %19
-  %27 = getelementptr inbounds %struct._CMtSync, ptr %0, i64 0, i32 9
-  br label %28
+while.body.lr.ph:                                 ; preds = %if.end4
+  %filledSemaphore = getelementptr inbounds %struct._CMtSync, ptr %p, i64 0, i32 9
+  br label %while.body
 
-28:                                               ; preds = %26, %28
-  %29 = phi i32 [ %3, %26 ], [ %30, %28 ]
-  %30 = add i32 %29, 1
-  %31 = tail call i32 @Semaphore_Wait(ptr noundef nonnull %27) #10
-  %32 = tail call i32 @Semaphore_ReleaseN(ptr noundef nonnull %20, i32 noundef 1) #10
-  %33 = load i32, ptr %2, align 8, !tbaa !24
-  %34 = icmp eq i32 %30, %33
-  br i1 %34, label %35, label %28, !llvm.loop !27
+while.body:                                       ; preds = %while.body.lr.ph, %while.body
+  %myNumBlocks.026 = phi i32 [ %0, %while.body.lr.ph ], [ %inc, %while.body ]
+  %inc = add i32 %myNumBlocks.026, 1
+  %call9 = tail call i32 @Semaphore_Wait(ptr noundef nonnull %filledSemaphore) #10
+  %call11 = tail call i32 @Semaphore_ReleaseN(ptr noundef nonnull %freeSemaphore, i32 noundef 1) #10
+  %5 = load i32, ptr %numProcessedBlocks, align 8, !tbaa !24
+  %cmp8.not = icmp eq i32 %inc, %5
+  br i1 %cmp8.not, label %while.end, label %while.body, !llvm.loop !27
 
-35:                                               ; preds = %28, %19
-  store i32 1, ptr %8, align 4, !tbaa !23
-  br label %36
+while.end:                                        ; preds = %while.body, %if.end4
+  store i32 1, ptr %needStart, align 4, !tbaa !23
+  br label %cleanup
 
-36:                                               ; preds = %1, %7, %35
+cleanup:                                          ; preds = %entry, %lor.lhs.false, %while.end
   ret void
 }
 
 ; Function Attrs: nounwind uwtable
-define dso_local void @MtSync_Destruct(ptr noundef %0) local_unnamed_addr #1 {
-  %2 = getelementptr inbounds %struct._CMtSync, ptr %0, i64 0, i32 4
-  %3 = getelementptr inbounds %struct._CMtSync, ptr %0, i64 0, i32 4, i32 1
-  %4 = load i32, ptr %3, align 8, !tbaa !17
-  %5 = icmp eq i32 %4, 0
-  br i1 %5, label %17, label %6
+define dso_local void @MtSync_Destruct(ptr noundef %p) local_unnamed_addr #1 {
+entry:
+  %thread = getelementptr inbounds %struct._CMtSync, ptr %p, i64 0, i32 4
+  %_created = getelementptr inbounds %struct._CMtSync, ptr %p, i64 0, i32 4, i32 1
+  %0 = load i32, ptr %_created, align 8, !tbaa !17
+  %cmp.not = icmp eq i32 %0, 0
+  br i1 %cmp.not, label %if.end6, label %if.then
 
-6:                                                ; preds = %1
-  tail call void @MtSync_StopWriting(ptr noundef nonnull %0)
-  %7 = getelementptr inbounds %struct._CMtSync, ptr %0, i64 0, i32 2
-  store i32 1, ptr %7, align 8, !tbaa !26
-  %8 = getelementptr inbounds %struct._CMtSync, ptr %0, i64 0, i32 1
-  %9 = load i32, ptr %8, align 4, !tbaa !23
-  %10 = icmp eq i32 %9, 0
-  br i1 %10, label %14, label %11
+if.then:                                          ; preds = %entry
+  tail call void @MtSync_StopWriting(ptr noundef nonnull %p)
+  %exit = getelementptr inbounds %struct._CMtSync, ptr %p, i64 0, i32 2
+  store i32 1, ptr %exit, align 8, !tbaa !26
+  %needStart = getelementptr inbounds %struct._CMtSync, ptr %p, i64 0, i32 1
+  %1 = load i32, ptr %needStart, align 4, !tbaa !23
+  %tobool.not = icmp eq i32 %1, 0
+  br i1 %tobool.not, label %if.end, label %if.then1
 
-11:                                               ; preds = %6
-  %12 = getelementptr inbounds %struct._CMtSync, ptr %0, i64 0, i32 5
-  %13 = tail call i32 @Event_Set(ptr noundef nonnull %12) #10
-  br label %14
+if.then1:                                         ; preds = %if.then
+  %canStart = getelementptr inbounds %struct._CMtSync, ptr %p, i64 0, i32 5
+  %call = tail call i32 @Event_Set(ptr noundef nonnull %canStart) #10
+  br label %if.end
 
-14:                                               ; preds = %11, %6
-  %15 = tail call i32 @Thread_Wait(ptr noundef nonnull %2) #10
-  %16 = tail call i32 @Thread_Close(ptr noundef nonnull %2) #10
-  br label %17
+if.end:                                           ; preds = %if.then1, %if.then
+  %call3 = tail call i32 @Thread_Wait(ptr noundef nonnull %thread) #10
+  %call5 = tail call i32 @Thread_Close(ptr noundef nonnull %thread) #10
+  br label %if.end6
 
-17:                                               ; preds = %14, %1
-  %18 = getelementptr inbounds %struct._CMtSync, ptr %0, i64 0, i32 10
-  %19 = load i32, ptr %18, align 8, !tbaa !15
-  %20 = icmp eq i32 %19, 0
-  br i1 %20, label %24, label %21
+if.end6:                                          ; preds = %if.end, %entry
+  %csWasInitialized = getelementptr inbounds %struct._CMtSync, ptr %p, i64 0, i32 10
+  %2 = load i32, ptr %csWasInitialized, align 8, !tbaa !15
+  %tobool7.not = icmp eq i32 %2, 0
+  br i1 %tobool7.not, label %if.end11, label %if.then8
 
-21:                                               ; preds = %17
-  %22 = getelementptr inbounds %struct._CMtSync, ptr %0, i64 0, i32 12
-  %23 = tail call i32 @pthread_mutex_destroy(ptr noundef nonnull %22) #10
-  store i32 0, ptr %18, align 8, !tbaa !15
-  br label %24
+if.then8:                                         ; preds = %if.end6
+  %cs = getelementptr inbounds %struct._CMtSync, ptr %p, i64 0, i32 12
+  %call9 = tail call i32 @pthread_mutex_destroy(ptr noundef nonnull %cs) #10
+  store i32 0, ptr %csWasInitialized, align 8, !tbaa !15
+  br label %if.end11
 
-24:                                               ; preds = %21, %17
-  %25 = getelementptr inbounds %struct._CMtSync, ptr %0, i64 0, i32 5
-  %26 = tail call i32 @Event_Close(ptr noundef nonnull %25) #10
-  %27 = getelementptr inbounds %struct._CMtSync, ptr %0, i64 0, i32 6
-  %28 = tail call i32 @Event_Close(ptr noundef nonnull %27) #10
-  %29 = getelementptr inbounds %struct._CMtSync, ptr %0, i64 0, i32 7
-  %30 = tail call i32 @Event_Close(ptr noundef nonnull %29) #10
-  %31 = getelementptr inbounds %struct._CMtSync, ptr %0, i64 0, i32 8
-  %32 = tail call i32 @Semaphore_Close(ptr noundef nonnull %31) #10
-  %33 = getelementptr inbounds %struct._CMtSync, ptr %0, i64 0, i32 9
-  %34 = tail call i32 @Semaphore_Close(ptr noundef nonnull %33) #10
-  store i32 0, ptr %0, align 8, !tbaa !5
+if.end11:                                         ; preds = %if.then8, %if.end6
+  %canStart12 = getelementptr inbounds %struct._CMtSync, ptr %p, i64 0, i32 5
+  %call13 = tail call i32 @Event_Close(ptr noundef nonnull %canStart12) #10
+  %wasStarted = getelementptr inbounds %struct._CMtSync, ptr %p, i64 0, i32 6
+  %call14 = tail call i32 @Event_Close(ptr noundef nonnull %wasStarted) #10
+  %wasStopped = getelementptr inbounds %struct._CMtSync, ptr %p, i64 0, i32 7
+  %call15 = tail call i32 @Event_Close(ptr noundef nonnull %wasStopped) #10
+  %freeSemaphore = getelementptr inbounds %struct._CMtSync, ptr %p, i64 0, i32 8
+  %call16 = tail call i32 @Semaphore_Close(ptr noundef nonnull %freeSemaphore) #10
+  %filledSemaphore = getelementptr inbounds %struct._CMtSync, ptr %p, i64 0, i32 9
+  %call17 = tail call i32 @Semaphore_Close(ptr noundef nonnull %filledSemaphore) #10
+  store i32 0, ptr %p, align 8, !tbaa !5
   ret void
 }
 
@@ -229,170 +233,172 @@ declare i32 @Event_Close(ptr noundef) local_unnamed_addr #2
 declare i32 @Semaphore_Close(ptr noundef) local_unnamed_addr #2
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(argmem: write) uwtable
-define dso_local void @MtSync_Init(ptr nocapture noundef writeonly %0) local_unnamed_addr #0 {
-  %2 = getelementptr inbounds %struct._CMtSync, ptr %0, i64 0, i32 1
-  store i32 1, ptr %2, align 4, !tbaa !23
+define dso_local void @MtSync_Init(ptr nocapture noundef writeonly %p) local_unnamed_addr #0 {
+entry:
+  %needStart = getelementptr inbounds %struct._CMtSync, ptr %p, i64 0, i32 1
+  store i32 1, ptr %needStart, align 4, !tbaa !23
   ret void
 }
 
 ; Function Attrs: nounwind uwtable
-define dso_local void @HashThreadFunc(ptr noundef %0) local_unnamed_addr #1 {
-  %2 = getelementptr inbounds %struct._CMatchFinderMt, ptr %0, i64 0, i32 25, i32 5
-  %3 = tail call i32 @Event_Wait(ptr noundef nonnull %2) #10
-  %4 = getelementptr inbounds %struct._CMatchFinderMt, ptr %0, i64 0, i32 25, i32 6
-  %5 = tail call i32 @Event_Set(ptr noundef nonnull %4) #10
-  %6 = getelementptr inbounds %struct._CMatchFinderMt, ptr %0, i64 0, i32 25, i32 2
-  %7 = load i32, ptr %6, align 8, !tbaa !26
-  %8 = icmp eq i32 %7, 0
-  br i1 %8, label %9, label %118
+define dso_local void @HashThreadFunc(ptr noundef %mt) local_unnamed_addr #1 {
+entry:
+  %canStart = getelementptr inbounds %struct._CMatchFinderMt, ptr %mt, i64 0, i32 25, i32 5
+  %call135 = tail call i32 @Event_Wait(ptr noundef nonnull %canStart) #10
+  %wasStarted = getelementptr inbounds %struct._CMatchFinderMt, ptr %mt, i64 0, i32 25, i32 6
+  %call1136 = tail call i32 @Event_Set(ptr noundef nonnull %wasStarted) #10
+  %exit = getelementptr inbounds %struct._CMatchFinderMt, ptr %mt, i64 0, i32 25, i32 2
+  %0 = load i32, ptr %exit, align 8, !tbaa !26
+  %tobool.not132133137 = icmp eq i32 %0, 0
+  br i1 %tobool.not132133137, label %if.end.lr.ph.lr.ph.lr.ph, label %cleanup71
 
-9:                                                ; preds = %1
-  %10 = getelementptr inbounds %struct._CMatchFinderMt, ptr %0, i64 0, i32 25, i32 3
-  %11 = getelementptr inbounds %struct._CMatchFinderMt, ptr %0, i64 0, i32 27
-  %12 = getelementptr inbounds %struct._CMatchFinderMt, ptr %0, i64 0, i32 11, i32 12
-  %13 = getelementptr inbounds %struct._CMatchFinderMt, ptr %0, i64 0, i32 25, i32 12
-  %14 = getelementptr inbounds %struct._CMatchFinderMt, ptr %0, i64 0, i32 21
-  %15 = getelementptr inbounds %struct._CMatchFinderMt, ptr %0, i64 0, i32 25, i32 8
-  %16 = getelementptr inbounds %struct._CMatchFinderMt, ptr %0, i64 0, i32 13
-  %17 = getelementptr inbounds %struct._CMatchFinderMt, ptr %0, i64 0, i32 26
-  %18 = getelementptr inbounds %struct._CMatchFinderMt, ptr %0, i64 0, i32 25, i32 9
-  %19 = getelementptr inbounds %struct._CMatchFinderMt, ptr %0, i64 0, i32 25, i32 13
-  %20 = getelementptr inbounds %struct._CMatchFinderMt, ptr %0, i64 0, i32 25, i32 7
-  br label %21
+if.end.lr.ph.lr.ph.lr.ph:                         ; preds = %entry
+  %stopWriting = getelementptr inbounds %struct._CMatchFinderMt, ptr %mt, i64 0, i32 25, i32 3
+  %MatchFinder = getelementptr inbounds %struct._CMatchFinderMt, ptr %mt, i64 0, i32 27
+  %cs = getelementptr inbounds %struct._CMatchFinderMt, ptr %mt, i64 0, i32 11, i32 12
+  %cs13 = getelementptr inbounds %struct._CMatchFinderMt, ptr %mt, i64 0, i32 25, i32 12
+  %buffer = getelementptr inbounds %struct._CMatchFinderMt, ptr %mt, i64 0, i32 21
+  %freeSemaphore = getelementptr inbounds %struct._CMatchFinderMt, ptr %mt, i64 0, i32 25, i32 8
+  %hashBuf = getelementptr inbounds %struct._CMatchFinderMt, ptr %mt, i64 0, i32 13
+  %GetHeadsFunc = getelementptr inbounds %struct._CMatchFinderMt, ptr %mt, i64 0, i32 26
+  %filledSemaphore = getelementptr inbounds %struct._CMatchFinderMt, ptr %mt, i64 0, i32 25, i32 9
+  %numProcessedBlocks5 = getelementptr inbounds %struct._CMatchFinderMt, ptr %mt, i64 0, i32 25, i32 13
+  %wasStopped = getelementptr inbounds %struct._CMatchFinderMt, ptr %mt, i64 0, i32 25, i32 7
+  br label %if.end.lr.ph
 
-21:                                               ; preds = %110, %9
-  %22 = phi i32 [ 0, %9 ], [ %111, %110 ]
-  br label %23
+if.end.lr.ph:                                     ; preds = %if.end.lr.ph.backedge, %if.end.lr.ph.lr.ph.lr.ph
+  %numProcessedBlocks.0.ph134 = phi i32 [ 0, %if.end.lr.ph.lr.ph.lr.ph ], [ %numProcessedBlocks.0.ph134.be, %if.end.lr.ph.backedge ]
+  br label %if.end
 
-23:                                               ; preds = %21, %84
-  %24 = load i32, ptr %10, align 4, !tbaa !25
-  %25 = icmp eq i32 %24, 0
-  br i1 %25, label %26, label %112
+if.end:                                           ; preds = %if.end.lr.ph, %cleanup
+  %1 = load i32, ptr %stopWriting, align 4, !tbaa !25
+  %tobool3.not = icmp eq i32 %1, 0
+  br i1 %tobool3.not, label %if.end7, label %if.then4
 
-26:                                               ; preds = %23
-  %27 = load ptr, ptr %11, align 8, !tbaa !29
-  %28 = tail call i32 @MatchFinder_NeedMove(ptr noundef %27) #10
-  %29 = icmp eq i32 %28, 0
-  br i1 %29, label %30, label %84
+if.then4:                                         ; preds = %if.end
+  store i32 %numProcessedBlocks.0.ph134, ptr %numProcessedBlocks5, align 8, !tbaa !24
+  %call6 = tail call i32 @Event_Set(ptr noundef nonnull %wasStopped) #10
+  %call = tail call i32 @Event_Wait(ptr noundef nonnull %canStart) #10
+  %call1 = tail call i32 @Event_Set(ptr noundef nonnull %wasStarted) #10
+  %2 = load i32, ptr %exit, align 8, !tbaa !26
+  %tobool.not132133 = icmp eq i32 %2, 0
+  br i1 %tobool.not132133, label %if.end.lr.ph.backedge, label %cleanup71
 
-30:                                               ; preds = %26
-  %31 = tail call i32 @Semaphore_Wait(ptr noundef nonnull %15) #10
-  tail call void @MatchFinder_ReadIfRequired(ptr noundef %27) #10
-  %32 = getelementptr inbounds %struct._CMatchFinder, ptr %27, i64 0, i32 1
-  %33 = load i32, ptr %32, align 8, !tbaa !32
-  %34 = icmp ugt i32 %33, -8193
-  br i1 %34, label %35, label %50
+if.end7:                                          ; preds = %if.end
+  %3 = load ptr, ptr %MatchFinder, align 8, !tbaa !29
+  %call8 = tail call i32 @MatchFinder_NeedMove(ptr noundef %3) #10
+  %tobool9.not = icmp eq i32 %call8, 0
+  br i1 %tobool9.not, label %if.end31, label %cleanup
 
-35:                                               ; preds = %30
-  %36 = getelementptr inbounds %struct._CMatchFinder, ptr %27, i64 0, i32 23
-  %37 = load i32, ptr %36, align 8, !tbaa !34
-  %38 = xor i32 %37, -1
-  %39 = add i32 %33, %38
-  tail call void @MatchFinder_ReduceOffsets(ptr noundef nonnull %27, i32 noundef %39) #10
-  %40 = getelementptr inbounds %struct._CMatchFinder, ptr %27, i64 0, i32 8
-  %41 = load ptr, ptr %40, align 8, !tbaa !35
-  %42 = getelementptr inbounds %struct._CMatchFinder, ptr %27, i64 0, i32 24
-  %43 = load i32, ptr %42, align 4, !tbaa !36
-  %44 = zext i32 %43 to i64
-  %45 = getelementptr inbounds i32, ptr %41, i64 %44
-  %46 = getelementptr inbounds %struct._CMatchFinder, ptr %27, i64 0, i32 10
-  %47 = load i32, ptr %46, align 8, !tbaa !37
-  %48 = add i32 %47, 1
-  tail call void @MatchFinder_Normalize3(i32 noundef %39, ptr noundef %45, i32 noundef %48) #10
-  %49 = load i32, ptr %32, align 8, !tbaa !32
-  br label %50
+if.end31:                                         ; preds = %if.end7
+  %call32 = tail call i32 @Semaphore_Wait(ptr noundef nonnull %freeSemaphore) #10
+  tail call void @MatchFinder_ReadIfRequired(ptr noundef %3) #10
+  %pos = getelementptr inbounds %struct._CMatchFinder, ptr %3, i64 0, i32 1
+  %4 = load i32, ptr %pos, align 8, !tbaa !32
+  %cmp = icmp ugt i32 %4, -8193
+  br i1 %cmp, label %if.then33, label %if.end37
 
-50:                                               ; preds = %35, %30
-  %51 = phi i32 [ %49, %35 ], [ %33, %30 ]
-  %52 = load ptr, ptr %16, align 8, !tbaa !38
-  %53 = add i32 %22, 1
-  %54 = shl i32 %22, 13
-  %55 = and i32 %54, 57344
-  %56 = zext i32 %55 to i64
-  %57 = getelementptr inbounds i32, ptr %52, i64 %56
-  %58 = getelementptr inbounds %struct._CMatchFinder, ptr %27, i64 0, i32 3
-  %59 = load i32, ptr %58, align 8, !tbaa !39
-  %60 = sub i32 %59, %51
-  store i32 2, ptr %57, align 4, !tbaa !40
-  %61 = getelementptr inbounds i32, ptr %57, i64 1
-  store i32 %60, ptr %61, align 4, !tbaa !40
-  %62 = getelementptr inbounds %struct._CMatchFinder, ptr %27, i64 0, i32 18
-  %63 = load i32, ptr %62, align 8, !tbaa !41
-  %64 = icmp ult i32 %60, %63
-  br i1 %64, label %100, label %65
+if.then33:                                        ; preds = %if.end31
+  %historySize = getelementptr inbounds %struct._CMatchFinder, ptr %3, i64 0, i32 23
+  %5 = load i32, ptr %historySize, align 8, !tbaa !34
+  %6 = xor i32 %5, -1
+  %sub35 = add i32 %4, %6
+  tail call void @MatchFinder_ReduceOffsets(ptr noundef nonnull %3, i32 noundef %sub35) #10
+  %hash = getelementptr inbounds %struct._CMatchFinder, ptr %3, i64 0, i32 8
+  %7 = load ptr, ptr %hash, align 8, !tbaa !35
+  %fixedHashSize = getelementptr inbounds %struct._CMatchFinder, ptr %3, i64 0, i32 24
+  %8 = load i32, ptr %fixedHashSize, align 4, !tbaa !36
+  %idx.ext = zext i32 %8 to i64
+  %add.ptr36 = getelementptr inbounds i32, ptr %7, i64 %idx.ext
+  %hashMask = getelementptr inbounds %struct._CMatchFinder, ptr %3, i64 0, i32 10
+  %9 = load i32, ptr %hashMask, align 8, !tbaa !37
+  %add = add i32 %9, 1
+  tail call void @MatchFinder_Normalize3(i32 noundef %sub35, ptr noundef %add.ptr36, i32 noundef %add) #10
+  %.pre = load i32, ptr %pos, align 8, !tbaa !32
+  br label %if.end37
 
-65:                                               ; preds = %50
-  %66 = add i32 %60, 1
-  %67 = sub i32 %66, %63
-  %68 = tail call i32 @llvm.umin.i32(i32 %67, i32 8190)
-  %69 = load ptr, ptr %17, align 8, !tbaa !42
-  %70 = load ptr, ptr %27, align 8, !tbaa !43
-  %71 = load i32, ptr %32, align 8, !tbaa !32
-  %72 = getelementptr inbounds %struct._CMatchFinder, ptr %27, i64 0, i32 8
-  %73 = load ptr, ptr %72, align 8, !tbaa !35
-  %74 = getelementptr inbounds %struct._CMatchFinder, ptr %27, i64 0, i32 24
-  %75 = load i32, ptr %74, align 4, !tbaa !36
-  %76 = zext i32 %75 to i64
-  %77 = getelementptr inbounds i32, ptr %73, i64 %76
-  %78 = getelementptr inbounds %struct._CMatchFinder, ptr %27, i64 0, i32 10
-  %79 = load i32, ptr %78, align 8, !tbaa !37
-  %80 = getelementptr inbounds i32, ptr %57, i64 2
-  %81 = getelementptr inbounds %struct._CMatchFinder, ptr %27, i64 0, i32 28
-  tail call void %69(ptr noundef %70, i32 noundef %71, ptr noundef %77, i32 noundef %79, ptr noundef nonnull %80, i32 noundef %68, ptr noundef nonnull %81) #10
-  %82 = load i32, ptr %57, align 4, !tbaa !40
-  %83 = add i32 %82, %68
-  store i32 %83, ptr %57, align 4, !tbaa !40
-  br label %100
+if.end37:                                         ; preds = %if.then33, %if.end31
+  %10 = phi i32 [ %.pre, %if.then33 ], [ %4, %if.end31 ]
+  %11 = load ptr, ptr %hashBuf, align 8, !tbaa !38
+  %inc = add i32 %numProcessedBlocks.0.ph134, 1
+  %and = shl i32 %numProcessedBlocks.0.ph134, 13
+  %mul = and i32 %and, 57344
+  %idx.ext38 = zext i32 %mul to i64
+  %add.ptr39 = getelementptr inbounds i32, ptr %11, i64 %idx.ext38
+  %streamPos = getelementptr inbounds %struct._CMatchFinder, ptr %3, i64 0, i32 3
+  %12 = load i32, ptr %streamPos, align 8, !tbaa !39
+  %sub41 = sub i32 %12, %10
+  store i32 2, ptr %add.ptr39, align 4, !tbaa !40
+  %arrayidx42 = getelementptr inbounds i32, ptr %add.ptr39, i64 1
+  store i32 %sub41, ptr %arrayidx42, align 4, !tbaa !40
+  %numHashBytes = getelementptr inbounds %struct._CMatchFinder, ptr %3, i64 0, i32 18
+  %13 = load i32, ptr %numHashBytes, align 8, !tbaa !41
+  %cmp43.not = icmp ult i32 %sub41, %13
+  br i1 %cmp43.not, label %cleanup.cont, label %if.then44
 
-84:                                               ; preds = %26
-  %85 = tail call i32 @pthread_mutex_lock(ptr noundef nonnull %12) #10
-  %86 = tail call i32 @pthread_mutex_lock(ptr noundef nonnull %13) #10
-  %87 = tail call ptr @MatchFinder_GetPointerToCurrentPos(ptr noundef %27) #10
-  tail call void @MatchFinder_MoveBlock(ptr noundef %27) #10
-  %88 = tail call ptr @MatchFinder_GetPointerToCurrentPos(ptr noundef %27) #10
-  %89 = ptrtoint ptr %87 to i64
-  %90 = ptrtoint ptr %88 to i64
-  %91 = sub i64 %90, %89
-  %92 = load ptr, ptr %0, align 8, !tbaa !44
-  %93 = getelementptr inbounds i8, ptr %92, i64 %91
-  store ptr %93, ptr %0, align 8, !tbaa !44
-  %94 = load ptr, ptr %14, align 8, !tbaa !45
-  %95 = getelementptr inbounds i8, ptr %94, i64 %91
-  store ptr %95, ptr %14, align 8, !tbaa !45
-  %96 = tail call i32 @pthread_mutex_unlock(ptr noundef nonnull %12) #10
-  %97 = tail call i32 @pthread_mutex_unlock(ptr noundef nonnull %13) #10
-  %98 = load i32, ptr %6, align 8, !tbaa !26
-  %99 = icmp eq i32 %98, 0
-  br i1 %99, label %23, label %118
+if.then44:                                        ; preds = %if.end37
+  %sub46 = add i32 %sub41, 1
+  %add47 = sub i32 %sub46, %13
+  %spec.store.select = tail call i32 @llvm.umin.i32(i32 %add47, i32 8190)
+  %14 = load ptr, ptr %GetHeadsFunc, align 8, !tbaa !42
+  %15 = load ptr, ptr %3, align 8, !tbaa !43
+  %16 = load i32, ptr %pos, align 8, !tbaa !32
+  %hash53 = getelementptr inbounds %struct._CMatchFinder, ptr %3, i64 0, i32 8
+  %17 = load ptr, ptr %hash53, align 8, !tbaa !35
+  %fixedHashSize54 = getelementptr inbounds %struct._CMatchFinder, ptr %3, i64 0, i32 24
+  %18 = load i32, ptr %fixedHashSize54, align 4, !tbaa !36
+  %idx.ext55 = zext i32 %18 to i64
+  %add.ptr56 = getelementptr inbounds i32, ptr %17, i64 %idx.ext55
+  %hashMask57 = getelementptr inbounds %struct._CMatchFinder, ptr %3, i64 0, i32 10
+  %19 = load i32, ptr %hashMask57, align 8, !tbaa !37
+  %add.ptr58 = getelementptr inbounds i32, ptr %add.ptr39, i64 2
+  %crc = getelementptr inbounds %struct._CMatchFinder, ptr %3, i64 0, i32 28
+  tail call void %14(ptr noundef %15, i32 noundef %16, ptr noundef %add.ptr56, i32 noundef %19, ptr noundef nonnull %add.ptr58, i32 noundef %spec.store.select, ptr noundef nonnull %crc) #10
+  %20 = load i32, ptr %add.ptr39, align 4, !tbaa !40
+  %add60 = add i32 %20, %spec.store.select
+  store i32 %add60, ptr %add.ptr39, align 4, !tbaa !40
+  br label %cleanup.cont
 
-100:                                              ; preds = %50, %65
-  %101 = phi i32 [ %68, %65 ], [ %60, %50 ]
-  %102 = load i32, ptr %32, align 8, !tbaa !32
-  %103 = add i32 %102, %101
-  store i32 %103, ptr %32, align 8, !tbaa !32
-  %104 = load ptr, ptr %27, align 8, !tbaa !43
-  %105 = zext i32 %101 to i64
-  %106 = getelementptr inbounds i8, ptr %104, i64 %105
-  store ptr %106, ptr %27, align 8, !tbaa !43
-  %107 = tail call i32 @Semaphore_ReleaseN(ptr noundef nonnull %18, i32 noundef 1) #10
-  %108 = load i32, ptr %6, align 8, !tbaa !26
-  %109 = icmp eq i32 %108, 0
-  br i1 %109, label %110, label %118
+cleanup:                                          ; preds = %if.end7
+  %call11 = tail call i32 @pthread_mutex_lock(ptr noundef nonnull %cs) #10
+  %call15 = tail call i32 @pthread_mutex_lock(ptr noundef nonnull %cs13) #10
+  %call16 = tail call ptr @MatchFinder_GetPointerToCurrentPos(ptr noundef %3) #10
+  tail call void @MatchFinder_MoveBlock(ptr noundef %3) #10
+  %call17 = tail call ptr @MatchFinder_GetPointerToCurrentPos(ptr noundef %3) #10
+  %sub.ptr.lhs.cast = ptrtoint ptr %call16 to i64
+  %sub.ptr.rhs.cast = ptrtoint ptr %call17 to i64
+  %sub.ptr.sub.neg = sub i64 %sub.ptr.rhs.cast, %sub.ptr.lhs.cast
+  %21 = load ptr, ptr %mt, align 8, !tbaa !44
+  %add.ptr = getelementptr inbounds i8, ptr %21, i64 %sub.ptr.sub.neg
+  store ptr %add.ptr, ptr %mt, align 8, !tbaa !44
+  %22 = load ptr, ptr %buffer, align 8, !tbaa !45
+  %add.ptr22 = getelementptr inbounds i8, ptr %22, i64 %sub.ptr.sub.neg
+  store ptr %add.ptr22, ptr %buffer, align 8, !tbaa !45
+  %call26 = tail call i32 @pthread_mutex_unlock(ptr noundef nonnull %cs) #10
+  %call30 = tail call i32 @pthread_mutex_unlock(ptr noundef nonnull %cs13) #10
+  %23 = load i32, ptr %exit, align 8, !tbaa !26
+  %tobool.not = icmp eq i32 %23, 0
+  br i1 %tobool.not, label %if.end, label %cleanup71
 
-110:                                              ; preds = %100, %112
-  %111 = phi i32 [ %53, %100 ], [ 0, %112 ]
-  br label %21
+cleanup.cont:                                     ; preds = %if.end37, %if.then44
+  %num.0 = phi i32 [ %spec.store.select, %if.then44 ], [ %sub41, %if.end37 ]
+  %24 = load i32, ptr %pos, align 8, !tbaa !32
+  %add63 = add i32 %24, %num.0
+  store i32 %add63, ptr %pos, align 8, !tbaa !32
+  %25 = load ptr, ptr %3, align 8, !tbaa !43
+  %idx.ext65 = zext i32 %num.0 to i64
+  %add.ptr66 = getelementptr inbounds i8, ptr %25, i64 %idx.ext65
+  store ptr %add.ptr66, ptr %3, align 8, !tbaa !43
+  %call67 = tail call i32 @Semaphore_ReleaseN(ptr noundef nonnull %filledSemaphore, i32 noundef 1) #10
+  %26 = load i32, ptr %exit, align 8, !tbaa !26
+  %tobool.not132 = icmp eq i32 %26, 0
+  br i1 %tobool.not132, label %if.end.lr.ph.backedge, label %cleanup71
 
-112:                                              ; preds = %23
-  store i32 %22, ptr %19, align 8, !tbaa !24
-  %113 = tail call i32 @Event_Set(ptr noundef nonnull %20) #10
-  %114 = tail call i32 @Event_Wait(ptr noundef nonnull %2) #10
-  %115 = tail call i32 @Event_Set(ptr noundef nonnull %4) #10
-  %116 = load i32, ptr %6, align 8, !tbaa !26
-  %117 = icmp eq i32 %116, 0
-  br i1 %117, label %110, label %118
+if.end.lr.ph.backedge:                            ; preds = %cleanup.cont, %if.then4
+  %numProcessedBlocks.0.ph134.be = phi i32 [ %inc, %cleanup.cont ], [ 0, %if.then4 ]
+  br label %if.end.lr.ph
 
-118:                                              ; preds = %112, %100, %84, %1
+cleanup71:                                        ; preds = %if.then4, %cleanup.cont, %cleanup, %entry
   ret void
 }
 
@@ -409,1714 +415,1744 @@ declare void @MatchFinder_ReduceOffsets(ptr noundef, i32 noundef) local_unnamed_
 declare void @MatchFinder_Normalize3(i32 noundef, ptr noundef, i32 noundef) local_unnamed_addr #2
 
 ; Function Attrs: nounwind uwtable
-define dso_local void @MatchFinderMt_GetNextBlock_Hash(ptr noundef %0) local_unnamed_addr #1 {
-  %2 = getelementptr inbounds %struct._CMatchFinderMt, ptr %0, i64 0, i32 25
-  tail call void @MtSync_GetNextBlock(ptr noundef nonnull %2)
-  %3 = getelementptr inbounds %struct._CMatchFinderMt, ptr %0, i64 0, i32 25, i32 13
-  %4 = load i32, ptr %3, align 8, !tbaa !46
-  %5 = shl i32 %4, 13
-  %6 = add i32 %5, 57344
-  %7 = and i32 %6, 57344
-  %8 = getelementptr inbounds %struct._CMatchFinderMt, ptr %0, i64 0, i32 14
-  %9 = getelementptr inbounds %struct._CMatchFinderMt, ptr %0, i64 0, i32 15
-  store i32 %7, ptr %9, align 4, !tbaa !47
-  %10 = getelementptr inbounds %struct._CMatchFinderMt, ptr %0, i64 0, i32 13
-  %11 = load ptr, ptr %10, align 8, !tbaa !38
-  %12 = or i32 %7, 1
-  store i32 %12, ptr %8, align 8, !tbaa !48
-  %13 = zext i32 %7 to i64
-  %14 = getelementptr inbounds i32, ptr %11, i64 %13
-  %15 = load i32, ptr %14, align 4, !tbaa !40
-  %16 = add i32 %15, %7
-  store i32 %16, ptr %9, align 4, !tbaa !47
-  %17 = or i32 %7, 2
-  store i32 %17, ptr %8, align 8, !tbaa !48
-  %18 = zext i32 %12 to i64
-  %19 = getelementptr inbounds i32, ptr %11, i64 %18
-  %20 = load i32, ptr %19, align 4, !tbaa !40
-  %21 = getelementptr inbounds %struct._CMatchFinderMt, ptr %0, i64 0, i32 16
-  store i32 %20, ptr %21, align 8, !tbaa !49
+define dso_local void @MatchFinderMt_GetNextBlock_Hash(ptr noundef %p) local_unnamed_addr #1 {
+entry:
+  %hashSync = getelementptr inbounds %struct._CMatchFinderMt, ptr %p, i64 0, i32 25
+  tail call void @MtSync_GetNextBlock(ptr noundef nonnull %hashSync)
+  %numProcessedBlocks = getelementptr inbounds %struct._CMatchFinderMt, ptr %p, i64 0, i32 25, i32 13
+  %0 = load i32, ptr %numProcessedBlocks, align 8, !tbaa !46
+  %sub = shl i32 %0, 13
+  %and = add i32 %sub, 57344
+  %mul = and i32 %and, 57344
+  %hashBufPos = getelementptr inbounds %struct._CMatchFinderMt, ptr %p, i64 0, i32 14
+  %hashBufPosLimit = getelementptr inbounds %struct._CMatchFinderMt, ptr %p, i64 0, i32 15
+  store i32 %mul, ptr %hashBufPosLimit, align 4, !tbaa !47
+  %hashBuf = getelementptr inbounds %struct._CMatchFinderMt, ptr %p, i64 0, i32 13
+  %1 = load ptr, ptr %hashBuf, align 8, !tbaa !38
+  %inc = or i32 %mul, 1
+  store i32 %inc, ptr %hashBufPos, align 8, !tbaa !48
+  %idxprom = zext i32 %mul to i64
+  %arrayidx = getelementptr inbounds i32, ptr %1, i64 %idxprom
+  %2 = load i32, ptr %arrayidx, align 4, !tbaa !40
+  %add = add i32 %2, %mul
+  store i32 %add, ptr %hashBufPosLimit, align 4, !tbaa !47
+  %inc6 = or i32 %mul, 2
+  store i32 %inc6, ptr %hashBufPos, align 8, !tbaa !48
+  %idxprom7 = zext i32 %inc to i64
+  %arrayidx8 = getelementptr inbounds i32, ptr %1, i64 %idxprom7
+  %3 = load i32, ptr %arrayidx8, align 4, !tbaa !40
+  %hashNumAvail = getelementptr inbounds %struct._CMatchFinderMt, ptr %p, i64 0, i32 16
+  store i32 %3, ptr %hashNumAvail, align 8, !tbaa !49
   ret void
 }
 
 ; Function Attrs: nounwind uwtable
-define dso_local void @BtGetMatches(ptr noundef %0, ptr noundef %1) local_unnamed_addr #1 {
-  %3 = getelementptr inbounds %struct._CMatchFinderMt, ptr %0, i64 0, i32 18
-  %4 = load i32, ptr %3, align 8, !tbaa !50
-  %5 = shl i32 %4, 1
-  %6 = sub i32 16384, %5
-  %7 = getelementptr inbounds %struct._CMatchFinderMt, ptr %0, i64 0, i32 16
-  %8 = load i32, ptr %7, align 8, !tbaa !49
-  %9 = getelementptr inbounds i32, ptr %1, i64 1
-  store i32 %8, ptr %9, align 4, !tbaa !40
-  %10 = getelementptr inbounds %struct._CMatchFinderMt, ptr %0, i64 0, i32 14
-  %11 = getelementptr inbounds %struct._CMatchFinderMt, ptr %0, i64 0, i32 15
-  %12 = getelementptr inbounds %struct._CMatchFinderMt, ptr %0, i64 0, i32 25
-  %13 = getelementptr inbounds %struct._CMatchFinderMt, ptr %0, i64 0, i32 25, i32 13
-  %14 = getelementptr inbounds %struct._CMatchFinderMt, ptr %0, i64 0, i32 13
-  %15 = getelementptr inbounds %struct._CMatchFinderMt, ptr %0, i64 0, i32 19
-  %16 = icmp ugt i32 %6, 2
-  br i1 %16, label %17, label %132
+define dso_local void @BtGetMatches(ptr noundef %p, ptr noundef %distances) local_unnamed_addr #1 {
+entry:
+  %matchMaxLen = getelementptr inbounds %struct._CMatchFinderMt, ptr %p, i64 0, i32 18
+  %0 = load i32, ptr %matchMaxLen, align 8, !tbaa !50
+  %mul = shl i32 %0, 1
+  %sub = sub i32 16384, %mul
+  %hashNumAvail = getelementptr inbounds %struct._CMatchFinderMt, ptr %p, i64 0, i32 16
+  %1 = load i32, ptr %hashNumAvail, align 8, !tbaa !49
+  %arrayidx = getelementptr inbounds i32, ptr %distances, i64 1
+  store i32 %1, ptr %arrayidx, align 4, !tbaa !40
+  %hashBufPos = getelementptr inbounds %struct._CMatchFinderMt, ptr %p, i64 0, i32 14
+  %hashBufPosLimit = getelementptr inbounds %struct._CMatchFinderMt, ptr %p, i64 0, i32 15
+  %hashSync.i = getelementptr inbounds %struct._CMatchFinderMt, ptr %p, i64 0, i32 25
+  %numProcessedBlocks.i = getelementptr inbounds %struct._CMatchFinderMt, ptr %p, i64 0, i32 25, i32 13
+  %hashBuf.i = getelementptr inbounds %struct._CMatchFinderMt, ptr %p, i64 0, i32 13
+  %numHashBytes = getelementptr inbounds %struct._CMatchFinderMt, ptr %p, i64 0, i32 19
+  %cmp149 = icmp ugt i32 %sub, 2
+  br i1 %cmp149, label %while.cond.outer.split.lr.ph, label %while.end66
 
-17:                                               ; preds = %2
-  %18 = getelementptr inbounds %struct._CMatchFinderMt, ptr %0, i64 0, i32 20
-  %19 = getelementptr inbounds %struct._CMatchFinderMt, ptr %0, i64 0, i32 22
-  %20 = getelementptr inbounds %struct._CMatchFinderMt, ptr %0, i64 0, i32 23
-  %21 = getelementptr inbounds %struct._CMatchFinderMt, ptr %0, i64 0, i32 21
-  %22 = getelementptr inbounds %struct._CMatchFinderMt, ptr %0, i64 0, i32 17
-  %23 = getelementptr inbounds %struct._CMatchFinderMt, ptr %0, i64 0, i32 24
-  br label %24
+while.cond.outer.split.lr.ph:                     ; preds = %entry
+  %pos16 = getelementptr inbounds %struct._CMatchFinderMt, ptr %p, i64 0, i32 20
+  %cyclicBufferPos17 = getelementptr inbounds %struct._CMatchFinderMt, ptr %p, i64 0, i32 22
+  %cyclicBufferSize = getelementptr inbounds %struct._CMatchFinderMt, ptr %p, i64 0, i32 23
+  %buffer = getelementptr inbounds %struct._CMatchFinderMt, ptr %p, i64 0, i32 21
+  %son = getelementptr inbounds %struct._CMatchFinderMt, ptr %p, i64 0, i32 17
+  %cutValue = getelementptr inbounds %struct._CMatchFinderMt, ptr %p, i64 0, i32 24
+  br label %while.cond.outer.split
 
-24:                                               ; preds = %17, %119
-  %25 = phi i32 [ 0, %17 ], [ %127, %119 ]
-  %26 = phi i32 [ 2, %17 ], [ %125, %119 ]
-  br label %27
+while.cond.outer.split:                           ; preds = %while.cond.outer.split.lr.ph, %while.end
+  %numProcessed.0.ph151 = phi i32 [ 0, %while.cond.outer.split.lr.ph ], [ %add54, %while.end ]
+  %curPos.0.ph150 = phi i32 [ 2, %while.cond.outer.split.lr.ph ], [ %curPos.2.lcssa, %while.end ]
+  br label %while.cond
 
-27:                                               ; preds = %24, %31
-  %28 = load i32, ptr %10, align 8, !tbaa !48
-  %29 = load i32, ptr %11, align 4, !tbaa !47
-  %30 = icmp eq i32 %29, %28
-  br i1 %30, label %31, label %60
+while.cond:                                       ; preds = %while.cond.outer.split, %if.then
+  %2 = load i32, ptr %hashBufPos, align 8, !tbaa !48
+  %3 = load i32, ptr %hashBufPosLimit, align 4, !tbaa !47
+  %cmp1 = icmp eq i32 %3, %2
+  br i1 %cmp1, label %if.then, label %if.end11
 
-31:                                               ; preds = %27
-  tail call void @MtSync_GetNextBlock(ptr noundef nonnull %12)
-  %32 = load i32, ptr %13, align 8, !tbaa !46
-  %33 = shl i32 %32, 13
-  %34 = add i32 %33, 57344
-  %35 = and i32 %34, 57344
-  store i32 %35, ptr %11, align 4, !tbaa !47
-  %36 = load ptr, ptr %14, align 8, !tbaa !38
-  %37 = or i32 %35, 1
-  store i32 %37, ptr %10, align 8, !tbaa !48
-  %38 = zext i32 %35 to i64
-  %39 = getelementptr inbounds i32, ptr %36, i64 %38
-  %40 = load i32, ptr %39, align 4, !tbaa !40
-  %41 = add i32 %40, %35
-  store i32 %41, ptr %11, align 4, !tbaa !47
-  %42 = or i32 %35, 2
-  store i32 %42, ptr %10, align 8, !tbaa !48
-  %43 = zext i32 %37 to i64
-  %44 = getelementptr inbounds i32, ptr %36, i64 %43
-  %45 = load i32, ptr %44, align 4, !tbaa !40
-  store i32 %45, ptr %7, align 8, !tbaa !49
-  %46 = add i32 %45, %25
-  store i32 %46, ptr %9, align 4, !tbaa !40
-  %47 = load i32, ptr %7, align 8, !tbaa !49
-  %48 = load i32, ptr %15, align 4, !tbaa !51
-  %49 = icmp ult i32 %47, %48
-  br i1 %49, label %50, label %27, !llvm.loop !52
+if.then:                                          ; preds = %while.cond
+  tail call void @MtSync_GetNextBlock(ptr noundef nonnull %hashSync.i)
+  %4 = load i32, ptr %numProcessedBlocks.i, align 8, !tbaa !46
+  %sub.i = shl i32 %4, 13
+  %and.i = add i32 %sub.i, 57344
+  %mul.i = and i32 %and.i, 57344
+  store i32 %mul.i, ptr %hashBufPosLimit, align 4, !tbaa !47
+  %5 = load ptr, ptr %hashBuf.i, align 8, !tbaa !38
+  %inc.i = or i32 %mul.i, 1
+  store i32 %inc.i, ptr %hashBufPos, align 8, !tbaa !48
+  %idxprom.i = zext i32 %mul.i to i64
+  %arrayidx.i = getelementptr inbounds i32, ptr %5, i64 %idxprom.i
+  %6 = load i32, ptr %arrayidx.i, align 4, !tbaa !40
+  %add.i = add i32 %6, %mul.i
+  store i32 %add.i, ptr %hashBufPosLimit, align 4, !tbaa !47
+  %inc6.i = or i32 %mul.i, 2
+  store i32 %inc6.i, ptr %hashBufPos, align 8, !tbaa !48
+  %idxprom7.i = zext i32 %inc.i to i64
+  %arrayidx8.i = getelementptr inbounds i32, ptr %5, i64 %idxprom7.i
+  %7 = load i32, ptr %arrayidx8.i, align 4, !tbaa !40
+  store i32 %7, ptr %hashNumAvail, align 8, !tbaa !49
+  %add = add i32 %7, %numProcessed.0.ph151
+  store i32 %add, ptr %arrayidx, align 4, !tbaa !40
+  %8 = load i32, ptr %hashNumAvail, align 8, !tbaa !49
+  %9 = load i32, ptr %numHashBytes, align 4, !tbaa !51
+  %cmp5.not = icmp ult i32 %8, %9
+  br i1 %cmp5.not, label %for.cond.preheader, label %while.cond, !llvm.loop !52
 
-50:                                               ; preds = %31
-  %51 = icmp eq i32 %47, 0
-  br i1 %51, label %132, label %52
+for.cond.preheader:                               ; preds = %if.then
+  %cmp8.not153 = icmp eq i32 %8, 0
+  br i1 %cmp8.not153, label %while.end66, label %for.body
 
-52:                                               ; preds = %50, %52
-  %53 = phi i32 [ %54, %52 ], [ %26, %50 ]
-  %54 = add i32 %53, 1
-  %55 = zext i32 %53 to i64
-  %56 = getelementptr inbounds i32, ptr %1, i64 %55
-  store i32 0, ptr %56, align 4, !tbaa !40
-  %57 = load i32, ptr %7, align 8, !tbaa !49
-  %58 = add i32 %57, -1
-  store i32 %58, ptr %7, align 8, !tbaa !49
-  %59 = icmp eq i32 %58, 0
-  br i1 %59, label %132, label %52, !llvm.loop !53
+for.body:                                         ; preds = %for.cond.preheader, %for.body
+  %curPos.1154 = phi i32 [ %inc, %for.body ], [ %curPos.0.ph150, %for.cond.preheader ]
+  %inc = add i32 %curPos.1154, 1
+  %idxprom = zext i32 %curPos.1154 to i64
+  %arrayidx9 = getelementptr inbounds i32, ptr %distances, i64 %idxprom
+  store i32 0, ptr %arrayidx9, align 4, !tbaa !40
+  %10 = load i32, ptr %hashNumAvail, align 8, !tbaa !49
+  %dec = add i32 %10, -1
+  store i32 %dec, ptr %hashNumAvail, align 8, !tbaa !49
+  %cmp8.not = icmp eq i32 %dec, 0
+  br i1 %cmp8.not, label %while.end66, label %for.body, !llvm.loop !53
 
-60:                                               ; preds = %27
-  %61 = sub i32 %29, %28
-  %62 = load i32, ptr %3, align 8, !tbaa !50
-  %63 = load i32, ptr %18, align 8, !tbaa !54
-  %64 = load i32, ptr %19, align 8, !tbaa !55
-  %65 = load i32, ptr %7, align 8, !tbaa !49
-  %66 = tail call i32 @llvm.umin.i32(i32 %62, i32 %65)
-  %67 = add i32 %65, 1
-  %68 = sub i32 %67, %66
-  %69 = tail call i32 @llvm.umin.i32(i32 %68, i32 %61)
-  %70 = load i32, ptr %20, align 4, !tbaa !56
-  %71 = sub i32 %70, %64
-  %72 = tail call i32 @llvm.umin.i32(i32 %71, i32 %69)
-  %73 = icmp uge i32 %26, %6
-  %74 = icmp eq i32 %72, 0
-  %75 = select i1 %73, i1 true, i1 %74
-  br i1 %75, label %119, label %76
+if.end11:                                         ; preds = %while.cond
+  %sub14 = sub i32 %3, %2
+  %11 = load i32, ptr %matchMaxLen, align 8, !tbaa !50
+  %12 = load i32, ptr %pos16, align 8, !tbaa !54
+  %13 = load i32, ptr %cyclicBufferPos17, align 8, !tbaa !55
+  %14 = load i32, ptr %hashNumAvail, align 8, !tbaa !49
+  %spec.select = tail call i32 @llvm.umin.i32(i32 %11, i32 %14)
+  %sub24 = add i32 %14, 1
+  %add25 = sub i32 %sub24, %spec.select
+  %size.0 = tail call i32 @llvm.umin.i32(i32 %add25, i32 %sub14)
+  %15 = load i32, ptr %cyclicBufferSize, align 4, !tbaa !56
+  %sub29 = sub i32 %15, %13
+  %size.1 = tail call i32 @llvm.umin.i32(i32 %sub29, i32 %size.0)
+  %cmp34140 = icmp uge i32 %curPos.0.ph150, %sub
+  %cmp36.not141 = icmp eq i32 %size.1, 0
+  %or.cond142 = select i1 %cmp34140, i1 true, i1 %cmp36.not141
+  br i1 %or.cond142, label %while.end, label %while.body37.preheader
 
-76:                                               ; preds = %60
-  %77 = load ptr, ptr %21, align 8, !tbaa !45
-  br label %78
+while.body37.preheader:                           ; preds = %if.end11
+  %.pre = load ptr, ptr %buffer, align 8, !tbaa !45
+  br label %while.body37
 
-78:                                               ; preds = %76, %78
-  %79 = phi ptr [ %111, %78 ], [ %77, %76 ]
-  %80 = phi i32 [ %107, %78 ], [ %26, %76 ]
-  %81 = phi i32 [ %108, %78 ], [ %64, %76 ]
-  %82 = phi i32 [ %109, %78 ], [ %63, %76 ]
-  %83 = phi i32 [ %84, %78 ], [ %72, %76 ]
-  %84 = add i32 %83, -1
-  %85 = zext i32 %80 to i64
-  %86 = getelementptr inbounds i32, ptr %1, i64 %85
-  %87 = load ptr, ptr %14, align 8, !tbaa !38
-  %88 = load i32, ptr %10, align 8, !tbaa !48
-  %89 = add i32 %88, 1
-  store i32 %89, ptr %10, align 8, !tbaa !48
-  %90 = zext i32 %88 to i64
-  %91 = getelementptr inbounds i32, ptr %87, i64 %90
-  %92 = load i32, ptr %91, align 4, !tbaa !40
-  %93 = sub i32 %82, %92
-  %94 = load ptr, ptr %22, align 8, !tbaa !57
-  %95 = load i32, ptr %20, align 4, !tbaa !56
-  %96 = load i32, ptr %23, align 8, !tbaa !58
-  %97 = getelementptr inbounds i32, ptr %86, i64 1
-  %98 = load i32, ptr %15, align 4, !tbaa !51
-  %99 = add i32 %98, -1
-  %100 = tail call ptr @GetMatchesSpec1(i32 noundef %66, i32 noundef %93, i32 noundef %82, ptr noundef %79, ptr noundef %94, i32 noundef %81, i32 noundef %95, i32 noundef %96, ptr noundef nonnull %97, i32 noundef %99) #10
-  %101 = ptrtoint ptr %100 to i64
-  %102 = ptrtoint ptr %86 to i64
-  %103 = sub i64 %101, %102
-  %104 = lshr exact i64 %103, 2
-  %105 = trunc i64 %104 to i32
-  %106 = add i32 %105, -1
-  store i32 %106, ptr %86, align 4, !tbaa !40
-  %107 = add i32 %80, %105
-  %108 = add i32 %81, 1
-  %109 = add i32 %82, 1
-  %110 = load ptr, ptr %21, align 8, !tbaa !45
-  %111 = getelementptr inbounds i8, ptr %110, i64 1
-  store ptr %111, ptr %21, align 8, !tbaa !45
-  %112 = icmp uge i32 %107, %6
-  %113 = icmp eq i32 %84, 0
-  %114 = select i1 %112, i1 true, i1 %113
-  br i1 %114, label %115, label %78, !llvm.loop !59
+while.body37:                                     ; preds = %while.body37.preheader, %while.body37
+  %16 = phi ptr [ %incdec.ptr, %while.body37 ], [ %.pre, %while.body37.preheader ]
+  %curPos.2146 = phi i32 [ %add48, %while.body37 ], [ %curPos.0.ph150, %while.body37.preheader ]
+  %cyclicBufferPos.0145 = phi i32 [ %inc49, %while.body37 ], [ %13, %while.body37.preheader ]
+  %pos.0144 = phi i32 [ %inc50, %while.body37 ], [ %12, %while.body37.preheader ]
+  %size.2143 = phi i32 [ %dec35, %while.body37 ], [ %size.1, %while.body37.preheader ]
+  %dec35 = add i32 %size.2143, -1
+  %idx.ext = zext i32 %curPos.2146 to i64
+  %add.ptr = getelementptr inbounds i32, ptr %distances, i64 %idx.ext
+  %17 = load ptr, ptr %hashBuf.i, align 8, !tbaa !38
+  %18 = load i32, ptr %hashBufPos, align 8, !tbaa !48
+  %inc39 = add i32 %18, 1
+  store i32 %inc39, ptr %hashBufPos, align 8, !tbaa !48
+  %idxprom40 = zext i32 %18 to i64
+  %arrayidx41 = getelementptr inbounds i32, ptr %17, i64 %idxprom40
+  %19 = load i32, ptr %arrayidx41, align 4, !tbaa !40
+  %sub42 = sub i32 %pos.0144, %19
+  %20 = load ptr, ptr %son, align 8, !tbaa !57
+  %21 = load i32, ptr %cyclicBufferSize, align 4, !tbaa !56
+  %22 = load i32, ptr %cutValue, align 8, !tbaa !58
+  %add.ptr44 = getelementptr inbounds i32, ptr %add.ptr, i64 1
+  %23 = load i32, ptr %numHashBytes, align 4, !tbaa !51
+  %sub46 = add i32 %23, -1
+  %call = tail call ptr @GetMatchesSpec1(i32 noundef %spec.select, i32 noundef %sub42, i32 noundef %pos.0144, ptr noundef %16, ptr noundef %20, i32 noundef %cyclicBufferPos.0145, i32 noundef %21, i32 noundef %22, ptr noundef nonnull %add.ptr44, i32 noundef %sub46) #10
+  %sub.ptr.lhs.cast = ptrtoint ptr %call to i64
+  %sub.ptr.rhs.cast = ptrtoint ptr %add.ptr to i64
+  %sub.ptr.sub = sub i64 %sub.ptr.lhs.cast, %sub.ptr.rhs.cast
+  %24 = lshr exact i64 %sub.ptr.sub, 2
+  %conv = trunc i64 %24 to i32
+  %sub47 = add i32 %conv, -1
+  store i32 %sub47, ptr %add.ptr, align 4, !tbaa !40
+  %add48 = add i32 %curPos.2146, %conv
+  %inc49 = add i32 %cyclicBufferPos.0145, 1
+  %inc50 = add i32 %pos.0144, 1
+  %25 = load ptr, ptr %buffer, align 8, !tbaa !45
+  %incdec.ptr = getelementptr inbounds i8, ptr %25, i64 1
+  store ptr %incdec.ptr, ptr %buffer, align 8, !tbaa !45
+  %cmp34 = icmp uge i32 %add48, %sub
+  %cmp36.not = icmp eq i32 %dec35, 0
+  %or.cond = select i1 %cmp34, i1 true, i1 %cmp36.not
+  br i1 %or.cond, label %while.end.loopexit, label %while.body37, !llvm.loop !59
 
-115:                                              ; preds = %78
-  %116 = load i32, ptr %18, align 8, !tbaa !54
-  %117 = load i32, ptr %7, align 8, !tbaa !49
-  %118 = load i32, ptr %20, align 4, !tbaa !56
-  br label %119
+while.end.loopexit:                               ; preds = %while.body37
+  %.pre162 = load i32, ptr %pos16, align 8, !tbaa !54
+  %.pre163 = load i32, ptr %hashNumAvail, align 8, !tbaa !49
+  %.pre164 = load i32, ptr %cyclicBufferSize, align 4, !tbaa !56
+  br label %while.end
 
-119:                                              ; preds = %115, %60
-  %120 = phi i32 [ %70, %60 ], [ %118, %115 ]
-  %121 = phi i32 [ %65, %60 ], [ %117, %115 ]
-  %122 = phi i32 [ %63, %60 ], [ %116, %115 ]
-  %123 = phi i32 [ %63, %60 ], [ %109, %115 ]
-  %124 = phi i32 [ %64, %60 ], [ %108, %115 ]
-  %125 = phi i32 [ %26, %60 ], [ %107, %115 ]
-  %126 = sub i32 %123, %122
-  %127 = add i32 %126, %25
-  %128 = sub i32 %121, %126
-  store i32 %128, ptr %7, align 8, !tbaa !49
-  store i32 %123, ptr %18, align 8, !tbaa !54
-  %129 = icmp eq i32 %124, %120
-  %130 = select i1 %129, i32 0, i32 %124
-  store i32 %130, ptr %19, align 8, !tbaa !55
-  %131 = icmp ult i32 %125, %6
-  br i1 %131, label %24, label %132, !llvm.loop !52
+while.end:                                        ; preds = %while.end.loopexit, %if.end11
+  %26 = phi i32 [ %15, %if.end11 ], [ %.pre164, %while.end.loopexit ]
+  %27 = phi i32 [ %14, %if.end11 ], [ %.pre163, %while.end.loopexit ]
+  %28 = phi i32 [ %12, %if.end11 ], [ %.pre162, %while.end.loopexit ]
+  %pos.0.lcssa = phi i32 [ %12, %if.end11 ], [ %inc50, %while.end.loopexit ]
+  %cyclicBufferPos.0.lcssa = phi i32 [ %13, %if.end11 ], [ %inc49, %while.end.loopexit ]
+  %curPos.2.lcssa = phi i32 [ %curPos.0.ph150, %if.end11 ], [ %add48, %while.end.loopexit ]
+  %sub53 = sub i32 %pos.0.lcssa, %28
+  %add54 = add i32 %sub53, %numProcessed.0.ph151
+  %sub58 = sub i32 %27, %sub53
+  store i32 %sub58, ptr %hashNumAvail, align 8, !tbaa !49
+  store i32 %pos.0.lcssa, ptr %pos16, align 8, !tbaa !54
+  %cmp61 = icmp eq i32 %cyclicBufferPos.0.lcssa, %26
+  %spec.store.select = select i1 %cmp61, i32 0, i32 %cyclicBufferPos.0.lcssa
+  store i32 %spec.store.select, ptr %cyclicBufferPos17, align 8, !tbaa !55
+  %cmp = icmp ult i32 %curPos.2.lcssa, %sub
+  br i1 %cmp, label %while.cond.outer.split, label %while.end66, !llvm.loop !52
 
-132:                                              ; preds = %119, %52, %2, %50
-  %133 = phi i32 [ %26, %50 ], [ 2, %2 ], [ %54, %52 ], [ %125, %119 ]
-  store i32 %133, ptr %1, align 4, !tbaa !40
+while.end66:                                      ; preds = %while.end, %for.body, %entry, %for.cond.preheader
+  %curPos.3 = phi i32 [ %curPos.0.ph150, %for.cond.preheader ], [ 2, %entry ], [ %inc, %for.body ], [ %curPos.2.lcssa, %while.end ]
+  store i32 %curPos.3, ptr %distances, align 4, !tbaa !40
   ret void
 }
 
 declare ptr @GetMatchesSpec1(i32 noundef, i32 noundef, i32 noundef, ptr noundef, ptr noundef, i32 noundef, i32 noundef, i32 noundef, ptr noundef, i32 noundef) local_unnamed_addr #2
 
 ; Function Attrs: nounwind uwtable
-define dso_local void @BtFillBlock(ptr noundef %0, i32 noundef %1) local_unnamed_addr #1 {
-  %3 = getelementptr inbounds %struct._CMatchFinderMt, ptr %0, i64 0, i32 25, i32 1
-  %4 = load i32, ptr %3, align 4, !tbaa !23
-  %5 = icmp eq i32 %4, 0
-  br i1 %5, label %6, label %10
+define dso_local void @BtFillBlock(ptr noundef %p, i32 noundef %globalBlockIndex) local_unnamed_addr #1 {
+entry:
+  %needStart = getelementptr inbounds %struct._CMatchFinderMt, ptr %p, i64 0, i32 25, i32 1
+  %0 = load i32, ptr %needStart, align 4, !tbaa !23
+  %tobool.not = icmp eq i32 %0, 0
+  br i1 %tobool.not, label %if.then, label %if.end
 
-6:                                                ; preds = %2
-  %7 = getelementptr inbounds %struct._CMatchFinderMt, ptr %0, i64 0, i32 25, i32 12
-  %8 = tail call i32 @pthread_mutex_lock(ptr noundef nonnull %7) #10
-  %9 = getelementptr inbounds %struct._CMatchFinderMt, ptr %0, i64 0, i32 25, i32 11
-  store i32 1, ptr %9, align 4, !tbaa !16
-  br label %10
+if.then:                                          ; preds = %entry
+  %cs = getelementptr inbounds %struct._CMatchFinderMt, ptr %p, i64 0, i32 25, i32 12
+  %call = tail call i32 @pthread_mutex_lock(ptr noundef nonnull %cs) #10
+  %csWasEntered = getelementptr inbounds %struct._CMatchFinderMt, ptr %p, i64 0, i32 25, i32 11
+  store i32 1, ptr %csWasEntered, align 4, !tbaa !16
+  br label %if.end
 
-10:                                               ; preds = %6, %2
-  %11 = getelementptr inbounds %struct._CMatchFinderMt, ptr %0, i64 0, i32 1
-  %12 = load ptr, ptr %11, align 8, !tbaa !60
-  %13 = shl i32 %1, 14
-  %14 = and i32 %13, 1032192
-  %15 = zext i32 %14 to i64
-  %16 = getelementptr inbounds i32, ptr %12, i64 %15
-  tail call void @BtGetMatches(ptr noundef nonnull %0, ptr noundef %16)
-  %17 = getelementptr inbounds %struct._CMatchFinderMt, ptr %0, i64 0, i32 20
-  %18 = load i32, ptr %17, align 8, !tbaa !54
-  %19 = icmp ugt i32 %18, -16385
-  br i1 %19, label %20, label %29
+if.end:                                           ; preds = %if.then, %entry
+  %btBuf = getelementptr inbounds %struct._CMatchFinderMt, ptr %p, i64 0, i32 1
+  %1 = load ptr, ptr %btBuf, align 8, !tbaa !60
+  %and = shl i32 %globalBlockIndex, 14
+  %mul = and i32 %and, 1032192
+  %idx.ext = zext i32 %mul to i64
+  %add.ptr = getelementptr inbounds i32, ptr %1, i64 %idx.ext
+  tail call void @BtGetMatches(ptr noundef nonnull %p, ptr noundef %add.ptr)
+  %pos = getelementptr inbounds %struct._CMatchFinderMt, ptr %p, i64 0, i32 20
+  %2 = load i32, ptr %pos, align 8, !tbaa !54
+  %cmp = icmp ugt i32 %2, -16385
+  br i1 %cmp, label %if.then1, label %if.end7
 
-20:                                               ; preds = %10
-  %21 = getelementptr inbounds %struct._CMatchFinderMt, ptr %0, i64 0, i32 23
-  %22 = load i32, ptr %21, align 4, !tbaa !56
-  %23 = sub i32 %18, %22
-  %24 = getelementptr inbounds %struct._CMatchFinderMt, ptr %0, i64 0, i32 17
-  %25 = load ptr, ptr %24, align 8, !tbaa !57
-  %26 = shl i32 %22, 1
-  tail call void @MatchFinder_Normalize3(i32 noundef %23, ptr noundef %25, i32 noundef %26) #10
-  %27 = load i32, ptr %17, align 8, !tbaa !54
-  %28 = sub i32 %27, %23
-  store i32 %28, ptr %17, align 8, !tbaa !54
-  br label %29
+if.then1:                                         ; preds = %if.end
+  %cyclicBufferSize = getelementptr inbounds %struct._CMatchFinderMt, ptr %p, i64 0, i32 23
+  %3 = load i32, ptr %cyclicBufferSize, align 4, !tbaa !56
+  %sub = sub i32 %2, %3
+  %son = getelementptr inbounds %struct._CMatchFinderMt, ptr %p, i64 0, i32 17
+  %4 = load ptr, ptr %son, align 8, !tbaa !57
+  %mul4 = shl i32 %3, 1
+  tail call void @MatchFinder_Normalize3(i32 noundef %sub, ptr noundef %4, i32 noundef %mul4) #10
+  %5 = load i32, ptr %pos, align 8, !tbaa !54
+  %sub6 = sub i32 %5, %sub
+  store i32 %sub6, ptr %pos, align 8, !tbaa !54
+  br label %if.end7
 
-29:                                               ; preds = %20, %10
-  %30 = load i32, ptr %3, align 4, !tbaa !23
-  %31 = icmp eq i32 %30, 0
-  br i1 %31, label %32, label %36
+if.end7:                                          ; preds = %if.then1, %if.end
+  %6 = load i32, ptr %needStart, align 4, !tbaa !23
+  %tobool9.not = icmp eq i32 %6, 0
+  br i1 %tobool9.not, label %if.then10, label %if.end15
 
-32:                                               ; preds = %29
-  %33 = getelementptr inbounds %struct._CMatchFinderMt, ptr %0, i64 0, i32 25, i32 12
-  %34 = tail call i32 @pthread_mutex_unlock(ptr noundef nonnull %33) #10
-  %35 = getelementptr inbounds %struct._CMatchFinderMt, ptr %0, i64 0, i32 25, i32 11
-  store i32 0, ptr %35, align 4, !tbaa !16
-  br label %36
+if.then10:                                        ; preds = %if.end7
+  %cs11 = getelementptr inbounds %struct._CMatchFinderMt, ptr %p, i64 0, i32 25, i32 12
+  %call13 = tail call i32 @pthread_mutex_unlock(ptr noundef nonnull %cs11) #10
+  %csWasEntered14 = getelementptr inbounds %struct._CMatchFinderMt, ptr %p, i64 0, i32 25, i32 11
+  store i32 0, ptr %csWasEntered14, align 4, !tbaa !16
+  br label %if.end15
 
-36:                                               ; preds = %32, %29
+if.end15:                                         ; preds = %if.then10, %if.end7
   ret void
 }
 
 ; Function Attrs: nounwind uwtable
-define dso_local void @BtThreadFunc(ptr noundef %0) local_unnamed_addr #1 {
-  %2 = getelementptr inbounds %struct._CMatchFinderMt, ptr %0, i64 0, i32 11, i32 5
-  %3 = tail call i32 @Event_Wait(ptr noundef nonnull %2) #10
-  %4 = getelementptr inbounds %struct._CMatchFinderMt, ptr %0, i64 0, i32 11, i32 6
-  %5 = tail call i32 @Event_Set(ptr noundef nonnull %4) #10
-  %6 = getelementptr inbounds %struct._CMatchFinderMt, ptr %0, i64 0, i32 11, i32 2
-  %7 = load i32, ptr %6, align 8, !tbaa !26
-  %8 = icmp eq i32 %7, 0
-  br i1 %8, label %9, label %66
+define dso_local void @BtThreadFunc(ptr noundef %mt) local_unnamed_addr #1 {
+entry:
+  %canStart = getelementptr inbounds %struct._CMatchFinderMt, ptr %mt, i64 0, i32 11, i32 5
+  %call23 = tail call i32 @Event_Wait(ptr noundef nonnull %canStart) #10
+  %wasStarted = getelementptr inbounds %struct._CMatchFinderMt, ptr %mt, i64 0, i32 11, i32 6
+  %call124 = tail call i32 @Event_Set(ptr noundef nonnull %wasStarted) #10
+  %exit = getelementptr inbounds %struct._CMatchFinderMt, ptr %mt, i64 0, i32 11, i32 2
+  %0 = load i32, ptr %exit, align 8, !tbaa !26
+  %tobool.not2125 = icmp eq i32 %0, 0
+  br i1 %tobool.not2125, label %if.end.lr.ph.lr.ph, label %cleanup9
 
-9:                                                ; preds = %1
-  %10 = getelementptr inbounds %struct._CMatchFinderMt, ptr %0, i64 0, i32 11, i32 3
-  %11 = getelementptr inbounds %struct._CMatchFinderMt, ptr %0, i64 0, i32 11, i32 8
-  %12 = getelementptr inbounds %struct._CMatchFinderMt, ptr %0, i64 0, i32 25, i32 1
-  %13 = getelementptr inbounds %struct._CMatchFinderMt, ptr %0, i64 0, i32 25, i32 12
-  %14 = getelementptr inbounds %struct._CMatchFinderMt, ptr %0, i64 0, i32 25, i32 11
-  %15 = getelementptr inbounds %struct._CMatchFinderMt, ptr %0, i64 0, i32 1
-  %16 = getelementptr inbounds %struct._CMatchFinderMt, ptr %0, i64 0, i32 20
-  %17 = getelementptr inbounds %struct._CMatchFinderMt, ptr %0, i64 0, i32 23
-  %18 = getelementptr inbounds %struct._CMatchFinderMt, ptr %0, i64 0, i32 17
-  %19 = getelementptr inbounds %struct._CMatchFinderMt, ptr %0, i64 0, i32 11, i32 9
-  %20 = getelementptr inbounds %struct._CMatchFinderMt, ptr %0, i64 0, i32 11, i32 13
-  %21 = getelementptr inbounds %struct._CMatchFinderMt, ptr %0, i64 0, i32 25
-  %22 = getelementptr inbounds %struct._CMatchFinderMt, ptr %0, i64 0, i32 11, i32 7
-  br label %23
+if.end.lr.ph.lr.ph:                               ; preds = %entry
+  %stopWriting = getelementptr inbounds %struct._CMatchFinderMt, ptr %mt, i64 0, i32 11, i32 3
+  %freeSemaphore = getelementptr inbounds %struct._CMatchFinderMt, ptr %mt, i64 0, i32 11, i32 8
+  %needStart.i = getelementptr inbounds %struct._CMatchFinderMt, ptr %mt, i64 0, i32 25, i32 1
+  %cs.i = getelementptr inbounds %struct._CMatchFinderMt, ptr %mt, i64 0, i32 25, i32 12
+  %csWasEntered.i = getelementptr inbounds %struct._CMatchFinderMt, ptr %mt, i64 0, i32 25, i32 11
+  %btBuf.i = getelementptr inbounds %struct._CMatchFinderMt, ptr %mt, i64 0, i32 1
+  %pos.i = getelementptr inbounds %struct._CMatchFinderMt, ptr %mt, i64 0, i32 20
+  %cyclicBufferSize.i = getelementptr inbounds %struct._CMatchFinderMt, ptr %mt, i64 0, i32 23
+  %son.i = getelementptr inbounds %struct._CMatchFinderMt, ptr %mt, i64 0, i32 17
+  %filledSemaphore = getelementptr inbounds %struct._CMatchFinderMt, ptr %mt, i64 0, i32 11, i32 9
+  %numProcessedBlocks = getelementptr inbounds %struct._CMatchFinderMt, ptr %mt, i64 0, i32 11, i32 13
+  %hashSync = getelementptr inbounds %struct._CMatchFinderMt, ptr %mt, i64 0, i32 25
+  %wasStopped = getelementptr inbounds %struct._CMatchFinderMt, ptr %mt, i64 0, i32 11, i32 7
+  br label %if.end
 
-23:                                               ; preds = %58, %9
-  %24 = phi i32 [ 0, %9 ], [ %59, %58 ]
-  %25 = load i32, ptr %10, align 4, !tbaa !25
-  %26 = icmp eq i32 %25, 0
-  br i1 %26, label %27, label %60
+if.end:                                           ; preds = %if.end.backedge, %if.end.lr.ph.lr.ph
+  %blockIndex.022 = phi i32 [ 0, %if.end.lr.ph.lr.ph ], [ %blockIndex.022.be, %if.end.backedge ]
+  %1 = load i32, ptr %stopWriting, align 4, !tbaa !25
+  %tobool3.not = icmp eq i32 %1, 0
+  br i1 %tobool3.not, label %if.end6, label %if.then4
 
-27:                                               ; preds = %23
-  %28 = tail call i32 @Semaphore_Wait(ptr noundef nonnull %11) #10
-  %29 = add i32 %24, 1
-  %30 = load i32, ptr %12, align 4, !tbaa !23
-  %31 = icmp eq i32 %30, 0
-  br i1 %31, label %32, label %34
+if.then4:                                         ; preds = %if.end
+  store i32 %blockIndex.022, ptr %numProcessedBlocks, align 8, !tbaa !24
+  tail call void @MtSync_StopWriting(ptr noundef nonnull %hashSync)
+  %call5 = tail call i32 @Event_Set(ptr noundef nonnull %wasStopped) #10
+  %call = tail call i32 @Event_Wait(ptr noundef nonnull %canStart) #10
+  %call1 = tail call i32 @Event_Set(ptr noundef nonnull %wasStarted) #10
+  %2 = load i32, ptr %exit, align 8, !tbaa !26
+  %tobool.not21 = icmp eq i32 %2, 0
+  br i1 %tobool.not21, label %if.end.backedge, label %cleanup9
 
-32:                                               ; preds = %27
-  %33 = tail call i32 @pthread_mutex_lock(ptr noundef nonnull %13) #10
-  store i32 1, ptr %14, align 4, !tbaa !16
-  br label %34
+if.end6:                                          ; preds = %if.end
+  %call7 = tail call i32 @Semaphore_Wait(ptr noundef nonnull %freeSemaphore) #10
+  %inc = add i32 %blockIndex.022, 1
+  %3 = load i32, ptr %needStart.i, align 4, !tbaa !23
+  %tobool.not.i = icmp eq i32 %3, 0
+  br i1 %tobool.not.i, label %if.then.i, label %if.end.i
 
-34:                                               ; preds = %32, %27
-  %35 = load ptr, ptr %15, align 8, !tbaa !60
-  %36 = shl i32 %24, 14
-  %37 = and i32 %36, 1032192
-  %38 = zext i32 %37 to i64
-  %39 = getelementptr inbounds i32, ptr %35, i64 %38
-  tail call void @BtGetMatches(ptr noundef nonnull %0, ptr noundef %39)
-  %40 = load i32, ptr %16, align 8, !tbaa !54
-  %41 = icmp ugt i32 %40, -16385
-  br i1 %41, label %42, label %49
+if.then.i:                                        ; preds = %if.end6
+  %call.i = tail call i32 @pthread_mutex_lock(ptr noundef nonnull %cs.i) #10
+  store i32 1, ptr %csWasEntered.i, align 4, !tbaa !16
+  br label %if.end.i
 
-42:                                               ; preds = %34
-  %43 = load i32, ptr %17, align 4, !tbaa !56
-  %44 = sub i32 %40, %43
-  %45 = load ptr, ptr %18, align 8, !tbaa !57
-  %46 = shl i32 %43, 1
-  tail call void @MatchFinder_Normalize3(i32 noundef %44, ptr noundef %45, i32 noundef %46) #10
-  %47 = load i32, ptr %16, align 8, !tbaa !54
-  %48 = sub i32 %47, %44
-  store i32 %48, ptr %16, align 8, !tbaa !54
-  br label %49
+if.end.i:                                         ; preds = %if.then.i, %if.end6
+  %4 = load ptr, ptr %btBuf.i, align 8, !tbaa !60
+  %and.i = shl i32 %blockIndex.022, 14
+  %mul.i = and i32 %and.i, 1032192
+  %idx.ext.i = zext i32 %mul.i to i64
+  %add.ptr.i = getelementptr inbounds i32, ptr %4, i64 %idx.ext.i
+  tail call void @BtGetMatches(ptr noundef nonnull %mt, ptr noundef %add.ptr.i)
+  %5 = load i32, ptr %pos.i, align 8, !tbaa !54
+  %cmp.i = icmp ugt i32 %5, -16385
+  br i1 %cmp.i, label %if.then1.i, label %if.end7.i
 
-49:                                               ; preds = %42, %34
-  %50 = load i32, ptr %12, align 4, !tbaa !23
-  %51 = icmp eq i32 %50, 0
-  br i1 %51, label %52, label %54
+if.then1.i:                                       ; preds = %if.end.i
+  %6 = load i32, ptr %cyclicBufferSize.i, align 4, !tbaa !56
+  %sub.i = sub i32 %5, %6
+  %7 = load ptr, ptr %son.i, align 8, !tbaa !57
+  %mul4.i = shl i32 %6, 1
+  tail call void @MatchFinder_Normalize3(i32 noundef %sub.i, ptr noundef %7, i32 noundef %mul4.i) #10
+  %8 = load i32, ptr %pos.i, align 8, !tbaa !54
+  %sub6.i = sub i32 %8, %sub.i
+  store i32 %sub6.i, ptr %pos.i, align 8, !tbaa !54
+  br label %if.end7.i
 
-52:                                               ; preds = %49
-  %53 = tail call i32 @pthread_mutex_unlock(ptr noundef nonnull %13) #10
-  store i32 0, ptr %14, align 4, !tbaa !16
-  br label %54
+if.end7.i:                                        ; preds = %if.then1.i, %if.end.i
+  %9 = load i32, ptr %needStart.i, align 4, !tbaa !23
+  %tobool9.not.i = icmp eq i32 %9, 0
+  br i1 %tobool9.not.i, label %if.then10.i, label %BtFillBlock.exit
 
-54:                                               ; preds = %49, %52
-  %55 = tail call i32 @Semaphore_ReleaseN(ptr noundef nonnull %19, i32 noundef 1) #10
-  %56 = load i32, ptr %6, align 8, !tbaa !26
-  %57 = icmp eq i32 %56, 0
-  br i1 %57, label %58, label %66
+if.then10.i:                                      ; preds = %if.end7.i
+  %call13.i = tail call i32 @pthread_mutex_unlock(ptr noundef nonnull %cs.i) #10
+  store i32 0, ptr %csWasEntered.i, align 4, !tbaa !16
+  br label %BtFillBlock.exit
 
-58:                                               ; preds = %54, %60
-  %59 = phi i32 [ %29, %54 ], [ 0, %60 ]
-  br label %23
+BtFillBlock.exit:                                 ; preds = %if.end7.i, %if.then10.i
+  %call8 = tail call i32 @Semaphore_ReleaseN(ptr noundef nonnull %filledSemaphore, i32 noundef 1) #10
+  %10 = load i32, ptr %exit, align 8, !tbaa !26
+  %tobool.not = icmp eq i32 %10, 0
+  br i1 %tobool.not, label %if.end.backedge, label %cleanup9
 
-60:                                               ; preds = %23
-  store i32 %24, ptr %20, align 8, !tbaa !24
-  tail call void @MtSync_StopWriting(ptr noundef nonnull %21)
-  %61 = tail call i32 @Event_Set(ptr noundef nonnull %22) #10
-  %62 = tail call i32 @Event_Wait(ptr noundef nonnull %2) #10
-  %63 = tail call i32 @Event_Set(ptr noundef nonnull %4) #10
-  %64 = load i32, ptr %6, align 8, !tbaa !26
-  %65 = icmp eq i32 %64, 0
-  br i1 %65, label %58, label %66
+if.end.backedge:                                  ; preds = %BtFillBlock.exit, %if.then4
+  %blockIndex.022.be = phi i32 [ %inc, %BtFillBlock.exit ], [ 0, %if.then4 ]
+  br label %if.end
 
-66:                                               ; preds = %60, %54, %1
+cleanup9:                                         ; preds = %if.then4, %BtFillBlock.exit, %entry
   ret void
 }
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(argmem: write) uwtable
-define dso_local void @MatchFinderMt_Construct(ptr nocapture noundef writeonly %0) local_unnamed_addr #0 {
-  %2 = getelementptr inbounds %struct._CMatchFinderMt, ptr %0, i64 0, i32 13
-  store ptr null, ptr %2, align 8, !tbaa !38
-  %3 = getelementptr inbounds %struct._CMatchFinderMt, ptr %0, i64 0, i32 25
-  store i32 0, ptr %3, align 8, !tbaa !5
-  %4 = getelementptr inbounds %struct._CMatchFinderMt, ptr %0, i64 0, i32 25, i32 10
-  store i32 0, ptr %4, align 8, !tbaa !15
-  %5 = getelementptr inbounds %struct._CMatchFinderMt, ptr %0, i64 0, i32 25, i32 11
-  store i32 0, ptr %5, align 4, !tbaa !16
-  %6 = getelementptr inbounds %struct._CMatchFinderMt, ptr %0, i64 0, i32 25, i32 4, i32 1
-  store i32 0, ptr %6, align 8, !tbaa !17
-  %7 = getelementptr inbounds %struct._CMatchFinderMt, ptr %0, i64 0, i32 25, i32 5
-  store i32 0, ptr %7, align 8, !tbaa !18
-  %8 = getelementptr inbounds %struct._CMatchFinderMt, ptr %0, i64 0, i32 25, i32 6
-  store i32 0, ptr %8, align 8, !tbaa !19
-  %9 = getelementptr inbounds %struct._CMatchFinderMt, ptr %0, i64 0, i32 25, i32 7
-  store i32 0, ptr %9, align 8, !tbaa !20
-  %10 = getelementptr inbounds %struct._CMatchFinderMt, ptr %0, i64 0, i32 25, i32 8
-  store i32 0, ptr %10, align 8, !tbaa !21
-  %11 = getelementptr inbounds %struct._CMatchFinderMt, ptr %0, i64 0, i32 25, i32 9
-  store i32 0, ptr %11, align 8, !tbaa !22
-  %12 = getelementptr inbounds %struct._CMatchFinderMt, ptr %0, i64 0, i32 11
-  store i32 0, ptr %12, align 8, !tbaa !5
-  %13 = getelementptr inbounds %struct._CMatchFinderMt, ptr %0, i64 0, i32 11, i32 10
-  store i32 0, ptr %13, align 8, !tbaa !15
-  %14 = getelementptr inbounds %struct._CMatchFinderMt, ptr %0, i64 0, i32 11, i32 11
-  store i32 0, ptr %14, align 4, !tbaa !16
-  %15 = getelementptr inbounds %struct._CMatchFinderMt, ptr %0, i64 0, i32 11, i32 4, i32 1
-  store i32 0, ptr %15, align 8, !tbaa !17
-  %16 = getelementptr inbounds %struct._CMatchFinderMt, ptr %0, i64 0, i32 11, i32 5
-  store i32 0, ptr %16, align 8, !tbaa !18
-  %17 = getelementptr inbounds %struct._CMatchFinderMt, ptr %0, i64 0, i32 11, i32 6
-  store i32 0, ptr %17, align 8, !tbaa !19
-  %18 = getelementptr inbounds %struct._CMatchFinderMt, ptr %0, i64 0, i32 11, i32 7
-  store i32 0, ptr %18, align 8, !tbaa !20
-  %19 = getelementptr inbounds %struct._CMatchFinderMt, ptr %0, i64 0, i32 11, i32 8
-  store i32 0, ptr %19, align 8, !tbaa !21
-  %20 = getelementptr inbounds %struct._CMatchFinderMt, ptr %0, i64 0, i32 11, i32 9
-  store i32 0, ptr %20, align 8, !tbaa !22
+define dso_local void @MatchFinderMt_Construct(ptr nocapture noundef writeonly %p) local_unnamed_addr #0 {
+entry:
+  %hashBuf = getelementptr inbounds %struct._CMatchFinderMt, ptr %p, i64 0, i32 13
+  store ptr null, ptr %hashBuf, align 8, !tbaa !38
+  %hashSync = getelementptr inbounds %struct._CMatchFinderMt, ptr %p, i64 0, i32 25
+  store i32 0, ptr %hashSync, align 8, !tbaa !5
+  %csWasInitialized.i = getelementptr inbounds %struct._CMatchFinderMt, ptr %p, i64 0, i32 25, i32 10
+  store i32 0, ptr %csWasInitialized.i, align 8, !tbaa !15
+  %csWasEntered.i = getelementptr inbounds %struct._CMatchFinderMt, ptr %p, i64 0, i32 25, i32 11
+  store i32 0, ptr %csWasEntered.i, align 4, !tbaa !16
+  %_created.i = getelementptr inbounds %struct._CMatchFinderMt, ptr %p, i64 0, i32 25, i32 4, i32 1
+  store i32 0, ptr %_created.i, align 8, !tbaa !17
+  %canStart.i = getelementptr inbounds %struct._CMatchFinderMt, ptr %p, i64 0, i32 25, i32 5
+  store i32 0, ptr %canStart.i, align 8, !tbaa !18
+  %wasStarted.i = getelementptr inbounds %struct._CMatchFinderMt, ptr %p, i64 0, i32 25, i32 6
+  store i32 0, ptr %wasStarted.i, align 8, !tbaa !19
+  %wasStopped.i = getelementptr inbounds %struct._CMatchFinderMt, ptr %p, i64 0, i32 25, i32 7
+  store i32 0, ptr %wasStopped.i, align 8, !tbaa !20
+  %freeSemaphore.i = getelementptr inbounds %struct._CMatchFinderMt, ptr %p, i64 0, i32 25, i32 8
+  store i32 0, ptr %freeSemaphore.i, align 8, !tbaa !21
+  %filledSemaphore.i = getelementptr inbounds %struct._CMatchFinderMt, ptr %p, i64 0, i32 25, i32 9
+  store i32 0, ptr %filledSemaphore.i, align 8, !tbaa !22
+  %btSync = getelementptr inbounds %struct._CMatchFinderMt, ptr %p, i64 0, i32 11
+  store i32 0, ptr %btSync, align 8, !tbaa !5
+  %csWasInitialized.i3 = getelementptr inbounds %struct._CMatchFinderMt, ptr %p, i64 0, i32 11, i32 10
+  store i32 0, ptr %csWasInitialized.i3, align 8, !tbaa !15
+  %csWasEntered.i4 = getelementptr inbounds %struct._CMatchFinderMt, ptr %p, i64 0, i32 11, i32 11
+  store i32 0, ptr %csWasEntered.i4, align 4, !tbaa !16
+  %_created.i5 = getelementptr inbounds %struct._CMatchFinderMt, ptr %p, i64 0, i32 11, i32 4, i32 1
+  store i32 0, ptr %_created.i5, align 8, !tbaa !17
+  %canStart.i6 = getelementptr inbounds %struct._CMatchFinderMt, ptr %p, i64 0, i32 11, i32 5
+  store i32 0, ptr %canStart.i6, align 8, !tbaa !18
+  %wasStarted.i7 = getelementptr inbounds %struct._CMatchFinderMt, ptr %p, i64 0, i32 11, i32 6
+  store i32 0, ptr %wasStarted.i7, align 8, !tbaa !19
+  %wasStopped.i8 = getelementptr inbounds %struct._CMatchFinderMt, ptr %p, i64 0, i32 11, i32 7
+  store i32 0, ptr %wasStopped.i8, align 8, !tbaa !20
+  %freeSemaphore.i9 = getelementptr inbounds %struct._CMatchFinderMt, ptr %p, i64 0, i32 11, i32 8
+  store i32 0, ptr %freeSemaphore.i9, align 8, !tbaa !21
+  %filledSemaphore.i10 = getelementptr inbounds %struct._CMatchFinderMt, ptr %p, i64 0, i32 11, i32 9
+  store i32 0, ptr %filledSemaphore.i10, align 8, !tbaa !22
   ret void
 }
 
 ; Function Attrs: nounwind uwtable
-define dso_local void @MatchFinderMt_FreeMem(ptr nocapture noundef %0, ptr noundef %1) local_unnamed_addr #1 {
-  %3 = getelementptr inbounds %struct.ISzAlloc, ptr %1, i64 0, i32 1
-  %4 = load ptr, ptr %3, align 8, !tbaa !61
-  %5 = getelementptr inbounds %struct._CMatchFinderMt, ptr %0, i64 0, i32 13
-  %6 = load ptr, ptr %5, align 8, !tbaa !38
-  tail call void %4(ptr noundef %1, ptr noundef %6) #10
-  store ptr null, ptr %5, align 8, !tbaa !38
+define dso_local void @MatchFinderMt_FreeMem(ptr nocapture noundef %p, ptr noundef %alloc) local_unnamed_addr #1 {
+entry:
+  %Free = getelementptr inbounds %struct.ISzAlloc, ptr %alloc, i64 0, i32 1
+  %0 = load ptr, ptr %Free, align 8, !tbaa !61
+  %hashBuf = getelementptr inbounds %struct._CMatchFinderMt, ptr %p, i64 0, i32 13
+  %1 = load ptr, ptr %hashBuf, align 8, !tbaa !38
+  tail call void %0(ptr noundef %alloc, ptr noundef %1) #10
+  store ptr null, ptr %hashBuf, align 8, !tbaa !38
   ret void
 }
 
 ; Function Attrs: nounwind uwtable
-define dso_local void @MatchFinderMt_Destruct(ptr noundef %0, ptr noundef %1) local_unnamed_addr #1 {
-  %3 = getelementptr inbounds %struct._CMatchFinderMt, ptr %0, i64 0, i32 25
-  tail call void @MtSync_Destruct(ptr noundef nonnull %3)
-  %4 = getelementptr inbounds %struct._CMatchFinderMt, ptr %0, i64 0, i32 11
-  tail call void @MtSync_Destruct(ptr noundef nonnull %4)
-  %5 = getelementptr inbounds %struct.ISzAlloc, ptr %1, i64 0, i32 1
-  %6 = load ptr, ptr %5, align 8, !tbaa !61
-  %7 = getelementptr inbounds %struct._CMatchFinderMt, ptr %0, i64 0, i32 13
-  %8 = load ptr, ptr %7, align 8, !tbaa !38
-  tail call void %6(ptr noundef %1, ptr noundef %8) #10
-  store ptr null, ptr %7, align 8, !tbaa !38
+define dso_local void @MatchFinderMt_Destruct(ptr noundef %p, ptr noundef %alloc) local_unnamed_addr #1 {
+entry:
+  %hashSync = getelementptr inbounds %struct._CMatchFinderMt, ptr %p, i64 0, i32 25
+  tail call void @MtSync_Destruct(ptr noundef nonnull %hashSync)
+  %btSync = getelementptr inbounds %struct._CMatchFinderMt, ptr %p, i64 0, i32 11
+  tail call void @MtSync_Destruct(ptr noundef nonnull %btSync)
+  %Free.i = getelementptr inbounds %struct.ISzAlloc, ptr %alloc, i64 0, i32 1
+  %0 = load ptr, ptr %Free.i, align 8, !tbaa !61
+  %hashBuf.i = getelementptr inbounds %struct._CMatchFinderMt, ptr %p, i64 0, i32 13
+  %1 = load ptr, ptr %hashBuf.i, align 8, !tbaa !38
+  tail call void %0(ptr noundef %alloc, ptr noundef %1) #10
+  store ptr null, ptr %hashBuf.i, align 8, !tbaa !38
   ret void
 }
 
 ; Function Attrs: nounwind uwtable
-define dso_local i32 @MatchFinderMt_Create(ptr noundef %0, i32 noundef %1, i32 noundef %2, i32 noundef %3, i32 noundef %4, ptr noundef %5) local_unnamed_addr #1 {
-  %7 = getelementptr inbounds %struct._CMatchFinderMt, ptr %0, i64 0, i32 27
-  %8 = load ptr, ptr %7, align 8, !tbaa !29
-  %9 = getelementptr inbounds %struct._CMatchFinderMt, ptr %0, i64 0, i32 8
-  store i32 %1, ptr %9, align 4, !tbaa !63
-  %10 = and i32 %3, 1073737728
-  %11 = icmp eq i32 %10, 0
-  br i1 %11, label %12, label %35
+define dso_local i32 @MatchFinderMt_Create(ptr noundef %p, i32 noundef %historySize, i32 noundef %keepAddBufferBefore, i32 noundef %matchMaxLen, i32 noundef %keepAddBufferAfter, ptr noundef %alloc) local_unnamed_addr #1 {
+entry:
+  %MatchFinder = getelementptr inbounds %struct._CMatchFinderMt, ptr %p, i64 0, i32 27
+  %0 = load ptr, ptr %MatchFinder, align 8, !tbaa !29
+  %historySize1 = getelementptr inbounds %struct._CMatchFinderMt, ptr %p, i64 0, i32 8
+  store i32 %historySize, ptr %historySize1, align 4, !tbaa !63
+  %1 = and i32 %matchMaxLen, 1073737728
+  %cmp.not = icmp eq i32 %1, 0
+  br i1 %cmp.not, label %if.end, label %cleanup27
 
-12:                                               ; preds = %6
-  %13 = getelementptr inbounds %struct._CMatchFinderMt, ptr %0, i64 0, i32 13
-  %14 = load ptr, ptr %13, align 8, !tbaa !38
-  %15 = icmp eq ptr %14, null
-  br i1 %15, label %16, label %23
+if.end:                                           ; preds = %entry
+  %hashBuf = getelementptr inbounds %struct._CMatchFinderMt, ptr %p, i64 0, i32 13
+  %2 = load ptr, ptr %hashBuf, align 8, !tbaa !38
+  %cmp2 = icmp eq ptr %2, null
+  br i1 %cmp2, label %if.then3, label %if.end10
 
-16:                                               ; preds = %12
-  %17 = load ptr, ptr %5, align 8, !tbaa !64
-  %18 = tail call ptr %17(ptr noundef nonnull %5, i64 noundef 4456448) #10
-  store ptr %18, ptr %13, align 8, !tbaa !38
-  %19 = icmp eq ptr %18, null
-  br i1 %19, label %35, label %20
+if.then3:                                         ; preds = %if.end
+  %3 = load ptr, ptr %alloc, align 8, !tbaa !64
+  %call = tail call ptr %3(ptr noundef nonnull %alloc, i64 noundef 4456448) #10
+  store ptr %call, ptr %hashBuf, align 8, !tbaa !38
+  %cmp6 = icmp eq ptr %call, null
+  br i1 %cmp6, label %cleanup27, label %if.end8
 
-20:                                               ; preds = %16
-  %21 = getelementptr inbounds i32, ptr %18, i64 65536
-  %22 = getelementptr inbounds %struct._CMatchFinderMt, ptr %0, i64 0, i32 1
-  store ptr %21, ptr %22, align 8, !tbaa !60
-  br label %23
+if.end8:                                          ; preds = %if.then3
+  %add.ptr = getelementptr inbounds i32, ptr %call, i64 65536
+  %btBuf = getelementptr inbounds %struct._CMatchFinderMt, ptr %p, i64 0, i32 1
+  store ptr %add.ptr, ptr %btBuf, align 8, !tbaa !60
+  br label %if.end10
 
-23:                                               ; preds = %20, %12
-  %24 = add i32 %2, 1114112
-  %25 = add i32 %4, 8192
-  %26 = tail call i32 @MatchFinder_Create(ptr noundef %8, i32 noundef %1, i32 noundef %24, i32 noundef %3, i32 noundef %25, ptr noundef %5) #10
-  %27 = icmp eq i32 %26, 0
-  br i1 %27, label %35, label %28
+if.end10:                                         ; preds = %if.end8, %if.end
+  %add = add i32 %keepAddBufferBefore, 1114112
+  %add11 = add i32 %keepAddBufferAfter, 8192
+  %call12 = tail call i32 @MatchFinder_Create(ptr noundef %0, i32 noundef %historySize, i32 noundef %add, i32 noundef %matchMaxLen, i32 noundef %add11, ptr noundef %alloc) #10
+  %tobool.not = icmp eq i32 %call12, 0
+  br i1 %tobool.not, label %cleanup27, label %if.end14
 
-28:                                               ; preds = %23
-  %29 = getelementptr inbounds %struct._CMatchFinderMt, ptr %0, i64 0, i32 25
-  %30 = tail call fastcc i32 @MtSync_Create(ptr noundef nonnull %29, ptr noundef nonnull @HashThreadFunc2, ptr noundef nonnull %0, i32 noundef 8), !range !65
-  %31 = icmp eq i32 %30, 0
-  br i1 %31, label %32, label %35
+if.end14:                                         ; preds = %if.end10
+  %hashSync = getelementptr inbounds %struct._CMatchFinderMt, ptr %p, i64 0, i32 25
+  %call15 = tail call fastcc i32 @MtSync_Create(ptr noundef nonnull %hashSync, ptr noundef nonnull @HashThreadFunc2, ptr noundef nonnull %p, i32 noundef 8), !range !65
+  %cmp16.not = icmp eq i32 %call15, 0
+  br i1 %cmp16.not, label %cleanup.cont, label %cleanup27
 
-32:                                               ; preds = %28
-  %33 = getelementptr inbounds %struct._CMatchFinderMt, ptr %0, i64 0, i32 11
-  %34 = tail call fastcc i32 @MtSync_Create(ptr noundef nonnull %33, ptr noundef nonnull @BtThreadFunc2, ptr noundef nonnull %0, i32 noundef 64), !range !65
-  br label %35
+cleanup.cont:                                     ; preds = %if.end14
+  %btSync = getelementptr inbounds %struct._CMatchFinderMt, ptr %p, i64 0, i32 11
+  %call20 = tail call fastcc i32 @MtSync_Create(ptr noundef nonnull %btSync, ptr noundef nonnull @BtThreadFunc2, ptr noundef nonnull %p, i32 noundef 64), !range !65
+  br label %cleanup27
 
-35:                                               ; preds = %32, %28, %23, %16, %6
-  %36 = phi i32 [ 5, %6 ], [ 2, %16 ], [ 2, %23 ], [ %30, %28 ], [ %34, %32 ]
-  ret i32 %36
+cleanup27:                                        ; preds = %cleanup.cont, %if.end10, %if.then3, %entry, %if.end14
+  %retval.2 = phi i32 [ %call15, %if.end14 ], [ 5, %entry ], [ 2, %if.then3 ], [ 2, %if.end10 ], [ %call20, %cleanup.cont ]
+  ret i32 %retval.2
 }
 
 declare i32 @MatchFinder_Create(ptr noundef, i32 noundef, i32 noundef, i32 noundef, i32 noundef, ptr noundef) local_unnamed_addr #2
 
 ; Function Attrs: nounwind uwtable
-define internal fastcc i32 @MtSync_Create(ptr noundef %0, ptr noundef %1, ptr noundef %2, i32 noundef %3) unnamed_addr #1 {
-  %5 = load i32, ptr %0, align 8, !tbaa !5
-  %6 = icmp eq i32 %5, 0
-  br i1 %6, label %7, label %39
+define internal fastcc i32 @MtSync_Create(ptr noundef %p, ptr noundef %startAddress, ptr noundef %obj, i32 noundef %numBlocks) unnamed_addr #1 {
+entry:
+  %0 = load i32, ptr %p, align 8, !tbaa !5
+  %tobool.not.i = icmp eq i32 %0, 0
+  br i1 %tobool.not.i, label %if.end.i, label %if.end
 
-7:                                                ; preds = %4
-  %8 = getelementptr inbounds %struct._CMtSync, ptr %0, i64 0, i32 12
-  %9 = tail call i32 @CriticalSection_Init(ptr noundef nonnull %8) #10
-  %10 = icmp eq i32 %9, 0
-  br i1 %10, label %11, label %38
+if.end.i:                                         ; preds = %entry
+  %cs.i = getelementptr inbounds %struct._CMtSync, ptr %p, i64 0, i32 12
+  %call.i = tail call i32 @CriticalSection_Init(ptr noundef nonnull %cs.i) #10
+  %cmp.not.i = icmp eq i32 %call.i, 0
+  br i1 %cmp.not.i, label %if.end2.i, label %if.then
 
-11:                                               ; preds = %7
-  %12 = getelementptr inbounds %struct._CMtSync, ptr %0, i64 0, i32 10
-  store i32 1, ptr %12, align 8, !tbaa !15
-  %13 = getelementptr inbounds %struct._CMtSync, ptr %0, i64 0, i32 5
-  %14 = tail call i32 @AutoResetEvent_CreateNotSignaled(ptr noundef nonnull %13) #10
-  %15 = icmp eq i32 %14, 0
-  br i1 %15, label %16, label %38
+if.end2.i:                                        ; preds = %if.end.i
+  %csWasInitialized.i = getelementptr inbounds %struct._CMtSync, ptr %p, i64 0, i32 10
+  store i32 1, ptr %csWasInitialized.i, align 8, !tbaa !15
+  %canStart.i = getelementptr inbounds %struct._CMtSync, ptr %p, i64 0, i32 5
+  %call3.i = tail call i32 @AutoResetEvent_CreateNotSignaled(ptr noundef nonnull %canStart.i) #10
+  %cmp4.not.i = icmp eq i32 %call3.i, 0
+  br i1 %cmp4.not.i, label %if.end6.i, label %if.then
 
-16:                                               ; preds = %11
-  %17 = getelementptr inbounds %struct._CMtSync, ptr %0, i64 0, i32 6
-  %18 = tail call i32 @AutoResetEvent_CreateNotSignaled(ptr noundef nonnull %17) #10
-  %19 = icmp eq i32 %18, 0
-  br i1 %19, label %20, label %38
+if.end6.i:                                        ; preds = %if.end2.i
+  %wasStarted.i = getelementptr inbounds %struct._CMtSync, ptr %p, i64 0, i32 6
+  %call7.i = tail call i32 @AutoResetEvent_CreateNotSignaled(ptr noundef nonnull %wasStarted.i) #10
+  %cmp8.not.i = icmp eq i32 %call7.i, 0
+  br i1 %cmp8.not.i, label %if.end10.i, label %if.then
 
-20:                                               ; preds = %16
-  %21 = getelementptr inbounds %struct._CMtSync, ptr %0, i64 0, i32 7
-  %22 = tail call i32 @AutoResetEvent_CreateNotSignaled(ptr noundef nonnull %21) #10
-  %23 = icmp eq i32 %22, 0
-  br i1 %23, label %24, label %38
+if.end10.i:                                       ; preds = %if.end6.i
+  %wasStopped.i = getelementptr inbounds %struct._CMtSync, ptr %p, i64 0, i32 7
+  %call11.i = tail call i32 @AutoResetEvent_CreateNotSignaled(ptr noundef nonnull %wasStopped.i) #10
+  %cmp12.not.i = icmp eq i32 %call11.i, 0
+  br i1 %cmp12.not.i, label %if.end14.i, label %if.then
 
-24:                                               ; preds = %20
-  %25 = getelementptr inbounds %struct._CMtSync, ptr %0, i64 0, i32 8
-  %26 = tail call i32 @Semaphore_Create(ptr noundef nonnull %25, i32 noundef %3, i32 noundef %3) #10
-  %27 = icmp eq i32 %26, 0
-  br i1 %27, label %28, label %38
+if.end14.i:                                       ; preds = %if.end10.i
+  %freeSemaphore.i = getelementptr inbounds %struct._CMtSync, ptr %p, i64 0, i32 8
+  %call15.i = tail call i32 @Semaphore_Create(ptr noundef nonnull %freeSemaphore.i, i32 noundef %numBlocks, i32 noundef %numBlocks) #10
+  %cmp16.not.i = icmp eq i32 %call15.i, 0
+  br i1 %cmp16.not.i, label %if.end18.i, label %if.then
 
-28:                                               ; preds = %24
-  %29 = getelementptr inbounds %struct._CMtSync, ptr %0, i64 0, i32 9
-  %30 = tail call i32 @Semaphore_Create(ptr noundef nonnull %29, i32 noundef 0, i32 noundef %3) #10
-  %31 = icmp eq i32 %30, 0
-  br i1 %31, label %32, label %38
+if.end18.i:                                       ; preds = %if.end14.i
+  %filledSemaphore.i = getelementptr inbounds %struct._CMtSync, ptr %p, i64 0, i32 9
+  %call19.i = tail call i32 @Semaphore_Create(ptr noundef nonnull %filledSemaphore.i, i32 noundef 0, i32 noundef %numBlocks) #10
+  %cmp20.not.i = icmp eq i32 %call19.i, 0
+  br i1 %cmp20.not.i, label %if.end22.i, label %if.then
 
-32:                                               ; preds = %28
-  %33 = getelementptr inbounds %struct._CMtSync, ptr %0, i64 0, i32 1
-  store i32 1, ptr %33, align 4, !tbaa !23
-  %34 = getelementptr inbounds %struct._CMtSync, ptr %0, i64 0, i32 4
-  %35 = tail call i32 @Thread_Create(ptr noundef nonnull %34, ptr noundef %1, ptr noundef %2) #10
-  %36 = icmp eq i32 %35, 0
-  br i1 %36, label %37, label %38
+if.end22.i:                                       ; preds = %if.end18.i
+  %needStart.i = getelementptr inbounds %struct._CMtSync, ptr %p, i64 0, i32 1
+  store i32 1, ptr %needStart.i, align 4, !tbaa !23
+  %thread.i = getelementptr inbounds %struct._CMtSync, ptr %p, i64 0, i32 4
+  %call23.i = tail call i32 @Thread_Create(ptr noundef nonnull %thread.i, ptr noundef %startAddress, ptr noundef %obj) #10
+  %cmp24.not.i = icmp eq i32 %call23.i, 0
+  br i1 %cmp24.not.i, label %if.end26.i, label %if.then
 
-37:                                               ; preds = %32
-  store i32 1, ptr %0, align 8, !tbaa !5
-  br label %39
+if.end26.i:                                       ; preds = %if.end22.i
+  store i32 1, ptr %p, align 8, !tbaa !5
+  br label %if.end
 
-38:                                               ; preds = %7, %11, %16, %20, %24, %28, %32
-  tail call void @MtSync_Destruct(ptr noundef nonnull %0)
-  br label %39
+if.then:                                          ; preds = %if.end.i, %if.end2.i, %if.end6.i, %if.end10.i, %if.end14.i, %if.end18.i, %if.end22.i
+  tail call void @MtSync_Destruct(ptr noundef nonnull %p)
+  br label %if.end
 
-39:                                               ; preds = %37, %4, %38
-  %40 = phi i32 [ 12, %38 ], [ 0, %37 ], [ 0, %4 ]
-  ret i32 %40
+if.end:                                           ; preds = %if.end26.i, %entry, %if.then
+  %retval.0.i6 = phi i32 [ 12, %if.then ], [ 0, %if.end26.i ], [ 0, %entry ]
+  ret i32 %retval.0.i6
 }
 
 ; Function Attrs: nounwind uwtable
-define internal i32 @HashThreadFunc2(ptr noundef %0) #1 {
-  tail call void @HashThreadFunc(ptr noundef %0)
+define internal i32 @HashThreadFunc2(ptr noundef %p) #1 {
+entry:
+  tail call void @HashThreadFunc(ptr noundef %p)
   ret i32 0
 }
 
 ; Function Attrs: nounwind uwtable
-define internal i32 @BtThreadFunc2(ptr noundef %0) #1 {
-  tail call void @BtThreadFunc(ptr noundef %0)
+define internal i32 @BtThreadFunc2(ptr noundef %p) #1 {
+entry:
+  tail call void @BtThreadFunc(ptr noundef %p)
   ret i32 0
 }
 
 ; Function Attrs: nounwind uwtable
-define dso_local void @MatchFinderMt_Init(ptr nocapture noundef %0) #1 {
-  %2 = getelementptr inbounds %struct._CMatchFinderMt, ptr %0, i64 0, i32 27
-  %3 = load ptr, ptr %2, align 8, !tbaa !29
-  %4 = getelementptr inbounds %struct._CMatchFinderMt, ptr %0, i64 0, i32 3
-  store i32 0, ptr %4, align 4, !tbaa !66
-  %5 = getelementptr inbounds %struct._CMatchFinderMt, ptr %0, i64 0, i32 2
-  store i32 0, ptr %5, align 8, !tbaa !67
-  %6 = getelementptr inbounds %struct._CMatchFinderMt, ptr %0, i64 0, i32 15
-  store i32 0, ptr %6, align 4, !tbaa !47
-  %7 = getelementptr inbounds %struct._CMatchFinderMt, ptr %0, i64 0, i32 14
-  store i32 0, ptr %7, align 8, !tbaa !48
-  tail call void @MatchFinder_Init(ptr noundef %3) #10
-  %8 = tail call ptr @MatchFinder_GetPointerToCurrentPos(ptr noundef %3) #10
-  store ptr %8, ptr %0, align 8, !tbaa !44
-  %9 = getelementptr inbounds %struct._CMatchFinderMt, ptr %0, i64 0, i32 5
-  store i32 0, ptr %9, align 4, !tbaa !68
-  %10 = getelementptr inbounds %struct._CMatchFinderMt, ptr %0, i64 0, i32 8
-  %11 = load i32, ptr %10, align 4, !tbaa !63
-  %12 = add i32 %11, 1
-  %13 = getelementptr inbounds %struct._CMatchFinderMt, ptr %0, i64 0, i32 4
-  store i32 %12, ptr %13, align 8, !tbaa !69
-  %14 = getelementptr inbounds %struct._CMatchFinder, ptr %3, i64 0, i32 8
-  %15 = load ptr, ptr %14, align 8, !tbaa !35
-  %16 = getelementptr inbounds %struct._CMatchFinderMt, ptr %0, i64 0, i32 6
-  store ptr %15, ptr %16, align 8, !tbaa !70
-  %17 = getelementptr inbounds %struct._CMatchFinder, ptr %3, i64 0, i32 24
-  %18 = load i32, ptr %17, align 4, !tbaa !36
-  %19 = getelementptr inbounds %struct._CMatchFinderMt, ptr %0, i64 0, i32 7
-  store i32 %18, ptr %19, align 8, !tbaa !71
-  %20 = getelementptr inbounds %struct._CMatchFinder, ptr %3, i64 0, i32 28
-  %21 = getelementptr inbounds %struct._CMatchFinderMt, ptr %0, i64 0, i32 9
-  store ptr %20, ptr %21, align 8, !tbaa !72
-  %22 = getelementptr inbounds %struct._CMatchFinder, ptr %3, i64 0, i32 9
-  %23 = load ptr, ptr %22, align 8, !tbaa !73
-  %24 = getelementptr inbounds %struct._CMatchFinderMt, ptr %0, i64 0, i32 17
-  store ptr %23, ptr %24, align 8, !tbaa !57
-  %25 = getelementptr inbounds %struct._CMatchFinder, ptr %3, i64 0, i32 7
-  %26 = load i32, ptr %25, align 8, !tbaa !74
-  %27 = getelementptr inbounds %struct._CMatchFinderMt, ptr %0, i64 0, i32 18
-  store i32 %26, ptr %27, align 8, !tbaa !50
-  %28 = getelementptr inbounds %struct._CMatchFinder, ptr %3, i64 0, i32 18
-  %29 = load i32, ptr %28, align 8, !tbaa !41
-  %30 = getelementptr inbounds %struct._CMatchFinderMt, ptr %0, i64 0, i32 19
-  store i32 %29, ptr %30, align 4, !tbaa !51
-  %31 = getelementptr inbounds %struct._CMatchFinder, ptr %3, i64 0, i32 1
-  %32 = load i32, ptr %31, align 8, !tbaa !32
-  %33 = getelementptr inbounds %struct._CMatchFinderMt, ptr %0, i64 0, i32 20
-  store i32 %32, ptr %33, align 8, !tbaa !54
-  %34 = load ptr, ptr %3, align 8, !tbaa !43
-  %35 = getelementptr inbounds %struct._CMatchFinderMt, ptr %0, i64 0, i32 21
-  store ptr %34, ptr %35, align 8, !tbaa !45
-  %36 = getelementptr inbounds %struct._CMatchFinder, ptr %3, i64 0, i32 5
-  %37 = getelementptr inbounds %struct._CMatchFinderMt, ptr %0, i64 0, i32 22
-  %38 = load <2 x i32>, ptr %36, align 8, !tbaa !40
-  store <2 x i32> %38, ptr %37, align 8, !tbaa !40
-  %39 = getelementptr inbounds %struct._CMatchFinder, ptr %3, i64 0, i32 11
-  %40 = load i32, ptr %39, align 4, !tbaa !75
-  %41 = getelementptr inbounds %struct._CMatchFinderMt, ptr %0, i64 0, i32 24
-  store i32 %40, ptr %41, align 8, !tbaa !58
+define dso_local void @MatchFinderMt_Init(ptr nocapture noundef %p) #1 {
+entry:
+  %MatchFinder = getelementptr inbounds %struct._CMatchFinderMt, ptr %p, i64 0, i32 27
+  %0 = load ptr, ptr %MatchFinder, align 8, !tbaa !29
+  %btBufPosLimit = getelementptr inbounds %struct._CMatchFinderMt, ptr %p, i64 0, i32 3
+  store i32 0, ptr %btBufPosLimit, align 4, !tbaa !66
+  %btBufPos = getelementptr inbounds %struct._CMatchFinderMt, ptr %p, i64 0, i32 2
+  store i32 0, ptr %btBufPos, align 8, !tbaa !67
+  %hashBufPosLimit = getelementptr inbounds %struct._CMatchFinderMt, ptr %p, i64 0, i32 15
+  store i32 0, ptr %hashBufPosLimit, align 4, !tbaa !47
+  %hashBufPos = getelementptr inbounds %struct._CMatchFinderMt, ptr %p, i64 0, i32 14
+  store i32 0, ptr %hashBufPos, align 8, !tbaa !48
+  tail call void @MatchFinder_Init(ptr noundef %0) #10
+  %call = tail call ptr @MatchFinder_GetPointerToCurrentPos(ptr noundef %0) #10
+  store ptr %call, ptr %p, align 8, !tbaa !44
+  %btNumAvailBytes = getelementptr inbounds %struct._CMatchFinderMt, ptr %p, i64 0, i32 5
+  store i32 0, ptr %btNumAvailBytes, align 4, !tbaa !68
+  %historySize = getelementptr inbounds %struct._CMatchFinderMt, ptr %p, i64 0, i32 8
+  %1 = load i32, ptr %historySize, align 4, !tbaa !63
+  %add = add i32 %1, 1
+  %lzPos = getelementptr inbounds %struct._CMatchFinderMt, ptr %p, i64 0, i32 4
+  store i32 %add, ptr %lzPos, align 8, !tbaa !69
+  %hash = getelementptr inbounds %struct._CMatchFinder, ptr %0, i64 0, i32 8
+  %2 = load ptr, ptr %hash, align 8, !tbaa !35
+  %hash1 = getelementptr inbounds %struct._CMatchFinderMt, ptr %p, i64 0, i32 6
+  store ptr %2, ptr %hash1, align 8, !tbaa !70
+  %fixedHashSize = getelementptr inbounds %struct._CMatchFinder, ptr %0, i64 0, i32 24
+  %3 = load i32, ptr %fixedHashSize, align 4, !tbaa !36
+  %fixedHashSize2 = getelementptr inbounds %struct._CMatchFinderMt, ptr %p, i64 0, i32 7
+  store i32 %3, ptr %fixedHashSize2, align 8, !tbaa !71
+  %crc = getelementptr inbounds %struct._CMatchFinder, ptr %0, i64 0, i32 28
+  %crc3 = getelementptr inbounds %struct._CMatchFinderMt, ptr %p, i64 0, i32 9
+  store ptr %crc, ptr %crc3, align 8, !tbaa !72
+  %son = getelementptr inbounds %struct._CMatchFinder, ptr %0, i64 0, i32 9
+  %4 = load ptr, ptr %son, align 8, !tbaa !73
+  %son4 = getelementptr inbounds %struct._CMatchFinderMt, ptr %p, i64 0, i32 17
+  store ptr %4, ptr %son4, align 8, !tbaa !57
+  %matchMaxLen = getelementptr inbounds %struct._CMatchFinder, ptr %0, i64 0, i32 7
+  %5 = load i32, ptr %matchMaxLen, align 8, !tbaa !74
+  %matchMaxLen5 = getelementptr inbounds %struct._CMatchFinderMt, ptr %p, i64 0, i32 18
+  store i32 %5, ptr %matchMaxLen5, align 8, !tbaa !50
+  %numHashBytes = getelementptr inbounds %struct._CMatchFinder, ptr %0, i64 0, i32 18
+  %6 = load i32, ptr %numHashBytes, align 8, !tbaa !41
+  %numHashBytes6 = getelementptr inbounds %struct._CMatchFinderMt, ptr %p, i64 0, i32 19
+  store i32 %6, ptr %numHashBytes6, align 4, !tbaa !51
+  %pos = getelementptr inbounds %struct._CMatchFinder, ptr %0, i64 0, i32 1
+  %7 = load i32, ptr %pos, align 8, !tbaa !32
+  %pos7 = getelementptr inbounds %struct._CMatchFinderMt, ptr %p, i64 0, i32 20
+  store i32 %7, ptr %pos7, align 8, !tbaa !54
+  %8 = load ptr, ptr %0, align 8, !tbaa !43
+  %buffer8 = getelementptr inbounds %struct._CMatchFinderMt, ptr %p, i64 0, i32 21
+  store ptr %8, ptr %buffer8, align 8, !tbaa !45
+  %cyclicBufferPos = getelementptr inbounds %struct._CMatchFinder, ptr %0, i64 0, i32 5
+  %cyclicBufferPos9 = getelementptr inbounds %struct._CMatchFinderMt, ptr %p, i64 0, i32 22
+  %9 = load <2 x i32>, ptr %cyclicBufferPos, align 8, !tbaa !40
+  store <2 x i32> %9, ptr %cyclicBufferPos9, align 8, !tbaa !40
+  %cutValue = getelementptr inbounds %struct._CMatchFinder, ptr %0, i64 0, i32 11
+  %10 = load i32, ptr %cutValue, align 4, !tbaa !75
+  %cutValue11 = getelementptr inbounds %struct._CMatchFinderMt, ptr %p, i64 0, i32 24
+  store i32 %10, ptr %cutValue11, align 8, !tbaa !58
   ret void
 }
 
 declare void @MatchFinder_Init(ptr noundef) local_unnamed_addr #2
 
 ; Function Attrs: nounwind uwtable
-define dso_local void @MatchFinderMt_ReleaseStream(ptr noundef %0) local_unnamed_addr #1 {
-  %2 = getelementptr inbounds %struct._CMatchFinderMt, ptr %0, i64 0, i32 11
-  tail call void @MtSync_StopWriting(ptr noundef nonnull %2)
+define dso_local void @MatchFinderMt_ReleaseStream(ptr noundef %p) local_unnamed_addr #1 {
+entry:
+  %btSync = getelementptr inbounds %struct._CMatchFinderMt, ptr %p, i64 0, i32 11
+  tail call void @MtSync_StopWriting(ptr noundef nonnull %btSync)
   ret void
 }
 
 ; Function Attrs: nounwind uwtable
-define dso_local void @MatchFinderMt_Normalize(ptr nocapture noundef %0) local_unnamed_addr #1 {
-  %2 = getelementptr inbounds %struct._CMatchFinderMt, ptr %0, i64 0, i32 4
-  %3 = load i32, ptr %2, align 8, !tbaa !69
-  %4 = getelementptr inbounds %struct._CMatchFinderMt, ptr %0, i64 0, i32 8
-  %5 = load i32, ptr %4, align 4, !tbaa !63
+define dso_local void @MatchFinderMt_Normalize(ptr nocapture noundef %p) local_unnamed_addr #1 {
+entry:
+  %lzPos = getelementptr inbounds %struct._CMatchFinderMt, ptr %p, i64 0, i32 4
+  %0 = load i32, ptr %lzPos, align 8, !tbaa !69
+  %historySize = getelementptr inbounds %struct._CMatchFinderMt, ptr %p, i64 0, i32 8
+  %1 = load i32, ptr %historySize, align 4, !tbaa !63
+  %2 = xor i32 %1, -1
+  %sub1 = add i32 %0, %2
+  %hash = getelementptr inbounds %struct._CMatchFinderMt, ptr %p, i64 0, i32 6
+  %3 = load ptr, ptr %hash, align 8, !tbaa !70
+  %fixedHashSize = getelementptr inbounds %struct._CMatchFinderMt, ptr %p, i64 0, i32 7
+  %4 = load i32, ptr %fixedHashSize, align 8, !tbaa !71
+  tail call void @MatchFinder_Normalize3(i32 noundef %sub1, ptr noundef %3, i32 noundef %4) #10
+  %5 = load i32, ptr %historySize, align 4, !tbaa !63
+  %add = add i32 %5, 1
+  store i32 %add, ptr %lzPos, align 8, !tbaa !69
+  ret void
+}
+
+; Function Attrs: nounwind uwtable
+define dso_local void @MatchFinderMt_GetNextBlock_Bt(ptr noundef %p) local_unnamed_addr #1 {
+entry:
+  %btSync = getelementptr inbounds %struct._CMatchFinderMt, ptr %p, i64 0, i32 11
+  tail call void @MtSync_GetNextBlock(ptr noundef nonnull %btSync)
+  %numProcessedBlocks = getelementptr inbounds %struct._CMatchFinderMt, ptr %p, i64 0, i32 11, i32 13
+  %0 = load i32, ptr %numProcessedBlocks, align 8, !tbaa !76
+  %sub = shl i32 %0, 14
+  %and = add i32 %sub, 1032192
+  %mul = and i32 %and, 1032192
+  %btBufPos = getelementptr inbounds %struct._CMatchFinderMt, ptr %p, i64 0, i32 2
+  %btBufPosLimit = getelementptr inbounds %struct._CMatchFinderMt, ptr %p, i64 0, i32 3
+  store i32 %mul, ptr %btBufPosLimit, align 4, !tbaa !66
+  %btBuf = getelementptr inbounds %struct._CMatchFinderMt, ptr %p, i64 0, i32 1
+  %1 = load ptr, ptr %btBuf, align 8, !tbaa !60
+  %inc = or i32 %mul, 1
+  store i32 %inc, ptr %btBufPos, align 8, !tbaa !67
+  %idxprom = zext i32 %mul to i64
+  %arrayidx = getelementptr inbounds i32, ptr %1, i64 %idxprom
+  %2 = load i32, ptr %arrayidx, align 4, !tbaa !40
+  %add = add i32 %2, %mul
+  store i32 %add, ptr %btBufPosLimit, align 4, !tbaa !66
+  %inc6 = or i32 %mul, 2
+  store i32 %inc6, ptr %btBufPos, align 8, !tbaa !67
+  %idxprom7 = zext i32 %inc to i64
+  %arrayidx8 = getelementptr inbounds i32, ptr %1, i64 %idxprom7
+  %3 = load i32, ptr %arrayidx8, align 4, !tbaa !40
+  %btNumAvailBytes = getelementptr inbounds %struct._CMatchFinderMt, ptr %p, i64 0, i32 5
+  store i32 %3, ptr %btNumAvailBytes, align 4, !tbaa !68
+  %lzPos = getelementptr inbounds %struct._CMatchFinderMt, ptr %p, i64 0, i32 4
+  %4 = load i32, ptr %lzPos, align 8, !tbaa !69
+  %cmp = icmp ugt i32 %4, -16386
+  br i1 %cmp, label %if.then, label %if.end
+
+if.then:                                          ; preds = %entry
+  %historySize.i = getelementptr inbounds %struct._CMatchFinderMt, ptr %p, i64 0, i32 8
+  %5 = load i32, ptr %historySize.i, align 4, !tbaa !63
   %6 = xor i32 %5, -1
-  %7 = add i32 %3, %6
-  %8 = getelementptr inbounds %struct._CMatchFinderMt, ptr %0, i64 0, i32 6
-  %9 = load ptr, ptr %8, align 8, !tbaa !70
-  %10 = getelementptr inbounds %struct._CMatchFinderMt, ptr %0, i64 0, i32 7
-  %11 = load i32, ptr %10, align 8, !tbaa !71
-  tail call void @MatchFinder_Normalize3(i32 noundef %7, ptr noundef %9, i32 noundef %11) #10
-  %12 = load i32, ptr %4, align 4, !tbaa !63
-  %13 = add i32 %12, 1
-  store i32 %13, ptr %2, align 8, !tbaa !69
-  ret void
-}
+  %sub1.i = add i32 %4, %6
+  %hash.i = getelementptr inbounds %struct._CMatchFinderMt, ptr %p, i64 0, i32 6
+  %7 = load ptr, ptr %hash.i, align 8, !tbaa !70
+  %fixedHashSize.i = getelementptr inbounds %struct._CMatchFinderMt, ptr %p, i64 0, i32 7
+  %8 = load i32, ptr %fixedHashSize.i, align 8, !tbaa !71
+  tail call void @MatchFinder_Normalize3(i32 noundef %sub1.i, ptr noundef %7, i32 noundef %8) #10
+  %9 = load i32, ptr %historySize.i, align 4, !tbaa !63
+  %add.i = add i32 %9, 1
+  store i32 %add.i, ptr %lzPos, align 8, !tbaa !69
+  br label %if.end
 
-; Function Attrs: nounwind uwtable
-define dso_local void @MatchFinderMt_GetNextBlock_Bt(ptr noundef %0) local_unnamed_addr #1 {
-  %2 = getelementptr inbounds %struct._CMatchFinderMt, ptr %0, i64 0, i32 11
-  tail call void @MtSync_GetNextBlock(ptr noundef nonnull %2)
-  %3 = getelementptr inbounds %struct._CMatchFinderMt, ptr %0, i64 0, i32 11, i32 13
-  %4 = load i32, ptr %3, align 8, !tbaa !76
-  %5 = shl i32 %4, 14
-  %6 = add i32 %5, 1032192
-  %7 = and i32 %6, 1032192
-  %8 = getelementptr inbounds %struct._CMatchFinderMt, ptr %0, i64 0, i32 2
-  %9 = getelementptr inbounds %struct._CMatchFinderMt, ptr %0, i64 0, i32 3
-  store i32 %7, ptr %9, align 4, !tbaa !66
-  %10 = getelementptr inbounds %struct._CMatchFinderMt, ptr %0, i64 0, i32 1
-  %11 = load ptr, ptr %10, align 8, !tbaa !60
-  %12 = or i32 %7, 1
-  store i32 %12, ptr %8, align 8, !tbaa !67
-  %13 = zext i32 %7 to i64
-  %14 = getelementptr inbounds i32, ptr %11, i64 %13
-  %15 = load i32, ptr %14, align 4, !tbaa !40
-  %16 = add i32 %15, %7
-  store i32 %16, ptr %9, align 4, !tbaa !66
-  %17 = or i32 %7, 2
-  store i32 %17, ptr %8, align 8, !tbaa !67
-  %18 = zext i32 %12 to i64
-  %19 = getelementptr inbounds i32, ptr %11, i64 %18
-  %20 = load i32, ptr %19, align 4, !tbaa !40
-  %21 = getelementptr inbounds %struct._CMatchFinderMt, ptr %0, i64 0, i32 5
-  store i32 %20, ptr %21, align 4, !tbaa !68
-  %22 = getelementptr inbounds %struct._CMatchFinderMt, ptr %0, i64 0, i32 4
-  %23 = load i32, ptr %22, align 8, !tbaa !69
-  %24 = icmp ugt i32 %23, -16386
-  br i1 %24, label %25, label %36
-
-25:                                               ; preds = %1
-  %26 = getelementptr inbounds %struct._CMatchFinderMt, ptr %0, i64 0, i32 8
-  %27 = load i32, ptr %26, align 4, !tbaa !63
-  %28 = xor i32 %27, -1
-  %29 = add i32 %23, %28
-  %30 = getelementptr inbounds %struct._CMatchFinderMt, ptr %0, i64 0, i32 6
-  %31 = load ptr, ptr %30, align 8, !tbaa !70
-  %32 = getelementptr inbounds %struct._CMatchFinderMt, ptr %0, i64 0, i32 7
-  %33 = load i32, ptr %32, align 8, !tbaa !71
-  tail call void @MatchFinder_Normalize3(i32 noundef %29, ptr noundef %31, i32 noundef %33) #10
-  %34 = load i32, ptr %26, align 4, !tbaa !63
-  %35 = add i32 %34, 1
-  store i32 %35, ptr %22, align 8, !tbaa !69
-  br label %36
-
-36:                                               ; preds = %25, %1
+if.end:                                           ; preds = %if.then, %entry
   ret void
 }
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(argmem: read) uwtable
-define dso_local ptr @MatchFinderMt_GetPointerToCurrentPos(ptr nocapture noundef readonly %0) #4 {
-  %2 = load ptr, ptr %0, align 8, !tbaa !44
-  ret ptr %2
+define dso_local ptr @MatchFinderMt_GetPointerToCurrentPos(ptr nocapture noundef readonly %p) #4 {
+entry:
+  %0 = load ptr, ptr %p, align 8, !tbaa !44
+  ret ptr %0
 }
 
 ; Function Attrs: nounwind uwtable
-define dso_local i32 @MatchFinderMt_GetNumAvailableBytes(ptr noundef %0) #1 {
-  %2 = getelementptr inbounds %struct._CMatchFinderMt, ptr %0, i64 0, i32 2
-  %3 = load i32, ptr %2, align 8, !tbaa !67
-  %4 = getelementptr inbounds %struct._CMatchFinderMt, ptr %0, i64 0, i32 3
-  %5 = load i32, ptr %4, align 4, !tbaa !66
-  %6 = icmp eq i32 %3, %5
-  br i1 %6, label %7, label %40
+define dso_local i32 @MatchFinderMt_GetNumAvailableBytes(ptr noundef %p) #1 {
+entry:
+  %btBufPos = getelementptr inbounds %struct._CMatchFinderMt, ptr %p, i64 0, i32 2
+  %0 = load i32, ptr %btBufPos, align 8, !tbaa !67
+  %btBufPosLimit = getelementptr inbounds %struct._CMatchFinderMt, ptr %p, i64 0, i32 3
+  %1 = load i32, ptr %btBufPosLimit, align 4, !tbaa !66
+  %cmp = icmp eq i32 %0, %1
+  br i1 %cmp, label %if.then, label %if.end
 
-7:                                                ; preds = %1
-  %8 = getelementptr inbounds %struct._CMatchFinderMt, ptr %0, i64 0, i32 11
-  tail call void @MtSync_GetNextBlock(ptr noundef nonnull %8)
-  %9 = getelementptr inbounds %struct._CMatchFinderMt, ptr %0, i64 0, i32 11, i32 13
-  %10 = load i32, ptr %9, align 8, !tbaa !76
-  %11 = shl i32 %10, 14
-  %12 = add i32 %11, 1032192
-  %13 = and i32 %12, 1032192
-  store i32 %13, ptr %4, align 4, !tbaa !66
-  %14 = getelementptr inbounds %struct._CMatchFinderMt, ptr %0, i64 0, i32 1
-  %15 = load ptr, ptr %14, align 8, !tbaa !60
-  %16 = or i32 %13, 1
-  store i32 %16, ptr %2, align 8, !tbaa !67
-  %17 = zext i32 %13 to i64
-  %18 = getelementptr inbounds i32, ptr %15, i64 %17
-  %19 = load i32, ptr %18, align 4, !tbaa !40
-  %20 = add i32 %19, %13
-  store i32 %20, ptr %4, align 4, !tbaa !66
-  %21 = or i32 %13, 2
-  store i32 %21, ptr %2, align 8, !tbaa !67
-  %22 = zext i32 %16 to i64
-  %23 = getelementptr inbounds i32, ptr %15, i64 %22
-  %24 = load i32, ptr %23, align 4, !tbaa !40
-  %25 = getelementptr inbounds %struct._CMatchFinderMt, ptr %0, i64 0, i32 5
-  store i32 %24, ptr %25, align 4, !tbaa !68
-  %26 = getelementptr inbounds %struct._CMatchFinderMt, ptr %0, i64 0, i32 4
-  %27 = load i32, ptr %26, align 8, !tbaa !69
-  %28 = icmp ugt i32 %27, -16386
-  br i1 %28, label %29, label %40
+if.then:                                          ; preds = %entry
+  %btSync.i = getelementptr inbounds %struct._CMatchFinderMt, ptr %p, i64 0, i32 11
+  tail call void @MtSync_GetNextBlock(ptr noundef nonnull %btSync.i)
+  %numProcessedBlocks.i = getelementptr inbounds %struct._CMatchFinderMt, ptr %p, i64 0, i32 11, i32 13
+  %2 = load i32, ptr %numProcessedBlocks.i, align 8, !tbaa !76
+  %sub.i = shl i32 %2, 14
+  %and.i = add i32 %sub.i, 1032192
+  %mul.i = and i32 %and.i, 1032192
+  store i32 %mul.i, ptr %btBufPosLimit, align 4, !tbaa !66
+  %btBuf.i = getelementptr inbounds %struct._CMatchFinderMt, ptr %p, i64 0, i32 1
+  %3 = load ptr, ptr %btBuf.i, align 8, !tbaa !60
+  %inc.i = or i32 %mul.i, 1
+  store i32 %inc.i, ptr %btBufPos, align 8, !tbaa !67
+  %idxprom.i = zext i32 %mul.i to i64
+  %arrayidx.i = getelementptr inbounds i32, ptr %3, i64 %idxprom.i
+  %4 = load i32, ptr %arrayidx.i, align 4, !tbaa !40
+  %add.i = add i32 %4, %mul.i
+  store i32 %add.i, ptr %btBufPosLimit, align 4, !tbaa !66
+  %inc6.i = or i32 %mul.i, 2
+  store i32 %inc6.i, ptr %btBufPos, align 8, !tbaa !67
+  %idxprom7.i = zext i32 %inc.i to i64
+  %arrayidx8.i = getelementptr inbounds i32, ptr %3, i64 %idxprom7.i
+  %5 = load i32, ptr %arrayidx8.i, align 4, !tbaa !40
+  %btNumAvailBytes.i = getelementptr inbounds %struct._CMatchFinderMt, ptr %p, i64 0, i32 5
+  store i32 %5, ptr %btNumAvailBytes.i, align 4, !tbaa !68
+  %lzPos.i = getelementptr inbounds %struct._CMatchFinderMt, ptr %p, i64 0, i32 4
+  %6 = load i32, ptr %lzPos.i, align 8, !tbaa !69
+  %cmp.i = icmp ugt i32 %6, -16386
+  br i1 %cmp.i, label %if.then.i, label %if.end
 
-29:                                               ; preds = %7
-  %30 = getelementptr inbounds %struct._CMatchFinderMt, ptr %0, i64 0, i32 8
-  %31 = load i32, ptr %30, align 4, !tbaa !63
-  %32 = xor i32 %31, -1
-  %33 = add i32 %27, %32
-  %34 = getelementptr inbounds %struct._CMatchFinderMt, ptr %0, i64 0, i32 6
-  %35 = load ptr, ptr %34, align 8, !tbaa !70
-  %36 = getelementptr inbounds %struct._CMatchFinderMt, ptr %0, i64 0, i32 7
-  %37 = load i32, ptr %36, align 8, !tbaa !71
-  tail call void @MatchFinder_Normalize3(i32 noundef %33, ptr noundef %35, i32 noundef %37) #10
-  %38 = load i32, ptr %30, align 4, !tbaa !63
-  %39 = add i32 %38, 1
-  store i32 %39, ptr %26, align 8, !tbaa !69
-  br label %40
+if.then.i:                                        ; preds = %if.then
+  %historySize.i.i = getelementptr inbounds %struct._CMatchFinderMt, ptr %p, i64 0, i32 8
+  %7 = load i32, ptr %historySize.i.i, align 4, !tbaa !63
+  %8 = xor i32 %7, -1
+  %sub1.i.i = add i32 %6, %8
+  %hash.i.i = getelementptr inbounds %struct._CMatchFinderMt, ptr %p, i64 0, i32 6
+  %9 = load ptr, ptr %hash.i.i, align 8, !tbaa !70
+  %fixedHashSize.i.i = getelementptr inbounds %struct._CMatchFinderMt, ptr %p, i64 0, i32 7
+  %10 = load i32, ptr %fixedHashSize.i.i, align 8, !tbaa !71
+  tail call void @MatchFinder_Normalize3(i32 noundef %sub1.i.i, ptr noundef %9, i32 noundef %10) #10
+  %11 = load i32, ptr %historySize.i.i, align 4, !tbaa !63
+  %add.i.i = add i32 %11, 1
+  store i32 %add.i.i, ptr %lzPos.i, align 8, !tbaa !69
+  br label %if.end
 
-40:                                               ; preds = %29, %7, %1
-  %41 = getelementptr inbounds %struct._CMatchFinderMt, ptr %0, i64 0, i32 5
-  %42 = load i32, ptr %41, align 4, !tbaa !68
-  ret i32 %42
+if.end:                                           ; preds = %if.then.i, %if.then, %entry
+  %btNumAvailBytes = getelementptr inbounds %struct._CMatchFinderMt, ptr %p, i64 0, i32 5
+  %12 = load i32, ptr %btNumAvailBytes, align 4, !tbaa !68
+  ret i32 %12
 }
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(read, inaccessiblemem: none) uwtable
-define dso_local zeroext i8 @MatchFinderMt_GetIndexByte(ptr nocapture noundef readonly %0, i32 noundef %1) #5 {
-  %3 = load ptr, ptr %0, align 8, !tbaa !44
-  %4 = sext i32 %1 to i64
-  %5 = getelementptr inbounds i8, ptr %3, i64 %4
-  %6 = load i8, ptr %5, align 1, !tbaa !77
-  ret i8 %6
+define dso_local zeroext i8 @MatchFinderMt_GetIndexByte(ptr nocapture noundef readonly %p, i32 noundef %index) #5 {
+entry:
+  %0 = load ptr, ptr %p, align 8, !tbaa !44
+  %idxprom = sext i32 %index to i64
+  %arrayidx = getelementptr inbounds i8, ptr %0, i64 %idxprom
+  %1 = load i8, ptr %arrayidx, align 1, !tbaa !77
+  ret i8 %1
 }
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(readwrite, inaccessiblemem: none) uwtable
-define dso_local ptr @MixMatches2(ptr nocapture noundef readonly %0, i32 noundef %1, ptr noundef writeonly %2) #6 {
-  %4 = getelementptr inbounds %struct._CMatchFinderMt, ptr %0, i64 0, i32 6
-  %5 = load ptr, ptr %4, align 8, !tbaa !70
-  %6 = load ptr, ptr %0, align 8, !tbaa !44
-  %7 = getelementptr inbounds %struct._CMatchFinderMt, ptr %0, i64 0, i32 4
-  %8 = load i32, ptr %7, align 8, !tbaa !69
-  %9 = getelementptr inbounds %struct._CMatchFinderMt, ptr %0, i64 0, i32 9
-  %10 = load ptr, ptr %9, align 8, !tbaa !72
-  %11 = load i8, ptr %6, align 1, !tbaa !77
-  %12 = zext i8 %11 to i64
-  %13 = getelementptr inbounds i32, ptr %10, i64 %12
-  %14 = load i32, ptr %13, align 4, !tbaa !40
-  %15 = getelementptr inbounds i8, ptr %6, i64 1
-  %16 = load i8, ptr %15, align 1, !tbaa !77
-  %17 = zext i8 %16 to i32
-  %18 = and i32 %14, 1023
-  %19 = xor i32 %18, %17
-  %20 = zext i32 %19 to i64
-  %21 = getelementptr inbounds i32, ptr %5, i64 %20
-  %22 = load i32, ptr %21, align 4, !tbaa !40
-  store i32 %8, ptr %21, align 4, !tbaa !40
-  %23 = icmp ult i32 %22, %1
-  br i1 %23, label %37, label %24
+define dso_local ptr @MixMatches2(ptr nocapture noundef readonly %p, i32 noundef %matchMinPos, ptr noundef writeonly %distances) #6 {
+entry:
+  %hash1 = getelementptr inbounds %struct._CMatchFinderMt, ptr %p, i64 0, i32 6
+  %0 = load ptr, ptr %hash1, align 8, !tbaa !70
+  %1 = load ptr, ptr %p, align 8, !tbaa !44
+  %lzPos2 = getelementptr inbounds %struct._CMatchFinderMt, ptr %p, i64 0, i32 4
+  %2 = load i32, ptr %lzPos2, align 8, !tbaa !69
+  %crc = getelementptr inbounds %struct._CMatchFinderMt, ptr %p, i64 0, i32 9
+  %3 = load ptr, ptr %crc, align 8, !tbaa !72
+  %4 = load i8, ptr %1, align 1, !tbaa !77
+  %idxprom = zext i8 %4 to i64
+  %arrayidx3 = getelementptr inbounds i32, ptr %3, i64 %idxprom
+  %5 = load i32, ptr %arrayidx3, align 4, !tbaa !40
+  %arrayidx4 = getelementptr inbounds i8, ptr %1, i64 1
+  %6 = load i8, ptr %arrayidx4, align 1, !tbaa !77
+  %conv = zext i8 %6 to i32
+  %.masked = and i32 %5, 1023
+  %and = xor i32 %.masked, %conv
+  %idxprom5 = zext i32 %and to i64
+  %arrayidx6 = getelementptr inbounds i32, ptr %0, i64 %idxprom5
+  %7 = load i32, ptr %arrayidx6, align 4, !tbaa !40
+  store i32 %2, ptr %arrayidx6, align 4, !tbaa !40
+  %cmp.not = icmp ult i32 %7, %matchMinPos
+  br i1 %cmp.not, label %if.end22, label %if.then
 
-24:                                               ; preds = %3
-  %25 = zext i32 %22 to i64
-  %26 = zext i32 %8 to i64
-  %27 = sub nsw i64 %25, %26
-  %28 = getelementptr inbounds i8, ptr %6, i64 %27
-  %29 = load i8, ptr %28, align 1, !tbaa !77
-  %30 = load i8, ptr %6, align 1, !tbaa !77
-  %31 = icmp eq i8 %29, %30
-  br i1 %31, label %32, label %37
+if.then:                                          ; preds = %entry
+  %conv10 = zext i32 %7 to i64
+  %conv11 = zext i32 %2 to i64
+  %sub = sub nsw i64 %conv10, %conv11
+  %arrayidx12 = getelementptr inbounds i8, ptr %1, i64 %sub
+  %8 = load i8, ptr %arrayidx12, align 1, !tbaa !77
+  %9 = load i8, ptr %1, align 1, !tbaa !77
+  %cmp16 = icmp eq i8 %8, %9
+  br i1 %cmp16, label %if.then18, label %if.end22
 
-32:                                               ; preds = %24
-  %33 = getelementptr inbounds i32, ptr %2, i64 1
-  store i32 2, ptr %2, align 4, !tbaa !40
-  %34 = xor i32 %22, -1
-  %35 = add i32 %8, %34
-  %36 = getelementptr inbounds i32, ptr %2, i64 2
-  store i32 %35, ptr %33, align 4, !tbaa !40
-  br label %37
+if.then18:                                        ; preds = %if.then
+  %incdec.ptr = getelementptr inbounds i32, ptr %distances, i64 1
+  store i32 2, ptr %distances, align 4, !tbaa !40
+  %10 = xor i32 %7, -1
+  %sub20 = add i32 %2, %10
+  %incdec.ptr21 = getelementptr inbounds i32, ptr %distances, i64 2
+  store i32 %sub20, ptr %incdec.ptr, align 4, !tbaa !40
+  br label %if.end22
 
-37:                                               ; preds = %24, %32, %3
-  %38 = phi ptr [ %36, %32 ], [ %2, %24 ], [ %2, %3 ]
-  ret ptr %38
+if.end22:                                         ; preds = %if.then, %if.then18, %entry
+  %distances.addr.0 = phi ptr [ %incdec.ptr21, %if.then18 ], [ %distances, %if.then ], [ %distances, %entry ]
+  ret ptr %distances.addr.0
 }
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(readwrite, inaccessiblemem: none) uwtable
-define dso_local ptr @MixMatches3(ptr nocapture noundef readonly %0, i32 noundef %1, ptr noundef writeonly %2) #6 {
-  %4 = getelementptr inbounds %struct._CMatchFinderMt, ptr %0, i64 0, i32 6
-  %5 = load ptr, ptr %4, align 8, !tbaa !70
-  %6 = load ptr, ptr %0, align 8, !tbaa !44
-  %7 = getelementptr inbounds %struct._CMatchFinderMt, ptr %0, i64 0, i32 4
-  %8 = load i32, ptr %7, align 8, !tbaa !69
-  %9 = getelementptr inbounds %struct._CMatchFinderMt, ptr %0, i64 0, i32 9
-  %10 = load ptr, ptr %9, align 8, !tbaa !72
-  %11 = load i8, ptr %6, align 1, !tbaa !77
-  %12 = zext i8 %11 to i64
-  %13 = getelementptr inbounds i32, ptr %10, i64 %12
-  %14 = load i32, ptr %13, align 4, !tbaa !40
-  %15 = getelementptr inbounds i8, ptr %6, i64 1
-  %16 = load i8, ptr %15, align 1, !tbaa !77
-  %17 = zext i8 %16 to i32
-  %18 = xor i32 %14, %17
-  %19 = and i32 %18, 1023
-  %20 = getelementptr inbounds i8, ptr %6, i64 2
-  %21 = load i8, ptr %20, align 1, !tbaa !77
-  %22 = zext i8 %21 to i32
-  %23 = shl nuw nsw i32 %22, 8
-  %24 = and i32 %18, 65535
-  %25 = xor i32 %24, %23
-  %26 = zext i32 %19 to i64
-  %27 = getelementptr inbounds i32, ptr %5, i64 %26
-  %28 = load i32, ptr %27, align 4, !tbaa !40
-  %29 = add nuw nsw i32 %25, 1024
-  %30 = zext i32 %29 to i64
-  %31 = getelementptr inbounds i32, ptr %5, i64 %30
-  %32 = load i32, ptr %31, align 4, !tbaa !40
-  store i32 %8, ptr %31, align 4, !tbaa !40
-  store i32 %8, ptr %27, align 4, !tbaa !40
-  %33 = icmp ult i32 %28, %1
-  br i1 %33, label %54, label %34
+define dso_local ptr @MixMatches3(ptr nocapture noundef readonly %p, i32 noundef %matchMinPos, ptr noundef writeonly %distances) #6 {
+entry:
+  %hash1 = getelementptr inbounds %struct._CMatchFinderMt, ptr %p, i64 0, i32 6
+  %0 = load ptr, ptr %hash1, align 8, !tbaa !70
+  %1 = load ptr, ptr %p, align 8, !tbaa !44
+  %lzPos2 = getelementptr inbounds %struct._CMatchFinderMt, ptr %p, i64 0, i32 4
+  %2 = load i32, ptr %lzPos2, align 8, !tbaa !69
+  %crc = getelementptr inbounds %struct._CMatchFinderMt, ptr %p, i64 0, i32 9
+  %3 = load ptr, ptr %crc, align 8, !tbaa !72
+  %4 = load i8, ptr %1, align 1, !tbaa !77
+  %idxprom = zext i8 %4 to i64
+  %arrayidx3 = getelementptr inbounds i32, ptr %3, i64 %idxprom
+  %5 = load i32, ptr %arrayidx3, align 4, !tbaa !40
+  %arrayidx4 = getelementptr inbounds i8, ptr %1, i64 1
+  %6 = load i8, ptr %arrayidx4, align 1, !tbaa !77
+  %conv = zext i8 %6 to i32
+  %xor = xor i32 %5, %conv
+  %and = and i32 %xor, 1023
+  %arrayidx5 = getelementptr inbounds i8, ptr %1, i64 2
+  %7 = load i8, ptr %arrayidx5, align 1, !tbaa !77
+  %conv6 = zext i8 %7 to i32
+  %shl = shl nuw nsw i32 %conv6, 8
+  %xor.masked = and i32 %xor, 65535
+  %and8 = xor i32 %xor.masked, %shl
+  %idxprom9 = zext i32 %and to i64
+  %arrayidx10 = getelementptr inbounds i32, ptr %0, i64 %idxprom9
+  %8 = load i32, ptr %arrayidx10, align 4, !tbaa !40
+  %add = add nuw nsw i32 %and8, 1024
+  %idxprom11 = zext i32 %add to i64
+  %arrayidx12 = getelementptr inbounds i32, ptr %0, i64 %idxprom11
+  %9 = load i32, ptr %arrayidx12, align 4, !tbaa !40
+  store i32 %2, ptr %arrayidx12, align 4, !tbaa !40
+  store i32 %2, ptr %arrayidx10, align 4, !tbaa !40
+  %cmp.not = icmp ult i32 %8, %matchMinPos
+  br i1 %cmp.not, label %if.end44, label %land.lhs.true
 
-34:                                               ; preds = %3
-  %35 = zext i32 %28 to i64
-  %36 = zext i32 %8 to i64
-  %37 = sub nsw i64 %35, %36
-  %38 = getelementptr inbounds i8, ptr %6, i64 %37
-  %39 = load i8, ptr %38, align 1, !tbaa !77
-  %40 = load i8, ptr %6, align 1, !tbaa !77
-  %41 = icmp eq i8 %39, %40
-  br i1 %41, label %42, label %54
+land.lhs.true:                                    ; preds = %entry
+  %conv19 = zext i32 %8 to i64
+  %conv20 = zext i32 %2 to i64
+  %sub = sub nsw i64 %conv19, %conv20
+  %arrayidx21 = getelementptr inbounds i8, ptr %1, i64 %sub
+  %10 = load i8, ptr %arrayidx21, align 1, !tbaa !77
+  %11 = load i8, ptr %1, align 1, !tbaa !77
+  %cmp25 = icmp eq i8 %10, %11
+  br i1 %cmp25, label %if.then, label %if.end44
 
-42:                                               ; preds = %34
-  %43 = xor i32 %28, -1
-  %44 = add i32 %8, %43
-  %45 = getelementptr inbounds i32, ptr %2, i64 1
-  store i32 %44, ptr %45, align 4, !tbaa !40
-  %46 = add nsw i64 %37, 2
-  %47 = getelementptr inbounds i8, ptr %6, i64 %46
-  %48 = load i8, ptr %47, align 1, !tbaa !77
-  %49 = load i8, ptr %20, align 1, !tbaa !77
-  %50 = icmp eq i8 %48, %49
-  %51 = getelementptr inbounds i32, ptr %2, i64 2
-  br i1 %50, label %52, label %53
+if.then:                                          ; preds = %land.lhs.true
+  %12 = xor i32 %8, -1
+  %sub28 = add i32 %2, %12
+  %arrayidx29 = getelementptr inbounds i32, ptr %distances, i64 1
+  store i32 %sub28, ptr %arrayidx29, align 4, !tbaa !40
+  %add33 = add nsw i64 %sub, 2
+  %arrayidx34 = getelementptr inbounds i8, ptr %1, i64 %add33
+  %13 = load i8, ptr %arrayidx34, align 1, !tbaa !77
+  %14 = load i8, ptr %arrayidx5, align 1, !tbaa !77
+  %cmp38 = icmp eq i8 %13, %14
+  %add.ptr = getelementptr inbounds i32, ptr %distances, i64 2
+  br i1 %cmp38, label %if.then40, label %if.end
 
-52:                                               ; preds = %42
-  store i32 3, ptr %2, align 4, !tbaa !40
-  br label %70
+if.then40:                                        ; preds = %if.then
+  store i32 3, ptr %distances, align 4, !tbaa !40
+  br label %cleanup
 
-53:                                               ; preds = %42
-  store i32 2, ptr %2, align 4, !tbaa !40
-  br label %54
+if.end:                                           ; preds = %if.then
+  store i32 2, ptr %distances, align 4, !tbaa !40
+  br label %if.end44
 
-54:                                               ; preds = %53, %34, %3
-  %55 = phi ptr [ %51, %53 ], [ %2, %34 ], [ %2, %3 ]
-  %56 = icmp ult i32 %32, %1
-  br i1 %56, label %70, label %57
+if.end44:                                         ; preds = %if.end, %land.lhs.true, %entry
+  %distances.addr.0 = phi ptr [ %add.ptr, %if.end ], [ %distances, %land.lhs.true ], [ %distances, %entry ]
+  %cmp45.not = icmp ult i32 %9, %matchMinPos
+  br i1 %cmp45.not, label %cleanup, label %land.lhs.true47
 
-57:                                               ; preds = %54
-  %58 = zext i32 %32 to i64
-  %59 = zext i32 %8 to i64
-  %60 = sub nsw i64 %58, %59
-  %61 = getelementptr inbounds i8, ptr %6, i64 %60
-  %62 = load i8, ptr %61, align 1, !tbaa !77
-  %63 = load i8, ptr %6, align 1, !tbaa !77
-  %64 = icmp eq i8 %62, %63
-  br i1 %64, label %65, label %70
+land.lhs.true47:                                  ; preds = %if.end44
+  %conv48 = zext i32 %9 to i64
+  %conv49 = zext i32 %2 to i64
+  %sub50 = sub nsw i64 %conv48, %conv49
+  %arrayidx51 = getelementptr inbounds i8, ptr %1, i64 %sub50
+  %15 = load i8, ptr %arrayidx51, align 1, !tbaa !77
+  %16 = load i8, ptr %1, align 1, !tbaa !77
+  %cmp55 = icmp eq i8 %15, %16
+  br i1 %cmp55, label %if.then57, label %cleanup
 
-65:                                               ; preds = %57
-  %66 = getelementptr inbounds i32, ptr %55, i64 1
-  store i32 3, ptr %55, align 4, !tbaa !40
-  %67 = xor i32 %32, -1
-  %68 = add i32 %8, %67
-  %69 = getelementptr inbounds i32, ptr %55, i64 2
-  store i32 %68, ptr %66, align 4, !tbaa !40
-  br label %70
+if.then57:                                        ; preds = %land.lhs.true47
+  %incdec.ptr = getelementptr inbounds i32, ptr %distances.addr.0, i64 1
+  store i32 3, ptr %distances.addr.0, align 4, !tbaa !40
+  %17 = xor i32 %9, -1
+  %sub59 = add i32 %2, %17
+  %incdec.ptr60 = getelementptr inbounds i32, ptr %distances.addr.0, i64 2
+  store i32 %sub59, ptr %incdec.ptr, align 4, !tbaa !40
+  br label %cleanup
 
-70:                                               ; preds = %54, %57, %65, %52
-  %71 = phi ptr [ %51, %52 ], [ %69, %65 ], [ %55, %57 ], [ %55, %54 ]
-  ret ptr %71
+cleanup:                                          ; preds = %if.end44, %land.lhs.true47, %if.then57, %if.then40
+  %retval.0 = phi ptr [ %add.ptr, %if.then40 ], [ %incdec.ptr60, %if.then57 ], [ %distances.addr.0, %land.lhs.true47 ], [ %distances.addr.0, %if.end44 ]
+  ret ptr %retval.0
 }
 
 ; Function Attrs: nofree norecurse nosync nounwind memory(readwrite, inaccessiblemem: none) uwtable
-define dso_local i32 @MatchFinderMt2_GetMatches(ptr nocapture noundef %0, ptr nocapture noundef writeonly %1) #7 {
-  %3 = getelementptr inbounds %struct._CMatchFinderMt, ptr %0, i64 0, i32 1
-  %4 = load ptr, ptr %3, align 8, !tbaa !60
-  %5 = getelementptr inbounds %struct._CMatchFinderMt, ptr %0, i64 0, i32 2
-  %6 = load i32, ptr %5, align 8, !tbaa !67
-  %7 = zext i32 %6 to i64
-  %8 = getelementptr inbounds i32, ptr %4, i64 %7
-  %9 = load i32, ptr %8, align 4, !tbaa !40
-  %10 = add i32 %6, 1
-  %11 = add i32 %10, %9
-  store i32 %11, ptr %5, align 8, !tbaa !67
-  %12 = getelementptr inbounds %struct._CMatchFinderMt, ptr %0, i64 0, i32 5
-  %13 = load i32, ptr %12, align 4, !tbaa !68
-  %14 = add i32 %13, -1
-  store i32 %14, ptr %12, align 4, !tbaa !68
-  %15 = icmp eq i32 %9, 0
-  br i1 %15, label %83, label %16
+define dso_local i32 @MatchFinderMt2_GetMatches(ptr nocapture noundef %p, ptr nocapture noundef writeonly %distances) #7 {
+entry:
+  %btBuf1 = getelementptr inbounds %struct._CMatchFinderMt, ptr %p, i64 0, i32 1
+  %0 = load ptr, ptr %btBuf1, align 8, !tbaa !60
+  %btBufPos = getelementptr inbounds %struct._CMatchFinderMt, ptr %p, i64 0, i32 2
+  %1 = load i32, ptr %btBufPos, align 8, !tbaa !67
+  %idx.ext = zext i32 %1 to i64
+  %add.ptr = getelementptr inbounds i32, ptr %0, i64 %idx.ext
+  %2 = load i32, ptr %add.ptr, align 4, !tbaa !40
+  %add = add i32 %1, 1
+  %add3 = add i32 %add, %2
+  store i32 %add3, ptr %btBufPos, align 8, !tbaa !67
+  %btNumAvailBytes = getelementptr inbounds %struct._CMatchFinderMt, ptr %p, i64 0, i32 5
+  %3 = load i32, ptr %btNumAvailBytes, align 4, !tbaa !68
+  %dec = add i32 %3, -1
+  store i32 %dec, ptr %btNumAvailBytes, align 4, !tbaa !68
+  %cmp21.not = icmp eq i32 %2, 0
+  br i1 %cmp21.not, label %for.end, label %for.body.preheader
 
-16:                                               ; preds = %2
-  %17 = getelementptr i32, ptr %8, i64 1
-  %18 = add i32 %9, -1
-  %19 = lshr i32 %18, 1
-  %20 = add nuw i32 %19, 1
-  %21 = zext i32 %20 to i64
-  %22 = icmp ult i32 %9, 35
-  br i1 %22, label %67, label %23
+for.body.preheader:                               ; preds = %entry
+  %incdec.ptr = getelementptr i32, ptr %add.ptr, i64 1
+  %4 = add i32 %2, -1
+  %5 = lshr i32 %4, 1
+  %narrow = add nuw i32 %5, 1
+  %6 = zext i32 %narrow to i64
+  %min.iters.check = icmp ult i32 %2, 35
+  br i1 %min.iters.check, label %for.body.preheader38, label %vector.memcheck
 
-23:                                               ; preds = %16
-  %24 = add i32 %9, -1
-  %25 = lshr i32 %24, 1
-  %26 = zext i32 %25 to i64
-  %27 = shl nuw nsw i64 %26, 3
-  %28 = add nuw nsw i64 %27, 8
-  %29 = getelementptr i8, ptr %1, i64 %28
-  %30 = shl nuw nsw i64 %7, 2
-  %31 = add nuw nsw i64 %27, %30
-  %32 = add nuw nsw i64 %31, 12
-  %33 = getelementptr i8, ptr %4, i64 %32
-  %34 = icmp ugt ptr %33, %1
-  %35 = icmp ult ptr %17, %29
-  %36 = and i1 %34, %35
-  br i1 %36, label %67, label %37
+vector.memcheck:                                  ; preds = %for.body.preheader
+  %7 = add i32 %2, -1
+  %8 = lshr i32 %7, 1
+  %9 = zext i32 %8 to i64
+  %10 = shl nuw nsw i64 %9, 3
+  %11 = add nuw nsw i64 %10, 8
+  %scevgep = getelementptr i8, ptr %distances, i64 %11
+  %12 = shl nuw nsw i64 %idx.ext, 2
+  %13 = add nuw nsw i64 %10, %12
+  %14 = add nuw nsw i64 %13, 12
+  %scevgep25 = getelementptr i8, ptr %0, i64 %14
+  %bound0 = icmp ugt ptr %scevgep25, %distances
+  %bound1 = icmp ult ptr %incdec.ptr, %scevgep
+  %found.conflict = and i1 %bound0, %bound1
+  br i1 %found.conflict, label %for.body.preheader38, label %vector.ph
 
-37:                                               ; preds = %23
-  %38 = and i64 %21, 4294967292
-  %39 = trunc i64 %38 to i32
-  %40 = shl i32 %39, 1
-  %41 = shl nuw nsw i64 %38, 3
-  %42 = getelementptr i8, ptr %1, i64 %41
-  %43 = shl nuw nsw i64 %38, 3
-  %44 = getelementptr i8, ptr %17, i64 %43
-  br label %45
+vector.ph:                                        ; preds = %vector.memcheck
+  %n.vec = and i64 %6, 4294967292
+  %.cast = trunc i64 %n.vec to i32
+  %ind.end = shl i32 %.cast, 1
+  %15 = shl nuw nsw i64 %n.vec, 3
+  %ind.end26 = getelementptr i8, ptr %distances, i64 %15
+  %16 = shl nuw nsw i64 %n.vec, 3
+  %ind.end28 = getelementptr i8, ptr %incdec.ptr, i64 %16
+  %invariant.gep = getelementptr i32, ptr %distances, i64 1
+  %invariant.gep39 = getelementptr i32, ptr %distances, i64 1
+  %invariant.gep41 = getelementptr i32, ptr %invariant.gep, i64 -1
+  %invariant.gep43 = getelementptr i32, ptr %invariant.gep39, i64 -1
+  br label %vector.body
 
-45:                                               ; preds = %45, %37
-  %46 = phi i64 [ 0, %37 ], [ %63, %45 ]
-  %47 = shl i64 %46, 3
-  %48 = getelementptr i8, ptr %1, i64 %47
-  %49 = shl i64 %46, 3
-  %50 = or i64 %49, 16
-  %51 = getelementptr i8, ptr %1, i64 %50
-  %52 = shl i64 %46, 3
-  %53 = getelementptr i8, ptr %17, i64 %52
-  %54 = shl i64 %46, 3
-  %55 = or i64 %54, 16
-  %56 = getelementptr i8, ptr %17, i64 %55
-  %57 = load <4 x i32>, ptr %53, align 4, !tbaa !40
-  %58 = load <4 x i32>, ptr %56, align 4, !tbaa !40
-  %59 = getelementptr inbounds i32, ptr %48, i64 1
-  %60 = getelementptr inbounds i32, ptr %51, i64 1
-  %61 = getelementptr inbounds i32, ptr %59, i64 -1
-  %62 = getelementptr inbounds i32, ptr %60, i64 -1
-  store <4 x i32> %57, ptr %61, align 4, !tbaa !40
-  store <4 x i32> %58, ptr %62, align 4, !tbaa !40
-  %63 = add nuw i64 %46, 4
-  %64 = icmp eq i64 %63, %38
-  br i1 %64, label %65, label %45, !llvm.loop !78
+vector.body:                                      ; preds = %vector.body, %vector.ph
+  %index = phi i64 [ 0, %vector.ph ], [ %index.next, %vector.body ]
+  %17 = shl i64 %index, 3
+  %18 = shl i64 %index, 3
+  %19 = or i64 %18, 16
+  %20 = shl i64 %index, 3
+  %next.gep31 = getelementptr i8, ptr %incdec.ptr, i64 %20
+  %21 = shl i64 %index, 3
+  %22 = or i64 %21, 16
+  %next.gep32 = getelementptr i8, ptr %incdec.ptr, i64 %22
+  %wide.vec = load <4 x i32>, ptr %next.gep31, align 4, !tbaa !40
+  %wide.vec33 = load <4 x i32>, ptr %next.gep32, align 4, !tbaa !40
+  %gep42 = getelementptr i8, ptr %invariant.gep41, i64 %17
+  %gep = getelementptr i8, ptr %invariant.gep43, i64 %19
+  store <4 x i32> %wide.vec, ptr %gep42, align 4, !tbaa !40
+  store <4 x i32> %wide.vec33, ptr %gep, align 4, !tbaa !40
+  %index.next = add nuw i64 %index, 4
+  %23 = icmp eq i64 %index.next, %n.vec
+  br i1 %23, label %middle.block, label %vector.body, !llvm.loop !78
 
-65:                                               ; preds = %45
-  %66 = icmp eq i64 %38, %21
-  br i1 %66, label %83, label %67
+middle.block:                                     ; preds = %vector.body
+  %cmp.n = icmp eq i64 %n.vec, %6
+  br i1 %cmp.n, label %for.end, label %for.body.preheader38
 
-67:                                               ; preds = %23, %16, %65
-  %68 = phi i32 [ 0, %23 ], [ 0, %16 ], [ %40, %65 ]
-  %69 = phi ptr [ %1, %23 ], [ %1, %16 ], [ %42, %65 ]
-  %70 = phi ptr [ %17, %23 ], [ %17, %16 ], [ %44, %65 ]
-  br label %71
+for.body.preheader38:                             ; preds = %vector.memcheck, %for.body.preheader, %middle.block
+  %i.024.ph = phi i32 [ 0, %vector.memcheck ], [ 0, %for.body.preheader ], [ %ind.end, %middle.block ]
+  %distances.addr.023.ph = phi ptr [ %distances, %vector.memcheck ], [ %distances, %for.body.preheader ], [ %ind.end26, %middle.block ]
+  %btBuf.022.ph = phi ptr [ %incdec.ptr, %vector.memcheck ], [ %incdec.ptr, %for.body.preheader ], [ %ind.end28, %middle.block ]
+  br label %for.body
 
-71:                                               ; preds = %67, %71
-  %72 = phi i32 [ %81, %71 ], [ %68, %67 ]
-  %73 = phi ptr [ %80, %71 ], [ %69, %67 ]
-  %74 = phi ptr [ %78, %71 ], [ %70, %67 ]
-  %75 = getelementptr inbounds i32, ptr %74, i64 1
-  %76 = load i32, ptr %74, align 4, !tbaa !40
-  %77 = getelementptr inbounds i32, ptr %73, i64 1
-  store i32 %76, ptr %73, align 4, !tbaa !40
-  %78 = getelementptr inbounds i32, ptr %74, i64 2
-  %79 = load i32, ptr %75, align 4, !tbaa !40
-  %80 = getelementptr inbounds i32, ptr %73, i64 2
-  store i32 %79, ptr %77, align 4, !tbaa !40
-  %81 = add nuw i32 %72, 2
-  %82 = icmp ult i32 %81, %9
-  br i1 %82, label %71, label %83, !llvm.loop !81
+for.body:                                         ; preds = %for.body.preheader38, %for.body
+  %i.024 = phi i32 [ %add8, %for.body ], [ %i.024.ph, %for.body.preheader38 ]
+  %distances.addr.023 = phi ptr [ %incdec.ptr7, %for.body ], [ %distances.addr.023.ph, %for.body.preheader38 ]
+  %btBuf.022 = phi ptr [ %incdec.ptr6, %for.body ], [ %btBuf.022.ph, %for.body.preheader38 ]
+  %incdec.ptr4 = getelementptr inbounds i32, ptr %btBuf.022, i64 1
+  %24 = load i32, ptr %btBuf.022, align 4, !tbaa !40
+  %incdec.ptr5 = getelementptr inbounds i32, ptr %distances.addr.023, i64 1
+  store i32 %24, ptr %distances.addr.023, align 4, !tbaa !40
+  %incdec.ptr6 = getelementptr inbounds i32, ptr %btBuf.022, i64 2
+  %25 = load i32, ptr %incdec.ptr4, align 4, !tbaa !40
+  %incdec.ptr7 = getelementptr inbounds i32, ptr %distances.addr.023, i64 2
+  store i32 %25, ptr %incdec.ptr5, align 4, !tbaa !40
+  %add8 = add nuw i32 %i.024, 2
+  %cmp = icmp ult i32 %add8, %2
+  br i1 %cmp, label %for.body, label %for.end, !llvm.loop !81
 
-83:                                               ; preds = %71, %65, %2
-  %84 = getelementptr inbounds %struct._CMatchFinderMt, ptr %0, i64 0, i32 4
-  %85 = load i32, ptr %84, align 8, !tbaa !69
-  %86 = add i32 %85, 1
-  store i32 %86, ptr %84, align 8, !tbaa !69
-  %87 = load ptr, ptr %0, align 8, !tbaa !44
-  %88 = getelementptr inbounds i8, ptr %87, i64 1
-  store ptr %88, ptr %0, align 8, !tbaa !44
-  ret i32 %9
+for.end:                                          ; preds = %for.body, %middle.block, %entry
+  %lzPos = getelementptr inbounds %struct._CMatchFinderMt, ptr %p, i64 0, i32 4
+  %26 = load i32, ptr %lzPos, align 8, !tbaa !69
+  %inc = add i32 %26, 1
+  store i32 %inc, ptr %lzPos, align 8, !tbaa !69
+  %27 = load ptr, ptr %p, align 8, !tbaa !44
+  %incdec.ptr9 = getelementptr inbounds i8, ptr %27, i64 1
+  store ptr %incdec.ptr9, ptr %p, align 8, !tbaa !44
+  ret i32 %2
 }
 
 ; Function Attrs: nounwind uwtable
-define dso_local i32 @MatchFinderMt_GetMatches(ptr noundef %0, ptr noundef %1) #1 {
-  %3 = getelementptr inbounds %struct._CMatchFinderMt, ptr %0, i64 0, i32 1
-  %4 = load ptr, ptr %3, align 8, !tbaa !60
-  %5 = getelementptr inbounds %struct._CMatchFinderMt, ptr %0, i64 0, i32 2
-  %6 = load i32, ptr %5, align 8, !tbaa !67
-  %7 = zext i32 %6 to i64
-  %8 = getelementptr inbounds i32, ptr %4, i64 %7
-  %9 = load i32, ptr %8, align 4, !tbaa !40
-  %10 = add i32 %6, 1
-  %11 = add i32 %10, %9
-  store i32 %11, ptr %5, align 8, !tbaa !67
-  %12 = icmp eq i32 %9, 0
-  br i1 %12, label %13, label %32
+define dso_local i32 @MatchFinderMt_GetMatches(ptr noundef %p, ptr noundef %distances) #1 {
+entry:
+  %btBuf1 = getelementptr inbounds %struct._CMatchFinderMt, ptr %p, i64 0, i32 1
+  %0 = load ptr, ptr %btBuf1, align 8, !tbaa !60
+  %btBufPos = getelementptr inbounds %struct._CMatchFinderMt, ptr %p, i64 0, i32 2
+  %1 = load i32, ptr %btBufPos, align 8, !tbaa !67
+  %idx.ext = zext i32 %1 to i64
+  %add.ptr = getelementptr inbounds i32, ptr %0, i64 %idx.ext
+  %2 = load i32, ptr %add.ptr, align 4, !tbaa !40
+  %add = add i32 %1, 1
+  %add3 = add i32 %add, %2
+  store i32 %add3, ptr %btBufPos, align 8, !tbaa !67
+  %cmp = icmp eq i32 %2, 0
+  br i1 %cmp, label %if.then, label %if.else
 
-13:                                               ; preds = %2
-  %14 = getelementptr inbounds %struct._CMatchFinderMt, ptr %0, i64 0, i32 5
-  %15 = load i32, ptr %14, align 4, !tbaa !68
-  %16 = add i32 %15, -1
-  store i32 %16, ptr %14, align 4, !tbaa !68
-  %17 = icmp ugt i32 %15, 3
-  br i1 %17, label %18, label %63
+if.then:                                          ; preds = %entry
+  %btNumAvailBytes = getelementptr inbounds %struct._CMatchFinderMt, ptr %p, i64 0, i32 5
+  %3 = load i32, ptr %btNumAvailBytes, align 4, !tbaa !68
+  %dec = add i32 %3, -1
+  store i32 %dec, ptr %btNumAvailBytes, align 4, !tbaa !68
+  %cmp4 = icmp ugt i32 %3, 3
+  br i1 %cmp4, label %if.then5, label %if.end24
 
-18:                                               ; preds = %13
-  %19 = getelementptr inbounds %struct._CMatchFinderMt, ptr %0, i64 0, i32 10
-  %20 = load ptr, ptr %19, align 8, !tbaa !82
-  %21 = getelementptr inbounds %struct._CMatchFinderMt, ptr %0, i64 0, i32 4
-  %22 = load i32, ptr %21, align 8, !tbaa !69
-  %23 = getelementptr inbounds %struct._CMatchFinderMt, ptr %0, i64 0, i32 8
-  %24 = load i32, ptr %23, align 4, !tbaa !63
-  %25 = sub i32 %22, %24
-  %26 = tail call ptr %20(ptr noundef nonnull %0, i32 noundef %25, ptr noundef %1) #10
-  %27 = ptrtoint ptr %26 to i64
-  %28 = ptrtoint ptr %1 to i64
-  %29 = sub i64 %27, %28
-  %30 = lshr exact i64 %29, 2
-  %31 = trunc i64 %30 to i32
-  br label %63
+if.then5:                                         ; preds = %if.then
+  %MixMatchesFunc = getelementptr inbounds %struct._CMatchFinderMt, ptr %p, i64 0, i32 10
+  %4 = load ptr, ptr %MixMatchesFunc, align 8, !tbaa !82
+  %lzPos = getelementptr inbounds %struct._CMatchFinderMt, ptr %p, i64 0, i32 4
+  %5 = load i32, ptr %lzPos, align 8, !tbaa !69
+  %historySize = getelementptr inbounds %struct._CMatchFinderMt, ptr %p, i64 0, i32 8
+  %6 = load i32, ptr %historySize, align 4, !tbaa !63
+  %sub = sub i32 %5, %6
+  %call = tail call ptr %4(ptr noundef nonnull %p, i32 noundef %sub, ptr noundef %distances) #10
+  %sub.ptr.lhs.cast = ptrtoint ptr %call to i64
+  %sub.ptr.rhs.cast = ptrtoint ptr %distances to i64
+  %sub.ptr.sub = sub i64 %sub.ptr.lhs.cast, %sub.ptr.rhs.cast
+  %7 = lshr exact i64 %sub.ptr.sub, 2
+  %conv = trunc i64 %7 to i32
+  br label %if.end24
 
-32:                                               ; preds = %2
-  %33 = getelementptr inbounds i32, ptr %8, i64 1
-  %34 = getelementptr inbounds %struct._CMatchFinderMt, ptr %0, i64 0, i32 5
-  %35 = load i32, ptr %34, align 4, !tbaa !68
-  %36 = add i32 %35, -1
-  store i32 %36, ptr %34, align 4, !tbaa !68
-  %37 = getelementptr inbounds %struct._CMatchFinderMt, ptr %0, i64 0, i32 10
-  %38 = load ptr, ptr %37, align 8, !tbaa !82
-  %39 = getelementptr inbounds %struct._CMatchFinderMt, ptr %0, i64 0, i32 4
-  %40 = load i32, ptr %39, align 8, !tbaa !69
-  %41 = getelementptr inbounds i32, ptr %33, i64 1
-  %42 = load i32, ptr %41, align 4, !tbaa !40
-  %43 = sub i32 %40, %42
-  %44 = tail call ptr %38(ptr noundef nonnull %0, i32 noundef %43, ptr noundef %1) #10
-  br label %45
+if.else:                                          ; preds = %entry
+  %incdec.ptr = getelementptr inbounds i32, ptr %add.ptr, i64 1
+  %btNumAvailBytes6 = getelementptr inbounds %struct._CMatchFinderMt, ptr %p, i64 0, i32 5
+  %8 = load i32, ptr %btNumAvailBytes6, align 4, !tbaa !68
+  %dec7 = add i32 %8, -1
+  store i32 %dec7, ptr %btNumAvailBytes6, align 4, !tbaa !68
+  %MixMatchesFunc8 = getelementptr inbounds %struct._CMatchFinderMt, ptr %p, i64 0, i32 10
+  %9 = load ptr, ptr %MixMatchesFunc8, align 8, !tbaa !82
+  %lzPos9 = getelementptr inbounds %struct._CMatchFinderMt, ptr %p, i64 0, i32 4
+  %10 = load i32, ptr %lzPos9, align 8, !tbaa !69
+  %arrayidx = getelementptr inbounds i32, ptr %incdec.ptr, i64 1
+  %11 = load i32, ptr %arrayidx, align 4, !tbaa !40
+  %sub10 = sub i32 %10, %11
+  %call11 = tail call ptr %9(ptr noundef nonnull %p, i32 noundef %sub10, ptr noundef %distances) #10
+  br label %do.body
 
-45:                                               ; preds = %45, %32
-  %46 = phi ptr [ %33, %32 ], [ %52, %45 ]
-  %47 = phi i32 [ %9, %32 ], [ %55, %45 ]
-  %48 = phi ptr [ %44, %32 ], [ %54, %45 ]
-  %49 = getelementptr inbounds i32, ptr %46, i64 1
-  %50 = load i32, ptr %46, align 4, !tbaa !40
-  %51 = getelementptr inbounds i32, ptr %48, i64 1
-  store i32 %50, ptr %48, align 4, !tbaa !40
-  %52 = getelementptr inbounds i32, ptr %46, i64 2
-  %53 = load i32, ptr %49, align 4, !tbaa !40
-  %54 = getelementptr inbounds i32, ptr %48, i64 2
-  store i32 %53, ptr %51, align 4, !tbaa !40
-  %55 = add i32 %47, -2
-  %56 = icmp eq i32 %55, 0
-  br i1 %56, label %57, label %45, !llvm.loop !83
+do.body:                                          ; preds = %do.body, %if.else
+  %btBuf.0 = phi ptr [ %incdec.ptr, %if.else ], [ %incdec.ptr14, %do.body ]
+  %len.0 = phi i32 [ %2, %if.else ], [ %sub16, %do.body ]
+  %distances2.0 = phi ptr [ %call11, %if.else ], [ %incdec.ptr15, %do.body ]
+  %incdec.ptr12 = getelementptr inbounds i32, ptr %btBuf.0, i64 1
+  %12 = load i32, ptr %btBuf.0, align 4, !tbaa !40
+  %incdec.ptr13 = getelementptr inbounds i32, ptr %distances2.0, i64 1
+  store i32 %12, ptr %distances2.0, align 4, !tbaa !40
+  %incdec.ptr14 = getelementptr inbounds i32, ptr %btBuf.0, i64 2
+  %13 = load i32, ptr %incdec.ptr12, align 4, !tbaa !40
+  %incdec.ptr15 = getelementptr inbounds i32, ptr %distances2.0, i64 2
+  store i32 %13, ptr %incdec.ptr13, align 4, !tbaa !40
+  %sub16 = add i32 %len.0, -2
+  %cmp17.not = icmp eq i32 %sub16, 0
+  br i1 %cmp17.not, label %do.end, label %do.body, !llvm.loop !83
 
-57:                                               ; preds = %45
-  %58 = ptrtoint ptr %54 to i64
-  %59 = ptrtoint ptr %1 to i64
-  %60 = sub i64 %58, %59
-  %61 = lshr exact i64 %60, 2
-  %62 = trunc i64 %61 to i32
-  br label %63
+do.end:                                           ; preds = %do.body
+  %sub.ptr.lhs.cast19 = ptrtoint ptr %incdec.ptr15 to i64
+  %sub.ptr.rhs.cast20 = ptrtoint ptr %distances to i64
+  %sub.ptr.sub21 = sub i64 %sub.ptr.lhs.cast19, %sub.ptr.rhs.cast20
+  %14 = lshr exact i64 %sub.ptr.sub21, 2
+  %conv23 = trunc i64 %14 to i32
+  br label %if.end24
 
-63:                                               ; preds = %13, %18, %57
-  %64 = phi i32 [ %31, %18 ], [ 0, %13 ], [ %62, %57 ]
-  %65 = getelementptr inbounds %struct._CMatchFinderMt, ptr %0, i64 0, i32 4
-  %66 = load i32, ptr %65, align 8, !tbaa !69
-  %67 = add i32 %66, 1
-  store i32 %67, ptr %65, align 8, !tbaa !69
-  %68 = load ptr, ptr %0, align 8, !tbaa !44
-  %69 = getelementptr inbounds i8, ptr %68, i64 1
-  store ptr %69, ptr %0, align 8, !tbaa !44
-  ret i32 %64
+if.end24:                                         ; preds = %if.then, %if.then5, %do.end
+  %len.1 = phi i32 [ %conv, %if.then5 ], [ 0, %if.then ], [ %conv23, %do.end ]
+  %lzPos25 = getelementptr inbounds %struct._CMatchFinderMt, ptr %p, i64 0, i32 4
+  %15 = load i32, ptr %lzPos25, align 8, !tbaa !69
+  %inc = add i32 %15, 1
+  store i32 %inc, ptr %lzPos25, align 8, !tbaa !69
+  %16 = load ptr, ptr %p, align 8, !tbaa !44
+  %incdec.ptr26 = getelementptr inbounds i8, ptr %16, i64 1
+  store ptr %incdec.ptr26, ptr %p, align 8, !tbaa !44
+  ret i32 %len.1
 }
 
 ; Function Attrs: nounwind uwtable
-define dso_local void @MatchFinderMt0_Skip(ptr noundef %0, i32 noundef %1) #1 {
-  %3 = getelementptr inbounds %struct._CMatchFinderMt, ptr %0, i64 0, i32 2
-  %4 = getelementptr inbounds %struct._CMatchFinderMt, ptr %0, i64 0, i32 3
-  %5 = getelementptr inbounds %struct._CMatchFinderMt, ptr %0, i64 0, i32 11
-  %6 = getelementptr inbounds %struct._CMatchFinderMt, ptr %0, i64 0, i32 11, i32 13
-  %7 = getelementptr inbounds %struct._CMatchFinderMt, ptr %0, i64 0, i32 1
-  %8 = getelementptr inbounds %struct._CMatchFinderMt, ptr %0, i64 0, i32 5
-  %9 = getelementptr inbounds %struct._CMatchFinderMt, ptr %0, i64 0, i32 4
-  %10 = getelementptr inbounds %struct._CMatchFinderMt, ptr %0, i64 0, i32 8
-  %11 = getelementptr inbounds %struct._CMatchFinderMt, ptr %0, i64 0, i32 6
-  %12 = getelementptr inbounds %struct._CMatchFinderMt, ptr %0, i64 0, i32 7
-  %13 = load i32, ptr %3, align 8, !tbaa !67
-  br label %14
+define dso_local void @MatchFinderMt0_Skip(ptr noundef %p, i32 noundef %num) #1 {
+entry:
+  %btBufPos = getelementptr inbounds %struct._CMatchFinderMt, ptr %p, i64 0, i32 2
+  %btBufPosLimit = getelementptr inbounds %struct._CMatchFinderMt, ptr %p, i64 0, i32 3
+  %btSync.i = getelementptr inbounds %struct._CMatchFinderMt, ptr %p, i64 0, i32 11
+  %numProcessedBlocks.i = getelementptr inbounds %struct._CMatchFinderMt, ptr %p, i64 0, i32 11, i32 13
+  %btBuf.i = getelementptr inbounds %struct._CMatchFinderMt, ptr %p, i64 0, i32 1
+  %btNumAvailBytes.i = getelementptr inbounds %struct._CMatchFinderMt, ptr %p, i64 0, i32 5
+  %lzPos.i = getelementptr inbounds %struct._CMatchFinderMt, ptr %p, i64 0, i32 4
+  %historySize.i.i = getelementptr inbounds %struct._CMatchFinderMt, ptr %p, i64 0, i32 8
+  %hash.i.i = getelementptr inbounds %struct._CMatchFinderMt, ptr %p, i64 0, i32 6
+  %fixedHashSize.i.i = getelementptr inbounds %struct._CMatchFinderMt, ptr %p, i64 0, i32 7
+  %.pre = load i32, ptr %btBufPos, align 8, !tbaa !67
+  br label %do.body
 
-14:                                               ; preds = %47, %2
-  %15 = phi i32 [ %13, %2 ], [ %60, %47 ]
-  %16 = phi i32 [ %1, %2 ], [ %61, %47 ]
-  %17 = load i32, ptr %4, align 4, !tbaa !66
-  %18 = icmp eq i32 %15, %17
-  br i1 %18, label %21, label %19
+do.body:                                          ; preds = %if.end, %entry
+  %0 = phi i32 [ %.pre, %entry ], [ %add3, %if.end ]
+  %num.addr.0 = phi i32 [ %num, %entry ], [ %dec4, %if.end ]
+  %1 = load i32, ptr %btBufPosLimit, align 4, !tbaa !66
+  %cmp = icmp eq i32 %0, %1
+  br i1 %cmp, label %if.then, label %do.body.if.end_crit_edge
 
-19:                                               ; preds = %14
-  %20 = load i32, ptr %9, align 8, !tbaa !69
-  br label %47
+do.body.if.end_crit_edge:                         ; preds = %do.body
+  %.pre14 = load i32, ptr %lzPos.i, align 8, !tbaa !69
+  br label %if.end
 
-21:                                               ; preds = %14
-  tail call void @MtSync_GetNextBlock(ptr noundef nonnull %5)
-  %22 = load i32, ptr %6, align 8, !tbaa !76
-  %23 = shl i32 %22, 14
-  %24 = add i32 %23, 1032192
-  %25 = and i32 %24, 1032192
-  store i32 %25, ptr %4, align 4, !tbaa !66
-  %26 = load ptr, ptr %7, align 8, !tbaa !60
-  %27 = or i32 %25, 1
-  store i32 %27, ptr %3, align 8, !tbaa !67
-  %28 = zext i32 %25 to i64
-  %29 = getelementptr inbounds i32, ptr %26, i64 %28
-  %30 = load i32, ptr %29, align 4, !tbaa !40
-  %31 = add i32 %30, %25
-  store i32 %31, ptr %4, align 4, !tbaa !66
-  %32 = or i32 %25, 2
-  store i32 %32, ptr %3, align 8, !tbaa !67
-  %33 = zext i32 %27 to i64
-  %34 = getelementptr inbounds i32, ptr %26, i64 %33
-  %35 = load i32, ptr %34, align 4, !tbaa !40
-  store i32 %35, ptr %8, align 4, !tbaa !68
-  %36 = load i32, ptr %9, align 8, !tbaa !69
-  %37 = icmp ugt i32 %36, -16386
-  br i1 %37, label %38, label %47
+if.then:                                          ; preds = %do.body
+  tail call void @MtSync_GetNextBlock(ptr noundef nonnull %btSync.i)
+  %2 = load i32, ptr %numProcessedBlocks.i, align 8, !tbaa !76
+  %sub.i = shl i32 %2, 14
+  %and.i = add i32 %sub.i, 1032192
+  %mul.i = and i32 %and.i, 1032192
+  store i32 %mul.i, ptr %btBufPosLimit, align 4, !tbaa !66
+  %3 = load ptr, ptr %btBuf.i, align 8, !tbaa !60
+  %inc.i = or i32 %mul.i, 1
+  store i32 %inc.i, ptr %btBufPos, align 8, !tbaa !67
+  %idxprom.i = zext i32 %mul.i to i64
+  %arrayidx.i = getelementptr inbounds i32, ptr %3, i64 %idxprom.i
+  %4 = load i32, ptr %arrayidx.i, align 4, !tbaa !40
+  %add.i = add i32 %4, %mul.i
+  store i32 %add.i, ptr %btBufPosLimit, align 4, !tbaa !66
+  %inc6.i = or i32 %mul.i, 2
+  store i32 %inc6.i, ptr %btBufPos, align 8, !tbaa !67
+  %idxprom7.i = zext i32 %inc.i to i64
+  %arrayidx8.i = getelementptr inbounds i32, ptr %3, i64 %idxprom7.i
+  %5 = load i32, ptr %arrayidx8.i, align 4, !tbaa !40
+  store i32 %5, ptr %btNumAvailBytes.i, align 4, !tbaa !68
+  %6 = load i32, ptr %lzPos.i, align 8, !tbaa !69
+  %cmp.i = icmp ugt i32 %6, -16386
+  br i1 %cmp.i, label %if.then.i, label %if.end
 
-38:                                               ; preds = %21
-  %39 = load i32, ptr %10, align 4, !tbaa !63
-  %40 = xor i32 %39, -1
-  %41 = add i32 %36, %40
-  %42 = load ptr, ptr %11, align 8, !tbaa !70
-  %43 = load i32, ptr %12, align 8, !tbaa !71
-  tail call void @MatchFinder_Normalize3(i32 noundef %41, ptr noundef %42, i32 noundef %43) #10
-  %44 = load i32, ptr %10, align 4, !tbaa !63
-  %45 = add i32 %44, 1
-  %46 = load i32, ptr %3, align 8, !tbaa !67
-  br label %47
+if.then.i:                                        ; preds = %if.then
+  %7 = load i32, ptr %historySize.i.i, align 4, !tbaa !63
+  %8 = xor i32 %7, -1
+  %sub1.i.i = add i32 %6, %8
+  %9 = load ptr, ptr %hash.i.i, align 8, !tbaa !70
+  %10 = load i32, ptr %fixedHashSize.i.i, align 8, !tbaa !71
+  tail call void @MatchFinder_Normalize3(i32 noundef %sub1.i.i, ptr noundef %9, i32 noundef %10) #10
+  %11 = load i32, ptr %historySize.i.i, align 4, !tbaa !63
+  %add.i.i = add i32 %11, 1
+  %.pre15 = load i32, ptr %btBufPos, align 8, !tbaa !67
+  br label %if.end
 
-47:                                               ; preds = %19, %38, %21
-  %48 = phi i32 [ %15, %19 ], [ %46, %38 ], [ %32, %21 ]
-  %49 = phi i32 [ %20, %19 ], [ %45, %38 ], [ %36, %21 ]
-  %50 = load i32, ptr %8, align 4, !tbaa !68
-  %51 = add i32 %50, -1
-  store i32 %51, ptr %8, align 4, !tbaa !68
-  %52 = add i32 %49, 1
-  store i32 %52, ptr %9, align 8, !tbaa !69
-  %53 = load ptr, ptr %0, align 8, !tbaa !44
-  %54 = getelementptr inbounds i8, ptr %53, i64 1
-  store ptr %54, ptr %0, align 8, !tbaa !44
-  %55 = load ptr, ptr %7, align 8, !tbaa !60
-  %56 = zext i32 %48 to i64
-  %57 = getelementptr inbounds i32, ptr %55, i64 %56
-  %58 = load i32, ptr %57, align 4, !tbaa !40
-  %59 = add i32 %48, 1
-  %60 = add i32 %59, %58
-  store i32 %60, ptr %3, align 8, !tbaa !67
-  %61 = add i32 %16, -1
-  %62 = icmp eq i32 %61, 0
-  br i1 %62, label %63, label %14, !llvm.loop !84
+if.end:                                           ; preds = %do.body.if.end_crit_edge, %if.then.i, %if.then
+  %12 = phi i32 [ %0, %do.body.if.end_crit_edge ], [ %.pre15, %if.then.i ], [ %inc6.i, %if.then ]
+  %13 = phi i32 [ %.pre14, %do.body.if.end_crit_edge ], [ %add.i.i, %if.then.i ], [ %6, %if.then ]
+  %14 = load i32, ptr %btNumAvailBytes.i, align 4, !tbaa !68
+  %dec = add i32 %14, -1
+  store i32 %dec, ptr %btNumAvailBytes.i, align 4, !tbaa !68
+  %inc = add i32 %13, 1
+  store i32 %inc, ptr %lzPos.i, align 8, !tbaa !69
+  %15 = load ptr, ptr %p, align 8, !tbaa !44
+  %incdec.ptr = getelementptr inbounds i8, ptr %15, i64 1
+  store ptr %incdec.ptr, ptr %p, align 8, !tbaa !44
+  %16 = load ptr, ptr %btBuf.i, align 8, !tbaa !60
+  %idxprom = zext i32 %12 to i64
+  %arrayidx = getelementptr inbounds i32, ptr %16, i64 %idxprom
+  %17 = load i32, ptr %arrayidx, align 4, !tbaa !40
+  %add = add i32 %12, 1
+  %add3 = add i32 %add, %17
+  store i32 %add3, ptr %btBufPos, align 8, !tbaa !67
+  %dec4 = add i32 %num.addr.0, -1
+  %cmp5.not = icmp eq i32 %dec4, 0
+  br i1 %cmp5.not, label %do.end, label %do.body, !llvm.loop !84
 
-63:                                               ; preds = %47
+do.end:                                           ; preds = %if.end
   ret void
 }
 
 ; Function Attrs: nounwind uwtable
-define dso_local void @MatchFinderMt2_Skip(ptr noundef %0, i32 noundef %1) #1 {
-  %3 = getelementptr inbounds %struct._CMatchFinderMt, ptr %0, i64 0, i32 2
-  %4 = getelementptr inbounds %struct._CMatchFinderMt, ptr %0, i64 0, i32 3
-  %5 = getelementptr inbounds %struct._CMatchFinderMt, ptr %0, i64 0, i32 11
-  %6 = getelementptr inbounds %struct._CMatchFinderMt, ptr %0, i64 0, i32 11, i32 13
-  %7 = getelementptr inbounds %struct._CMatchFinderMt, ptr %0, i64 0, i32 1
-  %8 = getelementptr inbounds %struct._CMatchFinderMt, ptr %0, i64 0, i32 5
-  %9 = getelementptr inbounds %struct._CMatchFinderMt, ptr %0, i64 0, i32 4
-  %10 = getelementptr inbounds %struct._CMatchFinderMt, ptr %0, i64 0, i32 8
-  %11 = getelementptr inbounds %struct._CMatchFinderMt, ptr %0, i64 0, i32 6
-  %12 = getelementptr inbounds %struct._CMatchFinderMt, ptr %0, i64 0, i32 7
-  %13 = getelementptr inbounds %struct._CMatchFinderMt, ptr %0, i64 0, i32 9
-  %14 = load i32, ptr %3, align 8, !tbaa !67
-  br label %15
+define dso_local void @MatchFinderMt2_Skip(ptr noundef %p, i32 noundef %num) #1 {
+entry:
+  %btBufPos = getelementptr inbounds %struct._CMatchFinderMt, ptr %p, i64 0, i32 2
+  %btBufPosLimit = getelementptr inbounds %struct._CMatchFinderMt, ptr %p, i64 0, i32 3
+  %btSync.i = getelementptr inbounds %struct._CMatchFinderMt, ptr %p, i64 0, i32 11
+  %numProcessedBlocks.i = getelementptr inbounds %struct._CMatchFinderMt, ptr %p, i64 0, i32 11, i32 13
+  %btBuf.i = getelementptr inbounds %struct._CMatchFinderMt, ptr %p, i64 0, i32 1
+  %btNumAvailBytes.i = getelementptr inbounds %struct._CMatchFinderMt, ptr %p, i64 0, i32 5
+  %lzPos.i = getelementptr inbounds %struct._CMatchFinderMt, ptr %p, i64 0, i32 4
+  %historySize.i.i = getelementptr inbounds %struct._CMatchFinderMt, ptr %p, i64 0, i32 8
+  %hash.i.i = getelementptr inbounds %struct._CMatchFinderMt, ptr %p, i64 0, i32 6
+  %fixedHashSize.i.i = getelementptr inbounds %struct._CMatchFinderMt, ptr %p, i64 0, i32 7
+  %crc = getelementptr inbounds %struct._CMatchFinderMt, ptr %p, i64 0, i32 9
+  %.pre = load i32, ptr %btBufPos, align 8, !tbaa !67
+  br label %do.body
 
-15:                                               ; preds = %67, %2
-  %16 = phi i32 [ %14, %2 ], [ %77, %67 ]
-  %17 = phi i32 [ %1, %2 ], [ %78, %67 ]
-  %18 = load i32, ptr %4, align 4, !tbaa !66
-  %19 = icmp eq i32 %16, %18
-  br i1 %19, label %20, label %45
+do.body:                                          ; preds = %if.end8, %entry
+  %0 = phi i32 [ %.pre, %entry ], [ %add15, %if.end8 ]
+  %num.addr.0 = phi i32 [ %num, %entry ], [ %dec16, %if.end8 ]
+  %1 = load i32, ptr %btBufPosLimit, align 4, !tbaa !66
+  %cmp = icmp eq i32 %0, %1
+  br i1 %cmp, label %if.then, label %if.endthread-pre-split
 
-20:                                               ; preds = %15
-  tail call void @MtSync_GetNextBlock(ptr noundef nonnull %5)
-  %21 = load i32, ptr %6, align 8, !tbaa !76
-  %22 = shl i32 %21, 14
-  %23 = add i32 %22, 1032192
-  %24 = and i32 %23, 1032192
-  store i32 %24, ptr %4, align 4, !tbaa !66
-  %25 = load ptr, ptr %7, align 8, !tbaa !60
-  %26 = or i32 %24, 1
-  store i32 %26, ptr %3, align 8, !tbaa !67
-  %27 = zext i32 %24 to i64
-  %28 = getelementptr inbounds i32, ptr %25, i64 %27
-  %29 = load i32, ptr %28, align 4, !tbaa !40
-  %30 = add i32 %29, %24
-  store i32 %30, ptr %4, align 4, !tbaa !66
-  %31 = or i32 %24, 2
-  store i32 %31, ptr %3, align 8, !tbaa !67
-  %32 = zext i32 %26 to i64
-  %33 = getelementptr inbounds i32, ptr %25, i64 %32
-  %34 = load i32, ptr %33, align 4, !tbaa !40
-  store i32 %34, ptr %8, align 4, !tbaa !68
-  %35 = load i32, ptr %9, align 8, !tbaa !69
-  %36 = icmp ugt i32 %35, -16386
-  br i1 %36, label %37, label %47
+if.then:                                          ; preds = %do.body
+  tail call void @MtSync_GetNextBlock(ptr noundef nonnull %btSync.i)
+  %2 = load i32, ptr %numProcessedBlocks.i, align 8, !tbaa !76
+  %sub.i = shl i32 %2, 14
+  %and.i = add i32 %sub.i, 1032192
+  %mul.i = and i32 %and.i, 1032192
+  store i32 %mul.i, ptr %btBufPosLimit, align 4, !tbaa !66
+  %3 = load ptr, ptr %btBuf.i, align 8, !tbaa !60
+  %inc.i = or i32 %mul.i, 1
+  store i32 %inc.i, ptr %btBufPos, align 8, !tbaa !67
+  %idxprom.i = zext i32 %mul.i to i64
+  %arrayidx.i = getelementptr inbounds i32, ptr %3, i64 %idxprom.i
+  %4 = load i32, ptr %arrayidx.i, align 4, !tbaa !40
+  %add.i = add i32 %4, %mul.i
+  store i32 %add.i, ptr %btBufPosLimit, align 4, !tbaa !66
+  %inc6.i = or i32 %mul.i, 2
+  store i32 %inc6.i, ptr %btBufPos, align 8, !tbaa !67
+  %idxprom7.i = zext i32 %inc.i to i64
+  %arrayidx8.i = getelementptr inbounds i32, ptr %3, i64 %idxprom7.i
+  %5 = load i32, ptr %arrayidx8.i, align 4, !tbaa !40
+  store i32 %5, ptr %btNumAvailBytes.i, align 4, !tbaa !68
+  %6 = load i32, ptr %lzPos.i, align 8, !tbaa !69
+  %cmp.i = icmp ugt i32 %6, -16386
+  br i1 %cmp.i, label %if.then.i, label %if.end
 
-37:                                               ; preds = %20
-  %38 = load i32, ptr %10, align 4, !tbaa !63
-  %39 = xor i32 %38, -1
-  %40 = add i32 %35, %39
-  %41 = load ptr, ptr %11, align 8, !tbaa !70
-  %42 = load i32, ptr %12, align 8, !tbaa !71
-  tail call void @MatchFinder_Normalize3(i32 noundef %40, ptr noundef %41, i32 noundef %42) #10
-  %43 = load i32, ptr %10, align 4, !tbaa !63
-  %44 = add i32 %43, 1
-  store i32 %44, ptr %9, align 8, !tbaa !69
-  br label %45
+if.then.i:                                        ; preds = %if.then
+  %7 = load i32, ptr %historySize.i.i, align 4, !tbaa !63
+  %8 = xor i32 %7, -1
+  %sub1.i.i = add i32 %6, %8
+  %9 = load ptr, ptr %hash.i.i, align 8, !tbaa !70
+  %10 = load i32, ptr %fixedHashSize.i.i, align 8, !tbaa !71
+  tail call void @MatchFinder_Normalize3(i32 noundef %sub1.i.i, ptr noundef %9, i32 noundef %10) #10
+  %11 = load i32, ptr %historySize.i.i, align 4, !tbaa !63
+  %add.i.i = add i32 %11, 1
+  store i32 %add.i.i, ptr %lzPos.i, align 8, !tbaa !69
+  br label %if.endthread-pre-split
 
-45:                                               ; preds = %15, %37
-  %46 = load i32, ptr %8, align 4, !tbaa !68
-  br label %47
+if.endthread-pre-split:                           ; preds = %do.body, %if.then.i
+  %.pr = load i32, ptr %btNumAvailBytes.i, align 4, !tbaa !68
+  br label %if.end
 
-47:                                               ; preds = %45, %20
-  %48 = phi i32 [ %46, %45 ], [ %34, %20 ]
-  %49 = add i32 %48, -1
-  store i32 %49, ptr %8, align 4, !tbaa !68
-  %50 = icmp ugt i32 %48, 1
-  %51 = load ptr, ptr %0, align 8, !tbaa !44
-  br i1 %50, label %52, label %67
+if.end:                                           ; preds = %if.endthread-pre-split, %if.then
+  %12 = phi i32 [ %.pr, %if.endthread-pre-split ], [ %5, %if.then ]
+  %dec = add i32 %12, -1
+  store i32 %dec, ptr %btNumAvailBytes.i, align 4, !tbaa !68
+  %cmp1 = icmp ugt i32 %12, 1
+  %13 = load ptr, ptr %p, align 8, !tbaa !44
+  br i1 %cmp1, label %if.then2, label %if.end8
 
-52:                                               ; preds = %47
-  %53 = load ptr, ptr %11, align 8, !tbaa !70
-  %54 = load ptr, ptr %13, align 8, !tbaa !72
-  %55 = load i8, ptr %51, align 1, !tbaa !77
-  %56 = zext i8 %55 to i64
-  %57 = getelementptr inbounds i32, ptr %54, i64 %56
-  %58 = load i32, ptr %57, align 4, !tbaa !40
-  %59 = getelementptr inbounds i8, ptr %51, i64 1
-  %60 = load i8, ptr %59, align 1, !tbaa !77
-  %61 = zext i8 %60 to i32
-  %62 = and i32 %58, 1023
-  %63 = xor i32 %62, %61
-  %64 = load i32, ptr %9, align 8, !tbaa !69
-  %65 = zext i32 %63 to i64
-  %66 = getelementptr inbounds i32, ptr %53, i64 %65
-  store i32 %64, ptr %66, align 4, !tbaa !40
-  br label %67
+if.then2:                                         ; preds = %if.end
+  %14 = load ptr, ptr %hash.i.i, align 8, !tbaa !70
+  %15 = load ptr, ptr %crc, align 8, !tbaa !72
+  %16 = load i8, ptr %13, align 1, !tbaa !77
+  %idxprom = zext i8 %16 to i64
+  %arrayidx4 = getelementptr inbounds i32, ptr %15, i64 %idxprom
+  %17 = load i32, ptr %arrayidx4, align 4, !tbaa !40
+  %arrayidx5 = getelementptr inbounds i8, ptr %13, i64 1
+  %18 = load i8, ptr %arrayidx5, align 1, !tbaa !77
+  %conv = zext i8 %18 to i32
+  %.masked = and i32 %17, 1023
+  %and = xor i32 %.masked, %conv
+  %19 = load i32, ptr %lzPos.i, align 8, !tbaa !69
+  %idxprom6 = zext i32 %and to i64
+  %arrayidx7 = getelementptr inbounds i32, ptr %14, i64 %idxprom6
+  store i32 %19, ptr %arrayidx7, align 4, !tbaa !40
+  br label %if.end8
 
-67:                                               ; preds = %47, %52
-  %68 = load i32, ptr %9, align 8, !tbaa !69
-  %69 = add i32 %68, 1
-  store i32 %69, ptr %9, align 8, !tbaa !69
-  %70 = getelementptr inbounds i8, ptr %51, i64 1
-  store ptr %70, ptr %0, align 8, !tbaa !44
-  %71 = load ptr, ptr %7, align 8, !tbaa !60
-  %72 = load i32, ptr %3, align 8, !tbaa !67
-  %73 = zext i32 %72 to i64
-  %74 = getelementptr inbounds i32, ptr %71, i64 %73
-  %75 = load i32, ptr %74, align 4, !tbaa !40
-  %76 = add i32 %72, 1
-  %77 = add i32 %76, %75
-  store i32 %77, ptr %3, align 8, !tbaa !67
-  %78 = add i32 %17, -1
-  %79 = icmp eq i32 %78, 0
-  br i1 %79, label %80, label %15, !llvm.loop !85
+if.end8:                                          ; preds = %if.end, %if.then2
+  %20 = load i32, ptr %lzPos.i, align 8, !tbaa !69
+  %inc = add i32 %20, 1
+  store i32 %inc, ptr %lzPos.i, align 8, !tbaa !69
+  %incdec.ptr = getelementptr inbounds i8, ptr %13, i64 1
+  store ptr %incdec.ptr, ptr %p, align 8, !tbaa !44
+  %21 = load ptr, ptr %btBuf.i, align 8, !tbaa !60
+  %22 = load i32, ptr %btBufPos, align 8, !tbaa !67
+  %idxprom12 = zext i32 %22 to i64
+  %arrayidx13 = getelementptr inbounds i32, ptr %21, i64 %idxprom12
+  %23 = load i32, ptr %arrayidx13, align 4, !tbaa !40
+  %add = add i32 %22, 1
+  %add15 = add i32 %add, %23
+  store i32 %add15, ptr %btBufPos, align 8, !tbaa !67
+  %dec16 = add i32 %num.addr.0, -1
+  %cmp17.not = icmp eq i32 %dec16, 0
+  br i1 %cmp17.not, label %do.end, label %do.body, !llvm.loop !85
 
-80:                                               ; preds = %67
+do.end:                                           ; preds = %if.end8
   ret void
 }
 
 ; Function Attrs: nounwind uwtable
-define dso_local void @MatchFinderMt3_Skip(ptr noundef %0, i32 noundef %1) #1 {
-  %3 = getelementptr inbounds %struct._CMatchFinderMt, ptr %0, i64 0, i32 2
-  %4 = getelementptr inbounds %struct._CMatchFinderMt, ptr %0, i64 0, i32 3
-  %5 = getelementptr inbounds %struct._CMatchFinderMt, ptr %0, i64 0, i32 11
-  %6 = getelementptr inbounds %struct._CMatchFinderMt, ptr %0, i64 0, i32 11, i32 13
-  %7 = getelementptr inbounds %struct._CMatchFinderMt, ptr %0, i64 0, i32 1
-  %8 = getelementptr inbounds %struct._CMatchFinderMt, ptr %0, i64 0, i32 5
-  %9 = getelementptr inbounds %struct._CMatchFinderMt, ptr %0, i64 0, i32 4
-  %10 = getelementptr inbounds %struct._CMatchFinderMt, ptr %0, i64 0, i32 8
-  %11 = getelementptr inbounds %struct._CMatchFinderMt, ptr %0, i64 0, i32 6
-  %12 = getelementptr inbounds %struct._CMatchFinderMt, ptr %0, i64 0, i32 7
-  %13 = getelementptr inbounds %struct._CMatchFinderMt, ptr %0, i64 0, i32 9
-  %14 = load i32, ptr %3, align 8, !tbaa !67
-  br label %15
+define dso_local void @MatchFinderMt3_Skip(ptr noundef %p, i32 noundef %num) #1 {
+entry:
+  %btBufPos = getelementptr inbounds %struct._CMatchFinderMt, ptr %p, i64 0, i32 2
+  %btBufPosLimit = getelementptr inbounds %struct._CMatchFinderMt, ptr %p, i64 0, i32 3
+  %btSync.i = getelementptr inbounds %struct._CMatchFinderMt, ptr %p, i64 0, i32 11
+  %numProcessedBlocks.i = getelementptr inbounds %struct._CMatchFinderMt, ptr %p, i64 0, i32 11, i32 13
+  %btBuf.i = getelementptr inbounds %struct._CMatchFinderMt, ptr %p, i64 0, i32 1
+  %btNumAvailBytes.i = getelementptr inbounds %struct._CMatchFinderMt, ptr %p, i64 0, i32 5
+  %lzPos.i = getelementptr inbounds %struct._CMatchFinderMt, ptr %p, i64 0, i32 4
+  %historySize.i.i = getelementptr inbounds %struct._CMatchFinderMt, ptr %p, i64 0, i32 8
+  %hash.i.i = getelementptr inbounds %struct._CMatchFinderMt, ptr %p, i64 0, i32 6
+  %fixedHashSize.i.i = getelementptr inbounds %struct._CMatchFinderMt, ptr %p, i64 0, i32 7
+  %crc = getelementptr inbounds %struct._CMatchFinderMt, ptr %p, i64 0, i32 9
+  %.pre = load i32, ptr %btBufPos, align 8, !tbaa !67
+  br label %do.body
 
-15:                                               ; preds = %76, %2
-  %16 = phi i32 [ %14, %2 ], [ %86, %76 ]
-  %17 = phi i32 [ %1, %2 ], [ %87, %76 ]
-  %18 = load i32, ptr %4, align 4, !tbaa !66
-  %19 = icmp eq i32 %16, %18
-  br i1 %19, label %20, label %45
+do.body:                                          ; preds = %if.end14, %entry
+  %0 = phi i32 [ %.pre, %entry ], [ %add22, %if.end14 ]
+  %num.addr.0 = phi i32 [ %num, %entry ], [ %dec23, %if.end14 ]
+  %1 = load i32, ptr %btBufPosLimit, align 4, !tbaa !66
+  %cmp = icmp eq i32 %0, %1
+  br i1 %cmp, label %if.then, label %if.endthread-pre-split
 
-20:                                               ; preds = %15
-  tail call void @MtSync_GetNextBlock(ptr noundef nonnull %5)
-  %21 = load i32, ptr %6, align 8, !tbaa !76
-  %22 = shl i32 %21, 14
-  %23 = add i32 %22, 1032192
-  %24 = and i32 %23, 1032192
-  store i32 %24, ptr %4, align 4, !tbaa !66
-  %25 = load ptr, ptr %7, align 8, !tbaa !60
-  %26 = or i32 %24, 1
-  store i32 %26, ptr %3, align 8, !tbaa !67
-  %27 = zext i32 %24 to i64
-  %28 = getelementptr inbounds i32, ptr %25, i64 %27
-  %29 = load i32, ptr %28, align 4, !tbaa !40
-  %30 = add i32 %29, %24
-  store i32 %30, ptr %4, align 4, !tbaa !66
-  %31 = or i32 %24, 2
-  store i32 %31, ptr %3, align 8, !tbaa !67
-  %32 = zext i32 %26 to i64
-  %33 = getelementptr inbounds i32, ptr %25, i64 %32
-  %34 = load i32, ptr %33, align 4, !tbaa !40
-  store i32 %34, ptr %8, align 4, !tbaa !68
-  %35 = load i32, ptr %9, align 8, !tbaa !69
-  %36 = icmp ugt i32 %35, -16386
-  br i1 %36, label %37, label %47
+if.then:                                          ; preds = %do.body
+  tail call void @MtSync_GetNextBlock(ptr noundef nonnull %btSync.i)
+  %2 = load i32, ptr %numProcessedBlocks.i, align 8, !tbaa !76
+  %sub.i = shl i32 %2, 14
+  %and.i = add i32 %sub.i, 1032192
+  %mul.i = and i32 %and.i, 1032192
+  store i32 %mul.i, ptr %btBufPosLimit, align 4, !tbaa !66
+  %3 = load ptr, ptr %btBuf.i, align 8, !tbaa !60
+  %inc.i = or i32 %mul.i, 1
+  store i32 %inc.i, ptr %btBufPos, align 8, !tbaa !67
+  %idxprom.i = zext i32 %mul.i to i64
+  %arrayidx.i = getelementptr inbounds i32, ptr %3, i64 %idxprom.i
+  %4 = load i32, ptr %arrayidx.i, align 4, !tbaa !40
+  %add.i = add i32 %4, %mul.i
+  store i32 %add.i, ptr %btBufPosLimit, align 4, !tbaa !66
+  %inc6.i = or i32 %mul.i, 2
+  store i32 %inc6.i, ptr %btBufPos, align 8, !tbaa !67
+  %idxprom7.i = zext i32 %inc.i to i64
+  %arrayidx8.i = getelementptr inbounds i32, ptr %3, i64 %idxprom7.i
+  %5 = load i32, ptr %arrayidx8.i, align 4, !tbaa !40
+  store i32 %5, ptr %btNumAvailBytes.i, align 4, !tbaa !68
+  %6 = load i32, ptr %lzPos.i, align 8, !tbaa !69
+  %cmp.i = icmp ugt i32 %6, -16386
+  br i1 %cmp.i, label %if.then.i, label %if.end
 
-37:                                               ; preds = %20
-  %38 = load i32, ptr %10, align 4, !tbaa !63
-  %39 = xor i32 %38, -1
-  %40 = add i32 %35, %39
-  %41 = load ptr, ptr %11, align 8, !tbaa !70
-  %42 = load i32, ptr %12, align 8, !tbaa !71
-  tail call void @MatchFinder_Normalize3(i32 noundef %40, ptr noundef %41, i32 noundef %42) #10
-  %43 = load i32, ptr %10, align 4, !tbaa !63
-  %44 = add i32 %43, 1
-  store i32 %44, ptr %9, align 8, !tbaa !69
-  br label %45
+if.then.i:                                        ; preds = %if.then
+  %7 = load i32, ptr %historySize.i.i, align 4, !tbaa !63
+  %8 = xor i32 %7, -1
+  %sub1.i.i = add i32 %6, %8
+  %9 = load ptr, ptr %hash.i.i, align 8, !tbaa !70
+  %10 = load i32, ptr %fixedHashSize.i.i, align 8, !tbaa !71
+  tail call void @MatchFinder_Normalize3(i32 noundef %sub1.i.i, ptr noundef %9, i32 noundef %10) #10
+  %11 = load i32, ptr %historySize.i.i, align 4, !tbaa !63
+  %add.i.i = add i32 %11, 1
+  store i32 %add.i.i, ptr %lzPos.i, align 8, !tbaa !69
+  br label %if.endthread-pre-split
 
-45:                                               ; preds = %15, %37
-  %46 = load i32, ptr %8, align 4, !tbaa !68
-  br label %47
+if.endthread-pre-split:                           ; preds = %do.body, %if.then.i
+  %.pr = load i32, ptr %btNumAvailBytes.i, align 4, !tbaa !68
+  br label %if.end
 
-47:                                               ; preds = %45, %20
-  %48 = phi i32 [ %46, %45 ], [ %34, %20 ]
-  %49 = add i32 %48, -1
-  store i32 %49, ptr %8, align 4, !tbaa !68
-  %50 = icmp ugt i32 %48, 2
-  %51 = load ptr, ptr %0, align 8, !tbaa !44
-  br i1 %50, label %52, label %76
+if.end:                                           ; preds = %if.endthread-pre-split, %if.then
+  %12 = phi i32 [ %.pr, %if.endthread-pre-split ], [ %5, %if.then ]
+  %dec = add i32 %12, -1
+  store i32 %dec, ptr %btNumAvailBytes.i, align 4, !tbaa !68
+  %cmp1 = icmp ugt i32 %12, 2
+  %13 = load ptr, ptr %p, align 8, !tbaa !44
+  br i1 %cmp1, label %if.then2, label %if.end14
 
-52:                                               ; preds = %47
-  %53 = load ptr, ptr %11, align 8, !tbaa !70
-  %54 = load ptr, ptr %13, align 8, !tbaa !72
-  %55 = load i8, ptr %51, align 1, !tbaa !77
-  %56 = zext i8 %55 to i64
-  %57 = getelementptr inbounds i32, ptr %54, i64 %56
-  %58 = load i32, ptr %57, align 4, !tbaa !40
-  %59 = getelementptr inbounds i8, ptr %51, i64 1
-  %60 = load i8, ptr %59, align 1, !tbaa !77
-  %61 = zext i8 %60 to i32
-  %62 = xor i32 %58, %61
-  %63 = and i32 %62, 1023
-  %64 = getelementptr inbounds i8, ptr %51, i64 2
-  %65 = load i8, ptr %64, align 1, !tbaa !77
-  %66 = zext i8 %65 to i32
-  %67 = shl nuw nsw i32 %66, 8
-  %68 = and i32 %62, 65535
-  %69 = xor i32 %68, %67
-  %70 = load i32, ptr %9, align 8, !tbaa !69
-  %71 = zext i32 %63 to i64
-  %72 = getelementptr inbounds i32, ptr %53, i64 %71
-  store i32 %70, ptr %72, align 4, !tbaa !40
-  %73 = add nuw nsw i32 %69, 1024
-  %74 = zext i32 %73 to i64
-  %75 = getelementptr inbounds i32, ptr %53, i64 %74
-  store i32 %70, ptr %75, align 4, !tbaa !40
-  br label %76
+if.then2:                                         ; preds = %if.end
+  %14 = load ptr, ptr %hash.i.i, align 8, !tbaa !70
+  %15 = load ptr, ptr %crc, align 8, !tbaa !72
+  %16 = load i8, ptr %13, align 1, !tbaa !77
+  %idxprom = zext i8 %16 to i64
+  %arrayidx4 = getelementptr inbounds i32, ptr %15, i64 %idxprom
+  %17 = load i32, ptr %arrayidx4, align 4, !tbaa !40
+  %arrayidx5 = getelementptr inbounds i8, ptr %13, i64 1
+  %18 = load i8, ptr %arrayidx5, align 1, !tbaa !77
+  %conv = zext i8 %18 to i32
+  %xor = xor i32 %17, %conv
+  %and = and i32 %xor, 1023
+  %arrayidx6 = getelementptr inbounds i8, ptr %13, i64 2
+  %19 = load i8, ptr %arrayidx6, align 1, !tbaa !77
+  %conv7 = zext i8 %19 to i32
+  %shl = shl nuw nsw i32 %conv7, 8
+  %xor.masked = and i32 %xor, 65535
+  %and9 = xor i32 %xor.masked, %shl
+  %20 = load i32, ptr %lzPos.i, align 8, !tbaa !69
+  %idxprom10 = zext i32 %and to i64
+  %arrayidx11 = getelementptr inbounds i32, ptr %14, i64 %idxprom10
+  store i32 %20, ptr %arrayidx11, align 4, !tbaa !40
+  %add = add nuw nsw i32 %and9, 1024
+  %idxprom12 = zext i32 %add to i64
+  %arrayidx13 = getelementptr inbounds i32, ptr %14, i64 %idxprom12
+  store i32 %20, ptr %arrayidx13, align 4, !tbaa !40
+  br label %if.end14
 
-76:                                               ; preds = %47, %52
-  %77 = load i32, ptr %9, align 8, !tbaa !69
-  %78 = add i32 %77, 1
-  store i32 %78, ptr %9, align 8, !tbaa !69
-  %79 = getelementptr inbounds i8, ptr %51, i64 1
-  store ptr %79, ptr %0, align 8, !tbaa !44
-  %80 = load ptr, ptr %7, align 8, !tbaa !60
-  %81 = load i32, ptr %3, align 8, !tbaa !67
-  %82 = zext i32 %81 to i64
-  %83 = getelementptr inbounds i32, ptr %80, i64 %82
-  %84 = load i32, ptr %83, align 4, !tbaa !40
-  %85 = add i32 %81, 1
-  %86 = add i32 %85, %84
-  store i32 %86, ptr %3, align 8, !tbaa !67
-  %87 = add i32 %17, -1
-  %88 = icmp eq i32 %87, 0
-  br i1 %88, label %89, label %15, !llvm.loop !86
+if.end14:                                         ; preds = %if.end, %if.then2
+  %21 = load i32, ptr %lzPos.i, align 8, !tbaa !69
+  %inc = add i32 %21, 1
+  store i32 %inc, ptr %lzPos.i, align 8, !tbaa !69
+  %incdec.ptr = getelementptr inbounds i8, ptr %13, i64 1
+  store ptr %incdec.ptr, ptr %p, align 8, !tbaa !44
+  %22 = load ptr, ptr %btBuf.i, align 8, !tbaa !60
+  %23 = load i32, ptr %btBufPos, align 8, !tbaa !67
+  %idxprom18 = zext i32 %23 to i64
+  %arrayidx19 = getelementptr inbounds i32, ptr %22, i64 %idxprom18
+  %24 = load i32, ptr %arrayidx19, align 4, !tbaa !40
+  %add20 = add i32 %23, 1
+  %add22 = add i32 %add20, %24
+  store i32 %add22, ptr %btBufPos, align 8, !tbaa !67
+  %dec23 = add i32 %num.addr.0, -1
+  %cmp24.not = icmp eq i32 %dec23, 0
+  br i1 %cmp24.not, label %do.end, label %do.body, !llvm.loop !86
 
-89:                                               ; preds = %76
+do.end:                                           ; preds = %if.end14
   ret void
 }
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(read, argmem: readwrite, inaccessiblemem: none) uwtable
-define dso_local void @MatchFinderMt_CreateVTable(ptr nocapture noundef %0, ptr nocapture noundef writeonly %1) local_unnamed_addr #8 {
-  store ptr @MatchFinderMt_Init, ptr %1, align 8, !tbaa !87
-  %3 = getelementptr inbounds %struct._IMatchFinder, ptr %1, i64 0, i32 1
-  store ptr @MatchFinderMt_GetIndexByte, ptr %3, align 8, !tbaa !89
-  %4 = getelementptr inbounds %struct._IMatchFinder, ptr %1, i64 0, i32 2
-  store ptr @MatchFinderMt_GetNumAvailableBytes, ptr %4, align 8, !tbaa !90
-  %5 = getelementptr inbounds %struct._IMatchFinder, ptr %1, i64 0, i32 3
-  store ptr @MatchFinderMt_GetPointerToCurrentPos, ptr %5, align 8, !tbaa !91
-  %6 = getelementptr inbounds %struct._IMatchFinder, ptr %1, i64 0, i32 4
-  store ptr @MatchFinderMt_GetMatches, ptr %6, align 8, !tbaa !92
-  %7 = getelementptr inbounds %struct._CMatchFinderMt, ptr %0, i64 0, i32 27
-  %8 = load ptr, ptr %7, align 8, !tbaa !29
-  %9 = getelementptr inbounds %struct._CMatchFinder, ptr %8, i64 0, i32 18
-  %10 = load i32, ptr %9, align 8, !tbaa !41
-  switch i32 %10, label %19 [
-    i32 2, label %11
-    i32 3, label %15
+define dso_local void @MatchFinderMt_CreateVTable(ptr nocapture noundef %p, ptr nocapture noundef writeonly %vTable) local_unnamed_addr #8 {
+entry:
+  store ptr @MatchFinderMt_Init, ptr %vTable, align 8, !tbaa !87
+  %GetIndexByte = getelementptr inbounds %struct._IMatchFinder, ptr %vTable, i64 0, i32 1
+  store ptr @MatchFinderMt_GetIndexByte, ptr %GetIndexByte, align 8, !tbaa !89
+  %GetNumAvailableBytes = getelementptr inbounds %struct._IMatchFinder, ptr %vTable, i64 0, i32 2
+  store ptr @MatchFinderMt_GetNumAvailableBytes, ptr %GetNumAvailableBytes, align 8, !tbaa !90
+  %GetPointerToCurrentPos = getelementptr inbounds %struct._IMatchFinder, ptr %vTable, i64 0, i32 3
+  store ptr @MatchFinderMt_GetPointerToCurrentPos, ptr %GetPointerToCurrentPos, align 8, !tbaa !91
+  %GetMatches = getelementptr inbounds %struct._IMatchFinder, ptr %vTable, i64 0, i32 4
+  store ptr @MatchFinderMt_GetMatches, ptr %GetMatches, align 8, !tbaa !92
+  %MatchFinder = getelementptr inbounds %struct._CMatchFinderMt, ptr %p, i64 0, i32 27
+  %0 = load ptr, ptr %MatchFinder, align 8, !tbaa !29
+  %numHashBytes = getelementptr inbounds %struct._CMatchFinder, ptr %0, i64 0, i32 18
+  %1 = load i32, ptr %numHashBytes, align 8, !tbaa !41
+  switch i32 %1, label %sw.default [
+    i32 2, label %sw.bb
+    i32 3, label %sw.bb2
   ]
 
-11:                                               ; preds = %2
-  %12 = getelementptr inbounds %struct._CMatchFinderMt, ptr %0, i64 0, i32 26
-  store ptr @GetHeads2, ptr %12, align 8, !tbaa !42
-  %13 = getelementptr inbounds %struct._CMatchFinderMt, ptr %0, i64 0, i32 10
-  store ptr null, ptr %13, align 8, !tbaa !82
-  %14 = getelementptr inbounds %struct._IMatchFinder, ptr %1, i64 0, i32 5
-  store ptr @MatchFinderMt0_Skip, ptr %14, align 8, !tbaa !93
-  store ptr @MatchFinderMt2_GetMatches, ptr %6, align 8, !tbaa !92
-  br label %27
+sw.bb:                                            ; preds = %entry
+  %GetHeadsFunc = getelementptr inbounds %struct._CMatchFinderMt, ptr %p, i64 0, i32 26
+  store ptr @GetHeads2, ptr %GetHeadsFunc, align 8, !tbaa !42
+  %MixMatchesFunc = getelementptr inbounds %struct._CMatchFinderMt, ptr %p, i64 0, i32 10
+  store ptr null, ptr %MixMatchesFunc, align 8, !tbaa !82
+  %Skip = getelementptr inbounds %struct._IMatchFinder, ptr %vTable, i64 0, i32 5
+  store ptr @MatchFinderMt0_Skip, ptr %Skip, align 8, !tbaa !93
+  store ptr @MatchFinderMt2_GetMatches, ptr %GetMatches, align 8, !tbaa !92
+  br label %sw.epilog
 
-15:                                               ; preds = %2
-  %16 = getelementptr inbounds %struct._CMatchFinderMt, ptr %0, i64 0, i32 26
-  store ptr @GetHeads3, ptr %16, align 8, !tbaa !42
-  %17 = getelementptr inbounds %struct._CMatchFinderMt, ptr %0, i64 0, i32 10
-  store ptr @MixMatches2, ptr %17, align 8, !tbaa !82
-  %18 = getelementptr inbounds %struct._IMatchFinder, ptr %1, i64 0, i32 5
-  store ptr @MatchFinderMt2_Skip, ptr %18, align 8, !tbaa !93
-  br label %27
+sw.bb2:                                           ; preds = %entry
+  %GetHeadsFunc3 = getelementptr inbounds %struct._CMatchFinderMt, ptr %p, i64 0, i32 26
+  store ptr @GetHeads3, ptr %GetHeadsFunc3, align 8, !tbaa !42
+  %MixMatchesFunc4 = getelementptr inbounds %struct._CMatchFinderMt, ptr %p, i64 0, i32 10
+  store ptr @MixMatches2, ptr %MixMatchesFunc4, align 8, !tbaa !82
+  %Skip5 = getelementptr inbounds %struct._IMatchFinder, ptr %vTable, i64 0, i32 5
+  store ptr @MatchFinderMt2_Skip, ptr %Skip5, align 8, !tbaa !93
+  br label %sw.epilog
 
-19:                                               ; preds = %2
-  %20 = getelementptr inbounds %struct._CMatchFinder, ptr %8, i64 0, i32 22
-  %21 = load i32, ptr %20, align 4, !tbaa !94
-  %22 = icmp eq i32 %21, 0
-  %23 = select i1 %22, ptr @GetHeads4, ptr @GetHeads4b
-  %24 = getelementptr inbounds %struct._CMatchFinderMt, ptr %0, i64 0, i32 26
-  store ptr %23, ptr %24, align 8, !tbaa !42
-  %25 = getelementptr inbounds %struct._CMatchFinderMt, ptr %0, i64 0, i32 10
-  store ptr @MixMatches3, ptr %25, align 8, !tbaa !82
-  %26 = getelementptr inbounds %struct._IMatchFinder, ptr %1, i64 0, i32 5
-  store ptr @MatchFinderMt3_Skip, ptr %26, align 8, !tbaa !93
-  br label %27
+sw.default:                                       ; preds = %entry
+  %bigHash = getelementptr inbounds %struct._CMatchFinder, ptr %0, i64 0, i32 22
+  %2 = load i32, ptr %bigHash, align 4, !tbaa !94
+  %tobool.not = icmp eq i32 %2, 0
+  %cond = select i1 %tobool.not, ptr @GetHeads4, ptr @GetHeads4b
+  %GetHeadsFunc7 = getelementptr inbounds %struct._CMatchFinderMt, ptr %p, i64 0, i32 26
+  store ptr %cond, ptr %GetHeadsFunc7, align 8, !tbaa !42
+  %MixMatchesFunc8 = getelementptr inbounds %struct._CMatchFinderMt, ptr %p, i64 0, i32 10
+  store ptr @MixMatches3, ptr %MixMatchesFunc8, align 8, !tbaa !82
+  %Skip9 = getelementptr inbounds %struct._IMatchFinder, ptr %vTable, i64 0, i32 5
+  store ptr @MatchFinderMt3_Skip, ptr %Skip9, align 8, !tbaa !93
+  br label %sw.epilog
 
-27:                                               ; preds = %19, %15, %11
+sw.epilog:                                        ; preds = %sw.default, %sw.bb2, %sw.bb
   ret void
 }
 
 ; Function Attrs: nofree norecurse nosync nounwind memory(readwrite, inaccessiblemem: none) uwtable
-define internal void @GetHeads2(ptr nocapture noundef readonly %0, i32 noundef %1, ptr nocapture noundef %2, i32 %3, ptr nocapture noundef writeonly %4, i32 noundef %5, ptr nocapture readnone %6) #7 {
-  %8 = icmp eq i32 %5, 0
-  br i1 %8, label %51, label %9
+define internal void @GetHeads2(ptr nocapture noundef readonly %p, i32 noundef %pos, ptr nocapture noundef %hash, i32 %hashMask, ptr nocapture noundef writeonly %heads, i32 noundef %numHeads, ptr nocapture readnone %crc) #7 {
+entry:
+  %cmp.not13 = icmp eq i32 %numHeads, 0
+  br i1 %cmp.not13, label %for.end, label %for.body.preheader
 
-9:                                                ; preds = %7
-  %10 = and i32 %5, 1
-  %11 = icmp eq i32 %10, 0
-  br i1 %11, label %22, label %12
+for.body.preheader:                               ; preds = %entry
+  %xtraiter = and i32 %numHeads, 1
+  %lcmp.mod.not = icmp eq i32 %xtraiter, 0
+  br i1 %lcmp.mod.not, label %for.body.prol.loopexit, label %for.body.prol
 
-12:                                               ; preds = %9
-  %13 = load i16, ptr %0, align 1
-  %14 = zext i16 %13 to i64
-  %15 = getelementptr inbounds i8, ptr %0, i64 1
-  %16 = getelementptr inbounds i32, ptr %2, i64 %14
-  %17 = load i32, ptr %16, align 4, !tbaa !40
-  %18 = sub i32 %1, %17
-  %19 = getelementptr inbounds i32, ptr %4, i64 1
-  store i32 %18, ptr %4, align 4, !tbaa !40
-  %20 = add i32 %1, 1
-  store i32 %1, ptr %16, align 4, !tbaa !40
-  %21 = add i32 %5, -1
-  br label %22
+for.body.prol:                                    ; preds = %for.body.preheader
+  %0 = load i16, ptr %p, align 1
+  %1 = zext i16 %0 to i64
+  %arrayidx1.prol = getelementptr inbounds i8, ptr %p, i64 1
+  %arrayidx3.prol = getelementptr inbounds i32, ptr %hash, i64 %1
+  %2 = load i32, ptr %arrayidx3.prol, align 4, !tbaa !40
+  %sub.prol = sub i32 %pos, %2
+  %incdec.ptr4.prol = getelementptr inbounds i32, ptr %heads, i64 1
+  store i32 %sub.prol, ptr %heads, align 4, !tbaa !40
+  %inc.prol = add i32 %pos, 1
+  store i32 %pos, ptr %arrayidx3.prol, align 4, !tbaa !40
+  %dec.prol = add i32 %numHeads, -1
+  br label %for.body.prol.loopexit
 
-22:                                               ; preds = %12, %9
-  %23 = phi ptr [ %0, %9 ], [ %15, %12 ]
-  %24 = phi i32 [ %1, %9 ], [ %20, %12 ]
-  %25 = phi i32 [ %5, %9 ], [ %21, %12 ]
-  %26 = phi ptr [ %4, %9 ], [ %19, %12 ]
-  %27 = icmp eq i32 %5, 1
-  br i1 %27, label %51, label %28
+for.body.prol.loopexit:                           ; preds = %for.body.prol, %for.body.preheader
+  %p.addr.017.unr = phi ptr [ %p, %for.body.preheader ], [ %arrayidx1.prol, %for.body.prol ]
+  %pos.addr.016.unr = phi i32 [ %pos, %for.body.preheader ], [ %inc.prol, %for.body.prol ]
+  %numHeads.addr.015.unr = phi i32 [ %numHeads, %for.body.preheader ], [ %dec.prol, %for.body.prol ]
+  %heads.addr.014.unr = phi ptr [ %heads, %for.body.preheader ], [ %incdec.ptr4.prol, %for.body.prol ]
+  %3 = icmp eq i32 %numHeads, 1
+  br i1 %3, label %for.end, label %for.body
 
-28:                                               ; preds = %22, %28
-  %29 = phi ptr [ %43, %28 ], [ %23, %22 ]
-  %30 = phi i32 [ %48, %28 ], [ %24, %22 ]
-  %31 = phi i32 [ %49, %28 ], [ %25, %22 ]
-  %32 = phi ptr [ %47, %28 ], [ %26, %22 ]
-  %33 = load i16, ptr %29, align 1
-  %34 = zext i16 %33 to i64
-  %35 = getelementptr inbounds i8, ptr %29, i64 1
-  %36 = getelementptr inbounds i32, ptr %2, i64 %34
-  %37 = load i32, ptr %36, align 4, !tbaa !40
-  %38 = sub i32 %30, %37
-  %39 = getelementptr inbounds i32, ptr %32, i64 1
-  store i32 %38, ptr %32, align 4, !tbaa !40
-  %40 = add i32 %30, 1
-  store i32 %30, ptr %36, align 4, !tbaa !40
-  %41 = load i16, ptr %35, align 1
-  %42 = zext i16 %41 to i64
-  %43 = getelementptr inbounds i8, ptr %29, i64 2
-  %44 = getelementptr inbounds i32, ptr %2, i64 %42
-  %45 = load i32, ptr %44, align 4, !tbaa !40
-  %46 = sub i32 %40, %45
-  %47 = getelementptr inbounds i32, ptr %32, i64 2
-  store i32 %46, ptr %39, align 4, !tbaa !40
-  %48 = add i32 %30, 2
-  store i32 %40, ptr %44, align 4, !tbaa !40
-  %49 = add i32 %31, -2
-  %50 = icmp eq i32 %49, 0
-  br i1 %50, label %51, label %28, !llvm.loop !95
+for.body:                                         ; preds = %for.body.prol.loopexit, %for.body
+  %p.addr.017 = phi ptr [ %arrayidx1.1, %for.body ], [ %p.addr.017.unr, %for.body.prol.loopexit ]
+  %pos.addr.016 = phi i32 [ %inc.1, %for.body ], [ %pos.addr.016.unr, %for.body.prol.loopexit ]
+  %numHeads.addr.015 = phi i32 [ %dec.1, %for.body ], [ %numHeads.addr.015.unr, %for.body.prol.loopexit ]
+  %heads.addr.014 = phi ptr [ %incdec.ptr4.1, %for.body ], [ %heads.addr.014.unr, %for.body.prol.loopexit ]
+  %4 = load i16, ptr %p.addr.017, align 1
+  %5 = zext i16 %4 to i64
+  %arrayidx1 = getelementptr inbounds i8, ptr %p.addr.017, i64 1
+  %arrayidx3 = getelementptr inbounds i32, ptr %hash, i64 %5
+  %6 = load i32, ptr %arrayidx3, align 4, !tbaa !40
+  %sub = sub i32 %pos.addr.016, %6
+  %incdec.ptr4 = getelementptr inbounds i32, ptr %heads.addr.014, i64 1
+  store i32 %sub, ptr %heads.addr.014, align 4, !tbaa !40
+  %inc = add i32 %pos.addr.016, 1
+  store i32 %pos.addr.016, ptr %arrayidx3, align 4, !tbaa !40
+  %7 = load i16, ptr %arrayidx1, align 1
+  %8 = zext i16 %7 to i64
+  %arrayidx1.1 = getelementptr inbounds i8, ptr %p.addr.017, i64 2
+  %arrayidx3.1 = getelementptr inbounds i32, ptr %hash, i64 %8
+  %9 = load i32, ptr %arrayidx3.1, align 4, !tbaa !40
+  %sub.1 = sub i32 %inc, %9
+  %incdec.ptr4.1 = getelementptr inbounds i32, ptr %heads.addr.014, i64 2
+  store i32 %sub.1, ptr %incdec.ptr4, align 4, !tbaa !40
+  %inc.1 = add i32 %pos.addr.016, 2
+  store i32 %inc, ptr %arrayidx3.1, align 4, !tbaa !40
+  %dec.1 = add i32 %numHeads.addr.015, -2
+  %cmp.not.1 = icmp eq i32 %dec.1, 0
+  br i1 %cmp.not.1, label %for.end, label %for.body, !llvm.loop !95
 
-51:                                               ; preds = %22, %28, %7
+for.end:                                          ; preds = %for.body.prol.loopexit, %for.body, %entry
   ret void
 }
 
 ; Function Attrs: nofree norecurse nosync nounwind memory(readwrite, inaccessiblemem: none) uwtable
-define internal void @GetHeads3(ptr nocapture noundef readonly %0, i32 noundef %1, ptr nocapture noundef %2, i32 noundef %3, ptr nocapture noundef writeonly %4, i32 noundef %5, ptr nocapture noundef readonly %6) #7 {
-  %8 = icmp eq i32 %5, 0
-  br i1 %8, label %36, label %9
+define internal void @GetHeads3(ptr nocapture noundef readonly %p, i32 noundef %pos, ptr nocapture noundef %hash, i32 noundef %hashMask, ptr nocapture noundef writeonly %heads, i32 noundef %numHeads, ptr nocapture noundef readonly %crc) #7 {
+entry:
+  %cmp.not18 = icmp eq i32 %numHeads, 0
+  br i1 %cmp.not18, label %for.end, label %for.body
 
-9:                                                ; preds = %7, %9
-  %10 = phi ptr [ %18, %9 ], [ %0, %7 ]
-  %11 = phi i32 [ %33, %9 ], [ %1, %7 ]
-  %12 = phi i32 [ %34, %9 ], [ %5, %7 ]
-  %13 = phi ptr [ %32, %9 ], [ %4, %7 ]
-  %14 = load i8, ptr %10, align 1, !tbaa !77
-  %15 = zext i8 %14 to i64
-  %16 = getelementptr inbounds i32, ptr %6, i64 %15
-  %17 = load i32, ptr %16, align 4, !tbaa !40
-  %18 = getelementptr inbounds i8, ptr %10, i64 1
-  %19 = load i8, ptr %18, align 1, !tbaa !77
-  %20 = zext i8 %19 to i32
-  %21 = xor i32 %17, %20
-  %22 = getelementptr inbounds i8, ptr %10, i64 2
-  %23 = load i8, ptr %22, align 1, !tbaa !77
-  %24 = zext i8 %23 to i32
-  %25 = shl nuw nsw i32 %24, 8
-  %26 = xor i32 %21, %25
-  %27 = and i32 %26, %3
-  %28 = zext i32 %27 to i64
-  %29 = getelementptr inbounds i32, ptr %2, i64 %28
-  %30 = load i32, ptr %29, align 4, !tbaa !40
-  %31 = sub i32 %11, %30
-  %32 = getelementptr inbounds i32, ptr %13, i64 1
-  store i32 %31, ptr %13, align 4, !tbaa !40
-  %33 = add i32 %11, 1
-  store i32 %11, ptr %29, align 4, !tbaa !40
-  %34 = add i32 %12, -1
-  %35 = icmp eq i32 %34, 0
-  br i1 %35, label %36, label %9, !llvm.loop !96
+for.body:                                         ; preds = %entry, %for.body
+  %p.addr.022 = phi ptr [ %arrayidx2, %for.body ], [ %p, %entry ]
+  %pos.addr.021 = phi i32 [ %inc, %for.body ], [ %pos, %entry ]
+  %numHeads.addr.020 = phi i32 [ %dec, %for.body ], [ %numHeads, %entry ]
+  %heads.addr.019 = phi ptr [ %incdec.ptr8, %for.body ], [ %heads, %entry ]
+  %0 = load i8, ptr %p.addr.022, align 1, !tbaa !77
+  %idxprom = zext i8 %0 to i64
+  %arrayidx1 = getelementptr inbounds i32, ptr %crc, i64 %idxprom
+  %1 = load i32, ptr %arrayidx1, align 4, !tbaa !40
+  %arrayidx2 = getelementptr inbounds i8, ptr %p.addr.022, i64 1
+  %2 = load i8, ptr %arrayidx2, align 1, !tbaa !77
+  %conv = zext i8 %2 to i32
+  %xor = xor i32 %1, %conv
+  %arrayidx3 = getelementptr inbounds i8, ptr %p.addr.022, i64 2
+  %3 = load i8, ptr %arrayidx3, align 1, !tbaa !77
+  %conv4 = zext i8 %3 to i32
+  %shl = shl nuw nsw i32 %conv4, 8
+  %xor5 = xor i32 %xor, %shl
+  %and = and i32 %xor5, %hashMask
+  %idxprom6 = zext i32 %and to i64
+  %arrayidx7 = getelementptr inbounds i32, ptr %hash, i64 %idxprom6
+  %4 = load i32, ptr %arrayidx7, align 4, !tbaa !40
+  %sub = sub i32 %pos.addr.021, %4
+  %incdec.ptr8 = getelementptr inbounds i32, ptr %heads.addr.019, i64 1
+  store i32 %sub, ptr %heads.addr.019, align 4, !tbaa !40
+  %inc = add i32 %pos.addr.021, 1
+  store i32 %pos.addr.021, ptr %arrayidx7, align 4, !tbaa !40
+  %dec = add i32 %numHeads.addr.020, -1
+  %cmp.not = icmp eq i32 %dec, 0
+  br i1 %cmp.not, label %for.end, label %for.body, !llvm.loop !96
 
-36:                                               ; preds = %9, %7
+for.end:                                          ; preds = %for.body, %entry
   ret void
 }
 
 ; Function Attrs: nofree norecurse nosync nounwind memory(readwrite, inaccessiblemem: none) uwtable
-define internal void @GetHeads4b(ptr nocapture noundef readonly %0, i32 noundef %1, ptr nocapture noundef %2, i32 noundef %3, ptr nocapture noundef writeonly %4, i32 noundef %5, ptr nocapture noundef readonly %6) #7 {
-  %8 = icmp eq i32 %5, 0
-  br i1 %8, label %41, label %9
+define internal void @GetHeads4b(ptr nocapture noundef readonly %p, i32 noundef %pos, ptr nocapture noundef %hash, i32 noundef %hashMask, ptr nocapture noundef writeonly %heads, i32 noundef %numHeads, ptr nocapture noundef readonly %crc) #7 {
+entry:
+  %cmp.not23 = icmp eq i32 %numHeads, 0
+  br i1 %cmp.not23, label %for.end, label %for.body
 
-9:                                                ; preds = %7, %9
-  %10 = phi ptr [ %18, %9 ], [ %0, %7 ]
-  %11 = phi i32 [ %38, %9 ], [ %1, %7 ]
-  %12 = phi i32 [ %39, %9 ], [ %5, %7 ]
-  %13 = phi ptr [ %37, %9 ], [ %4, %7 ]
-  %14 = load i8, ptr %10, align 1, !tbaa !77
-  %15 = zext i8 %14 to i64
-  %16 = getelementptr inbounds i32, ptr %6, i64 %15
-  %17 = load i32, ptr %16, align 4, !tbaa !40
-  %18 = getelementptr inbounds i8, ptr %10, i64 1
-  %19 = load i8, ptr %18, align 1, !tbaa !77
-  %20 = zext i8 %19 to i32
-  %21 = xor i32 %17, %20
-  %22 = getelementptr inbounds i8, ptr %10, i64 2
-  %23 = load i8, ptr %22, align 1, !tbaa !77
-  %24 = zext i8 %23 to i32
-  %25 = shl nuw nsw i32 %24, 8
-  %26 = xor i32 %21, %25
-  %27 = getelementptr inbounds i8, ptr %10, i64 3
-  %28 = load i8, ptr %27, align 1, !tbaa !77
-  %29 = zext i8 %28 to i32
-  %30 = shl nuw nsw i32 %29, 16
-  %31 = xor i32 %26, %30
-  %32 = and i32 %31, %3
-  %33 = zext i32 %32 to i64
-  %34 = getelementptr inbounds i32, ptr %2, i64 %33
-  %35 = load i32, ptr %34, align 4, !tbaa !40
-  %36 = sub i32 %11, %35
-  %37 = getelementptr inbounds i32, ptr %13, i64 1
-  store i32 %36, ptr %13, align 4, !tbaa !40
-  %38 = add i32 %11, 1
-  store i32 %11, ptr %34, align 4, !tbaa !40
-  %39 = add i32 %12, -1
-  %40 = icmp eq i32 %39, 0
-  br i1 %40, label %41, label %9, !llvm.loop !97
+for.body:                                         ; preds = %entry, %for.body
+  %p.addr.027 = phi ptr [ %arrayidx2, %for.body ], [ %p, %entry ]
+  %pos.addr.026 = phi i32 [ %inc, %for.body ], [ %pos, %entry ]
+  %numHeads.addr.025 = phi i32 [ %dec, %for.body ], [ %numHeads, %entry ]
+  %heads.addr.024 = phi ptr [ %incdec.ptr12, %for.body ], [ %heads, %entry ]
+  %0 = load i8, ptr %p.addr.027, align 1, !tbaa !77
+  %idxprom = zext i8 %0 to i64
+  %arrayidx1 = getelementptr inbounds i32, ptr %crc, i64 %idxprom
+  %1 = load i32, ptr %arrayidx1, align 4, !tbaa !40
+  %arrayidx2 = getelementptr inbounds i8, ptr %p.addr.027, i64 1
+  %2 = load i8, ptr %arrayidx2, align 1, !tbaa !77
+  %conv = zext i8 %2 to i32
+  %xor = xor i32 %1, %conv
+  %arrayidx3 = getelementptr inbounds i8, ptr %p.addr.027, i64 2
+  %3 = load i8, ptr %arrayidx3, align 1, !tbaa !77
+  %conv4 = zext i8 %3 to i32
+  %shl = shl nuw nsw i32 %conv4, 8
+  %xor5 = xor i32 %xor, %shl
+  %arrayidx6 = getelementptr inbounds i8, ptr %p.addr.027, i64 3
+  %4 = load i8, ptr %arrayidx6, align 1, !tbaa !77
+  %conv7 = zext i8 %4 to i32
+  %shl8 = shl nuw nsw i32 %conv7, 16
+  %xor9 = xor i32 %xor5, %shl8
+  %and = and i32 %xor9, %hashMask
+  %idxprom10 = zext i32 %and to i64
+  %arrayidx11 = getelementptr inbounds i32, ptr %hash, i64 %idxprom10
+  %5 = load i32, ptr %arrayidx11, align 4, !tbaa !40
+  %sub = sub i32 %pos.addr.026, %5
+  %incdec.ptr12 = getelementptr inbounds i32, ptr %heads.addr.024, i64 1
+  store i32 %sub, ptr %heads.addr.024, align 4, !tbaa !40
+  %inc = add i32 %pos.addr.026, 1
+  store i32 %pos.addr.026, ptr %arrayidx11, align 4, !tbaa !40
+  %dec = add i32 %numHeads.addr.025, -1
+  %cmp.not = icmp eq i32 %dec, 0
+  br i1 %cmp.not, label %for.end, label %for.body, !llvm.loop !97
 
-41:                                               ; preds = %9, %7
+for.end:                                          ; preds = %for.body, %entry
   ret void
 }
 
 ; Function Attrs: nofree norecurse nosync nounwind memory(readwrite, inaccessiblemem: none) uwtable
-define internal void @GetHeads4(ptr nocapture noundef readonly %0, i32 noundef %1, ptr nocapture noundef %2, i32 noundef %3, ptr nocapture noundef writeonly %4, i32 noundef %5, ptr nocapture noundef readonly %6) #7 {
-  %8 = icmp eq i32 %5, 0
-  br i1 %8, label %43, label %9
+define internal void @GetHeads4(ptr nocapture noundef readonly %p, i32 noundef %pos, ptr nocapture noundef %hash, i32 noundef %hashMask, ptr nocapture noundef writeonly %heads, i32 noundef %numHeads, ptr nocapture noundef readonly %crc) #7 {
+entry:
+  %cmp.not25 = icmp eq i32 %numHeads, 0
+  br i1 %cmp.not25, label %for.end, label %for.body
 
-9:                                                ; preds = %7, %9
-  %10 = phi ptr [ %18, %9 ], [ %0, %7 ]
-  %11 = phi i32 [ %40, %9 ], [ %1, %7 ]
-  %12 = phi i32 [ %41, %9 ], [ %5, %7 ]
-  %13 = phi ptr [ %39, %9 ], [ %4, %7 ]
-  %14 = load i8, ptr %10, align 1, !tbaa !77
-  %15 = zext i8 %14 to i64
-  %16 = getelementptr inbounds i32, ptr %6, i64 %15
-  %17 = load i32, ptr %16, align 4, !tbaa !40
-  %18 = getelementptr inbounds i8, ptr %10, i64 1
-  %19 = load i8, ptr %18, align 1, !tbaa !77
-  %20 = zext i8 %19 to i32
-  %21 = xor i32 %17, %20
-  %22 = getelementptr inbounds i8, ptr %10, i64 2
-  %23 = load i8, ptr %22, align 1, !tbaa !77
-  %24 = zext i8 %23 to i32
-  %25 = shl nuw nsw i32 %24, 8
-  %26 = xor i32 %21, %25
-  %27 = getelementptr inbounds i8, ptr %10, i64 3
-  %28 = load i8, ptr %27, align 1, !tbaa !77
-  %29 = zext i8 %28 to i64
-  %30 = getelementptr inbounds i32, ptr %6, i64 %29
-  %31 = load i32, ptr %30, align 4, !tbaa !40
-  %32 = shl i32 %31, 5
-  %33 = xor i32 %26, %32
-  %34 = and i32 %33, %3
-  %35 = zext i32 %34 to i64
-  %36 = getelementptr inbounds i32, ptr %2, i64 %35
-  %37 = load i32, ptr %36, align 4, !tbaa !40
-  %38 = sub i32 %11, %37
-  %39 = getelementptr inbounds i32, ptr %13, i64 1
-  store i32 %38, ptr %13, align 4, !tbaa !40
-  %40 = add i32 %11, 1
-  store i32 %11, ptr %36, align 4, !tbaa !40
-  %41 = add i32 %12, -1
-  %42 = icmp eq i32 %41, 0
-  br i1 %42, label %43, label %9, !llvm.loop !98
+for.body:                                         ; preds = %entry, %for.body
+  %p.addr.029 = phi ptr [ %arrayidx2, %for.body ], [ %p, %entry ]
+  %pos.addr.028 = phi i32 [ %inc, %for.body ], [ %pos, %entry ]
+  %numHeads.addr.027 = phi i32 [ %dec, %for.body ], [ %numHeads, %entry ]
+  %heads.addr.026 = phi ptr [ %incdec.ptr13, %for.body ], [ %heads, %entry ]
+  %0 = load i8, ptr %p.addr.029, align 1, !tbaa !77
+  %idxprom = zext i8 %0 to i64
+  %arrayidx1 = getelementptr inbounds i32, ptr %crc, i64 %idxprom
+  %1 = load i32, ptr %arrayidx1, align 4, !tbaa !40
+  %arrayidx2 = getelementptr inbounds i8, ptr %p.addr.029, i64 1
+  %2 = load i8, ptr %arrayidx2, align 1, !tbaa !77
+  %conv = zext i8 %2 to i32
+  %xor = xor i32 %1, %conv
+  %arrayidx3 = getelementptr inbounds i8, ptr %p.addr.029, i64 2
+  %3 = load i8, ptr %arrayidx3, align 1, !tbaa !77
+  %conv4 = zext i8 %3 to i32
+  %shl = shl nuw nsw i32 %conv4, 8
+  %xor5 = xor i32 %xor, %shl
+  %arrayidx6 = getelementptr inbounds i8, ptr %p.addr.029, i64 3
+  %4 = load i8, ptr %arrayidx6, align 1, !tbaa !77
+  %idxprom7 = zext i8 %4 to i64
+  %arrayidx8 = getelementptr inbounds i32, ptr %crc, i64 %idxprom7
+  %5 = load i32, ptr %arrayidx8, align 4, !tbaa !40
+  %shl9 = shl i32 %5, 5
+  %xor10 = xor i32 %xor5, %shl9
+  %and = and i32 %xor10, %hashMask
+  %idxprom11 = zext i32 %and to i64
+  %arrayidx12 = getelementptr inbounds i32, ptr %hash, i64 %idxprom11
+  %6 = load i32, ptr %arrayidx12, align 4, !tbaa !40
+  %sub = sub i32 %pos.addr.028, %6
+  %incdec.ptr13 = getelementptr inbounds i32, ptr %heads.addr.026, i64 1
+  store i32 %sub, ptr %heads.addr.026, align 4, !tbaa !40
+  %inc = add i32 %pos.addr.028, 1
+  store i32 %pos.addr.028, ptr %arrayidx12, align 4, !tbaa !40
+  %dec = add i32 %numHeads.addr.027, -1
+  %cmp.not = icmp eq i32 %dec, 0
+  br i1 %cmp.not, label %for.end, label %for.body, !llvm.loop !98
 
-43:                                               ; preds = %9, %7
+for.end:                                          ; preds = %for.body, %entry
   ret void
 }
 

@@ -26,349 +26,363 @@ target triple = "x86_64-unknown-linux-gnu"
 @_ZN15CByteOutBufWrapC1Ev = dso_local unnamed_addr alias void (ptr), ptr @_ZN15CByteOutBufWrapC2Ev
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(argmem: write) uwtable
-define dso_local void @_ZN21CCompressProgressWrapC2EP21ICompressProgressInfo(ptr nocapture noundef nonnull writeonly align 8 dereferenceable(20) %0, ptr noundef %1) unnamed_addr #0 align 2 {
-  store ptr @_ZL16CompressProgressPvyy, ptr %0, align 8, !tbaa !5
-  %3 = getelementptr inbounds %struct.CCompressProgressWrap, ptr %0, i64 0, i32 1
-  store ptr %1, ptr %3, align 8, !tbaa !12
-  %4 = getelementptr inbounds %struct.CCompressProgressWrap, ptr %0, i64 0, i32 2
-  store i32 0, ptr %4, align 8, !tbaa !13
+define dso_local void @_ZN21CCompressProgressWrapC2EP21ICompressProgressInfo(ptr nocapture noundef nonnull writeonly align 8 dereferenceable(20) %this, ptr noundef %progress) unnamed_addr #0 align 2 {
+entry:
+  store ptr @_ZL16CompressProgressPvyy, ptr %this, align 8, !tbaa !5
+  %Progress3 = getelementptr inbounds %struct.CCompressProgressWrap, ptr %this, i64 0, i32 1
+  store ptr %progress, ptr %Progress3, align 8, !tbaa !12
+  %Res = getelementptr inbounds %struct.CCompressProgressWrap, ptr %this, i64 0, i32 2
+  store i32 0, ptr %Res, align 8, !tbaa !13
   ret void
 }
 
 ; Function Attrs: mustprogress uwtable
-define internal noundef i32 @_ZL16CompressProgressPvyy(ptr nocapture noundef %0, i64 noundef %1, i64 noundef %2) #1 {
-  %4 = alloca i64, align 8
-  %5 = alloca i64, align 8
-  store i64 %1, ptr %4, align 8, !tbaa !14
-  store i64 %2, ptr %5, align 8, !tbaa !14
-  %6 = getelementptr inbounds %struct.CCompressProgressWrap, ptr %0, i64 0, i32 1
-  %7 = load ptr, ptr %6, align 8, !tbaa !12
-  %8 = icmp eq i64 %1, -1
-  %9 = select i1 %8, ptr null, ptr %4
-  %10 = icmp eq i64 %2, -1
-  %11 = select i1 %10, ptr null, ptr %5
-  %12 = load ptr, ptr %7, align 8, !tbaa !16
-  %13 = getelementptr inbounds ptr, ptr %12, i64 5
-  %14 = load ptr, ptr %13, align 8
-  %15 = call noundef i32 %14(ptr noundef nonnull align 8 dereferenceable(8) %7, ptr noundef %9, ptr noundef %11)
-  %16 = getelementptr inbounds %struct.CCompressProgressWrap, ptr %0, i64 0, i32 2
-  store i32 %15, ptr %16, align 8, !tbaa !13
-  ret i32 %15
+define internal noundef i32 @_ZL16CompressProgressPvyy(ptr nocapture noundef %pp, i64 noundef %inSize, i64 noundef %outSize) #1 {
+entry:
+  %inSize.addr = alloca i64, align 8
+  %outSize.addr = alloca i64, align 8
+  store i64 %inSize, ptr %inSize.addr, align 8, !tbaa !14
+  store i64 %outSize, ptr %outSize.addr, align 8, !tbaa !14
+  %Progress = getelementptr inbounds %struct.CCompressProgressWrap, ptr %pp, i64 0, i32 1
+  %0 = load ptr, ptr %Progress, align 8, !tbaa !12
+  %cmp = icmp eq i64 %inSize, -1
+  %.inSize.addr = select i1 %cmp, ptr null, ptr %inSize.addr
+  %cmp1 = icmp eq i64 %outSize, -1
+  %cond5 = select i1 %cmp1, ptr null, ptr %outSize.addr
+  %vtable = load ptr, ptr %0, align 8, !tbaa !16
+  %vfn = getelementptr inbounds ptr, ptr %vtable, i64 5
+  %1 = load ptr, ptr %vfn, align 8
+  %call = call noundef i32 %1(ptr noundef nonnull align 8 dereferenceable(8) %0, ptr noundef %.inSize.addr, ptr noundef %cond5)
+  %Res = getelementptr inbounds %struct.CCompressProgressWrap, ptr %pp, i64 0, i32 2
+  store i32 %call, ptr %Res, align 8, !tbaa !13
+  ret i32 %call
 }
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(none) uwtable
-define dso_local noundef i32 @_Z15HRESULT_To_SResii(i32 noundef %0, i32 noundef %1) local_unnamed_addr #2 {
-  switch i32 %0, label %7 [
-    i32 0, label %8
-    i32 -2147024882, label %3
-    i32 -2147024809, label %4
-    i32 -2147467260, label %5
-    i32 1, label %6
+define dso_local noundef i32 @_Z15HRESULT_To_SResii(i32 noundef %res, i32 noundef %defaultRes) local_unnamed_addr #2 {
+entry:
+  switch i32 %res, label %sw.epilog [
+    i32 0, label %return
+    i32 -2147024882, label %sw.bb1
+    i32 -2147024809, label %sw.bb2
+    i32 -2147467260, label %sw.bb3
+    i32 1, label %sw.bb4
   ]
 
-3:                                                ; preds = %2
-  br label %8
+sw.bb1:                                           ; preds = %entry
+  br label %return
 
-4:                                                ; preds = %2
-  br label %8
+sw.bb2:                                           ; preds = %entry
+  br label %return
 
-5:                                                ; preds = %2
-  br label %8
+sw.bb3:                                           ; preds = %entry
+  br label %return
 
-6:                                                ; preds = %2
-  br label %8
+sw.bb4:                                           ; preds = %entry
+  br label %return
 
-7:                                                ; preds = %2
-  br label %8
+sw.epilog:                                        ; preds = %entry
+  br label %return
 
-8:                                                ; preds = %2, %7, %6, %5, %4, %3
-  %9 = phi i32 [ %1, %7 ], [ 1, %6 ], [ 10, %5 ], [ 5, %4 ], [ 2, %3 ], [ %0, %2 ]
-  ret i32 %9
+return:                                           ; preds = %entry, %sw.epilog, %sw.bb4, %sw.bb3, %sw.bb2, %sw.bb1
+  %retval.0 = phi i32 [ %defaultRes, %sw.epilog ], [ 1, %sw.bb4 ], [ 10, %sw.bb3 ], [ 5, %sw.bb2 ], [ 2, %sw.bb1 ], [ %res, %entry ]
+  ret i32 %retval.0
 }
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(argmem: write) uwtable
-define dso_local void @_ZN16CSeqInStreamWrapC2EP19ISequentialInStream(ptr nocapture noundef nonnull writeonly align 8 dereferenceable(20) %0, ptr noundef %1) unnamed_addr #0 align 2 {
-  store ptr @_ZL6MyReadPvS_Pm, ptr %0, align 8, !tbaa !18
-  %3 = getelementptr inbounds %struct.CSeqInStreamWrap, ptr %0, i64 0, i32 1
-  store ptr %1, ptr %3, align 8, !tbaa !21
+define dso_local void @_ZN16CSeqInStreamWrapC2EP19ISequentialInStream(ptr nocapture noundef nonnull writeonly align 8 dereferenceable(20) %this, ptr noundef %stream) unnamed_addr #0 align 2 {
+entry:
+  store ptr @_ZL6MyReadPvS_Pm, ptr %this, align 8, !tbaa !18
+  %Stream = getelementptr inbounds %struct.CSeqInStreamWrap, ptr %this, i64 0, i32 1
+  store ptr %stream, ptr %Stream, align 8, !tbaa !21
   ret void
 }
 
 ; Function Attrs: mustprogress uwtable
-define internal noundef i32 @_ZL6MyReadPvS_Pm(ptr nocapture noundef %0, ptr noundef %1, ptr nocapture noundef %2) #1 {
-  %4 = alloca i32, align 4
-  call void @llvm.lifetime.start.p0(i64 4, ptr nonnull %4) #6
-  %5 = load i64, ptr %2, align 8, !tbaa !22
-  %6 = tail call i64 @llvm.umin.i64(i64 %5, i64 2147483648)
-  %7 = trunc i64 %6 to i32
-  store i32 %7, ptr %4, align 4, !tbaa !24
-  %8 = getelementptr inbounds %struct.CSeqInStreamWrap, ptr %0, i64 0, i32 1
-  %9 = load ptr, ptr %8, align 8, !tbaa !21
-  %10 = load ptr, ptr %9, align 8, !tbaa !16
-  %11 = getelementptr inbounds ptr, ptr %10, i64 5
-  %12 = load ptr, ptr %11, align 8
-  %13 = call noundef i32 %12(ptr noundef nonnull align 8 dereferenceable(8) %9, ptr noundef %1, i32 noundef %7, ptr noundef nonnull %4)
-  %14 = getelementptr inbounds %struct.CSeqInStreamWrap, ptr %0, i64 0, i32 2
-  store i32 %13, ptr %14, align 8, !tbaa !25
-  %15 = load i32, ptr %4, align 4, !tbaa !24
-  %16 = zext i32 %15 to i64
-  store i64 %16, ptr %2, align 8, !tbaa !22
-  switch i32 %13, label %21 [
-    i32 0, label %22
-    i32 1, label %20
-    i32 -2147024882, label %17
-    i32 -2147024809, label %18
-    i32 -2147467260, label %19
+define internal noundef i32 @_ZL6MyReadPvS_Pm(ptr nocapture noundef %object, ptr noundef %data, ptr nocapture noundef %size) #1 {
+entry:
+  %curSize = alloca i32, align 4
+  call void @llvm.lifetime.start.p0(i64 4, ptr nonnull %curSize) #6
+  %0 = load i64, ptr %size, align 8, !tbaa !22
+  %spec.select13 = tail call i64 @llvm.umin.i64(i64 %0, i64 2147483648)
+  %spec.select = trunc i64 %spec.select13 to i32
+  store i32 %spec.select, ptr %curSize, align 4, !tbaa !24
+  %Stream = getelementptr inbounds %struct.CSeqInStreamWrap, ptr %object, i64 0, i32 1
+  %1 = load ptr, ptr %Stream, align 8, !tbaa !21
+  %vtable = load ptr, ptr %1, align 8, !tbaa !16
+  %vfn = getelementptr inbounds ptr, ptr %vtable, i64 5
+  %2 = load ptr, ptr %vfn, align 8
+  %call = call noundef i32 %2(ptr noundef nonnull align 8 dereferenceable(8) %1, ptr noundef %data, i32 noundef %spec.select, ptr noundef nonnull %curSize)
+  %Res = getelementptr inbounds %struct.CSeqInStreamWrap, ptr %object, i64 0, i32 2
+  store i32 %call, ptr %Res, align 8, !tbaa !25
+  %3 = load i32, ptr %curSize, align 4, !tbaa !24
+  %conv1 = zext i32 %3 to i64
+  store i64 %conv1, ptr %size, align 8, !tbaa !22
+  switch i32 %call, label %sw.epilog.i [
+    i32 0, label %cleanup
+    i32 1, label %sw.bb4.i
+    i32 -2147024882, label %sw.bb1.i
+    i32 -2147024809, label %sw.bb2.i
+    i32 -2147467260, label %sw.bb3.i
   ]
 
-17:                                               ; preds = %3
-  br label %22
+sw.bb1.i:                                         ; preds = %entry
+  br label %cleanup
 
-18:                                               ; preds = %3
-  br label %22
+sw.bb2.i:                                         ; preds = %entry
+  br label %cleanup
 
-19:                                               ; preds = %3
-  br label %22
+sw.bb3.i:                                         ; preds = %entry
+  br label %cleanup
 
-20:                                               ; preds = %3
-  br label %22
+sw.bb4.i:                                         ; preds = %entry
+  br label %cleanup
 
-21:                                               ; preds = %3
-  br label %22
+sw.epilog.i:                                      ; preds = %entry
+  br label %cleanup
 
-22:                                               ; preds = %3, %21, %20, %19, %18, %17
-  %23 = phi i32 [ %13, %3 ], [ 8, %21 ], [ 1, %20 ], [ 10, %19 ], [ 5, %18 ], [ 2, %17 ]
-  call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %4) #6
-  ret i32 %23
+cleanup:                                          ; preds = %entry, %sw.epilog.i, %sw.bb4.i, %sw.bb3.i, %sw.bb2.i, %sw.bb1.i
+  %retval.0 = phi i32 [ %call, %entry ], [ 8, %sw.epilog.i ], [ 1, %sw.bb4.i ], [ 10, %sw.bb3.i ], [ 5, %sw.bb2.i ], [ 2, %sw.bb1.i ]
+  call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %curSize) #6
+  ret i32 %retval.0
 }
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(argmem: write) uwtable
-define dso_local void @_ZN17CSeqOutStreamWrapC2EP20ISequentialOutStream(ptr nocapture noundef nonnull writeonly align 8 dereferenceable(32) %0, ptr noundef %1) unnamed_addr #0 align 2 {
-  store ptr @_ZL7MyWritePvPKvm, ptr %0, align 8, !tbaa !26
-  %3 = getelementptr inbounds %struct.CSeqOutStreamWrap, ptr %0, i64 0, i32 1
-  store ptr %1, ptr %3, align 8, !tbaa !29
-  %4 = getelementptr inbounds %struct.CSeqOutStreamWrap, ptr %0, i64 0, i32 2
-  store i32 0, ptr %4, align 8, !tbaa !30
-  %5 = getelementptr inbounds %struct.CSeqOutStreamWrap, ptr %0, i64 0, i32 3
-  store i64 0, ptr %5, align 8, !tbaa !31
+define dso_local void @_ZN17CSeqOutStreamWrapC2EP20ISequentialOutStream(ptr nocapture noundef nonnull writeonly align 8 dereferenceable(32) %this, ptr noundef %stream) unnamed_addr #0 align 2 {
+entry:
+  store ptr @_ZL7MyWritePvPKvm, ptr %this, align 8, !tbaa !26
+  %Stream = getelementptr inbounds %struct.CSeqOutStreamWrap, ptr %this, i64 0, i32 1
+  store ptr %stream, ptr %Stream, align 8, !tbaa !29
+  %Res = getelementptr inbounds %struct.CSeqOutStreamWrap, ptr %this, i64 0, i32 2
+  store i32 0, ptr %Res, align 8, !tbaa !30
+  %Processed = getelementptr inbounds %struct.CSeqOutStreamWrap, ptr %this, i64 0, i32 3
+  store i64 0, ptr %Processed, align 8, !tbaa !31
   ret void
 }
 
 ; Function Attrs: mustprogress uwtable
-define internal noundef i64 @_ZL7MyWritePvPKvm(ptr nocapture noundef %0, ptr noundef %1, i64 noundef %2) #1 {
-  %4 = getelementptr inbounds %struct.CSeqOutStreamWrap, ptr %0, i64 0, i32 1
-  %5 = load ptr, ptr %4, align 8, !tbaa !29
-  %6 = icmp eq ptr %5, null
-  br i1 %6, label %11, label %7
+define internal noundef i64 @_ZL7MyWritePvPKvm(ptr nocapture noundef %object, ptr noundef %data, i64 noundef %size) #1 {
+entry:
+  %Stream = getelementptr inbounds %struct.CSeqOutStreamWrap, ptr %object, i64 0, i32 1
+  %0 = load ptr, ptr %Stream, align 8, !tbaa !29
+  %tobool.not = icmp eq ptr %0, null
+  br i1 %tobool.not, label %if.else, label %if.then
 
-7:                                                ; preds = %3
-  %8 = tail call noundef i32 @_Z11WriteStreamP20ISequentialOutStreamPKvm(ptr noundef nonnull %5, ptr noundef %1, i64 noundef %2)
-  %9 = getelementptr inbounds %struct.CSeqOutStreamWrap, ptr %0, i64 0, i32 2
-  store i32 %8, ptr %9, align 8, !tbaa !30
-  %10 = icmp eq i32 %8, 0
-  br i1 %10, label %13, label %17
+if.then:                                          ; preds = %entry
+  %call = tail call noundef i32 @_Z11WriteStreamP20ISequentialOutStreamPKvm(ptr noundef nonnull %0, ptr noundef %data, i64 noundef %size)
+  %Res = getelementptr inbounds %struct.CSeqOutStreamWrap, ptr %object, i64 0, i32 2
+  store i32 %call, ptr %Res, align 8, !tbaa !30
+  %cmp.not = icmp eq i32 %call, 0
+  br i1 %cmp.not, label %if.end5, label %cleanup
 
-11:                                               ; preds = %3
-  %12 = getelementptr inbounds %struct.CSeqOutStreamWrap, ptr %0, i64 0, i32 2
-  store i32 0, ptr %12, align 8, !tbaa !30
-  br label %13
+if.else:                                          ; preds = %entry
+  %Res4 = getelementptr inbounds %struct.CSeqOutStreamWrap, ptr %object, i64 0, i32 2
+  store i32 0, ptr %Res4, align 8, !tbaa !30
+  br label %if.end5
 
-13:                                               ; preds = %7, %11
-  %14 = getelementptr inbounds %struct.CSeqOutStreamWrap, ptr %0, i64 0, i32 3
-  %15 = load i64, ptr %14, align 8, !tbaa !31
-  %16 = add i64 %15, %2
-  store i64 %16, ptr %14, align 8, !tbaa !31
-  br label %17
+if.end5:                                          ; preds = %if.then, %if.else
+  %Processed = getelementptr inbounds %struct.CSeqOutStreamWrap, ptr %object, i64 0, i32 3
+  %1 = load i64, ptr %Processed, align 8, !tbaa !31
+  %add = add i64 %1, %size
+  store i64 %add, ptr %Processed, align 8, !tbaa !31
+  br label %cleanup
 
-17:                                               ; preds = %7, %13
-  %18 = phi i64 [ %2, %13 ], [ 0, %7 ]
-  ret i64 %18
+cleanup:                                          ; preds = %if.then, %if.end5
+  %retval.0 = phi i64 [ %size, %if.end5 ], [ 0, %if.then ]
+  ret i64 %retval.0
 }
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(none) uwtable
-define dso_local noundef i32 @_Z13SResToHRESULTi(i32 noundef %0) local_unnamed_addr #2 {
-  %2 = icmp ult i32 %0, 11
-  br i1 %2, label %3, label %7
+define dso_local noundef i32 @_Z13SResToHRESULTi(i32 noundef %res) local_unnamed_addr #2 {
+entry:
+  %0 = icmp ult i32 %res, 11
+  br i1 %0, label %switch.lookup, label %return
 
-3:                                                ; preds = %1
-  %4 = sext i32 %0 to i64
-  %5 = getelementptr inbounds [11 x i32], ptr @switch.table._Z13SResToHRESULTi, i64 0, i64 %4
-  %6 = load i32, ptr %5, align 4
-  br label %7
+switch.lookup:                                    ; preds = %entry
+  %1 = sext i32 %res to i64
+  %switch.gep = getelementptr inbounds [11 x i32], ptr @switch.table._Z13SResToHRESULTi, i64 0, i64 %1
+  %switch.load = load i32, ptr %switch.gep, align 4
+  br label %return
 
-7:                                                ; preds = %1, %3
-  %8 = phi i32 [ %6, %3 ], [ -2147467259, %1 ]
-  ret i32 %8
+return:                                           ; preds = %entry, %switch.lookup
+  %retval.0 = phi i32 [ %switch.load, %switch.lookup ], [ -2147467259, %entry ]
+  ret i32 %retval.0
 }
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(argmem: write) uwtable
-define dso_local void @_ZN17CSeekInStreamWrapC2EP9IInStream(ptr nocapture noundef nonnull writeonly align 8 dereferenceable(28) %0, ptr noundef %1) unnamed_addr #0 align 2 {
-  %3 = getelementptr inbounds %struct.CSeekInStreamWrap, ptr %0, i64 0, i32 1
-  store ptr %1, ptr %3, align 8, !tbaa !32
-  store ptr @_ZL17InStreamWrap_ReadPvS_Pm, ptr %0, align 8, !tbaa !35
-  %4 = getelementptr inbounds %struct.ISeekInStream, ptr %0, i64 0, i32 1
-  store ptr @_ZL17InStreamWrap_SeekPvPx7ESzSeek, ptr %4, align 8, !tbaa !36
-  %5 = getelementptr inbounds %struct.CSeekInStreamWrap, ptr %0, i64 0, i32 2
-  store i32 0, ptr %5, align 8, !tbaa !37
+define dso_local void @_ZN17CSeekInStreamWrapC2EP9IInStream(ptr nocapture noundef nonnull writeonly align 8 dereferenceable(28) %this, ptr noundef %stream) unnamed_addr #0 align 2 {
+entry:
+  %Stream = getelementptr inbounds %struct.CSeekInStreamWrap, ptr %this, i64 0, i32 1
+  store ptr %stream, ptr %Stream, align 8, !tbaa !32
+  store ptr @_ZL17InStreamWrap_ReadPvS_Pm, ptr %this, align 8, !tbaa !35
+  %Seek = getelementptr inbounds %struct.ISeekInStream, ptr %this, i64 0, i32 1
+  store ptr @_ZL17InStreamWrap_SeekPvPx7ESzSeek, ptr %Seek, align 8, !tbaa !36
+  %Res = getelementptr inbounds %struct.CSeekInStreamWrap, ptr %this, i64 0, i32 2
+  store i32 0, ptr %Res, align 8, !tbaa !37
   ret void
 }
 
 ; Function Attrs: mustprogress uwtable
-define internal noundef i32 @_ZL17InStreamWrap_ReadPvS_Pm(ptr nocapture noundef %0, ptr noundef %1, ptr nocapture noundef %2) #1 {
-  %4 = alloca i32, align 4
-  call void @llvm.lifetime.start.p0(i64 4, ptr nonnull %4) #6
-  %5 = load i64, ptr %2, align 8, !tbaa !22
-  %6 = tail call i64 @llvm.umin.i64(i64 %5, i64 2147483648)
-  %7 = trunc i64 %6 to i32
-  store i32 %7, ptr %4, align 4, !tbaa !24
-  %8 = getelementptr inbounds %struct.CSeekInStreamWrap, ptr %0, i64 0, i32 1
-  %9 = load ptr, ptr %8, align 8, !tbaa !32
-  %10 = load ptr, ptr %9, align 8, !tbaa !16
-  %11 = getelementptr inbounds ptr, ptr %10, i64 5
-  %12 = load ptr, ptr %11, align 8
-  %13 = call noundef i32 %12(ptr noundef nonnull align 8 dereferenceable(8) %9, ptr noundef %1, i32 noundef %7, ptr noundef nonnull %4)
-  %14 = getelementptr inbounds %struct.CSeekInStreamWrap, ptr %0, i64 0, i32 2
-  store i32 %13, ptr %14, align 8, !tbaa !37
-  %15 = load i32, ptr %4, align 4, !tbaa !24
-  %16 = zext i32 %15 to i64
-  store i64 %16, ptr %2, align 8, !tbaa !22
-  %17 = icmp eq i32 %13, 0
-  %18 = select i1 %17, i32 0, i32 8
-  call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %4) #6
-  ret i32 %18
+define internal noundef i32 @_ZL17InStreamWrap_ReadPvS_Pm(ptr nocapture noundef %pp, ptr noundef %data, ptr nocapture noundef %size) #1 {
+entry:
+  %curSize = alloca i32, align 4
+  call void @llvm.lifetime.start.p0(i64 4, ptr nonnull %curSize) #6
+  %0 = load i64, ptr %size, align 8, !tbaa !22
+  %spec.select9 = tail call i64 @llvm.umin.i64(i64 %0, i64 2147483648)
+  %spec.select = trunc i64 %spec.select9 to i32
+  store i32 %spec.select, ptr %curSize, align 4, !tbaa !24
+  %Stream = getelementptr inbounds %struct.CSeekInStreamWrap, ptr %pp, i64 0, i32 1
+  %1 = load ptr, ptr %Stream, align 8, !tbaa !32
+  %vtable = load ptr, ptr %1, align 8, !tbaa !16
+  %vfn = getelementptr inbounds ptr, ptr %vtable, i64 5
+  %2 = load ptr, ptr %vfn, align 8
+  %call = call noundef i32 %2(ptr noundef nonnull align 8 dereferenceable(8) %1, ptr noundef %data, i32 noundef %spec.select, ptr noundef nonnull %curSize)
+  %Res = getelementptr inbounds %struct.CSeekInStreamWrap, ptr %pp, i64 0, i32 2
+  store i32 %call, ptr %Res, align 8, !tbaa !37
+  %3 = load i32, ptr %curSize, align 4, !tbaa !24
+  %conv1 = zext i32 %3 to i64
+  store i64 %conv1, ptr %size, align 8, !tbaa !22
+  %cmp3 = icmp eq i32 %call, 0
+  %cond4 = select i1 %cmp3, i32 0, i32 8
+  call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %curSize) #6
+  ret i32 %cond4
 }
 
 ; Function Attrs: mustprogress uwtable
-define internal noundef i32 @_ZL17InStreamWrap_SeekPvPx7ESzSeek(ptr nocapture noundef %0, ptr nocapture noundef %1, i32 noundef %2) #1 {
-  %4 = alloca i64, align 8
-  %5 = icmp ult i32 %2, 3
-  br i1 %5, label %6, label %18
+define internal noundef i32 @_ZL17InStreamWrap_SeekPvPx7ESzSeek(ptr nocapture noundef %pp, ptr nocapture noundef %offset, i32 noundef %origin) #1 {
+entry:
+  %newPosition = alloca i64, align 8
+  %switch = icmp ult i32 %origin, 3
+  br i1 %switch, label %sw.epilog, label %cleanup
 
-6:                                                ; preds = %3
-  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %4) #6
-  %7 = getelementptr inbounds %struct.CSeekInStreamWrap, ptr %0, i64 0, i32 1
-  %8 = load ptr, ptr %7, align 8, !tbaa !32
-  %9 = load i64, ptr %1, align 8, !tbaa !14
-  %10 = load ptr, ptr %8, align 8, !tbaa !16
-  %11 = getelementptr inbounds ptr, ptr %10, i64 6
-  %12 = load ptr, ptr %11, align 8
-  %13 = call noundef i32 %12(ptr noundef nonnull align 8 dereferenceable(8) %8, i64 noundef %9, i32 noundef %2, ptr noundef nonnull %4)
-  %14 = getelementptr inbounds %struct.CSeekInStreamWrap, ptr %0, i64 0, i32 2
-  store i32 %13, ptr %14, align 8, !tbaa !37
-  %15 = load i64, ptr %4, align 8, !tbaa !14
-  store i64 %15, ptr %1, align 8, !tbaa !14
-  %16 = icmp eq i32 %13, 0
-  %17 = select i1 %16, i32 0, i32 8
-  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %4) #6
-  br label %18
+sw.epilog:                                        ; preds = %entry
+  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %newPosition) #6
+  %Stream = getelementptr inbounds %struct.CSeekInStreamWrap, ptr %pp, i64 0, i32 1
+  %0 = load ptr, ptr %Stream, align 8, !tbaa !32
+  %1 = load i64, ptr %offset, align 8, !tbaa !14
+  %vtable = load ptr, ptr %0, align 8, !tbaa !16
+  %vfn = getelementptr inbounds ptr, ptr %vtable, i64 6
+  %2 = load ptr, ptr %vfn, align 8
+  %call = call noundef i32 %2(ptr noundef nonnull align 8 dereferenceable(8) %0, i64 noundef %1, i32 noundef %origin, ptr noundef nonnull %newPosition)
+  %Res = getelementptr inbounds %struct.CSeekInStreamWrap, ptr %pp, i64 0, i32 2
+  store i32 %call, ptr %Res, align 8, !tbaa !37
+  %3 = load i64, ptr %newPosition, align 8, !tbaa !14
+  store i64 %3, ptr %offset, align 8, !tbaa !14
+  %cmp = icmp eq i32 %call, 0
+  %cond = select i1 %cmp, i32 0, i32 8
+  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %newPosition) #6
+  br label %cleanup
 
-18:                                               ; preds = %3, %6
-  %19 = phi i32 [ %17, %6 ], [ 5, %3 ]
-  ret i32 %19
+cleanup:                                          ; preds = %entry, %sw.epilog
+  %retval.0 = phi i32 [ %cond, %sw.epilog ], [ 5, %entry ]
+  ret i32 %retval.0
 }
 
 ; Function Attrs: mustprogress uwtable
-define dso_local void @_ZN14CByteInBufWrap4FreeEv(ptr nocapture noundef nonnull align 8 dereferenceable(64) %0) local_unnamed_addr #1 align 2 {
-  %2 = getelementptr inbounds %struct.CByteInBufWrap, ptr %0, i64 0, i32 3
-  %3 = load ptr, ptr %2, align 8, !tbaa !38
-  tail call void @MidFree(ptr noundef %3)
-  store ptr null, ptr %2, align 8, !tbaa !38
+define dso_local void @_ZN14CByteInBufWrap4FreeEv(ptr nocapture noundef nonnull align 8 dereferenceable(64) %this) local_unnamed_addr #1 align 2 {
+entry:
+  %Buf = getelementptr inbounds %struct.CByteInBufWrap, ptr %this, i64 0, i32 3
+  %0 = load ptr, ptr %Buf, align 8, !tbaa !38
+  tail call void @MidFree(ptr noundef %0)
+  store ptr null, ptr %Buf, align 8, !tbaa !38
   ret void
 }
 
 declare void @MidFree(ptr noundef) local_unnamed_addr #3
 
 ; Function Attrs: mustprogress uwtable
-define dso_local noundef zeroext i1 @_ZN14CByteInBufWrap5AllocEj(ptr nocapture noundef nonnull align 8 dereferenceable(64) %0, i32 noundef %1) local_unnamed_addr #1 align 2 {
-  %3 = getelementptr inbounds %struct.CByteInBufWrap, ptr %0, i64 0, i32 3
-  %4 = load ptr, ptr %3, align 8, !tbaa !38
-  %5 = icmp eq ptr %4, null
-  %6 = getelementptr inbounds %struct.CByteInBufWrap, ptr %0, i64 0, i32 4
-  %7 = load i32, ptr %6, align 8
-  %8 = icmp ne i32 %7, %1
-  %9 = select i1 %5, i1 true, i1 %8
-  br i1 %9, label %10, label %15
+define dso_local noundef zeroext i1 @_ZN14CByteInBufWrap5AllocEj(ptr nocapture noundef nonnull align 8 dereferenceable(64) %this, i32 noundef %size) local_unnamed_addr #1 align 2 {
+entry:
+  %Buf = getelementptr inbounds %struct.CByteInBufWrap, ptr %this, i64 0, i32 3
+  %0 = load ptr, ptr %Buf, align 8, !tbaa !38
+  %cmp = icmp ne ptr %0, null
+  %Size = getelementptr inbounds %struct.CByteInBufWrap, ptr %this, i64 0, i32 4
+  %1 = load i32, ptr %Size, align 8
+  %cmp2.not = icmp eq i32 %1, %size
+  %or.cond = select i1 %cmp, i1 %cmp2.not, i1 false
+  br i1 %or.cond, label %if.end, label %if.then
 
-10:                                               ; preds = %2
-  tail call void @MidFree(ptr noundef %4)
-  store ptr null, ptr %3, align 8, !tbaa !38
-  %11 = zext i32 %1 to i64
-  %12 = tail call ptr @MidAlloc(i64 noundef %11)
-  store ptr %12, ptr %3, align 8, !tbaa !38
-  %13 = getelementptr inbounds %struct.CByteInBufWrap, ptr %0, i64 0, i32 1
-  store ptr %12, ptr %13, align 8, !tbaa !42
-  %14 = getelementptr inbounds %struct.CByteInBufWrap, ptr %0, i64 0, i32 2
-  store ptr %12, ptr %14, align 8, !tbaa !43
-  store i32 %1, ptr %6, align 8, !tbaa !44
-  br label %15
+if.then:                                          ; preds = %entry
+  tail call void @MidFree(ptr noundef %0)
+  store ptr null, ptr %Buf, align 8, !tbaa !38
+  %conv = zext i32 %size to i64
+  %call = tail call ptr @MidAlloc(i64 noundef %conv)
+  store ptr %call, ptr %Buf, align 8, !tbaa !38
+  %Cur = getelementptr inbounds %struct.CByteInBufWrap, ptr %this, i64 0, i32 1
+  store ptr %call, ptr %Cur, align 8, !tbaa !42
+  %Lim = getelementptr inbounds %struct.CByteInBufWrap, ptr %this, i64 0, i32 2
+  store ptr %call, ptr %Lim, align 8, !tbaa !43
+  store i32 %size, ptr %Size, align 8, !tbaa !44
+  br label %if.end
 
-15:                                               ; preds = %2, %10
-  %16 = phi ptr [ %4, %2 ], [ %12, %10 ]
-  %17 = icmp ne ptr %16, null
-  ret i1 %17
+if.end:                                           ; preds = %entry, %if.then
+  %2 = phi ptr [ %0, %entry ], [ %call, %if.then ]
+  %cmp6 = icmp ne ptr %2, null
+  ret i1 %cmp6
 }
 
 declare ptr @MidAlloc(i64 noundef) local_unnamed_addr #3
 
 ; Function Attrs: mustprogress uwtable
-define dso_local noundef zeroext i8 @_ZN14CByteInBufWrap20ReadByteFromNewBlockEv(ptr nocapture noundef nonnull align 8 dereferenceable(64) %0) local_unnamed_addr #1 align 2 {
-  %2 = alloca i32, align 4
-  %3 = getelementptr inbounds %struct.CByteInBufWrap, ptr %0, i64 0, i32 8
-  %4 = load i32, ptr %3, align 4, !tbaa !45
-  %5 = icmp eq i32 %4, 0
-  br i1 %5, label %6, label %35
+define dso_local noundef zeroext i8 @_ZN14CByteInBufWrap20ReadByteFromNewBlockEv(ptr nocapture noundef nonnull align 8 dereferenceable(64) %this) local_unnamed_addr #1 align 2 {
+entry:
+  %avail = alloca i32, align 4
+  %Res = getelementptr inbounds %struct.CByteInBufWrap, ptr %this, i64 0, i32 8
+  %0 = load i32, ptr %Res, align 4, !tbaa !45
+  %cmp = icmp eq i32 %0, 0
+  br i1 %cmp, label %if.then, label %if.end10
 
-6:                                                ; preds = %1
-  call void @llvm.lifetime.start.p0(i64 4, ptr nonnull %2) #6
-  %7 = getelementptr inbounds %struct.CByteInBufWrap, ptr %0, i64 0, i32 1
-  %8 = load ptr, ptr %7, align 8, !tbaa !42
-  %9 = getelementptr inbounds %struct.CByteInBufWrap, ptr %0, i64 0, i32 3
-  %10 = load ptr, ptr %9, align 8, !tbaa !38
-  %11 = ptrtoint ptr %8 to i64
-  %12 = ptrtoint ptr %10 to i64
-  %13 = sub i64 %11, %12
-  %14 = getelementptr inbounds %struct.CByteInBufWrap, ptr %0, i64 0, i32 6
-  %15 = load i64, ptr %14, align 8, !tbaa !46
-  %16 = add i64 %13, %15
-  store i64 %16, ptr %14, align 8, !tbaa !46
-  %17 = getelementptr inbounds %struct.CByteInBufWrap, ptr %0, i64 0, i32 5
-  %18 = load ptr, ptr %17, align 8, !tbaa !47
-  %19 = getelementptr inbounds %struct.CByteInBufWrap, ptr %0, i64 0, i32 4
-  %20 = load i32, ptr %19, align 8, !tbaa !44
-  %21 = load ptr, ptr %18, align 8, !tbaa !16
-  %22 = getelementptr inbounds ptr, ptr %21, i64 5
-  %23 = load ptr, ptr %22, align 8
-  %24 = call noundef i32 %23(ptr noundef nonnull align 8 dereferenceable(8) %18, ptr noundef %10, i32 noundef %20, ptr noundef nonnull %2)
-  store i32 %24, ptr %3, align 4, !tbaa !45
-  %25 = load ptr, ptr %9, align 8, !tbaa !38
-  store ptr %25, ptr %7, align 8, !tbaa !42
-  %26 = load i32, ptr %2, align 4, !tbaa !24
-  %27 = zext i32 %26 to i64
-  %28 = getelementptr inbounds i8, ptr %25, i64 %27
-  %29 = getelementptr inbounds %struct.CByteInBufWrap, ptr %0, i64 0, i32 2
-  store ptr %28, ptr %29, align 8, !tbaa !43
-  %30 = icmp eq i32 %26, 0
-  br i1 %30, label %31, label %32
+if.then:                                          ; preds = %entry
+  call void @llvm.lifetime.start.p0(i64 4, ptr nonnull %avail) #6
+  %Cur = getelementptr inbounds %struct.CByteInBufWrap, ptr %this, i64 0, i32 1
+  %1 = load ptr, ptr %Cur, align 8, !tbaa !42
+  %Buf = getelementptr inbounds %struct.CByteInBufWrap, ptr %this, i64 0, i32 3
+  %2 = load ptr, ptr %Buf, align 8, !tbaa !38
+  %sub.ptr.lhs.cast = ptrtoint ptr %1 to i64
+  %sub.ptr.rhs.cast = ptrtoint ptr %2 to i64
+  %sub.ptr.sub = sub i64 %sub.ptr.lhs.cast, %sub.ptr.rhs.cast
+  %Processed = getelementptr inbounds %struct.CByteInBufWrap, ptr %this, i64 0, i32 6
+  %3 = load i64, ptr %Processed, align 8, !tbaa !46
+  %add = add i64 %sub.ptr.sub, %3
+  store i64 %add, ptr %Processed, align 8, !tbaa !46
+  %Stream = getelementptr inbounds %struct.CByteInBufWrap, ptr %this, i64 0, i32 5
+  %4 = load ptr, ptr %Stream, align 8, !tbaa !47
+  %Size = getelementptr inbounds %struct.CByteInBufWrap, ptr %this, i64 0, i32 4
+  %5 = load i32, ptr %Size, align 8, !tbaa !44
+  %vtable = load ptr, ptr %4, align 8, !tbaa !16
+  %vfn = getelementptr inbounds ptr, ptr %vtable, i64 5
+  %6 = load ptr, ptr %vfn, align 8
+  %call = call noundef i32 %6(ptr noundef nonnull align 8 dereferenceable(8) %4, ptr noundef %2, i32 noundef %5, ptr noundef nonnull %avail)
+  store i32 %call, ptr %Res, align 4, !tbaa !45
+  %7 = load ptr, ptr %Buf, align 8, !tbaa !48
+  store ptr %7, ptr %Cur, align 8, !tbaa !42
+  %8 = load i32, ptr %avail, align 4, !tbaa !24
+  %idx.ext = zext i32 %8 to i64
+  %add.ptr = getelementptr inbounds i8, ptr %7, i64 %idx.ext
+  %Lim = getelementptr inbounds %struct.CByteInBufWrap, ptr %this, i64 0, i32 2
+  store ptr %add.ptr, ptr %Lim, align 8, !tbaa !43
+  %cmp7.not.not = icmp eq i32 %8, 0
+  br i1 %cmp7.not.not, label %cleanup.thread, label %cleanup
 
-31:                                               ; preds = %6
-  call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %2) #6
-  br label %35
+cleanup.thread:                                   ; preds = %if.then
+  call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %avail) #6
+  br label %if.end10
 
-32:                                               ; preds = %6
-  %33 = getelementptr inbounds i8, ptr %25, i64 1
-  store ptr %33, ptr %7, align 8, !tbaa !42
-  %34 = load i8, ptr %25, align 1, !tbaa !48
-  call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %2) #6
-  br label %37
+cleanup:                                          ; preds = %if.then
+  %incdec.ptr = getelementptr inbounds i8, ptr %7, i64 1
+  store ptr %incdec.ptr, ptr %Cur, align 8, !tbaa !42
+  %9 = load i8, ptr %7, align 1, !tbaa !49
+  call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %avail) #6
+  br label %return
 
-35:                                               ; preds = %31, %1
-  %36 = getelementptr inbounds %struct.CByteInBufWrap, ptr %0, i64 0, i32 7
-  store i8 1, ptr %36, align 8, !tbaa !49
-  br label %37
+if.end10:                                         ; preds = %cleanup.thread, %entry
+  %Extra = getelementptr inbounds %struct.CByteInBufWrap, ptr %this, i64 0, i32 7
+  store i8 1, ptr %Extra, align 8, !tbaa !50
+  br label %return
 
-37:                                               ; preds = %32, %35
-  %38 = phi i8 [ %34, %32 ], [ 0, %35 ]
-  ret i8 %38
+return:                                           ; preds = %cleanup, %if.end10
+  %retval.1 = phi i8 [ %9, %cleanup ], [ 0, %if.end10 ]
+  ret i8 %retval.1
 }
 
 ; Function Attrs: mustprogress nocallback nofree nosync nounwind willreturn memory(argmem: readwrite)
@@ -378,212 +392,219 @@ declare void @llvm.lifetime.start.p0(i64 immarg, ptr nocapture) #4
 declare void @llvm.lifetime.end.p0(i64 immarg, ptr nocapture) #4
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(argmem: write) uwtable
-define dso_local void @_ZN14CByteInBufWrapC2Ev(ptr nocapture noundef nonnull writeonly align 8 dereferenceable(64) %0) unnamed_addr #0 align 2 {
-  %2 = getelementptr inbounds %struct.CByteInBufWrap, ptr %0, i64 0, i32 3
-  store ptr null, ptr %2, align 8, !tbaa !38
-  store ptr @_ZL13Wrap_ReadBytePv, ptr %0, align 8, !tbaa !50
+define dso_local void @_ZN14CByteInBufWrapC2Ev(ptr nocapture noundef nonnull writeonly align 8 dereferenceable(64) %this) unnamed_addr #0 align 2 {
+entry:
+  %Buf = getelementptr inbounds %struct.CByteInBufWrap, ptr %this, i64 0, i32 3
+  store ptr null, ptr %Buf, align 8, !tbaa !38
+  store ptr @_ZL13Wrap_ReadBytePv, ptr %this, align 8, !tbaa !51
   ret void
 }
 
 ; Function Attrs: mustprogress uwtable
-define internal noundef zeroext i8 @_ZL13Wrap_ReadBytePv(ptr nocapture noundef %0) #1 {
-  %2 = alloca i32, align 4
-  %3 = getelementptr inbounds %struct.CByteInBufWrap, ptr %0, i64 0, i32 1
-  %4 = load ptr, ptr %3, align 8, !tbaa !42
-  %5 = getelementptr inbounds %struct.CByteInBufWrap, ptr %0, i64 0, i32 2
-  %6 = load ptr, ptr %5, align 8, !tbaa !43
-  %7 = icmp eq ptr %4, %6
-  br i1 %7, label %11, label %8
+define internal noundef zeroext i8 @_ZL13Wrap_ReadBytePv(ptr nocapture noundef %pp) #1 {
+entry:
+  %avail.i = alloca i32, align 4
+  %Cur = getelementptr inbounds %struct.CByteInBufWrap, ptr %pp, i64 0, i32 1
+  %0 = load ptr, ptr %Cur, align 8, !tbaa !42
+  %Lim = getelementptr inbounds %struct.CByteInBufWrap, ptr %pp, i64 0, i32 2
+  %1 = load ptr, ptr %Lim, align 8, !tbaa !43
+  %cmp.not = icmp eq ptr %0, %1
+  br i1 %cmp.not, label %if.end, label %if.then
 
-8:                                                ; preds = %1
-  %9 = getelementptr inbounds i8, ptr %4, i64 1
-  store ptr %9, ptr %3, align 8, !tbaa !42
-  %10 = load i8, ptr %4, align 1, !tbaa !48
-  br label %43
+if.then:                                          ; preds = %entry
+  %incdec.ptr = getelementptr inbounds i8, ptr %0, i64 1
+  store ptr %incdec.ptr, ptr %Cur, align 8, !tbaa !42
+  %2 = load i8, ptr %0, align 1, !tbaa !49
+  br label %cleanup
 
-11:                                               ; preds = %1
-  %12 = getelementptr inbounds %struct.CByteInBufWrap, ptr %0, i64 0, i32 8
-  %13 = load i32, ptr %12, align 4, !tbaa !45
-  %14 = icmp eq i32 %13, 0
-  br i1 %14, label %15, label %41
+if.end:                                           ; preds = %entry
+  %Res.i = getelementptr inbounds %struct.CByteInBufWrap, ptr %pp, i64 0, i32 8
+  %3 = load i32, ptr %Res.i, align 4, !tbaa !45
+  %cmp.i = icmp eq i32 %3, 0
+  br i1 %cmp.i, label %if.then.i, label %if.end10.i
 
-15:                                               ; preds = %11
-  call void @llvm.lifetime.start.p0(i64 4, ptr nonnull %2) #6
-  %16 = getelementptr inbounds %struct.CByteInBufWrap, ptr %0, i64 0, i32 3
-  %17 = load ptr, ptr %16, align 8, !tbaa !38
-  %18 = ptrtoint ptr %4 to i64
-  %19 = ptrtoint ptr %17 to i64
-  %20 = sub i64 %18, %19
-  %21 = getelementptr inbounds %struct.CByteInBufWrap, ptr %0, i64 0, i32 6
-  %22 = load i64, ptr %21, align 8, !tbaa !46
-  %23 = add i64 %20, %22
-  store i64 %23, ptr %21, align 8, !tbaa !46
-  %24 = getelementptr inbounds %struct.CByteInBufWrap, ptr %0, i64 0, i32 5
-  %25 = load ptr, ptr %24, align 8, !tbaa !47
-  %26 = getelementptr inbounds %struct.CByteInBufWrap, ptr %0, i64 0, i32 4
-  %27 = load i32, ptr %26, align 8, !tbaa !44
-  %28 = load ptr, ptr %25, align 8, !tbaa !16
-  %29 = getelementptr inbounds ptr, ptr %28, i64 5
-  %30 = load ptr, ptr %29, align 8
-  %31 = call noundef i32 %30(ptr noundef nonnull align 8 dereferenceable(8) %25, ptr noundef %17, i32 noundef %27, ptr noundef nonnull %2)
-  store i32 %31, ptr %12, align 4, !tbaa !45
-  %32 = load ptr, ptr %16, align 8, !tbaa !38
-  store ptr %32, ptr %3, align 8, !tbaa !42
-  %33 = load i32, ptr %2, align 4, !tbaa !24
-  %34 = zext i32 %33 to i64
-  %35 = getelementptr inbounds i8, ptr %32, i64 %34
-  store ptr %35, ptr %5, align 8, !tbaa !43
-  %36 = icmp eq i32 %33, 0
-  br i1 %36, label %37, label %38
+if.then.i:                                        ; preds = %if.end
+  call void @llvm.lifetime.start.p0(i64 4, ptr nonnull %avail.i) #6
+  %Buf.i = getelementptr inbounds %struct.CByteInBufWrap, ptr %pp, i64 0, i32 3
+  %4 = load ptr, ptr %Buf.i, align 8, !tbaa !38
+  %sub.ptr.lhs.cast.i = ptrtoint ptr %0 to i64
+  %sub.ptr.rhs.cast.i = ptrtoint ptr %4 to i64
+  %sub.ptr.sub.i = sub i64 %sub.ptr.lhs.cast.i, %sub.ptr.rhs.cast.i
+  %Processed.i = getelementptr inbounds %struct.CByteInBufWrap, ptr %pp, i64 0, i32 6
+  %5 = load i64, ptr %Processed.i, align 8, !tbaa !46
+  %add.i = add i64 %sub.ptr.sub.i, %5
+  store i64 %add.i, ptr %Processed.i, align 8, !tbaa !46
+  %Stream.i = getelementptr inbounds %struct.CByteInBufWrap, ptr %pp, i64 0, i32 5
+  %6 = load ptr, ptr %Stream.i, align 8, !tbaa !47
+  %Size.i = getelementptr inbounds %struct.CByteInBufWrap, ptr %pp, i64 0, i32 4
+  %7 = load i32, ptr %Size.i, align 8, !tbaa !44
+  %vtable.i = load ptr, ptr %6, align 8, !tbaa !16
+  %vfn.i = getelementptr inbounds ptr, ptr %vtable.i, i64 5
+  %8 = load ptr, ptr %vfn.i, align 8
+  %call.i = call noundef i32 %8(ptr noundef nonnull align 8 dereferenceable(8) %6, ptr noundef %4, i32 noundef %7, ptr noundef nonnull %avail.i)
+  store i32 %call.i, ptr %Res.i, align 4, !tbaa !45
+  %9 = load ptr, ptr %Buf.i, align 8, !tbaa !48
+  store ptr %9, ptr %Cur, align 8, !tbaa !42
+  %10 = load i32, ptr %avail.i, align 4, !tbaa !24
+  %idx.ext.i = zext i32 %10 to i64
+  %add.ptr.i = getelementptr inbounds i8, ptr %9, i64 %idx.ext.i
+  store ptr %add.ptr.i, ptr %Lim, align 8, !tbaa !43
+  %cmp7.not.not.i = icmp eq i32 %10, 0
+  br i1 %cmp7.not.not.i, label %cleanup.thread.i, label %cleanup.i
 
-37:                                               ; preds = %15
-  call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %2) #6
-  br label %41
+cleanup.thread.i:                                 ; preds = %if.then.i
+  call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %avail.i) #6
+  br label %if.end10.i
 
-38:                                               ; preds = %15
-  %39 = getelementptr inbounds i8, ptr %32, i64 1
-  store ptr %39, ptr %3, align 8, !tbaa !42
-  %40 = load i8, ptr %32, align 1, !tbaa !48
-  call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %2) #6
-  br label %43
+cleanup.i:                                        ; preds = %if.then.i
+  %incdec.ptr.i = getelementptr inbounds i8, ptr %9, i64 1
+  store ptr %incdec.ptr.i, ptr %Cur, align 8, !tbaa !42
+  %11 = load i8, ptr %9, align 1, !tbaa !49
+  call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %avail.i) #6
+  br label %cleanup
 
-41:                                               ; preds = %37, %11
-  %42 = getelementptr inbounds %struct.CByteInBufWrap, ptr %0, i64 0, i32 7
-  store i8 1, ptr %42, align 8, !tbaa !49
-  br label %43
+if.end10.i:                                       ; preds = %cleanup.thread.i, %if.end
+  %Extra.i = getelementptr inbounds %struct.CByteInBufWrap, ptr %pp, i64 0, i32 7
+  store i8 1, ptr %Extra.i, align 8, !tbaa !50
+  br label %cleanup
 
-43:                                               ; preds = %41, %38, %8
-  %44 = phi i8 [ %10, %8 ], [ %40, %38 ], [ 0, %41 ]
-  ret i8 %44
+cleanup:                                          ; preds = %if.end10.i, %cleanup.i, %if.then
+  %retval.0 = phi i8 [ %2, %if.then ], [ %11, %cleanup.i ], [ 0, %if.end10.i ]
+  ret i8 %retval.0
 }
 
 ; Function Attrs: mustprogress uwtable
-define dso_local void @_ZN15CByteOutBufWrap4FreeEv(ptr nocapture noundef nonnull align 8 dereferenceable(60) %0) local_unnamed_addr #1 align 2 {
-  %2 = getelementptr inbounds %struct.CByteOutBufWrap, ptr %0, i64 0, i32 3
-  %3 = load ptr, ptr %2, align 8, !tbaa !51
-  tail call void @MidFree(ptr noundef %3)
-  store ptr null, ptr %2, align 8, !tbaa !51
+define dso_local void @_ZN15CByteOutBufWrap4FreeEv(ptr nocapture noundef nonnull align 8 dereferenceable(60) %this) local_unnamed_addr #1 align 2 {
+entry:
+  %Buf = getelementptr inbounds %struct.CByteOutBufWrap, ptr %this, i64 0, i32 3
+  %0 = load ptr, ptr %Buf, align 8, !tbaa !52
+  tail call void @MidFree(ptr noundef %0)
+  store ptr null, ptr %Buf, align 8, !tbaa !52
   ret void
 }
 
 ; Function Attrs: mustprogress uwtable
-define dso_local noundef zeroext i1 @_ZN15CByteOutBufWrap5AllocEm(ptr nocapture noundef nonnull align 8 dereferenceable(60) %0, i64 noundef %1) local_unnamed_addr #1 align 2 {
-  %3 = getelementptr inbounds %struct.CByteOutBufWrap, ptr %0, i64 0, i32 3
-  %4 = load ptr, ptr %3, align 8, !tbaa !51
-  %5 = icmp eq ptr %4, null
-  %6 = getelementptr inbounds %struct.CByteOutBufWrap, ptr %0, i64 0, i32 4
-  %7 = load i64, ptr %6, align 8
-  %8 = icmp ne i64 %7, %1
-  %9 = select i1 %5, i1 true, i1 %8
-  br i1 %9, label %10, label %12
+define dso_local noundef zeroext i1 @_ZN15CByteOutBufWrap5AllocEm(ptr nocapture noundef nonnull align 8 dereferenceable(60) %this, i64 noundef %size) local_unnamed_addr #1 align 2 {
+entry:
+  %Buf = getelementptr inbounds %struct.CByteOutBufWrap, ptr %this, i64 0, i32 3
+  %0 = load ptr, ptr %Buf, align 8, !tbaa !52
+  %cmp = icmp ne ptr %0, null
+  %Size = getelementptr inbounds %struct.CByteOutBufWrap, ptr %this, i64 0, i32 4
+  %1 = load i64, ptr %Size, align 8
+  %cmp2.not = icmp eq i64 %1, %size
+  %or.cond = select i1 %cmp, i1 %cmp2.not, i1 false
+  br i1 %or.cond, label %if.end, label %if.then
 
-10:                                               ; preds = %2
-  tail call void @MidFree(ptr noundef %4)
-  store ptr null, ptr %3, align 8, !tbaa !51
-  %11 = tail call ptr @MidAlloc(i64 noundef %1)
-  store ptr %11, ptr %3, align 8, !tbaa !51
-  store i64 %1, ptr %6, align 8, !tbaa !54
-  br label %12
+if.then:                                          ; preds = %entry
+  tail call void @MidFree(ptr noundef %0)
+  store ptr null, ptr %Buf, align 8, !tbaa !52
+  %call = tail call ptr @MidAlloc(i64 noundef %size)
+  store ptr %call, ptr %Buf, align 8, !tbaa !52
+  store i64 %size, ptr %Size, align 8, !tbaa !55
+  br label %if.end
 
-12:                                               ; preds = %2, %10
-  %13 = phi ptr [ %4, %2 ], [ %11, %10 ]
-  %14 = icmp ne ptr %13, null
-  ret i1 %14
+if.end:                                           ; preds = %entry, %if.then
+  %2 = phi ptr [ %0, %entry ], [ %call, %if.then ]
+  %cmp6 = icmp ne ptr %2, null
+  ret i1 %cmp6
 }
 
 ; Function Attrs: mustprogress uwtable
-define dso_local noundef i32 @_ZN15CByteOutBufWrap5FlushEv(ptr nocapture noundef nonnull align 8 dereferenceable(60) %0) local_unnamed_addr #1 align 2 {
-  %2 = getelementptr inbounds %struct.CByteOutBufWrap, ptr %0, i64 0, i32 7
-  %3 = load i32, ptr %2, align 8, !tbaa !55
-  %4 = icmp eq i32 %3, 0
-  br i1 %4, label %5, label %23
+define dso_local noundef i32 @_ZN15CByteOutBufWrap5FlushEv(ptr nocapture noundef nonnull align 8 dereferenceable(60) %this) local_unnamed_addr #1 align 2 {
+entry:
+  %Res = getelementptr inbounds %struct.CByteOutBufWrap, ptr %this, i64 0, i32 7
+  %0 = load i32, ptr %Res, align 8, !tbaa !56
+  %cmp = icmp eq i32 %0, 0
+  br i1 %cmp, label %if.then, label %if.end9
 
-5:                                                ; preds = %1
-  %6 = getelementptr inbounds %struct.CByteOutBufWrap, ptr %0, i64 0, i32 1
-  %7 = load ptr, ptr %6, align 8, !tbaa !56
-  %8 = getelementptr inbounds %struct.CByteOutBufWrap, ptr %0, i64 0, i32 3
-  %9 = load ptr, ptr %8, align 8, !tbaa !51
-  %10 = ptrtoint ptr %7 to i64
-  %11 = ptrtoint ptr %9 to i64
-  %12 = sub i64 %10, %11
-  %13 = getelementptr inbounds %struct.CByteOutBufWrap, ptr %0, i64 0, i32 5
-  %14 = load ptr, ptr %13, align 8, !tbaa !57
-  %15 = tail call noundef i32 @_Z11WriteStreamP20ISequentialOutStreamPKvm(ptr noundef %14, ptr noundef %9, i64 noundef %12)
-  store i32 %15, ptr %2, align 8, !tbaa !55
-  %16 = icmp eq i32 %15, 0
-  br i1 %16, label %17, label %21
+if.then:                                          ; preds = %entry
+  %Cur = getelementptr inbounds %struct.CByteOutBufWrap, ptr %this, i64 0, i32 1
+  %1 = load ptr, ptr %Cur, align 8, !tbaa !57
+  %Buf = getelementptr inbounds %struct.CByteOutBufWrap, ptr %this, i64 0, i32 3
+  %2 = load ptr, ptr %Buf, align 8, !tbaa !52
+  %sub.ptr.lhs.cast = ptrtoint ptr %1 to i64
+  %sub.ptr.rhs.cast = ptrtoint ptr %2 to i64
+  %sub.ptr.sub = sub i64 %sub.ptr.lhs.cast, %sub.ptr.rhs.cast
+  %Stream = getelementptr inbounds %struct.CByteOutBufWrap, ptr %this, i64 0, i32 5
+  %3 = load ptr, ptr %Stream, align 8, !tbaa !58
+  %call = tail call noundef i32 @_Z11WriteStreamP20ISequentialOutStreamPKvm(ptr noundef %3, ptr noundef %2, i64 noundef %sub.ptr.sub)
+  store i32 %call, ptr %Res, align 8, !tbaa !56
+  %cmp5 = icmp eq i32 %call, 0
+  br i1 %cmp5, label %if.then6, label %if.end
 
-17:                                               ; preds = %5
-  %18 = getelementptr inbounds %struct.CByteOutBufWrap, ptr %0, i64 0, i32 6
-  %19 = load i64, ptr %18, align 8, !tbaa !58
-  %20 = add i64 %19, %12
-  store i64 %20, ptr %18, align 8, !tbaa !58
-  br label %21
+if.then6:                                         ; preds = %if.then
+  %Processed = getelementptr inbounds %struct.CByteOutBufWrap, ptr %this, i64 0, i32 6
+  %4 = load i64, ptr %Processed, align 8, !tbaa !59
+  %add = add i64 %4, %sub.ptr.sub
+  store i64 %add, ptr %Processed, align 8, !tbaa !59
+  br label %if.end
 
-21:                                               ; preds = %17, %5
-  %22 = load ptr, ptr %8, align 8, !tbaa !51
-  store ptr %22, ptr %6, align 8, !tbaa !56
-  br label %23
+if.end:                                           ; preds = %if.then6, %if.then
+  %5 = load ptr, ptr %Buf, align 8, !tbaa !52
+  store ptr %5, ptr %Cur, align 8, !tbaa !57
+  br label %if.end9
 
-23:                                               ; preds = %21, %1
-  %24 = phi i32 [ %15, %21 ], [ %3, %1 ]
-  ret i32 %24
+if.end9:                                          ; preds = %if.end, %entry
+  %6 = phi i32 [ %call, %if.end ], [ %0, %entry ]
+  ret i32 %6
 }
 
 declare noundef i32 @_Z11WriteStreamP20ISequentialOutStreamPKvm(ptr noundef, ptr noundef, i64 noundef) local_unnamed_addr #3
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(argmem: write) uwtable
-define dso_local void @_ZN15CByteOutBufWrapC2Ev(ptr nocapture noundef nonnull writeonly align 8 dereferenceable(60) %0) unnamed_addr #0 align 2 {
-  %2 = getelementptr inbounds %struct.CByteOutBufWrap, ptr %0, i64 0, i32 3
-  store ptr null, ptr %2, align 8, !tbaa !51
-  store ptr @_ZL14Wrap_WriteBytePvh, ptr %0, align 8, !tbaa !59
+define dso_local void @_ZN15CByteOutBufWrapC2Ev(ptr nocapture noundef nonnull writeonly align 8 dereferenceable(60) %this) unnamed_addr #0 align 2 {
+entry:
+  %Buf = getelementptr inbounds %struct.CByteOutBufWrap, ptr %this, i64 0, i32 3
+  store ptr null, ptr %Buf, align 8, !tbaa !52
+  store ptr @_ZL14Wrap_WriteBytePvh, ptr %this, align 8, !tbaa !60
   ret void
 }
 
 ; Function Attrs: mustprogress uwtable
-define internal void @_ZL14Wrap_WriteBytePvh(ptr nocapture noundef %0, i8 noundef zeroext %1) #1 {
-  %3 = getelementptr inbounds %struct.CByteOutBufWrap, ptr %0, i64 0, i32 1
-  %4 = load ptr, ptr %3, align 8, !tbaa !56
-  store i8 %1, ptr %4, align 1, !tbaa !48
-  %5 = getelementptr inbounds i8, ptr %4, i64 1
-  store ptr %5, ptr %3, align 8, !tbaa !56
-  %6 = getelementptr inbounds %struct.CByteOutBufWrap, ptr %0, i64 0, i32 2
-  %7 = load ptr, ptr %6, align 8, !tbaa !60
-  %8 = icmp eq ptr %5, %7
-  br i1 %8, label %9, label %29
+define internal void @_ZL14Wrap_WriteBytePvh(ptr nocapture noundef %pp, i8 noundef zeroext %b) #1 {
+entry:
+  %Cur = getelementptr inbounds %struct.CByteOutBufWrap, ptr %pp, i64 0, i32 1
+  %0 = load ptr, ptr %Cur, align 8, !tbaa !57
+  store i8 %b, ptr %0, align 1, !tbaa !49
+  %incdec.ptr = getelementptr inbounds i8, ptr %0, i64 1
+  store ptr %incdec.ptr, ptr %Cur, align 8, !tbaa !57
+  %Lim = getelementptr inbounds %struct.CByteOutBufWrap, ptr %pp, i64 0, i32 2
+  %1 = load ptr, ptr %Lim, align 8, !tbaa !61
+  %cmp = icmp eq ptr %incdec.ptr, %1
+  br i1 %cmp, label %if.then, label %if.end
 
-9:                                                ; preds = %2
-  %10 = getelementptr inbounds %struct.CByteOutBufWrap, ptr %0, i64 0, i32 7
-  %11 = load i32, ptr %10, align 8, !tbaa !55
-  %12 = icmp eq i32 %11, 0
-  br i1 %12, label %13, label %29
+if.then:                                          ; preds = %entry
+  %Res.i = getelementptr inbounds %struct.CByteOutBufWrap, ptr %pp, i64 0, i32 7
+  %2 = load i32, ptr %Res.i, align 8, !tbaa !56
+  %cmp.i = icmp eq i32 %2, 0
+  br i1 %cmp.i, label %if.then.i, label %if.end
 
-13:                                               ; preds = %9
-  %14 = getelementptr inbounds %struct.CByteOutBufWrap, ptr %0, i64 0, i32 3
-  %15 = load ptr, ptr %14, align 8, !tbaa !51
-  %16 = ptrtoint ptr %5 to i64
-  %17 = ptrtoint ptr %15 to i64
-  %18 = sub i64 %16, %17
-  %19 = getelementptr inbounds %struct.CByteOutBufWrap, ptr %0, i64 0, i32 5
-  %20 = load ptr, ptr %19, align 8, !tbaa !57
-  %21 = tail call noundef i32 @_Z11WriteStreamP20ISequentialOutStreamPKvm(ptr noundef %20, ptr noundef %15, i64 noundef %18)
-  store i32 %21, ptr %10, align 8, !tbaa !55
-  %22 = icmp eq i32 %21, 0
-  br i1 %22, label %23, label %27
+if.then.i:                                        ; preds = %if.then
+  %Buf.i = getelementptr inbounds %struct.CByteOutBufWrap, ptr %pp, i64 0, i32 3
+  %3 = load ptr, ptr %Buf.i, align 8, !tbaa !52
+  %sub.ptr.lhs.cast.i = ptrtoint ptr %incdec.ptr to i64
+  %sub.ptr.rhs.cast.i = ptrtoint ptr %3 to i64
+  %sub.ptr.sub.i = sub i64 %sub.ptr.lhs.cast.i, %sub.ptr.rhs.cast.i
+  %Stream.i = getelementptr inbounds %struct.CByteOutBufWrap, ptr %pp, i64 0, i32 5
+  %4 = load ptr, ptr %Stream.i, align 8, !tbaa !58
+  %call.i = tail call noundef i32 @_Z11WriteStreamP20ISequentialOutStreamPKvm(ptr noundef %4, ptr noundef %3, i64 noundef %sub.ptr.sub.i)
+  store i32 %call.i, ptr %Res.i, align 8, !tbaa !56
+  %cmp5.i = icmp eq i32 %call.i, 0
+  br i1 %cmp5.i, label %if.then6.i, label %if.end.i
 
-23:                                               ; preds = %13
-  %24 = getelementptr inbounds %struct.CByteOutBufWrap, ptr %0, i64 0, i32 6
-  %25 = load i64, ptr %24, align 8, !tbaa !58
-  %26 = add i64 %25, %18
-  store i64 %26, ptr %24, align 8, !tbaa !58
-  br label %27
+if.then6.i:                                       ; preds = %if.then.i
+  %Processed.i = getelementptr inbounds %struct.CByteOutBufWrap, ptr %pp, i64 0, i32 6
+  %5 = load i64, ptr %Processed.i, align 8, !tbaa !59
+  %add.i = add i64 %5, %sub.ptr.sub.i
+  store i64 %add.i, ptr %Processed.i, align 8, !tbaa !59
+  br label %if.end.i
 
-27:                                               ; preds = %23, %13
-  %28 = load ptr, ptr %14, align 8, !tbaa !51
-  store ptr %28, ptr %3, align 8, !tbaa !56
-  br label %29
+if.end.i:                                         ; preds = %if.then6.i, %if.then.i
+  %6 = load ptr, ptr %Buf.i, align 8, !tbaa !52
+  store ptr %6, ptr %Cur, align 8, !tbaa !57
+  br label %if.end
 
-29:                                               ; preds = %27, %9, %2
+if.end:                                           ; preds = %if.end.i, %if.then, %entry
   ret void
 }
 
@@ -649,16 +670,17 @@ attributes #6 = { nounwind }
 !45 = !{!39, !11, i64 60}
 !46 = !{!39, !15, i64 48}
 !47 = !{!39, !8, i64 40}
-!48 = !{!9, !9, i64 0}
-!49 = !{!39, !41, i64 56}
-!50 = !{!39, !8, i64 0}
-!51 = !{!52, !8, i64 24}
-!52 = !{!"_ZTS15CByteOutBufWrap", !53, i64 0, !8, i64 8, !8, i64 16, !8, i64 24, !23, i64 32, !8, i64 40, !15, i64 48, !11, i64 56}
-!53 = !{!"_ZTS8IByteOut", !8, i64 0}
-!54 = !{!52, !23, i64 32}
-!55 = !{!52, !11, i64 56}
-!56 = !{!52, !8, i64 8}
-!57 = !{!52, !8, i64 40}
-!58 = !{!52, !15, i64 48}
-!59 = !{!52, !8, i64 0}
-!60 = !{!52, !8, i64 16}
+!48 = !{!8, !8, i64 0}
+!49 = !{!9, !9, i64 0}
+!50 = !{!39, !41, i64 56}
+!51 = !{!39, !8, i64 0}
+!52 = !{!53, !8, i64 24}
+!53 = !{!"_ZTS15CByteOutBufWrap", !54, i64 0, !8, i64 8, !8, i64 16, !8, i64 24, !23, i64 32, !8, i64 40, !15, i64 48, !11, i64 56}
+!54 = !{!"_ZTS8IByteOut", !8, i64 0}
+!55 = !{!53, !23, i64 32}
+!56 = !{!53, !11, i64 56}
+!57 = !{!53, !8, i64 8}
+!58 = !{!53, !8, i64 40}
+!59 = !{!53, !15, i64 48}
+!60 = !{!53, !8, i64 0}
+!61 = !{!53, !8, i64 16}

@@ -15,81 +15,86 @@ target triple = "x86_64-unknown-linux-gnu"
 @g__style = dso_local local_unnamed_addr global %struct.RenderStyle zeroinitializer, align 4
 
 ; Function Attrs: nounwind uwtable
-define dso_local void @RenderBox_setStyle(ptr noundef %0, ptr nocapture noundef readonly %1) local_unnamed_addr #0 {
-  %3 = getelementptr inbounds %struct.RenderBox, ptr %0, i64 0, i32 2
-  %4 = load i16, ptr %3, align 2
-  %5 = load i32, ptr %1, align 4
-  %6 = and i32 %5, 262144
-  %7 = icmp eq i32 %6, 0
-  br i1 %7, label %10, label %8
+define dso_local void @RenderBox_setStyle(ptr noundef %thisin, ptr nocapture noundef readonly %_style) local_unnamed_addr #0 {
+entry:
+  %m_positioned = getelementptr inbounds %struct.RenderBox, ptr %thisin, i64 0, i32 2
+  %bf.load = load i16, ptr %m_positioned, align 2
+  %bf.load2 = load i32, ptr %_style, align 4
+  %0 = and i32 %bf.load2, 262144
+  %switch.not = icmp eq i32 %0, 0
+  br i1 %switch.not, label %sw.default, label %sw.bb
 
-8:                                                ; preds = %2
-  %9 = or i16 %4, 16
-  br label %29
+sw.bb:                                            ; preds = %entry
+  %bf.set = or i16 %bf.load, 16
+  br label %sw.epilog.sink.split
 
-10:                                               ; preds = %2
-  %11 = and i16 %4, -17
-  store i16 %11, ptr %3, align 2
-  %12 = load i32, ptr %1, align 4
-  %13 = getelementptr inbounds %struct.RenderBox, ptr %0, i64 0, i32 3
-  %14 = load ptr, ptr %13, align 8, !tbaa !5
-  %15 = tail call zeroext i1 %14(ptr noundef nonnull %0) #4
-  %16 = and i32 %12, 1572864
-  %17 = icmp eq i32 %16, 0
-  %18 = select i1 %15, i1 true, i1 %17
-  br i1 %18, label %22, label %19
+sw.default:                                       ; preds = %entry
+  %bf.clear24 = and i16 %bf.load, -17
+  store i16 %bf.clear24, ptr %m_positioned, align 2
+  %bf.load29 = load i32, ptr %_style, align 4
+  %isTableCell = getelementptr inbounds %struct.RenderBox, ptr %thisin, i64 0, i32 3
+  %1 = load ptr, ptr %isTableCell, align 8, !tbaa !5
+  %call = tail call zeroext i1 %1(ptr noundef nonnull %thisin) #4
+  %2 = and i32 %bf.load29, 1572864
+  %cmp = icmp eq i32 %2, 0
+  %or.cond = select i1 %call, i1 true, i1 %cmp
+  br i1 %or.cond, label %if.else, label %if.then32
 
-19:                                               ; preds = %10
-  %20 = load i16, ptr %3, align 2
-  %21 = or i16 %20, 8
-  br label %29
+if.then32:                                        ; preds = %sw.default
+  %bf.load35 = load i16, ptr %m_positioned, align 2
+  %bf.set38 = or i16 %bf.load35, 8
+  br label %sw.epilog.sink.split
 
-22:                                               ; preds = %10
-  %23 = load i32, ptr %1, align 4
-  %24 = and i32 %23, 393216
-  %25 = icmp eq i32 %24, 131072
-  br i1 %25, label %26, label %31
+if.else:                                          ; preds = %sw.default
+  %bf.load42 = load i32, ptr %_style, align 4
+  %3 = and i32 %bf.load42, 393216
+  %cmp45 = icmp eq i32 %3, 131072
+  br i1 %cmp45, label %if.then46, label %sw.epilog
 
-26:                                               ; preds = %22
-  %27 = load i16, ptr %3, align 2
-  %28 = or i16 %27, 64
-  br label %29
+if.then46:                                        ; preds = %if.else
+  %bf.load49 = load i16, ptr %m_positioned, align 2
+  %bf.set52 = or i16 %bf.load49, 64
+  br label %sw.epilog.sink.split
 
-29:                                               ; preds = %8, %26, %19
-  %30 = phi i16 [ %21, %19 ], [ %28, %26 ], [ %9, %8 ]
-  store i16 %30, ptr %3, align 2
-  br label %31
+sw.epilog.sink.split:                             ; preds = %sw.bb, %if.then46, %if.then32
+  %bf.set38.sink = phi i16 [ %bf.set38, %if.then32 ], [ %bf.set52, %if.then46 ], [ %bf.set, %sw.bb ]
+  store i16 %bf.set38.sink, ptr %m_positioned, align 2
+  br label %sw.epilog
 
-31:                                               ; preds = %29, %22
+sw.epilog:                                        ; preds = %sw.epilog.sink.split, %if.else
   ret void
 }
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(none) uwtable
-define dso_local void @RenderObject_setStyle(ptr nocapture noundef %0, ptr nocapture noundef %1) local_unnamed_addr #1 {
+define dso_local void @RenderObject_setStyle(ptr nocapture noundef %this, ptr nocapture noundef %_style) local_unnamed_addr #1 {
+entry:
   ret void
 }
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(none) uwtable
-define dso_local void @removeFromSpecialObjects(ptr nocapture noundef %0) local_unnamed_addr #1 {
+define dso_local void @removeFromSpecialObjects(ptr nocapture noundef %this) local_unnamed_addr #1 {
+entry:
   ret void
 }
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(none) uwtable
-define dso_local zeroext i1 @RenderBox_isTableCell(ptr nocapture readnone %0) #1 {
+define dso_local zeroext i1 @RenderBox_isTableCell(ptr nocapture readnone %this) #1 {
+entry:
   ret i1 false
 }
 
 ; Function Attrs: noreturn nounwind uwtable
 define dso_local i32 @main() local_unnamed_addr #2 {
-  %1 = load i16, ptr getelementptr inbounds (%struct.RenderBox, ptr @g_this, i64 0, i32 2), align 2
-  %2 = and i16 %1, -89
+RenderBox_setStyle.exit:
+  %bf.load = load i16, ptr getelementptr inbounds (%struct.RenderBox, ptr @g_this, i64 0, i32 2), align 2
+  %bf.clear5 = and i16 %bf.load, -89
   store ptr @RenderBox_isTableCell, ptr getelementptr inbounds (%struct.RenderBox, ptr @g_this, i64 0, i32 3), align 8, !tbaa !5
-  %3 = load i32, ptr @g__style, align 4
-  %4 = and i32 %3, -1966081
-  %5 = or i32 %4, 393216
-  store i32 %5, ptr @g__style, align 4
-  %6 = or i16 %2, 16
-  store i16 %6, ptr getelementptr inbounds (%struct.RenderBox, ptr @g_this, i64 0, i32 2), align 2
+  %bf.load7 = load i32, ptr @g__style, align 4
+  %bf.set9 = and i32 %bf.load7, -1966081
+  %bf.clear11 = or i32 %bf.set9, 393216
+  store i32 %bf.clear11, ptr @g__style, align 4
+  %bf.set.i = or i16 %bf.clear5, 16
+  store i16 %bf.set.i, ptr getelementptr inbounds (%struct.RenderBox, ptr @g_this, i64 0, i32 2), align 2
   tail call void @exit(i32 noundef 0) #5
   unreachable
 }

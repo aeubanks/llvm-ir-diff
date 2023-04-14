@@ -8,150 +8,152 @@ target triple = "x86_64-unknown-linux-gnu"
 @.str = private unnamed_addr constant [17 x i8] c"0123456789abcdef\00", align 16
 
 ; Function Attrs: nounwind uwtable
-define dso_local i32 @to_hex(i32 noundef %0) local_unnamed_addr #0 {
-  %2 = icmp ugt i32 %0, 15
-  br i1 %2, label %3, label %4
+define dso_local i32 @to_hex(i32 noundef %a) local_unnamed_addr #0 {
+entry:
+  %cmp = icmp ugt i32 %a, 15
+  br i1 %cmp, label %if.then, label %if.end
 
-3:                                                ; preds = %1
+if.then:                                          ; preds = %entry
   tail call void @abort() #6
   unreachable
 
-4:                                                ; preds = %1
-  %5 = zext i32 %0 to i64
-  %6 = getelementptr inbounds [17 x i8], ptr @.str, i64 0, i64 %5
-  %7 = load i8, ptr %6, align 1, !tbaa !5
-  %8 = sext i8 %7 to i32
-  ret i32 %8
+if.end:                                           ; preds = %entry
+  %idxprom = zext i32 %a to i64
+  %arrayidx = getelementptr inbounds [17 x i8], ptr @.str, i64 0, i64 %idxprom
+  %0 = load i8, ptr %arrayidx, align 1, !tbaa !5
+  %conv = sext i8 %0 to i32
+  ret i32 %conv
 }
 
 ; Function Attrs: noreturn
 declare void @abort() local_unnamed_addr #1
 
 ; Function Attrs: nounwind uwtable
-define dso_local void @fap(i32 noundef %0, ptr nocapture noundef readonly %1, ptr noundef %2) local_unnamed_addr #0 {
-  %4 = alloca [1 x %struct.__va_list_tag], align 16
-  call void @llvm.lifetime.start.p0(i64 24, ptr nonnull %4) #7
-  call void @llvm.va_copy(ptr nonnull %4, ptr %2)
-  %5 = call i64 @strlen(ptr noundef nonnull dereferenceable(1) %1)
-  %6 = sub nsw i32 16, %0
-  %7 = sext i32 %6 to i64
-  %8 = icmp eq i64 %5, %7
-  br i1 %8, label %9, label %12
+define dso_local void @fap(i32 noundef %i, ptr nocapture noundef readonly %format, ptr noundef %ap) local_unnamed_addr #0 {
+entry:
+  %apc = alloca [1 x %struct.__va_list_tag], align 16
+  call void @llvm.lifetime.start.p0(i64 24, ptr nonnull %apc) #7
+  call void @llvm.va_copy(ptr nonnull %apc, ptr %ap)
+  %call = call i64 @strlen(ptr noundef nonnull dereferenceable(1) %format)
+  %sub = sub nsw i32 16, %i
+  %conv = sext i32 %sub to i64
+  %cmp.not = icmp eq i64 %call, %conv
+  br i1 %cmp.not, label %while.cond.preheader, label %if.then
 
-9:                                                ; preds = %3
-  %10 = getelementptr inbounds %struct.__va_list_tag, ptr %2, i64 0, i32 2
-  %11 = getelementptr inbounds %struct.__va_list_tag, ptr %2, i64 0, i32 3
-  br label %13
+while.cond.preheader:                             ; preds = %entry
+  %overflow_arg_area_p = getelementptr inbounds %struct.__va_list_tag, ptr %ap, i64 0, i32 2
+  %0 = getelementptr inbounds %struct.__va_list_tag, ptr %ap, i64 0, i32 3
+  br label %while.cond
 
-12:                                               ; preds = %3
+if.then:                                          ; preds = %entry
   call void @abort() #6
   unreachable
 
-13:                                               ; preds = %9, %40
-  %14 = phi ptr [ %24, %40 ], [ %1, %9 ]
-  %15 = load i8, ptr %14, align 1, !tbaa !5
-  %16 = icmp eq i8 %15, 0
-  br i1 %16, label %17, label %23
+while.cond:                                       ; preds = %while.cond.preheader, %to_hex.exit
+  %format.addr.0 = phi ptr [ %incdec.ptr, %to_hex.exit ], [ %format, %while.cond.preheader ]
+  %1 = load i8, ptr %format.addr.0, align 1, !tbaa !5
+  %tobool.not = icmp eq i8 %1, 0
+  br i1 %tobool.not, label %while.cond8.preheader, label %while.body
 
-17:                                               ; preds = %13
-  %18 = load i32, ptr %4, align 16
-  %19 = getelementptr inbounds %struct.__va_list_tag, ptr %4, i64 0, i32 2
-  %20 = getelementptr inbounds %struct.__va_list_tag, ptr %4, i64 0, i32 3
-  %21 = load ptr, ptr %20, align 16
-  %22 = load ptr, ptr %19, align 8
-  br label %46
+while.cond8.preheader:                            ; preds = %while.cond
+  %apc.promoted = load i32, ptr %apc, align 16
+  %overflow_arg_area_p20 = getelementptr inbounds %struct.__va_list_tag, ptr %apc, i64 0, i32 2
+  %2 = getelementptr inbounds %struct.__va_list_tag, ptr %apc, i64 0, i32 3
+  %reg_save_area18 = load ptr, ptr %2, align 16
+  %overflow_arg_area_p20.promoted = load ptr, ptr %overflow_arg_area_p20, align 8
+  br label %while.cond8
 
-23:                                               ; preds = %13
-  %24 = getelementptr inbounds i8, ptr %14, i64 1
-  %25 = load i32, ptr %2, align 8
-  %26 = icmp ult i32 %25, 41
-  br i1 %26, label %27, label %32
+while.body:                                       ; preds = %while.cond
+  %incdec.ptr = getelementptr inbounds i8, ptr %format.addr.0, i64 1
+  %gp_offset = load i32, ptr %ap, align 8
+  %fits_in_gp = icmp ult i32 %gp_offset, 41
+  br i1 %fits_in_gp, label %vaarg.in_reg, label %vaarg.in_mem
 
-27:                                               ; preds = %23
-  %28 = load ptr, ptr %11, align 8
-  %29 = zext i32 %25 to i64
-  %30 = getelementptr i8, ptr %28, i64 %29
-  %31 = add nuw nsw i32 %25, 8
-  store i32 %31, ptr %2, align 8
-  br label %35
+vaarg.in_reg:                                     ; preds = %while.body
+  %reg_save_area = load ptr, ptr %0, align 8
+  %3 = zext i32 %gp_offset to i64
+  %4 = getelementptr i8, ptr %reg_save_area, i64 %3
+  %5 = add nuw nsw i32 %gp_offset, 8
+  store i32 %5, ptr %ap, align 8
+  br label %vaarg.end
 
-32:                                               ; preds = %23
-  %33 = load ptr, ptr %10, align 8
-  %34 = getelementptr i8, ptr %33, i64 8
-  store ptr %34, ptr %10, align 8
-  br label %35
+vaarg.in_mem:                                     ; preds = %while.body
+  %overflow_arg_area = load ptr, ptr %overflow_arg_area_p, align 8
+  %overflow_arg_area.next = getelementptr i8, ptr %overflow_arg_area, i64 8
+  store ptr %overflow_arg_area.next, ptr %overflow_arg_area_p, align 8
+  br label %vaarg.end
 
-35:                                               ; preds = %32, %27
-  %36 = phi ptr [ %30, %27 ], [ %33, %32 ]
-  %37 = load i32, ptr %36, align 4
-  %38 = icmp ugt i32 %37, 15
-  br i1 %38, label %39, label %40
+vaarg.end:                                        ; preds = %vaarg.in_mem, %vaarg.in_reg
+  %vaarg.addr = phi ptr [ %4, %vaarg.in_reg ], [ %overflow_arg_area, %vaarg.in_mem ]
+  %6 = load i32, ptr %vaarg.addr, align 4
+  %cmp.i = icmp ugt i32 %6, 15
+  br i1 %cmp.i, label %if.then.i, label %to_hex.exit
 
-39:                                               ; preds = %35
+if.then.i:                                        ; preds = %vaarg.end
   call void @abort() #6
   unreachable
 
-40:                                               ; preds = %35
-  %41 = zext i32 %37 to i64
-  %42 = getelementptr inbounds [17 x i8], ptr @.str, i64 0, i64 %41
-  %43 = load i8, ptr %42, align 1, !tbaa !5
-  %44 = icmp eq i8 %15, %43
-  br i1 %44, label %13, label %45, !llvm.loop !8
+to_hex.exit:                                      ; preds = %vaarg.end
+  %idxprom.i = zext i32 %6 to i64
+  %arrayidx.i = getelementptr inbounds [17 x i8], ptr @.str, i64 0, i64 %idxprom.i
+  %7 = load i8, ptr %arrayidx.i, align 1, !tbaa !5
+  %cmp4.not = icmp eq i8 %7, %1
+  br i1 %cmp4.not, label %while.cond, label %if.then6, !llvm.loop !8
 
-45:                                               ; preds = %40
+if.then6:                                         ; preds = %to_hex.exit
   call void @abort() #6
   unreachable
 
-46:                                               ; preds = %17, %68
-  %47 = phi ptr [ %62, %68 ], [ %22, %17 ]
-  %48 = phi i32 [ %63, %68 ], [ %18, %17 ]
-  %49 = phi ptr [ %53, %68 ], [ %1, %17 ]
-  %50 = load i8, ptr %49, align 1, !tbaa !5
-  %51 = icmp eq i8 %50, 0
-  br i1 %51, label %74, label %52
+while.cond8:                                      ; preds = %while.cond8.preheader, %to_hex.exit42
+  %overflow_arg_area.next2246 = phi ptr [ %overflow_arg_area.next2245, %to_hex.exit42 ], [ %overflow_arg_area_p20.promoted, %while.cond8.preheader ]
+  %gp_offset1544 = phi i32 [ %gp_offset1543, %to_hex.exit42 ], [ %apc.promoted, %while.cond8.preheader ]
+  %formatc.0 = phi ptr [ %incdec.ptr11, %to_hex.exit42 ], [ %format, %while.cond8.preheader ]
+  %8 = load i8, ptr %formatc.0, align 1, !tbaa !5
+  %tobool9.not = icmp eq i8 %8, 0
+  br i1 %tobool9.not, label %while.end30, label %while.body10
 
-52:                                               ; preds = %46
-  %53 = getelementptr inbounds i8, ptr %49, i64 1
-  %54 = icmp ult i32 %48, 41
-  br i1 %54, label %55, label %59
+while.body10:                                     ; preds = %while.cond8
+  %incdec.ptr11 = getelementptr inbounds i8, ptr %formatc.0, i64 1
+  %fits_in_gp16 = icmp ult i32 %gp_offset1544, 41
+  br i1 %fits_in_gp16, label %vaarg.in_reg17, label %vaarg.in_mem19
 
-55:                                               ; preds = %52
-  %56 = zext i32 %48 to i64
-  %57 = getelementptr i8, ptr %21, i64 %56
-  %58 = add nuw nsw i32 %48, 8
-  store i32 %58, ptr %4, align 16
-  br label %61
+vaarg.in_reg17:                                   ; preds = %while.body10
+  %9 = zext i32 %gp_offset1544 to i64
+  %10 = getelementptr i8, ptr %reg_save_area18, i64 %9
+  %11 = add nuw nsw i32 %gp_offset1544, 8
+  store i32 %11, ptr %apc, align 16
+  br label %vaarg.end23
 
-59:                                               ; preds = %52
-  %60 = getelementptr i8, ptr %47, i64 8
-  store ptr %60, ptr %19, align 8
-  br label %61
+vaarg.in_mem19:                                   ; preds = %while.body10
+  %overflow_arg_area.next22 = getelementptr i8, ptr %overflow_arg_area.next2246, i64 8
+  store ptr %overflow_arg_area.next22, ptr %overflow_arg_area_p20, align 8
+  br label %vaarg.end23
 
-61:                                               ; preds = %59, %55
-  %62 = phi ptr [ %47, %55 ], [ %60, %59 ]
-  %63 = phi i32 [ %58, %55 ], [ %48, %59 ]
-  %64 = phi ptr [ %57, %55 ], [ %47, %59 ]
-  %65 = load i32, ptr %64, align 4
-  %66 = icmp ugt i32 %65, 15
-  br i1 %66, label %67, label %68
+vaarg.end23:                                      ; preds = %vaarg.in_mem19, %vaarg.in_reg17
+  %overflow_arg_area.next2245 = phi ptr [ %overflow_arg_area.next2246, %vaarg.in_reg17 ], [ %overflow_arg_area.next22, %vaarg.in_mem19 ]
+  %gp_offset1543 = phi i32 [ %11, %vaarg.in_reg17 ], [ %gp_offset1544, %vaarg.in_mem19 ]
+  %vaarg.addr24 = phi ptr [ %10, %vaarg.in_reg17 ], [ %overflow_arg_area.next2246, %vaarg.in_mem19 ]
+  %12 = load i32, ptr %vaarg.addr24, align 4
+  %cmp.i37 = icmp ugt i32 %12, 15
+  br i1 %cmp.i37, label %if.then.i38, label %to_hex.exit42
 
-67:                                               ; preds = %61
+if.then.i38:                                      ; preds = %vaarg.end23
   call void @abort() #6
   unreachable
 
-68:                                               ; preds = %61
-  %69 = zext i32 %65 to i64
-  %70 = getelementptr inbounds [17 x i8], ptr @.str, i64 0, i64 %69
-  %71 = load i8, ptr %70, align 1, !tbaa !5
-  %72 = icmp eq i8 %50, %71
-  br i1 %72, label %46, label %73, !llvm.loop !10
+to_hex.exit42:                                    ; preds = %vaarg.end23
+  %idxprom.i39 = zext i32 %12 to i64
+  %arrayidx.i40 = getelementptr inbounds [17 x i8], ptr @.str, i64 0, i64 %idxprom.i39
+  %13 = load i8, ptr %arrayidx.i40, align 1, !tbaa !5
+  %cmp26.not = icmp eq i8 %13, %8
+  br i1 %cmp26.not, label %while.cond8, label %if.then28, !llvm.loop !10
 
-73:                                               ; preds = %68
+if.then28:                                        ; preds = %to_hex.exit42
   call void @abort() #6
   unreachable
 
-74:                                               ; preds = %46
-  call void @llvm.lifetime.end.p0(i64 24, ptr nonnull %4) #7
+while.end30:                                      ; preds = %while.cond8
+  call void @llvm.lifetime.end.p0(i64 24, ptr nonnull %apc) #7
   ret void
 }
 
@@ -168,13 +170,14 @@ declare i64 @strlen(ptr nocapture noundef) local_unnamed_addr #4
 declare void @llvm.lifetime.end.p0(i64 immarg, ptr nocapture) #2
 
 ; Function Attrs: nounwind uwtable
-define dso_local void @f0(ptr nocapture noundef readonly %0, ...) local_unnamed_addr #0 {
-  %2 = alloca [1 x %struct.__va_list_tag], align 16
-  call void @llvm.lifetime.start.p0(i64 24, ptr nonnull %2) #7
-  call void @llvm.va_start(ptr nonnull %2)
-  call void @fap(i32 noundef 0, ptr noundef %0, ptr noundef nonnull %2)
-  call void @llvm.va_end(ptr nonnull %2)
-  call void @llvm.lifetime.end.p0(i64 24, ptr nonnull %2) #7
+define dso_local void @f0(ptr nocapture noundef readonly %format, ...) local_unnamed_addr #0 {
+entry:
+  %ap = alloca [1 x %struct.__va_list_tag], align 16
+  call void @llvm.lifetime.start.p0(i64 24, ptr nonnull %ap) #7
+  call void @llvm.va_start(ptr nonnull %ap)
+  call void @fap(i32 noundef 0, ptr noundef %format, ptr noundef nonnull %ap)
+  call void @llvm.va_end(ptr nonnull %ap)
+  call void @llvm.lifetime.end.p0(i64 24, ptr nonnull %ap) #7
   ret void
 }
 
@@ -185,172 +188,188 @@ declare void @llvm.va_start(ptr) #3
 declare void @llvm.va_end(ptr) #3
 
 ; Function Attrs: nounwind uwtable
-define dso_local void @f1(i32 %0, ptr nocapture noundef readonly %1, ...) local_unnamed_addr #0 {
-  %3 = alloca [1 x %struct.__va_list_tag], align 16
-  call void @llvm.lifetime.start.p0(i64 24, ptr nonnull %3) #7
-  call void @llvm.va_start(ptr nonnull %3)
-  call void @fap(i32 noundef 1, ptr noundef %1, ptr noundef nonnull %3)
-  call void @llvm.va_end(ptr nonnull %3)
-  call void @llvm.lifetime.end.p0(i64 24, ptr nonnull %3) #7
+define dso_local void @f1(i32 %a1, ptr nocapture noundef readonly %format, ...) local_unnamed_addr #0 {
+entry:
+  %ap = alloca [1 x %struct.__va_list_tag], align 16
+  call void @llvm.lifetime.start.p0(i64 24, ptr nonnull %ap) #7
+  call void @llvm.va_start(ptr nonnull %ap)
+  call void @fap(i32 noundef 1, ptr noundef %format, ptr noundef nonnull %ap)
+  call void @llvm.va_end(ptr nonnull %ap)
+  call void @llvm.lifetime.end.p0(i64 24, ptr nonnull %ap) #7
   ret void
 }
 
 ; Function Attrs: nounwind uwtable
-define dso_local void @f2(i32 %0, i32 %1, ptr nocapture noundef readonly %2, ...) local_unnamed_addr #0 {
-  %4 = alloca [1 x %struct.__va_list_tag], align 16
-  call void @llvm.lifetime.start.p0(i64 24, ptr nonnull %4) #7
-  call void @llvm.va_start(ptr nonnull %4)
-  call void @fap(i32 noundef 2, ptr noundef %2, ptr noundef nonnull %4)
-  call void @llvm.va_end(ptr nonnull %4)
-  call void @llvm.lifetime.end.p0(i64 24, ptr nonnull %4) #7
+define dso_local void @f2(i32 %a1, i32 %a2, ptr nocapture noundef readonly %format, ...) local_unnamed_addr #0 {
+entry:
+  %ap = alloca [1 x %struct.__va_list_tag], align 16
+  call void @llvm.lifetime.start.p0(i64 24, ptr nonnull %ap) #7
+  call void @llvm.va_start(ptr nonnull %ap)
+  call void @fap(i32 noundef 2, ptr noundef %format, ptr noundef nonnull %ap)
+  call void @llvm.va_end(ptr nonnull %ap)
+  call void @llvm.lifetime.end.p0(i64 24, ptr nonnull %ap) #7
   ret void
 }
 
 ; Function Attrs: nounwind uwtable
-define dso_local void @f3(i32 %0, i32 %1, i32 %2, ptr nocapture noundef readonly %3, ...) local_unnamed_addr #0 {
-  %5 = alloca [1 x %struct.__va_list_tag], align 16
-  call void @llvm.lifetime.start.p0(i64 24, ptr nonnull %5) #7
-  call void @llvm.va_start(ptr nonnull %5)
-  call void @fap(i32 noundef 3, ptr noundef %3, ptr noundef nonnull %5)
-  call void @llvm.va_end(ptr nonnull %5)
-  call void @llvm.lifetime.end.p0(i64 24, ptr nonnull %5) #7
+define dso_local void @f3(i32 %a1, i32 %a2, i32 %a3, ptr nocapture noundef readonly %format, ...) local_unnamed_addr #0 {
+entry:
+  %ap = alloca [1 x %struct.__va_list_tag], align 16
+  call void @llvm.lifetime.start.p0(i64 24, ptr nonnull %ap) #7
+  call void @llvm.va_start(ptr nonnull %ap)
+  call void @fap(i32 noundef 3, ptr noundef %format, ptr noundef nonnull %ap)
+  call void @llvm.va_end(ptr nonnull %ap)
+  call void @llvm.lifetime.end.p0(i64 24, ptr nonnull %ap) #7
   ret void
 }
 
 ; Function Attrs: nounwind uwtable
-define dso_local void @f4(i32 %0, i32 %1, i32 %2, i32 %3, ptr nocapture noundef readonly %4, ...) local_unnamed_addr #0 {
-  %6 = alloca [1 x %struct.__va_list_tag], align 16
-  call void @llvm.lifetime.start.p0(i64 24, ptr nonnull %6) #7
-  call void @llvm.va_start(ptr nonnull %6)
-  call void @fap(i32 noundef 4, ptr noundef %4, ptr noundef nonnull %6)
-  call void @llvm.va_end(ptr nonnull %6)
-  call void @llvm.lifetime.end.p0(i64 24, ptr nonnull %6) #7
+define dso_local void @f4(i32 %a1, i32 %a2, i32 %a3, i32 %a4, ptr nocapture noundef readonly %format, ...) local_unnamed_addr #0 {
+entry:
+  %ap = alloca [1 x %struct.__va_list_tag], align 16
+  call void @llvm.lifetime.start.p0(i64 24, ptr nonnull %ap) #7
+  call void @llvm.va_start(ptr nonnull %ap)
+  call void @fap(i32 noundef 4, ptr noundef %format, ptr noundef nonnull %ap)
+  call void @llvm.va_end(ptr nonnull %ap)
+  call void @llvm.lifetime.end.p0(i64 24, ptr nonnull %ap) #7
   ret void
 }
 
 ; Function Attrs: nounwind uwtable
-define dso_local void @f5(i32 %0, i32 %1, i32 %2, i32 %3, i32 %4, ptr nocapture noundef readonly %5, ...) local_unnamed_addr #0 {
-  %7 = alloca [1 x %struct.__va_list_tag], align 16
-  call void @llvm.lifetime.start.p0(i64 24, ptr nonnull %7) #7
-  call void @llvm.va_start(ptr nonnull %7)
-  call void @fap(i32 noundef 5, ptr noundef %5, ptr noundef nonnull %7)
-  call void @llvm.va_end(ptr nonnull %7)
-  call void @llvm.lifetime.end.p0(i64 24, ptr nonnull %7) #7
+define dso_local void @f5(i32 %a1, i32 %a2, i32 %a3, i32 %a4, i32 %a5, ptr nocapture noundef readonly %format, ...) local_unnamed_addr #0 {
+entry:
+  %ap = alloca [1 x %struct.__va_list_tag], align 16
+  call void @llvm.lifetime.start.p0(i64 24, ptr nonnull %ap) #7
+  call void @llvm.va_start(ptr nonnull %ap)
+  call void @fap(i32 noundef 5, ptr noundef %format, ptr noundef nonnull %ap)
+  call void @llvm.va_end(ptr nonnull %ap)
+  call void @llvm.lifetime.end.p0(i64 24, ptr nonnull %ap) #7
   ret void
 }
 
 ; Function Attrs: nounwind uwtable
-define dso_local void @f6(i32 %0, i32 %1, i32 %2, i32 %3, i32 %4, i32 %5, ptr nocapture noundef readonly %6, ...) local_unnamed_addr #0 {
-  %8 = alloca [1 x %struct.__va_list_tag], align 16
-  call void @llvm.lifetime.start.p0(i64 24, ptr nonnull %8) #7
-  call void @llvm.va_start(ptr nonnull %8)
-  call void @fap(i32 noundef 6, ptr noundef %6, ptr noundef nonnull %8)
-  call void @llvm.va_end(ptr nonnull %8)
-  call void @llvm.lifetime.end.p0(i64 24, ptr nonnull %8) #7
+define dso_local void @f6(i32 %a1, i32 %a2, i32 %a3, i32 %a4, i32 %a5, i32 %a6, ptr nocapture noundef readonly %format, ...) local_unnamed_addr #0 {
+entry:
+  %ap = alloca [1 x %struct.__va_list_tag], align 16
+  call void @llvm.lifetime.start.p0(i64 24, ptr nonnull %ap) #7
+  call void @llvm.va_start(ptr nonnull %ap)
+  call void @fap(i32 noundef 6, ptr noundef %format, ptr noundef nonnull %ap)
+  call void @llvm.va_end(ptr nonnull %ap)
+  call void @llvm.lifetime.end.p0(i64 24, ptr nonnull %ap) #7
   ret void
 }
 
 ; Function Attrs: nounwind uwtable
-define dso_local void @f7(i32 %0, i32 %1, i32 %2, i32 %3, i32 %4, i32 %5, i32 %6, ptr nocapture noundef readonly %7, ...) local_unnamed_addr #0 {
-  %9 = alloca [1 x %struct.__va_list_tag], align 16
-  call void @llvm.lifetime.start.p0(i64 24, ptr nonnull %9) #7
-  call void @llvm.va_start(ptr nonnull %9)
-  call void @fap(i32 noundef 7, ptr noundef %7, ptr noundef nonnull %9)
-  call void @llvm.va_end(ptr nonnull %9)
-  call void @llvm.lifetime.end.p0(i64 24, ptr nonnull %9) #7
+define dso_local void @f7(i32 %a1, i32 %a2, i32 %a3, i32 %a4, i32 %a5, i32 %a6, i32 %a7, ptr nocapture noundef readonly %format, ...) local_unnamed_addr #0 {
+entry:
+  %ap = alloca [1 x %struct.__va_list_tag], align 16
+  call void @llvm.lifetime.start.p0(i64 24, ptr nonnull %ap) #7
+  call void @llvm.va_start(ptr nonnull %ap)
+  call void @fap(i32 noundef 7, ptr noundef %format, ptr noundef nonnull %ap)
+  call void @llvm.va_end(ptr nonnull %ap)
+  call void @llvm.lifetime.end.p0(i64 24, ptr nonnull %ap) #7
   ret void
 }
 
 ; Function Attrs: nounwind uwtable
-define dso_local void @f8(i32 %0, i32 %1, i32 %2, i32 %3, i32 %4, i32 %5, i32 %6, i32 %7, ptr nocapture noundef readonly %8, ...) local_unnamed_addr #0 {
-  %10 = alloca [1 x %struct.__va_list_tag], align 16
-  call void @llvm.lifetime.start.p0(i64 24, ptr nonnull %10) #7
-  call void @llvm.va_start(ptr nonnull %10)
-  call void @fap(i32 noundef 8, ptr noundef %8, ptr noundef nonnull %10)
-  call void @llvm.va_end(ptr nonnull %10)
-  call void @llvm.lifetime.end.p0(i64 24, ptr nonnull %10) #7
+define dso_local void @f8(i32 %a1, i32 %a2, i32 %a3, i32 %a4, i32 %a5, i32 %a6, i32 %a7, i32 %a8, ptr nocapture noundef readonly %format, ...) local_unnamed_addr #0 {
+entry:
+  %ap = alloca [1 x %struct.__va_list_tag], align 16
+  call void @llvm.lifetime.start.p0(i64 24, ptr nonnull %ap) #7
+  call void @llvm.va_start(ptr nonnull %ap)
+  call void @fap(i32 noundef 8, ptr noundef %format, ptr noundef nonnull %ap)
+  call void @llvm.va_end(ptr nonnull %ap)
+  call void @llvm.lifetime.end.p0(i64 24, ptr nonnull %ap) #7
   ret void
 }
 
 ; Function Attrs: nounwind uwtable
-define dso_local void @f9(i32 %0, i32 %1, i32 %2, i32 %3, i32 %4, i32 %5, i32 %6, i32 %7, i32 %8, ptr nocapture noundef readonly %9, ...) local_unnamed_addr #0 {
-  %11 = alloca [1 x %struct.__va_list_tag], align 16
-  call void @llvm.lifetime.start.p0(i64 24, ptr nonnull %11) #7
-  call void @llvm.va_start(ptr nonnull %11)
-  call void @fap(i32 noundef 9, ptr noundef %9, ptr noundef nonnull %11)
-  call void @llvm.va_end(ptr nonnull %11)
-  call void @llvm.lifetime.end.p0(i64 24, ptr nonnull %11) #7
+define dso_local void @f9(i32 %a1, i32 %a2, i32 %a3, i32 %a4, i32 %a5, i32 %a6, i32 %a7, i32 %a8, i32 %a9, ptr nocapture noundef readonly %format, ...) local_unnamed_addr #0 {
+entry:
+  %ap = alloca [1 x %struct.__va_list_tag], align 16
+  call void @llvm.lifetime.start.p0(i64 24, ptr nonnull %ap) #7
+  call void @llvm.va_start(ptr nonnull %ap)
+  call void @fap(i32 noundef 9, ptr noundef %format, ptr noundef nonnull %ap)
+  call void @llvm.va_end(ptr nonnull %ap)
+  call void @llvm.lifetime.end.p0(i64 24, ptr nonnull %ap) #7
   ret void
 }
 
 ; Function Attrs: nounwind uwtable
-define dso_local void @f10(i32 %0, i32 %1, i32 %2, i32 %3, i32 %4, i32 %5, i32 %6, i32 %7, i32 %8, i32 %9, ptr nocapture noundef readonly %10, ...) local_unnamed_addr #0 {
-  %12 = alloca [1 x %struct.__va_list_tag], align 16
-  call void @llvm.lifetime.start.p0(i64 24, ptr nonnull %12) #7
-  call void @llvm.va_start(ptr nonnull %12)
-  call void @fap(i32 noundef 10, ptr noundef %10, ptr noundef nonnull %12)
-  call void @llvm.va_end(ptr nonnull %12)
-  call void @llvm.lifetime.end.p0(i64 24, ptr nonnull %12) #7
+define dso_local void @f10(i32 %a1, i32 %a2, i32 %a3, i32 %a4, i32 %a5, i32 %a6, i32 %a7, i32 %a8, i32 %a9, i32 %a10, ptr nocapture noundef readonly %format, ...) local_unnamed_addr #0 {
+entry:
+  %ap = alloca [1 x %struct.__va_list_tag], align 16
+  call void @llvm.lifetime.start.p0(i64 24, ptr nonnull %ap) #7
+  call void @llvm.va_start(ptr nonnull %ap)
+  call void @fap(i32 noundef 10, ptr noundef %format, ptr noundef nonnull %ap)
+  call void @llvm.va_end(ptr nonnull %ap)
+  call void @llvm.lifetime.end.p0(i64 24, ptr nonnull %ap) #7
   ret void
 }
 
 ; Function Attrs: nounwind uwtable
-define dso_local void @f11(i32 %0, i32 %1, i32 %2, i32 %3, i32 %4, i32 %5, i32 %6, i32 %7, i32 %8, i32 %9, i32 %10, ptr nocapture noundef readonly %11, ...) local_unnamed_addr #0 {
-  %13 = alloca [1 x %struct.__va_list_tag], align 16
-  call void @llvm.lifetime.start.p0(i64 24, ptr nonnull %13) #7
-  call void @llvm.va_start(ptr nonnull %13)
-  call void @fap(i32 noundef 11, ptr noundef %11, ptr noundef nonnull %13)
-  call void @llvm.va_end(ptr nonnull %13)
-  call void @llvm.lifetime.end.p0(i64 24, ptr nonnull %13) #7
+define dso_local void @f11(i32 %a1, i32 %a2, i32 %a3, i32 %a4, i32 %a5, i32 %a6, i32 %a7, i32 %a8, i32 %a9, i32 %a10, i32 %a11, ptr nocapture noundef readonly %format, ...) local_unnamed_addr #0 {
+entry:
+  %ap = alloca [1 x %struct.__va_list_tag], align 16
+  call void @llvm.lifetime.start.p0(i64 24, ptr nonnull %ap) #7
+  call void @llvm.va_start(ptr nonnull %ap)
+  call void @fap(i32 noundef 11, ptr noundef %format, ptr noundef nonnull %ap)
+  call void @llvm.va_end(ptr nonnull %ap)
+  call void @llvm.lifetime.end.p0(i64 24, ptr nonnull %ap) #7
   ret void
 }
 
 ; Function Attrs: nounwind uwtable
-define dso_local void @f12(i32 %0, i32 %1, i32 %2, i32 %3, i32 %4, i32 %5, i32 %6, i32 %7, i32 %8, i32 %9, i32 %10, i32 %11, ptr nocapture noundef readonly %12, ...) local_unnamed_addr #0 {
-  %14 = alloca [1 x %struct.__va_list_tag], align 16
-  call void @llvm.lifetime.start.p0(i64 24, ptr nonnull %14) #7
-  call void @llvm.va_start(ptr nonnull %14)
-  call void @fap(i32 noundef 12, ptr noundef %12, ptr noundef nonnull %14)
-  call void @llvm.va_end(ptr nonnull %14)
-  call void @llvm.lifetime.end.p0(i64 24, ptr nonnull %14) #7
+define dso_local void @f12(i32 %a1, i32 %a2, i32 %a3, i32 %a4, i32 %a5, i32 %a6, i32 %a7, i32 %a8, i32 %a9, i32 %a10, i32 %a11, i32 %a12, ptr nocapture noundef readonly %format, ...) local_unnamed_addr #0 {
+entry:
+  %ap = alloca [1 x %struct.__va_list_tag], align 16
+  call void @llvm.lifetime.start.p0(i64 24, ptr nonnull %ap) #7
+  call void @llvm.va_start(ptr nonnull %ap)
+  call void @fap(i32 noundef 12, ptr noundef %format, ptr noundef nonnull %ap)
+  call void @llvm.va_end(ptr nonnull %ap)
+  call void @llvm.lifetime.end.p0(i64 24, ptr nonnull %ap) #7
   ret void
 }
 
 ; Function Attrs: nounwind uwtable
-define dso_local void @f13(i32 %0, i32 %1, i32 %2, i32 %3, i32 %4, i32 %5, i32 %6, i32 %7, i32 %8, i32 %9, i32 %10, i32 %11, i32 %12, ptr nocapture noundef readonly %13, ...) local_unnamed_addr #0 {
-  %15 = alloca [1 x %struct.__va_list_tag], align 16
-  call void @llvm.lifetime.start.p0(i64 24, ptr nonnull %15) #7
-  call void @llvm.va_start(ptr nonnull %15)
-  call void @fap(i32 noundef 13, ptr noundef %13, ptr noundef nonnull %15)
-  call void @llvm.va_end(ptr nonnull %15)
-  call void @llvm.lifetime.end.p0(i64 24, ptr nonnull %15) #7
+define dso_local void @f13(i32 %a1, i32 %a2, i32 %a3, i32 %a4, i32 %a5, i32 %a6, i32 %a7, i32 %a8, i32 %a9, i32 %a10, i32 %a11, i32 %a12, i32 %a13, ptr nocapture noundef readonly %format, ...) local_unnamed_addr #0 {
+entry:
+  %ap = alloca [1 x %struct.__va_list_tag], align 16
+  call void @llvm.lifetime.start.p0(i64 24, ptr nonnull %ap) #7
+  call void @llvm.va_start(ptr nonnull %ap)
+  call void @fap(i32 noundef 13, ptr noundef %format, ptr noundef nonnull %ap)
+  call void @llvm.va_end(ptr nonnull %ap)
+  call void @llvm.lifetime.end.p0(i64 24, ptr nonnull %ap) #7
   ret void
 }
 
 ; Function Attrs: nounwind uwtable
-define dso_local void @f14(i32 %0, i32 %1, i32 %2, i32 %3, i32 %4, i32 %5, i32 %6, i32 %7, i32 %8, i32 %9, i32 %10, i32 %11, i32 %12, i32 %13, ptr nocapture noundef readonly %14, ...) local_unnamed_addr #0 {
-  %16 = alloca [1 x %struct.__va_list_tag], align 16
-  call void @llvm.lifetime.start.p0(i64 24, ptr nonnull %16) #7
-  call void @llvm.va_start(ptr nonnull %16)
-  call void @fap(i32 noundef 14, ptr noundef %14, ptr noundef nonnull %16)
-  call void @llvm.va_end(ptr nonnull %16)
-  call void @llvm.lifetime.end.p0(i64 24, ptr nonnull %16) #7
+define dso_local void @f14(i32 %a1, i32 %a2, i32 %a3, i32 %a4, i32 %a5, i32 %a6, i32 %a7, i32 %a8, i32 %a9, i32 %a10, i32 %a11, i32 %a12, i32 %a13, i32 %a14, ptr nocapture noundef readonly %format, ...) local_unnamed_addr #0 {
+entry:
+  %ap = alloca [1 x %struct.__va_list_tag], align 16
+  call void @llvm.lifetime.start.p0(i64 24, ptr nonnull %ap) #7
+  call void @llvm.va_start(ptr nonnull %ap)
+  call void @fap(i32 noundef 14, ptr noundef %format, ptr noundef nonnull %ap)
+  call void @llvm.va_end(ptr nonnull %ap)
+  call void @llvm.lifetime.end.p0(i64 24, ptr nonnull %ap) #7
   ret void
 }
 
 ; Function Attrs: nounwind uwtable
-define dso_local void @f15(i32 %0, i32 %1, i32 %2, i32 %3, i32 %4, i32 %5, i32 %6, i32 %7, i32 %8, i32 %9, i32 %10, i32 %11, i32 %12, i32 %13, i32 %14, ptr nocapture noundef readonly %15, ...) local_unnamed_addr #0 {
-  %17 = alloca [1 x %struct.__va_list_tag], align 16
-  call void @llvm.lifetime.start.p0(i64 24, ptr nonnull %17) #7
-  call void @llvm.va_start(ptr nonnull %17)
-  call void @fap(i32 noundef 15, ptr noundef %15, ptr noundef nonnull %17)
-  call void @llvm.va_end(ptr nonnull %17)
-  call void @llvm.lifetime.end.p0(i64 24, ptr nonnull %17) #7
+define dso_local void @f15(i32 %a1, i32 %a2, i32 %a3, i32 %a4, i32 %a5, i32 %a6, i32 %a7, i32 %a8, i32 %a9, i32 %a10, i32 %a11, i32 %a12, i32 %a13, i32 %a14, i32 %a15, ptr nocapture noundef readonly %format, ...) local_unnamed_addr #0 {
+entry:
+  %ap = alloca [1 x %struct.__va_list_tag], align 16
+  call void @llvm.lifetime.start.p0(i64 24, ptr nonnull %ap) #7
+  call void @llvm.va_start(ptr nonnull %ap)
+  call void @fap(i32 noundef 15, ptr noundef %format, ptr noundef nonnull %ap)
+  call void @llvm.va_end(ptr nonnull %ap)
+  call void @llvm.lifetime.end.p0(i64 24, ptr nonnull %ap) #7
   ret void
 }
 
 ; Function Attrs: noreturn nounwind uwtable
 define dso_local i32 @main() local_unnamed_addr #5 {
+entry:
   tail call void (ptr, ...) @f0(ptr noundef nonnull @.str, i32 noundef 0, i32 noundef 1, i32 noundef 2, i32 noundef 3, i32 noundef 4, i32 noundef 5, i32 noundef 6, i32 noundef 7, i32 noundef 8, i32 noundef 9, i32 noundef 10, i32 noundef 11, i32 noundef 12, i32 noundef 13, i32 noundef 14, i32 noundef 15)
   tail call void (i32, ptr, ...) @f1(i32 poison, ptr noundef nonnull getelementptr inbounds ([17 x i8], ptr @.str, i64 0, i64 1), i32 noundef 1, i32 noundef 2, i32 noundef 3, i32 noundef 4, i32 noundef 5, i32 noundef 6, i32 noundef 7, i32 noundef 8, i32 noundef 9, i32 noundef 10, i32 noundef 11, i32 noundef 12, i32 noundef 13, i32 noundef 14, i32 noundef 15)
   tail call void (i32, i32, ptr, ...) @f2(i32 poison, i32 poison, ptr noundef nonnull getelementptr inbounds ([17 x i8], ptr @.str, i64 0, i64 2), i32 noundef 2, i32 noundef 3, i32 noundef 4, i32 noundef 5, i32 noundef 6, i32 noundef 7, i32 noundef 8, i32 noundef 9, i32 noundef 10, i32 noundef 11, i32 noundef 12, i32 noundef 13, i32 noundef 14, i32 noundef 15)

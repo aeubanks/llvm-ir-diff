@@ -15,382 +15,386 @@ target triple = "x86_64-unknown-linux-gnu"
 @memory_ALIGN = external local_unnamed_addr constant i32, align 4
 
 ; Function Attrs: nounwind uwtable
-define dso_local nonnull ptr @part_Create(i32 noundef %0) local_unnamed_addr #0 {
-  %2 = mul nsw i32 %0, 3
-  %3 = add nsw i32 %2, 3
-  %4 = tail call ptr @memory_Calloc(i32 noundef %3, i32 noundef 4) #6
-  %5 = sext i32 %0 to i64
-  %6 = getelementptr inbounds i32, ptr %4, i64 %5
-  %7 = getelementptr inbounds i32, ptr %6, i64 3
-  %8 = getelementptr inbounds i32, ptr %7, i64 -1
-  store i32 %0, ptr %8, align 4
-  %9 = getelementptr inbounds i32, ptr %7, i64 -2
-  store i32 %3, ptr %9, align 4
-  %10 = getelementptr inbounds i32, ptr %7, i64 -3
-  store i32 1, ptr %10, align 4
-  ret ptr %7
+define dso_local nonnull ptr @part_Create(i32 noundef %size) local_unnamed_addr #0 {
+entry:
+  %mul = mul nsw i32 %size, 3
+  %add = add nsw i32 %mul, 3
+  %call = tail call ptr @memory_Calloc(i32 noundef %add, i32 noundef 4) #6
+  %idx.ext = sext i32 %size to i64
+  %add.ptr = getelementptr inbounds i32, ptr %call, i64 %idx.ext
+  %add.ptr1 = getelementptr inbounds i32, ptr %add.ptr, i64 3
+  %arrayidx = getelementptr inbounds i32, ptr %add.ptr1, i64 -1
+  store i32 %size, ptr %arrayidx, align 4
+  %arrayidx4 = getelementptr inbounds i32, ptr %add.ptr1, i64 -2
+  store i32 %add, ptr %arrayidx4, align 4
+  %arrayidx5 = getelementptr inbounds i32, ptr %add.ptr1, i64 -3
+  store i32 1, ptr %arrayidx5, align 4
+  ret ptr %add.ptr1
 }
 
 declare ptr @memory_Calloc(i32 noundef, i32 noundef) local_unnamed_addr #1
 
 ; Function Attrs: nounwind uwtable
-define dso_local ptr @part_Init(ptr noundef %0, i32 noundef %1) local_unnamed_addr #0 {
-  %3 = getelementptr inbounds i32, ptr %0, i64 -2
-  %4 = load i32, ptr %3, align 4
-  %5 = add nsw i32 %4, -3
-  %6 = sdiv i32 %5, 3
-  %7 = icmp slt i32 %6, %1
-  br i1 %7, label %8, label %71
+define dso_local ptr @part_Init(ptr noundef %p, i32 noundef %size) local_unnamed_addr #0 {
+entry:
+  %arrayidx = getelementptr inbounds i32, ptr %p, i64 -2
+  %0 = load i32, ptr %arrayidx, align 4
+  %sub = add nsw i32 %0, -3
+  %div = sdiv i32 %sub, 3
+  %cmp = icmp slt i32 %div, %size
+  br i1 %cmp, label %if.then.i, label %if.else
 
-8:                                                ; preds = %2
-  %9 = sdiv i32 %5, -3
-  %10 = sext i32 %9 to i64
-  %11 = getelementptr inbounds i32, ptr %0, i64 %10
-  %12 = getelementptr inbounds i32, ptr %11, i64 -3
-  %13 = shl i32 %4, 2
-  %14 = icmp ult i32 %13, 1024
-  br i1 %14, label %50, label %15
+if.then.i:                                        ; preds = %entry
+  %div.neg.i = sdiv i32 %sub, -3
+  %idx.neg.i = sext i32 %div.neg.i to i64
+  %add.ptr.i = getelementptr inbounds i32, ptr %p, i64 %idx.neg.i
+  %add.ptr1.i = getelementptr inbounds i32, ptr %add.ptr.i, i64 -3
+  %mul.i = shl i32 %0, 2
+  %cmp.i.i.i = icmp ult i32 %mul.i, 1024
+  br i1 %cmp.i.i.i, label %if.else25.i.i, label %if.then.i.i
 
-15:                                               ; preds = %8
-  %16 = load i32, ptr @memory_ALIGN, align 4
-  %17 = urem i32 %13, %16
-  %18 = icmp eq i32 %17, 0
-  %19 = sub i32 %16, %17
-  %20 = select i1 %18, i32 0, i32 %19
-  %21 = add i32 %20, %13
-  %22 = load i32, ptr @memory_OFFSET, align 4
-  %23 = zext i32 %22 to i64
-  %24 = sub nsw i64 0, %23
-  %25 = getelementptr inbounds i8, ptr %12, i64 %24
-  %26 = getelementptr inbounds i8, ptr %25, i64 -16
-  %27 = load ptr, ptr %26, align 8
-  %28 = icmp eq ptr %27, null
-  %29 = getelementptr inbounds %struct.MEMORY_BIGBLOCKHEADERHELP, ptr %26, i64 0, i32 1
-  %30 = load ptr, ptr %29, align 8
-  %31 = getelementptr inbounds %struct.MEMORY_BIGBLOCKHEADERHELP, ptr %27, i64 0, i32 1
-  %32 = select i1 %28, ptr @memory_BIGBLOCKS, ptr %31
-  store ptr %30, ptr %32, align 8
-  %33 = load ptr, ptr %29, align 8
-  %34 = icmp eq ptr %33, null
-  br i1 %34, label %37, label %35
+if.then.i.i:                                      ; preds = %if.then.i
+  %1 = load i32, ptr @memory_ALIGN, align 4
+  %rem2.i.i.i.i = urem i32 %mul.i, %1
+  %tobool3.not.i.i.i.i = icmp eq i32 %rem2.i.i.i.i, 0
+  %sub6.i.i.i.i = sub i32 %1, %rem2.i.i.i.i
+  %add7.i.i.i.i = select i1 %tobool3.not.i.i.i.i, i32 0, i32 %sub6.i.i.i.i
+  %RealSize.1.i.i.i.i = add i32 %add7.i.i.i.i, %mul.i
+  %2 = load i32, ptr @memory_OFFSET, align 4
+  %idx.ext.i.i = zext i32 %2 to i64
+  %idx.neg.i.i = sub nsw i64 0, %idx.ext.i.i
+  %add.ptr.i.i = getelementptr inbounds i8, ptr %add.ptr1.i, i64 %idx.neg.i.i
+  %add.ptr1.i.i = getelementptr inbounds i8, ptr %add.ptr.i.i, i64 -16
+  %3 = load ptr, ptr %add.ptr1.i.i, align 8
+  %cmp2.not.i.i = icmp eq ptr %3, null
+  %next6.i.i = getelementptr inbounds %struct.MEMORY_BIGBLOCKHEADERHELP, ptr %add.ptr1.i.i, i64 0, i32 1
+  %4 = load ptr, ptr %next6.i.i, align 8
+  %next5.i.i = getelementptr inbounds %struct.MEMORY_BIGBLOCKHEADERHELP, ptr %3, i64 0, i32 1
+  %memory_BIGBLOCKS.sink.i.i = select i1 %cmp2.not.i.i, ptr @memory_BIGBLOCKS, ptr %next5.i.i
+  store ptr %4, ptr %memory_BIGBLOCKS.sink.i.i, align 8
+  %5 = load ptr, ptr %next6.i.i, align 8
+  %cmp8.not.i.i = icmp eq ptr %5, null
+  br i1 %cmp8.not.i.i, label %if.end13.i.i, label %if.then9.i.i
 
-35:                                               ; preds = %15
-  %36 = load ptr, ptr %26, align 8
-  store ptr %36, ptr %33, align 8
-  br label %37
+if.then9.i.i:                                     ; preds = %if.then.i.i
+  %6 = load ptr, ptr %add.ptr1.i.i, align 8
+  store ptr %6, ptr %5, align 8
+  br label %if.end13.i.i
 
-37:                                               ; preds = %35, %15
-  %38 = load i32, ptr @memory_MARKSIZE, align 4
-  %39 = add i32 %21, %38
-  %40 = zext i32 %39 to i64
-  %41 = add nuw nsw i64 %40, 16
-  %42 = load i64, ptr @memory_FREEDBYTES, align 8
-  %43 = add i64 %41, %42
-  store i64 %43, ptr @memory_FREEDBYTES, align 8
-  %44 = load i64, ptr @memory_MAXMEM, align 8
-  %45 = icmp sgt i64 %44, -1
-  br i1 %45, label %46, label %48
+if.end13.i.i:                                     ; preds = %if.then9.i.i, %if.then.i.i
+  %7 = load i32, ptr @memory_MARKSIZE, align 4
+  %add.i.i = add i32 %RealSize.1.i.i.i.i, %7
+  %conv.i.i = zext i32 %add.i.i to i64
+  %add14.i.i = add nuw nsw i64 %conv.i.i, 16
+  %8 = load i64, ptr @memory_FREEDBYTES, align 8
+  %add15.i.i = add i64 %add14.i.i, %8
+  store i64 %add15.i.i, ptr @memory_FREEDBYTES, align 8
+  %9 = load i64, ptr @memory_MAXMEM, align 8
+  %cmp16.i.i = icmp sgt i64 %9, -1
+  br i1 %cmp16.i.i, label %if.then18.i.i, label %if.end23.i.i
 
-46:                                               ; preds = %37
-  %47 = add nuw i64 %44, %41
-  store i64 %47, ptr @memory_MAXMEM, align 8
-  br label %48
+if.then18.i.i:                                    ; preds = %if.end13.i.i
+  %add22.i.i = add nuw i64 %9, %add14.i.i
+  store i64 %add22.i.i, ptr @memory_MAXMEM, align 8
+  br label %if.end23.i.i
 
-48:                                               ; preds = %46, %37
-  %49 = getelementptr inbounds i8, ptr %12, i64 -16
-  tail call void @free(ptr noundef nonnull %49) #6
-  br label %61
+if.end23.i.i:                                     ; preds = %if.then18.i.i, %if.end13.i.i
+  %add.ptr24.i.i = getelementptr inbounds i8, ptr %add.ptr1.i, i64 -16
+  tail call void @free(ptr noundef nonnull %add.ptr24.i.i) #6
+  br label %part_Free.exit
 
-50:                                               ; preds = %8
-  %51 = zext i32 %13 to i64
-  %52 = getelementptr inbounds [0 x ptr], ptr @memory_ARRAY, i64 0, i64 %51
-  %53 = load ptr, ptr %52, align 8
-  %54 = getelementptr inbounds %struct.MEMORY_RESOURCEHELP, ptr %53, i64 0, i32 4
-  %55 = load i32, ptr %54, align 8
-  %56 = sext i32 %55 to i64
-  %57 = load i64, ptr @memory_FREEDBYTES, align 8
-  %58 = add i64 %57, %56
-  store i64 %58, ptr @memory_FREEDBYTES, align 8
-  %59 = load ptr, ptr %53, align 8
-  store ptr %59, ptr %12, align 8
-  %60 = load ptr, ptr %52, align 8
-  store ptr %12, ptr %60, align 8
-  br label %61
+if.else25.i.i:                                    ; preds = %if.then.i
+  %idxprom.i.i = zext i32 %mul.i to i64
+  %arrayidx.i.i = getelementptr inbounds [0 x ptr], ptr @memory_ARRAY, i64 0, i64 %idxprom.i.i
+  %10 = load ptr, ptr %arrayidx.i.i, align 8
+  %total_size.i.i = getelementptr inbounds %struct.MEMORY_RESOURCEHELP, ptr %10, i64 0, i32 4
+  %11 = load i32, ptr %total_size.i.i, align 8
+  %conv26.i.i = sext i32 %11 to i64
+  %12 = load i64, ptr @memory_FREEDBYTES, align 8
+  %add27.i.i = add i64 %12, %conv26.i.i
+  store i64 %add27.i.i, ptr @memory_FREEDBYTES, align 8
+  %13 = load ptr, ptr %10, align 8
+  store ptr %13, ptr %add.ptr1.i, align 8
+  %14 = load ptr, ptr %arrayidx.i.i, align 8
+  store ptr %add.ptr1.i, ptr %14, align 8
+  br label %part_Free.exit
 
-61:                                               ; preds = %48, %50
-  %62 = mul nsw i32 %1, 3
-  %63 = add nsw i32 %62, 3
-  %64 = tail call ptr @memory_Calloc(i32 noundef %63, i32 noundef 4) #6
-  %65 = sext i32 %1 to i64
-  %66 = getelementptr inbounds i32, ptr %64, i64 %65
-  %67 = getelementptr inbounds i32, ptr %66, i64 3
-  %68 = getelementptr inbounds i32, ptr %67, i64 -1
-  store i32 %1, ptr %68, align 4
-  %69 = getelementptr inbounds i32, ptr %67, i64 -2
-  store i32 %63, ptr %69, align 4
-  %70 = getelementptr inbounds i32, ptr %67, i64 -3
-  br label %88
+part_Free.exit:                                   ; preds = %if.end23.i.i, %if.else25.i.i
+  %mul.i23 = mul nsw i32 %size, 3
+  %add.i = add nsw i32 %mul.i23, 3
+  %call.i = tail call ptr @memory_Calloc(i32 noundef %add.i, i32 noundef 4) #6
+  %idx.ext.i = sext i32 %size to i64
+  %add.ptr.i24 = getelementptr inbounds i32, ptr %call.i, i64 %idx.ext.i
+  %add.ptr1.i25 = getelementptr inbounds i32, ptr %add.ptr.i24, i64 3
+  %arrayidx.i26 = getelementptr inbounds i32, ptr %add.ptr1.i25, i64 -1
+  store i32 %size, ptr %arrayidx.i26, align 4
+  %arrayidx4.i = getelementptr inbounds i32, ptr %add.ptr1.i25, i64 -2
+  store i32 %add.i, ptr %arrayidx4.i, align 4
+  %arrayidx5.i = getelementptr inbounds i32, ptr %add.ptr1.i25, i64 -3
+  br label %if.end10.sink.split
 
-71:                                               ; preds = %2
-  %72 = getelementptr inbounds i32, ptr %0, i64 -1
-  store i32 %1, ptr %72, align 4
-  %73 = getelementptr inbounds i32, ptr %0, i64 -3
-  %74 = load i32, ptr %73, align 4
-  %75 = add nsw i32 %74, 1
-  store i32 %75, ptr %73, align 4
-  %76 = icmp slt i32 %74, 0
-  br i1 %76, label %77, label %91
+if.else:                                          ; preds = %entry
+  %arrayidx1 = getelementptr inbounds i32, ptr %p, i64 -1
+  store i32 %size, ptr %arrayidx1, align 4
+  %arrayidx2 = getelementptr inbounds i32, ptr %p, i64 -3
+  %15 = load i32, ptr %arrayidx2, align 4
+  %inc = add nsw i32 %15, 1
+  store i32 %inc, ptr %arrayidx2, align 4
+  %cmp4 = icmp slt i32 %15, 0
+  br i1 %cmp4, label %for.cond.preheader, label %if.end10
 
-77:                                               ; preds = %71
-  %78 = icmp sgt i32 %4, 5
-  br i1 %78, label %79, label %88
+for.cond.preheader:                               ; preds = %if.else
+  %cmp629 = icmp sgt i32 %0, 5
+  br i1 %cmp629, label %for.body.preheader, label %if.end10.sink.split
 
-79:                                               ; preds = %77
-  %80 = tail call i32 @llvm.smax.i32(i32 %6, i32 1)
-  %81 = add nsw i32 %80, -1
-  %82 = zext i32 %81 to i64
-  %83 = shl nuw nsw i64 %82, 2
-  %84 = sub nuw nsw i64 -16, %83
-  %85 = getelementptr i8, ptr %0, i64 %84
-  %86 = zext i32 %80 to i64
-  %87 = shl nuw nsw i64 %86, 2
-  tail call void @llvm.memset.p0.i64(ptr align 4 %85, i8 0, i64 %87, i1 false)
-  br label %88
+for.body.preheader:                               ; preds = %for.cond.preheader
+  %smax = tail call i32 @llvm.smax.i32(i32 %div, i32 1)
+  %16 = add nsw i32 %smax, -1
+  %17 = zext i32 %16 to i64
+  %18 = shl nuw nsw i64 %17, 2
+  %19 = sub nuw nsw i64 -16, %18
+  %scevgep = getelementptr i8, ptr %p, i64 %19
+  %20 = zext i32 %smax to i64
+  %21 = shl nuw nsw i64 %20, 2
+  tail call void @llvm.memset.p0.i64(ptr align 4 %scevgep, i8 0, i64 %21, i1 false)
+  br label %if.end10.sink.split
 
-88:                                               ; preds = %77, %79, %61
-  %89 = phi ptr [ %70, %61 ], [ %73, %79 ], [ %73, %77 ]
-  %90 = phi ptr [ %67, %61 ], [ %0, %79 ], [ %0, %77 ]
-  store i32 1, ptr %89, align 4
-  br label %91
+if.end10.sink.split:                              ; preds = %for.cond.preheader, %for.body.preheader, %part_Free.exit
+  %arrayidx2.sink = phi ptr [ %arrayidx5.i, %part_Free.exit ], [ %arrayidx2, %for.body.preheader ], [ %arrayidx2, %for.cond.preheader ]
+  %p.addr.0.ph = phi ptr [ %add.ptr1.i25, %part_Free.exit ], [ %p, %for.body.preheader ], [ %p, %for.cond.preheader ]
+  store i32 1, ptr %arrayidx2.sink, align 4
+  br label %if.end10
 
-91:                                               ; preds = %88, %71
-  %92 = phi ptr [ %0, %71 ], [ %90, %88 ]
-  ret ptr %92
+if.end10:                                         ; preds = %if.end10.sink.split, %if.else
+  %p.addr.0 = phi ptr [ %p, %if.else ], [ %p.addr.0.ph, %if.end10.sink.split ]
+  ret ptr %p.addr.0
 }
 
 ; Function Attrs: nofree norecurse nosync nounwind memory(argmem: readwrite) uwtable
-define dso_local i32 @part_Find(ptr nocapture noundef %0, i32 noundef %1) local_unnamed_addr #2 {
-  %3 = getelementptr inbounds i32, ptr %0, i64 -3
-  %4 = getelementptr inbounds i32, ptr %0, i64 -1
-  br label %5
+define dso_local i32 @part_Find(ptr nocapture noundef %p, i32 noundef %e) local_unnamed_addr #2 {
+entry:
+  %arrayidx.i.i.i = getelementptr inbounds i32, ptr %p, i64 -3
+  %arrayidx.i15.i.i = getelementptr inbounds i32, ptr %p, i64 -1
+  br label %while.cond.i
 
-5:                                                ; preds = %24, %2
-  %6 = phi i32 [ %1, %2 ], [ %27, %24 ]
-  %7 = sub nsw i32 -4, %6
-  %8 = sext i32 %7 to i64
-  %9 = getelementptr inbounds i32, ptr %0, i64 %8
-  %10 = load i32, ptr %9, align 4
-  %11 = load i32, ptr %3, align 4
-  %12 = icmp eq i32 %10, %11
-  br i1 %12, label %13, label %15
+while.cond.i:                                     ; preds = %part_DelayedInit.exit.i, %entry
+  %nf.0.i = phi i32 [ %e, %entry ], [ %4, %part_DelayedInit.exit.i ]
+  %sub.i.i.i.i = sub nsw i32 -4, %nf.0.i
+  %idxprom.i.i.i.i = sext i32 %sub.i.i.i.i to i64
+  %arrayidx.i.i.i.i = getelementptr inbounds i32, ptr %p, i64 %idxprom.i.i.i.i
+  %0 = load i32, ptr %arrayidx.i.i.i.i, align 4
+  %1 = load i32, ptr %arrayidx.i.i.i, align 4
+  %cmp.i.not.i.i = icmp eq i32 %0, %1
+  br i1 %cmp.i.not.i.i, label %while.cond.part_DelayedInit.exit_crit_edge.i, label %if.then.i.i
 
-13:                                               ; preds = %5
-  %14 = sext i32 %6 to i64
-  br label %24
+while.cond.part_DelayedInit.exit_crit_edge.i:     ; preds = %while.cond.i
+  %.pre.i = sext i32 %nf.0.i to i64
+  br label %part_DelayedInit.exit.i
 
-15:                                               ; preds = %5
-  %16 = xor i32 %6, -1
-  %17 = sext i32 %6 to i64
-  %18 = getelementptr inbounds i32, ptr %0, i64 %17
-  store i32 %16, ptr %18, align 4
-  %19 = load i32, ptr %4, align 4
-  %20 = add nsw i32 %19, %6
-  %21 = sext i32 %20 to i64
-  %22 = getelementptr inbounds i32, ptr %0, i64 %21
-  store i32 1, ptr %22, align 4
-  %23 = load i32, ptr %3, align 4
-  store i32 %23, ptr %9, align 4
-  br label %24
+if.then.i.i:                                      ; preds = %while.cond.i
+  %sub1.i.i = xor i32 %nf.0.i, -1
+  %idxprom.i.i.i = sext i32 %nf.0.i to i64
+  %arrayidx.i14.i.i = getelementptr inbounds i32, ptr %p, i64 %idxprom.i.i.i
+  store i32 %sub1.i.i, ptr %arrayidx.i14.i.i, align 4
+  %2 = load i32, ptr %arrayidx.i15.i.i, align 4
+  %add.i.i.i = add nsw i32 %2, %nf.0.i
+  %idxprom.i16.i.i = sext i32 %add.i.i.i to i64
+  %arrayidx1.i.i.i = getelementptr inbounds i32, ptr %p, i64 %idxprom.i16.i.i
+  store i32 1, ptr %arrayidx1.i.i.i, align 4
+  %3 = load i32, ptr %arrayidx.i.i.i, align 4
+  store i32 %3, ptr %arrayidx.i.i.i.i, align 4
+  br label %part_DelayedInit.exit.i
 
-24:                                               ; preds = %15, %13
-  %25 = phi i64 [ %14, %13 ], [ %17, %15 ]
-  %26 = getelementptr inbounds i32, ptr %0, i64 %25
-  %27 = load i32, ptr %26, align 4
-  %28 = icmp sgt i32 %27, -1
-  br i1 %28, label %5, label %29, !llvm.loop !5
+part_DelayedInit.exit.i:                          ; preds = %if.then.i.i, %while.cond.part_DelayedInit.exit_crit_edge.i
+  %idxprom.i.pre-phi.i = phi i64 [ %.pre.i, %while.cond.part_DelayedInit.exit_crit_edge.i ], [ %idxprom.i.i.i, %if.then.i.i ]
+  %arrayidx.i.i = getelementptr inbounds i32, ptr %p, i64 %idxprom.i.pre-phi.i
+  %4 = load i32, ptr %arrayidx.i.i, align 4
+  %cmp.i = icmp sgt i32 %4, -1
+  br i1 %cmp.i, label %while.cond.i, label %while.cond3.preheader.i, !llvm.loop !5
 
-29:                                               ; preds = %24
-  %30 = icmp eq i32 %6, %1
-  br i1 %30, label %37, label %31
+while.cond3.preheader.i:                          ; preds = %part_DelayedInit.exit.i
+  %cmp4.not26.i = icmp eq i32 %nf.0.i, %e
+  br i1 %cmp4.not26.i, label %part_NF.exit, label %while.body5.i
 
-31:                                               ; preds = %29, %31
-  %32 = phi i32 [ %35, %31 ], [ %1, %29 ]
-  %33 = sext i32 %32 to i64
-  %34 = getelementptr inbounds i32, ptr %0, i64 %33
-  %35 = load i32, ptr %34, align 4
-  store i32 %6, ptr %34, align 4
-  %36 = icmp eq i32 %35, %6
-  br i1 %36, label %37, label %31, !llvm.loop !7
+while.body5.i:                                    ; preds = %while.cond3.preheader.i, %while.body5.i
+  %e.addr.027.i = phi i32 [ %5, %while.body5.i ], [ %e, %while.cond3.preheader.i ]
+  %idxprom.i22.i = sext i32 %e.addr.027.i to i64
+  %arrayidx.i23.i = getelementptr inbounds i32, ptr %p, i64 %idxprom.i22.i
+  %5 = load i32, ptr %arrayidx.i23.i, align 4
+  store i32 %nf.0.i, ptr %arrayidx.i23.i, align 4
+  %cmp4.not.i = icmp eq i32 %5, %nf.0.i
+  br i1 %cmp4.not.i, label %part_NF.exit, label %while.body5.i, !llvm.loop !7
 
-37:                                               ; preds = %31, %29
-  %38 = sext i32 %6 to i64
-  %39 = getelementptr inbounds i32, ptr %0, i64 %38
-  %40 = load i32, ptr %39, align 4
-  %41 = xor i32 %40, -1
-  ret i32 %41
+part_NF.exit:                                     ; preds = %while.body5.i, %while.cond3.preheader.i
+  %idxprom.i = sext i32 %nf.0.i to i64
+  %arrayidx.i = getelementptr inbounds i32, ptr %p, i64 %idxprom.i
+  %6 = load i32, ptr %arrayidx.i, align 4
+  %sub2 = xor i32 %6, -1
+  ret i32 %sub2
 }
 
 ; Function Attrs: nofree norecurse nosync nounwind memory(argmem: readwrite) uwtable
-define dso_local ptr @part_Union(ptr noundef returned %0, i32 noundef %1, i32 noundef %2) local_unnamed_addr #2 {
-  %4 = getelementptr inbounds i32, ptr %0, i64 -3
-  %5 = getelementptr inbounds i32, ptr %0, i64 -1
-  br label %6
+define dso_local ptr @part_Union(ptr noundef returned %p, i32 noundef %c1, i32 noundef %c2) local_unnamed_addr #2 {
+entry:
+  %arrayidx.i.i.i = getelementptr inbounds i32, ptr %p, i64 -3
+  %arrayidx.i15.i.i = getelementptr inbounds i32, ptr %p, i64 -1
+  br label %while.cond.i
 
-6:                                                ; preds = %25, %3
-  %7 = phi i32 [ %1, %3 ], [ %28, %25 ]
-  %8 = sub nsw i32 -4, %7
-  %9 = sext i32 %8 to i64
-  %10 = getelementptr inbounds i32, ptr %0, i64 %9
-  %11 = load i32, ptr %10, align 4
-  %12 = load i32, ptr %4, align 4
-  %13 = icmp eq i32 %11, %12
-  br i1 %13, label %14, label %16
+while.cond.i:                                     ; preds = %part_DelayedInit.exit.i, %entry
+  %nf.0.i = phi i32 [ %c1, %entry ], [ %4, %part_DelayedInit.exit.i ]
+  %sub.i.i.i.i = sub nsw i32 -4, %nf.0.i
+  %idxprom.i.i.i.i = sext i32 %sub.i.i.i.i to i64
+  %arrayidx.i.i.i.i = getelementptr inbounds i32, ptr %p, i64 %idxprom.i.i.i.i
+  %0 = load i32, ptr %arrayidx.i.i.i.i, align 4
+  %1 = load i32, ptr %arrayidx.i.i.i, align 4
+  %cmp.i.not.i.i = icmp eq i32 %0, %1
+  br i1 %cmp.i.not.i.i, label %while.cond.part_DelayedInit.exit_crit_edge.i, label %if.then.i.i
 
-14:                                               ; preds = %6
-  %15 = sext i32 %7 to i64
-  br label %25
+while.cond.part_DelayedInit.exit_crit_edge.i:     ; preds = %while.cond.i
+  %.pre.i = sext i32 %nf.0.i to i64
+  br label %part_DelayedInit.exit.i
 
-16:                                               ; preds = %6
-  %17 = xor i32 %7, -1
-  %18 = sext i32 %7 to i64
-  %19 = getelementptr inbounds i32, ptr %0, i64 %18
-  store i32 %17, ptr %19, align 4
-  %20 = load i32, ptr %5, align 4
-  %21 = add nsw i32 %20, %7
-  %22 = sext i32 %21 to i64
-  %23 = getelementptr inbounds i32, ptr %0, i64 %22
-  store i32 1, ptr %23, align 4
-  %24 = load i32, ptr %4, align 4
-  store i32 %24, ptr %10, align 4
-  br label %25
+if.then.i.i:                                      ; preds = %while.cond.i
+  %sub1.i.i = xor i32 %nf.0.i, -1
+  %idxprom.i.i.i = sext i32 %nf.0.i to i64
+  %arrayidx.i14.i.i = getelementptr inbounds i32, ptr %p, i64 %idxprom.i.i.i
+  store i32 %sub1.i.i, ptr %arrayidx.i14.i.i, align 4
+  %2 = load i32, ptr %arrayidx.i15.i.i, align 4
+  %add.i.i.i = add nsw i32 %2, %nf.0.i
+  %idxprom.i16.i.i = sext i32 %add.i.i.i to i64
+  %arrayidx1.i.i.i = getelementptr inbounds i32, ptr %p, i64 %idxprom.i16.i.i
+  store i32 1, ptr %arrayidx1.i.i.i, align 4
+  %3 = load i32, ptr %arrayidx.i.i.i, align 4
+  store i32 %3, ptr %arrayidx.i.i.i.i, align 4
+  br label %part_DelayedInit.exit.i
 
-25:                                               ; preds = %16, %14
-  %26 = phi i64 [ %15, %14 ], [ %18, %16 ]
-  %27 = getelementptr inbounds i32, ptr %0, i64 %26
-  %28 = load i32, ptr %27, align 4
-  %29 = icmp sgt i32 %28, -1
-  br i1 %29, label %6, label %30, !llvm.loop !5
+part_DelayedInit.exit.i:                          ; preds = %if.then.i.i, %while.cond.part_DelayedInit.exit_crit_edge.i
+  %idxprom.i.pre-phi.i = phi i64 [ %.pre.i, %while.cond.part_DelayedInit.exit_crit_edge.i ], [ %idxprom.i.i.i, %if.then.i.i ]
+  %arrayidx.i.i = getelementptr inbounds i32, ptr %p, i64 %idxprom.i.pre-phi.i
+  %4 = load i32, ptr %arrayidx.i.i, align 4
+  %cmp.i = icmp sgt i32 %4, -1
+  br i1 %cmp.i, label %while.cond.i, label %while.cond3.preheader.i, !llvm.loop !5
 
-30:                                               ; preds = %25
-  %31 = icmp eq i32 %7, %1
-  br i1 %31, label %38, label %32
+while.cond3.preheader.i:                          ; preds = %part_DelayedInit.exit.i
+  %cmp4.not26.i = icmp eq i32 %nf.0.i, %c1
+  br i1 %cmp4.not26.i, label %while.cond.i48.preheader, label %while.body5.i
 
-32:                                               ; preds = %30, %32
-  %33 = phi i32 [ %36, %32 ], [ %1, %30 ]
-  %34 = sext i32 %33 to i64
-  %35 = getelementptr inbounds i32, ptr %0, i64 %34
-  %36 = load i32, ptr %35, align 4
-  store i32 %7, ptr %35, align 4
-  %37 = icmp eq i32 %36, %7
-  br i1 %37, label %38, label %32, !llvm.loop !7
+while.body5.i:                                    ; preds = %while.cond3.preheader.i, %while.body5.i
+  %e.addr.027.i = phi i32 [ %5, %while.body5.i ], [ %c1, %while.cond3.preheader.i ]
+  %idxprom.i22.i = sext i32 %e.addr.027.i to i64
+  %arrayidx.i23.i = getelementptr inbounds i32, ptr %p, i64 %idxprom.i22.i
+  %5 = load i32, ptr %arrayidx.i23.i, align 4
+  store i32 %nf.0.i, ptr %arrayidx.i23.i, align 4
+  %cmp4.not.i = icmp eq i32 %5, %nf.0.i
+  br i1 %cmp4.not.i, label %while.cond.i48.preheader, label %while.body5.i, !llvm.loop !7
 
-38:                                               ; preds = %32, %30
-  br label %39
+while.cond.i48.preheader:                         ; preds = %while.body5.i, %while.cond3.preheader.i
+  br label %while.cond.i48
 
-39:                                               ; preds = %38, %58
-  %40 = phi i32 [ %61, %58 ], [ %2, %38 ]
-  %41 = sub nsw i32 -4, %40
-  %42 = sext i32 %41 to i64
-  %43 = getelementptr inbounds i32, ptr %0, i64 %42
-  %44 = load i32, ptr %43, align 4
-  %45 = load i32, ptr %4, align 4
-  %46 = icmp eq i32 %44, %45
-  br i1 %46, label %47, label %49
+while.cond.i48:                                   ; preds = %while.cond.i48.preheader, %part_DelayedInit.exit.i61
+  %nf.0.i43 = phi i32 [ %10, %part_DelayedInit.exit.i61 ], [ %c2, %while.cond.i48.preheader ]
+  %sub.i.i.i.i44 = sub nsw i32 -4, %nf.0.i43
+  %idxprom.i.i.i.i45 = sext i32 %sub.i.i.i.i44 to i64
+  %arrayidx.i.i.i.i46 = getelementptr inbounds i32, ptr %p, i64 %idxprom.i.i.i.i45
+  %6 = load i32, ptr %arrayidx.i.i.i.i46, align 4
+  %7 = load i32, ptr %arrayidx.i.i.i, align 4
+  %cmp.i.not.i.i47 = icmp eq i32 %6, %7
+  br i1 %cmp.i.not.i.i47, label %while.cond.part_DelayedInit.exit_crit_edge.i50, label %if.then.i.i57
 
-47:                                               ; preds = %39
-  %48 = sext i32 %40 to i64
-  br label %58
+while.cond.part_DelayedInit.exit_crit_edge.i50:   ; preds = %while.cond.i48
+  %.pre.i49 = sext i32 %nf.0.i43 to i64
+  br label %part_DelayedInit.exit.i61
 
-49:                                               ; preds = %39
-  %50 = xor i32 %40, -1
-  %51 = sext i32 %40 to i64
-  %52 = getelementptr inbounds i32, ptr %0, i64 %51
-  store i32 %50, ptr %52, align 4
-  %53 = load i32, ptr %5, align 4
-  %54 = add nsw i32 %53, %40
-  %55 = sext i32 %54 to i64
-  %56 = getelementptr inbounds i32, ptr %0, i64 %55
-  store i32 1, ptr %56, align 4
-  %57 = load i32, ptr %4, align 4
-  store i32 %57, ptr %43, align 4
-  br label %58
+if.then.i.i57:                                    ; preds = %while.cond.i48
+  %sub1.i.i51 = xor i32 %nf.0.i43, -1
+  %idxprom.i.i.i52 = sext i32 %nf.0.i43 to i64
+  %arrayidx.i14.i.i53 = getelementptr inbounds i32, ptr %p, i64 %idxprom.i.i.i52
+  store i32 %sub1.i.i51, ptr %arrayidx.i14.i.i53, align 4
+  %8 = load i32, ptr %arrayidx.i15.i.i, align 4
+  %add.i.i.i54 = add nsw i32 %8, %nf.0.i43
+  %idxprom.i16.i.i55 = sext i32 %add.i.i.i54 to i64
+  %arrayidx1.i.i.i56 = getelementptr inbounds i32, ptr %p, i64 %idxprom.i16.i.i55
+  store i32 1, ptr %arrayidx1.i.i.i56, align 4
+  %9 = load i32, ptr %arrayidx.i.i.i, align 4
+  store i32 %9, ptr %arrayidx.i.i.i.i46, align 4
+  br label %part_DelayedInit.exit.i61
 
-58:                                               ; preds = %49, %47
-  %59 = phi i64 [ %48, %47 ], [ %51, %49 ]
-  %60 = getelementptr inbounds i32, ptr %0, i64 %59
-  %61 = load i32, ptr %60, align 4
-  %62 = icmp sgt i32 %61, -1
-  br i1 %62, label %39, label %63, !llvm.loop !5
+part_DelayedInit.exit.i61:                        ; preds = %if.then.i.i57, %while.cond.part_DelayedInit.exit_crit_edge.i50
+  %idxprom.i.pre-phi.i58 = phi i64 [ %.pre.i49, %while.cond.part_DelayedInit.exit_crit_edge.i50 ], [ %idxprom.i.i.i52, %if.then.i.i57 ]
+  %arrayidx.i.i59 = getelementptr inbounds i32, ptr %p, i64 %idxprom.i.pre-phi.i58
+  %10 = load i32, ptr %arrayidx.i.i59, align 4
+  %cmp.i60 = icmp sgt i32 %10, -1
+  br i1 %cmp.i60, label %while.cond.i48, label %while.cond3.preheader.i63, !llvm.loop !5
 
-63:                                               ; preds = %58
-  %64 = icmp eq i32 %40, %2
-  br i1 %64, label %71, label %65
+while.cond3.preheader.i63:                        ; preds = %part_DelayedInit.exit.i61
+  %cmp4.not26.i62 = icmp eq i32 %nf.0.i43, %c2
+  br i1 %cmp4.not26.i62, label %part_NF.exit69, label %while.body5.i68
 
-65:                                               ; preds = %63, %65
-  %66 = phi i32 [ %69, %65 ], [ %2, %63 ]
-  %67 = sext i32 %66 to i64
-  %68 = getelementptr inbounds i32, ptr %0, i64 %67
-  %69 = load i32, ptr %68, align 4
-  store i32 %40, ptr %68, align 4
-  %70 = icmp eq i32 %69, %40
-  br i1 %70, label %71, label %65, !llvm.loop !7
+while.body5.i68:                                  ; preds = %while.cond3.preheader.i63, %while.body5.i68
+  %e.addr.027.i64 = phi i32 [ %11, %while.body5.i68 ], [ %c2, %while.cond3.preheader.i63 ]
+  %idxprom.i22.i65 = sext i32 %e.addr.027.i64 to i64
+  %arrayidx.i23.i66 = getelementptr inbounds i32, ptr %p, i64 %idxprom.i22.i65
+  %11 = load i32, ptr %arrayidx.i23.i66, align 4
+  store i32 %nf.0.i43, ptr %arrayidx.i23.i66, align 4
+  %cmp4.not.i67 = icmp eq i32 %11, %nf.0.i43
+  br i1 %cmp4.not.i67, label %part_NF.exit69, label %while.body5.i68, !llvm.loop !7
 
-71:                                               ; preds = %65, %63
-  %72 = icmp eq i32 %7, %40
-  br i1 %72, label %111, label %73
+part_NF.exit69:                                   ; preds = %while.body5.i68, %while.cond3.preheader.i63
+  %cmp.not = icmp eq i32 %nf.0.i, %nf.0.i43
+  br i1 %cmp.not, label %if.end15, label %if.then
 
-73:                                               ; preds = %71
-  %74 = load i32, ptr %5, align 4
-  %75 = add nsw i32 %74, %7
-  %76 = sext i32 %75 to i64
-  %77 = getelementptr inbounds i32, ptr %0, i64 %76
-  %78 = load i32, ptr %77, align 4
-  %79 = add nsw i32 %74, %40
-  %80 = sext i32 %79 to i64
-  %81 = getelementptr inbounds i32, ptr %0, i64 %80
-  %82 = load i32, ptr %81, align 4
-  %83 = icmp slt i32 %78, %82
-  br i1 %83, label %86, label %84
+if.then:                                          ; preds = %part_NF.exit69
+  %12 = load i32, ptr %arrayidx.i15.i.i, align 4
+  %add.i = add nsw i32 %12, %nf.0.i
+  %idxprom.i = sext i32 %add.i to i64
+  %arrayidx1.i = getelementptr inbounds i32, ptr %p, i64 %idxprom.i
+  %13 = load i32, ptr %arrayidx1.i, align 4
+  %add.i71 = add nsw i32 %12, %nf.0.i43
+  %idxprom.i72 = sext i32 %add.i71 to i64
+  %arrayidx1.i73 = getelementptr inbounds i32, ptr %p, i64 %idxprom.i72
+  %14 = load i32, ptr %arrayidx1.i73, align 4
+  %cmp4 = icmp slt i32 %13, %14
+  br i1 %cmp4, label %if.then5, label %if.then.if.end_crit_edge
 
-84:                                               ; preds = %73
-  %85 = sext i32 %40 to i64
-  br label %96
+if.then.if.end_crit_edge:                         ; preds = %if.then
+  %.pre = sext i32 %nf.0.i43 to i64
+  br label %if.end
 
-86:                                               ; preds = %73
-  %87 = sext i32 %7 to i64
-  %88 = getelementptr inbounds i32, ptr %0, i64 %87
-  %89 = load i32, ptr %88, align 4
-  %90 = sext i32 %40 to i64
-  %91 = getelementptr inbounds i32, ptr %0, i64 %90
-  store i32 %89, ptr %91, align 4
-  %92 = load i32, ptr %88, align 4
-  %93 = xor i32 %92, -1
-  %94 = sext i32 %93 to i64
-  %95 = getelementptr inbounds i32, ptr %0, i64 %94
-  store i32 %40, ptr %95, align 4
-  br label %96
+if.then5:                                         ; preds = %if.then
+  %idxprom.i74 = sext i32 %nf.0.i to i64
+  %arrayidx.i75 = getelementptr inbounds i32, ptr %p, i64 %idxprom.i74
+  %15 = load i32, ptr %arrayidx.i75, align 4
+  %idxprom.i76 = sext i32 %nf.0.i43 to i64
+  %arrayidx.i77 = getelementptr inbounds i32, ptr %p, i64 %idxprom.i76
+  store i32 %15, ptr %arrayidx.i77, align 4
+  %16 = load i32, ptr %arrayidx.i75, align 4
+  %sub9 = xor i32 %16, -1
+  %idxprom.i80 = sext i32 %sub9 to i64
+  %arrayidx.i81 = getelementptr inbounds i32, ptr %p, i64 %idxprom.i80
+  store i32 %nf.0.i43, ptr %arrayidx.i81, align 4
+  br label %if.end
 
-96:                                               ; preds = %84, %86
-  %97 = phi i64 [ %85, %84 ], [ %87, %86 ]
-  %98 = phi i32 [ %40, %84 ], [ %7, %86 ]
-  %99 = phi i32 [ %7, %84 ], [ %40, %86 ]
-  %100 = getelementptr inbounds i32, ptr %0, i64 %97
-  store i32 %99, ptr %100, align 4
-  %101 = load i32, ptr %5, align 4
-  %102 = add nsw i32 %101, %99
-  %103 = sext i32 %102 to i64
-  %104 = getelementptr inbounds i32, ptr %0, i64 %103
-  %105 = load i32, ptr %104, align 4
-  %106 = add nsw i32 %101, %98
-  %107 = sext i32 %106 to i64
-  %108 = getelementptr inbounds i32, ptr %0, i64 %107
-  %109 = load i32, ptr %108, align 4
-  %110 = add nsw i32 %109, %105
-  store i32 %110, ptr %104, align 4
-  br label %111
+if.end:                                           ; preds = %if.then.if.end_crit_edge, %if.then5
+  %idxprom.i82.pre-phi = phi i64 [ %.pre, %if.then.if.end_crit_edge ], [ %idxprom.i74, %if.then5 ]
+  %nf2.0 = phi i32 [ %nf.0.i43, %if.then.if.end_crit_edge ], [ %nf.0.i, %if.then5 ]
+  %nf1.0 = phi i32 [ %nf.0.i, %if.then.if.end_crit_edge ], [ %nf.0.i43, %if.then5 ]
+  %arrayidx.i83 = getelementptr inbounds i32, ptr %p, i64 %idxprom.i82.pre-phi
+  store i32 %nf1.0, ptr %arrayidx.i83, align 4
+  %17 = load i32, ptr %arrayidx.i15.i.i, align 4
+  %add.i85 = add nsw i32 %17, %nf1.0
+  %idxprom.i86 = sext i32 %add.i85 to i64
+  %arrayidx1.i87 = getelementptr inbounds i32, ptr %p, i64 %idxprom.i86
+  %18 = load i32, ptr %arrayidx1.i87, align 4
+  %add.i89 = add nsw i32 %17, %nf2.0
+  %idxprom.i90 = sext i32 %add.i89 to i64
+  %arrayidx1.i91 = getelementptr inbounds i32, ptr %p, i64 %idxprom.i90
+  %19 = load i32, ptr %arrayidx1.i91, align 4
+  %add = add nsw i32 %19, %18
+  store i32 %add, ptr %arrayidx1.i87, align 4
+  br label %if.end15
 
-111:                                              ; preds = %96, %71
-  ret ptr %0
+if.end15:                                         ; preds = %if.end, %part_NF.exit69
+  ret ptr %p
 }
 
 ; Function Attrs: mustprogress nounwind willreturn allockind("free") memory(argmem: readwrite, inaccessiblemem: readwrite)

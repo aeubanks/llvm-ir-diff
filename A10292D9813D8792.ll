@@ -16,51 +16,52 @@ $__clang_call_terminate = comdat any
 @.str.5 = private unnamed_addr constant [17 x i8] c"Destroyed A #%d\0A\00", align 1
 @str = private unnamed_addr constant [41 x i8] c"'throws' threw an exception: rethrowing!\00", align 1
 @str.7 = private unnamed_addr constant [18 x i8] c"In B constructor!\00", align 1
-@str.8 = private unnamed_addr constant [14 x i8] c"B destructor!\00", align 1
-@str.9 = private unnamed_addr constant [18 x i8] c"Caught exception!\00", align 1
+@str.8 = private unnamed_addr constant [18 x i8] c"Caught exception!\00", align 1
+@str.9 = private unnamed_addr constant [14 x i8] c"B destructor!\00", align 1
 
 @_ZN1BC1Ev = dso_local unnamed_addr alias void (ptr), ptr @_ZN1BC2Ev
 
 ; Function Attrs: mustprogress uwtable
 define dso_local noundef i32 @_Z6throwsv() local_unnamed_addr #0 personality ptr @__gxx_personality_v0 {
-  %1 = load i1, ptr @_ZL11ShouldThrow, align 1
-  br i1 %1, label %2, label %9
+entry:
+  %.b5 = load i1, ptr @_ZL11ShouldThrow, align 1
+  br i1 %.b5, label %if.then, label %if.end
 
-2:                                                ; preds = %0
-  %3 = tail call ptr @__cxa_allocate_exception(i64 4) #8
-  store i32 7, ptr %3, align 16, !tbaa !5
-  invoke void @__cxa_throw(ptr nonnull %3, ptr nonnull @_ZTIi, ptr null) #9
-          to label %16 unwind label %4
+if.then:                                          ; preds = %entry
+  %exception = tail call ptr @__cxa_allocate_exception(i64 4) #8
+  store i32 7, ptr %exception, align 16, !tbaa !5
+  invoke void @__cxa_throw(ptr nonnull %exception, ptr nonnull @_ZTIi, ptr null) #9
+          to label %unreachable unwind label %lpad
 
-4:                                                ; preds = %2
-  %5 = landingpad { ptr, i32 }
+lpad:                                             ; preds = %if.then
+  %0 = landingpad { ptr, i32 }
           catch ptr null
-  %6 = extractvalue { ptr, i32 } %5, 0
-  %7 = tail call ptr @__cxa_begin_catch(ptr %6) #8
-  %8 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str)
+  %1 = extractvalue { ptr, i32 } %0, 0
+  %2 = tail call ptr @__cxa_begin_catch(ptr %1) #8
+  %puts = tail call i32 @puts(ptr nonnull dereferenceable(1) @str)
   invoke void @__cxa_rethrow() #9
-          to label %16 unwind label %10
+          to label %unreachable unwind label %lpad1
 
-9:                                                ; preds = %0
+if.end:                                           ; preds = %entry
   ret i32 123
 
-10:                                               ; preds = %4
-  %11 = landingpad { ptr, i32 }
+lpad1:                                            ; preds = %lpad
+  %3 = landingpad { ptr, i32 }
           cleanup
   invoke void @__cxa_end_catch()
-          to label %12 unwind label %13
+          to label %eh.resume unwind label %terminate.lpad
 
-12:                                               ; preds = %10
-  resume { ptr, i32 } %11
+eh.resume:                                        ; preds = %lpad1
+  resume { ptr, i32 } %3
 
-13:                                               ; preds = %10
-  %14 = landingpad { ptr, i32 }
+terminate.lpad:                                   ; preds = %lpad1
+  %4 = landingpad { ptr, i32 }
           catch ptr null
-  %15 = extractvalue { ptr, i32 } %14, 0
-  tail call void @__clang_call_terminate(ptr %15) #10
+  %5 = extractvalue { ptr, i32 } %4, 0
+  tail call void @__clang_call_terminate(ptr %5) #10
   unreachable
 
-16:                                               ; preds = %4, %2
+unreachable:                                      ; preds = %lpad, %if.then
   unreachable
 }
 
@@ -89,80 +90,81 @@ define linkonce_odr hidden void @__clang_call_terminate(ptr noundef %0) local_un
 declare void @_ZSt9terminatev() local_unnamed_addr
 
 ; Function Attrs: uwtable
-define dso_local void @_ZN1BC2Ev(ptr nocapture noundef nonnull align 4 dereferenceable(24) %0) unnamed_addr #3 align 2 personality ptr @__gxx_personality_v0 {
+define dso_local void @_ZN1BC2Ev(ptr nocapture noundef nonnull align 4 dereferenceable(24) %this) unnamed_addr #3 align 2 personality ptr @__gxx_personality_v0 {
+invoke.cont5:
+  %0 = load i32, ptr @_ZL5NumAs, align 4, !tbaa !5
+  %inc.i = add i32 %0, 1
+  store i32 %inc.i, ptr @_ZL5NumAs, align 4, !tbaa !5
+  store i32 %0, ptr %this, align 4, !tbaa !9
+  %call.i = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.4, i32 noundef %0)
+  %a1 = getelementptr inbounds %struct.B, ptr %this, i64 0, i32 1
+  %1 = load i32, ptr @_ZL5NumAs, align 4, !tbaa !5
+  %inc.i32 = add i32 %1, 1
+  store i32 %inc.i32, ptr @_ZL5NumAs, align 4, !tbaa !5
+  store i32 %1, ptr %a1, align 4, !tbaa !9
+  %call.i33 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.4, i32 noundef %1)
+  %a2 = getelementptr inbounds %struct.B, ptr %this, i64 0, i32 2
   %2 = load i32, ptr @_ZL5NumAs, align 4, !tbaa !5
-  %3 = add i32 %2, 1
-  store i32 %3, ptr @_ZL5NumAs, align 4, !tbaa !5
-  store i32 %2, ptr %0, align 4, !tbaa !9
-  %4 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.4, i32 noundef %2)
-  %5 = getelementptr inbounds %struct.B, ptr %0, i64 0, i32 1
-  %6 = load i32, ptr @_ZL5NumAs, align 4, !tbaa !5
-  %7 = add i32 %6, 1
-  store i32 %7, ptr @_ZL5NumAs, align 4, !tbaa !5
-  store i32 %6, ptr %5, align 4, !tbaa !9
-  %8 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.4, i32 noundef %6)
-  %9 = getelementptr inbounds %struct.B, ptr %0, i64 0, i32 2
-  %10 = load i32, ptr @_ZL5NumAs, align 4, !tbaa !5
-  %11 = add i32 %10, 1
-  store i32 %11, ptr @_ZL5NumAs, align 4, !tbaa !5
-  store i32 %10, ptr %9, align 4, !tbaa !9
-  %12 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.4, i32 noundef %10)
-  %13 = invoke noundef i32 @_Z6throwsv()
-          to label %14 unwind label %25
+  %inc.i34 = add i32 %2, 1
+  store i32 %inc.i34, ptr @_ZL5NumAs, align 4, !tbaa !5
+  store i32 %2, ptr %a2, align 4, !tbaa !9
+  %call.i35 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.4, i32 noundef %2)
+  %call = invoke noundef i32 @_Z6throwsv()
+          to label %invoke.cont10 unwind label %lpad6
 
-14:                                               ; preds = %1
-  %15 = getelementptr inbounds %struct.B, ptr %0, i64 0, i32 3
-  store i32 123, ptr %15, align 4, !tbaa !11
-  %16 = getelementptr inbounds %struct.B, ptr %0, i64 0, i32 4
-  %17 = load i32, ptr @_ZL5NumAs, align 4, !tbaa !5
-  %18 = add i32 %17, 1
-  store i32 %18, ptr @_ZL5NumAs, align 4, !tbaa !5
-  store i32 %17, ptr %16, align 4, !tbaa !9
-  %19 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.4, i32 noundef %17)
-  %20 = getelementptr inbounds %struct.B, ptr %0, i64 0, i32 5
-  %21 = load i32, ptr @_ZL5NumAs, align 4, !tbaa !5
-  %22 = add i32 %21, 1
-  store i32 %22, ptr @_ZL5NumAs, align 4, !tbaa !5
-  store i32 %21, ptr %20, align 4, !tbaa !9
-  %23 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.4, i32 noundef %21)
-  %24 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.7)
+invoke.cont10:                                    ; preds = %invoke.cont5
+  %i = getelementptr inbounds %struct.B, ptr %this, i64 0, i32 3
+  store i32 123, ptr %i, align 4, !tbaa !11
+  %a3 = getelementptr inbounds %struct.B, ptr %this, i64 0, i32 4
+  %3 = load i32, ptr @_ZL5NumAs, align 4, !tbaa !5
+  %inc.i36 = add i32 %3, 1
+  store i32 %inc.i36, ptr @_ZL5NumAs, align 4, !tbaa !5
+  store i32 %3, ptr %a3, align 4, !tbaa !9
+  %call.i37 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.4, i32 noundef %3)
+  %a4 = getelementptr inbounds %struct.B, ptr %this, i64 0, i32 5
+  %4 = load i32, ptr @_ZL5NumAs, align 4, !tbaa !5
+  %inc.i38 = add i32 %4, 1
+  store i32 %inc.i38, ptr @_ZL5NumAs, align 4, !tbaa !5
+  store i32 %4, ptr %a4, align 4, !tbaa !9
+  %call.i39 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.4, i32 noundef %4)
+  %puts = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.7)
   ret void
 
-25:                                               ; preds = %1
-  %26 = landingpad { ptr, i32 }
+lpad6:                                            ; preds = %invoke.cont5
+  %5 = landingpad { ptr, i32 }
           cleanup
           catch ptr @_ZTIi
-  %27 = extractvalue { ptr, i32 } %26, 1
-  %28 = load i32, ptr %9, align 4, !tbaa !9
-  %29 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.5, i32 noundef %28)
-  %30 = load i32, ptr %5, align 4, !tbaa !9
-  %31 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.5, i32 noundef %30)
-  %32 = load i32, ptr %0, align 4, !tbaa !9
-  %33 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.5, i32 noundef %32)
-  %34 = tail call i32 @llvm.eh.typeid.for(ptr nonnull @_ZTIi) #8
-  %35 = icmp eq i32 %27, %34
-  br i1 %35, label %36, label %44
+  %6 = load i32, ptr %a2, align 4, !tbaa !9
+  %call.i41 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.5, i32 noundef %6)
+  %7 = load i32, ptr %a1, align 4, !tbaa !9
+  %call.i42 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.5, i32 noundef %7)
+  %8 = load i32, ptr %this, align 4, !tbaa !9
+  %call.i43 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.5, i32 noundef %8)
+  %ehselector.slot.3 = extractvalue { ptr, i32 } %5, 1
+  %9 = tail call i32 @llvm.eh.typeid.for(ptr nonnull @_ZTIi) #8
+  %matches = icmp eq i32 %ehselector.slot.3, %9
+  br i1 %matches, label %catch, label %eh.resume
 
-36:                                               ; preds = %25
-  %37 = extractvalue { ptr, i32 } %26, 0
-  %38 = tail call ptr @__cxa_begin_catch(ptr %37) #8
-  %39 = load i32, ptr %38, align 4, !tbaa !5
-  %40 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.2, i32 noundef %39)
+catch:                                            ; preds = %lpad6
+  %exn.slot.3 = extractvalue { ptr, i32 } %5, 0
+  %10 = tail call ptr @__cxa_begin_catch(ptr %exn.slot.3) #8
+  %11 = load i32, ptr %10, align 4, !tbaa !5
+  %call20 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.2, i32 noundef %11)
   invoke void @__cxa_rethrow()
-          to label %41 unwind label %42
+          to label %invoke.cont21 unwind label %lpad18
 
-41:                                               ; preds = %36
+invoke.cont21:                                    ; preds = %catch
   unreachable
 
-42:                                               ; preds = %36
-  %43 = landingpad { ptr, i32 }
+lpad18:                                           ; preds = %catch
+  %12 = landingpad { ptr, i32 }
           cleanup
   tail call void @__cxa_end_catch() #8
-  br label %44
+  br label %eh.resume
 
-44:                                               ; preds = %42, %25
-  %45 = phi { ptr, i32 } [ %43, %42 ], [ %26, %25 ]
-  resume { ptr, i32 } %45
+eh.resume:                                        ; preds = %lpad18, %lpad6
+  %lpad.val26.merged = phi { ptr, i32 } [ %12, %lpad18 ], [ %5, %lpad6 ]
+  resume { ptr, i32 } %lpad.val26.merged
 }
 
 ; Function Attrs: nofree nosync nounwind memory(none)
@@ -176,61 +178,62 @@ declare void @llvm.lifetime.end.p0(i64 immarg, ptr nocapture) #5
 
 ; Function Attrs: norecurse uwtable
 define dso_local noundef i32 @main() local_unnamed_addr #6 personality ptr @__gxx_personality_v0 {
-  %1 = alloca %struct.B, align 4
-  %2 = alloca %struct.B, align 4
-  call void @llvm.lifetime.start.p0(i64 24, ptr nonnull %1) #8
-  call void @_ZN1BC2Ev(ptr noundef nonnull align 4 dereferenceable(24) %1)
-  %3 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.8)
-  %4 = getelementptr inbounds %struct.B, ptr %1, i64 0, i32 5
-  %5 = load i32, ptr %4, align 4, !tbaa !9
-  %6 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.5, i32 noundef %5)
-  %7 = getelementptr inbounds %struct.B, ptr %1, i64 0, i32 4
-  %8 = load i32, ptr %7, align 4, !tbaa !9
-  %9 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.5, i32 noundef %8)
-  %10 = getelementptr inbounds %struct.B, ptr %1, i64 0, i32 2
-  %11 = load i32, ptr %10, align 4, !tbaa !9
-  %12 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.5, i32 noundef %11)
-  %13 = getelementptr inbounds %struct.B, ptr %1, i64 0, i32 1
-  %14 = load i32, ptr %13, align 4, !tbaa !9
-  %15 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.5, i32 noundef %14)
-  %16 = load i32, ptr %1, align 4, !tbaa !9
-  %17 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.5, i32 noundef %16)
-  call void @llvm.lifetime.end.p0(i64 24, ptr nonnull %1) #8
+entry:
+  %b = alloca %struct.B, align 4
+  %b1 = alloca %struct.B, align 4
+  call void @llvm.lifetime.start.p0(i64 24, ptr nonnull %b) #8
+  call void @_ZN1BC2Ev(ptr noundef nonnull align 4 dereferenceable(24) %b)
+  %puts.i = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.9)
+  %a4.i = getelementptr inbounds %struct.B, ptr %b, i64 0, i32 5
+  %0 = load i32, ptr %a4.i, align 4, !tbaa !9
+  %call.i.i = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.5, i32 noundef %0)
+  %a3.i = getelementptr inbounds %struct.B, ptr %b, i64 0, i32 4
+  %1 = load i32, ptr %a3.i, align 4, !tbaa !9
+  %call.i2.i = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.5, i32 noundef %1)
+  %a2.i = getelementptr inbounds %struct.B, ptr %b, i64 0, i32 2
+  %2 = load i32, ptr %a2.i, align 4, !tbaa !9
+  %call.i3.i = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.5, i32 noundef %2)
+  %a1.i = getelementptr inbounds %struct.B, ptr %b, i64 0, i32 1
+  %3 = load i32, ptr %a1.i, align 4, !tbaa !9
+  %call.i4.i = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.5, i32 noundef %3)
+  %4 = load i32, ptr %b, align 4, !tbaa !9
+  %call.i5.i = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.5, i32 noundef %4)
+  call void @llvm.lifetime.end.p0(i64 24, ptr nonnull %b) #8
   store i1 true, ptr @_ZL11ShouldThrow, align 1
-  call void @llvm.lifetime.start.p0(i64 24, ptr nonnull %2) #8
-  invoke void @_ZN1BC2Ev(ptr noundef nonnull align 4 dereferenceable(24) %2)
-          to label %18 unwind label %34
+  call void @llvm.lifetime.start.p0(i64 24, ptr nonnull %b1) #8
+  invoke void @_ZN1BC2Ev(ptr noundef nonnull align 4 dereferenceable(24) %b1)
+          to label %invoke.cont unwind label %lpad
 
-18:                                               ; preds = %0
-  %19 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.8)
-  %20 = getelementptr inbounds %struct.B, ptr %2, i64 0, i32 5
-  %21 = load i32, ptr %20, align 4, !tbaa !9
-  %22 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.5, i32 noundef %21)
-  %23 = getelementptr inbounds %struct.B, ptr %2, i64 0, i32 4
-  %24 = load i32, ptr %23, align 4, !tbaa !9
-  %25 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.5, i32 noundef %24)
-  %26 = getelementptr inbounds %struct.B, ptr %2, i64 0, i32 2
-  %27 = load i32, ptr %26, align 4, !tbaa !9
-  %28 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.5, i32 noundef %27)
-  %29 = getelementptr inbounds %struct.B, ptr %2, i64 0, i32 1
-  %30 = load i32, ptr %29, align 4, !tbaa !9
-  %31 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.5, i32 noundef %30)
-  %32 = load i32, ptr %2, align 4, !tbaa !9
-  %33 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.5, i32 noundef %32)
-  call void @llvm.lifetime.end.p0(i64 24, ptr nonnull %2) #8
-  br label %39
+invoke.cont:                                      ; preds = %entry
+  %puts.i7 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.9)
+  %a4.i8 = getelementptr inbounds %struct.B, ptr %b1, i64 0, i32 5
+  %5 = load i32, ptr %a4.i8, align 4, !tbaa !9
+  %call.i.i9 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.5, i32 noundef %5)
+  %a3.i10 = getelementptr inbounds %struct.B, ptr %b1, i64 0, i32 4
+  %6 = load i32, ptr %a3.i10, align 4, !tbaa !9
+  %call.i2.i11 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.5, i32 noundef %6)
+  %a2.i12 = getelementptr inbounds %struct.B, ptr %b1, i64 0, i32 2
+  %7 = load i32, ptr %a2.i12, align 4, !tbaa !9
+  %call.i3.i13 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.5, i32 noundef %7)
+  %a1.i14 = getelementptr inbounds %struct.B, ptr %b1, i64 0, i32 1
+  %8 = load i32, ptr %a1.i14, align 4, !tbaa !9
+  %call.i4.i15 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.5, i32 noundef %8)
+  %9 = load i32, ptr %b1, align 4, !tbaa !9
+  %call.i5.i16 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.5, i32 noundef %9)
+  call void @llvm.lifetime.end.p0(i64 24, ptr nonnull %b1) #8
+  br label %try.cont
 
-34:                                               ; preds = %0
-  %35 = landingpad { ptr, i32 }
+lpad:                                             ; preds = %entry
+  %10 = landingpad { ptr, i32 }
           catch ptr null
-  %36 = extractvalue { ptr, i32 } %35, 0
-  call void @llvm.lifetime.end.p0(i64 24, ptr nonnull %2) #8
-  %37 = tail call ptr @__cxa_begin_catch(ptr %36) #8
-  %38 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.9)
+  %11 = extractvalue { ptr, i32 } %10, 0
+  call void @llvm.lifetime.end.p0(i64 24, ptr nonnull %b1) #8
+  %12 = tail call ptr @__cxa_begin_catch(ptr %11) #8
+  %puts = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.8)
   tail call void @__cxa_end_catch()
-  br label %39
+  br label %try.cont
 
-39:                                               ; preds = %34, %18
+try.cont:                                         ; preds = %lpad, %invoke.cont
   ret i32 0
 }
 

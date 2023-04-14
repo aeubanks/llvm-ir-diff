@@ -42,31 +42,32 @@ $_ZTI14IBenchCallback = comdat any
 @.str.21 = private unnamed_addr constant [8 x i8] c"       \00", align 1
 
 ; Function Attrs: mustprogress uwtable
-define dso_local noundef i32 @_ZN14CBenchCallback15SetEncodeResultERK10CBenchInfob(ptr nocapture noundef nonnull align 8 dereferenceable(84) %0, ptr noundef nonnull align 8 dereferenceable(52) %1, i1 noundef zeroext %2) unnamed_addr #0 align 2 {
-  %4 = tail call noundef zeroext i1 @_ZN13NConsoleClose15TestBreakSignalEv()
-  %5 = xor i1 %2, true
-  %6 = or i1 %4, %5
-  %7 = select i1 %4, i32 -2147467260, i32 0
-  br i1 %6, label %20, label %8
+define dso_local noundef i32 @_ZN14CBenchCallback15SetEncodeResultERK10CBenchInfob(ptr nocapture noundef nonnull align 8 dereferenceable(84) %this, ptr noundef nonnull align 8 dereferenceable(52) %info, i1 noundef zeroext %final) unnamed_addr #0 align 2 {
+entry:
+  %call = tail call noundef zeroext i1 @_ZN13NConsoleClose15TestBreakSignalEv()
+  %final.not = xor i1 %final, true
+  %brmerge = or i1 %call, %final.not
+  %.mux = select i1 %call, i32 -2147467260, i32 0
+  br i1 %brmerge, label %return, label %if.then2
 
-8:                                                ; preds = %3
-  %9 = getelementptr inbounds %struct.CBenchCallback, ptr %0, i64 0, i32 4
-  %10 = load i32, ptr %9, align 8, !tbaa !5
-  %11 = load i64, ptr %1, align 8, !tbaa !14
-  %12 = getelementptr inbounds %struct.CBenchInfo, ptr %1, i64 0, i32 1
-  %13 = load i64, ptr %12, align 8, !tbaa !16
-  %14 = getelementptr inbounds %struct.CBenchInfo, ptr %1, i64 0, i32 4
-  %15 = load i64, ptr %14, align 8, !tbaa !17
-  %16 = tail call noundef i64 @_Z17GetCompressRatingjyyy(i32 noundef %10, i64 noundef %11, i64 noundef %13, i64 noundef %15)
-  %17 = getelementptr inbounds %struct.CBenchCallback, ptr %0, i64 0, i32 3
-  %18 = load ptr, ptr %17, align 8, !tbaa !18
-  %19 = getelementptr inbounds %struct.CBenchCallback, ptr %0, i64 0, i32 1
-  tail call fastcc void @_ZL12PrintResultsP8_IO_FILERK10CBenchInfoyR14CTotalBenchRes(ptr noundef %18, ptr noundef nonnull align 8 dereferenceable(52) %1, i64 noundef %16, ptr noundef nonnull align 8 dereferenceable(32) %19)
-  br label %20
+if.then2:                                         ; preds = %entry
+  %dictionarySize = getelementptr inbounds %struct.CBenchCallback, ptr %this, i64 0, i32 4
+  %0 = load i32, ptr %dictionarySize, align 8, !tbaa !5
+  %1 = load i64, ptr %info, align 8, !tbaa !14
+  %GlobalFreq = getelementptr inbounds %struct.CBenchInfo, ptr %info, i64 0, i32 1
+  %2 = load i64, ptr %GlobalFreq, align 8, !tbaa !16
+  %UnpackSize = getelementptr inbounds %struct.CBenchInfo, ptr %info, i64 0, i32 4
+  %3 = load i64, ptr %UnpackSize, align 8, !tbaa !17
+  %call3 = tail call noundef i64 @_Z17GetCompressRatingjyyy(i32 noundef %0, i64 noundef %1, i64 noundef %2, i64 noundef %3)
+  %f = getelementptr inbounds %struct.CBenchCallback, ptr %this, i64 0, i32 3
+  %4 = load ptr, ptr %f, align 8, !tbaa !18
+  %EncodeRes = getelementptr inbounds %struct.CBenchCallback, ptr %this, i64 0, i32 1
+  tail call fastcc void @_ZL12PrintResultsP8_IO_FILERK10CBenchInfoyR14CTotalBenchRes(ptr noundef %4, ptr noundef nonnull align 8 dereferenceable(52) %info, i64 noundef %call3, ptr noundef nonnull align 8 dereferenceable(32) %EncodeRes)
+  br label %return
 
-20:                                               ; preds = %3, %8
-  %21 = phi i32 [ %7, %3 ], [ 0, %8 ]
-  ret i32 %21
+return:                                           ; preds = %entry, %if.then2
+  %retval.0 = phi i32 [ %.mux, %entry ], [ 0, %if.then2 ]
+  ret i32 %retval.0
 }
 
 declare noundef zeroext i1 @_ZN13NConsoleClose15TestBreakSignalEv() local_unnamed_addr #1
@@ -77,64 +78,65 @@ declare void @llvm.lifetime.start.p0(i64 immarg, ptr nocapture) #2
 declare noundef i64 @_Z17GetCompressRatingjyyy(i32 noundef, i64 noundef, i64 noundef, i64 noundef) local_unnamed_addr #1
 
 ; Function Attrs: mustprogress uwtable
-define internal fastcc void @_ZL12PrintResultsP8_IO_FILERK10CBenchInfoyR14CTotalBenchRes(ptr nocapture noundef %0, ptr noundef nonnull align 8 dereferenceable(52) %1, i64 noundef %2, ptr nocapture noundef nonnull align 8 dereferenceable(32) %3) unnamed_addr #0 {
-  %5 = alloca [32 x i8], align 16
-  %6 = getelementptr inbounds %struct.CBenchInfo, ptr %1, i64 0, i32 4
-  %7 = load i64, ptr %6, align 8, !tbaa !17
-  %8 = load i64, ptr %1, align 8, !tbaa !14
-  %9 = getelementptr inbounds %struct.CBenchInfo, ptr %1, i64 0, i32 1
-  %10 = load i64, ptr %9, align 8, !tbaa !16
-  %11 = icmp ugt i64 %10, 1000000
-  br i1 %11, label %12, label %18
+define internal fastcc void @_ZL12PrintResultsP8_IO_FILERK10CBenchInfoyR14CTotalBenchRes(ptr nocapture noundef %f, ptr noundef nonnull align 8 dereferenceable(52) %info, i64 noundef %rating, ptr nocapture noundef nonnull align 8 dereferenceable(32) %res) unnamed_addr #0 {
+entry:
+  %s.i = alloca [32 x i8], align 16
+  %UnpackSize = getelementptr inbounds %struct.CBenchInfo, ptr %info, i64 0, i32 4
+  %0 = load i64, ptr %UnpackSize, align 8, !tbaa !17
+  %1 = load i64, ptr %info, align 8, !tbaa !14
+  %GlobalFreq = getelementptr inbounds %struct.CBenchInfo, ptr %info, i64 0, i32 1
+  %2 = load i64, ptr %GlobalFreq, align 8, !tbaa !16
+  %cmp3.i.i = icmp ugt i64 %2, 1000000
+  br i1 %cmp3.i.i, label %while.body.i.i, label %_ZL11MyMultDiv64yyy.exit
 
-12:                                               ; preds = %4, %12
-  %13 = phi i64 [ %16, %12 ], [ %8, %4 ]
-  %14 = phi i64 [ %15, %12 ], [ %10, %4 ]
-  %15 = lshr i64 %14, 1
-  %16 = lshr i64 %13, 1
-  %17 = icmp ugt i64 %14, 2000001
-  br i1 %17, label %12, label %18, !llvm.loop !19
+while.body.i.i:                                   ; preds = %entry, %while.body.i.i
+  %elTime.0.i = phi i64 [ %shr1.i.i, %while.body.i.i ], [ %1, %entry ]
+  %3 = phi i64 [ %shr.i.i, %while.body.i.i ], [ %2, %entry ]
+  %shr.i.i = lshr i64 %3, 1
+  %shr1.i.i = lshr i64 %elTime.0.i, 1
+  %cmp.i.i = icmp ugt i64 %3, 2000001
+  br i1 %cmp.i.i, label %while.body.i.i, label %_ZL11MyMultDiv64yyy.exit, !llvm.loop !19
 
-18:                                               ; preds = %12, %4
-  %19 = phi i64 [ %10, %4 ], [ %15, %12 ]
-  %20 = phi i64 [ %8, %4 ], [ %16, %12 ]
-  %21 = tail call i64 @llvm.umax.i64(i64 %20, i64 1)
-  %22 = mul i64 %19, %7
-  %23 = udiv i64 %22, %21
-  %24 = lshr i64 %23, 10
-  call void @llvm.lifetime.start.p0(i64 32, ptr nonnull %5) #12
-  call void @_Z21ConvertUInt64ToStringyPcj(i64 noundef %24, ptr noundef nonnull %5, i32 noundef 10)
-  %25 = call i32 @fputc(i32 32, ptr %0)
-  %26 = call i64 @strlen(ptr noundef nonnull dereferenceable(1) %5) #13
-  %27 = trunc i64 %26 to i32
-  %28 = icmp slt i32 %27, 7
-  br i1 %28, label %29, label %34
+_ZL11MyMultDiv64yyy.exit:                         ; preds = %while.body.i.i, %entry
+  %freq.addr.0.i = phi i64 [ %2, %entry ], [ %shr.i.i, %while.body.i.i ]
+  %elTime.1.i = phi i64 [ %1, %entry ], [ %shr1.i.i, %while.body.i.i ]
+  %spec.select.i = tail call i64 @llvm.umax.i64(i64 %elTime.1.i, i64 1)
+  %mul.i = mul i64 %freq.addr.0.i, %0
+  %div.i = udiv i64 %mul.i, %spec.select.i
+  %div17 = lshr i64 %div.i, 10
+  call void @llvm.lifetime.start.p0(i64 32, ptr nonnull %s.i) #12
+  call void @_Z21ConvertUInt64ToStringyPcj(i64 noundef %div17, ptr noundef nonnull %s.i, i32 noundef 10)
+  %fputc.i = call i32 @fputc(i32 32, ptr %f)
+  %call2.i = call i64 @strlen(ptr noundef nonnull dereferenceable(1) %s.i) #13
+  %conv.i = trunc i64 %call2.i to i32
+  %cmp10.i = icmp slt i32 %conv.i, 7
+  br i1 %cmp10.i, label %for.body.i, label %_ZL11PrintNumberP8_IO_FILEyi.exit
 
-29:                                               ; preds = %18, %29
-  %30 = phi i32 [ %32, %29 ], [ %27, %18 ]
-  %31 = call i32 @fputc(i32 32, ptr %0)
-  %32 = add i32 %30, 1
-  %33 = icmp eq i32 %32, 7
-  br i1 %33, label %34, label %29, !llvm.loop !21
+for.body.i:                                       ; preds = %_ZL11MyMultDiv64yyy.exit, %for.body.i
+  %len.011.i = phi i32 [ %inc.i, %for.body.i ], [ %conv.i, %_ZL11MyMultDiv64yyy.exit ]
+  %fputc9.i = call i32 @fputc(i32 32, ptr %f)
+  %inc.i = add i32 %len.011.i, 1
+  %exitcond.not.i = icmp eq i32 %inc.i, 7
+  br i1 %exitcond.not.i, label %_ZL11PrintNumberP8_IO_FILEyi.exit, label %for.body.i, !llvm.loop !21
 
-34:                                               ; preds = %29, %18
-  %35 = call i32 @fputs(ptr noundef nonnull %5, ptr noundef %0)
-  call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %5) #12
-  %36 = call noundef i64 @_Z8GetUsageRK10CBenchInfo(ptr noundef nonnull align 8 dereferenceable(52) %1)
-  %37 = call noundef i64 @_Z17GetRatingPerUsageRK10CBenchInfoy(ptr noundef nonnull align 8 dereferenceable(52) %1, i64 noundef %2)
-  call fastcc void @_ZL12PrintResultsP8_IO_FILEyyy(ptr noundef %0, i64 noundef %36, i64 noundef %37, i64 noundef %2)
-  %38 = getelementptr inbounds %struct.CTotalBenchRes, ptr %3, i64 0, i32 3
-  %39 = load i64, ptr %38, align 8, !tbaa !22
-  %40 = add i64 %39, %37
-  store i64 %40, ptr %38, align 8, !tbaa !22
-  %41 = load <2 x i64>, ptr %3, align 8, !tbaa !23
-  %42 = insertelement <2 x i64> <i64 1, i64 poison>, i64 %2, i64 1
-  %43 = add <2 x i64> %41, %42
-  store <2 x i64> %43, ptr %3, align 8, !tbaa !23
-  %44 = getelementptr inbounds %struct.CTotalBenchRes, ptr %3, i64 0, i32 2
-  %45 = load i64, ptr %44, align 8, !tbaa !24
-  %46 = add i64 %45, %36
-  store i64 %46, ptr %44, align 8, !tbaa !24
+_ZL11PrintNumberP8_IO_FILEyi.exit:                ; preds = %for.body.i, %_ZL11MyMultDiv64yyy.exit
+  %call5.i = call i32 @fputs(ptr noundef nonnull %s.i, ptr noundef %f)
+  call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %s.i) #12
+  %call1 = call noundef i64 @_Z8GetUsageRK10CBenchInfo(ptr noundef nonnull align 8 dereferenceable(52) %info)
+  %call2 = call noundef i64 @_Z17GetRatingPerUsageRK10CBenchInfoy(ptr noundef nonnull align 8 dereferenceable(52) %info, i64 noundef %rating)
+  call fastcc void @_ZL12PrintResultsP8_IO_FILEyyy(ptr noundef %f, i64 noundef %call1, i64 noundef %call2, i64 noundef %rating)
+  %RPU = getelementptr inbounds %struct.CTotalBenchRes, ptr %res, i64 0, i32 3
+  %4 = load i64, ptr %RPU, align 8, !tbaa !22
+  %add = add i64 %4, %call2
+  store i64 %add, ptr %RPU, align 8, !tbaa !22
+  %5 = load <2 x i64>, ptr %res, align 8, !tbaa !23
+  %6 = insertelement <2 x i64> <i64 1, i64 poison>, i64 %rating, i64 1
+  %7 = add <2 x i64> %5, %6
+  store <2 x i64> %7, ptr %res, align 8, !tbaa !23
+  %Usage = getelementptr inbounds %struct.CTotalBenchRes, ptr %res, i64 0, i32 2
+  %8 = load i64, ptr %Usage, align 8, !tbaa !24
+  %add4 = add i64 %8, %call1
+  store i64 %add4, ptr %Usage, align 8, !tbaa !24
   ret void
 }
 
@@ -142,51 +144,52 @@ define internal fastcc void @_ZL12PrintResultsP8_IO_FILERK10CBenchInfoyR14CTotal
 declare void @llvm.lifetime.end.p0(i64 immarg, ptr nocapture) #2
 
 ; Function Attrs: mustprogress uwtable
-define dso_local noundef i32 @_ZN14CBenchCallback15SetDecodeResultERK10CBenchInfob(ptr nocapture noundef nonnull align 8 dereferenceable(84) %0, ptr nocapture noundef nonnull readonly align 8 dereferenceable(52) %1, i1 noundef zeroext %2) unnamed_addr #0 align 2 {
-  %4 = alloca %struct.CBenchInfo, align 8
-  %5 = tail call noundef zeroext i1 @_ZN13NConsoleClose15TestBreakSignalEv()
-  %6 = xor i1 %2, true
-  %7 = or i1 %5, %6
-  %8 = select i1 %5, i32 -2147467260, i32 0
-  br i1 %7, label %34, label %9
+define dso_local noundef i32 @_ZN14CBenchCallback15SetDecodeResultERK10CBenchInfob(ptr nocapture noundef nonnull align 8 dereferenceable(84) %this, ptr nocapture noundef nonnull readonly align 8 dereferenceable(52) %info, i1 noundef zeroext %final) unnamed_addr #0 align 2 {
+entry:
+  %info2 = alloca %struct.CBenchInfo, align 8
+  %call = tail call noundef zeroext i1 @_ZN13NConsoleClose15TestBreakSignalEv()
+  %final.not = xor i1 %final, true
+  %brmerge = or i1 %call, %final.not
+  %.mux = select i1 %call, i32 -2147467260, i32 0
+  br i1 %brmerge, label %return, label %if.then2
 
-9:                                                ; preds = %3
-  %10 = load i64, ptr %1, align 8, !tbaa !14
-  %11 = getelementptr inbounds %struct.CBenchInfo, ptr %1, i64 0, i32 1
-  %12 = load i64, ptr %11, align 8, !tbaa !16
-  %13 = getelementptr inbounds %struct.CBenchInfo, ptr %1, i64 0, i32 4
-  %14 = load i64, ptr %13, align 8, !tbaa !17
-  %15 = getelementptr inbounds %struct.CBenchInfo, ptr %1, i64 0, i32 5
-  %16 = load i64, ptr %15, align 8, !tbaa !25
-  %17 = getelementptr inbounds %struct.CBenchInfo, ptr %1, i64 0, i32 6
-  %18 = load i32, ptr %17, align 8, !tbaa !26
-  %19 = tail call noundef i64 @_Z19GetDecompressRatingyyyyj(i64 noundef %10, i64 noundef %12, i64 noundef %14, i64 noundef %16, i32 noundef %18)
-  %20 = getelementptr inbounds %struct.CBenchCallback, ptr %0, i64 0, i32 3
-  %21 = load ptr, ptr %20, align 8, !tbaa !18
-  %22 = tail call i64 @fwrite(ptr nonnull @.str.18, i64 4, i64 1, ptr %21)
-  call void @llvm.lifetime.start.p0(i64 56, ptr nonnull %4) #12
-  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(56) %4, ptr noundef nonnull align 8 dereferenceable(56) %1, i64 56, i1 false), !tbaa.struct !27
-  %23 = getelementptr inbounds %struct.CBenchInfo, ptr %4, i64 0, i32 6
-  %24 = load i32, ptr %23, align 8, !tbaa !26
-  %25 = zext i32 %24 to i64
-  %26 = getelementptr inbounds %struct.CBenchInfo, ptr %4, i64 0, i32 4
-  %27 = load i64, ptr %26, align 8, !tbaa !17
-  %28 = mul i64 %27, %25
-  store i64 %28, ptr %26, align 8, !tbaa !17
-  %29 = getelementptr inbounds %struct.CBenchInfo, ptr %4, i64 0, i32 5
-  %30 = load i64, ptr %29, align 8, !tbaa !25
-  %31 = mul i64 %30, %25
-  store i64 %31, ptr %29, align 8, !tbaa !25
-  store i32 1, ptr %23, align 8, !tbaa !26
-  %32 = load ptr, ptr %20, align 8, !tbaa !18
-  %33 = getelementptr inbounds %struct.CBenchCallback, ptr %0, i64 0, i32 2
-  call fastcc void @_ZL12PrintResultsP8_IO_FILERK10CBenchInfoyR14CTotalBenchRes(ptr noundef %32, ptr noundef nonnull align 8 dereferenceable(52) %4, i64 noundef %19, ptr noundef nonnull align 8 dereferenceable(32) %33)
-  call void @llvm.lifetime.end.p0(i64 56, ptr nonnull %4) #12
-  br label %34
+if.then2:                                         ; preds = %entry
+  %0 = load i64, ptr %info, align 8, !tbaa !14
+  %GlobalFreq = getelementptr inbounds %struct.CBenchInfo, ptr %info, i64 0, i32 1
+  %1 = load i64, ptr %GlobalFreq, align 8, !tbaa !16
+  %UnpackSize = getelementptr inbounds %struct.CBenchInfo, ptr %info, i64 0, i32 4
+  %2 = load i64, ptr %UnpackSize, align 8, !tbaa !17
+  %PackSize = getelementptr inbounds %struct.CBenchInfo, ptr %info, i64 0, i32 5
+  %3 = load i64, ptr %PackSize, align 8, !tbaa !25
+  %NumIterations = getelementptr inbounds %struct.CBenchInfo, ptr %info, i64 0, i32 6
+  %4 = load i32, ptr %NumIterations, align 8, !tbaa !26
+  %call3 = tail call noundef i64 @_Z19GetDecompressRatingyyyyj(i64 noundef %0, i64 noundef %1, i64 noundef %2, i64 noundef %3, i32 noundef %4)
+  %f = getelementptr inbounds %struct.CBenchCallback, ptr %this, i64 0, i32 3
+  %5 = load ptr, ptr %f, align 8, !tbaa !18
+  %6 = tail call i64 @fwrite(ptr nonnull @.str.18, i64 4, i64 1, ptr %5)
+  call void @llvm.lifetime.start.p0(i64 56, ptr nonnull %info2) #12
+  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(56) %info2, ptr noundef nonnull align 8 dereferenceable(56) %info, i64 56, i1 false), !tbaa.struct !27
+  %NumIterations5 = getelementptr inbounds %struct.CBenchInfo, ptr %info2, i64 0, i32 6
+  %7 = load i32, ptr %NumIterations5, align 8, !tbaa !26
+  %conv = zext i32 %7 to i64
+  %UnpackSize6 = getelementptr inbounds %struct.CBenchInfo, ptr %info2, i64 0, i32 4
+  %8 = load i64, ptr %UnpackSize6, align 8, !tbaa !17
+  %mul = mul i64 %8, %conv
+  store i64 %mul, ptr %UnpackSize6, align 8, !tbaa !17
+  %PackSize9 = getelementptr inbounds %struct.CBenchInfo, ptr %info2, i64 0, i32 5
+  %9 = load i64, ptr %PackSize9, align 8, !tbaa !25
+  %mul10 = mul i64 %9, %conv
+  store i64 %mul10, ptr %PackSize9, align 8, !tbaa !25
+  store i32 1, ptr %NumIterations5, align 8, !tbaa !26
+  %10 = load ptr, ptr %f, align 8, !tbaa !18
+  %DecodeRes = getelementptr inbounds %struct.CBenchCallback, ptr %this, i64 0, i32 2
+  call fastcc void @_ZL12PrintResultsP8_IO_FILERK10CBenchInfoyR14CTotalBenchRes(ptr noundef %10, ptr noundef nonnull align 8 dereferenceable(52) %info2, i64 noundef %call3, ptr noundef nonnull align 8 dereferenceable(32) %DecodeRes)
+  call void @llvm.lifetime.end.p0(i64 56, ptr nonnull %info2) #12
+  br label %return
 
-34:                                               ; preds = %3, %9
-  %35 = phi i32 [ %8, %3 ], [ 0, %9 ]
-  ret i32 %35
+return:                                           ; preds = %entry, %if.then2
+  %retval.0 = phi i32 [ %.mux, %entry ], [ 0, %if.then2 ]
+  ret i32 %retval.0
 }
 
 declare noundef i64 @_Z19GetDecompressRatingyyyyj(i64 noundef, i64 noundef, i64 noundef, i64 noundef, i32 noundef) local_unnamed_addr #1
@@ -198,224 +201,230 @@ declare noundef i32 @fputs(ptr nocapture noundef readonly, ptr nocapture noundef
 declare void @llvm.memcpy.p0.p0.i64(ptr noalias nocapture writeonly, ptr noalias nocapture readonly, i64, i1 immarg) #4
 
 ; Function Attrs: uwtable
-define dso_local noundef i32 @_Z12LzmaBenchConP8_IO_FILEjjj(ptr noundef %0, i32 noundef %1, i32 noundef %2, i32 noundef %3) local_unnamed_addr #5 {
-  %5 = alloca %struct.CBenchCallback, align 8
-  %6 = tail call noundef zeroext i1 @_Z15CrcInternalTestv()
-  br i1 %6, label %7, label %152
+define dso_local noundef i32 @_Z12LzmaBenchConP8_IO_FILEjjj(ptr noundef %f, i32 noundef %numIterations, i32 noundef %numThreads, i32 noundef %dictionary) local_unnamed_addr #5 {
+entry:
+  %callback = alloca %struct.CBenchCallback, align 8
+  %call = tail call noundef zeroext i1 @_Z15CrcInternalTestv()
+  br i1 %call, label %if.end, label %return
 
-7:                                                ; preds = %4
-  %8 = tail call noundef i64 @_ZN8NWindows7NSystem10GetRamSizeEv()
-  %9 = tail call noundef i32 @_ZN8NWindows7NSystem21GetNumberOfProcessorsEv()
-  tail call fastcc void @_ZL17PrintRequirementsP8_IO_FILEPKcyS2_j(ptr noundef %0, ptr noundef nonnull @.str, i64 noundef %8, ptr noundef nonnull @.str.1, i32 noundef %9)
-  %10 = icmp eq i32 %2, -1
-  %11 = select i1 %10, i32 %9, i32 %2
-  %12 = icmp ugt i32 %11, 1
-  %13 = and i32 %11, -2
-  %14 = select i1 %12, i32 %13, i32 %11
-  %15 = icmp eq i32 %3, -1
-  br i1 %15, label %16, label %48
+if.end:                                           ; preds = %entry
+  %call1 = tail call noundef i64 @_ZN8NWindows7NSystem10GetRamSizeEv()
+  %call2 = tail call noundef i32 @_ZN8NWindows7NSystem21GetNumberOfProcessorsEv()
+  tail call fastcc void @_ZL17PrintRequirementsP8_IO_FILEPKcyS2_j(ptr noundef %f, ptr noundef nonnull @.str, i64 noundef %call1, ptr noundef nonnull @.str.1, i32 noundef %call2)
+  %cmp = icmp eq i32 %numThreads, -1
+  %spec.select = select i1 %cmp, i32 %call2, i32 %numThreads
+  %cmp5 = icmp ugt i32 %spec.select, 1
+  %and = and i32 %spec.select, -2
+  %numThreads.addr.1 = select i1 %cmp5, i32 %and, i32 %spec.select
+  %cmp8 = icmp eq i32 %dictionary, -1
+  br i1 %cmp8, label %for.body.preheader, label %for.inc39.1
 
-16:                                               ; preds = %7
-  %17 = tail call noundef i64 @_Z19GetBenchMemoryUsagejj(i32 noundef %14, i32 noundef 33554432)
-  %18 = add i64 %17, 8388608
-  %19 = icmp ugt i64 %18, %8
-  br i1 %19, label %20, label %45
+for.body.preheader:                               ; preds = %if.end
+  %call11 = tail call noundef i64 @_Z19GetBenchMemoryUsagejj(i32 noundef %numThreads.addr.1, i32 noundef 33554432)
+  %add = add i64 %call11, 8388608
+  %cmp12.not = icmp ugt i64 %add, %call1
+  br i1 %cmp12.not, label %for.inc, label %for.end
 
-20:                                               ; preds = %16
-  %21 = tail call noundef i64 @_Z19GetBenchMemoryUsagejj(i32 noundef %14, i32 noundef 16777216)
-  %22 = add i64 %21, 8388608
-  %23 = icmp ugt i64 %22, %8
-  br i1 %23, label %24, label %45
+for.inc:                                          ; preds = %for.body.preheader
+  %call11.1 = tail call noundef i64 @_Z19GetBenchMemoryUsagejj(i32 noundef %numThreads.addr.1, i32 noundef 16777216)
+  %add.1 = add i64 %call11.1, 8388608
+  %cmp12.not.1 = icmp ugt i64 %add.1, %call1
+  br i1 %cmp12.not.1, label %for.inc.1, label %for.end
 
-24:                                               ; preds = %20
-  %25 = tail call noundef i64 @_Z19GetBenchMemoryUsagejj(i32 noundef %14, i32 noundef 8388608)
-  %26 = add i64 %25, 8388608
-  %27 = icmp ugt i64 %26, %8
-  br i1 %27, label %28, label %45
+for.inc.1:                                        ; preds = %for.inc
+  %call11.2 = tail call noundef i64 @_Z19GetBenchMemoryUsagejj(i32 noundef %numThreads.addr.1, i32 noundef 8388608)
+  %add.2 = add i64 %call11.2, 8388608
+  %cmp12.not.2 = icmp ugt i64 %add.2, %call1
+  br i1 %cmp12.not.2, label %for.inc.2, label %for.end
 
-28:                                               ; preds = %24
-  %29 = tail call noundef i64 @_Z19GetBenchMemoryUsagejj(i32 noundef %14, i32 noundef 4194304)
-  %30 = add i64 %29, 8388608
-  %31 = icmp ugt i64 %30, %8
-  br i1 %31, label %32, label %45
+for.inc.2:                                        ; preds = %for.inc.1
+  %call11.3 = tail call noundef i64 @_Z19GetBenchMemoryUsagejj(i32 noundef %numThreads.addr.1, i32 noundef 4194304)
+  %add.3 = add i64 %call11.3, 8388608
+  %cmp12.not.3 = icmp ugt i64 %add.3, %call1
+  br i1 %cmp12.not.3, label %for.inc.3, label %for.end
 
-32:                                               ; preds = %28
-  %33 = tail call noundef i64 @_Z19GetBenchMemoryUsagejj(i32 noundef %14, i32 noundef 2097152)
-  %34 = add i64 %33, 8388608
-  %35 = icmp ugt i64 %34, %8
-  br i1 %35, label %36, label %45
+for.inc.3:                                        ; preds = %for.inc.2
+  %call11.4 = tail call noundef i64 @_Z19GetBenchMemoryUsagejj(i32 noundef %numThreads.addr.1, i32 noundef 2097152)
+  %add.4 = add i64 %call11.4, 8388608
+  %cmp12.not.4 = icmp ugt i64 %add.4, %call1
+  br i1 %cmp12.not.4, label %for.inc.4, label %for.end
 
-36:                                               ; preds = %32
-  %37 = tail call noundef i64 @_Z19GetBenchMemoryUsagejj(i32 noundef %14, i32 noundef 1048576)
-  %38 = add i64 %37, 8388608
-  %39 = icmp ugt i64 %38, %8
-  br i1 %39, label %40, label %45
+for.inc.4:                                        ; preds = %for.inc.3
+  %call11.5 = tail call noundef i64 @_Z19GetBenchMemoryUsagejj(i32 noundef %numThreads.addr.1, i32 noundef 1048576)
+  %add.5 = add i64 %call11.5, 8388608
+  %cmp12.not.5 = icmp ugt i64 %add.5, %call1
+  br i1 %cmp12.not.5, label %for.inc.5, label %for.end
 
-40:                                               ; preds = %36
-  %41 = tail call noundef i64 @_Z19GetBenchMemoryUsagejj(i32 noundef %14, i32 noundef 524288)
-  %42 = add i64 %41, 8388608
-  %43 = icmp ugt i64 %42, %8
-  %44 = select i1 %43, i32 18, i32 19
-  br label %45
+for.inc.5:                                        ; preds = %for.inc.4
+  %call11.6 = tail call noundef i64 @_Z19GetBenchMemoryUsagejj(i32 noundef %numThreads.addr.1, i32 noundef 524288)
+  %add.6 = add i64 %call11.6, 8388608
+  %cmp12.not.6 = icmp ugt i64 %add.6, %call1
+  %spec.select169 = select i1 %cmp12.not.6, i32 18, i32 19
+  br label %for.end
 
-45:                                               ; preds = %40, %36, %32, %28, %24, %20, %16
-  %46 = phi i32 [ 25, %16 ], [ 24, %20 ], [ 23, %24 ], [ 22, %28 ], [ 21, %32 ], [ 20, %36 ], [ %44, %40 ]
-  %47 = shl nuw nsw i32 1, %46
-  br label %48
+for.end:                                          ; preds = %for.inc.5, %for.inc.4, %for.inc.3, %for.inc.2, %for.inc.1, %for.inc, %for.body.preheader
+  %dicSizeLog.0.lcssa = phi i32 [ 25, %for.body.preheader ], [ 24, %for.inc ], [ 23, %for.inc.1 ], [ 22, %for.inc.2 ], [ 21, %for.inc.3 ], [ 20, %for.inc.4 ], [ %spec.select169, %for.inc.5 ]
+  %shl15 = shl nuw nsw i32 1, %dicSizeLog.0.lcssa
+  br label %for.inc39.1
 
-48:                                               ; preds = %45, %7
-  %49 = phi i32 [ %47, %45 ], [ %3, %7 ]
-  %50 = tail call noundef i64 @_Z19GetBenchMemoryUsagejj(i32 noundef %14, i32 noundef %49)
-  tail call fastcc void @_ZL17PrintRequirementsP8_IO_FILEPKcyS2_j(ptr noundef %0, ptr noundef nonnull @.str.2, i64 noundef %50, ptr noundef nonnull @.str.3, i32 noundef %14)
-  call void @llvm.lifetime.start.p0(i64 88, ptr nonnull %5) #12
-  store ptr getelementptr inbounds ({ [4 x ptr] }, ptr @_ZTV14CBenchCallback, i64 0, inrange i32 0, i64 2), ptr %5, align 8, !tbaa !29
-  %51 = getelementptr inbounds %struct.CBenchCallback, ptr %5, i64 0, i32 1
-  call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(64) %51, i8 0, i64 64, i1 false)
-  %52 = getelementptr inbounds %struct.CBenchCallback, ptr %5, i64 0, i32 3
-  store ptr %0, ptr %52, align 8, !tbaa !18
-  %53 = tail call i64 @fwrite(ptr nonnull @.str.4, i64 61, i64 1, ptr %0)
-  %54 = tail call i64 @fwrite(ptr nonnull @.str.5, i64 28, i64 1, ptr %0)
-  %55 = tail call i64 @fwrite(ptr nonnull @.str.18, i64 4, i64 1, ptr %0)
-  %56 = tail call i64 @fwrite(ptr nonnull @.str.5, i64 28, i64 1, ptr %0)
-  %57 = tail call i64 @fwrite(ptr nonnull @.str.6, i64 4, i64 1, ptr %0)
-  %58 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %0, ptr noundef nonnull @.str.7)
-  %59 = tail call i64 @fwrite(ptr nonnull @.str.18, i64 4, i64 1, ptr %0)
-  %60 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %0, ptr noundef nonnull @.str.7)
-  %61 = tail call i64 @fwrite(ptr nonnull @.str.8, i64 2, i64 1, ptr %0)
-  %62 = icmp eq i32 %1, 0
-  br i1 %62, label %104, label %63
+for.inc39.1:                                      ; preds = %for.end, %if.end
+  %dictionary.addr.0 = phi i32 [ %shl15, %for.end ], [ %dictionary, %if.end ]
+  %call17 = tail call noundef i64 @_Z19GetBenchMemoryUsagejj(i32 noundef %numThreads.addr.1, i32 noundef %dictionary.addr.0)
+  tail call fastcc void @_ZL17PrintRequirementsP8_IO_FILEPKcyS2_j(ptr noundef %f, ptr noundef nonnull @.str.2, i64 noundef %call17, ptr noundef nonnull @.str.3, i32 noundef %numThreads.addr.1)
+  call void @llvm.lifetime.start.p0(i64 88, ptr nonnull %callback) #12
+  store ptr getelementptr inbounds ({ [4 x ptr] }, ptr @_ZTV14CBenchCallback, i64 0, inrange i32 0, i64 2), ptr %callback, align 8, !tbaa !29
+  %EncodeRes.i = getelementptr inbounds %struct.CBenchCallback, ptr %callback, i64 0, i32 1
+  call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(64) %EncodeRes.i, i8 0, i64 64, i1 false)
+  %f18 = getelementptr inbounds %struct.CBenchCallback, ptr %callback, i64 0, i32 3
+  store ptr %f, ptr %f18, align 8, !tbaa !18
+  %0 = tail call i64 @fwrite(ptr nonnull @.str.4, i64 61, i64 1, ptr %f)
+  %1 = tail call i64 @fwrite(ptr nonnull @.str.5, i64 28, i64 1, ptr %f)
+  %2 = tail call i64 @fwrite(ptr nonnull @.str.18, i64 4, i64 1, ptr %f)
+  %3 = tail call i64 @fwrite(ptr nonnull @.str.5, i64 28, i64 1, ptr %f)
+  %4 = tail call i64 @fwrite(ptr nonnull @.str.6, i64 4, i64 1, ptr %f)
+  %call34 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %f, ptr noundef nonnull @.str.7)
+  %5 = tail call i64 @fwrite(ptr nonnull @.str.18, i64 4, i64 1, ptr %f)
+  %call34.1 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %f, ptr noundef nonnull @.str.7)
+  %6 = tail call i64 @fwrite(ptr nonnull @.str.8, i64 2, i64 1, ptr %f)
+  %cmp44.not162.not = icmp eq i32 %numIterations, 0
+  br i1 %cmp44.not162.not, label %for.end76, label %for.body45.lr.ph
 
-63:                                               ; preds = %48
-  %64 = icmp ult i32 %49, 4194304
-  %65 = select i1 %64, i32 18, i32 22
-  %66 = getelementptr inbounds %struct.CBenchCallback, ptr %5, i64 0, i32 4
-  br label %67
+for.body45.lr.ph:                                 ; preds = %for.inc39.1
+  %cmp46 = icmp ult i32 %dictionary.addr.0, 4194304
+  %cond = select i1 %cmp46, i32 18, i32 22
+  %dictionarySize = getelementptr inbounds %struct.CBenchCallback, ptr %callback, i64 0, i32 4
+  br label %for.body45
 
-67:                                               ; preds = %63, %88
-  %68 = phi i32 [ 0, %63 ], [ %89, %88 ]
-  br label %69
+for.body45:                                       ; preds = %for.body45.lr.ph, %for.inc72
+  %cmp44.not164 = phi i1 [ true, %for.body45.lr.ph ], [ %cmp44.not, %for.inc72 ]
+  %i.0163 = phi i32 [ 0, %for.body45.lr.ph ], [ %inc73, %for.inc72 ]
+  br label %while.cond
 
-69:                                               ; preds = %69, %67
-  %70 = phi i32 [ %65, %67 ], [ %73, %69 ]
-  %71 = lshr i32 %49, %70
-  %72 = icmp eq i32 %71, 0
-  %73 = add nsw i32 %70, -1
-  br i1 %72, label %69, label %74, !llvm.loop !31
+while.cond:                                       ; preds = %while.cond, %for.body45
+  %pow.0 = phi i32 [ %cond, %for.body45 ], [ %dec49, %while.cond ]
+  %dictionary.addr.0.highbits = lshr i32 %dictionary.addr.0, %pow.0
+  %cmp48 = icmp eq i32 %dictionary.addr.0.highbits, 0
+  %dec49 = add nsw i32 %pow.0, -1
+  br i1 %cmp48, label %while.cond, label %for.cond50.preheader, !llvm.loop !31
 
-74:                                               ; preds = %69
-  %75 = shl nuw i32 1, %70
-  %76 = icmp ugt i32 %75, %49
-  br i1 %76, label %88, label %81
+for.cond50.preheader:                             ; preds = %while.cond
+  %shl51158 = shl nuw i32 1, %pow.0
+  %cmp52.not159 = icmp ugt i32 %shl51158, %dictionary.addr.0
+  br i1 %cmp52.not159, label %for.inc72, label %for.body53
 
-77:                                               ; preds = %81
-  %78 = add nsw i32 %83, 1
-  %79 = shl nuw i32 1, %78
-  %80 = icmp ugt i32 %79, %49
-  br i1 %80, label %88, label %81, !llvm.loop !32
+for.cond50:                                       ; preds = %for.body53
+  %inc66 = add nsw i32 %pow.1160, 1
+  %shl51 = shl nuw i32 1, %inc66
+  %cmp52.not = icmp ugt i32 %shl51, %dictionary.addr.0
+  br i1 %cmp52.not, label %for.inc72, label %for.body53, !llvm.loop !32
 
-81:                                               ; preds = %74, %77
-  %82 = phi i32 [ %79, %77 ], [ %75, %74 ]
-  %83 = phi i32 [ %78, %77 ], [ %70, %74 ]
-  %84 = call i32 (ptr, ptr, ...) @fprintf(ptr noundef %0, ptr noundef nonnull @.str.9, i32 noundef %83)
-  store i32 %82, ptr %66, align 8, !tbaa !5
-  %85 = call noundef i32 @_Z9LzmaBenchjjP14IBenchCallback(i32 noundef %14, i32 noundef %82, ptr noundef nonnull %5)
-  %86 = call i32 @fputc(i32 10, ptr %0)
-  %87 = icmp eq i32 %85, 0
-  br i1 %87, label %77, label %150
+for.body53:                                       ; preds = %for.cond50.preheader, %for.cond50
+  %shl51161 = phi i32 [ %shl51, %for.cond50 ], [ %shl51158, %for.cond50.preheader ]
+  %pow.1160 = phi i32 [ %inc66, %for.cond50 ], [ %pow.0, %for.cond50.preheader ]
+  %call54 = call i32 (ptr, ptr, ...) @fprintf(ptr noundef %f, ptr noundef nonnull @.str.9, i32 noundef %pow.1160)
+  store i32 %shl51161, ptr %dictionarySize, align 8, !tbaa !5
+  %call57 = call noundef i32 @_Z9LzmaBenchjjP14IBenchCallback(i32 noundef %numThreads.addr.1, i32 noundef %shl51161, ptr noundef nonnull %callback)
+  %fputc140 = call i32 @fputc(i32 10, ptr %f)
+  %cmp59.not = icmp eq i32 %call57, 0
+  br i1 %cmp59.not, label %for.cond50, label %cleanup74
 
-88:                                               ; preds = %77, %74
-  %89 = add nuw i32 %68, 1
-  %90 = icmp eq i32 %89, %1
-  br i1 %90, label %91, label %67, !llvm.loop !33
+for.inc72:                                        ; preds = %for.cond50, %for.cond50.preheader
+  %inc73 = add nuw i32 %i.0163, 1
+  %cmp44.not = icmp ult i32 %inc73, %numIterations
+  %exitcond.not = icmp eq i32 %inc73, %numIterations
+  br i1 %exitcond.not, label %for.end76, label %for.body45, !llvm.loop !33
 
-91:                                               ; preds = %88
-  %92 = load i64, ptr %51, align 8, !tbaa !34
-  %93 = icmp eq i64 %92, 0
-  br i1 %93, label %104, label %94
+cleanup74:                                        ; preds = %for.body53
+  br i1 %cmp44.not164, label %cleanup84, label %for.end76
 
-94:                                               ; preds = %91
-  %95 = getelementptr inbounds %struct.CBenchCallback, ptr %5, i64 0, i32 1, i32 1
-  %96 = load i64, ptr %95, align 8, !tbaa !35
-  %97 = udiv i64 %96, %92
-  store i64 %97, ptr %95, align 8, !tbaa !35
-  %98 = getelementptr inbounds %struct.CBenchCallback, ptr %5, i64 0, i32 1, i32 2
-  %99 = load i64, ptr %98, align 8, !tbaa !24
-  %100 = udiv i64 %99, %92
-  store i64 %100, ptr %98, align 8, !tbaa !24
-  %101 = getelementptr inbounds %struct.CBenchCallback, ptr %5, i64 0, i32 1, i32 3
-  %102 = load i64, ptr %101, align 8, !tbaa !22
-  %103 = udiv i64 %102, %92
-  store i64 %103, ptr %101, align 8, !tbaa !22
-  store i64 1, ptr %51, align 8, !tbaa !34
-  br label %104
+for.end76:                                        ; preds = %for.inc72, %for.inc39.1, %cleanup74
+  %7 = load i64, ptr %EncodeRes.i, align 8, !tbaa !34
+  %cmp.i.i = icmp eq i64 %7, 0
+  br i1 %cmp.i.i, label %_ZN14CTotalBenchRes9NormalizeEv.exit.i, label %if.end.i.i
 
-104:                                              ; preds = %48, %94, %91
-  %105 = getelementptr inbounds %struct.CBenchCallback, ptr %5, i64 0, i32 2
-  %106 = load i64, ptr %105, align 8, !tbaa !34
-  %107 = icmp eq i64 %106, 0
-  br i1 %107, label %118, label %108
+if.end.i.i:                                       ; preds = %for.end76
+  %Rating.i.i = getelementptr inbounds %struct.CBenchCallback, ptr %callback, i64 0, i32 1, i32 1
+  %8 = load i64, ptr %Rating.i.i, align 8, !tbaa !35
+  %div.i.i = udiv i64 %8, %7
+  store i64 %div.i.i, ptr %Rating.i.i, align 8, !tbaa !35
+  %Usage.i.i = getelementptr inbounds %struct.CBenchCallback, ptr %callback, i64 0, i32 1, i32 2
+  %9 = load i64, ptr %Usage.i.i, align 8, !tbaa !24
+  %div4.i.i = udiv i64 %9, %7
+  store i64 %div4.i.i, ptr %Usage.i.i, align 8, !tbaa !24
+  %RPU.i.i = getelementptr inbounds %struct.CBenchCallback, ptr %callback, i64 0, i32 1, i32 3
+  %10 = load i64, ptr %RPU.i.i, align 8, !tbaa !22
+  %div6.i.i = udiv i64 %10, %7
+  store i64 %div6.i.i, ptr %RPU.i.i, align 8, !tbaa !22
+  store i64 1, ptr %EncodeRes.i, align 8, !tbaa !34
+  br label %_ZN14CTotalBenchRes9NormalizeEv.exit.i
 
-108:                                              ; preds = %104
-  %109 = getelementptr inbounds %struct.CBenchCallback, ptr %5, i64 0, i32 2, i32 1
-  %110 = load i64, ptr %109, align 8, !tbaa !35
-  %111 = udiv i64 %110, %106
-  store i64 %111, ptr %109, align 8, !tbaa !35
-  %112 = getelementptr inbounds %struct.CBenchCallback, ptr %5, i64 0, i32 2, i32 2
-  %113 = load i64, ptr %112, align 8, !tbaa !24
-  %114 = udiv i64 %113, %106
-  store i64 %114, ptr %112, align 8, !tbaa !24
-  %115 = getelementptr inbounds %struct.CBenchCallback, ptr %5, i64 0, i32 2, i32 3
-  %116 = load i64, ptr %115, align 8, !tbaa !22
-  %117 = udiv i64 %116, %106
-  store i64 %117, ptr %115, align 8, !tbaa !22
-  store i64 1, ptr %105, align 8, !tbaa !34
-  br label %118
+_ZN14CTotalBenchRes9NormalizeEv.exit.i:           ; preds = %if.end.i.i, %for.end76
+  %DecodeRes.i = getelementptr inbounds %struct.CBenchCallback, ptr %callback, i64 0, i32 2
+  %11 = load i64, ptr %DecodeRes.i, align 8, !tbaa !34
+  %cmp.i2.i = icmp eq i64 %11, 0
+  br i1 %cmp.i2.i, label %_ZN14CBenchCallback9NormalizeEv.exit, label %if.end.i9.i
 
-118:                                              ; preds = %104, %108
-  %119 = call i64 @fwrite(ptr nonnull @.str.11, i64 69, i64 1, ptr %0)
-  %120 = call i64 @fwrite(ptr nonnull @.str.21, i64 7, i64 1, ptr %0)
-  %121 = getelementptr inbounds %struct.CBenchCallback, ptr %5, i64 0, i32 1, i32 2
-  %122 = load i64, ptr %121, align 8, !tbaa !24
-  %123 = getelementptr inbounds %struct.CBenchCallback, ptr %5, i64 0, i32 1, i32 3
-  %124 = load i64, ptr %123, align 8, !tbaa !22
-  %125 = getelementptr inbounds %struct.CBenchCallback, ptr %5, i64 0, i32 1, i32 1
-  %126 = load i64, ptr %125, align 8, !tbaa !35
-  call fastcc void @_ZL12PrintResultsP8_IO_FILEyyy(ptr noundef %0, i64 noundef %122, i64 noundef %124, i64 noundef %126)
-  %127 = call i64 @fwrite(ptr nonnull @.str.12, i64 5, i64 1, ptr %0)
-  %128 = call i64 @fwrite(ptr nonnull @.str.21, i64 7, i64 1, ptr %0)
-  %129 = getelementptr inbounds %struct.CBenchCallback, ptr %5, i64 0, i32 2, i32 2
-  %130 = load i64, ptr %129, align 8, !tbaa !24
-  %131 = getelementptr inbounds %struct.CBenchCallback, ptr %5, i64 0, i32 2, i32 3
-  %132 = load i64, ptr %131, align 8, !tbaa !22
-  %133 = getelementptr inbounds %struct.CBenchCallback, ptr %5, i64 0, i32 2, i32 1
-  %134 = load i64, ptr %133, align 8, !tbaa !35
-  call fastcc void @_ZL12PrintResultsP8_IO_FILEyyy(ptr noundef %0, i64 noundef %130, i64 noundef %132, i64 noundef %134)
-  %135 = call i64 @fwrite(ptr nonnull @.str.13, i64 5, i64 1, ptr %0)
-  %136 = load i64, ptr %125, align 8, !tbaa !35
-  %137 = load i64, ptr %133, align 8, !tbaa !35
-  %138 = add i64 %137, %136
-  %139 = lshr i64 %138, 1
-  %140 = load i64, ptr %121, align 8, !tbaa !24
-  %141 = load i64, ptr %129, align 8, !tbaa !24
-  %142 = add i64 %141, %140
-  %143 = lshr i64 %142, 1
-  %144 = load i64, ptr %123, align 8, !tbaa !22
-  %145 = load i64, ptr %131, align 8, !tbaa !22
-  %146 = add i64 %145, %144
-  %147 = lshr i64 %146, 1
-  %148 = call i64 @fwrite(ptr nonnull @.str.21, i64 7, i64 1, ptr %0)
-  call fastcc void @_ZL12PrintResultsP8_IO_FILEyyy(ptr noundef %0, i64 noundef %143, i64 noundef %147, i64 noundef %139)
-  %149 = call i32 @fputc(i32 10, ptr %0)
-  br label %150
+if.end.i9.i:                                      ; preds = %_ZN14CTotalBenchRes9NormalizeEv.exit.i
+  %Rating.i3.i = getelementptr inbounds %struct.CBenchCallback, ptr %callback, i64 0, i32 2, i32 1
+  %12 = load i64, ptr %Rating.i3.i, align 8, !tbaa !35
+  %div.i4.i = udiv i64 %12, %11
+  store i64 %div.i4.i, ptr %Rating.i3.i, align 8, !tbaa !35
+  %Usage.i5.i = getelementptr inbounds %struct.CBenchCallback, ptr %callback, i64 0, i32 2, i32 2
+  %13 = load i64, ptr %Usage.i5.i, align 8, !tbaa !24
+  %div4.i6.i = udiv i64 %13, %11
+  store i64 %div4.i6.i, ptr %Usage.i5.i, align 8, !tbaa !24
+  %RPU.i7.i = getelementptr inbounds %struct.CBenchCallback, ptr %callback, i64 0, i32 2, i32 3
+  %14 = load i64, ptr %RPU.i7.i, align 8, !tbaa !22
+  %div6.i8.i = udiv i64 %14, %11
+  store i64 %div6.i8.i, ptr %RPU.i7.i, align 8, !tbaa !22
+  store i64 1, ptr %DecodeRes.i, align 8, !tbaa !34
+  br label %_ZN14CBenchCallback9NormalizeEv.exit
 
-150:                                              ; preds = %81, %118
-  %151 = phi i32 [ 0, %118 ], [ %85, %81 ]
-  call void @llvm.lifetime.end.p0(i64 88, ptr nonnull %5) #12
-  br label %152
+_ZN14CBenchCallback9NormalizeEv.exit:             ; preds = %_ZN14CTotalBenchRes9NormalizeEv.exit.i, %if.end.i9.i
+  %15 = call i64 @fwrite(ptr nonnull @.str.11, i64 69, i64 1, ptr %f)
+  %16 = call i64 @fwrite(ptr nonnull @.str.21, i64 7, i64 1, ptr %f)
+  %Usage.i = getelementptr inbounds %struct.CBenchCallback, ptr %callback, i64 0, i32 1, i32 2
+  %17 = load i64, ptr %Usage.i, align 8, !tbaa !24
+  %RPU.i = getelementptr inbounds %struct.CBenchCallback, ptr %callback, i64 0, i32 1, i32 3
+  %18 = load i64, ptr %RPU.i, align 8, !tbaa !22
+  %Rating.i = getelementptr inbounds %struct.CBenchCallback, ptr %callback, i64 0, i32 1, i32 1
+  %19 = load i64, ptr %Rating.i, align 8, !tbaa !35
+  call fastcc void @_ZL12PrintResultsP8_IO_FILEyyy(ptr noundef %f, i64 noundef %17, i64 noundef %18, i64 noundef %19)
+  %20 = call i64 @fwrite(ptr nonnull @.str.12, i64 5, i64 1, ptr %f)
+  %21 = call i64 @fwrite(ptr nonnull @.str.21, i64 7, i64 1, ptr %f)
+  %Usage.i142 = getelementptr inbounds %struct.CBenchCallback, ptr %callback, i64 0, i32 2, i32 2
+  %22 = load i64, ptr %Usage.i142, align 8, !tbaa !24
+  %RPU.i143 = getelementptr inbounds %struct.CBenchCallback, ptr %callback, i64 0, i32 2, i32 3
+  %23 = load i64, ptr %RPU.i143, align 8, !tbaa !22
+  %Rating.i144 = getelementptr inbounds %struct.CBenchCallback, ptr %callback, i64 0, i32 2, i32 1
+  %24 = load i64, ptr %Rating.i144, align 8, !tbaa !35
+  call fastcc void @_ZL12PrintResultsP8_IO_FILEyyy(ptr noundef %f, i64 noundef %22, i64 noundef %23, i64 noundef %24)
+  %25 = call i64 @fwrite(ptr nonnull @.str.13, i64 5, i64 1, ptr %f)
+  %26 = load i64, ptr %Rating.i, align 8, !tbaa !35
+  %27 = load i64, ptr %Rating.i144, align 8, !tbaa !35
+  %add.i = add i64 %27, %26
+  %div22.i = lshr i64 %add.i, 1
+  %28 = load i64, ptr %Usage.i, align 8, !tbaa !24
+  %29 = load i64, ptr %Usage.i142, align 8, !tbaa !24
+  %add5.i = add i64 %29, %28
+  %div623.i = lshr i64 %add5.i, 1
+  %30 = load i64, ptr %RPU.i, align 8, !tbaa !22
+  %31 = load i64, ptr %RPU.i143, align 8, !tbaa !22
+  %add9.i = add i64 %31, %30
+  %div1024.i = lshr i64 %add9.i, 1
+  %32 = call i64 @fwrite(ptr nonnull @.str.21, i64 7, i64 1, ptr %f)
+  call fastcc void @_ZL12PrintResultsP8_IO_FILEyyy(ptr noundef %f, i64 noundef %div623.i, i64 noundef %div1024.i, i64 noundef %div22.i)
+  %fputc = call i32 @fputc(i32 10, ptr %f)
+  br label %cleanup84
 
-152:                                              ; preds = %4, %150
-  %153 = phi i32 [ %151, %150 ], [ 1, %4 ]
-  ret i32 %153
+cleanup84:                                        ; preds = %cleanup74, %_ZN14CBenchCallback9NormalizeEv.exit
+  %retval.5 = phi i32 [ 0, %_ZN14CBenchCallback9NormalizeEv.exit ], [ %call57, %cleanup74 ]
+  call void @llvm.lifetime.end.p0(i64 88, ptr nonnull %callback) #12
+  br label %return
+
+return:                                           ; preds = %entry, %cleanup84
+  %retval.6 = phi i32 [ %retval.5, %cleanup84 ], [ 1, %entry ]
+  ret i32 %retval.6
 }
 
 declare noundef zeroext i1 @_Z15CrcInternalTestv() local_unnamed_addr #1
@@ -425,29 +434,30 @@ declare noundef i64 @_ZN8NWindows7NSystem10GetRamSizeEv() local_unnamed_addr #1
 declare noundef i32 @_ZN8NWindows7NSystem21GetNumberOfProcessorsEv() local_unnamed_addr #1
 
 ; Function Attrs: mustprogress uwtable
-define internal fastcc void @_ZL17PrintRequirementsP8_IO_FILEPKcyS2_j(ptr nocapture noundef %0, ptr noundef %1, i64 noundef %2, ptr noundef %3, i32 noundef %4) unnamed_addr #0 {
-  %6 = alloca [32 x i8], align 16
-  %7 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %0, ptr noundef nonnull @.str.19, ptr noundef %1)
-  %8 = lshr i64 %2, 20
-  call void @llvm.lifetime.start.p0(i64 32, ptr nonnull %6) #12
-  call void @_Z21ConvertUInt64ToStringyPcj(i64 noundef %8, ptr noundef nonnull %6, i32 noundef 10)
-  %9 = call i32 @fputc(i32 32, ptr %0)
-  %10 = call i64 @strlen(ptr noundef nonnull dereferenceable(1) %6) #13
-  %11 = trunc i64 %10 to i32
-  %12 = icmp slt i32 %11, 5
-  br i1 %12, label %13, label %18
+define internal fastcc void @_ZL17PrintRequirementsP8_IO_FILEPKcyS2_j(ptr nocapture noundef %f, ptr noundef %sizeString, i64 noundef %size, ptr noundef %threadsString, i32 noundef %numThreads) unnamed_addr #0 {
+entry:
+  %s.i = alloca [32 x i8], align 16
+  %call = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %f, ptr noundef nonnull @.str.19, ptr noundef %sizeString)
+  %shr = lshr i64 %size, 20
+  call void @llvm.lifetime.start.p0(i64 32, ptr nonnull %s.i) #12
+  call void @_Z21ConvertUInt64ToStringyPcj(i64 noundef %shr, ptr noundef nonnull %s.i, i32 noundef 10)
+  %fputc.i = call i32 @fputc(i32 32, ptr %f)
+  %call2.i = call i64 @strlen(ptr noundef nonnull dereferenceable(1) %s.i) #13
+  %conv.i = trunc i64 %call2.i to i32
+  %cmp10.i = icmp slt i32 %conv.i, 5
+  br i1 %cmp10.i, label %for.body.i, label %_ZL11PrintNumberP8_IO_FILEyi.exit
 
-13:                                               ; preds = %5, %13
-  %14 = phi i32 [ %16, %13 ], [ %11, %5 ]
-  %15 = call i32 @fputc(i32 32, ptr %0)
-  %16 = add i32 %14, 1
-  %17 = icmp eq i32 %16, 5
-  br i1 %17, label %18, label %13, !llvm.loop !21
+for.body.i:                                       ; preds = %entry, %for.body.i
+  %len.011.i = phi i32 [ %inc.i, %for.body.i ], [ %conv.i, %entry ]
+  %fputc9.i = call i32 @fputc(i32 32, ptr %f)
+  %inc.i = add i32 %len.011.i, 1
+  %exitcond.not.i = icmp eq i32 %inc.i, 5
+  br i1 %exitcond.not.i, label %_ZL11PrintNumberP8_IO_FILEyi.exit, label %for.body.i, !llvm.loop !21
 
-18:                                               ; preds = %13, %5
-  %19 = call i32 @fputs(ptr noundef nonnull %6, ptr noundef %0)
-  call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %6) #12
-  %20 = call i32 (ptr, ptr, ...) @fprintf(ptr noundef %0, ptr noundef nonnull @.str.20, ptr noundef %3, i32 noundef %4)
+_ZL11PrintNumberP8_IO_FILEyi.exit:                ; preds = %for.body.i, %entry
+  %call5.i = call i32 @fputs(ptr noundef nonnull %s.i, ptr noundef %f)
+  call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %s.i) #12
+  %call1 = call i32 (ptr, ptr, ...) @fprintf(ptr noundef %f, ptr noundef nonnull @.str.20, ptr noundef %threadsString, i32 noundef %numThreads)
   ret void
 }
 
@@ -459,430 +469,433 @@ declare noundef i32 @fprintf(ptr nocapture noundef, ptr nocapture noundef readon
 declare noundef i32 @_Z9LzmaBenchjjP14IBenchCallback(i32 noundef, i32 noundef, ptr noundef) local_unnamed_addr #1
 
 ; Function Attrs: uwtable
-define dso_local noundef i32 @_Z11CrcBenchConP8_IO_FILEjjj(ptr nocapture noundef %0, i32 noundef %1, i32 noundef %2, i32 noundef %3) local_unnamed_addr #5 personality ptr @__gxx_personality_v0 {
-  %5 = alloca [32 x i8], align 16
-  %6 = alloca [32 x i8], align 16
-  %7 = alloca i64, align 8
-  %8 = tail call noundef zeroext i1 @_Z15CrcInternalTestv()
-  br i1 %8, label %9, label %247
+define dso_local noundef i32 @_Z11CrcBenchConP8_IO_FILEjjj(ptr nocapture noundef %f, i32 noundef %numIterations, i32 noundef %numThreads, i32 noundef %dictionary) local_unnamed_addr #5 personality ptr @__gxx_personality_v0 {
+entry:
+  %s.i157 = alloca [32 x i8], align 16
+  %s.i = alloca [32 x i8], align 16
+  %speed = alloca i64, align 8
+  %call = tail call noundef zeroext i1 @_Z15CrcInternalTestv()
+  br i1 %call, label %if.end, label %return
 
-9:                                                ; preds = %4
-  %10 = tail call noundef i64 @_ZN8NWindows7NSystem10GetRamSizeEv()
-  %11 = tail call noundef i32 @_ZN8NWindows7NSystem21GetNumberOfProcessorsEv()
-  tail call fastcc void @_ZL17PrintRequirementsP8_IO_FILEPKcyS2_j(ptr noundef %0, ptr noundef nonnull @.str, i64 noundef %10, ptr noundef nonnull @.str.1, i32 noundef %11)
-  %12 = icmp eq i32 %2, -1
-  %13 = select i1 %12, i32 %11, i32 %2
-  %14 = icmp eq i32 %3, -1
-  %15 = select i1 %14, i32 16777216, i32 %3
-  %16 = zext i32 %13 to i64
-  %17 = shl nuw nsw i64 %16, 3
-  %18 = tail call noalias noundef nonnull ptr @_Znam(i64 noundef %17) #14
-  %19 = tail call i64 @fwrite(ptr nonnull @.str.14, i64 6, i64 1, ptr %0)
-  %20 = icmp eq i32 %13, 0
-  br i1 %20, label %24, label %108
+if.end:                                           ; preds = %entry
+  %call1 = tail call noundef i64 @_ZN8NWindows7NSystem10GetRamSizeEv()
+  %call2 = tail call noundef i32 @_ZN8NWindows7NSystem21GetNumberOfProcessorsEv()
+  tail call fastcc void @_ZL17PrintRequirementsP8_IO_FILEPKcyS2_j(ptr noundef %f, ptr noundef nonnull @.str, i64 noundef %call1, ptr noundef nonnull @.str.1, i32 noundef %call2)
+  %cmp = icmp eq i32 %numThreads, -1
+  %spec.select = select i1 %cmp, i32 %call2, i32 %numThreads
+  %cmp5 = icmp eq i32 %dictionary, -1
+  %spec.store.select = select i1 %cmp5, i32 16777216, i32 %dictionary
+  %conv.i = zext i32 %spec.select to i64
+  %0 = shl nuw nsw i64 %conv.i, 3
+  %call.i = tail call noalias noundef nonnull ptr @_Znam(i64 noundef %0) #14
+  %1 = tail call i64 @fwrite(ptr nonnull @.str.14, i64 6, i64 1, ptr %f)
+  %cmp9215.not = icmp eq i32 %spec.select, 0
+  br i1 %cmp9215.not, label %for.cond.cleanup.thread, label %for.body
 
-21:                                               ; preds = %108
-  %22 = tail call i64 @fwrite(ptr nonnull @.str.8, i64 2, i64 1, ptr %0)
-  %23 = icmp eq i32 %1, 0
-  br i1 %23, label %243, label %27
+for.cond.cleanup:                                 ; preds = %for.body
+  %2 = tail call i64 @fwrite(ptr nonnull @.str.8, i64 2, i64 1, ptr %f)
+  %cmp16.not229.not = icmp eq i32 %numIterations, 0
+  br i1 %cmp16.not229.not, label %_ZN11CTempValuesD2Ev.exit, label %for.cond19.preheader.lr.ph
 
-24:                                               ; preds = %9
-  %25 = tail call i64 @fwrite(ptr nonnull @.str.8, i64 2, i64 1, ptr %0)
-  %26 = icmp eq i32 %1, 0
-  br i1 %26, label %243, label %28
+for.cond.cleanup.thread:                          ; preds = %if.end
+  %3 = tail call i64 @fwrite(ptr nonnull @.str.8, i64 2, i64 1, ptr %f)
+  %cmp16.not229.not266 = icmp eq i32 %numIterations, 0
+  br i1 %cmp16.not229.not266, label %_ZN11CTempValuesD2Ev.exit, label %for.cond19.preheader.preheader
 
-27:                                               ; preds = %21
-  br i1 %20, label %28, label %51
+for.cond19.preheader.lr.ph:                       ; preds = %for.cond.cleanup
+  br i1 %cmp9215.not, label %for.cond19.preheader.preheader, label %for.cond19.preheader.us
 
-28:                                               ; preds = %24, %27
-  %29 = icmp ult i32 %15, 1024
-  %30 = icmp ult i32 %15, 2048
-  %31 = icmp ult i32 %15, 4096
-  %32 = icmp ult i32 %15, 8192
-  %33 = icmp ult i32 %15, 16384
-  %34 = icmp ult i32 %15, 32768
-  %35 = icmp ult i32 %15, 65536
-  %36 = icmp ult i32 %15, 131072
-  %37 = icmp ult i32 %15, 262144
-  %38 = icmp ult i32 %15, 524288
-  %39 = icmp ult i32 %15, 1048576
-  %40 = icmp ult i32 %15, 2097152
-  %41 = icmp ult i32 %15, 4194304
-  %42 = icmp ult i32 %15, 8388608
-  %43 = icmp ult i32 %15, 16777216
-  %44 = icmp ult i32 %15, 33554432
-  %45 = icmp ult i32 %15, 67108864
-  %46 = icmp ult i32 %15, 134217728
-  %47 = icmp ult i32 %15, 268435456
-  %48 = icmp ult i32 %15, 536870912
-  %49 = icmp ult i32 %15, 1073741824
-  %50 = icmp sgt i32 %15, -1
-  br label %115
+for.cond19.preheader.preheader:                   ; preds = %for.cond.cleanup.thread, %for.cond19.preheader.lr.ph
+  %cmp23 = icmp ult i32 %spec.store.select, 1024
+  %cmp23.1 = icmp ult i32 %spec.store.select, 2048
+  %cmp23.2 = icmp ult i32 %spec.store.select, 4096
+  %cmp23.3 = icmp ult i32 %spec.store.select, 8192
+  %cmp23.4 = icmp ult i32 %spec.store.select, 16384
+  %cmp23.5 = icmp ult i32 %spec.store.select, 32768
+  %cmp23.6 = icmp ult i32 %spec.store.select, 65536
+  %cmp23.7 = icmp ult i32 %spec.store.select, 131072
+  %cmp23.8 = icmp ult i32 %spec.store.select, 262144
+  %cmp23.9 = icmp ult i32 %spec.store.select, 524288
+  %cmp23.10 = icmp ult i32 %spec.store.select, 1048576
+  %cmp23.11 = icmp ult i32 %spec.store.select, 2097152
+  %cmp23.12 = icmp ult i32 %spec.store.select, 4194304
+  %cmp23.13 = icmp ult i32 %spec.store.select, 8388608
+  %cmp23.14 = icmp ult i32 %spec.store.select, 16777216
+  %cmp23.15 = icmp ult i32 %spec.store.select, 33554432
+  %cmp23.16 = icmp ult i32 %spec.store.select, 67108864
+  %cmp23.17 = icmp ult i32 %spec.store.select, 134217728
+  %cmp23.18 = icmp ult i32 %spec.store.select, 268435456
+  %cmp23.19 = icmp ult i32 %spec.store.select, 536870912
+  %cmp23.20 = icmp ult i32 %spec.store.select, 1073741824
+  %cmp23.21 = icmp sgt i32 %spec.store.select, -1
+  br label %for.cond19.preheader
 
-51:                                               ; preds = %27, %100
-  %52 = phi i32 [ %102, %100 ], [ 0, %27 ]
-  %53 = phi i64 [ %101, %100 ], [ 0, %27 ]
-  %54 = add i64 %53, 22
-  %55 = trunc i64 %53 to i32
-  %56 = add i32 %55, 22
-  br label %57
+for.cond19.preheader.us:                          ; preds = %for.cond19.preheader.lr.ph, %for.inc72.split.us.us
+  %cmp16.not233.us = phi i1 [ %cmp16.not.us, %for.inc72.split.us.us ], [ true, %for.cond19.preheader.lr.ph ]
+  %i.0231.us = phi i32 [ %inc73.us, %for.inc72.split.us.us ], [ 0, %for.cond19.preheader.lr.ph ]
+  %numSteps.0230.us = phi i64 [ %numSteps.1.lcssa.us.us, %for.inc72.split.us.us ], [ 0, %for.cond19.preheader.lr.ph ]
+  %4 = add i64 %numSteps.0230.us, 22
+  %5 = trunc i64 %numSteps.0230.us to i32
+  %6 = add i32 %5, 22
+  br label %for.body22.us.us
 
-57:                                               ; preds = %94, %51
-  %58 = phi i32 [ 10, %51 ], [ %97, %94 ]
-  %59 = phi i64 [ %53, %51 ], [ %96, %94 ]
-  %60 = shl nuw i32 1, %58
-  %61 = icmp ugt i32 %60, %15
-  br i1 %61, label %100, label %62
+for.body22.us.us:                                 ; preds = %for.cond30.for.inc66_crit_edge.us.us, %for.cond19.preheader.us
+  %pow.0221.us.us = phi i32 [ 10, %for.cond19.preheader.us ], [ %inc67.us.us, %for.cond30.for.inc66_crit_edge.us.us ]
+  %numSteps.1220.us.us = phi i64 [ %numSteps.0230.us, %for.cond19.preheader.us ], [ %inc59.us.us, %for.cond30.for.inc66_crit_edge.us.us ]
+  %shl.us.us = shl nuw i32 1, %pow.0221.us.us
+  %cmp23.us.us = icmp ugt i32 %shl.us.us, %spec.store.select
+  br i1 %cmp23.us.us, label %for.inc72.split.us.us, label %if.end25.us.us
 
-62:                                               ; preds = %57
-  %63 = call i32 (ptr, ptr, ...) @fprintf(ptr noundef %0, ptr noundef nonnull @.str.16, i32 noundef %58)
-  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %7) #12
-  br label %64
+if.end25.us.us:                                   ; preds = %for.body22.us.us
+  %call28.us.us = call i32 (ptr, ptr, ...) @fprintf(ptr noundef %f, ptr noundef nonnull @.str.16, i32 noundef %pow.0221.us.us)
+  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %speed) #12
+  br label %for.body33.us.us
 
-64:                                               ; preds = %87, %62
-  %65 = phi i64 [ %69, %87 ], [ 0, %62 ]
-  %66 = invoke noundef zeroext i1 @_ZN13NConsoleClose15TestBreakSignalEv()
-          to label %67 unwind label %104
+for.body33.us.us:                                 ; preds = %invoke.cont46.us.us, %if.end25.us.us
+  %indvars.iv251 = phi i64 [ %indvars.iv.next252, %invoke.cont46.us.us ], [ 0, %if.end25.us.us ]
+  %call36.us.us = invoke noundef zeroext i1 @_ZN13NConsoleClose15TestBreakSignalEv()
+          to label %invoke.cont35.us.us unwind label %lpad34.split.us.split.us
 
-67:                                               ; preds = %64
-  br i1 %66, label %212, label %68
+invoke.cont35.us.us:                              ; preds = %for.body33.us.us
+  br i1 %call36.us.us, label %cleanup74, label %if.end38.us.us
 
-68:                                               ; preds = %67
-  %69 = add nuw nsw i64 %65, 1
-  %70 = trunc i64 %69 to i32
-  %71 = invoke noundef i32 @_Z8CrcBenchjjRy(i32 noundef %70, i32 noundef %60, ptr noundef nonnull align 8 dereferenceable(8) %7)
-          to label %72 unwind label %106
+if.end38.us.us:                                   ; preds = %invoke.cont35.us.us
+  %indvars.iv.next252 = add nuw nsw i64 %indvars.iv251, 1
+  %7 = trunc i64 %indvars.iv.next252 to i32
+  %call42.us.us = invoke noundef i32 @_Z8CrcBenchjjRy(i32 noundef %7, i32 noundef %shl.us.us, ptr noundef nonnull align 8 dereferenceable(8) %speed)
+          to label %invoke.cont41.us.us unwind label %lpad40.split.us.split.us
 
-72:                                               ; preds = %68
-  %73 = icmp eq i32 %71, 0
-  br i1 %73, label %74, label %212
+invoke.cont41.us.us:                              ; preds = %if.end38.us.us
+  %cmp43.not.us.us = icmp eq i32 %call42.us.us, 0
+  br i1 %cmp43.not.us.us, label %cleanup.cont.us.us, label %cleanup74
 
-74:                                               ; preds = %72
-  %75 = load i64, ptr %7, align 8, !tbaa !23
-  %76 = lshr i64 %75, 20
-  call void @llvm.lifetime.start.p0(i64 32, ptr nonnull %6) #12
-  invoke void @_Z21ConvertUInt64ToStringyPcj(i64 noundef %76, ptr noundef nonnull %6, i32 noundef 10)
-          to label %77 unwind label %104
+cleanup.cont.us.us:                               ; preds = %invoke.cont41.us.us
+  %8 = load i64, ptr %speed, align 8, !tbaa !23
+  %shr.us.us = lshr i64 %8, 20
+  call void @llvm.lifetime.start.p0(i64 32, ptr nonnull %s.i) #12
+  invoke void @_Z21ConvertUInt64ToStringyPcj(i64 noundef %shr.us.us, ptr noundef nonnull %s.i, i32 noundef 10)
+          to label %.noexc.us.us unwind label %lpad34.split.us.split.us
 
-77:                                               ; preds = %74
-  %78 = call i32 @fputc(i32 32, ptr %0)
-  %79 = call i64 @strlen(ptr noundef nonnull dereferenceable(1) %6) #13
-  %80 = trunc i64 %79 to i32
-  %81 = icmp slt i32 %80, 5
-  br i1 %81, label %82, label %87
+.noexc.us.us:                                     ; preds = %cleanup.cont.us.us
+  %fputc.i.us.us = call i32 @fputc(i32 32, ptr %f)
+  %call2.i.us.us = call i64 @strlen(ptr noundef nonnull dereferenceable(1) %s.i) #13
+  %conv.i156.us.us = trunc i64 %call2.i.us.us to i32
+  %cmp10.i.us.us = icmp slt i32 %conv.i156.us.us, 5
+  br i1 %cmp10.i.us.us, label %for.body.i.us.us, label %invoke.cont46.us.us
 
-82:                                               ; preds = %77, %82
-  %83 = phi i32 [ %85, %82 ], [ %80, %77 ]
-  %84 = call i32 @fputc(i32 32, ptr %0)
-  %85 = add i32 %83, 1
-  %86 = icmp eq i32 %85, 5
-  br i1 %86, label %87, label %82, !llvm.loop !21
+for.body.i.us.us:                                 ; preds = %.noexc.us.us, %for.body.i.us.us
+  %len.011.i.us.us = phi i32 [ %inc.i.us.us, %for.body.i.us.us ], [ %conv.i156.us.us, %.noexc.us.us ]
+  %fputc9.i.us.us = call i32 @fputc(i32 32, ptr %f)
+  %inc.i.us.us = add i32 %len.011.i.us.us, 1
+  %exitcond.not.i.us.us = icmp eq i32 %inc.i.us.us, 5
+  br i1 %exitcond.not.i.us.us, label %invoke.cont46.us.us, label %for.body.i.us.us, !llvm.loop !21
 
-87:                                               ; preds = %82, %77
-  %88 = call i32 @fputs(ptr noundef nonnull %6, ptr noundef %0)
-  call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %6) #12
-  %89 = load i64, ptr %7, align 8, !tbaa !23
-  %90 = getelementptr inbounds i64, ptr %18, i64 %65
-  %91 = load i64, ptr %90, align 8, !tbaa !23
-  %92 = add i64 %91, %89
-  store i64 %92, ptr %90, align 8, !tbaa !23
-  %93 = icmp eq i64 %69, %16
-  br i1 %93, label %94, label %64, !llvm.loop !36
+invoke.cont46.us.us:                              ; preds = %for.body.i.us.us, %.noexc.us.us
+  %call5.i.us.us = call i32 @fputs(ptr noundef nonnull %s.i, ptr noundef %f)
+  call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %s.i) #12
+  %9 = load i64, ptr %speed, align 8, !tbaa !23
+  %arrayidx49.us.us = getelementptr inbounds i64, ptr %call.i, i64 %indvars.iv251
+  %10 = load i64, ptr %arrayidx49.us.us, align 8, !tbaa !23
+  %add50.us.us = add i64 %10, %9
+  store i64 %add50.us.us, ptr %arrayidx49.us.us, align 8, !tbaa !23
+  %exitcond255.not = icmp eq i64 %indvars.iv.next252, %conv.i
+  br i1 %exitcond255.not, label %for.cond30.for.inc66_crit_edge.us.us, label %for.body33.us.us, !llvm.loop !36
 
-94:                                               ; preds = %87
-  %95 = call i32 @fputc(i32 10, ptr %0)
-  %96 = add i64 %59, 1
-  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %7) #12
-  %97 = add nuw nsw i32 %58, 1
-  %98 = trunc i64 %96 to i32
-  %99 = icmp eq i32 %56, %98
-  br i1 %99, label %100, label %57, !llvm.loop !37
+for.cond30.for.inc66_crit_edge.us.us:             ; preds = %invoke.cont46.us.us
+  %fputc152.us.us = call i32 @fputc(i32 10, ptr %f)
+  %inc59.us.us = add i64 %numSteps.1220.us.us, 1
+  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %speed) #12
+  %inc67.us.us = add nuw nsw i32 %pow.0221.us.us, 1
+  %lftr.wideiv = trunc i64 %inc59.us.us to i32
+  %exitcond256.not = icmp eq i32 %6, %lftr.wideiv
+  br i1 %exitcond256.not, label %for.inc72.split.us.us, label %for.body22.us.us, !llvm.loop !37
 
-100:                                              ; preds = %94, %57
-  %101 = phi i64 [ %59, %57 ], [ %54, %94 ]
-  %102 = add nuw i32 %52, 1
-  %103 = icmp eq i32 %102, %1
-  br i1 %103, label %214, label %51, !llvm.loop !38
+for.inc72.split.us.us:                            ; preds = %for.cond30.for.inc66_crit_edge.us.us, %for.body22.us.us
+  %numSteps.1.lcssa.us.us = phi i64 [ %numSteps.1220.us.us, %for.body22.us.us ], [ %4, %for.cond30.for.inc66_crit_edge.us.us ]
+  %inc73.us = add nuw i32 %i.0231.us, 1
+  %cmp16.not.us = icmp ult i32 %inc73.us, %numIterations
+  %exitcond257.not = icmp eq i32 %inc73.us, %numIterations
+  br i1 %exitcond257.not, label %for.end77, label %for.cond19.preheader.us, !llvm.loop !38
 
-104:                                              ; preds = %74, %64
-  %105 = landingpad { ptr, i32 }
+lpad34.split.us.split.us:                         ; preds = %cleanup.cont.us.us, %for.body33.us.us
+  %11 = landingpad { ptr, i32 }
           cleanup
-  br label %206
+  br label %ehcleanup
 
-106:                                              ; preds = %68
-  %107 = landingpad { ptr, i32 }
+lpad40.split.us.split.us:                         ; preds = %if.end38.us.us
+  %12 = landingpad { ptr, i32 }
           cleanup
-  br label %206
+  br label %ehcleanup
 
-108:                                              ; preds = %9, %108
-  %109 = phi i64 [ %110, %108 ], [ 0, %9 ]
-  %110 = add nuw nsw i64 %109, 1
-  %111 = trunc i64 %110 to i32
-  %112 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %0, ptr noundef nonnull @.str.15, i32 noundef %111)
-  %113 = getelementptr inbounds i64, ptr %18, i64 %109
-  store i64 0, ptr %113, align 8, !tbaa !23
-  %114 = icmp eq i64 %110, %16
-  br i1 %114, label %21, label %108, !llvm.loop !39
+for.body:                                         ; preds = %if.end, %for.body
+  %indvars.iv = phi i64 [ %indvars.iv.next, %for.body ], [ 0, %if.end ]
+  %indvars.iv.next = add nuw nsw i64 %indvars.iv, 1
+  %13 = trunc i64 %indvars.iv.next to i32
+  %call12 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %f, ptr noundef nonnull @.str.15, i32 noundef %13)
+  %arrayidx = getelementptr inbounds i64, ptr %call.i, i64 %indvars.iv
+  store i64 0, ptr %arrayidx, align 8, !tbaa !23
+  %exitcond.not = icmp eq i64 %indvars.iv.next, %conv.i
+  br i1 %exitcond.not, label %for.cond.cleanup, label %for.body, !llvm.loop !39
 
-115:                                              ; preds = %28, %208
-  %116 = phi i32 [ %210, %208 ], [ 0, %28 ]
-  %117 = phi i64 [ %209, %208 ], [ 0, %28 ]
-  %118 = add i64 %117, 22
-  br i1 %29, label %208, label %119
+for.cond19.preheader:                             ; preds = %for.cond19.preheader.preheader, %for.inc72.split
+  %i.0231 = phi i32 [ %inc73, %for.inc72.split ], [ 0, %for.cond19.preheader.preheader ]
+  %numSteps.0230 = phi i64 [ %numSteps.1.lcssa, %for.inc72.split ], [ 0, %for.cond19.preheader.preheader ]
+  %14 = add i64 %numSteps.0230, 22
+  br i1 %cmp23, label %for.inc72.split, label %if.end25
 
-119:                                              ; preds = %115
-  %120 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %0, ptr noundef nonnull @.str.16, i32 noundef 10)
-  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %7) #12
-  %121 = tail call i32 @fputc(i32 10, ptr %0)
-  %122 = add i64 %117, 1
-  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %7) #12
-  br i1 %30, label %208, label %123
+if.end25:                                         ; preds = %for.cond19.preheader
+  %call28 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %f, ptr noundef nonnull @.str.16, i32 noundef 10)
+  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %speed) #12
+  %fputc152 = tail call i32 @fputc(i32 10, ptr %f)
+  %inc59 = add i64 %numSteps.0230, 1
+  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %speed) #12
+  br i1 %cmp23.1, label %for.inc72.split, label %if.end25.1
 
-123:                                              ; preds = %119
-  %124 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %0, ptr noundef nonnull @.str.16, i32 noundef 11)
-  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %7) #12
-  %125 = tail call i32 @fputc(i32 10, ptr %0)
-  %126 = add i64 %117, 2
-  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %7) #12
-  br i1 %31, label %208, label %127
+if.end25.1:                                       ; preds = %if.end25
+  %call28.1 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %f, ptr noundef nonnull @.str.16, i32 noundef 11)
+  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %speed) #12
+  %fputc152.1 = tail call i32 @fputc(i32 10, ptr %f)
+  %inc59.1 = add i64 %numSteps.0230, 2
+  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %speed) #12
+  br i1 %cmp23.2, label %for.inc72.split, label %if.end25.2
 
-127:                                              ; preds = %123
-  %128 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %0, ptr noundef nonnull @.str.16, i32 noundef 12)
-  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %7) #12
-  %129 = tail call i32 @fputc(i32 10, ptr %0)
-  %130 = add i64 %117, 3
-  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %7) #12
-  br i1 %32, label %208, label %131
+if.end25.2:                                       ; preds = %if.end25.1
+  %call28.2 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %f, ptr noundef nonnull @.str.16, i32 noundef 12)
+  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %speed) #12
+  %fputc152.2 = tail call i32 @fputc(i32 10, ptr %f)
+  %inc59.2 = add i64 %numSteps.0230, 3
+  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %speed) #12
+  br i1 %cmp23.3, label %for.inc72.split, label %if.end25.3
 
-131:                                              ; preds = %127
-  %132 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %0, ptr noundef nonnull @.str.16, i32 noundef 13)
-  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %7) #12
-  %133 = tail call i32 @fputc(i32 10, ptr %0)
-  %134 = add i64 %117, 4
-  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %7) #12
-  br i1 %33, label %208, label %135
+if.end25.3:                                       ; preds = %if.end25.2
+  %call28.3 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %f, ptr noundef nonnull @.str.16, i32 noundef 13)
+  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %speed) #12
+  %fputc152.3 = tail call i32 @fputc(i32 10, ptr %f)
+  %inc59.3 = add i64 %numSteps.0230, 4
+  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %speed) #12
+  br i1 %cmp23.4, label %for.inc72.split, label %if.end25.4
 
-135:                                              ; preds = %131
-  %136 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %0, ptr noundef nonnull @.str.16, i32 noundef 14)
-  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %7) #12
-  %137 = tail call i32 @fputc(i32 10, ptr %0)
-  %138 = add i64 %117, 5
-  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %7) #12
-  br i1 %34, label %208, label %139
+if.end25.4:                                       ; preds = %if.end25.3
+  %call28.4 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %f, ptr noundef nonnull @.str.16, i32 noundef 14)
+  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %speed) #12
+  %fputc152.4 = tail call i32 @fputc(i32 10, ptr %f)
+  %inc59.4 = add i64 %numSteps.0230, 5
+  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %speed) #12
+  br i1 %cmp23.5, label %for.inc72.split, label %if.end25.5
 
-139:                                              ; preds = %135
-  %140 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %0, ptr noundef nonnull @.str.16, i32 noundef 15)
-  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %7) #12
-  %141 = tail call i32 @fputc(i32 10, ptr %0)
-  %142 = add i64 %117, 6
-  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %7) #12
-  br i1 %35, label %208, label %143
+if.end25.5:                                       ; preds = %if.end25.4
+  %call28.5 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %f, ptr noundef nonnull @.str.16, i32 noundef 15)
+  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %speed) #12
+  %fputc152.5 = tail call i32 @fputc(i32 10, ptr %f)
+  %inc59.5 = add i64 %numSteps.0230, 6
+  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %speed) #12
+  br i1 %cmp23.6, label %for.inc72.split, label %if.end25.6
 
-143:                                              ; preds = %139
-  %144 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %0, ptr noundef nonnull @.str.16, i32 noundef 16)
-  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %7) #12
-  %145 = tail call i32 @fputc(i32 10, ptr %0)
-  %146 = add i64 %117, 7
-  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %7) #12
-  br i1 %36, label %208, label %147
+if.end25.6:                                       ; preds = %if.end25.5
+  %call28.6 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %f, ptr noundef nonnull @.str.16, i32 noundef 16)
+  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %speed) #12
+  %fputc152.6 = tail call i32 @fputc(i32 10, ptr %f)
+  %inc59.6 = add i64 %numSteps.0230, 7
+  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %speed) #12
+  br i1 %cmp23.7, label %for.inc72.split, label %if.end25.7
 
-147:                                              ; preds = %143
-  %148 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %0, ptr noundef nonnull @.str.16, i32 noundef 17)
-  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %7) #12
-  %149 = tail call i32 @fputc(i32 10, ptr %0)
-  %150 = add i64 %117, 8
-  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %7) #12
-  br i1 %37, label %208, label %151
+if.end25.7:                                       ; preds = %if.end25.6
+  %call28.7 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %f, ptr noundef nonnull @.str.16, i32 noundef 17)
+  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %speed) #12
+  %fputc152.7 = tail call i32 @fputc(i32 10, ptr %f)
+  %inc59.7 = add i64 %numSteps.0230, 8
+  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %speed) #12
+  br i1 %cmp23.8, label %for.inc72.split, label %if.end25.8
 
-151:                                              ; preds = %147
-  %152 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %0, ptr noundef nonnull @.str.16, i32 noundef 18)
-  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %7) #12
-  %153 = tail call i32 @fputc(i32 10, ptr %0)
-  %154 = add i64 %117, 9
-  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %7) #12
-  br i1 %38, label %208, label %155
+if.end25.8:                                       ; preds = %if.end25.7
+  %call28.8 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %f, ptr noundef nonnull @.str.16, i32 noundef 18)
+  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %speed) #12
+  %fputc152.8 = tail call i32 @fputc(i32 10, ptr %f)
+  %inc59.8 = add i64 %numSteps.0230, 9
+  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %speed) #12
+  br i1 %cmp23.9, label %for.inc72.split, label %if.end25.9
 
-155:                                              ; preds = %151
-  %156 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %0, ptr noundef nonnull @.str.16, i32 noundef 19)
-  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %7) #12
-  %157 = tail call i32 @fputc(i32 10, ptr %0)
-  %158 = add i64 %117, 10
-  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %7) #12
-  br i1 %39, label %208, label %159
+if.end25.9:                                       ; preds = %if.end25.8
+  %call28.9 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %f, ptr noundef nonnull @.str.16, i32 noundef 19)
+  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %speed) #12
+  %fputc152.9 = tail call i32 @fputc(i32 10, ptr %f)
+  %inc59.9 = add i64 %numSteps.0230, 10
+  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %speed) #12
+  br i1 %cmp23.10, label %for.inc72.split, label %if.end25.10
 
-159:                                              ; preds = %155
-  %160 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %0, ptr noundef nonnull @.str.16, i32 noundef 20)
-  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %7) #12
-  %161 = tail call i32 @fputc(i32 10, ptr %0)
-  %162 = add i64 %117, 11
-  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %7) #12
-  br i1 %40, label %208, label %163
+if.end25.10:                                      ; preds = %if.end25.9
+  %call28.10 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %f, ptr noundef nonnull @.str.16, i32 noundef 20)
+  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %speed) #12
+  %fputc152.10 = tail call i32 @fputc(i32 10, ptr %f)
+  %inc59.10 = add i64 %numSteps.0230, 11
+  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %speed) #12
+  br i1 %cmp23.11, label %for.inc72.split, label %if.end25.11
 
-163:                                              ; preds = %159
-  %164 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %0, ptr noundef nonnull @.str.16, i32 noundef 21)
-  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %7) #12
-  %165 = tail call i32 @fputc(i32 10, ptr %0)
-  %166 = add i64 %117, 12
-  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %7) #12
-  br i1 %41, label %208, label %167
+if.end25.11:                                      ; preds = %if.end25.10
+  %call28.11 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %f, ptr noundef nonnull @.str.16, i32 noundef 21)
+  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %speed) #12
+  %fputc152.11 = tail call i32 @fputc(i32 10, ptr %f)
+  %inc59.11 = add i64 %numSteps.0230, 12
+  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %speed) #12
+  br i1 %cmp23.12, label %for.inc72.split, label %if.end25.12
 
-167:                                              ; preds = %163
-  %168 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %0, ptr noundef nonnull @.str.16, i32 noundef 22)
-  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %7) #12
-  %169 = tail call i32 @fputc(i32 10, ptr %0)
-  %170 = add i64 %117, 13
-  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %7) #12
-  br i1 %42, label %208, label %171
+if.end25.12:                                      ; preds = %if.end25.11
+  %call28.12 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %f, ptr noundef nonnull @.str.16, i32 noundef 22)
+  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %speed) #12
+  %fputc152.12 = tail call i32 @fputc(i32 10, ptr %f)
+  %inc59.12 = add i64 %numSteps.0230, 13
+  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %speed) #12
+  br i1 %cmp23.13, label %for.inc72.split, label %if.end25.13
 
-171:                                              ; preds = %167
-  %172 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %0, ptr noundef nonnull @.str.16, i32 noundef 23)
-  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %7) #12
-  %173 = tail call i32 @fputc(i32 10, ptr %0)
-  %174 = add i64 %117, 14
-  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %7) #12
-  br i1 %43, label %208, label %175
+if.end25.13:                                      ; preds = %if.end25.12
+  %call28.13 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %f, ptr noundef nonnull @.str.16, i32 noundef 23)
+  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %speed) #12
+  %fputc152.13 = tail call i32 @fputc(i32 10, ptr %f)
+  %inc59.13 = add i64 %numSteps.0230, 14
+  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %speed) #12
+  br i1 %cmp23.14, label %for.inc72.split, label %if.end25.14
 
-175:                                              ; preds = %171
-  %176 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %0, ptr noundef nonnull @.str.16, i32 noundef 24)
-  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %7) #12
-  %177 = tail call i32 @fputc(i32 10, ptr %0)
-  %178 = add i64 %117, 15
-  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %7) #12
-  br i1 %44, label %208, label %179
+if.end25.14:                                      ; preds = %if.end25.13
+  %call28.14 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %f, ptr noundef nonnull @.str.16, i32 noundef 24)
+  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %speed) #12
+  %fputc152.14 = tail call i32 @fputc(i32 10, ptr %f)
+  %inc59.14 = add i64 %numSteps.0230, 15
+  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %speed) #12
+  br i1 %cmp23.15, label %for.inc72.split, label %if.end25.15
 
-179:                                              ; preds = %175
-  %180 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %0, ptr noundef nonnull @.str.16, i32 noundef 25)
-  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %7) #12
-  %181 = tail call i32 @fputc(i32 10, ptr %0)
-  %182 = add i64 %117, 16
-  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %7) #12
-  br i1 %45, label %208, label %183
+if.end25.15:                                      ; preds = %if.end25.14
+  %call28.15 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %f, ptr noundef nonnull @.str.16, i32 noundef 25)
+  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %speed) #12
+  %fputc152.15 = tail call i32 @fputc(i32 10, ptr %f)
+  %inc59.15 = add i64 %numSteps.0230, 16
+  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %speed) #12
+  br i1 %cmp23.16, label %for.inc72.split, label %if.end25.16
 
-183:                                              ; preds = %179
-  %184 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %0, ptr noundef nonnull @.str.16, i32 noundef 26)
-  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %7) #12
-  %185 = tail call i32 @fputc(i32 10, ptr %0)
-  %186 = add i64 %117, 17
-  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %7) #12
-  br i1 %46, label %208, label %187
+if.end25.16:                                      ; preds = %if.end25.15
+  %call28.16 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %f, ptr noundef nonnull @.str.16, i32 noundef 26)
+  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %speed) #12
+  %fputc152.16 = tail call i32 @fputc(i32 10, ptr %f)
+  %inc59.16 = add i64 %numSteps.0230, 17
+  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %speed) #12
+  br i1 %cmp23.17, label %for.inc72.split, label %if.end25.17
 
-187:                                              ; preds = %183
-  %188 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %0, ptr noundef nonnull @.str.16, i32 noundef 27)
-  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %7) #12
-  %189 = tail call i32 @fputc(i32 10, ptr %0)
-  %190 = add i64 %117, 18
-  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %7) #12
-  br i1 %47, label %208, label %191
+if.end25.17:                                      ; preds = %if.end25.16
+  %call28.17 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %f, ptr noundef nonnull @.str.16, i32 noundef 27)
+  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %speed) #12
+  %fputc152.17 = tail call i32 @fputc(i32 10, ptr %f)
+  %inc59.17 = add i64 %numSteps.0230, 18
+  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %speed) #12
+  br i1 %cmp23.18, label %for.inc72.split, label %if.end25.18
 
-191:                                              ; preds = %187
-  %192 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %0, ptr noundef nonnull @.str.16, i32 noundef 28)
-  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %7) #12
-  %193 = tail call i32 @fputc(i32 10, ptr %0)
-  %194 = add i64 %117, 19
-  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %7) #12
-  br i1 %48, label %208, label %195
+if.end25.18:                                      ; preds = %if.end25.17
+  %call28.18 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %f, ptr noundef nonnull @.str.16, i32 noundef 28)
+  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %speed) #12
+  %fputc152.18 = tail call i32 @fputc(i32 10, ptr %f)
+  %inc59.18 = add i64 %numSteps.0230, 19
+  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %speed) #12
+  br i1 %cmp23.19, label %for.inc72.split, label %if.end25.19
 
-195:                                              ; preds = %191
-  %196 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %0, ptr noundef nonnull @.str.16, i32 noundef 29)
-  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %7) #12
-  %197 = tail call i32 @fputc(i32 10, ptr %0)
-  %198 = add i64 %117, 20
-  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %7) #12
-  br i1 %49, label %208, label %199
+if.end25.19:                                      ; preds = %if.end25.18
+  %call28.19 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %f, ptr noundef nonnull @.str.16, i32 noundef 29)
+  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %speed) #12
+  %fputc152.19 = tail call i32 @fputc(i32 10, ptr %f)
+  %inc59.19 = add i64 %numSteps.0230, 20
+  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %speed) #12
+  br i1 %cmp23.20, label %for.inc72.split, label %if.end25.20
 
-199:                                              ; preds = %195
-  %200 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %0, ptr noundef nonnull @.str.16, i32 noundef 30)
-  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %7) #12
-  %201 = tail call i32 @fputc(i32 10, ptr %0)
-  %202 = add i64 %117, 21
-  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %7) #12
-  br i1 %50, label %208, label %203
+if.end25.20:                                      ; preds = %if.end25.19
+  %call28.20 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %f, ptr noundef nonnull @.str.16, i32 noundef 30)
+  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %speed) #12
+  %fputc152.20 = tail call i32 @fputc(i32 10, ptr %f)
+  %inc59.20 = add i64 %numSteps.0230, 21
+  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %speed) #12
+  br i1 %cmp23.21, label %for.inc72.split, label %if.end25.21
 
-203:                                              ; preds = %199
-  %204 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %0, ptr noundef nonnull @.str.16, i32 noundef 31)
-  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %7) #12
-  %205 = tail call i32 @fputc(i32 10, ptr %0)
-  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %7) #12
-  br label %208
+if.end25.21:                                      ; preds = %if.end25.20
+  %call28.21 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %f, ptr noundef nonnull @.str.16, i32 noundef 31)
+  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %speed) #12
+  %fputc152.21 = tail call i32 @fputc(i32 10, ptr %f)
+  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %speed) #12
+  br label %for.inc72.split
 
-206:                                              ; preds = %106, %104
-  %207 = phi { ptr, i32 } [ %105, %104 ], [ %107, %106 ]
-  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %7) #12
-  br label %245
+ehcleanup:                                        ; preds = %lpad40.split.us.split.us, %lpad34.split.us.split.us
+  %.pn = phi { ptr, i32 } [ %11, %lpad34.split.us.split.us ], [ %12, %lpad40.split.us.split.us ]
+  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %speed) #12
+  br label %_ZN11CTempValuesD2Ev.exit172
 
-208:                                              ; preds = %203, %199, %195, %191, %187, %183, %179, %175, %171, %167, %163, %159, %155, %151, %147, %143, %139, %135, %131, %127, %123, %119, %115
-  %209 = phi i64 [ %117, %115 ], [ %122, %119 ], [ %126, %123 ], [ %130, %127 ], [ %134, %131 ], [ %138, %135 ], [ %142, %139 ], [ %146, %143 ], [ %150, %147 ], [ %154, %151 ], [ %158, %155 ], [ %162, %159 ], [ %166, %163 ], [ %170, %167 ], [ %174, %171 ], [ %178, %175 ], [ %182, %179 ], [ %186, %183 ], [ %190, %187 ], [ %194, %191 ], [ %198, %195 ], [ %202, %199 ], [ %118, %203 ]
-  %210 = add nuw i32 %116, 1
-  %211 = icmp eq i32 %210, %1
-  br i1 %211, label %214, label %115, !llvm.loop !38
+for.inc72.split:                                  ; preds = %if.end25.21, %if.end25.20, %if.end25.19, %if.end25.18, %if.end25.17, %if.end25.16, %if.end25.15, %if.end25.14, %if.end25.13, %if.end25.12, %if.end25.11, %if.end25.10, %if.end25.9, %if.end25.8, %if.end25.7, %if.end25.6, %if.end25.5, %if.end25.4, %if.end25.3, %if.end25.2, %if.end25.1, %if.end25, %for.cond19.preheader
+  %numSteps.1.lcssa = phi i64 [ %numSteps.0230, %for.cond19.preheader ], [ %inc59, %if.end25 ], [ %inc59.1, %if.end25.1 ], [ %inc59.2, %if.end25.2 ], [ %inc59.3, %if.end25.3 ], [ %inc59.4, %if.end25.4 ], [ %inc59.5, %if.end25.5 ], [ %inc59.6, %if.end25.6 ], [ %inc59.7, %if.end25.7 ], [ %inc59.8, %if.end25.8 ], [ %inc59.9, %if.end25.9 ], [ %inc59.10, %if.end25.10 ], [ %inc59.11, %if.end25.11 ], [ %inc59.12, %if.end25.12 ], [ %inc59.13, %if.end25.13 ], [ %inc59.14, %if.end25.14 ], [ %inc59.15, %if.end25.15 ], [ %inc59.16, %if.end25.16 ], [ %inc59.17, %if.end25.17 ], [ %inc59.18, %if.end25.18 ], [ %inc59.19, %if.end25.19 ], [ %inc59.20, %if.end25.20 ], [ %14, %if.end25.21 ]
+  %inc73 = add nuw i32 %i.0231, 1
+  %exitcond260.not = icmp eq i32 %inc73, %numIterations
+  br i1 %exitcond260.not, label %for.end77, label %for.cond19.preheader, !llvm.loop !38
 
-212:                                              ; preds = %72, %67
-  %213 = phi i32 [ %71, %72 ], [ -2147467260, %67 ]
-  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %7) #12
-  br label %243
+cleanup74:                                        ; preds = %invoke.cont41.us.us, %invoke.cont35.us.us
+  %retval.4.ph.us.us = phi i32 [ -2147467260, %invoke.cont35.us.us ], [ %call42.us.us, %invoke.cont41.us.us ]
+  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %speed) #12
+  br i1 %cmp16.not233.us, label %_ZN11CTempValuesD2Ev.exit, label %for.end77
 
-214:                                              ; preds = %100, %208
-  %215 = phi i64 [ %209, %208 ], [ %101, %100 ]
-  %216 = icmp eq i64 %215, 0
-  br i1 %216, label %243, label %217
+for.end77:                                        ; preds = %for.inc72.split.us.us, %for.inc72.split, %cleanup74
+  %numSteps.5199 = phi i64 [ %numSteps.1220.us.us, %cleanup74 ], [ %numSteps.1.lcssa, %for.inc72.split ], [ %numSteps.1.lcssa.us.us, %for.inc72.split.us.us ]
+  %cmp78.not = icmp eq i64 %numSteps.5199, 0
+  br i1 %cmp78.not, label %_ZN11CTempValuesD2Ev.exit, label %if.then79
 
-217:                                              ; preds = %214
-  %218 = call i64 @fwrite(ptr nonnull @.str.17, i64 5, i64 1, ptr %0)
-  br i1 %20, label %219, label %221
+if.then79:                                        ; preds = %for.end77
+  %15 = call i64 @fwrite(ptr nonnull @.str.17, i64 5, i64 1, ptr %f)
+  br i1 %cmp9215.not, label %for.cond.cleanup86, label %for.body87
 
-219:                                              ; preds = %237, %217
-  %220 = call i32 @fputc(i32 10, ptr %0)
-  br label %243
+for.cond.cleanup86:                               ; preds = %for.inc94, %if.then79
+  %fputc = call i32 @fputc(i32 10, ptr %f)
+  br label %_ZN11CTempValuesD2Ev.exit
 
-221:                                              ; preds = %217, %237
-  %222 = phi i64 [ %239, %237 ], [ 0, %217 ]
-  %223 = getelementptr inbounds i64, ptr %18, i64 %222
-  %224 = load i64, ptr %223, align 8, !tbaa !23
-  %225 = udiv i64 %224, %215
-  %226 = lshr i64 %225, 20
-  call void @llvm.lifetime.start.p0(i64 32, ptr nonnull %5) #12
-  invoke void @_Z21ConvertUInt64ToStringyPcj(i64 noundef %226, ptr noundef nonnull %5, i32 noundef 10)
-          to label %227 unwind label %241
+for.body87:                                       ; preds = %if.then79, %for.inc94
+  %indvars.iv261 = phi i64 [ %indvars.iv.next262, %for.inc94 ], [ 0, %if.then79 ]
+  %arrayidx90 = getelementptr inbounds i64, ptr %call.i, i64 %indvars.iv261
+  %16 = load i64, ptr %arrayidx90, align 8, !tbaa !23
+  %div = udiv i64 %16, %numSteps.5199
+  %shr91 = lshr i64 %div, 20
+  call void @llvm.lifetime.start.p0(i64 32, ptr nonnull %s.i157) #12
+  invoke void @_Z21ConvertUInt64ToStringyPcj(i64 noundef %shr91, ptr noundef nonnull %s.i157, i32 noundef 10)
+          to label %.noexc168 unwind label %lpad92
 
-227:                                              ; preds = %221
-  %228 = call i32 @fputc(i32 32, ptr %0)
-  %229 = call i64 @strlen(ptr noundef nonnull dereferenceable(1) %5) #13
-  %230 = trunc i64 %229 to i32
-  %231 = icmp slt i32 %230, 5
-  br i1 %231, label %232, label %237
+.noexc168:                                        ; preds = %for.body87
+  %fputc.i158 = call i32 @fputc(i32 32, ptr %f)
+  %call2.i159 = call i64 @strlen(ptr noundef nonnull dereferenceable(1) %s.i157) #13
+  %conv.i160 = trunc i64 %call2.i159 to i32
+  %cmp10.i161 = icmp slt i32 %conv.i160, 5
+  br i1 %cmp10.i161, label %for.body.i167, label %for.inc94
 
-232:                                              ; preds = %227, %232
-  %233 = phi i32 [ %235, %232 ], [ %230, %227 ]
-  %234 = call i32 @fputc(i32 32, ptr %0)
-  %235 = add i32 %233, 1
-  %236 = icmp eq i32 %235, 5
-  br i1 %236, label %237, label %232, !llvm.loop !21
+for.body.i167:                                    ; preds = %.noexc168, %for.body.i167
+  %len.011.i163 = phi i32 [ %inc.i165, %for.body.i167 ], [ %conv.i160, %.noexc168 ]
+  %fputc9.i164 = call i32 @fputc(i32 32, ptr %f)
+  %inc.i165 = add i32 %len.011.i163, 1
+  %exitcond.not.i166 = icmp eq i32 %inc.i165, 5
+  br i1 %exitcond.not.i166, label %for.inc94, label %for.body.i167, !llvm.loop !21
 
-237:                                              ; preds = %232, %227
-  %238 = call i32 @fputs(ptr noundef nonnull %5, ptr noundef %0)
-  call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %5) #12
-  %239 = add nuw nsw i64 %222, 1
-  %240 = icmp eq i64 %239, %16
-  br i1 %240, label %219, label %221, !llvm.loop !40
+for.inc94:                                        ; preds = %for.body.i167, %.noexc168
+  %call5.i162 = call i32 @fputs(ptr noundef nonnull %s.i157, ptr noundef %f)
+  call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %s.i157) #12
+  %indvars.iv.next262 = add nuw nsw i64 %indvars.iv261, 1
+  %exitcond265.not = icmp eq i64 %indvars.iv.next262, %conv.i
+  br i1 %exitcond265.not, label %for.cond.cleanup86, label %for.body87, !llvm.loop !40
 
-241:                                              ; preds = %221
-  %242 = landingpad { ptr, i32 }
+lpad92:                                           ; preds = %for.body87
+  %17 = landingpad { ptr, i32 }
           cleanup
-  br label %245
+  br label %_ZN11CTempValuesD2Ev.exit172
 
-243:                                              ; preds = %24, %21, %214, %219, %212
-  %244 = phi i32 [ %213, %212 ], [ 0, %219 ], [ 0, %214 ], [ 0, %21 ], [ 0, %24 ]
-  call void @_ZdaPv(ptr noundef nonnull %18) #15
-  br label %247
+_ZN11CTempValuesD2Ev.exit:                        ; preds = %for.cond.cleanup.thread, %for.cond.cleanup, %for.end77, %for.cond.cleanup86, %cleanup74
+  %retval.8 = phi i32 [ %retval.4.ph.us.us, %cleanup74 ], [ 0, %for.cond.cleanup86 ], [ 0, %for.end77 ], [ 0, %for.cond.cleanup ], [ 0, %for.cond.cleanup.thread ]
+  call void @_ZdaPv(ptr noundef nonnull %call.i) #15
+  br label %return
 
-245:                                              ; preds = %241, %206
-  %246 = phi { ptr, i32 } [ %242, %241 ], [ %207, %206 ]
-  call void @_ZdaPv(ptr noundef nonnull %18) #15
-  resume { ptr, i32 } %246
+_ZN11CTempValuesD2Ev.exit172:                     ; preds = %lpad92, %ehcleanup
+  %.pn153 = phi { ptr, i32 } [ %17, %lpad92 ], [ %.pn, %ehcleanup ]
+  call void @_ZdaPv(ptr noundef nonnull %call.i) #15
+  resume { ptr, i32 } %.pn153
 
-247:                                              ; preds = %4, %243
-  %248 = phi i32 [ %244, %243 ], [ 1, %4 ]
-  ret i32 %248
+return:                                           ; preds = %entry, %_ZN11CTempValuesD2Ev.exit
+  %retval.9 = phi i32 [ %retval.8, %_ZN11CTempValuesD2Ev.exit ], [ 1, %entry ]
+  ret i32 %retval.9
 }
 
 declare i32 @__gxx_personality_v0(...)
@@ -894,68 +907,69 @@ declare noundef i64 @_Z8GetUsageRK10CBenchInfo(ptr noundef nonnull align 8 deref
 declare noundef i64 @_Z17GetRatingPerUsageRK10CBenchInfoy(ptr noundef nonnull align 8 dereferenceable(52), i64 noundef) local_unnamed_addr #1
 
 ; Function Attrs: mustprogress uwtable
-define internal fastcc void @_ZL12PrintResultsP8_IO_FILEyyy(ptr nocapture noundef %0, i64 noundef %1, i64 noundef %2, i64 noundef %3) unnamed_addr #0 {
-  %5 = alloca [32 x i8], align 16
-  %6 = alloca [32 x i8], align 16
-  %7 = alloca [32 x i8], align 16
-  %8 = add i64 %1, 5000
-  %9 = udiv i64 %8, 10000
-  call void @llvm.lifetime.start.p0(i64 32, ptr nonnull %7) #12
-  call void @_Z21ConvertUInt64ToStringyPcj(i64 noundef %9, ptr noundef nonnull %7, i32 noundef 10)
-  %10 = call i32 @fputc(i32 32, ptr %0)
-  %11 = call i64 @strlen(ptr noundef nonnull dereferenceable(1) %7) #13
-  %12 = trunc i64 %11 to i32
-  %13 = icmp slt i32 %12, 5
-  br i1 %13, label %14, label %19
+define internal fastcc void @_ZL12PrintResultsP8_IO_FILEyyy(ptr nocapture noundef %f, i64 noundef %usage, i64 noundef %rpu, i64 noundef %rating) unnamed_addr #0 {
+entry:
+  %s.i.i3 = alloca [32 x i8], align 16
+  %s.i.i = alloca [32 x i8], align 16
+  %s.i = alloca [32 x i8], align 16
+  %add = add i64 %usage, 5000
+  %div = udiv i64 %add, 10000
+  call void @llvm.lifetime.start.p0(i64 32, ptr nonnull %s.i) #12
+  call void @_Z21ConvertUInt64ToStringyPcj(i64 noundef %div, ptr noundef nonnull %s.i, i32 noundef 10)
+  %fputc.i = call i32 @fputc(i32 32, ptr %f)
+  %call2.i = call i64 @strlen(ptr noundef nonnull dereferenceable(1) %s.i) #13
+  %conv.i = trunc i64 %call2.i to i32
+  %cmp10.i = icmp slt i32 %conv.i, 5
+  br i1 %cmp10.i, label %for.body.i, label %_ZL11PrintNumberP8_IO_FILEyi.exit
 
-14:                                               ; preds = %4, %14
-  %15 = phi i32 [ %17, %14 ], [ %12, %4 ]
-  %16 = call i32 @fputc(i32 32, ptr %0)
-  %17 = add i32 %15, 1
-  %18 = icmp eq i32 %17, 5
-  br i1 %18, label %19, label %14, !llvm.loop !21
+for.body.i:                                       ; preds = %entry, %for.body.i
+  %len.011.i = phi i32 [ %inc.i, %for.body.i ], [ %conv.i, %entry ]
+  %fputc9.i = call i32 @fputc(i32 32, ptr %f)
+  %inc.i = add i32 %len.011.i, 1
+  %exitcond.not.i = icmp eq i32 %inc.i, 5
+  br i1 %exitcond.not.i, label %_ZL11PrintNumberP8_IO_FILEyi.exit, label %for.body.i, !llvm.loop !21
 
-19:                                               ; preds = %14, %4
-  %20 = call i32 @fputs(ptr noundef nonnull %7, ptr noundef %0)
-  call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %7) #12
-  %21 = udiv i64 %2, 1000000
-  call void @llvm.lifetime.start.p0(i64 32, ptr nonnull %6) #12
-  call void @_Z21ConvertUInt64ToStringyPcj(i64 noundef %21, ptr noundef nonnull %6, i32 noundef 10)
-  %22 = call i32 @fputc(i32 32, ptr %0)
-  %23 = call i64 @strlen(ptr noundef nonnull dereferenceable(1) %6) #13
-  %24 = trunc i64 %23 to i32
-  %25 = icmp slt i32 %24, 6
-  br i1 %25, label %26, label %31
+_ZL11PrintNumberP8_IO_FILEyi.exit:                ; preds = %for.body.i, %entry
+  %call5.i = call i32 @fputs(ptr noundef nonnull %s.i, ptr noundef %f)
+  call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %s.i) #12
+  %div.i = udiv i64 %rpu, 1000000
+  call void @llvm.lifetime.start.p0(i64 32, ptr nonnull %s.i.i) #12
+  call void @_Z21ConvertUInt64ToStringyPcj(i64 noundef %div.i, ptr noundef nonnull %s.i.i, i32 noundef 10)
+  %fputc.i.i = call i32 @fputc(i32 32, ptr %f)
+  %call2.i.i = call i64 @strlen(ptr noundef nonnull dereferenceable(1) %s.i.i) #13
+  %conv.i.i = trunc i64 %call2.i.i to i32
+  %cmp10.i.i = icmp slt i32 %conv.i.i, 6
+  br i1 %cmp10.i.i, label %for.body.i.i, label %_ZL11PrintRatingP8_IO_FILEy.exit
 
-26:                                               ; preds = %19, %26
-  %27 = phi i32 [ %29, %26 ], [ %24, %19 ]
-  %28 = call i32 @fputc(i32 32, ptr %0)
-  %29 = add i32 %27, 1
-  %30 = icmp eq i32 %29, 6
-  br i1 %30, label %31, label %26, !llvm.loop !21
+for.body.i.i:                                     ; preds = %_ZL11PrintNumberP8_IO_FILEyi.exit, %for.body.i.i
+  %len.011.i.i = phi i32 [ %inc.i.i, %for.body.i.i ], [ %conv.i.i, %_ZL11PrintNumberP8_IO_FILEyi.exit ]
+  %fputc9.i.i = call i32 @fputc(i32 32, ptr %f)
+  %inc.i.i = add i32 %len.011.i.i, 1
+  %exitcond.not.i.i = icmp eq i32 %inc.i.i, 6
+  br i1 %exitcond.not.i.i, label %_ZL11PrintRatingP8_IO_FILEy.exit, label %for.body.i.i, !llvm.loop !21
 
-31:                                               ; preds = %26, %19
-  %32 = call i32 @fputs(ptr noundef nonnull %6, ptr noundef %0)
-  call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %6) #12
-  %33 = udiv i64 %3, 1000000
-  call void @llvm.lifetime.start.p0(i64 32, ptr nonnull %5) #12
-  call void @_Z21ConvertUInt64ToStringyPcj(i64 noundef %33, ptr noundef nonnull %5, i32 noundef 10)
-  %34 = call i32 @fputc(i32 32, ptr %0)
-  %35 = call i64 @strlen(ptr noundef nonnull dereferenceable(1) %5) #13
-  %36 = trunc i64 %35 to i32
-  %37 = icmp slt i32 %36, 6
-  br i1 %37, label %38, label %43
+_ZL11PrintRatingP8_IO_FILEy.exit:                 ; preds = %for.body.i.i, %_ZL11PrintNumberP8_IO_FILEyi.exit
+  %call5.i.i = call i32 @fputs(ptr noundef nonnull %s.i.i, ptr noundef %f)
+  call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %s.i.i) #12
+  %div.i4 = udiv i64 %rating, 1000000
+  call void @llvm.lifetime.start.p0(i64 32, ptr nonnull %s.i.i3) #12
+  call void @_Z21ConvertUInt64ToStringyPcj(i64 noundef %div.i4, ptr noundef nonnull %s.i.i3, i32 noundef 10)
+  %fputc.i.i5 = call i32 @fputc(i32 32, ptr %f)
+  %call2.i.i6 = call i64 @strlen(ptr noundef nonnull dereferenceable(1) %s.i.i3) #13
+  %conv.i.i7 = trunc i64 %call2.i.i6 to i32
+  %cmp10.i.i8 = icmp slt i32 %conv.i.i7, 6
+  br i1 %cmp10.i.i8, label %for.body.i.i13, label %_ZL11PrintRatingP8_IO_FILEy.exit15
 
-38:                                               ; preds = %31, %38
-  %39 = phi i32 [ %41, %38 ], [ %36, %31 ]
-  %40 = call i32 @fputc(i32 32, ptr %0)
-  %41 = add i32 %39, 1
-  %42 = icmp eq i32 %41, 6
-  br i1 %42, label %43, label %38, !llvm.loop !21
+for.body.i.i13:                                   ; preds = %_ZL11PrintRatingP8_IO_FILEy.exit, %for.body.i.i13
+  %len.011.i.i9 = phi i32 [ %inc.i.i11, %for.body.i.i13 ], [ %conv.i.i7, %_ZL11PrintRatingP8_IO_FILEy.exit ]
+  %fputc9.i.i10 = call i32 @fputc(i32 32, ptr %f)
+  %inc.i.i11 = add i32 %len.011.i.i9, 1
+  %exitcond.not.i.i12 = icmp eq i32 %inc.i.i11, 6
+  br i1 %exitcond.not.i.i12, label %_ZL11PrintRatingP8_IO_FILEy.exit15, label %for.body.i.i13, !llvm.loop !21
 
-43:                                               ; preds = %38, %31
-  %44 = call i32 @fputs(ptr noundef nonnull %5, ptr noundef %0)
-  call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %5) #12
+_ZL11PrintRatingP8_IO_FILEy.exit15:               ; preds = %for.body.i.i13, %_ZL11PrintRatingP8_IO_FILEy.exit
+  %call5.i.i14 = call i32 @fputs(ptr noundef nonnull %s.i.i3, ptr noundef %f)
+  call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %s.i.i3) #12
   ret void
 }
 
@@ -970,14 +984,14 @@ declare i64 @strlen(ptr nocapture noundef) local_unnamed_addr #7
 ; Function Attrs: nobuiltin nounwind
 declare void @_ZdaPv(ptr noundef) local_unnamed_addr #8
 
+; Function Attrs: nofree nounwind
+declare noundef i64 @fwrite(ptr nocapture noundef, i64 noundef, i64 noundef, ptr nocapture noundef) local_unnamed_addr #9
+
+; Function Attrs: nofree nounwind
+declare noundef i32 @fputc(i32 noundef, ptr nocapture noundef) local_unnamed_addr #9
+
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i64 @llvm.umax.i64(i64, i64) #9
-
-; Function Attrs: nofree nounwind
-declare noundef i64 @fwrite(ptr nocapture noundef, i64 noundef, i64 noundef, ptr nocapture noundef) local_unnamed_addr #10
-
-; Function Attrs: nofree nounwind
-declare noundef i32 @fputc(i32 noundef, ptr nocapture noundef) local_unnamed_addr #10
+declare i64 @llvm.umax.i64(i64, i64) #10
 
 ; Function Attrs: nocallback nofree nounwind willreturn memory(argmem: write)
 declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #11
@@ -991,8 +1005,8 @@ attributes #5 = { uwtable "min-legal-vector-width"="0" "no-trapping-math"="true"
 attributes #6 = { nobuiltin allocsize(0) "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #7 = { mustprogress nofree nounwind willreturn memory(argmem: read) "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #8 = { nobuiltin nounwind "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
-attributes #9 = { nocallback nofree nosync nounwind speculatable willreturn memory(none) }
-attributes #10 = { nofree nounwind }
+attributes #9 = { nofree nounwind }
+attributes #10 = { nocallback nofree nosync nounwind speculatable willreturn memory(none) }
 attributes #11 = { nocallback nofree nounwind willreturn memory(argmem: write) }
 attributes #12 = { nounwind }
 attributes #13 = { nounwind willreturn memory(read) }

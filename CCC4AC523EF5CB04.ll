@@ -6,50 +6,51 @@ target triple = "x86_64-unknown-linux-gnu"
 %struct.baz = type { i32, i32, i32, i32, i32 }
 
 ; Function Attrs: nounwind uwtable
-define dso_local void @bar(ptr nocapture noundef readonly %0, i32 noundef %1, i32 noundef %2, i32 noundef %3, i32 noundef %4, i32 noundef %5) local_unnamed_addr #0 {
-  %7 = load i32, ptr %0, align 4, !tbaa !5
-  %8 = icmp eq i32 %7, 1
-  br i1 %8, label %9, label %35
+define dso_local void @bar(ptr nocapture noundef readonly %x, i32 noundef %f, i32 noundef %g, i32 noundef %h, i32 noundef %i, i32 noundef %j) local_unnamed_addr #0 {
+entry:
+  %0 = load i32, ptr %x, align 4, !tbaa !5
+  %cmp.not = icmp eq i32 %0, 1
+  br i1 %cmp.not, label %lor.lhs.false, label %if.then
 
-9:                                                ; preds = %6
-  %10 = getelementptr inbounds %struct.baz, ptr %0, i64 0, i32 1
-  %11 = load i32, ptr %10, align 4, !tbaa !10
-  %12 = icmp eq i32 %11, 2
-  br i1 %12, label %13, label %35
+lor.lhs.false:                                    ; preds = %entry
+  %b = getelementptr inbounds %struct.baz, ptr %x, i64 0, i32 1
+  %1 = load i32, ptr %b, align 4, !tbaa !10
+  %cmp1.not = icmp eq i32 %1, 2
+  br i1 %cmp1.not, label %lor.lhs.false2, label %if.then
 
-13:                                               ; preds = %9
-  %14 = getelementptr inbounds %struct.baz, ptr %0, i64 0, i32 2
-  %15 = load i32, ptr %14, align 4, !tbaa !11
-  %16 = icmp eq i32 %15, 3
-  br i1 %16, label %17, label %35
+lor.lhs.false2:                                   ; preds = %lor.lhs.false
+  %c = getelementptr inbounds %struct.baz, ptr %x, i64 0, i32 2
+  %2 = load i32, ptr %c, align 4, !tbaa !11
+  %cmp3.not = icmp eq i32 %2, 3
+  br i1 %cmp3.not, label %lor.lhs.false4, label %if.then
 
-17:                                               ; preds = %13
-  %18 = getelementptr inbounds %struct.baz, ptr %0, i64 0, i32 3
-  %19 = load i32, ptr %18, align 4, !tbaa !12
-  %20 = icmp eq i32 %19, 4
-  br i1 %20, label %21, label %35
+lor.lhs.false4:                                   ; preds = %lor.lhs.false2
+  %d = getelementptr inbounds %struct.baz, ptr %x, i64 0, i32 3
+  %3 = load i32, ptr %d, align 4, !tbaa !12
+  %cmp5.not = icmp eq i32 %3, 4
+  br i1 %cmp5.not, label %lor.lhs.false6, label %if.then
 
-21:                                               ; preds = %17
-  %22 = getelementptr inbounds %struct.baz, ptr %0, i64 0, i32 4
-  %23 = load i32, ptr %22, align 4, !tbaa !13
-  %24 = icmp ne i32 %23, 5
-  %25 = icmp ne i32 %1, 6
-  %26 = or i1 %25, %24
-  %27 = icmp ne i32 %2, 7
-  %28 = or i1 %27, %26
-  %29 = icmp ne i32 %3, 8
-  %30 = or i1 %29, %28
-  %31 = icmp ne i32 %4, 9
-  %32 = or i1 %31, %30
-  %33 = icmp ne i32 %5, 10
-  %34 = or i1 %33, %32
-  br i1 %34, label %35, label %36
+lor.lhs.false6:                                   ; preds = %lor.lhs.false4
+  %e = getelementptr inbounds %struct.baz, ptr %x, i64 0, i32 4
+  %4 = load i32, ptr %e, align 4, !tbaa !13
+  %cmp7 = icmp ne i32 %4, 5
+  %cmp9 = icmp ne i32 %f, 6
+  %or.cond = or i1 %cmp9, %cmp7
+  %cmp11 = icmp ne i32 %g, 7
+  %or.cond18 = or i1 %cmp11, %or.cond
+  %cmp13 = icmp ne i32 %h, 8
+  %or.cond19 = or i1 %cmp13, %or.cond18
+  %cmp15 = icmp ne i32 %i, 9
+  %or.cond20 = or i1 %cmp15, %or.cond19
+  %cmp17 = icmp ne i32 %j, 10
+  %or.cond21 = or i1 %cmp17, %or.cond20
+  br i1 %or.cond21, label %if.then, label %if.end
 
-35:                                               ; preds = %21, %17, %13, %9, %6
+if.then:                                          ; preds = %lor.lhs.false6, %lor.lhs.false4, %lor.lhs.false2, %lor.lhs.false, %entry
   tail call void @abort() #4
   unreachable
 
-36:                                               ; preds = %21
+if.end:                                           ; preds = %lor.lhs.false6
   ret void
 }
 
@@ -57,34 +58,36 @@ define dso_local void @bar(ptr nocapture noundef readonly %0, i32 noundef %1, i3
 declare void @abort() local_unnamed_addr #1
 
 ; Function Attrs: nounwind uwtable
-define dso_local void @foo(ptr nocapture readnone %0, ptr nocapture noundef readonly byval(%struct.baz) align 8 %1, ptr nocapture readnone %2) local_unnamed_addr #0 {
-  %4 = load <4 x i32>, ptr %1, align 8
-  %5 = freeze <4 x i32> %4
-  %6 = icmp ne <4 x i32> %5, <i32 1, i32 2, i32 3, i32 4>
-  %7 = getelementptr inbounds %struct.baz, ptr %1, i64 0, i32 4
-  %8 = load i32, ptr %7, align 8
-  %9 = icmp ne i32 %8, 5
-  %10 = bitcast <4 x i1> %6 to i4
-  %11 = icmp ne i4 %10, 0
-  %12 = select i1 %11, i1 true, i1 %9
-  br i1 %12, label %13, label %14
+define dso_local void @foo(ptr nocapture readnone %z, ptr nocapture noundef readonly byval(%struct.baz) align 8 %x, ptr nocapture readnone %y) local_unnamed_addr #0 {
+entry:
+  %0 = load <4 x i32>, ptr %x, align 8
+  %.fr = freeze <4 x i32> %0
+  %1 = icmp ne <4 x i32> %.fr, <i32 1, i32 2, i32 3, i32 4>
+  %e.i = getelementptr inbounds %struct.baz, ptr %x, i64 0, i32 4
+  %2 = load i32, ptr %e.i, align 8
+  %cmp7.i = icmp ne i32 %2, 5
+  %3 = bitcast <4 x i1> %1 to i4
+  %4 = icmp ne i4 %3, 0
+  %op.rdx = select i1 %4, i1 true, i1 %cmp7.i
+  br i1 %op.rdx, label %if.then.i, label %bar.exit
 
-13:                                               ; preds = %3
+if.then.i:                                        ; preds = %entry
   tail call void @abort() #4
   unreachable
 
-14:                                               ; preds = %3
+bar.exit:                                         ; preds = %entry
   ret void
 }
 
 ; Function Attrs: noreturn nounwind uwtable
 define dso_local i32 @main() local_unnamed_addr #2 {
-  %1 = alloca %struct.baz, align 16
-  call void @llvm.lifetime.start.p0(i64 20, ptr nonnull %1) #5
-  store <4 x i32> <i32 1, i32 2, i32 3, i32 4>, ptr %1, align 16, !tbaa !14
-  %2 = getelementptr inbounds %struct.baz, ptr %1, i64 0, i32 4
-  store i32 5, ptr %2, align 16, !tbaa !13
-  tail call void @foo(ptr poison, ptr noundef nonnull byval(%struct.baz) align 8 %1, ptr poison)
+entry:
+  %x = alloca %struct.baz, align 16
+  call void @llvm.lifetime.start.p0(i64 20, ptr nonnull %x) #5
+  store <4 x i32> <i32 1, i32 2, i32 3, i32 4>, ptr %x, align 16, !tbaa !14
+  %e = getelementptr inbounds %struct.baz, ptr %x, i64 0, i32 4
+  store i32 5, ptr %e, align 16, !tbaa !13
+  tail call void @foo(ptr poison, ptr noundef nonnull byval(%struct.baz) align 8 %x, ptr poison)
   tail call void @exit(i32 noundef 0) #4
   unreachable
 }

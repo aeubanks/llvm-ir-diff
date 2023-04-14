@@ -6,65 +6,66 @@ target triple = "x86_64-unknown-linux-gnu"
 @extfunc = dso_local local_unnamed_addr global ptr null, align 8
 
 ; Function Attrs: noinline nounwind uwtable
-define dso_local i32 @badfunc(i32 %0, i32 %1, i32 %2, i32 %3, ptr nocapture noundef writeonly %4, i32 noundef %5) local_unnamed_addr #0 {
-  %7 = alloca [5348 x i8], align 16
-  call void @llvm.lifetime.start.p0(i64 5348, ptr nonnull %7) #4
-  %8 = load ptr, ptr @extfunc, align 8, !tbaa !5
-  %9 = tail call i64 (...) %8() #4
-  %10 = icmp eq i64 %9, 0
-  br i1 %10, label %11, label %37
+define dso_local i32 @badfunc(i32 %u0, i32 %u1, i32 %u2, i32 %u3, ptr nocapture noundef writeonly %fsname, i32 noundef %fsname_len) local_unnamed_addr #0 {
+entry:
+  %superblock = alloca [5348 x i8], align 16
+  call void @llvm.lifetime.start.p0(i64 5348, ptr nonnull %superblock) #4
+  %0 = load ptr, ptr @extfunc, align 8, !tbaa !5
+  %call = tail call i64 (...) %0() #4
+  %tobool.not = icmp eq i64 %call, 0
+  br i1 %tobool.not, label %if.end, label %cleanup
 
-11:                                               ; preds = %6
-  %12 = load ptr, ptr @extfunc, align 8, !tbaa !5
-  %13 = tail call i64 (...) %12() #4
-  %14 = icmp eq i64 %13, 0
-  br i1 %14, label %15, label %37
+if.end:                                           ; preds = %entry
+  %1 = load ptr, ptr @extfunc, align 8, !tbaa !5
+  %call1 = tail call i64 (...) %1() #4
+  %cmp.not = icmp eq i64 %call1, 0
+  br i1 %cmp.not, label %if.end3, label %cleanup
 
-15:                                               ; preds = %11
-  %16 = load ptr, ptr @extfunc, align 8, !tbaa !5
-  %17 = call i64 (ptr, ...) %16(ptr noundef nonnull %7) #4
-  %18 = icmp ugt i32 %5, 1
-  br i1 %18, label %19, label %33
+if.end3:                                          ; preds = %if.end
+  %2 = load ptr, ptr @extfunc, align 8, !tbaa !5
+  %call4 = call i64 (ptr, ...) %2(ptr noundef nonnull %superblock) #4
+  %cmp5.i = icmp ugt i32 %fsname_len, 1
+  br i1 %cmp5.i, label %land.rhs.preheader.i, label %while.end.i
 
-19:                                               ; preds = %15
-  %20 = getelementptr inbounds i16, ptr %4, i64 1
-  store i16 78, ptr %4, align 2, !tbaa !9
-  %21 = add i32 %5, -3
-  %22 = icmp ult i32 %21, -2
-  br i1 %22, label %23, label %35, !llvm.loop !11
+land.rhs.preheader.i:                             ; preds = %if.end3
+  %incdec.ptr1.i = getelementptr inbounds i16, ptr %fsname, i64 1
+  store i16 78, ptr %fsname, align 2, !tbaa !9
+  %3 = add i32 %fsname_len, -3
+  %cmp.i = icmp ult i32 %3, -2
+  br i1 %cmp.i, label %land.rhs.1.i, label %if.then.i, !llvm.loop !11
 
-23:                                               ; preds = %19
-  %24 = getelementptr inbounds i16, ptr %4, i64 2
-  store i16 84, ptr %20, align 2, !tbaa !9
-  %25 = and i32 %5, -2
-  %26 = icmp eq i32 %25, 2
-  br i1 %26, label %35, label %27, !llvm.loop !11
+land.rhs.1.i:                                     ; preds = %land.rhs.preheader.i
+  %incdec.ptr1.1.i = getelementptr inbounds i16, ptr %fsname, i64 2
+  store i16 84, ptr %incdec.ptr1.i, align 2, !tbaa !9
+  %4 = and i32 %fsname_len, -2
+  %cmp.1.not.i = icmp eq i32 %4, 2
+  br i1 %cmp.1.not.i, label %if.then.i, label %land.rhs.2.i, !llvm.loop !11
 
-27:                                               ; preds = %23
-  %28 = getelementptr inbounds i16, ptr %4, i64 3
-  store i16 70, ptr %24, align 2, !tbaa !9
-  %29 = add i32 %5, -5
-  %30 = icmp ult i32 %29, -2
-  br i1 %30, label %31, label %35, !llvm.loop !11
+land.rhs.2.i:                                     ; preds = %land.rhs.1.i
+  %incdec.ptr1.2.i = getelementptr inbounds i16, ptr %fsname, i64 3
+  store i16 70, ptr %incdec.ptr1.1.i, align 2, !tbaa !9
+  %5 = add i32 %fsname_len, -5
+  %cmp.2.i = icmp ult i32 %5, -2
+  br i1 %cmp.2.i, label %land.rhs.3.i, label %if.then.i, !llvm.loop !11
 
-31:                                               ; preds = %27
-  %32 = getelementptr inbounds i16, ptr %4, i64 4
-  store i16 83, ptr %28, align 2, !tbaa !9
-  br label %35
+land.rhs.3.i:                                     ; preds = %land.rhs.2.i
+  %incdec.ptr1.3.i = getelementptr inbounds i16, ptr %fsname, i64 4
+  store i16 83, ptr %incdec.ptr1.2.i, align 2, !tbaa !9
+  br label %if.then.i
 
-33:                                               ; preds = %15
-  %34 = icmp eq i32 %5, 0
-  br i1 %34, label %37, label %35
+while.end.i:                                      ; preds = %if.end3
+  %tobool2.not.i = icmp eq i32 %fsname_len, 0
+  br i1 %tobool2.not.i, label %cleanup, label %if.then.i
 
-35:                                               ; preds = %33, %31, %27, %23, %19
-  %36 = phi ptr [ %4, %33 ], [ %32, %31 ], [ %28, %27 ], [ %24, %23 ], [ %20, %19 ]
-  store i16 0, ptr %36, align 2, !tbaa !9
-  br label %37
+if.then.i:                                        ; preds = %while.end.i, %land.rhs.3.i, %land.rhs.2.i, %land.rhs.1.i, %land.rhs.preheader.i
+  %d.addr.04.i = phi ptr [ %fsname, %while.end.i ], [ %incdec.ptr1.3.i, %land.rhs.3.i ], [ %incdec.ptr1.2.i, %land.rhs.2.i ], [ %incdec.ptr1.1.i, %land.rhs.1.i ], [ %incdec.ptr1.i, %land.rhs.preheader.i ]
+  store i16 0, ptr %d.addr.04.i, align 2, !tbaa !9
+  br label %cleanup
 
-37:                                               ; preds = %11, %33, %35, %6
-  %38 = phi i32 [ 0, %6 ], [ 0, %11 ], [ 1, %33 ], [ 1, %35 ]
-  call void @llvm.lifetime.end.p0(i64 5348, ptr nonnull %7) #4
-  ret i32 %38
+cleanup:                                          ; preds = %if.then.i, %while.end.i, %if.end, %entry
+  %retval.0 = phi i32 [ 0, %entry ], [ 0, %if.end ], [ 1, %while.end.i ], [ 1, %if.then.i ]
+  call void @llvm.lifetime.end.p0(i64 5348, ptr nonnull %superblock) #4
+  ret i32 %retval.0
 }
 
 ; Function Attrs: mustprogress nocallback nofree nosync nounwind willreturn memory(argmem: readwrite)
@@ -75,17 +76,19 @@ declare void @llvm.lifetime.end.p0(i64 immarg, ptr nocapture) #1
 
 ; Function Attrs: nounwind uwtable
 define dso_local i32 @main() local_unnamed_addr #2 {
-  %1 = alloca [6 x i16], align 2
-  call void @llvm.lifetime.start.p0(i64 12, ptr nonnull %1) #4
+entry:
+  %buf = alloca [6 x i16], align 2
+  call void @llvm.lifetime.start.p0(i64 12, ptr nonnull %buf) #4
   store ptr @f, ptr @extfunc, align 8, !tbaa !5
-  %2 = call i32 @badfunc(i32 poison, i32 poison, i32 poison, i32 poison, ptr noundef nonnull %1, i32 noundef 6), !range !13
-  %3 = xor i32 %2, 1
-  call void @llvm.lifetime.end.p0(i64 12, ptr nonnull %1) #4
-  ret i32 %3
+  %call = call i32 @badfunc(i32 poison, i32 poison, i32 poison, i32 poison, ptr noundef nonnull %buf, i32 noundef 6), !range !13
+  %lnot.ext = xor i32 %call, 1
+  call void @llvm.lifetime.end.p0(i64 12, ptr nonnull %buf) #4
+  ret i32 %lnot.ext
 }
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(none) uwtable
 define internal i64 @f() #3 {
+entry:
   ret i64 0
 }
 

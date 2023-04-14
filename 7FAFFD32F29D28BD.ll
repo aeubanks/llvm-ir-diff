@@ -10,6 +10,7 @@ target triple = "x86_64-unknown-linux-gnu"
 
 ; Function Attrs: noreturn nounwind uwtable
 define dso_local noalias nonnull ptr @foo() local_unnamed_addr #0 {
+entry:
   tail call void @exit(i32 noundef 0) #3
   unreachable
 }
@@ -18,9 +19,10 @@ define dso_local noalias nonnull ptr @foo() local_unnamed_addr #0 {
 declare void @exit(i32 noundef) local_unnamed_addr #1
 
 ; Function Attrs: noreturn nounwind uwtable
-define dso_local void @bar(i32 %0, ...) local_unnamed_addr #0 {
+define dso_local void @bar(i32 %i, ...) local_unnamed_addr #0 {
+entry:
   tail call void @llvm.va_start(ptr nonnull @ap)
-  tail call void @exit(i32 noundef 0) #3
+  %call = tail call ptr @foo()
   unreachable
 }
 
@@ -29,6 +31,7 @@ declare void @llvm.va_start(ptr) #2
 
 ; Function Attrs: noreturn nounwind uwtable
 define dso_local i32 @main() local_unnamed_addr #0 {
+entry:
   tail call void (i32, ...) @bar(i32 poison, i32 noundef 0)
   unreachable
 }

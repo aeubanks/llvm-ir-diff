@@ -48,343 +48,344 @@ target triple = "x86_64-unknown-linux-gnu"
 @spBMBtab1 = internal unnamed_addr constant [12 x %struct.VLCtab] [%struct.VLCtab { i8 26, i8 7 }, %struct.VLCtab { i8 22, i8 7 }, %struct.VLCtab { i8 1, i8 7 }, %struct.VLCtab { i8 30, i8 7 }, %struct.VLCtab { i8 40, i8 6 }, %struct.VLCtab { i8 40, i8 6 }, %struct.VLCtab { i8 42, i8 6 }, %struct.VLCtab { i8 42, i8 6 }, %struct.VLCtab { i8 36, i8 6 }, %struct.VLCtab { i8 36, i8 6 }, %struct.VLCtab { i8 38, i8 6 }, %struct.VLCtab { i8 38, i8 6 }], align 16
 @spBMBtab2 = internal unnamed_addr constant [8 x %struct.VLCtab] [%struct.VLCtab { i8 17, i8 8 }, %struct.VLCtab { i8 17, i8 8 }, %struct.VLCtab { i8 58, i8 8 }, %struct.VLCtab { i8 58, i8 8 }, %struct.VLCtab { i8 54, i8 9 }, %struct.VLCtab { i8 82, i8 9 }, %struct.VLCtab { i8 64, i8 9 }, %struct.VLCtab { i8 66, i8 9 }], align 16
 @SNRMBtab = internal unnamed_addr constant [8 x %struct.VLCtab] [%struct.VLCtab { i8 -1, i8 0 }, %struct.VLCtab { i8 0, i8 3 }, %struct.VLCtab { i8 18, i8 2 }, %struct.VLCtab { i8 18, i8 2 }, %struct.VLCtab { i8 2, i8 1 }, %struct.VLCtab { i8 2, i8 1 }, %struct.VLCtab { i8 2, i8 1 }, %struct.VLCtab { i8 2, i8 1 }], align 16
-@str.11 = private unnamed_addr constant [29 x i8] c"Invalid macroblock_type code\00", align 1
-@str.12 = private unnamed_addr constant [56 x i8] c"Get_macroblock_type(): unrecognized picture coding type\00", align 1
+@str = private unnamed_addr constant [56 x i8] c"Get_macroblock_type(): unrecognized picture coding type\00", align 1
+@str.12 = private unnamed_addr constant [29 x i8] c"Invalid macroblock_type code\00", align 1
 @str.13 = private unnamed_addr constant [33 x i8] c"Invalid coded_block_pattern code\00", align 1
 @str.14 = private unnamed_addr constant [42 x i8] c"Invalid macroblock_address_increment code\00", align 1
 
 ; Function Attrs: nounwind uwtable
 define dso_local i32 @Get_macroblock_type() local_unnamed_addr #0 {
-  %1 = load ptr, ptr @ld, align 8, !tbaa !5
-  %2 = getelementptr inbounds %struct.layer_data, ptr %1, i64 0, i32 17
-  %3 = load i32, ptr %2, align 4, !tbaa !9
-  %4 = icmp eq i32 %3, 3
-  br i1 %4, label %5, label %22
+entry:
+  %0 = load ptr, ptr @ld, align 8, !tbaa !5
+  %scalable_mode = getelementptr inbounds %struct.layer_data, ptr %0, i64 0, i32 17
+  %1 = load i32, ptr %scalable_mode, align 4, !tbaa !9
+  %cmp = icmp eq i32 %1, 3
+  br i1 %cmp, label %if.then, label %if.else
 
-5:                                                ; preds = %0
-  %6 = tail call i32 @Show_Bits(i32 noundef 3) #4
-  %7 = icmp eq i32 %6, 0
-  br i1 %7, label %8, label %14
+if.then:                                          ; preds = %entry
+  %call.i = tail call i32 @Show_Bits(i32 noundef 3) #4
+  %cmp.i = icmp eq i32 %call.i, 0
+  br i1 %cmp.i, label %if.then.i, label %if.end3.i
 
-8:                                                ; preds = %5
-  %9 = load i32, ptr @Quiet_Flag, align 4, !tbaa !12
-  %10 = icmp eq i32 %9, 0
-  br i1 %10, label %11, label %13
+if.then.i:                                        ; preds = %if.then
+  %2 = load i32, ptr @Quiet_Flag, align 4, !tbaa !12
+  %tobool.not.i = icmp eq i32 %2, 0
+  br i1 %tobool.not.i, label %if.then1.i, label %if.end.i
 
-11:                                               ; preds = %8
-  %12 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.11)
-  br label %13
+if.then1.i:                                       ; preds = %if.then.i
+  %puts.i = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.12)
+  br label %if.end.i
 
-13:                                               ; preds = %11, %8
+if.end.i:                                         ; preds = %if.then1.i, %if.then.i
   store i32 1, ptr @Fault_Flag, align 4, !tbaa !12
-  br label %194
+  br label %if.end
 
-14:                                               ; preds = %5
-  %15 = sext i32 %6 to i64
-  %16 = getelementptr inbounds [8 x %struct.VLCtab], ptr @SNRMBtab, i64 0, i64 %15
-  %17 = getelementptr inbounds [8 x %struct.VLCtab], ptr @SNRMBtab, i64 0, i64 %15, i32 1
-  %18 = load i8, ptr %17, align 1, !tbaa !13
-  %19 = sext i8 %18 to i32
-  tail call void @Flush_Buffer(i32 noundef %19) #4
-  %20 = load i8, ptr %16, align 2, !tbaa !15
-  %21 = sext i8 %20 to i32
-  br label %194
+if.end3.i:                                        ; preds = %if.then
+  %idxprom.i = sext i32 %call.i to i64
+  %arrayidx.i = getelementptr inbounds [8 x %struct.VLCtab], ptr @SNRMBtab, i64 0, i64 %idxprom.i
+  %len.i = getelementptr inbounds [8 x %struct.VLCtab], ptr @SNRMBtab, i64 0, i64 %idxprom.i, i32 1
+  %3 = load i8, ptr %len.i, align 1, !tbaa !13
+  %conv.i = sext i8 %3 to i32
+  tail call void @Flush_Buffer(i32 noundef %conv.i) #4
+  %4 = load i8, ptr %arrayidx.i, align 2, !tbaa !15
+  %conv6.i = sext i8 %4 to i32
+  br label %if.end
 
-22:                                               ; preds = %0
-  %23 = load i32, ptr @picture_coding_type, align 4, !tbaa !12
-  switch i32 %23, label %192 [
-    i32 1, label %24
-    i32 2, label %57
-    i32 3, label %117
-    i32 4, label %183
+if.else:                                          ; preds = %entry
+  %5 = load i32, ptr @picture_coding_type, align 4, !tbaa !12
+  switch i32 %5, label %sw.default [
+    i32 1, label %sw.bb
+    i32 2, label %sw.bb3
+    i32 3, label %sw.bb12
+    i32 4, label %sw.bb21
   ]
 
-24:                                               ; preds = %22
-  %25 = getelementptr inbounds %struct.layer_data, ptr %1, i64 0, i32 20
-  %26 = load i32, ptr %25, align 8, !tbaa !16
-  %27 = icmp eq i32 %26, 0
-  br i1 %27, label %45, label %28
+sw.bb:                                            ; preds = %if.else
+  %pict_scal = getelementptr inbounds %struct.layer_data, ptr %0, i64 0, i32 20
+  %6 = load i32, ptr %pict_scal, align 8, !tbaa !16
+  %tobool.not = icmp eq i32 %6, 0
+  br i1 %tobool.not, label %cond.false, label %cond.true
 
-28:                                               ; preds = %24
-  %29 = tail call i32 @Show_Bits(i32 noundef 4) #4
-  %30 = icmp eq i32 %29, 0
-  br i1 %30, label %31, label %37
+cond.true:                                        ; preds = %sw.bb
+  %call.i24 = tail call i32 @Show_Bits(i32 noundef 4) #4
+  %cmp.i25 = icmp eq i32 %call.i24, 0
+  br i1 %cmp.i25, label %if.then.i27, label %if.end3.i36
 
-31:                                               ; preds = %28
-  %32 = load i32, ptr @Quiet_Flag, align 4, !tbaa !12
-  %33 = icmp eq i32 %32, 0
-  br i1 %33, label %34, label %36
+if.then.i27:                                      ; preds = %cond.true
+  %7 = load i32, ptr @Quiet_Flag, align 4, !tbaa !12
+  %tobool.not.i26 = icmp eq i32 %7, 0
+  br i1 %tobool.not.i26, label %if.then1.i29, label %if.end.i30
 
-34:                                               ; preds = %31
-  %35 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.11)
-  br label %36
+if.then1.i29:                                     ; preds = %if.then.i27
+  %puts.i28 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.12)
+  br label %if.end.i30
 
-36:                                               ; preds = %34, %31
+if.end.i30:                                       ; preds = %if.then1.i29, %if.then.i27
   store i32 1, ptr @Fault_Flag, align 4, !tbaa !12
-  br label %194
+  br label %if.end
 
-37:                                               ; preds = %28
-  %38 = sext i32 %29 to i64
-  %39 = getelementptr inbounds [16 x %struct.VLCtab], ptr @spIMBtab, i64 0, i64 %38
-  %40 = getelementptr inbounds [16 x %struct.VLCtab], ptr @spIMBtab, i64 0, i64 %38, i32 1
-  %41 = load i8, ptr %40, align 1, !tbaa !13
-  %42 = sext i8 %41 to i32
-  tail call void @Flush_Buffer(i32 noundef %42) #4
-  %43 = load i8, ptr %39, align 2, !tbaa !15
-  %44 = sext i8 %43 to i32
-  br label %194
+if.end3.i36:                                      ; preds = %cond.true
+  %idxprom.i31 = sext i32 %call.i24 to i64
+  %arrayidx.i32 = getelementptr inbounds [16 x %struct.VLCtab], ptr @spIMBtab, i64 0, i64 %idxprom.i31
+  %len.i33 = getelementptr inbounds [16 x %struct.VLCtab], ptr @spIMBtab, i64 0, i64 %idxprom.i31, i32 1
+  %8 = load i8, ptr %len.i33, align 1, !tbaa !13
+  %conv.i34 = sext i8 %8 to i32
+  tail call void @Flush_Buffer(i32 noundef %conv.i34) #4
+  %9 = load i8, ptr %arrayidx.i32, align 2, !tbaa !15
+  %conv6.i35 = sext i8 %9 to i32
+  br label %if.end
 
-45:                                               ; preds = %24
-  %46 = tail call i32 @Get_Bits1() #4
-  %47 = icmp eq i32 %46, 0
-  br i1 %47, label %48, label %194
+cond.false:                                       ; preds = %sw.bb
+  %call.i38 = tail call i32 @Get_Bits1() #4
+  %tobool.not.i39 = icmp eq i32 %call.i38, 0
+  br i1 %tobool.not.i39, label %if.end.i40, label %if.end
 
-48:                                               ; preds = %45
-  %49 = tail call i32 @Get_Bits1() #4
-  %50 = icmp eq i32 %49, 0
-  br i1 %50, label %51, label %194
+if.end.i40:                                       ; preds = %cond.false
+  %call1.i = tail call i32 @Get_Bits1() #4
+  %tobool2.not.i = icmp eq i32 %call1.i, 0
+  br i1 %tobool2.not.i, label %if.then3.i, label %if.end
 
-51:                                               ; preds = %48
-  %52 = load i32, ptr @Quiet_Flag, align 4, !tbaa !12
-  %53 = icmp eq i32 %52, 0
-  br i1 %53, label %54, label %56
+if.then3.i:                                       ; preds = %if.end.i40
+  %10 = load i32, ptr @Quiet_Flag, align 4, !tbaa !12
+  %tobool4.not.i = icmp eq i32 %10, 0
+  br i1 %tobool4.not.i, label %if.then5.i, label %if.end7.i
 
-54:                                               ; preds = %51
-  %55 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.11)
-  br label %56
+if.then5.i:                                       ; preds = %if.then3.i
+  %puts.i41 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.12)
+  br label %if.end7.i
 
-56:                                               ; preds = %54, %51
+if.end7.i:                                        ; preds = %if.then5.i, %if.then3.i
   store i32 1, ptr @Fault_Flag, align 4, !tbaa !12
-  br label %194
+  br label %if.end
 
-57:                                               ; preds = %22
-  %58 = getelementptr inbounds %struct.layer_data, ptr %1, i64 0, i32 20
-  %59 = load i32, ptr %58, align 8, !tbaa !16
-  %60 = icmp eq i32 %59, 0
-  br i1 %60, label %89, label %61
+sw.bb3:                                           ; preds = %if.else
+  %pict_scal4 = getelementptr inbounds %struct.layer_data, ptr %0, i64 0, i32 20
+  %11 = load i32, ptr %pict_scal4, align 8, !tbaa !16
+  %tobool5.not = icmp eq i32 %11, 0
+  br i1 %tobool5.not, label %cond.false8, label %cond.true6
 
-61:                                               ; preds = %57
-  %62 = tail call i32 @Show_Bits(i32 noundef 7) #4
-  %63 = icmp slt i32 %62, 2
-  br i1 %63, label %64, label %70
+cond.true6:                                       ; preds = %sw.bb3
+  %call.i43 = tail call i32 @Show_Bits(i32 noundef 7) #4
+  %cmp.i44 = icmp slt i32 %call.i43, 2
+  br i1 %cmp.i44, label %if.then.i46, label %if.end3.i50
 
-64:                                               ; preds = %61
-  %65 = load i32, ptr @Quiet_Flag, align 4, !tbaa !12
-  %66 = icmp eq i32 %65, 0
-  br i1 %66, label %67, label %69
+if.then.i46:                                      ; preds = %cond.true6
+  %12 = load i32, ptr @Quiet_Flag, align 4, !tbaa !12
+  %tobool.not.i45 = icmp eq i32 %12, 0
+  br i1 %tobool.not.i45, label %if.then1.i48, label %if.end.i49
 
-67:                                               ; preds = %64
-  %68 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.11)
-  br label %69
+if.then1.i48:                                     ; preds = %if.then.i46
+  %puts.i47 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.12)
+  br label %if.end.i49
 
-69:                                               ; preds = %67, %64
+if.end.i49:                                       ; preds = %if.then1.i48, %if.then.i46
   store i32 1, ptr @Fault_Flag, align 4, !tbaa !12
-  br label %194
+  br label %if.end
 
-70:                                               ; preds = %61
-  %71 = icmp ugt i32 %62, 15
-  br i1 %71, label %72, label %81
+if.end3.i50:                                      ; preds = %cond.true6
+  %cmp4.i = icmp ugt i32 %call.i43, 15
+  br i1 %cmp4.i, label %if.then5.i55, label %if.end9.i
 
-72:                                               ; preds = %70
-  %73 = lshr i32 %62, 3
-  %74 = zext i32 %73 to i64
-  %75 = getelementptr inbounds [16 x %struct.VLCtab], ptr @spPMBtab0, i64 0, i64 %74
-  %76 = getelementptr inbounds [16 x %struct.VLCtab], ptr @spPMBtab0, i64 0, i64 %74, i32 1
-  %77 = load i8, ptr %76, align 1, !tbaa !13
-  %78 = sext i8 %77 to i32
-  tail call void @Flush_Buffer(i32 noundef %78) #4
-  %79 = load i8, ptr %75, align 2, !tbaa !15
-  %80 = sext i8 %79 to i32
-  br label %194
+if.then5.i55:                                     ; preds = %if.end3.i50
+  %shr.i = lshr i32 %call.i43, 3
+  %idxprom.i51 = zext i32 %shr.i to i64
+  %arrayidx.i52 = getelementptr inbounds [16 x %struct.VLCtab], ptr @spPMBtab0, i64 0, i64 %idxprom.i51
+  %len.i53 = getelementptr inbounds [16 x %struct.VLCtab], ptr @spPMBtab0, i64 0, i64 %idxprom.i51, i32 1
+  %13 = load i8, ptr %len.i53, align 1, !tbaa !13
+  %conv.i54 = sext i8 %13 to i32
+  tail call void @Flush_Buffer(i32 noundef %conv.i54) #4
+  %14 = load i8, ptr %arrayidx.i52, align 2, !tbaa !15
+  %conv8.i = sext i8 %14 to i32
+  br label %if.end
 
-81:                                               ; preds = %70
-  %82 = zext i32 %62 to i64
-  %83 = getelementptr inbounds [16 x %struct.VLCtab], ptr @spPMBtab1, i64 0, i64 %82
-  %84 = getelementptr inbounds [16 x %struct.VLCtab], ptr @spPMBtab1, i64 0, i64 %82, i32 1
-  %85 = load i8, ptr %84, align 1, !tbaa !13
-  %86 = sext i8 %85 to i32
-  tail call void @Flush_Buffer(i32 noundef %86) #4
-  %87 = load i8, ptr %83, align 2, !tbaa !15
-  %88 = sext i8 %87 to i32
-  br label %194
+if.end9.i:                                        ; preds = %if.end3.i50
+  %idxprom10.i = zext i32 %call.i43 to i64
+  %arrayidx11.i = getelementptr inbounds [16 x %struct.VLCtab], ptr @spPMBtab1, i64 0, i64 %idxprom10.i
+  %len12.i = getelementptr inbounds [16 x %struct.VLCtab], ptr @spPMBtab1, i64 0, i64 %idxprom10.i, i32 1
+  %15 = load i8, ptr %len12.i, align 1, !tbaa !13
+  %conv13.i = sext i8 %15 to i32
+  tail call void @Flush_Buffer(i32 noundef %conv13.i) #4
+  %16 = load i8, ptr %arrayidx11.i, align 2, !tbaa !15
+  %conv17.i = sext i8 %16 to i32
+  br label %if.end
 
-89:                                               ; preds = %57
-  %90 = tail call i32 @Show_Bits(i32 noundef 6) #4
-  %91 = icmp sgt i32 %90, 7
-  br i1 %91, label %92, label %101
+cond.false8:                                      ; preds = %sw.bb3
+  %call.i57 = tail call i32 @Show_Bits(i32 noundef 6) #4
+  %cmp.i58 = icmp sgt i32 %call.i57, 7
+  br i1 %cmp.i58, label %if.then.i64, label %if.end.i66
 
-92:                                               ; preds = %89
-  %93 = lshr i32 %90, 3
-  %94 = zext i32 %93 to i64
-  %95 = getelementptr inbounds [8 x %struct.VLCtab], ptr @PMBtab0, i64 0, i64 %94
-  %96 = getelementptr inbounds [8 x %struct.VLCtab], ptr @PMBtab0, i64 0, i64 %94, i32 1
-  %97 = load i8, ptr %96, align 1, !tbaa !13
-  %98 = sext i8 %97 to i32
-  tail call void @Flush_Buffer(i32 noundef %98) #4
-  %99 = load i8, ptr %95, align 2, !tbaa !15
-  %100 = sext i8 %99 to i32
-  br label %194
+if.then.i64:                                      ; preds = %cond.false8
+  %shr.i59 = lshr i32 %call.i57, 3
+  %idxprom.i60 = zext i32 %shr.i59 to i64
+  %arrayidx.i61 = getelementptr inbounds [8 x %struct.VLCtab], ptr @PMBtab0, i64 0, i64 %idxprom.i60
+  %len.i62 = getelementptr inbounds [8 x %struct.VLCtab], ptr @PMBtab0, i64 0, i64 %idxprom.i60, i32 1
+  %17 = load i8, ptr %len.i62, align 1, !tbaa !13
+  %conv.i63 = sext i8 %17 to i32
+  tail call void @Flush_Buffer(i32 noundef %conv.i63) #4
+  %18 = load i8, ptr %arrayidx.i61, align 2, !tbaa !15
+  %conv3.i = sext i8 %18 to i32
+  br label %if.end
 
-101:                                              ; preds = %89
-  %102 = icmp eq i32 %90, 0
-  br i1 %102, label %103, label %109
+if.end.i66:                                       ; preds = %cond.false8
+  %cmp4.i65 = icmp eq i32 %call.i57, 0
+  br i1 %cmp4.i65, label %if.then6.i, label %if.end10.i
 
-103:                                              ; preds = %101
-  %104 = load i32, ptr @Quiet_Flag, align 4, !tbaa !12
-  %105 = icmp eq i32 %104, 0
-  br i1 %105, label %106, label %108
+if.then6.i:                                       ; preds = %if.end.i66
+  %19 = load i32, ptr @Quiet_Flag, align 4, !tbaa !12
+  %tobool.not.i67 = icmp eq i32 %19, 0
+  br i1 %tobool.not.i67, label %if.then7.i, label %if.end9.i69
 
-106:                                              ; preds = %103
-  %107 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.11)
-  br label %108
+if.then7.i:                                       ; preds = %if.then6.i
+  %puts.i68 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.12)
+  br label %if.end9.i69
 
-108:                                              ; preds = %106, %103
+if.end9.i69:                                      ; preds = %if.then7.i, %if.then6.i
   store i32 1, ptr @Fault_Flag, align 4, !tbaa !12
-  br label %194
+  br label %if.end
 
-109:                                              ; preds = %101
-  %110 = sext i32 %90 to i64
-  %111 = getelementptr inbounds [8 x %struct.VLCtab], ptr @PMBtab1, i64 0, i64 %110
-  %112 = getelementptr inbounds [8 x %struct.VLCtab], ptr @PMBtab1, i64 0, i64 %110, i32 1
-  %113 = load i8, ptr %112, align 1, !tbaa !13
-  %114 = sext i8 %113 to i32
-  tail call void @Flush_Buffer(i32 noundef %114) #4
-  %115 = load i8, ptr %111, align 2, !tbaa !15
-  %116 = sext i8 %115 to i32
-  br label %194
+if.end10.i:                                       ; preds = %if.end.i66
+  %idxprom11.i = sext i32 %call.i57 to i64
+  %arrayidx12.i = getelementptr inbounds [8 x %struct.VLCtab], ptr @PMBtab1, i64 0, i64 %idxprom11.i
+  %len13.i = getelementptr inbounds [8 x %struct.VLCtab], ptr @PMBtab1, i64 0, i64 %idxprom11.i, i32 1
+  %20 = load i8, ptr %len13.i, align 1, !tbaa !13
+  %conv14.i = sext i8 %20 to i32
+  tail call void @Flush_Buffer(i32 noundef %conv14.i) #4
+  %21 = load i8, ptr %arrayidx12.i, align 2, !tbaa !15
+  %conv18.i = sext i8 %21 to i32
+  br label %if.end
 
-117:                                              ; preds = %22
-  %118 = getelementptr inbounds %struct.layer_data, ptr %1, i64 0, i32 20
-  %119 = load i32, ptr %118, align 8, !tbaa !16
-  %120 = icmp eq i32 %119, 0
-  br i1 %120, label %155, label %121
+sw.bb12:                                          ; preds = %if.else
+  %pict_scal13 = getelementptr inbounds %struct.layer_data, ptr %0, i64 0, i32 20
+  %22 = load i32, ptr %pict_scal13, align 8, !tbaa !16
+  %tobool14.not = icmp eq i32 %22, 0
+  br i1 %tobool14.not, label %cond.false17, label %cond.true15
 
-121:                                              ; preds = %117
-  %122 = tail call i32 @Show_Bits(i32 noundef 9) #4
-  %123 = icmp sgt i32 %122, 63
-  br i1 %123, label %124, label %129
+cond.true15:                                      ; preds = %sw.bb12
+  %call.i71 = tail call i32 @Show_Bits(i32 noundef 9) #4
+  %cmp.i72 = icmp sgt i32 %call.i71, 63
+  br i1 %cmp.i72, label %if.then.i76, label %if.else.i
 
-124:                                              ; preds = %121
-  %125 = lshr i32 %122, 5
-  %126 = add nsw i32 %125, -2
-  %127 = zext i32 %126 to i64
-  %128 = getelementptr inbounds [14 x %struct.VLCtab], ptr @spBMBtab0, i64 0, i64 %127
-  br label %148
+if.then.i76:                                      ; preds = %cond.true15
+  %shr.i73 = lshr i32 %call.i71, 5
+  %sub.i = add nsw i32 %shr.i73, -2
+  %idxprom.i74 = zext i32 %sub.i to i64
+  %arrayidx.i75 = getelementptr inbounds [14 x %struct.VLCtab], ptr @spBMBtab0, i64 0, i64 %idxprom.i74
+  br label %if.end18.i
 
-129:                                              ; preds = %121
-  %130 = icmp sgt i32 %122, 15
-  br i1 %130, label %131, label %136
+if.else.i:                                        ; preds = %cond.true15
+  %cmp1.i = icmp sgt i32 %call.i71, 15
+  br i1 %cmp1.i, label %if.then2.i, label %if.else7.i
 
-131:                                              ; preds = %129
-  %132 = lshr i32 %122, 2
-  %133 = add nsw i32 %132, -4
-  %134 = zext i32 %133 to i64
-  %135 = getelementptr inbounds [12 x %struct.VLCtab], ptr @spBMBtab1, i64 0, i64 %134
-  br label %148
+if.then2.i:                                       ; preds = %if.else.i
+  %shr3.i = lshr i32 %call.i71, 2
+  %sub4.i = add nsw i32 %shr3.i, -4
+  %idxprom5.i = zext i32 %sub4.i to i64
+  %arrayidx6.i = getelementptr inbounds [12 x %struct.VLCtab], ptr @spBMBtab1, i64 0, i64 %idxprom5.i
+  br label %if.end18.i
 
-136:                                              ; preds = %129
-  %137 = icmp sgt i32 %122, 7
-  br i1 %137, label %138, label %142
+if.else7.i:                                       ; preds = %if.else.i
+  %cmp8.i = icmp sgt i32 %call.i71, 7
+  br i1 %cmp8.i, label %if.then9.i, label %if.else13.i
 
-138:                                              ; preds = %136
-  %139 = add nsw i32 %122, -8
-  %140 = zext i32 %139 to i64
-  %141 = getelementptr inbounds [8 x %struct.VLCtab], ptr @spBMBtab2, i64 0, i64 %140
-  br label %148
+if.then9.i:                                       ; preds = %if.else7.i
+  %sub10.i = add nsw i32 %call.i71, -8
+  %idxprom11.i77 = zext i32 %sub10.i to i64
+  %arrayidx12.i78 = getelementptr inbounds [8 x %struct.VLCtab], ptr @spBMBtab2, i64 0, i64 %idxprom11.i77
+  br label %if.end18.i
 
-142:                                              ; preds = %136
-  %143 = load i32, ptr @Quiet_Flag, align 4, !tbaa !12
-  %144 = icmp eq i32 %143, 0
-  br i1 %144, label %145, label %147
+if.else13.i:                                      ; preds = %if.else7.i
+  %23 = load i32, ptr @Quiet_Flag, align 4, !tbaa !12
+  %tobool.not.i79 = icmp eq i32 %23, 0
+  br i1 %tobool.not.i79, label %if.then14.i, label %if.end.i81
 
-145:                                              ; preds = %142
-  %146 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.11)
-  br label %147
+if.then14.i:                                      ; preds = %if.else13.i
+  %puts.i80 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.12)
+  br label %if.end.i81
 
-147:                                              ; preds = %145, %142
+if.end.i81:                                       ; preds = %if.then14.i, %if.else13.i
   store i32 1, ptr @Fault_Flag, align 4, !tbaa !12
-  br label %194
+  br label %if.end
 
-148:                                              ; preds = %138, %131, %124
-  %149 = phi ptr [ %128, %124 ], [ %135, %131 ], [ %141, %138 ]
-  %150 = getelementptr inbounds %struct.VLCtab, ptr %149, i64 0, i32 1
-  %151 = load i8, ptr %150, align 1, !tbaa !13
-  %152 = sext i8 %151 to i32
-  tail call void @Flush_Buffer(i32 noundef %152) #4
-  %153 = load i8, ptr %149, align 1, !tbaa !15
-  %154 = sext i8 %153 to i32
-  br label %194
+if.end18.i:                                       ; preds = %if.then9.i, %if.then2.i, %if.then.i76
+  %p.0.i = phi ptr [ %arrayidx.i75, %if.then.i76 ], [ %arrayidx6.i, %if.then2.i ], [ %arrayidx12.i78, %if.then9.i ]
+  %len.i82 = getelementptr inbounds %struct.VLCtab, ptr %p.0.i, i64 0, i32 1
+  %24 = load i8, ptr %len.i82, align 1, !tbaa !13
+  %conv.i83 = sext i8 %24 to i32
+  tail call void @Flush_Buffer(i32 noundef %conv.i83) #4
+  %25 = load i8, ptr %p.0.i, align 1, !tbaa !15
+  %conv19.i = sext i8 %25 to i32
+  br label %if.end
 
-155:                                              ; preds = %117
-  %156 = tail call i32 @Show_Bits(i32 noundef 6) #4
-  %157 = icmp sgt i32 %156, 7
-  br i1 %157, label %158, label %167
+cond.false17:                                     ; preds = %sw.bb12
+  %call.i85 = tail call i32 @Show_Bits(i32 noundef 6) #4
+  %cmp.i86 = icmp sgt i32 %call.i85, 7
+  br i1 %cmp.i86, label %if.then.i93, label %if.end.i95
 
-158:                                              ; preds = %155
-  %159 = lshr i32 %156, 2
-  %160 = zext i32 %159 to i64
-  %161 = getelementptr inbounds [16 x %struct.VLCtab], ptr @BMBtab0, i64 0, i64 %160
-  %162 = getelementptr inbounds [16 x %struct.VLCtab], ptr @BMBtab0, i64 0, i64 %160, i32 1
-  %163 = load i8, ptr %162, align 1, !tbaa !13
-  %164 = sext i8 %163 to i32
-  tail call void @Flush_Buffer(i32 noundef %164) #4
-  %165 = load i8, ptr %161, align 2, !tbaa !15
-  %166 = sext i8 %165 to i32
-  br label %194
+if.then.i93:                                      ; preds = %cond.false17
+  %shr.i87 = lshr i32 %call.i85, 2
+  %idxprom.i88 = zext i32 %shr.i87 to i64
+  %arrayidx.i89 = getelementptr inbounds [16 x %struct.VLCtab], ptr @BMBtab0, i64 0, i64 %idxprom.i88
+  %len.i90 = getelementptr inbounds [16 x %struct.VLCtab], ptr @BMBtab0, i64 0, i64 %idxprom.i88, i32 1
+  %26 = load i8, ptr %len.i90, align 1, !tbaa !13
+  %conv.i91 = sext i8 %26 to i32
+  tail call void @Flush_Buffer(i32 noundef %conv.i91) #4
+  %27 = load i8, ptr %arrayidx.i89, align 2, !tbaa !15
+  %conv3.i92 = sext i8 %27 to i32
+  br label %if.end
 
-167:                                              ; preds = %155
-  %168 = icmp eq i32 %156, 0
-  br i1 %168, label %169, label %175
+if.end.i95:                                       ; preds = %cond.false17
+  %cmp4.i94 = icmp eq i32 %call.i85, 0
+  br i1 %cmp4.i94, label %if.then6.i97, label %if.end10.i106
 
-169:                                              ; preds = %167
-  %170 = load i32, ptr @Quiet_Flag, align 4, !tbaa !12
-  %171 = icmp eq i32 %170, 0
-  br i1 %171, label %172, label %174
+if.then6.i97:                                     ; preds = %if.end.i95
+  %28 = load i32, ptr @Quiet_Flag, align 4, !tbaa !12
+  %tobool.not.i96 = icmp eq i32 %28, 0
+  br i1 %tobool.not.i96, label %if.then7.i99, label %if.end9.i100
 
-172:                                              ; preds = %169
-  %173 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.11)
-  br label %174
+if.then7.i99:                                     ; preds = %if.then6.i97
+  %puts.i98 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.12)
+  br label %if.end9.i100
 
-174:                                              ; preds = %172, %169
+if.end9.i100:                                     ; preds = %if.then7.i99, %if.then6.i97
   store i32 1, ptr @Fault_Flag, align 4, !tbaa !12
-  br label %194
+  br label %if.end
 
-175:                                              ; preds = %167
-  %176 = sext i32 %156 to i64
-  %177 = getelementptr inbounds [8 x %struct.VLCtab], ptr @BMBtab1, i64 0, i64 %176
-  %178 = getelementptr inbounds [8 x %struct.VLCtab], ptr @BMBtab1, i64 0, i64 %176, i32 1
-  %179 = load i8, ptr %178, align 1, !tbaa !13
-  %180 = sext i8 %179 to i32
-  tail call void @Flush_Buffer(i32 noundef %180) #4
-  %181 = load i8, ptr %177, align 2, !tbaa !15
-  %182 = sext i8 %181 to i32
-  br label %194
+if.end10.i106:                                    ; preds = %if.end.i95
+  %idxprom11.i101 = sext i32 %call.i85 to i64
+  %arrayidx12.i102 = getelementptr inbounds [8 x %struct.VLCtab], ptr @BMBtab1, i64 0, i64 %idxprom11.i101
+  %len13.i103 = getelementptr inbounds [8 x %struct.VLCtab], ptr @BMBtab1, i64 0, i64 %idxprom11.i101, i32 1
+  %29 = load i8, ptr %len13.i103, align 1, !tbaa !13
+  %conv14.i104 = sext i8 %29 to i32
+  tail call void @Flush_Buffer(i32 noundef %conv14.i104) #4
+  %30 = load i8, ptr %arrayidx12.i102, align 2, !tbaa !15
+  %conv18.i105 = sext i8 %30 to i32
+  br label %if.end
 
-183:                                              ; preds = %22
-  %184 = tail call i32 @Get_Bits1() #4
-  %185 = icmp eq i32 %184, 0
-  br i1 %185, label %186, label %194
+sw.bb21:                                          ; preds = %if.else
+  %call.i108 = tail call i32 @Get_Bits1() #4
+  %tobool.not.i109 = icmp eq i32 %call.i108, 0
+  br i1 %tobool.not.i109, label %if.then.i110, label %if.end
 
-186:                                              ; preds = %183
-  %187 = load i32, ptr @Quiet_Flag, align 4, !tbaa !12
-  %188 = icmp eq i32 %187, 0
-  br i1 %188, label %189, label %191
+if.then.i110:                                     ; preds = %sw.bb21
+  %31 = load i32, ptr @Quiet_Flag, align 4, !tbaa !12
+  %tobool1.not.i = icmp eq i32 %31, 0
+  br i1 %tobool1.not.i, label %if.then2.i112, label %if.end.i113
 
-189:                                              ; preds = %186
-  %190 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.11)
-  br label %191
+if.then2.i112:                                    ; preds = %if.then.i110
+  %puts.i111 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.12)
+  br label %if.end.i113
 
-191:                                              ; preds = %189, %186
+if.end.i113:                                      ; preds = %if.then2.i112, %if.then.i110
   store i32 1, ptr @Fault_Flag, align 4, !tbaa !12
-  br label %194
+  br label %if.end
 
-192:                                              ; preds = %22
-  %193 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.12)
-  br label %194
+sw.default:                                       ; preds = %if.else
+  %puts = tail call i32 @puts(ptr nonnull dereferenceable(1) @str)
+  br label %if.end
 
-194:                                              ; preds = %191, %183, %147, %148, %158, %174, %175, %69, %72, %81, %92, %108, %109, %36, %37, %45, %48, %56, %14, %13, %192
-  %195 = phi i32 [ 0, %192 ], [ 0, %13 ], [ %21, %14 ], [ 0, %36 ], [ %44, %37 ], [ 1, %45 ], [ 17, %56 ], [ 17, %48 ], [ 0, %69 ], [ %80, %72 ], [ %88, %81 ], [ %100, %92 ], [ 0, %108 ], [ %116, %109 ], [ %154, %148 ], [ 0, %147 ], [ %166, %158 ], [ 0, %174 ], [ %182, %175 ], [ 1, %183 ], [ 1, %191 ]
-  ret i32 %195
+if.end:                                           ; preds = %if.end.i113, %sw.bb21, %if.end10.i106, %if.end9.i100, %if.then.i93, %if.end18.i, %if.end.i81, %if.end10.i, %if.end9.i69, %if.then.i64, %if.end9.i, %if.then5.i55, %if.end.i49, %if.end7.i, %if.end.i40, %cond.false, %if.end3.i36, %if.end.i30, %if.end3.i, %if.end.i, %sw.default
+  %macroblock_type.0 = phi i32 [ 0, %sw.default ], [ 0, %if.end.i ], [ %conv6.i, %if.end3.i ], [ 0, %if.end.i30 ], [ %conv6.i35, %if.end3.i36 ], [ 1, %cond.false ], [ 17, %if.end7.i ], [ 17, %if.end.i40 ], [ 0, %if.end.i49 ], [ %conv8.i, %if.then5.i55 ], [ %conv17.i, %if.end9.i ], [ %conv3.i, %if.then.i64 ], [ 0, %if.end9.i69 ], [ %conv18.i, %if.end10.i ], [ %conv19.i, %if.end18.i ], [ 0, %if.end.i81 ], [ %conv3.i92, %if.then.i93 ], [ 0, %if.end9.i100 ], [ %conv18.i105, %if.end10.i106 ], [ 1, %sw.bb21 ], [ 1, %if.end.i113 ]
+  ret i32 %macroblock_type.0
 }
 
 ; Function Attrs: nofree nounwind
@@ -392,89 +393,90 @@ declare noundef i32 @printf(ptr nocapture noundef readonly, ...) local_unnamed_a
 
 ; Function Attrs: nounwind uwtable
 define dso_local i32 @Get_motion_code() local_unnamed_addr #0 {
-  %1 = tail call i32 @Get_Bits1() #4
-  %2 = icmp eq i32 %1, 0
-  br i1 %2, label %3, label %57
+entry:
+  %call = tail call i32 @Get_Bits1() #4
+  %tobool.not = icmp eq i32 %call, 0
+  br i1 %tobool.not, label %if.end, label %cleanup
 
-3:                                                ; preds = %0
-  %4 = tail call i32 @Show_Bits(i32 noundef 9) #4
-  %5 = icmp sgt i32 %4, 63
-  br i1 %5, label %6, label %19
+if.end:                                           ; preds = %entry
+  %call1 = tail call i32 @Show_Bits(i32 noundef 9) #4
+  %cmp = icmp sgt i32 %call1, 63
+  br i1 %cmp, label %if.then2, label %if.end12
 
-6:                                                ; preds = %3
-  %7 = lshr i32 %4, 6
-  %8 = zext i32 %7 to i64
-  %9 = getelementptr inbounds [8 x %struct.VLCtab], ptr @MVtab0, i64 0, i64 %8
-  %10 = getelementptr inbounds [8 x %struct.VLCtab], ptr @MVtab0, i64 0, i64 %8, i32 1
-  %11 = load i8, ptr %10, align 1, !tbaa !13
-  %12 = sext i8 %11 to i32
-  tail call void @Flush_Buffer(i32 noundef %12) #4
-  %13 = tail call i32 @Get_Bits1() #4
-  %14 = icmp eq i32 %13, 0
-  %15 = load i8, ptr %9, align 2, !tbaa !15
-  %16 = sext i8 %15 to i32
-  %17 = sub nsw i32 0, %16
-  %18 = select i1 %14, i32 %16, i32 %17
-  br label %57
+if.then2:                                         ; preds = %if.end
+  %shr = lshr i32 %call1, 6
+  %idxprom = zext i32 %shr to i64
+  %arrayidx = getelementptr inbounds [8 x %struct.VLCtab], ptr @MVtab0, i64 0, i64 %idxprom
+  %len = getelementptr inbounds [8 x %struct.VLCtab], ptr @MVtab0, i64 0, i64 %idxprom, i32 1
+  %0 = load i8, ptr %len, align 1, !tbaa !13
+  %conv = sext i8 %0 to i32
+  tail call void @Flush_Buffer(i32 noundef %conv) #4
+  %call3 = tail call i32 @Get_Bits1() #4
+  %tobool4.not = icmp eq i32 %call3, 0
+  %1 = load i8, ptr %arrayidx, align 2, !tbaa !15
+  %conv11 = sext i8 %1 to i32
+  %sub = sub nsw i32 0, %conv11
+  %spec.select = select i1 %tobool4.not, i32 %conv11, i32 %sub
+  br label %cleanup
 
-19:                                               ; preds = %3
-  %20 = icmp sgt i32 %4, 23
-  br i1 %20, label %21, label %34
+if.end12:                                         ; preds = %if.end
+  %cmp13 = icmp sgt i32 %call1, 23
+  br i1 %cmp13, label %if.then15, label %if.end36
 
-21:                                               ; preds = %19
-  %22 = lshr i32 %4, 3
-  %23 = zext i32 %22 to i64
-  %24 = getelementptr inbounds [8 x %struct.VLCtab], ptr @MVtab1, i64 0, i64 %23
-  %25 = getelementptr inbounds [8 x %struct.VLCtab], ptr @MVtab1, i64 0, i64 %23, i32 1
-  %26 = load i8, ptr %25, align 1, !tbaa !13
-  %27 = sext i8 %26 to i32
-  tail call void @Flush_Buffer(i32 noundef %27) #4
-  %28 = tail call i32 @Get_Bits1() #4
-  %29 = icmp eq i32 %28, 0
-  %30 = load i8, ptr %24, align 2, !tbaa !15
-  %31 = sext i8 %30 to i32
-  %32 = sub nsw i32 0, %31
-  %33 = select i1 %29, i32 %31, i32 %32
-  br label %57
+if.then15:                                        ; preds = %if.end12
+  %shr16 = lshr i32 %call1, 3
+  %idxprom17 = zext i32 %shr16 to i64
+  %arrayidx18 = getelementptr inbounds [8 x %struct.VLCtab], ptr @MVtab1, i64 0, i64 %idxprom17
+  %len19 = getelementptr inbounds [8 x %struct.VLCtab], ptr @MVtab1, i64 0, i64 %idxprom17, i32 1
+  %2 = load i8, ptr %len19, align 1, !tbaa !13
+  %conv20 = sext i8 %2 to i32
+  tail call void @Flush_Buffer(i32 noundef %conv20) #4
+  %call21 = tail call i32 @Get_Bits1() #4
+  %tobool22.not = icmp eq i32 %call21, 0
+  %3 = load i8, ptr %arrayidx18, align 2, !tbaa !15
+  %conv33 = sext i8 %3 to i32
+  %sub28 = sub nsw i32 0, %conv33
+  %spec.select77 = select i1 %tobool22.not, i32 %conv33, i32 %sub28
+  br label %cleanup
 
-34:                                               ; preds = %19
-  %35 = icmp slt i32 %4, 12
-  br i1 %35, label %36, label %44
+if.end36:                                         ; preds = %if.end12
+  %cmp38 = icmp slt i32 %call1, 12
+  br i1 %cmp38, label %if.then40, label %if.end45
 
-36:                                               ; preds = %34
-  %37 = load i32, ptr @Quiet_Flag, align 4, !tbaa !12
-  %38 = icmp eq i32 %37, 0
-  br i1 %38, label %39, label %43
+if.then40:                                        ; preds = %if.end36
+  %4 = load i32, ptr @Quiet_Flag, align 4, !tbaa !12
+  %tobool41.not = icmp eq i32 %4, 0
+  br i1 %tobool41.not, label %if.then42, label %if.end44
 
-39:                                               ; preds = %36
-  %40 = load i32, ptr @global_MBA, align 4, !tbaa !12
-  %41 = load i32, ptr @global_pic, align 4, !tbaa !12
-  %42 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.1, i32 noundef %40, i32 noundef %41)
-  br label %43
+if.then42:                                        ; preds = %if.then40
+  %5 = load i32, ptr @global_MBA, align 4, !tbaa !12
+  %6 = load i32, ptr @global_pic, align 4, !tbaa !12
+  %call43 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.1, i32 noundef %5, i32 noundef %6)
+  br label %if.end44
 
-43:                                               ; preds = %39, %36
+if.end44:                                         ; preds = %if.then42, %if.then40
   store i32 1, ptr @Fault_Flag, align 4, !tbaa !12
-  br label %57
+  br label %cleanup
 
-44:                                               ; preds = %34
-  %45 = add nsw i32 %4, -12
-  %46 = zext i32 %45 to i64
-  %47 = getelementptr inbounds [12 x %struct.VLCtab], ptr @MVtab2, i64 0, i64 %46
-  %48 = getelementptr inbounds [12 x %struct.VLCtab], ptr @MVtab2, i64 0, i64 %46, i32 1
-  %49 = load i8, ptr %48, align 1, !tbaa !13
-  %50 = sext i8 %49 to i32
-  tail call void @Flush_Buffer(i32 noundef %50) #4
-  %51 = tail call i32 @Get_Bits1() #4
-  %52 = icmp eq i32 %51, 0
-  %53 = load i8, ptr %47, align 2, !tbaa !15
-  %54 = sext i8 %53 to i32
-  %55 = sub nsw i32 0, %54
-  %56 = select i1 %52, i32 %54, i32 %55
-  br label %57
+if.end45:                                         ; preds = %if.end36
+  %sub37 = add nsw i32 %call1, -12
+  %idxprom46 = zext i32 %sub37 to i64
+  %arrayidx47 = getelementptr inbounds [12 x %struct.VLCtab], ptr @MVtab2, i64 0, i64 %idxprom46
+  %len48 = getelementptr inbounds [12 x %struct.VLCtab], ptr @MVtab2, i64 0, i64 %idxprom46, i32 1
+  %7 = load i8, ptr %len48, align 1, !tbaa !13
+  %conv49 = sext i8 %7 to i32
+  tail call void @Flush_Buffer(i32 noundef %conv49) #4
+  %call50 = tail call i32 @Get_Bits1() #4
+  %tobool51.not = icmp eq i32 %call50, 0
+  %8 = load i8, ptr %arrayidx47, align 2, !tbaa !15
+  %conv62 = sext i8 %8 to i32
+  %sub57 = sub nsw i32 0, %conv62
+  %spec.select78 = select i1 %tobool51.not, i32 %conv62, i32 %sub57
+  br label %cleanup
 
-57:                                               ; preds = %44, %21, %6, %0, %43
-  %58 = phi i32 [ 0, %43 ], [ 0, %0 ], [ %18, %6 ], [ %33, %21 ], [ %56, %44 ]
-  ret i32 %58
+cleanup:                                          ; preds = %if.end45, %if.then15, %if.then2, %entry, %if.end44
+  %retval.0 = phi i32 [ 0, %if.end44 ], [ 0, %entry ], [ %spec.select, %if.then2 ], [ %spec.select77, %if.then15 ], [ %spec.select78, %if.end45 ]
+  ret i32 %retval.0
 }
 
 declare i32 @Get_Bits1() local_unnamed_addr #2
@@ -485,272 +487,277 @@ declare void @Flush_Buffer(i32 noundef) local_unnamed_addr #2
 
 ; Function Attrs: nounwind uwtable
 define dso_local i32 @Get_dmvector() local_unnamed_addr #0 {
-  %1 = tail call i32 @Get_Bits(i32 noundef 1) #4
-  %2 = icmp eq i32 %1, 0
-  br i1 %2, label %7, label %3
+entry:
+  %call = tail call i32 @Get_Bits(i32 noundef 1) #4
+  %tobool.not = icmp eq i32 %call, 0
+  br i1 %tobool.not, label %return, label %if.then
 
-3:                                                ; preds = %0
-  %4 = tail call i32 @Get_Bits(i32 noundef 1) #4
-  %5 = icmp eq i32 %4, 0
-  %6 = select i1 %5, i32 1, i32 -1
-  br label %7
+if.then:                                          ; preds = %entry
+  %call1 = tail call i32 @Get_Bits(i32 noundef 1) #4
+  %tobool2.not = icmp eq i32 %call1, 0
+  %cond = select i1 %tobool2.not, i32 1, i32 -1
+  br label %return
 
-7:                                                ; preds = %0, %3
-  %8 = phi i32 [ %6, %3 ], [ 0, %0 ]
-  ret i32 %8
+return:                                           ; preds = %entry, %if.then
+  %retval.0 = phi i32 [ %cond, %if.then ], [ 0, %entry ]
+  ret i32 %retval.0
 }
 
 declare i32 @Get_Bits(i32 noundef) local_unnamed_addr #2
 
 ; Function Attrs: nounwind uwtable
 define dso_local i32 @Get_coded_block_pattern() local_unnamed_addr #0 {
-  %1 = tail call i32 @Show_Bits(i32 noundef 9) #4
-  %2 = icmp sgt i32 %1, 127
-  br i1 %2, label %3, label %12
+entry:
+  %call = tail call i32 @Show_Bits(i32 noundef 9) #4
+  %cmp = icmp sgt i32 %call, 127
+  br i1 %cmp, label %if.then, label %if.end
 
-3:                                                ; preds = %0
-  %4 = lshr i32 %1, 4
-  %5 = zext i32 %4 to i64
-  %6 = getelementptr inbounds [32 x %struct.VLCtab], ptr @CBPtab0, i64 0, i64 %5
-  %7 = getelementptr inbounds [32 x %struct.VLCtab], ptr @CBPtab0, i64 0, i64 %5, i32 1
-  %8 = load i8, ptr %7, align 1, !tbaa !13
-  %9 = sext i8 %8 to i32
-  tail call void @Flush_Buffer(i32 noundef %9) #4
-  %10 = load i8, ptr %6, align 2, !tbaa !15
-  %11 = sext i8 %10 to i32
-  br label %39
+if.then:                                          ; preds = %entry
+  %shr = lshr i32 %call, 4
+  %idxprom = zext i32 %shr to i64
+  %arrayidx = getelementptr inbounds [32 x %struct.VLCtab], ptr @CBPtab0, i64 0, i64 %idxprom
+  %len = getelementptr inbounds [32 x %struct.VLCtab], ptr @CBPtab0, i64 0, i64 %idxprom, i32 1
+  %0 = load i8, ptr %len, align 1, !tbaa !13
+  %conv = sext i8 %0 to i32
+  tail call void @Flush_Buffer(i32 noundef %conv) #4
+  %1 = load i8, ptr %arrayidx, align 2, !tbaa !15
+  %conv3 = sext i8 %1 to i32
+  br label %cleanup
 
-12:                                               ; preds = %0
-  %13 = icmp sgt i32 %1, 7
-  br i1 %13, label %14, label %23
+if.end:                                           ; preds = %entry
+  %cmp4 = icmp sgt i32 %call, 7
+  br i1 %cmp4, label %if.then6, label %if.end16
 
-14:                                               ; preds = %12
-  %15 = lshr i32 %1, 1
-  %16 = zext i32 %15 to i64
-  %17 = getelementptr inbounds [64 x %struct.VLCtab], ptr @CBPtab1, i64 0, i64 %16
-  %18 = getelementptr inbounds [64 x %struct.VLCtab], ptr @CBPtab1, i64 0, i64 %16, i32 1
-  %19 = load i8, ptr %18, align 1, !tbaa !13
-  %20 = sext i8 %19 to i32
-  tail call void @Flush_Buffer(i32 noundef %20) #4
-  %21 = load i8, ptr %17, align 2, !tbaa !15
-  %22 = sext i8 %21 to i32
-  br label %39
+if.then6:                                         ; preds = %if.end
+  %shr7 = lshr i32 %call, 1
+  %idxprom8 = zext i32 %shr7 to i64
+  %arrayidx9 = getelementptr inbounds [64 x %struct.VLCtab], ptr @CBPtab1, i64 0, i64 %idxprom8
+  %len10 = getelementptr inbounds [64 x %struct.VLCtab], ptr @CBPtab1, i64 0, i64 %idxprom8, i32 1
+  %2 = load i8, ptr %len10, align 1, !tbaa !13
+  %conv11 = sext i8 %2 to i32
+  tail call void @Flush_Buffer(i32 noundef %conv11) #4
+  %3 = load i8, ptr %arrayidx9, align 2, !tbaa !15
+  %conv15 = sext i8 %3 to i32
+  br label %cleanup
 
-23:                                               ; preds = %12
-  %24 = icmp slt i32 %1, 1
-  br i1 %24, label %25, label %31
+if.end16:                                         ; preds = %if.end
+  %cmp17 = icmp slt i32 %call, 1
+  br i1 %cmp17, label %if.then19, label %if.end23
 
-25:                                               ; preds = %23
-  %26 = load i32, ptr @Quiet_Flag, align 4, !tbaa !12
-  %27 = icmp eq i32 %26, 0
-  br i1 %27, label %28, label %30
+if.then19:                                        ; preds = %if.end16
+  %4 = load i32, ptr @Quiet_Flag, align 4, !tbaa !12
+  %tobool.not = icmp eq i32 %4, 0
+  br i1 %tobool.not, label %if.then20, label %if.end22
 
-28:                                               ; preds = %25
-  %29 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.13)
-  br label %30
+if.then20:                                        ; preds = %if.then19
+  %puts = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.13)
+  br label %if.end22
 
-30:                                               ; preds = %28, %25
+if.end22:                                         ; preds = %if.then20, %if.then19
   store i32 1, ptr @Fault_Flag, align 4, !tbaa !12
-  br label %39
+  br label %cleanup
 
-31:                                               ; preds = %23
-  %32 = zext i32 %1 to i64
-  %33 = getelementptr inbounds [8 x %struct.VLCtab], ptr @CBPtab2, i64 0, i64 %32
-  %34 = getelementptr inbounds [8 x %struct.VLCtab], ptr @CBPtab2, i64 0, i64 %32, i32 1
-  %35 = load i8, ptr %34, align 1, !tbaa !13
-  %36 = sext i8 %35 to i32
-  tail call void @Flush_Buffer(i32 noundef %36) #4
-  %37 = load i8, ptr %33, align 2, !tbaa !15
-  %38 = sext i8 %37 to i32
-  br label %39
+if.end23:                                         ; preds = %if.end16
+  %idxprom24 = zext i32 %call to i64
+  %arrayidx25 = getelementptr inbounds [8 x %struct.VLCtab], ptr @CBPtab2, i64 0, i64 %idxprom24
+  %len26 = getelementptr inbounds [8 x %struct.VLCtab], ptr @CBPtab2, i64 0, i64 %idxprom24, i32 1
+  %5 = load i8, ptr %len26, align 1, !tbaa !13
+  %conv27 = sext i8 %5 to i32
+  tail call void @Flush_Buffer(i32 noundef %conv27) #4
+  %6 = load i8, ptr %arrayidx25, align 2, !tbaa !15
+  %conv31 = sext i8 %6 to i32
+  br label %cleanup
 
-39:                                               ; preds = %31, %30, %14, %3
-  %40 = phi i32 [ %11, %3 ], [ %22, %14 ], [ 0, %30 ], [ %38, %31 ]
-  ret i32 %40
+cleanup:                                          ; preds = %if.end23, %if.end22, %if.then6, %if.then
+  %retval.0 = phi i32 [ %conv3, %if.then ], [ %conv15, %if.then6 ], [ 0, %if.end22 ], [ %conv31, %if.end23 ]
+  ret i32 %retval.0
 }
 
 ; Function Attrs: nounwind uwtable
 define dso_local i32 @Get_macroblock_address_increment() local_unnamed_addr #0 {
-  %1 = tail call i32 @Show_Bits(i32 noundef 11) #4
-  %2 = icmp slt i32 %1, 24
-  br i1 %2, label %3, label %18
+entry:
+  %call45 = tail call i32 @Show_Bits(i32 noundef 11) #4
+  %cmp46 = icmp slt i32 %call45, 24
+  br i1 %cmp46, label %while.body, label %while.end
 
-3:                                                ; preds = %0, %14
-  %4 = phi i32 [ %16, %14 ], [ %1, %0 ]
-  %5 = phi i32 [ %15, %14 ], [ 0, %0 ]
-  switch i32 %4, label %8 [
-    i32 15, label %14
-    i32 8, label %6
+while.body:                                       ; preds = %entry, %if.end8
+  %call48 = phi i32 [ %call, %if.end8 ], [ %call45, %entry ]
+  %val.047 = phi i32 [ %val.1, %if.end8 ], [ 0, %entry ]
+  switch i32 %call48, label %if.else [
+    i32 15, label %if.end8
+    i32 8, label %if.then3
   ]
 
-6:                                                ; preds = %3
-  %7 = add nsw i32 %5, 33
-  br label %14
+if.then3:                                         ; preds = %while.body
+  %add = add nsw i32 %val.047, 33
+  br label %if.end8
 
-8:                                                ; preds = %3
-  %9 = load i32, ptr @Quiet_Flag, align 4, !tbaa !12
-  %10 = icmp eq i32 %9, 0
-  br i1 %10, label %11, label %13
+if.else:                                          ; preds = %while.body
+  %0 = load i32, ptr @Quiet_Flag, align 4, !tbaa !12
+  %tobool.not = icmp eq i32 %0, 0
+  br i1 %tobool.not, label %if.then4, label %if.end
 
-11:                                               ; preds = %8
-  %12 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.14)
-  br label %13
+if.then4:                                         ; preds = %if.else
+  %puts = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.14)
+  br label %if.end
 
-13:                                               ; preds = %11, %8
+if.end:                                           ; preds = %if.then4, %if.else
   store i32 1, ptr @Fault_Flag, align 4, !tbaa !12
-  br label %46
+  br label %cleanup
 
-14:                                               ; preds = %3, %6
-  %15 = phi i32 [ %7, %6 ], [ %5, %3 ]
+if.end8:                                          ; preds = %while.body, %if.then3
+  %val.1 = phi i32 [ %add, %if.then3 ], [ %val.047, %while.body ]
   tail call void @Flush_Buffer(i32 noundef 11) #4
-  %16 = tail call i32 @Show_Bits(i32 noundef 11) #4
-  %17 = icmp slt i32 %16, 24
-  br i1 %17, label %3, label %18, !llvm.loop !17
+  %call = tail call i32 @Show_Bits(i32 noundef 11) #4
+  %cmp = icmp slt i32 %call, 24
+  br i1 %cmp, label %while.body, label %while.end, !llvm.loop !17
 
-18:                                               ; preds = %14, %0
-  %19 = phi i32 [ 0, %0 ], [ %15, %14 ]
-  %20 = phi i32 [ %1, %0 ], [ %16, %14 ]
-  %21 = icmp ugt i32 %20, 1023
-  br i1 %21, label %22, label %24
+while.end:                                        ; preds = %if.end8, %entry
+  %val.0.lcssa = phi i32 [ 0, %entry ], [ %val.1, %if.end8 ]
+  %call.lcssa = phi i32 [ %call45, %entry ], [ %call, %if.end8 ]
+  %cmp9 = icmp ugt i32 %call.lcssa, 1023
+  br i1 %cmp9, label %if.then10, label %if.end12
 
-22:                                               ; preds = %18
+if.then10:                                        ; preds = %while.end
   tail call void @Flush_Buffer(i32 noundef 1) #4
-  %23 = add nsw i32 %19, 1
-  br label %46
+  %add11 = add nsw i32 %val.0.lcssa, 1
+  br label %cleanup
 
-24:                                               ; preds = %18
-  %25 = icmp ugt i32 %20, 127
-  br i1 %25, label %26, label %36
+if.end12:                                         ; preds = %while.end
+  %cmp13 = icmp ugt i32 %call.lcssa, 127
+  br i1 %cmp13, label %if.then14, label %if.end20
 
-26:                                               ; preds = %24
-  %27 = lshr i32 %20, 6
-  %28 = zext i32 %27 to i64
-  %29 = getelementptr inbounds [16 x %struct.VLCtab], ptr @MBAtab1, i64 0, i64 %28
-  %30 = getelementptr inbounds [16 x %struct.VLCtab], ptr @MBAtab1, i64 0, i64 %28, i32 1
-  %31 = load i8, ptr %30, align 1, !tbaa !13
-  %32 = sext i8 %31 to i32
-  tail call void @Flush_Buffer(i32 noundef %32) #4
-  %33 = load i8, ptr %29, align 2, !tbaa !15
-  %34 = sext i8 %33 to i32
-  %35 = add nsw i32 %19, %34
-  br label %46
+if.then14:                                        ; preds = %if.end12
+  %shr = lshr i32 %call.lcssa, 6
+  %idxprom = zext i32 %shr to i64
+  %arrayidx = getelementptr inbounds [16 x %struct.VLCtab], ptr @MBAtab1, i64 0, i64 %idxprom
+  %len = getelementptr inbounds [16 x %struct.VLCtab], ptr @MBAtab1, i64 0, i64 %idxprom, i32 1
+  %1 = load i8, ptr %len, align 1, !tbaa !13
+  %conv = sext i8 %1 to i32
+  tail call void @Flush_Buffer(i32 noundef %conv) #4
+  %2 = load i8, ptr %arrayidx, align 2, !tbaa !15
+  %conv18 = sext i8 %2 to i32
+  %add19 = add nsw i32 %val.0.lcssa, %conv18
+  br label %cleanup
 
-36:                                               ; preds = %24
-  %37 = add nsw i32 %20, -24
-  %38 = zext i32 %37 to i64
-  %39 = getelementptr inbounds [104 x %struct.VLCtab], ptr @MBAtab2, i64 0, i64 %38
-  %40 = getelementptr inbounds [104 x %struct.VLCtab], ptr @MBAtab2, i64 0, i64 %38, i32 1
-  %41 = load i8, ptr %40, align 1, !tbaa !13
-  %42 = sext i8 %41 to i32
-  tail call void @Flush_Buffer(i32 noundef %42) #4
-  %43 = load i8, ptr %39, align 2, !tbaa !15
-  %44 = sext i8 %43 to i32
-  %45 = add nsw i32 %19, %44
-  br label %46
+if.end20:                                         ; preds = %if.end12
+  %sub = add nsw i32 %call.lcssa, -24
+  %idxprom21 = zext i32 %sub to i64
+  %arrayidx22 = getelementptr inbounds [104 x %struct.VLCtab], ptr @MBAtab2, i64 0, i64 %idxprom21
+  %len23 = getelementptr inbounds [104 x %struct.VLCtab], ptr @MBAtab2, i64 0, i64 %idxprom21, i32 1
+  %3 = load i8, ptr %len23, align 1, !tbaa !13
+  %conv24 = sext i8 %3 to i32
+  tail call void @Flush_Buffer(i32 noundef %conv24) #4
+  %4 = load i8, ptr %arrayidx22, align 2, !tbaa !15
+  %conv28 = sext i8 %4 to i32
+  %add29 = add nsw i32 %val.0.lcssa, %conv28
+  br label %cleanup
 
-46:                                               ; preds = %36, %26, %22, %13
-  %47 = phi i32 [ 1, %13 ], [ %23, %22 ], [ %35, %26 ], [ %45, %36 ]
-  ret i32 %47
+cleanup:                                          ; preds = %if.end20, %if.then14, %if.then10, %if.end
+  %retval.0 = phi i32 [ 1, %if.end ], [ %add11, %if.then10 ], [ %add19, %if.then14 ], [ %add29, %if.end20 ]
+  ret i32 %retval.0
 }
 
 ; Function Attrs: nounwind uwtable
 define dso_local i32 @Get_Luma_DC_dct_diff() local_unnamed_addr #0 {
-  %1 = tail call i32 @Show_Bits(i32 noundef 5) #4
-  %2 = icmp slt i32 %1, 31
-  br i1 %2, label %3, label %7
+entry:
+  %call = tail call i32 @Show_Bits(i32 noundef 5) #4
+  %cmp = icmp slt i32 %call, 31
+  br i1 %cmp, label %if.then, label %if.else
 
-3:                                                ; preds = %0
-  %4 = sext i32 %1 to i64
-  %5 = getelementptr inbounds [32 x %struct.VLCtab], ptr @DClumtab0, i64 0, i64 %4
-  %6 = getelementptr inbounds [32 x %struct.VLCtab], ptr @DClumtab0, i64 0, i64 %4, i32 1
-  br label %13
+if.then:                                          ; preds = %entry
+  %idxprom = sext i32 %call to i64
+  %arrayidx = getelementptr inbounds [32 x %struct.VLCtab], ptr @DClumtab0, i64 0, i64 %idxprom
+  %len = getelementptr inbounds [32 x %struct.VLCtab], ptr @DClumtab0, i64 0, i64 %idxprom, i32 1
+  br label %if.end
 
-7:                                                ; preds = %0
-  %8 = tail call i32 @Show_Bits(i32 noundef 9) #4
-  %9 = add i32 %8, -496
-  %10 = sext i32 %9 to i64
-  %11 = getelementptr inbounds [16 x %struct.VLCtab], ptr @DClumtab1, i64 0, i64 %10
-  %12 = getelementptr inbounds [16 x %struct.VLCtab], ptr @DClumtab1, i64 0, i64 %10, i32 1
-  br label %13
+if.else:                                          ; preds = %entry
+  %call4 = tail call i32 @Show_Bits(i32 noundef 9) #4
+  %sub = add i32 %call4, -496
+  %idxprom5 = sext i32 %sub to i64
+  %arrayidx6 = getelementptr inbounds [16 x %struct.VLCtab], ptr @DClumtab1, i64 0, i64 %idxprom5
+  %len11 = getelementptr inbounds [16 x %struct.VLCtab], ptr @DClumtab1, i64 0, i64 %idxprom5, i32 1
+  br label %if.end
 
-13:                                               ; preds = %7, %3
-  %14 = phi ptr [ %12, %7 ], [ %6, %3 ]
-  %15 = phi ptr [ %11, %7 ], [ %5, %3 ]
-  %16 = load i8, ptr %15, align 2, !tbaa !15
-  %17 = load i8, ptr %14, align 1, !tbaa !13
-  %18 = sext i8 %17 to i32
-  tail call void @Flush_Buffer(i32 noundef %18) #4
-  %19 = sext i8 %16 to i32
-  %20 = icmp eq i8 %16, 0
-  br i1 %20, label %31, label %21
+if.end:                                           ; preds = %if.else, %if.then
+  %len11.sink = phi ptr [ %len11, %if.else ], [ %len, %if.then ]
+  %size.0.in.in = phi ptr [ %arrayidx6, %if.else ], [ %arrayidx, %if.then ]
+  %size.0.in = load i8, ptr %size.0.in.in, align 2, !tbaa !15
+  %0 = load i8, ptr %len11.sink, align 1, !tbaa !13
+  %conv12 = sext i8 %0 to i32
+  tail call void @Flush_Buffer(i32 noundef %conv12) #4
+  %size.0 = sext i8 %size.0.in to i32
+  %cmp13 = icmp eq i8 %size.0.in, 0
+  br i1 %cmp13, label %if.end26, label %if.else16
 
-21:                                               ; preds = %13
-  %22 = tail call i32 @Get_Bits(i32 noundef %19) #4
-  %23 = add nsw i32 %19, -1
-  %24 = shl nuw i32 1, %23
-  %25 = and i32 %22, %24
-  %26 = icmp eq i32 %25, 0
-  br i1 %26, label %27, label %31
+if.else16:                                        ; preds = %if.end
+  %call17 = tail call i32 @Get_Bits(i32 noundef %size.0) #4
+  %sub18 = add nsw i32 %size.0, -1
+  %shl = shl nuw i32 1, %sub18
+  %and = and i32 %call17, %shl
+  %cmp19 = icmp eq i32 %and, 0
+  br i1 %cmp19, label %if.then21, label %if.end26
 
-27:                                               ; preds = %21
-  %28 = shl nsw i32 -1, %19
-  %29 = add nsw i32 %28, 1
-  %30 = add i32 %29, %22
-  br label %31
+if.then21:                                        ; preds = %if.else16
+  %notmask = shl nsw i32 -1, %size.0
+  %sub23.neg = add nsw i32 %notmask, 1
+  %sub24 = add i32 %sub23.neg, %call17
+  br label %if.end26
 
-31:                                               ; preds = %13, %21, %27
-  %32 = phi i32 [ %30, %27 ], [ %22, %21 ], [ 0, %13 ]
-  ret i32 %32
+if.end26:                                         ; preds = %if.end, %if.else16, %if.then21
+  %dct_diff.0 = phi i32 [ %sub24, %if.then21 ], [ %call17, %if.else16 ], [ 0, %if.end ]
+  ret i32 %dct_diff.0
 }
 
 ; Function Attrs: nounwind uwtable
 define dso_local i32 @Get_Chroma_DC_dct_diff() local_unnamed_addr #0 {
-  %1 = tail call i32 @Show_Bits(i32 noundef 5) #4
-  %2 = icmp slt i32 %1, 31
-  br i1 %2, label %3, label %7
+entry:
+  %call = tail call i32 @Show_Bits(i32 noundef 5) #4
+  %cmp = icmp slt i32 %call, 31
+  br i1 %cmp, label %if.then, label %if.else
 
-3:                                                ; preds = %0
-  %4 = sext i32 %1 to i64
-  %5 = getelementptr inbounds [32 x %struct.VLCtab], ptr @DCchromtab0, i64 0, i64 %4
-  %6 = getelementptr inbounds [32 x %struct.VLCtab], ptr @DCchromtab0, i64 0, i64 %4, i32 1
-  br label %13
+if.then:                                          ; preds = %entry
+  %idxprom = sext i32 %call to i64
+  %arrayidx = getelementptr inbounds [32 x %struct.VLCtab], ptr @DCchromtab0, i64 0, i64 %idxprom
+  %len = getelementptr inbounds [32 x %struct.VLCtab], ptr @DCchromtab0, i64 0, i64 %idxprom, i32 1
+  br label %if.end
 
-7:                                                ; preds = %0
-  %8 = tail call i32 @Show_Bits(i32 noundef 10) #4
-  %9 = add i32 %8, -992
-  %10 = sext i32 %9 to i64
-  %11 = getelementptr inbounds [32 x %struct.VLCtab], ptr @DCchromtab1, i64 0, i64 %10
-  %12 = getelementptr inbounds [32 x %struct.VLCtab], ptr @DCchromtab1, i64 0, i64 %10, i32 1
-  br label %13
+if.else:                                          ; preds = %entry
+  %call4 = tail call i32 @Show_Bits(i32 noundef 10) #4
+  %sub = add i32 %call4, -992
+  %idxprom5 = sext i32 %sub to i64
+  %arrayidx6 = getelementptr inbounds [32 x %struct.VLCtab], ptr @DCchromtab1, i64 0, i64 %idxprom5
+  %len11 = getelementptr inbounds [32 x %struct.VLCtab], ptr @DCchromtab1, i64 0, i64 %idxprom5, i32 1
+  br label %if.end
 
-13:                                               ; preds = %7, %3
-  %14 = phi ptr [ %12, %7 ], [ %6, %3 ]
-  %15 = phi ptr [ %11, %7 ], [ %5, %3 ]
-  %16 = load i8, ptr %15, align 2, !tbaa !15
-  %17 = load i8, ptr %14, align 1, !tbaa !13
-  %18 = sext i8 %17 to i32
-  tail call void @Flush_Buffer(i32 noundef %18) #4
-  %19 = sext i8 %16 to i32
-  %20 = icmp eq i8 %16, 0
-  br i1 %20, label %31, label %21
+if.end:                                           ; preds = %if.else, %if.then
+  %len11.sink = phi ptr [ %len11, %if.else ], [ %len, %if.then ]
+  %size.0.in.in = phi ptr [ %arrayidx6, %if.else ], [ %arrayidx, %if.then ]
+  %size.0.in = load i8, ptr %size.0.in.in, align 2, !tbaa !15
+  %0 = load i8, ptr %len11.sink, align 1, !tbaa !13
+  %conv12 = sext i8 %0 to i32
+  tail call void @Flush_Buffer(i32 noundef %conv12) #4
+  %size.0 = sext i8 %size.0.in to i32
+  %cmp13 = icmp eq i8 %size.0.in, 0
+  br i1 %cmp13, label %if.end26, label %if.else16
 
-21:                                               ; preds = %13
-  %22 = tail call i32 @Get_Bits(i32 noundef %19) #4
-  %23 = add nsw i32 %19, -1
-  %24 = shl nuw i32 1, %23
-  %25 = and i32 %22, %24
-  %26 = icmp eq i32 %25, 0
-  br i1 %26, label %27, label %31
+if.else16:                                        ; preds = %if.end
+  %call17 = tail call i32 @Get_Bits(i32 noundef %size.0) #4
+  %sub18 = add nsw i32 %size.0, -1
+  %shl = shl nuw i32 1, %sub18
+  %and = and i32 %call17, %shl
+  %cmp19 = icmp eq i32 %and, 0
+  br i1 %cmp19, label %if.then21, label %if.end26
 
-27:                                               ; preds = %21
-  %28 = shl nsw i32 -1, %19
-  %29 = add nsw i32 %28, 1
-  %30 = add i32 %29, %22
-  br label %31
+if.then21:                                        ; preds = %if.else16
+  %notmask = shl nsw i32 -1, %size.0
+  %sub23.neg = add nsw i32 %notmask, 1
+  %sub24 = add i32 %sub23.neg, %call17
+  br label %if.end26
 
-31:                                               ; preds = %13, %21, %27
-  %32 = phi i32 [ %30, %27 ], [ %22, %21 ], [ 0, %13 ]
-  ret i32 %32
+if.end26:                                         ; preds = %if.end, %if.else16, %if.then21
+  %dct_diff.0 = phi i32 [ %sub24, %if.then21 ], [ %call17, %if.else16 ], [ 0, %if.end ]
+  ret i32 %dct_diff.0
 }
 
 ; Function Attrs: nofree nounwind

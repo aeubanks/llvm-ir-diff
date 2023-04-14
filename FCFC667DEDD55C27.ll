@@ -44,151 +44,149 @@ target triple = "x86_64-unknown-linux-gnu"
 @.str.34 = private unnamed_addr constant [34 x i8] c"*** unknown regexp error code ***\00", align 1
 @.str.35 = private unnamed_addr constant [2 x i8] c"0\00", align 1
 @.str.36 = private unnamed_addr constant [3 x i8] c"%d\00", align 1
-@switch.table.cli_regerror = private unnamed_addr constant [16 x ptr] [ptr @rerrs, ptr getelementptr inbounds ([17 x %struct.rerr], ptr @rerrs, i64 0, i64 1), ptr getelementptr inbounds ([17 x %struct.rerr], ptr @rerrs, i64 0, i64 2), ptr getelementptr inbounds ([17 x %struct.rerr], ptr @rerrs, i64 0, i64 3), ptr getelementptr inbounds ([17 x %struct.rerr], ptr @rerrs, i64 0, i64 4), ptr getelementptr inbounds ([17 x %struct.rerr], ptr @rerrs, i64 0, i64 5), ptr getelementptr inbounds ([17 x %struct.rerr], ptr @rerrs, i64 0, i64 6), ptr getelementptr inbounds ([17 x %struct.rerr], ptr @rerrs, i64 0, i64 7), ptr getelementptr inbounds ([17 x %struct.rerr], ptr @rerrs, i64 0, i64 8), ptr getelementptr inbounds ([17 x %struct.rerr], ptr @rerrs, i64 0, i64 9), ptr getelementptr inbounds ([17 x %struct.rerr], ptr @rerrs, i64 0, i64 10), ptr getelementptr inbounds ([17 x %struct.rerr], ptr @rerrs, i64 0, i64 11), ptr getelementptr inbounds ([17 x %struct.rerr], ptr @rerrs, i64 0, i64 12), ptr getelementptr inbounds ([17 x %struct.rerr], ptr @rerrs, i64 0, i64 13), ptr getelementptr inbounds ([17 x %struct.rerr], ptr @rerrs, i64 0, i64 14), ptr getelementptr inbounds ([17 x %struct.rerr], ptr @rerrs, i64 0, i64 15)], align 8
 
 ; Function Attrs: nounwind uwtable
-define dso_local i64 @cli_regerror(i32 noundef %0, ptr nocapture noundef readonly %1, ptr noundef %2, i64 noundef %3) local_unnamed_addr #0 {
-  %5 = alloca [50 x i8], align 16
-  %6 = and i32 %0, -257
-  call void @llvm.lifetime.start.p0(i64 50, ptr nonnull %5) #5
-  %7 = icmp eq i32 %0, 255
-  br i1 %7, label %11, label %8
+define dso_local i64 @cli_regerror(i32 noundef %errcode, ptr nocapture noundef readonly %preg, ptr noundef %errbuf, i64 noundef %errbuf_size) local_unnamed_addr #0 {
+entry:
+  %convbuf = alloca [50 x i8], align 16
+  %and = and i32 %errcode, -257
+  call void @llvm.lifetime.start.p0(i64 50, ptr nonnull %convbuf) #5
+  %cmp = icmp eq i32 %errcode, 255
+  br i1 %cmp, label %if.then, label %for.cond
 
-8:                                                ; preds = %4
-  %9 = add i32 %6, -1
-  %10 = icmp ult i32 %9, 16
-  br i1 %10, label %67, label %64
+if.then:                                          ; preds = %entry
+  %re_endp.i = getelementptr inbounds %struct.regex_t, ptr %preg, i64 0, i32 2
+  %0 = load ptr, ptr %re_endp.i, align 8, !tbaa !5
+  %call.i = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(12) @.str.1, ptr noundef nonnull dereferenceable(1) %0) #6
+  %cmp1.i = icmp eq i32 %call.i, 0
+  br i1 %cmp1.i, label %if.end5.i, label %for.cond.i
 
-11:                                               ; preds = %4
-  %12 = getelementptr inbounds %struct.regex_t, ptr %1, i64 0, i32 2
-  %13 = load ptr, ptr %12, align 8, !tbaa !5
-  %14 = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(12) @.str.1, ptr noundef nonnull dereferenceable(1) %13) #6
-  %15 = icmp eq i32 %14, 0
-  br i1 %15, label %61, label %16
+for.cond.i:                                       ; preds = %if.then
+  %call.1.i = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(11) @.str.3, ptr noundef nonnull dereferenceable(1) %0) #6
+  %cmp1.1.i = icmp eq i32 %call.1.i, 0
+  br i1 %cmp1.1.i, label %if.end5.i, label %for.cond.1.i
 
-16:                                               ; preds = %11
-  %17 = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(11) @.str.3, ptr noundef nonnull dereferenceable(1) %13) #6
-  %18 = icmp eq i32 %17, 0
-  br i1 %18, label %61, label %19
+for.cond.1.i:                                     ; preds = %for.cond.i
+  %call.2.i = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(13) @.str.5, ptr noundef nonnull dereferenceable(1) %0) #6
+  %cmp1.2.i = icmp eq i32 %call.2.i, 0
+  br i1 %cmp1.2.i, label %if.end5.i, label %for.cond.2.i
 
-19:                                               ; preds = %16
-  %20 = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(13) @.str.5, ptr noundef nonnull dereferenceable(1) %13) #6
-  %21 = icmp eq i32 %20, 0
-  br i1 %21, label %61, label %22
+for.cond.2.i:                                     ; preds = %for.cond.1.i
+  %call.3.i = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(11) @.str.7, ptr noundef nonnull dereferenceable(1) %0) #6
+  %cmp1.3.i = icmp eq i32 %call.3.i, 0
+  br i1 %cmp1.3.i, label %if.end5.i, label %for.cond.3.i
 
-22:                                               ; preds = %19
-  %23 = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(11) @.str.7, ptr noundef nonnull dereferenceable(1) %13) #6
-  %24 = icmp eq i32 %23, 0
-  br i1 %24, label %61, label %25
+for.cond.3.i:                                     ; preds = %for.cond.2.i
+  %call.4.i = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(12) @.str.9, ptr noundef nonnull dereferenceable(1) %0) #6
+  %cmp1.4.i = icmp eq i32 %call.4.i, 0
+  br i1 %cmp1.4.i, label %if.end5.i, label %for.cond.4.i
 
-25:                                               ; preds = %22
-  %26 = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(12) @.str.9, ptr noundef nonnull dereferenceable(1) %13) #6
-  %27 = icmp eq i32 %26, 0
-  br i1 %27, label %61, label %28
+for.cond.4.i:                                     ; preds = %for.cond.3.i
+  %call.5.i = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(12) @.str.11, ptr noundef nonnull dereferenceable(1) %0) #6
+  %cmp1.5.i = icmp eq i32 %call.5.i, 0
+  br i1 %cmp1.5.i, label %if.end5.i, label %for.cond.5.i
 
-28:                                               ; preds = %25
-  %29 = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(12) @.str.11, ptr noundef nonnull dereferenceable(1) %13) #6
-  %30 = icmp eq i32 %29, 0
-  br i1 %30, label %61, label %31
+for.cond.5.i:                                     ; preds = %for.cond.4.i
+  %call.6.i = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(11) @.str.13, ptr noundef nonnull dereferenceable(1) %0) #6
+  %cmp1.6.i = icmp eq i32 %call.6.i, 0
+  br i1 %cmp1.6.i, label %if.end5.i, label %for.cond.6.i
 
-31:                                               ; preds = %28
-  %32 = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(11) @.str.13, ptr noundef nonnull dereferenceable(1) %13) #6
-  %33 = icmp eq i32 %32, 0
-  br i1 %33, label %61, label %34
+for.cond.6.i:                                     ; preds = %for.cond.5.i
+  %call.7.i = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(11) @.str.15, ptr noundef nonnull dereferenceable(1) %0) #6
+  %cmp1.7.i = icmp eq i32 %call.7.i, 0
+  br i1 %cmp1.7.i, label %if.end5.i, label %for.cond.7.i
 
-34:                                               ; preds = %31
-  %35 = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(11) @.str.15, ptr noundef nonnull dereferenceable(1) %13) #6
-  %36 = icmp eq i32 %35, 0
-  br i1 %36, label %61, label %37
+for.cond.7.i:                                     ; preds = %for.cond.6.i
+  %call.8.i = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(11) @.str.17, ptr noundef nonnull dereferenceable(1) %0) #6
+  %cmp1.8.i = icmp eq i32 %call.8.i, 0
+  br i1 %cmp1.8.i, label %if.end5.i, label %for.cond.8.i
 
-37:                                               ; preds = %34
-  %38 = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(11) @.str.17, ptr noundef nonnull dereferenceable(1) %13) #6
-  %39 = icmp eq i32 %38, 0
-  br i1 %39, label %61, label %40
+for.cond.8.i:                                     ; preds = %for.cond.7.i
+  %call.9.i = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(10) @.str.19, ptr noundef nonnull dereferenceable(1) %0) #6
+  %cmp1.9.i = icmp eq i32 %call.9.i, 0
+  br i1 %cmp1.9.i, label %if.end5.i, label %for.cond.9.i
 
-40:                                               ; preds = %37
-  %41 = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(10) @.str.19, ptr noundef nonnull dereferenceable(1) %13) #6
-  %42 = icmp eq i32 %41, 0
-  br i1 %42, label %61, label %43
+for.cond.9.i:                                     ; preds = %for.cond.8.i
+  %call.10.i = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(11) @.str.21, ptr noundef nonnull dereferenceable(1) %0) #6
+  %cmp1.10.i = icmp eq i32 %call.10.i, 0
+  br i1 %cmp1.10.i, label %if.end5.i, label %for.cond.10.i
 
-43:                                               ; preds = %40
-  %44 = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(11) @.str.21, ptr noundef nonnull dereferenceable(1) %13) #6
-  %45 = icmp eq i32 %44, 0
-  br i1 %45, label %61, label %46
+for.cond.10.i:                                    ; preds = %for.cond.9.i
+  %call.11.i = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(11) @.str.23, ptr noundef nonnull dereferenceable(1) %0) #6
+  %cmp1.11.i = icmp eq i32 %call.11.i, 0
+  br i1 %cmp1.11.i, label %if.end5.i, label %for.cond.11.i
 
-46:                                               ; preds = %43
-  %47 = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(11) @.str.23, ptr noundef nonnull dereferenceable(1) %13) #6
-  %48 = icmp eq i32 %47, 0
-  br i1 %48, label %61, label %49
+for.cond.11.i:                                    ; preds = %for.cond.10.i
+  %call.12.i = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(11) @.str.25, ptr noundef nonnull dereferenceable(1) %0) #6
+  %cmp1.12.i = icmp eq i32 %call.12.i, 0
+  br i1 %cmp1.12.i, label %if.end5.i, label %for.cond.12.i
 
-49:                                               ; preds = %46
-  %50 = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(11) @.str.25, ptr noundef nonnull dereferenceable(1) %13) #6
-  %51 = icmp eq i32 %50, 0
-  br i1 %51, label %61, label %52
+for.cond.12.i:                                    ; preds = %for.cond.11.i
+  %call.13.i = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(10) @.str.27, ptr noundef nonnull dereferenceable(1) %0) #6
+  %cmp1.13.i = icmp eq i32 %call.13.i, 0
+  br i1 %cmp1.13.i, label %if.end5.i, label %for.cond.13.i
 
-52:                                               ; preds = %49
-  %53 = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(10) @.str.27, ptr noundef nonnull dereferenceable(1) %13) #6
-  %54 = icmp eq i32 %53, 0
-  br i1 %54, label %61, label %55
+for.cond.13.i:                                    ; preds = %for.cond.12.i
+  %call.14.i = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(11) @.str.29, ptr noundef nonnull dereferenceable(1) %0) #6
+  %cmp1.14.i = icmp eq i32 %call.14.i, 0
+  br i1 %cmp1.14.i, label %if.end5.i, label %for.cond.14.i
 
-55:                                               ; preds = %52
-  %56 = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(11) @.str.29, ptr noundef nonnull dereferenceable(1) %13) #6
-  %57 = icmp eq i32 %56, 0
-  br i1 %57, label %61, label %58
+for.cond.14.i:                                    ; preds = %for.cond.13.i
+  %call.15.i = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(11) @.str.31, ptr noundef nonnull dereferenceable(1) %0) #6
+  %cmp1.15.i = icmp eq i32 %call.15.i, 0
+  br i1 %cmp1.15.i, label %if.end5.i, label %if.end19
 
-58:                                               ; preds = %55
-  %59 = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(11) @.str.31, ptr noundef nonnull dereferenceable(1) %13) #6
-  %60 = icmp eq i32 %59, 0
-  br i1 %60, label %61, label %83
+if.end5.i:                                        ; preds = %for.cond.14.i, %for.cond.13.i, %for.cond.12.i, %for.cond.11.i, %for.cond.10.i, %for.cond.9.i, %for.cond.8.i, %for.cond.7.i, %for.cond.6.i, %for.cond.5.i, %for.cond.4.i, %for.cond.3.i, %for.cond.2.i, %for.cond.1.i, %for.cond.i, %if.then
+  %.lcssa.i = phi i32 [ 1, %if.then ], [ 2, %for.cond.i ], [ 3, %for.cond.1.i ], [ 4, %for.cond.2.i ], [ 5, %for.cond.3.i ], [ 6, %for.cond.4.i ], [ 7, %for.cond.5.i ], [ 8, %for.cond.6.i ], [ 9, %for.cond.7.i ], [ 10, %for.cond.8.i ], [ 11, %for.cond.9.i ], [ 12, %for.cond.10.i ], [ 13, %for.cond.11.i ], [ 14, %for.cond.12.i ], [ 15, %for.cond.13.i ], [ 16, %for.cond.14.i ]
+  %call7.i = call i32 (ptr, i64, ptr, ...) @snprintf(ptr noundef nonnull dereferenceable(1) %convbuf, i64 noundef 50, ptr noundef nonnull @.str.36, i32 noundef %.lcssa.i) #5
+  br label %if.end19
 
-61:                                               ; preds = %58, %55, %52, %49, %46, %43, %40, %37, %34, %31, %28, %25, %22, %19, %16, %11
-  %62 = phi i32 [ 1, %11 ], [ 2, %16 ], [ 3, %19 ], [ 4, %22 ], [ 5, %25 ], [ 6, %28 ], [ 7, %31 ], [ 8, %34 ], [ 9, %37 ], [ 10, %40 ], [ 11, %43 ], [ 12, %46 ], [ 13, %49 ], [ 14, %52 ], [ 15, %55 ], [ 16, %58 ]
-  %63 = call i32 (ptr, i64, ptr, ...) @snprintf(ptr noundef nonnull dereferenceable(1) %5, i64 noundef 50, ptr noundef nonnull @.str.36, i32 noundef %62) #5
-  br label %83
+for.cond:                                         ; preds = %entry, %for.cond
+  %r.0 = phi ptr [ %incdec.ptr, %for.cond ], [ @rerrs, %entry ]
+  %1 = load i32, ptr %r.0, align 8, !tbaa !12
+  %cmp1.not = icmp eq i32 %1, 0
+  %cmp3 = icmp eq i32 %1, %and
+  %or.cond = or i1 %cmp1.not, %cmp3
+  %incdec.ptr = getelementptr inbounds %struct.rerr, ptr %r.0, i64 1
+  br i1 %or.cond, label %for.end, label %for.cond, !llvm.loop !14
 
-64:                                               ; preds = %8
-  %65 = and i32 %0, 256
-  %66 = icmp eq i32 %65, 0
-  br i1 %66, label %79, label %77
+for.end:                                          ; preds = %for.cond
+  %and5 = and i32 %errcode, 256
+  %tobool.not = icmp eq i32 %and5, 0
+  br i1 %tobool.not, label %if.else17, label %if.then6
 
-67:                                               ; preds = %8
-  %68 = sext i32 %9 to i64
-  %69 = getelementptr inbounds [16 x ptr], ptr @switch.table.cli_regerror, i64 0, i64 %68
-  %70 = load ptr, ptr %69, align 8
-  %71 = and i32 %0, 256
-  %72 = icmp eq i32 %71, 0
-  br i1 %72, label %79, label %73
+if.then6:                                         ; preds = %for.end
+  br i1 %cmp1.not, label %if.else12, label %if.then9
 
-73:                                               ; preds = %67
-  %74 = getelementptr inbounds %struct.rerr, ptr %70, i64 0, i32 1
-  %75 = load ptr, ptr %74, align 8, !tbaa !12
-  %76 = call i64 @cli_strlcpy(ptr noundef nonnull %5, ptr noundef %75, i64 noundef 50) #5
-  br label %83
+if.then9:                                         ; preds = %if.then6
+  %name = getelementptr inbounds %struct.rerr, ptr %r.0, i64 0, i32 1
+  %2 = load ptr, ptr %name, align 8, !tbaa !16
+  %call11 = call i64 @cli_strlcpy(ptr noundef nonnull %convbuf, ptr noundef %2, i64 noundef 50) #5
+  br label %if.end19
 
-77:                                               ; preds = %64
-  %78 = call i32 (ptr, i64, ptr, ...) @snprintf(ptr noundef nonnull dereferenceable(1) %5, i64 noundef 50, ptr noundef nonnull @.str, i32 noundef %6) #5
-  br label %83
+if.else12:                                        ; preds = %if.then6
+  %call14 = call i32 (ptr, i64, ptr, ...) @snprintf(ptr noundef nonnull dereferenceable(1) %convbuf, i64 noundef 50, ptr noundef nonnull @.str, i32 noundef %and) #5
+  br label %if.end19
 
-79:                                               ; preds = %64, %67
-  %80 = phi ptr [ getelementptr inbounds ([17 x %struct.rerr], ptr @rerrs, i64 0, i64 16, i32 0), %64 ], [ %70, %67 ]
-  %81 = getelementptr inbounds %struct.rerr, ptr %80, i64 0, i32 2
-  %82 = load ptr, ptr %81, align 8, !tbaa !14
-  br label %83
+if.else17:                                        ; preds = %for.end
+  %explain = getelementptr inbounds %struct.rerr, ptr %r.0, i64 0, i32 2
+  %3 = load ptr, ptr %explain, align 8, !tbaa !17
+  br label %if.end19
 
-83:                                               ; preds = %73, %77, %61, %58, %79
-  %84 = phi ptr [ %82, %79 ], [ %5, %61 ], [ @.str.35, %58 ], [ %5, %77 ], [ %5, %73 ]
-  %85 = call i64 @strlen(ptr noundef nonnull dereferenceable(1) %84) #6
-  %86 = icmp eq i64 %3, 0
-  br i1 %86, label %89, label %87
+if.end19:                                         ; preds = %if.end5.i, %for.cond.14.i, %if.then9, %if.else12, %if.else17
+  %s.0 = phi ptr [ %3, %if.else17 ], [ %convbuf, %if.else12 ], [ %convbuf, %if.then9 ], [ %convbuf, %if.end5.i ], [ @.str.35, %for.cond.14.i ]
+  %call20 = call i64 @strlen(ptr noundef nonnull dereferenceable(1) %s.0) #6
+  %cmp21.not = icmp eq i64 %errbuf_size, 0
+  br i1 %cmp21.not, label %if.end24, label %if.then22
 
-87:                                               ; preds = %83
-  %88 = call i64 @cli_strlcpy(ptr noundef %2, ptr noundef %84, i64 noundef %3) #5
-  br label %89
+if.then22:                                        ; preds = %if.end19
+  %call23 = call i64 @cli_strlcpy(ptr noundef %errbuf, ptr noundef %s.0, i64 noundef %errbuf_size) #5
+  br label %if.end24
 
-89:                                               ; preds = %87, %83
-  %90 = add i64 %85, 1
-  call void @llvm.lifetime.end.p0(i64 50, ptr nonnull %5) #5
-  ret i64 %90
+if.end24:                                         ; preds = %if.then22, %if.end19
+  %add = add i64 %call20, 1
+  call void @llvm.lifetime.end.p0(i64 50, ptr nonnull %convbuf) #5
+  ret i64 %add
 }
 
 ; Function Attrs: mustprogress nocallback nofree nosync nounwind willreturn memory(argmem: readwrite)
@@ -231,6 +229,9 @@ attributes #6 = { nounwind willreturn memory(read) }
 !9 = !{!"Simple C/C++ TBAA"}
 !10 = !{!"long", !8, i64 0}
 !11 = !{!"any pointer", !8, i64 0}
-!12 = !{!13, !11, i64 8}
+!12 = !{!13, !7, i64 0}
 !13 = !{!"rerr", !7, i64 0, !11, i64 8, !11, i64 16}
-!14 = !{!13, !11, i64 16}
+!14 = distinct !{!14, !15}
+!15 = !{!"llvm.loop.mustprogress"}
+!16 = !{!13, !11, i64 8}
+!17 = !{!13, !11, i64 16}

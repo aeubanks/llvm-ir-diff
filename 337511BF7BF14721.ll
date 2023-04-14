@@ -8,81 +8,82 @@ target triple = "x86_64-unknown-linux-gnu"
 %struct.AtomsSt = type { i32, i32, ptr, ptr, ptr, ptr, ptr, ptr }
 
 ; Function Attrs: mustprogress nofree nounwind willreturn memory(write, argmem: read, inaccessiblemem: readwrite) uwtable
-define dso_local noalias ptr @initLinkCells(ptr nocapture noundef readonly %0, double noundef %1) local_unnamed_addr #0 {
-  %3 = tail call noalias dereferenceable_or_null(128) ptr @malloc(i64 noundef 128) #15
-  %4 = getelementptr inbounds %struct.DomainSt, ptr %0, i64 0, i32 5, i64 0
-  %5 = getelementptr inbounds %struct.LinkCellSt, ptr %3, i64 0, i32 4, i64 0
-  %6 = getelementptr inbounds %struct.DomainSt, ptr %0, i64 0, i32 7, i64 0
-  %7 = getelementptr inbounds %struct.LinkCellSt, ptr %3, i64 0, i32 6, i64 0
-  %8 = load <2 x double>, ptr %4, align 8, !tbaa !5
-  store <2 x double> %8, ptr %5, align 8, !tbaa !5
-  %9 = getelementptr inbounds %struct.DomainSt, ptr %0, i64 0, i32 6, i64 1
-  %10 = getelementptr inbounds %struct.LinkCellSt, ptr %3, i64 0, i32 5, i64 1
-  %11 = load <2 x double>, ptr %6, align 8, !tbaa !5
-  %12 = insertelement <2 x double> poison, double %1, i64 0
-  %13 = shufflevector <2 x double> %12, <2 x double> poison, <2 x i32> zeroinitializer
+define dso_local noalias ptr @initLinkCells(ptr nocapture noundef readonly %domain, double noundef %cutoff) local_unnamed_addr #0 {
+entry:
+  %call.i = tail call noalias dereferenceable_or_null(128) ptr @malloc(i64 noundef 128) #15
+  %arrayidx = getelementptr inbounds %struct.DomainSt, ptr %domain, i64 0, i32 5, i64 0
+  %arrayidx3 = getelementptr inbounds %struct.LinkCellSt, ptr %call.i, i64 0, i32 4, i64 0
+  %arrayidx10 = getelementptr inbounds %struct.DomainSt, ptr %domain, i64 0, i32 7, i64 0
+  %arrayidx22 = getelementptr inbounds %struct.LinkCellSt, ptr %call.i, i64 0, i32 6, i64 0
+  %0 = load <2 x double>, ptr %arrayidx, align 8, !tbaa !5
+  store <2 x double> %0, ptr %arrayidx3, align 8, !tbaa !5
+  %arrayidx5.1 = getelementptr inbounds %struct.DomainSt, ptr %domain, i64 0, i32 6, i64 1
+  %arrayidx8.1 = getelementptr inbounds %struct.LinkCellSt, ptr %call.i, i64 0, i32 5, i64 1
+  %1 = load <2 x double>, ptr %arrayidx10, align 8, !tbaa !5
+  %2 = insertelement <2 x double> poison, double %cutoff, i64 0
+  %3 = shufflevector <2 x double> %2, <2 x double> poison, <2 x i32> zeroinitializer
+  %4 = fdiv <2 x double> %1, %3
+  %5 = fptosi <2 x double> %4 to <2 x i32>
+  %6 = sitofp <2 x i32> %5 to <2 x double>
+  %7 = fdiv <2 x double> %1, %6
+  store <2 x i32> %5, ptr %call.i, align 4, !tbaa !9
+  store <2 x double> %7, ptr %arrayidx22, align 8, !tbaa !5
+  %arrayidx28.1 = getelementptr inbounds %struct.LinkCellSt, ptr %call.i, i64 0, i32 7, i64 1
+  %arrayidx.2 = getelementptr inbounds %struct.DomainSt, ptr %domain, i64 0, i32 5, i64 2
+  %arrayidx3.2 = getelementptr inbounds %struct.LinkCellSt, ptr %call.i, i64 0, i32 4, i64 2
+  %8 = load <2 x double>, ptr %arrayidx.2, align 8, !tbaa !5
+  store <2 x double> %8, ptr %arrayidx3.2, align 8, !tbaa !5
+  %9 = load <2 x double>, ptr %arrayidx5.1, align 8, !tbaa !5
+  store <2 x double> %9, ptr %arrayidx8.1, align 8, !tbaa !5
+  %arrayidx10.2 = getelementptr inbounds %struct.DomainSt, ptr %domain, i64 0, i32 7, i64 2
+  %10 = load double, ptr %arrayidx10.2, align 8, !tbaa !5
+  %div.2 = fdiv double %10, %cutoff
+  %conv.2 = fptosi double %div.2 to i32
+  %arrayidx12.2 = getelementptr inbounds [3 x i32], ptr %call.i, i64 0, i64 2
+  store i32 %conv.2, ptr %arrayidx12.2, align 4, !tbaa !9
+  %conv19.2 = sitofp i32 %conv.2 to double
+  %arrayidx22.2 = getelementptr inbounds %struct.LinkCellSt, ptr %call.i, i64 0, i32 6, i64 2
+  %11 = insertelement <2 x double> <double poison, double 1.000000e+00>, double %10, i64 0
+  %12 = shufflevector <2 x double> %7, <2 x double> poison, <2 x i32> <i32 undef, i32 0>
+  %13 = insertelement <2 x double> %12, double %conv19.2, i64 0
   %14 = fdiv <2 x double> %11, %13
-  %15 = fptosi <2 x double> %14 to <2 x i32>
-  %16 = sitofp <2 x i32> %15 to <2 x double>
-  %17 = fdiv <2 x double> %11, %16
-  store <2 x i32> %15, ptr %3, align 4, !tbaa !9
-  store <2 x double> %17, ptr %7, align 8, !tbaa !5
-  %18 = getelementptr inbounds %struct.LinkCellSt, ptr %3, i64 0, i32 7, i64 1
-  %19 = getelementptr inbounds %struct.DomainSt, ptr %0, i64 0, i32 5, i64 2
-  %20 = getelementptr inbounds %struct.LinkCellSt, ptr %3, i64 0, i32 4, i64 2
-  %21 = load <2 x double>, ptr %19, align 8, !tbaa !5
-  store <2 x double> %21, ptr %20, align 8, !tbaa !5
-  %22 = load <2 x double>, ptr %9, align 8, !tbaa !5
-  store <2 x double> %22, ptr %10, align 8, !tbaa !5
-  %23 = getelementptr inbounds %struct.DomainSt, ptr %0, i64 0, i32 7, i64 2
-  %24 = load double, ptr %23, align 8, !tbaa !5
-  %25 = fdiv double %24, %1
-  %26 = fptosi double %25 to i32
-  %27 = getelementptr inbounds [3 x i32], ptr %3, i64 0, i64 2
-  store i32 %26, ptr %27, align 4, !tbaa !9
-  %28 = sitofp i32 %26 to double
-  %29 = getelementptr inbounds %struct.LinkCellSt, ptr %3, i64 0, i32 6, i64 2
-  %30 = insertelement <2 x double> <double poison, double 1.000000e+00>, double %24, i64 0
-  %31 = shufflevector <2 x double> %17, <2 x double> poison, <2 x i32> <i32 undef, i32 0>
-  %32 = insertelement <2 x double> %31, double %28, i64 0
-  %33 = fdiv <2 x double> %30, %32
-  store <2 x double> %33, ptr %29, align 8, !tbaa !5
-  %34 = shufflevector <2 x double> %17, <2 x double> %33, <2 x i32> <i32 1, i32 2>
-  %35 = fdiv <2 x double> <double 1.000000e+00, double 1.000000e+00>, %34
-  store <2 x double> %35, ptr %18, align 8, !tbaa !5
-  %36 = extractelement <2 x i32> %15, i64 1
-  %37 = mul i32 %36, %26
-  %38 = extractelement <2 x i32> %15, i64 0
-  %39 = mul i32 %37, %38
-  %40 = getelementptr inbounds %struct.LinkCellSt, ptr %3, i64 0, i32 1
-  store i32 %39, ptr %40, align 4, !tbaa !11
-  %41 = add nsw i32 %38, 2
-  %42 = add i32 %36, 2
-  %43 = add i32 %42, %26
-  %44 = mul nsw i32 %43, %41
-  %45 = add nsw i32 %44, %37
-  %46 = shl nsw i32 %45, 1
-  %47 = getelementptr inbounds %struct.LinkCellSt, ptr %3, i64 0, i32 2
-  store i32 %46, ptr %47, align 8, !tbaa !14
-  %48 = add nsw i32 %46, %39
-  %49 = getelementptr inbounds %struct.LinkCellSt, ptr %3, i64 0, i32 3
-  store i32 %48, ptr %49, align 4, !tbaa !15
-  %50 = sext i32 %48 to i64
-  %51 = shl nsw i64 %50, 2
-  %52 = tail call noalias ptr @malloc(i64 noundef %51) #15
-  %53 = getelementptr inbounds %struct.LinkCellSt, ptr %3, i64 0, i32 8
-  store ptr %52, ptr %53, align 8, !tbaa !16
-  %54 = icmp sgt i32 %48, 0
-  br i1 %54, label %55, label %58
+  store <2 x double> %14, ptr %arrayidx22.2, align 8, !tbaa !5
+  %15 = shufflevector <2 x double> %7, <2 x double> %14, <2 x i32> <i32 1, i32 2>
+  %16 = fdiv <2 x double> <double 1.000000e+00, double 1.000000e+00>, %15
+  store <2 x double> %16, ptr %arrayidx28.1, align 8, !tbaa !5
+  %17 = extractelement <2 x i32> %5, i64 1
+  %mul = mul i32 %17, %conv.2
+  %18 = extractelement <2 x i32> %5, i64 0
+  %mul35 = mul i32 %mul, %18
+  %nLocalBoxes = getelementptr inbounds %struct.LinkCellSt, ptr %call.i, i64 0, i32 1
+  store i32 %mul35, ptr %nLocalBoxes, align 4, !tbaa !11
+  %add = add nsw i32 %18, 2
+  %add42 = add i32 %17, 2
+  %add43 = add i32 %add42, %conv.2
+  %mul44 = mul nsw i32 %add43, %add
+  %add50 = add nsw i32 %mul44, %mul
+  %mul51 = shl nsw i32 %add50, 1
+  %nHaloBoxes = getelementptr inbounds %struct.LinkCellSt, ptr %call.i, i64 0, i32 2
+  store i32 %mul51, ptr %nHaloBoxes, align 8, !tbaa !14
+  %add54 = add nsw i32 %mul51, %mul35
+  %nTotalBoxes = getelementptr inbounds %struct.LinkCellSt, ptr %call.i, i64 0, i32 3
+  store i32 %add54, ptr %nTotalBoxes, align 4, !tbaa !15
+  %conv56 = sext i32 %add54 to i64
+  %mul57 = shl nsw i64 %conv56, 2
+  %call.i112 = tail call noalias ptr @malloc(i64 noundef %mul57) #15
+  %nAtoms = getelementptr inbounds %struct.LinkCellSt, ptr %call.i, i64 0, i32 8
+  store ptr %call.i112, ptr %nAtoms, align 8, !tbaa !16
+  %cmp61114 = icmp sgt i32 %add54, 0
+  br i1 %cmp61114, label %for.body64.preheader, label %for.cond.cleanup63
 
-55:                                               ; preds = %2
-  %56 = zext i32 %48 to i64
-  %57 = shl nuw nsw i64 %56, 2
-  tail call void @llvm.memset.p0.i64(ptr align 4 %52, i8 0, i64 %57, i1 false), !tbaa !9
-  br label %58
+for.body64.preheader:                             ; preds = %entry
+  %19 = zext i32 %add54 to i64
+  %20 = shl nuw nsw i64 %19, 2
+  tail call void @llvm.memset.p0.i64(ptr align 4 %call.i112, i8 0, i64 %20, i1 false), !tbaa !9
+  br label %for.cond.cleanup63
 
-58:                                               ; preds = %55, %2
-  ret ptr %3
+for.cond.cleanup63:                               ; preds = %for.body64.preheader, %entry
+  ret ptr %call.i
 }
 
 ; Function Attrs: mustprogress nocallback nofree nosync nounwind willreturn memory(argmem: readwrite)
@@ -92,1077 +93,1084 @@ declare void @llvm.lifetime.start.p0(i64 immarg, ptr nocapture) #1
 declare void @llvm.lifetime.end.p0(i64 immarg, ptr nocapture) #1
 
 ; Function Attrs: mustprogress nounwind willreturn uwtable
-define dso_local void @destroyLinkCells(ptr noundef %0) local_unnamed_addr #2 {
-  %2 = icmp eq ptr %0, null
-  br i1 %2, label %10, label %3
+define dso_local void @destroyLinkCells(ptr noundef %boxes) local_unnamed_addr #2 {
+entry:
+  %tobool.not = icmp eq ptr %boxes, null
+  br i1 %tobool.not, label %return, label %if.end
 
-3:                                                ; preds = %1
-  %4 = load ptr, ptr %0, align 8, !tbaa !17
-  %5 = icmp eq ptr %4, null
-  br i1 %5, label %10, label %6
+if.end:                                           ; preds = %entry
+  %0 = load ptr, ptr %boxes, align 8, !tbaa !17
+  %tobool1.not = icmp eq ptr %0, null
+  br i1 %tobool1.not, label %return, label %if.end3
 
-6:                                                ; preds = %3
-  %7 = getelementptr inbounds %struct.LinkCellSt, ptr %4, i64 0, i32 8
-  %8 = load ptr, ptr %7, align 8, !tbaa !16
-  tail call void @free(ptr noundef %8) #16
-  %9 = load ptr, ptr %0, align 8, !tbaa !17
-  tail call void @free(ptr noundef %9) #16
-  store ptr null, ptr %0, align 8, !tbaa !17
-  br label %10
+if.end3:                                          ; preds = %if.end
+  %nAtoms = getelementptr inbounds %struct.LinkCellSt, ptr %0, i64 0, i32 8
+  %1 = load ptr, ptr %nAtoms, align 8, !tbaa !16
+  tail call void @free(ptr noundef %1) #16
+  %2 = load ptr, ptr %boxes, align 8, !tbaa !17
+  tail call void @free(ptr noundef %2) #16
+  store ptr null, ptr %boxes, align 8, !tbaa !17
+  br label %return
 
-10:                                               ; preds = %3, %1, %6
+return:                                           ; preds = %if.end, %entry, %if.end3
   ret void
 }
 
 ; Function Attrs: nofree norecurse nosync nounwind memory(argmem: readwrite) uwtable
-define dso_local i32 @getNeighborBoxes(ptr nocapture noundef readonly %0, i32 noundef %1, ptr nocapture noundef writeonly %2) local_unnamed_addr #3 {
-  %4 = getelementptr inbounds %struct.LinkCellSt, ptr %0, i64 0, i32 1
-  %5 = load i32, ptr %4, align 4, !tbaa !11
-  %6 = icmp sgt i32 %5, %1
-  br i1 %6, label %7, label %15
+define dso_local i32 @getNeighborBoxes(ptr nocapture noundef readonly %boxes, i32 noundef %iBox, ptr nocapture noundef writeonly %nbrBoxes) local_unnamed_addr #3 {
+entry:
+  %nLocalBoxes.i = getelementptr inbounds %struct.LinkCellSt, ptr %boxes, i64 0, i32 1
+  %0 = load i32, ptr %nLocalBoxes.i, align 4, !tbaa !11
+  %cmp.i = icmp sgt i32 %0, %iBox
+  br i1 %cmp.i, label %if.then.i, label %if.else.i
 
-7:                                                ; preds = %3
-  %8 = load i32, ptr %0, align 4, !tbaa !9
-  %9 = srem i32 %1, %8
-  %10 = sdiv i32 %1, %8
-  %11 = getelementptr inbounds i32, ptr %0, i64 1
-  %12 = load i32, ptr %11, align 4, !tbaa !9
-  %13 = srem i32 %10, %12
-  %14 = sdiv i32 %10, %12
-  br label %71
+if.then.i:                                        ; preds = %entry
+  %1 = load i32, ptr %boxes, align 4, !tbaa !9
+  %rem.i = srem i32 %iBox, %1
+  %div.i = sdiv i32 %iBox, %1
+  %arrayidx3.i = getelementptr inbounds i32, ptr %boxes, i64 1
+  %2 = load i32, ptr %arrayidx3.i, align 4, !tbaa !9
+  %rem4.i = srem i32 %div.i, %2
+  %div6.i = sdiv i32 %div.i, %2
+  br label %getTuple.exit
 
-15:                                               ; preds = %3
-  %16 = sub nsw i32 %1, %5
-  %17 = getelementptr inbounds i32, ptr %0, i64 1
-  %18 = load i32, ptr %17, align 4, !tbaa !9
-  %19 = shl nsw i32 %18, 1
-  %20 = getelementptr inbounds i32, ptr %0, i64 2
-  %21 = load i32, ptr %20, align 4, !tbaa !9
-  %22 = mul nsw i32 %19, %21
-  %23 = icmp slt i32 %16, %22
-  br i1 %23, label %24, label %37
+if.else.i:                                        ; preds = %entry
+  %sub.i = sub nsw i32 %iBox, %0
+  %arrayidx8.i = getelementptr inbounds i32, ptr %boxes, i64 1
+  %3 = load i32, ptr %arrayidx8.i, align 4, !tbaa !9
+  %mul.i = shl nsw i32 %3, 1
+  %arrayidx9.i = getelementptr inbounds i32, ptr %boxes, i64 2
+  %4 = load i32, ptr %arrayidx9.i, align 4, !tbaa !9
+  %mul10.i = mul nsw i32 %mul.i, %4
+  %cmp11.i = icmp slt i32 %sub.i, %mul10.i
+  br i1 %cmp11.i, label %if.then12.i, label %if.else30.i
 
-24:                                               ; preds = %15
-  %25 = mul nsw i32 %21, %18
-  %26 = icmp slt i32 %16, %25
-  br i1 %26, label %31, label %27
+if.then12.i:                                      ; preds = %if.else.i
+  %mul15.i = mul nsw i32 %4, %3
+  %cmp16.i = icmp slt i32 %sub.i, %mul15.i
+  br i1 %cmp16.i, label %if.end.i, label %if.else18.i
 
-27:                                               ; preds = %24
-  %28 = sub nsw i32 %16, %25
-  %29 = load i32, ptr %0, align 4, !tbaa !9
-  %30 = add nsw i32 %29, 1
-  br label %31
+if.else18.i:                                      ; preds = %if.then12.i
+  %sub22.i = sub nsw i32 %sub.i, %mul15.i
+  %5 = load i32, ptr %boxes, align 4, !tbaa !9
+  %add.i = add nsw i32 %5, 1
+  br label %if.end.i
 
-31:                                               ; preds = %27, %24
-  %32 = phi i32 [ %30, %27 ], [ 0, %24 ]
-  %33 = phi i32 [ %28, %27 ], [ %16, %24 ]
-  %34 = srem i32 %33, %18
-  %35 = add nsw i32 %34, 1
-  %36 = sdiv i32 %33, %18
-  br label %65
+if.end.i:                                         ; preds = %if.else18.i, %if.then12.i
+  %ix.0.i = phi i32 [ %add.i, %if.else18.i ], [ 0, %if.then12.i ]
+  %ink.0.i = phi i32 [ %sub22.i, %if.else18.i ], [ %sub.i, %if.then12.i ]
+  %rem25.i = srem i32 %ink.0.i, %3
+  %add26.i = add nsw i32 %rem25.i, 1
+  %div28.i = sdiv i32 %ink.0.i, %3
+  br label %if.end100.i
 
-37:                                               ; preds = %15
-  %38 = shl nsw i32 %21, 1
-  %39 = load i32, ptr %0, align 4, !tbaa !9
-  %40 = add i32 %39, 2
-  %41 = add i32 %40, %18
-  %42 = mul nsw i32 %41, %38
-  %43 = icmp slt i32 %16, %42
-  br i1 %43, label %44, label %55
+if.else30.i:                                      ; preds = %if.else.i
+  %mul32.i = shl nsw i32 %4, 1
+  %6 = load i32, ptr %boxes, align 4, !tbaa !9
+  %add35.i = add i32 %6, 2
+  %add36.i = add i32 %add35.i, %3
+  %mul37.i = mul nsw i32 %add36.i, %mul32.i
+  %cmp38.i = icmp slt i32 %sub.i, %mul37.i
+  br i1 %cmp38.i, label %if.then39.i, label %if.else67.i
 
-44:                                               ; preds = %37
-  %45 = mul nsw i32 %38, %18
-  %46 = sub nsw i32 %16, %45
-  %47 = mul nsw i32 %40, %21
-  %48 = icmp slt i32 %46, %47
-  %49 = add nsw i32 %18, 1
-  %50 = select i1 %48, i32 0, i32 %49
-  %51 = select i1 %48, i32 0, i32 %47
-  %52 = sub nsw i32 %46, %51
-  %53 = srem i32 %52, %40
-  %54 = sdiv i32 %52, %40
-  br label %65
+if.then39.i:                                      ; preds = %if.else30.i
+  %mul43.i = mul nsw i32 %mul32.i, %3
+  %sub44.i = sub nsw i32 %sub.i, %mul43.i
+  %mul48.i = mul nsw i32 %add35.i, %4
+  %cmp49.i = icmp slt i32 %sub44.i, %mul48.i
+  %add58.i = add nsw i32 %3, 1
+  %iy.0.i = select i1 %cmp49.i, i32 0, i32 %add58.i
+  %sub56.i = select i1 %cmp49.i, i32 0, i32 %mul48.i
+  %ink.1.i = sub nsw i32 %sub44.i, %sub56.i
+  %rem62.i = srem i32 %ink.1.i, %add35.i
+  %div65.i = sdiv i32 %ink.1.i, %add35.i
+  br label %if.end100.i
 
-55:                                               ; preds = %37
-  %56 = sub nsw i32 %16, %42
-  %57 = add nsw i32 %18, 2
-  %58 = mul nsw i32 %40, %57
-  %59 = icmp slt i32 %56, %58
-  %60 = select i1 %59, i32 0, i32 %58
-  %61 = sub nsw i32 %56, %60
-  %62 = srem i32 %61, %40
-  %63 = sdiv i32 %61, %40
-  %64 = select i1 %59, i32 -1, i32 %21
-  br label %65
+if.else67.i:                                      ; preds = %if.else30.i
+  %sub75.i = sub nsw i32 %sub.i, %mul37.i
+  %add79.i = add nsw i32 %3, 2
+  %mul80.i = mul nsw i32 %add35.i, %add79.i
+  %cmp81.i = icmp slt i32 %sub75.i, %mul80.i
+  %sub89.i = select i1 %cmp81.i, i32 0, i32 %mul80.i
+  %ink.2.i = sub nsw i32 %sub75.i, %sub89.i
+  %rem95.i = srem i32 %ink.2.i, %add35.i
+  %div98.i = sdiv i32 %ink.2.i, %add35.i
+  %7 = select i1 %cmp81.i, i32 -1, i32 %4
+  br label %if.end100.i
 
-65:                                               ; preds = %55, %44, %31
-  %66 = phi i32 [ %32, %31 ], [ %53, %44 ], [ %62, %55 ]
-  %67 = phi i32 [ %35, %31 ], [ %50, %44 ], [ %63, %55 ]
-  %68 = phi i32 [ %36, %31 ], [ %54, %44 ], [ %64, %55 ]
-  %69 = add nsw i32 %66, -1
-  %70 = add nsw i32 %67, -1
-  br label %71
+if.end100.i:                                      ; preds = %if.else67.i, %if.then39.i, %if.end.i
+  %ix.1.i = phi i32 [ %ix.0.i, %if.end.i ], [ %rem62.i, %if.then39.i ], [ %rem95.i, %if.else67.i ]
+  %iy.1.i = phi i32 [ %add26.i, %if.end.i ], [ %iy.0.i, %if.then39.i ], [ %div98.i, %if.else67.i ]
+  %iz.1.i = phi i32 [ %div28.i, %if.end.i ], [ %div65.i, %if.then39.i ], [ %7, %if.else67.i ]
+  %dec.i = add nsw i32 %ix.1.i, -1
+  %dec101.i = add nsw i32 %iy.1.i, -1
+  br label %getTuple.exit
 
-71:                                               ; preds = %7, %65
-  %72 = phi i32 [ %9, %7 ], [ %69, %65 ]
-  %73 = phi i32 [ %13, %7 ], [ %70, %65 ]
-  %74 = phi i32 [ %14, %7 ], [ %68, %65 ]
-  %75 = add nsw i32 %72, -1
-  %76 = add nsw i32 %73, -1
-  %77 = add nsw i32 %74, -1
-  %78 = getelementptr inbounds i32, ptr %0, i64 2
-  %79 = getelementptr inbounds i32, ptr %0, i64 1
-  br label %82
+getTuple.exit:                                    ; preds = %if.then.i, %if.end100.i
+  %ix.2.i = phi i32 [ %rem.i, %if.then.i ], [ %dec.i, %if.end100.i ]
+  %iy.2.i = phi i32 [ %rem4.i, %if.then.i ], [ %dec101.i, %if.end100.i ]
+  %iz.2.i = phi i32 [ %div6.i, %if.then.i ], [ %iz.1.i, %if.end100.i ]
+  %sub = add nsw i32 %ix.2.i, -1
+  %sub1 = add nsw i32 %iy.2.i, -1
+  %sub7 = add nsw i32 %iz.2.i, -1
+  %arrayidx.i = getelementptr inbounds i32, ptr %boxes, i64 2
+  %arrayidx46.i = getelementptr inbounds i32, ptr %boxes, i64 1
+  br label %for.body
 
-80:                                               ; preds = %87
-  %81 = trunc i64 %178 to i32
-  ret i32 %81
+for.cond.cleanup:                                 ; preds = %for.cond.cleanup5
+  %8 = trunc i64 %indvars.iv.next to i32
+  ret i32 %8
 
-82:                                               ; preds = %71, %87
-  %83 = phi i32 [ %75, %71 ], [ %86, %87 ]
-  %84 = phi i64 [ 0, %71 ], [ %178, %87 ]
-  %85 = icmp eq i32 %83, -1
-  %86 = add i32 %83, 1
-  br label %89
+for.body:                                         ; preds = %getTuple.exit, %for.cond.cleanup5
+  %i.044 = phi i32 [ %sub, %getTuple.exit ], [ %add74.i, %for.cond.cleanup5 ]
+  %count.043 = phi i64 [ 0, %getTuple.exit ], [ %indvars.iv.next, %for.cond.cleanup5 ]
+  %cmp95.i = icmp eq i32 %i.044, -1
+  %add74.i = add i32 %i.044, 1
+  br label %for.body6
 
-87:                                               ; preds = %98
-  %88 = icmp sgt i32 %83, %72
-  br i1 %88, label %80, label %82
+for.cond.cleanup5:                                ; preds = %for.cond.cleanup11
+  %cmp.not = icmp sgt i32 %i.044, %ix.2.i
+  br i1 %cmp.not, label %for.cond.cleanup, label %for.body
 
-89:                                               ; preds = %82, %98
-  %90 = phi i32 [ %76, %82 ], [ %94, %98 ]
-  %91 = phi i64 [ %84, %82 ], [ %178, %98 ]
-  %92 = icmp eq i32 %90, -1
-  %93 = shl i32 %90, 1
-  %94 = add nsw i32 %90, 1
-  %95 = add i32 %90, 3
-  %96 = shl i64 %91, 32
-  %97 = ashr exact i64 %96, 32
-  br label %100
+for.body6:                                        ; preds = %for.body, %for.cond.cleanup11
+  %j.042 = phi i32 [ %sub1, %for.body ], [ %add40.i, %for.cond.cleanup11 ]
+  %count.141 = phi i64 [ %count.043, %for.body ], [ %indvars.iv.next, %for.cond.cleanup11 ]
+  %cmp67.i = icmp eq i32 %j.042, -1
+  %mul51.i = shl i32 %j.042, 1
+  %add40.i = add nsw i32 %j.042, 1
+  %add19.i = add i32 %j.042, 3
+  %sext = shl i64 %count.141, 32
+  %9 = ashr exact i64 %sext, 32
+  br label %for.body12
 
-98:                                               ; preds = %176
-  %99 = icmp sgt i32 %90, %73
-  br i1 %99, label %87, label %89
+for.cond.cleanup11:                               ; preds = %getBoxFromTuple.exit
+  %cmp4.not = icmp sgt i32 %j.042, %iy.2.i
+  br i1 %cmp4.not, label %for.cond.cleanup5, label %for.body6
 
-100:                                              ; preds = %89, %176
-  %101 = phi i64 [ %97, %89 ], [ %178, %176 ]
-  %102 = phi i32 [ %77, %89 ], [ %180, %176 ]
-  %103 = load i32, ptr %78, align 4, !tbaa !9
-  %104 = icmp eq i32 %103, %102
-  br i1 %104, label %105, label %118
+for.body12:                                       ; preds = %for.body6, %getBoxFromTuple.exit
+  %indvars.iv = phi i64 [ %9, %for.body6 ], [ %indvars.iv.next, %getBoxFromTuple.exit ]
+  %k.040 = phi i32 [ %sub7, %for.body6 ], [ %inc13, %getBoxFromTuple.exit ]
+  %10 = load i32, ptr %arrayidx.i, align 4, !tbaa !9
+  %cmp.i28 = icmp eq i32 %10, %k.040
+  br i1 %cmp.i28, label %if.then.i32, label %if.else.i33
 
-105:                                              ; preds = %100
-  %106 = load i32, ptr %4, align 4, !tbaa !11
-  %107 = shl nsw i32 %102, 1
-  %108 = load i32, ptr %79, align 4, !tbaa !9
-  %109 = mul nsw i32 %108, %107
-  %110 = load i32, ptr %0, align 4, !tbaa !9
-  %111 = add nsw i32 %110, 2
-  %112 = add i32 %95, %107
-  %113 = add i32 %112, %108
-  %114 = mul i32 %111, %113
-  %115 = add i32 %86, %106
-  %116 = add i32 %115, %109
-  %117 = add i32 %116, %114
-  br label %176
+if.then.i32:                                      ; preds = %for.body12
+  %11 = load i32, ptr %nLocalBoxes.i, align 4, !tbaa !11
+  %mul.i30 = shl nsw i32 %k.040, 1
+  %12 = load i32, ptr %arrayidx46.i, align 4, !tbaa !9
+  %mul4.i = mul nsw i32 %12, %mul.i30
+  %13 = load i32, ptr %boxes, align 4, !tbaa !9
+  %add8.i = add nsw i32 %13, 2
+  %reass.add178.i = add i32 %add19.i, %mul.i30
+  %reass.add179.i = add i32 %reass.add178.i, %12
+  %reass.mul180.i = mul i32 %add8.i, %reass.add179.i
+  %add21.i = add i32 %add74.i, %11
+  %add22.i = add i32 %add21.i, %mul4.i
+  %add23.i = add i32 %add22.i, %reass.mul180.i
+  br label %getBoxFromTuple.exit
 
-118:                                              ; preds = %100
-  %119 = icmp eq i32 %102, -1
-  br i1 %119, label %120, label %132
+if.else.i33:                                      ; preds = %for.body12
+  %cmp24.i = icmp eq i32 %k.040, -1
+  br i1 %cmp24.i, label %if.then25.i, label %if.else45.i
 
-120:                                              ; preds = %118
-  %121 = load i32, ptr %4, align 4, !tbaa !11
-  %122 = shl nsw i32 %103, 1
-  %123 = load i32, ptr %79, align 4, !tbaa !9
-  %124 = mul nsw i32 %123, %122
-  %125 = load i32, ptr %0, align 4, !tbaa !9
-  %126 = add nsw i32 %125, 2
-  %127 = add i32 %94, %122
-  %128 = mul i32 %126, %127
-  %129 = add i32 %86, %121
-  %130 = add i32 %129, %124
-  %131 = add i32 %130, %128
-  br label %176
+if.then25.i:                                      ; preds = %if.else.i33
+  %14 = load i32, ptr %nLocalBoxes.i, align 4, !tbaa !11
+  %mul28.i = shl nsw i32 %10, 1
+  %15 = load i32, ptr %arrayidx46.i, align 4, !tbaa !9
+  %mul30.i = mul nsw i32 %15, %mul28.i
+  %16 = load i32, ptr %boxes, align 4, !tbaa !9
+  %add35.i34 = add nsw i32 %16, 2
+  %reass.add176.i = add i32 %add40.i, %mul28.i
+  %reass.mul177.i = mul i32 %add35.i34, %reass.add176.i
+  %add42.i = add i32 %add74.i, %14
+  %add43.i = add i32 %add42.i, %mul30.i
+  %add44.i = add i32 %add43.i, %reass.mul177.i
+  br label %getBoxFromTuple.exit
 
-132:                                              ; preds = %118
-  %133 = load i32, ptr %79, align 4, !tbaa !9
-  %134 = icmp eq i32 %133, %90
-  br i1 %134, label %135, label %145
+if.else45.i:                                      ; preds = %if.else.i33
+  %17 = load i32, ptr %arrayidx46.i, align 4, !tbaa !9
+  %cmp47.i = icmp eq i32 %17, %j.042
+  br i1 %cmp47.i, label %if.then48.i, label %if.else66.i
 
-135:                                              ; preds = %132
-  %136 = load i32, ptr %4, align 4, !tbaa !11
-  %137 = mul i32 %93, %103
-  %138 = load i32, ptr %0, align 4, !tbaa !9
-  %139 = add nsw i32 %138, 2
-  %140 = add i32 %103, %102
-  %141 = mul i32 %139, %140
-  %142 = add i32 %86, %137
-  %143 = add i32 %142, %136
-  %144 = add i32 %143, %141
-  br label %176
+if.then48.i:                                      ; preds = %if.else45.i
+  %18 = load i32, ptr %nLocalBoxes.i, align 4, !tbaa !11
+  %mul53.i = mul i32 %mul51.i, %10
+  %19 = load i32, ptr %boxes, align 4, !tbaa !9
+  %add57.i = add nsw i32 %19, 2
+  %reass.add174.i = add i32 %10, %k.040
+  %reass.mul175.i = mul i32 %add57.i, %reass.add174.i
+  %add63.i = add i32 %add74.i, %mul53.i
+  %add64.i = add i32 %add63.i, %18
+  %add65.i = add i32 %add64.i, %reass.mul175.i
+  br label %getBoxFromTuple.exit
 
-145:                                              ; preds = %132
-  br i1 %92, label %146, label %156
+if.else66.i:                                      ; preds = %if.else45.i
+  br i1 %cmp67.i, label %if.then68.i, label %if.else81.i
 
-146:                                              ; preds = %145
-  %147 = load i32, ptr %4, align 4, !tbaa !11
-  %148 = shl nsw i32 %103, 1
-  %149 = mul nsw i32 %148, %133
-  %150 = load i32, ptr %0, align 4, !tbaa !9
-  %151 = add nsw i32 %150, 2
-  %152 = mul nsw i32 %151, %102
-  %153 = add i32 %86, %149
-  %154 = add i32 %153, %147
-  %155 = add i32 %154, %152
-  br label %176
+if.then68.i:                                      ; preds = %if.else66.i
+  %20 = load i32, ptr %nLocalBoxes.i, align 4, !tbaa !11
+  %mul71.i = shl nsw i32 %10, 1
+  %mul73.i = mul nsw i32 %mul71.i, %17
+  %21 = load i32, ptr %boxes, align 4, !tbaa !9
+  %add76.i = add nsw i32 %21, 2
+  %mul77.i = mul nsw i32 %add76.i, %k.040
+  %add78.i = add i32 %add74.i, %mul73.i
+  %add79.i35 = add i32 %add78.i, %20
+  %add80.i = add i32 %add79.i35, %mul77.i
+  br label %getBoxFromTuple.exit
 
-156:                                              ; preds = %145
-  %157 = load i32, ptr %0, align 4, !tbaa !9
-  %158 = icmp eq i32 %157, %83
-  br i1 %158, label %159, label %165
+if.else81.i:                                      ; preds = %if.else66.i
+  %22 = load i32, ptr %boxes, align 4, !tbaa !9
+  %cmp83.i = icmp eq i32 %22, %i.044
+  br i1 %cmp83.i, label %if.then84.i, label %if.else94.i
 
-159:                                              ; preds = %156
-  %160 = load i32, ptr %4, align 4, !tbaa !11
-  %161 = add i32 %103, %102
-  %162 = mul i32 %133, %161
-  %163 = add i32 %162, %90
-  %164 = add i32 %163, %160
-  br label %176
+if.then84.i:                                      ; preds = %if.else81.i
+  %23 = load i32, ptr %nLocalBoxes.i, align 4, !tbaa !11
+  %reass.add172.i = add i32 %10, %k.040
+  %reass.mul173.i = mul i32 %17, %reass.add172.i
+  %add92.i = add i32 %reass.mul173.i, %j.042
+  %add93.i = add i32 %add92.i, %23
+  br label %getBoxFromTuple.exit
 
-165:                                              ; preds = %156
-  br i1 %85, label %166, label %171
+if.else94.i:                                      ; preds = %if.else81.i
+  br i1 %cmp95.i, label %if.then96.i, label %if.else102.i
 
-166:                                              ; preds = %165
-  %167 = load i32, ptr %4, align 4, !tbaa !11
-  %168 = mul nsw i32 %133, %102
-  %169 = add i32 %168, %90
-  %170 = add i32 %169, %167
-  br label %176
+if.then96.i:                                      ; preds = %if.else94.i
+  %24 = load i32, ptr %nLocalBoxes.i, align 4, !tbaa !11
+  %mul99.i = mul nsw i32 %17, %k.040
+  %add100.i = add i32 %mul99.i, %j.042
+  %add101.i = add i32 %add100.i, %24
+  br label %getBoxFromTuple.exit
 
-171:                                              ; preds = %165
-  %172 = mul i32 %133, %102
-  %173 = add i32 %172, %90
-  %174 = mul i32 %157, %173
-  %175 = add i32 %174, %83
-  br label %176
+if.else102.i:                                     ; preds = %if.else94.i
+  %mul109.i = mul i32 %17, %k.040
+  %reass.add.i = add i32 %mul109.i, %j.042
+  %reass.mul.i = mul i32 %22, %reass.add.i
+  %add110.i = add i32 %reass.mul.i, %i.044
+  br label %getBoxFromTuple.exit
 
-176:                                              ; preds = %105, %120, %135, %146, %159, %166, %171
-  %177 = phi i32 [ %117, %105 ], [ %131, %120 ], [ %144, %135 ], [ %155, %146 ], [ %164, %159 ], [ %170, %166 ], [ %175, %171 ]
-  %178 = add i64 %101, 1
-  %179 = getelementptr inbounds i32, ptr %2, i64 %101
-  store i32 %177, ptr %179, align 4, !tbaa !9
-  %180 = add nsw i32 %102, 1
-  %181 = icmp sgt i32 %102, %74
-  br i1 %181, label %98, label %100
+getBoxFromTuple.exit:                             ; preds = %if.then.i32, %if.then25.i, %if.then48.i, %if.then68.i, %if.then84.i, %if.then96.i, %if.else102.i
+  %iBox.0.i = phi i32 [ %add23.i, %if.then.i32 ], [ %add44.i, %if.then25.i ], [ %add65.i, %if.then48.i ], [ %add80.i, %if.then68.i ], [ %add93.i, %if.then84.i ], [ %add101.i, %if.then96.i ], [ %add110.i, %if.else102.i ]
+  %indvars.iv.next = add i64 %indvars.iv, 1
+  %arrayidx = getelementptr inbounds i32, ptr %nbrBoxes, i64 %indvars.iv
+  store i32 %iBox.0.i, ptr %arrayidx, align 4, !tbaa !9
+  %inc13 = add nsw i32 %k.040, 1
+  %cmp10.not = icmp sgt i32 %k.040, %iz.2.i
+  br i1 %cmp10.not, label %for.cond.cleanup11, label %for.body12
 }
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(argmem: read) uwtable
-define dso_local i32 @getBoxFromTuple(ptr nocapture noundef readonly %0, i32 noundef %1, i32 noundef %2, i32 noundef %3) local_unnamed_addr #4 {
-  %5 = getelementptr inbounds i32, ptr %0, i64 2
-  %6 = load i32, ptr %5, align 4, !tbaa !9
-  %7 = icmp eq i32 %6, %3
-  br i1 %7, label %8, label %25
+define dso_local i32 @getBoxFromTuple(ptr nocapture noundef readonly %boxes, i32 noundef %ix, i32 noundef %iy, i32 noundef %iz) local_unnamed_addr #4 {
+entry:
+  %arrayidx = getelementptr inbounds i32, ptr %boxes, i64 2
+  %0 = load i32, ptr %arrayidx, align 4, !tbaa !9
+  %cmp = icmp eq i32 %0, %iz
+  br i1 %cmp, label %if.then, label %if.else
 
-8:                                                ; preds = %4
-  %9 = getelementptr inbounds %struct.LinkCellSt, ptr %0, i64 0, i32 1
-  %10 = load i32, ptr %9, align 4, !tbaa !11
-  %11 = shl nsw i32 %3, 1
-  %12 = getelementptr inbounds i32, ptr %0, i64 1
-  %13 = load i32, ptr %12, align 4, !tbaa !9
-  %14 = mul nsw i32 %13, %11
-  %15 = load i32, ptr %0, align 4, !tbaa !9
-  %16 = add nsw i32 %15, 2
-  %17 = add i32 %2, 3
-  %18 = add i32 %17, %11
-  %19 = add i32 %18, %13
-  %20 = mul i32 %19, %16
-  %21 = add i32 %1, 1
-  %22 = add i32 %21, %10
-  %23 = add i32 %22, %14
-  %24 = add i32 %23, %20
-  br label %97
+if.then:                                          ; preds = %entry
+  %nLocalBoxes = getelementptr inbounds %struct.LinkCellSt, ptr %boxes, i64 0, i32 1
+  %1 = load i32, ptr %nLocalBoxes, align 4, !tbaa !11
+  %mul = shl nsw i32 %iz, 1
+  %arrayidx3 = getelementptr inbounds i32, ptr %boxes, i64 1
+  %2 = load i32, ptr %arrayidx3, align 4, !tbaa !9
+  %mul4 = mul nsw i32 %2, %mul
+  %3 = load i32, ptr %boxes, align 4, !tbaa !9
+  %add8 = add nsw i32 %3, 2
+  %add19 = add i32 %iy, 3
+  %reass.add178 = add i32 %add19, %mul
+  %reass.add179 = add i32 %reass.add178, %2
+  %reass.mul180 = mul i32 %reass.add179, %add8
+  %add16 = add i32 %ix, 1
+  %add21 = add i32 %add16, %1
+  %add22 = add i32 %add21, %mul4
+  %add23 = add i32 %add22, %reass.mul180
+  br label %if.end115
 
-25:                                               ; preds = %4
-  %26 = icmp eq i32 %3, -1
-  br i1 %26, label %27, label %43
+if.else:                                          ; preds = %entry
+  %cmp24 = icmp eq i32 %iz, -1
+  br i1 %cmp24, label %if.then25, label %if.else45
 
-27:                                               ; preds = %25
-  %28 = getelementptr inbounds %struct.LinkCellSt, ptr %0, i64 0, i32 1
-  %29 = load i32, ptr %28, align 4, !tbaa !11
-  %30 = shl nsw i32 %6, 1
-  %31 = getelementptr inbounds i32, ptr %0, i64 1
-  %32 = load i32, ptr %31, align 4, !tbaa !9
-  %33 = mul nsw i32 %32, %30
-  %34 = load i32, ptr %0, align 4, !tbaa !9
-  %35 = add nsw i32 %34, 2
-  %36 = add nsw i32 %2, 1
-  %37 = add i32 %36, %30
-  %38 = mul i32 %35, %37
-  %39 = add i32 %1, 1
-  %40 = add i32 %39, %29
-  %41 = add i32 %40, %33
-  %42 = add i32 %41, %38
-  br label %97
+if.then25:                                        ; preds = %if.else
+  %nLocalBoxes26 = getelementptr inbounds %struct.LinkCellSt, ptr %boxes, i64 0, i32 1
+  %4 = load i32, ptr %nLocalBoxes26, align 4, !tbaa !11
+  %mul28 = shl nsw i32 %0, 1
+  %arrayidx29 = getelementptr inbounds i32, ptr %boxes, i64 1
+  %5 = load i32, ptr %arrayidx29, align 4, !tbaa !9
+  %mul30 = mul nsw i32 %5, %mul28
+  %6 = load i32, ptr %boxes, align 4, !tbaa !9
+  %add35 = add nsw i32 %6, 2
+  %add40 = add nsw i32 %iy, 1
+  %reass.add176 = add i32 %add40, %mul28
+  %reass.mul177 = mul i32 %add35, %reass.add176
+  %add37 = add i32 %ix, 1
+  %add42 = add i32 %add37, %4
+  %add43 = add i32 %add42, %mul30
+  %add44 = add i32 %add43, %reass.mul177
+  br label %if.end115
 
-43:                                               ; preds = %25
-  %44 = getelementptr inbounds i32, ptr %0, i64 1
-  %45 = load i32, ptr %44, align 4, !tbaa !9
-  %46 = icmp eq i32 %45, %2
-  br i1 %46, label %47, label %60
+if.else45:                                        ; preds = %if.else
+  %arrayidx46 = getelementptr inbounds i32, ptr %boxes, i64 1
+  %7 = load i32, ptr %arrayidx46, align 4, !tbaa !9
+  %cmp47 = icmp eq i32 %7, %iy
+  br i1 %cmp47, label %if.then48, label %if.else66
 
-47:                                               ; preds = %43
-  %48 = getelementptr inbounds %struct.LinkCellSt, ptr %0, i64 0, i32 1
-  %49 = load i32, ptr %48, align 4, !tbaa !11
-  %50 = shl nsw i32 %6, 1
-  %51 = mul nsw i32 %50, %2
-  %52 = load i32, ptr %0, align 4, !tbaa !9
-  %53 = add nsw i32 %52, 2
-  %54 = add i32 %6, %3
-  %55 = mul i32 %53, %54
-  %56 = add i32 %1, 1
-  %57 = add i32 %56, %51
-  %58 = add i32 %57, %49
-  %59 = add i32 %58, %55
-  br label %97
+if.then48:                                        ; preds = %if.else45
+  %nLocalBoxes49 = getelementptr inbounds %struct.LinkCellSt, ptr %boxes, i64 0, i32 1
+  %8 = load i32, ptr %nLocalBoxes49, align 4, !tbaa !11
+  %mul51 = shl nsw i32 %0, 1
+  %mul53 = mul nsw i32 %mul51, %iy
+  %9 = load i32, ptr %boxes, align 4, !tbaa !9
+  %add57 = add nsw i32 %9, 2
+  %reass.add174 = add i32 %0, %iz
+  %reass.mul175 = mul i32 %add57, %reass.add174
+  %add59 = add i32 %ix, 1
+  %add63 = add i32 %add59, %mul53
+  %add64 = add i32 %add63, %8
+  %add65 = add i32 %add64, %reass.mul175
+  br label %if.end115
 
-60:                                               ; preds = %43
-  %61 = icmp eq i32 %2, -1
-  br i1 %61, label %62, label %74
+if.else66:                                        ; preds = %if.else45
+  %cmp67 = icmp eq i32 %iy, -1
+  br i1 %cmp67, label %if.then68, label %if.else81
 
-62:                                               ; preds = %60
-  %63 = getelementptr inbounds %struct.LinkCellSt, ptr %0, i64 0, i32 1
-  %64 = load i32, ptr %63, align 4, !tbaa !11
-  %65 = shl nsw i32 %6, 1
-  %66 = mul nsw i32 %65, %45
-  %67 = load i32, ptr %0, align 4, !tbaa !9
-  %68 = add nsw i32 %67, 2
-  %69 = mul nsw i32 %68, %3
-  %70 = add i32 %1, 1
-  %71 = add i32 %70, %66
-  %72 = add i32 %71, %64
-  %73 = add i32 %72, %69
-  br label %97
+if.then68:                                        ; preds = %if.else66
+  %nLocalBoxes69 = getelementptr inbounds %struct.LinkCellSt, ptr %boxes, i64 0, i32 1
+  %10 = load i32, ptr %nLocalBoxes69, align 4, !tbaa !11
+  %mul71 = shl nsw i32 %0, 1
+  %mul73 = mul nsw i32 %mul71, %7
+  %11 = load i32, ptr %boxes, align 4, !tbaa !9
+  %add76 = add nsw i32 %11, 2
+  %mul77 = mul nsw i32 %add76, %iz
+  %add74 = add i32 %ix, 1
+  %add78 = add i32 %add74, %mul73
+  %add79 = add i32 %add78, %10
+  %add80 = add i32 %add79, %mul77
+  br label %if.end115
 
-74:                                               ; preds = %60
-  %75 = load i32, ptr %0, align 4, !tbaa !9
-  %76 = icmp eq i32 %75, %1
-  br i1 %76, label %77, label %84
+if.else81:                                        ; preds = %if.else66
+  %12 = load i32, ptr %boxes, align 4, !tbaa !9
+  %cmp83 = icmp eq i32 %12, %ix
+  br i1 %cmp83, label %if.then84, label %if.else94
 
-77:                                               ; preds = %74
-  %78 = getelementptr inbounds %struct.LinkCellSt, ptr %0, i64 0, i32 1
-  %79 = load i32, ptr %78, align 4, !tbaa !11
-  %80 = add i32 %6, %3
-  %81 = mul i32 %45, %80
-  %82 = add i32 %81, %2
-  %83 = add i32 %82, %79
-  br label %97
+if.then84:                                        ; preds = %if.else81
+  %nLocalBoxes85 = getelementptr inbounds %struct.LinkCellSt, ptr %boxes, i64 0, i32 1
+  %13 = load i32, ptr %nLocalBoxes85, align 4, !tbaa !11
+  %reass.add172 = add i32 %0, %iz
+  %reass.mul173 = mul i32 %7, %reass.add172
+  %add92 = add i32 %reass.mul173, %iy
+  %add93 = add i32 %add92, %13
+  br label %if.end115
 
-84:                                               ; preds = %74
-  %85 = icmp eq i32 %1, -1
-  br i1 %85, label %86, label %92
+if.else94:                                        ; preds = %if.else81
+  %cmp95 = icmp eq i32 %ix, -1
+  br i1 %cmp95, label %if.then96, label %if.else102
 
-86:                                               ; preds = %84
-  %87 = getelementptr inbounds %struct.LinkCellSt, ptr %0, i64 0, i32 1
-  %88 = load i32, ptr %87, align 4, !tbaa !11
-  %89 = mul nsw i32 %45, %3
-  %90 = add i32 %89, %2
-  %91 = add i32 %90, %88
-  br label %97
+if.then96:                                        ; preds = %if.else94
+  %nLocalBoxes97 = getelementptr inbounds %struct.LinkCellSt, ptr %boxes, i64 0, i32 1
+  %14 = load i32, ptr %nLocalBoxes97, align 4, !tbaa !11
+  %mul99 = mul nsw i32 %7, %iz
+  %add100 = add i32 %mul99, %iy
+  %add101 = add i32 %add100, %14
+  br label %if.end115
 
-92:                                               ; preds = %84
-  %93 = mul i32 %45, %3
-  %94 = add i32 %93, %2
-  %95 = mul i32 %94, %75
-  %96 = add i32 %95, %1
-  br label %97
+if.else102:                                       ; preds = %if.else94
+  %mul109 = mul i32 %7, %iz
+  %reass.add = add i32 %mul109, %iy
+  %reass.mul = mul i32 %reass.add, %12
+  %add110 = add i32 %reass.mul, %ix
+  br label %if.end115
 
-97:                                               ; preds = %27, %62, %86, %92, %77, %47, %8
-  %98 = phi i32 [ %24, %8 ], [ %42, %27 ], [ %59, %47 ], [ %73, %62 ], [ %83, %77 ], [ %91, %86 ], [ %96, %92 ]
-  ret i32 %98
+if.end115:                                        ; preds = %if.then25, %if.then68, %if.then96, %if.else102, %if.then84, %if.then48, %if.then
+  %iBox.0 = phi i32 [ %add23, %if.then ], [ %add44, %if.then25 ], [ %add65, %if.then48 ], [ %add80, %if.then68 ], [ %add93, %if.then84 ], [ %add101, %if.then96 ], [ %add110, %if.else102 ]
+  ret i32 %iBox.0
 }
 
 ; Function Attrs: mustprogress nofree nosync nounwind willreturn memory(readwrite, inaccessiblemem: none) uwtable
-define dso_local void @putAtomInBox(ptr nocapture noundef readonly %0, ptr nocapture noundef %1, i32 noundef %2, i32 noundef %3, double noundef %4, double noundef %5, double noundef %6, double noundef %7, double noundef %8, double noundef %9) local_unnamed_addr #5 {
-  %11 = getelementptr inbounds %struct.LinkCellSt, ptr %0, i64 0, i32 5
-  %12 = getelementptr inbounds %struct.LinkCellSt, ptr %0, i64 0, i32 4, i64 1
-  %13 = getelementptr inbounds %struct.LinkCellSt, ptr %0, i64 0, i32 7, i64 1
-  %14 = load <2 x double>, ptr %12, align 8, !tbaa !5
-  %15 = load <2 x double>, ptr %13, align 8, !tbaa !5
-  %16 = load double, ptr %11, align 8, !tbaa !5
-  %17 = fcmp ogt double %16, %4
-  br i1 %17, label %18, label %31
+define dso_local void @putAtomInBox(ptr nocapture noundef readonly %boxes, ptr nocapture noundef %atoms, i32 noundef %gid, i32 noundef %iType, double noundef %x, double noundef %y, double noundef %z, double noundef %px, double noundef %py, double noundef %pz) local_unnamed_addr #5 {
+entry:
+  %localMax2.i = getelementptr inbounds %struct.LinkCellSt, ptr %boxes, i64 0, i32 5
+  %arrayidx9.i = getelementptr inbounds %struct.LinkCellSt, ptr %boxes, i64 0, i32 4, i64 1
+  %arrayidx12.i = getelementptr inbounds %struct.LinkCellSt, ptr %boxes, i64 0, i32 7, i64 1
+  %0 = load <2 x double>, ptr %arrayidx9.i, align 8, !tbaa !5
+  %1 = load <2 x double>, ptr %arrayidx12.i, align 8, !tbaa !5
+  %2 = load double, ptr %localMax2.i, align 8, !tbaa !5
+  %cmp.i = fcmp ogt double %2, %x
+  br i1 %cmp.i, label %if.then.i, label %if.else.i
 
-18:                                               ; preds = %10
-  %19 = getelementptr inbounds %struct.LinkCellSt, ptr %0, i64 0, i32 7
-  %20 = getelementptr inbounds %struct.LinkCellSt, ptr %0, i64 0, i32 4
-  %21 = load double, ptr %20, align 8, !tbaa !5
-  %22 = fsub double %4, %21
-  %23 = load double, ptr %19, align 8, !tbaa !5
-  %24 = fmul double %22, %23
-  %25 = tail call double @llvm.floor.f64(double %24)
-  %26 = fptosi double %25 to i32
-  %27 = load i32, ptr %0, align 4, !tbaa !9
-  %28 = icmp eq i32 %27, %26
-  %29 = add nsw i32 %27, -1
-  %30 = select i1 %28, i32 %29, i32 %26
-  br label %33
+if.then.i:                                        ; preds = %entry
+  %invBoxSize.i = getelementptr inbounds %struct.LinkCellSt, ptr %boxes, i64 0, i32 7
+  %localMin1.i = getelementptr inbounds %struct.LinkCellSt, ptr %boxes, i64 0, i32 4
+  %3 = load double, ptr %localMin1.i, align 8, !tbaa !5
+  %sub.i = fsub double %x, %3
+  %4 = load double, ptr %invBoxSize.i, align 8, !tbaa !5
+  %mul.i = fmul double %sub.i, %4
+  %5 = tail call double @llvm.floor.f64(double %mul.i)
+  %conv.i = fptosi double %5 to i32
+  %6 = load i32, ptr %boxes, align 4, !tbaa !9
+  %cmp26.i = icmp eq i32 %6, %conv.i
+  %sub30.i = add nsw i32 %6, -1
+  %spec.select.i = select i1 %cmp26.i, i32 %sub30.i, i32 %conv.i
+  br label %getBoxFromCoord.exit
 
-31:                                               ; preds = %10
-  %32 = load i32, ptr %0, align 4, !tbaa !9
-  br label %33
+if.else.i:                                        ; preds = %entry
+  %7 = load i32, ptr %boxes, align 4, !tbaa !9
+  br label %getBoxFromCoord.exit
 
-33:                                               ; preds = %18, %31
-  %34 = phi i32 [ %32, %31 ], [ %30, %18 ]
-  %35 = insertelement <2 x double> poison, double %5, i64 0
-  %36 = insertelement <2 x double> %35, double %6, i64 1
-  %37 = fsub <2 x double> %36, %14
-  %38 = getelementptr inbounds %struct.LinkCellSt, ptr %0, i64 0, i32 5, i64 1
-  %39 = load double, ptr %38, align 8, !tbaa !5
-  %40 = fcmp ogt double %39, %5
-  %41 = getelementptr inbounds i32, ptr %0, i64 1
-  %42 = getelementptr inbounds %struct.LinkCellSt, ptr %0, i64 0, i32 5, i64 2
-  %43 = load double, ptr %42, align 8, !tbaa !5
-  %44 = fcmp ogt double %43, %6
-  %45 = fmul <2 x double> %37, %15
-  %46 = tail call <2 x double> @llvm.floor.v2f64(<2 x double> %45)
-  %47 = fptosi <2 x double> %46 to <2 x i32>
-  %48 = load <2 x i32>, ptr %41, align 4, !tbaa !9
-  %49 = extractelement <2 x i32> %48, i64 0
-  %50 = add nsw i32 %49, -1
-  %51 = icmp eq <2 x i32> %48, %47
-  %52 = extractelement <2 x i1> %51, i64 0
-  %53 = extractelement <2 x i32> %47, i64 0
-  %54 = select i1 %52, i32 %50, i32 %53
-  %55 = select i1 %40, i32 %54, i32 %49
-  %56 = extractelement <2 x i32> %48, i64 1
-  %57 = add nsw i32 %56, -1
-  %58 = extractelement <2 x i1> %51, i64 1
-  %59 = extractelement <2 x i32> %47, i64 1
-  %60 = select i1 %58, i32 %57, i32 %59
-  %61 = select i1 %44, i32 %60, i32 %56
-  %62 = tail call i32 @getBoxFromTuple(ptr noundef nonnull %0, i32 noundef %34, i32 noundef %55, i32 noundef %61)
-  %63 = getelementptr inbounds %struct.LinkCellSt, ptr %0, i64 0, i32 8
-  %64 = load ptr, ptr %63, align 8, !tbaa !16
-  %65 = sext i32 %62 to i64
-  %66 = getelementptr inbounds i32, ptr %64, i64 %65
-  %67 = load i32, ptr %66, align 4, !tbaa !9
-  %68 = getelementptr inbounds %struct.LinkCellSt, ptr %0, i64 0, i32 1
-  %69 = load i32, ptr %68, align 4, !tbaa !11
-  %70 = icmp slt i32 %62, %69
-  br i1 %70, label %71, label %75
+getBoxFromCoord.exit:                             ; preds = %if.then.i, %if.else.i
+  %ix.0.i = phi i32 [ %7, %if.else.i ], [ %spec.select.i, %if.then.i ]
+  %8 = insertelement <2 x double> poison, double %y, i64 0
+  %9 = insertelement <2 x double> %8, double %z, i64 1
+  %10 = fsub <2 x double> %9, %0
+  %arrayidx34.i = getelementptr inbounds %struct.LinkCellSt, ptr %boxes, i64 0, i32 5, i64 1
+  %11 = load double, ptr %arrayidx34.i, align 8, !tbaa !5
+  %cmp35.i = fcmp ogt double %11, %y
+  %arrayidx38.i = getelementptr inbounds i32, ptr %boxes, i64 1
+  %arrayidx49.i = getelementptr inbounds %struct.LinkCellSt, ptr %boxes, i64 0, i32 5, i64 2
+  %12 = load double, ptr %arrayidx49.i, align 8, !tbaa !5
+  %cmp50.i = fcmp ogt double %12, %z
+  %13 = fmul <2 x double> %10, %1
+  %14 = tail call <2 x double> @llvm.floor.v2f64(<2 x double> %13)
+  %15 = fptosi <2 x double> %14 to <2 x i32>
+  %16 = load <2 x i32>, ptr %arrayidx38.i, align 4, !tbaa !9
+  %17 = extractelement <2 x i32> %16, i64 0
+  %sub43.i = add nsw i32 %17, -1
+  %18 = icmp eq <2 x i32> %16, %15
+  %19 = extractelement <2 x i1> %18, i64 0
+  %20 = extractelement <2 x i32> %15, i64 0
+  %spec.select91.i = select i1 %19, i32 %sub43.i, i32 %20
+  %iy.0.i = select i1 %cmp35.i, i32 %spec.select91.i, i32 %17
+  %21 = extractelement <2 x i32> %16, i64 1
+  %sub58.i = add nsw i32 %21, -1
+  %22 = extractelement <2 x i1> %18, i64 1
+  %23 = extractelement <2 x i32> %15, i64 1
+  %spec.select92.i = select i1 %22, i32 %sub58.i, i32 %23
+  %iz.0.i = select i1 %cmp50.i, i32 %spec.select92.i, i32 %21
+  %call.i = tail call i32 @getBoxFromTuple(ptr noundef nonnull %boxes, i32 noundef %ix.0.i, i32 noundef %iy.0.i, i32 noundef %iz.0.i)
+  %nAtoms = getelementptr inbounds %struct.LinkCellSt, ptr %boxes, i64 0, i32 8
+  %24 = load ptr, ptr %nAtoms, align 8, !tbaa !16
+  %idxprom = sext i32 %call.i to i64
+  %arrayidx = getelementptr inbounds i32, ptr %24, i64 %idxprom
+  %25 = load i32, ptr %arrayidx, align 4, !tbaa !9
+  %nLocalBoxes = getelementptr inbounds %struct.LinkCellSt, ptr %boxes, i64 0, i32 1
+  %26 = load i32, ptr %nLocalBoxes, align 4, !tbaa !11
+  %cmp = icmp slt i32 %call.i, %26
+  br i1 %cmp, label %if.then, label %if.end
 
-71:                                               ; preds = %33
-  %72 = load i32, ptr %1, align 8, !tbaa !18
-  %73 = add nsw i32 %72, 1
-  store i32 %73, ptr %1, align 8, !tbaa !18
-  %74 = load i32, ptr %66, align 4, !tbaa !9
-  br label %75
+if.then:                                          ; preds = %getBoxFromCoord.exit
+  %27 = load i32, ptr %atoms, align 8, !tbaa !18
+  %inc = add nsw i32 %27, 1
+  store i32 %inc, ptr %atoms, align 8, !tbaa !18
+  %.pre = load i32, ptr %arrayidx, align 4, !tbaa !9
+  br label %if.end
 
-75:                                               ; preds = %71, %33
-  %76 = phi i32 [ %74, %71 ], [ %67, %33 ]
-  %77 = shl nsw i32 %62, 6
-  %78 = add nsw i32 %67, %77
-  %79 = add nsw i32 %76, 1
-  store i32 %79, ptr %66, align 4, !tbaa !9
-  %80 = getelementptr inbounds %struct.AtomsSt, ptr %1, i64 0, i32 2
-  %81 = load ptr, ptr %80, align 8, !tbaa !20
-  %82 = sext i32 %78 to i64
-  %83 = getelementptr inbounds i32, ptr %81, i64 %82
-  store i32 %2, ptr %83, align 4, !tbaa !9
-  %84 = getelementptr inbounds %struct.AtomsSt, ptr %1, i64 0, i32 3
-  %85 = load ptr, ptr %84, align 8, !tbaa !21
-  %86 = getelementptr inbounds i32, ptr %85, i64 %82
-  store i32 %3, ptr %86, align 4, !tbaa !9
-  %87 = getelementptr inbounds %struct.AtomsSt, ptr %1, i64 0, i32 4
-  %88 = load ptr, ptr %87, align 8, !tbaa !22
-  %89 = getelementptr inbounds [3 x double], ptr %88, i64 %82
-  store double %4, ptr %89, align 8, !tbaa !5
-  %90 = getelementptr inbounds [3 x double], ptr %88, i64 %82, i64 1
-  store double %5, ptr %90, align 8, !tbaa !5
-  %91 = getelementptr inbounds [3 x double], ptr %88, i64 %82, i64 2
-  store double %6, ptr %91, align 8, !tbaa !5
-  %92 = getelementptr inbounds %struct.AtomsSt, ptr %1, i64 0, i32 5
-  %93 = load ptr, ptr %92, align 8, !tbaa !23
-  %94 = getelementptr inbounds [3 x double], ptr %93, i64 %82
-  store double %7, ptr %94, align 8, !tbaa !5
-  %95 = getelementptr inbounds [3 x double], ptr %93, i64 %82, i64 1
-  store double %8, ptr %95, align 8, !tbaa !5
-  %96 = getelementptr inbounds [3 x double], ptr %93, i64 %82, i64 2
-  store double %9, ptr %96, align 8, !tbaa !5
+if.end:                                           ; preds = %if.then, %getBoxFromCoord.exit
+  %28 = phi i32 [ %.pre, %if.then ], [ %25, %getBoxFromCoord.exit ]
+  %mul = shl nsw i32 %call.i, 6
+  %add = add nsw i32 %25, %mul
+  %inc5 = add nsw i32 %28, 1
+  store i32 %inc5, ptr %arrayidx, align 4, !tbaa !9
+  %gid6 = getelementptr inbounds %struct.AtomsSt, ptr %atoms, i64 0, i32 2
+  %29 = load ptr, ptr %gid6, align 8, !tbaa !20
+  %idxprom7 = sext i32 %add to i64
+  %arrayidx8 = getelementptr inbounds i32, ptr %29, i64 %idxprom7
+  store i32 %gid, ptr %arrayidx8, align 4, !tbaa !9
+  %iSpecies = getelementptr inbounds %struct.AtomsSt, ptr %atoms, i64 0, i32 3
+  %30 = load ptr, ptr %iSpecies, align 8, !tbaa !21
+  %arrayidx10 = getelementptr inbounds i32, ptr %30, i64 %idxprom7
+  store i32 %iType, ptr %arrayidx10, align 4, !tbaa !9
+  %r = getelementptr inbounds %struct.AtomsSt, ptr %atoms, i64 0, i32 4
+  %31 = load ptr, ptr %r, align 8, !tbaa !22
+  %arrayidx12 = getelementptr inbounds [3 x double], ptr %31, i64 %idxprom7
+  store double %x, ptr %arrayidx12, align 8, !tbaa !5
+  %arrayidx17 = getelementptr inbounds [3 x double], ptr %31, i64 %idxprom7, i64 1
+  store double %y, ptr %arrayidx17, align 8, !tbaa !5
+  %arrayidx21 = getelementptr inbounds [3 x double], ptr %31, i64 %idxprom7, i64 2
+  store double %z, ptr %arrayidx21, align 8, !tbaa !5
+  %p = getelementptr inbounds %struct.AtomsSt, ptr %atoms, i64 0, i32 5
+  %32 = load ptr, ptr %p, align 8, !tbaa !23
+  %arrayidx23 = getelementptr inbounds [3 x double], ptr %32, i64 %idxprom7
+  store double %px, ptr %arrayidx23, align 8, !tbaa !5
+  %arrayidx28 = getelementptr inbounds [3 x double], ptr %32, i64 %idxprom7, i64 1
+  store double %py, ptr %arrayidx28, align 8, !tbaa !5
+  %arrayidx32 = getelementptr inbounds [3 x double], ptr %32, i64 %idxprom7, i64 2
+  store double %pz, ptr %arrayidx32, align 8, !tbaa !5
   ret void
 }
 
 ; Function Attrs: mustprogress nofree nosync nounwind willreturn memory(readwrite, inaccessiblemem: none) uwtable
-define dso_local void @moveAtom(ptr nocapture noundef readonly %0, ptr nocapture noundef %1, i32 noundef %2, i32 noundef %3, i32 noundef %4) local_unnamed_addr #5 {
-  %6 = getelementptr inbounds %struct.LinkCellSt, ptr %0, i64 0, i32 8
-  %7 = load ptr, ptr %6, align 8, !tbaa !16
-  %8 = sext i32 %4 to i64
-  %9 = getelementptr inbounds i32, ptr %7, i64 %8
-  %10 = load i32, ptr %9, align 4, !tbaa !9
-  %11 = shl nsw i32 %3, 6
-  %12 = add nsw i32 %11, %2
-  %13 = shl nsw i32 %4, 6
-  %14 = add nsw i32 %10, %13
-  %15 = getelementptr inbounds %struct.AtomsSt, ptr %1, i64 0, i32 2
-  %16 = load ptr, ptr %15, align 8, !tbaa !20
-  %17 = sext i32 %12 to i64
-  %18 = getelementptr inbounds i32, ptr %16, i64 %17
-  %19 = load i32, ptr %18, align 4, !tbaa !9
-  %20 = sext i32 %14 to i64
-  %21 = getelementptr inbounds i32, ptr %16, i64 %20
-  store i32 %19, ptr %21, align 4, !tbaa !9
-  %22 = getelementptr inbounds %struct.AtomsSt, ptr %1, i64 0, i32 3
-  %23 = load ptr, ptr %22, align 8, !tbaa !21
-  %24 = getelementptr inbounds i32, ptr %23, i64 %17
-  %25 = load i32, ptr %24, align 4, !tbaa !9
-  %26 = getelementptr inbounds i32, ptr %23, i64 %20
-  store i32 %25, ptr %26, align 4, !tbaa !9
-  %27 = getelementptr inbounds %struct.AtomsSt, ptr %1, i64 0, i32 4
-  %28 = load ptr, ptr %27, align 8, !tbaa !22
-  %29 = getelementptr inbounds [3 x double], ptr %28, i64 %20
-  %30 = getelementptr inbounds [3 x double], ptr %28, i64 %17
-  tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(24) %29, ptr noundef nonnull align 8 dereferenceable(24) %30, i64 24, i1 false)
-  %31 = getelementptr inbounds %struct.AtomsSt, ptr %1, i64 0, i32 5
-  %32 = load ptr, ptr %31, align 8, !tbaa !23
-  %33 = getelementptr inbounds [3 x double], ptr %32, i64 %20
-  %34 = getelementptr inbounds [3 x double], ptr %32, i64 %17
-  tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(24) %33, ptr noundef nonnull align 8 dereferenceable(24) %34, i64 24, i1 false)
-  %35 = getelementptr inbounds %struct.AtomsSt, ptr %1, i64 0, i32 6
-  %36 = load ptr, ptr %35, align 8, !tbaa !24
-  %37 = getelementptr inbounds [3 x double], ptr %36, i64 %20
-  %38 = getelementptr inbounds [3 x double], ptr %36, i64 %17
-  tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(24) %37, ptr noundef nonnull align 8 dereferenceable(24) %38, i64 24, i1 false)
-  %39 = getelementptr inbounds %struct.AtomsSt, ptr %1, i64 0, i32 7
-  %40 = load ptr, ptr %39, align 8, !tbaa !25
-  %41 = getelementptr inbounds double, ptr %40, i64 %20
-  %42 = getelementptr inbounds double, ptr %40, i64 %17
-  %43 = load i64, ptr %42, align 8
-  store i64 %43, ptr %41, align 8
-  %44 = load ptr, ptr %6, align 8, !tbaa !16
-  %45 = getelementptr inbounds i32, ptr %44, i64 %8
-  %46 = load i32, ptr %45, align 4, !tbaa !9
-  %47 = add nsw i32 %46, 1
-  store i32 %47, ptr %45, align 4, !tbaa !9
-  %48 = sext i32 %3 to i64
-  %49 = getelementptr inbounds i32, ptr %44, i64 %48
-  %50 = load i32, ptr %49, align 4, !tbaa !9
-  %51 = add nsw i32 %50, -1
-  store i32 %51, ptr %49, align 4, !tbaa !9
-  %52 = icmp eq i32 %51, 0
-  br i1 %52, label %77, label %53
+define dso_local void @moveAtom(ptr nocapture noundef readonly %boxes, ptr nocapture noundef %atoms, i32 noundef %iId, i32 noundef %iBox, i32 noundef %jBox) local_unnamed_addr #5 {
+entry:
+  %nAtoms = getelementptr inbounds %struct.LinkCellSt, ptr %boxes, i64 0, i32 8
+  %0 = load ptr, ptr %nAtoms, align 8, !tbaa !16
+  %idxprom = sext i32 %jBox to i64
+  %arrayidx = getelementptr inbounds i32, ptr %0, i64 %idxprom
+  %1 = load i32, ptr %arrayidx, align 4, !tbaa !9
+  %mul.i = shl nsw i32 %iBox, 6
+  %add.i = add nsw i32 %mul.i, %iId
+  %mul1.i = shl nsw i32 %jBox, 6
+  %add2.i = add nsw i32 %1, %mul1.i
+  %gid.i = getelementptr inbounds %struct.AtomsSt, ptr %atoms, i64 0, i32 2
+  %2 = load ptr, ptr %gid.i, align 8, !tbaa !20
+  %idxprom.i = sext i32 %add.i to i64
+  %arrayidx.i = getelementptr inbounds i32, ptr %2, i64 %idxprom.i
+  %3 = load i32, ptr %arrayidx.i, align 4, !tbaa !9
+  %idxprom4.i = sext i32 %add2.i to i64
+  %arrayidx5.i = getelementptr inbounds i32, ptr %2, i64 %idxprom4.i
+  store i32 %3, ptr %arrayidx5.i, align 4, !tbaa !9
+  %iSpecies.i = getelementptr inbounds %struct.AtomsSt, ptr %atoms, i64 0, i32 3
+  %4 = load ptr, ptr %iSpecies.i, align 8, !tbaa !21
+  %arrayidx7.i = getelementptr inbounds i32, ptr %4, i64 %idxprom.i
+  %5 = load i32, ptr %arrayidx7.i, align 4, !tbaa !9
+  %arrayidx10.i = getelementptr inbounds i32, ptr %4, i64 %idxprom4.i
+  store i32 %5, ptr %arrayidx10.i, align 4, !tbaa !9
+  %r.i = getelementptr inbounds %struct.AtomsSt, ptr %atoms, i64 0, i32 4
+  %6 = load ptr, ptr %r.i, align 8, !tbaa !22
+  %arrayidx12.i = getelementptr inbounds [3 x double], ptr %6, i64 %idxprom4.i
+  %arrayidx15.i = getelementptr inbounds [3 x double], ptr %6, i64 %idxprom.i
+  tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(24) %arrayidx12.i, ptr noundef nonnull align 8 dereferenceable(24) %arrayidx15.i, i64 24, i1 false)
+  %p.i = getelementptr inbounds %struct.AtomsSt, ptr %atoms, i64 0, i32 5
+  %7 = load ptr, ptr %p.i, align 8, !tbaa !23
+  %arrayidx18.i = getelementptr inbounds [3 x double], ptr %7, i64 %idxprom4.i
+  %arrayidx22.i = getelementptr inbounds [3 x double], ptr %7, i64 %idxprom.i
+  tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(24) %arrayidx18.i, ptr noundef nonnull align 8 dereferenceable(24) %arrayidx22.i, i64 24, i1 false)
+  %f.i = getelementptr inbounds %struct.AtomsSt, ptr %atoms, i64 0, i32 6
+  %8 = load ptr, ptr %f.i, align 8, !tbaa !24
+  %arrayidx25.i = getelementptr inbounds [3 x double], ptr %8, i64 %idxprom4.i
+  %arrayidx29.i = getelementptr inbounds [3 x double], ptr %8, i64 %idxprom.i
+  tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(24) %arrayidx25.i, ptr noundef nonnull align 8 dereferenceable(24) %arrayidx29.i, i64 24, i1 false)
+  %U.i = getelementptr inbounds %struct.AtomsSt, ptr %atoms, i64 0, i32 7
+  %9 = load ptr, ptr %U.i, align 8, !tbaa !25
+  %add.ptr.i = getelementptr inbounds double, ptr %9, i64 %idxprom4.i
+  %add.ptr33.i = getelementptr inbounds double, ptr %9, i64 %idxprom.i
+  %10 = load i64, ptr %add.ptr33.i, align 8
+  store i64 %10, ptr %add.ptr.i, align 8
+  %11 = load ptr, ptr %nAtoms, align 8, !tbaa !16
+  %arrayidx3 = getelementptr inbounds i32, ptr %11, i64 %idxprom
+  %12 = load i32, ptr %arrayidx3, align 4, !tbaa !9
+  %inc = add nsw i32 %12, 1
+  store i32 %inc, ptr %arrayidx3, align 4, !tbaa !9
+  %idxprom5 = sext i32 %iBox to i64
+  %arrayidx6 = getelementptr inbounds i32, ptr %11, i64 %idxprom5
+  %13 = load i32, ptr %arrayidx6, align 4, !tbaa !9
+  %dec = add nsw i32 %13, -1
+  store i32 %dec, ptr %arrayidx6, align 4, !tbaa !9
+  %tobool.not = icmp eq i32 %dec, 0
+  br i1 %tobool.not, label %if.end, label %if.then
 
-53:                                               ; preds = %5
-  %54 = add nsw i32 %51, %11
-  %55 = load ptr, ptr %15, align 8, !tbaa !20
-  %56 = sext i32 %54 to i64
-  %57 = getelementptr inbounds i32, ptr %55, i64 %56
-  %58 = load i32, ptr %57, align 4, !tbaa !9
-  %59 = getelementptr inbounds i32, ptr %55, i64 %17
-  store i32 %58, ptr %59, align 4, !tbaa !9
-  %60 = load ptr, ptr %22, align 8, !tbaa !21
-  %61 = getelementptr inbounds i32, ptr %60, i64 %56
-  %62 = load i32, ptr %61, align 4, !tbaa !9
-  %63 = getelementptr inbounds i32, ptr %60, i64 %17
-  store i32 %62, ptr %63, align 4, !tbaa !9
-  %64 = load ptr, ptr %27, align 8, !tbaa !22
-  %65 = getelementptr inbounds [3 x double], ptr %64, i64 %17
-  %66 = getelementptr inbounds [3 x double], ptr %64, i64 %56
-  tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(24) %65, ptr noundef nonnull align 8 dereferenceable(24) %66, i64 24, i1 false)
-  %67 = load ptr, ptr %31, align 8, !tbaa !23
-  %68 = getelementptr inbounds [3 x double], ptr %67, i64 %17
-  %69 = getelementptr inbounds [3 x double], ptr %67, i64 %56
-  tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(24) %68, ptr noundef nonnull align 8 dereferenceable(24) %69, i64 24, i1 false)
-  %70 = load ptr, ptr %35, align 8, !tbaa !24
-  %71 = getelementptr inbounds [3 x double], ptr %70, i64 %17
-  %72 = getelementptr inbounds [3 x double], ptr %70, i64 %56
-  tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(24) %71, ptr noundef nonnull align 8 dereferenceable(24) %72, i64 24, i1 false)
-  %73 = load ptr, ptr %39, align 8, !tbaa !25
-  %74 = getelementptr inbounds double, ptr %73, i64 %17
-  %75 = getelementptr inbounds double, ptr %73, i64 %56
-  %76 = load i64, ptr %75, align 8
-  store i64 %76, ptr %74, align 8
-  br label %77
+if.then:                                          ; preds = %entry
+  %add.i31 = add nsw i32 %dec, %mul.i
+  %14 = load ptr, ptr %gid.i, align 8, !tbaa !20
+  %idxprom.i35 = sext i32 %add.i31 to i64
+  %arrayidx.i36 = getelementptr inbounds i32, ptr %14, i64 %idxprom.i35
+  %15 = load i32, ptr %arrayidx.i36, align 4, !tbaa !9
+  %arrayidx5.i38 = getelementptr inbounds i32, ptr %14, i64 %idxprom.i
+  store i32 %15, ptr %arrayidx5.i38, align 4, !tbaa !9
+  %16 = load ptr, ptr %iSpecies.i, align 8, !tbaa !21
+  %arrayidx7.i40 = getelementptr inbounds i32, ptr %16, i64 %idxprom.i35
+  %17 = load i32, ptr %arrayidx7.i40, align 4, !tbaa !9
+  %arrayidx10.i41 = getelementptr inbounds i32, ptr %16, i64 %idxprom.i
+  store i32 %17, ptr %arrayidx10.i41, align 4, !tbaa !9
+  %18 = load ptr, ptr %r.i, align 8, !tbaa !22
+  %arrayidx12.i43 = getelementptr inbounds [3 x double], ptr %18, i64 %idxprom.i
+  %arrayidx15.i44 = getelementptr inbounds [3 x double], ptr %18, i64 %idxprom.i35
+  tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(24) %arrayidx12.i43, ptr noundef nonnull align 8 dereferenceable(24) %arrayidx15.i44, i64 24, i1 false)
+  %19 = load ptr, ptr %p.i, align 8, !tbaa !23
+  %arrayidx18.i46 = getelementptr inbounds [3 x double], ptr %19, i64 %idxprom.i
+  %arrayidx22.i47 = getelementptr inbounds [3 x double], ptr %19, i64 %idxprom.i35
+  tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(24) %arrayidx18.i46, ptr noundef nonnull align 8 dereferenceable(24) %arrayidx22.i47, i64 24, i1 false)
+  %20 = load ptr, ptr %f.i, align 8, !tbaa !24
+  %arrayidx25.i49 = getelementptr inbounds [3 x double], ptr %20, i64 %idxprom.i
+  %arrayidx29.i50 = getelementptr inbounds [3 x double], ptr %20, i64 %idxprom.i35
+  tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(24) %arrayidx25.i49, ptr noundef nonnull align 8 dereferenceable(24) %arrayidx29.i50, i64 24, i1 false)
+  %21 = load ptr, ptr %U.i, align 8, !tbaa !25
+  %add.ptr.i52 = getelementptr inbounds double, ptr %21, i64 %idxprom.i
+  %add.ptr33.i53 = getelementptr inbounds double, ptr %21, i64 %idxprom.i35
+  %22 = load i64, ptr %add.ptr33.i53, align 8
+  store i64 %22, ptr %add.ptr.i52, align 8
+  br label %if.end
 
-77:                                               ; preds = %53, %5
-  %78 = getelementptr inbounds %struct.LinkCellSt, ptr %0, i64 0, i32 1
-  %79 = load i32, ptr %78, align 4, !tbaa !11
-  %80 = icmp slt i32 %79, %4
-  br i1 %80, label %81, label %84
+if.end:                                           ; preds = %if.then, %entry
+  %nLocalBoxes = getelementptr inbounds %struct.LinkCellSt, ptr %boxes, i64 0, i32 1
+  %23 = load i32, ptr %nLocalBoxes, align 4, !tbaa !11
+  %cmp = icmp slt i32 %23, %jBox
+  br i1 %cmp, label %if.then10, label %if.end12
 
-81:                                               ; preds = %77
-  %82 = load i32, ptr %1, align 8, !tbaa !18
-  %83 = add nsw i32 %82, -1
-  store i32 %83, ptr %1, align 8, !tbaa !18
-  br label %84
+if.then10:                                        ; preds = %if.end
+  %24 = load i32, ptr %atoms, align 8, !tbaa !18
+  %dec11 = add nsw i32 %24, -1
+  store i32 %dec11, ptr %atoms, align 8, !tbaa !18
+  br label %if.end12
 
-84:                                               ; preds = %81, %77
+if.end12:                                         ; preds = %if.then10, %if.end
   ret void
 }
 
 ; Function Attrs: nofree nosync nounwind memory(readwrite, inaccessiblemem: none) uwtable
-define dso_local void @updateLinkCells(ptr nocapture noundef readonly %0, ptr nocapture noundef %1) local_unnamed_addr #6 {
-  %3 = getelementptr inbounds %struct.LinkCellSt, ptr %0, i64 0, i32 1
-  %4 = load i32, ptr %3, align 4, !tbaa !11
-  %5 = getelementptr inbounds %struct.LinkCellSt, ptr %0, i64 0, i32 3
-  %6 = load i32, ptr %5, align 4, !tbaa !15
-  %7 = icmp slt i32 %4, %6
-  br i1 %7, label %8, label %21
+define dso_local void @updateLinkCells(ptr nocapture noundef readonly %boxes, ptr nocapture noundef %atoms) local_unnamed_addr #6 {
+entry:
+  %nLocalBoxes.i = getelementptr inbounds %struct.LinkCellSt, ptr %boxes, i64 0, i32 1
+  %0 = load i32, ptr %nLocalBoxes.i, align 4, !tbaa !11
+  %nTotalBoxes.i = getelementptr inbounds %struct.LinkCellSt, ptr %boxes, i64 0, i32 3
+  %1 = load i32, ptr %nTotalBoxes.i, align 4, !tbaa !15
+  %cmp5.i = icmp slt i32 %0, %1
+  br i1 %cmp5.i, label %for.body.lr.ph.i, label %emptyHaloCells.exit
 
-8:                                                ; preds = %2
-  %9 = getelementptr inbounds %struct.LinkCellSt, ptr %0, i64 0, i32 8
-  %10 = load ptr, ptr %9, align 8, !tbaa !16
-  %11 = sext i32 %4 to i64
-  br label %12
+for.body.lr.ph.i:                                 ; preds = %entry
+  %nAtoms.i = getelementptr inbounds %struct.LinkCellSt, ptr %boxes, i64 0, i32 8
+  %2 = load ptr, ptr %nAtoms.i, align 8, !tbaa !16
+  %3 = sext i32 %0 to i64
+  br label %for.body.i
 
-12:                                               ; preds = %12, %8
-  %13 = phi i64 [ %11, %8 ], [ %15, %12 ]
-  %14 = getelementptr inbounds i32, ptr %10, i64 %13
-  store i32 0, ptr %14, align 4, !tbaa !9
-  %15 = add nsw i64 %13, 1
-  %16 = load i32, ptr %5, align 4, !tbaa !15
-  %17 = sext i32 %16 to i64
-  %18 = icmp slt i64 %15, %17
-  br i1 %18, label %12, label %19
+for.body.i:                                       ; preds = %for.body.i, %for.body.lr.ph.i
+  %indvars.iv.i = phi i64 [ %3, %for.body.lr.ph.i ], [ %indvars.iv.next.i, %for.body.i ]
+  %arrayidx.i = getelementptr inbounds i32, ptr %2, i64 %indvars.iv.i
+  store i32 0, ptr %arrayidx.i, align 4, !tbaa !9
+  %indvars.iv.next.i = add nsw i64 %indvars.iv.i, 1
+  %4 = load i32, ptr %nTotalBoxes.i, align 4, !tbaa !15
+  %5 = sext i32 %4 to i64
+  %cmp.i = icmp slt i64 %indvars.iv.next.i, %5
+  br i1 %cmp.i, label %for.body.i, label %emptyHaloCells.exit.loopexit
 
-19:                                               ; preds = %12
-  %20 = load i32, ptr %3, align 4, !tbaa !11
-  br label %21
+emptyHaloCells.exit.loopexit:                     ; preds = %for.body.i
+  %.pre = load i32, ptr %nLocalBoxes.i, align 4, !tbaa !11
+  br label %emptyHaloCells.exit
 
-21:                                               ; preds = %19, %2
-  %22 = phi i32 [ %20, %19 ], [ %4, %2 ]
-  %23 = icmp sgt i32 %22, 0
-  br i1 %23, label %24, label %41
+emptyHaloCells.exit:                              ; preds = %emptyHaloCells.exit.loopexit, %entry
+  %6 = phi i32 [ %.pre, %emptyHaloCells.exit.loopexit ], [ %0, %entry ]
+  %cmp36 = icmp sgt i32 %6, 0
+  br i1 %cmp36, label %for.body.lr.ph, label %for.cond.cleanup
 
-24:                                               ; preds = %21
-  %25 = getelementptr inbounds %struct.LinkCellSt, ptr %0, i64 0, i32 8
-  %26 = getelementptr inbounds %struct.AtomsSt, ptr %1, i64 0, i32 4
-  %27 = getelementptr inbounds %struct.LinkCellSt, ptr %0, i64 0, i32 5
-  %28 = getelementptr inbounds %struct.LinkCellSt, ptr %0, i64 0, i32 4, i64 1
-  %29 = getelementptr inbounds %struct.LinkCellSt, ptr %0, i64 0, i32 7, i64 1
-  %30 = getelementptr inbounds %struct.LinkCellSt, ptr %0, i64 0, i32 7
-  %31 = getelementptr inbounds %struct.LinkCellSt, ptr %0, i64 0, i32 4
-  %32 = getelementptr inbounds %struct.LinkCellSt, ptr %0, i64 0, i32 5, i64 1
-  %33 = getelementptr inbounds i32, ptr %0, i64 1
-  %34 = getelementptr inbounds %struct.LinkCellSt, ptr %0, i64 0, i32 5, i64 2
-  %35 = getelementptr inbounds %struct.AtomsSt, ptr %1, i64 0, i32 2
-  %36 = getelementptr inbounds %struct.AtomsSt, ptr %1, i64 0, i32 3
-  %37 = getelementptr inbounds %struct.AtomsSt, ptr %1, i64 0, i32 5
-  %38 = getelementptr inbounds %struct.AtomsSt, ptr %1, i64 0, i32 6
-  %39 = getelementptr inbounds %struct.AtomsSt, ptr %1, i64 0, i32 7
-  %40 = load ptr, ptr %25, align 8, !tbaa !16
-  br label %42
+for.body.lr.ph:                                   ; preds = %emptyHaloCells.exit
+  %nAtoms = getelementptr inbounds %struct.LinkCellSt, ptr %boxes, i64 0, i32 8
+  %r = getelementptr inbounds %struct.AtomsSt, ptr %atoms, i64 0, i32 4
+  %localMax2.i = getelementptr inbounds %struct.LinkCellSt, ptr %boxes, i64 0, i32 5
+  %arrayidx9.i = getelementptr inbounds %struct.LinkCellSt, ptr %boxes, i64 0, i32 4, i64 1
+  %arrayidx12.i = getelementptr inbounds %struct.LinkCellSt, ptr %boxes, i64 0, i32 7, i64 1
+  %invBoxSize.i = getelementptr inbounds %struct.LinkCellSt, ptr %boxes, i64 0, i32 7
+  %localMin1.i = getelementptr inbounds %struct.LinkCellSt, ptr %boxes, i64 0, i32 4
+  %arrayidx34.i = getelementptr inbounds %struct.LinkCellSt, ptr %boxes, i64 0, i32 5, i64 1
+  %arrayidx38.i = getelementptr inbounds i32, ptr %boxes, i64 1
+  %arrayidx49.i = getelementptr inbounds %struct.LinkCellSt, ptr %boxes, i64 0, i32 5, i64 2
+  %gid.i.i = getelementptr inbounds %struct.AtomsSt, ptr %atoms, i64 0, i32 2
+  %iSpecies.i.i = getelementptr inbounds %struct.AtomsSt, ptr %atoms, i64 0, i32 3
+  %p.i.i = getelementptr inbounds %struct.AtomsSt, ptr %atoms, i64 0, i32 5
+  %f.i.i = getelementptr inbounds %struct.AtomsSt, ptr %atoms, i64 0, i32 6
+  %U.i.i = getelementptr inbounds %struct.AtomsSt, ptr %atoms, i64 0, i32 7
+  %.pre39 = load ptr, ptr %nAtoms, align 8, !tbaa !16
+  br label %for.body
 
-41:                                               ; preds = %263, %21
+for.cond.cleanup:                                 ; preds = %while.end, %emptyHaloCells.exit
   ret void
 
-42:                                               ; preds = %24, %263
-  %43 = phi i32 [ %22, %24 ], [ %264, %263 ]
-  %44 = phi ptr [ %40, %24 ], [ %265, %263 ]
-  %45 = phi i64 [ 0, %24 ], [ %266, %263 ]
-  %46 = trunc i64 %45 to i32
-  %47 = shl nsw i32 %46, 6
-  %48 = getelementptr inbounds i32, ptr %44, i64 %45
-  %49 = load i32, ptr %48, align 4, !tbaa !9
-  %50 = icmp sgt i32 %49, 0
-  br i1 %50, label %51, label %263
+for.body:                                         ; preds = %for.body.lr.ph, %while.end
+  %7 = phi i32 [ %6, %for.body.lr.ph ], [ %85, %while.end ]
+  %8 = phi ptr [ %.pre39, %for.body.lr.ph ], [ %86, %while.end ]
+  %indvars.iv = phi i64 [ 0, %for.body.lr.ph ], [ %indvars.iv.next, %while.end ]
+  %9 = trunc i64 %indvars.iv to i32
+  %mul = shl nsw i32 %9, 6
+  %arrayidx33 = getelementptr inbounds i32, ptr %8, i64 %indvars.iv
+  %10 = load i32, ptr %arrayidx33, align 4, !tbaa !9
+  %cmp134 = icmp sgt i32 %10, 0
+  br i1 %cmp134, label %while.body, label %while.end
 
-51:                                               ; preds = %42, %250
-  %52 = phi i32 [ %251, %250 ], [ %43, %42 ]
-  %53 = phi ptr [ %259, %250 ], [ %44, %42 ]
-  %54 = phi i32 [ %252, %250 ], [ %43, %42 ]
-  %55 = phi i32 [ %253, %250 ], [ %43, %42 ]
-  %56 = phi i32 [ %254, %250 ], [ %43, %42 ]
-  %57 = phi i32 [ %255, %250 ], [ %43, %42 ]
-  %58 = phi i32 [ %256, %250 ], [ %43, %42 ]
-  %59 = phi i32 [ %257, %250 ], [ %43, %42 ]
-  %60 = phi i32 [ %258, %250 ], [ 0, %42 ]
-  %61 = load ptr, ptr %26, align 8, !tbaa !22
-  %62 = add nsw i32 %60, %47
-  %63 = sext i32 %62 to i64
-  %64 = getelementptr inbounds [3 x double], ptr %61, i64 %63
-  %65 = load double, ptr %64, align 8, !tbaa !5
-  %66 = getelementptr inbounds double, ptr %64, i64 1
-  %67 = load <2 x double>, ptr %66, align 8, !tbaa !5
-  %68 = load <2 x double>, ptr %28, align 8, !tbaa !5
-  %69 = load <2 x double>, ptr %29, align 8, !tbaa !5
-  %70 = load double, ptr %27, align 8, !tbaa !5
-  %71 = fcmp olt double %65, %70
-  br i1 %71, label %72, label %83
+while.body:                                       ; preds = %for.body, %if.end
+  %11 = phi i32 [ %76, %if.end ], [ %7, %for.body ]
+  %12 = phi i32 [ %77, %if.end ], [ %7, %for.body ]
+  %13 = phi i32 [ %78, %if.end ], [ %7, %for.body ]
+  %14 = phi i32 [ %79, %if.end ], [ %7, %for.body ]
+  %15 = phi i32 [ %80, %if.end ], [ %7, %for.body ]
+  %16 = phi i32 [ %81, %if.end ], [ %7, %for.body ]
+  %17 = phi i32 [ %82, %if.end ], [ %7, %for.body ]
+  %18 = phi ptr [ %83, %if.end ], [ %8, %for.body ]
+  %ii.035 = phi i32 [ %ii.1, %if.end ], [ 0, %for.body ]
+  %19 = load ptr, ptr %r, align 8, !tbaa !22
+  %add = add nsw i32 %ii.035, %mul
+  %idxprom2 = sext i32 %add to i64
+  %arrayidx3 = getelementptr inbounds [3 x double], ptr %19, i64 %idxprom2
+  %20 = load double, ptr %arrayidx3, align 8, !tbaa !5
+  %arrayidx8.i = getelementptr inbounds double, ptr %arrayidx3, i64 1
+  %21 = load <2 x double>, ptr %arrayidx8.i, align 8, !tbaa !5
+  %22 = load <2 x double>, ptr %arrayidx9.i, align 8, !tbaa !5
+  %23 = load <2 x double>, ptr %arrayidx12.i, align 8, !tbaa !5
+  %24 = load double, ptr %localMax2.i, align 8, !tbaa !5
+  %cmp.i20 = fcmp olt double %20, %24
+  br i1 %cmp.i20, label %if.then.i, label %if.else.i
 
-72:                                               ; preds = %51
-  %73 = load double, ptr %31, align 8, !tbaa !5
-  %74 = fsub double %65, %73
-  %75 = load double, ptr %30, align 8, !tbaa !5
-  %76 = fmul double %74, %75
-  %77 = tail call double @llvm.floor.f64(double %76)
-  %78 = fptosi double %77 to i32
-  %79 = load i32, ptr %0, align 4, !tbaa !9
-  %80 = icmp eq i32 %79, %78
-  %81 = add nsw i32 %79, -1
-  %82 = select i1 %80, i32 %81, i32 %78
-  br label %85
+if.then.i:                                        ; preds = %while.body
+  %25 = load double, ptr %localMin1.i, align 8, !tbaa !5
+  %sub.i = fsub double %20, %25
+  %26 = load double, ptr %invBoxSize.i, align 8, !tbaa !5
+  %mul.i = fmul double %sub.i, %26
+  %27 = tail call double @llvm.floor.f64(double %mul.i)
+  %conv.i = fptosi double %27 to i32
+  %28 = load i32, ptr %boxes, align 4, !tbaa !9
+  %cmp26.i = icmp eq i32 %28, %conv.i
+  %sub30.i = add nsw i32 %28, -1
+  %spec.select.i = select i1 %cmp26.i, i32 %sub30.i, i32 %conv.i
+  br label %getBoxFromCoord.exit
 
-83:                                               ; preds = %51
-  %84 = load i32, ptr %0, align 4, !tbaa !9
-  br label %85
+if.else.i:                                        ; preds = %while.body
+  %29 = load i32, ptr %boxes, align 4, !tbaa !9
+  br label %getBoxFromCoord.exit
 
-85:                                               ; preds = %72, %83
-  %86 = phi i32 [ %84, %83 ], [ %79, %72 ]
-  %87 = phi i32 [ %84, %83 ], [ %82, %72 ]
-  %88 = fsub <2 x double> %67, %68
-  %89 = load double, ptr %32, align 8, !tbaa !5
-  %90 = extractelement <2 x double> %67, i64 0
-  %91 = fcmp uge double %90, %89
-  %92 = load double, ptr %34, align 8, !tbaa !5
-  %93 = extractelement <2 x double> %67, i64 1
-  %94 = fcmp uge double %93, %92
-  %95 = fmul <2 x double> %88, %69
-  %96 = tail call <2 x double> @llvm.floor.v2f64(<2 x double> %95)
-  %97 = fptosi <2 x double> %96 to <2 x i32>
-  %98 = load <2 x i32>, ptr %33, align 4, !tbaa !9
-  %99 = extractelement <2 x i32> %98, i64 0
-  %100 = add nsw i32 %99, -1
-  %101 = icmp eq <2 x i32> %98, %97
-  %102 = extractelement <2 x i1> %101, i64 0
-  %103 = extractelement <2 x i32> %97, i64 0
-  %104 = select i1 %102, i32 %100, i32 %103
-  %105 = select i1 %91, i32 %99, i32 %104
-  %106 = extractelement <2 x i32> %98, i64 1
-  %107 = add nsw i32 %106, -1
-  %108 = extractelement <2 x i1> %101, i64 1
-  %109 = extractelement <2 x i32> %97, i64 1
-  %110 = select i1 %108, i32 %107, i32 %109
-  %111 = select i1 %94, i32 %106, i32 %110
-  br i1 %94, label %112, label %124
+getBoxFromCoord.exit:                             ; preds = %if.then.i, %if.else.i
+  %30 = phi i32 [ %29, %if.else.i ], [ %28, %if.then.i ]
+  %ix.0.i = phi i32 [ %29, %if.else.i ], [ %spec.select.i, %if.then.i ]
+  %31 = fsub <2 x double> %21, %22
+  %32 = load double, ptr %arrayidx34.i, align 8, !tbaa !5
+  %33 = extractelement <2 x double> %21, i64 0
+  %cmp35.i = fcmp uge double %33, %32
+  %34 = load double, ptr %arrayidx49.i, align 8, !tbaa !5
+  %35 = extractelement <2 x double> %21, i64 1
+  %cmp50.i = fcmp uge double %35, %34
+  %36 = fmul <2 x double> %31, %23
+  %37 = tail call <2 x double> @llvm.floor.v2f64(<2 x double> %36)
+  %38 = fptosi <2 x double> %37 to <2 x i32>
+  %39 = load <2 x i32>, ptr %arrayidx38.i, align 4, !tbaa !9
+  %40 = extractelement <2 x i32> %39, i64 0
+  %sub43.i = add nsw i32 %40, -1
+  %41 = icmp eq <2 x i32> %39, %38
+  %42 = extractelement <2 x i1> %41, i64 0
+  %43 = extractelement <2 x i32> %38, i64 0
+  %spec.select91.i = select i1 %42, i32 %sub43.i, i32 %43
+  %iy.0.i = select i1 %cmp35.i, i32 %40, i32 %spec.select91.i
+  %44 = extractelement <2 x i32> %39, i64 1
+  %sub58.i = add nsw i32 %44, -1
+  %45 = extractelement <2 x i1> %41, i64 1
+  %46 = extractelement <2 x i32> %38, i64 1
+  %spec.select92.i = select i1 %45, i32 %sub58.i, i32 %46
+  %iz.0.i = select i1 %cmp50.i, i32 %44, i32 %spec.select92.i
+  br i1 %cmp50.i, label %if.then.i31, label %if.else.i32
 
-112:                                              ; preds = %85
-  %113 = shl nsw i32 %111, 1
-  %114 = mul nsw i32 %113, %99
-  %115 = add nsw i32 %86, 2
-  %116 = add i32 %99, 3
-  %117 = add i32 %116, %105
-  %118 = add i32 %117, %113
-  %119 = mul i32 %115, %118
-  %120 = add i32 %87, 1
-  %121 = add i32 %120, %114
-  %122 = add i32 %121, %54
-  %123 = add i32 %122, %119
-  br label %175
+if.then.i31:                                      ; preds = %getBoxFromCoord.exit
+  %mul.i29 = shl nsw i32 %iz.0.i, 1
+  %mul4.i = mul nsw i32 %mul.i29, %40
+  %add8.i = add nsw i32 %30, 2
+  %add19.i = add i32 %40, 3
+  %reass.add178.i = add i32 %add19.i, %iy.0.i
+  %reass.add179.i = add i32 %reass.add178.i, %mul.i29
+  %reass.mul180.i = mul i32 %add8.i, %reass.add179.i
+  %add16.i = add i32 %ix.0.i, 1
+  %add21.i = add i32 %add16.i, %mul4.i
+  %add22.i = add i32 %add21.i, %12
+  %add23.i = add i32 %add22.i, %reass.mul180.i
+  br label %getBoxFromTuple.exit
 
-124:                                              ; preds = %85
-  %125 = icmp eq i32 %111, -1
-  br i1 %125, label %126, label %137
+if.else.i32:                                      ; preds = %getBoxFromCoord.exit
+  %cmp24.i = icmp eq i32 %iz.0.i, -1
+  br i1 %cmp24.i, label %if.then25.i, label %if.else45.i
 
-126:                                              ; preds = %124
-  %127 = shl nsw i32 %106, 1
-  %128 = mul nsw i32 %127, %99
-  %129 = add nsw i32 %86, 2
-  %130 = add nsw i32 %105, 1
-  %131 = add i32 %130, %127
-  %132 = mul i32 %129, %131
-  %133 = add i32 %87, 1
-  %134 = add i32 %133, %128
-  %135 = add i32 %134, %55
-  %136 = add i32 %135, %132
-  br label %175
+if.then25.i:                                      ; preds = %if.else.i32
+  %mul28.i = shl nsw i32 %44, 1
+  %mul30.i = mul nsw i32 %mul28.i, %40
+  %add35.i = add nsw i32 %30, 2
+  %add40.i = add nsw i32 %iy.0.i, 1
+  %reass.add176.i = add i32 %add40.i, %mul28.i
+  %reass.mul177.i = mul i32 %add35.i, %reass.add176.i
+  %add37.i = add i32 %ix.0.i, 1
+  %add42.i = add i32 %add37.i, %mul30.i
+  %add43.i = add i32 %add42.i, %13
+  %add44.i = add i32 %add43.i, %reass.mul177.i
+  br label %getBoxFromTuple.exit
 
-137:                                              ; preds = %124
-  br i1 %91, label %138, label %148
+if.else45.i:                                      ; preds = %if.else.i32
+  br i1 %cmp35.i, label %if.then48.i, label %if.else66.i
 
-138:                                              ; preds = %137
-  %139 = shl nsw i32 %106, 1
-  %140 = mul nsw i32 %139, %105
-  %141 = add nsw i32 %86, 2
-  %142 = add i32 %111, %106
-  %143 = mul i32 %141, %142
-  %144 = add i32 %87, 1
-  %145 = add i32 %144, %140
-  %146 = add i32 %145, %56
-  %147 = add i32 %146, %143
-  br label %175
+if.then48.i:                                      ; preds = %if.else45.i
+  %mul51.i = shl nsw i32 %44, 1
+  %mul53.i = mul nsw i32 %mul51.i, %iy.0.i
+  %add57.i = add nsw i32 %30, 2
+  %reass.add174.i = add i32 %iz.0.i, %44
+  %reass.mul175.i = mul i32 %add57.i, %reass.add174.i
+  %add59.i = add i32 %ix.0.i, 1
+  %add63.i = add i32 %add59.i, %mul53.i
+  %add64.i = add i32 %add63.i, %14
+  %add65.i = add i32 %add64.i, %reass.mul175.i
+  br label %getBoxFromTuple.exit
 
-148:                                              ; preds = %137
-  %149 = icmp eq i32 %105, -1
-  br i1 %149, label %150, label %159
+if.else66.i:                                      ; preds = %if.else45.i
+  %cmp67.i = icmp eq i32 %iy.0.i, -1
+  br i1 %cmp67.i, label %if.then68.i, label %if.else81.i
 
-150:                                              ; preds = %148
-  %151 = shl i32 %99, 1
-  %152 = mul i32 %151, %106
-  %153 = add nsw i32 %86, 2
-  %154 = mul nsw i32 %153, %111
-  %155 = add i32 %87, 1
-  %156 = add i32 %155, %152
-  %157 = add i32 %156, %57
-  %158 = add i32 %157, %154
-  br label %175
+if.then68.i:                                      ; preds = %if.else66.i
+  %mul71.i = shl i32 %40, 1
+  %mul73.i = mul i32 %mul71.i, %44
+  %add76.i = add nsw i32 %30, 2
+  %mul77.i = mul nsw i32 %add76.i, %iz.0.i
+  %add74.i = add i32 %ix.0.i, 1
+  %add78.i = add i32 %add74.i, %mul73.i
+  %add79.i = add i32 %add78.i, %15
+  %add80.i = add i32 %add79.i, %mul77.i
+  br label %getBoxFromTuple.exit
 
-159:                                              ; preds = %148
-  %160 = icmp eq i32 %86, %87
-  br i1 %160, label %161, label %166
+if.else81.i:                                      ; preds = %if.else66.i
+  %cmp83.i = icmp eq i32 %30, %ix.0.i
+  br i1 %cmp83.i, label %if.then84.i, label %if.else94.i
 
-161:                                              ; preds = %159
-  %162 = add i32 %111, %106
-  %163 = mul i32 %162, %99
-  %164 = add i32 %163, %105
-  %165 = add i32 %164, %58
-  br label %175
+if.then84.i:                                      ; preds = %if.else81.i
+  %reass.add172.i = add i32 %iz.0.i, %44
+  %reass.mul173.i = mul i32 %reass.add172.i, %40
+  %add92.i = add i32 %reass.mul173.i, %iy.0.i
+  %add93.i = add i32 %add92.i, %16
+  br label %getBoxFromTuple.exit
 
-166:                                              ; preds = %159
-  %167 = icmp eq i32 %87, -1
-  %168 = mul i32 %111, %99
-  %169 = add i32 %168, %105
-  br i1 %167, label %170, label %172
+if.else94.i:                                      ; preds = %if.else81.i
+  %cmp95.i = icmp eq i32 %ix.0.i, -1
+  %mul99.i = mul i32 %iz.0.i, %40
+  %add100.i = add i32 %mul99.i, %iy.0.i
+  br i1 %cmp95.i, label %if.then96.i, label %if.else102.i
 
-170:                                              ; preds = %166
-  %171 = add i32 %169, %59
-  br label %175
+if.then96.i:                                      ; preds = %if.else94.i
+  %add101.i = add i32 %add100.i, %17
+  br label %getBoxFromTuple.exit
 
-172:                                              ; preds = %166
-  %173 = mul i32 %86, %169
-  %174 = add i32 %173, %87
-  br label %175
+if.else102.i:                                     ; preds = %if.else94.i
+  %reass.mul.i = mul i32 %30, %add100.i
+  %add110.i = add i32 %reass.mul.i, %ix.0.i
+  br label %getBoxFromTuple.exit
 
-175:                                              ; preds = %112, %126, %138, %150, %161, %170, %172
-  %176 = phi i32 [ %54, %112 ], [ %55, %126 ], [ %55, %138 ], [ %55, %150 ], [ %55, %161 ], [ %55, %170 ], [ %55, %172 ]
-  %177 = phi i32 [ %54, %112 ], [ %55, %126 ], [ %56, %138 ], [ %56, %150 ], [ %56, %161 ], [ %56, %170 ], [ %56, %172 ]
-  %178 = phi i32 [ %54, %112 ], [ %55, %126 ], [ %56, %138 ], [ %57, %150 ], [ %57, %161 ], [ %57, %170 ], [ %57, %172 ]
-  %179 = phi i32 [ %54, %112 ], [ %55, %126 ], [ %56, %138 ], [ %57, %150 ], [ %58, %161 ], [ %58, %170 ], [ %58, %172 ]
-  %180 = phi i32 [ %54, %112 ], [ %55, %126 ], [ %56, %138 ], [ %57, %150 ], [ %58, %161 ], [ %59, %170 ], [ %59, %172 ]
-  %181 = phi i32 [ %123, %112 ], [ %136, %126 ], [ %147, %138 ], [ %158, %150 ], [ %165, %161 ], [ %171, %170 ], [ %174, %172 ]
-  %182 = zext i32 %181 to i64
-  %183 = icmp eq i64 %45, %182
-  br i1 %183, label %248, label %184
+getBoxFromTuple.exit:                             ; preds = %if.then.i31, %if.then25.i, %if.then48.i, %if.then68.i, %if.then84.i, %if.then96.i, %if.else102.i
+  %47 = phi i32 [ %12, %if.then.i31 ], [ %13, %if.then25.i ], [ %13, %if.then48.i ], [ %13, %if.then68.i ], [ %13, %if.then84.i ], [ %13, %if.then96.i ], [ %13, %if.else102.i ]
+  %48 = phi i32 [ %12, %if.then.i31 ], [ %13, %if.then25.i ], [ %14, %if.then48.i ], [ %14, %if.then68.i ], [ %14, %if.then84.i ], [ %14, %if.then96.i ], [ %14, %if.else102.i ]
+  %49 = phi i32 [ %12, %if.then.i31 ], [ %13, %if.then25.i ], [ %14, %if.then48.i ], [ %15, %if.then68.i ], [ %15, %if.then84.i ], [ %15, %if.then96.i ], [ %15, %if.else102.i ]
+  %50 = phi i32 [ %12, %if.then.i31 ], [ %13, %if.then25.i ], [ %14, %if.then48.i ], [ %15, %if.then68.i ], [ %16, %if.then84.i ], [ %16, %if.then96.i ], [ %16, %if.else102.i ]
+  %51 = phi i32 [ %12, %if.then.i31 ], [ %13, %if.then25.i ], [ %14, %if.then48.i ], [ %15, %if.then68.i ], [ %16, %if.then84.i ], [ %17, %if.then96.i ], [ %17, %if.else102.i ]
+  %iBox.0.i = phi i32 [ %add23.i, %if.then.i31 ], [ %add44.i, %if.then25.i ], [ %add65.i, %if.then48.i ], [ %add80.i, %if.then68.i ], [ %add93.i, %if.then84.i ], [ %add101.i, %if.then96.i ], [ %add110.i, %if.else102.i ]
+  %52 = zext i32 %iBox.0.i to i64
+  %cmp4.not = icmp eq i64 %indvars.iv, %52
+  br i1 %cmp4.not, label %if.else, label %if.then
 
-184:                                              ; preds = %175
-  %185 = sext i32 %181 to i64
-  %186 = getelementptr inbounds i32, ptr %53, i64 %185
-  %187 = load i32, ptr %186, align 4, !tbaa !9
-  %188 = shl nsw i32 %181, 6
-  %189 = add nsw i32 %187, %188
-  %190 = load ptr, ptr %35, align 8, !tbaa !20
-  %191 = getelementptr inbounds i32, ptr %190, i64 %63
-  %192 = load i32, ptr %191, align 4, !tbaa !9
-  %193 = sext i32 %189 to i64
-  %194 = getelementptr inbounds i32, ptr %190, i64 %193
-  store i32 %192, ptr %194, align 4, !tbaa !9
-  %195 = load ptr, ptr %36, align 8, !tbaa !21
-  %196 = getelementptr inbounds i32, ptr %195, i64 %63
-  %197 = load i32, ptr %196, align 4, !tbaa !9
-  %198 = getelementptr inbounds i32, ptr %195, i64 %193
-  store i32 %197, ptr %198, align 4, !tbaa !9
-  %199 = getelementptr inbounds [3 x double], ptr %61, i64 %193
-  tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(24) %199, ptr noundef nonnull align 8 dereferenceable(24) %64, i64 24, i1 false)
-  %200 = load ptr, ptr %37, align 8, !tbaa !23
-  %201 = getelementptr inbounds [3 x double], ptr %200, i64 %193
-  %202 = getelementptr inbounds [3 x double], ptr %200, i64 %63
-  tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(24) %201, ptr noundef nonnull align 8 dereferenceable(24) %202, i64 24, i1 false)
-  %203 = load ptr, ptr %38, align 8, !tbaa !24
-  %204 = getelementptr inbounds [3 x double], ptr %203, i64 %193
-  %205 = getelementptr inbounds [3 x double], ptr %203, i64 %63
-  tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(24) %204, ptr noundef nonnull align 8 dereferenceable(24) %205, i64 24, i1 false)
-  %206 = load ptr, ptr %39, align 8, !tbaa !25
-  %207 = getelementptr inbounds double, ptr %206, i64 %193
-  %208 = getelementptr inbounds double, ptr %206, i64 %63
-  %209 = load i64, ptr %208, align 8
-  store i64 %209, ptr %207, align 8
-  %210 = load ptr, ptr %25, align 8, !tbaa !16
-  %211 = getelementptr inbounds i32, ptr %210, i64 %185
-  %212 = load i32, ptr %211, align 4, !tbaa !9
-  %213 = add nsw i32 %212, 1
-  store i32 %213, ptr %211, align 4, !tbaa !9
-  %214 = getelementptr inbounds i32, ptr %210, i64 %45
-  %215 = load i32, ptr %214, align 4, !tbaa !9
-  %216 = add nsw i32 %215, -1
-  store i32 %216, ptr %214, align 4, !tbaa !9
-  %217 = icmp eq i32 %216, 0
-  br i1 %217, label %242, label %218
+if.then:                                          ; preds = %getBoxFromTuple.exit
+  %idxprom.i = sext i32 %iBox.0.i to i64
+  %arrayidx.i22 = getelementptr inbounds i32, ptr %18, i64 %idxprom.i
+  %53 = load i32, ptr %arrayidx.i22, align 4, !tbaa !9
+  %mul1.i.i = shl nsw i32 %iBox.0.i, 6
+  %add2.i.i = add nsw i32 %53, %mul1.i.i
+  %54 = load ptr, ptr %gid.i.i, align 8, !tbaa !20
+  %arrayidx.i.i = getelementptr inbounds i32, ptr %54, i64 %idxprom2
+  %55 = load i32, ptr %arrayidx.i.i, align 4, !tbaa !9
+  %idxprom4.i.i = sext i32 %add2.i.i to i64
+  %arrayidx5.i.i = getelementptr inbounds i32, ptr %54, i64 %idxprom4.i.i
+  store i32 %55, ptr %arrayidx5.i.i, align 4, !tbaa !9
+  %56 = load ptr, ptr %iSpecies.i.i, align 8, !tbaa !21
+  %arrayidx7.i.i = getelementptr inbounds i32, ptr %56, i64 %idxprom2
+  %57 = load i32, ptr %arrayidx7.i.i, align 4, !tbaa !9
+  %arrayidx10.i.i = getelementptr inbounds i32, ptr %56, i64 %idxprom4.i.i
+  store i32 %57, ptr %arrayidx10.i.i, align 4, !tbaa !9
+  %arrayidx12.i.i = getelementptr inbounds [3 x double], ptr %19, i64 %idxprom4.i.i
+  tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(24) %arrayidx12.i.i, ptr noundef nonnull align 8 dereferenceable(24) %arrayidx3, i64 24, i1 false)
+  %58 = load ptr, ptr %p.i.i, align 8, !tbaa !23
+  %arrayidx18.i.i = getelementptr inbounds [3 x double], ptr %58, i64 %idxprom4.i.i
+  %arrayidx22.i.i = getelementptr inbounds [3 x double], ptr %58, i64 %idxprom2
+  tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(24) %arrayidx18.i.i, ptr noundef nonnull align 8 dereferenceable(24) %arrayidx22.i.i, i64 24, i1 false)
+  %59 = load ptr, ptr %f.i.i, align 8, !tbaa !24
+  %arrayidx25.i.i = getelementptr inbounds [3 x double], ptr %59, i64 %idxprom4.i.i
+  %arrayidx29.i.i = getelementptr inbounds [3 x double], ptr %59, i64 %idxprom2
+  tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(24) %arrayidx25.i.i, ptr noundef nonnull align 8 dereferenceable(24) %arrayidx29.i.i, i64 24, i1 false)
+  %60 = load ptr, ptr %U.i.i, align 8, !tbaa !25
+  %add.ptr.i.i = getelementptr inbounds double, ptr %60, i64 %idxprom4.i.i
+  %add.ptr33.i.i = getelementptr inbounds double, ptr %60, i64 %idxprom2
+  %61 = load i64, ptr %add.ptr33.i.i, align 8
+  store i64 %61, ptr %add.ptr.i.i, align 8
+  %62 = load ptr, ptr %nAtoms, align 8, !tbaa !16
+  %arrayidx3.i = getelementptr inbounds i32, ptr %62, i64 %idxprom.i
+  %63 = load i32, ptr %arrayidx3.i, align 4, !tbaa !9
+  %inc.i = add nsw i32 %63, 1
+  store i32 %inc.i, ptr %arrayidx3.i, align 4, !tbaa !9
+  %arrayidx6.i = getelementptr inbounds i32, ptr %62, i64 %indvars.iv
+  %64 = load i32, ptr %arrayidx6.i, align 4, !tbaa !9
+  %dec.i = add nsw i32 %64, -1
+  store i32 %dec.i, ptr %arrayidx6.i, align 4, !tbaa !9
+  %tobool.not.i = icmp eq i32 %dec.i, 0
+  br i1 %tobool.not.i, label %if.end.i, label %if.then.i23
 
-218:                                              ; preds = %184
-  %219 = add nsw i32 %216, %47
-  %220 = load ptr, ptr %35, align 8, !tbaa !20
-  %221 = sext i32 %219 to i64
-  %222 = getelementptr inbounds i32, ptr %220, i64 %221
-  %223 = load i32, ptr %222, align 4, !tbaa !9
-  %224 = getelementptr inbounds i32, ptr %220, i64 %63
-  store i32 %223, ptr %224, align 4, !tbaa !9
-  %225 = load ptr, ptr %36, align 8, !tbaa !21
-  %226 = getelementptr inbounds i32, ptr %225, i64 %221
-  %227 = load i32, ptr %226, align 4, !tbaa !9
-  %228 = getelementptr inbounds i32, ptr %225, i64 %63
-  store i32 %227, ptr %228, align 4, !tbaa !9
-  %229 = load ptr, ptr %26, align 8, !tbaa !22
-  %230 = getelementptr inbounds [3 x double], ptr %229, i64 %63
-  %231 = getelementptr inbounds [3 x double], ptr %229, i64 %221
-  tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(24) %230, ptr noundef nonnull align 8 dereferenceable(24) %231, i64 24, i1 false)
-  %232 = load ptr, ptr %37, align 8, !tbaa !23
-  %233 = getelementptr inbounds [3 x double], ptr %232, i64 %63
-  %234 = getelementptr inbounds [3 x double], ptr %232, i64 %221
-  tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(24) %233, ptr noundef nonnull align 8 dereferenceable(24) %234, i64 24, i1 false)
-  %235 = load ptr, ptr %38, align 8, !tbaa !24
-  %236 = getelementptr inbounds [3 x double], ptr %235, i64 %63
-  %237 = getelementptr inbounds [3 x double], ptr %235, i64 %221
-  tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(24) %236, ptr noundef nonnull align 8 dereferenceable(24) %237, i64 24, i1 false)
-  %238 = load ptr, ptr %39, align 8, !tbaa !25
-  %239 = getelementptr inbounds double, ptr %238, i64 %63
-  %240 = getelementptr inbounds double, ptr %238, i64 %221
-  %241 = load i64, ptr %240, align 8
-  store i64 %241, ptr %239, align 8
-  br label %242
+if.then.i23:                                      ; preds = %if.then
+  %add.i31.i = add nsw i32 %dec.i, %mul
+  %65 = load ptr, ptr %gid.i.i, align 8, !tbaa !20
+  %idxprom.i35.i = sext i32 %add.i31.i to i64
+  %arrayidx.i36.i = getelementptr inbounds i32, ptr %65, i64 %idxprom.i35.i
+  %66 = load i32, ptr %arrayidx.i36.i, align 4, !tbaa !9
+  %arrayidx5.i38.i = getelementptr inbounds i32, ptr %65, i64 %idxprom2
+  store i32 %66, ptr %arrayidx5.i38.i, align 4, !tbaa !9
+  %67 = load ptr, ptr %iSpecies.i.i, align 8, !tbaa !21
+  %arrayidx7.i40.i = getelementptr inbounds i32, ptr %67, i64 %idxprom.i35.i
+  %68 = load i32, ptr %arrayidx7.i40.i, align 4, !tbaa !9
+  %arrayidx10.i41.i = getelementptr inbounds i32, ptr %67, i64 %idxprom2
+  store i32 %68, ptr %arrayidx10.i41.i, align 4, !tbaa !9
+  %69 = load ptr, ptr %r, align 8, !tbaa !22
+  %arrayidx12.i43.i = getelementptr inbounds [3 x double], ptr %69, i64 %idxprom2
+  %arrayidx15.i44.i = getelementptr inbounds [3 x double], ptr %69, i64 %idxprom.i35.i
+  tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(24) %arrayidx12.i43.i, ptr noundef nonnull align 8 dereferenceable(24) %arrayidx15.i44.i, i64 24, i1 false)
+  %70 = load ptr, ptr %p.i.i, align 8, !tbaa !23
+  %arrayidx18.i46.i = getelementptr inbounds [3 x double], ptr %70, i64 %idxprom2
+  %arrayidx22.i47.i = getelementptr inbounds [3 x double], ptr %70, i64 %idxprom.i35.i
+  tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(24) %arrayidx18.i46.i, ptr noundef nonnull align 8 dereferenceable(24) %arrayidx22.i47.i, i64 24, i1 false)
+  %71 = load ptr, ptr %f.i.i, align 8, !tbaa !24
+  %arrayidx25.i49.i = getelementptr inbounds [3 x double], ptr %71, i64 %idxprom2
+  %arrayidx29.i50.i = getelementptr inbounds [3 x double], ptr %71, i64 %idxprom.i35.i
+  tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(24) %arrayidx25.i49.i, ptr noundef nonnull align 8 dereferenceable(24) %arrayidx29.i50.i, i64 24, i1 false)
+  %72 = load ptr, ptr %U.i.i, align 8, !tbaa !25
+  %add.ptr.i52.i = getelementptr inbounds double, ptr %72, i64 %idxprom2
+  %add.ptr33.i53.i = getelementptr inbounds double, ptr %72, i64 %idxprom.i35.i
+  %73 = load i64, ptr %add.ptr33.i53.i, align 8
+  store i64 %73, ptr %add.ptr.i52.i, align 8
+  br label %if.end.i
 
-242:                                              ; preds = %218, %184
-  %243 = load i32, ptr %3, align 4, !tbaa !11
-  %244 = icmp slt i32 %243, %181
-  br i1 %244, label %245, label %250
+if.end.i:                                         ; preds = %if.then.i23, %if.then
+  %74 = load i32, ptr %nLocalBoxes.i, align 4, !tbaa !11
+  %cmp.i25 = icmp slt i32 %74, %iBox.0.i
+  br i1 %cmp.i25, label %if.then10.i, label %if.end
 
-245:                                              ; preds = %242
-  %246 = load i32, ptr %1, align 8, !tbaa !18
-  %247 = add nsw i32 %246, -1
-  store i32 %247, ptr %1, align 8, !tbaa !18
-  br label %250
+if.then10.i:                                      ; preds = %if.end.i
+  %75 = load i32, ptr %atoms, align 8, !tbaa !18
+  %dec11.i = add nsw i32 %75, -1
+  store i32 %dec11.i, ptr %atoms, align 8, !tbaa !18
+  br label %if.end
 
-248:                                              ; preds = %175
-  %249 = add nsw i32 %60, 1
-  br label %250
+if.else:                                          ; preds = %getBoxFromTuple.exit
+  %inc = add nsw i32 %ii.035, 1
+  br label %if.end
 
-250:                                              ; preds = %245, %242, %248
-  %251 = phi i32 [ %52, %248 ], [ %243, %242 ], [ %243, %245 ]
-  %252 = phi i32 [ %54, %248 ], [ %243, %242 ], [ %243, %245 ]
-  %253 = phi i32 [ %176, %248 ], [ %243, %242 ], [ %243, %245 ]
-  %254 = phi i32 [ %177, %248 ], [ %243, %242 ], [ %243, %245 ]
-  %255 = phi i32 [ %178, %248 ], [ %243, %242 ], [ %243, %245 ]
-  %256 = phi i32 [ %179, %248 ], [ %243, %242 ], [ %243, %245 ]
-  %257 = phi i32 [ %180, %248 ], [ %243, %242 ], [ %243, %245 ]
-  %258 = phi i32 [ %249, %248 ], [ %60, %242 ], [ %60, %245 ]
-  %259 = load ptr, ptr %25, align 8, !tbaa !16
-  %260 = getelementptr inbounds i32, ptr %259, i64 %45
-  %261 = load i32, ptr %260, align 4, !tbaa !9
-  %262 = icmp slt i32 %258, %261
-  br i1 %262, label %51, label %263
+if.end:                                           ; preds = %if.then10.i, %if.end.i, %if.else
+  %76 = phi i32 [ %11, %if.else ], [ %74, %if.end.i ], [ %74, %if.then10.i ]
+  %77 = phi i32 [ %12, %if.else ], [ %74, %if.end.i ], [ %74, %if.then10.i ]
+  %78 = phi i32 [ %47, %if.else ], [ %74, %if.end.i ], [ %74, %if.then10.i ]
+  %79 = phi i32 [ %48, %if.else ], [ %74, %if.end.i ], [ %74, %if.then10.i ]
+  %80 = phi i32 [ %49, %if.else ], [ %74, %if.end.i ], [ %74, %if.then10.i ]
+  %81 = phi i32 [ %50, %if.else ], [ %74, %if.end.i ], [ %74, %if.then10.i ]
+  %82 = phi i32 [ %51, %if.else ], [ %74, %if.end.i ], [ %74, %if.then10.i ]
+  %ii.1 = phi i32 [ %inc, %if.else ], [ %ii.035, %if.end.i ], [ %ii.035, %if.then10.i ]
+  %83 = load ptr, ptr %nAtoms, align 8, !tbaa !16
+  %arrayidx = getelementptr inbounds i32, ptr %83, i64 %indvars.iv
+  %84 = load i32, ptr %arrayidx, align 4, !tbaa !9
+  %cmp1 = icmp slt i32 %ii.1, %84
+  br i1 %cmp1, label %while.body, label %while.end
 
-263:                                              ; preds = %250, %42
-  %264 = phi i32 [ %43, %42 ], [ %251, %250 ]
-  %265 = phi ptr [ %44, %42 ], [ %259, %250 ]
-  %266 = add nuw nsw i64 %45, 1
-  %267 = sext i32 %264 to i64
-  %268 = icmp slt i64 %266, %267
-  br i1 %268, label %42, label %41
+while.end:                                        ; preds = %if.end, %for.body
+  %85 = phi i32 [ %7, %for.body ], [ %76, %if.end ]
+  %86 = phi ptr [ %8, %for.body ], [ %83, %if.end ]
+  %indvars.iv.next = add nuw nsw i64 %indvars.iv, 1
+  %87 = sext i32 %85 to i64
+  %cmp = icmp slt i64 %indvars.iv.next, %87
+  br i1 %cmp, label %for.body, label %for.cond.cleanup
 }
 
 ; Function Attrs: nounwind uwtable
-define dso_local i32 @maxOccupancy(ptr nocapture noundef readonly %0) local_unnamed_addr #7 {
-  %2 = alloca i32, align 4
-  %3 = alloca i32, align 4
-  call void @llvm.lifetime.start.p0(i64 4, ptr nonnull %2) #16
-  store i32 0, ptr %2, align 4, !tbaa !9
-  %4 = getelementptr inbounds %struct.LinkCellSt, ptr %0, i64 0, i32 1
-  %5 = load i32, ptr %4, align 4, !tbaa !11
-  %6 = icmp sgt i32 %5, 0
-  br i1 %6, label %7, label %58
+define dso_local i32 @maxOccupancy(ptr nocapture noundef readonly %boxes) local_unnamed_addr #7 {
+entry:
+  %localMax = alloca i32, align 4
+  %globalMax = alloca i32, align 4
+  call void @llvm.lifetime.start.p0(i64 4, ptr nonnull %localMax) #16
+  store i32 0, ptr %localMax, align 4, !tbaa !9
+  %nLocalBoxes = getelementptr inbounds %struct.LinkCellSt, ptr %boxes, i64 0, i32 1
+  %0 = load i32, ptr %nLocalBoxes, align 4, !tbaa !11
+  %cmp15 = icmp sgt i32 %0, 0
+  br i1 %cmp15, label %for.body.lr.ph, label %for.cond.cleanup
 
-7:                                                ; preds = %1
-  %8 = getelementptr inbounds %struct.LinkCellSt, ptr %0, i64 0, i32 8
-  %9 = load ptr, ptr %8, align 8, !tbaa !16
-  %10 = zext i32 %5 to i64
-  %11 = icmp ult i32 %5, 12
-  br i1 %11, label %37, label %12
+for.body.lr.ph:                                   ; preds = %entry
+  %nAtoms = getelementptr inbounds %struct.LinkCellSt, ptr %boxes, i64 0, i32 8
+  %1 = load ptr, ptr %nAtoms, align 8, !tbaa !16
+  %wide.trip.count = zext i32 %0 to i64
+  %min.iters.check = icmp ult i32 %0, 12
+  br i1 %min.iters.check, label %for.body.preheader, label %vector.memcheck
 
-12:                                               ; preds = %7
-  %13 = getelementptr inbounds i8, ptr %2, i64 4
-  %14 = shl nuw nsw i64 %10, 2
-  %15 = getelementptr i8, ptr %9, i64 %14
-  %16 = icmp ult ptr %2, %15
-  %17 = icmp ult ptr %9, %13
-  %18 = and i1 %16, %17
-  br i1 %18, label %37, label %19
+vector.memcheck:                                  ; preds = %for.body.lr.ph
+  %scevgep = getelementptr inbounds i8, ptr %localMax, i64 4
+  %2 = shl nuw nsw i64 %wide.trip.count, 2
+  %scevgep19 = getelementptr i8, ptr %1, i64 %2
+  %bound0 = icmp ult ptr %localMax, %scevgep19
+  %bound1 = icmp ult ptr %1, %scevgep
+  %found.conflict = and i1 %bound0, %bound1
+  br i1 %found.conflict, label %for.body.preheader, label %vector.ph
 
-19:                                               ; preds = %12
-  %20 = and i64 %10, 4294967288
-  br label %21
+vector.ph:                                        ; preds = %vector.memcheck
+  %n.vec = and i64 %wide.trip.count, 4294967288
+  br label %vector.body
 
-21:                                               ; preds = %21, %19
-  %22 = phi i64 [ 0, %19 ], [ %31, %21 ]
-  %23 = phi <4 x i32> [ zeroinitializer, %19 ], [ %29, %21 ]
-  %24 = phi <4 x i32> [ zeroinitializer, %19 ], [ %30, %21 ]
-  %25 = getelementptr inbounds i32, ptr %9, i64 %22
-  %26 = load <4 x i32>, ptr %25, align 4, !tbaa !9, !alias.scope !26
-  %27 = getelementptr inbounds i32, ptr %25, i64 4
-  %28 = load <4 x i32>, ptr %27, align 4, !tbaa !9, !alias.scope !26
-  %29 = call <4 x i32> @llvm.smax.v4i32(<4 x i32> %23, <4 x i32> %26)
-  %30 = call <4 x i32> @llvm.smax.v4i32(<4 x i32> %24, <4 x i32> %28)
-  %31 = add nuw i64 %22, 8
-  %32 = icmp eq i64 %31, %20
-  br i1 %32, label %33, label %21, !llvm.loop !29
+vector.body:                                      ; preds = %vector.body, %vector.ph
+  %index = phi i64 [ 0, %vector.ph ], [ %index.next, %vector.body ]
+  %vec.phi = phi <4 x i32> [ zeroinitializer, %vector.ph ], [ %5, %vector.body ]
+  %vec.phi20 = phi <4 x i32> [ zeroinitializer, %vector.ph ], [ %6, %vector.body ]
+  %3 = getelementptr inbounds i32, ptr %1, i64 %index
+  %wide.load = load <4 x i32>, ptr %3, align 4, !tbaa !9, !alias.scope !26
+  %4 = getelementptr inbounds i32, ptr %3, i64 4
+  %wide.load21 = load <4 x i32>, ptr %4, align 4, !tbaa !9, !alias.scope !26
+  %5 = call <4 x i32> @llvm.smax.v4i32(<4 x i32> %vec.phi, <4 x i32> %wide.load)
+  %6 = call <4 x i32> @llvm.smax.v4i32(<4 x i32> %vec.phi20, <4 x i32> %wide.load21)
+  %index.next = add nuw i64 %index, 8
+  %7 = icmp eq i64 %index.next, %n.vec
+  br i1 %7, label %middle.block, label %vector.body, !llvm.loop !29
 
-33:                                               ; preds = %21
-  %34 = call <4 x i32> @llvm.smax.v4i32(<4 x i32> %29, <4 x i32> %30)
-  %35 = call i32 @llvm.vector.reduce.smax.v4i32(<4 x i32> %34)
-  store i32 %35, ptr %2, align 4, !tbaa !9
-  %36 = icmp eq i64 %20, %10
-  br i1 %36, label %58, label %37
+middle.block:                                     ; preds = %vector.body
+  %rdx.minmax = call <4 x i32> @llvm.smax.v4i32(<4 x i32> %5, <4 x i32> %6)
+  %8 = call i32 @llvm.vector.reduce.smax.v4i32(<4 x i32> %rdx.minmax)
+  store i32 %8, ptr %localMax, align 4, !tbaa !9
+  %cmp.n = icmp eq i64 %n.vec, %wide.trip.count
+  br i1 %cmp.n, label %for.cond.cleanup, label %for.body.preheader
 
-37:                                               ; preds = %12, %7, %33
-  %38 = phi i64 [ 0, %12 ], [ 0, %7 ], [ %20, %33 ]
-  %39 = phi i32 [ 0, %12 ], [ 0, %7 ], [ %35, %33 ]
-  %40 = xor i64 %38, -1
-  %41 = add nsw i64 %40, %10
-  %42 = and i64 %10, 3
-  %43 = icmp eq i64 %42, 0
-  br i1 %43, label %54, label %44
+for.body.preheader:                               ; preds = %vector.memcheck, %for.body.lr.ph, %middle.block
+  %indvars.iv.ph = phi i64 [ 0, %vector.memcheck ], [ 0, %for.body.lr.ph ], [ %n.vec, %middle.block ]
+  %.1416.ph = phi i32 [ 0, %vector.memcheck ], [ 0, %for.body.lr.ph ], [ %8, %middle.block ]
+  %9 = xor i64 %indvars.iv.ph, -1
+  %10 = add nsw i64 %9, %wide.trip.count
+  %xtraiter = and i64 %wide.trip.count, 3
+  %lcmp.mod.not = icmp eq i64 %xtraiter, 0
+  br i1 %lcmp.mod.not, label %for.body.prol.loopexit, label %for.body.prol
 
-44:                                               ; preds = %37, %44
-  %45 = phi i64 [ %51, %44 ], [ %38, %37 ]
-  %46 = phi i32 [ %50, %44 ], [ %39, %37 ]
-  %47 = phi i64 [ %52, %44 ], [ 0, %37 ]
-  %48 = getelementptr inbounds i32, ptr %9, i64 %45
-  %49 = load i32, ptr %48, align 4, !tbaa !9
-  %50 = tail call i32 @llvm.smax.i32(i32 %46, i32 %49)
-  store i32 %50, ptr %2, align 4, !tbaa !9
-  %51 = add nuw nsw i64 %45, 1
-  %52 = add i64 %47, 1
-  %53 = icmp eq i64 %52, %42
-  br i1 %53, label %54, label %44, !llvm.loop !32
+for.body.prol:                                    ; preds = %for.body.preheader, %for.body.prol
+  %indvars.iv.prol = phi i64 [ %indvars.iv.next.prol, %for.body.prol ], [ %indvars.iv.ph, %for.body.preheader ]
+  %.1416.prol = phi i32 [ %..prol, %for.body.prol ], [ %.1416.ph, %for.body.preheader ]
+  %prol.iter = phi i64 [ %prol.iter.next, %for.body.prol ], [ 0, %for.body.preheader ]
+  %arrayidx.prol = getelementptr inbounds i32, ptr %1, i64 %indvars.iv.prol
+  %11 = load i32, ptr %arrayidx.prol, align 4, !tbaa !9
+  %..prol = tail call i32 @llvm.smax.i32(i32 %.1416.prol, i32 %11)
+  store i32 %..prol, ptr %localMax, align 4, !tbaa !9
+  %indvars.iv.next.prol = add nuw nsw i64 %indvars.iv.prol, 1
+  %prol.iter.next = add i64 %prol.iter, 1
+  %prol.iter.cmp.not = icmp eq i64 %prol.iter.next, %xtraiter
+  br i1 %prol.iter.cmp.not, label %for.body.prol.loopexit, label %for.body.prol, !llvm.loop !32
 
-54:                                               ; preds = %44, %37
-  %55 = phi i64 [ %38, %37 ], [ %51, %44 ]
-  %56 = phi i32 [ %39, %37 ], [ %50, %44 ]
-  %57 = icmp ult i64 %41, 3
-  br i1 %57, label %58, label %60
+for.body.prol.loopexit:                           ; preds = %for.body.prol, %for.body.preheader
+  %indvars.iv.unr = phi i64 [ %indvars.iv.ph, %for.body.preheader ], [ %indvars.iv.next.prol, %for.body.prol ]
+  %.1416.unr = phi i32 [ %.1416.ph, %for.body.preheader ], [ %..prol, %for.body.prol ]
+  %12 = icmp ult i64 %10, 3
+  br i1 %12, label %for.cond.cleanup, label %for.body
 
-58:                                               ; preds = %54, %60, %33, %1
-  call void @llvm.lifetime.start.p0(i64 4, ptr nonnull %3) #16
+for.cond.cleanup:                                 ; preds = %for.body.prol.loopexit, %for.body, %middle.block, %entry
+  call void @llvm.lifetime.start.p0(i64 4, ptr nonnull %globalMax) #16
   tail call void @profileStart(i32 noundef 10) #16
-  call void @maxIntParallel(ptr noundef nonnull %2, ptr noundef nonnull %3, i32 noundef 1) #16
+  call void @maxIntParallel(ptr noundef nonnull %localMax, ptr noundef nonnull %globalMax, i32 noundef 1) #16
   call void @profileStop(i32 noundef 10) #16
-  %59 = load i32, ptr %3, align 4, !tbaa !9
-  call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %3) #16
-  call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %2) #16
-  ret i32 %59
+  %13 = load i32, ptr %globalMax, align 4, !tbaa !9
+  call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %globalMax) #16
+  call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %localMax) #16
+  ret i32 %13
 
-60:                                               ; preds = %54, %60
-  %61 = phi i64 [ %78, %60 ], [ %55, %54 ]
-  %62 = phi i32 [ %77, %60 ], [ %56, %54 ]
-  %63 = getelementptr inbounds i32, ptr %9, i64 %61
-  %64 = load i32, ptr %63, align 4, !tbaa !9
-  %65 = tail call i32 @llvm.smax.i32(i32 %62, i32 %64)
-  store i32 %65, ptr %2, align 4, !tbaa !9
-  %66 = add nuw nsw i64 %61, 1
-  %67 = getelementptr inbounds i32, ptr %9, i64 %66
-  %68 = load i32, ptr %67, align 4, !tbaa !9
-  %69 = tail call i32 @llvm.smax.i32(i32 %65, i32 %68)
-  store i32 %69, ptr %2, align 4, !tbaa !9
-  %70 = add nuw nsw i64 %61, 2
-  %71 = getelementptr inbounds i32, ptr %9, i64 %70
-  %72 = load i32, ptr %71, align 4, !tbaa !9
-  %73 = tail call i32 @llvm.smax.i32(i32 %69, i32 %72)
-  store i32 %73, ptr %2, align 4, !tbaa !9
-  %74 = add nuw nsw i64 %61, 3
-  %75 = getelementptr inbounds i32, ptr %9, i64 %74
-  %76 = load i32, ptr %75, align 4, !tbaa !9
-  %77 = tail call i32 @llvm.smax.i32(i32 %73, i32 %76)
-  store i32 %77, ptr %2, align 4, !tbaa !9
-  %78 = add nuw nsw i64 %61, 4
-  %79 = icmp eq i64 %78, %10
-  br i1 %79, label %58, label %60, !llvm.loop !34
+for.body:                                         ; preds = %for.body.prol.loopexit, %for.body
+  %indvars.iv = phi i64 [ %indvars.iv.next.3, %for.body ], [ %indvars.iv.unr, %for.body.prol.loopexit ]
+  %.1416 = phi i32 [ %..3, %for.body ], [ %.1416.unr, %for.body.prol.loopexit ]
+  %arrayidx = getelementptr inbounds i32, ptr %1, i64 %indvars.iv
+  %14 = load i32, ptr %arrayidx, align 4, !tbaa !9
+  %. = tail call i32 @llvm.smax.i32(i32 %.1416, i32 %14)
+  store i32 %., ptr %localMax, align 4, !tbaa !9
+  %indvars.iv.next = add nuw nsw i64 %indvars.iv, 1
+  %arrayidx.1 = getelementptr inbounds i32, ptr %1, i64 %indvars.iv.next
+  %15 = load i32, ptr %arrayidx.1, align 4, !tbaa !9
+  %..1 = tail call i32 @llvm.smax.i32(i32 %., i32 %15)
+  store i32 %..1, ptr %localMax, align 4, !tbaa !9
+  %indvars.iv.next.1 = add nuw nsw i64 %indvars.iv, 2
+  %arrayidx.2 = getelementptr inbounds i32, ptr %1, i64 %indvars.iv.next.1
+  %16 = load i32, ptr %arrayidx.2, align 4, !tbaa !9
+  %..2 = tail call i32 @llvm.smax.i32(i32 %..1, i32 %16)
+  store i32 %..2, ptr %localMax, align 4, !tbaa !9
+  %indvars.iv.next.2 = add nuw nsw i64 %indvars.iv, 3
+  %arrayidx.3 = getelementptr inbounds i32, ptr %1, i64 %indvars.iv.next.2
+  %17 = load i32, ptr %arrayidx.3, align 4, !tbaa !9
+  %..3 = tail call i32 @llvm.smax.i32(i32 %..2, i32 %17)
+  store i32 %..3, ptr %localMax, align 4, !tbaa !9
+  %indvars.iv.next.3 = add nuw nsw i64 %indvars.iv, 4
+  %exitcond.not.3 = icmp eq i64 %indvars.iv.next.3, %wide.trip.count
+  br i1 %exitcond.not.3, label %for.cond.cleanup, label %for.body, !llvm.loop !34
 }
 
 declare void @profileStart(i32 noundef) local_unnamed_addr #8
