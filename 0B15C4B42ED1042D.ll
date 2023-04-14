@@ -182,54 +182,54 @@ fillrand.exit:                                    ; preds = %if.end8.i
   %call1 = tail call i64 @ftell(ptr noundef %fin)
   %call2 = tail call i32 @fseek(ptr noundef %fin, i64 noundef 0, i32 noundef 0)
   %call4 = call i64 @fwrite(ptr noundef nonnull %outbuf, i64 noundef 1, i64 noundef 16, ptr noundef %fout)
-  %.b.i100 = load i1, ptr @fillrand.mt, align 8
-  br i1 %.b.i100, label %entry.if.end_crit_edge.i103, label %if.then.i104
+  %.b.i98 = load i1, ptr @fillrand.mt, align 8
+  br i1 %.b.i98, label %entry.if.end_crit_edge.i101, label %if.then.i102
 
-entry.if.end_crit_edge.i103:                      ; preds = %fillrand.exit
-  %fillrand.a.0.promoted.pre.i101 = load i64, ptr @fillrand.a.0, align 16, !tbaa !5
-  %fillrand.a.1.promoted.pre.i102 = load i64, ptr @fillrand.a.1, align 16, !tbaa !5
-  br label %if.end.i107
+entry.if.end_crit_edge.i101:                      ; preds = %fillrand.exit
+  %fillrand.a.0.promoted.pre.i99 = load i64, ptr @fillrand.a.0, align 16, !tbaa !5
+  %fillrand.a.1.promoted.pre.i100 = load i64, ptr @fillrand.a.1, align 16, !tbaa !5
+  br label %if.end.i105
 
-if.then.i104:                                     ; preds = %fillrand.exit
+if.then.i102:                                     ; preds = %fillrand.exit
   store i1 true, ptr @fillrand.mt, align 8
   store i64 60147, ptr @fillrand.a.0, align 16, !tbaa !5
   store i64 13822, ptr @fillrand.a.1, align 16, !tbaa !5
-  br label %if.end.i107
+  br label %if.end.i105
 
-if.end.i107:                                      ; preds = %if.then.i104, %entry.if.end_crit_edge.i103
-  %fillrand.a.1.promoted.i105 = phi i64 [ %fillrand.a.1.promoted.pre.i102, %entry.if.end_crit_edge.i103 ], [ 13822, %if.then.i104 ]
-  %fillrand.a.0.promoted.i106 = phi i64 [ %fillrand.a.0.promoted.pre.i101, %entry.if.end_crit_edge.i103 ], [ 60147, %if.then.i104 ]
-  %fillrand.count.promoted.i108 = load i64, ptr @fillrand.count, align 8, !tbaa !5
-  %cmp1.i113 = icmp eq i64 %fillrand.count.promoted.i108, 4
-  br i1 %cmp1.i113, label %if.then2.i128, label %for.body.if.end8_crit_edge.i117
+if.end.i105:                                      ; preds = %if.then.i102, %entry.if.end_crit_edge.i101
+  %fillrand.a.1.promoted.i103 = phi i64 [ %fillrand.a.1.promoted.pre.i100, %entry.if.end_crit_edge.i101 ], [ 13822, %if.then.i102 ]
+  %fillrand.a.0.promoted.i104 = phi i64 [ %fillrand.a.0.promoted.pre.i99, %entry.if.end_crit_edge.i101 ], [ 60147, %if.then.i102 ]
+  %fillrand.count.promoted.i106 = load i64, ptr @fillrand.count, align 8, !tbaa !5
+  %cmp1.i111 = icmp eq i64 %fillrand.count.promoted.i106, 4
+  br i1 %cmp1.i111, label %if.then2.i126, label %for.body.if.end8_crit_edge.i115
 
-for.body.if.end8_crit_edge.i117:                  ; preds = %if.end.i107
-  %arrayidx.phi.trans.insert.i115 = getelementptr inbounds [4 x i8], ptr @fillrand.r, i64 0, i64 %fillrand.count.promoted.i108
-  %.pre.i116 = load i8, ptr %arrayidx.phi.trans.insert.i115, align 1, !tbaa !9
-  %2 = add i64 %fillrand.count.promoted.i108, 1
-  br label %if.end8.i136
+for.body.if.end8_crit_edge.i115:                  ; preds = %if.end.i105
+  %arrayidx.phi.trans.insert.i113 = getelementptr inbounds [4 x i8], ptr @fillrand.r, i64 0, i64 %fillrand.count.promoted.i106
+  %.pre.i114 = load i8, ptr %arrayidx.phi.trans.insert.i113, align 1, !tbaa !9
+  %2 = add i64 %fillrand.count.promoted.i106, 1
+  br label %if.end8.i134
 
-if.then2.i128:                                    ; preds = %if.end.i107
-  %and.i118 = and i64 %fillrand.a.0.promoted.i106, 65535
-  %mul.i119 = mul nuw nsw i64 %and.i118, 36969
-  %shr.i120 = lshr i64 %fillrand.a.0.promoted.i106, 16
-  %add.i121 = add nuw nsw i64 %mul.i119, %shr.i120
-  store i64 %add.i121, ptr @fillrand.a.0, align 16, !tbaa !5
-  %shl.i122 = shl i64 %add.i121, 16
-  %and3.i123 = and i64 %fillrand.a.1.promoted.i105, 65535
-  %mul4.i124 = mul nuw nsw i64 %and3.i123, 18000
-  %shr5.i125 = lshr i64 %fillrand.a.1.promoted.i105, 16
-  %add6.i126 = add nuw nsw i64 %mul4.i124, %shr5.i125
-  store i64 %add6.i126, ptr @fillrand.a.1, align 16, !tbaa !5
-  %add7.i127 = add i64 %add6.i126, %shl.i122
-  store i64 %add7.i127, ptr @fillrand.r, align 8, !tbaa !5
-  %3 = trunc i64 %add6.i126 to i8
-  br label %if.end8.i136
+if.then2.i126:                                    ; preds = %if.end.i105
+  %and.i116 = and i64 %fillrand.a.0.promoted.i104, 65535
+  %mul.i117 = mul nuw nsw i64 %and.i116, 36969
+  %shr.i118 = lshr i64 %fillrand.a.0.promoted.i104, 16
+  %add.i119 = add nuw nsw i64 %mul.i117, %shr.i118
+  store i64 %add.i119, ptr @fillrand.a.0, align 16, !tbaa !5
+  %shl.i120 = shl i64 %add.i119, 16
+  %and3.i121 = and i64 %fillrand.a.1.promoted.i103, 65535
+  %mul4.i122 = mul nuw nsw i64 %and3.i121, 18000
+  %shr5.i123 = lshr i64 %fillrand.a.1.promoted.i103, 16
+  %add6.i124 = add nuw nsw i64 %mul4.i122, %shr5.i123
+  store i64 %add6.i124, ptr @fillrand.a.1, align 16, !tbaa !5
+  %add7.i125 = add i64 %add6.i124, %shl.i120
+  store i64 %add7.i125, ptr @fillrand.r, align 8, !tbaa !5
+  %3 = trunc i64 %add6.i124 to i8
+  br label %if.end8.i134
 
-if.end8.i136:                                     ; preds = %if.then2.i128, %for.body.if.end8_crit_edge.i117
-  %4 = phi i8 [ %3, %if.then2.i128 ], [ %.pre.i116, %for.body.if.end8_crit_edge.i117 ]
-  %inc14.i131 = phi i64 [ 1, %if.then2.i128 ], [ %2, %for.body.if.end8_crit_edge.i117 ]
-  store i64 %inc14.i131, ptr @fillrand.count, align 8, !tbaa !5
+if.end8.i134:                                     ; preds = %if.then2.i126, %for.body.if.end8_crit_edge.i115
+  %4 = phi i8 [ %3, %if.then2.i126 ], [ %.pre.i114, %for.body.if.end8_crit_edge.i115 ]
+  %inc14.i129 = phi i64 [ 1, %if.then2.i126 ], [ %2, %for.body.if.end8_crit_edge.i115 ]
+  store i64 %inc14.i129, ptr @fillrand.count, align 8, !tbaa !5
   %conv = trunc i64 %call1 to i8
   %and = and i8 %conv, 15
   %5 = and i8 %4, -16
@@ -237,9 +237,9 @@ if.end8.i136:                                     ; preds = %if.then2.i128, %for
   store i8 %or, ptr %inbuf, align 16, !tbaa !9
   %call11140 = tail call i32 @feof(ptr noundef %fin) #8
   %tobool.not141 = icmp eq i32 %call11140, 0
-  br i1 %tobool.not141, label %while.body.lr.ph, label %while.body43.preheader
+  br i1 %tobool.not141, label %while.body.lr.ph, label %while.end
 
-while.body.lr.ph:                                 ; preds = %if.end8.i136
+while.body.lr.ph:                                 ; preds = %if.end8.i134
   %add.ptr13.peel = getelementptr inbounds i8, ptr %inbuf, i64 1
   %call14.peel = call i64 @fread(ptr noundef nonnull %add.ptr13.peel, i64 noundef 1, i64 noundef 15, ptr noundef %fin)
   %cmp.peel = icmp ult i64 %call14.peel, 15
@@ -280,21 +280,21 @@ for.body.preheader:                               ; preds = %while.body
   %cmp28.not = icmp eq i64 %call27, 16
   br i1 %cmp28.not, label %while.cond, label %cleanup.sink.split, !llvm.loop !12
 
-while.end:                                        ; preds = %while.cond, %while.body, %while.body.lr.ph, %while.cond.peel
-  %cmp33.lcssa.ph = phi i64 [ 1, %while.body.lr.ph ], [ 0, %while.cond.peel ], [ 0, %while.body ], [ 0, %while.cond ]
-  %i.2.ph = phi i64 [ %call14.peel, %while.body.lr.ph ], [ 16, %while.cond.peel ], [ 16, %while.cond ], [ %call14, %while.body ]
-  %12 = add nuw nsw i64 %i.2.ph, %cmp33.lcssa.ph
-  %tobool38.not = icmp eq i64 %12, 0
+while.end:                                        ; preds = %while.cond, %while.body, %while.body.lr.ph, %while.cond.peel, %if.end8.i134
+  %cmp33.lcssa = phi i64 [ 1, %if.end8.i134 ], [ 1, %while.body.lr.ph ], [ 0, %while.cond.peel ], [ 0, %while.body ], [ 0, %while.cond ]
+  %i.2 = phi i64 [ 0, %if.end8.i134 ], [ %call14.peel, %while.body.lr.ph ], [ 16, %while.cond.peel ], [ 16, %while.cond ], [ %call14, %while.body ]
+  %spec.select = add nuw nsw i64 %i.2, %cmp33.lcssa
+  %tobool38.not = icmp eq i64 %spec.select, 0
   br i1 %tobool38.not, label %cleanup, label %while.cond40.preheader
 
 while.cond40.preheader:                           ; preds = %while.end
-  %cmp41147 = icmp ult i64 %12, 16
+  %cmp41147 = icmp ult i64 %spec.select, 16
   br i1 %cmp41147, label %while.body43.preheader, label %for.cond47.preheader
 
-while.body43.preheader:                           ; preds = %if.end8.i136, %while.cond40.preheader
-  %spec.select153156 = phi i64 [ %12, %while.cond40.preheader ], [ 1, %if.end8.i136 ]
-  %scevgep = getelementptr i8, ptr %inbuf, i64 %spec.select153156
-  %13 = sub nuw nsw i64 16, %spec.select153156
+while.body43.preheader:                           ; preds = %while.cond40.preheader
+  %12 = add nuw nsw i64 %cmp33.lcssa, %i.2
+  %scevgep = getelementptr i8, ptr %inbuf, i64 %12
+  %13 = sub nuw nsw i64 16, %spec.select
   call void @llvm.memset.p0.i64(ptr align 1 %scevgep, i8 0, i64 %13, i1 false), !tbaa !9
   br label %for.cond47.preheader
 
@@ -631,11 +631,11 @@ declare signext i16 @set_key(ptr noundef, i32 noundef, i32 noundef, ptr noundef)
 ; Function Attrs: nofree nounwind
 declare noundef i32 @fclose(ptr nocapture noundef) local_unnamed_addr #3
 
-; Function Attrs: nofree nounwind
-declare noundef i32 @puts(ptr nocapture noundef readonly) local_unnamed_addr #6
-
 ; Function Attrs: nocallback nofree nounwind willreturn memory(argmem: write)
-declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #7
+declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #6
+
+; Function Attrs: nofree nounwind
+declare noundef i32 @puts(ptr nocapture noundef readonly) local_unnamed_addr #7
 
 attributes #0 = { nofree norecurse nosync nounwind memory(readwrite, argmem: write, inaccessiblemem: none) uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #1 = { mustprogress nocallback nofree nosync nounwind willreturn memory(argmem: readwrite) }
@@ -643,8 +643,8 @@ attributes #2 = { nounwind uwtable "min-legal-vector-width"="0" "no-trapping-mat
 attributes #3 = { nofree nounwind "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #4 = { "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #5 = { mustprogress nofree nosync nounwind willreturn memory(none) "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
-attributes #6 = { nofree nounwind }
-attributes #7 = { nocallback nofree nounwind willreturn memory(argmem: write) }
+attributes #6 = { nocallback nofree nounwind willreturn memory(argmem: write) }
+attributes #7 = { nofree nounwind }
 attributes #8 = { nounwind }
 attributes #9 = { nounwind willreturn memory(none) }
 

@@ -10,13 +10,13 @@ entry:
   %tobool.not = icmp eq i32 %bf.clear, 0
   %bf.clear11 = and i32 %i.coerce, -1310721
   %masksel = select i1 %tobool.not, i32 0, i32 1310720
-  %retval.sroa.0.0 = or i32 %masksel, %bf.clear11
+  %retval.sroa.0.0 = or i32 %bf.clear11, %masksel
   ret i32 %retval.sroa.0.0
 }
 
 ; Function Attrs: noreturn nounwind uwtable
 define dso_local i32 @main() local_unnamed_addr #1 {
-if.end:
+entry:
   tail call void @exit(i32 noundef 0) #3
   unreachable
 }

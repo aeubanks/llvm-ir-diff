@@ -112,9 +112,9 @@ entry:
   %call = tail call i32 (ptr, ptr, i32, i32, ptr, ...) @INSERT_IN_SYM_TAB(ptr noundef nonnull @MODULE_NAME, ptr noundef nonnull @MODULE_NAME, i32 noundef 0, i32 noundef 0, ptr noundef %SYM_TABLE) #10
   store i8 0, ptr @MAIN_ROUTINE, align 1, !tbaa !9
   store i8 0, ptr %LABEL_NAME, align 1, !tbaa !9
-  %call1187 = tail call i32 @feof(ptr noundef %INPUT_FILE) #10
-  %tobool.not188 = icmp eq i32 %call1187, 0
-  br i1 %tobool.not188, label %while.body, label %while.end
+  %call1191 = tail call i32 @feof(ptr noundef %INPUT_FILE) #10
+  %tobool.not192 = icmp eq i32 %call1191, 0
+  br i1 %tobool.not192, label %while.body, label %while.end
 
 while.body:                                       ; preds = %entry, %if.end83
   %0 = load i32, ptr %LOCATION_COUNTER, align 4, !tbaa !5
@@ -138,58 +138,58 @@ for.inc.i:                                        ; preds = %if.then.i, %for.bod
   %indvars.iv.next.i = add nuw nsw i64 %indvars.iv.i, 1
   %call.i = call i64 @strlen(ptr noundef nonnull dereferenceable(1) %LABEL_NAME) #9
   %cmp.not.not.i = icmp ugt i64 %call.i, %indvars.iv.i
-  br i1 %cmp.not.not.i, label %for.body.i, label %for.body.i118, !llvm.loop !10
+  br i1 %cmp.not.not.i, label %for.body.i, label %for.body.i111, !llvm.loop !10
 
-for.body.i118:                                    ; preds = %for.inc.i, %for.inc.i124
-  %indvars.iv.i115 = phi i64 [ %indvars.iv.next.i121, %for.inc.i124 ], [ 0, %for.inc.i ]
-  %arrayidx.i116 = getelementptr inbounds i8, ptr %OPCODE, i64 %indvars.iv.i115
-  %3 = load i8, ptr %arrayidx.i116, align 1, !tbaa !9
+for.body.i111:                                    ; preds = %for.inc.i, %for.inc.i117
+  %indvars.iv.i108 = phi i64 [ %indvars.iv.next.i114, %for.inc.i117 ], [ 0, %for.inc.i ]
+  %arrayidx.i109 = getelementptr inbounds i8, ptr %OPCODE, i64 %indvars.iv.i108
+  %3 = load i8, ptr %arrayidx.i109, align 1, !tbaa !9
   %4 = add i8 %3, -97
-  %or.cond.i117 = icmp ult i8 %4, 26
-  br i1 %or.cond.i117, label %if.then.i120, label %for.inc.i124
+  %or.cond.i110 = icmp ult i8 %4, 26
+  br i1 %or.cond.i110, label %if.then.i113, label %for.inc.i117
 
-if.then.i120:                                     ; preds = %for.body.i118
-  %add.i119 = add nsw i8 %3, -32
-  store i8 %add.i119, ptr %arrayidx.i116, align 1, !tbaa !9
-  br label %for.inc.i124
+if.then.i113:                                     ; preds = %for.body.i111
+  %add.i112 = add nsw i8 %3, -32
+  store i8 %add.i112, ptr %arrayidx.i109, align 1, !tbaa !9
+  br label %for.inc.i117
 
-for.inc.i124:                                     ; preds = %if.then.i120, %for.body.i118
-  %indvars.iv.next.i121 = add nuw nsw i64 %indvars.iv.i115, 1
-  %call.i122 = call i64 @strlen(ptr noundef nonnull dereferenceable(1) %OPCODE) #9
-  %cmp.not.not.i123 = icmp ugt i64 %call.i122, %indvars.iv.i115
-  br i1 %cmp.not.not.i123, label %for.body.i118, label %CAPITALIZE_STRING.exit125, !llvm.loop !10
+for.inc.i117:                                     ; preds = %if.then.i113, %for.body.i111
+  %indvars.iv.next.i114 = add nuw nsw i64 %indvars.iv.i108, 1
+  %call.i115 = call i64 @strlen(ptr noundef nonnull dereferenceable(1) %OPCODE) #9
+  %cmp.not.not.i116 = icmp ugt i64 %call.i115, %indvars.iv.i108
+  br i1 %cmp.not.not.i116, label %for.body.i111, label %CAPITALIZE_STRING.exit118, !llvm.loop !10
 
-CAPITALIZE_STRING.exit125:                        ; preds = %for.inc.i124
+CAPITALIZE_STRING.exit118:                        ; preds = %for.inc.i117
   %5 = load ptr, ptr %ARGUMENTS, align 8, !tbaa !12
-  br label %for.body.i129
+  br label %for.body.i122
 
-for.body.i129:                                    ; preds = %for.inc.i135, %CAPITALIZE_STRING.exit125
-  %indvars.iv.i126 = phi i64 [ 0, %CAPITALIZE_STRING.exit125 ], [ %indvars.iv.next.i132, %for.inc.i135 ]
-  %arrayidx.i127 = getelementptr inbounds i8, ptr %5, i64 %indvars.iv.i126
-  %6 = load i8, ptr %arrayidx.i127, align 1, !tbaa !9
+for.body.i122:                                    ; preds = %for.inc.i128, %CAPITALIZE_STRING.exit118
+  %indvars.iv.i119 = phi i64 [ 0, %CAPITALIZE_STRING.exit118 ], [ %indvars.iv.next.i125, %for.inc.i128 ]
+  %arrayidx.i120 = getelementptr inbounds i8, ptr %5, i64 %indvars.iv.i119
+  %6 = load i8, ptr %arrayidx.i120, align 1, !tbaa !9
   %7 = add i8 %6, -97
-  %or.cond.i128 = icmp ult i8 %7, 26
-  br i1 %or.cond.i128, label %if.then.i131, label %for.inc.i135
+  %or.cond.i121 = icmp ult i8 %7, 26
+  br i1 %or.cond.i121, label %if.then.i124, label %for.inc.i128
 
-if.then.i131:                                     ; preds = %for.body.i129
-  %add.i130 = add nsw i8 %6, -32
-  store i8 %add.i130, ptr %arrayidx.i127, align 1, !tbaa !9
-  br label %for.inc.i135
+if.then.i124:                                     ; preds = %for.body.i122
+  %add.i123 = add nsw i8 %6, -32
+  store i8 %add.i123, ptr %arrayidx.i120, align 1, !tbaa !9
+  br label %for.inc.i128
 
-for.inc.i135:                                     ; preds = %if.then.i131, %for.body.i129
-  %indvars.iv.next.i132 = add nuw nsw i64 %indvars.iv.i126, 1
-  %call.i133 = call i64 @strlen(ptr noundef nonnull dereferenceable(1) %5) #9
-  %cmp.not.not.i134 = icmp ugt i64 %call.i133, %indvars.iv.i126
-  br i1 %cmp.not.not.i134, label %for.body.i129, label %CAPITALIZE_STRING.exit136, !llvm.loop !10
+for.inc.i128:                                     ; preds = %if.then.i124, %for.body.i122
+  %indvars.iv.next.i125 = add nuw nsw i64 %indvars.iv.i119, 1
+  %call.i126 = call i64 @strlen(ptr noundef nonnull dereferenceable(1) %5) #9
+  %cmp.not.not.i127 = icmp ugt i64 %call.i126, %indvars.iv.i119
+  br i1 %cmp.not.not.i127, label %for.body.i122, label %CAPITALIZE_STRING.exit129, !llvm.loop !10
 
-CAPITALIZE_STRING.exit136:                        ; preds = %for.inc.i135
+CAPITALIZE_STRING.exit129:                        ; preds = %for.inc.i128
   %strcmpload = load i8, ptr %LABEL_NAME, align 1
   %tobool7.not = icmp eq i8 %strcmpload, 0
   br i1 %tobool7.not, label %lor.lhs.false, label %land.lhs.true
 
-lor.lhs.false:                                    ; preds = %CAPITALIZE_STRING.exit136
-  %strcmpload108 = load i8, ptr %OPCODE, align 1
-  %tobool10 = icmp ne i8 %strcmpload108, 0
+lor.lhs.false:                                    ; preds = %CAPITALIZE_STRING.exit129
+  %strcmpload177 = load i8, ptr %OPCODE, align 1
+  %tobool10 = icmp ne i8 %strcmpload177, 0
   %8 = load i32, ptr %EXTENDED_CODE, align 4
   %tobool12 = icmp ne i32 %8, 0
   %or.cond = select i1 %tobool10, i1 true, i1 %tobool12
@@ -198,7 +198,7 @@ lor.lhs.false:                                    ; preds = %CAPITALIZE_STRING.e
   %or.cond88 = select i1 %or.cond, i1 %cmp, i1 false
   br i1 %or.cond88, label %land.lhs.true13, label %if.end38
 
-land.lhs.true:                                    ; preds = %CAPITALIZE_STRING.exit136
+land.lhs.true:                                    ; preds = %CAPITALIZE_STRING.exit129
   %.old = load i32, ptr @SEEN_END_OP, align 4, !tbaa !5
   %cmp.old = icmp eq i32 %.old, 1
   br i1 %cmp.old, label %land.lhs.true13, label %if.then25
@@ -209,19 +209,19 @@ land.lhs.true13:                                  ; preds = %lor.lhs.false, %lan
   br i1 %tobool16.not, label %if.end, label %land.lhs.true17
 
 land.lhs.true17:                                  ; preds = %land.lhs.true13
-  %bcmp113 = call i32 @bcmp(ptr noundef nonnull dereferenceable(6) %OPCODE, ptr noundef nonnull dereferenceable(6) @.str.3, i64 6)
-  %tobool20.not = icmp eq i32 %bcmp113, 0
+  %bcmp182 = call i32 @bcmp(ptr noundef nonnull dereferenceable(6) %OPCODE, ptr noundef nonnull dereferenceable(6) @.str.3, i64 6)
+  %tobool20.not = icmp eq i32 %bcmp182, 0
   br i1 %tobool20.not, label %if.end, label %if.then
 
 if.then:                                          ; preds = %land.lhs.true17
   %10 = call i64 @fwrite(ptr nonnull @.str.4, i64 38, i64 1, ptr %TEMP_OUTPUT_STREAM)
   store i32 2, ptr @SEEN_END_OP, align 4, !tbaa !5
-  %strcmpload109.pr.pre = load i8, ptr %LABEL_NAME, align 1
+  %strcmpload178.pr.pre = load i8, ptr %LABEL_NAME, align 1
   br label %if.end
 
 if.end:                                           ; preds = %if.then, %land.lhs.true17, %land.lhs.true13
-  %strcmpload109.pr = phi i8 [ %strcmpload109.pr.pre, %if.then ], [ %strcmpload, %land.lhs.true17 ], [ %strcmpload, %land.lhs.true13 ]
-  %tobool24.not = icmp eq i8 %strcmpload109.pr, 0
+  %strcmpload178.pr = phi i8 [ %strcmpload178.pr.pre, %if.then ], [ %strcmpload, %land.lhs.true17 ], [ %strcmpload, %land.lhs.true13 ]
+  %tobool24.not = icmp eq i8 %strcmpload178.pr, 0
   br i1 %tobool24.not, label %if.end38, label %if.then25
 
 if.then25:                                        ; preds = %land.lhs.true, %if.end
@@ -232,23 +232,23 @@ if.then25:                                        ; preds = %land.lhs.true, %if.
 if.then29:                                        ; preds = %if.then25
   %11 = load i32, ptr @LOCATION_EXCEEDS_MEM_SIZE, align 4, !tbaa !5
   %tobool.not.i = icmp eq i32 %11, 0
-  br i1 %tobool.not.i, label %if.then.i138, label %if.end38
+  br i1 %tobool.not.i, label %if.then.i131, label %if.end38
 
-if.then.i138:                                     ; preds = %if.then29
+if.then.i131:                                     ; preds = %if.then29
   %12 = load i32, ptr %LOCATION_COUNTER, align 4, !tbaa !5
-  %or.cond.i137 = icmp sgt i32 %12, 1048575
-  br i1 %or.cond.i137, label %CHANGE_LOCATION.exit, label %if.then31
+  %or.cond.i130 = icmp sgt i32 %12, 1048575
+  br i1 %or.cond.i130, label %CHANGE_LOCATION.exit, label %if.then31
 
-CHANGE_LOCATION.exit:                             ; preds = %if.then.i138
+CHANGE_LOCATION.exit:                             ; preds = %if.then.i131
   store i32 1, ptr @LOCATION_EXCEEDS_MEM_SIZE, align 4, !tbaa !5
-  %call.i139 = call i32 (ptr, ptr, ...) @fprintf(ptr noundef %TEMP_OUTPUT_STREAM, ptr noundef nonnull @.str, i32 noundef 1048576)
-  %.pr.pre = load i32, ptr @LOCATION_EXCEEDS_MEM_SIZE, align 4, !tbaa !5
+  %call.i132 = call i32 (ptr, ptr, ...) @fprintf(ptr noundef %TEMP_OUTPUT_STREAM, ptr noundef nonnull @.str, i32 noundef 1048576)
+  %.pr.pr = load i32, ptr @LOCATION_EXCEEDS_MEM_SIZE, align 4, !tbaa !5
   store i32 1048575, ptr %LOCATION_COUNTER, align 4, !tbaa !5
-  %tobool30.not = icmp eq i32 %.pr.pre, 0
+  %tobool30.not = icmp eq i32 %.pr.pr, 0
   br i1 %tobool30.not, label %if.then31, label %if.end38
 
-if.then31:                                        ; preds = %if.then.i138, %CHANGE_LOCATION.exit
-  %13 = phi i32 [ 1048575, %CHANGE_LOCATION.exit ], [ %12, %if.then.i138 ]
+if.then31:                                        ; preds = %if.then.i131, %CHANGE_LOCATION.exit
+  %13 = phi i32 [ 1048575, %CHANGE_LOCATION.exit ], [ %12, %if.then.i131 ]
   %call33 = call i32 (ptr, ptr, i32, i32, ptr, ...) @INSERT_IN_SYM_TAB(ptr noundef nonnull @MODULE_NAME, ptr noundef nonnull %LABEL_NAME, i32 noundef %13, i32 noundef 0, ptr noundef %SYM_TABLE) #10
   br label %if.end38
 
@@ -257,8 +257,8 @@ if.else:                                          ; preds = %if.then25
   br label %if.end38
 
 if.end38:                                         ; preds = %lor.lhs.false, %if.then29, %if.else, %if.then31, %CHANGE_LOCATION.exit, %if.end
-  %strcmpload110 = load i8, ptr %OPCODE, align 1
-  %tobool41.not = icmp eq i8 %strcmpload110, 0
+  %strcmpload179 = load i8, ptr %OPCODE, align 1
+  %tobool41.not = icmp eq i8 %strcmpload179, 0
   br i1 %tobool41.not, label %if.end71, label %if.then42
 
 if.then42:                                        ; preds = %if.end38
@@ -279,61 +279,61 @@ sw.bb:                                            ; preds = %if.then42
 
 sw.bb47:                                          ; preds = %if.then42
   %15 = load i32, ptr @LOCATION_EXCEEDS_MEM_SIZE, align 4, !tbaa !5
-  %tobool.not.i140 = icmp eq i32 %15, 0
-  br i1 %tobool.not.i140, label %if.then.i145, label %CHANGE_LOCATION.exit150
+  %tobool.not.i133 = icmp eq i32 %15, 0
+  br i1 %tobool.not.i133, label %if.then.i138, label %CHANGE_LOCATION.exit143
 
-if.then.i145:                                     ; preds = %sw.bb47
+if.then.i138:                                     ; preds = %sw.bb47
   %16 = load i32, ptr %LOCATION_COUNTER, align 4, !tbaa !5
-  %add.i141 = add nsw i32 %16, 1
-  %cmp.i142 = icmp sgt i32 %16, 1048575
-  br i1 %cmp.i142, label %if.then2.i147, label %if.end4.sink.split.i149
+  %add.i134 = add nsw i32 %16, 1
+  %cmp.i135 = icmp sgt i32 %16, 1048575
+  br i1 %cmp.i135, label %if.then2.i140, label %if.end4.sink.split.i142
 
-if.then2.i147:                                    ; preds = %if.then.i145
+if.then2.i140:                                    ; preds = %if.then.i138
   store i32 1, ptr @LOCATION_EXCEEDS_MEM_SIZE, align 4, !tbaa !5
-  %call.i146 = call i32 (ptr, ptr, ...) @fprintf(ptr noundef %TEMP_OUTPUT_STREAM, ptr noundef nonnull @.str, i32 noundef 1048576)
-  br label %if.end4.sink.split.i149
+  %call.i139 = call i32 (ptr, ptr, ...) @fprintf(ptr noundef %TEMP_OUTPUT_STREAM, ptr noundef nonnull @.str, i32 noundef 1048576)
+  br label %if.end4.sink.split.i142
 
-if.end4.sink.split.i149:                          ; preds = %if.then2.i147, %if.then.i145
-  %.sink.i148 = phi i32 [ 1048575, %if.then2.i147 ], [ %add.i141, %if.then.i145 ]
-  store i32 %.sink.i148, ptr %LOCATION_COUNTER, align 4, !tbaa !5
-  br label %CHANGE_LOCATION.exit150
+if.end4.sink.split.i142:                          ; preds = %if.then2.i140, %if.then.i138
+  %.sink.i141 = phi i32 [ 1048575, %if.then2.i140 ], [ %add.i134, %if.then.i138 ]
+  store i32 %.sink.i141, ptr %LOCATION_COUNTER, align 4, !tbaa !5
+  br label %CHANGE_LOCATION.exit143
 
-CHANGE_LOCATION.exit150:                          ; preds = %sw.bb47, %if.end4.sink.split.i149
+CHANGE_LOCATION.exit143:                          ; preds = %sw.bb47, %if.end4.sink.split.i142
   %17 = load i32, ptr %EXTENDED_CODE, align 4, !tbaa !5
   %tobool48.not = icmp eq i32 %17, 0
   br i1 %tobool48.not, label %if.end71, label %if.then49
 
-if.then49:                                        ; preds = %CHANGE_LOCATION.exit150
+if.then49:                                        ; preds = %CHANGE_LOCATION.exit143
   %call51 = call i32 (ptr, ptr, ...) @fprintf(ptr noundef %TEMP_OUTPUT_STREAM, ptr noundef nonnull @.str.7, ptr noundef nonnull %OPCODE)
   br label %if.end71
 
 sw.bb53:                                          ; preds = %if.then42
   %18 = load i32, ptr @LOCATION_EXCEEDS_MEM_SIZE, align 4, !tbaa !5
-  %tobool.not.i151 = icmp eq i32 %18, 0
-  br i1 %tobool.not.i151, label %if.then.i156, label %CHANGE_LOCATION.exit161
+  %tobool.not.i144 = icmp eq i32 %18, 0
+  br i1 %tobool.not.i144, label %if.then.i149, label %CHANGE_LOCATION.exit154
 
-if.then.i156:                                     ; preds = %sw.bb53
+if.then.i149:                                     ; preds = %sw.bb53
   %19 = load i32, ptr %LOCATION_COUNTER, align 4, !tbaa !5
-  %add.i152 = add nsw i32 %19, 2
-  %cmp.i153 = icmp sgt i32 %19, 1048574
-  br i1 %cmp.i153, label %if.then2.i158, label %if.end4.sink.split.i160
+  %add.i145 = add nsw i32 %19, 2
+  %cmp.i146 = icmp sgt i32 %19, 1048574
+  br i1 %cmp.i146, label %if.then2.i151, label %if.end4.sink.split.i153
 
-if.then2.i158:                                    ; preds = %if.then.i156
+if.then2.i151:                                    ; preds = %if.then.i149
   store i32 1, ptr @LOCATION_EXCEEDS_MEM_SIZE, align 4, !tbaa !5
-  %call.i157 = call i32 (ptr, ptr, ...) @fprintf(ptr noundef %TEMP_OUTPUT_STREAM, ptr noundef nonnull @.str, i32 noundef 1048576)
-  br label %if.end4.sink.split.i160
+  %call.i150 = call i32 (ptr, ptr, ...) @fprintf(ptr noundef %TEMP_OUTPUT_STREAM, ptr noundef nonnull @.str, i32 noundef 1048576)
+  br label %if.end4.sink.split.i153
 
-if.end4.sink.split.i160:                          ; preds = %if.then2.i158, %if.then.i156
-  %.sink.i159 = phi i32 [ 1048575, %if.then2.i158 ], [ %add.i152, %if.then.i156 ]
-  store i32 %.sink.i159, ptr %LOCATION_COUNTER, align 4, !tbaa !5
-  br label %CHANGE_LOCATION.exit161
+if.end4.sink.split.i153:                          ; preds = %if.then2.i151, %if.then.i149
+  %.sink.i152 = phi i32 [ 1048575, %if.then2.i151 ], [ %add.i145, %if.then.i149 ]
+  store i32 %.sink.i152, ptr %LOCATION_COUNTER, align 4, !tbaa !5
+  br label %CHANGE_LOCATION.exit154
 
-CHANGE_LOCATION.exit161:                          ; preds = %sw.bb53, %if.end4.sink.split.i160
+CHANGE_LOCATION.exit154:                          ; preds = %sw.bb53, %if.end4.sink.split.i153
   %20 = load i32, ptr %EXTENDED_CODE, align 4, !tbaa !5
   %tobool54.not = icmp eq i32 %20, 0
   br i1 %tobool54.not, label %if.end71, label %if.then55
 
-if.then55:                                        ; preds = %CHANGE_LOCATION.exit161
+if.then55:                                        ; preds = %CHANGE_LOCATION.exit154
   %call57 = call i32 (ptr, ptr, ...) @fprintf(ptr noundef %TEMP_OUTPUT_STREAM, ptr noundef nonnull @.str.7, ptr noundef nonnull %OPCODE)
   br label %if.end71
 
@@ -341,45 +341,45 @@ sw.bb59:                                          ; preds = %if.then42
   %21 = load i32, ptr %EXTENDED_CODE, align 4, !tbaa !5
   %tobool60.not = icmp eq i32 %21, 0
   %22 = load i32, ptr @LOCATION_EXCEEDS_MEM_SIZE, align 4, !tbaa !5
-  %tobool.not.i173 = icmp eq i32 %22, 0
+  %tobool.not.i166 = icmp eq i32 %22, 0
   br i1 %tobool60.not, label %if.else62, label %if.then61
 
 if.then61:                                        ; preds = %sw.bb59
-  br i1 %tobool.not.i173, label %if.then.i167, label %if.end71
+  br i1 %tobool.not.i166, label %if.then.i160, label %if.end71
 
-if.then.i167:                                     ; preds = %if.then61
+if.then.i160:                                     ; preds = %if.then61
   %23 = load i32, ptr %LOCATION_COUNTER, align 4, !tbaa !5
-  %add.i163 = add nsw i32 %23, 4
-  %cmp.i164 = icmp sgt i32 %23, 1048572
-  br i1 %cmp.i164, label %if.then2.i169, label %if.end4.sink.split.i171
+  %add.i156 = add nsw i32 %23, 4
+  %cmp.i157 = icmp sgt i32 %23, 1048572
+  br i1 %cmp.i157, label %if.then2.i162, label %if.end4.sink.split.i164
 
-if.then2.i169:                                    ; preds = %if.then.i167
+if.then2.i162:                                    ; preds = %if.then.i160
   store i32 1, ptr @LOCATION_EXCEEDS_MEM_SIZE, align 4, !tbaa !5
-  %call.i168 = call i32 (ptr, ptr, ...) @fprintf(ptr noundef %TEMP_OUTPUT_STREAM, ptr noundef nonnull @.str, i32 noundef 1048576)
-  br label %if.end4.sink.split.i171
+  %call.i161 = call i32 (ptr, ptr, ...) @fprintf(ptr noundef %TEMP_OUTPUT_STREAM, ptr noundef nonnull @.str, i32 noundef 1048576)
+  br label %if.end4.sink.split.i164
 
-if.end4.sink.split.i171:                          ; preds = %if.then2.i169, %if.then.i167
-  %.sink.i170 = phi i32 [ 1048575, %if.then2.i169 ], [ %add.i163, %if.then.i167 ]
-  store i32 %.sink.i170, ptr %LOCATION_COUNTER, align 4, !tbaa !5
+if.end4.sink.split.i164:                          ; preds = %if.then2.i162, %if.then.i160
+  %.sink.i163 = phi i32 [ 1048575, %if.then2.i162 ], [ %add.i156, %if.then.i160 ]
+  store i32 %.sink.i163, ptr %LOCATION_COUNTER, align 4, !tbaa !5
   br label %if.end71
 
 if.else62:                                        ; preds = %sw.bb59
-  br i1 %tobool.not.i173, label %if.then.i178, label %if.end71
+  br i1 %tobool.not.i166, label %if.then.i171, label %if.end71
 
-if.then.i178:                                     ; preds = %if.else62
+if.then.i171:                                     ; preds = %if.else62
   %24 = load i32, ptr %LOCATION_COUNTER, align 4, !tbaa !5
-  %add.i174 = add nsw i32 %24, 3
-  %cmp.i175 = icmp sgt i32 %24, 1048573
-  br i1 %cmp.i175, label %if.then2.i180, label %if.end4.sink.split.i182
+  %add.i167 = add nsw i32 %24, 3
+  %cmp.i168 = icmp sgt i32 %24, 1048573
+  br i1 %cmp.i168, label %if.then2.i173, label %if.end4.sink.split.i175
 
-if.then2.i180:                                    ; preds = %if.then.i178
+if.then2.i173:                                    ; preds = %if.then.i171
   store i32 1, ptr @LOCATION_EXCEEDS_MEM_SIZE, align 4, !tbaa !5
-  %call.i179 = call i32 (ptr, ptr, ...) @fprintf(ptr noundef %TEMP_OUTPUT_STREAM, ptr noundef nonnull @.str, i32 noundef 1048576)
-  br label %if.end4.sink.split.i182
+  %call.i172 = call i32 (ptr, ptr, ...) @fprintf(ptr noundef %TEMP_OUTPUT_STREAM, ptr noundef nonnull @.str, i32 noundef 1048576)
+  br label %if.end4.sink.split.i175
 
-if.end4.sink.split.i182:                          ; preds = %if.then2.i180, %if.then.i178
-  %.sink.i181 = phi i32 [ 1048575, %if.then2.i180 ], [ %add.i174, %if.then.i178 ]
-  store i32 %.sink.i181, ptr %LOCATION_COUNTER, align 4, !tbaa !5
+if.end4.sink.split.i175:                          ; preds = %if.then2.i173, %if.then.i171
+  %.sink.i174 = phi i32 [ 1048575, %if.then2.i173 ], [ %add.i167, %if.then.i171 ]
+  store i32 %.sink.i174, ptr %LOCATION_COUNTER, align 4, !tbaa !5
   br label %if.end71
 
 sw.bb64:                                          ; preds = %if.then42
@@ -398,18 +398,18 @@ if.end69:                                         ; preds = %if.then66, %sw.bb64
   call void (i32, ptr, ptr, ptr, ptr, ptr, ...) @DO_PSEUDO(i32 noundef %26, ptr noundef nonnull %LABEL_NAME, ptr noundef %27, ptr noundef nonnull %LOCATION_COUNTER, ptr noundef %SYM_TABLE, ptr noundef %TEMP_OUTPUT_STREAM) #10
   br label %if.end71
 
-if.end71:                                         ; preds = %if.end4.sink.split.i182, %if.else62, %if.end4.sink.split.i171, %if.then61, %sw.bb, %if.end69, %if.then42, %if.then49, %CHANGE_LOCATION.exit150, %if.then55, %CHANGE_LOCATION.exit161, %if.end38
+if.end71:                                         ; preds = %sw.bb, %if.end69, %if.then42, %if.then49, %CHANGE_LOCATION.exit143, %if.then55, %CHANGE_LOCATION.exit154, %if.then61, %if.end4.sink.split.i164, %if.else62, %if.end4.sink.split.i175, %if.end38
   %28 = load i32, ptr @SEEN_END_OP, align 4, !tbaa !5
   %cmp72 = icmp eq i32 %28, 3
   br i1 %cmp72, label %land.lhs.true73, label %if.end83
 
 land.lhs.true73:                                  ; preds = %if.end71
-  %strcmpload111 = load i8, ptr %OPCODE, align 1
-  %tobool76.not = icmp eq i8 %strcmpload111, 0
-  %strcmpload112 = load i8, ptr %LABEL_NAME, align 1
-  %tobool80.not = icmp eq i8 %strcmpload112, 0
-  %or.cond114 = select i1 %tobool76.not, i1 %tobool80.not, i1 false
-  br i1 %or.cond114, label %if.end83, label %if.then81
+  %strcmpload180 = load i8, ptr %OPCODE, align 1
+  %tobool76.not = icmp eq i8 %strcmpload180, 0
+  %strcmpload181 = load i8, ptr %LABEL_NAME, align 1
+  %tobool80.not = icmp eq i8 %strcmpload181, 0
+  %or.cond183 = select i1 %tobool76.not, i1 %tobool80.not, i1 false
+  br i1 %or.cond183, label %if.end83, label %if.then81
 
 if.then81:                                        ; preds = %land.lhs.true73
   store i32 0, ptr @SEEN_END_OP, align 4, !tbaa !5

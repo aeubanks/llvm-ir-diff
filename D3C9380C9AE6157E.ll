@@ -2937,8 +2937,8 @@ sw.bb1.i:                                         ; preds = %index2adr.exit.i
   %30 = load ptr, ptr %retval.1.i.i, align 8, !tbaa !31
   br label %cleanup
 
-cleanup:                                          ; preds = %sw.bb1.i, %sw.bb.i14, %index2adr.exit.i, %index2adr.exit, %sw.bb3, %sw.bb1, %sw.bb
-  %retval.0 = phi ptr [ %15, %sw.bb3 ], [ %14, %sw.bb1 ], [ %13, %sw.bb ], [ null, %index2adr.exit ], [ %30, %sw.bb1.i ], [ %add.ptr.i13, %sw.bb.i14 ], [ null, %index2adr.exit.i ]
+cleanup:                                          ; preds = %index2adr.exit, %sw.bb1.i, %sw.bb.i14, %index2adr.exit.i, %sw.bb3, %sw.bb1, %sw.bb
+  %retval.0 = phi ptr [ %15, %sw.bb3 ], [ %14, %sw.bb1 ], [ %13, %sw.bb ], [ %30, %sw.bb1.i ], [ %add.ptr.i13, %sw.bb.i14 ], [ null, %index2adr.exit.i ], [ null, %index2adr.exit ]
   ret ptr %retval.0
 }
 
@@ -5507,8 +5507,8 @@ if.then:                                          ; preds = %if.end14.i, %if.end
   store ptr %incdec.ptr, ptr %top, align 8, !tbaa !5
   br label %if.end
 
-if.end:                                           ; preds = %if.else.i, %land.lhs.true10.i, %if.then1.i, %land.lhs.true.i, %index2adr.exit, %if.then
-  %retval.1.i1923 = phi ptr [ %retval.1.i19, %if.then ], [ null, %index2adr.exit ], [ null, %land.lhs.true.i ], [ null, %if.then1.i ], [ null, %land.lhs.true10.i ], [ null, %if.else.i ]
+if.end:                                           ; preds = %index2adr.exit, %if.then1.i, %land.lhs.true.i, %if.else.i, %land.lhs.true10.i, %if.then
+  %retval.1.i1923 = phi ptr [ %retval.1.i19, %if.then ], [ null, %land.lhs.true10.i ], [ null, %if.else.i ], [ null, %land.lhs.true.i ], [ null, %if.then1.i ], [ null, %index2adr.exit ]
   ret ptr %retval.1.i1923
 }
 
@@ -5685,8 +5685,8 @@ if.then16:                                        ; preds = %land.lhs.true10
   tail call void @luaC_barrierf(ptr noundef nonnull %L, ptr noundef nonnull %30, ptr noundef nonnull %27) #14
   br label %if.end20
 
-if.end20:                                         ; preds = %if.else.i, %land.lhs.true10.i, %if.then1.i, %land.lhs.true.i, %index2adr.exit, %if.then, %land.lhs.true, %land.lhs.true10, %if.then16
-  %retval.1.i4145 = phi ptr [ %retval.1.i41, %if.then ], [ %retval.1.i41, %land.lhs.true ], [ %retval.1.i41, %land.lhs.true10 ], [ %retval.1.i41, %if.then16 ], [ null, %index2adr.exit ], [ null, %land.lhs.true.i ], [ null, %if.then1.i ], [ null, %land.lhs.true10.i ], [ null, %if.else.i ]
+if.end20:                                         ; preds = %index2adr.exit, %if.then1.i, %land.lhs.true.i, %if.else.i, %land.lhs.true10.i, %if.then, %land.lhs.true, %land.lhs.true10, %if.then16
+  %retval.1.i4145 = phi ptr [ %retval.1.i41, %if.then ], [ %retval.1.i41, %land.lhs.true ], [ %retval.1.i41, %land.lhs.true10 ], [ %retval.1.i41, %if.then16 ], [ null, %land.lhs.true10.i ], [ null, %if.else.i ], [ null, %land.lhs.true.i ], [ null, %if.then1.i ], [ null, %index2adr.exit ]
   ret ptr %retval.1.i4145
 }
 

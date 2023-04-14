@@ -621,8 +621,8 @@ if.then13:                                        ; preds = %for.inc.5
   tail call void @free(ptr noundef nonnull %call38.i) #18
   br label %cleanup
 
-for.body.i.preheader:                             ; preds = %for.inc.5, %for.inc.4, %for.inc.2, %for.inc.1, %for.inc, %cdiff_token.exit
-  %i.059.lcssa.wide.ph = phi i64 [ 0, %cdiff_token.exit ], [ 1, %for.inc ], [ 2, %for.inc.1 ], [ 3, %for.inc.2 ], [ 5, %for.inc.4 ], [ 6, %for.inc.5 ]
+for.body.i.preheader:                             ; preds = %cdiff_token.exit, %for.inc, %for.inc.1, %for.inc.2, %for.inc.4, %for.inc.5
+  %i.059.lcssa.wide.ph = phi i64 [ 6, %for.inc.5 ], [ 5, %for.inc.4 ], [ 3, %for.inc.2 ], [ 2, %for.inc.1 ], [ 1, %for.inc ], [ 0, %cdiff_token.exit ]
   %handler64 = getelementptr inbounds [8 x %struct.cdiff_cmd], ptr @commands, i64 0, i64 %i.059.lcssa.wide.ph, i32 2
   %2 = load ptr, ptr %handler64, align 8, !tbaa !34
   %argc65 = getelementptr inbounds [8 x %struct.cdiff_cmd], ptr @commands, i64 0, i64 %i.059.lcssa.wide.ph, i32 1
@@ -827,8 +827,8 @@ if.end:                                           ; preds = %cdiff_token.exit
 
 for.cond.preheader:                               ; preds = %if.end
   %call7 = tail call i64 @strlen(ptr noundef nonnull dereferenceable(1) %call.i) #19
-  %cmp50.not = icmp eq i64 %call7, 0
-  br i1 %cmp50.not, label %for.end, label %for.body
+  %cmp48.not = icmp eq i64 %call7, 0
+  br i1 %cmp48.not, label %for.end, label %for.body
 
 if.then3:                                         ; preds = %if.end
   %call5 = tail call i32 (ptr, ...) @logg(ptr noundef nonnull @.str.29, ptr noundef nonnull %4, ptr noundef nonnull %call.i) #18
@@ -836,14 +836,14 @@ if.then3:                                         ; preds = %if.end
   br label %cleanup
 
 for.cond:                                         ; preds = %lor.lhs.false
-  %inc = add nuw nsw i64 %conv52, 1
+  %inc = add nuw nsw i64 %conv50, 1
   %conv = and i64 %inc, 4294967295
   %cmp = icmp ugt i64 %call7, %conv
   br i1 %cmp, label %for.body, label %for.end, !llvm.loop !39
 
 for.body:                                         ; preds = %for.cond.preheader, %for.cond
-  %conv52 = phi i64 [ %conv, %for.cond ], [ 0, %for.cond.preheader ]
-  %arrayidx = getelementptr inbounds i8, ptr %call.i, i64 %conv52
+  %conv50 = phi i64 [ %conv, %for.cond ], [ 0, %for.cond.preheader ]
+  %arrayidx = getelementptr inbounds i8, ptr %call.i, i64 %conv50
   %5 = load i8, ptr %arrayidx, align 1, !tbaa !5
   %cmp10.not = icmp eq i8 %5, 46
   br i1 %cmp10.not, label %lor.lhs.false, label %land.lhs.true
@@ -1089,10 +1089,10 @@ if.then19:                                        ; preds = %if.else
   br label %cleanup
 
 while.body:                                       ; preds = %if.else, %if.end33
-  %pt.0108 = phi ptr [ %12, %if.end33 ], [ %9, %if.else ]
-  %11 = load i32, ptr %pt.0108, align 8, !tbaa !42
+  %pt.0106 = phi ptr [ %12, %if.end33 ], [ %9, %if.else ]
+  %11 = load i32, ptr %pt.0106, align 8, !tbaa !42
   %cmp26 = icmp ult i32 %11, %conv.i
-  %next27 = getelementptr inbounds %struct.cdiff_node, ptr %pt.0108, i64 0, i32 3
+  %next27 = getelementptr inbounds %struct.cdiff_node, ptr %pt.0106, i64 0, i32 3
   %12 = load ptr, ptr %next27, align 8, !tbaa !25
   br i1 %cmp26, label %land.lhs.true, label %if.end33
 
@@ -1111,7 +1111,7 @@ if.end33:                                         ; preds = %while.body, %lor.lh
 
 while.end:                                        ; preds = %if.end33, %lor.lhs.false, %land.lhs.true
   %14 = phi ptr [ null, %if.end33 ], [ %12, %lor.lhs.false ], [ null, %land.lhs.true ]
-  %next35 = getelementptr inbounds %struct.cdiff_node, ptr %pt.0108, i64 0, i32 3
+  %next35 = getelementptr inbounds %struct.cdiff_node, ptr %pt.0106, i64 0, i32 3
   %next36 = getelementptr inbounds %struct.cdiff_node, ptr %call8, i64 0, i32 3
   store ptr %14, ptr %next36, align 8, !tbaa !25
   store ptr %call8, ptr %next35, align 8, !tbaa !25
@@ -1324,10 +1324,10 @@ if.then24:                                        ; preds = %if.else
   br label %cleanup
 
 while.body:                                       ; preds = %if.else, %if.end38
-  %pt.0166 = phi ptr [ %16, %if.end38 ], [ %13, %if.else ]
-  %15 = load i32, ptr %pt.0166, align 8, !tbaa !42
+  %pt.0164 = phi ptr [ %16, %if.end38 ], [ %13, %if.else ]
+  %15 = load i32, ptr %pt.0164, align 8, !tbaa !42
   %cmp31 = icmp ult i32 %15, %conv.i
-  %next32 = getelementptr inbounds %struct.cdiff_node, ptr %pt.0166, i64 0, i32 3
+  %next32 = getelementptr inbounds %struct.cdiff_node, ptr %pt.0164, i64 0, i32 3
   %16 = load ptr, ptr %next32, align 8, !tbaa !25
   br i1 %cmp31, label %land.lhs.true, label %if.end38
 
@@ -1346,7 +1346,7 @@ if.end38:                                         ; preds = %while.body, %lor.lh
 
 while.end:                                        ; preds = %if.end38, %lor.lhs.false, %land.lhs.true
   %18 = phi ptr [ null, %if.end38 ], [ %16, %lor.lhs.false ], [ null, %land.lhs.true ]
-  %next40 = getelementptr inbounds %struct.cdiff_node, ptr %pt.0166, i64 0, i32 3
+  %next40 = getelementptr inbounds %struct.cdiff_node, ptr %pt.0164, i64 0, i32 3
   %next41 = getelementptr inbounds %struct.cdiff_node, ptr %call13, i64 0, i32 3
   store ptr %18, ptr %next41, align 8, !tbaa !25
   store ptr %call13, ptr %next40, align 8, !tbaa !25
@@ -2245,30 +2245,30 @@ if.then118:                                       ; preds = %while.end
   call void @free(ptr noundef %call38.i371) #18
   %call120 = call i32 @unlink(ptr noundef %call49) #18
   call void @free(ptr noundef %call49) #18
-  %call121 = call i32 (ptr, ...) @logg(ptr noundef nonnull @.str.68, ptr noundef %call38.i411, ptr noundef nonnull %dstdb.0.ph) #18
+  %call121 = call i32 (ptr, ...) @logg(ptr noundef nonnull @.str.68, ptr noundef nonnull %call38.i411, ptr noundef nonnull %dstdb.0.ph) #18
   call void @free(ptr noundef %call38.i411) #18
   call void @free(ptr noundef nonnull %dstdb.0.ph) #18
   br label %cleanup
 
 if.end122:                                        ; preds = %while.end
-  %call123 = call i32 @unlink(ptr noundef %call38.i411) #18
+  %call123 = call i32 @unlink(ptr noundef nonnull %call38.i411) #18
   %cmp124 = icmp eq i32 %call123, -1
   br i1 %cmp124, label %if.then125, label %if.end128
 
 if.then125:                                       ; preds = %if.end122
-  %call126 = call i32 (ptr, ...) @logg(ptr noundef nonnull @.str.69, ptr noundef %call38.i411) #18
+  %call126 = call i32 (ptr, ...) @logg(ptr noundef nonnull @.str.69, ptr noundef nonnull %call38.i411) #18
   call void @free(ptr noundef %call38.i411) #18
   %call127 = call i32 @unlink(ptr noundef %call49) #18
   call void @free(ptr noundef %call49) #18
   br label %cleanup
 
 if.end128:                                        ; preds = %if.end122
-  %call129 = call i32 @rename(ptr noundef %call49, ptr noundef %call38.i411) #18
+  %call129 = call i32 @rename(ptr noundef %call49, ptr noundef nonnull %call38.i411) #18
   %cmp130 = icmp eq i32 %call129, -1
   br i1 %cmp130, label %if.then131, label %if.end134
 
 if.then131:                                       ; preds = %if.end128
-  %call132 = call i32 (ptr, ...) @logg(ptr noundef nonnull @.str.70, ptr noundef %call49, ptr noundef %call38.i411) #18
+  %call132 = call i32 (ptr, ...) @logg(ptr noundef nonnull @.str.70, ptr noundef %call49, ptr noundef nonnull %call38.i411) #18
   call void @free(ptr noundef %call38.i411) #18
   %call133 = call i32 @unlink(ptr noundef %call49) #18
   call void @free(ptr noundef %call49) #18
@@ -2330,22 +2330,22 @@ cdiff_token.exit:                                 ; preds = %for.end.i
 
 for.cond.preheader:                               ; preds = %cdiff_token.exit
   %call7 = tail call i64 @strlen(ptr noundef nonnull dereferenceable(1) %call.i) #19
-  %cmp55.not = icmp eq i64 %call7, 0
-  br i1 %cmp55.not, label %for.end, label %for.body
+  %cmp53.not = icmp eq i64 %call7, 0
+  br i1 %cmp53.not, label %for.end, label %for.body
 
 if.then4:                                         ; preds = %if.end, %for.end.i, %cdiff_token.exit
   %call5 = tail call i32 (ptr, ...) @logg(ptr noundef nonnull @.str.72) #18
   br label %cleanup
 
 for.cond:                                         ; preds = %lor.lhs.false
-  %inc = add nuw nsw i64 %conv57, 1
+  %inc = add nuw nsw i64 %conv55, 1
   %conv = and i64 %inc, 4294967295
   %cmp = icmp ugt i64 %call7, %conv
   br i1 %cmp, label %for.body, label %for.end, !llvm.loop !49
 
 for.body:                                         ; preds = %for.cond.preheader, %for.cond
-  %conv57 = phi i64 [ %conv, %for.cond ], [ 0, %for.cond.preheader ]
-  %arrayidx = getelementptr inbounds i8, ptr %call.i, i64 %conv57
+  %conv55 = phi i64 [ %conv, %for.cond ], [ 0, %for.cond.preheader ]
+  %arrayidx = getelementptr inbounds i8, ptr %call.i, i64 %conv55
   %5 = load i8, ptr %arrayidx, align 1, !tbaa !5
   %cmp10.not = icmp eq i8 %5, 46
   br i1 %cmp10.not, label %lor.lhs.false, label %land.lhs.true

@@ -338,8 +338,8 @@ for.cond325.preheader.lr.ph:                      ; preds = %while.end
   %sub345 = sub i32 %cond137, %47
   %mul350 = mul nsw i32 %48, %mul159
   %sub351 = sub i32 %mul196, %mul350
-  %mul3531315 = sub i32 %cond118, %48
-  %sub354 = mul i32 %mul3531315, %cond137
+  %reass.add1322 = sub i32 %cond118, %48
+  %reass.mul1323 = mul i32 %reass.add1322, %cond137
   %cmp3291330 = icmp slt i32 %48, 1
   %or.cond.not1617 = select i1 %cmp3261337, i1 true, i1 %cmp3291330
   %brmerge = select i1 %or.cond.not1617, i1 true, i1 %cmp3321325
@@ -490,7 +490,7 @@ for.cond331.for.end_crit_edge.us.us.us.us.us.us:  ; preds = %for.body333.us.us.u
 
 for.cond328.for.end349_crit_edge.split.us.us.us.us.us.us: ; preds = %for.cond331.for.end_crit_edge.us.us.us.us.us.us
   %add352.us.us.us.us.us = add nsw i32 %sub351, %add343.us.us.us.us.us.us
-  %add355.us.us.us.us.us = add nsw i32 %add346.us.us.us.us.us.us, %sub354
+  %add355.us.us.us.us.us = add i32 %reass.mul1323, %add346.us.us.us.us.us.us
   %inc357.us.us.us.us.us = add nuw nsw i32 %loopk.11338.us.us.us.us.us, 1
   %exitcond1590.not = icmp eq i32 %inc357.us.us.us.us.us, %49
   br i1 %exitcond1590.not, label %for.end361, label %for.cond328.preheader.us.us.us.us.us, !llvm.loop !42
@@ -728,8 +728,8 @@ for.cond892.preheader.lr.ph:                      ; preds = %for.body564
   %sub919 = sub i32 %cond630, %149
   %mul921 = mul i32 %149, %148
   %sub922 = sub i32 %mul765, %mul921
-  %mul9271314 = sub i32 %spec.select1313, %150
-  %sub928 = mul i32 %mul9271314, %cond630
+  %reass.add = sub i32 %spec.select1313, %150
+  %reass.mul = mul i32 %reass.add, %cond630
   %mul930 = mul nsw i32 %150, %mul765
   %sub931 = sub i32 %mul803, %mul930
   %cmp8961445 = icmp slt i32 %150, 1
@@ -916,7 +916,7 @@ for.cond898.for.end917_crit_edge.us.us.us.us.us.us: ; preds = %for.body900.us.us
   br i1 %exitcond1602.not, label %for.cond895.for.end926_crit_edge.split.us.us.us.us.us.us, label %for.cond898.preheader.us.us.us.us.us.us, !llvm.loop !52
 
 for.cond895.for.end926_crit_edge.split.us.us.us.us.us.us: ; preds = %for.cond898.for.end917_crit_edge.us.us.us.us.us.us
-  %add929.us.us.us.us.us = add nsw i32 %add920.us.us.us.us.us.us, %sub928
+  %add929.us.us.us.us.us = add i32 %reass.mul, %add920.us.us.us.us.us.us
   %add932.us.us.us.us.us = add nsw i32 %sub931, %add923.us.us.us.us.us.us
   %inc934.us.us.us.us.us = add nuw nsw i32 %loopk.31453.us.us.us.us.us, 1
   %exitcond1603.not = icmp eq i32 %inc934.us.us.us.us.us, %151

@@ -433,11 +433,11 @@ for.end:                                          ; preds = %for.inc, %entry
   %11 = load ptr, ptr %argv, align 8, !tbaa !16
   %program_name = getelementptr inbounds %struct.ArgumentState, ptr %arg_state, i64 0, i32 2
   store ptr %11, ptr %program_name, align 8, !tbaa !21
-  %incdec.ptr216 = getelementptr inbounds ptr, ptr %argv, i64 1
-  store ptr %incdec.ptr216, ptr %argv.addr, align 8, !tbaa !16
-  %12 = load ptr, ptr %incdec.ptr216, align 8, !tbaa !16
-  %tobool52.not217 = icmp eq ptr %12, null
-  br i1 %tobool52.not217, label %while.end141, label %while.body.lr.ph
+  %incdec.ptr214 = getelementptr inbounds ptr, ptr %argv, i64 1
+  store ptr %incdec.ptr214, ptr %argv.addr, align 8, !tbaa !16
+  %12 = load ptr, ptr %incdec.ptr214, align 8, !tbaa !16
+  %tobool52.not215 = icmp eq ptr %12, null
+  br i1 %tobool52.not215, label %while.end141, label %while.body.lr.ph
 
 while.body.lr.ph:                                 ; preds = %for.end
   %nfile_arguments = getelementptr inbounds %struct.ArgumentState, ptr %arg_state, i64 0, i32 1
@@ -445,7 +445,7 @@ while.body.lr.ph:                                 ; preds = %for.end
 
 while.body:                                       ; preds = %while.body.lr.ph, %if.end140
   %13 = phi ptr [ %12, %while.body.lr.ph ], [ %36, %if.end140 ]
-  %14 = phi ptr [ %incdec.ptr216, %while.body.lr.ph ], [ %incdec.ptr, %if.end140 ]
+  %14 = phi ptr [ %incdec.ptr214, %while.body.lr.ph ], [ %incdec.ptr, %if.end140 ]
   %15 = load i8, ptr %13, align 1, !tbaa !13
   %cmp = icmp eq i8 %15, 45
   br i1 %cmp, label %if.then55, label %if.else127
@@ -480,8 +480,8 @@ if.end67.lr.ph.split.us:                          ; preds = %if.end67.lr.ph
   br label %if.end67.us
 
 if.end67.us:                                      ; preds = %for.inc100.us, %if.end67.lr.ph.split.us
+  %indvars.iv231 = phi i64 [ %indvars.iv.next232, %for.inc100.us ], [ 0, %if.end67.lr.ph.split.us ]
   %19 = phi ptr [ %20, %for.inc100.us ], [ %18, %if.end67.lr.ph.split.us ]
-  %indvars.iv233 = phi i64 [ %indvars.iv.next234, %for.inc100.us ], [ 0, %if.end67.lr.ph.split.us ]
   %call82.us = tail call i64 @strlen(ptr noundef nonnull dereferenceable(1) %19) #17
   %cmp83.us = icmp eq i64 %conv78.us, %call82.us
   br i1 %cmp83.us, label %land.lhs.true.us, label %for.inc100.us
@@ -492,8 +492,8 @@ land.lhs.true.us:                                 ; preds = %if.end67.us
   br i1 %tobool91.not.us, label %if.then92, label %for.inc100.us
 
 for.inc100.us:                                    ; preds = %land.lhs.true.us, %if.end67.us
-  %indvars.iv.next234 = add nuw i64 %indvars.iv233, 1
-  %arrayidx63.us = getelementptr inbounds %struct.ArgumentDescription, ptr %0, i64 %indvars.iv.next234
+  %indvars.iv.next232 = add nuw i64 %indvars.iv231, 1
+  %arrayidx63.us = getelementptr inbounds %struct.ArgumentDescription, ptr %0, i64 %indvars.iv.next232
   %20 = load ptr, ptr %arrayidx63.us, align 8, !tbaa !23
   %tobool65.not.us = icmp eq ptr %20, null
   br i1 %tobool65.not.us, label %if.then66, label %if.end67.us
@@ -511,8 +511,8 @@ if.then66:                                        ; preds = %for.cond61.preheade
   unreachable
 
 if.end67:                                         ; preds = %if.end67.lr.ph.split, %for.inc100
+  %indvars.iv228 = phi i64 [ 0, %if.end67.lr.ph.split ], [ %indvars.iv.next229, %for.inc100 ]
   %21 = phi ptr [ %18, %if.end67.lr.ph.split ], [ %22, %for.inc100 ]
-  %indvars.iv230 = phi i64 [ 0, %if.end67.lr.ph.split ], [ %indvars.iv.next231, %for.inc100 ]
   %call82 = tail call i64 @strlen(ptr noundef nonnull dereferenceable(1) %21) #17
   %cmp83 = icmp eq i64 %conv78, %call82
   br i1 %cmp83, label %land.lhs.true, label %for.inc100
@@ -523,8 +523,8 @@ land.lhs.true:                                    ; preds = %if.end67
   br i1 %tobool91.not, label %if.then92, label %for.inc100
 
 if.then92:                                        ; preds = %land.lhs.true, %land.lhs.true.us
-  %.us-phi215.in = phi i64 [ %indvars.iv233, %land.lhs.true.us ], [ %indvars.iv230, %land.lhs.true ]
-  %.us-phi215 = trunc i64 %.us-phi215.in to i32
+  %.us-phi213.in = phi i64 [ %indvars.iv231, %land.lhs.true.us ], [ %indvars.iv228, %land.lhs.true ]
+  %.us-phi213 = trunc i64 %.us-phi213.in to i32
   br i1 %tobool70.not, label %if.then94, label %if.end98
 
 if.then94:                                        ; preds = %if.then92
@@ -536,13 +536,13 @@ if.then94:                                        ; preds = %if.then92
 if.end98:                                         ; preds = %if.then92, %if.then94
   %storemerge = phi ptr [ %add.ptr96, %if.then94 ], [ %call69, %if.then92 ]
   store ptr %storemerge, ptr %14, align 8, !tbaa !16
-  call void @process_arg(ptr noundef %arg_state, i32 noundef %.us-phi215, ptr noundef nonnull %argv.addr)
+  call void @process_arg(ptr noundef %arg_state, i32 noundef %.us-phi213, ptr noundef nonnull %argv.addr)
   %.pre = load ptr, ptr %argv.addr, align 8, !tbaa !16
   br label %if.end140
 
 for.inc100:                                       ; preds = %if.end67, %land.lhs.true
-  %indvars.iv.next231 = add nuw i64 %indvars.iv230, 1
-  %arrayidx63 = getelementptr inbounds %struct.ArgumentDescription, ptr %0, i64 %indvars.iv.next231
+  %indvars.iv.next229 = add nuw i64 %indvars.iv228, 1
+  %arrayidx63 = getelementptr inbounds %struct.ArgumentDescription, ptr %0, i64 %indvars.iv.next229
   %22 = load ptr, ptr %arrayidx63, align 8, !tbaa !23
   %tobool65.not = icmp eq ptr %22, null
   br i1 %tobool65.not, label %if.then66, label %if.end67
@@ -558,14 +558,14 @@ if.then113:                                       ; preds = %for.cond108.prehead
   unreachable
 
 if.end114:                                        ; preds = %for.cond108.preheader, %for.inc123
-  %indvars.iv227 = phi i64 [ %indvars.iv.next228, %for.inc123 ], [ 0, %for.cond108.preheader ]
-  %key = getelementptr inbounds %struct.ArgumentDescription, ptr %0, i64 %indvars.iv227, i32 1
+  %indvars.iv225 = phi i64 [ %indvars.iv.next226, %for.inc123 ], [ 0, %for.cond108.preheader ]
+  %key = getelementptr inbounds %struct.ArgumentDescription, ptr %0, i64 %indvars.iv225, i32 1
   %25 = load i8, ptr %key, align 8, !tbaa !25
   %cmp119 = icmp eq i8 %25, %23
   br i1 %cmp119, label %if.then121, label %for.inc123
 
 if.then121:                                       ; preds = %if.end114
-  %26 = trunc i64 %indvars.iv227 to i32
+  %26 = trunc i64 %indvars.iv225 to i32
   call void @process_arg(ptr noundef %arg_state, i32 noundef %26, ptr noundef nonnull %argv.addr)
   %27 = load ptr, ptr %argv.addr, align 8, !tbaa !16
   %28 = load ptr, ptr %27, align 8, !tbaa !16
@@ -576,8 +576,8 @@ if.then121:                                       ; preds = %if.end114
   br i1 %tobool106.not, label %if.end140, label %for.cond108.preheader, !llvm.loop !27
 
 for.inc123:                                       ; preds = %if.end114
-  %indvars.iv.next228 = add nuw i64 %indvars.iv227, 1
-  %arrayidx110 = getelementptr inbounds %struct.ArgumentDescription, ptr %0, i64 %indvars.iv.next228
+  %indvars.iv.next226 = add nuw i64 %indvars.iv225, 1
+  %arrayidx110 = getelementptr inbounds %struct.ArgumentDescription, ptr %0, i64 %indvars.iv.next226
   %30 = load ptr, ptr %arrayidx110, align 8, !tbaa !23
   %tobool112.not = icmp eq ptr %30, null
   br i1 %tobool112.not, label %if.then113, label %if.end114

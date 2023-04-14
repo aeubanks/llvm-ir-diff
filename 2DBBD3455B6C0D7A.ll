@@ -378,8 +378,8 @@ cleanup.sink.split:                               ; preds = %if.then27, %if.then
   %call3.i53 = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %9, ptr noundef nonnull dereferenceable(1) %10)
   br label %cleanup
 
-cleanup:                                          ; preds = %cleanup.sink.split, %if.then27, %if.then16, %if.end18, %if.end24
-  %retval.0 = phi i32 [ %.mux, %if.end18 ], [ %call25, %if.end24 ], [ %call.i, %if.then16 ], [ %call.i49, %if.then27 ], [ %call3.i53, %cleanup.sink.split ]
+cleanup:                                          ; preds = %cleanup.sink.split, %if.end18, %if.end24, %if.then27, %if.then16
+  %retval.0 = phi i32 [ %call.i, %if.then16 ], [ %.mux, %if.end18 ], [ %call.i49, %if.then27 ], [ %call25, %if.end24 ], [ %call3.i53, %cleanup.sink.split ]
   ret i32 %retval.0
 }
 

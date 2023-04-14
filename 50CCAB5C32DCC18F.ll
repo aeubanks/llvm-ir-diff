@@ -33,10 +33,10 @@ target triple = "x86_64-unknown-linux-gnu"
 @str = private unnamed_addr constant [15 x i8] c"END Index_Map:\00", align 1
 @str.20 = private unnamed_addr constant [17 x i8] c"BEGIN Dimension:\00", align 1
 @str.21 = private unnamed_addr constant [14 x i8] c"END Dimension\00", align 1
-@str.22 = private unnamed_addr constant [14 x i8] c"NO Table yet.\00", align 1
-@str.23 = private unnamed_addr constant [13 x i8] c"BEGIN Table:\00", align 1
-@str.24 = private unnamed_addr constant [11 x i8] c"END Table:\00", align 1
-@str.25 = private unnamed_addr constant [3 x i8] c"\0A}\00", align 1
+@str.22 = private unnamed_addr constant [3 x i8] c"\0A}\00", align 1
+@str.23 = private unnamed_addr constant [14 x i8] c"NO Table yet.\00", align 1
+@str.24 = private unnamed_addr constant [13 x i8] c"BEGIN Table:\00", align 1
+@str.25 = private unnamed_addr constant [11 x i8] c"END Table:\00", align 1
 
 ; Function Attrs: nofree norecurse nosync nounwind memory(argmem: readwrite) uwtable
 define dso_local void @addRelevant(ptr nocapture noundef %r, i32 noundef %nt) local_unnamed_addr #0 {
@@ -1276,7 +1276,7 @@ dumpRelevant.exit:                                ; preds = %for.body.i, %entry
   %putchar = tail call i32 @putchar(i32 10)
   %index_map = getelementptr inbounds %struct.dimension, ptr %d, i64 0, i32 1
   %4 = load i32, ptr %index_map, align 8, !tbaa !42
-  %call.i9 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.1, i32 noundef %4)
+  %call.i8 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.1, i32 noundef %4)
   %5 = load ptr, ptr @globalMap, align 8, !tbaa !19
   %count7.i = getelementptr inbounds %struct.mapping, ptr %5, i64 0, i32 3
   %6 = load i32, ptr %count7.i, align 8, !tbaa !54
@@ -1285,10 +1285,10 @@ dumpRelevant.exit:                                ; preds = %for.body.i, %entry
 
 for.body.lr.ph.i:                                 ; preds = %dumpRelevant.exit
   %class.i = getelementptr inbounds %struct.dimension, ptr %d, i64 0, i32 1, i32 1
-  br label %for.body.i10
+  br label %for.body.i9
 
-for.body.i10:                                     ; preds = %for.body.i10, %for.body.lr.ph.i
-  %indvars.iv.i = phi i64 [ 0, %for.body.lr.ph.i ], [ %indvars.iv.next.i, %for.body.i10 ]
+for.body.i9:                                      ; preds = %for.body.i9, %for.body.lr.ph.i
+  %indvars.iv.i = phi i64 [ 0, %for.body.lr.ph.i ], [ %indvars.iv.next.i, %for.body.i9 ]
   %7 = load ptr, ptr %class.i, align 8, !tbaa !44
   %arrayidx.i = getelementptr inbounds ptr, ptr %7, i64 %indvars.iv.i
   %8 = load ptr, ptr %arrayidx.i, align 8, !tbaa !19
@@ -1301,9 +1301,9 @@ for.body.i10:                                     ; preds = %for.body.i10, %for.
   %12 = load i32, ptr %count.i, align 8, !tbaa !54
   %13 = sext i32 %12 to i64
   %cmp.i = icmp slt i64 %indvars.iv.next.i, %13
-  br i1 %cmp.i, label %for.body.i10, label %dumpIndex_Map.exit
+  br i1 %cmp.i, label %for.body.i9, label %dumpIndex_Map.exit
 
-dumpIndex_Map.exit:                               ; preds = %for.body.i10, %dumpRelevant.exit
+dumpIndex_Map.exit:                               ; preds = %for.body.i9, %dumpRelevant.exit
   %puts.i = tail call i32 @puts(ptr nonnull dereferenceable(1) @str)
   %map = getelementptr inbounds %struct.dimension, ptr %d, i64 0, i32 2
   %14 = load ptr, ptr %map, align 8, !tbaa !30
@@ -1311,7 +1311,7 @@ dumpIndex_Map.exit:                               ; preds = %for.body.i10, %dump
   %max_size = getelementptr inbounds %struct.dimension, ptr %d, i64 0, i32 3
   %15 = load i32, ptr %max_size, align 8, !tbaa !31
   %call3 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.7, i32 noundef %15)
-  %puts8 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.21)
+  %puts10 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.21)
   ret void
 }
 
@@ -1324,7 +1324,7 @@ entry:
   br i1 %tobool.not, label %cleanup, label %if.end
 
 if.end:                                           ; preds = %entry
-  %puts17 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.23)
+  %puts17 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.24)
   %tobool2.not = icmp eq i32 %full, 0
   br i1 %tobool2.not, label %if.end4, label %if.then3
 
@@ -1361,8 +1361,8 @@ for.end:                                          ; preds = %for.body, %if.end4
   br label %cleanup
 
 cleanup:                                          ; preds = %entry, %for.end
-  %str.24.sink = phi ptr [ @str.24, %for.end ], [ @str.22, %entry ]
-  %puts18 = tail call i32 @puts(ptr nonnull dereferenceable(1) %str.24.sink)
+  %str.25.sink = phi ptr [ @str.25, %for.end ], [ @str.23, %entry ]
+  %puts18 = tail call i32 @puts(ptr nonnull dereferenceable(1) %str.25.sink)
   ret void
 }
 
@@ -1580,7 +1580,7 @@ for.end42:                                        ; preds = %if.end37, %if.end37
   br i1 %cmp18, label %for.body19, label %for.end46
 
 for.end46:                                        ; preds = %for.end42, %sw.bb11
-  %puts = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.25)
+  %puts = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.22)
   br label %sw.epilog
 
 sw.epilog:                                        ; preds = %entry, %for.end46, %for.end, %sw.bb

@@ -900,7 +900,7 @@ for.body391:                                      ; preds = %for.body391.prehead
   %arrayidx393 = getelementptr inbounds [9 x i32], ptr @mb_mode_table, i64 0, i64 %idxprom392
   %141 = load i32, ptr %arrayidx393, align 4, !tbaa !9
   %cmp399 = icmp eq i32 %141, 1
-  %or.cond760 = and i1 %cmp3, %cmp399
+  %or.cond760 = and i1 %cmp399, %cmp3
   br i1 %or.cond760, label %if.then404, label %for.body391.if.end432_crit_edge
 
 for.body391.if.end432_crit_edge:                  ; preds = %for.body391
@@ -1238,7 +1238,7 @@ if.end568:                                        ; preds = %if.then567, %if.end
   %BiPredMotionEstimation569 = getelementptr inbounds %struct.InputParameters, ptr %233, i64 0, i32 46
   %235 = load i32, ptr %BiPredMotionEstimation569, align 8, !tbaa !32
   %tobool570 = icmp ne i32 %235, 0
-  %or.cond770 = and i1 %cmp3, %tobool570
+  %or.cond770 = and i1 %tobool570, %cmp3
   %cmp575 = icmp eq i32 %ctr16x16.2, 2
   %or.cond771 = select i1 %or.cond770, i1 %cmp575, i1 false
   br i1 %or.cond771, label %land.lhs.true577, label %for.inc602

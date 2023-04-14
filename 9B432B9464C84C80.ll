@@ -78,9 +78,9 @@ if.end14.i:                                       ; preds = %if.end7.i
   %mul18.i = shl nuw nsw i64 %conv9.i, 3
   %call19.i = tail call ptr @realloc(ptr noundef %3, i64 noundef %mul18.i) #5
   %cmp20.i = icmp eq ptr %call19.i, null
-  br i1 %cmp20.i, label %yyoverflow, label %yygrowstack.exit
+  br i1 %cmp20.i, label %yyoverflow, label %if.end23.i
 
-yygrowstack.exit:                                 ; preds = %if.end14.i
+if.end23.i:                                       ; preds = %if.end14.i
   store ptr %call19.i, ptr @yystack.4, align 8, !tbaa !12
   store i32 %newsize.0.i, ptr @yystack.0, align 8, !tbaa !13
   %4 = load ptr, ptr @yystack.1, align 8, !tbaa !9
@@ -89,9 +89,9 @@ yygrowstack.exit:                                 ; preds = %if.end14.i
   store ptr %add.ptr31.i, ptr @yystack.3, align 8, !tbaa !15
   br label %if.end
 
-if.end:                                           ; preds = %entry.if.end_crit_edge, %yygrowstack.exit
-  %5 = phi ptr [ %call19.i, %yygrowstack.exit ], [ %.pre, %entry.if.end_crit_edge ]
-  %6 = phi ptr [ %4, %yygrowstack.exit ], [ %0, %entry.if.end_crit_edge ]
+if.end:                                           ; preds = %entry.if.end_crit_edge, %if.end23.i
+  %5 = phi ptr [ %call19.i, %if.end23.i ], [ %.pre, %entry.if.end_crit_edge ]
+  %6 = phi ptr [ %4, %if.end23.i ], [ %0, %entry.if.end_crit_edge ]
   store ptr %6, ptr @yystack.2, align 8, !tbaa !14
   store ptr %5, ptr @yystack.5, align 8, !tbaa !16
   store i16 0, ptr %6, align 2, !tbaa !17
@@ -107,19 +107,19 @@ yyloop.outer:                                     ; preds = %yyloop.outer.backed
 
 if.end4.lr.ph:                                    ; preds = %yyloop.outer
   %9 = lshr i64 7198636086195, %idxprom
-  %.fr412 = freeze i64 %9
-  %10 = and i64 %.fr412, 1
+  %.fr436 = freeze i64 %9
+  %10 = and i64 %.fr436, 1
   %tobool17.not.not = icmp eq i64 %10, 0
   %arrayidx15 = getelementptr inbounds [43 x i16], ptr @yysindex, i64 0, i64 %idxprom
   %11 = lshr i64 7619133559799, %idxprom
   %12 = and i64 %11, 1
   %tobool52.not.not = icmp eq i64 %12, 0
   %arrayidx50 = getelementptr inbounds [43 x i16], ptr @yyrindex, i64 0, i64 %idxprom
-  %.pre422 = load i32, ptr @yychar, align 4, !tbaa !5
+  %.pre446 = load i32, ptr @yychar, align 4, !tbaa !5
   br i1 %tobool17.not.not, label %if.end4.us.peel, label %if.end4.peel
 
 if.end4.peel:                                     ; preds = %if.end4.lr.ph
-  %cmp5.peel = icmp slt i32 %.pre422, 0
+  %cmp5.peel = icmp slt i32 %.pre446, 0
   br i1 %cmp5.peel, label %if.then7.peel, label %if.end13.peel
 
 if.then7.peel:                                    ; preds = %if.end4.peel
@@ -129,7 +129,7 @@ if.then7.peel:                                    ; preds = %if.end4.peel
   br label %if.end13.peel
 
 if.end13.peel:                                    ; preds = %if.then7.peel, %if.end4.peel
-  %13 = phi i32 [ %spec.store.select.peel, %if.then7.peel ], [ %.pre422, %if.end4.peel ]
+  %13 = phi i32 [ %spec.store.select.peel, %if.then7.peel ], [ %.pre446, %if.end4.peel ]
   br i1 %tobool52.not.not, label %land.lhs.true53.peel, label %if.end70.peel
 
 land.lhs.true53.peel:                             ; preds = %if.end13.peel
@@ -175,7 +175,7 @@ if.end120.peel:                                   ; preds = %if.else116.peel
   br label %if.end4
 
 if.end4.us.peel:                                  ; preds = %if.end4.lr.ph
-  %cmp5.us.peel = icmp slt i32 %.pre422, 0
+  %cmp5.us.peel = icmp slt i32 %.pre446, 0
   br i1 %cmp5.us.peel, label %if.then7.us.peel, label %if.end13.us.peel
 
 if.then7.us.peel:                                 ; preds = %if.end4.us.peel
@@ -185,7 +185,7 @@ if.then7.us.peel:                                 ; preds = %if.end4.us.peel
   br label %if.end13.us.peel
 
 if.end13.us.peel:                                 ; preds = %if.then7.us.peel, %if.end4.us.peel
-  %20 = phi i32 [ %spec.store.select.us.peel, %if.then7.us.peel ], [ %.pre422, %if.end4.us.peel ]
+  %20 = phi i32 [ %spec.store.select.us.peel, %if.then7.us.peel ], [ %.pre446, %if.end4.us.peel ]
   %21 = load i16, ptr %arrayidx15, align 2, !tbaa !17
   %conv16.us.peel = sext i16 %21 to i32
   %add.us.peel = add nsw i32 %20, %conv16.us.peel
@@ -317,7 +317,7 @@ if.then30.split.us:                               ; preds = %land.lhs.true24.us,
   br i1 %cmp31.not, label %if.then30.split.us.if.end37_crit_edge, label %land.lhs.true33
 
 if.then30.split.us.if.end37_crit_edge:            ; preds = %if.then30.split.us
-  %.pre424 = load ptr, ptr @yystack.5, align 8, !tbaa !16
+  %.pre448 = load ptr, ptr @yystack.5, align 8, !tbaa !16
   br label %if.end37
 
 if.end4:                                          ; preds = %if.end120.peel, %if.end120
@@ -328,56 +328,56 @@ if.end4:                                          ; preds = %if.end120.peel, %if
 
 land.lhs.true33:                                  ; preds = %if.then30.split.us
   %39 = load i32, ptr @yystack.0, align 8, !tbaa !13
-  %cmp.i305 = icmp eq i32 %39, 0
-  br i1 %cmp.i305, label %if.end7.i316, label %if.else.i307
+  %cmp.i304 = icmp eq i32 %39, 0
+  br i1 %cmp.i304, label %if.end7.i315, label %if.else.i306
 
-if.else.i307:                                     ; preds = %land.lhs.true33
-  %cmp1.i306 = icmp ugt i32 %39, 9999
-  br i1 %cmp1.i306, label %yyoverflow, label %if.else3.i310
+if.else.i306:                                     ; preds = %land.lhs.true33
+  %cmp1.i305 = icmp ugt i32 %39, 9999
+  br i1 %cmp1.i305, label %yyoverflow, label %if.else3.i309
 
-if.else3.i310:                                    ; preds = %if.else.i307
-  %mul.i308 = shl nuw nsw i32 %39, 1
-  %spec.store.select.i309 = tail call i32 @llvm.umin.i32(i32 %mul.i308, i32 10000)
-  br label %if.end7.i316
+if.else3.i309:                                    ; preds = %if.else.i306
+  %mul.i307 = shl nuw nsw i32 %39, 1
+  %spec.store.select.i308 = tail call i32 @llvm.umin.i32(i32 %mul.i307, i32 10000)
+  br label %if.end7.i315
 
-if.end7.i316:                                     ; preds = %if.else3.i310, %land.lhs.true33
-  %newsize.0.i311 = phi i32 [ %spec.store.select.i309, %if.else3.i310 ], [ 200, %land.lhs.true33 ]
+if.end7.i315:                                     ; preds = %if.else3.i309, %land.lhs.true33
+  %newsize.0.i310 = phi i32 [ %spec.store.select.i308, %if.else3.i309 ], [ 200, %land.lhs.true33 ]
   %40 = load ptr, ptr @yystack.1, align 8, !tbaa !9
-  %conv9.i312 = zext i32 %newsize.0.i311 to i64
-  %mul10.i313 = shl nuw nsw i64 %conv9.i312, 1
-  %call.i314 = tail call ptr @realloc(ptr noundef %40, i64 noundef %mul10.i313) #5
-  %cmp11.i315 = icmp eq ptr %call.i314, null
-  br i1 %cmp11.i315, label %yyoverflow, label %if.end14.i326
+  %conv9.i311 = zext i32 %newsize.0.i310 to i64
+  %mul10.i312 = shl nuw nsw i64 %conv9.i311, 1
+  %call.i313 = tail call ptr @realloc(ptr noundef %40, i64 noundef %mul10.i312) #5
+  %cmp11.i314 = icmp eq ptr %call.i313, null
+  br i1 %cmp11.i314, label %yyoverflow, label %if.end14.i325
 
-if.end14.i326:                                    ; preds = %if.end7.i316
-  %sub.ptr.lhs.cast.i317 = ptrtoint ptr %37 to i64
-  %sub.ptr.rhs.cast.i318 = ptrtoint ptr %40 to i64
-  %sub.ptr.sub.i319 = sub i64 %sub.ptr.lhs.cast.i317, %sub.ptr.rhs.cast.i318
-  store ptr %call.i314, ptr @yystack.1, align 8, !tbaa !9
-  %sext.i320 = shl i64 %sub.ptr.sub.i319, 31
-  %idx.ext.i321 = ashr i64 %sext.i320, 32
-  %add.ptr.i322 = getelementptr inbounds i16, ptr %call.i314, i64 %idx.ext.i321
-  store ptr %add.ptr.i322, ptr @yystack.2, align 8, !tbaa !14
+if.end14.i325:                                    ; preds = %if.end7.i315
+  %sub.ptr.lhs.cast.i316 = ptrtoint ptr %37 to i64
+  %sub.ptr.rhs.cast.i317 = ptrtoint ptr %40 to i64
+  %sub.ptr.sub.i318 = sub i64 %sub.ptr.lhs.cast.i316, %sub.ptr.rhs.cast.i317
+  store ptr %call.i313, ptr @yystack.1, align 8, !tbaa !9
+  %sext.i319 = shl i64 %sub.ptr.sub.i318, 31
+  %idx.ext.i320 = ashr i64 %sext.i319, 32
+  %add.ptr.i321 = getelementptr inbounds i16, ptr %call.i313, i64 %idx.ext.i320
+  store ptr %add.ptr.i321, ptr @yystack.2, align 8, !tbaa !14
   %41 = load ptr, ptr @yystack.4, align 8, !tbaa !12
-  %mul18.i323 = shl nuw nsw i64 %conv9.i312, 3
-  %call19.i324 = tail call ptr @realloc(ptr noundef %41, i64 noundef %mul18.i323) #5
-  %cmp20.i325 = icmp eq ptr %call19.i324, null
-  br i1 %cmp20.i325, label %yyoverflow, label %yygrowstack.exit332
+  %mul18.i322 = shl nuw nsw i64 %conv9.i311, 3
+  %call19.i323 = tail call ptr @realloc(ptr noundef %41, i64 noundef %mul18.i322) #5
+  %cmp20.i324 = icmp eq ptr %call19.i323, null
+  br i1 %cmp20.i324, label %yyoverflow, label %if.end23.i329
 
-yygrowstack.exit332:                              ; preds = %if.end14.i326
-  store ptr %call19.i324, ptr @yystack.4, align 8, !tbaa !12
-  %add.ptr26.i327 = getelementptr inbounds %union.YYSTYPE, ptr %call19.i324, i64 %idx.ext.i321
-  store i32 %newsize.0.i311, ptr @yystack.0, align 8, !tbaa !13
+if.end23.i329:                                    ; preds = %if.end14.i325
+  store ptr %call19.i323, ptr @yystack.4, align 8, !tbaa !12
+  %add.ptr26.i326 = getelementptr inbounds %union.YYSTYPE, ptr %call19.i323, i64 %idx.ext.i320
+  store i32 %newsize.0.i310, ptr @yystack.0, align 8, !tbaa !13
   %42 = load ptr, ptr @yystack.1, align 8, !tbaa !9
-  %add.ptr30.i328441 = getelementptr i16, ptr %42, i64 -1
-  %add.ptr31.i329 = getelementptr i16, ptr %add.ptr30.i328441, i64 %conv9.i312
-  store ptr %add.ptr31.i329, ptr @yystack.3, align 8, !tbaa !15
-  %.pre423 = load ptr, ptr @yystack.2, align 8, !tbaa !14
+  %add.ptr30.i327465 = getelementptr i16, ptr %42, i64 -1
+  %add.ptr31.i328 = getelementptr i16, ptr %add.ptr30.i327465, i64 %conv9.i311
+  store ptr %add.ptr31.i328, ptr @yystack.3, align 8, !tbaa !15
+  %.pre447 = load ptr, ptr @yystack.2, align 8, !tbaa !14
   br label %if.end37
 
-if.end37:                                         ; preds = %if.then30.split.us.if.end37_crit_edge, %yygrowstack.exit332
-  %43 = phi ptr [ %add.ptr26.i327, %yygrowstack.exit332 ], [ %.pre424, %if.then30.split.us.if.end37_crit_edge ]
-  %44 = phi ptr [ %.pre423, %yygrowstack.exit332 ], [ %37, %if.then30.split.us.if.end37_crit_edge ]
+if.end37:                                         ; preds = %if.then30.split.us.if.end37_crit_edge, %if.end23.i329
+  %43 = phi ptr [ %add.ptr26.i326, %if.end23.i329 ], [ %.pre448, %if.then30.split.us.if.end37_crit_edge ]
+  %44 = phi ptr [ %.pre447, %if.end23.i329 ], [ %37, %if.then30.split.us.if.end37_crit_edge ]
   %arrayidx39 = getelementptr inbounds [263 x i16], ptr @yytable, i64 0, i64 %idxprom25.le
   %45 = load i16, ptr %arrayidx39, align 2, !tbaa !17
   %conv40 = sext i16 %45 to i32
@@ -418,8 +418,8 @@ land.lhs.true60:                                  ; preds = %land.lhs.true53
   br i1 %cmp64, label %if.then66, label %if.end70
 
 if.then66:                                        ; preds = %land.lhs.true60.peel, %land.lhs.true60, %land.lhs.true60.us.peel, %land.lhs.true60.us
-  %.us-phi373 = phi i32 [ %add54.us.peel, %land.lhs.true60.us.peel ], [ %add54.us, %land.lhs.true60.us ], [ %add54.peel, %land.lhs.true60.peel ], [ %add54, %land.lhs.true60 ]
-  %idxprom61.le = zext i32 %.us-phi373 to i64
+  %.us-phi397 = phi i32 [ %add54.us.peel, %land.lhs.true60.us.peel ], [ %add54.us, %land.lhs.true60.us ], [ %add54.peel, %land.lhs.true60.peel ], [ %add54, %land.lhs.true60 ]
+  %idxprom61.le = zext i32 %.us-phi397 to i64
   %arrayidx68 = getelementptr inbounds [263 x i16], ptr @yytable, i64 0, i64 %idxprom61.le
   br label %yyreduce
 
@@ -445,18 +445,18 @@ if.then76:                                        ; preds = %yyinrecovery, %yyin
   store i32 3, ptr @yyerrflag, align 4, !tbaa !5
   %53 = load ptr, ptr @yystack.1, align 8, !tbaa !9
   %.promoted = load ptr, ptr @yystack.2, align 8, !tbaa !14
-  %cmp109.not409 = icmp ugt ptr %.promoted, %53
-  br i1 %cmp109.not409, label %if.end112.preheader, label %cleanup
+  %cmp109.not433 = icmp ugt ptr %.promoted, %53
+  br i1 %cmp109.not433, label %if.end112.preheader, label %cleanup
 
 if.end112.preheader:                              ; preds = %if.then76
-  %.promoted407 = load ptr, ptr @yystack.5, align 8, !tbaa !16
+  %.promoted431 = load ptr, ptr @yystack.5, align 8, !tbaa !16
   br label %if.end112
 
 if.end112:                                        ; preds = %if.end112.preheader, %if.end112
-  %incdec.ptr113406411 = phi ptr [ %incdec.ptr113, %if.end112 ], [ %.promoted, %if.end112.preheader ]
-  %incdec.ptr114408410 = phi ptr [ %incdec.ptr114, %if.end112 ], [ %.promoted407, %if.end112.preheader ]
-  %incdec.ptr113 = getelementptr inbounds i16, ptr %incdec.ptr113406411, i64 -1
-  %incdec.ptr114 = getelementptr inbounds %union.YYSTYPE, ptr %incdec.ptr114408410, i64 -1
+  %incdec.ptr113430435 = phi ptr [ %incdec.ptr113, %if.end112 ], [ %.promoted, %if.end112.preheader ]
+  %incdec.ptr114432434 = phi ptr [ %incdec.ptr114, %if.end112 ], [ %.promoted431, %if.end112.preheader ]
+  %incdec.ptr113 = getelementptr inbounds i16, ptr %incdec.ptr113430435, i64 -1
+  %incdec.ptr114 = getelementptr inbounds %union.YYSTYPE, ptr %incdec.ptr114432434, i64 -1
   %cmp109.not = icmp ugt ptr %incdec.ptr113, %53
   br i1 %cmp109.not, label %if.end112, label %for.cond.cleanup.loopexit_crit_edge
 
@@ -781,56 +781,56 @@ if.end253:                                        ; preds = %if.else249, %if.the
 
 land.lhs.true256:                                 ; preds = %if.end253
   %121 = load i32, ptr @yystack.0, align 8, !tbaa !13
-  %cmp.i333 = icmp eq i32 %121, 0
-  br i1 %cmp.i333, label %if.end7.i344, label %if.else.i335
+  %cmp.i360 = icmp eq i32 %121, 0
+  br i1 %cmp.i360, label %if.end7.i371, label %if.else.i362
 
-if.else.i335:                                     ; preds = %land.lhs.true256
-  %cmp1.i334 = icmp ugt i32 %121, 9999
-  br i1 %cmp1.i334, label %yyoverflow, label %if.else3.i338
+if.else.i362:                                     ; preds = %land.lhs.true256
+  %cmp1.i361 = icmp ugt i32 %121, 9999
+  br i1 %cmp1.i361, label %yyoverflow, label %if.else3.i365
 
-if.else3.i338:                                    ; preds = %if.else.i335
-  %mul.i336 = shl nuw nsw i32 %121, 1
-  %spec.store.select.i337 = tail call i32 @llvm.umin.i32(i32 %mul.i336, i32 10000)
-  br label %if.end7.i344
+if.else3.i365:                                    ; preds = %if.else.i362
+  %mul.i363 = shl nuw nsw i32 %121, 1
+  %spec.store.select.i364 = tail call i32 @llvm.umin.i32(i32 %mul.i363, i32 10000)
+  br label %if.end7.i371
 
-if.end7.i344:                                     ; preds = %if.else3.i338, %land.lhs.true256
-  %newsize.0.i339 = phi i32 [ %spec.store.select.i337, %if.else3.i338 ], [ 200, %land.lhs.true256 ]
+if.end7.i371:                                     ; preds = %if.else3.i365, %land.lhs.true256
+  %newsize.0.i366 = phi i32 [ %spec.store.select.i364, %if.else3.i365 ], [ 200, %land.lhs.true256 ]
   %122 = load ptr, ptr @yystack.1, align 8, !tbaa !9
-  %conv9.i340 = zext i32 %newsize.0.i339 to i64
-  %mul10.i341 = shl nuw nsw i64 %conv9.i340, 1
-  %call.i342 = tail call ptr @realloc(ptr noundef %122, i64 noundef %mul10.i341) #5
-  %cmp11.i343 = icmp eq ptr %call.i342, null
-  br i1 %cmp11.i343, label %yyoverflow, label %if.end14.i354
+  %conv9.i367 = zext i32 %newsize.0.i366 to i64
+  %mul10.i368 = shl nuw nsw i64 %conv9.i367, 1
+  %call.i369 = tail call ptr @realloc(ptr noundef %122, i64 noundef %mul10.i368) #5
+  %cmp11.i370 = icmp eq ptr %call.i369, null
+  br i1 %cmp11.i370, label %yyoverflow, label %if.end14.i381
 
-if.end14.i354:                                    ; preds = %if.end7.i344
-  %sub.ptr.lhs.cast.i345 = ptrtoint ptr %add.ptr to i64
-  %sub.ptr.rhs.cast.i346 = ptrtoint ptr %122 to i64
-  %sub.ptr.sub.i347 = sub i64 %sub.ptr.lhs.cast.i345, %sub.ptr.rhs.cast.i346
-  store ptr %call.i342, ptr @yystack.1, align 8, !tbaa !9
-  %sext.i348 = shl i64 %sub.ptr.sub.i347, 31
-  %idx.ext.i349 = ashr i64 %sext.i348, 32
-  %add.ptr.i350 = getelementptr inbounds i16, ptr %call.i342, i64 %idx.ext.i349
-  store ptr %add.ptr.i350, ptr @yystack.2, align 8, !tbaa !14
+if.end14.i381:                                    ; preds = %if.end7.i371
+  %sub.ptr.lhs.cast.i372 = ptrtoint ptr %add.ptr to i64
+  %sub.ptr.rhs.cast.i373 = ptrtoint ptr %122 to i64
+  %sub.ptr.sub.i374 = sub i64 %sub.ptr.lhs.cast.i372, %sub.ptr.rhs.cast.i373
+  store ptr %call.i369, ptr @yystack.1, align 8, !tbaa !9
+  %sext.i375 = shl i64 %sub.ptr.sub.i374, 31
+  %idx.ext.i376 = ashr i64 %sext.i375, 32
+  %add.ptr.i377 = getelementptr inbounds i16, ptr %call.i369, i64 %idx.ext.i376
+  store ptr %add.ptr.i377, ptr @yystack.2, align 8, !tbaa !14
   %123 = load ptr, ptr @yystack.4, align 8, !tbaa !12
-  %mul18.i351 = shl nuw nsw i64 %conv9.i340, 3
-  %call19.i352 = tail call ptr @realloc(ptr noundef %123, i64 noundef %mul18.i351) #5
-  %cmp20.i353 = icmp eq ptr %call19.i352, null
-  br i1 %cmp20.i353, label %yyoverflow, label %yygrowstack.exit360
+  %mul18.i378 = shl nuw nsw i64 %conv9.i367, 3
+  %call19.i379 = tail call ptr @realloc(ptr noundef %123, i64 noundef %mul18.i378) #5
+  %cmp20.i380 = icmp eq ptr %call19.i379, null
+  br i1 %cmp20.i380, label %yyoverflow, label %if.end23.i385
 
-yygrowstack.exit360:                              ; preds = %if.end14.i354
-  store ptr %call19.i352, ptr @yystack.4, align 8, !tbaa !12
-  %add.ptr26.i355 = getelementptr inbounds %union.YYSTYPE, ptr %call19.i352, i64 %idx.ext.i349
-  store i32 %newsize.0.i339, ptr @yystack.0, align 8, !tbaa !13
+if.end23.i385:                                    ; preds = %if.end14.i381
+  store ptr %call19.i379, ptr @yystack.4, align 8, !tbaa !12
+  %add.ptr26.i382 = getelementptr inbounds %union.YYSTYPE, ptr %call19.i379, i64 %idx.ext.i376
+  store i32 %newsize.0.i366, ptr @yystack.0, align 8, !tbaa !13
   %124 = load ptr, ptr @yystack.1, align 8, !tbaa !9
-  %add.ptr30.i356440 = getelementptr i16, ptr %124, i64 -1
-  %add.ptr31.i357 = getelementptr i16, ptr %add.ptr30.i356440, i64 %conv9.i340
-  store ptr %add.ptr31.i357, ptr @yystack.3, align 8, !tbaa !15
-  %.pre425 = load ptr, ptr @yystack.2, align 8, !tbaa !14
+  %add.ptr30.i383464 = getelementptr i16, ptr %124, i64 -1
+  %add.ptr31.i384 = getelementptr i16, ptr %add.ptr30.i383464, i64 %conv9.i367
+  store ptr %add.ptr31.i384, ptr @yystack.3, align 8, !tbaa !15
+  %.pre449 = load ptr, ptr @yystack.2, align 8, !tbaa !14
   br label %if.end260
 
-if.end260:                                        ; preds = %yygrowstack.exit360, %if.end253
-  %125 = phi ptr [ %add.ptr26.i355, %yygrowstack.exit360 ], [ %add.ptr202, %if.end253 ]
-  %126 = phi ptr [ %.pre425, %yygrowstack.exit360 ], [ %add.ptr, %if.end253 ]
+if.end260:                                        ; preds = %if.end23.i385, %if.end253
+  %125 = phi ptr [ %add.ptr26.i382, %if.end23.i385 ], [ %add.ptr202, %if.end253 ]
+  %126 = phi ptr [ %.pre449, %if.end23.i385 ], [ %add.ptr, %if.end253 ]
   %incdec.ptr262 = getelementptr inbounds i16, ptr %126, i64 1
   store ptr %incdec.ptr262, ptr @yystack.2, align 8, !tbaa !14
   store i16 %yystate.1.in, ptr %incdec.ptr262, align 2, !tbaa !17
@@ -840,7 +840,7 @@ if.end260:                                        ; preds = %yygrowstack.exit360
   store i64 %127, ptr %incdec.ptr263, align 8
   br label %yyloop.outer.backedge
 
-yyoverflow:                                       ; preds = %if.end14.i354, %if.end7.i344, %if.else.i335, %if.end14.i326, %if.end7.i316, %if.else.i307, %if.end14.i, %if.end7.i, %if.else.i
+yyoverflow:                                       ; preds = %if.else.i362, %if.end7.i371, %if.end14.i381, %if.else.i306, %if.end7.i315, %if.end14.i325, %if.else.i, %if.end7.i, %if.end14.i
   tail call void @yyerror(ptr noundef nonnull @.str.1) #6
   br label %cleanup
 
@@ -882,10 +882,10 @@ declare ptr @newIntList(i32 noundef, ptr noundef) local_unnamed_addr #1
 declare noalias noundef ptr @realloc(ptr allocptr nocapture noundef, i64 noundef) local_unnamed_addr #2
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i32 @llvm.smax.i32(i32, i32) #3
+declare i32 @llvm.umin.i32(i32, i32) #3
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i32 @llvm.umin.i32(i32, i32) #3
+declare i32 @llvm.smax.i32(i32, i32) #3
 
 ; Function Attrs: nofree nounwind willreturn allockind("alloc,uninitialized") allocsize(0) memory(inaccessiblemem: readwrite)
 declare noalias noundef ptr @malloc(i64 noundef) local_unnamed_addr #4

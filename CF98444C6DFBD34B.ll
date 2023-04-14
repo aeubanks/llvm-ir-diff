@@ -192,8 +192,8 @@ for.cond4.preheader.i:                            ; preds = %for.inc20.i, %for.c
 vector.ph:                                        ; preds = %for.cond4.preheader.i
   %broadcast.splatinsert = insertelement <2 x double> poison, double %mul.i, i64 0
   %broadcast.splat = shufflevector <2 x double> %broadcast.splatinsert, <2 x double> poison, <2 x i32> zeroinitializer
-  %broadcast.splatinsert146 = insertelement <2 x double> poison, double %mul.i, i64 0
-  %broadcast.splat147 = shufflevector <2 x double> %broadcast.splatinsert146, <2 x double> poison, <2 x i32> zeroinitializer
+  %broadcast.splatinsert144 = insertelement <2 x double> poison, double %mul.i, i64 0
+  %broadcast.splat145 = shufflevector <2 x double> %broadcast.splatinsert144, <2 x double> poison, <2 x i32> zeroinitializer
   br label %vector.body
 
 vector.body:                                      ; preds = %vector.body, %vector.ph
@@ -203,7 +203,7 @@ vector.body:                                      ; preds = %vector.body, %vecto
   %24 = sitofp <2 x i32> %vec.ind to <2 x double>
   %25 = sitofp <2 x i32> %step.add to <2 x double>
   %26 = fadd <2 x double> %broadcast.splat, %24
-  %27 = fadd <2 x double> %broadcast.splat147, %25
+  %27 = fadd <2 x double> %broadcast.splat145, %25
   %28 = fmul <2 x double> %26, <double 7.812500e-03, double 7.812500e-03>
   %29 = fmul <2 x double> %27, <double 7.812500e-03, double 7.812500e-03>
   %30 = getelementptr inbounds [128 x [128 x double]], ptr %0, i64 %indvars.iv83.i, i64 %indvars.iv79.i, i64 %index
@@ -250,54 +250,54 @@ for.inc20.i:                                      ; preds = %vector.body, %for.b
 for.inc23.i:                                      ; preds = %for.inc20.i
   %indvars.iv.next84.i = add nuw nsw i64 %indvars.iv83.i, 1
   %exitcond86.not.i = icmp eq i64 %indvars.iv.next84.i, 128
-  br i1 %exitcond86.not.i, label %vector.ph150, label %for.cond1.preheader.i, !llvm.loop !17
+  br i1 %exitcond86.not.i, label %vector.ph148, label %for.cond1.preheader.i, !llvm.loop !17
 
-vector.ph150:                                     ; preds = %for.inc23.i, %for.inc46.i
+vector.ph148:                                     ; preds = %for.inc23.i, %for.inc46.i
   %indvars.iv91.i = phi i64 [ %indvars.iv.next92.i, %for.inc46.i ], [ 0, %for.inc23.i ]
   %37 = trunc i64 %indvars.iv91.i to i32
   %conv34.i = sitofp i32 %37 to double
+  %broadcast.splatinsert157 = insertelement <2 x double> poison, double %conv34.i, i64 0
+  %broadcast.splat158 = shufflevector <2 x double> %broadcast.splatinsert157, <2 x double> poison, <2 x i32> zeroinitializer
   %broadcast.splatinsert159 = insertelement <2 x double> poison, double %conv34.i, i64 0
   %broadcast.splat160 = shufflevector <2 x double> %broadcast.splatinsert159, <2 x double> poison, <2 x i32> zeroinitializer
-  %broadcast.splatinsert161 = insertelement <2 x double> poison, double %conv34.i, i64 0
-  %broadcast.splat162 = shufflevector <2 x double> %broadcast.splatinsert161, <2 x double> poison, <2 x i32> zeroinitializer
-  br label %vector.body153
+  br label %vector.body151
 
-vector.body153:                                   ; preds = %vector.body153, %vector.ph150
-  %index154 = phi i64 [ 0, %vector.ph150 ], [ %index.next163.1, %vector.body153 ]
-  %vec.ind155 = phi <2 x i32> [ <i32 0, i32 1>, %vector.ph150 ], [ %vec.ind.next158.1, %vector.body153 ]
-  %step.add156 = add <2 x i32> %vec.ind155, <i32 2, i32 2>
-  %38 = sitofp <2 x i32> %vec.ind155 to <2 x double>
-  %39 = sitofp <2 x i32> %step.add156 to <2 x double>
-  %40 = fmul <2 x double> %broadcast.splat160, %38
-  %41 = fmul <2 x double> %broadcast.splat162, %39
+vector.body151:                                   ; preds = %vector.body151, %vector.ph148
+  %index152 = phi i64 [ 0, %vector.ph148 ], [ %index.next161.1, %vector.body151 ]
+  %vec.ind153 = phi <2 x i32> [ <i32 0, i32 1>, %vector.ph148 ], [ %vec.ind.next156.1, %vector.body151 ]
+  %step.add154 = add <2 x i32> %vec.ind153, <i32 2, i32 2>
+  %38 = sitofp <2 x i32> %vec.ind153 to <2 x double>
+  %39 = sitofp <2 x i32> %step.add154 to <2 x double>
+  %40 = fmul <2 x double> %broadcast.splat158, %38
+  %41 = fmul <2 x double> %broadcast.splat160, %39
   %42 = fmul <2 x double> %40, <double 7.812500e-03, double 7.812500e-03>
   %43 = fmul <2 x double> %41, <double 7.812500e-03, double 7.812500e-03>
-  %44 = getelementptr inbounds [128 x double], ptr %12, i64 %indvars.iv91.i, i64 %index154
+  %44 = getelementptr inbounds [128 x double], ptr %12, i64 %indvars.iv91.i, i64 %index152
   store <2 x double> %42, ptr %44, align 8, !tbaa !5
   %45 = getelementptr inbounds double, ptr %44, i64 2
   store <2 x double> %43, ptr %45, align 8, !tbaa !5
-  %index.next163 = or i64 %index154, 4
-  %vec.ind.next158 = add <2 x i32> %vec.ind155, <i32 4, i32 4>
-  %step.add156.1 = add <2 x i32> %vec.ind155, <i32 6, i32 6>
-  %46 = sitofp <2 x i32> %vec.ind.next158 to <2 x double>
-  %47 = sitofp <2 x i32> %step.add156.1 to <2 x double>
-  %48 = fmul <2 x double> %broadcast.splat160, %46
-  %49 = fmul <2 x double> %broadcast.splat162, %47
+  %index.next161 = or i64 %index152, 4
+  %vec.ind.next156 = add <2 x i32> %vec.ind153, <i32 4, i32 4>
+  %step.add154.1 = add <2 x i32> %vec.ind153, <i32 6, i32 6>
+  %46 = sitofp <2 x i32> %vec.ind.next156 to <2 x double>
+  %47 = sitofp <2 x i32> %step.add154.1 to <2 x double>
+  %48 = fmul <2 x double> %broadcast.splat158, %46
+  %49 = fmul <2 x double> %broadcast.splat160, %47
   %50 = fmul <2 x double> %48, <double 7.812500e-03, double 7.812500e-03>
   %51 = fmul <2 x double> %49, <double 7.812500e-03, double 7.812500e-03>
-  %52 = getelementptr inbounds [128 x double], ptr %12, i64 %indvars.iv91.i, i64 %index.next163
+  %52 = getelementptr inbounds [128 x double], ptr %12, i64 %indvars.iv91.i, i64 %index.next161
   store <2 x double> %50, ptr %52, align 8, !tbaa !5
   %53 = getelementptr inbounds double, ptr %52, i64 2
   store <2 x double> %51, ptr %53, align 8, !tbaa !5
-  %index.next163.1 = add nuw nsw i64 %index154, 8
-  %vec.ind.next158.1 = add <2 x i32> %vec.ind155, <i32 8, i32 8>
-  %54 = icmp eq i64 %index.next163.1, 128
-  br i1 %54, label %for.inc46.i, label %vector.body153, !llvm.loop !18
+  %index.next161.1 = add nuw nsw i64 %index152, 8
+  %vec.ind.next156.1 = add <2 x i32> %vec.ind153, <i32 8, i32 8>
+  %54 = icmp eq i64 %index.next161.1, 128
+  br i1 %54, label %for.inc46.i, label %vector.body151, !llvm.loop !18
 
-for.inc46.i:                                      ; preds = %vector.body153
+for.inc46.i:                                      ; preds = %vector.body151
   %indvars.iv.next92.i = add nuw nsw i64 %indvars.iv91.i, 1
   %exitcond94.not.i = icmp eq i64 %indvars.iv.next92.i, 128
-  br i1 %exitcond94.not.i, label %for.cond1.preheader.i67, label %vector.ph150, !llvm.loop !19
+  br i1 %exitcond94.not.i, label %for.cond1.preheader.i67, label %vector.ph148, !llvm.loop !19
 
 for.cond1.preheader.i67:                          ; preds = %for.inc46.i, %for.inc60.i
   %indvars.iv118.i = phi i64 [ %indvars.iv.next119.i, %for.inc60.i ], [ 0, %for.inc46.i ]
@@ -342,274 +342,274 @@ for.body13.i:                                     ; preds = %for.body13.i, %for.
 for.inc36.i:                                      ; preds = %for.body13.i
   %indvars.iv.next104.i = add nuw nsw i64 %indvars.iv103.i, 1
   %exitcond106.not.i = icmp eq i64 %indvars.iv.next104.i, 128
-  br i1 %exitcond106.not.i, label %vector.memcheck164, label %for.body6.i69, !llvm.loop !21
+  br i1 %exitcond106.not.i, label %vector.memcheck162, label %for.body6.i69, !llvm.loop !21
 
-vector.memcheck164:                               ; preds = %for.inc36.i
+vector.memcheck162:                               ; preds = %for.inc36.i
   %68 = sub i64 %59, %60
-  %diff.check165 = icmp ult i64 %68, 32
-  br i1 %diff.check165, label %for.body41.i, label %vector.body171
+  %diff.check163 = icmp ult i64 %68, 32
+  br i1 %diff.check163, label %for.body41.i, label %vector.body169
 
-vector.body171:                                   ; preds = %vector.memcheck164
+vector.body169:                                   ; preds = %vector.memcheck162
   %69 = getelementptr inbounds [128 x [128 x double]], ptr %8, i64 %indvars.iv118.i, i64 %indvars.iv114.i, i64 0
   %wide.load = load <2 x double>, ptr %69, align 8, !tbaa !5
   %70 = getelementptr inbounds [128 x [128 x double]], ptr %8, i64 %indvars.iv118.i, i64 %indvars.iv114.i, i64 2
-  %wide.load173 = load <2 x double>, ptr %70, align 8, !tbaa !5
+  %wide.load171 = load <2 x double>, ptr %70, align 8, !tbaa !5
   %71 = getelementptr inbounds [128 x [128 x double]], ptr %0, i64 %indvars.iv118.i, i64 %indvars.iv114.i, i64 0
   store <2 x double> %wide.load, ptr %71, align 8, !tbaa !5
   %72 = getelementptr inbounds [128 x [128 x double]], ptr %0, i64 %indvars.iv118.i, i64 %indvars.iv114.i, i64 2
-  store <2 x double> %wide.load173, ptr %72, align 8, !tbaa !5
+  store <2 x double> %wide.load171, ptr %72, align 8, !tbaa !5
   %73 = getelementptr inbounds [128 x [128 x double]], ptr %8, i64 %indvars.iv118.i, i64 %indvars.iv114.i, i64 4
   %wide.load.1 = load <2 x double>, ptr %73, align 8, !tbaa !5
   %74 = getelementptr inbounds [128 x [128 x double]], ptr %8, i64 %indvars.iv118.i, i64 %indvars.iv114.i, i64 6
-  %wide.load173.1 = load <2 x double>, ptr %74, align 8, !tbaa !5
+  %wide.load171.1 = load <2 x double>, ptr %74, align 8, !tbaa !5
   %75 = getelementptr inbounds [128 x [128 x double]], ptr %0, i64 %indvars.iv118.i, i64 %indvars.iv114.i, i64 4
   store <2 x double> %wide.load.1, ptr %75, align 8, !tbaa !5
   %76 = getelementptr inbounds [128 x [128 x double]], ptr %0, i64 %indvars.iv118.i, i64 %indvars.iv114.i, i64 6
-  store <2 x double> %wide.load173.1, ptr %76, align 8, !tbaa !5
+  store <2 x double> %wide.load171.1, ptr %76, align 8, !tbaa !5
   %77 = getelementptr inbounds [128 x [128 x double]], ptr %8, i64 %indvars.iv118.i, i64 %indvars.iv114.i, i64 8
   %wide.load.2 = load <2 x double>, ptr %77, align 8, !tbaa !5
   %78 = getelementptr inbounds [128 x [128 x double]], ptr %8, i64 %indvars.iv118.i, i64 %indvars.iv114.i, i64 10
-  %wide.load173.2 = load <2 x double>, ptr %78, align 8, !tbaa !5
+  %wide.load171.2 = load <2 x double>, ptr %78, align 8, !tbaa !5
   %79 = getelementptr inbounds [128 x [128 x double]], ptr %0, i64 %indvars.iv118.i, i64 %indvars.iv114.i, i64 8
   store <2 x double> %wide.load.2, ptr %79, align 8, !tbaa !5
   %80 = getelementptr inbounds [128 x [128 x double]], ptr %0, i64 %indvars.iv118.i, i64 %indvars.iv114.i, i64 10
-  store <2 x double> %wide.load173.2, ptr %80, align 8, !tbaa !5
+  store <2 x double> %wide.load171.2, ptr %80, align 8, !tbaa !5
   %81 = getelementptr inbounds [128 x [128 x double]], ptr %8, i64 %indvars.iv118.i, i64 %indvars.iv114.i, i64 12
   %wide.load.3 = load <2 x double>, ptr %81, align 8, !tbaa !5
   %82 = getelementptr inbounds [128 x [128 x double]], ptr %8, i64 %indvars.iv118.i, i64 %indvars.iv114.i, i64 14
-  %wide.load173.3 = load <2 x double>, ptr %82, align 8, !tbaa !5
+  %wide.load171.3 = load <2 x double>, ptr %82, align 8, !tbaa !5
   %83 = getelementptr inbounds [128 x [128 x double]], ptr %0, i64 %indvars.iv118.i, i64 %indvars.iv114.i, i64 12
   store <2 x double> %wide.load.3, ptr %83, align 8, !tbaa !5
   %84 = getelementptr inbounds [128 x [128 x double]], ptr %0, i64 %indvars.iv118.i, i64 %indvars.iv114.i, i64 14
-  store <2 x double> %wide.load173.3, ptr %84, align 8, !tbaa !5
+  store <2 x double> %wide.load171.3, ptr %84, align 8, !tbaa !5
   %85 = getelementptr inbounds [128 x [128 x double]], ptr %8, i64 %indvars.iv118.i, i64 %indvars.iv114.i, i64 16
   %wide.load.4 = load <2 x double>, ptr %85, align 8, !tbaa !5
   %86 = getelementptr inbounds [128 x [128 x double]], ptr %8, i64 %indvars.iv118.i, i64 %indvars.iv114.i, i64 18
-  %wide.load173.4 = load <2 x double>, ptr %86, align 8, !tbaa !5
+  %wide.load171.4 = load <2 x double>, ptr %86, align 8, !tbaa !5
   %87 = getelementptr inbounds [128 x [128 x double]], ptr %0, i64 %indvars.iv118.i, i64 %indvars.iv114.i, i64 16
   store <2 x double> %wide.load.4, ptr %87, align 8, !tbaa !5
   %88 = getelementptr inbounds [128 x [128 x double]], ptr %0, i64 %indvars.iv118.i, i64 %indvars.iv114.i, i64 18
-  store <2 x double> %wide.load173.4, ptr %88, align 8, !tbaa !5
+  store <2 x double> %wide.load171.4, ptr %88, align 8, !tbaa !5
   %89 = getelementptr inbounds [128 x [128 x double]], ptr %8, i64 %indvars.iv118.i, i64 %indvars.iv114.i, i64 20
   %wide.load.5 = load <2 x double>, ptr %89, align 8, !tbaa !5
   %90 = getelementptr inbounds [128 x [128 x double]], ptr %8, i64 %indvars.iv118.i, i64 %indvars.iv114.i, i64 22
-  %wide.load173.5 = load <2 x double>, ptr %90, align 8, !tbaa !5
+  %wide.load171.5 = load <2 x double>, ptr %90, align 8, !tbaa !5
   %91 = getelementptr inbounds [128 x [128 x double]], ptr %0, i64 %indvars.iv118.i, i64 %indvars.iv114.i, i64 20
   store <2 x double> %wide.load.5, ptr %91, align 8, !tbaa !5
   %92 = getelementptr inbounds [128 x [128 x double]], ptr %0, i64 %indvars.iv118.i, i64 %indvars.iv114.i, i64 22
-  store <2 x double> %wide.load173.5, ptr %92, align 8, !tbaa !5
+  store <2 x double> %wide.load171.5, ptr %92, align 8, !tbaa !5
   %93 = getelementptr inbounds [128 x [128 x double]], ptr %8, i64 %indvars.iv118.i, i64 %indvars.iv114.i, i64 24
   %wide.load.6 = load <2 x double>, ptr %93, align 8, !tbaa !5
   %94 = getelementptr inbounds [128 x [128 x double]], ptr %8, i64 %indvars.iv118.i, i64 %indvars.iv114.i, i64 26
-  %wide.load173.6 = load <2 x double>, ptr %94, align 8, !tbaa !5
+  %wide.load171.6 = load <2 x double>, ptr %94, align 8, !tbaa !5
   %95 = getelementptr inbounds [128 x [128 x double]], ptr %0, i64 %indvars.iv118.i, i64 %indvars.iv114.i, i64 24
   store <2 x double> %wide.load.6, ptr %95, align 8, !tbaa !5
   %96 = getelementptr inbounds [128 x [128 x double]], ptr %0, i64 %indvars.iv118.i, i64 %indvars.iv114.i, i64 26
-  store <2 x double> %wide.load173.6, ptr %96, align 8, !tbaa !5
+  store <2 x double> %wide.load171.6, ptr %96, align 8, !tbaa !5
   %97 = getelementptr inbounds [128 x [128 x double]], ptr %8, i64 %indvars.iv118.i, i64 %indvars.iv114.i, i64 28
   %wide.load.7 = load <2 x double>, ptr %97, align 8, !tbaa !5
   %98 = getelementptr inbounds [128 x [128 x double]], ptr %8, i64 %indvars.iv118.i, i64 %indvars.iv114.i, i64 30
-  %wide.load173.7 = load <2 x double>, ptr %98, align 8, !tbaa !5
+  %wide.load171.7 = load <2 x double>, ptr %98, align 8, !tbaa !5
   %99 = getelementptr inbounds [128 x [128 x double]], ptr %0, i64 %indvars.iv118.i, i64 %indvars.iv114.i, i64 28
   store <2 x double> %wide.load.7, ptr %99, align 8, !tbaa !5
   %100 = getelementptr inbounds [128 x [128 x double]], ptr %0, i64 %indvars.iv118.i, i64 %indvars.iv114.i, i64 30
-  store <2 x double> %wide.load173.7, ptr %100, align 8, !tbaa !5
+  store <2 x double> %wide.load171.7, ptr %100, align 8, !tbaa !5
   %101 = getelementptr inbounds [128 x [128 x double]], ptr %8, i64 %indvars.iv118.i, i64 %indvars.iv114.i, i64 32
   %wide.load.8 = load <2 x double>, ptr %101, align 8, !tbaa !5
   %102 = getelementptr inbounds [128 x [128 x double]], ptr %8, i64 %indvars.iv118.i, i64 %indvars.iv114.i, i64 34
-  %wide.load173.8 = load <2 x double>, ptr %102, align 8, !tbaa !5
+  %wide.load171.8 = load <2 x double>, ptr %102, align 8, !tbaa !5
   %103 = getelementptr inbounds [128 x [128 x double]], ptr %0, i64 %indvars.iv118.i, i64 %indvars.iv114.i, i64 32
   store <2 x double> %wide.load.8, ptr %103, align 8, !tbaa !5
   %104 = getelementptr inbounds [128 x [128 x double]], ptr %0, i64 %indvars.iv118.i, i64 %indvars.iv114.i, i64 34
-  store <2 x double> %wide.load173.8, ptr %104, align 8, !tbaa !5
+  store <2 x double> %wide.load171.8, ptr %104, align 8, !tbaa !5
   %105 = getelementptr inbounds [128 x [128 x double]], ptr %8, i64 %indvars.iv118.i, i64 %indvars.iv114.i, i64 36
   %wide.load.9 = load <2 x double>, ptr %105, align 8, !tbaa !5
   %106 = getelementptr inbounds [128 x [128 x double]], ptr %8, i64 %indvars.iv118.i, i64 %indvars.iv114.i, i64 38
-  %wide.load173.9 = load <2 x double>, ptr %106, align 8, !tbaa !5
+  %wide.load171.9 = load <2 x double>, ptr %106, align 8, !tbaa !5
   %107 = getelementptr inbounds [128 x [128 x double]], ptr %0, i64 %indvars.iv118.i, i64 %indvars.iv114.i, i64 36
   store <2 x double> %wide.load.9, ptr %107, align 8, !tbaa !5
   %108 = getelementptr inbounds [128 x [128 x double]], ptr %0, i64 %indvars.iv118.i, i64 %indvars.iv114.i, i64 38
-  store <2 x double> %wide.load173.9, ptr %108, align 8, !tbaa !5
+  store <2 x double> %wide.load171.9, ptr %108, align 8, !tbaa !5
   %109 = getelementptr inbounds [128 x [128 x double]], ptr %8, i64 %indvars.iv118.i, i64 %indvars.iv114.i, i64 40
   %wide.load.10 = load <2 x double>, ptr %109, align 8, !tbaa !5
   %110 = getelementptr inbounds [128 x [128 x double]], ptr %8, i64 %indvars.iv118.i, i64 %indvars.iv114.i, i64 42
-  %wide.load173.10 = load <2 x double>, ptr %110, align 8, !tbaa !5
+  %wide.load171.10 = load <2 x double>, ptr %110, align 8, !tbaa !5
   %111 = getelementptr inbounds [128 x [128 x double]], ptr %0, i64 %indvars.iv118.i, i64 %indvars.iv114.i, i64 40
   store <2 x double> %wide.load.10, ptr %111, align 8, !tbaa !5
   %112 = getelementptr inbounds [128 x [128 x double]], ptr %0, i64 %indvars.iv118.i, i64 %indvars.iv114.i, i64 42
-  store <2 x double> %wide.load173.10, ptr %112, align 8, !tbaa !5
+  store <2 x double> %wide.load171.10, ptr %112, align 8, !tbaa !5
   %113 = getelementptr inbounds [128 x [128 x double]], ptr %8, i64 %indvars.iv118.i, i64 %indvars.iv114.i, i64 44
   %wide.load.11 = load <2 x double>, ptr %113, align 8, !tbaa !5
   %114 = getelementptr inbounds [128 x [128 x double]], ptr %8, i64 %indvars.iv118.i, i64 %indvars.iv114.i, i64 46
-  %wide.load173.11 = load <2 x double>, ptr %114, align 8, !tbaa !5
+  %wide.load171.11 = load <2 x double>, ptr %114, align 8, !tbaa !5
   %115 = getelementptr inbounds [128 x [128 x double]], ptr %0, i64 %indvars.iv118.i, i64 %indvars.iv114.i, i64 44
   store <2 x double> %wide.load.11, ptr %115, align 8, !tbaa !5
   %116 = getelementptr inbounds [128 x [128 x double]], ptr %0, i64 %indvars.iv118.i, i64 %indvars.iv114.i, i64 46
-  store <2 x double> %wide.load173.11, ptr %116, align 8, !tbaa !5
+  store <2 x double> %wide.load171.11, ptr %116, align 8, !tbaa !5
   %117 = getelementptr inbounds [128 x [128 x double]], ptr %8, i64 %indvars.iv118.i, i64 %indvars.iv114.i, i64 48
   %wide.load.12 = load <2 x double>, ptr %117, align 8, !tbaa !5
   %118 = getelementptr inbounds [128 x [128 x double]], ptr %8, i64 %indvars.iv118.i, i64 %indvars.iv114.i, i64 50
-  %wide.load173.12 = load <2 x double>, ptr %118, align 8, !tbaa !5
+  %wide.load171.12 = load <2 x double>, ptr %118, align 8, !tbaa !5
   %119 = getelementptr inbounds [128 x [128 x double]], ptr %0, i64 %indvars.iv118.i, i64 %indvars.iv114.i, i64 48
   store <2 x double> %wide.load.12, ptr %119, align 8, !tbaa !5
   %120 = getelementptr inbounds [128 x [128 x double]], ptr %0, i64 %indvars.iv118.i, i64 %indvars.iv114.i, i64 50
-  store <2 x double> %wide.load173.12, ptr %120, align 8, !tbaa !5
+  store <2 x double> %wide.load171.12, ptr %120, align 8, !tbaa !5
   %121 = getelementptr inbounds [128 x [128 x double]], ptr %8, i64 %indvars.iv118.i, i64 %indvars.iv114.i, i64 52
   %wide.load.13 = load <2 x double>, ptr %121, align 8, !tbaa !5
   %122 = getelementptr inbounds [128 x [128 x double]], ptr %8, i64 %indvars.iv118.i, i64 %indvars.iv114.i, i64 54
-  %wide.load173.13 = load <2 x double>, ptr %122, align 8, !tbaa !5
+  %wide.load171.13 = load <2 x double>, ptr %122, align 8, !tbaa !5
   %123 = getelementptr inbounds [128 x [128 x double]], ptr %0, i64 %indvars.iv118.i, i64 %indvars.iv114.i, i64 52
   store <2 x double> %wide.load.13, ptr %123, align 8, !tbaa !5
   %124 = getelementptr inbounds [128 x [128 x double]], ptr %0, i64 %indvars.iv118.i, i64 %indvars.iv114.i, i64 54
-  store <2 x double> %wide.load173.13, ptr %124, align 8, !tbaa !5
+  store <2 x double> %wide.load171.13, ptr %124, align 8, !tbaa !5
   %125 = getelementptr inbounds [128 x [128 x double]], ptr %8, i64 %indvars.iv118.i, i64 %indvars.iv114.i, i64 56
   %wide.load.14 = load <2 x double>, ptr %125, align 8, !tbaa !5
   %126 = getelementptr inbounds [128 x [128 x double]], ptr %8, i64 %indvars.iv118.i, i64 %indvars.iv114.i, i64 58
-  %wide.load173.14 = load <2 x double>, ptr %126, align 8, !tbaa !5
+  %wide.load171.14 = load <2 x double>, ptr %126, align 8, !tbaa !5
   %127 = getelementptr inbounds [128 x [128 x double]], ptr %0, i64 %indvars.iv118.i, i64 %indvars.iv114.i, i64 56
   store <2 x double> %wide.load.14, ptr %127, align 8, !tbaa !5
   %128 = getelementptr inbounds [128 x [128 x double]], ptr %0, i64 %indvars.iv118.i, i64 %indvars.iv114.i, i64 58
-  store <2 x double> %wide.load173.14, ptr %128, align 8, !tbaa !5
+  store <2 x double> %wide.load171.14, ptr %128, align 8, !tbaa !5
   %129 = getelementptr inbounds [128 x [128 x double]], ptr %8, i64 %indvars.iv118.i, i64 %indvars.iv114.i, i64 60
   %wide.load.15 = load <2 x double>, ptr %129, align 8, !tbaa !5
   %130 = getelementptr inbounds [128 x [128 x double]], ptr %8, i64 %indvars.iv118.i, i64 %indvars.iv114.i, i64 62
-  %wide.load173.15 = load <2 x double>, ptr %130, align 8, !tbaa !5
+  %wide.load171.15 = load <2 x double>, ptr %130, align 8, !tbaa !5
   %131 = getelementptr inbounds [128 x [128 x double]], ptr %0, i64 %indvars.iv118.i, i64 %indvars.iv114.i, i64 60
   store <2 x double> %wide.load.15, ptr %131, align 8, !tbaa !5
   %132 = getelementptr inbounds [128 x [128 x double]], ptr %0, i64 %indvars.iv118.i, i64 %indvars.iv114.i, i64 62
-  store <2 x double> %wide.load173.15, ptr %132, align 8, !tbaa !5
+  store <2 x double> %wide.load171.15, ptr %132, align 8, !tbaa !5
   %133 = getelementptr inbounds [128 x [128 x double]], ptr %8, i64 %indvars.iv118.i, i64 %indvars.iv114.i, i64 64
   %wide.load.16 = load <2 x double>, ptr %133, align 8, !tbaa !5
   %134 = getelementptr inbounds [128 x [128 x double]], ptr %8, i64 %indvars.iv118.i, i64 %indvars.iv114.i, i64 66
-  %wide.load173.16 = load <2 x double>, ptr %134, align 8, !tbaa !5
+  %wide.load171.16 = load <2 x double>, ptr %134, align 8, !tbaa !5
   %135 = getelementptr inbounds [128 x [128 x double]], ptr %0, i64 %indvars.iv118.i, i64 %indvars.iv114.i, i64 64
   store <2 x double> %wide.load.16, ptr %135, align 8, !tbaa !5
   %136 = getelementptr inbounds [128 x [128 x double]], ptr %0, i64 %indvars.iv118.i, i64 %indvars.iv114.i, i64 66
-  store <2 x double> %wide.load173.16, ptr %136, align 8, !tbaa !5
+  store <2 x double> %wide.load171.16, ptr %136, align 8, !tbaa !5
   %137 = getelementptr inbounds [128 x [128 x double]], ptr %8, i64 %indvars.iv118.i, i64 %indvars.iv114.i, i64 68
   %wide.load.17 = load <2 x double>, ptr %137, align 8, !tbaa !5
   %138 = getelementptr inbounds [128 x [128 x double]], ptr %8, i64 %indvars.iv118.i, i64 %indvars.iv114.i, i64 70
-  %wide.load173.17 = load <2 x double>, ptr %138, align 8, !tbaa !5
+  %wide.load171.17 = load <2 x double>, ptr %138, align 8, !tbaa !5
   %139 = getelementptr inbounds [128 x [128 x double]], ptr %0, i64 %indvars.iv118.i, i64 %indvars.iv114.i, i64 68
   store <2 x double> %wide.load.17, ptr %139, align 8, !tbaa !5
   %140 = getelementptr inbounds [128 x [128 x double]], ptr %0, i64 %indvars.iv118.i, i64 %indvars.iv114.i, i64 70
-  store <2 x double> %wide.load173.17, ptr %140, align 8, !tbaa !5
+  store <2 x double> %wide.load171.17, ptr %140, align 8, !tbaa !5
   %141 = getelementptr inbounds [128 x [128 x double]], ptr %8, i64 %indvars.iv118.i, i64 %indvars.iv114.i, i64 72
   %wide.load.18 = load <2 x double>, ptr %141, align 8, !tbaa !5
   %142 = getelementptr inbounds [128 x [128 x double]], ptr %8, i64 %indvars.iv118.i, i64 %indvars.iv114.i, i64 74
-  %wide.load173.18 = load <2 x double>, ptr %142, align 8, !tbaa !5
+  %wide.load171.18 = load <2 x double>, ptr %142, align 8, !tbaa !5
   %143 = getelementptr inbounds [128 x [128 x double]], ptr %0, i64 %indvars.iv118.i, i64 %indvars.iv114.i, i64 72
   store <2 x double> %wide.load.18, ptr %143, align 8, !tbaa !5
   %144 = getelementptr inbounds [128 x [128 x double]], ptr %0, i64 %indvars.iv118.i, i64 %indvars.iv114.i, i64 74
-  store <2 x double> %wide.load173.18, ptr %144, align 8, !tbaa !5
+  store <2 x double> %wide.load171.18, ptr %144, align 8, !tbaa !5
   %145 = getelementptr inbounds [128 x [128 x double]], ptr %8, i64 %indvars.iv118.i, i64 %indvars.iv114.i, i64 76
   %wide.load.19 = load <2 x double>, ptr %145, align 8, !tbaa !5
   %146 = getelementptr inbounds [128 x [128 x double]], ptr %8, i64 %indvars.iv118.i, i64 %indvars.iv114.i, i64 78
-  %wide.load173.19 = load <2 x double>, ptr %146, align 8, !tbaa !5
+  %wide.load171.19 = load <2 x double>, ptr %146, align 8, !tbaa !5
   %147 = getelementptr inbounds [128 x [128 x double]], ptr %0, i64 %indvars.iv118.i, i64 %indvars.iv114.i, i64 76
   store <2 x double> %wide.load.19, ptr %147, align 8, !tbaa !5
   %148 = getelementptr inbounds [128 x [128 x double]], ptr %0, i64 %indvars.iv118.i, i64 %indvars.iv114.i, i64 78
-  store <2 x double> %wide.load173.19, ptr %148, align 8, !tbaa !5
+  store <2 x double> %wide.load171.19, ptr %148, align 8, !tbaa !5
   %149 = getelementptr inbounds [128 x [128 x double]], ptr %8, i64 %indvars.iv118.i, i64 %indvars.iv114.i, i64 80
   %wide.load.20 = load <2 x double>, ptr %149, align 8, !tbaa !5
   %150 = getelementptr inbounds [128 x [128 x double]], ptr %8, i64 %indvars.iv118.i, i64 %indvars.iv114.i, i64 82
-  %wide.load173.20 = load <2 x double>, ptr %150, align 8, !tbaa !5
+  %wide.load171.20 = load <2 x double>, ptr %150, align 8, !tbaa !5
   %151 = getelementptr inbounds [128 x [128 x double]], ptr %0, i64 %indvars.iv118.i, i64 %indvars.iv114.i, i64 80
   store <2 x double> %wide.load.20, ptr %151, align 8, !tbaa !5
   %152 = getelementptr inbounds [128 x [128 x double]], ptr %0, i64 %indvars.iv118.i, i64 %indvars.iv114.i, i64 82
-  store <2 x double> %wide.load173.20, ptr %152, align 8, !tbaa !5
+  store <2 x double> %wide.load171.20, ptr %152, align 8, !tbaa !5
   %153 = getelementptr inbounds [128 x [128 x double]], ptr %8, i64 %indvars.iv118.i, i64 %indvars.iv114.i, i64 84
   %wide.load.21 = load <2 x double>, ptr %153, align 8, !tbaa !5
   %154 = getelementptr inbounds [128 x [128 x double]], ptr %8, i64 %indvars.iv118.i, i64 %indvars.iv114.i, i64 86
-  %wide.load173.21 = load <2 x double>, ptr %154, align 8, !tbaa !5
+  %wide.load171.21 = load <2 x double>, ptr %154, align 8, !tbaa !5
   %155 = getelementptr inbounds [128 x [128 x double]], ptr %0, i64 %indvars.iv118.i, i64 %indvars.iv114.i, i64 84
   store <2 x double> %wide.load.21, ptr %155, align 8, !tbaa !5
   %156 = getelementptr inbounds [128 x [128 x double]], ptr %0, i64 %indvars.iv118.i, i64 %indvars.iv114.i, i64 86
-  store <2 x double> %wide.load173.21, ptr %156, align 8, !tbaa !5
+  store <2 x double> %wide.load171.21, ptr %156, align 8, !tbaa !5
   %157 = getelementptr inbounds [128 x [128 x double]], ptr %8, i64 %indvars.iv118.i, i64 %indvars.iv114.i, i64 88
   %wide.load.22 = load <2 x double>, ptr %157, align 8, !tbaa !5
   %158 = getelementptr inbounds [128 x [128 x double]], ptr %8, i64 %indvars.iv118.i, i64 %indvars.iv114.i, i64 90
-  %wide.load173.22 = load <2 x double>, ptr %158, align 8, !tbaa !5
+  %wide.load171.22 = load <2 x double>, ptr %158, align 8, !tbaa !5
   %159 = getelementptr inbounds [128 x [128 x double]], ptr %0, i64 %indvars.iv118.i, i64 %indvars.iv114.i, i64 88
   store <2 x double> %wide.load.22, ptr %159, align 8, !tbaa !5
   %160 = getelementptr inbounds [128 x [128 x double]], ptr %0, i64 %indvars.iv118.i, i64 %indvars.iv114.i, i64 90
-  store <2 x double> %wide.load173.22, ptr %160, align 8, !tbaa !5
+  store <2 x double> %wide.load171.22, ptr %160, align 8, !tbaa !5
   %161 = getelementptr inbounds [128 x [128 x double]], ptr %8, i64 %indvars.iv118.i, i64 %indvars.iv114.i, i64 92
   %wide.load.23 = load <2 x double>, ptr %161, align 8, !tbaa !5
   %162 = getelementptr inbounds [128 x [128 x double]], ptr %8, i64 %indvars.iv118.i, i64 %indvars.iv114.i, i64 94
-  %wide.load173.23 = load <2 x double>, ptr %162, align 8, !tbaa !5
+  %wide.load171.23 = load <2 x double>, ptr %162, align 8, !tbaa !5
   %163 = getelementptr inbounds [128 x [128 x double]], ptr %0, i64 %indvars.iv118.i, i64 %indvars.iv114.i, i64 92
   store <2 x double> %wide.load.23, ptr %163, align 8, !tbaa !5
   %164 = getelementptr inbounds [128 x [128 x double]], ptr %0, i64 %indvars.iv118.i, i64 %indvars.iv114.i, i64 94
-  store <2 x double> %wide.load173.23, ptr %164, align 8, !tbaa !5
+  store <2 x double> %wide.load171.23, ptr %164, align 8, !tbaa !5
   %165 = getelementptr inbounds [128 x [128 x double]], ptr %8, i64 %indvars.iv118.i, i64 %indvars.iv114.i, i64 96
   %wide.load.24 = load <2 x double>, ptr %165, align 8, !tbaa !5
   %166 = getelementptr inbounds [128 x [128 x double]], ptr %8, i64 %indvars.iv118.i, i64 %indvars.iv114.i, i64 98
-  %wide.load173.24 = load <2 x double>, ptr %166, align 8, !tbaa !5
+  %wide.load171.24 = load <2 x double>, ptr %166, align 8, !tbaa !5
   %167 = getelementptr inbounds [128 x [128 x double]], ptr %0, i64 %indvars.iv118.i, i64 %indvars.iv114.i, i64 96
   store <2 x double> %wide.load.24, ptr %167, align 8, !tbaa !5
   %168 = getelementptr inbounds [128 x [128 x double]], ptr %0, i64 %indvars.iv118.i, i64 %indvars.iv114.i, i64 98
-  store <2 x double> %wide.load173.24, ptr %168, align 8, !tbaa !5
+  store <2 x double> %wide.load171.24, ptr %168, align 8, !tbaa !5
   %169 = getelementptr inbounds [128 x [128 x double]], ptr %8, i64 %indvars.iv118.i, i64 %indvars.iv114.i, i64 100
   %wide.load.25 = load <2 x double>, ptr %169, align 8, !tbaa !5
   %170 = getelementptr inbounds [128 x [128 x double]], ptr %8, i64 %indvars.iv118.i, i64 %indvars.iv114.i, i64 102
-  %wide.load173.25 = load <2 x double>, ptr %170, align 8, !tbaa !5
+  %wide.load171.25 = load <2 x double>, ptr %170, align 8, !tbaa !5
   %171 = getelementptr inbounds [128 x [128 x double]], ptr %0, i64 %indvars.iv118.i, i64 %indvars.iv114.i, i64 100
   store <2 x double> %wide.load.25, ptr %171, align 8, !tbaa !5
   %172 = getelementptr inbounds [128 x [128 x double]], ptr %0, i64 %indvars.iv118.i, i64 %indvars.iv114.i, i64 102
-  store <2 x double> %wide.load173.25, ptr %172, align 8, !tbaa !5
+  store <2 x double> %wide.load171.25, ptr %172, align 8, !tbaa !5
   %173 = getelementptr inbounds [128 x [128 x double]], ptr %8, i64 %indvars.iv118.i, i64 %indvars.iv114.i, i64 104
   %wide.load.26 = load <2 x double>, ptr %173, align 8, !tbaa !5
   %174 = getelementptr inbounds [128 x [128 x double]], ptr %8, i64 %indvars.iv118.i, i64 %indvars.iv114.i, i64 106
-  %wide.load173.26 = load <2 x double>, ptr %174, align 8, !tbaa !5
+  %wide.load171.26 = load <2 x double>, ptr %174, align 8, !tbaa !5
   %175 = getelementptr inbounds [128 x [128 x double]], ptr %0, i64 %indvars.iv118.i, i64 %indvars.iv114.i, i64 104
   store <2 x double> %wide.load.26, ptr %175, align 8, !tbaa !5
   %176 = getelementptr inbounds [128 x [128 x double]], ptr %0, i64 %indvars.iv118.i, i64 %indvars.iv114.i, i64 106
-  store <2 x double> %wide.load173.26, ptr %176, align 8, !tbaa !5
+  store <2 x double> %wide.load171.26, ptr %176, align 8, !tbaa !5
   %177 = getelementptr inbounds [128 x [128 x double]], ptr %8, i64 %indvars.iv118.i, i64 %indvars.iv114.i, i64 108
   %wide.load.27 = load <2 x double>, ptr %177, align 8, !tbaa !5
   %178 = getelementptr inbounds [128 x [128 x double]], ptr %8, i64 %indvars.iv118.i, i64 %indvars.iv114.i, i64 110
-  %wide.load173.27 = load <2 x double>, ptr %178, align 8, !tbaa !5
+  %wide.load171.27 = load <2 x double>, ptr %178, align 8, !tbaa !5
   %179 = getelementptr inbounds [128 x [128 x double]], ptr %0, i64 %indvars.iv118.i, i64 %indvars.iv114.i, i64 108
   store <2 x double> %wide.load.27, ptr %179, align 8, !tbaa !5
   %180 = getelementptr inbounds [128 x [128 x double]], ptr %0, i64 %indvars.iv118.i, i64 %indvars.iv114.i, i64 110
-  store <2 x double> %wide.load173.27, ptr %180, align 8, !tbaa !5
+  store <2 x double> %wide.load171.27, ptr %180, align 8, !tbaa !5
   %181 = getelementptr inbounds [128 x [128 x double]], ptr %8, i64 %indvars.iv118.i, i64 %indvars.iv114.i, i64 112
   %wide.load.28 = load <2 x double>, ptr %181, align 8, !tbaa !5
   %182 = getelementptr inbounds [128 x [128 x double]], ptr %8, i64 %indvars.iv118.i, i64 %indvars.iv114.i, i64 114
-  %wide.load173.28 = load <2 x double>, ptr %182, align 8, !tbaa !5
+  %wide.load171.28 = load <2 x double>, ptr %182, align 8, !tbaa !5
   %183 = getelementptr inbounds [128 x [128 x double]], ptr %0, i64 %indvars.iv118.i, i64 %indvars.iv114.i, i64 112
   store <2 x double> %wide.load.28, ptr %183, align 8, !tbaa !5
   %184 = getelementptr inbounds [128 x [128 x double]], ptr %0, i64 %indvars.iv118.i, i64 %indvars.iv114.i, i64 114
-  store <2 x double> %wide.load173.28, ptr %184, align 8, !tbaa !5
+  store <2 x double> %wide.load171.28, ptr %184, align 8, !tbaa !5
   %185 = getelementptr inbounds [128 x [128 x double]], ptr %8, i64 %indvars.iv118.i, i64 %indvars.iv114.i, i64 116
   %wide.load.29 = load <2 x double>, ptr %185, align 8, !tbaa !5
   %186 = getelementptr inbounds [128 x [128 x double]], ptr %8, i64 %indvars.iv118.i, i64 %indvars.iv114.i, i64 118
-  %wide.load173.29 = load <2 x double>, ptr %186, align 8, !tbaa !5
+  %wide.load171.29 = load <2 x double>, ptr %186, align 8, !tbaa !5
   %187 = getelementptr inbounds [128 x [128 x double]], ptr %0, i64 %indvars.iv118.i, i64 %indvars.iv114.i, i64 116
   store <2 x double> %wide.load.29, ptr %187, align 8, !tbaa !5
   %188 = getelementptr inbounds [128 x [128 x double]], ptr %0, i64 %indvars.iv118.i, i64 %indvars.iv114.i, i64 118
-  store <2 x double> %wide.load173.29, ptr %188, align 8, !tbaa !5
+  store <2 x double> %wide.load171.29, ptr %188, align 8, !tbaa !5
   %189 = getelementptr inbounds [128 x [128 x double]], ptr %8, i64 %indvars.iv118.i, i64 %indvars.iv114.i, i64 120
   %wide.load.30 = load <2 x double>, ptr %189, align 8, !tbaa !5
   %190 = getelementptr inbounds [128 x [128 x double]], ptr %8, i64 %indvars.iv118.i, i64 %indvars.iv114.i, i64 122
-  %wide.load173.30 = load <2 x double>, ptr %190, align 8, !tbaa !5
+  %wide.load171.30 = load <2 x double>, ptr %190, align 8, !tbaa !5
   %191 = getelementptr inbounds [128 x [128 x double]], ptr %0, i64 %indvars.iv118.i, i64 %indvars.iv114.i, i64 120
   store <2 x double> %wide.load.30, ptr %191, align 8, !tbaa !5
   %192 = getelementptr inbounds [128 x [128 x double]], ptr %0, i64 %indvars.iv118.i, i64 %indvars.iv114.i, i64 122
-  store <2 x double> %wide.load173.30, ptr %192, align 8, !tbaa !5
+  store <2 x double> %wide.load171.30, ptr %192, align 8, !tbaa !5
   %193 = getelementptr inbounds [128 x [128 x double]], ptr %8, i64 %indvars.iv118.i, i64 %indvars.iv114.i, i64 124
   %wide.load.31 = load <2 x double>, ptr %193, align 8, !tbaa !5
   %194 = getelementptr inbounds [128 x [128 x double]], ptr %8, i64 %indvars.iv118.i, i64 %indvars.iv114.i, i64 126
-  %wide.load173.31 = load <2 x double>, ptr %194, align 8, !tbaa !5
+  %wide.load171.31 = load <2 x double>, ptr %194, align 8, !tbaa !5
   %195 = getelementptr inbounds [128 x [128 x double]], ptr %0, i64 %indvars.iv118.i, i64 %indvars.iv114.i, i64 124
   store <2 x double> %wide.load.31, ptr %195, align 8, !tbaa !5
   %196 = getelementptr inbounds [128 x [128 x double]], ptr %0, i64 %indvars.iv118.i, i64 %indvars.iv114.i, i64 126
-  store <2 x double> %wide.load173.31, ptr %196, align 8, !tbaa !5
+  store <2 x double> %wide.load171.31, ptr %196, align 8, !tbaa !5
   br label %for.inc57.i
 
-for.body41.i:                                     ; preds = %vector.memcheck164, %for.body41.i
-  %indvars.iv110.i = phi i64 [ %indvars.iv.next111.i.3, %for.body41.i ], [ 0, %vector.memcheck164 ]
+for.body41.i:                                     ; preds = %vector.memcheck162, %for.body41.i
+  %indvars.iv110.i = phi i64 [ %indvars.iv.next111.i.3, %for.body41.i ], [ 0, %vector.memcheck162 ]
   %arrayidx47.i = getelementptr inbounds [128 x [128 x double]], ptr %8, i64 %indvars.iv118.i, i64 %indvars.iv114.i, i64 %indvars.iv110.i
   %197 = load double, ptr %arrayidx47.i, align 8, !tbaa !5
   %arrayidx53.i = getelementptr inbounds [128 x [128 x double]], ptr %0, i64 %indvars.iv118.i, i64 %indvars.iv114.i, i64 %indvars.iv110.i
@@ -633,7 +633,7 @@ for.body41.i:                                     ; preds = %vector.memcheck164,
   %exitcond113.not.i.3 = icmp eq i64 %indvars.iv.next111.i.3, 128
   br i1 %exitcond113.not.i.3, label %for.inc57.i, label %for.body41.i, !llvm.loop !22
 
-for.inc57.i:                                      ; preds = %for.body41.i, %vector.body171
+for.inc57.i:                                      ; preds = %for.body41.i, %vector.body169
   %indvars.iv.next115.i = add nuw nsw i64 %indvars.iv114.i, 1
   %exitcond117.not.i = icmp eq i64 %indvars.iv.next115.i, 128
   br i1 %exitcond117.not.i, label %for.inc60.i, label %for.cond4.preheader.i68, !llvm.loop !23
@@ -688,274 +688,274 @@ for.body13.i87:                                   ; preds = %for.body13.i87, %fo
 for.inc36.i90:                                    ; preds = %for.body13.i87
   %indvars.iv.next104.i88 = add nuw nsw i64 %indvars.iv103.i77, 1
   %exitcond106.not.i89 = icmp eq i64 %indvars.iv.next104.i88, 128
-  br i1 %exitcond106.not.i89, label %vector.memcheck175, label %for.body6.i79, !llvm.loop !26
+  br i1 %exitcond106.not.i89, label %vector.memcheck173, label %for.body6.i79, !llvm.loop !26
 
-vector.memcheck175:                               ; preds = %for.inc36.i90
+vector.memcheck173:                               ; preds = %for.inc36.i90
   %212 = sub i64 %205, %206
-  %diff.check176 = icmp ult i64 %212, 32
-  br i1 %diff.check176, label %for.body41.i96, label %vector.body182
+  %diff.check174 = icmp ult i64 %212, 32
+  br i1 %diff.check174, label %for.body41.i96, label %vector.body180
 
-vector.body182:                                   ; preds = %vector.memcheck175
+vector.body180:                                   ; preds = %vector.memcheck173
   %213 = getelementptr inbounds [128 x [128 x double]], ptr %8, i64 %indvars.iv118.i73, i64 %indvars.iv114.i75, i64 0
-  %wide.load184 = load <2 x double>, ptr %213, align 8, !tbaa !5
+  %wide.load182 = load <2 x double>, ptr %213, align 8, !tbaa !5
   %214 = getelementptr inbounds [128 x [128 x double]], ptr %8, i64 %indvars.iv118.i73, i64 %indvars.iv114.i75, i64 2
-  %wide.load185 = load <2 x double>, ptr %214, align 8, !tbaa !5
+  %wide.load183 = load <2 x double>, ptr %214, align 8, !tbaa !5
   %215 = getelementptr inbounds [128 x [128 x double]], ptr %4, i64 %indvars.iv118.i73, i64 %indvars.iv114.i75, i64 0
-  store <2 x double> %wide.load184, ptr %215, align 8, !tbaa !5
+  store <2 x double> %wide.load182, ptr %215, align 8, !tbaa !5
   %216 = getelementptr inbounds [128 x [128 x double]], ptr %4, i64 %indvars.iv118.i73, i64 %indvars.iv114.i75, i64 2
-  store <2 x double> %wide.load185, ptr %216, align 8, !tbaa !5
+  store <2 x double> %wide.load183, ptr %216, align 8, !tbaa !5
   %217 = getelementptr inbounds [128 x [128 x double]], ptr %8, i64 %indvars.iv118.i73, i64 %indvars.iv114.i75, i64 4
-  %wide.load184.1 = load <2 x double>, ptr %217, align 8, !tbaa !5
+  %wide.load182.1 = load <2 x double>, ptr %217, align 8, !tbaa !5
   %218 = getelementptr inbounds [128 x [128 x double]], ptr %8, i64 %indvars.iv118.i73, i64 %indvars.iv114.i75, i64 6
-  %wide.load185.1 = load <2 x double>, ptr %218, align 8, !tbaa !5
+  %wide.load183.1 = load <2 x double>, ptr %218, align 8, !tbaa !5
   %219 = getelementptr inbounds [128 x [128 x double]], ptr %4, i64 %indvars.iv118.i73, i64 %indvars.iv114.i75, i64 4
-  store <2 x double> %wide.load184.1, ptr %219, align 8, !tbaa !5
+  store <2 x double> %wide.load182.1, ptr %219, align 8, !tbaa !5
   %220 = getelementptr inbounds [128 x [128 x double]], ptr %4, i64 %indvars.iv118.i73, i64 %indvars.iv114.i75, i64 6
-  store <2 x double> %wide.load185.1, ptr %220, align 8, !tbaa !5
+  store <2 x double> %wide.load183.1, ptr %220, align 8, !tbaa !5
   %221 = getelementptr inbounds [128 x [128 x double]], ptr %8, i64 %indvars.iv118.i73, i64 %indvars.iv114.i75, i64 8
-  %wide.load184.2 = load <2 x double>, ptr %221, align 8, !tbaa !5
+  %wide.load182.2 = load <2 x double>, ptr %221, align 8, !tbaa !5
   %222 = getelementptr inbounds [128 x [128 x double]], ptr %8, i64 %indvars.iv118.i73, i64 %indvars.iv114.i75, i64 10
-  %wide.load185.2 = load <2 x double>, ptr %222, align 8, !tbaa !5
+  %wide.load183.2 = load <2 x double>, ptr %222, align 8, !tbaa !5
   %223 = getelementptr inbounds [128 x [128 x double]], ptr %4, i64 %indvars.iv118.i73, i64 %indvars.iv114.i75, i64 8
-  store <2 x double> %wide.load184.2, ptr %223, align 8, !tbaa !5
+  store <2 x double> %wide.load182.2, ptr %223, align 8, !tbaa !5
   %224 = getelementptr inbounds [128 x [128 x double]], ptr %4, i64 %indvars.iv118.i73, i64 %indvars.iv114.i75, i64 10
-  store <2 x double> %wide.load185.2, ptr %224, align 8, !tbaa !5
+  store <2 x double> %wide.load183.2, ptr %224, align 8, !tbaa !5
   %225 = getelementptr inbounds [128 x [128 x double]], ptr %8, i64 %indvars.iv118.i73, i64 %indvars.iv114.i75, i64 12
-  %wide.load184.3 = load <2 x double>, ptr %225, align 8, !tbaa !5
+  %wide.load182.3 = load <2 x double>, ptr %225, align 8, !tbaa !5
   %226 = getelementptr inbounds [128 x [128 x double]], ptr %8, i64 %indvars.iv118.i73, i64 %indvars.iv114.i75, i64 14
-  %wide.load185.3 = load <2 x double>, ptr %226, align 8, !tbaa !5
+  %wide.load183.3 = load <2 x double>, ptr %226, align 8, !tbaa !5
   %227 = getelementptr inbounds [128 x [128 x double]], ptr %4, i64 %indvars.iv118.i73, i64 %indvars.iv114.i75, i64 12
-  store <2 x double> %wide.load184.3, ptr %227, align 8, !tbaa !5
+  store <2 x double> %wide.load182.3, ptr %227, align 8, !tbaa !5
   %228 = getelementptr inbounds [128 x [128 x double]], ptr %4, i64 %indvars.iv118.i73, i64 %indvars.iv114.i75, i64 14
-  store <2 x double> %wide.load185.3, ptr %228, align 8, !tbaa !5
+  store <2 x double> %wide.load183.3, ptr %228, align 8, !tbaa !5
   %229 = getelementptr inbounds [128 x [128 x double]], ptr %8, i64 %indvars.iv118.i73, i64 %indvars.iv114.i75, i64 16
-  %wide.load184.4 = load <2 x double>, ptr %229, align 8, !tbaa !5
+  %wide.load182.4 = load <2 x double>, ptr %229, align 8, !tbaa !5
   %230 = getelementptr inbounds [128 x [128 x double]], ptr %8, i64 %indvars.iv118.i73, i64 %indvars.iv114.i75, i64 18
-  %wide.load185.4 = load <2 x double>, ptr %230, align 8, !tbaa !5
+  %wide.load183.4 = load <2 x double>, ptr %230, align 8, !tbaa !5
   %231 = getelementptr inbounds [128 x [128 x double]], ptr %4, i64 %indvars.iv118.i73, i64 %indvars.iv114.i75, i64 16
-  store <2 x double> %wide.load184.4, ptr %231, align 8, !tbaa !5
+  store <2 x double> %wide.load182.4, ptr %231, align 8, !tbaa !5
   %232 = getelementptr inbounds [128 x [128 x double]], ptr %4, i64 %indvars.iv118.i73, i64 %indvars.iv114.i75, i64 18
-  store <2 x double> %wide.load185.4, ptr %232, align 8, !tbaa !5
+  store <2 x double> %wide.load183.4, ptr %232, align 8, !tbaa !5
   %233 = getelementptr inbounds [128 x [128 x double]], ptr %8, i64 %indvars.iv118.i73, i64 %indvars.iv114.i75, i64 20
-  %wide.load184.5 = load <2 x double>, ptr %233, align 8, !tbaa !5
+  %wide.load182.5 = load <2 x double>, ptr %233, align 8, !tbaa !5
   %234 = getelementptr inbounds [128 x [128 x double]], ptr %8, i64 %indvars.iv118.i73, i64 %indvars.iv114.i75, i64 22
-  %wide.load185.5 = load <2 x double>, ptr %234, align 8, !tbaa !5
+  %wide.load183.5 = load <2 x double>, ptr %234, align 8, !tbaa !5
   %235 = getelementptr inbounds [128 x [128 x double]], ptr %4, i64 %indvars.iv118.i73, i64 %indvars.iv114.i75, i64 20
-  store <2 x double> %wide.load184.5, ptr %235, align 8, !tbaa !5
+  store <2 x double> %wide.load182.5, ptr %235, align 8, !tbaa !5
   %236 = getelementptr inbounds [128 x [128 x double]], ptr %4, i64 %indvars.iv118.i73, i64 %indvars.iv114.i75, i64 22
-  store <2 x double> %wide.load185.5, ptr %236, align 8, !tbaa !5
+  store <2 x double> %wide.load183.5, ptr %236, align 8, !tbaa !5
   %237 = getelementptr inbounds [128 x [128 x double]], ptr %8, i64 %indvars.iv118.i73, i64 %indvars.iv114.i75, i64 24
-  %wide.load184.6 = load <2 x double>, ptr %237, align 8, !tbaa !5
+  %wide.load182.6 = load <2 x double>, ptr %237, align 8, !tbaa !5
   %238 = getelementptr inbounds [128 x [128 x double]], ptr %8, i64 %indvars.iv118.i73, i64 %indvars.iv114.i75, i64 26
-  %wide.load185.6 = load <2 x double>, ptr %238, align 8, !tbaa !5
+  %wide.load183.6 = load <2 x double>, ptr %238, align 8, !tbaa !5
   %239 = getelementptr inbounds [128 x [128 x double]], ptr %4, i64 %indvars.iv118.i73, i64 %indvars.iv114.i75, i64 24
-  store <2 x double> %wide.load184.6, ptr %239, align 8, !tbaa !5
+  store <2 x double> %wide.load182.6, ptr %239, align 8, !tbaa !5
   %240 = getelementptr inbounds [128 x [128 x double]], ptr %4, i64 %indvars.iv118.i73, i64 %indvars.iv114.i75, i64 26
-  store <2 x double> %wide.load185.6, ptr %240, align 8, !tbaa !5
+  store <2 x double> %wide.load183.6, ptr %240, align 8, !tbaa !5
   %241 = getelementptr inbounds [128 x [128 x double]], ptr %8, i64 %indvars.iv118.i73, i64 %indvars.iv114.i75, i64 28
-  %wide.load184.7 = load <2 x double>, ptr %241, align 8, !tbaa !5
+  %wide.load182.7 = load <2 x double>, ptr %241, align 8, !tbaa !5
   %242 = getelementptr inbounds [128 x [128 x double]], ptr %8, i64 %indvars.iv118.i73, i64 %indvars.iv114.i75, i64 30
-  %wide.load185.7 = load <2 x double>, ptr %242, align 8, !tbaa !5
+  %wide.load183.7 = load <2 x double>, ptr %242, align 8, !tbaa !5
   %243 = getelementptr inbounds [128 x [128 x double]], ptr %4, i64 %indvars.iv118.i73, i64 %indvars.iv114.i75, i64 28
-  store <2 x double> %wide.load184.7, ptr %243, align 8, !tbaa !5
+  store <2 x double> %wide.load182.7, ptr %243, align 8, !tbaa !5
   %244 = getelementptr inbounds [128 x [128 x double]], ptr %4, i64 %indvars.iv118.i73, i64 %indvars.iv114.i75, i64 30
-  store <2 x double> %wide.load185.7, ptr %244, align 8, !tbaa !5
+  store <2 x double> %wide.load183.7, ptr %244, align 8, !tbaa !5
   %245 = getelementptr inbounds [128 x [128 x double]], ptr %8, i64 %indvars.iv118.i73, i64 %indvars.iv114.i75, i64 32
-  %wide.load184.8 = load <2 x double>, ptr %245, align 8, !tbaa !5
+  %wide.load182.8 = load <2 x double>, ptr %245, align 8, !tbaa !5
   %246 = getelementptr inbounds [128 x [128 x double]], ptr %8, i64 %indvars.iv118.i73, i64 %indvars.iv114.i75, i64 34
-  %wide.load185.8 = load <2 x double>, ptr %246, align 8, !tbaa !5
+  %wide.load183.8 = load <2 x double>, ptr %246, align 8, !tbaa !5
   %247 = getelementptr inbounds [128 x [128 x double]], ptr %4, i64 %indvars.iv118.i73, i64 %indvars.iv114.i75, i64 32
-  store <2 x double> %wide.load184.8, ptr %247, align 8, !tbaa !5
+  store <2 x double> %wide.load182.8, ptr %247, align 8, !tbaa !5
   %248 = getelementptr inbounds [128 x [128 x double]], ptr %4, i64 %indvars.iv118.i73, i64 %indvars.iv114.i75, i64 34
-  store <2 x double> %wide.load185.8, ptr %248, align 8, !tbaa !5
+  store <2 x double> %wide.load183.8, ptr %248, align 8, !tbaa !5
   %249 = getelementptr inbounds [128 x [128 x double]], ptr %8, i64 %indvars.iv118.i73, i64 %indvars.iv114.i75, i64 36
-  %wide.load184.9 = load <2 x double>, ptr %249, align 8, !tbaa !5
+  %wide.load182.9 = load <2 x double>, ptr %249, align 8, !tbaa !5
   %250 = getelementptr inbounds [128 x [128 x double]], ptr %8, i64 %indvars.iv118.i73, i64 %indvars.iv114.i75, i64 38
-  %wide.load185.9 = load <2 x double>, ptr %250, align 8, !tbaa !5
+  %wide.load183.9 = load <2 x double>, ptr %250, align 8, !tbaa !5
   %251 = getelementptr inbounds [128 x [128 x double]], ptr %4, i64 %indvars.iv118.i73, i64 %indvars.iv114.i75, i64 36
-  store <2 x double> %wide.load184.9, ptr %251, align 8, !tbaa !5
+  store <2 x double> %wide.load182.9, ptr %251, align 8, !tbaa !5
   %252 = getelementptr inbounds [128 x [128 x double]], ptr %4, i64 %indvars.iv118.i73, i64 %indvars.iv114.i75, i64 38
-  store <2 x double> %wide.load185.9, ptr %252, align 8, !tbaa !5
+  store <2 x double> %wide.load183.9, ptr %252, align 8, !tbaa !5
   %253 = getelementptr inbounds [128 x [128 x double]], ptr %8, i64 %indvars.iv118.i73, i64 %indvars.iv114.i75, i64 40
-  %wide.load184.10 = load <2 x double>, ptr %253, align 8, !tbaa !5
+  %wide.load182.10 = load <2 x double>, ptr %253, align 8, !tbaa !5
   %254 = getelementptr inbounds [128 x [128 x double]], ptr %8, i64 %indvars.iv118.i73, i64 %indvars.iv114.i75, i64 42
-  %wide.load185.10 = load <2 x double>, ptr %254, align 8, !tbaa !5
+  %wide.load183.10 = load <2 x double>, ptr %254, align 8, !tbaa !5
   %255 = getelementptr inbounds [128 x [128 x double]], ptr %4, i64 %indvars.iv118.i73, i64 %indvars.iv114.i75, i64 40
-  store <2 x double> %wide.load184.10, ptr %255, align 8, !tbaa !5
+  store <2 x double> %wide.load182.10, ptr %255, align 8, !tbaa !5
   %256 = getelementptr inbounds [128 x [128 x double]], ptr %4, i64 %indvars.iv118.i73, i64 %indvars.iv114.i75, i64 42
-  store <2 x double> %wide.load185.10, ptr %256, align 8, !tbaa !5
+  store <2 x double> %wide.load183.10, ptr %256, align 8, !tbaa !5
   %257 = getelementptr inbounds [128 x [128 x double]], ptr %8, i64 %indvars.iv118.i73, i64 %indvars.iv114.i75, i64 44
-  %wide.load184.11 = load <2 x double>, ptr %257, align 8, !tbaa !5
+  %wide.load182.11 = load <2 x double>, ptr %257, align 8, !tbaa !5
   %258 = getelementptr inbounds [128 x [128 x double]], ptr %8, i64 %indvars.iv118.i73, i64 %indvars.iv114.i75, i64 46
-  %wide.load185.11 = load <2 x double>, ptr %258, align 8, !tbaa !5
+  %wide.load183.11 = load <2 x double>, ptr %258, align 8, !tbaa !5
   %259 = getelementptr inbounds [128 x [128 x double]], ptr %4, i64 %indvars.iv118.i73, i64 %indvars.iv114.i75, i64 44
-  store <2 x double> %wide.load184.11, ptr %259, align 8, !tbaa !5
+  store <2 x double> %wide.load182.11, ptr %259, align 8, !tbaa !5
   %260 = getelementptr inbounds [128 x [128 x double]], ptr %4, i64 %indvars.iv118.i73, i64 %indvars.iv114.i75, i64 46
-  store <2 x double> %wide.load185.11, ptr %260, align 8, !tbaa !5
+  store <2 x double> %wide.load183.11, ptr %260, align 8, !tbaa !5
   %261 = getelementptr inbounds [128 x [128 x double]], ptr %8, i64 %indvars.iv118.i73, i64 %indvars.iv114.i75, i64 48
-  %wide.load184.12 = load <2 x double>, ptr %261, align 8, !tbaa !5
+  %wide.load182.12 = load <2 x double>, ptr %261, align 8, !tbaa !5
   %262 = getelementptr inbounds [128 x [128 x double]], ptr %8, i64 %indvars.iv118.i73, i64 %indvars.iv114.i75, i64 50
-  %wide.load185.12 = load <2 x double>, ptr %262, align 8, !tbaa !5
+  %wide.load183.12 = load <2 x double>, ptr %262, align 8, !tbaa !5
   %263 = getelementptr inbounds [128 x [128 x double]], ptr %4, i64 %indvars.iv118.i73, i64 %indvars.iv114.i75, i64 48
-  store <2 x double> %wide.load184.12, ptr %263, align 8, !tbaa !5
+  store <2 x double> %wide.load182.12, ptr %263, align 8, !tbaa !5
   %264 = getelementptr inbounds [128 x [128 x double]], ptr %4, i64 %indvars.iv118.i73, i64 %indvars.iv114.i75, i64 50
-  store <2 x double> %wide.load185.12, ptr %264, align 8, !tbaa !5
+  store <2 x double> %wide.load183.12, ptr %264, align 8, !tbaa !5
   %265 = getelementptr inbounds [128 x [128 x double]], ptr %8, i64 %indvars.iv118.i73, i64 %indvars.iv114.i75, i64 52
-  %wide.load184.13 = load <2 x double>, ptr %265, align 8, !tbaa !5
+  %wide.load182.13 = load <2 x double>, ptr %265, align 8, !tbaa !5
   %266 = getelementptr inbounds [128 x [128 x double]], ptr %8, i64 %indvars.iv118.i73, i64 %indvars.iv114.i75, i64 54
-  %wide.load185.13 = load <2 x double>, ptr %266, align 8, !tbaa !5
+  %wide.load183.13 = load <2 x double>, ptr %266, align 8, !tbaa !5
   %267 = getelementptr inbounds [128 x [128 x double]], ptr %4, i64 %indvars.iv118.i73, i64 %indvars.iv114.i75, i64 52
-  store <2 x double> %wide.load184.13, ptr %267, align 8, !tbaa !5
+  store <2 x double> %wide.load182.13, ptr %267, align 8, !tbaa !5
   %268 = getelementptr inbounds [128 x [128 x double]], ptr %4, i64 %indvars.iv118.i73, i64 %indvars.iv114.i75, i64 54
-  store <2 x double> %wide.load185.13, ptr %268, align 8, !tbaa !5
+  store <2 x double> %wide.load183.13, ptr %268, align 8, !tbaa !5
   %269 = getelementptr inbounds [128 x [128 x double]], ptr %8, i64 %indvars.iv118.i73, i64 %indvars.iv114.i75, i64 56
-  %wide.load184.14 = load <2 x double>, ptr %269, align 8, !tbaa !5
+  %wide.load182.14 = load <2 x double>, ptr %269, align 8, !tbaa !5
   %270 = getelementptr inbounds [128 x [128 x double]], ptr %8, i64 %indvars.iv118.i73, i64 %indvars.iv114.i75, i64 58
-  %wide.load185.14 = load <2 x double>, ptr %270, align 8, !tbaa !5
+  %wide.load183.14 = load <2 x double>, ptr %270, align 8, !tbaa !5
   %271 = getelementptr inbounds [128 x [128 x double]], ptr %4, i64 %indvars.iv118.i73, i64 %indvars.iv114.i75, i64 56
-  store <2 x double> %wide.load184.14, ptr %271, align 8, !tbaa !5
+  store <2 x double> %wide.load182.14, ptr %271, align 8, !tbaa !5
   %272 = getelementptr inbounds [128 x [128 x double]], ptr %4, i64 %indvars.iv118.i73, i64 %indvars.iv114.i75, i64 58
-  store <2 x double> %wide.load185.14, ptr %272, align 8, !tbaa !5
+  store <2 x double> %wide.load183.14, ptr %272, align 8, !tbaa !5
   %273 = getelementptr inbounds [128 x [128 x double]], ptr %8, i64 %indvars.iv118.i73, i64 %indvars.iv114.i75, i64 60
-  %wide.load184.15 = load <2 x double>, ptr %273, align 8, !tbaa !5
+  %wide.load182.15 = load <2 x double>, ptr %273, align 8, !tbaa !5
   %274 = getelementptr inbounds [128 x [128 x double]], ptr %8, i64 %indvars.iv118.i73, i64 %indvars.iv114.i75, i64 62
-  %wide.load185.15 = load <2 x double>, ptr %274, align 8, !tbaa !5
+  %wide.load183.15 = load <2 x double>, ptr %274, align 8, !tbaa !5
   %275 = getelementptr inbounds [128 x [128 x double]], ptr %4, i64 %indvars.iv118.i73, i64 %indvars.iv114.i75, i64 60
-  store <2 x double> %wide.load184.15, ptr %275, align 8, !tbaa !5
+  store <2 x double> %wide.load182.15, ptr %275, align 8, !tbaa !5
   %276 = getelementptr inbounds [128 x [128 x double]], ptr %4, i64 %indvars.iv118.i73, i64 %indvars.iv114.i75, i64 62
-  store <2 x double> %wide.load185.15, ptr %276, align 8, !tbaa !5
+  store <2 x double> %wide.load183.15, ptr %276, align 8, !tbaa !5
   %277 = getelementptr inbounds [128 x [128 x double]], ptr %8, i64 %indvars.iv118.i73, i64 %indvars.iv114.i75, i64 64
-  %wide.load184.16 = load <2 x double>, ptr %277, align 8, !tbaa !5
+  %wide.load182.16 = load <2 x double>, ptr %277, align 8, !tbaa !5
   %278 = getelementptr inbounds [128 x [128 x double]], ptr %8, i64 %indvars.iv118.i73, i64 %indvars.iv114.i75, i64 66
-  %wide.load185.16 = load <2 x double>, ptr %278, align 8, !tbaa !5
+  %wide.load183.16 = load <2 x double>, ptr %278, align 8, !tbaa !5
   %279 = getelementptr inbounds [128 x [128 x double]], ptr %4, i64 %indvars.iv118.i73, i64 %indvars.iv114.i75, i64 64
-  store <2 x double> %wide.load184.16, ptr %279, align 8, !tbaa !5
+  store <2 x double> %wide.load182.16, ptr %279, align 8, !tbaa !5
   %280 = getelementptr inbounds [128 x [128 x double]], ptr %4, i64 %indvars.iv118.i73, i64 %indvars.iv114.i75, i64 66
-  store <2 x double> %wide.load185.16, ptr %280, align 8, !tbaa !5
+  store <2 x double> %wide.load183.16, ptr %280, align 8, !tbaa !5
   %281 = getelementptr inbounds [128 x [128 x double]], ptr %8, i64 %indvars.iv118.i73, i64 %indvars.iv114.i75, i64 68
-  %wide.load184.17 = load <2 x double>, ptr %281, align 8, !tbaa !5
+  %wide.load182.17 = load <2 x double>, ptr %281, align 8, !tbaa !5
   %282 = getelementptr inbounds [128 x [128 x double]], ptr %8, i64 %indvars.iv118.i73, i64 %indvars.iv114.i75, i64 70
-  %wide.load185.17 = load <2 x double>, ptr %282, align 8, !tbaa !5
+  %wide.load183.17 = load <2 x double>, ptr %282, align 8, !tbaa !5
   %283 = getelementptr inbounds [128 x [128 x double]], ptr %4, i64 %indvars.iv118.i73, i64 %indvars.iv114.i75, i64 68
-  store <2 x double> %wide.load184.17, ptr %283, align 8, !tbaa !5
+  store <2 x double> %wide.load182.17, ptr %283, align 8, !tbaa !5
   %284 = getelementptr inbounds [128 x [128 x double]], ptr %4, i64 %indvars.iv118.i73, i64 %indvars.iv114.i75, i64 70
-  store <2 x double> %wide.load185.17, ptr %284, align 8, !tbaa !5
+  store <2 x double> %wide.load183.17, ptr %284, align 8, !tbaa !5
   %285 = getelementptr inbounds [128 x [128 x double]], ptr %8, i64 %indvars.iv118.i73, i64 %indvars.iv114.i75, i64 72
-  %wide.load184.18 = load <2 x double>, ptr %285, align 8, !tbaa !5
+  %wide.load182.18 = load <2 x double>, ptr %285, align 8, !tbaa !5
   %286 = getelementptr inbounds [128 x [128 x double]], ptr %8, i64 %indvars.iv118.i73, i64 %indvars.iv114.i75, i64 74
-  %wide.load185.18 = load <2 x double>, ptr %286, align 8, !tbaa !5
+  %wide.load183.18 = load <2 x double>, ptr %286, align 8, !tbaa !5
   %287 = getelementptr inbounds [128 x [128 x double]], ptr %4, i64 %indvars.iv118.i73, i64 %indvars.iv114.i75, i64 72
-  store <2 x double> %wide.load184.18, ptr %287, align 8, !tbaa !5
+  store <2 x double> %wide.load182.18, ptr %287, align 8, !tbaa !5
   %288 = getelementptr inbounds [128 x [128 x double]], ptr %4, i64 %indvars.iv118.i73, i64 %indvars.iv114.i75, i64 74
-  store <2 x double> %wide.load185.18, ptr %288, align 8, !tbaa !5
+  store <2 x double> %wide.load183.18, ptr %288, align 8, !tbaa !5
   %289 = getelementptr inbounds [128 x [128 x double]], ptr %8, i64 %indvars.iv118.i73, i64 %indvars.iv114.i75, i64 76
-  %wide.load184.19 = load <2 x double>, ptr %289, align 8, !tbaa !5
+  %wide.load182.19 = load <2 x double>, ptr %289, align 8, !tbaa !5
   %290 = getelementptr inbounds [128 x [128 x double]], ptr %8, i64 %indvars.iv118.i73, i64 %indvars.iv114.i75, i64 78
-  %wide.load185.19 = load <2 x double>, ptr %290, align 8, !tbaa !5
+  %wide.load183.19 = load <2 x double>, ptr %290, align 8, !tbaa !5
   %291 = getelementptr inbounds [128 x [128 x double]], ptr %4, i64 %indvars.iv118.i73, i64 %indvars.iv114.i75, i64 76
-  store <2 x double> %wide.load184.19, ptr %291, align 8, !tbaa !5
+  store <2 x double> %wide.load182.19, ptr %291, align 8, !tbaa !5
   %292 = getelementptr inbounds [128 x [128 x double]], ptr %4, i64 %indvars.iv118.i73, i64 %indvars.iv114.i75, i64 78
-  store <2 x double> %wide.load185.19, ptr %292, align 8, !tbaa !5
+  store <2 x double> %wide.load183.19, ptr %292, align 8, !tbaa !5
   %293 = getelementptr inbounds [128 x [128 x double]], ptr %8, i64 %indvars.iv118.i73, i64 %indvars.iv114.i75, i64 80
-  %wide.load184.20 = load <2 x double>, ptr %293, align 8, !tbaa !5
+  %wide.load182.20 = load <2 x double>, ptr %293, align 8, !tbaa !5
   %294 = getelementptr inbounds [128 x [128 x double]], ptr %8, i64 %indvars.iv118.i73, i64 %indvars.iv114.i75, i64 82
-  %wide.load185.20 = load <2 x double>, ptr %294, align 8, !tbaa !5
+  %wide.load183.20 = load <2 x double>, ptr %294, align 8, !tbaa !5
   %295 = getelementptr inbounds [128 x [128 x double]], ptr %4, i64 %indvars.iv118.i73, i64 %indvars.iv114.i75, i64 80
-  store <2 x double> %wide.load184.20, ptr %295, align 8, !tbaa !5
+  store <2 x double> %wide.load182.20, ptr %295, align 8, !tbaa !5
   %296 = getelementptr inbounds [128 x [128 x double]], ptr %4, i64 %indvars.iv118.i73, i64 %indvars.iv114.i75, i64 82
-  store <2 x double> %wide.load185.20, ptr %296, align 8, !tbaa !5
+  store <2 x double> %wide.load183.20, ptr %296, align 8, !tbaa !5
   %297 = getelementptr inbounds [128 x [128 x double]], ptr %8, i64 %indvars.iv118.i73, i64 %indvars.iv114.i75, i64 84
-  %wide.load184.21 = load <2 x double>, ptr %297, align 8, !tbaa !5
+  %wide.load182.21 = load <2 x double>, ptr %297, align 8, !tbaa !5
   %298 = getelementptr inbounds [128 x [128 x double]], ptr %8, i64 %indvars.iv118.i73, i64 %indvars.iv114.i75, i64 86
-  %wide.load185.21 = load <2 x double>, ptr %298, align 8, !tbaa !5
+  %wide.load183.21 = load <2 x double>, ptr %298, align 8, !tbaa !5
   %299 = getelementptr inbounds [128 x [128 x double]], ptr %4, i64 %indvars.iv118.i73, i64 %indvars.iv114.i75, i64 84
-  store <2 x double> %wide.load184.21, ptr %299, align 8, !tbaa !5
+  store <2 x double> %wide.load182.21, ptr %299, align 8, !tbaa !5
   %300 = getelementptr inbounds [128 x [128 x double]], ptr %4, i64 %indvars.iv118.i73, i64 %indvars.iv114.i75, i64 86
-  store <2 x double> %wide.load185.21, ptr %300, align 8, !tbaa !5
+  store <2 x double> %wide.load183.21, ptr %300, align 8, !tbaa !5
   %301 = getelementptr inbounds [128 x [128 x double]], ptr %8, i64 %indvars.iv118.i73, i64 %indvars.iv114.i75, i64 88
-  %wide.load184.22 = load <2 x double>, ptr %301, align 8, !tbaa !5
+  %wide.load182.22 = load <2 x double>, ptr %301, align 8, !tbaa !5
   %302 = getelementptr inbounds [128 x [128 x double]], ptr %8, i64 %indvars.iv118.i73, i64 %indvars.iv114.i75, i64 90
-  %wide.load185.22 = load <2 x double>, ptr %302, align 8, !tbaa !5
+  %wide.load183.22 = load <2 x double>, ptr %302, align 8, !tbaa !5
   %303 = getelementptr inbounds [128 x [128 x double]], ptr %4, i64 %indvars.iv118.i73, i64 %indvars.iv114.i75, i64 88
-  store <2 x double> %wide.load184.22, ptr %303, align 8, !tbaa !5
+  store <2 x double> %wide.load182.22, ptr %303, align 8, !tbaa !5
   %304 = getelementptr inbounds [128 x [128 x double]], ptr %4, i64 %indvars.iv118.i73, i64 %indvars.iv114.i75, i64 90
-  store <2 x double> %wide.load185.22, ptr %304, align 8, !tbaa !5
+  store <2 x double> %wide.load183.22, ptr %304, align 8, !tbaa !5
   %305 = getelementptr inbounds [128 x [128 x double]], ptr %8, i64 %indvars.iv118.i73, i64 %indvars.iv114.i75, i64 92
-  %wide.load184.23 = load <2 x double>, ptr %305, align 8, !tbaa !5
+  %wide.load182.23 = load <2 x double>, ptr %305, align 8, !tbaa !5
   %306 = getelementptr inbounds [128 x [128 x double]], ptr %8, i64 %indvars.iv118.i73, i64 %indvars.iv114.i75, i64 94
-  %wide.load185.23 = load <2 x double>, ptr %306, align 8, !tbaa !5
+  %wide.load183.23 = load <2 x double>, ptr %306, align 8, !tbaa !5
   %307 = getelementptr inbounds [128 x [128 x double]], ptr %4, i64 %indvars.iv118.i73, i64 %indvars.iv114.i75, i64 92
-  store <2 x double> %wide.load184.23, ptr %307, align 8, !tbaa !5
+  store <2 x double> %wide.load182.23, ptr %307, align 8, !tbaa !5
   %308 = getelementptr inbounds [128 x [128 x double]], ptr %4, i64 %indvars.iv118.i73, i64 %indvars.iv114.i75, i64 94
-  store <2 x double> %wide.load185.23, ptr %308, align 8, !tbaa !5
+  store <2 x double> %wide.load183.23, ptr %308, align 8, !tbaa !5
   %309 = getelementptr inbounds [128 x [128 x double]], ptr %8, i64 %indvars.iv118.i73, i64 %indvars.iv114.i75, i64 96
-  %wide.load184.24 = load <2 x double>, ptr %309, align 8, !tbaa !5
+  %wide.load182.24 = load <2 x double>, ptr %309, align 8, !tbaa !5
   %310 = getelementptr inbounds [128 x [128 x double]], ptr %8, i64 %indvars.iv118.i73, i64 %indvars.iv114.i75, i64 98
-  %wide.load185.24 = load <2 x double>, ptr %310, align 8, !tbaa !5
+  %wide.load183.24 = load <2 x double>, ptr %310, align 8, !tbaa !5
   %311 = getelementptr inbounds [128 x [128 x double]], ptr %4, i64 %indvars.iv118.i73, i64 %indvars.iv114.i75, i64 96
-  store <2 x double> %wide.load184.24, ptr %311, align 8, !tbaa !5
+  store <2 x double> %wide.load182.24, ptr %311, align 8, !tbaa !5
   %312 = getelementptr inbounds [128 x [128 x double]], ptr %4, i64 %indvars.iv118.i73, i64 %indvars.iv114.i75, i64 98
-  store <2 x double> %wide.load185.24, ptr %312, align 8, !tbaa !5
+  store <2 x double> %wide.load183.24, ptr %312, align 8, !tbaa !5
   %313 = getelementptr inbounds [128 x [128 x double]], ptr %8, i64 %indvars.iv118.i73, i64 %indvars.iv114.i75, i64 100
-  %wide.load184.25 = load <2 x double>, ptr %313, align 8, !tbaa !5
+  %wide.load182.25 = load <2 x double>, ptr %313, align 8, !tbaa !5
   %314 = getelementptr inbounds [128 x [128 x double]], ptr %8, i64 %indvars.iv118.i73, i64 %indvars.iv114.i75, i64 102
-  %wide.load185.25 = load <2 x double>, ptr %314, align 8, !tbaa !5
+  %wide.load183.25 = load <2 x double>, ptr %314, align 8, !tbaa !5
   %315 = getelementptr inbounds [128 x [128 x double]], ptr %4, i64 %indvars.iv118.i73, i64 %indvars.iv114.i75, i64 100
-  store <2 x double> %wide.load184.25, ptr %315, align 8, !tbaa !5
+  store <2 x double> %wide.load182.25, ptr %315, align 8, !tbaa !5
   %316 = getelementptr inbounds [128 x [128 x double]], ptr %4, i64 %indvars.iv118.i73, i64 %indvars.iv114.i75, i64 102
-  store <2 x double> %wide.load185.25, ptr %316, align 8, !tbaa !5
+  store <2 x double> %wide.load183.25, ptr %316, align 8, !tbaa !5
   %317 = getelementptr inbounds [128 x [128 x double]], ptr %8, i64 %indvars.iv118.i73, i64 %indvars.iv114.i75, i64 104
-  %wide.load184.26 = load <2 x double>, ptr %317, align 8, !tbaa !5
+  %wide.load182.26 = load <2 x double>, ptr %317, align 8, !tbaa !5
   %318 = getelementptr inbounds [128 x [128 x double]], ptr %8, i64 %indvars.iv118.i73, i64 %indvars.iv114.i75, i64 106
-  %wide.load185.26 = load <2 x double>, ptr %318, align 8, !tbaa !5
+  %wide.load183.26 = load <2 x double>, ptr %318, align 8, !tbaa !5
   %319 = getelementptr inbounds [128 x [128 x double]], ptr %4, i64 %indvars.iv118.i73, i64 %indvars.iv114.i75, i64 104
-  store <2 x double> %wide.load184.26, ptr %319, align 8, !tbaa !5
+  store <2 x double> %wide.load182.26, ptr %319, align 8, !tbaa !5
   %320 = getelementptr inbounds [128 x [128 x double]], ptr %4, i64 %indvars.iv118.i73, i64 %indvars.iv114.i75, i64 106
-  store <2 x double> %wide.load185.26, ptr %320, align 8, !tbaa !5
+  store <2 x double> %wide.load183.26, ptr %320, align 8, !tbaa !5
   %321 = getelementptr inbounds [128 x [128 x double]], ptr %8, i64 %indvars.iv118.i73, i64 %indvars.iv114.i75, i64 108
-  %wide.load184.27 = load <2 x double>, ptr %321, align 8, !tbaa !5
+  %wide.load182.27 = load <2 x double>, ptr %321, align 8, !tbaa !5
   %322 = getelementptr inbounds [128 x [128 x double]], ptr %8, i64 %indvars.iv118.i73, i64 %indvars.iv114.i75, i64 110
-  %wide.load185.27 = load <2 x double>, ptr %322, align 8, !tbaa !5
+  %wide.load183.27 = load <2 x double>, ptr %322, align 8, !tbaa !5
   %323 = getelementptr inbounds [128 x [128 x double]], ptr %4, i64 %indvars.iv118.i73, i64 %indvars.iv114.i75, i64 108
-  store <2 x double> %wide.load184.27, ptr %323, align 8, !tbaa !5
+  store <2 x double> %wide.load182.27, ptr %323, align 8, !tbaa !5
   %324 = getelementptr inbounds [128 x [128 x double]], ptr %4, i64 %indvars.iv118.i73, i64 %indvars.iv114.i75, i64 110
-  store <2 x double> %wide.load185.27, ptr %324, align 8, !tbaa !5
+  store <2 x double> %wide.load183.27, ptr %324, align 8, !tbaa !5
   %325 = getelementptr inbounds [128 x [128 x double]], ptr %8, i64 %indvars.iv118.i73, i64 %indvars.iv114.i75, i64 112
-  %wide.load184.28 = load <2 x double>, ptr %325, align 8, !tbaa !5
+  %wide.load182.28 = load <2 x double>, ptr %325, align 8, !tbaa !5
   %326 = getelementptr inbounds [128 x [128 x double]], ptr %8, i64 %indvars.iv118.i73, i64 %indvars.iv114.i75, i64 114
-  %wide.load185.28 = load <2 x double>, ptr %326, align 8, !tbaa !5
+  %wide.load183.28 = load <2 x double>, ptr %326, align 8, !tbaa !5
   %327 = getelementptr inbounds [128 x [128 x double]], ptr %4, i64 %indvars.iv118.i73, i64 %indvars.iv114.i75, i64 112
-  store <2 x double> %wide.load184.28, ptr %327, align 8, !tbaa !5
+  store <2 x double> %wide.load182.28, ptr %327, align 8, !tbaa !5
   %328 = getelementptr inbounds [128 x [128 x double]], ptr %4, i64 %indvars.iv118.i73, i64 %indvars.iv114.i75, i64 114
-  store <2 x double> %wide.load185.28, ptr %328, align 8, !tbaa !5
+  store <2 x double> %wide.load183.28, ptr %328, align 8, !tbaa !5
   %329 = getelementptr inbounds [128 x [128 x double]], ptr %8, i64 %indvars.iv118.i73, i64 %indvars.iv114.i75, i64 116
-  %wide.load184.29 = load <2 x double>, ptr %329, align 8, !tbaa !5
+  %wide.load182.29 = load <2 x double>, ptr %329, align 8, !tbaa !5
   %330 = getelementptr inbounds [128 x [128 x double]], ptr %8, i64 %indvars.iv118.i73, i64 %indvars.iv114.i75, i64 118
-  %wide.load185.29 = load <2 x double>, ptr %330, align 8, !tbaa !5
+  %wide.load183.29 = load <2 x double>, ptr %330, align 8, !tbaa !5
   %331 = getelementptr inbounds [128 x [128 x double]], ptr %4, i64 %indvars.iv118.i73, i64 %indvars.iv114.i75, i64 116
-  store <2 x double> %wide.load184.29, ptr %331, align 8, !tbaa !5
+  store <2 x double> %wide.load182.29, ptr %331, align 8, !tbaa !5
   %332 = getelementptr inbounds [128 x [128 x double]], ptr %4, i64 %indvars.iv118.i73, i64 %indvars.iv114.i75, i64 118
-  store <2 x double> %wide.load185.29, ptr %332, align 8, !tbaa !5
+  store <2 x double> %wide.load183.29, ptr %332, align 8, !tbaa !5
   %333 = getelementptr inbounds [128 x [128 x double]], ptr %8, i64 %indvars.iv118.i73, i64 %indvars.iv114.i75, i64 120
-  %wide.load184.30 = load <2 x double>, ptr %333, align 8, !tbaa !5
+  %wide.load182.30 = load <2 x double>, ptr %333, align 8, !tbaa !5
   %334 = getelementptr inbounds [128 x [128 x double]], ptr %8, i64 %indvars.iv118.i73, i64 %indvars.iv114.i75, i64 122
-  %wide.load185.30 = load <2 x double>, ptr %334, align 8, !tbaa !5
+  %wide.load183.30 = load <2 x double>, ptr %334, align 8, !tbaa !5
   %335 = getelementptr inbounds [128 x [128 x double]], ptr %4, i64 %indvars.iv118.i73, i64 %indvars.iv114.i75, i64 120
-  store <2 x double> %wide.load184.30, ptr %335, align 8, !tbaa !5
+  store <2 x double> %wide.load182.30, ptr %335, align 8, !tbaa !5
   %336 = getelementptr inbounds [128 x [128 x double]], ptr %4, i64 %indvars.iv118.i73, i64 %indvars.iv114.i75, i64 122
-  store <2 x double> %wide.load185.30, ptr %336, align 8, !tbaa !5
+  store <2 x double> %wide.load183.30, ptr %336, align 8, !tbaa !5
   %337 = getelementptr inbounds [128 x [128 x double]], ptr %8, i64 %indvars.iv118.i73, i64 %indvars.iv114.i75, i64 124
-  %wide.load184.31 = load <2 x double>, ptr %337, align 8, !tbaa !5
+  %wide.load182.31 = load <2 x double>, ptr %337, align 8, !tbaa !5
   %338 = getelementptr inbounds [128 x [128 x double]], ptr %8, i64 %indvars.iv118.i73, i64 %indvars.iv114.i75, i64 126
-  %wide.load185.31 = load <2 x double>, ptr %338, align 8, !tbaa !5
+  %wide.load183.31 = load <2 x double>, ptr %338, align 8, !tbaa !5
   %339 = getelementptr inbounds [128 x [128 x double]], ptr %4, i64 %indvars.iv118.i73, i64 %indvars.iv114.i75, i64 124
-  store <2 x double> %wide.load184.31, ptr %339, align 8, !tbaa !5
+  store <2 x double> %wide.load182.31, ptr %339, align 8, !tbaa !5
   %340 = getelementptr inbounds [128 x [128 x double]], ptr %4, i64 %indvars.iv118.i73, i64 %indvars.iv114.i75, i64 126
-  store <2 x double> %wide.load185.31, ptr %340, align 8, !tbaa !5
+  store <2 x double> %wide.load183.31, ptr %340, align 8, !tbaa !5
   br label %for.inc57.i99
 
-for.body41.i96:                                   ; preds = %vector.memcheck175, %for.body41.i96
-  %indvars.iv110.i91 = phi i64 [ %indvars.iv.next111.i94.3, %for.body41.i96 ], [ 0, %vector.memcheck175 ]
+for.body41.i96:                                   ; preds = %vector.memcheck173, %for.body41.i96
+  %indvars.iv110.i91 = phi i64 [ %indvars.iv.next111.i94.3, %for.body41.i96 ], [ 0, %vector.memcheck173 ]
   %arrayidx47.i92 = getelementptr inbounds [128 x [128 x double]], ptr %8, i64 %indvars.iv118.i73, i64 %indvars.iv114.i75, i64 %indvars.iv110.i91
   %341 = load double, ptr %arrayidx47.i92, align 8, !tbaa !5
   %arrayidx53.i93 = getelementptr inbounds [128 x [128 x double]], ptr %4, i64 %indvars.iv118.i73, i64 %indvars.iv114.i75, i64 %indvars.iv110.i91
@@ -979,7 +979,7 @@ for.body41.i96:                                   ; preds = %vector.memcheck175,
   %exitcond113.not.i95.3 = icmp eq i64 %indvars.iv.next111.i94.3, 128
   br i1 %exitcond113.not.i95.3, label %for.inc57.i99, label %for.body41.i96, !llvm.loop !27
 
-for.inc57.i99:                                    ; preds = %for.body41.i96, %vector.body182
+for.inc57.i99:                                    ; preds = %for.body41.i96, %vector.body180
   %indvars.iv.next115.i97 = add nuw nsw i64 %indvars.iv114.i75, 1
   %exitcond117.not.i98 = icmp eq i64 %indvars.iv.next115.i97, 128
   br i1 %exitcond117.not.i98, label %for.inc60.i102, label %for.cond4.preheader.i76, !llvm.loop !28
@@ -1005,18 +1005,18 @@ for.body6.i107:                                   ; preds = %for.inc.i.1, %for.c
   %346 = load double, ptr %arrayidx16.i, align 8, !tbaa !5
   %sub.i = fsub double %345, %346
   %347 = call double @llvm.fabs.f64(double %sub.i)
-  %cmp17.i = fcmp ule double %347, 1.000000e-05
-  br i1 %cmp17.i, label %for.inc.i, label %check_FP.exit.thread
+  %cmp17.i = fcmp ogt double %347, 1.000000e-05
+  br i1 %cmp17.i, label %check_FP.exit.thread, label %for.inc.i
 
 check_FP.exit.thread:                             ; preds = %for.inc.i, %for.body6.i107
   %indvars.iv.i105.lcssa = phi i64 [ %indvars.iv.i105, %for.body6.i107 ], [ %indvars.iv.next.i108, %for.inc.i ]
-  %.lcssa188 = phi double [ %345, %for.body6.i107 ], [ %352, %for.inc.i ]
+  %.lcssa186 = phi double [ %345, %for.body6.i107 ], [ %352, %for.inc.i ]
   %.lcssa = phi double [ %346, %for.body6.i107 ], [ %353, %for.inc.i ]
   %348 = trunc i64 %indvars.iv67.i to i32
   %349 = trunc i64 %indvars.iv63.i to i32
   %350 = trunc i64 %indvars.iv.i105.lcssa to i32
   %351 = load ptr, ptr @stderr, align 8, !tbaa !9
-  %call.i = call i32 (ptr, ptr, ...) @fprintf(ptr noundef %351, ptr noundef nonnull @.str.2, i32 noundef %348, i32 noundef %349, i32 noundef %350, double noundef %.lcssa188, i32 noundef %348, i32 noundef %349, i32 noundef %350, double noundef %.lcssa, double noundef 1.000000e-05) #12
+  %call.i = call i32 (ptr, ptr, ...) @fprintf(ptr noundef %351, ptr noundef nonnull @.str.2, i32 noundef %348, i32 noundef %349, i32 noundef %350, double noundef %.lcssa186, i32 noundef %348, i32 noundef %349, i32 noundef %350, double noundef %.lcssa, double noundef 1.000000e-05) #12
   br label %cleanup
 
 for.inc.i:                                        ; preds = %for.body6.i107
@@ -1027,8 +1027,8 @@ for.inc.i:                                        ; preds = %for.body6.i107
   %353 = load double, ptr %arrayidx16.i.1, align 8, !tbaa !5
   %sub.i.1 = fsub double %352, %353
   %354 = call double @llvm.fabs.f64(double %sub.i.1)
-  %cmp17.i.1 = fcmp ule double %354, 1.000000e-05
-  br i1 %cmp17.i.1, label %for.inc.i.1, label %check_FP.exit.thread
+  %cmp17.i.1 = fcmp ogt double %354, 1.000000e-05
+  br i1 %cmp17.i.1, label %check_FP.exit.thread, label %for.inc.i.1
 
 for.inc.i.1:                                      ; preds = %for.inc.i
   %indvars.iv.next.i108.1 = add nuw nsw i64 %indvars.iv.i105, 2

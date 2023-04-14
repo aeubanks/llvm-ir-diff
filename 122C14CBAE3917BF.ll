@@ -27,9 +27,9 @@ entry:
 define dso_local i32 @main() local_unnamed_addr #1 {
 entry:
   %0 = load i8, ptr @a, align 1, !tbaa !5
-  %1 = sext i8 %0 to i32
-  %conv2.i.mask = and i32 %1, -2
-  %cmp.not = icmp eq i32 %conv2.i.mask, -4
+  %1 = sext i8 %0 to i64
+  %2 = and i64 %1, 4294967294
+  %cmp.not = icmp eq i64 %2, 4294967292
   br i1 %cmp.not, label %if.end, label %if.then
 
 if.then:                                          ; preds = %entry
@@ -37,7 +37,8 @@ if.then:                                          ; preds = %entry
   unreachable
 
 if.end:                                           ; preds = %entry
-  %rem.i = urem i32 %1, 5
+  %conv.i = sext i8 %0 to i32
+  %rem.i = urem i32 %conv.i, 5
   %cmp4.not = icmp eq i32 %rem.i, 2
   br i1 %cmp4.not, label %if.end7, label %if.then6
 

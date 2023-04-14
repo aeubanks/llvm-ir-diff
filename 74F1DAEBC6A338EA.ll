@@ -252,8 +252,8 @@ buf_read.exit:                                    ; preds = %entry
   %call1.i = call i32 @fstat(i32 noundef %call.i, ptr noundef nonnull %sb.i) #23
   %st_size.i = getelementptr inbounds %struct.stat, ptr %sb.i, i64 0, i32 8
   %0 = load i64, ptr %st_size.i, align 8, !tbaa !15
-  %.fr6 = freeze i64 %0
-  %add.i = shl i64 %.fr6, 32
+  %.fr5 = freeze i64 %0
+  %add.i = shl i64 %.fr5, 32
   %sext.i = add i64 %add.i, 8589934592
   %conv2.i = ashr exact i64 %sext.i, 32
   %call3.i = tail call noalias ptr @malloc(i64 noundef %conv2.i) #24
@@ -266,10 +266,10 @@ buf_read.exit:                                    ; preds = %entry
   store i8 0, ptr %arrayidx6.i, align 1, !tbaa !5
   %call8.i = tail call i64 @read(i32 noundef %call.i, ptr noundef %call3.i, i64 noundef %idxprom.i) #23
   %call9.i = tail call i32 @close(i32 noundef %call.i) #23
+  %1 = and i64 %.fr5, 2147483648
+  %.not = icmp eq i64 %1, 0
   call void @llvm.lifetime.end.p0(i64 144, ptr nonnull %sb.i) #23
-  %1 = and i64 %.fr6, 2147483648
-  %cmp.not = icmp eq i64 %1, 0
-  br i1 %cmp.not, label %3, label %2
+  br i1 %.not, label %3, label %2
 
 2:                                                ; preds = %buf_read.exit.thread, %buf_read.exit
   br label %3
@@ -591,14 +591,14 @@ if.else26:                                        ; preds = %if.then, %if.else.4
   br label %if.end34
 
 if.end34:                                         ; preds = %tailrecurse, %if.else26
-  %storemerge = phi i32 [ %add32, %if.else26 ], [ 2, %tailrecurse ]
+  %13 = phi i32 [ %add32, %if.else26 ], [ 2, %tailrecurse ]
   %vv.sroa.488.0 = phi ptr [ %2, %if.else26 ], [ null, %tailrecurse ]
-  store i32 %storemerge, ptr %i31, align 4, !tbaa !28
-  %idxprom36 = zext i32 %storemerge to i64
+  store i32 %13, ptr %i31, align 4, !tbaa !28
+  %idxprom36 = zext i32 %13 to i64
   %arrayidx37 = getelementptr inbounds [29 x i32], ptr @prime2, i64 0, i64 %idxprom36
-  %13 = load i32, ptr %arrayidx37, align 4, !tbaa !13
-  store i32 %13, ptr %av, align 8, !tbaa !19
-  %conv40 = zext i32 %13 to i64
+  %14 = load i32, ptr %arrayidx37, align 4, !tbaa !13
+  store i32 %14, ptr %av, align 8, !tbaa !19
+  %conv40 = zext i32 %14 to i64
   %mul = shl nuw nsw i64 %conv40, 3
   %calloc = tail call ptr @calloc(i64 1, i64 %mul)
   store ptr %calloc, ptr %v7, align 8, !tbaa !21
@@ -615,12 +615,12 @@ for.body.i.preheader:                             ; preds = %for.cond.i.preheade
 for.body.i:                                       ; preds = %for.body.i.preheader, %for.inc.i
   %indvars.iv = phi i64 [ 0, %for.body.i.preheader ], [ %indvars.iv.next, %for.inc.i ]
   %arrayidx.i = getelementptr inbounds ptr, ptr %vv.sroa.488.0, i64 %indvars.iv
-  %14 = load ptr, ptr %arrayidx.i, align 8, !tbaa !11
-  %tobool.not.i = icmp eq ptr %14, null
-  br i1 %tobool.not.i, label %for.inc.i, label %if.then.i
+  %15 = load ptr, ptr %arrayidx.i, align 8, !tbaa !11
+  %tobool.i.not = icmp eq ptr %15, null
+  br i1 %tobool.i.not, label %for.inc.i, label %if.then.i
 
 if.then.i:                                        ; preds = %for.body.i
-  %call.i = tail call i32 @set_add(ptr noundef nonnull %av, ptr noundef nonnull %14)
+  %call.i = tail call i32 @set_add(ptr noundef nonnull %av, ptr noundef nonnull %15)
   br label %for.inc.i
 
 for.inc.i:                                        ; preds = %if.then.i, %for.body.i
@@ -755,15 +755,15 @@ if.else26:                                        ; preds = %for.inc
   br label %if.end34
 
 if.end34:                                         ; preds = %tailrecurse, %if.else26
-  %storemerge = phi i32 [ %add32, %if.else26 ], [ 2, %tailrecurse ]
+  %11 = phi i32 [ %add32, %if.else26 ], [ 2, %tailrecurse ]
   %vv.sroa.495.0 = phi ptr [ %9, %if.else26 ], [ null, %tailrecurse ]
   %vv.sroa.0.0 = phi i32 [ %8, %if.else26 ], [ undef, %tailrecurse ]
-  store i32 %storemerge, ptr %i31, align 4, !tbaa !28
-  %idxprom36 = zext i32 %storemerge to i64
+  store i32 %11, ptr %i31, align 4, !tbaa !28
+  %idxprom36 = zext i32 %11 to i64
   %arrayidx37 = getelementptr inbounds [29 x i32], ptr @prime2, i64 0, i64 %idxprom36
-  %11 = load i32, ptr %arrayidx37, align 4, !tbaa !13
-  store i32 %11, ptr %av, align 8, !tbaa !19
-  %conv = zext i32 %11 to i64
+  %12 = load i32, ptr %arrayidx37, align 4, !tbaa !13
+  store i32 %12, ptr %av, align 8, !tbaa !19
+  %conv = zext i32 %12 to i64
   %mul = shl nuw nsw i64 %conv, 3
   %calloc = tail call ptr @calloc(i64 1, i64 %mul)
   store ptr %calloc, ptr %v4, align 8, !tbaa !21
@@ -781,12 +781,12 @@ for.body.i.preheader:                             ; preds = %for.cond.i.preheade
 for.body.i:                                       ; preds = %for.body.i.preheader, %for.inc.i
   %indvars.iv = phi i64 [ 0, %for.body.i.preheader ], [ %indvars.iv.next, %for.inc.i ]
   %arrayidx.i = getelementptr inbounds ptr, ptr %vv.sroa.495.0, i64 %indvars.iv
-  %12 = load ptr, ptr %arrayidx.i, align 8, !tbaa !11
-  %tobool.not.i = icmp eq ptr %12, null
-  br i1 %tobool.not.i, label %for.inc.i, label %if.then.i
+  %13 = load ptr, ptr %arrayidx.i, align 8, !tbaa !11
+  %tobool.i.not = icmp eq ptr %13, null
+  br i1 %tobool.i.not, label %for.inc.i, label %if.then.i
 
 if.then.i:                                        ; preds = %for.body.i
-  %call.i = tail call ptr @set_add_fn(ptr noundef nonnull %av, ptr noundef nonnull %12, ptr noundef nonnull %fns)
+  %call.i = tail call ptr @set_add_fn(ptr noundef nonnull %av, ptr noundef nonnull %13, ptr noundef nonnull %fns)
   br label %for.inc.i
 
 for.inc.i:                                        ; preds = %if.then.i, %for.body.i

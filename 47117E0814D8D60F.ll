@@ -261,27 +261,27 @@ if.end.i:                                         ; preds = %if.then6
 
 sw.bb.i24:                                        ; preds = %if.end.i, %if.then.i
   %ne.i = getelementptr inbounds %struct.quad_struct, ptr %q.035, i64 0, i32 3
-  br label %child.exit
+  br label %return.sink.split.i
 
 sw.bb1.i:                                         ; preds = %if.end.i, %if.then.i
   %nw.i = getelementptr inbounds %struct.quad_struct, ptr %q.035, i64 0, i32 2
-  br label %child.exit
+  br label %return.sink.split.i
 
 sw.bb2.i25:                                       ; preds = %if.end.i, %if.then.i
   %se.i = getelementptr inbounds %struct.quad_struct, ptr %q.035, i64 0, i32 5
-  br label %child.exit
+  br label %return.sink.split.i
 
 sw.bb3.i26:                                       ; preds = %if.then.i, %if.end.i
   %sw.i = getelementptr inbounds %struct.quad_struct, ptr %q.035, i64 0, i32 4
-  br label %child.exit
+  br label %return.sink.split.i
 
-child.exit:                                       ; preds = %sw.bb.i24, %sw.bb1.i, %sw.bb2.i25, %sw.bb3.i26
+return.sink.split.i:                              ; preds = %sw.bb3.i26, %sw.bb2.i25, %sw.bb1.i, %sw.bb.i24
   %sw.sink.i = phi ptr [ %sw.i, %sw.bb3.i26 ], [ %se.i, %sw.bb2.i25 ], [ %nw.i, %sw.bb1.i ], [ %ne.i, %sw.bb.i24 ]
   %11 = load ptr, ptr %sw.sink.i, align 8, !tbaa !16
   br label %cleanup
 
-cleanup:                                          ; preds = %entry, %if.end, %land.lhs.true4, %child.exit
-  %retval.0 = phi ptr [ %11, %child.exit ], [ %q.035, %land.lhs.true4 ], [ null, %if.end ], [ null, %entry ]
+cleanup:                                          ; preds = %entry, %if.end, %land.lhs.true4, %return.sink.split.i
+  %retval.0 = phi ptr [ %11, %return.sink.split.i ], [ %q.035, %land.lhs.true4 ], [ null, %if.end ], [ null, %entry ]
   ret ptr %retval.0
 }
 

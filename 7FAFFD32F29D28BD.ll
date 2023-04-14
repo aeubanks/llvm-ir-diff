@@ -22,7 +22,7 @@ declare void @exit(i32 noundef) local_unnamed_addr #1
 define dso_local void @bar(i32 %i, ...) local_unnamed_addr #0 {
 entry:
   tail call void @llvm.va_start(ptr nonnull @ap)
-  %call = tail call ptr @foo()
+  tail call void @exit(i32 noundef 0) #3
   unreachable
 }
 

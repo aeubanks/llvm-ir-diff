@@ -27,7 +27,7 @@ $_ZNK14btConcaveShape9getMarginEv = comdat any
 
 ; Function Attrs: uwtable
 define dso_local void @_ZN18btStaticPlaneShapeC2ERK9btVector3f(ptr noundef nonnull align 8 dereferenceable(96) %this, ptr nocapture noundef nonnull readonly align 4 dereferenceable(16) %planeNormal, float noundef %planeConstant) unnamed_addr #0 align 2 personality ptr @__gxx_personality_v0 {
-invoke.cont3:
+entry:
   tail call void @_ZN14btConcaveShapeC2Ev(ptr noundef nonnull align 8 dereferenceable(28) %this)
   store ptr getelementptr inbounds ({ [15 x ptr] }, ptr @_ZTV18btStaticPlaneShape, i64 0, inrange i32 0, i64 2), ptr %this, align 8, !tbaa !5
   %arrayidx10.i.i.i.i = getelementptr inbounds [4 x float], ptr %planeNormal, i64 0, i64 2
@@ -173,24 +173,24 @@ _Z13btPlaneSpace1RK9btVector3RS_S2_.exit:         ; preds = %if.then.i, %if.else
   %m_planeConstant = getelementptr inbounds %class.btStaticPlaneShape, ptr %this, i64 0, i32 4
   %32 = load float, ptr %m_planeConstant, align 4, !tbaa !11
   call void @llvm.lifetime.start.p0(i64 48, ptr nonnull %triangle) #15
-  %add14.i = fadd float %2, %3
-  %mul8.i123 = fmul float %add14.i, 5.000000e-01
-  %33 = fadd <2 x float> %0, %1
   %sub14.i = fsub float %2, %3
   %mul8.i = fmul float %sub14.i, 5.000000e-01
-  %34 = fsub <2 x float> %0, %1
-  %sub.i = extractelement <2 x float> %34, i64 0
+  %33 = fsub <2 x float> %0, %1
+  %sub.i = extractelement <2 x float> %33, i64 0
   %mul.i = fmul float %sub.i, 5.000000e-01
-  %35 = fsub <2 x float> %0, %1
-  %sub8.i = extractelement <2 x float> %35, i64 1
+  %34 = fsub <2 x float> %0, %1
+  %sub8.i = extractelement <2 x float> %34, i64 1
   %mul4.i = fmul float %sub8.i, 5.000000e-01
   %mul8.i.i.i = fmul float %mul4.i, %mul4.i
-  %36 = tail call float @llvm.fmuladd.f32(float %mul.i, float %mul.i, float %mul8.i.i.i)
-  %37 = tail call float @llvm.fmuladd.f32(float %mul8.i, float %mul8.i, float %36)
-  %sqrt.i = tail call float @llvm.sqrt.f32(float %37)
+  %35 = tail call float @llvm.fmuladd.f32(float %mul.i, float %mul.i, float %mul8.i.i.i)
+  %36 = tail call float @llvm.fmuladd.f32(float %mul8.i, float %mul8.i, float %35)
+  %sqrt.i = tail call float @llvm.sqrt.f32(float %36)
+  %add14.i = fadd float %2, %3
+  %mul8.i123 = fmul float %add14.i, 5.000000e-01
+  %37 = fadd <2 x float> %0, %1
   %mul8.i152 = fmul float %sqrt.i, %tangentDir0.sroa.18.0
   %mul8.i174 = fmul float %sqrt.i, %mul61.sink.i
-  %38 = fmul <2 x float> %33, <float 5.000000e-01, float 5.000000e-01>
+  %38 = fmul <2 x float> %37, <float 5.000000e-01, float 5.000000e-01>
   %39 = fmul <2 x float> %38, %31
   %mul8.i133 = extractelement <2 x float> %39, i64 1
   %40 = extractelement <2 x float> %38, i64 0

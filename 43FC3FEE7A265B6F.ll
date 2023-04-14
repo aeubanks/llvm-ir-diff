@@ -451,17 +451,17 @@ if.then47:                                        ; preds = %if.end43
 do.cond:                                          ; preds = %if.else, %cli_nsis_unpack.exit, %if.then47, %if.end43
   %ret.1 = phi i32 [ %ret.0, %if.end43 ], [ %ret.0, %if.then47 ], [ %cond.i, %cli_nsis_unpack.exit ], [ 0, %if.else ]
   %ret.1.fr = freeze i32 %ret.1
-  switch i32 %ret.1.fr, label %do.end.thread.loopexit105 [
+  switch i32 %ret.1.fr, label %.loopexit [
     i32 0, label %do.body
     i32 2, label %do.end.thread
   ]
 
-do.end.thread.loopexit105:                        ; preds = %do.cond
+.loopexit:                                        ; preds = %do.cond
   %ret.1.fr.le = freeze i32 %ret.1
   br label %do.end.thread
 
-do.end.thread:                                    ; preds = %if.else, %do.cond, %do.end.thread.loopexit105, %do.end.thread92
-  %47 = phi i32 [ 1, %do.end.thread92 ], [ %ret.1.fr.le, %do.end.thread.loopexit105 ], [ 0, %do.cond ], [ 0, %if.else ]
+do.end.thread:                                    ; preds = %do.cond, %if.else, %.loopexit, %do.end.thread92
+  %47 = phi i32 [ 1, %do.end.thread92 ], [ %ret.1.fr.le, %.loopexit ], [ 0, %if.else ], [ 0, %do.cond ]
   %freecomp.i.i = getelementptr inbounds %struct.nsis_st, ptr %nsist, i64 0, i32 14
   %48 = load i8, ptr %freecomp.i.i, align 2, !tbaa !41
   %tobool.not.i.i = icmp eq i8 %48, 0

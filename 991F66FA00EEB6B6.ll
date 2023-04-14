@@ -121,28 +121,29 @@ entry:
   switch i32 %call, label %sw.epilog.i [
     i32 0, label %cleanup
     i32 1, label %sw.bb4.i
-    i32 -2147024882, label %sw.bb1.i
+    i32 -2147024882, label %_Z15HRESULT_To_SResii.exit
     i32 -2147024809, label %sw.bb2.i
     i32 -2147467260, label %sw.bb3.i
   ]
 
-sw.bb1.i:                                         ; preds = %entry
-  br label %cleanup
-
 sw.bb2.i:                                         ; preds = %entry
-  br label %cleanup
+  br label %_Z15HRESULT_To_SResii.exit
 
 sw.bb3.i:                                         ; preds = %entry
-  br label %cleanup
+  br label %_Z15HRESULT_To_SResii.exit
 
 sw.bb4.i:                                         ; preds = %entry
-  br label %cleanup
+  br label %_Z15HRESULT_To_SResii.exit
 
 sw.epilog.i:                                      ; preds = %entry
+  br label %_Z15HRESULT_To_SResii.exit
+
+_Z15HRESULT_To_SResii.exit:                       ; preds = %entry, %sw.bb2.i, %sw.bb3.i, %sw.bb4.i, %sw.epilog.i
+  %retval.0.i = phi i32 [ 8, %sw.epilog.i ], [ 1, %sw.bb4.i ], [ 10, %sw.bb3.i ], [ 5, %sw.bb2.i ], [ 2, %entry ]
   br label %cleanup
 
-cleanup:                                          ; preds = %entry, %sw.epilog.i, %sw.bb4.i, %sw.bb3.i, %sw.bb2.i, %sw.bb1.i
-  %retval.0 = phi i32 [ %call, %entry ], [ 8, %sw.epilog.i ], [ 1, %sw.bb4.i ], [ 10, %sw.bb3.i ], [ 5, %sw.bb2.i ], [ 2, %sw.bb1.i ]
+cleanup:                                          ; preds = %entry, %_Z15HRESULT_To_SResii.exit
+  %retval.0 = phi i32 [ %retval.0.i, %_Z15HRESULT_To_SResii.exit ], [ %call, %entry ]
   call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %curSize) #6
   ret i32 %retval.0
 }

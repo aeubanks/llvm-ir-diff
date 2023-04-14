@@ -35,7 +35,7 @@ while.body:                                       ; preds = %while.cond
   %sub = sub i64 %size.0, %conv2
   %cmp4.not = icmp eq i32 %call, 0
   %cmp5 = icmp ne i32 %2, 0
-  %4 = and i1 %cmp4.not, %cmp5
+  %4 = and i1 %cmp5, %cmp4.not
   %.retval.0.call = select i1 %4, i32 %retval.0, i32 0
   %retval.2 = select i1 %cmp4.not, i32 %.retval.0.call, i32 %call
   %cond15 = select i1 %cmp4.not, i1 %cmp5, i1 false
@@ -95,8 +95,8 @@ _Z10ReadStreamP19ISequentialInStreamPvPm.exit:    ; preds = %while.body.i
   br i1 %cmp.not, label %_Z10ReadStreamP19ISequentialInStreamPvPm.exit.thread, label %3
 
 _Z10ReadStreamP19ISequentialInStreamPvPm.exit.thread: ; preds = %while.cond.i, %_Z10ReadStreamP19ISequentialInStreamPvPm.exit
-  %processedSize.0.pn = phi i64 [ %add.i, %_Z10ReadStreamP19ISequentialInStreamPvPm.exit ], [ %processedSize.0, %while.cond.i ]
-  %cond14.in = icmp ne i64 %processedSize.0.pn, %size
+  %processedSize.0.lcssa.pn = phi i64 [ %add.i, %_Z10ReadStreamP19ISequentialInStreamPvPm.exit ], [ %processedSize.0, %while.cond.i ]
+  %cond14.in = icmp ne i64 %processedSize.0.lcssa.pn, %size
   %cond14 = zext i1 %cond14.in to i32
   br label %3
 

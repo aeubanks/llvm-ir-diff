@@ -623,7 +623,7 @@ pushstr.exit240:                                  ; preds = %for.end, %if.then.i
   %58 = phi ptr [ %57, %for.end ], [ %.pre.i237, %if.then.i238 ]
   %incdec.ptr.i239 = getelementptr inbounds %struct.lua_TValue, ptr %58, i64 1
   store ptr %incdec.ptr.i239, ptr %top.i, align 8, !tbaa !21
-  %add106 = add nuw nsw i32 %n.0.lcssa, 1
+  %add106 = add nsw i32 %n.0.lcssa, 1
   %base = getelementptr inbounds %struct.lua_State, ptr %L, i64 0, i32 5
   %59 = load ptr, ptr %base, align 8, !tbaa !25
   %sub.ptr.lhs.cast108 = ptrtoint ptr %incdec.ptr.i239 to i64
@@ -634,7 +634,7 @@ pushstr.exit240:                                  ; preds = %for.end, %if.then.i
   %sub = add nsw i32 %conv111, -1
   call void @luaV_concat(ptr noundef nonnull %L, i32 noundef %add106, i32 noundef %sub) #16
   %61 = load ptr, ptr %top.i, align 8, !tbaa !21
-  %idx.ext = zext i32 %n.0.lcssa to i64
+  %idx.ext = sext i32 %n.0.lcssa to i64
   %idx.neg = sub nsw i64 0, %idx.ext
   %add.ptr113 = getelementptr inbounds %struct.lua_TValue, ptr %61, i64 %idx.neg
   store ptr %add.ptr113, ptr %top.i, align 8, !tbaa !21

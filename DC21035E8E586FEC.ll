@@ -32,8 +32,8 @@ if.end:                                           ; preds = %lor.lhs.false2
 do.body:                                          ; preds = %do.body, %if.end
   %3 = phi i8 [ %.pre, %if.end ], [ %4, %do.body ]
   %t.0 = phi ptr [ %head, %if.end ], [ %cond, %do.body ]
-  %conv175 = zext i8 %3 to i32
-  %shl.i = lshr i32 -2147483648, %conv175
+  %conv176 = zext i8 %3 to i32
+  %shl.i = lshr i32 -2147483648, %conv176
   %conv.i = sext i32 %shl.i to i64
   %and.i = and i64 %and, %conv.i
   %tobool8.not = icmp eq i64 %and.i, 0
@@ -49,10 +49,10 @@ do.body:                                          ; preds = %do.body, %if.end
 do.end:                                           ; preds = %do.body
   %5 = load i64, ptr %cond, align 8, !tbaa !13
   %cmp14 = icmp eq i64 %and, %5
-  br i1 %cmp14, label %for.cond.preheader, label %for.cond71.preheader
+  br i1 %cmp14, label %for.cond.preheader, label %land.rhs.preheader
 
-for.cond71.preheader:                             ; preds = %do.end
-  %6 = xor i64 %5, %and
+land.rhs.preheader:                               ; preds = %do.end
+  %6 = xor i64 %and, %5
   %7 = and i64 %6, 1073741824
   %cmp78 = icmp eq i64 %7, 0
   br i1 %cmp78, label %for.inc81, label %for.end83
@@ -163,7 +163,7 @@ if.end64:                                         ; preds = %if.then62, %for.end
   store ptr %call37196201, ptr %p_m68, align 8, !tbaa !5
   br label %cleanup
 
-for.inc81:                                        ; preds = %for.cond71.preheader
+for.inc81:                                        ; preds = %land.rhs.preheader
   %18 = and i64 %6, 536870912
   %cmp78.1 = icmp eq i64 %18, 0
   br i1 %cmp78.1, label %for.inc81.1, label %for.end83
@@ -314,10 +314,10 @@ for.inc81.29:                                     ; preds = %for.inc81.28
   %spec.select = select i1 %cmp78.30, i32 32, i32 31
   br label %for.end83
 
-for.end83:                                        ; preds = %for.inc81.29, %for.inc81.28, %for.inc81.27, %for.inc81.26, %for.inc81.25, %for.inc81.24, %for.inc81.23, %for.inc81.22, %for.inc81.21, %for.inc81.20, %for.inc81.19, %for.inc81.18, %for.inc81.17, %for.inc81.16, %for.inc81.15, %for.inc81.14, %for.inc81.13, %for.inc81.12, %for.inc81.11, %for.inc81.10, %for.inc81.9, %for.inc81.8, %for.inc81.7, %for.inc81.6, %for.inc81.5, %for.inc81.4, %for.inc81.3, %for.inc81.2, %for.inc81.1, %for.inc81, %for.cond71.preheader
-  %i.3.lcssa = phi i32 [ 1, %for.cond71.preheader ], [ 2, %for.inc81 ], [ 3, %for.inc81.1 ], [ 4, %for.inc81.2 ], [ 5, %for.inc81.3 ], [ 6, %for.inc81.4 ], [ 7, %for.inc81.5 ], [ 8, %for.inc81.6 ], [ 9, %for.inc81.7 ], [ 10, %for.inc81.8 ], [ 11, %for.inc81.9 ], [ 12, %for.inc81.10 ], [ 13, %for.inc81.11 ], [ 14, %for.inc81.12 ], [ 15, %for.inc81.13 ], [ 16, %for.inc81.14 ], [ 17, %for.inc81.15 ], [ 18, %for.inc81.16 ], [ 19, %for.inc81.17 ], [ 20, %for.inc81.18 ], [ 21, %for.inc81.19 ], [ 22, %for.inc81.20 ], [ 23, %for.inc81.21 ], [ 24, %for.inc81.22 ], [ 25, %for.inc81.23 ], [ 26, %for.inc81.24 ], [ 27, %for.inc81.25 ], [ 28, %for.inc81.26 ], [ 29, %for.inc81.27 ], [ 30, %for.inc81.28 ], [ %spec.select, %for.inc81.29 ]
-  %conv85176 = zext i8 %.pre to i32
-  %shl.i172 = lshr i32 -2147483648, %conv85176
+for.end83:                                        ; preds = %for.inc81.29, %for.inc81.28, %for.inc81.27, %for.inc81.26, %for.inc81.25, %for.inc81.24, %for.inc81.23, %for.inc81.22, %for.inc81.21, %for.inc81.20, %for.inc81.19, %for.inc81.18, %for.inc81.17, %for.inc81.16, %for.inc81.15, %for.inc81.14, %for.inc81.13, %for.inc81.12, %for.inc81.11, %for.inc81.10, %for.inc81.9, %for.inc81.8, %for.inc81.7, %for.inc81.6, %for.inc81.5, %for.inc81.4, %for.inc81.3, %for.inc81.2, %for.inc81.1, %for.inc81, %land.rhs.preheader
+  %i.3.lcssa = phi i32 [ 1, %land.rhs.preheader ], [ 2, %for.inc81 ], [ 3, %for.inc81.1 ], [ 4, %for.inc81.2 ], [ 5, %for.inc81.3 ], [ 6, %for.inc81.4 ], [ 7, %for.inc81.5 ], [ 8, %for.inc81.6 ], [ 9, %for.inc81.7 ], [ 10, %for.inc81.8 ], [ 11, %for.inc81.9 ], [ 12, %for.inc81.10 ], [ 13, %for.inc81.11 ], [ 14, %for.inc81.12 ], [ 15, %for.inc81.13 ], [ 16, %for.inc81.14 ], [ 17, %for.inc81.15 ], [ 18, %for.inc81.16 ], [ 19, %for.inc81.17 ], [ 20, %for.inc81.18 ], [ 21, %for.inc81.19 ], [ 22, %for.inc81.20 ], [ 23, %for.inc81.21 ], [ 24, %for.inc81.22 ], [ 25, %for.inc81.23 ], [ 26, %for.inc81.24 ], [ 27, %for.inc81.25 ], [ 28, %for.inc81.26 ], [ 29, %for.inc81.27 ], [ 30, %for.inc81.28 ], [ %spec.select, %for.inc81.29 ]
+  %conv85175 = zext i8 %.pre to i32
+  %shl.i172 = lshr i32 -2147483648, %conv85175
   %conv.i173 = sext i32 %shl.i172 to i64
   %and.i174 = and i64 %and, %conv.i173
   %tobool88.not = icmp eq i64 %and.i174, 0

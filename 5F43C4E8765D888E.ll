@@ -747,8 +747,8 @@ for.end.i337:                                     ; preds = %for.body6.i336
   %183 = insertelement <2 x double> poison, double %178, i64 0
   %184 = insertelement <2 x double> %183, double %sub138.i, i64 1
   %185 = fmul <2 x double> %182, %184
-  %shift543 = shufflevector <2 x double> %185, <2 x double> poison, <2 x i32> <i32 1, i32 undef>
-  %186 = fsub <2 x double> %185, %shift543
+  %shift535 = shufflevector <2 x double> %185, <2 x double> poison, <2 x i32> <i32 1, i32 undef>
+  %186 = fsub <2 x double> %185, %shift535
   %sub163.i = extractelement <2 x double> %186, i64 0
   store double %sub163.i, ptr %arrayidx58.i, align 8, !tbaa !5
   %187 = load double, ptr %arrayidx165.i, align 8, !tbaa !5
@@ -805,8 +805,8 @@ for.body224.i:                                    ; preds = %for.body224.i, %for
   %215 = insertelement <2 x double> poison, double %210, i64 0
   %216 = insertelement <2 x double> %215, double %sub250.i, i64 1
   %217 = fmul <2 x double> %214, %216
-  %shift544 = shufflevector <2 x double> %217, <2 x double> poison, <2 x i32> <i32 1, i32 undef>
-  %218 = fsub <2 x double> %217, %shift544
+  %shift536 = shufflevector <2 x double> %217, <2 x double> poison, <2 x i32> <i32 1, i32 undef>
+  %218 = fsub <2 x double> %217, %shift536
   %sub275.i = extractelement <2 x double> %218, i64 0
   store double %sub275.i, ptr %arrayidx58.i, align 8, !tbaa !5
   %arrayidx281.i = getelementptr inbounds double, ptr %42, i64 %indvars.iv728.i
@@ -860,8 +860,8 @@ for.end336.i:                                     ; preds = %for.body224.i
   %247 = insertelement <2 x double> poison, double %242, i64 0
   %248 = insertelement <2 x double> %247, double %sub359.i, i64 1
   %249 = fmul <2 x double> %246, %248
-  %shift545 = shufflevector <2 x double> %249, <2 x double> poison, <2 x i32> <i32 1, i32 undef>
-  %250 = fsub <2 x double> %249, %shift545
+  %shift537 = shufflevector <2 x double> %249, <2 x double> poison, <2 x i32> <i32 1, i32 undef>
+  %250 = fsub <2 x double> %249, %shift537
   %sub384.i = extractelement <2 x double> %250, i64 0
   store double %sub384.i, ptr %arrayidx58.i, align 8, !tbaa !5
   %251 = load double, ptr %arrayidx165.i, align 8, !tbaa !5
@@ -913,18 +913,18 @@ for.body8.i:                                      ; preds = %for.inc.i.1, %for.c
   %269 = load double, ptr %arrayidx18.i, align 8, !tbaa !5
   %sub.i340 = fsub double %268, %269
   %270 = call double @llvm.fabs.f64(double %sub.i340)
-  %cmp19.i = fcmp ule double %270, 1.000000e-05
-  br i1 %cmp19.i, label %for.inc.i, label %check_FP.exit.thread
+  %cmp19.i = fcmp ogt double %270, 1.000000e-05
+  br i1 %cmp19.i, label %check_FP.exit.thread, label %for.inc.i
 
 check_FP.exit.thread:                             ; preds = %for.body8.i.1, %for.body8.i
   %indvars.iv.i339.lcssa = phi i64 [ %indvars.iv.i339, %for.body8.i ], [ %indvars.iv.next.i341, %for.body8.i.1 ]
-  %.lcssa569 = phi double [ %268, %for.body8.i ], [ %275, %for.body8.i.1 ]
-  %.lcssa567 = phi double [ %269, %for.body8.i ], [ %276, %for.body8.i.1 ]
+  %.lcssa561 = phi double [ %268, %for.body8.i ], [ %275, %for.body8.i.1 ]
+  %.lcssa559 = phi double [ %269, %for.body8.i ], [ %276, %for.body8.i.1 ]
   %271 = trunc i64 %indvars.iv68.i to i32
   %272 = trunc i64 %indvars.iv64.i to i32
   %273 = trunc i64 %indvars.iv.i339.lcssa to i32
   %274 = load ptr, ptr @stderr, align 8, !tbaa !9
-  %call.i = call i32 (ptr, ptr, ...) @fprintf(ptr noundef %274, ptr noundef nonnull @.str.2, i32 noundef %271, i32 noundef %272, i32 noundef %273, double noundef %.lcssa569, i32 noundef %271, i32 noundef %272, i32 noundef %273, double noundef %.lcssa567, double noundef 1.000000e-05) #12
+  %call.i = call i32 (ptr, ptr, ...) @fprintf(ptr noundef %274, ptr noundef nonnull @.str.2, i32 noundef %271, i32 noundef %272, i32 noundef %273, double noundef %.lcssa561, i32 noundef %271, i32 noundef %272, i32 noundef %273, double noundef %.lcssa559, double noundef 1.000000e-05) #12
   br label %cleanup
 
 for.inc.i:                                        ; preds = %for.body8.i
@@ -939,8 +939,8 @@ for.body8.i.1:                                    ; preds = %for.inc.i
   %276 = load double, ptr %arrayidx18.i.1, align 8, !tbaa !5
   %sub.i340.1 = fsub double %275, %276
   %277 = call double @llvm.fabs.f64(double %sub.i340.1)
-  %cmp19.i.1 = fcmp ule double %277, 1.000000e-05
-  br i1 %cmp19.i.1, label %for.inc.i.1, label %check_FP.exit.thread
+  %cmp19.i.1 = fcmp ogt double %277, 1.000000e-05
+  br i1 %cmp19.i.1, label %check_FP.exit.thread, label %for.inc.i.1
 
 for.inc.i.1:                                      ; preds = %for.body8.i.1
   %indvars.iv.next.i341.1 = add nuw nsw i64 %indvars.iv.i339, 2
@@ -972,18 +972,18 @@ for.body8.i352:                                   ; preds = %for.inc.i357.1, %fo
   %279 = load double, ptr %arrayidx18.i349, align 8, !tbaa !5
   %sub.i350 = fsub double %278, %279
   %280 = call double @llvm.fabs.f64(double %sub.i350)
-  %cmp19.i351 = fcmp ule double %280, 1.000000e-05
-  br i1 %cmp19.i351, label %for.inc.i357, label %check_FP.exit365.thread
+  %cmp19.i351 = fcmp ogt double %280, 1.000000e-05
+  br i1 %cmp19.i351, label %check_FP.exit365.thread, label %for.inc.i357
 
 check_FP.exit365.thread:                          ; preds = %for.body8.i352.1, %for.body8.i352
   %indvars.iv.i347.lcssa = phi i64 [ %indvars.iv.i347, %for.body8.i352 ], [ %indvars.iv.next.i355, %for.body8.i352.1 ]
-  %.lcssa562 = phi double [ %278, %for.body8.i352 ], [ %285, %for.body8.i352.1 ]
-  %.lcssa560 = phi double [ %279, %for.body8.i352 ], [ %286, %for.body8.i352.1 ]
+  %.lcssa554 = phi double [ %278, %for.body8.i352 ], [ %285, %for.body8.i352.1 ]
+  %.lcssa552 = phi double [ %279, %for.body8.i352 ], [ %286, %for.body8.i352.1 ]
   %281 = trunc i64 %indvars.iv68.i343 to i32
   %282 = trunc i64 %indvars.iv64.i345 to i32
   %283 = trunc i64 %indvars.iv.i347.lcssa to i32
   %284 = load ptr, ptr @stderr, align 8, !tbaa !9
-  %call.i353 = call i32 (ptr, ptr, ...) @fprintf(ptr noundef %284, ptr noundef nonnull @.str.2, i32 noundef %281, i32 noundef %282, i32 noundef %283, double noundef %.lcssa562, i32 noundef %281, i32 noundef %282, i32 noundef %283, double noundef %.lcssa560, double noundef 1.000000e-05) #12
+  %call.i353 = call i32 (ptr, ptr, ...) @fprintf(ptr noundef %284, ptr noundef nonnull @.str.2, i32 noundef %281, i32 noundef %282, i32 noundef %283, double noundef %.lcssa554, i32 noundef %281, i32 noundef %282, i32 noundef %283, double noundef %.lcssa552, double noundef 1.000000e-05) #12
   br label %cleanup
 
 for.inc.i357:                                     ; preds = %for.body8.i352
@@ -998,8 +998,8 @@ for.body8.i352.1:                                 ; preds = %for.inc.i357
   %286 = load double, ptr %arrayidx18.i349.1, align 8, !tbaa !5
   %sub.i350.1 = fsub double %285, %286
   %287 = call double @llvm.fabs.f64(double %sub.i350.1)
-  %cmp19.i351.1 = fcmp ule double %287, 1.000000e-05
-  br i1 %cmp19.i351.1, label %for.inc.i357.1, label %check_FP.exit365.thread
+  %cmp19.i351.1 = fcmp ogt double %287, 1.000000e-05
+  br i1 %cmp19.i351.1, label %check_FP.exit365.thread, label %for.inc.i357.1
 
 for.inc.i357.1:                                   ; preds = %for.body8.i352.1
   %indvars.iv.next.i355.1 = add nuw nsw i64 %indvars.iv.i347, 2
@@ -1031,18 +1031,18 @@ for.body8.i375:                                   ; preds = %for.inc.i380.1, %fo
   %289 = load double, ptr %arrayidx18.i372, align 8, !tbaa !5
   %sub.i373 = fsub double %288, %289
   %290 = call double @llvm.fabs.f64(double %sub.i373)
-  %cmp19.i374 = fcmp ule double %290, 1.000000e-05
-  br i1 %cmp19.i374, label %for.inc.i380, label %check_FP.exit388.thread
+  %cmp19.i374 = fcmp ogt double %290, 1.000000e-05
+  br i1 %cmp19.i374, label %check_FP.exit388.thread, label %for.inc.i380
 
 check_FP.exit388.thread:                          ; preds = %for.body8.i375.1, %for.body8.i375
   %indvars.iv.i370.lcssa = phi i64 [ %indvars.iv.i370, %for.body8.i375 ], [ %indvars.iv.next.i378, %for.body8.i375.1 ]
-  %.lcssa555 = phi double [ %288, %for.body8.i375 ], [ %295, %for.body8.i375.1 ]
-  %.lcssa553 = phi double [ %289, %for.body8.i375 ], [ %296, %for.body8.i375.1 ]
+  %.lcssa547 = phi double [ %288, %for.body8.i375 ], [ %295, %for.body8.i375.1 ]
+  %.lcssa545 = phi double [ %289, %for.body8.i375 ], [ %296, %for.body8.i375.1 ]
   %291 = trunc i64 %indvars.iv68.i366 to i32
   %292 = trunc i64 %indvars.iv64.i368 to i32
   %293 = trunc i64 %indvars.iv.i370.lcssa to i32
   %294 = load ptr, ptr @stderr, align 8, !tbaa !9
-  %call.i376 = call i32 (ptr, ptr, ...) @fprintf(ptr noundef %294, ptr noundef nonnull @.str.2, i32 noundef %291, i32 noundef %292, i32 noundef %293, double noundef %.lcssa555, i32 noundef %291, i32 noundef %292, i32 noundef %293, double noundef %.lcssa553, double noundef 1.000000e-05) #12
+  %call.i376 = call i32 (ptr, ptr, ...) @fprintf(ptr noundef %294, ptr noundef nonnull @.str.2, i32 noundef %291, i32 noundef %292, i32 noundef %293, double noundef %.lcssa547, i32 noundef %291, i32 noundef %292, i32 noundef %293, double noundef %.lcssa545, double noundef 1.000000e-05) #12
   br label %cleanup
 
 for.inc.i380:                                     ; preds = %for.body8.i375
@@ -1057,8 +1057,8 @@ for.body8.i375.1:                                 ; preds = %for.inc.i380
   %296 = load double, ptr %arrayidx18.i372.1, align 8, !tbaa !5
   %sub.i373.1 = fsub double %295, %296
   %297 = call double @llvm.fabs.f64(double %sub.i373.1)
-  %cmp19.i374.1 = fcmp ule double %297, 1.000000e-05
-  br i1 %cmp19.i374.1, label %for.inc.i380.1, label %check_FP.exit388.thread
+  %cmp19.i374.1 = fcmp ogt double %297, 1.000000e-05
+  br i1 %cmp19.i374.1, label %check_FP.exit388.thread, label %for.inc.i380.1
 
 for.inc.i380.1:                                   ; preds = %for.body8.i375.1
   %indvars.iv.next.i378.1 = add nuw nsw i64 %indvars.iv.i370, 2
@@ -1090,18 +1090,18 @@ for.body8.i398:                                   ; preds = %for.inc.i403.1, %fo
   %299 = load double, ptr %arrayidx18.i395, align 8, !tbaa !5
   %sub.i396 = fsub double %298, %299
   %300 = call double @llvm.fabs.f64(double %sub.i396)
-  %cmp19.i397 = fcmp ule double %300, 1.000000e-05
-  br i1 %cmp19.i397, label %for.inc.i403, label %check_FP.exit411.thread
+  %cmp19.i397 = fcmp ogt double %300, 1.000000e-05
+  br i1 %cmp19.i397, label %check_FP.exit411.thread, label %for.inc.i403
 
 check_FP.exit411.thread:                          ; preds = %for.body8.i398.1, %for.body8.i398
   %indvars.iv.i393.lcssa = phi i64 [ %indvars.iv.i393, %for.body8.i398 ], [ %indvars.iv.next.i401, %for.body8.i398.1 ]
-  %.lcssa548 = phi double [ %298, %for.body8.i398 ], [ %305, %for.body8.i398.1 ]
+  %.lcssa540 = phi double [ %298, %for.body8.i398 ], [ %305, %for.body8.i398.1 ]
   %.lcssa = phi double [ %299, %for.body8.i398 ], [ %306, %for.body8.i398.1 ]
   %301 = trunc i64 %indvars.iv68.i389 to i32
   %302 = trunc i64 %indvars.iv64.i391 to i32
   %303 = trunc i64 %indvars.iv.i393.lcssa to i32
   %304 = load ptr, ptr @stderr, align 8, !tbaa !9
-  %call.i399 = call i32 (ptr, ptr, ...) @fprintf(ptr noundef %304, ptr noundef nonnull @.str.2, i32 noundef %301, i32 noundef %302, i32 noundef %303, double noundef %.lcssa548, i32 noundef %301, i32 noundef %302, i32 noundef %303, double noundef %.lcssa, double noundef 1.000000e-05) #12
+  %call.i399 = call i32 (ptr, ptr, ...) @fprintf(ptr noundef %304, ptr noundef nonnull @.str.2, i32 noundef %301, i32 noundef %302, i32 noundef %303, double noundef %.lcssa540, i32 noundef %301, i32 noundef %302, i32 noundef %303, double noundef %.lcssa, double noundef 1.000000e-05) #12
   br label %cleanup
 
 for.inc.i403:                                     ; preds = %for.body8.i398
@@ -1116,8 +1116,8 @@ for.body8.i398.1:                                 ; preds = %for.inc.i403
   %306 = load double, ptr %arrayidx18.i395.1, align 8, !tbaa !5
   %sub.i396.1 = fsub double %305, %306
   %307 = call double @llvm.fabs.f64(double %sub.i396.1)
-  %cmp19.i397.1 = fcmp ule double %307, 1.000000e-05
-  br i1 %cmp19.i397.1, label %for.inc.i403.1, label %check_FP.exit411.thread
+  %cmp19.i397.1 = fcmp ogt double %307, 1.000000e-05
+  br i1 %cmp19.i397.1, label %check_FP.exit411.thread, label %for.inc.i403.1
 
 for.inc.i403.1:                                   ; preds = %for.body8.i398.1
   %indvars.iv.next.i401.1 = add nuw nsw i64 %indvars.iv.i393, 2

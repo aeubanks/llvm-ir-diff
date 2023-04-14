@@ -261,7 +261,7 @@ for.body6.i:                                      ; preds = %for.body6.i, %for.b
   br i1 %niter.ncmp.3, label %for.end.i.loopexit.unr-lcssa, label %for.body6.i, !llvm.loop !18
 
 for.end.i.loopexit.unr-lcssa:                     ; preds = %for.body6.i, %for.body6.i.preheader
-  %.lcssa134.ph = phi double [ undef, %for.body6.i.preheader ], [ %39, %for.body6.i ]
+  %.lcssa132.ph = phi double [ undef, %for.body6.i.preheader ], [ %39, %for.body6.i ]
   %indvars.iv.i45.unr = phi i64 [ 0, %for.body6.i.preheader ], [ %indvars.iv.next.i47.3, %for.body6.i ]
   %x.095.i.unr = phi double [ %mul.i, %for.body6.i.preheader ], [ %39, %for.body6.i ]
   %lcmp.mod.not = icmp eq i64 %xtraiter, 0
@@ -281,7 +281,7 @@ for.body6.i.epil:                                 ; preds = %for.end.i.loopexit.
   br i1 %epil.iter.cmp.not, label %for.end.i, label %for.body6.i.epil, !llvm.loop !19
 
 for.end.i:                                        ; preds = %for.end.i.loopexit.unr-lcssa, %for.body6.i.epil, %for.body.i44
-  %x.0.lcssa.i = phi double [ %mul.i, %for.body.i44 ], [ %.lcssa134.ph, %for.end.i.loopexit.unr-lcssa ], [ %41, %for.body6.i.epil ]
+  %x.0.lcssa.i = phi double [ %mul.i, %for.body.i44 ], [ %.lcssa132.ph, %for.end.i.loopexit.unr-lcssa ], [ %41, %for.body6.i.epil ]
   %call.i = call double @sqrt(double noundef %x.0.lcssa.i) #12
   %div.i = fdiv double 1.000000e+00, %call.i
   %arrayidx17.i = getelementptr inbounds double, ptr %4, i64 %indvars.iv121.i
@@ -294,10 +294,10 @@ for.body21.lr.ph.i:                               ; preds = %for.end.i
   br i1 %cmp4.not.not93.not.i, label %for.body21.i, label %for.body21.us.i.preheader
 
 for.body21.us.i.preheader:                        ; preds = %for.body21.lr.ph.i
-  %xtraiter138 = and i64 %indvars.iv121.i, 1
+  %xtraiter136 = and i64 %indvars.iv121.i, 1
   %42 = icmp eq i64 %indvars.iv121.i, 1
-  %unroll_iter142 = and i64 %indvars.iv121.i, 9223372036854775806
-  %lcmp.mod140.not = icmp eq i64 %xtraiter138, 0
+  %unroll_iter140 = and i64 %indvars.iv121.i, 9223372036854775806
+  %lcmp.mod138.not = icmp eq i64 %xtraiter136, 0
   br label %for.body21.us.i
 
 for.body21.us.i:                                  ; preds = %for.body21.us.i.preheader, %for.cond26.for.end43_crit_edge.us.i
@@ -309,7 +309,7 @@ for.body21.us.i:                                  ; preds = %for.body21.us.i.pre
 for.body30.us.i:                                  ; preds = %for.body21.us.i, %for.body30.us.i
   %indvars.iv106.i = phi i64 [ %indvars.iv.next107.i.1, %for.body30.us.i ], [ 0, %for.body21.us.i ]
   %x.198.us.i = phi double [ %49, %for.body30.us.i ], [ %43, %for.body21.us.i ]
-  %niter143 = phi i64 [ %niter143.next.1, %for.body30.us.i ], [ 0, %for.body21.us.i ]
+  %niter141 = phi i64 [ %niter141.next.1, %for.body30.us.i ], [ 0, %for.body21.us.i ]
   %arrayidx34.us.i = getelementptr inbounds [1024 x double], ptr %0, i64 %indvars.iv113.i, i64 %indvars.iv106.i
   %44 = load double, ptr %arrayidx34.us.i, align 8, !tbaa !5
   %arrayidx38.us.i = getelementptr inbounds [1024 x double], ptr %0, i64 %indvars.iv121.i, i64 %indvars.iv106.i
@@ -324,15 +324,15 @@ for.body30.us.i:                                  ; preds = %for.body21.us.i, %f
   %neg40.us.i.1 = fneg double %47
   %49 = call double @llvm.fmuladd.f64(double %neg40.us.i.1, double %48, double %46)
   %indvars.iv.next107.i.1 = add nuw nsw i64 %indvars.iv106.i, 2
-  %niter143.next.1 = add i64 %niter143, 2
-  %niter143.ncmp.1 = icmp eq i64 %niter143.next.1, %unroll_iter142
-  br i1 %niter143.ncmp.1, label %for.cond26.for.end43_crit_edge.us.i.unr-lcssa, label %for.body30.us.i, !llvm.loop !21
+  %niter141.next.1 = add i64 %niter141, 2
+  %niter141.ncmp.1 = icmp eq i64 %niter141.next.1, %unroll_iter140
+  br i1 %niter141.ncmp.1, label %for.cond26.for.end43_crit_edge.us.i.unr-lcssa, label %for.body30.us.i, !llvm.loop !21
 
 for.cond26.for.end43_crit_edge.us.i.unr-lcssa:    ; preds = %for.body30.us.i, %for.body21.us.i
-  %.lcssa135.ph = phi double [ undef, %for.body21.us.i ], [ %49, %for.body30.us.i ]
+  %.lcssa133.ph = phi double [ undef, %for.body21.us.i ], [ %49, %for.body30.us.i ]
   %indvars.iv106.i.unr = phi i64 [ 0, %for.body21.us.i ], [ %indvars.iv.next107.i.1, %for.body30.us.i ]
   %x.198.us.i.unr = phi double [ %43, %for.body21.us.i ], [ %49, %for.body30.us.i ]
-  br i1 %lcmp.mod140.not, label %for.cond26.for.end43_crit_edge.us.i, label %for.body30.us.i.epil
+  br i1 %lcmp.mod138.not, label %for.cond26.for.end43_crit_edge.us.i, label %for.body30.us.i.epil
 
 for.body30.us.i.epil:                             ; preds = %for.cond26.for.end43_crit_edge.us.i.unr-lcssa
   %arrayidx34.us.i.epil = getelementptr inbounds [1024 x double], ptr %0, i64 %indvars.iv113.i, i64 %indvars.iv106.i.unr
@@ -344,9 +344,9 @@ for.body30.us.i.epil:                             ; preds = %for.cond26.for.end4
   br label %for.cond26.for.end43_crit_edge.us.i
 
 for.cond26.for.end43_crit_edge.us.i:              ; preds = %for.cond26.for.end43_crit_edge.us.i.unr-lcssa, %for.body30.us.i.epil
-  %.lcssa135 = phi double [ %.lcssa135.ph, %for.cond26.for.end43_crit_edge.us.i.unr-lcssa ], [ %52, %for.body30.us.i.epil ]
+  %.lcssa133 = phi double [ %.lcssa133.ph, %for.cond26.for.end43_crit_edge.us.i.unr-lcssa ], [ %52, %for.body30.us.i.epil ]
   %53 = load double, ptr %arrayidx17.i, align 8, !tbaa !5
-  %mul46.us.i = fmul double %.lcssa135, %53
+  %mul46.us.i = fmul double %.lcssa133, %53
   %arrayidx50.us.i = getelementptr inbounds [1024 x double], ptr %0, i64 %indvars.iv113.i, i64 %indvars.iv121.i
   store double %mul46.us.i, ptr %arrayidx50.us.i, align 8, !tbaa !5
   %indvars.iv.next114.i = add nuw nsw i64 %indvars.iv113.i, 1
@@ -380,18 +380,18 @@ for.body.i56:                                     ; preds = %for.cond.loopexit.i
   br i1 %cmp4.not.not94.not.i, label %for.end.i66, label %for.body6.i61.preheader
 
 for.body6.i61.preheader:                          ; preds = %for.body.i56
-  %xtraiter144 = and i64 %indvars.iv121.i52, 3
+  %xtraiter142 = and i64 %indvars.iv121.i52, 3
   %57 = icmp ult i64 %indvars.iv121.i52, 4
   br i1 %57, label %for.end.i66.loopexit.unr-lcssa, label %for.body6.i61.preheader.new
 
 for.body6.i61.preheader.new:                      ; preds = %for.body6.i61.preheader
-  %unroll_iter148 = and i64 %indvars.iv121.i52, 9223372036854775804
+  %unroll_iter146 = and i64 %indvars.iv121.i52, 9223372036854775804
   br label %for.body6.i61
 
 for.body6.i61:                                    ; preds = %for.body6.i61, %for.body6.i61.preheader.new
   %indvars.iv.i57 = phi i64 [ 0, %for.body6.i61.preheader.new ], [ %indvars.iv.next.i59.3, %for.body6.i61 ]
   %x.096.i = phi double [ %mul.i55, %for.body6.i61.preheader.new ], [ %sub16.i.3, %for.body6.i61 ]
-  %niter149 = phi i64 [ 0, %for.body6.i61.preheader.new ], [ %niter149.next.3, %for.body6.i61 ]
+  %niter147 = phi i64 [ 0, %for.body6.i61.preheader.new ], [ %niter147.next.3, %for.body6.i61 ]
   %arrayidx10.i58 = getelementptr inbounds [1024 x double], ptr %7, i64 %indvars.iv121.i52, i64 %indvars.iv.i57
   %58 = load double, ptr %arrayidx10.i58, align 8, !tbaa !5
   %mul15.i = fmul double %58, %58
@@ -412,29 +412,29 @@ for.body6.i61:                                    ; preds = %for.body6.i61, %for
   %mul15.i.3 = fmul double %61, %61
   %sub16.i.3 = fsub double %sub16.i.2, %mul15.i.3
   %indvars.iv.next.i59.3 = add nuw nsw i64 %indvars.iv.i57, 4
-  %niter149.next.3 = add i64 %niter149, 4
-  %niter149.ncmp.3 = icmp eq i64 %niter149.next.3, %unroll_iter148
-  br i1 %niter149.ncmp.3, label %for.end.i66.loopexit.unr-lcssa, label %for.body6.i61, !llvm.loop !24
+  %niter147.next.3 = add i64 %niter147, 4
+  %niter147.ncmp.3 = icmp eq i64 %niter147.next.3, %unroll_iter146
+  br i1 %niter147.ncmp.3, label %for.end.i66.loopexit.unr-lcssa, label %for.body6.i61, !llvm.loop !24
 
 for.end.i66.loopexit.unr-lcssa:                   ; preds = %for.body6.i61, %for.body6.i61.preheader
   %sub16.i.lcssa.ph = phi double [ undef, %for.body6.i61.preheader ], [ %sub16.i.3, %for.body6.i61 ]
   %indvars.iv.i57.unr = phi i64 [ 0, %for.body6.i61.preheader ], [ %indvars.iv.next.i59.3, %for.body6.i61 ]
   %x.096.i.unr = phi double [ %mul.i55, %for.body6.i61.preheader ], [ %sub16.i.3, %for.body6.i61 ]
-  %lcmp.mod146.not = icmp eq i64 %xtraiter144, 0
-  br i1 %lcmp.mod146.not, label %for.end.i66, label %for.body6.i61.epil
+  %lcmp.mod144.not = icmp eq i64 %xtraiter142, 0
+  br i1 %lcmp.mod144.not, label %for.end.i66, label %for.body6.i61.epil
 
 for.body6.i61.epil:                               ; preds = %for.end.i66.loopexit.unr-lcssa, %for.body6.i61.epil
   %indvars.iv.i57.epil = phi i64 [ %indvars.iv.next.i59.epil, %for.body6.i61.epil ], [ %indvars.iv.i57.unr, %for.end.i66.loopexit.unr-lcssa ]
   %x.096.i.epil = phi double [ %sub16.i.epil, %for.body6.i61.epil ], [ %x.096.i.unr, %for.end.i66.loopexit.unr-lcssa ]
-  %epil.iter145 = phi i64 [ %epil.iter145.next, %for.body6.i61.epil ], [ 0, %for.end.i66.loopexit.unr-lcssa ]
+  %epil.iter143 = phi i64 [ %epil.iter143.next, %for.body6.i61.epil ], [ 0, %for.end.i66.loopexit.unr-lcssa ]
   %arrayidx10.i58.epil = getelementptr inbounds [1024 x double], ptr %7, i64 %indvars.iv121.i52, i64 %indvars.iv.i57.epil
   %62 = load double, ptr %arrayidx10.i58.epil, align 8, !tbaa !5
   %mul15.i.epil = fmul double %62, %62
   %sub16.i.epil = fsub double %x.096.i.epil, %mul15.i.epil
   %indvars.iv.next.i59.epil = add nuw nsw i64 %indvars.iv.i57.epil, 1
-  %epil.iter145.next = add i64 %epil.iter145, 1
-  %epil.iter145.cmp.not = icmp eq i64 %epil.iter145.next, %xtraiter144
-  br i1 %epil.iter145.cmp.not, label %for.end.i66, label %for.body6.i61.epil, !llvm.loop !25
+  %epil.iter143.next = add i64 %epil.iter143, 1
+  %epil.iter143.cmp.not = icmp eq i64 %epil.iter143.next, %xtraiter142
+  br i1 %epil.iter143.cmp.not, label %for.end.i66, label %for.body6.i61.epil, !llvm.loop !25
 
 for.end.i66:                                      ; preds = %for.end.i66.loopexit.unr-lcssa, %for.body6.i61.epil, %for.body.i56
   %x.0.lcssa.i62 = phi double [ %mul.i55, %for.body.i56 ], [ %sub16.i.lcssa.ph, %for.end.i66.loopexit.unr-lcssa ], [ %sub16.i.epil, %for.body6.i61.epil ]
@@ -450,10 +450,10 @@ for.body22.lr.ph.i:                               ; preds = %for.end.i66
   br i1 %cmp4.not.not94.not.i, label %for.body22.i, label %for.body22.us.i.preheader
 
 for.body22.us.i.preheader:                        ; preds = %for.body22.lr.ph.i
-  %xtraiter150 = and i64 %indvars.iv121.i52, 1
+  %xtraiter148 = and i64 %indvars.iv121.i52, 1
   %63 = icmp eq i64 %indvars.iv121.i52, 1
-  %unroll_iter154 = and i64 %indvars.iv121.i52, 9223372036854775806
-  %lcmp.mod152.not = icmp eq i64 %xtraiter150, 0
+  %unroll_iter152 = and i64 %indvars.iv121.i52, 9223372036854775806
+  %lcmp.mod150.not = icmp eq i64 %xtraiter148, 0
   br label %for.body22.us.i
 
 for.body22.us.i:                                  ; preds = %for.body22.us.i.preheader, %for.cond27.for.end44_crit_edge.us.i
@@ -465,7 +465,7 @@ for.body22.us.i:                                  ; preds = %for.body22.us.i.pre
 for.body31.us.i:                                  ; preds = %for.body22.us.i, %for.body31.us.i
   %indvars.iv106.i68 = phi i64 [ %indvars.iv.next107.i69.1, %for.body31.us.i ], [ 0, %for.body22.us.i ]
   %x.199.us.i = phi double [ %sub41.us.i.1, %for.body31.us.i ], [ %64, %for.body22.us.i ]
-  %niter155 = phi i64 [ %niter155.next.1, %for.body31.us.i ], [ 0, %for.body22.us.i ]
+  %niter153 = phi i64 [ %niter153.next.1, %for.body31.us.i ], [ 0, %for.body22.us.i ]
   %arrayidx35.us.i = getelementptr inbounds [1024 x double], ptr %7, i64 %indvars.iv113.i67, i64 %indvars.iv106.i68
   %65 = load double, ptr %arrayidx35.us.i, align 8, !tbaa !5
   %arrayidx39.us.i = getelementptr inbounds [1024 x double], ptr %7, i64 %indvars.iv121.i52, i64 %indvars.iv106.i68
@@ -480,15 +480,15 @@ for.body31.us.i:                                  ; preds = %for.body22.us.i, %f
   %mul40.us.i.1 = fmul double %67, %68
   %sub41.us.i.1 = fsub double %sub41.us.i, %mul40.us.i.1
   %indvars.iv.next107.i69.1 = add nuw nsw i64 %indvars.iv106.i68, 2
-  %niter155.next.1 = add i64 %niter155, 2
-  %niter155.ncmp.1 = icmp eq i64 %niter155.next.1, %unroll_iter154
-  br i1 %niter155.ncmp.1, label %for.cond27.for.end44_crit_edge.us.i.unr-lcssa, label %for.body31.us.i, !llvm.loop !26
+  %niter153.next.1 = add i64 %niter153, 2
+  %niter153.ncmp.1 = icmp eq i64 %niter153.next.1, %unroll_iter152
+  br i1 %niter153.ncmp.1, label %for.cond27.for.end44_crit_edge.us.i.unr-lcssa, label %for.body31.us.i, !llvm.loop !26
 
 for.cond27.for.end44_crit_edge.us.i.unr-lcssa:    ; preds = %for.body31.us.i, %for.body22.us.i
   %sub41.us.i.lcssa.ph = phi double [ undef, %for.body22.us.i ], [ %sub41.us.i.1, %for.body31.us.i ]
   %indvars.iv106.i68.unr = phi i64 [ 0, %for.body22.us.i ], [ %indvars.iv.next107.i69.1, %for.body31.us.i ]
   %x.199.us.i.unr = phi double [ %64, %for.body22.us.i ], [ %sub41.us.i.1, %for.body31.us.i ]
-  br i1 %lcmp.mod152.not, label %for.cond27.for.end44_crit_edge.us.i, label %for.body31.us.i.epil
+  br i1 %lcmp.mod150.not, label %for.cond27.for.end44_crit_edge.us.i, label %for.body31.us.i.epil
 
 for.body31.us.i.epil:                             ; preds = %for.cond27.for.end44_crit_edge.us.i.unr-lcssa
   %arrayidx35.us.i.epil = getelementptr inbounds [1024 x double], ptr %7, i64 %indvars.iv113.i67, i64 %indvars.iv106.i68.unr
@@ -533,17 +533,17 @@ for.body3.i:                                      ; preds = %for.inc.i.1, %for.c
   %75 = load double, ptr %arrayidx9.i, align 8, !tbaa !5
   %sub.i = fsub double %74, %75
   %76 = call double @llvm.fabs.f64(double %sub.i)
-  %cmp10.i = fcmp ule double %76, 1.000000e-05
-  br i1 %cmp10.i, label %for.inc.i, label %check_FP.exit.thread
+  %cmp10.i = fcmp ogt double %76, 1.000000e-05
+  br i1 %cmp10.i, label %check_FP.exit.thread, label %for.inc.i
 
 check_FP.exit.thread:                             ; preds = %for.inc.i, %for.body3.i
   %indvars.iv.i76.lcssa = phi i64 [ %indvars.iv.i76, %for.body3.i ], [ %indvars.iv.next.i78, %for.inc.i ]
-  %.lcssa128 = phi double [ %74, %for.body3.i ], [ %80, %for.inc.i ]
+  %.lcssa126 = phi double [ %74, %for.body3.i ], [ %80, %for.inc.i ]
   %.lcssa = phi double [ %75, %for.body3.i ], [ %81, %for.inc.i ]
   %77 = trunc i64 %indvars.iv44.i to i32
   %78 = trunc i64 %indvars.iv.i76.lcssa to i32
   %79 = load ptr, ptr @stderr, align 8, !tbaa !9
-  %call.i77 = call i32 (ptr, ptr, ...) @fprintf(ptr noundef %79, ptr noundef nonnull @.str.2, i32 noundef %77, i32 noundef %78, double noundef %.lcssa128, i32 noundef %77, i32 noundef %78, double noundef %.lcssa, double noundef 1.000000e-05) #13
+  %call.i77 = call i32 (ptr, ptr, ...) @fprintf(ptr noundef %79, ptr noundef nonnull @.str.2, i32 noundef %77, i32 noundef %78, double noundef %.lcssa126, i32 noundef %77, i32 noundef %78, double noundef %.lcssa, double noundef 1.000000e-05) #13
   br label %cleanup
 
 for.inc.i:                                        ; preds = %for.body3.i
@@ -554,8 +554,8 @@ for.inc.i:                                        ; preds = %for.body3.i
   %81 = load double, ptr %arrayidx9.i.1, align 8, !tbaa !5
   %sub.i.1 = fsub double %80, %81
   %82 = call double @llvm.fabs.f64(double %sub.i.1)
-  %cmp10.i.1 = fcmp ule double %82, 1.000000e-05
-  br i1 %cmp10.i.1, label %for.inc.i.1, label %check_FP.exit.thread
+  %cmp10.i.1 = fcmp ogt double %82, 1.000000e-05
+  br i1 %cmp10.i.1, label %check_FP.exit.thread, label %for.inc.i.1
 
 for.inc.i.1:                                      ; preds = %for.inc.i
   %indvars.iv.next.i78.1 = add nuw nsw i64 %indvars.iv.i76, 2

@@ -59,15 +59,15 @@ for.cond5.preheader:                              ; preds = %for.cond5.preheader
   %indvars.iv47 = phi i64 [ %indvars.iv.next48, %for.cond5.preheaderthread-pre-split ], [ 0, %for.cond5.preheader.lr.ph ]
   %8 = phi ptr [ %36, %for.cond5.preheaderthread-pre-split ], [ %1, %for.cond5.preheader.lr.ph ]
   %cmp8.not40 = icmp eq ptr %5, null
-  br i1 %cmp8.not40, label %for.inc15, label %lor.lhs.false2.i.lr.ph
+  br i1 %cmp8.not40, label %for.inc15, label %for.body9.lr.ph
 
-lor.lhs.false2.i.lr.ph:                           ; preds = %for.cond5.preheader
+for.body9.lr.ph:                                  ; preds = %for.cond5.preheader
   %arrayidx5.i = getelementptr inbounds ptr, ptr %8, i64 1
-  br label %lor.lhs.false2.i
+  br label %for.body9
 
-lor.lhs.false2.i:                                 ; preds = %lor.lhs.false2.i.lr.ph, %findLabelPath.exit
-  %indvars.iv = phi i64 [ 0, %lor.lhs.false2.i.lr.ph ], [ %indvars.iv.next, %findLabelPath.exit ]
-  %9 = phi ptr [ %5, %lor.lhs.false2.i.lr.ph ], [ %33, %findLabelPath.exit ]
+for.body9:                                        ; preds = %for.body9.lr.ph, %findLabelPath.exit
+  %indvars.iv = phi i64 [ 0, %for.body9.lr.ph ], [ %indvars.iv.next, %findLabelPath.exit ]
+  %9 = phi ptr [ %5, %for.body9.lr.ph ], [ %33, %findLabelPath.exit ]
   store i32 0, ptr %call1, align 8, !tbaa !13
   %10 = load ptr, ptr @stdout, align 8, !tbaa !11
   %call13 = tail call i32 @fflush(ptr noundef %10)
@@ -80,7 +80,7 @@ lor.lhs.false2.i:                                 ; preds = %lor.lhs.false2.i.lr
   %tobool3.not.i = icmp eq ptr %14, null
   br i1 %tobool3.not.i, label %findLabelPath.exit, label %lor.lhs.false4.i
 
-lor.lhs.false4.i:                                 ; preds = %lor.lhs.false2.i
+lor.lhs.false4.i:                                 ; preds = %for.body9
   %15 = load ptr, ptr %arrayidx5.i, align 8, !tbaa !11
   %tobool6.i = icmp ne ptr %15, null
   %tobool10.i = icmp ne ptr %call.i, null
@@ -176,13 +176,13 @@ for.end.i:                                        ; preds = %for.inc.i, %for.bod
   tail call void @Bitfield_delete(ptr noundef nonnull %call.i) #10
   br label %findLabelPath.exit
 
-findLabelPath.exit:                               ; preds = %lor.lhs.false2.i, %lor.lhs.false4.i, %if.end.i, %for.end.i
+findLabelPath.exit:                               ; preds = %for.body9, %lor.lhs.false4.i, %if.end.i, %for.end.i
   %indvars.iv.next = add nuw i64 %indvars.iv, 1
   %32 = load ptr, ptr %config, align 8, !tbaa !12
   %arrayidx7 = getelementptr inbounds ptr, ptr %32, i64 %indvars.iv.next
   %33 = load ptr, ptr %arrayidx7, align 8, !tbaa !11
   %cmp8.not = icmp eq ptr %33, null
-  br i1 %cmp8.not, label %for.inc15.loopexit, label %lor.lhs.false2.i, !llvm.loop !29
+  br i1 %cmp8.not, label %for.inc15.loopexit, label %for.body9, !llvm.loop !29
 
 for.inc15.loopexit:                               ; preds = %findLabelPath.exit
   %.pre = load ptr, ptr %signatures, align 8, !tbaa !5
@@ -1153,8 +1153,8 @@ for.inc.i:                                        ; preds = %if.then5.i, %for.bo
   %cmp.not.not.i = icmp slt i64 %indvars.iv.i, %77
   br i1 %cmp.not.not.i, label %for.body.i, label %cleanup, !llvm.loop !74
 
-cleanup:                                          ; preds = %for.inc.i, %if.then.i, %if.then84, %if.end78, %land.lhs.true81, %entry
-  %retval.0 = phi i32 [ 0, %entry ], [ %51, %land.lhs.true81 ], [ %51, %if.end78 ], [ %51, %if.then84 ], [ %51, %if.then.i ], [ %51, %for.inc.i ]
+cleanup:                                          ; preds = %for.inc.i, %if.end78, %land.lhs.true81, %if.then84, %if.then.i, %entry
+  %retval.0 = phi i32 [ 0, %entry ], [ %51, %if.then.i ], [ %51, %if.then84 ], [ %51, %land.lhs.true81 ], [ %51, %if.end78 ], [ %51, %for.inc.i ]
   call void @llvm.lifetime.end.p0(i64 50, ptr nonnull %timeStr) #10
   ret i32 %retval.0
 }

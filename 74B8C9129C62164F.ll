@@ -1214,7 +1214,7 @@ start.preheader.i:                                ; preds = %if.end15.i, %if.end
 if.else.lr.ph.i:                                  ; preds = %start.preheader.i
   %arrayidx88.i = getelementptr inbounds ptr, ptr %T, i64 1
   %sub.ptr.rhs.cast.i = ptrtoint ptr %T to i64
-  %scevgep68 = getelementptr i8, ptr %4, i64 4
+  %scevgep66 = getelementptr i8, ptr %4, i64 4
   br label %if.else.i
 
 for.body.i:                                       ; preds = %if.end, %if.end15.i
@@ -1295,7 +1295,7 @@ for.end38.i:                                      ; preds = %if.end37.i, %cond.e
 if.else.i:                                        ; preds = %if.end94.i, %if.else.lr.ph.i
   %23 = phi i32 [ %6, %if.else.lr.ph.i ], [ %60, %if.end94.i ]
   %cmp48.not.i = icmp eq i32 %23, 0
-  br i1 %cmp48.not.i, label %if.then1, label %if.then49.i
+  br i1 %cmp48.not.i, label %if.then1.critedge, label %if.then49.i
 
 if.then49.i:                                      ; preds = %if.else.i
   %24 = load ptr, ptr getelementptr inbounds (%struct.cube_struct, ptr @cube, i64 0, i32 13), align 8, !tbaa !44
@@ -1330,8 +1330,8 @@ if.then56.i:                                      ; preds = %for.body53.i
   %34 = zext i32 %33 to i64
   %35 = add nuw nsw i64 %34, 1
   %36 = icmp ne i32 %33, 0
-  %umin73.neg = sext i1 %36 to i64
-  %37 = add nsw i64 %35, %umin73.neg
+  %umin71.neg = sext i1 %36 to i64
+  %37 = add nsw i64 %35, %umin71.neg
   %min.iters.check = icmp ult i64 %37, 12
   br i1 %min.iters.check, label %do.body.i.preheader, label %vector.memcheck
 
@@ -1340,12 +1340,12 @@ vector.memcheck:                                  ; preds = %if.then56.i
   %38 = select i1 %.not, i64 0, i64 4
   %scevgep = getelementptr i8, ptr %4, i64 %38
   %39 = shl nuw nsw i64 %34, 2
-  %scevgep69 = getelementptr i8, ptr %scevgep68, i64 %39
-  %scevgep70 = getelementptr i8, ptr %32, i64 %38
-  %scevgep71 = getelementptr i8, ptr %32, i64 4
-  %scevgep72 = getelementptr i8, ptr %scevgep71, i64 %39
-  %bound0 = icmp ult ptr %scevgep, %scevgep72
-  %bound1 = icmp ult ptr %scevgep70, %scevgep69
+  %scevgep67 = getelementptr i8, ptr %scevgep66, i64 %39
+  %scevgep68 = getelementptr i8, ptr %32, i64 %38
+  %scevgep69 = getelementptr i8, ptr %32, i64 4
+  %scevgep70 = getelementptr i8, ptr %scevgep69, i64 %39
+  %bound0 = icmp ult ptr %scevgep, %scevgep70
+  %bound1 = icmp ult ptr %scevgep68, %scevgep67
   %found.conflict = and i1 %bound0, %bound1
   br i1 %found.conflict, label %do.body.i.preheader, label %vector.ph
 
@@ -1362,15 +1362,15 @@ vector.body:                                      ; preds = %vector.body, %vecto
   %wide.load = load <4 x i32>, ptr %41, align 4, !tbaa !14, !alias.scope !58, !noalias !61
   %42 = getelementptr inbounds i32, ptr %40, i64 -4
   %43 = getelementptr inbounds i32, ptr %42, i64 -3
-  %wide.load74 = load <4 x i32>, ptr %43, align 4, !tbaa !14, !alias.scope !58, !noalias !61
+  %wide.load72 = load <4 x i32>, ptr %43, align 4, !tbaa !14, !alias.scope !58, !noalias !61
   %44 = getelementptr inbounds i32, ptr %32, i64 %offset.idx
   %45 = getelementptr inbounds i32, ptr %44, i64 -3
-  %wide.load76 = load <4 x i32>, ptr %45, align 4, !tbaa !14, !alias.scope !61
+  %wide.load74 = load <4 x i32>, ptr %45, align 4, !tbaa !14, !alias.scope !61
   %46 = getelementptr inbounds i32, ptr %44, i64 -4
   %47 = getelementptr inbounds i32, ptr %46, i64 -3
-  %wide.load78 = load <4 x i32>, ptr %47, align 4, !tbaa !14, !alias.scope !61
-  %48 = or <4 x i32> %wide.load76, %wide.load
-  %49 = or <4 x i32> %wide.load78, %wide.load74
+  %wide.load76 = load <4 x i32>, ptr %47, align 4, !tbaa !14, !alias.scope !61
+  %48 = or <4 x i32> %wide.load74, %wide.load
+  %49 = or <4 x i32> %wide.load76, %wide.load72
   store <4 x i32> %48, ptr %41, align 4, !tbaa !14, !alias.scope !58, !noalias !61
   store <4 x i32> %49, ptr %43, align 4, !tbaa !14, !alias.scope !58, !noalias !61
   %index.next = add nuw i64 %index, 8
@@ -1461,7 +1461,7 @@ cleanup.sink.split.sink.split.i:                  ; preds = %for.end38.i, %if.th
   tail call void @free(ptr noundef nonnull %.sink.i) #6
   br label %if.end37.sink.split
 
-if.then1:                                         ; preds = %if.else.i
+if.then1.critedge:                                ; preds = %if.else.i
   %62 = load i32, ptr @cube, align 8, !tbaa !19
   %cmp2 = icmp slt i32 %62, 33
   %sub = add nsw i32 %62, -1
@@ -1478,8 +1478,8 @@ if.then1:                                         ; preds = %if.else.i
   %66 = lshr i32 %sub10, 3
   %add13 = and i32 %66, 536870908
   %67 = add nuw nsw i32 %add13, 8
-  %narrow67 = select i1 %cmp6, i32 8, i32 %67
-  %cond15 = zext i32 %narrow67 to i64
+  %narrow65 = select i1 %cmp6, i32 8, i32 %67
+  %cond15 = zext i32 %narrow65 to i64
   %call18 = tail call noalias ptr @malloc(i64 noundef %cond15) #7
   %call19 = tail call ptr (ptr, i32, ...) @set_clear(ptr noundef %call18, i32 noundef %65) #6
   %call20 = tail call i32 (ptr, ptr, ptr, i32, ...) @binate_split_select(ptr noundef %T, ptr noundef %call5, ptr noundef %call19, i32 noundef 512) #6
@@ -1491,11 +1491,11 @@ if.then1:                                         ; preds = %if.else.i
   %tobool23.not = icmp eq ptr %68, null
   br i1 %tobool23.not, label %if.then29, label %if.then24
 
-if.then24:                                        ; preds = %if.then1
+if.then24:                                        ; preds = %if.then1.critedge
   tail call void @free(ptr noundef nonnull %68) #6
   br label %if.then29
 
-if.then29:                                        ; preds = %if.then1, %if.then24
+if.then29:                                        ; preds = %if.then1.critedge, %if.then24
   tail call void @free(ptr noundef nonnull %T) #6
   %tobool31.not = icmp eq ptr %call5, null
   br i1 %tobool31.not, label %if.end33, label %if.then32
@@ -1508,8 +1508,8 @@ if.end33:                                         ; preds = %if.then32, %if.then
   %tobool34.not = icmp eq ptr %call19, null
   br i1 %tobool34.not, label %if.end37, label %if.end37.sink.split
 
-if.end37.sink.split:                              ; preds = %if.end33, %cleanup.sink.split.sink.split.i, %for.end38.i, %if.then5.i
-  %T.sink = phi ptr [ %T, %if.then5.i ], [ %T, %for.end38.i ], [ %T, %cleanup.sink.split.sink.split.i ], [ %call19, %if.end33 ]
+if.end37.sink.split:                              ; preds = %if.end33, %if.then5.i, %for.end38.i, %cleanup.sink.split.sink.split.i
+  %T.sink = phi ptr [ %T, %cleanup.sink.split.sink.split.i ], [ %T, %for.end38.i ], [ %T, %if.then5.i ], [ %call19, %if.end33 ]
   tail call void @free(ptr noundef nonnull %T.sink) #6
   br label %if.end37
 

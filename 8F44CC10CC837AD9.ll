@@ -93,7 +93,7 @@ while.end:                                        ; preds = %while.end.loopexit,
   br label %while.body.i.i
 
 while.body.i.i:                                   ; preds = %while.end, %while.body.i.i
-  %it.014.i.i = phi i32 [ %dec.i.i, %while.body.i.i ], [ 100, %while.end ]
+  %dec14.i.i = phi i32 [ %dec.i.i, %while.body.i.i ], [ 99, %while.end ]
   %xk.013.i.i = phi double [ %div1.i.i, %while.body.i.i ], [ 1.000000e+00, %while.end ]
   %div.i.i = fdiv double 1.312500e+00, %xk.013.i.i
   %add.i.i = fadd double %xk.013.i.i, %div.i.i
@@ -101,10 +101,10 @@ while.body.i.i:                                   ; preds = %while.end, %while.b
   %sub.i.i.i = fsub double %div1.i.i, %xk.013.i.i
   %cmp.i.i.i = fcmp ule double %sub.i.i.i, 0x3D719799812DEA11
   %cmp1.i.i.i = fcmp uge double %sub.i.i.i, 0xBD719799812DEA11
-  %.not.i.i = and i1 %cmp.i.i.i, %cmp1.i.i.i
-  %dec.i.i = add nsw i32 %it.014.i.i, -1
-  %tobool.not.i.i = icmp eq i32 %dec.i.i, 0
-  %or.cond.i.i = select i1 %.not.i.i, i1 true, i1 %tobool.not.i.i
+  %.not15.i.i = and i1 %cmp.i.i.i, %cmp1.i.i.i
+  %dec.i.i = add nsw i32 %dec14.i.i, -1
+  %tobool.not.i.i = icmp eq i32 %dec14.i.i, 0
+  %or.cond.i.i = select i1 %.not15.i.i, i1 true, i1 %tobool.not.i.i
   br i1 %or.cond.i.i, label %_ZNK3v_t4normEv.exit, label %while.body.i.i, !llvm.loop !11
 
 _ZNK3v_t4normEv.exit:                             ; preds = %while.body.i.i
@@ -212,7 +212,7 @@ for.body24.us.i:                                  ; preds = %for.body24.us.i.pre
   br i1 %cmp.i.i.us.i, label %_ZNK3v_t4normEv.exit.us.i, label %while.body.i.i.us.i
 
 while.body.i.i.us.i:                              ; preds = %for.body24.us.i, %while.body.i.i.us.i
-  %it.014.i.i.us.i = phi i32 [ %dec.i.i.us.i, %while.body.i.i.us.i ], [ 100, %for.body24.us.i ]
+  %dec14.i.i.us.i = phi i32 [ %dec.i.i.us.i, %while.body.i.i.us.i ], [ 99, %for.body24.us.i ]
   %xk.013.i.i.us.i = phi double [ %div1.i.i.us.i, %while.body.i.i.us.i ], [ 1.000000e+00, %for.body24.us.i ]
   %div.i.i.us.i = fdiv double %add7.i.i.i.us.i, %xk.013.i.i.us.i
   %add.i.i.us.i = fadd double %xk.013.i.i.us.i, %div.i.i.us.i
@@ -220,10 +220,10 @@ while.body.i.i.us.i:                              ; preds = %for.body24.us.i, %w
   %sub.i.i.i.us.i = fsub double %div1.i.i.us.i, %xk.013.i.i.us.i
   %cmp.i.i.i.us.i = fcmp ule double %sub.i.i.i.us.i, 0x3D719799812DEA11
   %cmp1.i.i.i.us.i = fcmp uge double %sub.i.i.i.us.i, 0xBD719799812DEA11
-  %.not.i.i.us.i = and i1 %cmp.i.i.i.us.i, %cmp1.i.i.i.us.i
-  %dec.i.i.us.i = add nsw i32 %it.014.i.i.us.i, -1
-  %tobool.not.i.i.us.i = icmp eq i32 %dec.i.i.us.i, 0
-  %or.cond.i.i.us.i = select i1 %.not.i.i.us.i, i1 true, i1 %tobool.not.i.i.us.i
+  %.not15.i.i.us.i = and i1 %cmp.i.i.i.us.i, %cmp1.i.i.i.us.i
+  %dec.i.i.us.i = add nsw i32 %dec14.i.i.us.i, -1
+  %tobool.not.i.i.us.i = icmp eq i32 %dec14.i.i.us.i, 0
+  %or.cond.i.i.us.i = select i1 %.not15.i.i.us.i, i1 true, i1 %tobool.not.i.i.us.i
   br i1 %or.cond.i.i.us.i, label %_ZNK3v_t4normEv.exit.us.i, label %while.body.i.i.us.i, !llvm.loop !11
 
 _ZNK3v_t4normEv.exit.us.i:                        ; preds = %while.body.i.i.us.i, %for.body24.us.i
@@ -273,7 +273,7 @@ if.end.i.i119.us.i:                               ; preds = %while.body.i117.us.
   br i1 %cmp.i.i.i118.us.i, label %_ZL8LLVMsqrtd.exit.i.i136.us.i, label %while.body.i.i.i132.us.i
 
 while.body.i.i.i132.us.i:                         ; preds = %if.end.i.i119.us.i, %while.body.i.i.i132.us.i
-  %it.014.i.i.i120.us.i = phi i32 [ %dec.i.i.i129.us.i, %while.body.i.i.i132.us.i ], [ 100, %if.end.i.i119.us.i ]
+  %dec14.i.i.i120.us.i = phi i32 [ %dec.i.i.i129.us.i, %while.body.i.i.i132.us.i ], [ 99, %if.end.i.i119.us.i ]
   %xk.013.i.i.i121.us.i = phi double [ %div1.i.i.i124.us.i, %while.body.i.i.i132.us.i ], [ 1.000000e+00, %if.end.i.i119.us.i ]
   %div.i.i.i122.us.i = fdiv double %add.i.i115.us.i, %xk.013.i.i.i121.us.i
   %add.i32.i.i123.us.i = fadd double %xk.013.i.i.i121.us.i, %div.i.i.i122.us.i
@@ -281,10 +281,10 @@ while.body.i.i.i132.us.i:                         ; preds = %if.end.i.i119.us.i,
   %sub.i.i.i.i125.us.i = fsub double %div1.i.i.i124.us.i, %xk.013.i.i.i121.us.i
   %cmp.i.i.i.i126.us.i = fcmp ule double %sub.i.i.i.i125.us.i, 0x3D719799812DEA11
   %cmp1.i.i.i.i127.us.i = fcmp uge double %sub.i.i.i.i125.us.i, 0xBD719799812DEA11
-  %.not.i.i.i128.us.i = and i1 %cmp.i.i.i.i126.us.i, %cmp1.i.i.i.i127.us.i
-  %dec.i.i.i129.us.i = add nsw i32 %it.014.i.i.i120.us.i, -1
-  %tobool.not.i.i.i130.us.i = icmp eq i32 %dec.i.i.i129.us.i, 0
-  %or.cond.i.i.i131.us.i = select i1 %.not.i.i.i128.us.i, i1 true, i1 %tobool.not.i.i.i130.us.i
+  %.not15.i.i.i128.us.i = and i1 %cmp.i.i.i.i126.us.i, %cmp1.i.i.i.i127.us.i
+  %dec.i.i.i129.us.i = add nsw i32 %dec14.i.i.i120.us.i, -1
+  %tobool.not.i.i.i130.us.i = icmp eq i32 %dec14.i.i.i120.us.i, 0
+  %or.cond.i.i.i131.us.i = select i1 %.not15.i.i.i128.us.i, i1 true, i1 %tobool.not.i.i.i130.us.i
   br i1 %or.cond.i.i.i131.us.i, label %_ZL8LLVMsqrtd.exit.i.i136.us.i, label %while.body.i.i.i132.us.i, !llvm.loop !11
 
 _ZL8LLVMsqrtd.exit.i.i136.us.i:                   ; preds = %while.body.i.i.i132.us.i, %if.end.i.i119.us.i
@@ -343,7 +343,7 @@ if.end.i53.i.us.i:                                ; preds = %if.else.i147.us.i
   br i1 %cmp.i.i52.i.us.i, label %_ZL8LLVMsqrtd.exit.i70.i.us.i, label %while.body.i.i66.i.us.i
 
 while.body.i.i66.i.us.i:                          ; preds = %if.end.i53.i.us.i, %while.body.i.i66.i.us.i
-  %it.014.i.i54.i.us.i = phi i32 [ %dec.i.i63.i.us.i, %while.body.i.i66.i.us.i ], [ 100, %if.end.i53.i.us.i ]
+  %dec14.i.i54.i.us.i = phi i32 [ %dec.i.i63.i.us.i, %while.body.i.i66.i.us.i ], [ 99, %if.end.i53.i.us.i ]
   %xk.013.i.i55.i.us.i = phi double [ %div1.i.i58.i.us.i, %while.body.i.i66.i.us.i ], [ 1.000000e+00, %if.end.i53.i.us.i ]
   %div.i.i56.i.us.i = fdiv double %add.i50.i.us.i, %xk.013.i.i55.i.us.i
   %add.i32.i57.i.us.i = fadd double %xk.013.i.i55.i.us.i, %div.i.i56.i.us.i
@@ -351,10 +351,10 @@ while.body.i.i66.i.us.i:                          ; preds = %if.end.i53.i.us.i, 
   %sub.i.i.i59.i.us.i = fsub double %div1.i.i58.i.us.i, %xk.013.i.i55.i.us.i
   %cmp.i.i.i60.i.us.i = fcmp ule double %sub.i.i.i59.i.us.i, 0x3D719799812DEA11
   %cmp1.i.i.i61.i.us.i = fcmp uge double %sub.i.i.i59.i.us.i, 0xBD719799812DEA11
-  %.not.i.i62.i.us.i = and i1 %cmp.i.i.i60.i.us.i, %cmp1.i.i.i61.i.us.i
-  %dec.i.i63.i.us.i = add nsw i32 %it.014.i.i54.i.us.i, -1
-  %tobool.not.i.i64.i.us.i = icmp eq i32 %dec.i.i63.i.us.i, 0
-  %or.cond.i.i65.i.us.i = select i1 %.not.i.i62.i.us.i, i1 true, i1 %tobool.not.i.i64.i.us.i
+  %.not15.i.i62.i.us.i = and i1 %cmp.i.i.i60.i.us.i, %cmp1.i.i.i61.i.us.i
+  %dec.i.i63.i.us.i = add nsw i32 %dec14.i.i54.i.us.i, -1
+  %tobool.not.i.i64.i.us.i = icmp eq i32 %dec14.i.i54.i.us.i, 0
+  %or.cond.i.i65.i.us.i = select i1 %.not15.i.i62.i.us.i, i1 true, i1 %tobool.not.i.i64.i.us.i
   br i1 %or.cond.i.i65.i.us.i, label %_ZL8LLVMsqrtd.exit.i70.i.us.i, label %while.body.i.i66.i.us.i, !llvm.loop !11
 
 _ZL8LLVMsqrtd.exit.i70.i.us.i:                    ; preds = %while.body.i.i66.i.us.i, %if.end.i53.i.us.i
@@ -462,7 +462,7 @@ if.end.i.i.us.i:                                  ; preds = %while.body.i.us.i
   br i1 %cmp.i.i.i84.us.i, label %_ZL8LLVMsqrtd.exit.i.i.us.i, label %while.body.i.i.i.us.i
 
 while.body.i.i.i.us.i:                            ; preds = %if.end.i.i.us.i, %while.body.i.i.i.us.i
-  %it.014.i.i.i.us.i = phi i32 [ %dec.i.i.i.us.i, %while.body.i.i.i.us.i ], [ 100, %if.end.i.i.us.i ]
+  %dec14.i.i.i.us.i = phi i32 [ %dec.i.i.i.us.i, %while.body.i.i.i.us.i ], [ 99, %if.end.i.i.us.i ]
   %xk.013.i.i.i.us.i = phi double [ %div1.i.i.i.us.i, %while.body.i.i.i.us.i ], [ 1.000000e+00, %if.end.i.i.us.i ]
   %div.i.i.i.us.i = fdiv double %add.i.i82.us.i, %xk.013.i.i.i.us.i
   %add.i32.i.i.us.i = fadd double %xk.013.i.i.i.us.i, %div.i.i.i.us.i
@@ -470,10 +470,10 @@ while.body.i.i.i.us.i:                            ; preds = %if.end.i.i.us.i, %w
   %sub.i.i.i.i.us.i = fsub double %div1.i.i.i.us.i, %xk.013.i.i.i.us.i
   %cmp.i.i.i.i.us.i = fcmp ule double %sub.i.i.i.i.us.i, 0x3D719799812DEA11
   %cmp1.i.i.i.i.us.i = fcmp uge double %sub.i.i.i.i.us.i, 0xBD719799812DEA11
-  %.not.i.i.i.us.i = and i1 %cmp.i.i.i.i.us.i, %cmp1.i.i.i.i.us.i
-  %dec.i.i.i.us.i = add nsw i32 %it.014.i.i.i.us.i, -1
-  %tobool.not.i.i.i85.us.i = icmp eq i32 %dec.i.i.i.us.i, 0
-  %or.cond.i.i.i.us.i = select i1 %.not.i.i.i.us.i, i1 true, i1 %tobool.not.i.i.i85.us.i
+  %.not15.i.i.i.us.i = and i1 %cmp.i.i.i.i.us.i, %cmp1.i.i.i.i.us.i
+  %dec.i.i.i.us.i = add nsw i32 %dec14.i.i.i.us.i, -1
+  %tobool.not.i.i.i85.us.i = icmp eq i32 %dec14.i.i.i.us.i, 0
+  %or.cond.i.i.i.us.i = select i1 %.not15.i.i.i.us.i, i1 true, i1 %tobool.not.i.i.i85.us.i
   br i1 %or.cond.i.i.i.us.i, label %_ZL8LLVMsqrtd.exit.i.i.us.i, label %while.body.i.i.i.us.i, !llvm.loop !11
 
 _ZL8LLVMsqrtd.exit.i.i.us.i:                      ; preds = %while.body.i.i.i.us.i, %if.end.i.i.us.i
@@ -526,7 +526,7 @@ if.end.i45.i.us.i:                                ; preds = %if.else.i.us.i
   br i1 %cmp.i.i44.i.us.i, label %_ZL8LLVMsqrtd.exit.i62.i.us.i, label %while.body.i.i58.i.us.i
 
 while.body.i.i58.i.us.i:                          ; preds = %if.end.i45.i.us.i, %while.body.i.i58.i.us.i
-  %it.014.i.i46.i.us.i = phi i32 [ %dec.i.i55.i.us.i, %while.body.i.i58.i.us.i ], [ 100, %if.end.i45.i.us.i ]
+  %dec14.i.i46.i.us.i = phi i32 [ %dec.i.i55.i.us.i, %while.body.i.i58.i.us.i ], [ 99, %if.end.i45.i.us.i ]
   %xk.013.i.i47.i.us.i = phi double [ %div1.i.i50.i.us.i, %while.body.i.i58.i.us.i ], [ 1.000000e+00, %if.end.i45.i.us.i ]
   %div.i.i48.i.us.i = fdiv double %add.i42.i.us.i, %xk.013.i.i47.i.us.i
   %add.i32.i49.i.us.i = fadd double %xk.013.i.i47.i.us.i, %div.i.i48.i.us.i
@@ -534,10 +534,10 @@ while.body.i.i58.i.us.i:                          ; preds = %if.end.i45.i.us.i, 
   %sub.i.i.i51.i.us.i = fsub double %div1.i.i50.i.us.i, %xk.013.i.i47.i.us.i
   %cmp.i.i.i52.i.us.i = fcmp ule double %sub.i.i.i51.i.us.i, 0x3D719799812DEA11
   %cmp1.i.i.i53.i.us.i = fcmp uge double %sub.i.i.i51.i.us.i, 0xBD719799812DEA11
-  %.not.i.i54.i.us.i = and i1 %cmp.i.i.i52.i.us.i, %cmp1.i.i.i53.i.us.i
-  %dec.i.i55.i.us.i = add nsw i32 %it.014.i.i46.i.us.i, -1
-  %tobool.not.i.i56.i.us.i = icmp eq i32 %dec.i.i55.i.us.i, 0
-  %or.cond.i.i57.i.us.i = select i1 %.not.i.i54.i.us.i, i1 true, i1 %tobool.not.i.i56.i.us.i
+  %.not15.i.i54.i.us.i = and i1 %cmp.i.i.i52.i.us.i, %cmp1.i.i.i53.i.us.i
+  %dec.i.i55.i.us.i = add nsw i32 %dec14.i.i46.i.us.i, -1
+  %tobool.not.i.i56.i.us.i = icmp eq i32 %dec14.i.i46.i.us.i, 0
+  %or.cond.i.i57.i.us.i = select i1 %.not15.i.i54.i.us.i, i1 true, i1 %tobool.not.i.i56.i.us.i
   br i1 %or.cond.i.i57.i.us.i, label %_ZL8LLVMsqrtd.exit.i62.i.us.i, label %while.body.i.i58.i.us.i, !llvm.loop !11
 
 _ZL8LLVMsqrtd.exit.i62.i.us.i:                    ; preds = %while.body.i.i58.i.us.i, %if.end.i45.i.us.i
@@ -831,7 +831,7 @@ _ZL7LLVMcosd.exit:                                ; preds = %if.then.i.i, %if.th
   br i1 %cmp.i.i105, label %_ZNK3v_t4normEv.exit, label %while.body.i.i108
 
 while.body.i.i108:                                ; preds = %_ZL7LLVMcosd.exit, %while.body.i.i108
-  %it.014.i.i = phi i32 [ %dec.i.i, %while.body.i.i108 ], [ 100, %_ZL7LLVMcosd.exit ]
+  %dec14.i.i = phi i32 [ %dec.i.i, %while.body.i.i108 ], [ 99, %_ZL7LLVMcosd.exit ]
   %xk.013.i.i = phi double [ %div1.i.i, %while.body.i.i108 ], [ 1.000000e+00, %_ZL7LLVMcosd.exit ]
   %div.i.i106 = fdiv double %add7.i.i.i, %xk.013.i.i
   %add.i.i107 = fadd double %xk.013.i.i, %div.i.i106
@@ -839,10 +839,10 @@ while.body.i.i108:                                ; preds = %_ZL7LLVMcosd.exit, 
   %sub.i.i.i = fsub double %div1.i.i, %xk.013.i.i
   %cmp.i.i.i = fcmp ule double %sub.i.i.i, 0x3D719799812DEA11
   %cmp1.i.i.i = fcmp uge double %sub.i.i.i, 0xBD719799812DEA11
-  %.not.i.i = and i1 %cmp.i.i.i, %cmp1.i.i.i
-  %dec.i.i = add nsw i32 %it.014.i.i, -1
-  %tobool.not.i.i = icmp eq i32 %dec.i.i, 0
-  %or.cond.i.i = select i1 %.not.i.i, i1 true, i1 %tobool.not.i.i
+  %.not15.i.i = and i1 %cmp.i.i.i, %cmp1.i.i.i
+  %dec.i.i = add nsw i32 %dec14.i.i, -1
+  %tobool.not.i.i = icmp eq i32 %dec14.i.i, 0
+  %or.cond.i.i = select i1 %.not15.i.i, i1 true, i1 %tobool.not.i.i
   br i1 %or.cond.i.i, label %_ZNK3v_t4normEv.exit, label %while.body.i.i108, !llvm.loop !11
 
 _ZNK3v_t4normEv.exit:                             ; preds = %while.body.i.i108, %_ZL7LLVMcosd.exit
@@ -1038,7 +1038,7 @@ _ZL7LLVMcosd.exit232:                             ; preds = %if.then.i.i208, %if
   br i1 %cmp.i.i256, label %_ZNK3v_t4normEv.exit277, label %while.body.i.i269
 
 while.body.i.i269:                                ; preds = %_ZL7LLVMcosd.exit232, %while.body.i.i269
-  %it.014.i.i257 = phi i32 [ %dec.i.i266, %while.body.i.i269 ], [ 100, %_ZL7LLVMcosd.exit232 ]
+  %dec14.i.i257 = phi i32 [ %dec.i.i266, %while.body.i.i269 ], [ 99, %_ZL7LLVMcosd.exit232 ]
   %xk.013.i.i258 = phi double [ %div1.i.i261, %while.body.i.i269 ], [ 1.000000e+00, %_ZL7LLVMcosd.exit232 ]
   %div.i.i259 = fdiv double %add7.i.i.i255, %xk.013.i.i258
   %add.i.i260 = fadd double %xk.013.i.i258, %div.i.i259
@@ -1046,10 +1046,10 @@ while.body.i.i269:                                ; preds = %_ZL7LLVMcosd.exit23
   %sub.i.i.i262 = fsub double %div1.i.i261, %xk.013.i.i258
   %cmp.i.i.i263 = fcmp ule double %sub.i.i.i262, 0x3D719799812DEA11
   %cmp1.i.i.i264 = fcmp uge double %sub.i.i.i262, 0xBD719799812DEA11
-  %.not.i.i265 = and i1 %cmp.i.i.i263, %cmp1.i.i.i264
-  %dec.i.i266 = add nsw i32 %it.014.i.i257, -1
-  %tobool.not.i.i267 = icmp eq i32 %dec.i.i266, 0
-  %or.cond.i.i268 = select i1 %.not.i.i265, i1 true, i1 %tobool.not.i.i267
+  %.not15.i.i265 = and i1 %cmp.i.i.i263, %cmp1.i.i.i264
+  %dec.i.i266 = add nsw i32 %dec14.i.i257, -1
+  %tobool.not.i.i267 = icmp eq i32 %dec14.i.i257, 0
+  %or.cond.i.i268 = select i1 %.not15.i.i265, i1 true, i1 %tobool.not.i.i267
   br i1 %or.cond.i.i268, label %_ZNK3v_t4normEv.exit277, label %while.body.i.i269, !llvm.loop !11
 
 _ZNK3v_t4normEv.exit277:                          ; preds = %while.body.i.i269, %_ZL7LLVMcosd.exit232
@@ -1099,7 +1099,7 @@ entry:
   br i1 %cmp.i.i, label %_ZNK3v_t4normEv.exit, label %while.body.i.i
 
 while.body.i.i:                                   ; preds = %entry, %while.body.i.i
-  %it.014.i.i = phi i32 [ %dec.i.i, %while.body.i.i ], [ 100, %entry ]
+  %dec14.i.i = phi i32 [ %dec.i.i, %while.body.i.i ], [ 99, %entry ]
   %xk.013.i.i = phi double [ %div1.i.i, %while.body.i.i ], [ 1.000000e+00, %entry ]
   %div.i.i = fdiv double %add7.i.i.i, %xk.013.i.i
   %add.i.i = fadd double %xk.013.i.i, %div.i.i
@@ -1107,10 +1107,10 @@ while.body.i.i:                                   ; preds = %entry, %while.body.
   %sub.i.i.i = fsub double %div1.i.i, %xk.013.i.i
   %cmp.i.i.i = fcmp ule double %sub.i.i.i, 0x3D719799812DEA11
   %cmp1.i.i.i = fcmp uge double %sub.i.i.i, 0xBD719799812DEA11
-  %.not.i.i = and i1 %cmp.i.i.i, %cmp1.i.i.i
-  %dec.i.i = add nsw i32 %it.014.i.i, -1
-  %tobool.not.i.i = icmp eq i32 %dec.i.i, 0
-  %or.cond.i.i = select i1 %.not.i.i, i1 true, i1 %tobool.not.i.i
+  %.not15.i.i = and i1 %cmp.i.i.i, %cmp1.i.i.i
+  %dec.i.i = add nsw i32 %dec14.i.i, -1
+  %tobool.not.i.i = icmp eq i32 %dec14.i.i, 0
+  %or.cond.i.i = select i1 %.not15.i.i, i1 true, i1 %tobool.not.i.i
   br i1 %or.cond.i.i, label %_ZNK3v_t4normEv.exit, label %while.body.i.i, !llvm.loop !11
 
 _ZNK3v_t4normEv.exit:                             ; preds = %while.body.i.i, %entry
@@ -1130,10 +1130,10 @@ _ZNK3v_t4normEv.exit:                             ; preds = %while.body.i.i, %en
   %12 = fmul <2 x double> %10, %11
   %13 = fcmp une <2 x double> %12, <double 1.000000e+00, double 1.000000e+00>
   %14 = extractelement <2 x i1> %13, i64 1
-  %and75 = and i1 %cmp, %14
+  %and102 = and i1 %cmp, %14
   %15 = extractelement <2 x i1> %13, i64 0
-  %and1176 = and i1 %15, %and75
-  br i1 %and1176, label %if.then, label %if.end65
+  %and11103 = and i1 %15, %and102
+  br i1 %and11103, label %if.then, label %if.end65
 
 if.then:                                          ; preds = %_ZNK3v_t4normEv.exit
   %16 = extractelement <2 x double> %12, i64 1
@@ -1182,7 +1182,7 @@ if.end65:                                         ; preds = %_ZNK3v_t4normEv.exi
   store <2 x double> %6, ptr %this, align 8
   %n.sroa.12.0.this.sroa_idx = getelementptr inbounds i8, ptr %this, i64 16
   store double %mul3.i.i, ptr %n.sroa.12.0.this.sroa_idx, align 8, !tbaa.struct !61
-  %z.i78 = getelementptr inbounds %struct.basis_t, ptr %this, i64 0, i32 1, i32 2
+  %z.i76 = getelementptr inbounds %struct.basis_t, ptr %this, i64 0, i32 1, i32 2
   %29 = shufflevector <2 x double> %6, <2 x double> poison, <2 x i32> <i32 1, i32 0>
   %30 = insertelement <2 x double> %29, double %mul3.i.i, i64 0
   %31 = insertelement <2 x double> %28, double %27, i64 0
@@ -1194,7 +1194,7 @@ if.end65:                                         ; preds = %_ZNK3v_t4normEv.exi
   store double %sub10.i, ptr %ref.tmp67.sroa.4.0.b2.sroa_idx, align 8, !tbaa.struct !93
   %ref.tmp67.sroa.5.0.b2.sroa_idx = getelementptr inbounds %struct.basis_t, ptr %this, i64 0, i32 2, i32 2
   %34 = fmul <2 x double> %6, %33
-  %mul13.i89 = extractelement <2 x double> %34, i64 0
+  %mul13.i87 = extractelement <2 x double> %34, i64 0
   %35 = fmul <2 x double> %6, %28
   %36 = insertelement <2 x double> %28, double %27, i64 1
   %37 = fmul <2 x double> %10, %36
@@ -1211,10 +1211,10 @@ if.end65:                                         ; preds = %_ZNK3v_t4normEv.exi
   %46 = fmul <2 x double> %44, %45
   %47 = shufflevector <2 x double> %46, <2 x double> poison, <2 x i32> <i32 1, i32 0>
   %48 = fsub <2 x double> %43, %47
-  %mul16.i90 = fmul double %9, %40
-  %sub17.i91 = fsub double %mul13.i89, %mul16.i90
+  %mul16.i88 = fmul double %9, %40
+  %sub17.i89 = fsub double %mul13.i87, %mul16.i88
   store <2 x double> %48, ptr %b1, align 8
-  store double %sub17.i91, ptr %z.i78, align 8, !tbaa.struct !61
+  store double %sub17.i89, ptr %z.i76, align 8, !tbaa.struct !61
   ret void
 }
 
@@ -1240,7 +1240,7 @@ entry:
   br label %while.body.i.i.i
 
 while.body.i.i.i:                                 ; preds = %while.body.i.i.i, %entry
-  %it.014.i.i.i = phi i32 [ %dec.i.i.i, %while.body.i.i.i ], [ 100, %entry ]
+  %dec14.i.i.i = phi i32 [ %dec.i.i.i, %while.body.i.i.i ], [ 99, %entry ]
   %xk.013.i.i.i = phi double [ %div1.i.i.i, %while.body.i.i.i ], [ 1.000000e+00, %entry ]
   %div.i.i.i = fdiv double 0x3FF7B851EB851EB9, %xk.013.i.i.i
   %add.i.i.i = fadd double %xk.013.i.i.i, %div.i.i.i
@@ -1248,10 +1248,10 @@ while.body.i.i.i:                                 ; preds = %while.body.i.i.i, %
   %sub.i.i.i.i = fsub double %div1.i.i.i, %xk.013.i.i.i
   %cmp.i.i.i.i = fcmp ule double %sub.i.i.i.i, 0x3D719799812DEA11
   %cmp1.i.i.i.i = fcmp uge double %sub.i.i.i.i, 0xBD719799812DEA11
-  %.not.i.i.i = and i1 %cmp.i.i.i.i, %cmp1.i.i.i.i
-  %dec.i.i.i = add nsw i32 %it.014.i.i.i, -1
-  %tobool.not.i.i.i = icmp eq i32 %dec.i.i.i, 0
-  %or.cond.i.i.i = select i1 %.not.i.i.i, i1 true, i1 %tobool.not.i.i.i
+  %.not15.i.i.i = and i1 %cmp.i.i.i.i, %cmp1.i.i.i.i
+  %dec.i.i.i = add nsw i32 %dec14.i.i.i, -1
+  %tobool.not.i.i.i = icmp eq i32 %dec14.i.i.i, 0
+  %or.cond.i.i.i = select i1 %.not15.i.i.i, i1 true, i1 %tobool.not.i.i.i
   br i1 %or.cond.i.i.i, label %__cxx_global_var_init.1.exit, label %while.body.i.i.i, !llvm.loop !11
 
 __cxx_global_var_init.1.exit:                     ; preds = %while.body.i.i.i

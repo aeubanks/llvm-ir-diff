@@ -18,10 +18,10 @@ target triple = "x86_64-unknown-linux-gnu"
 define dso_local void @RenderBox_setStyle(ptr noundef %thisin, ptr nocapture noundef readonly %_style) local_unnamed_addr #0 {
 entry:
   %m_positioned = getelementptr inbounds %struct.RenderBox, ptr %thisin, i64 0, i32 2
-  %bf.load = load i16, ptr %m_positioned, align 2
   %bf.load2 = load i32, ptr %_style, align 4
   %0 = and i32 %bf.load2, 262144
   %switch.not = icmp eq i32 %0, 0
+  %bf.load = load i16, ptr %m_positioned, align 2
   br i1 %switch.not, label %sw.default, label %sw.bb
 
 sw.bb:                                            ; preds = %entry
@@ -85,7 +85,7 @@ entry:
 
 ; Function Attrs: noreturn nounwind uwtable
 define dso_local i32 @main() local_unnamed_addr #2 {
-RenderBox_setStyle.exit:
+if.end33:
   %bf.load = load i16, ptr getelementptr inbounds (%struct.RenderBox, ptr @g_this, i64 0, i32 2), align 2
   %bf.clear5 = and i16 %bf.load, -89
   store ptr @RenderBox_isTableCell, ptr getelementptr inbounds (%struct.RenderBox, ptr @g_this, i64 0, i32 3), align 8, !tbaa !5

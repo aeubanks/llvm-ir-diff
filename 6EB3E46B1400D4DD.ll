@@ -158,6 +158,12 @@ if.then.i143:                                     ; preds = %if.end
   %conv.i124 = sitofp i64 %totalframes to float
   %mul.i = fmul float %conv.i124, %conv.i
   %conv1.i = sitofp i64 %frameNum to float
+  %div.i125 = fdiv float %mul.i, %conv1.i
+  %sub.i126 = fsub float %div.i125, %conv.i
+  %4 = insertelement <2 x float> poison, float %sub.i126, i64 0
+  %5 = insertelement <2 x float> %4, float %div.i125, i64 1
+  %6 = fpext <2 x float> %5 to <2 x double>
+  %7 = fadd <2 x double> %6, <double 5.000000e-01, double 5.000000e-01>
   %mul.i130 = fmul float %div.i, %conv.i124
   %div.i132 = fdiv float %mul.i130, %conv1.i
   %conv2.i134 = sitofp i32 %samp_rate to float
@@ -168,21 +174,15 @@ if.then.i143:                                     ; preds = %if.end
   %conv10.i139 = sitofp i64 %mul9.i138 to float
   %div14.i140 = fdiv float %conv10.i139, %mul4.i135
   %.sink.i141 = select i1 %cmp5.i136, float %div14.i140, float 0.000000e+00
-  %4 = fpext float %div.i132 to double
-  %5 = fadd double %4, 5.000000e-01
-  %6 = fpext float %.sink.i141 to double
-  %div.i125 = fdiv float %mul.i, %conv1.i
-  %sub.i126 = fsub float %div.i125, %conv.i
-  %7 = insertelement <2 x float> poison, float %sub.i126, i64 0
-  %8 = insertelement <2 x float> %7, float %div.i125, i64 1
-  %9 = fpext <2 x float> %8 to <2 x double>
-  %10 = fadd <2 x double> %9, <double 5.000000e-01, double 5.000000e-01>
+  %8 = fpext float %div.i132 to double
+  %9 = fadd double %8, 5.000000e-01
+  %10 = fpext float %.sink.i141 to double
   br label %ts_calc_times.exit149
 
 ts_calc_times.exit149:                            ; preds = %if.end, %if.then.i143
-  %process_time.sroa.8.0 = phi double [ %6, %if.then.i143 ], [ 0.000000e+00, %if.end ]
-  %process_time.sroa.5.0 = phi double [ %5, %if.then.i143 ], [ 5.000000e-01, %if.end ]
-  %11 = phi <2 x double> [ %10, %if.then.i143 ], [ <double 5.000000e-01, double 5.000000e-01>, %if.end ]
+  %process_time.sroa.8.0 = phi double [ %10, %if.then.i143 ], [ 0.000000e+00, %if.end ]
+  %process_time.sroa.5.0 = phi double [ %9, %if.then.i143 ], [ 5.000000e-01, %if.end ]
+  %11 = phi <2 x double> [ %7, %if.then.i143 ], [ <double 5.000000e-01, double 5.000000e-01>, %if.end ]
   %cmp4 = icmp sgt i64 %totalframes, 1
   br i1 %cmp4, label %if.then5, label %ts_calc_times.exit149.if.end8_crit_edge
 

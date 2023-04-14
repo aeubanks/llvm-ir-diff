@@ -489,8 +489,8 @@ for.body10.lr.ph:                                 ; preds = %entry
   br label %for.body10
 
 for.cond25.preheader:                             ; preds = %for.inc23
-  %cmp26.not225 = icmp slt i32 %count.1, 1
-  br i1 %cmp26.not225, label %cleanup, label %while.cond.preheader.lr.ph
+  %cmp26.not227 = icmp slt i32 %count.1, 1
+  br i1 %cmp26.not227, label %cleanup, label %while.cond.preheader.lr.ph
 
 while.cond.preheader.lr.ph:                       ; preds = %for.cond25.preheader
   %9 = load ptr, ptr @gtrace, align 8, !tbaa !9
@@ -542,13 +542,13 @@ while.cond.preheader:                             ; preds = %while.cond.preheade
   br i1 %cmp37223, label %while.body, label %for.inc73
 
 for.cond76.preheader:                             ; preds = %for.inc73
-  br i1 %cmp26.not225, label %cleanup, label %for.body79.lr.ph
+  br i1 %cmp26.not227, label %cleanup, label %for.body79.lr.ph
 
 for.body79.lr.ph:                                 ; preds = %for.cond76.preheader
   %20 = load ptr, ptr @gtrace, align 8, !tbaa !9
   %21 = load i32, ptr %node2, align 4, !tbaa !5
   %22 = add nuw i32 %count.1, 1
-  %wide.trip.count239 = zext i32 %22 to i64
+  %wide.trip.count243 = zext i32 %22 to i64
   br label %for.body79
 
 while.body:                                       ; preds = %while.cond.preheader, %if.end62
@@ -594,8 +594,8 @@ for.inc73:                                        ; preds = %if.end62, %while.co
   br i1 %exitcond.not, label %for.cond76.preheader, label %while.cond.preheader, !llvm.loop !45
 
 for.body79:                                       ; preds = %for.body79.lr.ph, %for.inc92
-  %indvars.iv236 = phi i64 [ 1, %for.body79.lr.ph ], [ %indvars.iv.next237, %for.inc92 ]
-  %arrayidx81 = getelementptr inbounds ptr, ptr %20, i64 %indvars.iv236
+  %indvars.iv240 = phi i64 [ 1, %for.body79.lr.ph ], [ %indvars.iv.next241, %for.inc92 ]
+  %arrayidx81 = getelementptr inbounds ptr, ptr %20, i64 %indvars.iv240
   %32 = load ptr, ptr %arrayidx81, align 8, !tbaa !9
   %33 = load i16, ptr %32, align 2, !tbaa !41
   %idxprom85 = sext i16 %33 to i64
@@ -606,33 +606,33 @@ for.body79:                                       ; preds = %for.body79.lr.ph, %
   br i1 %cmp88, label %if.end98, label %for.inc92
 
 for.inc92:                                        ; preds = %for.body79
-  %indvars.iv.next237 = add nuw nsw i64 %indvars.iv236, 1
-  %exitcond240.not = icmp eq i64 %indvars.iv.next237, %wide.trip.count239
-  br i1 %exitcond240.not, label %cleanup, label %for.body79, !llvm.loop !46
+  %indvars.iv.next241 = add nuw nsw i64 %indvars.iv240, 1
+  %exitcond244.not = icmp eq i64 %indvars.iv.next241, %wide.trip.count243
+  br i1 %exitcond244.not, label %cleanup, label %for.body79, !llvm.loop !46
 
 if.end98:                                         ; preds = %for.body79
-  %idxprom99 = and i64 %indvars.iv236, 4294967295
+  %idxprom99 = and i64 %indvars.iv240, 4294967295
   %arrayidx100 = getelementptr inbounds ptr, ptr %20, i64 %idxprom99
   %35 = load ptr, ptr %arrayidx100, align 8, !tbaa !9
   %36 = load i16, ptr %35, align 2, !tbaa !41
   %37 = sext i16 %36 to i64
   %38 = tail call i16 @llvm.smax.i16(i16 %36, i16 1)
-  %wide.trip.count244 = zext i16 %38 to i64
+  %wide.trip.count248 = zext i16 %38 to i64
   br label %for.cond103
 
 for.cond103:                                      ; preds = %while.end124, %if.end98
-  %indvars.iv241 = phi i64 [ %indvars.iv.next242, %while.end124 ], [ 1, %if.end98 ]
+  %indvars.iv245 = phi i64 [ %indvars.iv.next246, %while.end124 ], [ 1, %if.end98 ]
   %temp.0 = phi i32 [ %add126, %while.end124 ], [ 0, %if.end98 ]
-  %exitcond245.not = icmp eq i64 %indvars.iv241, %wide.trip.count244
-  br i1 %exitcond245.not, label %cleanup, label %for.body106
+  %exitcond249.not = icmp eq i64 %indvars.iv245, %wide.trip.count248
+  br i1 %exitcond249.not, label %cleanup, label %for.body106
 
 for.body106:                                      ; preds = %for.cond103
-  %arrayidx110 = getelementptr inbounds i16, ptr %35, i64 %indvars.iv241
+  %arrayidx110 = getelementptr inbounds i16, ptr %35, i64 %indvars.iv245
   %39 = load i16, ptr %arrayidx110, align 2, !tbaa !41
   %idxprom111 = sext i16 %39 to i64
   %arrayidx112 = getelementptr inbounds ptr, ptr %0, i64 %idxprom111
-  %indvars.iv.next242 = add nuw nsw i64 %indvars.iv241, 1
-  %arrayidx118 = getelementptr inbounds i16, ptr %35, i64 %indvars.iv.next242
+  %indvars.iv.next246 = add nuw nsw i64 %indvars.iv245, 1
+  %arrayidx118 = getelementptr inbounds i16, ptr %35, i64 %indvars.iv.next246
   %40 = load i16, ptr %arrayidx118, align 2, !tbaa !41
   %conv119 = sext i16 %40 to i32
   br label %while.cond113
@@ -653,16 +653,16 @@ while.end124:                                     ; preds = %while.cond113
   br i1 %cmp127.not, label %for.cond103, label %for.end133, !llvm.loop !48
 
 for.end133:                                       ; preds = %while.end124
-  %cmp104.le = icmp slt i64 %indvars.iv241, %37
+  %cmp104.le = icmp slt i64 %indvars.iv245, %37
   br i1 %cmp104.le, label %if.end137, label %cleanup
 
 if.end137:                                        ; preds = %for.end133
-  %idxprom140 = and i64 %indvars.iv241, 4294967295
+  %idxprom140 = and i64 %indvars.iv245, 4294967295
   %arrayidx141 = getelementptr inbounds i16, ptr %35, i64 %idxprom140
   %43 = load i16, ptr %arrayidx141, align 2, !tbaa !41
   %conv142 = sext i16 %43 to i32
   store i32 %conv142, ptr %node1, align 4, !tbaa !5
-  %add145 = add nuw nsw i64 %indvars.iv241, 1
+  %add145 = add nuw nsw i64 %indvars.iv245, 1
   %idxprom146 = and i64 %add145, 4294967295
   %arrayidx147 = getelementptr inbounds i16, ptr %35, i64 %idxprom146
   %44 = load i16, ptr %arrayidx147, align 2, !tbaa !41
@@ -693,11 +693,11 @@ declare noalias noundef ptr @malloc(i64 noundef) local_unnamed_addr #6
 ; Function Attrs: mustprogress nocallback nofree nosync nounwind willreturn memory(argmem: readwrite)
 declare void @llvm.lifetime.end.p0(i64 immarg, ptr nocapture) #1
 
-; Function Attrs: nofree nounwind
-declare noundef i64 @fwrite(ptr nocapture noundef, i64 noundef, i64 noundef, ptr nocapture noundef) local_unnamed_addr #7
-
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i16 @llvm.smax.i16(i16, i16) #8
+declare i16 @llvm.smax.i16(i16, i16) #7
+
+; Function Attrs: nofree nounwind
+declare noundef i64 @fwrite(ptr nocapture noundef, i64 noundef, i64 noundef, ptr nocapture noundef) local_unnamed_addr #8
 
 attributes #0 = { nounwind uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #1 = { mustprogress nocallback nofree nosync nounwind willreturn memory(argmem: readwrite) }
@@ -706,8 +706,8 @@ attributes #3 = { nofree nounwind "no-trapping-math"="true" "stack-protector-buf
 attributes #4 = { noreturn nounwind "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #5 = { mustprogress nounwind willreturn allockind("free") memory(argmem: readwrite, inaccessiblemem: readwrite) "alloc-family"="malloc" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #6 = { mustprogress nofree nounwind willreturn allockind("alloc,uninitialized") allocsize(0) memory(inaccessiblemem: readwrite) "alloc-family"="malloc" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
-attributes #7 = { nofree nounwind }
-attributes #8 = { nocallback nofree nosync nounwind speculatable willreturn memory(none) }
+attributes #7 = { nocallback nofree nosync nounwind speculatable willreturn memory(none) }
+attributes #8 = { nofree nounwind }
 attributes #9 = { nounwind }
 attributes #10 = { noreturn nounwind }
 attributes #11 = { nounwind allocsize(0) }

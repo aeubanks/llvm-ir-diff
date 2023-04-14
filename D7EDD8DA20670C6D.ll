@@ -518,8 +518,8 @@ init_poc.exit:                                    ; preds = %land.lhs.true.i, %i
   tail call void @SetLevelIndices()
   tail call void @init_img()
   %call.i = tail call noalias dereferenceable_or_null(824) ptr @calloc(i64 noundef 1, i64 noundef 824) #25
-  %cmp.i482 = icmp eq ptr %call.i, null
-  br i1 %cmp.i482, label %if.then.i, label %malloc_picture.exit
+  %cmp.i481 = icmp eq ptr %call.i, null
+  br i1 %cmp.i481, label %if.then.i, label %malloc_picture.exit
 
 if.then.i:                                        ; preds = %init_poc.exit
   tail call void @no_mem_exit(ptr noundef nonnull @.str.4) #24
@@ -534,31 +534,31 @@ malloc_picture.exit:                              ; preds = %init_poc.exit, %if.
   br i1 %tobool.not, label %if.end, label %if.then
 
 if.then:                                          ; preds = %malloc_picture.exit
-  %call.i484 = tail call noalias dereferenceable_or_null(824) ptr @calloc(i64 noundef 1, i64 noundef 824) #25
-  %cmp.i485 = icmp eq ptr %call.i484, null
-  br i1 %cmp.i485, label %if.then.i486, label %malloc_picture.exit488
+  %call.i483 = tail call noalias dereferenceable_or_null(824) ptr @calloc(i64 noundef 1, i64 noundef 824) #25
+  %cmp.i484 = icmp eq ptr %call.i483, null
+  br i1 %cmp.i484, label %if.then.i485, label %malloc_picture.exit487
 
-if.then.i486:                                     ; preds = %if.then
+if.then.i485:                                     ; preds = %if.then
   tail call void @no_mem_exit(ptr noundef nonnull @.str.4) #24
-  br label %malloc_picture.exit488
+  br label %malloc_picture.exit487
 
-malloc_picture.exit488:                           ; preds = %if.then, %if.then.i486
-  store ptr %call.i484, ptr @frame_pic_2, align 8, !tbaa !5
-  %call.i489 = tail call noalias dereferenceable_or_null(824) ptr @calloc(i64 noundef 1, i64 noundef 824) #25
-  %cmp.i490 = icmp eq ptr %call.i489, null
-  br i1 %cmp.i490, label %if.then.i491, label %malloc_picture.exit493
+malloc_picture.exit487:                           ; preds = %if.then, %if.then.i485
+  store ptr %call.i483, ptr @frame_pic_2, align 8, !tbaa !5
+  %call.i488 = tail call noalias dereferenceable_or_null(824) ptr @calloc(i64 noundef 1, i64 noundef 824) #25
+  %cmp.i489 = icmp eq ptr %call.i488, null
+  br i1 %cmp.i489, label %if.then.i490, label %malloc_picture.exit492
 
-if.then.i491:                                     ; preds = %malloc_picture.exit488
+if.then.i490:                                     ; preds = %malloc_picture.exit487
   tail call void @no_mem_exit(ptr noundef nonnull @.str.4) #24
-  br label %malloc_picture.exit493
+  br label %malloc_picture.exit492
 
-malloc_picture.exit493:                           ; preds = %malloc_picture.exit488, %if.then.i491
-  store ptr %call.i489, ptr @frame_pic_3, align 8, !tbaa !5
+malloc_picture.exit492:                           ; preds = %malloc_picture.exit487, %if.then.i490
+  store ptr %call.i488, ptr @frame_pic_3, align 8, !tbaa !5
   %.pre = load ptr, ptr @input, align 8, !tbaa !5
   br label %if.end
 
-if.end:                                           ; preds = %malloc_picture.exit493, %malloc_picture.exit
-  %13 = phi ptr [ %.pre, %malloc_picture.exit493 ], [ %11, %malloc_picture.exit ]
+if.end:                                           ; preds = %malloc_picture.exit492, %malloc_picture.exit
+  %13 = phi ptr [ %.pre, %malloc_picture.exit492 ], [ %11, %malloc_picture.exit ]
   %si_frame_indicator = getelementptr inbounds %struct.InputParameters, ptr %13, i64 0, i32 53
   %14 = load i32, ptr %si_frame_indicator, align 4, !tbaa !31
   %tobool3.not = icmp eq i32 %14, 0
@@ -567,16 +567,16 @@ if.end:                                           ; preds = %malloc_picture.exit
 if.then4:                                         ; preds = %if.end
   store i32 0, ptr @si_frame_indicator, align 4, !tbaa !17
   store i32 0, ptr @number_sp2_frames, align 4, !tbaa !17
-  %call.i494 = tail call noalias dereferenceable_or_null(824) ptr @calloc(i64 noundef 1, i64 noundef 824) #25
-  %cmp.i495 = icmp eq ptr %call.i494, null
-  br i1 %cmp.i495, label %if.then.i496, label %malloc_picture.exit498
+  %call.i493 = tail call noalias dereferenceable_or_null(824) ptr @calloc(i64 noundef 1, i64 noundef 824) #25
+  %cmp.i494 = icmp eq ptr %call.i493, null
+  br i1 %cmp.i494, label %if.then.i495, label %malloc_picture.exit497
 
-if.then.i496:                                     ; preds = %if.then4
+if.then.i495:                                     ; preds = %if.then4
   tail call void @no_mem_exit(ptr noundef nonnull @.str.4) #24
-  br label %malloc_picture.exit498
+  br label %malloc_picture.exit497
 
-malloc_picture.exit498:                           ; preds = %if.then4, %if.then.i496
-  store ptr %call.i494, ptr @frame_pic_si, align 8, !tbaa !5
+malloc_picture.exit497:                           ; preds = %if.then4, %if.then.i495
+  store ptr %call.i493, ptr @frame_pic_si, align 8, !tbaa !5
   %15 = load ptr, ptr @img, align 8, !tbaa !5
   %height = getelementptr inbounds %struct.ImageParameters, ptr %15, i64 0, i32 17
   %16 = load i32, ptr %height, align 4, !tbaa !32
@@ -592,37 +592,37 @@ malloc_picture.exit498:                           ; preds = %if.then4, %if.then.
   %.pre576 = load ptr, ptr @input, align 8, !tbaa !5
   br label %if.end10
 
-if.end10:                                         ; preds = %malloc_picture.exit498, %if.end
-  %21 = phi ptr [ %.pre576, %malloc_picture.exit498 ], [ %13, %if.end ]
+if.end10:                                         ; preds = %malloc_picture.exit497, %if.end
+  %21 = phi ptr [ %.pre576, %malloc_picture.exit497 ], [ %13, %if.end ]
   %PicInterlace = getelementptr inbounds %struct.InputParameters, ptr %21, i64 0, i32 121
   %22 = load i32, ptr %PicInterlace, align 8, !tbaa !25
   %cmp.not = icmp eq i32 %22, 0
   br i1 %cmp.not, label %if.end14, label %if.then11
 
 if.then11:                                        ; preds = %if.end10
-  %call.i499 = tail call noalias dereferenceable_or_null(824) ptr @calloc(i64 noundef 1, i64 noundef 824) #25
-  %cmp.i500 = icmp eq ptr %call.i499, null
-  br i1 %cmp.i500, label %if.then.i501, label %malloc_picture.exit503
+  %call.i498 = tail call noalias dereferenceable_or_null(824) ptr @calloc(i64 noundef 1, i64 noundef 824) #25
+  %cmp.i499 = icmp eq ptr %call.i498, null
+  br i1 %cmp.i499, label %if.then.i500, label %malloc_picture.exit502
 
-if.then.i501:                                     ; preds = %if.then11
+if.then.i500:                                     ; preds = %if.then11
   tail call void @no_mem_exit(ptr noundef nonnull @.str.4) #24
-  br label %malloc_picture.exit503
+  br label %malloc_picture.exit502
 
-malloc_picture.exit503:                           ; preds = %if.then11, %if.then.i501
-  store ptr %call.i499, ptr @top_pic, align 8, !tbaa !5
-  %call.i504 = tail call noalias dereferenceable_or_null(824) ptr @calloc(i64 noundef 1, i64 noundef 824) #25
-  %cmp.i505 = icmp eq ptr %call.i504, null
-  br i1 %cmp.i505, label %if.then.i506, label %malloc_picture.exit508
+malloc_picture.exit502:                           ; preds = %if.then11, %if.then.i500
+  store ptr %call.i498, ptr @top_pic, align 8, !tbaa !5
+  %call.i503 = tail call noalias dereferenceable_or_null(824) ptr @calloc(i64 noundef 1, i64 noundef 824) #25
+  %cmp.i504 = icmp eq ptr %call.i503, null
+  br i1 %cmp.i504, label %if.then.i505, label %malloc_picture.exit507
 
-if.then.i506:                                     ; preds = %malloc_picture.exit503
+if.then.i505:                                     ; preds = %malloc_picture.exit502
   tail call void @no_mem_exit(ptr noundef nonnull @.str.4) #24
-  br label %malloc_picture.exit508
+  br label %malloc_picture.exit507
 
-malloc_picture.exit508:                           ; preds = %malloc_picture.exit503, %if.then.i506
-  store ptr %call.i504, ptr @bottom_pic, align 8, !tbaa !5
+malloc_picture.exit507:                           ; preds = %malloc_picture.exit502, %if.then.i505
+  store ptr %call.i503, ptr @bottom_pic, align 8, !tbaa !5
   br label %if.end14
 
-if.end14:                                         ; preds = %malloc_picture.exit508, %if.end10
+if.end14:                                         ; preds = %malloc_picture.exit507, %if.end10
   tail call void @init_rdopt() #24
   %23 = load ptr, ptr @input, align 8, !tbaa !5
   %no_frames = getelementptr inbounds %struct.InputParameters, ptr %23, i64 0, i32 2
@@ -668,8 +668,8 @@ if.end27:                                         ; preds = %if.then25, %if.else
   tail call void @init_dpb() #24
   tail call void @init_out_buffer() #24
   %30 = load ptr, ptr @input, align 8, !tbaa !5
-  %successive_Bframe.i509 = getelementptr inbounds %struct.InputParameters, ptr %30, i64 0, i32 40
-  %31 = load i32, ptr %successive_Bframe.i509, align 8, !tbaa !9
+  %successive_Bframe.i508 = getelementptr inbounds %struct.InputParameters, ptr %30, i64 0, i32 40
+  %31 = load i32, ptr %successive_Bframe.i508, align 8, !tbaa !9
   %32 = load ptr, ptr @stats, align 8, !tbaa !5
   %successive_Bframe1.i = getelementptr inbounds %struct.StatParameters, ptr %32, i64 0, i32 13
   store i32 %31, ptr %successive_Bframe1.i, align 4, !tbaa !13
@@ -706,15 +706,15 @@ if.end27:                                         ; preds = %if.then25, %if.else
   %call7.i = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.216, ptr noundef nonnull %outfile.i)
   %38 = load i32, ptr @p_dec, align 4, !tbaa !17
   %cmp8.not.i = icmp eq i32 %38, -1
-  br i1 %cmp8.not.i, label %if.end12.i514, label %if.then9.i
+  br i1 %cmp8.not.i, label %if.end12.i513, label %if.then9.i
 
 if.then9.i:                                       ; preds = %if.end27
   %39 = load ptr, ptr @input, align 8, !tbaa !5
   %ReconFile.i = getelementptr inbounds %struct.InputParameters, ptr %39, i64 0, i32 27
   %call11.i = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.217, ptr noundef nonnull %ReconFile.i)
-  br label %if.end12.i514
+  br label %if.end12.i513
 
-if.end12.i514:                                    ; preds = %if.then9.i, %if.end27
+if.end12.i513:                                    ; preds = %if.then9.i, %if.end27
   %40 = load ptr, ptr @img, align 8, !tbaa !5
   %yuv_format.i = getelementptr inbounds %struct.ImageParameters, ptr %40, i64 0, i32 160
   %41 = load i32, ptr %yuv_format.i, align 8, !tbaa !39
@@ -724,16 +724,16 @@ if.end12.i514:                                    ; preds = %if.then9.i, %if.end
   %42 = load ptr, ptr @input, align 8, !tbaa !5
   %no_frames.i = getelementptr inbounds %struct.InputParameters, ptr %42, i64 0, i32 2
   %43 = load i32, ptr %no_frames.i, align 8, !tbaa !34
-  %successive_Bframe.i510 = getelementptr inbounds %struct.InputParameters, ptr %42, i64 0, i32 40
-  %44 = load i32, ptr %successive_Bframe.i510, align 8, !tbaa !9
+  %successive_Bframe.i509 = getelementptr inbounds %struct.InputParameters, ptr %42, i64 0, i32 40
+  %44 = load i32, ptr %successive_Bframe.i509, align 8, !tbaa !9
   %sub.i = add nsw i32 %43, -1
-  %mul.i511 = mul nsw i32 %44, %sub.i
-  %call16.i = call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.219, i32 noundef %43, i32 noundef %mul.i511)
+  %mul.i510 = mul nsw i32 %44, %sub.i
+  %call16.i = call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.219, i32 noundef %43, i32 noundef %mul.i510)
   %45 = load ptr, ptr @input, align 8, !tbaa !5
-  %PicInterlace.i512 = getelementptr inbounds %struct.InputParameters, ptr %45, i64 0, i32 121
-  %46 = load i32, ptr %PicInterlace.i512, align 8, !tbaa !25
-  %MbInterlace.i513 = getelementptr inbounds %struct.InputParameters, ptr %45, i64 0, i32 122
-  %47 = load i32, ptr %MbInterlace.i513, align 4, !tbaa !26
+  %PicInterlace.i511 = getelementptr inbounds %struct.InputParameters, ptr %45, i64 0, i32 121
+  %46 = load i32, ptr %PicInterlace.i511, align 8, !tbaa !25
+  %MbInterlace.i512 = getelementptr inbounds %struct.InputParameters, ptr %45, i64 0, i32 122
+  %47 = load i32, ptr %MbInterlace.i512, align 4, !tbaa !26
   %call17.i = call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.220, i32 noundef %46, i32 noundef %47)
   %48 = load ptr, ptr @input, align 8, !tbaa !5
   %Transform8x8Mode.i = getelementptr inbounds %struct.InputParameters, ptr %48, i64 0, i32 153
@@ -747,19 +747,19 @@ if.end12.i514:                                    ; preds = %if.then9.i, %if.end
     i32 2, label %sw.bb23.i
   ]
 
-sw.bb23.i:                                        ; preds = %if.end12.i514
+sw.bb23.i:                                        ; preds = %if.end12.i513
   br label %sw.epilog.sink.split.i
 
-sw.epilog.sink.split.i:                           ; preds = %sw.bb23.i, %if.end12.i514
-  %str.sink.i = phi ptr [ @str.227, %sw.bb23.i ], [ @str.231, %if.end12.i514 ]
-  %str.231.sink.ph.i = phi ptr [ @str.226, %sw.bb23.i ], [ @str.229, %if.end12.i514 ]
-  %str.232.sink.ph.i = phi ptr [ @str.227, %sw.bb23.i ], [ @str.231, %if.end12.i514 ]
+sw.epilog.sink.split.i:                           ; preds = %sw.bb23.i, %if.end12.i513
+  %str.sink.i = phi ptr [ @str.227, %sw.bb23.i ], [ @str.231, %if.end12.i513 ]
+  %str.231.sink.ph.i = phi ptr [ @str.226, %sw.bb23.i ], [ @str.229, %if.end12.i513 ]
+  %str.232.sink.ph.i = phi ptr [ @str.227, %sw.bb23.i ], [ @str.231, %if.end12.i513 ]
   %puts.i = call i32 @puts(ptr nonnull dereferenceable(1) %str.sink.i)
   br label %information_init.exit
 
-information_init.exit:                            ; preds = %if.end12.i514, %sw.epilog.sink.split.i
-  %str.231.sink.i = phi ptr [ @str.231, %if.end12.i514 ], [ %str.231.sink.ph.i, %sw.epilog.sink.split.i ]
-  %str.232.sink.i = phi ptr [ @str.232, %if.end12.i514 ], [ %str.232.sink.ph.i, %sw.epilog.sink.split.i ]
+information_init.exit:                            ; preds = %if.end12.i513, %sw.epilog.sink.split.i
+  %str.231.sink.i = phi ptr [ @str.231, %if.end12.i513 ], [ %str.231.sink.ph.i, %sw.epilog.sink.split.i ]
+  %str.232.sink.i = phi ptr [ @str.232, %if.end12.i513 ], [ %str.232.sink.ph.i, %sw.epilog.sink.split.i ]
   %puts35.i = call i32 @puts(ptr nonnull dereferenceable(1) %str.231.sink.i)
   %puts36.i = call i32 @puts(ptr nonnull dereferenceable(1) %str.232.sink.i)
   call void @llvm.lifetime.end.p0(i64 40, ptr nonnull %yuv_types.i) #24
@@ -837,14 +837,14 @@ if.end45:                                         ; preds = %if.then38, %if.end3
   br i1 %tobool50.not, label %if.end52, label %if.then51
 
 if.then51:                                        ; preds = %if.end45
-  %yuv_format.i515 = getelementptr inbounds %struct.ImageParameters, ptr %.pre579, i64 0, i32 160
-  %68 = load i32, ptr %yuv_format.i515, align 8, !tbaa !39
+  %yuv_format.i514 = getelementptr inbounds %struct.ImageParameters, ptr %.pre579, i64 0, i32 160
+  %68 = load i32, ptr %yuv_format.i514, align 8, !tbaa !39
   switch i32 %68, label %if.else4.i [
-    i32 1, label %if.then.i516
+    i32 1, label %if.then.i515
     i32 2, label %if.then3.i
   ]
 
-if.then.i516:                                     ; preds = %if.then51
+if.then.i515:                                     ; preds = %if.then51
   store i32 10, ptr @img_pad_size_uv_x, align 4, !tbaa !17
   store i32 10, ptr @img_pad_size_uv_y, align 4, !tbaa !17
   store i8 7, ptr @chroma_mask_mv_y, align 1, !tbaa !52
@@ -871,26 +871,26 @@ if.else4.i:                                       ; preds = %if.then51
   store i32 2, ptr @chroma_shift_x, align 4, !tbaa !17
   br label %chroma_mc_setup.exit
 
-chroma_mc_setup.exit:                             ; preds = %if.then.i516, %if.then3.i, %if.else4.i
-  %sub6.i = phi i32 [ 2, %if.then3.i ], [ 1, %if.else4.i ], [ 2, %if.then.i516 ]
-  %sub.i517 = phi i32 [ 0, %if.then3.i ], [ 0, %if.else4.i ], [ 1, %if.then.i516 ]
-  store i32 %sub.i517, ptr @shift_cr_y, align 4, !tbaa !17
+chroma_mc_setup.exit:                             ; preds = %if.then.i515, %if.then3.i, %if.else4.i
+  %sub6.i = phi i32 [ 2, %if.then3.i ], [ 1, %if.else4.i ], [ 2, %if.then.i515 ]
+  %sub.i516 = phi i32 [ 0, %if.then3.i ], [ 0, %if.else4.i ], [ 1, %if.then.i515 ]
+  store i32 %sub.i516, ptr @shift_cr_y, align 4, !tbaa !17
   store i32 %sub6.i, ptr @shift_cr_x, align 4, !tbaa !17
   br label %if.end52
 
 if.end52:                                         ; preds = %if.end45, %chroma_mc_setup.exit
   store i32 0, ptr %.pre579, align 8, !tbaa !53
-  %no_frames54572 = getelementptr inbounds %struct.InputParameters, ptr %66, i64 0, i32 2
-  %69 = load i32, ptr %no_frames54572, align 8, !tbaa !34
-  %cmp55573 = icmp sgt i32 %69, 0
-  br i1 %cmp55573, label %for.body, label %for.end
+  %no_frames54571 = getelementptr inbounds %struct.InputParameters, ptr %66, i64 0, i32 2
+  %69 = load i32, ptr %no_frames54571, align 8, !tbaa !34
+  %cmp55572 = icmp sgt i32 %69, 0
+  br i1 %cmp55572, label %for.body, label %for.end
 
 for.body:                                         ; preds = %if.end52, %process_2nd_IGOP.exit
   %70 = phi ptr [ %151, %process_2nd_IGOP.exit ], [ %66, %if.end52 ]
   %71 = phi i32 [ %inc425, %process_2nd_IGOP.exit ], [ 0, %if.end52 ]
   %72 = phi ptr [ %.pre586, %process_2nd_IGOP.exit ], [ %.pre579, %if.end52 ]
-  %primary_disp.0.neg575 = phi i32 [ %primary_disp.0.neg, %process_2nd_IGOP.exit ], [ 0, %if.end52 ]
-  %primary_disp.0574 = phi i32 [ %primary_disp.3, %process_2nd_IGOP.exit ], [ 0, %if.end52 ]
+  %primary_disp.0.neg574 = phi i32 [ %primary_disp.0.neg, %process_2nd_IGOP.exit ], [ 0, %if.end52 ]
+  %primary_disp.0573 = phi i32 [ %primary_disp.3, %process_2nd_IGOP.exit ], [ 0, %if.end52 ]
   %intra_period = getelementptr inbounds %struct.InputParameters, ptr %70, i64 0, i32 30
   %73 = load i32, ptr %intra_period, align 8, !tbaa !54
   %tobool57.not = icmp eq i32 %73, 0
@@ -1011,8 +1011,8 @@ land.lhs.true132:                                 ; preds = %if.then129
   br i1 %tobool134.not, label %if.else152, label %if.then135
 
 if.then135:                                       ; preds = %land.lhs.true132
-  %.neg568 = add i32 %71, %primary_disp.0.neg575
-  %sub138 = sub i32 %.neg568, %79
+  %.neg567 = add i32 %71, %primary_disp.0.neg574
+  %sub138 = sub i32 %.neg567, %79
   %rem140 = srem i32 %sub138, %73
   %87 = load i32, ptr @log2_max_frame_num_minus4, align 4, !tbaa !17
   %add141 = add i32 %87, 4
@@ -1024,12 +1024,12 @@ if.then135:                                       ; preds = %land.lhs.true132
   %cmp147 = icmp eq i32 %rem146, 0
   %spec.store.select = select i1 %cmp147, i32 0, i32 %rem142
   store i32 %spec.store.select, ptr %frame_num, align 4
-  %spec.select = select i1 %cmp147, i32 0, i32 %primary_disp.0574
+  %spec.select = select i1 %cmp147, i32 0, i32 %primary_disp.0573
   br label %if.end181
 
 if.else152:                                       ; preds = %land.lhs.true132, %if.then129
-  %.neg570 = add i32 %71, %primary_disp.0.neg575
-  %sub155 = sub i32 %.neg570, %79
+  %.neg569 = add i32 %71, %primary_disp.0.neg574
+  %sub155 = sub i32 %.neg569, %79
   %88 = load i32, ptr @log2_max_frame_num_minus4, align 4, !tbaa !17
   %add156 = add i32 %88, 4
   %shl157 = shl nuw i32 1, %add156
@@ -1058,7 +1058,7 @@ if.then173:                                       ; preds = %if.then167
   br label %if.end176
 
 if.end176:                                        ; preds = %if.then167, %if.then173, %land.lhs.true164, %if.else161
-  %primary_disp.1 = phi i32 [ 0, %if.then173 ], [ %primary_disp.0574, %if.then167 ], [ %primary_disp.0574, %land.lhs.true164 ], [ %primary_disp.0574, %if.else161 ]
+  %primary_disp.1 = phi i32 [ 0, %if.then173 ], [ %primary_disp.0573, %if.then167 ], [ %primary_disp.0573, %land.lhs.true164 ], [ %primary_disp.0573, %if.else161 ]
   %90 = load i32, ptr @log2_max_frame_num_minus4, align 4, !tbaa !17
   %add177 = add i32 %90, 4
   %frame_num179 = getelementptr inbounds %struct.ImageParameters, ptr %72, i64 0, i32 115
@@ -1070,7 +1070,7 @@ if.end176:                                        ; preds = %if.then167, %if.the
   br label %if.end181
 
 if.end181:                                        ; preds = %if.then135, %if.else152, %if.end176
-  %primary_disp.2 = phi i32 [ %primary_disp.0574, %if.else152 ], [ %primary_disp.1, %if.end176 ], [ %spec.select, %if.then135 ]
+  %primary_disp.2 = phi i32 [ %primary_disp.0573, %if.else152 ], [ %primary_disp.1, %if.end176 ], [ %spec.select, %if.then135 ]
   %delta_pic_order_cnt = getelementptr inbounds %struct.ImageParameters, ptr %72, i64 0, i32 109
   store i32 0, ptr %delta_pic_order_cnt, align 8, !tbaa !17
   %93 = load i32, ptr %BRefPictures, align 4, !tbaa !24
@@ -1088,31 +1088,31 @@ if.then188:                                       ; preds = %if.end181
 
 if.end194:                                        ; preds = %if.then188, %if.end181
   %95 = load i32, ptr %intra_period, align 8, !tbaa !54
-  %cmp.i518 = icmp eq i32 %95, 0
-  %sub.i519 = sub nsw i32 %71, %79
-  br i1 %cmp.i518, label %cond.end.i, label %cond.false.i
+  %cmp.i517 = icmp eq i32 %95, 0
+  %sub.i518 = sub nsw i32 %71, %79
+  br i1 %cmp.i517, label %cond.end.i, label %cond.false.i
 
 cond.false.i:                                     ; preds = %if.end194
-  %rem.i = srem i32 %sub.i519, %95
+  %rem.i = srem i32 %sub.i518, %95
   br label %cond.end.i
 
 cond.end.i:                                       ; preds = %cond.false.i, %if.end194
-  %cond.in.in.i = phi i32 [ %rem.i, %cond.false.i ], [ %sub.i519, %if.end194 ]
+  %cond.in.in.i = phi i32 [ %rem.i, %cond.false.i ], [ %sub.i518, %if.end194 ]
   %cond.in.i = icmp eq i32 %cond.in.in.i, 0
-  br i1 %cond.in.i, label %SetImgType.exit, label %if.else.i520
+  br i1 %cond.in.i, label %SetImgType.exit, label %if.else.i519
 
-if.else.i520:                                     ; preds = %cond.end.i
+if.else.i519:                                     ; preds = %cond.end.i
   %sp_periodicity.i = getelementptr inbounds %struct.InputParameters, ptr %70, i64 0, i32 50
   %96 = load i32, ptr %sp_periodicity.i, align 8, !tbaa !62
   %tobool7.not.i = icmp eq i32 %96, 0
-  br i1 %tobool7.not.i, label %SetImgType.exit.thread588, label %land.lhs.true.i521
+  br i1 %tobool7.not.i, label %SetImgType.exit.thread588, label %land.lhs.true.i520
 
-land.lhs.true.i521:                               ; preds = %if.else.i520
-  %rem11.i = srem i32 %sub.i519, %96
+land.lhs.true.i520:                               ; preds = %if.else.i519
+  %rem11.i = srem i32 %sub.i518, %96
   %cmp12.i = icmp eq i32 %rem11.i, 0
   br i1 %cmp12.i, label %SetImgType.exit.thread, label %SetImgType.exit.thread588
 
-SetImgType.exit.thread588:                        ; preds = %if.else.i520, %land.lhs.true.i521
+SetImgType.exit.thread588:                        ; preds = %if.else.i519, %land.lhs.true.i520
   %97 = load i32, ptr %BRefPictures, align 4, !tbaa !24
   %cmp16.i = icmp eq i32 %97, 2
   %cond18.i = zext i1 %cmp16.i to i32
@@ -1129,7 +1129,7 @@ SetImgType.exit:                                  ; preds = %cond.end.i
   %or.cond566 = select i1 %cmp195, i1 true, i1 %tobool187.not
   br i1 %or.cond566, label %if.end210, label %if.then204
 
-SetImgType.exit.thread:                           ; preds = %land.lhs.true.i521
+SetImgType.exit.thread:                           ; preds = %land.lhs.true.i520
   %type21.i557 = getelementptr inbounds %struct.ImageParameters, ptr %72, i64 0, i32 5
   store i32 3, ptr %type21.i557, align 4, !tbaa !63
   br label %if.end210
@@ -1202,9 +1202,9 @@ if.then223:                                       ; preds = %land.lhs.true216
   %112 = load i32, ptr %bottompoc255, align 8, !tbaa !59
   %add256 = add nsw i32 %112, %mul246
   store i32 %add256, ptr %bottompoc255, align 8, !tbaa !59
-  %cond.i524 = call i32 @llvm.smin.i32(i32 %add252, i32 %add256)
+  %cond.i523 = call i32 @llvm.smin.i32(i32 %add252, i32 %add256)
   %framepoc260 = getelementptr inbounds %struct.ImageParameters, ptr %105, i64 0, i32 113
-  store i32 %cond.i524, ptr %framepoc260, align 4, !tbaa !60
+  store i32 %cond.i523, ptr %framepoc260, align 4, !tbaa !60
   br label %if.end261
 
 if.end261:                                        ; preds = %if.then223, %land.lhs.true216, %land.lhs.true213, %if.end210
@@ -1356,15 +1356,15 @@ if.then400:                                       ; preds = %if.end394
   store i32 1, ptr %redundant_pic_cnt.i, align 8, !tbaa !68
   %type.i = getelementptr inbounds %struct.ImageParameters, ptr %138, i64 0, i32 5
   %139 = load i32, ptr %type.i, align 4, !tbaa !63
-  %cmp.i525 = icmp eq i32 %139, 2
-  br i1 %cmp.i525, label %if.then.i526, label %encode_one_redundant_frame.exit
+  %cmp.i524 = icmp eq i32 %139, 2
+  br i1 %cmp.i524, label %if.then.i525, label %encode_one_redundant_frame.exit
 
-if.then.i526:                                     ; preds = %if.then400
+if.then.i525:                                     ; preds = %if.then400
   store i32 0, ptr %type.i, align 4, !tbaa !63
   br label %encode_one_redundant_frame.exit
 
-encode_one_redundant_frame.exit:                  ; preds = %if.then400, %if.then.i526
-  %call.i527 = call i32 @encode_one_frame() #24
+encode_one_redundant_frame.exit:                  ; preds = %if.then400, %if.then.i525
+  %call.i526 = call i32 @encode_one_frame() #24
   br label %if.end401
 
 if.end401:                                        ; preds = %encode_one_redundant_frame.exit, %if.end394
@@ -1413,8 +1413,8 @@ if.then416:                                       ; preds = %if.end412
   %sub418 = add i32 %148, -1
   %149 = load i32, ptr @log2_max_frame_num_minus4, align 4, !tbaa !17
   %add419 = add i32 %149, 4
-  %notmask481 = shl nsw i32 -1, %add419
-  %150 = xor i32 %notmask481, -1
+  %notmask555 = shl nsw i32 -1, %add419
+  %150 = xor i32 %notmask555, -1
   %rem422 = and i32 %sub418, %150
   store i32 %rem422, ptr %frame_num417, align 4, !tbaa !61
   br label %if.end423
@@ -1423,9 +1423,9 @@ if.end423:                                        ; preds = %if.then416, %if.end
   %primary_disp.3 = phi i32 [ %inc, %if.then416 ], [ %primary_disp.2, %if.end412 ]
   call void @encode_enhancement_layer() #24
   %151 = load ptr, ptr @input, align 8, !tbaa !5
-  %no_frames.i529 = getelementptr inbounds %struct.InputParameters, ptr %151, i64 0, i32 2
-  %152 = load i32, ptr %no_frames.i529, align 8, !tbaa !34
-  %sub.i530 = add nsw i32 %152, -1
+  %no_frames.i528 = getelementptr inbounds %struct.InputParameters, ptr %151, i64 0, i32 2
+  %152 = load i32, ptr %no_frames.i528, align 8, !tbaa !34
+  %sub.i529 = add nsw i32 %152, -1
   %NumFrameIn2ndIGOP.i = getelementptr inbounds %struct.InputParameters, ptr %151, i64 0, i32 130
   %153 = load i32, ptr %NumFrameIn2ndIGOP.i, align 4, !tbaa !72
   %cmp1.i = icmp eq i32 %153, 0
@@ -1434,10 +1434,10 @@ if.end423:                                        ; preds = %if.then416, %if.end
 
 if.end3.i:                                        ; preds = %if.end423
   %154 = load i32, ptr %.pre586, align 8, !tbaa !53
-  %cmp.i531 = icmp ne i32 %154, %sub.i530
+  %cmp.i530 = icmp ne i32 %154, %sub.i529
   %155 = load i32, ptr @In2ndIGOP, align 4
   %tobool4.i = icmp ne i32 %155, 0
-  %or.cond.i = select i1 %cmp.i531, i1 true, i1 %tobool4.i
+  %or.cond.i = select i1 %cmp.i530, i1 true, i1 %tobool4.i
   br i1 %or.cond.i, label %process_2nd_IGOP.exit, label %if.end6.i
 
 if.end6.i:                                        ; preds = %if.end3.i
@@ -1445,12 +1445,12 @@ if.end6.i:                                        ; preds = %if.end3.i
   store i32 %152, ptr @start_frame_no_in_this_IGOP, align 4, !tbaa !17
   %jumpd.i = getelementptr inbounds %struct.InputParameters, ptr %151, i64 0, i32 5
   %156 = load i32, ptr %jumpd.i, align 4, !tbaa !47
-  %add.i532 = add nsw i32 %156, 1
-  %mul.i533 = mul nsw i32 %add.i532, %sub.i530
-  %add10.i = add nsw i32 %mul.i533, 1
+  %add.i531 = add nsw i32 %156, 1
+  %mul.i532 = mul nsw i32 %add.i531, %sub.i529
+  %add10.i = add nsw i32 %mul.i532, 1
   store i32 %add10.i, ptr @start_tr_in_this_IGOP, align 4, !tbaa !17
   %add13.i = add nsw i32 %153, %152
-  store i32 %add13.i, ptr %no_frames.i529, align 8, !tbaa !34
+  store i32 %add13.i, ptr %no_frames.i528, align 8, !tbaa !34
   br label %process_2nd_IGOP.exit
 
 process_2nd_IGOP.exit:                            ; preds = %if.end423, %if.end3.i, %if.end6.i
@@ -1506,14 +1506,14 @@ if.end440:                                        ; preds = %if.then439, %if.end
   call void @free(ptr noundef %164) #24
   %165 = load ptr, ptr @frame_pic_1, align 8, !tbaa !5
   %cmp.not.i = icmp eq ptr %165, null
-  br i1 %cmp.not.i, label %free_picture.exit, label %if.then.i534
+  br i1 %cmp.not.i, label %free_picture.exit, label %if.then.i533
 
-if.then.i534:                                     ; preds = %if.end440
+if.then.i533:                                     ; preds = %if.end440
   call void @free_slice_list(ptr noundef nonnull %165) #24
   call void @free(ptr noundef nonnull %165) #24
   br label %free_picture.exit
 
-free_picture.exit:                                ; preds = %if.end440, %if.then.i534
+free_picture.exit:                                ; preds = %if.end440, %if.then.i533
   %166 = load ptr, ptr @input, align 8, !tbaa !5
   %RDPictureDecision441 = getelementptr inbounds %struct.InputParameters, ptr %166, i64 0, i32 62
   %167 = load i32, ptr %RDPictureDecision441, align 4, !tbaa !30
@@ -1522,25 +1522,25 @@ free_picture.exit:                                ; preds = %if.end440, %if.then
 
 if.then443:                                       ; preds = %free_picture.exit
   %168 = load ptr, ptr @frame_pic_2, align 8, !tbaa !5
-  %cmp.not.i536 = icmp eq ptr %168, null
-  br i1 %cmp.not.i536, label %free_picture.exit539, label %if.then.i537
+  %cmp.not.i535 = icmp eq ptr %168, null
+  br i1 %cmp.not.i535, label %free_picture.exit538, label %if.then.i536
 
-if.then.i537:                                     ; preds = %if.then443
+if.then.i536:                                     ; preds = %if.then443
   call void @free_slice_list(ptr noundef nonnull %168) #24
   call void @free(ptr noundef nonnull %168) #24
-  br label %free_picture.exit539
+  br label %free_picture.exit538
 
-free_picture.exit539:                             ; preds = %if.then443, %if.then.i537
+free_picture.exit538:                             ; preds = %if.then443, %if.then.i536
   %169 = load ptr, ptr @frame_pic_3, align 8, !tbaa !5
-  %cmp.not.i540 = icmp eq ptr %169, null
-  br i1 %cmp.not.i540, label %if.end444, label %if.then.i541
+  %cmp.not.i539 = icmp eq ptr %169, null
+  br i1 %cmp.not.i539, label %if.end444, label %if.then.i540
 
-if.then.i541:                                     ; preds = %free_picture.exit539
+if.then.i540:                                     ; preds = %free_picture.exit538
   call void @free_slice_list(ptr noundef nonnull %169) #24
   call void @free(ptr noundef nonnull %169) #24
   br label %if.end444
 
-if.end444:                                        ; preds = %if.then.i541, %free_picture.exit539, %free_picture.exit
+if.end444:                                        ; preds = %if.then.i540, %free_picture.exit538, %free_picture.exit
   %170 = load ptr, ptr @input, align 8, !tbaa !5
   %si_frame_indicator445 = getelementptr inbounds %struct.InputParameters, ptr %170, i64 0, i32 53
   %171 = load i32, ptr %si_frame_indicator445, align 4, !tbaa !31
@@ -1549,42 +1549,42 @@ if.end444:                                        ; preds = %if.then.i541, %free
 
 if.then447:                                       ; preds = %if.end444
   %172 = load ptr, ptr @frame_pic_si, align 8, !tbaa !5
-  %cmp.not.i544 = icmp eq ptr %172, null
-  br i1 %cmp.not.i544, label %free_picture.exit547, label %if.then.i545
+  %cmp.not.i543 = icmp eq ptr %172, null
+  br i1 %cmp.not.i543, label %free_picture.exit546, label %if.then.i544
 
-if.then.i545:                                     ; preds = %if.then447
+if.then.i544:                                     ; preds = %if.then447
   call void @free_slice_list(ptr noundef nonnull %172) #24
   call void @free(ptr noundef nonnull %172) #24
-  br label %free_picture.exit547
+  br label %free_picture.exit546
 
-free_picture.exit547:                             ; preds = %if.then447, %if.then.i545
+free_picture.exit546:                             ; preds = %if.then447, %if.then.i544
   %173 = load ptr, ptr @lrec, align 8, !tbaa !5
   call void @free_mem2Dint(ptr noundef %173) #24
   %174 = load ptr, ptr @lrec_uv, align 8, !tbaa !5
   call void @free_mem3Dint(ptr noundef %174, i32 noundef 2) #24
   br label %if.end448
 
-if.end448:                                        ; preds = %free_picture.exit547, %if.end444
+if.end448:                                        ; preds = %free_picture.exit546, %if.end444
   %175 = load ptr, ptr @top_pic, align 8, !tbaa !5
   %tobool449.not = icmp eq ptr %175, null
-  br i1 %tobool449.not, label %if.end451, label %free_picture.exit551
+  br i1 %tobool449.not, label %if.end451, label %if.then.i548
 
-free_picture.exit551:                             ; preds = %if.end448
+if.then.i548:                                     ; preds = %if.end448
   call void @free_slice_list(ptr noundef nonnull %175) #24
   call void @free(ptr noundef nonnull %175) #24
   br label %if.end451
 
-if.end451:                                        ; preds = %free_picture.exit551, %if.end448
+if.end451:                                        ; preds = %if.then.i548, %if.end448
   %176 = load ptr, ptr @bottom_pic, align 8, !tbaa !5
   %tobool452.not = icmp eq ptr %176, null
-  br i1 %tobool452.not, label %if.end454, label %free_picture.exit555
+  br i1 %tobool452.not, label %if.end454, label %if.then.i552
 
-free_picture.exit555:                             ; preds = %if.end451
+if.then.i552:                                     ; preds = %if.end451
   call void @free_slice_list(ptr noundef nonnull %176) #24
   call void @free(ptr noundef nonnull %176) #24
   br label %if.end454
 
-if.end454:                                        ; preds = %free_picture.exit555, %if.end451
+if.end454:                                        ; preds = %if.then.i552, %if.end451
   call void @free_dpb() #24
   %177 = load ptr, ptr @Co_located, align 8, !tbaa !5
   call void @free_colocated(ptr noundef %177) #24
@@ -4438,8 +4438,8 @@ for.body179:                                      ; preds = %for.body179.prehead
   %call192 = call i64 @strlen(ptr noundef nonnull dereferenceable(1) %seqtype) #27
   %142 = trunc i64 %call192 to i32
   %conv194 = sub i32 79, %142
-  %cond.i1668 = call i32 @llvm.smax.i32(i32 %conv194, i32 0)
-  %conv196 = zext i32 %cond.i1668 to i64
+  %cond.i1662 = call i32 @llvm.smax.i32(i32 %conv194, i32 0)
+  %conv196 = zext i32 %cond.i1662 to i64
   %.str.48..str.47 = select i1 %tobool180.not, ptr @.str.48, ptr @.str.47
   %call188 = call ptr @strncat(ptr noundef nonnull dereferenceable(1) %seqtype, ptr noundef nonnull %.str.48..str.47, i64 noundef %conv196) #24
   %inc200 = add nuw nsw i32 %i167.01678, 1
@@ -4451,8 +4451,8 @@ for.end201:                                       ; preds = %for.body179
   %call204 = call i64 @strlen(ptr noundef nonnull dereferenceable(1) %seqtype) #27
   %144 = trunc i64 %call204 to i32
   %conv206 = sub i32 79, %144
-  %cond.i1669 = call i32 @llvm.smax.i32(i32 %conv206, i32 0)
-  %conv208 = zext i32 %cond.i1669 to i64
+  %cond.i1663 = call i32 @llvm.smax.i32(i32 %conv206, i32 0)
+  %conv208 = zext i32 %cond.i1663 to i64
   %call209 = call ptr @strncat(ptr noundef nonnull dereferenceable(1) %seqtype, ptr noundef nonnull @.str.49, i64 noundef %conv208) #24
   %145 = load i32, ptr %successive_Bframe156, align 4, !tbaa !13
   %cmp1771677.1 = icmp sgt i32 %145, 0
@@ -4465,8 +4465,8 @@ for.body179.1:                                    ; preds = %for.end201, %for.bo
   %call192.1 = call i64 @strlen(ptr noundef nonnull dereferenceable(1) %seqtype) #27
   %147 = trunc i64 %call192.1 to i32
   %conv194.1 = sub i32 79, %147
-  %cond.i1668.1 = call i32 @llvm.smax.i32(i32 %conv194.1, i32 0)
-  %conv196.1 = zext i32 %cond.i1668.1 to i64
+  %cond.i1662.1 = call i32 @llvm.smax.i32(i32 %conv194.1, i32 0)
+  %conv196.1 = zext i32 %cond.i1662.1 to i64
   %.str.48..str.471711 = select i1 %tobool180.not.1, ptr @.str.48, ptr @.str.47
   %call197.1 = call ptr @strncat(ptr noundef nonnull dereferenceable(1) %seqtype, ptr noundef nonnull %.str.48..str.471711, i64 noundef %conv196.1) #24
   %inc200.1 = add nuw nsw i32 %i167.01678.1, 1
@@ -4478,8 +4478,8 @@ for.end201.1:                                     ; preds = %for.body179.1, %for
   %call204.1 = call i64 @strlen(ptr noundef nonnull dereferenceable(1) %seqtype) #27
   %149 = trunc i64 %call204.1 to i32
   %conv206.1 = sub i32 79, %149
-  %cond.i1669.1 = call i32 @llvm.smax.i32(i32 %conv206.1, i32 0)
-  %conv208.1 = zext i32 %cond.i1669.1 to i64
+  %cond.i1663.1 = call i32 @llvm.smax.i32(i32 %conv206.1, i32 0)
+  %conv208.1 = zext i32 %cond.i1663.1 to i64
   %call209.1 = call ptr @strncat(ptr noundef nonnull dereferenceable(1) %seqtype, ptr noundef nonnull @.str.49, i64 noundef %conv208.1) #24
   %150 = load i32, ptr %BRefPictures, align 4, !tbaa !24
   %tobool214.not = icmp eq i32 %150, 0
@@ -5216,8 +5216,8 @@ if.end655:                                        ; preds = %if.else653, %if.the
   %412 = load ptr, ptr @input, align 8, !tbaa !5
   %qp0675 = getelementptr inbounds %struct.InputParameters, ptr %412, i64 0, i32 3
   %413 = load i32, ptr %qp0675, align 4, !tbaa !178
-  %cond.i1670 = call i32 @llvm.abs.i32(i32 %413, i1 true)
-  %call677 = call i32 (ptr, ptr, ...) @fprintf(ptr noundef %411, ptr noundef nonnull @.str.126, i32 noundef %cond.i1670)
+  %cond.i1664 = call i32 @llvm.abs.i32(i32 %413, i1 true)
+  %call677 = call i32 (ptr, ptr, ...) @fprintf(ptr noundef %411, ptr noundef nonnull @.str.126, i32 noundef %cond.i1664)
   %414 = load ptr, ptr @p_stat, align 8, !tbaa !5
   %415 = load ptr, ptr @stats, align 8, !tbaa !5
   %quant1 = getelementptr inbounds %struct.StatParameters, ptr %415, i64 0, i32 1
@@ -5228,8 +5228,8 @@ if.end655:                                        ; preds = %if.else653, %if.the
   %conv680 = sitofp i32 %417 to float
   %conv681 = fpext float %conv680 to double
   %cmp.i = fcmp olt double %conv681, 1.000000e+00
-  %cond.i1671 = select i1 %cmp.i, double 1.000000e+00, double %conv681
-  %div683 = fdiv double %conv679, %cond.i1671
+  %cond.i1665 = select i1 %cmp.i, double 1.000000e+00, double %conv681
+  %div683 = fdiv double %conv679, %cond.i1665
   %call684 = call i32 (ptr, ptr, ...) @fprintf(ptr noundef %414, ptr noundef nonnull @.str.121, double noundef %div683)
   %418 = load ptr, ptr @p_stat, align 8, !tbaa !5
   %419 = call i64 @fwrite(ptr nonnull @.str.127, i64 74, i64 1, ptr %418)
@@ -5542,7 +5542,7 @@ if.end975:                                        ; preds = %if.end936, %if.then
   %.sink1703 = phi double [ %conv971, %if.then965 ], [ 0.000000e+00, %if.end936 ]
   %call974 = call i32 (ptr, ptr, ...) @fprintf(ptr noundef %568, ptr noundef nonnull @.str.158, double noundef %.sink1703)
   %570 = load ptr, ptr @p_stat, align 8, !tbaa !5
-  %fputc1661 = call i32 @fputc(i32 10, ptr %570)
+  %fputc1667 = call i32 @fputc(i32 10, ptr %570)
   %571 = load ptr, ptr @p_stat, align 8, !tbaa !5
   %572 = call i64 @fwrite(ptr nonnull @.str.159, i64 23, i64 1, ptr %571)
   %573 = load ptr, ptr @p_stat, align 8, !tbaa !5
@@ -5584,7 +5584,7 @@ if.end1012:                                       ; preds = %if.end975, %if.then
   %.sink1712 = phi double [ %conv1008, %if.then1002 ], [ 0.000000e+00, %if.end975 ]
   %call1011 = call i32 (ptr, ptr, ...) @fprintf(ptr noundef %582, ptr noundef nonnull @.str.158, double noundef %.sink1712)
   %584 = load ptr, ptr @p_stat, align 8, !tbaa !5
-  %fputc1662 = call i32 @fputc(i32 10, ptr %584)
+  %fputc1668 = call i32 @fputc(i32 10, ptr %584)
   %585 = load ptr, ptr @p_stat, align 8, !tbaa !5
   %586 = call i64 @fwrite(ptr nonnull @.str.160, i64 23, i64 1, ptr %585)
   %587 = load ptr, ptr @p_stat, align 8, !tbaa !5
@@ -5602,7 +5602,7 @@ if.end1012:                                       ; preds = %if.end975, %if.then
   %.sink1704 = select i1 %or.cond1580, double %mean_motion_info_bit_use.sroa.5.0, double 0.000000e+00
   %call1028 = call i32 (ptr, ptr, ...) @fprintf(ptr noundef %593, ptr noundef nonnull @.str.158, double noundef %.sink1704)
   %594 = load ptr, ptr @p_stat, align 8, !tbaa !5
-  %fputc1663 = call i32 @fputc(i32 10, ptr %594)
+  %fputc1669 = call i32 @fputc(i32 10, ptr %594)
   %595 = load ptr, ptr @p_stat, align 8, !tbaa !5
   %596 = call i64 @fwrite(ptr nonnull @.str.162, i64 23, i64 1, ptr %595)
   %597 = load ptr, ptr @p_stat, align 8, !tbaa !5
@@ -5643,7 +5643,7 @@ if.end1070:                                       ; preds = %if.end1012, %if.the
   %.sink1715 = phi double [ %conv1066, %if.then1058 ], [ 0.000000e+00, %if.end1012 ]
   %call1069 = call i32 (ptr, ptr, ...) @fprintf(ptr noundef %605, ptr noundef nonnull @.str.158, double noundef %.sink1715)
   %607 = load ptr, ptr @p_stat, align 8, !tbaa !5
-  %fputc1664 = call i32 @fputc(i32 10, ptr %607)
+  %fputc1670 = call i32 @fputc(i32 10, ptr %607)
   %608 = load ptr, ptr @stats, align 8, !tbaa !5
   %successive_Bframe1072 = getelementptr inbounds %struct.StatParameters, ptr %608, i64 0, i32 13
   %609 = load i32, ptr %successive_Bframe1072, align 4, !tbaa !13
@@ -5805,7 +5805,7 @@ if.end1267:                                       ; preds = %if.end1218, %if.the
   %.sink1707 = select i1 %or.cond1586, double %conv1300, double 0.000000e+00
   %call1303 = call i32 (ptr, ptr, ...) @fprintf(ptr noundef %645, ptr noundef nonnull @.str.158, double noundef %.sink1707)
   %646 = load ptr, ptr @p_stat, align 8, !tbaa !5
-  %fputc1665 = call i32 @fputc(i32 10, ptr %646)
+  %fputc1671 = call i32 @fputc(i32 10, ptr %646)
   %647 = load ptr, ptr @p_stat, align 8, !tbaa !5
   %648 = call i64 @fwrite(ptr nonnull @.str.156, i64 75, i64 1, ptr %647)
   %649 = load ptr, ptr @p_stat, align 8, !tbaa !5
@@ -6077,7 +6077,7 @@ if.end1410:                                       ; preds = %for.end1363, %switc
   %conv1484 = trunc i64 %765 to i32
   %call1485 = call i32 (ptr, ptr, ...) @fprintf(ptr noundef %764, ptr noundef nonnull @.str.196, i32 noundef %conv1484)
   %766 = load ptr, ptr @p_log, align 8, !tbaa !5
-  %fputc1666 = call i32 @fputc(i32 10, ptr %766)
+  %fputc1672 = call i32 @fputc(i32 10, ptr %766)
   %767 = load ptr, ptr @p_log, align 8, !tbaa !5
   %call1487 = call i32 @fclose(ptr noundef %767)
   %call1488 = call noalias ptr @fopen64(ptr noundef nonnull @.str.197, ptr noundef nonnull @.str.7)
@@ -6870,24 +6870,24 @@ if.then.i:                                        ; preds = %if.end11
 free_picture.exit:                                ; preds = %if.end11, %if.then.i
   %11 = load ptr, ptr @top_pic, align 8, !tbaa !5
   %tobool12.not = icmp eq ptr %11, null
-  br i1 %tobool12.not, label %if.end14, label %free_picture.exit23
+  br i1 %tobool12.not, label %if.end14, label %if.then.i22
 
-free_picture.exit23:                              ; preds = %free_picture.exit
+if.then.i22:                                      ; preds = %free_picture.exit
   tail call void @free_slice_list(ptr noundef nonnull %11) #24
   tail call void @free(ptr noundef nonnull %11) #24
   br label %if.end14
 
-if.end14:                                         ; preds = %free_picture.exit23, %free_picture.exit
+if.end14:                                         ; preds = %if.then.i22, %free_picture.exit
   %12 = load ptr, ptr @bottom_pic, align 8, !tbaa !5
   %tobool15.not = icmp eq ptr %12, null
-  br i1 %tobool15.not, label %if.end17, label %free_picture.exit26
+  br i1 %tobool15.not, label %if.end17, label %if.then.i25
 
-free_picture.exit26:                              ; preds = %if.end14
+if.then.i25:                                      ; preds = %if.end14
   tail call void @free_slice_list(ptr noundef nonnull %12) #24
   tail call void @free(ptr noundef nonnull %12) #24
   br label %if.end17
 
-if.end17:                                         ; preds = %free_picture.exit26, %if.end14
+if.end17:                                         ; preds = %if.then.i25, %if.end14
   tail call void @free_dpb() #24
   %13 = load ptr, ptr @Co_located, align 8, !tbaa !5
   tail call void @free_colocated(ptr noundef %13) #24
@@ -8695,6 +8695,9 @@ declare ptr @strrchr(ptr noundef, i32 noundef) local_unnamed_addr #15
 ; Function Attrs: nofree nounwind
 declare noundef i64 @fwrite(ptr nocapture noundef, i64 noundef, i64 noundef, ptr nocapture noundef) local_unnamed_addr #21
 
+; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
+declare i32 @llvm.smax.i32(i32, i32) #22
+
 ; Function Attrs: nofree nounwind
 declare noundef i32 @puts(ptr nocapture noundef readonly) local_unnamed_addr #21
 
@@ -8703,9 +8706,6 @@ declare i32 @llvm.smin.i32(i32, i32) #22
 
 ; Function Attrs: nofree nounwind
 declare noundef i32 @fputc(i32 noundef, ptr nocapture noundef) local_unnamed_addr #21
-
-; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i32 @llvm.smax.i32(i32, i32) #22
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
 declare i32 @llvm.abs.i32(i32, i1 immarg) #22

@@ -1072,8 +1072,8 @@ if.then49:                                        ; preds = %cleanup.cont47
   br i1 %cmp56.not, label %if.end62, label %cleanup75.thread
 
 if.end62:                                         ; preds = %if.then49, %cleanup.cont47
-  %cmp64142 = icmp ugt i32 %endPos.1, %bufferPos.1
-  br i1 %cmp64142, label %while.body65.preheader, label %cleanup75
+  %cmp64144 = icmp ugt i32 %endPos.1, %bufferPos.1
+  br i1 %cmp64144, label %while.body65.preheader, label %cleanup75
 
 while.body65.preheader:                           ; preds = %if.end62
   %38 = zext i32 %bufferPos.1 to i64
@@ -1081,7 +1081,7 @@ while.body65.preheader:                           ; preds = %if.end62
   %40 = sub nsw i64 %39, %38
   %41 = xor i64 %38, -1
   %42 = add nsw i64 %41, %39
-  %xtraiter154 = and i64 %40, 3
+  %xtraiter156 = and i64 %40, 3
   %43 = icmp ult i64 %42, 3
   br i1 %43, label %cleanup75.loopexit.unr-lcssa, label %while.body65.preheader.new
 
@@ -1090,65 +1090,65 @@ while.body65.preheader.new:                       ; preds = %while.body65.prehea
   br label %while.body65
 
 while.body65:                                     ; preds = %while.body65, %while.body65.preheader.new
-  %indvars.iv149 = phi i64 [ %38, %while.body65.preheader.new ], [ %indvars.iv.next150.3, %while.body65 ]
-  %indvars.iv147 = phi i64 [ 0, %while.body65.preheader.new ], [ %indvars.iv.next148.3, %while.body65 ]
+  %indvars.iv151 = phi i64 [ %38, %while.body65.preheader.new ], [ %indvars.iv.next152.3, %while.body65 ]
+  %indvars.iv149 = phi i64 [ 0, %while.body65.preheader.new ], [ %indvars.iv.next150.3, %while.body65 ]
   %niter = phi i64 [ 0, %while.body65.preheader.new ], [ %niter.next.3, %while.body65 ]
   %44 = load ptr, ptr %_buffer, align 8, !tbaa !12
-  %indvars.iv.next150 = add nuw nsw i64 %indvars.iv149, 1
-  %arrayidx69 = getelementptr inbounds i8, ptr %44, i64 %indvars.iv149
+  %indvars.iv.next152 = add nuw nsw i64 %indvars.iv151, 1
+  %arrayidx69 = getelementptr inbounds i8, ptr %44, i64 %indvars.iv151
   %45 = load i8, ptr %arrayidx69, align 1, !tbaa !54
-  %indvars.iv.next148 = or i64 %indvars.iv147, 1
-  %arrayidx73 = getelementptr inbounds i8, ptr %44, i64 %indvars.iv147
+  %indvars.iv.next150 = or i64 %indvars.iv149, 1
+  %arrayidx73 = getelementptr inbounds i8, ptr %44, i64 %indvars.iv149
   store i8 %45, ptr %arrayidx73, align 1, !tbaa !54
   %46 = load ptr, ptr %_buffer, align 8, !tbaa !12
-  %indvars.iv.next150.1 = add nuw nsw i64 %indvars.iv149, 2
-  %arrayidx69.1 = getelementptr inbounds i8, ptr %46, i64 %indvars.iv.next150
+  %indvars.iv.next152.1 = add nuw nsw i64 %indvars.iv151, 2
+  %arrayidx69.1 = getelementptr inbounds i8, ptr %46, i64 %indvars.iv.next152
   %47 = load i8, ptr %arrayidx69.1, align 1, !tbaa !54
-  %indvars.iv.next148.1 = or i64 %indvars.iv147, 2
-  %arrayidx73.1 = getelementptr inbounds i8, ptr %46, i64 %indvars.iv.next148
+  %indvars.iv.next150.1 = or i64 %indvars.iv149, 2
+  %arrayidx73.1 = getelementptr inbounds i8, ptr %46, i64 %indvars.iv.next150
   store i8 %47, ptr %arrayidx73.1, align 1, !tbaa !54
   %48 = load ptr, ptr %_buffer, align 8, !tbaa !12
-  %indvars.iv.next150.2 = add nuw nsw i64 %indvars.iv149, 3
-  %arrayidx69.2 = getelementptr inbounds i8, ptr %48, i64 %indvars.iv.next150.1
+  %indvars.iv.next152.2 = add nuw nsw i64 %indvars.iv151, 3
+  %arrayidx69.2 = getelementptr inbounds i8, ptr %48, i64 %indvars.iv.next152.1
   %49 = load i8, ptr %arrayidx69.2, align 1, !tbaa !54
-  %indvars.iv.next148.2 = or i64 %indvars.iv147, 3
-  %arrayidx73.2 = getelementptr inbounds i8, ptr %48, i64 %indvars.iv.next148.1
+  %indvars.iv.next150.2 = or i64 %indvars.iv149, 3
+  %arrayidx73.2 = getelementptr inbounds i8, ptr %48, i64 %indvars.iv.next150.1
   store i8 %49, ptr %arrayidx73.2, align 1, !tbaa !54
   %50 = load ptr, ptr %_buffer, align 8, !tbaa !12
-  %indvars.iv.next150.3 = add nuw nsw i64 %indvars.iv149, 4
-  %arrayidx69.3 = getelementptr inbounds i8, ptr %50, i64 %indvars.iv.next150.2
+  %indvars.iv.next152.3 = add nuw nsw i64 %indvars.iv151, 4
+  %arrayidx69.3 = getelementptr inbounds i8, ptr %50, i64 %indvars.iv.next152.2
   %51 = load i8, ptr %arrayidx69.3, align 1, !tbaa !54
-  %indvars.iv.next148.3 = add nuw nsw i64 %indvars.iv147, 4
-  %arrayidx73.3 = getelementptr inbounds i8, ptr %50, i64 %indvars.iv.next148.2
+  %indvars.iv.next150.3 = add nuw nsw i64 %indvars.iv149, 4
+  %arrayidx73.3 = getelementptr inbounds i8, ptr %50, i64 %indvars.iv.next150.2
   store i8 %51, ptr %arrayidx73.3, align 1, !tbaa !54
   %niter.next.3 = add i64 %niter, 4
   %niter.ncmp.3 = icmp eq i64 %niter.next.3, %unroll_iter
   br i1 %niter.ncmp.3, label %cleanup75.loopexit.unr-lcssa, label %while.body65, !llvm.loop !59
 
-cleanup75.thread:                                 ; preds = %if.end4.i128, %while.body, %if.then49, %if.then34, %if.end4.i, %cleanup.cont.i
+cleanup75.thread:                                 ; preds = %while.body, %if.then49, %if.end4.i128, %if.then34, %if.end4.i, %cleanup.cont.i
   %retval.7.ph = phi i32 [ 0, %cleanup.cont.i ], [ %call.i, %if.end4.i ], [ 0, %if.then34 ], [ %call.i126, %if.end4.i128 ], [ %call11, %while.body ], [ %call55, %if.then49 ]
   call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %processedSize) #12
   br label %return
 
 cleanup75.loopexit.unr-lcssa:                     ; preds = %while.body65, %while.body65.preheader
-  %indvars.iv149.unr = phi i64 [ %38, %while.body65.preheader ], [ %indvars.iv.next150.3, %while.body65 ]
-  %indvars.iv147.unr = phi i64 [ 0, %while.body65.preheader ], [ %indvars.iv.next148.3, %while.body65 ]
-  %lcmp.mod155.not = icmp eq i64 %xtraiter154, 0
-  br i1 %lcmp.mod155.not, label %cleanup75.loopexit, label %while.body65.epil
+  %indvars.iv151.unr = phi i64 [ %38, %while.body65.preheader ], [ %indvars.iv.next152.3, %while.body65 ]
+  %indvars.iv149.unr = phi i64 [ 0, %while.body65.preheader ], [ %indvars.iv.next150.3, %while.body65 ]
+  %lcmp.mod157.not = icmp eq i64 %xtraiter156, 0
+  br i1 %lcmp.mod157.not, label %cleanup75.loopexit, label %while.body65.epil
 
 while.body65.epil:                                ; preds = %cleanup75.loopexit.unr-lcssa, %while.body65.epil
+  %indvars.iv151.epil = phi i64 [ %indvars.iv.next152.epil, %while.body65.epil ], [ %indvars.iv151.unr, %cleanup75.loopexit.unr-lcssa ]
   %indvars.iv149.epil = phi i64 [ %indvars.iv.next150.epil, %while.body65.epil ], [ %indvars.iv149.unr, %cleanup75.loopexit.unr-lcssa ]
-  %indvars.iv147.epil = phi i64 [ %indvars.iv.next148.epil, %while.body65.epil ], [ %indvars.iv147.unr, %cleanup75.loopexit.unr-lcssa ]
   %epil.iter = phi i64 [ %epil.iter.next, %while.body65.epil ], [ 0, %cleanup75.loopexit.unr-lcssa ]
   %52 = load ptr, ptr %_buffer, align 8, !tbaa !12
-  %indvars.iv.next150.epil = add nuw nsw i64 %indvars.iv149.epil, 1
-  %arrayidx69.epil = getelementptr inbounds i8, ptr %52, i64 %indvars.iv149.epil
+  %indvars.iv.next152.epil = add nuw nsw i64 %indvars.iv151.epil, 1
+  %arrayidx69.epil = getelementptr inbounds i8, ptr %52, i64 %indvars.iv151.epil
   %53 = load i8, ptr %arrayidx69.epil, align 1, !tbaa !54
-  %indvars.iv.next148.epil = add nuw nsw i64 %indvars.iv147.epil, 1
-  %arrayidx73.epil = getelementptr inbounds i8, ptr %52, i64 %indvars.iv147.epil
+  %indvars.iv.next150.epil = add nuw nsw i64 %indvars.iv149.epil, 1
+  %arrayidx73.epil = getelementptr inbounds i8, ptr %52, i64 %indvars.iv149.epil
   store i8 %53, ptr %arrayidx73.epil, align 1, !tbaa !54
   %epil.iter.next = add i64 %epil.iter, 1
-  %epil.iter.cmp.not = icmp eq i64 %epil.iter.next, %xtraiter154
+  %epil.iter.cmp.not = icmp eq i64 %epil.iter.next, %xtraiter156
   br i1 %epil.iter.cmp.not, label %cleanup75.loopexit, label %while.body65.epil, !llvm.loop !60
 
 cleanup75.loopexit:                               ; preds = %while.body65.epil, %cleanup75.loopexit.unr-lcssa
@@ -1514,8 +1514,8 @@ if.end4.i:                                        ; preds = %if.then.i, %if.end2
   %16 = load ptr, ptr %_buffer, align 8, !tbaa !12
   %conv5.i = zext i32 %size.addr.1.i to i64
   %call.i = tail call noundef i32 @_Z11WriteStreamP20ISequentialOutStreamPKvm(ptr noundef %12, ptr noundef %16, i64 noundef %conv5.i)
-  %cmp6.not.not.i = icmp eq i32 %call.i, 0
-  br i1 %cmp6.not.not.i, label %cleanup28, label %return
+  %cond = icmp eq i32 %call.i, 0
+  br i1 %cond, label %cleanup28, label %return
 
 cleanup28:                                        ; preds = %if.end4.i
   %_nowPos6410.i = getelementptr inbounds %class.CFilterCoder, ptr %this, i64 0, i32 20
@@ -2146,343 +2146,343 @@ _ZeqRK4GUIDS1_.exit:                              ; preds = %for.cond.13.i
 
 if.end:                                           ; preds = %for.cond.13.i, %for.cond.12.i, %for.cond.11.i, %for.cond.10.i, %for.cond.9.i, %for.cond.8.i, %for.cond.7.i, %for.cond.6.i, %for.cond.5.i, %for.cond.4.i, %for.cond.3.i, %for.cond.2.i, %for.cond.1.i, %for.cond.i, %entry, %_ZeqRK4GUIDS1_.exit
   %32 = load i8, ptr @IID_ICompressCoder, align 4, !tbaa !54
-  %cmp4.not.i203 = icmp eq i8 %0, %32
-  br i1 %cmp4.not.i203, label %for.cond.i206, label %if.end9
+  %cmp4.not.i199 = icmp eq i8 %0, %32
+  br i1 %cmp4.not.i199, label %for.cond.i202, label %if.end9
 
-for.cond.i206:                                    ; preds = %if.end
-  %arrayidx.1.i204 = getelementptr inbounds i8, ptr %iid, i64 1
-  %33 = load i8, ptr %arrayidx.1.i204, align 1, !tbaa !54
+for.cond.i202:                                    ; preds = %if.end
+  %arrayidx.1.i200 = getelementptr inbounds i8, ptr %iid, i64 1
+  %33 = load i8, ptr %arrayidx.1.i200, align 1, !tbaa !54
   %34 = load i8, ptr getelementptr inbounds (i8, ptr @IID_ICompressCoder, i64 1), align 1, !tbaa !54
-  %cmp4.not.1.i205 = icmp eq i8 %33, %34
-  br i1 %cmp4.not.1.i205, label %for.cond.1.i209, label %if.end9
+  %cmp4.not.1.i201 = icmp eq i8 %33, %34
+  br i1 %cmp4.not.1.i201, label %for.cond.1.i205, label %if.end9
 
-for.cond.1.i209:                                  ; preds = %for.cond.i206
-  %arrayidx.2.i207 = getelementptr inbounds i8, ptr %iid, i64 2
-  %35 = load i8, ptr %arrayidx.2.i207, align 2, !tbaa !54
+for.cond.1.i205:                                  ; preds = %for.cond.i202
+  %arrayidx.2.i203 = getelementptr inbounds i8, ptr %iid, i64 2
+  %35 = load i8, ptr %arrayidx.2.i203, align 2, !tbaa !54
   %36 = load i8, ptr getelementptr inbounds (i8, ptr @IID_ICompressCoder, i64 2), align 2, !tbaa !54
-  %cmp4.not.2.i208 = icmp eq i8 %35, %36
-  br i1 %cmp4.not.2.i208, label %for.cond.2.i212, label %if.end9
+  %cmp4.not.2.i204 = icmp eq i8 %35, %36
+  br i1 %cmp4.not.2.i204, label %for.cond.2.i208, label %if.end9
 
-for.cond.2.i212:                                  ; preds = %for.cond.1.i209
-  %arrayidx.3.i210 = getelementptr inbounds i8, ptr %iid, i64 3
-  %37 = load i8, ptr %arrayidx.3.i210, align 1, !tbaa !54
+for.cond.2.i208:                                  ; preds = %for.cond.1.i205
+  %arrayidx.3.i206 = getelementptr inbounds i8, ptr %iid, i64 3
+  %37 = load i8, ptr %arrayidx.3.i206, align 1, !tbaa !54
   %38 = load i8, ptr getelementptr inbounds (i8, ptr @IID_ICompressCoder, i64 3), align 1, !tbaa !54
-  %cmp4.not.3.i211 = icmp eq i8 %37, %38
-  br i1 %cmp4.not.3.i211, label %for.cond.3.i215, label %if.end9
+  %cmp4.not.3.i207 = icmp eq i8 %37, %38
+  br i1 %cmp4.not.3.i207, label %for.cond.3.i211, label %if.end9
 
-for.cond.3.i215:                                  ; preds = %for.cond.2.i212
-  %arrayidx.4.i213 = getelementptr inbounds i8, ptr %iid, i64 4
-  %39 = load i8, ptr %arrayidx.4.i213, align 4, !tbaa !54
+for.cond.3.i211:                                  ; preds = %for.cond.2.i208
+  %arrayidx.4.i209 = getelementptr inbounds i8, ptr %iid, i64 4
+  %39 = load i8, ptr %arrayidx.4.i209, align 4, !tbaa !54
   %40 = load i8, ptr getelementptr inbounds (%struct.GUID, ptr @IID_ICompressCoder, i64 0, i32 1), align 4, !tbaa !54
-  %cmp4.not.4.i214 = icmp eq i8 %39, %40
-  br i1 %cmp4.not.4.i214, label %for.cond.4.i218, label %if.end9
+  %cmp4.not.4.i210 = icmp eq i8 %39, %40
+  br i1 %cmp4.not.4.i210, label %for.cond.4.i214, label %if.end9
 
-for.cond.4.i218:                                  ; preds = %for.cond.3.i215
-  %arrayidx.5.i216 = getelementptr inbounds i8, ptr %iid, i64 5
-  %41 = load i8, ptr %arrayidx.5.i216, align 1, !tbaa !54
+for.cond.4.i214:                                  ; preds = %for.cond.3.i211
+  %arrayidx.5.i212 = getelementptr inbounds i8, ptr %iid, i64 5
+  %41 = load i8, ptr %arrayidx.5.i212, align 1, !tbaa !54
   %42 = load i8, ptr getelementptr inbounds (i8, ptr @IID_ICompressCoder, i64 5), align 1, !tbaa !54
-  %cmp4.not.5.i217 = icmp eq i8 %41, %42
-  br i1 %cmp4.not.5.i217, label %for.cond.5.i221, label %if.end9
+  %cmp4.not.5.i213 = icmp eq i8 %41, %42
+  br i1 %cmp4.not.5.i213, label %for.cond.5.i217, label %if.end9
 
-for.cond.5.i221:                                  ; preds = %for.cond.4.i218
-  %arrayidx.6.i219 = getelementptr inbounds i8, ptr %iid, i64 6
-  %43 = load i8, ptr %arrayidx.6.i219, align 2, !tbaa !54
+for.cond.5.i217:                                  ; preds = %for.cond.4.i214
+  %arrayidx.6.i215 = getelementptr inbounds i8, ptr %iid, i64 6
+  %43 = load i8, ptr %arrayidx.6.i215, align 2, !tbaa !54
   %44 = load i8, ptr getelementptr inbounds (%struct.GUID, ptr @IID_ICompressCoder, i64 0, i32 2), align 2, !tbaa !54
-  %cmp4.not.6.i220 = icmp eq i8 %43, %44
-  br i1 %cmp4.not.6.i220, label %for.cond.6.i224, label %if.end9
+  %cmp4.not.6.i216 = icmp eq i8 %43, %44
+  br i1 %cmp4.not.6.i216, label %for.cond.6.i220, label %if.end9
 
-for.cond.6.i224:                                  ; preds = %for.cond.5.i221
-  %arrayidx.7.i222 = getelementptr inbounds i8, ptr %iid, i64 7
-  %45 = load i8, ptr %arrayidx.7.i222, align 1, !tbaa !54
+for.cond.6.i220:                                  ; preds = %for.cond.5.i217
+  %arrayidx.7.i218 = getelementptr inbounds i8, ptr %iid, i64 7
+  %45 = load i8, ptr %arrayidx.7.i218, align 1, !tbaa !54
   %46 = load i8, ptr getelementptr inbounds (i8, ptr @IID_ICompressCoder, i64 7), align 1, !tbaa !54
-  %cmp4.not.7.i223 = icmp eq i8 %45, %46
-  br i1 %cmp4.not.7.i223, label %for.cond.7.i227, label %if.end9
+  %cmp4.not.7.i219 = icmp eq i8 %45, %46
+  br i1 %cmp4.not.7.i219, label %for.cond.7.i223, label %if.end9
 
-for.cond.7.i227:                                  ; preds = %for.cond.6.i224
-  %arrayidx.8.i225 = getelementptr inbounds i8, ptr %iid, i64 8
-  %47 = load i8, ptr %arrayidx.8.i225, align 4, !tbaa !54
+for.cond.7.i223:                                  ; preds = %for.cond.6.i220
+  %arrayidx.8.i221 = getelementptr inbounds i8, ptr %iid, i64 8
+  %47 = load i8, ptr %arrayidx.8.i221, align 4, !tbaa !54
   %48 = load i8, ptr getelementptr inbounds (%struct.GUID, ptr @IID_ICompressCoder, i64 0, i32 3, i64 0), align 4, !tbaa !54
-  %cmp4.not.8.i226 = icmp eq i8 %47, %48
-  br i1 %cmp4.not.8.i226, label %for.cond.8.i230, label %if.end9
+  %cmp4.not.8.i222 = icmp eq i8 %47, %48
+  br i1 %cmp4.not.8.i222, label %for.cond.8.i226, label %if.end9
 
-for.cond.8.i230:                                  ; preds = %for.cond.7.i227
-  %arrayidx.9.i228 = getelementptr inbounds i8, ptr %iid, i64 9
-  %49 = load i8, ptr %arrayidx.9.i228, align 1, !tbaa !54
+for.cond.8.i226:                                  ; preds = %for.cond.7.i223
+  %arrayidx.9.i224 = getelementptr inbounds i8, ptr %iid, i64 9
+  %49 = load i8, ptr %arrayidx.9.i224, align 1, !tbaa !54
   %50 = load i8, ptr getelementptr inbounds (%struct.GUID, ptr @IID_ICompressCoder, i64 0, i32 3, i64 1), align 1, !tbaa !54
-  %cmp4.not.9.i229 = icmp eq i8 %49, %50
-  br i1 %cmp4.not.9.i229, label %for.cond.9.i233, label %if.end9
+  %cmp4.not.9.i225 = icmp eq i8 %49, %50
+  br i1 %cmp4.not.9.i225, label %for.cond.9.i229, label %if.end9
 
-for.cond.9.i233:                                  ; preds = %for.cond.8.i230
-  %arrayidx.10.i231 = getelementptr inbounds i8, ptr %iid, i64 10
-  %51 = load i8, ptr %arrayidx.10.i231, align 2, !tbaa !54
+for.cond.9.i229:                                  ; preds = %for.cond.8.i226
+  %arrayidx.10.i227 = getelementptr inbounds i8, ptr %iid, i64 10
+  %51 = load i8, ptr %arrayidx.10.i227, align 2, !tbaa !54
   %52 = load i8, ptr getelementptr inbounds (%struct.GUID, ptr @IID_ICompressCoder, i64 0, i32 3, i64 2), align 2, !tbaa !54
-  %cmp4.not.10.i232 = icmp eq i8 %51, %52
-  br i1 %cmp4.not.10.i232, label %for.cond.10.i236, label %if.end9
+  %cmp4.not.10.i228 = icmp eq i8 %51, %52
+  br i1 %cmp4.not.10.i228, label %for.cond.10.i232, label %if.end9
 
-for.cond.10.i236:                                 ; preds = %for.cond.9.i233
-  %arrayidx.11.i234 = getelementptr inbounds i8, ptr %iid, i64 11
-  %53 = load i8, ptr %arrayidx.11.i234, align 1, !tbaa !54
+for.cond.10.i232:                                 ; preds = %for.cond.9.i229
+  %arrayidx.11.i230 = getelementptr inbounds i8, ptr %iid, i64 11
+  %53 = load i8, ptr %arrayidx.11.i230, align 1, !tbaa !54
   %54 = load i8, ptr getelementptr inbounds (%struct.GUID, ptr @IID_ICompressCoder, i64 0, i32 3, i64 3), align 1, !tbaa !54
-  %cmp4.not.11.i235 = icmp eq i8 %53, %54
-  br i1 %cmp4.not.11.i235, label %for.cond.11.i239, label %if.end9
+  %cmp4.not.11.i231 = icmp eq i8 %53, %54
+  br i1 %cmp4.not.11.i231, label %for.cond.11.i235, label %if.end9
 
-for.cond.11.i239:                                 ; preds = %for.cond.10.i236
-  %arrayidx.12.i237 = getelementptr inbounds i8, ptr %iid, i64 12
-  %55 = load i8, ptr %arrayidx.12.i237, align 4, !tbaa !54
+for.cond.11.i235:                                 ; preds = %for.cond.10.i232
+  %arrayidx.12.i233 = getelementptr inbounds i8, ptr %iid, i64 12
+  %55 = load i8, ptr %arrayidx.12.i233, align 4, !tbaa !54
   %56 = load i8, ptr getelementptr inbounds (%struct.GUID, ptr @IID_ICompressCoder, i64 0, i32 3, i64 4), align 4, !tbaa !54
-  %cmp4.not.12.i238 = icmp eq i8 %55, %56
-  br i1 %cmp4.not.12.i238, label %for.cond.12.i242, label %if.end9
+  %cmp4.not.12.i234 = icmp eq i8 %55, %56
+  br i1 %cmp4.not.12.i234, label %for.cond.12.i238, label %if.end9
 
-for.cond.12.i242:                                 ; preds = %for.cond.11.i239
-  %arrayidx.13.i240 = getelementptr inbounds i8, ptr %iid, i64 13
-  %57 = load i8, ptr %arrayidx.13.i240, align 1, !tbaa !54
+for.cond.12.i238:                                 ; preds = %for.cond.11.i235
+  %arrayidx.13.i236 = getelementptr inbounds i8, ptr %iid, i64 13
+  %57 = load i8, ptr %arrayidx.13.i236, align 1, !tbaa !54
   %58 = load i8, ptr getelementptr inbounds (%struct.GUID, ptr @IID_ICompressCoder, i64 0, i32 3, i64 5), align 1, !tbaa !54
-  %cmp4.not.13.i241 = icmp eq i8 %57, %58
-  br i1 %cmp4.not.13.i241, label %for.cond.13.i245, label %if.end9
+  %cmp4.not.13.i237 = icmp eq i8 %57, %58
+  br i1 %cmp4.not.13.i237, label %for.cond.13.i241, label %if.end9
 
-for.cond.13.i245:                                 ; preds = %for.cond.12.i242
-  %arrayidx.14.i243 = getelementptr inbounds i8, ptr %iid, i64 14
-  %59 = load i8, ptr %arrayidx.14.i243, align 2, !tbaa !54
+for.cond.13.i241:                                 ; preds = %for.cond.12.i238
+  %arrayidx.14.i239 = getelementptr inbounds i8, ptr %iid, i64 14
+  %59 = load i8, ptr %arrayidx.14.i239, align 2, !tbaa !54
   %60 = load i8, ptr getelementptr inbounds (%struct.GUID, ptr @IID_ICompressCoder, i64 0, i32 3, i64 6), align 2, !tbaa !54
-  %cmp4.not.14.i244 = icmp eq i8 %59, %60
-  br i1 %cmp4.not.14.i244, label %_ZeqRK4GUIDS1_.exit251, label %if.end9
+  %cmp4.not.14.i240 = icmp eq i8 %59, %60
+  br i1 %cmp4.not.14.i240, label %_ZeqRK4GUIDS1_.exit247, label %if.end9
 
-_ZeqRK4GUIDS1_.exit251:                           ; preds = %for.cond.13.i245
-  %arrayidx.15.i246 = getelementptr inbounds i8, ptr %iid, i64 15
-  %61 = load i8, ptr %arrayidx.15.i246, align 1, !tbaa !54
+_ZeqRK4GUIDS1_.exit247:                           ; preds = %for.cond.13.i241
+  %arrayidx.15.i242 = getelementptr inbounds i8, ptr %iid, i64 15
+  %61 = load i8, ptr %arrayidx.15.i242, align 1, !tbaa !54
   %62 = load i8, ptr getelementptr inbounds (%struct.GUID, ptr @IID_ICompressCoder, i64 0, i32 3, i64 7), align 1, !tbaa !54
-  %cmp4.not.15.i247.not = icmp eq i8 %61, %62
-  br i1 %cmp4.not.15.i247.not, label %return.sink.split, label %if.end9
+  %cmp4.not.15.i243.not = icmp eq i8 %61, %62
+  br i1 %cmp4.not.15.i243.not, label %return.sink.split, label %if.end9
 
-if.end9:                                          ; preds = %for.cond.13.i245, %for.cond.12.i242, %for.cond.11.i239, %for.cond.10.i236, %for.cond.9.i233, %for.cond.8.i230, %for.cond.7.i227, %for.cond.6.i224, %for.cond.5.i221, %for.cond.4.i218, %for.cond.3.i215, %for.cond.2.i212, %for.cond.1.i209, %for.cond.i206, %if.end, %_ZeqRK4GUIDS1_.exit251
+if.end9:                                          ; preds = %for.cond.13.i241, %for.cond.12.i238, %for.cond.11.i235, %for.cond.10.i232, %for.cond.9.i229, %for.cond.8.i226, %for.cond.7.i223, %for.cond.6.i220, %for.cond.5.i217, %for.cond.4.i214, %for.cond.3.i211, %for.cond.2.i208, %for.cond.1.i205, %for.cond.i202, %if.end, %_ZeqRK4GUIDS1_.exit247
   %63 = load i8, ptr @IID_ICompressSetInStream, align 4, !tbaa !54
-  %cmp4.not.i252 = icmp eq i8 %0, %63
-  br i1 %cmp4.not.i252, label %for.cond.i255, label %if.end16
+  %cmp4.not.i248 = icmp eq i8 %0, %63
+  br i1 %cmp4.not.i248, label %for.cond.i251, label %if.end16
 
-for.cond.i255:                                    ; preds = %if.end9
-  %arrayidx.1.i253 = getelementptr inbounds i8, ptr %iid, i64 1
-  %64 = load i8, ptr %arrayidx.1.i253, align 1, !tbaa !54
+for.cond.i251:                                    ; preds = %if.end9
+  %arrayidx.1.i249 = getelementptr inbounds i8, ptr %iid, i64 1
+  %64 = load i8, ptr %arrayidx.1.i249, align 1, !tbaa !54
   %65 = load i8, ptr getelementptr inbounds (i8, ptr @IID_ICompressSetInStream, i64 1), align 1, !tbaa !54
-  %cmp4.not.1.i254 = icmp eq i8 %64, %65
-  br i1 %cmp4.not.1.i254, label %for.cond.1.i258, label %if.end16
+  %cmp4.not.1.i250 = icmp eq i8 %64, %65
+  br i1 %cmp4.not.1.i250, label %for.cond.1.i254, label %if.end16
 
-for.cond.1.i258:                                  ; preds = %for.cond.i255
-  %arrayidx.2.i256 = getelementptr inbounds i8, ptr %iid, i64 2
-  %66 = load i8, ptr %arrayidx.2.i256, align 2, !tbaa !54
+for.cond.1.i254:                                  ; preds = %for.cond.i251
+  %arrayidx.2.i252 = getelementptr inbounds i8, ptr %iid, i64 2
+  %66 = load i8, ptr %arrayidx.2.i252, align 2, !tbaa !54
   %67 = load i8, ptr getelementptr inbounds (i8, ptr @IID_ICompressSetInStream, i64 2), align 2, !tbaa !54
-  %cmp4.not.2.i257 = icmp eq i8 %66, %67
-  br i1 %cmp4.not.2.i257, label %for.cond.2.i261, label %if.end16
+  %cmp4.not.2.i253 = icmp eq i8 %66, %67
+  br i1 %cmp4.not.2.i253, label %for.cond.2.i257, label %if.end16
 
-for.cond.2.i261:                                  ; preds = %for.cond.1.i258
-  %arrayidx.3.i259 = getelementptr inbounds i8, ptr %iid, i64 3
-  %68 = load i8, ptr %arrayidx.3.i259, align 1, !tbaa !54
+for.cond.2.i257:                                  ; preds = %for.cond.1.i254
+  %arrayidx.3.i255 = getelementptr inbounds i8, ptr %iid, i64 3
+  %68 = load i8, ptr %arrayidx.3.i255, align 1, !tbaa !54
   %69 = load i8, ptr getelementptr inbounds (i8, ptr @IID_ICompressSetInStream, i64 3), align 1, !tbaa !54
-  %cmp4.not.3.i260 = icmp eq i8 %68, %69
-  br i1 %cmp4.not.3.i260, label %for.cond.3.i264, label %if.end16
+  %cmp4.not.3.i256 = icmp eq i8 %68, %69
+  br i1 %cmp4.not.3.i256, label %for.cond.3.i260, label %if.end16
 
-for.cond.3.i264:                                  ; preds = %for.cond.2.i261
-  %arrayidx.4.i262 = getelementptr inbounds i8, ptr %iid, i64 4
-  %70 = load i8, ptr %arrayidx.4.i262, align 4, !tbaa !54
+for.cond.3.i260:                                  ; preds = %for.cond.2.i257
+  %arrayidx.4.i258 = getelementptr inbounds i8, ptr %iid, i64 4
+  %70 = load i8, ptr %arrayidx.4.i258, align 4, !tbaa !54
   %71 = load i8, ptr getelementptr inbounds (%struct.GUID, ptr @IID_ICompressSetInStream, i64 0, i32 1), align 4, !tbaa !54
-  %cmp4.not.4.i263 = icmp eq i8 %70, %71
-  br i1 %cmp4.not.4.i263, label %for.cond.4.i267, label %if.end16
+  %cmp4.not.4.i259 = icmp eq i8 %70, %71
+  br i1 %cmp4.not.4.i259, label %for.cond.4.i263, label %if.end16
 
-for.cond.4.i267:                                  ; preds = %for.cond.3.i264
-  %arrayidx.5.i265 = getelementptr inbounds i8, ptr %iid, i64 5
-  %72 = load i8, ptr %arrayidx.5.i265, align 1, !tbaa !54
+for.cond.4.i263:                                  ; preds = %for.cond.3.i260
+  %arrayidx.5.i261 = getelementptr inbounds i8, ptr %iid, i64 5
+  %72 = load i8, ptr %arrayidx.5.i261, align 1, !tbaa !54
   %73 = load i8, ptr getelementptr inbounds (i8, ptr @IID_ICompressSetInStream, i64 5), align 1, !tbaa !54
-  %cmp4.not.5.i266 = icmp eq i8 %72, %73
-  br i1 %cmp4.not.5.i266, label %for.cond.5.i270, label %if.end16
+  %cmp4.not.5.i262 = icmp eq i8 %72, %73
+  br i1 %cmp4.not.5.i262, label %for.cond.5.i266, label %if.end16
 
-for.cond.5.i270:                                  ; preds = %for.cond.4.i267
-  %arrayidx.6.i268 = getelementptr inbounds i8, ptr %iid, i64 6
-  %74 = load i8, ptr %arrayidx.6.i268, align 2, !tbaa !54
+for.cond.5.i266:                                  ; preds = %for.cond.4.i263
+  %arrayidx.6.i264 = getelementptr inbounds i8, ptr %iid, i64 6
+  %74 = load i8, ptr %arrayidx.6.i264, align 2, !tbaa !54
   %75 = load i8, ptr getelementptr inbounds (%struct.GUID, ptr @IID_ICompressSetInStream, i64 0, i32 2), align 2, !tbaa !54
-  %cmp4.not.6.i269 = icmp eq i8 %74, %75
-  br i1 %cmp4.not.6.i269, label %for.cond.6.i273, label %if.end16
+  %cmp4.not.6.i265 = icmp eq i8 %74, %75
+  br i1 %cmp4.not.6.i265, label %for.cond.6.i269, label %if.end16
 
-for.cond.6.i273:                                  ; preds = %for.cond.5.i270
-  %arrayidx.7.i271 = getelementptr inbounds i8, ptr %iid, i64 7
-  %76 = load i8, ptr %arrayidx.7.i271, align 1, !tbaa !54
+for.cond.6.i269:                                  ; preds = %for.cond.5.i266
+  %arrayidx.7.i267 = getelementptr inbounds i8, ptr %iid, i64 7
+  %76 = load i8, ptr %arrayidx.7.i267, align 1, !tbaa !54
   %77 = load i8, ptr getelementptr inbounds (i8, ptr @IID_ICompressSetInStream, i64 7), align 1, !tbaa !54
-  %cmp4.not.7.i272 = icmp eq i8 %76, %77
-  br i1 %cmp4.not.7.i272, label %for.cond.7.i276, label %if.end16
+  %cmp4.not.7.i268 = icmp eq i8 %76, %77
+  br i1 %cmp4.not.7.i268, label %for.cond.7.i272, label %if.end16
 
-for.cond.7.i276:                                  ; preds = %for.cond.6.i273
-  %arrayidx.8.i274 = getelementptr inbounds i8, ptr %iid, i64 8
-  %78 = load i8, ptr %arrayidx.8.i274, align 4, !tbaa !54
+for.cond.7.i272:                                  ; preds = %for.cond.6.i269
+  %arrayidx.8.i270 = getelementptr inbounds i8, ptr %iid, i64 8
+  %78 = load i8, ptr %arrayidx.8.i270, align 4, !tbaa !54
   %79 = load i8, ptr getelementptr inbounds (%struct.GUID, ptr @IID_ICompressSetInStream, i64 0, i32 3, i64 0), align 4, !tbaa !54
-  %cmp4.not.8.i275 = icmp eq i8 %78, %79
-  br i1 %cmp4.not.8.i275, label %for.cond.8.i279, label %if.end16
+  %cmp4.not.8.i271 = icmp eq i8 %78, %79
+  br i1 %cmp4.not.8.i271, label %for.cond.8.i275, label %if.end16
 
-for.cond.8.i279:                                  ; preds = %for.cond.7.i276
-  %arrayidx.9.i277 = getelementptr inbounds i8, ptr %iid, i64 9
-  %80 = load i8, ptr %arrayidx.9.i277, align 1, !tbaa !54
+for.cond.8.i275:                                  ; preds = %for.cond.7.i272
+  %arrayidx.9.i273 = getelementptr inbounds i8, ptr %iid, i64 9
+  %80 = load i8, ptr %arrayidx.9.i273, align 1, !tbaa !54
   %81 = load i8, ptr getelementptr inbounds (%struct.GUID, ptr @IID_ICompressSetInStream, i64 0, i32 3, i64 1), align 1, !tbaa !54
-  %cmp4.not.9.i278 = icmp eq i8 %80, %81
-  br i1 %cmp4.not.9.i278, label %for.cond.9.i282, label %if.end16
+  %cmp4.not.9.i274 = icmp eq i8 %80, %81
+  br i1 %cmp4.not.9.i274, label %for.cond.9.i278, label %if.end16
 
-for.cond.9.i282:                                  ; preds = %for.cond.8.i279
-  %arrayidx.10.i280 = getelementptr inbounds i8, ptr %iid, i64 10
-  %82 = load i8, ptr %arrayidx.10.i280, align 2, !tbaa !54
+for.cond.9.i278:                                  ; preds = %for.cond.8.i275
+  %arrayidx.10.i276 = getelementptr inbounds i8, ptr %iid, i64 10
+  %82 = load i8, ptr %arrayidx.10.i276, align 2, !tbaa !54
   %83 = load i8, ptr getelementptr inbounds (%struct.GUID, ptr @IID_ICompressSetInStream, i64 0, i32 3, i64 2), align 2, !tbaa !54
-  %cmp4.not.10.i281 = icmp eq i8 %82, %83
-  br i1 %cmp4.not.10.i281, label %for.cond.10.i285, label %if.end16
+  %cmp4.not.10.i277 = icmp eq i8 %82, %83
+  br i1 %cmp4.not.10.i277, label %for.cond.10.i281, label %if.end16
 
-for.cond.10.i285:                                 ; preds = %for.cond.9.i282
-  %arrayidx.11.i283 = getelementptr inbounds i8, ptr %iid, i64 11
-  %84 = load i8, ptr %arrayidx.11.i283, align 1, !tbaa !54
+for.cond.10.i281:                                 ; preds = %for.cond.9.i278
+  %arrayidx.11.i279 = getelementptr inbounds i8, ptr %iid, i64 11
+  %84 = load i8, ptr %arrayidx.11.i279, align 1, !tbaa !54
   %85 = load i8, ptr getelementptr inbounds (%struct.GUID, ptr @IID_ICompressSetInStream, i64 0, i32 3, i64 3), align 1, !tbaa !54
-  %cmp4.not.11.i284 = icmp eq i8 %84, %85
-  br i1 %cmp4.not.11.i284, label %for.cond.11.i288, label %if.end16
+  %cmp4.not.11.i280 = icmp eq i8 %84, %85
+  br i1 %cmp4.not.11.i280, label %for.cond.11.i284, label %if.end16
 
-for.cond.11.i288:                                 ; preds = %for.cond.10.i285
-  %arrayidx.12.i286 = getelementptr inbounds i8, ptr %iid, i64 12
-  %86 = load i8, ptr %arrayidx.12.i286, align 4, !tbaa !54
+for.cond.11.i284:                                 ; preds = %for.cond.10.i281
+  %arrayidx.12.i282 = getelementptr inbounds i8, ptr %iid, i64 12
+  %86 = load i8, ptr %arrayidx.12.i282, align 4, !tbaa !54
   %87 = load i8, ptr getelementptr inbounds (%struct.GUID, ptr @IID_ICompressSetInStream, i64 0, i32 3, i64 4), align 4, !tbaa !54
-  %cmp4.not.12.i287 = icmp eq i8 %86, %87
-  br i1 %cmp4.not.12.i287, label %for.cond.12.i291, label %if.end16
+  %cmp4.not.12.i283 = icmp eq i8 %86, %87
+  br i1 %cmp4.not.12.i283, label %for.cond.12.i287, label %if.end16
 
-for.cond.12.i291:                                 ; preds = %for.cond.11.i288
-  %arrayidx.13.i289 = getelementptr inbounds i8, ptr %iid, i64 13
-  %88 = load i8, ptr %arrayidx.13.i289, align 1, !tbaa !54
+for.cond.12.i287:                                 ; preds = %for.cond.11.i284
+  %arrayidx.13.i285 = getelementptr inbounds i8, ptr %iid, i64 13
+  %88 = load i8, ptr %arrayidx.13.i285, align 1, !tbaa !54
   %89 = load i8, ptr getelementptr inbounds (%struct.GUID, ptr @IID_ICompressSetInStream, i64 0, i32 3, i64 5), align 1, !tbaa !54
-  %cmp4.not.13.i290 = icmp eq i8 %88, %89
-  br i1 %cmp4.not.13.i290, label %for.cond.13.i294, label %if.end16
+  %cmp4.not.13.i286 = icmp eq i8 %88, %89
+  br i1 %cmp4.not.13.i286, label %for.cond.13.i290, label %if.end16
 
-for.cond.13.i294:                                 ; preds = %for.cond.12.i291
-  %arrayidx.14.i292 = getelementptr inbounds i8, ptr %iid, i64 14
-  %90 = load i8, ptr %arrayidx.14.i292, align 2, !tbaa !54
+for.cond.13.i290:                                 ; preds = %for.cond.12.i287
+  %arrayidx.14.i288 = getelementptr inbounds i8, ptr %iid, i64 14
+  %90 = load i8, ptr %arrayidx.14.i288, align 2, !tbaa !54
   %91 = load i8, ptr getelementptr inbounds (%struct.GUID, ptr @IID_ICompressSetInStream, i64 0, i32 3, i64 6), align 2, !tbaa !54
-  %cmp4.not.14.i293 = icmp eq i8 %90, %91
-  br i1 %cmp4.not.14.i293, label %_ZeqRK4GUIDS1_.exit300, label %if.end16
+  %cmp4.not.14.i289 = icmp eq i8 %90, %91
+  br i1 %cmp4.not.14.i289, label %_ZeqRK4GUIDS1_.exit296, label %if.end16
 
-_ZeqRK4GUIDS1_.exit300:                           ; preds = %for.cond.13.i294
-  %arrayidx.15.i295 = getelementptr inbounds i8, ptr %iid, i64 15
-  %92 = load i8, ptr %arrayidx.15.i295, align 1, !tbaa !54
+_ZeqRK4GUIDS1_.exit296:                           ; preds = %for.cond.13.i290
+  %arrayidx.15.i291 = getelementptr inbounds i8, ptr %iid, i64 15
+  %92 = load i8, ptr %arrayidx.15.i291, align 1, !tbaa !54
   %93 = load i8, ptr getelementptr inbounds (%struct.GUID, ptr @IID_ICompressSetInStream, i64 0, i32 3, i64 7), align 1, !tbaa !54
-  %cmp4.not.15.i296.not = icmp eq i8 %92, %93
-  br i1 %cmp4.not.15.i296.not, label %if.then12, label %if.end16
+  %cmp4.not.15.i292.not = icmp eq i8 %92, %93
+  br i1 %cmp4.not.15.i292.not, label %if.then12, label %if.end16
 
-if.then12:                                        ; preds = %_ZeqRK4GUIDS1_.exit300
+if.then12:                                        ; preds = %_ZeqRK4GUIDS1_.exit296
   %add.ptr = getelementptr inbounds i8, ptr %this, i64 8
   br label %return.sink.split
 
-if.end16:                                         ; preds = %for.cond.13.i294, %for.cond.12.i291, %for.cond.11.i288, %for.cond.10.i285, %for.cond.9.i282, %for.cond.8.i279, %for.cond.7.i276, %for.cond.6.i273, %for.cond.5.i270, %for.cond.4.i267, %for.cond.3.i264, %for.cond.2.i261, %for.cond.1.i258, %for.cond.i255, %if.end9, %_ZeqRK4GUIDS1_.exit300
+if.end16:                                         ; preds = %for.cond.13.i290, %for.cond.12.i287, %for.cond.11.i284, %for.cond.10.i281, %for.cond.9.i278, %for.cond.8.i275, %for.cond.7.i272, %for.cond.6.i269, %for.cond.5.i266, %for.cond.4.i263, %for.cond.3.i260, %for.cond.2.i257, %for.cond.1.i254, %for.cond.i251, %if.end9, %_ZeqRK4GUIDS1_.exit296
   %94 = load i8, ptr @IID_ISequentialInStream, align 4, !tbaa !54
-  %cmp4.not.i301 = icmp eq i8 %0, %94
-  br i1 %cmp4.not.i301, label %for.cond.i304, label %if.end24
+  %cmp4.not.i297 = icmp eq i8 %0, %94
+  br i1 %cmp4.not.i297, label %for.cond.i300, label %if.end24
 
-for.cond.i304:                                    ; preds = %if.end16
-  %arrayidx.1.i302 = getelementptr inbounds i8, ptr %iid, i64 1
-  %95 = load i8, ptr %arrayidx.1.i302, align 1, !tbaa !54
+for.cond.i300:                                    ; preds = %if.end16
+  %arrayidx.1.i298 = getelementptr inbounds i8, ptr %iid, i64 1
+  %95 = load i8, ptr %arrayidx.1.i298, align 1, !tbaa !54
   %96 = load i8, ptr getelementptr inbounds (i8, ptr @IID_ISequentialInStream, i64 1), align 1, !tbaa !54
-  %cmp4.not.1.i303 = icmp eq i8 %95, %96
-  br i1 %cmp4.not.1.i303, label %for.cond.1.i307, label %if.end24
+  %cmp4.not.1.i299 = icmp eq i8 %95, %96
+  br i1 %cmp4.not.1.i299, label %for.cond.1.i303, label %if.end24
 
-for.cond.1.i307:                                  ; preds = %for.cond.i304
-  %arrayidx.2.i305 = getelementptr inbounds i8, ptr %iid, i64 2
-  %97 = load i8, ptr %arrayidx.2.i305, align 2, !tbaa !54
+for.cond.1.i303:                                  ; preds = %for.cond.i300
+  %arrayidx.2.i301 = getelementptr inbounds i8, ptr %iid, i64 2
+  %97 = load i8, ptr %arrayidx.2.i301, align 2, !tbaa !54
   %98 = load i8, ptr getelementptr inbounds (i8, ptr @IID_ISequentialInStream, i64 2), align 2, !tbaa !54
-  %cmp4.not.2.i306 = icmp eq i8 %97, %98
-  br i1 %cmp4.not.2.i306, label %for.cond.2.i310, label %if.end24
+  %cmp4.not.2.i302 = icmp eq i8 %97, %98
+  br i1 %cmp4.not.2.i302, label %for.cond.2.i306, label %if.end24
 
-for.cond.2.i310:                                  ; preds = %for.cond.1.i307
-  %arrayidx.3.i308 = getelementptr inbounds i8, ptr %iid, i64 3
-  %99 = load i8, ptr %arrayidx.3.i308, align 1, !tbaa !54
+for.cond.2.i306:                                  ; preds = %for.cond.1.i303
+  %arrayidx.3.i304 = getelementptr inbounds i8, ptr %iid, i64 3
+  %99 = load i8, ptr %arrayidx.3.i304, align 1, !tbaa !54
   %100 = load i8, ptr getelementptr inbounds (i8, ptr @IID_ISequentialInStream, i64 3), align 1, !tbaa !54
-  %cmp4.not.3.i309 = icmp eq i8 %99, %100
-  br i1 %cmp4.not.3.i309, label %for.cond.3.i313, label %if.end24
+  %cmp4.not.3.i305 = icmp eq i8 %99, %100
+  br i1 %cmp4.not.3.i305, label %for.cond.3.i309, label %if.end24
 
-for.cond.3.i313:                                  ; preds = %for.cond.2.i310
-  %arrayidx.4.i311 = getelementptr inbounds i8, ptr %iid, i64 4
-  %101 = load i8, ptr %arrayidx.4.i311, align 4, !tbaa !54
+for.cond.3.i309:                                  ; preds = %for.cond.2.i306
+  %arrayidx.4.i307 = getelementptr inbounds i8, ptr %iid, i64 4
+  %101 = load i8, ptr %arrayidx.4.i307, align 4, !tbaa !54
   %102 = load i8, ptr getelementptr inbounds (%struct.GUID, ptr @IID_ISequentialInStream, i64 0, i32 1), align 4, !tbaa !54
-  %cmp4.not.4.i312 = icmp eq i8 %101, %102
-  br i1 %cmp4.not.4.i312, label %for.cond.4.i316, label %if.end24
+  %cmp4.not.4.i308 = icmp eq i8 %101, %102
+  br i1 %cmp4.not.4.i308, label %for.cond.4.i312, label %if.end24
 
-for.cond.4.i316:                                  ; preds = %for.cond.3.i313
-  %arrayidx.5.i314 = getelementptr inbounds i8, ptr %iid, i64 5
-  %103 = load i8, ptr %arrayidx.5.i314, align 1, !tbaa !54
+for.cond.4.i312:                                  ; preds = %for.cond.3.i309
+  %arrayidx.5.i310 = getelementptr inbounds i8, ptr %iid, i64 5
+  %103 = load i8, ptr %arrayidx.5.i310, align 1, !tbaa !54
   %104 = load i8, ptr getelementptr inbounds (i8, ptr @IID_ISequentialInStream, i64 5), align 1, !tbaa !54
-  %cmp4.not.5.i315 = icmp eq i8 %103, %104
-  br i1 %cmp4.not.5.i315, label %for.cond.5.i319, label %if.end24
+  %cmp4.not.5.i311 = icmp eq i8 %103, %104
+  br i1 %cmp4.not.5.i311, label %for.cond.5.i315, label %if.end24
 
-for.cond.5.i319:                                  ; preds = %for.cond.4.i316
-  %arrayidx.6.i317 = getelementptr inbounds i8, ptr %iid, i64 6
-  %105 = load i8, ptr %arrayidx.6.i317, align 2, !tbaa !54
+for.cond.5.i315:                                  ; preds = %for.cond.4.i312
+  %arrayidx.6.i313 = getelementptr inbounds i8, ptr %iid, i64 6
+  %105 = load i8, ptr %arrayidx.6.i313, align 2, !tbaa !54
   %106 = load i8, ptr getelementptr inbounds (%struct.GUID, ptr @IID_ISequentialInStream, i64 0, i32 2), align 2, !tbaa !54
-  %cmp4.not.6.i318 = icmp eq i8 %105, %106
-  br i1 %cmp4.not.6.i318, label %for.cond.6.i322, label %if.end24
+  %cmp4.not.6.i314 = icmp eq i8 %105, %106
+  br i1 %cmp4.not.6.i314, label %for.cond.6.i318, label %if.end24
 
-for.cond.6.i322:                                  ; preds = %for.cond.5.i319
-  %arrayidx.7.i320 = getelementptr inbounds i8, ptr %iid, i64 7
-  %107 = load i8, ptr %arrayidx.7.i320, align 1, !tbaa !54
+for.cond.6.i318:                                  ; preds = %for.cond.5.i315
+  %arrayidx.7.i316 = getelementptr inbounds i8, ptr %iid, i64 7
+  %107 = load i8, ptr %arrayidx.7.i316, align 1, !tbaa !54
   %108 = load i8, ptr getelementptr inbounds (i8, ptr @IID_ISequentialInStream, i64 7), align 1, !tbaa !54
-  %cmp4.not.7.i321 = icmp eq i8 %107, %108
-  br i1 %cmp4.not.7.i321, label %for.cond.7.i325, label %if.end24
+  %cmp4.not.7.i317 = icmp eq i8 %107, %108
+  br i1 %cmp4.not.7.i317, label %for.cond.7.i321, label %if.end24
 
-for.cond.7.i325:                                  ; preds = %for.cond.6.i322
-  %arrayidx.8.i323 = getelementptr inbounds i8, ptr %iid, i64 8
-  %109 = load i8, ptr %arrayidx.8.i323, align 4, !tbaa !54
+for.cond.7.i321:                                  ; preds = %for.cond.6.i318
+  %arrayidx.8.i319 = getelementptr inbounds i8, ptr %iid, i64 8
+  %109 = load i8, ptr %arrayidx.8.i319, align 4, !tbaa !54
   %110 = load i8, ptr getelementptr inbounds (%struct.GUID, ptr @IID_ISequentialInStream, i64 0, i32 3, i64 0), align 4, !tbaa !54
-  %cmp4.not.8.i324 = icmp eq i8 %109, %110
-  br i1 %cmp4.not.8.i324, label %for.cond.8.i328, label %if.end24
+  %cmp4.not.8.i320 = icmp eq i8 %109, %110
+  br i1 %cmp4.not.8.i320, label %for.cond.8.i324, label %if.end24
 
-for.cond.8.i328:                                  ; preds = %for.cond.7.i325
-  %arrayidx.9.i326 = getelementptr inbounds i8, ptr %iid, i64 9
-  %111 = load i8, ptr %arrayidx.9.i326, align 1, !tbaa !54
+for.cond.8.i324:                                  ; preds = %for.cond.7.i321
+  %arrayidx.9.i322 = getelementptr inbounds i8, ptr %iid, i64 9
+  %111 = load i8, ptr %arrayidx.9.i322, align 1, !tbaa !54
   %112 = load i8, ptr getelementptr inbounds (%struct.GUID, ptr @IID_ISequentialInStream, i64 0, i32 3, i64 1), align 1, !tbaa !54
-  %cmp4.not.9.i327 = icmp eq i8 %111, %112
-  br i1 %cmp4.not.9.i327, label %for.cond.9.i331, label %if.end24
+  %cmp4.not.9.i323 = icmp eq i8 %111, %112
+  br i1 %cmp4.not.9.i323, label %for.cond.9.i327, label %if.end24
 
-for.cond.9.i331:                                  ; preds = %for.cond.8.i328
-  %arrayidx.10.i329 = getelementptr inbounds i8, ptr %iid, i64 10
-  %113 = load i8, ptr %arrayidx.10.i329, align 2, !tbaa !54
+for.cond.9.i327:                                  ; preds = %for.cond.8.i324
+  %arrayidx.10.i325 = getelementptr inbounds i8, ptr %iid, i64 10
+  %113 = load i8, ptr %arrayidx.10.i325, align 2, !tbaa !54
   %114 = load i8, ptr getelementptr inbounds (%struct.GUID, ptr @IID_ISequentialInStream, i64 0, i32 3, i64 2), align 2, !tbaa !54
-  %cmp4.not.10.i330 = icmp eq i8 %113, %114
-  br i1 %cmp4.not.10.i330, label %for.cond.10.i334, label %if.end24
+  %cmp4.not.10.i326 = icmp eq i8 %113, %114
+  br i1 %cmp4.not.10.i326, label %for.cond.10.i330, label %if.end24
 
-for.cond.10.i334:                                 ; preds = %for.cond.9.i331
-  %arrayidx.11.i332 = getelementptr inbounds i8, ptr %iid, i64 11
-  %115 = load i8, ptr %arrayidx.11.i332, align 1, !tbaa !54
+for.cond.10.i330:                                 ; preds = %for.cond.9.i327
+  %arrayidx.11.i328 = getelementptr inbounds i8, ptr %iid, i64 11
+  %115 = load i8, ptr %arrayidx.11.i328, align 1, !tbaa !54
   %116 = load i8, ptr getelementptr inbounds (%struct.GUID, ptr @IID_ISequentialInStream, i64 0, i32 3, i64 3), align 1, !tbaa !54
-  %cmp4.not.11.i333 = icmp eq i8 %115, %116
-  br i1 %cmp4.not.11.i333, label %for.cond.11.i337, label %if.end24
+  %cmp4.not.11.i329 = icmp eq i8 %115, %116
+  br i1 %cmp4.not.11.i329, label %for.cond.11.i333, label %if.end24
 
-for.cond.11.i337:                                 ; preds = %for.cond.10.i334
-  %arrayidx.12.i335 = getelementptr inbounds i8, ptr %iid, i64 12
-  %117 = load i8, ptr %arrayidx.12.i335, align 4, !tbaa !54
+for.cond.11.i333:                                 ; preds = %for.cond.10.i330
+  %arrayidx.12.i331 = getelementptr inbounds i8, ptr %iid, i64 12
+  %117 = load i8, ptr %arrayidx.12.i331, align 4, !tbaa !54
   %118 = load i8, ptr getelementptr inbounds (%struct.GUID, ptr @IID_ISequentialInStream, i64 0, i32 3, i64 4), align 4, !tbaa !54
-  %cmp4.not.12.i336 = icmp eq i8 %117, %118
-  br i1 %cmp4.not.12.i336, label %for.cond.12.i340, label %if.end24
+  %cmp4.not.12.i332 = icmp eq i8 %117, %118
+  br i1 %cmp4.not.12.i332, label %for.cond.12.i336, label %if.end24
 
-for.cond.12.i340:                                 ; preds = %for.cond.11.i337
-  %arrayidx.13.i338 = getelementptr inbounds i8, ptr %iid, i64 13
-  %119 = load i8, ptr %arrayidx.13.i338, align 1, !tbaa !54
+for.cond.12.i336:                                 ; preds = %for.cond.11.i333
+  %arrayidx.13.i334 = getelementptr inbounds i8, ptr %iid, i64 13
+  %119 = load i8, ptr %arrayidx.13.i334, align 1, !tbaa !54
   %120 = load i8, ptr getelementptr inbounds (%struct.GUID, ptr @IID_ISequentialInStream, i64 0, i32 3, i64 5), align 1, !tbaa !54
-  %cmp4.not.13.i339 = icmp eq i8 %119, %120
-  br i1 %cmp4.not.13.i339, label %for.cond.13.i343, label %if.end24
+  %cmp4.not.13.i335 = icmp eq i8 %119, %120
+  br i1 %cmp4.not.13.i335, label %for.cond.13.i339, label %if.end24
 
-for.cond.13.i343:                                 ; preds = %for.cond.12.i340
-  %arrayidx.14.i341 = getelementptr inbounds i8, ptr %iid, i64 14
-  %121 = load i8, ptr %arrayidx.14.i341, align 2, !tbaa !54
+for.cond.13.i339:                                 ; preds = %for.cond.12.i336
+  %arrayidx.14.i337 = getelementptr inbounds i8, ptr %iid, i64 14
+  %121 = load i8, ptr %arrayidx.14.i337, align 2, !tbaa !54
   %122 = load i8, ptr getelementptr inbounds (%struct.GUID, ptr @IID_ISequentialInStream, i64 0, i32 3, i64 6), align 2, !tbaa !54
-  %cmp4.not.14.i342 = icmp eq i8 %121, %122
-  br i1 %cmp4.not.14.i342, label %_ZeqRK4GUIDS1_.exit349, label %if.end24
+  %cmp4.not.14.i338 = icmp eq i8 %121, %122
+  br i1 %cmp4.not.14.i338, label %_ZeqRK4GUIDS1_.exit345, label %if.end24
 
-_ZeqRK4GUIDS1_.exit349:                           ; preds = %for.cond.13.i343
-  %arrayidx.15.i344 = getelementptr inbounds i8, ptr %iid, i64 15
-  %123 = load i8, ptr %arrayidx.15.i344, align 1, !tbaa !54
+_ZeqRK4GUIDS1_.exit345:                           ; preds = %for.cond.13.i339
+  %arrayidx.15.i340 = getelementptr inbounds i8, ptr %iid, i64 15
+  %123 = load i8, ptr %arrayidx.15.i340, align 1, !tbaa !54
   %124 = load i8, ptr getelementptr inbounds (%struct.GUID, ptr @IID_ISequentialInStream, i64 0, i32 3, i64 7), align 1, !tbaa !54
-  %cmp4.not.15.i345.not = icmp eq i8 %123, %124
-  br i1 %cmp4.not.15.i345.not, label %if.then19, label %if.end24
+  %cmp4.not.15.i341.not = icmp eq i8 %123, %124
+  br i1 %cmp4.not.15.i341.not, label %if.then19, label %if.end24
 
-if.then19:                                        ; preds = %_ZeqRK4GUIDS1_.exit349
+if.then19:                                        ; preds = %_ZeqRK4GUIDS1_.exit345
   %add.ptr20 = getelementptr inbounds i8, ptr %this, i64 16
   br label %return.sink.split
 
-if.end24:                                         ; preds = %for.cond.13.i343, %for.cond.12.i340, %for.cond.11.i337, %for.cond.10.i334, %for.cond.9.i331, %for.cond.8.i328, %for.cond.7.i325, %for.cond.6.i322, %for.cond.5.i319, %for.cond.4.i316, %for.cond.3.i313, %for.cond.2.i310, %for.cond.1.i307, %for.cond.i304, %if.end16, %_ZeqRK4GUIDS1_.exit349
+if.end24:                                         ; preds = %for.cond.13.i339, %for.cond.12.i336, %for.cond.11.i333, %for.cond.10.i330, %for.cond.9.i327, %for.cond.8.i324, %for.cond.7.i321, %for.cond.6.i318, %for.cond.5.i315, %for.cond.4.i312, %for.cond.3.i309, %for.cond.2.i306, %for.cond.1.i303, %for.cond.i300, %if.end16, %_ZeqRK4GUIDS1_.exit345
   %call25 = tail call noundef i32 @_ZeqRK4GUIDS1_(ptr noundef nonnull align 4 dereferenceable(16) %iid, ptr noundef nonnull align 4 dereferenceable(16) @IID_ICompressSetOutStream)
   %tobool26.not = icmp eq i32 %call25, 0
   br i1 %tobool26.not, label %if.end32, label %if.then27
@@ -2541,8 +2541,8 @@ if.end67:                                         ; preds = %if.end48
 if.then70:                                        ; preds = %if.end67
   %_SetCoderProperties = getelementptr inbounds %class.CFilterCoder, ptr %this, i64 0, i32 22
   %128 = load ptr, ptr %_SetCoderProperties, align 8, !tbaa !42
-  %cmp.i350 = icmp eq ptr %128, null
-  br i1 %cmp.i350, label %if.then72, label %if.end87
+  %cmp.i346 = icmp eq ptr %128, null
+  br i1 %cmp.i346, label %if.then72, label %if.end87
 
 if.then72:                                        ; preds = %if.then70
   %Filter74 = getelementptr inbounds %class.CFilterCoder, ptr %this, i64 0, i32 26
@@ -2565,8 +2565,8 @@ if.end92:                                         ; preds = %if.end67
 if.then95:                                        ; preds = %if.end92
   %_writeCoderProperties = getelementptr inbounds %class.CFilterCoder, ptr %this, i64 0, i32 23
   %131 = load ptr, ptr %_writeCoderProperties, align 8, !tbaa !41
-  %cmp.i351 = icmp eq ptr %131, null
-  br i1 %cmp.i351, label %if.then97, label %if.end112
+  %cmp.i347 = icmp eq ptr %131, null
+  br i1 %cmp.i347, label %if.then97, label %if.end112
 
 if.then97:                                        ; preds = %if.then95
   %Filter99 = getelementptr inbounds %class.CFilterCoder, ptr %this, i64 0, i32 26
@@ -2589,8 +2589,8 @@ if.end117:                                        ; preds = %if.end92
 if.then120:                                       ; preds = %if.end117
   %_CryptoResetInitVector = getelementptr inbounds %class.CFilterCoder, ptr %this, i64 0, i32 24
   %134 = load ptr, ptr %_CryptoResetInitVector, align 8, !tbaa !40
-  %cmp.i352 = icmp eq ptr %134, null
-  br i1 %cmp.i352, label %if.then122, label %if.end137
+  %cmp.i348 = icmp eq ptr %134, null
+  br i1 %cmp.i348, label %if.then122, label %if.end137
 
 if.then122:                                       ; preds = %if.then120
   %Filter124 = getelementptr inbounds %class.CFilterCoder, ptr %this, i64 0, i32 26
@@ -2613,8 +2613,8 @@ if.end142:                                        ; preds = %if.end117
 if.then145:                                       ; preds = %if.end142
   %_setDecoderProperties = getelementptr inbounds %class.CFilterCoder, ptr %this, i64 0, i32 25
   %137 = load ptr, ptr %_setDecoderProperties, align 8, !tbaa !39
-  %cmp.i353 = icmp eq ptr %137, null
-  br i1 %cmp.i353, label %if.then147, label %if.end162
+  %cmp.i349 = icmp eq ptr %137, null
+  br i1 %cmp.i349, label %if.then147, label %if.end162
 
 if.then147:                                       ; preds = %if.then145
   %Filter149 = getelementptr inbounds %class.CFilterCoder, ptr %this, i64 0, i32 26
@@ -2629,8 +2629,8 @@ if.end162:                                        ; preds = %if.then147, %if.the
   %add.ptr163 = getelementptr inbounds i8, ptr %this, i64 80
   br label %return.sink.split
 
-return.sink.split:                                ; preds = %_ZeqRK4GUIDS1_.exit251, %_ZeqRK4GUIDS1_.exit, %if.then12, %if.then19, %if.then27, %if.then35, %if.then43, %if.end62, %if.end87, %if.end112, %if.end137, %if.end162
-  %add.ptr163.sink = phi ptr [ %add.ptr163, %if.end162 ], [ %add.ptr138, %if.end137 ], [ %add.ptr113, %if.end112 ], [ %add.ptr88, %if.end87 ], [ %add.ptr63, %if.end62 ], [ %add.ptr44, %if.then43 ], [ %add.ptr36, %if.then35 ], [ %add.ptr28, %if.then27 ], [ %add.ptr20, %if.then19 ], [ %add.ptr, %if.then12 ], [ %this, %_ZeqRK4GUIDS1_.exit ], [ %this, %_ZeqRK4GUIDS1_.exit251 ]
+return.sink.split:                                ; preds = %_ZeqRK4GUIDS1_.exit247, %_ZeqRK4GUIDS1_.exit, %if.then12, %if.then19, %if.then27, %if.then35, %if.then43, %if.end62, %if.end87, %if.end112, %if.end137, %if.end162
+  %add.ptr163.sink = phi ptr [ %add.ptr163, %if.end162 ], [ %add.ptr138, %if.end137 ], [ %add.ptr113, %if.end112 ], [ %add.ptr88, %if.end87 ], [ %add.ptr63, %if.end62 ], [ %add.ptr44, %if.then43 ], [ %add.ptr36, %if.then35 ], [ %add.ptr28, %if.then27 ], [ %add.ptr20, %if.then19 ], [ %add.ptr, %if.then12 ], [ %this, %_ZeqRK4GUIDS1_.exit ], [ %this, %_ZeqRK4GUIDS1_.exit247 ]
   store ptr %add.ptr163.sink, ptr %outObject, align 8, !tbaa !72
   %vtable164 = load ptr, ptr %this, align 8, !tbaa !10
   %vfn165 = getelementptr inbounds ptr, ptr %vtable164, i64 1
@@ -3204,8 +3204,8 @@ for.cond.14:                                      ; preds = %for.cond.13
   br label %cleanup
 
 cleanup:                                          ; preds = %for.cond.14, %for.cond.13, %for.cond.12, %for.cond.11, %for.cond.10, %for.cond.9, %for.cond.8, %for.cond.7, %for.cond.6, %for.cond.5, %for.cond.4, %for.cond.3, %for.cond.2, %for.cond.1, %for.cond, %entry
-  %cmp.lcssa = phi i32 [ 0, %entry ], [ 0, %for.cond ], [ 0, %for.cond.1 ], [ 0, %for.cond.2 ], [ 0, %for.cond.3 ], [ 0, %for.cond.4 ], [ 0, %for.cond.5 ], [ 0, %for.cond.6 ], [ 0, %for.cond.7 ], [ 0, %for.cond.8 ], [ 0, %for.cond.9 ], [ 0, %for.cond.10 ], [ 0, %for.cond.11 ], [ 0, %for.cond.12 ], [ 0, %for.cond.13 ], [ %spec.select, %for.cond.14 ]
-  ret i32 %cmp.lcssa
+  %cmp4.not.lcssa = phi i32 [ 0, %entry ], [ 0, %for.cond ], [ 0, %for.cond.1 ], [ 0, %for.cond.2 ], [ 0, %for.cond.3 ], [ 0, %for.cond.4 ], [ 0, %for.cond.5 ], [ 0, %for.cond.6 ], [ 0, %for.cond.7 ], [ 0, %for.cond.8 ], [ 0, %for.cond.9 ], [ 0, %for.cond.10 ], [ 0, %for.cond.11 ], [ 0, %for.cond.12 ], [ 0, %for.cond.13 ], [ %spec.select, %for.cond.14 ]
+  ret i32 %cmp4.not.lcssa
 }
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)

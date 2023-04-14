@@ -327,7 +327,7 @@ if.end485.peel:                                   ; preds = %sw.bb480.peel
   %sub488.peel = sub i32 %_s.sroa.396.0.ph1463, %_s.sroa.362.0.ph1449.ph
   %cmp490.not.peel = icmp ult i32 %sub488.peel, %_s.sroa.39.0.ph1452.ph
   %add494.peel = select i1 %cmp490.not.peel, i32 0, i32 %_s.sroa.39.0.ph1452.ph
-  %spec.select1426.peel = add i32 %add494.peel, %sub488.peel
+  %spec.select1426.peel = add i32 %sub488.peel, %add494.peel
   %idxprom497.peel = zext i32 %spec.select1426.peel to i64
   %arrayidx498.peel = getelementptr inbounds i8, ptr %_s.sroa.494.0.ph1466.ph, i64 %idxprom497.peel
   %0 = load i8, ptr %arrayidx498.peel, align 1, !tbaa !5
@@ -644,7 +644,7 @@ if.then151:                                       ; preds = %if.end149
   %sub152 = sub i32 %_s.sroa.396.0.ph1463, %_s.sroa.362.0.ph1449.ph
   %cmp154.not = icmp ult i32 %sub152, %_s.sroa.39.0.ph1452.ph
   %add158 = select i1 %cmp154.not, i32 0, i32 %_s.sroa.39.0.ph1452.ph
-  %spec.select = add i32 %add158, %sub152
+  %spec.select = add i32 %sub152, %add158
   %idxprom161 = zext i32 %spec.select to i64
   %arrayidx162 = getelementptr inbounds i8, ptr %_s.sroa.494.0.ph1466.ph, i64 %idxprom161
   %15 = load i8, ptr %arrayidx162, align 1, !tbaa !5
@@ -1542,7 +1542,7 @@ if.end798:                                        ; preds = %sw.bb793
   %sub801 = sub i32 %_s.sroa.396.2, %_s.sroa.362.12.ph
   %cmp803.not = icmp ult i32 %sub801, %_s.sroa.39.0.ph1452.ph2599
   %add807 = select i1 %cmp803.not, i32 0, i32 %_s.sroa.39.0.ph1452.ph2599
-  %spec.select1427 = add i32 %add807, %sub801
+  %spec.select1427 = add i32 %sub801, %add807
   %idxprom810 = zext i32 %spec.select1427 to i64
   %arrayidx811 = getelementptr inbounds i8, ptr %_s.sroa.494.0.ph1466.ph2338, i64 %idxprom810
   %30 = load i8, ptr %arrayidx811, align 1, !tbaa !5
@@ -2027,11 +2027,11 @@ if.end5:                                          ; preds = %if.then3, %if.end
   ret void
 }
 
-; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i32 @llvm.smin.i32(i32, i32) #7
-
 ; Function Attrs: nocallback nofree nounwind willreturn memory(argmem: write)
-declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #8
+declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #7
+
+; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
+declare i32 @llvm.smin.i32(i32, i32) #8
 
 attributes #0 = { mustprogress nofree nosync nounwind willreturn memory(argmem: write) uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #1 = { mustprogress nocallback nofree nosync nounwind willreturn memory(argmem: readwrite) }
@@ -2040,8 +2040,8 @@ attributes #3 = { mustprogress nocallback nofree nounwind willreturn memory(argm
 attributes #4 = { mustprogress nounwind willreturn allockind("free") memory(argmem: readwrite, inaccessiblemem: readwrite) "alloc-family"="malloc" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #5 = { "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #6 = { mustprogress nounwind willreturn uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
-attributes #7 = { nocallback nofree nosync nounwind speculatable willreturn memory(none) }
-attributes #8 = { nocallback nofree nounwind willreturn memory(argmem: write) }
+attributes #7 = { nocallback nofree nounwind willreturn memory(argmem: write) }
+attributes #8 = { nocallback nofree nosync nounwind speculatable willreturn memory(none) }
 attributes #9 = { nounwind }
 
 !llvm.module.flags = !{!0, !1, !2, !3}

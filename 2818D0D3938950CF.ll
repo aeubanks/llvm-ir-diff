@@ -661,35 +661,35 @@ land.lhs.true143:                                 ; preds = %lor.lhs.false140
   br i1 %cmp145, label %if.then146, label %if.end147
 
 if.then146:                                       ; preds = %land.lhs.true134, %land.lhs.true134, %land.lhs.true143
-  %currentSlice.i299 = getelementptr inbounds %struct.img_par, ptr %70, i64 0, i32 38
-  %83 = load ptr, ptr %currentSlice.i299, align 8, !tbaa !11
-  %dp_mode.i300 = getelementptr inbounds %struct.Slice, ptr %83, i64 0, i32 7
-  %84 = load i32, ptr %dp_mode.i300, align 4, !tbaa !17
-  %idxprom.i301 = sext i32 %84 to i64
-  %arrayidx.i302 = getelementptr inbounds [0 x [20 x i32]], ptr @assignSE2partition, i64 0, i64 %idxprom.i301
-  %85 = load i32, ptr %arrayidx.i302, align 4, !tbaa !19
-  %partArr.i303 = getelementptr inbounds %struct.Slice, ptr %83, i64 0, i32 9
-  %86 = load ptr, ptr %partArr.i303, align 8, !tbaa !20
-  %idxprom2.i304 = sext i32 %85 to i64
-  %arrayidx3.i305 = getelementptr inbounds %struct.datapartition, ptr %86, i64 %idxprom2.i304
-  %87 = load ptr, ptr %arrayidx3.i305, align 8, !tbaa !21
-  %call.i306 = tail call i32 @ue_v(ptr noundef nonnull @.str.66, ptr noundef %87) #10
+  %currentSlice.i297 = getelementptr inbounds %struct.img_par, ptr %70, i64 0, i32 38
+  %83 = load ptr, ptr %currentSlice.i297, align 8, !tbaa !11
+  %dp_mode.i298 = getelementptr inbounds %struct.Slice, ptr %83, i64 0, i32 7
+  %84 = load i32, ptr %dp_mode.i298, align 4, !tbaa !17
+  %idxprom.i299 = sext i32 %84 to i64
+  %arrayidx.i300 = getelementptr inbounds [0 x [20 x i32]], ptr @assignSE2partition, i64 0, i64 %idxprom.i299
+  %85 = load i32, ptr %arrayidx.i300, align 4, !tbaa !19
+  %partArr.i301 = getelementptr inbounds %struct.Slice, ptr %83, i64 0, i32 9
+  %86 = load ptr, ptr %partArr.i301, align 8, !tbaa !20
+  %idxprom2.i302 = sext i32 %85 to i64
+  %arrayidx3.i303 = getelementptr inbounds %struct.datapartition, ptr %86, i64 %idxprom2.i302
+  %87 = load ptr, ptr %arrayidx3.i303, align 8, !tbaa !21
+  %call.i304 = tail call i32 @ue_v(ptr noundef nonnull @.str.66, ptr noundef %87) #10
   %88 = load ptr, ptr @img, align 8, !tbaa !7
   %luma_log2_weight_denom.i = getelementptr inbounds %struct.img_par, ptr %88, i64 0, i32 75
-  store i32 %call.i306, ptr %luma_log2_weight_denom.i, align 8, !tbaa !68
-  %tobool.not.i307 = icmp eq i32 %call.i306, 0
-  %sub.i = add i32 %call.i306, -1
+  store i32 %call.i304, ptr %luma_log2_weight_denom.i, align 8, !tbaa !68
+  %tobool.not.i305 = icmp eq i32 %call.i304, 0
+  %sub.i = add i32 %call.i304, -1
   %shl.i = shl nuw i32 1, %sub.i
-  %cond.i = select i1 %tobool.not.i307, i32 0, i32 %shl.i
+  %cond.i = select i1 %tobool.not.i305, i32 0, i32 %shl.i
   %wp_round_luma.i = getelementptr inbounds %struct.img_par, ptr %88, i64 0, i32 80
   store i32 %cond.i, ptr %wp_round_luma.i, align 8, !tbaa !69
   %89 = load ptr, ptr @active_sps, align 8, !tbaa !7
   %chroma_format_idc.i = getelementptr inbounds %struct.seq_parameter_set_rbsp_t, ptr %89, i64 0, i32 8
   %90 = load i32, ptr %chroma_format_idc.i, align 4, !tbaa !70
   %cmp.not.i = icmp eq i32 %90, 0
-  br i1 %cmp.not.i, label %if.end.i, label %if.then.i308
+  br i1 %cmp.not.i, label %if.end.i, label %if.then.i306
 
-if.then.i308:                                     ; preds = %if.then146
+if.then.i306:                                     ; preds = %if.then146
   %call6.i = tail call i32 @ue_v(ptr noundef nonnull @.str.67, ptr noundef %87) #10
   %91 = load ptr, ptr @img, align 8, !tbaa !7
   %chroma_log2_weight_denom.i = getelementptr inbounds %struct.img_par, ptr %91, i64 0, i32 76
@@ -702,8 +702,8 @@ if.then.i308:                                     ; preds = %if.then146
   store i32 %cond15.i, ptr %wp_round_chroma.i, align 4, !tbaa !72
   br label %if.end.i
 
-if.end.i:                                         ; preds = %if.then.i308, %if.then146
-  %92 = phi ptr [ %91, %if.then.i308 ], [ %88, %if.then146 ]
+if.end.i:                                         ; preds = %if.then.i306, %if.then146
+  %92 = phi ptr [ %91, %if.then.i306 ], [ %88, %if.then146 ]
   tail call void @reset_wp_params(ptr noundef nonnull %92) #10
   %93 = load ptr, ptr @img, align 8, !tbaa !7
   %num_ref_idx_l0_active214.i = getelementptr inbounds %struct.img_par, ptr %93, i64 0, i32 47
@@ -712,10 +712,10 @@ if.end.i:                                         ; preds = %if.then.i308, %if.t
   br i1 %cmp16215.i, label %for.body.i, label %for.end85.i
 
 for.body.i:                                       ; preds = %if.end.i, %for.inc83.i
-  %indvars.iv.i309 = phi i64 [ %indvars.iv.next.i311, %for.inc83.i ], [ 0, %if.end.i ]
+  %indvars.iv.i307 = phi i64 [ %indvars.iv.next.i309, %for.inc83.i ], [ 0, %if.end.i ]
   %call17.i = tail call i32 @u_1(ptr noundef nonnull @.str.68, ptr noundef %87) #10
   %tobool18.not.i = icmp eq i32 %call17.i, 0
-  br i1 %tobool18.not.i, label %if.else.i310, label %if.then19.i
+  br i1 %tobool18.not.i, label %if.else.i308, label %if.then19.i
 
 if.then19.i:                                      ; preds = %for.body.i
   %call20.i = tail call i32 @se_v(ptr noundef nonnull @.str.69, ptr noundef %87) #10
@@ -723,14 +723,14 @@ if.then19.i:                                      ; preds = %for.body.i
   %wp_weight.i = getelementptr inbounds %struct.img_par, ptr %95, i64 0, i32 77
   %96 = load ptr, ptr %wp_weight.i, align 8, !tbaa !73
   %97 = load ptr, ptr %96, align 8, !tbaa !7
-  %arrayidx23.i = getelementptr inbounds ptr, ptr %97, i64 %indvars.iv.i309
+  %arrayidx23.i = getelementptr inbounds ptr, ptr %97, i64 %indvars.iv.i307
   %98 = load ptr, ptr %arrayidx23.i, align 8, !tbaa !7
   store i32 %call20.i, ptr %98, align 4, !tbaa !19
   %call25.i = tail call i32 @se_v(ptr noundef nonnull @.str.70, ptr noundef %87) #10
   %99 = load ptr, ptr @img, align 8, !tbaa !7
   br label %if.end42.i
 
-if.else.i310:                                     ; preds = %for.body.i
+if.else.i308:                                     ; preds = %for.body.i
   %100 = load ptr, ptr @img, align 8, !tbaa !7
   %luma_log2_weight_denom30.i = getelementptr inbounds %struct.img_par, ptr %100, i64 0, i32 75
   %101 = load i32, ptr %luma_log2_weight_denom30.i, align 8, !tbaa !68
@@ -738,18 +738,18 @@ if.else.i310:                                     ; preds = %for.body.i
   %wp_weight32.i = getelementptr inbounds %struct.img_par, ptr %100, i64 0, i32 77
   %102 = load ptr, ptr %wp_weight32.i, align 8, !tbaa !73
   %103 = load ptr, ptr %102, align 8, !tbaa !7
-  %arrayidx35.i = getelementptr inbounds ptr, ptr %103, i64 %indvars.iv.i309
+  %arrayidx35.i = getelementptr inbounds ptr, ptr %103, i64 %indvars.iv.i307
   %104 = load ptr, ptr %arrayidx35.i, align 8, !tbaa !7
   store i32 %shl31.i, ptr %104, align 4, !tbaa !19
   br label %if.end42.i
 
-if.end42.i:                                       ; preds = %if.else.i310, %if.then19.i
-  %.sink239.i = phi ptr [ %100, %if.else.i310 ], [ %99, %if.then19.i ]
-  %.sink.i = phi i32 [ 0, %if.else.i310 ], [ %call25.i, %if.then19.i ]
+if.end42.i:                                       ; preds = %if.else.i308, %if.then19.i
+  %.sink239.i = phi ptr [ %100, %if.else.i308 ], [ %99, %if.then19.i ]
+  %.sink.i = phi i32 [ 0, %if.else.i308 ], [ %call25.i, %if.then19.i ]
   %wp_offset37.i = getelementptr inbounds %struct.img_par, ptr %.sink239.i, i64 0, i32 78
   %105 = load ptr, ptr %wp_offset37.i, align 8, !tbaa !74
   %106 = load ptr, ptr %105, align 8, !tbaa !7
-  %arrayidx40.i = getelementptr inbounds ptr, ptr %106, i64 %indvars.iv.i309
+  %arrayidx40.i = getelementptr inbounds ptr, ptr %106, i64 %indvars.iv.i307
   %107 = load ptr, ptr %arrayidx40.i, align 8, !tbaa !7
   store i32 %.sink.i, ptr %107, align 4, !tbaa !19
   %108 = load ptr, ptr @active_sps, align 8, !tbaa !7
@@ -769,7 +769,7 @@ for.body49.preheader.i:                           ; preds = %if.then45.i
   %wp_weight53.i = getelementptr inbounds %struct.img_par, ptr %110, i64 0, i32 77
   %111 = load ptr, ptr %wp_weight53.i, align 8, !tbaa !73
   %112 = load ptr, ptr %111, align 8, !tbaa !7
-  %arrayidx56.i = getelementptr inbounds ptr, ptr %112, i64 %indvars.iv.i309
+  %arrayidx56.i = getelementptr inbounds ptr, ptr %112, i64 %indvars.iv.i307
   %113 = load ptr, ptr %arrayidx56.i, align 8, !tbaa !7
   %arrayidx58.i = getelementptr inbounds i32, ptr %113, i64 1
   store i32 %call52.i, ptr %arrayidx58.i, align 4, !tbaa !19
@@ -778,7 +778,7 @@ for.body49.preheader.i:                           ; preds = %if.then45.i
   %wp_offset60.i = getelementptr inbounds %struct.img_par, ptr %114, i64 0, i32 78
   %115 = load ptr, ptr %wp_offset60.i, align 8, !tbaa !74
   %116 = load ptr, ptr %115, align 8, !tbaa !7
-  %arrayidx63.i = getelementptr inbounds ptr, ptr %116, i64 %indvars.iv.i309
+  %arrayidx63.i = getelementptr inbounds ptr, ptr %116, i64 %indvars.iv.i307
   %117 = load ptr, ptr %arrayidx63.i, align 8, !tbaa !7
   %arrayidx65.i = getelementptr inbounds i32, ptr %117, i64 1
   store i32 %call59.i, ptr %arrayidx65.i, align 4, !tbaa !19
@@ -787,7 +787,7 @@ for.body49.preheader.i:                           ; preds = %if.then45.i
   %wp_weight53.1.i = getelementptr inbounds %struct.img_par, ptr %118, i64 0, i32 77
   %119 = load ptr, ptr %wp_weight53.1.i, align 8, !tbaa !73
   %120 = load ptr, ptr %119, align 8, !tbaa !7
-  %arrayidx56.1.i = getelementptr inbounds ptr, ptr %120, i64 %indvars.iv.i309
+  %arrayidx56.1.i = getelementptr inbounds ptr, ptr %120, i64 %indvars.iv.i307
   %121 = load ptr, ptr %arrayidx56.1.i, align 8, !tbaa !7
   %arrayidx58.1.i = getelementptr inbounds i32, ptr %121, i64 2
   store i32 %call52.1.i, ptr %arrayidx58.1.i, align 4, !tbaa !19
@@ -796,7 +796,7 @@ for.body49.preheader.i:                           ; preds = %if.then45.i
   %wp_offset60.1.i = getelementptr inbounds %struct.img_par, ptr %122, i64 0, i32 78
   %123 = load ptr, ptr %wp_offset60.1.i, align 8, !tbaa !74
   %124 = load ptr, ptr %123, align 8, !tbaa !7
-  %arrayidx63.1.i = getelementptr inbounds ptr, ptr %124, i64 %indvars.iv.i309
+  %arrayidx63.1.i = getelementptr inbounds ptr, ptr %124, i64 %indvars.iv.i307
   %125 = load ptr, ptr %arrayidx63.1.i, align 8, !tbaa !7
   br label %for.inc83.sink.split.i
 
@@ -806,12 +806,12 @@ if.then45.split.us.i:                             ; preds = %if.then45.i
   %wp_weight69.us.i = getelementptr inbounds %struct.img_par, ptr %126, i64 0, i32 77
   %127 = load ptr, ptr %wp_weight69.us.i, align 8, !tbaa !73
   %128 = load ptr, ptr %127, align 8, !tbaa !7
-  %arrayidx72.us.i = getelementptr inbounds ptr, ptr %128, i64 %indvars.iv.i309
+  %arrayidx72.us.i = getelementptr inbounds ptr, ptr %128, i64 %indvars.iv.i307
   %129 = load ptr, ptr %arrayidx72.us.i, align 8, !tbaa !7
   %wp_offset75.us.i = getelementptr inbounds %struct.img_par, ptr %126, i64 0, i32 78
   %130 = load ptr, ptr %wp_offset75.us.i, align 8, !tbaa !74
   %131 = load ptr, ptr %130, align 8, !tbaa !7
-  %arrayidx78.us.i = getelementptr inbounds ptr, ptr %131, i64 %indvars.iv.i309
+  %arrayidx78.us.i = getelementptr inbounds ptr, ptr %131, i64 %indvars.iv.i307
   %132 = load ptr, ptr %arrayidx78.us.i, align 8, !tbaa !7
   %133 = load i32, ptr %chroma_log2_weight_denom67.us.i, align 4, !tbaa !71
   %shl68.us.i = shl nuw i32 1, %133
@@ -835,17 +835,17 @@ for.inc83.sink.split.i:                           ; preds = %if.then45.split.us.
 
 for.inc83.i:                                      ; preds = %for.inc83.sink.split.i, %if.end42.i
   %135 = phi ptr [ %.sink239.i, %if.end42.i ], [ %.ph.i, %for.inc83.sink.split.i ]
-  %indvars.iv.next.i311 = add nuw nsw i64 %indvars.iv.i309, 1
+  %indvars.iv.next.i309 = add nuw nsw i64 %indvars.iv.i307, 1
   %num_ref_idx_l0_active.i = getelementptr inbounds %struct.img_par, ptr %135, i64 0, i32 47
   %136 = load i32, ptr %num_ref_idx_l0_active.i, align 8, !tbaa !56
   %137 = sext i32 %136 to i64
-  %cmp16.i312 = icmp slt i64 %indvars.iv.next.i311, %137
-  br i1 %cmp16.i312, label %for.body.i, label %for.end85.i, !llvm.loop !75
+  %cmp16.i310 = icmp slt i64 %indvars.iv.next.i309, %137
+  br i1 %cmp16.i310, label %for.body.i, label %for.end85.i, !llvm.loop !75
 
 for.end85.i:                                      ; preds = %for.inc83.i, %if.end.i
   %138 = phi ptr [ %93, %if.end.i ], [ %135, %for.inc83.i ]
-  %type.i313 = getelementptr inbounds %struct.img_par, ptr %138, i64 0, i32 10
-  %139 = load i32, ptr %type.i313, align 4, !tbaa !28
+  %type.i311 = getelementptr inbounds %struct.img_par, ptr %138, i64 0, i32 10
+  %139 = load i32, ptr %type.i311, align 4, !tbaa !28
   %cmp86.i = icmp eq i32 %139, 1
   br i1 %cmp86.i, label %land.lhs.true.i, label %if.end147
 
@@ -1094,8 +1094,8 @@ if.end184:                                        ; preds = %if.then182, %if.the
   %201 = load ptr, ptr @img, align 8, !tbaa !7
   %qpsp = getelementptr inbounds %struct.img_par, ptr %201, i64 0, i32 7
   store i32 %add187, ptr %qpsp, align 8, !tbaa !87
-  %or.cond297 = icmp ugt i32 %add187, 51
-  br i1 %or.cond297, label %if.then193, label %if.end195
+  %or.cond313 = icmp ugt i32 %add187, 51
+  br i1 %or.cond313, label %if.then193, label %if.end195
 
 if.then193:                                       ; preds = %if.end184
   tail call void @error(ptr noundef nonnull @.str.21, i32 noundef 500) #10
@@ -1152,8 +1152,8 @@ land.lhs.true215:                                 ; preds = %if.end213
   %slice_group_map_type = getelementptr inbounds %struct.pic_parameter_set_rbsp_t, ptr %204, i64 0, i32 13
   %206 = load i32, ptr %slice_group_map_type, align 8, !tbaa !93
   %207 = add i32 %206, -3
-  %or.cond298 = icmp ult i32 %207, 3
-  br i1 %or.cond298, label %if.then220, label %if.end239
+  %or.cond314 = icmp ult i32 %207, 3
+  br i1 %or.cond314, label %if.then220, label %if.end239
 
 if.then220:                                       ; preds = %land.lhs.true215
   %208 = load ptr, ptr @active_sps, align 8, !tbaa !7
@@ -1180,8 +1180,8 @@ while.body.i:                                     ; preds = %if.then220, %while.
   %uiTmp.04.i = phi i32 [ %shr.i, %while.body.i ], [ %spec.select, %if.then220 ]
   %shr.i = lshr i32 %uiTmp.04.i, 1
   %inc.i = add nuw nsw i32 %uiRet.05.i, 1
-  %cmp.not.i314 = icmp ult i32 %uiTmp.04.i, 2
-  br i1 %cmp.not.i314, label %CeilLog2.exit, label %while.body.i, !llvm.loop !5
+  %cmp.not.i312 = icmp ult i32 %uiTmp.04.i, 2
+  br i1 %cmp.not.i312, label %CeilLog2.exit, label %while.body.i, !llvm.loop !5
 
 CeilLog2.exit:                                    ; preds = %while.body.i, %if.then220
   %uiRet.0.lcssa.i = phi i32 [ 0, %if.then220 ], [ %inc.i, %while.body.i ]
@@ -2169,14 +2169,14 @@ declare void @alloc_ref_pic_list_reordering_buffer(ptr noundef) local_unnamed_ad
 
 declare void @reset_wp_params(ptr noundef) local_unnamed_addr #2
 
+; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
+declare i32 @llvm.smin.i32(i32, i32) #8
+
 ; Function Attrs: nofree nounwind
-declare noundef i32 @puts(ptr nocapture noundef readonly) local_unnamed_addr #8
+declare noundef i32 @puts(ptr nocapture noundef readonly) local_unnamed_addr #9
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i32 @llvm.smin.i32(i32, i32) #9
-
-; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i32 @llvm.vector.reduce.add.v4i32(<4 x i32>) #9
+declare i32 @llvm.vector.reduce.add.v4i32(<4 x i32>) #8
 
 attributes #0 = { nofree norecurse nosync nounwind memory(none) uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #1 = { nounwind uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
@@ -2186,8 +2186,8 @@ attributes #4 = { mustprogress nofree nounwind willreturn allockind("alloc,zeroe
 attributes #5 = { nofree nounwind uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #6 = { nofree nounwind "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #7 = { mustprogress nofree norecurse nosync nounwind willreturn memory(read, inaccessiblemem: none) uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
-attributes #8 = { nofree nounwind }
-attributes #9 = { nocallback nofree nosync nounwind speculatable willreturn memory(none) }
+attributes #8 = { nocallback nofree nosync nounwind speculatable willreturn memory(none) }
+attributes #9 = { nofree nounwind }
 attributes #10 = { nounwind }
 attributes #11 = { nounwind allocsize(0,1) }
 

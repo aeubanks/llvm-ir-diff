@@ -836,7 +836,7 @@ if.end358:                                        ; preds = %if.then357, %if.end
   %valid359 = getelementptr inbounds %struct.RD_PARAMS, ptr %enc_mb, i64 0, i32 3
   %141 = load i16, ptr %valid359, align 4, !tbaa !28
   %tobool362 = icmp ne i16 %141, 0
-  %or.cond899 = and i1 %cmp3, %tobool362
+  %or.cond899 = and i1 %tobool362, %cmp3
   br i1 %or.cond899, label %if.then366, label %if.end439
 
 if.then366:                                       ; preds = %if.end358

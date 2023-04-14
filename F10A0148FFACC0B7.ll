@@ -62,10 +62,10 @@ entry:
   %vfn = getelementptr inbounds ptr, ptr %vtable, i64 13
   %0 = load ptr, ptr %vfn, align 8
   %call = tail call { <2 x float>, <2 x float> } %0(ptr noundef nonnull align 8 dereferenceable(64) %this, ptr noundef nonnull align 4 dereferenceable(16) %vec)
-  %1 = extractvalue { <2 x float>, <2 x float> } %call, 0
-  %2 = extractvalue { <2 x float>, <2 x float> } %call, 1
   %vecnorm.sroa.13.0.vec.sroa_idx = getelementptr inbounds i8, ptr %vec, i64 8
   %vecnorm.sroa.13.0.copyload = load float, ptr %vecnorm.sroa.13.0.vec.sroa_idx, align 4, !tbaa.struct !11
+  %1 = extractvalue { <2 x float>, <2 x float> } %call, 1
+  %2 = extractvalue { <2 x float>, <2 x float> } %call, 0
   %vtable9 = load ptr, ptr %this, align 8, !tbaa !9
   %vfn10 = getelementptr inbounds ptr, ptr %vtable9, i64 11
   %3 = load ptr, ptr %vfn10, align 8
@@ -96,10 +96,10 @@ entry:
   %20 = shufflevector <2 x float> %19, <2 x float> poison, <2 x i32> zeroinitializer
   %21 = fmul <2 x float> %20, %18
   %mul8.i.i17 = fmul float %call11, %mul7.i.i.i
-  %22 = fadd <2 x float> %1, %21
-  %retval.sroa.6.8.vec.extract = extractelement <2 x float> %2, i64 0
+  %22 = fadd <2 x float> %2, %21
+  %retval.sroa.6.8.vec.extract = extractelement <2 x float> %1, i64 0
   %add13.i = fadd float %retval.sroa.6.8.vec.extract, %mul8.i.i17
-  %retval.sroa.6.8.vec.insert = insertelement <2 x float> %2, float %add13.i, i64 0
+  %retval.sroa.6.8.vec.insert = insertelement <2 x float> %1, float %add13.i, i64 0
   %.fca.0.insert = insertvalue { <2 x float>, <2 x float> } poison, <2 x float> %22, 0
   %.fca.1.insert = insertvalue { <2 x float>, <2 x float> } %.fca.0.insert, <2 x float> %retval.sroa.6.8.vec.insert, 1
   ret { <2 x float>, <2 x float> } %.fca.1.insert

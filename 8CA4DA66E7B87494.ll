@@ -107,8 +107,8 @@ entry:
   %div.i = udiv i64 %0, 10000000
   %sub.i = add nsw i64 %div.i, -11644473600
   %cmp.i = icmp ugt i64 %sub.i, 4294967295
-  %conv4 = select i1 %cmp.i, i64 0, i64 %sub.i
-  store i64 %conv4, ptr %unixtime, align 8, !tbaa !25
+  %spec.select = select i1 %cmp.i, i64 0, i64 %sub.i
+  store i64 %spec.select, ptr %unixtime, align 8, !tbaa !25
   %call5 = call ptr @gmtime(ptr noundef nonnull %unixtime) #8
   %tm_year = getelementptr inbounds %struct.tm, ptr %call5, i64 0, i32 5
   %1 = load i32, ptr %tm_year, align 4, !tbaa !19
@@ -200,7 +200,7 @@ entry:
   %rem.i = srem i64 %or, 10000000
   %div.lhs.trunc.i = trunc i64 %rem.i to i32
   %div1.i = sdiv i32 %div.lhs.trunc.i, 10000
-  %conv.i = trunc i32 %div1.i to i16
+  %div.sext.i = trunc i32 %div1.i to i16
   %div2.i = sdiv i64 %or, 10000000
   %div3.i = sdiv i64 %or, 864000000000
   %rem4.i = srem i64 %div2.i, 86400
@@ -214,7 +214,7 @@ entry:
   %2 = trunc i64 %div3.i to i32
   %rem13.lhs.trunc.i = add nsw i32 %2, 1
   %rem134.i = srem i32 %rem13.lhs.trunc.i, 7
-  %conv14.i = trunc i32 %rem134.i to i16
+  %rem13.sext.i = trunc i32 %rem134.i to i16
   %mul.i = shl nsw i64 %div3.i, 2
   %add15.i = add nsw i64 %mul.i, 1227
   %div16.i = sdiv i64 %add15.i, 146097
@@ -254,9 +254,9 @@ entry:
   %wSecond = getelementptr inbounds %struct._SYSTEMTIME, ptr %syst, i64 0, i32 6
   store i16 %rem113.i, ptr %wSecond, align 2, !tbaa !34
   %wMilliseconds = getelementptr inbounds %struct._SYSTEMTIME, ptr %syst, i64 0, i32 7
-  store i16 %conv.i, ptr %wMilliseconds, align 2, !tbaa !35
+  store i16 %div.sext.i, ptr %wMilliseconds, align 2, !tbaa !35
   %wDayOfWeek = getelementptr inbounds %struct._SYSTEMTIME, ptr %syst, i64 0, i32 2
-  store i16 %conv14.i, ptr %wDayOfWeek, align 2, !tbaa !36
+  store i16 %rem13.sext.i, ptr %wDayOfWeek, align 2, !tbaa !36
   ret i32 1
 }
 
@@ -307,7 +307,7 @@ entry:
   %rem.i.i = srem i64 %add3, 10000000
   %div.lhs.trunc.i.i = trunc i64 %rem.i.i to i32
   %div1.i.i = sdiv i32 %div.lhs.trunc.i.i, 10000
-  %conv.i.i = trunc i32 %div1.i.i to i16
+  %div.sext.i.i = trunc i32 %div1.i.i to i16
   %div2.i.i = sdiv i64 %add3, 10000000
   %div3.i.i = sdiv i64 %add3, 864000000000
   %rem4.i.i = srem i64 %div2.i.i, 86400
@@ -321,7 +321,7 @@ entry:
   %2 = trunc i64 %div3.i.i to i32
   %rem13.lhs.trunc.i.i = add nsw i32 %2, 1
   %rem134.i.i = srem i32 %rem13.lhs.trunc.i.i, 7
-  %conv14.i.i = trunc i32 %rem134.i.i to i16
+  %rem13.sext.i.i = trunc i32 %rem134.i.i to i16
   %mul.i.i = shl nsw i64 %div3.i.i, 2
   %add15.i.i = add nsw i64 %mul.i.i, 1227
   %div16.i.i = sdiv i64 %add15.i.i, 146097
@@ -361,9 +361,9 @@ entry:
   %wSecond.i = getelementptr inbounds %struct._SYSTEMTIME, ptr %systime, i64 0, i32 6
   store i16 %rem113.i.i, ptr %wSecond.i, align 2, !tbaa !34
   %wMilliseconds.i = getelementptr inbounds %struct._SYSTEMTIME, ptr %systime, i64 0, i32 7
-  store i16 %conv.i.i, ptr %wMilliseconds.i, align 2, !tbaa !35
+  store i16 %div.sext.i.i, ptr %wMilliseconds.i, align 2, !tbaa !35
   %wDayOfWeek.i = getelementptr inbounds %struct._SYSTEMTIME, ptr %systime, i64 0, i32 2
-  store i16 %conv14.i.i, ptr %wDayOfWeek.i, align 2, !tbaa !36
+  store i16 %rem13.sext.i.i, ptr %wDayOfWeek.i, align 2, !tbaa !36
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %now) #8
   ret void
 }
@@ -424,8 +424,8 @@ lor.end.i:                                        ; preds = %lor.rhs.i.i, %land.
   %10 = load i32, ptr %arrayidx45.i, align 4, !tbaa !24
   %cmp46.i = icmp slt i32 %10, %conv33.i
   %cmp50.i = icmp slt i16 %0, 1601
-  %or.cond14 = select i1 %cmp46.i, i1 true, i1 %cmp50.i
-  br i1 %or.cond14, label %_ZL19RtlTimeFieldsToTimeP12_TIME_FIELDSP13LARGE_INTEGER.exit, label %if.end.i
+  %or.cond15 = select i1 %cmp46.i, i1 true, i1 %cmp50.i
+  br i1 %or.cond15, label %_ZL19RtlTimeFieldsToTimeP12_TIME_FIELDSP13LARGE_INTEGER.exit, label %if.end.i
 
 if.end.i:                                         ; preds = %lor.end.i
   %conv49.i = zext i16 %0 to i32
@@ -443,12 +443,12 @@ if.end.i:                                         ; preds = %lor.end.i
   %mul68.i = mul nuw nsw i32 %year.0.i, 36525
   %div69.i = udiv i32 %mul68.i, 100
   %mul71.i = mul nuw i16 %month.0.i, 1959
-  %div72130131134.i = lshr i16 %mul71.i, 6
-  %div72130.zext.i = zext i16 %div72130131134.i to i32
-  %sub70.i = add nsw i32 %div69.i, -584817
-  %add73.i = add nsw i32 %sub70.i, %div72130.zext.i
-  %add76.i = sub nsw i32 %add73.i, %div67125.i
-  %sub77.i = add nsw i32 %add76.i, %conv33.i
+  %div72130131135.i = lshr i16 %mul71.i, 6
+  %div72130.zext.i = zext i16 %div72130131135.i to i32
+  %sub70.i = add nsw i32 %conv33.i, -584817
+  %add73.i = add nsw i32 %sub70.i, %div69.i
+  %add76.i = add nsw i32 %add73.i, %div72130.zext.i
+  %sub77.i = sub nsw i32 %add76.i, %div67125.i
   %conv78.i = sext i32 %sub77.i to i64
   %mul79.i = mul nsw i64 %conv78.i, 24
   %12 = extractelement <4 x i16> %.fr, i64 0

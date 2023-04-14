@@ -30,7 +30,7 @@ entry:
   %4 = load i8, ptr %r5, align 2, !tbaa !5
   %conv.i44 = zext i8 %4 to i32
   %add.i45 = add nuw nsw i32 %conv.i44, 1
-  %mul.i47 = mul nuw nsw i32 %shr.i, %add.i45
+  %mul.i47 = mul nuw nsw i32 %add.i45, %shr.i
   %shr.i48 = lshr i32 %mul.i47, 8
   %add = add nuw nsw i32 %shr.i48, %shr.i42
   %g = getelementptr inbounds %struct.S, ptr %x, i64 0, i32 1

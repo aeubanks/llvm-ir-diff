@@ -33,10 +33,10 @@ target triple = "x86_64-unknown-linux-gnu"
 @.str.9 = private unnamed_addr constant [31 x i8] c"MonteCarlo:     Mflops: %8.2f\0A\00", align 1
 @.str.10 = private unnamed_addr constant [48 x i8] c"Sparse matmult  Mflops: %8.2f    (N=%d, nz=%d)\0A\00", align 1
 @.str.11 = private unnamed_addr constant [47 x i8] c"LU              Mflops: %8.2f    (M=%d, N=%d)\0A\00", align 1
-@str = private unnamed_addr constant [59 x i8] c"NOTE!!! All Mflops disabled to prevent diffs from failing!\00", align 1
-@str.16 = private unnamed_addr constant [67 x i8] c"** SciMark2 Numeric Benchmark, see http://math.nist.gov/scimark **\00", align 1
-@str.17 = private unnamed_addr constant [67 x i8] c"** for details. (Results can be submitted to pozo@nist.gov)     **\00", align 1
-@str.18 = private unnamed_addr constant [67 x i8] c"**                                                              **\00", align 1
+@str.15 = private unnamed_addr constant [67 x i8] c"** SciMark2 Numeric Benchmark, see http://math.nist.gov/scimark **\00", align 1
+@str.16 = private unnamed_addr constant [67 x i8] c"** for details. (Results can be submitted to pozo@nist.gov)     **\00", align 1
+@str.17 = private unnamed_addr constant [67 x i8] c"**                                                              **\00", align 1
+@str.18 = private unnamed_addr constant [59 x i8] c"NOTE!!! All Mflops disabled to prevent diffs from failing!\00", align 1
 
 ; Function Attrs: nounwind uwtable
 define dso_local i32 @main(i32 noundef %argc, ptr nocapture noundef readonly %argv) local_unnamed_addr #0 {
@@ -93,10 +93,10 @@ if.end18:                                         ; preds = %if.end12, %if.then1
   %LU_size.1 = phi i32 [ 100, %entry ], [ %LU_size.0, %if.then14 ], [ %LU_size.0, %if.end12 ]
   %FFT_size.1 = phi i32 [ 1024, %entry ], [ %FFT_size.0, %if.then14 ], [ %FFT_size.0, %if.end12 ]
   %min_time.1 = phi double [ 2.000000e+00, %entry ], [ %call.i, %if.then14 ], [ 2.000000e+00, %if.end12 ]
-  %puts.i = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.18)
-  %puts4.i = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.16)
-  %puts5.i = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.17)
-  %puts6.i = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.18)
+  %puts.i = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.17)
+  %puts4.i = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.15)
+  %puts5.i = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.16)
+  %puts6.i = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.17)
   %call19 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.4, double noundef %min_time.1)
   %call20 = tail call double @kernel_measureFFT(i32 noundef %FFT_size.1, double noundef %min_time.1, ptr noundef %call) #8
   %call22 = tail call double @kernel_measureSOR(i32 noundef %LU_size.1, double noundef %min_time.1, ptr noundef %call) #8
@@ -108,7 +108,7 @@ if.end18:                                         ; preds = %if.end12, %if.then1
   %add35 = fadd double %add33, %call26
   %add37 = fadd double %add35, %call28
   %div = fdiv double %add37, 5.000000e+00
-  %puts = tail call i32 @puts(ptr nonnull dereferenceable(1) @str)
+  %puts = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.18)
   %div41 = fdiv double %div, 1.000000e+07
   %call42 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.6, double noundef %div41)
   %div45 = fdiv double %call20, 1.000000e+07
@@ -136,10 +136,10 @@ declare void @exit(i32 noundef) local_unnamed_addr #3
 ; Function Attrs: nofree nounwind uwtable
 define dso_local void @print_banner() local_unnamed_addr #4 {
 entry:
-  %puts = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.18)
-  %puts4 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.16)
-  %puts5 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.17)
-  %puts6 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.18)
+  %puts = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.17)
+  %puts4 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.15)
+  %puts5 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.16)
+  %puts6 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.17)
   ret void
 }
 

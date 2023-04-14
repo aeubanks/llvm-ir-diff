@@ -20,14 +20,14 @@ entry:
   %1 = load i32, ptr @z, align 4
   %cmp = icmp ne i32 %1, 3
   %or.cond = select i1 %tobool, i1 true, i1 %cmp
-  br i1 %or.cond, label %if.then, label %lor.lhs.false1
-
-lor.lhs.false1:                                   ; preds = %entry
-  ret i32 0
+  br i1 %or.cond, label %if.then, label %if.end
 
 if.then:                                          ; preds = %entry
   tail call void @abort() #3
   unreachable
+
+if.end:                                           ; preds = %entry
+  ret i32 0
 }
 
 ; Function Attrs: noreturn

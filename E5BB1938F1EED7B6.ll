@@ -316,19 +316,14 @@ if.end13:                                         ; preds = %if.then12, %if.end8
   store i32 -1, ptr %intime.i, align 4, !tbaa !24
   %call.i = tail call i64 @fwrite(ptr noundef nonnull %packlen.i, i64 noundef 4, i64 noundef 1, ptr noundef %9)
   %cmp.not.i = icmp eq i64 %call.i, 1
-  br i1 %cmp.not.i, label %if.end.i, label %WriteRTPPacket.exit.thread
+  br i1 %cmp.not.i, label %if.end.i, label %if.then30.critedge
 
 if.end.i:                                         ; preds = %if.end13
   %call1.i = call i64 @fwrite(ptr noundef nonnull %intime.i, i64 noundef 4, i64 noundef 1, ptr noundef %9)
   %cmp2.not.i = icmp eq i64 %call1.i, 1
-  br i1 %cmp2.not.i, label %WriteRTPPacket.exit, label %WriteRTPPacket.exit.thread
+  br i1 %cmp2.not.i, label %if.end4.i, label %if.then30.critedge
 
-WriteRTPPacket.exit.thread:                       ; preds = %if.end13, %if.end.i
-  call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %intime.i) #12
-  %.pre = load i32, ptr %packlen.i, align 8, !tbaa !23
-  br label %if.then30
-
-WriteRTPPacket.exit:                              ; preds = %if.end.i
+if.end4.i:                                        ; preds = %if.end.i
   %10 = load ptr, ptr %packet, align 8, !tbaa !14
   %11 = load i32, ptr %packlen.i, align 8, !tbaa !23
   %conv.i64 = zext i32 %11 to i64
@@ -337,13 +332,18 @@ WriteRTPPacket.exit:                              ; preds = %if.end.i
   call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %intime.i) #12
   br i1 %cmp7.not.i.not, label %if.end32, label %if.then30
 
-if.then30:                                        ; preds = %WriteRTPPacket.exit.thread, %WriteRTPPacket.exit
-  %12 = phi i32 [ %.pre, %WriteRTPPacket.exit.thread ], [ %11, %WriteRTPPacket.exit ]
+if.then30.critedge:                               ; preds = %if.end.i, %if.end13
+  call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %intime.i) #12
+  %.pre = load i32, ptr %packlen.i, align 8, !tbaa !23
+  br label %if.then30
+
+if.then30:                                        ; preds = %if.then30.critedge, %if.end4.i
+  %12 = phi i32 [ %.pre, %if.then30.critedge ], [ %11, %if.end4.i ]
   %call31 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.4, i32 noundef %12)
   tail call void @exit(i32 noundef -1) #14
   unreachable
 
-if.end32:                                         ; preds = %WriteRTPPacket.exit
+if.end32:                                         ; preds = %if.end4.i
   tail call void @free(ptr noundef %10) #12
   %13 = load ptr, ptr %payload, align 8, !tbaa !21
   tail call void @free(ptr noundef %13) #12

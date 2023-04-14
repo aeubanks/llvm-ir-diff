@@ -91,7 +91,7 @@ to_hex.exit:                                      ; preds = %vaarg.end
   %idxprom.i = zext i32 %5 to i64
   %arrayidx.i = getelementptr inbounds [17 x i8], ptr @.str, i64 0, i64 %idxprom.i
   %6 = load i8, ptr %arrayidx.i, align 1, !tbaa !5
-  %cmp3.not = icmp eq i8 %6, %1
+  %cmp3.not = icmp eq i8 %1, %6
   br i1 %cmp3.not, label %while.cond, label %if.then5, !llvm.loop !8
 
 if.then5:                                         ; preds = %to_hex.exit
@@ -182,7 +182,7 @@ to_hex.exit:                                      ; preds = %vaarg.end
   %idxprom.i = zext i32 %5 to i64
   %arrayidx.i = getelementptr inbounds [17 x i8], ptr @.str, i64 0, i64 %idxprom.i
   %6 = load i8, ptr %arrayidx.i, align 1, !tbaa !5
-  %cmp3.not = icmp eq i8 %6, %1
+  %cmp3.not = icmp eq i8 %1, %6
   br i1 %cmp3.not, label %while.cond, label %if.then5, !llvm.loop !10
 
 if.then5:                                         ; preds = %to_hex.exit
@@ -258,7 +258,7 @@ to_hex.exit:                                      ; preds = %vaarg.end
   %idxprom.i = zext i32 %5 to i64
   %arrayidx.i = getelementptr inbounds [17 x i8], ptr @.str, i64 0, i64 %idxprom.i
   %6 = load i8, ptr %arrayidx.i, align 1, !tbaa !5
-  %cmp3.not = icmp eq i8 %6, %1
+  %cmp3.not = icmp eq i8 %1, %6
   br i1 %cmp3.not, label %while.cond, label %if.then5, !llvm.loop !11
 
 if.then5:                                         ; preds = %to_hex.exit
@@ -334,7 +334,7 @@ to_hex.exit:                                      ; preds = %vaarg.end
   %idxprom.i = zext i32 %5 to i64
   %arrayidx.i = getelementptr inbounds [17 x i8], ptr @.str, i64 0, i64 %idxprom.i
   %6 = load i8, ptr %arrayidx.i, align 1, !tbaa !5
-  %cmp3.not = icmp eq i8 %6, %1
+  %cmp3.not = icmp eq i8 %1, %6
   br i1 %cmp3.not, label %while.cond, label %if.then5, !llvm.loop !12
 
 if.then5:                                         ; preds = %to_hex.exit
@@ -410,7 +410,7 @@ to_hex.exit:                                      ; preds = %vaarg.end
   %idxprom.i = zext i32 %5 to i64
   %arrayidx.i = getelementptr inbounds [17 x i8], ptr @.str, i64 0, i64 %idxprom.i
   %6 = load i8, ptr %arrayidx.i, align 1, !tbaa !5
-  %cmp3.not = icmp eq i8 %6, %1
+  %cmp3.not = icmp eq i8 %1, %6
   br i1 %cmp3.not, label %while.cond, label %if.then5, !llvm.loop !13
 
 if.then5:                                         ; preds = %to_hex.exit
@@ -486,7 +486,7 @@ to_hex.exit:                                      ; preds = %vaarg.end
   %idxprom.i = zext i32 %5 to i64
   %arrayidx.i = getelementptr inbounds [17 x i8], ptr @.str, i64 0, i64 %idxprom.i
   %6 = load i8, ptr %arrayidx.i, align 1, !tbaa !5
-  %cmp3.not = icmp eq i8 %6, %1
+  %cmp3.not = icmp eq i8 %1, %6
   br i1 %cmp3.not, label %while.cond, label %if.then5, !llvm.loop !14
 
 if.then5:                                         ; preds = %to_hex.exit
@@ -562,7 +562,7 @@ to_hex.exit:                                      ; preds = %vaarg.end
   %idxprom.i = zext i32 %5 to i64
   %arrayidx.i = getelementptr inbounds [17 x i8], ptr @.str, i64 0, i64 %idxprom.i
   %6 = load i8, ptr %arrayidx.i, align 1, !tbaa !5
-  %cmp3.not = icmp eq i8 %6, %1
+  %cmp3.not = icmp eq i8 %1, %6
   br i1 %cmp3.not, label %while.cond, label %if.then5, !llvm.loop !15
 
 if.then5:                                         ; preds = %to_hex.exit
@@ -638,7 +638,7 @@ to_hex.exit:                                      ; preds = %vaarg.end
   %idxprom.i = zext i32 %5 to i64
   %arrayidx.i = getelementptr inbounds [17 x i8], ptr @.str, i64 0, i64 %idxprom.i
   %6 = load i8, ptr %arrayidx.i, align 1, !tbaa !5
-  %cmp3.not = icmp eq i8 %6, %1
+  %cmp3.not = icmp eq i8 %1, %6
   br i1 %cmp3.not, label %while.cond, label %if.then5, !llvm.loop !16
 
 if.then5:                                         ; preds = %to_hex.exit
@@ -714,7 +714,7 @@ to_hex.exit:                                      ; preds = %vaarg.end
   %idxprom.i = zext i32 %5 to i64
   %arrayidx.i = getelementptr inbounds [17 x i8], ptr @.str, i64 0, i64 %idxprom.i
   %6 = load i8, ptr %arrayidx.i, align 1, !tbaa !5
-  %cmp3.not = icmp eq i8 %6, %1
+  %cmp3.not = icmp eq i8 %1, %6
   br i1 %cmp3.not, label %while.cond, label %if.then5, !llvm.loop !17
 
 if.then5:                                         ; preds = %to_hex.exit
@@ -790,7 +790,7 @@ to_hex.exit:                                      ; preds = %vaarg.end
   %idxprom.i = zext i32 %5 to i64
   %arrayidx.i = getelementptr inbounds [17 x i8], ptr @.str, i64 0, i64 %idxprom.i
   %6 = load i8, ptr %arrayidx.i, align 1, !tbaa !5
-  %cmp3.not = icmp eq i8 %6, %1
+  %cmp3.not = icmp eq i8 %1, %6
   br i1 %cmp3.not, label %while.cond, label %if.then5, !llvm.loop !18
 
 if.then5:                                         ; preds = %to_hex.exit
@@ -866,7 +866,7 @@ to_hex.exit:                                      ; preds = %vaarg.end
   %idxprom.i = zext i32 %5 to i64
   %arrayidx.i = getelementptr inbounds [17 x i8], ptr @.str, i64 0, i64 %idxprom.i
   %6 = load i8, ptr %arrayidx.i, align 1, !tbaa !5
-  %cmp3.not = icmp eq i8 %6, %1
+  %cmp3.not = icmp eq i8 %1, %6
   br i1 %cmp3.not, label %while.cond, label %if.then5, !llvm.loop !19
 
 if.then5:                                         ; preds = %to_hex.exit
@@ -942,7 +942,7 @@ to_hex.exit:                                      ; preds = %vaarg.end
   %idxprom.i = zext i32 %5 to i64
   %arrayidx.i = getelementptr inbounds [17 x i8], ptr @.str, i64 0, i64 %idxprom.i
   %6 = load i8, ptr %arrayidx.i, align 1, !tbaa !5
-  %cmp3.not = icmp eq i8 %6, %1
+  %cmp3.not = icmp eq i8 %1, %6
   br i1 %cmp3.not, label %while.cond, label %if.then5, !llvm.loop !20
 
 if.then5:                                         ; preds = %to_hex.exit
@@ -1018,7 +1018,7 @@ to_hex.exit:                                      ; preds = %vaarg.end
   %idxprom.i = zext i32 %5 to i64
   %arrayidx.i = getelementptr inbounds [17 x i8], ptr @.str, i64 0, i64 %idxprom.i
   %6 = load i8, ptr %arrayidx.i, align 1, !tbaa !5
-  %cmp3.not = icmp eq i8 %6, %1
+  %cmp3.not = icmp eq i8 %1, %6
   br i1 %cmp3.not, label %while.cond, label %if.then5, !llvm.loop !21
 
 if.then5:                                         ; preds = %to_hex.exit
@@ -1094,7 +1094,7 @@ to_hex.exit:                                      ; preds = %vaarg.end
   %idxprom.i = zext i32 %5 to i64
   %arrayidx.i = getelementptr inbounds [17 x i8], ptr @.str, i64 0, i64 %idxprom.i
   %6 = load i8, ptr %arrayidx.i, align 1, !tbaa !5
-  %cmp3.not = icmp eq i8 %6, %1
+  %cmp3.not = icmp eq i8 %1, %6
   br i1 %cmp3.not, label %while.cond, label %if.then5, !llvm.loop !22
 
 if.then5:                                         ; preds = %to_hex.exit
@@ -1170,7 +1170,7 @@ to_hex.exit:                                      ; preds = %vaarg.end
   %idxprom.i = zext i32 %5 to i64
   %arrayidx.i = getelementptr inbounds [17 x i8], ptr @.str, i64 0, i64 %idxprom.i
   %6 = load i8, ptr %arrayidx.i, align 1, !tbaa !5
-  %cmp3.not = icmp eq i8 %6, %1
+  %cmp3.not = icmp eq i8 %1, %6
   br i1 %cmp3.not, label %while.cond, label %if.then5, !llvm.loop !23
 
 if.then5:                                         ; preds = %to_hex.exit
@@ -1246,7 +1246,7 @@ to_hex.exit:                                      ; preds = %vaarg.end
   %idxprom.i = zext i32 %5 to i64
   %arrayidx.i = getelementptr inbounds [17 x i8], ptr @.str, i64 0, i64 %idxprom.i
   %6 = load i8, ptr %arrayidx.i, align 1, !tbaa !5
-  %cmp3.not = icmp eq i8 %6, %1
+  %cmp3.not = icmp eq i8 %1, %6
   br i1 %cmp3.not, label %while.cond, label %if.then5, !llvm.loop !24
 
 if.then5:                                         ; preds = %to_hex.exit

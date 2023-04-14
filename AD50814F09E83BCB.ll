@@ -592,14 +592,14 @@ entry:
 invoke.cont.i:                                    ; preds = %entry
   %0 = load ptr, ptr %filter.i, align 8, !tbaa !37
   %tobool.not.i.i = icmp eq ptr %0, null
-  br i1 %tobool.not.i.i, label %invoke.cont2, label %if.then.i.i
+  br i1 %tobool.not.i.i, label %_Z11CreateCoderyR9CMyComPtrI14ICompressCoderERS_I15ICompressCoder2Eb.exit, label %if.then.i.i
 
 if.then.i.i:                                      ; preds = %invoke.cont.i
   %vtable.i.i = load ptr, ptr %0, align 8, !tbaa !35
   %vfn.i.i = getelementptr inbounds ptr, ptr %vtable.i.i, i64 2
   %1 = load ptr, ptr %vfn.i.i, align 8
   %call.i.i = invoke noundef i32 %1(ptr noundef nonnull align 8 dereferenceable(8) %0)
-          to label %invoke.cont2 unwind label %terminate.lpad.i.i
+          to label %_Z11CreateCoderyR9CMyComPtrI14ICompressCoderERS_I15ICompressCoder2Eb.exit unwind label %terminate.lpad.i.i
 
 terminate.lpad.i.i:                               ; preds = %if.then.i.i
   %2 = landingpad { ptr, i32 }
@@ -633,20 +633,20 @@ _ZN9CMyComPtrI15ICompressFilterED2Ev.exit8.i:     ; preds = %if.then.i6.i, %lpad
   call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %filter.i) #10
   %9 = load ptr, ptr %coder2, align 8, !tbaa !41
   %tobool.not.i13 = icmp eq ptr %9, null
-  br i1 %tobool.not.i13, label %_ZN9CMyComPtrI15ICompressFilterED2Ev.exit26, label %if.then.i17
+  br i1 %tobool.not.i13, label %_ZN9CMyComPtrI15ICompressCoder2ED2Ev.exit19, label %if.then.i17
 
-invoke.cont2:                                     ; preds = %if.then.i.i, %invoke.cont.i
+_Z11CreateCoderyR9CMyComPtrI14ICompressCoderERS_I15ICompressCoder2Eb.exit: ; preds = %invoke.cont.i, %if.then.i.i
   call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %filter.i) #10
   %10 = load ptr, ptr %coder2, align 8, !tbaa !41
   %tobool.not.i = icmp eq ptr %10, null
-  br i1 %tobool.not.i, label %_ZN9CMyComPtrI15ICompressFilterED2Ev.exit, label %if.then.i
+  br i1 %tobool.not.i, label %_ZN9CMyComPtrI15ICompressCoder2ED2Ev.exit, label %if.then.i
 
-if.then.i:                                        ; preds = %invoke.cont2
+if.then.i:                                        ; preds = %_Z11CreateCoderyR9CMyComPtrI14ICompressCoderERS_I15ICompressCoder2Eb.exit
   %vtable.i = load ptr, ptr %10, align 8, !tbaa !35
   %vfn.i = getelementptr inbounds ptr, ptr %vtable.i, i64 2
   %11 = load ptr, ptr %vfn.i, align 8
   %call.i6 = invoke noundef i32 %11(ptr noundef nonnull align 8 dereferenceable(8) %10)
-          to label %_ZN9CMyComPtrI15ICompressFilterED2Ev.exit unwind label %terminate.lpad.i
+          to label %_ZN9CMyComPtrI15ICompressCoder2ED2Ev.exit unwind label %terminate.lpad.i
 
 terminate.lpad.i:                                 ; preds = %if.then.i
   %12 = landingpad { ptr, i32 }
@@ -655,7 +655,7 @@ terminate.lpad.i:                                 ; preds = %if.then.i
   tail call void @__clang_call_terminate(ptr %13) #11
   unreachable
 
-_ZN9CMyComPtrI15ICompressFilterED2Ev.exit:        ; preds = %if.then.i, %invoke.cont2
+_ZN9CMyComPtrI15ICompressCoder2ED2Ev.exit:        ; preds = %_Z11CreateCoderyR9CMyComPtrI14ICompressCoderERS_I15ICompressCoder2Eb.exit, %if.then.i
   call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %coder2) #10
   ret i32 0
 
@@ -664,7 +664,7 @@ if.then.i17:                                      ; preds = %_ZN9CMyComPtrI15ICo
   %vfn.i15 = getelementptr inbounds ptr, ptr %vtable.i14, i64 2
   %14 = load ptr, ptr %vfn.i15, align 8
   %call.i16 = invoke noundef i32 %14(ptr noundef nonnull align 8 dereferenceable(8) %9)
-          to label %_ZN9CMyComPtrI15ICompressFilterED2Ev.exit26 unwind label %terminate.lpad.i18
+          to label %_ZN9CMyComPtrI15ICompressCoder2ED2Ev.exit19 unwind label %terminate.lpad.i18
 
 terminate.lpad.i18:                               ; preds = %if.then.i17
   %15 = landingpad { ptr, i32 }
@@ -673,7 +673,7 @@ terminate.lpad.i18:                               ; preds = %if.then.i17
   tail call void @__clang_call_terminate(ptr %16) #11
   unreachable
 
-_ZN9CMyComPtrI15ICompressFilterED2Ev.exit26:      ; preds = %if.then.i17, %_ZN9CMyComPtrI15ICompressFilterED2Ev.exit8.i
+_ZN9CMyComPtrI15ICompressCoder2ED2Ev.exit19:      ; preds = %_ZN9CMyComPtrI15ICompressFilterED2Ev.exit8.i, %if.then.i17
   call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %coder2) #10
   resume { ptr, i32 } %4
 }

@@ -299,7 +299,7 @@ for.body.preheader:                               ; preds = %for.body.lr.ph
 
 for.body:                                         ; preds = %for.body.preheader, %for.inc222
   %indvars.iv482 = phi i64 [ 0, %for.body.preheader ], [ %indvars.iv.next483, %for.inc222 ]
-  %dx.promoted464466 = phi i32 [ 0, %for.body.preheader ], [ %dx.promoted451, %for.inc222 ]
+  %dx.promoted464466 = phi i32 [ 0, %for.body.preheader ], [ %dx.promoted463, %for.inc222 ]
   %cmp42 = icmp eq i64 %indvars.iv482, 0
   %cmp43.not = icmp sge i64 %indvars.iv482, %17
   %or.cond392.not = select i1 %cmp42, i1 true, i1 %cmp43.not
@@ -311,7 +311,7 @@ for.cond46.preheader:                             ; preds = %for.body
 
 for.body48:                                       ; preds = %for.cond46.preheader, %for.inc219
   %indvars.iv479 = phi i64 [ 0, %for.cond46.preheader ], [ %indvars.iv.next480, %for.inc219 ]
-  %dx.promoted462 = phi i32 [ %dx.promoted464466, %for.cond46.preheader ], [ %dx.promoted461, %for.inc219 ]
+  %dx.promoted461 = phi i32 [ %dx.promoted464466, %for.cond46.preheader ], [ %dx.promoted460, %for.inc219 ]
   %dx.promoted418439448 = phi i32 [ %dx.promoted464466, %for.cond46.preheader ], [ %dx.promoted418440, %for.inc219 ]
   %cmp51 = icmp ne i64 %indvars.iv479, 0
   %cmp55.not = icmp slt i64 %indvars.iv479, %15
@@ -329,7 +329,7 @@ if.end57:                                         ; preds = %for.body48
 for.body65:                                       ; preds = %if.end57, %for.inc217
   %22 = phi i32 [ %44, %for.inc217 ], [ %21, %if.end57 ]
   %indvars.iv = phi i64 [ %indvars.iv.next, %for.inc217 ], [ 1, %if.end57 ]
-  %dx.promoted459 = phi i32 [ %dx.promoted458, %for.inc217 ], [ %dx.promoted462, %if.end57 ]
+  %dx.promoted458 = phi i32 [ %dx.promoted457, %for.inc217 ], [ %dx.promoted461, %if.end57 ]
   %dx.promoted418438 = phi i32 [ %dx.promoted418442, %for.inc217 ], [ %dx.promoted418439448, %if.end57 ]
   %arrayidx67 = getelementptr inbounds i32, ptr %20, i64 %indvars.iv
   %23 = load i32, ptr %arrayidx67, align 4, !tbaa !5
@@ -423,7 +423,7 @@ for.cond147.for.cond135.loopexit_crit_edge:       ; preds = %for.inc
 
 for.body137:                                      ; preds = %for.body137.lr.ph, %for.cond147.for.cond135.loopexit_crit_edge
   %32 = phi i32 [ %42, %for.cond147.for.cond135.loopexit_crit_edge ], [ 0, %for.body137.lr.ph ]
-  %dx.promoted456 = phi i32 [ %dx.promoted453, %for.cond147.for.cond135.loopexit_crit_edge ], [ %dx.promoted459, %for.body137.lr.ph ]
+  %dx.promoted455 = phi i32 [ %dx.promoted452, %for.cond147.for.cond135.loopexit_crit_edge ], [ %dx.promoted458, %for.body137.lr.ph ]
   %dx.promoted418437 = phi i32 [ %dx.promoted418445, %for.cond147.for.cond135.loopexit_crit_edge ], [ %dx.promoted418438, %for.body137.lr.ph ]
   %tileptr1.0433 = phi ptr [ %tileptr1.0, %for.cond147.for.cond135.loopexit_crit_edge ], [ %tileptr1.0429, %for.body137.lr.ph ]
   %dx.promoted423432 = phi i32 [ %dx.promoted419, %for.cond147.for.cond135.loopexit_crit_edge ], [ %dx.promoted418438, %for.body137.lr.ph ]
@@ -444,7 +444,7 @@ for.body137:                                      ; preds = %for.body137.lr.ph, 
 
 for.body149:                                      ; preds = %for.body137, %for.inc
   %37 = phi i32 [ %32, %for.body137 ], [ %42, %for.inc ]
-  %dx.promoted455 = phi i32 [ %dx.promoted456, %for.body137 ], [ %dx.promoted453, %for.inc ]
+  %dx.promoted454 = phi i32 [ %dx.promoted455, %for.body137 ], [ %dx.promoted452, %for.inc ]
   %dx.promoted418436 = phi i32 [ %dx.promoted418437, %for.body137 ], [ %dx.promoted418445, %for.inc ]
   %dy.promoted426 = phi i32 [ %dy.promoted428431, %for.body137 ], [ %dy.promoted425, %for.inc ]
   %dx.promoted421 = phi i32 [ %dx.promoted423432, %for.body137 ], [ %dx.promoted419, %for.inc ]
@@ -488,7 +488,7 @@ if.end196.sink.split:                             ; preds = %if.end166
   br label %if.end196
 
 if.end196:                                        ; preds = %if.end166, %if.end196.sink.split
-  %dx.promoted454 = phi i32 [ %sub189, %if.end196.sink.split ], [ %dx.promoted455, %if.end166 ]
+  %dx.promoted453 = phi i32 [ %sub189, %if.end196.sink.split ], [ %dx.promoted454, %if.end166 ]
   %dx.promoted418446 = phi i32 [ %sub189, %if.end196.sink.split ], [ %dx.promoted418436, %if.end166 ]
   %dx.promoted420 = phi i32 [ %sub189, %if.end196.sink.split ], [ %dx.promoted421, %if.end166 ]
   %sub195409 = phi i32 [ %sub189, %if.end196.sink.split ], [ %sub195410416, %if.end166 ]
@@ -504,7 +504,7 @@ for.inc.sink.split:                               ; preds = %if.end196
 
 for.inc:                                          ; preds = %if.end196, %for.inc.sink.split, %for.body149
   %42 = phi i32 [ %37, %for.body149 ], [ %sub199, %for.inc.sink.split ], [ %37, %if.end196 ]
-  %dx.promoted453 = phi i32 [ %dx.promoted455, %for.body149 ], [ %dx.promoted454, %for.inc.sink.split ], [ %dx.promoted454, %if.end196 ]
+  %dx.promoted452 = phi i32 [ %dx.promoted454, %for.body149 ], [ %dx.promoted453, %for.inc.sink.split ], [ %dx.promoted453, %if.end196 ]
   %dx.promoted418445 = phi i32 [ %dx.promoted418436, %for.body149 ], [ %dx.promoted418446, %for.inc.sink.split ], [ %dx.promoted418446, %if.end196 ]
   %dy.promoted425 = phi i32 [ %dy.promoted426, %for.body149 ], [ %sub199, %for.inc.sink.split ], [ %dy.promoted426, %if.end196 ]
   %dx.promoted419 = phi i32 [ %dx.promoted421, %for.body149 ], [ %dx.promoted420, %for.inc.sink.split ], [ %dx.promoted420, %if.end196 ]
@@ -516,7 +516,7 @@ for.inc:                                          ; preds = %if.end196, %for.inc
 
 for.end210:                                       ; preds = %for.cond147.for.cond135.loopexit_crit_edge, %for.body137.lr.ph, %if.else134
   %43 = phi i32 [ 0, %if.else134 ], [ 0, %for.body137.lr.ph ], [ %42, %for.cond147.for.cond135.loopexit_crit_edge ]
-  %dx.promoted457 = phi i32 [ %dx.promoted459, %if.else134 ], [ %dx.promoted459, %for.body137.lr.ph ], [ %dx.promoted453, %for.cond147.for.cond135.loopexit_crit_edge ]
+  %dx.promoted456 = phi i32 [ %dx.promoted458, %if.else134 ], [ %dx.promoted458, %for.body137.lr.ph ], [ %dx.promoted452, %for.cond147.for.cond135.loopexit_crit_edge ]
   %dx.promoted418443 = phi i32 [ %dx.promoted418438, %if.else134 ], [ %dx.promoted418438, %for.body137.lr.ph ], [ %dx.promoted418445, %for.cond147.for.cond135.loopexit_crit_edge ]
   %cmp211 = icmp ne i32 %dx.promoted418443, 0
   %cmp213 = icmp ne i32 %43, 0
@@ -529,7 +529,7 @@ for.end210.for.inc217_crit_edge:                  ; preds = %for.end210
 
 for.inc217:                                       ; preds = %for.end210.for.inc217_crit_edge, %if.end93, %if.else83, %for.body65
   %44 = phi i32 [ %.pre, %for.end210.for.inc217_crit_edge ], [ %22, %if.end93 ], [ %22, %if.else83 ], [ %22, %for.body65 ]
-  %dx.promoted458 = phi i32 [ %dx.promoted457, %for.end210.for.inc217_crit_edge ], [ %dx.promoted459, %if.end93 ], [ %dx.promoted459, %if.else83 ], [ %dx.promoted459, %for.body65 ]
+  %dx.promoted457 = phi i32 [ %dx.promoted456, %for.end210.for.inc217_crit_edge ], [ %dx.promoted458, %if.end93 ], [ %dx.promoted458, %if.else83 ], [ %dx.promoted458, %for.body65 ]
   %dx.promoted418442 = phi i32 [ 0, %for.end210.for.inc217_crit_edge ], [ %dx.promoted418438, %if.end93 ], [ %dx.promoted418438, %if.else83 ], [ %dx.promoted418438, %for.body65 ]
   %indvars.iv.next = add nuw nsw i64 %indvars.iv, 1
   %45 = sext i32 %44 to i64
@@ -537,14 +537,14 @@ for.inc217:                                       ; preds = %for.end210.for.inc2
   br i1 %cmp64.not.not, label %for.body65, label %for.inc219, !llvm.loop !29
 
 for.inc219:                                       ; preds = %for.inc217, %if.end57, %for.body48
-  %dx.promoted461 = phi i32 [ %dx.promoted462, %for.body48 ], [ %dx.promoted462, %if.end57 ], [ %dx.promoted458, %for.inc217 ]
+  %dx.promoted460 = phi i32 [ %dx.promoted461, %for.body48 ], [ %dx.promoted461, %if.end57 ], [ %dx.promoted457, %for.inc217 ]
   %dx.promoted418440 = phi i32 [ %dx.promoted418439448, %for.body48 ], [ %dx.promoted418439448, %if.end57 ], [ %dx.promoted418442, %for.inc217 ]
   %indvars.iv.next480 = add nuw nsw i64 %indvars.iv479, 1
   %exitcond.not = icmp eq i64 %indvars.iv.next480, %wide.trip.count
   br i1 %exitcond.not, label %for.inc222, label %for.body48, !llvm.loop !30
 
 for.inc222:                                       ; preds = %for.inc219, %for.body
-  %dx.promoted451 = phi i32 [ %dx.promoted464466, %for.body ], [ %dx.promoted461, %for.inc219 ]
+  %dx.promoted463 = phi i32 [ %dx.promoted464466, %for.body ], [ %dx.promoted460, %for.inc219 ]
   %indvars.iv.next483 = add nuw nsw i64 %indvars.iv482, 1
   %exitcond486.not = icmp eq i64 %indvars.iv.next483, %wide.trip.count485
   br i1 %exitcond486.not, label %cleanup, label %for.body, !llvm.loop !31
@@ -844,10 +844,10 @@ for.end189:                                       ; preds = %for.inc187, %entry
 }
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i32 @llvm.smin.i32(i32, i32) #4
+declare i32 @llvm.smax.i32(i32, i32) #4
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i32 @llvm.smax.i32(i32, i32) #4
+declare i32 @llvm.smin.i32(i32, i32) #4
 
 attributes #0 = { nofree nounwind memory(readwrite, inaccessiblemem: write) uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #1 = { nofree nosync nounwind memory(readwrite, argmem: read, inaccessiblemem: none) uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }

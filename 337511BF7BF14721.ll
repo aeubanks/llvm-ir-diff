@@ -1123,7 +1123,7 @@ for.body.prol:                                    ; preds = %for.body.preheader,
   %prol.iter = phi i64 [ %prol.iter.next, %for.body.prol ], [ 0, %for.body.preheader ]
   %arrayidx.prol = getelementptr inbounds i32, ptr %1, i64 %indvars.iv.prol
   %11 = load i32, ptr %arrayidx.prol, align 4, !tbaa !9
-  %..prol = tail call i32 @llvm.smax.i32(i32 %.1416.prol, i32 %11)
+  %..prol = call i32 @llvm.smax.i32(i32 %.1416.prol, i32 %11)
   store i32 %..prol, ptr %localMax, align 4, !tbaa !9
   %indvars.iv.next.prol = add nuw nsw i64 %indvars.iv.prol, 1
   %prol.iter.next = add i64 %prol.iter, 1
@@ -1151,22 +1151,22 @@ for.body:                                         ; preds = %for.body.prol.loope
   %.1416 = phi i32 [ %..3, %for.body ], [ %.1416.unr, %for.body.prol.loopexit ]
   %arrayidx = getelementptr inbounds i32, ptr %1, i64 %indvars.iv
   %14 = load i32, ptr %arrayidx, align 4, !tbaa !9
-  %. = tail call i32 @llvm.smax.i32(i32 %.1416, i32 %14)
+  %. = call i32 @llvm.smax.i32(i32 %.1416, i32 %14)
   store i32 %., ptr %localMax, align 4, !tbaa !9
   %indvars.iv.next = add nuw nsw i64 %indvars.iv, 1
   %arrayidx.1 = getelementptr inbounds i32, ptr %1, i64 %indvars.iv.next
   %15 = load i32, ptr %arrayidx.1, align 4, !tbaa !9
-  %..1 = tail call i32 @llvm.smax.i32(i32 %., i32 %15)
+  %..1 = call i32 @llvm.smax.i32(i32 %., i32 %15)
   store i32 %..1, ptr %localMax, align 4, !tbaa !9
   %indvars.iv.next.1 = add nuw nsw i64 %indvars.iv, 2
   %arrayidx.2 = getelementptr inbounds i32, ptr %1, i64 %indvars.iv.next.1
   %16 = load i32, ptr %arrayidx.2, align 4, !tbaa !9
-  %..2 = tail call i32 @llvm.smax.i32(i32 %..1, i32 %16)
+  %..2 = call i32 @llvm.smax.i32(i32 %..1, i32 %16)
   store i32 %..2, ptr %localMax, align 4, !tbaa !9
   %indvars.iv.next.2 = add nuw nsw i64 %indvars.iv, 3
   %arrayidx.3 = getelementptr inbounds i32, ptr %1, i64 %indvars.iv.next.2
   %17 = load i32, ptr %arrayidx.3, align 4, !tbaa !9
-  %..3 = tail call i32 @llvm.smax.i32(i32 %..2, i32 %17)
+  %..3 = call i32 @llvm.smax.i32(i32 %..2, i32 %17)
   store i32 %..3, ptr %localMax, align 4, !tbaa !9
   %indvars.iv.next.3 = add nuw nsw i64 %indvars.iv, 4
   %exitcond.not.3 = icmp eq i64 %indvars.iv.next.3, %wide.trip.count

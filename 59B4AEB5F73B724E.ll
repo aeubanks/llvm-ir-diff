@@ -1134,21 +1134,21 @@ for.inc72:                                        ; preds = %for.body60
 
 for.end74:                                        ; preds = %for.inc72, %for.end55, %if.then66
   %32 = load i64, ptr @channelNets, align 8, !tbaa !5
-  %cmp.not12.i186 = icmp eq i64 %32, 0
-  br i1 %cmp.not12.i186, label %DFSClearVCG.exit193, label %for.body.i192
+  %cmp.not12.i185 = icmp eq i64 %32, 0
+  br i1 %cmp.not12.i185, label %DFSClearVCG.exit192, label %for.body.i191
 
-for.body.i192:                                    ; preds = %for.end74, %for.body.i192
-  %net.013.i187 = phi i64 [ %inc.i190, %for.body.i192 ], [ 1, %for.end74 ]
-  %netsAboveLabel.i188 = getelementptr inbounds %struct._nodeVCGType, ptr %25, i64 %net.013.i187, i32 2
-  %netsBelowLabel.i189 = getelementptr inbounds %struct._nodeVCGType, ptr %25, i64 %net.013.i187, i32 6
-  %inc.i190 = add i64 %net.013.i187, 1
-  tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %netsAboveLabel.i188, i8 0, i64 16, i1 false)
-  tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %netsBelowLabel.i189, i8 0, i64 16, i1 false)
+for.body.i191:                                    ; preds = %for.end74, %for.body.i191
+  %net.013.i186 = phi i64 [ %inc.i189, %for.body.i191 ], [ 1, %for.end74 ]
+  %netsAboveLabel.i187 = getelementptr inbounds %struct._nodeVCGType, ptr %25, i64 %net.013.i186, i32 2
+  %netsBelowLabel.i188 = getelementptr inbounds %struct._nodeVCGType, ptr %25, i64 %net.013.i186, i32 6
+  %inc.i189 = add i64 %net.013.i186, 1
+  tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %netsAboveLabel.i187, i8 0, i64 16, i1 false)
+  tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %netsBelowLabel.i188, i8 0, i64 16, i1 false)
   %33 = load i64, ptr @channelNets, align 8, !tbaa !5
-  %cmp.not.i191 = icmp ugt i64 %inc.i190, %33
-  br i1 %cmp.not.i191, label %DFSClearVCG.exit193, label %for.body.i192, !llvm.loop !27
+  %cmp.not.i190 = icmp ugt i64 %inc.i189, %33
+  br i1 %cmp.not.i190, label %DFSClearVCG.exit192, label %for.body.i191, !llvm.loop !27
 
-DFSClearVCG.exit193:                              ; preds = %for.body.i192, %for.end74
+DFSClearVCG.exit192:                              ; preds = %for.body.i191, %for.end74
   %34 = load ptr, ptr @SCC, align 8, !tbaa !9
   %35 = load ptr, ptr @perSCC, align 8, !tbaa !9
   tail call void @SCCofVCG(ptr noundef nonnull %25, ptr noundef %34, ptr noundef %35)
@@ -1156,7 +1156,7 @@ DFSClearVCG.exit193:                              ; preds = %for.body.i192, %for
   %cmp76.not224 = icmp eq i64 %36, 0
   br i1 %cmp76.not224, label %if.else, label %for.body77.lr.ph
 
-for.body77.lr.ph:                                 ; preds = %DFSClearVCG.exit193
+for.body77.lr.ph:                                 ; preds = %DFSClearVCG.exit192
   %37 = load ptr, ptr @perSCC, align 8, !tbaa !9
   br label %for.body77
 
@@ -1229,7 +1229,7 @@ for.inc122:                                       ; preds = %for.body110
   %exitcond246.not = icmp eq i64 %inc123, %43
   br i1 %exitcond246.not, label %for.inc126, label %for.body110, !llvm.loop !62
 
-if.else:                                          ; preds = %for.cond75, %DFSClearVCG.exit193
+if.else:                                          ; preds = %for.cond75, %DFSClearVCG.exit192
   %dec = add i64 %total.0233, -1
   br label %for.inc126
 
@@ -1245,7 +1245,7 @@ for.end128:                                       ; preds = %for.inc126, %do.end
   br i1 %tobool129.not, label %if.else131, label %if.then130
 
 if.then130:                                       ; preds = %for.end128
-  %puts185 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.12)
+  %puts193 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.12)
   br label %if.end134
 
 if.else131:                                       ; preds = %for.end128
@@ -1261,12 +1261,12 @@ if.end134:                                        ; preds = %if.else131, %if.the
 define dso_local void @RemoveConstraintVCG(ptr nocapture noundef readonly %VCG, ptr nocapture noundef readonly %SCC, ptr nocapture noundef readonly %perSCC, ptr nocapture noundef writeonly %removeVCG) local_unnamed_addr #4 {
 entry:
   %0 = load i64, ptr @totalSCC, align 8, !tbaa !5
-  %cmp.not232 = icmp eq i64 %0, 0
-  br i1 %cmp.not232, label %for.end154, label %for.body
+  %cmp.not231 = icmp eq i64 %0, 0
+  br i1 %cmp.not231, label %for.end154, label %for.body
 
 for.body:                                         ; preds = %entry, %for.inc152
-  %scc.0233 = phi i64 [ %inc153, %for.inc152 ], [ 1, %entry ]
-  %arrayidx = getelementptr inbounds i64, ptr %perSCC, i64 %scc.0233
+  %scc.0232 = phi i64 [ %inc153, %for.inc152 ], [ 1, %entry ]
+  %arrayidx = getelementptr inbounds i64, ptr %perSCC, i64 %scc.0232
   %1 = load i64, ptr %arrayidx, align 8, !tbaa !5
   %cmp1 = icmp ugt i64 %1, 1
   br i1 %cmp1, label %for.cond2.preheader, label %for.inc152
@@ -1291,12 +1291,12 @@ for.body4.lr.ph:                                  ; preds = %for.cond2.preheader
   br label %for.body4
 
 for.body4:                                        ; preds = %for.body4.lr.ph, %for.inc126
-  %remove.0228 = phi ptr [ null, %for.body4.lr.ph ], [ %remove.3, %for.inc126 ]
+  %remove.0227 = phi ptr [ null, %for.body4.lr.ph ], [ %remove.3, %for.inc126 ]
   %net.0226 = phi i64 [ 1, %for.body4.lr.ph ], [ %inc127, %for.inc126 ]
   %best.0225 = phi i64 [ 7, %for.body4.lr.ph ], [ %best.3, %for.inc126 ]
   %arrayidx5 = getelementptr inbounds i64, ptr %SCC, i64 %net.0226
   %7 = load i64, ptr %arrayidx5, align 8, !tbaa !5
-  %cmp6 = icmp eq i64 %7, %scc.0233
+  %cmp6 = icmp eq i64 %7, %scc.0232
   br i1 %cmp6, label %for.cond8.preheader, label %for.inc126
 
 for.cond8.preheader:                              ; preds = %for.body4
@@ -1311,14 +1311,14 @@ for.body11.lr.ph:                                 ; preds = %for.cond8.preheader
   br label %for.body11
 
 for.body11:                                       ; preds = %for.body11.lr.ph, %for.inc
-  %remove.1222 = phi ptr [ %remove.0228, %for.body11.lr.ph ], [ %remove.2, %for.inc ]
+  %remove.1222 = phi ptr [ %remove.0227, %for.body11.lr.ph ], [ %remove.2, %for.inc ]
   %best.1221 = phi i64 [ %best.0225, %for.body11.lr.ph ], [ %best.2, %for.inc ]
   %which.0220 = phi i64 [ 0, %for.body11.lr.ph ], [ %inc, %for.inc ]
   %bot14 = getelementptr inbounds %struct._constraintVCGType, ptr %9, i64 %which.0220, i32 1
   %10 = load i64, ptr %bot14, align 8, !tbaa !15
   %arrayidx15 = getelementptr inbounds i64, ptr %SCC, i64 %10
   %11 = load i64, ptr %arrayidx15, align 8, !tbaa !5
-  %cmp16 = icmp eq i64 %11, %scc.0233
+  %cmp16 = icmp eq i64 %11, %scc.0232
   br i1 %cmp16, label %land.lhs.true, label %for.inc
 
 land.lhs.true:                                    ; preds = %for.body11
@@ -1432,10 +1432,10 @@ for.inc:                                          ; preds = %if.end117, %for.bod
 
 for.inc126:                                       ; preds = %for.inc, %for.cond8.preheader, %for.body4
   %best.3 = phi i64 [ %best.0225, %for.body4 ], [ %best.0225, %for.cond8.preheader ], [ %best.2, %for.inc ]
-  %remove.3 = phi ptr [ %remove.0228, %for.body4 ], [ %remove.0228, %for.cond8.preheader ], [ %remove.2, %for.inc ]
+  %remove.3 = phi ptr [ %remove.0227, %for.body4 ], [ %remove.0227, %for.cond8.preheader ], [ %remove.2, %for.inc ]
   %inc127 = add nuw i64 %net.0226, 1
-  %exitcond236 = icmp eq i64 %inc127, %umax
-  br i1 %exitcond236, label %for.end128, label %for.body4, !llvm.loop !65
+  %exitcond235 = icmp eq i64 %inc127, %umax
+  br i1 %exitcond235, label %for.end128, label %for.body4, !llvm.loop !65
 
 for.end128:                                       ; preds = %for.inc126, %for.cond2.preheader
   %remove.0.lcssa = phi ptr [ null, %for.cond2.preheader ], [ %remove.3, %for.inc126 ]
@@ -1453,8 +1453,8 @@ for.end128:                                       ; preds = %for.inc126, %for.co
   store i64 1, ptr %removed133, align 8, !tbaa !19
   %netsBelow = getelementptr inbounds %struct._nodeVCGType, ptr %VCG, i64 %26, i32 5
   %27 = load i64, ptr %netsBelow, align 8, !tbaa !25
-  %cmp136230.not = icmp eq i64 %27, 0
-  br i1 %cmp136230.not, label %for.inc152, label %for.body137.lr.ph
+  %cmp136229.not = icmp eq i64 %27, 0
+  br i1 %cmp136229.not, label %for.inc152, label %for.body137.lr.ph
 
 for.body137.lr.ph:                                ; preds = %for.end128
   %netsBelowHook = getelementptr inbounds %struct._nodeVCGType, ptr %VCG, i64 %26, i32 4
@@ -1462,24 +1462,24 @@ for.body137.lr.ph:                                ; preds = %for.end128
   br label %for.body137
 
 for.body137:                                      ; preds = %for.body137.lr.ph, %for.inc148
-  %which.1231 = phi i64 [ 0, %for.body137.lr.ph ], [ %inc149, %for.inc148 ]
-  %arrayidx139 = getelementptr inbounds %struct._constraintVCGType, ptr %28, i64 %which.1231
+  %which.1230 = phi i64 [ 0, %for.body137.lr.ph ], [ %inc149, %for.inc148 ]
+  %arrayidx139 = getelementptr inbounds %struct._constraintVCGType, ptr %28, i64 %which.1230
   %29 = load i64, ptr %arrayidx139, align 8, !tbaa !17
   %cmp141 = icmp eq i64 %29, %25
   br i1 %cmp141, label %if.then142, label %for.inc148
 
 if.then142:                                       ; preds = %for.body137
-  %removed146 = getelementptr inbounds %struct._constraintVCGType, ptr %28, i64 %which.1231, i32 3
+  %removed146 = getelementptr inbounds %struct._constraintVCGType, ptr %28, i64 %which.1230, i32 3
   store i64 1, ptr %removed146, align 8, !tbaa !19
   br label %for.inc152
 
 for.inc148:                                       ; preds = %for.body137
-  %inc149 = add nuw i64 %which.1231, 1
-  %exitcond237.not = icmp eq i64 %inc149, %27
-  br i1 %exitcond237.not, label %for.inc152, label %for.body137, !llvm.loop !66
+  %inc149 = add nuw i64 %which.1230, 1
+  %exitcond236.not = icmp eq i64 %inc149, %27
+  br i1 %exitcond236.not, label %for.inc152, label %for.body137, !llvm.loop !66
 
 for.inc152:                                       ; preds = %for.inc148, %for.end128, %for.body, %if.then142
-  %inc153 = add i64 %scc.0233, 1
+  %inc153 = add i64 %scc.0232, 1
   %30 = load i64, ptr @totalSCC, align 8, !tbaa !5
   %cmp.not = icmp ugt i64 %inc153, %30
   br i1 %cmp.not, label %for.end154, label %for.body, !llvm.loop !67
@@ -1776,7 +1776,7 @@ entry:
   br i1 %cmp.not74, label %for.end, label %for.body.lr.ph
 
 for.body.lr.ph:                                   ; preds = %entry
-  %netsAboveReached.i63 = getelementptr inbounds %struct._nodeVCGType, ptr %VCG, i64 %check, i32 3
+  %netsAboveReached.i62 = getelementptr inbounds %struct._nodeVCGType, ptr %VCG, i64 %check, i32 3
   br label %for.body
 
 for.body:                                         ; preds = %for.body.lr.ph, %for.inc
@@ -1809,7 +1809,7 @@ for.body.i.i:                                     ; preds = %if.then3, %for.body
 
 ExistPathAboveVCG.exit:                           ; preds = %for.body.i.i, %if.then3
   tail call void @DFSAboveVCG(ptr noundef %VCG, i64 noundef %net.075)
-  %4 = load i64, ptr %netsAboveReached.i63, align 8, !tbaa !31
+  %4 = load i64, ptr %netsAboveReached.i62, align 8, !tbaa !31
   %tobool4.not = icmp ne i64 %4, 0
   %inc = zext i1 %tobool4.not to i64
   %spec.select = add i64 %vcv.076, %inc
@@ -1817,81 +1817,81 @@ ExistPathAboveVCG.exit:                           ; preds = %for.body.i.i, %if.t
 
 if.else:                                          ; preds = %if.then
   %cmp7 = icmp ugt i64 %2, %track
-  %cmp.not12.i.i47 = icmp eq i64 %1, 0
+  %cmp.not12.i.i46 = icmp eq i64 %1, 0
   br i1 %cmp7, label %if.then8, label %if.else14
 
 if.then8:                                         ; preds = %if.else
-  br i1 %cmp.not12.i.i47, label %ExistPathAboveVCG.exit55, label %for.body.i.i53
+  br i1 %cmp.not12.i.i46, label %ExistPathAboveVCG.exit54, label %for.body.i.i52
 
-for.body.i.i53:                                   ; preds = %if.then8, %for.body.i.i53
-  %net.013.i.i48 = phi i64 [ %inc.i.i51, %for.body.i.i53 ], [ 1, %if.then8 ]
-  %netsAboveLabel.i.i49 = getelementptr inbounds %struct._nodeVCGType, ptr %VCG, i64 %net.013.i.i48, i32 2
-  %netsBelowLabel.i.i50 = getelementptr inbounds %struct._nodeVCGType, ptr %VCG, i64 %net.013.i.i48, i32 6
-  %inc.i.i51 = add i64 %net.013.i.i48, 1
-  tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %netsAboveLabel.i.i49, i8 0, i64 16, i1 false)
-  tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %netsBelowLabel.i.i50, i8 0, i64 16, i1 false)
+for.body.i.i52:                                   ; preds = %if.then8, %for.body.i.i52
+  %net.013.i.i47 = phi i64 [ %inc.i.i50, %for.body.i.i52 ], [ 1, %if.then8 ]
+  %netsAboveLabel.i.i48 = getelementptr inbounds %struct._nodeVCGType, ptr %VCG, i64 %net.013.i.i47, i32 2
+  %netsBelowLabel.i.i49 = getelementptr inbounds %struct._nodeVCGType, ptr %VCG, i64 %net.013.i.i47, i32 6
+  %inc.i.i50 = add i64 %net.013.i.i47, 1
+  tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %netsAboveLabel.i.i48, i8 0, i64 16, i1 false)
+  tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %netsBelowLabel.i.i49, i8 0, i64 16, i1 false)
   %5 = load i64, ptr @channelNets, align 8, !tbaa !5
-  %cmp.not.i.i52 = icmp ugt i64 %inc.i.i51, %5
-  br i1 %cmp.not.i.i52, label %ExistPathAboveVCG.exit55, label %for.body.i.i53, !llvm.loop !27
+  %cmp.not.i.i51 = icmp ugt i64 %inc.i.i50, %5
+  br i1 %cmp.not.i.i51, label %ExistPathAboveVCG.exit54, label %for.body.i.i52, !llvm.loop !27
 
-ExistPathAboveVCG.exit55:                         ; preds = %for.body.i.i53, %if.then8
+ExistPathAboveVCG.exit54:                         ; preds = %for.body.i.i52, %if.then8
   tail call void @DFSAboveVCG(ptr noundef %VCG, i64 noundef %check)
-  %netsAboveReached.i54 = getelementptr inbounds %struct._nodeVCGType, ptr %VCG, i64 %net.075, i32 3
-  %6 = load i64, ptr %netsAboveReached.i54, align 8, !tbaa !31
+  %netsAboveReached.i53 = getelementptr inbounds %struct._nodeVCGType, ptr %VCG, i64 %net.075, i32 3
+  %6 = load i64, ptr %netsAboveReached.i53, align 8, !tbaa !31
   %tobool10.not = icmp ne i64 %6, 0
   %inc12 = zext i1 %tobool10.not to i64
-  %spec.select46 = add i64 %vcv.076, %inc12
+  %spec.select73 = add i64 %vcv.076, %inc12
   br label %for.inc
 
 if.else14:                                        ; preds = %if.else
-  br i1 %cmp.not12.i.i47, label %ExistPathAboveVCG.exit64, label %for.body.i.i62
+  br i1 %cmp.not12.i.i46, label %ExistPathAboveVCG.exit63, label %for.body.i.i61
 
-for.body.i.i62:                                   ; preds = %if.else14, %for.body.i.i62
-  %net.013.i.i57 = phi i64 [ %inc.i.i60, %for.body.i.i62 ], [ 1, %if.else14 ]
-  %netsAboveLabel.i.i58 = getelementptr inbounds %struct._nodeVCGType, ptr %VCG, i64 %net.013.i.i57, i32 2
-  %netsBelowLabel.i.i59 = getelementptr inbounds %struct._nodeVCGType, ptr %VCG, i64 %net.013.i.i57, i32 6
-  %inc.i.i60 = add i64 %net.013.i.i57, 1
-  tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %netsAboveLabel.i.i58, i8 0, i64 16, i1 false)
-  tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %netsBelowLabel.i.i59, i8 0, i64 16, i1 false)
+for.body.i.i61:                                   ; preds = %if.else14, %for.body.i.i61
+  %net.013.i.i56 = phi i64 [ %inc.i.i59, %for.body.i.i61 ], [ 1, %if.else14 ]
+  %netsAboveLabel.i.i57 = getelementptr inbounds %struct._nodeVCGType, ptr %VCG, i64 %net.013.i.i56, i32 2
+  %netsBelowLabel.i.i58 = getelementptr inbounds %struct._nodeVCGType, ptr %VCG, i64 %net.013.i.i56, i32 6
+  %inc.i.i59 = add i64 %net.013.i.i56, 1
+  tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %netsAboveLabel.i.i57, i8 0, i64 16, i1 false)
+  tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %netsBelowLabel.i.i58, i8 0, i64 16, i1 false)
   %7 = load i64, ptr @channelNets, align 8, !tbaa !5
-  %cmp.not.i.i61 = icmp ugt i64 %inc.i.i60, %7
-  br i1 %cmp.not.i.i61, label %ExistPathAboveVCG.exit64, label %for.body.i.i62, !llvm.loop !27
+  %cmp.not.i.i60 = icmp ugt i64 %inc.i.i59, %7
+  br i1 %cmp.not.i.i60, label %ExistPathAboveVCG.exit63, label %for.body.i.i61, !llvm.loop !27
 
-ExistPathAboveVCG.exit64:                         ; preds = %for.body.i.i62, %if.else14
+ExistPathAboveVCG.exit63:                         ; preds = %for.body.i.i61, %if.else14
   tail call void @DFSAboveVCG(ptr noundef %VCG, i64 noundef %net.075)
-  %8 = load i64, ptr %netsAboveReached.i63, align 8, !tbaa !31
+  %8 = load i64, ptr %netsAboveReached.i62, align 8, !tbaa !31
   %tobool16.not = icmp eq i64 %8, 0
   br i1 %tobool16.not, label %lor.lhs.false, label %if.then19
 
-lor.lhs.false:                                    ; preds = %ExistPathAboveVCG.exit64
+lor.lhs.false:                                    ; preds = %ExistPathAboveVCG.exit63
   %9 = load i64, ptr @channelNets, align 8, !tbaa !5
-  %cmp.not12.i.i65 = icmp eq i64 %9, 0
-  br i1 %cmp.not12.i.i65, label %ExistPathAboveVCG.exit73, label %for.body.i.i71
+  %cmp.not12.i.i64 = icmp eq i64 %9, 0
+  br i1 %cmp.not12.i.i64, label %ExistPathAboveVCG.exit72, label %for.body.i.i70
 
-for.body.i.i71:                                   ; preds = %lor.lhs.false, %for.body.i.i71
-  %net.013.i.i66 = phi i64 [ %inc.i.i69, %for.body.i.i71 ], [ 1, %lor.lhs.false ]
-  %netsAboveLabel.i.i67 = getelementptr inbounds %struct._nodeVCGType, ptr %VCG, i64 %net.013.i.i66, i32 2
-  %netsBelowLabel.i.i68 = getelementptr inbounds %struct._nodeVCGType, ptr %VCG, i64 %net.013.i.i66, i32 6
-  %inc.i.i69 = add i64 %net.013.i.i66, 1
-  tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %netsAboveLabel.i.i67, i8 0, i64 16, i1 false)
-  tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %netsBelowLabel.i.i68, i8 0, i64 16, i1 false)
+for.body.i.i70:                                   ; preds = %lor.lhs.false, %for.body.i.i70
+  %net.013.i.i65 = phi i64 [ %inc.i.i68, %for.body.i.i70 ], [ 1, %lor.lhs.false ]
+  %netsAboveLabel.i.i66 = getelementptr inbounds %struct._nodeVCGType, ptr %VCG, i64 %net.013.i.i65, i32 2
+  %netsBelowLabel.i.i67 = getelementptr inbounds %struct._nodeVCGType, ptr %VCG, i64 %net.013.i.i65, i32 6
+  %inc.i.i68 = add i64 %net.013.i.i65, 1
+  tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %netsAboveLabel.i.i66, i8 0, i64 16, i1 false)
+  tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %netsBelowLabel.i.i67, i8 0, i64 16, i1 false)
   %10 = load i64, ptr @channelNets, align 8, !tbaa !5
-  %cmp.not.i.i70 = icmp ugt i64 %inc.i.i69, %10
-  br i1 %cmp.not.i.i70, label %ExistPathAboveVCG.exit73, label %for.body.i.i71, !llvm.loop !27
+  %cmp.not.i.i69 = icmp ugt i64 %inc.i.i68, %10
+  br i1 %cmp.not.i.i69, label %ExistPathAboveVCG.exit72, label %for.body.i.i70, !llvm.loop !27
 
-ExistPathAboveVCG.exit73:                         ; preds = %for.body.i.i71, %lor.lhs.false
+ExistPathAboveVCG.exit72:                         ; preds = %for.body.i.i70, %lor.lhs.false
   tail call void @DFSAboveVCG(ptr noundef nonnull %VCG, i64 noundef %check)
-  %netsAboveReached.i72 = getelementptr inbounds %struct._nodeVCGType, ptr %VCG, i64 %net.075, i32 3
-  %11 = load i64, ptr %netsAboveReached.i72, align 8, !tbaa !31
+  %netsAboveReached.i71 = getelementptr inbounds %struct._nodeVCGType, ptr %VCG, i64 %net.075, i32 3
+  %11 = load i64, ptr %netsAboveReached.i71, align 8, !tbaa !31
   %tobool18.not = icmp eq i64 %11, 0
   br i1 %tobool18.not, label %for.inc, label %if.then19
 
-if.then19:                                        ; preds = %ExistPathAboveVCG.exit73, %ExistPathAboveVCG.exit64
+if.then19:                                        ; preds = %ExistPathAboveVCG.exit72, %ExistPathAboveVCG.exit63
   %inc20 = add i64 %vcv.076, 1
   br label %for.inc
 
-for.inc:                                          ; preds = %ExistPathAboveVCG.exit55, %ExistPathAboveVCG.exit, %for.body, %if.then19, %ExistPathAboveVCG.exit73
-  %vcv.1 = phi i64 [ %inc20, %if.then19 ], [ %vcv.076, %ExistPathAboveVCG.exit73 ], [ %vcv.076, %for.body ], [ %spec.select, %ExistPathAboveVCG.exit ], [ %spec.select46, %ExistPathAboveVCG.exit55 ]
+for.inc:                                          ; preds = %ExistPathAboveVCG.exit54, %ExistPathAboveVCG.exit, %for.body, %if.then19, %ExistPathAboveVCG.exit72
+  %vcv.1 = phi i64 [ %inc20, %if.then19 ], [ %vcv.076, %ExistPathAboveVCG.exit72 ], [ %vcv.076, %for.body ], [ %spec.select, %ExistPathAboveVCG.exit ], [ %spec.select73, %ExistPathAboveVCG.exit54 ]
   %inc25 = add i64 %net.075, 1
   %12 = load i64, ptr @channelNets, align 8, !tbaa !5
   %cmp.not = icmp ugt i64 %inc25, %12
@@ -1902,14 +1902,14 @@ for.end:                                          ; preds = %for.inc, %entry
   ret i64 %vcv.0.lcssa
 }
 
-; Function Attrs: nofree nounwind
-declare noundef i32 @putchar(i32 noundef) local_unnamed_addr #10
-
-; Function Attrs: nofree nounwind
-declare noundef i32 @puts(ptr nocapture noundef readonly) local_unnamed_addr #10
-
 ; Function Attrs: nocallback nofree nounwind willreturn memory(argmem: write)
-declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #11
+declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #10
+
+; Function Attrs: nofree nounwind
+declare noundef i32 @putchar(i32 noundef) local_unnamed_addr #11
+
+; Function Attrs: nofree nounwind
+declare noundef i32 @puts(ptr nocapture noundef readonly) local_unnamed_addr #11
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
 declare i64 @llvm.umax.i64(i64, i64) #12
@@ -1933,8 +1933,8 @@ attributes #6 = { nofree nosync nounwind memory(read, argmem: write, inaccessibl
 attributes #7 = { nofree nounwind "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #8 = { nofree nosync nounwind memory(read, argmem: readwrite, inaccessiblemem: none) uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #9 = { nofree nosync nounwind memory(readwrite, inaccessiblemem: none) uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
-attributes #10 = { nofree nounwind }
-attributes #11 = { nocallback nofree nounwind willreturn memory(argmem: write) }
+attributes #10 = { nocallback nofree nounwind willreturn memory(argmem: write) }
+attributes #11 = { nofree nounwind }
 attributes #12 = { nocallback nofree nosync nounwind speculatable willreturn memory(none) }
 attributes #13 = { nounwind allocsize(0) }
 attributes #14 = { nounwind }

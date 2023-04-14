@@ -393,7 +393,7 @@ entry:
   br i1 %cmp.not, label %if.end, label %if.then
 
 if.then:                                          ; preds = %entry
-  %puts15 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.3)
+  %puts17 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.3)
   tail call void @exit(i32 noundef 1) #10
   unreachable
 
@@ -405,13 +405,14 @@ if.end:                                           ; preds = %entry
   store i32 %conv.i, ptr @NUM, align 4, !tbaa !5
   %arrayidx2 = getelementptr inbounds ptr, ptr %argv, i64 2
   %1 = load ptr, ptr %arrayidx2, align 8, !tbaa !24
-  %call.i16 = tail call i64 @strtol(ptr nocapture noundef nonnull %1, ptr noundef null, i32 noundef 10) #11
-  %conv.i17 = trunc i64 %call.i16 to i32
-  store i32 %conv.i17, ptr @BLOCK, align 4, !tbaa !5
-  %cmp4 = icmp ugt i32 %conv.i, 1024
-  %cmp5 = icmp ugt i32 %conv.i17, %conv.i
-  %or14 = or i1 %cmp4, %cmp5
-  br i1 %or14, label %if.then7, label %if.end9
+  %call.i14 = tail call i64 @strtol(ptr nocapture noundef nonnull %1, ptr noundef null, i32 noundef 10) #11
+  %conv.i15 = trunc i64 %call.i14 to i32
+  store i32 %conv.i15, ptr @BLOCK, align 4, !tbaa !5
+  %2 = load i32, ptr @NUM, align 4, !tbaa !5
+  %cmp4 = icmp ugt i32 %2, 1024
+  %cmp5 = icmp ult i32 %2, %conv.i15
+  %or16 = or i1 %cmp4, %cmp5
+  br i1 %or16, label %if.then7, label %if.end9
 
 if.then7:                                         ; preds = %if.end
   %puts = tail call i32 @puts(ptr nonnull dereferenceable(1) @str)

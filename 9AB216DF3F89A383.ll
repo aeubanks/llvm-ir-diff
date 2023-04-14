@@ -297,7 +297,7 @@ for.cond.cleanup:                                 ; preds = %for.body7, %for.con
   %conv22 = sext i32 %num_elements.0.lcssa to i64
   %7 = load ptr, ptr @store_fp, align 8, !tbaa !14
   %.59 = select i1 %cmp20, i64 4, i64 8
-  %call.i49 = tail call i64 @fwrite(ptr noundef %0, i64 noundef %.59, i64 noundef %conv22, ptr noundef %7)
+  %call.i48 = tail call i64 @fwrite(ptr noundef %0, i64 noundef %.59, i64 noundef %conv22, ptr noundef %7)
   br label %cleanup
 
 for.body7:                                        ; preds = %for.body7.lr.ph, %for.body7
@@ -723,34 +723,34 @@ if.then20:                                        ; preds = %if.end17
   br i1 %cmp30, label %if.then22, label %if.else
 
 if.then22:                                        ; preds = %if.then20
-  %call.i61 = tail call i64 @fread(ptr noundef %0, i64 noundef 4, i64 noundef %conv32, ptr noundef %10)
-  %cmp.not.i62 = icmp eq i64 %call.i61, %conv32
-  br i1 %cmp.not.i62, label %cleanup, label %cleanup.sink.split
+  %call.i60 = tail call i64 @fread(ptr noundef %0, i64 noundef 4, i64 noundef %conv32, ptr noundef %10)
+  %cmp.not.i61 = icmp eq i64 %call.i60, %conv32
+  br i1 %cmp.not.i61, label %cleanup, label %cleanup.sink.split
 
 if.else:                                          ; preds = %if.then20
-  %call.i64 = tail call i64 @fread(ptr noundef %0, i64 noundef 8, i64 noundef %conv32, ptr noundef %10)
-  %cmp.not.i65 = icmp eq i64 %call.i64, %conv32
-  br i1 %cmp.not.i65, label %cleanup, label %cleanup.sink.split
+  %call.i63 = tail call i64 @fread(ptr noundef %0, i64 noundef 8, i64 noundef %conv32, ptr noundef %10)
+  %cmp.not.i64 = icmp eq i64 %call.i63, %conv32
+  br i1 %cmp.not.i64, label %cleanup, label %cleanup.sink.split
 
 if.else28:                                        ; preds = %if.end17
   br i1 %cmp30, label %if.then31, label %if.else34
 
 if.then31:                                        ; preds = %if.else28
-  %call.i68 = tail call i64 @fread(ptr noundef %0, i64 noundef 4, i64 noundef %conv32, ptr noundef %10)
-  %cmp.not.i69 = icmp eq i64 %call.i68, %conv32
-  br i1 %cmp.not.i69, label %cleanup, label %cleanup.sink.split
+  %call.i67 = tail call i64 @fread(ptr noundef %0, i64 noundef 4, i64 noundef %conv32, ptr noundef %10)
+  %cmp.not.i68 = icmp eq i64 %call.i67, %conv32
+  br i1 %cmp.not.i68, label %cleanup, label %cleanup.sink.split
 
 if.else34:                                        ; preds = %if.else28
-  %call.i72 = tail call i64 @fread(ptr noundef %0, i64 noundef 8, i64 noundef %conv32, ptr noundef %10)
-  %cmp.not.i73 = icmp eq i64 %call.i72, %conv32
-  br i1 %cmp.not.i73, label %cleanup, label %cleanup.sink.split
+  %call.i71 = tail call i64 @fread(ptr noundef %0, i64 noundef 8, i64 noundef %conv32, ptr noundef %10)
+  %cmp.not.i72 = icmp eq i64 %call.i71, %conv32
+  br i1 %cmp.not.i72, label %cleanup, label %cleanup.sink.split
 
 cleanup.sink.split:                               ; preds = %if.else34, %if.then31, %if.else, %if.then22
-  %call.i72.sink = phi i64 [ %call.i61, %if.then22 ], [ %call.i64, %if.else ], [ %call.i68, %if.then31 ], [ %call.i72, %if.else34 ]
-  %call2.i74 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.19, i64 noundef %call.i72.sink, i64 noundef %conv32)
+  %call.i60.sink = phi i64 [ %call.i60, %if.then22 ], [ %call.i63, %if.else ], [ %call.i67, %if.then31 ], [ %call.i71, %if.else34 ]
+  %call2.i = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.19, i64 noundef %call.i60.sink, i64 noundef %conv32)
   br label %cleanup
 
-cleanup:                                          ; preds = %cleanup.sink.split, %if.else34, %if.then31, %if.else, %if.then22, %for.body
+cleanup:                                          ; preds = %cleanup.sink.split, %if.then22, %if.else, %if.then31, %if.else34, %for.body
   %call40 = tail call noundef ptr @_ZN10MallocPlus25memory_entry_by_name_nextEv(ptr noundef nonnull align 8 dereferenceable(96) %memory)
   %call2 = tail call noundef ptr @_ZN10MallocPlus24memory_entry_by_name_endEv(ptr noundef nonnull align 8 dereferenceable(96) %memory)
   %cmp.not = icmp eq ptr %call40, %call2

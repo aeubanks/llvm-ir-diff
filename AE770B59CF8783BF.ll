@@ -27,15 +27,15 @@ if.end:                                           ; preds = %entry
 define internal fastcc void @func_32() unnamed_addr #1 {
 entry:
   %.pr = load i32, ptr @g_211, align 4, !tbaa !5
-  %0 = icmp eq i32 %.pr, -1
   store i32 -1, ptr @g_261, align 4, !tbaa !5
-  br i1 %0, label %if.else.preheader, label %for.end
+  %tobool1.not3 = icmp eq i32 %.pr, -1
+  br i1 %tobool1.not3, label %if.else.lr.ph, label %for.end
 
-if.else.preheader:                                ; preds = %entry
+if.else.lr.ph:                                    ; preds = %entry
   store i32 1, ptr @g_21, align 4, !tbaa !5
   br label %if.else
 
-if.else:                                          ; preds = %if.else.preheader, %if.else
+if.else:                                          ; preds = %if.else, %if.else.lr.ph
   br label %if.else
 
 for.end:                                          ; preds = %entry
