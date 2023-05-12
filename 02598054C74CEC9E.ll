@@ -537,8 +537,8 @@ if.end11:                                         ; preds = %while.cond
   %13 = load i32, ptr %cyclicBufferPos17, align 8, !tbaa !55
   %14 = load i32, ptr %hashNumAvail, align 8, !tbaa !49
   %spec.select = tail call i32 @llvm.umin.i32(i32 %11, i32 %14)
-  %sub24 = sub i32 %14, %spec.select
-  %add25 = add i32 %sub24, 1
+  %sub24 = add i32 %14, 1
+  %add25 = sub i32 %sub24, %spec.select
   %size.0 = tail call i32 @llvm.umin.i32(i32 %add25, i32 %sub14)
   %15 = load i32, ptr %cyclicBufferSize, align 4, !tbaa !56
   %sub29 = sub i32 %15, %13
@@ -974,7 +974,7 @@ if.then:                                          ; preds = %if.end.i, %if.end2.
   br label %if.end
 
 if.end:                                           ; preds = %if.end26.i, %entry, %if.then
-  %retval.0.i6 = phi i32 [ 12, %if.then ], [ 0, %entry ], [ 0, %if.end26.i ]
+  %retval.0.i6 = phi i32 [ 12, %if.then ], [ 0, %if.end26.i ], [ 0, %entry ]
   ret i32 %retval.0.i6
 }
 
@@ -1417,17 +1417,15 @@ vector.ph:                                        ; preds = %vector.memcheck
   %ind.end26 = getelementptr i8, ptr %distances, i64 %15
   %16 = shl nuw nsw i64 %n.vec, 3
   %ind.end28 = getelementptr i8, ptr %incdec.ptr, i64 %16
-  %invariant.gep = getelementptr i32, ptr %distances, i64 1
-  %invariant.gep39 = getelementptr i32, ptr %distances, i64 1
-  %invariant.gep41 = getelementptr i32, ptr %invariant.gep, i64 -1
-  %invariant.gep43 = getelementptr i32, ptr %invariant.gep39, i64 -1
   br label %vector.body
 
 vector.body:                                      ; preds = %vector.body, %vector.ph
   %index = phi i64 [ 0, %vector.ph ], [ %index.next, %vector.body ]
   %17 = shl i64 %index, 3
+  %next.gep = getelementptr i8, ptr %distances, i64 %17
   %18 = shl i64 %index, 3
   %19 = or i64 %18, 16
+  %next.gep30 = getelementptr i8, ptr %distances, i64 %19
   %20 = shl i64 %index, 3
   %next.gep31 = getelementptr i8, ptr %incdec.ptr, i64 %20
   %21 = shl i64 %index, 3
@@ -1435,10 +1433,8 @@ vector.body:                                      ; preds = %vector.body, %vecto
   %next.gep32 = getelementptr i8, ptr %incdec.ptr, i64 %22
   %wide.vec = load <4 x i32>, ptr %next.gep31, align 4, !tbaa !40
   %wide.vec33 = load <4 x i32>, ptr %next.gep32, align 4, !tbaa !40
-  %gep42 = getelementptr i8, ptr %invariant.gep41, i64 %17
-  %gep = getelementptr i8, ptr %invariant.gep43, i64 %19
-  store <4 x i32> %wide.vec, ptr %gep42, align 4, !tbaa !40
-  store <4 x i32> %wide.vec33, ptr %gep, align 4, !tbaa !40
+  store <4 x i32> %wide.vec, ptr %next.gep, align 4, !tbaa !40
+  store <4 x i32> %wide.vec33, ptr %next.gep30, align 4, !tbaa !40
   %index.next = add nuw i64 %index, 4
   %23 = icmp eq i64 %index.next, %n.vec
   br i1 %23, label %middle.block, label %vector.body, !llvm.loop !78
@@ -1530,7 +1526,7 @@ if.else:                                          ; preds = %entry
   %9 = load ptr, ptr %MixMatchesFunc8, align 8, !tbaa !82
   %lzPos9 = getelementptr inbounds %struct._CMatchFinderMt, ptr %p, i64 0, i32 4
   %10 = load i32, ptr %lzPos9, align 8, !tbaa !69
-  %arrayidx = getelementptr inbounds i32, ptr %incdec.ptr, i64 1
+  %arrayidx = getelementptr inbounds i32, ptr %add.ptr, i64 2
   %11 = load i32, ptr %arrayidx, align 4, !tbaa !40
   %sub10 = sub i32 %10, %11
   %call11 = tail call ptr %9(ptr noundef nonnull %p, i32 noundef %sub10, ptr noundef %distances) #10

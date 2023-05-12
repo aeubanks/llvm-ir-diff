@@ -8549,9 +8549,9 @@ for.cond1.preheader.i1669:                        ; preds = %for.end69.5.i1667, 
   %sub.i = fsub double %conv.i, %conv10.i
   %3002 = call double @llvm.fabs.f64(double %sub.i)
   %cmp11.i = fcmp ule double %3002, 1.000000e-05
-  br i1 %cmp11.i, label %for.inc.i, label %if.then.i
+  br i1 %cmp11.i, label %for.inc.i, label %check_FP.exit.thread
 
-if.then.i:                                        ; preds = %for.inc.4.i, %for.inc.3.i, %for.inc.2.i, %for.inc.1.i, %for.inc.i, %for.cond1.preheader.i1669
+check_FP.exit.thread:                             ; preds = %for.cond1.preheader.i1669, %for.inc.i, %for.inc.1.i, %for.inc.2.i, %for.inc.3.i, %for.inc.4.i
   %j.037.lcssa.wide.i = phi i32 [ 0, %for.cond1.preheader.i1669 ], [ 1, %for.inc.i ], [ 2, %for.inc.1.i ], [ 3, %for.inc.2.i ], [ 4, %for.inc.3.i ], [ 5, %for.inc.4.i ]
   %conv.lcssa.i = phi double [ %conv.i, %for.cond1.preheader.i1669 ], [ %conv.1.i, %for.inc.i ], [ %conv.2.i, %for.inc.1.i ], [ %conv.3.i, %for.inc.2.i ], [ %conv.4.i, %for.inc.3.i ], [ %conv.5.i, %for.inc.4.i ]
   %conv10.lcssa.i = phi double [ %conv10.i, %for.cond1.preheader.i1669 ], [ %conv10.1.i, %for.inc.i ], [ %conv10.2.i, %for.inc.1.i ], [ %conv10.3.i, %for.inc.2.i ], [ %conv10.4.i, %for.inc.3.i ], [ %conv10.5.i, %for.inc.4.i ]
@@ -8570,7 +8570,7 @@ for.inc.i:                                        ; preds = %for.cond1.preheader
   %sub.1.i = fsub double %conv.1.i, %conv10.1.i
   %3007 = call double @llvm.fabs.f64(double %sub.1.i)
   %cmp11.1.i = fcmp ule double %3007, 1.000000e-05
-  br i1 %cmp11.1.i, label %for.inc.1.i, label %if.then.i
+  br i1 %cmp11.1.i, label %for.inc.1.i, label %check_FP.exit.thread
 
 for.inc.1.i:                                      ; preds = %for.inc.i
   %arrayidx5.2.i = getelementptr inbounds [6 x i32], ptr %6, i64 %indvars.iv.i1668, i64 2
@@ -8582,7 +8582,7 @@ for.inc.1.i:                                      ; preds = %for.inc.i
   %sub.2.i = fsub double %conv.2.i, %conv10.2.i
   %3010 = call double @llvm.fabs.f64(double %sub.2.i)
   %cmp11.2.i = fcmp ule double %3010, 1.000000e-05
-  br i1 %cmp11.2.i, label %for.inc.2.i, label %if.then.i
+  br i1 %cmp11.2.i, label %for.inc.2.i, label %check_FP.exit.thread
 
 for.inc.2.i:                                      ; preds = %for.inc.1.i
   %arrayidx5.3.i = getelementptr inbounds [6 x i32], ptr %6, i64 %indvars.iv.i1668, i64 3
@@ -8594,7 +8594,7 @@ for.inc.2.i:                                      ; preds = %for.inc.1.i
   %sub.3.i = fsub double %conv.3.i, %conv10.3.i
   %3013 = call double @llvm.fabs.f64(double %sub.3.i)
   %cmp11.3.i = fcmp ule double %3013, 1.000000e-05
-  br i1 %cmp11.3.i, label %for.inc.3.i, label %if.then.i
+  br i1 %cmp11.3.i, label %for.inc.3.i, label %check_FP.exit.thread
 
 for.inc.3.i:                                      ; preds = %for.inc.2.i
   %arrayidx5.4.i = getelementptr inbounds [6 x i32], ptr %6, i64 %indvars.iv.i1668, i64 4
@@ -8606,7 +8606,7 @@ for.inc.3.i:                                      ; preds = %for.inc.2.i
   %sub.4.i = fsub double %conv.4.i, %conv10.4.i
   %3016 = call double @llvm.fabs.f64(double %sub.4.i)
   %cmp11.4.i = fcmp ule double %3016, 1.000000e-05
-  br i1 %cmp11.4.i, label %for.inc.4.i, label %if.then.i
+  br i1 %cmp11.4.i, label %for.inc.4.i, label %check_FP.exit.thread
 
 for.inc.4.i:                                      ; preds = %for.inc.3.i
   %arrayidx5.5.i = getelementptr inbounds [6 x i32], ptr %6, i64 %indvars.iv.i1668, i64 5
@@ -8618,15 +8618,15 @@ for.inc.4.i:                                      ; preds = %for.inc.3.i
   %sub.5.i = fsub double %conv.5.i, %conv10.5.i
   %3019 = call double @llvm.fabs.f64(double %sub.5.i)
   %cmp11.5.i = fcmp ule double %3019, 1.000000e-05
-  br i1 %cmp11.5.i, label %for.inc.5.i, label %if.then.i
+  br i1 %cmp11.5.i, label %for.inc.5.i, label %check_FP.exit.thread
 
 for.inc.5.i:                                      ; preds = %for.inc.4.i
   %indvars.iv.next.i1670 = add nuw nsw i64 %indvars.iv.i1668, 1
   %exitcond.not.i1671 = icmp eq i64 %indvars.iv.next.i1670, 6
   br i1 %exitcond.not.i1671, label %for.cond1.preheader.i1675, label %for.cond1.preheader.i1669, !llvm.loop !18
 
-for.cond1.preheader.i1675:                        ; preds = %for.inc.5.i, %for.inc.5.i1689
-  %indvars.iv.i1672 = phi i64 [ %indvars.iv.next.i1687, %for.inc.5.i1689 ], [ 0, %for.inc.5.i ]
+for.cond1.preheader.i1675:                        ; preds = %for.inc.5.i, %for.inc.5.i1684
+  %indvars.iv.i1672 = phi i64 [ %indvars.iv.next.i1682, %for.inc.5.i1684 ], [ 0, %for.inc.5.i ]
   %3020 = load ptr, ptr @stderr, align 8, !tbaa !9
   %arrayidx5.i1673 = getelementptr inbounds [6 x i32], ptr %9, i64 %indvars.iv.i1672, i64 0
   %3021 = load i32, ptr %arrayidx5.i1673, align 4, !tbaa !11
@@ -8635,96 +8635,63 @@ for.cond1.preheader.i1675:                        ; preds = %for.inc.5.i, %for.i
   %3023 = mul i32 %3022, 6
   %rem.i = urem i32 %3023, 20
   %cmp6.i = icmp eq i32 %rem.i, 0
-  br i1 %cmp6.i, label %if.then.i1676, label %for.inc.i1678
+  br i1 %cmp6.i, label %if.then.i1676, label %for.inc.1.i1678
 
 if.then.i1676:                                    ; preds = %for.cond1.preheader.i1675
   %3024 = load ptr, ptr @stderr, align 8, !tbaa !9
   %fputc20.i = call i32 @fputc(i32 10, ptr %3024)
-  br label %for.inc.i1678
+  br label %for.inc.1.i1678
 
-for.inc.i1678:                                    ; preds = %if.then.i1676, %for.cond1.preheader.i1675
+for.inc.1.i1678:                                  ; preds = %if.then.i1676, %for.cond1.preheader.i1675
   %3025 = load ptr, ptr @stderr, align 8, !tbaa !9
   %arrayidx5.1.i1677 = getelementptr inbounds [6 x i32], ptr %9, i64 %indvars.iv.i1672, i64 1
   %3026 = load i32, ptr %arrayidx5.1.i1677, align 4, !tbaa !11
   %call.1.i = call i32 (ptr, ptr, ...) @fprintf(ptr noundef %3025, ptr noundef nonnull @.str.3, i32 noundef %3026) #12
-  %3027 = or i32 %3023, 1
-  %rem.1.i = urem i32 %3027, 20
-  %cmp6.1.i = icmp eq i32 %rem.1.i, 0
-  br i1 %cmp6.1.i, label %if.then.1.i, label %for.inc.1.i1680
-
-if.then.1.i:                                      ; preds = %for.inc.i1678
-  %3028 = load ptr, ptr @stderr, align 8, !tbaa !9
-  %fputc20.1.i = call i32 @fputc(i32 10, ptr %3028)
-  br label %for.inc.1.i1680
-
-for.inc.1.i1680:                                  ; preds = %if.then.1.i, %for.inc.i1678
-  %3029 = load ptr, ptr @stderr, align 8, !tbaa !9
-  %arrayidx5.2.i1679 = getelementptr inbounds [6 x i32], ptr %9, i64 %indvars.iv.i1672, i64 2
-  %3030 = load i32, ptr %arrayidx5.2.i1679, align 4, !tbaa !11
-  %call.2.i = call i32 (ptr, ptr, ...) @fprintf(ptr noundef %3029, ptr noundef nonnull @.str.3, i32 noundef %3030) #12
-  %3031 = add i32 %3023, 2
-  %rem.2.i = urem i32 %3031, 20
+  %arrayidx5.2.phi.trans.insert.i = getelementptr inbounds [6 x i32], ptr %9, i64 %indvars.iv.i1672, i64 2
+  %.pre27.i = load i32, ptr %arrayidx5.2.phi.trans.insert.i, align 4, !tbaa !11
+  %.pre.i = load ptr, ptr @stderr, align 8, !tbaa !9
+  %call.2.i = call i32 (ptr, ptr, ...) @fprintf(ptr noundef %.pre.i, ptr noundef nonnull @.str.3, i32 noundef %.pre27.i) #12
+  %3027 = add i32 %3023, 2
+  %rem.2.i = urem i32 %3027, 20
   %cmp6.2.i = icmp eq i32 %rem.2.i, 0
-  br i1 %cmp6.2.i, label %if.then.2.i, label %for.inc.2.i1682
+  br i1 %cmp6.2.i, label %if.then.2.i, label %for.inc.3.i1680
 
-if.then.2.i:                                      ; preds = %for.inc.1.i1680
-  %3032 = load ptr, ptr @stderr, align 8, !tbaa !9
-  %fputc20.2.i = call i32 @fputc(i32 10, ptr %3032)
-  br label %for.inc.2.i1682
+if.then.2.i:                                      ; preds = %for.inc.1.i1678
+  %3028 = load ptr, ptr @stderr, align 8, !tbaa !9
+  %fputc20.2.i = call i32 @fputc(i32 10, ptr %3028)
+  br label %for.inc.3.i1680
 
-for.inc.2.i1682:                                  ; preds = %if.then.2.i, %for.inc.1.i1680
-  %3033 = load ptr, ptr @stderr, align 8, !tbaa !9
-  %arrayidx5.3.i1681 = getelementptr inbounds [6 x i32], ptr %9, i64 %indvars.iv.i1672, i64 3
-  %3034 = load i32, ptr %arrayidx5.3.i1681, align 4, !tbaa !11
-  %call.3.i = call i32 (ptr, ptr, ...) @fprintf(ptr noundef %3033, ptr noundef nonnull @.str.3, i32 noundef %3034) #12
-  %3035 = add i32 %3023, 3
-  %rem.3.i = urem i32 %3035, 20
-  %cmp6.3.i = icmp eq i32 %rem.3.i, 0
-  br i1 %cmp6.3.i, label %if.then.3.i, label %for.inc.3.i1684
-
-if.then.3.i:                                      ; preds = %for.inc.2.i1682
-  %3036 = load ptr, ptr @stderr, align 8, !tbaa !9
-  %fputc20.3.i = call i32 @fputc(i32 10, ptr %3036)
-  br label %for.inc.3.i1684
-
-for.inc.3.i1684:                                  ; preds = %if.then.3.i, %for.inc.2.i1682
-  %3037 = load ptr, ptr @stderr, align 8, !tbaa !9
-  %arrayidx5.4.i1683 = getelementptr inbounds [6 x i32], ptr %9, i64 %indvars.iv.i1672, i64 4
-  %3038 = load i32, ptr %arrayidx5.4.i1683, align 4, !tbaa !11
-  %call.4.i = call i32 (ptr, ptr, ...) @fprintf(ptr noundef %3037, ptr noundef nonnull @.str.3, i32 noundef %3038) #12
-  %3039 = add i32 %3023, 4
-  %rem.4.i = urem i32 %3039, 20
+for.inc.3.i1680:                                  ; preds = %if.then.2.i, %for.inc.1.i1678
+  %3029 = load ptr, ptr @stderr, align 8, !tbaa !9
+  %arrayidx5.3.i1679 = getelementptr inbounds [6 x i32], ptr %9, i64 %indvars.iv.i1672, i64 3
+  %3030 = load i32, ptr %arrayidx5.3.i1679, align 4, !tbaa !11
+  %call.3.i = call i32 (ptr, ptr, ...) @fprintf(ptr noundef %3029, ptr noundef nonnull @.str.3, i32 noundef %3030) #12
+  %arrayidx5.4.phi.trans.insert.i = getelementptr inbounds [6 x i32], ptr %9, i64 %indvars.iv.i1672, i64 4
+  %.pre29.i = load i32, ptr %arrayidx5.4.phi.trans.insert.i, align 4, !tbaa !11
+  %.pre28.i = load ptr, ptr @stderr, align 8, !tbaa !9
+  %call.4.i = call i32 (ptr, ptr, ...) @fprintf(ptr noundef %.pre28.i, ptr noundef nonnull @.str.3, i32 noundef %.pre29.i) #12
+  %3031 = add i32 %3023, 4
+  %rem.4.i = urem i32 %3031, 20
   %cmp6.4.i = icmp eq i32 %rem.4.i, 0
-  br i1 %cmp6.4.i, label %if.then.4.i, label %for.inc.4.i1686
+  br i1 %cmp6.4.i, label %if.then.4.i, label %for.inc.5.i1684
 
-if.then.4.i:                                      ; preds = %for.inc.3.i1684
-  %3040 = load ptr, ptr @stderr, align 8, !tbaa !9
-  %fputc20.4.i = call i32 @fputc(i32 10, ptr %3040)
-  br label %for.inc.4.i1686
+if.then.4.i:                                      ; preds = %for.inc.3.i1680
+  %3032 = load ptr, ptr @stderr, align 8, !tbaa !9
+  %fputc20.4.i = call i32 @fputc(i32 10, ptr %3032)
+  br label %for.inc.5.i1684
 
-for.inc.4.i1686:                                  ; preds = %if.then.4.i, %for.inc.3.i1684
-  %3041 = load ptr, ptr @stderr, align 8, !tbaa !9
-  %arrayidx5.5.i1685 = getelementptr inbounds [6 x i32], ptr %9, i64 %indvars.iv.i1672, i64 5
-  %3042 = load i32, ptr %arrayidx5.5.i1685, align 4, !tbaa !11
-  %call.5.i = call i32 (ptr, ptr, ...) @fprintf(ptr noundef %3041, ptr noundef nonnull @.str.3, i32 noundef %3042) #12
-  %3043 = add i32 %3023, 5
-  %rem.5.i = urem i32 %3043, 20
-  %cmp6.5.i = icmp eq i32 %rem.5.i, 0
-  br i1 %cmp6.5.i, label %if.then.5.i, label %for.inc.5.i1689
+for.inc.5.i1684:                                  ; preds = %if.then.4.i, %for.inc.3.i1680
+  %3033 = load ptr, ptr @stderr, align 8, !tbaa !9
+  %arrayidx5.5.i1681 = getelementptr inbounds [6 x i32], ptr %9, i64 %indvars.iv.i1672, i64 5
+  %3034 = load i32, ptr %arrayidx5.5.i1681, align 4, !tbaa !11
+  %call.5.i = call i32 (ptr, ptr, ...) @fprintf(ptr noundef %3033, ptr noundef nonnull @.str.3, i32 noundef %3034) #12
+  %indvars.iv.next.i1682 = add nuw nsw i64 %indvars.iv.i1672, 1
+  %exitcond.not.i1683 = icmp eq i64 %indvars.iv.next.i1682, 6
+  br i1 %exitcond.not.i1683, label %print_array.exit, label %for.cond1.preheader.i1675, !llvm.loop !19
 
-if.then.5.i:                                      ; preds = %for.inc.4.i1686
-  %3044 = load ptr, ptr @stderr, align 8, !tbaa !9
-  %fputc20.5.i = call i32 @fputc(i32 10, ptr %3044)
-  br label %for.inc.5.i1689
-
-for.inc.5.i1689:                                  ; preds = %if.then.5.i, %for.inc.4.i1686
-  %indvars.iv.next.i1687 = add nuw nsw i64 %indvars.iv.i1672, 1
-  %exitcond.not.i1688 = icmp eq i64 %indvars.iv.next.i1687, 6
-  br i1 %exitcond.not.i1688, label %print_array.exit, label %for.cond1.preheader.i1675, !llvm.loop !19
-
-print_array.exit:                                 ; preds = %for.inc.5.i1689
-  %3045 = load ptr, ptr @stderr, align 8, !tbaa !9
-  %fputc.i = call i32 @fputc(i32 10, ptr %3045)
+print_array.exit:                                 ; preds = %for.inc.5.i1684
+  %3035 = load ptr, ptr @stderr, align 8, !tbaa !9
+  %fputc.i = call i32 @fputc(i32 10, ptr %3035)
   call void @free(ptr noundef %0) #11
   call void @free(ptr noundef %3) #11
   call void @free(ptr noundef %6) #11
@@ -8733,8 +8700,8 @@ print_array.exit:                                 ; preds = %for.inc.5.i1689
   call void @free(ptr noundef %15) #11
   br label %cleanup
 
-cleanup:                                          ; preds = %print_array.exit, %if.then.i
-  %retval.0 = phi i32 [ 0, %print_array.exit ], [ 1, %if.then.i ]
+cleanup:                                          ; preds = %check_FP.exit.thread, %print_array.exit
+  %retval.0 = phi i32 [ 0, %print_array.exit ], [ 1, %check_FP.exit.thread ]
   ret i32 %retval.0
 }
 

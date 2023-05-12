@@ -37,8 +37,8 @@ if.then73.i:                                      ; preds = %entry
 if.end77.i:                                       ; preds = %if.then73.i, %entry
   %V0.1.i = phi <4 x float> [ %3, %if.then73.i ], [ %0, %entry ]
   %V7.1.i = phi <4 x float> [ %5, %if.then73.i ], [ <float 0.000000e+00, float 1.000000e+00, float 2.000000e+00, float 3.000000e+00>, %entry ]
+  %add.ptr79.i = getelementptr inbounds [20 x float], ptr %x, i64 0, i64 12
   %V1.0.i16 = load <4 x i32>, ptr %arrayidx.8, align 16, !tbaa !9
-  %xp.0.i = getelementptr inbounds [20 x float], ptr %x, i64 0, i64 12
   %and.i236.i.1 = and <4 x i32> %V1.0.i16, <i32 2147483647, i32 2147483647, i32 2147483647, i32 2147483647>
   %6 = bitcast <4 x i32> %and.i236.i.1 to <4 x float>
   %7 = fcmp ult <4 x float> %V0.1.i, %6
@@ -55,8 +55,8 @@ if.then73.i.1:                                    ; preds = %if.end77.i
 if.end77.i.1:                                     ; preds = %if.then73.i.1, %if.end77.i
   %V0.1.i.1 = phi <4 x float> [ %9, %if.then73.i.1 ], [ %V0.1.i, %if.end77.i ]
   %V7.1.i.1 = phi <4 x float> [ %11, %if.then73.i.1 ], [ %V7.1.i, %if.end77.i ]
-  %V1.0.i.117 = load <4 x i32>, ptr %xp.0.i, align 16, !tbaa !9
-  %xp.0.i.1 = getelementptr inbounds [20 x float], ptr %x, i64 0, i64 16
+  %add.ptr79.i.1 = getelementptr inbounds [20 x float], ptr %x, i64 0, i64 16
+  %V1.0.i.117 = load <4 x i32>, ptr %add.ptr79.i, align 16, !tbaa !9
   %and.i236.i.2 = and <4 x i32> %V1.0.i.117, <i32 2147483647, i32 2147483647, i32 2147483647, i32 2147483647>
   %12 = bitcast <4 x i32> %and.i236.i.2 to <4 x float>
   %13 = fcmp ult <4 x float> %V0.1.i.1, %12
@@ -73,21 +73,21 @@ if.then73.i.2:                                    ; preds = %if.end77.i.1
 if.end77.i.2:                                     ; preds = %if.then73.i.2, %if.end77.i.1
   %V0.1.i.2 = phi <4 x float> [ %15, %if.then73.i.2 ], [ %V0.1.i.1, %if.end77.i.1 ]
   %V7.1.i.2 = phi <4 x float> [ %17, %if.then73.i.2 ], [ %V7.1.i.1, %if.end77.i.1 ]
-  %V1.0.i.218 = load <4 x i32>, ptr %xp.0.i.1, align 16, !tbaa !9
+  %V1.0.i.218 = load <4 x i32>, ptr %add.ptr79.i.1, align 16, !tbaa !9
   %and.i238.i = and <4 x i32> %V1.0.i.218, <i32 2147483647, i32 2147483647, i32 2147483647, i32 2147483647>
   %18 = bitcast <4 x i32> %and.i238.i to <4 x float>
   %19 = fcmp ult <4 x float> %V0.1.i.2, %18
   %20 = bitcast <4 x i1> %19 to i4
   %cmp87.not.i = icmp eq i4 %20, 0
-  br i1 %cmp87.not.i, label %if.end113.i, label %if.then89.i
+  br i1 %cmp87.not.i, label %if.end93.i, label %if.then89.i
 
 if.then89.i:                                      ; preds = %if.end77.i.2
   %21 = tail call <4 x float> @llvm.x86.sse.max.ps(<4 x float> %V0.1.i.2, <4 x float> %18)
   %22 = select <4 x i1> %19, <4 x float> <float 1.600000e+01, float 1.700000e+01, float 1.800000e+01, float 1.900000e+01>, <4 x float> zeroinitializer
   %23 = tail call <4 x float> @llvm.x86.sse.max.ps(<4 x float> %V7.1.i.2, <4 x float> %22)
-  br label %if.end113.i
+  br label %if.end93.i
 
-if.end113.i:                                      ; preds = %if.end77.i.2, %if.then89.i
+if.end93.i:                                       ; preds = %if.then89.i, %if.end77.i.2
   %V0.2.i = phi <4 x float> [ %21, %if.then89.i ], [ %V0.1.i.2, %if.end77.i.2 ]
   %V7.2.i = phi <4 x float> [ %23, %if.then89.i ], [ %V7.1.i.2, %if.end77.i.2 ]
   %xbig.i.sroa.0.0.vec.extract = extractelement <4 x float> %V0.2.i, i64 0
@@ -137,40 +137,40 @@ entry:
   br i1 %cmp, label %for.cond.preheader, label %if.end10
 
 for.cond.preheader:                               ; preds = %entry
-  %cmp1265 = icmp sgt i32 %n, 0
-  br i1 %cmp1265, label %for.body.preheader, label %cleanup
+  %cmp1264 = icmp sgt i32 %n, 0
+  br i1 %cmp1264, label %for.body.preheader, label %cleanup
 
 for.body.preheader:                               ; preds = %for.cond.preheader
-  %wide.trip.count285 = zext i32 %n to i64
-  %xtraiter = and i64 %wide.trip.count285, 1
+  %wide.trip.count283 = zext i32 %n to i64
+  %xtraiter = and i64 %wide.trip.count283, 1
   %0 = icmp eq i32 %n, 1
   br i1 %0, label %cleanup.loopexit.unr-lcssa, label %for.body.preheader.new
 
 for.body.preheader.new:                           ; preds = %for.body.preheader
-  %unroll_iter = and i64 %wide.trip.count285, 4294967294
+  %unroll_iter = and i64 %wide.trip.count283, 4294967294
   br label %for.body
 
 for.body:                                         ; preds = %for.body, %for.body.preheader.new
-  %indvars.iv282 = phi i64 [ 0, %for.body.preheader.new ], [ %indvars.iv.next283.1, %for.body ]
-  %bbig.0268 = phi float [ 0.000000e+00, %for.body.preheader.new ], [ %bbig.1.1, %for.body ]
-  %iebig.0267 = phi i32 [ 0, %for.body.preheader.new ], [ %iebig.1.1, %for.body ]
+  %indvars.iv280 = phi i64 [ 0, %for.body.preheader.new ], [ %indvars.iv.next281.1, %for.body ]
+  %bbig.0267 = phi float [ 0.000000e+00, %for.body.preheader.new ], [ %bbig.1.1, %for.body ]
+  %iebig.0266 = phi i32 [ 0, %for.body.preheader.new ], [ %iebig.1.1, %for.body ]
   %niter = phi i64 [ 0, %for.body.preheader.new ], [ %niter.next.1, %for.body ]
-  %arrayidx = getelementptr inbounds float, ptr %x, i64 %indvars.iv282
+  %arrayidx = getelementptr inbounds float, ptr %x, i64 %indvars.iv280
   %1 = load float, ptr %arrayidx, align 4, !tbaa !5
   %2 = tail call float @llvm.fabs.f32(float %1)
-  %cmp3 = fcmp ogt float %2, %bbig.0268
-  %3 = trunc i64 %indvars.iv282 to i32
-  %iebig.1 = select i1 %cmp3, i32 %3, i32 %iebig.0267
-  %bbig.1 = select i1 %cmp3, float %2, float %bbig.0268
-  %indvars.iv.next283 = or i64 %indvars.iv282, 1
-  %arrayidx.1 = getelementptr inbounds float, ptr %x, i64 %indvars.iv.next283
+  %cmp3 = fcmp ogt float %2, %bbig.0267
+  %3 = trunc i64 %indvars.iv280 to i32
+  %iebig.1 = select i1 %cmp3, i32 %3, i32 %iebig.0266
+  %bbig.1 = select i1 %cmp3, float %2, float %bbig.0267
+  %indvars.iv.next281 = or i64 %indvars.iv280, 1
+  %arrayidx.1 = getelementptr inbounds float, ptr %x, i64 %indvars.iv.next281
   %4 = load float, ptr %arrayidx.1, align 4, !tbaa !5
   %5 = tail call float @llvm.fabs.f32(float %4)
   %cmp3.1 = fcmp ogt float %5, %bbig.1
-  %6 = trunc i64 %indvars.iv.next283 to i32
+  %6 = trunc i64 %indvars.iv.next281 to i32
   %iebig.1.1 = select i1 %cmp3.1, i32 %6, i32 %iebig.1
   %bbig.1.1 = select i1 %cmp3.1, float %5, float %bbig.1
-  %indvars.iv.next283.1 = add nuw nsw i64 %indvars.iv282, 2
+  %indvars.iv.next281.1 = add nuw nsw i64 %indvars.iv280, 2
   %niter.next.1 = add i64 %niter, 2
   %niter.ncmp.1 = icmp eq i64 %niter.next.1, %unroll_iter
   br i1 %niter.ncmp.1, label %cleanup.loopexit.unr-lcssa, label %for.body, !llvm.loop !10
@@ -232,12 +232,12 @@ if.end53:                                         ; preds = %if.then16, %if.end1
   %sub57 = and i32 %nn.0, 3
   %add.ptr.val241 = load <4 x i32>, ptr %add.ptr, align 16, !tbaa !9
   %add.ptr59 = getelementptr inbounds float, ptr %add.ptr, i64 4
+  %add.ptr61 = getelementptr inbounds float, ptr %add.ptr, i64 8
   %and.i = and <4 x i32> %add.ptr.val241, <i32 2147483647, i32 2147483647, i32 2147483647, i32 2147483647>
   %21 = bitcast <4 x i32> %and.i to <4 x float>
   %V1.0246 = load <4 x float>, ptr %add.ptr59, align 16, !tbaa !9
-  %xp.0247 = getelementptr inbounds float, ptr %add.ptr59, i64 4
-  %cmp64248 = icmp ugt i32 %nn.0, 11
-  br i1 %cmp64248, label %for.body66.preheader, label %for.end82
+  %cmp64247 = icmp ugt i32 %nn.0, 11
+  br i1 %cmp64247, label %for.body66.preheader, label %for.end82
 
 for.body66.preheader:                             ; preds = %if.end53
   %shr55 = lshr i32 %nn.0, 2
@@ -245,12 +245,12 @@ for.body66.preheader:                             ; preds = %if.end53
   br label %for.body66
 
 for.body66:                                       ; preds = %for.body66.preheader, %if.end77
-  %xp.0254 = phi ptr [ %xp.0, %if.end77 ], [ %xp.0247, %for.body66.preheader ]
   %V1.0253 = phi <4 x float> [ %V1.0, %if.end77 ], [ %V1.0246, %for.body66.preheader ]
   %V7.0252 = phi <4 x float> [ %V7.1, %if.end77 ], [ <float 0.000000e+00, float 1.000000e+00, float 2.000000e+00, float 3.000000e+00>, %for.body66.preheader ]
   %V2.0251 = phi <4 x float> [ %add.i, %if.end77 ], [ <float 0.000000e+00, float 1.000000e+00, float 2.000000e+00, float 3.000000e+00>, %for.body66.preheader ]
   %V0.0250 = phi <4 x float> [ %V0.1, %if.end77 ], [ %21, %for.body66.preheader ]
   %i.2249 = phi i32 [ %inc81, %if.end77 ], [ 0, %for.body66.preheader ]
+  %xp.0248 = phi ptr [ %add.ptr79, %if.end77 ], [ %add.ptr61, %for.body66.preheader ]
   %23 = bitcast <4 x float> %V1.0253 to <4 x i32>
   %and.i236 = and <4 x i32> %23, <i32 2147483647, i32 2147483647, i32 2147483647, i32 2147483647>
   %24 = bitcast <4 x i32> %and.i236 to <4 x float>
@@ -269,9 +269,9 @@ if.then73:                                        ; preds = %for.body66
 if.end77:                                         ; preds = %if.then73, %for.body66
   %V0.1 = phi <4 x float> [ %27, %if.then73 ], [ %V0.0250, %for.body66 ]
   %V7.1 = phi <4 x float> [ %29, %if.then73 ], [ %V7.0252, %for.body66 ]
+  %add.ptr79 = getelementptr inbounds float, ptr %xp.0248, i64 4
   %inc81 = add nuw nsw i32 %i.2249, 1
-  %V1.0 = load <4 x float>, ptr %xp.0254, align 16, !tbaa !9
-  %xp.0 = getelementptr inbounds float, ptr %xp.0254, i64 4
+  %V1.0 = load <4 x float>, ptr %xp.0248, align 16, !tbaa !9
   %exitcond.not = icmp eq i32 %i.2249, %22
   br i1 %exitcond.not, label %for.end82.loopexit, label %for.body66, !llvm.loop !12
 
@@ -280,11 +280,11 @@ for.end82.loopexit:                               ; preds = %if.end77
   br label %for.end82
 
 for.end82:                                        ; preds = %for.end82.loopexit, %if.end53
+  %xp.0.lcssa = phi ptr [ %add.ptr61, %if.end53 ], [ %add.ptr79, %for.end82.loopexit ]
   %V0.0.lcssa = phi <4 x float> [ %21, %if.end53 ], [ %V0.1, %for.end82.loopexit ]
   %V2.0.lcssa = phi <4 x float> [ <float 4.000000e+00, float 5.000000e+00, float 6.000000e+00, float 7.000000e+00>, %if.end53 ], [ %30, %for.end82.loopexit ]
   %V7.0.lcssa = phi <4 x float> [ <float 0.000000e+00, float 1.000000e+00, float 2.000000e+00, float 3.000000e+00>, %if.end53 ], [ %V7.1, %for.end82.loopexit ]
   %V1.0.lcssa = phi <4 x float> [ %V1.0246, %if.end53 ], [ %V1.0, %for.end82.loopexit ]
-  %xp.0.lcssa = phi ptr [ %xp.0247, %if.end53 ], [ %xp.0, %for.end82.loopexit ]
   %31 = bitcast <4 x float> %V1.0.lcssa to <4 x i32>
   %and.i238 = and <4 x i32> %31, <i32 2147483647, i32 2147483647, i32 2147483647, i32 2147483647>
   %32 = bitcast <4 x i32> %and.i238 to <4 x float>
@@ -302,15 +302,15 @@ if.then89:                                        ; preds = %for.end82
 if.end93:                                         ; preds = %if.then89, %for.end82
   %V0.2 = phi <4 x float> [ %35, %if.then89 ], [ %V0.0.lcssa, %for.end82 ]
   %V7.2 = phi <4 x float> [ %37, %if.then89 ], [ %V7.0.lcssa, %for.end82 ]
-  %cmp99259.not = icmp eq i32 %sub57, 0
-  br i1 %cmp99259.not, label %if.end113, label %for.body101
+  %cmp99258.not = icmp eq i32 %sub57, 0
+  br i1 %cmp99258.not, label %if.end113, label %for.body101
 
 for.body101:                                      ; preds = %if.end93
   %38 = load float, ptr %xp.0.lcssa, align 4, !tbaa !5
   %39 = tail call float @llvm.fabs.f32(float %38)
   %conv106 = sitofp i32 %nn.0 to float
-  %exitcond276.not = icmp eq i32 %sub57, 1
-  br i1 %exitcond276.not, label %if.end113, label %for.body101.1, !llvm.loop !13
+  %exitcond274.not = icmp eq i32 %sub57, 1
+  br i1 %exitcond274.not, label %if.end113, label %for.body101.1, !llvm.loop !13
 
 for.body101.1:                                    ; preds = %for.body101
   %incdec.ptr = getelementptr inbounds float, ptr %xp.0.lcssa, i64 1
@@ -318,8 +318,8 @@ for.body101.1:                                    ; preds = %for.body101
   %41 = tail call float @llvm.fabs.f32(float %40)
   %add105.1 = add nsw i32 %nn.0, 1
   %conv106.1 = sitofp i32 %add105.1 to float
-  %exitcond276.not.1 = icmp eq i32 %sub57, 2
-  br i1 %exitcond276.not.1, label %if.end113, label %for.body101.2, !llvm.loop !13
+  %exitcond274.not.1 = icmp eq i32 %sub57, 2
+  br i1 %exitcond274.not.1, label %if.end113, label %for.body101.2, !llvm.loop !13
 
 for.body101.2:                                    ; preds = %for.body101.1
   %incdec.ptr.1 = getelementptr inbounds float, ptr %xp.0.lcssa, i64 2
@@ -365,8 +365,8 @@ if.end113:                                        ; preds = %for.body101, %for.b
   %conv129.3 = fptosi float %add128.3 to i32
   %iebig.3.3 = select i1 %cmp121.3, i32 %conv129.3, i32 %iebig.3.2
   %ebig.1.3 = select i1 %cmp121.3, float %xbig.sroa.0.12.vec.extract, float %ebig.1.2
-  %exitcond281.not.3 = icmp eq i32 %add115, 4
-  br i1 %exitcond281.not.3, label %cleanup, label %for.body118.4, !llvm.loop !14
+  %exitcond279.not.3 = icmp eq i32 %add115, 4
+  br i1 %exitcond279.not.3, label %cleanup, label %for.body118.4, !llvm.loop !14
 
 for.body118.4:                                    ; preds = %if.end113
   %cmp121.4 = fcmp ogt float %xbig.sroa.7.0, %ebig.1.3
@@ -374,8 +374,8 @@ for.body118.4:                                    ; preds = %if.end113
   %conv129.4 = fptosi float %add128.4 to i32
   %iebig.3.4 = select i1 %cmp121.4, i32 %conv129.4, i32 %iebig.3.3
   %ebig.1.4 = select i1 %cmp121.4, float %xbig.sroa.7.0, float %ebig.1.3
-  %exitcond281.not.4 = icmp eq i32 %add115, 5
-  br i1 %exitcond281.not.4, label %cleanup, label %for.body118.5, !llvm.loop !14
+  %exitcond279.not.4 = icmp eq i32 %add115, 5
+  br i1 %exitcond279.not.4, label %cleanup, label %for.body118.5, !llvm.loop !14
 
 for.body118.5:                                    ; preds = %for.body118.4
   %cmp121.5 = fcmp ogt float %xbig.sroa.9.1, %ebig.1.4
@@ -383,8 +383,8 @@ for.body118.5:                                    ; preds = %for.body118.4
   %conv129.5 = fptosi float %add128.5 to i32
   %iebig.3.5 = select i1 %cmp121.5, i32 %conv129.5, i32 %iebig.3.4
   %ebig.1.5 = select i1 %cmp121.5, float %xbig.sroa.9.1, float %ebig.1.4
-  %exitcond281.not.5 = icmp eq i32 %add115, 6
-  br i1 %exitcond281.not.5, label %cleanup, label %for.body118.6, !llvm.loop !14
+  %exitcond279.not.5 = icmp eq i32 %add115, 6
+  br i1 %exitcond279.not.5, label %cleanup, label %for.body118.6, !llvm.loop !14
 
 for.body118.6:                                    ; preds = %for.body118.5
   %cmp121.6 = fcmp ogt float %xbig.sroa.11.1, %ebig.1.5
@@ -395,19 +395,19 @@ for.body118.6:                                    ; preds = %for.body118.5
 
 cleanup.loopexit.unr-lcssa:                       ; preds = %for.body, %for.body.preheader
   %iebig.1.lcssa.ph = phi i32 [ undef, %for.body.preheader ], [ %iebig.1.1, %for.body ]
-  %indvars.iv282.unr = phi i64 [ 0, %for.body.preheader ], [ %indvars.iv.next283.1, %for.body ]
-  %bbig.0268.unr = phi float [ 0.000000e+00, %for.body.preheader ], [ %bbig.1.1, %for.body ]
-  %iebig.0267.unr = phi i32 [ 0, %for.body.preheader ], [ %iebig.1.1, %for.body ]
+  %indvars.iv280.unr = phi i64 [ 0, %for.body.preheader ], [ %indvars.iv.next281.1, %for.body ]
+  %bbig.0267.unr = phi float [ 0.000000e+00, %for.body.preheader ], [ %bbig.1.1, %for.body ]
+  %iebig.0266.unr = phi i32 [ 0, %for.body.preheader ], [ %iebig.1.1, %for.body ]
   %lcmp.mod.not = icmp eq i64 %xtraiter, 0
   br i1 %lcmp.mod.not, label %cleanup, label %for.body.epil
 
 for.body.epil:                                    ; preds = %cleanup.loopexit.unr-lcssa
-  %arrayidx.epil = getelementptr inbounds float, ptr %x, i64 %indvars.iv282.unr
+  %arrayidx.epil = getelementptr inbounds float, ptr %x, i64 %indvars.iv280.unr
   %44 = load float, ptr %arrayidx.epil, align 4, !tbaa !5
   %45 = tail call float @llvm.fabs.f32(float %44)
-  %cmp3.epil = fcmp ogt float %45, %bbig.0268.unr
-  %46 = trunc i64 %indvars.iv282.unr to i32
-  %iebig.1.epil = select i1 %cmp3.epil, i32 %46, i32 %iebig.0267.unr
+  %cmp3.epil = fcmp ogt float %45, %bbig.0267.unr
+  %46 = trunc i64 %indvars.iv280.unr to i32
+  %iebig.1.epil = select i1 %cmp3.epil, i32 %46, i32 %iebig.0266.unr
   br label %cleanup
 
 cleanup:                                          ; preds = %if.end113, %for.body118.4, %for.body118.5, %for.body118.6, %for.body.epil, %cleanup.loopexit.unr-lcssa, %for.cond.preheader

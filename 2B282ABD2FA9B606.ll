@@ -153,7 +153,7 @@ land.lhs.true73:                                  ; preds = %if.end
   %add = add nsw i32 %12, %11
   %cmp81.not = icmp sgt i32 %add, %1
   %cmp87.not = icmp sgt i32 %12, %2
-  %or.cond = select i1 %cmp81.not, i1 true, i1 %cmp87.not
+  %or.cond = or i1 %cmp87.not, %cmp81.not
   br i1 %or.cond, label %if.end89, label %cleanup1408
 
 if.end89:                                         ; preds = %land.lhs.true73, %if.end
@@ -546,7 +546,7 @@ cond.end592:                                      ; preds = %if.then535, %if.els
   %64 = load ptr, ptr @zz_tmp, align 8, !tbaa !13
   %osucc589 = getelementptr inbounds %struct.LIST, ptr %64, i64 0, i32 1
   store ptr %63, ptr %osucc589, align 8, !tbaa !12
-  %65 = load ptr, ptr @xx_link, align 8
+  %65 = load ptr, ptr @xx_link, align 8, !tbaa !13
   store ptr %65, ptr @zz_res, align 8, !tbaa !13
   store ptr %x, ptr @zz_hold, align 8, !tbaa !13
   %cmp598 = icmp eq ptr %65, null
@@ -1936,7 +1936,7 @@ for.end131:                                       ; preds = %for.cond120
   %16 = add i8 %15, -100
   %or.cond308 = icmp ult i8 %16, -91
   %cmp143 = icmp eq ptr %y.3, %m.addr.0
-  %or.cond309 = select i1 %or.cond308, i1 true, i1 %cmp143
+  %or.cond309 = or i1 %cmp143, %or.cond308
   br i1 %or.cond309, label %for.inc200, label %if.end146
 
 if.end146:                                        ; preds = %for.end131
@@ -2095,7 +2095,7 @@ land.lhs.true46:                                  ; preds = %if.then42
   %add = add nsw i32 %6, %7
   %cmp48.not = icmp sgt i32 %add, %.
   %cmp52.not = icmp sgt i32 %6, 8388607
-  %or.cond220 = or i1 %cmp48.not, %cmp52.not
+  %or.cond220 = or i1 %cmp52.not, %cmp48.not
   br i1 %or.cond220, label %if.then54, label %if.end55
 
 if.then54:                                        ; preds = %land.lhs.true46, %if.then42
@@ -2182,7 +2182,7 @@ land.lhs.true123:                                 ; preds = %if.then119
   %add124 = add nsw i32 %26, %25
   %cmp126.not = icmp sgt i32 %add124, %.
   %cmp130.not = icmp sgt i32 %26, 8388607
-  %or.cond222 = or i1 %cmp126.not, %cmp130.not
+  %or.cond222 = or i1 %cmp130.not, %cmp126.not
   br i1 %or.cond222, label %if.then132, label %if.end136
 
 if.then132:                                       ; preds = %land.lhs.true123, %if.then119

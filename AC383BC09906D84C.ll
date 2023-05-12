@@ -438,7 +438,7 @@ if.then116:                                       ; preds = %cond.end94.2
   %BiPredMotionEstimation = getelementptr inbounds %struct.InputParameters, ptr %39, i64 0, i32 46
   %40 = load i32, ptr %BiPredMotionEstimation, align 8, !tbaa !31
   %tobool122 = icmp ne i32 %40, 0
-  %or.cond896 = select i1 %tobool122, i1 %cmp70, i1 false
+  %or.cond896 = and i1 %cmp70, %tobool122
   br i1 %or.cond896, label %if.then126, label %if.else129
 
 if.then126:                                       ; preds = %if.then116
@@ -836,7 +836,7 @@ if.end358:                                        ; preds = %if.then357, %if.end
   %valid359 = getelementptr inbounds %struct.RD_PARAMS, ptr %enc_mb, i64 0, i32 3
   %141 = load i16, ptr %valid359, align 4, !tbaa !28
   %tobool362 = icmp ne i16 %141, 0
-  %or.cond899 = and i1 %tobool362, %cmp3
+  %or.cond899 = and i1 %cmp3, %tobool362
   br i1 %or.cond899, label %if.then366, label %if.end439
 
 if.then366:                                       ; preds = %if.end358
@@ -1229,7 +1229,7 @@ if.end546:                                        ; preds = %if.end539, %if.else
   %243 = load i16, ptr @best_mode, align 2, !tbaa !28
   %conv564 = sext i16 %243 to i32
   call void @SetModesAndRefframeForBlocks(i32 noundef %conv564) #7
-  %244 = load i16, ptr @best_mode, align 2, !tbaa !28
+  %244 = load i16, ptr @best_mode, align 2
   switch i16 %244, label %if.end642 [
     i16 8, label %if.then568
     i16 13, label %for.body609.preheader

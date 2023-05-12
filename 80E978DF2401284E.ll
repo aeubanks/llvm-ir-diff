@@ -94,49 +94,49 @@ define dso_local noundef i32 @_ZN20btPersistentManifold16sortCachedPointsERK15bt
 entry:
   %m_distance1.i = getelementptr inbounds %class.btManifoldPoint, ptr %pt, i64 0, i32 5
   %0 = load float, ptr %m_distance1.i, align 8, !tbaa !22
-  %m_distance1.i101 = getelementptr inbounds %class.btPersistentManifold, ptr %this, i64 0, i32 2, i64 0, i32 5
-  %1 = load float, ptr %m_distance1.i101, align 8, !tbaa !22
+  %m_distance1.i103 = getelementptr inbounds %class.btPersistentManifold, ptr %this, i64 0, i32 2, i64 0, i32 5
+  %1 = load float, ptr %m_distance1.i103, align 8, !tbaa !22
   %cmp3 = fcmp uge float %1, %0
   %maxPenetration.1 = select i1 %cmp3, float %0, float %1
   %maxPenetrationIndex.1 = sext i1 %cmp3 to i32
-  %m_distance1.i101.1 = getelementptr inbounds %class.btPersistentManifold, ptr %this, i64 0, i32 2, i64 1, i32 5
-  %2 = load float, ptr %m_distance1.i101.1, align 8, !tbaa !22
+  %m_distance1.i103.1 = getelementptr inbounds %class.btPersistentManifold, ptr %this, i64 0, i32 2, i64 1, i32 5
+  %2 = load float, ptr %m_distance1.i103.1, align 8, !tbaa !22
   %cmp3.1 = fcmp olt float %2, %maxPenetration.1
   %maxPenetration.1.1 = select i1 %cmp3.1, float %2, float %maxPenetration.1
   %maxPenetrationIndex.1.1 = select i1 %cmp3.1, i32 1, i32 %maxPenetrationIndex.1
-  %m_distance1.i101.2 = getelementptr inbounds %class.btPersistentManifold, ptr %this, i64 0, i32 2, i64 2, i32 5
-  %3 = load float, ptr %m_distance1.i101.2, align 8, !tbaa !22
+  %m_distance1.i103.2 = getelementptr inbounds %class.btPersistentManifold, ptr %this, i64 0, i32 2, i64 2, i32 5
+  %3 = load float, ptr %m_distance1.i103.2, align 8, !tbaa !22
   %cmp3.2 = fcmp olt float %3, %maxPenetration.1.1
   %maxPenetration.1.2 = select i1 %cmp3.2, float %3, float %maxPenetration.1.1
   %maxPenetrationIndex.1.2 = select i1 %cmp3.2, i32 2, i32 %maxPenetrationIndex.1.1
-  %m_distance1.i101.3 = getelementptr inbounds %class.btPersistentManifold, ptr %this, i64 0, i32 2, i64 3, i32 5
-  %4 = load float, ptr %m_distance1.i101.3, align 8, !tbaa !22
+  %m_distance1.i103.3 = getelementptr inbounds %class.btPersistentManifold, ptr %this, i64 0, i32 2, i64 3, i32 5
+  %4 = load float, ptr %m_distance1.i103.3, align 8, !tbaa !22
   %cmp3.3 = fcmp uge float %4, %maxPenetration.1.2
   %maxPenetrationIndex.1.3 = select i1 %cmp3.3, i32 %maxPenetrationIndex.1.2, i32 3
-  %cmp8.not = icmp eq i32 %maxPenetrationIndex.1.3, 0
-  br i1 %cmp8.not, label %entry.if.end46_crit_edge, label %if.end25
+  %cond = icmp eq i32 %maxPenetrationIndex.1.3, 0
+  br i1 %cond, label %entry.if.then27_crit_edge, label %if.then9
 
-entry.if.end46_crit_edge:                         ; preds = %entry
+entry.if.then27_crit_edge:                        ; preds = %entry
   %5 = load <2 x float>, ptr %pt, align 8, !tbaa !18
-  %arrayidx11.i126.phi.trans.insert = getelementptr inbounds [4 x float], ptr %pt, i64 0, i64 2
-  %.pre266 = load float, ptr %arrayidx11.i126.phi.trans.insert, align 8, !tbaa !18
+  %arrayidx11.i128.phi.trans.insert = getelementptr inbounds [4 x float], ptr %pt, i64 0, i64 2
+  %.pre247 = load float, ptr %arrayidx11.i128.phi.trans.insert, align 8, !tbaa !18
   %arrayidx35.phi.trans.insert = getelementptr inbounds %class.btPersistentManifold, ptr %this, i64 0, i32 2, i64 3
   %arrayidx38.phi.trans.insert = getelementptr inbounds %class.btPersistentManifold, ptr %this, i64 0, i32 2, i64 2
   %6 = load <2 x float>, ptr %arrayidx35.phi.trans.insert, align 8, !tbaa !18
   %7 = load <2 x float>, ptr %arrayidx38.phi.trans.insert, align 8, !tbaa !18
-  %arrayidx11.i138.phi.trans.insert = getelementptr inbounds %class.btPersistentManifold, ptr %this, i64 0, i32 2, i64 3, i32 0, i32 0, i64 2
-  %.pre271 = load float, ptr %arrayidx11.i138.phi.trans.insert, align 8, !tbaa !18
-  %arrayidx13.i139.phi.trans.insert = getelementptr inbounds %class.btPersistentManifold, ptr %this, i64 0, i32 2, i64 2, i32 0, i32 0, i64 2
-  %.pre272 = load float, ptr %arrayidx13.i139.phi.trans.insert, align 8, !tbaa !18
+  %arrayidx11.i140.phi.trans.insert = getelementptr inbounds %class.btPersistentManifold, ptr %this, i64 0, i32 2, i64 3, i32 0, i32 0, i64 2
+  %.pre252 = load float, ptr %arrayidx11.i140.phi.trans.insert, align 8, !tbaa !18
+  %arrayidx13.i141.phi.trans.insert = getelementptr inbounds %class.btPersistentManifold, ptr %this, i64 0, i32 2, i64 2, i32 0, i32 0, i64 2
+  %.pre253 = load float, ptr %arrayidx13.i141.phi.trans.insert, align 8, !tbaa !18
   %8 = fsub <2 x float> %6, %7
-  %.pre284 = fsub float %.pre271, %.pre272
+  %.pre265 = fsub float %.pre252, %.pre253
   %9 = extractelement <2 x float> %6, i64 0
   %10 = extractelement <2 x float> %6, i64 1
   %11 = extractelement <2 x float> %7, i64 0
   %12 = extractelement <2 x float> %7, i64 1
-  br label %if.end46
+  br label %if.then27
 
-if.end25:                                         ; preds = %entry
+if.then9:                                         ; preds = %entry
   %arrayidx11 = getelementptr inbounds %class.btPersistentManifold, ptr %this, i64 0, i32 2, i64 1
   %13 = load float, ptr %arrayidx11, align 8, !tbaa !18
   %14 = load <2 x float>, ptr %pt, align 8, !tbaa !18
@@ -156,17 +156,17 @@ if.end25:                                         ; preds = %entry
   %20 = load <2 x float>, ptr %arrayidx15, align 8, !tbaa !18
   %21 = load <2 x float>, ptr %arrayidx18, align 8, !tbaa !18
   %22 = fsub <2 x float> %20, %21
-  %arrayidx11.i107 = getelementptr inbounds %class.btPersistentManifold, ptr %this, i64 0, i32 2, i64 3, i32 0, i32 0, i64 2
-  %23 = load float, ptr %arrayidx11.i107, align 8, !tbaa !18
-  %arrayidx13.i108 = getelementptr inbounds %class.btPersistentManifold, ptr %this, i64 0, i32 2, i64 2, i32 0, i32 0, i64 2
-  %24 = load float, ptr %arrayidx13.i108, align 8, !tbaa !18
-  %sub14.i109 = fsub float %23, %24
+  %arrayidx11.i109 = getelementptr inbounds %class.btPersistentManifold, ptr %this, i64 0, i32 2, i64 3, i32 0, i32 0, i64 2
+  %23 = load float, ptr %arrayidx11.i109, align 8, !tbaa !18
+  %arrayidx13.i110 = getelementptr inbounds %class.btPersistentManifold, ptr %this, i64 0, i32 2, i64 2, i32 0, i32 0, i64 2
+  %24 = load float, ptr %arrayidx13.i110, align 8, !tbaa !18
+  %sub14.i111 = fsub float %23, %24
   %25 = fneg float %sub14.i
   %26 = extractelement <2 x float> %22, i64 1
   %neg.i = fmul float %26, %25
-  %27 = tail call float @llvm.fmuladd.f32(float %sub8.i, float %sub14.i109, float %neg.i)
+  %27 = tail call float @llvm.fmuladd.f32(float %sub8.i, float %sub14.i111, float %neg.i)
   %28 = fneg float %sub.i
-  %neg19.i = fmul float %sub14.i109, %28
+  %neg19.i = fmul float %sub14.i111, %28
   %29 = extractelement <2 x float> %22, i64 0
   %30 = tail call float @llvm.fmuladd.f32(float %sub14.i, float %29, float %neg19.i)
   %31 = fneg float %sub8.i
@@ -175,142 +175,142 @@ if.end25:                                         ; preds = %entry
   %mul8.i.i = fmul float %30, %30
   %33 = tail call float @llvm.fmuladd.f32(float %27, float %27, float %mul8.i.i)
   %34 = tail call float @llvm.fmuladd.f32(float %32, float %32, float %33)
-  %cmp26.not = icmp eq i32 %maxPenetrationIndex.1.3, 1
+  %cond101 = icmp eq i32 %maxPenetrationIndex.1.3, 1
   %35 = extractelement <2 x float> %20, i64 0
   %36 = extractelement <2 x float> %20, i64 1
   %37 = extractelement <2 x float> %21, i64 0
   %38 = extractelement <2 x float> %21, i64 1
-  br i1 %cmp26.not, label %if.end25.if.end67_crit_edge, label %if.end46
+  br i1 %cond101, label %if.then9.if.then48_crit_edge, label %if.then27
 
-if.end25.if.end67_crit_edge:                      ; preds = %if.end25
+if.then9.if.then48_crit_edge:                     ; preds = %if.then9
   %m_pointCache50.phi.trans.insert = getelementptr inbounds %class.btPersistentManifold, ptr %this, i64 0, i32 2
-  %arrayidx13.i166.phi.trans.insert = getelementptr inbounds %class.btPersistentManifold, ptr %this, i64 0, i32 2, i64 0, i32 0, i32 0, i64 2
-  %.pre275 = load float, ptr %arrayidx13.i166.phi.trans.insert, align 8, !tbaa !18
+  %arrayidx13.i168.phi.trans.insert = getelementptr inbounds %class.btPersistentManifold, ptr %this, i64 0, i32 2, i64 0, i32 0, i32 0, i64 2
+  %.pre256 = load float, ptr %arrayidx13.i168.phi.trans.insert, align 8, !tbaa !18
   %39 = load <2 x float>, ptr %m_pointCache50.phi.trans.insert, align 8, !tbaa !18
   %40 = fsub <2 x float> %14, %39
-  %.pre289 = fsub float %18, %.pre275
-  %.pre290 = fneg float %.pre289
+  %.pre270 = fsub float %18, %.pre256
+  %.pre271 = fneg float %.pre270
   %41 = extractelement <2 x float> %40, i64 0
-  %.pre292 = fneg float %41
+  %.pre273 = fneg float %41
   %42 = extractelement <2 x float> %40, i64 1
-  %.pre294 = fneg float %42
-  br label %if.end67
+  %.pre275 = fneg float %42
+  br label %if.then48
 
-if.end46:                                         ; preds = %entry.if.end46_crit_edge, %if.end25
-  %sub14.i140.pre-phi = phi float [ %.pre284, %entry.if.end46_crit_edge ], [ %sub14.i109, %if.end25 ]
-  %43 = phi float [ %.pre272, %entry.if.end46_crit_edge ], [ %24, %if.end25 ]
-  %44 = phi float [ %.pre271, %entry.if.end46_crit_edge ], [ %23, %if.end25 ]
-  %45 = phi float [ %12, %entry.if.end46_crit_edge ], [ %38, %if.end25 ]
-  %46 = phi float [ %10, %entry.if.end46_crit_edge ], [ %36, %if.end25 ]
-  %47 = phi float [ %11, %entry.if.end46_crit_edge ], [ %37, %if.end25 ]
-  %48 = phi float [ %9, %entry.if.end46_crit_edge ], [ %35, %if.end25 ]
-  %49 = phi float [ %.pre266, %entry.if.end46_crit_edge ], [ %18, %if.end25 ]
-  %res0.0242 = phi float [ 0.000000e+00, %entry.if.end46_crit_edge ], [ %34, %if.end25 ]
-  %50 = phi <2 x float> [ %5, %entry.if.end46_crit_edge ], [ %14, %if.end25 ]
-  %51 = phi <2 x float> [ %8, %entry.if.end46_crit_edge ], [ %22, %if.end25 ]
+if.then27:                                        ; preds = %entry.if.then27_crit_edge, %if.then9
+  %sub14.i142.pre-phi = phi float [ %.pre265, %entry.if.then27_crit_edge ], [ %sub14.i111, %if.then9 ]
+  %43 = phi float [ %.pre253, %entry.if.then27_crit_edge ], [ %24, %if.then9 ]
+  %44 = phi float [ %.pre252, %entry.if.then27_crit_edge ], [ %23, %if.then9 ]
+  %45 = phi float [ %12, %entry.if.then27_crit_edge ], [ %38, %if.then9 ]
+  %46 = phi float [ %10, %entry.if.then27_crit_edge ], [ %36, %if.then9 ]
+  %47 = phi float [ %11, %entry.if.then27_crit_edge ], [ %37, %if.then9 ]
+  %48 = phi float [ %9, %entry.if.then27_crit_edge ], [ %35, %if.then9 ]
+  %49 = phi float [ %.pre247, %entry.if.then27_crit_edge ], [ %18, %if.then9 ]
+  %res0.0 = phi float [ 0.000000e+00, %entry.if.then27_crit_edge ], [ %34, %if.then9 ]
+  %50 = phi <2 x float> [ %5, %entry.if.then27_crit_edge ], [ %14, %if.then9 ]
+  %51 = phi <2 x float> [ %8, %entry.if.then27_crit_edge ], [ %22, %if.then9 ]
   %m_pointCache29 = getelementptr inbounds %class.btPersistentManifold, ptr %this, i64 0, i32 2
   %52 = load <2 x float>, ptr %m_pointCache29, align 8, !tbaa !18
   %53 = fsub <2 x float> %50, %52
-  %arrayidx13.i127 = getelementptr inbounds %class.btPersistentManifold, ptr %this, i64 0, i32 2, i64 0, i32 0, i32 0, i64 2
-  %54 = load float, ptr %arrayidx13.i127, align 8, !tbaa !18
-  %sub14.i128 = fsub float %49, %54
-  %55 = fneg float %sub14.i128
+  %arrayidx13.i129 = getelementptr inbounds %class.btPersistentManifold, ptr %this, i64 0, i32 2, i64 0, i32 0, i32 0, i64 2
+  %54 = load float, ptr %arrayidx13.i129, align 8, !tbaa !18
+  %sub14.i130 = fsub float %49, %54
+  %55 = fneg float %sub14.i130
   %56 = extractelement <2 x float> %51, i64 1
-  %neg.i150 = fmul float %56, %55
+  %neg.i152 = fmul float %56, %55
   %57 = extractelement <2 x float> %53, i64 1
-  %58 = tail call float @llvm.fmuladd.f32(float %57, float %sub14.i140.pre-phi, float %neg.i150)
+  %58 = tail call float @llvm.fmuladd.f32(float %57, float %sub14.i142.pre-phi, float %neg.i152)
   %59 = extractelement <2 x float> %53, i64 0
   %60 = fneg float %59
-  %neg19.i151 = fmul float %sub14.i140.pre-phi, %60
+  %neg19.i153 = fmul float %sub14.i142.pre-phi, %60
   %61 = extractelement <2 x float> %51, i64 0
-  %62 = tail call float @llvm.fmuladd.f32(float %sub14.i128, float %61, float %neg19.i151)
+  %62 = tail call float @llvm.fmuladd.f32(float %sub14.i130, float %61, float %neg19.i153)
   %63 = fneg float %57
-  %neg30.i152 = fmul float %61, %63
-  %64 = tail call float @llvm.fmuladd.f32(float %59, float %56, float %neg30.i152)
-  %mul8.i.i159 = fmul float %62, %62
-  %65 = tail call float @llvm.fmuladd.f32(float %58, float %58, float %mul8.i.i159)
+  %neg30.i154 = fmul float %61, %63
+  %64 = tail call float @llvm.fmuladd.f32(float %59, float %56, float %neg30.i154)
+  %mul8.i.i161 = fmul float %62, %62
+  %65 = tail call float @llvm.fmuladd.f32(float %58, float %58, float %mul8.i.i161)
   %66 = tail call float @llvm.fmuladd.f32(float %64, float %64, float %65)
-  %cmp47.not = and i1 %cmp3.3, %cmp3.2
+  %cond102 = and i1 %cmp3.3, %cmp3.2
   %arrayidx80.phi.trans.insert = getelementptr inbounds %class.btPersistentManifold, ptr %this, i64 0, i32 2, i64 1
-  %.pre279 = load float, ptr %arrayidx80.phi.trans.insert, align 8, !tbaa !18
-  %arrayidx7.i214.phi.trans.insert = getelementptr inbounds %class.btPersistentManifold, ptr %this, i64 0, i32 2, i64 1, i32 0, i32 0, i64 1
-  %.pre280 = load float, ptr %arrayidx7.i214.phi.trans.insert, align 4, !tbaa !18
-  %arrayidx13.i217.phi.trans.insert = getelementptr inbounds %class.btPersistentManifold, ptr %this, i64 0, i32 2, i64 1, i32 0, i32 0, i64 2
-  %.pre281 = load float, ptr %arrayidx13.i217.phi.trans.insert, align 8, !tbaa !18
-  br i1 %cmp47.not, label %if.then69, label %if.end67
+  %.pre260 = load float, ptr %arrayidx80.phi.trans.insert, align 8, !tbaa !18
+  %arrayidx7.i216.phi.trans.insert = getelementptr inbounds %class.btPersistentManifold, ptr %this, i64 0, i32 2, i64 1, i32 0, i32 0, i64 1
+  %.pre261 = load float, ptr %arrayidx7.i216.phi.trans.insert, align 4, !tbaa !18
+  %arrayidx13.i219.phi.trans.insert = getelementptr inbounds %class.btPersistentManifold, ptr %this, i64 0, i32 2, i64 1, i32 0, i32 0, i64 2
+  %.pre262 = load float, ptr %arrayidx13.i219.phi.trans.insert, align 8, !tbaa !18
+  br i1 %cond102, label %if.then69, label %if.then48
 
-if.end67:                                         ; preds = %if.end46, %if.end25.if.end67_crit_edge
-  %.pre-phi295 = phi float [ %.pre294, %if.end25.if.end67_crit_edge ], [ %63, %if.end46 ]
-  %.pre-phi293 = phi float [ %.pre292, %if.end25.if.end67_crit_edge ], [ %60, %if.end46 ]
-  %.pre-phi291 = phi float [ %.pre290, %if.end25.if.end67_crit_edge ], [ %55, %if.end46 ]
-  %sub14.i167.pre-phi = phi float [ %.pre289, %if.end25.if.end67_crit_edge ], [ %sub14.i128, %if.end46 ]
-  %67 = phi float [ %24, %if.end25.if.end67_crit_edge ], [ %43, %if.end46 ]
-  %68 = phi float [ %38, %if.end25.if.end67_crit_edge ], [ %45, %if.end46 ]
-  %69 = phi float [ %37, %if.end25.if.end67_crit_edge ], [ %47, %if.end46 ]
-  %70 = phi float [ %19, %if.end25.if.end67_crit_edge ], [ %.pre281, %if.end46 ]
-  %71 = phi float [ %23, %if.end25.if.end67_crit_edge ], [ %44, %if.end46 ]
-  %72 = phi float [ %16, %if.end25.if.end67_crit_edge ], [ %.pre280, %if.end46 ]
-  %73 = phi float [ %36, %if.end25.if.end67_crit_edge ], [ %46, %if.end46 ]
-  %74 = phi float [ %13, %if.end25.if.end67_crit_edge ], [ %.pre279, %if.end46 ]
-  %75 = phi float [ %35, %if.end25.if.end67_crit_edge ], [ %48, %if.end46 ]
-  %res1.0249 = phi float [ 0.000000e+00, %if.end25.if.end67_crit_edge ], [ %66, %if.end46 ]
-  %res0.0243247 = phi float [ %34, %if.end25.if.end67_crit_edge ], [ %res0.0242, %if.end46 ]
-  %76 = phi <2 x float> [ %40, %if.end25.if.end67_crit_edge ], [ %53, %if.end46 ]
-  %sub.i173 = fsub float %75, %74
-  %sub8.i176 = fsub float %73, %72
-  %sub14.i179 = fsub float %71, %70
-  %neg.i189 = fmul float %sub8.i176, %.pre-phi291
+if.then48:                                        ; preds = %if.then27, %if.then9.if.then48_crit_edge
+  %.pre-phi276 = phi float [ %.pre275, %if.then9.if.then48_crit_edge ], [ %63, %if.then27 ]
+  %.pre-phi274 = phi float [ %.pre273, %if.then9.if.then48_crit_edge ], [ %60, %if.then27 ]
+  %.pre-phi272 = phi float [ %.pre271, %if.then9.if.then48_crit_edge ], [ %55, %if.then27 ]
+  %sub14.i169.pre-phi = phi float [ %.pre270, %if.then9.if.then48_crit_edge ], [ %sub14.i130, %if.then27 ]
+  %67 = phi float [ %24, %if.then9.if.then48_crit_edge ], [ %43, %if.then27 ]
+  %68 = phi float [ %38, %if.then9.if.then48_crit_edge ], [ %45, %if.then27 ]
+  %69 = phi float [ %37, %if.then9.if.then48_crit_edge ], [ %47, %if.then27 ]
+  %70 = phi float [ %19, %if.then9.if.then48_crit_edge ], [ %.pre262, %if.then27 ]
+  %71 = phi float [ %23, %if.then9.if.then48_crit_edge ], [ %44, %if.then27 ]
+  %72 = phi float [ %16, %if.then9.if.then48_crit_edge ], [ %.pre261, %if.then27 ]
+  %73 = phi float [ %36, %if.then9.if.then48_crit_edge ], [ %46, %if.then27 ]
+  %74 = phi float [ %13, %if.then9.if.then48_crit_edge ], [ %.pre260, %if.then27 ]
+  %75 = phi float [ %35, %if.then9.if.then48_crit_edge ], [ %48, %if.then27 ]
+  %res1.0 = phi float [ 0.000000e+00, %if.then9.if.then48_crit_edge ], [ %66, %if.then27 ]
+  %res0.1 = phi float [ %34, %if.then9.if.then48_crit_edge ], [ %res0.0, %if.then27 ]
+  %76 = phi <2 x float> [ %40, %if.then9.if.then48_crit_edge ], [ %53, %if.then27 ]
+  %sub.i175 = fsub float %75, %74
+  %sub8.i178 = fsub float %73, %72
+  %sub14.i181 = fsub float %71, %70
+  %neg.i191 = fmul float %sub8.i178, %.pre-phi272
   %77 = extractelement <2 x float> %76, i64 1
-  %78 = tail call float @llvm.fmuladd.f32(float %77, float %sub14.i179, float %neg.i189)
-  %neg19.i190 = fmul float %sub14.i179, %.pre-phi293
-  %79 = tail call float @llvm.fmuladd.f32(float %sub14.i167.pre-phi, float %sub.i173, float %neg19.i190)
-  %neg30.i191 = fmul float %sub.i173, %.pre-phi295
+  %78 = tail call float @llvm.fmuladd.f32(float %77, float %sub14.i181, float %neg.i191)
+  %neg19.i192 = fmul float %sub14.i181, %.pre-phi274
+  %79 = tail call float @llvm.fmuladd.f32(float %sub14.i169.pre-phi, float %sub.i175, float %neg19.i192)
+  %neg30.i193 = fmul float %sub.i175, %.pre-phi276
   %80 = extractelement <2 x float> %76, i64 0
-  %81 = tail call float @llvm.fmuladd.f32(float %80, float %sub8.i176, float %neg30.i191)
-  %mul8.i.i198 = fmul float %79, %79
-  %82 = tail call float @llvm.fmuladd.f32(float %78, float %78, float %mul8.i.i198)
+  %81 = tail call float @llvm.fmuladd.f32(float %80, float %sub8.i178, float %neg30.i193)
+  %mul8.i.i200 = fmul float %79, %79
+  %82 = tail call float @llvm.fmuladd.f32(float %78, float %78, float %mul8.i.i200)
   %83 = tail call float @llvm.fmuladd.f32(float %81, float %81, float %82)
   br i1 %cmp3.3, label %if.then69, label %if.end88
 
-if.then69:                                        ; preds = %if.end46, %if.end67
-  %.pre-phi286 = phi float [ %.pre-phi295, %if.end67 ], [ %63, %if.end46 ]
-  %.pre-phi285 = phi float [ %.pre-phi293, %if.end67 ], [ %60, %if.end46 ]
-  %.pre-phi = phi float [ %.pre-phi291, %if.end67 ], [ %55, %if.end46 ]
-  %sub14.i206.pre-phi = phi float [ %sub14.i167.pre-phi, %if.end67 ], [ %sub14.i128, %if.end46 ]
-  %84 = phi float [ %70, %if.end67 ], [ %.pre281, %if.end46 ]
-  %85 = phi float [ %67, %if.end67 ], [ %43, %if.end46 ]
-  %86 = phi float [ %72, %if.end67 ], [ %.pre280, %if.end46 ]
-  %87 = phi float [ %68, %if.end67 ], [ %45, %if.end46 ]
-  %88 = phi float [ %74, %if.end67 ], [ %.pre279, %if.end46 ]
-  %89 = phi float [ %69, %if.end67 ], [ %47, %if.end46 ]
-  %res2.0259 = phi float [ %83, %if.end67 ], [ 0.000000e+00, %if.end46 ]
-  %res0.0243248257 = phi float [ %res0.0243247, %if.end67 ], [ %res0.0242, %if.end46 ]
-  %res1.0250255 = phi float [ %res1.0249, %if.end67 ], [ %66, %if.end46 ]
-  %90 = phi <2 x float> [ %76, %if.end67 ], [ %53, %if.end46 ]
-  %sub.i212 = fsub float %89, %88
-  %sub8.i215 = fsub float %87, %86
-  %sub14.i218 = fsub float %85, %84
-  %neg.i228 = fmul float %sub8.i215, %.pre-phi
+if.then69:                                        ; preds = %if.then27, %if.then48
+  %.pre-phi267 = phi float [ %.pre-phi276, %if.then48 ], [ %63, %if.then27 ]
+  %.pre-phi266 = phi float [ %.pre-phi274, %if.then48 ], [ %60, %if.then27 ]
+  %.pre-phi = phi float [ %.pre-phi272, %if.then48 ], [ %55, %if.then27 ]
+  %sub14.i208.pre-phi = phi float [ %sub14.i169.pre-phi, %if.then48 ], [ %sub14.i130, %if.then27 ]
+  %84 = phi float [ %70, %if.then48 ], [ %.pre262, %if.then27 ]
+  %85 = phi float [ %67, %if.then48 ], [ %43, %if.then27 ]
+  %86 = phi float [ %72, %if.then48 ], [ %.pre261, %if.then27 ]
+  %87 = phi float [ %68, %if.then48 ], [ %45, %if.then27 ]
+  %88 = phi float [ %74, %if.then48 ], [ %.pre260, %if.then27 ]
+  %89 = phi float [ %69, %if.then48 ], [ %47, %if.then27 ]
+  %res2.0 = phi float [ %83, %if.then48 ], [ 0.000000e+00, %if.then27 ]
+  %res1.1 = phi float [ %res1.0, %if.then48 ], [ %66, %if.then27 ]
+  %res0.2 = phi float [ %res0.1, %if.then48 ], [ %res0.0, %if.then27 ]
+  %90 = phi <2 x float> [ %76, %if.then48 ], [ %53, %if.then27 ]
+  %sub.i214 = fsub float %89, %88
+  %sub8.i217 = fsub float %87, %86
+  %sub14.i220 = fsub float %85, %84
+  %neg.i230 = fmul float %sub8.i217, %.pre-phi
   %91 = extractelement <2 x float> %90, i64 1
-  %92 = tail call float @llvm.fmuladd.f32(float %91, float %sub14.i218, float %neg.i228)
-  %neg19.i229 = fmul float %sub14.i218, %.pre-phi285
-  %93 = tail call float @llvm.fmuladd.f32(float %sub14.i206.pre-phi, float %sub.i212, float %neg19.i229)
-  %neg30.i230 = fmul float %sub.i212, %.pre-phi286
+  %92 = tail call float @llvm.fmuladd.f32(float %91, float %sub14.i220, float %neg.i230)
+  %neg19.i231 = fmul float %sub14.i220, %.pre-phi266
+  %93 = tail call float @llvm.fmuladd.f32(float %sub14.i208.pre-phi, float %sub.i214, float %neg19.i231)
+  %neg30.i232 = fmul float %sub.i214, %.pre-phi267
   %94 = extractelement <2 x float> %90, i64 0
-  %95 = tail call float @llvm.fmuladd.f32(float %94, float %sub8.i215, float %neg30.i230)
-  %mul8.i.i237 = fmul float %93, %93
-  %96 = tail call float @llvm.fmuladd.f32(float %92, float %92, float %mul8.i.i237)
+  %95 = tail call float @llvm.fmuladd.f32(float %94, float %sub8.i217, float %neg30.i232)
+  %mul8.i.i239 = fmul float %93, %93
+  %96 = tail call float @llvm.fmuladd.f32(float %92, float %92, float %mul8.i.i239)
   %97 = tail call float @llvm.fmuladd.f32(float %95, float %95, float %96)
   br label %if.end88
 
-if.end88:                                         ; preds = %if.then69, %if.end67
-  %res2.0260 = phi float [ %res2.0259, %if.then69 ], [ %83, %if.end67 ]
-  %res0.0243248258 = phi float [ %res0.0243248257, %if.then69 ], [ %res0.0243247, %if.end67 ]
-  %res1.0250256 = phi float [ %res1.0250255, %if.then69 ], [ %res1.0249, %if.end67 ]
-  %res3.0 = phi float [ %97, %if.then69 ], [ 0.000000e+00, %if.end67 ]
-  %98 = tail call float @llvm.fabs.f32(float %res0.0243248258)
-  %99 = tail call float @llvm.fabs.f32(float %res1.0250256)
-  %100 = tail call float @llvm.fabs.f32(float %res2.0260)
+if.end88:                                         ; preds = %if.then69, %if.then48
+  %res3.0 = phi float [ %97, %if.then69 ], [ 0.000000e+00, %if.then48 ]
+  %res2.1 = phi float [ %res2.0, %if.then69 ], [ %83, %if.then48 ]
+  %res1.2 = phi float [ %res1.1, %if.then69 ], [ %res1.0, %if.then48 ]
+  %res0.3 = phi float [ %res0.2, %if.then69 ], [ %res0.1, %if.then48 ]
+  %98 = tail call float @llvm.fabs.f32(float %res0.3)
+  %99 = tail call float @llvm.fabs.f32(float %res1.2)
+  %100 = tail call float @llvm.fabs.f32(float %res2.1)
   %101 = tail call float @llvm.fabs.f32(float %res3.0)
   %cmp.i.i = fcmp ule float %98, 0xC3ABC16D60000000
   %maxIndex.0.i.i = sext i1 %cmp.i.i to i32
@@ -479,11 +479,11 @@ for.body:                                         ; preds = %for.body.lr.ph, %fo
   %arrayidx12.i.i = getelementptr inbounds [4 x float], ptr %arrayidx, i64 0, i64 2
   %5 = load float, ptr %arrayidx12.i.i, align 8, !tbaa !18
   %6 = load <4 x float>, ptr %trA, align 4
-  %7 = shufflevector <4 x float> %6, <4 x float> poison, <2 x i32> <i32 0, i32 undef>
+  %7 = shufflevector <4 x float> %6, <4 x float> poison, <2 x i32> <i32 0, i32 poison>
   %8 = load <4 x float>, ptr %arrayidx5.i.i, align 4
-  %9 = shufflevector <4 x float> %8, <4 x float> poison, <2 x i32> <i32 0, i32 undef>
+  %9 = shufflevector <4 x float> %8, <4 x float> poison, <2 x i32> <i32 0, i32 poison>
   %10 = load <4 x float>, ptr %arrayidx10.i.i, align 4
-  %11 = shufflevector <4 x float> %10, <4 x float> poison, <2 x i32> <i32 0, i32 undef>
+  %11 = shufflevector <4 x float> %10, <4 x float> poison, <2 x i32> <i32 0, i32 poison>
   %12 = load float, ptr %arrayidx.i.i, align 4, !tbaa !18
   %13 = load float, ptr %arrayidx5.i20.i, align 4, !tbaa !18
   %14 = insertelement <2 x float> poison, float %4, i64 0
@@ -521,11 +521,11 @@ for.body:                                         ; preds = %for.body.lr.ph, %fo
   %arrayidx12.i.i72 = getelementptr inbounds [4 x float], ptr %m_localPointB, i64 0, i64 2
   %37 = load float, ptr %arrayidx12.i.i72, align 8, !tbaa !18
   %38 = load <4 x float>, ptr %trB, align 4
-  %39 = shufflevector <4 x float> %38, <4 x float> poison, <2 x i32> <i32 0, i32 undef>
+  %39 = shufflevector <4 x float> %38, <4 x float> poison, <2 x i32> <i32 0, i32 poison>
   %40 = load <4 x float>, ptr %arrayidx5.i.i68, align 4
-  %41 = shufflevector <4 x float> %40, <4 x float> poison, <2 x i32> <i32 0, i32 undef>
+  %41 = shufflevector <4 x float> %40, <4 x float> poison, <2 x i32> <i32 0, i32 poison>
   %42 = load <4 x float>, ptr %arrayidx10.i.i71, align 4
-  %43 = shufflevector <4 x float> %42, <4 x float> poison, <2 x i32> <i32 0, i32 undef>
+  %43 = shufflevector <4 x float> %42, <4 x float> poison, <2 x i32> <i32 0, i32 poison>
   %44 = load float, ptr %arrayidx.i.i75, align 4, !tbaa !18
   %45 = load float, ptr %arrayidx5.i20.i76, align 4, !tbaa !18
   %46 = insertelement <2 x float> poison, float %36, i64 0
@@ -640,7 +640,7 @@ if.else:                                          ; preds = %for.body16
   %m_positionWorldOnA23 = getelementptr inbounds %class.btPersistentManifold, ptr %this, i64 0, i32 2, i64 %idxprom19, i32 3
   %m_normalWorldOnB25 = getelementptr inbounds %class.btPersistentManifold, ptr %this, i64 0, i32 2, i64 %idxprom19, i32 4
   %81 = load float, ptr %m_normalWorldOnB25, align 8, !tbaa !18
-  %mul.i = fmul float %75, %81
+  %mul.i = fmul float %81, %75
   %arrayidx3.i = getelementptr inbounds [4 x float], ptr %m_normalWorldOnB25, i64 0, i64 1
   %82 = load float, ptr %arrayidx3.i, align 4, !tbaa !18
   %mul4.i = fmul float %75, %82
@@ -742,14 +742,14 @@ declare float @llvm.fmuladd.f32(float, float, float) #7
 ; Function Attrs: mustprogress nocallback nofree nosync nounwind speculatable willreturn memory(none)
 declare float @llvm.fabs.f32(float) #7
 
+; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
+declare i32 @llvm.smax.i32(i32, i32) #8
+
 ; Function Attrs: nocallback nofree nounwind willreturn memory(argmem: write)
-declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #8
+declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #9
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i32 @llvm.smax.i32(i32, i32) #9
-
-; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare <2 x float> @llvm.fmuladd.v2f32(<2 x float>, <2 x float>, <2 x float>) #9
+declare <2 x float> @llvm.fmuladd.v2f32(<2 x float>, <2 x float>, <2 x float>) #8
 
 attributes #0 = { mustprogress nofree nosync nounwind willreturn memory(argmem: write) uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #1 = { uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
@@ -759,8 +759,8 @@ attributes #4 = { mustprogress nofree norecurse nosync nounwind willreturn memor
 attributes #5 = { mustprogress nocallback nofree nounwind willreturn memory(argmem: readwrite) }
 attributes #6 = { uwtable "min-legal-vector-width"="64" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #7 = { mustprogress nocallback nofree nosync nounwind speculatable willreturn memory(none) }
-attributes #8 = { nocallback nofree nounwind willreturn memory(argmem: write) }
-attributes #9 = { nocallback nofree nosync nounwind speculatable willreturn memory(none) }
+attributes #8 = { nocallback nofree nosync nounwind speculatable willreturn memory(none) }
+attributes #9 = { nocallback nofree nounwind willreturn memory(argmem: write) }
 
 !llvm.module.flags = !{!0, !1, !2, !3}
 !llvm.ident = !{!4}

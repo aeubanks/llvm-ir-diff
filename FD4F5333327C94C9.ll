@@ -87,7 +87,7 @@ if.end7.i:                                        ; preds = %if.then6.i, %if.end
   %conv.i = zext i32 %mul.i to i64
   %mul8.i = shl nuw nsw i64 %conv.i, 2
   %call.i = tail call noalias ptr @malloc(i64 noundef %mul8.i) #13
-  %call.i54 = ptrtoint ptr %call.i to i64
+  %call.i56 = ptrtoint ptr %call.i to i64
   store ptr %call.i, ptr @MapUnitToSliceGroupMap, align 8, !tbaa !17
   %cmp9.i = icmp eq ptr %call.i, null
   br i1 %cmp9.i, label %if.then11.i, label %if.end18.i
@@ -175,8 +175,8 @@ do.cond.i.i:                                      ; preds = %for.inc11.i.i
   br i1 %cmp1.i.i, label %do.body.i.i, label %FmoGenerateMapUnitToSliceGroupMap.exit, !llvm.loop !23
 
 sw.bb26.i:                                        ; preds = %if.end24.i
-  %cmp2.not.i.i = icmp eq i32 %mul.i, 0
-  br i1 %cmp2.not.i.i, label %FmoGenerateMapUnitToSliceGroupMap.exit, label %for.body.lr.ph.i.i
+  %cmp1.not.i.i = icmp eq i32 %mul.i, 0
+  br i1 %cmp1.not.i.i, label %FmoGenerateMapUnitToSliceGroupMap.exit, label %for.body.lr.ph.i.i
 
 for.body.lr.ph.i.i:                               ; preds = %sw.bb26.i
   %19 = load ptr, ptr @img, align 8, !tbaa !17
@@ -191,8 +191,8 @@ for.body.i.i:                                     ; preds = %for.body.i.i, %for.
   %rem.i.i = urem i32 %21, %20
   %div.i.i = udiv i32 %21, %20
   %mul.i.i = mul i32 %div.i.i, %add.i.i
-  %div21.i.i = lshr i32 %mul.i.i, 1
-  %add3.i.i = add i32 %div21.i.i, %rem.i.i
+  %div212.i.i = lshr i32 %mul.i.i, 1
+  %add3.i.i = add i32 %div212.i.i, %rem.i.i
   %rem6.i.i = urem i32 %add3.i.i, %add.i.i
   %arrayidx.i69.i = getelementptr inbounds i32, ptr %call.i, i64 %indvars.iv.i68.i
   store i32 %rem6.i.i, ptr %arrayidx.i69.i, align 4, !tbaa !19
@@ -201,94 +201,98 @@ for.body.i.i:                                     ; preds = %for.body.i.i, %for.
   br i1 %exitcond.not.i71.i, label %FmoGenerateMapUnitToSliceGroupMap.exit, label %for.body.i.i, !llvm.loop !29
 
 sw.bb27.i:                                        ; preds = %if.end24.i
-  %cmp1.not.i.i = icmp eq i32 %mul.i, 0
-  br i1 %cmp1.not.i.i, label %for.end.i.i, label %for.body.i79.i.preheader
+  %cmp1.not.i72.i = icmp eq i32 %mul.i, 0
+  br i1 %cmp1.not.i72.i, label %for.end.i.i, label %for.body.i80.i.preheader
 
-for.body.i79.i.preheader:                         ; preds = %sw.bb27.i
-  %min.iters.check69 = icmp ult i32 %mul.i, 8
-  br i1 %min.iters.check69, label %for.body.i79.i.preheader86, label %vector.ph70
+for.body.i80.i.preheader:                         ; preds = %sw.bb27.i
+  %min.iters.check71 = icmp ult i32 %mul.i, 8
+  br i1 %min.iters.check71, label %for.body.i80.i.preheader88, label %vector.ph72
 
-vector.ph70:                                      ; preds = %for.body.i79.i.preheader
-  %n.vec72 = and i64 %conv.i, 4294967288
+vector.ph72:                                      ; preds = %for.body.i80.i.preheader
+  %n.vec74 = and i64 %conv.i, 4294967288
   %broadcast.splatinsert = insertelement <4 x i32> poison, i32 %6, i64 0
   %broadcast.splat = shufflevector <4 x i32> %broadcast.splatinsert, <4 x i32> poison, <4 x i32> zeroinitializer
-  %broadcast.splatinsert77 = insertelement <4 x i32> poison, i32 %6, i64 0
-  %broadcast.splat78 = shufflevector <4 x i32> %broadcast.splatinsert77, <4 x i32> poison, <4 x i32> zeroinitializer
-  br label %vector.body75
+  %broadcast.splatinsert79 = insertelement <4 x i32> poison, i32 %6, i64 0
+  %broadcast.splat80 = shufflevector <4 x i32> %broadcast.splatinsert79, <4 x i32> poison, <4 x i32> zeroinitializer
+  br label %vector.body77
 
-vector.body75:                                    ; preds = %vector.body75, %vector.ph70
-  %index76 = phi i64 [ 0, %vector.ph70 ], [ %index.next79, %vector.body75 ]
-  %22 = getelementptr inbounds i32, ptr %call.i, i64 %index76
+vector.body77:                                    ; preds = %vector.body77, %vector.ph72
+  %index78 = phi i64 [ 0, %vector.ph72 ], [ %index.next81, %vector.body77 ]
+  %22 = getelementptr inbounds i32, ptr %call.i, i64 %index78
   store <4 x i32> %broadcast.splat, ptr %22, align 4, !tbaa !19
   %23 = getelementptr inbounds i32, ptr %22, i64 4
-  store <4 x i32> %broadcast.splat78, ptr %23, align 4, !tbaa !19
-  %index.next79 = add nuw i64 %index76, 8
-  %24 = icmp eq i64 %index.next79, %n.vec72
-  br i1 %24, label %middle.block67, label %vector.body75, !llvm.loop !30
+  store <4 x i32> %broadcast.splat80, ptr %23, align 4, !tbaa !19
+  %index.next81 = add nuw i64 %index78, 8
+  %24 = icmp eq i64 %index.next81, %n.vec74
+  br i1 %24, label %middle.block69, label %vector.body77, !llvm.loop !30
 
-middle.block67:                                   ; preds = %vector.body75
-  %cmp.n74 = icmp eq i64 %n.vec72, %conv.i
-  br i1 %cmp.n74, label %for.end.i.i, label %for.body.i79.i.preheader86
+middle.block69:                                   ; preds = %vector.body77
+  %cmp.n76 = icmp eq i64 %n.vec74, %conv.i
+  br i1 %cmp.n76, label %for.end.i.i, label %for.body.i80.i.preheader88
 
-for.body.i79.i.preheader86:                       ; preds = %for.body.i79.i.preheader, %middle.block67
-  %indvars.iv.i75.i.ph = phi i64 [ 0, %for.body.i79.i.preheader ], [ %n.vec72, %middle.block67 ]
-  br label %for.body.i79.i
+for.body.i80.i.preheader88:                       ; preds = %for.body.i80.i.preheader, %middle.block69
+  %indvars.iv.i76.i.ph = phi i64 [ 0, %for.body.i80.i.preheader ], [ %n.vec74, %middle.block69 ]
+  br label %for.body.i80.i
 
-for.body.i79.i:                                   ; preds = %for.body.i79.i.preheader86, %for.body.i79.i
-  %indvars.iv.i75.i = phi i64 [ %indvars.iv.next.i77.i, %for.body.i79.i ], [ %indvars.iv.i75.i.ph, %for.body.i79.i.preheader86 ]
-  %arrayidx.i76.i = getelementptr inbounds i32, ptr %call.i, i64 %indvars.iv.i75.i
-  store i32 %6, ptr %arrayidx.i76.i, align 4, !tbaa !19
-  %indvars.iv.next.i77.i = add nuw nsw i64 %indvars.iv.i75.i, 1
-  %exitcond.not.i78.i = icmp eq i64 %indvars.iv.next.i77.i, %conv.i
-  br i1 %exitcond.not.i78.i, label %for.end.i.i, label %for.body.i79.i, !llvm.loop !33
+for.body.i80.i:                                   ; preds = %for.body.i80.i.preheader88, %for.body.i80.i
+  %indvars.iv.i76.i = phi i64 [ %indvars.iv.next.i78.i, %for.body.i80.i ], [ %indvars.iv.i76.i.ph, %for.body.i80.i.preheader88 ]
+  %arrayidx.i77.i = getelementptr inbounds i32, ptr %call.i, i64 %indvars.iv.i76.i
+  store i32 %6, ptr %arrayidx.i77.i, align 4, !tbaa !19
+  %indvars.iv.next.i78.i = add nuw nsw i64 %indvars.iv.i76.i, 1
+  %exitcond.not.i79.i = icmp eq i64 %indvars.iv.next.i78.i, %conv.i
+  br i1 %exitcond.not.i79.i, label %for.end.i.i, label %for.body.i80.i, !llvm.loop !33
 
-for.end.i.i:                                      ; preds = %for.body.i79.i, %middle.block67, %sw.bb27.i
+for.end.i.i:                                      ; preds = %for.body.i80.i, %middle.block69, %sw.bb27.i
   %iGroup.07.i.i = add i32 %6, -1
   %cmp38.i.i = icmp sgt i32 %iGroup.07.i.i, -1
   br i1 %cmp38.i.i, label %for.body4.lr.ph.i.i, label %FmoGenerateMapUnitToSliceGroupMap.exit
 
 for.body4.lr.ph.i.i:                              ; preds = %for.end.i.i
   %25 = load ptr, ptr @img, align 8, !tbaa !17
-  %PicWidthInMbs.i80.i = getelementptr inbounds %struct.img_par, ptr %25, i64 0, i32 87
+  %PicWidthInMbs.i81.i = getelementptr inbounds %struct.img_par, ptr %25, i64 0, i32 87
+  %26 = zext i32 %iGroup.07.i.i to i64
   br label %for.body4.i.i
 
 for.cond2.loopexit.i.i:                           ; preds = %for.cond23.for.inc32_crit_edge.i.i, %for.cond23.preheader.lr.ph.i.i, %for.body4.i.i
-  %iGroup.0.i.i = add i32 %iGroup.09.i.i, -1
-  %cmp3.i.i = icmp sgt i32 %iGroup.0.i.i, -1
+  %indvars.iv.next.i = add nsw i64 %indvars.iv.i, -1
+  %cmp3.i.i = icmp sgt i64 %indvars.iv.i, 0
   br i1 %cmp3.i.i, label %for.body4.i.i, label %FmoGenerateMapUnitToSliceGroupMap.exit, !llvm.loop !34
 
 for.body4.i.i:                                    ; preds = %for.cond2.loopexit.i.i, %for.body4.lr.ph.i.i
-  %iGroup.09.i.i = phi i32 [ %iGroup.07.i.i, %for.body4.lr.ph.i.i ], [ %iGroup.0.i.i, %for.cond2.loopexit.i.i ]
-  %idxprom5.i.i = zext i32 %iGroup.09.i.i to i64
-  %arrayidx6.i.i = getelementptr inbounds %struct.pic_parameter_set_rbsp_t, ptr %pps, i64 0, i32 15, i64 %idxprom5.i.i
-  %26 = load i32, ptr %arrayidx6.i.i, align 4, !tbaa !19
-  %27 = load i32, ptr %PicWidthInMbs.i80.i, align 4, !tbaa !24
-  %div.i81.i = udiv i32 %26, %27
-  %rem.i82.i = urem i32 %26, %27
-  %arrayidx12.i.i = getelementptr inbounds %struct.pic_parameter_set_rbsp_t, ptr %pps, i64 0, i32 16, i64 %idxprom5.i.i
-  %28 = load i32, ptr %arrayidx12.i.i, align 4, !tbaa !19
-  %div14.i.i = udiv i32 %28, %27
-  %rem19.i.i = urem i32 %28, %27
-  %cmp21.not5.i.i = icmp ugt i32 %div.i81.i, %div14.i.i
+  %indvars.iv.i = phi i64 [ %indvars.iv.next.i, %for.cond2.loopexit.i.i ], [ %26, %for.body4.lr.ph.i.i ]
+  %arrayidx6.i.i = getelementptr inbounds %struct.pic_parameter_set_rbsp_t, ptr %pps, i64 0, i32 15, i64 %indvars.iv.i
+  %27 = load i32, ptr %arrayidx6.i.i, align 4, !tbaa !19
+  %28 = load i32, ptr %PicWidthInMbs.i81.i, align 4, !tbaa !24
+  %div.i82.i = udiv i32 %27, %28
+  %rem.i83.i = urem i32 %27, %28
+  %arrayidx12.i.i = getelementptr inbounds %struct.pic_parameter_set_rbsp_t, ptr %pps, i64 0, i32 16, i64 %indvars.iv.i
+  %29 = load i32, ptr %arrayidx12.i.i, align 4, !tbaa !19
+  %div14.i.i = udiv i32 %29, %28
+  %rem19.i.i = urem i32 %29, %28
+  %cmp21.not5.i.i = icmp ugt i32 %div.i82.i, %div14.i.i
   br i1 %cmp21.not5.i.i, label %for.cond2.loopexit.i.i, label %for.cond23.preheader.lr.ph.i.i
 
 for.cond23.preheader.lr.ph.i.i:                   ; preds = %for.body4.i.i
-  %cmp24.not3.i.i = icmp ugt i32 %rem.i82.i, %rem19.i.i
-  %29 = load ptr, ptr @MapUnitToSliceGroupMap, align 8
-  br i1 %cmp24.not3.i.i, label %for.cond2.loopexit.i.i, label %for.cond23.preheader.i.i
+  %cmp24.not3.i.i = icmp ugt i32 %rem.i83.i, %rem19.i.i
+  %30 = load ptr, ptr @MapUnitToSliceGroupMap, align 8
+  br i1 %cmp24.not3.i.i, label %for.cond2.loopexit.i.i, label %for.cond23.preheader.i.preheader.i
 
-for.cond23.preheader.i.i:                         ; preds = %for.cond23.preheader.lr.ph.i.i, %for.cond23.for.inc32_crit_edge.i.i
-  %y.06.i.i = phi i32 [ %inc33.i.i, %for.cond23.for.inc32_crit_edge.i.i ], [ %div.i81.i, %for.cond23.preheader.lr.ph.i.i ]
+for.cond23.preheader.i.preheader.i:               ; preds = %for.cond23.preheader.lr.ph.i.i
+  %31 = trunc i64 %indvars.iv.i to i32
+  br label %for.cond23.preheader.i.i
+
+for.cond23.preheader.i.i:                         ; preds = %for.cond23.for.inc32_crit_edge.i.i, %for.cond23.preheader.i.preheader.i
+  %y.06.i.i = phi i32 [ %inc33.i.i, %for.cond23.for.inc32_crit_edge.i.i ], [ %div.i82.i, %for.cond23.preheader.i.preheader.i ]
   br label %for.body25.i.i
 
 for.body25.i.i:                                   ; preds = %for.body25.i.i, %for.cond23.preheader.i.i
-  %x.04.i.i = phi i32 [ %rem.i82.i, %for.cond23.preheader.i.i ], [ %inc30.i.i, %for.body25.i.i ]
-  %30 = load i32, ptr %PicWidthInMbs.i80.i, align 4, !tbaa !24
-  %mul.i83.i = mul i32 %30, %y.06.i.i
-  %add.i84.i = add i32 %mul.i83.i, %x.04.i.i
-  %idxprom27.i.i = zext i32 %add.i84.i to i64
-  %arrayidx28.i.i = getelementptr inbounds i32, ptr %29, i64 %idxprom27.i.i
-  store i32 %iGroup.09.i.i, ptr %arrayidx28.i.i, align 4, !tbaa !19
+  %x.04.i.i = phi i32 [ %rem.i83.i, %for.cond23.preheader.i.i ], [ %inc30.i.i, %for.body25.i.i ]
+  %32 = load i32, ptr %PicWidthInMbs.i81.i, align 4, !tbaa !24
+  %mul.i84.i = mul i32 %32, %y.06.i.i
+  %add.i85.i = add i32 %mul.i84.i, %x.04.i.i
+  %idxprom27.i.i = zext i32 %add.i85.i to i64
+  %arrayidx28.i.i = getelementptr inbounds i32, ptr %30, i64 %idxprom27.i.i
+  store i32 %31, ptr %arrayidx28.i.i, align 4, !tbaa !19
   %inc30.i.i = add i32 %x.04.i.i, 1
   %cmp24.not.i.i = icmp ugt i32 %inc30.i.i, %rem19.i.i
   br i1 %cmp24.not.i.i, label %for.cond23.for.inc32_crit_edge.i.i, label %for.body25.i.i, !llvm.loop !35
@@ -300,403 +304,403 @@ for.cond23.for.inc32_crit_edge.i.i:               ; preds = %for.body25.i.i
 
 sw.bb28.i:                                        ; preds = %if.end24.i
   %slice_group_change_rate_minus1.i.i = getelementptr inbounds %struct.pic_parameter_set_rbsp_t, ptr %pps, i64 0, i32 18
-  %31 = load i32, ptr %slice_group_change_rate_minus1.i.i, align 8, !tbaa !37
-  %add.i85.i = add i32 %31, 1
-  %32 = load ptr, ptr @img, align 8, !tbaa !17
-  %slice_group_change_cycle.i.i = getelementptr inbounds %struct.img_par, ptr %32, i64 0, i32 49
-  %33 = load i32, ptr %slice_group_change_cycle.i.i, align 8, !tbaa !38
-  %mul.i86.i = mul i32 %33, %add.i85.i
-  %cond.i.i.i = tail call i32 @llvm.smin.i32(i32 %mul.i86.i, i32 %mul.i)
-  %cmp6.not.i.i = icmp eq i32 %mul.i, 0
-  br i1 %cmp6.not.i.i, label %FmoGenerateMapUnitToSliceGroupMap.exit, label %for.body.i93.i.preheader
+  %33 = load i32, ptr %slice_group_change_rate_minus1.i.i, align 8, !tbaa !37
+  %add.i86.i = add i32 %33, 1
+  %34 = load ptr, ptr @img, align 8, !tbaa !17
+  %slice_group_change_cycle.i.i = getelementptr inbounds %struct.img_par, ptr %34, i64 0, i32 49
+  %35 = load i32, ptr %slice_group_change_cycle.i.i, align 8, !tbaa !38
+  %mul.i87.i = mul i32 %35, %add.i86.i
+  %cond.i.i.i = tail call i32 @llvm.smin.i32(i32 %mul.i87.i, i32 %mul.i)
+  %cmp1.not.i88.i = icmp eq i32 %mul.i, 0
+  br i1 %cmp1.not.i88.i, label %FmoGenerateMapUnitToSliceGroupMap.exit, label %for.body.i95.i.preheader
 
-for.body.i93.i.preheader:                         ; preds = %sw.bb28.i
-  %min.iters.check58 = icmp ult i32 %mul.i, 8
-  br i1 %min.iters.check58, label %for.body.i93.i.preheader88, label %vector.ph59
+for.body.i95.i.preheader:                         ; preds = %sw.bb28.i
+  %min.iters.check60 = icmp ult i32 %mul.i, 8
+  br i1 %min.iters.check60, label %for.body.i95.i.preheader90, label %vector.ph61
 
-vector.ph59:                                      ; preds = %for.body.i93.i.preheader
-  %n.vec61 = and i64 %conv.i, 4294967288
-  br label %vector.body64
+vector.ph61:                                      ; preds = %for.body.i95.i.preheader
+  %n.vec63 = and i64 %conv.i, 4294967288
+  br label %vector.body66
 
-vector.body64:                                    ; preds = %vector.body64, %vector.ph59
-  %index65 = phi i64 [ 0, %vector.ph59 ], [ %index.next66, %vector.body64 ]
-  %34 = getelementptr inbounds i32, ptr %call.i, i64 %index65
-  store <4 x i32> <i32 2, i32 2, i32 2, i32 2>, ptr %34, align 4, !tbaa !19
-  %35 = getelementptr inbounds i32, ptr %34, i64 4
-  store <4 x i32> <i32 2, i32 2, i32 2, i32 2>, ptr %35, align 4, !tbaa !19
-  %index.next66 = add nuw i64 %index65, 8
-  %36 = icmp eq i64 %index.next66, %n.vec61
-  br i1 %36, label %middle.block56, label %vector.body64, !llvm.loop !39
+vector.body66:                                    ; preds = %vector.body66, %vector.ph61
+  %index67 = phi i64 [ 0, %vector.ph61 ], [ %index.next68, %vector.body66 ]
+  %36 = getelementptr inbounds i32, ptr %call.i, i64 %index67
+  store <4 x i32> <i32 2, i32 2, i32 2, i32 2>, ptr %36, align 4, !tbaa !19
+  %37 = getelementptr inbounds i32, ptr %36, i64 4
+  store <4 x i32> <i32 2, i32 2, i32 2, i32 2>, ptr %37, align 4, !tbaa !19
+  %index.next68 = add nuw i64 %index67, 8
+  %38 = icmp eq i64 %index.next68, %n.vec63
+  br i1 %38, label %middle.block58, label %vector.body66, !llvm.loop !39
 
-middle.block56:                                   ; preds = %vector.body64
-  %cmp.n63 = icmp eq i64 %n.vec61, %conv.i
-  br i1 %cmp.n63, label %for.body9.lr.ph.i.i, label %for.body.i93.i.preheader88
+middle.block58:                                   ; preds = %vector.body66
+  %cmp.n65 = icmp eq i64 %n.vec63, %conv.i
+  br i1 %cmp.n65, label %for.body9.lr.ph.i.i, label %for.body.i95.i.preheader90
 
-for.body.i93.i.preheader88:                       ; preds = %for.body.i93.i.preheader, %middle.block56
-  %indvars.iv.i89.i.ph = phi i64 [ 0, %for.body.i93.i.preheader ], [ %n.vec61, %middle.block56 ]
-  br label %for.body.i93.i
+for.body.i95.i.preheader90:                       ; preds = %for.body.i95.i.preheader, %middle.block58
+  %indvars.iv.i91.i.ph = phi i64 [ 0, %for.body.i95.i.preheader ], [ %n.vec63, %middle.block58 ]
+  br label %for.body.i95.i
 
-for.body.i93.i:                                   ; preds = %for.body.i93.i.preheader88, %for.body.i93.i
-  %indvars.iv.i89.i = phi i64 [ %indvars.iv.next.i91.i, %for.body.i93.i ], [ %indvars.iv.i89.i.ph, %for.body.i93.i.preheader88 ]
-  %arrayidx.i90.i = getelementptr inbounds i32, ptr %call.i, i64 %indvars.iv.i89.i
-  store i32 2, ptr %arrayidx.i90.i, align 4, !tbaa !19
-  %indvars.iv.next.i91.i = add nuw nsw i64 %indvars.iv.i89.i, 1
-  %exitcond.not.i92.i = icmp eq i64 %indvars.iv.next.i91.i, %conv.i
-  br i1 %exitcond.not.i92.i, label %for.body9.lr.ph.i.i, label %for.body.i93.i, !llvm.loop !40
+for.body.i95.i:                                   ; preds = %for.body.i95.i.preheader90, %for.body.i95.i
+  %indvars.iv.i91.i = phi i64 [ %indvars.iv.next.i93.i, %for.body.i95.i ], [ %indvars.iv.i91.i.ph, %for.body.i95.i.preheader90 ]
+  %arrayidx.i92.i = getelementptr inbounds i32, ptr %call.i, i64 %indvars.iv.i91.i
+  store i32 2, ptr %arrayidx.i92.i, align 4, !tbaa !19
+  %indvars.iv.next.i93.i = add nuw nsw i64 %indvars.iv.i91.i, 1
+  %exitcond.not.i94.i = icmp eq i64 %indvars.iv.next.i93.i, %conv.i
+  br i1 %exitcond.not.i94.i, label %for.body9.lr.ph.i.i, label %for.body.i95.i, !llvm.loop !40
 
-for.body9.lr.ph.i.i:                              ; preds = %for.body.i93.i, %middle.block56
-  %PicWidthInMbs.i94.i = getelementptr inbounds %struct.img_par, ptr %32, i64 0, i32 87
-  %PicHeightInMapUnits.i.i = getelementptr inbounds %struct.img_par, ptr %32, i64 0, i32 88
+for.body9.lr.ph.i.i:                              ; preds = %for.body.i95.i, %middle.block58
+  %PicWidthInMbs.i96.i = getelementptr inbounds %struct.img_par, ptr %34, i64 0, i32 87
+  %PicHeightInMapUnits.i.i = getelementptr inbounds %struct.img_par, ptr %34, i64 0, i32 88
   %slice_group_change_direction_flag.i.i = getelementptr inbounds %struct.pic_parameter_set_rbsp_t, ptr %pps, i64 0, i32 17
-  %37 = load i32, ptr %slice_group_change_direction_flag.i.i, align 4, !tbaa !41
-  %sub5.i.i = add i32 %37, -1
-  %38 = load i32, ptr %PicHeightInMapUnits.i.i, align 8, !tbaa !42
-  %sub2.i.i = sub i32 %38, %37
-  %div32.i.i = lshr i32 %sub2.i.i, 1
-  %39 = load i32, ptr %PicWidthInMbs.i94.i, align 4, !tbaa !24
-  %sub.i.i = sub i32 %39, %37
-  %div1.i.i = lshr i32 %sub.i.i, 1
-  %mul70.i.i = shl i32 %37, 1
+  %39 = load i32, ptr %slice_group_change_direction_flag.i.i, align 4, !tbaa !41
+  %sub5.i.i = add i32 %39, -1
+  %40 = load i32, ptr %PicHeightInMapUnits.i.i, align 8, !tbaa !42
+  %sub2.i.i = sub i32 %40, %39
+  %div3122.i.i = lshr i32 %sub2.i.i, 1
+  %41 = load i32, ptr %PicWidthInMbs.i96.i, align 4, !tbaa !24
+  %sub.i.i = sub i32 %41, %39
+  %div121.i.i = lshr i32 %sub.i.i, 1
+  %mul70.i.i = shl i32 %39, 1
   %sub71.i.i = add i32 %mul70.i.i, -1
   %sub57.i.i = sub i32 1, %mul70.i.i
   br label %for.body9.i.i
 
 for.body9.i.i:                                    ; preds = %for.inc79.i.i, %for.body9.lr.ph.i.i
-  %k.017.i.i = phi i32 [ 0, %for.body9.lr.ph.i.i ], [ %add80.i.i, %for.inc79.i.i ]
-  %yDir.016.i.i = phi i32 [ %37, %for.body9.lr.ph.i.i ], [ %yDir.1.i.i, %for.inc79.i.i ]
-  %xDir.015.i.i = phi i32 [ %sub5.i.i, %for.body9.lr.ph.i.i ], [ %xDir.1.i.i, %for.inc79.i.i ]
-  %y.014.i.i = phi i32 [ %div32.i.i, %for.body9.lr.ph.i.i ], [ %y.1.i.i, %for.inc79.i.i ]
-  %x.013.i.i = phi i32 [ %div1.i.i, %for.body9.lr.ph.i.i ], [ %x.1.i.i, %for.inc79.i.i ]
-  %bottomBound.012.i.i = phi i32 [ %div32.i.i, %for.body9.lr.ph.i.i ], [ %bottomBound.1.i.i, %for.inc79.i.i ]
-  %rightBound.011.i.i = phi i32 [ %div1.i.i, %for.body9.lr.ph.i.i ], [ %rightBound.1.i.i, %for.inc79.i.i ]
-  %topBound.010.i.i = phi i32 [ %div32.i.i, %for.body9.lr.ph.i.i ], [ %topBound.1.i.i, %for.inc79.i.i ]
-  %leftBound.09.i.i = phi i32 [ %div1.i.i, %for.body9.lr.ph.i.i ], [ %leftBound.1.i.i, %for.inc79.i.i ]
-  %40 = load i32, ptr %PicWidthInMbs.i94.i, align 4, !tbaa !24
-  %mul11.i.i = mul i32 %40, %y.014.i.i
-  %add12.i.i = add i32 %mul11.i.i, %x.013.i.i
+  %k.012.i.i = phi i32 [ 0, %for.body9.lr.ph.i.i ], [ %add80.i.i, %for.inc79.i.i ]
+  %yDir.011.i.i = phi i32 [ %39, %for.body9.lr.ph.i.i ], [ %yDir.1.i.i, %for.inc79.i.i ]
+  %xDir.010.i.i = phi i32 [ %sub5.i.i, %for.body9.lr.ph.i.i ], [ %xDir.1.i.i, %for.inc79.i.i ]
+  %y.09.i.i = phi i32 [ %div3122.i.i, %for.body9.lr.ph.i.i ], [ %y.1.i.i, %for.inc79.i.i ]
+  %x.08.i.i = phi i32 [ %div121.i.i, %for.body9.lr.ph.i.i ], [ %x.1.i.i, %for.inc79.i.i ]
+  %bottomBound.07.i.i = phi i32 [ %div3122.i.i, %for.body9.lr.ph.i.i ], [ %bottomBound.1.i.i, %for.inc79.i.i ]
+  %rightBound.06.i.i = phi i32 [ %div121.i.i, %for.body9.lr.ph.i.i ], [ %rightBound.1.i.i, %for.inc79.i.i ]
+  %topBound.05.i.i = phi i32 [ %div3122.i.i, %for.body9.lr.ph.i.i ], [ %topBound.1.i.i, %for.inc79.i.i ]
+  %leftBound.04.i.i = phi i32 [ %div121.i.i, %for.body9.lr.ph.i.i ], [ %leftBound.1.i.i, %for.inc79.i.i ]
+  %42 = load i32, ptr %PicWidthInMbs.i96.i, align 4, !tbaa !24
+  %mul11.i.i = mul i32 %42, %y.09.i.i
+  %add12.i.i = add i32 %mul11.i.i, %x.08.i.i
   %idxprom13.i.i = zext i32 %add12.i.i to i64
   %arrayidx14.i.i = getelementptr inbounds i32, ptr %call.i, i64 %idxprom13.i.i
-  %41 = load i32, ptr %arrayidx14.i.i, align 4, !tbaa !19
-  %cmp15.i.i = icmp eq i32 %41, 2
+  %43 = load i32, ptr %arrayidx14.i.i, align 4, !tbaa !19
+  %cmp15.i.i = icmp eq i32 %43, 2
   %conv.i.i = zext i1 %cmp15.i.i to i32
   br i1 %cmp15.i.i, label %if.then.i.i, label %if.end.i.i
 
 if.then.i.i:                                      ; preds = %for.body9.i.i
-  %cmp16.i.i = icmp uge i32 %k.017.i.i, %cond.i.i.i
+  %cmp16.i.i = icmp uge i32 %k.012.i.i, %cond.i.i.i
   %conv17.i.i = zext i1 %cmp16.i.i to i32
   store i32 %conv17.i.i, ptr %arrayidx14.i.i, align 4, !tbaa !19
   br label %if.end.i.i
 
 if.end.i.i:                                       ; preds = %if.then.i.i, %for.body9.i.i
-  %cmp23.i.i = icmp eq i32 %xDir.015.i.i, -1
-  %cmp25.i.i = icmp eq i32 %x.013.i.i, %leftBound.09.i.i
+  %cmp23.i.i = icmp eq i32 %xDir.010.i.i, -1
+  %cmp25.i.i = icmp eq i32 %x.08.i.i, %leftBound.04.i.i
   %or.cond.i.i = select i1 %cmp23.i.i, i1 %cmp25.i.i, i1 false
   br i1 %or.cond.i.i, label %if.then27.i.i, label %if.else.i.i
 
 if.then27.i.i:                                    ; preds = %if.end.i.i
-  %42 = tail call i32 @llvm.smax.i32(i32 %x.013.i.i, i32 1)
-  %cond.i121.i.i = add nsw i32 %42, -1
+  %44 = tail call i32 @llvm.smax.i32(i32 %x.08.i.i, i32 1)
+  %cond.i126.i.i = add nsw i32 %44, -1
   br label %for.inc79.i.i
 
 if.else.i.i:                                      ; preds = %if.end.i.i
-  %cmp33.i.i = icmp eq i32 %xDir.015.i.i, 1
-  %cmp36.i.i = icmp eq i32 %x.013.i.i, %rightBound.011.i.i
-  %or.cond3.i.i = select i1 %cmp33.i.i, i1 %cmp36.i.i, i1 false
-  br i1 %or.cond3.i.i, label %if.then38.i.i, label %if.else46.i.i
+  %cmp33.i.i = icmp eq i32 %xDir.010.i.i, 1
+  %cmp36.i.i = icmp eq i32 %x.08.i.i, %rightBound.06.i.i
+  %or.cond123.i.i = select i1 %cmp33.i.i, i1 %cmp36.i.i, i1 false
+  br i1 %or.cond123.i.i, label %if.then38.i.i, label %if.else46.i.i
 
 if.then38.i.i:                                    ; preds = %if.else.i.i
-  %add39.i.i = add nsw i32 %x.013.i.i, 1
-  %43 = load i32, ptr %PicWidthInMbs.i94.i, align 4, !tbaa !24
-  %sub41.i.i = add nsw i32 %43, -1
-  %cond.i122.i.i = tail call i32 @llvm.smin.i32(i32 %add39.i.i, i32 %sub41.i.i)
+  %add39.i.i = add nsw i32 %x.08.i.i, 1
+  %45 = load i32, ptr %PicWidthInMbs.i96.i, align 4, !tbaa !24
+  %sub41.i.i = add nsw i32 %45, -1
+  %cond.i127.i.i = tail call i32 @llvm.smin.i32(i32 %add39.i.i, i32 %sub41.i.i)
   br label %for.inc79.i.i
 
 if.else46.i.i:                                    ; preds = %if.else.i.i
-  %cmp47.i.i = icmp eq i32 %yDir.016.i.i, -1
-  %cmp50.i.i = icmp eq i32 %y.014.i.i, %topBound.010.i.i
-  %or.cond4.i.i = select i1 %cmp47.i.i, i1 %cmp50.i.i, i1 false
-  br i1 %or.cond4.i.i, label %if.then52.i.i, label %if.else58.i.i
+  %cmp47.i.i = icmp eq i32 %yDir.011.i.i, -1
+  %cmp50.i.i = icmp eq i32 %y.09.i.i, %topBound.05.i.i
+  %or.cond124.i.i = select i1 %cmp47.i.i, i1 %cmp50.i.i, i1 false
+  br i1 %or.cond124.i.i, label %if.then52.i.i, label %if.else58.i.i
 
 if.then52.i.i:                                    ; preds = %if.else46.i.i
-  %44 = tail call i32 @llvm.smax.i32(i32 %y.014.i.i, i32 1)
-  %cond.i123.i.i = add nsw i32 %44, -1
+  %46 = tail call i32 @llvm.smax.i32(i32 %y.09.i.i, i32 1)
+  %cond.i128.i.i = add nsw i32 %46, -1
   br label %for.inc79.i.i
 
 if.else58.i.i:                                    ; preds = %if.else46.i.i
-  %cmp59.i.i = icmp eq i32 %yDir.016.i.i, 1
-  %cmp62.i.i = icmp eq i32 %y.014.i.i, %bottomBound.012.i.i
-  %or.cond5.i.i = select i1 %cmp59.i.i, i1 %cmp62.i.i, i1 false
-  br i1 %or.cond5.i.i, label %if.then64.i.i, label %if.else72.i.i
+  %cmp59.i.i = icmp eq i32 %yDir.011.i.i, 1
+  %cmp62.i.i = icmp eq i32 %y.09.i.i, %bottomBound.07.i.i
+  %or.cond125.i.i = select i1 %cmp59.i.i, i1 %cmp62.i.i, i1 false
+  br i1 %or.cond125.i.i, label %if.then64.i.i, label %if.else72.i.i
 
 if.then64.i.i:                                    ; preds = %if.else58.i.i
-  %add65.i.i = add nsw i32 %y.014.i.i, 1
-  %45 = load i32, ptr %PicHeightInMapUnits.i.i, align 8, !tbaa !42
-  %sub67.i.i = add nsw i32 %45, -1
-  %cond.i124.i.i = tail call i32 @llvm.smin.i32(i32 %add65.i.i, i32 %sub67.i.i)
+  %add65.i.i = add nsw i32 %y.09.i.i, 1
+  %47 = load i32, ptr %PicHeightInMapUnits.i.i, align 8, !tbaa !42
+  %sub67.i.i = add nsw i32 %47, -1
+  %cond.i129.i.i = tail call i32 @llvm.smin.i32(i32 %add65.i.i, i32 %sub67.i.i)
   br label %for.inc79.i.i
 
 if.else72.i.i:                                    ; preds = %if.else58.i.i
-  %add73.i.i = add nsw i32 %x.013.i.i, %xDir.015.i.i
-  %add74.i.i = add nsw i32 %y.014.i.i, %yDir.016.i.i
+  %add73.i.i = add nsw i32 %x.08.i.i, %xDir.010.i.i
+  %add74.i.i = add nsw i32 %y.09.i.i, %yDir.011.i.i
   br label %for.inc79.i.i
 
 for.inc79.i.i:                                    ; preds = %if.else72.i.i, %if.then64.i.i, %if.then52.i.i, %if.then38.i.i, %if.then27.i.i
-  %leftBound.1.i.i = phi i32 [ %cond.i121.i.i, %if.then27.i.i ], [ %leftBound.09.i.i, %if.then38.i.i ], [ %leftBound.09.i.i, %if.then52.i.i ], [ %leftBound.09.i.i, %if.then64.i.i ], [ %leftBound.09.i.i, %if.else72.i.i ]
-  %topBound.1.i.i = phi i32 [ %topBound.010.i.i, %if.then27.i.i ], [ %topBound.010.i.i, %if.then38.i.i ], [ %cond.i123.i.i, %if.then52.i.i ], [ %topBound.010.i.i, %if.then64.i.i ], [ %topBound.010.i.i, %if.else72.i.i ]
-  %rightBound.1.i.i = phi i32 [ %rightBound.011.i.i, %if.then27.i.i ], [ %cond.i122.i.i, %if.then38.i.i ], [ %rightBound.011.i.i, %if.then52.i.i ], [ %rightBound.011.i.i, %if.then64.i.i ], [ %rightBound.011.i.i, %if.else72.i.i ]
-  %bottomBound.1.i.i = phi i32 [ %bottomBound.012.i.i, %if.then27.i.i ], [ %bottomBound.012.i.i, %if.then38.i.i ], [ %bottomBound.012.i.i, %if.then52.i.i ], [ %cond.i124.i.i, %if.then64.i.i ], [ %bottomBound.012.i.i, %if.else72.i.i ]
-  %x.1.i.i = phi i32 [ %cond.i121.i.i, %if.then27.i.i ], [ %cond.i122.i.i, %if.then38.i.i ], [ %x.013.i.i, %if.then52.i.i ], [ %x.013.i.i, %if.then64.i.i ], [ %add73.i.i, %if.else72.i.i ]
-  %y.1.i.i = phi i32 [ %y.014.i.i, %if.then27.i.i ], [ %y.014.i.i, %if.then38.i.i ], [ %cond.i123.i.i, %if.then52.i.i ], [ %cond.i124.i.i, %if.then64.i.i ], [ %add74.i.i, %if.else72.i.i ]
-  %xDir.1.i.i = phi i32 [ 0, %if.then27.i.i ], [ 0, %if.then38.i.i ], [ %sub57.i.i, %if.then52.i.i ], [ %sub71.i.i, %if.then64.i.i ], [ %xDir.015.i.i, %if.else72.i.i ]
-  %yDir.1.i.i = phi i32 [ %sub71.i.i, %if.then27.i.i ], [ %sub57.i.i, %if.then38.i.i ], [ 0, %if.then52.i.i ], [ 0, %if.then64.i.i ], [ %yDir.016.i.i, %if.else72.i.i ]
-  %add80.i.i = add nuw i32 %k.017.i.i, %conv.i.i
+  %leftBound.1.i.i = phi i32 [ %cond.i126.i.i, %if.then27.i.i ], [ %leftBound.04.i.i, %if.then38.i.i ], [ %leftBound.04.i.i, %if.then52.i.i ], [ %leftBound.04.i.i, %if.then64.i.i ], [ %leftBound.04.i.i, %if.else72.i.i ]
+  %topBound.1.i.i = phi i32 [ %topBound.05.i.i, %if.then27.i.i ], [ %topBound.05.i.i, %if.then38.i.i ], [ %cond.i128.i.i, %if.then52.i.i ], [ %topBound.05.i.i, %if.then64.i.i ], [ %topBound.05.i.i, %if.else72.i.i ]
+  %rightBound.1.i.i = phi i32 [ %rightBound.06.i.i, %if.then27.i.i ], [ %cond.i127.i.i, %if.then38.i.i ], [ %rightBound.06.i.i, %if.then52.i.i ], [ %rightBound.06.i.i, %if.then64.i.i ], [ %rightBound.06.i.i, %if.else72.i.i ]
+  %bottomBound.1.i.i = phi i32 [ %bottomBound.07.i.i, %if.then27.i.i ], [ %bottomBound.07.i.i, %if.then38.i.i ], [ %bottomBound.07.i.i, %if.then52.i.i ], [ %cond.i129.i.i, %if.then64.i.i ], [ %bottomBound.07.i.i, %if.else72.i.i ]
+  %x.1.i.i = phi i32 [ %cond.i126.i.i, %if.then27.i.i ], [ %cond.i127.i.i, %if.then38.i.i ], [ %x.08.i.i, %if.then52.i.i ], [ %x.08.i.i, %if.then64.i.i ], [ %add73.i.i, %if.else72.i.i ]
+  %y.1.i.i = phi i32 [ %y.09.i.i, %if.then27.i.i ], [ %y.09.i.i, %if.then38.i.i ], [ %cond.i128.i.i, %if.then52.i.i ], [ %cond.i129.i.i, %if.then64.i.i ], [ %add74.i.i, %if.else72.i.i ]
+  %xDir.1.i.i = phi i32 [ 0, %if.then27.i.i ], [ 0, %if.then38.i.i ], [ %sub57.i.i, %if.then52.i.i ], [ %sub71.i.i, %if.then64.i.i ], [ %xDir.010.i.i, %if.else72.i.i ]
+  %yDir.1.i.i = phi i32 [ %sub71.i.i, %if.then27.i.i ], [ %sub57.i.i, %if.then38.i.i ], [ 0, %if.then52.i.i ], [ 0, %if.then64.i.i ], [ %yDir.011.i.i, %if.else72.i.i ]
+  %add80.i.i = add nuw i32 %k.012.i.i, %conv.i.i
   %cmp8.i.i = icmp ult i32 %add80.i.i, %mul.i
   br i1 %cmp8.i.i, label %for.body9.i.i, label %FmoGenerateMapUnitToSliceGroupMap.exit, !llvm.loop !43
 
 sw.bb29.i:                                        ; preds = %if.end24.i
-  %46 = getelementptr i8, ptr %pps, i64 1092
-  %pps.val.i = load i32, ptr %46, align 4, !tbaa !41
-  %cmp2.not.i96.i = icmp eq i32 %mul.i, 0
-  br i1 %cmp2.not.i96.i, label %FmoGenerateMapUnitToSliceGroupMap.exit, label %for.body.lr.ph.i103.i
+  %48 = getelementptr i8, ptr %pps, i64 1092
+  %pps.val.i = load i32, ptr %48, align 4, !tbaa !41
+  %cmp2.not.i.i = icmp eq i32 %mul.i, 0
+  br i1 %cmp2.not.i.i, label %FmoGenerateMapUnitToSliceGroupMap.exit, label %for.body.lr.ph.i104.i
 
-for.body.lr.ph.i103.i:                            ; preds = %sw.bb29.i
-  %47 = getelementptr i8, ptr %pps, i64 1096
-  %pps.val63.i = load i32, ptr %47, align 8, !tbaa !37
+for.body.lr.ph.i104.i:                            ; preds = %sw.bb29.i
+  %49 = getelementptr i8, ptr %pps, i64 1096
+  %pps.val63.i = load i32, ptr %49, align 8, !tbaa !37
   %tobool.not.i.i = icmp eq i32 %pps.val.i, 0
-  %48 = load ptr, ptr @img, align 8, !tbaa !17
-  %slice_group_change_cycle.i97.i = getelementptr inbounds %struct.img_par, ptr %48, i64 0, i32 49
-  %49 = load i32, ptr %slice_group_change_cycle.i97.i, align 8, !tbaa !38
-  %add.i98.i = add i32 %pps.val63.i, 1
-  %mul.i99.i = mul i32 %49, %add.i98.i
-  %cond.i.i100.i = tail call i32 @llvm.smin.i32(i32 %mul.i99.i, i32 %mul.i)
-  %sub.i101.i = sub i32 %mul.i, %cond.i.i100.i
-  %cond.i.i = select i1 %tobool.not.i.i, i32 %cond.i.i100.i, i32 %sub.i101.i
+  %50 = load ptr, ptr @img, align 8, !tbaa !17
+  %slice_group_change_cycle.i98.i = getelementptr inbounds %struct.img_par, ptr %50, i64 0, i32 49
+  %51 = load i32, ptr %slice_group_change_cycle.i98.i, align 8, !tbaa !38
+  %add.i99.i = add i32 %pps.val63.i, 1
+  %mul.i100.i = mul i32 %51, %add.i99.i
+  %cond.i.i101.i = tail call i32 @llvm.smin.i32(i32 %mul.i100.i, i32 %mul.i)
+  %sub.i102.i = sub i32 %mul.i, %cond.i.i101.i
+  %cond.i.i = select i1 %tobool.not.i.i, i32 %cond.i.i101.i, i32 %sub.i102.i
   %sub4.i.i = sub i32 1, %pps.val.i
-  %50 = zext i32 %cond.i.i to i64
-  %xtraiter93 = and i64 %conv.i, 3
-  %51 = icmp ult i32 %mul.i, 4
-  br i1 %51, label %FmoGenerateMapUnitToSliceGroupMap.exit.loopexit89.unr-lcssa, label %for.body.lr.ph.i103.i.new
+  %52 = zext i32 %cond.i.i to i64
+  %xtraiter95 = and i64 %conv.i, 3
+  %53 = icmp ult i32 %mul.i, 4
+  br i1 %53, label %FmoGenerateMapUnitToSliceGroupMap.exit.loopexit91.unr-lcssa, label %for.body.lr.ph.i104.i.new
 
-for.body.lr.ph.i103.i.new:                        ; preds = %for.body.lr.ph.i103.i
+for.body.lr.ph.i104.i.new:                        ; preds = %for.body.lr.ph.i104.i
   %unroll_iter = and i64 %conv.i, 4294967292
-  br label %for.body.i108.i
+  br label %for.body.i109.i
 
-for.body.i108.i:                                  ; preds = %for.body.i108.i, %for.body.lr.ph.i103.i.new
-  %indvars.iv.i104.i = phi i64 [ 0, %for.body.lr.ph.i103.i.new ], [ %indvars.iv.next.i106.i.3, %for.body.i108.i ]
-  %niter = phi i64 [ 0, %for.body.lr.ph.i103.i.new ], [ %niter.next.3, %for.body.i108.i ]
-  %cmp1.i105.i = icmp ult i64 %indvars.iv.i104.i, %50
-  %spec.select.i.i = select i1 %cmp1.i105.i, i32 %pps.val.i, i32 %sub4.i.i
-  %52 = getelementptr inbounds i32, ptr %call.i, i64 %indvars.iv.i104.i
-  store i32 %spec.select.i.i, ptr %52, align 4
-  %indvars.iv.next.i106.i = or i64 %indvars.iv.i104.i, 1
-  %cmp1.i105.i.1 = icmp ult i64 %indvars.iv.next.i106.i, %50
-  %spec.select.i.i.1 = select i1 %cmp1.i105.i.1, i32 %pps.val.i, i32 %sub4.i.i
-  %53 = getelementptr inbounds i32, ptr %call.i, i64 %indvars.iv.next.i106.i
-  store i32 %spec.select.i.i.1, ptr %53, align 4
-  %indvars.iv.next.i106.i.1 = or i64 %indvars.iv.i104.i, 2
-  %cmp1.i105.i.2 = icmp ult i64 %indvars.iv.next.i106.i.1, %50
-  %spec.select.i.i.2 = select i1 %cmp1.i105.i.2, i32 %pps.val.i, i32 %sub4.i.i
-  %54 = getelementptr inbounds i32, ptr %call.i, i64 %indvars.iv.next.i106.i.1
-  store i32 %spec.select.i.i.2, ptr %54, align 4
-  %indvars.iv.next.i106.i.2 = or i64 %indvars.iv.i104.i, 3
-  %cmp1.i105.i.3 = icmp ult i64 %indvars.iv.next.i106.i.2, %50
-  %spec.select.i.i.3 = select i1 %cmp1.i105.i.3, i32 %pps.val.i, i32 %sub4.i.i
-  %55 = getelementptr inbounds i32, ptr %call.i, i64 %indvars.iv.next.i106.i.2
-  store i32 %spec.select.i.i.3, ptr %55, align 4
-  %indvars.iv.next.i106.i.3 = add nuw nsw i64 %indvars.iv.i104.i, 4
+for.body.i109.i:                                  ; preds = %for.body.i109.i, %for.body.lr.ph.i104.i.new
+  %indvars.iv.i105.i = phi i64 [ 0, %for.body.lr.ph.i104.i.new ], [ %indvars.iv.next.i107.i.3, %for.body.i109.i ]
+  %niter = phi i64 [ 0, %for.body.lr.ph.i104.i.new ], [ %niter.next.3, %for.body.i109.i ]
+  %cmp1.i106.i = icmp ult i64 %indvars.iv.i105.i, %52
+  %spec.select.i.i = select i1 %cmp1.i106.i, i32 %pps.val.i, i32 %sub4.i.i
+  %54 = getelementptr inbounds i32, ptr %call.i, i64 %indvars.iv.i105.i
+  store i32 %spec.select.i.i, ptr %54, align 4
+  %indvars.iv.next.i107.i = or i64 %indvars.iv.i105.i, 1
+  %cmp1.i106.i.1 = icmp ult i64 %indvars.iv.next.i107.i, %52
+  %spec.select.i.i.1 = select i1 %cmp1.i106.i.1, i32 %pps.val.i, i32 %sub4.i.i
+  %55 = getelementptr inbounds i32, ptr %call.i, i64 %indvars.iv.next.i107.i
+  store i32 %spec.select.i.i.1, ptr %55, align 4
+  %indvars.iv.next.i107.i.1 = or i64 %indvars.iv.i105.i, 2
+  %cmp1.i106.i.2 = icmp ult i64 %indvars.iv.next.i107.i.1, %52
+  %spec.select.i.i.2 = select i1 %cmp1.i106.i.2, i32 %pps.val.i, i32 %sub4.i.i
+  %56 = getelementptr inbounds i32, ptr %call.i, i64 %indvars.iv.next.i107.i.1
+  store i32 %spec.select.i.i.2, ptr %56, align 4
+  %indvars.iv.next.i107.i.2 = or i64 %indvars.iv.i105.i, 3
+  %cmp1.i106.i.3 = icmp ult i64 %indvars.iv.next.i107.i.2, %52
+  %spec.select.i.i.3 = select i1 %cmp1.i106.i.3, i32 %pps.val.i, i32 %sub4.i.i
+  %57 = getelementptr inbounds i32, ptr %call.i, i64 %indvars.iv.next.i107.i.2
+  store i32 %spec.select.i.i.3, ptr %57, align 4
+  %indvars.iv.next.i107.i.3 = add nuw nsw i64 %indvars.iv.i105.i, 4
   %niter.next.3 = add i64 %niter, 4
   %niter.ncmp.3 = icmp eq i64 %niter.next.3, %unroll_iter
-  br i1 %niter.ncmp.3, label %FmoGenerateMapUnitToSliceGroupMap.exit.loopexit89.unr-lcssa, label %for.body.i108.i, !llvm.loop !44
+  br i1 %niter.ncmp.3, label %FmoGenerateMapUnitToSliceGroupMap.exit.loopexit91.unr-lcssa, label %for.body.i109.i, !llvm.loop !44
 
 sw.bb30.i:                                        ; preds = %if.end24.i
-  %56 = getelementptr i8, ptr %pps, i64 1092
-  %pps.val64.i = load i32, ptr %56, align 4, !tbaa !41
-  %57 = getelementptr i8, ptr %pps, i64 1096
-  %pps.val65.i = load i32, ptr %57, align 8, !tbaa !37
-  %add.i110.i = add i32 %pps.val65.i, 1
-  %58 = load ptr, ptr @img, align 8, !tbaa !17
-  %slice_group_change_cycle.i111.i = getelementptr inbounds %struct.img_par, ptr %58, i64 0, i32 49
-  %59 = load i32, ptr %slice_group_change_cycle.i111.i, align 8, !tbaa !38
-  %mul.i112.i = mul i32 %59, %add.i110.i
-  %cond.i.i113.i = tail call i32 @llvm.smin.i32(i32 %mul.i112.i, i32 %mul.i)
-  %tobool.not.i114.i = icmp eq i32 %pps.val64.i, 0
-  %sub.i115.i = sub i32 %mul.i, %cond.i.i113.i
-  %cond.i116.i = select i1 %tobool.not.i114.i, i32 %cond.i.i113.i, i32 %sub.i115.i
-  %PicWidthInMbs.i117.i = getelementptr inbounds %struct.img_par, ptr %58, i64 0, i32 87
-  %60 = load i32, ptr %PicWidthInMbs.i117.i, align 4, !tbaa !24
-  %cmp5.not.i.i = icmp eq i32 %60, 0
+  %58 = getelementptr i8, ptr %pps, i64 1092
+  %pps.val64.i = load i32, ptr %58, align 4, !tbaa !41
+  %59 = getelementptr i8, ptr %pps, i64 1096
+  %pps.val65.i = load i32, ptr %59, align 8, !tbaa !37
+  %add.i111.i = add i32 %pps.val65.i, 1
+  %60 = load ptr, ptr @img, align 8, !tbaa !17
+  %slice_group_change_cycle.i112.i = getelementptr inbounds %struct.img_par, ptr %60, i64 0, i32 49
+  %61 = load i32, ptr %slice_group_change_cycle.i112.i, align 8, !tbaa !38
+  %mul.i113.i = mul i32 %61, %add.i111.i
+  %cond.i.i114.i = tail call i32 @llvm.smin.i32(i32 %mul.i113.i, i32 %mul.i)
+  %tobool.not.i115.i = icmp eq i32 %pps.val64.i, 0
+  %sub.i116.i = sub i32 %mul.i, %cond.i.i114.i
+  %cond.i117.i = select i1 %tobool.not.i115.i, i32 %cond.i.i114.i, i32 %sub.i116.i
+  %PicWidthInMbs.i118.i = getelementptr inbounds %struct.img_par, ptr %60, i64 0, i32 87
+  %62 = load i32, ptr %PicWidthInMbs.i118.i, align 4, !tbaa !24
+  %cmp5.not.i.i = icmp eq i32 %62, 0
   br i1 %cmp5.not.i.i, label %FmoGenerateMapUnitToSliceGroupMap.exit, label %for.cond1.preheader.lr.ph.i.i
 
 for.cond1.preheader.lr.ph.i.i:                    ; preds = %sw.bb30.i
-  %PicHeightInMapUnits.i118.i = getelementptr inbounds %struct.img_par, ptr %58, i64 0, i32 88
+  %PicHeightInMapUnits.i119.i = getelementptr inbounds %struct.img_par, ptr %60, i64 0, i32 88
   %sub10.i.i = sub i32 1, %pps.val64.i
-  %61 = load i32, ptr %PicHeightInMapUnits.i118.i, align 8, !tbaa !42
-  %.not.i.i = icmp eq i32 %61, 0
+  %63 = load i32, ptr %PicHeightInMapUnits.i119.i, align 8, !tbaa !42
+  %.not.i.i = icmp eq i32 %63, 0
   br i1 %.not.i.i, label %FmoGenerateMapUnitToSliceGroupMap.exit, label %for.cond1.preheader.i.i
 
 for.cond1.preheader.i.i:                          ; preds = %for.cond1.preheader.lr.ph.i.i, %for.inc17.i.i
-  %62 = phi i32 [ %67, %for.inc17.i.i ], [ %60, %for.cond1.preheader.lr.ph.i.i ]
-  %63 = phi i32 [ %68, %for.inc17.i.i ], [ 1, %for.cond1.preheader.lr.ph.i.i ]
+  %64 = phi i32 [ %69, %for.inc17.i.i ], [ %62, %for.cond1.preheader.lr.ph.i.i ]
+  %65 = phi i32 [ %70, %for.inc17.i.i ], [ 1, %for.cond1.preheader.lr.ph.i.i ]
   %k.07.i.i = phi i32 [ %k.1.lcssa.i.i, %for.inc17.i.i ], [ 0, %for.cond1.preheader.lr.ph.i.i ]
   %j.06.i.i = phi i32 [ %inc18.i.i, %for.inc17.i.i ], [ 0, %for.cond1.preheader.lr.ph.i.i ]
-  %cmp21.not.i119.i = icmp eq i32 %63, 0
-  br i1 %cmp21.not.i119.i, label %for.inc17.i.i, label %for.body3.lr.ph.i.i
+  %cmp21.not.i120.i = icmp eq i32 %65, 0
+  br i1 %cmp21.not.i120.i, label %for.inc17.i.i, label %for.body3.lr.ph.i.i
 
 for.body3.lr.ph.i.i:                              ; preds = %for.cond1.preheader.i.i
-  %64 = load ptr, ptr @MapUnitToSliceGroupMap, align 8
+  %66 = load ptr, ptr @MapUnitToSliceGroupMap, align 8
   br label %for.body3.i.i
 
 for.body3.i.i:                                    ; preds = %for.body3.i.i, %for.body3.lr.ph.i.i
   %k.13.i.i = phi i32 [ %k.07.i.i, %for.body3.lr.ph.i.i ], [ %inc.i.i, %for.body3.i.i ]
   %i.02.i.i = phi i32 [ 0, %for.body3.lr.ph.i.i ], [ %inc16.i.i, %for.body3.i.i ]
   %inc.i.i = add i32 %k.13.i.i, 1
-  %cmp4.i.i = icmp ult i32 %k.13.i.i, %cond.i116.i
-  %65 = load i32, ptr %PicWidthInMbs.i117.i, align 4, !tbaa !24
-  %mul7.i.i = mul i32 %65, %i.02.i.i
+  %cmp4.i.i = icmp ult i32 %k.13.i.i, %cond.i117.i
+  %67 = load i32, ptr %PicWidthInMbs.i118.i, align 4, !tbaa !24
+  %mul7.i.i = mul i32 %67, %i.02.i.i
   %add8.i.i = add i32 %mul7.i.i, %j.06.i.i
-  %idxprom.i120.i = zext i32 %add8.i.i to i64
-  %arrayidx.i121.i = getelementptr inbounds i32, ptr %64, i64 %idxprom.i120.i
+  %idxprom.i121.i = zext i32 %add8.i.i to i64
+  %arrayidx.i122.i = getelementptr inbounds i32, ptr %66, i64 %idxprom.i121.i
   %pps.1092.val.sub10.i.i = select i1 %cmp4.i.i, i32 %pps.val64.i, i32 %sub10.i.i
-  store i32 %pps.1092.val.sub10.i.i, ptr %arrayidx.i121.i, align 4, !tbaa !19
+  store i32 %pps.1092.val.sub10.i.i, ptr %arrayidx.i122.i, align 4, !tbaa !19
   %inc16.i.i = add nuw i32 %i.02.i.i, 1
-  %66 = load i32, ptr %PicHeightInMapUnits.i118.i, align 8, !tbaa !42
-  %cmp2.i.i = icmp ult i32 %inc16.i.i, %66
+  %68 = load i32, ptr %PicHeightInMapUnits.i119.i, align 8, !tbaa !42
+  %cmp2.i.i = icmp ult i32 %inc16.i.i, %68
   br i1 %cmp2.i.i, label %for.body3.i.i, label %for.inc17.loopexit.i.i, !llvm.loop !45
 
 for.inc17.loopexit.i.i:                           ; preds = %for.body3.i.i
-  %.pre.i.i = load i32, ptr %PicWidthInMbs.i117.i, align 4, !tbaa !24
+  %.pre.i.i = load i32, ptr %PicWidthInMbs.i118.i, align 4, !tbaa !24
   br label %for.inc17.i.i
 
 for.inc17.i.i:                                    ; preds = %for.inc17.loopexit.i.i, %for.cond1.preheader.i.i
-  %67 = phi i32 [ %62, %for.cond1.preheader.i.i ], [ %.pre.i.i, %for.inc17.loopexit.i.i ]
-  %68 = phi i32 [ 0, %for.cond1.preheader.i.i ], [ %66, %for.inc17.loopexit.i.i ]
+  %69 = phi i32 [ %64, %for.cond1.preheader.i.i ], [ %.pre.i.i, %for.inc17.loopexit.i.i ]
+  %70 = phi i32 [ 0, %for.cond1.preheader.i.i ], [ %68, %for.inc17.loopexit.i.i ]
   %k.1.lcssa.i.i = phi i32 [ %k.07.i.i, %for.cond1.preheader.i.i ], [ %inc.i.i, %for.inc17.loopexit.i.i ]
   %inc18.i.i = add nuw i32 %j.06.i.i, 1
-  %cmp.i122.i = icmp ult i32 %inc18.i.i, %67
-  br i1 %cmp.i122.i, label %for.cond1.preheader.i.i, label %FmoGenerateMapUnitToSliceGroupMap.exit, !llvm.loop !46
+  %cmp.i123.i = icmp ult i32 %inc18.i.i, %69
+  br i1 %cmp.i123.i, label %for.cond1.preheader.i.i, label %FmoGenerateMapUnitToSliceGroupMap.exit, !llvm.loop !46
 
 sw.bb31.i:                                        ; preds = %if.end24.i
-  %cmp1.not.i123.i = icmp eq i32 %mul.i, 0
-  br i1 %cmp1.not.i123.i, label %FmoGenerateMapUnitToSliceGroupMap.exit, label %for.body.lr.ph.i125.i
+  %cmp1.not.i124.i = icmp eq i32 %mul.i, 0
+  br i1 %cmp1.not.i124.i, label %FmoGenerateMapUnitToSliceGroupMap.exit, label %for.body.lr.ph.i126.i
 
-for.body.lr.ph.i125.i:                            ; preds = %sw.bb31.i
+for.body.lr.ph.i126.i:                            ; preds = %sw.bb31.i
   %slice_group_id.i.i = getelementptr inbounds %struct.pic_parameter_set_rbsp_t, ptr %pps, i64 0, i32 20
-  %69 = load ptr, ptr %slice_group_id.i.i, align 8, !tbaa !48
+  %71 = load ptr, ptr %slice_group_id.i.i, align 8, !tbaa !48
   %min.iters.check = icmp ult i32 %mul.i, 8
-  %70 = ptrtoint ptr %69 to i64
-  %71 = sub i64 %call.i54, %70
-  %diff.check = icmp ult i64 %71, 32
+  %72 = ptrtoint ptr %71 to i64
+  %73 = sub i64 %call.i56, %72
+  %diff.check = icmp ult i64 %73, 32
   %or.cond = select i1 %min.iters.check, i1 true, i1 %diff.check
-  br i1 %or.cond, label %for.body.i130.i.preheader, label %vector.ph
+  br i1 %or.cond, label %for.body.i131.i.preheader, label %vector.ph
 
-vector.ph:                                        ; preds = %for.body.lr.ph.i125.i
+vector.ph:                                        ; preds = %for.body.lr.ph.i126.i
   %n.vec = and i64 %conv.i, 4294967288
   br label %vector.body
 
 vector.body:                                      ; preds = %vector.body, %vector.ph
   %index = phi i64 [ 0, %vector.ph ], [ %index.next, %vector.body ]
-  %72 = getelementptr inbounds i32, ptr %69, i64 %index
-  %wide.load = load <4 x i32>, ptr %72, align 4, !tbaa !19
-  %73 = getelementptr inbounds i32, ptr %72, i64 4
-  %wide.load55 = load <4 x i32>, ptr %73, align 4, !tbaa !19
-  %74 = getelementptr inbounds i32, ptr %call.i, i64 %index
-  store <4 x i32> %wide.load, ptr %74, align 4, !tbaa !19
+  %74 = getelementptr inbounds i32, ptr %71, i64 %index
+  %wide.load = load <4 x i32>, ptr %74, align 4, !tbaa !19
   %75 = getelementptr inbounds i32, ptr %74, i64 4
-  store <4 x i32> %wide.load55, ptr %75, align 4, !tbaa !19
+  %wide.load57 = load <4 x i32>, ptr %75, align 4, !tbaa !19
+  %76 = getelementptr inbounds i32, ptr %call.i, i64 %index
+  store <4 x i32> %wide.load, ptr %76, align 4, !tbaa !19
+  %77 = getelementptr inbounds i32, ptr %76, i64 4
+  store <4 x i32> %wide.load57, ptr %77, align 4, !tbaa !19
   %index.next = add nuw i64 %index, 8
-  %76 = icmp eq i64 %index.next, %n.vec
-  br i1 %76, label %middle.block, label %vector.body, !llvm.loop !49
+  %78 = icmp eq i64 %index.next, %n.vec
+  br i1 %78, label %middle.block, label %vector.body, !llvm.loop !49
 
 middle.block:                                     ; preds = %vector.body
   %cmp.n = icmp eq i64 %n.vec, %conv.i
-  br i1 %cmp.n, label %FmoGenerateMapUnitToSliceGroupMap.exit, label %for.body.i130.i.preheader
+  br i1 %cmp.n, label %FmoGenerateMapUnitToSliceGroupMap.exit, label %for.body.i131.i.preheader
 
-for.body.i130.i.preheader:                        ; preds = %for.body.lr.ph.i125.i, %middle.block
-  %indvars.iv.i126.i.ph = phi i64 [ 0, %for.body.lr.ph.i125.i ], [ %n.vec, %middle.block ]
-  %77 = xor i64 %indvars.iv.i126.i.ph, -1
-  %78 = add nsw i64 %77, %conv.i
+for.body.i131.i.preheader:                        ; preds = %for.body.lr.ph.i126.i, %middle.block
+  %indvars.iv.i127.i.ph = phi i64 [ 0, %for.body.lr.ph.i126.i ], [ %n.vec, %middle.block ]
+  %79 = xor i64 %indvars.iv.i127.i.ph, -1
+  %80 = add nsw i64 %79, %conv.i
   %xtraiter = and i64 %conv.i, 3
   %lcmp.mod.not = icmp eq i64 %xtraiter, 0
-  br i1 %lcmp.mod.not, label %for.body.i130.i.prol.loopexit, label %for.body.i130.i.prol
+  br i1 %lcmp.mod.not, label %for.body.i131.i.prol.loopexit, label %for.body.i131.i.prol
 
-for.body.i130.i.prol:                             ; preds = %for.body.i130.i.preheader, %for.body.i130.i.prol
-  %indvars.iv.i126.i.prol = phi i64 [ %indvars.iv.next.i128.i.prol, %for.body.i130.i.prol ], [ %indvars.iv.i126.i.ph, %for.body.i130.i.preheader ]
-  %prol.iter = phi i64 [ %prol.iter.next, %for.body.i130.i.prol ], [ 0, %for.body.i130.i.preheader ]
-  %arrayidx.i127.i.prol = getelementptr inbounds i32, ptr %69, i64 %indvars.iv.i126.i.prol
-  %79 = load i32, ptr %arrayidx.i127.i.prol, align 4, !tbaa !19
-  %arrayidx2.i.i.prol = getelementptr inbounds i32, ptr %call.i, i64 %indvars.iv.i126.i.prol
-  store i32 %79, ptr %arrayidx2.i.i.prol, align 4, !tbaa !19
-  %indvars.iv.next.i128.i.prol = add nuw nsw i64 %indvars.iv.i126.i.prol, 1
+for.body.i131.i.prol:                             ; preds = %for.body.i131.i.preheader, %for.body.i131.i.prol
+  %indvars.iv.i127.i.prol = phi i64 [ %indvars.iv.next.i129.i.prol, %for.body.i131.i.prol ], [ %indvars.iv.i127.i.ph, %for.body.i131.i.preheader ]
+  %prol.iter = phi i64 [ %prol.iter.next, %for.body.i131.i.prol ], [ 0, %for.body.i131.i.preheader ]
+  %arrayidx.i128.i.prol = getelementptr inbounds i32, ptr %71, i64 %indvars.iv.i127.i.prol
+  %81 = load i32, ptr %arrayidx.i128.i.prol, align 4, !tbaa !19
+  %arrayidx2.i.i.prol = getelementptr inbounds i32, ptr %call.i, i64 %indvars.iv.i127.i.prol
+  store i32 %81, ptr %arrayidx2.i.i.prol, align 4, !tbaa !19
+  %indvars.iv.next.i129.i.prol = add nuw nsw i64 %indvars.iv.i127.i.prol, 1
   %prol.iter.next = add i64 %prol.iter, 1
   %prol.iter.cmp.not = icmp eq i64 %prol.iter.next, %xtraiter
-  br i1 %prol.iter.cmp.not, label %for.body.i130.i.prol.loopexit, label %for.body.i130.i.prol, !llvm.loop !50
+  br i1 %prol.iter.cmp.not, label %for.body.i131.i.prol.loopexit, label %for.body.i131.i.prol, !llvm.loop !50
 
-for.body.i130.i.prol.loopexit:                    ; preds = %for.body.i130.i.prol, %for.body.i130.i.preheader
-  %indvars.iv.i126.i.unr = phi i64 [ %indvars.iv.i126.i.ph, %for.body.i130.i.preheader ], [ %indvars.iv.next.i128.i.prol, %for.body.i130.i.prol ]
-  %80 = icmp ult i64 %78, 3
-  br i1 %80, label %FmoGenerateMapUnitToSliceGroupMap.exit, label %for.body.i130.i
+for.body.i131.i.prol.loopexit:                    ; preds = %for.body.i131.i.prol, %for.body.i131.i.preheader
+  %indvars.iv.i127.i.unr = phi i64 [ %indvars.iv.i127.i.ph, %for.body.i131.i.preheader ], [ %indvars.iv.next.i129.i.prol, %for.body.i131.i.prol ]
+  %82 = icmp ult i64 %80, 3
+  br i1 %82, label %FmoGenerateMapUnitToSliceGroupMap.exit, label %for.body.i131.i
 
-for.body.i130.i:                                  ; preds = %for.body.i130.i.prol.loopexit, %for.body.i130.i
-  %indvars.iv.i126.i = phi i64 [ %indvars.iv.next.i128.i.3, %for.body.i130.i ], [ %indvars.iv.i126.i.unr, %for.body.i130.i.prol.loopexit ]
-  %arrayidx.i127.i = getelementptr inbounds i32, ptr %69, i64 %indvars.iv.i126.i
-  %81 = load i32, ptr %arrayidx.i127.i, align 4, !tbaa !19
-  %arrayidx2.i.i = getelementptr inbounds i32, ptr %call.i, i64 %indvars.iv.i126.i
-  store i32 %81, ptr %arrayidx2.i.i, align 4, !tbaa !19
-  %indvars.iv.next.i128.i = add nuw nsw i64 %indvars.iv.i126.i, 1
-  %arrayidx.i127.i.1 = getelementptr inbounds i32, ptr %69, i64 %indvars.iv.next.i128.i
-  %82 = load i32, ptr %arrayidx.i127.i.1, align 4, !tbaa !19
-  %arrayidx2.i.i.1 = getelementptr inbounds i32, ptr %call.i, i64 %indvars.iv.next.i128.i
-  store i32 %82, ptr %arrayidx2.i.i.1, align 4, !tbaa !19
-  %indvars.iv.next.i128.i.1 = add nuw nsw i64 %indvars.iv.i126.i, 2
-  %arrayidx.i127.i.2 = getelementptr inbounds i32, ptr %69, i64 %indvars.iv.next.i128.i.1
-  %83 = load i32, ptr %arrayidx.i127.i.2, align 4, !tbaa !19
-  %arrayidx2.i.i.2 = getelementptr inbounds i32, ptr %call.i, i64 %indvars.iv.next.i128.i.1
-  store i32 %83, ptr %arrayidx2.i.i.2, align 4, !tbaa !19
-  %indvars.iv.next.i128.i.2 = add nuw nsw i64 %indvars.iv.i126.i, 3
-  %arrayidx.i127.i.3 = getelementptr inbounds i32, ptr %69, i64 %indvars.iv.next.i128.i.2
-  %84 = load i32, ptr %arrayidx.i127.i.3, align 4, !tbaa !19
-  %arrayidx2.i.i.3 = getelementptr inbounds i32, ptr %call.i, i64 %indvars.iv.next.i128.i.2
-  store i32 %84, ptr %arrayidx2.i.i.3, align 4, !tbaa !19
-  %indvars.iv.next.i128.i.3 = add nuw nsw i64 %indvars.iv.i126.i, 4
-  %exitcond.not.i129.i.3 = icmp eq i64 %indvars.iv.next.i128.i.3, %conv.i
-  br i1 %exitcond.not.i129.i.3, label %FmoGenerateMapUnitToSliceGroupMap.exit, label %for.body.i130.i, !llvm.loop !52
+for.body.i131.i:                                  ; preds = %for.body.i131.i.prol.loopexit, %for.body.i131.i
+  %indvars.iv.i127.i = phi i64 [ %indvars.iv.next.i129.i.3, %for.body.i131.i ], [ %indvars.iv.i127.i.unr, %for.body.i131.i.prol.loopexit ]
+  %arrayidx.i128.i = getelementptr inbounds i32, ptr %71, i64 %indvars.iv.i127.i
+  %83 = load i32, ptr %arrayidx.i128.i, align 4, !tbaa !19
+  %arrayidx2.i.i = getelementptr inbounds i32, ptr %call.i, i64 %indvars.iv.i127.i
+  store i32 %83, ptr %arrayidx2.i.i, align 4, !tbaa !19
+  %indvars.iv.next.i129.i = add nuw nsw i64 %indvars.iv.i127.i, 1
+  %arrayidx.i128.i.1 = getelementptr inbounds i32, ptr %71, i64 %indvars.iv.next.i129.i
+  %84 = load i32, ptr %arrayidx.i128.i.1, align 4, !tbaa !19
+  %arrayidx2.i.i.1 = getelementptr inbounds i32, ptr %call.i, i64 %indvars.iv.next.i129.i
+  store i32 %84, ptr %arrayidx2.i.i.1, align 4, !tbaa !19
+  %indvars.iv.next.i129.i.1 = add nuw nsw i64 %indvars.iv.i127.i, 2
+  %arrayidx.i128.i.2 = getelementptr inbounds i32, ptr %71, i64 %indvars.iv.next.i129.i.1
+  %85 = load i32, ptr %arrayidx.i128.i.2, align 4, !tbaa !19
+  %arrayidx2.i.i.2 = getelementptr inbounds i32, ptr %call.i, i64 %indvars.iv.next.i129.i.1
+  store i32 %85, ptr %arrayidx2.i.i.2, align 4, !tbaa !19
+  %indvars.iv.next.i129.i.2 = add nuw nsw i64 %indvars.iv.i127.i, 3
+  %arrayidx.i128.i.3 = getelementptr inbounds i32, ptr %71, i64 %indvars.iv.next.i129.i.2
+  %86 = load i32, ptr %arrayidx.i128.i.3, align 4, !tbaa !19
+  %arrayidx2.i.i.3 = getelementptr inbounds i32, ptr %call.i, i64 %indvars.iv.next.i129.i.2
+  store i32 %86, ptr %arrayidx2.i.i.3, align 4, !tbaa !19
+  %indvars.iv.next.i129.i.3 = add nuw nsw i64 %indvars.iv.i127.i, 4
+  %exitcond.not.i130.i.3 = icmp eq i64 %indvars.iv.next.i129.i.3, %conv.i
+  br i1 %exitcond.not.i130.i.3, label %FmoGenerateMapUnitToSliceGroupMap.exit, label %for.body.i131.i, !llvm.loop !52
 
 sw.default.i:                                     ; preds = %if.end24.i
   %call33.i = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.2, i32 noundef %7)
   tail call void @exit(i32 noundef -1) #14
   unreachable
 
-FmoGenerateMapUnitToSliceGroupMap.exit.loopexit89.unr-lcssa: ; preds = %for.body.i108.i, %for.body.lr.ph.i103.i
-  %indvars.iv.i104.i.unr = phi i64 [ 0, %for.body.lr.ph.i103.i ], [ %indvars.iv.next.i106.i.3, %for.body.i108.i ]
-  %lcmp.mod94.not = icmp eq i64 %xtraiter93, 0
-  br i1 %lcmp.mod94.not, label %FmoGenerateMapUnitToSliceGroupMap.exit, label %for.body.i108.i.epil
+FmoGenerateMapUnitToSliceGroupMap.exit.loopexit91.unr-lcssa: ; preds = %for.body.i109.i, %for.body.lr.ph.i104.i
+  %indvars.iv.i105.i.unr = phi i64 [ 0, %for.body.lr.ph.i104.i ], [ %indvars.iv.next.i107.i.3, %for.body.i109.i ]
+  %lcmp.mod96.not = icmp eq i64 %xtraiter95, 0
+  br i1 %lcmp.mod96.not, label %FmoGenerateMapUnitToSliceGroupMap.exit, label %for.body.i109.i.epil
 
-for.body.i108.i.epil:                             ; preds = %FmoGenerateMapUnitToSliceGroupMap.exit.loopexit89.unr-lcssa, %for.body.i108.i.epil
-  %indvars.iv.i104.i.epil = phi i64 [ %indvars.iv.next.i106.i.epil, %for.body.i108.i.epil ], [ %indvars.iv.i104.i.unr, %FmoGenerateMapUnitToSliceGroupMap.exit.loopexit89.unr-lcssa ]
-  %epil.iter = phi i64 [ %epil.iter.next, %for.body.i108.i.epil ], [ 0, %FmoGenerateMapUnitToSliceGroupMap.exit.loopexit89.unr-lcssa ]
-  %cmp1.i105.i.epil = icmp ult i64 %indvars.iv.i104.i.epil, %50
-  %spec.select.i.i.epil = select i1 %cmp1.i105.i.epil, i32 %pps.val.i, i32 %sub4.i.i
-  %85 = getelementptr inbounds i32, ptr %call.i, i64 %indvars.iv.i104.i.epil
-  store i32 %spec.select.i.i.epil, ptr %85, align 4
-  %indvars.iv.next.i106.i.epil = add nuw nsw i64 %indvars.iv.i104.i.epil, 1
+for.body.i109.i.epil:                             ; preds = %FmoGenerateMapUnitToSliceGroupMap.exit.loopexit91.unr-lcssa, %for.body.i109.i.epil
+  %indvars.iv.i105.i.epil = phi i64 [ %indvars.iv.next.i107.i.epil, %for.body.i109.i.epil ], [ %indvars.iv.i105.i.unr, %FmoGenerateMapUnitToSliceGroupMap.exit.loopexit91.unr-lcssa ]
+  %epil.iter = phi i64 [ %epil.iter.next, %for.body.i109.i.epil ], [ 0, %FmoGenerateMapUnitToSliceGroupMap.exit.loopexit91.unr-lcssa ]
+  %cmp1.i106.i.epil = icmp ult i64 %indvars.iv.i105.i.epil, %52
+  %spec.select.i.i.epil = select i1 %cmp1.i106.i.epil, i32 %pps.val.i, i32 %sub4.i.i
+  %87 = getelementptr inbounds i32, ptr %call.i, i64 %indvars.iv.i105.i.epil
+  store i32 %spec.select.i.i.epil, ptr %87, align 4
+  %indvars.iv.next.i107.i.epil = add nuw nsw i64 %indvars.iv.i105.i.epil, 1
   %epil.iter.next = add i64 %epil.iter, 1
-  %epil.iter.cmp.not = icmp eq i64 %epil.iter.next, %xtraiter93
-  br i1 %epil.iter.cmp.not, label %FmoGenerateMapUnitToSliceGroupMap.exit, label %for.body.i108.i.epil, !llvm.loop !53
+  %epil.iter.cmp.not = icmp eq i64 %epil.iter.next, %xtraiter95
+  br i1 %epil.iter.cmp.not, label %FmoGenerateMapUnitToSliceGroupMap.exit, label %for.body.i109.i.epil, !llvm.loop !53
 
-FmoGenerateMapUnitToSliceGroupMap.exit:           ; preds = %for.body.i130.i.prol.loopexit, %for.body.i130.i, %for.inc17.i.i, %FmoGenerateMapUnitToSliceGroupMap.exit.loopexit89.unr-lcssa, %for.body.i108.i.epil, %for.inc79.i.i, %for.cond2.loopexit.i.i, %for.body.i.i, %do.body.i.i, %do.cond.i.i, %middle.block, %if.then21.i, %sw.bb26.i, %for.end.i.i, %sw.bb28.i, %sw.bb29.i, %sw.bb30.i, %for.cond1.preheader.lr.ph.i.i, %sw.bb31.i
-  %86 = load ptr, ptr @MbToSliceGroupMap, align 8, !tbaa !17
-  %tobool.not.i6 = icmp eq ptr %86, null
+FmoGenerateMapUnitToSliceGroupMap.exit:           ; preds = %for.body.i131.i.prol.loopexit, %for.body.i131.i, %for.inc17.i.i, %FmoGenerateMapUnitToSliceGroupMap.exit.loopexit91.unr-lcssa, %for.body.i109.i.epil, %for.inc79.i.i, %for.cond2.loopexit.i.i, %for.body.i.i, %do.body.i.i, %do.cond.i.i, %middle.block, %if.then21.i, %sw.bb26.i, %for.end.i.i, %sw.bb28.i, %sw.bb29.i, %sw.bb30.i, %for.cond1.preheader.lr.ph.i.i, %sw.bb31.i
+  %88 = load ptr, ptr @MbToSliceGroupMap, align 8, !tbaa !17
+  %tobool.not.i6 = icmp eq ptr %88, null
   br i1 %tobool.not.i6, label %if.end.i, label %if.then.i7
 
 if.then.i7:                                       ; preds = %FmoGenerateMapUnitToSliceGroupMap.exit
-  tail call void @free(ptr noundef nonnull %86) #12
+  tail call void @free(ptr noundef nonnull %88) #12
   br label %if.end.i
 
 if.end.i:                                         ; preds = %if.then.i7, %FmoGenerateMapUnitToSliceGroupMap.exit
-  %87 = load ptr, ptr @img, align 8, !tbaa !17
-  %PicSizeInMbs.i = getelementptr inbounds %struct.img_par, ptr %87, i64 0, i32 91
-  %88 = load i32, ptr %PicSizeInMbs.i, align 4, !tbaa !54
-  %conv.i8 = zext i32 %88 to i64
+  %89 = load ptr, ptr @img, align 8, !tbaa !17
+  %PicSizeInMbs.i = getelementptr inbounds %struct.img_par, ptr %89, i64 0, i32 91
+  %90 = load i32, ptr %PicSizeInMbs.i, align 4, !tbaa !54
+  %conv.i8 = zext i32 %90 to i64
   %mul.i9 = shl nuw nsw i64 %conv.i8, 2
   %call.i10 = tail call noalias ptr @malloc(i64 noundef %mul.i9) #13
   store ptr %call.i10, ptr @MbToSliceGroupMap, align 8, !tbaa !17
@@ -704,102 +708,102 @@ if.end.i:                                         ; preds = %if.then.i7, %FmoGen
   br i1 %cmp.i11, label %if.then2.i, label %if.end8.i
 
 if.then2.i:                                       ; preds = %if.end.i
-  %mul5.i = shl i32 %88, 2
+  %mul5.i = shl i32 %90, 2
   %call7.i = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.3, i32 noundef %mul5.i)
   tail call void @exit(i32 noundef -1) #14
   unreachable
 
 if.end8.i:                                        ; preds = %if.end.i
   %frame_mbs_only_flag.i = getelementptr inbounds %struct.seq_parameter_set_rbsp_t, ptr %sps, i64 0, i32 29
-  %89 = load i32, ptr %frame_mbs_only_flag.i, align 4, !tbaa !55
-  %tobool9.not.i = icmp eq i32 %89, 0
+  %91 = load i32, ptr %frame_mbs_only_flag.i, align 4, !tbaa !55
+  %tobool9.not.i = icmp eq i32 %91, 0
   br i1 %tobool9.not.i, label %lor.lhs.false.i, label %if.then11.i12
 
 lor.lhs.false.i:                                  ; preds = %if.end8.i
-  %field_pic_flag.i = getelementptr inbounds %struct.img_par, ptr %87, i64 0, i32 57
-  %90 = load i32, ptr %field_pic_flag.i, align 8, !tbaa !56
-  %tobool10.not.i = icmp eq i32 %90, 0
+  %field_pic_flag.i = getelementptr inbounds %struct.img_par, ptr %89, i64 0, i32 57
+  %92 = load i32, ptr %field_pic_flag.i, align 8, !tbaa !56
+  %tobool10.not.i = icmp eq i32 %92, 0
   br i1 %tobool10.not.i, label %if.else.i, label %if.then11.i12
 
 if.then11.i12:                                    ; preds = %lor.lhs.false.i, %if.end8.i
-  %cmp134.not.i = icmp eq i32 %88, 0
-  br i1 %cmp134.not.i, label %FmoGenerateMbToSliceGroupMap.exit, label %for.body.lr.ph.i
+  %cmp133.not.i = icmp eq i32 %90, 0
+  br i1 %cmp133.not.i, label %FmoGenerateMbToSliceGroupMap.exit, label %for.body.lr.ph.i
 
 for.body.lr.ph.i:                                 ; preds = %if.then11.i12
-  %91 = load ptr, ptr @MapUnitToSliceGroupMap, align 8, !tbaa !17
+  %93 = load ptr, ptr @MapUnitToSliceGroupMap, align 8, !tbaa !17
   br label %for.body.i
 
 for.body.i:                                       ; preds = %for.body.i, %for.body.lr.ph.i
-  %indvars.iv.i = phi i64 [ 0, %for.body.lr.ph.i ], [ %indvars.iv.next.i, %for.body.i ]
-  %arrayidx.i = getelementptr inbounds i32, ptr %91, i64 %indvars.iv.i
-  %92 = load i32, ptr %arrayidx.i, align 4, !tbaa !19
-  %arrayidx16.i = getelementptr inbounds i32, ptr %call.i10, i64 %indvars.iv.i
-  store i32 %92, ptr %arrayidx16.i, align 4, !tbaa !19
-  %indvars.iv.next.i = add nuw nsw i64 %indvars.iv.i, 1
-  %93 = load i32, ptr %PicSizeInMbs.i, align 4, !tbaa !54
-  %94 = zext i32 %93 to i64
-  %cmp13.i = icmp ult i64 %indvars.iv.next.i, %94
+  %indvars.iv.i13 = phi i64 [ 0, %for.body.lr.ph.i ], [ %indvars.iv.next.i14, %for.body.i ]
+  %arrayidx.i = getelementptr inbounds i32, ptr %93, i64 %indvars.iv.i13
+  %94 = load i32, ptr %arrayidx.i, align 4, !tbaa !19
+  %arrayidx16.i = getelementptr inbounds i32, ptr %call.i10, i64 %indvars.iv.i13
+  store i32 %94, ptr %arrayidx16.i, align 4, !tbaa !19
+  %indvars.iv.next.i14 = add nuw nsw i64 %indvars.iv.i13, 1
+  %95 = load i32, ptr %PicSizeInMbs.i, align 4, !tbaa !54
+  %96 = zext i32 %95 to i64
+  %cmp13.i = icmp ult i64 %indvars.iv.next.i14, %96
   br i1 %cmp13.i, label %for.body.i, label %FmoGenerateMbToSliceGroupMap.exit, !llvm.loop !57
 
 if.else.i:                                        ; preds = %lor.lhs.false.i
   %mb_adaptive_frame_field_flag.i = getelementptr inbounds %struct.seq_parameter_set_rbsp_t, ptr %sps, i64 0, i32 30
-  %95 = load i32, ptr %mb_adaptive_frame_field_flag.i, align 4, !tbaa !58
-  %tobool17.not.i = icmp eq i32 %95, 0
-  %cmp368.not.i = icmp eq i32 %88, 0
+  %97 = load i32, ptr %mb_adaptive_frame_field_flag.i, align 4, !tbaa !58
+  %tobool17.not.i = icmp eq i32 %97, 0
+  %cmp367.not.i = icmp eq i32 %90, 0
   br i1 %tobool17.not.i, label %for.cond34.preheader.i, label %for.cond21.preheader.i
 
 for.cond21.preheader.i:                           ; preds = %if.else.i
-  br i1 %cmp368.not.i, label %FmoGenerateMbToSliceGroupMap.exit, label %for.body25.lr.ph.i
+  br i1 %cmp367.not.i, label %FmoGenerateMbToSliceGroupMap.exit, label %for.body25.lr.ph.i
 
 for.body25.lr.ph.i:                               ; preds = %for.cond21.preheader.i
-  %96 = load ptr, ptr @MapUnitToSliceGroupMap, align 8, !tbaa !17
+  %98 = load ptr, ptr @MapUnitToSliceGroupMap, align 8, !tbaa !17
   br label %for.body25.i
 
 for.cond34.preheader.i:                           ; preds = %if.else.i
-  br i1 %cmp368.not.i, label %FmoGenerateMbToSliceGroupMap.exit, label %for.body38.lr.ph.i
+  br i1 %cmp367.not.i, label %FmoGenerateMbToSliceGroupMap.exit, label %for.body38.lr.ph.i
 
 for.body38.lr.ph.i:                               ; preds = %for.cond34.preheader.i
-  %97 = load ptr, ptr @MapUnitToSliceGroupMap, align 8, !tbaa !17
-  %PicWidthInMbs.i = getelementptr inbounds %struct.img_par, ptr %87, i64 0, i32 87
+  %99 = load ptr, ptr @MapUnitToSliceGroupMap, align 8, !tbaa !17
+  %PicWidthInMbs.i = getelementptr inbounds %struct.img_par, ptr %89, i64 0, i32 87
   br label %for.body38.i
 
 for.body25.i:                                     ; preds = %for.body25.i, %for.body25.lr.ph.i
-  %indvars.iv13.i = phi i64 [ 0, %for.body25.lr.ph.i ], [ %indvars.iv.next14.i, %for.body25.i ]
-  %div1.i = lshr i64 %indvars.iv13.i, 1
-  %idxprom26.i = and i64 %div1.i, 2147483647
-  %arrayidx27.i = getelementptr inbounds i32, ptr %96, i64 %idxprom26.i
-  %98 = load i32, ptr %arrayidx27.i, align 4, !tbaa !19
-  %arrayidx29.i = getelementptr inbounds i32, ptr %call.i10, i64 %indvars.iv13.i
-  store i32 %98, ptr %arrayidx29.i, align 4, !tbaa !19
-  %indvars.iv.next14.i = add nuw nsw i64 %indvars.iv13.i, 1
-  %99 = load i32, ptr %PicSizeInMbs.i, align 4, !tbaa !54
-  %100 = zext i32 %99 to i64
-  %cmp23.i = icmp ult i64 %indvars.iv.next14.i, %100
+  %indvars.iv12.i = phi i64 [ 0, %for.body25.lr.ph.i ], [ %indvars.iv.next13.i, %for.body25.i ]
+  %div66.i = lshr i64 %indvars.iv12.i, 1
+  %idxprom26.i = and i64 %div66.i, 2147483647
+  %arrayidx27.i = getelementptr inbounds i32, ptr %98, i64 %idxprom26.i
+  %100 = load i32, ptr %arrayidx27.i, align 4, !tbaa !19
+  %arrayidx29.i = getelementptr inbounds i32, ptr %call.i10, i64 %indvars.iv12.i
+  store i32 %100, ptr %arrayidx29.i, align 4, !tbaa !19
+  %indvars.iv.next13.i = add nuw nsw i64 %indvars.iv12.i, 1
+  %101 = load i32, ptr %PicSizeInMbs.i, align 4, !tbaa !54
+  %102 = zext i32 %101 to i64
+  %cmp23.i = icmp ult i64 %indvars.iv.next13.i, %102
   br i1 %cmp23.i, label %for.body25.i, label %FmoGenerateMbToSliceGroupMap.exit, !llvm.loop !59
 
 for.body38.i:                                     ; preds = %for.body38.i, %for.body38.lr.ph.i
-  %indvars.iv16.i = phi i64 [ 0, %for.body38.lr.ph.i ], [ %indvars.iv.next17.i, %for.body38.i ]
-  %101 = load i32, ptr %PicWidthInMbs.i, align 4, !tbaa !24
-  %mul39.i = shl i32 %101, 1
-  %102 = trunc i64 %indvars.iv16.i to i32
-  %div40.i = udiv i32 %102, %mul39.i
-  %mul42.i = mul i32 %div40.i, %101
-  %rem.i = urem i32 %102, %101
-  %add.i13 = add i32 %mul42.i, %rem.i
-  %idxprom44.i = zext i32 %add.i13 to i64
-  %arrayidx45.i = getelementptr inbounds i32, ptr %97, i64 %idxprom44.i
-  %103 = load i32, ptr %arrayidx45.i, align 4, !tbaa !19
-  %arrayidx47.i = getelementptr inbounds i32, ptr %call.i10, i64 %indvars.iv16.i
-  store i32 %103, ptr %arrayidx47.i, align 4, !tbaa !19
-  %indvars.iv.next17.i = add nuw nsw i64 %indvars.iv16.i, 1
-  %104 = load i32, ptr %PicSizeInMbs.i, align 4, !tbaa !54
-  %105 = zext i32 %104 to i64
-  %cmp36.i = icmp ult i64 %indvars.iv.next17.i, %105
+  %indvars.iv15.i = phi i64 [ 0, %for.body38.lr.ph.i ], [ %indvars.iv.next16.i, %for.body38.i ]
+  %103 = load i32, ptr %PicWidthInMbs.i, align 4, !tbaa !24
+  %mul39.i = shl i32 %103, 1
+  %104 = trunc i64 %indvars.iv15.i to i32
+  %div40.i = udiv i32 %104, %mul39.i
+  %mul42.i = mul i32 %div40.i, %103
+  %rem.i = urem i32 %104, %103
+  %add.i15 = add i32 %mul42.i, %rem.i
+  %idxprom44.i = zext i32 %add.i15 to i64
+  %arrayidx45.i = getelementptr inbounds i32, ptr %99, i64 %idxprom44.i
+  %105 = load i32, ptr %arrayidx45.i, align 4, !tbaa !19
+  %arrayidx47.i = getelementptr inbounds i32, ptr %call.i10, i64 %indvars.iv15.i
+  store i32 %105, ptr %arrayidx47.i, align 4, !tbaa !19
+  %indvars.iv.next16.i = add nuw nsw i64 %indvars.iv15.i, 1
+  %106 = load i32, ptr %PicSizeInMbs.i, align 4, !tbaa !54
+  %107 = zext i32 %106 to i64
+  %cmp36.i = icmp ult i64 %indvars.iv.next16.i, %107
   br i1 %cmp36.i, label %for.body38.i, label %FmoGenerateMbToSliceGroupMap.exit, !llvm.loop !60
 
 FmoGenerateMbToSliceGroupMap.exit:                ; preds = %for.body.i, %for.body25.i, %for.body38.i, %if.then11.i12, %for.cond21.preheader.i, %for.cond34.preheader.i
-  %106 = load i32, ptr %num_slice_groups_minus1.i, align 4, !tbaa !18
-  %add = add i32 %106, 1
+  %108 = load i32, ptr %num_slice_groups_minus1.i, align 4, !tbaa !18
+  %add = add i32 %108, 1
   store i32 %add, ptr @NumberOfSliceGroups, align 4, !tbaa !19
   ret i32 0
 }
@@ -955,13 +959,13 @@ declare void @exit(i32 noundef) local_unnamed_addr #9
 declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #10
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i32 @llvm.usub.sat.i32(i32, i32) #11
-
-; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
 declare i32 @llvm.smin.i32(i32, i32) #11
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
 declare i32 @llvm.smax.i32(i32, i32) #11
+
+; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
+declare i32 @llvm.usub.sat.i32(i32, i32) #11
 
 attributes #0 = { nounwind uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #1 = { mustprogress nounwind willreturn uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }

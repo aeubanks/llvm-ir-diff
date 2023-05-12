@@ -263,7 +263,7 @@ while.end:                                        ; preds = %while.cond
   store i32 %2, ptr %value, align 4, !tbaa !25
   %plist = getelementptr inbounds %struct.tnode, ptr %v.0, i64 0, i32 9
   %3 = load ptr, ptr %plist, align 8, !tbaa !26
-  %4 = load i32, ptr %3, align 8, !tbaa !25
+  %4 = load i32, ptr %3, align 8, !tbaa !13
   store i32 %4, ptr %property, align 4, !tbaa !25
   %5 = load i32, ptr %value, align 4, !tbaa !25
   tail call void @tdelete(ptr noundef nonnull %root, i32 noundef %5, i32 noundef %4)
@@ -570,10 +570,10 @@ if.else119:                                       ; preds = %if.then103
   %son2123 = getelementptr inbounds %struct.tnode, ptr %14, i64 0, i32 3
   store ptr %44, ptr %son2123, align 8, !tbaa !19
   %son2124 = getelementptr inbounds %struct.tnode, ptr %37, i64 0, i32 3
-  %45 = load ptr, ptr %son2124, align 8, !tbaa !5
+  %45 = load ptr, ptr %son2124, align 8, !tbaa !19
   store ptr %45, ptr %son1122, align 8, !tbaa !18
   %son3126 = getelementptr inbounds %struct.tnode, ptr %37, i64 0, i32 4
-  %46 = load ptr, ptr %son3126, align 8, !tbaa !5
+  %46 = load ptr, ptr %son3126, align 8, !tbaa !20
   store ptr %46, ptr %son2124, align 8, !tbaa !19
   %47 = load ptr, ptr %son2123, align 8, !tbaa !19
   %father129 = getelementptr inbounds %struct.tnode, ptr %47, i64 0, i32 6
@@ -625,7 +625,7 @@ if.then149:                                       ; preds = %if.else146
   %son1165 = getelementptr inbounds %struct.tnode, ptr %58, i64 0, i32 2
   store ptr %59, ptr %son1165, align 8, !tbaa !18
   %son3167 = getelementptr inbounds %struct.tnode, ptr %58, i64 0, i32 4
-  %60 = load ptr, ptr %son3167, align 8, !tbaa !5
+  %60 = load ptr, ptr %son3167, align 8, !tbaa !20
   store ptr %60, ptr %son2163, align 8, !tbaa !19
   store ptr null, ptr %son3167, align 8, !tbaa !20
   %nsons173 = getelementptr inbounds %struct.tnode, ptr %58, i64 0, i32 1
@@ -663,10 +663,10 @@ if.else196:                                       ; preds = %if.else146
   %son2200 = getelementptr inbounds %struct.tnode, ptr %14, i64 0, i32 3
   store ptr %64, ptr %son2200, align 8, !tbaa !19
   %son2201 = getelementptr inbounds %struct.tnode, ptr %37, i64 0, i32 3
-  %65 = load ptr, ptr %son2201, align 8, !tbaa !5
+  %65 = load ptr, ptr %son2201, align 8, !tbaa !19
   store ptr %65, ptr %son1199, align 8, !tbaa !18
   %son3203 = getelementptr inbounds %struct.tnode, ptr %37, i64 0, i32 4
-  %66 = load ptr, ptr %son3203, align 8, !tbaa !5
+  %66 = load ptr, ptr %son3203, align 8, !tbaa !20
   store ptr %66, ptr %son2201, align 8, !tbaa !19
   %67 = load ptr, ptr %son2200, align 8, !tbaa !19
   %father206 = getelementptr inbounds %struct.tnode, ptr %67, i64 0, i32 6
@@ -796,7 +796,7 @@ if.else296:                                       ; preds = %if.else266
   store i32 2, ptr %nsons269, align 4, !tbaa !9
   store ptr %s.0, ptr %son164, align 8, !tbaa !18
   %son1299 = getelementptr inbounds %struct.tnode, ptr %84, i64 0, i32 2
-  %95 = load ptr, ptr %son1299, align 8, !tbaa !5
+  %95 = load ptr, ptr %son1299, align 8, !tbaa !18
   %son2300 = getelementptr inbounds %struct.tnode, ptr %14, i64 0, i32 3
   store ptr %95, ptr %son2300, align 8, !tbaa !19
   %father302 = getelementptr inbounds %struct.tnode, ptr %95, i64 0, i32 6
@@ -819,7 +819,7 @@ if.else296:                                       ; preds = %if.else266
   %Lval316 = getelementptr inbounds %struct.tnode, ptr %14, i64 0, i32 7
   store i32 %101, ptr %Lval316, align 8, !tbaa !21
   %102 = load ptr, ptr %son2300, align 8, !tbaa !19
-  %103 = load i32, ptr %102, align 8, !tbaa !25
+  %103 = load i32, ptr %102, align 8, !tbaa !12
   %Mval319 = getelementptr inbounds %struct.tnode, ptr %14, i64 0, i32 8
   store i32 %103, ptr %Mval319, align 4, !tbaa !22
   %104 = load ptr, ptr %father94, align 8, !tbaa !17
@@ -943,7 +943,7 @@ for.cond.i:                                       ; preds = %entry, %for.cond.i.
   %v.0.i = phi ptr [ %v.0.i.be, %for.cond.i.backedge ], [ %0, %entry ]
   %nsons.i = getelementptr inbounds %struct.tnode, ptr %v.0.i, i64 0, i32 1
   %1 = load i32, ptr %nsons.i, align 4, !tbaa !9
-  switch i32 %1, label %tmax.exit [
+  switch i32 %1, label %if.else [
     i32 3, label %if.then2.i
     i32 2, label %if.then6.i
   ]
@@ -965,12 +965,12 @@ for.cond.i.backedge:                              ; preds = %if.end8.i, %if.else
   %v.0.i.be = phi ptr [ %v.1.i, %if.end8.i ], [ %5, %if.else3 ]
   br label %for.cond.i
 
-tmax.exit:                                        ; preds = %for.cond.i
+if.else:                                          ; preds = %for.cond.i
   %2 = load i32, ptr %v.0.i, align 8, !tbaa !12
   %cmp1 = icmp slt i32 %2, %threshold
   br i1 %cmp1, label %for.end, label %if.else3
 
-if.else3:                                         ; preds = %tmax.exit
+if.else3:                                         ; preds = %if.else
   %plist.i = getelementptr inbounds %struct.tnode, ptr %v.0.i, i64 0, i32 9
   %3 = load ptr, ptr %plist.i, align 8, !tbaa !26
   %4 = load i32, ptr %3, align 8, !tbaa !13
@@ -979,18 +979,18 @@ if.else3:                                         ; preds = %tmax.exit
   %cmp.i = icmp eq ptr %5, null
   br i1 %cmp.i, label %for.end, label %for.cond.i.backedge
 
-for.end:                                          ; preds = %tmax.exit, %if.else3, %entry
+for.end:                                          ; preds = %if.else, %if.else3, %entry
   ret void
 }
 
 ; Function Attrs: nounwind uwtable
 define dso_local void @tdiscard(ptr nocapture noundef %root, i32 noundef %count) local_unnamed_addr #0 {
 entry:
-  %cmp.not6 = icmp slt i32 %count, 1
-  br i1 %cmp.not6, label %for.end, label %for.body
+  %cmp.not8 = icmp slt i32 %count, 1
+  br i1 %cmp.not8, label %for.end, label %for.body
 
 for.body:                                         ; preds = %entry, %if.else
-  %i.07 = phi i32 [ %inc, %if.else ], [ 1, %entry ]
+  %i.09 = phi i32 [ %inc, %if.else ], [ 1, %entry ]
   %0 = load ptr, ptr %root, align 8, !tbaa !5
   %cmp.i = icmp eq ptr %0, null
   br i1 %cmp.i, label %for.end, label %for.cond.i
@@ -1018,13 +1018,13 @@ if.end8.i:                                        ; preds = %if.then6.i, %if.the
   br label %for.cond.i
 
 if.else:                                          ; preds = %for.cond.i
+  %2 = load i32, ptr %v.0.i, align 8, !tbaa !12
   %plist.i = getelementptr inbounds %struct.tnode, ptr %v.0.i, i64 0, i32 9
-  %2 = load ptr, ptr %plist.i, align 8, !tbaa !26
-  %3 = load i32, ptr %2, align 8, !tbaa !13
-  %4 = load i32, ptr %v.0.i, align 8, !tbaa !12
-  tail call void @tdelete(ptr noundef nonnull %root, i32 noundef %4, i32 noundef %3)
-  %inc = add nuw i32 %i.07, 1
-  %exitcond.not = icmp eq i32 %i.07, %count
+  %3 = load ptr, ptr %plist.i, align 8, !tbaa !26
+  %4 = load i32, ptr %3, align 8, !tbaa !13
+  tail call void @tdelete(ptr noundef nonnull %root, i32 noundef %2, i32 noundef %4)
+  %inc = add nuw i32 %i.09, 1
+  %exitcond.not = icmp eq i32 %i.09, %count
   br i1 %exitcond.not, label %for.end, label %for.body, !llvm.loop !30
 
 for.end:                                          ; preds = %if.else, %for.body, %entry
@@ -1097,11 +1097,11 @@ tailrecurse:                                      ; preds = %if.end104, %entry
   %r.tr = phi ptr [ %r, %entry ], [ %7, %if.end104 ]
   %call = tail call noalias dereferenceable_or_null(64) ptr @malloc(i64 noundef 64) #14
   %son3 = getelementptr inbounds %struct.tnode, ptr %r.tr, i64 0, i32 4
-  %0 = load ptr, ptr %son3, align 8, !tbaa !5
+  %0 = load ptr, ptr %son3, align 8, !tbaa !20
   %son1 = getelementptr inbounds %struct.tnode, ptr %call, i64 0, i32 2
   store ptr %0, ptr %son1, align 8, !tbaa !18
   %son4 = getelementptr inbounds %struct.tnode, ptr %r.tr, i64 0, i32 5
-  %1 = load ptr, ptr %son4, align 8, !tbaa !5
+  %1 = load ptr, ptr %son4, align 8, !tbaa !31
   %son2 = getelementptr inbounds %struct.tnode, ptr %call, i64 0, i32 3
   store ptr %1, ptr %son2, align 8, !tbaa !19
   %son31 = getelementptr inbounds %struct.tnode, ptr %call, i64 0, i32 4
@@ -1134,7 +1134,7 @@ while.cond:                                       ; preds = %while.body, %tailre
 
 while.body:                                       ; preds = %while.cond
   %son313 = getelementptr inbounds %struct.tnode, ptr %f.0, i64 0, i32 4
-  br label %while.cond, !llvm.loop !31
+  br label %while.cond, !llvm.loop !32
 
 if.else:                                          ; preds = %while.cond
   %Mval = getelementptr inbounds %struct.tnode, ptr %f.0, i64 0, i32 8
@@ -1160,7 +1160,7 @@ while.cond18:                                     ; preds = %while.body21, %if.e
 
 while.body21:                                     ; preds = %while.cond18
   %son322 = getelementptr inbounds %struct.tnode, ptr %f.1, i64 0, i32 4
-  br label %while.cond18, !llvm.loop !32
+  br label %while.cond18, !llvm.loop !33
 
 if.else29:                                        ; preds = %while.cond18
   %Mval30 = getelementptr inbounds %struct.tnode, ptr %f.1, i64 0, i32 8
@@ -1185,7 +1185,7 @@ while.cond34:                                     ; preds = %while.body37, %if.e
 
 while.body37:                                     ; preds = %while.cond34
   %son338 = getelementptr inbounds %struct.tnode, ptr %f.2, i64 0, i32 4
-  br label %while.cond34, !llvm.loop !33
+  br label %while.cond34, !llvm.loop !34
 
 if.else45:                                        ; preds = %while.cond34
   %Mval46 = getelementptr inbounds %struct.tnode, ptr %f.2, i64 0, i32 8
@@ -1210,7 +1210,7 @@ while.cond50:                                     ; preds = %while.body53, %if.e
 
 while.body53:                                     ; preds = %while.cond50
   %son354 = getelementptr inbounds %struct.tnode, ptr %f.3, i64 0, i32 4
-  br label %while.cond50, !llvm.loop !34
+  br label %while.cond50, !llvm.loop !35
 
 if.else61:                                        ; preds = %while.cond50
   %Mval62 = getelementptr inbounds %struct.tnode, ptr %f.3, i64 0, i32 8
@@ -1278,7 +1278,7 @@ if.then97:                                        ; preds = %if.else94
   %son398 = getelementptr inbounds %struct.tnode, ptr %7, i64 0, i32 4
   %13 = load ptr, ptr %son398, align 8, !tbaa !20
   %son499 = getelementptr inbounds %struct.tnode, ptr %7, i64 0, i32 5
-  store ptr %13, ptr %son499, align 8, !tbaa !35
+  store ptr %13, ptr %son499, align 8, !tbaa !31
   br label %if.end104
 
 if.else101:                                       ; preds = %if.else94
@@ -1471,12 +1471,12 @@ if.else11:                                        ; preds = %if.else6
   br label %if.end
 
 if.end:                                           ; preds = %if.else6, %if.else11
-  %.sink232 = phi i32 [ %value, %if.else11 ], [ %4, %if.else6 ]
+  %.sink231 = phi i32 [ %value, %if.else11 ], [ %4, %if.else6 ]
   %value.sink = phi i32 [ %4, %if.else11 ], [ %value, %if.else6 ]
   %call.i193.sink = phi ptr [ %0, %if.else11 ], [ %call.i193, %if.else6 ]
   %.sink = phi ptr [ %call.i193, %if.else11 ], [ %0, %if.else6 ]
   %5 = getelementptr inbounds %struct.tnode, ptr %call, i64 0, i32 8
-  store i32 %.sink232, ptr %5, align 4
+  store i32 %.sink231, ptr %5, align 4
   %6 = getelementptr inbounds %struct.tnode, ptr %call, i64 0, i32 7
   store i32 %value.sink, ptr %6, align 8
   %7 = getelementptr inbounds %struct.tnode, ptr %call, i64 0, i32 2
@@ -1663,7 +1663,7 @@ if.else72:                                        ; preds = %if.else60
 
 if.then76:                                        ; preds = %if.else72
   %son478 = getelementptr inbounds %struct.tnode, ptr %r.tr.lcssa.i, i64 0, i32 5
-  store ptr %36, ptr %son478, align 8, !tbaa !35
+  store ptr %36, ptr %son478, align 8, !tbaa !31
   store ptr %34, ptr %son383, align 8, !tbaa !20
   br label %if.end94
 
@@ -1674,7 +1674,7 @@ if.else82:                                        ; preds = %if.else72
   br i1 %cmp85.not, label %if.end94, label %if.then86
 
 if.then86:                                        ; preds = %if.else82
-  store ptr %36, ptr %son491, align 8, !tbaa !35
+  store ptr %36, ptr %son491, align 8, !tbaa !31
   br label %if.end94
 
 if.end94:                                         ; preds = %if.else82, %if.then76, %if.then86, %if.then64
@@ -2096,7 +2096,7 @@ if.else194:                                       ; preds = %if.else167
   store i32 2, ptr %nsons170, align 4, !tbaa !9
   store ptr %s.1, ptr %son16.le723, align 8, !tbaa !18
   %son1197 = getelementptr inbounds %struct.tnode, ptr %57, i64 0, i32 2
-  %65 = load ptr, ptr %son1197, align 8, !tbaa !5
+  %65 = load ptr, ptr %son1197, align 8, !tbaa !18
   %son2198 = getelementptr inbounds %struct.tnode, ptr %5, i64 0, i32 3
   store ptr %65, ptr %son2198, align 8, !tbaa !19
   %father200 = getelementptr inbounds %struct.tnode, ptr %65, i64 0, i32 6
@@ -2602,10 +2602,10 @@ cleanup:                                          ; preds = %cleanup.sink.split,
 }
 
 ; Function Attrs: nofree nounwind
-declare noundef i32 @putchar(i32 noundef) local_unnamed_addr #12
+declare noundef i32 @puts(ptr nocapture noundef readonly) local_unnamed_addr #12
 
 ; Function Attrs: nofree nounwind
-declare noundef i32 @puts(ptr nocapture noundef readonly) local_unnamed_addr #12
+declare noundef i32 @putchar(i32 noundef) local_unnamed_addr #12
 
 ; Function Attrs: nocallback nofree nounwind willreturn memory(argmem: write)
 declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #13
@@ -2661,10 +2661,10 @@ attributes #15 = { nounwind }
 !28 = distinct !{!28, !16}
 !29 = !{!14, !6, i64 8}
 !30 = distinct !{!30, !16}
-!31 = distinct !{!31, !16}
+!31 = !{!10, !6, i64 32}
 !32 = distinct !{!32, !16}
 !33 = distinct !{!33, !16}
 !34 = distinct !{!34, !16}
-!35 = !{!10, !6, i64 32}
+!35 = distinct !{!35, !16}
 !36 = distinct !{!36, !16}
 !37 = distinct !{!37, !16}

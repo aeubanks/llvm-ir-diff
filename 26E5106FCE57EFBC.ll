@@ -9,7 +9,7 @@ entry:
   %cmp.not = icmp eq i8 %g, 1
   %0 = and i1 %d, %e
   %1 = and i1 %0, %f
-  %brmerge19.not = and i1 %cmp.not, %1
+  %brmerge19.not = and i1 %1, %cmp.not
   br i1 %brmerge19.not, label %if.end, label %if.then
 
 if.then:                                          ; preds = %entry
@@ -27,7 +27,7 @@ declare void @abort() local_unnamed_addr #1
 
 ; Function Attrs: noreturn nounwind uwtable
 define dso_local i32 @main() local_unnamed_addr #2 {
-entry:
+if.end:
   tail call void @exit(i32 noundef 0) #3
   unreachable
 }

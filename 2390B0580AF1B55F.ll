@@ -115,7 +115,7 @@ if.then.i69:                                      ; preds = %YAMLWriteString.exi
   %call.i68 = call i32 (ptr, ptr, ...) @fprintf(ptr noundef nonnull %.pr78.pr.pr, ptr noundef nonnull @.str.15, ptr noundef nonnull @.str.14, ptr noundef nonnull @.str.13)
   br label %cleanup
 
-cleanup:                                          ; preds = %YAMLWriteString.exit, %YAMLWriteString.exit50, %YAMLWriteString.exit58, %YAMLWriteString.exit54, %YAMLWriteString.exit62, %if.end, %YAMLWriteString.exit66, %if.then.i69, %entry
+cleanup:                                          ; preds = %YAMLWriteString.exit, %YAMLWriteString.exit50, %YAMLWriteString.exit58, %YAMLWriteString.exit54, %YAMLWriteString.exit62, %if.then.i69, %YAMLWriteString.exit66, %if.end, %entry
   call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %rawTime) #6
   ret void
 }

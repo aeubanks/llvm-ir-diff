@@ -515,7 +515,7 @@ for.cond90.preheader.i:                           ; preds = %BF_PartLength.exit3
   %137 = load i32, ptr %nGranules43.i, align 4, !tbaa !25
   %cmp92414.i = icmp sgt i32 %137, 0
   %138 = icmp sgt i32 %215, 0
-  %or.cond.i = select i1 %cmp92414.i, i1 %138, i1 false
+  %or.cond.i = and i1 %138, %cmp92414.i
   br i1 %or.cond.i, label %for.cond94.preheader.i, label %for.end128.i
 
 for.body69.i:                                     ; preds = %BF_PartLength.exit283.i, %BF_PartLength.exit326.i
@@ -1057,7 +1057,7 @@ store_side_info.exit:                             ; preds = %while.cond.i, %for.
   %303 = load i32, ptr %nGranules43.i, align 4, !tbaa !25
   %cmp164.i = icmp sgt i32 %303, 0
   %304 = icmp sgt i32 %300, 0
-  %or.cond = select i1 %cmp164.i, i1 %304, i1 false
+  %or.cond = and i1 %cmp164.i, %304
   br i1 %or.cond, label %for.cond1.preheader.i, label %for.end20.i
 
 for.cond1.preheader.i:                            ; preds = %store_side_info.exit, %for.inc18.i
@@ -1479,8 +1479,8 @@ if.then:                                          ; preds = %entry
   %2 = load i32, ptr @forwardSILength, align 4, !tbaa !5
   %sub = sub nsw i32 %1, %2
   %sub.off = add i32 %sub, 31
-  %tobool1.not25 = icmp ult i32 %sub.off, 63
-  br i1 %tobool1.not25, label %while.end, label %while.body.preheader
+  %tobool1.not24 = icmp ult i32 %sub.off, 63
+  br i1 %tobool1.not24, label %while.end, label %while.body.preheader
 
 while.body.preheader:                             ; preds = %if.then
   %div = sdiv i32 %sub, 32
@@ -1489,8 +1489,8 @@ while.body.preheader:                             ; preds = %if.then
 
 while.body:                                       ; preds = %while.body.preheader, %WriteMainDataBits.exit
   %3 = phi i32 [ %add.i, %WriteMainDataBits.exit ], [ %.pre, %while.body.preheader ]
-  %dec26.in = phi i32 [ %dec26, %WriteMainDataBits.exit ], [ %div, %while.body.preheader ]
-  %dec26 = add nsw i32 %dec26.in, -1
+  %wordsRemaining.025 = phi i32 [ %dec, %WriteMainDataBits.exit ], [ %div, %while.body.preheader ]
+  %dec = add nsw i32 %wordsRemaining.025, -1
   %4 = load i32, ptr @ThisFrameSize, align 4, !tbaa !5
   %cmp1.i = icmp eq i32 %3, %4
   br i1 %cmp1.i, label %if.then2.i, label %if.end.if.end3_crit_edge.i
@@ -1531,7 +1531,7 @@ WriteMainDataBits.exit:                           ; preds = %if.end3.i, %if.then
   %9 = load i32, ptr @BitsRemaining, align 4, !tbaa !5
   %sub11.i = sub i32 %9, %nbits.sink.i
   store i32 %sub11.i, ptr @BitsRemaining, align 4, !tbaa !5
-  %tobool1.not = icmp eq i32 %dec26, 0
+  %tobool1.not = icmp eq i32 %dec, 0
   br i1 %tobool1.not, label %while.end, label %while.body, !llvm.loop !66
 
 while.end:                                        ; preds = %WriteMainDataBits.exit, %if.then
@@ -2150,7 +2150,7 @@ for.cond8.preheader:                              ; preds = %writePartSideInfo.e
   %22 = load i32, ptr %nGranules, align 8, !tbaa !76
   %cmp9104 = icmp sgt i32 %22, 0
   %23 = icmp sgt i32 %21, 0
-  %or.cond = select i1 %cmp9104, i1 %23, i1 false
+  %or.cond = and i1 %cmp9104, %23
   br i1 %or.cond, label %for.cond11.preheader, label %for.end27
 
 for.body:                                         ; preds = %writePartSideInfo.exit64, %writePartSideInfo.exit80
@@ -2318,7 +2318,7 @@ for.cond14.preheader:                             ; preds = %for.body, %entry
   %10 = load i32, ptr %nGranules, align 8, !tbaa !33
   %cmp1672 = icmp sgt i32 %10, 0
   %11 = icmp sgt i32 %9, 0
-  %or.cond = select i1 %cmp1672, i1 %11, i1 false
+  %or.cond = and i1 %cmp1672, %11
   br i1 %or.cond, label %for.cond18.preheader, label %for.end40
 
 for.body:                                         ; preds = %entry, %for.body
@@ -2383,14 +2383,14 @@ for.end40:                                        ; preds = %for.inc38, %for.con
   ret void
 }
 
-; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i32 @llvm.smin.i32(i32, i32) #9
-
 ; Function Attrs: nofree nounwind
-declare noundef i64 @fwrite(ptr nocapture noundef, i64 noundef, i64 noundef, ptr nocapture noundef) local_unnamed_addr #10
+declare noundef i64 @fwrite(ptr nocapture noundef, i64 noundef, i64 noundef, ptr nocapture noundef) local_unnamed_addr #9
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i32 @llvm.vector.reduce.add.v4i32(<4 x i32>) #9
+declare i32 @llvm.smin.i32(i32, i32) #10
+
+; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
+declare i32 @llvm.vector.reduce.add.v4i32(<4 x i32>) #10
 
 attributes #0 = { mustprogress nofree norecurse nosync nounwind willreturn memory(write, argmem: none, inaccessiblemem: none) uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #1 = { nounwind uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
@@ -2401,8 +2401,8 @@ attributes #5 = { mustprogress nounwind willreturn uwtable "min-legal-vector-wid
 attributes #6 = { mustprogress nounwind willreturn allockind("free") memory(argmem: readwrite, inaccessiblemem: readwrite) "alloc-family"="malloc" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #7 = { "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #8 = { noreturn nounwind "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
-attributes #9 = { nocallback nofree nosync nounwind speculatable willreturn memory(none) }
-attributes #10 = { nofree nounwind }
+attributes #9 = { nofree nounwind }
+attributes #10 = { nocallback nofree nosync nounwind speculatable willreturn memory(none) }
 attributes #11 = { nounwind allocsize(0,1) }
 attributes #12 = { cold }
 attributes #13 = { noreturn nounwind }

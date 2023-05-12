@@ -629,8 +629,8 @@ if.end5.i:                                        ; preds = %if.end.i
   %cmp6.i = icmp eq ptr %3, null
   br i1 %cmp6.i, label %font_param.exit.thread, label %lor.lhs.false
 
-font_param.exit.thread:                           ; preds = %if.end.i, %entry, %if.end5.i
-  %retval.0.i.ph = phi i32 [ -20, %entry ], [ %call.i, %if.end.i ], [ -10, %if.end5.i ]
+font_param.exit.thread:                           ; preds = %entry, %if.end.i, %if.end5.i
+  %retval.0.i.ph = phi i32 [ %call.i, %if.end.i ], [ -20, %entry ], [ -10, %if.end5.i ]
   call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %pid.i) #6
   br label %cleanup
 
@@ -737,8 +737,8 @@ if.end5.i:                                        ; preds = %if.end.i
   %cmp6.i = icmp eq ptr %3, null
   br i1 %cmp6.i, label %font_param.exit.thread, label %lor.lhs.false
 
-font_param.exit.thread:                           ; preds = %if.end.i, %entry, %if.end5.i
-  %retval.0.i.ph = phi i32 [ -20, %entry ], [ %call.i, %if.end.i ], [ -10, %if.end5.i ]
+font_param.exit.thread:                           ; preds = %entry, %if.end.i, %if.end5.i
+  %retval.0.i.ph = phi i32 [ %call.i, %if.end.i ], [ -20, %entry ], [ -10, %if.end5.i ]
   call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %pid.i) #6
   br label %cleanup
 

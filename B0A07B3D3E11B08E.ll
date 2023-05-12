@@ -159,7 +159,6 @@ do.body:                                          ; preds = %if.end26, %if.end
   br i1 %cmp17, label %if.then19, label %if.end26
 
 if.then19:                                        ; preds = %do.body
-  %conv21.le = zext i8 %17 to i32
   %SummFreq23 = getelementptr inbounds %struct.CPpmd8_Context_, ptr %0, i64 0, i32 2
   %18 = load i16, ptr %SummFreq23, align 2, !tbaa !24
   %conv24 = zext i16 %18 to i32
@@ -171,7 +170,7 @@ if.then19:                                        ; preds = %do.body
   %20 = load i32, ptr %Low.i416, align 8, !tbaa !11
   %add.i = add i32 %20, %mul.i
   store i32 %add.i, ptr %Low.i416, align 8, !tbaa !11
-  %mul2.i417 = mul i32 %div.i415, %conv21.le
+  %mul2.i417 = mul i32 %div.i415, %conv21
   store i32 %mul2.i417, ptr %Range.i414, align 8, !tbaa !25
   %Stream.i.i418 = getelementptr inbounds %struct.CPpmd8, ptr %p, i64 0, i32 21
   br label %while.cond.i.i422
@@ -511,13 +510,13 @@ for.cond179:                                      ; preds = %RangeEnc_Encode.exi
   br label %do.body186
 
 do.body186:                                       ; preds = %if.end191, %for.cond179
-  %add.ptr196554 = phi ptr [ %add.ptr196, %if.end191 ], [ %74, %for.cond179 ]
-  %inc552 = phi i32 [ %inc, %if.end191 ], [ %OrderFall.promoted, %for.cond179 ]
-  %inc = add i32 %inc552, 1
-  %Suffix188 = getelementptr inbounds %struct.CPpmd8_Context_, ptr %add.ptr196554, i64 0, i32 4
+  %add.ptr196553 = phi ptr [ %add.ptr196, %if.end191 ], [ %74, %for.cond179 ]
+  %inc551 = phi i32 [ %inc, %if.end191 ], [ %OrderFall.promoted, %for.cond179 ]
+  %inc = add i32 %inc551, 1
+  %Suffix188 = getelementptr inbounds %struct.CPpmd8_Context_, ptr %add.ptr196553, i64 0, i32 4
   %76 = load i32, ptr %Suffix188, align 4, !tbaa !36
   %tobool189.not = icmp eq i32 %76, 0
-  br i1 %tobool189.not, label %cleanup293.critedge538.loopexit545, label %if.end191
+  br i1 %tobool189.not, label %cleanup293.critedge.loopexit544, label %if.end191
 
 if.end191:                                        ; preds = %do.body186
   %77 = load ptr, ptr %Base192, align 8, !tbaa !19
@@ -543,10 +542,9 @@ do.end204:                                        ; preds = %if.end191
   br label %do.body214
 
 do.body214:                                       ; preds = %do.cond274, %do.end204
-  %indvar = phi i32 [ %indvar.next, %do.cond274 ], [ 0, %do.end204 ]
-  %s180.0 = phi ptr [ %incdec.ptr270, %do.cond274 ], [ %add.ptr209, %do.end204 ]
-  %sum181.0 = phi i32 [ %add266, %do.cond274 ], [ 0, %do.end204 ]
-  %i182.0 = phi i32 [ %dec275, %do.cond274 ], [ %add213, %do.end204 ]
+  %s180.0 = phi ptr [ %add.ptr209, %do.end204 ], [ %incdec.ptr270, %do.cond274 ]
+  %sum181.0 = phi i32 [ 0, %do.end204 ], [ %add266, %do.cond274 ]
+  %i182.0 = phi i32 [ %add213, %do.end204 ], [ %dec275, %do.cond274 ]
   %83 = load i8, ptr %s180.0, align 1, !tbaa !21
   %conv216 = zext i8 %83 to i32
   %cmp217.not = icmp eq i32 %conv216, %symbol
@@ -555,220 +553,183 @@ do.body214:                                       ; preds = %do.cond274, %do.end
 do.body220.preheader:                             ; preds = %do.body214
   %Shift.le = getelementptr inbounds %struct.CPpmd_See, ptr %call, i64 0, i32 1
   %Count.le = getelementptr inbounds %struct.CPpmd_See, ptr %call, i64 0, i32 2
-  %84 = zext i8 %82 to i32
-  %xtraiter607 = and i32 %i182.0, 1
-  %lcmp.mod608.not = icmp eq i32 %xtraiter607, 0
-  br i1 %lcmp.mod608.not, label %do.body220.prol.loopexit, label %do.body220.prol
+  br label %do.body220
 
-do.body220.prol:                                  ; preds = %do.body220.preheader
-  %Freq221.prol = getelementptr inbounds %struct.CPpmd_State, ptr %s180.0, i64 0, i32 1
-  %85 = load i8, ptr %Freq221.prol, align 1, !tbaa !23
-  %86 = load i8, ptr %s180.0, align 1, !tbaa !21
-  %idxprom225.prol = zext i8 %86 to i64
-  %arrayidx226.prol = getelementptr inbounds i8, ptr %charMask, i64 %idxprom225.prol
-  %87 = load i8, ptr %arrayidx226.prol, align 1, !tbaa !5
-  %and228558.prol = and i8 %87, %85
-  %and228.prol = zext i8 %and228558.prol to i32
-  %add229.prol = add i32 %sum181.0, %and228.prol
-  %incdec.ptr230.prol = getelementptr inbounds %struct.CPpmd_State, ptr %s180.0, i64 1
-  %dec232.prol = add i32 %i182.0, -1
-  br label %do.body220.prol.loopexit
-
-do.body220.prol.loopexit:                         ; preds = %do.body220.prol, %do.body220.preheader
-  %add229.lcssa.unr = phi i32 [ undef, %do.body220.preheader ], [ %add229.prol, %do.body220.prol ]
-  %s180.1.unr = phi ptr [ %s180.0, %do.body220.preheader ], [ %incdec.ptr230.prol, %do.body220.prol ]
-  %sum181.1.unr = phi i32 [ %sum181.0, %do.body220.preheader ], [ %add229.prol, %do.body220.prol ]
-  %i182.1.unr = phi i32 [ %i182.0, %do.body220.preheader ], [ %dec232.prol, %do.body220.prol ]
-  %88 = icmp eq i32 %indvar, %84
-  br i1 %88, label %do.end234, label %do.body220
-
-do.body220:                                       ; preds = %do.body220.prol.loopexit, %do.body220
-  %s180.1 = phi ptr [ %incdec.ptr230.1, %do.body220 ], [ %s180.1.unr, %do.body220.prol.loopexit ]
-  %sum181.1 = phi i32 [ %add229.1, %do.body220 ], [ %sum181.1.unr, %do.body220.prol.loopexit ]
-  %i182.1 = phi i32 [ %dec232.1, %do.body220 ], [ %i182.1.unr, %do.body220.prol.loopexit ]
+do.body220:                                       ; preds = %do.body220.preheader, %do.body220
+  %s180.1 = phi ptr [ %incdec.ptr230, %do.body220 ], [ %s180.0, %do.body220.preheader ]
+  %sum181.1 = phi i32 [ %add229, %do.body220 ], [ %sum181.0, %do.body220.preheader ]
+  %i182.1 = phi i32 [ %dec232, %do.body220 ], [ %i182.0, %do.body220.preheader ]
   %Freq221 = getelementptr inbounds %struct.CPpmd_State, ptr %s180.1, i64 0, i32 1
-  %89 = load i8, ptr %Freq221, align 1, !tbaa !23
-  %90 = load i8, ptr %s180.1, align 1, !tbaa !21
-  %idxprom225 = zext i8 %90 to i64
+  %84 = load i8, ptr %Freq221, align 1, !tbaa !23
+  %85 = load i8, ptr %s180.1, align 1, !tbaa !21
+  %idxprom225 = zext i8 %85 to i64
   %arrayidx226 = getelementptr inbounds i8, ptr %charMask, i64 %idxprom225
-  %91 = load i8, ptr %arrayidx226, align 1, !tbaa !5
-  %and228558 = and i8 %91, %89
-  %and228 = zext i8 %and228558 to i32
+  %86 = load i8, ptr %arrayidx226, align 1, !tbaa !5
+  %and228557 = and i8 %86, %84
+  %and228 = zext i8 %and228557 to i32
   %add229 = add i32 %sum181.1, %and228
   %incdec.ptr230 = getelementptr inbounds %struct.CPpmd_State, ptr %s180.1, i64 1
-  %Freq221.1 = getelementptr inbounds %struct.CPpmd_State, ptr %s180.1, i64 1, i32 1
-  %92 = load i8, ptr %Freq221.1, align 1, !tbaa !23
-  %93 = load i8, ptr %incdec.ptr230, align 1, !tbaa !21
-  %idxprom225.1 = zext i8 %93 to i64
-  %arrayidx226.1 = getelementptr inbounds i8, ptr %charMask, i64 %idxprom225.1
-  %94 = load i8, ptr %arrayidx226.1, align 1, !tbaa !5
-  %and228558.1 = and i8 %94, %92
-  %and228.1 = zext i8 %and228558.1 to i32
-  %add229.1 = add i32 %add229, %and228.1
-  %incdec.ptr230.1 = getelementptr inbounds %struct.CPpmd_State, ptr %s180.1, i64 2
-  %dec232.1 = add i32 %i182.1, -2
-  %tobool233.not.1 = icmp eq i32 %dec232.1, 0
-  br i1 %tobool233.not.1, label %do.end234, label %do.body220, !llvm.loop !43
+  %dec232 = add i32 %i182.1, -1
+  %tobool233.not = icmp eq i32 %dec232, 0
+  br i1 %tobool233.not, label %do.end234, label %do.body220, !llvm.loop !43
 
-do.end234:                                        ; preds = %do.body220, %do.body220.prol.loopexit
-  %add229.lcssa = phi i32 [ %add229.lcssa.unr, %do.body220.prol.loopexit ], [ %add229.1, %do.body220 ]
+do.end234:                                        ; preds = %do.body220
   %Freq235 = getelementptr inbounds %struct.CPpmd_State, ptr %s180.0, i64 0, i32 1
-  %95 = load i8, ptr %Freq235, align 1, !tbaa !23
-  %conv236 = zext i8 %95 to i32
-  %96 = load i32, ptr %escFreq, align 4, !tbaa !44
-  %add237 = add i32 %96, %add229.lcssa
-  %97 = load i32, ptr %Range.i494, align 8, !tbaa !25
-  %div.i495 = udiv i32 %97, %add237
+  %87 = load i8, ptr %Freq235, align 1, !tbaa !23
+  %conv236 = zext i8 %87 to i32
+  %88 = load i32, ptr %escFreq, align 4, !tbaa !44
+  %add237 = add i32 %88, %add229
+  %89 = load i32, ptr %Range.i494, align 8, !tbaa !25
+  %div.i495 = udiv i32 %89, %add237
   %mul.i496 = mul i32 %div.i495, %sum181.0
-  %98 = load i32, ptr %Low.i497, align 8, !tbaa !11
-  %add.i498 = add i32 %98, %mul.i496
+  %90 = load i32, ptr %Low.i497, align 8, !tbaa !11
+  %add.i498 = add i32 %90, %mul.i496
   store i32 %add.i498, ptr %Low.i497, align 8, !tbaa !11
   %mul2.i499 = mul i32 %div.i495, %conv236
   store i32 %mul2.i499, ptr %Range.i494, align 8, !tbaa !25
   br label %while.cond.i.i504
 
 while.cond.i.i504:                                ; preds = %while.body.critedge.i.i514, %do.end234
-  %99 = phi i32 [ %shl.i.i512, %while.body.critedge.i.i514 ], [ %mul2.i499, %do.end234 ]
-  %100 = phi i32 [ %shl10.i.i513, %while.body.critedge.i.i514 ], [ %add.i498, %do.end234 ]
-  %add.i.i501 = add i32 %100, %99
-  %xor.i.i502 = xor i32 %add.i.i501, %100
+  %91 = phi i32 [ %shl.i.i512, %while.body.critedge.i.i514 ], [ %mul2.i499, %do.end234 ]
+  %92 = phi i32 [ %shl10.i.i513, %while.body.critedge.i.i514 ], [ %add.i498, %do.end234 ]
+  %add.i.i501 = add i32 %92, %91
+  %xor.i.i502 = xor i32 %add.i.i501, %92
   %cmp.i.i503 = icmp ult i32 %xor.i.i502, 16777216
   br i1 %cmp.i.i503, label %while.body.critedge.i.i514, label %lor.rhs.i.i506
 
 lor.rhs.i.i506:                                   ; preds = %while.cond.i.i504
-  %cmp3.i.i505 = icmp ult i32 %99, 32768
+  %cmp3.i.i505 = icmp ult i32 %91, 32768
   br i1 %cmp3.i.i505, label %land.rhs.i.i509, label %RangeEnc_Encode.exit515
 
 land.rhs.i.i509:                                  ; preds = %lor.rhs.i.i506
-  %sub.i.i507 = sub i32 0, %100
+  %sub.i.i507 = sub i32 0, %92
   %and.i.i508 = and i32 %sub.i.i507, 32767
   store i32 %and.i.i508, ptr %Range.i494, align 8, !tbaa !25
   br label %while.body.critedge.i.i514
 
 while.body.critedge.i.i514:                       ; preds = %land.rhs.i.i509, %while.cond.i.i504
-  %101 = load ptr, ptr %Stream.i.i500, align 8, !tbaa !5
-  %102 = load ptr, ptr %101, align 8, !tbaa !8
-  %shr.i.i510 = lshr i32 %100, 24
+  %93 = load ptr, ptr %Stream.i.i500, align 8, !tbaa !5
+  %94 = load ptr, ptr %93, align 8, !tbaa !8
+  %shr.i.i510 = lshr i32 %92, 24
   %conv.i.i511 = trunc i32 %shr.i.i510 to i8
-  call void %102(ptr noundef nonnull %101, i8 noundef zeroext %conv.i.i511) #4
-  %103 = load i32, ptr %Range.i494, align 8, !tbaa !25
-  %shl.i.i512 = shl i32 %103, 8
+  call void %94(ptr noundef nonnull %93, i8 noundef zeroext %conv.i.i511) #4
+  %95 = load i32, ptr %Range.i494, align 8, !tbaa !25
+  %shl.i.i512 = shl i32 %95, 8
   store i32 %shl.i.i512, ptr %Range.i494, align 8, !tbaa !25
-  %104 = load i32, ptr %Low.i497, align 8, !tbaa !11
-  %shl10.i.i513 = shl i32 %104, 8
+  %96 = load i32, ptr %Low.i497, align 8, !tbaa !11
+  %shl10.i.i513 = shl i32 %96, 8
   store i32 %shl10.i.i513, ptr %Low.i497, align 8, !tbaa !11
   br label %while.cond.i.i504, !llvm.loop !26
 
 RangeEnc_Encode.exit515:                          ; preds = %lor.rhs.i.i506
-  %105 = load i8, ptr %Shift.le, align 1, !tbaa !45
-  %cmp239 = icmp ult i8 %105, 7
-  br i1 %cmp239, label %land.lhs.true, label %cleanup293.critedge538.loopexit
+  %97 = load i8, ptr %Shift.le, align 1, !tbaa !45
+  %cmp239 = icmp ult i8 %97, 7
+  br i1 %cmp239, label %land.lhs.true, label %cleanup293.critedge.loopexit
 
 land.lhs.true:                                    ; preds = %RangeEnc_Encode.exit515
-  %106 = load i8, ptr %Count.le, align 1, !tbaa !46
-  %dec241 = add i8 %106, -1
+  %98 = load i8, ptr %Count.le, align 1, !tbaa !46
+  %dec241 = add i8 %98, -1
   store i8 %dec241, ptr %Count.le, align 1, !tbaa !46
   %cmp243 = icmp eq i8 %dec241, 0
-  br i1 %cmp243, label %if.then245, label %cleanup293.critedge538.loopexit
+  br i1 %cmp243, label %if.then245, label %cleanup293.critedge.loopexit
 
 if.then245:                                       ; preds = %land.lhs.true
-  %107 = load i16, ptr %call, align 1, !tbaa !47
-  %shl = shl i16 %107, 1
+  %99 = load i16, ptr %call, align 1, !tbaa !47
+  %shl = shl i16 %99, 1
   store i16 %shl, ptr %call, align 1, !tbaa !47
-  %inc249 = add nuw nsw i8 %105, 1
+  %inc249 = add nuw nsw i8 %97, 1
   store i8 %inc249, ptr %Shift.le, align 1, !tbaa !45
-  %conv250 = zext i8 %105 to i32
+  %conv250 = zext i8 %97 to i32
   %shl251 = shl nuw nsw i32 3, %conv250
   %conv252 = trunc i32 %shl251 to i8
   store i8 %conv252, ptr %Count.le, align 1, !tbaa !46
-  br label %cleanup293.critedge538.loopexit
+  br label %cleanup293.critedge.loopexit
 
 do.cond274:                                       ; preds = %do.body214
   %Freq259 = getelementptr inbounds %struct.CPpmd_State, ptr %s180.0, i64 0, i32 1
-  %108 = load i8, ptr %Freq259, align 1, !tbaa !23
+  %100 = load i8, ptr %Freq259, align 1, !tbaa !23
   %idxprom262 = zext i8 %83 to i64
   %arrayidx263 = getelementptr inbounds i8, ptr %charMask, i64 %idxprom262
-  %109 = load i8, ptr %arrayidx263, align 1, !tbaa !5
-  %and265556 = and i8 %109, %108
-  %and265 = zext i8 %and265556 to i32
+  %101 = load i8, ptr %arrayidx263, align 1, !tbaa !5
+  %and265555 = and i8 %101, %100
+  %and265 = zext i8 %and265555 to i32
   %add266 = add i32 %sum181.0, %and265
   store i8 0, ptr %arrayidx263, align 1, !tbaa !5
   %incdec.ptr270 = getelementptr inbounds %struct.CPpmd_State, ptr %s180.0, i64 1
   %dec275 = add i32 %i182.0, -1
   %tobool276.not = icmp eq i32 %dec275, 0
-  %indvar.next = add i32 %indvar, 1
   br i1 %tobool276.not, label %do.end277, label %do.body214, !llvm.loop !48
 
 do.end277:                                        ; preds = %do.cond274
-  %110 = load i32, ptr %escFreq, align 4, !tbaa !44
-  %add278 = add i32 %110, %add266
-  %111 = load i32, ptr %Range.i494, align 8, !tbaa !25
-  %div.i517 = udiv i32 %111, %add278
+  %102 = load i32, ptr %escFreq, align 4, !tbaa !44
+  %add278 = add i32 %102, %add266
+  %103 = load i32, ptr %Range.i494, align 8, !tbaa !25
+  %div.i517 = udiv i32 %103, %add278
   %mul.i518 = mul i32 %div.i517, %add266
-  %112 = load i32, ptr %Low.i497, align 8, !tbaa !11
-  %add.i520 = add i32 %112, %mul.i518
+  %104 = load i32, ptr %Low.i497, align 8, !tbaa !11
+  %add.i520 = add i32 %104, %mul.i518
   store i32 %add.i520, ptr %Low.i497, align 8, !tbaa !11
-  %mul2.i521 = mul i32 %div.i517, %110
+  %mul2.i521 = mul i32 %div.i517, %102
   store i32 %mul2.i521, ptr %Range.i494, align 8, !tbaa !25
   br label %while.cond.i.i526
 
 while.cond.i.i526:                                ; preds = %while.body.critedge.i.i536, %do.end277
-  %113 = phi i32 [ %shl.i.i534, %while.body.critedge.i.i536 ], [ %mul2.i521, %do.end277 ]
-  %114 = phi i32 [ %shl10.i.i535, %while.body.critedge.i.i536 ], [ %add.i520, %do.end277 ]
-  %add.i.i523 = add i32 %114, %113
-  %xor.i.i524 = xor i32 %add.i.i523, %114
+  %105 = phi i32 [ %shl.i.i534, %while.body.critedge.i.i536 ], [ %mul2.i521, %do.end277 ]
+  %106 = phi i32 [ %shl10.i.i535, %while.body.critedge.i.i536 ], [ %add.i520, %do.end277 ]
+  %add.i.i523 = add i32 %106, %105
+  %xor.i.i524 = xor i32 %add.i.i523, %106
   %cmp.i.i525 = icmp ult i32 %xor.i.i524, 16777216
   br i1 %cmp.i.i525, label %while.body.critedge.i.i536, label %lor.rhs.i.i528
 
 lor.rhs.i.i528:                                   ; preds = %while.cond.i.i526
-  %cmp3.i.i527 = icmp ult i32 %113, 32768
+  %cmp3.i.i527 = icmp ult i32 %105, 32768
   br i1 %cmp3.i.i527, label %land.rhs.i.i531, label %RangeEnc_Encode.exit537
 
 land.rhs.i.i531:                                  ; preds = %lor.rhs.i.i528
-  %sub.i.i529 = sub i32 0, %114
+  %sub.i.i529 = sub i32 0, %106
   %and.i.i530 = and i32 %sub.i.i529, 32767
   store i32 %and.i.i530, ptr %Range.i494, align 8, !tbaa !25
   br label %while.body.critedge.i.i536
 
 while.body.critedge.i.i536:                       ; preds = %land.rhs.i.i531, %while.cond.i.i526
-  %115 = load ptr, ptr %Stream.i.i500, align 8, !tbaa !5
-  %116 = load ptr, ptr %115, align 8, !tbaa !8
-  %shr.i.i532 = lshr i32 %114, 24
+  %107 = load ptr, ptr %Stream.i.i500, align 8, !tbaa !5
+  %108 = load ptr, ptr %107, align 8, !tbaa !8
+  %shr.i.i532 = lshr i32 %106, 24
   %conv.i.i533 = trunc i32 %shr.i.i532 to i8
-  call void %116(ptr noundef nonnull %115, i8 noundef zeroext %conv.i.i533) #4
-  %117 = load i32, ptr %Range.i494, align 8, !tbaa !25
-  %shl.i.i534 = shl i32 %117, 8
+  call void %108(ptr noundef nonnull %107, i8 noundef zeroext %conv.i.i533) #4
+  %109 = load i32, ptr %Range.i494, align 8, !tbaa !25
+  %shl.i.i534 = shl i32 %109, 8
   store i32 %shl.i.i534, ptr %Range.i494, align 8, !tbaa !25
-  %118 = load i32, ptr %Low.i497, align 8, !tbaa !11
-  %shl10.i.i535 = shl i32 %118, 8
+  %110 = load i32, ptr %Low.i497, align 8, !tbaa !11
+  %shl10.i.i535 = shl i32 %110, 8
   store i32 %shl10.i.i535, ptr %Low.i497, align 8, !tbaa !11
   br label %while.cond.i.i526, !llvm.loop !26
 
 RangeEnc_Encode.exit537:                          ; preds = %lor.rhs.i.i528
-  %119 = load i16, ptr %call, align 1, !tbaa !47
-  %conv280 = zext i16 %119 to i32
+  %111 = load i16, ptr %call, align 1, !tbaa !47
+  %conv280 = zext i16 %111 to i32
   %add281 = add i32 %add266, %conv280
-  %120 = load i32, ptr %escFreq, align 4, !tbaa !44
-  %add282 = add i32 %add281, %120
+  %112 = load i32, ptr %escFreq, align 4, !tbaa !44
+  %add282 = add i32 %add281, %112
   %conv283 = trunc i32 %add282 to i16
   store i16 %conv283, ptr %call, align 1, !tbaa !47
   call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %escFreq) #4
   br label %for.cond179
 
-cleanup293.critedge538.loopexit545:               ; preds = %do.body186
+cleanup293.critedge.loopexit544:                  ; preds = %do.body186
   store i32 %inc, ptr %OrderFall, align 8, !tbaa !41
-  br label %cleanup293.critedge538
+  br label %cleanup293.critedge
 
-cleanup293.critedge538.loopexit:                  ; preds = %if.then245, %land.lhs.true, %RangeEnc_Encode.exit515
+cleanup293.critedge.loopexit:                     ; preds = %if.then245, %land.lhs.true, %RangeEnc_Encode.exit515
   store ptr %s180.0, ptr %FoundState255, align 8, !tbaa !28
   call void @Ppmd8_Update2(ptr noundef nonnull %p) #4
-  br label %cleanup293.critedge538
+  br label %cleanup293.critedge
 
-cleanup293.critedge538:                           ; preds = %cleanup293.critedge538.loopexit, %cleanup293.critedge538.loopexit545
+cleanup293.critedge:                              ; preds = %cleanup293.critedge.loopexit, %cleanup293.critedge.loopexit544
   call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %escFreq) #4
   br label %cleanup293
 
-cleanup293:                                       ; preds = %RangeEnc_Encode.exit433, %RangeEnc_Encode.exit, %cleanup293.critedge538, %cleanup174
+cleanup293:                                       ; preds = %cleanup293.critedge, %RangeEnc_Encode.exit, %RangeEnc_Encode.exit433, %cleanup174
   call void @llvm.lifetime.end.p0(i64 256, ptr nonnull %charMask) #4
   ret void
 }

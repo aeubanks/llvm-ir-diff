@@ -59,15 +59,15 @@ for.cond5.preheader:                              ; preds = %for.cond5.preheader
   %indvars.iv47 = phi i64 [ %indvars.iv.next48, %for.cond5.preheaderthread-pre-split ], [ 0, %for.cond5.preheader.lr.ph ]
   %8 = phi ptr [ %36, %for.cond5.preheaderthread-pre-split ], [ %1, %for.cond5.preheader.lr.ph ]
   %cmp8.not40 = icmp eq ptr %5, null
-  br i1 %cmp8.not40, label %for.inc15, label %for.body9.lr.ph
+  br i1 %cmp8.not40, label %for.inc15, label %lor.lhs.false2.i.lr.ph
 
-for.body9.lr.ph:                                  ; preds = %for.cond5.preheader
+lor.lhs.false2.i.lr.ph:                           ; preds = %for.cond5.preheader
   %arrayidx5.i = getelementptr inbounds ptr, ptr %8, i64 1
-  br label %for.body9
+  br label %lor.lhs.false2.i
 
-for.body9:                                        ; preds = %for.body9.lr.ph, %findLabelPath.exit
-  %indvars.iv = phi i64 [ 0, %for.body9.lr.ph ], [ %indvars.iv.next, %findLabelPath.exit ]
-  %9 = phi ptr [ %5, %for.body9.lr.ph ], [ %33, %findLabelPath.exit ]
+lor.lhs.false2.i:                                 ; preds = %lor.lhs.false2.i.lr.ph, %findLabelPath.exit
+  %indvars.iv = phi i64 [ 0, %lor.lhs.false2.i.lr.ph ], [ %indvars.iv.next, %findLabelPath.exit ]
+  %9 = phi ptr [ %5, %lor.lhs.false2.i.lr.ph ], [ %33, %findLabelPath.exit ]
   store i32 0, ptr %call1, align 8, !tbaa !13
   %10 = load ptr, ptr @stdout, align 8, !tbaa !11
   %call13 = tail call i32 @fflush(ptr noundef %10)
@@ -80,7 +80,7 @@ for.body9:                                        ; preds = %for.body9.lr.ph, %f
   %tobool3.not.i = icmp eq ptr %14, null
   br i1 %tobool3.not.i, label %findLabelPath.exit, label %lor.lhs.false4.i
 
-lor.lhs.false4.i:                                 ; preds = %for.body9
+lor.lhs.false4.i:                                 ; preds = %lor.lhs.false2.i
   %15 = load ptr, ptr %arrayidx5.i, align 8, !tbaa !11
   %tobool6.i = icmp ne ptr %15, null
   %tobool10.i = icmp ne ptr %call.i, null
@@ -176,13 +176,13 @@ for.end.i:                                        ; preds = %for.inc.i, %for.bod
   tail call void @Bitfield_delete(ptr noundef nonnull %call.i) #10
   br label %findLabelPath.exit
 
-findLabelPath.exit:                               ; preds = %for.body9, %lor.lhs.false4.i, %if.end.i, %for.end.i
+findLabelPath.exit:                               ; preds = %lor.lhs.false2.i, %lor.lhs.false4.i, %if.end.i, %for.end.i
   %indvars.iv.next = add nuw i64 %indvars.iv, 1
   %32 = load ptr, ptr %config, align 8, !tbaa !12
   %arrayidx7 = getelementptr inbounds ptr, ptr %32, i64 %indvars.iv.next
   %33 = load ptr, ptr %arrayidx7, align 8, !tbaa !11
   %cmp8.not = icmp eq ptr %33, null
-  br i1 %cmp8.not, label %for.inc15.loopexit, label %for.body9, !llvm.loop !29
+  br i1 %cmp8.not, label %for.inc15.loopexit, label %lor.lhs.false2.i, !llvm.loop !29
 
 for.inc15.loopexit:                               ; preds = %findLabelPath.exit
   %.pre = load ptr, ptr %signatures, align 8, !tbaa !5
@@ -691,13 +691,17 @@ for.cond2.preheader.preheader:                    ; preds = %entry
   br label %for.cond2.preheader
 
 for.cond2.preheader:                              ; preds = %for.cond2.preheader.preheader, %for.inc23
-  %4 = phi i32 [ %3, %for.cond2.preheader.preheader ], [ %.lcssa94.sink, %for.inc23 ]
-  %5 = phi ptr [ %2, %for.cond2.preheader.preheader ], [ %36, %for.inc23 ]
+  %4 = phi i32 [ %3, %for.cond2.preheader.preheader ], [ %36, %for.inc23 ]
+  %5 = phi ptr [ %2, %for.cond2.preheader.preheader ], [ %37, %for.inc23 ]
   %indvars.iv85 = phi i64 [ 0, %for.cond2.preheader.preheader ], [ %indvars.iv.next86, %for.inc23 ]
   %found.076 = phi i32 [ 0, %for.cond2.preheader.preheader ], [ %found.1.lcssa, %for.inc23 ]
   %searches.075 = phi i32 [ 0, %for.cond2.preheader.preheader ], [ %searches.1.lcssa, %for.inc23 ]
   %cmp569 = icmp sgt i32 %4, 0
-  br i1 %cmp569, label %lor.lhs.false2.i, label %for.inc23
+  br i1 %cmp569, label %lor.lhs.false2.i, label %for.cond2.preheader.for.inc23_crit_edge
+
+for.cond2.preheader.for.inc23_crit_edge:          ; preds = %for.cond2.preheader
+  %.pre = sext i32 %4 to i64
+  br label %for.inc23
 
 lor.lhs.false2.i:                                 ; preds = %for.cond2.preheader, %if.end21
   %indvars.iv = phi i64 [ %indvars.iv.next, %if.end21 ], [ 0, %for.cond2.preheader ]
@@ -843,14 +847,14 @@ if.end21:                                         ; preds = %if.then20, %findLab
   %cmp5 = icmp slt i64 %indvars.iv.next, %35
   br i1 %cmp5, label %lor.lhs.false2.i, label %for.inc23, !llvm.loop !51
 
-for.inc23:                                        ; preds = %if.end21, %for.cond2.preheader
-  %.lcssa94.sink = phi i32 [ %4, %for.cond2.preheader ], [ %34, %if.end21 ]
-  %36 = phi ptr [ %5, %for.cond2.preheader ], [ %33, %if.end21 ]
-  %searches.1.lcssa = phi i32 [ %searches.075, %for.cond2.preheader ], [ %inc, %if.end21 ]
-  %found.1.lcssa = phi i32 [ %found.076, %for.cond2.preheader ], [ %32, %if.end21 ]
-  %37 = sext i32 %.lcssa94.sink to i64
+for.inc23:                                        ; preds = %if.end21, %for.cond2.preheader.for.inc23_crit_edge
+  %.pre-phi = phi i64 [ %.pre, %for.cond2.preheader.for.inc23_crit_edge ], [ %35, %if.end21 ]
+  %36 = phi i32 [ %4, %for.cond2.preheader.for.inc23_crit_edge ], [ %34, %if.end21 ]
+  %37 = phi ptr [ %5, %for.cond2.preheader.for.inc23_crit_edge ], [ %33, %if.end21 ]
+  %searches.1.lcssa = phi i32 [ %searches.075, %for.cond2.preheader.for.inc23_crit_edge ], [ %inc, %if.end21 ]
+  %found.1.lcssa = phi i32 [ %found.076, %for.cond2.preheader.for.inc23_crit_edge ], [ %32, %if.end21 ]
   %indvars.iv.next86 = add nuw nsw i64 %indvars.iv85, 1
-  %cmp = icmp slt i64 %indvars.iv.next86, %37
+  %cmp = icmp slt i64 %indvars.iv.next86, %.pre-phi
   br i1 %cmp, label %for.cond2.preheader, label %for.end25, !llvm.loop !52
 
 for.end25:                                        ; preds = %for.inc23, %entry
@@ -1153,8 +1157,8 @@ for.inc.i:                                        ; preds = %if.then5.i, %for.bo
   %cmp.not.not.i = icmp slt i64 %indvars.iv.i, %77
   br i1 %cmp.not.not.i, label %for.body.i, label %cleanup, !llvm.loop !74
 
-cleanup:                                          ; preds = %for.inc.i, %if.end78, %land.lhs.true81, %if.then84, %if.then.i, %entry
-  %retval.0 = phi i32 [ 0, %entry ], [ %51, %if.then.i ], [ %51, %if.then84 ], [ %51, %land.lhs.true81 ], [ %51, %if.end78 ], [ %51, %for.inc.i ]
+cleanup:                                          ; preds = %for.inc.i, %if.then.i, %if.then84, %if.end78, %land.lhs.true81, %entry
+  %retval.0 = phi i32 [ 0, %entry ], [ %51, %land.lhs.true81 ], [ %51, %if.end78 ], [ %51, %if.then84 ], [ %51, %if.then.i ], [ %51, %for.inc.i ]
   call void @llvm.lifetime.end.p0(i64 50, ptr nonnull %timeStr) #10
   ret i32 %retval.0
 }

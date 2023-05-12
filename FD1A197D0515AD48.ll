@@ -319,10 +319,10 @@ lor.lhs.false:                                    ; preds = %if.else41
   ]
 
 lor.lhs.false.if.end63_crit_edge:                 ; preds = %lor.lhs.false
-  %.pre349 = load i32, ptr @log2_max_pic_order_cnt_lsb_minus4, align 4, !tbaa !13
+  %.pre346 = load i32, ptr @log2_max_pic_order_cnt_lsb_minus4, align 4, !tbaa !13
   %pic_order_cnt_lsb65.phi.trans.insert = getelementptr inbounds %struct.ImageParameters, ptr %29, i64 0, i32 107
-  %.pre350 = load i32, ptr %pic_order_cnt_lsb65.phi.trans.insert, align 8, !tbaa !40
-  %.pre359 = add i32 %.pre349, 4
+  %.pre347 = load i32, ptr %pic_order_cnt_lsb65.phi.trans.insert, align 8, !tbaa !40
+  %.pre356 = add i32 %.pre346, 4
   br label %if.end63
 
 if.then45:                                        ; preds = %lor.lhs.false, %if.else41
@@ -350,8 +350,8 @@ if.then55:                                        ; preds = %lor.lhs.false
   br label %if.end63
 
 if.end63:                                         ; preds = %lor.lhs.false.if.end63_crit_edge, %if.then45, %if.then55, %if.then39
-  %add64.pre-phi = phi i32 [ %.pre359, %lor.lhs.false.if.end63_crit_edge ], [ %add47, %if.then45 ], [ %add56, %if.then55 ], [ %add40, %if.then39 ]
-  %40 = phi i32 [ %.pre350, %lor.lhs.false.if.end63_crit_edge ], [ %and50, %if.then45 ], [ %and59, %if.then55 ], [ %and, %if.then39 ]
+  %add64.pre-phi = phi i32 [ %.pre356, %lor.lhs.false.if.end63_crit_edge ], [ %add47, %if.then45 ], [ %add56, %if.then55 ], [ %add40, %if.then39 ]
+  %40 = phi i32 [ %.pre347, %lor.lhs.false.if.end63_crit_edge ], [ %and50, %if.then45 ], [ %and59, %if.then55 ], [ %and, %if.then39 ]
   %call66 = tail call i32 @u_v(i32 noundef %add64.pre-phi, ptr noundef nonnull @.str.7, i32 noundef %40, ptr noundef %7) #5
   %add67 = add nsw i32 %call66, %len.2
   %41 = load ptr, ptr @img, align 8, !tbaa !5
@@ -366,11 +366,11 @@ if.then70:                                        ; preds = %if.end63
   %43 = load i32, ptr %delta_pic_order_cnt_bottom, align 4, !tbaa !43
   %call71 = tail call i32 @se_v(ptr noundef nonnull @.str.8, i32 noundef %43, ptr noundef %7) #5
   %add72 = add nsw i32 %call71, %add67
-  %.pre351 = load ptr, ptr @img, align 8, !tbaa !5
+  %.pre348 = load ptr, ptr @img, align 8, !tbaa !5
   br label %if.end74
 
 if.end74:                                         ; preds = %if.end63, %if.then70, %if.end34
-  %44 = phi ptr [ %41, %if.end63 ], [ %.pre351, %if.then70 ], [ %29, %if.end34 ]
+  %44 = phi ptr [ %41, %if.end63 ], [ %.pre348, %if.then70 ], [ %29, %if.end34 ]
   %len.3 = phi i32 [ %add67, %if.end63 ], [ %add72, %if.then70 ], [ %len.2, %if.end34 ]
   %pic_order_cnt_type75 = getelementptr inbounds %struct.ImageParameters, ptr %44, i64 0, i32 101
   %45 = load i32, ptr %pic_order_cnt_type75, align 8, !tbaa !38
@@ -431,14 +431,14 @@ if.then100:                                       ; preds = %if.end98
   %57 = load i32, ptr %direct_spatial_mv_pred_flag, align 4, !tbaa !47
   %call101 = tail call i32 @u_1(ptr noundef nonnull @.str.12, i32 noundef %57, ptr noundef %7) #5
   %add102 = add i32 %call101, %len.5
-  %.pre352 = load ptr, ptr @img, align 8, !tbaa !5
-  %type104.phi.trans.insert = getelementptr inbounds %struct.ImageParameters, ptr %.pre352, i64 0, i32 5
-  %.pre353 = load i32, ptr %type104.phi.trans.insert, align 4, !tbaa !25
+  %.pre349 = load ptr, ptr @img, align 8, !tbaa !5
+  %type104.phi.trans.insert = getelementptr inbounds %struct.ImageParameters, ptr %.pre349, i64 0, i32 5
+  %.pre350 = load i32, ptr %type104.phi.trans.insert, align 4, !tbaa !25
   br label %if.end103
 
 if.end103:                                        ; preds = %if.then100, %if.end98
-  %58 = phi i32 [ %.pre353, %if.then100 ], [ %56, %if.end98 ]
-  %59 = phi ptr [ %.pre352, %if.then100 ], [ %55, %if.end98 ]
+  %58 = phi i32 [ %.pre350, %if.then100 ], [ %56, %if.end98 ]
+  %59 = phi ptr [ %.pre349, %if.then100 ], [ %55, %if.end98 ]
   %len.6 = phi i32 [ %add102, %if.then100 ], [ %len.5, %if.end98 ]
   switch i32 %58, label %if.end149 [
     i32 0, label %if.then118
@@ -454,9 +454,9 @@ if.then118:                                       ; preds = %if.end103, %if.end1
   %62 = load i32, ptr %num_ref_idx_l0_active_minus1, align 8, !tbaa !49
   %add119 = add nsw i32 %62, 1
   %cmp120.not = icmp ne i32 %60, %add119
-  %override_flag.0346 = zext i1 %cmp120.not to i32
-  %call133347 = tail call i32 @u_1(ptr noundef nonnull @.str.13, i32 noundef %override_flag.0346, ptr noundef %7) #5
-  %add134348 = add i32 %call133347, %len.6
+  %override_flag.0357 = zext i1 %cmp120.not to i32
+  %call133358 = tail call i32 @u_1(ptr noundef nonnull @.str.13, i32 noundef %override_flag.0357, ptr noundef %7) #5
+  %add134359 = add i32 %call133358, %len.6
   br i1 %cmp120.not, label %if.then136, label %if.end149
 
 if.else122:                                       ; preds = %if.end103
@@ -470,8 +470,8 @@ if.else122:                                       ; preds = %if.end103
   br i1 %cmp126.not, label %if.end132, label %if.end132.thread
 
 if.end132.thread:                                 ; preds = %if.else122
-  %call133343 = tail call i32 @u_1(ptr noundef nonnull @.str.13, i32 noundef 1, ptr noundef %7) #5
-  %add134344 = add i32 %call133343, %len.6
+  %call133342 = tail call i32 @u_1(ptr noundef nonnull @.str.13, i32 noundef 1, ptr noundef %7) #5
+  %add134343 = add i32 %call133342, %len.6
   br label %if.then136
 
 if.end132:                                        ; preds = %if.else122
@@ -487,7 +487,7 @@ if.end132:                                        ; preds = %if.else122
   br i1 %cmp129, label %if.then136, label %if.end149
 
 if.then136:                                       ; preds = %if.then118, %if.end132.thread, %if.end132
-  %add134345 = phi i32 [ %add134344, %if.end132.thread ], [ %add134, %if.end132 ], [ %add134348, %if.then118 ]
+  %add134345 = phi i32 [ %add134343, %if.end132.thread ], [ %add134, %if.end132 ], [ %add134359, %if.then118 ]
   %68 = load ptr, ptr @img, align 8, !tbaa !5
   %num_ref_idx_l0_active137 = getelementptr inbounds %struct.ImageParameters, ptr %68, i64 0, i32 88
   %69 = load i32, ptr %num_ref_idx_l0_active137, align 8, !tbaa !48
@@ -508,8 +508,8 @@ if.then142:                                       ; preds = %if.then136
   %add146 = add nsw i32 %call145, %add139
   br label %if.end149
 
-if.end149:                                        ; preds = %if.end103, %if.then118, %if.end132, %if.then142, %if.then136
-  %len.8 = phi i32 [ %len.6, %if.end103 ], [ %add146, %if.then142 ], [ %add139, %if.then136 ], [ %add134, %if.end132 ], [ %add134348, %if.then118 ]
+if.end149:                                        ; preds = %if.then118, %if.end103, %if.end132, %if.then142, %if.then136
+  %len.8 = phi i32 [ %len.6, %if.end103 ], [ %add146, %if.then142 ], [ %add139, %if.then136 ], [ %add134, %if.end132 ], [ %add134359, %if.then118 ]
   %73 = load ptr, ptr @img, align 8, !tbaa !5
   %currentSlice.i = getelementptr inbounds %struct.ImageParameters, ptr %73, i64 0, i32 60
   %74 = load ptr, ptr %currentSlice.i, align 8, !tbaa !14
@@ -548,8 +548,8 @@ if.then.i:                                        ; preds = %if.end149
 
 if.end.i:                                         ; preds = %if.then.i, %if.end149
   %84 = phi ptr [ %.pre.i, %if.then.i ], [ %73, %if.end149 ]
-  %type.i311 = getelementptr inbounds %struct.ImageParameters, ptr %84, i64 0, i32 5
-  %85 = load i32, ptr %type.i311, align 4, !tbaa !25
+  %type.i312 = getelementptr inbounds %struct.ImageParameters, ptr %84, i64 0, i32 5
+  %85 = load i32, ptr %type.i312, align 4, !tbaa !25
   %cmp.not.i = icmp eq i32 %85, 2
   br i1 %cmp.not.i, label %if.end50.i, label %if.then10.i
 
@@ -597,14 +597,14 @@ do.cond.sink.split.i:                             ; preds = %if.then37.i, %do.bo
   %93 = load i32, ptr %arrayidx30.i, align 4, !tbaa !13
   %call31.i = tail call i32 @ue_v(ptr noundef nonnull %.str.28.sink.i, i32 noundef %93, ptr noundef %7) #5
   %add32.i = add nsw i32 %call31.i, %add18.i
-  %.pre354 = load ptr, ptr %reordering_of_pic_nums_idc_l015.i, align 8, !tbaa !54
-  %arrayidx47.i.phi.trans.insert = getelementptr inbounds i32, ptr %.pre354, i64 %indvars.iv.next.i
-  %.pre355 = load i32, ptr %arrayidx47.i.phi.trans.insert, align 4, !tbaa !13
+  %.pre351 = load ptr, ptr %reordering_of_pic_nums_idc_l015.i, align 8, !tbaa !54
+  %arrayidx47.i.phi.trans.insert = getelementptr inbounds i32, ptr %.pre351, i64 %indvars.iv.next.i
+  %.pre352 = load i32, ptr %arrayidx47.i.phi.trans.insert, align 4, !tbaa !13
   br label %do.cond.i
 
 do.cond.i:                                        ; preds = %do.cond.sink.split.i, %do.body.i
-  %94 = phi i32 [ %91, %do.body.i ], [ %.pre355, %do.cond.sink.split.i ]
-  %95 = phi ptr [ %90, %do.body.i ], [ %.pre354, %do.cond.sink.split.i ]
+  %94 = phi i32 [ %91, %do.body.i ], [ %.pre352, %do.cond.sink.split.i ]
+  %95 = phi ptr [ %90, %do.body.i ], [ %.pre351, %do.cond.sink.split.i ]
   %len.1.i = phi i32 [ %add18.i, %do.body.i ], [ %add32.i, %do.cond.sink.split.i ]
   %cmp48.not.i = icmp eq i32 %94, 3
   br i1 %cmp48.not.i, label %if.end50.i, label %do.body.i, !llvm.loop !57
@@ -662,14 +662,14 @@ do.cond91.sink.split.i:                           ; preds = %if.then84.i, %do.bo
   %105 = load i32, ptr %arrayidx76.i, align 4, !tbaa !13
   %call77.i = tail call i32 @ue_v(ptr noundef nonnull %.str.32.sink.i, i32 noundef %105, ptr noundef %7) #5
   %add78.i = add nsw i32 %call77.i, %add64.i
-  %.pre356 = load ptr, ptr %reordering_of_pic_nums_idc_l1.i, align 8, !tbaa !60
-  %arrayidx94.i.phi.trans.insert = getelementptr inbounds i32, ptr %.pre356, i64 %indvars.iv.next157.i
-  %.pre357 = load i32, ptr %arrayidx94.i.phi.trans.insert, align 4, !tbaa !13
+  %.pre353 = load ptr, ptr %reordering_of_pic_nums_idc_l1.i, align 8, !tbaa !60
+  %arrayidx94.i.phi.trans.insert = getelementptr inbounds i32, ptr %.pre353, i64 %indvars.iv.next157.i
+  %.pre354 = load i32, ptr %arrayidx94.i.phi.trans.insert, align 4, !tbaa !13
   br label %do.cond91.i
 
 do.cond91.i:                                      ; preds = %do.cond91.sink.split.i, %do.body59.i
-  %106 = phi i32 [ %103, %do.body59.i ], [ %.pre357, %do.cond91.sink.split.i ]
-  %107 = phi ptr [ %102, %do.body59.i ], [ %.pre356, %do.cond91.sink.split.i ]
+  %106 = phi i32 [ %103, %do.body59.i ], [ %.pre354, %do.cond91.sink.split.i ]
+  %107 = phi ptr [ %102, %do.body59.i ], [ %.pre353, %do.cond91.sink.split.i ]
   %len.4.i = phi i32 [ %add64.i, %do.body59.i ], [ %add78.i, %do.cond91.sink.split.i ]
   %cmp95.not.i = icmp eq i32 %106, 3
   br i1 %cmp95.not.i, label %ref_pic_list_reordering.exit, label %do.body59.i, !llvm.loop !61
@@ -687,7 +687,7 @@ ref_pic_list_reordering.exit:                     ; preds = %do.cond91.i, %if.en
   ]
 
 ref_pic_list_reordering.exit.land.lhs.true162_crit_edge: ; preds = %ref_pic_list_reordering.exit
-  %.pre358 = load ptr, ptr @active_pps, align 8, !tbaa !5
+  %.pre355 = load ptr, ptr @active_pps, align 8, !tbaa !5
   br label %land.lhs.true162
 
 land.lhs.true157:                                 ; preds = %ref_pic_list_reordering.exit, %ref_pic_list_reordering.exit
@@ -702,7 +702,7 @@ lor.lhs.false159:                                 ; preds = %land.lhs.true157
   br i1 %cmp161, label %land.lhs.true162, label %if.end167
 
 land.lhs.true162:                                 ; preds = %ref_pic_list_reordering.exit.land.lhs.true162_crit_edge, %lor.lhs.false159
-  %112 = phi ptr [ %.pre358, %ref_pic_list_reordering.exit.land.lhs.true162_crit_edge ], [ %110, %lor.lhs.false159 ]
+  %112 = phi ptr [ %.pre355, %ref_pic_list_reordering.exit.land.lhs.true162_crit_edge ], [ %110, %lor.lhs.false159 ]
   %weighted_bipred_idc = getelementptr inbounds %struct.pic_parameter_set_rbsp_t, ptr %112, i64 0, i32 20
   %113 = load i32, ptr %weighted_bipred_idc, align 4, !tbaa !63
   %cmp163 = icmp eq i32 %113, 1
@@ -710,33 +710,33 @@ land.lhs.true162:                                 ; preds = %ref_pic_list_reorde
 
 if.then164:                                       ; preds = %land.lhs.true162, %land.lhs.true157
   %114 = load i32, ptr @luma_log_weight_denom, align 4, !tbaa !13
-  %call.i312 = tail call i32 @ue_v(ptr noundef nonnull @.str.43, i32 noundef %114, ptr noundef %7) #5
+  %call.i313 = tail call i32 @ue_v(ptr noundef nonnull @.str.43, i32 noundef %114, ptr noundef %7) #5
   %115 = load ptr, ptr @active_sps, align 8, !tbaa !5
   %chroma_format_idc.i = getelementptr inbounds %struct.seq_parameter_set_rbsp_t, ptr %115, i64 0, i32 8
   %116 = load i32, ptr %chroma_format_idc.i, align 4, !tbaa !64
-  %cmp.not.i313 = icmp eq i32 %116, 0
-  br i1 %cmp.not.i313, label %if.end.i316, label %if.then.i314
+  %cmp.not.i314 = icmp eq i32 %116, 0
+  br i1 %cmp.not.i314, label %if.end.i317, label %if.then.i315
 
-if.then.i314:                                     ; preds = %if.then164
+if.then.i315:                                     ; preds = %if.then164
   %117 = load i32, ptr @chroma_log_weight_denom, align 4, !tbaa !13
   %call1.i = tail call i32 @ue_v(ptr noundef nonnull @.str.44, i32 noundef %117, ptr noundef %7) #5
-  %add2.i = add nsw i32 %call1.i, %call.i312
-  br label %if.end.i316
+  %add2.i = add nsw i32 %call1.i, %call.i313
+  br label %if.end.i317
 
-if.end.i316:                                      ; preds = %if.then.i314, %if.then164
-  %len.0.i315 = phi i32 [ %add2.i, %if.then.i314 ], [ %call.i312, %if.then164 ]
+if.end.i317:                                      ; preds = %if.then.i315, %if.then164
+  %len.0.i316 = phi i32 [ %add2.i, %if.then.i315 ], [ %call.i313, %if.then164 ]
   %118 = load ptr, ptr @img, align 8, !tbaa !5
   %num_ref_idx_l0_active249.i = getelementptr inbounds %struct.ImageParameters, ptr %118, i64 0, i32 88
   %119 = load i32, ptr %num_ref_idx_l0_active249.i, align 8, !tbaa !48
   %cmp3250.i = icmp sgt i32 %119, 0
   br i1 %cmp3250.i, label %for.body.i, label %for.end85.i
 
-for.body.i:                                       ; preds = %if.end.i316, %for.inc83.i
-  %indvars.iv.i317 = phi i64 [ %indvars.iv.next.i320, %for.inc83.i ], [ 0, %if.end.i316 ]
-  %len.1251.i = phi i32 [ %len.4.i319, %for.inc83.i ], [ %len.0.i315, %if.end.i316 ]
+for.body.i:                                       ; preds = %if.end.i317, %for.inc83.i
+  %indvars.iv.i318 = phi i64 [ %indvars.iv.next.i321, %for.inc83.i ], [ 0, %if.end.i317 ]
+  %len.1251.i = phi i32 [ %len.4.i320, %for.inc83.i ], [ %len.0.i316, %if.end.i317 ]
   %120 = load ptr, ptr @wp_weight, align 8, !tbaa !5
   %121 = load ptr, ptr %120, align 8, !tbaa !5
-  %arrayidx4.i = getelementptr inbounds ptr, ptr %121, i64 %indvars.iv.i317
+  %arrayidx4.i = getelementptr inbounds ptr, ptr %121, i64 %indvars.iv.i318
   %122 = load ptr, ptr %arrayidx4.i, align 8, !tbaa !5
   %123 = load i32, ptr %122, align 4, !tbaa !13
   %124 = load i32, ptr @luma_log_weight_denom, align 4, !tbaa !13
@@ -747,7 +747,7 @@ for.body.i:                                       ; preds = %if.end.i316, %for.i
 lor.lhs.false.i:                                  ; preds = %for.body.i
   %125 = load ptr, ptr @wp_offset, align 8, !tbaa !5
   %126 = load ptr, ptr %125, align 8, !tbaa !5
-  %arrayidx9.i = getelementptr inbounds ptr, ptr %126, i64 %indvars.iv.i317
+  %arrayidx9.i = getelementptr inbounds ptr, ptr %126, i64 %indvars.iv.i318
   %127 = load ptr, ptr %arrayidx9.i, align 8, !tbaa !5
   %128 = load i32, ptr %127, align 4, !tbaa !13
   %cmp11.not.i = icmp eq i32 %128, 0
@@ -758,14 +758,14 @@ if.then12.i:                                      ; preds = %lor.lhs.false.i, %f
   %add14.i = add i32 %call13.i, %len.1251.i
   %129 = load ptr, ptr @wp_weight, align 8, !tbaa !5
   %130 = load ptr, ptr %129, align 8, !tbaa !5
-  %arrayidx17.i = getelementptr inbounds ptr, ptr %130, i64 %indvars.iv.i317
+  %arrayidx17.i = getelementptr inbounds ptr, ptr %130, i64 %indvars.iv.i318
   %131 = load ptr, ptr %arrayidx17.i, align 8, !tbaa !5
   %132 = load i32, ptr %131, align 4, !tbaa !13
   %call19.i = tail call i32 @se_v(ptr noundef nonnull @.str.46, i32 noundef %132, ptr noundef %7) #5
   %add20.i = add nsw i32 %add14.i, %call19.i
   %133 = load ptr, ptr @wp_offset, align 8, !tbaa !5
   %134 = load ptr, ptr %133, align 8, !tbaa !5
-  %arrayidx23.i = getelementptr inbounds ptr, ptr %134, i64 %indvars.iv.i317
+  %arrayidx23.i = getelementptr inbounds ptr, ptr %134, i64 %indvars.iv.i318
   %135 = load ptr, ptr %arrayidx23.i, align 8, !tbaa !5
   %136 = load i32, ptr %135, align 4, !tbaa !13
   %call25.i = tail call i32 @se_v(ptr noundef nonnull @.str.47, i32 noundef %136, ptr noundef %7) #5
@@ -778,7 +778,7 @@ if.else.i:                                        ; preds = %lor.lhs.false.i
   br label %if.end29.i
 
 if.end29.i:                                       ; preds = %if.else.i, %if.then12.i
-  %len.2.i318 = phi i32 [ %add26.i, %if.then12.i ], [ %add28.i, %if.else.i ]
+  %len.2.i319 = phi i32 [ %add26.i, %if.then12.i ], [ %add28.i, %if.else.i ]
   %137 = load ptr, ptr @active_sps, align 8, !tbaa !5
   %chroma_format_idc30.i = getelementptr inbounds %struct.seq_parameter_set_rbsp_t, ptr %137, i64 0, i32 8
   %138 = load i32, ptr %chroma_format_idc30.i, align 4, !tbaa !64
@@ -788,7 +788,7 @@ if.end29.i:                                       ; preds = %if.else.i, %if.then
 if.then32.i:                                      ; preds = %if.end29.i
   %139 = load ptr, ptr @wp_weight, align 8, !tbaa !5
   %140 = load ptr, ptr %139, align 8, !tbaa !5
-  %arrayidx35.i = getelementptr inbounds ptr, ptr %140, i64 %indvars.iv.i317
+  %arrayidx35.i = getelementptr inbounds ptr, ptr %140, i64 %indvars.iv.i318
   %141 = load ptr, ptr %arrayidx35.i, align 8, !tbaa !5
   %arrayidx36.i = getelementptr inbounds i32, ptr %141, i64 1
   %142 = load i32, ptr %arrayidx36.i, align 4, !tbaa !13
@@ -800,7 +800,7 @@ if.then32.i:                                      ; preds = %if.end29.i
 lor.lhs.false39.i:                                ; preds = %if.then32.i
   %144 = load ptr, ptr @wp_offset, align 8, !tbaa !5
   %145 = load ptr, ptr %144, align 8, !tbaa !5
-  %arrayidx42.i = getelementptr inbounds ptr, ptr %145, i64 %indvars.iv.i317
+  %arrayidx42.i = getelementptr inbounds ptr, ptr %145, i64 %indvars.iv.i318
   %146 = load ptr, ptr %arrayidx42.i, align 8, !tbaa !5
   %arrayidx43.i = getelementptr inbounds i32, ptr %146, i64 1
   %147 = load i32, ptr %arrayidx43.i, align 4, !tbaa !13
@@ -821,10 +821,10 @@ lor.lhs.false52.i:                                ; preds = %lor.lhs.false45.i
 
 if.then58.i:                                      ; preds = %lor.lhs.false52.i, %lor.lhs.false45.i, %lor.lhs.false39.i, %if.then32.i
   %call59.i = tail call i32 @u_1(ptr noundef nonnull @.str.48, i32 noundef 1, ptr noundef %7) #5
-  %add60.i = add i32 %call59.i, %len.2.i318
+  %add60.i = add i32 %call59.i, %len.2.i319
   %150 = load ptr, ptr @wp_weight, align 8, !tbaa !5
   %151 = load ptr, ptr %150, align 8, !tbaa !5
-  %arrayidx66.i = getelementptr inbounds ptr, ptr %151, i64 %indvars.iv.i317
+  %arrayidx66.i = getelementptr inbounds ptr, ptr %151, i64 %indvars.iv.i318
   %152 = load ptr, ptr %arrayidx66.i, align 8, !tbaa !5
   %arrayidx68.i = getelementptr inbounds i32, ptr %152, i64 1
   %153 = load i32, ptr %arrayidx68.i, align 4, !tbaa !13
@@ -832,7 +832,7 @@ if.then58.i:                                      ; preds = %lor.lhs.false52.i, 
   %add70.i = add nsw i32 %add60.i, %call69.i
   %154 = load ptr, ptr @wp_offset, align 8, !tbaa !5
   %155 = load ptr, ptr %154, align 8, !tbaa !5
-  %arrayidx73.i = getelementptr inbounds ptr, ptr %155, i64 %indvars.iv.i317
+  %arrayidx73.i = getelementptr inbounds ptr, ptr %155, i64 %indvars.iv.i318
   %156 = load ptr, ptr %arrayidx73.i, align 8, !tbaa !5
   %arrayidx75.i = getelementptr inbounds i32, ptr %156, i64 1
   %157 = load i32, ptr %arrayidx75.i, align 4, !tbaa !13
@@ -840,7 +840,7 @@ if.then58.i:                                      ; preds = %lor.lhs.false52.i, 
   %add77.i = add nsw i32 %add70.i, %call76.i
   %158 = load ptr, ptr @wp_weight, align 8, !tbaa !5
   %159 = load ptr, ptr %158, align 8, !tbaa !5
-  %arrayidx66.1.i = getelementptr inbounds ptr, ptr %159, i64 %indvars.iv.i317
+  %arrayidx66.1.i = getelementptr inbounds ptr, ptr %159, i64 %indvars.iv.i318
   %160 = load ptr, ptr %arrayidx66.1.i, align 8, !tbaa !5
   %arrayidx68.1.i = getelementptr inbounds i32, ptr %160, i64 2
   %161 = load i32, ptr %arrayidx68.1.i, align 4, !tbaa !13
@@ -848,7 +848,7 @@ if.then58.i:                                      ; preds = %lor.lhs.false52.i, 
   %add70.1.i = add nsw i32 %add77.i, %call69.1.i
   %162 = load ptr, ptr @wp_offset, align 8, !tbaa !5
   %163 = load ptr, ptr %162, align 8, !tbaa !5
-  %arrayidx73.1.i = getelementptr inbounds ptr, ptr %163, i64 %indvars.iv.i317
+  %arrayidx73.1.i = getelementptr inbounds ptr, ptr %163, i64 %indvars.iv.i318
   %164 = load ptr, ptr %arrayidx73.1.i, align 8, !tbaa !5
   %arrayidx75.1.i = getelementptr inbounds i32, ptr %164, i64 2
   %165 = load i32, ptr %arrayidx75.1.i, align 4, !tbaa !13
@@ -858,24 +858,24 @@ if.then58.i:                                      ; preds = %lor.lhs.false52.i, 
 
 if.else78.i:                                      ; preds = %lor.lhs.false52.i
   %call79.i = tail call i32 @u_1(ptr noundef nonnull @.str.48, i32 noundef 0, ptr noundef %7) #5
-  %add80.i = add i32 %call79.i, %len.2.i318
+  %add80.i = add i32 %call79.i, %len.2.i319
   br label %for.inc83.i
 
 for.inc83.i:                                      ; preds = %if.else78.i, %if.then58.i, %if.end29.i
-  %len.4.i319 = phi i32 [ %add80.i, %if.else78.i ], [ %len.2.i318, %if.end29.i ], [ %add77.1.i, %if.then58.i ]
-  %indvars.iv.next.i320 = add nuw nsw i64 %indvars.iv.i317, 1
+  %len.4.i320 = phi i32 [ %add80.i, %if.else78.i ], [ %len.2.i319, %if.end29.i ], [ %add77.1.i, %if.then58.i ]
+  %indvars.iv.next.i321 = add nuw nsw i64 %indvars.iv.i318, 1
   %166 = load ptr, ptr @img, align 8, !tbaa !5
-  %num_ref_idx_l0_active.i321 = getelementptr inbounds %struct.ImageParameters, ptr %166, i64 0, i32 88
-  %167 = load i32, ptr %num_ref_idx_l0_active.i321, align 8, !tbaa !48
+  %num_ref_idx_l0_active.i322 = getelementptr inbounds %struct.ImageParameters, ptr %166, i64 0, i32 88
+  %167 = load i32, ptr %num_ref_idx_l0_active.i322, align 8, !tbaa !48
   %168 = sext i32 %167 to i64
-  %cmp3.i = icmp slt i64 %indvars.iv.next.i320, %168
+  %cmp3.i = icmp slt i64 %indvars.iv.next.i321, %168
   br i1 %cmp3.i, label %for.body.i, label %for.end85.i, !llvm.loop !65
 
-for.end85.i:                                      ; preds = %for.inc83.i, %if.end.i316
-  %len.1.lcssa.i = phi i32 [ %len.0.i315, %if.end.i316 ], [ %len.4.i319, %for.inc83.i ]
-  %169 = phi ptr [ %118, %if.end.i316 ], [ %166, %for.inc83.i ]
-  %type.i322 = getelementptr inbounds %struct.ImageParameters, ptr %169, i64 0, i32 5
-  %170 = load i32, ptr %type.i322, align 4, !tbaa !25
+for.end85.i:                                      ; preds = %for.inc83.i, %if.end.i317
+  %len.1.lcssa.i = phi i32 [ %len.0.i316, %if.end.i317 ], [ %len.4.i320, %for.inc83.i ]
+  %169 = phi ptr [ %118, %if.end.i317 ], [ %166, %for.inc83.i ]
+  %type.i323 = getelementptr inbounds %struct.ImageParameters, ptr %169, i64 0, i32 5
+  %170 = load i32, ptr %type.i323, align 4, !tbaa !25
   %cmp86.i = icmp eq i32 %170, 1
   br i1 %cmp86.i, label %for.cond88.preheader.i, label %pred_weight_table.exit
 
@@ -1055,20 +1055,20 @@ if.then169:                                       ; preds = %if.end167
   %idr_flag.i = getelementptr inbounds %struct.Picture, ptr %224, i64 0, i32 1
   %225 = load i32, ptr %idr_flag.i, align 4, !tbaa !35
   %tobool.not.i = icmp eq i32 %225, 0
-  br i1 %tobool.not.i, label %if.else.i327, label %if.then.i326
+  br i1 %tobool.not.i, label %if.else.i328, label %if.then.i327
 
-if.then.i326:                                     ; preds = %if.then169
+if.then.i327:                                     ; preds = %if.then169
   %no_output_of_prior_pics_flag.i = getelementptr inbounds %struct.ImageParameters, ptr %222, i64 0, i32 124
   %226 = load i32, ptr %no_output_of_prior_pics_flag.i, align 8, !tbaa !68
-  %call.i323 = tail call i32 @u_1(ptr noundef nonnull @.str.34, i32 noundef %226, ptr noundef %7) #5
+  %call.i324 = tail call i32 @u_1(ptr noundef nonnull @.str.34, i32 noundef %226, ptr noundef %7) #5
   %227 = load ptr, ptr @img, align 8, !tbaa !5
   %long_term_reference_flag.i = getelementptr inbounds %struct.ImageParameters, ptr %227, i64 0, i32 125
   %228 = load i32, ptr %long_term_reference_flag.i, align 4, !tbaa !69
-  %call1.i324 = tail call i32 @u_1(ptr noundef nonnull @.str.35, i32 noundef %228, ptr noundef %7) #5
-  %add2.i325 = add i32 %call1.i324, %call.i323
+  %call1.i325 = tail call i32 @u_1(ptr noundef nonnull @.str.35, i32 noundef %228, ptr noundef %7) #5
+  %add2.i326 = add i32 %call1.i325, %call.i324
   br label %dec_ref_pic_marking.exit
 
-if.else.i327:                                     ; preds = %if.then169
+if.else.i328:                                     ; preds = %if.then169
   %dec_ref_pic_marking_buffer.i = getelementptr inbounds %struct.ImageParameters, ptr %222, i64 0, i32 126
   %229 = load ptr, ptr %dec_ref_pic_marking_buffer.i, align 8, !tbaa !70
   %cmp.i = icmp ne ptr %229, null
@@ -1082,40 +1082,40 @@ if.else.i327:                                     ; preds = %if.then169
   %tobool7.not.i = icmp eq i32 %231, 0
   br i1 %tobool7.not.i, label %dec_ref_pic_marking.exit, label %if.then8.i
 
-if.then8.i:                                       ; preds = %if.else.i327
+if.then8.i:                                       ; preds = %if.else.i328
   %dec_ref_pic_marking_buffer9.i = getelementptr inbounds %struct.ImageParameters, ptr %230, i64 0, i32 126
-  br label %do.body.i329
+  br label %do.body.i330
 
-do.body.i329:                                     ; preds = %if.end44.i, %if.then8.i
+do.body.i330:                                     ; preds = %if.end44.i, %if.then8.i
   %tmp_drpm.0.in.i = phi ptr [ %dec_ref_pic_marking_buffer9.i, %if.then8.i ], [ %Next.i, %if.end44.i ]
-  %len.0.i328 = phi i32 [ %call4.i, %if.then8.i ], [ %len.4.i338, %if.end44.i ]
+  %len.0.i329 = phi i32 [ %call4.i, %if.then8.i ], [ %len.4.i339, %if.end44.i ]
   %tmp_drpm.0.i = load ptr, ptr %tmp_drpm.0.in.i, align 8, !tbaa !5
   %cmp10.i = icmp eq ptr %tmp_drpm.0.i, null
-  br i1 %cmp10.i, label %if.then12.i330, label %if.end.i333
+  br i1 %cmp10.i, label %if.then12.i331, label %if.end.i334
 
-if.then12.i330:                                   ; preds = %do.body.i329
+if.then12.i331:                                   ; preds = %do.body.i330
   tail call void @error(ptr noundef nonnull @.str.37, i32 noundef 500) #5
-  br label %if.end.i333
+  br label %if.end.i334
 
-if.end.i333:                                      ; preds = %if.then12.i330, %do.body.i329
+if.end.i334:                                      ; preds = %if.then12.i331, %do.body.i330
   %232 = load i32, ptr %tmp_drpm.0.i, align 8, !tbaa !72
-  %call13.i331 = tail call i32 @ue_v(ptr noundef nonnull @.str.38, i32 noundef %232, ptr noundef %7) #5
-  %add14.i332 = add nsw i32 %call13.i331, %len.0.i328
+  %call13.i332 = tail call i32 @ue_v(ptr noundef nonnull @.str.38, i32 noundef %232, ptr noundef %7) #5
+  %add14.i333 = add nsw i32 %call13.i332, %len.0.i329
   switch i32 %232, label %if.end23.i [
     i32 3, label %if.then19.i
     i32 1, label %if.then19.i
   ]
 
-if.then19.i:                                      ; preds = %if.end.i333, %if.end.i333
+if.then19.i:                                      ; preds = %if.end.i334, %if.end.i334
   %difference_of_pic_nums_minus1.i = getelementptr inbounds %struct.DecRefPicMarking_s, ptr %tmp_drpm.0.i, i64 0, i32 1
   %233 = load i32, ptr %difference_of_pic_nums_minus1.i, align 4, !tbaa !74
   %call20.i = tail call i32 @ue_v(ptr noundef nonnull @.str.39, i32 noundef %233, ptr noundef %7) #5
-  %add21.i = add i32 %add14.i332, 1
+  %add21.i = add i32 %add14.i333, 1
   %add22.i = add i32 %add21.i, %call20.i
   br label %if.end23.i
 
-if.end23.i:                                       ; preds = %if.then19.i, %if.end.i333
-  %len.1.i334 = phi i32 [ %add22.i, %if.then19.i ], [ %add14.i332, %if.end.i333 ]
+if.end23.i:                                       ; preds = %if.then19.i, %if.end.i334
+  %len.1.i335 = phi i32 [ %add22.i, %if.then19.i ], [ %add14.i333, %if.end.i334 ]
   switch i32 %232, label %if.end38.i [
     i32 2, label %if.end38.thread.i
     i32 6, label %if.then35.i
@@ -1130,11 +1130,11 @@ if.then35.i:                                      ; preds = %if.end23.i, %if.end
   %long_term_frame_idx.i = getelementptr inbounds %struct.DecRefPicMarking_s, ptr %tmp_drpm.0.i, i64 0, i32 3
   %234 = load i32, ptr %long_term_frame_idx.i, align 4, !tbaa !75
   %call36.i = tail call i32 @ue_v(ptr noundef nonnull @.str.41, i32 noundef %234, ptr noundef %7) #5
-  %add37.i = add nsw i32 %call36.i, %len.1.i334
+  %add37.i = add nsw i32 %call36.i, %len.1.i335
   br label %if.end38.i
 
 if.end38.i:                                       ; preds = %if.then35.i, %if.end23.i
-  %len.3.i335 = phi i32 [ %add37.i, %if.then35.i ], [ %len.1.i334, %if.end23.i ]
+  %len.3.i336 = phi i32 [ %add37.i, %if.then35.i ], [ %len.1.i335, %if.end23.i ]
   %cmp39.i = icmp eq i32 %232, 4
   br i1 %cmp39.i, label %if.then41.i, label %if.end44.i
 
@@ -1145,21 +1145,21 @@ if.then41.i:                                      ; preds = %if.end38.i
 if.end44.sink.split.i:                            ; preds = %if.then41.i, %if.end38.thread.i
   %long_term_pic_num.sink.i = phi ptr [ %long_term_pic_num.i, %if.end38.thread.i ], [ %max_long_term_frame_idx_plus1.i, %if.then41.i ]
   %.str.40.sink.i = phi ptr [ @.str.40, %if.end38.thread.i ], [ @.str.42, %if.then41.i ]
-  %len.1.sink.i = phi i32 [ %len.1.i334, %if.end38.thread.i ], [ %len.3.i335, %if.then41.i ]
+  %len.1.sink.i = phi i32 [ %len.1.i335, %if.end38.thread.i ], [ %len.3.i336, %if.then41.i ]
   %235 = load i32, ptr %long_term_pic_num.sink.i, align 8, !tbaa !13
-  %call27.i336 = tail call i32 @ue_v(ptr noundef nonnull %.str.40.sink.i, i32 noundef %235, ptr noundef %7) #5
-  %add28.i337 = add nsw i32 %call27.i336, %len.1.sink.i
+  %call27.i337 = tail call i32 @ue_v(ptr noundef nonnull %.str.40.sink.i, i32 noundef %235, ptr noundef %7) #5
+  %add28.i338 = add nsw i32 %call27.i337, %len.1.sink.i
   br label %if.end44.i
 
 if.end44.i:                                       ; preds = %if.end44.sink.split.i, %if.end38.i
-  %len.4.i338 = phi i32 [ %len.3.i335, %if.end38.i ], [ %add28.i337, %if.end44.sink.split.i ]
+  %len.4.i339 = phi i32 [ %len.3.i336, %if.end38.i ], [ %add28.i338, %if.end44.sink.split.i ]
   %Next.i = getelementptr inbounds %struct.DecRefPicMarking_s, ptr %tmp_drpm.0.i, i64 0, i32 5
   %cmp45.not.i = icmp eq i32 %232, 0
-  br i1 %cmp45.not.i, label %dec_ref_pic_marking.exit, label %do.body.i329, !llvm.loop !76
+  br i1 %cmp45.not.i, label %dec_ref_pic_marking.exit, label %do.body.i330, !llvm.loop !76
 
-dec_ref_pic_marking.exit:                         ; preds = %if.end44.i, %if.then.i326, %if.else.i327
-  %len.5.i339 = phi i32 [ %add2.i325, %if.then.i326 ], [ %call4.i, %if.else.i327 ], [ %len.4.i338, %if.end44.i ]
-  %add171 = add nsw i32 %len.5.i339, %len.9
+dec_ref_pic_marking.exit:                         ; preds = %if.end44.i, %if.then.i327, %if.else.i328
+  %len.5.i340 = phi i32 [ %add2.i326, %if.then.i327 ], [ %call4.i, %if.else.i328 ], [ %len.4.i339, %if.end44.i ]
+  %add171 = add nsw i32 %len.5.i340, %len.9
   br label %if.end172
 
 if.end172:                                        ; preds = %dec_ref_pic_marking.exit, %if.end167
@@ -1264,8 +1264,8 @@ land.lhs.true217:                                 ; preds = %if.end215
   %slice_group_map_type = getelementptr inbounds %struct.pic_parameter_set_rbsp_t, ptr %260, i64 0, i32 9
   %262 = load i32, ptr %slice_group_map_type, align 8, !tbaa !87
   %263 = add i32 %262, -3
-  %or.cond340 = icmp ult i32 %263, 3
-  br i1 %or.cond340, label %if.then222, label %if.end234
+  %or.cond311 = icmp ult i32 %263, 3
+  br i1 %or.cond311, label %if.then222, label %if.end234
 
 if.then222:                                       ; preds = %land.lhs.true217
   %264 = load ptr, ptr @img, align 8, !tbaa !5

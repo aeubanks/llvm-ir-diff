@@ -123,8 +123,8 @@ if.else37:                                        ; preds = %if.else23
   store i32 -1, ptr @NextTokenval, align 4, !tbaa !9
   br label %cleanup
 
-cleanup:                                          ; preds = %if.else23, %if.else.i58, %if.then31, %if.else.i, %if.then26, %if.else37, %if.then21, %if.then9
-  %retval.0 = phi i32 [ %call10, %if.then9 ], [ %call22, %if.then21 ], [ %call, %if.else37 ], [ 61, %if.else.i ], [ 2012, %if.then26 ], [ 33, %if.else.i58 ], [ 2013, %if.then31 ], [ 260, %if.else23 ]
+cleanup:                                          ; preds = %if.else.i58, %if.then31, %if.else.i, %if.then26, %if.else23, %if.else37, %if.then21, %if.then9
+  %retval.0 = phi i32 [ %call10, %if.then9 ], [ %call22, %if.then21 ], [ %call, %if.else37 ], [ 260, %if.else23 ], [ 61, %if.else.i ], [ 2012, %if.then26 ], [ 33, %if.else.i58 ], [ 2013, %if.then31 ]
   ret i32 %retval.0
 }
 

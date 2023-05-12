@@ -11,7 +11,7 @@ target triple = "x86_64-unknown-linux-gnu"
 @Second_Field = external local_unnamed_addr global i32, align 4
 @backward_reference_frame = external global [3 x ptr], align 16
 @chroma_format = external local_unnamed_addr global i32, align 4
-@str.3 = private unnamed_addr constant [20 x i8] c"invalid motion_type\00", align 1
+@str.2 = private unnamed_addr constant [20 x i8] c"invalid motion_type\00", align 1
 
 ; Function Attrs: nounwind uwtable
 define dso_local void @form_predictions(i32 noundef %bx, i32 noundef %by, i32 noundef %macroblock_type, i32 noundef %motion_type, ptr nocapture noundef readonly %PMV, ptr nocapture noundef readonly %motion_vertical_field_select, ptr noundef %dmvector, i32 noundef %stwtype) local_unnamed_addr #0 {
@@ -150,7 +150,7 @@ if.then87:                                        ; preds = %if.end85
   br label %if.end219
 
 if.else106:                                       ; preds = %if.else
-  %puts462 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.3)
+  %puts462 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.2)
   br label %if.end219
 
 if.else110:                                       ; preds = %if.then
@@ -260,7 +260,7 @@ if.then186:                                       ; preds = %if.else143
   br label %if.end219
 
 if.else213:                                       ; preds = %if.else143
-  %puts461 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.3)
+  %puts461 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.2)
   br label %if.end219
 
 if.end219:                                        ; preds = %if.then42, %if.end40, %if.end85, %if.then87, %if.else106, %if.end, %if.then16, %if.end171, %if.then146, %if.else213, %if.then186, %if.then128, %if.then131, %entry
@@ -383,7 +383,7 @@ if.then302:                                       ; preds = %if.else285
   br label %if.end329
 
 if.else324:                                       ; preds = %if.else285
-  %puts = call i32 @puts(ptr nonnull dereferenceable(1) @str.3)
+  %puts = call i32 @puts(ptr nonnull dereferenceable(1) @str.2)
   br label %if.end329
 
 if.end329:                                        ; preds = %if.end267, %if.then270, %if.end239, %if.then242, %if.then302, %if.else324, %if.then288, %if.end219

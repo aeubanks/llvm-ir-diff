@@ -95,7 +95,7 @@ if.end:                                           ; preds = %entry.if.end_crit_e
   %14 = shufflevector <2 x double> %13, <2 x double> poison, <2 x i32> zeroinitializer
   %15 = tail call <2 x double> @llvm.fmuladd.v2f64(<2 x double> %14, <2 x double> %12, <2 x double> %9)
   %16 = extractelement <2 x double> %15, i64 0
-  %shift = shufflevector <2 x double> %12, <2 x double> poison, <2 x i32> <i32 1, i32 undef>
+  %shift = shufflevector <2 x double> %12, <2 x double> poison, <2 x i32> <i32 1, i32 poison>
   %17 = fmul <2 x double> %15, %shift
   %mul20 = extractelement <2 x double> %17, i64 0
   %18 = extractelement <2 x double> %15, i64 1
@@ -156,7 +156,7 @@ randlc.exit86.peel:                               ; preds = %if.then.i.peel, %en
   %8 = shufflevector <2 x double> %7, <2 x double> poison, <2 x i32> zeroinitializer
   %9 = tail call <2 x double> @llvm.fmuladd.v2f64(<2 x double> %8, <2 x double> %6, <2 x double> %1)
   %10 = extractelement <2 x double> %9, i64 0
-  %shift.peel = shufflevector <2 x double> %6, <2 x double> poison, <2 x i32> <i32 1, i32 undef>
+  %shift.peel = shufflevector <2 x double> %6, <2 x double> poison, <2 x i32> <i32 1, i32 poison>
   %11 = fmul <2 x double> %9, %shift.peel
   %mul20.i.peel = extractelement <2 x double> %11, i64 0
   %12 = extractelement <2 x double> %9, i64 1
@@ -251,7 +251,7 @@ for.body:                                         ; preds = %randlc.exit86.peel,
   %40 = shufflevector <2 x double> %39, <2 x double> poison, <2 x i32> zeroinitializer
   %41 = tail call <2 x double> @llvm.fmuladd.v2f64(<2 x double> %40, <2 x double> %38, <2 x double> %33)
   %42 = extractelement <2 x double> %41, i64 0
-  %shift = shufflevector <2 x double> %38, <2 x double> poison, <2 x i32> <i32 1, i32 undef>
+  %shift = shufflevector <2 x double> %38, <2 x double> poison, <2 x i32> <i32 1, i32 poison>
   %43 = fmul <2 x double> %41, %shift
   %mul20.i = extractelement <2 x double> %43, i64 0
   %44 = extractelement <2 x double> %41, i64 1
@@ -460,7 +460,7 @@ if.then:                                          ; preds = %entry
   %conv3 = sext i32 %n1 to i64
   %narrow = tail call i32 @llvm.umax.i32(i32 %n2, i32 1)
   %mul = sext i32 %narrow to i64
-  %nn.0 = mul nsw i64 %conv3, %mul
+  %nn.0 = mul nsw i64 %mul, %conv3
   %call8 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.3, i64 noundef %nn.0)
   br label %if.end10
 
@@ -810,7 +810,7 @@ entry:
   tail call void @create_seq(double noundef 0x41B2B9B0A1000000, double noundef 0x41D2309CE5400000)
   tail call void @rank(i32 noundef 1)
   store i32 0, ptr @passed_verification, align 4, !tbaa !9
-  %puts27 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.31)
+  %puts26 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.31)
   %call13 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.20, i32 noundef 1)
   tail call void @rank(i32 noundef 1)
   %call13.1 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.20, i32 noundef 2)
@@ -946,7 +946,7 @@ if.then:                                          ; preds = %full_verify.exit
 
 if.end:                                           ; preds = %if.then, %full_verify.exit
   %str.str.28.i = phi ptr [ @str, %if.then ], [ @str.28, %full_verify.exit ]
-  %call.i26 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.1, ptr noundef nonnull @.str.21)
+  %call.i27 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.1, ptr noundef nonnull @.str.21)
   %call1.i = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.2, i32 noundef 66)
   %call8.i = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.3, i64 noundef 33554432)
   %call11.i = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.5, i32 noundef 10)

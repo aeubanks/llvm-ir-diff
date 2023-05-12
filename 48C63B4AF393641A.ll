@@ -189,7 +189,7 @@ for.body.preheader:                               ; preds = %entry
   %umax = tail call i32 @llvm.umax.i32(i32 %0, i32 2)
   %wide.trip.count = zext i32 %umax to i64
   %1 = add nsw i64 %wide.trip.count, -1
-  %min.iters.check = icmp ult i64 %1, 8
+  %min.iters.check = icmp ult i32 %umax, 9
   br i1 %min.iters.check, label %for.body.preheader94, label %vector.ph
 
 vector.ph:                                        ; preds = %for.body.preheader
@@ -402,11 +402,11 @@ if.then:                                          ; preds = %land.end
   %8 = load i8, ptr %7, align 1, !tbaa !5
   %9 = and i8 %8, 1
   %10 = load i8, ptr %e, align 1, !tbaa !5
-  %add = add i8 %10, %9
+  %conv16 = add i8 %10, %9
   br label %if.end
 
 if.end:                                           ; preds = %land.end.if.end_crit_edge, %if.then
-  %11 = phi i8 [ %.pre, %land.end.if.end_crit_edge ], [ %add, %if.then ]
+  %11 = phi i8 [ %.pre, %land.end.if.end_crit_edge ], [ %conv16, %if.then ]
   %12 = and i8 %11, 1
   store i8 %12, ptr %e, align 1, !tbaa !5
   %cmp20.not127 = icmp eq i32 %m, 0
@@ -744,17 +744,17 @@ declare void @free(ptr allocptr nocapture noundef) local_unnamed_addr #9
 define dso_local void @freeSolns(ptr noundef %p) local_unnamed_addr #6 {
 entry:
   %cmp.not3 = icmp eq ptr %p, null
-  br i1 %cmp.not3, label %while.end, label %while.body
+  br i1 %cmp.not3, label %while.end, label %if.then.i
 
-while.body:                                       ; preds = %entry, %land.end32.i
-  %p.addr.04 = phi ptr [ %0, %land.end32.i ], [ %p, %entry ]
+if.then.i:                                        ; preds = %entry, %freeSoln.exit
+  %p.addr.04 = phi ptr [ %0, %freeSoln.exit ], [ %p, %entry ]
   %0 = load ptr, ptr %p.addr.04, align 8, !tbaa !27
   %x.i = getelementptr inbounds %struct.SolnStruc, ptr %p.addr.04, i64 0, i32 1
   %1 = load ptr, ptr %x.i, align 8, !tbaa !19
   %cmp1.not.i = icmp eq ptr %1, null
   br i1 %cmp1.not.i, label %land.end.i, label %land.lhs.true.i
 
-land.lhs.true.i:                                  ; preds = %while.body
+land.lhs.true.i:                                  ; preds = %if.then.i
   %2 = load i16, ptr %1, align 2, !tbaa !14
   %dec.i = add i16 %2, -1
   store i16 %dec.i, ptr %1, align 2, !tbaa !14
@@ -765,7 +765,7 @@ land.rhs.i:                                       ; preds = %land.lhs.true.i
   %call.i = tail call i32 (ptr, ...) @pfree(ptr noundef nonnull %1) #19
   br label %land.end.i
 
-land.end.i:                                       ; preds = %land.rhs.i, %land.lhs.true.i, %while.body
+land.end.i:                                       ; preds = %land.rhs.i, %land.lhs.true.i, %if.then.i
   %t.i = getelementptr inbounds %struct.SolnStruc, ptr %p.addr.04, i64 0, i32 2
   %3 = load ptr, ptr %t.i, align 8, !tbaa !23
   %cmp6.not.i = icmp eq ptr %3, null
@@ -786,28 +786,28 @@ land.end18.i:                                     ; preds = %land.rhs14.i, %land
   %r.i = getelementptr inbounds %struct.SolnStruc, ptr %p.addr.04, i64 0, i32 3
   %5 = load ptr, ptr %r.i, align 8, !tbaa !24
   %cmp20.not.i = icmp eq ptr %5, null
-  br i1 %cmp20.not.i, label %land.end32.i, label %land.lhs.true22.i
+  br i1 %cmp20.not.i, label %freeSoln.exit, label %land.lhs.true22.i
 
 land.lhs.true22.i:                                ; preds = %land.end18.i
   %6 = load i16, ptr %5, align 2, !tbaa !14
   %dec24.i = add i16 %6, -1
   store i16 %dec24.i, ptr %5, align 2, !tbaa !14
   %cmp26.i = icmp eq i16 %dec24.i, 0
-  br i1 %cmp26.i, label %land.rhs28.i, label %land.end32.i
+  br i1 %cmp26.i, label %land.rhs28.i, label %freeSoln.exit
 
 land.rhs28.i:                                     ; preds = %land.lhs.true22.i
   %call30.i = tail call i32 (ptr, ...) @pfree(ptr noundef nonnull %5) #19
-  br label %land.end32.i
+  br label %freeSoln.exit
 
-land.end32.i:                                     ; preds = %land.rhs28.i, %land.lhs.true22.i, %land.end18.i
+freeSoln.exit:                                    ; preds = %land.end18.i, %land.lhs.true22.i, %land.rhs28.i
   %e.i = getelementptr inbounds %struct.SolnStruc, ptr %p.addr.04, i64 0, i32 4
   %7 = load ptr, ptr %e.i, align 8, !tbaa !25
   tail call void @free(ptr noundef %7) #19
   tail call void @free(ptr noundef nonnull %p.addr.04) #19
   %cmp.not = icmp eq ptr %0, null
-  br i1 %cmp.not, label %while.end, label %while.body, !llvm.loop !28
+  br i1 %cmp.not, label %while.end, label %if.then.i, !llvm.loop !28
 
-while.end:                                        ; preds = %land.end32.i, %entry
+while.end:                                        ; preds = %freeSoln.exit, %entry
   ret void
 }
 
@@ -1183,16 +1183,20 @@ for.body.us:                                      ; preds = %for.body.us.prehead
   %call36.us = call ptr @psetq(ptr noundef nonnull %bound, ptr noundef %call35.us) #19
   br label %for.body40.us
 
-for.body40.us:                                    ; preds = %for.body.us, %for.inc.us
-  %indvars.iv = phi i64 [ 0, %for.body.us ], [ %indvars.iv.next, %for.inc.us ]
+for.cond37.us:                                    ; preds = %for.body40.us
+  %indvars.iv.next = add nuw nsw i64 %indvars.iv, 1
+  %exitcond.not = icmp eq i64 %indvars.iv.next, %wide.trip.count
+  br i1 %exitcond.not, label %for.end71, label %for.body40.us, !llvm.loop !36
+
+for.body40.us:                                    ; preds = %for.body.us, %for.cond37.us
+  %indvars.iv = phi i64 [ 0, %for.body.us ], [ %indvars.iv.next, %for.cond37.us ]
   %arrayidx42.us = getelementptr inbounds i32, ptr %pm, i64 %indvars.iv
   %2 = load i32, ptr %arrayidx42.us, align 4, !tbaa !16
   %cmp43.not.us = icmp ult i32 %2, %conv34.us
-  br i1 %cmp43.not.us, label %for.inc.us, label %foundpm.us
+  br i1 %cmp43.not.us, label %for.cond37.us, label %foundpm.us
 
 foundpm.us:                                       ; preds = %for.body40.us
-  %idxprom41.le.us = and i64 %indvars.iv, 4294967295
-  %arrayidx42.le.us = getelementptr inbounds i32, ptr %pm, i64 %idxprom41.le.us
+  %arrayidx42.us.le = getelementptr inbounds i32, ptr %pm, i64 %indvars.iv
   %3 = load i32, ptr @verbose, align 4, !tbaa !16
   %cmp48.us = icmp sgt i32 %3, 1
   br i1 %cmp48.us, label %if.then50.us, label %if.end57.us
@@ -1209,17 +1213,12 @@ if.then50.us:                                     ; preds = %foundpm.us
   br label %if.end57.us
 
 if.end57.us:                                      ; preds = %if.then50.us, %foundpm.us
-  store ptr %arrayidx42.le.us, ptr %arrayidx.us, align 8, !tbaa !30
+  store ptr %arrayidx42.us.le, ptr %arrayidx.us, align 8, !tbaa !30
   %8 = load ptr, ptr %bound, align 8, !tbaa !22
   %call68.us = call ptr @psetq(ptr noundef nonnull %bound23.us, ptr noundef %8) #19
   %inc70.us = add i32 %i.0162.us, 1
   %cmp17.not.us = icmp ugt i32 %inc70.us, %aborts
-  br i1 %cmp17.not.us, label %for.end71, label %for.body.us, !llvm.loop !36
-
-for.inc.us:                                       ; preds = %for.body40.us
-  %indvars.iv.next = add nuw nsw i64 %indvars.iv, 1
-  %exitcond.not = icmp eq i64 %indvars.iv.next, %wide.trip.count
-  br i1 %exitcond.not, label %for.end71, label %for.body40.us, !llvm.loop !37
+  br i1 %cmp17.not.us, label %for.end71, label %for.body.us, !llvm.loop !37
 
 for.body:                                         ; preds = %for.body.lr.ph
   %add24 = fadd double %mul, 0.000000e+00
@@ -1239,8 +1238,8 @@ for.body:                                         ; preds = %for.body.lr.ph
   %call36 = call ptr @psetq(ptr noundef nonnull %bound, ptr noundef %call35) #19
   br label %for.end71
 
-for.end71:                                        ; preds = %if.end57.us, %for.inc.us, %for.body
-  %i.0156 = phi i32 [ 1, %for.body ], [ %i.0162.us, %for.inc.us ], [ %inc70.us, %if.end57.us ]
+for.end71:                                        ; preds = %if.end57.us, %for.cond37.us, %for.body
+  %i.0156 = phi i32 [ 1, %for.body ], [ %i.0162.us, %for.cond37.us ], [ %inc70.us, %if.end57.us ]
   %sub72 = add i32 %i.0156, -1
   %idxprom73 = zext i32 %sub72 to i64
   %arrayidx74 = getelementptr inbounds %struct.EasEntry, ptr %call6, i64 %idxprom73
@@ -1531,7 +1530,7 @@ land.rhs:                                         ; preds = %entry
 
 land.end:                                         ; preds = %entry.split, %land.rhs
   %phi.call = phi ptr [ %call1470, %entry.split ], [ %call1472, %land.rhs ]
-  %4 = load i32, ptr %m, align 4, !tbaa !16
+  %4 = load i32, ptr %m, align 4
   %add = shl i32 %4, 3
   %mul = add i32 %add, 16
   %conv4 = zext i32 %mul to i64
@@ -1574,8 +1573,8 @@ if.end21:                                         ; preds = %if.then20, %if.end1
 if.then25:                                        ; preds = %if.end21
   %7 = load ptr, ptr @stdout, align 8, !tbaa !22
   %call26 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %7, ptr noundef nonnull @.str.7, i32 noundef %4)
-  %cmp27524.not = icmp eq i32 %4, 0
-  br i1 %cmp27524.not, label %for.end, label %for.body.preheader
+  %cmp27523.not = icmp eq i32 %4, 0
+  br i1 %cmp27523.not, label %for.end, label %for.body.preheader
 
 for.body.preheader:                               ; preds = %if.then25
   %wide.trip.count = zext i32 %4 to i64
@@ -1831,8 +1830,8 @@ if.end118:                                        ; preds = %if.then117, %if.end
 if.end124:                                        ; preds = %if.end118
   %67 = load ptr, ptr @stderr, align 8, !tbaa !22
   %call123 = call i32 @putc(i32 noundef 35, ptr noundef %67)
-  %.pr509 = load i32, ptr @verbose, align 4, !tbaa !16
-  %cmp125 = icmp sgt i32 %.pr509, 2
+  %.pr508 = load i32, ptr @verbose, align 4, !tbaa !16
+  %cmp125 = icmp sgt i32 %.pr508, 2
   br i1 %cmp125, label %if.then127, label %do.body140.preheader
 
 if.then127:                                       ; preds = %if.end124
@@ -1854,8 +1853,8 @@ if.else:                                          ; preds = %do.end
 if.end133:                                        ; preds = %if.else
   %73 = load ptr, ptr @stderr, align 8, !tbaa !22
   %call132 = call i32 @putc(i32 noundef 42, ptr noundef %73)
-  %.pr511 = load i32, ptr @verbose, align 4, !tbaa !16
-  %cmp134 = icmp sgt i32 %.pr511, 2
+  %.pr510 = load i32, ptr @verbose, align 4, !tbaa !16
+  %cmp134 = icmp sgt i32 %.pr510, 2
   br i1 %cmp134, label %if.then136, label %do.body140.preheader
 
 if.then136:                                       ; preds = %if.end133
@@ -1884,8 +1883,7 @@ if.then145:                                       ; preds = %do.body140
   br i1 %cmp148, label %if.then150, label %if.end163
 
 if.then150:                                       ; preds = %if.then145
-  %idxprom142.le = zext i32 %dec141 to i64
-  %arrayidx147.le = getelementptr inbounds ptr, ptr %call5, i64 %idxprom142.le
+  %arrayidx147.le = getelementptr inbounds ptr, ptr %call5, i64 %idxprom142
   %79 = load i32, ptr @verbose, align 4, !tbaa !16
   %cmp151 = icmp sgt i32 %79, 3
   br i1 %cmp151, label %if.then153, label %if.end154
@@ -1895,11 +1893,11 @@ if.then153:                                       ; preds = %if.then150
   %81 = load ptr, ptr %x, align 8, !tbaa !22
   %82 = load ptr, ptr %t, align 8, !tbaa !22
   call void @printSoln(ptr noundef %80, ptr noundef nonnull @.str.16, ptr noundef nonnull @.str.14, ptr noundef %phi.call, i32 noundef %4, ptr noundef %81, ptr noundef %82, ptr noundef nonnull %call11)
-  %.pr513 = load i32, ptr @verbose, align 4, !tbaa !16
+  %.pr512 = load i32, ptr @verbose, align 4, !tbaa !16
   br label %if.end154
 
 if.end154:                                        ; preds = %if.then153, %if.then150
-  %83 = phi i32 [ %.pr513, %if.then153 ], [ %79, %if.then150 ]
+  %83 = phi i32 [ %.pr512, %if.then153 ], [ %79, %if.then150 ]
   %cmp155 = icmp sgt i32 %83, 2
   br i1 %cmp155, label %if.then157, label %if.end159
 
@@ -2041,8 +2039,8 @@ if.end211:                                        ; preds = %if.then210, %bail
   br i1 %cmp6, label %if.end224, label %for.body218
 
 for.body218:                                      ; preds = %if.end211, %freeSoln.exit
-  %j.1526 = phi i32 [ %inc222, %freeSoln.exit ], [ 0, %if.end211 ]
-  %idxprom219 = zext i32 %j.1526 to i64
+  %j.1525 = phi i32 [ %inc222, %freeSoln.exit ], [ 0, %if.end211 ]
+  %idxprom219 = zext i32 %j.1525 to i64
   %arrayidx220 = getelementptr inbounds ptr, ptr %call5, i64 %idxprom219
   %126 = load ptr, ptr %arrayidx220, align 8, !tbaa !22
   %cmp.not.i486 = icmp eq ptr %126, null
@@ -2107,7 +2105,7 @@ land.end32.i:                                     ; preds = %land.rhs28.i, %land
   br label %freeSoln.exit
 
 freeSoln.exit:                                    ; preds = %for.body218, %land.end32.i
-  %inc222 = add i32 %j.1526, 1
+  %inc222 = add i32 %j.1525, 1
   %cmp216.not = icmp ugt i32 %inc222, %4
   br i1 %cmp216.not, label %if.end224, label %for.body218, !llvm.loop !46
 
@@ -2150,17 +2148,17 @@ while.end.i503:                                   ; preds = %land.end.i502, %whi
 
 freeEas.exit:                                     ; preds = %if.end224, %while.end.i503
   %cmp.not3.i = icmp eq ptr %oddt.2, null
-  br i1 %cmp.not3.i, label %freeSolns.exit, label %while.body.i505
+  br i1 %cmp.not3.i, label %freeSolns.exit, label %if.then.i.i
 
-while.body.i505:                                  ; preds = %freeEas.exit, %land.end32.i.i
-  %p.addr.04.i = phi ptr [ %138, %land.end32.i.i ], [ %oddt.2, %freeEas.exit ]
+if.then.i.i:                                      ; preds = %freeEas.exit, %freeSoln.exit.i
+  %p.addr.04.i = phi ptr [ %138, %freeSoln.exit.i ], [ %oddt.2, %freeEas.exit ]
   %138 = load ptr, ptr %p.addr.04.i, align 8, !tbaa !27
   %x.i.i = getelementptr inbounds %struct.SolnStruc, ptr %p.addr.04.i, i64 0, i32 1
   %139 = load ptr, ptr %x.i.i, align 8, !tbaa !19
   %cmp1.not.i.i = icmp eq ptr %139, null
   br i1 %cmp1.not.i.i, label %land.end.i.i, label %land.lhs.true.i.i
 
-land.lhs.true.i.i:                                ; preds = %while.body.i505
+land.lhs.true.i.i:                                ; preds = %if.then.i.i
   %140 = load i16, ptr %139, align 2, !tbaa !14
   %dec.i.i = add i16 %140, -1
   store i16 %dec.i.i, ptr %139, align 2, !tbaa !14
@@ -2171,7 +2169,7 @@ land.rhs.i.i:                                     ; preds = %land.lhs.true.i.i
   %call.i.i = call i32 (ptr, ...) @pfree(ptr noundef nonnull %139) #19
   br label %land.end.i.i
 
-land.end.i.i:                                     ; preds = %land.rhs.i.i, %land.lhs.true.i.i, %while.body.i505
+land.end.i.i:                                     ; preds = %land.rhs.i.i, %land.lhs.true.i.i, %if.then.i.i
   %t.i.i = getelementptr inbounds %struct.SolnStruc, ptr %p.addr.04.i, i64 0, i32 2
   %141 = load ptr, ptr %t.i.i, align 8, !tbaa !23
   %cmp6.not.i.i = icmp eq ptr %141, null
@@ -2192,28 +2190,28 @@ land.end18.i.i:                                   ; preds = %land.rhs14.i.i, %la
   %r.i.i = getelementptr inbounds %struct.SolnStruc, ptr %p.addr.04.i, i64 0, i32 3
   %143 = load ptr, ptr %r.i.i, align 8, !tbaa !24
   %cmp20.not.i.i = icmp eq ptr %143, null
-  br i1 %cmp20.not.i.i, label %land.end32.i.i, label %land.lhs.true22.i.i
+  br i1 %cmp20.not.i.i, label %freeSoln.exit.i, label %land.lhs.true22.i.i
 
 land.lhs.true22.i.i:                              ; preds = %land.end18.i.i
   %144 = load i16, ptr %143, align 2, !tbaa !14
   %dec24.i.i = add i16 %144, -1
   store i16 %dec24.i.i, ptr %143, align 2, !tbaa !14
   %cmp26.i.i = icmp eq i16 %dec24.i.i, 0
-  br i1 %cmp26.i.i, label %land.rhs28.i.i, label %land.end32.i.i
+  br i1 %cmp26.i.i, label %land.rhs28.i.i, label %freeSoln.exit.i
 
 land.rhs28.i.i:                                   ; preds = %land.lhs.true22.i.i
   %call30.i.i = call i32 (ptr, ...) @pfree(ptr noundef nonnull %143) #19
-  br label %land.end32.i.i
+  br label %freeSoln.exit.i
 
-land.end32.i.i:                                   ; preds = %land.rhs28.i.i, %land.lhs.true22.i.i, %land.end18.i.i
+freeSoln.exit.i:                                  ; preds = %land.rhs28.i.i, %land.lhs.true22.i.i, %land.end18.i.i
   %e.i.i = getelementptr inbounds %struct.SolnStruc, ptr %p.addr.04.i, i64 0, i32 4
   %145 = load ptr, ptr %e.i.i, align 8, !tbaa !25
   call void @free(ptr noundef %145) #19
   call void @free(ptr noundef nonnull %p.addr.04.i) #19
-  %cmp.not.i506 = icmp eq ptr %138, null
-  br i1 %cmp.not.i506, label %freeSolns.exit, label %while.body.i505, !llvm.loop !28
+  %cmp.not.i505 = icmp eq ptr %138, null
+  br i1 %cmp.not.i505, label %freeSolns.exit, label %if.then.i.i, !llvm.loop !28
 
-freeSolns.exit:                                   ; preds = %land.end32.i.i, %freeEas.exit
+freeSolns.exit:                                   ; preds = %freeSoln.exit.i, %freeEas.exit
   call void @free(ptr noundef %e.1) #19
   call void @free(ptr noundef %phi.call) #19
   %146 = load ptr, ptr %r, align 8, !tbaa !22
@@ -2480,20 +2478,20 @@ entry:
   ret i32 1
 }
 
-; Function Attrs: nofree nounwind willreturn allockind("alloc,zeroed") allocsize(0,1) memory(inaccessiblemem: readwrite)
-declare noalias noundef ptr @calloc(i64 noundef, i64 noundef) local_unnamed_addr #16
+; Function Attrs: nofree nounwind
+declare noundef i64 @fwrite(ptr nocapture noundef, i64 noundef, i64 noundef, ptr nocapture noundef) local_unnamed_addr #16
 
 ; Function Attrs: nofree nounwind
-declare noundef i64 @fwrite(ptr nocapture noundef, i64 noundef, i64 noundef, ptr nocapture noundef) local_unnamed_addr #17
+declare noundef i32 @fputc(i32 noundef, ptr nocapture noundef) local_unnamed_addr #16
+
+; Function Attrs: nofree nounwind willreturn allockind("alloc,zeroed") allocsize(0,1) memory(inaccessiblemem: readwrite)
+declare noalias noundef ptr @calloc(i64 noundef, i64 noundef) local_unnamed_addr #17
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
 declare i32 @llvm.umax.i32(i32, i32) #18
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
 declare double @llvm.sqrt.f64(double) #18
-
-; Function Attrs: nofree nounwind
-declare noundef i32 @fputc(i32 noundef, ptr nocapture noundef) local_unnamed_addr #17
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
 declare i32 @llvm.vector.reduce.add.v4i32(<4 x i32>) #18
@@ -2514,8 +2512,8 @@ attributes #12 = { mustprogress nofree nosync nounwind willreturn memory(none) u
 attributes #13 = { mustprogress nocallback nofree nosync nounwind speculatable willreturn memory(none) }
 attributes #14 = { noreturn nounwind "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #15 = { mustprogress nofree norecurse nosync nounwind willreturn memory(write, argmem: none, inaccessiblemem: none) uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
-attributes #16 = { nofree nounwind willreturn allockind("alloc,zeroed") allocsize(0,1) memory(inaccessiblemem: readwrite) "alloc-family"="malloc" }
-attributes #17 = { nofree nounwind }
+attributes #16 = { nofree nounwind }
+attributes #17 = { nofree nounwind willreturn allockind("alloc,zeroed") allocsize(0,1) memory(inaccessiblemem: readwrite) "alloc-family"="malloc" }
 attributes #18 = { nocallback nofree nosync nounwind speculatable willreturn memory(none) }
 attributes #19 = { nounwind }
 attributes #20 = { nounwind allocsize(0) }

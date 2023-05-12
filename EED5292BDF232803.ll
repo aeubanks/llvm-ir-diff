@@ -173,19 +173,19 @@ if.end68:                                         ; preds = %if.end30
   %mul77 = mul nuw nsw i64 %conv76, %conv13
   %div79.lhs.trunc = trunc i64 %mul71 to i32
   %div79476 = udiv i32 %div79.lhs.trunc, 65535
-  %div79.zext = trunc i32 %div79476 to i16
+  %conv80 = trunc i32 %div79476 to i16
   %div82.lhs.trunc = trunc i64 %mul74 to i32
   %div82477 = udiv i32 %div82.lhs.trunc, 65535
-  %div82.zext = trunc i32 %div82477 to i16
+  %conv83 = trunc i32 %div82477 to i16
   %div85.lhs.trunc = trunc i64 %mul77 to i32
   %div85478 = udiv i32 %div85.lhs.trunc, 65535
-  %div85.zext = trunc i32 %div85478 to i16
+  %conv86 = trunc i32 %div85478 to i16
   %conv87 = trunc i64 %mul71 to i16
-  %sub = add i16 %div79.zext, %conv87
+  %sub = add i16 %conv80, %conv87
   %conv92 = trunc i64 %mul74 to i16
-  %sub96 = add i16 %div82.zext, %conv92
+  %sub96 = add i16 %conv83, %conv92
   %conv98 = trunc i64 %mul77 to i16
-  %sub102 = add i16 %div85.zext, %conv98
+  %sub102 = add i16 %conv86, %conv98
   %or473 = or i16 %sub96, %sub
   %or107474 = or i16 %or473, %sub102
   %tobool108.not = icmp eq i16 %or107474, 0
@@ -196,7 +196,7 @@ if.then109:                                       ; preds = %if.end68
   %25 = load ptr, ptr %procs110, align 8, !tbaa !33
   %map_rgb_color111 = getelementptr inbounds %struct.gx_device_procs_s, ptr %25, i64 0, i32 5
   %26 = load ptr, ptr %map_rgb_color111, align 8, !tbaa !34
-  %call112 = tail call i64 %26(ptr noundef nonnull %5, i16 noundef zeroext %div79.zext, i16 noundef zeroext %div82.zext, i16 noundef zeroext %div85.zext) #3
+  %call112 = tail call i64 %26(ptr noundef nonnull %5, i16 noundef zeroext %conv80, i16 noundef zeroext %conv83, i16 noundef zeroext %conv86) #3
   store i64 %call112, ptr %pdevc, align 8, !tbaa !22
   %color2114 = getelementptr inbounds %struct.gx_device_color_s, ptr %pdevc, i64 0, i32 1
   store i64 %call112, ptr %color2114, align 8, !tbaa !24
@@ -210,25 +210,25 @@ if.end116:                                        ; preds = %if.end68
 
 if.then120:                                       ; preds = %if.end116
   %sub122 = xor i16 %sub, -1
-  %inc124 = add nuw nsw i16 %div79.zext, 1
+  %inc124 = add nuw nsw i16 %conv80, 1
   br label %if.end129
 
 if.end129:                                        ; preds = %if.end116, %if.then120
   %rem_r.0 = phi i16 [ %sub122, %if.then120 ], [ %sub, %if.end116 ]
   %adjust_r.0 = phi i16 [ -1, %if.then120 ], [ 1, %if.end116 ]
   %lum_invert.0 = phi i16 [ 30, %if.then120 ], [ 0, %if.end116 ]
-  %r78.0 = phi i16 [ %inc124, %if.then120 ], [ %div79.zext, %if.end116 ]
+  %r78.0 = phi i16 [ %inc124, %if.then120 ], [ %conv80, %if.end116 ]
   %cmp131 = icmp slt i16 %sub96, 0
   br i1 %cmp131, label %if.then133, label %if.end142
 
 if.then133:                                       ; preds = %if.end129
   %sub135 = xor i16 %sub96, -1
-  %inc137 = add nuw nsw i16 %div82.zext, 1
+  %inc137 = add nuw nsw i16 %conv83, 1
   %narrow = add nuw nsw i16 %lum_invert.0, 59
   br label %if.end142
 
 if.end142:                                        ; preds = %if.end129, %if.then133
-  %g81.0 = phi i16 [ %inc137, %if.then133 ], [ %div82.zext, %if.end129 ]
+  %g81.0 = phi i16 [ %inc137, %if.then133 ], [ %conv83, %if.end129 ]
   %rem_g.0 = phi i16 [ %sub135, %if.then133 ], [ %sub96, %if.end129 ]
   %adjust_g.0 = phi i16 [ -1, %if.then133 ], [ 1, %if.end129 ]
   %lum_invert.1 = phi i16 [ %narrow, %if.then133 ], [ %lum_invert.0, %if.end129 ]
@@ -237,12 +237,12 @@ if.end142:                                        ; preds = %if.end129, %if.then
 
 if.then146:                                       ; preds = %if.end142
   %sub148 = xor i16 %sub102, -1
-  %inc150 = add nuw nsw i16 %div85.zext, 1
+  %inc150 = add nuw nsw i16 %conv86, 1
   %add152 = add nuw nsw i16 %lum_invert.1, 11
   br label %if.end155
 
 if.end155:                                        ; preds = %if.end142, %if.then146
-  %b84.0 = phi i16 [ %inc150, %if.then146 ], [ %div85.zext, %if.end142 ]
+  %b84.0 = phi i16 [ %inc150, %if.then146 ], [ %conv86, %if.end142 ]
   %rem_b.0 = phi i16 [ %sub148, %if.then146 ], [ %sub102, %if.end142 ]
   %adjust_b.0 = phi i16 [ -1, %if.then146 ], [ 1, %if.end142 ]
   %lum_invert.2 = phi i16 [ %add152, %if.then146 ], [ %lum_invert.1, %if.end142 ]
@@ -347,15 +347,15 @@ if.else251:                                       ; preds = %if.end244
   %and = and i32 %diagc.1, 1
   %tobool252.not = icmp eq i32 %and, 0
   %add255 = select i1 %tobool252.not, i16 0, i16 %adjust_r.0
-  %spec.select = add i16 %r78.0, %add255
+  %spec.select = add i16 %add255, %r78.0
   %and258 = and i32 %diagc.1, 2
   %tobool259.not = icmp eq i32 %and258, 0
   %add262 = select i1 %tobool259.not, i16 0, i16 %adjust_g.0
-  %g81.1 = add i16 %g81.0, %add262
+  %g81.1 = add i16 %add262, %g81.0
   %and265 = and i32 %diagc.1, 4
   %tobool266.not = icmp eq i32 %and265, 0
   %add269 = select i1 %tobool266.not, i16 0, i16 %adjust_b.0
-  %b84.1 = add i16 %b84.0, %add269
+  %b84.1 = add i16 %add269, %b84.0
   %idxprom = zext i32 %diagc.1 to i64
   %arrayidx = getelementptr inbounds [8 x i16], ptr @lum, i64 0, i64 %idxprom
   %29 = load i16, ptr %arrayidx, align 2, !tbaa !41

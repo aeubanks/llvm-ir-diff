@@ -58,14 +58,14 @@ entry:
   %add.ptr = getelementptr inbounds i8, ptr %0, i64 3
   tail call void @llvm.prefetch.p0(ptr nonnull %add.ptr, i32 0, i32 0, i32 1)
   tail call void @llvm.prefetch.p0(ptr nonnull %add.ptr, i32 0, i32 0, i32 1)
+  %add.ptr1 = getelementptr inbounds i8, ptr %0, i64 1
   tail call void @llvm.prefetch.p0(ptr nonnull %add.ptr, i32 0, i32 0, i32 1)
   store i32 3, ptr @idx, align 4, !tbaa !9
   tail call void @llvm.prefetch.p0(ptr %0, i32 0, i32 0, i32 1)
   tail call void @llvm.prefetch.p0(ptr nonnull %add.ptr, i32 0, i32 0, i32 1)
-  %incdec.ptr = getelementptr inbounds i8, ptr %0, i64 1
-  store ptr %incdec.ptr, ptr @ptr, align 8, !tbaa !5
+  store ptr %add.ptr1, ptr @ptr, align 8, !tbaa !5
   store i32 2, ptr @idx, align 4, !tbaa !9
-  tail call void @llvm.prefetch.p0(ptr nonnull %incdec.ptr, i32 0, i32 0, i32 1)
+  tail call void @llvm.prefetch.p0(ptr nonnull %add.ptr1, i32 0, i32 0, i32 1)
   tail call void @llvm.prefetch.p0(ptr nonnull %add.ptr, i32 0, i32 0, i32 1)
   tail call void @exit(i32 noundef 0) #5
   unreachable

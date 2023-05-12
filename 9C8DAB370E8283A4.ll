@@ -163,7 +163,6 @@ do.body:                                          ; preds = %do.cond, %if.end
   br i1 %cmp17, label %if.then19, label %do.cond
 
 if.then19:                                        ; preds = %do.body
-  %conv16.le = zext i8 %17 to i32
   %mul.i = mul i32 %hiCnt.0, %div.i
   %Low.i455 = getelementptr inbounds %struct.CPpmd8, ptr %p, i64 0, i32 20
   %18 = load i32, ptr %Low.i455, align 8, !tbaa !5
@@ -171,7 +170,7 @@ if.then19:                                        ; preds = %do.body
   store i32 %add.i, ptr %Low.i455, align 8, !tbaa !5
   %sub.i = sub i32 %5, %mul.i
   store i32 %sub.i, ptr %Code.i, align 4, !tbaa !14
-  %mul2.i457 = mul i32 %div.i, %conv16.le
+  %mul2.i457 = mul i32 %div.i, %conv16
   store i32 %mul2.i457, ptr %Range.i, align 8, !tbaa !13
   %Stream.i458 = getelementptr inbounds %struct.CPpmd8, ptr %p, i64 0, i32 21
   br label %while.cond.i462
@@ -540,10 +539,10 @@ for.cond190:                                      ; preds = %cleanup312, %if.end
   br label %do.body198
 
 do.body198:                                       ; preds = %if.end203, %for.cond190
-  %add.ptr208627 = phi ptr [ %add.ptr208, %if.end203 ], [ %83, %for.cond190 ]
-  %inc625 = phi i32 [ %inc, %if.end203 ], [ %OrderFall.promoted, %for.cond190 ]
-  %inc = add i32 %inc625, 1
-  %Suffix200 = getelementptr inbounds %struct.CPpmd8_Context_, ptr %add.ptr208627, i64 0, i32 4
+  %add.ptr208625 = phi ptr [ %add.ptr208, %if.end203 ], [ %83, %for.cond190 ]
+  %inc623 = phi i32 [ %inc, %if.end203 ], [ %OrderFall.promoted, %for.cond190 ]
+  %inc = add i32 %inc623, 1
+  %Suffix200 = getelementptr inbounds %struct.CPpmd8_Context_, ptr %add.ptr208625, i64 0, i32 4
   %85 = load i32, ptr %Suffix200, align 4, !tbaa !37
   %tobool201.not = icmp eq i32 %85, 0
   br i1 %tobool201.not, label %cleanup312.thread.loopexit, label %if.end203
@@ -590,7 +589,7 @@ do.body226:                                       ; preds = %do.body226, %do.end
   br i1 %cmp241.not, label %do.end243, label %do.body226, !llvm.loop !45
 
 do.end243:                                        ; preds = %do.body226
-  %call244 = call ptr @Ppmd8_MakeEscFreq(ptr noundef %p, i32 noundef %conv197, ptr noundef nonnull %freqSum) #4
+  %call244 = call ptr @Ppmd8_MakeEscFreq(ptr noundef nonnull %p, i32 noundef %conv197, ptr noundef nonnull %freqSum) #4
   %92 = load i32, ptr %freqSum, align 4, !tbaa !46
   %add245 = add i32 %92, %add235
   store i32 %add245, ptr %freqSum, align 4, !tbaa !46
@@ -615,14 +614,13 @@ for.cond252:                                      ; preds = %do.end243, %for.con
   br i1 %cmp256.not, label %for.end261, label %for.cond252, !llvm.loop !47
 
 for.end261:                                       ; preds = %for.cond252
-  %conv254.le = zext i8 %96 to i32
   %mul.i553 = mul i32 %hiCnt193.1, %div.i550
   %97 = load i32, ptr %Low.i579, align 8, !tbaa !5
   %add.i555 = add i32 %97, %mul.i553
   store i32 %add.i555, ptr %Low.i579, align 8, !tbaa !5
   %sub.i557 = sub i32 %93, %mul.i553
   store i32 %sub.i557, ptr %Code.i548, align 4, !tbaa !14
-  %mul2.i558 = mul i32 %div.i550, %conv254.le
+  %mul2.i558 = mul i32 %div.i550, %conv254
   store i32 %mul2.i558, ptr %Range.i549, align 8, !tbaa !13
   br label %while.cond.i563
 
@@ -753,13 +751,13 @@ RangeDec_Decode.exit601:                          ; preds = %lor.rhs.i590
   store i16 %conv298, ptr %call244, align 1, !tbaa !50
   %120 = xor i32 %conv197, -1
   %121 = add nsw i32 %120, %conv213
-  %xtraiter707 = and i32 %sub225, 3
-  %lcmp.mod708.not = icmp eq i32 %xtraiter707, 0
-  br i1 %lcmp.mod708.not, label %do.body300.prol.loopexit, label %do.body300.prol
+  %xtraiter694 = and i32 %sub225, 3
+  %lcmp.mod695.not = icmp eq i32 %xtraiter694, 0
+  br i1 %lcmp.mod695.not, label %do.body300.prol.loopexit, label %do.body300.prol
 
 do.body300.prol:                                  ; preds = %RangeDec_Decode.exit601, %do.body300.prol
   %i194.1.prol = phi i32 [ %dec302.prol, %do.body300.prol ], [ %sub225, %RangeDec_Decode.exit601 ]
-  %prol.iter709 = phi i32 [ %prol.iter709.next, %do.body300.prol ], [ 0, %RangeDec_Decode.exit601 ]
+  %prol.iter696 = phi i32 [ %prol.iter696.next, %do.body300.prol ], [ 0, %RangeDec_Decode.exit601 ]
   %dec302.prol = add i32 %i194.1.prol, -1
   %idxprom303.prol = zext i32 %dec302.prol to i64
   %arrayidx304.prol = getelementptr inbounds [256 x ptr], ptr %ps, i64 0, i64 %idxprom303.prol
@@ -768,9 +766,9 @@ do.body300.prol:                                  ; preds = %RangeDec_Decode.exi
   %idxprom306.prol = zext i8 %123 to i64
   %arrayidx307.prol = getelementptr inbounds i8, ptr %charMask, i64 %idxprom306.prol
   store i8 0, ptr %arrayidx307.prol, align 1, !tbaa !15
-  %prol.iter709.next = add i32 %prol.iter709, 1
-  %prol.iter709.cmp.not = icmp eq i32 %prol.iter709.next, %xtraiter707
-  br i1 %prol.iter709.cmp.not, label %do.body300.prol.loopexit, label %do.body300.prol, !llvm.loop !51
+  %prol.iter696.next = add i32 %prol.iter696, 1
+  %prol.iter696.cmp.not = icmp eq i32 %prol.iter696.next, %xtraiter694
+  br i1 %prol.iter696.cmp.not, label %do.body300.prol.loopexit, label %do.body300.prol, !llvm.loop !51
 
 do.body300.prol.loopexit:                         ; preds = %do.body300.prol, %RangeDec_Decode.exit601
   %i194.1.unr = phi i32 [ %sub225, %RangeDec_Decode.exit601 ], [ %dec302.prol, %do.body300.prol ]

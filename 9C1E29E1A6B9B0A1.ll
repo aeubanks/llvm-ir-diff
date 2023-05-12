@@ -810,7 +810,7 @@ for.body.i:                                       ; preds = %for.body, %for.body
 
 FreeCharMtx.exit:                                 ; preds = %for.body.i, %for.body
   tail call void @free(ptr noundef nonnull %1) #14
-  %indvars.iv.next = add nuw i64 %indvars.iv, 1
+  %indvars.iv.next = add nuw nsw i64 %indvars.iv, 1
   %arrayidx = getelementptr inbounds ptr, ptr %cub, i64 %indvars.iv.next
   %5 = load ptr, ptr %arrayidx, align 8, !tbaa !5
   %tobool.not = icmp eq ptr %5, null
@@ -1056,7 +1056,7 @@ for.body.i.i:                                     ; preds = %for.body.i, %for.bo
 
 FreeCharMtx.exit.i:                               ; preds = %for.body.i.i, %for.body.i
   tail call void @free(ptr noundef nonnull %3) #14
-  %indvars.iv.next.i = add nuw i64 %indvars.iv.i, 1
+  %indvars.iv.next.i = add nuw nsw i64 %indvars.iv.i, 1
   %arrayidx.i = getelementptr inbounds ptr, ptr %1, i64 %indvars.iv.next.i
   %7 = load ptr, ptr %arrayidx.i, align 8, !tbaa !5
   %tobool.not.i = icmp eq ptr %7, null
@@ -1064,7 +1064,7 @@ FreeCharMtx.exit.i:                               ; preds = %for.body.i.i, %for.
 
 FreeCharCub.exit:                                 ; preds = %FreeCharMtx.exit.i, %for.body
   tail call void @free(ptr noundef nonnull %1) #14
-  %indvars.iv.next = add nuw i64 %indvars.iv, 1
+  %indvars.iv.next = add nuw nsw i64 %indvars.iv, 1
   %arrayidx = getelementptr inbounds ptr, ptr %hcu, i64 %indvars.iv.next
   %8 = load ptr, ptr %arrayidx, align 8, !tbaa !5
   %tobool.not = icmp eq ptr %8, null
@@ -1155,7 +1155,7 @@ for.body.i:                                       ; preds = %for.body, %for.body
 
 FreeIntMtx.exit:                                  ; preds = %for.body.i, %for.body
   tail call void @free(ptr noundef nonnull %1) #14
-  %indvars.iv.next = add nuw i64 %indvars.iv, 1
+  %indvars.iv.next = add nuw nsw i64 %indvars.iv, 1
   %arrayidx = getelementptr inbounds ptr, ptr %cub, i64 %indvars.iv.next
   %5 = load ptr, ptr %arrayidx, align 8, !tbaa !5
   %tobool.not = icmp eq ptr %5, null
@@ -1295,7 +1295,7 @@ for.body.i:                                       ; preds = %for.body, %for.body
 
 FreeFloatMtx.exit:                                ; preds = %for.body.i, %for.body
   tail call void @free(ptr noundef nonnull %1) #14
-  %indvars.iv.next = add nuw i64 %indvars.iv, 1
+  %indvars.iv.next = add nuw nsw i64 %indvars.iv, 1
   %arrayidx = getelementptr inbounds ptr, ptr %cub, i64 %indvars.iv.next
   %5 = load ptr, ptr %arrayidx, align 8, !tbaa !5
   %tobool.not = icmp eq ptr %5, null
@@ -1415,7 +1415,7 @@ for.body.i:                                       ; preds = %for.body, %for.body
 
 FreeDoubleMtx.exit:                               ; preds = %for.body.i, %for.body
   tail call void @free(ptr noundef nonnull %1) #14
-  %indvars.iv.next = add nuw i64 %indvars.iv, 1
+  %indvars.iv.next = add nuw nsw i64 %indvars.iv, 1
   %arrayidx = getelementptr inbounds ptr, ptr %cub, i64 %indvars.iv.next
   %5 = load ptr, ptr %arrayidx, align 8, !tbaa !5
   %tobool.not = icmp eq ptr %5, null
@@ -1523,14 +1523,14 @@ for.end:                                          ; preds = %for.body, %entry
   ret void
 }
 
+; Function Attrs: nofree nounwind
+declare noundef i64 @fwrite(ptr nocapture noundef, i64 noundef, i64 noundef, ptr nocapture noundef) local_unnamed_addr #10
+
 ; Function Attrs: nocallback nofree nounwind willreturn memory(argmem: write)
-declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #10
+declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #11
 
 ; Function Attrs: nocallback nofree nounwind willreturn memory(argmem: readwrite)
-declare void @llvm.memcpy.p0.p0.i64(ptr noalias nocapture writeonly, ptr noalias nocapture readonly, i64, i1 immarg) #11
-
-; Function Attrs: nofree nounwind
-declare noundef i64 @fwrite(ptr nocapture noundef, i64 noundef, i64 noundef, ptr nocapture noundef) local_unnamed_addr #12
+declare void @llvm.memcpy.p0.p0.i64(ptr noalias nocapture writeonly, ptr noalias nocapture readonly, i64, i1 immarg) #12
 
 attributes #0 = { nofree nosync nounwind memory(write, argmem: readwrite, inaccessiblemem: none) uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #1 = { nounwind uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
@@ -1542,9 +1542,9 @@ attributes #6 = { noreturn nounwind "no-trapping-math"="true" "stack-protector-b
 attributes #7 = { mustprogress nounwind willreturn allockind("realloc") allocsize(1) memory(argmem: readwrite, inaccessiblemem: readwrite) "alloc-family"="malloc" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #8 = { mustprogress nounwind willreturn memory(argmem: readwrite, inaccessiblemem: readwrite) uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #9 = { mustprogress nofree nounwind willreturn memory(inaccessiblemem: readwrite) uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
-attributes #10 = { nocallback nofree nounwind willreturn memory(argmem: write) }
-attributes #11 = { nocallback nofree nounwind willreturn memory(argmem: readwrite) }
-attributes #12 = { nofree nounwind }
+attributes #10 = { nofree nounwind }
+attributes #11 = { nocallback nofree nounwind willreturn memory(argmem: write) }
+attributes #12 = { nocallback nofree nounwind willreturn memory(argmem: readwrite) }
 attributes #13 = { nounwind allocsize(0,1) }
 attributes #14 = { nounwind }
 attributes #15 = { cold }

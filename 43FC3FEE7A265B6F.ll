@@ -451,17 +451,16 @@ if.then47:                                        ; preds = %if.end43
 do.cond:                                          ; preds = %if.else, %cli_nsis_unpack.exit, %if.then47, %if.end43
   %ret.1 = phi i32 [ %ret.0, %if.end43 ], [ %ret.0, %if.then47 ], [ %cond.i, %cli_nsis_unpack.exit ], [ 0, %if.else ]
   %ret.1.fr = freeze i32 %ret.1
-  switch i32 %ret.1.fr, label %.loopexit [
+  switch i32 %ret.1.fr, label %do.end.thread.loopexit105 [
     i32 0, label %do.body
     i32 2, label %do.end.thread
   ]
 
-.loopexit:                                        ; preds = %do.cond
-  %ret.1.fr.le = freeze i32 %ret.1
+do.end.thread.loopexit105:                        ; preds = %do.cond
   br label %do.end.thread
 
-do.end.thread:                                    ; preds = %do.cond, %if.else, %.loopexit, %do.end.thread92
-  %47 = phi i32 [ 1, %do.end.thread92 ], [ %ret.1.fr.le, %.loopexit ], [ 0, %if.else ], [ 0, %do.cond ]
+do.end.thread:                                    ; preds = %if.else, %do.cond, %do.end.thread.loopexit105, %do.end.thread92
+  %47 = phi i32 [ 1, %do.end.thread92 ], [ %ret.1.fr, %do.end.thread.loopexit105 ], [ 0, %do.cond ], [ 0, %if.else ]
   %freecomp.i.i = getelementptr inbounds %struct.nsis_st, ptr %nsist, i64 0, i32 14
   %48 = load i8, ptr %freecomp.i.i, align 2, !tbaa !41
   %tobool.not.i.i = icmp eq i8 %48, 0
@@ -675,7 +674,7 @@ if.end44:                                         ; preds = %if.end41
   %cmp46 = icmp ult i32 %10, 4
   %sub = add i32 %10, -4
   %cmp48 = icmp ult i32 %sub, %and
-  %or.cond = select i1 %cmp46, i1 true, i1 %cmp48
+  %or.cond = or i1 %cmp46, %cmp48
   br i1 %or.cond, label %if.then49, label %if.end52
 
 if.then49:                                        ; preds = %if.end44
@@ -701,7 +700,7 @@ land.lhs.true57:                                  ; preds = %if.end52
   %tobool59.not = icmp ne i64 %15, 0
   %conv = zext i32 %and to i64
   %cmp63 = icmp ult i64 %15, %conv
-  %or.cond544 = select i1 %tobool59.not, i1 %cmp63, i1 false
+  %or.cond544 = and i1 %tobool59.not, %cmp63
   br i1 %or.cond544, label %if.then65, label %if.end77
 
 if.then65:                                        ; preds = %land.lhs.true57
@@ -835,7 +834,7 @@ land.lhs.true147:                                 ; preds = %if.end139
   %34 = load i64, ptr %maxfilesize149, align 8, !tbaa !46
   %tobool150.not = icmp ne i64 %34, 0
   %cmp155 = icmp ult i64 %34, %conv132
-  %or.cond545 = select i1 %tobool150.not, i1 %cmp155, i1 false
+  %or.cond545 = and i1 %tobool150.not, %cmp155
   br i1 %or.cond545, label %if.then157, label %while.cond.backedge
 
 if.then157:                                       ; preds = %land.lhs.true147

@@ -33,10 +33,10 @@ while.cond.preheader:                             ; preds = %entry
 
 if.then4:                                         ; preds = %entry
   %3 = load i32, ptr @mem_array_ents, align 4, !tbaa !5
-  %cmp.i = icmp slt i32 %3, 20
-  br i1 %cmp.i, label %if.end.i, label %if.then6
+  %cmp.i = icmp sgt i32 %3, 19
+  br i1 %cmp.i, label %if.then6, label %AddMemArray.exit.thread
 
-if.end.i:                                         ; preds = %if.then4
+AddMemArray.exit.thread:                          ; preds = %if.then4
   %idxprom.i = sext i32 %3 to i64
   %arrayidx.i = getelementptr inbounds [20 x i64], ptr @mem_array, i64 0, i64 %idxprom.i
   store i64 %1, ptr %arrayidx.i, align 8, !tbaa !9
@@ -67,32 +67,32 @@ while.end:                                        ; preds = %while.cond
   %rem24 = urem i64 %adj_addr.0, %conv23
   %cmp25 = icmp eq i64 %rem24, 0
   %add29 = select i1 %cmp25, i64 %conv17, i64 0
-  %spec.select61 = add i64 %adj_addr.0, %add29
+  %spec.select53 = add i64 %add29, %adj_addr.0
   br label %if.end31
 
 if.end31:                                         ; preds = %while.end, %if.then11
-  %adj_addr.1 = phi i64 [ %spec.select, %if.then11 ], [ %spec.select61, %while.end ]
+  %adj_addr.1 = phi i64 [ %spec.select, %if.then11 ], [ %spec.select53, %while.end ]
   %4 = inttoptr i64 %adj_addr.1 to ptr
   %5 = load i32, ptr @mem_array_ents, align 4, !tbaa !5
-  %cmp.i53 = icmp slt i32 %5, 20
-  br i1 %cmp.i53, label %if.end.i58, label %if.then34
+  %cmp.i54 = icmp sgt i32 %5, 19
+  br i1 %cmp.i54, label %if.then34, label %AddMemArray.exit61.thread
 
-if.end.i58:                                       ; preds = %if.end31
-  %idxprom.i54 = sext i32 %5 to i64
-  %arrayidx.i55 = getelementptr inbounds [20 x i64], ptr @mem_array, i64 0, i64 %idxprom.i54
-  store i64 %1, ptr %arrayidx.i55, align 8, !tbaa !9
-  %arrayidx2.i56 = getelementptr inbounds [2 x [20 x i64]], ptr @mem_array, i64 0, i64 1, i64 %idxprom.i54
-  store i64 %adj_addr.1, ptr %arrayidx2.i56, align 8, !tbaa !9
-  %inc.i57 = add nsw i32 %5, 1
-  store i32 %inc.i57, ptr @mem_array_ents, align 4, !tbaa !5
+AddMemArray.exit61.thread:                        ; preds = %if.end31
+  %idxprom.i55 = sext i32 %5 to i64
+  %arrayidx.i56 = getelementptr inbounds [20 x i64], ptr @mem_array, i64 0, i64 %idxprom.i55
+  store i64 %1, ptr %arrayidx.i56, align 8, !tbaa !9
+  %arrayidx2.i57 = getelementptr inbounds [2 x [20 x i64]], ptr @mem_array, i64 0, i64 1, i64 %idxprom.i55
+  store i64 %adj_addr.1, ptr %arrayidx2.i57, align 8, !tbaa !9
+  %inc.i58 = add nsw i32 %5, 1
+  store i32 %inc.i58, ptr @mem_array_ents, align 4, !tbaa !5
   br label %cleanup
 
 if.then34:                                        ; preds = %if.end31
   store i32 2, ptr %errorcode, align 4, !tbaa !5
   br label %cleanup
 
-cleanup:                                          ; preds = %if.end.i58, %if.end.i, %if.then34, %if.then6
-  %retval.0 = phi ptr [ %call, %if.then6 ], [ %call, %if.end.i ], [ %4, %if.then34 ], [ %4, %if.end.i58 ]
+cleanup:                                          ; preds = %AddMemArray.exit61.thread, %AddMemArray.exit.thread, %if.then34, %if.then6
+  %retval.0 = phi ptr [ %call, %if.then6 ], [ %4, %if.then34 ], [ %call, %AddMemArray.exit.thread ], [ %4, %AddMemArray.exit61.thread ]
   ret ptr %retval.0
 }
 
@@ -134,7 +134,7 @@ for.body.preheader.i:                             ; preds = %entry
   br label %for.body.i
 
 for.body.i:                                       ; preds = %for.inc.i, %for.body.preheader.i
-  %indvars.iv38.i = phi i64 [ 1, %for.body.preheader.i ], [ %indvars.iv.next39.i, %for.inc.i ]
+  %indvars.iv39.i = phi i64 [ 1, %for.body.preheader.i ], [ %indvars.iv.next40.i, %for.inc.i ]
   %indvars.iv.i = phi i64 [ 0, %for.body.preheader.i ], [ %indvars.iv.next.i, %for.inc.i ]
   %arrayidx.i = getelementptr inbounds [2 x [20 x i64]], ptr @mem_array, i64 0, i64 1, i64 %indvars.iv.i
   %2 = load i64, ptr %arrayidx.i, align 8, !tbaa !9
@@ -143,8 +143,7 @@ for.body.i:                                       ; preds = %for.inc.i, %for.bod
 
 if.then.i:                                        ; preds = %for.body.i
   %3 = trunc i64 %indvars.iv.i to i32
-  %idxprom.le.i = and i64 %indvars.iv.i, 4294967295
-  %arrayidx3.i = getelementptr inbounds [20 x i64], ptr @mem_array, i64 0, i64 %idxprom.le.i
+  %arrayidx3.i = getelementptr inbounds [20 x i64], ptr @mem_array, i64 0, i64 %indvars.iv.i
   %4 = load i64, ptr %arrayidx3.i, align 8, !tbaa !9
   %add30.i = add nuw nsw i32 %3, 1
   %cmp431.i = icmp slt i32 %add30.i, %1
@@ -152,29 +151,29 @@ if.then.i:                                        ; preds = %for.body.i
   br i1 %cmp431.i, label %while.body.preheader.i, label %if.end
 
 while.body.preheader.i:                           ; preds = %if.then.i
-  %wide.trip.count49.i = zext i32 %5 to i64
+  %wide.trip.count50.i = zext i32 %5 to i64
   br label %while.body.i
 
 while.body.i:                                     ; preds = %while.body.i, %while.body.preheader.i
-  %indvars.iv44.i = phi i64 [ %indvars.iv.i, %while.body.preheader.i ], [ %indvars.iv.next45.i, %while.body.i ]
-  %indvars.iv41.i = phi i64 [ %indvars.iv38.i, %while.body.preheader.i ], [ %indvars.iv.next42.i, %while.body.i ]
-  %indvars.iv.next45.i = add nuw nsw i64 %indvars.iv44.i, 1
-  %arrayidx7.i = getelementptr inbounds [20 x i64], ptr @mem_array, i64 0, i64 %indvars.iv41.i
+  %indvars.iv45.i = phi i64 [ %indvars.iv.i, %while.body.preheader.i ], [ %indvars.iv.next46.i, %while.body.i ]
+  %indvars.iv42.i = phi i64 [ %indvars.iv39.i, %while.body.preheader.i ], [ %indvars.iv.next43.i, %while.body.i ]
+  %indvars.iv.next46.i = add nuw nsw i64 %indvars.iv45.i, 1
+  %arrayidx7.i = getelementptr inbounds [20 x i64], ptr @mem_array, i64 0, i64 %indvars.iv42.i
   %6 = load i64, ptr %arrayidx7.i, align 8, !tbaa !9
-  %arrayidx9.i = getelementptr inbounds [20 x i64], ptr @mem_array, i64 0, i64 %indvars.iv44.i
+  %arrayidx9.i = getelementptr inbounds [20 x i64], ptr @mem_array, i64 0, i64 %indvars.iv45.i
   store i64 %6, ptr %arrayidx9.i, align 8, !tbaa !9
-  %arrayidx12.i = getelementptr inbounds [2 x [20 x i64]], ptr @mem_array, i64 0, i64 1, i64 %indvars.iv41.i
+  %arrayidx12.i = getelementptr inbounds [2 x [20 x i64]], ptr @mem_array, i64 0, i64 1, i64 %indvars.iv42.i
   %7 = load i64, ptr %arrayidx12.i, align 8, !tbaa !9
-  %arrayidx14.i = getelementptr inbounds [2 x [20 x i64]], ptr @mem_array, i64 0, i64 1, i64 %indvars.iv44.i
+  %arrayidx14.i = getelementptr inbounds [2 x [20 x i64]], ptr @mem_array, i64 0, i64 1, i64 %indvars.iv45.i
   store i64 %7, ptr %arrayidx14.i, align 8, !tbaa !9
-  %indvars.iv.next42.i = add nuw nsw i64 %indvars.iv41.i, 1
-  %exitcond50.not.i = icmp eq i64 %indvars.iv.next45.i, %wide.trip.count49.i
-  br i1 %exitcond50.not.i, label %if.end, label %while.body.i, !llvm.loop !13
+  %indvars.iv.next43.i = add nuw nsw i64 %indvars.iv42.i, 1
+  %exitcond51.not.i = icmp eq i64 %indvars.iv.next46.i, %wide.trip.count50.i
+  br i1 %exitcond51.not.i, label %if.end, label %while.body.i, !llvm.loop !13
 
 for.inc.i:                                        ; preds = %for.body.i
   %indvars.iv.next.i = add nuw nsw i64 %indvars.iv.i, 1
   %exitcond.not.i = icmp eq i64 %indvars.iv.next.i, %wide.trip.count.i
-  %indvars.iv.next39.i = add nuw nsw i64 %indvars.iv38.i, 1
+  %indvars.iv.next40.i = add nuw nsw i64 %indvars.iv39.i, 1
   br i1 %exitcond.not.i, label %cleanup, label %for.body.i, !llvm.loop !14
 
 if.end:                                           ; preds = %while.body.i, %if.then.i
@@ -201,7 +200,7 @@ for.body.preheader:                               ; preds = %entry
   br label %for.body
 
 for.body:                                         ; preds = %for.body.preheader, %for.inc
-  %indvars.iv38 = phi i64 [ 1, %for.body.preheader ], [ %indvars.iv.next39, %for.inc ]
+  %indvars.iv39 = phi i64 [ 1, %for.body.preheader ], [ %indvars.iv.next40, %for.inc ]
   %indvars.iv = phi i64 [ 0, %for.body.preheader ], [ %indvars.iv.next, %for.inc ]
   %arrayidx = getelementptr inbounds [2 x [20 x i64]], ptr @mem_array, i64 0, i64 1, i64 %indvars.iv
   %1 = load i64, ptr %arrayidx, align 8, !tbaa !9
@@ -210,8 +209,7 @@ for.body:                                         ; preds = %for.body.preheader,
 
 if.then:                                          ; preds = %for.body
   %2 = trunc i64 %indvars.iv to i32
-  %idxprom.le = and i64 %indvars.iv, 4294967295
-  %arrayidx3 = getelementptr inbounds [20 x i64], ptr @mem_array, i64 0, i64 %idxprom.le
+  %arrayidx3 = getelementptr inbounds [20 x i64], ptr @mem_array, i64 0, i64 %indvars.iv
   %3 = load i64, ptr %arrayidx3, align 8, !tbaa !9
   store i64 %3, ptr %true_addr, align 8, !tbaa !9
   %add30 = add nuw nsw i32 %2, 1
@@ -220,24 +218,24 @@ if.then:                                          ; preds = %for.body
   br i1 %cmp431, label %while.body.preheader, label %while.end
 
 while.body.preheader:                             ; preds = %if.then
-  %wide.trip.count49 = zext i32 %4 to i64
+  %wide.trip.count50 = zext i32 %4 to i64
   br label %while.body
 
 while.body:                                       ; preds = %while.body.preheader, %while.body
-  %indvars.iv44 = phi i64 [ %indvars.iv, %while.body.preheader ], [ %indvars.iv.next45, %while.body ]
-  %indvars.iv41 = phi i64 [ %indvars.iv38, %while.body.preheader ], [ %indvars.iv.next42, %while.body ]
-  %indvars.iv.next45 = add nuw nsw i64 %indvars.iv44, 1
-  %arrayidx7 = getelementptr inbounds [20 x i64], ptr @mem_array, i64 0, i64 %indvars.iv41
+  %indvars.iv45 = phi i64 [ %indvars.iv, %while.body.preheader ], [ %indvars.iv.next46, %while.body ]
+  %indvars.iv42 = phi i64 [ %indvars.iv39, %while.body.preheader ], [ %indvars.iv.next43, %while.body ]
+  %indvars.iv.next46 = add nuw nsw i64 %indvars.iv45, 1
+  %arrayidx7 = getelementptr inbounds [20 x i64], ptr @mem_array, i64 0, i64 %indvars.iv42
   %5 = load i64, ptr %arrayidx7, align 8, !tbaa !9
-  %arrayidx9 = getelementptr inbounds [20 x i64], ptr @mem_array, i64 0, i64 %indvars.iv44
+  %arrayidx9 = getelementptr inbounds [20 x i64], ptr @mem_array, i64 0, i64 %indvars.iv45
   store i64 %5, ptr %arrayidx9, align 8, !tbaa !9
-  %arrayidx12 = getelementptr inbounds [2 x [20 x i64]], ptr @mem_array, i64 0, i64 1, i64 %indvars.iv41
+  %arrayidx12 = getelementptr inbounds [2 x [20 x i64]], ptr @mem_array, i64 0, i64 1, i64 %indvars.iv42
   %6 = load i64, ptr %arrayidx12, align 8, !tbaa !9
-  %arrayidx14 = getelementptr inbounds [2 x [20 x i64]], ptr @mem_array, i64 0, i64 1, i64 %indvars.iv44
+  %arrayidx14 = getelementptr inbounds [2 x [20 x i64]], ptr @mem_array, i64 0, i64 1, i64 %indvars.iv45
   store i64 %6, ptr %arrayidx14, align 8, !tbaa !9
-  %indvars.iv.next42 = add nuw nsw i64 %indvars.iv41, 1
-  %exitcond50.not = icmp eq i64 %indvars.iv.next45, %wide.trip.count49
-  br i1 %exitcond50.not, label %while.end, label %while.body, !llvm.loop !13
+  %indvars.iv.next43 = add nuw nsw i64 %indvars.iv42, 1
+  %exitcond51.not = icmp eq i64 %indvars.iv.next46, %wide.trip.count50
+  br i1 %exitcond51.not, label %while.end, label %while.body, !llvm.loop !13
 
 while.end:                                        ; preds = %while.body, %if.then
   store i32 %4, ptr @mem_array_ents, align 4, !tbaa !5
@@ -246,7 +244,7 @@ while.end:                                        ; preds = %while.body, %if.the
 for.inc:                                          ; preds = %for.body
   %indvars.iv.next = add nuw nsw i64 %indvars.iv, 1
   %exitcond.not = icmp eq i64 %indvars.iv.next, %wide.trip.count
-  %indvars.iv.next39 = add nuw nsw i64 %indvars.iv38, 1
+  %indvars.iv.next40 = add nuw nsw i64 %indvars.iv39, 1
   br i1 %exitcond.not, label %cleanup, label %for.body, !llvm.loop !14
 
 cleanup:                                          ; preds = %for.inc, %entry, %while.end

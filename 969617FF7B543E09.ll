@@ -696,8 +696,8 @@ for.body801:                                      ; preds = %for.body801.prehead
   store i32 %or1059, ptr %arrayidx1062, align 4, !tbaa !5
   %or1067 = tail call i32 @llvm.fshl.i32(i32 %add1013, i32 %add1013, i32 5)
   %add1063 = add i32 %or904, -899497514
-  %add1064 = add i32 %add1063, %or1059
-  %add1068 = add i32 %add1064, %xor1018
+  %add1064 = add i32 %add1063, %xor1018
+  %add1068 = add i32 %add1064, %or1059
   %add1069 = add i32 %add1068, %or1067
   %or1072 = tail call i32 @llvm.fshl.i32(i32 %add957, i32 %add957, i32 30)
   %indvars.iv.next1577 = add nuw nsw i64 %indvars.iv1576, 5

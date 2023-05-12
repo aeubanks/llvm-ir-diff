@@ -196,7 +196,7 @@ _ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_c.exit: ; preds = %if.then.i
 
 ; Function Attrs: uwtable
 define dso_local noalias noundef nonnull ptr @_ZN10const_expr5derivEPc(ptr nocapture nonnull readnone align 8 %this, ptr nocapture readnone %var) unnamed_addr #6 align 2 personality ptr @__gxx_personality_v0 {
-entry:
+invoke.cont:
   %call = tail call noalias noundef nonnull dereferenceable(16) ptr @_Znwm(i64 noundef 16) #13
   store ptr getelementptr inbounds ({ [6 x ptr] }, ptr @_ZTV10const_expr, i64 0, inrange i32 0, i64 2), ptr %call, align 8, !tbaa !14
   %value.i = getelementptr inbounds %class.const_expr, ptr %call, i64 0, i32 1
@@ -214,7 +214,7 @@ declare void @_ZdlPv(ptr noundef) local_unnamed_addr #8
 
 ; Function Attrs: uwtable
 define dso_local noalias noundef nonnull ptr @_ZN8var_expr5derivEPc(ptr nocapture nonnull readnone align 8 %this, ptr nocapture readnone %var) unnamed_addr #6 align 2 personality ptr @__gxx_personality_v0 {
-entry:
+invoke.cont:
   %call = tail call noalias noundef nonnull dereferenceable(16) ptr @_Znwm(i64 noundef 16) #13
   store ptr getelementptr inbounds ({ [6 x ptr] }, ptr @_ZTV10const_expr, i64 0, inrange i32 0, i64 2), ptr %call, align 8, !tbaa !14
   %value.i = getelementptr inbounds %class.const_expr, ptr %call, i64 0, i32 1
@@ -279,8 +279,8 @@ if.else21:                                        ; preds = %land.lhs.true15, %i
   store i8 43, ptr %op_name.i, align 8, !tbaa !17
   br label %cleanup
 
-cleanup:                                          ; preds = %land.lhs.true15, %land.lhs.true, %if.else21
-  %retval.0 = phi ptr [ %call22, %if.else21 ], [ %call4, %land.lhs.true ], [ %call, %land.lhs.true15 ]
+cleanup:                                          ; preds = %if.else21, %land.lhs.true15, %land.lhs.true
+  %retval.0 = phi ptr [ %call4, %land.lhs.true ], [ %call, %land.lhs.true15 ], [ %call22, %if.else21 ]
   ret ptr %retval.0
 }
 
@@ -422,12 +422,12 @@ land.lhs.true62:                                  ; preds = %if.else57
 
 if.then67:                                        ; preds = %land.lhs.true62
   %call68 = tail call noalias noundef nonnull dereferenceable(32) ptr @_Znwm(i64 noundef 32) #13
-  %first.i.i164 = getelementptr inbounds %class.bin_op_expr, ptr %call68, i64 0, i32 1
+  %first.i.i165 = getelementptr inbounds %class.bin_op_expr, ptr %call68, i64 0, i32 1
   %19 = load <2 x ptr>, ptr %first, align 8, !tbaa !27
-  store <2 x ptr> %19, ptr %first.i.i164, align 8, !tbaa !27
+  store <2 x ptr> %19, ptr %first.i.i165, align 8, !tbaa !27
   store ptr getelementptr inbounds ({ [6 x ptr] }, ptr @_ZTV8sum_expr, i64 0, inrange i32 0, i64 2), ptr %call68, align 8, !tbaa !14
-  %op_name.i166 = getelementptr inbounds %class.bin_op_expr, ptr %call68, i64 0, i32 3
-  store i8 43, ptr %op_name.i166, align 8, !tbaa !17
+  %op_name.i167 = getelementptr inbounds %class.bin_op_expr, ptr %call68, i64 0, i32 3
+  store i8 43, ptr %op_name.i167, align 8, !tbaa !17
   br label %cleanup
 
 if.else73:                                        ; preds = %land.lhs.true62, %if.else57
@@ -437,21 +437,21 @@ if.else73:                                        ; preds = %land.lhs.true62, %i
 
 invoke.cont76:                                    ; preds = %if.else73
   %20 = load ptr, ptr %first, align 8, !tbaa !11
-  %first.i.i167 = getelementptr inbounds %class.bin_op_expr, ptr %call77, i64 0, i32 1
-  store ptr %20, ptr %first.i.i167, align 8, !tbaa !11
-  %second.i.i168 = getelementptr inbounds %class.bin_op_expr, ptr %call77, i64 0, i32 2
-  store ptr %call4, ptr %second.i.i168, align 8, !tbaa !16
+  %first.i.i168 = getelementptr inbounds %class.bin_op_expr, ptr %call77, i64 0, i32 1
+  store ptr %20, ptr %first.i.i168, align 8, !tbaa !11
+  %second.i.i169 = getelementptr inbounds %class.bin_op_expr, ptr %call77, i64 0, i32 2
+  store ptr %call4, ptr %second.i.i169, align 8, !tbaa !16
   store ptr getelementptr inbounds ({ [6 x ptr] }, ptr @_ZTV9prod_expr, i64 0, inrange i32 0, i64 2), ptr %call77, align 8, !tbaa !14
-  %op_name.i169 = getelementptr inbounds %class.bin_op_expr, ptr %call77, i64 0, i32 3
-  store i8 42, ptr %op_name.i169, align 8, !tbaa !17
+  %op_name.i170 = getelementptr inbounds %class.bin_op_expr, ptr %call77, i64 0, i32 3
+  store i8 42, ptr %op_name.i170, align 8, !tbaa !17
   %21 = load ptr, ptr %second, align 8, !tbaa !16
-  %first.i.i170 = getelementptr inbounds %class.bin_op_expr, ptr %call74, i64 0, i32 1
-  store ptr %call77, ptr %first.i.i170, align 8, !tbaa !11
-  %second.i.i171 = getelementptr inbounds %class.bin_op_expr, ptr %call74, i64 0, i32 2
-  store ptr %21, ptr %second.i.i171, align 8, !tbaa !16
+  %first.i.i171 = getelementptr inbounds %class.bin_op_expr, ptr %call74, i64 0, i32 1
+  store ptr %call77, ptr %first.i.i171, align 8, !tbaa !11
+  %second.i.i172 = getelementptr inbounds %class.bin_op_expr, ptr %call74, i64 0, i32 2
+  store ptr %21, ptr %second.i.i172, align 8, !tbaa !16
   store ptr getelementptr inbounds ({ [6 x ptr] }, ptr @_ZTV8sum_expr, i64 0, inrange i32 0, i64 2), ptr %call74, align 8, !tbaa !14
-  %op_name.i172 = getelementptr inbounds %class.bin_op_expr, ptr %call74, i64 0, i32 3
-  store i8 43, ptr %op_name.i172, align 8, !tbaa !17
+  %op_name.i173 = getelementptr inbounds %class.bin_op_expr, ptr %call74, i64 0, i32 3
+  store i8 43, ptr %op_name.i173, align 8, !tbaa !17
   br label %cleanup
 
 lpad75:                                           ; preds = %if.else73
@@ -478,13 +478,13 @@ land.lhs.true88:                                  ; preds = %if.else83
 if.then93:                                        ; preds = %land.lhs.true88
   %call94 = tail call noalias noundef nonnull dereferenceable(32) ptr @_Znwm(i64 noundef 32) #13
   %25 = load ptr, ptr %second, align 8, !tbaa !16
-  %first.i.i173 = getelementptr inbounds %class.bin_op_expr, ptr %call94, i64 0, i32 1
-  store ptr %call, ptr %first.i.i173, align 8, !tbaa !11
-  %second.i.i174 = getelementptr inbounds %class.bin_op_expr, ptr %call94, i64 0, i32 2
-  store ptr %25, ptr %second.i.i174, align 8, !tbaa !16
+  %first.i.i174 = getelementptr inbounds %class.bin_op_expr, ptr %call94, i64 0, i32 1
+  store ptr %call, ptr %first.i.i174, align 8, !tbaa !11
+  %second.i.i175 = getelementptr inbounds %class.bin_op_expr, ptr %call94, i64 0, i32 2
+  store ptr %25, ptr %second.i.i175, align 8, !tbaa !16
   store ptr getelementptr inbounds ({ [6 x ptr] }, ptr @_ZTV9prod_expr, i64 0, inrange i32 0, i64 2), ptr %call94, align 8, !tbaa !14
-  %op_name.i175 = getelementptr inbounds %class.bin_op_expr, ptr %call94, i64 0, i32 3
-  store i8 42, ptr %op_name.i175, align 8, !tbaa !17
+  %op_name.i176 = getelementptr inbounds %class.bin_op_expr, ptr %call94, i64 0, i32 3
+  store i8 42, ptr %op_name.i176, align 8, !tbaa !17
   br label %cleanup
 
 if.else99:                                        ; preds = %land.lhs.true88, %if.else83
@@ -511,20 +511,20 @@ if.then109:                                       ; preds = %land.lhs.true104
 
 invoke.cont113:                                   ; preds = %if.then109
   %29 = load ptr, ptr %second, align 8, !tbaa !16
-  %first.i.i176 = getelementptr inbounds %class.bin_op_expr, ptr %call114, i64 0, i32 1
-  store ptr %call, ptr %first.i.i176, align 8, !tbaa !11
-  %second.i.i177 = getelementptr inbounds %class.bin_op_expr, ptr %call114, i64 0, i32 2
-  store ptr %29, ptr %second.i.i177, align 8, !tbaa !16
+  %first.i.i177 = getelementptr inbounds %class.bin_op_expr, ptr %call114, i64 0, i32 1
+  store ptr %call, ptr %first.i.i177, align 8, !tbaa !11
+  %second.i.i178 = getelementptr inbounds %class.bin_op_expr, ptr %call114, i64 0, i32 2
+  store ptr %29, ptr %second.i.i178, align 8, !tbaa !16
   store ptr getelementptr inbounds ({ [6 x ptr] }, ptr @_ZTV9prod_expr, i64 0, inrange i32 0, i64 2), ptr %call114, align 8, !tbaa !14
-  %op_name.i178 = getelementptr inbounds %class.bin_op_expr, ptr %call114, i64 0, i32 3
-  store i8 42, ptr %op_name.i178, align 8, !tbaa !17
-  %first.i.i179 = getelementptr inbounds %class.bin_op_expr, ptr %call110, i64 0, i32 1
-  store ptr %28, ptr %first.i.i179, align 8, !tbaa !11
-  %second.i.i180 = getelementptr inbounds %class.bin_op_expr, ptr %call110, i64 0, i32 2
-  store ptr %call114, ptr %second.i.i180, align 8, !tbaa !16
+  %op_name.i179 = getelementptr inbounds %class.bin_op_expr, ptr %call114, i64 0, i32 3
+  store i8 42, ptr %op_name.i179, align 8, !tbaa !17
+  %first.i.i180 = getelementptr inbounds %class.bin_op_expr, ptr %call110, i64 0, i32 1
+  store ptr %28, ptr %first.i.i180, align 8, !tbaa !11
+  %second.i.i181 = getelementptr inbounds %class.bin_op_expr, ptr %call110, i64 0, i32 2
+  store ptr %call114, ptr %second.i.i181, align 8, !tbaa !16
   store ptr getelementptr inbounds ({ [6 x ptr] }, ptr @_ZTV8sum_expr, i64 0, inrange i32 0, i64 2), ptr %call110, align 8, !tbaa !14
-  %op_name.i181 = getelementptr inbounds %class.bin_op_expr, ptr %call110, i64 0, i32 3
-  store i8 43, ptr %op_name.i181, align 8, !tbaa !17
+  %op_name.i182 = getelementptr inbounds %class.bin_op_expr, ptr %call110, i64 0, i32 3
+  store i8 43, ptr %op_name.i182, align 8, !tbaa !17
   br label %cleanup
 
 lpad112:                                          ; preds = %if.then109
@@ -539,32 +539,32 @@ if.else121:                                       ; preds = %land.lhs.true104, %
 
 invoke.cont124:                                   ; preds = %if.else121
   %31 = load ptr, ptr %first, align 8, !tbaa !11
-  %first.i.i182 = getelementptr inbounds %class.bin_op_expr, ptr %call125, i64 0, i32 1
-  store ptr %31, ptr %first.i.i182, align 8, !tbaa !11
-  %second.i.i183 = getelementptr inbounds %class.bin_op_expr, ptr %call125, i64 0, i32 2
-  store ptr %call4, ptr %second.i.i183, align 8, !tbaa !16
+  %first.i.i183 = getelementptr inbounds %class.bin_op_expr, ptr %call125, i64 0, i32 1
+  store ptr %31, ptr %first.i.i183, align 8, !tbaa !11
+  %second.i.i184 = getelementptr inbounds %class.bin_op_expr, ptr %call125, i64 0, i32 2
+  store ptr %call4, ptr %second.i.i184, align 8, !tbaa !16
   store ptr getelementptr inbounds ({ [6 x ptr] }, ptr @_ZTV9prod_expr, i64 0, inrange i32 0, i64 2), ptr %call125, align 8, !tbaa !14
-  %op_name.i184 = getelementptr inbounds %class.bin_op_expr, ptr %call125, i64 0, i32 3
-  store i8 42, ptr %op_name.i184, align 8, !tbaa !17
+  %op_name.i185 = getelementptr inbounds %class.bin_op_expr, ptr %call125, i64 0, i32 3
+  store i8 42, ptr %op_name.i185, align 8, !tbaa !17
   %call131 = invoke noalias noundef nonnull dereferenceable(32) ptr @_Znwm(i64 noundef 32) #13
           to label %invoke.cont130 unwind label %lpad123
 
 invoke.cont130:                                   ; preds = %invoke.cont124
   %32 = load ptr, ptr %second, align 8, !tbaa !16
-  %first.i.i185 = getelementptr inbounds %class.bin_op_expr, ptr %call131, i64 0, i32 1
-  store ptr %call, ptr %first.i.i185, align 8, !tbaa !11
-  %second.i.i186 = getelementptr inbounds %class.bin_op_expr, ptr %call131, i64 0, i32 2
-  store ptr %32, ptr %second.i.i186, align 8, !tbaa !16
+  %first.i.i186 = getelementptr inbounds %class.bin_op_expr, ptr %call131, i64 0, i32 1
+  store ptr %call, ptr %first.i.i186, align 8, !tbaa !11
+  %second.i.i187 = getelementptr inbounds %class.bin_op_expr, ptr %call131, i64 0, i32 2
+  store ptr %32, ptr %second.i.i187, align 8, !tbaa !16
   store ptr getelementptr inbounds ({ [6 x ptr] }, ptr @_ZTV9prod_expr, i64 0, inrange i32 0, i64 2), ptr %call131, align 8, !tbaa !14
-  %op_name.i187 = getelementptr inbounds %class.bin_op_expr, ptr %call131, i64 0, i32 3
-  store i8 42, ptr %op_name.i187, align 8, !tbaa !17
-  %first.i.i188 = getelementptr inbounds %class.bin_op_expr, ptr %call122, i64 0, i32 1
-  store ptr %call125, ptr %first.i.i188, align 8, !tbaa !11
-  %second.i.i189 = getelementptr inbounds %class.bin_op_expr, ptr %call122, i64 0, i32 2
-  store ptr %call131, ptr %second.i.i189, align 8, !tbaa !16
+  %op_name.i188 = getelementptr inbounds %class.bin_op_expr, ptr %call131, i64 0, i32 3
+  store i8 42, ptr %op_name.i188, align 8, !tbaa !17
+  %first.i.i189 = getelementptr inbounds %class.bin_op_expr, ptr %call122, i64 0, i32 1
+  store ptr %call125, ptr %first.i.i189, align 8, !tbaa !11
+  %second.i.i190 = getelementptr inbounds %class.bin_op_expr, ptr %call122, i64 0, i32 2
+  store ptr %call131, ptr %second.i.i190, align 8, !tbaa !16
   store ptr getelementptr inbounds ({ [6 x ptr] }, ptr @_ZTV8sum_expr, i64 0, inrange i32 0, i64 2), ptr %call122, align 8, !tbaa !14
-  %op_name.i190 = getelementptr inbounds %class.bin_op_expr, ptr %call122, i64 0, i32 3
-  store i8 43, ptr %op_name.i190, align 8, !tbaa !17
+  %op_name.i191 = getelementptr inbounds %class.bin_op_expr, ptr %call122, i64 0, i32 3
+  store i8 43, ptr %op_name.i191, align 8, !tbaa !17
   br label %cleanup
 
 lpad123:                                          ; preds = %invoke.cont124, %if.else121
@@ -572,8 +572,8 @@ lpad123:                                          ; preds = %invoke.cont124, %if
           cleanup
   br label %ehcleanup138
 
-cleanup:                                          ; preds = %land.lhs.true15, %invoke.cont130, %invoke.cont113, %if.then93, %invoke.cont76, %if.then67, %if.then55, %if.else32, %if.then30
-  %retval.0 = phi ptr [ %10, %if.then30 ], [ %call33, %if.else32 ], [ %16, %if.then55 ], [ %call68, %if.then67 ], [ %call74, %invoke.cont76 ], [ %call94, %if.then93 ], [ %call110, %invoke.cont113 ], [ %call122, %invoke.cont130 ], [ %call, %land.lhs.true15 ]
+cleanup:                                          ; preds = %invoke.cont130, %invoke.cont113, %invoke.cont76, %if.then67, %land.lhs.true15, %if.then93, %if.then55, %if.else32, %if.then30
+  %retval.0 = phi ptr [ %10, %if.then30 ], [ %call33, %if.else32 ], [ %16, %if.then55 ], [ %call94, %if.then93 ], [ %call, %land.lhs.true15 ], [ %call68, %if.then67 ], [ %call74, %invoke.cont76 ], [ %call110, %invoke.cont113 ], [ %call122, %invoke.cont130 ]
   ret ptr %retval.0
 
 ehcleanup138:                                     ; preds = %lpad123, %lpad112, %lpad75
@@ -657,16 +657,16 @@ if.then30:                                        ; preds = %land.lhs.true25
 
 if.then36:                                        ; preds = %if.then30
   %call38 = invoke noalias noundef nonnull dereferenceable(16) ptr @_Znwm(i64 noundef 16) #13
-          to label %invoke.cont unwind label %lpad
+          to label %invoke.cont40 unwind label %lpad
 
-invoke.cont:                                      ; preds = %if.then36
+invoke.cont40:                                    ; preds = %if.then36
   store ptr getelementptr inbounds ({ [6 x ptr] }, ptr @_ZTV10const_expr, i64 0, inrange i32 0, i64 2), ptr %call38, align 8, !tbaa !14
   %value.i = getelementptr inbounds %class.const_expr, ptr %call38, i64 0, i32 1
   store double -1.000000e+00, ptr %value.i, align 8, !tbaa !5
   %call42 = invoke noalias noundef nonnull dereferenceable(32) ptr @_Znwm(i64 noundef 32) #13
           to label %invoke.cont41 unwind label %lpad
 
-invoke.cont41:                                    ; preds = %invoke.cont
+invoke.cont41:                                    ; preds = %invoke.cont40
   %12 = load ptr, ptr %second, align 8, !tbaa !16
   %first.i.i = getelementptr inbounds %class.bin_op_expr, ptr %call42, i64 0, i32 1
   store ptr %12, ptr %first.i.i, align 8, !tbaa !11
@@ -677,7 +677,7 @@ invoke.cont41:                                    ; preds = %invoke.cont
   store i8 42, ptr %op_name.i, align 8, !tbaa !17
   br label %cleanup.sink.split
 
-lpad:                                             ; preds = %invoke.cont, %if.then36
+lpad:                                             ; preds = %invoke.cont40, %if.then36
   %13 = landingpad { ptr, i32 }
           cleanup
   br label %ehcleanup325
@@ -688,35 +688,35 @@ if.else48:                                        ; preds = %if.then30
 
 invoke.cont51:                                    ; preds = %if.else48
   %call55 = invoke noalias noundef nonnull dereferenceable(16) ptr @_Znwm(i64 noundef 16) #13
-          to label %invoke.cont54 unwind label %lpad53
+          to label %invoke.cont57 unwind label %lpad53
 
-invoke.cont54:                                    ; preds = %invoke.cont51
+invoke.cont57:                                    ; preds = %invoke.cont51
   store ptr getelementptr inbounds ({ [6 x ptr] }, ptr @_ZTV10const_expr, i64 0, inrange i32 0, i64 2), ptr %call55, align 8, !tbaa !14
-  %value.i356 = getelementptr inbounds %class.const_expr, ptr %call55, i64 0, i32 1
-  store double -1.000000e+00, ptr %value.i356, align 8, !tbaa !5
+  %value.i394 = getelementptr inbounds %class.const_expr, ptr %call55, i64 0, i32 1
+  store double -1.000000e+00, ptr %value.i394, align 8, !tbaa !5
   %14 = load ptr, ptr %first, align 8, !tbaa !11
-  %first.i.i357 = getelementptr inbounds %class.bin_op_expr, ptr %call52, i64 0, i32 1
-  store ptr %call55, ptr %first.i.i357, align 8, !tbaa !11
-  %second.i.i358 = getelementptr inbounds %class.bin_op_expr, ptr %call52, i64 0, i32 2
-  store ptr %14, ptr %second.i.i358, align 8, !tbaa !16
+  %first.i.i395 = getelementptr inbounds %class.bin_op_expr, ptr %call52, i64 0, i32 1
+  store ptr %call55, ptr %first.i.i395, align 8, !tbaa !11
+  %second.i.i396 = getelementptr inbounds %class.bin_op_expr, ptr %call52, i64 0, i32 2
+  store ptr %14, ptr %second.i.i396, align 8, !tbaa !16
   store ptr getelementptr inbounds ({ [6 x ptr] }, ptr @_ZTV9prod_expr, i64 0, inrange i32 0, i64 2), ptr %call52, align 8, !tbaa !14
-  %op_name.i359 = getelementptr inbounds %class.bin_op_expr, ptr %call52, i64 0, i32 3
-  store i8 42, ptr %op_name.i359, align 8, !tbaa !17
+  %op_name.i397 = getelementptr inbounds %class.bin_op_expr, ptr %call52, i64 0, i32 3
+  store i8 42, ptr %op_name.i397, align 8, !tbaa !17
   %call63 = invoke noalias noundef nonnull dereferenceable(32) ptr @_Znwm(i64 noundef 32) #13
           to label %invoke.cont62 unwind label %lpad50
 
-invoke.cont62:                                    ; preds = %invoke.cont54
+invoke.cont62:                                    ; preds = %invoke.cont57
   %15 = load ptr, ptr %second, align 8, !tbaa !16
-  %first.i.i360 = getelementptr inbounds %class.bin_op_expr, ptr %call63, i64 0, i32 1
-  store ptr %15, ptr %first.i.i360, align 8, !tbaa !11
-  %second.i.i361 = getelementptr inbounds %class.bin_op_expr, ptr %call63, i64 0, i32 2
-  store ptr %15, ptr %second.i.i361, align 8, !tbaa !16
+  %first.i.i398 = getelementptr inbounds %class.bin_op_expr, ptr %call63, i64 0, i32 1
+  store ptr %15, ptr %first.i.i398, align 8, !tbaa !11
+  %second.i.i399 = getelementptr inbounds %class.bin_op_expr, ptr %call63, i64 0, i32 2
+  store ptr %15, ptr %second.i.i399, align 8, !tbaa !16
   store ptr getelementptr inbounds ({ [6 x ptr] }, ptr @_ZTV9prod_expr, i64 0, inrange i32 0, i64 2), ptr %call63, align 8, !tbaa !14
-  %op_name.i362 = getelementptr inbounds %class.bin_op_expr, ptr %call63, i64 0, i32 3
-  store i8 42, ptr %op_name.i362, align 8, !tbaa !17
+  %op_name.i400 = getelementptr inbounds %class.bin_op_expr, ptr %call63, i64 0, i32 3
+  store i8 42, ptr %op_name.i400, align 8, !tbaa !17
   br label %cleanup.sink.split
 
-lpad50:                                           ; preds = %invoke.cont54, %if.else48
+lpad50:                                           ; preds = %invoke.cont57, %if.else48
   %16 = landingpad { ptr, i32 }
           cleanup
   br label %ehcleanup325
@@ -743,34 +743,34 @@ if.then77:                                        ; preds = %if.else71
 
 invoke.cont80:                                    ; preds = %if.then77
   %call84 = invoke noalias noundef nonnull dereferenceable(16) ptr @_Znwm(i64 noundef 16) #13
-          to label %invoke.cont83 unwind label %lpad82
+          to label %invoke.cont86 unwind label %lpad82
 
-invoke.cont83:                                    ; preds = %invoke.cont80
+invoke.cont86:                                    ; preds = %invoke.cont80
   store ptr getelementptr inbounds ({ [6 x ptr] }, ptr @_ZTV10const_expr, i64 0, inrange i32 0, i64 2), ptr %call84, align 8, !tbaa !14
-  %value.i366 = getelementptr inbounds %class.const_expr, ptr %call84, i64 0, i32 1
-  store double -1.000000e+00, ptr %value.i366, align 8, !tbaa !5
-  %first.i.i367 = getelementptr inbounds %class.bin_op_expr, ptr %call81, i64 0, i32 1
-  store ptr %call84, ptr %first.i.i367, align 8, !tbaa !11
-  %second.i.i368 = getelementptr inbounds %class.bin_op_expr, ptr %call81, i64 0, i32 2
-  store ptr %call4, ptr %second.i.i368, align 8, !tbaa !16
+  %value.i404 = getelementptr inbounds %class.const_expr, ptr %call84, i64 0, i32 1
+  store double -1.000000e+00, ptr %value.i404, align 8, !tbaa !5
+  %first.i.i405 = getelementptr inbounds %class.bin_op_expr, ptr %call81, i64 0, i32 1
+  store ptr %call84, ptr %first.i.i405, align 8, !tbaa !11
+  %second.i.i406 = getelementptr inbounds %class.bin_op_expr, ptr %call81, i64 0, i32 2
+  store ptr %call4, ptr %second.i.i406, align 8, !tbaa !16
   store ptr getelementptr inbounds ({ [6 x ptr] }, ptr @_ZTV9prod_expr, i64 0, inrange i32 0, i64 2), ptr %call81, align 8, !tbaa !14
-  %op_name.i369 = getelementptr inbounds %class.bin_op_expr, ptr %call81, i64 0, i32 3
-  store i8 42, ptr %op_name.i369, align 8, !tbaa !17
+  %op_name.i407 = getelementptr inbounds %class.bin_op_expr, ptr %call81, i64 0, i32 3
+  store i8 42, ptr %op_name.i407, align 8, !tbaa !17
   %call91 = invoke noalias noundef nonnull dereferenceable(32) ptr @_Znwm(i64 noundef 32) #13
           to label %invoke.cont90 unwind label %lpad79
 
-invoke.cont90:                                    ; preds = %invoke.cont83
+invoke.cont90:                                    ; preds = %invoke.cont86
   %20 = load ptr, ptr %second, align 8, !tbaa !16
-  %first.i.i370 = getelementptr inbounds %class.bin_op_expr, ptr %call91, i64 0, i32 1
-  store ptr %20, ptr %first.i.i370, align 8, !tbaa !11
-  %second.i.i371 = getelementptr inbounds %class.bin_op_expr, ptr %call91, i64 0, i32 2
-  store ptr %20, ptr %second.i.i371, align 8, !tbaa !16
+  %first.i.i408 = getelementptr inbounds %class.bin_op_expr, ptr %call91, i64 0, i32 1
+  store ptr %20, ptr %first.i.i408, align 8, !tbaa !11
+  %second.i.i409 = getelementptr inbounds %class.bin_op_expr, ptr %call91, i64 0, i32 2
+  store ptr %20, ptr %second.i.i409, align 8, !tbaa !16
   store ptr getelementptr inbounds ({ [6 x ptr] }, ptr @_ZTV9prod_expr, i64 0, inrange i32 0, i64 2), ptr %call91, align 8, !tbaa !14
-  %op_name.i372 = getelementptr inbounds %class.bin_op_expr, ptr %call91, i64 0, i32 3
-  store i8 42, ptr %op_name.i372, align 8, !tbaa !17
+  %op_name.i410 = getelementptr inbounds %class.bin_op_expr, ptr %call91, i64 0, i32 3
+  store i8 42, ptr %op_name.i410, align 8, !tbaa !17
   br label %cleanup.sink.split
 
-lpad79:                                           ; preds = %invoke.cont83, %if.then77
+lpad79:                                           ; preds = %invoke.cont86, %if.then77
   %21 = landingpad { ptr, i32 }
           cleanup
   br label %ehcleanup325
@@ -787,43 +787,43 @@ if.else99:                                        ; preds = %if.else71
 
 invoke.cont102:                                   ; preds = %if.else99
   %call106 = invoke noalias noundef nonnull dereferenceable(16) ptr @_Znwm(i64 noundef 16) #13
-          to label %invoke.cont105 unwind label %lpad104
+          to label %invoke.cont108 unwind label %lpad104
 
-invoke.cont105:                                   ; preds = %invoke.cont102
+invoke.cont108:                                   ; preds = %invoke.cont102
   store ptr getelementptr inbounds ({ [6 x ptr] }, ptr @_ZTV10const_expr, i64 0, inrange i32 0, i64 2), ptr %call106, align 8, !tbaa !14
-  %value.i376 = getelementptr inbounds %class.const_expr, ptr %call106, i64 0, i32 1
-  store double -1.000000e+00, ptr %value.i376, align 8, !tbaa !5
+  %value.i414 = getelementptr inbounds %class.const_expr, ptr %call106, i64 0, i32 1
+  store double -1.000000e+00, ptr %value.i414, align 8, !tbaa !5
   %call111 = invoke noalias noundef nonnull dereferenceable(32) ptr @_Znwm(i64 noundef 32) #13
           to label %invoke.cont110 unwind label %lpad104
 
-invoke.cont110:                                   ; preds = %invoke.cont105
+invoke.cont110:                                   ; preds = %invoke.cont108
   %23 = load ptr, ptr %first, align 8, !tbaa !11
-  %first.i.i377 = getelementptr inbounds %class.bin_op_expr, ptr %call111, i64 0, i32 1
-  store ptr %call4, ptr %first.i.i377, align 8, !tbaa !11
-  %second.i.i378 = getelementptr inbounds %class.bin_op_expr, ptr %call111, i64 0, i32 2
-  store ptr %23, ptr %second.i.i378, align 8, !tbaa !16
+  %first.i.i415 = getelementptr inbounds %class.bin_op_expr, ptr %call111, i64 0, i32 1
+  store ptr %call4, ptr %first.i.i415, align 8, !tbaa !11
+  %second.i.i416 = getelementptr inbounds %class.bin_op_expr, ptr %call111, i64 0, i32 2
+  store ptr %23, ptr %second.i.i416, align 8, !tbaa !16
   store ptr getelementptr inbounds ({ [6 x ptr] }, ptr @_ZTV9prod_expr, i64 0, inrange i32 0, i64 2), ptr %call111, align 8, !tbaa !14
-  %op_name.i379 = getelementptr inbounds %class.bin_op_expr, ptr %call111, i64 0, i32 3
-  store i8 42, ptr %op_name.i379, align 8, !tbaa !17
-  %first.i.i380 = getelementptr inbounds %class.bin_op_expr, ptr %call103, i64 0, i32 1
-  store ptr %call106, ptr %first.i.i380, align 8, !tbaa !11
-  %second.i.i381 = getelementptr inbounds %class.bin_op_expr, ptr %call103, i64 0, i32 2
-  store ptr %call111, ptr %second.i.i381, align 8, !tbaa !16
+  %op_name.i417 = getelementptr inbounds %class.bin_op_expr, ptr %call111, i64 0, i32 3
+  store i8 42, ptr %op_name.i417, align 8, !tbaa !17
+  %first.i.i418 = getelementptr inbounds %class.bin_op_expr, ptr %call103, i64 0, i32 1
+  store ptr %call106, ptr %first.i.i418, align 8, !tbaa !11
+  %second.i.i419 = getelementptr inbounds %class.bin_op_expr, ptr %call103, i64 0, i32 2
+  store ptr %call111, ptr %second.i.i419, align 8, !tbaa !16
   store ptr getelementptr inbounds ({ [6 x ptr] }, ptr @_ZTV9prod_expr, i64 0, inrange i32 0, i64 2), ptr %call103, align 8, !tbaa !14
-  %op_name.i382 = getelementptr inbounds %class.bin_op_expr, ptr %call103, i64 0, i32 3
-  store i8 42, ptr %op_name.i382, align 8, !tbaa !17
+  %op_name.i420 = getelementptr inbounds %class.bin_op_expr, ptr %call103, i64 0, i32 3
+  store i8 42, ptr %op_name.i420, align 8, !tbaa !17
   %call119 = invoke noalias noundef nonnull dereferenceable(32) ptr @_Znwm(i64 noundef 32) #13
           to label %invoke.cont118 unwind label %lpad101
 
 invoke.cont118:                                   ; preds = %invoke.cont110
   %24 = load ptr, ptr %second, align 8, !tbaa !16
-  %first.i.i383 = getelementptr inbounds %class.bin_op_expr, ptr %call119, i64 0, i32 1
-  store ptr %24, ptr %first.i.i383, align 8, !tbaa !11
-  %second.i.i384 = getelementptr inbounds %class.bin_op_expr, ptr %call119, i64 0, i32 2
-  store ptr %24, ptr %second.i.i384, align 8, !tbaa !16
+  %first.i.i421 = getelementptr inbounds %class.bin_op_expr, ptr %call119, i64 0, i32 1
+  store ptr %24, ptr %first.i.i421, align 8, !tbaa !11
+  %second.i.i422 = getelementptr inbounds %class.bin_op_expr, ptr %call119, i64 0, i32 2
+  store ptr %24, ptr %second.i.i422, align 8, !tbaa !16
   store ptr getelementptr inbounds ({ [6 x ptr] }, ptr @_ZTV9prod_expr, i64 0, inrange i32 0, i64 2), ptr %call119, align 8, !tbaa !14
-  %op_name.i385 = getelementptr inbounds %class.bin_op_expr, ptr %call119, i64 0, i32 3
-  store i8 42, ptr %op_name.i385, align 8, !tbaa !17
+  %op_name.i423 = getelementptr inbounds %class.bin_op_expr, ptr %call119, i64 0, i32 3
+  store i8 42, ptr %op_name.i423, align 8, !tbaa !17
   br label %cleanup.sink.split
 
 lpad101:                                          ; preds = %invoke.cont110, %if.else99
@@ -831,7 +831,7 @@ lpad101:                                          ; preds = %invoke.cont110, %if
           cleanup
   br label %ehcleanup325
 
-lpad104:                                          ; preds = %invoke.cont105, %invoke.cont102
+lpad104:                                          ; preds = %invoke.cont108, %invoke.cont102
   %26 = landingpad { ptr, i32 }
           cleanup
   tail call void @_ZdlPv(ptr noundef nonnull %call103) #14
@@ -902,41 +902,41 @@ invoke.cont166:                                   ; preds = %if.then163
 
 invoke.cont170:                                   ; preds = %invoke.cont166
   %call174 = invoke noalias noundef nonnull dereferenceable(16) ptr @_Znwm(i64 noundef 16) #13
-          to label %invoke.cont173 unwind label %lpad172
+          to label %invoke.cont181 unwind label %lpad172
 
-invoke.cont173:                                   ; preds = %invoke.cont170
+invoke.cont181:                                   ; preds = %invoke.cont170
   store ptr getelementptr inbounds ({ [6 x ptr] }, ptr @_ZTV10const_expr, i64 0, inrange i32 0, i64 2), ptr %call174, align 8, !tbaa !14
-  %value.i392 = getelementptr inbounds %class.const_expr, ptr %call174, i64 0, i32 1
-  store double -1.000000e+00, ptr %value.i392, align 8, !tbaa !5
+  %value.i430 = getelementptr inbounds %class.const_expr, ptr %call174, i64 0, i32 1
+  store double -1.000000e+00, ptr %value.i430, align 8, !tbaa !5
   %35 = load ptr, ptr %first, align 8, !tbaa !11
-  %first.i.i393 = getelementptr inbounds %class.bin_op_expr, ptr %call171, i64 0, i32 1
-  store ptr %call174, ptr %first.i.i393, align 8, !tbaa !11
-  %second.i.i394 = getelementptr inbounds %class.bin_op_expr, ptr %call171, i64 0, i32 2
-  store ptr %35, ptr %second.i.i394, align 8, !tbaa !16
+  %first.i.i431 = getelementptr inbounds %class.bin_op_expr, ptr %call171, i64 0, i32 1
+  store ptr %call174, ptr %first.i.i431, align 8, !tbaa !11
+  %second.i.i432 = getelementptr inbounds %class.bin_op_expr, ptr %call171, i64 0, i32 2
+  store ptr %35, ptr %second.i.i432, align 8, !tbaa !16
   store ptr getelementptr inbounds ({ [6 x ptr] }, ptr @_ZTV9prod_expr, i64 0, inrange i32 0, i64 2), ptr %call171, align 8, !tbaa !14
-  %op_name.i395 = getelementptr inbounds %class.bin_op_expr, ptr %call171, i64 0, i32 3
-  store i8 42, ptr %op_name.i395, align 8, !tbaa !17
-  %first.i.i396 = getelementptr inbounds %class.bin_op_expr, ptr %call167, i64 0, i32 1
-  store ptr %34, ptr %first.i.i396, align 8, !tbaa !11
-  %second.i.i397 = getelementptr inbounds %class.bin_op_expr, ptr %call167, i64 0, i32 2
-  store ptr %call171, ptr %second.i.i397, align 8, !tbaa !16
+  %op_name.i433 = getelementptr inbounds %class.bin_op_expr, ptr %call171, i64 0, i32 3
+  store i8 42, ptr %op_name.i433, align 8, !tbaa !17
+  %first.i.i434 = getelementptr inbounds %class.bin_op_expr, ptr %call167, i64 0, i32 1
+  store ptr %34, ptr %first.i.i434, align 8, !tbaa !11
+  %second.i.i435 = getelementptr inbounds %class.bin_op_expr, ptr %call167, i64 0, i32 2
+  store ptr %call171, ptr %second.i.i435, align 8, !tbaa !16
   store ptr getelementptr inbounds ({ [6 x ptr] }, ptr @_ZTV8sum_expr, i64 0, inrange i32 0, i64 2), ptr %call167, align 8, !tbaa !14
-  %op_name.i398 = getelementptr inbounds %class.bin_op_expr, ptr %call167, i64 0, i32 3
-  store i8 43, ptr %op_name.i398, align 8, !tbaa !17
+  %op_name.i436 = getelementptr inbounds %class.bin_op_expr, ptr %call167, i64 0, i32 3
+  store i8 43, ptr %op_name.i436, align 8, !tbaa !17
   %call184 = invoke noalias noundef nonnull dereferenceable(32) ptr @_Znwm(i64 noundef 32) #13
           to label %invoke.cont183 unwind label %lpad165
 
-invoke.cont183:                                   ; preds = %invoke.cont173
-  %first.i.i399 = getelementptr inbounds %class.bin_op_expr, ptr %call184, i64 0, i32 1
-  store ptr %34, ptr %first.i.i399, align 8, !tbaa !11
-  %second.i.i400 = getelementptr inbounds %class.bin_op_expr, ptr %call184, i64 0, i32 2
-  store ptr %34, ptr %second.i.i400, align 8, !tbaa !16
+invoke.cont183:                                   ; preds = %invoke.cont181
+  %first.i.i437 = getelementptr inbounds %class.bin_op_expr, ptr %call184, i64 0, i32 1
+  store ptr %34, ptr %first.i.i437, align 8, !tbaa !11
+  %second.i.i438 = getelementptr inbounds %class.bin_op_expr, ptr %call184, i64 0, i32 2
+  store ptr %34, ptr %second.i.i438, align 8, !tbaa !16
   store ptr getelementptr inbounds ({ [6 x ptr] }, ptr @_ZTV9prod_expr, i64 0, inrange i32 0, i64 2), ptr %call184, align 8, !tbaa !14
-  %op_name.i401 = getelementptr inbounds %class.bin_op_expr, ptr %call184, i64 0, i32 3
-  store i8 42, ptr %op_name.i401, align 8, !tbaa !17
+  %op_name.i439 = getelementptr inbounds %class.bin_op_expr, ptr %call184, i64 0, i32 3
+  store i8 42, ptr %op_name.i439, align 8, !tbaa !17
   br label %cleanup.sink.split
 
-lpad165:                                          ; preds = %invoke.cont173, %if.then163
+lpad165:                                          ; preds = %invoke.cont181, %if.then163
   %36 = landingpad { ptr, i32 }
           cleanup
   br label %ehcleanup325
@@ -953,7 +953,7 @@ lpad172:                                          ; preds = %invoke.cont170
   br label %ehcleanup182
 
 ehcleanup182:                                     ; preds = %lpad172, %lpad169
-  %.pn470 = phi { ptr, i32 } [ %37, %lpad169 ], [ %38, %lpad172 ]
+  %.pn371 = phi { ptr, i32 } [ %37, %lpad169 ], [ %38, %lpad172 ]
   tail call void @_ZdlPv(ptr noundef nonnull %call167) #14
   br label %ehcleanup325
 
@@ -969,52 +969,52 @@ invoke.cont195:                                   ; preds = %if.else192
 
 invoke.cont199:                                   ; preds = %invoke.cont195
   %call203 = invoke noalias noundef nonnull dereferenceable(16) ptr @_Znwm(i64 noundef 16) #13
-          to label %invoke.cont202 unwind label %lpad201
+          to label %invoke.cont205 unwind label %lpad201
 
-invoke.cont202:                                   ; preds = %invoke.cont199
+invoke.cont205:                                   ; preds = %invoke.cont199
   store ptr getelementptr inbounds ({ [6 x ptr] }, ptr @_ZTV10const_expr, i64 0, inrange i32 0, i64 2), ptr %call203, align 8, !tbaa !14
-  %value.i405 = getelementptr inbounds %class.const_expr, ptr %call203, i64 0, i32 1
-  store double -1.000000e+00, ptr %value.i405, align 8, !tbaa !5
+  %value.i443 = getelementptr inbounds %class.const_expr, ptr %call203, i64 0, i32 1
+  store double -1.000000e+00, ptr %value.i443, align 8, !tbaa !5
   %call208 = invoke noalias noundef nonnull dereferenceable(32) ptr @_Znwm(i64 noundef 32) #13
-          to label %invoke.cont207 unwind label %lpad201
+          to label %invoke.cont215 unwind label %lpad201
 
-invoke.cont207:                                   ; preds = %invoke.cont202
+invoke.cont215:                                   ; preds = %invoke.cont205
   %40 = load ptr, ptr %first, align 8, !tbaa !11
-  %first.i.i406 = getelementptr inbounds %class.bin_op_expr, ptr %call208, i64 0, i32 1
-  store ptr %call4, ptr %first.i.i406, align 8, !tbaa !11
-  %second.i.i407 = getelementptr inbounds %class.bin_op_expr, ptr %call208, i64 0, i32 2
-  store ptr %40, ptr %second.i.i407, align 8, !tbaa !16
+  %first.i.i444 = getelementptr inbounds %class.bin_op_expr, ptr %call208, i64 0, i32 1
+  store ptr %call4, ptr %first.i.i444, align 8, !tbaa !11
+  %second.i.i445 = getelementptr inbounds %class.bin_op_expr, ptr %call208, i64 0, i32 2
+  store ptr %40, ptr %second.i.i445, align 8, !tbaa !16
   store ptr getelementptr inbounds ({ [6 x ptr] }, ptr @_ZTV9prod_expr, i64 0, inrange i32 0, i64 2), ptr %call208, align 8, !tbaa !14
-  %op_name.i408 = getelementptr inbounds %class.bin_op_expr, ptr %call208, i64 0, i32 3
-  store i8 42, ptr %op_name.i408, align 8, !tbaa !17
-  %first.i.i409 = getelementptr inbounds %class.bin_op_expr, ptr %call200, i64 0, i32 1
-  store ptr %call203, ptr %first.i.i409, align 8, !tbaa !11
-  %second.i.i410 = getelementptr inbounds %class.bin_op_expr, ptr %call200, i64 0, i32 2
-  store ptr %call208, ptr %second.i.i410, align 8, !tbaa !16
+  %op_name.i446 = getelementptr inbounds %class.bin_op_expr, ptr %call208, i64 0, i32 3
+  store i8 42, ptr %op_name.i446, align 8, !tbaa !17
+  %first.i.i447 = getelementptr inbounds %class.bin_op_expr, ptr %call200, i64 0, i32 1
+  store ptr %call203, ptr %first.i.i447, align 8, !tbaa !11
+  %second.i.i448 = getelementptr inbounds %class.bin_op_expr, ptr %call200, i64 0, i32 2
+  store ptr %call208, ptr %second.i.i448, align 8, !tbaa !16
   store ptr getelementptr inbounds ({ [6 x ptr] }, ptr @_ZTV9prod_expr, i64 0, inrange i32 0, i64 2), ptr %call200, align 8, !tbaa !14
-  %op_name.i411 = getelementptr inbounds %class.bin_op_expr, ptr %call200, i64 0, i32 3
-  store i8 42, ptr %op_name.i411, align 8, !tbaa !17
-  %first.i.i412 = getelementptr inbounds %class.bin_op_expr, ptr %call196, i64 0, i32 1
-  store ptr %39, ptr %first.i.i412, align 8, !tbaa !11
-  %second.i.i413 = getelementptr inbounds %class.bin_op_expr, ptr %call196, i64 0, i32 2
-  store ptr %call200, ptr %second.i.i413, align 8, !tbaa !16
+  %op_name.i449 = getelementptr inbounds %class.bin_op_expr, ptr %call200, i64 0, i32 3
+  store i8 42, ptr %op_name.i449, align 8, !tbaa !17
+  %first.i.i450 = getelementptr inbounds %class.bin_op_expr, ptr %call196, i64 0, i32 1
+  store ptr %39, ptr %first.i.i450, align 8, !tbaa !11
+  %second.i.i451 = getelementptr inbounds %class.bin_op_expr, ptr %call196, i64 0, i32 2
+  store ptr %call200, ptr %second.i.i451, align 8, !tbaa !16
   store ptr getelementptr inbounds ({ [6 x ptr] }, ptr @_ZTV8sum_expr, i64 0, inrange i32 0, i64 2), ptr %call196, align 8, !tbaa !14
-  %op_name.i414 = getelementptr inbounds %class.bin_op_expr, ptr %call196, i64 0, i32 3
-  store i8 43, ptr %op_name.i414, align 8, !tbaa !17
+  %op_name.i452 = getelementptr inbounds %class.bin_op_expr, ptr %call196, i64 0, i32 3
+  store i8 43, ptr %op_name.i452, align 8, !tbaa !17
   %call218 = invoke noalias noundef nonnull dereferenceable(32) ptr @_Znwm(i64 noundef 32) #13
           to label %invoke.cont217 unwind label %lpad194
 
-invoke.cont217:                                   ; preds = %invoke.cont207
-  %first.i.i415 = getelementptr inbounds %class.bin_op_expr, ptr %call218, i64 0, i32 1
-  store ptr %39, ptr %first.i.i415, align 8, !tbaa !11
-  %second.i.i416 = getelementptr inbounds %class.bin_op_expr, ptr %call218, i64 0, i32 2
-  store ptr %39, ptr %second.i.i416, align 8, !tbaa !16
+invoke.cont217:                                   ; preds = %invoke.cont215
+  %first.i.i453 = getelementptr inbounds %class.bin_op_expr, ptr %call218, i64 0, i32 1
+  store ptr %39, ptr %first.i.i453, align 8, !tbaa !11
+  %second.i.i454 = getelementptr inbounds %class.bin_op_expr, ptr %call218, i64 0, i32 2
+  store ptr %39, ptr %second.i.i454, align 8, !tbaa !16
   store ptr getelementptr inbounds ({ [6 x ptr] }, ptr @_ZTV9prod_expr, i64 0, inrange i32 0, i64 2), ptr %call218, align 8, !tbaa !14
-  %op_name.i417 = getelementptr inbounds %class.bin_op_expr, ptr %call218, i64 0, i32 3
-  store i8 42, ptr %op_name.i417, align 8, !tbaa !17
+  %op_name.i455 = getelementptr inbounds %class.bin_op_expr, ptr %call218, i64 0, i32 3
+  store i8 42, ptr %op_name.i455, align 8, !tbaa !17
   br label %cleanup.sink.split
 
-lpad194:                                          ; preds = %invoke.cont207, %if.else192
+lpad194:                                          ; preds = %invoke.cont215, %if.else192
   %41 = landingpad { ptr, i32 }
           cleanup
   br label %ehcleanup325
@@ -1024,14 +1024,14 @@ lpad198:                                          ; preds = %invoke.cont195
           cleanup
   br label %ehcleanup216
 
-lpad201:                                          ; preds = %invoke.cont202, %invoke.cont199
+lpad201:                                          ; preds = %invoke.cont205, %invoke.cont199
   %43 = landingpad { ptr, i32 }
           cleanup
   tail call void @_ZdlPv(ptr noundef nonnull %call200) #14
   br label %ehcleanup216
 
 ehcleanup216:                                     ; preds = %lpad201, %lpad198
-  %.pn466 = phi { ptr, i32 } [ %42, %lpad198 ], [ %43, %lpad201 ]
+  %.pn365 = phi { ptr, i32 } [ %42, %lpad198 ], [ %43, %lpad201 ]
   tail call void @_ZdlPv(ptr noundef nonnull %call196) #14
   br label %ehcleanup325
 
@@ -1083,53 +1083,53 @@ invoke.cont255:                                   ; preds = %if.then252
 
 invoke.cont258:                                   ; preds = %invoke.cont255
   %49 = load ptr, ptr %second, align 8, !tbaa !16
-  %first.i.i424 = getelementptr inbounds %class.bin_op_expr, ptr %call259, i64 0, i32 1
-  store ptr %49, ptr %first.i.i424, align 8, !tbaa !11
-  %second.i.i425 = getelementptr inbounds %class.bin_op_expr, ptr %call259, i64 0, i32 2
-  store ptr %call, ptr %second.i.i425, align 8, !tbaa !16
+  %first.i.i462 = getelementptr inbounds %class.bin_op_expr, ptr %call259, i64 0, i32 1
+  store ptr %49, ptr %first.i.i462, align 8, !tbaa !11
+  %second.i.i463 = getelementptr inbounds %class.bin_op_expr, ptr %call259, i64 0, i32 2
+  store ptr %call, ptr %second.i.i463, align 8, !tbaa !16
   store ptr getelementptr inbounds ({ [6 x ptr] }, ptr @_ZTV9prod_expr, i64 0, inrange i32 0, i64 2), ptr %call259, align 8, !tbaa !14
-  %op_name.i426 = getelementptr inbounds %class.bin_op_expr, ptr %call259, i64 0, i32 3
-  store i8 42, ptr %op_name.i426, align 8, !tbaa !17
+  %op_name.i464 = getelementptr inbounds %class.bin_op_expr, ptr %call259, i64 0, i32 3
+  store i8 42, ptr %op_name.i464, align 8, !tbaa !17
   %call265 = invoke noalias noundef nonnull dereferenceable(32) ptr @_Znwm(i64 noundef 32) #13
           to label %invoke.cont264 unwind label %lpad257
 
 invoke.cont264:                                   ; preds = %invoke.cont258
   %call268 = invoke noalias noundef nonnull dereferenceable(16) ptr @_Znwm(i64 noundef 16) #13
-          to label %invoke.cont267 unwind label %lpad266
+          to label %invoke.cont275 unwind label %lpad266
 
-invoke.cont267:                                   ; preds = %invoke.cont264
+invoke.cont275:                                   ; preds = %invoke.cont264
   store ptr getelementptr inbounds ({ [6 x ptr] }, ptr @_ZTV10const_expr, i64 0, inrange i32 0, i64 2), ptr %call268, align 8, !tbaa !14
-  %value.i427 = getelementptr inbounds %class.const_expr, ptr %call268, i64 0, i32 1
-  store double -1.000000e+00, ptr %value.i427, align 8, !tbaa !5
+  %value.i465 = getelementptr inbounds %class.const_expr, ptr %call268, i64 0, i32 1
+  store double -1.000000e+00, ptr %value.i465, align 8, !tbaa !5
   %50 = load ptr, ptr %first, align 8, !tbaa !11
-  %first.i.i428 = getelementptr inbounds %class.bin_op_expr, ptr %call265, i64 0, i32 1
-  store ptr %call268, ptr %first.i.i428, align 8, !tbaa !11
-  %second.i.i429 = getelementptr inbounds %class.bin_op_expr, ptr %call265, i64 0, i32 2
-  store ptr %50, ptr %second.i.i429, align 8, !tbaa !16
+  %first.i.i466 = getelementptr inbounds %class.bin_op_expr, ptr %call265, i64 0, i32 1
+  store ptr %call268, ptr %first.i.i466, align 8, !tbaa !11
+  %second.i.i467 = getelementptr inbounds %class.bin_op_expr, ptr %call265, i64 0, i32 2
+  store ptr %50, ptr %second.i.i467, align 8, !tbaa !16
   store ptr getelementptr inbounds ({ [6 x ptr] }, ptr @_ZTV9prod_expr, i64 0, inrange i32 0, i64 2), ptr %call265, align 8, !tbaa !14
-  %op_name.i430 = getelementptr inbounds %class.bin_op_expr, ptr %call265, i64 0, i32 3
-  store i8 42, ptr %op_name.i430, align 8, !tbaa !17
-  %first.i.i431 = getelementptr inbounds %class.bin_op_expr, ptr %call256, i64 0, i32 1
-  store ptr %call259, ptr %first.i.i431, align 8, !tbaa !11
-  %second.i.i432 = getelementptr inbounds %class.bin_op_expr, ptr %call256, i64 0, i32 2
-  store ptr %call265, ptr %second.i.i432, align 8, !tbaa !16
+  %op_name.i468 = getelementptr inbounds %class.bin_op_expr, ptr %call265, i64 0, i32 3
+  store i8 42, ptr %op_name.i468, align 8, !tbaa !17
+  %first.i.i469 = getelementptr inbounds %class.bin_op_expr, ptr %call256, i64 0, i32 1
+  store ptr %call259, ptr %first.i.i469, align 8, !tbaa !11
+  %second.i.i470 = getelementptr inbounds %class.bin_op_expr, ptr %call256, i64 0, i32 2
+  store ptr %call265, ptr %second.i.i470, align 8, !tbaa !16
   store ptr getelementptr inbounds ({ [6 x ptr] }, ptr @_ZTV8sum_expr, i64 0, inrange i32 0, i64 2), ptr %call256, align 8, !tbaa !14
-  %op_name.i433 = getelementptr inbounds %class.bin_op_expr, ptr %call256, i64 0, i32 3
-  store i8 43, ptr %op_name.i433, align 8, !tbaa !17
+  %op_name.i471 = getelementptr inbounds %class.bin_op_expr, ptr %call256, i64 0, i32 3
+  store i8 43, ptr %op_name.i471, align 8, !tbaa !17
   %call278 = invoke noalias noundef nonnull dereferenceable(32) ptr @_Znwm(i64 noundef 32) #13
           to label %invoke.cont277 unwind label %lpad254
 
-invoke.cont277:                                   ; preds = %invoke.cont267
-  %first.i.i434 = getelementptr inbounds %class.bin_op_expr, ptr %call278, i64 0, i32 1
-  store ptr %49, ptr %first.i.i434, align 8, !tbaa !11
-  %second.i.i435 = getelementptr inbounds %class.bin_op_expr, ptr %call278, i64 0, i32 2
-  store ptr %49, ptr %second.i.i435, align 8, !tbaa !16
+invoke.cont277:                                   ; preds = %invoke.cont275
+  %first.i.i472 = getelementptr inbounds %class.bin_op_expr, ptr %call278, i64 0, i32 1
+  store ptr %49, ptr %first.i.i472, align 8, !tbaa !11
+  %second.i.i473 = getelementptr inbounds %class.bin_op_expr, ptr %call278, i64 0, i32 2
+  store ptr %49, ptr %second.i.i473, align 8, !tbaa !16
   store ptr getelementptr inbounds ({ [6 x ptr] }, ptr @_ZTV9prod_expr, i64 0, inrange i32 0, i64 2), ptr %call278, align 8, !tbaa !14
-  %op_name.i436 = getelementptr inbounds %class.bin_op_expr, ptr %call278, i64 0, i32 3
-  store i8 42, ptr %op_name.i436, align 8, !tbaa !17
+  %op_name.i474 = getelementptr inbounds %class.bin_op_expr, ptr %call278, i64 0, i32 3
+  store i8 42, ptr %op_name.i474, align 8, !tbaa !17
   br label %cleanup.sink.split
 
-lpad254:                                          ; preds = %invoke.cont267, %if.then252
+lpad254:                                          ; preds = %invoke.cont275, %if.then252
   %51 = landingpad { ptr, i32 }
           cleanup
   br label %ehcleanup325
@@ -1146,7 +1146,7 @@ lpad266:                                          ; preds = %invoke.cont264
   br label %ehcleanup276
 
 ehcleanup276:                                     ; preds = %lpad266, %lpad257
-  %.pn462 = phi { ptr, i32 } [ %52, %lpad257 ], [ %53, %lpad266 ]
+  %.pn359 = phi { ptr, i32 } [ %52, %lpad257 ], [ %53, %lpad266 ]
   tail call void @_ZdlPv(ptr noundef nonnull %call256) #14
   br label %ehcleanup325
 
@@ -1161,64 +1161,64 @@ invoke.cont289:                                   ; preds = %if.else286
 
 invoke.cont292:                                   ; preds = %invoke.cont289
   %54 = load ptr, ptr %second, align 8, !tbaa !16
-  %first.i.i440 = getelementptr inbounds %class.bin_op_expr, ptr %call293, i64 0, i32 1
-  store ptr %54, ptr %first.i.i440, align 8, !tbaa !11
-  %second.i.i441 = getelementptr inbounds %class.bin_op_expr, ptr %call293, i64 0, i32 2
-  store ptr %call, ptr %second.i.i441, align 8, !tbaa !16
+  %first.i.i478 = getelementptr inbounds %class.bin_op_expr, ptr %call293, i64 0, i32 1
+  store ptr %54, ptr %first.i.i478, align 8, !tbaa !11
+  %second.i.i479 = getelementptr inbounds %class.bin_op_expr, ptr %call293, i64 0, i32 2
+  store ptr %call, ptr %second.i.i479, align 8, !tbaa !16
   store ptr getelementptr inbounds ({ [6 x ptr] }, ptr @_ZTV9prod_expr, i64 0, inrange i32 0, i64 2), ptr %call293, align 8, !tbaa !14
-  %op_name.i442 = getelementptr inbounds %class.bin_op_expr, ptr %call293, i64 0, i32 3
-  store i8 42, ptr %op_name.i442, align 8, !tbaa !17
+  %op_name.i480 = getelementptr inbounds %class.bin_op_expr, ptr %call293, i64 0, i32 3
+  store i8 42, ptr %op_name.i480, align 8, !tbaa !17
   %call299 = invoke noalias noundef nonnull dereferenceable(32) ptr @_Znwm(i64 noundef 32) #13
           to label %invoke.cont298 unwind label %lpad291
 
 invoke.cont298:                                   ; preds = %invoke.cont292
   %call302 = invoke noalias noundef nonnull dereferenceable(16) ptr @_Znwm(i64 noundef 16) #13
-          to label %invoke.cont301 unwind label %lpad300
+          to label %invoke.cont304 unwind label %lpad300
 
-invoke.cont301:                                   ; preds = %invoke.cont298
+invoke.cont304:                                   ; preds = %invoke.cont298
   store ptr getelementptr inbounds ({ [6 x ptr] }, ptr @_ZTV10const_expr, i64 0, inrange i32 0, i64 2), ptr %call302, align 8, !tbaa !14
-  %value.i443 = getelementptr inbounds %class.const_expr, ptr %call302, i64 0, i32 1
-  store double -1.000000e+00, ptr %value.i443, align 8, !tbaa !5
+  %value.i481 = getelementptr inbounds %class.const_expr, ptr %call302, i64 0, i32 1
+  store double -1.000000e+00, ptr %value.i481, align 8, !tbaa !5
   %call307 = invoke noalias noundef nonnull dereferenceable(32) ptr @_Znwm(i64 noundef 32) #13
-          to label %invoke.cont306 unwind label %lpad300
+          to label %invoke.cont314 unwind label %lpad300
 
-invoke.cont306:                                   ; preds = %invoke.cont301
+invoke.cont314:                                   ; preds = %invoke.cont304
   %55 = load ptr, ptr %first, align 8, !tbaa !11
-  %first.i.i444 = getelementptr inbounds %class.bin_op_expr, ptr %call307, i64 0, i32 1
-  store ptr %call4, ptr %first.i.i444, align 8, !tbaa !11
-  %second.i.i445 = getelementptr inbounds %class.bin_op_expr, ptr %call307, i64 0, i32 2
-  store ptr %55, ptr %second.i.i445, align 8, !tbaa !16
+  %first.i.i482 = getelementptr inbounds %class.bin_op_expr, ptr %call307, i64 0, i32 1
+  store ptr %call4, ptr %first.i.i482, align 8, !tbaa !11
+  %second.i.i483 = getelementptr inbounds %class.bin_op_expr, ptr %call307, i64 0, i32 2
+  store ptr %55, ptr %second.i.i483, align 8, !tbaa !16
   store ptr getelementptr inbounds ({ [6 x ptr] }, ptr @_ZTV9prod_expr, i64 0, inrange i32 0, i64 2), ptr %call307, align 8, !tbaa !14
-  %op_name.i446 = getelementptr inbounds %class.bin_op_expr, ptr %call307, i64 0, i32 3
-  store i8 42, ptr %op_name.i446, align 8, !tbaa !17
-  %first.i.i447 = getelementptr inbounds %class.bin_op_expr, ptr %call299, i64 0, i32 1
-  store ptr %call302, ptr %first.i.i447, align 8, !tbaa !11
-  %second.i.i448 = getelementptr inbounds %class.bin_op_expr, ptr %call299, i64 0, i32 2
-  store ptr %call307, ptr %second.i.i448, align 8, !tbaa !16
+  %op_name.i484 = getelementptr inbounds %class.bin_op_expr, ptr %call307, i64 0, i32 3
+  store i8 42, ptr %op_name.i484, align 8, !tbaa !17
+  %first.i.i485 = getelementptr inbounds %class.bin_op_expr, ptr %call299, i64 0, i32 1
+  store ptr %call302, ptr %first.i.i485, align 8, !tbaa !11
+  %second.i.i486 = getelementptr inbounds %class.bin_op_expr, ptr %call299, i64 0, i32 2
+  store ptr %call307, ptr %second.i.i486, align 8, !tbaa !16
   store ptr getelementptr inbounds ({ [6 x ptr] }, ptr @_ZTV9prod_expr, i64 0, inrange i32 0, i64 2), ptr %call299, align 8, !tbaa !14
-  %op_name.i449 = getelementptr inbounds %class.bin_op_expr, ptr %call299, i64 0, i32 3
-  store i8 42, ptr %op_name.i449, align 8, !tbaa !17
-  %first.i.i450 = getelementptr inbounds %class.bin_op_expr, ptr %call290, i64 0, i32 1
-  store ptr %call293, ptr %first.i.i450, align 8, !tbaa !11
-  %second.i.i451 = getelementptr inbounds %class.bin_op_expr, ptr %call290, i64 0, i32 2
-  store ptr %call299, ptr %second.i.i451, align 8, !tbaa !16
+  %op_name.i487 = getelementptr inbounds %class.bin_op_expr, ptr %call299, i64 0, i32 3
+  store i8 42, ptr %op_name.i487, align 8, !tbaa !17
+  %first.i.i488 = getelementptr inbounds %class.bin_op_expr, ptr %call290, i64 0, i32 1
+  store ptr %call293, ptr %first.i.i488, align 8, !tbaa !11
+  %second.i.i489 = getelementptr inbounds %class.bin_op_expr, ptr %call290, i64 0, i32 2
+  store ptr %call299, ptr %second.i.i489, align 8, !tbaa !16
   store ptr getelementptr inbounds ({ [6 x ptr] }, ptr @_ZTV8sum_expr, i64 0, inrange i32 0, i64 2), ptr %call290, align 8, !tbaa !14
-  %op_name.i452 = getelementptr inbounds %class.bin_op_expr, ptr %call290, i64 0, i32 3
-  store i8 43, ptr %op_name.i452, align 8, !tbaa !17
+  %op_name.i490 = getelementptr inbounds %class.bin_op_expr, ptr %call290, i64 0, i32 3
+  store i8 43, ptr %op_name.i490, align 8, !tbaa !17
   %call317 = invoke noalias noundef nonnull dereferenceable(32) ptr @_Znwm(i64 noundef 32) #13
           to label %invoke.cont316 unwind label %lpad288
 
-invoke.cont316:                                   ; preds = %invoke.cont306
-  %first.i.i453 = getelementptr inbounds %class.bin_op_expr, ptr %call317, i64 0, i32 1
-  store ptr %54, ptr %first.i.i453, align 8, !tbaa !11
-  %second.i.i454 = getelementptr inbounds %class.bin_op_expr, ptr %call317, i64 0, i32 2
-  store ptr %54, ptr %second.i.i454, align 8, !tbaa !16
+invoke.cont316:                                   ; preds = %invoke.cont314
+  %first.i.i491 = getelementptr inbounds %class.bin_op_expr, ptr %call317, i64 0, i32 1
+  store ptr %54, ptr %first.i.i491, align 8, !tbaa !11
+  %second.i.i492 = getelementptr inbounds %class.bin_op_expr, ptr %call317, i64 0, i32 2
+  store ptr %54, ptr %second.i.i492, align 8, !tbaa !16
   store ptr getelementptr inbounds ({ [6 x ptr] }, ptr @_ZTV9prod_expr, i64 0, inrange i32 0, i64 2), ptr %call317, align 8, !tbaa !14
-  %op_name.i455 = getelementptr inbounds %class.bin_op_expr, ptr %call317, i64 0, i32 3
-  store i8 42, ptr %op_name.i455, align 8, !tbaa !17
+  %op_name.i493 = getelementptr inbounds %class.bin_op_expr, ptr %call317, i64 0, i32 3
+  store i8 42, ptr %op_name.i493, align 8, !tbaa !17
   br label %cleanup.sink.split
 
-lpad288:                                          ; preds = %invoke.cont306, %if.else286
+lpad288:                                          ; preds = %invoke.cont314, %if.else286
   %56 = landingpad { ptr, i32 }
           cleanup
   br label %ehcleanup325
@@ -1228,39 +1228,39 @@ lpad291:                                          ; preds = %invoke.cont292, %in
           cleanup
   br label %ehcleanup315
 
-lpad300:                                          ; preds = %invoke.cont301, %invoke.cont298
+lpad300:                                          ; preds = %invoke.cont304, %invoke.cont298
   %58 = landingpad { ptr, i32 }
           cleanup
   tail call void @_ZdlPv(ptr noundef nonnull %call299) #14
   br label %ehcleanup315
 
 ehcleanup315:                                     ; preds = %lpad300, %lpad291
-  %.pn = phi { ptr, i32 } [ %57, %lpad291 ], [ %58, %lpad300 ]
+  %.pn353 = phi { ptr, i32 } [ %57, %lpad291 ], [ %58, %lpad300 ]
   tail call void @_ZdlPv(ptr noundef nonnull %call290) #14
   br label %ehcleanup325
 
 cleanup.sink.split:                               ; preds = %invoke.cont41, %invoke.cont62, %invoke.cont90, %invoke.cont118, %if.then147, %invoke.cont183, %invoke.cont217, %if.then236, %invoke.cont277, %invoke.cont316
-  %call287.sink484 = phi ptr [ %call287, %invoke.cont316 ], [ %call253, %invoke.cont277 ], [ %call237, %if.then236 ], [ %call193, %invoke.cont217 ], [ %call164, %invoke.cont183 ], [ %call148, %if.then147 ], [ %call78, %invoke.cont118 ], [ %call78, %invoke.cont90 ], [ %call37, %invoke.cont62 ], [ %call37, %invoke.cont41 ]
+  %call287.sink499 = phi ptr [ %call287, %invoke.cont316 ], [ %call253, %invoke.cont277 ], [ %call237, %if.then236 ], [ %call193, %invoke.cont217 ], [ %call164, %invoke.cont183 ], [ %call148, %if.then147 ], [ %call78, %invoke.cont118 ], [ %call78, %invoke.cont90 ], [ %call37, %invoke.cont62 ], [ %call37, %invoke.cont41 ]
   %call290.sink = phi ptr [ %call290, %invoke.cont316 ], [ %call256, %invoke.cont277 ], [ %call, %if.then236 ], [ %call196, %invoke.cont217 ], [ %call167, %invoke.cont183 ], [ %call, %if.then147 ], [ %call103, %invoke.cont118 ], [ %call81, %invoke.cont90 ], [ %call52, %invoke.cont62 ], [ %call38, %invoke.cont41 ]
   %call317.sink = phi ptr [ %call317, %invoke.cont316 ], [ %call278, %invoke.cont277 ], [ %46, %if.then236 ], [ %call218, %invoke.cont217 ], [ %call184, %invoke.cont183 ], [ %31, %if.then147 ], [ %call119, %invoke.cont118 ], [ %call91, %invoke.cont90 ], [ %call63, %invoke.cont62 ], [ %call42, %invoke.cont41 ]
-  %first.i.i456 = getelementptr inbounds %class.bin_op_expr, ptr %call287.sink484, i64 0, i32 1
-  store ptr %call290.sink, ptr %first.i.i456, align 8, !tbaa !11
-  %second.i.i457 = getelementptr inbounds %class.bin_op_expr, ptr %call287.sink484, i64 0, i32 2
-  store ptr %call317.sink, ptr %second.i.i457, align 8, !tbaa !16
-  store ptr getelementptr inbounds ({ [6 x ptr] }, ptr @_ZTV13quotient_expr, i64 0, inrange i32 0, i64 2), ptr %call287.sink484, align 8, !tbaa !14
-  %op_name.i458 = getelementptr inbounds %class.bin_op_expr, ptr %call287.sink484, i64 0, i32 3
-  store i8 47, ptr %op_name.i458, align 8, !tbaa !17
+  %first.i.i494 = getelementptr inbounds %class.bin_op_expr, ptr %call287.sink499, i64 0, i32 1
+  store ptr %call290.sink, ptr %first.i.i494, align 8, !tbaa !11
+  %second.i.i495 = getelementptr inbounds %class.bin_op_expr, ptr %call287.sink499, i64 0, i32 2
+  store ptr %call317.sink, ptr %second.i.i495, align 8, !tbaa !16
+  store ptr getelementptr inbounds ({ [6 x ptr] }, ptr @_ZTV13quotient_expr, i64 0, inrange i32 0, i64 2), ptr %call287.sink499, align 8, !tbaa !14
+  %op_name.i496 = getelementptr inbounds %class.bin_op_expr, ptr %call287.sink499, i64 0, i32 3
+  store i8 47, ptr %op_name.i496, align 8, !tbaa !17
   br label %cleanup
 
 cleanup:                                          ; preds = %cleanup.sink.split, %land.lhs.true15
-  %retval.0 = phi ptr [ %call, %land.lhs.true15 ], [ %call287.sink484, %cleanup.sink.split ]
+  %retval.0 = phi ptr [ %call, %land.lhs.true15 ], [ %call287.sink499, %cleanup.sink.split ]
   ret ptr %retval.0
 
 ehcleanup325:                                     ; preds = %lpad288, %ehcleanup315, %lpad254, %ehcleanup276, %lpad194, %ehcleanup216, %lpad165, %ehcleanup182, %lpad101, %lpad104, %lpad79, %lpad82, %lpad50, %lpad53, %lpad
-  %call287.sink485 = phi ptr [ %call37, %lpad ], [ %call37, %lpad53 ], [ %call37, %lpad50 ], [ %call78, %lpad82 ], [ %call78, %lpad79 ], [ %call78, %lpad104 ], [ %call78, %lpad101 ], [ %call164, %ehcleanup182 ], [ %call164, %lpad165 ], [ %call193, %ehcleanup216 ], [ %call193, %lpad194 ], [ %call253, %ehcleanup276 ], [ %call253, %lpad254 ], [ %call287, %ehcleanup315 ], [ %call287, %lpad288 ]
-  %.pn480 = phi { ptr, i32 } [ %13, %lpad ], [ %17, %lpad53 ], [ %16, %lpad50 ], [ %22, %lpad82 ], [ %21, %lpad79 ], [ %26, %lpad104 ], [ %25, %lpad101 ], [ %.pn470, %ehcleanup182 ], [ %36, %lpad165 ], [ %.pn466, %ehcleanup216 ], [ %41, %lpad194 ], [ %.pn462, %ehcleanup276 ], [ %51, %lpad254 ], [ %.pn, %ehcleanup315 ], [ %56, %lpad288 ]
-  tail call void @_ZdlPv(ptr noundef nonnull %call287.sink485) #14
-  resume { ptr, i32 } %.pn480
+  %call287.sink500 = phi ptr [ %call37, %lpad ], [ %call37, %lpad53 ], [ %call37, %lpad50 ], [ %call78, %lpad82 ], [ %call78, %lpad79 ], [ %call78, %lpad104 ], [ %call78, %lpad101 ], [ %call164, %ehcleanup182 ], [ %call164, %lpad165 ], [ %call193, %ehcleanup216 ], [ %call193, %lpad194 ], [ %call253, %ehcleanup276 ], [ %call253, %lpad254 ], [ %call287, %ehcleanup315 ], [ %call287, %lpad288 ]
+  %.pn388.pn = phi { ptr, i32 } [ %13, %lpad ], [ %17, %lpad53 ], [ %16, %lpad50 ], [ %22, %lpad82 ], [ %21, %lpad79 ], [ %26, %lpad104 ], [ %25, %lpad101 ], [ %.pn371, %ehcleanup182 ], [ %36, %lpad165 ], [ %.pn365, %ehcleanup216 ], [ %41, %lpad194 ], [ %.pn359, %ehcleanup276 ], [ %51, %lpad254 ], [ %.pn353, %ehcleanup315 ], [ %56, %lpad288 ]
+  tail call void @_ZdlPv(ptr noundef nonnull %call287.sink500) #14
+  resume { ptr, i32 } %.pn388.pn
 }
 
 ; Function Attrs: norecurse uwtable
@@ -1275,12 +1275,12 @@ entry:
   call void @llvm.lifetime.start.p0(i64 32, ptr nonnull %simple) #15
   %call = tail call noalias noundef nonnull dereferenceable(16) ptr @_Znwm(i64 noundef 16) #13
   store ptr getelementptr inbounds ({ [6 x ptr] }, ptr @_ZTV10const_expr, i64 0, inrange i32 0, i64 2), ptr %call, align 8, !tbaa !14
-  %value.i67 = getelementptr inbounds %class.const_expr, ptr %call, i64 0, i32 1
-  store double 1.234500e+02, ptr %value.i67, align 8, !tbaa !5
+  %value.i68 = getelementptr inbounds %class.const_expr, ptr %call, i64 0, i32 1
+  store double 1.234500e+02, ptr %value.i68, align 8, !tbaa !5
   %call6 = tail call noalias noundef nonnull dereferenceable(40) ptr @_Znwm(i64 noundef 40) #13
   store ptr getelementptr inbounds ({ [6 x ptr] }, ptr @_ZTV8var_expr, i64 0, inrange i32 0, i64 2), ptr %call6, align 8, !tbaa !14
-  %name.i68 = getelementptr inbounds %class.var_expr, ptr %call6, i64 0, i32 1
-  store i16 121, ptr %name.i68, align 1
+  %name.i69 = getelementptr inbounds %class.var_expr, ptr %call6, i64 0, i32 1
+  store i16 121, ptr %name.i69, align 1
   %first.i.i = getelementptr inbounds %class.bin_op_expr, ptr %simple, i64 0, i32 1
   store ptr %call, ptr %first.i.i, align 8, !tbaa !11
   %second.i.i = getelementptr inbounds %class.bin_op_expr, ptr %simple, i64 0, i32 2
@@ -1288,46 +1288,46 @@ entry:
   store ptr getelementptr inbounds ({ [6 x ptr] }, ptr @_ZTV9prod_expr, i64 0, inrange i32 0, i64 2), ptr %simple, align 8, !tbaa !14
   %op_name.i = getelementptr inbounds %class.bin_op_expr, ptr %simple, i64 0, i32 3
   store i8 42, ptr %op_name.i, align 8, !tbaa !17
-  %call1.i70 = tail call noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cout, ptr noundef nonnull @.str.5, i64 noundef 5)
-  %call1.i.i73 = tail call noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cout, ptr noundef nonnull @.str.1, i64 noundef 1)
-  %call.i.i7274 = tail call noundef nonnull align 8 dereferenceable(8) ptr @_ZNSo9_M_insertIdEERSoT_(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cout, double noundef 8.000000e+00)
-  %call1.i5.i75 = tail call noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) %call.i.i7274, ptr noundef nonnull @.str.1, i64 noundef 1)
-  %call1.i77 = tail call noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cout, ptr noundef nonnull @.str.6, i64 noundef 30)
-  %call.i8081 = tail call noundef nonnull align 8 dereferenceable(8) ptr @_ZNSo9_M_insertIdEERSoT_(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cout, double noundef 8.000000e+00)
-  %call1.i83 = tail call noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cout, ptr noundef nonnull @.str.7, i64 noundef 48)
+  %call1.i71 = tail call noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cout, ptr noundef nonnull @.str.5, i64 noundef 5)
+  %call1.i.i74 = tail call noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cout, ptr noundef nonnull @.str.1, i64 noundef 1)
+  %call.i.i7375 = tail call noundef nonnull align 8 dereferenceable(8) ptr @_ZNSo9_M_insertIdEERSoT_(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cout, double noundef 8.000000e+00)
+  %call1.i5.i76 = tail call noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) %call.i.i7375, ptr noundef nonnull @.str.1, i64 noundef 1)
+  %call1.i78 = tail call noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cout, ptr noundef nonnull @.str.6, i64 noundef 30)
+  %call.i8182 = tail call noundef nonnull align 8 dereferenceable(8) ptr @_ZNSo9_M_insertIdEERSoT_(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cout, double noundef 8.000000e+00)
+  %call1.i84 = tail call noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cout, ptr noundef nonnull @.str.7, i64 noundef 48)
   %call1.i.i = tail call noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cout, ptr noundef nonnull @.str.1, i64 noundef 1)
   %call.i.i = tail call noundef nonnull align 8 dereferenceable(8) ptr @_ZNSo9_M_insertIdEERSoT_(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cout, double noundef 0.000000e+00)
   %call1.i5.i = tail call noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) %call.i.i, ptr noundef nonnull @.str.1, i64 noundef 1)
-  %call1.i88 = tail call noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cout, ptr noundef nonnull @.str.8, i64 noundef 6)
-  %call1.i.i92 = tail call noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cout, ptr noundef nonnull @.str.1, i64 noundef 1)
+  %call1.i89 = tail call noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cout, ptr noundef nonnull @.str.8, i64 noundef 6)
+  %call1.i.i93 = tail call noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cout, ptr noundef nonnull @.str.1, i64 noundef 1)
   %call.i.i4.i = call i64 @strlen(ptr noundef nonnull dereferenceable(1) %name.i) #15
-  %call1.i5.i93 = call noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cout, ptr noundef nonnull %name.i, i64 noundef %call.i.i4.i)
-  %call1.i7.i94 = call noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cout, ptr noundef nonnull @.str.1, i64 noundef 1)
-  %call1.i96 = call noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cout, ptr noundef nonnull @.str.6, i64 noundef 30)
-  %call.i9899 = call noundef nonnull align 8 dereferenceable(8) ptr @_ZNSo9_M_insertIdEERSoT_(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cout, double noundef 3.000000e+00)
-  %call1.i102 = call noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cout, ptr noundef nonnull @.str.7, i64 noundef 48)
+  %call1.i5.i94 = call noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cout, ptr noundef nonnull %name.i, i64 noundef %call.i.i4.i)
+  %call1.i7.i95 = call noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cout, ptr noundef nonnull @.str.1, i64 noundef 1)
+  %call1.i97 = call noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cout, ptr noundef nonnull @.str.6, i64 noundef 30)
+  %call.i99100 = call noundef nonnull align 8 dereferenceable(8) ptr @_ZNSo9_M_insertIdEERSoT_(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cout, double noundef 3.000000e+00)
+  %call1.i103 = call noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cout, ptr noundef nonnull @.str.7, i64 noundef 48)
   %call1.i.i127 = call noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cout, ptr noundef nonnull @.str.1, i64 noundef 1)
   %call.i.i129 = call noundef nonnull align 8 dereferenceable(8) ptr @_ZNSo9_M_insertIdEERSoT_(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cout, double noundef 1.000000e+00)
   %call1.i5.i130 = call noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) %call.i.i129, ptr noundef nonnull @.str.1, i64 noundef 1)
-  %call1.i108 = call noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cout, ptr noundef nonnull @.str.9, i64 noundef 11)
+  %call1.i109 = call noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cout, ptr noundef nonnull @.str.9, i64 noundef 11)
   call void @_ZN11bin_op_expr8print_meEv(ptr noundef nonnull align 8 dereferenceable(25) %simple)
-  %call1.i111 = call noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cout, ptr noundef nonnull @.str.10, i64 noundef 29)
+  %call1.i112 = call noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cout, ptr noundef nonnull @.str.10, i64 noundef 29)
   %vtable.i = load ptr, ptr %call, align 8, !tbaa !14
   %vfn.i = getelementptr inbounds ptr, ptr %vtable.i, i64 2
   %0 = load ptr, ptr %vfn.i, align 8
-  %call.i113114 = call noundef double %0(ptr noundef nonnull align 8 dereferenceable(8) %call, double noundef 3.000000e+00)
+  %call.i114115 = call noundef double %0(ptr noundef nonnull align 8 dereferenceable(8) %call, double noundef 3.000000e+00)
   %vtable2.i = load ptr, ptr %call6, align 8, !tbaa !14
   %vfn3.i = getelementptr inbounds ptr, ptr %vtable2.i, i64 2
   %1 = load ptr, ptr %vfn3.i, align 8
-  %call4.i115 = call noundef double %1(ptr noundef nonnull align 8 dereferenceable(8) %call6, double noundef 3.000000e+00)
-  %mul.i = fmul double %call.i113114, %call4.i115
-  %call.i116117 = call noundef nonnull align 8 dereferenceable(8) ptr @_ZNSo9_M_insertIdEERSoT_(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cout, double noundef %mul.i)
-  %call1.i120 = call noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cout, ptr noundef nonnull @.str.11, i64 noundef 47)
+  %call4.i116 = call noundef double %1(ptr noundef nonnull align 8 dereferenceable(8) %call6, double noundef 3.000000e+00)
+  %mul.i = fmul double %call.i114115, %call4.i116
+  %call.i117118 = call noundef nonnull align 8 dereferenceable(8) ptr @_ZNSo9_M_insertIdEERSoT_(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cout, double noundef %mul.i)
+  %call1.i121 = call noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cout, ptr noundef nonnull @.str.11, i64 noundef 47)
   %call51 = call noundef ptr @_ZN9prod_expr5derivEPc(ptr noundef nonnull align 8 dereferenceable(25) %simple, ptr noundef nonnull @.str.4)
   %vtable52 = load ptr, ptr %call51, align 8, !tbaa !14
   %2 = load ptr, ptr %vtable52, align 8
   call void %2(ptr noundef nonnull align 8 dereferenceable(8) %call51)
-  %call1.i123 = call noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cout, ptr noundef nonnull @.str.12, i64 noundef 47)
+  %call1.i124 = call noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cout, ptr noundef nonnull @.str.12, i64 noundef 47)
   %call58 = call noundef ptr @_ZN9prod_expr5derivEPc(ptr noundef nonnull align 8 dereferenceable(25) %simple, ptr noundef nonnull @.str.3)
   %vtable59 = load ptr, ptr %call58, align 8, !tbaa !14
   %3 = load ptr, ptr %vtable59, align 8

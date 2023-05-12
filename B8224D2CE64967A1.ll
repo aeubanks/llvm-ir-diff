@@ -49,39 +49,7 @@ while.end:                                        ; preds = %while.cond.while.en
 ; Function Attrs: noreturn nounwind uwtable
 define dso_local i32 @main() local_unnamed_addr #1 {
 entry:
-  %0 = load i32, ptr @loop_1, align 4, !tbaa !5
-  %cmp10.i = icmp sgt i32 %0, 0
-  br i1 %cmp10.i, label %while.body.lr.ph.i, label %if.end
-
-while.body.lr.ph.i:                               ; preds = %entry
-  %1 = load i32, ptr @loop_2, align 4
-  %.fr.i = freeze i32 %1
-  %cmp16.i = icmp sgt i32 %.fr.i, 0
-  br i1 %cmp16.i, label %while.body.us.i.preheader, label %while.body.us13.i
-
-while.body.us.i.preheader:                        ; preds = %while.body.lr.ph.i
-  %flag.promoted.i = load i32, ptr @flag, align 4, !tbaa !5
-  br label %while.body.us.i
-
-while.body.us.i:                                  ; preds = %while.body.us.i.preheader, %while.body.us.i
-  %counter.012.us.i = phi i32 [ %spec.select.i, %while.body.us.i ], [ 0, %while.body.us.i.preheader ]
-  %inc3911.us.i = phi i32 [ %inc3.us.i, %while.body.us.i ], [ %flag.promoted.i, %while.body.us.i.preheader ]
-  %and.us.i = and i32 %inc3911.us.i, 1
-  %tobool.not.us.i = icmp eq i32 %and.us.i, 0
-  %2 = select i1 %tobool.not.us.i, i32 0, i32 %.fr.i
-  %spec.select.i = add i32 %2, %counter.012.us.i
-  %inc3.us.i = add nsw i32 %inc3911.us.i, 1
-  %cmp.us.i = icmp sgt i32 %0, %spec.select.i
-  br i1 %cmp.us.i, label %while.body.us.i, label %while.cond.while.end_crit_edge.i, !llvm.loop !9
-
-while.body.us13.i:                                ; preds = %while.body.lr.ph.i, %while.body.us13.i
-  br label %while.body.us13.i
-
-while.cond.while.end_crit_edge.i:                 ; preds = %while.body.us.i
-  store i32 %inc3.us.i, ptr @flag, align 4, !tbaa !5
-  br label %if.end
-
-if.end:                                           ; preds = %while.cond.while.end_crit_edge.i, %entry
+  %call = tail call i32 @test()
   tail call void @exit(i32 noundef 0) #3
   unreachable
 }

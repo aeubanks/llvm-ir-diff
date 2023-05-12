@@ -13,8 +13,8 @@ entry:
   %1 = load i64, ptr @bb, align 8, !tbaa !5
   %add.i = add i64 %0, 4096
   %sub.i = sub i64 %add.i, %1
-  %cmp.i = icmp sgt i64 %sub.i, 0
-  br i1 %cmp.i, label %if.end, label %if.then
+  %cmp.i = icmp slt i64 %sub.i, 1
+  br i1 %cmp.i, label %if.then, label %if.end
 
 if.then:                                          ; preds = %entry
   tail call void @abort() #3

@@ -58,174 +58,174 @@ define dso_local i32 @TreeCCOptionProcess(ptr noundef %context, ptr nocapture no
 entry:
   %call = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %name, ptr noundef nonnull dereferenceable(12) @.str) #6
   %tobool.not = icmp eq i32 %call, 0
-  br i1 %tobool.not, label %if.then, label %if.end
+  br i1 %tobool.not, label %if.then, label %while.cond
 
-if.then:                                          ; preds = %if.end.30, %if.end.29, %if.end.28, %if.end.27, %if.end.26, %if.end.25, %if.end.24, %if.end.23, %if.end.22, %if.end.21, %if.end.20, %if.end.19, %if.end.18, %if.end.17, %if.end.16, %if.end.15, %if.end.14, %if.end.13, %if.end.12, %if.end.11, %if.end.10, %if.end.9, %if.end.8, %if.end.7, %if.end.6, %if.end.5, %if.end.4, %if.end.3, %if.end.2, %if.end.1, %if.end, %entry
-  %opt.015.lcssa.wide = phi i64 [ 0, %entry ], [ 1, %if.end ], [ 2, %if.end.1 ], [ 3, %if.end.2 ], [ 4, %if.end.3 ], [ 5, %if.end.4 ], [ 6, %if.end.5 ], [ 7, %if.end.6 ], [ 8, %if.end.7 ], [ 9, %if.end.8 ], [ 10, %if.end.9 ], [ 11, %if.end.10 ], [ 12, %if.end.11 ], [ 13, %if.end.12 ], [ 14, %if.end.13 ], [ 15, %if.end.14 ], [ 16, %if.end.15 ], [ 17, %if.end.16 ], [ 18, %if.end.17 ], [ 19, %if.end.18 ], [ 20, %if.end.19 ], [ 21, %if.end.20 ], [ 22, %if.end.21 ], [ 23, %if.end.22 ], [ 24, %if.end.23 ], [ 25, %if.end.24 ], [ 26, %if.end.25 ], [ 27, %if.end.26 ], [ 28, %if.end.27 ], [ 29, %if.end.28 ], [ 30, %if.end.29 ], [ 31, %if.end.30 ]
-  %func = getelementptr inbounds [33 x %struct.anon], ptr @OptionHandlers, i64 0, i64 %opt.015.lcssa.wide, i32 1
-  %0 = load ptr, ptr %func, align 8, !tbaa !5
-  %flag = getelementptr inbounds [33 x %struct.anon], ptr @OptionHandlers, i64 0, i64 %opt.015.lcssa.wide, i32 2
-  %1 = load i32, ptr %flag, align 8, !tbaa !11
-  %call9 = tail call i32 %0(ptr noundef %context, ptr noundef %value, i32 noundef %1) #7
-  br label %cleanup
-
-if.end:                                           ; preds = %entry
+while.cond:                                       ; preds = %entry
   %call.1 = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %name, ptr noundef nonnull dereferenceable(15) @.str.1) #6
   %tobool.not.1 = icmp eq i32 %call.1, 0
-  br i1 %tobool.not.1, label %if.then, label %if.end.1
+  br i1 %tobool.not.1, label %if.then, label %while.cond.1
 
-if.end.1:                                         ; preds = %if.end
+while.cond.1:                                     ; preds = %while.cond
   %call.2 = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %name, ptr noundef nonnull dereferenceable(14) @.str.2) #6
   %tobool.not.2 = icmp eq i32 %call.2, 0
-  br i1 %tobool.not.2, label %if.then, label %if.end.2
+  br i1 %tobool.not.2, label %if.then, label %while.cond.2
 
-if.end.2:                                         ; preds = %if.end.1
+while.cond.2:                                     ; preds = %while.cond.1
   %call.3 = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %name, ptr noundef nonnull dereferenceable(11) @.str.3) #6
   %tobool.not.3 = icmp eq i32 %call.3, 0
-  br i1 %tobool.not.3, label %if.then, label %if.end.3
+  br i1 %tobool.not.3, label %if.then, label %while.cond.3
 
-if.end.3:                                         ; preds = %if.end.2
+while.cond.3:                                     ; preds = %while.cond.2
   %call.4 = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %name, ptr noundef nonnull dereferenceable(10) @.str.4) #6
   %tobool.not.4 = icmp eq i32 %call.4, 0
-  br i1 %tobool.not.4, label %if.then, label %if.end.4
+  br i1 %tobool.not.4, label %if.then, label %while.cond.4
 
-if.end.4:                                         ; preds = %if.end.3
+while.cond.4:                                     ; preds = %while.cond.3
   %call.5 = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %name, ptr noundef nonnull dereferenceable(13) @.str.5) #6
   %tobool.not.5 = icmp eq i32 %call.5, 0
-  br i1 %tobool.not.5, label %if.then, label %if.end.5
+  br i1 %tobool.not.5, label %if.then, label %while.cond.5
 
-if.end.5:                                         ; preds = %if.end.4
+while.cond.5:                                     ; preds = %while.cond.4
   %call.6 = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %name, ptr noundef nonnull dereferenceable(6) @.str.6) #6
   %tobool.not.6 = icmp eq i32 %call.6, 0
-  br i1 %tobool.not.6, label %if.then, label %if.end.6
+  br i1 %tobool.not.6, label %if.then, label %while.cond.6
 
-if.end.6:                                         ; preds = %if.end.5
+while.cond.6:                                     ; preds = %while.cond.5
   %call.7 = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %name, ptr noundef nonnull dereferenceable(9) @.str.7) #6
   %tobool.not.7 = icmp eq i32 %call.7, 0
-  br i1 %tobool.not.7, label %if.then, label %if.end.7
+  br i1 %tobool.not.7, label %if.then, label %while.cond.7
 
-if.end.7:                                         ; preds = %if.end.6
+while.cond.7:                                     ; preds = %while.cond.6
   %call.8 = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %name, ptr noundef nonnull dereferenceable(16) @.str.8) #6
   %tobool.not.8 = icmp eq i32 %call.8, 0
-  br i1 %tobool.not.8, label %if.then, label %if.end.8
+  br i1 %tobool.not.8, label %if.then, label %while.cond.8
 
-if.end.8:                                         ; preds = %if.end.7
+while.cond.8:                                     ; preds = %while.cond.7
   %call.9 = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %name, ptr noundef nonnull dereferenceable(19) @.str.9) #6
   %tobool.not.9 = icmp eq i32 %call.9, 0
-  br i1 %tobool.not.9, label %if.then, label %if.end.9
+  br i1 %tobool.not.9, label %if.then, label %while.cond.9
 
-if.end.9:                                         ; preds = %if.end.8
+while.cond.9:                                     ; preds = %while.cond.8
   %call.10 = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %name, ptr noundef nonnull dereferenceable(17) @.str.10) #6
   %tobool.not.10 = icmp eq i32 %call.10, 0
-  br i1 %tobool.not.10, label %if.then, label %if.end.10
+  br i1 %tobool.not.10, label %if.then, label %while.cond.10
 
-if.end.10:                                        ; preds = %if.end.9
+while.cond.10:                                    ; preds = %while.cond.9
   %call.11 = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %name, ptr noundef nonnull dereferenceable(20) @.str.11) #6
   %tobool.not.11 = icmp eq i32 %call.11, 0
-  br i1 %tobool.not.11, label %if.then, label %if.end.11
+  br i1 %tobool.not.11, label %if.then, label %while.cond.11
 
-if.end.11:                                        ; preds = %if.end.10
+while.cond.11:                                    ; preds = %while.cond.10
   %call.12 = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %name, ptr noundef nonnull dereferenceable(15) @.str.12) #6
   %tobool.not.12 = icmp eq i32 %call.12, 0
-  br i1 %tobool.not.12, label %if.then, label %if.end.12
+  br i1 %tobool.not.12, label %if.then, label %while.cond.12
 
-if.end.12:                                        ; preds = %if.end.11
+while.cond.12:                                    ; preds = %while.cond.11
   %call.13 = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %name, ptr noundef nonnull dereferenceable(13) @.str.13) #6
   %tobool.not.13 = icmp eq i32 %call.13, 0
-  br i1 %tobool.not.13, label %if.then, label %if.end.13
+  br i1 %tobool.not.13, label %if.then, label %while.cond.13
 
-if.end.13:                                        ; preds = %if.end.12
+while.cond.13:                                    ; preds = %while.cond.12
   %call.14 = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %name, ptr noundef nonnull dereferenceable(7) @.str.14) #6
   %tobool.not.14 = icmp eq i32 %call.14, 0
-  br i1 %tobool.not.14, label %if.then, label %if.end.14
+  br i1 %tobool.not.14, label %if.then, label %while.cond.14
 
-if.end.14:                                        ; preds = %if.end.13
+while.cond.14:                                    ; preds = %while.cond.13
   %call.15 = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %name, ptr noundef nonnull dereferenceable(11) @.str.15) #6
   %tobool.not.15 = icmp eq i32 %call.15, 0
-  br i1 %tobool.not.15, label %if.then, label %if.end.15
+  br i1 %tobool.not.15, label %if.then, label %while.cond.15
 
-if.end.15:                                        ; preds = %if.end.14
+while.cond.15:                                    ; preds = %while.cond.14
   %call.16 = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %name, ptr noundef nonnull dereferenceable(10) @.str.16) #6
   %tobool.not.16 = icmp eq i32 %call.16, 0
-  br i1 %tobool.not.16, label %if.then, label %if.end.16
+  br i1 %tobool.not.16, label %if.then, label %while.cond.16
 
-if.end.16:                                        ; preds = %if.end.15
+while.cond.16:                                    ; preds = %while.cond.15
   %call.17 = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %name, ptr noundef nonnull dereferenceable(8) @.str.17) #6
   %tobool.not.17 = icmp eq i32 %call.17, 0
-  br i1 %tobool.not.17, label %if.then, label %if.end.17
+  br i1 %tobool.not.17, label %if.then, label %while.cond.17
 
-if.end.17:                                        ; preds = %if.end.16
+while.cond.17:                                    ; preds = %while.cond.16
   %call.18 = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %name, ptr noundef nonnull dereferenceable(5) @.str.18) #6
   %tobool.not.18 = icmp eq i32 %call.18, 0
-  br i1 %tobool.not.18, label %if.then, label %if.end.18
+  br i1 %tobool.not.18, label %if.then, label %while.cond.18
 
-if.end.18:                                        ; preds = %if.end.17
+while.cond.18:                                    ; preds = %while.cond.17
   %call.19 = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %name, ptr noundef nonnull dereferenceable(5) @.str.19) #6
   %tobool.not.19 = icmp eq i32 %call.19, 0
-  br i1 %tobool.not.19, label %if.then, label %if.end.19
+  br i1 %tobool.not.19, label %if.then, label %while.cond.19
 
-if.end.19:                                        ; preds = %if.end.18
+while.cond.19:                                    ; preds = %while.cond.18
   %call.20 = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %name, ptr noundef nonnull dereferenceable(11) @.str.20) #6
   %tobool.not.20 = icmp eq i32 %call.20, 0
-  br i1 %tobool.not.20, label %if.then, label %if.end.20
+  br i1 %tobool.not.20, label %if.then, label %while.cond.20
 
-if.end.20:                                        ; preds = %if.end.19
+while.cond.20:                                    ; preds = %while.cond.19
   %call.21 = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %name, ptr noundef nonnull dereferenceable(16) @.str.21) #6
   %tobool.not.21 = icmp eq i32 %call.21, 0
-  br i1 %tobool.not.21, label %if.then, label %if.end.21
+  br i1 %tobool.not.21, label %if.then, label %while.cond.21
 
-if.end.21:                                        ; preds = %if.end.20
+while.cond.21:                                    ; preds = %while.cond.20
   %call.22 = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %name, ptr noundef nonnull dereferenceable(12) @.str.22) #6
   %tobool.not.22 = icmp eq i32 %call.22, 0
-  br i1 %tobool.not.22, label %if.then, label %if.end.22
+  br i1 %tobool.not.22, label %if.then, label %while.cond.22
 
-if.end.22:                                        ; preds = %if.end.21
+while.cond.22:                                    ; preds = %while.cond.21
   %call.23 = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %name, ptr noundef nonnull dereferenceable(15) @.str.23) #6
   %tobool.not.23 = icmp eq i32 %call.23, 0
-  br i1 %tobool.not.23, label %if.then, label %if.end.23
+  br i1 %tobool.not.23, label %if.then, label %while.cond.23
 
-if.end.23:                                        ; preds = %if.end.22
+while.cond.23:                                    ; preds = %while.cond.22
   %call.24 = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %name, ptr noundef nonnull dereferenceable(19) @.str.24) #6
   %tobool.not.24 = icmp eq i32 %call.24, 0
-  br i1 %tobool.not.24, label %if.then, label %if.end.24
+  br i1 %tobool.not.24, label %if.then, label %while.cond.24
 
-if.end.24:                                        ; preds = %if.end.23
+while.cond.24:                                    ; preds = %while.cond.23
   %call.25 = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %name, ptr noundef nonnull dereferenceable(16) @.str.25) #6
   %tobool.not.25 = icmp eq i32 %call.25, 0
-  br i1 %tobool.not.25, label %if.then, label %if.end.25
+  br i1 %tobool.not.25, label %if.then, label %while.cond.25
 
-if.end.25:                                        ; preds = %if.end.24
+while.cond.25:                                    ; preds = %while.cond.24
   %call.26 = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %name, ptr noundef nonnull dereferenceable(14) @.str.26) #6
   %tobool.not.26 = icmp eq i32 %call.26, 0
-  br i1 %tobool.not.26, label %if.then, label %if.end.26
+  br i1 %tobool.not.26, label %if.then, label %while.cond.26
 
-if.end.26:                                        ; preds = %if.end.25
+while.cond.26:                                    ; preds = %while.cond.25
   %call.27 = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %name, ptr noundef nonnull dereferenceable(10) @.str.27) #6
   %tobool.not.27 = icmp eq i32 %call.27, 0
-  br i1 %tobool.not.27, label %if.then, label %if.end.27
+  br i1 %tobool.not.27, label %if.then, label %while.cond.27
 
-if.end.27:                                        ; preds = %if.end.26
+while.cond.27:                                    ; preds = %while.cond.26
   %call.28 = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %name, ptr noundef nonnull dereferenceable(13) @.str.28) #6
   %tobool.not.28 = icmp eq i32 %call.28, 0
-  br i1 %tobool.not.28, label %if.then, label %if.end.28
+  br i1 %tobool.not.28, label %if.then, label %while.cond.28
 
-if.end.28:                                        ; preds = %if.end.27
+while.cond.28:                                    ; preds = %while.cond.27
   %call.29 = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %name, ptr noundef nonnull dereferenceable(13) @.str.29) #6
   %tobool.not.29 = icmp eq i32 %call.29, 0
-  br i1 %tobool.not.29, label %if.then, label %if.end.29
+  br i1 %tobool.not.29, label %if.then, label %while.cond.29
 
-if.end.29:                                        ; preds = %if.end.28
+while.cond.29:                                    ; preds = %while.cond.28
   %call.30 = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %name, ptr noundef nonnull dereferenceable(16) @.str.30) #6
   %tobool.not.30 = icmp eq i32 %call.30, 0
-  br i1 %tobool.not.30, label %if.then, label %if.end.30
+  br i1 %tobool.not.30, label %if.then, label %while.cond.30
 
-if.end.30:                                        ; preds = %if.end.29
+while.cond.30:                                    ; preds = %while.cond.29
   %call.31 = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %name, ptr noundef nonnull dereferenceable(10) @.str.31) #6
   %tobool.not.31 = icmp eq i32 %call.31, 0
   br i1 %tobool.not.31, label %if.then, label %cleanup
 
-cleanup:                                          ; preds = %if.end.30, %if.then
-  %retval.0 = phi i32 [ %call9, %if.then ], [ 2, %if.end.30 ]
+if.then:                                          ; preds = %while.cond.30, %while.cond.29, %while.cond.28, %while.cond.27, %while.cond.26, %while.cond.25, %while.cond.24, %while.cond.23, %while.cond.22, %while.cond.21, %while.cond.20, %while.cond.19, %while.cond.18, %while.cond.17, %while.cond.16, %while.cond.15, %while.cond.14, %while.cond.13, %while.cond.12, %while.cond.11, %while.cond.10, %while.cond.9, %while.cond.8, %while.cond.7, %while.cond.6, %while.cond.5, %while.cond.4, %while.cond.3, %while.cond.2, %while.cond.1, %while.cond, %entry
+  %idxprom16.lcssa = phi i64 [ 0, %entry ], [ 1, %while.cond ], [ 2, %while.cond.1 ], [ 3, %while.cond.2 ], [ 4, %while.cond.3 ], [ 5, %while.cond.4 ], [ 6, %while.cond.5 ], [ 7, %while.cond.6 ], [ 8, %while.cond.7 ], [ 9, %while.cond.8 ], [ 10, %while.cond.9 ], [ 11, %while.cond.10 ], [ 12, %while.cond.11 ], [ 13, %while.cond.12 ], [ 14, %while.cond.13 ], [ 15, %while.cond.14 ], [ 16, %while.cond.15 ], [ 17, %while.cond.16 ], [ 18, %while.cond.17 ], [ 19, %while.cond.18 ], [ 20, %while.cond.19 ], [ 21, %while.cond.20 ], [ 22, %while.cond.21 ], [ 23, %while.cond.22 ], [ 24, %while.cond.23 ], [ 25, %while.cond.24 ], [ 26, %while.cond.25 ], [ 27, %while.cond.26 ], [ 28, %while.cond.27 ], [ 29, %while.cond.28 ], [ 30, %while.cond.29 ], [ 31, %while.cond.30 ]
+  %func = getelementptr inbounds [33 x %struct.anon], ptr @OptionHandlers, i64 0, i64 %idxprom16.lcssa, i32 1
+  %0 = load ptr, ptr %func, align 8, !tbaa !5
+  %flag = getelementptr inbounds [33 x %struct.anon], ptr @OptionHandlers, i64 0, i64 %idxprom16.lcssa, i32 2
+  %1 = load i32, ptr %flag, align 8, !tbaa !11
+  %call9 = tail call i32 %0(ptr noundef %context, ptr noundef %value, i32 noundef %1) #7
+  br label %cleanup
+
+cleanup:                                          ; preds = %while.cond.30, %if.then
+  %retval.0 = phi i32 [ %call9, %if.then ], [ 2, %while.cond.30 ]
   ret i32 %retval.0
 }
 
@@ -447,26 +447,26 @@ entry:
 if.else:                                          ; preds = %entry
   %0 = load i8, ptr %value, align 1, !tbaa !15
   %1 = add i8 %0, -48
-  %or.cond32 = icmp ult i8 %1, 10
-  br i1 %or.cond32, label %while.body, label %return
+  %or.cond28 = icmp ult i8 %1, 10
+  br i1 %or.cond28, label %while.body, label %return
 
 while.body:                                       ; preds = %if.else, %while.body
-  %conv428.in = phi i8 [ %.pr, %while.body ], [ %0, %if.else ]
-  %num.027 = phi i32 [ %add, %while.body ], [ 0, %if.else ]
-  %value.addr.026 = phi ptr [ %incdec.ptr, %while.body ], [ %value, %if.else ]
-  %conv428 = zext i8 %conv428.in to i32
-  %mul = mul nsw i32 %num.027, 10
-  %sub = add nsw i32 %conv428, -48
+  %num.024 = phi i32 [ %add, %while.body ], [ 0, %if.else ]
+  %value.addr.023 = phi ptr [ %incdec.ptr, %while.body ], [ %value, %if.else ]
+  %2 = phi i8 [ %.pr, %while.body ], [ %0, %if.else ]
+  %conv4 = zext i8 %2 to i32
+  %mul = mul nsw i32 %num.024, 10
+  %sub = add nsw i32 %conv4, -48
   %add = add nsw i32 %sub, %mul
-  %incdec.ptr = getelementptr inbounds i8, ptr %value.addr.026, i64 1
+  %incdec.ptr = getelementptr inbounds i8, ptr %value.addr.023, i64 1
   %.pr = load i8, ptr %incdec.ptr, align 1, !tbaa !15
-  %2 = add i8 %.pr, -48
-  %or.cond = icmp ult i8 %2, 10
+  %3 = add i8 %.pr, -48
+  %or.cond = icmp ult i8 %3, 10
   br i1 %or.cond, label %while.body, label %while.end, !llvm.loop !17
 
 while.end:                                        ; preds = %while.body
-  %3 = icmp eq i8 %.pr, 0
-  br i1 %3, label %if.end, label %return
+  %4 = icmp eq i8 %.pr, 0
+  br i1 %4, label %if.end, label %return
 
 if.end:                                           ; preds = %while.end
   %nodeNumber = getelementptr inbounds %struct._tagTreeCCContext, ptr %context, i64 0, i32 12
@@ -569,26 +569,26 @@ entry:
 if.else:                                          ; preds = %entry
   %0 = load i8, ptr %value, align 1, !tbaa !15
   %1 = add i8 %0, -48
-  %or.cond32 = icmp ult i8 %1, 10
-  br i1 %or.cond32, label %while.body, label %return
+  %or.cond28 = icmp ult i8 %1, 10
+  br i1 %or.cond28, label %while.body, label %return
 
 while.body:                                       ; preds = %if.else, %while.body
-  %conv428.in = phi i8 [ %.pr, %while.body ], [ %0, %if.else ]
-  %num.027 = phi i32 [ %add, %while.body ], [ 0, %if.else ]
-  %value.addr.026 = phi ptr [ %incdec.ptr, %while.body ], [ %value, %if.else ]
-  %conv428 = zext i8 %conv428.in to i32
-  %mul = mul nsw i32 %num.027, 10
-  %sub = add nsw i32 %conv428, -48
+  %num.024 = phi i32 [ %add, %while.body ], [ 0, %if.else ]
+  %value.addr.023 = phi ptr [ %incdec.ptr, %while.body ], [ %value, %if.else ]
+  %2 = phi i8 [ %.pr, %while.body ], [ %0, %if.else ]
+  %conv4 = zext i8 %2 to i32
+  %mul = mul nsw i32 %num.024, 10
+  %sub = add nsw i32 %conv4, -48
   %add = add nsw i32 %sub, %mul
-  %incdec.ptr = getelementptr inbounds i8, ptr %value.addr.026, i64 1
+  %incdec.ptr = getelementptr inbounds i8, ptr %value.addr.023, i64 1
   %.pr = load i8, ptr %incdec.ptr, align 1, !tbaa !15
-  %2 = add i8 %.pr, -48
-  %or.cond = icmp ult i8 %2, 10
+  %3 = add i8 %.pr, -48
+  %or.cond = icmp ult i8 %3, 10
   br i1 %or.cond, label %while.body, label %while.end, !llvm.loop !21
 
 while.end:                                        ; preds = %while.body
-  %3 = icmp eq i8 %.pr, 0
-  br i1 %3, label %if.end, label %return
+  %4 = icmp eq i8 %.pr, 0
+  br i1 %4, label %if.end, label %return
 
 if.end:                                           ; preds = %while.end
   %block_size = getelementptr inbounds %struct._tagTreeCCContext, ptr %context, i64 0, i32 14

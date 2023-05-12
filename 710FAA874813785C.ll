@@ -725,7 +725,7 @@ for.body136.lr.ph:                                ; preds = %for.cond133.prehead
   %154 = add nsw i64 %indvars.iv323, 1
   %155 = fneg double %140
   %156 = sext i32 %cond103 to i64
-  %157 = shufflevector <2 x double> %132, <2 x double> poison, <2 x i32> <i32 undef, i32 0>
+  %157 = shufflevector <2 x double> %132, <2 x double> poison, <2 x i32> <i32 poison, i32 0>
   %158 = insertelement <2 x double> %157, double %155, i64 0
   %xtraiter = and i64 %144, 1
   %lcmp.mod.not = icmp eq i64 %xtraiter, 0
@@ -854,13 +854,13 @@ while.end182:                                     ; preds = %while.cond25.49
 }
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare double @llvm.sqrt.f64(double) #4
-
-; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
 declare i32 @llvm.smax.i32(i32, i32) #4
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
 declare i32 @llvm.smin.i32(i32, i32) #4
+
+; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
+declare double @llvm.sqrt.f64(double) #4
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
 declare i64 @llvm.smax.i64(i64, i64) #4

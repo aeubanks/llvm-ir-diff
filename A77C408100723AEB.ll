@@ -778,20 +778,20 @@ if.then:                                          ; preds = %entry
   %call.i = tail call noalias ptr @malloc(i64 noundef %mul2) #17
   %dfEmbed = getelementptr inbounds %struct.EamPotentialSt, ptr %0, i64 0, i32 13
   store ptr %call.i, ptr %dfEmbed, align 8, !tbaa !44
-  %call.i566 = tail call noalias ptr @malloc(i64 noundef %mul2) #17
+  %call.i567 = tail call noalias ptr @malloc(i64 noundef %mul2) #17
   %rhobar = getelementptr inbounds %struct.EamPotentialSt, ptr %0, i64 0, i32 12
-  store ptr %call.i566, ptr %rhobar, align 8, !tbaa !45
+  store ptr %call.i567, ptr %rhobar, align 8, !tbaa !45
   %domain = getelementptr inbounds %struct.SimFlatSt, ptr %s, i64 0, i32 3
   %4 = load ptr, ptr %domain, align 8, !tbaa !46
   %call7 = tail call ptr @initForceHaloExchange(ptr noundef %4, ptr noundef %2) #18
   store ptr %call7, ptr %forceExchange, align 8, !tbaa !40
-  %call.i567 = tail call noalias dereferenceable_or_null(16) ptr @malloc(i64 noundef 16) #17
+  %call.i568 = tail call noalias dereferenceable_or_null(16) ptr @malloc(i64 noundef 16) #17
   %forceExchangeData = getelementptr inbounds %struct.EamPotentialSt, ptr %0, i64 0, i32 15
-  store ptr %call.i567, ptr %forceExchangeData, align 8, !tbaa !47
+  store ptr %call.i568, ptr %forceExchangeData, align 8, !tbaa !47
   %5 = load ptr, ptr %dfEmbed, align 8, !tbaa !44
-  store ptr %5, ptr %call.i567, align 8, !tbaa !48
+  store ptr %5, ptr %call.i568, align 8, !tbaa !48
   %6 = load ptr, ptr %boxes, align 8, !tbaa !41
-  %boxes15 = getelementptr inbounds %struct.ForceExchangeDataSt, ptr %call.i567, i64 0, i32 1
+  %boxes15 = getelementptr inbounds %struct.ForceExchangeDataSt, ptr %call.i568, i64 0, i32 1
   store ptr %6, ptr %boxes15, align 8, !tbaa !50
   br label %if.end
 
@@ -925,7 +925,7 @@ for.body73.us.us:                                 ; preds = %for.inc165.us.us, %
   %etot.3679.us.us = phi double [ %etot.6.us.us, %for.inc165.us.us ], [ %etot.2683.us.us, %for.body67.us.us ]
   %ij.0676.us.us = phi i32 [ %inc166.us.us, %for.inc165.us.us ], [ 0, %for.body67.us.us ]
   %cmp76.not.us.us = icmp ugt i32 %ij.0676.us.us, %ii.0681.us.us
-  %or.cond.us.us = select i1 %cmp74.us, i1 true, i1 %cmp76.not.us.us
+  %or.cond.us.us = or i1 %cmp74.us, %cmp76.not.us.us
   br i1 %or.cond.us.us, label %if.end79.us.us, label %for.inc165.us.us
 
 if.end79.us.us:                                   ; preds = %for.body73.us.us
@@ -988,48 +988,48 @@ if.end106.us.us:                                  ; preds = %if.end79.us.us
   %61 = call double @llvm.fmuladd.f64(double %60, double -2.000000e+00, double %add31.i.us.us)
   %62 = extractelement <2 x double> %58, i64 0
   %63 = call double @llvm.fmuladd.f64(double %sub11.i.us.us, double %61, double %62)
-  %shift = shufflevector <2 x double> %58, <2 x double> poison, <2 x i32> <i32 1, i32 undef>
+  %shift = shufflevector <2 x double> %58, <2 x double> poison, <2 x i32> <i32 1, i32 poison>
   %64 = fsub <2 x double> %shift, %58
   %sub37.i.us.us = extractelement <2 x double> %64, i64 0
   %65 = call double @llvm.fmuladd.f64(double %sub11.i.us.us, double %sub37.i.us.us, double %62)
   %mul39.i.us.us = fmul double %65, 5.000000e-01
   %mul41.i.us.us = fmul double %52, %mul39.i.us.us
   %66 = load ptr, ptr %rho, align 8, !tbaa !27
-  %values.i568.us.us = getelementptr inbounds %struct.InterpolationObjectSt, ptr %66, i64 0, i32 3
-  %67 = load ptr, ptr %values.i568.us.us, align 8, !tbaa !21
-  %x0.i569.us.us = getelementptr inbounds %struct.InterpolationObjectSt, ptr %66, i64 0, i32 1
-  %68 = load double, ptr %x0.i569.us.us, align 8, !tbaa !25
-  %cmp.i570.us.us = fcmp ogt double %68, %call108.us.us
-  %r.addr.0.i571.us.us = select i1 %cmp.i570.us.us, double %68, double %call108.us.us
-  %sub.i572.us.us = fsub double %r.addr.0.i571.us.us, %68
-  %invDx.i573.us.us = getelementptr inbounds %struct.InterpolationObjectSt, ptr %66, i64 0, i32 2
-  %69 = load double, ptr %invDx.i573.us.us, align 8, !tbaa !24
-  %mul.i574.us.us = fmul double %69, %sub.i572.us.us
-  %70 = call double @llvm.floor.f64(double %mul.i574.us.us)
-  %conv.i575.us.us = fptosi double %70 to i32
+  %values.i569.us.us = getelementptr inbounds %struct.InterpolationObjectSt, ptr %66, i64 0, i32 3
+  %67 = load ptr, ptr %values.i569.us.us, align 8, !tbaa !21
+  %x0.i570.us.us = getelementptr inbounds %struct.InterpolationObjectSt, ptr %66, i64 0, i32 1
+  %68 = load double, ptr %x0.i570.us.us, align 8, !tbaa !25
+  %cmp.i571.us.us = fcmp ogt double %68, %call108.us.us
+  %r.addr.0.i572.us.us = select i1 %cmp.i571.us.us, double %68, double %call108.us.us
+  %sub.i573.us.us = fsub double %r.addr.0.i572.us.us, %68
+  %invDx.i574.us.us = getelementptr inbounds %struct.InterpolationObjectSt, ptr %66, i64 0, i32 2
+  %69 = load double, ptr %invDx.i574.us.us, align 8, !tbaa !24
+  %mul.i575.us.us = fmul double %69, %sub.i573.us.us
+  %70 = call double @llvm.floor.f64(double %mul.i575.us.us)
+  %conv.i576.us.us = fptosi double %70 to i32
   %71 = load i32, ptr %66, align 8, !tbaa !23
-  %cmp3.i576.us.us = icmp slt i32 %71, %conv.i575.us.us
-  %conv8.i577.us.us = sitofp i32 %71 to double
-  %div.i578.us.us = fdiv double %conv8.i577.us.us, %69
-  %ii.0.i579.us.us = call i32 @llvm.smin.i32(i32 %71, i32 %conv.i575.us.us)
-  %r.addr.1.i580.us.us = select i1 %cmp3.i576.us.us, double %div.i578.us.us, double %mul.i574.us.us
-  %72 = call double @llvm.floor.f64(double %r.addr.1.i580.us.us)
-  %sub11.i581.us.us = fsub double %r.addr.1.i580.us.us, %72
-  %add.i582.us.us = add nsw i32 %ii.0.i579.us.us, 1
-  %idxprom.i583.us.us = sext i32 %add.i582.us.us to i64
-  %arrayidx.i584.us.us = getelementptr inbounds double, ptr %67, i64 %idxprom.i583.us.us
-  %73 = load double, ptr %arrayidx.i584.us.us, align 8, !tbaa !16
-  %sub12.i585.us.us = add nsw i32 %ii.0.i579.us.us, -1
-  %idxprom13.i586.us.us = sext i32 %sub12.i585.us.us to i64
-  %arrayidx14.i587.us.us = getelementptr inbounds double, ptr %67, i64 %idxprom13.i586.us.us
-  %74 = load double, ptr %arrayidx14.i587.us.us, align 8, !tbaa !16
-  %sub15.i588.us.us = fsub double %73, %74
-  %idxprom19.i592.us.us = sext i32 %ii.0.i579.us.us to i64
-  %arrayidx20.i593.us.us = getelementptr inbounds double, ptr %67, i64 %idxprom19.i592.us.us
-  %75 = load double, ptr %arrayidx20.i593.us.us, align 8, !tbaa !16
-  %add31.i596.us.us = fadd double %73, %74
-  %76 = call double @llvm.fmuladd.f64(double %75, double -2.000000e+00, double %add31.i596.us.us)
-  %77 = call double @llvm.fmuladd.f64(double %sub11.i581.us.us, double %76, double %sub15.i588.us.us)
+  %cmp3.i577.us.us = icmp slt i32 %71, %conv.i576.us.us
+  %conv8.i578.us.us = sitofp i32 %71 to double
+  %div.i579.us.us = fdiv double %conv8.i578.us.us, %69
+  %ii.0.i580.us.us = call i32 @llvm.smin.i32(i32 %71, i32 %conv.i576.us.us)
+  %r.addr.1.i581.us.us = select i1 %cmp3.i577.us.us, double %div.i579.us.us, double %mul.i575.us.us
+  %72 = call double @llvm.floor.f64(double %r.addr.1.i581.us.us)
+  %sub11.i582.us.us = fsub double %r.addr.1.i581.us.us, %72
+  %add.i583.us.us = add nsw i32 %ii.0.i580.us.us, 1
+  %idxprom.i584.us.us = sext i32 %add.i583.us.us to i64
+  %arrayidx.i585.us.us = getelementptr inbounds double, ptr %67, i64 %idxprom.i584.us.us
+  %73 = load double, ptr %arrayidx.i585.us.us, align 8, !tbaa !16
+  %sub12.i586.us.us = add nsw i32 %ii.0.i580.us.us, -1
+  %idxprom13.i587.us.us = sext i32 %sub12.i586.us.us to i64
+  %arrayidx14.i588.us.us = getelementptr inbounds double, ptr %67, i64 %idxprom13.i587.us.us
+  %74 = load double, ptr %arrayidx14.i588.us.us, align 8, !tbaa !16
+  %sub15.i589.us.us = fsub double %73, %74
+  %idxprom19.i593.us.us = sext i32 %ii.0.i580.us.us to i64
+  %arrayidx20.i594.us.us = getelementptr inbounds double, ptr %67, i64 %idxprom19.i593.us.us
+  %75 = load double, ptr %arrayidx20.i594.us.us, align 8, !tbaa !16
+  %add31.i597.us.us = fadd double %73, %74
+  %76 = call double @llvm.fmuladd.f64(double %75, double -2.000000e+00, double %add31.i597.us.us)
+  %77 = call double @llvm.fmuladd.f64(double %sub11.i582.us.us, double %76, double %sub15.i589.us.us)
   %78 = load ptr, ptr %atoms, align 8, !tbaa !51
   %f119.us.us = getelementptr inbounds %struct.AtomsSt, ptr %78, i64 0, i32 6
   %79 = load ptr, ptr %f119.us.us, align 8, !tbaa !52
@@ -1059,8 +1059,8 @@ if.end106.us.us:                                  ; preds = %if.end79.us.us
   store double %add.us.us.2, ptr %arrayidx134.us.us.2, align 8, !tbaa !16
   %mul24.i.us.us = fmul double %sub11.i.us.us, 5.000000e-01
   %92 = call double @llvm.fmuladd.f64(double %mul24.i.us.us, double %63, double %60)
-  %mul24.i595.us.us = fmul double %sub11.i581.us.us, 5.000000e-01
-  %93 = call double @llvm.fmuladd.f64(double %mul24.i595.us.us, double %77, double %75)
+  %mul24.i596.us.us = fmul double %sub11.i582.us.us, 5.000000e-01
+  %93 = call double @llvm.fmuladd.f64(double %mul24.i596.us.us, double %77, double %75)
   %94 = load ptr, ptr %boxes18, align 8, !tbaa !41
   %nLocalBoxes139.us.us = getelementptr inbounds %struct.LinkCellSt, ptr %94, i64 0, i32 1
   %95 = load i32, ptr %nLocalBoxes139.us.us, align 4, !tbaa !55
@@ -1144,12 +1144,12 @@ for.body209.lr.ph:                                ; preds = %for.body195
   %113 = zext i32 %indvars.iv763 to i64
   %114 = load ptr, ptr %f211, align 8, !tbaa !26
   %115 = load ptr, ptr %rhobar35, align 8, !tbaa !45
-  %values.i600 = getelementptr inbounds %struct.InterpolationObjectSt, ptr %114, i64 0, i32 3
-  %116 = load ptr, ptr %values.i600, align 8, !tbaa !21
-  %x0.i601 = getelementptr inbounds %struct.InterpolationObjectSt, ptr %114, i64 0, i32 1
-  %invDx.i605 = getelementptr inbounds %struct.InterpolationObjectSt, ptr %114, i64 0, i32 2
+  %values.i601 = getelementptr inbounds %struct.InterpolationObjectSt, ptr %114, i64 0, i32 3
+  %116 = load ptr, ptr %values.i601, align 8, !tbaa !21
+  %x0.i602 = getelementptr inbounds %struct.InterpolationObjectSt, ptr %114, i64 0, i32 1
+  %invDx.i606 = getelementptr inbounds %struct.InterpolationObjectSt, ptr %114, i64 0, i32 2
   %117 = load i32, ptr %114, align 8, !tbaa !23
-  %conv8.i609 = sitofp i32 %117 to double
+  %conv8.i610 = sitofp i32 %117 to double
   %118 = load ptr, ptr %dfEmbed29, align 8, !tbaa !44
   %119 = load ptr, ptr %atoms, align 8, !tbaa !51
   %U220 = getelementptr inbounds %struct.AtomsSt, ptr %119, i64 0, i32 7
@@ -1169,45 +1169,45 @@ for.body209:                                      ; preds = %for.body209.lr.ph, 
   %etot.9708 = phi double [ %etot.8712, %for.body209.lr.ph ], [ %add218, %for.body209 ]
   %arrayidx214 = getelementptr inbounds double, ptr %115, i64 %indvars.iv765
   %122 = load double, ptr %arrayidx214, align 8, !tbaa !16
-  %123 = load double, ptr %x0.i601, align 8, !tbaa !25
-  %cmp.i602 = fcmp ogt double %123, %122
-  %r.addr.0.i603 = select i1 %cmp.i602, double %123, double %122
-  %sub.i604 = fsub double %r.addr.0.i603, %123
-  %124 = load double, ptr %invDx.i605, align 8, !tbaa !24
-  %mul.i606 = fmul double %124, %sub.i604
-  %125 = call double @llvm.floor.f64(double %mul.i606)
-  %conv.i607 = fptosi double %125 to i32
-  %cmp3.i608 = icmp slt i32 %117, %conv.i607
-  %div.i610 = fdiv double %conv8.i609, %124
-  %ii.0.i611 = call i32 @llvm.smin.i32(i32 %117, i32 %conv.i607)
-  %r.addr.1.i612 = select i1 %cmp3.i608, double %div.i610, double %mul.i606
-  %126 = call double @llvm.floor.f64(double %r.addr.1.i612)
-  %sub11.i613 = fsub double %r.addr.1.i612, %126
-  %add.i614 = add nsw i32 %ii.0.i611, 1
-  %idxprom.i615 = sext i32 %add.i614 to i64
-  %arrayidx.i616 = getelementptr inbounds double, ptr %116, i64 %idxprom.i615
-  %sub12.i617 = add nsw i32 %ii.0.i611, -1
-  %idxprom13.i618 = sext i32 %sub12.i617 to i64
-  %arrayidx14.i619 = getelementptr inbounds double, ptr %116, i64 %idxprom13.i618
-  %127 = load <2 x double>, ptr %arrayidx.i616, align 8, !tbaa !16
-  %128 = load <2 x double>, ptr %arrayidx14.i619, align 8, !tbaa !16
+  %123 = load double, ptr %x0.i602, align 8, !tbaa !25
+  %cmp.i603 = fcmp ogt double %123, %122
+  %r.addr.0.i604 = select i1 %cmp.i603, double %123, double %122
+  %sub.i605 = fsub double %r.addr.0.i604, %123
+  %124 = load double, ptr %invDx.i606, align 8, !tbaa !24
+  %mul.i607 = fmul double %124, %sub.i605
+  %125 = call double @llvm.floor.f64(double %mul.i607)
+  %conv.i608 = fptosi double %125 to i32
+  %cmp3.i609 = icmp slt i32 %117, %conv.i608
+  %div.i611 = fdiv double %conv8.i610, %124
+  %ii.0.i612 = call i32 @llvm.smin.i32(i32 %117, i32 %conv.i608)
+  %r.addr.1.i613 = select i1 %cmp3.i609, double %div.i611, double %mul.i607
+  %126 = call double @llvm.floor.f64(double %r.addr.1.i613)
+  %sub11.i614 = fsub double %r.addr.1.i613, %126
+  %add.i615 = add nsw i32 %ii.0.i612, 1
+  %idxprom.i616 = sext i32 %add.i615 to i64
+  %arrayidx.i617 = getelementptr inbounds double, ptr %116, i64 %idxprom.i616
+  %sub12.i618 = add nsw i32 %ii.0.i612, -1
+  %idxprom13.i619 = sext i32 %sub12.i618 to i64
+  %arrayidx14.i620 = getelementptr inbounds double, ptr %116, i64 %idxprom13.i619
+  %127 = load <2 x double>, ptr %arrayidx.i617, align 8, !tbaa !16
+  %128 = load <2 x double>, ptr %arrayidx14.i620, align 8, !tbaa !16
   %129 = fsub <2 x double> %127, %128
-  %mul24.i627 = fmul double %sub11.i613, 5.000000e-01
+  %mul24.i628 = fmul double %sub11.i614, 5.000000e-01
   %130 = fadd <2 x double> %127, %128
-  %add31.i628 = extractelement <2 x double> %130, i64 0
+  %add31.i629 = extractelement <2 x double> %130, i64 0
   %131 = extractelement <2 x double> %128, i64 1
-  %132 = call double @llvm.fmuladd.f64(double %131, double -2.000000e+00, double %add31.i628)
+  %132 = call double @llvm.fmuladd.f64(double %131, double -2.000000e+00, double %add31.i629)
   %133 = extractelement <2 x double> %129, i64 0
-  %134 = call double @llvm.fmuladd.f64(double %sub11.i613, double %132, double %133)
-  %135 = call double @llvm.fmuladd.f64(double %mul24.i627, double %134, double %131)
-  %shift807 = shufflevector <2 x double> %129, <2 x double> poison, <2 x i32> <i32 1, i32 undef>
+  %134 = call double @llvm.fmuladd.f64(double %sub11.i614, double %132, double %133)
+  %135 = call double @llvm.fmuladd.f64(double %mul24.i628, double %134, double %131)
+  %shift807 = shufflevector <2 x double> %129, <2 x double> poison, <2 x i32> <i32 1, i32 poison>
   %136 = fsub <2 x double> %shift807, %129
-  %sub37.i629 = extractelement <2 x double> %136, i64 0
-  %137 = call double @llvm.fmuladd.f64(double %sub11.i613, double %sub37.i629, double %133)
-  %mul39.i630 = fmul double %137, 5.000000e-01
-  %mul41.i631 = fmul double %124, %mul39.i630
+  %sub37.i630 = extractelement <2 x double> %136, i64 0
+  %137 = call double @llvm.fmuladd.f64(double %sub11.i614, double %sub37.i630, double %133)
+  %mul39.i631 = fmul double %137, 5.000000e-01
+  %mul41.i632 = fmul double %124, %mul39.i631
   %arrayidx217 = getelementptr inbounds double, ptr %118, i64 %indvars.iv765
-  store double %mul41.i631, ptr %arrayidx217, align 8, !tbaa !16
+  store double %mul41.i632, ptr %arrayidx217, align 8, !tbaa !16
   %add218 = fadd double %etot.9708, %135
   %arrayidx222 = getelementptr inbounds double, ptr %120, i64 %indvars.iv765
   %138 = load double, ptr %arrayidx222, align 8, !tbaa !16
@@ -1283,8 +1283,8 @@ for.body289.us.us:                                ; preds = %for.inc390.us.us, %
   %indvars.iv782 = phi i64 [ %indvars.iv.next783, %for.inc390.us.us ], [ %150, %for.body281.us.us ]
   %ij284.0720.us.us = phi i32 [ %inc391.us.us, %for.inc390.us.us ], [ 0, %for.body281.us.us ]
   %cmp293.not.us.us = icmp ugt i32 %ij284.0720.us.us, %ii276.0723.us.us
-  %or.cond670.us.us = select i1 %cmp290.us, i1 true, i1 %cmp293.not.us.us
-  br i1 %or.cond670.us.us, label %if.end296.us.us, label %for.inc390.us.us
+  %or.cond566.us.us = or i1 %cmp290.us, %cmp293.not.us.us
+  br i1 %or.cond566.us.us, label %if.end296.us.us, label %for.inc390.us.us
 
 if.end296.us.us:                                  ; preds = %for.body289.us.us
   %151 = load ptr, ptr %atoms, align 8, !tbaa !51
@@ -1314,47 +1314,47 @@ if.end296.us.us:                                  ; preds = %for.body289.us.us
 if.end332.us.us:                                  ; preds = %if.end296.us.us
   %call334.us.us = call double @sqrt(double noundef %161) #18
   %162 = load ptr, ptr %rho337, align 8, !tbaa !27
-  %values.i632.us.us = getelementptr inbounds %struct.InterpolationObjectSt, ptr %162, i64 0, i32 3
-  %163 = load ptr, ptr %values.i632.us.us, align 8, !tbaa !21
-  %x0.i633.us.us = getelementptr inbounds %struct.InterpolationObjectSt, ptr %162, i64 0, i32 1
-  %164 = load double, ptr %x0.i633.us.us, align 8, !tbaa !25
-  %cmp.i634.us.us = fcmp ogt double %164, %call334.us.us
-  %r.addr.0.i635.us.us = select i1 %cmp.i634.us.us, double %164, double %call334.us.us
-  %sub.i636.us.us = fsub double %r.addr.0.i635.us.us, %164
-  %invDx.i637.us.us = getelementptr inbounds %struct.InterpolationObjectSt, ptr %162, i64 0, i32 2
-  %165 = load double, ptr %invDx.i637.us.us, align 8, !tbaa !24
-  %mul.i638.us.us = fmul double %165, %sub.i636.us.us
-  %166 = call double @llvm.floor.f64(double %mul.i638.us.us)
-  %conv.i639.us.us = fptosi double %166 to i32
+  %values.i633.us.us = getelementptr inbounds %struct.InterpolationObjectSt, ptr %162, i64 0, i32 3
+  %163 = load ptr, ptr %values.i633.us.us, align 8, !tbaa !21
+  %x0.i634.us.us = getelementptr inbounds %struct.InterpolationObjectSt, ptr %162, i64 0, i32 1
+  %164 = load double, ptr %x0.i634.us.us, align 8, !tbaa !25
+  %cmp.i635.us.us = fcmp ogt double %164, %call334.us.us
+  %r.addr.0.i636.us.us = select i1 %cmp.i635.us.us, double %164, double %call334.us.us
+  %sub.i637.us.us = fsub double %r.addr.0.i636.us.us, %164
+  %invDx.i638.us.us = getelementptr inbounds %struct.InterpolationObjectSt, ptr %162, i64 0, i32 2
+  %165 = load double, ptr %invDx.i638.us.us, align 8, !tbaa !24
+  %mul.i639.us.us = fmul double %165, %sub.i637.us.us
+  %166 = call double @llvm.floor.f64(double %mul.i639.us.us)
+  %conv.i640.us.us = fptosi double %166 to i32
   %167 = load i32, ptr %162, align 8, !tbaa !23
-  %cmp3.i640.us.us = icmp slt i32 %167, %conv.i639.us.us
-  %conv8.i641.us.us = sitofp i32 %167 to double
-  %div.i642.us.us = fdiv double %conv8.i641.us.us, %165
-  %ii.0.i643.us.us = call i32 @llvm.smin.i32(i32 %167, i32 %conv.i639.us.us)
-  %r.addr.1.i644.us.us = select i1 %cmp3.i640.us.us, double %div.i642.us.us, double %mul.i638.us.us
-  %168 = call double @llvm.floor.f64(double %r.addr.1.i644.us.us)
-  %sub11.i645.us.us = fsub double %r.addr.1.i644.us.us, %168
-  %add.i646.us.us = add nsw i32 %ii.0.i643.us.us, 1
-  %idxprom.i647.us.us = sext i32 %add.i646.us.us to i64
-  %arrayidx.i648.us.us = getelementptr inbounds double, ptr %163, i64 %idxprom.i647.us.us
-  %169 = load double, ptr %arrayidx.i648.us.us, align 8, !tbaa !16
-  %sub12.i649.us.us = add nsw i32 %ii.0.i643.us.us, -1
-  %idxprom13.i650.us.us = sext i32 %sub12.i649.us.us to i64
-  %arrayidx14.i651.us.us = getelementptr inbounds double, ptr %163, i64 %idxprom13.i650.us.us
-  %170 = load double, ptr %arrayidx14.i651.us.us, align 8, !tbaa !16
-  %sub15.i652.us.us = fsub double %169, %170
-  %add16.i653.us.us = add nsw i32 %ii.0.i643.us.us, 2
-  %idxprom17.i654.us.us = sext i32 %add16.i653.us.us to i64
-  %arrayidx18.i655.us.us = getelementptr inbounds double, ptr %163, i64 %idxprom17.i654.us.us
-  %171 = load double, ptr %arrayidx18.i655.us.us, align 8, !tbaa !16
-  %idxprom19.i656.us.us = sext i32 %ii.0.i643.us.us to i64
-  %arrayidx20.i657.us.us = getelementptr inbounds double, ptr %163, i64 %idxprom19.i656.us.us
-  %172 = load double, ptr %arrayidx20.i657.us.us, align 8, !tbaa !16
-  %sub21.i658.us.us = fsub double %171, %172
-  %sub37.i661.us.us = fsub double %sub21.i658.us.us, %sub15.i652.us.us
-  %173 = call double @llvm.fmuladd.f64(double %sub11.i645.us.us, double %sub37.i661.us.us, double %sub15.i652.us.us)
-  %mul39.i662.us.us = fmul double %173, 5.000000e-01
-  %mul41.i663.us.us = fmul double %165, %mul39.i662.us.us
+  %cmp3.i641.us.us = icmp slt i32 %167, %conv.i640.us.us
+  %conv8.i642.us.us = sitofp i32 %167 to double
+  %div.i643.us.us = fdiv double %conv8.i642.us.us, %165
+  %ii.0.i644.us.us = call i32 @llvm.smin.i32(i32 %167, i32 %conv.i640.us.us)
+  %r.addr.1.i645.us.us = select i1 %cmp3.i641.us.us, double %div.i643.us.us, double %mul.i639.us.us
+  %168 = call double @llvm.floor.f64(double %r.addr.1.i645.us.us)
+  %sub11.i646.us.us = fsub double %r.addr.1.i645.us.us, %168
+  %add.i647.us.us = add nsw i32 %ii.0.i644.us.us, 1
+  %idxprom.i648.us.us = sext i32 %add.i647.us.us to i64
+  %arrayidx.i649.us.us = getelementptr inbounds double, ptr %163, i64 %idxprom.i648.us.us
+  %169 = load double, ptr %arrayidx.i649.us.us, align 8, !tbaa !16
+  %sub12.i650.us.us = add nsw i32 %ii.0.i644.us.us, -1
+  %idxprom13.i651.us.us = sext i32 %sub12.i650.us.us to i64
+  %arrayidx14.i652.us.us = getelementptr inbounds double, ptr %163, i64 %idxprom13.i651.us.us
+  %170 = load double, ptr %arrayidx14.i652.us.us, align 8, !tbaa !16
+  %sub15.i653.us.us = fsub double %169, %170
+  %add16.i654.us.us = add nsw i32 %ii.0.i644.us.us, 2
+  %idxprom17.i655.us.us = sext i32 %add16.i654.us.us to i64
+  %arrayidx18.i656.us.us = getelementptr inbounds double, ptr %163, i64 %idxprom17.i655.us.us
+  %171 = load double, ptr %arrayidx18.i656.us.us, align 8, !tbaa !16
+  %idxprom19.i657.us.us = sext i32 %ii.0.i644.us.us to i64
+  %arrayidx20.i658.us.us = getelementptr inbounds double, ptr %163, i64 %idxprom19.i657.us.us
+  %172 = load double, ptr %arrayidx20.i658.us.us, align 8, !tbaa !16
+  %sub21.i659.us.us = fsub double %171, %172
+  %sub37.i662.us.us = fsub double %sub21.i659.us.us, %sub15.i653.us.us
+  %173 = call double @llvm.fmuladd.f64(double %sub11.i646.us.us, double %sub37.i662.us.us, double %sub15.i653.us.us)
+  %mul39.i663.us.us = fmul double %173, 5.000000e-01
+  %mul41.i664.us.us = fmul double %165, %mul39.i663.us.us
   %174 = load ptr, ptr %dfEmbed29, align 8, !tbaa !44
   %arrayidx346.us.us = getelementptr inbounds double, ptr %174, i64 %indvars.iv788
   %arrayidx349.us.us = getelementptr inbounds double, ptr %174, i64 %indvars.iv782
@@ -1364,7 +1364,7 @@ if.end332.us.us:                                  ; preds = %if.end296.us.us
   %177 = load double, ptr %arrayidx346.us.us, align 8, !tbaa !16
   %178 = load double, ptr %arrayidx349.us.us, align 8, !tbaa !16
   %add350.us.us = fadd double %177, %178
-  %mul351.us.us = fmul double %mul41.i663.us.us, %add350.us.us
+  %mul351.us.us = fmul double %mul41.i664.us.us, %add350.us.us
   %mul354.us.us = fmul double %sub317.us.us, %mul351.us.us
   %div355.us.us = fdiv double %mul354.us.us, %call334.us.us
   %arrayidx361.us.us = getelementptr inbounds [3 x double], ptr %176, i64 %indvars.iv788, i64 0
@@ -1374,7 +1374,7 @@ if.end332.us.us:                                  ; preds = %if.end296.us.us
   %180 = load double, ptr %arrayidx346.us.us, align 8, !tbaa !16
   %181 = load double, ptr %arrayidx349.us.us, align 8, !tbaa !16
   %add369.us.us = fadd double %180, %181
-  %mul370.us.us = fmul double %mul41.i663.us.us, %add369.us.us
+  %mul370.us.us = fmul double %mul41.i664.us.us, %add369.us.us
   %mul373.us.us = fmul double %sub317.us.us, %mul370.us.us
   %div374.us.us = fdiv double %mul373.us.us, %call334.us.us
   %arrayidx380.us.us = getelementptr inbounds [3 x double], ptr %176, i64 %indvars.iv782, i64 0
@@ -1384,7 +1384,7 @@ if.end332.us.us:                                  ; preds = %if.end296.us.us
   %183 = load double, ptr %arrayidx346.us.us, align 8, !tbaa !16
   %184 = load double, ptr %arrayidx349.us.us, align 8, !tbaa !16
   %add350.us.us.1 = fadd double %183, %184
-  %mul351.us.us.1 = fmul double %mul41.i663.us.us, %add350.us.us.1
+  %mul351.us.us.1 = fmul double %mul41.i664.us.us, %add350.us.us.1
   %mul354.us.us.1 = fmul double %sub317.us.us.1, %mul351.us.us.1
   %div355.us.us.1 = fdiv double %mul354.us.us.1, %call334.us.us
   %arrayidx361.us.us.1 = getelementptr inbounds [3 x double], ptr %176, i64 %indvars.iv788, i64 1
@@ -1394,7 +1394,7 @@ if.end332.us.us:                                  ; preds = %if.end296.us.us
   %186 = load double, ptr %arrayidx346.us.us, align 8, !tbaa !16
   %187 = load double, ptr %arrayidx349.us.us, align 8, !tbaa !16
   %add369.us.us.1 = fadd double %186, %187
-  %mul370.us.us.1 = fmul double %mul41.i663.us.us, %add369.us.us.1
+  %mul370.us.us.1 = fmul double %mul41.i664.us.us, %add369.us.us.1
   %mul373.us.us.1 = fmul double %sub317.us.us.1, %mul370.us.us.1
   %div374.us.us.1 = fdiv double %mul373.us.us.1, %call334.us.us
   %arrayidx380.us.us.1 = getelementptr inbounds [3 x double], ptr %176, i64 %indvars.iv782, i64 1
@@ -1404,7 +1404,7 @@ if.end332.us.us:                                  ; preds = %if.end296.us.us
   %189 = load double, ptr %arrayidx346.us.us, align 8, !tbaa !16
   %190 = load double, ptr %arrayidx349.us.us, align 8, !tbaa !16
   %add350.us.us.2 = fadd double %189, %190
-  %mul351.us.us.2 = fmul double %mul41.i663.us.us, %add350.us.us.2
+  %mul351.us.us.2 = fmul double %mul41.i664.us.us, %add350.us.us.2
   %mul354.us.us.2 = fmul double %sub317.us.us.2, %mul351.us.us.2
   %div355.us.us.2 = fdiv double %mul354.us.us.2, %call334.us.us
   %arrayidx361.us.us.2 = getelementptr inbounds [3 x double], ptr %176, i64 %indvars.iv788, i64 2
@@ -1414,7 +1414,7 @@ if.end332.us.us:                                  ; preds = %if.end296.us.us
   %192 = load double, ptr %arrayidx346.us.us, align 8, !tbaa !16
   %193 = load double, ptr %arrayidx349.us.us, align 8, !tbaa !16
   %add369.us.us.2 = fadd double %192, %193
-  %mul370.us.us.2 = fmul double %mul41.i663.us.us, %add369.us.us.2
+  %mul370.us.us.2 = fmul double %mul41.i664.us.us, %add369.us.us.2
   %mul373.us.us.2 = fmul double %sub317.us.us.2, %mul370.us.us.2
   %div374.us.us.2 = fdiv double %mul373.us.us.2, %call334.us.us
   %arrayidx380.us.us.2 = getelementptr inbounds [3 x double], ptr %176, i64 %indvars.iv782, i64 2
@@ -1702,14 +1702,14 @@ declare void @exit(i32 noundef) local_unnamed_addr #12
 ; Function Attrs: mustprogress nofree nounwind willreturn allockind("alloc,zeroed") allocsize(0,1) memory(inaccessiblemem: readwrite)
 declare noalias noundef ptr @calloc(i64 noundef, i64 noundef) local_unnamed_addr #13
 
-; Function Attrs: nocallback nofree nounwind willreturn memory(argmem: readwrite)
-declare void @llvm.memcpy.p0.p0.i64(ptr noalias nocapture writeonly, ptr noalias nocapture readonly, i64, i1 immarg) #14
+; Function Attrs: nofree nounwind
+declare noundef i64 @fwrite(ptr nocapture noundef, i64 noundef, i64 noundef, ptr nocapture noundef) local_unnamed_addr #14
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
 declare i32 @llvm.smax.i32(i32, i32) #15
 
-; Function Attrs: nofree nounwind
-declare noundef i64 @fwrite(ptr nocapture noundef, i64 noundef, i64 noundef, ptr nocapture noundef) local_unnamed_addr #16
+; Function Attrs: nocallback nofree nounwind willreturn memory(argmem: readwrite)
+declare void @llvm.memcpy.p0.p0.i64(ptr noalias nocapture writeonly, ptr noalias nocapture readonly, i64, i1 immarg) #16
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
 declare i32 @llvm.smin.i32(i32, i32) #15
@@ -1731,9 +1731,9 @@ attributes #10 = { mustprogress nounwind willreturn allockind("free") memory(arg
 attributes #11 = { mustprogress nofree nounwind willreturn memory(argmem: readwrite) "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #12 = { noreturn nounwind "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #13 = { mustprogress nofree nounwind willreturn allockind("alloc,zeroed") allocsize(0,1) memory(inaccessiblemem: readwrite) "alloc-family"="malloc" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
-attributes #14 = { nocallback nofree nounwind willreturn memory(argmem: readwrite) }
+attributes #14 = { nofree nounwind }
 attributes #15 = { nocallback nofree nosync nounwind speculatable willreturn memory(none) }
-attributes #16 = { nofree nounwind }
+attributes #16 = { nocallback nofree nounwind willreturn memory(argmem: readwrite) }
 attributes #17 = { nounwind allocsize(0) }
 attributes #18 = { nounwind }
 attributes #19 = { nounwind willreturn memory(read) }

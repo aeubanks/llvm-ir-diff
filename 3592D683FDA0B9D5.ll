@@ -140,15 +140,15 @@ if.end14:                                         ; preds = %if.end10
   %fyy = getelementptr inbounds %struct.gs_image_enum_s, ptr %penum, i64 0, i32 8
   store i64 %conv22, ptr %fyy, align 8, !tbaa !30
   %xy = getelementptr inbounds %struct.gs_matrix_s, ptr %mat, i64 0, i32 2
-  %2 = load i64, ptr %xy, align 8, !tbaa !31
+  %2 = load i64, ptr %xy, align 8
   %yx = getelementptr inbounds %struct.gs_matrix_s, ptr %mat, i64 0, i32 4
-  %3 = load i64, ptr %yx, align 8, !tbaa !31
+  %3 = load i64, ptr %yx, align 8
   %or = or i64 %3, %2
   %shl.mask = and i64 %or, 9223372036854775807
   %cmp23 = icmp ne i64 %shl.mask, 0
   %lnot.ext = zext i1 %cmp23 to i32
   %skewed = getelementptr inbounds %struct.gs_image_enum_s, ptr %penum, i64 0, i32 16
-  store i32 %lnot.ext, ptr %skewed, align 4, !tbaa !32
+  store i32 %lnot.ext, ptr %skewed, align 4, !tbaa !31
   %4 = trunc i64 %2 to i32
   %5 = bitcast i32 %4 to float
   %6 = trunc i64 %3 to i32
@@ -164,23 +164,23 @@ if.end14:                                         ; preds = %if.end10
   %9 = getelementptr inbounds %struct.gs_image_enum_s, ptr %penum, i64 0, i32 7
   store i64 %.sink, ptr %9, align 8
   %tx = getelementptr inbounds %struct.gs_matrix_s, ptr %mat, i64 0, i32 8
-  %10 = load float, ptr %tx, align 8, !tbaa !33
+  %10 = load float, ptr %tx, align 8, !tbaa !32
   %mul35 = fmul float %10, 4.096000e+03
   %conv36 = fptosi float %mul35 to i64
   %xcur = getelementptr inbounds %struct.gs_image_enum_s, ptr %penum, i64 0, i32 22
-  store i64 %conv36, ptr %xcur, align 8, !tbaa !34
+  store i64 %conv36, ptr %xcur, align 8, !tbaa !33
   %ty = getelementptr inbounds %struct.gs_matrix_s, ptr %mat, i64 0, i32 10
-  %11 = load float, ptr %ty, align 8, !tbaa !35
+  %11 = load float, ptr %ty, align 8, !tbaa !34
   %mul37 = fmul float %11, 4.096000e+03
   %conv38 = fptosi float %mul37 to i64
   %ycur = getelementptr inbounds %struct.gs_image_enum_s, ptr %penum, i64 0, i32 23
-  store i64 %conv38, ptr %ycur, align 8, !tbaa !36
+  store i64 %conv38, ptr %ycur, align 8, !tbaa !35
   %pgs39 = getelementptr inbounds %struct.gs_image_enum_s, ptr %penum, i64 0, i32 11
-  store ptr %pgs, ptr %pgs39, align 8, !tbaa !37
+  store ptr %pgs, ptr %pgs39, align 8, !tbaa !36
   %buffer40 = getelementptr inbounds %struct.gs_image_enum_s, ptr %penum, i64 0, i32 12
-  store ptr %call11, ptr %buffer40, align 8, !tbaa !38
+  store ptr %call11, ptr %buffer40, align 8, !tbaa !37
   %buffer_size = getelementptr inbounds %struct.gs_image_enum_s, ptr %penum, i64 0, i32 13
-  store i32 %mul, ptr %buffer_size, align 8, !tbaa !39
+  store i32 %mul, ptr %buffer_size, align 8, !tbaa !38
   %conv41 = zext i32 %width to i64
   %sh_prom = zext i32 %log2_bps to i64
   %shl42 = shl i64 %conv41, %sh_prom
@@ -192,7 +192,7 @@ if.end14:                                         ; preds = %if.end10
   %shr = lshr i64 %add46, 3
   %conv47 = trunc i64 %shr to i32
   %bytes_per_row = getelementptr inbounds %struct.gs_image_enum_s, ptr %penum, i64 0, i32 14
-  store i32 %conv47, ptr %bytes_per_row, align 4, !tbaa !40
+  store i32 %conv47, ptr %bytes_per_row, align 4, !tbaa !39
   %cmp48 = icmp eq i32 %spp, 1
   br i1 %cmp48, label %if.then50, label %if.end116
 
@@ -211,98 +211,98 @@ do.body:                                          ; preds = %do.body, %sw.bb
   %n.0 = phi i32 [ 64, %sw.bb ], [ %dec.3, %do.body ]
   %pcht.0 = phi ptr [ %dev_colors, %sw.bb ], [ %add.ptr.3, %do.body ]
   %halftone_level = getelementptr inbounds %struct.gx_device_color_s, ptr %pcht.0, i64 3, i32 2
-  store i32 -1, ptr %halftone_level, align 8, !tbaa !41
+  store i32 -1, ptr %halftone_level, align 8, !tbaa !40
   %halftone_level53 = getelementptr inbounds %struct.gx_device_color_s, ptr %pcht.0, i64 2, i32 2
-  store i32 -1, ptr %halftone_level53, align 8, !tbaa !41
+  store i32 -1, ptr %halftone_level53, align 8, !tbaa !40
   %halftone_level55 = getelementptr inbounds %struct.gx_device_color_s, ptr %pcht.0, i64 1, i32 2
-  store i32 -1, ptr %halftone_level55, align 8, !tbaa !41
+  store i32 -1, ptr %halftone_level55, align 8, !tbaa !40
   %halftone_level57 = getelementptr inbounds %struct.gx_device_color_s, ptr %pcht.0, i64 0, i32 2
-  store i32 -1, ptr %halftone_level57, align 8, !tbaa !41
+  store i32 -1, ptr %halftone_level57, align 8, !tbaa !40
   %halftone_level.1 = getelementptr inbounds %struct.gx_device_color_s, ptr %pcht.0, i64 7, i32 2
-  store i32 -1, ptr %halftone_level.1, align 8, !tbaa !41
+  store i32 -1, ptr %halftone_level.1, align 8, !tbaa !40
   %halftone_level53.1 = getelementptr inbounds %struct.gx_device_color_s, ptr %pcht.0, i64 6, i32 2
-  store i32 -1, ptr %halftone_level53.1, align 8, !tbaa !41
+  store i32 -1, ptr %halftone_level53.1, align 8, !tbaa !40
   %halftone_level55.1 = getelementptr inbounds %struct.gx_device_color_s, ptr %pcht.0, i64 5, i32 2
-  store i32 -1, ptr %halftone_level55.1, align 8, !tbaa !41
+  store i32 -1, ptr %halftone_level55.1, align 8, !tbaa !40
   %halftone_level57.1 = getelementptr inbounds %struct.gx_device_color_s, ptr %pcht.0, i64 4, i32 2
-  store i32 -1, ptr %halftone_level57.1, align 8, !tbaa !41
+  store i32 -1, ptr %halftone_level57.1, align 8, !tbaa !40
   %halftone_level.2 = getelementptr inbounds %struct.gx_device_color_s, ptr %pcht.0, i64 11, i32 2
-  store i32 -1, ptr %halftone_level.2, align 8, !tbaa !41
+  store i32 -1, ptr %halftone_level.2, align 8, !tbaa !40
   %halftone_level53.2 = getelementptr inbounds %struct.gx_device_color_s, ptr %pcht.0, i64 10, i32 2
-  store i32 -1, ptr %halftone_level53.2, align 8, !tbaa !41
+  store i32 -1, ptr %halftone_level53.2, align 8, !tbaa !40
   %halftone_level55.2 = getelementptr inbounds %struct.gx_device_color_s, ptr %pcht.0, i64 9, i32 2
-  store i32 -1, ptr %halftone_level55.2, align 8, !tbaa !41
+  store i32 -1, ptr %halftone_level55.2, align 8, !tbaa !40
   %halftone_level57.2 = getelementptr inbounds %struct.gx_device_color_s, ptr %pcht.0, i64 8, i32 2
-  store i32 -1, ptr %halftone_level57.2, align 8, !tbaa !41
+  store i32 -1, ptr %halftone_level57.2, align 8, !tbaa !40
   %halftone_level.3 = getelementptr inbounds %struct.gx_device_color_s, ptr %pcht.0, i64 15, i32 2
-  store i32 -1, ptr %halftone_level.3, align 8, !tbaa !41
+  store i32 -1, ptr %halftone_level.3, align 8, !tbaa !40
   %halftone_level53.3 = getelementptr inbounds %struct.gx_device_color_s, ptr %pcht.0, i64 14, i32 2
-  store i32 -1, ptr %halftone_level53.3, align 8, !tbaa !41
+  store i32 -1, ptr %halftone_level53.3, align 8, !tbaa !40
   %halftone_level55.3 = getelementptr inbounds %struct.gx_device_color_s, ptr %pcht.0, i64 13, i32 2
-  store i32 -1, ptr %halftone_level55.3, align 8, !tbaa !41
+  store i32 -1, ptr %halftone_level55.3, align 8, !tbaa !40
   %halftone_level57.3 = getelementptr inbounds %struct.gx_device_color_s, ptr %pcht.0, i64 12, i32 2
-  store i32 -1, ptr %halftone_level57.3, align 8, !tbaa !41
+  store i32 -1, ptr %halftone_level57.3, align 8, !tbaa !40
   %add.ptr.3 = getelementptr inbounds %struct.gx_device_color_s, ptr %pcht.0, i64 16
   %dec.3 = add nsw i32 %n.0, -4
   %cmp58.3.not = icmp eq i32 %n.0, 4
-  br i1 %cmp58.3.not, label %sw.epilog, label %do.body, !llvm.loop !43
+  br i1 %cmp58.3.not, label %sw.epilog, label %do.body, !llvm.loop !42
 
 sw.bb60:                                          ; preds = %if.then50
   %halftone_level63 = getelementptr inbounds %struct.gs_image_enum_s, ptr %penum, i64 0, i32 25, i64 238, i32 2
-  store i32 -1, ptr %halftone_level63, align 8, !tbaa !41
+  store i32 -1, ptr %halftone_level63, align 8, !tbaa !40
   %halftone_level66 = getelementptr inbounds %struct.gs_image_enum_s, ptr %penum, i64 0, i32 25, i64 221, i32 2
-  store i32 -1, ptr %halftone_level66, align 8, !tbaa !41
+  store i32 -1, ptr %halftone_level66, align 8, !tbaa !40
   %halftone_level69 = getelementptr inbounds %struct.gs_image_enum_s, ptr %penum, i64 0, i32 25, i64 204, i32 2
-  store i32 -1, ptr %halftone_level69, align 8, !tbaa !41
+  store i32 -1, ptr %halftone_level69, align 8, !tbaa !40
   %halftone_level72 = getelementptr inbounds %struct.gs_image_enum_s, ptr %penum, i64 0, i32 25, i64 187, i32 2
-  store i32 -1, ptr %halftone_level72, align 8, !tbaa !41
+  store i32 -1, ptr %halftone_level72, align 8, !tbaa !40
   %halftone_level75 = getelementptr inbounds %struct.gs_image_enum_s, ptr %penum, i64 0, i32 25, i64 153, i32 2
-  store i32 -1, ptr %halftone_level75, align 8, !tbaa !41
+  store i32 -1, ptr %halftone_level75, align 8, !tbaa !40
   %halftone_level78 = getelementptr inbounds %struct.gs_image_enum_s, ptr %penum, i64 0, i32 25, i64 136, i32 2
-  store i32 -1, ptr %halftone_level78, align 8, !tbaa !41
+  store i32 -1, ptr %halftone_level78, align 8, !tbaa !40
   %halftone_level81 = getelementptr inbounds %struct.gs_image_enum_s, ptr %penum, i64 0, i32 25, i64 119, i32 2
-  store i32 -1, ptr %halftone_level81, align 8, !tbaa !41
+  store i32 -1, ptr %halftone_level81, align 8, !tbaa !40
   %halftone_level84 = getelementptr inbounds %struct.gs_image_enum_s, ptr %penum, i64 0, i32 25, i64 102, i32 2
-  store i32 -1, ptr %halftone_level84, align 8, !tbaa !41
+  store i32 -1, ptr %halftone_level84, align 8, !tbaa !40
   %halftone_level87 = getelementptr inbounds %struct.gs_image_enum_s, ptr %penum, i64 0, i32 25, i64 68, i32 2
-  store i32 -1, ptr %halftone_level87, align 8, !tbaa !41
+  store i32 -1, ptr %halftone_level87, align 8, !tbaa !40
   %halftone_level90 = getelementptr inbounds %struct.gs_image_enum_s, ptr %penum, i64 0, i32 25, i64 51, i32 2
-  store i32 -1, ptr %halftone_level90, align 8, !tbaa !41
+  store i32 -1, ptr %halftone_level90, align 8, !tbaa !40
   %halftone_level93 = getelementptr inbounds %struct.gs_image_enum_s, ptr %penum, i64 0, i32 25, i64 34, i32 2
-  store i32 -1, ptr %halftone_level93, align 8, !tbaa !41
+  store i32 -1, ptr %halftone_level93, align 8, !tbaa !40
   %halftone_level96 = getelementptr inbounds %struct.gs_image_enum_s, ptr %penum, i64 0, i32 25, i64 17, i32 2
-  store i32 -1, ptr %halftone_level96, align 8, !tbaa !41
+  store i32 -1, ptr %halftone_level96, align 8, !tbaa !40
   br label %sw.bb97
 
 sw.bb97:                                          ; preds = %if.then50, %sw.bb60
   %halftone_level100 = getelementptr inbounds %struct.gs_image_enum_s, ptr %penum, i64 0, i32 25, i64 170, i32 2
-  store i32 -1, ptr %halftone_level100, align 8, !tbaa !41
+  store i32 -1, ptr %halftone_level100, align 8, !tbaa !40
   %halftone_level103 = getelementptr inbounds %struct.gs_image_enum_s, ptr %penum, i64 0, i32 25, i64 85, i32 2
-  store i32 -1, ptr %halftone_level103, align 8, !tbaa !41
+  store i32 -1, ptr %halftone_level103, align 8, !tbaa !40
   br label %sw.epilog
 
 sw.epilog:                                        ; preds = %do.body, %sw.bb97, %if.then50
   %dev_colors104 = getelementptr inbounds %struct.gs_image_enum_s, ptr %penum, i64 0, i32 25
-  store i64 %color0, ptr %dev_colors104, align 8, !tbaa !45
+  store i64 %color0, ptr %dev_colors104, align 8, !tbaa !44
   %halftone_level109 = getelementptr inbounds %struct.gs_image_enum_s, ptr %penum, i64 0, i32 25, i64 0, i32 2
-  store i32 0, ptr %halftone_level109, align 8, !tbaa !41
+  store i32 0, ptr %halftone_level109, align 8, !tbaa !40
   %arrayidx111 = getelementptr inbounds %struct.gs_image_enum_s, ptr %penum, i64 0, i32 25, i64 255
-  store i64 %color1, ptr %arrayidx111, align 8, !tbaa !45
+  store i64 %color1, ptr %arrayidx111, align 8, !tbaa !44
   %halftone_level115 = getelementptr inbounds %struct.gs_image_enum_s, ptr %penum, i64 0, i32 25, i64 255, i32 2
-  store i32 0, ptr %halftone_level115, align 8, !tbaa !41
+  store i32 0, ptr %halftone_level115, align 8, !tbaa !40
   br label %if.end116
 
 if.end116:                                        ; preds = %sw.epilog, %if.end14
   %clip_path = getelementptr inbounds %struct.gs_state_s, ptr %pgs, i64 0, i32 8
-  %12 = load ptr, ptr %clip_path, align 8, !tbaa !46
+  %12 = load ptr, ptr %clip_path, align 8, !tbaa !45
   %cbox = getelementptr inbounds %struct.gx_path_s, ptr %12, i64 0, i32 3
-  %13 = load i64, ptr %cbox, align 8, !tbaa !47
+  %13 = load i64, ptr %cbox, align 8, !tbaa !46
   %y = getelementptr inbounds %struct.gx_path_s, ptr %12, i64 0, i32 3, i32 0, i32 1
-  %14 = load i64, ptr %y, align 8, !tbaa !51
+  %14 = load i64, ptr %y, align 8, !tbaa !50
   %q = getelementptr inbounds %struct.gx_path_s, ptr %12, i64 0, i32 3, i32 1
-  %15 = load i64, ptr %q, align 8, !tbaa !52
+  %15 = load i64, ptr %q, align 8, !tbaa !51
   %y123 = getelementptr inbounds %struct.gx_path_s, ptr %12, i64 0, i32 3, i32 1, i32 1
-  %16 = load i64, ptr %y123, align 8, !tbaa !53
+  %16 = load i64, ptr %y123, align 8, !tbaa !52
   %mul128 = mul nsw i64 %conv, %conv41
   %conv132 = zext i32 %height to i64
   %mul133 = mul nsw i64 %conv22, %conv132
@@ -358,14 +358,14 @@ cond.false171:                                    ; preds = %land.rhs
 
 cond.end.thread:                                  ; preds = %cond.false171
   %never_clip366 = getelementptr inbounds %struct.gs_image_enum_s, ptr %penum, i64 0, i32 15
-  store i32 0, ptr %never_clip366, align 8, !tbaa !54
+  store i32 0, ptr %never_clip366, align 8, !tbaa !53
   br label %lor.end
 
 cond.end:                                         ; preds = %cond.false171, %cond.true164
   %cond.in = phi i1 [ %17, %cond.true164 ], [ %cmp176, %cond.false171 ]
   %land.ext182 = zext i1 %cond.in to i32
   %never_clip = getelementptr inbounds %struct.gs_image_enum_s, ptr %penum, i64 0, i32 15
-  store i32 %land.ext182, ptr %never_clip, align 8, !tbaa !54
+  store i32 %land.ext182, ptr %never_clip, align 8, !tbaa !53
   %tobool180.not = xor i1 %cond.in, true
   %brmerge371 = or i1 %cmp23, %tobool180.not
   br i1 %brmerge371, label %lor.end, label %lor.rhs
@@ -378,24 +378,24 @@ lor.rhs:                                          ; preds = %cond.end
 
 land.rhs193:                                      ; preds = %lor.rhs
   %dev_color = getelementptr inbounds %struct.gs_state_s, ptr %pgs, i64 0, i32 14
-  %18 = load ptr, ptr %dev_color, align 8, !tbaa !55
+  %18 = load ptr, ptr %dev_color, align 8, !tbaa !54
   %halftone_level194 = getelementptr inbounds %struct.gx_device_color_s, ptr %18, i64 0, i32 2
-  %19 = load i32, ptr %halftone_level194, align 8, !tbaa !41
+  %19 = load i32, ptr %halftone_level194, align 8, !tbaa !40
   %cmp195 = icmp ne i32 %19, 0
   br label %lor.end
 
 lor.end.critedge:                                 ; preds = %cond.true, %cond.false
   %never_clip.c = getelementptr inbounds %struct.gs_image_enum_s, ptr %penum, i64 0, i32 15
-  store i32 0, ptr %never_clip.c, align 8, !tbaa !54
+  store i32 0, ptr %never_clip.c, align 8, !tbaa !53
   br label %lor.end
 
 lor.end:                                          ; preds = %cond.end, %cond.end.thread, %lor.end.critedge, %land.rhs193, %lor.rhs
   %20 = phi i1 [ true, %cond.end ], [ %cmp195, %land.rhs193 ], [ false, %lor.rhs ], [ true, %lor.end.critedge ], [ true, %cond.end.thread ]
   %lor.ext = zext i1 %20 to i32
   %slow_loop = getelementptr inbounds %struct.gs_image_enum_s, ptr %penum, i64 0, i32 17
-  store i32 %lor.ext, ptr %slow_loop, align 8, !tbaa !56
+  store i32 %lor.ext, ptr %slow_loop, align 8, !tbaa !55
   %in_charpath = getelementptr inbounds %struct.gs_state_s, ptr %pgs, i64 0, i32 20
-  %21 = load i8, ptr %in_charpath, align 1, !tbaa !57
+  %21 = load i8, ptr %in_charpath, align 1, !tbaa !56
   %tobool202.not = icmp eq i8 %21, 0
   br i1 %tobool202.not, label %cond.false204, label %if.else236
 
@@ -419,15 +419,15 @@ land.rhs214:                                      ; preds = %cond.false208
 
 if.then235:                                       ; preds = %land.rhs214
   %render = getelementptr inbounds %struct.gs_image_enum_s, ptr %penum, i64 0, i32 10
-  store ptr @image_render_direct, ptr %render, align 8, !tbaa !58
+  store ptr @image_render_direct, ptr %render, align 8, !tbaa !57
   %unpack = getelementptr inbounds %struct.gs_image_enum_s, ptr %penum, i64 0, i32 9
-  store ptr @image_unpack_3, ptr %unpack, align 8, !tbaa !59
+  store ptr @image_unpack_3, ptr %unpack, align 8, !tbaa !58
   br label %if.end247
 
 if.else236:                                       ; preds = %lor.end, %cond.false204, %cond.false208, %land.rhs214
   %cond231.ph = phi ptr [ @image_render_mono, %land.rhs214 ], [ @image_render_mono, %cond.false208 ], [ @image_render_color, %cond.false204 ], [ @image_render_skip, %lor.end ]
   %render369 = getelementptr inbounds %struct.gs_image_enum_s, ptr %penum, i64 0, i32 10
-  store ptr %cond231.ph, ptr %render369, align 8, !tbaa !58
+  store ptr %cond231.ph, ptr %render369, align 8, !tbaa !57
   %cmp237.not = icmp eq i32 %spread, 1
   %idxprom243 = sext i32 %log2_bps to i64
   %unpack245 = getelementptr inbounds %struct.gs_image_enum_s, ptr %penum, i64 0, i32 9
@@ -435,23 +435,23 @@ if.else236:                                       ; preds = %lor.end, %cond.fals
 
 if.then239:                                       ; preds = %if.else236
   %arrayidx240 = getelementptr inbounds [4 x ptr], ptr @image_init.spread_procs, i64 0, i64 %idxprom243
-  %22 = load ptr, ptr %arrayidx240, align 8, !tbaa !60
-  store ptr %22, ptr %unpack245, align 8, !tbaa !59
+  %22 = load ptr, ptr %arrayidx240, align 8, !tbaa !59
+  store ptr %22, ptr %unpack245, align 8, !tbaa !58
   br label %if.end247
 
 if.else242:                                       ; preds = %if.else236
   %arrayidx244 = getelementptr inbounds [4 x ptr], ptr @image_init.procs, i64 0, i64 %idxprom243
-  %23 = load ptr, ptr %arrayidx244, align 8, !tbaa !60
-  store ptr %23, ptr %unpack245, align 8, !tbaa !59
+  %23 = load ptr, ptr %arrayidx244, align 8, !tbaa !59
+  store ptr %23, ptr %unpack245, align 8, !tbaa !58
   br label %if.end247
 
 if.end247:                                        ; preds = %if.then239, %if.else242, %if.then235
   %plane_index = getelementptr inbounds %struct.gs_image_enum_s, ptr %penum, i64 0, i32 19
-  store i32 0, ptr %plane_index, align 8, !tbaa !61
+  store i32 0, ptr %plane_index, align 8, !tbaa !60
   %byte_in_row = getelementptr inbounds %struct.gs_image_enum_s, ptr %penum, i64 0, i32 21
-  store i32 0, ptr %byte_in_row, align 8, !tbaa !62
+  store i32 0, ptr %byte_in_row, align 8, !tbaa !61
   %y248 = getelementptr inbounds %struct.gs_image_enum_s, ptr %penum, i64 0, i32 24
-  store i32 0, ptr %y248, align 8, !tbaa !63
+  store i32 0, ptr %y248, align 8, !tbaa !62
   br label %cleanup
 
 cleanup:                                          ; preds = %if.end10, %if.end4, %lor.lhs.false6, %if.end, %entry, %if.end247
@@ -467,13 +467,13 @@ declare void @llvm.lifetime.end.p0(i64 immarg, ptr nocapture) #1
 define dso_local i32 @gs_imagemask_init(ptr noundef %penum, ptr noundef %pgs, i32 noundef %width, i32 noundef %height, i32 noundef %invert, ptr noundef %pmat) local_unnamed_addr #0 {
 entry:
   %color = getelementptr inbounds %struct.gs_state_s, ptr %pgs, i64 0, i32 13
-  %0 = load ptr, ptr %color, align 8, !tbaa !64
+  %0 = load ptr, ptr %color, align 8, !tbaa !63
   %dev_color = getelementptr inbounds %struct.gs_state_s, ptr %pgs, i64 0, i32 14
-  %1 = load ptr, ptr %dev_color, align 8, !tbaa !55
+  %1 = load ptr, ptr %dev_color, align 8, !tbaa !54
   %call = tail call i32 (ptr, ptr, ptr, ...) @gx_color_render(ptr noundef %0, ptr noundef %1, ptr noundef %pgs) #8
   %tobool.not = icmp eq i32 %invert, 0
-  %2 = load ptr, ptr %dev_color, align 8, !tbaa !55
-  %3 = load i64, ptr %2, align 8, !tbaa !45
+  %2 = load ptr, ptr %dev_color, align 8, !tbaa !54
+  %3 = load i64, ptr %2, align 8, !tbaa !44
   %. = select i1 %tobool.not, i64 %3, i64 -1
   %.11 = select i1 %tobool.not, i64 -1, i64 %3
   %call5 = tail call i32 @image_init(ptr noundef %penum, i32 noundef %width, i32 noundef %height, i32 noundef 0, i32 noundef 1, i32 noundef 1, ptr noundef %pmat, ptr noundef nonnull %pgs, i64 noundef %., i64 noundef %.11), !range !20
@@ -502,20 +502,20 @@ while.body.preheader:                             ; preds = %entry
 while.body.prol:                                  ; preds = %while.body.preheader
   %dec.prol = add nsw i32 %dsize, -1
   %incdec.ptr.prol = getelementptr inbounds i8, ptr %data, i64 1
-  %0 = load i8, ptr %data, align 1, !tbaa !65
+  %0 = load i8, ptr %data, align 1, !tbaa !64
   %conv.prol = zext i8 %0 to i32
   %shr.prol = lshr i32 %conv.prol, 4
   %idxprom.prol = zext i32 %shr.prol to i64
   %arrayidx.prol = getelementptr inbounds [16 x i32], ptr @map_4_to_32, i64 0, i64 %idxprom.prol
-  %1 = load i32, ptr %arrayidx.prol, align 4, !tbaa !66
+  %1 = load i32, ptr %arrayidx.prol, align 4, !tbaa !65
   %incdec.ptr1.prol = getelementptr inbounds i32, ptr %bptr, i64 1
-  store i32 %1, ptr %bptr, align 4, !tbaa !66
+  store i32 %1, ptr %bptr, align 4, !tbaa !65
   %and.prol = and i32 %conv.prol, 15
   %idxprom2.prol = zext i32 %and.prol to i64
   %arrayidx3.prol = getelementptr inbounds [16 x i32], ptr @map_4_to_32, i64 0, i64 %idxprom2.prol
-  %2 = load i32, ptr %arrayidx3.prol, align 4, !tbaa !66
+  %2 = load i32, ptr %arrayidx3.prol, align 4, !tbaa !65
   %incdec.ptr4.prol = getelementptr inbounds i32, ptr %bptr, i64 2
-  store i32 %2, ptr %incdec.ptr1.prol, align 4, !tbaa !66
+  store i32 %2, ptr %incdec.ptr1.prol, align 4, !tbaa !65
   br label %while.body.prol.loopexit
 
 while.body.prol.loopexit:                         ; preds = %while.body.prol, %while.body.preheader
@@ -530,38 +530,38 @@ while.body:                                       ; preds = %while.body.prol.loo
   %left.09 = phi i32 [ %dec.1, %while.body ], [ %left.09.unr, %while.body.prol.loopexit ]
   %bufp.08 = phi ptr [ %incdec.ptr4.1, %while.body ], [ %bufp.08.unr, %while.body.prol.loopexit ]
   %incdec.ptr = getelementptr inbounds i8, ptr %data.addr.010, i64 1
-  %4 = load i8, ptr %data.addr.010, align 1, !tbaa !65
+  %4 = load i8, ptr %data.addr.010, align 1, !tbaa !64
   %conv = zext i8 %4 to i32
   %shr = lshr i32 %conv, 4
   %idxprom = zext i32 %shr to i64
   %arrayidx = getelementptr inbounds [16 x i32], ptr @map_4_to_32, i64 0, i64 %idxprom
-  %5 = load i32, ptr %arrayidx, align 4, !tbaa !66
+  %5 = load i32, ptr %arrayidx, align 4, !tbaa !65
   %incdec.ptr1 = getelementptr inbounds i32, ptr %bufp.08, i64 1
-  store i32 %5, ptr %bufp.08, align 4, !tbaa !66
+  store i32 %5, ptr %bufp.08, align 4, !tbaa !65
   %and = and i32 %conv, 15
   %idxprom2 = zext i32 %and to i64
   %arrayidx3 = getelementptr inbounds [16 x i32], ptr @map_4_to_32, i64 0, i64 %idxprom2
-  %6 = load i32, ptr %arrayidx3, align 4, !tbaa !66
+  %6 = load i32, ptr %arrayidx3, align 4, !tbaa !65
   %incdec.ptr4 = getelementptr inbounds i32, ptr %bufp.08, i64 2
-  store i32 %6, ptr %incdec.ptr1, align 4, !tbaa !66
+  store i32 %6, ptr %incdec.ptr1, align 4, !tbaa !65
   %dec.1 = add nsw i32 %left.09, -2
   %incdec.ptr.1 = getelementptr inbounds i8, ptr %data.addr.010, i64 2
-  %7 = load i8, ptr %incdec.ptr, align 1, !tbaa !65
+  %7 = load i8, ptr %incdec.ptr, align 1, !tbaa !64
   %conv.1 = zext i8 %7 to i32
   %shr.1 = lshr i32 %conv.1, 4
   %idxprom.1 = zext i32 %shr.1 to i64
   %arrayidx.1 = getelementptr inbounds [16 x i32], ptr @map_4_to_32, i64 0, i64 %idxprom.1
-  %8 = load i32, ptr %arrayidx.1, align 4, !tbaa !66
+  %8 = load i32, ptr %arrayidx.1, align 4, !tbaa !65
   %incdec.ptr1.1 = getelementptr inbounds i32, ptr %bufp.08, i64 3
-  store i32 %8, ptr %incdec.ptr4, align 4, !tbaa !66
+  store i32 %8, ptr %incdec.ptr4, align 4, !tbaa !65
   %and.1 = and i32 %conv.1, 15
   %idxprom2.1 = zext i32 %and.1 to i64
   %arrayidx3.1 = getelementptr inbounds [16 x i32], ptr @map_4_to_32, i64 0, i64 %idxprom2.1
-  %9 = load i32, ptr %arrayidx3.1, align 4, !tbaa !66
+  %9 = load i32, ptr %arrayidx3.1, align 4, !tbaa !65
   %incdec.ptr4.1 = getelementptr inbounds i32, ptr %bufp.08, i64 4
-  store i32 %9, ptr %incdec.ptr1.1, align 4, !tbaa !66
+  store i32 %9, ptr %incdec.ptr1.1, align 4, !tbaa !65
   %tobool.not.1 = icmp eq i32 %dec.1, 0
-  br i1 %tobool.not.1, label %while.end, label %while.body, !llvm.loop !67
+  br i1 %tobool.not.1, label %while.end, label %while.body, !llvm.loop !66
 
 while.end:                                        ; preds = %while.body.prol.loopexit, %while.body, %entry
   ret void
@@ -581,20 +581,20 @@ while.body.preheader:                             ; preds = %entry
 while.body.prol:                                  ; preds = %while.body.preheader
   %dec.prol = add nsw i32 %dsize, -1
   %incdec.ptr.prol = getelementptr inbounds i8, ptr %data, i64 1
-  %0 = load i8, ptr %data, align 1, !tbaa !65
+  %0 = load i8, ptr %data, align 1, !tbaa !64
   %conv.prol = zext i8 %0 to i32
   %shr.prol = lshr i32 %conv.prol, 4
   %idxprom.prol = zext i32 %shr.prol to i64
   %arrayidx.prol = getelementptr inbounds [16 x i16], ptr @map_4_to_16, i64 0, i64 %idxprom.prol
-  %1 = load i16, ptr %arrayidx.prol, align 2, !tbaa !68
+  %1 = load i16, ptr %arrayidx.prol, align 2, !tbaa !67
   %incdec.ptr1.prol = getelementptr inbounds i16, ptr %bptr, i64 1
-  store i16 %1, ptr %bptr, align 2, !tbaa !68
+  store i16 %1, ptr %bptr, align 2, !tbaa !67
   %and.prol = and i32 %conv.prol, 15
   %idxprom2.prol = zext i32 %and.prol to i64
   %arrayidx3.prol = getelementptr inbounds [16 x i16], ptr @map_4_to_16, i64 0, i64 %idxprom2.prol
-  %2 = load i16, ptr %arrayidx3.prol, align 2, !tbaa !68
+  %2 = load i16, ptr %arrayidx3.prol, align 2, !tbaa !67
   %incdec.ptr4.prol = getelementptr inbounds i16, ptr %bptr, i64 2
-  store i16 %2, ptr %incdec.ptr1.prol, align 2, !tbaa !68
+  store i16 %2, ptr %incdec.ptr1.prol, align 2, !tbaa !67
   br label %while.body.prol.loopexit
 
 while.body.prol.loopexit:                         ; preds = %while.body.prol, %while.body.preheader
@@ -609,38 +609,38 @@ while.body:                                       ; preds = %while.body.prol.loo
   %left.09 = phi i32 [ %dec.1, %while.body ], [ %left.09.unr, %while.body.prol.loopexit ]
   %bufp.08 = phi ptr [ %incdec.ptr4.1, %while.body ], [ %bufp.08.unr, %while.body.prol.loopexit ]
   %incdec.ptr = getelementptr inbounds i8, ptr %data.addr.010, i64 1
-  %4 = load i8, ptr %data.addr.010, align 1, !tbaa !65
+  %4 = load i8, ptr %data.addr.010, align 1, !tbaa !64
   %conv = zext i8 %4 to i32
   %shr = lshr i32 %conv, 4
   %idxprom = zext i32 %shr to i64
   %arrayidx = getelementptr inbounds [16 x i16], ptr @map_4_to_16, i64 0, i64 %idxprom
-  %5 = load i16, ptr %arrayidx, align 2, !tbaa !68
+  %5 = load i16, ptr %arrayidx, align 2, !tbaa !67
   %incdec.ptr1 = getelementptr inbounds i16, ptr %bufp.08, i64 1
-  store i16 %5, ptr %bufp.08, align 2, !tbaa !68
+  store i16 %5, ptr %bufp.08, align 2, !tbaa !67
   %and = and i32 %conv, 15
   %idxprom2 = zext i32 %and to i64
   %arrayidx3 = getelementptr inbounds [16 x i16], ptr @map_4_to_16, i64 0, i64 %idxprom2
-  %6 = load i16, ptr %arrayidx3, align 2, !tbaa !68
+  %6 = load i16, ptr %arrayidx3, align 2, !tbaa !67
   %incdec.ptr4 = getelementptr inbounds i16, ptr %bufp.08, i64 2
-  store i16 %6, ptr %incdec.ptr1, align 2, !tbaa !68
+  store i16 %6, ptr %incdec.ptr1, align 2, !tbaa !67
   %dec.1 = add nsw i32 %left.09, -2
   %incdec.ptr.1 = getelementptr inbounds i8, ptr %data.addr.010, i64 2
-  %7 = load i8, ptr %incdec.ptr, align 1, !tbaa !65
+  %7 = load i8, ptr %incdec.ptr, align 1, !tbaa !64
   %conv.1 = zext i8 %7 to i32
   %shr.1 = lshr i32 %conv.1, 4
   %idxprom.1 = zext i32 %shr.1 to i64
   %arrayidx.1 = getelementptr inbounds [16 x i16], ptr @map_4_to_16, i64 0, i64 %idxprom.1
-  %8 = load i16, ptr %arrayidx.1, align 2, !tbaa !68
+  %8 = load i16, ptr %arrayidx.1, align 2, !tbaa !67
   %incdec.ptr1.1 = getelementptr inbounds i16, ptr %bufp.08, i64 3
-  store i16 %8, ptr %incdec.ptr4, align 2, !tbaa !68
+  store i16 %8, ptr %incdec.ptr4, align 2, !tbaa !67
   %and.1 = and i32 %conv.1, 15
   %idxprom2.1 = zext i32 %and.1 to i64
   %arrayidx3.1 = getelementptr inbounds [16 x i16], ptr @map_4_to_16, i64 0, i64 %idxprom2.1
-  %9 = load i16, ptr %arrayidx3.1, align 2, !tbaa !68
+  %9 = load i16, ptr %arrayidx3.1, align 2, !tbaa !67
   %incdec.ptr4.1 = getelementptr inbounds i16, ptr %bufp.08, i64 4
-  store i16 %9, ptr %incdec.ptr1.1, align 2, !tbaa !68
+  store i16 %9, ptr %incdec.ptr1.1, align 2, !tbaa !67
   %tobool.not.1 = icmp eq i32 %dec.1, 0
-  br i1 %tobool.not.1, label %while.end, label %while.body, !llvm.loop !70
+  br i1 %tobool.not.1, label %while.end, label %while.body, !llvm.loop !69
 
 while.end:                                        ; preds = %while.body.prol.loopexit, %while.body, %entry
   ret void
@@ -663,15 +663,15 @@ while.body.lr.ph:                                 ; preds = %entry
 while.body.prol:                                  ; preds = %while.body.lr.ph
   %dec.prol = add nsw i32 %dsize, -1
   %incdec.ptr.prol = getelementptr inbounds i8, ptr %data, i64 1
-  %1 = load i8, ptr %data, align 1, !tbaa !65
+  %1 = load i8, ptr %data, align 1, !tbaa !64
   %and.prol = and i8 %1, -16
   %shr.prol = lshr i8 %1, 4
   %add.prol = or i8 %and.prol, %shr.prol
-  store i8 %add.prol, ptr %bufp, align 1, !tbaa !65
+  store i8 %add.prol, ptr %bufp, align 1, !tbaa !64
   %add.ptr.prol = getelementptr inbounds i8, ptr %bufp, i64 %idx.ext
   %2 = and i8 %1, 15
   %narrow.prol = mul nuw i8 %2, 17
-  store i8 %narrow.prol, ptr %add.ptr.prol, align 1, !tbaa !65
+  store i8 %narrow.prol, ptr %add.ptr.prol, align 1, !tbaa !64
   %add.ptr7.prol = getelementptr inbounds i8, ptr %add.ptr.prol, i64 %idx.ext
   br label %while.body.prol.loopexit
 
@@ -687,30 +687,30 @@ while.body:                                       ; preds = %while.body.prol.loo
   %left.018 = phi i32 [ %dec.1, %while.body ], [ %left.018.unr, %while.body.prol.loopexit ]
   %data.addr.017 = phi ptr [ %incdec.ptr.1, %while.body ], [ %data.addr.017.unr, %while.body.prol.loopexit ]
   %incdec.ptr = getelementptr inbounds i8, ptr %data.addr.017, i64 1
-  %4 = load i8, ptr %data.addr.017, align 1, !tbaa !65
+  %4 = load i8, ptr %data.addr.017, align 1, !tbaa !64
   %and = and i8 %4, -16
   %shr = lshr i8 %4, 4
   %add = or i8 %and, %shr
-  store i8 %add, ptr %bufp.addr.019, align 1, !tbaa !65
+  store i8 %add, ptr %bufp.addr.019, align 1, !tbaa !64
   %add.ptr = getelementptr inbounds i8, ptr %bufp.addr.019, i64 %idx.ext
   %5 = and i8 %4, 15
   %narrow = mul nuw i8 %5, 17
-  store i8 %narrow, ptr %add.ptr, align 1, !tbaa !65
+  store i8 %narrow, ptr %add.ptr, align 1, !tbaa !64
   %add.ptr7 = getelementptr inbounds i8, ptr %add.ptr, i64 %idx.ext
   %dec.1 = add nsw i32 %left.018, -2
   %incdec.ptr.1 = getelementptr inbounds i8, ptr %data.addr.017, i64 2
-  %6 = load i8, ptr %incdec.ptr, align 1, !tbaa !65
+  %6 = load i8, ptr %incdec.ptr, align 1, !tbaa !64
   %and.1 = and i8 %6, -16
   %shr.1 = lshr i8 %6, 4
   %add.1 = or i8 %and.1, %shr.1
-  store i8 %add.1, ptr %add.ptr7, align 1, !tbaa !65
+  store i8 %add.1, ptr %add.ptr7, align 1, !tbaa !64
   %add.ptr.1 = getelementptr inbounds i8, ptr %add.ptr7, i64 %idx.ext
   %7 = and i8 %6, 15
   %narrow.1 = mul nuw i8 %7, 17
-  store i8 %narrow.1, ptr %add.ptr.1, align 1, !tbaa !65
+  store i8 %narrow.1, ptr %add.ptr.1, align 1, !tbaa !64
   %add.ptr7.1 = getelementptr inbounds i8, ptr %add.ptr.1, i64 %idx.ext
   %tobool.not.1 = icmp eq i32 %dec.1, 0
-  br i1 %tobool.not.1, label %while.end, label %while.body, !llvm.loop !71
+  br i1 %tobool.not.1, label %while.end, label %while.body, !llvm.loop !70
 
 while.end:                                        ; preds = %while.body.prol.loopexit, %while.body, %entry
   ret void
@@ -749,47 +749,47 @@ while.body:                                       ; preds = %while.body.lr.ph, %
   %data.addr.073 = phi ptr [ %data, %while.body.lr.ph ], [ %incdec.ptr, %while.body ]
   %dec = add nsw i32 %left.074, -1
   %incdec.ptr = getelementptr inbounds i8, ptr %data.addr.073, i64 1
-  %1 = load i8, ptr %data.addr.073, align 1, !tbaa !65
+  %1 = load i8, ptr %data.addr.073, align 1, !tbaa !64
   %conv = zext i8 %1 to i32
   %shr.neg = ashr i8 %1, 7
-  store i8 %shr.neg, ptr %bufp.addr.075, align 1, !tbaa !65
+  store i8 %shr.neg, ptr %bufp.addr.075, align 1, !tbaa !64
   %add.ptr = getelementptr inbounds i8, ptr %bufp.addr.075, i64 %idx.ext
   %2 = shl i32 %conv, 25
   %3 = ashr i32 %2, 31
   %conv5 = trunc i32 %3 to i8
-  store i8 %conv5, ptr %add.ptr, align 1, !tbaa !65
+  store i8 %conv5, ptr %add.ptr, align 1, !tbaa !64
   %add.ptr7 = getelementptr inbounds i8, ptr %add.ptr, i64 %idx.ext
   %4 = shl i32 %conv, 26
   %5 = ashr i32 %4, 31
   %conv11 = trunc i32 %5 to i8
-  store i8 %conv11, ptr %add.ptr7, align 1, !tbaa !65
+  store i8 %conv11, ptr %add.ptr7, align 1, !tbaa !64
   %add.ptr13 = getelementptr inbounds i8, ptr %add.ptr7, i64 %idx.ext
   %6 = shl i32 %conv, 27
   %7 = ashr i32 %6, 31
   %conv17 = trunc i32 %7 to i8
-  store i8 %conv17, ptr %add.ptr13, align 1, !tbaa !65
+  store i8 %conv17, ptr %add.ptr13, align 1, !tbaa !64
   %add.ptr19 = getelementptr inbounds i8, ptr %add.ptr13, i64 %idx.ext
   %8 = shl i32 %conv, 28
   %9 = ashr i32 %8, 31
   %conv23 = trunc i32 %9 to i8
-  store i8 %conv23, ptr %add.ptr19, align 1, !tbaa !65
+  store i8 %conv23, ptr %add.ptr19, align 1, !tbaa !64
   %add.ptr25 = getelementptr inbounds i8, ptr %add.ptr19, i64 %idx.ext
   %10 = shl i32 %conv, 29
   %11 = ashr i32 %10, 31
   %conv29 = trunc i32 %11 to i8
-  store i8 %conv29, ptr %add.ptr25, align 1, !tbaa !65
+  store i8 %conv29, ptr %add.ptr25, align 1, !tbaa !64
   %add.ptr31 = getelementptr inbounds i8, ptr %add.ptr25, i64 %idx.ext
   %12 = shl i32 %conv, 30
   %13 = ashr i32 %12, 31
   %conv35 = trunc i32 %13 to i8
-  store i8 %conv35, ptr %add.ptr31, align 1, !tbaa !65
+  store i8 %conv35, ptr %add.ptr31, align 1, !tbaa !64
   %add.ptr37 = getelementptr inbounds i8, ptr %add.ptr31, i64 %idx.ext
   %and38 = and i8 %1, 1
   %sub39 = sub nsw i8 0, %and38
-  store i8 %sub39, ptr %add.ptr37, align 1, !tbaa !65
+  store i8 %sub39, ptr %add.ptr37, align 1, !tbaa !64
   %add.ptr42 = getelementptr inbounds i8, ptr %add.ptr37, i64 %idx.ext
   %tobool.not = icmp eq i32 %dec, 0
-  br i1 %tobool.not, label %while.end, label %while.body, !llvm.loop !72
+  br i1 %tobool.not, label %while.end, label %while.body, !llvm.loop !71
 
 while.end:                                        ; preds = %while.body, %entry
   ret void
@@ -813,32 +813,32 @@ while.body:                                       ; preds = %while.body.lr.ph, %
   %left.033 = phi i32 [ %dsize, %while.body.lr.ph ], [ %dec, %while.body ]
   %dec = add nsw i32 %left.033, -1
   %incdec.ptr = getelementptr inbounds i8, ptr %data.addr.034, i64 1
-  %1 = load i8, ptr %data.addr.034, align 1, !tbaa !65
+  %1 = load i8, ptr %data.addr.034, align 1, !tbaa !64
   %conv = zext i8 %1 to i32
   %shr = lshr i32 %conv, 4
   %idxprom = zext i32 %shr to i64
   %arrayidx = getelementptr inbounds [16 x i16], ptr @map_4_to_16, i64 0, i64 %idxprom
-  %2 = load i16, ptr %arrayidx, align 2, !tbaa !68
+  %2 = load i16, ptr %arrayidx, align 2, !tbaa !67
   %3 = lshr i16 %2, 8
   %conv4 = trunc i16 %3 to i8
-  store i8 %conv4, ptr %bufp.addr.035, align 1, !tbaa !65
+  store i8 %conv4, ptr %bufp.addr.035, align 1, !tbaa !64
   %add.ptr = getelementptr inbounds i8, ptr %bufp.addr.035, i64 %idx.ext
   %conv5 = trunc i16 %2 to i8
-  store i8 %conv5, ptr %add.ptr, align 1, !tbaa !65
+  store i8 %conv5, ptr %add.ptr, align 1, !tbaa !64
   %add.ptr7 = getelementptr inbounds i8, ptr %add.ptr, i64 %idx.ext
   %and = and i32 %conv, 15
   %idxprom8 = zext i32 %and to i64
   %arrayidx9 = getelementptr inbounds [16 x i16], ptr @map_4_to_16, i64 0, i64 %idxprom8
-  %4 = load i16, ptr %arrayidx9, align 2, !tbaa !68
+  %4 = load i16, ptr %arrayidx9, align 2, !tbaa !67
   %5 = lshr i16 %4, 8
   %conv12 = trunc i16 %5 to i8
-  store i8 %conv12, ptr %add.ptr7, align 1, !tbaa !65
+  store i8 %conv12, ptr %add.ptr7, align 1, !tbaa !64
   %add.ptr14 = getelementptr inbounds i8, ptr %add.ptr7, i64 %idx.ext
   %conv15 = trunc i16 %4 to i8
-  store i8 %conv15, ptr %add.ptr14, align 1, !tbaa !65
+  store i8 %conv15, ptr %add.ptr14, align 1, !tbaa !64
   %add.ptr17 = getelementptr inbounds i8, ptr %add.ptr14, i64 %idx.ext
   %tobool.not = icmp eq i32 %dec, 0
-  br i1 %tobool.not, label %while.end, label %while.body, !llvm.loop !73
+  br i1 %tobool.not, label %while.end, label %while.body, !llvm.loop !72
 
 while.end:                                        ; preds = %while.body, %entry
   ret void
@@ -865,12 +865,12 @@ while.body.prol:                                  ; preds = %while.body.lr.ph, %
   %prol.iter = phi i32 [ %prol.iter.next, %while.body.prol ], [ 0, %while.body.lr.ph ]
   %dec.prol = add nsw i32 %left.06.prol, -1
   %incdec.ptr.prol = getelementptr inbounds i8, ptr %data.addr.04.prol, i64 1
-  %1 = load i8, ptr %data.addr.04.prol, align 1, !tbaa !65
-  store i8 %1, ptr %bufp.addr.05.prol, align 1, !tbaa !65
+  %1 = load i8, ptr %data.addr.04.prol, align 1, !tbaa !64
+  store i8 %1, ptr %bufp.addr.05.prol, align 1, !tbaa !64
   %add.ptr.prol = getelementptr inbounds i8, ptr %bufp.addr.05.prol, i64 %idx.ext
   %prol.iter.next = add i32 %prol.iter, 1
   %prol.iter.cmp.not = icmp eq i32 %prol.iter.next, %xtraiter
-  br i1 %prol.iter.cmp.not, label %while.body.prol.loopexit, label %while.body.prol, !llvm.loop !74
+  br i1 %prol.iter.cmp.not, label %while.body.prol.loopexit, label %while.body.prol, !llvm.loop !73
 
 while.body.prol.loopexit:                         ; preds = %while.body.prol, %while.body.lr.ph
   %left.06.unr = phi i32 [ %dsize, %while.body.lr.ph ], [ %dec.prol, %while.body.prol ]
@@ -884,40 +884,40 @@ while.body:                                       ; preds = %while.body.prol.loo
   %bufp.addr.05 = phi ptr [ %add.ptr.7, %while.body ], [ %bufp.addr.05.unr, %while.body.prol.loopexit ]
   %data.addr.04 = phi ptr [ %incdec.ptr.7, %while.body ], [ %data.addr.04.unr, %while.body.prol.loopexit ]
   %incdec.ptr = getelementptr inbounds i8, ptr %data.addr.04, i64 1
-  %3 = load i8, ptr %data.addr.04, align 1, !tbaa !65
-  store i8 %3, ptr %bufp.addr.05, align 1, !tbaa !65
+  %3 = load i8, ptr %data.addr.04, align 1, !tbaa !64
+  store i8 %3, ptr %bufp.addr.05, align 1, !tbaa !64
   %add.ptr = getelementptr inbounds i8, ptr %bufp.addr.05, i64 %idx.ext
   %incdec.ptr.1 = getelementptr inbounds i8, ptr %data.addr.04, i64 2
-  %4 = load i8, ptr %incdec.ptr, align 1, !tbaa !65
-  store i8 %4, ptr %add.ptr, align 1, !tbaa !65
+  %4 = load i8, ptr %incdec.ptr, align 1, !tbaa !64
+  store i8 %4, ptr %add.ptr, align 1, !tbaa !64
   %add.ptr.1 = getelementptr inbounds i8, ptr %add.ptr, i64 %idx.ext
   %incdec.ptr.2 = getelementptr inbounds i8, ptr %data.addr.04, i64 3
-  %5 = load i8, ptr %incdec.ptr.1, align 1, !tbaa !65
-  store i8 %5, ptr %add.ptr.1, align 1, !tbaa !65
+  %5 = load i8, ptr %incdec.ptr.1, align 1, !tbaa !64
+  store i8 %5, ptr %add.ptr.1, align 1, !tbaa !64
   %add.ptr.2 = getelementptr inbounds i8, ptr %add.ptr.1, i64 %idx.ext
   %incdec.ptr.3 = getelementptr inbounds i8, ptr %data.addr.04, i64 4
-  %6 = load i8, ptr %incdec.ptr.2, align 1, !tbaa !65
-  store i8 %6, ptr %add.ptr.2, align 1, !tbaa !65
+  %6 = load i8, ptr %incdec.ptr.2, align 1, !tbaa !64
+  store i8 %6, ptr %add.ptr.2, align 1, !tbaa !64
   %add.ptr.3 = getelementptr inbounds i8, ptr %add.ptr.2, i64 %idx.ext
   %incdec.ptr.4 = getelementptr inbounds i8, ptr %data.addr.04, i64 5
-  %7 = load i8, ptr %incdec.ptr.3, align 1, !tbaa !65
-  store i8 %7, ptr %add.ptr.3, align 1, !tbaa !65
+  %7 = load i8, ptr %incdec.ptr.3, align 1, !tbaa !64
+  store i8 %7, ptr %add.ptr.3, align 1, !tbaa !64
   %add.ptr.4 = getelementptr inbounds i8, ptr %add.ptr.3, i64 %idx.ext
   %incdec.ptr.5 = getelementptr inbounds i8, ptr %data.addr.04, i64 6
-  %8 = load i8, ptr %incdec.ptr.4, align 1, !tbaa !65
-  store i8 %8, ptr %add.ptr.4, align 1, !tbaa !65
+  %8 = load i8, ptr %incdec.ptr.4, align 1, !tbaa !64
+  store i8 %8, ptr %add.ptr.4, align 1, !tbaa !64
   %add.ptr.5 = getelementptr inbounds i8, ptr %add.ptr.4, i64 %idx.ext
   %incdec.ptr.6 = getelementptr inbounds i8, ptr %data.addr.04, i64 7
-  %9 = load i8, ptr %incdec.ptr.5, align 1, !tbaa !65
-  store i8 %9, ptr %add.ptr.5, align 1, !tbaa !65
+  %9 = load i8, ptr %incdec.ptr.5, align 1, !tbaa !64
+  store i8 %9, ptr %add.ptr.5, align 1, !tbaa !64
   %add.ptr.6 = getelementptr inbounds i8, ptr %add.ptr.5, i64 %idx.ext
   %dec.7 = add nsw i32 %left.06, -8
   %incdec.ptr.7 = getelementptr inbounds i8, ptr %data.addr.04, i64 8
-  %10 = load i8, ptr %incdec.ptr.6, align 1, !tbaa !65
-  store i8 %10, ptr %add.ptr.6, align 1, !tbaa !65
+  %10 = load i8, ptr %incdec.ptr.6, align 1, !tbaa !64
+  store i8 %10, ptr %add.ptr.6, align 1, !tbaa !64
   %add.ptr.7 = getelementptr inbounds i8, ptr %add.ptr.6, i64 %idx.ext
   %tobool.not.7 = icmp eq i32 %dec.7, 0
-  br i1 %tobool.not.7, label %while.end, label %while.body, !llvm.loop !76
+  br i1 %tobool.not.7, label %while.end, label %while.body, !llvm.loop !75
 
 while.end:                                        ; preds = %while.body.prol.loopexit, %while.body, %entry
   ret void
@@ -937,21 +937,21 @@ entry:
   %devc2 = alloca %struct.gx_device_color_s, align 8
   %ipath = alloca %struct.gx_path_s, align 8
   %pgs1 = getelementptr inbounds %struct.gs_image_enum_s, ptr %penum, i64 0, i32 11
-  %0 = load ptr, ptr %pgs1, align 8, !tbaa !37
+  %0 = load ptr, ptr %pgs1, align 8, !tbaa !36
   %fxx = getelementptr inbounds %struct.gs_image_enum_s, ptr %penum, i64 0, i32 5
   %1 = load i64, ptr %fxx, align 8, !tbaa !28
   %fxy = getelementptr inbounds %struct.gs_image_enum_s, ptr %penum, i64 0, i32 6
-  %2 = load i64, ptr %fxy, align 8, !tbaa !77
+  %2 = load i64, ptr %fxy, align 8, !tbaa !76
   %fyx = getelementptr inbounds %struct.gs_image_enum_s, ptr %penum, i64 0, i32 7
-  %3 = load i64, ptr %fyx, align 8, !tbaa !78
+  %3 = load i64, ptr %fyx, align 8, !tbaa !77
   %fyy = getelementptr inbounds %struct.gs_image_enum_s, ptr %penum, i64 0, i32 8
   %4 = load i64, ptr %fyy, align 8, !tbaa !30
   %skewed = getelementptr inbounds %struct.gs_image_enum_s, ptr %penum, i64 0, i32 16
-  %5 = load i32, ptr %skewed, align 4, !tbaa !32
+  %5 = load i32, ptr %skewed, align 4, !tbaa !31
   %xcur = getelementptr inbounds %struct.gs_image_enum_s, ptr %penum, i64 0, i32 22
-  %6 = load i64, ptr %xcur, align 8, !tbaa !34
+  %6 = load i64, ptr %xcur, align 8, !tbaa !33
   %ycur = getelementptr inbounds %struct.gs_image_enum_s, ptr %penum, i64 0, i32 23
-  %7 = load i64, ptr %ycur, align 8, !tbaa !36
+  %7 = load i64, ptr %ycur, align 8, !tbaa !35
   call void @llvm.lifetime.start.p0(i64 10, ptr nonnull %rcolor) #8
   call void @llvm.lifetime.start.p0(i64 32, ptr nonnull %devc1) #8
   call void @llvm.lifetime.start.p0(i64 32, ptr nonnull %devc2) #8
@@ -962,9 +962,9 @@ entry:
   %sub = sub nsw i32 0, %8
   %idxprom = sext i32 %sub to i64
   %arrayidx = getelementptr inbounds i8, ptr %add.ptr, i64 %idxprom
-  %9 = load i8, ptr %arrayidx, align 1, !tbaa !65
+  %9 = load i8, ptr %arrayidx, align 1, !tbaa !64
   %not = xor i8 %9, -1
-  store i8 %not, ptr %add.ptr, align 1, !tbaa !65
+  store i8 %not, ptr %add.ptr, align 1, !tbaa !64
   %tobool.not = icmp eq i32 %5, 0
   br i1 %tobool.not, label %if.then, label %while.body.lr.ph
 
@@ -985,10 +985,10 @@ while.body.lr.ph:                                 ; preds = %entry, %if.then
   %idy.1 = phi i32 [ undef, %entry ], [ %idy.0, %if.then ]
   %yt.0 = phi i32 [ undef, %entry ], [ %conv6, %if.then ]
   %blue = getelementptr inbounds %struct.gs_color_s, ptr %rcolor, i64 0, i32 2
-  store i16 0, ptr %blue, align 2, !tbaa !79
+  store i16 0, ptr %blue, align 2, !tbaa !78
   %green = getelementptr inbounds %struct.gs_color_s, ptr %rcolor, i64 0, i32 1
-  store i16 0, ptr %green, align 2, !tbaa !81
-  store i16 0, ptr %rcolor, align 2, !tbaa !82
+  store i16 0, ptr %green, align 2, !tbaa !80
+  store i16 0, ptr %rcolor, align 2, !tbaa !81
   %call = call i32 (ptr, ...) @gx_color_from_rgb(ptr noundef nonnull %rcolor) #8
   %call15 = call i32 (ptr, ptr, ptr, ...) @gx_color_render(ptr noundef nonnull %rcolor, ptr noundef nonnull %devc1, ptr noundef %0) #8
   %cmp18 = icmp eq i32 %8, 4
@@ -1014,47 +1014,47 @@ while.body:                                       ; preds = %while.body.lr.ph, %
 
 if.then20:                                        ; preds = %while.body
   %arrayidx21 = getelementptr inbounds i8, ptr %psrc.0257, i64 3
-  %12 = load i8, ptr %arrayidx21, align 1, !tbaa !65
+  %12 = load i8, ptr %arrayidx21, align 1, !tbaa !64
   %13 = xor i8 %12, -1
   %sub23 = zext i8 %13 to i32
-  %14 = load i8, ptr %psrc.0257, align 1, !tbaa !65
+  %14 = load i8, ptr %psrc.0257, align 1, !tbaa !64
   %15 = xor i8 %14, -1
   %sub26 = zext i8 %15 to i32
   %mul = mul nuw nsw i32 %sub26, %sub23
   %div.lhs.trunc = trunc i32 %mul to i16
   %div252 = udiv i16 %div.lhs.trunc, 255
-  %div.zext = trunc i16 %div252 to i8
+  %conv27 = trunc i16 %div252 to i8
   %arrayidx28 = getelementptr inbounds i8, ptr %psrc.0257, i64 1
-  %16 = load i8, ptr %arrayidx28, align 1, !tbaa !65
+  %16 = load i8, ptr %arrayidx28, align 1, !tbaa !64
   %17 = xor i8 %16, -1
   %sub30 = zext i8 %17 to i32
   %mul31 = mul nuw nsw i32 %sub30, %sub23
   %div32.lhs.trunc = trunc i32 %mul31 to i16
   %div32253 = udiv i16 %div32.lhs.trunc, 255
-  %div32.zext = trunc i16 %div32253 to i8
+  %conv33 = trunc i16 %div32253 to i8
   %arrayidx34 = getelementptr inbounds i8, ptr %psrc.0257, i64 2
-  %18 = load i8, ptr %arrayidx34, align 1, !tbaa !65
+  %18 = load i8, ptr %arrayidx34, align 1, !tbaa !64
   %19 = xor i8 %18, -1
   %sub36 = zext i8 %19 to i32
   %mul37 = mul nuw nsw i32 %sub36, %sub23
   %div38.lhs.trunc = trunc i32 %mul37 to i16
   %div38254 = udiv i16 %div38.lhs.trunc, 255
-  %div38.zext = trunc i16 %div38254 to i8
+  %conv39 = trunc i16 %div38254 to i8
   br label %if.end49
 
 if.else41:                                        ; preds = %while.body
-  %20 = load i8, ptr %psrc.0257, align 1, !tbaa !65
+  %20 = load i8, ptr %psrc.0257, align 1, !tbaa !64
   %arrayidx44 = getelementptr inbounds i8, ptr %psrc.0257, i64 1
-  %21 = load i8, ptr %arrayidx44, align 1, !tbaa !65
+  %21 = load i8, ptr %arrayidx44, align 1, !tbaa !64
   %arrayidx46 = getelementptr inbounds i8, ptr %psrc.0257, i64 2
-  %22 = load i8, ptr %arrayidx46, align 1, !tbaa !65
+  %22 = load i8, ptr %arrayidx46, align 1, !tbaa !64
   br label %if.end49
 
 if.end49:                                         ; preds = %if.else41, %if.then20
   %.sink = phi i64 [ 3, %if.else41 ], [ 4, %if.then20 ]
-  %next.sroa.13.0 = phi i8 [ %22, %if.else41 ], [ %div38.zext, %if.then20 ]
-  %next.sroa.9.0 = phi i8 [ %21, %if.else41 ], [ %div32.zext, %if.then20 ]
-  %next.sroa.0.0 = phi i8 [ %20, %if.else41 ], [ %div.zext, %if.then20 ]
+  %next.sroa.13.0 = phi i8 [ %22, %if.else41 ], [ %conv39, %if.then20 ]
+  %next.sroa.9.0 = phi i8 [ %21, %if.else41 ], [ %conv33, %if.then20 ]
+  %next.sroa.0.0 = phi i8 [ %20, %if.else41 ], [ %conv27, %if.then20 ]
   %add.ptr48 = getelementptr inbounds i8, ptr %psrc.0257, i64 %.sink
   %next.sroa.13.0.insert.ext = zext i8 %next.sroa.13.0 to i64
   %next.sroa.13.0.insert.shift = shl nuw nsw i64 %next.sroa.13.0.insert.ext, 16
@@ -1069,23 +1069,23 @@ if.end49:                                         ; preds = %if.else41, %if.then
 if.then52:                                        ; preds = %if.end49
   %conv55 = zext i8 %next.sroa.0.0 to i16
   %add58 = mul nuw i16 %conv55, 257
-  store i16 %add58, ptr %rcolor, align 2, !tbaa !82
+  store i16 %add58, ptr %rcolor, align 2, !tbaa !81
   %conv63 = zext i8 %next.sroa.9.0 to i16
   %add67 = mul nuw i16 %conv63, 257
-  store i16 %add67, ptr %green, align 2, !tbaa !81
+  store i16 %add67, ptr %green, align 2, !tbaa !80
   %conv72 = zext i8 %next.sroa.13.0 to i16
   %add76 = mul nuw i16 %conv72, 257
-  store i16 %add76, ptr %blue, align 2, !tbaa !79
+  store i16 %add76, ptr %blue, align 2, !tbaa !78
   %call79 = call i32 (ptr, ...) @gx_color_from_rgb(ptr noundef nonnull %rcolor) #8
   %call80 = call i32 (ptr, ptr, ptr, ...) @gx_color_render(ptr noundef nonnull %rcolor, ptr noundef %pdevc_next.0261, ptr noundef %0) #8
-  %23 = load i64, ptr %devc1, align 8, !tbaa !45
-  %24 = load i64, ptr %devc2, align 8, !tbaa !45
+  %23 = load i64, ptr %devc1, align 8, !tbaa !44
+  %24 = load i64, ptr %devc2, align 8, !tbaa !44
   %cmp82.not = icmp eq i64 %23, %24
   br i1 %cmp82.not, label %lor.lhs.false, label %if.then96
 
 lor.lhs.false:                                    ; preds = %if.then52
-  %25 = load i32, ptr %halftone_level, align 8, !tbaa !41
-  %26 = load i32, ptr %halftone_level84, align 8, !tbaa !41
+  %25 = load i32, ptr %halftone_level, align 8, !tbaa !40
+  %26 = load i32, ptr %halftone_level84, align 8, !tbaa !40
   %cmp85.not = icmp eq i32 %25, %26
   br i1 %cmp85.not, label %lor.lhs.false87, label %if.then96
 
@@ -1094,8 +1094,8 @@ lor.lhs.false87:                                  ; preds = %lor.lhs.false
   br i1 %tobool89.not, label %lor.lhs.false93, label %land.lhs.true
 
 land.lhs.true:                                    ; preds = %lor.lhs.false87
-  %27 = load i64, ptr %color2, align 8, !tbaa !83
-  %28 = load i64, ptr %color290, align 8, !tbaa !83
+  %27 = load i64, ptr %color2, align 8, !tbaa !82
+  %28 = load i64, ptr %color290, align 8, !tbaa !82
   %cmp91.not = icmp ne i64 %27, %28
   %cmp94 = icmp ugt ptr %add.ptr48, %add.ptr
   %or.cond = select i1 %cmp91.not, i1 true, i1 %cmp94
@@ -1106,7 +1106,7 @@ lor.lhs.false93:                                  ; preds = %lor.lhs.false87
   br i1 %cmp94.old, label %if.then96, label %if.end130
 
 if.then96:                                        ; preds = %lor.lhs.false93, %land.lhs.true, %lor.lhs.false, %if.then52
-  %29 = load i32, ptr %slow_loop, align 8, !tbaa !56
+  %29 = load i32, ptr %slow_loop, align 8, !tbaa !55
   %tobool97.not = icmp eq i32 %29, 0
   br i1 %tobool97.not, label %if.else109, label %if.then98
 
@@ -1153,7 +1153,7 @@ if.end130:                                        ; preds = %if.else109, %cleanu
   %add131 = add nsw i64 %xl.0256, %1
   %add132 = add nsw i64 %ytf.0263, %2
   %cmp16.not = icmp ugt ptr %add.ptr48, %add.ptr
-  br i1 %cmp16.not, label %cleanup133, label %while.body, !llvm.loop !84
+  br i1 %cmp16.not, label %cleanup133, label %while.body, !llvm.loop !83
 
 cleanup133:                                       ; preds = %if.end130, %cleanup126
   %retval.6 = phi i32 [ %call101, %cleanup126 ], [ 1, %if.end130 ]
@@ -1167,9 +1167,9 @@ cleanup133:                                       ; preds = %if.end130, %cleanup
 define dso_local i32 @image_render_direct(ptr nocapture noundef readonly %penum, ptr noundef %data, i32 noundef %w, i32 noundef %h) #0 {
 entry:
   %xcur = getelementptr inbounds %struct.gs_image_enum_s, ptr %penum, i64 0, i32 22
-  %0 = load i64, ptr %xcur, align 8, !tbaa !34
+  %0 = load i64, ptr %xcur, align 8, !tbaa !33
   %ycur = getelementptr inbounds %struct.gs_image_enum_s, ptr %penum, i64 0, i32 23
-  %1 = load i64, ptr %ycur, align 8, !tbaa !36
+  %1 = load i64, ptr %ycur, align 8, !tbaa !35
   %fyy = getelementptr inbounds %struct.gs_image_enum_s, ptr %penum, i64 0, i32 8
   %2 = load i64, ptr %fyy, align 8, !tbaa !30
   %add = add nsw i64 %2, %1
@@ -1181,18 +1181,18 @@ entry:
   %conv4 = trunc i64 %5 to i32
   %sub = sub nsw i32 %conv4, %conv2
   %pgs = getelementptr inbounds %struct.gs_image_enum_s, ptr %penum, i64 0, i32 11
-  %6 = load ptr, ptr %pgs, align 8, !tbaa !37
+  %6 = load ptr, ptr %pgs, align 8, !tbaa !36
   %device = getelementptr inbounds %struct.gs_state_s, ptr %6, i64 0, i32 22
   %7 = load ptr, ptr %device, align 8, !tbaa !16
-  %8 = load ptr, ptr %7, align 8, !tbaa !85
+  %8 = load ptr, ptr %7, align 8, !tbaa !84
   %procs = getelementptr inbounds %struct.gx_device_s, ptr %8, i64 0, i32 1
-  %9 = load ptr, ptr %procs, align 8, !tbaa !86
+  %9 = load ptr, ptr %procs, align 8, !tbaa !85
   %copy_mono = getelementptr inbounds %struct.gx_device_procs_s, ptr %9, i64 0, i32 9
-  %10 = load ptr, ptr %copy_mono, align 8, !tbaa !88
+  %10 = load ptr, ptr %copy_mono, align 8, !tbaa !87
   %dev_colors = getelementptr inbounds %struct.gs_image_enum_s, ptr %penum, i64 0, i32 25
-  %11 = load i64, ptr %dev_colors, align 8, !tbaa !45
+  %11 = load i64, ptr %dev_colors, align 8, !tbaa !44
   %arrayidx6 = getelementptr inbounds %struct.gs_image_enum_s, ptr %penum, i64 0, i32 25, i64 255
-  %12 = load i64, ptr %arrayidx6, align 8, !tbaa !45
+  %12 = load i64, ptr %arrayidx6, align 8, !tbaa !44
   %cmp = icmp eq i32 %sub, 1
   br i1 %cmp, label %if.then, label %if.else
 
@@ -1221,7 +1221,7 @@ for.body:                                         ; preds = %for.body.lr.ph, %fo
   %call21 = tail call i32 %10(ptr noundef %8, ptr noundef %data, i32 noundef 0, i32 noundef %shr19, i32 noundef %conv, i32 noundef %add20, i32 noundef %w, i32 noundef 1, i64 noundef %11, i64 noundef %12) #8
   %inc = add nuw i32 %dy.059, 1
   %exitcond.not = icmp eq i32 %inc, %umax
-  br i1 %exitcond.not, label %cleanup, label %for.body, !llvm.loop !90
+  br i1 %exitcond.not, label %cleanup, label %for.body, !llvm.loop !89
 
 cleanup:                                          ; preds = %for.body, %if.else, %if.then
   %retval.0 = phi i32 [ %h, %if.then ], [ 1, %if.else ], [ 1, %for.body ]
@@ -1235,41 +1235,41 @@ entry:
   %ipath = alloca %struct.gx_path_s, align 8
   %box = alloca %struct.gs_fixed_rect_s, align 8
   %dev_colors = getelementptr inbounds %struct.gs_image_enum_s, ptr %penum, i64 0, i32 25
-  %0 = load i64, ptr %dev_colors, align 8, !tbaa !45
+  %0 = load i64, ptr %dev_colors, align 8, !tbaa !44
   %arrayidx2 = getelementptr inbounds %struct.gs_image_enum_s, ptr %penum, i64 0, i32 25, i64 255
-  %1 = load i64, ptr %arrayidx2, align 8, !tbaa !45
+  %1 = load i64, ptr %arrayidx2, align 8, !tbaa !44
   %pgs4 = getelementptr inbounds %struct.gs_image_enum_s, ptr %penum, i64 0, i32 11
-  %2 = load ptr, ptr %pgs4, align 8, !tbaa !37
+  %2 = load ptr, ptr %pgs4, align 8, !tbaa !36
   %fxx = getelementptr inbounds %struct.gs_image_enum_s, ptr %penum, i64 0, i32 5
   %3 = load i64, ptr %fxx, align 8, !tbaa !28
   %fxy = getelementptr inbounds %struct.gs_image_enum_s, ptr %penum, i64 0, i32 6
-  %4 = load i64, ptr %fxy, align 8, !tbaa !77
+  %4 = load i64, ptr %fxy, align 8, !tbaa !76
   %fyx = getelementptr inbounds %struct.gs_image_enum_s, ptr %penum, i64 0, i32 7
-  %5 = load i64, ptr %fyx, align 8, !tbaa !78
+  %5 = load i64, ptr %fyx, align 8, !tbaa !77
   %fyy = getelementptr inbounds %struct.gs_image_enum_s, ptr %penum, i64 0, i32 8
   %6 = load i64, ptr %fyy, align 8, !tbaa !30
   %skewed = getelementptr inbounds %struct.gs_image_enum_s, ptr %penum, i64 0, i32 16
-  %7 = load i32, ptr %skewed, align 4, !tbaa !32
+  %7 = load i32, ptr %skewed, align 4, !tbaa !31
   %xcur = getelementptr inbounds %struct.gs_image_enum_s, ptr %penum, i64 0, i32 22
-  %8 = load i64, ptr %xcur, align 8, !tbaa !34
+  %8 = load i64, ptr %xcur, align 8, !tbaa !33
   %ycur = getelementptr inbounds %struct.gs_image_enum_s, ptr %penum, i64 0, i32 23
-  %9 = load i64, ptr %ycur, align 8, !tbaa !36
+  %9 = load i64, ptr %ycur, align 8, !tbaa !35
   call void @llvm.lifetime.start.p0(i64 10, ptr nonnull %rcolor) #8
   %dev_color = getelementptr inbounds %struct.gs_state_s, ptr %2, i64 0, i32 14
-  %10 = load ptr, ptr %dev_color, align 8, !tbaa !55
-  %11 = load i8, ptr %buffer, align 1, !tbaa !65
+  %10 = load ptr, ptr %dev_color, align 8, !tbaa !54
+  %11 = load i8, ptr %buffer, align 1, !tbaa !64
   %conv = zext i8 %11 to i32
   %device = getelementptr inbounds %struct.gs_state_s, ptr %2, i64 0, i32 22
   %12 = load ptr, ptr %device, align 8, !tbaa !16
-  %13 = load ptr, ptr %12, align 8, !tbaa !85
+  %13 = load ptr, ptr %12, align 8, !tbaa !84
   %procs = getelementptr inbounds %struct.gx_device_s, ptr %13, i64 0, i32 1
-  %14 = load ptr, ptr %procs, align 8, !tbaa !86
+  %14 = load ptr, ptr %procs, align 8, !tbaa !85
   %fill_rectangle = getelementptr inbounds %struct.gx_device_procs_s, ptr %14, i64 0, i32 7
-  %15 = load ptr, ptr %fill_rectangle, align 8, !tbaa !91
+  %15 = load ptr, ptr %fill_rectangle, align 8, !tbaa !90
   %clip_path = getelementptr inbounds %struct.gs_state_s, ptr %2, i64 0, i32 8
-  %16 = load ptr, ptr %clip_path, align 8, !tbaa !46
+  %16 = load ptr, ptr %clip_path, align 8, !tbaa !45
   %bbox = getelementptr inbounds %struct.gx_path_s, ptr %16, i64 0, i32 1
-  %cbox.sroa.0.0.copyload = load i64, ptr %bbox, align 8, !tbaa.struct !92
+  %cbox.sroa.0.0.copyload = load i64, ptr %bbox, align 8, !tbaa.struct !91
   %cbox.sroa.6.0.bbox.sroa_idx = getelementptr inbounds %struct.gx_path_s, ptr %16, i64 0, i32 1, i32 0, i32 1
   %cbox.sroa.6.0.copyload = load i64, ptr %cbox.sroa.6.0.bbox.sroa_idx, align 8, !tbaa.struct !93
   %cbox.sroa.9.0.bbox.sroa_idx = getelementptr inbounds %struct.gx_path_s, ptr %16, i64 0, i32 1, i32 1
@@ -1327,11 +1327,11 @@ if.end42:                                         ; preds = %if.else29, %if.then
   %sub43 = add i32 %w, -1
   %idxprom = zext i32 %sub43 to i64
   %arrayidx44 = getelementptr inbounds i8, ptr %buffer, i64 %idxprom
-  %19 = load i8, ptr %arrayidx44, align 1, !tbaa !65
+  %19 = load i8, ptr %arrayidx44, align 1, !tbaa !64
   %not = xor i8 %19, -1
   %idxprom47 = zext i32 %w to i64
   %arrayidx48 = getelementptr inbounds i8, ptr %buffer, i64 %idxprom47
-  store i8 %not, ptr %arrayidx48, align 1, !tbaa !65
+  store i8 %not, ptr %arrayidx48, align 1, !tbaa !64
   %luminance_set = getelementptr inbounds %struct.gs_color_s, ptr %rcolor, i64 0, i32 5
   store i8 1, ptr %luminance_set, align 1, !tbaa !96
   %is_gray = getelementptr inbounds %struct.gs_color_s, ptr %rcolor, i64 0, i32 4
@@ -1363,13 +1363,13 @@ while.body:                                       ; preds = %while.body.lr.ph, %
   %pdevc.0441 = phi ptr [ %10, %while.body.lr.ph ], [ %pdevc.7, %if.end262 ]
   %dec458 = add nsw i32 %dec458.in, -1
   %incdec.ptr = getelementptr inbounds i8, ptr %psrc.0447, i64 1
-  %20 = load i8, ptr %psrc.0447, align 1, !tbaa !65
+  %20 = load i8, ptr %psrc.0447, align 1, !tbaa !64
   %conv51 = zext i8 %20 to i32
   %cmp52.not = icmp eq i32 %run.0450, %conv51
   br i1 %cmp52.not, label %if.end262, label %if.then54
 
 if.then54:                                        ; preds = %while.body
-  %21 = load i32, ptr %slow_loop, align 8, !tbaa !56
+  %21 = load i32, ptr %slow_loop, align 8, !tbaa !55
   %tobool55.not = icmp eq i32 %21, 0
   br i1 %tobool55.not, label %if.else208, label %if.then56
 
@@ -1394,7 +1394,7 @@ if.end76:                                         ; preds = %if.else67, %if.then
   %idxprom78 = zext i32 %run.0450 to i64
   %arrayidx79 = getelementptr inbounds %struct.gs_image_enum_s, ptr %penum, i64 0, i32 25, i64 %idxprom78
   %halftone_level = getelementptr inbounds %struct.gs_image_enum_s, ptr %penum, i64 0, i32 25, i64 %idxprom78, i32 2
-  %22 = load i32, ptr %halftone_level, align 8, !tbaa !41
+  %22 = load i32, ptr %halftone_level, align 8, !tbaa !40
   %cmp80 = icmp slt i32 %22, 0
   br i1 %cmp80, label %if.then82, label %if.else87
 
@@ -1403,7 +1403,7 @@ if.then82:                                        ; preds = %if.end76
   %conv86 = mul nuw i16 %23, 257
   %24 = insertelement <4 x i16> poison, i16 %conv86, i64 0
   %25 = shufflevector <4 x i16> %24, <4 x i16> poison, <4 x i32> zeroinitializer
-  store <4 x i16> %25, ptr %rcolor, align 8, !tbaa !68
+  store <4 x i16> %25, ptr %rcolor, align 8, !tbaa !67
   %call = call i32 (ptr, ptr, ptr, ...) @gx_color_render(ptr noundef nonnull %rcolor, ptr noundef nonnull %arrayidx79, ptr noundef %2) #8
   br label %if.end90
 
@@ -1570,7 +1570,7 @@ if.then235:                                       ; preds = %sw.default
   %idxprom237 = zext i32 %run.0450 to i64
   %arrayidx238 = getelementptr inbounds %struct.gs_image_enum_s, ptr %penum, i64 0, i32 25, i64 %idxprom237
   %halftone_level239 = getelementptr inbounds %struct.gs_image_enum_s, ptr %penum, i64 0, i32 25, i64 %idxprom237, i32 2
-  %36 = load i32, ptr %halftone_level239, align 8, !tbaa !41
+  %36 = load i32, ptr %halftone_level239, align 8, !tbaa !40
   %cmp240 = icmp slt i32 %36, 0
   br i1 %cmp240, label %if.then242, label %if.else253
 
@@ -1579,7 +1579,7 @@ if.then242:                                       ; preds = %if.then235
   %conv247 = mul nuw i16 %37, 257
   %38 = insertelement <4 x i16> poison, i16 %conv247, i64 0
   %39 = shufflevector <4 x i16> %38, <4 x i16> poison, <4 x i32> zeroinitializer
-  store <4 x i16> %39, ptr %rcolor, align 8, !tbaa !68
+  store <4 x i16> %39, ptr %rcolor, align 8, !tbaa !67
   %call252 = call i32 (ptr, ptr, ptr, ...) @gx_color_render(ptr noundef nonnull %rcolor, ptr noundef nonnull %arrayidx238, ptr noundef %2) #8
   br label %if.end256
 
@@ -1596,7 +1596,7 @@ if.end256:                                        ; preds = %if.then242, %if.els
 if.end259:                                        ; preds = %cleanup203.thread, %if.then218, %zo, %if.then229, %if.end256
   %pdevc.6 = phi ptr [ %pdevc.0441, %if.then218 ], [ %pdevc.4, %if.end256 ], [ %pdevc.0441, %if.then229 ], [ %pdevc.0441, %zo ], [ %pdevc.3.ph, %cleanup203.thread ]
   %htrun.6 = phi i32 [ %htrun.0451, %if.then218 ], [ %htrun.4, %if.end256 ], [ %htrun.0451, %if.then229 ], [ %htrun.0451, %zo ], [ %htrun.3.ph, %cleanup203.thread ]
-  %40 = load i8, ptr %psrc.0447, align 1, !tbaa !65
+  %40 = load i8, ptr %psrc.0447, align 1, !tbaa !64
   %conv261 = zext i8 %40 to i32
   br label %if.end262
 
@@ -1621,12 +1621,12 @@ cleanup265:                                       ; preds = %if.end262, %if.end4
 define dso_local i32 @gs_image_next(ptr noundef %penum, ptr noundef %dbytes, i32 noundef %dsize) local_unnamed_addr #0 {
 entry:
   %bytes_per_row = getelementptr inbounds %struct.gs_image_enum_s, ptr %penum, i64 0, i32 14
-  %0 = load i32, ptr %bytes_per_row, align 4, !tbaa !40
+  %0 = load i32, ptr %bytes_per_row, align 4, !tbaa !39
   %byte_in_row = getelementptr inbounds %struct.gs_image_enum_s, ptr %penum, i64 0, i32 21
-  %1 = load i32, ptr %byte_in_row, align 8, !tbaa !62
+  %1 = load i32, ptr %byte_in_row, align 8, !tbaa !61
   %2 = load i32, ptr %penum, align 8, !tbaa !21
   %plane_index = getelementptr inbounds %struct.gs_image_enum_s, ptr %penum, i64 0, i32 19
-  %3 = load i32, ptr %plane_index, align 8, !tbaa !61
+  %3 = load i32, ptr %plane_index, align 8, !tbaa !60
   %cmp = icmp eq i32 %3, 0
   %plane_size = getelementptr inbounds %struct.gs_image_enum_s, ptr %penum, i64 0, i32 20
   br i1 %cmp, label %if.then, label %if.else
@@ -1643,16 +1643,16 @@ if.else:                                          ; preds = %entry
 if.end5:                                          ; preds = %if.else, %if.then
   %idxprom = sext i32 %3 to i64
   %arrayidx = getelementptr inbounds %struct.gs_image_enum_s, ptr %penum, i64 0, i32 18, i64 %idxprom
-  store ptr %dbytes, ptr %arrayidx, align 8, !tbaa !60
+  store ptr %dbytes, ptr %arrayidx, align 8, !tbaa !59
   %inc = add nsw i32 %3, 1
-  store i32 %inc, ptr %plane_index, align 8, !tbaa !61
+  store i32 %inc, ptr %plane_index, align 8, !tbaa !60
   %spread = getelementptr inbounds %struct.gs_image_enum_s, ptr %penum, i64 0, i32 4
   %5 = load i32, ptr %spread, align 8, !tbaa !26
   %cmp8.not = icmp eq i32 %inc, %5
   br i1 %cmp8.not, label %if.end10, label %cleanup46
 
 if.end10:                                         ; preds = %if.end5
-  store i32 0, ptr %plane_index, align 8, !tbaa !61
+  store i32 0, ptr %plane_index, align 8, !tbaa !60
   %tobool.not112 = icmp eq i32 %dsize, 0
   br i1 %tobool.not112, label %while.end, label %while.body.lr.ph
 
@@ -1669,15 +1669,15 @@ while.body.lr.ph:                                 ; preds = %if.end10
   br label %while.body
 
 while.body:                                       ; preds = %while.body.lr.ph, %cleanup
-  %pos.0116 = phi i32 [ %1, %while.body.lr.ph ], [ %pos.2, %cleanup ]
+  %pos.0115 = phi i32 [ %1, %while.body.lr.ph ], [ %pos.2, %cleanup ]
   %dpos.0114 = phi i32 [ 0, %while.body.lr.ph ], [ %add26, %cleanup ]
   %dleft.0113 = phi i32 [ %dsize, %while.body.lr.ph ], [ %sub27, %cleanup ]
-  %sub = sub i32 %0, %pos.0116
+  %sub = sub i32 %0, %pos.0115
   %cond = tail call i32 @llvm.umin.i32(i32 %dleft.0113, i32 %sub)
-  %6 = load ptr, ptr %buffer, align 8, !tbaa !38
+  %6 = load ptr, ptr %buffer, align 8, !tbaa !37
   %7 = load i32, ptr %log2_bps, align 8, !tbaa !24
   %sub14 = sub nsw i32 3, %7
-  %shl = shl i32 %pos.0116, %sub14
+  %shl = shl i32 %pos.0115, %sub14
   %8 = load i32, ptr %spread, align 8, !tbaa !26
   %mul = mul i32 %shl, %8
   %idx.ext = zext i32 %mul to i64
@@ -1691,10 +1691,10 @@ for.body.lr.ph:                                   ; preds = %while.body
 
 for.body:                                         ; preds = %for.body.lr.ph, %for.body
   %indvars.iv = phi i64 [ 0, %for.body.lr.ph ], [ %indvars.iv.next, %for.body ]
-  %9 = load ptr, ptr %unpack, align 8, !tbaa !59
+  %9 = load ptr, ptr %unpack, align 8, !tbaa !58
   %add.ptr19 = getelementptr inbounds i8, ptr %add.ptr, i64 %indvars.iv
   %arrayidx22 = getelementptr inbounds %struct.gs_image_enum_s, ptr %penum, i64 0, i32 18, i64 %indvars.iv
-  %10 = load ptr, ptr %arrayidx22, align 8, !tbaa !60
+  %10 = load ptr, ptr %arrayidx22, align 8, !tbaa !59
   %add.ptr24 = getelementptr inbounds i8, ptr %10, i64 %idx.ext23
   tail call void %9(ptr noundef nonnull %penum, ptr noundef %add.ptr19, ptr noundef %add.ptr24, i32 noundef %cond) #8
   %indvars.iv.next = add nuw nsw i64 %indvars.iv, 1
@@ -1704,15 +1704,15 @@ for.body:                                         ; preds = %for.body.lr.ph, %fo
   br i1 %cmp17, label %for.body, label %for.end, !llvm.loop !104
 
 for.end:                                          ; preds = %for.body, %while.body
-  %add = add i32 %cond, %pos.0116
+  %add = add i32 %cond, %pos.0115
   %add26 = add i32 %cond, %dpos.0114
   %sub27 = sub i32 %dleft.0113, %cond
   %cmp28 = icmp eq i32 %add, %0
   br i1 %cmp28, label %if.then29, label %cleanup
 
 if.then29:                                        ; preds = %for.end
-  %13 = load ptr, ptr %render, align 8, !tbaa !58
-  %14 = load ptr, ptr %buffer, align 8, !tbaa !38
+  %13 = load ptr, ptr %render, align 8, !tbaa !57
+  %14 = load ptr, ptr %buffer, align 8, !tbaa !37
   %15 = load i32, ptr %spp, align 4, !tbaa !25
   %mul31 = mul nsw i32 %15, %2
   %call = tail call i32 %13(ptr noundef nonnull %penum, ptr noundef %14, i32 noundef %mul31, i32 noundef 1) #8
@@ -1720,18 +1720,18 @@ if.then29:                                        ; preds = %for.end
   br i1 %cmp32, label %err, label %if.end34
 
 if.end34:                                         ; preds = %if.then29
-  %16 = load i32, ptr %y, align 8, !tbaa !63
+  %16 = load i32, ptr %y, align 8, !tbaa !62
   %inc35 = add nsw i32 %16, 1
-  store i32 %inc35, ptr %y, align 8, !tbaa !63
+  store i32 %inc35, ptr %y, align 8, !tbaa !62
   %17 = load i32, ptr %height, align 4, !tbaa !23
   %cmp36 = icmp eq i32 %inc35, %17
   br i1 %cmp36, label %err, label %if.end38
 
 if.end38:                                         ; preds = %if.end34
-  %18 = load <2 x i64>, ptr %fyx, align 8, !tbaa !31
-  %19 = load <2 x i64>, ptr %xcur, align 8, !tbaa !31
+  %18 = load <2 x i64>, ptr %fyx, align 8, !tbaa !92
+  %19 = load <2 x i64>, ptr %xcur, align 8, !tbaa !92
   %20 = add nsw <2 x i64> %19, %18
-  store <2 x i64> %20, ptr %xcur, align 8, !tbaa !31
+  store <2 x i64> %20, ptr %xcur, align 8, !tbaa !92
   br label %cleanup
 
 cleanup:                                          ; preds = %for.end, %if.end38
@@ -1741,14 +1741,14 @@ cleanup:                                          ; preds = %for.end, %if.end38
 
 while.end:                                        ; preds = %cleanup, %if.end10
   %pos.0.lcssa = phi i32 [ %1, %if.end10 ], [ %pos.2, %cleanup ]
-  store i32 %pos.0.lcssa, ptr %byte_in_row, align 8, !tbaa !62
+  store i32 %pos.0.lcssa, ptr %byte_in_row, align 8, !tbaa !61
   br label %cleanup46
 
 err:                                              ; preds = %if.then29, %if.end34
   %code.3 = phi i32 [ 1, %if.end34 ], [ %call, %if.then29 ]
-  %21 = load ptr, ptr %buffer, align 8, !tbaa !38
+  %21 = load ptr, ptr %buffer, align 8, !tbaa !37
   %buffer_size = getelementptr inbounds %struct.gs_image_enum_s, ptr %penum, i64 0, i32 13
-  %22 = load i32, ptr %buffer_size, align 8, !tbaa !39
+  %22 = load i32, ptr %buffer_size, align 8, !tbaa !38
   tail call void @gs_free(ptr noundef %21, i32 noundef %22, i32 noundef 1, ptr noundef nonnull @.str) #8
   br label %cleanup46
 
@@ -1779,6 +1779,9 @@ declare i32 @gz_fill_rectangle(...) local_unnamed_addr #2
 declare i32 @gx_color_from_rgb(...) local_unnamed_addr #2
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
+declare i32 @llvm.umin.i32(i32, i32) #7
+
+; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
 declare i32 @llvm.abs.i32(i32, i1 immarg) #7
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
@@ -1786,9 +1789,6 @@ declare i32 @llvm.smin.i32(i32, i32) #7
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
 declare i32 @llvm.umax.i32(i32, i32) #7
-
-; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i32 @llvm.umin.i32(i32, i32) #7
 
 attributes #0 = { nounwind uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #1 = { mustprogress nocallback nofree nosync nounwind willreturn memory(argmem: readwrite) }
@@ -1834,77 +1834,77 @@ attributes #8 = { nounwind }
 !28 = !{!22, !13, i64 24}
 !29 = !{!14, !12, i64 48}
 !30 = !{!22, !13, i64 48}
-!31 = !{!13, !13, i64 0}
-!32 = !{!22, !15, i64 100}
-!33 = !{!14, !12, i64 64}
-!34 = !{!22, !13, i64 160}
-!35 = !{!14, !12, i64 80}
-!36 = !{!22, !13, i64 168}
-!37 = !{!22, !7, i64 72}
-!38 = !{!22, !7, i64 80}
-!39 = !{!22, !15, i64 88}
-!40 = !{!22, !15, i64 92}
-!41 = !{!42, !15, i64 16}
-!42 = !{!"gx_device_color_s", !13, i64 0, !13, i64 8, !15, i64 16, !7, i64 24}
-!43 = distinct !{!43, !44}
-!44 = !{!"llvm.loop.mustprogress"}
-!45 = !{!42, !13, i64 0}
-!46 = !{!6, !7, i64 264}
-!47 = !{!48, !13, i64 56}
-!48 = !{!"gx_path_s", !10, i64 0, !49, i64 16, !7, i64 48, !49, i64 56, !7, i64 88, !7, i64 96, !15, i64 104, !15, i64 108, !15, i64 112, !50, i64 120, !8, i64 136, !8, i64 137, !8, i64 138}
-!49 = !{!"gs_fixed_rect_s", !50, i64 0, !50, i64 16}
-!50 = !{!"gs_fixed_point_s", !13, i64 0, !13, i64 8}
-!51 = !{!48, !13, i64 64}
-!52 = !{!48, !13, i64 72}
-!53 = !{!48, !13, i64 80}
-!54 = !{!22, !15, i64 96}
-!55 = !{!6, !7, i64 312}
-!56 = !{!22, !15, i64 104}
-!57 = !{!6, !8, i64 437}
-!58 = !{!22, !7, i64 64}
-!59 = !{!22, !7, i64 56}
-!60 = !{!7, !7, i64 0}
-!61 = !{!22, !15, i64 144}
-!62 = !{!22, !15, i64 152}
-!63 = !{!22, !15, i64 176}
-!64 = !{!6, !7, i64 304}
-!65 = !{!8, !8, i64 0}
-!66 = !{!15, !15, i64 0}
-!67 = distinct !{!67, !44}
-!68 = !{!69, !69, i64 0}
-!69 = !{!"short", !8, i64 0}
-!70 = distinct !{!70, !44}
-!71 = distinct !{!71, !44}
-!72 = distinct !{!72, !44}
-!73 = distinct !{!73, !44}
-!74 = distinct !{!74, !75}
-!75 = !{!"llvm.loop.unroll.disable"}
-!76 = distinct !{!76, !44}
-!77 = !{!22, !13, i64 32}
-!78 = !{!22, !13, i64 40}
-!79 = !{!80, !69, i64 4}
-!80 = !{!"gs_color_s", !69, i64 0, !69, i64 2, !69, i64 4, !69, i64 6, !8, i64 8, !8, i64 9}
-!81 = !{!80, !69, i64 2}
-!82 = !{!80, !69, i64 0}
-!83 = !{!42, !13, i64 8}
-!84 = distinct !{!84, !44}
-!85 = !{!18, !7, i64 0}
-!86 = !{!87, !7, i64 8}
-!87 = !{!"gx_device_s", !15, i64 0, !7, i64 8, !7, i64 16, !15, i64 24, !15, i64 28, !12, i64 32, !12, i64 36, !15, i64 40, !69, i64 44, !15, i64 48, !15, i64 52}
-!88 = !{!89, !7, i64 72}
-!89 = !{!"gx_device_procs_s", !7, i64 0, !7, i64 8, !7, i64 16, !7, i64 24, !7, i64 32, !7, i64 40, !7, i64 48, !7, i64 56, !7, i64 64, !7, i64 72, !7, i64 80, !7, i64 88, !7, i64 96, !7, i64 104}
-!90 = distinct !{!90, !44}
-!91 = !{!89, !7, i64 56}
-!92 = !{i64 0, i64 8, !31, i64 8, i64 8, !31, i64 16, i64 8, !31, i64 24, i64 8, !31}
-!93 = !{i64 0, i64 8, !31, i64 8, i64 8, !31, i64 16, i64 8, !31}
-!94 = !{i64 0, i64 8, !31, i64 8, i64 8, !31}
-!95 = !{i64 0, i64 8, !31}
-!96 = !{!80, !8, i64 9}
-!97 = !{!80, !8, i64 8}
-!98 = !{!49, !13, i64 16}
-!99 = !{!49, !13, i64 0}
-!100 = !{!49, !13, i64 24}
-!101 = !{!49, !13, i64 8}
-!102 = distinct !{!102, !44}
+!31 = !{!22, !15, i64 100}
+!32 = !{!14, !12, i64 64}
+!33 = !{!22, !13, i64 160}
+!34 = !{!14, !12, i64 80}
+!35 = !{!22, !13, i64 168}
+!36 = !{!22, !7, i64 72}
+!37 = !{!22, !7, i64 80}
+!38 = !{!22, !15, i64 88}
+!39 = !{!22, !15, i64 92}
+!40 = !{!41, !15, i64 16}
+!41 = !{!"gx_device_color_s", !13, i64 0, !13, i64 8, !15, i64 16, !7, i64 24}
+!42 = distinct !{!42, !43}
+!43 = !{!"llvm.loop.mustprogress"}
+!44 = !{!41, !13, i64 0}
+!45 = !{!6, !7, i64 264}
+!46 = !{!47, !13, i64 56}
+!47 = !{!"gx_path_s", !10, i64 0, !48, i64 16, !7, i64 48, !48, i64 56, !7, i64 88, !7, i64 96, !15, i64 104, !15, i64 108, !15, i64 112, !49, i64 120, !8, i64 136, !8, i64 137, !8, i64 138}
+!48 = !{!"gs_fixed_rect_s", !49, i64 0, !49, i64 16}
+!49 = !{!"gs_fixed_point_s", !13, i64 0, !13, i64 8}
+!50 = !{!47, !13, i64 64}
+!51 = !{!47, !13, i64 72}
+!52 = !{!47, !13, i64 80}
+!53 = !{!22, !15, i64 96}
+!54 = !{!6, !7, i64 312}
+!55 = !{!22, !15, i64 104}
+!56 = !{!6, !8, i64 437}
+!57 = !{!22, !7, i64 64}
+!58 = !{!22, !7, i64 56}
+!59 = !{!7, !7, i64 0}
+!60 = !{!22, !15, i64 144}
+!61 = !{!22, !15, i64 152}
+!62 = !{!22, !15, i64 176}
+!63 = !{!6, !7, i64 304}
+!64 = !{!8, !8, i64 0}
+!65 = !{!15, !15, i64 0}
+!66 = distinct !{!66, !43}
+!67 = !{!68, !68, i64 0}
+!68 = !{!"short", !8, i64 0}
+!69 = distinct !{!69, !43}
+!70 = distinct !{!70, !43}
+!71 = distinct !{!71, !43}
+!72 = distinct !{!72, !43}
+!73 = distinct !{!73, !74}
+!74 = !{!"llvm.loop.unroll.disable"}
+!75 = distinct !{!75, !43}
+!76 = !{!22, !13, i64 32}
+!77 = !{!22, !13, i64 40}
+!78 = !{!79, !68, i64 4}
+!79 = !{!"gs_color_s", !68, i64 0, !68, i64 2, !68, i64 4, !68, i64 6, !8, i64 8, !8, i64 9}
+!80 = !{!79, !68, i64 2}
+!81 = !{!79, !68, i64 0}
+!82 = !{!41, !13, i64 8}
+!83 = distinct !{!83, !43}
+!84 = !{!18, !7, i64 0}
+!85 = !{!86, !7, i64 8}
+!86 = !{!"gx_device_s", !15, i64 0, !7, i64 8, !7, i64 16, !15, i64 24, !15, i64 28, !12, i64 32, !12, i64 36, !15, i64 40, !68, i64 44, !15, i64 48, !15, i64 52}
+!87 = !{!88, !7, i64 72}
+!88 = !{!"gx_device_procs_s", !7, i64 0, !7, i64 8, !7, i64 16, !7, i64 24, !7, i64 32, !7, i64 40, !7, i64 48, !7, i64 56, !7, i64 64, !7, i64 72, !7, i64 80, !7, i64 88, !7, i64 96, !7, i64 104}
+!89 = distinct !{!89, !43}
+!90 = !{!88, !7, i64 56}
+!91 = !{i64 0, i64 8, !92, i64 8, i64 8, !92, i64 16, i64 8, !92, i64 24, i64 8, !92}
+!92 = !{!13, !13, i64 0}
+!93 = !{i64 0, i64 8, !92, i64 8, i64 8, !92, i64 16, i64 8, !92}
+!94 = !{i64 0, i64 8, !92, i64 8, i64 8, !92}
+!95 = !{i64 0, i64 8, !92}
+!96 = !{!79, !8, i64 9}
+!97 = !{!79, !8, i64 8}
+!98 = !{!48, !13, i64 16}
+!99 = !{!48, !13, i64 0}
+!100 = !{!48, !13, i64 24}
+!101 = !{!48, !13, i64 8}
+!102 = distinct !{!102, !43}
 !103 = !{!22, !15, i64 148}
-!104 = distinct !{!104, !44}
+!104 = distinct !{!104, !43}

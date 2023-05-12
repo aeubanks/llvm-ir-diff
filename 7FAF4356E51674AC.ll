@@ -11060,26 +11060,24 @@ vector.body:                                      ; preds = %vector.body, %vecto
   %6 = getelementptr inbounds double, ptr @global_data, i64 %offset.idx
   %7 = getelementptr inbounds double, ptr %6, i64 -1
   store <2 x double> %4, ptr %7, align 16, !tbaa !5
-  %8 = getelementptr inbounds double, ptr %6, i64 -2
-  %9 = getelementptr inbounds double, ptr %8, i64 -1
-  store <2 x double> %5, ptr %9, align 32, !tbaa !5
+  %8 = getelementptr inbounds double, ptr %6, i64 -3
+  store <2 x double> %5, ptr %8, align 32, !tbaa !5
   %offset.idx.1 = sub nsw i64 31995, %index
-  %10 = getelementptr inbounds %struct.GlobalData, ptr @global_data, i64 0, i32 3, i64 %offset.idx.1
-  %11 = getelementptr inbounds double, ptr %10, i64 -1
-  %wide.load.1 = load <2 x double>, ptr %11, align 16, !tbaa !5
-  %12 = getelementptr inbounds double, ptr %10, i64 -3
-  %wide.load20.1 = load <2 x double>, ptr %12, align 32, !tbaa !5
-  %13 = fadd <2 x double> %wide.load.1, <double 1.000000e+00, double 1.000000e+00>
-  %14 = fadd <2 x double> %wide.load20.1, <double 1.000000e+00, double 1.000000e+00>
-  %15 = getelementptr inbounds double, ptr @global_data, i64 %offset.idx.1
-  %16 = getelementptr inbounds double, ptr %15, i64 -1
-  store <2 x double> %13, ptr %16, align 16, !tbaa !5
-  %17 = getelementptr inbounds double, ptr %15, i64 -2
-  %18 = getelementptr inbounds double, ptr %17, i64 -1
-  store <2 x double> %14, ptr %18, align 32, !tbaa !5
+  %9 = getelementptr inbounds %struct.GlobalData, ptr @global_data, i64 0, i32 3, i64 %offset.idx.1
+  %10 = getelementptr inbounds double, ptr %9, i64 -1
+  %wide.load.1 = load <2 x double>, ptr %10, align 16, !tbaa !5
+  %11 = getelementptr inbounds double, ptr %9, i64 -3
+  %wide.load20.1 = load <2 x double>, ptr %11, align 32, !tbaa !5
+  %12 = fadd <2 x double> %wide.load.1, <double 1.000000e+00, double 1.000000e+00>
+  %13 = fadd <2 x double> %wide.load20.1, <double 1.000000e+00, double 1.000000e+00>
+  %14 = getelementptr inbounds double, ptr @global_data, i64 %offset.idx.1
+  %15 = getelementptr inbounds double, ptr %14, i64 -1
+  store <2 x double> %12, ptr %15, align 16, !tbaa !5
+  %16 = getelementptr inbounds double, ptr %14, i64 -3
+  store <2 x double> %13, ptr %16, align 32, !tbaa !5
   %index.next.1 = add nuw nsw i64 %index, 8
-  %19 = icmp eq i64 %index.next.1, 32000
-  br i1 %19, label %for.cond.cleanup3, label %vector.body, !llvm.loop !368
+  %17 = icmp eq i64 %index.next.1, 32000
+  br i1 %17, label %for.cond.cleanup3, label %vector.body, !llvm.loop !368
 
 for.cond.cleanup:                                 ; preds = %for.cond.cleanup3, %entry
   %call10 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.141, double noundef 0.000000e+00)
@@ -11089,38 +11087,38 @@ for.body.i:                                       ; preds = %for.body.i, %for.co
   %indvars.iv.i = phi i64 [ 0, %for.cond.cleanup ], [ %indvars.iv.next.i.4, %for.body.i ]
   %suma.0192.i = phi double [ 0.000000e+00, %for.cond.cleanup ], [ %add.i.4, %for.body.i ]
   %arrayidx.i = getelementptr inbounds double, ptr @global_data, i64 %indvars.iv.i
-  %20 = load double, ptr %arrayidx.i, align 8, !tbaa !5
-  %add.i = fadd double %suma.0192.i, %20
+  %18 = load double, ptr %arrayidx.i, align 8, !tbaa !5
+  %add.i = fadd double %suma.0192.i, %18
   %indvars.iv.next.i = add nuw nsw i64 %indvars.iv.i, 1
   %arrayidx.i.1 = getelementptr inbounds double, ptr @global_data, i64 %indvars.iv.next.i
-  %21 = load double, ptr %arrayidx.i.1, align 8, !tbaa !5
-  %add.i.1 = fadd double %add.i, %21
+  %19 = load double, ptr %arrayidx.i.1, align 8, !tbaa !5
+  %add.i.1 = fadd double %add.i, %19
   %indvars.iv.next.i.1 = add nuw nsw i64 %indvars.iv.i, 2
   %arrayidx.i.2 = getelementptr inbounds double, ptr @global_data, i64 %indvars.iv.next.i.1
-  %22 = load double, ptr %arrayidx.i.2, align 8, !tbaa !5
-  %add.i.2 = fadd double %add.i.1, %22
+  %20 = load double, ptr %arrayidx.i.2, align 8, !tbaa !5
+  %add.i.2 = fadd double %add.i.1, %20
   %indvars.iv.next.i.2 = add nuw nsw i64 %indvars.iv.i, 3
   %arrayidx.i.3 = getelementptr inbounds double, ptr @global_data, i64 %indvars.iv.next.i.2
-  %23 = load double, ptr %arrayidx.i.3, align 8, !tbaa !5
-  %add.i.3 = fadd double %add.i.2, %23
+  %21 = load double, ptr %arrayidx.i.3, align 8, !tbaa !5
+  %add.i.3 = fadd double %add.i.2, %21
   %indvars.iv.next.i.3 = add nuw nsw i64 %indvars.iv.i, 4
   %arrayidx.i.4 = getelementptr inbounds double, ptr @global_data, i64 %indvars.iv.next.i.3
-  %24 = load double, ptr %arrayidx.i.4, align 8, !tbaa !5
-  %add.i.4 = fadd double %add.i.3, %24
+  %22 = load double, ptr %arrayidx.i.4, align 8, !tbaa !5
+  %add.i.4 = fadd double %add.i.3, %22
   %indvars.iv.next.i.4 = add nuw nsw i64 %indvars.iv.i, 5
   %exitcond.not.i.4 = icmp eq i64 %indvars.iv.next.i.4, 32000
   br i1 %exitcond.not.i.4, label %for.cond18.preheader.i.preheader, label %for.body.i
 
 for.cond18.preheader.i.preheader:                 ; preds = %for.body.i
-  %25 = load i32, ptr @digits, align 4, !tbaa !17
-  %call.i = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str, i32 noundef %25, double noundef %add.i.4)
+  %23 = load i32, ptr @digits, align 4, !tbaa !17
+  %call.i = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str, i32 noundef %23, double noundef %add.i.4)
   ret i32 0
 
 for.cond.cleanup3:                                ; preds = %vector.body
   %call7 = tail call i32 @dummy(ptr noundef nonnull @global_data, ptr noundef nonnull getelementptr inbounds (%struct.GlobalData, ptr @global_data, i64 0, i32 3, i64 0), ptr noundef nonnull getelementptr inbounds (%struct.GlobalData, ptr @global_data, i64 0, i32 6, i64 0), ptr noundef nonnull getelementptr inbounds (%struct.GlobalData, ptr @global_data, i64 0, i32 8, i64 0), ptr noundef nonnull getelementptr inbounds (%struct.GlobalData, ptr @global_data, i64 0, i32 11, i64 0), ptr noundef nonnull getelementptr inbounds (%struct.GlobalData, ptr @global_data, i64 0, i32 14, i64 0, i64 0), ptr noundef nonnull getelementptr inbounds (%struct.GlobalData, ptr @global_data, i64 0, i32 17, i64 0, i64 0), ptr noundef nonnull getelementptr inbounds (%struct.GlobalData, ptr @global_data, i64 0, i32 20, i64 0, i64 0), double noundef 0.000000e+00) #16
   %inc = add nuw nsw i32 %nl.018, 1
-  %26 = load i32, ptr @ntimes, align 4, !tbaa !17
-  %mul = mul nsw i32 %26, 3
+  %24 = load i32, ptr @ntimes, align 4, !tbaa !17
+  %mul = mul nsw i32 %24, 3
   %cmp = icmp slt i32 %inc, %mul
   br i1 %cmp, label %vector.ph, label %for.cond.cleanup
 }
@@ -12436,17 +12434,17 @@ if.end7:                                          ; preds = %if.end.thread, %if.
 ; Function Attrs: mustprogress nofree nounwind willreturn
 declare i64 @strtol(ptr noundef readonly, ptr nocapture noundef, i32 noundef) local_unnamed_addr #11
 
-; Function Attrs: nocallback nofree nounwind willreturn memory(argmem: write)
-declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #12
-
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i32 @llvm.smin.i32(i32, i32) #13
+declare i32 @llvm.smin.i32(i32, i32) #12
 
 ; Function Attrs: nofree nounwind
-declare noundef i32 @putchar(i32 noundef) local_unnamed_addr #14
+declare noundef i32 @putchar(i32 noundef) local_unnamed_addr #13
 
 ; Function Attrs: nofree nounwind
-declare noundef i32 @puts(ptr nocapture noundef readonly) local_unnamed_addr #14
+declare noundef i32 @puts(ptr nocapture noundef readonly) local_unnamed_addr #13
+
+; Function Attrs: nocallback nofree nounwind willreturn memory(argmem: write)
+declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #14
 
 attributes #0 = { nofree norecurse nosync nounwind memory(argmem: write) uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #1 = { mustprogress nocallback nofree nosync nounwind willreturn memory(argmem: readwrite) }
@@ -12460,9 +12458,9 @@ attributes #8 = { "no-trapping-math"="true" "stack-protector-buffer-size"="8" "t
 attributes #9 = { mustprogress nocallback nofree nosync nounwind speculatable willreturn memory(none) }
 attributes #10 = { mustprogress nofree nosync nounwind willreturn memory(none) uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #11 = { mustprogress nofree nounwind willreturn "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
-attributes #12 = { nocallback nofree nounwind willreturn memory(argmem: write) }
-attributes #13 = { nocallback nofree nosync nounwind speculatable willreturn memory(none) }
-attributes #14 = { nofree nounwind }
+attributes #12 = { nocallback nofree nosync nounwind speculatable willreturn memory(none) }
+attributes #13 = { nofree nounwind }
+attributes #14 = { nocallback nofree nounwind willreturn memory(argmem: write) }
 attributes #15 = { nounwind willreturn memory(read) }
 attributes #16 = { nounwind }
 

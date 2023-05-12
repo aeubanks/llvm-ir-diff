@@ -14,18 +14,18 @@ target triple = "x86_64-unknown-linux-gnu"
 @.str.12 = private unnamed_addr constant [28 x i8] c"     DEFLATED to\0A(x - %g)*(\00", align 1
 @.str.13 = private unnamed_addr constant [5 x i8] c"%g)\0A\00", align 1
 @.str.14 = private unnamed_addr constant [39 x i8] c"\0A  ROOT = %g (from quadratic formula)\0A\00", align 1
-@str = private unnamed_addr constant [9 x i8] c"No roots\00", align 1
-@str.17 = private unnamed_addr constant [59 x i8] c"----> Refine Root on the Orginal Polynomial (non-deflated)\00", align 1
-@str.19 = private unnamed_addr constant [18 x i8] c"Find all roots of\00", align 1
-@str.20 = private unnamed_addr constant [21 x i8] c"using NEWTON method.\00", align 1
-@str.21 = private unnamed_addr constant [63 x i8] c"==============================================================\00", align 1
+@str.15 = private unnamed_addr constant [18 x i8] c"Find all roots of\00", align 1
+@str.16 = private unnamed_addr constant [21 x i8] c"using NEWTON method.\00", align 1
+@str.17 = private unnamed_addr constant [63 x i8] c"==============================================================\00", align 1
+@str.18 = private unnamed_addr constant [9 x i8] c"No roots\00", align 1
+@str.21 = private unnamed_addr constant [59 x i8] c"----> Refine Root on the Orginal Polynomial (non-deflated)\00", align 1
 
 ; Function Attrs: nounwind uwtable
 define dso_local i32 @main() local_unnamed_addr #0 {
 entry:
   %call = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str, double noundef 0x40337AAE58825399, double noundef 0x401CF55906D75FA4)
-  %puts = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.21)
-  %puts21 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.19)
+  %puts = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.17)
+  %puts21 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.15)
   %0 = load double, ptr getelementptr inbounds ([4 x double], ptr @main.A, i64 0, i64 3), align 8, !tbaa !5
   %call3 = tail call double @d_abs(double noundef %0) #8
   %call4 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.3, double noundef %call3)
@@ -50,8 +50,8 @@ entry:
   %6 = load double, ptr @main.A, align 16, !tbaa !5
   %call10 = tail call double @d_abs(double noundef %6) #8
   %call11 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.6, double noundef %call10)
-  %puts22 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.20)
-  %puts23 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.21)
+  %puts22 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.16)
+  %puts23 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.17)
   %7 = load double, ptr @main.A, align 16, !tbaa !5
   %call.i = tail call double @d_abs(double noundef %7) #8
   %add.i = fadd double %call.i, 0.000000e+00
@@ -113,7 +113,7 @@ for.end:                                          ; preds = %for.body, %entry
   ]
 
 if.then:                                          ; preds = %for.end
-  %puts = tail call i32 @puts(ptr nonnull dereferenceable(1) @str)
+  %puts = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.18)
   br label %if.end48
 
 if.then7:                                         ; preds = %for.end
@@ -181,7 +181,7 @@ entry:
   br i1 %cmp.not, label %if.end, label %if.then
 
 if.then:                                          ; preds = %entry
-  %puts170 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.17)
+  %puts170 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.21)
   %sub = fadd double %ROOT, -5.000000e-01
   %add = fadd double %ROOT, 5.000000e-01
   %call1 = tail call double @newton(i32 noundef %No, ptr noundef %Po, double noundef %sub, double noundef %add) #8
@@ -317,7 +317,7 @@ if.then68:                                        ; preds = %for.end62
   %mul = fmul double %28, 2.000000e+00
   %div = fdiv double %add77, %mul
   %call79 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.14, double noundef %div)
-  %puts = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.17)
+  %puts = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.21)
   %sub81 = fadd double %div, -5.000000e-01
   %add82 = fadd double %div, 5.000000e-01
   %call83 = tail call double @newton(i32 noundef %No, ptr noundef %Po, double noundef %sub81, double noundef %add82) #8
@@ -333,7 +333,7 @@ if.then68:                                        ; preds = %for.end62
   %mul97 = fmul double %33, 2.000000e+00
   %div98 = fdiv double %sub95, %mul97
   %call99 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.10, double noundef %div98)
-  %puts169 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.17)
+  %puts169 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.21)
   %sub101 = fadd double %div98, -5.000000e-01
   %add102 = fadd double %div98, 5.000000e-01
   %call103 = tail call double @newton(i32 noundef %No, ptr noundef %Po, double noundef %sub101, double noundef %add102) #8

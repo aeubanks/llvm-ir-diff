@@ -184,20 +184,20 @@ if.then8:                                         ; preds = %land.lhs.true
   %2 = load i8, ptr %arrayidx14, align 1, !tbaa !5
   %conv15 = zext i8 %2 to i32
   %shl16 = shl nuw nsw i32 %conv15, 16
-  %or = or i32 %shl16, %shl
   %add17 = or i64 %i.093, 2
   %arrayidx18 = getelementptr inbounds i8, ptr %data, i64 %add17
   %3 = load i8, ptr %arrayidx18, align 1, !tbaa !5
   %conv19 = zext i8 %3 to i32
   %shl20 = shl nuw nsw i32 %conv19, 8
-  %or21 = or i32 %or, %shl20
   %and25 = and i32 %conv5, 252
-  %or26 = or i32 %or21, %and25
   %conv28 = trunc i64 %i.093 to i32
   %add29 = add i32 %conv28, %ip
   %4 = sub i32 0, %add29
   %dest.0.p = select i1 %tobool.not, i32 %4, i32 %add29
-  %dest.0 = add i32 %or26, %dest.0.p
+  %or26 = add i32 %shl, %dest.0.p
+  %or = add i32 %or26, %and25
+  %or21 = add i32 %or, %shl16
+  %dest.0 = add i32 %or21, %shl20
   %shr35 = lshr i32 %dest.0, 24
   %5 = trunc i32 %shr35 to i8
   %6 = and i8 %5, 3
@@ -210,7 +210,7 @@ if.then8:                                         ; preds = %land.lhs.true
   %conv46 = trunc i32 %shr45 to i8
   store i8 %conv46, ptr %arrayidx18, align 1, !tbaa !5
   %7 = and i8 %1, 3
-  %8 = trunc i32 %dest.0 to i8
+  %8 = trunc i32 %or to i8
   %conv58 = or i8 %7, %8
   store i8 %conv58, ptr %arrayidx4, align 1, !tbaa !5
   br label %for.inc

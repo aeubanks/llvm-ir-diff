@@ -4540,15 +4540,15 @@ for.cond.preheader:                               ; preds = %if.end236
   %667 = load ptr, ptr @img, align 8, !tbaa !5
   %width241 = getelementptr inbounds %struct.ImageParameters, ptr %667, i64 0, i32 13
   %668 = load i32, ptr %width241, align 4, !tbaa !118
-  %cmp242907 = icmp sgt i32 %668, 0
-  br i1 %cmp242907, label %for.cond244.preheader.lr.ph, label %for.cond261.preheader
+  %cmp242908 = icmp sgt i32 %668, 0
+  br i1 %cmp242908, label %for.cond244.preheader.lr.ph, label %for.cond261.preheader
 
 for.cond244.preheader.lr.ph:                      ; preds = %for.cond.preheader
   %height245 = getelementptr inbounds %struct.ImageParameters, ptr %667, i64 0, i32 17
   %669 = load i32, ptr %height245, align 4, !tbaa !93
-  %cmp246905 = icmp sgt i32 %669, 0
+  %cmp246906 = icmp sgt i32 %669, 0
   %670 = load ptr, ptr @imgY_tmp, align 8
-  br i1 %cmp246905, label %for.cond244.preheader.lr.ph.split.us, label %for.cond261.preheader
+  br i1 %cmp246906, label %for.cond244.preheader.lr.ph.split.us, label %for.cond261.preheader
 
 for.cond244.preheader.lr.ph.split.us:             ; preds = %for.cond244.preheader.lr.ph
   %671 = load ptr, ptr @enc_frame_picture, align 8
@@ -4637,16 +4637,16 @@ for.cond244.for.inc258_crit_edge.us:              ; preds = %for.body248.us.epil
 for.cond261.preheader:                            ; preds = %for.cond244.for.inc258_crit_edge.us, %for.cond244.preheader.lr.ph, %for.cond.preheader
   %width_cr262 = getelementptr inbounds %struct.ImageParameters, ptr %667, i64 0, i32 16
   %689 = load i32, ptr %width_cr262, align 8, !tbaa !119
-  %cmp263911 = icmp sgt i32 %689, 0
-  br i1 %cmp263911, label %for.cond266.preheader.lr.ph, label %if.end296
+  %cmp263912 = icmp sgt i32 %689, 0
+  br i1 %cmp263912, label %for.cond266.preheader.lr.ph, label %if.end296
 
 for.cond266.preheader.lr.ph:                      ; preds = %for.cond261.preheader
   %height_cr267 = getelementptr inbounds %struct.ImageParameters, ptr %667, i64 0, i32 20
   %690 = load i32, ptr %height_cr267, align 8, !tbaa !120
-  %cmp268909 = icmp sgt i32 %690, 0
+  %cmp268910 = icmp sgt i32 %690, 0
   %691 = load ptr, ptr @imgUV_tmp, align 16
   %692 = load ptr, ptr getelementptr inbounds ([2 x ptr], ptr @imgUV_tmp, i64 0, i64 1), align 8
-  br i1 %cmp268909, label %for.cond266.preheader.lr.ph.split.us, label %if.end296
+  br i1 %cmp268910, label %for.cond266.preheader.lr.ph.split.us, label %if.end296
 
 for.cond266.preheader.lr.ph.split.us:             ; preds = %for.cond266.preheader.lr.ph
   %693 = load ptr, ptr @enc_frame_picture, align 8
@@ -4746,15 +4746,15 @@ for.cond302.preheader:                            ; preds = %if.end296
   %717 = load ptr, ptr @img, align 8, !tbaa !5
   %width303 = getelementptr inbounds %struct.ImageParameters, ptr %717, i64 0, i32 13
   %718 = load i32, ptr %width303, align 4, !tbaa !118
-  %cmp304915 = icmp sgt i32 %718, 0
-  br i1 %cmp304915, label %for.cond307.preheader.lr.ph, label %for.cond327.preheader
+  %cmp304916 = icmp sgt i32 %718, 0
+  br i1 %cmp304916, label %for.cond307.preheader.lr.ph, label %for.cond327.preheader
 
 for.cond307.preheader.lr.ph:                      ; preds = %for.cond302.preheader
   %height308 = getelementptr inbounds %struct.ImageParameters, ptr %717, i64 0, i32 17
   %719 = load i32, ptr %height308, align 4, !tbaa !93
-  %cmp309913 = icmp sgt i32 %719, 0
+  %cmp309914 = icmp sgt i32 %719, 0
   %720 = load ptr, ptr @imgY_tmp, align 8
-  br i1 %cmp309913, label %for.cond307.preheader.lr.ph.split.us, label %for.cond327.preheader
+  br i1 %cmp309914, label %for.cond307.preheader.lr.ph.split.us, label %for.cond327.preheader
 
 for.cond307.preheader.lr.ph.split.us:             ; preds = %for.cond307.preheader.lr.ph
   %721 = load ptr, ptr @enc_frame_picture, align 8
@@ -4843,16 +4843,16 @@ for.cond307.for.inc324_crit_edge.us:              ; preds = %for.body311.us.epil
 for.cond327.preheader:                            ; preds = %for.cond307.for.inc324_crit_edge.us, %for.cond307.preheader.lr.ph, %for.cond302.preheader
   %width_cr328 = getelementptr inbounds %struct.ImageParameters, ptr %717, i64 0, i32 16
   %739 = load i32, ptr %width_cr328, align 8, !tbaa !119
-  %cmp329921 = icmp sgt i32 %739, 0
-  br i1 %cmp329921, label %for.cond332.preheader.lr.ph, label %if.end363
+  %cmp329922 = icmp sgt i32 %739, 0
+  br i1 %cmp329922, label %for.cond332.preheader.lr.ph, label %if.end363
 
 for.cond332.preheader.lr.ph:                      ; preds = %for.cond327.preheader
   %height_cr333 = getelementptr inbounds %struct.ImageParameters, ptr %717, i64 0, i32 20
   %740 = load i32, ptr %height_cr333, align 8, !tbaa !120
-  %cmp334919 = icmp sgt i32 %740, 0
+  %cmp334920 = icmp sgt i32 %740, 0
   %741 = load ptr, ptr @imgUV_tmp, align 16
   %742 = load ptr, ptr getelementptr inbounds ([2 x ptr], ptr @imgUV_tmp, i64 0, i64 1), align 8
-  br i1 %cmp334919, label %for.cond332.preheader.lr.ph.split.us, label %if.end363
+  br i1 %cmp334920, label %for.cond332.preheader.lr.ph.split.us, label %if.end363
 
 for.cond332.preheader.lr.ph.split.us:             ; preds = %for.cond332.preheader.lr.ph
   %743 = load ptr, ptr @enc_frame_picture, align 8
@@ -5967,9 +5967,9 @@ entry:
   store i32 1, ptr %fld_flag, align 8, !tbaa !149
   %FrameSizeInMbs = getelementptr inbounds %struct.ImageParameters, ptr %0, i64 0, i32 120
   %8 = load i32, ptr %FrameSizeInMbs, align 8, !tbaa !65
-  %div494 = lshr i32 %8, 1
+  %div476 = lshr i32 %8, 1
   %PicSizeInMbs = getelementptr inbounds %struct.ImageParameters, ptr %0, i64 0, i32 119
-  store i32 %div494, ptr %PicSizeInMbs, align 4, !tbaa !18
+  store i32 %div476, ptr %PicSizeInMbs, align 4, !tbaa !18
   %structure = getelementptr inbounds %struct.ImageParameters, ptr %0, i64 0, i32 6
   %9 = load i32, ptr %structure, align 8, !tbaa !33
   %width = getelementptr inbounds %struct.ImageParameters, ptr %0, i64 0, i32 13
@@ -6134,32 +6134,32 @@ if.end20:                                         ; preds = %if.then15, %if.end
   store i32 2, ptr %structure42, align 8, !tbaa !33
   store ptr %call29, ptr @enc_picture, align 8, !tbaa !5
   %52 = load ptr, ptr @active_sps, align 8, !tbaa !5
-  %frame_mbs_only_flag.i76 = getelementptr inbounds %struct.seq_parameter_set_rbsp_t, ptr %52, i64 0, i32 25
-  %53 = load i32, ptr %frame_mbs_only_flag.i76, align 4, !tbaa !155
-  %frame_mbs_only_flag1.i77 = getelementptr inbounds %struct.storable_picture, ptr %call29, i64 0, i32 45
-  store i32 %53, ptr %frame_mbs_only_flag1.i77, align 4, !tbaa !245
-  %frame_cropping_flag.i78 = getelementptr inbounds %struct.seq_parameter_set_rbsp_t, ptr %52, i64 0, i32 28
-  %54 = load i32, ptr %frame_cropping_flag.i78, align 4, !tbaa !246
-  %frame_cropping_flag2.i79 = getelementptr inbounds %struct.storable_picture, ptr %call29, i64 0, i32 46
-  store i32 %54, ptr %frame_cropping_flag2.i79, align 8, !tbaa !247
-  %chroma_format_idc.i80 = getelementptr inbounds %struct.seq_parameter_set_rbsp_t, ptr %52, i64 0, i32 8
-  %55 = load i32, ptr %chroma_format_idc.i80, align 4, !tbaa !248
-  %chroma_format_idc3.i81 = getelementptr inbounds %struct.storable_picture, ptr %call29, i64 0, i32 44
-  store i32 %55, ptr %chroma_format_idc3.i81, align 8, !tbaa !249
-  %tobool.not.i82 = icmp eq i32 %54, 0
-  br i1 %tobool.not.i82, label %copy_params.exit92, label %if.then.i87
+  %frame_mbs_only_flag.i77 = getelementptr inbounds %struct.seq_parameter_set_rbsp_t, ptr %52, i64 0, i32 25
+  %53 = load i32, ptr %frame_mbs_only_flag.i77, align 4, !tbaa !155
+  %frame_mbs_only_flag1.i78 = getelementptr inbounds %struct.storable_picture, ptr %call29, i64 0, i32 45
+  store i32 %53, ptr %frame_mbs_only_flag1.i78, align 4, !tbaa !245
+  %frame_cropping_flag.i79 = getelementptr inbounds %struct.seq_parameter_set_rbsp_t, ptr %52, i64 0, i32 28
+  %54 = load i32, ptr %frame_cropping_flag.i79, align 4, !tbaa !246
+  %frame_cropping_flag2.i80 = getelementptr inbounds %struct.storable_picture, ptr %call29, i64 0, i32 46
+  store i32 %54, ptr %frame_cropping_flag2.i80, align 8, !tbaa !247
+  %chroma_format_idc.i81 = getelementptr inbounds %struct.seq_parameter_set_rbsp_t, ptr %52, i64 0, i32 8
+  %55 = load i32, ptr %chroma_format_idc.i81, align 4, !tbaa !248
+  %chroma_format_idc3.i82 = getelementptr inbounds %struct.storable_picture, ptr %call29, i64 0, i32 44
+  store i32 %55, ptr %chroma_format_idc3.i82, align 8, !tbaa !249
+  %tobool.not.i83 = icmp eq i32 %54, 0
+  br i1 %tobool.not.i83, label %copy_params.exit93, label %if.then.i88
 
-if.then.i87:                                      ; preds = %if.end20
-  %frame_cropping_rect_left_offset.i83 = getelementptr inbounds %struct.seq_parameter_set_rbsp_t, ptr %52, i64 0, i32 29
-  %56 = load <4 x i32>, ptr %frame_cropping_rect_left_offset.i83, align 4, !tbaa !21
-  br label %copy_params.exit92
+if.then.i88:                                      ; preds = %if.end20
+  %frame_cropping_rect_left_offset.i84 = getelementptr inbounds %struct.seq_parameter_set_rbsp_t, ptr %52, i64 0, i32 29
+  %56 = load <4 x i32>, ptr %frame_cropping_rect_left_offset.i84, align 4, !tbaa !21
+  br label %copy_params.exit93
 
-copy_params.exit92:                               ; preds = %if.end20, %if.then.i87
-  %57 = phi <4 x i32> [ %56, %if.then.i87 ], [ zeroinitializer, %if.end20 ]
+copy_params.exit93:                               ; preds = %if.end20, %if.then.i88
+  %57 = phi <4 x i32> [ %56, %if.then.i88 ], [ zeroinitializer, %if.end20 ]
   %58 = getelementptr inbounds %struct.storable_picture, ptr %call29, i64 0, i32 47
   store <4 x i32> %57, ptr %58, align 4
-  %fld_type.i93 = getelementptr inbounds %struct.ImageParameters, ptr %49, i64 0, i32 65
-  store i32 1, ptr %fld_type.i93, align 4, !tbaa !177
+  %fld_type.i94 = getelementptr inbounds %struct.ImageParameters, ptr %49, i64 0, i32 65
+  store i32 1, ptr %fld_type.i94, align 4, !tbaa !177
   %59 = load ptr, ptr @imgY_org_bot, align 8, !tbaa !5
   store ptr %59, ptr @imgY_org, align 8, !tbaa !5
   %60 = load ptr, ptr @imgUV_org_bot, align 8, !tbaa !5
@@ -6176,17 +6176,17 @@ copy_params.exit92:                               ; preds = %if.end20, %if.then.
     i32 2, label %land.lhs.true
   ]
 
-if.end48.thread:                                  ; preds = %copy_params.exit92
+if.end48.thread:                                  ; preds = %copy_params.exit93
   %64 = load i32, ptr @nextP_tr_fld, align 4, !tbaa !21
   %inc47 = add nsw i32 %64, 1
   store i32 %inc47, ptr @nextP_tr_fld, align 4, !tbaa !21
   br label %if.end48.if.end55_crit_edge
 
-if.end48.if.end55_crit_edge:                      ; preds = %copy_params.exit92, %if.end48.thread
+if.end48.if.end55_crit_edge:                      ; preds = %copy_params.exit93, %if.end48.thread
   %.pre = load ptr, ptr @input, align 8, !tbaa !5
   br label %if.end55
 
-land.lhs.true:                                    ; preds = %copy_params.exit92
+land.lhs.true:                                    ; preds = %copy_params.exit93
   %65 = load ptr, ptr @input, align 8, !tbaa !5
   %IntraBottom = getelementptr inbounds %struct.InputParameters, ptr %65, i64 0, i32 123
   %66 = load i32, ptr %IntraBottom, align 8, !tbaa !261
@@ -6323,8 +6323,8 @@ if.then:                                          ; preds = %entry
   %toppoc = getelementptr inbounds %struct.ImageParameters, ptr %6, i64 0, i32 111
   %8 = load <2 x i32>, ptr %toppoc, align 4, !tbaa !21
   %9 = insertelement <4 x i32> poison, i32 %7, i64 0
-  %10 = shufflevector <2 x i32> %8, <2 x i32> poison, <4 x i32> <i32 0, i32 1, i32 undef, i32 undef>
-  %11 = shufflevector <4 x i32> %9, <4 x i32> %10, <4 x i32> <i32 0, i32 4, i32 5, i32 undef>
+  %10 = shufflevector <2 x i32> %8, <2 x i32> poison, <4 x i32> <i32 0, i32 1, i32 poison, i32 poison>
+  %11 = shufflevector <4 x i32> %9, <4 x i32> %10, <4 x i32> <i32 0, i32 4, i32 5, i32 poison>
   %12 = shufflevector <4 x i32> %11, <4 x i32> poison, <4 x i32> <i32 0, i32 1, i32 2, i32 0>
   store <4 x i32> %12, ptr %poc, align 4, !tbaa !21
   %frame_num = getelementptr inbounds %struct.ImageParameters, ptr %6, i64 0, i32 115
@@ -6385,8 +6385,8 @@ if.then13:                                        ; preds = %entry
   %toppoc23 = getelementptr inbounds %struct.ImageParameters, ptr %24, i64 0, i32 111
   %26 = load <2 x i32>, ptr %toppoc23, align 4, !tbaa !21
   %27 = insertelement <4 x i32> poison, i32 %25, i64 0
-  %28 = shufflevector <2 x i32> %26, <2 x i32> poison, <4 x i32> <i32 0, i32 1, i32 undef, i32 undef>
-  %29 = shufflevector <4 x i32> %27, <4 x i32> %28, <4 x i32> <i32 0, i32 4, i32 5, i32 undef>
+  %28 = shufflevector <2 x i32> %26, <2 x i32> poison, <4 x i32> <i32 0, i32 1, i32 poison, i32 poison>
+  %29 = shufflevector <4 x i32> %27, <4 x i32> %28, <4 x i32> <i32 0, i32 4, i32 5, i32 poison>
   %30 = shufflevector <4 x i32> %29, <4 x i32> poison, <4 x i32> <i32 0, i32 1, i32 2, i32 0>
   store <4 x i32> %30, ptr %poc21, align 4, !tbaa !21
   %frame_num29 = getelementptr inbounds %struct.ImageParameters, ptr %24, i64 0, i32 115
@@ -6447,8 +6447,8 @@ if.else45:                                        ; preds = %entry
   %toppoc55 = getelementptr inbounds %struct.ImageParameters, ptr %42, i64 0, i32 111
   %44 = load <2 x i32>, ptr %toppoc55, align 4, !tbaa !21
   %45 = insertelement <4 x i32> poison, i32 %43, i64 0
-  %46 = shufflevector <2 x i32> %44, <2 x i32> poison, <4 x i32> <i32 0, i32 1, i32 undef, i32 undef>
-  %47 = shufflevector <4 x i32> %45, <4 x i32> %46, <4 x i32> <i32 0, i32 4, i32 5, i32 undef>
+  %46 = shufflevector <2 x i32> %44, <2 x i32> poison, <4 x i32> <i32 0, i32 1, i32 poison, i32 poison>
+  %47 = shufflevector <4 x i32> %45, <4 x i32> %46, <4 x i32> <i32 0, i32 4, i32 5, i32 poison>
   %48 = shufflevector <4 x i32> %47, <4 x i32> poison, <4 x i32> <i32 0, i32 1, i32 2, i32 0>
   store <4 x i32> %48, ptr %poc53, align 4, !tbaa !21
   %frame_num61 = getelementptr inbounds %struct.ImageParameters, ptr %42, i64 0, i32 115
@@ -10876,34 +10876,34 @@ declare i32 @picture_coding_decision(ptr noundef, ptr noundef, i32 noundef) loca
 
 declare i32 @test_wp_B_slice(i32 noundef) local_unnamed_addr #2
 
-; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i32 @llvm.smax.i32(i32, i32) #17
-
-; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i32 @llvm.smin.i32(i32, i32) #17
-
-; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i32 @llvm.bswap.i32(i32) #17
-
-; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i16 @llvm.bswap.i16(i16) #17
-
 ; Function Attrs: nofree nounwind
-declare noundef i32 @puts(ptr nocapture noundef readonly) local_unnamed_addr #18
+declare noundef i32 @puts(ptr nocapture noundef readonly) local_unnamed_addr #17
 
 declare double @exp2(double) local_unnamed_addr
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i64 @llvm.umax.i64(i64, i64) #17
+declare i64 @llvm.umax.i64(i64, i64) #18
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare <2 x float> @llvm.fmuladd.v2f32(<2 x float>, <2 x float>, <2 x float>) #17
+declare i32 @llvm.bswap.i32(i32) #18
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare <4 x i32> @llvm.bswap.v4i32(<4 x i32>) #17
+declare i16 @llvm.bswap.i16(i16) #18
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare <8 x i16> @llvm.bswap.v8i16(<8 x i16>) #17
+declare i32 @llvm.smax.i32(i32, i32) #18
+
+; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
+declare i32 @llvm.smin.i32(i32, i32) #18
+
+; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
+declare <2 x float> @llvm.fmuladd.v2f32(<2 x float>, <2 x float>, <2 x float>) #18
+
+; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
+declare <4 x i32> @llvm.bswap.v4i32(<4 x i32>) #18
+
+; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
+declare <8 x i16> @llvm.bswap.v8i16(<8 x i16>) #18
 
 attributes #0 = { nounwind uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #1 = { mustprogress nocallback nofree nosync nounwind willreturn memory(argmem: readwrite) }
@@ -10922,8 +10922,8 @@ attributes #13 = { mustprogress nocallback nofree nosync nounwind speculatable w
 attributes #14 = { mustprogress nofree nounwind willreturn allockind("alloc,uninitialized") allocsize(0) memory(inaccessiblemem: readwrite) "alloc-family"="malloc" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #15 = { nofree "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #16 = { mustprogress nounwind willreturn allockind("free") memory(argmem: readwrite, inaccessiblemem: readwrite) "alloc-family"="malloc" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
-attributes #17 = { nocallback nofree nosync nounwind speculatable willreturn memory(none) }
-attributes #18 = { nofree nounwind }
+attributes #17 = { nofree nounwind }
+attributes #18 = { nocallback nofree nosync nounwind speculatable willreturn memory(none) }
 attributes #19 = { nounwind }
 attributes #20 = { nounwind allocsize(0) }
 attributes #21 = { noreturn nounwind }

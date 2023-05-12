@@ -41,7 +41,7 @@ entry:
   %word_no.i = getelementptr inbounds %struct.bitmap_iterator, ptr %rsi, i64 0, i32 2
   br label %for.cond
 
-for.cond:                                         ; preds = %for.body.critedge, %entry
+for.cond:                                         ; preds = %for.body, %entry
   %0 = load i32, ptr %regno, align 4, !tbaa !5
   %1 = load i64, ptr %bits1.i, align 8, !tbaa !9
   %tobool.not.i = icmp eq i64 %1, 0
@@ -64,7 +64,7 @@ while.body.i:                                     ; preds = %while.cond.preheade
 while.end.i:                                      ; preds = %while.body.i, %while.cond.preheader.i
   %bno.0.lcssa.i = phi i32 [ %0, %while.cond.preheader.i ], [ %add.i, %while.body.i ]
   store i32 %bno.0.lcssa.i, ptr %regno, align 4, !tbaa !5
-  br label %for.body.critedge
+  br label %for.body
 
 if.end.i:                                         ; preds = %for.cond
   %sub.i = add i32 %0, 63
@@ -75,14 +75,14 @@ if.end.i:                                         ; preds = %for.cond
   br label %while.cond5.i
 
 while.cond5.i:                                    ; preds = %if.end25.i, %if.end.i
-  %add18.i.lcssa6 = phi i32 [ %div57.i, %if.end.i ], [ %mul26.i, %if.end25.i ]
+  %add18.i.lcssa8 = phi i32 [ %div57.i, %if.end.i ], [ %mul26.i, %if.end25.i ]
   %.pr.i = phi i32 [ %inc.i, %if.end.i ], [ 0, %if.end25.i ]
   %elt1.0.i = phi ptr [ %4, %if.end.i ], [ %7, %if.end25.i ]
   %cmp.not63.i = icmp eq i32 %.pr.i, 2
   br i1 %cmp.not63.i, label %while.end21.i, label %while.body9.i
 
 while.body9.i:                                    ; preds = %while.cond5.i, %if.end17.i
-  %add18.i3 = phi i32 [ %add18.i, %if.end17.i ], [ %add18.i.lcssa6, %while.cond5.i ]
+  %add18.i5 = phi i32 [ %add18.i, %if.end17.i ], [ %add18.i.lcssa8, %while.cond5.i ]
   %5 = phi i32 [ %inc20.i, %if.end17.i ], [ %.pr.i, %while.cond5.i ]
   %idxprom.i = zext i32 %5 to i64
   %arrayidx.i = getelementptr inbounds %struct.bitmap_element_def, ptr %elt1.0.i, i64 0, i32 3, i64 %idxprom.i
@@ -92,15 +92,15 @@ while.body9.i:                                    ; preds = %while.cond5.i, %if.
 
 if.then15.i:                                      ; preds = %while.body9.i
   store i64 %6, ptr %bits1.i, align 8, !tbaa !9
-  store i32 %add18.i3, ptr %regno, align 4, !tbaa !5
+  store i32 %add18.i5, ptr %regno, align 4, !tbaa !5
   store i32 %5, ptr %word_no.i, align 8, !tbaa !15
   store ptr %elt1.0.i, ptr %rsi, align 8, !tbaa !16
   call fastcc void @bmp_iter_set_tail(ptr noundef nonnull %rsi, ptr noundef nonnull %regno)
   %.pre = load i32, ptr %regno, align 4, !tbaa !5
-  br label %for.body.critedge
+  br label %for.body
 
 if.end17.i:                                       ; preds = %while.body9.i
-  %add18.i = add i32 %add18.i3, 64
+  %add18.i = add i32 %add18.i5, 64
   %inc20.i = add i32 %5, 1
   %cmp.not.i = icmp eq i32 %inc20.i, 2
   br i1 %cmp.not.i, label %while.end21.i, label %while.body9.i, !llvm.loop !18
@@ -108,12 +108,7 @@ if.end17.i:                                       ; preds = %while.body9.i
 while.end21.i:                                    ; preds = %if.end17.i, %while.cond5.i
   %7 = load ptr, ptr %elt1.0.i, align 8, !tbaa !19
   %tobool22.not.i = icmp eq ptr %7, null
-  br i1 %tobool22.not.i, label %if.then23.i, label %if.end25.i
-
-if.then23.i:                                      ; preds = %while.end21.i
-  call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %regno) #8
-  call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %rsi) #8
-  ret void
+  br i1 %tobool22.not.i, label %for.end, label %if.end25.i
 
 if.end25.i:                                       ; preds = %while.end21.i
   %indx.i = getelementptr inbounds %struct.bitmap_element_def, ptr %7, i64 0, i32 2
@@ -121,11 +116,16 @@ if.end25.i:                                       ; preds = %while.end21.i
   %mul26.i = shl i32 %8, 7
   br label %while.cond5.i
 
-for.body.critedge:                                ; preds = %if.then15.i, %while.end.i
-  %9 = phi i32 [ %.pre, %if.then15.i ], [ %bno.0.lcssa.i, %while.end.i ]
+for.body:                                         ; preds = %while.end.i, %if.then15.i
+  %9 = phi i32 [ %bno.0.lcssa.i, %while.end.i ], [ %.pre, %if.then15.i ]
   tail call fastcc void @catchme(i32 noundef %9)
   call fastcc void @bmp_iter_next(ptr noundef nonnull %rsi, ptr noundef nonnull %regno)
   br label %for.cond, !llvm.loop !22
+
+for.end:                                          ; preds = %while.end21.i
+  call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %regno) #8
+  call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %rsi) #8
+  ret void
 }
 
 ; Function Attrs: mustprogress nocallback nofree nosync nounwind willreturn memory(argmem: readwrite)

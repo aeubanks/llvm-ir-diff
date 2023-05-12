@@ -91,16 +91,12 @@ land.lhs.true:                                    ; preds = %while.cond
   %arrayidx = getelementptr inbounds i8, ptr %filename, i64 %6
   %7 = load i8, ptr %arrayidx, align 1, !tbaa !16
   switch i8 %7, label %while.cond [
-    i8 47, label %while.end.split.loop.exit
-    i8 92, label %while.end.split.loop.exit
+    i8 47, label %while.end
+    i8 92, label %while.end
   ], !llvm.loop !17
 
-while.end.split.loop.exit:                        ; preds = %land.lhs.true, %land.lhs.true
-  %8 = trunc i64 %indvars.iv to i32
-  br label %while.end
-
-while.end:                                        ; preds = %while.cond, %while.end.split.loop.exit
-  %len.0.lcssa = phi i32 [ %8, %while.end.split.loop.exit ], [ %smin, %while.cond ]
+while.end:                                        ; preds = %land.lhs.true, %land.lhs.true, %while.cond
+  %len.0.lcssa = phi i32 [ %5, %land.lhs.true ], [ %5, %land.lhs.true ], [ %smin, %while.cond ]
   %idx.ext = sext i32 %len.0.lcssa to i64
   %add.ptr = getelementptr inbounds i8, ptr %filename, i64 %idx.ext
   br label %if.end15
@@ -108,20 +104,20 @@ while.end:                                        ; preds = %while.cond, %while.
 if.end15:                                         ; preds = %while.end, %if.then2
   %filename.addr.0 = phi ptr [ %add.ptr, %while.end ], [ %filename, %if.then2 ]
   %call16 = tail call i32 @fputs(ptr noundef %filename.addr.0, ptr noundef %2)
-  %9 = load ptr, ptr @TreeCCErrorFile, align 8, !tbaa !14
-  %call17 = tail call i32 @putc(i32 noundef 58, ptr noundef %9)
+  %8 = load ptr, ptr @TreeCCErrorFile, align 8, !tbaa !14
+  %call17 = tail call i32 @putc(i32 noundef 58, ptr noundef %8)
   %.pre = load ptr, ptr @TreeCCErrorFile, align 8, !tbaa !14
   br label %if.end18
 
 if.end18:                                         ; preds = %if.end15, %if.end
-  %10 = phi ptr [ %.pre, %if.end15 ], [ %2, %if.end ]
-  %call19 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %10, ptr noundef nonnull @.str.3, i64 noundef %linenum)
+  %9 = phi ptr [ %.pre, %if.end15 ], [ %2, %if.end ]
+  %call19 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %9, ptr noundef nonnull @.str.3, i64 noundef %linenum)
+  %10 = load ptr, ptr @TreeCCErrorFile, align 8, !tbaa !14
+  %call20 = tail call i32 @vfprintf(ptr noundef %10, ptr noundef %format, ptr noundef %va)
   %11 = load ptr, ptr @TreeCCErrorFile, align 8, !tbaa !14
-  %call20 = tail call i32 @vfprintf(ptr noundef %11, ptr noundef %format, ptr noundef %va)
+  %call21 = tail call i32 @putc(i32 noundef 10, ptr noundef %11)
   %12 = load ptr, ptr @TreeCCErrorFile, align 8, !tbaa !14
-  %call21 = tail call i32 @putc(i32 noundef 10, ptr noundef %12)
-  %13 = load ptr, ptr @TreeCCErrorFile, align 8, !tbaa !14
-  %call22 = tail call i32 @fflush(ptr noundef %13)
+  %call22 = tail call i32 @fflush(ptr noundef %12)
   ret void
 }
 
@@ -245,11 +241,11 @@ declare i64 @strlen(ptr nocapture noundef) local_unnamed_addr #6
 ; Function Attrs: nofree nounwind
 declare noundef i32 @fprintf(ptr nocapture noundef, ptr nocapture noundef readonly, ...) local_unnamed_addr #5
 
-; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i32 @llvm.smin.i32(i32, i32) #7
-
 ; Function Attrs: nofree nounwind
-declare noundef i64 @fwrite(ptr nocapture noundef, i64 noundef, i64 noundef, ptr nocapture noundef) local_unnamed_addr #8
+declare noundef i64 @fwrite(ptr nocapture noundef, i64 noundef, i64 noundef, ptr nocapture noundef) local_unnamed_addr #7
+
+; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
+declare i32 @llvm.smin.i32(i32, i32) #8
 
 attributes #0 = { nofree nounwind uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #1 = { mustprogress nocallback nofree nosync nounwind willreturn memory(argmem: readwrite) }
@@ -258,8 +254,8 @@ attributes #3 = { noreturn nounwind uwtable "min-legal-vector-width"="0" "no-tra
 attributes #4 = { noreturn nounwind "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #5 = { nofree nounwind "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #6 = { mustprogress nofree nounwind willreturn memory(argmem: read) "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
-attributes #7 = { nocallback nofree nosync nounwind speculatable willreturn memory(none) }
-attributes #8 = { nofree nounwind }
+attributes #7 = { nofree nounwind }
+attributes #8 = { nocallback nofree nosync nounwind speculatable willreturn memory(none) }
 attributes #9 = { nounwind }
 attributes #10 = { nounwind willreturn memory(read) }
 attributes #11 = { noreturn nounwind }

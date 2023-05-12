@@ -284,7 +284,7 @@ for.body.i:                                       ; preds = %middle.block, %poly
   %conv.i = sitofp i32 %30 to double
   %arrayidx.i = getelementptr inbounds double, ptr %6, i64 %indvars.iv75.i
   store double %conv.i, ptr %arrayidx.i, align 8, !tbaa !5
-  %div.cmp.i = icmp ugt i64 %indvars.iv75.i, 3998
+  %div.cmp.i = icmp eq i64 %indvars.iv75.i, 3999
   %conv1.i = uitofp i1 %div.cmp.i to double
   %div2.i = fmul double %conv1.i, 5.000000e-01
   %arrayidx4.i = getelementptr inbounds double, ptr %12, i64 %indvars.iv75.i

@@ -14,7 +14,7 @@ target triple = "x86_64-unknown-linux-gnu"
 define dso_local i32 @fft(i32 noundef %n, ptr nocapture noundef %x, i32 noundef %dum) local_unnamed_addr #0 {
 entry:
   %n.addr.0 = tail call i32 @llvm.abs.i32(i32 %n, i1 true)
-  %div266 = lshr i32 %n.addr.0, 2
+  %div254 = lshr i32 %n.addr.0, 2
   %0 = load i32, ptr @fft.last_n, align 4, !tbaa !5
   %cmp1 = icmp ne i32 %n.addr.0, %0
   %cmp2 = icmp eq i32 %n, 0
@@ -24,7 +24,7 @@ entry:
 if.then3:                                         ; preds = %entry
   store i32 %n.addr.0, ptr @fft.last_n, align 4, !tbaa !5
   %1 = load ptr, ptr @fft.sintbl, align 8, !tbaa !9
-  %add = add nuw nsw i32 %div266, %n.addr.0
+  %add = add nuw nsw i32 %div254, %n.addr.0
   %conv = zext i32 %add to i64
   %mul = shl nuw nsw i64 %conv, 2
   %call = tail call ptr @realloc(ptr noundef %1, i64 noundef %mul) #6
@@ -45,8 +45,8 @@ if.then12:                                        ; preds = %if.then3
   br label %cleanup
 
 if.end14:                                         ; preds = %if.then3
-  %div.i267 = lshr i32 %n.addr.0, 1
-  %div2.i268 = lshr i32 %n.addr.0, 3
+  %div.i255 = lshr i32 %n.addr.0, 1
+  %div2.i256 = lshr i32 %n.addr.0, 3
   %conv.i = sitofp i32 %n.addr.0 to double
   %div3.i = fdiv double 0x400921FB54442D18, %conv.i
   %call.i = tail call double @sin(double noundef %div3.i) #7
@@ -56,7 +56,7 @@ if.end14:                                         ; preds = %if.then3
   %mul5.i = fmul double %mul4.i, %sub.i
   %call6.i = tail call double @sqrt(double noundef %mul5.i) #7
   %mul7.i = fmul double %mul4.i, 2.000000e+00
-  %idxprom.i = zext i32 %div266 to i64
+  %idxprom.i = zext i32 %div254 to i64
   %arrayidx.i = getelementptr inbounds float, ptr %call, i64 %idxprom.i
   store float 1.000000e+00, ptr %arrayidx.i, align 4, !tbaa !11
   store float 0.000000e+00, ptr %call, align 4, !tbaa !11
@@ -65,7 +65,7 @@ if.end14:                                         ; preds = %if.then3
 
 for.body.lr.ph.i:                                 ; preds = %if.end14
   %neg.i = fneg double %mul7.i
-  %smax.i = tail call i32 @llvm.smax.i32(i32 %div2.i268, i32 2)
+  %smax.i = tail call i32 @llvm.smax.i32(i32 %div2.i256, i32 2)
   %wide.trip.count.i = zext i32 %smax.i to i64
   br label %for.body.i
 
@@ -95,7 +95,7 @@ for.end.i:                                        ; preds = %for.body.i, %if.end
   br i1 %cmp20.not.i, label %if.end.i, label %if.end.i.thread
 
 if.end.i.thread:                                  ; preds = %for.end.i
-  %idxprom24.i = zext i32 %div2.i268 to i64
+  %idxprom24.i = zext i32 %div2.i256 to i64
   %arrayidx25.i = getelementptr inbounds float, ptr %call, i64 %idxprom24.i
   store float 0x3FE6A09E60000000, ptr %arrayidx25.i, align 4, !tbaa !11
   br label %for.body29.preheader.i
@@ -105,7 +105,7 @@ if.end.i:                                         ; preds = %for.end.i
   br i1 %cmp2798.i, label %for.body29.preheader.i, label %for.cond38.preheader.i
 
 for.body29.preheader.i:                           ; preds = %if.end.i.thread, %if.end.i
-  %7 = zext i32 %div.i267 to i64
+  %7 = zext i32 %div.i255 to i64
   %8 = add nsw i64 %idxprom.i, -1
   %xtraiter = and i64 %idxprom.i, 3
   %9 = icmp ult i64 %8, 3
@@ -134,16 +134,16 @@ for.body29.i.epil:                                ; preds = %for.cond38.preheade
   br i1 %epil.iter.cmp.not, label %for.cond38.preheader.i, label %for.body29.i.epil, !llvm.loop !15
 
 for.cond38.preheader.i:                           ; preds = %for.cond38.preheader.i.loopexit.unr-lcssa, %for.body29.i.epil, %if.end.i
-  %add39.i = add nuw nsw i32 %div.i267, %div266
+  %add39.i = add nuw nsw i32 %div.i255, %div254
   %cmp40100.i.not = icmp eq i32 %add39.i, 0
   br i1 %cmp40100.i.not, label %make_sintbl.exit, label %for.body42.preheader.i
 
 for.body42.preheader.i:                           ; preds = %for.cond38.preheader.i
-  %12 = zext i32 %div.i267 to i64
+  %12 = zext i32 %div.i255 to i64
   %wide.trip.count114.i = zext i32 %add39.i to i64
   %min.iters.check = icmp ult i32 %add39.i, 8
   %diff.check = icmp ult i32 %n.addr.0, 16
-  %or.cond304 = select i1 %min.iters.check, i1 true, i1 %diff.check
+  %or.cond304 = or i1 %min.iters.check, %diff.check
   br i1 %or.cond304, label %for.body42.i.preheader, label %vector.ph
 
 vector.ph:                                        ; preds = %for.body42.preheader.i
@@ -346,13 +346,13 @@ for.body.lr.ph:                                   ; preds = %entry, %if.end15
   br label %for.body
 
 for.cond48.preheader:                             ; preds = %for.inc, %if.end15
-  %cmp49261 = icmp ugt i32 %n.addr.0, 1
-  br i1 %cmp49261, label %for.body51.lr.ph, label %for.end129
+  %cmp49264 = icmp ugt i32 %n.addr.0, 1
+  br i1 %cmp49264, label %for.body51.lr.ph, label %for.end129
 
 for.body51.lr.ph:                                 ; preds = %for.cond48.preheader
   %46 = load ptr, ptr @fft.sintbl, align 8
   %47 = zext i32 %n.addr.0 to i64
-  %48 = zext i32 %div266 to i64
+  %48 = zext i32 %div254 to i64
   %cmp289 = icmp slt i32 %n, 0
   br label %for.body51
 
@@ -385,15 +385,15 @@ for.cond48.loopexit:                              ; preds = %for.end123, %for.bo
   br i1 %cmp49, label %for.body51, label %for.end129, !llvm.loop !27
 
 for.body51:                                       ; preds = %for.body51.lr.ph, %for.cond48.loopexit
-  %k.0262 = phi i32 [ 1, %for.body51.lr.ph ], [ %add52, %for.cond48.loopexit ]
-  %add52 = shl nsw i32 %k.0262, 1
-  %cmp55258 = icmp sgt i32 %k.0262, 0
-  br i1 %cmp55258, label %for.body57.preheader, label %for.cond48.loopexit
+  %k.0265 = phi i32 [ 1, %for.body51.lr.ph ], [ %add52, %for.cond48.loopexit ]
+  %add52 = shl nsw i32 %k.0265, 1
+  %cmp55261 = icmp sgt i32 %k.0265, 0
+  br i1 %cmp55261, label %for.body57.preheader, label %for.cond48.loopexit
 
 for.body57.preheader:                             ; preds = %for.body51
   %55 = sext i32 %add52 to i64
-  %56 = zext i32 %k.0262 to i64
-  %wide.trip.count280 = zext i32 %k.0262 to i64
+  %56 = zext i32 %k.0265 to i64
+  %wide.trip.count280 = zext i32 %k.0265 to i64
   %57 = udiv i32 %n.addr.0, %add52
   %58 = zext i32 %57 to i64
   br label %for.body57
@@ -402,8 +402,8 @@ for.body57:                                       ; preds = %for.body57.preheade
   %indvars.iv276 = phi i64 [ 0, %for.body57.preheader ], [ %indvars.iv.next277, %for.end123 ]
   %indvars.iv270 = phi i64 [ 0, %for.body57.preheader ], [ %indvars.iv.next271, %for.end123 ]
   %indvars279 = trunc i64 %indvars.iv270 to i32
-  %cmp69256 = icmp ugt i32 %n.addr.0, %indvars279
-  br i1 %cmp69256, label %for.body71.lr.ph, label %for.end123
+  %cmp69259 = icmp ugt i32 %n.addr.0, %indvars279
+  br i1 %cmp69259, label %for.body71.lr.ph, label %for.end123
 
 for.body71.lr.ph:                                 ; preds = %for.body57
   %arrayidx66 = getelementptr inbounds float, ptr %46, i64 %indvars.iv276
@@ -452,8 +452,8 @@ for.end123:                                       ; preds = %for.body71, %for.bo
   br i1 %exitcond281.not, label %for.cond48.loopexit, label %for.body57, !llvm.loop !32
 
 for.end129:                                       ; preds = %for.cond48.loopexit, %for.cond48.preheader
-  %or.cond265 = icmp sgt i32 %n, 0
-  br i1 %or.cond265, label %for.body135.lr.ph, label %cleanup
+  %or.cond268 = icmp sgt i32 %n, 0
+  br i1 %or.cond268, label %for.body135.lr.ph, label %cleanup
 
 for.body135.lr.ph:                                ; preds = %for.end129
   %conv136 = sitofp i32 %n.addr.0 to double
@@ -519,27 +519,27 @@ declare double @sin(double noundef) local_unnamed_addr #3
 ; Function Attrs: mustprogress nofree nounwind willreturn memory(write)
 declare double @sqrt(double noundef) local_unnamed_addr #3
 
-; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i32 @llvm.smax.i32(i32, i32) #4
-
 ; Function Attrs: nofree nounwind
-declare noundef i32 @fputc(i32 noundef, ptr nocapture noundef) local_unnamed_addr #5
+declare noundef i32 @fputc(i32 noundef, ptr nocapture noundef) local_unnamed_addr #4
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i32 @llvm.abs.i32(i32, i1 immarg) #4
+declare i32 @llvm.smax.i32(i32, i32) #5
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i32 @llvm.umax.i32(i32, i32) #4
+declare i32 @llvm.abs.i32(i32, i1 immarg) #5
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare <2 x double> @llvm.fmuladd.v2f64(<2 x double>, <2 x double>, <2 x double>) #4
+declare i32 @llvm.umax.i32(i32, i32) #5
+
+; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
+declare <2 x double> @llvm.fmuladd.v2f64(<2 x double>, <2 x double>, <2 x double>) #5
 
 attributes #0 = { nounwind uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #1 = { mustprogress nounwind willreturn allockind("realloc") allocsize(1) memory(argmem: readwrite, inaccessiblemem: readwrite) "alloc-family"="malloc" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #2 = { mustprogress nocallback nofree nosync nounwind speculatable willreturn memory(none) }
 attributes #3 = { mustprogress nofree nounwind willreturn memory(write) "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
-attributes #4 = { nocallback nofree nosync nounwind speculatable willreturn memory(none) }
-attributes #5 = { nofree nounwind }
+attributes #4 = { nofree nounwind }
+attributes #5 = { nocallback nofree nosync nounwind speculatable willreturn memory(none) }
 attributes #6 = { nounwind allocsize(1) }
 attributes #7 = { nounwind }
 

@@ -124,21 +124,27 @@ entry:
   %tobool.not.i.i = icmp eq i32 %s.promoted, 0
   br label %for.body
 
-for.body:                                         ; preds = %foo.exit.11, %entry
-  %storemerge2 = phi i32 [ -10, %entry ], [ %conv1.i.11, %foo.exit.11 ]
-  br i1 %tobool.not.i.i, label %foo.exit.11, label %if.then19.i.i
+for.body:                                         ; preds = %bar.exit.thread.i, %entry
+  %storemerge2 = phi i32 [ -10, %entry ], [ %conv1.i.5, %bar.exit.thread.i ]
+  br i1 %tobool.not.i.i, label %bar.exit.thread.i, label %if.then19.i.i
+
+bar.exit.thread.i:                                ; preds = %for.body
+  store i32 0, ptr @s, align 4, !tbaa !5
+  store i32 0, ptr @s, align 4, !tbaa !5
+  store i32 0, ptr @s, align 4, !tbaa !5
+  store i32 0, ptr @s, align 4, !tbaa !5
+  store i32 0, ptr @s, align 4, !tbaa !5
+  %conv1.i.5 = add nsw i32 %storemerge2, 6
+  store i32 0, ptr @s, align 4, !tbaa !5
+  %exitcond.not.5 = icmp eq i32 %conv1.i.5, 266
+  br i1 %exitcond.not.5, label %for.end, label %for.body, !llvm.loop !9
 
 if.then19.i.i:                                    ; preds = %for.body
   store i32 %storemerge2, ptr @v, align 4, !tbaa !5
   tail call void @abort() #2
   unreachable
 
-foo.exit.11:                                      ; preds = %for.body
-  %conv1.i.11 = add nsw i32 %storemerge2, 12
-  %exitcond.not.11 = icmp eq i32 %conv1.i.11, 266
-  br i1 %exitcond.not.11, label %for.end, label %for.body, !llvm.loop !9
-
-for.end:                                          ; preds = %foo.exit.11
+for.end:                                          ; preds = %bar.exit.thread.i
   store i32 266, ptr @v, align 4, !tbaa !5
   ret i32 0
 }

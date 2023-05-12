@@ -431,14 +431,18 @@ cond.true66:                                      ; preds = %cond.true
   br i1 %cmp74, label %for.inc274, label %cond.true103.peel
 
 cond.false113.peel:                               ; preds = %cond.false
-  %invariant.gep = getelementptr inbounds %struct.objectBuffer_t, ptr %object_list, i64 %idx.ext39, i32 3
+  %mv175 = getelementptr inbounds %struct.objectBuffer_t, ptr %object_list, i64 %idx.ext39, i32 3
   %cmp267 = icmp eq i32 %compSplit1.3, %compSplit2.3
   %cond269.neg = select i1 %cmp267, i32 -2, i32 -1
   %cond582 = icmp eq i8 %2, 0
-  br i1 %cond582, label %if.then121.peel, label %if.else156.peel
+  br i1 %cond582, label %if.then121.peel, label %cond.false113.peel.if.else156.peel_crit_edge
+
+cond.false113.peel.if.else156.peel_crit_edge:     ; preds = %cond.false113.peel
+  %.pre562 = zext i32 %compSplit1.3 to i64
+  br label %if.else156.peel
 
 cond.true103.peel:                                ; preds = %cond.true66
-  %invariant.gep564 = getelementptr inbounds %struct.objectBuffer_t, ptr %object_list, i64 %idx.ext39, i32 3
+  %mv175564 = getelementptr inbounds %struct.objectBuffer_t, ptr %object_list, i64 %idx.ext39, i32 3
   %cmp267565 = icmp eq i32 %compSplit1.3, %compSplit2.3
   %cond269.neg566 = select i1 %cmp267565, i32 -2, i32 -1
   %idx.ext107.peel = zext i32 %compSplit1.3 to i64
@@ -449,22 +453,22 @@ cond.true103.peel:                                ; preds = %cond.true66
     i8 6, label %for.inc266.peel
   ]
 
-if.else156.peel:                                  ; preds = %cond.true103.peel, %cond.false113.peel
-  %cond269.neg580 = phi i32 [ %cond269.neg, %cond.false113.peel ], [ %cond269.neg566, %cond.true103.peel ]
-  %invariant.gep575 = phi ptr [ %invariant.gep, %cond.false113.peel ], [ %invariant.gep564, %cond.true103.peel ]
-  %conv91570 = phi i32 [ 0, %cond.false113.peel ], [ 1, %cond.true103.peel ]
-  %cond.peel.idx = phi i64 [ 0, %cond.false113.peel ], [ %idx.ext107.peel, %cond.true103.peel ]
-  %6 = getelementptr inbounds %struct.objectBuffer_t, ptr %object_list, i64 %idx.ext39, i32 3
-  %cond.peel = getelementptr %struct.objectBuffer_t, ptr %6, i64 %cond.peel.idx
-  %7 = load <2 x i32>, ptr %cond.peel, align 4, !tbaa !20
-  store <2 x i32> %7, ptr %mvPred, align 8, !tbaa !20
+if.else156.peel:                                  ; preds = %cond.true103.peel, %cond.false113.peel.if.else156.peel_crit_edge
+  %cond269.neg580 = phi i32 [ %cond269.neg, %cond.false113.peel.if.else156.peel_crit_edge ], [ %cond269.neg566, %cond.true103.peel ]
+  %mv175575 = phi ptr [ %mv175, %cond.false113.peel.if.else156.peel_crit_edge ], [ %mv175564, %cond.true103.peel ]
+  %conv91570 = phi i32 [ 0, %cond.false113.peel.if.else156.peel_crit_edge ], [ 1, %cond.true103.peel ]
+  %idx.ext168.peel.pre-phi = phi i64 [ %.pre562, %cond.false113.peel.if.else156.peel_crit_edge ], [ %idx.ext107.peel, %cond.true103.peel ]
+  %mv.peel = getelementptr inbounds %struct.objectBuffer_t, ptr %add.ptr40, i64 %idx.ext168.peel.pre-phi, i32 3
+  %cond.peel = select i1 %cmp41, ptr %mv.peel, ptr %mv175575
+  %6 = load <2 x i32>, ptr %cond.peel, align 4, !tbaa !20
+  store <2 x i32> %6, ptr %mvPred, align 8, !tbaa !20
   %arrayidx181.peel = getelementptr inbounds i32, ptr %cond.peel, i64 2
-  %8 = load i32, ptr %arrayidx181.peel, align 4, !tbaa !20
+  %7 = load i32, ptr %arrayidx181.peel, align 4, !tbaa !20
   br label %if.end187.peel
 
 if.then121.peel:                                  ; preds = %cond.true103.peel, %cond.false113.peel
   %cond269.neg579 = phi i32 [ %cond269.neg566, %cond.true103.peel ], [ %cond269.neg, %cond.false113.peel ]
-  %invariant.gep574 = phi ptr [ %invariant.gep564, %cond.true103.peel ], [ %invariant.gep, %cond.false113.peel ]
+  %mv175574 = phi ptr [ %mv175564, %cond.true103.peel ], [ %mv175, %cond.false113.peel ]
   %conv91569 = phi i32 [ 1, %cond.true103.peel ], [ 0, %cond.false113.peel ]
   %tobool.not.peel = icmp eq i32 %fZeroMotionChecked.0545, 0
   br i1 %tobool.not.peel, label %if.else123.peel, label %for.inc266.peel
@@ -475,18 +479,18 @@ if.else123.peel:                                  ; preds = %if.then121.peel
   br label %if.end187.peel
 
 if.end187.peel:                                   ; preds = %if.else123.peel, %if.else156.peel
-  %.sink = phi i32 [ 0, %if.else123.peel ], [ %8, %if.else156.peel ]
+  %.sink = phi i32 [ 0, %if.else123.peel ], [ %7, %if.else156.peel ]
   %cond269.neg578 = phi i32 [ %cond269.neg579, %if.else123.peel ], [ %cond269.neg580, %if.else156.peel ]
-  %invariant.gep573 = phi ptr [ %invariant.gep574, %if.else123.peel ], [ %invariant.gep575, %if.else156.peel ]
+  %mv175573 = phi ptr [ %mv175574, %if.else123.peel ], [ %mv175575, %if.else156.peel ]
   %conv91568 = phi i32 [ %conv91569, %if.else123.peel ], [ %conv91570, %if.else156.peel ]
   %fZeroMotionChecked.2.peel = phi i32 [ 1, %if.else123.peel ], [ %fZeroMotionChecked.0545, %if.else156.peel ]
   store i32 %.sink, ptr %arrayidx182, align 8, !tbaa !20
-  %9 = load ptr, ptr @erc_img, align 8, !tbaa !12
-  %10 = load i32, ptr %xMin, align 4, !tbaa !28
-  %11 = load i32, ptr %yMin, align 4, !tbaa !30
-  call fastcc void @buildPredRegionYUV(ptr noundef %9, ptr noundef nonnull %mvPred, i32 noundef %10, i32 noundef %11, ptr noundef %predMB)
-  %12 = load ptr, ptr %recfr, align 8, !tbaa !32
-  %call.peel = tail call fastcc i32 @edgeDistortion(ptr noundef nonnull %predBlocks, i32 noundef %add9, ptr noundef %predMB, ptr noundef %12, i32 noundef %picSizeX)
+  %8 = load ptr, ptr @erc_img, align 8, !tbaa !12
+  %9 = load i32, ptr %xMin, align 4, !tbaa !28
+  %10 = load i32, ptr %yMin, align 4, !tbaa !30
+  call fastcc void @buildPredRegionYUV(ptr noundef %8, ptr noundef nonnull %mvPred, i32 noundef %9, i32 noundef %10, ptr noundef %predMB)
+  %11 = load ptr, ptr %recfr, align 8, !tbaa !32
+  %call.peel = tail call fastcc i32 @edgeDistortion(ptr noundef nonnull %predBlocks, i32 noundef %add9, ptr noundef %predMB, ptr noundef %11, i32 noundef %picSizeX)
   %cmp201.peel = icmp sge i32 %call.peel, %minDist.0546
   %tobool204.peel = icmp ne i32 %fInterNeighborExists.0543, 0
   %or.cond.peel = select i1 %cmp201.peel, i1 %tobool204.peel, i1 false
@@ -494,19 +498,19 @@ if.end187.peel:                                   ; preds = %if.else123.peel, %i
 
 for.body209.preheader.peel:                       ; preds = %if.end187.peel
   call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 4 dereferenceable(12) %mvBest, ptr noundef nonnull align 8 dereferenceable(12) %mvPred, i64 12, i1 false), !tbaa !20
-  %13 = load i8, ptr %add.ptr40, align 4, !tbaa !31
-  %cmp220.peel = icmp ugt i8 %13, 2
+  %12 = load i8, ptr %add.ptr40, align 4, !tbaa !31
+  %cmp220.peel = icmp ugt i8 %12, 2
   br i1 %cmp220.peel, label %cond.true222.peel, label %cond.false232.peel
 
 cond.false232.peel:                               ; preds = %for.body209.preheader.peel
-  %cmp238.peel = icmp eq i8 %13, 0
+  %cmp238.peel = icmp eq i8 %12, 0
   br i1 %cmp238.peel, label %cond.end248.peel, label %cond.false244.peel
 
 cond.true222.peel:                                ; preds = %for.body209.preheader.peel
   %idx.ext226.peel = zext i32 %compSplit1.3 to i64
   %add.ptr227.peel = getelementptr inbounds %struct.objectBuffer_t, ptr %add.ptr40, i64 %idx.ext226.peel
-  %14 = load i8, ptr %add.ptr227.peel, align 4, !tbaa !31
-  %cmp230.peel = icmp eq i8 %14, 4
+  %13 = load i8, ptr %add.ptr227.peel, align 4, !tbaa !31
+  %cmp230.peel = icmp eq i8 %13, 4
   br i1 %cmp230.peel, label %cond.end248.peel, label %cond.false244.peel
 
 cond.false244.peel:                               ; preds = %cond.true222.peel, %cond.false232.peel
@@ -520,7 +524,7 @@ cond.end248.peel:                                 ; preds = %cond.false244.peel,
 
 for.inc266.peel:                                  ; preds = %cond.true103.peel, %cond.end248.peel, %if.end187.peel, %if.then121.peel
   %cond269.neg577 = phi i32 [ %cond269.neg579, %if.then121.peel ], [ %cond269.neg578, %if.end187.peel ], [ %cond269.neg578, %cond.end248.peel ], [ %cond269.neg566, %cond.true103.peel ]
-  %invariant.gep572 = phi ptr [ %invariant.gep574, %if.then121.peel ], [ %invariant.gep573, %if.end187.peel ], [ %invariant.gep573, %cond.end248.peel ], [ %invariant.gep564, %cond.true103.peel ]
+  %mv175572 = phi ptr [ %mv175574, %if.then121.peel ], [ %mv175573, %if.end187.peel ], [ %mv175573, %cond.end248.peel ], [ %mv175564, %cond.true103.peel ]
   %conv91567 = phi i32 [ %conv91569, %if.then121.peel ], [ %conv91568, %if.end187.peel ], [ %conv91568, %cond.end248.peel ], [ 1, %cond.true103.peel ]
   %fInterNeighborExists.2.peel = phi i32 [ %fInterNeighborExists.0543, %if.then121.peel ], [ 1, %if.end187.peel ], [ 1, %cond.end248.peel ], [ %fInterNeighborExists.0543, %cond.true103.peel ]
   %fZeroMotionChecked.3.peel = phi i32 [ 1, %if.then121.peel ], [ %fZeroMotionChecked.2.peel, %if.end187.peel ], [ %fZeroMotionChecked.2.peel, %cond.end248.peel ], [ %fZeroMotionChecked.0545, %cond.true103.peel ]
@@ -530,24 +534,28 @@ for.inc266.peel:                                  ; preds = %cond.true103.peel, 
   br i1 %cmp93.peel, label %for.body95, label %for.inc274
 
 for.body95:                                       ; preds = %for.inc266.peel
-  %15 = load i8, ptr %add.ptr40, align 4, !tbaa !31
-  %cmp101 = icmp ugt i8 %15, 2
+  %14 = load i8, ptr %add.ptr40, align 4, !tbaa !31
+  %cmp101 = icmp ugt i8 %14, 2
   br i1 %cmp101, label %cond.true103, label %cond.false113
 
 cond.true103:                                     ; preds = %for.body95
   %idx.ext107 = zext i32 %compSplit2.3 to i64
   %add.ptr108 = getelementptr inbounds %struct.objectBuffer_t, ptr %add.ptr40, i64 %idx.ext107
-  %16 = load i8, ptr %add.ptr108, align 4, !tbaa !31
-  switch i8 %16, label %if.else156 [
+  %15 = load i8, ptr %add.ptr108, align 4, !tbaa !31
+  switch i8 %15, label %if.else156 [
     i8 4, label %if.then121
     i8 6, label %for.inc274
   ]
 
 cond.false113:                                    ; preds = %for.body95
-  switch i8 %15, label %if.else156 [
+  switch i8 %14, label %cond.false113.if.else156_crit_edge [
     i8 0, label %if.then121
     i8 2, label %for.inc274
   ]
+
+cond.false113.if.else156_crit_edge:               ; preds = %cond.false113
+  %.pre = zext i32 %compSplit2.3 to i64
+  br label %if.else156
 
 if.then121:                                       ; preds = %cond.true103, %cond.false113
   %tobool.not = icmp eq i32 %fZeroMotionChecked.3.peel, 0
@@ -558,28 +566,26 @@ if.else123:                                       ; preds = %if.then121
   store i32 0, ptr %mvPred, align 8, !tbaa !20
   br label %if.end187
 
-if.else156:                                       ; preds = %cond.true103, %cond.false113
-  %cond.idx = phi i64 [ 0, %cond.false113 ], [ %idx.ext107, %cond.true103 ]
-  %cond = getelementptr %struct.objectBuffer_t, ptr %invariant.gep572, i64 %cond.idx
-  %17 = load i32, ptr %cond, align 4, !tbaa !20
-  store i32 %17, ptr %mvPred, align 8, !tbaa !20
-  %arrayidx179 = getelementptr inbounds i32, ptr %cond, i64 1
-  %18 = load i32, ptr %arrayidx179, align 4, !tbaa !20
-  store i32 %18, ptr %arrayidx180, align 4, !tbaa !20
+if.else156:                                       ; preds = %cond.true103, %cond.false113.if.else156_crit_edge
+  %idx.ext168.pre-phi = phi i64 [ %.pre, %cond.false113.if.else156_crit_edge ], [ %idx.ext107, %cond.true103 ]
+  %mv = getelementptr inbounds %struct.objectBuffer_t, ptr %add.ptr40, i64 %idx.ext168.pre-phi, i32 3
+  %cond = select i1 %cmp101, ptr %mv, ptr %mv175572
+  %16 = load <2 x i32>, ptr %cond, align 4, !tbaa !20
+  store <2 x i32> %16, ptr %mvPred, align 8, !tbaa !20
   %arrayidx181 = getelementptr inbounds i32, ptr %cond, i64 2
-  %19 = load i32, ptr %arrayidx181, align 4, !tbaa !20
+  %17 = load i32, ptr %arrayidx181, align 4, !tbaa !20
   br label %if.end187
 
 if.end187:                                        ; preds = %if.else156, %if.else123
-  %.sink588 = phi i32 [ %19, %if.else156 ], [ 0, %if.else123 ]
+  %.sink588 = phi i32 [ %17, %if.else156 ], [ 0, %if.else123 ]
   %fZeroMotionChecked.2 = phi i32 [ %fZeroMotionChecked.3.peel, %if.else156 ], [ 1, %if.else123 ]
   store i32 %.sink588, ptr %arrayidx182, align 8, !tbaa !20
-  %20 = load ptr, ptr @erc_img, align 8, !tbaa !12
-  %21 = load i32, ptr %xMin, align 4, !tbaa !28
-  %22 = load i32, ptr %yMin, align 4, !tbaa !30
-  call fastcc void @buildPredRegionYUV(ptr noundef %20, ptr noundef nonnull %mvPred, i32 noundef %21, i32 noundef %22, ptr noundef %predMB)
-  %23 = load ptr, ptr %recfr, align 8, !tbaa !32
-  %call = tail call fastcc i32 @edgeDistortion(ptr noundef nonnull %predBlocks, i32 noundef %add9, ptr noundef %predMB, ptr noundef %23, i32 noundef %picSizeX)
+  %18 = load ptr, ptr @erc_img, align 8, !tbaa !12
+  %19 = load i32, ptr %xMin, align 4, !tbaa !28
+  %20 = load i32, ptr %yMin, align 4, !tbaa !30
+  call fastcc void @buildPredRegionYUV(ptr noundef %18, ptr noundef nonnull %mvPred, i32 noundef %19, i32 noundef %20, ptr noundef %predMB)
+  %21 = load ptr, ptr %recfr, align 8, !tbaa !32
+  %call = tail call fastcc i32 @edgeDistortion(ptr noundef nonnull %predBlocks, i32 noundef %add9, ptr noundef %predMB, ptr noundef %21, i32 noundef %picSizeX)
   %cmp201 = icmp sge i32 %call, %minDist.3.peel
   %tobool204 = icmp ne i32 %fInterNeighborExists.2.peel, 0
   %or.cond = select i1 %cmp201, i1 %tobool204, i1 false
@@ -587,19 +593,19 @@ if.end187:                                        ; preds = %if.else156, %if.els
 
 for.body209.preheader:                            ; preds = %if.end187
   call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 4 dereferenceable(12) %mvBest, ptr noundef nonnull align 8 dereferenceable(12) %mvPred, i64 12, i1 false), !tbaa !20
-  %24 = load i8, ptr %add.ptr40, align 4, !tbaa !31
-  %cmp220 = icmp ugt i8 %24, 2
+  %22 = load i8, ptr %add.ptr40, align 4, !tbaa !31
+  %cmp220 = icmp ugt i8 %22, 2
   br i1 %cmp220, label %cond.true222, label %cond.false232
 
 cond.true222:                                     ; preds = %for.body209.preheader
   %idx.ext226 = zext i32 %compSplit2.3 to i64
   %add.ptr227 = getelementptr inbounds %struct.objectBuffer_t, ptr %add.ptr40, i64 %idx.ext226
-  %25 = load i8, ptr %add.ptr227, align 4, !tbaa !31
-  %cmp230 = icmp eq i8 %25, 4
+  %23 = load i8, ptr %add.ptr227, align 4, !tbaa !31
+  %cmp230 = icmp eq i8 %23, 4
   br i1 %cmp230, label %cond.end248, label %cond.false244
 
 cond.false232:                                    ; preds = %for.body209.preheader
-  %cmp238 = icmp eq i8 %24, 0
+  %cmp238 = icmp eq i8 %22, 0
   br i1 %cmp238, label %cond.end248, label %cond.false244
 
 cond.false244:                                    ; preds = %cond.false232, %cond.true222
@@ -623,11 +629,11 @@ for.inc274:                                       ; preds = %cond.true103, %for.
   br i1 %exitcond.not, label %for.end276, label %for.body, !llvm.loop !34
 
 for.end276:                                       ; preds = %for.inc274
-  %26 = add nsw i32 %threshold.1, -3
-  %cmp277 = icmp ult i32 %26, -2
+  %24 = add nsw i32 %threshold.1, -3
+  %cmp277 = icmp ult i32 %24, -2
   %cmp279 = icmp eq i32 %fInterNeighborExists.3, 0
-  %27 = select i1 %cmp277, i1 %cmp279, i1 false
-  br i1 %27, label %do.body30, label %do.end, !llvm.loop !35
+  %25 = select i1 %cmp277, i1 %cmp279, i1 false
+  br i1 %25, label %do.body30, label %do.end, !llvm.loop !35
 
 do.end:                                           ; preds = %for.end276
   %tobool281.not = icmp eq i32 %fZeroMotionChecked.4, 0
@@ -637,12 +643,12 @@ if.then282:                                       ; preds = %do.end
   store i32 0, ptr %arrayidx180, align 4, !tbaa !20
   store i32 0, ptr %mvPred, align 8, !tbaa !20
   store i32 0, ptr %arrayidx182, align 8, !tbaa !20
-  %28 = load ptr, ptr @erc_img, align 8, !tbaa !12
-  %29 = load i32, ptr %xMin, align 4, !tbaa !28
-  %30 = load i32, ptr %yMin, align 4, !tbaa !30
-  call fastcc void @buildPredRegionYUV(ptr noundef %28, ptr noundef nonnull %mvPred, i32 noundef %29, i32 noundef %30, ptr noundef %predMB)
-  %31 = load ptr, ptr %recfr, align 8, !tbaa !32
-  %call303 = tail call fastcc i32 @edgeDistortion(ptr noundef nonnull %predBlocks, i32 noundef %add9, ptr noundef %predMB, ptr noundef %31, i32 noundef %picSizeX)
+  %26 = load ptr, ptr @erc_img, align 8, !tbaa !12
+  %27 = load i32, ptr %xMin, align 4, !tbaa !28
+  %28 = load i32, ptr %yMin, align 4, !tbaa !30
+  call fastcc void @buildPredRegionYUV(ptr noundef %26, ptr noundef nonnull %mvPred, i32 noundef %27, i32 noundef %28, ptr noundef %predMB)
+  %29 = load ptr, ptr %recfr, align 8, !tbaa !32
+  %call303 = tail call fastcc i32 @edgeDistortion(ptr noundef nonnull %predBlocks, i32 noundef %add9, ptr noundef %predMB, ptr noundef %29, i32 noundef %picSizeX)
   %cmp304 = icmp sge i32 %call303, %minDist.4
   %tobool307 = icmp ne i32 %fInterNeighborExists.3, 0
   %or.cond374 = select i1 %cmp304, i1 %tobool307, i1 false
@@ -655,9 +661,9 @@ for.body312.preheader:                            ; preds = %if.then282
   br label %if.end339
 
 if.end339:                                        ; preds = %for.body312.preheader, %if.then282, %do.end
-  %32 = mul nsw i64 %idx.ext, 24
-  %33 = or i64 %32, 12
-  %scevgep = getelementptr i8, ptr %object_list, i64 %33
+  %30 = mul nsw i64 %idx.ext, 24
+  %31 = or i64 %30, 12
+  %scevgep = getelementptr i8, ptr %object_list, i64 %31
   call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 4 dereferenceable(12) %scevgep, ptr noundef nonnull align 4 dereferenceable(12) %mvBest, i64 12, i1 false), !tbaa !20
   %idxprom365 = sext i32 %add9 to i64
   %arrayidx366 = getelementptr inbounds i32, ptr %yCondition, i64 %idxprom365
@@ -1076,42 +1082,42 @@ while.body:                                       ; preds = %while.body.lr.ph, %
 
 for.body.lr.ph.i.i:                               ; preds = %while.body
   %15 = load ptr, ptr @dpb, align 8, !tbaa !71
+  %16 = zext i32 %i.019.i.i to i64
   br label %for.body.i.i
 
 for.body.i.i:                                     ; preds = %for.inc.i.i, %for.body.lr.ph.i.i
-  %i.021.i.i = phi i32 [ %i.019.i.i, %for.body.lr.ph.i.i ], [ %i.0.i.i, %for.inc.i.i ]
-  %idxprom.i.i = zext i32 %i.021.i.i to i64
-  %arrayidx.i.i = getelementptr inbounds ptr, ptr %15, i64 %idxprom.i.i
-  %16 = load ptr, ptr %arrayidx.i.i, align 8, !tbaa !12
-  %17 = load i32, ptr %16, align 8, !tbaa !72
-  %cmp1.i.i = icmp eq i32 %17, 3
+  %indvars.iv.i = phi i64 [ %indvars.iv.next.i, %for.inc.i.i ], [ %16, %for.body.lr.ph.i.i ]
+  %arrayidx.i.i = getelementptr inbounds ptr, ptr %15, i64 %indvars.iv.i
+  %17 = load ptr, ptr %arrayidx.i.i, align 8, !tbaa !12
+  %18 = load i32, ptr %17, align 8, !tbaa !72
+  %cmp1.i.i = icmp eq i32 %18, 3
   br i1 %cmp1.i.i, label %if.then.i.i, label %for.inc.i.i
 
 if.then.i.i:                                      ; preds = %for.body.i.i
-  %frame.i.i = getelementptr inbounds %struct.frame_store, ptr %16, i64 0, i32 12
-  %18 = load ptr, ptr %frame.i.i, align 8, !tbaa !74
-  %used_for_reference.i.i = getelementptr inbounds %struct.storable_picture, ptr %18, i64 0, i32 15
-  %19 = load i32, ptr %used_for_reference.i.i, align 8, !tbaa !65
-  %tobool.not.i.i = icmp eq i32 %19, 0
+  %frame.i.i = getelementptr inbounds %struct.frame_store, ptr %17, i64 0, i32 12
+  %19 = load ptr, ptr %frame.i.i, align 8, !tbaa !74
+  %used_for_reference.i.i = getelementptr inbounds %struct.storable_picture, ptr %19, i64 0, i32 15
+  %20 = load i32, ptr %used_for_reference.i.i, align 8, !tbaa !65
+  %tobool.not.i.i = icmp eq i32 %20, 0
   br i1 %tobool.not.i.i, label %for.inc.i.i, label %land.lhs.true.i.i
 
 land.lhs.true.i.i:                                ; preds = %if.then.i.i
-  %is_long_term.i.i = getelementptr inbounds %struct.storable_picture, ptr %18, i64 0, i32 14
-  %20 = load i32, ptr %is_long_term.i.i, align 4, !tbaa !75
-  %tobool7.not.i.i = icmp eq i32 %20, 0
+  %is_long_term.i.i = getelementptr inbounds %struct.storable_picture, ptr %19, i64 0, i32 14
+  %21 = load i32, ptr %is_long_term.i.i, align 4, !tbaa !75
+  %tobool7.not.i.i = icmp eq i32 %21, 0
   br i1 %tobool7.not.i.i, label %copy_prev_pic_to_concealed_pic.exit, label %for.inc.i.i
 
 for.inc.i.i:                                      ; preds = %land.lhs.true.i.i, %if.then.i.i, %for.body.i.i
-  %i.0.i.i = add i32 %i.021.i.i, -1
-  %cmp.i.i = icmp sgt i32 %i.0.i.i, -1
+  %indvars.iv.next.i = add nsw i64 %indvars.iv.i, -1
+  %cmp.i.i = icmp sgt i64 %indvars.iv.i, 0
   br i1 %cmp.i.i, label %for.body.i.i, label %copy_prev_pic_to_concealed_pic.exit, !llvm.loop !76
 
 copy_prev_pic_to_concealed_pic.exit:              ; preds = %land.lhs.true.i.i, %for.inc.i.i, %while.body
-  %retval.0.i.i = phi ptr [ null, %while.body ], [ null, %for.inc.i.i ], [ %18, %land.lhs.true.i.i ]
+  %retval.0.i.i = phi ptr [ null, %while.body ], [ null, %for.inc.i.i ], [ %19, %land.lhs.true.i.i ]
   store i32 0, ptr %conceal_slice_type.i, align 4, !tbaa !77
   tail call fastcc void @copy_to_conceal(ptr noundef %retval.0.i.i, ptr noundef %call, ptr noundef %img)
-  %21 = load i32, ptr %IDR_concealment_flag, align 8, !tbaa !49
-  %cmp18 = icmp eq i32 %21, 1
+  %22 = load i32, ptr %IDR_concealment_flag, align 8, !tbaa !49
+  %cmp18 = icmp eq i32 %22, 1
   br i1 %cmp18, label %if.then19, label %if.end29
 
 if.then19:                                        ; preds = %copy_prev_pic_to_concealed_pic.exit
@@ -1127,10 +1133,10 @@ if.then19:                                        ; preds = %copy_prev_pic_to_co
 if.end29:                                         ; preds = %if.then19, %copy_prev_pic_to_concealed_pic.exit
   tail call void @store_picture_in_dpb(ptr noundef %call) #23
   store i32 %UnusedShortTermFrameNum.1108, ptr %pre_frame_num30, align 4, !tbaa !53
-  %22 = load i32, ptr %MaxFrameNum32, align 8, !tbaa !54
+  %23 = load i32, ptr %MaxFrameNum32, align 8, !tbaa !54
   tail call void @llvm.memmove.p0.p0.i64(ptr noundef nonnull align 4 dereferenceable(64) getelementptr inbounds ([17 x i32], ptr @ref_flag, i64 0, i64 1), ptr noundef nonnull align 16 dereferenceable(64) @ref_flag, i64 64, i1 false), !tbaa !20
   %add31 = add nsw i32 %UnusedShortTermFrameNum.1108, 1
-  %rem33 = srem i32 %add31, %22
+  %rem33 = srem i32 %add31, %23
   store i32 0, ptr @ref_flag, align 16, !tbaa !20
   %cmp7.not = icmp eq i32 %5, %rem33
   br i1 %cmp7.not, label %while.end, label %while.body, !llvm.loop !80
@@ -2275,7 +2281,7 @@ entry:
   %PicSizeInMbs1 = getelementptr inbounds %struct.storable_picture, ptr %dst, i64 0, i32 31
   store i32 %0, ptr %PicSizeInMbs1, align 8, !tbaa !119
   %conceal_slice_type = getelementptr inbounds %struct.img_par, ptr %img, i64 0, i32 134
-  %1 = load i32, ptr %conceal_slice_type, align 4, !tbaa !20
+  %1 = load i32, ptr %conceal_slice_type, align 4, !tbaa !77
   %slice_type = getelementptr inbounds %struct.storable_picture, ptr %src, i64 0, i32 45
   store i32 %1, ptr %slice_type, align 8, !tbaa !78
   %slice_type2 = getelementptr inbounds %struct.storable_picture, ptr %dst, i64 0, i32 45
@@ -2329,8 +2335,8 @@ if.then:                                          ; preds = %entry
   %13 = load i32, ptr %height, align 4, !tbaa !57
   %cmp70.i = icmp sgt i32 %13, 0
   %cmp268.i = icmp sgt i32 %12, 0
-  %or.cond349 = select i1 %cmp70.i, i1 %cmp268.i, i1 false
-  br i1 %or.cond349, label %for.cond1.preheader.us.preheader.i, label %if.end210
+  %or.cond = select i1 %cmp70.i, i1 %cmp268.i, i1 false
+  br i1 %or.cond, label %for.cond1.preheader.us.preheader.i, label %if.end210
 
 for.cond1.preheader.us.preheader.i:               ; preds = %if.then
   %wide.trip.count82.i = zext i32 %13 to i64
@@ -2352,19 +2358,19 @@ for.cond1.preheader.us.i:                         ; preds = %for.cond1.for.inc10
   %17 = ptrtoint ptr %14 to i64
   %18 = sub i64 %16, %17
   %diff.check = icmp ult i64 %18, 32
-  %or.cond426 = select i1 %min.iters.check, i1 true, i1 %diff.check
-  br i1 %or.cond426, label %for.body3.us.i.preheader, label %vector.body
+  %or.cond425 = select i1 %min.iters.check, i1 true, i1 %diff.check
+  br i1 %or.cond425, label %for.body3.us.i.preheader, label %vector.body
 
 vector.body:                                      ; preds = %for.cond1.preheader.us.i, %vector.body
   %index = phi i64 [ %index.next, %vector.body ], [ 0, %for.cond1.preheader.us.i ]
   %19 = getelementptr inbounds i16, ptr %14, i64 %index
   %wide.load = load <8 x i16>, ptr %19, align 2, !tbaa !38
   %20 = getelementptr inbounds i16, ptr %19, i64 8
-  %wide.load399 = load <8 x i16>, ptr %20, align 2, !tbaa !38
+  %wide.load398 = load <8 x i16>, ptr %20, align 2, !tbaa !38
   %21 = getelementptr inbounds i16, ptr %15, i64 %index
   store <8 x i16> %wide.load, ptr %21, align 2, !tbaa !38
   %22 = getelementptr inbounds i16, ptr %21, i64 8
-  store <8 x i16> %wide.load399, ptr %22, align 2, !tbaa !38
+  store <8 x i16> %wide.load398, ptr %22, align 2, !tbaa !38
   %index.next = add nuw i64 %index, 16
   %23 = icmp eq i64 %index.next, %n.vec
   br i1 %23, label %middle.block, label %vector.body, !llvm.loop !121
@@ -2428,25 +2434,25 @@ for.cond1.for.inc10_crit_edge.us.i:               ; preds = %for.body3.us.i.prol
 for.cond13.preheader.i:                           ; preds = %for.cond1.for.inc10_crit_edge.us.i
   %cmp1474.i = icmp sgt i32 %13, 1
   %cmp1872.i = icmp sgt i32 %12, 1
-  %or.cond = select i1 %cmp1474.i, i1 %cmp1872.i, i1 false
-  br i1 %or.cond, label %for.cond16.preheader.lr.ph.split.us.i, label %if.end210
+  %or.cond345 = select i1 %cmp1474.i, i1 %cmp1872.i, i1 false
+  br i1 %or.cond345, label %for.cond16.preheader.lr.ph.split.us.i, label %if.end210
 
 for.cond16.preheader.lr.ph.split.us.i:            ; preds = %for.cond13.preheader.i
-  %div.i397398 = lshr i32 %13, 1
-  %div17.i348360 = lshr i32 %12, 1
+  %div.i396397 = lshr i32 %13, 1
+  %div17.i344346 = lshr i32 %12, 1
   %arrayidx35.i = getelementptr inbounds ptr, ptr %11, i64 1
   %arrayidx30.i = getelementptr inbounds ptr, ptr %9, i64 1
   %32 = load ptr, ptr %9, align 8, !tbaa !12
   %33 = load ptr, ptr %11, align 8, !tbaa !12
   %34 = load ptr, ptr %arrayidx30.i, align 8, !tbaa !12
   %35 = load ptr, ptr %arrayidx35.i, align 8, !tbaa !12
-  %wide.trip.count92.i = zext i32 %div.i397398 to i64
-  %wide.trip.count87.i = zext i32 %div17.i348360 to i64
-  %min.iters.check411 = icmp ult i32 %12, 48
-  %n.vec414 = and i64 %wide.trip.count87.i, 2147483632
-  %cmp.n416 = icmp eq i64 %n.vec414, %wide.trip.count87.i
-  %xtraiter427 = and i64 %wide.trip.count87.i, 1
-  %lcmp.mod428.not = icmp eq i64 %xtraiter427, 0
+  %wide.trip.count92.i = zext i32 %div.i396397 to i64
+  %wide.trip.count87.i = zext i32 %div17.i344346 to i64
+  %min.iters.check410 = icmp ult i32 %12, 48
+  %n.vec413 = and i64 %wide.trip.count87.i, 2147483632
+  %cmp.n415 = icmp eq i64 %n.vec413, %wide.trip.count87.i
+  %xtraiter426 = and i64 %wide.trip.count87.i, 1
+  %lcmp.mod427.not = icmp eq i64 %xtraiter426, 0
   %36 = sub nsw i64 0, %wide.trip.count87.i
   br label %for.cond16.preheader.us.i
 
@@ -2460,58 +2466,58 @@ for.cond16.preheader.us.i:                        ; preds = %for.cond16.for.inc4
   %39 = load ptr, ptr %arrayidx32.us.i, align 8, !tbaa !12
   %arrayidx37.us.i = getelementptr inbounds ptr, ptr %35, i64 %indvars.iv89.i
   %40 = load ptr, ptr %arrayidx37.us.i, align 8, !tbaa !12
-  br i1 %min.iters.check411, label %for.body19.us.i.preheader, label %vector.memcheck400
+  br i1 %min.iters.check410, label %for.body19.us.i.preheader, label %vector.memcheck399
 
-vector.memcheck400:                               ; preds = %for.cond16.preheader.us.i
+vector.memcheck399:                               ; preds = %for.cond16.preheader.us.i
   %41 = ptrtoint ptr %40 to i64
   %42 = ptrtoint ptr %39 to i64
   %43 = ptrtoint ptr %38 to i64
   %44 = ptrtoint ptr %37 to i64
   %45 = sub i64 %41, %43
-  %diff.check401 = icmp ult i64 %45, 32
+  %diff.check400 = icmp ult i64 %45, 32
   %46 = sub i64 %43, %44
-  %diff.check402 = icmp ult i64 %46, 32
-  %conflict.rdx = or i1 %diff.check401, %diff.check402
+  %diff.check401 = icmp ult i64 %46, 32
+  %conflict.rdx = or i1 %diff.check400, %diff.check401
   %47 = sub i64 %42, %43
-  %diff.check403 = icmp ult i64 %47, 32
-  %conflict.rdx404 = or i1 %conflict.rdx, %diff.check403
+  %diff.check402 = icmp ult i64 %47, 32
+  %conflict.rdx403 = or i1 %conflict.rdx, %diff.check402
   %48 = sub i64 %41, %44
-  %diff.check405 = icmp ult i64 %48, 32
-  %conflict.rdx406 = or i1 %conflict.rdx404, %diff.check405
+  %diff.check404 = icmp ult i64 %48, 32
+  %conflict.rdx405 = or i1 %conflict.rdx403, %diff.check404
   %49 = sub i64 %41, %42
-  %diff.check407 = icmp ult i64 %49, 32
-  %conflict.rdx408 = or i1 %conflict.rdx406, %diff.check407
-  br i1 %conflict.rdx408, label %for.body19.us.i.preheader, label %vector.body417
+  %diff.check406 = icmp ult i64 %49, 32
+  %conflict.rdx407 = or i1 %conflict.rdx405, %diff.check406
+  br i1 %conflict.rdx407, label %for.body19.us.i.preheader, label %vector.body416
 
-vector.body417:                                   ; preds = %vector.memcheck400, %vector.body417
-  %index418 = phi i64 [ %index.next423, %vector.body417 ], [ 0, %vector.memcheck400 ]
-  %50 = getelementptr inbounds i16, ptr %37, i64 %index418
-  %wide.load419 = load <8 x i16>, ptr %50, align 2, !tbaa !38
+vector.body416:                                   ; preds = %vector.memcheck399, %vector.body416
+  %index417 = phi i64 [ %index.next422, %vector.body416 ], [ 0, %vector.memcheck399 ]
+  %50 = getelementptr inbounds i16, ptr %37, i64 %index417
+  %wide.load418 = load <8 x i16>, ptr %50, align 2, !tbaa !38
   %51 = getelementptr inbounds i16, ptr %50, i64 8
-  %wide.load420 = load <8 x i16>, ptr %51, align 2, !tbaa !38
-  %52 = getelementptr inbounds i16, ptr %38, i64 %index418
-  store <8 x i16> %wide.load419, ptr %52, align 2, !tbaa !38
+  %wide.load419 = load <8 x i16>, ptr %51, align 2, !tbaa !38
+  %52 = getelementptr inbounds i16, ptr %38, i64 %index417
+  store <8 x i16> %wide.load418, ptr %52, align 2, !tbaa !38
   %53 = getelementptr inbounds i16, ptr %52, i64 8
-  store <8 x i16> %wide.load420, ptr %53, align 2, !tbaa !38
-  %54 = getelementptr inbounds i16, ptr %39, i64 %index418
-  %wide.load421 = load <8 x i16>, ptr %54, align 2, !tbaa !38
+  store <8 x i16> %wide.load419, ptr %53, align 2, !tbaa !38
+  %54 = getelementptr inbounds i16, ptr %39, i64 %index417
+  %wide.load420 = load <8 x i16>, ptr %54, align 2, !tbaa !38
   %55 = getelementptr inbounds i16, ptr %54, i64 8
-  %wide.load422 = load <8 x i16>, ptr %55, align 2, !tbaa !38
-  %56 = getelementptr inbounds i16, ptr %40, i64 %index418
-  store <8 x i16> %wide.load421, ptr %56, align 2, !tbaa !38
+  %wide.load421 = load <8 x i16>, ptr %55, align 2, !tbaa !38
+  %56 = getelementptr inbounds i16, ptr %40, i64 %index417
+  store <8 x i16> %wide.load420, ptr %56, align 2, !tbaa !38
   %57 = getelementptr inbounds i16, ptr %56, i64 8
-  store <8 x i16> %wide.load422, ptr %57, align 2, !tbaa !38
-  %index.next423 = add nuw i64 %index418, 16
-  %58 = icmp eq i64 %index.next423, %n.vec414
-  br i1 %58, label %middle.block409, label %vector.body417, !llvm.loop !126
+  store <8 x i16> %wide.load421, ptr %57, align 2, !tbaa !38
+  %index.next422 = add nuw i64 %index417, 16
+  %58 = icmp eq i64 %index.next422, %n.vec413
+  br i1 %58, label %middle.block408, label %vector.body416, !llvm.loop !126
 
-middle.block409:                                  ; preds = %vector.body417
-  br i1 %cmp.n416, label %for.cond16.for.inc43_crit_edge.us.i, label %for.body19.us.i.preheader
+middle.block408:                                  ; preds = %vector.body416
+  br i1 %cmp.n415, label %for.cond16.for.inc43_crit_edge.us.i, label %for.body19.us.i.preheader
 
-for.body19.us.i.preheader:                        ; preds = %vector.memcheck400, %for.cond16.preheader.us.i, %middle.block409
-  %indvars.iv84.i.ph = phi i64 [ 0, %vector.memcheck400 ], [ 0, %for.cond16.preheader.us.i ], [ %n.vec414, %middle.block409 ]
+for.body19.us.i.preheader:                        ; preds = %vector.memcheck399, %for.cond16.preheader.us.i, %middle.block408
+  %indvars.iv84.i.ph = phi i64 [ 0, %vector.memcheck399 ], [ 0, %for.cond16.preheader.us.i ], [ %n.vec413, %middle.block408 ]
   %59 = xor i64 %indvars.iv84.i.ph, -1
-  br i1 %lcmp.mod428.not, label %for.body19.us.i.prol.loopexit, label %for.body19.us.i.prol
+  br i1 %lcmp.mod427.not, label %for.body19.us.i.prol.loopexit, label %for.body19.us.i.prol
 
 for.body19.us.i.prol:                             ; preds = %for.body19.us.i.preheader
   %arrayidx24.us.i.prol = getelementptr inbounds i16, ptr %37, i64 %indvars.iv84.i.ph
@@ -2553,7 +2559,7 @@ for.body19.us.i:                                  ; preds = %for.body19.us.i.pro
   %exitcond88.not.i.1 = icmp eq i64 %indvars.iv.next85.i.1, %wide.trip.count87.i
   br i1 %exitcond88.not.i.1, label %for.cond16.for.inc43_crit_edge.us.i, label %for.body19.us.i, !llvm.loop !127
 
-for.cond16.for.inc43_crit_edge.us.i:              ; preds = %for.body19.us.i.prol.loopexit, %for.body19.us.i, %middle.block409
+for.cond16.for.inc43_crit_edge.us.i:              ; preds = %for.body19.us.i.prol.loopexit, %for.body19.us.i, %middle.block408
   %indvars.iv.next90.i = add nuw nsw i64 %indvars.iv89.i, 1
   %exitcond93.not.i = icmp eq i64 %indvars.iv.next90.i, %wide.trip.count92.i
   br i1 %exitcond93.not.i, label %if.end210, label %for.cond16.preheader.us.i, !llvm.loop !128
@@ -2608,11 +2614,11 @@ if.else46:                                        ; preds = %if.end29
 
 if.end50:                                         ; preds = %if.else46, %if.then44
   %mul51 = shl i32 %div37, 2
-  %cmp52358 = icmp sgt i32 %div37, 0
-  br i1 %cmp52358, label %for.body.lr.ph, label %for.end209
+  %cmp52355 = icmp sgt i32 %div37, 0
+  br i1 %cmp52355, label %for.body.lr.ph, label %for.end209
 
 for.body.lr.ph:                                   ; preds = %if.end50
-  %cmp57356 = icmp sgt i32 %70, 0
+  %cmp57353 = icmp sgt i32 %70, 0
   %mv61 = getelementptr inbounds %struct.storable_picture, ptr %src, i64 0, i32 39
   %ref_idx = getelementptr inbounds %struct.storable_picture, ptr %src, i64 0, i32 36
   %mv94 = getelementptr inbounds %struct.storable_picture, ptr %dst, i64 0, i32 39
@@ -2650,13 +2656,13 @@ for.body.lr.ph:                                   ; preds = %if.end50
   %add.ptr.i = getelementptr inbounds i16, ptr %storeYUV.0, i64 16
   %imgY140 = getelementptr inbounds %struct.storable_picture, ptr %dst, i64 0, i32 32
   %imgUV177 = getelementptr inbounds %struct.storable_picture, ptr %dst, i64 0, i32 33
-  br i1 %cmp57356, label %for.body.us.preheader, label %for.end209
+  br i1 %cmp57353, label %for.body.us.preheader, label %for.end209
 
 for.body.us.preheader:                            ; preds = %for.body.lr.ph
   %mul56 = shl i32 %70, 2
   %smax = tail call i32 @llvm.smax.i32(i32 %mul56, i32 1)
-  %smax394 = tail call i32 @llvm.smax.i32(i32 %mul51, i32 1)
-  %wide.trip.count395 = zext i32 %smax394 to i64
+  %smax390 = tail call i32 @llvm.smax.i32(i32 %mul51, i32 1)
+  %wide.trip.count391 = zext i32 %smax390 to i64
   %wide.trip.count = zext i32 %smax to i64
   %arrayidx212.1.i.us = getelementptr inbounds i16, ptr %storeYUV.0, i64 17
   %arrayidx212.1410.i.us = getelementptr inbounds i16, ptr %storeYUV.0, i64 18
@@ -2665,74 +2671,72 @@ for.body.us.preheader:                            ; preds = %for.body.lr.ph
   %arrayidx212.1.i.us.1 = getelementptr inbounds i16, ptr %storeYUV.0, i64 21
   %arrayidx212.1410.i.us.1 = getelementptr inbounds i16, ptr %storeYUV.0, i64 22
   %arrayidx212.1.1.i.us.1 = getelementptr inbounds i16, ptr %storeYUV.0, i64 23
-  %arrayidx176.us.1380 = getelementptr inbounds i16, ptr %storeYUV.0, i64 18
+  %arrayidx176.us.1376 = getelementptr inbounds i16, ptr %storeYUV.0, i64 18
   %add.ptr199.us = getelementptr inbounds i16, ptr %storeYUV.0, i64 20
-  %arrayidx176.us.1380.1 = getelementptr inbounds i16, ptr %storeYUV.0, i64 22
+  %arrayidx176.us.1376.1 = getelementptr inbounds i16, ptr %storeYUV.0, i64 22
   br label %for.body.us
 
 for.body.us:                                      ; preds = %for.body.us.preheader, %for.cond55.for.inc207_crit_edge.us
-  %indvars.iv390 = phi i64 [ 0, %for.body.us.preheader ], [ %indvars.iv.next391, %for.cond55.for.inc207_crit_edge.us ]
-  %74 = trunc i64 %indvars.iv390 to i32
+  %indvars.iv386 = phi i64 [ 0, %for.body.us.preheader ], [ %indvars.iv.next387, %for.cond55.for.inc207_crit_edge.us ]
+  %74 = trunc i64 %indvars.iv386 to i32
   %mul54.us = shl nsw i32 %74, 2
-  %75 = and i32 %74, 3
-  %cmp120.us = icmp eq i32 %75, 0
   %mul13.i.us = shl nsw i32 %74, 4
-  %76 = shl nuw nsw i64 %indvars.iv390, 1
-  %77 = zext i32 %mul54.us to i64
-  %78 = or i64 %77, 1
-  %79 = or i64 %77, 2
-  %80 = or i64 %77, 3
-  %81 = or i64 %76, 1
+  %75 = shl nuw nsw i64 %indvars.iv386, 1
+  %76 = zext i32 %mul54.us to i64
+  %77 = or i64 %76, 1
+  %78 = or i64 %76, 2
+  %79 = or i64 %76, 3
+  %80 = or i64 %75, 1
   br label %for.body59.us
 
 for.body59.us:                                    ; preds = %for.body.us, %for.inc204.us
   %indvars.iv = phi i64 [ 0, %for.body.us ], [ %indvars.iv.next, %for.inc204.us ]
-  %82 = trunc i64 %indvars.iv to i32
-  %83 = shl i32 %82, 2
-  %84 = zext i32 %83 to i64
-  %85 = shl nuw nsw i64 %84, 1
-  %86 = load ptr, ptr %mv61, align 8, !tbaa !133
-  %87 = load ptr, ptr %86, align 8, !tbaa !12
-  %arrayidx62.us = getelementptr inbounds ptr, ptr %87, i64 %indvars.iv390
-  %88 = load ptr, ptr %arrayidx62.us, align 8, !tbaa !12
-  %arrayidx64.us = getelementptr inbounds ptr, ptr %88, i64 %indvars.iv
-  %89 = load ptr, ptr %arrayidx64.us, align 8, !tbaa !12
-  %90 = load i16, ptr %89, align 2, !tbaa !38
-  %conv66.us = sext i16 %90 to i32
+  %81 = trunc i64 %indvars.iv to i32
+  %82 = shl i32 %81, 2
+  %83 = zext i32 %82 to i64
+  %84 = shl nuw nsw i64 %83, 1
+  %85 = load ptr, ptr %mv61, align 8, !tbaa !133
+  %86 = load ptr, ptr %85, align 8, !tbaa !12
+  %arrayidx62.us = getelementptr inbounds ptr, ptr %86, i64 %indvars.iv386
+  %87 = load ptr, ptr %arrayidx62.us, align 8, !tbaa !12
+  %arrayidx64.us = getelementptr inbounds ptr, ptr %87, i64 %indvars.iv
+  %88 = load ptr, ptr %arrayidx64.us, align 8, !tbaa !12
+  %89 = load i16, ptr %88, align 2, !tbaa !38
+  %conv66.us = sext i16 %89 to i32
   %div67.us = sdiv i32 %conv66.us, %cond
-  %arrayidx75.us = getelementptr inbounds i16, ptr %89, i64 1
-  %91 = load i16, ptr %arrayidx75.us, align 2, !tbaa !38
-  %conv76.us = sext i16 %91 to i32
+  %arrayidx75.us = getelementptr inbounds i16, ptr %88, i64 1
+  %90 = load i16, ptr %arrayidx75.us, align 2, !tbaa !38
+  %conv76.us = sext i16 %90 to i32
   %div77.us = sdiv i32 %conv76.us, %cond
-  %92 = load ptr, ptr %ref_idx, align 8, !tbaa !134
-  %93 = load ptr, ptr %92, align 8, !tbaa !12
-  %arrayidx81.us = getelementptr inbounds ptr, ptr %93, i64 %indvars.iv390
-  %94 = load ptr, ptr %arrayidx81.us, align 8, !tbaa !12
-  %arrayidx83.us = getelementptr inbounds i8, ptr %94, i64 %indvars.iv
-  %95 = load i8, ptr %arrayidx83.us, align 1, !tbaa !135
-  %narrow = call i8 @llvm.smax.i8(i8 %95, i8 0)
-  %spec.select.us = zext i8 %narrow to i32
+  %91 = load ptr, ptr %ref_idx, align 8, !tbaa !134
+  %92 = load ptr, ptr %91, align 8, !tbaa !12
+  %arrayidx81.us = getelementptr inbounds ptr, ptr %92, i64 %indvars.iv386
+  %93 = load ptr, ptr %arrayidx81.us, align 8, !tbaa !12
+  %arrayidx83.us = getelementptr inbounds i8, ptr %93, i64 %indvars.iv
+  %94 = load i8, ptr %arrayidx83.us, align 1, !tbaa !135
+  %narrow.us = call i8 @llvm.smax.i8(i8 %94, i8 0)
+  %spec.select.us = zext i8 %narrow.us to i32
   %conv93.us = trunc i32 %div67.us to i16
-  %96 = load ptr, ptr %mv94, align 8, !tbaa !133
-  %97 = load ptr, ptr %96, align 8, !tbaa !12
-  %arrayidx97.us = getelementptr inbounds ptr, ptr %97, i64 %indvars.iv390
-  %98 = load ptr, ptr %arrayidx97.us, align 8, !tbaa !12
-  %arrayidx99.us = getelementptr inbounds ptr, ptr %98, i64 %indvars.iv
-  %99 = load ptr, ptr %arrayidx99.us, align 8, !tbaa !12
-  store i16 %conv93.us, ptr %99, align 2, !tbaa !38
+  %95 = load ptr, ptr %mv94, align 8, !tbaa !133
+  %96 = load ptr, ptr %95, align 8, !tbaa !12
+  %arrayidx97.us = getelementptr inbounds ptr, ptr %96, i64 %indvars.iv386
+  %97 = load ptr, ptr %arrayidx97.us, align 8, !tbaa !12
+  %arrayidx99.us = getelementptr inbounds ptr, ptr %97, i64 %indvars.iv
+  %98 = load ptr, ptr %arrayidx99.us, align 8, !tbaa !12
+  store i16 %conv93.us, ptr %98, align 2, !tbaa !38
   %conv102.us = trunc i32 %div77.us to i16
-  %arrayidx109.us = getelementptr inbounds i16, ptr %99, i64 1
+  %arrayidx109.us = getelementptr inbounds i16, ptr %98, i64 1
   store i16 %conv102.us, ptr %arrayidx109.us, align 2, !tbaa !38
-  %100 = load ptr, ptr %ref_idx112, align 8, !tbaa !134
-  %101 = load ptr, ptr %100, align 8, !tbaa !12
-  %arrayidx115.us = getelementptr inbounds ptr, ptr %101, i64 %indvars.iv390
-  %102 = load ptr, ptr %arrayidx115.us, align 8, !tbaa !12
-  %arrayidx117.us = getelementptr inbounds i8, ptr %102, i64 %indvars.iv
-  store i8 %narrow, ptr %arrayidx117.us, align 1, !tbaa !135
-  %103 = and i32 %82, 3
-  %cmp123.us = icmp eq i32 %103, 0
-  %or.cond342.us = select i1 %cmp120.us, i1 %cmp123.us, i1 false
-  br i1 %or.cond342.us, label %if.then125.us, label %if.end127.us
+  %99 = load ptr, ptr %ref_idx112, align 8, !tbaa !134
+  %100 = load ptr, ptr %99, align 8, !tbaa !12
+  %arrayidx115.us = getelementptr inbounds ptr, ptr %100, i64 %indvars.iv386
+  %101 = load ptr, ptr %arrayidx115.us, align 8, !tbaa !12
+  %arrayidx117.us = getelementptr inbounds i8, ptr %101, i64 %indvars.iv
+  store i8 %narrow.us, ptr %arrayidx117.us, align 1, !tbaa !135
+  %102 = or i32 %81, %74
+  %103 = and i32 %102, 3
+  %or.cond.us = icmp eq i32 %103, 0
+  br i1 %or.cond.us, label %if.then125.us, label %if.end127.us
 
 if.then125.us:                                    ; preds = %for.body59.us
   %104 = load i32, ptr %current_mb_nr, align 4, !tbaa !118
@@ -2747,7 +2751,7 @@ if.end127.us:                                     ; preds = %if.then125.us, %for
   %chroma_format_idc.i.us = getelementptr inbounds %struct.storable_picture, ptr %106, i64 0, i32 50
   %107 = load i32, ptr %chroma_format_idc.i.us, align 4, !tbaa !40
   %mb_x.i.us = getelementptr inbounds %struct.img_par, ptr %105, i64 0, i32 17
-  store i32 %82, ptr %mb_x.i.us, align 8, !tbaa !136
+  store i32 %81, ptr %mb_x.i.us, align 8, !tbaa !136
   %mb_y.i.us = getelementptr inbounds %struct.img_par, ptr %105, i64 0, i32 16
   store i32 %74, ptr %mb_y.i.us, align 4, !tbaa !137
   %block_y.i.us = getelementptr inbounds %struct.img_par, ptr %105, i64 0, i32 18
@@ -2759,14 +2763,14 @@ if.end127.us:                                     ; preds = %if.then125.us, %for
   %pix_c_y.i.us = getelementptr inbounds %struct.img_par, ptr %105, i64 0, i32 21
   store i32 %div5.i.us, ptr %pix_c_y.i.us, align 8, !tbaa !139
   %block_x.i.us = getelementptr inbounds %struct.img_par, ptr %105, i64 0, i32 22
-  store i32 %83, ptr %block_x.i.us, align 4, !tbaa !140
+  store i32 %82, ptr %block_x.i.us, align 4, !tbaa !140
   %mb_cr_size_x.i.us = getelementptr inbounds %struct.img_par, ptr %105, i64 0, i32 115
   %109 = load i32, ptr %mb_cr_size_x.i.us, align 4, !tbaa !13
-  %mul9.i.us = mul nsw i32 %109, %82
+  %mul9.i.us = mul nsw i32 %109, %81
   %div10.i.us = sdiv i32 %mul9.i.us, 4
   %pix_c_x.i.us = getelementptr inbounds %struct.img_par, ptr %105, i64 0, i32 23
   store i32 %div10.i.us, ptr %pix_c_x.i.us, align 8, !tbaa !141
-  %mul11.i.us = shl nsw i32 %82, 4
+  %mul11.i.us = shl nsw i32 %81, 4
   %add.i.us = add nsw i32 %div67.us, %mul11.i.us
   %add15.i.us = add nsw i32 %div77.us, %mul13.i.us
   %110 = load ptr, ptr @listX, align 16, !tbaa !12
@@ -2885,7 +2889,7 @@ if.then.i.us:                                     ; preds = %if.end127.us
   %136 = load i32, ptr %size_y_cr.i.us, align 4, !tbaa !143
   %sub108.i.us = add nsw i32 %136, -1
   %137 = load ptr, ptr @listX, align 16, !tbaa !12
-  %idxprom127.i.us = zext i8 %narrow to i64
+  %idxprom127.i.us = zext i8 %narrow.us to i64
   %arrayidx128.i.us = getelementptr inbounds ptr, ptr %137, i64 %idxprom127.i.us
   %138 = load ptr, ptr %arrayidx128.i.us, align 8, !tbaa !12
   %imgUV.i.us = getelementptr inbounds %struct.storable_picture, ptr %138, i64 0, i32 33
@@ -3178,24 +3182,24 @@ buildPredblockRegionYUV.exit.us:                  ; preds = %if.then.i.us, %if.e
   %182 = phi i32 [ %.pre, %if.then.i.us ], [ 0, %if.end127.us ]
   call void @llvm.lifetime.end.p0(i64 64, ptr nonnull %tmp_block.i) #23
   %183 = load ptr, ptr %imgY140, align 8, !tbaa !36
-  %arrayidx144.us = getelementptr inbounds ptr, ptr %183, i64 %77
+  %arrayidx144.us = getelementptr inbounds ptr, ptr %183, i64 %76
   %184 = load ptr, ptr %arrayidx144.us, align 8, !tbaa !12
-  %scevgep = getelementptr i8, ptr %184, i64 %85
+  %scevgep = getelementptr i8, ptr %184, i64 %84
   %185 = load i64, ptr %storeYUV.0, align 2, !tbaa !38
   store i64 %185, ptr %scevgep, align 2, !tbaa !38
-  %arrayidx144.us.1 = getelementptr inbounds ptr, ptr %183, i64 %78
+  %arrayidx144.us.1 = getelementptr inbounds ptr, ptr %183, i64 %77
   %186 = load ptr, ptr %arrayidx144.us.1, align 8, !tbaa !12
-  %scevgep.1 = getelementptr i8, ptr %186, i64 %85
+  %scevgep.1 = getelementptr i8, ptr %186, i64 %84
   %187 = load i64, ptr %arrayidx47.1363.i, align 2, !tbaa !38
   store i64 %187, ptr %scevgep.1, align 2, !tbaa !38
-  %arrayidx144.us.2 = getelementptr inbounds ptr, ptr %183, i64 %79
+  %arrayidx144.us.2 = getelementptr inbounds ptr, ptr %183, i64 %78
   %188 = load ptr, ptr %arrayidx144.us.2, align 8, !tbaa !12
-  %scevgep.2 = getelementptr i8, ptr %188, i64 %85
+  %scevgep.2 = getelementptr i8, ptr %188, i64 %84
   %189 = load i64, ptr %arrayidx47.2365.i, align 2, !tbaa !38
   store i64 %189, ptr %scevgep.2, align 2, !tbaa !38
-  %arrayidx144.us.3 = getelementptr inbounds ptr, ptr %183, i64 %80
+  %arrayidx144.us.3 = getelementptr inbounds ptr, ptr %183, i64 %79
   %190 = load ptr, ptr %arrayidx144.us.3, align 8, !tbaa !12
-  %scevgep.3 = getelementptr i8, ptr %190, i64 %85
+  %scevgep.3 = getelementptr i8, ptr %190, i64 %84
   %191 = load i64, ptr %arrayidx47.3367.i, align 2, !tbaa !38
   store i64 %191, ptr %scevgep.3, align 2, !tbaa !38
   %cmp155.not.us = icmp eq i32 %182, 0
@@ -3205,28 +3209,28 @@ if.then157.us:                                    ; preds = %buildPredblockRegio
   %192 = load ptr, ptr %imgUV177, align 8, !tbaa !41
   %193 = shl nuw nsw i64 %indvars.iv, 1
   %194 = load ptr, ptr %192, align 8, !tbaa !12
-  %arrayidx184.us = getelementptr inbounds ptr, ptr %194, i64 %76
+  %arrayidx184.us = getelementptr inbounds ptr, ptr %194, i64 %75
   %195 = load ptr, ptr %arrayidx184.us, align 8, !tbaa !12
   %arrayidx189.us = getelementptr inbounds i16, ptr %195, i64 %193
   %196 = load <2 x i16>, ptr %add.ptr.i, align 2, !tbaa !38
   store <2 x i16> %196, ptr %arrayidx189.us, align 2, !tbaa !38
-  %arrayidx184.us.1 = getelementptr inbounds ptr, ptr %194, i64 %81
+  %arrayidx184.us.1 = getelementptr inbounds ptr, ptr %194, i64 %80
   %197 = load ptr, ptr %arrayidx184.us.1, align 8, !tbaa !12
-  %arrayidx189.us.1381 = getelementptr inbounds i16, ptr %197, i64 %193
-  %198 = load <2 x i16>, ptr %arrayidx176.us.1380, align 2, !tbaa !38
-  store <2 x i16> %198, ptr %arrayidx189.us.1381, align 2, !tbaa !38
+  %arrayidx189.us.1377 = getelementptr inbounds i16, ptr %197, i64 %193
+  %198 = load <2 x i16>, ptr %arrayidx176.us.1376, align 2, !tbaa !38
+  store <2 x i16> %198, ptr %arrayidx189.us.1377, align 2, !tbaa !38
   %arrayidx179.us.1 = getelementptr inbounds ptr, ptr %192, i64 1
   %199 = load ptr, ptr %arrayidx179.us.1, align 8, !tbaa !12
-  %arrayidx184.us.1383 = getelementptr inbounds ptr, ptr %199, i64 %76
-  %200 = load ptr, ptr %arrayidx184.us.1383, align 8, !tbaa !12
-  %arrayidx189.us.1384 = getelementptr inbounds i16, ptr %200, i64 %193
+  %arrayidx184.us.1379 = getelementptr inbounds ptr, ptr %199, i64 %75
+  %200 = load ptr, ptr %arrayidx184.us.1379, align 8, !tbaa !12
+  %arrayidx189.us.1380 = getelementptr inbounds i16, ptr %200, i64 %193
   %201 = load <2 x i16>, ptr %add.ptr199.us, align 2, !tbaa !38
-  store <2 x i16> %201, ptr %arrayidx189.us.1384, align 2, !tbaa !38
-  %arrayidx184.us.1.1 = getelementptr inbounds ptr, ptr %199, i64 %81
+  store <2 x i16> %201, ptr %arrayidx189.us.1380, align 2, !tbaa !38
+  %arrayidx184.us.1.1 = getelementptr inbounds ptr, ptr %199, i64 %80
   %202 = load ptr, ptr %arrayidx184.us.1.1, align 8, !tbaa !12
-  %arrayidx189.us.1381.1 = getelementptr inbounds i16, ptr %202, i64 %193
-  %203 = load <2 x i16>, ptr %arrayidx176.us.1380.1, align 2, !tbaa !38
-  store <2 x i16> %203, ptr %arrayidx189.us.1381.1, align 2, !tbaa !38
+  %arrayidx189.us.1377.1 = getelementptr inbounds i16, ptr %202, i64 %193
+  %203 = load <2 x i16>, ptr %arrayidx176.us.1376.1, align 2, !tbaa !38
+  store <2 x i16> %203, ptr %arrayidx189.us.1377.1, align 2, !tbaa !38
   br label %for.inc204.us
 
 for.inc204.us:                                    ; preds = %if.then157.us, %buildPredblockRegionYUV.exit.us
@@ -3235,9 +3239,9 @@ for.inc204.us:                                    ; preds = %if.then157.us, %bui
   br i1 %exitcond.not, label %for.cond55.for.inc207_crit_edge.us, label %for.body59.us, !llvm.loop !144
 
 for.cond55.for.inc207_crit_edge.us:               ; preds = %for.inc204.us
-  %indvars.iv.next391 = add nuw nsw i64 %indvars.iv390, 1
-  %exitcond396.not = icmp eq i64 %indvars.iv.next391, %wide.trip.count395
-  br i1 %exitcond396.not, label %for.end209, label %for.body.us, !llvm.loop !145
+  %indvars.iv.next387 = add nuw nsw i64 %indvars.iv386, 1
+  %exitcond392.not = icmp eq i64 %indvars.iv.next387, %wide.trip.count391
+  br i1 %exitcond392.not, label %for.end209, label %for.body.us, !llvm.loop !145
 
 for.end209:                                       ; preds = %for.cond55.for.inc207_crit_edge.us, %for.body.lr.ph, %if.end50
   call void @free(ptr noundef %storeYUV.0) #23
@@ -3285,9 +3289,9 @@ if.then:                                          ; preds = %entry
   %poc_gap = getelementptr inbounds %struct.img_par, ptr %1, i64 0, i32 129
   %2 = load i32, ptr %poc_gap, align 8, !tbaa !50
   %cmp1 = icmp sgt i32 %sub, %2
-  br i1 %cmp1, label %if.then2, label %if.end3
+  br i1 %cmp1, label %if.then.i, label %if.end3
 
-if.then2:                                         ; preds = %if.then
+if.then.i:                                        ; preds = %if.then
   %3 = load ptr, ptr @concealment_head, align 8, !tbaa !12
   %4 = load ptr, ptr %3, align 8, !tbaa !109
   %frame = getelementptr inbounds %struct.frame_store, ptr %concealment_fs, i64 0, i32 12
@@ -3304,17 +3308,17 @@ if.then2:                                         ; preds = %if.then
   store ptr %6, ptr @concealment_head, align 8, !tbaa !12
   %7 = load ptr, ptr @concealment_end, align 8, !tbaa !12
   %cmp1.i = icmp eq ptr %7, %5
-  br i1 %cmp1.i, label %if.then2.i, label %if.end.i
+  br i1 %cmp1.i, label %if.then2.i, label %delete_node.exit
 
-if.then2.i:                                       ; preds = %if.then2
+if.then2.i:                                       ; preds = %if.then.i
   store ptr %6, ptr @concealment_end, align 8, !tbaa !12
-  br label %if.end.i
+  br label %delete_node.exit
 
-if.end.i:                                         ; preds = %if.then2.i, %if.then2
+delete_node.exit:                                 ; preds = %if.then.i, %if.then2.i
   call void @free(ptr noundef nonnull %5) #23
   br label %if.end3
 
-if.end3:                                          ; preds = %if.then, %if.end.i, %entry
+if.end3:                                          ; preds = %if.then, %delete_node.exit, %entry
   call void @llvm.lifetime.end.p0(i64 72, ptr nonnull %concealment_fs) #23
   ret void
 }
@@ -5522,10 +5526,10 @@ declare void @get_block(i32 noundef, ptr noundef, i32 noundef, i32 noundef, ptr 
 declare void @init_lists(i32 noundef, i32 noundef) local_unnamed_addr #3
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i32 @llvm.smax.i32(i32, i32) #19
+declare i32 @llvm.smin.i32(i32, i32) #19
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i32 @llvm.smin.i32(i32, i32) #19
+declare i32 @llvm.smax.i32(i32, i32) #19
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
 declare i32 @llvm.abs.i32(i32, i1 immarg) #19

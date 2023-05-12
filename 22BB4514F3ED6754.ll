@@ -407,16 +407,16 @@ for.body.i137:                                    ; preds = %for.inc36.i, %for.i
   %54 = load double, ptr %arrayidx2.i, align 8, !tbaa !5
   %sub.i = fsub double %53, %54
   %55 = call double @llvm.fabs.f64(double %sub.i)
-  %cmp3.i = fcmp ogt double %55, 1.000000e-05
-  br i1 %cmp3.i, label %check_FP.exit.thread, label %for.inc.i
+  %cmp3.i = fcmp ule double %55, 1.000000e-05
+  br i1 %cmp3.i, label %for.inc.i, label %check_FP.exit.thread
 
 check_FP.exit.thread:                             ; preds = %for.inc.i, %for.body.i137
   %indvars.iv.i135.lcssa = phi i64 [ %indvars.iv.i135, %for.body.i137 ], [ %indvars.iv.next.i138, %for.inc.i ]
-  %.lcssa203 = phi double [ %53, %for.body.i137 ], [ %58, %for.inc.i ]
-  %.lcssa201 = phi double [ %54, %for.body.i137 ], [ %59, %for.inc.i ]
+  %.lcssa207 = phi double [ %53, %for.body.i137 ], [ %58, %for.inc.i ]
+  %.lcssa205 = phi double [ %54, %for.body.i137 ], [ %59, %for.inc.i ]
   %56 = trunc i64 %indvars.iv.i135.lcssa to i32
   %57 = load ptr, ptr @stderr, align 8, !tbaa !9
-  %call.i = call i32 (ptr, ptr, ...) @fprintf(ptr noundef %57, ptr noundef nonnull @.str.2, i32 noundef %56, double noundef %.lcssa203, i32 noundef %56, double noundef %.lcssa201, double noundef 1.000000e-05) #12
+  %call.i = call i32 (ptr, ptr, ...) @fprintf(ptr noundef %57, ptr noundef nonnull @.str.2, i32 noundef %56, double noundef %.lcssa207, i32 noundef %56, double noundef %.lcssa205, double noundef 1.000000e-05) #12
   br label %cleanup
 
 for.inc.i:                                        ; preds = %for.body.i137
@@ -427,8 +427,8 @@ for.inc.i:                                        ; preds = %for.body.i137
   %59 = load double, ptr %arrayidx2.i.1, align 8, !tbaa !5
   %sub.i.1 = fsub double %58, %59
   %60 = call double @llvm.fabs.f64(double %sub.i.1)
-  %cmp3.i.1 = fcmp ogt double %60, 1.000000e-05
-  br i1 %cmp3.i.1, label %check_FP.exit.thread, label %for.inc.i.1
+  %cmp3.i.1 = fcmp ule double %60, 1.000000e-05
+  br i1 %cmp3.i.1, label %for.inc.i.1, label %check_FP.exit.thread
 
 for.inc.i.1:                                      ; preds = %for.inc.i
   %indvars.iv.next.i138.1 = add nuw nsw i64 %indvars.iv.i135, 2
@@ -443,16 +443,16 @@ for.body.i145:                                    ; preds = %for.inc.i.1, %for.i
   %62 = load double, ptr %arrayidx2.i142, align 8, !tbaa !5
   %sub.i143 = fsub double %61, %62
   %63 = call double @llvm.fabs.f64(double %sub.i143)
-  %cmp3.i144 = fcmp ogt double %63, 1.000000e-05
-  br i1 %cmp3.i144, label %check_FP.exit152.thread, label %for.inc.i150
+  %cmp3.i144 = fcmp ule double %63, 1.000000e-05
+  br i1 %cmp3.i144, label %for.inc.i150, label %check_FP.exit152.thread
 
 check_FP.exit152.thread:                          ; preds = %for.inc.i150, %for.body.i145
   %indvars.iv.i140.lcssa = phi i64 [ %indvars.iv.i140, %for.body.i145 ], [ %indvars.iv.next.i148, %for.inc.i150 ]
-  %.lcssa198 = phi double [ %61, %for.body.i145 ], [ %66, %for.inc.i150 ]
+  %.lcssa202 = phi double [ %61, %for.body.i145 ], [ %66, %for.inc.i150 ]
   %.lcssa = phi double [ %62, %for.body.i145 ], [ %67, %for.inc.i150 ]
   %64 = trunc i64 %indvars.iv.i140.lcssa to i32
   %65 = load ptr, ptr @stderr, align 8, !tbaa !9
-  %call.i146 = call i32 (ptr, ptr, ...) @fprintf(ptr noundef %65, ptr noundef nonnull @.str.2, i32 noundef %64, double noundef %.lcssa198, i32 noundef %64, double noundef %.lcssa, double noundef 1.000000e-05) #12
+  %call.i146 = call i32 (ptr, ptr, ...) @fprintf(ptr noundef %65, ptr noundef nonnull @.str.2, i32 noundef %64, double noundef %.lcssa202, i32 noundef %64, double noundef %.lcssa, double noundef 1.000000e-05) #12
   br label %cleanup
 
 for.inc.i150:                                     ; preds = %for.body.i145
@@ -463,8 +463,8 @@ for.inc.i150:                                     ; preds = %for.body.i145
   %67 = load double, ptr %arrayidx2.i142.1, align 8, !tbaa !5
   %sub.i143.1 = fsub double %66, %67
   %68 = call double @llvm.fabs.f64(double %sub.i143.1)
-  %cmp3.i144.1 = fcmp ogt double %68, 1.000000e-05
-  br i1 %cmp3.i144.1, label %check_FP.exit152.thread, label %for.inc.i150.1
+  %cmp3.i144.1 = fcmp ule double %68, 1.000000e-05
+  br i1 %cmp3.i144.1, label %for.inc.i150.1, label %check_FP.exit152.thread
 
 for.inc.i150.1:                                   ; preds = %for.inc.i150
   %indvars.iv.next.i148.1 = add nuw nsw i64 %indvars.iv.i140, 2

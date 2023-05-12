@@ -121,7 +121,7 @@ while.body:                                       ; preds = %entry, %cleanup
 sw.bb:                                            ; preds = %while.body
   %t_wkq = getelementptr inbounds %struct.task, ptr %0, i64 0, i32 3
   %2 = load ptr, ptr %t_wkq, align 8, !tbaa !15
-  %3 = load ptr, ptr %2, align 8, !tbaa !5
+  %3 = load ptr, ptr %2, align 8, !tbaa !20
   store ptr %3, ptr %t_wkq, align 8, !tbaa !15
   %cmp3 = icmp ne ptr %3, null
   %cond = zext i1 %cmp3 to i32
@@ -270,11 +270,11 @@ if.end:                                           ; preds = %if.end.i
   %t_pri1 = getelementptr inbounds %struct.task, ptr %4, i64 0, i32 2
   %5 = load i32, ptr %t_pri1, align 4, !tbaa !14
   %cmp2 = icmp sgt i32 %3, %5
-  %t.013.i. = select i1 %cmp2, ptr %1, ptr %4
+  %call. = select i1 %cmp2, ptr %1, ptr %4
   br label %cleanup
 
 cleanup:                                          ; preds = %findtcb.exit.thread, %if.end
-  %retval.0 = phi ptr [ %t.013.i., %if.end ], [ null, %findtcb.exit.thread ]
+  %retval.0 = phi ptr [ %call., %if.end ], [ null, %findtcb.exit.thread ]
   ret ptr %retval.0
 }
 
@@ -412,7 +412,7 @@ if.end.i:                                         ; preds = %if.then2
   %t_pri1.i = getelementptr inbounds %struct.task, ptr %10, i64 0, i32 2
   %11 = load i32, ptr %t_pri1.i, align 4, !tbaa !14
   %cmp2.i = icmp sgt i32 %9, %11
-  %t.013.i..i = select i1 %cmp2.i, ptr %7, ptr %10
+  %call..i = select i1 %cmp2.i, ptr %7, ptr %10
   br label %return
 
 if.else:                                          ; preds = %if.end
@@ -437,11 +437,11 @@ if.end.i18:                                       ; preds = %if.else
   %t_pri1.i15 = getelementptr inbounds %struct.task, ptr %15, i64 0, i32 2
   %16 = load i32, ptr %t_pri1.i15, align 4, !tbaa !14
   %cmp2.i16 = icmp sgt i32 %14, %16
-  %t.013.i..i17 = select i1 %cmp2.i16, ptr %12, ptr %15
+  %call..i17 = select i1 %cmp2.i16, ptr %12, ptr %15
   br label %return
 
 return:                                           ; preds = %if.end.i18, %findtcb.exit.thread.i11, %if.end.i, %findtcb.exit.thread.i, %if.then
-  %retval.0 = phi ptr [ %4, %if.then ], [ %t.013.i..i, %if.end.i ], [ null, %findtcb.exit.thread.i ], [ %t.013.i..i17, %if.end.i18 ], [ null, %findtcb.exit.thread.i11 ]
+  %retval.0 = phi ptr [ %4, %if.then ], [ %call..i, %if.end.i ], [ null, %findtcb.exit.thread.i ], [ %call..i17, %if.end.i18 ], [ null, %findtcb.exit.thread.i11 ]
   ret ptr %retval.0
 }
 
@@ -892,124 +892,124 @@ entry:
   store i64 1, ptr %t_v1.i, align 8, !tbaa !18
   %t_v2.i = getelementptr inbounds %struct.task, ptr %call.i, i64 0, i32 7
   store i64 10000000, ptr %t_v2.i, align 8, !tbaa !19
-  %call.i28 = tail call noalias dereferenceable_or_null(24) ptr @malloc(i64 noundef 24) #10
-  store ptr null, ptr %call.i28, align 8, !tbaa !20
-  %p_id.i = getelementptr inbounds %struct.packet, ptr %call.i28, i64 0, i32 1
+  %call.i31 = tail call noalias dereferenceable_or_null(24) ptr @malloc(i64 noundef 24) #10
+  store ptr null, ptr %call.i31, align 8, !tbaa !20
+  %p_id.i = getelementptr inbounds %struct.packet, ptr %call.i31, i64 0, i32 1
   store <4 x i32> <i32 0, i32 1001, i32 0, i32 0>, ptr %p_id.i, align 8
-  %call.i29 = tail call noalias dereferenceable_or_null(24) ptr @malloc(i64 noundef 24) #10
-  store ptr %call.i28, ptr %call.i29, align 8, !tbaa !20
-  %p_id.i31 = getelementptr inbounds %struct.packet, ptr %call.i29, i64 0, i32 1
-  store <4 x i32> <i32 0, i32 1001, i32 0, i32 0>, ptr %p_id.i31, align 8
-  %call.i34 = tail call noalias dereferenceable_or_null(56) ptr @malloc(i64 noundef 56) #10
-  store ptr %call.i34, ptr getelementptr inbounds ([11 x ptr], ptr @tasktab, i64 0, i64 2), align 16, !tbaa !5
-  store ptr %call.i, ptr %call.i34, align 8, !tbaa !9
-  %t_id.i35 = getelementptr inbounds %struct.task, ptr %call.i34, i64 0, i32 1
-  store i32 2, ptr %t_id.i35, align 8, !tbaa !13
-  %t_pri.i36 = getelementptr inbounds %struct.task, ptr %call.i34, i64 0, i32 2
-  store i32 1000, ptr %t_pri.i36, align 4, !tbaa !14
-  %t_wkq.i37 = getelementptr inbounds %struct.task, ptr %call.i34, i64 0, i32 3
-  store ptr %call.i29, ptr %t_wkq.i37, align 8, !tbaa !15
-  %t_state.i38 = getelementptr inbounds %struct.task, ptr %call.i34, i64 0, i32 4
-  store i32 3, ptr %t_state.i38, align 8, !tbaa !16
-  %t_fn.i39 = getelementptr inbounds %struct.task, ptr %call.i34, i64 0, i32 5
-  store ptr @workfn, ptr %t_fn.i39, align 8, !tbaa !17
-  %t_v1.i40 = getelementptr inbounds %struct.task, ptr %call.i34, i64 0, i32 6
-  store i64 3, ptr %t_v1.i40, align 8, !tbaa !18
-  %t_v2.i41 = getelementptr inbounds %struct.task, ptr %call.i34, i64 0, i32 7
-  store i64 0, ptr %t_v2.i41, align 8, !tbaa !19
-  %call.i42 = tail call noalias dereferenceable_or_null(24) ptr @malloc(i64 noundef 24) #10
-  store ptr null, ptr %call.i42, align 8, !tbaa !20
-  %p_id.i44 = getelementptr inbounds %struct.packet, ptr %call.i42, i64 0, i32 1
-  store <4 x i32> <i32 5, i32 1000, i32 0, i32 0>, ptr %p_id.i44, align 8
-  %call.i47 = tail call noalias dereferenceable_or_null(24) ptr @malloc(i64 noundef 24) #10
-  store ptr %call.i42, ptr %call.i47, align 8, !tbaa !20
-  %p_id.i49 = getelementptr inbounds %struct.packet, ptr %call.i47, i64 0, i32 1
-  store <4 x i32> <i32 5, i32 1000, i32 0, i32 0>, ptr %p_id.i49, align 8
-  %call.i52 = tail call noalias dereferenceable_or_null(24) ptr @malloc(i64 noundef 24) #10
-  store ptr %call.i47, ptr %call.i52, align 8, !tbaa !20
-  %p_id.i54 = getelementptr inbounds %struct.packet, ptr %call.i52, i64 0, i32 1
-  store <4 x i32> <i32 5, i32 1000, i32 0, i32 0>, ptr %p_id.i54, align 8
-  %call.i57 = tail call noalias dereferenceable_or_null(56) ptr @malloc(i64 noundef 56) #10
-  store ptr %call.i57, ptr getelementptr inbounds ([11 x ptr], ptr @tasktab, i64 0, i64 3), align 8, !tbaa !5
-  store ptr %call.i34, ptr %call.i57, align 8, !tbaa !9
-  %t_id.i58 = getelementptr inbounds %struct.task, ptr %call.i57, i64 0, i32 1
-  store i32 3, ptr %t_id.i58, align 8, !tbaa !13
-  %t_pri.i59 = getelementptr inbounds %struct.task, ptr %call.i57, i64 0, i32 2
-  store i32 2000, ptr %t_pri.i59, align 4, !tbaa !14
-  %t_wkq.i60 = getelementptr inbounds %struct.task, ptr %call.i57, i64 0, i32 3
-  store ptr %call.i52, ptr %t_wkq.i60, align 8, !tbaa !15
-  %t_state.i61 = getelementptr inbounds %struct.task, ptr %call.i57, i64 0, i32 4
-  store i32 3, ptr %t_state.i61, align 8, !tbaa !16
-  %t_fn.i62 = getelementptr inbounds %struct.task, ptr %call.i57, i64 0, i32 5
-  store ptr @handlerfn, ptr %t_fn.i62, align 8, !tbaa !17
-  %t_v1.i63 = getelementptr inbounds %struct.task, ptr %call.i57, i64 0, i32 6
-  tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %t_v1.i63, i8 0, i64 16, i1 false)
-  %call.i65 = tail call noalias dereferenceable_or_null(24) ptr @malloc(i64 noundef 24) #10
-  store ptr null, ptr %call.i65, align 8, !tbaa !20
-  %p_id.i67 = getelementptr inbounds %struct.packet, ptr %call.i65, i64 0, i32 1
-  store <4 x i32> <i32 6, i32 1000, i32 0, i32 0>, ptr %p_id.i67, align 8
-  %call.i70 = tail call noalias dereferenceable_or_null(24) ptr @malloc(i64 noundef 24) #10
-  store ptr %call.i65, ptr %call.i70, align 8, !tbaa !20
-  %p_id.i72 = getelementptr inbounds %struct.packet, ptr %call.i70, i64 0, i32 1
-  store <4 x i32> <i32 6, i32 1000, i32 0, i32 0>, ptr %p_id.i72, align 8
-  %call.i75 = tail call noalias dereferenceable_or_null(24) ptr @malloc(i64 noundef 24) #10
-  store ptr %call.i70, ptr %call.i75, align 8, !tbaa !20
-  %p_id.i77 = getelementptr inbounds %struct.packet, ptr %call.i75, i64 0, i32 1
-  store <4 x i32> <i32 6, i32 1000, i32 0, i32 0>, ptr %p_id.i77, align 8
-  %call.i80 = tail call noalias dereferenceable_or_null(56) ptr @malloc(i64 noundef 56) #10
-  store ptr %call.i80, ptr getelementptr inbounds ([11 x ptr], ptr @tasktab, i64 0, i64 4), align 16, !tbaa !5
-  store ptr %call.i57, ptr %call.i80, align 8, !tbaa !9
-  %t_id.i81 = getelementptr inbounds %struct.task, ptr %call.i80, i64 0, i32 1
-  store i32 4, ptr %t_id.i81, align 8, !tbaa !13
-  %t_pri.i82 = getelementptr inbounds %struct.task, ptr %call.i80, i64 0, i32 2
-  store i32 3000, ptr %t_pri.i82, align 4, !tbaa !14
-  %t_wkq.i83 = getelementptr inbounds %struct.task, ptr %call.i80, i64 0, i32 3
-  store ptr %call.i75, ptr %t_wkq.i83, align 8, !tbaa !15
-  %t_state.i84 = getelementptr inbounds %struct.task, ptr %call.i80, i64 0, i32 4
-  store i32 3, ptr %t_state.i84, align 8, !tbaa !16
-  %t_fn.i85 = getelementptr inbounds %struct.task, ptr %call.i80, i64 0, i32 5
-  store ptr @handlerfn, ptr %t_fn.i85, align 8, !tbaa !17
-  %t_v1.i86 = getelementptr inbounds %struct.task, ptr %call.i80, i64 0, i32 6
-  tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %t_v1.i86, i8 0, i64 16, i1 false)
-  %call.i88 = tail call noalias dereferenceable_or_null(56) ptr @malloc(i64 noundef 56) #10
-  store ptr %call.i88, ptr getelementptr inbounds ([11 x ptr], ptr @tasktab, i64 0, i64 5), align 8, !tbaa !5
-  store ptr %call.i80, ptr %call.i88, align 8, !tbaa !9
-  %t_id.i89 = getelementptr inbounds %struct.task, ptr %call.i88, i64 0, i32 1
-  store i32 5, ptr %t_id.i89, align 8, !tbaa !13
-  %t_pri.i90 = getelementptr inbounds %struct.task, ptr %call.i88, i64 0, i32 2
-  store i32 4000, ptr %t_pri.i90, align 4, !tbaa !14
-  %t_wkq.i91 = getelementptr inbounds %struct.task, ptr %call.i88, i64 0, i32 3
-  store ptr null, ptr %t_wkq.i91, align 8, !tbaa !15
-  %t_state.i92 = getelementptr inbounds %struct.task, ptr %call.i88, i64 0, i32 4
-  store i32 2, ptr %t_state.i92, align 8, !tbaa !16
-  %t_fn.i93 = getelementptr inbounds %struct.task, ptr %call.i88, i64 0, i32 5
-  store ptr @devfn, ptr %t_fn.i93, align 8, !tbaa !17
-  %t_v1.i94 = getelementptr inbounds %struct.task, ptr %call.i88, i64 0, i32 6
-  tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %t_v1.i94, i8 0, i64 16, i1 false)
-  %call.i96 = tail call noalias dereferenceable_or_null(56) ptr @malloc(i64 noundef 56) #10
-  store ptr %call.i96, ptr getelementptr inbounds ([11 x ptr], ptr @tasktab, i64 0, i64 6), align 16, !tbaa !5
-  store ptr %call.i88, ptr %call.i96, align 8, !tbaa !9
-  %t_id.i97 = getelementptr inbounds %struct.task, ptr %call.i96, i64 0, i32 1
-  store i32 6, ptr %t_id.i97, align 8, !tbaa !13
-  %t_pri.i98 = getelementptr inbounds %struct.task, ptr %call.i96, i64 0, i32 2
-  store i32 5000, ptr %t_pri.i98, align 4, !tbaa !14
-  %t_wkq.i99 = getelementptr inbounds %struct.task, ptr %call.i96, i64 0, i32 3
-  store ptr null, ptr %t_wkq.i99, align 8, !tbaa !15
-  %t_state.i100 = getelementptr inbounds %struct.task, ptr %call.i96, i64 0, i32 4
-  store i32 2, ptr %t_state.i100, align 8, !tbaa !16
-  %t_fn.i101 = getelementptr inbounds %struct.task, ptr %call.i96, i64 0, i32 5
-  store ptr @devfn, ptr %t_fn.i101, align 8, !tbaa !17
-  %t_v1.i102 = getelementptr inbounds %struct.task, ptr %call.i96, i64 0, i32 6
-  tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %t_v1.i102, i8 0, i64 16, i1 false)
-  store ptr %call.i96, ptr @tasklist, align 8, !tbaa !5
-  store ptr %call.i96, ptr @tcb, align 8, !tbaa !5
+  %call.i32 = tail call noalias dereferenceable_or_null(24) ptr @malloc(i64 noundef 24) #10
+  store ptr %call.i31, ptr %call.i32, align 8, !tbaa !20
+  %p_id.i34 = getelementptr inbounds %struct.packet, ptr %call.i32, i64 0, i32 1
+  store <4 x i32> <i32 0, i32 1001, i32 0, i32 0>, ptr %p_id.i34, align 8
+  %call.i37 = tail call noalias dereferenceable_or_null(56) ptr @malloc(i64 noundef 56) #10
+  store ptr %call.i37, ptr getelementptr inbounds ([11 x ptr], ptr @tasktab, i64 0, i64 2), align 16, !tbaa !5
+  store ptr %call.i, ptr %call.i37, align 8, !tbaa !9
+  %t_id.i38 = getelementptr inbounds %struct.task, ptr %call.i37, i64 0, i32 1
+  store i32 2, ptr %t_id.i38, align 8, !tbaa !13
+  %t_pri.i39 = getelementptr inbounds %struct.task, ptr %call.i37, i64 0, i32 2
+  store i32 1000, ptr %t_pri.i39, align 4, !tbaa !14
+  %t_wkq.i40 = getelementptr inbounds %struct.task, ptr %call.i37, i64 0, i32 3
+  store ptr %call.i32, ptr %t_wkq.i40, align 8, !tbaa !15
+  %t_state.i41 = getelementptr inbounds %struct.task, ptr %call.i37, i64 0, i32 4
+  store i32 3, ptr %t_state.i41, align 8, !tbaa !16
+  %t_fn.i42 = getelementptr inbounds %struct.task, ptr %call.i37, i64 0, i32 5
+  store ptr @workfn, ptr %t_fn.i42, align 8, !tbaa !17
+  %t_v1.i43 = getelementptr inbounds %struct.task, ptr %call.i37, i64 0, i32 6
+  store i64 3, ptr %t_v1.i43, align 8, !tbaa !18
+  %t_v2.i44 = getelementptr inbounds %struct.task, ptr %call.i37, i64 0, i32 7
+  store i64 0, ptr %t_v2.i44, align 8, !tbaa !19
+  %call.i45 = tail call noalias dereferenceable_or_null(24) ptr @malloc(i64 noundef 24) #10
+  store ptr null, ptr %call.i45, align 8, !tbaa !20
+  %p_id.i47 = getelementptr inbounds %struct.packet, ptr %call.i45, i64 0, i32 1
+  store <4 x i32> <i32 5, i32 1000, i32 0, i32 0>, ptr %p_id.i47, align 8
+  %call.i50 = tail call noalias dereferenceable_or_null(24) ptr @malloc(i64 noundef 24) #10
+  store ptr %call.i45, ptr %call.i50, align 8, !tbaa !20
+  %p_id.i52 = getelementptr inbounds %struct.packet, ptr %call.i50, i64 0, i32 1
+  store <4 x i32> <i32 5, i32 1000, i32 0, i32 0>, ptr %p_id.i52, align 8
+  %call.i55 = tail call noalias dereferenceable_or_null(24) ptr @malloc(i64 noundef 24) #10
+  store ptr %call.i50, ptr %call.i55, align 8, !tbaa !20
+  %p_id.i57 = getelementptr inbounds %struct.packet, ptr %call.i55, i64 0, i32 1
+  store <4 x i32> <i32 5, i32 1000, i32 0, i32 0>, ptr %p_id.i57, align 8
+  %call.i60 = tail call noalias dereferenceable_or_null(56) ptr @malloc(i64 noundef 56) #10
+  store ptr %call.i60, ptr getelementptr inbounds ([11 x ptr], ptr @tasktab, i64 0, i64 3), align 8, !tbaa !5
+  store ptr %call.i37, ptr %call.i60, align 8, !tbaa !9
+  %t_id.i61 = getelementptr inbounds %struct.task, ptr %call.i60, i64 0, i32 1
+  store i32 3, ptr %t_id.i61, align 8, !tbaa !13
+  %t_pri.i62 = getelementptr inbounds %struct.task, ptr %call.i60, i64 0, i32 2
+  store i32 2000, ptr %t_pri.i62, align 4, !tbaa !14
+  %t_wkq.i63 = getelementptr inbounds %struct.task, ptr %call.i60, i64 0, i32 3
+  store ptr %call.i55, ptr %t_wkq.i63, align 8, !tbaa !15
+  %t_state.i64 = getelementptr inbounds %struct.task, ptr %call.i60, i64 0, i32 4
+  store i32 3, ptr %t_state.i64, align 8, !tbaa !16
+  %t_fn.i65 = getelementptr inbounds %struct.task, ptr %call.i60, i64 0, i32 5
+  store ptr @handlerfn, ptr %t_fn.i65, align 8, !tbaa !17
+  %t_v1.i66 = getelementptr inbounds %struct.task, ptr %call.i60, i64 0, i32 6
+  tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %t_v1.i66, i8 0, i64 16, i1 false)
+  %call.i68 = tail call noalias dereferenceable_or_null(24) ptr @malloc(i64 noundef 24) #10
+  store ptr null, ptr %call.i68, align 8, !tbaa !20
+  %p_id.i70 = getelementptr inbounds %struct.packet, ptr %call.i68, i64 0, i32 1
+  store <4 x i32> <i32 6, i32 1000, i32 0, i32 0>, ptr %p_id.i70, align 8
+  %call.i73 = tail call noalias dereferenceable_or_null(24) ptr @malloc(i64 noundef 24) #10
+  store ptr %call.i68, ptr %call.i73, align 8, !tbaa !20
+  %p_id.i75 = getelementptr inbounds %struct.packet, ptr %call.i73, i64 0, i32 1
+  store <4 x i32> <i32 6, i32 1000, i32 0, i32 0>, ptr %p_id.i75, align 8
+  %call.i78 = tail call noalias dereferenceable_or_null(24) ptr @malloc(i64 noundef 24) #10
+  store ptr %call.i73, ptr %call.i78, align 8, !tbaa !20
+  %p_id.i80 = getelementptr inbounds %struct.packet, ptr %call.i78, i64 0, i32 1
+  store <4 x i32> <i32 6, i32 1000, i32 0, i32 0>, ptr %p_id.i80, align 8
+  %call.i83 = tail call noalias dereferenceable_or_null(56) ptr @malloc(i64 noundef 56) #10
+  store ptr %call.i83, ptr getelementptr inbounds ([11 x ptr], ptr @tasktab, i64 0, i64 4), align 16, !tbaa !5
+  store ptr %call.i60, ptr %call.i83, align 8, !tbaa !9
+  %t_id.i84 = getelementptr inbounds %struct.task, ptr %call.i83, i64 0, i32 1
+  store i32 4, ptr %t_id.i84, align 8, !tbaa !13
+  %t_pri.i85 = getelementptr inbounds %struct.task, ptr %call.i83, i64 0, i32 2
+  store i32 3000, ptr %t_pri.i85, align 4, !tbaa !14
+  %t_wkq.i86 = getelementptr inbounds %struct.task, ptr %call.i83, i64 0, i32 3
+  store ptr %call.i78, ptr %t_wkq.i86, align 8, !tbaa !15
+  %t_state.i87 = getelementptr inbounds %struct.task, ptr %call.i83, i64 0, i32 4
+  store i32 3, ptr %t_state.i87, align 8, !tbaa !16
+  %t_fn.i88 = getelementptr inbounds %struct.task, ptr %call.i83, i64 0, i32 5
+  store ptr @handlerfn, ptr %t_fn.i88, align 8, !tbaa !17
+  %t_v1.i89 = getelementptr inbounds %struct.task, ptr %call.i83, i64 0, i32 6
+  tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %t_v1.i89, i8 0, i64 16, i1 false)
+  %call.i91 = tail call noalias dereferenceable_or_null(56) ptr @malloc(i64 noundef 56) #10
+  store ptr %call.i91, ptr getelementptr inbounds ([11 x ptr], ptr @tasktab, i64 0, i64 5), align 8, !tbaa !5
+  store ptr %call.i83, ptr %call.i91, align 8, !tbaa !9
+  %t_id.i92 = getelementptr inbounds %struct.task, ptr %call.i91, i64 0, i32 1
+  store i32 5, ptr %t_id.i92, align 8, !tbaa !13
+  %t_pri.i93 = getelementptr inbounds %struct.task, ptr %call.i91, i64 0, i32 2
+  store i32 4000, ptr %t_pri.i93, align 4, !tbaa !14
+  %t_wkq.i94 = getelementptr inbounds %struct.task, ptr %call.i91, i64 0, i32 3
+  store ptr null, ptr %t_wkq.i94, align 8, !tbaa !15
+  %t_state.i95 = getelementptr inbounds %struct.task, ptr %call.i91, i64 0, i32 4
+  store i32 2, ptr %t_state.i95, align 8, !tbaa !16
+  %t_fn.i96 = getelementptr inbounds %struct.task, ptr %call.i91, i64 0, i32 5
+  store ptr @devfn, ptr %t_fn.i96, align 8, !tbaa !17
+  %t_v1.i97 = getelementptr inbounds %struct.task, ptr %call.i91, i64 0, i32 6
+  tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %t_v1.i97, i8 0, i64 16, i1 false)
+  %call.i99 = tail call noalias dereferenceable_or_null(56) ptr @malloc(i64 noundef 56) #10
+  store ptr %call.i99, ptr getelementptr inbounds ([11 x ptr], ptr @tasktab, i64 0, i64 6), align 16, !tbaa !5
+  store ptr %call.i91, ptr %call.i99, align 8, !tbaa !9
+  %t_id.i100 = getelementptr inbounds %struct.task, ptr %call.i99, i64 0, i32 1
+  store i32 6, ptr %t_id.i100, align 8, !tbaa !13
+  %t_pri.i101 = getelementptr inbounds %struct.task, ptr %call.i99, i64 0, i32 2
+  store i32 5000, ptr %t_pri.i101, align 4, !tbaa !14
+  %t_wkq.i102 = getelementptr inbounds %struct.task, ptr %call.i99, i64 0, i32 3
+  store ptr null, ptr %t_wkq.i102, align 8, !tbaa !15
+  %t_state.i103 = getelementptr inbounds %struct.task, ptr %call.i99, i64 0, i32 4
+  store i32 2, ptr %t_state.i103, align 8, !tbaa !16
+  %t_fn.i104 = getelementptr inbounds %struct.task, ptr %call.i99, i64 0, i32 5
+  store ptr @devfn, ptr %t_fn.i104, align 8, !tbaa !17
+  %t_v1.i105 = getelementptr inbounds %struct.task, ptr %call.i99, i64 0, i32 6
+  tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %t_v1.i105, i8 0, i64 16, i1 false)
+  store ptr %call.i99, ptr @tasklist, align 8, !tbaa !5
+  store ptr %call.i99, ptr @tcb, align 8, !tbaa !5
   store i32 0, ptr @holdcount, align 4, !tbaa !25
   store i32 0, ptr @qpktcount, align 4, !tbaa !25
-  %puts104 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.11)
+  %puts28 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.11)
   store i32 0, ptr @tracing, align 4, !tbaa !25
   store i32 0, ptr @layout, align 4, !tbaa !25
   tail call void @schedule()
-  %puts105 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.12)
+  %puts29 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.12)
   %1 = load i32, ptr @qpktcount, align 4, !tbaa !25
   %2 = load i32, ptr @holdcount, align 4, !tbaa !25
   %call12 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.6, i32 noundef %1, i32 noundef %2)
@@ -1022,18 +1022,18 @@ entry:
   %.str.8..str.9 = select i1 %or.cond.not, ptr @.str.9, ptr @.str.8
   %. = zext i1 %or.cond.not to i32
   %call16 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) %.str.8..str.9)
-  %puts106 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.13)
+  %puts30 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.13)
   ret i32 %.
 }
 
+; Function Attrs: nofree nounwind
+declare noundef i32 @putchar(i32 noundef) local_unnamed_addr #8
+
+; Function Attrs: nofree nounwind
+declare noundef i32 @puts(ptr nocapture noundef readonly) local_unnamed_addr #8
+
 ; Function Attrs: nocallback nofree nounwind willreturn memory(argmem: write)
-declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #8
-
-; Function Attrs: nofree nounwind
-declare noundef i32 @putchar(i32 noundef) local_unnamed_addr #9
-
-; Function Attrs: nofree nounwind
-declare noundef i32 @puts(ptr nocapture noundef readonly) local_unnamed_addr #9
+declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #9
 
 attributes #0 = { mustprogress nofree nounwind willreturn memory(readwrite, argmem: none) uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #1 = { mustprogress nofree nounwind willreturn allockind("alloc,uninitialized") allocsize(0) memory(inaccessiblemem: readwrite) "alloc-family"="malloc" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
@@ -1043,8 +1043,8 @@ attributes #4 = { nofree nounwind "no-trapping-math"="true" "stack-protector-buf
 attributes #5 = { nounwind uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #6 = { mustprogress nofree norecurse nosync nounwind willreturn memory(readwrite, inaccessiblemem: none) uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #7 = { nofree norecurse nosync nounwind memory(readwrite, inaccessiblemem: none) uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
-attributes #8 = { nocallback nofree nounwind willreturn memory(argmem: write) }
-attributes #9 = { nofree nounwind }
+attributes #8 = { nofree nounwind }
+attributes #9 = { nocallback nofree nounwind willreturn memory(argmem: write) }
 attributes #10 = { nounwind allocsize(0) }
 attributes #11 = { nounwind }
 

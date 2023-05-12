@@ -76,7 +76,7 @@ for.cond4.preheader.us.us.us.i:                   ; preds = %for.cond4.preheader
   %indvars.iv68.i = phi i64 [ %indvars.iv.next69.i, %for.cond4.preheader.us.us.us.i ], [ 0, %for.cond1.preheader.us.us.i ]
   %1 = trunc i64 %indvars.iv68.i to i32
   %2 = shl i32 %1, 7
-  %add24.us.us.us.i = add nuw nsw i32 %0, %2
+  %add24.us.us.us.i = add nuw nsw i32 %2, %0
   %3 = sext i32 %add24.us.us.us.i to i64
   %4 = getelementptr inbounds float, ptr %call.i, i64 %3
   store <4 x float> %broadcast.splat, ptr %4, align 4, !tbaa !12
@@ -175,7 +175,7 @@ for.cond4.preheader.us.us.us.i67:                 ; preds = %for.cond4.preheader
   %indvars.iv60.i = phi i64 [ %indvars.iv.next61.i, %for.cond4.preheader.us.us.us.i67 ], [ 0, %for.cond1.preheader.us.us.i66 ]
   %52 = trunc i64 %indvars.iv60.i to i32
   %53 = shl i32 %52, 7
-  %add18.us.us.us.i = add nuw nsw i32 %51, %53
+  %add18.us.us.us.i = add nuw nsw i32 %53, %51
   %54 = sext i32 %add18.us.us.us.i to i64
   %55 = getelementptr inbounds float, ptr %call.i44, i64 %54
   store <4 x float> <float 1.000000e+00, float 1.000000e+00, float 1.000000e+00, float 1.000000e+00>, ptr %55, align 4, !tbaa !12
@@ -279,7 +279,7 @@ for.cond4.preheader.us.us.us.i141:                ; preds = %for.cond4.preheader
   %indvars.iv60.i138 = phi i64 [ %indvars.iv.next61.i147, %for.cond4.preheader.us.us.us.i141 ], [ 0, %for.cond1.preheader.us.us.i137 ]
   %103 = trunc i64 %indvars.iv60.i138 to i32
   %104 = shl i32 %103, 7
-  %add18.us.us.us.i140 = add nuw nsw i32 %102, %104
+  %add18.us.us.us.i140 = add nuw nsw i32 %104, %102
   %105 = sext i32 %add18.us.us.us.i140 to i64
   %106 = getelementptr inbounds float, ptr %call.i53, i64 %105
   store <4 x float> <float 1.000000e+00, float 1.000000e+00, float 1.000000e+00, float 1.000000e+00>, ptr %106, align 4, !tbaa !12
@@ -682,7 +682,7 @@ for.cond4.preheader.us.us.us.i336:                ; preds = %for.cond4.preheader
   %indvars.iv60.i333 = phi i64 [ %indvars.iv.next61.i342, %for.cond4.preheader.us.us.us.i336 ], [ 0, %for.cond1.preheader.us.us.i332 ]
   %301 = trunc i64 %indvars.iv60.i333 to i32
   %302 = shl i32 %301, 7
-  %add18.us.us.us.i335 = add nuw nsw i32 %300, %302
+  %add18.us.us.us.i335 = add nuw nsw i32 %302, %300
   %303 = sext i32 %add18.us.us.us.i335 to i64
   %304 = getelementptr inbounds float, ptr %call.i59, i64 %303
   store <4 x float> <float 1.000000e+00, float 1.000000e+00, float 1.000000e+00, float 1.000000e+00>, ptr %304, align 4, !tbaa !12
@@ -1923,11 +1923,11 @@ if.end:                                           ; preds = %if.else, %if.then
 ; Function Attrs: nofree nounwind
 declare noundef i32 @gettimeofday(ptr nocapture noundef, ptr nocapture noundef) local_unnamed_addr #2
 
-; Function Attrs: nocallback nofree nounwind willreturn memory(argmem: write)
-declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #14
-
 ; Function Attrs: nofree nounwind
-declare noundef i32 @puts(ptr nocapture noundef readonly) local_unnamed_addr #15
+declare noundef i32 @puts(ptr nocapture noundef readonly) local_unnamed_addr #14
+
+; Function Attrs: nocallback nofree nounwind willreturn memory(argmem: write)
+declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #15
 
 attributes #0 = { nounwind uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #1 = { mustprogress nocallback nofree nosync nounwind willreturn memory(argmem: readwrite) }
@@ -1943,8 +1943,8 @@ attributes #10 = { mustprogress nofree nounwind willreturn allockind("alloc,unin
 attributes #11 = { mustprogress nounwind willreturn allockind("free") memory(argmem: readwrite, inaccessiblemem: readwrite) "alloc-family"="malloc" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #12 = { mustprogress nocallback nofree nosync nounwind speculatable willreturn memory(none) }
 attributes #13 = { nofree nounwind uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
-attributes #14 = { nocallback nofree nounwind willreturn memory(argmem: write) }
-attributes #15 = { nofree nounwind }
+attributes #14 = { nofree nounwind }
+attributes #15 = { nocallback nofree nounwind willreturn memory(argmem: write) }
 attributes #16 = { nounwind allocsize(0) }
 attributes #17 = { nounwind }
 attributes #18 = { nounwind willreturn memory(read) }

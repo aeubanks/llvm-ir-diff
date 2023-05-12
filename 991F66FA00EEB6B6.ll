@@ -121,29 +121,28 @@ entry:
   switch i32 %call, label %sw.epilog.i [
     i32 0, label %cleanup
     i32 1, label %sw.bb4.i
-    i32 -2147024882, label %_Z15HRESULT_To_SResii.exit
+    i32 -2147024882, label %sw.bb1.i
     i32 -2147024809, label %sw.bb2.i
     i32 -2147467260, label %sw.bb3.i
   ]
 
-sw.bb2.i:                                         ; preds = %entry
-  br label %_Z15HRESULT_To_SResii.exit
-
-sw.bb3.i:                                         ; preds = %entry
-  br label %_Z15HRESULT_To_SResii.exit
-
-sw.bb4.i:                                         ; preds = %entry
-  br label %_Z15HRESULT_To_SResii.exit
-
-sw.epilog.i:                                      ; preds = %entry
-  br label %_Z15HRESULT_To_SResii.exit
-
-_Z15HRESULT_To_SResii.exit:                       ; preds = %entry, %sw.bb2.i, %sw.bb3.i, %sw.bb4.i, %sw.epilog.i
-  %retval.0.i = phi i32 [ 8, %sw.epilog.i ], [ 1, %sw.bb4.i ], [ 10, %sw.bb3.i ], [ 5, %sw.bb2.i ], [ 2, %entry ]
+sw.bb1.i:                                         ; preds = %entry
   br label %cleanup
 
-cleanup:                                          ; preds = %entry, %_Z15HRESULT_To_SResii.exit
-  %retval.0 = phi i32 [ %retval.0.i, %_Z15HRESULT_To_SResii.exit ], [ %call, %entry ]
+sw.bb2.i:                                         ; preds = %entry
+  br label %cleanup
+
+sw.bb3.i:                                         ; preds = %entry
+  br label %cleanup
+
+sw.bb4.i:                                         ; preds = %entry
+  br label %cleanup
+
+sw.epilog.i:                                      ; preds = %entry
+  br label %cleanup
+
+cleanup:                                          ; preds = %entry, %sw.epilog.i, %sw.bb4.i, %sw.bb3.i, %sw.bb2.i, %sw.bb1.i
+  %retval.0 = phi i32 [ %call, %entry ], [ 8, %sw.epilog.i ], [ 1, %sw.bb4.i ], [ 10, %sw.bb3.i ], [ 5, %sw.bb2.i ], [ 2, %sw.bb1.i ]
   call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %curSize) #6
   ret i32 %retval.0
 }
@@ -355,7 +354,7 @@ if.then:                                          ; preds = %entry
   %6 = load ptr, ptr %vfn, align 8
   %call = call noundef i32 %6(ptr noundef nonnull align 8 dereferenceable(8) %4, ptr noundef %2, i32 noundef %5, ptr noundef nonnull %avail)
   store i32 %call, ptr %Res, align 4, !tbaa !45
-  %7 = load ptr, ptr %Buf, align 8, !tbaa !48
+  %7 = load ptr, ptr %Buf, align 8, !tbaa !38
   store ptr %7, ptr %Cur, align 8, !tbaa !42
   %8 = load i32, ptr %avail, align 4, !tbaa !24
   %idx.ext = zext i32 %8 to i64
@@ -372,13 +371,13 @@ cleanup.thread:                                   ; preds = %if.then
 cleanup:                                          ; preds = %if.then
   %incdec.ptr = getelementptr inbounds i8, ptr %7, i64 1
   store ptr %incdec.ptr, ptr %Cur, align 8, !tbaa !42
-  %9 = load i8, ptr %7, align 1, !tbaa !49
+  %9 = load i8, ptr %7, align 1, !tbaa !48
   call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %avail) #6
   br label %return
 
 if.end10:                                         ; preds = %cleanup.thread, %entry
   %Extra = getelementptr inbounds %struct.CByteInBufWrap, ptr %this, i64 0, i32 7
-  store i8 1, ptr %Extra, align 8, !tbaa !50
+  store i8 1, ptr %Extra, align 8, !tbaa !49
   br label %return
 
 return:                                           ; preds = %cleanup, %if.end10
@@ -397,7 +396,7 @@ define dso_local void @_ZN14CByteInBufWrapC2Ev(ptr nocapture noundef nonnull wri
 entry:
   %Buf = getelementptr inbounds %struct.CByteInBufWrap, ptr %this, i64 0, i32 3
   store ptr null, ptr %Buf, align 8, !tbaa !38
-  store ptr @_ZL13Wrap_ReadBytePv, ptr %this, align 8, !tbaa !51
+  store ptr @_ZL13Wrap_ReadBytePv, ptr %this, align 8, !tbaa !50
   ret void
 }
 
@@ -415,7 +414,7 @@ entry:
 if.then:                                          ; preds = %entry
   %incdec.ptr = getelementptr inbounds i8, ptr %0, i64 1
   store ptr %incdec.ptr, ptr %Cur, align 8, !tbaa !42
-  %2 = load i8, ptr %0, align 1, !tbaa !49
+  %2 = load i8, ptr %0, align 1, !tbaa !48
   br label %cleanup
 
 if.end:                                           ; preds = %entry
@@ -444,7 +443,7 @@ if.then.i:                                        ; preds = %if.end
   %8 = load ptr, ptr %vfn.i, align 8
   %call.i = call noundef i32 %8(ptr noundef nonnull align 8 dereferenceable(8) %6, ptr noundef %4, i32 noundef %7, ptr noundef nonnull %avail.i)
   store i32 %call.i, ptr %Res.i, align 4, !tbaa !45
-  %9 = load ptr, ptr %Buf.i, align 8, !tbaa !48
+  %9 = load ptr, ptr %Buf.i, align 8, !tbaa !38
   store ptr %9, ptr %Cur, align 8, !tbaa !42
   %10 = load i32, ptr %avail.i, align 4, !tbaa !24
   %idx.ext.i = zext i32 %10 to i64
@@ -460,13 +459,13 @@ cleanup.thread.i:                                 ; preds = %if.then.i
 cleanup.i:                                        ; preds = %if.then.i
   %incdec.ptr.i = getelementptr inbounds i8, ptr %9, i64 1
   store ptr %incdec.ptr.i, ptr %Cur, align 8, !tbaa !42
-  %11 = load i8, ptr %9, align 1, !tbaa !49
+  %11 = load i8, ptr %9, align 1, !tbaa !48
   call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %avail.i) #6
   br label %cleanup
 
 if.end10.i:                                       ; preds = %cleanup.thread.i, %if.end
   %Extra.i = getelementptr inbounds %struct.CByteInBufWrap, ptr %pp, i64 0, i32 7
-  store i8 1, ptr %Extra.i, align 8, !tbaa !50
+  store i8 1, ptr %Extra.i, align 8, !tbaa !49
   br label %cleanup
 
 cleanup:                                          ; preds = %if.end10.i, %cleanup.i, %if.then
@@ -478,9 +477,9 @@ cleanup:                                          ; preds = %if.end10.i, %cleanu
 define dso_local void @_ZN15CByteOutBufWrap4FreeEv(ptr nocapture noundef nonnull align 8 dereferenceable(60) %this) local_unnamed_addr #1 align 2 {
 entry:
   %Buf = getelementptr inbounds %struct.CByteOutBufWrap, ptr %this, i64 0, i32 3
-  %0 = load ptr, ptr %Buf, align 8, !tbaa !52
+  %0 = load ptr, ptr %Buf, align 8, !tbaa !51
   tail call void @MidFree(ptr noundef %0)
-  store ptr null, ptr %Buf, align 8, !tbaa !52
+  store ptr null, ptr %Buf, align 8, !tbaa !51
   ret void
 }
 
@@ -488,7 +487,7 @@ entry:
 define dso_local noundef zeroext i1 @_ZN15CByteOutBufWrap5AllocEm(ptr nocapture noundef nonnull align 8 dereferenceable(60) %this, i64 noundef %size) local_unnamed_addr #1 align 2 {
 entry:
   %Buf = getelementptr inbounds %struct.CByteOutBufWrap, ptr %this, i64 0, i32 3
-  %0 = load ptr, ptr %Buf, align 8, !tbaa !52
+  %0 = load ptr, ptr %Buf, align 8, !tbaa !51
   %cmp = icmp ne ptr %0, null
   %Size = getelementptr inbounds %struct.CByteOutBufWrap, ptr %this, i64 0, i32 4
   %1 = load i64, ptr %Size, align 8
@@ -498,10 +497,10 @@ entry:
 
 if.then:                                          ; preds = %entry
   tail call void @MidFree(ptr noundef %0)
-  store ptr null, ptr %Buf, align 8, !tbaa !52
+  store ptr null, ptr %Buf, align 8, !tbaa !51
   %call = tail call ptr @MidAlloc(i64 noundef %size)
-  store ptr %call, ptr %Buf, align 8, !tbaa !52
-  store i64 %size, ptr %Size, align 8, !tbaa !55
+  store ptr %call, ptr %Buf, align 8, !tbaa !51
+  store i64 %size, ptr %Size, align 8, !tbaa !54
   br label %if.end
 
 if.end:                                           ; preds = %entry, %if.then
@@ -514,35 +513,35 @@ if.end:                                           ; preds = %entry, %if.then
 define dso_local noundef i32 @_ZN15CByteOutBufWrap5FlushEv(ptr nocapture noundef nonnull align 8 dereferenceable(60) %this) local_unnamed_addr #1 align 2 {
 entry:
   %Res = getelementptr inbounds %struct.CByteOutBufWrap, ptr %this, i64 0, i32 7
-  %0 = load i32, ptr %Res, align 8, !tbaa !56
+  %0 = load i32, ptr %Res, align 8, !tbaa !55
   %cmp = icmp eq i32 %0, 0
   br i1 %cmp, label %if.then, label %if.end9
 
 if.then:                                          ; preds = %entry
   %Cur = getelementptr inbounds %struct.CByteOutBufWrap, ptr %this, i64 0, i32 1
-  %1 = load ptr, ptr %Cur, align 8, !tbaa !57
+  %1 = load ptr, ptr %Cur, align 8, !tbaa !56
   %Buf = getelementptr inbounds %struct.CByteOutBufWrap, ptr %this, i64 0, i32 3
-  %2 = load ptr, ptr %Buf, align 8, !tbaa !52
+  %2 = load ptr, ptr %Buf, align 8, !tbaa !51
   %sub.ptr.lhs.cast = ptrtoint ptr %1 to i64
   %sub.ptr.rhs.cast = ptrtoint ptr %2 to i64
   %sub.ptr.sub = sub i64 %sub.ptr.lhs.cast, %sub.ptr.rhs.cast
   %Stream = getelementptr inbounds %struct.CByteOutBufWrap, ptr %this, i64 0, i32 5
-  %3 = load ptr, ptr %Stream, align 8, !tbaa !58
+  %3 = load ptr, ptr %Stream, align 8, !tbaa !57
   %call = tail call noundef i32 @_Z11WriteStreamP20ISequentialOutStreamPKvm(ptr noundef %3, ptr noundef %2, i64 noundef %sub.ptr.sub)
-  store i32 %call, ptr %Res, align 8, !tbaa !56
+  store i32 %call, ptr %Res, align 8, !tbaa !55
   %cmp5 = icmp eq i32 %call, 0
   br i1 %cmp5, label %if.then6, label %if.end
 
 if.then6:                                         ; preds = %if.then
   %Processed = getelementptr inbounds %struct.CByteOutBufWrap, ptr %this, i64 0, i32 6
-  %4 = load i64, ptr %Processed, align 8, !tbaa !59
+  %4 = load i64, ptr %Processed, align 8, !tbaa !58
   %add = add i64 %4, %sub.ptr.sub
-  store i64 %add, ptr %Processed, align 8, !tbaa !59
+  store i64 %add, ptr %Processed, align 8, !tbaa !58
   br label %if.end
 
 if.end:                                           ; preds = %if.then6, %if.then
-  %5 = load ptr, ptr %Buf, align 8, !tbaa !52
-  store ptr %5, ptr %Cur, align 8, !tbaa !57
+  %5 = load ptr, ptr %Buf, align 8, !tbaa !51
+  store ptr %5, ptr %Cur, align 8, !tbaa !56
   br label %if.end9
 
 if.end9:                                          ; preds = %if.end, %entry
@@ -556,8 +555,8 @@ declare noundef i32 @_Z11WriteStreamP20ISequentialOutStreamPKvm(ptr noundef, ptr
 define dso_local void @_ZN15CByteOutBufWrapC2Ev(ptr nocapture noundef nonnull writeonly align 8 dereferenceable(60) %this) unnamed_addr #0 align 2 {
 entry:
   %Buf = getelementptr inbounds %struct.CByteOutBufWrap, ptr %this, i64 0, i32 3
-  store ptr null, ptr %Buf, align 8, !tbaa !52
-  store ptr @_ZL14Wrap_WriteBytePvh, ptr %this, align 8, !tbaa !60
+  store ptr null, ptr %Buf, align 8, !tbaa !51
+  store ptr @_ZL14Wrap_WriteBytePvh, ptr %this, align 8, !tbaa !59
   ret void
 }
 
@@ -565,44 +564,44 @@ entry:
 define internal void @_ZL14Wrap_WriteBytePvh(ptr nocapture noundef %pp, i8 noundef zeroext %b) #1 {
 entry:
   %Cur = getelementptr inbounds %struct.CByteOutBufWrap, ptr %pp, i64 0, i32 1
-  %0 = load ptr, ptr %Cur, align 8, !tbaa !57
-  store i8 %b, ptr %0, align 1, !tbaa !49
+  %0 = load ptr, ptr %Cur, align 8, !tbaa !56
+  store i8 %b, ptr %0, align 1, !tbaa !48
   %incdec.ptr = getelementptr inbounds i8, ptr %0, i64 1
-  store ptr %incdec.ptr, ptr %Cur, align 8, !tbaa !57
+  store ptr %incdec.ptr, ptr %Cur, align 8, !tbaa !56
   %Lim = getelementptr inbounds %struct.CByteOutBufWrap, ptr %pp, i64 0, i32 2
-  %1 = load ptr, ptr %Lim, align 8, !tbaa !61
+  %1 = load ptr, ptr %Lim, align 8, !tbaa !60
   %cmp = icmp eq ptr %incdec.ptr, %1
   br i1 %cmp, label %if.then, label %if.end
 
 if.then:                                          ; preds = %entry
   %Res.i = getelementptr inbounds %struct.CByteOutBufWrap, ptr %pp, i64 0, i32 7
-  %2 = load i32, ptr %Res.i, align 8, !tbaa !56
+  %2 = load i32, ptr %Res.i, align 8, !tbaa !55
   %cmp.i = icmp eq i32 %2, 0
   br i1 %cmp.i, label %if.then.i, label %if.end
 
 if.then.i:                                        ; preds = %if.then
   %Buf.i = getelementptr inbounds %struct.CByteOutBufWrap, ptr %pp, i64 0, i32 3
-  %3 = load ptr, ptr %Buf.i, align 8, !tbaa !52
+  %3 = load ptr, ptr %Buf.i, align 8, !tbaa !51
   %sub.ptr.lhs.cast.i = ptrtoint ptr %incdec.ptr to i64
   %sub.ptr.rhs.cast.i = ptrtoint ptr %3 to i64
   %sub.ptr.sub.i = sub i64 %sub.ptr.lhs.cast.i, %sub.ptr.rhs.cast.i
   %Stream.i = getelementptr inbounds %struct.CByteOutBufWrap, ptr %pp, i64 0, i32 5
-  %4 = load ptr, ptr %Stream.i, align 8, !tbaa !58
+  %4 = load ptr, ptr %Stream.i, align 8, !tbaa !57
   %call.i = tail call noundef i32 @_Z11WriteStreamP20ISequentialOutStreamPKvm(ptr noundef %4, ptr noundef %3, i64 noundef %sub.ptr.sub.i)
-  store i32 %call.i, ptr %Res.i, align 8, !tbaa !56
+  store i32 %call.i, ptr %Res.i, align 8, !tbaa !55
   %cmp5.i = icmp eq i32 %call.i, 0
   br i1 %cmp5.i, label %if.then6.i, label %if.end.i
 
 if.then6.i:                                       ; preds = %if.then.i
   %Processed.i = getelementptr inbounds %struct.CByteOutBufWrap, ptr %pp, i64 0, i32 6
-  %5 = load i64, ptr %Processed.i, align 8, !tbaa !59
+  %5 = load i64, ptr %Processed.i, align 8, !tbaa !58
   %add.i = add i64 %5, %sub.ptr.sub.i
-  store i64 %add.i, ptr %Processed.i, align 8, !tbaa !59
+  store i64 %add.i, ptr %Processed.i, align 8, !tbaa !58
   br label %if.end.i
 
 if.end.i:                                         ; preds = %if.then6.i, %if.then.i
-  %6 = load ptr, ptr %Buf.i, align 8, !tbaa !52
-  store ptr %6, ptr %Cur, align 8, !tbaa !57
+  %6 = load ptr, ptr %Buf.i, align 8, !tbaa !51
+  store ptr %6, ptr %Cur, align 8, !tbaa !56
   br label %if.end
 
 if.end:                                           ; preds = %if.end.i, %if.then, %entry
@@ -671,17 +670,16 @@ attributes #6 = { nounwind }
 !45 = !{!39, !11, i64 60}
 !46 = !{!39, !15, i64 48}
 !47 = !{!39, !8, i64 40}
-!48 = !{!8, !8, i64 0}
-!49 = !{!9, !9, i64 0}
-!50 = !{!39, !41, i64 56}
-!51 = !{!39, !8, i64 0}
-!52 = !{!53, !8, i64 24}
-!53 = !{!"_ZTS15CByteOutBufWrap", !54, i64 0, !8, i64 8, !8, i64 16, !8, i64 24, !23, i64 32, !8, i64 40, !15, i64 48, !11, i64 56}
-!54 = !{!"_ZTS8IByteOut", !8, i64 0}
-!55 = !{!53, !23, i64 32}
-!56 = !{!53, !11, i64 56}
-!57 = !{!53, !8, i64 8}
-!58 = !{!53, !8, i64 40}
-!59 = !{!53, !15, i64 48}
-!60 = !{!53, !8, i64 0}
-!61 = !{!53, !8, i64 16}
+!48 = !{!9, !9, i64 0}
+!49 = !{!39, !41, i64 56}
+!50 = !{!39, !8, i64 0}
+!51 = !{!52, !8, i64 24}
+!52 = !{!"_ZTS15CByteOutBufWrap", !53, i64 0, !8, i64 8, !8, i64 16, !8, i64 24, !23, i64 32, !8, i64 40, !15, i64 48, !11, i64 56}
+!53 = !{!"_ZTS8IByteOut", !8, i64 0}
+!54 = !{!52, !23, i64 32}
+!55 = !{!52, !11, i64 56}
+!56 = !{!52, !8, i64 8}
+!57 = !{!52, !8, i64 40}
+!58 = !{!52, !15, i64 48}
+!59 = !{!52, !8, i64 0}
+!60 = !{!52, !8, i64 16}

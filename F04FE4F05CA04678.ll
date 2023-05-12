@@ -148,7 +148,7 @@ if.end64:                                         ; preds = %if.then53
   %cmp66 = icmp eq i32 %20, 1
   %21 = load i32, ptr getelementptr inbounds ([10 x i32], ptr @REGISTER, i64 0, i64 1), align 4
   %add69 = select i1 %cmp66, i32 %21, i32 0
-  %ADDRESS.0 = add nsw i32 %call55, %add69
+  %ADDRESS.0 = add nsw i32 %add69, %call55
   %22 = load i32, ptr getelementptr inbounds ([10 x i32], ptr @REGISTER, i64 0, i64 3), align 4
   %add75 = select i1 %cmp57, i32 %22, i32 0
   %ADDRESS.1 = add nsw i32 %ADDRESS.0, %add75
@@ -234,9 +234,8 @@ for.body:                                         ; preds = %for.body.preheader,
   br i1 %exitcond287.not, label %for.end, label %for.body, !llvm.loop !12
 
 for.end:                                          ; preds = %for.body
-  %add134.fr.le = freeze i32 %add134
-  %cmp137 = icmp sgt i32 %add134.fr.le, 16777215
-  %spec.select = select i1 %cmp137, i32 0, i32 %add134.fr.le
+  %cmp137 = icmp sgt i32 %add134.fr, 16777215
+  %spec.select = select i1 %cmp137, i32 0, i32 %add134.fr
   br label %cleanup223
 
 if.end142:                                        ; preds = %if.end107
@@ -306,9 +305,8 @@ for.body188:                                      ; preds = %for.body188.prehead
   br i1 %exitcond.not, label %for.end198, label %for.body188, !llvm.loop !14
 
 for.end198:                                       ; preds = %for.body188
-  %add195.fr.le = freeze i32 %add195
-  %cmp201 = icmp sgt i32 %add195.fr.le, 16777215
-  %spec.select295 = select i1 %cmp201, i32 0, i32 %add195.fr.le
+  %cmp201 = icmp sgt i32 %add195.fr, 16777215
+  %spec.select295 = select i1 %cmp201, i32 0, i32 %add195.fr
   br label %cleanup223
 
 if.end207:                                        ; preds = %if.end142

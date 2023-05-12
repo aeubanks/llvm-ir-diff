@@ -424,8 +424,8 @@ if.end17:                                         ; preds = %if.end13
   store i32 %inc27, ptr %segment_count, align 4, !tbaa !50
   br label %cleanup28
 
-cleanup28:                                        ; preds = %if.end3.i, %path_alloc_copy.exit.i, %path_alloc_copy.exit.thread.i, %if.then, %path_alloc_copy.exit.thread, %if.end13, %path_alloc_copy.exit, %if.end17
-  %retval.1 = phi i32 [ 0, %if.end17 ], [ -13, %path_alloc_copy.exit ], [ -13, %if.end13 ], [ -13, %path_alloc_copy.exit.thread ], [ -14, %if.then ], [ -13, %path_alloc_copy.exit.thread.i ], [ -13, %path_alloc_copy.exit.i ], [ -13, %if.end3.i ]
+cleanup28:                                        ; preds = %path_alloc_copy.exit.thread.i, %if.end3.i, %path_alloc_copy.exit.i, %if.then, %path_alloc_copy.exit.thread, %if.end13, %path_alloc_copy.exit, %if.end17
+  %retval.1 = phi i32 [ 0, %if.end17 ], [ -13, %path_alloc_copy.exit ], [ -13, %if.end13 ], [ -13, %path_alloc_copy.exit.thread ], [ -14, %if.then ], [ -13, %path_alloc_copy.exit.i ], [ -13, %if.end3.i ], [ -13, %path_alloc_copy.exit.thread.i ]
   ret i32 %retval.1
 }
 
@@ -547,34 +547,34 @@ if.then10:                                        ; preds = %if.then8
   call void @llvm.lifetime.start.p0(i64 144, ptr nonnull %path_new.i) #12
   %call.i = call i32 @gx_path_copy(ptr noundef nonnull %ppath, ptr noundef nonnull %path_new.i) #12
   %cmp.i = icmp slt i32 %call.i, 0
-  br i1 %cmp.i, label %if.then12.critedge, label %if.end.i
+  br i1 %cmp.i, label %path_alloc_copy.exit.thread, label %path_alloc_copy.exit
 
-if.end.i:                                         ; preds = %if.then10
-  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(144) %ppath, ptr noundef nonnull align 8 dereferenceable(144) %path_new.i, i64 144, i1 false), !tbaa.struct !30
-  store i8 0, ptr %shares_segments, align 2, !tbaa !19
-  %9 = load ptr, ptr %current_subpath, align 8, !tbaa !21
-  %10 = icmp eq ptr %9, null
-  call void @llvm.lifetime.end.p0(i64 144, ptr nonnull %path_new.i) #12
-  br i1 %10, label %cleanup, label %if.end.i.if.end14_crit_edge
-
-if.end.i.if.end14_crit_edge:                      ; preds = %if.end.i
-  %.pre = load ptr, ptr %last, align 8, !tbaa !22
-  br label %if.end14
-
-if.then12.critedge:                               ; preds = %if.then10
+path_alloc_copy.exit.thread:                      ; preds = %if.then10
   call void @llvm.lifetime.end.p0(i64 144, ptr nonnull %path_new.i) #12
   br label %cleanup
 
-if.end14:                                         ; preds = %if.end.i.if.end14_crit_edge, %if.then8
-  %11 = phi ptr [ %.pre, %if.end.i.if.end14_crit_edge ], [ %6, %if.then8 ]
-  %type16 = getelementptr inbounds %struct.segment_s, ptr %11, i64 0, i32 2
+path_alloc_copy.exit:                             ; preds = %if.then10
+  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(144) %ppath, ptr noundef nonnull align 8 dereferenceable(144) %path_new.i, i64 144, i1 false), !tbaa.struct !30
+  store i8 0, ptr %shares_segments, align 2, !tbaa !19
+  %9 = load ptr, ptr %current_subpath, align 8, !tbaa !21
+  call void @llvm.lifetime.end.p0(i64 144, ptr nonnull %path_new.i) #12
+  %cmp11.not = icmp eq ptr %9, null
+  br i1 %cmp11.not, label %cleanup, label %path_alloc_copy.exit.if.end14_crit_edge
+
+path_alloc_copy.exit.if.end14_crit_edge:          ; preds = %path_alloc_copy.exit
+  %.pre = load ptr, ptr %last, align 8, !tbaa !22
+  br label %if.end14
+
+if.end14:                                         ; preds = %path_alloc_copy.exit.if.end14_crit_edge, %if.then8
+  %10 = phi ptr [ %.pre, %path_alloc_copy.exit.if.end14_crit_edge ], [ %6, %if.then8 ]
+  %type16 = getelementptr inbounds %struct.segment_s, ptr %10, i64 0, i32 2
   store i32 2, ptr %type16, align 8, !tbaa !24
   br label %if.end47
 
 if.else:                                          ; preds = %land.lhs.true6, %land.lhs.true, %if.end
   %shares_segments17 = getelementptr inbounds %struct.gx_path_s, ptr %ppath, i64 0, i32 12
-  %12 = load i8, ptr %shares_segments17, align 2, !tbaa !19
-  %tobool18.not = icmp eq i8 %12, 0
+  %11 = load i8, ptr %shares_segments17, align 2, !tbaa !19
+  %tobool18.not = icmp eq i8 %11, 0
   br i1 %tobool18.not, label %if.end24, label %if.then19
 
 if.then19:                                        ; preds = %if.else
@@ -590,15 +590,15 @@ path_alloc_copy.exit85.thread:                    ; preds = %if.then19
 path_alloc_copy.exit85:                           ; preds = %if.then19
   call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(144) %ppath, ptr noundef nonnull align 8 dereferenceable(144) %path_new.i78, i64 144, i1 false), !tbaa.struct !30
   store i8 0, ptr %shares_segments17, align 2, !tbaa !19
-  %13 = load ptr, ptr %current_subpath, align 8, !tbaa !21
+  %12 = load ptr, ptr %current_subpath, align 8, !tbaa !21
   call void @llvm.lifetime.end.p0(i64 144, ptr nonnull %path_new.i78) #12
-  %tobool21.not = icmp eq ptr %13, null
+  %tobool21.not = icmp eq ptr %12, null
   br i1 %tobool21.not, label %cleanup, label %if.end24
 
 if.end24:                                         ; preds = %path_alloc_copy.exit85, %if.else
-  %psub.0 = phi ptr [ %13, %path_alloc_copy.exit85 ], [ %0, %if.else ]
-  %14 = load ptr, ptr %ppath, align 8, !tbaa !34
-  %call25 = call ptr %14(i32 noundef 1, i32 noundef 40, ptr noundef nonnull @.str.7) #12
+  %psub.0 = phi ptr [ %12, %path_alloc_copy.exit85 ], [ %0, %if.else ]
+  %13 = load ptr, ptr %ppath, align 8, !tbaa !34
+  %call25 = call ptr %13(i32 noundef 1, i32 noundef 40, ptr noundef nonnull @.str.7) #12
   %tobool26.not = icmp eq ptr %call25, null
   br i1 %tobool26.not, label %cleanup, label %if.end28
 
@@ -608,29 +608,29 @@ if.end28:                                         ; preds = %if.end24
   %next = getelementptr inbounds %struct.line_segment, ptr %call25, i64 0, i32 1
   store ptr null, ptr %next, align 8, !tbaa !44
   %last30 = getelementptr inbounds %struct.subpath, ptr %psub.0, i64 0, i32 4
-  %15 = load ptr, ptr %last30, align 8, !tbaa !22
-  %next31 = getelementptr inbounds %struct.segment_s, ptr %15, i64 0, i32 1
+  %14 = load ptr, ptr %last30, align 8, !tbaa !22
+  %next31 = getelementptr inbounds %struct.segment_s, ptr %14, i64 0, i32 1
   store ptr %call25, ptr %next31, align 8, !tbaa !45
-  store ptr %15, ptr %call25, align 8, !tbaa !46
+  store ptr %14, ptr %call25, align 8, !tbaa !46
   store ptr %call25, ptr %last30, align 8, !tbaa !22
   %pt34 = getelementptr inbounds %struct.subpath, ptr %psub.0, i64 0, i32 3
-  %16 = load i64, ptr %pt34, align 8, !tbaa !52
-  store i64 %16, ptr %position, align 8, !tbaa !40
+  %15 = load i64, ptr %pt34, align 8, !tbaa !52
+  store i64 %15, ptr %position, align 8, !tbaa !40
   %pt38 = getelementptr inbounds %struct.line_segment, ptr %call25, i64 0, i32 3
-  store i64 %16, ptr %pt38, align 8, !tbaa !47
+  store i64 %15, ptr %pt38, align 8, !tbaa !47
   %y41 = getelementptr inbounds %struct.subpath, ptr %psub.0, i64 0, i32 3, i32 1
-  %17 = load i64, ptr %y41, align 8, !tbaa !53
+  %16 = load i64, ptr %y41, align 8, !tbaa !53
   %y43 = getelementptr inbounds %struct.gx_path_s, ptr %ppath, i64 0, i32 9, i32 1
-  store i64 %17, ptr %y43, align 8, !tbaa !41
+  store i64 %16, ptr %y43, align 8, !tbaa !41
   %y45 = getelementptr inbounds %struct.line_segment, ptr %call25, i64 0, i32 3, i32 1
-  store i64 %17, ptr %y45, align 8, !tbaa !48
+  store i64 %16, ptr %y45, align 8, !tbaa !48
   %line_count = getelementptr inbounds %struct.subpath, ptr %psub.0, i64 0, i32 5
-  %18 = load i32, ptr %line_count, align 8, !tbaa !49
-  %inc = add nsw i32 %18, 1
+  %17 = load i32, ptr %line_count, align 8, !tbaa !49
+  %inc = add nsw i32 %17, 1
   store i32 %inc, ptr %line_count, align 8, !tbaa !49
   %segment_count = getelementptr inbounds %struct.gx_path_s, ptr %ppath, i64 0, i32 7
-  %19 = load i32, ptr %segment_count, align 4, !tbaa !50
-  %inc46 = add nsw i32 %19, 1
+  %18 = load i32, ptr %segment_count, align 4, !tbaa !50
+  %inc46 = add nsw i32 %18, 1
   store i32 %inc46, ptr %segment_count, align 4, !tbaa !50
   br label %if.end47
 
@@ -641,8 +641,8 @@ if.end47:                                         ; preds = %if.end28, %if.end14
   store i8 0, ptr %subpath_open, align 1, !tbaa !18
   br label %cleanup
 
-cleanup:                                          ; preds = %path_alloc_copy.exit85.thread, %if.end24, %path_alloc_copy.exit85, %if.end.i, %if.then12.critedge, %entry, %if.end47
-  %retval.0 = phi i32 [ 0, %if.end47 ], [ 0, %entry ], [ -13, %if.then12.critedge ], [ -13, %if.end.i ], [ -13, %path_alloc_copy.exit85 ], [ -13, %if.end24 ], [ -13, %path_alloc_copy.exit85.thread ]
+cleanup:                                          ; preds = %path_alloc_copy.exit85.thread, %path_alloc_copy.exit.thread, %if.end24, %path_alloc_copy.exit85, %path_alloc_copy.exit, %entry, %if.end47
+  %retval.0 = phi i32 [ 0, %if.end47 ], [ 0, %entry ], [ -13, %path_alloc_copy.exit ], [ -13, %path_alloc_copy.exit85 ], [ -13, %if.end24 ], [ -13, %path_alloc_copy.exit.thread ], [ -13, %path_alloc_copy.exit85.thread ]
   ret i32 %retval.0
 }
 
@@ -802,8 +802,8 @@ if.end17:                                         ; preds = %if.end13
   store <2 x i32> %14, ptr %segment_count, align 4, !tbaa !32
   br label %cleanup34
 
-cleanup34:                                        ; preds = %if.end3.i, %path_alloc_copy.exit.i, %path_alloc_copy.exit.thread.i, %if.then, %path_alloc_copy.exit.thread, %if.end13, %path_alloc_copy.exit, %if.end17
-  %retval.1 = phi i32 [ 0, %if.end17 ], [ -13, %path_alloc_copy.exit ], [ -13, %if.end13 ], [ -13, %path_alloc_copy.exit.thread ], [ -14, %if.then ], [ -13, %path_alloc_copy.exit.thread.i ], [ -13, %path_alloc_copy.exit.i ], [ -13, %if.end3.i ]
+cleanup34:                                        ; preds = %path_alloc_copy.exit.thread.i, %if.end3.i, %path_alloc_copy.exit.i, %if.then, %path_alloc_copy.exit.thread, %if.end13, %path_alloc_copy.exit, %if.end17
+  %retval.1 = phi i32 [ 0, %if.end17 ], [ -13, %path_alloc_copy.exit ], [ -13, %if.end13 ], [ -13, %path_alloc_copy.exit.thread ], [ -14, %if.then ], [ -13, %path_alloc_copy.exit.i ], [ -13, %if.end3.i ], [ -13, %path_alloc_copy.exit.thread.i ]
   ret i32 %retval.1
 }
 

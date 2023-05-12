@@ -117,12 +117,12 @@ entry:
   %_processedSize = getelementptr inbounds %class.CInBuffer, ptr %this, i64 0, i32 4
   store i64 0, ptr %_processedSize, align 8, !tbaa !18
   %_bufferBase = getelementptr inbounds %class.CInBuffer, ptr %this, i64 0, i32 2
-  %0 = load ptr, ptr %_bufferBase, align 8, !tbaa !19
-  store ptr %0, ptr %this, align 8, !tbaa !20
+  %0 = load ptr, ptr %_bufferBase, align 8, !tbaa !14
+  store ptr %0, ptr %this, align 8, !tbaa !19
   %_bufferLimit = getelementptr inbounds %class.CInBuffer, ptr %this, i64 0, i32 1
-  store ptr %0, ptr %_bufferLimit, align 8, !tbaa !21
+  store ptr %0, ptr %_bufferLimit, align 8, !tbaa !20
   %_wasFinished = getelementptr inbounds %class.CInBuffer, ptr %this, i64 0, i32 6
-  store i8 0, ptr %_wasFinished, align 4, !tbaa !22
+  store i8 0, ptr %_wasFinished, align 4, !tbaa !21
   ret void
 }
 
@@ -131,12 +131,12 @@ define dso_local noundef zeroext i1 @_ZN9CInBuffer9ReadBlockEv(ptr nocapture nou
 entry:
   %numProcessedBytes = alloca i32, align 4
   %_wasFinished = getelementptr inbounds %class.CInBuffer, ptr %this, i64 0, i32 6
-  %0 = load i8, ptr %_wasFinished, align 4, !tbaa !22, !range !23, !noundef !24
+  %0 = load i8, ptr %_wasFinished, align 4, !tbaa !21, !range !22, !noundef !23
   %tobool.not = icmp eq i8 %0, 0
   br i1 %tobool.not, label %if.end, label %return
 
 if.end:                                           ; preds = %entry
-  %1 = load ptr, ptr %this, align 8, !tbaa !20
+  %1 = load ptr, ptr %this, align 8, !tbaa !19
   %_bufferBase = getelementptr inbounds %class.CInBuffer, ptr %this, i64 0, i32 2
   %2 = load ptr, ptr %_bufferBase, align 8, !tbaa !14
   %sub.ptr.lhs.cast = ptrtoint ptr %1 to i64
@@ -156,25 +156,25 @@ if.end:                                           ; preds = %entry
   %6 = load ptr, ptr %vfn, align 8
   %call3 = call noundef i32 %6(ptr noundef nonnull align 8 dereferenceable(8) %4, ptr noundef %2, i32 noundef %5, ptr noundef nonnull %numProcessedBytes)
   %cmp.not = icmp eq i32 %call3, 0
-  br i1 %cmp.not, label %if.end5, label %if.then4
+  br i1 %cmp.not, label %if.end5, label %invoke.cont
 
-if.then4:                                         ; preds = %if.end
+invoke.cont:                                      ; preds = %if.end
   %exception = call ptr @__cxa_allocate_exception(i64 4) #8
-  store i32 %call3, ptr %exception, align 4, !tbaa !25
+  store i32 %call3, ptr %exception, align 4, !tbaa !24
   call void @__cxa_throw(ptr nonnull %exception, ptr nonnull @_ZTI18CInBufferException, ptr null) #9
   unreachable
 
 if.end5:                                          ; preds = %if.end
-  %7 = load ptr, ptr %_bufferBase, align 8, !tbaa !19
-  store ptr %7, ptr %this, align 8, !tbaa !20
-  %8 = load i32, ptr %numProcessedBytes, align 4, !tbaa !27
+  %7 = load ptr, ptr %_bufferBase, align 8, !tbaa !14
+  store ptr %7, ptr %this, align 8, !tbaa !19
+  %8 = load i32, ptr %numProcessedBytes, align 4, !tbaa !26
   %idx.ext = zext i32 %8 to i64
   %add.ptr = getelementptr inbounds i8, ptr %7, i64 %idx.ext
   %_bufferLimit = getelementptr inbounds %class.CInBuffer, ptr %this, i64 0, i32 1
-  store ptr %add.ptr, ptr %_bufferLimit, align 8, !tbaa !21
+  store ptr %add.ptr, ptr %_bufferLimit, align 8, !tbaa !20
   %cmp9 = icmp eq i32 %8, 0
   %frombool = zext i1 %cmp9 to i8
-  store i8 %frombool, ptr %_wasFinished, align 4, !tbaa !22
+  store i8 %frombool, ptr %_wasFinished, align 4, !tbaa !21
   %lnot = xor i1 %cmp9, true
   call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %numProcessedBytes) #8
   br label %return
@@ -195,12 +195,12 @@ define dso_local noundef zeroext i8 @_ZN9CInBuffer10ReadBlock2Ev(ptr nocapture n
 entry:
   %numProcessedBytes.i = alloca i32, align 4
   %_wasFinished.i = getelementptr inbounds %class.CInBuffer, ptr %this, i64 0, i32 6
-  %0 = load i8, ptr %_wasFinished.i, align 4, !tbaa !22, !range !23, !noundef !24
+  %0 = load i8, ptr %_wasFinished.i, align 4, !tbaa !21, !range !22, !noundef !23
   %tobool.not.i = icmp eq i8 %0, 0
   br i1 %tobool.not.i, label %if.end.i, label %if.then
 
 if.end.i:                                         ; preds = %entry
-  %1 = load ptr, ptr %this, align 8, !tbaa !20
+  %1 = load ptr, ptr %this, align 8, !tbaa !19
   %_bufferBase.i = getelementptr inbounds %class.CInBuffer, ptr %this, i64 0, i32 2
   %2 = load ptr, ptr %_bufferBase.i, align 8, !tbaa !14
   %sub.ptr.lhs.cast.i = ptrtoint ptr %1 to i64
@@ -220,39 +220,39 @@ if.end.i:                                         ; preds = %entry
   %6 = load ptr, ptr %vfn.i, align 8
   %call3.i = call noundef i32 %6(ptr noundef nonnull align 8 dereferenceable(8) %4, ptr noundef %2, i32 noundef %5, ptr noundef nonnull %numProcessedBytes.i)
   %cmp.not.i = icmp eq i32 %call3.i, 0
-  br i1 %cmp.not.i, label %if.end5.i, label %if.then4.i
+  br i1 %cmp.not.i, label %_ZN9CInBuffer9ReadBlockEv.exit, label %invoke.cont.i
 
-if.then4.i:                                       ; preds = %if.end.i
+invoke.cont.i:                                    ; preds = %if.end.i
   %exception.i = call ptr @__cxa_allocate_exception(i64 4) #8
-  store i32 %call3.i, ptr %exception.i, align 4, !tbaa !25
+  store i32 %call3.i, ptr %exception.i, align 4, !tbaa !24
   call void @__cxa_throw(ptr nonnull %exception.i, ptr nonnull @_ZTI18CInBufferException, ptr null) #9
   unreachable
 
-if.end5.i:                                        ; preds = %if.end.i
-  %7 = load ptr, ptr %_bufferBase.i, align 8, !tbaa !19
-  store ptr %7, ptr %this, align 8, !tbaa !20
-  %8 = load i32, ptr %numProcessedBytes.i, align 4, !tbaa !27
+_ZN9CInBuffer9ReadBlockEv.exit:                   ; preds = %if.end.i
+  %7 = load ptr, ptr %_bufferBase.i, align 8, !tbaa !14
+  store ptr %7, ptr %this, align 8, !tbaa !19
+  %8 = load i32, ptr %numProcessedBytes.i, align 4, !tbaa !26
   %idx.ext.i = zext i32 %8 to i64
   %add.ptr.i = getelementptr inbounds i8, ptr %7, i64 %idx.ext.i
   %_bufferLimit.i = getelementptr inbounds %class.CInBuffer, ptr %this, i64 0, i32 1
-  store ptr %add.ptr.i, ptr %_bufferLimit.i, align 8, !tbaa !21
+  store ptr %add.ptr.i, ptr %_bufferLimit.i, align 8, !tbaa !20
   %cmp9.i = icmp eq i32 %8, 0
   %frombool.i = zext i1 %cmp9.i to i8
-  store i8 %frombool.i, ptr %_wasFinished.i, align 4, !tbaa !22
+  store i8 %frombool.i, ptr %_wasFinished.i, align 4, !tbaa !21
   call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %numProcessedBytes.i) #8
   br i1 %cmp9.i, label %if.then, label %if.end
 
-if.then:                                          ; preds = %entry, %if.end5.i
+if.then:                                          ; preds = %entry, %_ZN9CInBuffer9ReadBlockEv.exit
   %_processedSize = getelementptr inbounds %class.CInBuffer, ptr %this, i64 0, i32 4
   %9 = load i64, ptr %_processedSize, align 8, !tbaa !18
   %inc = add i64 %9, 1
   store i64 %inc, ptr %_processedSize, align 8, !tbaa !18
   br label %return
 
-if.end:                                           ; preds = %if.end5.i
+if.end:                                           ; preds = %_ZN9CInBuffer9ReadBlockEv.exit
   %incdec.ptr = getelementptr inbounds i8, ptr %7, i64 1
-  store ptr %incdec.ptr, ptr %this, align 8, !tbaa !20
-  %10 = load i8, ptr %7, align 1, !tbaa !28
+  store ptr %incdec.ptr, ptr %this, align 8, !tbaa !19
+  %10 = load i8, ptr %7, align 1, !tbaa !27
   br label %return
 
 return:                                           ; preds = %if.end, %if.then
@@ -260,11 +260,11 @@ return:                                           ; preds = %if.end, %if.then
   ret i8 %retval.0
 }
 
-; Function Attrs: nocallback nofree nounwind willreturn memory(argmem: write)
-declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #6
-
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i32 @llvm.umax.i32(i32, i32) #7
+declare i32 @llvm.umax.i32(i32, i32) #6
+
+; Function Attrs: nocallback nofree nounwind willreturn memory(argmem: write)
+declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #7
 
 attributes #0 = { mustprogress nofree nosync nounwind willreturn memory(argmem: write) uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #1 = { mustprogress uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
@@ -272,8 +272,8 @@ attributes #2 = { mustprogress nocallback nofree nosync nounwind willreturn memo
 attributes #3 = { "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #4 = { mustprogress nofree norecurse nosync nounwind willreturn memory(argmem: readwrite) uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #5 = { uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
-attributes #6 = { nocallback nofree nounwind willreturn memory(argmem: write) }
-attributes #7 = { nocallback nofree nosync nounwind speculatable willreturn memory(none) }
+attributes #6 = { nocallback nofree nosync nounwind speculatable willreturn memory(none) }
+attributes #7 = { nocallback nofree nounwind willreturn memory(argmem: write) }
 attributes #8 = { nounwind }
 attributes #9 = { noreturn }
 
@@ -299,13 +299,12 @@ attributes #9 = { noreturn }
 !16 = !{!"vtable pointer", !9, i64 0}
 !17 = !{!10, !7, i64 0}
 !18 = !{!6, !11, i64 32}
-!19 = !{!7, !7, i64 0}
-!20 = !{!6, !7, i64 0}
-!21 = !{!6, !7, i64 8}
-!22 = !{!6, !13, i64 44}
-!23 = !{i8 0, i8 2}
-!24 = !{}
-!25 = !{!26, !12, i64 0}
-!26 = !{!"_ZTS16CSystemException", !12, i64 0}
-!27 = !{!12, !12, i64 0}
-!28 = !{!8, !8, i64 0}
+!19 = !{!6, !7, i64 0}
+!20 = !{!6, !7, i64 8}
+!21 = !{!6, !13, i64 44}
+!22 = !{i8 0, i8 2}
+!23 = !{}
+!24 = !{!25, !12, i64 0}
+!25 = !{!"_ZTS16CSystemException", !12, i64 0}
+!26 = !{!12, !12, i64 0}
+!27 = !{!8, !8, i64 0}

@@ -26,7 +26,7 @@ for.cond:                                         ; preds = %for.body
   %div.lhs.trunc.1 = trunc i64 %indvars.iv.next to i16
   %div5.1 = udiv i16 %div.lhs.trunc.1, 3
   %div.zext.1 = zext i16 %div5.1 to i32
-  %cmp1.not.1 = icmp eq i32 %div.zext.1, %shr23.i.1
+  %cmp1.not.1 = icmp eq i32 %shr23.i.1, %div.zext.1
   br i1 %cmp1.not.1, label %for.cond.1, label %if.then
 
 for.cond.1:                                       ; preds = %for.cond
@@ -42,7 +42,7 @@ for.body:                                         ; preds = %for.cond.1, %entry
   %div.lhs.trunc = trunc i64 %indvars.iv to i16
   %div5 = udiv i16 %div.lhs.trunc, 3
   %div.zext = zext i16 %div5 to i32
-  %cmp1.not = icmp eq i32 %div.zext, %shr23.i
+  %cmp1.not = icmp eq i32 %shr23.i, %div.zext
   br i1 %cmp1.not, label %for.cond, label %if.then
 
 if.then:                                          ; preds = %for.cond, %for.body

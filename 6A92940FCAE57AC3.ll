@@ -302,8 +302,8 @@ if.end70:                                         ; preds = %if.then68, %if.then
 
 if.end72:                                         ; preds = %sw.bb64
   call void @free(ptr noundef nonnull %arg.0582) #17
-  %strchr467 = call ptr @strchr(ptr nonnull dereferenceable(1) %buff, i32 32)
-  %incdec.ptr = getelementptr inbounds i8, ptr %strchr467, i64 1
+  %strchr461 = call ptr @strchr(ptr nonnull dereferenceable(1) %buff, i32 32)
+  %incdec.ptr = getelementptr inbounds i8, ptr %strchr461, i64 1
   %call75 = call noalias ptr @strdup(ptr noundef nonnull %incdec.ptr) #17
   %tobool76.not = icmp eq ptr %call75, null
   br i1 %tobool76.not, label %if.then86, label %land.lhs.true
@@ -527,10 +527,10 @@ cleanup.thread:                                   ; preds = %if.then184, %if.the
   br label %cleanup287
 
 if.end190:                                        ; preds = %if.then176
-  %call.i461 = call i64 @strtol(ptr nocapture noundef nonnull %call178, ptr noundef null, i32 noundef 10) #17
-  %conv.i462 = trunc i64 %call.i461 to i32
+  %call.i462 = call i64 @strtol(ptr nocapture noundef nonnull %call178, ptr noundef null, i32 noundef 10) #17
+  %conv.i463 = trunc i64 %call.i462 to i32
   %. = select i1 %cmp171, i32 20, i32 10
-  %mul195 = shl nsw i32 %conv.i462, %.
+  %mul195 = shl nsw i32 %conv.i463, %.
   call void @free(ptr noundef %call178) #17
   br label %if.end211
 
@@ -557,12 +557,12 @@ if.end207:                                        ; preds = %if.then205, %if.the
   br label %cleanup287
 
 if.end209:                                        ; preds = %if.else200
-  %call.i465 = call i64 @strtol(ptr nocapture noundef nonnull %arg.0582, ptr noundef null, i32 noundef 10) #17
-  %conv.i466 = trunc i64 %call.i465 to i32
+  %call.i466 = call i64 @strtol(ptr nocapture noundef nonnull %arg.0582, ptr noundef null, i32 noundef 10) #17
+  %conv.i467 = trunc i64 %call.i466 to i32
   br label %if.end211
 
 if.end211:                                        ; preds = %if.end190, %if.end209
-  %calc.4 = phi i32 [ %mul195, %if.end190 ], [ %conv.i466, %if.end209 ]
+  %calc.4 = phi i32 [ %mul195, %if.end190 ], [ %conv.i467, %if.end209 ]
   call void @free(ptr noundef nonnull %arg.0582) #17
   %multiple212 = getelementptr inbounds [86 x %struct.cfgoption], ptr @cfg_options, i64 0, i64 %indvars.iv654, i32 4
   %53 = load i16, ptr %multiple212, align 8, !tbaa !15
@@ -1049,14 +1049,14 @@ declare i64 @strtol(ptr noundef readonly, ptr nocapture noundef, i32 noundef) lo
 ; Function Attrs: mustprogress nofree nounwind willreturn allockind("alloc,uninitialized") allocsize(0) memory(inaccessiblemem: readwrite)
 declare noalias noundef ptr @malloc(i64 noundef) local_unnamed_addr #13
 
-; Function Attrs: nocallback nofree nounwind willreturn memory(argmem: write)
-declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #14
-
 ; Function Attrs: nofree nounwind willreturn memory(argmem: read)
-declare i32 @bcmp(ptr nocapture, ptr nocapture, i64) local_unnamed_addr #15
+declare i32 @bcmp(ptr nocapture, ptr nocapture, i64) local_unnamed_addr #14
 
 ; Function Attrs: nofree nounwind
-declare noundef i64 @fwrite(ptr nocapture noundef, i64 noundef, i64 noundef, ptr nocapture noundef) local_unnamed_addr #16
+declare noundef i64 @fwrite(ptr nocapture noundef, i64 noundef, i64 noundef, ptr nocapture noundef) local_unnamed_addr #15
+
+; Function Attrs: nocallback nofree nounwind willreturn memory(argmem: write)
+declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #16
 
 attributes #0 = { nounwind uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #1 = { mustprogress nocallback nofree nosync nounwind willreturn memory(argmem: readwrite) }
@@ -1072,9 +1072,9 @@ attributes #10 = { mustprogress nofree nounwind willreturn memory(read) "no-trap
 attributes #11 = { nofree nounwind memory(read, inaccessiblemem: none) uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #12 = { mustprogress nofree nounwind willreturn "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #13 = { mustprogress nofree nounwind willreturn allockind("alloc,uninitialized") allocsize(0) memory(inaccessiblemem: readwrite) "alloc-family"="malloc" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
-attributes #14 = { nocallback nofree nounwind willreturn memory(argmem: write) }
-attributes #15 = { nofree nounwind willreturn memory(argmem: read) }
-attributes #16 = { nofree nounwind }
+attributes #14 = { nofree nounwind willreturn memory(argmem: read) }
+attributes #15 = { nofree nounwind }
+attributes #16 = { nocallback nofree nounwind willreturn memory(argmem: write) }
 attributes #17 = { nounwind }
 attributes #18 = { cold }
 attributes #19 = { nounwind willreturn memory(read) }

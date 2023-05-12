@@ -97,16 +97,16 @@ entry:
   %5 = load float, ptr %yy4, align 8, !tbaa !16
   call void @llvm.lifetime.start.p0(i64 4, ptr nonnull %xy2)
   %xy = getelementptr inbounds %struct.gs_matrix_s, ptr %pm2, i64 0, i32 2
-  %6 = load float, ptr %xy, align 8, !tbaa !6
+  %6 = load float, ptr %xy, align 8, !tbaa !17
   store float %6, ptr %xy2, align 8, !tbaa !6
   call void @llvm.lifetime.start.p0(i64 4, ptr nonnull %yx2)
   %yx = getelementptr inbounds %struct.gs_matrix_s, ptr %pm2, i64 0, i32 4
-  %7 = load float, ptr %yx, align 8, !tbaa !6
+  %7 = load float, ptr %yx, align 8, !tbaa !18
   store float %7, ptr %yx2, align 8, !tbaa !6
   %xy5 = getelementptr inbounds %struct.gs_matrix_s, ptr %pm1, i64 0, i32 2
-  %8 = load i64, ptr %xy5, align 8, !tbaa !10
+  %8 = load i64, ptr %xy5, align 8
   %yx6 = getelementptr inbounds %struct.gs_matrix_s, ptr %pm1, i64 0, i32 4
-  %9 = load i64, ptr %yx6, align 8, !tbaa !10
+  %9 = load i64, ptr %yx6, align 8
   %or = or i64 %9, %8
   %shl.mask = and i64 %or, 9223372036854775807
   %cmp = icmp eq i64 %shl.mask, 0
@@ -123,7 +123,7 @@ if.then:                                          ; preds = %entry
   %13 = tail call float @llvm.fmuladd.f32(float %3, float %5, float %12)
   %ty10 = getelementptr inbounds %struct.gs_matrix_s, ptr %pmr, i64 0, i32 10
   store float %13, ptr %ty10, align 8, !tbaa !14
-  %xy2.0.xy2.0.xy2.0.xy2.0.68 = load i64, ptr %xy2, align 8, !tbaa !10
+  %xy2.0.xy2.0.xy2.0.xy2.0.68 = load i64, ptr %xy2, align 8
   %shl11.mask = and i64 %xy2.0.xy2.0.xy2.0.xy2.0.68, 9223372036854775807
   %cmp12 = icmp eq i64 %shl11.mask, 0
   br i1 %cmp12, label %if.end, label %if.else
@@ -142,7 +142,7 @@ if.end:                                           ; preds = %if.then, %if.else
   store float %mul.sink, ptr %17, align 8
   %mul18 = fmul float %0, %4
   store float %mul18, ptr %pmr, align 8, !tbaa !15
-  %yx2.0.yx2.0.yx2.0.yx2.0.63 = load i64, ptr %yx2, align 8, !tbaa !10
+  %yx2.0.yx2.0.yx2.0.yx2.0.63 = load i64, ptr %yx2, align 8
   %shl20.mask = and i64 %yx2.0.yx2.0.yx2.0.yx2.0.63, 9223372036854775807
   %cmp21 = icmp eq i64 %shl20.mask, 0
   br i1 %cmp21, label %if.end29, label %if.else24
@@ -213,9 +213,9 @@ declare float @llvm.fmuladd.f32(float, float, float) #6
 define dso_local i32 @gs_matrix_invert(ptr nocapture noundef readonly %pm, ptr nocapture noundef writeonly %pmr) local_unnamed_addr #5 {
 entry:
   %xy = getelementptr inbounds %struct.gs_matrix_s, ptr %pm, i64 0, i32 2
-  %0 = load i64, ptr %xy, align 8, !tbaa !10
+  %0 = load i64, ptr %xy, align 8
   %yx = getelementptr inbounds %struct.gs_matrix_s, ptr %pm, i64 0, i32 4
-  %1 = load i64, ptr %yx, align 8, !tbaa !10
+  %1 = load i64, ptr %yx, align 8
   %or = or i64 %1, %0
   %shl.mask = and i64 %or, 9223372036854775807
   %cmp = icmp eq i64 %shl.mask, 0
@@ -224,7 +224,7 @@ entry:
   br i1 %cmp, label %if.then, label %if.else
 
 if.then:                                          ; preds = %entry
-  %4 = load i64, ptr %pm, align 8, !tbaa !10
+  %4 = load i64, ptr %pm, align 8
   %shl1.mask = and i64 %4, 9223372036854775807
   %cmp2 = icmp eq i64 %shl1.mask, 0
   %5 = trunc i64 %4 to i32
@@ -233,7 +233,7 @@ if.then:                                          ; preds = %entry
 
 lor.lhs.false:                                    ; preds = %if.then
   %yy = getelementptr inbounds %struct.gs_matrix_s, ptr %pm, i64 0, i32 6
-  %7 = load i64, ptr %yy, align 8, !tbaa !10
+  %7 = load i64, ptr %yy, align 8
   %shl3.mask = and i64 %7, 9223372036854775807
   %cmp4 = icmp eq i64 %shl3.mask, 0
   br i1 %cmp4, label %return, label %if.end
@@ -423,7 +423,7 @@ entry:
   %13 = fptrunc <2 x double> %12 to <2 x float>
   store <2 x float> %13, ptr %ppt, align 4, !tbaa !6
   %yx = getelementptr inbounds %struct.gs_matrix_s, ptr %pmat, i64 0, i32 4
-  %14 = load i64, ptr %yx, align 8, !tbaa !10
+  %14 = load i64, ptr %yx, align 8
   %shl.mask = and i64 %14, 9223372036854775807
   %cmp = icmp eq i64 %shl.mask, 0
   br i1 %cmp, label %if.end, label %if.then
@@ -441,7 +441,7 @@ if.then:                                          ; preds = %entry
 
 if.end:                                           ; preds = %if.then, %entry
   %xy = getelementptr inbounds %struct.gs_matrix_s, ptr %pmat, i64 0, i32 2
-  %19 = load i64, ptr %xy, align 8, !tbaa !10
+  %19 = load i64, ptr %xy, align 8
   %shl14.mask = and i64 %19, 9223372036854775807
   %cmp15 = icmp eq i64 %shl14.mask, 0
   br i1 %cmp15, label %if.end23, label %if.then17
@@ -468,9 +468,9 @@ declare double @llvm.fmuladd.f64(double, double, double) #6
 define dso_local i32 @gs_point_transform_inverse(double noundef %x, double noundef %y, ptr nocapture noundef readonly %pmat, ptr nocapture noundef writeonly %ppt) local_unnamed_addr #5 {
 entry:
   %xy = getelementptr inbounds %struct.gs_matrix_s, ptr %pmat, i64 0, i32 2
-  %0 = load i64, ptr %xy, align 8, !tbaa !10
+  %0 = load i64, ptr %xy, align 8
   %yx = getelementptr inbounds %struct.gs_matrix_s, ptr %pmat, i64 0, i32 4
-  %1 = load i64, ptr %yx, align 8, !tbaa !10
+  %1 = load i64, ptr %yx, align 8
   %or = or i64 %1, %0
   %shl.mask = and i64 %or, 9223372036854775807
   %cmp = icmp eq i64 %shl.mask, 0
@@ -589,7 +589,7 @@ entry:
   %8 = fptrunc <2 x double> %7 to <2 x float>
   store <2 x float> %8, ptr %pdpt, align 4, !tbaa !6
   %yx = getelementptr inbounds %struct.gs_matrix_s, ptr %pmat, i64 0, i32 4
-  %9 = load i64, ptr %yx, align 8, !tbaa !10
+  %9 = load i64, ptr %yx, align 8
   %shl.mask = and i64 %9, 9223372036854775807
   %cmp = icmp eq i64 %shl.mask, 0
   br i1 %cmp, label %if.end, label %if.then
@@ -607,7 +607,7 @@ if.then:                                          ; preds = %entry
 
 if.end:                                           ; preds = %if.then, %entry
   %xy = getelementptr inbounds %struct.gs_matrix_s, ptr %pmat, i64 0, i32 2
-  %14 = load i64, ptr %xy, align 8, !tbaa !10
+  %14 = load i64, ptr %xy, align 8
   %shl12.mask = and i64 %14, 9223372036854775807
   %cmp13 = icmp eq i64 %shl12.mask, 0
   br i1 %cmp13, label %if.end22, label %if.then15
@@ -631,9 +631,9 @@ if.end22:                                         ; preds = %if.then15, %if.end
 define dso_local i32 @gs_distance_transform_inverse(double noundef %dx, double noundef %dy, ptr nocapture noundef readonly %pmat, ptr nocapture noundef writeonly %pdpt) local_unnamed_addr #5 {
 entry:
   %xy = getelementptr inbounds %struct.gs_matrix_s, ptr %pmat, i64 0, i32 2
-  %0 = load i64, ptr %xy, align 8, !tbaa !10
+  %0 = load i64, ptr %xy, align 8
   %yx = getelementptr inbounds %struct.gs_matrix_s, ptr %pmat, i64 0, i32 4
-  %1 = load i64, ptr %yx, align 8, !tbaa !10
+  %1 = load i64, ptr %yx, align 8
   %or = or i64 %1, %0
   %shl.mask = and i64 %or, 9223372036854775807
   %cmp = icmp eq i64 %shl.mask, 0
@@ -700,9 +700,9 @@ entry:
   %0 = load <2 x float>, ptr %pbox_in, align 4, !tbaa !6
   %1 = fpext <2 x float> %0 to <2 x double>
   %xy.i = getelementptr inbounds %struct.gs_matrix_s, ptr %pmat, i64 0, i32 2
-  %2 = load i64, ptr %xy.i, align 8, !tbaa !10
+  %2 = load i64, ptr %xy.i, align 8
   %yx.i = getelementptr inbounds %struct.gs_matrix_s, ptr %pmat, i64 0, i32 4
-  %3 = load i64, ptr %yx.i, align 8, !tbaa !10
+  %3 = load i64, ptr %yx.i, align 8
   %or.i = or i64 %3, %2
   %shl.mask.i = and i64 %or.i, 9223372036854775807
   %cmp.i = icmp eq i64 %shl.mask.i, 0
@@ -795,12 +795,12 @@ if.then.i125:                                     ; preds = %entry
   %conv8 = fpext float %sub to double
   %38 = insertelement <2 x double> <double poison, double 0.000000e+00>, double %conv8, i64 0
   %39 = fdiv <2 x double> %38, %27
-  %y14177 = getelementptr inbounds %struct.gs_rect_s, ptr %pbox_in, i64 0, i32 1, i32 1
-  %40 = load float, ptr %y14177, align 4, !tbaa !24
+  %y14176 = getelementptr inbounds %struct.gs_rect_s, ptr %pbox_in, i64 0, i32 1, i32 1
+  %40 = load float, ptr %y14176, align 4, !tbaa !24
   %41 = extractelement <2 x float> %0, i64 1
-  %sub17178 = fsub float %40, %41
-  %conv18179 = fpext float %sub17178 to double
-  %42 = insertelement <2 x double> <double 0.000000e+00, double poison>, double %conv18179, i64 1
+  %sub17177 = fsub float %40, %41
+  %conv18178 = fpext float %sub17177 to double
+  %42 = insertelement <2 x double> <double 0.000000e+00, double poison>, double %conv18178, i64 1
   %43 = fdiv <2 x double> %42, %27
   br label %if.end
 
@@ -826,7 +826,7 @@ cleanup.thread.i140:                              ; preds = %if.end.i34.i, %if.t
   %54 = insertelement <2 x float> %53, float %sub17, i64 1
   %55 = fpext <2 x float> %54 to <2 x double>
   %56 = insertelement <2 x double> <double -0.000000e+00, double poison>, double %46, i64 1
-  %57 = shufflevector <2 x double> %52, <2 x double> poison, <2 x i32> <i32 undef, i32 0>
+  %57 = shufflevector <2 x double> %52, <2 x double> poison, <2 x i32> <i32 poison, i32 0>
   %58 = insertelement <2 x double> %57, double %conv17.i, i64 0
   %59 = fmul <2 x double> %56, %58
   %60 = insertelement <2 x double> %55, double 0.000000e+00, i64 1
@@ -835,7 +835,7 @@ cleanup.thread.i140:                              ; preds = %if.end.i34.i, %if.t
   %63 = shufflevector <2 x double> %62, <2 x double> poison, <2 x i32> zeroinitializer
   %64 = fdiv <2 x double> %61, %63
   %65 = insertelement <2 x double> <double poison, double -0.000000e+00>, double %49, i64 0
-  %66 = shufflevector <2 x double> %55, <2 x double> poison, <2 x i32> <i32 1, i32 undef>
+  %66 = shufflevector <2 x double> %55, <2 x double> poison, <2 x i32> <i32 1, i32 poison>
   %67 = insertelement <2 x double> %66, double %conv26.i, i64 1
   %68 = fmul <2 x double> %65, %67
   %69 = insertelement <2 x double> %52, double 0.000000e+00, i64 0
@@ -849,17 +849,17 @@ if.end:                                           ; preds = %cleanup.thread.i140
   %74 = phi <2 x double> [ %39, %if.then.i125 ], [ %64, %cleanup.thread.i140 ]
   %75 = phi <2 x double> [ %43, %if.then.i125 ], [ %71, %cleanup.thread.i140 ]
   %76 = phi <2 x float> [ %35, %if.then.i125 ], [ %73, %cleanup.thread.i140 ]
-  %77 = fptrunc <2 x double> %74 to <2 x float>
-  %78 = fptrunc <2 x double> %75 to <2 x float>
-  %79 = fadd <2 x float> %76, %77
-  %80 = fcmp olt <2 x float> %77, zeroinitializer
+  %77 = fptrunc <2 x double> %75 to <2 x float>
+  %78 = fptrunc <2 x double> %74 to <2 x float>
+  %79 = fadd <2 x float> %76, %78
+  %80 = fcmp olt <2 x float> %78, zeroinitializer
   %81 = shufflevector <2 x i1> %80, <2 x i1> poison, <4 x i32> <i32 0, i32 1, i32 0, i32 1>
   %82 = shufflevector <2 x float> %79, <2 x float> %76, <4 x i32> <i32 0, i32 1, i32 2, i32 3>
   %83 = shufflevector <2 x float> %79, <2 x float> %76, <4 x i32> <i32 2, i32 3, i32 0, i32 1>
   %84 = select <4 x i1> %81, <4 x float> %82, <4 x float> %83
-  %85 = fcmp olt <2 x float> %78, zeroinitializer
+  %85 = fcmp olt <2 x float> %77, zeroinitializer
   %86 = shufflevector <2 x i1> %85, <2 x i1> poison, <4 x i32> <i32 0, i32 1, i32 0, i32 1>
-  %87 = shufflevector <2 x float> %78, <2 x float> poison, <4 x i32> <i32 0, i32 1, i32 0, i32 1>
+  %87 = shufflevector <2 x float> %77, <2 x float> poison, <4 x i32> <i32 0, i32 1, i32 0, i32 1>
   %88 = shufflevector <4 x float> %87, <4 x float> <float poison, float poison, float -0.000000e+00, float -0.000000e+00>, <4 x i32> <i32 0, i32 1, i32 6, i32 7>
   %89 = shufflevector <4 x float> <float -0.000000e+00, float -0.000000e+00, float poison, float poison>, <4 x float> %87, <4 x i32> <i32 0, i32 1, i32 6, i32 7>
   %90 = select <4 x i1> %86, <4 x float> %88, <4 x float> %89
@@ -896,7 +896,7 @@ entry:
   %y9 = getelementptr inbounds %struct.gs_fixed_point_s, ptr %ppt, i64 0, i32 1
   store i64 %add8, ptr %y9, align 8, !tbaa !32
   %yx = getelementptr inbounds %struct.gs_matrix_fixed_s, ptr %pmat, i64 0, i32 4
-  %4 = load i64, ptr %yx, align 8, !tbaa !10
+  %4 = load i64, ptr %yx, align 8
   %shl.mask = and i64 %4, 9223372036854775807
   %cmp = icmp eq i64 %shl.mask, 0
   br i1 %cmp, label %if.end, label %if.then
@@ -914,7 +914,7 @@ if.then:                                          ; preds = %entry
 
 if.end:                                           ; preds = %if.then, %entry
   %xy = getelementptr inbounds %struct.gs_matrix_fixed_s, ptr %pmat, i64 0, i32 2
-  %7 = load i64, ptr %xy, align 8, !tbaa !10
+  %7 = load i64, ptr %xy, align 8
   %shl18.mask = and i64 %7, 9223372036854775807
   %cmp19 = icmp eq i64 %shl18.mask, 0
   br i1 %cmp19, label %if.end29, label %if.then21
@@ -952,7 +952,7 @@ entry:
   %y = getelementptr inbounds %struct.gs_fixed_point_s, ptr %ppt, i64 0, i32 1
   store i64 %conv6, ptr %y, align 8, !tbaa !32
   %yx = getelementptr inbounds %struct.gs_matrix_fixed_s, ptr %pmat, i64 0, i32 4
-  %2 = load i64, ptr %yx, align 8, !tbaa !10
+  %2 = load i64, ptr %yx, align 8
   %shl.mask = and i64 %2, 9223372036854775807
   %cmp = icmp eq i64 %shl.mask, 0
   br i1 %cmp, label %if.end, label %if.then
@@ -970,7 +970,7 @@ if.then:                                          ; preds = %entry
 
 if.end:                                           ; preds = %if.then, %entry
   %xy = getelementptr inbounds %struct.gs_matrix_fixed_s, ptr %pmat, i64 0, i32 2
-  %5 = load i64, ptr %xy, align 8, !tbaa !10
+  %5 = load i64, ptr %xy, align 8
   %shl14.mask = and i64 %5, 9223372036854775807
   %cmp15 = icmp eq i64 %shl14.mask, 0
   br i1 %cmp15, label %if.end25, label %if.then17

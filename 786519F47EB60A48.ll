@@ -356,7 +356,7 @@ if.end9.i:                                        ; preds = %if.end.i
   %incdec.ptr5.i = getelementptr inbounds i32, ptr %2, i64 3
   %8 = load i32, ptr %incdec.ptr5.i, align 4, !tbaa !24
   %cmp11.not.i = icmp eq i32 %8, 0
-  br i1 %cmp11.not.i, label %cleanup37.sink.split.i, label %return
+  br i1 %cmp11.not.i, label %_ZN9NCompress5NLzmaL16ParseMatchFinderEPKwPiS3_.exit, label %return
 
 if.end17.i:                                       ; preds = %if.end
   %9 = load i32, ptr %incdec.ptr.i, align 4, !tbaa !24
@@ -383,9 +383,9 @@ if.end30.i:                                       ; preds = %if.end22.i
   %sub.i60.i = add nsw i32 %13, -32
   %spec.select.i61.i = select i1 %or.cond.i59.i, i32 %sub.i60.i, i32 %13
   %cmp33.not.i = icmp eq i32 %spec.select.i61.i, 0
-  br i1 %cmp33.not.i, label %cleanup37.sink.split.i, label %return
+  br i1 %cmp33.not.i, label %_ZN9NCompress5NLzmaL16ParseMatchFinderEPKwPiS3_.exit, label %return
 
-cleanup37.sink.split.i:                           ; preds = %if.end30.i, %if.end9.i
+_ZN9NCompress5NLzmaL16ParseMatchFinderEPKwPiS3_.exit: ; preds = %if.end9.i, %if.end30.i
   %.sink.i = phi i32 [ 0, %if.end9.i ], [ 1, %if.end30.i ]
   %sub25.sink.i = phi i32 [ 4, %if.end9.i ], [ %sub25.i, %if.end30.i ]
   store i32 %.sink.i, ptr %btMode, align 4, !tbaa !19
@@ -444,8 +444,8 @@ sw.bb14:                                          ; preds = %if.end8
   store i32 %16, ptr %lc, align 4, !tbaa !33
   br label %return
 
-return:                                           ; preds = %if.end8, %sw.bb14, %sw.bb13, %sw.bb12, %sw.bb11, %sw.bb10, %sw.bb9, %sw.bb, %if.end3, %cleanup37.sink.split.i, %if.end30.i, %if.end22.i, %if.end17.i, %if.end9.i, %if.end.i, %if.then.i, %if.end, %if.then
-  %retval.1 = phi i32 [ -2147024809, %if.then ], [ -2147024809, %if.end ], [ -2147024809, %if.then.i ], [ -2147024809, %if.end.i ], [ -2147024809, %if.end9.i ], [ -2147024809, %if.end17.i ], [ -2147024809, %if.end22.i ], [ -2147024809, %if.end30.i ], [ 0, %cleanup37.sink.split.i ], [ -2147024809, %if.end3 ], [ -2147024809, %if.end8 ], [ 0, %sw.bb14 ], [ 0, %sw.bb13 ], [ 0, %sw.bb12 ], [ 0, %sw.bb11 ], [ 0, %sw.bb10 ], [ 0, %sw.bb9 ], [ 0, %sw.bb ]
+return:                                           ; preds = %_ZN9NCompress5NLzmaL16ParseMatchFinderEPKwPiS3_.exit, %if.then.i, %if.end.i, %if.end9.i, %if.end, %if.end17.i, %if.end22.i, %if.end30.i, %if.end8, %sw.bb14, %sw.bb13, %sw.bb12, %sw.bb11, %sw.bb10, %sw.bb9, %sw.bb, %if.end3, %if.then
+  %retval.1 = phi i32 [ -2147024809, %if.then ], [ -2147024809, %if.end3 ], [ -2147024809, %if.end8 ], [ 0, %sw.bb14 ], [ 0, %sw.bb13 ], [ 0, %sw.bb12 ], [ 0, %sw.bb11 ], [ 0, %sw.bb10 ], [ 0, %sw.bb9 ], [ 0, %sw.bb ], [ 0, %_ZN9NCompress5NLzmaL16ParseMatchFinderEPKwPiS3_.exit ], [ -2147024809, %if.then.i ], [ -2147024809, %if.end.i ], [ -2147024809, %if.end9.i ], [ -2147024809, %if.end ], [ -2147024809, %if.end17.i ], [ -2147024809, %if.end22.i ], [ -2147024809, %if.end30.i ]
   ret i32 %retval.1
 }
 
@@ -871,16 +871,16 @@ for.cond.13.i65:                                  ; preds = %for.cond.12.i62
   %59 = load i8, ptr %arrayidx.14.i63, align 2, !tbaa !23
   %60 = load i8, ptr getelementptr inbounds (%struct.GUID, ptr @IID_ICompressSetCoderProperties, i64 0, i32 3, i64 6), align 2, !tbaa !23
   %cmp4.not.14.i64 = icmp eq i8 %59, %60
-  br i1 %cmp4.not.14.i64, label %for.cond.14.i69, label %if.end10
+  br i1 %cmp4.not.14.i64, label %_ZeqRK4GUIDS1_.exit71, label %if.end10
 
-for.cond.14.i69:                                  ; preds = %for.cond.13.i65
+_ZeqRK4GUIDS1_.exit71:                            ; preds = %for.cond.13.i65
   %arrayidx.15.i66 = getelementptr inbounds i8, ptr %iid, i64 15
   %61 = load i8, ptr %arrayidx.15.i66, align 1, !tbaa !23
   %62 = load i8, ptr getelementptr inbounds (%struct.GUID, ptr @IID_ICompressSetCoderProperties, i64 0, i32 3, i64 7), align 1, !tbaa !23
   %cmp4.not.15.i67.not = icmp eq i8 %61, %62
   br i1 %cmp4.not.15.i67.not, label %return.sink.split, label %if.end10
 
-if.end10:                                         ; preds = %if.end, %for.cond.i26, %for.cond.1.i29, %for.cond.2.i32, %for.cond.3.i35, %for.cond.4.i38, %for.cond.5.i41, %for.cond.6.i44, %for.cond.7.i47, %for.cond.8.i50, %for.cond.9.i53, %for.cond.10.i56, %for.cond.11.i59, %for.cond.12.i62, %for.cond.13.i65, %for.cond.14.i69
+if.end10:                                         ; preds = %for.cond.13.i65, %for.cond.12.i62, %for.cond.11.i59, %for.cond.10.i56, %for.cond.9.i53, %for.cond.8.i50, %for.cond.7.i47, %for.cond.6.i44, %for.cond.5.i41, %for.cond.4.i38, %for.cond.3.i35, %for.cond.2.i32, %for.cond.1.i29, %for.cond.i26, %if.end, %_ZeqRK4GUIDS1_.exit71
   %63 = load i8, ptr @IID_ICompressWriteCoderProperties, align 4, !tbaa !23
   %cmp4.not.i72 = icmp eq i8 %0, %63
   br i1 %cmp4.not.i72, label %for.cond.i75, label %return
@@ -981,17 +981,17 @@ for.cond.13.i114:                                 ; preds = %for.cond.12.i111
   %90 = load i8, ptr %arrayidx.14.i112, align 2, !tbaa !23
   %91 = load i8, ptr getelementptr inbounds (%struct.GUID, ptr @IID_ICompressWriteCoderProperties, i64 0, i32 3, i64 6), align 2, !tbaa !23
   %cmp4.not.14.i113 = icmp eq i8 %90, %91
-  br i1 %cmp4.not.14.i113, label %for.cond.14.i118, label %return
+  br i1 %cmp4.not.14.i113, label %_ZeqRK4GUIDS1_.exit120, label %return
 
-for.cond.14.i118:                                 ; preds = %for.cond.13.i114
+_ZeqRK4GUIDS1_.exit120:                           ; preds = %for.cond.13.i114
   %arrayidx.15.i115 = getelementptr inbounds i8, ptr %iid, i64 15
   %92 = load i8, ptr %arrayidx.15.i115, align 1, !tbaa !23
   %93 = load i8, ptr getelementptr inbounds (%struct.GUID, ptr @IID_ICompressWriteCoderProperties, i64 0, i32 3, i64 7), align 1, !tbaa !23
   %cmp4.not.15.i116.not = icmp eq i8 %92, %93
   br i1 %cmp4.not.15.i116.not, label %return.sink.split, label %return
 
-return.sink.split:                                ; preds = %for.cond.14.i118, %for.cond.14.i69, %_ZeqRK4GUIDS1_.exit
-  %.sink = phi i64 [ 8, %_ZeqRK4GUIDS1_.exit ], [ 8, %for.cond.14.i69 ], [ 16, %for.cond.14.i118 ]
+return.sink.split:                                ; preds = %_ZeqRK4GUIDS1_.exit120, %_ZeqRK4GUIDS1_.exit71, %_ZeqRK4GUIDS1_.exit
+  %.sink = phi i64 [ 8, %_ZeqRK4GUIDS1_.exit ], [ 8, %_ZeqRK4GUIDS1_.exit71 ], [ 16, %_ZeqRK4GUIDS1_.exit120 ]
   %add.ptr14 = getelementptr inbounds i8, ptr %this, i64 %.sink
   store ptr %add.ptr14, ptr %outObject, align 8, !tbaa !41
   %vtable15 = load ptr, ptr %this, align 8, !tbaa !10
@@ -1000,8 +1000,8 @@ return.sink.split:                                ; preds = %for.cond.14.i118, %
   %call17 = tail call noundef i32 %94(ptr noundef nonnull align 8 dereferenceable(40) %this)
   br label %return
 
-return:                                           ; preds = %return.sink.split, %for.cond.14.i118, %for.cond.13.i114, %for.cond.12.i111, %for.cond.11.i108, %for.cond.10.i105, %for.cond.9.i102, %for.cond.8.i99, %for.cond.7.i96, %for.cond.6.i93, %for.cond.5.i90, %for.cond.4.i87, %for.cond.3.i84, %for.cond.2.i81, %for.cond.1.i78, %for.cond.i75, %if.end10
-  %retval.0 = phi i32 [ -2147467262, %if.end10 ], [ -2147467262, %for.cond.i75 ], [ -2147467262, %for.cond.1.i78 ], [ -2147467262, %for.cond.2.i81 ], [ -2147467262, %for.cond.3.i84 ], [ -2147467262, %for.cond.4.i87 ], [ -2147467262, %for.cond.5.i90 ], [ -2147467262, %for.cond.6.i93 ], [ -2147467262, %for.cond.7.i96 ], [ -2147467262, %for.cond.8.i99 ], [ -2147467262, %for.cond.9.i102 ], [ -2147467262, %for.cond.10.i105 ], [ -2147467262, %for.cond.11.i108 ], [ -2147467262, %for.cond.12.i111 ], [ -2147467262, %for.cond.13.i114 ], [ -2147467262, %for.cond.14.i118 ], [ 0, %return.sink.split ]
+return:                                           ; preds = %return.sink.split, %for.cond.13.i114, %for.cond.12.i111, %for.cond.11.i108, %for.cond.10.i105, %for.cond.9.i102, %for.cond.8.i99, %for.cond.7.i96, %for.cond.6.i93, %for.cond.5.i90, %for.cond.4.i87, %for.cond.3.i84, %for.cond.2.i81, %for.cond.1.i78, %for.cond.i75, %if.end10, %_ZeqRK4GUIDS1_.exit120
+  %retval.0 = phi i32 [ -2147467262, %_ZeqRK4GUIDS1_.exit120 ], [ -2147467262, %if.end10 ], [ -2147467262, %for.cond.i75 ], [ -2147467262, %for.cond.1.i78 ], [ -2147467262, %for.cond.2.i81 ], [ -2147467262, %for.cond.3.i84 ], [ -2147467262, %for.cond.4.i87 ], [ -2147467262, %for.cond.5.i90 ], [ -2147467262, %for.cond.6.i93 ], [ -2147467262, %for.cond.7.i96 ], [ -2147467262, %for.cond.8.i99 ], [ -2147467262, %for.cond.9.i102 ], [ -2147467262, %for.cond.10.i105 ], [ -2147467262, %for.cond.11.i108 ], [ -2147467262, %for.cond.12.i111 ], [ -2147467262, %for.cond.13.i114 ], [ 0, %return.sink.split ]
   ret i32 %retval.0
 }
 

@@ -92,11 +92,17 @@ if.then:                                          ; preds = %entry
   %conv2 = sitofp i32 %samp_rate to float
   %mul4 = fmul float %div, %conv2
   %cmp5 = fcmp ogt float %mul4, 0.000000e+00
+  br i1 %cmp5, label %if.then7, label %if.end
+
+if.then7:                                         ; preds = %if.then
   %conv8 = sext i32 %framesize to i64
   %mul9 = mul nsw i64 %conv8, %frames
   %conv10 = sitofp i64 %mul9 to float
   %div14 = fdiv float %conv10, %mul4
-  %.sink = select i1 %cmp5, float %div14, float 0.000000e+00
+  br label %if.end
+
+if.end:                                           ; preds = %if.then, %if.then7
+  %.sink = phi float [ %div14, %if.then7 ], [ 0.000000e+00, %if.then ]
   %1 = getelementptr inbounds %struct.ts_times, ptr %time, i64 0, i32 2
   store float %.sink, ptr %1, align 4
   %sub = fsub float %div, %0
@@ -107,8 +113,8 @@ if.else18:                                        ; preds = %entry
   store <2 x float> zeroinitializer, ptr %estimated19, align 4, !tbaa !13
   br label %if.end22
 
-if.end22:                                         ; preds = %if.else18, %if.then
-  %.sink37 = phi float [ 0.000000e+00, %if.else18 ], [ %sub, %if.then ]
+if.end22:                                         ; preds = %if.else18, %if.end
+  %.sink37 = phi float [ 0.000000e+00, %if.else18 ], [ %sub, %if.end ]
   %eta21 = getelementptr inbounds %struct.ts_times, ptr %time, i64 0, i32 3
   store float %.sink37, ptr %eta21, align 4, !tbaa !14
   ret void
@@ -152,45 +158,50 @@ if.end:                                           ; preds = %ts_real_time.exit
   %conv.i122 = sitofp i64 %sub.i to float
   %div.i = fdiv float %conv.i122, 1.000000e+06
   %cmp.i123 = icmp sgt i64 %frameNum, 0
-  br i1 %cmp.i123, label %if.then.i143, label %ts_calc_times.exit149
+  br i1 %cmp.i123, label %if.then.i126, label %ts_calc_times.exit151
 
-if.then.i143:                                     ; preds = %if.end
+if.then.i126:                                     ; preds = %if.end
   %conv.i124 = sitofp i64 %totalframes to float
   %mul.i = fmul float %conv.i124, %conv.i
   %conv1.i = sitofp i64 %frameNum to float
   %div.i125 = fdiv float %mul.i, %conv1.i
-  %sub.i126 = fsub float %div.i125, %conv.i
-  %4 = insertelement <2 x float> poison, float %sub.i126, i64 0
-  %5 = insertelement <2 x float> %4, float %div.i125, i64 1
-  %6 = fpext <2 x float> %5 to <2 x double>
-  %7 = fadd <2 x double> %6, <double 5.000000e-01, double 5.000000e-01>
+  %sub.i127 = fsub float %div.i125, %conv.i
   %mul.i130 = fmul float %div.i, %conv.i124
   %div.i132 = fdiv float %mul.i130, %conv1.i
   %conv2.i134 = sitofp i32 %samp_rate to float
   %mul4.i135 = fmul float %div.i132, %conv2.i134
   %cmp5.i136 = fcmp ogt float %mul4.i135, 0.000000e+00
-  %conv8.i137 = sext i32 %framesize to i64
-  %mul9.i138 = mul nsw i64 %conv8.i137, %totalframes
-  %conv10.i139 = sitofp i64 %mul9.i138 to float
-  %div14.i140 = fdiv float %conv10.i139, %mul4.i135
-  %.sink.i141 = select i1 %cmp5.i136, float %div14.i140, float 0.000000e+00
-  %8 = fpext float %div.i132 to double
-  %9 = fadd double %8, 5.000000e-01
-  %10 = fpext float %.sink.i141 to double
-  br label %ts_calc_times.exit149
+  br i1 %cmp5.i136, label %if.then7.i142, label %if.end.i145
 
-ts_calc_times.exit149:                            ; preds = %if.end, %if.then.i143
-  %process_time.sroa.8.0 = phi double [ %10, %if.then.i143 ], [ 0.000000e+00, %if.end ]
-  %process_time.sroa.5.0 = phi double [ %9, %if.then.i143 ], [ 5.000000e-01, %if.end ]
-  %11 = phi <2 x double> [ %7, %if.then.i143 ], [ <double 5.000000e-01, double 5.000000e-01>, %if.end ]
+if.then7.i142:                                    ; preds = %if.then.i126
+  %conv8.i138 = sext i32 %framesize to i64
+  %mul9.i139 = mul nsw i64 %conv8.i138, %totalframes
+  %conv10.i140 = sitofp i64 %mul9.i139 to float
+  %div14.i141 = fdiv float %conv10.i140, %mul4.i135
+  br label %if.end.i145
+
+if.end.i145:                                      ; preds = %if.then7.i142, %if.then.i126
+  %.sink.i143 = phi float [ %div14.i141, %if.then7.i142 ], [ 0.000000e+00, %if.then.i126 ]
+  %4 = fpext float %div.i132 to double
+  %5 = fadd double %4, 5.000000e-01
+  %6 = insertelement <2 x float> poison, float %sub.i127, i64 0
+  %7 = insertelement <2 x float> %6, float %div.i125, i64 1
+  %8 = fpext <2 x float> %7 to <2 x double>
+  %9 = fadd <2 x double> %8, <double 5.000000e-01, double 5.000000e-01>
+  br label %ts_calc_times.exit151
+
+ts_calc_times.exit151:                            ; preds = %if.end, %if.end.i145
+  %process_time.sroa.8.0 = phi float [ %.sink.i143, %if.end.i145 ], [ 0.000000e+00, %if.end ]
+  %process_time.sroa.5.0 = phi double [ %5, %if.end.i145 ], [ 5.000000e-01, %if.end ]
+  %10 = phi <2 x double> [ %9, %if.end.i145 ], [ <double 5.000000e-01, double 5.000000e-01>, %if.end ]
   %cmp4 = icmp sgt i64 %totalframes, 1
-  br i1 %cmp4, label %if.then5, label %ts_calc_times.exit149.if.end8_crit_edge
+  br i1 %cmp4, label %if.then5, label %ts_calc_times.exit151.if.end8_crit_edge
 
-ts_calc_times.exit149.if.end8_crit_edge:          ; preds = %ts_calc_times.exit149
+ts_calc_times.exit151.if.end8_crit_edge:          ; preds = %ts_calc_times.exit151
   %.pre = add nsw i64 %totalframes, -1
   br label %if.end8
 
-if.then5:                                         ; preds = %ts_calc_times.exit149
+if.then5:                                         ; preds = %ts_calc_times.exit151
   %conv = sitofp i64 %frameNum to double
   %mul = fmul double %conv, 1.000000e+02
   %sub = add nsw i64 %totalframes, -1
@@ -199,10 +210,10 @@ if.then5:                                         ; preds = %ts_calc_times.exit1
   %conv7 = fptosi double %div to i32
   br label %if.end8
 
-if.end8:                                          ; preds = %ts_calc_times.exit149.if.end8_crit_edge, %if.then5
-  %sub9.pre-phi = phi i64 [ %.pre, %ts_calc_times.exit149.if.end8_crit_edge ], [ %sub, %if.then5 ]
-  %percent.0 = phi i32 [ 100, %ts_calc_times.exit149.if.end8_crit_edge ], [ %conv7, %if.then5 ]
-  %12 = load ptr, ptr @stderr, align 8, !tbaa !15
+if.end8:                                          ; preds = %ts_calc_times.exit151.if.end8_crit_edge, %if.then5
+  %sub9.pre-phi = phi i64 [ %.pre, %ts_calc_times.exit151.if.end8_crit_edge ], [ %sub, %if.then5 ]
+  %percent.0 = phi i32 [ 100, %ts_calc_times.exit151.if.end8_crit_edge ], [ %conv7, %if.then5 ]
+  %11 = load ptr, ptr @stderr, align 8, !tbaa !15
   %conv11 = fpext float %div.i to double
   %add = fadd double %conv11, 5.000000e-01
   %conv12 = fptosi double %add to i64
@@ -234,29 +245,30 @@ if.end8:                                          ; preds = %ts_calc_times.exit1
   %conv57 = trunc i64 %rem56 to i32
   %rem62 = srem i64 %conv48, 60
   %conv63 = trunc i64 %rem62 to i32
-  %13 = extractelement <2 x double> %11, i64 1
-  %conv67 = fptosi double %13 to i64
+  %12 = extractelement <2 x double> %10, i64 1
+  %conv67 = fptosi double %12 to i64
   %div68 = sdiv i64 %conv67, 3600
   %conv69 = trunc i64 %div68 to i32
-  %div73 = fdiv double %13, 6.000000e+01
+  %div73 = fdiv double %12, 6.000000e+01
   %conv74 = fptosi double %div73 to i64
   %rem75 = srem i64 %conv74, 60
   %conv76 = trunc i64 %rem75 to i32
   %rem81 = srem i64 %conv67, 60
   %conv82 = trunc i64 %rem81 to i32
-  %14 = extractelement <2 x double> %11, i64 0
-  %conv86 = fptosi double %14 to i64
+  %conv83 = fpext float %process_time.sroa.8.0 to double
+  %13 = extractelement <2 x double> %10, i64 0
+  %conv86 = fptosi double %13 to i64
   %div87 = sdiv i64 %conv86, 3600
   %conv88 = trunc i64 %div87 to i32
-  %div92 = fdiv double %14, 6.000000e+01
+  %div92 = fdiv double %13, 6.000000e+01
   %conv93 = fptosi double %div92 to i64
   %rem94 = srem i64 %conv93, 60
   %conv95 = trunc i64 %rem94 to i32
   %rem100 = srem i64 %conv86, 60
   %conv101 = trunc i64 %rem100 to i32
-  %call102 = call i32 (ptr, ptr, ...) @fprintf(ptr noundef %12, ptr noundef nonnull @.str.1, i64 noundef %frameNum, i64 noundef %sub9.pre-phi, i32 noundef %percent.0, i32 noundef %conv14, i32 noundef %conv20, i32 noundef %conv26, i32 noundef %conv31, i32 noundef %conv38, i32 noundef %conv44, i32 noundef %conv50, i32 noundef %conv57, i32 noundef %conv63, i32 noundef %conv69, i32 noundef %conv76, i32 noundef %conv82, double noundef %process_time.sroa.8.0, i32 noundef %conv88, i32 noundef %conv95, i32 noundef %conv101) #9
-  %15 = load ptr, ptr @stderr, align 8, !tbaa !15
-  %call103 = call i32 @fflush(ptr noundef %15)
+  %call102 = call i32 (ptr, ptr, ...) @fprintf(ptr noundef %11, ptr noundef nonnull @.str.1, i64 noundef %frameNum, i64 noundef %sub9.pre-phi, i32 noundef %percent.0, i32 noundef %conv14, i32 noundef %conv20, i32 noundef %conv26, i32 noundef %conv31, i32 noundef %conv38, i32 noundef %conv44, i32 noundef %conv50, i32 noundef %conv57, i32 noundef %conv63, i32 noundef %conv69, i32 noundef %conv76, i32 noundef %conv82, double noundef %conv83, i32 noundef %conv88, i32 noundef %conv95, i32 noundef %conv101) #9
+  %14 = load ptr, ptr @stderr, align 8, !tbaa !15
+  %call103 = call i32 @fflush(ptr noundef %14)
   br label %cleanup
 
 cleanup:                                          ; preds = %if.end8, %if.then

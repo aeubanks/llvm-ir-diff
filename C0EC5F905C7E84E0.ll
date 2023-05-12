@@ -202,12 +202,12 @@ do.body:                                          ; preds = %do.cond, %sw.epilog
   %12 = load ptr, ptr %contents, align 8, !tbaa !5
   %idx.ext53 = zext i16 %11 to i64
   %add.ptr54 = getelementptr inbounds %struct.pair_s, ptr %12, i64 %idx.ext53
-  %add.ptr124 = getelementptr inbounds %struct.pair_s, ptr %12, i64 2
   %shr23 = zext i16 %11 to i32
   %sub = add nsw i32 %shr23, -1
   %rem = urem i32 %hash.0, %sub
   %idx.ext = zext i32 %rem to i64
-  %add.ptr26 = getelementptr inbounds %struct.pair_s, ptr %add.ptr124, i64 %idx.ext
+  %add.ptr = getelementptr inbounds %struct.pair_s, ptr %12, i64 %idx.ext
+  %add.ptr26 = getelementptr inbounds %struct.pair_s, ptr %add.ptr, i64 2
   br label %for.cond
 
 for.cond:                                         ; preds = %for.cond.backedge, %do.body
@@ -296,8 +296,8 @@ do.cond:                                          ; preds = %for.end, %if.then68
   br i1 %cmp80.not, label %cleanup82, label %do.body, !llvm.loop !27
 
 cleanup82.sink.split:                             ; preds = %if.then33.1, %if.else57.1, %if.else57, %if.then33
-  %pp.0.lcssa131 = phi ptr [ %pp.0, %if.then33 ], [ %pp.0, %if.else57 ], [ %pp.0.1, %if.else57.1 ], [ %pp.0.1, %if.then33.1 ]
-  %value39 = getelementptr %struct.pair_s, ptr %pp.0.lcssa131, i64 -1, i32 1
+  %pp.0.lcssa130 = phi ptr [ %pp.0, %if.then33 ], [ %pp.0, %if.else57 ], [ %pp.0.1, %if.else57.1 ], [ %pp.0.1, %if.then33.1 ]
+  %value39 = getelementptr %struct.pair_s, ptr %pp.0.lcssa130, i64 -1, i32 1
   store ptr %value39, ptr %ppvalue, align 8, !tbaa !26
   br label %cleanup82
 
@@ -728,8 +728,8 @@ dict_copy.exit:                                   ; preds = %if.end11.i, %if.end
   call void @alloc_free(ptr noundef %24, i32 noundef 1, i32 noundef 32, ptr noundef nonnull @.str.3) #8
   br label %cleanup
 
-cleanup:                                          ; preds = %if.then4.i, %entry, %dict_copy.exit
-  %retval.0 = phi i32 [ 0, %dict_copy.exit ], [ -25, %entry ], [ -25, %if.then4.i ]
+cleanup:                                          ; preds = %entry, %if.then4.i, %dict_copy.exit
+  %retval.0 = phi i32 [ 0, %dict_copy.exit ], [ -25, %if.then4.i ], [ -25, %entry ]
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %drto) #8
   ret i32 %retval.0
 }

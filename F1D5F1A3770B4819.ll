@@ -130,7 +130,7 @@ entry:
   %3 = tail call float @llvm.fmuladd.f32(float %2, float %2, float %mul8.i.i)
   %4 = tail call float @llvm.fmuladd.f32(float %vec.sroa.13.0.copyload, float %vec.sroa.13.0.copyload, float %3)
   %cmp = fcmp olt float %4, 0x3F1A36E2E0000000
-  br i1 %cmp, label %if.end, label %if.else
+  br i1 %cmp, label %invoke.cont14, label %if.else
 
 if.else:                                          ; preds = %entry
   %vec.sroa.17.0.vec0.sroa_idx = getelementptr inbounds i8, ptr %vec0, i64 12
@@ -141,9 +141,9 @@ if.else:                                          ; preds = %entry
   %6 = shufflevector <2 x float> %5, <2 x float> poison, <2 x i32> zeroinitializer
   %7 = fmul <2 x float> %0, %6
   %mul7.i = fmul float %vec.sroa.13.0.copyload, %div
-  br label %if.end
+  br label %invoke.cont14
 
-if.end:                                           ; preds = %entry, %if.else
+invoke.cont14:                                    ; preds = %if.else, %entry
   %vec.sroa.13.0 = phi float [ %mul7.i, %if.else ], [ 0.000000e+00, %entry ]
   %vec.sroa.17.0 = phi float [ %vec.sroa.17.0.copyload, %if.else ], [ 0.000000e+00, %entry ]
   %8 = phi <2 x float> [ %7, %if.else ], [ <float 1.000000e+00, float 0.000000e+00>, %entry ]
@@ -173,19 +173,19 @@ if.end:                                           ; preds = %entry, %if.else
   invoke void %11(ptr noundef nonnull align 8 dereferenceable(24) %9, ptr noundef nonnull %supportCallback, ptr noundef nonnull align 4 dereferenceable(16) %ref.tmp12, ptr noundef nonnull align 4 dereferenceable(16) %aabbMax)
           to label %invoke.cont16 unwind label %lpad13
 
-invoke.cont16:                                    ; preds = %if.end
+invoke.cont16:                                    ; preds = %invoke.cont14
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %ref.tmp12) #16
   %retval.sroa.0.0.copyload.i = load <2 x float>, ptr %m_supportVertexLocal.i, align 8, !tbaa.struct !29
   %retval.sroa.2.0.m_supportVertexLocal.sroa_idx.i = getelementptr inbounds %class.LocalSupportVertexCallback, ptr %supportCallback, i64 0, i32 1, i32 0, i64 2
   %retval.sroa.2.0.copyload.i = load <2 x float>, ptr %retval.sroa.2.0.m_supportVertexLocal.sroa_idx.i, align 8, !tbaa.struct !22
+  %.fca.0.insert.i40 = insertvalue { <2 x float>, <2 x float> } poison, <2 x float> %retval.sroa.0.0.copyload.i, 0
+  %.fca.1.insert.i41 = insertvalue { <2 x float>, <2 x float> } %.fca.0.insert.i40, <2 x float> %retval.sroa.2.0.copyload.i, 1
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %aabbMax) #16
   call void @_ZN31btInternalTriangleIndexCallbackD2Ev(ptr noundef nonnull align 8 dereferenceable(44) %supportCallback)
   call void @llvm.lifetime.end.p0(i64 48, ptr nonnull %supportCallback) #16
-  %.fca.0.insert = insertvalue { <2 x float>, <2 x float> } poison, <2 x float> %retval.sroa.0.0.copyload.i, 0
-  %.fca.1.insert = insertvalue { <2 x float>, <2 x float> } %.fca.0.insert, <2 x float> %retval.sroa.2.0.copyload.i, 1
-  ret { <2 x float>, <2 x float> } %.fca.1.insert
+  ret { <2 x float>, <2 x float> } %.fca.1.insert.i41
 
-lpad13:                                           ; preds = %if.end
+lpad13:                                           ; preds = %invoke.cont14
   %12 = landingpad { ptr, i32 }
           cleanup
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %ref.tmp12) #16
@@ -249,9 +249,9 @@ for.body.epil:                                    ; preds = %for.cond3.preheader
   br i1 %epil.iter.cmp.not, label %for.cond3.preheader, label %for.body.epil, !llvm.loop !30
 
 for.cond3.preheader:                              ; preds = %for.body.epil, %for.cond3.preheader.unr-lcssa
-  br i1 %cmp44, label %for.body6.lr.ph, label %for.cond.cleanup5
+  br i1 %cmp44, label %invoke.cont13.lr.ph, label %for.cond.cleanup5
 
-for.body6.lr.ph:                                  ; preds = %for.cond3.preheader
+invoke.cont13.lr.ph:                              ; preds = %for.cond3.preheader
   %m_supportVertexLocal.i = getelementptr inbounds %class.LocalSupportVertexCallback, ptr %supportCallback, i64 0, i32 1
   %m_maxDot.i = getelementptr inbounds %class.LocalSupportVertexCallback, ptr %supportCallback, i64 0, i32 2
   %m_supportVecLocal.i = getelementptr inbounds %class.LocalSupportVertexCallback, ptr %supportCallback, i64 0, i32 3
@@ -259,7 +259,7 @@ for.body6.lr.ph:                                  ; preds = %for.cond3.preheader
   %1 = getelementptr inbounds { <2 x float>, <2 x float> }, ptr %ref.tmp11, i64 0, i32 1
   %retval.sroa.2.0.m_supportVertexLocal.sroa_idx.i = getelementptr inbounds %class.LocalSupportVertexCallback, ptr %supportCallback, i64 0, i32 1, i32 0, i64 2
   %wide.trip.count52 = zext i32 %numVectors to i64
-  br label %for.body6
+  br label %invoke.cont13
 
 for.body:                                         ; preds = %for.body, %for.body.preheader.new
   %indvars.iv = phi i64 [ 0, %for.body.preheader.new ], [ %indvars.iv.next.3, %for.body ]
@@ -283,8 +283,8 @@ for.body:                                         ; preds = %for.body, %for.body
 for.cond.cleanup5:                                ; preds = %invoke.cont15, %entry, %for.cond3.preheader
   ret void
 
-for.body6:                                        ; preds = %for.body6.lr.ph, %invoke.cont15
-  %indvars.iv49 = phi i64 [ 0, %for.body6.lr.ph ], [ %indvars.iv.next50, %invoke.cont15 ]
+invoke.cont13:                                    ; preds = %invoke.cont13.lr.ph, %invoke.cont15
+  %indvars.iv49 = phi i64 [ 0, %invoke.cont13.lr.ph ], [ %indvars.iv.next50, %invoke.cont15 ]
   %arrayidx8 = getelementptr inbounds %class.btVector3, ptr %vectors, i64 %indvars.iv49
   call void @llvm.lifetime.start.p0(i64 48, ptr nonnull %supportCallback) #16
   store ptr getelementptr inbounds ({ [5 x ptr] }, ptr @_ZTV26LocalSupportVertexCallback, i64 0, inrange i32 0, i64 2), ptr %supportCallback, align 8, !tbaa !5
@@ -303,7 +303,7 @@ for.body6:                                        ; preds = %for.body6.lr.ph, %i
   invoke void %3(ptr noundef nonnull align 8 dereferenceable(24) %2, ptr noundef nonnull %supportCallback, ptr noundef nonnull align 4 dereferenceable(16) %ref.tmp11, ptr noundef nonnull align 4 dereferenceable(16) %aabbMax)
           to label %invoke.cont15 unwind label %lpad12
 
-invoke.cont15:                                    ; preds = %for.body6
+invoke.cont15:                                    ; preds = %invoke.cont13
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %ref.tmp11) #16
   %retval.sroa.0.0.copyload.i = load <2 x float>, ptr %m_supportVertexLocal.i, align 8, !tbaa.struct !29
   %retval.sroa.2.0.copyload.i = load <2 x float>, ptr %retval.sroa.2.0.m_supportVertexLocal.sroa_idx.i, align 8, !tbaa.struct !22
@@ -316,9 +316,9 @@ invoke.cont15:                                    ; preds = %for.body6
   call void @llvm.lifetime.end.p0(i64 48, ptr nonnull %supportCallback) #16
   %indvars.iv.next50 = add nuw nsw i64 %indvars.iv49, 1
   %exitcond53.not = icmp eq i64 %indvars.iv.next50, %wide.trip.count52
-  br i1 %exitcond53.not, label %for.cond.cleanup5, label %for.body6
+  br i1 %exitcond53.not, label %for.cond.cleanup5, label %invoke.cont13
 
-lpad12:                                           ; preds = %for.body6
+lpad12:                                           ; preds = %invoke.cont13
   %4 = landingpad { ptr, i32 }
           cleanup
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %ref.tmp11) #16
@@ -465,7 +465,7 @@ entry:
 
 ; Function Attrs: uwtable
 define dso_local void @_ZNK25btConvexTriangleMeshShape31calculatePrincipalAxisTransformER11btTransformR9btVector3Rf(ptr nocapture noundef nonnull readonly align 8 dereferenceable(112) %this, ptr noundef nonnull align 4 dereferenceable(64) %principal, ptr nocapture noundef nonnull writeonly align 4 dereferenceable(16) %inertia, ptr nocapture noundef nonnull align 4 dereferenceable(4) %volume) local_unnamed_addr #3 align 2 personality ptr @__gxx_personality_v0 {
-entry:
+invoke.cont6:
   %centerCallback = alloca %class.CenterCallback, align 8
   %aabbMax = alloca %class.btVector3, align 16
   %ref.tmp4 = alloca %class.btVector3, align 8
@@ -492,7 +492,7 @@ entry:
   invoke void %2(ptr noundef nonnull align 8 dereferenceable(24) %0, ptr noundef nonnull %centerCallback, ptr noundef nonnull align 4 dereferenceable(16) %ref.tmp4, ptr noundef nonnull align 4 dereferenceable(16) %aabbMax)
           to label %invoke.cont7 unwind label %lpad5
 
-invoke.cont7:                                     ; preds = %entry
+invoke.cont7:                                     ; preds = %invoke.cont6
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %ref.tmp4) #16
   %volume.i = getelementptr inbounds %class.CenterCallback, ptr %centerCallback, i64 0, i32 4
   %3 = load float, ptr %volume.i, align 4, !tbaa !28
@@ -510,15 +510,15 @@ cond.true.i:                                      ; preds = %invoke.cont7
   %8 = load float, ptr %arrayidx7.i.i.i, align 4, !tbaa !28
   %mul8.i.i.i = fmul float %div.i.i, %8
   %retval.sroa.3.12.vec.insert.i.i.i = insertelement <2 x float> <float poison, float 0.000000e+00>, float %mul8.i.i.i, i64 0
-  br label %invoke.cont9
+  br label %invoke.cont20
 
 cond.false.i:                                     ; preds = %invoke.cont7
   %retval.sroa.0.0.copyload.i = load <2 x float>, ptr %ref.i, align 4, !tbaa.struct !29
   %retval.sroa.3.0.ref.sroa_idx.i = getelementptr inbounds %class.CenterCallback, ptr %centerCallback, i64 0, i32 2, i32 0, i64 2
   %retval.sroa.3.0.copyload.i = load <2 x float>, ptr %retval.sroa.3.0.ref.sroa_idx.i, align 4, !tbaa.struct !22
-  br label %invoke.cont9
+  br label %invoke.cont20
 
-invoke.cont9:                                     ; preds = %cond.false.i, %cond.true.i
+invoke.cont20:                                    ; preds = %cond.false.i, %cond.true.i
   %retval.sroa.0.0.i = phi <2 x float> [ %7, %cond.true.i ], [ %retval.sroa.0.0.copyload.i, %cond.false.i ]
   %retval.sroa.3.0.i = phi <2 x float> [ %retval.sroa.3.12.vec.insert.i.i.i, %cond.true.i ], [ %retval.sroa.3.0.copyload.i, %cond.false.i ]
   %m_origin.i = getelementptr inbounds %class.btTransform, ptr %principal, i64 0, i32 1
@@ -529,9 +529,9 @@ invoke.cont9:                                     ; preds = %cond.false.i, %cond
   store float %mul.i, ptr %volume, align 4, !tbaa !28
   call void @llvm.lifetime.start.p0(i64 72, ptr nonnull %inertiaCallback) #16
   store ptr getelementptr inbounds ({ [5 x ptr] }, ptr @_ZTVZNK25btConvexTriangleMeshShape31calculatePrincipalAxisTransformER11btTransformR9btVector3RfE15InertiaCallback, i64 0, inrange i32 0, i64 2), ptr %inertiaCallback, align 8, !tbaa !5
-  %sum.i69 = getelementptr inbounds %class.InertiaCallback, ptr %inertiaCallback, i64 0, i32 1
+  %sum.i74 = getelementptr inbounds %class.InertiaCallback, ptr %inertiaCallback, i64 0, i32 1
   %center10.i = getelementptr inbounds %class.InertiaCallback, ptr %inertiaCallback, i64 0, i32 2
-  call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(48) %sum.i69, i8 0, i64 48, i1 false)
+  call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(48) %sum.i74, i8 0, i64 48, i1 false)
   store <2 x float> %retval.sroa.0.0.i, ptr %center10.i, align 8, !tbaa.struct !29
   %center.sroa.6.0.center10.i.sroa_idx = getelementptr inbounds %class.InertiaCallback, ptr %inertiaCallback, i64 0, i32 2, i32 0, i64 2
   store <2 x float> %retval.sroa.3.0.i, ptr %center.sroa.6.0.center10.i.sroa_idx, align 8, !tbaa.struct !22
@@ -540,35 +540,35 @@ invoke.cont9:                                     ; preds = %cond.false.i, %cond
   %10 = load <2 x float>, ptr %aabbMax, align 16, !tbaa !28
   %11 = fneg <2 x float> %10
   %12 = load float, ptr %arrayidx5.i, align 8, !tbaa !28
-  %fneg8.i74 = fneg float %12
-  %retval.sroa.3.12.vec.insert.i77 = insertelement <2 x float> <float poison, float 0.000000e+00>, float %fneg8.i74, i64 0
+  %fneg8.i79 = fneg float %12
+  %retval.sroa.3.12.vec.insert.i82 = insertelement <2 x float> <float poison, float 0.000000e+00>, float %fneg8.i79, i64 0
   store <2 x float> %11, ptr %ref.tmp18, align 8
   %13 = getelementptr inbounds { <2 x float>, <2 x float> }, ptr %ref.tmp18, i64 0, i32 1
-  store <2 x float> %retval.sroa.3.12.vec.insert.i77, ptr %13, align 8
+  store <2 x float> %retval.sroa.3.12.vec.insert.i82, ptr %13, align 8
   %vtable23 = load ptr, ptr %9, align 8, !tbaa !5
   %vfn24 = getelementptr inbounds ptr, ptr %vtable23, i64 2
   %14 = load ptr, ptr %vfn24, align 8
   invoke void %14(ptr noundef nonnull align 8 dereferenceable(24) %9, ptr noundef nonnull %inertiaCallback, ptr noundef nonnull align 4 dereferenceable(16) %ref.tmp18, ptr noundef nonnull align 4 dereferenceable(16) %aabbMax)
           to label %invoke.cont25 unwind label %lpad19
 
-invoke.cont25:                                    ; preds = %invoke.cont9
+invoke.cont25:                                    ; preds = %invoke.cont20
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %ref.tmp18) #16
-  invoke void @_ZN11btMatrix3x311diagonalizeERS_fi(ptr noundef nonnull align 4 dereferenceable(48) %sum.i69, ptr noundef nonnull align 4 dereferenceable(48) %principal, float noundef 0x3EE4F8B580000000, i32 noundef 20)
+  invoke void @_ZN11btMatrix3x311diagonalizeERS_fi(ptr noundef nonnull align 4 dereferenceable(48) %sum.i74, ptr noundef nonnull align 4 dereferenceable(48) %principal, float noundef 0x3EE4F8B580000000, i32 noundef 20)
           to label %invoke.cont31 unwind label %lpad26
 
 invoke.cont31:                                    ; preds = %invoke.cont25
   %arrayidx40 = getelementptr inbounds %class.InertiaCallback, ptr %inertiaCallback, i64 0, i32 1, i32 0, i64 1, i32 0, i64 1
   %arrayidx45 = getelementptr inbounds %class.InertiaCallback, ptr %inertiaCallback, i64 0, i32 1, i32 0, i64 2, i32 0, i64 2
-  %arrayidx3.i82 = getelementptr inbounds [4 x float], ptr %inertia, i64 0, i64 1
+  %arrayidx3.i87 = getelementptr inbounds [4 x float], ptr %inertia, i64 0, i64 1
   %15 = load float, ptr %arrayidx45, align 8, !tbaa !28
-  %arrayidx5.i83 = getelementptr inbounds [4 x float], ptr %inertia, i64 0, i64 2
-  store float %15, ptr %arrayidx5.i83, align 4, !tbaa !28
-  %arrayidx7.i84 = getelementptr inbounds [4 x float], ptr %inertia, i64 0, i64 3
-  store float 0.000000e+00, ptr %arrayidx7.i84, align 4, !tbaa !28
-  %16 = load float, ptr %sum.i69, align 8, !tbaa !28
+  %arrayidx5.i88 = getelementptr inbounds [4 x float], ptr %inertia, i64 0, i64 2
+  store float %15, ptr %arrayidx5.i88, align 4, !tbaa !28
+  %arrayidx7.i89 = getelementptr inbounds [4 x float], ptr %inertia, i64 0, i64 3
+  store float 0.000000e+00, ptr %arrayidx7.i89, align 4, !tbaa !28
+  %16 = load float, ptr %sum.i74, align 8, !tbaa !28
   store float %16, ptr %inertia, align 4, !tbaa !28
   %17 = load float, ptr %arrayidx40, align 4, !tbaa !28
-  store float %17, ptr %arrayidx3.i82, align 4, !tbaa !28
+  store float %17, ptr %arrayidx3.i87, align 4, !tbaa !28
   %18 = load float, ptr %volume, align 4, !tbaa !28
   %div.i = fdiv float 1.000000e+00, %18
   %19 = insertelement <2 x float> poison, float %16, i64 0
@@ -578,7 +578,7 @@ invoke.cont31:                                    ; preds = %invoke.cont25
   %23 = fmul <2 x float> %20, %22
   store <2 x float> %23, ptr %inertia, align 4, !tbaa !28
   %mul7.i.i = fmul float %15, %div.i
-  store float %mul7.i.i, ptr %arrayidx5.i83, align 4, !tbaa !28
+  store float %mul7.i.i, ptr %arrayidx5.i88, align 4, !tbaa !28
   invoke void @_ZN31btInternalTriangleIndexCallbackD2Ev(ptr noundef nonnull align 8 dereferenceable(72) %inertiaCallback)
           to label %invoke.cont49 unwind label %lpad15
 
@@ -589,7 +589,7 @@ invoke.cont49:                                    ; preds = %invoke.cont31
   call void @llvm.lifetime.end.p0(i64 48, ptr nonnull %centerCallback) #16
   ret void
 
-lpad5:                                            ; preds = %entry
+lpad5:                                            ; preds = %invoke.cont6
   %24 = landingpad { ptr, i32 }
           cleanup
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %ref.tmp4) #16
@@ -600,7 +600,7 @@ lpad15:                                           ; preds = %invoke.cont31
           cleanup
   br label %ehcleanup51
 
-lpad19:                                           ; preds = %invoke.cont9
+lpad19:                                           ; preds = %invoke.cont20
   %26 = landingpad { ptr, i32 }
           cleanup
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %ref.tmp18) #16
@@ -617,19 +617,19 @@ ehcleanup:                                        ; preds = %lpad26, %lpad19
           to label %ehcleanup51 unwind label %terminate.lpad
 
 ehcleanup51:                                      ; preds = %ehcleanup, %lpad15
-  %.pn88 = phi { ptr, i32 } [ %25, %lpad15 ], [ %.pn, %ehcleanup ]
+  %.pn64 = phi { ptr, i32 } [ %25, %lpad15 ], [ %.pn, %ehcleanup ]
   call void @llvm.lifetime.end.p0(i64 72, ptr nonnull %inertiaCallback) #16
   br label %ehcleanup53
 
 ehcleanup53:                                      ; preds = %ehcleanup51, %lpad5
-  %.pn88.pn = phi { ptr, i32 } [ %.pn88, %ehcleanup51 ], [ %24, %lpad5 ]
+  %.pn64.pn.pn = phi { ptr, i32 } [ %24, %lpad5 ], [ %.pn64, %ehcleanup51 ]
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %aabbMax) #16
   invoke void @_ZN31btInternalTriangleIndexCallbackD2Ev(ptr noundef nonnull align 8 dereferenceable(48) %centerCallback)
           to label %invoke.cont55 unwind label %terminate.lpad
 
 invoke.cont55:                                    ; preds = %ehcleanup53
   call void @llvm.lifetime.end.p0(i64 48, ptr nonnull %centerCallback) #16
-  resume { ptr, i32 } %.pn88.pn
+  resume { ptr, i32 } %.pn64.pn.pn
 
 terminate.lpad:                                   ; preds = %ehcleanup53, %ehcleanup
   %28 = landingpad { ptr, i32 }
@@ -1245,7 +1245,7 @@ entry:
   store float %add13.i196, ptr %arrayidx12.i195, align 8, !tbaa !28
   %arrayidx.i198 = getelementptr inbounds %class.InertiaCallback, ptr %this, i64 0, i32 1, i32 0, i64 2
   %87 = load <2 x float>, ptr %arrayidx.i198, align 8, !tbaa !28
-  %88 = shufflevector <2 x float> %64, <2 x float> poison, <2 x i32> <i32 1, i32 undef>
+  %88 = shufflevector <2 x float> %64, <2 x float> poison, <2 x i32> <i32 1, i32 poison>
   %89 = insertelement <2 x float> %88, float %mul80.2.1, i64 1
   %90 = fadd <2 x float> %89, %87
   store <2 x float> %90, ptr %arrayidx.i198, align 8, !tbaa !28

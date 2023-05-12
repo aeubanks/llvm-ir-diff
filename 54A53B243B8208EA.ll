@@ -249,7 +249,7 @@ land.lhs.true:                                    ; preds = %entry
 if.else.i:                                        ; preds = %land.lhs.true
   %call1.i = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(1) @RECORD, ptr noundef nonnull dereferenceable(1) @INIT_RECORD) #7
   %tobool2.not.i = icmp eq i32 %call1.i, 0
-  br i1 %tobool2.not.i, label %if.else.i.i, label %if.then3.i
+  br i1 %tobool2.not.i, label %INITIALIZE_TEXT_RECORD.exit, label %if.then3.i
 
 if.then3.i:                                       ; preds = %if.else.i
   %fputc.i = tail call i32 @fputc(i32 84, ptr %OUTPUT)
@@ -259,9 +259,9 @@ if.then3.i:                                       ; preds = %if.else.i
   %div.i = sdiv i32 %5, 2
   tail call void (i32, i32, i32, ptr, ...) @PRT_NUM(i32 noundef %div.i, i32 noundef 16, i32 noundef 2, ptr noundef %OUTPUT) #8
   %call5.i = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %OUTPUT, ptr noundef nonnull @.str.2, ptr noundef nonnull @RECORD)
-  br label %if.else.i.i
+  br label %INITIALIZE_TEXT_RECORD.exit
 
-if.else.i.i:                                      ; preds = %if.then3.i, %if.else.i
+INITIALIZE_TEXT_RECORD.exit:                      ; preds = %if.else.i, %if.then3.i
   store i32 %PUT_AT, ptr @LOCATION, align 4, !tbaa !5
   store i8 0, ptr @INIT_RECORD, align 16
   store i8 0, ptr @RECORD, align 16
@@ -272,51 +272,51 @@ if.else.i.i:                                      ; preds = %if.then3.i, %if.els
   store i32 1, ptr @IS_INITIALIZED, align 4, !tbaa !5
   br label %land.lhs.true7
 
-land.lhs.true7:                                   ; preds = %land.lhs.true, %if.else.i.i
-  %6 = phi i32 [ %2, %land.lhs.true ], [ %PUT_AT, %if.else.i.i ]
-  %7 = phi i32 [ %1, %land.lhs.true ], [ 60, %if.else.i.i ]
-  %8 = phi i32 [ %3, %land.lhs.true ], [ %conv8.i.i, %if.else.i.i ]
+land.lhs.true7:                                   ; preds = %land.lhs.true, %INITIALIZE_TEXT_RECORD.exit
+  %6 = phi i32 [ %2, %land.lhs.true ], [ %PUT_AT, %INITIALIZE_TEXT_RECORD.exit ]
+  %7 = phi i32 [ %1, %land.lhs.true ], [ 60, %INITIALIZE_TEXT_RECORD.exit ]
+  %8 = phi i32 [ %3, %land.lhs.true ], [ %conv8.i.i, %INITIALIZE_TEXT_RECORD.exit ]
   %add8 = add nsw i32 %8, %conv
   %cmp9 = icmp sgt i32 %add8, %7
-  br i1 %cmp9, label %if.else.i38, label %if.then20.critedge
+  br i1 %cmp9, label %if.else.i40, label %if.then20.critedge
 
-if.else.i38:                                      ; preds = %land.lhs.true7
-  %call1.i36 = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(1) @RECORD, ptr noundef nonnull dereferenceable(1) @INIT_RECORD) #7
-  %tobool2.not.i37 = icmp eq i32 %call1.i36, 0
-  br i1 %tobool2.not.i37, label %if.else.i.i50, label %if.then3.i42
+if.else.i40:                                      ; preds = %land.lhs.true7
+  %call1.i38 = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(1) @RECORD, ptr noundef nonnull dereferenceable(1) @INIT_RECORD) #7
+  %tobool2.not.i39 = icmp eq i32 %call1.i38, 0
+  br i1 %tobool2.not.i39, label %if.else.i.i52, label %if.then3.i44
 
-if.then3.i42:                                     ; preds = %if.else.i38
-  %fputc.i39 = tail call i32 @fputc(i32 84, ptr %OUTPUT)
+if.then3.i44:                                     ; preds = %if.else.i40
+  %fputc.i41 = tail call i32 @fputc(i32 84, ptr %OUTPUT)
   %9 = load i32, ptr @LOCATION, align 4, !tbaa !5
   tail call void (i32, i32, i32, ptr, ...) @PRT_NUM(i32 noundef %9, i32 noundef 16, i32 noundef 6, ptr noundef %OUTPUT) #8
   %10 = load i32, ptr @NEXT_COL, align 4, !tbaa !5
-  %div.i40 = sdiv i32 %10, 2
-  tail call void (i32, i32, i32, ptr, ...) @PRT_NUM(i32 noundef %div.i40, i32 noundef 16, i32 noundef 2, ptr noundef %OUTPUT) #8
-  %call5.i41 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %OUTPUT, ptr noundef nonnull @.str.2, ptr noundef nonnull @RECORD)
-  %.pre.pre = load i32, ptr @LOCATION, align 4, !tbaa !5
-  br label %if.else.i.i50
+  %div.i42 = sdiv i32 %10, 2
+  tail call void (i32, i32, i32, ptr, ...) @PRT_NUM(i32 noundef %div.i42, i32 noundef 16, i32 noundef 2, ptr noundef %OUTPUT) #8
+  %call5.i43 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %OUTPUT, ptr noundef nonnull @.str.2, ptr noundef nonnull @RECORD)
+  %.pre = load i32, ptr @LOCATION, align 4, !tbaa !5
+  br label %if.else.i.i52
 
-if.else.i.i50:                                    ; preds = %if.then3.i42, %if.else.i38
-  %.pre = phi i32 [ %.pre.pre, %if.then3.i42 ], [ %6, %if.else.i38 ]
-  %call12 = tail call i64 @strlen(ptr noundef nonnull dereferenceable(1) @RECORD) #7
-  %div1352 = lshr i64 %call12, 1
-  %11 = trunc i64 %div1352 to i32
-  %conv16 = add i32 %.pre, %11
-  store i32 %conv16, ptr @LOCATION, align 4, !tbaa !5
+if.else.i.i52:                                    ; preds = %if.else.i40, %if.then3.i44
+  %11 = phi i32 [ %.pre, %if.then3.i44 ], [ %6, %if.else.i40 ]
+  %call12.c = tail call i64 @strlen(ptr noundef nonnull dereferenceable(1) @RECORD) #7
+  %div1333.c = lshr i64 %call12.c, 1
+  %12 = trunc i64 %div1333.c to i32
+  %conv16.c = add i32 %11, %12
+  store i32 %conv16.c, ptr @LOCATION, align 4, !tbaa !5
   store i8 0, ptr @INIT_RECORD, align 16
   store i8 0, ptr @RECORD, align 16
   store i32 60, ptr @MAX_SIZE, align 4, !tbaa !5
-  %call7.i.i48 = tail call i64 @strlen(ptr noundef nonnull dereferenceable(1) @RECORD) #7
-  %conv8.i.i49 = trunc i64 %call7.i.i48 to i32
-  store i32 %conv8.i.i49, ptr @NEXT_COL, align 4, !tbaa !5
+  %call7.i.i50 = tail call i64 @strlen(ptr noundef nonnull dereferenceable(1) @RECORD) #7
+  %conv8.i.i51 = trunc i64 %call7.i.i50 to i32
+  store i32 %conv8.i.i51, ptr @NEXT_COL, align 4, !tbaa !5
   store i32 1, ptr @IS_INITIALIZED, align 4, !tbaa !5
-  %.pre55 = add nsw i32 %conv8.i.i49, %conv
+  %.pre54 = add nsw i32 %conv8.i.i51, %conv
   br label %if.then20.critedge
 
-if.then20.critedge:                               ; preds = %if.else.i.i50, %land.lhs.true7
-  %add22.pre-phi = phi i32 [ %.pre55, %if.else.i.i50 ], [ %add8, %land.lhs.true7 ]
-  %12 = phi i32 [ %conv8.i.i49, %if.else.i.i50 ], [ %8, %land.lhs.true7 ]
-  %idxprom = sext i32 %12 to i64
+if.then20.critedge:                               ; preds = %if.else.i.i52, %land.lhs.true7
+  %add22.pre-phi = phi i32 [ %.pre54, %if.else.i.i52 ], [ %add8, %land.lhs.true7 ]
+  %13 = phi i32 [ %conv8.i.i51, %if.else.i.i52 ], [ %8, %land.lhs.true7 ]
+  %idxprom = sext i32 %13 to i64
   %arrayidx = getelementptr inbounds [81 x i8], ptr @RECORD, i64 0, i64 %idxprom
   %call21 = tail call ptr @strcpy(ptr noundef nonnull dereferenceable(1) %arrayidx, ptr noundef nonnull dereferenceable(1) %VAL) #8
   store i32 %add22.pre-phi, ptr @NEXT_COL, align 4, !tbaa !5

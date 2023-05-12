@@ -542,7 +542,7 @@ if.then:                                          ; preds = %entry
   unreachable
 
 if.end:                                           ; preds = %entry
-  %5 = load i32, ptr @NativeByteOrder, align 4, !tbaa !36
+  %5 = load i32, ptr @NativeByteOrder, align 4
   %cmp5 = icmp eq i32 %5, 0
   br i1 %cmp5, label %if.then7, label %if.end14
 
@@ -657,9 +657,9 @@ declare i32 @lame_decode_initfile(ptr noundef, ptr noundef, ptr noundef, ptr nou
 define dso_local void @parse_file_header(ptr nocapture noundef %gfp, ptr noundef %sf) local_unnamed_addr #0 {
 entry:
   %data.i112.i = alloca [1024 x i8], align 16
+  %data.i101.i30 = alloca [1024 x i8], align 16
+  %data.i.i31 = alloca [1024 x i8], align 16
   %data.i101.i = alloca [1024 x i8], align 16
-  %data.i.i30 = alloca [1024 x i8], align 16
-  %data.i100.i = alloca [1024 x i8], align 16
   %data.i.i = alloca [1024 x i8], align 16
   %call = tail call i32 @Read32BitsHighLow(ptr noundef %sf) #12
   store i1 false, ptr @count_samples_carefully, align 4
@@ -679,7 +679,7 @@ if.then:                                          ; preds = %entry
 for.body.i:                                       ; preds = %if.then, %for.inc.i
   %loop_sanity.0148.i = phi i32 [ %inc.i, %for.inc.i ], [ 0, %if.then ]
   %wave_info.sroa.11.0147.i = phi i16 [ %wave_info.sroa.11.1.i, %for.inc.i ], [ 0, %if.then ]
-  %wave_info.sroa.7113.0146.i = phi i32 [ %wave_info.sroa.7113.1.i, %for.inc.i ], [ 0, %if.then ]
+  %wave_info.sroa.7114.0146.i = phi i32 [ %wave_info.sroa.7114.1.i, %for.inc.i ], [ 0, %if.then ]
   %wave_info.sroa.4.0145.i = phi i16 [ %wave_info.sroa.4.1.i, %for.inc.i ], [ 0, %if.then ]
   %call5.i = tail call i32 @Read32BitsHighLow(ptr noundef %sf) #12
   switch i32 %call5.i, label %if.else46.i [
@@ -727,29 +727,29 @@ fskip.exit.i:                                     ; preds = %while.body.i.i
 if.else46.i:                                      ; preds = %for.body.i
   %call47.i = tail call i32 @Read32Bits(ptr noundef %sf) #12
   %conv48.i = sext i32 %call47.i to i64
-  call void @llvm.lifetime.start.p0(i64 1024, ptr nonnull %data.i100.i) #12
-  %cmp8.i101.i = icmp sgt i32 %call47.i, 0
-  br i1 %cmp8.i101.i, label %while.body.i107.i, label %fskip.exit110.i
+  call void @llvm.lifetime.start.p0(i64 1024, ptr nonnull %data.i101.i) #12
+  %cmp8.i102.i = icmp sgt i32 %call47.i, 0
+  br i1 %cmp8.i102.i, label %while.body.i108.i, label %fskip.exit111.i
 
-while.body.i107.i:                                ; preds = %if.else46.i, %while.body.i107.i
-  %num_bytes.addr.09.i102.i = phi i64 [ %sub.i105.i, %while.body.i107.i ], [ %conv48.i, %if.else46.i ]
-  %cond.i103.i = tail call i64 @llvm.smin.i64(i64 %num_bytes.addr.09.i102.i, i64 1024)
-  %call.i104.i = call i64 @fread(ptr noundef nonnull %data.i100.i, i64 noundef 1, i64 noundef %cond.i103.i, ptr noundef %sf)
-  %sub.i105.i = sub i64 %num_bytes.addr.09.i102.i, %call.i104.i
-  %cmp.i106.i = icmp sgt i64 %sub.i105.i, 0
-  br i1 %cmp.i106.i, label %while.body.i107.i, label %fskip.exit110.i, !llvm.loop !37
+while.body.i108.i:                                ; preds = %if.else46.i, %while.body.i108.i
+  %num_bytes.addr.09.i103.i = phi i64 [ %sub.i106.i, %while.body.i108.i ], [ %conv48.i, %if.else46.i ]
+  %cond.i104.i = tail call i64 @llvm.smin.i64(i64 %num_bytes.addr.09.i103.i, i64 1024)
+  %call.i105.i = call i64 @fread(ptr noundef nonnull %data.i101.i, i64 noundef 1, i64 noundef %cond.i104.i, ptr noundef %sf)
+  %sub.i106.i = sub i64 %num_bytes.addr.09.i103.i, %call.i105.i
+  %cmp.i107.i = icmp sgt i64 %sub.i106.i, 0
+  br i1 %cmp.i107.i, label %while.body.i108.i, label %fskip.exit111.i, !llvm.loop !37
 
-fskip.exit110.i:                                  ; preds = %while.body.i107.i, %if.else46.i
-  %num_bytes.addr.0.lcssa.i108.i = phi i64 [ %conv48.i, %if.else46.i ], [ %sub.i105.i, %while.body.i107.i ]
-  call void @llvm.lifetime.end.p0(i64 1024, ptr nonnull %data.i100.i) #12
-  %1 = and i64 %num_bytes.addr.0.lcssa.i108.i, 4294967295
+fskip.exit111.i:                                  ; preds = %while.body.i108.i, %if.else46.i
+  %num_bytes.addr.0.lcssa.i109.i = phi i64 [ %conv48.i, %if.else46.i ], [ %sub.i106.i, %while.body.i108.i ]
+  call void @llvm.lifetime.end.p0(i64 1024, ptr nonnull %data.i101.i) #12
+  %1 = and i64 %num_bytes.addr.0.lcssa.i109.i, 4294967295
   %cmp50.not.i = icmp eq i64 %1, 0
   br i1 %cmp50.not.i, label %for.inc.i, label %if.end12
 
-for.inc.i:                                        ; preds = %fskip.exit110.i, %fskip.exit.i, %if.end14.i
-  %wave_info.sroa.4.1.i = phi i16 [ %conv18.i, %fskip.exit.i ], [ %conv18.i, %if.end14.i ], [ %wave_info.sroa.4.0145.i, %fskip.exit110.i ]
-  %wave_info.sroa.7113.1.i = phi i32 [ %call20.i, %fskip.exit.i ], [ %call20.i, %if.end14.i ], [ %wave_info.sroa.7113.0146.i, %fskip.exit110.i ]
-  %wave_info.sroa.11.1.i = phi i16 [ %conv30.i, %fskip.exit.i ], [ %conv30.i, %if.end14.i ], [ %wave_info.sroa.11.0147.i, %fskip.exit110.i ]
+for.inc.i:                                        ; preds = %fskip.exit111.i, %fskip.exit.i, %if.end14.i
+  %wave_info.sroa.4.1.i = phi i16 [ %wave_info.sroa.4.0145.i, %fskip.exit111.i ], [ %conv18.i, %if.end14.i ], [ %conv18.i, %fskip.exit.i ]
+  %wave_info.sroa.7114.1.i = phi i32 [ %wave_info.sroa.7114.0146.i, %fskip.exit111.i ], [ %call20.i, %if.end14.i ], [ %call20.i, %fskip.exit.i ]
+  %wave_info.sroa.11.1.i = phi i16 [ %wave_info.sroa.11.0147.i, %fskip.exit111.i ], [ %conv30.i, %if.end14.i ], [ %conv30.i, %fskip.exit.i ]
   %inc.i = add nuw nsw i32 %loop_sanity.0148.i, 1
   %exitcond.not.i = icmp eq i32 %inc.i, 20
   br i1 %exitcond.not.i, label %if.end12, label %for.body.i, !llvm.loop !38
@@ -757,19 +757,19 @@ for.inc.i:                                        ; preds = %fskip.exit110.i, %f
 if.then56.i:                                      ; preds = %for.body.i
   %call44.i = tail call i32 @Read32Bits(ptr noundef %sf) #12
   %cmp.not.i.i = icmp eq i16 %wave_info.sroa.11.0147.i, 16
-  br i1 %cmp.not.i.i, label %wave_check.exit.i, label %if.then.i.i
+  br i1 %cmp.not.i.i, label %if.then2, label %if.then.i.i
 
 if.then.i.i:                                      ; preds = %if.then56.i
   %conv.i.i = zext i16 %wave_info.sroa.11.0147.i to i32
   %2 = load ptr, ptr @stderr, align 8, !tbaa !18
-  %call.i111.i = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %2, ptr noundef nonnull @.str.11, i32 noundef %conv.i.i) #14
+  %call.i112.i = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %2, ptr noundef nonnull @.str.11, i32 noundef %conv.i.i) #14
   tail call void @exit(i32 noundef 1) #15
   unreachable
 
-wave_check.exit.i:                                ; preds = %if.then56.i
+if.then2:                                         ; preds = %if.then56.i
   %conv58.i = zext i16 %wave_info.sroa.4.0145.i to i32
   store i32 %conv58.i, ptr @num_channels, align 4, !tbaa !15
-  store i32 %wave_info.sroa.7113.0146.i, ptr @samp_freq, align 4, !tbaa !15
+  store i32 %wave_info.sroa.7114.0146.i, ptr @samp_freq, align 4, !tbaa !15
   %mul.i = shl nuw nsw i32 %conv58.i, 1
   %div66141.i = sdiv i32 %call44.i, %mul.i
   %div66.sext.i = sext i32 %div66141.i to i64
@@ -779,15 +779,15 @@ wave_check.exit.i:                                ; preds = %if.then56.i
   br label %if.end21
 
 if.then5:                                         ; preds = %entry
-  %call.i31 = tail call i32 @Read32BitsHighLow(ptr noundef %sf) #12
-  %call1.i32 = tail call i32 @Read32BitsHighLow(ptr noundef %sf) #12
-  %cmp.not.i33 = icmp eq i32 %call1.i32, 1095321158
-  %cmp3160.i = icmp sgt i32 %call.i31, 0
-  %or.cond166.i = select i1 %cmp.not.i33, i1 %cmp3160.i, i1 false
-  br i1 %or.cond166.i, label %while.body.preheader.i, label %if.end12
+  %call.i32 = tail call i32 @Read32BitsHighLow(ptr noundef %sf) #12
+  %call1.i33 = tail call i32 @Read32BitsHighLow(ptr noundef %sf) #12
+  %cmp.not.i34 = icmp eq i32 %call1.i33, 1095321158
+  %cmp3160.i = icmp sgt i32 %call.i32, 0
+  %or.cond.i = select i1 %cmp.not.i34, i1 %cmp3160.i, i1 false
+  br i1 %or.cond.i, label %while.body.preheader.i, label %if.end12
 
 while.body.preheader.i:                           ; preds = %if.then5
-  %conv.i = zext i32 %call.i31 to i64
+  %conv.i = zext i32 %call.i32 to i64
   br label %while.body.i
 
 while.body.i:                                     ; preds = %cleanup.i, %while.body.preheader.i
@@ -797,39 +797,39 @@ while.body.i:                                     ; preds = %cleanup.i, %while.b
   %aiff_info.sroa.8.0162.i = phi i16 [ %aiff_info.sroa.8.1.i, %cleanup.i ], [ 0, %while.body.preheader.i ]
   %aiff_info.sroa.6125.0161.i = phi i64 [ %aiff_info.sroa.6125.1.i, %cleanup.i ], [ 0, %while.body.preheader.i ]
   %sub.i = add nsw i64 %chunkSize.0165.i, -4
-  %call5.i34 = tail call i32 @Read32BitsHighLow(ptr noundef %sf) #12
-  switch i32 %call5.i34, label %if.else49.i [
-    i32 1129270605, label %if.then8.i38
+  %call5.i35 = tail call i32 @Read32BitsHighLow(ptr noundef %sf) #12
+  switch i32 %call5.i35, label %if.else49.i [
+    i32 1129270605, label %if.then8.i39
     i32 1397968452, label %if.then31.i
   ]
 
-if.then8.i38:                                     ; preds = %while.body.i
-  %call9.i35 = tail call i32 @Read32BitsHighLow(ptr noundef %sf) #12
-  %conv10.i36 = sext i32 %call9.i35 to i64
+if.then8.i39:                                     ; preds = %while.body.i
+  %call9.i36 = tail call i32 @Read32BitsHighLow(ptr noundef %sf) #12
+  %conv10.i37 = sext i32 %call9.i36 to i64
   %call12.i = tail call i32 @Read16BitsHighLow(ptr noundef %sf) #12
   %conv13.i = trunc i32 %call12.i to i16
-  %call15.i37 = tail call i32 @Read32BitsHighLow(ptr noundef %sf) #12
-  %conv16.i = sext i32 %call15.i37 to i64
+  %call15.i38 = tail call i32 @Read32BitsHighLow(ptr noundef %sf) #12
+  %conv16.i = sext i32 %call15.i38 to i64
   %call18.i = tail call i32 @Read16BitsHighLow(ptr noundef %sf) #12
   %conv19.i = trunc i32 %call18.i to i16
   %call21.i = tail call double @ReadIeeeExtendedHighLow(ptr noundef %sf) #12
   %conv22.i = fptrunc double %call21.i to float
-  %sub23.i = add nsw i64 %conv10.i36, -18
-  call void @llvm.lifetime.start.p0(i64 1024, ptr nonnull %data.i.i30) #12
-  %cmp8.i.i = icmp sgt i32 %call9.i35, 18
-  br i1 %cmp8.i.i, label %while.body.i.i44, label %fskip.exit.i45
+  %sub23.i = add nsw i64 %conv10.i37, -18
+  call void @llvm.lifetime.start.p0(i64 1024, ptr nonnull %data.i.i31) #12
+  %cmp8.i.i = icmp sgt i32 %call9.i36, 18
+  br i1 %cmp8.i.i, label %while.body.i.i45, label %fskip.exit.i46
 
-while.body.i.i44:                                 ; preds = %if.then8.i38, %while.body.i.i44
-  %num_bytes.addr.09.i.i39 = phi i64 [ %sub.i.i42, %while.body.i.i44 ], [ %sub23.i, %if.then8.i38 ]
-  %cond.i.i40 = tail call i64 @llvm.smin.i64(i64 %num_bytes.addr.09.i.i39, i64 1024)
-  %call.i.i41 = call i64 @fread(ptr noundef nonnull %data.i.i30, i64 noundef 1, i64 noundef %cond.i.i40, ptr noundef %sf)
-  %sub.i.i42 = sub i64 %num_bytes.addr.09.i.i39, %call.i.i41
-  %cmp.i.i43 = icmp sgt i64 %sub.i.i42, 0
-  br i1 %cmp.i.i43, label %while.body.i.i44, label %fskip.exit.i45, !llvm.loop !37
+while.body.i.i45:                                 ; preds = %if.then8.i39, %while.body.i.i45
+  %num_bytes.addr.09.i.i40 = phi i64 [ %sub.i.i43, %while.body.i.i45 ], [ %sub23.i, %if.then8.i39 ]
+  %cond.i.i41 = tail call i64 @llvm.smin.i64(i64 %num_bytes.addr.09.i.i40, i64 1024)
+  %call.i.i42 = call i64 @fread(ptr noundef nonnull %data.i.i31, i64 noundef 1, i64 noundef %cond.i.i41, ptr noundef %sf)
+  %sub.i.i43 = sub i64 %num_bytes.addr.09.i.i40, %call.i.i42
+  %cmp.i.i44 = icmp sgt i64 %sub.i.i43, 0
+  br i1 %cmp.i.i44, label %while.body.i.i45, label %fskip.exit.i46, !llvm.loop !37
 
-fskip.exit.i45:                                   ; preds = %while.body.i.i44, %if.then8.i38
-  %num_bytes.addr.0.lcssa.i.i = phi i64 [ %sub23.i, %if.then8.i38 ], [ %sub.i.i42, %while.body.i.i44 ]
-  call void @llvm.lifetime.end.p0(i64 1024, ptr nonnull %data.i.i30) #12
+fskip.exit.i46:                                   ; preds = %while.body.i.i45, %if.then8.i39
+  %num_bytes.addr.0.lcssa.i.i = phi i64 [ %sub23.i, %if.then8.i39 ], [ %sub.i.i43, %while.body.i.i45 ]
+  call void @llvm.lifetime.end.p0(i64 1024, ptr nonnull %data.i.i31) #12
   %3 = and i64 %num_bytes.addr.0.lcssa.i.i, 4294967295
   %cmp25.not.i = icmp eq i64 %3, 0
   br i1 %cmp25.not.i, label %cleanup.i, label %if.end12
@@ -839,24 +839,24 @@ if.then31.i:                                      ; preds = %while.body.i
   %call35.i = tail call i32 @Read32BitsHighLow(ptr noundef %sf) #12
   %conv36.i = sext i32 %call35.i to i64
   %call38.i = tail call i32 @Read32BitsHighLow(ptr noundef %sf) #12
-  call void @llvm.lifetime.start.p0(i64 1024, ptr nonnull %data.i101.i) #12
-  %cmp8.i102.i = icmp sgt i32 %call35.i, 0
-  br i1 %cmp8.i102.i, label %while.body.i108.i, label %fskip.exit111.i
+  call void @llvm.lifetime.start.p0(i64 1024, ptr nonnull %data.i101.i30) #12
+  %cmp8.i102.i47 = icmp sgt i32 %call35.i, 0
+  br i1 %cmp8.i102.i47, label %while.body.i108.i53, label %fskip.exit111.i55
 
-while.body.i108.i:                                ; preds = %if.then31.i, %while.body.i108.i
-  %num_bytes.addr.09.i103.i = phi i64 [ %sub.i106.i, %while.body.i108.i ], [ %conv36.i, %if.then31.i ]
-  %cond.i104.i = tail call i64 @llvm.smin.i64(i64 %num_bytes.addr.09.i103.i, i64 1024)
-  %call.i105.i = call i64 @fread(ptr noundef nonnull %data.i101.i, i64 noundef 1, i64 noundef %cond.i104.i, ptr noundef %sf)
-  %sub.i106.i = sub i64 %num_bytes.addr.09.i103.i, %call.i105.i
-  %cmp.i107.i = icmp sgt i64 %sub.i106.i, 0
-  br i1 %cmp.i107.i, label %while.body.i108.i, label %fskip.exit111.i, !llvm.loop !37
+while.body.i108.i53:                              ; preds = %if.then31.i, %while.body.i108.i53
+  %num_bytes.addr.09.i103.i48 = phi i64 [ %sub.i106.i51, %while.body.i108.i53 ], [ %conv36.i, %if.then31.i ]
+  %cond.i104.i49 = tail call i64 @llvm.smin.i64(i64 %num_bytes.addr.09.i103.i48, i64 1024)
+  %call.i105.i50 = call i64 @fread(ptr noundef nonnull %data.i101.i30, i64 noundef 1, i64 noundef %cond.i104.i49, ptr noundef %sf)
+  %sub.i106.i51 = sub i64 %num_bytes.addr.09.i103.i48, %call.i105.i50
+  %cmp.i107.i52 = icmp sgt i64 %sub.i106.i51, 0
+  br i1 %cmp.i107.i52, label %while.body.i108.i53, label %fskip.exit111.i55, !llvm.loop !37
 
-fskip.exit111.i:                                  ; preds = %while.body.i108.i, %if.then31.i
-  %num_bytes.addr.0.lcssa.i109.i = phi i64 [ %conv36.i, %if.then31.i ], [ %sub.i106.i, %while.body.i108.i ]
-  call void @llvm.lifetime.end.p0(i64 1024, ptr nonnull %data.i101.i) #12
-  %4 = and i64 %num_bytes.addr.0.lcssa.i109.i, 4294967295
-  %cmp45.not.not167.i = icmp eq i64 %4, 0
-  br i1 %cmp45.not.not167.i, label %if.end.i.i, label %if.end12
+fskip.exit111.i55:                                ; preds = %while.body.i108.i53, %if.then31.i
+  %num_bytes.addr.0.lcssa.i109.i54 = phi i64 [ %conv36.i, %if.then31.i ], [ %sub.i106.i51, %while.body.i108.i53 ]
+  call void @llvm.lifetime.end.p0(i64 1024, ptr nonnull %data.i101.i30) #12
+  %4 = and i64 %num_bytes.addr.0.lcssa.i109.i54, 4294967295
+  %cmp45.not.i = icmp eq i64 %4, 0
+  br i1 %cmp45.not.i, label %if.end.i.i, label %if.end12
 
 if.else49.i:                                      ; preds = %while.body.i
   %call50.i = tail call i32 @Read32BitsHighLow(ptr noundef %sf) #12
@@ -880,17 +880,17 @@ fskip.exit122.i:                                  ; preds = %while.body.i119.i, 
   %cmp54.not.i = icmp eq i64 %5, 0
   br i1 %cmp54.not.i, label %cleanup.i, label %if.end12
 
-cleanup.i:                                        ; preds = %fskip.exit122.i, %fskip.exit.i45
-  %aiff_info.sroa.6125.1.i = phi i64 [ %conv16.i, %fskip.exit.i45 ], [ %aiff_info.sroa.6125.0161.i, %fskip.exit122.i ]
-  %aiff_info.sroa.8.1.i = phi i16 [ %conv19.i, %fskip.exit.i45 ], [ %aiff_info.sroa.8.0162.i, %fskip.exit122.i ]
-  %aiff_info.sroa.0.1.i = phi i16 [ %conv13.i, %fskip.exit.i45 ], [ %aiff_info.sroa.0.0163.i, %fskip.exit122.i ]
-  %aiff_info.sroa.10126.1.i = phi float [ %conv22.i, %fskip.exit.i45 ], [ %aiff_info.sroa.10126.0164.i, %fskip.exit122.i ]
-  %conv10.pn.i = phi i64 [ %conv10.i36, %fskip.exit.i45 ], [ %conv51.i, %fskip.exit122.i ]
+cleanup.i:                                        ; preds = %fskip.exit122.i, %fskip.exit.i46
+  %aiff_info.sroa.6125.1.i = phi i64 [ %aiff_info.sroa.6125.0161.i, %fskip.exit122.i ], [ %conv16.i, %fskip.exit.i46 ]
+  %aiff_info.sroa.8.1.i = phi i16 [ %aiff_info.sroa.8.0162.i, %fskip.exit122.i ], [ %conv19.i, %fskip.exit.i46 ]
+  %aiff_info.sroa.0.1.i = phi i16 [ %aiff_info.sroa.0.0163.i, %fskip.exit122.i ], [ %conv13.i, %fskip.exit.i46 ]
+  %aiff_info.sroa.10126.1.i = phi float [ %aiff_info.sroa.10126.0164.i, %fskip.exit122.i ], [ %conv22.i, %fskip.exit.i46 ]
+  %conv10.pn.i = phi i64 [ %conv51.i, %fskip.exit122.i ], [ %conv10.i37, %fskip.exit.i46 ]
   %chunkSize.1.i = sub i64 %sub.i, %conv10.pn.i
   %cmp3.i = icmp sgt i64 %chunkSize.1.i, 0
   br i1 %cmp3.i, label %while.body.i, label %if.end12
 
-if.end.i.i:                                       ; preds = %fskip.exit111.i
+if.end.i.i:                                       ; preds = %fskip.exit111.i55
   %cmp1.not.i.i = icmp eq i16 %aiff_info.sroa.8.0162.i, 16
   br i1 %cmp1.not.i.i, label %if.end5.i.i, label %if.then3.i.i
 
@@ -923,7 +923,7 @@ if.then18.i.i:                                    ; preds = %if.end15.i.i
 
 if.end20.i.i:                                     ; preds = %if.end15.i.i
   %cmp22.not.i.i = icmp eq i32 %call35.i, 0
-  br i1 %cmp22.not.i.i, label %aiff_check2.exit.i, label %if.then24.i.i
+  br i1 %cmp22.not.i.i, label %if.then8, label %if.then24.i.i
 
 if.then24.i.i:                                    ; preds = %if.end20.i.i
   %9 = load ptr, ptr @stderr, align 8, !tbaa !18
@@ -931,7 +931,7 @@ if.then24.i.i:                                    ; preds = %if.end20.i.i
   tail call void @exit(i32 noundef 1) #15
   unreachable
 
-aiff_check2.exit.i:                               ; preds = %if.end20.i.i
+if.then8:                                         ; preds = %if.end20.i.i
   %conv62.i = zext i16 %aiff_info.sroa.0.0163.i to i32
   store i32 %conv62.i, ptr @num_channels, align 4, !tbaa !15
   %conv64.i = fptosi float %aiff_info.sroa.10126.0164.i to i32
@@ -941,7 +941,7 @@ aiff_check2.exit.i:                               ; preds = %if.end20.i.i
   store i1 true, ptr @count_samples_carefully, align 4
   br label %if.end21
 
-if.end12:                                         ; preds = %fskip.exit.i45, %fskip.exit122.i, %cleanup.i, %if.then8.i, %fskip.exit.i, %fskip.exit110.i, %for.inc.i, %if.then5, %fskip.exit111.i, %if.then
+if.end12:                                         ; preds = %cleanup.i, %fskip.exit.i46, %fskip.exit122.i, %fskip.exit111.i, %fskip.exit.i, %if.then8.i, %for.inc.i, %fskip.exit111.i55, %if.then5, %if.then
   %.pr = load i32, ptr %input_format, align 8, !tbaa !19
   %cmp14 = icmp eq i32 %.pr, 4
   br i1 %cmp14, label %if.then15, label %if.end21
@@ -951,7 +951,7 @@ if.then15:                                        ; preds = %entry, %if.end12
   store i32 4, ptr %input_format, align 8, !tbaa !19
   br label %if.end21
 
-if.end21:                                         ; preds = %wave_check.exit.i, %aiff_check2.exit.i, %if.then15, %if.end12
+if.end21:                                         ; preds = %if.then2, %if.then8, %if.then15, %if.end12
   ret void
 }
 
@@ -981,20 +981,20 @@ declare i32 @Read16BitsHighLow(ptr noundef) local_unnamed_addr #3
 
 declare double @ReadIeeeExtendedHighLow(ptr noundef) local_unnamed_addr #3
 
-; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i64 @llvm.smin.i64(i64, i64) #10
+; Function Attrs: nofree nounwind
+declare noundef i64 @fwrite(ptr nocapture noundef, i64 noundef, i64 noundef, ptr nocapture noundef) local_unnamed_addr #10
 
 ; Function Attrs: nofree nounwind
-declare noundef i64 @fwrite(ptr nocapture noundef, i64 noundef, i64 noundef, ptr nocapture noundef) local_unnamed_addr #11
-
-; Function Attrs: nofree nounwind
-declare noundef i32 @fputc(i32 noundef, ptr nocapture noundef) local_unnamed_addr #11
+declare noundef i32 @fputc(i32 noundef, ptr nocapture noundef) local_unnamed_addr #10
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i32 @llvm.smax.i32(i32, i32) #10
+declare i64 @llvm.usub.sat.i64(i64, i64) #11
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i64 @llvm.usub.sat.i64(i64, i64) #10
+declare i32 @llvm.smax.i32(i32, i32) #11
+
+; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
+declare i64 @llvm.smin.i64(i64, i64) #11
 
 attributes #0 = { nounwind uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #1 = { mustprogress nofree norecurse nosync nounwind willreturn memory(read, argmem: none, inaccessiblemem: none) uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
@@ -1006,8 +1006,8 @@ attributes #6 = { noreturn nounwind "no-trapping-math"="true" "stack-protector-b
 attributes #7 = { mustprogress nofree nounwind willreturn memory(argmem: read) "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #8 = { nofree nounwind memory(read) "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #9 = { mustprogress nocallback nofree nounwind willreturn memory(argmem: write) }
-attributes #10 = { nocallback nofree nosync nounwind speculatable willreturn memory(none) }
-attributes #11 = { nofree nounwind }
+attributes #10 = { nofree nounwind }
+attributes #11 = { nocallback nofree nosync nounwind speculatable willreturn memory(none) }
 attributes #12 = { nounwind }
 attributes #13 = { nounwind willreturn memory(read) }
 attributes #14 = { cold }

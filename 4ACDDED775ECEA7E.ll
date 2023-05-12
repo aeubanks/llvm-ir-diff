@@ -102,26 +102,26 @@ entry:
   store i32 -1, ptr %_fd.i.i, align 8, !tbaa !19
   %_unix_filename.i.i = getelementptr inbounds %class.CInOutTempBuffer, ptr %this, i64 0, i32 1, i32 0, i32 3
   tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %_unix_filename.i.i, i8 0, i64 16, i1 false)
-  %call.i.i.i.i5 = invoke noalias noundef nonnull dereferenceable(4) ptr @_Znam(i64 noundef 4) #15
-          to label %_ZN8NWindows5NFile3NIO8COutFileC2Ev.exit unwind label %lpad
+  %call.i.i.i.i6 = invoke noalias noundef nonnull dereferenceable(4) ptr @_Znam(i64 noundef 4) #15
+          to label %invoke.cont unwind label %lpad
 
-_ZN8NWindows5NFile3NIO8COutFileC2Ev.exit:         ; preds = %entry
+invoke.cont:                                      ; preds = %entry
   %_capacity.i.i.i = getelementptr inbounds %class.CInOutTempBuffer, ptr %this, i64 0, i32 1, i32 0, i32 3, i32 2
-  store ptr %call.i.i.i.i5, ptr %_unix_filename.i.i, align 8, !tbaa !23
-  store i8 0, ptr %call.i.i.i.i5, align 1, !tbaa !24
+  store ptr %call.i.i.i.i6, ptr %_unix_filename.i.i, align 8, !tbaa !23
+  store i8 0, ptr %call.i.i.i.i6, align 1, !tbaa !24
   store i32 4, ptr %_capacity.i.i.i, align 4, !tbaa !25
   store ptr getelementptr inbounds ({ [5 x ptr] }, ptr @_ZTVN8NWindows5NFile3NIO8COutFileE, i64 0, inrange i32 0, i64 2), ptr %_outFile, align 8, !tbaa !17
   %_buf = getelementptr inbounds %class.CInOutTempBuffer, ptr %this, i64 0, i32 2
   store ptr null, ptr %_buf, align 8, !tbaa !26
   %_tempFileName = getelementptr inbounds %class.CInOutTempBuffer, ptr %this, i64 0, i32 5
   tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %_tempFileName, i8 0, i64 16, i1 false)
-  %call.i.i6 = invoke noalias noundef nonnull dereferenceable(16) ptr @_Znam(i64 noundef 16) #15
-          to label %_ZN11CStringBaseIwEC2Ev.exit unwind label %lpad2
+  %call.i.i7 = invoke noalias noundef nonnull dereferenceable(16) ptr @_Znam(i64 noundef 16) #15
+          to label %invoke.cont3 unwind label %lpad2
 
-_ZN11CStringBaseIwEC2Ev.exit:                     ; preds = %_ZN8NWindows5NFile3NIO8COutFileC2Ev.exit
+invoke.cont3:                                     ; preds = %invoke.cont
   %_capacity.i = getelementptr inbounds %class.CInOutTempBuffer, ptr %this, i64 0, i32 5, i32 2
-  store ptr %call.i.i6, ptr %_tempFileName, align 8, !tbaa !13
-  store i32 0, ptr %call.i.i6, align 4, !tbaa !14
+  store ptr %call.i.i7, ptr %_tempFileName, align 8, !tbaa !13
+  store i32 0, ptr %call.i.i7, align 4, !tbaa !14
   store i32 4, ptr %_capacity.i, align 4, !tbaa !16
   ret void
 
@@ -130,7 +130,7 @@ lpad:                                             ; preds = %entry
           cleanup
   br label %ehcleanup
 
-lpad2:                                            ; preds = %_ZN8NWindows5NFile3NIO8COutFileC2Ev.exit
+lpad2:                                            ; preds = %invoke.cont
   %1 = landingpad { ptr, i32 }
           cleanup
   tail call void @_ZN8NWindows5NFile3NIO9CFileBaseD2Ev(ptr noundef nonnull align 8 dereferenceable(1084) %_outFile) #16
@@ -773,16 +773,16 @@ for.cond.13.i:                                    ; preds = %for.cond.12.i
   %28 = load i8, ptr %arrayidx.14.i, align 2, !tbaa !24
   %29 = load i8, ptr getelementptr inbounds (%struct.GUID, ptr @IID_IUnknown, i64 0, i32 3, i64 6), align 2, !tbaa !24
   %cmp4.not.14.i = icmp eq i8 %28, %29
-  br i1 %cmp4.not.14.i, label %for.cond.14.i, label %return
+  br i1 %cmp4.not.14.i, label %_ZeqRK4GUIDS1_.exit, label %return
 
-for.cond.14.i:                                    ; preds = %for.cond.13.i
+_ZeqRK4GUIDS1_.exit:                              ; preds = %for.cond.13.i
   %arrayidx.15.i = getelementptr inbounds i8, ptr %iid, i64 15
   %30 = load i8, ptr %arrayidx.15.i, align 1, !tbaa !24
   %31 = load i8, ptr getelementptr inbounds (%struct.GUID, ptr @IID_IUnknown, i64 0, i32 3, i64 7), align 1, !tbaa !24
   %cmp4.not.15.i.not = icmp eq i8 %30, %31
   br i1 %cmp4.not.15.i.not, label %if.then, label %return
 
-if.then:                                          ; preds = %for.cond.14.i
+if.then:                                          ; preds = %_ZeqRK4GUIDS1_.exit
   store ptr %this, ptr %outObject, align 8, !tbaa !42
   %vtable = load ptr, ptr %this, align 8, !tbaa !17
   %vfn = getelementptr inbounds ptr, ptr %vtable, i64 1
@@ -790,8 +790,8 @@ if.then:                                          ; preds = %for.cond.14.i
   %call2 = tail call noundef i32 %32(ptr noundef nonnull align 8 dereferenceable(24) %this)
   br label %return
 
-return:                                           ; preds = %for.cond.14.i, %for.cond.13.i, %for.cond.12.i, %for.cond.11.i, %for.cond.10.i, %for.cond.9.i, %for.cond.8.i, %for.cond.7.i, %for.cond.6.i, %for.cond.5.i, %for.cond.4.i, %for.cond.3.i, %for.cond.2.i, %for.cond.1.i, %for.cond.i, %entry, %if.then
-  %retval.0 = phi i32 [ 0, %if.then ], [ -2147467262, %entry ], [ -2147467262, %for.cond.i ], [ -2147467262, %for.cond.1.i ], [ -2147467262, %for.cond.2.i ], [ -2147467262, %for.cond.3.i ], [ -2147467262, %for.cond.4.i ], [ -2147467262, %for.cond.5.i ], [ -2147467262, %for.cond.6.i ], [ -2147467262, %for.cond.7.i ], [ -2147467262, %for.cond.8.i ], [ -2147467262, %for.cond.9.i ], [ -2147467262, %for.cond.10.i ], [ -2147467262, %for.cond.11.i ], [ -2147467262, %for.cond.12.i ], [ -2147467262, %for.cond.13.i ], [ -2147467262, %for.cond.14.i ]
+return:                                           ; preds = %for.cond.13.i, %for.cond.12.i, %for.cond.11.i, %for.cond.10.i, %for.cond.9.i, %for.cond.8.i, %for.cond.7.i, %for.cond.6.i, %for.cond.5.i, %for.cond.4.i, %for.cond.3.i, %for.cond.2.i, %for.cond.1.i, %for.cond.i, %entry, %_ZeqRK4GUIDS1_.exit, %if.then
+  %retval.0 = phi i32 [ 0, %if.then ], [ -2147467262, %_ZeqRK4GUIDS1_.exit ], [ -2147467262, %entry ], [ -2147467262, %for.cond.i ], [ -2147467262, %for.cond.1.i ], [ -2147467262, %for.cond.2.i ], [ -2147467262, %for.cond.3.i ], [ -2147467262, %for.cond.4.i ], [ -2147467262, %for.cond.5.i ], [ -2147467262, %for.cond.6.i ], [ -2147467262, %for.cond.7.i ], [ -2147467262, %for.cond.8.i ], [ -2147467262, %for.cond.9.i ], [ -2147467262, %for.cond.10.i ], [ -2147467262, %for.cond.11.i ], [ -2147467262, %for.cond.12.i ], [ -2147467262, %for.cond.13.i ]
   ret i32 %retval.0
 }
 
@@ -871,11 +871,11 @@ entry:
   ret void
 }
 
-; Function Attrs: nocallback nofree nounwind willreturn memory(argmem: write)
-declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #13
-
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i32 @llvm.umin.i32(i32, i32) #14
+declare i32 @llvm.umin.i32(i32, i32) #13
+
+; Function Attrs: nocallback nofree nounwind willreturn memory(argmem: write)
+declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #14
 
 attributes #0 = { uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #1 = { nounwind uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
@@ -890,8 +890,8 @@ attributes #9 = { nounwind "no-trapping-math"="true" "stack-protector-buffer-siz
 attributes #10 = { mustprogress nounwind uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #11 = { inlinehint nounwind uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #12 = { noinline noreturn nounwind "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
-attributes #13 = { nocallback nofree nounwind willreturn memory(argmem: write) }
-attributes #14 = { nocallback nofree nosync nounwind speculatable willreturn memory(none) }
+attributes #13 = { nocallback nofree nosync nounwind speculatable willreturn memory(none) }
+attributes #14 = { nocallback nofree nounwind willreturn memory(argmem: write) }
 attributes #15 = { builtin allocsize(0) }
 attributes #16 = { nounwind }
 attributes #17 = { builtin nounwind }

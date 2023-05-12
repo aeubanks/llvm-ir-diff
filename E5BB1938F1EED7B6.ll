@@ -287,7 +287,7 @@ if.end13:                                         ; preds = %if.then12, %if.end8
   %ssrc = getelementptr inbounds %struct.RTPpacket_t, ptr %call, i64 0, i32 8
   store i32 305419896, ptr %ssrc, align 8, !tbaa !20
   %len = getelementptr inbounds %struct.NALU_t, ptr %n, i64 0, i32 1
-  %7 = load i32, ptr %len, align 4, !tbaa !24
+  %7 = load i32, ptr %len, align 4, !tbaa !31
   %paylen = getelementptr inbounds %struct.RTPpacket_t, ptr %call, i64 0, i32 10
   store i32 %7, ptr %paylen, align 8, !tbaa !22
   %8 = load ptr, ptr %buf, align 8, !tbaa !29
@@ -311,19 +311,24 @@ if.end13:                                         ; preds = %if.then12, %if.end8
   %add.i = add i32 %7, 12
   %packlen.i = getelementptr inbounds %struct.RTPpacket_t, ptr %call, i64 0, i32 12
   store i32 %add.i, ptr %packlen.i, align 8, !tbaa !23
-  %9 = load ptr, ptr @f, align 8, !tbaa !31
+  %9 = load ptr, ptr @f, align 8, !tbaa !32
   call void @llvm.lifetime.start.p0(i64 4, ptr nonnull %intime.i) #12
   store i32 -1, ptr %intime.i, align 4, !tbaa !24
   %call.i = tail call i64 @fwrite(ptr noundef nonnull %packlen.i, i64 noundef 4, i64 noundef 1, ptr noundef %9)
   %cmp.not.i = icmp eq i64 %call.i, 1
-  br i1 %cmp.not.i, label %if.end.i, label %if.then30.critedge
+  br i1 %cmp.not.i, label %if.end.i, label %WriteRTPPacket.exit.thread
 
 if.end.i:                                         ; preds = %if.end13
   %call1.i = call i64 @fwrite(ptr noundef nonnull %intime.i, i64 noundef 4, i64 noundef 1, ptr noundef %9)
   %cmp2.not.i = icmp eq i64 %call1.i, 1
-  br i1 %cmp2.not.i, label %if.end4.i, label %if.then30.critedge
+  br i1 %cmp2.not.i, label %WriteRTPPacket.exit, label %WriteRTPPacket.exit.thread
 
-if.end4.i:                                        ; preds = %if.end.i
+WriteRTPPacket.exit.thread:                       ; preds = %if.end13, %if.end.i
+  call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %intime.i) #12
+  %.pre = load i32, ptr %packlen.i, align 8, !tbaa !23
+  br label %if.then30
+
+WriteRTPPacket.exit:                              ; preds = %if.end.i
   %10 = load ptr, ptr %packet, align 8, !tbaa !14
   %11 = load i32, ptr %packlen.i, align 8, !tbaa !23
   %conv.i64 = zext i32 %11 to i64
@@ -332,23 +337,18 @@ if.end4.i:                                        ; preds = %if.end.i
   call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %intime.i) #12
   br i1 %cmp7.not.i.not, label %if.end32, label %if.then30
 
-if.then30.critedge:                               ; preds = %if.end.i, %if.end13
-  call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %intime.i) #12
-  %.pre = load i32, ptr %packlen.i, align 8, !tbaa !23
-  br label %if.then30
-
-if.then30:                                        ; preds = %if.then30.critedge, %if.end4.i
-  %12 = phi i32 [ %.pre, %if.then30.critedge ], [ %11, %if.end4.i ]
+if.then30:                                        ; preds = %WriteRTPPacket.exit.thread, %WriteRTPPacket.exit
+  %12 = phi i32 [ %.pre, %WriteRTPPacket.exit.thread ], [ %11, %WriteRTPPacket.exit ]
   %call31 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.4, i32 noundef %12)
   tail call void @exit(i32 noundef -1) #14
   unreachable
 
-if.end32:                                         ; preds = %if.end4.i
+if.end32:                                         ; preds = %WriteRTPPacket.exit
   tail call void @free(ptr noundef %10) #12
   %13 = load ptr, ptr %payload, align 8, !tbaa !21
   tail call void @free(ptr noundef %13) #12
   tail call void @free(ptr noundef nonnull %call) #12
-  %14 = load i32, ptr %len, align 4, !tbaa !32
+  %14 = load i32, ptr %len, align 4, !tbaa !31
   %mul = shl i32 %14, 3
   ret i32 %mul
 }
@@ -396,7 +396,7 @@ cleanup:                                          ; preds = %entry, %if.end
 define dso_local void @OpenRTPFile(ptr noundef %Filename) local_unnamed_addr #5 {
 entry:
   %call = tail call noalias ptr @fopen64(ptr noundef %Filename, ptr noundef nonnull @.str.5)
-  store ptr %call, ptr @f, align 8, !tbaa !31
+  store ptr %call, ptr @f, align 8, !tbaa !32
   %cmp = icmp eq ptr %call, null
   br i1 %cmp, label %if.then, label %if.end
 
@@ -415,7 +415,7 @@ declare noalias noundef ptr @fopen64(ptr nocapture noundef readonly, ptr nocaptu
 ; Function Attrs: nofree nounwind uwtable
 define dso_local void @CloseRTPFile() local_unnamed_addr #3 {
 entry:
-  %0 = load ptr, ptr @f, align 8, !tbaa !31
+  %0 = load ptr, ptr @f, align 8, !tbaa !32
   %call = tail call i32 @fclose(ptr noundef %0)
   ret void
 }
@@ -479,5 +479,5 @@ attributes #14 = { noreturn nounwind }
 !28 = !{!26, !8, i64 12}
 !29 = !{!26, !10, i64 24}
 !30 = !{!26, !7, i64 0}
-!31 = !{!10, !10, i64 0}
-!32 = !{!26, !7, i64 4}
+!31 = !{!26, !7, i64 4}
+!32 = !{!10, !10, i64 0}

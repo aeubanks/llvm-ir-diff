@@ -305,13 +305,13 @@ for.body:                                         ; preds = %entry, %CMtThread_D
   %call.i.i = tail call i32 @Event_Close(ptr noundef nonnull %canRead.i.i) #6
   %canWrite.i.i = getelementptr inbounds %struct._CMtCoder, ptr %p, i64 0, i32 11, i64 %indvars.iv, i32 10
   %call1.i.i = tail call i32 @Event_Close(ptr noundef nonnull %canWrite.i.i) #6
-  %thread.i = getelementptr inbounds %struct._CMtCoder, ptr %p, i64 0, i32 11, i64 %indvars.iv, i32 6
   %_created.i = getelementptr inbounds %struct._CMtCoder, ptr %p, i64 0, i32 11, i64 %indvars.iv, i32 6, i32 0, i32 1
   %0 = load i32, ptr %_created.i, align 8, !tbaa !41
   %cmp.not.i = icmp eq i32 %0, 0
   br i1 %cmp.not.i, label %if.end.i, label %if.then.i
 
 if.then.i:                                        ; preds = %for.body
+  %thread.i = getelementptr inbounds %struct._CMtCoder, ptr %p, i64 0, i32 11, i64 %indvars.iv, i32 6
   %stop.i.i = getelementptr inbounds %struct._CMtCoder, ptr %p, i64 0, i32 11, i64 %indvars.iv, i32 6, i32 3
   store i32 1, ptr %stop.i.i, align 8, !tbaa !16
   %startEvent.i.i = getelementptr inbounds %struct._CMtCoder, ptr %p, i64 0, i32 11, i64 %indvars.iv, i32 6, i32 1
@@ -445,12 +445,12 @@ if.then.i:                                        ; preds = %lor.lhs.false.i, %e
   %8 = load ptr, ptr %Free.i, align 8, !tbaa !42
   tail call void %8(ptr noundef %7, ptr noundef %2) #6
   %9 = load ptr, ptr %arrayidx, align 8, !tbaa !30
-  %10 = load i64, ptr %9, align 8, !tbaa !51
+  %10 = load i64, ptr %9, align 8, !tbaa !50
   %inBufSize8.i = getelementptr inbounds %struct._CMtCoder, ptr %p, i64 0, i32 11, i64 %indvars.iv, i32 4
   store i64 %10, ptr %inBufSize8.i, align 8, !tbaa !49
   %alloc10.i = getelementptr inbounds %struct._CMtCoder, ptr %9, i64 0, i32 6
   %11 = load ptr, ptr %alloc10.i, align 8, !tbaa !36
-  %12 = load ptr, ptr %11, align 8, !tbaa !52
+  %12 = load ptr, ptr %11, align 8, !tbaa !51
   %call.i = tail call ptr %12(ptr noundef nonnull %11, i64 noundef %10) #6
   store ptr %call.i, ptr %inBuf.i, align 8, !tbaa !33
   %cmp16.i = icmp eq ptr %call.i, null
@@ -468,10 +468,10 @@ if.end18.if.then23_crit_edge.i:                   ; preds = %if.end18.i
 
 lor.lhs.false20.i:                                ; preds = %if.end18.i
   %outBufSize.i = getelementptr inbounds %struct._CMtCoder, ptr %p, i64 0, i32 11, i64 %indvars.iv, i32 2
-  %14 = load i64, ptr %outBufSize.i, align 8, !tbaa !53
+  %14 = load i64, ptr %outBufSize.i, align 8, !tbaa !52
   %15 = load ptr, ptr %arrayidx, align 8, !tbaa !30
   %destBlockSize.i = getelementptr inbounds %struct._CMtCoder, ptr %15, i64 0, i32 1
-  %16 = load i64, ptr %destBlockSize.i, align 8, !tbaa !54
+  %16 = load i64, ptr %destBlockSize.i, align 8, !tbaa !53
   %cmp22.not.i = icmp eq i64 %14, %16
   br i1 %cmp22.not.i, label %if.end45.i, label %if.then23.i
 
@@ -484,12 +484,12 @@ if.then23.i:                                      ; preds = %lor.lhs.false20.i, 
   tail call void %19(ptr noundef %18, ptr noundef %13) #6
   %20 = load ptr, ptr %arrayidx, align 8, !tbaa !30
   %destBlockSize31.i = getelementptr inbounds %struct._CMtCoder, ptr %20, i64 0, i32 1
-  %21 = load i64, ptr %destBlockSize31.i, align 8, !tbaa !51
+  %21 = load i64, ptr %destBlockSize31.i, align 8, !tbaa !53
   %outBufSize32.i = getelementptr inbounds %struct._CMtCoder, ptr %p, i64 0, i32 11, i64 %indvars.iv, i32 2
-  store i64 %21, ptr %outBufSize32.i, align 8, !tbaa !53
+  store i64 %21, ptr %outBufSize32.i, align 8, !tbaa !52
   %alloc34.i = getelementptr inbounds %struct._CMtCoder, ptr %20, i64 0, i32 6
   %22 = load ptr, ptr %alloc34.i, align 8, !tbaa !36
-  %23 = load ptr, ptr %22, align 8, !tbaa !52
+  %23 = load ptr, ptr %22, align 8, !tbaa !51
   %call39.i = tail call ptr %23(ptr noundef nonnull %22, i64 noundef %21) #6
   store ptr %call39.i, ptr %outBuf.i, align 8, !tbaa !32
   %cmp42.i = icmp eq ptr %call39.i, null
@@ -497,9 +497,9 @@ if.then23.i:                                      ; preds = %lor.lhs.false20.i, 
 
 if.end45.i:                                       ; preds = %if.then23.i, %lor.lhs.false20.i
   %stopReading.i = getelementptr inbounds %struct._CMtCoder, ptr %p, i64 0, i32 11, i64 %indvars.iv, i32 7
-  store i32 0, ptr %stopReading.i, align 8, !tbaa !55
+  store i32 0, ptr %stopReading.i, align 8, !tbaa !54
   %stopWriting.i = getelementptr inbounds %struct._CMtCoder, ptr %p, i64 0, i32 11, i64 %indvars.iv, i32 8
-  store i32 0, ptr %stopWriting.i, align 4, !tbaa !56
+  store i32 0, ptr %stopWriting.i, align 4, !tbaa !55
   %canRead.i = getelementptr inbounds %struct._CMtCoder, ptr %p, i64 0, i32 11, i64 %indvars.iv, i32 9
   %call46.i = tail call i32 @AutoResetEvent_CreateNotSignaled(ptr noundef nonnull %canRead.i) #6
   %cmp47.not.i = icmp eq i32 %call46.i, 0
@@ -535,8 +535,8 @@ if.then12:                                        ; preds = %for.body6
   %stop.i = getelementptr inbounds %struct._CMtCoder, ptr %p, i64 0, i32 11, i64 %indvars.iv157, i32 6, i32 3
   store i32 0, ptr %stop.i, align 8, !tbaa !16
   %startEvent.i = getelementptr inbounds %struct._CMtCoder, ptr %p, i64 0, i32 11, i64 %indvars.iv157, i32 6, i32 1
-  %call.i118 = tail call i32 @AutoResetEvent_CreateNotSignaled(ptr noundef nonnull %startEvent.i) #6
-  %cmp.not.not.i = icmp eq i32 %call.i118, 0
+  %call.i119 = tail call i32 @AutoResetEvent_CreateNotSignaled(ptr noundef nonnull %startEvent.i) #6
+  %cmp.not.not.i = icmp eq i32 %call.i119, 0
   br i1 %cmp.not.not.i, label %cleanup.cont.i, label %if.end64
 
 cleanup.cont.i:                                   ; preds = %if.then12
@@ -553,25 +553,25 @@ LoopThread_Create.exit:                           ; preds = %cleanup.cont.i
 for.inc22:                                        ; preds = %LoopThread_Create.exit, %for.body6
   %indvars.iv.next158 = add nuw nsw i64 %indvars.iv157, 1
   %exitcond161.not = icmp eq i64 %indvars.iv.next158, %wide.trip.count160
-  br i1 %exitcond161.not, label %for.cond27.preheader, label %for.body6, !llvm.loop !57
+  br i1 %exitcond161.not, label %for.cond27.preheader, label %for.body6, !llvm.loop !56
 
 for.body29:                                       ; preds = %for.body29.preheader, %for.inc44
   %indvars.iv162 = phi i64 [ 0, %for.body29.preheader ], [ %indvars.iv.next163, %for.inc44 ]
-  %startEvent.i119 = getelementptr inbounds %struct._CMtCoder, ptr %p, i64 0, i32 11, i64 %indvars.iv162, i32 6, i32 1
-  %call.i120 = tail call i32 @Event_Set(ptr noundef nonnull %startEvent.i119) #6
-  %cmp36.not = icmp eq i32 %call.i120, 0
+  %startEvent.i120 = getelementptr inbounds %struct._CMtCoder, ptr %p, i64 0, i32 11, i64 %indvars.iv162, i32 6, i32 1
+  %call.i121 = tail call i32 @Event_Set(ptr noundef nonnull %startEvent.i120) #6
+  %cmp36.not = icmp eq i32 %call.i121, 0
   br i1 %cmp36.not, label %for.inc44, label %cleanup41
 
 cleanup41:                                        ; preds = %for.body29
   %25 = trunc i64 %indvars.iv162 to i32
   %stopReading = getelementptr inbounds %struct._CMtCoder, ptr %p, i64 0, i32 11, i64 0, i32 7
-  store i32 1, ptr %stopReading, align 8, !tbaa !55
+  store i32 1, ptr %stopReading, align 8, !tbaa !54
   br label %for.end46
 
 for.inc44:                                        ; preds = %for.body29
   %indvars.iv.next163 = add nuw nsw i64 %indvars.iv162, 1
   %exitcond166.not = icmp eq i64 %indvars.iv.next163, %wide.trip.count165
-  br i1 %exitcond166.not, label %for.end46, label %for.body29, !llvm.loop !58
+  br i1 %exitcond166.not, label %for.end46, label %for.body29, !llvm.loop !57
 
 for.end46:                                        ; preds = %for.inc44, %entry, %for.cond4.preheader, %for.cond27.preheader, %cleanup41
   %i.2143 = phi i32 [ %25, %cleanup41 ], [ 0, %for.cond27.preheader ], [ 0, %for.cond4.preheader ], [ 0, %entry ], [ %0, %for.inc44 ]
@@ -589,11 +589,11 @@ for.body55.preheader:                             ; preds = %for.end46
 
 for.body55:                                       ; preds = %for.body55.preheader, %for.body55
   %indvars.iv167 = phi i64 [ 0, %for.body55.preheader ], [ %indvars.iv.next168, %for.body55 ]
-  %finishedEvent.i121 = getelementptr inbounds %struct._CMtCoder, ptr %p, i64 0, i32 11, i64 %indvars.iv167, i32 6, i32 2
-  %call.i122 = tail call i32 @Event_Wait(ptr noundef nonnull %finishedEvent.i121) #6
+  %finishedEvent.i122 = getelementptr inbounds %struct._CMtCoder, ptr %p, i64 0, i32 11, i64 %indvars.iv167, i32 6, i32 2
+  %call.i123 = tail call i32 @Event_Wait(ptr noundef nonnull %finishedEvent.i122) #6
   %indvars.iv.next168 = add nuw nsw i64 %indvars.iv167, 1
   %exitcond171.not = icmp eq i64 %indvars.iv.next168, %wide.trip.count170
-  br i1 %exitcond171.not, label %if.end64, label %for.body55, !llvm.loop !59
+  br i1 %exitcond171.not, label %if.end64, label %for.body55, !llvm.loop !58
 
 if.end64:                                         ; preds = %LoopThread_Create.exit, %if.then12, %cleanup.cont.i, %for.body55, %for.end46
   %res.6 = phi i32 [ %res.5, %for.end46 ], [ %res.5, %for.body55 ], [ 12, %cleanup.cont.i ], [ 12, %if.then12 ], [ 12, %LoopThread_Create.exit ]
@@ -605,13 +605,13 @@ for.body67.preheader:                             ; preds = %if.end64
 
 for.body67:                                       ; preds = %for.body67.preheader, %for.body67
   %indvars.iv172 = phi i64 [ 0, %for.body67.preheader ], [ %indvars.iv.next173, %for.body67 ]
-  %canRead.i123 = getelementptr inbounds %struct._CMtCoder, ptr %p, i64 0, i32 11, i64 %indvars.iv172, i32 9
-  %call.i124 = tail call i32 @Event_Close(ptr noundef nonnull %canRead.i123) #6
-  %canWrite.i125 = getelementptr inbounds %struct._CMtCoder, ptr %p, i64 0, i32 11, i64 %indvars.iv172, i32 10
-  %call1.i = tail call i32 @Event_Close(ptr noundef nonnull %canWrite.i125) #6
+  %canRead.i124 = getelementptr inbounds %struct._CMtCoder, ptr %p, i64 0, i32 11, i64 %indvars.iv172, i32 9
+  %call.i125 = tail call i32 @Event_Close(ptr noundef nonnull %canRead.i124) #6
+  %canWrite.i126 = getelementptr inbounds %struct._CMtCoder, ptr %p, i64 0, i32 11, i64 %indvars.iv172, i32 10
+  %call1.i = tail call i32 @Event_Close(ptr noundef nonnull %canWrite.i126) #6
   %indvars.iv.next173 = add nuw nsw i64 %indvars.iv172, 1
   %exitcond176.not = icmp eq i64 %indvars.iv.next173, %wide.trip.count175
-  br i1 %exitcond176.not, label %for.end73, label %for.body67, !llvm.loop !60
+  br i1 %exitcond176.not, label %for.end73, label %for.body67, !llvm.loop !59
 
 for.end73:                                        ; preds = %for.body67, %if.end64
   %cmp74 = icmp eq i32 %res.6, 0
@@ -660,19 +660,18 @@ if.end.i:                                         ; preds = %for.cond
   %add.i = add i32 %4, 1
   %narrow.i = select i1 %cmp2.i, i32 0, i32 %add.i
   %cond.i = zext i32 %narrow.i to i64
-  %6 = load i32, ptr %stopReading.i, align 8, !tbaa !55
+  %6 = load i32, ptr %stopReading.i, align 8, !tbaa !54
   %tobool.not.i = icmp eq i32 %6, 0
   br i1 %tobool.not.i, label %if.end10.i, label %if.then4.i
 
 if.then4.i:                                       ; preds = %if.end.i
-  %cond.i.le = zext i32 %narrow.i to i64
-  %sub.le94 = add i32 %2, -1
-  %cmp.le87 = icmp eq i32 %1, %sub.le94
-  %add.le82 = add i32 %1, 1
-  %spec.select.le75 = select i1 %cmp.le87, i32 0, i32 %add.le82
-  %stopReading5.i = getelementptr inbounds %struct._CMtCoder, ptr %3, i64 0, i32 11, i64 %cond.i.le, i32 7
-  store i32 1, ptr %stopReading5.i, align 8, !tbaa !55
-  %canRead6.i = getelementptr inbounds %struct._CMtCoder, ptr %3, i64 0, i32 11, i64 %cond.i.le, i32 9
+  %sub.le90 = add i32 %2, -1
+  %cmp.le83 = icmp eq i32 %1, %sub.le90
+  %add.le78 = add i32 %1, 1
+  %spec.select.le71 = select i1 %cmp.le83, i32 0, i32 %add.le78
+  %stopReading5.i = getelementptr inbounds %struct._CMtCoder, ptr %3, i64 0, i32 11, i64 %cond.i, i32 7
+  store i32 1, ptr %stopReading5.i, align 8, !tbaa !54
+  %canRead6.i = getelementptr inbounds %struct._CMtCoder, ptr %3, i64 0, i32 11, i64 %cond.i, i32 9
   %call7.i = call i32 @Event_Set(ptr noundef nonnull %canRead6.i) #6
   %cmp8.i = icmp eq i32 %call7.i, 0
   br i1 %cmp8.i, label %cleanup12, label %if.then
@@ -680,8 +679,8 @@ if.then4.i:                                       ; preds = %if.end.i
 if.end10.i:                                       ; preds = %if.end.i
   %7 = load i64, ptr %3, align 8, !tbaa !50
   call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %destSize.i) #6
-  %8 = load i64, ptr %outBufSize.i, align 8, !tbaa !53
-  store i64 %8, ptr %destSize.i, align 8, !tbaa !51
+  %8 = load i64, ptr %outBufSize.i, align 8, !tbaa !52
+  store i64 %8, ptr %destSize.i, align 8, !tbaa !60
   %inStream.i = getelementptr inbounds %struct._CMtCoder, ptr %3, i64 0, i32 3
   %9 = load ptr, ptr %inStream.i, align 8, !tbaa !61
   %10 = load ptr, ptr %inBuf.i, align 8, !tbaa !33
@@ -697,7 +696,7 @@ while.cond.i.i:                                   ; preds = %while.body.i.i, %if
 
 while.body.i.i:                                   ; preds = %while.cond.i.i
   call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %curSize.i.i) #6
-  store i64 %size.0.i.i, ptr %curSize.i.i, align 8, !tbaa !51
+  store i64 %size.0.i.i, ptr %curSize.i.i, align 8, !tbaa !60
   %11 = load ptr, ptr %9, align 8, !tbaa !28
   %call.i.i = call i32 %11(ptr noundef nonnull %9, ptr noundef %data.addr.0.i.i, ptr noundef nonnull %curSize.i.i) #6
   %12 = load i64, ptr %curSize.i.i, align 8
@@ -706,7 +705,7 @@ while.body.i.i:                                   ; preds = %while.cond.i.i
   %sub.i.i = sub i64 %size.0.i.i, %12
   %cmp1.not.i.i = icmp eq i32 %call.i.i, 0
   %cmp2.i.i = icmp ne i64 %12, 0
-  %13 = select i1 %cmp2.i.i, i1 %cmp1.not.i.i, i1 false
+  %13 = and i1 %cmp1.not.i.i, %cmp2.i.i
   %.retval.0.call.i.i = select i1 %13, i32 %retval.0.i.i, i32 0
   %retval.2.i.i = select i1 %cmp1.not.i.i, i32 %.retval.0.call.i.i, i32 %call.i.i
   %cond10.i.i = select i1 %cmp1.not.i.i, i1 %cmp2.i.i, i1 false
@@ -724,7 +723,7 @@ cleanup.cont.i:                                   ; preds = %while.cond.i.i, %Fu
   %cmp19.i = icmp ne i64 %size.1107.i, %15
   %conv.i = zext i1 %cmp19.i to i32
   %stopReading20.i = getelementptr inbounds %struct._CMtCoder, ptr %3, i64 0, i32 11, i64 %cond.i, i32 7
-  store i32 %conv.i, ptr %stopReading20.i, align 8, !tbaa !55
+  store i32 %conv.i, ptr %stopReading20.i, align 8, !tbaa !54
   %canRead21.i = getelementptr inbounds %struct._CMtCoder, ptr %3, i64 0, i32 11, i64 %cond.i, i32 9
   %call22.i = call i32 @Event_Set(ptr noundef nonnull %canRead21.i) #6
   %cmp23.not.i = icmp eq i32 %call22.i, 0
@@ -755,7 +754,7 @@ cleanup.cont40.i:                                 ; preds = %if.end26.i
   br i1 %cmp44.not.i, label %if.end47.i, label %MtThread_Process.exit.thread47
 
 if.end47.i:                                       ; preds = %cleanup.cont40.i
-  %24 = load i32, ptr %stopWriting.i, align 4, !tbaa !56
+  %24 = load i32, ptr %stopWriting.i, align 4, !tbaa !55
   %tobool48.not.i = icmp eq i32 %24, 0
   br i1 %tobool48.not.i, label %if.end50.i, label %MtThread_Process.exit.thread47
 
@@ -765,9 +764,9 @@ if.end50.i:                                       ; preds = %if.end47.i
   %26 = load ptr, ptr %outStream.i, align 8, !tbaa !64
   %27 = load ptr, ptr %26, align 8, !tbaa !28
   %28 = load ptr, ptr %outBuf.i, align 8, !tbaa !32
-  %29 = load i64, ptr %destSize.i, align 8, !tbaa !51
+  %29 = load i64, ptr %destSize.i, align 8, !tbaa !60
   %call55.i = call i64 %27(ptr noundef nonnull %26, ptr noundef %28, i64 noundef %29) #6
-  %30 = load i64, ptr %destSize.i, align 8, !tbaa !51
+  %30 = load i64, ptr %destSize.i, align 8, !tbaa !60
   %cmp56.not.i = icmp eq i64 %call55.i, %30
   br i1 %cmp56.not.i, label %if.end59.i, label %MtThread_Process.exit.thread47
 
@@ -777,26 +776,26 @@ if.end59.i:                                       ; preds = %if.end50.i
   %cmp62.i = icmp eq i32 %call61.i, 0
   br i1 %cmp62.i, label %cleanup, label %MtThread_Process.exit.thread47
 
-MtThread_Process.exit.thread47:                   ; preds = %if.end59.i, %if.end50.i, %if.end47.i, %cleanup.cont40.i, %if.end26.i, %cleanup.cont.i, %FullRead.exit.i
-  %retval.2.i.ph = phi i32 [ %retval.2.i.i, %FullRead.exit.i ], [ 12, %cleanup.cont.i ], [ %call33.i, %if.end26.i ], [ 12, %cleanup.cont40.i ], [ 11, %if.end47.i ], [ 9, %if.end50.i ], [ 12, %if.end59.i ]
-  %sub.le96 = add i32 %2, -1
-  %cmp.le = icmp eq i32 %1, %sub.le96
-  %add.le = add i32 %1, 1
-  %spec.select.le78 = select i1 %cmp.le, i32 0, i32 %add.le
+MtThread_Process.exit.thread47:                   ; preds = %if.end59.i, %if.end26.i, %FullRead.exit.i, %cleanup.cont.i, %cleanup.cont40.i, %if.end47.i, %if.end50.i
+  %retval.2.i.ph = phi i32 [ 9, %if.end50.i ], [ 11, %if.end47.i ], [ 12, %cleanup.cont40.i ], [ 12, %cleanup.cont.i ], [ %retval.2.i.i, %FullRead.exit.i ], [ %call33.i, %if.end26.i ], [ 12, %if.end59.i ]
+  %sub.le = add i32 %2, -1
+  %cmp.le86 = icmp eq i32 %1, %sub.le
+  %add.le80 = add i32 %1, 1
+  %spec.select.le = select i1 %cmp.le86, i32 0, i32 %add.le80
   call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %destSize.i) #6
   br label %if.then
 
 if.then.loopexit:                                 ; preds = %for.cond
-  %sub.le = add i32 %2, -1
-  %cmp.le90 = icmp eq i32 %1, %sub.le
-  %add.le84 = add i32 %1, 1
-  %spec.select.le = select i1 %cmp.le90, i32 0, i32 %add.le84
+  %sub.le92 = add i32 %2, -1
+  %cmp.le = icmp eq i32 %1, %sub.le92
+  %add.le = add i32 %1, 1
+  %spec.select.le74 = select i1 %cmp.le, i32 0, i32 %add.le
   br label %if.then
 
 if.then:                                          ; preds = %if.then.loopexit, %if.then4.i, %MtThread_Process.exit.thread47
-  %idxprom62.in = phi i32 [ %spec.select.le78, %MtThread_Process.exit.thread47 ], [ %spec.select.le75, %if.then4.i ], [ %spec.select.le, %if.then.loopexit ]
+  %spec.select62 = phi i32 [ %spec.select.le, %MtThread_Process.exit.thread47 ], [ %spec.select.le71, %if.then4.i ], [ %spec.select.le74, %if.then.loopexit ]
   %retval.3.i39 = phi i32 [ %retval.2.i.ph, %MtThread_Process.exit.thread47 ], [ 12, %if.then4.i ], [ 12, %if.then.loopexit ]
-  %idxprom62 = zext i32 %idxprom62.in to i64
+  %idxprom = zext i32 %spec.select62 to i64
   %31 = load ptr, ptr %pp, align 8, !tbaa !30
   %cs.i = getelementptr inbounds %struct._CMtCoder, ptr %31, i64 0, i32 8
   %call.i26 = call i32 @pthread_mutex_lock(ptr noundef nonnull %cs.i) #6
@@ -825,13 +824,13 @@ if.then.i32:                                      ; preds = %MtCoder_SetError.ex
 
 cleanup.thread:                                   ; preds = %if.then.i32, %MtCoder_SetError.exit
   %call5.i33 = call i32 @pthread_mutex_unlock(ptr noundef nonnull %cs.i28) #6
-  %stopReading = getelementptr inbounds %struct._CMtCoder, ptr %0, i64 0, i32 11, i64 %idxprom62, i32 7
-  store i32 1, ptr %stopReading, align 8, !tbaa !55
-  %stopWriting = getelementptr inbounds %struct._CMtCoder, ptr %0, i64 0, i32 11, i64 %idxprom62, i32 8
-  store i32 1, ptr %stopWriting, align 4, !tbaa !56
-  %canRead = getelementptr inbounds %struct._CMtCoder, ptr %0, i64 0, i32 11, i64 %idxprom62, i32 9
+  %stopReading = getelementptr inbounds %struct._CMtCoder, ptr %0, i64 0, i32 11, i64 %idxprom, i32 7
+  store i32 1, ptr %stopReading, align 8, !tbaa !54
+  %stopWriting = getelementptr inbounds %struct._CMtCoder, ptr %0, i64 0, i32 11, i64 %idxprom, i32 8
+  store i32 1, ptr %stopWriting, align 4, !tbaa !55
+  %canRead = getelementptr inbounds %struct._CMtCoder, ptr %0, i64 0, i32 11, i64 %idxprom, i32 9
   %call6 = call i32 @Event_Set(ptr noundef nonnull %canRead) #6
-  %canWrite = getelementptr inbounds %struct._CMtCoder, ptr %0, i64 0, i32 11, i64 %idxprom62, i32 10
+  %canWrite = getelementptr inbounds %struct._CMtCoder, ptr %0, i64 0, i32 11, i64 %idxprom, i32 10
   %call7 = call i32 @Event_Set(ptr noundef nonnull %canWrite) #6
   br label %cleanup12
 
@@ -909,16 +908,16 @@ attributes #6 = { nounwind }
 !48 = distinct !{!48, !40}
 !49 = !{!31, !8, i64 32}
 !50 = !{!37, !8, i64 0}
-!51 = !{!8, !8, i64 0}
-!52 = !{!43, !13, i64 0}
-!53 = !{!31, !8, i64 16}
-!54 = !{!37, !8, i64 8}
-!55 = !{!31, !11, i64 304}
-!56 = !{!31, !11, i64 308}
+!51 = !{!43, !13, i64 0}
+!52 = !{!31, !8, i64 16}
+!53 = !{!37, !8, i64 8}
+!54 = !{!31, !11, i64 304}
+!55 = !{!31, !11, i64 308}
+!56 = distinct !{!56, !40}
 !57 = distinct !{!57, !40}
 !58 = distinct !{!58, !40}
 !59 = distinct !{!59, !40}
-!60 = distinct !{!60, !40}
+!60 = !{!8, !8, i64 0}
 !61 = !{!37, !13, i64 24}
 !62 = distinct !{!62, !40}
 !63 = !{!37, !13, i64 56}

@@ -977,8 +977,8 @@ if.end.i:                                         ; preds = %if.then.i
   store i32 %4, ptr %_inBufSizeAllocated10.i, align 8, !tbaa !37
   br label %return
 
-return:                                           ; preds = %entry, %sw.epilog.i, %sw.bb4.i, %sw.bb3.i, %sw.bb2.i, %if.end.i, %if.then.i, %lor.lhs.false.i
-  %retval.1 = phi i32 [ -2147024882, %if.then.i ], [ 0, %if.end.i ], [ 0, %lor.lhs.false.i ], [ -2147467259, %sw.epilog.i ], [ 1, %sw.bb4.i ], [ -2147467263, %sw.bb3.i ], [ -2147024809, %sw.bb2.i ], [ -2147024882, %entry ]
+return:                                           ; preds = %entry, %sw.bb2.i, %sw.bb3.i, %sw.bb4.i, %sw.epilog.i, %if.end.i, %if.then.i, %lor.lhs.false.i
+  %retval.1 = phi i32 [ -2147024882, %if.then.i ], [ 0, %if.end.i ], [ 0, %lor.lhs.false.i ], [ -2147024809, %sw.bb2.i ], [ -2147467263, %sw.bb3.i ], [ 1, %sw.bb4.i ], [ -2147467259, %sw.epilog.i ], [ -2147024882, %entry ]
   ret i32 %retval.1
 }
 
@@ -1048,7 +1048,7 @@ if.end.i.i:                                       ; preds = %if.then.i.i
   br label %_ZN9NCompress5NLzma8CDecoder21SetDecoderProperties2EPKhj.exit
 
 _ZN9NCompress5NLzma8CDecoder21SetDecoderProperties2EPKhj.exit: ; preds = %entry, %sw.bb2.i.i, %sw.bb3.i.i, %sw.bb4.i.i, %sw.epilog.i.i, %lor.lhs.false.i.i, %if.then.i.i, %if.end.i.i
-  %retval.1.i = phi i32 [ -2147024882, %if.then.i.i ], [ 0, %if.end.i.i ], [ 0, %lor.lhs.false.i.i ], [ -2147467259, %sw.epilog.i.i ], [ 1, %sw.bb4.i.i ], [ -2147467263, %sw.bb3.i.i ], [ -2147024809, %sw.bb2.i.i ], [ -2147024882, %entry ]
+  %retval.1.i = phi i32 [ -2147024882, %if.then.i.i ], [ 0, %if.end.i.i ], [ 0, %lor.lhs.false.i.i ], [ -2147024809, %sw.bb2.i.i ], [ -2147467263, %sw.bb3.i.i ], [ 1, %sw.bb4.i.i ], [ -2147467259, %sw.epilog.i.i ], [ -2147024882, %entry ]
   ret i32 %retval.1.i
 }
 
@@ -1151,7 +1151,7 @@ entry:
   %0 = load ptr, ptr %_inBuf, align 8, !tbaa !35
   %cmp = icmp eq ptr %0, null
   %_propsWereSet = getelementptr inbounds %"class.NCompress::NLzma::CDecoder", ptr %this, i64 0, i32 13
-  %1 = load i8, ptr %_propsWereSet, align 8
+  %1 = load i8, ptr %_propsWereSet, align 8, !range !42
   %tobool.not = icmp eq i8 %1, 0
   %or.cond = select i1 %cmp, i1 true, i1 %tobool.not
   br i1 %or.cond, label %return, label %if.end
@@ -1161,9 +1161,9 @@ if.end:                                           ; preds = %entry
   %2 = load i64, ptr %_inSizeProcessed, align 8, !tbaa !32
   %_state = getelementptr inbounds %"class.NCompress::NLzma::CDecoder", ptr %this, i64 0, i32 12
   %dicBufSize = getelementptr inbounds %"class.NCompress::NLzma::CDecoder", ptr %this, i64 0, i32 12, i32 7
-  %3 = load i64, ptr %dicBufSize, align 8, !tbaa !42
+  %3 = load i64, ptr %dicBufSize, align 8, !tbaa !43
   %dicPos = getelementptr inbounds %"class.NCompress::NLzma::CDecoder", ptr %this, i64 0, i32 12, i32 6
-  %4 = load i64, ptr %dicPos, align 8, !tbaa !43
+  %4 = load i64, ptr %dicPos, align 8, !tbaa !44
   %sub = sub i64 %3, %4
   %_outBufSize = getelementptr inbounds %"class.NCompress::NLzma::CDecoder", ptr %this, i64 0, i32 21
   %5 = load i32, ptr %_outBufSize, align 8, !tbaa !30
@@ -1203,9 +1203,9 @@ if.then11:                                        ; preds = %for.cond
   br i1 %cmp16.not, label %if.end19, label %return
 
 if.end19:                                         ; preds = %if.then11, %for.cond
-  %11 = load i64, ptr %dicPos, align 8, !tbaa !43
+  %11 = load i64, ptr %dicPos, align 8, !tbaa !44
   %sub23 = sub i64 %next.0, %11
-  %12 = load i8, ptr %_outSizeDefined, align 1, !tbaa !28, !range !44, !noundef !45
+  %12 = load i8, ptr %_outSizeDefined, align 1, !tbaa !28, !range !42, !noundef !45
   %tobool24.not = icmp eq i8 %12, 0
   br i1 %tobool24.not, label %if.end33, label %if.then25
 
@@ -1217,7 +1217,7 @@ if.then25:                                        ; preds = %if.end19
   br i1 %cmp27.not, label %if.end33, label %if.then28
 
 if.then28:                                        ; preds = %if.then25
-  %15 = load i8, ptr %FinishStream, align 8, !tbaa !31, !range !44, !noundef !45
+  %15 = load i8, ptr %FinishStream, align 8, !tbaa !31, !range !42, !noundef !45
   %spec.select = zext i8 %15 to i32
   br label %if.end33
 
@@ -1252,7 +1252,7 @@ if.end33:                                         ; preds = %if.then28, %if.then
   %cmp53 = icmp eq i64 %19, 0
   %cmp54 = icmp eq i64 %22, %11
   %24 = select i1 %cmp53, i1 %cmp54, i1 false
-  %25 = load i8, ptr %_outSizeDefined, align 1, !tbaa !28, !range !44, !noundef !45
+  %25 = load i8, ptr %_outSizeDefined, align 1, !tbaa !28, !range !42, !noundef !45
   %tobool56.not = icmp ne i8 %25, 0
   %26 = load i64, ptr %_outSize, align 8
   %cmp60 = icmp uge i64 %add52, %26
@@ -1270,14 +1270,14 @@ if.then72:                                        ; preds = %if.end33
   %add.ptr74 = getelementptr inbounds i8, ptr %28, i64 %29
   %sub78 = sub i64 %22, %29
   %call79 = call noundef i32 @_Z11WriteStreamP20ISequentialOutStreamPKvm(ptr noundef %outStream, ptr noundef %add.ptr74, i64 noundef %sub78)
-  %30 = load i64, ptr %dicPos, align 8, !tbaa !43
+  %30 = load i64, ptr %dicPos, align 8, !tbaa !44
   store i64 %30, ptr %_wrPos, align 8, !tbaa !41
-  %31 = load i64, ptr %dicBufSize, align 8, !tbaa !42
+  %31 = load i64, ptr %dicBufSize, align 8, !tbaa !43
   %cmp87 = icmp eq i64 %30, %31
   br i1 %cmp87, label %if.then88, label %if.end92
 
 if.then88:                                        ; preds = %if.then72
-  store i64 0, ptr %dicPos, align 8, !tbaa !43
+  store i64 0, ptr %dicPos, align 8, !tbaa !44
   store i64 0, ptr %_wrPos, align 8, !tbaa !41
   br label %if.end92
 
@@ -1516,17 +1516,17 @@ if.then2:                                         ; preds = %do.body
 
 if.then2.if.end10_crit_edge:                      ; preds = %if.then2
   %.pre = load i32, ptr %_inSize, align 4, !tbaa !33
-  %.pre81 = load i32, ptr %_inPos, align 8, !tbaa !34
+  %.pre79 = load i32, ptr %_inPos, align 8, !tbaa !34
   br label %if.end10
 
 if.end10:                                         ; preds = %if.then2.if.end10_crit_edge, %do.body
-  %6 = phi i32 [ %.pre81, %if.then2.if.end10_crit_edge ], [ %0, %do.body ]
+  %6 = phi i32 [ %.pre79, %if.then2.if.end10_crit_edge ], [ %0, %do.body ]
   %7 = phi i32 [ %.pre, %if.then2.if.end10_crit_edge ], [ %1, %do.body ]
   call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %inProcessed) #15
   %sub = sub i32 %7, %6
   %conv = zext i32 %sub to i64
   store i64 %conv, ptr %inProcessed, align 8, !tbaa !46
-  %8 = load i8, ptr %_outSizeDefined, align 1, !tbaa !28, !range !44, !noundef !45
+  %8 = load i8, ptr %_outSizeDefined, align 1, !tbaa !28, !range !42, !noundef !45
   %tobool13.not = icmp eq i8 %8, 0
   br i1 %tobool13.not, label %if.end21, label %if.then14
 
@@ -1574,28 +1574,28 @@ if.then35:                                        ; preds = %if.end21
   br label %if.end38
 
 if.end38:                                         ; preds = %if.then35, %if.end21
-  switch i32 %call25, label %cleanup51.thread.loopexit84 [
+  switch i32 %call25, label %cleanup51.thread.loopexit82 [
     i32 0, label %cleanup51
     i32 2, label %cleanup51.thread
-    i32 5, label %cleanup51.thread.loopexit80
-    i32 4, label %cleanup51.thread.loopexit82
-    i32 1, label %cleanup51.thread.loopexit83
+    i32 5, label %cleanup51.thread.loopexit78
+    i32 4, label %cleanup51.thread.loopexit80
+    i32 1, label %cleanup51.thread.loopexit81
   ]
 
+cleanup51.thread.loopexit78:                      ; preds = %if.end38
+  br label %cleanup51.thread
+
 cleanup51.thread.loopexit80:                      ; preds = %if.end38
+  br label %cleanup51.thread
+
+cleanup51.thread.loopexit81:                      ; preds = %if.end38
   br label %cleanup51.thread
 
 cleanup51.thread.loopexit82:                      ; preds = %if.end38
   br label %cleanup51.thread
 
-cleanup51.thread.loopexit83:                      ; preds = %if.end38
-  br label %cleanup51.thread
-
-cleanup51.thread.loopexit84:                      ; preds = %if.end38
-  br label %cleanup51.thread
-
-cleanup51.thread:                                 ; preds = %if.end38, %cleanup51.thread.loopexit84, %cleanup51.thread.loopexit83, %cleanup51.thread.loopexit82, %cleanup51.thread.loopexit80
-  %retval.4.ph = phi i32 [ -2147024809, %cleanup51.thread.loopexit80 ], [ -2147467263, %cleanup51.thread.loopexit82 ], [ 1, %cleanup51.thread.loopexit83 ], [ -2147467259, %cleanup51.thread.loopexit84 ], [ -2147024882, %if.end38 ]
+cleanup51.thread:                                 ; preds = %if.end38, %cleanup51.thread.loopexit82, %cleanup51.thread.loopexit81, %cleanup51.thread.loopexit80, %cleanup51.thread.loopexit78
+  %retval.0.i.ph = phi i32 [ -2147024809, %cleanup51.thread.loopexit78 ], [ -2147467263, %cleanup51.thread.loopexit80 ], [ 1, %cleanup51.thread.loopexit81 ], [ -2147467259, %cleanup51.thread.loopexit82 ], [ -2147024882, %if.end38 ]
   call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %status) #15
   call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %outProcessed) #15
   call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %inProcessed) #15
@@ -1609,11 +1609,11 @@ cleanup51:                                        ; preds = %if.end38
   call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %outProcessed) #15
   call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %inProcessed) #15
   %cmp57.not = icmp eq i32 %sub32, 0
-  %or.cond79 = select i1 %or.cond, i1 true, i1 %cmp57.not
-  br i1 %or.cond79, label %return, label %do.body, !llvm.loop !53
+  %or.cond77 = select i1 %or.cond, i1 true, i1 %cmp57.not
+  br i1 %or.cond77, label %return, label %do.body, !llvm.loop !53
 
 return:                                           ; preds = %if.then2, %cleanup51, %cleanup51.thread
-  %retval.5 = phi i32 [ %retval.4.ph, %cleanup51.thread ], [ 0, %cleanup51 ], [ %call6, %if.then2 ]
+  %retval.5 = phi i32 [ %retval.0.i.ph, %cleanup51.thread ], [ 0, %cleanup51 ], [ %call6, %if.then2 ]
   ret i32 %retval.5
 }
 
@@ -1687,7 +1687,7 @@ if.end.i:                                         ; preds = %if.then.i
   store i32 %4, ptr %_inBufSizeAllocated10.i, align 8, !tbaa !37
   br label %cleanup.cont
 
-cleanup.cont:                                     ; preds = %lor.lhs.false.i, %if.end.i
+cleanup.cont:                                     ; preds = %if.end.i, %lor.lhs.false.i
   %tobool.not = icmp eq ptr %processedSize, null
   br i1 %tobool.not, label %if.end3, label %if.end3.thread
 
@@ -1735,8 +1735,8 @@ if.then6.us:                                      ; preds = %while.body.us
   %vfn.us = getelementptr inbounds ptr, ptr %vtable.us, i64 5
   %10 = load ptr, ptr %vfn.us, align 8
   %call12.us = tail call noundef i32 %10(ptr noundef nonnull align 8 dereferenceable(8) %7, ptr noundef %8, i32 noundef %9, ptr noundef nonnull %_inSize)
-  %cmp13.not.us.not = icmp eq i32 %call12.us, 0
-  br i1 %cmp13.not.us.not, label %cleanup.cont18.us, label %return
+  %cmp13.not.not.us = icmp eq i32 %call12.us, 0
+  br i1 %cmp13.not.not.us, label %cleanup.cont18.us, label %return
 
 cleanup.cont18.us:                                ; preds = %if.then6.us
   %11 = load i32, ptr %_inSize, align 4, !tbaa !33
@@ -2154,20 +2154,20 @@ for.cond.13.i152:                                 ; preds = %for.cond.12.i149
   %90 = load i8, ptr %arrayidx.14.i150, align 2, !tbaa !55
   %91 = load i8, ptr getelementptr inbounds (%struct.GUID, ptr @IID_ICompressSetDecoderProperties2, i64 0, i32 3, i64 6), align 2, !tbaa !55
   %cmp4.not.14.i151 = icmp eq i8 %90, %91
-  br i1 %cmp4.not.14.i151, label %for.cond.14.i156, label %if.end16
+  br i1 %cmp4.not.14.i151, label %_ZeqRK4GUIDS1_.exit158, label %if.end16
 
-for.cond.14.i156:                                 ; preds = %for.cond.13.i152
+_ZeqRK4GUIDS1_.exit158:                           ; preds = %for.cond.13.i152
   %arrayidx.15.i153 = getelementptr inbounds i8, ptr %iid, i64 15
   %92 = load i8, ptr %arrayidx.15.i153, align 1, !tbaa !55
   %93 = load i8, ptr getelementptr inbounds (%struct.GUID, ptr @IID_ICompressSetDecoderProperties2, i64 0, i32 3, i64 7), align 1, !tbaa !55
   %cmp4.not.15.i154.not = icmp eq i8 %92, %93
   br i1 %cmp4.not.15.i154.not, label %if.then12, label %if.end16
 
-if.then12:                                        ; preds = %for.cond.14.i156
+if.then12:                                        ; preds = %_ZeqRK4GUIDS1_.exit158
   %add.ptr = getelementptr inbounds i8, ptr %this, i64 8
   br label %return.sink.split
 
-if.end16:                                         ; preds = %if.end9, %for.cond.i113, %for.cond.1.i116, %for.cond.2.i119, %for.cond.3.i122, %for.cond.4.i125, %for.cond.5.i128, %for.cond.6.i131, %for.cond.7.i134, %for.cond.8.i137, %for.cond.9.i140, %for.cond.10.i143, %for.cond.11.i146, %for.cond.12.i149, %for.cond.13.i152, %for.cond.14.i156
+if.end16:                                         ; preds = %for.cond.13.i152, %for.cond.12.i149, %for.cond.11.i146, %for.cond.10.i143, %for.cond.9.i140, %for.cond.8.i137, %for.cond.7.i134, %for.cond.6.i131, %for.cond.5.i128, %for.cond.4.i125, %for.cond.3.i122, %for.cond.2.i119, %for.cond.1.i116, %for.cond.i113, %if.end9, %_ZeqRK4GUIDS1_.exit158
   %94 = load i8, ptr @IID_ICompressSetBufSize, align 4, !tbaa !55
   %cmp4.not.i159 = icmp eq i8 %0, %94
   br i1 %cmp4.not.i159, label %for.cond.i162, label %if.end24
@@ -2268,20 +2268,20 @@ for.cond.13.i201:                                 ; preds = %for.cond.12.i198
   %121 = load i8, ptr %arrayidx.14.i199, align 2, !tbaa !55
   %122 = load i8, ptr getelementptr inbounds (%struct.GUID, ptr @IID_ICompressSetBufSize, i64 0, i32 3, i64 6), align 2, !tbaa !55
   %cmp4.not.14.i200 = icmp eq i8 %121, %122
-  br i1 %cmp4.not.14.i200, label %for.cond.14.i205, label %if.end24
+  br i1 %cmp4.not.14.i200, label %_ZeqRK4GUIDS1_.exit207, label %if.end24
 
-for.cond.14.i205:                                 ; preds = %for.cond.13.i201
+_ZeqRK4GUIDS1_.exit207:                           ; preds = %for.cond.13.i201
   %arrayidx.15.i202 = getelementptr inbounds i8, ptr %iid, i64 15
   %123 = load i8, ptr %arrayidx.15.i202, align 1, !tbaa !55
   %124 = load i8, ptr getelementptr inbounds (%struct.GUID, ptr @IID_ICompressSetBufSize, i64 0, i32 3, i64 7), align 1, !tbaa !55
   %cmp4.not.15.i203.not = icmp eq i8 %123, %124
   br i1 %cmp4.not.15.i203.not, label %if.then19, label %if.end24
 
-if.then19:                                        ; preds = %for.cond.14.i205
+if.then19:                                        ; preds = %_ZeqRK4GUIDS1_.exit207
   %add.ptr20 = getelementptr inbounds i8, ptr %this, i64 16
   br label %return.sink.split
 
-if.end24:                                         ; preds = %if.end16, %for.cond.i162, %for.cond.1.i165, %for.cond.2.i168, %for.cond.3.i171, %for.cond.4.i174, %for.cond.5.i177, %for.cond.6.i180, %for.cond.7.i183, %for.cond.8.i186, %for.cond.9.i189, %for.cond.10.i192, %for.cond.11.i195, %for.cond.12.i198, %for.cond.13.i201, %for.cond.14.i205
+if.end24:                                         ; preds = %for.cond.13.i201, %for.cond.12.i198, %for.cond.11.i195, %for.cond.10.i192, %for.cond.9.i189, %for.cond.8.i186, %for.cond.7.i183, %for.cond.6.i180, %for.cond.5.i177, %for.cond.4.i174, %for.cond.3.i171, %for.cond.2.i168, %for.cond.1.i165, %for.cond.i162, %if.end16, %_ZeqRK4GUIDS1_.exit207
   %call25 = tail call noundef i32 @_ZeqRK4GUIDS1_(ptr noundef nonnull align 4 dereferenceable(16) %iid, ptr noundef nonnull align 4 dereferenceable(16) @IID_ICompressSetInStream)
   %tobool26.not = icmp eq i32 %call25, 0
   br i1 %tobool26.not, label %if.end32, label %if.then27
@@ -2697,8 +2697,8 @@ for.cond.14:                                      ; preds = %for.cond.13
   br label %cleanup
 
 cleanup:                                          ; preds = %for.cond.14, %for.cond.13, %for.cond.12, %for.cond.11, %for.cond.10, %for.cond.9, %for.cond.8, %for.cond.7, %for.cond.6, %for.cond.5, %for.cond.4, %for.cond.3, %for.cond.2, %for.cond.1, %for.cond, %entry
-  %cmp4.not.lcssa = phi i32 [ 0, %entry ], [ 0, %for.cond ], [ 0, %for.cond.1 ], [ 0, %for.cond.2 ], [ 0, %for.cond.3 ], [ 0, %for.cond.4 ], [ 0, %for.cond.5 ], [ 0, %for.cond.6 ], [ 0, %for.cond.7 ], [ 0, %for.cond.8 ], [ 0, %for.cond.9 ], [ 0, %for.cond.10 ], [ 0, %for.cond.11 ], [ 0, %for.cond.12 ], [ 0, %for.cond.13 ], [ %spec.select, %for.cond.14 ]
-  ret i32 %cmp4.not.lcssa
+  %cmp.lcssa = phi i32 [ 0, %entry ], [ 0, %for.cond ], [ 0, %for.cond.1 ], [ 0, %for.cond.2 ], [ 0, %for.cond.3 ], [ 0, %for.cond.4 ], [ 0, %for.cond.5 ], [ 0, %for.cond.6 ], [ 0, %for.cond.7 ], [ 0, %for.cond.8 ], [ 0, %for.cond.9 ], [ 0, %for.cond.10 ], [ 0, %for.cond.11 ], [ 0, %for.cond.12 ], [ 0, %for.cond.13 ], [ %spec.select, %for.cond.14 ]
+  ret i32 %cmp.lcssa
 }
 
 ; Function Attrs: nocallback nofree nounwind willreturn memory(argmem: write)
@@ -2770,9 +2770,9 @@ attributes #16 = { builtin nounwind }
 !39 = !{!13, !27, i64 224}
 !40 = !{!13, !27, i64 240}
 !41 = !{!13, !25, i64 264}
-!42 = !{!13, !25, i64 136}
-!43 = !{!13, !25, i64 128}
-!44 = !{i8 0, i8 2}
+!42 = !{i8 0, i8 2}
+!43 = !{!13, !25, i64 136}
+!44 = !{!13, !25, i64 128}
 !45 = !{}
 !46 = !{!25, !25, i64 0}
 !47 = !{!13, !22, i64 104}

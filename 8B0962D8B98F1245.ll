@@ -120,13 +120,13 @@ if.end:                                           ; preds = %if.then, %entry
   %vfn11 = getelementptr inbounds ptr, ptr %vtable10, i64 32
   %5 = load ptr, ptr %vfn11, align 8
   tail call void %5(ptr noundef nonnull align 8 dereferenceable(372) %this)
+  %m_solverInfo.i = getelementptr inbounds %class.btDynamicsWorld, ptr %this, i64 0, i32 5
   %m_timeStep13 = getelementptr inbounds %class.btDynamicsWorld, ptr %this, i64 0, i32 5, i32 0, i32 3
   store float %timeStep, ptr %m_timeStep13, align 4, !tbaa !24
-  %m_solverInfo.i45 = getelementptr inbounds %class.btDynamicsWorld, ptr %this, i64 0, i32 5
   %vtable15 = load ptr, ptr %this, align 8, !tbaa !5
   %vfn16 = getelementptr inbounds ptr, ptr %vtable15, i64 33
   %6 = load ptr, ptr %vfn16, align 8
-  tail call void %6(ptr noundef nonnull align 8 dereferenceable(372) %this, ptr noundef nonnull align 4 dereferenceable(68) %m_solverInfo.i45)
+  tail call void %6(ptr noundef nonnull align 8 dereferenceable(372) %this, ptr noundef nonnull align 4 dereferenceable(68) %m_solverInfo.i)
   %vtable17 = load ptr, ptr %this, align 8, !tbaa !5
   %vfn18 = getelementptr inbounds ptr, ptr %vtable17, i64 40
   %7 = load ptr, ptr %vfn18, align 8
@@ -260,7 +260,7 @@ for.body:                                         ; preds = %for.body.lr.ph, %if
   %9 = load i32, ptr %m_internalType.i.i, align 8, !tbaa !33
   %cmp.i = icmp ne i32 %9, 2
   %tobool.not108 = icmp eq ptr %8, null
-  %tobool.not = select i1 %cmp.i, i1 true, i1 %tobool.not108
+  %tobool.not = or i1 %tobool.not108, %cmp.i
   br i1 %tobool.not, label %if.end47, label %if.then
 
 if.then:                                          ; preds = %for.body
@@ -282,6 +282,9 @@ if.then:                                          ; preds = %for.body
   %temporalAabbMinz.0 = fadd float %13, %add39
   %add36 = select i1 %cmp33, float %mul8.i, float -0.000000e+00
   %temporalAabbMaxz.0 = fadd float %12, %add36
+  store float %temporalAabbMinz.0, ptr %arrayidx.i64, align 8, !tbaa.struct !40
+  store float 0.000000e+00, ptr %ref.tmp.sroa.6.0.temporalAabbMin.sroa_idx, align 4, !tbaa.struct !42
+  store float 0.000000e+00, ptr %ref.tmp41.sroa.6.0.temporalAabbMax.sroa_idx, align 4, !tbaa.struct !42
   %15 = load <2 x float>, ptr %temporalAabbMin, align 8, !tbaa !39
   %16 = load <2 x float>, ptr %m_linearVelocity.i, align 4, !tbaa !39
   %17 = fmul <2 x float> %16, %2
@@ -289,9 +292,6 @@ if.then:                                          ; preds = %for.body
   %19 = select <2 x i1> %18, <2 x float> <float -0.000000e+00, float -0.000000e+00>, <2 x float> %17
   %20 = fadd <2 x float> %15, %19
   store <2 x float> %20, ptr %temporalAabbMin, align 8
-  store float %temporalAabbMinz.0, ptr %arrayidx.i64, align 8, !tbaa.struct !40
-  store float 0.000000e+00, ptr %ref.tmp.sroa.6.0.temporalAabbMin.sroa_idx, align 4, !tbaa.struct !42
-  store float 0.000000e+00, ptr %ref.tmp41.sroa.6.0.temporalAabbMax.sroa_idx, align 4, !tbaa.struct !42
   %21 = load <2 x float>, ptr %temporalAabbMax, align 8, !tbaa !39
   %22 = select <2 x i1> %18, <2 x float> %17, <2 x float> <float -0.000000e+00, float -0.000000e+00>
   %23 = fadd <2 x float> %21, %22

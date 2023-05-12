@@ -304,7 +304,7 @@ if.end117:                                        ; preds = %for.body110, %if.th
   %43 = tail call i64 @fwrite(ptr nonnull @.str.6, i64 5, i64 1, ptr %fp)
   br label %cleanup
 
-cleanup:                                          ; preds = %for.body17.i, %if.then15, %if.end117, %for.end, %if.then17, %for.end.i, %if.then7, %if.then
+cleanup:                                          ; preds = %for.body17.i, %for.end.i, %if.then15, %if.end117, %for.end, %if.then17, %if.then7, %if.then
   ret void
 }
 
@@ -454,7 +454,7 @@ land.lhs.true53:                                  ; preds = %land.lhs.true, %if.
   %29 = load ptr, ptr %arrayidx58, align 8, !tbaa !25
   %cmp59 = icmp ne ptr %29, null
   %cmp61 = icmp ne i32 %27, -1
-  %or.cond135 = select i1 %cmp59, i1 %cmp61, i1 false
+  %or.cond135 = and i1 %cmp61, %cmp59
   br i1 %or.cond135, label %if.then62, label %if.end80
 
 if.then62:                                        ; preds = %land.lhs.true53
@@ -1079,13 +1079,9 @@ entry:
   %cmp100 = icmp sgt i32 %0, 0
   br i1 %cmp100, label %for.body, label %for.cond9.preheader
 
-for.cond9.preheader.loopexit:                     ; preds = %for.body
-  %indvars123.le = trunc i64 %indvars.iv.next to i32
-  br label %for.cond9.preheader
-
-for.cond9.preheader:                              ; preds = %for.cond9.preheader.loopexit, %entry
-  %len.0.lcssa = phi i32 [ 0, %entry ], [ %indvars123.le, %for.cond9.preheader.loopexit ]
-  %.lcssa = phi i32 [ %0, %entry ], [ %5, %for.cond9.preheader.loopexit ]
+for.cond9.preheader:                              ; preds = %for.body, %entry
+  %len.0.lcssa = phi i32 [ 0, %entry ], [ %indvars123, %for.body ]
+  %.lcssa = phi i32 [ %0, %entry ], [ %5, %for.body ]
   %1 = load i32, ptr getelementptr inbounds (%struct.cube_struct, ptr @cube, i64 0, i32 1), align 4, !tbaa !23
   %sub110 = add nsw i32 %1, -1
   %cmp10111 = icmp slt i32 %.lcssa, %sub110
@@ -1116,7 +1112,7 @@ for.body:                                         ; preds = %entry, %for.body
   store i8 %4, ptr %arrayidx7, align 1, !tbaa !31
   %5 = load i32, ptr getelementptr inbounds (%struct.cube_struct, ptr @cube, i64 0, i32 2), align 8, !tbaa !19
   %cmp = icmp sgt i32 %5, %indvars123
-  br i1 %cmp, label %for.body, label %for.cond9.preheader.loopexit
+  br i1 %cmp, label %for.body, label %for.cond9.preheader
 
 for.body11:                                       ; preds = %for.body11.preheader, %for.inc37
   %indvars.iv128 = phi i64 [ %2, %for.body11.preheader ], [ %indvars.iv.next129, %for.inc37 ]

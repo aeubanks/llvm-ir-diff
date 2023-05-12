@@ -893,14 +893,14 @@ if.end377:                                        ; preds = %if.end345, %if.else
   %rem378.lhs.trunc = trunc i32 %rem353665 to i8
   %rem378656666 = and i8 %rem378.lhs.trunc, 3
   %div379657667.cmp = icmp ugt i8 %rem378656666, 1
-  %div379.sext = zext i1 %div379657667.cmp to i16
+  %conv380 = zext i1 %div379657667.cmp to i16
   %add.ptr385 = getelementptr inbounds [3 x [11 x %struct.BiContextType]], ptr %3, i64 0, i64 1, i64 10
-  tail call void @biari_encode_symbol(ptr noundef nonnull %ee_cabac, i16 noundef signext %div379.sext, ptr noundef nonnull %add.ptr385) #12
+  tail call void @biari_encode_symbol(ptr noundef nonnull %ee_cabac, i16 noundef signext %conv380, ptr noundef nonnull %add.ptr385) #12
   %rem386658668.urem = add nsw i8 %rem378656666, -2
   %rem386658668.cmp = icmp ult i8 %rem378656666, 2
   %rem386658668 = select i1 %rem386658668.cmp, i8 %rem378656666, i8 %rem386658668.urem
-  %rem386.sext = sext i8 %rem386658668 to i16
-  tail call void @biari_encode_symbol(ptr noundef nonnull %ee_cabac, i16 noundef signext %rem386.sext, ptr noundef nonnull %add.ptr385) #12
+  %conv387 = sext i8 %rem386658668 to i16
+  tail call void @biari_encode_symbol(ptr noundef nonnull %ee_cabac, i16 noundef signext %conv387, ptr noundef nonnull %add.ptr385) #12
   br label %cleanup
 
 cleanup:                                          ; preds = %if.then37, %if.end78, %if.then32, %if.end377, %if.end336, %if.then187, %if.then195, %if.then213, %if.then255, %sw.bb169, %sw.bb149, %sw.bb139, %sw.bb, %if.then129, %if.end336.thread, %if.then342
@@ -1397,7 +1397,7 @@ entry:
   %5 = load i32, ptr %current_mb_nr, align 4, !tbaa !11
   %idxprom = sext i32 %5 to i64
   %prev_delta_qp = getelementptr inbounds %struct.macroblock, ptr %4, i64 %idxprom, i32 36
-  %6 = load i32, ptr %prev_delta_qp, align 4, !tbaa !5
+  %6 = load i32, ptr %prev_delta_qp, align 4, !tbaa !59
   store i32 %6, ptr @last_dquant, align 4, !tbaa !5
   %cmp = icmp slt i32 %3, 1
   %spec.select = zext i1 %cmp to i32
@@ -1519,19 +1519,19 @@ land.lhs.true19:                                  ; preds = %if.then17
   %17 = load i32, ptr %mb_field24, align 8, !tbaa !29
   %cmp25 = icmp eq i32 %17, 1
   %mul = zext i1 %cmp25 to i32
-  %spec.select169 = shl nuw nsw i32 %cond.i, %mul
+  %spec.select = shl nuw nsw i32 %cond.i, %mul
   br label %if.end40
 
 land.lhs.true29:                                  ; preds = %if.then17
   %mb_field34 = getelementptr inbounds %struct.macroblock, ptr %10, i64 %idxprom5, i32 19
   %18 = load i32, ptr %mb_field34, align 8, !tbaa !29
   %cmp35 = icmp eq i32 %18, 0
-  %div165 = zext i1 %cmp35 to i32
-  %spec.select = lshr i32 %cond.i, %div165
+  %div167172 = zext i1 %cmp35 to i32
+  %spec.select168 = lshr i32 %cond.i, %div167172
   br label %if.end40
 
-if.end40:                                         ; preds = %land.lhs.true19, %if.then17, %land.lhs.true29, %entry, %if.then
-  %b.0 = phi i32 [ %cond.i, %if.then ], [ %spec.select, %land.lhs.true29 ], [ 0, %entry ], [ %spec.select169, %land.lhs.true19 ], [ %cond.i, %if.then17 ]
+if.end40:                                         ; preds = %land.lhs.true29, %land.lhs.true19, %if.then17, %entry, %if.then
+  %b.0 = phi i32 [ %cond.i, %if.then ], [ 0, %entry ], [ %spec.select, %land.lhs.true19 ], [ %cond.i, %if.then17 ], [ %spec.select168, %land.lhs.true29 ]
   %19 = load i32, ptr %block_a, align 4, !tbaa !17
   %tobool42.not = icmp eq i32 %19, 0
   br i1 %tobool42.not, label %if.end92, label %if.then43
@@ -1574,19 +1574,19 @@ land.lhs.true67:                                  ; preds = %if.then64
   %28 = load i32, ptr %mb_field72, align 8, !tbaa !29
   %cmp73 = icmp eq i32 %28, 1
   %mul75 = zext i1 %cmp73 to i32
-  %spec.select170 = shl nuw nsw i32 %cond.i162, %mul75
+  %spec.select169 = shl nuw nsw i32 %cond.i162, %mul75
   br label %if.end92
 
 land.lhs.true79:                                  ; preds = %if.then64
   %mb_field84 = getelementptr inbounds %struct.macroblock, ptr %21, i64 %idxprom46, i32 19
   %29 = load i32, ptr %mb_field84, align 8, !tbaa !29
   %cmp85 = icmp eq i32 %29, 0
-  %div87164 = zext i1 %cmp85 to i32
-  %spec.select166 = lshr i32 %cond.i162, %div87164
+  %div87166171 = zext i1 %cmp85 to i32
+  %spec.select170 = lshr i32 %cond.i162, %div87166171
   br label %if.end92
 
-if.end92:                                         ; preds = %land.lhs.true67, %if.then64, %land.lhs.true79, %if.end40, %if.then43
-  %a.0 = phi i32 [ %cond.i162, %if.then43 ], [ %spec.select166, %land.lhs.true79 ], [ 0, %if.end40 ], [ %spec.select170, %land.lhs.true67 ], [ %cond.i162, %if.then64 ]
+if.end92:                                         ; preds = %land.lhs.true79, %land.lhs.true67, %if.then64, %if.end40, %if.then43
+  %a.0 = phi i32 [ %cond.i162, %if.then43 ], [ 0, %if.end40 ], [ %spec.select169, %land.lhs.true67 ], [ %cond.i162, %if.then64 ], [ %spec.select170, %land.lhs.true79 ]
   %add = add nsw i32 %a.0, %b.0
   %cmp93 = icmp slt i32 %add, 3
   br i1 %cmp93, label %if.then94, label %if.else96
@@ -1673,7 +1673,7 @@ land.rhs.preheader:                               ; preds = %if.else
   %ictx.2.idx = zext i1 %cmp7 to i64
   %ictx.2 = getelementptr %struct.BiContextType, ptr %spec.select, i64 %ictx.2.idx
   %cmp1.not = icmp eq i32 %symbol, 2
-  br i1 %cmp1.not, label %cleanup.sink.split, label %land.rhs.1, !llvm.loop !59
+  br i1 %cmp1.not, label %cleanup.sink.split, label %land.rhs.1, !llvm.loop !60
 
 land.rhs.1:                                       ; preds = %land.rhs.preheader
   tail call void @biari_encode_symbol(ptr noundef %eep_dp, i16 noundef signext 1, ptr noundef %ictx.2) #12
@@ -1681,7 +1681,7 @@ land.rhs.1:                                       ; preds = %land.rhs.preheader
   %ictx.2.idx.1 = zext i1 %cmp7.1 to i64
   %ictx.2.1 = getelementptr %struct.BiContextType, ptr %ictx.2, i64 %ictx.2.idx.1
   %cmp1.not.1 = icmp eq i32 %symbol, 3
-  br i1 %cmp1.not.1, label %cleanup.sink.split, label %land.rhs.2, !llvm.loop !59
+  br i1 %cmp1.not.1, label %cleanup.sink.split, label %land.rhs.2, !llvm.loop !60
 
 land.rhs.2:                                       ; preds = %land.rhs.1
   tail call void @biari_encode_symbol(ptr noundef %eep_dp, i16 noundef signext 1, ptr noundef %ictx.2.1) #12
@@ -1689,7 +1689,7 @@ land.rhs.2:                                       ; preds = %land.rhs.1
   %ictx.2.idx.2 = zext i1 %cmp7.2 to i64
   %ictx.2.2 = getelementptr %struct.BiContextType, ptr %ictx.2.1, i64 %ictx.2.idx.2
   %cmp1.not.2 = icmp eq i32 %symbol, 4
-  br i1 %cmp1.not.2, label %cleanup.sink.split, label %land.rhs.3, !llvm.loop !59
+  br i1 %cmp1.not.2, label %cleanup.sink.split, label %land.rhs.3, !llvm.loop !60
 
 land.rhs.3:                                       ; preds = %land.rhs.2
   tail call void @biari_encode_symbol(ptr noundef %eep_dp, i16 noundef signext 1, ptr noundef %ictx.2.2) #12
@@ -1697,7 +1697,7 @@ land.rhs.3:                                       ; preds = %land.rhs.2
   %ictx.2.idx.3 = zext i1 %cmp7.3 to i64
   %ictx.2.3 = getelementptr %struct.BiContextType, ptr %ictx.2.2, i64 %ictx.2.idx.3
   %cmp1.not.3 = icmp eq i32 %symbol, 5
-  br i1 %cmp1.not.3, label %cleanup.sink.split, label %land.rhs.4, !llvm.loop !59
+  br i1 %cmp1.not.3, label %cleanup.sink.split, label %land.rhs.4, !llvm.loop !60
 
 land.rhs.4:                                       ; preds = %land.rhs.3
   tail call void @biari_encode_symbol(ptr noundef %eep_dp, i16 noundef signext 1, ptr noundef %ictx.2.3) #12
@@ -1705,7 +1705,7 @@ land.rhs.4:                                       ; preds = %land.rhs.3
   %ictx.2.idx.4 = zext i1 %cmp7.4 to i64
   %ictx.2.4 = getelementptr %struct.BiContextType, ptr %ictx.2.3, i64 %ictx.2.idx.4
   %cmp1.not.4 = icmp eq i32 %symbol, 6
-  br i1 %cmp1.not.4, label %cleanup.sink.split, label %land.rhs.5, !llvm.loop !59
+  br i1 %cmp1.not.4, label %cleanup.sink.split, label %land.rhs.5, !llvm.loop !60
 
 land.rhs.5:                                       ; preds = %land.rhs.4
   tail call void @biari_encode_symbol(ptr noundef %eep_dp, i16 noundef signext 1, ptr noundef %ictx.2.4) #12
@@ -1713,7 +1713,7 @@ land.rhs.5:                                       ; preds = %land.rhs.4
   %ictx.2.idx.5 = zext i1 %cmp7.5 to i64
   %ictx.2.5 = getelementptr %struct.BiContextType, ptr %ictx.2.4, i64 %ictx.2.idx.5
   %cmp1.not.5 = icmp eq i32 %symbol, 7
-  br i1 %cmp1.not.5, label %cleanup.sink.split, label %land.rhs.6, !llvm.loop !59
+  br i1 %cmp1.not.5, label %cleanup.sink.split, label %land.rhs.6, !llvm.loop !60
 
 land.rhs.6:                                       ; preds = %land.rhs.5
   tail call void @biari_encode_symbol(ptr noundef %eep_dp, i16 noundef signext 1, ptr noundef %ictx.2.5) #12
@@ -1746,7 +1746,7 @@ while.body3.i:                                    ; preds = %if.else.i, %while.b
   %conv.i = and i16 %0, 1
   tail call void @biari_encode_symbol_eq_prob(ptr noundef %eep_dp, i16 noundef signext %conv.i) #12
   %tobool.not.i = icmp eq i32 %dec.i, 0
-  br i1 %tobool.not.i, label %cleanup, label %while.body3.i, !llvm.loop !60
+  br i1 %tobool.not.i, label %cleanup, label %while.body3.i, !llvm.loop !61
 
 cleanup.sink.split:                               ; preds = %if.else, %land.rhs.5, %land.rhs.4, %land.rhs.3, %land.rhs.2, %land.rhs.1, %land.rhs.preheader, %entry
   %ictx.0.lcssa.ph.sink = phi ptr [ %ctx, %entry ], [ %ictx.2.5, %land.rhs.5 ], [ %ictx.2.4, %land.rhs.4 ], [ %ictx.2.3, %land.rhs.3 ], [ %ictx.2.2, %land.rhs.2 ], [ %ictx.2.1, %land.rhs.1 ], [ %ictx.2, %land.rhs.preheader ], [ %incdec.ptr, %if.else ]
@@ -1783,7 +1783,7 @@ entry:
 
 if.else:                                          ; preds = %entry
   %c_ipred_mode = getelementptr inbounds %struct.macroblock, ptr %6, i64 0, i32 17
-  %7 = load i32, ptr %c_ipred_mode, align 8, !tbaa !61
+  %7 = load i32, ptr %c_ipred_mode, align 8, !tbaa !62
   %cmp2.not = icmp ne i32 %7, 0
   %cond = zext i1 %cmp2.not to i64
   br label %if.end
@@ -1797,7 +1797,7 @@ if.end:                                           ; preds = %entry, %if.else
 
 if.else5:                                         ; preds = %if.end
   %c_ipred_mode7 = getelementptr inbounds %struct.macroblock, ptr %8, i64 0, i32 17
-  %9 = load i32, ptr %c_ipred_mode7, align 8, !tbaa !61
+  %9 = load i32, ptr %c_ipred_mode7, align 8, !tbaa !62
   %cmp8.not = icmp ne i32 %9, 0
   %cond9 = zext i1 %cmp8.not to i64
   br label %if.end10
@@ -1827,7 +1827,7 @@ while.body.i:                                     ; preds = %if.else.i, %while.b
   tail call void @biari_encode_symbol(ptr noundef nonnull %ee_cabac, i16 noundef signext 1, ptr noundef nonnull %add.ptr20) #12
   %dec.i = add i32 %dec16.i, -1
   %cmp1.not.i = icmp eq i32 %dec.i, 0
-  br i1 %cmp1.not.i, label %while.end.i, label %while.body.i, !llvm.loop !62
+  br i1 %cmp1.not.i, label %while.end.i, label %while.body.i, !llvm.loop !63
 
 while.end.i:                                      ; preds = %while.body.i
   %cmp2.i = icmp ult i32 %5, 3
@@ -1868,7 +1868,7 @@ while.body:                                       ; preds = %if.else, %while.bod
   tail call void @biari_encode_symbol(ptr noundef %eep_dp, i16 noundef signext 1, ptr noundef %add.ptr) #12
   %dec = add i32 %dec16, -1
   %cmp1.not = icmp eq i32 %dec, 0
-  br i1 %cmp1.not, label %while.end, label %while.body, !llvm.loop !62
+  br i1 %cmp1.not, label %while.end, label %while.body, !llvm.loop !63
 
 while.end:                                        ; preds = %while.body, %if.else
   %cmp2 = icmp ult i32 %symbol, %max_symbol
@@ -1908,7 +1908,7 @@ if.else:                                          ; preds = %if.then
 
 if.else7:                                         ; preds = %if.else
   %cbp9 = getelementptr inbounds %struct.macroblock, ptr %0, i64 0, i32 12
-  %2 = load i32, ptr %cbp9, align 4, !tbaa !63
+  %2 = load i32, ptr %cbp9, align 4, !tbaa !64
   %shr10 = lshr exact i32 %shl, 1
   %add = or i32 %shr10, 2
   %3 = xor i32 %2, -1
@@ -1952,7 +1952,7 @@ if.then25:                                        ; preds = %if.then22
 
 if.else29:                                        ; preds = %if.then25
   %cbp34 = getelementptr inbounds %struct.macroblock, ptr %11, i64 %idxprom, i32 12
-  %14 = load i32, ptr %cbp34, align 4, !tbaa !63
+  %14 = load i32, ptr %cbp34, align 4, !tbaa !64
   %y = getelementptr inbounds %struct.pix_pos, ptr %block_a, i64 0, i32 3
   %15 = load i32, ptr %y, align 4, !tbaa !52
   %add36 = or i32 %15, 1
@@ -2014,7 +2014,7 @@ entry:
   tail call void @writeCBP_BIT_CABAC(i32 noundef 3, i32 noundef %and.3, i32 noundef %5, ptr noundef %arrayidx, i32 poison, ptr noundef nonnull %ee_cabac)
   %6 = load ptr, ptr @img, align 8, !tbaa !9
   %yuv_format = getelementptr inbounds %struct.ImageParameters, ptr %6, i64 0, i32 160
-  %7 = load i32, ptr %yuv_format, align 8, !tbaa !64
+  %7 = load i32, ptr %yuv_format, align 8, !tbaa !65
   %cmp4.not = icmp eq i32 %7, 0
   br i1 %cmp4.not, label %if.end94, label %if.then
 
@@ -2032,7 +2032,7 @@ if.then6:                                         ; preds = %if.then
 
 if.else:                                          ; preds = %if.then6
   %cbp11 = getelementptr inbounds %struct.macroblock, ptr %8, i64 0, i32 12
-  %10 = load i32, ptr %cbp11, align 4, !tbaa !63
+  %10 = load i32, ptr %cbp11, align 4, !tbaa !64
   %cmp12 = icmp sgt i32 %10, 15
   %cond13 = select i1 %cmp12, i64 2, i64 0
   br label %if.end14
@@ -2052,7 +2052,7 @@ if.then16:                                        ; preds = %if.end14
 
 if.else21:                                        ; preds = %if.then16
   %cbp23 = getelementptr inbounds %struct.macroblock, ptr %11, i64 0, i32 12
-  %13 = load i32, ptr %cbp23, align 4, !tbaa !63
+  %13 = load i32, ptr %cbp23, align 4, !tbaa !64
   %cmp24 = icmp sgt i32 %13, 15
   %cond25 = zext i1 %cmp24 to i64
   br label %if.end27
@@ -2080,7 +2080,7 @@ if.then37:                                        ; preds = %if.then33
 
 if.else43:                                        ; preds = %if.then37
   %cbp45 = getelementptr inbounds %struct.macroblock, ptr %14, i64 0, i32 12
-  %16 = load i32, ptr %cbp45, align 4, !tbaa !63
+  %16 = load i32, ptr %cbp45, align 4, !tbaa !64
   %cmp46 = icmp sgt i32 %16, 15
   br i1 %cmp46, label %if.then48, label %if.end56
 
@@ -2104,7 +2104,7 @@ if.then60:                                        ; preds = %if.end56
 
 if.else66:                                        ; preds = %if.then60
   %cbp68 = getelementptr inbounds %struct.macroblock, ptr %17, i64 0, i32 12
-  %19 = load i32, ptr %cbp68, align 4, !tbaa !63
+  %19 = load i32, ptr %cbp68, align 4, !tbaa !64
   %cmp69 = icmp sgt i32 %19, 15
   br i1 %cmp69, label %if.then71, label %if.end80
 
@@ -2154,7 +2154,7 @@ entry:
 land.end15.thread:                                ; preds = %entry
   %1 = load ptr, ptr @img, align 8, !tbaa !9
   %is_v_block = getelementptr inbounds %struct.ImageParameters, ptr %1, i64 0, i32 27
-  %2 = load i32, ptr %is_v_block, align 4, !tbaa !65
+  %2 = load i32, ptr %is_v_block, align 4, !tbaa !66
   %tobool.not = icmp eq i32 %2, 0
   %tobool14 = icmp ne i32 %2, 0
   br label %land.end38
@@ -2162,7 +2162,7 @@ land.end15.thread:                                ; preds = %entry
 land.rhs35:                                       ; preds = %entry, %entry, %entry
   %3 = load ptr, ptr @img, align 8, !tbaa !9
   %is_v_block29 = getelementptr inbounds %struct.ImageParameters, ptr %3, i64 0, i32 27
-  %4 = load i32, ptr %is_v_block29, align 4, !tbaa !65
+  %4 = load i32, ptr %is_v_block29, align 4, !tbaa !66
   %tobool30.not = icmp eq i32 %4, 0
   %tobool37 = icmp ne i32 %4, 0
   br label %land.end38
@@ -2189,7 +2189,7 @@ cond.end52:                                       ; preds = %land.end38, %cond.t
   %cond392 = phi i32 [ %12, %cond.true50 ], [ 0, %land.end38 ]
   %cond53 = phi i32 [ %11, %cond.true50 ], [ 0, %land.end38 ]
   %is_intra_block = getelementptr inbounds %struct.ImageParameters, ptr %9, i64 0, i32 26
-  %13 = load i32, ptr %is_intra_block, align 8, !tbaa !66
+  %13 = load i32, ptr %is_intra_block, align 8, !tbaa !67
   %tobool76.not = icmp ne i32 %13, 0
   %cond77 = zext i1 %tobool76.not to i32
   call void @llvm.lifetime.start.p0(i64 24, ptr nonnull %block_a) #12
@@ -2199,6 +2199,7 @@ cond.end52:                                       ; preds = %land.end38, %cond.t
   %14 = load i32, ptr %current_mb_nr, align 4, !tbaa !11
   %shl = shl i32 %cond53, 2
   %sub = add nsw i32 %shl, -1
+  %sub85 = add nsw i32 %cond392, -1
   br i1 %switch389, label %if.then, label %if.else
 
 if.then:                                          ; preds = %cond.end52
@@ -2206,7 +2207,6 @@ if.then:                                          ; preds = %cond.end52
   %15 = load ptr, ptr @img, align 8, !tbaa !9
   %current_mb_nr82 = getelementptr inbounds %struct.ImageParameters, ptr %15, i64 0, i32 3
   %16 = load i32, ptr %current_mb_nr82, align 4, !tbaa !11
-  %sub85 = add nsw i32 %cond392, -1
   call void @getLuma4x4Neighbour(i32 noundef %16, i32 noundef %shl, i32 noundef %sub85, ptr noundef nonnull %block_b) #12
   br i1 %spec.select, label %if.then87, label %cond.end161
 
@@ -2238,8 +2238,7 @@ if.else:                                          ; preds = %cond.end52
   %23 = load ptr, ptr @img, align 8, !tbaa !9
   %current_mb_nr103 = getelementptr inbounds %struct.ImageParameters, ptr %23, i64 0, i32 3
   %24 = load i32, ptr %current_mb_nr103, align 4, !tbaa !11
-  %sub106 = add nsw i32 %cond392, -1
-  call void @getChroma4x4Neighbour(i32 noundef %24, i32 noundef %shl, i32 noundef %sub106, ptr noundef nonnull %block_b) #12
+  call void @getChroma4x4Neighbour(i32 noundef %24, i32 noundef %shl, i32 noundef %sub85, ptr noundef nonnull %block_b) #12
   %or.cond307 = select i1 %7, i1 true, i1 %6
   br i1 %or.cond307, label %if.then110, label %cond.false137
 
@@ -2304,7 +2303,7 @@ if.then167:                                       ; preds = %if.then164
   %sh_prom = zext i32 %cond162 to i64
   %shl168 = shl nuw i64 1, %sh_prom
   %cbp_bits = getelementptr inbounds %struct.macroblock, ptr %currMB, i64 0, i32 16
-  %31 = load i64, ptr %cbp_bits, align 8, !tbaa !67
+  %31 = load i64, ptr %cbp_bits, align 8, !tbaa !68
   %add169 = add nsw i32 %cond162, 1
   %sh_prom170 = zext i32 %add169 to i64
   %shl171 = shl nuw i64 1, %sh_prom170
@@ -2318,42 +2317,42 @@ if.then167:                                       ; preds = %if.then164
   %or173 = or i64 %or, %shl176
   %or178 = or i64 %or173, %shl181
   %or183 = or i64 %or178, %31
-  store i64 %or183, ptr %cbp_bits, align 8, !tbaa !67
+  store i64 %or183, ptr %cbp_bits, align 8, !tbaa !68
   br label %cond.false221.thread
 
 if.then187:                                       ; preds = %if.then164
   %sh_prom188 = zext i32 %cond162 to i64
   %shl189 = shl nuw i64 1, %sh_prom188
   %cbp_bits190 = getelementptr inbounds %struct.macroblock, ptr %currMB, i64 0, i32 16
-  %32 = load i64, ptr %cbp_bits190, align 8, !tbaa !67
+  %32 = load i64, ptr %cbp_bits190, align 8, !tbaa !68
   %add192 = add nsw i32 %cond162, 1
   %sh_prom193 = zext i32 %add192 to i64
   %shl194 = shl nuw i64 1, %sh_prom193
   %or191 = or i64 %shl194, %shl189
   %or196 = or i64 %or191, %32
-  store i64 %or196, ptr %cbp_bits190, align 8, !tbaa !67
+  store i64 %or196, ptr %cbp_bits190, align 8, !tbaa !68
   br label %cond.false221.thread
 
 if.then200:                                       ; preds = %if.then164
   %sh_prom201 = zext i32 %cond162 to i64
   %shl202 = shl nuw i64 1, %sh_prom201
   %cbp_bits203 = getelementptr inbounds %struct.macroblock, ptr %currMB, i64 0, i32 16
-  %33 = load i64, ptr %cbp_bits203, align 8, !tbaa !67
+  %33 = load i64, ptr %cbp_bits203, align 8, !tbaa !68
   %add205 = add nsw i32 %cond162, 4
   %sh_prom206 = zext i32 %add205 to i64
   %shl207 = shl nuw i64 1, %sh_prom206
   %or204 = or i64 %shl207, %shl202
   %or209 = or i64 %or204, %33
-  store i64 %or209, ptr %cbp_bits203, align 8, !tbaa !67
+  store i64 %or209, ptr %cbp_bits203, align 8, !tbaa !68
   br label %cond.false221.thread
 
 if.else210:                                       ; preds = %if.then164
   %sh_prom211 = zext i32 %cond162 to i64
   %shl212 = shl nuw i64 1, %sh_prom211
   %cbp_bits213 = getelementptr inbounds %struct.macroblock, ptr %currMB, i64 0, i32 16
-  %34 = load i64, ptr %cbp_bits213, align 8, !tbaa !67
+  %34 = load i64, ptr %cbp_bits213, align 8, !tbaa !68
   %or214 = or i64 %34, %shl212
-  store i64 %or214, ptr %cbp_bits213, align 8, !tbaa !67
+  store i64 %or214, ptr %cbp_bits213, align 8, !tbaa !68
   br label %if.end218
 
 cond.false221.thread:                             ; preds = %if.then187, %if.then200, %if.then167
@@ -2398,7 +2397,7 @@ if.then246:                                       ; preds = %if.then243
 
 if.else250:                                       ; preds = %if.then246
   %cbp_bits255 = getelementptr inbounds %struct.macroblock, ptr %37, i64 %idxprom, i32 16
-  %40 = load i64, ptr %cbp_bits255, align 8, !tbaa !67
+  %40 = load i64, ptr %cbp_bits255, align 8, !tbaa !68
   %add256 = add nsw i32 %cond240408, %bit_pos_b.0399
   %sh_prom257 = zext i32 %add256 to i64
   %shl258 = shl nuw i64 1, %sh_prom257
@@ -2427,7 +2426,7 @@ if.then266:                                       ; preds = %if.end263
 
 if.else275:                                       ; preds = %if.then266
   %cbp_bits280 = getelementptr inbounds %struct.macroblock, ptr %42, i64 %idxprom269, i32 16
-  %45 = load i64, ptr %cbp_bits280, align 8, !tbaa !67
+  %45 = load i64, ptr %cbp_bits280, align 8, !tbaa !68
   %add281 = add nsw i32 %cond240408, %bit_pos_a.2397
   %sh_prom282 = zext i32 %add281 to i64
   %shl283 = shl nuw i64 1, %sh_prom282
@@ -2476,7 +2475,7 @@ entry:
   %tex_ctx1 = getelementptr inbounds %struct.Slice, ptr %2, i64 0, i32 8
   %3 = load ptr, ptr %tex_ctx1, align 8, !tbaa !46
   %structure = getelementptr inbounds %struct.ImageParameters, ptr %1, i64 0, i32 6
-  %4 = load i32, ptr %structure, align 8, !tbaa !68
+  %4 = load i32, ptr %structure, align 8, !tbaa !69
   %cmp.not = icmp eq i32 %4, 0
   br i1 %cmp.not, label %lor.end, label %cond.true13
 
@@ -2580,7 +2579,7 @@ for.inc:                                          ; preds = %for.body, %if.then4
   %coeff_ctr.addr.1 = phi i32 [ %dec, %if.then43 ], [ %coeff_ctr.addr.0148, %for.body ]
   %indvars.iv.next = add nuw nsw i64 %indvars.iv, 1
   %exitcond.not = icmp eq i64 %indvars.iv.next, %wide.trip.count
-  br i1 %exitcond.not, label %cleanup, label %for.body, !llvm.loop !69
+  br i1 %exitcond.not, label %cleanup, label %for.body, !llvm.loop !70
 
 for.body61:                                       ; preds = %for.body61.lr.ph, %for.inc89
   %indvars.iv154 = phi i64 [ %12, %for.body61.lr.ph ], [ %indvars.iv.next155, %for.inc89 ]
@@ -2612,7 +2611,7 @@ for.inc89:                                        ; preds = %for.body61, %if.the
   %coeff_ctr.addr.3 = phi i32 [ %dec75, %if.then74 ], [ %coeff_ctr.addr.2151, %for.body61 ]
   %indvars.iv.next155 = add nuw nsw i64 %indvars.iv154, 1
   %exitcond158.not = icmp eq i64 %indvars.iv.next155, %wide.trip.count157
-  br i1 %exitcond158.not, label %cleanup, label %for.body61, !llvm.loop !70
+  br i1 %exitcond158.not, label %cleanup, label %for.body61, !llvm.loop !71
 
 cleanup:                                          ; preds = %if.then43, %for.inc, %if.then74, %for.inc89, %for.cond.preheader, %for.cond58.preheader
   ret void
@@ -2696,7 +2695,7 @@ for.inc:                                          ; preds = %for.body, %if.end38
   %c2.2 = phi i32 [ %c2.1, %if.end38 ], [ %c2.063, %for.body ]
   %12 = trunc i64 %indvars.iv to i32
   %cmp = icmp sgt i32 %12, 1
-  br i1 %cmp, label %for.body, label %for.end, !llvm.loop !71
+  br i1 %cmp, label %for.body, label %for.end, !llvm.loop !72
 
 for.end:                                          ; preds = %for.inc
   ret void
@@ -2720,57 +2719,57 @@ if.else:                                          ; preds = %entry
 land.rhs.preheader:                               ; preds = %if.else
   tail call void @biari_encode_symbol(ptr noundef %eep_dp, i16 noundef signext 1, ptr noundef %ctx) #12
   %cmp1.not = icmp eq i32 %symbol, 2
-  br i1 %cmp1.not, label %if.then4, label %land.rhs.1, !llvm.loop !72
+  br i1 %cmp1.not, label %if.then4, label %land.rhs.1, !llvm.loop !73
 
 land.rhs.1:                                       ; preds = %land.rhs.preheader
   tail call void @biari_encode_symbol(ptr noundef %eep_dp, i16 noundef signext 1, ptr noundef %ctx) #12
   %cmp1.not.1 = icmp eq i32 %symbol, 3
-  br i1 %cmp1.not.1, label %if.then4, label %land.rhs.2, !llvm.loop !72
+  br i1 %cmp1.not.1, label %if.then4, label %land.rhs.2, !llvm.loop !73
 
 land.rhs.2:                                       ; preds = %land.rhs.1
   tail call void @biari_encode_symbol(ptr noundef %eep_dp, i16 noundef signext 1, ptr noundef %ctx) #12
   %cmp1.not.2 = icmp eq i32 %symbol, 4
-  br i1 %cmp1.not.2, label %if.then4, label %land.rhs.3, !llvm.loop !72
+  br i1 %cmp1.not.2, label %if.then4, label %land.rhs.3, !llvm.loop !73
 
 land.rhs.3:                                       ; preds = %land.rhs.2
   tail call void @biari_encode_symbol(ptr noundef %eep_dp, i16 noundef signext 1, ptr noundef %ctx) #12
   %cmp1.not.3 = icmp eq i32 %symbol, 5
-  br i1 %cmp1.not.3, label %if.then4, label %land.rhs.4, !llvm.loop !72
+  br i1 %cmp1.not.3, label %if.then4, label %land.rhs.4, !llvm.loop !73
 
 land.rhs.4:                                       ; preds = %land.rhs.3
   tail call void @biari_encode_symbol(ptr noundef %eep_dp, i16 noundef signext 1, ptr noundef %ctx) #12
   %cmp1.not.4 = icmp eq i32 %symbol, 6
-  br i1 %cmp1.not.4, label %if.then4, label %land.rhs.5, !llvm.loop !72
+  br i1 %cmp1.not.4, label %if.then4, label %land.rhs.5, !llvm.loop !73
 
 land.rhs.5:                                       ; preds = %land.rhs.4
   tail call void @biari_encode_symbol(ptr noundef %eep_dp, i16 noundef signext 1, ptr noundef %ctx) #12
   %cmp1.not.5 = icmp eq i32 %symbol, 7
-  br i1 %cmp1.not.5, label %if.then4, label %land.rhs.6, !llvm.loop !72
+  br i1 %cmp1.not.5, label %if.then4, label %land.rhs.6, !llvm.loop !73
 
 land.rhs.6:                                       ; preds = %land.rhs.5
   tail call void @biari_encode_symbol(ptr noundef %eep_dp, i16 noundef signext 1, ptr noundef %ctx) #12
   %cmp1.not.6 = icmp eq i32 %symbol, 8
-  br i1 %cmp1.not.6, label %if.then4, label %land.rhs.7, !llvm.loop !72
+  br i1 %cmp1.not.6, label %if.then4, label %land.rhs.7, !llvm.loop !73
 
 land.rhs.7:                                       ; preds = %land.rhs.6
   tail call void @biari_encode_symbol(ptr noundef %eep_dp, i16 noundef signext 1, ptr noundef %ctx) #12
   %cmp1.not.7 = icmp eq i32 %symbol, 9
-  br i1 %cmp1.not.7, label %if.then4, label %land.rhs.8, !llvm.loop !72
+  br i1 %cmp1.not.7, label %if.then4, label %land.rhs.8, !llvm.loop !73
 
 land.rhs.8:                                       ; preds = %land.rhs.7
   tail call void @biari_encode_symbol(ptr noundef %eep_dp, i16 noundef signext 1, ptr noundef %ctx) #12
   %cmp1.not.8 = icmp eq i32 %symbol, 10
-  br i1 %cmp1.not.8, label %if.then4, label %land.rhs.9, !llvm.loop !72
+  br i1 %cmp1.not.8, label %if.then4, label %land.rhs.9, !llvm.loop !73
 
 land.rhs.9:                                       ; preds = %land.rhs.8
   tail call void @biari_encode_symbol(ptr noundef %eep_dp, i16 noundef signext 1, ptr noundef %ctx) #12
   %cmp1.not.9 = icmp eq i32 %symbol, 11
-  br i1 %cmp1.not.9, label %if.then4, label %land.rhs.10, !llvm.loop !72
+  br i1 %cmp1.not.9, label %if.then4, label %land.rhs.10, !llvm.loop !73
 
 land.rhs.10:                                      ; preds = %land.rhs.9
   tail call void @biari_encode_symbol(ptr noundef %eep_dp, i16 noundef signext 1, ptr noundef %ctx) #12
   %cmp1.not.10 = icmp eq i32 %symbol, 12
-  br i1 %cmp1.not.10, label %if.then4, label %land.rhs.11, !llvm.loop !72
+  br i1 %cmp1.not.10, label %if.then4, label %land.rhs.11, !llvm.loop !73
 
 land.rhs.11:                                      ; preds = %land.rhs.10
   tail call void @biari_encode_symbol(ptr noundef %eep_dp, i16 noundef signext 1, ptr noundef %ctx) #12
@@ -2809,7 +2808,7 @@ while.body3.i:                                    ; preds = %if.else.i, %while.b
   %conv.i = and i16 %0, 1
   tail call void @biari_encode_symbol_eq_prob(ptr noundef %eep_dp, i16 noundef signext %conv.i) #12
   %tobool.not.i = icmp eq i32 %dec.i, 0
-  br i1 %tobool.not.i, label %cleanup, label %while.body3.i, !llvm.loop !60
+  br i1 %tobool.not.i, label %cleanup, label %while.body3.i, !llvm.loop !61
 
 cleanup:                                          ; preds = %while.body3.i, %if.else.i.thread, %if.then4, %if.then
   ret void
@@ -2920,7 +2919,7 @@ while.body3:                                      ; preds = %if.else, %while.bod
   %conv = and i16 %0, 1
   tail call void @biari_encode_symbol_eq_prob(ptr noundef %eep_dp, i16 noundef signext %conv) #12
   %tobool.not = icmp eq i32 %dec, 0
-  br i1 %tobool.not, label %while.end4, label %while.body3, !llvm.loop !60
+  br i1 %tobool.not, label %while.end4, label %while.body3, !llvm.loop !61
 
 while.end4:                                       ; preds = %while.body3, %if.else
   ret void
@@ -2930,10 +2929,10 @@ while.end4:                                       ; preds = %while.body3, %if.el
 declare noundef i32 @puts(ptr nocapture noundef readonly) local_unnamed_addr #9
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i32 @llvm.smin.i32(i32, i32) #10
+declare i32 @llvm.abs.i32(i32, i1 immarg) #10
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i32 @llvm.abs.i32(i32, i1 immarg) #10
+declare i32 @llvm.smin.i32(i32, i32) #10
 
 ; Function Attrs: nocallback nofree nosync nounwind willreturn memory(argmem: read)
 declare ptr @llvm.load.relative.i64(ptr, i64) #11
@@ -3016,17 +3015,18 @@ attributes #14 = { noreturn nounwind }
 !56 = !{!7, !7, i64 0}
 !57 = distinct !{!57, !58}
 !58 = !{!"llvm.loop.mustprogress"}
-!59 = distinct !{!59, !58}
+!59 = !{!26, !6, i64 500}
 !60 = distinct !{!60, !58}
-!61 = !{!26, !6, i64 416}
-!62 = distinct !{!62, !58}
-!63 = !{!26, !6, i64 364}
-!64 = !{!12, !6, i64 15536}
-!65 = !{!12, !6, i64 108}
-!66 = !{!12, !6, i64 104}
-!67 = !{!26, !27, i64 408}
-!68 = !{!12, !6, i64 24}
-!69 = distinct !{!69, !58}
+!61 = distinct !{!61, !58}
+!62 = !{!26, !6, i64 416}
+!63 = distinct !{!63, !58}
+!64 = !{!26, !6, i64 364}
+!65 = !{!12, !6, i64 15536}
+!66 = !{!12, !6, i64 108}
+!67 = !{!12, !6, i64 104}
+!68 = !{!26, !27, i64 408}
+!69 = !{!12, !6, i64 24}
 !70 = distinct !{!70, !58}
 !71 = distinct !{!71, !58}
 !72 = distinct !{!72, !58}
+!73 = distinct !{!73, !58}

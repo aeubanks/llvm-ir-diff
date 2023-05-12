@@ -35,27 +35,27 @@ entry:
   %m_free_nodes_count = getelementptr inbounds %class.btGenericMemoryPool, ptr %this, i64 0, i32 4
   %0 = load i64, ptr %m_free_nodes_count, align 8, !tbaa !5
   %cmp = icmp eq i64 %0, 0
-  br i1 %cmp, label %cleanup33, label %while.cond.preheader
+  br i1 %cmp, label %cleanup33, label %while.body.lr.ph
 
-while.cond.preheader:                             ; preds = %entry
+while.body.lr.ph:                                 ; preds = %entry
   %m_allocated_sizes = getelementptr inbounds %class.btGenericMemoryPool, ptr %this, i64 0, i32 2
   %1 = load ptr, ptr %m_allocated_sizes, align 8, !tbaa !11
   %m_free_nodes = getelementptr inbounds %class.btGenericMemoryPool, ptr %this, i64 0, i32 1
   %2 = load ptr, ptr %m_free_nodes, align 8, !tbaa !12
   br label %while.body
 
-while.body:                                       ; preds = %while.cond.preheader, %while.body
-  %dec54.in = phi i64 [ %0, %while.cond.preheader ], [ %dec54, %while.body ]
-  %dec54 = add i64 %dec54.in, -1
-  %arrayidx = getelementptr inbounds i64, ptr %2, i64 %dec54
+while.body:                                       ; preds = %while.body.lr.ph, %while.body
+  %revindex.053 = phi i64 [ %0, %while.body.lr.ph ], [ %dec, %while.body ]
+  %dec = add i64 %revindex.053, -1
+  %arrayidx = getelementptr inbounds i64, ptr %2, i64 %dec
   %3 = load i64, ptr %arrayidx, align 8, !tbaa !13
   %arrayidx4 = getelementptr inbounds i64, ptr %1, i64 %3
   %4 = load i64, ptr %arrayidx4, align 8, !tbaa !13
   %cmp5.not = icmp ult i64 %4, %num_elements
-  %spec.select = select i1 %cmp5.not, i64 4294967295, i64 %dec54
-  %tobool = icmp ne i64 %dec54, 0
+  %spec.select = select i1 %cmp5.not, i64 4294967295, i64 %dec
+  %tobool = icmp ne i64 %dec, 0
   %cmp3 = icmp eq i64 %spec.select, 4294967295
-  %5 = select i1 %tobool, i1 %cmp3, i1 false
+  %5 = and i1 %cmp3, %tobool
   br i1 %5, label %while.body, label %while.end
 
 while.end:                                        ; preds = %while.body
@@ -192,27 +192,27 @@ entry:
   %m_free_nodes_count.i = getelementptr inbounds %class.btGenericMemoryPool, ptr %this, i64 0, i32 4
   %1 = load i64, ptr %m_free_nodes_count.i, align 8, !tbaa !5
   %cmp.i = icmp eq i64 %1, 0
-  br i1 %cmp.i, label %if.end6, label %while.cond.preheader.i
+  br i1 %cmp.i, label %if.end6, label %while.body.lr.ph.i
 
-while.cond.preheader.i:                           ; preds = %entry
+while.body.lr.ph.i:                               ; preds = %entry
   %m_allocated_sizes.i = getelementptr inbounds %class.btGenericMemoryPool, ptr %this, i64 0, i32 2
   %2 = load ptr, ptr %m_allocated_sizes.i, align 8, !tbaa !11
   %m_free_nodes.i = getelementptr inbounds %class.btGenericMemoryPool, ptr %this, i64 0, i32 1
   %3 = load ptr, ptr %m_free_nodes.i, align 8, !tbaa !12
   br label %while.body.i
 
-while.body.i:                                     ; preds = %while.body.i, %while.cond.preheader.i
-  %dec54.in.i = phi i64 [ %1, %while.cond.preheader.i ], [ %dec54.i, %while.body.i ]
-  %dec54.i = add i64 %dec54.in.i, -1
-  %arrayidx.i = getelementptr inbounds i64, ptr %3, i64 %dec54.i
+while.body.i:                                     ; preds = %while.body.i, %while.body.lr.ph.i
+  %revindex.053.i = phi i64 [ %1, %while.body.lr.ph.i ], [ %dec.i, %while.body.i ]
+  %dec.i = add i64 %revindex.053.i, -1
+  %arrayidx.i = getelementptr inbounds i64, ptr %3, i64 %dec.i
   %4 = load i64, ptr %arrayidx.i, align 8, !tbaa !13
   %arrayidx4.i = getelementptr inbounds i64, ptr %2, i64 %4
   %5 = load i64, ptr %arrayidx4.i, align 8, !tbaa !13
   %cmp5.not.i = icmp ult i64 %5, %spec.select
-  %spec.select.i = select i1 %cmp5.not.i, i64 4294967295, i64 %dec54.i
-  %tobool.i = icmp ne i64 %dec54.i, 0
+  %spec.select.i = select i1 %cmp5.not.i, i64 4294967295, i64 %dec.i
+  %tobool.i = icmp ne i64 %dec.i, 0
   %cmp3.i = icmp eq i64 %spec.select.i, 4294967295
-  %6 = select i1 %tobool.i, i1 %cmp3.i, i1 false
+  %6 = and i1 %tobool.i, %cmp3.i
   br i1 %6, label %while.body.i, label %while.end.i
 
 while.end.i:                                      ; preds = %while.body.i
@@ -475,27 +475,27 @@ if.end6:                                          ; preds = %if.end
   %m_free_nodes_count.i.i = getelementptr inbounds %class.btGenericMemoryPool, ptr %call2, i64 0, i32 4
   %3 = load i64, ptr %m_free_nodes_count.i.i, align 8, !tbaa !5
   %cmp.i.i = icmp eq i64 %3, 0
-  br i1 %cmp.i.i, label %if.end6.i, label %while.cond.preheader.i.i
+  br i1 %cmp.i.i, label %if.end6.i, label %while.body.lr.ph.i.i
 
-while.cond.preheader.i.i:                         ; preds = %if.end6
+while.body.lr.ph.i.i:                             ; preds = %if.end6
   %m_allocated_sizes.i.i = getelementptr inbounds %class.btGenericMemoryPool, ptr %call2, i64 0, i32 2
   %4 = load ptr, ptr %m_allocated_sizes.i.i, align 8, !tbaa !11
   %m_free_nodes.i.i = getelementptr inbounds %class.btGenericMemoryPool, ptr %call2, i64 0, i32 1
   %5 = load ptr, ptr %m_free_nodes.i.i, align 8, !tbaa !12
   br label %while.body.i.i
 
-while.body.i.i:                                   ; preds = %while.body.i.i, %while.cond.preheader.i.i
-  %dec54.in.i.i = phi i64 [ %3, %while.cond.preheader.i.i ], [ %dec54.i.i, %while.body.i.i ]
-  %dec54.i.i = add i64 %dec54.in.i.i, -1
-  %arrayidx.i.i = getelementptr inbounds i64, ptr %5, i64 %dec54.i.i
+while.body.i.i:                                   ; preds = %while.body.i.i, %while.body.lr.ph.i.i
+  %revindex.053.i.i = phi i64 [ %3, %while.body.lr.ph.i.i ], [ %dec.i.i, %while.body.i.i ]
+  %dec.i.i = add i64 %revindex.053.i.i, -1
+  %arrayidx.i.i = getelementptr inbounds i64, ptr %5, i64 %dec.i.i
   %6 = load i64, ptr %arrayidx.i.i, align 8, !tbaa !13
   %arrayidx4.i.i = getelementptr inbounds i64, ptr %4, i64 %6
   %7 = load i64, ptr %arrayidx4.i.i, align 8, !tbaa !13
   %cmp5.not.i.i = icmp ult i64 %7, %spec.select.i
-  %spec.select.i.i = select i1 %cmp5.not.i.i, i64 4294967295, i64 %dec54.i.i
-  %tobool.i.i = icmp ne i64 %dec54.i.i, 0
+  %spec.select.i.i = select i1 %cmp5.not.i.i, i64 4294967295, i64 %dec.i.i
+  %tobool.i.i = icmp ne i64 %dec.i.i, 0
   %cmp3.i.i = icmp eq i64 %spec.select.i.i, 4294967295
-  %8 = select i1 %tobool.i.i, i1 %cmp3.i.i, i1 false
+  %8 = and i1 %tobool.i.i, %cmp3.i.i
   br i1 %8, label %while.body.i.i, label %while.end.i.i
 
 while.end.i.i:                                    ; preds = %while.body.i.i
@@ -601,27 +601,27 @@ while.body:                                       ; preds = %entry, %_ZN19btGene
   %m_free_nodes_count.i.i = getelementptr inbounds %class.btGenericMemoryPool, ptr %1, i64 0, i32 4
   %3 = load i64, ptr %m_free_nodes_count.i.i, align 8, !tbaa !5
   %cmp.i.i = icmp eq i64 %3, 0
-  br i1 %cmp.i.i, label %if.end6.i, label %while.cond.preheader.i.i
+  br i1 %cmp.i.i, label %if.end6.i, label %while.body.lr.ph.i.i
 
-while.cond.preheader.i.i:                         ; preds = %while.body
+while.body.lr.ph.i.i:                             ; preds = %while.body
   %m_allocated_sizes.i.i = getelementptr inbounds %class.btGenericMemoryPool, ptr %1, i64 0, i32 2
   %4 = load ptr, ptr %m_allocated_sizes.i.i, align 8, !tbaa !11
   %m_free_nodes.i.i = getelementptr inbounds %class.btGenericMemoryPool, ptr %1, i64 0, i32 1
   %5 = load ptr, ptr %m_free_nodes.i.i, align 8, !tbaa !12
   br label %while.body.i.i
 
-while.body.i.i:                                   ; preds = %while.body.i.i, %while.cond.preheader.i.i
-  %dec54.in.i.i = phi i64 [ %3, %while.cond.preheader.i.i ], [ %dec54.i.i, %while.body.i.i ]
-  %dec54.i.i = add i64 %dec54.in.i.i, -1
-  %arrayidx.i.i = getelementptr inbounds i64, ptr %5, i64 %dec54.i.i
+while.body.i.i:                                   ; preds = %while.body.i.i, %while.body.lr.ph.i.i
+  %revindex.053.i.i = phi i64 [ %3, %while.body.lr.ph.i.i ], [ %dec.i.i, %while.body.i.i ]
+  %dec.i.i = add i64 %revindex.053.i.i, -1
+  %arrayidx.i.i = getelementptr inbounds i64, ptr %5, i64 %dec.i.i
   %6 = load i64, ptr %arrayidx.i.i, align 8, !tbaa !13
   %arrayidx4.i.i = getelementptr inbounds i64, ptr %4, i64 %6
   %7 = load i64, ptr %arrayidx4.i.i, align 8, !tbaa !13
   %cmp5.not.i.i = icmp ult i64 %7, %spec.select.i
-  %spec.select.i.i = select i1 %cmp5.not.i.i, i64 4294967295, i64 %dec54.i.i
-  %tobool.i.i = icmp ne i64 %dec54.i.i, 0
+  %spec.select.i.i = select i1 %cmp5.not.i.i, i64 4294967295, i64 %dec.i.i
+  %tobool.i.i = icmp ne i64 %dec.i.i, 0
   %cmp3.i.i = icmp eq i64 %spec.select.i.i, 4294967295
-  %8 = select i1 %tobool.i.i, i1 %cmp3.i.i, i1 false
+  %8 = and i1 %tobool.i.i, %cmp3.i.i
   br i1 %8, label %while.body.i.i, label %while.end.i.i
 
 while.end.i.i:                                    ; preds = %while.body.i.i
@@ -693,7 +693,7 @@ _ZN19btGenericMemoryPool8allocateEm.exit:         ; preds = %_ZN19btGenericMemor
   %20 = load i64, ptr %m_pool_count, align 8, !tbaa !20
   %cmp = icmp ult i64 %inc, %20
   %cmp2 = icmp eq ptr %retval.0.i, null
-  %21 = select i1 %cmp, i1 %cmp2, i1 false
+  %21 = and i1 %cmp2, %cmp
   br i1 %21, label %while.body, label %while.end
 
 while.end:                                        ; preds = %_ZN19btGenericMemoryPool8allocateEm.exit
@@ -991,11 +991,11 @@ entry:
   ret void
 }
 
-; Function Attrs: nocallback nofree nounwind willreturn memory(argmem: write)
-declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #9
-
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i64 @llvm.umin.i64(i64, i64) #10
+declare i64 @llvm.umin.i64(i64, i64) #9
+
+; Function Attrs: nocallback nofree nounwind willreturn memory(argmem: write)
+declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #10
 
 attributes #0 = { nofree norecurse nosync nounwind memory(readwrite, inaccessiblemem: none) uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #1 = { mustprogress nofree norecurse nosync nounwind willreturn memory(write, argmem: readwrite, inaccessiblemem: none) uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
@@ -1006,8 +1006,8 @@ attributes #5 = { nofree nounwind }
 attributes #6 = { mustprogress nocallback nofree nounwind willreturn memory(argmem: readwrite) }
 attributes #7 = { inlinehint uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #8 = { nofree nounwind uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
-attributes #9 = { nocallback nofree nounwind willreturn memory(argmem: write) }
-attributes #10 = { nocallback nofree nosync nounwind speculatable willreturn memory(none) }
+attributes #9 = { nocallback nofree nosync nounwind speculatable willreturn memory(none) }
+attributes #10 = { nocallback nofree nounwind willreturn memory(argmem: write) }
 attributes #11 = { builtin nounwind }
 attributes #12 = { nounwind }
 

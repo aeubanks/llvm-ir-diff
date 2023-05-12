@@ -73,12 +73,12 @@ for.end:                                          ; preds = %for.cond16
   store ptr %1, ptr %next17.le, align 8, !tbaa !14
   %previous23 = getelementptr inbounds %struct.vlink, ptr %1, i64 0, i32 19
   store ptr %r.0, ptr %previous23, align 8, !tbaa !17
-  store ptr null, ptr %replicas, align 8, !tbaa !20
+  store ptr null, ptr %replicas, align 8, !tbaa !16
   br label %for.inc26
 
 for.inc26:                                        ; preds = %for.body, %for.end
   %cmp7.not = icmp eq ptr %1, null
-  br i1 %cmp7.not, label %for.end27, label %for.body, !llvm.loop !21
+  br i1 %cmp7.not, label %for.end27, label %for.body, !llvm.loop !20
 
 for.end27:                                        ; preds = %for.inc26
   %and = and i32 %flags, 2
@@ -89,48 +89,48 @@ for.end27:                                        ; preds = %for.inc26
 for.body33:                                       ; preds = %for.end27, %translateArchieResponse.exit
   %p.1188 = phi ptr [ %9, %translateArchieResponse.exit ], [ %0, %for.end27 ]
   %type.i = getelementptr inbounds %struct.vlink, ptr %p.1188, i64 0, i32 4
-  %4 = load ptr, ptr %type.i, align 8, !tbaa !22
+  %4 = load ptr, ptr %type.i, align 8, !tbaa !21
   %call.i = call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %4, ptr noundef nonnull dereferenceable(10) @.str.3)
   %cmp.i = icmp eq i32 %call.i, 0
   br i1 %cmp.i, label %if.then.i, label %translateArchieResponse.exit
 
 if.then.i:                                        ; preds = %for.body33
   %filename.i = getelementptr inbounds %struct.vlink, ptr %p.1188, i64 0, i32 10
-  %5 = load ptr, ptr %filename.i, align 8, !tbaa !23
+  %5 = load ptr, ptr %filename.i, align 8, !tbaa !22
   %call1.i = call i32 @strncmp(ptr noundef nonnull dereferenceable(1) %5, ptr noundef nonnull dereferenceable(12) @.str.4, i64 noundef 11)
   %cmp2.i = icmp eq i32 %call1.i, 0
   br i1 %cmp2.i, label %if.then3.i, label %translateArchieResponse.exit
 
 if.then3.i:                                       ; preds = %if.then.i
   %call5.i = call ptr (ptr, ptr, ...) @stcopyr(ptr noundef nonnull @.str.5, ptr noundef %4) #8
-  store ptr %call5.i, ptr %type.i, align 8, !tbaa !22
-  %6 = load ptr, ptr %filename.i, align 8, !tbaa !23
+  store ptr %call5.i, ptr %type.i, align 8, !tbaa !21
+  %6 = load ptr, ptr %filename.i, align 8, !tbaa !22
   %add.ptr.i = getelementptr inbounds i8, ptr %6, i64 12
   %host.i = getelementptr inbounds %struct.vlink, ptr %p.1188, i64 0, i32 8
-  %7 = load ptr, ptr %host.i, align 8, !tbaa !24
+  %7 = load ptr, ptr %host.i, align 8, !tbaa !23
   %call8.i = call ptr (ptr, ptr, ...) @stcopyr(ptr noundef nonnull %add.ptr.i, ptr noundef %7) #8
-  store ptr %call8.i, ptr %host.i, align 8, !tbaa !24
+  store ptr %call8.i, ptr %host.i, align 8, !tbaa !23
   %call11.i = call ptr @strchr(ptr noundef nonnull dereferenceable(1) %call8.i, i32 noundef 47)
   %tobool.not.i = icmp eq ptr %call11.i, null
-  %8 = load ptr, ptr %filename.i, align 8, !tbaa !23
+  %8 = load ptr, ptr %filename.i, align 8, !tbaa !22
   br i1 %tobool.not.i, label %if.else.i, label %if.then12.i
 
 if.then12.i:                                      ; preds = %if.then3.i
   %call14.i = call ptr (ptr, ptr, ...) @stcopyr(ptr noundef nonnull %call11.i, ptr noundef %8) #8
-  store ptr %call14.i, ptr %filename.i, align 8, !tbaa !23
+  store ptr %call14.i, ptr %filename.i, align 8, !tbaa !22
   store i8 0, ptr %call11.i, align 1, !tbaa !9
   br label %translateArchieResponse.exit
 
 if.else.i:                                        ; preds = %if.then3.i
   %call17.i = call ptr (ptr, ptr, ...) @stcopyr(ptr noundef nonnull @.str.1, ptr noundef %8) #8
-  store ptr %call17.i, ptr %filename.i, align 8, !tbaa !23
+  store ptr %call17.i, ptr %filename.i, align 8, !tbaa !22
   br label %translateArchieResponse.exit
 
 translateArchieResponse.exit:                     ; preds = %for.body33, %if.then.i, %if.then12.i, %if.else.i
   %next35 = getelementptr inbounds %struct.vlink, ptr %p.1188, i64 0, i32 20
   %9 = load ptr, ptr %next35, align 8, !tbaa !14
   %cmp31.not = icmp eq ptr %9, null
-  br i1 %cmp31.not, label %if.end37, label %for.body33, !llvm.loop !25
+  br i1 %cmp31.not, label %if.end37, label %for.body33, !llvm.loop !24
 
 if.end37:                                         ; preds = %translateArchieResponse.exit, %for.end27
   %and38 = and i32 %flags, 1
@@ -162,7 +162,7 @@ for.body51:                                       ; preds = %for.body45, %for.bo
   %next58 = getelementptr inbounds %struct.vlink, ptr %q.0190, i64 0, i32 20
   %11 = load ptr, ptr %next58, align 8, !tbaa !14
   %cmp49.not = icmp eq ptr %11, null
-  br i1 %cmp49.not, label %for.end59, label %for.body51, !llvm.loop !26
+  br i1 %cmp49.not, label %for.end59, label %for.body51, !llvm.loop !25
 
 for.end59:                                        ; preds = %for.body51, %for.body45
   %lowest.0.lcssa = phi ptr [ %p.2193, %for.body45 ], [ %spec.select, %for.body51 ]
@@ -222,7 +222,7 @@ if.end95:                                         ; preds = %if.then93, %if.end9
 
 for.inc102:                                       ; preds = %if.end95, %for.end59
   %links.1 = phi ptr [ %links.0194, %for.end59 ], [ %spec.select183, %if.end95 ]
-  br i1 %cmp49.not189, label %for.end103, label %for.body45, !llvm.loop !27
+  br i1 %cmp49.not189, label %for.end103, label %for.body45, !llvm.loop !26
 
 for.end103:                                       ; preds = %for.inc102, %if.end37.thread, %for.cond42.preheader
   %links.0.lcssa = phi ptr [ null, %for.cond42.preheader ], [ null, %if.end37.thread ], [ %links.1, %for.inc102 ]
@@ -255,18 +255,18 @@ declare void @llvm.lifetime.end.p0(i64 immarg, ptr nocapture) #1
 define dso_local i32 @defcmplink(ptr nocapture noundef readonly %p, ptr nocapture noundef readonly %q) local_unnamed_addr #5 {
 entry:
   %host = getelementptr inbounds %struct.vlink, ptr %p, i64 0, i32 8
-  %0 = load ptr, ptr %host, align 8, !tbaa !24
+  %0 = load ptr, ptr %host, align 8, !tbaa !23
   %host1 = getelementptr inbounds %struct.vlink, ptr %q, i64 0, i32 8
-  %1 = load ptr, ptr %host1, align 8, !tbaa !24
+  %1 = load ptr, ptr %host1, align 8, !tbaa !23
   %call = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %0, ptr noundef nonnull dereferenceable(1) %1)
   %cmp.not = icmp eq i32 %call, 0
   br i1 %cmp.not, label %if.else, label %cleanup
 
 if.else:                                          ; preds = %entry
   %filename = getelementptr inbounds %struct.vlink, ptr %p, i64 0, i32 10
-  %2 = load ptr, ptr %filename, align 8, !tbaa !23
+  %2 = load ptr, ptr %filename, align 8, !tbaa !22
   %filename2 = getelementptr inbounds %struct.vlink, ptr %q, i64 0, i32 10
-  %3 = load ptr, ptr %filename2, align 8, !tbaa !23
+  %3 = load ptr, ptr %filename2, align 8, !tbaa !22
   %call3 = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %2, ptr noundef nonnull dereferenceable(1) %3)
   br label %cleanup
 
@@ -282,7 +282,7 @@ declare i32 @strcmp(ptr nocapture noundef, ptr nocapture noundef) local_unnamed_
 define dso_local i32 @invdatecmplink(ptr nocapture noundef readonly %p, ptr nocapture noundef readonly %q) local_unnamed_addr #7 {
 entry:
   %lattrib = getelementptr inbounds %struct.vlink, ptr %p, i64 0, i32 17
-  %pat.057 = load ptr, ptr %lattrib, align 8, !tbaa !16
+  %pat.057 = load ptr, ptr %lattrib, align 8, !tbaa !27
   %tobool.not58 = icmp eq ptr %pat.057, null
   br i1 %tobool.not58, label %for.end, label %for.body
 
@@ -303,14 +303,14 @@ if.then:                                          ; preds = %for.body
 for.inc:                                          ; preds = %for.body, %if.then
   %pdate.1 = phi ptr [ %1, %if.then ], [ %pdate.059, %for.body ]
   %next = getelementptr inbounds %struct.pattrib, ptr %pat.060, i64 0, i32 5
-  %pat.0 = load ptr, ptr %next, align 8, !tbaa !16
+  %pat.0 = load ptr, ptr %next, align 8, !tbaa !27
   %tobool.not = icmp eq ptr %pat.0, null
   br i1 %tobool.not, label %for.end, label %for.body, !llvm.loop !30
 
 for.end:                                          ; preds = %for.inc, %entry
   %pdate.0.lcssa = phi ptr [ null, %entry ], [ %pdate.1, %for.inc ]
   %lattrib1 = getelementptr inbounds %struct.vlink, ptr %q, i64 0, i32 17
-  %qat.061 = load ptr, ptr %lattrib1, align 8, !tbaa !16
+  %qat.061 = load ptr, ptr %lattrib1, align 8, !tbaa !27
   %tobool3.not62 = icmp eq ptr %qat.061, null
   br i1 %tobool3.not62, label %for.end13, label %for.body4
 
@@ -331,7 +331,7 @@ if.then8:                                         ; preds = %for.body4
 for.inc11:                                        ; preds = %for.body4, %if.then8
   %qdate.1 = phi ptr [ %3, %if.then8 ], [ %qdate.063, %for.body4 ]
   %next12 = getelementptr inbounds %struct.pattrib, ptr %qat.064, i64 0, i32 5
-  %qat.0 = load ptr, ptr %next12, align 8, !tbaa !16
+  %qat.0 = load ptr, ptr %next12, align 8, !tbaa !27
   %tobool3.not = icmp eq ptr %qat.0, null
   br i1 %tobool3.not, label %for.end13, label %for.body4, !llvm.loop !31
 
@@ -344,9 +344,9 @@ for.end13:                                        ; preds = %for.inc11, %for.end
 
 if.then16:                                        ; preds = %for.end13
   %host.i = getelementptr inbounds %struct.vlink, ptr %p, i64 0, i32 8
-  %4 = load ptr, ptr %host.i, align 8, !tbaa !24
+  %4 = load ptr, ptr %host.i, align 8, !tbaa !23
   %host1.i = getelementptr inbounds %struct.vlink, ptr %q, i64 0, i32 8
-  %5 = load ptr, ptr %host1.i, align 8, !tbaa !24
+  %5 = load ptr, ptr %host1.i, align 8, !tbaa !23
   %call.i = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %4, ptr noundef nonnull dereferenceable(1) %5)
   %cmp.not.i = icmp eq i32 %call.i, 0
   br i1 %cmp.not.i, label %cleanup.sink.split, label %cleanup
@@ -363,23 +363,23 @@ if.end24:                                         ; preds = %if.end18
 
 if.then27:                                        ; preds = %if.end24
   %host.i47 = getelementptr inbounds %struct.vlink, ptr %p, i64 0, i32 8
-  %7 = load ptr, ptr %host.i47, align 8, !tbaa !24
+  %7 = load ptr, ptr %host.i47, align 8, !tbaa !23
   %host1.i48 = getelementptr inbounds %struct.vlink, ptr %q, i64 0, i32 8
-  %8 = load ptr, ptr %host1.i48, align 8, !tbaa !24
+  %8 = load ptr, ptr %host1.i48, align 8, !tbaa !23
   %call.i49 = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %7, ptr noundef nonnull dereferenceable(1) %8)
   %cmp.not.i50 = icmp eq i32 %call.i49, 0
   br i1 %cmp.not.i50, label %cleanup.sink.split, label %cleanup
 
 cleanup.sink.split:                               ; preds = %if.then27, %if.then16
   %filename.i51 = getelementptr inbounds %struct.vlink, ptr %p, i64 0, i32 10
-  %9 = load ptr, ptr %filename.i51, align 8, !tbaa !23
+  %9 = load ptr, ptr %filename.i51, align 8, !tbaa !22
   %filename2.i52 = getelementptr inbounds %struct.vlink, ptr %q, i64 0, i32 10
-  %10 = load ptr, ptr %filename2.i52, align 8, !tbaa !23
+  %10 = load ptr, ptr %filename2.i52, align 8, !tbaa !22
   %call3.i53 = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %9, ptr noundef nonnull dereferenceable(1) %10)
   br label %cleanup
 
-cleanup:                                          ; preds = %cleanup.sink.split, %if.end18, %if.end24, %if.then27, %if.then16
-  %retval.0 = phi i32 [ %call.i, %if.then16 ], [ %.mux, %if.end18 ], [ %call.i49, %if.then27 ], [ %call25, %if.end24 ], [ %call3.i53, %cleanup.sink.split ]
+cleanup:                                          ; preds = %cleanup.sink.split, %if.then27, %if.then16, %if.end18, %if.end24
+  %retval.0 = phi i32 [ %.mux, %if.end18 ], [ %call25, %if.end24 ], [ %call.i, %if.then16 ], [ %call.i49, %if.then27 ], [ %call3.i53, %cleanup.sink.split ]
   ret i32 %retval.0
 }
 
@@ -420,18 +420,18 @@ attributes #8 = { nounwind }
 !13 = !{!"any pointer", !7, i64 0}
 !14 = !{!15, !13, i64 152}
 !15 = !{!"vlink", !6, i64 0, !13, i64 8, !7, i64 16, !6, i64 20, !13, i64 24, !13, i64 32, !13, i64 40, !13, i64 48, !13, i64 56, !13, i64 64, !13, i64 72, !12, i64 80, !12, i64 88, !13, i64 96, !12, i64 104, !12, i64 112, !13, i64 120, !13, i64 128, !13, i64 136, !13, i64 144, !13, i64 152}
-!16 = !{!13, !13, i64 0}
+!16 = !{!15, !13, i64 40}
 !17 = !{!15, !13, i64 144}
 !18 = distinct !{!18, !19}
 !19 = !{!"llvm.loop.mustprogress"}
-!20 = !{!15, !13, i64 40}
-!21 = distinct !{!21, !19}
-!22 = !{!15, !13, i64 24}
-!23 = !{!15, !13, i64 72}
-!24 = !{!15, !13, i64 56}
+!20 = distinct !{!20, !19}
+!21 = !{!15, !13, i64 24}
+!22 = !{!15, !13, i64 72}
+!23 = !{!15, !13, i64 56}
+!24 = distinct !{!24, !19}
 !25 = distinct !{!25, !19}
 !26 = distinct !{!26, !19}
-!27 = distinct !{!27, !19}
+!27 = !{!13, !13, i64 0}
 !28 = !{!29, !13, i64 8}
 !29 = !{!"pattrib", !7, i64 0, !13, i64 8, !13, i64 16, !7, i64 24, !13, i64 32, !13, i64 40}
 !30 = distinct !{!30, !19}

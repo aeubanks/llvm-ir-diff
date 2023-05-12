@@ -62,7 +62,7 @@ $_ZN23btDiscreteDynamicsWorld14updateVehiclesEf = comdat any
 
 ; Function Attrs: uwtable
 define dso_local void @_ZN24btSoftRigidDynamicsWorldC2EP12btDispatcherP21btBroadphaseInterfaceP18btConstraintSolverP24btCollisionConfiguration(ptr noundef nonnull align 8 dereferenceable(536) %this, ptr noundef %dispatcher, ptr noundef %pairCache, ptr noundef %constraintSolver, ptr noundef %collisionConfiguration) unnamed_addr #0 align 2 personality ptr @__gxx_personality_v0 {
-entry:
+invoke.cont3:
   tail call void @_ZN23btDiscreteDynamicsWorldC2EP12btDispatcherP21btBroadphaseInterfaceP18btConstraintSolverP24btCollisionConfiguration(ptr noundef nonnull align 8 dereferenceable(372) %this, ptr noundef %dispatcher, ptr noundef %pairCache, ptr noundef %constraintSolver, ptr noundef %collisionConfiguration)
   store ptr getelementptr inbounds ({ [42 x ptr] }, ptr @_ZTV24btSoftRigidDynamicsWorld, i64 0, inrange i32 0, i64 2), ptr %this, align 8, !tbaa !5
   %m_softBodies = getelementptr inbounds %class.btSoftRigidDynamicsWorld, ptr %this, i64 0, i32 2
@@ -98,10 +98,10 @@ entry:
   invoke void @_ZN11btSparseSdfILi3EE10InitializeEi(ptr noundef nonnull align 8 dereferenceable(52) %m_sparsesdf, i32 noundef 2383)
           to label %invoke.cont8 unwind label %lpad7
 
-invoke.cont8:                                     ; preds = %entry
+invoke.cont8:                                     ; preds = %invoke.cont3
   %0 = load i32, ptr %m_size.i.i.i.i, align 4, !tbaa !22
   %cmp16.i = icmp sgt i32 %0, 0
-  br i1 %cmp16.i, label %for.body.lr.ph.i, label %_ZN11btSparseSdfILi3EE5ResetEv.exit
+  br i1 %cmp16.i, label %for.body.lr.ph.i, label %invoke.cont11
 
 for.body.lr.ph.i:                                 ; preds = %invoke.cont8
   %wide.trip.count.i = zext i32 %0 to i64
@@ -127,16 +127,16 @@ while.body.i:                                     ; preds = %for.body.i, %while.
 while.end.i:                                      ; preds = %while.body.i, %for.body.i
   %indvars.iv.next.i = add nuw nsw i64 %indvars.iv.i, 1
   %exitcond.not.i = icmp eq i64 %indvars.iv.next.i, %wide.trip.count.i
-  br i1 %exitcond.not.i, label %_ZN11btSparseSdfILi3EE5ResetEv.exit, label %for.body.i
+  br i1 %exitcond.not.i, label %invoke.cont11, label %for.body.i
 
-_ZN11btSparseSdfILi3EE5ResetEv.exit:              ; preds = %while.end.i, %invoke.cont8
+invoke.cont11:                                    ; preds = %while.end.i, %invoke.cont8
   %voxelsz.i = getelementptr inbounds %class.btSoftRigidDynamicsWorld, ptr %this, i64 0, i32 7, i32 7, i32 1
   store float 2.500000e-01, ptr %voxelsz.i, align 8, !tbaa !52
   %puid.i = getelementptr inbounds %class.btSoftRigidDynamicsWorld, ptr %this, i64 0, i32 7, i32 7, i32 2
   store <4 x i32> <i32 0, i32 0, i32 1, i32 1>, ptr %puid.i, align 4, !tbaa !53
   ret void
 
-lpad7:                                            ; preds = %entry
+lpad7:                                            ; preds = %invoke.cont3
   %4 = landingpad { ptr, i32 }
           cleanup
   %m_sbi = getelementptr inbounds %class.btSoftRigidDynamicsWorld, ptr %this, i64 0, i32 7
@@ -262,7 +262,7 @@ _ZNK20btAlignedObjectArrayIPN11btSparseSdfILi3EE4CellEE4copyEiiPS3_.exit.i.i: ; 
   %14 = load ptr, ptr %m_data.i9.i.i, align 8, !tbaa !21
   %tobool.not.i10.i.i = icmp eq ptr %14, null
   %m_ownsMemory.i.i.i = getelementptr inbounds %class.btAlignedObjectArray.31, ptr %this, i64 0, i32 6
-  %15 = load i8, ptr %m_ownsMemory.i.i.i, align 8
+  %15 = load i8, ptr %m_ownsMemory.i.i.i, align 8, !range !56
   %tobool2.not.i.i.i = icmp eq i8 %15, 0
   %or.cond.i.i = select i1 %tobool.not.i10.i.i, i1 true, i1 %tobool2.not.i.i.i
   br i1 %or.cond.i.i, label %if.end.i, label %if.then3.i.i.i
@@ -297,7 +297,7 @@ for.body10.i.prol:                                ; preds = %for.body10.lr.ph.i,
   %indvars.iv.next.i.prol = add nsw i64 %indvars.iv.i.prol, 1
   %prol.iter.next = add i64 %prol.iter, 1
   %prol.iter.cmp.not = icmp eq i64 %prol.iter.next, %xtraiter7
-  br i1 %prol.iter.cmp.not, label %for.body10.i.prol.loopexit, label %for.body10.i.prol, !llvm.loop !56
+  br i1 %prol.iter.cmp.not, label %for.body10.i.prol.loopexit, label %for.body10.i.prol, !llvm.loop !57
 
 for.body10.i.prol.loopexit:                       ; preds = %for.body10.i.prol, %for.body10.lr.ph.i
   %indvars.iv.i.unr = phi i64 [ %16, %for.body10.lr.ph.i ], [ %indvars.iv.next.i.prol, %for.body10.i.prol ]
@@ -372,7 +372,7 @@ entry:
   %0 = load ptr, ptr %m_data.i.i.i.i, align 8, !tbaa !21
   %tobool.not.i.i.i.i = icmp eq ptr %0, null
   %m_ownsMemory.i.i.i.i = getelementptr inbounds %struct.btSoftBodyWorldInfo, ptr %this, i64 0, i32 7, i32 0, i32 6
-  %1 = load i8, ptr %m_ownsMemory.i.i.i.i, align 8
+  %1 = load i8, ptr %m_ownsMemory.i.i.i.i, align 8, !range !56
   %tobool2.not.i.i.i.i = icmp eq i8 %1, 0
   %or.cond.i.i.i = select i1 %tobool.not.i.i.i.i, i1 true, i1 %tobool2.not.i.i.i.i
   br i1 %or.cond.i.i.i, label %_ZN11btSparseSdfILi3EED2Ev.exit, label %if.then3.i.i.i.i
@@ -382,10 +382,10 @@ if.then3.i.i.i.i:                                 ; preds = %entry
   br label %_ZN11btSparseSdfILi3EED2Ev.exit
 
 _ZN11btSparseSdfILi3EED2Ev.exit:                  ; preds = %entry, %if.then3.i.i.i.i
+  %m_size.i.i.i.i = getelementptr inbounds %struct.btSoftBodyWorldInfo, ptr %this, i64 0, i32 7, i32 0, i32 2
   store i8 1, ptr %m_ownsMemory.i.i.i.i, align 8, !tbaa !18
   store ptr null, ptr %m_data.i.i.i.i, align 8, !tbaa !21
-  %m_size.i4.i.i.i = getelementptr inbounds %struct.btSoftBodyWorldInfo, ptr %this, i64 0, i32 7, i32 0, i32 2
-  store i32 0, ptr %m_size.i4.i.i.i, align 4, !tbaa !22
+  store i32 0, ptr %m_size.i.i.i.i, align 4, !tbaa !22
   %m_capacity.i.i.i.i = getelementptr inbounds %struct.btSoftBodyWorldInfo, ptr %this, i64 0, i32 7, i32 0, i32 3
   store i32 0, ptr %m_capacity.i.i.i.i, align 8, !tbaa !23
   ret void
@@ -409,7 +409,7 @@ entry:
   %0 = load ptr, ptr %m_data.i.i, align 8, !tbaa !15
   %tobool.not.i.i = icmp eq ptr %0, null
   %m_ownsMemory.i.i = getelementptr inbounds %class.btAlignedObjectArray.12, ptr %this, i64 0, i32 6
-  %1 = load i8, ptr %m_ownsMemory.i.i, align 8
+  %1 = load i8, ptr %m_ownsMemory.i.i, align 8, !range !56
   %tobool2.not.i.i = icmp eq i8 %1, 0
   %or.cond.i = select i1 %tobool.not.i.i, i1 true, i1 %tobool2.not.i.i
   br i1 %or.cond.i, label %_ZN20btAlignedObjectArrayIP10btSoftBodyE5clearEv.exit, label %if.then3.i.i
@@ -419,10 +419,10 @@ if.then3.i.i:                                     ; preds = %entry
   br label %_ZN20btAlignedObjectArrayIP10btSoftBodyE5clearEv.exit
 
 _ZN20btAlignedObjectArrayIP10btSoftBodyE5clearEv.exit: ; preds = %entry, %if.then3.i.i
+  %m_size.i.i = getelementptr inbounds %class.btAlignedObjectArray.12, ptr %this, i64 0, i32 2
   store i8 1, ptr %m_ownsMemory.i.i, align 8, !tbaa !8
   store ptr null, ptr %m_data.i.i, align 8, !tbaa !15
-  %m_size.i4.i = getelementptr inbounds %class.btAlignedObjectArray.12, ptr %this, i64 0, i32 2
-  store i32 0, ptr %m_size.i4.i, align 4, !tbaa !16
+  store i32 0, ptr %m_size.i.i, align 4, !tbaa !16
   %m_capacity.i.i = getelementptr inbounds %class.btAlignedObjectArray.12, ptr %this, i64 0, i32 3
   store i32 0, ptr %m_capacity.i.i, align 8, !tbaa !17
   ret void
@@ -438,40 +438,40 @@ entry:
   %0 = load ptr, ptr %m_data.i.i.i.i.i, align 8, !tbaa !21
   %tobool.not.i.i.i.i.i = icmp eq ptr %0, null
   %m_ownsMemory.i.i.i.i.i = getelementptr inbounds %class.btSoftRigidDynamicsWorld, ptr %this, i64 0, i32 7, i32 7, i32 0, i32 6
-  %1 = load i8, ptr %m_ownsMemory.i.i.i.i.i, align 8
+  %1 = load i8, ptr %m_ownsMemory.i.i.i.i.i, align 8, !range !56
   %tobool2.not.i.i.i.i.i = icmp eq i8 %1, 0
   %or.cond.i.i.i.i = select i1 %tobool.not.i.i.i.i.i, i1 true, i1 %tobool2.not.i.i.i.i.i
-  br i1 %or.cond.i.i.i.i, label %_ZN19btSoftBodyWorldInfoD2Ev.exit, label %if.then3.i.i.i.i.i
+  br i1 %or.cond.i.i.i.i, label %invoke.cont, label %if.then3.i.i.i.i.i
 
 if.then3.i.i.i.i.i:                               ; preds = %entry
   invoke void @_Z21btAlignedFreeInternalPv(ptr noundef nonnull %0)
-          to label %_ZN19btSoftBodyWorldInfoD2Ev.exit unwind label %lpad
+          to label %invoke.cont unwind label %lpad
 
-_ZN19btSoftBodyWorldInfoD2Ev.exit:                ; preds = %if.then3.i.i.i.i.i, %entry
+invoke.cont:                                      ; preds = %entry, %if.then3.i.i.i.i.i
+  %m_size.i.i.i.i.i = getelementptr inbounds %class.btSoftRigidDynamicsWorld, ptr %this, i64 0, i32 7, i32 7, i32 0, i32 2
   store i8 1, ptr %m_ownsMemory.i.i.i.i.i, align 8, !tbaa !18
   store ptr null, ptr %m_data.i.i.i.i.i, align 8, !tbaa !21
-  %m_size.i4.i.i.i.i = getelementptr inbounds %class.btSoftRigidDynamicsWorld, ptr %this, i64 0, i32 7, i32 7, i32 0, i32 2
-  store i32 0, ptr %m_size.i4.i.i.i.i, align 4, !tbaa !22
+  store i32 0, ptr %m_size.i.i.i.i.i, align 4, !tbaa !22
   %m_capacity.i.i.i.i.i = getelementptr inbounds %class.btSoftRigidDynamicsWorld, ptr %this, i64 0, i32 7, i32 7, i32 0, i32 3
   store i32 0, ptr %m_capacity.i.i.i.i.i, align 8, !tbaa !23
   %m_data.i.i.i = getelementptr inbounds %class.btSoftRigidDynamicsWorld, ptr %this, i64 0, i32 2, i32 5
   %2 = load ptr, ptr %m_data.i.i.i, align 8, !tbaa !15
   %tobool.not.i.i.i = icmp eq ptr %2, null
   %m_ownsMemory.i.i.i = getelementptr inbounds %class.btSoftRigidDynamicsWorld, ptr %this, i64 0, i32 2, i32 6
-  %3 = load i8, ptr %m_ownsMemory.i.i.i, align 8
+  %3 = load i8, ptr %m_ownsMemory.i.i.i, align 8, !range !56
   %tobool2.not.i.i.i = icmp eq i8 %3, 0
   %or.cond.i.i = select i1 %tobool.not.i.i.i, i1 true, i1 %tobool2.not.i.i.i
-  br i1 %or.cond.i.i, label %_ZN20btAlignedObjectArrayIP10btSoftBodyED2Ev.exit, label %if.then3.i.i.i
+  br i1 %or.cond.i.i, label %invoke.cont3, label %if.then3.i.i.i
 
-if.then3.i.i.i:                                   ; preds = %_ZN19btSoftBodyWorldInfoD2Ev.exit
+if.then3.i.i.i:                                   ; preds = %invoke.cont
   invoke void @_Z21btAlignedFreeInternalPv(ptr noundef nonnull %2)
-          to label %_ZN20btAlignedObjectArrayIP10btSoftBodyED2Ev.exit unwind label %lpad2
+          to label %invoke.cont3 unwind label %lpad2
 
-_ZN20btAlignedObjectArrayIP10btSoftBodyED2Ev.exit: ; preds = %if.then3.i.i.i, %_ZN19btSoftBodyWorldInfoD2Ev.exit
+invoke.cont3:                                     ; preds = %invoke.cont, %if.then3.i.i.i
+  %m_size.i.i.i = getelementptr inbounds %class.btSoftRigidDynamicsWorld, ptr %this, i64 0, i32 2, i32 2
   store i8 1, ptr %m_ownsMemory.i.i.i, align 8, !tbaa !8
   store ptr null, ptr %m_data.i.i.i, align 8, !tbaa !15
-  %m_size.i4.i.i = getelementptr inbounds %class.btSoftRigidDynamicsWorld, ptr %this, i64 0, i32 2, i32 2
-  store i32 0, ptr %m_size.i4.i.i, align 4, !tbaa !16
+  store i32 0, ptr %m_size.i.i.i, align 4, !tbaa !16
   %m_capacity.i.i.i = getelementptr inbounds %class.btSoftRigidDynamicsWorld, ptr %this, i64 0, i32 2, i32 3
   store i32 0, ptr %m_capacity.i.i.i, align 8, !tbaa !17
   tail call void @_ZN23btDiscreteDynamicsWorldD2Ev(ptr noundef nonnull align 8 dereferenceable(372) %this)
@@ -907,14 +907,14 @@ for.body.i.i.i.epil:                              ; preds = %_ZNK20btAlignedObje
   %indvars.iv.next.i.i.i.epil = add nuw nsw i64 %indvars.iv.i.i.i.epil, 1
   %epil.iter.next = add i64 %epil.iter, 1
   %epil.iter.cmp.not = icmp eq i64 %epil.iter.next, %xtraiter
-  br i1 %epil.iter.cmp.not, label %_ZNK20btAlignedObjectArrayIP10btSoftBodyE4copyEiiPS1_.exit.i.i, label %for.body.i.i.i.epil, !llvm.loop !57
+  br i1 %epil.iter.cmp.not, label %_ZNK20btAlignedObjectArrayIP10btSoftBodyE4copyEiiPS1_.exit.i.i, label %for.body.i.i.i.epil, !llvm.loop !58
 
 _ZNK20btAlignedObjectArrayIP10btSoftBodyE4copyEiiPS1_.exit.i.i: ; preds = %_ZNK20btAlignedObjectArrayIP10btSoftBodyE4copyEiiPS1_.exit.i.i.loopexit.unr-lcssa, %for.body.i.i.i.epil, %_ZN20btAlignedObjectArrayIP10btSoftBodyE8allocateEi.exit.i.i
   %m_data.i9.i.i = getelementptr inbounds %class.btSoftRigidDynamicsWorld, ptr %this, i64 0, i32 2, i32 5
   %14 = load ptr, ptr %m_data.i9.i.i, align 8, !tbaa !15
   %tobool.not.i10.i.i = icmp eq ptr %14, null
   %m_ownsMemory.i.i.i = getelementptr inbounds %class.btSoftRigidDynamicsWorld, ptr %this, i64 0, i32 2, i32 6
-  %15 = load i8, ptr %m_ownsMemory.i.i.i, align 8
+  %15 = load i8, ptr %m_ownsMemory.i.i.i, align 8, !range !56
   %tobool2.not.i.i.i = icmp eq i8 %15, 0
   %or.cond.i.i = select i1 %tobool.not.i10.i.i, i1 true, i1 %tobool2.not.i.i.i
   br i1 %or.cond.i.i, label %_ZN20btAlignedObjectArrayIP10btSoftBodyE10deallocateEv.exit.i.i, label %if.then3.i.i.i
@@ -1004,7 +1004,7 @@ declare void @_ZN16btCollisionWorld21removeCollisionObjectEP17btCollisionObject(
 define dso_local void @_ZN24btSoftRigidDynamicsWorld21removeCollisionObjectEP17btCollisionObject(ptr noundef nonnull align 8 dereferenceable(536) %this, ptr noundef %collisionObject) unnamed_addr #0 align 2 {
 entry:
   %m_internalType.i.i = getelementptr inbounds %class.btCollisionObject, ptr %collisionObject, i64 0, i32 19
-  %0 = load i32, ptr %m_internalType.i.i, align 8, !tbaa !58
+  %0 = load i32, ptr %m_internalType.i.i, align 8, !tbaa !59
   %cmp.i = icmp ne i32 %0, 4
   %tobool.not4 = icmp eq ptr %collisionObject, null
   %tobool.not = or i1 %tobool.not4, %cmp.i
@@ -1100,12 +1100,12 @@ for.body:                                         ; preds = %for.body.lr.ph, %if
   %2 = load ptr, ptr %m_data.i, align 8, !tbaa !15
   %arrayidx.i = getelementptr inbounds ptr, ptr %2, i64 %indvars.iv
   %3 = load ptr, ptr %arrayidx.i, align 8, !tbaa !49
-  %4 = load ptr, ptr %m_debugDrawer, align 8, !tbaa !62
+  %4 = load ptr, ptr %m_debugDrawer, align 8, !tbaa !63
   tail call void @_ZN17btSoftBodyHelpers9DrawFrameEP10btSoftBodyP12btIDebugDraw(ptr noundef %3, ptr noundef %4)
-  %5 = load ptr, ptr %m_debugDrawer, align 8, !tbaa !62
+  %5 = load ptr, ptr %m_debugDrawer, align 8, !tbaa !63
   %6 = load i32, ptr %m_drawFlags, align 8, !tbaa !24
   tail call void @_ZN17btSoftBodyHelpers4DrawEP10btSoftBodyP12btIDebugDrawi(ptr noundef %3, ptr noundef %5, i32 noundef %6)
-  %7 = load ptr, ptr %m_debugDrawer, align 8, !tbaa !62
+  %7 = load ptr, ptr %m_debugDrawer, align 8, !tbaa !63
   %tobool7.not = icmp eq ptr %7, null
   br i1 %tobool7.not, label %if.end25, label %land.lhs.true
 
@@ -1119,32 +1119,32 @@ land.lhs.true:                                    ; preds = %for.body
   br i1 %tobool12.not, label %if.end25, label %if.then13
 
 if.then13:                                        ; preds = %land.lhs.true
-  %9 = load i8, ptr %m_drawNodeTree, align 4, !tbaa !44, !range !63, !noundef !64
+  %9 = load i8, ptr %m_drawNodeTree, align 4, !tbaa !44, !range !56, !noundef !64
   %tobool14.not = icmp eq i8 %9, 0
   br i1 %tobool14.not, label %if.end, label %if.then15
 
 if.then15:                                        ; preds = %if.then13
-  %10 = load ptr, ptr %m_debugDrawer, align 8, !tbaa !62
+  %10 = load ptr, ptr %m_debugDrawer, align 8, !tbaa !63
   tail call void @_ZN17btSoftBodyHelpers12DrawNodeTreeEP10btSoftBodyP12btIDebugDrawii(ptr noundef %3, ptr noundef %10, i32 noundef 0, i32 noundef -1)
   br label %if.end
 
 if.end:                                           ; preds = %if.then15, %if.then13
-  %11 = load i8, ptr %m_drawFaceTree, align 1, !tbaa !45, !range !63, !noundef !64
+  %11 = load i8, ptr %m_drawFaceTree, align 1, !tbaa !45, !range !56, !noundef !64
   %tobool17.not = icmp eq i8 %11, 0
   br i1 %tobool17.not, label %if.end20, label %if.then18
 
 if.then18:                                        ; preds = %if.end
-  %12 = load ptr, ptr %m_debugDrawer, align 8, !tbaa !62
+  %12 = load ptr, ptr %m_debugDrawer, align 8, !tbaa !63
   tail call void @_ZN17btSoftBodyHelpers12DrawFaceTreeEP10btSoftBodyP12btIDebugDrawii(ptr noundef %3, ptr noundef %12, i32 noundef 0, i32 noundef -1)
   br label %if.end20
 
 if.end20:                                         ; preds = %if.then18, %if.end
-  %13 = load i8, ptr %m_drawClusterTree, align 2, !tbaa !46, !range !63, !noundef !64
+  %13 = load i8, ptr %m_drawClusterTree, align 2, !tbaa !46, !range !56, !noundef !64
   %tobool21.not = icmp eq i8 %13, 0
   br i1 %tobool21.not, label %if.end25, label %if.then22
 
 if.then22:                                        ; preds = %if.end20
-  %14 = load ptr, ptr %m_debugDrawer, align 8, !tbaa !62
+  %14 = load ptr, ptr %m_debugDrawer, align 8, !tbaa !63
   tail call void @_ZN17btSoftBodyHelpers15DrawClusterTreeEP10btSoftBodyP12btIDebugDrawii(ptr noundef %3, ptr noundef %14, i32 noundef 0, i32 noundef -1)
   br label %if.end25
 
@@ -1177,7 +1177,7 @@ declare void @_ZN16btCollisionWorld11updateAabbsEv(ptr noundef nonnull align 8 d
 define linkonce_odr dso_local void @_ZN16btCollisionWorld14setDebugDrawerEP12btIDebugDraw(ptr noundef nonnull align 8 dereferenceable(129) %this, ptr noundef %debugDrawer) unnamed_addr #5 comdat align 2 {
 entry:
   %m_debugDrawer = getelementptr inbounds %class.btCollisionWorld, ptr %this, i64 0, i32 6
-  store ptr %debugDrawer, ptr %m_debugDrawer, align 8, !tbaa !62
+  store ptr %debugDrawer, ptr %m_debugDrawer, align 8, !tbaa !63
   ret void
 }
 
@@ -1185,7 +1185,7 @@ entry:
 define linkonce_odr dso_local noundef ptr @_ZN16btCollisionWorld14getDebugDrawerEv(ptr noundef nonnull align 8 dereferenceable(129) %this) unnamed_addr #5 comdat align 2 {
 entry:
   %m_debugDrawer = getelementptr inbounds %class.btCollisionWorld, ptr %this, i64 0, i32 6
-  %0 = load ptr, ptr %m_debugDrawer, align 8, !tbaa !62
+  %0 = load ptr, ptr %m_debugDrawer, align 8, !tbaa !63
   ret ptr %0
 }
 
@@ -1343,12 +1343,12 @@ attributes #8 = { nounwind }
 !53 = !{!11, !11, i64 0}
 !54 = distinct !{!54, !55}
 !55 = !{!"llvm.loop.unroll.disable"}
-!56 = distinct !{!56, !55}
+!56 = !{i8 0, i8 2}
 !57 = distinct !{!57, !55}
-!58 = !{!59, !11, i64 256}
-!59 = !{!"_ZTS17btCollisionObject", !60, i64 8, !60, i64 72, !39, i64 136, !39, i64 152, !39, i64 168, !14, i64 184, !32, i64 188, !13, i64 192, !13, i64 200, !13, i64 208, !11, i64 216, !11, i64 220, !11, i64 224, !11, i64 228, !32, i64 232, !32, i64 236, !32, i64 240, !13, i64 248, !11, i64 256, !32, i64 260, !32, i64 264, !32, i64 268, !14, i64 272, !12, i64 273}
-!60 = !{!"_ZTS11btTransform", !61, i64 0, !39, i64 48}
-!61 = !{!"_ZTS11btMatrix3x3", !12, i64 0}
-!62 = !{!28, !13, i64 120}
-!63 = !{i8 0, i8 2}
+!58 = distinct !{!58, !55}
+!59 = !{!60, !11, i64 256}
+!60 = !{!"_ZTS17btCollisionObject", !61, i64 8, !61, i64 72, !39, i64 136, !39, i64 152, !39, i64 168, !14, i64 184, !32, i64 188, !13, i64 192, !13, i64 200, !13, i64 208, !11, i64 216, !11, i64 220, !11, i64 224, !11, i64 228, !32, i64 232, !32, i64 236, !32, i64 240, !13, i64 248, !11, i64 256, !32, i64 260, !32, i64 264, !32, i64 268, !14, i64 272, !12, i64 273}
+!61 = !{!"_ZTS11btTransform", !62, i64 0, !39, i64 48}
+!62 = !{!"_ZTS11btMatrix3x3", !12, i64 0}
+!63 = !{!28, !13, i64 120}
 !64 = !{}

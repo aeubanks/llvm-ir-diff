@@ -1056,245 +1056,309 @@ while.body:                                       ; preds = %while.body.preheade
   %cmp = icmp eq i16 %1, -32768
   %cmp8 = icmp eq i16 %2, -32768
   %or.cond = select i1 %cmp, i1 %cmp8, i1 false
+  br i1 %or.cond, label %cond.end, label %cond.false
+
+cond.false:                                       ; preds = %while.body
   %conv10 = sext i16 %1 to i64
   %conv11 = sext i16 %2 to i64
   %mul = mul nsw i64 %conv11, %conv10
   %add = add nsw i64 %mul, 16384
   %3 = lshr i64 %add, 15
-  %4 = trunc i64 %3 to i16
-  %5 = select i1 %or.cond, i16 32767, i16 %4
-  %6 = tail call i16 @llvm.ssub.sat.i16(i16 %0, i16 %5)
-  %cmp33 = icmp eq i16 %6, -32768
+  %and = and i64 %3, 65535
+  br label %cond.end
+
+cond.end:                                         ; preds = %while.body, %cond.false
+  %cond = phi i64 [ %and, %cond.false ], [ 32767, %while.body ]
+  %4 = trunc i64 %cond to i16
+  %5 = tail call i16 @llvm.ssub.sat.i16(i16 %0, i16 %4)
+  %cmp33 = icmp eq i16 %5, -32768
   %or.cond68 = select i1 %cmp, i1 %cmp33, i1 false
   br i1 %or.cond68, label %cond.end43, label %cond.false36
 
-cond.false36:                                     ; preds = %while.body
-  %conv38 = sext i16 %6 to i64
-  %mul39 = mul nsw i64 %conv38, %conv10
+cond.false36:                                     ; preds = %cond.end
+  %conv37 = sext i16 %1 to i64
+  %conv38 = sext i16 %5 to i64
+  %mul39 = mul nsw i64 %conv38, %conv37
   %add40 = add nsw i64 %mul39, 16384
-  %7 = lshr i64 %add40, 15
-  %and42 = and i64 %7, 65535
+  %6 = lshr i64 %add40, 15
+  %and42 = and i64 %6, 65535
   br label %cond.end43
 
-cond.end43:                                       ; preds = %while.body, %cond.false36
-  %cond44 = phi i64 [ %and42, %cond.false36 ], [ 32767, %while.body ]
-  %8 = trunc i64 %cond44 to i16
-  %9 = tail call i16 @llvm.sadd.sat.i16(i16 %8, i16 %2)
-  store i16 %9, ptr %arrayidx65, align 2, !tbaa !12
-  %10 = load i16, ptr %arrayidx.1, align 2, !tbaa !12
-  %11 = load i16, ptr %arrayidx5.1, align 2, !tbaa !12
-  %cmp.1 = icmp eq i16 %10, -32768
-  %cmp8.1 = icmp eq i16 %11, -32768
+cond.end43:                                       ; preds = %cond.end, %cond.false36
+  %cond44 = phi i64 [ %and42, %cond.false36 ], [ 32767, %cond.end ]
+  %7 = trunc i64 %cond44 to i16
+  %8 = tail call i16 @llvm.sadd.sat.i16(i16 %7, i16 %2)
+  store i16 %8, ptr %arrayidx65, align 2, !tbaa !12
+  %9 = load i16, ptr %arrayidx.1, align 2, !tbaa !12
+  %10 = load i16, ptr %arrayidx5.1, align 2, !tbaa !12
+  %cmp.1 = icmp eq i16 %9, -32768
+  %cmp8.1 = icmp eq i16 %10, -32768
   %or.cond.1 = select i1 %cmp.1, i1 %cmp8.1, i1 false
-  %conv10.1 = sext i16 %10 to i64
-  %conv11.1 = sext i16 %11 to i64
+  br i1 %or.cond.1, label %cond.end.1, label %cond.false.1
+
+cond.false.1:                                     ; preds = %cond.end43
+  %conv10.1 = sext i16 %9 to i64
+  %conv11.1 = sext i16 %10 to i64
   %mul.1 = mul nsw i64 %conv11.1, %conv10.1
   %add.1 = add nsw i64 %mul.1, 16384
-  %12 = lshr i64 %add.1, 15
-  %13 = trunc i64 %12 to i16
-  %14 = select i1 %or.cond.1, i16 32767, i16 %13
-  %15 = tail call i16 @llvm.ssub.sat.i16(i16 %6, i16 %14)
-  %cmp33.1 = icmp eq i16 %15, -32768
+  %11 = lshr i64 %add.1, 15
+  %and.1 = and i64 %11, 65535
+  br label %cond.end.1
+
+cond.end.1:                                       ; preds = %cond.false.1, %cond.end43
+  %cond.1 = phi i64 [ %and.1, %cond.false.1 ], [ 32767, %cond.end43 ]
+  %12 = trunc i64 %cond.1 to i16
+  %13 = tail call i16 @llvm.ssub.sat.i16(i16 %5, i16 %12)
+  %cmp33.1 = icmp eq i16 %13, -32768
   %or.cond68.1 = select i1 %cmp.1, i1 %cmp33.1, i1 false
   br i1 %or.cond68.1, label %cond.end43.1, label %cond.false36.1
 
-cond.false36.1:                                   ; preds = %cond.end43
-  %conv38.1 = sext i16 %15 to i64
-  %mul39.1 = mul nsw i64 %conv38.1, %conv10.1
+cond.false36.1:                                   ; preds = %cond.end.1
+  %conv37.1 = sext i16 %9 to i64
+  %conv38.1 = sext i16 %13 to i64
+  %mul39.1 = mul nsw i64 %conv38.1, %conv37.1
   %add40.1 = add nsw i64 %mul39.1, 16384
-  %16 = lshr i64 %add40.1, 15
-  %and42.1 = and i64 %16, 65535
+  %14 = lshr i64 %add40.1, 15
+  %and42.1 = and i64 %14, 65535
   br label %cond.end43.1
 
-cond.end43.1:                                     ; preds = %cond.false36.1, %cond.end43
-  %cond44.1 = phi i64 [ %and42.1, %cond.false36.1 ], [ 32767, %cond.end43 ]
-  %17 = trunc i64 %cond44.1 to i16
-  %18 = tail call i16 @llvm.sadd.sat.i16(i16 %17, i16 %11)
-  store i16 %18, ptr %arrayidx5, align 2, !tbaa !12
-  %19 = load i16, ptr %arrayidx.2, align 2, !tbaa !12
-  %20 = load i16, ptr %arrayidx5.2, align 2, !tbaa !12
-  %cmp.2 = icmp eq i16 %19, -32768
-  %cmp8.2 = icmp eq i16 %20, -32768
+cond.end43.1:                                     ; preds = %cond.false36.1, %cond.end.1
+  %cond44.1 = phi i64 [ %and42.1, %cond.false36.1 ], [ 32767, %cond.end.1 ]
+  %15 = trunc i64 %cond44.1 to i16
+  %16 = tail call i16 @llvm.sadd.sat.i16(i16 %15, i16 %10)
+  store i16 %16, ptr %arrayidx5, align 2, !tbaa !12
+  %17 = load i16, ptr %arrayidx.2, align 2, !tbaa !12
+  %18 = load i16, ptr %arrayidx5.2, align 2, !tbaa !12
+  %cmp.2 = icmp eq i16 %17, -32768
+  %cmp8.2 = icmp eq i16 %18, -32768
   %or.cond.2 = select i1 %cmp.2, i1 %cmp8.2, i1 false
-  %conv10.2 = sext i16 %19 to i64
-  %conv11.2 = sext i16 %20 to i64
+  br i1 %or.cond.2, label %cond.end.2, label %cond.false.2
+
+cond.false.2:                                     ; preds = %cond.end43.1
+  %conv10.2 = sext i16 %17 to i64
+  %conv11.2 = sext i16 %18 to i64
   %mul.2 = mul nsw i64 %conv11.2, %conv10.2
   %add.2 = add nsw i64 %mul.2, 16384
-  %21 = lshr i64 %add.2, 15
-  %22 = trunc i64 %21 to i16
-  %23 = select i1 %or.cond.2, i16 32767, i16 %22
-  %24 = tail call i16 @llvm.ssub.sat.i16(i16 %15, i16 %23)
-  %cmp33.2 = icmp eq i16 %24, -32768
+  %19 = lshr i64 %add.2, 15
+  %and.2 = and i64 %19, 65535
+  br label %cond.end.2
+
+cond.end.2:                                       ; preds = %cond.false.2, %cond.end43.1
+  %cond.2 = phi i64 [ %and.2, %cond.false.2 ], [ 32767, %cond.end43.1 ]
+  %20 = trunc i64 %cond.2 to i16
+  %21 = tail call i16 @llvm.ssub.sat.i16(i16 %13, i16 %20)
+  %cmp33.2 = icmp eq i16 %21, -32768
   %or.cond68.2 = select i1 %cmp.2, i1 %cmp33.2, i1 false
   br i1 %or.cond68.2, label %cond.end43.2, label %cond.false36.2
 
-cond.false36.2:                                   ; preds = %cond.end43.1
-  %conv38.2 = sext i16 %24 to i64
-  %mul39.2 = mul nsw i64 %conv38.2, %conv10.2
+cond.false36.2:                                   ; preds = %cond.end.2
+  %conv37.2 = sext i16 %17 to i64
+  %conv38.2 = sext i16 %21 to i64
+  %mul39.2 = mul nsw i64 %conv38.2, %conv37.2
   %add40.2 = add nsw i64 %mul39.2, 16384
-  %25 = lshr i64 %add40.2, 15
-  %and42.2 = and i64 %25, 65535
+  %22 = lshr i64 %add40.2, 15
+  %and42.2 = and i64 %22, 65535
   br label %cond.end43.2
 
-cond.end43.2:                                     ; preds = %cond.false36.2, %cond.end43.1
-  %cond44.2 = phi i64 [ %and42.2, %cond.false36.2 ], [ 32767, %cond.end43.1 ]
-  %26 = trunc i64 %cond44.2 to i16
-  %27 = tail call i16 @llvm.sadd.sat.i16(i16 %26, i16 %20)
-  store i16 %27, ptr %arrayidx5.1, align 2, !tbaa !12
-  %28 = load i16, ptr %arrayidx.3, align 2, !tbaa !12
-  %29 = load i16, ptr %arrayidx5.3, align 2, !tbaa !12
-  %cmp.3 = icmp eq i16 %28, -32768
-  %cmp8.3 = icmp eq i16 %29, -32768
+cond.end43.2:                                     ; preds = %cond.false36.2, %cond.end.2
+  %cond44.2 = phi i64 [ %and42.2, %cond.false36.2 ], [ 32767, %cond.end.2 ]
+  %23 = trunc i64 %cond44.2 to i16
+  %24 = tail call i16 @llvm.sadd.sat.i16(i16 %23, i16 %18)
+  store i16 %24, ptr %arrayidx5.1, align 2, !tbaa !12
+  %25 = load i16, ptr %arrayidx.3, align 2, !tbaa !12
+  %26 = load i16, ptr %arrayidx5.3, align 2, !tbaa !12
+  %cmp.3 = icmp eq i16 %25, -32768
+  %cmp8.3 = icmp eq i16 %26, -32768
   %or.cond.3 = select i1 %cmp.3, i1 %cmp8.3, i1 false
-  %conv10.3 = sext i16 %28 to i64
-  %conv11.3 = sext i16 %29 to i64
+  br i1 %or.cond.3, label %cond.end.3, label %cond.false.3
+
+cond.false.3:                                     ; preds = %cond.end43.2
+  %conv10.3 = sext i16 %25 to i64
+  %conv11.3 = sext i16 %26 to i64
   %mul.3 = mul nsw i64 %conv11.3, %conv10.3
   %add.3 = add nsw i64 %mul.3, 16384
-  %30 = lshr i64 %add.3, 15
-  %31 = trunc i64 %30 to i16
-  %32 = select i1 %or.cond.3, i16 32767, i16 %31
-  %33 = tail call i16 @llvm.ssub.sat.i16(i16 %24, i16 %32)
-  %cmp33.3 = icmp eq i16 %33, -32768
+  %27 = lshr i64 %add.3, 15
+  %and.3 = and i64 %27, 65535
+  br label %cond.end.3
+
+cond.end.3:                                       ; preds = %cond.false.3, %cond.end43.2
+  %cond.3 = phi i64 [ %and.3, %cond.false.3 ], [ 32767, %cond.end43.2 ]
+  %28 = trunc i64 %cond.3 to i16
+  %29 = tail call i16 @llvm.ssub.sat.i16(i16 %21, i16 %28)
+  %cmp33.3 = icmp eq i16 %29, -32768
   %or.cond68.3 = select i1 %cmp.3, i1 %cmp33.3, i1 false
   br i1 %or.cond68.3, label %cond.end43.3, label %cond.false36.3
 
-cond.false36.3:                                   ; preds = %cond.end43.2
-  %conv38.3 = sext i16 %33 to i64
-  %mul39.3 = mul nsw i64 %conv38.3, %conv10.3
+cond.false36.3:                                   ; preds = %cond.end.3
+  %conv37.3 = sext i16 %25 to i64
+  %conv38.3 = sext i16 %29 to i64
+  %mul39.3 = mul nsw i64 %conv38.3, %conv37.3
   %add40.3 = add nsw i64 %mul39.3, 16384
-  %34 = lshr i64 %add40.3, 15
-  %and42.3 = and i64 %34, 65535
+  %30 = lshr i64 %add40.3, 15
+  %and42.3 = and i64 %30, 65535
   br label %cond.end43.3
 
-cond.end43.3:                                     ; preds = %cond.false36.3, %cond.end43.2
-  %cond44.3 = phi i64 [ %and42.3, %cond.false36.3 ], [ 32767, %cond.end43.2 ]
-  %35 = trunc i64 %cond44.3 to i16
-  %36 = tail call i16 @llvm.sadd.sat.i16(i16 %35, i16 %29)
-  store i16 %36, ptr %arrayidx5.2, align 2, !tbaa !12
-  %37 = load i16, ptr %arrayidx.4, align 2, !tbaa !12
-  %38 = load i16, ptr %arrayidx5.4, align 2, !tbaa !12
-  %cmp.4 = icmp eq i16 %37, -32768
-  %cmp8.4 = icmp eq i16 %38, -32768
+cond.end43.3:                                     ; preds = %cond.false36.3, %cond.end.3
+  %cond44.3 = phi i64 [ %and42.3, %cond.false36.3 ], [ 32767, %cond.end.3 ]
+  %31 = trunc i64 %cond44.3 to i16
+  %32 = tail call i16 @llvm.sadd.sat.i16(i16 %31, i16 %26)
+  store i16 %32, ptr %arrayidx5.2, align 2, !tbaa !12
+  %33 = load i16, ptr %arrayidx.4, align 2, !tbaa !12
+  %34 = load i16, ptr %arrayidx5.4, align 2, !tbaa !12
+  %cmp.4 = icmp eq i16 %33, -32768
+  %cmp8.4 = icmp eq i16 %34, -32768
   %or.cond.4 = select i1 %cmp.4, i1 %cmp8.4, i1 false
-  %conv10.4 = sext i16 %37 to i64
-  %conv11.4 = sext i16 %38 to i64
+  br i1 %or.cond.4, label %cond.end.4, label %cond.false.4
+
+cond.false.4:                                     ; preds = %cond.end43.3
+  %conv10.4 = sext i16 %33 to i64
+  %conv11.4 = sext i16 %34 to i64
   %mul.4 = mul nsw i64 %conv11.4, %conv10.4
   %add.4 = add nsw i64 %mul.4, 16384
-  %39 = lshr i64 %add.4, 15
-  %40 = trunc i64 %39 to i16
-  %41 = select i1 %or.cond.4, i16 32767, i16 %40
-  %42 = tail call i16 @llvm.ssub.sat.i16(i16 %33, i16 %41)
-  %cmp33.4 = icmp eq i16 %42, -32768
+  %35 = lshr i64 %add.4, 15
+  %and.4 = and i64 %35, 65535
+  br label %cond.end.4
+
+cond.end.4:                                       ; preds = %cond.false.4, %cond.end43.3
+  %cond.4 = phi i64 [ %and.4, %cond.false.4 ], [ 32767, %cond.end43.3 ]
+  %36 = trunc i64 %cond.4 to i16
+  %37 = tail call i16 @llvm.ssub.sat.i16(i16 %29, i16 %36)
+  %cmp33.4 = icmp eq i16 %37, -32768
   %or.cond68.4 = select i1 %cmp.4, i1 %cmp33.4, i1 false
   br i1 %or.cond68.4, label %cond.end43.4, label %cond.false36.4
 
-cond.false36.4:                                   ; preds = %cond.end43.3
-  %conv38.4 = sext i16 %42 to i64
-  %mul39.4 = mul nsw i64 %conv38.4, %conv10.4
+cond.false36.4:                                   ; preds = %cond.end.4
+  %conv37.4 = sext i16 %33 to i64
+  %conv38.4 = sext i16 %37 to i64
+  %mul39.4 = mul nsw i64 %conv38.4, %conv37.4
   %add40.4 = add nsw i64 %mul39.4, 16384
-  %43 = lshr i64 %add40.4, 15
-  %and42.4 = and i64 %43, 65535
+  %38 = lshr i64 %add40.4, 15
+  %and42.4 = and i64 %38, 65535
   br label %cond.end43.4
 
-cond.end43.4:                                     ; preds = %cond.false36.4, %cond.end43.3
-  %cond44.4 = phi i64 [ %and42.4, %cond.false36.4 ], [ 32767, %cond.end43.3 ]
-  %44 = trunc i64 %cond44.4 to i16
-  %45 = tail call i16 @llvm.sadd.sat.i16(i16 %44, i16 %38)
-  store i16 %45, ptr %arrayidx5.3, align 2, !tbaa !12
-  %46 = load i16, ptr %arrayidx.5, align 2, !tbaa !12
-  %47 = load i16, ptr %arrayidx5.5, align 2, !tbaa !12
-  %cmp.5 = icmp eq i16 %46, -32768
-  %cmp8.5 = icmp eq i16 %47, -32768
+cond.end43.4:                                     ; preds = %cond.false36.4, %cond.end.4
+  %cond44.4 = phi i64 [ %and42.4, %cond.false36.4 ], [ 32767, %cond.end.4 ]
+  %39 = trunc i64 %cond44.4 to i16
+  %40 = tail call i16 @llvm.sadd.sat.i16(i16 %39, i16 %34)
+  store i16 %40, ptr %arrayidx5.3, align 2, !tbaa !12
+  %41 = load i16, ptr %arrayidx.5, align 2, !tbaa !12
+  %42 = load i16, ptr %arrayidx5.5, align 2, !tbaa !12
+  %cmp.5 = icmp eq i16 %41, -32768
+  %cmp8.5 = icmp eq i16 %42, -32768
   %or.cond.5 = select i1 %cmp.5, i1 %cmp8.5, i1 false
-  %conv10.5 = sext i16 %46 to i64
-  %conv11.5 = sext i16 %47 to i64
+  br i1 %or.cond.5, label %cond.end.5, label %cond.false.5
+
+cond.false.5:                                     ; preds = %cond.end43.4
+  %conv10.5 = sext i16 %41 to i64
+  %conv11.5 = sext i16 %42 to i64
   %mul.5 = mul nsw i64 %conv11.5, %conv10.5
   %add.5 = add nsw i64 %mul.5, 16384
-  %48 = lshr i64 %add.5, 15
-  %49 = trunc i64 %48 to i16
-  %50 = select i1 %or.cond.5, i16 32767, i16 %49
-  %51 = tail call i16 @llvm.ssub.sat.i16(i16 %42, i16 %50)
-  %cmp33.5 = icmp eq i16 %51, -32768
+  %43 = lshr i64 %add.5, 15
+  %and.5 = and i64 %43, 65535
+  br label %cond.end.5
+
+cond.end.5:                                       ; preds = %cond.false.5, %cond.end43.4
+  %cond.5 = phi i64 [ %and.5, %cond.false.5 ], [ 32767, %cond.end43.4 ]
+  %44 = trunc i64 %cond.5 to i16
+  %45 = tail call i16 @llvm.ssub.sat.i16(i16 %37, i16 %44)
+  %cmp33.5 = icmp eq i16 %45, -32768
   %or.cond68.5 = select i1 %cmp.5, i1 %cmp33.5, i1 false
   br i1 %or.cond68.5, label %cond.end43.5, label %cond.false36.5
 
-cond.false36.5:                                   ; preds = %cond.end43.4
-  %conv38.5 = sext i16 %51 to i64
-  %mul39.5 = mul nsw i64 %conv38.5, %conv10.5
+cond.false36.5:                                   ; preds = %cond.end.5
+  %conv37.5 = sext i16 %41 to i64
+  %conv38.5 = sext i16 %45 to i64
+  %mul39.5 = mul nsw i64 %conv38.5, %conv37.5
   %add40.5 = add nsw i64 %mul39.5, 16384
-  %52 = lshr i64 %add40.5, 15
-  %and42.5 = and i64 %52, 65535
+  %46 = lshr i64 %add40.5, 15
+  %and42.5 = and i64 %46, 65535
   br label %cond.end43.5
 
-cond.end43.5:                                     ; preds = %cond.false36.5, %cond.end43.4
-  %cond44.5 = phi i64 [ %and42.5, %cond.false36.5 ], [ 32767, %cond.end43.4 ]
-  %53 = trunc i64 %cond44.5 to i16
-  %54 = tail call i16 @llvm.sadd.sat.i16(i16 %53, i16 %47)
-  store i16 %54, ptr %arrayidx5.4, align 2, !tbaa !12
-  %55 = load i16, ptr %arrayidx.6, align 2, !tbaa !12
-  %56 = load i16, ptr %arrayidx5.6, align 2, !tbaa !12
-  %cmp.6 = icmp eq i16 %55, -32768
-  %cmp8.6 = icmp eq i16 %56, -32768
+cond.end43.5:                                     ; preds = %cond.false36.5, %cond.end.5
+  %cond44.5 = phi i64 [ %and42.5, %cond.false36.5 ], [ 32767, %cond.end.5 ]
+  %47 = trunc i64 %cond44.5 to i16
+  %48 = tail call i16 @llvm.sadd.sat.i16(i16 %47, i16 %42)
+  store i16 %48, ptr %arrayidx5.4, align 2, !tbaa !12
+  %49 = load i16, ptr %arrayidx.6, align 2, !tbaa !12
+  %50 = load i16, ptr %arrayidx5.6, align 2, !tbaa !12
+  %cmp.6 = icmp eq i16 %49, -32768
+  %cmp8.6 = icmp eq i16 %50, -32768
   %or.cond.6 = select i1 %cmp.6, i1 %cmp8.6, i1 false
-  %conv10.6 = sext i16 %55 to i64
-  %conv11.6 = sext i16 %56 to i64
+  br i1 %or.cond.6, label %cond.end.6, label %cond.false.6
+
+cond.false.6:                                     ; preds = %cond.end43.5
+  %conv10.6 = sext i16 %49 to i64
+  %conv11.6 = sext i16 %50 to i64
   %mul.6 = mul nsw i64 %conv11.6, %conv10.6
   %add.6 = add nsw i64 %mul.6, 16384
-  %57 = lshr i64 %add.6, 15
-  %58 = trunc i64 %57 to i16
-  %59 = select i1 %or.cond.6, i16 32767, i16 %58
-  %60 = tail call i16 @llvm.ssub.sat.i16(i16 %51, i16 %59)
-  %cmp33.6 = icmp eq i16 %60, -32768
+  %51 = lshr i64 %add.6, 15
+  %and.6 = and i64 %51, 65535
+  br label %cond.end.6
+
+cond.end.6:                                       ; preds = %cond.false.6, %cond.end43.5
+  %cond.6 = phi i64 [ %and.6, %cond.false.6 ], [ 32767, %cond.end43.5 ]
+  %52 = trunc i64 %cond.6 to i16
+  %53 = tail call i16 @llvm.ssub.sat.i16(i16 %45, i16 %52)
+  %cmp33.6 = icmp eq i16 %53, -32768
   %or.cond68.6 = select i1 %cmp.6, i1 %cmp33.6, i1 false
   br i1 %or.cond68.6, label %cond.end43.6, label %cond.false36.6
 
-cond.false36.6:                                   ; preds = %cond.end43.5
-  %conv38.6 = sext i16 %60 to i64
-  %mul39.6 = mul nsw i64 %conv38.6, %conv10.6
+cond.false36.6:                                   ; preds = %cond.end.6
+  %conv37.6 = sext i16 %49 to i64
+  %conv38.6 = sext i16 %53 to i64
+  %mul39.6 = mul nsw i64 %conv38.6, %conv37.6
   %add40.6 = add nsw i64 %mul39.6, 16384
-  %61 = lshr i64 %add40.6, 15
-  %and42.6 = and i64 %61, 65535
+  %54 = lshr i64 %add40.6, 15
+  %and42.6 = and i64 %54, 65535
   br label %cond.end43.6
 
-cond.end43.6:                                     ; preds = %cond.false36.6, %cond.end43.5
-  %cond44.6 = phi i64 [ %and42.6, %cond.false36.6 ], [ 32767, %cond.end43.5 ]
-  %62 = trunc i64 %cond44.6 to i16
-  %63 = tail call i16 @llvm.sadd.sat.i16(i16 %62, i16 %56)
-  store i16 %63, ptr %arrayidx5.5, align 2, !tbaa !12
-  %64 = load i16, ptr %rrp, align 2, !tbaa !12
-  %65 = load i16, ptr %v1, align 2, !tbaa !12
-  %cmp.7 = icmp eq i16 %64, -32768
-  %cmp8.7 = icmp eq i16 %65, -32768
+cond.end43.6:                                     ; preds = %cond.false36.6, %cond.end.6
+  %cond44.6 = phi i64 [ %and42.6, %cond.false36.6 ], [ 32767, %cond.end.6 ]
+  %55 = trunc i64 %cond44.6 to i16
+  %56 = tail call i16 @llvm.sadd.sat.i16(i16 %55, i16 %50)
+  store i16 %56, ptr %arrayidx5.5, align 2, !tbaa !12
+  %57 = load i16, ptr %rrp, align 2, !tbaa !12
+  %58 = load i16, ptr %v1, align 2, !tbaa !12
+  %cmp.7 = icmp eq i16 %57, -32768
+  %cmp8.7 = icmp eq i16 %58, -32768
   %or.cond.7 = select i1 %cmp.7, i1 %cmp8.7, i1 false
-  %conv10.7 = sext i16 %64 to i64
-  %conv11.7 = sext i16 %65 to i64
+  br i1 %or.cond.7, label %cond.end.7, label %cond.false.7
+
+cond.false.7:                                     ; preds = %cond.end43.6
+  %conv10.7 = sext i16 %57 to i64
+  %conv11.7 = sext i16 %58 to i64
   %mul.7 = mul nsw i64 %conv11.7, %conv10.7
   %add.7 = add nsw i64 %mul.7, 16384
-  %66 = lshr i64 %add.7, 15
-  %67 = trunc i64 %66 to i16
-  %68 = select i1 %or.cond.7, i16 32767, i16 %67
-  %69 = tail call i16 @llvm.ssub.sat.i16(i16 %60, i16 %68)
-  %cmp33.7 = icmp eq i16 %69, -32768
+  %59 = lshr i64 %add.7, 15
+  %and.7 = and i64 %59, 65535
+  br label %cond.end.7
+
+cond.end.7:                                       ; preds = %cond.false.7, %cond.end43.6
+  %cond.7 = phi i64 [ %and.7, %cond.false.7 ], [ 32767, %cond.end43.6 ]
+  %60 = trunc i64 %cond.7 to i16
+  %61 = tail call i16 @llvm.ssub.sat.i16(i16 %53, i16 %60)
+  %cmp33.7 = icmp eq i16 %61, -32768
   %or.cond68.7 = select i1 %cmp.7, i1 %cmp33.7, i1 false
   br i1 %or.cond68.7, label %cond.end43.7, label %cond.false36.7
 
-cond.false36.7:                                   ; preds = %cond.end43.6
-  %conv38.7 = sext i16 %69 to i64
-  %mul39.7 = mul nsw i64 %conv38.7, %conv10.7
+cond.false36.7:                                   ; preds = %cond.end.7
+  %conv37.7 = sext i16 %57 to i64
+  %conv38.7 = sext i16 %61 to i64
+  %mul39.7 = mul nsw i64 %conv38.7, %conv37.7
   %add40.7 = add nsw i64 %mul39.7, 16384
-  %70 = lshr i64 %add40.7, 15
-  %and42.7 = and i64 %70, 65535
+  %62 = lshr i64 %add40.7, 15
+  %and42.7 = and i64 %62, 65535
   br label %cond.end43.7
 
-cond.end43.7:                                     ; preds = %cond.false36.7, %cond.end43.6
-  %cond44.7 = phi i64 [ %and42.7, %cond.false36.7 ], [ 32767, %cond.end43.6 ]
-  %71 = trunc i64 %cond44.7 to i16
-  %72 = tail call i16 @llvm.sadd.sat.i16(i16 %71, i16 %65)
-  store i16 %72, ptr %arrayidx5.6, align 2, !tbaa !12
+cond.end43.7:                                     ; preds = %cond.false36.7, %cond.end.7
+  %cond44.7 = phi i64 [ %and42.7, %cond.false36.7 ], [ 32767, %cond.end.7 ]
+  %63 = trunc i64 %cond44.7 to i16
+  %64 = tail call i16 @llvm.sadd.sat.i16(i16 %63, i16 %58)
+  store i16 %64, ptr %arrayidx5.6, align 2, !tbaa !12
   %incdec.ptr = getelementptr inbounds i16, ptr %wt.addr.093, i64 1
-  store i16 %69, ptr %v1, align 2, !tbaa !12
+  store i16 %61, ptr %v1, align 2, !tbaa !12
   %incdec.ptr67 = getelementptr inbounds i16, ptr %sr.addr.094, i64 1
-  store i16 %69, ptr %sr.addr.094, align 2, !tbaa !12
+  store i16 %61, ptr %sr.addr.094, align 2, !tbaa !12
   %tobool.not = icmp eq i32 %dec95, 0
   br i1 %tobool.not, label %while.end, label %while.body, !llvm.loop !15
 
@@ -1303,10 +1367,10 @@ while.end:                                        ; preds = %cond.end43.7, %entr
 }
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i16 @llvm.sadd.sat.i16(i16, i16) #3
+declare i16 @llvm.ssub.sat.i16(i16, i16) #3
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i16 @llvm.ssub.sat.i16(i16, i16) #3
+declare i16 @llvm.sadd.sat.i16(i16, i16) #3
 
 attributes #0 = { nofree nosync nounwind memory(readwrite, inaccessiblemem: none) uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #1 = { mustprogress nocallback nofree nosync nounwind willreturn memory(argmem: readwrite) }

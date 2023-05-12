@@ -818,19 +818,18 @@ if.then9:                                         ; preds = %if.end7
   %tobool11.not = icmp eq i32 %153, 0
   %pass_type14 = getelementptr inbounds %struct.my_comp_master, ptr %call, i64 0, i32 1
   %scan_number73 = getelementptr inbounds %struct.my_comp_master, ptr %call, i64 0, i32 4
+  %pass_number74 = getelementptr inbounds %struct.my_comp_master, ptr %call, i64 0, i32 2
   br i1 %tobool11.not, label %if.end18.thread, label %if.end18.thread75
 
 if.end18.thread75:                                ; preds = %if.then9
   store i32 1, ptr %pass_type14, align 8, !tbaa !69
   store i32 0, ptr %scan_number73, align 4, !tbaa !70
-  %pass_number78 = getelementptr inbounds %struct.my_comp_master, ptr %call, i64 0, i32 2
-  store i32 0, ptr %pass_number78, align 4, !tbaa !71
+  store i32 0, ptr %pass_number74, align 4, !tbaa !71
   br label %if.then21
 
 if.end18.thread:                                  ; preds = %if.then9
   store i32 2, ptr %pass_type14, align 8, !tbaa !69
   store i32 0, ptr %scan_number73, align 4, !tbaa !70
-  %pass_number74 = getelementptr inbounds %struct.my_comp_master, ptr %call, i64 0, i32 2
   store i32 0, ptr %pass_number74, align 4, !tbaa !71
   br label %if.else23
 
@@ -1713,11 +1712,11 @@ for.body:                                         ; preds = %if.end18, %for.inc
   %arrayidx33 = getelementptr inbounds %struct.jpeg_compress_struct, ptr %cinfo, i64 0, i32 42, i64 %indvars.iv
   %15 = load ptr, ptr %arrayidx33, align 8, !tbaa !73
   %h_samp_factor = getelementptr inbounds %struct.jpeg_component_info, ptr %15, i64 0, i32 2
-  %16 = load i32, ptr %h_samp_factor, align 8, !tbaa !56
+  %16 = load i32, ptr %h_samp_factor, align 8, !tbaa !36
   %MCU_width34 = getelementptr inbounds %struct.jpeg_component_info, ptr %15, i64 0, i32 13
   store i32 %16, ptr %MCU_width34, align 4, !tbaa !132
   %v_samp_factor35 = getelementptr inbounds %struct.jpeg_component_info, ptr %15, i64 0, i32 3
-  %17 = load i32, ptr %v_samp_factor35, align 4, !tbaa !56
+  %17 = load i32, ptr %v_samp_factor35, align 4, !tbaa !38
   %MCU_height36 = getelementptr inbounds %struct.jpeg_component_info, ptr %15, i64 0, i32 14
   store i32 %17, ptr %MCU_height36, align 8, !tbaa !133
   %mul39 = mul nsw i32 %17, %16
@@ -1845,13 +1844,13 @@ if.end91:                                         ; preds = %if.then82, %if.end7
 declare i64 @jdiv_round_up(i64 noundef, i64 noundef) local_unnamed_addr #2
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
+declare i64 @llvm.umin.i64(i64, i64) #3
+
+; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
 declare i32 @llvm.smax.i32(i32, i32) #3
 
 ; Function Attrs: nocallback nofree nounwind willreturn memory(argmem: write)
 declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #4
-
-; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i64 @llvm.umin.i64(i64, i64) #3
 
 attributes #0 = { nounwind uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #1 = { mustprogress nocallback nofree nosync nounwind willreturn memory(argmem: readwrite) }

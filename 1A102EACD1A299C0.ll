@@ -87,11 +87,11 @@ for.cond.us.us.i:                                 ; preds = %entry.split.us.i
   %arrayidx.us.us.i = getelementptr inbounds [2 x i32], ptr %j.i, i64 0, i64 %idxprom.us.us.i
   store i32 0, ptr %arrayidx.us.us.i, align 4, !tbaa !9
   %tobool2.not21.us.us.i = icmp eq i32 %f.promoted.i, 0
-  br i1 %tobool2.not21.us.us.i, label %fn1.exit, label %for.inc.us.us.preheader.i
+  br i1 %tobool2.not21.us.us.i, label %if.end, label %for.inc.us.us.preheader.i
 
 for.inc.us.us.preheader.i:                        ; preds = %for.cond.us.us.i
   store i32 0, ptr @f, align 4, !tbaa !9
-  br label %fn1.exit
+  br label %if.end
 
 for.cond.us.i:                                    ; preds = %entry.split.us.i, %for.cond.us.i
   br label %for.cond.us.i
@@ -103,7 +103,7 @@ entry.split.i:                                    ; preds = %entry
 for.cond.i:                                       ; preds = %for.cond.i, %entry.split.i
   br label %for.cond.i
 
-fn1.exit:                                         ; preds = %for.cond.us.us.i, %for.inc.us.us.preheader.i
+if.end:                                           ; preds = %for.inc.us.us.preheader.i, %for.cond.us.us.i
   %2 = load i32, ptr %j.i, align 4, !tbaa !9
   store i32 -1, ptr @i, align 4, !tbaa !9
   store i32 -1, ptr @g, align 4, !tbaa !9

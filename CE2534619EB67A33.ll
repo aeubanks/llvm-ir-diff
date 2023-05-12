@@ -523,7 +523,7 @@ sumAtoms.exit.i:                                  ; preds = %for.body.i.i.prol.l
   %add.i30 = fadd double %114, %115
   %116 = load ptr, ptr %atoms.i, align 8, !tbaa !36
   %nGlobal.i31 = getelementptr inbounds %struct.AtomsSt, ptr %116, i64 0, i32 1
-  %117 = load i32, ptr %nGlobal.i31, align 4, !tbaa !5
+  %117 = load i32, ptr %nGlobal.i31, align 4, !tbaa !41
   %conv.i32 = sitofp i32 %117 to double
   %div.i33 = fdiv double %add.i30, %conv.i32
   %call3.i34 = call i32 @printRank() #13
@@ -838,7 +838,7 @@ if.else.i:                                        ; preds = %if.then.i72
 if.end3.i:                                        ; preds = %if.else.i, %if.then12.i, %sumAtoms.exit57
   call void @profileStop(i32 noundef 0) #13
   call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %pot.i73) #13
-  %184 = load ptr, ptr %pot.i, align 8, !tbaa !9
+  %184 = load ptr, ptr %pot.i, align 8, !tbaa !18
   store ptr %184, ptr %pot.i73, align 8, !tbaa !9
   %tobool5.not.i = icmp eq ptr %184, null
   br i1 %tobool5.not.i, label %destroySimulation.exit, label %if.then6.i
@@ -1004,14 +1004,14 @@ declare i32 @maxOccupancy(ptr noundef) local_unnamed_addr #1
 ; Function Attrs: nofree nounwind
 declare noundef i64 @fwrite(ptr nocapture noundef, i64 noundef, i64 noundef, ptr nocapture noundef) local_unnamed_addr #9
 
+; Function Attrs: nofree nounwind
+declare noundef i32 @fputc(i32 noundef, ptr nocapture noundef) local_unnamed_addr #9
+
 ; Function Attrs: nocallback nofree nounwind willreturn memory(argmem: readwrite)
 declare void @llvm.memcpy.p0.p0.i64(ptr noalias nocapture writeonly, ptr noalias nocapture readonly, i64, i1 immarg) #10
 
 ; Function Attrs: nocallback nofree nounwind willreturn memory(argmem: write)
 declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #11
-
-; Function Attrs: nofree nounwind
-declare noundef i32 @fputc(i32 noundef, ptr nocapture noundef) local_unnamed_addr #9
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
 declare i32 @llvm.vector.reduce.add.v4i32(<4 x i32>) #12

@@ -126,7 +126,7 @@ entry:
   %add.i = add nsw i32 %value, 1
   %0 = add i32 %value, -1
   %cmp110.i = icmp ult i32 %0, -3
-  br i1 %cmp110.i, label %for.body.i, label %for.body.lr.ph.i
+  br i1 %cmp110.i, label %for.body.i, label %ue_linfo.exit
 
 for.body.i:                                       ; preds = %entry, %for.body.i
   %nn.0.in12.i = phi i32 [ %nn.0.i, %for.body.i ], [ %add.i, %entry ]
@@ -137,9 +137,9 @@ for.body.i:                                       ; preds = %entry, %for.body.i
   %1 = add nsw i32 %nn.0.i, -2
   %cmp1.i = icmp ult i32 %1, -3
   %2 = select i1 %cmp.i, i1 %cmp1.i, i1 false
-  br i1 %2, label %for.body.i, label %for.body.lr.ph.i, !llvm.loop !5
+  br i1 %2, label %for.body.i, label %ue_linfo.exit, !llvm.loop !5
 
-for.body.lr.ph.i:                                 ; preds = %for.body.i, %entry
+ue_linfo.exit:                                    ; preds = %for.body.i, %entry
   %i.0.lcssa.i = phi i32 [ 0, %entry ], [ %inc.i, %for.body.i ]
   %mul.i = shl nuw nsw i32 %i.0.lcssa.i, 1
   %add3.i = or i32 %mul.i, 1
@@ -156,10 +156,10 @@ for.body.lr.ph.i:                                 ; preds = %for.body.i, %entry
   %.pre.i = load i8, ptr %byte_buf.i, align 8, !tbaa !7
   br label %for.body.i18
 
-for.body.i18:                                     ; preds = %for.inc.i, %for.body.lr.ph.i
-  %3 = phi i8 [ %.pre.i, %for.body.lr.ph.i ], [ %8, %for.inc.i ]
-  %mask.030.i = phi i32 [ %shl.i15, %for.body.lr.ph.i ], [ %shr.i, %for.inc.i ]
-  %i.029.i = phi i32 [ 0, %for.body.lr.ph.i ], [ %inc15.i, %for.inc.i ]
+for.body.i18:                                     ; preds = %for.inc.i, %ue_linfo.exit
+  %3 = phi i8 [ %.pre.i, %ue_linfo.exit ], [ %8, %for.inc.i ]
+  %mask.030.i = phi i32 [ %shl.i15, %ue_linfo.exit ], [ %shr.i, %for.inc.i ]
+  %i.029.i = phi i32 [ 0, %ue_linfo.exit ], [ %inc15.i, %for.inc.i ]
   %shl2.i = shl i8 %3, 1
   %and.i17 = and i32 %mask.030.i, %or.i
   %tobool.not.i = icmp ne i32 %and.i17, 0
@@ -316,7 +316,7 @@ entry:
   %cond.i.i = tail call i32 @llvm.abs.i32(i32 %value, i1 true)
   %shl.i = shl nuw i32 %cond.i.i, 1
   %cmp212.not.i = icmp eq i32 %value, 0
-  br i1 %cmp212.not.i, label %for.body.lr.ph.i, label %for.body.preheader.i
+  br i1 %cmp212.not.i, label %se_linfo.exit, label %for.body.preheader.i
 
 for.body.preheader.i:                             ; preds = %entry
   %div.i = ashr exact i32 %shl.i, 1
@@ -331,9 +331,9 @@ for.body.i:                                       ; preds = %for.body.i, %for.bo
   %0 = add nsw i32 %nn.014.i, -2
   %cmp2.i = icmp ult i32 %0, -3
   %1 = select i1 %cmp1.i, i1 %cmp2.i, i1 false
-  br i1 %1, label %for.body.i, label %for.body.lr.ph.i, !llvm.loop !23
+  br i1 %1, label %for.body.i, label %se_linfo.exit, !llvm.loop !23
 
-for.body.lr.ph.i:                                 ; preds = %for.body.i, %entry
+se_linfo.exit:                                    ; preds = %for.body.i, %entry
   %i.0.lcssa.i = phi i32 [ 0, %entry ], [ %inc.i, %for.body.i ]
   %cmp.i = icmp slt i32 %value, 1
   %spec.store.select.i = zext i1 %cmp.i to i32
@@ -353,10 +353,10 @@ for.body.lr.ph.i:                                 ; preds = %for.body.i, %entry
   %.pre.i = load i8, ptr %byte_buf.i, align 8, !tbaa !7
   br label %for.body.i20
 
-for.body.i20:                                     ; preds = %for.inc.i, %for.body.lr.ph.i
-  %2 = phi i8 [ %.pre.i, %for.body.lr.ph.i ], [ %7, %for.inc.i ]
-  %mask.030.i = phi i32 [ %shl.i17, %for.body.lr.ph.i ], [ %shr.i, %for.inc.i ]
-  %i.029.i = phi i32 [ 0, %for.body.lr.ph.i ], [ %inc15.i, %for.inc.i ]
+for.body.i20:                                     ; preds = %for.inc.i, %se_linfo.exit
+  %2 = phi i8 [ %.pre.i, %se_linfo.exit ], [ %7, %for.inc.i ]
+  %mask.030.i = phi i32 [ %shl.i17, %se_linfo.exit ], [ %shr.i, %for.inc.i ]
+  %i.029.i = phi i32 [ 0, %se_linfo.exit ], [ %inc15.i, %for.inc.i ]
   %shl2.i = shl i8 %2, 1
   %and.i19 = and i32 %mask.030.i, %or.i
   %tobool.not.i = icmp ne i32 %and.i19, 0
@@ -431,7 +431,7 @@ for.end:                                          ; preds = %for.body, %entry
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(write, argmem: readwrite, inaccessiblemem: none) uwtable
 define dso_local i32 @u_1(ptr nocapture noundef readnone %tracestring, i32 noundef %value, ptr nocapture noundef %bitstream) local_unnamed_addr #5 {
-entry:
+for.body.lr.ph.i:
   %byte_buf.i = getelementptr inbounds %struct.Bitstream, ptr %bitstream, i64 0, i32 2
   %bits_to_go.i = getelementptr inbounds %struct.Bitstream, ptr %bitstream, i64 0, i32 1
   %.pre.i = load i8, ptr %byte_buf.i, align 8, !tbaa !7
@@ -444,9 +444,9 @@ entry:
   %dec.i = add nsw i32 %3, -1
   store i32 %dec.i, ptr %bits_to_go.i, align 4, !tbaa !13
   %cmp8.i = icmp eq i32 %dec.i, 0
-  br i1 %cmp8.i, label %if.then10.i, label %writeUVLC2buffer.exit
+  br i1 %cmp8.i, label %for.inc.i.thread, label %writeUVLC2buffer.exit, !llvm.loop !17
 
-if.then10.i:                                      ; preds = %entry
+for.inc.i.thread:                                 ; preds = %for.body.lr.ph.i
   %streamBuffer.i = getelementptr inbounds %struct.Bitstream, ptr %bitstream, i64 0, i32 9
   store i32 8, ptr %bits_to_go.i, align 4, !tbaa !13
   %4 = load ptr, ptr %streamBuffer.i, align 8, !tbaa !14
@@ -459,7 +459,7 @@ if.then10.i:                                      ; preds = %entry
   store i8 0, ptr %byte_buf.i, align 8, !tbaa !7
   br label %writeUVLC2buffer.exit
 
-writeUVLC2buffer.exit:                            ; preds = %entry, %if.then10.i
+writeUVLC2buffer.exit:                            ; preds = %for.body.lr.ph.i, %for.inc.i.thread
   ret i32 1
 }
 
@@ -1670,11 +1670,11 @@ while.end:                                        ; preds = %while.end.loopexit.
 define dso_local i32 @writeSyntaxElement_VLC(ptr nocapture noundef %se, ptr nocapture noundef readonly %dp) local_unnamed_addr #7 {
 entry:
   %value1 = getelementptr inbounds %struct.syntaxelement, ptr %se, i64 0, i32 1
-  %0 = load i32, ptr %value1, align 4, !tbaa !18
+  %0 = load i32, ptr %value1, align 4, !tbaa !32
   %inf = getelementptr inbounds %struct.syntaxelement, ptr %se, i64 0, i32 4
   store i32 %0, ptr %inf, align 8, !tbaa !21
   %value2 = getelementptr inbounds %struct.syntaxelement, ptr %se, i64 0, i32 2
-  %1 = load i32, ptr %value2, align 8, !tbaa !18
+  %1 = load i32, ptr %value2, align 8, !tbaa !44
   %len = getelementptr inbounds %struct.syntaxelement, ptr %se, i64 0, i32 3
   store i32 %1, ptr %len, align 4, !tbaa !19
   %cmp9.i = icmp sgt i32 %1, 0

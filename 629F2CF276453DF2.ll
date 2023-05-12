@@ -15529,13 +15529,13 @@ for.cond18.preheader.i.preheader:                 ; preds = %for.body.i
 for.body:                                         ; preds = %entry, %for.body
   %nl.058 = phi i32 [ %inc, %for.body ], [ 0, %entry ]
   %6 = load <4 x float>, ptr @global_data, align 16
-  %7 = shufflevector <4 x float> %6, <4 x float> poison, <2 x i32> <i32 0, i32 undef>
+  %7 = shufflevector <4 x float> %6, <4 x float> poison, <2 x i32> <i32 0, i32 poison>
   %8 = load <4 x float>, ptr getelementptr inbounds (%struct.GlobalData, ptr @global_data, i64 0, i32 0, i64 1), align 4
-  %9 = shufflevector <4 x float> %8, <4 x float> poison, <2 x i32> <i32 0, i32 undef>
+  %9 = shufflevector <4 x float> %8, <4 x float> poison, <2 x i32> <i32 0, i32 poison>
   %10 = load <4 x float>, ptr getelementptr inbounds (%struct.GlobalData, ptr @global_data, i64 0, i32 0, i64 2), align 8
-  %11 = shufflevector <4 x float> %10, <4 x float> poison, <2 x i32> <i32 0, i32 undef>
+  %11 = shufflevector <4 x float> %10, <4 x float> poison, <2 x i32> <i32 0, i32 poison>
   %12 = load <4 x float>, ptr getelementptr inbounds (%struct.GlobalData, ptr @global_data, i64 0, i32 0, i64 3), align 4
-  %13 = shufflevector <4 x float> %12, <4 x float> poison, <2 x i32> <i32 0, i32 undef>
+  %13 = shufflevector <4 x float> %12, <4 x float> poison, <2 x i32> <i32 0, i32 poison>
   %14 = load float, ptr getelementptr inbounds (%struct.GlobalData, ptr @global_data, i64 0, i32 0, i64 4), align 16, !tbaa !5
   %15 = insertelement <2 x float> %7, float %14, i64 1
   %16 = fadd <2 x float> %15, zeroinitializer
@@ -15553,13 +15553,13 @@ for.body:                                         ; preds = %entry, %for.body
   %27 = extractelement <2 x float> %25, i64 1
   %add3 = fadd float %add, %27
   %28 = load <4 x float>, ptr getelementptr inbounds (%struct.GlobalData, ptr @global_data, i64 0, i32 0, i64 8), align 16
-  %29 = shufflevector <4 x float> %28, <4 x float> poison, <2 x i32> <i32 0, i32 undef>
+  %29 = shufflevector <4 x float> %28, <4 x float> poison, <2 x i32> <i32 0, i32 poison>
   %30 = load <4 x float>, ptr getelementptr inbounds (%struct.GlobalData, ptr @global_data, i64 0, i32 0, i64 9), align 4
-  %31 = shufflevector <4 x float> %30, <4 x float> poison, <2 x i32> <i32 0, i32 undef>
+  %31 = shufflevector <4 x float> %30, <4 x float> poison, <2 x i32> <i32 0, i32 poison>
   %32 = load <4 x float>, ptr getelementptr inbounds (%struct.GlobalData, ptr @global_data, i64 0, i32 0, i64 10), align 8
-  %33 = shufflevector <4 x float> %32, <4 x float> poison, <2 x i32> <i32 0, i32 undef>
+  %33 = shufflevector <4 x float> %32, <4 x float> poison, <2 x i32> <i32 0, i32 poison>
   %34 = load <4 x float>, ptr getelementptr inbounds (%struct.GlobalData, ptr @global_data, i64 0, i32 0, i64 11), align 4
-  %35 = shufflevector <4 x float> %34, <4 x float> poison, <2 x i32> <i32 0, i32 undef>
+  %35 = shufflevector <4 x float> %34, <4 x float> poison, <2 x i32> <i32 0, i32 poison>
   %36 = load float, ptr getelementptr inbounds (%struct.GlobalData, ptr @global_data, i64 0, i32 0, i64 12), align 16, !tbaa !5
   %37 = insertelement <2 x float> %29, float %36, i64 1
   %38 = fadd <2 x float> %37, zeroinitializer
@@ -15577,13 +15577,13 @@ for.body:                                         ; preds = %entry, %for.body
   %49 = extractelement <2 x float> %47, i64 1
   %add7 = fadd float %add5, %49
   %50 = load <4 x float>, ptr getelementptr inbounds (%struct.GlobalData, ptr @global_data, i64 0, i32 0, i64 16), align 16
-  %51 = shufflevector <4 x float> %50, <4 x float> poison, <2 x i32> <i32 0, i32 undef>
+  %51 = shufflevector <4 x float> %50, <4 x float> poison, <2 x i32> <i32 0, i32 poison>
   %52 = load <4 x float>, ptr getelementptr inbounds (%struct.GlobalData, ptr @global_data, i64 0, i32 0, i64 17), align 4
-  %53 = shufflevector <4 x float> %52, <4 x float> poison, <2 x i32> <i32 0, i32 undef>
+  %53 = shufflevector <4 x float> %52, <4 x float> poison, <2 x i32> <i32 0, i32 poison>
   %54 = load <4 x float>, ptr getelementptr inbounds (%struct.GlobalData, ptr @global_data, i64 0, i32 0, i64 18), align 8
-  %55 = shufflevector <4 x float> %54, <4 x float> poison, <2 x i32> <i32 0, i32 undef>
+  %55 = shufflevector <4 x float> %54, <4 x float> poison, <2 x i32> <i32 0, i32 poison>
   %56 = load <4 x float>, ptr getelementptr inbounds (%struct.GlobalData, ptr @global_data, i64 0, i32 0, i64 19), align 4
-  %57 = shufflevector <4 x float> %56, <4 x float> poison, <2 x i32> <i32 0, i32 undef>
+  %57 = shufflevector <4 x float> %56, <4 x float> poison, <2 x i32> <i32 0, i32 poison>
   %58 = load float, ptr getelementptr inbounds (%struct.GlobalData, ptr @global_data, i64 0, i32 0, i64 20), align 16, !tbaa !5
   %59 = insertelement <2 x float> %51, float %58, i64 1
   %60 = fadd <2 x float> %59, zeroinitializer
@@ -15601,13 +15601,13 @@ for.body:                                         ; preds = %entry, %for.body
   %71 = extractelement <2 x float> %69, i64 1
   %add11 = fadd float %add9, %71
   %72 = load <4 x float>, ptr getelementptr inbounds (%struct.GlobalData, ptr @global_data, i64 0, i32 0, i64 24), align 16
-  %73 = shufflevector <4 x float> %72, <4 x float> poison, <2 x i32> <i32 0, i32 undef>
+  %73 = shufflevector <4 x float> %72, <4 x float> poison, <2 x i32> <i32 0, i32 poison>
   %74 = load <4 x float>, ptr getelementptr inbounds (%struct.GlobalData, ptr @global_data, i64 0, i32 0, i64 25), align 4
-  %75 = shufflevector <4 x float> %74, <4 x float> poison, <2 x i32> <i32 0, i32 undef>
+  %75 = shufflevector <4 x float> %74, <4 x float> poison, <2 x i32> <i32 0, i32 poison>
   %76 = load <4 x float>, ptr getelementptr inbounds (%struct.GlobalData, ptr @global_data, i64 0, i32 0, i64 26), align 8
-  %77 = shufflevector <4 x float> %76, <4 x float> poison, <2 x i32> <i32 0, i32 undef>
+  %77 = shufflevector <4 x float> %76, <4 x float> poison, <2 x i32> <i32 0, i32 poison>
   %78 = load <4 x float>, ptr getelementptr inbounds (%struct.GlobalData, ptr @global_data, i64 0, i32 0, i64 27), align 4
-  %79 = shufflevector <4 x float> %78, <4 x float> poison, <2 x i32> <i32 0, i32 undef>
+  %79 = shufflevector <4 x float> %78, <4 x float> poison, <2 x i32> <i32 0, i32 poison>
   %80 = load float, ptr getelementptr inbounds (%struct.GlobalData, ptr @global_data, i64 0, i32 0, i64 28), align 16, !tbaa !5
   %81 = insertelement <2 x float> %73, float %80, i64 1
   %82 = fadd <2 x float> %81, zeroinitializer
@@ -17152,20 +17152,20 @@ s317.exit:                                        ; preds = %for.cond.cleanup3.i
 ; Function Attrs: mustprogress nofree nounwind willreturn
 declare i64 @strtol(ptr noundef readonly, ptr nocapture noundef, i32 noundef) local_unnamed_addr #12
 
+; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
+declare float @llvm.fabs.f32(float) #13
+
+; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
+declare i32 @llvm.smin.i32(i32, i32) #13
+
+; Function Attrs: nofree nounwind
+declare noundef i32 @putchar(i32 noundef) local_unnamed_addr #14
+
+; Function Attrs: nofree nounwind
+declare noundef i32 @puts(ptr nocapture noundef readonly) local_unnamed_addr #14
+
 ; Function Attrs: nocallback nofree nounwind willreturn memory(argmem: write)
-declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #13
-
-; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare float @llvm.fabs.f32(float) #14
-
-; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i32 @llvm.smin.i32(i32, i32) #14
-
-; Function Attrs: nofree nounwind
-declare noundef i32 @putchar(i32 noundef) local_unnamed_addr #15
-
-; Function Attrs: nofree nounwind
-declare noundef i32 @puts(ptr nocapture noundef readonly) local_unnamed_addr #15
+declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #15
 
 attributes #0 = { nofree norecurse nosync nounwind memory(argmem: write) uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #1 = { mustprogress nocallback nofree nosync nounwind willreturn memory(argmem: readwrite) }
@@ -17180,9 +17180,9 @@ attributes #9 = { mustprogress nofree norecurse nosync nounwind willreturn memor
 attributes #10 = { mustprogress nocallback nofree nosync nounwind speculatable willreturn memory(none) }
 attributes #11 = { mustprogress nofree nosync nounwind willreturn memory(none) uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #12 = { mustprogress nofree nounwind willreturn "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
-attributes #13 = { nocallback nofree nounwind willreturn memory(argmem: write) }
-attributes #14 = { nocallback nofree nosync nounwind speculatable willreturn memory(none) }
-attributes #15 = { nofree nounwind }
+attributes #13 = { nocallback nofree nosync nounwind speculatable willreturn memory(none) }
+attributes #14 = { nofree nounwind }
+attributes #15 = { nocallback nofree nounwind willreturn memory(argmem: write) }
 attributes #16 = { nounwind willreturn memory(read) }
 attributes #17 = { nounwind }
 

@@ -61,22 +61,22 @@ entry:
   %0 = load ptr, ptr %m_data.i.i.i, align 8, !tbaa !8
   %tobool.not.i.i.i = icmp eq ptr %0, null
   %m_ownsMemory.i.i.i = getelementptr inbounds %class.btRigidBody, ptr %this, i64 0, i32 23, i32 6
-  %1 = load i8, ptr %m_ownsMemory.i.i.i, align 8
+  %1 = load i8, ptr %m_ownsMemory.i.i.i, align 8, !range !15
   %tobool2.not.i.i.i = icmp eq i8 %1, 0
   %or.cond.i.i = select i1 %tobool.not.i.i.i, i1 true, i1 %tobool2.not.i.i.i
-  br i1 %or.cond.i.i, label %_ZN20btAlignedObjectArrayIP17btTypedConstraintED2Ev.exit, label %if.then3.i.i.i
+  br i1 %or.cond.i.i, label %invoke.cont, label %if.then3.i.i.i
 
 if.then3.i.i.i:                                   ; preds = %entry
   invoke void @_Z21btAlignedFreeInternalPv(ptr noundef nonnull %0)
-          to label %_ZN20btAlignedObjectArrayIP17btTypedConstraintED2Ev.exit unwind label %lpad
+          to label %invoke.cont unwind label %lpad
 
-_ZN20btAlignedObjectArrayIP17btTypedConstraintED2Ev.exit: ; preds = %if.then3.i.i.i, %entry
-  store i8 1, ptr %m_ownsMemory.i.i.i, align 8, !tbaa !15
+invoke.cont:                                      ; preds = %entry, %if.then3.i.i.i
+  %m_size.i.i.i = getelementptr inbounds %class.btRigidBody, ptr %this, i64 0, i32 23, i32 2
+  store i8 1, ptr %m_ownsMemory.i.i.i, align 8, !tbaa !16
   store ptr null, ptr %m_data.i.i.i, align 8, !tbaa !8
-  %m_size.i4.i.i = getelementptr inbounds %class.btRigidBody, ptr %this, i64 0, i32 23, i32 2
-  store i32 0, ptr %m_size.i4.i.i, align 4, !tbaa !16
+  store i32 0, ptr %m_size.i.i.i, align 4, !tbaa !17
   %m_capacity.i.i.i = getelementptr inbounds %class.btRigidBody, ptr %this, i64 0, i32 23, i32 3
-  store i32 0, ptr %m_capacity.i.i.i, align 8, !tbaa !17
+  store i32 0, ptr %m_capacity.i.i.i, align 8, !tbaa !18
   tail call void @_ZN17btCollisionObjectD2Ev(ptr noundef nonnull align 8 dereferenceable(280) %this)
   ret void
 
@@ -105,20 +105,20 @@ define dso_local void @_ZN17btTypedConstraintC2E21btTypedConstraintType(ptr noca
 entry:
   %ref.tmp = alloca %class.btVector3, align 4
   %0 = getelementptr inbounds i8, ptr %this, i64 8
-  store i32 %type, ptr %0, align 8, !tbaa !18
+  store i32 %type, ptr %0, align 8, !tbaa !19
   store ptr getelementptr inbounds ({ [9 x ptr] }, ptr @_ZTV17btTypedConstraint, i64 0, inrange i32 0, i64 2), ptr %this, align 8, !tbaa !5
   %m_userConstraintType = getelementptr inbounds %class.btTypedConstraint, ptr %this, i64 0, i32 2
-  store i32 -1, ptr %m_userConstraintType, align 4, !tbaa !20
+  store i32 -1, ptr %m_userConstraintType, align 4, !tbaa !21
   %m_userConstraintId = getelementptr inbounds %class.btTypedConstraint, ptr %this, i64 0, i32 3
-  store i32 -1, ptr %m_userConstraintId, align 8, !tbaa !24
+  store i32 -1, ptr %m_userConstraintId, align 8, !tbaa !25
   %m_needsFeedback = getelementptr inbounds %class.btTypedConstraint, ptr %this, i64 0, i32 4
-  store i8 0, ptr %m_needsFeedback, align 4, !tbaa !25
+  store i8 0, ptr %m_needsFeedback, align 4, !tbaa !26
   %m_rbA = getelementptr inbounds %class.btTypedConstraint, ptr %this, i64 0, i32 5
-  store ptr @_ZL7s_fixed, ptr %m_rbA, align 8, !tbaa !26
+  store ptr @_ZL7s_fixed, ptr %m_rbA, align 8, !tbaa !27
   %m_rbB = getelementptr inbounds %class.btTypedConstraint, ptr %this, i64 0, i32 6
-  store ptr @_ZL7s_fixed, ptr %m_rbB, align 8, !tbaa !26
+  store ptr @_ZL7s_fixed, ptr %m_rbB, align 8, !tbaa !27
   %m_appliedImpulse = getelementptr inbounds %class.btTypedConstraint, ptr %this, i64 0, i32 7
-  store <2 x float> <float 0.000000e+00, float 0x3FD3333340000000>, ptr %m_appliedImpulse, align 8, !tbaa !27
+  store <2 x float> <float 0.000000e+00, float 0x3FD3333340000000>, ptr %m_appliedImpulse, align 8, !tbaa !28
   call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %ref.tmp) #10
   call void @llvm.memset.p0.i64(ptr noundef nonnull align 4 dereferenceable(16) %ref.tmp, i8 0, i64 16, i1 false)
   call void @_ZN11btRigidBody12setMassPropsEfRK9btVector3(ptr noundef nonnull align 8 dereferenceable(564) @_ZL7s_fixed, float noundef 0.000000e+00, ptr noundef nonnull align 4 dereferenceable(16) %ref.tmp)
@@ -133,20 +133,20 @@ define dso_local void @_ZN17btTypedConstraintC2E21btTypedConstraintTypeR11btRigi
 entry:
   %ref.tmp = alloca %class.btVector3, align 4
   %0 = getelementptr inbounds i8, ptr %this, i64 8
-  store i32 %type, ptr %0, align 8, !tbaa !18
+  store i32 %type, ptr %0, align 8, !tbaa !19
   store ptr getelementptr inbounds ({ [9 x ptr] }, ptr @_ZTV17btTypedConstraint, i64 0, inrange i32 0, i64 2), ptr %this, align 8, !tbaa !5
   %m_userConstraintType = getelementptr inbounds %class.btTypedConstraint, ptr %this, i64 0, i32 2
-  store i32 -1, ptr %m_userConstraintType, align 4, !tbaa !20
+  store i32 -1, ptr %m_userConstraintType, align 4, !tbaa !21
   %m_userConstraintId = getelementptr inbounds %class.btTypedConstraint, ptr %this, i64 0, i32 3
-  store i32 -1, ptr %m_userConstraintId, align 8, !tbaa !24
+  store i32 -1, ptr %m_userConstraintId, align 8, !tbaa !25
   %m_needsFeedback = getelementptr inbounds %class.btTypedConstraint, ptr %this, i64 0, i32 4
-  store i8 0, ptr %m_needsFeedback, align 4, !tbaa !25
+  store i8 0, ptr %m_needsFeedback, align 4, !tbaa !26
   %m_rbA = getelementptr inbounds %class.btTypedConstraint, ptr %this, i64 0, i32 5
-  store ptr %rbA, ptr %m_rbA, align 8, !tbaa !26
+  store ptr %rbA, ptr %m_rbA, align 8, !tbaa !27
   %m_rbB = getelementptr inbounds %class.btTypedConstraint, ptr %this, i64 0, i32 6
-  store ptr @_ZL7s_fixed, ptr %m_rbB, align 8, !tbaa !26
+  store ptr @_ZL7s_fixed, ptr %m_rbB, align 8, !tbaa !27
   %m_appliedImpulse = getelementptr inbounds %class.btTypedConstraint, ptr %this, i64 0, i32 7
-  store <2 x float> <float 0.000000e+00, float 0x3FD3333340000000>, ptr %m_appliedImpulse, align 8, !tbaa !27
+  store <2 x float> <float 0.000000e+00, float 0x3FD3333340000000>, ptr %m_appliedImpulse, align 8, !tbaa !28
   call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %ref.tmp) #10
   call void @llvm.memset.p0.i64(ptr noundef nonnull align 4 dereferenceable(16) %ref.tmp, i8 0, i64 16, i1 false)
   call void @_ZN11btRigidBody12setMassPropsEfRK9btVector3(ptr noundef nonnull align 8 dereferenceable(564) @_ZL7s_fixed, float noundef 0.000000e+00, ptr noundef nonnull align 4 dereferenceable(16) %ref.tmp)
@@ -159,20 +159,20 @@ define dso_local void @_ZN17btTypedConstraintC2E21btTypedConstraintTypeR11btRigi
 entry:
   %ref.tmp = alloca %class.btVector3, align 4
   %0 = getelementptr inbounds i8, ptr %this, i64 8
-  store i32 %type, ptr %0, align 8, !tbaa !18
+  store i32 %type, ptr %0, align 8, !tbaa !19
   store ptr getelementptr inbounds ({ [9 x ptr] }, ptr @_ZTV17btTypedConstraint, i64 0, inrange i32 0, i64 2), ptr %this, align 8, !tbaa !5
   %m_userConstraintType = getelementptr inbounds %class.btTypedConstraint, ptr %this, i64 0, i32 2
-  store i32 -1, ptr %m_userConstraintType, align 4, !tbaa !20
+  store i32 -1, ptr %m_userConstraintType, align 4, !tbaa !21
   %m_userConstraintId = getelementptr inbounds %class.btTypedConstraint, ptr %this, i64 0, i32 3
-  store i32 -1, ptr %m_userConstraintId, align 8, !tbaa !24
+  store i32 -1, ptr %m_userConstraintId, align 8, !tbaa !25
   %m_needsFeedback = getelementptr inbounds %class.btTypedConstraint, ptr %this, i64 0, i32 4
-  store i8 0, ptr %m_needsFeedback, align 4, !tbaa !25
+  store i8 0, ptr %m_needsFeedback, align 4, !tbaa !26
   %m_rbA = getelementptr inbounds %class.btTypedConstraint, ptr %this, i64 0, i32 5
-  store ptr %rbA, ptr %m_rbA, align 8, !tbaa !26
+  store ptr %rbA, ptr %m_rbA, align 8, !tbaa !27
   %m_rbB = getelementptr inbounds %class.btTypedConstraint, ptr %this, i64 0, i32 6
-  store ptr %rbB, ptr %m_rbB, align 8, !tbaa !26
+  store ptr %rbB, ptr %m_rbB, align 8, !tbaa !27
   %m_appliedImpulse = getelementptr inbounds %class.btTypedConstraint, ptr %this, i64 0, i32 7
-  store <2 x float> <float 0.000000e+00, float 0x3FD3333340000000>, ptr %m_appliedImpulse, align 8, !tbaa !27
+  store <2 x float> <float 0.000000e+00, float 0x3FD3333340000000>, ptr %m_appliedImpulse, align 8, !tbaa !28
   call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %ref.tmp) #10
   call void @llvm.memset.p0.i64(ptr noundef nonnull align 4 dereferenceable(16) %ref.tmp, i8 0, i64 16, i1 false)
   call void @_ZN11btRigidBody12setMassPropsEfRK9btVector3(ptr noundef nonnull align 8 dereferenceable(564) @_ZL7s_fixed, float noundef 0.000000e+00, ptr noundef nonnull align 4 dereferenceable(16) %ref.tmp)
@@ -324,16 +324,17 @@ attributes #10 = { nounwind }
 !12 = !{!"omnipotent char", !7, i64 0}
 !13 = !{!"any pointer", !12, i64 0}
 !14 = !{!"bool", !12, i64 0}
-!15 = !{!9, !14, i64 24}
-!16 = !{!9, !11, i64 4}
-!17 = !{!9, !11, i64 8}
-!18 = !{!19, !11, i64 0}
-!19 = !{!"_ZTS13btTypedObject", !11, i64 0}
-!20 = !{!21, !11, i64 12}
-!21 = !{!"_ZTS17btTypedConstraint", !19, i64 8, !11, i64 12, !11, i64 16, !14, i64 20, !13, i64 24, !13, i64 32, !22, i64 40, !22, i64 44, !23, i64 48, !23, i64 64, !23, i64 80}
-!22 = !{!"float", !12, i64 0}
-!23 = !{!"_ZTS9btVector3", !12, i64 0}
-!24 = !{!21, !11, i64 16}
-!25 = !{!21, !14, i64 20}
-!26 = !{!13, !13, i64 0}
-!27 = !{!22, !22, i64 0}
+!15 = !{i8 0, i8 2}
+!16 = !{!9, !14, i64 24}
+!17 = !{!9, !11, i64 4}
+!18 = !{!9, !11, i64 8}
+!19 = !{!20, !11, i64 0}
+!20 = !{!"_ZTS13btTypedObject", !11, i64 0}
+!21 = !{!22, !11, i64 12}
+!22 = !{!"_ZTS17btTypedConstraint", !20, i64 8, !11, i64 12, !11, i64 16, !14, i64 20, !13, i64 24, !13, i64 32, !23, i64 40, !23, i64 44, !24, i64 48, !24, i64 64, !24, i64 80}
+!23 = !{!"float", !12, i64 0}
+!24 = !{!"_ZTS9btVector3", !12, i64 0}
+!25 = !{!22, !11, i64 16}
+!26 = !{!22, !14, i64 20}
+!27 = !{!13, !13, i64 0}
+!28 = !{!23, !23, i64 0}

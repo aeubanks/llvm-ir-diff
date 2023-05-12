@@ -177,13 +177,13 @@ while.body.lr.ph:                                 ; preds = %if.end48.i, %if.end
   %vector2.i = getelementptr inbounds %struct.IntVectorStruct, ptr %vector, i64 0, i32 2
   br label %while.body
 
-while.body:                                       ; preds = %while.body.lr.ph, %if.end13.i
-  %dataCount.065 = phi i32 [ 0, %while.body.lr.ph ], [ %inc, %if.end13.i ]
-  %inputString.addr.164 = phi ptr [ %inputString.addr.0.ph, %while.body.lr.ph ], [ %retval.0.i54, %if.end13.i ]
-  %call.i22 = tail call i64 @strtol(ptr nocapture noundef nonnull %inputString.addr.164, ptr noundef null, i32 noundef 10) #13
+while.body:                                       ; preds = %while.body.lr.ph, %if.end13
+  %dataCount.066 = phi i32 [ 0, %while.body.lr.ph ], [ %inc, %if.end13 ]
+  %inputString.addr.165 = phi ptr [ %inputString.addr.0.ph, %while.body.lr.ph ], [ %retval.0.i54, %if.end13 ]
+  %call.i22 = tail call i64 @strtol(ptr nocapture noundef nonnull %inputString.addr.165, ptr noundef null, i32 noundef 10) #13
   %conv.i = trunc i64 %call.i22 to i32
   %8 = load ptr, ptr %call, align 8, !tbaa !13
-  %9 = load i8, ptr %inputString.addr.164, align 1, !tbaa !15
+  %9 = load i8, ptr %inputString.addr.165, align 1, !tbaa !15
   %idxprom.i24 = sext i8 %9 to i64
   %arrayidx1.i25 = getelementptr inbounds i16, ptr %8, i64 %idxprom.i24
   %10 = load i16, ptr %arrayidx1.i25, align 2, !tbaa !16
@@ -192,7 +192,7 @@ while.body:                                       ; preds = %while.body.lr.ph, %
   br i1 %tobool.not.i26, label %do.body.i48, label %while.cond.i34
 
 while.cond.i34:                                   ; preds = %while.body, %while.cond.i34
-  %input.pn.i27 = phi ptr [ %input.addr.0.i28, %while.cond.i34 ], [ %inputString.addr.164, %while.body ]
+  %input.pn.i27 = phi ptr [ %input.addr.0.i28, %while.cond.i34 ], [ %inputString.addr.165, %while.body ]
   %input.addr.0.i28 = getelementptr inbounds i8, ptr %input.pn.i27, i64 1
   %12 = load i8, ptr %input.addr.0.i28, align 1, !tbaa !15
   %idxprom6.i29 = sext i8 %12 to i64
@@ -201,7 +201,7 @@ while.cond.i34:                                   ; preds = %while.body, %while.
   %14 = and i16 %13, 2048
   %tobool10.not.i31 = icmp eq i16 %14, 0
   %cmp.not.i32 = icmp eq i8 %12, 0
-  %or.cond.i33 = select i1 %tobool10.not.i31, i1 true, i1 %cmp.not.i32
+  %or.cond.i33 = or i1 %cmp.not.i32, %tobool10.not.i31
   br i1 %or.cond.i33, label %while.end.i35, label %while.cond.i34, !llvm.loop !20
 
 while.end.i35:                                    ; preds = %while.cond.i34
@@ -216,7 +216,7 @@ while.cond19.i43:                                 ; preds = %while.end.i35, %whi
   %17 = and i16 %16, 2048
   %tobool27.not.i39 = icmp ne i16 %17, 0
   %cmp30.not.i40 = icmp eq i8 %15, 0
-  %or.cond72.i41 = select i1 %tobool27.not.i39, i1 true, i1 %cmp30.not.i40
+  %or.cond72.i41 = or i1 %cmp30.not.i40, %tobool27.not.i39
   %incdec.ptr34.i42 = getelementptr inbounds i8, ptr %input.addr.1.i36, i64 1
   br i1 %or.cond72.i41, label %if.end.i45, label %while.cond19.i43, !llvm.loop !21
 
@@ -226,7 +226,7 @@ if.end.i45:                                       ; preds = %while.cond19.i43
 
 do.body.i48:                                      ; preds = %while.body, %if.end48.i53
   %18 = phi i8 [ %19, %if.end48.i53 ], [ %9, %while.body ]
-  %input.addr.2.i46 = phi ptr [ %incdec.ptr49.i49, %if.end48.i53 ], [ %inputString.addr.164, %while.body ]
+  %input.addr.2.i46 = phi ptr [ %incdec.ptr49.i49, %if.end48.i53 ], [ %inputString.addr.165, %while.body ]
   %cmp45.i47 = icmp eq i8 %18, 0
   br i1 %cmp45.i47, label %if.end.i57, label %if.end48.i53
 
@@ -246,7 +246,7 @@ if.end.i57:                                       ; preds = %if.end48.i53, %do.b
   %23 = load i32, ptr %allocatedSize.i, align 4, !tbaa !12
   %cmp.i = icmp eq i32 %22, %23
   %24 = load ptr, ptr %vector2.i, align 8, !tbaa !5
-  br i1 %cmp.i, label %if.then1.i, label %if.end13.i
+  br i1 %cmp.i, label %if.then1.i, label %if.end13
 
 if.then1.i:                                       ; preds = %if.end.i57
   %mul.i = shl nsw i32 %22, 1
@@ -255,18 +255,18 @@ if.then1.i:                                       ; preds = %if.end.i57
   %call.i59 = tail call ptr @realloc(ptr noundef %24, i64 noundef %mul3.i) #14
   store ptr %call.i59, ptr %vector2.i, align 8, !tbaa !5
   %tobool6.not.i = icmp eq ptr %call.i59, null
-  br i1 %tobool6.not.i, label %if.else.i, label %if.then7.i
+  br i1 %tobool6.not.i, label %IntVector_insertEnd.exit, label %if.then7.i
 
 if.then7.i:                                       ; preds = %if.then1.i
   store i32 %mul.i, ptr %allocatedSize.i, align 4, !tbaa !12
-  br label %if.end13.i
+  br label %if.end13
 
-if.else.i:                                        ; preds = %if.then1.i
+IntVector_insertEnd.exit:                         ; preds = %if.then1.i
   %25 = load ptr, ptr @stderr, align 8, !tbaa !13
   %call11.i = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %25, ptr noundef nonnull @.str, i32 noundef %mul.i) #15
   br label %cleanup
 
-if.end13.i:                                       ; preds = %if.then7.i, %if.end.i57
+if.end13:                                         ; preds = %if.end.i57, %if.then7.i
   %26 = phi ptr [ %call.i59, %if.then7.i ], [ %24, %if.end.i57 ]
   %idxprom.i60 = sext i32 %22 to i64
   %arrayidx.i = getelementptr inbounds i32, ptr %26, i64 %idxprom.i60
@@ -274,12 +274,12 @@ if.end13.i:                                       ; preds = %if.then7.i, %if.end
   %27 = load i32, ptr %vector, align 8, !tbaa !11
   %add.i = add nsw i32 %27, 1
   store i32 %add.i, ptr %vector, align 8, !tbaa !11
-  %inc = add nuw nsw i32 %dataCount.065, 1
+  %inc = add nuw nsw i32 %dataCount.066, 1
   %tobool8.not = icmp eq ptr %retval.0.i54, null
   br i1 %tobool8.not, label %cleanup, label %while.body, !llvm.loop !22
 
-cleanup:                                          ; preds = %do.body.i, %if.end13.i, %entry, %if.else.i
-  %retval.0 = phi i32 [ 0, %if.else.i ], [ 0, %entry ], [ %inc, %if.end13.i ], [ 0, %do.body.i ]
+cleanup:                                          ; preds = %do.body.i, %if.end13, %IntVector_insertEnd.exit, %entry
+  %retval.0 = phi i32 [ 0, %entry ], [ 0, %IntVector_insertEnd.exit ], [ %inc, %if.end13 ], [ 0, %do.body.i ]
   ret i32 %retval.0
 }
 
@@ -393,26 +393,26 @@ entry:
   %tobool = icmp ne ptr %vector, null
   %tobool1 = icmp ne ptr %input, null
   %or.cond = and i1 %tobool, %tobool1
-  br i1 %or.cond, label %if.end, label %cleanup
+  br i1 %or.cond, label %do.body.preheader, label %cleanup
 
-if.end:                                           ; preds = %entry
+do.body.preheader:                                ; preds = %entry
   store i32 0, ptr %vector, align 8, !tbaa !25
-  %call47 = tail call i32 @fgetc(ptr noundef nonnull %input)
-  %call249 = tail call i32 @feof(ptr noundef nonnull %input) #13
-  %tobool350 = icmp ne i32 %call249, 0
-  %sext.mask51 = and i32 %call47, 255
-  %cmp52 = icmp eq i32 %sext.mask51, 10
-  %or.cond1853 = or i1 %tobool350, %cmp52
-  br i1 %or.cond1853, label %if.end.i30, label %if.end.i.lr.ph
+  %call49 = tail call i32 @fgetc(ptr noundef nonnull %input)
+  %call250 = tail call i32 @feof(ptr noundef nonnull %input) #13
+  %tobool351 = icmp ne i32 %call250, 0
+  %sext.mask52 = and i32 %call49, 255
+  %cmp53 = icmp eq i32 %sext.mask52, 10
+  %or.cond1854 = or i1 %tobool351, %cmp53
+  br i1 %or.cond1854, label %if.end.i30, label %if.end.i.lr.ph
 
-if.end.i.lr.ph:                                   ; preds = %if.end
+if.end.i.lr.ph:                                   ; preds = %do.body.preheader
   %allocatedSize.i = getelementptr inbounds %struct.CharVectorStruct, ptr %vector, i64 0, i32 1
   %string.i = getelementptr inbounds %struct.CharVectorStruct, ptr %vector, i64 0, i32 2
   br label %if.end.i
 
 if.end.i:                                         ; preds = %if.end.i.lr.ph, %do.cond
-  %conv54.in = phi i32 [ %call47, %if.end.i.lr.ph ], [ %call, %do.cond ]
-  %conv54 = trunc i32 %conv54.in to i8
+  %call55 = phi i32 [ %call49, %if.end.i.lr.ph ], [ %call, %do.cond ]
+  %conv = trunc i32 %call55 to i8
   %0 = load i32, ptr %vector, align 8, !tbaa !25
   %1 = load i32, ptr %allocatedSize.i, align 4, !tbaa !26
   %cmp.i = icmp eq i32 %0, %1
@@ -425,13 +425,13 @@ if.then2.i:                                       ; preds = %if.end.i
   %call.i = tail call ptr @realloc(ptr noundef %2, i64 noundef %conv.i) #14
   store ptr %call.i, ptr %string.i, align 8, !tbaa !23
   %tobool6.not.i = icmp eq ptr %call.i, null
-  br i1 %tobool6.not.i, label %if.else.i, label %if.then7.i
+  br i1 %tobool6.not.i, label %CharVector_insertEnd.exit, label %if.then7.i
 
 if.then7.i:                                       ; preds = %if.then2.i
   store i32 %mul.i, ptr %allocatedSize.i, align 4, !tbaa !26
   br label %do.cond
 
-if.else.i:                                        ; preds = %if.then2.i
+CharVector_insertEnd.exit:                        ; preds = %if.then2.i
   %3 = load ptr, ptr @stderr, align 8, !tbaa !13
   %call11.i = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %3, ptr noundef nonnull @.str, i32 noundef %mul.i) #15
   br label %cleanup
@@ -440,7 +440,7 @@ do.cond:                                          ; preds = %if.end.i, %if.then7
   %4 = phi ptr [ %call.i, %if.then7.i ], [ %2, %if.end.i ]
   %idxprom.i = sext i32 %0 to i64
   %arrayidx.i = getelementptr inbounds i8, ptr %4, i64 %idxprom.i
-  store i8 %conv54, ptr %arrayidx.i, align 1, !tbaa !15
+  store i8 %conv, ptr %arrayidx.i, align 1, !tbaa !15
   %5 = load i32, ptr %vector, align 8, !tbaa !25
   %add.i = add nsw i32 %5, 1
   store i32 %add.i, ptr %vector, align 8, !tbaa !25
@@ -452,14 +452,14 @@ do.cond:                                          ; preds = %if.end.i, %if.then7
   %or.cond18 = or i1 %tobool3, %cmp
   br i1 %or.cond18, label %if.end.i30, label %if.end.i, !llvm.loop !27
 
-if.end.i30:                                       ; preds = %do.cond, %if.end
+if.end.i30:                                       ; preds = %do.cond, %do.body.preheader
   %6 = load i32, ptr %vector, align 8, !tbaa !25
   %allocatedSize.i27 = getelementptr inbounds %struct.CharVectorStruct, ptr %vector, i64 0, i32 1
   %7 = load i32, ptr %allocatedSize.i27, align 4, !tbaa !26
   %cmp.i28 = icmp eq i32 %6, %7
   %string.i29 = getelementptr inbounds %struct.CharVectorStruct, ptr %vector, i64 0, i32 2
   %8 = load ptr, ptr %string.i29, align 8, !tbaa !23
-  br i1 %cmp.i28, label %if.then2.i35, label %if.end13.i42
+  br i1 %cmp.i28, label %if.then2.i35, label %if.end15
 
 if.then2.i35:                                     ; preds = %if.end.i30
   %mul.i31 = shl nsw i32 %6, 1
@@ -467,18 +467,18 @@ if.then2.i35:                                     ; preds = %if.end.i30
   %call.i33 = tail call ptr @realloc(ptr noundef %8, i64 noundef %conv.i32) #14
   store ptr %call.i33, ptr %string.i29, align 8, !tbaa !23
   %tobool6.not.i34 = icmp eq ptr %call.i33, null
-  br i1 %tobool6.not.i34, label %if.else.i38, label %if.then7.i36
+  br i1 %tobool6.not.i34, label %CharVector_insertEnd.exit44, label %if.then7.i36
 
 if.then7.i36:                                     ; preds = %if.then2.i35
   store i32 %mul.i31, ptr %allocatedSize.i27, align 4, !tbaa !26
-  br label %if.end13.i42
+  br label %if.end15
 
-if.else.i38:                                      ; preds = %if.then2.i35
+CharVector_insertEnd.exit44:                      ; preds = %if.then2.i35
   %9 = load ptr, ptr @stderr, align 8, !tbaa !13
   %call11.i37 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %9, ptr noundef nonnull @.str, i32 noundef %mul.i31) #15
   br label %cleanup
 
-if.end13.i42:                                     ; preds = %if.then7.i36, %if.end.i30
+if.end15:                                         ; preds = %if.end.i30, %if.then7.i36
   %10 = phi ptr [ %call.i33, %if.then7.i36 ], [ %8, %if.end.i30 ]
   %idxprom.i39 = sext i32 %6 to i64
   %arrayidx.i40 = getelementptr inbounds i8, ptr %10, i64 %idxprom.i39
@@ -488,8 +488,8 @@ if.end13.i42:                                     ; preds = %if.then7.i36, %if.e
   store i32 %add.i41, ptr %vector, align 8, !tbaa !25
   br label %cleanup
 
-cleanup:                                          ; preds = %entry, %if.end13.i42, %if.else.i38, %if.else.i
-  %retval.0 = phi i32 [ %add.i41, %if.end13.i42 ], [ -1, %if.else.i38 ], [ -1, %if.else.i ], [ -1, %entry ]
+cleanup:                                          ; preds = %CharVector_insertEnd.exit44, %CharVector_insertEnd.exit, %entry, %if.end15
+  %retval.0 = phi i32 [ %add.i41, %if.end15 ], [ -1, %entry ], [ -1, %CharVector_insertEnd.exit ], [ -1, %CharVector_insertEnd.exit44 ]
   ret i32 %retval.0
 }
 
@@ -901,17 +901,17 @@ if.end:                                           ; preds = %entry
   %. = zext i1 %not.keepFirst to i32
   %0 = load i32, ptr %second, align 8, !tbaa !30
   %cmp10 = icmp sgt i32 %0, %.
-  br i1 %cmp10, label %for.body.lr.ph, label %cleanup
+  br i1 %cmp10, label %if.end.i.lr.ph, label %cleanup
 
-for.body.lr.ph:                                   ; preds = %if.end
+if.end.i.lr.ph:                                   ; preds = %if.end
   %vector = getelementptr inbounds %struct.NodePtrVecStruct, ptr %second, i64 0, i32 2
   %allocatedSize.i = getelementptr inbounds %struct.NodePtrVecStruct, ptr %first, i64 0, i32 1
   %vector2.i = getelementptr inbounds %struct.NodePtrVecStruct, ptr %first, i64 0, i32 2
   %1 = zext i1 %not.keepFirst to i64
-  br label %for.body
+  br label %if.end.i
 
-for.body:                                         ; preds = %for.body.lr.ph, %NodePtrVec_push.exit
-  %indvars.iv = phi i64 [ %1, %for.body.lr.ph ], [ %indvars.iv.next, %NodePtrVec_push.exit ]
+if.end.i:                                         ; preds = %if.end.i.lr.ph, %NodePtrVec_push.exit
+  %indvars.iv = phi i64 [ %1, %if.end.i.lr.ph ], [ %indvars.iv.next, %NodePtrVec_push.exit ]
   %2 = load ptr, ptr %vector, align 8, !tbaa !31
   %arrayidx = getelementptr inbounds ptr, ptr %2, i64 %indvars.iv
   %3 = load ptr, ptr %arrayidx, align 8, !tbaa !13
@@ -921,7 +921,7 @@ for.body:                                         ; preds = %for.body.lr.ph, %No
   %6 = load ptr, ptr %vector2.i, align 8, !tbaa !31
   br i1 %cmp.i, label %if.then1.i, label %if.end20.i
 
-if.then1.i:                                       ; preds = %for.body
+if.then1.i:                                       ; preds = %if.end.i
   %mul.i = shl nsw i32 %4, 1
   %conv.i = sext i32 %mul.i to i64
   %mul3.i = shl nsw i64 %conv.i, 3
@@ -951,9 +951,9 @@ if.else16.i:                                      ; preds = %if.else.i
   %puts.i = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.10)
   br label %NodePtrVec_push.exit
 
-if.end20.i:                                       ; preds = %if.then7.i, %for.body
-  %9 = phi i32 [ %.pre40.i, %if.then7.i ], [ %4, %for.body ]
-  %10 = phi ptr [ %call.i, %if.then7.i ], [ %6, %for.body ]
+if.end20.i:                                       ; preds = %if.then7.i, %if.end.i
+  %9 = phi i32 [ %.pre40.i, %if.then7.i ], [ %4, %if.end.i ]
+  %10 = phi ptr [ %call.i, %if.then7.i ], [ %6, %if.end.i ]
   %idxprom.i = sext i32 %4 to i64
   %arrayidx.i = getelementptr inbounds ptr, ptr %10, i64 %idxprom.i
   store ptr %3, ptr %arrayidx.i, align 8, !tbaa !13
@@ -966,7 +966,7 @@ NodePtrVec_push.exit:                             ; preds = %if.then13.i, %if.el
   %11 = load i32, ptr %second, align 8, !tbaa !30
   %12 = trunc i64 %indvars.iv.next to i32
   %cmp = icmp sgt i32 %11, %12
-  br i1 %cmp, label %for.body, label %cleanup, !llvm.loop !43
+  br i1 %cmp, label %if.end.i, label %cleanup, !llvm.loop !43
 
 cleanup:                                          ; preds = %NodePtrVec_push.exit, %if.end, %entry
   ret void

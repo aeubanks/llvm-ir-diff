@@ -48,8 +48,8 @@ target triple = "x86_64-unknown-linux-gnu"
 @spBMBtab1 = internal unnamed_addr constant [12 x %struct.VLCtab] [%struct.VLCtab { i8 26, i8 7 }, %struct.VLCtab { i8 22, i8 7 }, %struct.VLCtab { i8 1, i8 7 }, %struct.VLCtab { i8 30, i8 7 }, %struct.VLCtab { i8 40, i8 6 }, %struct.VLCtab { i8 40, i8 6 }, %struct.VLCtab { i8 42, i8 6 }, %struct.VLCtab { i8 42, i8 6 }, %struct.VLCtab { i8 36, i8 6 }, %struct.VLCtab { i8 36, i8 6 }, %struct.VLCtab { i8 38, i8 6 }, %struct.VLCtab { i8 38, i8 6 }], align 16
 @spBMBtab2 = internal unnamed_addr constant [8 x %struct.VLCtab] [%struct.VLCtab { i8 17, i8 8 }, %struct.VLCtab { i8 17, i8 8 }, %struct.VLCtab { i8 58, i8 8 }, %struct.VLCtab { i8 58, i8 8 }, %struct.VLCtab { i8 54, i8 9 }, %struct.VLCtab { i8 82, i8 9 }, %struct.VLCtab { i8 64, i8 9 }, %struct.VLCtab { i8 66, i8 9 }], align 16
 @SNRMBtab = internal unnamed_addr constant [8 x %struct.VLCtab] [%struct.VLCtab { i8 -1, i8 0 }, %struct.VLCtab { i8 0, i8 3 }, %struct.VLCtab { i8 18, i8 2 }, %struct.VLCtab { i8 18, i8 2 }, %struct.VLCtab { i8 2, i8 1 }, %struct.VLCtab { i8 2, i8 1 }, %struct.VLCtab { i8 2, i8 1 }, %struct.VLCtab { i8 2, i8 1 }], align 16
-@str.11 = private unnamed_addr constant [29 x i8] c"Invalid macroblock_type code\00", align 1
-@str.12 = private unnamed_addr constant [56 x i8] c"Get_macroblock_type(): unrecognized picture coding type\00", align 1
+@str = private unnamed_addr constant [56 x i8] c"Get_macroblock_type(): unrecognized picture coding type\00", align 1
+@str.12 = private unnamed_addr constant [29 x i8] c"Invalid macroblock_type code\00", align 1
 @str.13 = private unnamed_addr constant [33 x i8] c"Invalid coded_block_pattern code\00", align 1
 @str.14 = private unnamed_addr constant [42 x i8] c"Invalid macroblock_address_increment code\00", align 1
 
@@ -73,7 +73,7 @@ if.then.i:                                        ; preds = %if.then
   br i1 %tobool.not.i, label %if.then1.i, label %if.end.i
 
 if.then1.i:                                       ; preds = %if.then.i
-  %puts.i = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.11)
+  %puts.i = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.12)
   br label %if.end.i
 
 if.end.i:                                         ; preds = %if.then1.i, %if.then.i
@@ -117,7 +117,7 @@ if.then.i27:                                      ; preds = %cond.true
   br i1 %tobool.not.i26, label %if.then1.i29, label %if.end.i30
 
 if.then1.i29:                                     ; preds = %if.then.i27
-  %puts.i28 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.11)
+  %puts.i28 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.12)
   br label %if.end.i30
 
 if.end.i30:                                       ; preds = %if.then1.i29, %if.then.i27
@@ -151,7 +151,7 @@ if.then3.i:                                       ; preds = %if.end.i40
   br i1 %tobool4.not.i, label %if.then5.i, label %if.end7.i
 
 if.then5.i:                                       ; preds = %if.then3.i
-  %puts.i41 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.11)
+  %puts.i41 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.12)
   br label %if.end7.i
 
 if.end7.i:                                        ; preds = %if.then5.i, %if.then3.i
@@ -175,7 +175,7 @@ if.then.i46:                                      ; preds = %cond.true6
   br i1 %tobool.not.i45, label %if.then1.i48, label %if.end.i49
 
 if.then1.i48:                                     ; preds = %if.then.i46
-  %puts.i47 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.11)
+  %puts.i47 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.12)
   br label %if.end.i49
 
 if.end.i49:                                       ; preds = %if.then1.i48, %if.then.i46
@@ -236,7 +236,7 @@ if.then6.i:                                       ; preds = %if.end.i66
   br i1 %tobool.not.i67, label %if.then7.i, label %if.end9.i69
 
 if.then7.i:                                       ; preds = %if.then6.i
-  %puts.i68 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.11)
+  %puts.i68 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.12)
   br label %if.end9.i69
 
 if.end9.i69:                                      ; preds = %if.then7.i, %if.then6.i
@@ -299,7 +299,7 @@ if.else13.i:                                      ; preds = %if.else7.i
   br i1 %tobool.not.i79, label %if.then14.i, label %if.end.i81
 
 if.then14.i:                                      ; preds = %if.else13.i
-  %puts.i80 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.11)
+  %puts.i80 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.12)
   br label %if.end.i81
 
 if.end.i81:                                       ; preds = %if.then14.i, %if.else13.i
@@ -343,7 +343,7 @@ if.then6.i97:                                     ; preds = %if.end.i95
   br i1 %tobool.not.i96, label %if.then7.i99, label %if.end9.i100
 
 if.then7.i99:                                     ; preds = %if.then6.i97
-  %puts.i98 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.11)
+  %puts.i98 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.12)
   br label %if.end9.i100
 
 if.end9.i100:                                     ; preds = %if.then7.i99, %if.then6.i97
@@ -372,7 +372,7 @@ if.then.i110:                                     ; preds = %sw.bb21
   br i1 %tobool1.not.i, label %if.then2.i112, label %if.end.i113
 
 if.then2.i112:                                    ; preds = %if.then.i110
-  %puts.i111 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.11)
+  %puts.i111 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.12)
   br label %if.end.i113
 
 if.end.i113:                                      ; preds = %if.then2.i112, %if.then.i110
@@ -380,10 +380,10 @@ if.end.i113:                                      ; preds = %if.then2.i112, %if.
   br label %if.end
 
 sw.default:                                       ; preds = %if.else
-  %puts = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.12)
+  %puts = tail call i32 @puts(ptr nonnull dereferenceable(1) @str)
   br label %if.end
 
-if.end:                                           ; preds = %if.end.i113, %sw.bb21, %if.end.i81, %if.end18.i, %if.then.i93, %if.end9.i100, %if.end10.i106, %if.end.i49, %if.then5.i55, %if.end9.i, %if.then.i64, %if.end9.i69, %if.end10.i, %if.end.i30, %if.end3.i36, %cond.false, %if.end.i40, %if.end7.i, %if.end3.i, %if.end.i, %sw.default
+if.end:                                           ; preds = %if.end.i113, %sw.bb21, %if.end10.i106, %if.end9.i100, %if.then.i93, %if.end18.i, %if.end.i81, %if.end10.i, %if.end9.i69, %if.then.i64, %if.end9.i, %if.then5.i55, %if.end.i49, %if.end7.i, %if.end.i40, %cond.false, %if.end3.i36, %if.end.i30, %if.end3.i, %if.end.i, %sw.default
   %macroblock_type.0 = phi i32 [ 0, %sw.default ], [ 0, %if.end.i ], [ %conv6.i, %if.end3.i ], [ 0, %if.end.i30 ], [ %conv6.i35, %if.end3.i36 ], [ 1, %cond.false ], [ 17, %if.end7.i ], [ 17, %if.end.i40 ], [ 0, %if.end.i49 ], [ %conv8.i, %if.then5.i55 ], [ %conv17.i, %if.end9.i ], [ %conv3.i, %if.then.i64 ], [ 0, %if.end9.i69 ], [ %conv18.i, %if.end10.i ], [ %conv19.i, %if.end18.i ], [ 0, %if.end.i81 ], [ %conv3.i92, %if.then.i93 ], [ 0, %if.end9.i100 ], [ %conv18.i105, %if.end10.i106 ], [ 1, %sw.bb21 ], [ 1, %if.end.i113 ]
   ret i32 %macroblock_type.0
 }

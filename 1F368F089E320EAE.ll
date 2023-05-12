@@ -260,7 +260,7 @@ for.cond:                                         ; preds = %for.cond, %entry
   %1 = load ptr, ptr %arrayidx, align 8, !tbaa !38
   %cmp.not = icmp eq ptr %1, null
   %cmp1 = icmp eq i64 %indvars.iv, %0
-  %or.cond = select i1 %cmp.not, i1 true, i1 %cmp1
+  %or.cond = or i1 %cmp1, %cmp.not
   %indvars.iv.next = add nuw nsw i64 %indvars.iv, 1
   br i1 %or.cond, label %cleanup, label %for.cond, !llvm.loop !39
 
@@ -315,32 +315,32 @@ entry:
 
 if.end:                                           ; preds = %entry
   switch i32 %num_colors, label %cleanup85 [
-    i32 2, label %sw.epilog
+    i32 2, label %for.body.preheader
     i32 -32, label %sw.bb5
     i32 -24, label %if.end58
     i32 256, label %sw.bb3
   ]
 
 sw.bb3:                                           ; preds = %if.end
-  br label %sw.epilog
+  br label %for.body.preheader
 
 sw.bb5:                                           ; preds = %if.end
   br label %if.end58
 
-sw.epilog:                                        ; preds = %if.end, %sw.bb3
+for.body.preheader:                               ; preds = %sw.bb3, %if.end
   %old_dev.0 = phi ptr [ @mem_mapped_color_device, %sw.bb3 ], [ @mem_mono_device, %if.end ]
   %bits_per_pixel.0 = phi i32 [ 8, %sw.bb3 ], [ 1, %if.end ]
   %mul = mul nuw nsw i32 %num_colors, 3
   br label %for.body
 
-for.body:                                         ; preds = %sw.epilog, %for.inc
-  %i.0158 = phi i32 [ 0, %sw.epilog ], [ %inc, %for.inc ]
-  %q.0157 = phi ptr [ %palette, %sw.epilog ], [ %incdec.ptr47, %for.inc ]
-  %p.0156 = phi ptr [ %colors, %sw.epilog ], [ %incdec.ptr, %for.inc ]
-  %has_color.0155 = phi i32 [ 0, %sw.epilog ], [ %has_color.1, %for.inc ]
-  %black.0154 = phi i32 [ -1, %sw.epilog ], [ %black.1, %for.inc ]
-  %white.0153 = phi i32 [ -1, %sw.epilog ], [ %white.1, %for.inc ]
-  %0 = load float, ptr %p.0156, align 4, !tbaa !43
+for.body:                                         ; preds = %for.body.preheader, %for.inc
+  %i.0159 = phi i32 [ %inc, %for.inc ], [ 0, %for.body.preheader ]
+  %q.0158 = phi ptr [ %incdec.ptr47, %for.inc ], [ %palette, %for.body.preheader ]
+  %p.0157 = phi ptr [ %incdec.ptr, %for.inc ], [ %colors, %for.body.preheader ]
+  %has_color.0156 = phi i32 [ %has_color.1, %for.inc ], [ 0, %for.body.preheader ]
+  %black.0155 = phi i32 [ %black.1, %for.inc ], [ -1, %for.body.preheader ]
+  %white.0154 = phi i32 [ %white.1, %for.inc ], [ -1, %for.body.preheader ]
+  %0 = load float, ptr %p.0157, align 4, !tbaa !43
   %conv = fpext float %0 to double
   %cmp9 = fcmp olt double %conv, -1.000000e-03
   %cmp13 = fcmp ogt double %conv, 1.001000e+00
@@ -352,19 +352,19 @@ if.end16:                                         ; preds = %for.body
   %conv18 = fpext float %mul17 to double
   %add = fadd double %conv18, 5.000000e-01
   %conv19 = fptoui double %add to i8
-  store i8 %conv19, ptr %q.0157, align 1, !tbaa !44
-  %rem = urem i32 %i.0158, 3
+  store i8 %conv19, ptr %q.0158, align 1, !tbaa !44
+  %rem = urem i32 %i.0159, 3
   %cmp20 = icmp eq i32 %rem, 2
   br i1 %cmp20, label %if.then22, label %for.inc
 
 if.then22:                                        ; preds = %if.end16
-  %arrayidx = getelementptr inbounds i8, ptr %q.0157, i64 -1
+  %arrayidx = getelementptr inbounds i8, ptr %q.0158, i64 -1
   %1 = load i8, ptr %arrayidx, align 1, !tbaa !44
   %cmp25 = icmp eq i8 %1, %conv19
   br i1 %cmp25, label %land.lhs.true, label %for.inc
 
 land.lhs.true:                                    ; preds = %if.then22
-  %arrayidx28 = getelementptr inbounds i8, ptr %q.0157, i64 -2
+  %arrayidx28 = getelementptr inbounds i8, ptr %q.0158, i64 -2
   %2 = load i8, ptr %arrayidx28, align 1, !tbaa !44
   %cmp30 = icmp eq i8 %2, %conv19
   br i1 %cmp30, label %if.then32, label %for.inc
@@ -376,20 +376,20 @@ if.then32:                                        ; preds = %land.lhs.true
   ]
 
 if.then36:                                        ; preds = %if.then32
-  %sub = add nsw i32 %i.0158, -2
+  %sub = add nsw i32 %i.0159, -2
   br label %for.inc
 
 if.then40:                                        ; preds = %if.then32
-  %sub41 = add nsw i32 %i.0158, -2
+  %sub41 = add nsw i32 %i.0159, -2
   br label %for.inc
 
 for.inc:                                          ; preds = %if.then22, %land.lhs.true, %if.then32, %if.end16, %if.then36, %if.then40
-  %white.1 = phi i32 [ %white.0153, %if.then36 ], [ %sub41, %if.then40 ], [ %white.0153, %if.end16 ], [ %white.0153, %if.then32 ], [ %white.0153, %land.lhs.true ], [ %white.0153, %if.then22 ]
-  %black.1 = phi i32 [ %sub, %if.then36 ], [ %black.0154, %if.then40 ], [ %black.0154, %if.end16 ], [ %black.0154, %if.then32 ], [ %black.0154, %land.lhs.true ], [ %black.0154, %if.then22 ]
-  %has_color.1 = phi i32 [ %has_color.0155, %if.then36 ], [ %has_color.0155, %if.then40 ], [ %has_color.0155, %if.end16 ], [ %has_color.0155, %if.then32 ], [ 1, %land.lhs.true ], [ 1, %if.then22 ]
-  %inc = add nuw i32 %i.0158, 1
-  %incdec.ptr = getelementptr inbounds float, ptr %p.0156, i64 1
-  %incdec.ptr47 = getelementptr inbounds i8, ptr %q.0157, i64 1
+  %white.1 = phi i32 [ %white.0154, %if.then36 ], [ %sub41, %if.then40 ], [ %white.0154, %if.end16 ], [ %white.0154, %if.then32 ], [ %white.0154, %land.lhs.true ], [ %white.0154, %if.then22 ]
+  %black.1 = phi i32 [ %sub, %if.then36 ], [ %black.0155, %if.then40 ], [ %black.0155, %if.end16 ], [ %black.0155, %if.then32 ], [ %black.0155, %land.lhs.true ], [ %black.0155, %if.then22 ]
+  %has_color.1 = phi i32 [ %has_color.0156, %if.then36 ], [ %has_color.0156, %if.then40 ], [ %has_color.0156, %if.end16 ], [ %has_color.0156, %if.then32 ], [ 1, %land.lhs.true ], [ 1, %if.then22 ]
+  %inc = add nuw i32 %i.0159, 1
+  %incdec.ptr = getelementptr inbounds float, ptr %p.0157, i64 1
+  %incdec.ptr47 = getelementptr inbounds i8, ptr %q.0158, i64 1
   %exitcond.not = icmp eq i32 %inc, %mul
   br i1 %exitcond.not, label %for.end, label %for.body, !llvm.loop !45
 
@@ -585,7 +585,7 @@ if.then18.i:                                      ; preds = %lor.lhs.false.i
   %call19.i = tail call i32 (ptr, ...) @gs_erasepage(ptr noundef nonnull %pgs) #13
   br label %gs_setdevice.exit
 
-gs_setdevice.exit:                                ; preds = %if.then18.i, %lor.lhs.false.i, %if.then.i, %if.end3.i
+gs_setdevice.exit:                                ; preds = %lor.lhs.false.i, %if.then18.i, %if.then.i, %if.end3.i
   ret void
 }
 

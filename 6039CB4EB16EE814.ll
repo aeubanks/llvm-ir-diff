@@ -7,14 +7,14 @@ target triple = "x86_64-unknown-linux-gnu"
 define dso_local void @foo(i64 noundef %j) local_unnamed_addr #0 {
 entry:
   %cmp = icmp sgt i64 %j, 10
-  br i1 %cmp, label %if.then, label %if.end
+  br i1 %cmp, label %if.then, label %lor.lhs.false
+
+lor.lhs.false:                                    ; preds = %entry
+  ret void
 
 if.then:                                          ; preds = %entry
   tail call void @abort() #3
   unreachable
-
-if.end:                                           ; preds = %entry
-  ret void
 }
 
 ; Function Attrs: noreturn

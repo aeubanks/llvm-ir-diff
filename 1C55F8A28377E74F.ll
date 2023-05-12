@@ -568,7 +568,7 @@ if.end185:                                        ; preds = %for.end169.if.end18
   %call2 = call i32 (ptr, ptr, ...) @__isoc99_fscanf(ptr noundef %fp, ptr noundef nonnull @.str, ptr noundef nonnull %input) #12
   %cmp3 = icmp eq i32 %call2, 1
   %indvars.iv.next = add nuw i64 %indvars.iv, 1
-  br i1 %cmp3, label %while.body, label %while.end.loopexit, !llvm.loop !28
+  br i1 %cmp3, label %while.body, label %while.end, !llvm.loop !28
 
 if.else239:                                       ; preds = %while.body
   %83 = trunc i64 %indvars.iv482 to i32
@@ -581,76 +581,72 @@ if.else239:                                       ; preds = %while.body
   call void @exit(i32 noundef 0) #15
   unreachable
 
-while.end.loopexit:                               ; preds = %if.end185
-  %88 = trunc i64 %indvars.iv.next483 to i32
-  br label %while.end
-
-while.end:                                        ; preds = %while.end.loopexit, %entry
-  %cell.0.lcssa = phi i32 [ 0, %entry ], [ %88, %while.end.loopexit ]
+while.end:                                        ; preds = %if.end185, %entry
+  %cell.0.lcssa = phi i32 [ 0, %entry ], [ %0, %if.end185 ]
   store i32 %cell.0.lcssa, ptr @numberCells, align 4, !tbaa !5
-  %89 = load i32, ptr @bbb, align 4, !tbaa !5
-  %dec = add nsw i32 %89, -1
+  %88 = load i32, ptr @bbb, align 4, !tbaa !5
+  %dec = add nsw i32 %88, -1
   store i32 %dec, ptr @bbb, align 4, !tbaa !5
-  %90 = load i32, ptr @bbt, align 4, !tbaa !5
-  %inc245 = add nsw i32 %90, 1
+  %89 = load i32, ptr @bbt, align 4, !tbaa !5
+  %inc245 = add nsw i32 %89, 1
   store i32 %inc245, ptr @bbt, align 4, !tbaa !5
-  %91 = load i32, ptr @bbl, align 4, !tbaa !5
-  %dec246 = add nsw i32 %91, -1
+  %90 = load i32, ptr @bbl, align 4, !tbaa !5
+  %dec246 = add nsw i32 %90, -1
   store i32 %dec246, ptr @bbl, align 4, !tbaa !5
-  %92 = load i32, ptr @bbr, align 4, !tbaa !5
-  %inc247 = add nsw i32 %92, 1
+  %91 = load i32, ptr @bbr, align 4, !tbaa !5
+  %inc247 = add nsw i32 %91, 1
   store i32 %inc247, ptr @bbr, align 4, !tbaa !5
-  %93 = load ptr, ptr @edgeList, align 8, !tbaa !9
-  %94 = load i32, ptr @edgeCount, align 4, !tbaa !5
-  %mul248 = mul nsw i32 %94, 3
+  %92 = load ptr, ptr @edgeList, align 8, !tbaa !9
+  %93 = load i32, ptr @edgeCount, align 4, !tbaa !5
+  %mul248 = mul nsw i32 %93, 3
   %add249 = add nsw i32 %mul248, 5
   %conv250 = sext i32 %add249 to i64
   %mul251 = mul nsw i64 %conv250, 40
-  %call252 = call ptr @realloc(ptr noundef %93, i64 noundef %mul251) #14
+  %call252 = call ptr @realloc(ptr noundef %92, i64 noundef %mul251) #14
   store ptr %call252, ptr @edgeList, align 8, !tbaa !9
-  %95 = load i32, ptr @bbb, align 4, !tbaa !5
-  %96 = load i32, ptr @edgeCount, align 4, !tbaa !5
-  %inc253 = add nsw i32 %96, 1
+  %94 = load i32, ptr @bbb, align 4, !tbaa !5
+  %95 = load i32, ptr @edgeCount, align 4, !tbaa !5
+  %inc253 = add nsw i32 %95, 1
   %idxprom254 = sext i32 %inc253 to i64
   %start256 = getelementptr inbounds %struct.edgebox, ptr %call252, i64 %idxprom254, i32 1
-  store i32 %95, ptr %start256, align 4, !tbaa !16
-  %97 = load i32, ptr @bbt, align 4, !tbaa !5
+  store i32 %94, ptr %start256, align 4, !tbaa !16
+  %96 = load i32, ptr @bbt, align 4, !tbaa !5
   %end259 = getelementptr inbounds %struct.edgebox, ptr %call252, i64 %idxprom254, i32 2
-  store i32 %97, ptr %end259, align 4, !tbaa !18
-  %98 = load i32, ptr @bbl, align 4, !tbaa !5
+  store i32 %96, ptr %end259, align 4, !tbaa !18
+  %97 = load i32, ptr @bbl, align 4, !tbaa !5
   %loc262 = getelementptr inbounds %struct.edgebox, ptr %call252, i64 %idxprom254, i32 3
-  store i32 %98, ptr %loc262, align 4, !tbaa !19
-  %sub263 = sub nsw i32 %97, %95
+  store i32 %97, ptr %loc262, align 4, !tbaa !19
+  %sub263 = sub nsw i32 %96, %94
   %length266 = getelementptr inbounds %struct.edgebox, ptr %call252, i64 %idxprom254, i32 4
   store i32 %sub263, ptr %length266, align 4, !tbaa !20
   %fixed269 = getelementptr inbounds %struct.edgebox, ptr %call252, i64 %idxprom254, i32 6
   store i32 1, ptr %fixed269, align 4, !tbaa !23
   %UorR272 = getelementptr inbounds %struct.edgebox, ptr %call252, i64 %idxprom254, i32 5
   store i32 -1, ptr %UorR272, align 4, !tbaa !21
-  %add273 = add nsw i32 %96, 2
+  %add273 = add nsw i32 %95, 2
   %prevEdge276 = getelementptr inbounds %struct.edgebox, ptr %call252, i64 %idxprom254, i32 7
   store i32 %add273, ptr %prevEdge276, align 4, !tbaa !25
-  %add277 = add nsw i32 %96, 4
+  %add277 = add nsw i32 %95, 4
   %nextEdge280 = getelementptr inbounds %struct.edgebox, ptr %call252, i64 %idxprom254, i32 8
   store i32 %add277, ptr %nextEdge280, align 4, !tbaa !24
   %arrayidx282 = getelementptr inbounds %struct.edgebox, ptr %call252, i64 %idxprom254
   store i32 -1, ptr %arrayidx282, align 4, !tbaa !22
   %idxprom285 = sext i32 %add273 to i64
   %start287 = getelementptr inbounds %struct.edgebox, ptr %call252, i64 %idxprom285, i32 1
-  store i32 %98, ptr %start287, align 4, !tbaa !16
-  %99 = load i32, ptr @bbr, align 4, !tbaa !5
+  store i32 %97, ptr %start287, align 4, !tbaa !16
+  %98 = load i32, ptr @bbr, align 4, !tbaa !5
   %end290 = getelementptr inbounds %struct.edgebox, ptr %call252, i64 %idxprom285, i32 2
-  store i32 %99, ptr %end290, align 4, !tbaa !18
+  store i32 %98, ptr %end290, align 4, !tbaa !18
   %loc293 = getelementptr inbounds %struct.edgebox, ptr %call252, i64 %idxprom285, i32 3
-  store i32 %97, ptr %loc293, align 4, !tbaa !19
-  %sub294 = sub nsw i32 %99, %98
+  store i32 %96, ptr %loc293, align 4, !tbaa !19
+  %sub294 = sub nsw i32 %98, %97
   %length297 = getelementptr inbounds %struct.edgebox, ptr %call252, i64 %idxprom285, i32 4
   store i32 %sub294, ptr %length297, align 4, !tbaa !20
   %fixed300 = getelementptr inbounds %struct.edgebox, ptr %call252, i64 %idxprom285, i32 6
   store i32 1, ptr %fixed300, align 4, !tbaa !23
   %UorR303 = getelementptr inbounds %struct.edgebox, ptr %call252, i64 %idxprom285, i32 5
   store i32 -1, ptr %UorR303, align 4, !tbaa !21
-  %add304 = add nsw i32 %96, 3
+  %add304 = add nsw i32 %95, 3
   %prevEdge307 = getelementptr inbounds %struct.edgebox, ptr %call252, i64 %idxprom285, i32 7
   store i32 %add304, ptr %prevEdge307, align 4, !tbaa !25
   %nextEdge311 = getelementptr inbounds %struct.edgebox, ptr %call252, i64 %idxprom285, i32 8
@@ -659,11 +655,11 @@ while.end:                                        ; preds = %while.end.loopexit,
   store i32 -1, ptr %arrayidx313, align 4, !tbaa !22
   %idxprom316 = sext i32 %add304 to i64
   %start318 = getelementptr inbounds %struct.edgebox, ptr %call252, i64 %idxprom316, i32 1
-  store i32 %95, ptr %start318, align 4, !tbaa !16
+  store i32 %94, ptr %start318, align 4, !tbaa !16
   %end321 = getelementptr inbounds %struct.edgebox, ptr %call252, i64 %idxprom316, i32 2
-  store i32 %97, ptr %end321, align 4, !tbaa !18
+  store i32 %96, ptr %end321, align 4, !tbaa !18
   %loc324 = getelementptr inbounds %struct.edgebox, ptr %call252, i64 %idxprom316, i32 3
-  store i32 %99, ptr %loc324, align 4, !tbaa !19
+  store i32 %98, ptr %loc324, align 4, !tbaa !19
   %length328 = getelementptr inbounds %struct.edgebox, ptr %call252, i64 %idxprom316, i32 4
   store i32 %sub263, ptr %length328, align 4, !tbaa !20
   %fixed331 = getelementptr inbounds %struct.edgebox, ptr %call252, i64 %idxprom316, i32 6
@@ -679,11 +675,11 @@ while.end:                                        ; preds = %while.end.loopexit,
   store i32 %add277, ptr @edgeCount, align 4, !tbaa !5
   %idxprom347 = sext i32 %add277 to i64
   %start349 = getelementptr inbounds %struct.edgebox, ptr %call252, i64 %idxprom347, i32 1
-  store i32 %98, ptr %start349, align 4, !tbaa !16
+  store i32 %97, ptr %start349, align 4, !tbaa !16
   %end352 = getelementptr inbounds %struct.edgebox, ptr %call252, i64 %idxprom347, i32 2
-  store i32 %99, ptr %end352, align 4, !tbaa !18
+  store i32 %98, ptr %end352, align 4, !tbaa !18
   %loc355 = getelementptr inbounds %struct.edgebox, ptr %call252, i64 %idxprom347, i32 3
-  store i32 %95, ptr %loc355, align 4, !tbaa !19
+  store i32 %94, ptr %loc355, align 4, !tbaa !19
   %length359 = getelementptr inbounds %struct.edgebox, ptr %call252, i64 %idxprom347, i32 4
   store i32 %sub294, ptr %length359, align 4, !tbaa !20
   %fixed362 = getelementptr inbounds %struct.edgebox, ptr %call252, i64 %idxprom347, i32 6
@@ -738,11 +734,11 @@ declare i32 @llvm.smin.i32(i32, i32) #9
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
 declare i32 @llvm.smax.i32(i32, i32) #9
 
-; Function Attrs: nocallback nofree nosync nounwind willreturn memory(inaccessiblemem: readwrite)
-declare void @llvm.assume(i1 noundef) #10
-
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
 declare i32 @llvm.abs.i32(i32, i1 immarg) #9
+
+; Function Attrs: nocallback nofree nosync nounwind willreturn memory(inaccessiblemem: readwrite)
+declare void @llvm.assume(i1 noundef) #10
 
 ; Function Attrs: nocallback nofree nounwind willreturn memory(argmem: write)
 declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #11

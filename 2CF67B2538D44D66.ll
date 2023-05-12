@@ -1257,16 +1257,16 @@ for.cond.13.i183:                                 ; preds = %for.cond.12.i180
   %121 = load i8, ptr %arrayidx.14.i181, align 2, !tbaa !31
   %122 = load i8, ptr getelementptr inbounds (%struct.GUID, ptr @IID_ICompressSetOutStreamSize, i64 0, i32 3, i64 6), align 2, !tbaa !31
   %cmp4.not.14.i182 = icmp eq i8 %121, %122
-  br i1 %cmp4.not.14.i182, label %for.cond.14.i187, label %if.end26
+  br i1 %cmp4.not.14.i182, label %_ZeqRK4GUIDS1_.exit189, label %if.end26
 
-for.cond.14.i187:                                 ; preds = %for.cond.13.i183
+_ZeqRK4GUIDS1_.exit189:                           ; preds = %for.cond.13.i183
   %arrayidx.15.i184 = getelementptr inbounds i8, ptr %iid, i64 15
   %123 = load i8, ptr %arrayidx.15.i184, align 1, !tbaa !31
   %124 = load i8, ptr getelementptr inbounds (%struct.GUID, ptr @IID_ICompressSetOutStreamSize, i64 0, i32 3, i64 7), align 1, !tbaa !31
   %cmp4.not.15.i185.not = icmp eq i8 %123, %124
   br i1 %cmp4.not.15.i185.not, label %return.sink.split, label %if.end26
 
-if.end26:                                         ; preds = %if.end18, %for.cond.i144, %for.cond.1.i147, %for.cond.2.i150, %for.cond.3.i153, %for.cond.4.i156, %for.cond.5.i159, %for.cond.6.i162, %for.cond.7.i165, %for.cond.8.i168, %for.cond.9.i171, %for.cond.10.i174, %for.cond.11.i177, %for.cond.12.i180, %for.cond.13.i183, %for.cond.14.i187
+if.end26:                                         ; preds = %for.cond.13.i183, %for.cond.12.i180, %for.cond.11.i177, %for.cond.10.i174, %for.cond.9.i171, %for.cond.8.i168, %for.cond.7.i165, %for.cond.6.i162, %for.cond.5.i159, %for.cond.4.i156, %for.cond.3.i153, %for.cond.2.i150, %for.cond.1.i147, %for.cond.i144, %if.end18, %_ZeqRK4GUIDS1_.exit189
   %125 = load i8, ptr @IID_ISequentialInStream, align 4, !tbaa !31
   %cmp4.not.i190 = icmp eq i8 %0, %125
   br i1 %cmp4.not.i190, label %for.cond.i193, label %return
@@ -1367,17 +1367,17 @@ for.cond.13.i232:                                 ; preds = %for.cond.12.i229
   %152 = load i8, ptr %arrayidx.14.i230, align 2, !tbaa !31
   %153 = load i8, ptr getelementptr inbounds (%struct.GUID, ptr @IID_ISequentialInStream, i64 0, i32 3, i64 6), align 2, !tbaa !31
   %cmp4.not.14.i231 = icmp eq i8 %152, %153
-  br i1 %cmp4.not.14.i231, label %for.cond.14.i236, label %return
+  br i1 %cmp4.not.14.i231, label %_ZeqRK4GUIDS1_.exit238, label %return
 
-for.cond.14.i236:                                 ; preds = %for.cond.13.i232
+_ZeqRK4GUIDS1_.exit238:                           ; preds = %for.cond.13.i232
   %arrayidx.15.i233 = getelementptr inbounds i8, ptr %iid, i64 15
   %154 = load i8, ptr %arrayidx.15.i233, align 1, !tbaa !31
   %155 = load i8, ptr getelementptr inbounds (%struct.GUID, ptr @IID_ISequentialInStream, i64 0, i32 3, i64 7), align 1, !tbaa !31
   %cmp4.not.15.i234.not = icmp eq i8 %154, %155
   br i1 %cmp4.not.15.i234.not, label %return.sink.split, label %return
 
-return.sink.split:                                ; preds = %for.cond.14.i236, %for.cond.14.i187, %_ZeqRK4GUIDS1_.exit140, %_ZeqRK4GUIDS1_.exit91, %_ZeqRK4GUIDS1_.exit
-  %.sink = phi i64 [ 8, %_ZeqRK4GUIDS1_.exit ], [ 8, %_ZeqRK4GUIDS1_.exit91 ], [ 16, %_ZeqRK4GUIDS1_.exit140 ], [ 24, %for.cond.14.i187 ], [ 32, %for.cond.14.i236 ]
+return.sink.split:                                ; preds = %_ZeqRK4GUIDS1_.exit238, %_ZeqRK4GUIDS1_.exit189, %_ZeqRK4GUIDS1_.exit140, %_ZeqRK4GUIDS1_.exit91, %_ZeqRK4GUIDS1_.exit
+  %.sink = phi i64 [ 8, %_ZeqRK4GUIDS1_.exit ], [ 8, %_ZeqRK4GUIDS1_.exit91 ], [ 16, %_ZeqRK4GUIDS1_.exit140 ], [ 24, %_ZeqRK4GUIDS1_.exit189 ], [ 32, %_ZeqRK4GUIDS1_.exit238 ]
   %add.ptr30 = getelementptr inbounds i8, ptr %this, i64 %.sink
   store ptr %add.ptr30, ptr %outObject, align 8, !tbaa !53
   %vtable31 = load ptr, ptr %this, align 8, !tbaa !5
@@ -1386,8 +1386,8 @@ return.sink.split:                                ; preds = %for.cond.14.i236, %
   %call33 = tail call noundef i32 %156(ptr noundef nonnull align 8 dereferenceable(19376) %this)
   br label %return
 
-return:                                           ; preds = %return.sink.split, %for.cond.14.i236, %for.cond.13.i232, %for.cond.12.i229, %for.cond.11.i226, %for.cond.10.i223, %for.cond.9.i220, %for.cond.8.i217, %for.cond.7.i214, %for.cond.6.i211, %for.cond.5.i208, %for.cond.4.i205, %for.cond.3.i202, %for.cond.2.i199, %for.cond.1.i196, %for.cond.i193, %if.end26
-  %retval.0 = phi i32 [ -2147467262, %if.end26 ], [ -2147467262, %for.cond.i193 ], [ -2147467262, %for.cond.1.i196 ], [ -2147467262, %for.cond.2.i199 ], [ -2147467262, %for.cond.3.i202 ], [ -2147467262, %for.cond.4.i205 ], [ -2147467262, %for.cond.5.i208 ], [ -2147467262, %for.cond.6.i211 ], [ -2147467262, %for.cond.7.i214 ], [ -2147467262, %for.cond.8.i217 ], [ -2147467262, %for.cond.9.i220 ], [ -2147467262, %for.cond.10.i223 ], [ -2147467262, %for.cond.11.i226 ], [ -2147467262, %for.cond.12.i229 ], [ -2147467262, %for.cond.13.i232 ], [ -2147467262, %for.cond.14.i236 ], [ 0, %return.sink.split ]
+return:                                           ; preds = %return.sink.split, %for.cond.13.i232, %for.cond.12.i229, %for.cond.11.i226, %for.cond.10.i223, %for.cond.9.i220, %for.cond.8.i217, %for.cond.7.i214, %for.cond.6.i211, %for.cond.5.i208, %for.cond.4.i205, %for.cond.3.i202, %for.cond.2.i199, %for.cond.1.i196, %for.cond.i193, %if.end26, %_ZeqRK4GUIDS1_.exit238
+  %retval.0 = phi i32 [ -2147467262, %_ZeqRK4GUIDS1_.exit238 ], [ -2147467262, %if.end26 ], [ -2147467262, %for.cond.i193 ], [ -2147467262, %for.cond.1.i196 ], [ -2147467262, %for.cond.2.i199 ], [ -2147467262, %for.cond.3.i202 ], [ -2147467262, %for.cond.4.i205 ], [ -2147467262, %for.cond.5.i208 ], [ -2147467262, %for.cond.6.i211 ], [ -2147467262, %for.cond.7.i214 ], [ -2147467262, %for.cond.8.i217 ], [ -2147467262, %for.cond.9.i220 ], [ -2147467262, %for.cond.10.i223 ], [ -2147467262, %for.cond.11.i226 ], [ -2147467262, %for.cond.12.i229 ], [ -2147467262, %for.cond.13.i232 ], [ 0, %return.sink.split ]
   ret i32 %retval.0
 }
 

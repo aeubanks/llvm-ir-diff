@@ -32,8 +32,8 @@ if.end:                                           ; preds = %lor.lhs.false2
 do.body:                                          ; preds = %do.body, %if.end
   %3 = phi i8 [ %.pre, %if.end ], [ %4, %do.body ]
   %t.0 = phi ptr [ %head, %if.end ], [ %cond, %do.body ]
-  %conv176 = zext i8 %3 to i32
-  %shl.i = lshr i32 -2147483648, %conv176
+  %conv175 = zext i8 %3 to i32
+  %shl.i = lshr i32 -2147483648, %conv175
   %conv.i = sext i32 %shl.i to i64
   %and.i = and i64 %and, %conv.i
   %tobool8.not = icmp eq i64 %and.i, 0
@@ -49,10 +49,10 @@ do.body:                                          ; preds = %do.body, %if.end
 do.end:                                           ; preds = %do.body
   %5 = load i64, ptr %cond, align 8, !tbaa !13
   %cmp14 = icmp eq i64 %and, %5
-  br i1 %cmp14, label %for.cond.preheader, label %land.rhs.preheader
+  br i1 %cmp14, label %for.cond.preheader, label %for.cond71.preheader
 
-land.rhs.preheader:                               ; preds = %do.end
-  %6 = xor i64 %and, %5
+for.cond71.preheader:                             ; preds = %do.end
+  %6 = xor i64 %5, %and
   %7 = and i64 %6, 1073741824
   %cmp78 = icmp eq i64 %7, 0
   br i1 %cmp78, label %for.inc81, label %for.end83
@@ -60,14 +60,14 @@ land.rhs.preheader:                               ; preds = %do.end
 for.cond.preheader:                               ; preds = %do.end
   %p_mlen = getelementptr inbounds %struct.ptree, ptr %cond, i64 0, i32 2
   %8 = load i8, ptr %p_mlen, align 8, !tbaa !18
-  %cmp18181.not = icmp eq i8 %8, 0
-  br i1 %cmp18181.not, label %for.end.thread, label %for.body.lr.ph
+  %conv17 = zext i8 %8 to i64
+  %cmp18180.not = icmp eq i8 %8, 0
+  br i1 %cmp18180.not, label %for.end.thread, label %for.body.lr.ph
 
 for.end.thread:                                   ; preds = %for.cond.preheader
-  %conv17.le192 = zext i8 %8 to i64
-  %add193 = shl nuw nsw i64 %conv17.le192, 4
-  %mul194 = add nuw nsw i64 %add193, 16
-  %call37195 = tail call noalias ptr @malloc(i64 noundef %mul194) #7
+  %add191 = shl nuw nsw i64 %conv17, 4
+  %mul192 = add nuw nsw i64 %add191, 16
+  %call37193 = tail call noalias ptr @malloc(i64 noundef %mul192) #7
   br label %if.then62
 
 for.body.lr.ph:                                   ; preds = %for.cond.preheader
@@ -76,65 +76,63 @@ for.body.lr.ph:                                   ; preds = %for.cond.preheader
   %wide.trip.count = zext i8 %8 to i64
   br label %for.body
 
-for.body:                                         ; preds = %for.body.lr.ph, %for.inc
-  %indvars.iv = phi i64 [ 0, %for.body.lr.ph ], [ %indvars.iv.next, %for.inc ]
+for.cond:                                         ; preds = %for.body
+  %indvars.iv.next = add nuw nsw i64 %indvars.iv, 1
+  %exitcond.not = icmp eq i64 %indvars.iv.next, %wide.trip.count
+  br i1 %exitcond.not, label %for.end, label %for.body, !llvm.loop !19
+
+for.body:                                         ; preds = %for.body.lr.ph, %for.cond
+  %indvars.iv = phi i64 [ 0, %for.body.lr.ph ], [ %indvars.iv.next, %for.cond ]
   %arrayidx = getelementptr inbounds %struct.ptree_mask, ptr %9, i64 %indvars.iv
   %10 = load i64, ptr %arrayidx, align 8, !tbaa !11
   %cmp24 = icmp eq i64 %1, %10
-  br i1 %cmp24, label %if.then26, label %for.inc
+  br i1 %cmp24, label %if.then26, label %for.cond
 
 if.then26:                                        ; preds = %for.body
-  %idxprom.le = and i64 %indvars.iv, 4294967295
   %pm_data = getelementptr inbounds %struct.ptree_mask, ptr %0, i64 0, i32 1
-  %11 = load ptr, ptr %pm_data, align 8, !tbaa !19
-  %pm_data31 = getelementptr inbounds %struct.ptree_mask, ptr %9, i64 %idxprom.le, i32 1
-  store ptr %11, ptr %pm_data31, align 8, !tbaa !19
+  %11 = load ptr, ptr %pm_data, align 8, !tbaa !20
+  %pm_data31 = getelementptr inbounds %struct.ptree_mask, ptr %9, i64 %indvars.iv, i32 1
+  store ptr %11, ptr %pm_data31, align 8, !tbaa !20
   tail call void @free(ptr noundef %0) #8
   tail call void @free(ptr noundef %n) #8
   br label %cleanup
 
-for.inc:                                          ; preds = %for.body
-  %indvars.iv.next = add nuw nsw i64 %indvars.iv, 1
-  %exitcond.not = icmp eq i64 %indvars.iv.next, %wide.trip.count
-  br i1 %exitcond.not, label %for.end, label %for.body, !llvm.loop !20
-
-for.end:                                          ; preds = %for.inc
-  %conv17.le = zext i8 %8 to i64
-  %add = shl nuw nsw i64 %conv17.le, 4
+for.end:                                          ; preds = %for.cond
+  %add = shl nuw nsw i64 %conv17, 4
   %mul = add nuw nsw i64 %add, 16
   %call37 = tail call noalias ptr @malloc(i64 noundef %mul) #7
-  br i1 %cmp18181.not, label %if.then62, label %for.body43.lr.ph
+  br i1 %cmp18180.not, label %if.then62, label %for.body43.lr.ph
 
 for.body43.lr.ph:                                 ; preds = %for.end
   %p_m46 = getelementptr inbounds %struct.ptree, ptr %cond, i64 0, i32 1
   br label %for.body43
 
 for.body43:                                       ; preds = %for.body43.lr.ph, %for.inc59
-  %copied.0187 = phi i32 [ 0, %for.body43.lr.ph ], [ %copied.1, %for.inc59 ]
-  %i.1186 = phi i32 [ 0, %for.body43.lr.ph ], [ %i.2, %for.inc59 ]
-  %pm.0185 = phi ptr [ %call37, %for.body43.lr.ph ], [ %incdec.ptr, %for.inc59 ]
+  %copied.0186 = phi i32 [ 0, %for.body43.lr.ph ], [ %copied.1, %for.inc59 ]
+  %i.1185 = phi i32 [ 0, %for.body43.lr.ph ], [ %i.2, %for.inc59 ]
+  %pm.0184 = phi ptr [ %call37, %for.body43.lr.ph ], [ %incdec.ptr, %for.inc59 ]
   %12 = load i64, ptr %0, align 8, !tbaa !11
   %13 = load ptr, ptr %p_m46, align 8, !tbaa !5
-  %idxprom47 = sext i32 %i.1186 to i64
+  %idxprom47 = sext i32 %i.1185 to i64
   %arrayidx48 = getelementptr inbounds %struct.ptree_mask, ptr %13, i64 %idxprom47
   %14 = load i64, ptr %arrayidx48, align 8, !tbaa !11
   %cmp50 = icmp ugt i64 %12, %14
   br i1 %cmp50, label %if.then52, label %if.else
 
 if.then52:                                        ; preds = %for.body43
-  tail call void @llvm.memmove.p0.p0.i64(ptr noundef nonnull align 1 dereferenceable(16) %pm.0185, ptr noundef nonnull align 1 dereferenceable(16) %arrayidx48, i64 16, i1 false)
-  %inc54 = add nsw i32 %i.1186, 1
+  tail call void @llvm.memmove.p0.p0.i64(ptr noundef nonnull align 1 dereferenceable(16) %pm.0184, ptr noundef nonnull align 1 dereferenceable(16) %arrayidx48, i64 16, i1 false)
+  %inc54 = add nsw i32 %i.1185, 1
   br label %for.inc59
 
 if.else:                                          ; preds = %for.body43
-  tail call void @llvm.memmove.p0.p0.i64(ptr noundef nonnull align 1 dereferenceable(16) %pm.0185, ptr noundef nonnull align 1 dereferenceable(16) %0, i64 16, i1 false)
+  tail call void @llvm.memmove.p0.p0.i64(ptr noundef nonnull align 1 dereferenceable(16) %pm.0184, ptr noundef nonnull align 1 dereferenceable(16) %0, i64 16, i1 false)
   store i64 4294967295, ptr %0, align 8, !tbaa !11
   br label %for.inc59
 
 for.inc59:                                        ; preds = %if.then52, %if.else
-  %i.2 = phi i32 [ %inc54, %if.then52 ], [ %i.1186, %if.else ]
-  %copied.1 = phi i32 [ %copied.0187, %if.then52 ], [ 1, %if.else ]
-  %incdec.ptr = getelementptr inbounds %struct.ptree_mask, ptr %pm.0185, i64 1
+  %i.2 = phi i32 [ %inc54, %if.then52 ], [ %i.1185, %if.else ]
+  %copied.1 = phi i32 [ %copied.0186, %if.then52 ], [ 1, %if.else ]
+  %incdec.ptr = getelementptr inbounds %struct.ptree_mask, ptr %pm.0184, i64 1
   %15 = load i8, ptr %p_mlen, align 8, !tbaa !18
   %conv40 = zext i8 %15 to i32
   %cmp41 = icmp slt i32 %i.2, %conv40
@@ -145,13 +143,13 @@ for.end60:                                        ; preds = %for.inc59
   br i1 %tobool61.not, label %if.then62, label %if.end64
 
 if.then62:                                        ; preds = %for.end.thread, %for.end, %for.end60
-  %pm.0.lcssa203 = phi ptr [ %incdec.ptr, %for.end60 ], [ %call37195, %for.end.thread ], [ %call37, %for.end ]
-  %call37196202 = phi ptr [ %call37, %for.end60 ], [ %call37195, %for.end.thread ], [ %call37, %for.end ]
-  tail call void @llvm.memmove.p0.p0.i64(ptr noundef nonnull align 1 dereferenceable(16) %pm.0.lcssa203, ptr noundef nonnull align 1 dereferenceable(16) %0, i64 16, i1 false)
+  %pm.0.lcssa201 = phi ptr [ %incdec.ptr, %for.end60 ], [ %call37193, %for.end.thread ], [ %call37, %for.end ]
+  %call37194200 = phi ptr [ %call37, %for.end60 ], [ %call37193, %for.end.thread ], [ %call37, %for.end ]
+  tail call void @llvm.memmove.p0.p0.i64(ptr noundef nonnull align 1 dereferenceable(16) %pm.0.lcssa201, ptr noundef nonnull align 1 dereferenceable(16) %0, i64 16, i1 false)
   br label %if.end64
 
 if.end64:                                         ; preds = %if.then62, %for.end60
-  %call37196201 = phi ptr [ %call37196202, %if.then62 ], [ %call37, %for.end60 ]
+  %call37194199 = phi ptr [ %call37194200, %if.then62 ], [ %call37, %for.end60 ]
   tail call void @free(ptr noundef nonnull %0) #8
   tail call void @free(ptr noundef %n) #8
   %16 = load i8, ptr %p_mlen, align 8, !tbaa !18
@@ -160,10 +158,10 @@ if.end64:                                         ; preds = %if.then62, %for.end
   %p_m68 = getelementptr inbounds %struct.ptree, ptr %cond, i64 0, i32 1
   %17 = load ptr, ptr %p_m68, align 8, !tbaa !5
   tail call void @free(ptr noundef %17) #8
-  store ptr %call37196201, ptr %p_m68, align 8, !tbaa !5
+  store ptr %call37194199, ptr %p_m68, align 8, !tbaa !5
   br label %cleanup
 
-for.inc81:                                        ; preds = %land.rhs.preheader
+for.inc81:                                        ; preds = %for.cond71.preheader
   %18 = and i64 %6, 536870912
   %cmp78.1 = icmp eq i64 %18, 0
   br i1 %cmp78.1, label %for.inc81.1, label %for.end83
@@ -314,10 +312,10 @@ for.inc81.29:                                     ; preds = %for.inc81.28
   %spec.select = select i1 %cmp78.30, i32 32, i32 31
   br label %for.end83
 
-for.end83:                                        ; preds = %for.inc81.29, %for.inc81.28, %for.inc81.27, %for.inc81.26, %for.inc81.25, %for.inc81.24, %for.inc81.23, %for.inc81.22, %for.inc81.21, %for.inc81.20, %for.inc81.19, %for.inc81.18, %for.inc81.17, %for.inc81.16, %for.inc81.15, %for.inc81.14, %for.inc81.13, %for.inc81.12, %for.inc81.11, %for.inc81.10, %for.inc81.9, %for.inc81.8, %for.inc81.7, %for.inc81.6, %for.inc81.5, %for.inc81.4, %for.inc81.3, %for.inc81.2, %for.inc81.1, %for.inc81, %land.rhs.preheader
-  %i.3.lcssa = phi i32 [ 1, %land.rhs.preheader ], [ 2, %for.inc81 ], [ 3, %for.inc81.1 ], [ 4, %for.inc81.2 ], [ 5, %for.inc81.3 ], [ 6, %for.inc81.4 ], [ 7, %for.inc81.5 ], [ 8, %for.inc81.6 ], [ 9, %for.inc81.7 ], [ 10, %for.inc81.8 ], [ 11, %for.inc81.9 ], [ 12, %for.inc81.10 ], [ 13, %for.inc81.11 ], [ 14, %for.inc81.12 ], [ 15, %for.inc81.13 ], [ 16, %for.inc81.14 ], [ 17, %for.inc81.15 ], [ 18, %for.inc81.16 ], [ 19, %for.inc81.17 ], [ 20, %for.inc81.18 ], [ 21, %for.inc81.19 ], [ 22, %for.inc81.20 ], [ 23, %for.inc81.21 ], [ 24, %for.inc81.22 ], [ 25, %for.inc81.23 ], [ 26, %for.inc81.24 ], [ 27, %for.inc81.25 ], [ 28, %for.inc81.26 ], [ 29, %for.inc81.27 ], [ 30, %for.inc81.28 ], [ %spec.select, %for.inc81.29 ]
-  %conv85175 = zext i8 %.pre to i32
-  %shl.i172 = lshr i32 -2147483648, %conv85175
+for.end83:                                        ; preds = %for.inc81.29, %for.inc81.28, %for.inc81.27, %for.inc81.26, %for.inc81.25, %for.inc81.24, %for.inc81.23, %for.inc81.22, %for.inc81.21, %for.inc81.20, %for.inc81.19, %for.inc81.18, %for.inc81.17, %for.inc81.16, %for.inc81.15, %for.inc81.14, %for.inc81.13, %for.inc81.12, %for.inc81.11, %for.inc81.10, %for.inc81.9, %for.inc81.8, %for.inc81.7, %for.inc81.6, %for.inc81.5, %for.inc81.4, %for.inc81.3, %for.inc81.2, %for.inc81.1, %for.inc81, %for.cond71.preheader
+  %i.3.lcssa = phi i32 [ 1, %for.cond71.preheader ], [ 2, %for.inc81 ], [ 3, %for.inc81.1 ], [ 4, %for.inc81.2 ], [ 5, %for.inc81.3 ], [ 6, %for.inc81.4 ], [ 7, %for.inc81.5 ], [ 8, %for.inc81.6 ], [ 9, %for.inc81.7 ], [ 10, %for.inc81.8 ], [ 11, %for.inc81.9 ], [ 12, %for.inc81.10 ], [ 13, %for.inc81.11 ], [ 14, %for.inc81.12 ], [ 15, %for.inc81.13 ], [ 16, %for.inc81.14 ], [ 17, %for.inc81.15 ], [ 18, %for.inc81.16 ], [ 19, %for.inc81.17 ], [ 20, %for.inc81.18 ], [ 21, %for.inc81.19 ], [ 22, %for.inc81.20 ], [ 23, %for.inc81.21 ], [ 24, %for.inc81.22 ], [ 25, %for.inc81.23 ], [ 26, %for.inc81.24 ], [ 27, %for.inc81.25 ], [ 28, %for.inc81.26 ], [ 29, %for.inc81.27 ], [ 30, %for.inc81.28 ], [ %spec.select, %for.inc81.29 ]
+  %conv85176 = zext i8 %.pre to i32
+  %shl.i172 = lshr i32 -2147483648, %conv85176
   %conv.i173 = sext i32 %shl.i172 to i64
   %and.i174 = and i64 %and, %conv.i173
   %tobool88.not = icmp eq i64 %and.i174, 0
@@ -499,8 +497,8 @@ attributes #8 = { nounwind }
 !16 = distinct !{!16, !17}
 !17 = !{!"llvm.loop.mustprogress"}
 !18 = !{!6, !8, i64 16}
-!19 = !{!12, !10, i64 8}
-!20 = distinct !{!20, !17}
+!19 = distinct !{!19, !17}
+!20 = !{!12, !10, i64 8}
 !21 = distinct !{!21, !17}
 !22 = !{!6, !10, i64 32}
 !23 = !{!6, !10, i64 24}

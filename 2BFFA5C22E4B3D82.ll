@@ -606,7 +606,7 @@ for.end:                                          ; preds = %for.inc, %for.inc.u
   %call98 = tail call i32 @putc(i32 noundef %.BitsPerPixel.0, ptr noundef %55)
   %add99 = add nuw nsw i32 %.BitsPerPixel.0, 1
   %init_bits.i = getelementptr inbounds %struct.gif_dest_struct, ptr %dinfo, i64 0, i32 4
-  store i32 %add99, ptr %init_bits.i, align 8, !tbaa !61
+  store i32 %add99, ptr %init_bits.i, align 8, !tbaa !48
   %n_bits.i = getelementptr inbounds %struct.gif_dest_struct, ptr %dinfo, i64 0, i32 2
   store i32 %add99, ptr %n_bits.i, align 8, !tbaa !49
   %notmask.i = shl i32 -2, %.BitsPerPixel.0
@@ -694,7 +694,7 @@ if.then.i:                                        ; preds = %while.body
   %7 = load i32, ptr %bytesinpkt, align 8, !tbaa !55
   %conv6.i = sext i32 %7 to i64
   %cmp7.not.i = icmp eq i64 %call.i, %conv6.i
-  br i1 %cmp7.not.i, label %if.end.i, label %if.then9.i
+  br i1 %cmp7.not.i, label %flush_packet.exit, label %if.then9.i
 
 if.then9.i:                                       ; preds = %if.then.i
   %8 = load ptr, ptr %cinfo.i, align 8, !tbaa !16
@@ -703,14 +703,14 @@ if.then9.i:                                       ; preds = %if.then.i
   store i32 36, ptr %msg_code.i, align 8, !tbaa !24
   %10 = load ptr, ptr %9, align 8, !tbaa !26
   tail call void %10(ptr noundef nonnull %8) #6
-  br label %if.end.i
+  br label %flush_packet.exit
 
-if.end.i:                                         ; preds = %if.then9.i, %if.then.i
+flush_packet.exit:                                ; preds = %if.then.i, %if.then9.i
   store i32 0, ptr %bytesinpkt, align 8, !tbaa !55
   br label %if.end
 
-if.end:                                           ; preds = %if.end.i, %while.body
-  %11 = phi i32 [ 0, %if.end.i ], [ %5, %while.body ]
+if.end:                                           ; preds = %flush_packet.exit, %while.body
+  %11 = phi i32 [ 0, %flush_packet.exit ], [ %5, %while.body ]
   %12 = load i64, ptr %cur_accum, align 8, !tbaa !56
   %shr = ashr i64 %12, 8
   store i64 %shr, ptr %cur_accum, align 8, !tbaa !56
@@ -718,7 +718,7 @@ if.end:                                           ; preds = %if.end.i, %while.bo
   %sub = add nsw i32 %13, -8
   store i32 %sub, ptr %cur_bits, align 8, !tbaa !54
   %cmp = icmp sgt i32 %13, 15
-  br i1 %cmp, label %while.body, label %while.end, !llvm.loop !62
+  br i1 %cmp, label %while.body, label %while.end, !llvm.loop !61
 
 while.end:                                        ; preds = %if.end, %entry
   %free_code = getelementptr inbounds %struct.gif_dest_struct, ptr %dinfo, i64 0, i32 11
@@ -821,7 +821,7 @@ attributes #6 = { nounwind }
 !45 = !{!15, !15, i64 0}
 !46 = !{!17, !12, i64 96}
 !47 = !{!17, !12, i64 92}
-!48 = !{!10, !10, i64 0}
+!48 = !{!17, !10, i64 64}
 !49 = !{!17, !10, i64 56}
 !50 = !{!17, !12, i64 60}
 !51 = distinct !{!51, !52}
@@ -834,5 +834,4 @@ attributes #6 = { nounwind }
 !58 = distinct !{!58, !52}
 !59 = !{!6, !10, i64 132}
 !60 = distinct !{!60, !52}
-!61 = !{!17, !10, i64 64}
-!62 = distinct !{!62, !52}
+!61 = distinct !{!61, !52}

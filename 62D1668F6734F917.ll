@@ -145,16 +145,16 @@ if.then:                                          ; preds = %entry
   store i32 %rem, ptr %call4, align 8, !tbaa !13
   %left = getelementptr inbounds %struct.node, ptr %call4, i64 0, i32 1
   %right = getelementptr inbounds %struct.node, ptr %call4, i64 0, i32 2
-  %div37 = lshr i32 %n, 1
+  %div36 = lshr i32 %n, 1
   %add5 = add nsw i32 %level, 1
   tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %left, i8 0, i64 16, i1 false)
-  %call6 = tail call ptr @RandTree(i32 noundef %div37, i32 noundef %add.i, i32 noundef %newnode.0, i32 noundef %add5)
+  %call6 = tail call ptr @RandTree(i32 noundef %div36, i32 noundef %add.i, i32 noundef %newnode.0, i32 noundef %add5)
   %add9 = add nuw nsw i32 %n, 1
   br label %for.body.i
 
 for.body.i:                                       ; preds = %for.body.i, %if.then
   %n.addr.05.i = phi i32 [ %dec.i, %for.body.i ], [ %add9, %if.then ]
-  %seed.addr.04.i = phi i32 [ %add.i.i36, %for.body.i ], [ %add.i, %if.then ]
+  %seed.addr.04.i = phi i32 [ %add.i.i37, %for.body.i ], [ %add.i, %if.then ]
   %div.i.i.i = sdiv i32 %seed.addr.04.i, 10000
   %rem.i.i.i = srem i32 %seed.addr.04.i, 10000
   %mul.i.i.i = mul nsw i32 %rem.i.i.i, 3141
@@ -164,7 +164,7 @@ for.body.i:                                       ; preds = %for.body.i, %if.the
   %mul5.i.i.i = mul nsw i32 %rem4.i.i.i, 10000
   %mul6.i.i.i = mul nsw i32 %rem.i.i.i, 5821
   %add7.i.i.i = add nsw i32 %mul6.i.i.i, 1
-  %add.i.i36 = add nsw i32 %add7.i.i.i, %mul5.i.i.i
+  %add.i.i37 = add nsw i32 %add7.i.i.i, %mul5.i.i.i
   %dec.i = add nsw i32 %n.addr.05.i, -1
   %tobool.not.i = icmp eq i32 %dec.i, 0
   br i1 %tobool.not.i, label %skiprand.exit, label %for.body.i, !llvm.loop !14
@@ -174,7 +174,7 @@ common.ret38:                                     ; preds = %entry, %skiprand.ex
   ret ptr %common.ret38.op
 
 skiprand.exit:                                    ; preds = %for.body.i
-  %call12 = tail call ptr @RandTree(i32 noundef %div37, i32 noundef %add.i.i36, i32 noundef %node, i32 noundef %add5)
+  %call12 = tail call ptr @RandTree(i32 noundef %div36, i32 noundef %add.i.i37, i32 noundef %node, i32 noundef %add5)
   store ptr %call6, ptr %left, align 8, !tbaa !5
   store ptr %call12, ptr %right, align 8, !tbaa !11
   br label %common.ret38
@@ -412,11 +412,11 @@ if.end19:                                         ; preds = %if.then16, %if.end1
 
 declare i32 @dealwithargs(i32 noundef, ptr noundef) local_unnamed_addr #5
 
-; Function Attrs: nocallback nofree nounwind willreturn memory(argmem: write)
-declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #9
-
 ; Function Attrs: nofree nounwind
-declare noundef i32 @puts(ptr nocapture noundef readonly) local_unnamed_addr #10
+declare noundef i32 @puts(ptr nocapture noundef readonly) local_unnamed_addr #9
+
+; Function Attrs: nocallback nofree nounwind willreturn memory(argmem: write)
+declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #10
 
 attributes #0 = { nofree nounwind uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #1 = { nofree nounwind "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
@@ -427,8 +427,8 @@ attributes #5 = { "no-trapping-math"="true" "stack-protector-buffer-size"="8" "t
 attributes #6 = { mustprogress nofree norecurse nosync nounwind willreturn memory(argmem: readwrite) uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #7 = { mustprogress nofree norecurse nosync nounwind willreturn memory(argmem: write) uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #8 = { nofree nosync nounwind memory(readwrite, inaccessiblemem: none) uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
-attributes #9 = { nocallback nofree nounwind willreturn memory(argmem: write) }
-attributes #10 = { nofree nounwind }
+attributes #9 = { nofree nounwind }
+attributes #10 = { nocallback nofree nounwind willreturn memory(argmem: write) }
 attributes #11 = { nounwind }
 
 !llvm.module.flags = !{!0, !1, !2, !3}

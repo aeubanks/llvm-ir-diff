@@ -393,7 +393,7 @@ sw.epilog:                                        ; preds = %sw.default, %sw.bb1
 
 sw.bb.i:                                          ; preds = %sw.epilog
   %5 = load i32, ptr %arrayidx, align 4, !tbaa !23
-  %add.i = add nsw i32 %5, %3
+  %add.i = add nsw i32 %3, %5
   br label %calculate.exit
 
 sw.bb1.i:                                         ; preds = %sw.epilog
@@ -403,7 +403,7 @@ sw.bb1.i:                                         ; preds = %sw.epilog
 
 sw.bb4.i:                                         ; preds = %sw.epilog
   %7 = load i32, ptr %arrayidx, align 4, !tbaa !23
-  %mul.i = mul nsw i32 %7, %3
+  %mul.i = mul nsw i32 %3, %7
   br label %calculate.exit
 
 sw.bb7.i:                                         ; preds = %sw.epilog
@@ -581,8 +581,8 @@ if.then12:                                        ; preds = %saveSolution.exit
   br label %cleanup
 
 for.cond16.preheader:                             ; preds = %for.cond.preheader, %for.inc81
-  %16 = phi i32 [ %.pre, %for.cond.preheader ], [ %29, %for.inc81 ]
-  %17 = phi i32 [ %.pre, %for.cond.preheader ], [ %30, %for.inc81 ]
+  %16 = phi i32 [ %.pre, %for.cond.preheader ], [ %30, %for.inc81 ]
+  %17 = phi i32 [ %.pre, %for.cond.preheader ], [ %31, %for.inc81 ]
   %currOp.0141 = phi i32 [ 1, %for.cond.preheader ], [ %inc82, %for.inc81 ]
   %add17137 = add nsw i32 %17, %searchDepth
   %cmp18138 = icmp sgt i32 %add17137, 0
@@ -594,14 +594,14 @@ for.body19.lr.ph:                                 ; preds = %for.cond16.preheade
   br label %for.body19
 
 for.body19:                                       ; preds = %for.body19.lr.ph, %for.inc78
-  %19 = phi i32 [ %16, %for.body19.lr.ph ], [ %27, %for.inc78 ]
+  %19 = phi i32 [ %16, %for.body19.lr.ph ], [ %28, %for.inc78 ]
   %indvars.iv144 = phi i64 [ 0, %for.body19.lr.ph ], [ %indvars.iv.next145, %for.inc78 ]
   %20 = trunc i64 %indvars.iv144 to i32
   %shl = shl nuw i32 1, %20
   %and = and i32 %shl, %usedMask
   %tobool20.not = icmp eq i32 %and, 0
   %cmp24135 = icmp ne i64 %indvars.iv144, 0
-  %or.cond142 = select i1 %tobool20.not, i1 %cmp24135, i1 false
+  %or.cond142 = and i1 %tobool20.not, %cmp24135
   br i1 %or.cond142, label %for.body25.lr.ph, label %for.inc78
 
 for.body25.lr.ph:                                 ; preds = %for.body19
@@ -649,19 +649,19 @@ land.lhs.true48:                                  ; preds = %if.end46
 
 land.lhs.true55:                                  ; preds = %land.lhs.true48, %if.end46
   %spec.select = tail call i32 @llvm.smax.i32(i32 %23, i32 %24)
-  %spec.select134 = tail call i32 @llvm.smin.i32(i32 %23, i32 %24)
+  %spec.select132 = tail call i32 @llvm.smin.i32(i32 %23, i32 %24)
   br label %if.end58
 
 if.end58:                                         ; preds = %land.lhs.true55, %if.end46
   %working1.0 = phi i32 [ %spec.select, %land.lhs.true55 ], [ %23, %if.end46 ]
-  %working2.0 = phi i32 [ %spec.select134, %land.lhs.true55 ], [ %24, %if.end46 ]
+  %25 = phi i32 [ %spec.select132, %land.lhs.true55 ], [ %24, %if.end46 ]
   %or61 = or i32 %or, %shl26
-  %25 = load ptr, ptr @combList, align 8, !tbaa !5
-  %arrayidx63 = getelementptr inbounds %struct.Comb, ptr %25, i64 %idxprom62
+  %26 = load ptr, ptr @combList, align 8, !tbaa !5
+  %arrayidx63 = getelementptr inbounds %struct.Comb, ptr %26, i64 %idxprom62
   store i32 %working1.0, ptr %arrayidx63, align 4, !tbaa !23
-  %operand267 = getelementptr inbounds %struct.Comb, ptr %25, i64 %idxprom62, i32 1
-  store i32 %working2.0, ptr %operand267, align 4, !tbaa !24
-  %operation = getelementptr inbounds %struct.Comb, ptr %25, i64 %idxprom62, i32 2
+  %operand267 = getelementptr inbounds %struct.Comb, ptr %26, i64 %idxprom62, i32 1
+  store i32 %25, ptr %operand267, align 4, !tbaa !24
+  %operation = getelementptr inbounds %struct.Comb, ptr %26, i64 %idxprom62, i32 2
   store i32 %currOp.0141, ptr %operation, align 4, !tbaa !18
   switch i32 %currOp.0141, label %calculate.exit [
     i32 1, label %sw.bb.i
@@ -671,25 +671,25 @@ if.end58:                                         ; preds = %land.lhs.true55, %i
   ]
 
 sw.bb.i:                                          ; preds = %if.end58
-  %add.i = add nsw i32 %working2.0, %working1.0
+  %add.i = add nsw i32 %25, %working1.0
   br label %calculate.exit
 
 sw.bb1.i:                                         ; preds = %if.end58
-  %sub.i = sub nsw i32 %working1.0, %working2.0
+  %sub.i = sub nsw i32 %working1.0, %25
   br label %calculate.exit
 
 sw.bb4.i:                                         ; preds = %if.end58
-  %mul.i = mul nsw i32 %working2.0, %working1.0
+  %mul.i = mul nsw i32 %25, %working1.0
   br label %calculate.exit
 
 sw.bb7.i:                                         ; preds = %if.end58
-  %div.i = sdiv i32 %working1.0, %working2.0
+  %div.i = sdiv i32 %working1.0, %25
   br label %calculate.exit
 
 calculate.exit:                                   ; preds = %if.end58, %sw.bb.i, %sw.bb1.i, %sw.bb4.i, %sw.bb7.i
   %retval.0.i = phi i32 [ %div.i, %sw.bb7.i ], [ %mul.i, %sw.bb4.i ], [ %sub.i, %sw.bb1.i ], [ %add.i, %sw.bb.i ], [ 0, %if.end58 ]
-  %26 = load i32, ptr @listLength, align 4, !tbaa !9
-  %add73 = add nsw i32 %26, %searchDepth
+  %27 = load i32, ptr @listLength, align 4, !tbaa !9
+  %add73 = add nsw i32 %27, %searchDepth
   %idxprom74 = sext i32 %add73 to i64
   %arrayidx75 = getelementptr inbounds i32, ptr %22, i64 %idxprom74
   store i32 %retval.0.i, ptr %arrayidx75, align 4, !tbaa !9
@@ -706,16 +706,16 @@ for.inc78.loopexit:                               ; preds = %for.inc
   br label %for.inc78
 
 for.inc78:                                        ; preds = %for.inc78.loopexit, %for.body19
-  %27 = phi i32 [ %.pre148, %for.inc78.loopexit ], [ %19, %for.body19 ]
+  %28 = phi i32 [ %.pre148, %for.inc78.loopexit ], [ %19, %for.body19 ]
   %indvars.iv.next145 = add nuw nsw i64 %indvars.iv144, 1
-  %add17 = add nsw i32 %27, %searchDepth
-  %28 = sext i32 %add17 to i64
-  %cmp18 = icmp slt i64 %indvars.iv.next145, %28
+  %add17 = add nsw i32 %28, %searchDepth
+  %29 = sext i32 %add17 to i64
+  %cmp18 = icmp slt i64 %indvars.iv.next145, %29
   br i1 %cmp18, label %for.body19, label %for.inc81, !llvm.loop !28
 
 for.inc81:                                        ; preds = %for.inc78, %for.cond16.preheader
-  %29 = phi i32 [ %16, %for.cond16.preheader ], [ %27, %for.inc78 ]
-  %30 = phi i32 [ %17, %for.cond16.preheader ], [ %27, %for.inc78 ]
+  %30 = phi i32 [ %16, %for.cond16.preheader ], [ %28, %for.inc78 ]
+  %31 = phi i32 [ %17, %for.cond16.preheader ], [ %28, %for.inc78 ]
   %inc82 = add nuw nsw i32 %currOp.0141, 1
   %exitcond147.not = icmp eq i32 %inc82, 5
   br i1 %exitcond147.not, label %cleanup, label %for.cond16.preheader, !llvm.loop !29

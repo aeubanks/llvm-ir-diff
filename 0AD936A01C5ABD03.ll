@@ -501,7 +501,7 @@ if.then.i:                                        ; preds = %land.rhs.i
   %reass.sub = sub i64 %pos.135.i, %call.i
   %add8.i = add i64 %reass.sub, 1
   %arrayidx9.i = getelementptr inbounds i8, ptr %16, i64 %add8.i
-  %call10.i = tail call i32 @strncmp(ptr noundef %0, ptr noundef %arrayidx9.i, i64 noundef %call.i) #5
+  %call10.i = tail call i32 @strncmp(ptr noundef nonnull %0, ptr noundef %arrayidx9.i, i64 noundef %call.i) #5
   %cmp11.i = icmp eq i32 %call10.i, 0
   br i1 %cmp11.i, label %if.then, label %if.else.i
 
@@ -515,11 +515,11 @@ if.end13.i:                                       ; preds = %while.cond1.i, %if.
   br i1 %cmp.i, label %land.rhs.i.backedge, label %strsearch.exit.thread
 
 strsearch.exit.thread:                            ; preds = %if.end13.i, %init_search.exit
-  %call1029 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.211, ptr noundef %0, ptr noundef nonnull @.str.213, ptr noundef %16)
+  %call1029 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.211, ptr noundef nonnull %0, ptr noundef nonnull @.str.213, ptr noundef %16)
   br label %if.end
 
 if.then:                                          ; preds = %if.then.i
-  %call10 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.211, ptr noundef %0, ptr noundef nonnull @.str.212, ptr noundef nonnull %16)
+  %call10 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.211, ptr noundef nonnull %0, ptr noundef nonnull @.str.212, ptr noundef nonnull %16)
   %call12 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.214, ptr noundef nonnull %arrayidx9.i)
   br label %if.end
 
@@ -528,7 +528,7 @@ if.end:                                           ; preds = %strsearch.exit.thre
   %call.i25 = tail call i32 @putc(i32 noundef 10, ptr noundef %19)
   %indvars.iv.next = add nuw i64 %indvars.iv, 1
   %arrayidx = getelementptr inbounds [1333 x ptr], ptr @__const.main.find_strings, i64 0, i64 %indvars.iv.next
-  %20 = load ptr, ptr %arrayidx, align 8
+  %20 = load ptr, ptr %arrayidx, align 8, !tbaa !15
   %tobool.not = icmp eq ptr %20, null
   br i1 %tobool.not, label %for.end, label %for.body, !llvm.loop !19
 

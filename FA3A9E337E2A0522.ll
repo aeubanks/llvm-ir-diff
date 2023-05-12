@@ -110,7 +110,7 @@ _ZNK20btAlignedObjectArrayI10btTriangleE4copyEiiPS0_.exit.i.i: ; preds = %for.bo
   %7 = load ptr, ptr %m_data.i9.i.i, align 8, !tbaa !16
   %tobool.not.i10.i.i = icmp eq ptr %7, null
   %m_ownsMemory.i.i.i = getelementptr inbounds %class.btTriangleBuffer, ptr %this, i64 0, i32 1, i32 6
-  %8 = load i8, ptr %m_ownsMemory.i.i.i, align 8
+  %8 = load i8, ptr %m_ownsMemory.i.i.i, align 8, !range !19
   %tobool2.not.i.i.i = icmp eq i8 %8, 0
   %or.cond.i.i = select i1 %tobool.not.i10.i.i, i1 true, i1 %tobool2.not.i.i.i
   br i1 %or.cond.i.i, label %_ZN20btAlignedObjectArrayI10btTriangleE10deallocateEv.exit.i.i, label %if.then3.i.i.i
@@ -120,7 +120,7 @@ if.then3.i.i.i:                                   ; preds = %_ZNK20btAlignedObje
   br label %_ZN20btAlignedObjectArrayI10btTriangleE10deallocateEv.exit.i.i
 
 _ZN20btAlignedObjectArrayI10btTriangleE10deallocateEv.exit.i.i: ; preds = %if.then3.i.i.i, %_ZNK20btAlignedObjectArrayI10btTriangleE4copyEiiPS0_.exit.i.i
-  store i8 1, ptr %m_ownsMemory.i.i.i, align 8, !tbaa !19
+  store i8 1, ptr %m_ownsMemory.i.i.i, align 8, !tbaa !20
   store ptr %retval.0.i.i.i, ptr %m_data.i9.i.i, align 8, !tbaa !16
   store i32 %cond.i.i, ptr %m_capacity.i.i, align 8, !tbaa !15
   %.pre7.i = load i32, ptr %m_size.i.i, align 4, !tbaa !9
@@ -134,9 +134,9 @@ _ZN20btAlignedObjectArrayI10btTriangleE9push_backERKS0_.exit: ; preds = %entry, 
   %arrayidx.i = getelementptr inbounds %struct.btTriangle, ptr %10, i64 %idxprom.i
   call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 4 dereferenceable(48) %arrayidx.i, ptr noundef nonnull align 8 dereferenceable(48) %tri.sroa.0, i64 48, i1 false), !tbaa.struct !17
   %tri.sroa.6.0.arrayidx.i.sroa_idx = getelementptr inbounds i8, ptr %arrayidx.i, i64 48
-  store i32 %partId, ptr %tri.sroa.6.0.arrayidx.i.sroa_idx, align 4, !tbaa.struct !20
+  store i32 %partId, ptr %tri.sroa.6.0.arrayidx.i.sroa_idx, align 4, !tbaa.struct !21
   %tri.sroa.7.0.arrayidx.i.sroa_idx = getelementptr inbounds i8, ptr %arrayidx.i, i64 52
-  store i32 %triangleIndex, ptr %tri.sroa.7.0.arrayidx.i.sroa_idx, align 4, !tbaa.struct !21
+  store i32 %triangleIndex, ptr %tri.sroa.7.0.arrayidx.i.sroa_idx, align 4, !tbaa.struct !22
   %11 = load i32, ptr %m_size.i.i, align 4, !tbaa !9
   %inc.i = add nsw i32 %11, 1
   store i32 %inc.i, ptr %m_size.i.i, align 4, !tbaa !9
@@ -156,25 +156,25 @@ declare void @llvm.lifetime.end.p0(i64 immarg, ptr nocapture) #1
 ; Function Attrs: inlinehint uwtable
 define linkonce_odr dso_local void @_ZN16btTriangleBufferD2Ev(ptr noundef nonnull align 8 dereferenceable(40) %this) unnamed_addr #3 comdat align 2 personality ptr @__gxx_personality_v0 {
 entry:
-  store ptr getelementptr inbounds ({ [5 x ptr] }, ptr @_ZTV16btTriangleBuffer, i64 0, inrange i32 0, i64 2), ptr %this, align 8, !tbaa !22
+  store ptr getelementptr inbounds ({ [5 x ptr] }, ptr @_ZTV16btTriangleBuffer, i64 0, inrange i32 0, i64 2), ptr %this, align 8, !tbaa !23
   %m_data.i.i.i = getelementptr inbounds %class.btTriangleBuffer, ptr %this, i64 0, i32 1, i32 5
   %0 = load ptr, ptr %m_data.i.i.i, align 8, !tbaa !16
   %tobool.not.i.i.i = icmp eq ptr %0, null
   %m_ownsMemory.i.i.i = getelementptr inbounds %class.btTriangleBuffer, ptr %this, i64 0, i32 1, i32 6
-  %1 = load i8, ptr %m_ownsMemory.i.i.i, align 8
+  %1 = load i8, ptr %m_ownsMemory.i.i.i, align 8, !range !19
   %tobool2.not.i.i.i = icmp eq i8 %1, 0
   %or.cond.i.i = select i1 %tobool.not.i.i.i, i1 true, i1 %tobool2.not.i.i.i
-  br i1 %or.cond.i.i, label %_ZN20btAlignedObjectArrayI10btTriangleED2Ev.exit, label %if.then3.i.i.i
+  br i1 %or.cond.i.i, label %invoke.cont, label %if.then3.i.i.i
 
 if.then3.i.i.i:                                   ; preds = %entry
   invoke void @_Z21btAlignedFreeInternalPv(ptr noundef nonnull %0)
-          to label %_ZN20btAlignedObjectArrayI10btTriangleED2Ev.exit unwind label %lpad
+          to label %invoke.cont unwind label %lpad
 
-_ZN20btAlignedObjectArrayI10btTriangleED2Ev.exit: ; preds = %if.then3.i.i.i, %entry
-  store i8 1, ptr %m_ownsMemory.i.i.i, align 8, !tbaa !19
+invoke.cont:                                      ; preds = %entry, %if.then3.i.i.i
+  %m_size.i.i.i = getelementptr inbounds %class.btTriangleBuffer, ptr %this, i64 0, i32 1, i32 2
+  store i8 1, ptr %m_ownsMemory.i.i.i, align 8, !tbaa !20
   store ptr null, ptr %m_data.i.i.i, align 8, !tbaa !16
-  %m_size.i4.i.i = getelementptr inbounds %class.btTriangleBuffer, ptr %this, i64 0, i32 1, i32 2
-  store i32 0, ptr %m_size.i4.i.i, align 4, !tbaa !9
+  store i32 0, ptr %m_size.i.i.i, align 4, !tbaa !9
   %m_capacity.i.i.i = getelementptr inbounds %class.btTriangleBuffer, ptr %this, i64 0, i32 1, i32 3
   store i32 0, ptr %m_capacity.i.i.i, align 8, !tbaa !15
   tail call void @_ZN18btTriangleCallbackD2Ev(ptr noundef nonnull align 8 dereferenceable(8) %this)
@@ -200,25 +200,25 @@ terminate.lpad:                                   ; preds = %lpad
 ; Function Attrs: inlinehint uwtable
 define linkonce_odr dso_local void @_ZN16btTriangleBufferD0Ev(ptr noundef nonnull align 8 dereferenceable(40) %this) unnamed_addr #3 comdat align 2 personality ptr @__gxx_personality_v0 {
 entry:
-  store ptr getelementptr inbounds ({ [5 x ptr] }, ptr @_ZTV16btTriangleBuffer, i64 0, inrange i32 0, i64 2), ptr %this, align 8, !tbaa !22
+  store ptr getelementptr inbounds ({ [5 x ptr] }, ptr @_ZTV16btTriangleBuffer, i64 0, inrange i32 0, i64 2), ptr %this, align 8, !tbaa !23
   %m_data.i.i.i.i = getelementptr inbounds %class.btTriangleBuffer, ptr %this, i64 0, i32 1, i32 5
   %0 = load ptr, ptr %m_data.i.i.i.i, align 8, !tbaa !16
   %tobool.not.i.i.i.i = icmp eq ptr %0, null
   %m_ownsMemory.i.i.i.i = getelementptr inbounds %class.btTriangleBuffer, ptr %this, i64 0, i32 1, i32 6
-  %1 = load i8, ptr %m_ownsMemory.i.i.i.i, align 8
+  %1 = load i8, ptr %m_ownsMemory.i.i.i.i, align 8, !range !19
   %tobool2.not.i.i.i.i = icmp eq i8 %1, 0
   %or.cond.i.i.i = select i1 %tobool.not.i.i.i.i, i1 true, i1 %tobool2.not.i.i.i.i
-  br i1 %or.cond.i.i.i, label %_ZN20btAlignedObjectArrayI10btTriangleED2Ev.exit.i, label %if.then3.i.i.i.i
+  br i1 %or.cond.i.i.i, label %invoke.cont.i, label %if.then3.i.i.i.i
 
 if.then3.i.i.i.i:                                 ; preds = %entry
   invoke void @_Z21btAlignedFreeInternalPv(ptr noundef nonnull %0)
-          to label %_ZN20btAlignedObjectArrayI10btTriangleED2Ev.exit.i unwind label %lpad.i
+          to label %invoke.cont.i unwind label %lpad.i
 
-_ZN20btAlignedObjectArrayI10btTriangleED2Ev.exit.i: ; preds = %if.then3.i.i.i.i, %entry
-  store i8 1, ptr %m_ownsMemory.i.i.i.i, align 8, !tbaa !19
+invoke.cont.i:                                    ; preds = %if.then3.i.i.i.i, %entry
+  %m_size.i.i.i.i = getelementptr inbounds %class.btTriangleBuffer, ptr %this, i64 0, i32 1, i32 2
+  store i8 1, ptr %m_ownsMemory.i.i.i.i, align 8, !tbaa !20
   store ptr null, ptr %m_data.i.i.i.i, align 8, !tbaa !16
-  %m_size.i4.i.i.i = getelementptr inbounds %class.btTriangleBuffer, ptr %this, i64 0, i32 1, i32 2
-  store i32 0, ptr %m_size.i4.i.i.i, align 4, !tbaa !9
+  store i32 0, ptr %m_size.i.i.i.i, align 4, !tbaa !9
   %m_capacity.i.i.i.i = getelementptr inbounds %class.btTriangleBuffer, ptr %this, i64 0, i32 1, i32 3
   store i32 0, ptr %m_capacity.i.i.i.i, align 8, !tbaa !15
   invoke void @_ZN18btTriangleCallbackD2Ev(ptr noundef nonnull align 8 dereferenceable(8) %this)
@@ -237,11 +237,11 @@ terminate.lpad.i:                                 ; preds = %lpad.i
   tail call void @__clang_call_terminate(ptr %4) #7
   unreachable
 
-invoke.cont:                                      ; preds = %_ZN20btAlignedObjectArrayI10btTriangleED2Ev.exit.i
+invoke.cont:                                      ; preds = %invoke.cont.i
   tail call void @_ZdlPv(ptr noundef nonnull %this) #8
   ret void
 
-lpad:                                             ; preds = %_ZN20btAlignedObjectArrayI10btTriangleED2Ev.exit.i
+lpad:                                             ; preds = %invoke.cont.i
   %5 = landingpad { ptr, i32 }
           cleanup
   br label %lpad.body
@@ -307,8 +307,9 @@ attributes #9 = { nounwind }
 !16 = !{!10, !13, i64 16}
 !17 = !{i64 0, i64 16, !6, i64 16, i64 16, !6, i64 32, i64 16, !6, i64 48, i64 4, !18, i64 52, i64 4, !18}
 !18 = !{!12, !12, i64 0}
-!19 = !{!10, !14, i64 24}
-!20 = !{i64 0, i64 4, !18, i64 4, i64 4, !18}
-!21 = !{i64 0, i64 4, !18}
-!22 = !{!23, !23, i64 0}
-!23 = !{!"vtable pointer", !8, i64 0}
+!19 = !{i8 0, i8 2}
+!20 = !{!10, !14, i64 24}
+!21 = !{i64 0, i64 4, !18, i64 4, i64 4, !18}
+!22 = !{i64 0, i64 4, !18}
+!23 = !{!24, !24, i64 0}
+!24 = !{!"vtable pointer", !8, i64 0}

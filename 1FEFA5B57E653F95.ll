@@ -45,8 +45,8 @@ target triple = "x86_64-unknown-linux-gnu"
 @.str.49 = private unnamed_addr constant [3 x i8] c"%d\00", align 1
 @.str.50 = private unnamed_addr constant [3 x i8] c"%f\00", align 1
 @.str.51 = private unnamed_addr constant [4 x i8] c"%ld\00", align 1
-@str = private unnamed_addr constant [81 x i8] c"================================================================================\00", align 1
-@str.52 = private unnamed_addr constant [536 x i8] c"              _____ _                 _      __  __  ____   _____ \0A             / ____(_)               | |    |  \\/  |/ __ \\ / ____|\0A            | (___  _ _ __ ___  _ __ | | ___| \\  / | |  | | |     \0A             \\___ \\| | '_ ` _ \\| '_ \\| |/ _ \\ |\\/| | |  | | |     \0A             ____) | | | | | | | |_) | |  __/ |  | | |__| | |____ \0A            |_____/|_|_| |_| |_| .__/|_|\\___|_|  |_|\\____/ \\_____|\0A                               | |                                \0A                               |_|                                \00", align 1
+@str = private unnamed_addr constant [536 x i8] c"              _____ _                 _      __  __  ____   _____ \0A             / ____(_)               | |    |  \\/  |/ __ \\ / ____|\0A            | (___  _ _ __ ___  _ __ | | ___| \\  / | |  | | |     \0A             \\___ \\| | '_ ` _ \\| '_ \\| |/ _ \\ |\\/| | |  | | |     \0A             ____) | | | | | | | |_) | |  __/ |  | | |__| | |____ \0A            |_____/|_|_| |_| |_| .__/|_|\\___|_|  |_|\\____/ \\_____|\0A                               | |                                \0A                               |_|                                \00", align 1
+@str.52 = private unnamed_addr constant [81 x i8] c"================================================================================\00", align 1
 @str.53 = private unnamed_addr constant [29 x i8] c"Usage: ./SimpleMOC <options>\00", align 1
 @str.54 = private unnamed_addr constant [17 x i8] c"Options include:\00", align 1
 @str.55 = private unnamed_addr constant [51 x i8] c"  -t <threads>     Number of OpenMP threads to run\00", align 1
@@ -61,9 +61,9 @@ target triple = "x86_64-unknown-linux-gnu"
 define dso_local void @logo(i32 noundef %version) local_unnamed_addr #0 {
 entry:
   %v = alloca [100 x i8], align 16
-  %puts.i = tail call i32 @puts(ptr nonnull dereferenceable(1) @str)
-  %puts = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.52)
-  %puts.i6 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str)
+  %puts.i = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.52)
+  %puts = tail call i32 @puts(ptr nonnull dereferenceable(1) @str)
+  %puts.i8 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.52)
   %putchar = tail call i32 @putchar(i32 10)
   %0 = load ptr, ptr @stdout, align 8, !tbaa !5
   %fputc7.i = tail call i32 @fputc(i32 32, ptr %0)
@@ -138,217 +138,217 @@ entry:
   %36 = load ptr, ptr @stdout, align 8, !tbaa !5
   %fputc.i = tail call i32 @fputc(i32 10, ptr %36)
   %37 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %fputc7.i14 = tail call i32 @fputc(i32 32, ptr %37)
+  %fputc7.i16 = tail call i32 @fputc(i32 32, ptr %37)
   %38 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %fputc7.i14.1 = tail call i32 @fputc(i32 32, ptr %38)
+  %fputc7.i16.1 = tail call i32 @fputc(i32 32, ptr %38)
   %39 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %fputc7.i14.2 = tail call i32 @fputc(i32 32, ptr %39)
+  %fputc7.i16.2 = tail call i32 @fputc(i32 32, ptr %39)
   %40 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %fputc7.i14.3 = tail call i32 @fputc(i32 32, ptr %40)
+  %fputc7.i16.3 = tail call i32 @fputc(i32 32, ptr %40)
   %41 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %fputc7.i14.4 = tail call i32 @fputc(i32 32, ptr %41)
+  %fputc7.i16.4 = tail call i32 @fputc(i32 32, ptr %41)
   %42 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %fputc7.i14.5 = tail call i32 @fputc(i32 32, ptr %42)
+  %fputc7.i16.5 = tail call i32 @fputc(i32 32, ptr %42)
   %43 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %fputc7.i14.6 = tail call i32 @fputc(i32 32, ptr %43)
+  %fputc7.i16.6 = tail call i32 @fputc(i32 32, ptr %43)
   %44 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %fputc7.i14.7 = tail call i32 @fputc(i32 32, ptr %44)
+  %fputc7.i16.7 = tail call i32 @fputc(i32 32, ptr %44)
   %45 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %fputc7.i14.8 = tail call i32 @fputc(i32 32, ptr %45)
+  %fputc7.i16.8 = tail call i32 @fputc(i32 32, ptr %45)
   %46 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %fputc7.i14.9 = tail call i32 @fputc(i32 32, ptr %46)
+  %fputc7.i16.9 = tail call i32 @fputc(i32 32, ptr %46)
   %47 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %fputc7.i14.10 = tail call i32 @fputc(i32 32, ptr %47)
+  %fputc7.i16.10 = tail call i32 @fputc(i32 32, ptr %47)
   %48 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %fputc7.i14.11 = tail call i32 @fputc(i32 32, ptr %48)
+  %fputc7.i16.11 = tail call i32 @fputc(i32 32, ptr %48)
   %49 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %fputc7.i14.12 = tail call i32 @fputc(i32 32, ptr %49)
+  %fputc7.i16.12 = tail call i32 @fputc(i32 32, ptr %49)
   %50 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %fputc7.i14.13 = tail call i32 @fputc(i32 32, ptr %50)
+  %fputc7.i16.13 = tail call i32 @fputc(i32 32, ptr %50)
   %51 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %fputc7.i14.14 = tail call i32 @fputc(i32 32, ptr %51)
+  %fputc7.i16.14 = tail call i32 @fputc(i32 32, ptr %51)
   %52 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %fputc7.i14.15 = tail call i32 @fputc(i32 32, ptr %52)
+  %fputc7.i16.15 = tail call i32 @fputc(i32 32, ptr %52)
   %53 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %fputc7.i14.16 = tail call i32 @fputc(i32 32, ptr %53)
+  %fputc7.i16.16 = tail call i32 @fputc(i32 32, ptr %53)
   %54 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %fputc7.i14.17 = tail call i32 @fputc(i32 32, ptr %54)
+  %fputc7.i16.17 = tail call i32 @fputc(i32 32, ptr %54)
   %55 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %fputc7.i14.18 = tail call i32 @fputc(i32 32, ptr %55)
+  %fputc7.i16.18 = tail call i32 @fputc(i32 32, ptr %55)
   %56 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %fputc7.i14.19 = tail call i32 @fputc(i32 32, ptr %56)
+  %fputc7.i16.19 = tail call i32 @fputc(i32 32, ptr %56)
   %57 = load ptr, ptr @stdout, align 8, !tbaa !5
   %58 = tail call i64 @fwrite(ptr nonnull @.str.3, i64 41, i64 1, ptr %57)
   %59 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %fputc.i19 = tail call i32 @fputc(i32 10, ptr %59)
+  %fputc.i21 = tail call i32 @fputc(i32 10, ptr %59)
   %60 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %fputc7.i28 = tail call i32 @fputc(i32 32, ptr %60)
+  %fputc7.i30 = tail call i32 @fputc(i32 32, ptr %60)
   %61 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %fputc7.i28.1 = tail call i32 @fputc(i32 32, ptr %61)
+  %fputc7.i30.1 = tail call i32 @fputc(i32 32, ptr %61)
   %62 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %fputc7.i28.2 = tail call i32 @fputc(i32 32, ptr %62)
+  %fputc7.i30.2 = tail call i32 @fputc(i32 32, ptr %62)
   %63 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %fputc7.i28.3 = tail call i32 @fputc(i32 32, ptr %63)
+  %fputc7.i30.3 = tail call i32 @fputc(i32 32, ptr %63)
   %64 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %fputc7.i28.4 = tail call i32 @fputc(i32 32, ptr %64)
+  %fputc7.i30.4 = tail call i32 @fputc(i32 32, ptr %64)
   %65 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %fputc7.i28.5 = tail call i32 @fputc(i32 32, ptr %65)
+  %fputc7.i30.5 = tail call i32 @fputc(i32 32, ptr %65)
   %66 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %fputc7.i28.6 = tail call i32 @fputc(i32 32, ptr %66)
+  %fputc7.i30.6 = tail call i32 @fputc(i32 32, ptr %66)
   %67 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %fputc7.i28.7 = tail call i32 @fputc(i32 32, ptr %67)
+  %fputc7.i30.7 = tail call i32 @fputc(i32 32, ptr %67)
   %68 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %fputc7.i28.8 = tail call i32 @fputc(i32 32, ptr %68)
+  %fputc7.i30.8 = tail call i32 @fputc(i32 32, ptr %68)
   %69 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %fputc7.i28.9 = tail call i32 @fputc(i32 32, ptr %69)
+  %fputc7.i30.9 = tail call i32 @fputc(i32 32, ptr %69)
   %70 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %fputc7.i28.10 = tail call i32 @fputc(i32 32, ptr %70)
+  %fputc7.i30.10 = tail call i32 @fputc(i32 32, ptr %70)
   %71 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %fputc7.i28.11 = tail call i32 @fputc(i32 32, ptr %71)
+  %fputc7.i30.11 = tail call i32 @fputc(i32 32, ptr %71)
   %72 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %fputc7.i28.12 = tail call i32 @fputc(i32 32, ptr %72)
+  %fputc7.i30.12 = tail call i32 @fputc(i32 32, ptr %72)
   %73 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %fputc7.i28.13 = tail call i32 @fputc(i32 32, ptr %73)
+  %fputc7.i30.13 = tail call i32 @fputc(i32 32, ptr %73)
   %74 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %fputc7.i28.14 = tail call i32 @fputc(i32 32, ptr %74)
+  %fputc7.i30.14 = tail call i32 @fputc(i32 32, ptr %74)
   %75 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %fputc7.i28.15 = tail call i32 @fputc(i32 32, ptr %75)
+  %fputc7.i30.15 = tail call i32 @fputc(i32 32, ptr %75)
   %76 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %fputc7.i28.16 = tail call i32 @fputc(i32 32, ptr %76)
+  %fputc7.i30.16 = tail call i32 @fputc(i32 32, ptr %76)
   %77 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %fputc7.i28.17 = tail call i32 @fputc(i32 32, ptr %77)
+  %fputc7.i30.17 = tail call i32 @fputc(i32 32, ptr %77)
   %78 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %fputc7.i28.18 = tail call i32 @fputc(i32 32, ptr %78)
+  %fputc7.i30.18 = tail call i32 @fputc(i32 32, ptr %78)
   %79 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %fputc7.i28.19 = tail call i32 @fputc(i32 32, ptr %79)
+  %fputc7.i30.19 = tail call i32 @fputc(i32 32, ptr %79)
   %80 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %fputc7.i28.20 = tail call i32 @fputc(i32 32, ptr %80)
+  %fputc7.i30.20 = tail call i32 @fputc(i32 32, ptr %80)
   %81 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %fputc7.i28.21 = tail call i32 @fputc(i32 32, ptr %81)
+  %fputc7.i30.21 = tail call i32 @fputc(i32 32, ptr %81)
   %82 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %fputc7.i28.22 = tail call i32 @fputc(i32 32, ptr %82)
+  %fputc7.i30.22 = tail call i32 @fputc(i32 32, ptr %82)
   %83 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %fputc7.i28.23 = tail call i32 @fputc(i32 32, ptr %83)
+  %fputc7.i30.23 = tail call i32 @fputc(i32 32, ptr %83)
   %84 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %fputc7.i28.24 = tail call i32 @fputc(i32 32, ptr %84)
+  %fputc7.i30.24 = tail call i32 @fputc(i32 32, ptr %84)
   %85 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %fputc7.i28.25 = tail call i32 @fputc(i32 32, ptr %85)
+  %fputc7.i30.25 = tail call i32 @fputc(i32 32, ptr %85)
   %86 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %fputc7.i28.26 = tail call i32 @fputc(i32 32, ptr %86)
+  %fputc7.i30.26 = tail call i32 @fputc(i32 32, ptr %86)
   %87 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %fputc7.i28.27 = tail call i32 @fputc(i32 32, ptr %87)
+  %fputc7.i30.27 = tail call i32 @fputc(i32 32, ptr %87)
   %88 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %fputc7.i28.28 = tail call i32 @fputc(i32 32, ptr %88)
+  %fputc7.i30.28 = tail call i32 @fputc(i32 32, ptr %88)
   %89 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %fputc7.i28.29 = tail call i32 @fputc(i32 32, ptr %89)
+  %fputc7.i30.29 = tail call i32 @fputc(i32 32, ptr %89)
   %90 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %fputc7.i28.30 = tail call i32 @fputc(i32 32, ptr %90)
+  %fputc7.i30.30 = tail call i32 @fputc(i32 32, ptr %90)
   %91 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %fputc7.i28.31 = tail call i32 @fputc(i32 32, ptr %91)
+  %fputc7.i30.31 = tail call i32 @fputc(i32 32, ptr %91)
   %92 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %fputc7.i28.32 = tail call i32 @fputc(i32 32, ptr %92)
+  %fputc7.i30.32 = tail call i32 @fputc(i32 32, ptr %92)
   %93 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %fputc7.i28.33 = tail call i32 @fputc(i32 32, ptr %93)
+  %fputc7.i30.33 = tail call i32 @fputc(i32 32, ptr %93)
   %94 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %fputc7.i28.34 = tail call i32 @fputc(i32 32, ptr %94)
+  %fputc7.i30.34 = tail call i32 @fputc(i32 32, ptr %94)
   %95 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %fputc7.i28.35 = tail call i32 @fputc(i32 32, ptr %95)
+  %fputc7.i30.35 = tail call i32 @fputc(i32 32, ptr %95)
   %96 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %fputc7.i28.36 = tail call i32 @fputc(i32 32, ptr %96)
+  %fputc7.i30.36 = tail call i32 @fputc(i32 32, ptr %96)
   %97 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %fputc7.i28.37 = tail call i32 @fputc(i32 32, ptr %97)
+  %fputc7.i30.37 = tail call i32 @fputc(i32 32, ptr %97)
   %98 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %fputc7.i28.38 = tail call i32 @fputc(i32 32, ptr %98)
+  %fputc7.i30.38 = tail call i32 @fputc(i32 32, ptr %98)
   %99 = load ptr, ptr @stdout, align 8, !tbaa !5
   %100 = tail call i64 @fwrite(ptr nonnull @.str.4, i64 3, i64 1, ptr %99)
   %101 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %fputc.i33 = tail call i32 @fputc(i32 10, ptr %101)
+  %fputc.i35 = tail call i32 @fputc(i32 10, ptr %101)
   %102 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %fputc7.i42 = tail call i32 @fputc(i32 32, ptr %102)
+  %fputc7.i44 = tail call i32 @fputc(i32 32, ptr %102)
   %103 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %fputc7.i42.1 = tail call i32 @fputc(i32 32, ptr %103)
+  %fputc7.i44.1 = tail call i32 @fputc(i32 32, ptr %103)
   %104 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %fputc7.i42.2 = tail call i32 @fputc(i32 32, ptr %104)
+  %fputc7.i44.2 = tail call i32 @fputc(i32 32, ptr %104)
   %105 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %fputc7.i42.3 = tail call i32 @fputc(i32 32, ptr %105)
+  %fputc7.i44.3 = tail call i32 @fputc(i32 32, ptr %105)
   %106 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %fputc7.i42.4 = tail call i32 @fputc(i32 32, ptr %106)
+  %fputc7.i44.4 = tail call i32 @fputc(i32 32, ptr %106)
   %107 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %fputc7.i42.5 = tail call i32 @fputc(i32 32, ptr %107)
+  %fputc7.i44.5 = tail call i32 @fputc(i32 32, ptr %107)
   %108 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %fputc7.i42.6 = tail call i32 @fputc(i32 32, ptr %108)
+  %fputc7.i44.6 = tail call i32 @fputc(i32 32, ptr %108)
   %109 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %fputc7.i42.7 = tail call i32 @fputc(i32 32, ptr %109)
+  %fputc7.i44.7 = tail call i32 @fputc(i32 32, ptr %109)
   %110 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %fputc7.i42.8 = tail call i32 @fputc(i32 32, ptr %110)
+  %fputc7.i44.8 = tail call i32 @fputc(i32 32, ptr %110)
   %111 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %fputc7.i42.9 = tail call i32 @fputc(i32 32, ptr %111)
+  %fputc7.i44.9 = tail call i32 @fputc(i32 32, ptr %111)
   %112 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %fputc7.i42.10 = tail call i32 @fputc(i32 32, ptr %112)
+  %fputc7.i44.10 = tail call i32 @fputc(i32 32, ptr %112)
   %113 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %fputc7.i42.11 = tail call i32 @fputc(i32 32, ptr %113)
+  %fputc7.i44.11 = tail call i32 @fputc(i32 32, ptr %113)
   %114 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %fputc7.i42.12 = tail call i32 @fputc(i32 32, ptr %114)
+  %fputc7.i44.12 = tail call i32 @fputc(i32 32, ptr %114)
   %115 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %fputc7.i42.13 = tail call i32 @fputc(i32 32, ptr %115)
+  %fputc7.i44.13 = tail call i32 @fputc(i32 32, ptr %115)
   %116 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %fputc7.i42.14 = tail call i32 @fputc(i32 32, ptr %116)
+  %fputc7.i44.14 = tail call i32 @fputc(i32 32, ptr %116)
   %117 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %fputc7.i42.15 = tail call i32 @fputc(i32 32, ptr %117)
+  %fputc7.i44.15 = tail call i32 @fputc(i32 32, ptr %117)
   %118 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %fputc7.i42.16 = tail call i32 @fputc(i32 32, ptr %118)
+  %fputc7.i44.16 = tail call i32 @fputc(i32 32, ptr %118)
   %119 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %fputc7.i42.17 = tail call i32 @fputc(i32 32, ptr %119)
+  %fputc7.i44.17 = tail call i32 @fputc(i32 32, ptr %119)
   %120 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %fputc7.i42.18 = tail call i32 @fputc(i32 32, ptr %120)
+  %fputc7.i44.18 = tail call i32 @fputc(i32 32, ptr %120)
   %121 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %fputc7.i42.19 = tail call i32 @fputc(i32 32, ptr %121)
+  %fputc7.i44.19 = tail call i32 @fputc(i32 32, ptr %121)
   %122 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %fputc7.i42.20 = tail call i32 @fputc(i32 32, ptr %122)
+  %fputc7.i44.20 = tail call i32 @fputc(i32 32, ptr %122)
   %123 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %fputc7.i42.21 = tail call i32 @fputc(i32 32, ptr %123)
+  %fputc7.i44.21 = tail call i32 @fputc(i32 32, ptr %123)
   %124 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %fputc7.i42.22 = tail call i32 @fputc(i32 32, ptr %124)
+  %fputc7.i44.22 = tail call i32 @fputc(i32 32, ptr %124)
   %125 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %fputc7.i42.23 = tail call i32 @fputc(i32 32, ptr %125)
+  %fputc7.i44.23 = tail call i32 @fputc(i32 32, ptr %125)
   %126 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %fputc7.i42.24 = tail call i32 @fputc(i32 32, ptr %126)
+  %fputc7.i44.24 = tail call i32 @fputc(i32 32, ptr %126)
   %127 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %fputc7.i42.25 = tail call i32 @fputc(i32 32, ptr %127)
+  %fputc7.i44.25 = tail call i32 @fputc(i32 32, ptr %127)
   %128 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %fputc7.i42.26 = tail call i32 @fputc(i32 32, ptr %128)
+  %fputc7.i44.26 = tail call i32 @fputc(i32 32, ptr %128)
   %129 = load ptr, ptr @stdout, align 8, !tbaa !5
   %130 = tail call i64 @fwrite(ptr nonnull @.str.5, i64 27, i64 1, ptr %129)
   %131 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %fputc.i47 = tail call i32 @fputc(i32 10, ptr %131)
-  %putchar64 = tail call i32 @putchar(i32 10)
+  %fputc.i49 = tail call i32 @fputc(i32 10, ptr %131)
+  %putchar6 = tail call i32 @putchar(i32 10)
   call void @llvm.lifetime.start.p0(i64 100, ptr nonnull %v) #10
   %call3 = call i32 (ptr, ptr, ...) @sprintf(ptr noundef nonnull dereferenceable(1) %v, ptr noundef nonnull dereferenceable(1) @.str.6, i32 noundef %version) #10
-  %call.i49 = call i64 @strlen(ptr noundef nonnull dereferenceable(1) %v) #11
-  %conv.i50 = trunc i64 %call.i49 to i32
-  %cmp.not8.i52 = icmp sgt i32 %conv.i50, 80
-  br i1 %cmp.not8.i52, label %center_print.exit62, label %for.body.preheader.i54
+  %call.i51 = call i64 @strlen(ptr noundef nonnull dereferenceable(1) %v) #11
+  %conv.i52 = trunc i64 %call.i51 to i32
+  %cmp.not8.i54 = icmp sgt i32 %conv.i52, 80
+  br i1 %cmp.not8.i54, label %center_print.exit64, label %for.body.preheader.i56
 
-for.body.preheader.i54:                           ; preds = %entry
-  %sub.i51 = sub nsw i32 79, %conv.i50
-  %div.i53 = sdiv i32 %sub.i51, 2
-  br label %for.body.i59
+for.body.preheader.i56:                           ; preds = %entry
+  %sub.i53 = sub nsw i32 79, %conv.i52
+  %div.i55 = sdiv i32 %sub.i53, 2
+  br label %for.body.i61
 
-for.body.i59:                                     ; preds = %for.body.i59, %for.body.preheader.i54
-  %i.09.i55 = phi i32 [ %inc.i57, %for.body.i59 ], [ 0, %for.body.preheader.i54 ]
+for.body.i61:                                     ; preds = %for.body.i61, %for.body.preheader.i56
+  %i.09.i57 = phi i32 [ %inc.i59, %for.body.i61 ], [ 0, %for.body.preheader.i56 ]
   %132 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %fputc7.i56 = tail call i32 @fputc(i32 32, ptr %132)
-  %inc.i57 = add nuw nsw i32 %i.09.i55, 1
-  %exitcond.not.i58 = icmp eq i32 %i.09.i55, %div.i53
-  br i1 %exitcond.not.i58, label %center_print.exit62, label %for.body.i59
+  %fputc7.i58 = tail call i32 @fputc(i32 32, ptr %132)
+  %inc.i59 = add nuw nsw i32 %i.09.i57, 1
+  %exitcond.not.i60 = icmp eq i32 %i.09.i57, %div.i55
+  br i1 %exitcond.not.i60, label %center_print.exit64, label %for.body.i61
 
-center_print.exit62:                              ; preds = %for.body.i59, %entry
+center_print.exit64:                              ; preds = %for.body.i61, %entry
   %133 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %call3.i60 = call i32 @fputs(ptr noundef nonnull %v, ptr noundef %133)
+  %call3.i62 = call i32 @fputs(ptr noundef nonnull %v, ptr noundef %133)
   %134 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %fputc.i61 = tail call i32 @fputc(i32 10, ptr %134)
-  %putchar65 = tail call i32 @putchar(i32 10)
-  %puts.i63 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str)
+  %fputc.i63 = tail call i32 @fputc(i32 10, ptr %134)
+  %putchar7 = tail call i32 @putchar(i32 10)
+  %puts.i65 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.52)
   call void @llvm.lifetime.end.p0(i64 100, ptr nonnull %v) #10
   ret void
 }
@@ -356,7 +356,7 @@ center_print.exit62:                              ; preds = %for.body.i59, %entr
 ; Function Attrs: nofree nounwind uwtable
 define dso_local void @border_print() local_unnamed_addr #0 {
 entry:
-  %puts = tail call i32 @puts(ptr nonnull dereferenceable(1) @str)
+  %puts = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.52)
   ret void
 }
 
@@ -528,7 +528,7 @@ entry:
   %35 = tail call i64 @fwrite(ptr nonnull @.str.13, i64 13, i64 1, ptr %34)
   %36 = load ptr, ptr @stdout, align 8, !tbaa !5
   %fputc.i = tail call i32 @fputc(i32 10, ptr %36)
-  %puts.i = tail call i32 @puts(ptr nonnull dereferenceable(1) @str)
+  %puts.i = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.52)
   %37 = load i32, ptr %I, align 8, !tbaa !9
   %call = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.14, ptr noundef nonnull @.str.15, i32 noundef %37)
   %y_assemblies = getelementptr inbounds %struct.Input, ptr %I, i64 0, i32 1
@@ -624,7 +624,7 @@ if.then17.i:                                      ; preds = %if.else5.i
   br label %fancy_int.exit
 
 fancy_int.exit:                                   ; preds = %if.then.i, %if.then3.i, %if.then9.i, %if.then17.i
-  %puts.i23 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str)
+  %puts.i23 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.52)
   ret void
 }
 
@@ -903,13 +903,13 @@ declare i64 @strtol(ptr noundef readonly, ptr nocapture noundef, i32 noundef) lo
 declare noundef i32 @puts(ptr nocapture noundef readonly) local_unnamed_addr #9
 
 ; Function Attrs: nofree nounwind
+declare noundef i32 @putchar(i32 noundef) local_unnamed_addr #9
+
+; Function Attrs: nofree nounwind
 declare noundef i64 @fwrite(ptr nocapture noundef, i64 noundef, i64 noundef, ptr nocapture noundef) local_unnamed_addr #9
 
 ; Function Attrs: nofree nounwind
 declare noundef i32 @fputc(i32 noundef, ptr nocapture noundef) local_unnamed_addr #9
-
-; Function Attrs: nofree nounwind
-declare noundef i32 @putchar(i32 noundef) local_unnamed_addr #9
 
 attributes #0 = { nofree nounwind uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #1 = { nofree nounwind "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }

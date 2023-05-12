@@ -180,7 +180,7 @@ for.end58:                                        ; preds = %for.inc56, %entry
   %cmp59 = icmp sgt i32 %40, 0
   %41 = load i32, ptr @numnets, align 4
   %add61 = select i1 %cmp59, i32 %1, i32 0
-  %temp.0 = add i32 %41, %add61
+  %temp.0 = add i32 %add61, %41
   %cmp64.not308 = icmp slt i32 %temp.0, 1
   br i1 %cmp64.not308, label %for.end136, label %for.body65.lr.ph
 
@@ -336,7 +336,7 @@ for.body142:                                      ; preds = %for.end136, %for.in
   %cmp143 = icmp sle i64 %indvars.iv345, %67
   %68 = sext i32 %add138316 to i64
   %cmp146.not = icmp sgt i64 %indvars.iv345, %68
-  %or.cond = select i1 %cmp143, i1 true, i1 %cmp146.not
+  %or.cond = or i1 %cmp143, %cmp146.not
   br i1 %or.cond, label %if.end149, label %for.inc160
 
 if.end149:                                        ; preds = %for.body142

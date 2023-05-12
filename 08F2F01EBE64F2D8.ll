@@ -18,7 +18,7 @@ define dso_local void @_Z3thri(i32 %n) local_unnamed_addr #0 personality ptr @__
 entry:
   store i8 1, ptr @thrown, align 1, !tbaa !5
   %exception = tail call ptr @__cxa_allocate_exception(i64 1) #5
-  tail call void @__cxa_throw(ptr %exception, ptr nonnull @_ZTI13TestException, ptr null) #6
+  tail call void @__cxa_throw(ptr nonnull %exception, ptr nonnull @_ZTI13TestException, ptr null) #6
   unreachable
 }
 
@@ -83,7 +83,7 @@ lpad:                                             ; preds = %entry
 try.cont:                                         ; preds = %entry
   %3 = load i8, ptr @thrown, align 1, !tbaa !5, !range !9, !noundef !10
   %tobool.not = icmp eq i8 %3, 0
-  %4 = load i8, ptr @caught, align 1
+  %4 = load i8, ptr @caught, align 1, !range !9
   %tobool1.not = icmp eq i8 %4, 0
   %or.cond = select i1 %tobool.not, i1 true, i1 %tobool1.not
   %retval.0 = zext i1 %or.cond to i32
